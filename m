@@ -4,47 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C42D3C79F9E
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 07:00:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BADB8C79FA0
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 07:00:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9432710E66A;
-	Mon,  7 Sep 2026 07:00:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90FEF10E676;
+	Mon,  7 Sep 2026 07:00:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=willyv3.com header.i=@willyv3.com header.b="M/eILOId";
-	dkim=pass (1024-bit key; unprotected) header.d=amazonses.com header.i=@amazonses.com header.b="DFPfYh5n";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sDwapPKo";
 	dkim-atps=neutral
-X-Greylist: delayed 442 seconds by postgrey-1.36 at gabe;
- Sun, 06 Sep 2026 03:22:05 UTC
-Received: from a11-30.smtp-out.amazonses.com (a11-30.smtp-out.amazonses.com
- [54.240.11.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B51110E01F;
- Sun,  6 Sep 2026 03:22:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
- d=willyv3.com; t=1788664482;
- h=From:To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
- bh=pXOlrsxVn9sFrfQ+wohuB18GfxAbg92rHB0bgKqpf80=;
- b=M/eILOIdN6fpCKX4TPGjgBrGC6Xuurv2oE3NHH32Q53SxyPfXsPNeHlq3eZuPlpA
- LoMz2ZO8cJdPx3E4YXL4Q+u2SgW7FWv6bUJEwnUelH8+vWQVh1BtqtuWDh8G2Fn4RjL
- ngZmoY/BMuYEAza5XAkluJpIF+ImWerxaEd3S4jU=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1788664482;
- h=From:To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
- bh=pXOlrsxVn9sFrfQ+wohuB18GfxAbg92rHB0bgKqpf80=;
- b=DFPfYh5n1P7LYadPq+97Ev76Q1+jle3UwH+HcJa+KhGRl5q/PNfLD4i1R3ltRGz5
- Kh+eZslDgML/+v7ygByib3ZeqI+x4fd26Vr9s2FCt59ZRGNNHi170ioJFH5ZOZBmsk+
- 14uAl58WcmfP7lhzyT92H4QspH30Q16M2+PnYSz4=
-From: willy@willyv3.com
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: only treat a real S3 as a suspend abort on resume
-Message-ID: <010001a074b60857-4cb0239e-c529-4069-ba4e-e347cfe379a4-000000@email.amazonses.com>
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 6 Sep 2026 03:14:41 +0000
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E64E510E2E7
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 02:00:42 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-499ae1c6471so29018955e9.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 06 Sep 2026 19:00:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788746441; x=1789351241; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=DODmIDn0ugaIVsoeMJTfX4p+/M5GpWJISoJXth2GyC4=;
+ b=sDwapPKoHh1RqV25Q6pgVB9esyRR+s1MGUf2h8BkLXgiiLIkePzBEp63E0J/NALSAh
+ 7JzaBYvCrn1q7Umv3Q9jr5F2Xp/TH1hBk2hxEO4QJg1d/syi0YtPIoo0nS/KzmcmJgc8
+ XACJxOPCLvtN3xaLmhrNmeTbA+6TFUKmt+r5SGZN5YpTupL6lkGQr1yUYI/fKoRCbH+N
+ h1H+Iy5stVLJWZB9UfuYRJ4IWdtp8IAU6Xqwr6dku4DNCYuljDBS5emHk2G0nW6Jlo29
+ vxb0JTxA3kDwLoUs4045pP4bYEfYK+D1VyG9kOistB2ti0OTPvjlp0Yz6ai5aWvfkc4P
+ Lw0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788746441; x=1789351241;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=DODmIDn0ugaIVsoeMJTfX4p+/M5GpWJISoJXth2GyC4=;
+ b=bDGllKYWLJjHsqNx0WN1NNlI0BoXyduu9fAbeO9t0ABwvrT2VTuM4FzkhGwTODKEFl
+ omfS+9lmlvFKfNGRxI9Mx4Qk4BHsSc3GPfDef2/7EqKX0g176WyC15DySXVRC/PE3hID
+ ymhecGCN+DI60gyB5ERDNC4QgwZH87Wy+j8c+gcjnbDBpl1iu5HHLQi3wam8/7EzHwEe
+ mFLdc0L7BcLF96SvrOMM6x/r78azbhdU3SRyhuhwfddpEqbgdx1bkuKoCZt/Gbnj2lD7
+ 5EBYkgqEXdlvy20uoj+0YUj2hhHSk4njsMQlRiClnZQA0ZJsPN80vuhUIxlwrYuK7dSx
+ +OQg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz4ApaBMFs/Vv/5fkhBrxkgIHyIPjStwr/Rl5o5RCZvKhZdm+xWyHXT8qFFcyQsAi1VvAsTXDDfMGA=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mvot1fZ/AM87RYmgGx8SidRDX5r7pytn1hOKIE9CvyMrrbd/m/
+ MEX3fdkwkcyJXHx5PjBYIQr5YNqeTnwgN4vSGyMg53huk8c3BophiUjP
+X-Gm-Gg: AYBFou26DOv/jGYoRtBpoMoKk5lQcWxD7mnqzngosv5HtGvdqWsbQK3p5vZxDhJsLPz
+ z/hOLQCBRhaNaOwxnmmZuuyckCZaH54iCBX2gQzJQfOx4HZg89aktBSwjW416o+O4+uc2SOMtbl
+ Wj4wBWOTgqm00CXXzNm3hHLJuRBxqO46rulhJvLfR2kC4ulaFWTk5ZJbfG54CADySllNUsfc37m
+ ZPmWQIXzIekFNb8YEZuOzD6EIBAdfVdhi5Jcg7XoaWailXL91HtMfp+2ppS9/H+p9Kh7qeRFNEa
+ jEImjy/l/82c+5CrQgErXeISKtdWBu0BbGBrL96G32JdiUMSi1ARlIPypnMv/gfrr49+e85BDtX
+ XhSyCrWnGV0C4DgYDiaFCzT6+6lN6vo2IXIYTg7xCq/fceFHC/Z4t0wlHfRickC32QevRMNCec3
+ yH2E1OLrWExYVjrotPYpVRibBjD/UWo3958iuGQeC+7sa0+phAYfg6KjuWRXcvMr7I3nAXPMXOn
+ pDxAo1QWzTn1KkcykIxeqzOP1yJNhW/2YesirgKuyCCo5tPDz6HiOLJxjtLz7XjPrbxYEJQTFut
+ GqYhE3AacMxU7BldIdyCDrVh0qJ52OUEZNVnmMVYahZ4oUMKSEmcPhfKAbZ2GFTS9L0G5IKR9zA
+ wDVCOHzmrnWg=
+X-Received: by 2002:a05:600c:a00a:b0:49c:ed94:cdd8 with SMTP id
+ 5b1f17b1804b1-49cf81f6736mr403091665e9.6.1788746441066; 
+ Sun, 06 Sep 2026 19:00:41 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain
+ (dynamic-2a02-3100-b0c9-3601-9daa-d59e-970b-f46c.310.pool.telefonica.de.
+ [2a02:3100:b0c9:3601:9daa:d59e:970b:f46c])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49d08144037sm170897995e9.7.2026.09.06.19.00.39
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sun, 06 Sep 2026 19:00:40 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
+Subject: [PATCH] dma-buf: Make DMABUF_DEBUG default to y on DEBUG_KERNEL
+ kernels
+Date: Mon,  7 Sep 2026 04:00:15 +0200
+Message-Id: <20260907020015.24719-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.us-east-1.tVoVnBTusQKwEv3FXsafng3gwgTXiveIP8uCFN696SRuTdSqJLPWcLHhZMGYqGEWfSP3N+is2iSOKdmX/9ngsLeiTVoJkakNxJEB+yEN1ZJPtwlO53LLRiFsTHXrFviVUeKFV0/4bko6iGjXsDtchIeimK+HIEYE/SJqJKFonco=:1.us-east-1.pAEstvQcjyhQNKGKcgSlzI7SVR8ZSG5wSmKwiz/A8Dg=:AmazonSES
-X-SES-Outgoing: 2026.09.06-54.240.11.30
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 07 Sep 2026 07:00:30 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,100 +94,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Willy VanSickle <vansicklewilly@gmail.com>
-Subject: [PATCH] =
-drm/amdgpu: only treat a real S3 as a suspend abort on resume
+Commit 646013f513f3 ("dma-buf: enable DMABUF_DEBUG by default on DEBUG
+kernels") changed the default of DMABUF_DEBUG to "y if DEBUG", but no
+Kconfig symbol DEBUG exists, so the option has had no default since.
 
-soc15_need_reset_on_resume() resets the ASIC when
-`adev->in_s3 && !=
-pm_resume_via_firmware()`, to recover from an aborted
-S3 suspend. Since commit 38e8ca3e4b6d ("amdgpu/soc15: enable asic
-reset for dGPU in case of suspend abort") this applies to dGPUs as
-well.
+Use DEBUG_KERNEL, the Kconfig symbol for a debug kernel.
 
-Two things make that check fire on every suspend-to-idle resume of a
-dGPU, not just on aborts:
-
- - amdgpu_acpi_is_s3_active() returns true for =
-any non-APU regardless
-   of the sleep state actually used, so in_s3 is set=
- on s2idle too.
- - pm_resume_via_firmware() is only true when platform =
-firmware
-   resumed the system (ACPI S3). s2idle never sets it.
-
-So on an s2idle platform every dGPU resume is misread as an S3 abort
-and gets a mode1 reset it did not need. On most parts the spurious
-reset is survivable. On a MacBookPro15,3 (Radeon Pro Vega 20, PSP
-v11) the PSP goes into suspend with a failed TA unload and the mode1
-issued on that state leaves the bootloader unresponsive:
-
-  amdgpu 0000:03:00.0: S3 suspend abort case, let's reset ASIC.
-  amdgpu 0000:03:00.0: [drm] psp mode1 reset succeed
-  amdgpu 0000:03:00.0: PSP is resuming...
-  amdgpu 0000:03:00.0: psp reg =
-(0x16063) wait timed out, mask: 80000000,
-    read: 0 exp: 80000000
-  amdgpu 0000:03:00.0: PSP load sys drv failed!
-  amdgpu 0000:03:00.0: =
-resume of IP block <psp> failed -62
-
-The check was introduced by commit =
-58a8c756fc4c ("drm/amdgpu: correct the
-S3 abort check condition") for APUs,=
- on the basis that the PM core sets
-PM_SUSPEND_FLAG_FW_RESUME when a real =
-S3 completes, so its absence on
-resume means the S3 was aborted. That holds=
- for S3. It does not hold
-for s2idle, where firmware is never involved, and=
- commit 38e8ca3e4b6d
-("amdgpu/soc15: enable asic reset for dGPU in case of =
-suspend abort")
-dropped the APU gate without adding a check on the sleep =
-state.
-
-The driver already caches the sleep state it suspended with in
-adev->last_suspend_state. Use it: only a suspend whose target was
-PM_SUSPEND_MEM and which firmware did not resume can be an S3 abort.
-
-With this the Vega 20 resumes cleanly from s2idle (PSP up, all rings
-back) on 7.2.2 + t2linux patches; without it every resume fails as
-above.
-
-Fixes: 38e8ca3e4b6d ("amdgpu/soc15: enable asic reset for dGPU in case of =
-suspend abort")
-Signed-off-by: Willy VanSickle <vansicklewilly@gmail.com>
+Fixes: 646013f513f3 ("dma-buf: enable DMABUF_DEBUG by default on DEBUG kernels")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
-Tested on a MacBookPro15,3 (Radeon Pro Vega 20, PSP v11) running 7.2.2
-with the t2linux patch set, s2idle only. Verified twice: without the gate
-every resume fails with psp -62; with it the PSP and all rings come back.
+This enables the dma-buf debug checks on every CONFIG_DEBUG_KERNEL
+configuration, which is what 646013f513f3 set out to do. If that is too
+broad today, the alternative is to restore the previous
+"default y if DMA_API_DEBUG".
 
- drivers/gpu/drm/amd/amdgpu/soc15.c | 7 ++++++-
- 1 file changed, 6 =
-insertions(+), 1 deletion(-)
+ drivers/dma-buf/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15=
-.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
---- a/drivers/gpu/drm/amd/amdgpu/so=
-c15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -591,7 +591,12 @@
- 	 * 1) S3 suspend aborted in the normal S3 suspend
- 	 * 2) S3 suspend aborted in performing pm core test.
- 	 */
--	if (adev->in_s3 && !pm_resume_via_firmware())
-+	/* Only a real S3 (mem) =
-that firmware did not resume is an abort.
-+	 * s2idle never resumes via =
-firmware, so without this gate every
-+	 * s2idle resume of a dGPU is =
-misread as an abort and mode1-reset.
-+	 */
-+	if (adev->in_s3 && !=
-pm_resume_via_firmware() &&
-+	    adev->last_suspend_state =3D=3D =
-PM_SUSPEND_MEM)
- 		return true;
- 	else
- 		return false;
+diff --git a/drivers/dma-buf/Kconfig b/drivers/dma-buf/Kconfig
+index 7efc0f0d0712..e4f078a326a4 100644
+--- a/drivers/dma-buf/Kconfig
++++ b/drivers/dma-buf/Kconfig
+@@ -43,7 +43,7 @@ config UDMABUF
+ config DMABUF_DEBUG
+ 	bool "DMA-BUF debug checks"
+ 	depends on DMA_SHARED_BUFFER
+-	default y if DEBUG
++	default y if DEBUG_KERNEL
+ 	help
+ 	  This option enables additional checks for DMA-BUF importers and
+ 	  exporters. Specifically it validates that importers do not peek at the
+
+base-commit: 986c24e0fe44f844b44d365b71ce831947f50298
+-- 
+2.53.0
+
