@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A49E4C79F89
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:24:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8ADAC79F89
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:24:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 061AE10E5B0;
-	Mon,  7 Sep 2026 13:24:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5622C10E61C;
+	Mon,  7 Sep 2026 13:24:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T0mC92yh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UEXpCKeF";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91B3610E5B0
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:24:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57BDD10E61C
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:24:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 78C4340607;
- Mon,  7 Sep 2026 13:24:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB9BE1F00A3A;
- Mon,  7 Sep 2026 13:24:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3EEAE40F3E;
+ Mon,  7 Sep 2026 13:24:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 930011F00A3A;
+ Mon,  7 Sep 2026 13:24:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788787471;
- bh=xpPWYd3Y0BGB9dv1QR5VEjriZg1mDf0mmXqWO0acjQs=;
+ s=k20260515; t=1788787475;
+ bh=XRTufqowTVTIl5F2kTttKyTrjVBkCNA08Je3MDCNTEM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=T0mC92yhuxUyDLdEE9w4wj/c0G1RqINuDoponDhg/xN4J9hh3GdKqb2Zzfqed3LPO
- YzzFhUOPgdOrhWmnipAXdrBzjxCxSiIGjG129atrSRjOhVd59TX2CumRP30MEf3rBz
- yOUqgZSs9FibCE+YwK8YL5jf5G1/lNurbXJqeq7u/u3rcw5PoctBIHscK890esvAqW
- qUOIUbeYUw5Y+PTmpU57HxGnj/gdSGdKR9gG+HD0DThfYSRSwfmaYjPcaiNiBCUpB9
- /Q9NVHf6zyYrnya7YCu+Dvn7F5TCxrOKnqyq/wjIF5EdoIJAheyuNj5N1zpBkiNnHx
- cipS+TzK/7eJg==
+ b=UEXpCKeFzesG9CHUFnflj5McXwPGNCpRdx2FhWiUUBIqTnXtOKHAnW8VXIQZ7Mbbu
+ feotnJQ3MPYShAckk16rOXhxFei8u7wGoea6B9ruIN1N+VH4RBS6+6jh8oAn9uApa0
+ wMo+m7xUH4SgReZ7fxzfS606QuTG7KdIOXMOxVm8KFNB9fSQNK7MgI1nbXTLHTMo2/
+ HGUWTqdgQx34J+dVkDQTIgy+28T9kEdUGytWJwe6esCJ6riMICHtv6ZAOkEVZyUcxP
+ 28jVWO/lAud4XiqBiDudaG2G/36ySLuAiV1Ai2x6tbxe0MKuxszIG6WfxVk4rt68u8
+ nXwY66p4DRXQw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 07 Sep 2026 15:23:44 +0200
-Subject: [PATCH v5 08/33] drm/atomic: Only call atomic_destroy_state on a
- !NULL pointer
+Date: Mon, 07 Sep 2026 15:23:45 +0200
+Subject: [PATCH v5 09/33] drm/atomic_sro: Create drm_atomic_sro_state container
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-drm-state-readout-v5-8-5fa1ac7a5148@kernel.org>
+Message-Id: <20260907-drm-state-readout-v5-9-5fa1ac7a5148@kernel.org>
 References: <20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org>
 In-Reply-To: <20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -49,15 +48,14 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Jyri Sarha <jyri.sarha@iki.fi>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+ Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3804; i=mripard@kernel.org;
- h=from:subject:message-id; bh=M99xEYp9CgMan3Ib2C+oR/KSEdJLNtomSAXFANy7/aE=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnzdj2ccfzElbVdHRe6H9XNKfh2M7PaZqvpFrOdR96sf
- 6djtnvF146pLAzCnAyyYoosT2TCTi9vX1zlYL/yB8wcViaQIQxcnAIwke2pjA07fhxgcFYMPBOs
- wX0ovrtsauwruzrf3Ud2XF3wdWH8o5RY0evx1umyh1S1rngmB/nMSGJsWBHysErP5DLrk8kXql/
- sSp9WesLXP1phmY2n7OazFeejdVo3evs/tFCbX3CWvcRo3jkOAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=16126; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=DpDEVRCLx0OKbWKh5PiMjRnAbeqJ4qDcoBkJQDhDck0=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnzdj3c9Klku3hKZskk7s0mL1RDN3rtlf/Iee6titK+c
+ za3IgSfdUxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJFPQw1gfFTZuu0dq3eOq9
+ fPu/u4VyPTqWq8n9ScuboLmxR8bZdfn0wPsai1m4p2tfZqzL6eeVYWxY9epJX9Nr5VuRF3ZocdT
+ kda1/0XOT+au1W/1WRX/OIPZGJd9AD7MsnvVvCnmWfNNSZwMA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,104 +73,555 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The drm_atomic_commit structure is freed through the
-drm_atomic_commit_put() function, that eventually calls
-drm_atomic_commit_default_clear() by default when there's no active
-users of that state.
+The SRO infrastructure needs a state container to collect the readout
+states for all KMS objects. Unlike drm_atomic_commit which tracks old
+and new states for atomic commits, this container only holds a single
+state per object: the one read out from the hardware.
 
-It then iterates over all objects with a state, and will call the
-atomic_destroy_state callback on the state pointer. The state pointer is
-mostly used these days to point to which of the old or new state needs
-to be freed, depending on whether the state was committed or not.
+Create struct drm_atomic_sro_state with arrays for planes, CRTCs,
+connectors, and private objects, along with accessors to get and set
+individual object states within it.
 
-So it all makes sense.
-
-However, with the hardware state readout support approaching, we might
-have a state, with multiple objects in it, but no state to free because
-we want them to persist. In such a case, the state pointer is going to
-be NULL, and thus we'll end up with NULL pointer dereference.
-
-Test if the state pointer is non-NULL before calling
-atomic_destroy_state on it.
-
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/Makefile         |   1 +
+ drivers/gpu/drm/drm_atomic_sro.c | 454 +++++++++++++++++++++++++++++++++++++++
+ include/drm/drm_atomic_sro.h     |  51 +++++
+ 3 files changed, 506 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index c497d550c6c4..223f2d617179 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -291,12 +291,14 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
- 		struct drm_connector *connector = state->connectors[i].ptr;
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index e635fcffd379..e59a3d9af3e4 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -32,10 +32,11 @@ endif
+ # Enable -Werror in CI and development
+ subdir-ccflags-$(CONFIG_DRM_WERROR) += -Werror
  
- 		if (!connector)
- 			continue;
- 
--		connector->funcs->atomic_destroy_state(connector,
--						       state->connectors[i].state_to_destroy);
-+		if (state->connectors[i].state_to_destroy)
-+			connector->funcs->atomic_destroy_state(connector,
-+							       state->connectors[i].state_to_destroy);
+ drm-y := \
+ 	drm_atomic.o \
++	drm_atomic_sro.o \
+ 	drm_atomic_uapi.o \
+ 	drm_auth.o \
+ 	drm_blend.o \
+ 	drm_bridge.o \
+ 	drm_cache.o \
+diff --git a/drivers/gpu/drm/drm_atomic_sro.c b/drivers/gpu/drm/drm_atomic_sro.c
+new file mode 100644
+index 000000000000..096fdb708819
+--- /dev/null
++++ b/drivers/gpu/drm/drm_atomic_sro.c
+@@ -0,0 +1,454 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
 +
- 		state->connectors[i].ptr = NULL;
- 		state->connectors[i].state_to_destroy = NULL;
- 		state->connectors[i].old_state = NULL;
- 		state->connectors[i].new_state = NULL;
- 		drm_connector_put(connector);
-@@ -306,12 +308,13 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
- 		struct drm_crtc *crtc = state->crtcs[i].ptr;
- 
- 		if (!crtc)
- 			continue;
- 
--		crtc->funcs->atomic_destroy_state(crtc,
--						  state->crtcs[i].state_to_destroy);
-+		if (state->crtcs[i].state_to_destroy)
-+			crtc->funcs->atomic_destroy_state(crtc,
-+							  state->crtcs[i].state_to_destroy);
- 
- 		state->crtcs[i].ptr = NULL;
- 		state->crtcs[i].state_to_destroy = NULL;
- 		state->crtcs[i].old_state = NULL;
- 		state->crtcs[i].new_state = NULL;
-@@ -326,12 +329,14 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
- 		struct drm_plane *plane = state->planes[i].ptr;
- 
- 		if (!plane)
- 			continue;
- 
--		plane->funcs->atomic_destroy_state(plane,
--						   state->planes[i].state_to_destroy);
-+		if (state->planes[i].state_to_destroy)
-+			plane->funcs->atomic_destroy_state(plane,
-+							   state->planes[i].state_to_destroy);
++#include <drm/drm_atomic.h>
++#include <drm/drm_atomic_sro.h>
++#include <drm/drm_bridge.h>
++#include <drm/drm_connector.h>
++#include <drm/drm_crtc.h>
++#include <drm/drm_drv.h>
++#include <drm/drm_plane.h>
++#include <drm/drm_print.h>
++#include <linux/module.h>
 +
- 		state->planes[i].ptr = NULL;
- 		state->planes[i].state_to_destroy = NULL;
- 		state->planes[i].old_state = NULL;
- 		state->planes[i].new_state = NULL;
- 	}
-@@ -354,12 +359,14 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
- 		struct drm_private_obj *obj = state->private_objs[i].ptr;
- 
- 		if (!obj)
- 			continue;
- 
--		obj->funcs->atomic_destroy_state(obj,
--						 state->private_objs[i].state_to_destroy);
-+		if (state->private_objs[i].state_to_destroy)
-+			obj->funcs->atomic_destroy_state(obj,
-+							 state->private_objs[i].state_to_destroy);
++#include "drm_internal.h"
++#include "drm_crtc_internal.h"
 +
- 		state->private_objs[i].ptr = NULL;
- 		state->private_objs[i].state_to_destroy = NULL;
- 		state->private_objs[i].old_state = NULL;
- 		state->private_objs[i].new_state = NULL;
- 	}
++struct __drm_atomic_sro_plane {
++	struct drm_plane *ptr;
++	struct drm_plane_state *state;
++};
++
++struct __drm_atomic_sro_crtc {
++	struct drm_crtc *ptr;
++	struct drm_crtc_state *state;
++};
++
++struct __drm_atomic_sro_connector {
++	struct drm_connector *ptr;
++	struct drm_connector_state *state;
++};
++
++struct __drm_atomic_sro_private_obj {
++	struct drm_private_obj *ptr;
++	struct drm_private_state *state;
++};
++
++struct drm_atomic_sro_state {
++	struct drm_device *dev;
++	struct __drm_atomic_sro_plane *planes;
++	struct __drm_atomic_sro_crtc *crtcs;
++	struct __drm_atomic_sro_connector *connectors;
++	struct __drm_atomic_sro_private_obj *private_objs;
++	unsigned int num_private_objs;
++};
++
++static unsigned int count_private_obj(struct drm_device *dev)
++{
++	struct drm_mode_config *config = &dev->mode_config;
++	struct drm_private_obj *obj;
++	unsigned int count = 0;
++
++	list_for_each_entry(obj, &config->privobj_list, head)
++		count++;
++
++	return count;
++}
++
++/**
++ * drm_atomic_sro_state_get_device - get the DRM device from an SRO state
++ * @state: SRO state
++ *
++ * RETURNS:
++ *
++ * The &struct drm_device associated with the SRO state.
++ */
++struct drm_device *
++drm_atomic_sro_state_get_device(struct drm_atomic_sro_state *state)
++{
++	return state->dev;
++}
++
++static int drm_atomic_sro_state_init(struct drm_device *dev,
++				     struct drm_atomic_sro_state *state)
++{
++	int err;
++
++	state->planes =
++		kzalloc_objs(*state->planes, dev->mode_config.num_total_plane);
++	if (!state->planes)
++		return -ENOMEM;
++
++	state->crtcs = kzalloc_objs(*state->crtcs, dev->mode_config.num_crtc);
++	if (!state->crtcs) {
++		err = -ENOMEM;
++		goto err_free_planes;
++	}
++
++	state->connectors = kzalloc_objs(*state->connectors,
++					 dev->mode_config.num_connector);
++	if (!state->connectors) {
++		err = -ENOMEM;
++		goto err_free_crtcs;
++	}
++
++	state->private_objs =
++		kzalloc_objs(*state->private_objs, count_private_obj(dev));
++	if (!state->private_objs)  {
++		err = -ENOMEM;
++		goto err_free_connectors;
++	}
++
++	state->num_private_objs = 0;
++
++	drm_dev_get(dev);
++	state->dev = dev;
++
++	return 0;
++
++err_free_connectors:
++	kfree(state->connectors);
++err_free_crtcs:
++	kfree(state->crtcs);
++err_free_planes:
++	kfree(state->planes);
++	return err;
++}
++
++/**
++ * drm_atomic_sro_state_alloc - allocate an SRO state container
++ * @dev: DRM device to allocate the state for
++ *
++ * Allocates and initializes a &struct drm_atomic_sro_state that can hold
++ * readout states for all KMS objects on @dev.
++ *
++ * The returned state must be freed with drm_atomic_sro_state_free().
++ *
++ * RETURNS:
++ *
++ * A new &struct drm_atomic_sro_state on success, an error pointer on
++ * failure.
++ */
++struct drm_atomic_sro_state *drm_atomic_sro_state_alloc(struct drm_device *dev)
++{
++	struct drm_atomic_sro_state *state;
++	int ret;
++
++	state = kzalloc_obj(*state);
++	if (!state)
++		return ERR_PTR(-EINVAL);
++
++	ret = drm_atomic_sro_state_init(dev, state);
++	if (ret) {
++		kfree(state);
++		return ERR_PTR(ret);
++	}
++
++	return state;
++}
++EXPORT_SYMBOL(drm_atomic_sro_state_alloc);
++
++/**
++ * drm_atomic_sro_state_free - free an SRO state container
++ * @state: SRO state to free
++ *
++ * Frees a &struct drm_atomic_sro_state previously allocated with
++ * drm_atomic_sro_state_alloc().
++ */
++void drm_atomic_sro_state_free(struct drm_atomic_sro_state *state)
++{
++	struct drm_device *dev = state->dev;
++	unsigned int i;
++
++	for (i = 0; i < state->num_private_objs; i++) {
++		struct drm_private_obj *obj = state->private_objs[i].ptr;
++		struct drm_private_state *obj_state = state->private_objs[i].state;
++
++		if (!obj || !obj_state)
++			continue;
++
++		obj->funcs->atomic_destroy_state(obj, obj_state);
++		state->private_objs[i].state = NULL;
++		state->private_objs[i].ptr = NULL;
++	}
++
++	kfree(state->private_objs);
++
++	for (i = 0; i < state->dev->mode_config.num_connector; i++) {
++		struct drm_connector *conn = state->connectors[i].ptr;
++		struct drm_connector_state *conn_state =
++			state->connectors[i].state;
++
++		if (!conn || !conn_state)
++			continue;
++
++		conn->funcs->atomic_destroy_state(conn, conn_state);
++		state->connectors[i].state = NULL;
++		state->connectors[i].ptr = NULL;
++		drm_connector_put(conn);
++	}
++
++	kfree(state->connectors);
++
++	for (i = 0; i < state->dev->mode_config.num_crtc; i++) {
++		struct drm_crtc *crtc = state->crtcs[i].ptr;
++		struct drm_crtc_state *crtc_state =
++			state->crtcs[i].state;
++
++		if (!crtc || !crtc_state)
++			continue;
++
++		crtc->funcs->atomic_destroy_state(crtc, crtc_state);
++		state->crtcs[i].state = NULL;
++		state->crtcs[i].ptr = NULL;
++	}
++
++	kfree(state->crtcs);
++
++	for (i = 0; i < state->dev->mode_config.num_total_plane; i++) {
++		struct drm_plane *plane = state->planes[i].ptr;
++		struct drm_plane_state *plane_state =
++			state->planes[i].state;
++
++		if (!plane || !plane_state)
++			continue;
++
++		plane->funcs->atomic_destroy_state(plane, plane_state);
++		state->planes[i].state = NULL;
++		state->planes[i].ptr = NULL;
++	}
++
++	kfree(state->planes);
++	kfree(state);
++
++	drm_dev_put(dev);
++}
++EXPORT_SYMBOL(drm_atomic_sro_state_free);
++
++/**
++ * drm_atomic_sro_state_print - prints drm atomic SRO state
++ * @state: SRO state to print
++ * @p: drm printer
++ *
++ * This function prints the SRO state snapshot using the drm printer which is
++ * passed to it. This snapshot can be used for debugging purposes.
++ */
++void drm_atomic_sro_state_print(const struct drm_atomic_sro_state *state,
++				struct drm_printer *p)
++{
++	struct drm_mode_config *config = &state->dev->mode_config;
++	int i;
++
++	if (!p) {
++		drm_err(state->dev, "invalid drm printer\n");
++		return;
++	}
++
++	drm_dbg_atomic(state->dev, "Printing readout state %p\n", state);
++
++	for (i = 0; i < config->num_total_plane; i++) {
++		struct drm_plane_state *plane_state = state->planes[i].state;
++
++		if (!plane_state)
++			continue;
++
++		drm_atomic_plane_print_state(p, plane_state);
++	}
++
++	for (i = 0; i < config->num_crtc; i++) {
++		struct drm_crtc_state *crtc_state = state->crtcs[i].state;
++
++		if (!crtc_state)
++			continue;
++
++		drm_atomic_crtc_print_state(p, crtc_state);
++	}
++
++	for (i = 0; i < config->num_connector; i++) {
++		struct drm_connector_state *conn_state = state->connectors[i].state;
++
++		if (!conn_state)
++			continue;
++
++		drm_atomic_connector_print_state(p, conn_state);
++	}
++
++	for (i = 0; i < state->num_private_objs; i++) {
++		struct drm_private_state *obj_state = state->private_objs[i].state;
++
++		if (!obj_state)
++			continue;
++
++		drm_atomic_private_obj_print_state(p, obj_state);
++	}
++}
++EXPORT_SYMBOL(drm_atomic_sro_state_print);
++
++/**
++ * drm_atomic_sro_get_plane_state - get the plane state from an SRO state
++ * @state: SRO state container
++ * @plane: plane to get the state for
++ *
++ * RETURNS:
++ *
++ * The &struct drm_plane_state for @plane, or NULL if not yet read out.
++ */
++struct drm_plane_state *
++drm_atomic_sro_get_plane_state(struct drm_atomic_sro_state *state,
++			       struct drm_plane *plane)
++{
++	unsigned int index = drm_plane_index(plane);
++
++	return state->planes[index].state;
++};
++EXPORT_SYMBOL(drm_atomic_sro_get_plane_state);
++
++/**
++ * drm_atomic_sro_set_plane_state - store a plane state into an SRO state
++ * @state: SRO state container
++ * @plane: plane the state belongs to
++ * @plane_state: plane state to store
++ */
++void drm_atomic_sro_set_plane_state(struct drm_atomic_sro_state *state,
++				    struct drm_plane *plane,
++				    struct drm_plane_state *plane_state)
++{
++	unsigned int index = drm_plane_index(plane);
++
++	state->planes[index].ptr = plane;
++	state->planes[index].state = plane_state;
++
++	drm_dbg_atomic(plane->dev,
++		       "Added [PLANE:%d:%s] %p state to readout state %p\n",
++		       plane->base.id, plane->name, plane_state, state);
++}
++EXPORT_SYMBOL(drm_atomic_sro_set_plane_state);
++
++/**
++ * drm_atomic_sro_get_crtc_state - get the CRTC state from an SRO state
++ * @state: SRO state container
++ * @crtc: CRTC to get the state for
++ *
++ * RETURNS:
++ *
++ * The &struct drm_crtc_state for @crtc, or NULL if not yet read out.
++ */
++struct drm_crtc_state *
++drm_atomic_sro_get_crtc_state(struct drm_atomic_sro_state *state,
++			      struct drm_crtc *crtc)
++{
++	unsigned int index = drm_crtc_index(crtc);
++
++	return state->crtcs[index].state;
++};
++EXPORT_SYMBOL(drm_atomic_sro_get_crtc_state);
++
++/**
++ * drm_atomic_sro_set_crtc_state - store a CRTC state into an SRO state
++ * @state: SRO state container
++ * @crtc: CRTC the state belongs to
++ * @crtc_state: CRTC state to store
++ */
++void drm_atomic_sro_set_crtc_state(struct drm_atomic_sro_state *state,
++				   struct drm_crtc *crtc,
++				   struct drm_crtc_state *crtc_state)
++{
++	unsigned int index = drm_crtc_index(crtc);
++
++	state->crtcs[index].ptr = crtc;
++	state->crtcs[index].state = crtc_state;
++
++	drm_dbg_atomic(state->dev,
++		       "Added [CRTC:%d:%s] %p state to readout state %p\n",
++		       crtc->base.id, crtc->name, crtc_state, state);
++}
++EXPORT_SYMBOL(drm_atomic_sro_set_crtc_state);
++
++/**
++ * drm_atomic_sro_get_connector_state - get the connector state from an SRO state
++ * @state: SRO state container
++ * @connector: connector to get the state for
++ *
++ * RETURNS:
++ *
++ * The &struct drm_connector_state for @connector, or NULL if not yet
++ * read out.
++ */
++struct drm_connector_state *
++drm_atomic_sro_get_connector_state(struct drm_atomic_sro_state *state,
++				   struct drm_connector *connector)
++{
++	unsigned int index = drm_connector_index(connector);
++
++	return state->connectors[index].state;
++};
++EXPORT_SYMBOL(drm_atomic_sro_get_connector_state);
++
++/**
++ * drm_atomic_sro_set_connector_state - store a connector state into an SRO state
++ * @state: SRO state container
++ * @conn: connector the state belongs to
++ * @conn_state: connector state to store
++ *
++ * Takes a reference on @conn which is released when the state is
++ * installed or freed.
++ */
++void drm_atomic_sro_set_connector_state(struct drm_atomic_sro_state *state,
++					struct drm_connector *conn,
++					struct drm_connector_state *conn_state)
++{
++	unsigned int index = drm_connector_index(conn);
++
++	drm_connector_get(conn);
++	state->connectors[index].ptr = conn;
++	state->connectors[index].state = conn_state;
++
++	drm_dbg_atomic(conn->dev,
++		       "Added [CONNECTOR:%d:%s] %p state to readout state %p\n",
++		       conn->base.id, conn->name, conn_state, state);
++}
++EXPORT_SYMBOL(drm_atomic_sro_set_connector_state);
++
++/**
++ * drm_atomic_sro_get_private_obj_state - get a private object state from an SRO state
++ * @state: SRO state container
++ * @obj: private object to get the state for
++ *
++ * RETURNS:
++ *
++ * The &struct drm_private_state for @obj, or NULL if not yet read out.
++ */
++struct drm_private_state *
++drm_atomic_sro_get_private_obj_state(struct drm_atomic_sro_state *state,
++				     struct drm_private_obj *obj)
++{
++	unsigned int i;
++
++	for (i = 0; i < state->num_private_objs; i++)
++		if (obj == state->private_objs[i].ptr)
++			return state->private_objs[i].state;
++
++	return NULL;
++}
++EXPORT_SYMBOL(drm_atomic_sro_get_private_obj_state);
++
++/**
++ * drm_atomic_sro_set_private_obj_state - store a private object state into an SRO state
++ * @state: SRO state container
++ * @obj: private object the state belongs to
++ * @obj_state: private object state to store
++ */
++void drm_atomic_sro_set_private_obj_state(struct drm_atomic_sro_state *state,
++					  struct drm_private_obj *obj,
++					  struct drm_private_state *obj_state)
++{
++	unsigned int index = state->num_private_objs;
++
++	state->private_objs[index].ptr = obj;
++	state->private_objs[index].state = obj_state;
++	state->num_private_objs += 1;
++
++	drm_dbg_atomic(state->dev,
++		       "Added new private object %p state %p to readout state %p\n", obj,
++		       obj_state, state);
++}
++EXPORT_SYMBOL(drm_atomic_sro_set_private_obj_state);
+diff --git a/include/drm/drm_atomic_sro.h b/include/drm/drm_atomic_sro.h
+new file mode 100644
+index 000000000000..5a9333a05796
+--- /dev/null
++++ b/include/drm/drm_atomic_sro.h
+@@ -0,0 +1,51 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++
++#ifndef DRM_ATOMIC_SRO_H_
++#define DRM_ATOMIC_SRO_H_
++
++struct drm_atomic_sro_state;
++struct drm_connector;
++struct drm_connector_state;
++struct drm_crtc;
++struct drm_crtc_state;
++struct drm_device;
++struct drm_plane;
++struct drm_plane_state;
++struct drm_printer;
++struct drm_private_obj;
++struct drm_private_state;
++
++struct drm_atomic_sro_state *drm_atomic_sro_state_alloc(struct drm_device *dev);
++void drm_atomic_sro_state_free(struct drm_atomic_sro_state *state);
++void drm_atomic_sro_state_print(const struct drm_atomic_sro_state *state,
++				struct drm_printer *p);
++
++struct drm_device *
++drm_atomic_sro_state_get_device(struct drm_atomic_sro_state *state);
++
++struct drm_plane_state *
++drm_atomic_sro_get_plane_state(struct drm_atomic_sro_state *state,
++			       struct drm_plane *plane);
++void drm_atomic_sro_set_plane_state(struct drm_atomic_sro_state *state,
++				    struct drm_plane *plane,
++				    struct drm_plane_state *plane_state);
++struct drm_crtc_state *
++drm_atomic_sro_get_crtc_state(struct drm_atomic_sro_state *state,
++			      struct drm_crtc *crtc);
++void drm_atomic_sro_set_crtc_state(struct drm_atomic_sro_state *state,
++				   struct drm_crtc *crtc,
++				   struct drm_crtc_state *crtc_state);
++struct drm_connector_state *
++drm_atomic_sro_get_connector_state(struct drm_atomic_sro_state *state,
++				   struct drm_connector *connector);
++void drm_atomic_sro_set_connector_state(struct drm_atomic_sro_state *state,
++					struct drm_connector *conn,
++					struct drm_connector_state *conn_state);
++struct drm_private_state *
++drm_atomic_sro_get_private_obj_state(struct drm_atomic_sro_state *state,
++				     struct drm_private_obj *private_obj);
++void drm_atomic_sro_set_private_obj_state(struct drm_atomic_sro_state *state,
++					  struct drm_private_obj *obj,
++					  struct drm_private_state *obj_state);
++
++#endif /* DRM_ATOMIC_SRO_H_ */
 
 -- 
 2.55.0
