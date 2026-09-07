@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79359C79F89
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:24:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A49E4C79F89
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:24:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE9C910E56C;
-	Mon,  7 Sep 2026 13:24:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 061AE10E5B0;
+	Mon,  7 Sep 2026 13:24:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Koaj48Ap";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T0mC92yh";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 674F210E56C
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:24:28 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91B3610E5B0
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:24:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DFC5C60D89;
- Mon,  7 Sep 2026 13:24:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14A711F00A3D;
- Mon,  7 Sep 2026 13:24:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 78C4340607;
+ Mon,  7 Sep 2026 13:24:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB9BE1F00A3A;
+ Mon,  7 Sep 2026 13:24:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788787467;
- bh=8ftR+12kVP/r9mZSFTlSuWOmYe8jx9mCM82CX8XUOqw=;
+ s=k20260515; t=1788787471;
+ bh=xpPWYd3Y0BGB9dv1QR5VEjriZg1mDf0mmXqWO0acjQs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Koaj48ApDn+RuePs/pZn1bj7uxBs9sqQsARpP90A4s3kHXob1gz8/l9R/B2iNfW7r
- VTNHQ3zwkIht5pn4L7obskszCSy25dH3AS1QTo1kGee2jTTiWjFGHL9nnXOHFaTCW0
- cVN+luZpTDcsbsLTgnos0ztuX/+Qnd8gSZZ2dEgCpk3EXC5KQaJRCO3hEyqAfQMFtO
- wl57D9E3r9ROjyu+2YfV7gPaCwg+wnUMld9WvO/HI2Krc/vQx+h80fAF9kQLlmWo7g
- 1UkFUI/8qSdN/OT4Dfsqko7tPFpkBUdQAx2DUaqCextzpS39it4D8+yuKcVBbL8IPi
- zNORnul+u047g==
+ b=T0mC92yhuxUyDLdEE9w4wj/c0G1RqINuDoponDhg/xN4J9hh3GdKqb2Zzfqed3LPO
+ YzzFhUOPgdOrhWmnipAXdrBzjxCxSiIGjG129atrSRjOhVd59TX2CumRP30MEf3rBz
+ yOUqgZSs9FibCE+YwK8YL5jf5G1/lNurbXJqeq7u/u3rcw5PoctBIHscK890esvAqW
+ qUOIUbeYUw5Y+PTmpU57HxGnj/gdSGdKR9gG+HD0DThfYSRSwfmaYjPcaiNiBCUpB9
+ /Q9NVHf6zyYrnya7YCu+Dvn7F5TCxrOKnqyq/wjIF5EdoIJAheyuNj5N1zpBkiNnHx
+ cipS+TzK/7eJg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 07 Sep 2026 15:23:43 +0200
-Subject: [PATCH v5 07/33] drm/atomic: Export drm_atomic_*_print_state
+Date: Mon, 07 Sep 2026 15:23:44 +0200
+Subject: [PATCH v5 08/33] drm/atomic: Only call atomic_destroy_state on a
+ !NULL pointer
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-drm-state-readout-v5-7-5fa1ac7a5148@kernel.org>
+Message-Id: <20260907-drm-state-readout-v5-8-5fa1ac7a5148@kernel.org>
 References: <20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org>
 In-Reply-To: <20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -48,14 +49,15 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Jyri Sarha <jyri.sarha@iki.fi>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>
+ Maxime Ripard <mripard@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4253; i=mripard@kernel.org;
- h=from:subject:message-id; bh=Fa1ZLFQTDzFi5E+a6r7S4Naw2wD6ZFIjmQQWoCkSCro=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnzdj0wWFi6rsxH8YP3DY23H88t4c/NOBZ0ivG8wu5ol
- ikhuTGhHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiC/cyNnzIvyYY8crExlry
- 7z+z6ykHv4f7vbuWdj+084sq146gOYck5k/6lRqqHv744HGdnti7Pxhr5T7uaTzMKlJ2tmKey6y
- 1Afre2t/6N13f8T4mufBEY//S7e0yT23SVikkMCW5HYri2XQLAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3804; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=M99xEYp9CgMan3Ib2C+oR/KSEdJLNtomSAXFANy7/aE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnzdj2ccfzElbVdHRe6H9XNKfh2M7PaZqvpFrOdR96sf
+ 6djtnvF146pLAzCnAyyYoosT2TCTi9vX1zlYL/yB8wcViaQIQxcnAIwke2pjA07fhxgcFYMPBOs
+ wX0ovrtsauwruzrf3Ud2XF3wdWH8o5RY0evx1umyh1S1rngmB/nMSGJsWBHysErP5DLrk8kXql/
+ sSp9WesLXP1phmY2n7OazFeejdVo3evs/tFCbX3CWvcRo3jkOAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,119 +75,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The drm_atomic_plane_print_state(), drm_atomic_crtc_print_state(),
-drm_atomic_connector_print_state(), and
-drm_atomic_private_obj_print_state() functions are currently static.
+The drm_atomic_commit structure is freed through the
+drm_atomic_commit_put() function, that eventually calls
+drm_atomic_commit_default_clear() by default when there's no active
+users of that state.
 
-The SRO infrastructure needs to call them from drm_atomic_sro.c to
-print the readout state for debugging purposes. Make them available
-by dropping the static qualifier and declaring them in drm_internal.h.
+It then iterates over all objects with a state, and will call the
+atomic_destroy_state callback on the state pointer. The state pointer is
+mostly used these days to point to which of the old or new state needs
+to be freed, depending on whether the state was committed or not.
 
+So it all makes sense.
+
+However, with the hardware state readout support approaching, we might
+have a state, with multiple objects in it, but no state to free because
+we want them to persist. In such a case, the state pointer is going to
+be NULL, and thus we'll end up with NULL pointer dereference.
+
+Test if the state pointer is non-NULL before calling
+atomic_destroy_state on it.
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c   | 16 ++++++++--------
- drivers/gpu/drm/drm_internal.h | 12 ++++++++++++
- 2 files changed, 20 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/drm_atomic.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 04da72b4aa70..c497d550c6c4 100644
+index c497d550c6c4..223f2d617179 100644
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -538,12 +538,12 @@ static int drm_atomic_crtc_check(const struct drm_crtc_state *old_crtc_state,
+@@ -291,12 +291,14 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
+ 		struct drm_connector *connector = state->connectors[i].ptr;
+ 
+ 		if (!connector)
+ 			continue;
+ 
+-		connector->funcs->atomic_destroy_state(connector,
+-						       state->connectors[i].state_to_destroy);
++		if (state->connectors[i].state_to_destroy)
++			connector->funcs->atomic_destroy_state(connector,
++							       state->connectors[i].state_to_destroy);
++
+ 		state->connectors[i].ptr = NULL;
+ 		state->connectors[i].state_to_destroy = NULL;
+ 		state->connectors[i].old_state = NULL;
+ 		state->connectors[i].new_state = NULL;
+ 		drm_connector_put(connector);
+@@ -306,12 +308,13 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
+ 		struct drm_crtc *crtc = state->crtcs[i].ptr;
+ 
+ 		if (!crtc)
+ 			continue;
+ 
+-		crtc->funcs->atomic_destroy_state(crtc,
+-						  state->crtcs[i].state_to_destroy);
++		if (state->crtcs[i].state_to_destroy)
++			crtc->funcs->atomic_destroy_state(crtc,
++							  state->crtcs[i].state_to_destroy);
+ 
+ 		state->crtcs[i].ptr = NULL;
+ 		state->crtcs[i].state_to_destroy = NULL;
+ 		state->crtcs[i].old_state = NULL;
+ 		state->crtcs[i].new_state = NULL;
+@@ -326,12 +329,14 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
+ 		struct drm_plane *plane = state->planes[i].ptr;
+ 
+ 		if (!plane)
+ 			continue;
+ 
+-		plane->funcs->atomic_destroy_state(plane,
+-						   state->planes[i].state_to_destroy);
++		if (state->planes[i].state_to_destroy)
++			plane->funcs->atomic_destroy_state(plane,
++							   state->planes[i].state_to_destroy);
++
+ 		state->planes[i].ptr = NULL;
+ 		state->planes[i].state_to_destroy = NULL;
+ 		state->planes[i].old_state = NULL;
+ 		state->planes[i].new_state = NULL;
  	}
+@@ -354,12 +359,14 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
+ 		struct drm_private_obj *obj = state->private_objs[i].ptr;
  
- 	return 0;
- }
+ 		if (!obj)
+ 			continue;
  
--static void drm_atomic_crtc_print_state(struct drm_printer *p,
--		const struct drm_crtc_state *state)
-+void drm_atomic_crtc_print_state(struct drm_printer *p,
-+				 const struct drm_crtc_state *state)
- {
- 	struct drm_crtc *crtc = state->crtc;
- 
- 	drm_printf(p, "crtc[%u]: %s\n", crtc->base.id, crtc->name);
- 	drm_printf_indent(p, 1, "enable=%d\n", state->enable);
-@@ -937,12 +937,12 @@ static void drm_atomic_colorop_print_state(struct drm_printer *p,
+-		obj->funcs->atomic_destroy_state(obj,
+-						 state->private_objs[i].state_to_destroy);
++		if (state->private_objs[i].state_to_destroy)
++			obj->funcs->atomic_destroy_state(obj,
++							 state->private_objs[i].state_to_destroy);
++
+ 		state->private_objs[i].ptr = NULL;
+ 		state->private_objs[i].state_to_destroy = NULL;
+ 		state->private_objs[i].old_state = NULL;
+ 		state->private_objs[i].new_state = NULL;
  	}
- 
- 	drm_printf_indent(p, 1, "next=%d\n", colorop->next ? colorop->next->base.id : 0);
- }
- 
--static void drm_atomic_plane_print_state(struct drm_printer *p,
--		const struct drm_plane_state *state)
-+void drm_atomic_plane_print_state(struct drm_printer *p,
-+				  const struct drm_plane_state *state)
- {
- 	struct drm_plane *plane = state->plane;
- 	struct drm_rect src  = drm_plane_state_src(state);
- 	struct drm_rect dest = drm_plane_state_dest(state);
- 
-@@ -1430,12 +1430,12 @@ drm_atomic_get_connector_state(struct drm_atomic_commit *state,
- 
- 	return connector_state;
- }
- EXPORT_SYMBOL(drm_atomic_get_connector_state);
- 
--static void drm_atomic_connector_print_state(struct drm_printer *p,
--		const struct drm_connector_state *state)
-+void drm_atomic_connector_print_state(struct drm_printer *p,
-+				      const struct drm_connector_state *state)
- {
- 	struct drm_connector *connector = state->connector;
- 
- 	drm_printf(p, "connector[%u]: %s\n", connector->base.id, connector->name);
- 	drm_printf_indent(p, 1, "crtc=%s\n", state->crtc ? state->crtc->name : "(null)");
-@@ -2076,12 +2076,12 @@ int __drm_atomic_helper_set_config(struct drm_mode_set *set,
- 
- 	return 0;
- }
- EXPORT_SYMBOL(__drm_atomic_helper_set_config);
- 
--static void drm_atomic_private_obj_print_state(struct drm_printer *p,
--					       const struct drm_private_state *state)
-+void drm_atomic_private_obj_print_state(struct drm_printer *p,
-+					const struct drm_private_state *state)
- {
- 	struct drm_private_obj *obj = state->obj;
- 
- 	if (obj->funcs->atomic_print_state)
- 		obj->funcs->atomic_print_state(p, state);
-diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
-index f893b1e3a596..91ce23f69ec4 100644
---- a/drivers/gpu/drm/drm_internal.h
-+++ b/drivers/gpu/drm/drm_internal.h
-@@ -38,18 +38,30 @@
- struct dentry;
- struct dma_buf;
- struct iosys_map;
- struct drm_connector;
- struct drm_crtc;
-+struct drm_crtc_state;
- struct drm_framebuffer;
- struct drm_gem_object;
- struct drm_master;
- struct drm_minor;
-+struct drm_plane_state;
- struct drm_prime_file_private;
- struct drm_printer;
-+struct drm_private_state;
- struct drm_vblank_crtc;
- 
-+/* drm_atomic.c */
-+void drm_atomic_plane_print_state(struct drm_printer *p,
-+				  const struct drm_plane_state *state);
-+void drm_atomic_crtc_print_state(struct drm_printer *p,
-+				 const struct drm_crtc_state *state);
-+void drm_atomic_connector_print_state(struct drm_printer *p,
-+				      const struct drm_connector_state *state);
-+void drm_atomic_private_obj_print_state(struct drm_printer *p,
-+					const struct drm_private_state *state);
- /* drm_client_event.c */
- #if defined(CONFIG_DRM_CLIENT)
- void drm_client_debugfs_init(struct drm_device *dev);
- #else
- static inline void drm_client_debugfs_init(struct drm_device *dev)
 
 -- 
 2.55.0
