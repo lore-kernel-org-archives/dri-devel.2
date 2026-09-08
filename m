@@ -4,59 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9923C79FA1
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 22:18:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F634C79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 22:19:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0897E10EDD1;
-	Tue,  8 Sep 2026 22:18:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71F3510EDD2;
+	Tue,  8 Sep 2026 22:19:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=leandro.ribeiro@collabora.com header.b="kTEnG4Aw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jFwH4Hns";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 797E410EDD1
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 22:18:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1788905916; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=ZfQ1fHSTdL4Utckb7F8TIEPF3XaBGg+HB/ABRvZ2oKPwNVS7UXmtC0YbskMcdJirF9B8Nuf9HJJUL/52hC6kXWK13Cs+x1Vv0YdltRMce2SzXd51z5Uq+wH8SJSqAMWoj2/oCUiWj/HD/WXqAYm9jMKJWj5WjrGWez755kqyJ+Q=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1788905916;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=uX34t09K/6FyPyum4/uGWqSmdiYpZyqWkAPNdfi7dkI=; 
- b=hQEcRL0GUdUoRow6VydCozYW+dfP+j7hNI4HQ3jgRSrUps2d9+wn1Yx8IvXlTlR43XRiYotFBeoioGtz8fOlXpGMpc+bZogqOmZhzL3yxbool4PWEvLY6XZMer7X6mvWEUtHl2Sw+XDrztYuZr9B3Ck0Vwdnt6sTi+/Z4MWgSAc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=leandro.ribeiro@collabora.com;
- dmarc=pass header.from=<leandro.ribeiro@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788905916; 
- s=zohomail; d=collabora.com; i=leandro.ribeiro@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=uX34t09K/6FyPyum4/uGWqSmdiYpZyqWkAPNdfi7dkI=;
- b=kTEnG4AweUAcrf2bnxFvoVfIEu29rIm3OKOqdng6yADsoBA11ONtYq2fQ+Jo7eJA
- IXhyzrzo50W1FKYnK94G8Q7c7Q0q8oFM2Yusis8f4DFxf+smZxAWSKSPdMj28uFK1dM
- qkLJYDxWoydnHqqDSAkShJmIA2KLkaHIuKcIvzM0=
-Received: by mx.zohomail.com with SMTPS id 1788905915266449.26774191890786;
- Tue, 8 Sep 2026 15:18:35 -0700 (PDT)
-Message-ID: <44c5ceae-4824-4b45-878c-1aac9e646116@collabora.com>
-Date: Tue, 8 Sep 2026 19:18:29 -0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/vkms: Add pixel blend mode property
-To: oushixiong1025@163.com, Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Melissa Wen <melissa.srw@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>,
- Ye Liu <liuye@kylinos.cn>
-References: <20260828090257.788076-1-oushixiong1025@163.com>
-Content-Language: en-US
-From: Leandro Ribeiro <leandro.ribeiro@collabora.com>
-In-Reply-To: <20260828090257.788076-1-oushixiong1025@163.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B885910EDD2
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 22:19:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8ACD4404D5
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 22:19:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 446E21F00A3A;
+ Tue,  8 Sep 2026 22:19:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788905964;
+ bh=qEEHYA/Hwv8QN6hVrSHGNsyJUz4u09eozdoEdsERxzQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=jFwH4HnsYo5+8WuIdS73EapxtUNrZ0PkJz2c2lVGzxPCVwb4eJglpiLj8AGk4tOQ0
+ zGgSz+rJh4leX876Ww/QIcke0qaIREmk/VMUI8IBqa1ix/KQFALNSvLfWo+Oehzzcg
+ 5O6X4A4pJ0UCbix0yBBNfmzk3D3tI/dVn89YiBh6LT9BrsQ/+t/5K0DRxKSvM1ZkNF
+ bmOWpY5saPf0AlxV8Gji23h8ZATjiBF1Alpf2cg7jDgyB0VEHryNLuiHjmCYEPhEf7
+ 3sAVGI+0ipI+Ac8Pefwzz/QrDdiHZ4aPjNXfA5jaMeGn+7eXRI/QH1GujeHM6w3pWj
+ XCqSh8VzlilYA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 02/22] accel: ethosu: Ensure suspended on removal
+To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260908-ethosu-fixes-v3-2-490fe215286f@kernel.org>
+References: <20260908-ethosu-fixes-v3-0-490fe215286f@kernel.org>
+ <20260908-ethosu-fixes-v3-2-490fe215286f@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 22:19:23 +0000
+Message-Id: <20260908221924.446E21F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,85 +53,98 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
+New issues:
+- [High] The patch evaluates the return value of `pm_runtime_get_if_active(=
+)` as a boolean, which fails to handle the `-EINVAL` error case and causes =
+an unbalanced usage counter decrement when Runtime PM is disabled.
 
-On 8/28/26 6:02 AM, oushixiong1025@163.com wrote:
-> From: Shixiong Ou <oushixiong@kylinos.cn>
-> 
-> The vkms planes expose formats with an alpha channel but do not
-> create the pixel blend mode property. Since
-> commit 860e748bddcc ("drm: ensure blend mode supported if pixel
-> format with alpha exposed") this triggers a warning during
-> drm_mode_config_validate():
-> 
-> [  993.538979] ------------[ cut here ]------------
-> [  993.539000] [PLANE:35:plane-0] pixel format with alpha exposed but blend mode not setup
-> [  993.539063] WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate
-> ......
-> [  993.539578] Call trace:
-> [  993.539580]  drm_mode_config_validate+0x398/0x558 [drm] (P)
-> [  993.539707]  drm_dev_register+0x1cc/0x2a0 [drm]
-> [  993.539832]  vkms_create+0x184/0x1d0 [vkms]
-> [  993.539854]  vkms_init+0x78/0xff8 [vkms]
-> ......
-> 
-> The vkms composer only blends premultiplied alpha, see
-> pre_mul_alpha_blend(), so create the property with
-> DRM_MODE_BLEND_PREMULTI as the only supported mode.
-> 
-> Reported-by: Ye Liu <liuye@kylinos.cn>
-> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
-> ---
->  drivers/gpu/drm/vkms/vkms_plane.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
-> index 6ee5c3f3207c..c4272f5f0354 100644
-> --- a/drivers/gpu/drm/vkms/vkms_plane.c
-> +++ b/drivers/gpu/drm/vkms/vkms_plane.c
-> @@ -276,6 +276,7 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
->  {
->  	struct drm_device *dev = &vkmsdev->drm;
->  	struct vkms_plane *plane;
-> +	int ret;
->  
->  	plane = drmm_universal_plane_alloc(dev, struct vkms_plane, base, 0,
->  					   &vkms_plane_funcs,
-> @@ -287,6 +288,15 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
->  
->  	drm_plane_helper_add(&plane->base, &vkms_plane_helper_funcs);
->  
-> +	/*
-> +	 * The vkms composer only blends premultiplied alpha, see
-> +	 * pre_mul_alpha_blend(), so that is the only supported mode.
-> +	 */
-> +	ret = drm_plane_create_blend_mode_property(&plane->base,
-> +						   BIT(DRM_MODE_BLEND_PREMULTI));
-> +	if (ret)
-> +		return ERR_PTR(ret);
+Pre-existing issues:
+- [High] In `ethosu_perfmon_stop_locked()`, the return value of `pm_runtime=
+_get_if_active()` is checked with a boolean NOT operator, misinterpreting t=
+he `-EINVAL` error as success, leading to unpowered hardware access and an =
+unbalanced PM usage counter.
+- [High] The IRQ handler accesses hardware registers without checking the d=
+evice's runtime PM state, risking a system crash if clocks are disabled.
+--
+
+commit 501f3ec67feb35539595151a43ef4d9ff0c26ca3
+Author: Rob Herring (Arm) <robh@kernel.org>
+
+accel: ethosu: Ensure suspended on removal
+
+If device removal occurs before an auto-suspend timeout occurs, the suspend
+is cancelled and the device will be left with clocks running. This patch
+makes the remove() callback force a suspend if the device is currently acti=
+ve.
+
+> diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/eth=
+osu_drv.c
+> --- a/drivers/accel/ethosu/ethosu_drv.c
+> +++ b/drivers/accel/ethosu/ethosu_drv.c
+> @@ -387,6 +387,10 @@ static void ethosu_remove(struct platform_device *pd=
+ev)
+> =20
+>  	drm_dev_unregister(&ethosudev->base);
+>  	ethosu_job_fini(ethosudev);
 > +
+> +	if (pm_runtime_get_if_active(&pdev->dev))
+> +		pm_runtime_put_sync_suspend(&pdev->dev);
 
-Hello,
+[Severity: High]
+Does evaluating the return value of pm_runtime_get_if_active() as a boolean
+fail to handle the -EINVAL error case?
 
-This looks good to me! But I think the comment in pre_mul_alpha_blend()
-could also be updated. It states:
+If Runtime PM is disabled, pm_runtime_get_if_active() returns -EINVAL, which
+evaluates to true here. Could this cause an unbalanced usage counter decrem=
+ent
+that corrupts the device PM state, and potentially power off the device
+prematurely?
 
-"The current DRM assumption is that pixel color values have been already
-pre-multiplied with the alpha channel values"
 
-Which is not true anymore.
+While reviewing this, I noticed a couple of related pre-existing issues in
+the subsystem.
 
-With this change:
+In drivers/accel/ethosu/ethosu_perfmon.c:ethosu_perfmon_stop_locked():
 
-Reviewed-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+> 	if (!pm_runtime_get_if_active(ethosu->base.dev)) {
+> 		ethosu->perfmon_state.active =3D NULL;
+> 		return;
+> 	}
 
->  	drm_plane_create_rotation_property(&plane->base, DRM_MODE_ROTATE_0,
->  					   DRM_MODE_ROTATE_MASK | DRM_MODE_REFLECT_MASK);
->  
+[Severity: High]
+This is a pre-existing issue, but does using a boolean NOT operator on the
+return value of pm_runtime_get_if_active() misinterpret the -EINVAL error
+as success?
 
--- 
-Leandro Ribeiro
+If Runtime PM is disabled, -EINVAL evaluates as non-zero (so !(-EINVAL) is
+false), bypassing this abort condition. Could this lead to reading PMU
+registers without clocks, causing an asynchronous external abort (bus fault)
+that crashes the system, as well as dropping a PM reference that was never
+acquired?
 
+
+In drivers/accel/ethosu/ethosu_job.c:ethosu_job_irq_handler():
+
+> static irqreturn_t ethosu_job_irq_handler(int irq, void *data)
+> {
+> 	struct ethosu_device *dev =3D data;
+> 	u32 status =3D readl_relaxed(dev->regs + NPU_REG_STATUS);
+
+[Severity: High]
+This is a pre-existing issue, but does this IRQ handler access hardware
+registers without checking the device's runtime PM state?
+
+Any spurious or delayed interrupt firing during the suspended state could
+trigger this path. Does unconditionally reading NPU_REG_STATUS upon entry
+risk a bus fault and kernel panic if the device clocks are disabled?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-ethosu-fix=
+es-v3-0-490fe215286f@kernel.org?part=3D2
