@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 988AFC79FB8
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 927B7C79F8C
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2964510EF29;
-	Wed,  9 Sep 2026 06:55:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BDD710EF30;
+	Wed,  9 Sep 2026 06:55:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VGKeUcB6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ku2gwpBF";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDEFF10E4BE
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:06:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CEDD10ED5F
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:03:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A471F41FBC;
- Tue,  8 Sep 2026 20:06:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8918D1F00A3D;
- Tue,  8 Sep 2026 20:05:48 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 780BF43862;
+ Tue,  8 Sep 2026 20:03:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57BCA1F00A3D;
+ Tue,  8 Sep 2026 20:02:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788897976;
- bh=CxJPdlL4ukdxMfUTmFq0FMtswRM14QRAmb+14GeHlio=;
+ s=k20260515; t=1788897805;
+ bh=N/5irUa19/BDN2FcWAIdugpCz9h2TSbkek/eDpHMNwo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=VGKeUcB6SUFLsSVulzqqQfyaFz69NQyby2vU8XLSBUmGFDMbCJPSyoJGPIOC9nknp
- YlLLLNB1c3/NwBUzuvm71qtgs3xh9aXPHu1f8/84w1ZUz6tso/7EN3wpR2x5RrxqI1
- FAapoB9pql3luYUvaoesEhmMXGdcafc+m8jfWIpN23x0gaG7/lQW4qzb7GW9A3h/sK
- AUVoUXtZ9IOKcZctb9ifbw6Y3iyBZC+h4/Dqw+OtSsSsHG6MMQ+76u/67m1RxlgAvw
- emgvFdJ/Iqsc6Eb9WUd8KgN5wh90axjl39n9zOW4/x48c8VIcjO544EftN7hXMfcu3
- ne4KzPtvSqzqg==
+ b=ku2gwpBFwbzAQ9WpRHCfTbmHrqoxH1O79eE6GJgUgEmxCzV2zSbqhIvZn3z1K/LOW
+ jQtxKcljhwwX6BHLOw0jrP1qLbw9bq481GXnBDTftZNwaufIQ2FNDR4wdA7+QSL/+n
+ bOnrpLTwrkyLBdXeZokkp60zx/ExmXt6G3L40ulIFvnIVT8Ju5kOVZ9/vbmWVJIL8j
+ V+DXIhJB16u11Zkd92DE8Mm/4GX5O1l4UCk/gk8xTOuqXTcGQ655Gwv90CaCup9Eoi
+ Ml/J+p32Cy5gI6XpNafasUy7A7/vLiCxm1MjWPRev15TMj9H5pIh/hgmbhtufTj48M
+ Et/8nwZmluVdg==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 08 Sep 2026 21:01:12 +0100
-Subject: [PATCH 08/39] docs: filesystems: update mmap_prepare docs for
- discontig kernel pgs
+Date: Tue, 08 Sep 2026 21:01:06 +0100
+Subject: [PATCH 02/39] mm/vma: introduce and use vma_[flags_]can_merge()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-8-dacf19cce22b@kernel.org>
+Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-2-dacf19cce22b@kernel.org>
 References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
 In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -121,12 +120,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4561; i=ljs@kernel.org;
- h=from:subject:message-id; bh=ku45FxaXB5jDrWF7xzKWcksoG8pHB6sirZFvJa9Q21A=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG40yzl3S0bbfdV5lj1Wju9vbK2b8fXiT66j54KLT
- 7cFxDAndJSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAisVKMDGvmHuaUbdd3mH1Q
- VvmsWUMDJ8fR85zTff4c3CYtezPIuo2R4aSOfd0+J5fHj+QdN0TU+X4PyOBfLSMWfcPe7fVH7rm
- 9nAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3665; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=0UU6lGSovOVzdqVhnWVD0ARbEiD8RROdurC1mTuwfD8=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG64vd1F9WqzdKTnan0Lh2BNLUnLtmu8U8UdzksrM
+ Z+OE1zVUcrCIMbFICumyPL8i/j+IJGweZ0X/N1g5rAygQxh4OIUgIncn8zI8CNQ+Oi6+/Y7/5sd
+ f1oxhWPnFNGGvybMWvt5247edb5wxYzhf37AUbvU9ayqj7YzrBEPP1yw45fFhkwVTbkIIT35+q1
+ /2AE=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:54:46 +0000
@@ -145,108 +144,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Describe the newly introduced discontiguous kernel page mapping mechanism,
-detailing how to use it sensibly and how the API looks.
+Replace the open-coded VMA_SPECIAL_FLAGS check in the VMA merge logic with
+two new functions vma_flags_can_merge() and vma_can_merge() and update the
+merge logic to use the former.
 
-Explicitly detail the various discontiguous actions available and how to
-use them.
+This abstracts the check and expresses it in terms of the desired behaviour
+rather than an arbitrary and confusing VMA flag.
+
+This also lays the groundwork for making further improvements in VMA flag
+usage.
+
+Also update the userland VMA tests to reflect the change.
+
+No functional change intended.
 
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- Documentation/filesystems/mmap_prepare.rst | 81 ++++++++++++++++++++++++++++++
- 1 file changed, 81 insertions(+)
+ include/linux/mm.h              | 21 +++++++++++++++++++++
+ mm/vma.c                        | 19 +++++++++++--------
+ tools/testing/vma/include/dup.h |  5 +++++
+ 3 files changed, 37 insertions(+), 8 deletions(-)
 
-diff --git a/Documentation/filesystems/mmap_prepare.rst b/Documentation/filesystems/mmap_prepare.rst
-index 82c99c95ad85..a476e1006bf1 100644
---- a/Documentation/filesystems/mmap_prepare.rst
-+++ b/Documentation/filesystems/mmap_prepare.rst
-@@ -164,5 +164,86 @@ pointer. These are:
-   sufficient entries in the page array to cover the entire range of the
-   described VMA.
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index c49ef99b4413..83979ec28f5c 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -1612,6 +1612,27 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
+ 	return is_shared_maywrite(&vma->flags);
+ }
  
-+* mmap_action_map_discontig_kernel_pages() - Maps a discontiguous range of
-+  `struct page` pointers over the VMA. They must span from the start of the VMA,
-+  but may terminate prior to the end (leaving the remainder unmapped).
++/**
++ * vma_flags_can_merge() - Do the specified VMA flags permit the VMA to be
++ * merged with another?
++ * @flags: The VMA flags to test.
++ * Returns: true if the flags permit merging, false otherwise.
++ */
++static inline bool vma_flags_can_merge(const vma_flags_t *flags)
++{
++	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
++}
 +
- **NOTE:** The ``action`` field should never normally be manipulated directly,
- rather you ought to use one of these helpers.
++/**
++ * vma_can_merge() - Do @vma's flags permit it to be merged with another VMA?
++ * @vma: The VMA to test.
++ * Returns: true if the flags permit merging, otherwise false.
++ */
++static inline bool vma_can_merge(const struct vm_area_struct *vma)
++{
++	return vma_flags_can_merge(&vma->flags);
++}
 +
-+Discontiguous Actions
-+=====================
+ /**
+  * vma_kernel_pagesize - Default page size granularity for this VMA.
+  * @vma: The user mapping.
+diff --git a/mm/vma.c b/mm/vma.c
+index 2a90c509bb31..0db2fc306993 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -924,13 +924,14 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
+ 
+ 	vmg->state = VMA_MERGE_NOMERGE;
+ 
++	if (!vma_flags_can_merge(&vmg->vma_flags))
++		return NULL;
+ 	/*
+-	 * If a special mapping or if the range being modified is neither at the
+-	 * furthermost left or right side of the VMA, then we have no chance of
+-	 * merging and should abort.
++	 * If the range being modified is neither at the furthermost left or
++	 * right side of the VMA, then we have no chance of merging and should
++	 * abort.
+ 	 */
+-	if (vma_flags_test_any_mask(&vmg->vma_flags, VMA_SPECIAL_FLAGS) ||
+-	    (!left_side && !right_side))
++	if (!left_side && !right_side)
+ 		return NULL;
+ 
+ 	if (left_side)
+@@ -1152,9 +1153,11 @@ struct vm_area_struct *vma_merge_new_range(struct vma_merge_struct *vmg)
+ 
+ 	vmg->state = VMA_MERGE_NOMERGE;
+ 
+-	/* Special VMAs are unmergeable, also if no prev/next. */
+-	if (vma_flags_test_any_mask(&vmg->vma_flags, VMA_SPECIAL_FLAGS) ||
+-	    (!prev && !next))
++	if (!vma_flags_can_merge(&vmg->vma_flags))
++		return NULL;
 +
-+Some actions can be performed across discontiguous ranges.
++	/* VMAs with no prev/next are unmergeable. */
++	if (!prev && !next)
+ 		return NULL;
+ 
+ 	can_merge_left = can_vma_merge_left(vmg);
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 16c09dac59d9..2fd422789717 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1647,3 +1647,8 @@ static inline bool file_is_dev_zero(const struct file *file)
+ {
+ 	return file && file->f_op == &zero_fops;
+ }
 +
-+Map kernel pages
-+----------------
-+
-+To map kernel pages discontiguously, you must provide hooks using ``struct
-+discontig_kernel_page_ops``:
-+
-+.. code-block:: C
-+
-+    struct discontig_kernel_page_ops {
-+        int (*init)(void *vm_private_data, void **private);
-+        int (*get)(struct discontig_kernel_page_state *state);
-+    };
-+
-+The ``init`` hook is optional and allows state to be established before the
-+operation starts, for instance taking a reference count. Nothing is invoked
-+after the operation, so ``init`` must not leave locks held, and state that must
-+be released once the mapping goes away should be released in
-+``vm_ops->close``.
-+
-+The ``init`` hook, if provided, is invoked prior to the operation starting. It
-+may update what is pointed to by ``vm_private_data`` and/or ``private``. If an
-+error is returned, then the operation is aborted. The ``private`` field can be
-+reassigned.
-+
-+**NOTE:** The operation may sleep between invocations of ``get``, so locks
-+needed to stabilise state must be taken and released within each hook.
-+
-+The ``get`` handler is the key means through which the operation is
-+executed. The current state of the operation is provided through ``struct
-+discontig_kernel_page_state``:
-+
-+.. code-block:: C
-+
-+    struct discontig_kernel_page_state {
-+        /* Map state. */
-+        unsigned long start;            /* Start address of VMA. */
-+        unsigned long end;              /* End address of VMA. */
-+        unsigned long addr;             /* The current address to be mapped. */
-+        pgoff_t pgoff;                  /* The current pgoff to be mapped. */
-+        unsigned long nr_pages_mapped;  /* The number of pages mapped. */
-+        unsigned long nr_pages_remain;  /* The number of pages remaining. */
-+
-+        /* User-defined state. */
-+        void *vm_private_data;          /* VMA private data. */
-+        void *private;                  /* Mapping private data. */
-+
-+        /* Users should not touch these, use discontig_kernel_map_*() helpers. */
-+        ... internal fields ...
-+    };
-+
-+With ``private`` being an additional user-controllable state variable,
-+initialised via ``mmap_action_map_discontig_kernel_pages()``, and
-+``vm_private_data`` being equal to the ``desc->private_data`` field set in
-+the ``mmap_prepare()`` hook.
-+
-+In the ``get`` hook, the user must choose how to map kernel pages:
-+
-+* ``discontig_kernel_map_abort()`` - Call this to abort the operation, whatever
-+  has been mapped so far will be retained, the rest of the mapping will SIGBUS
-+  if accessed.
-+* ``discontig_kernel_map_page()`` - Maps a single page, correctly handling
-+  compound pages (if the compound page is bigger than the remaining pages in the
-+  VMA, then only those pages that fit will be mapped). For a compound page, the
-+  head page must be passed.
-+* ``discontig_kernel_map_page_range()`` - Map an array of pages of a specified
-+  size. Note that if the number of pages specified exceeds the VMA size then an
-+  error will arise.
-+
-+If an error arises after ``init`` succeeded, the core unmaps the VMA, invoking
-+``vm_ops->close`` if set, which is therefore the place to release any state
-+that ``init`` established.
++static inline bool vma_flags_can_merge(const vma_flags_t *flags)
++{
++	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
++}
 
 -- 
 2.55.0
