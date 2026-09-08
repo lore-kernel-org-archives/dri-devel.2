@@ -4,94 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EC7CC79F82
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 21:39:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54DEDC79FA1
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 21:41:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11D5B10E538;
-	Tue,  8 Sep 2026 21:39:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B48789E47;
+	Tue,  8 Sep 2026 21:41:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H9GwX1N0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eVnXVU42";
 	dkim-atps=neutral
 Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
  [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B7B210E196
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 21:39:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C072E89E47
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 21:41:25 +0000 (UTC)
 Received: by mail-pj2-f12.google.com with SMTP id
- 98e67ed59e1d1-396672b2565so970036a91.0
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 14:39:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788903585; cv=none;
+ 98e67ed59e1d1-396672b2565so970268a91.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 14:41:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788903685; cv=none;
  d=google.com; s=arc-20260327;
- b=mDgFTRet52+e4iNUlvPLNnNQXXd4wNgX+KHyATe3pKC1osmYSfuZxN5uXaY1SO7DuP
- GKvokuhEs/nN6GRC9LCueseAZkOHCEE+HHwUABN1HiwPcOpSy+ZAbuxrUm/OadwRjO6x
- V6peiNFP9siEU512gks5ynAp1TGnf/EaMAT15CvbHImgkKmKTbINP766nAgCnUG2kZOV
- bl8Y/Z2xqJ8is1YMJ1G4FQkPb9RYOtYgva+Jn9EUfFLOe9qs5QXsVDkxnsyjE43FQ9T5
- oaMeQ4ij09a3EQ9bb1n4+Pnz5uqJW8Aa5ks/z8TLJxUUP8H+b90YYMypH9ai0quHmSkt
- cgbw==
+ b=Qwxy6CaARQr+Ma6VAPnKJ9NQTGPKy6kFZuOy3wNXGcRGJUdFXfY635ZjuWVE+VzlGZ
+ 6qQ4etV446p0bF0pZ/x9CFgmh0OKvl2bCn1L9hSMGppOzkELhEyGbrwg7HI0d2ivTRhz
+ 2G0uJg+mllGUbMX/AhHWJ42QYgYgb++9WgSZXN8EslTTxNraazJgeyAbXyjRcUKUKjUM
+ TxIA8J5T3OE2eqYdyd/eDt3ZQ2L8gA58EyoK+XP74k+SHWgDgYvW6H2xcQ7b/I+4qE+x
+ y6yCwUnWmy5b/wkYwZKv1sbWOoANmxg9Rl0XY8JHJ8K/JgRNDhbULsO82dGSpXGXdo9s
+ iH4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=pfd3T0qT87+D34AEThHxdn2D1F0SWsx0LtE8mR8K1j8=;
- fh=88jsyxSIxIXMoahsFoF+toyxa75dSXdxE+NiPM0mykI=;
- b=QOFIGNoFxUsz2HtqXcuepmWdIWFt+BBMSGCAOAELhj3RiOzEMyPFnYPv+53LAez+Bl
- Zla7gTczvx2rvkh0xH0i31V/kHNnTR83UjOc+ewTmei5X7eBgdWxd5uqnQjKA6P6d4v/
- Uc+x06R4CfjcAVI54uBGlfuEEE4elTc9DypzE1Z7v3CqRMZSgzaw2njUqjEIAK5qiOic
- Ua0bfD9qDHXP6jaxgAHT7ceATUUZbd2DBIFjDaqDt/ozVWguOihoAymfPu1MTIDDILRL
- GJUiyZWd2T26M9PSQgM5vvQ79IXqsSsfyxSwjH998cWX9MVll/rUwoafT63e55Fyj1xm
- 50Ag==; darn=lists.freedesktop.org
+ bh=8rQkd5Au7Y+YHu9zGBjXy6N5KCdPe9r93Bw6y8CKr6U=;
+ fh=pI2qF1PTuDXIacUhtti0qx2byjCND7Kk3/yU3LHpoCQ=;
+ b=btnekEyRJkjrVnp/LMvFOY3Xc+MBNUrKukz9G7WPabR+E9zsCx1JQen0xZ1iwT5du6
+ JPx790poPTLPRPqMTON+GjxLuZBatRorctDnkiQTdziFNmV39sDrT+0EoOr2aJIekc8i
+ Toqo9EzoPjpnInBRajd4iaJikY4sEa0M17UcKX/GYyzGcJt0U6cgwhHq2/7tjYcDXivz
+ WM5+lcz/JF62/8vA7Z/3NUg43uQVlvmn5uvnvSBRUf2Lqv8Tvr/KPJ6FkqX9CW2/npw+
+ OWd9Ca+BdVFdpFVxyHqRmxzu1AbGpIWYtqV/BrNyk9zoDeXiOVNMLO75gHsaVUn93qvX
+ 6Xmg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788903585; x=1789508385; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788903685; x=1789508485; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=pfd3T0qT87+D34AEThHxdn2D1F0SWsx0LtE8mR8K1j8=;
- b=H9GwX1N02ymZQ/3YJ1eJ6pV6bsdEBEsYmf/paVZoan4FhpIt8bo0hDRzf4MGh70AET
- rdAlBSftyQxc0HBYfppds8ZW9RVugbLEN1ICADOKUtCpWz4Hwh0LnVyPzis2egcZYpEx
- DG9TXnH/75KJOIYxk/a7BNVxVSLCmOrtP/At3ZHF2n1P8Lqbq5gDhanqiuDvYbuRtiuC
- lv6NdjCuc2z9KRIRCDvgvhYhoVAq/g5lZUdPC/yDC6RaD4neEroDpOs0WGIgBdshvV6F
- I3gWQAqn3cnBG12eAoMgXZ+3ZQpiC15l3mi0LrP+BzFWr4LOJfHD+OIkX+eO9SWbuDqY
- N7FQ==
+ bh=8rQkd5Au7Y+YHu9zGBjXy6N5KCdPe9r93Bw6y8CKr6U=;
+ b=eVnXVU42YD6Q/TdK52pBkpcReBFPM9KInHfs2N3PN45u4dObc6KTyMnXBE0z6ggFDd
+ hOt45gzcYlqXbLGDynndTyD6ZoEukt2YNcaaTid2T7f92Tj7Hp2y8iev3Kmnt6f8XGNl
+ WGaZ2SOpRJAzUdTcDB5oNUi4bi/MxHaYhfi2VPK/t0toQGPQvZImgOiSWN2m1cSDxpQ8
+ aFbndUXLiiljt3PVBk0AWlbUc1yEUurypXnf2BdtgvBANlyVHShlt35T9/sYSlJsjX9+
+ SKwJSdmNZHRJ8wHC8Mazm+b/yzjJm4TC2ZhoUk70xpRuofzY7mHXdcyUDLrdo1Vtnxo4
+ TyQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788903585; x=1789508385;
+ d=1e100.net; s=20251104; t=1788903685; x=1789508485;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=pfd3T0qT87+D34AEThHxdn2D1F0SWsx0LtE8mR8K1j8=;
- b=ImJwB0a9mW+1dYnI2noPLD+XXv92JHCR+UX6/nw8owy5zV7zUgA6QPhp6NA9pIDOO2
- D3hLlu3zbvTiMt1qk/FJ/sfCTNGHNqbb4Liu1Zw9pYCvGLmB3KWL3tQh9wuyee4xio1M
- D8sJ6Y9jWwg4SdmlMaoVDsmppda31ag1K1KTihdMiZMkDNbbgwB+ydDVChrXOFvvyP9g
- s0hA5ypNFJVCWbix9RbrK9zf7iXj4SaekWniUnPelpsW6kBW1LXVtKFljz0tCIAl83hh
- 9cc/TZ3TQnLkIzgw7xxwhYMCqfuoNJffze1tx0r/jNtUH7PXT3oAG+nbpcga+ja0GJTT
- YTSA==
+ bh=8rQkd5Au7Y+YHu9zGBjXy6N5KCdPe9r93Bw6y8CKr6U=;
+ b=fhrbdIBPsIsRcNiMZfD9lwweTx/Y4YHuXjh328vNlWSFgnUygContVku0CPXHv6e0P
+ DsUQoGwJPsCnPg1dH84nDARM7Vg98B7BP/XCTs5BRl7C2j1dK7HTDqUEYqArk/rbwDQC
+ q/OWAN4UYdhfJqLo0hU83lelj7MkRWGYkMNclLeLhNrR19IqyVlHYE1cOiw8xQDSkCyq
+ hPnlICRDc4ahkOX4UivoebTnb2k5ccQn64aTJw/T79RqoSuaZ4U+NKSG4Ur5PAXRFn4B
+ dy06waasYJe7s2w3ov10i+i3/AmGIneB6IlxkKD7CF/CHrAA5xuUokni7kfxa/RTA8p4
+ tPUw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwlqRIE6P/Dog6ccDq/yw5QIx2iS00mpiETEiZhSiDnTEcwn3aOXKxgLrtRSmjWdsG8ipQj0nI6R6E=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nG+dds7LmUKifVp28HFzAnx0runuv/AjfxqrAkBp1RTlc/gei1
- mLR5/DPAWoqudmv/X2ehcvGz9OYshH+csv2g464D4XWEQGdsRgMuBKMOvNlmkbEBdEVitFnITrh
- g1yzopOe9UzydM052j/qrAQy9aabqDaU=
-X-Gm-Gg: AYBFou0Dzgis4ZWYxwcwNWjT3vTdg6mzGFXjVO9rWyU26I4qp8zVHlKylFnRJYYiuri
- 9BaoZN6fEGZIIvN9QJ8cNxwra/B1ck0wRKXUsK8Xhzipaj5tDmnh7VcDqhox+XPNucS6woXf15V
- ahq0Vjvcx5hAnezc9baTL9YnLiWvFA+G4PQGtCSEybyZSnN9nifQLqdH8NLSfDUefqgvVEKLa+/
- Jlmsw8kExiJPig7/5xdRHncYHXBLkY9E2+BqeJ6tZOwXM0PIEdUUkjciC5nxPiPaITdbuI+PhS/
- gY2xGspxkm+wazXoiUTe7nZmDZwJH35k5GCOXooA9kXzWmV53diMG7pvXy55w/TqYxJHsznnWaf
- 21KEtNoFnqfbql5gxU0GqW4APkKS2kl4=
-X-Received: by 2002:a17:90b:4c03:b0:398:bac7:72d0 with SMTP id
- 98e67ed59e1d1-39b3d86acf2mr22472586a91.5.1788903585475; Tue, 08 Sep 2026
- 14:39:45 -0700 (PDT)
+ AKwUvBxBXkqV9rF4lWj4xQTDdNpkhkE+91jMzb/0boFWM4QUvMnawAsPPOaXNzFMCyhi02onEBZ4JamdO7k=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++knHpRDOK9yl71doVTqbTy/s0F/hjIu7fv2c5XP1dKlooSep9RD
+ RRFS8zobQLuQ+JykEP6b9JgvyQvYZPJj4bHx8AdhvdAhYvdAK0Er2fqKqv7yDtmoV09WXKaoeKt
+ 0TN1FmmZXpC3gnZjuwcTsMP19pMPyDCJyzUMR
+X-Gm-Gg: AYBFou22yQMYujV8YV4x0LGoOYYJpGHBwi+SiT0DWC1gZxDnEaaRhaQKOec3Qmmu1QE
+ wBUrvwGYlClYewhIVNBOVAcmcq/85MGlAQYk01PRTOn0anv7JWf7wx9OMbJim577W7cJHl+xf6S
+ oLKNKyAEau4j8AqiUdhmAVM/C552Wia7lJnLRE+F3WMt3nc9hm29xkeTFU13NnysDgoIivDHCNU
+ KK0hvauGGesMrL+Ovy2JLIGMLuzY0SOAz7Nupn4yOnIw+30ecZ5SRKPpxnZ/42NPABDCsEVdzAd
+ 5nKtiC5adFoyg+r6SdbZ+XTDRxPaMykSMLkbpCm7J3ldnTgJxE/HFA9hVdK4uiqjMw6KaNZ/n1y
+ CH3wqzO1k5bTpzv3iiwyz3v87HysKaOg=
+X-Received: by 2002:a17:90b:3a48:b0:38e:480b:99a5 with SMTP id
+ 98e67ed59e1d1-39b3d5e53d5mr20820843a91.2.1788903685198; Tue, 08 Sep 2026
+ 14:41:25 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260908-amdgpu_debugfs-v1-1-3b659e744691@igalia.com>
- <20260908201504.5C9411F00A3D@smtp.kernel.org>
-In-Reply-To: <20260908201504.5C9411F00A3D@smtp.kernel.org>
+References: <20260903-amdgpu-ras-wifpts-v1-1-7f3b4528f12c@kernel.org>
+In-Reply-To: <20260903-amdgpu-ras-wifpts-v1-1-7f3b4528f12c@kernel.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 8 Sep 2026 17:39:33 -0400
-X-Gm-Features: AcwNN1XiQcxZYZn6Y_zxh-cC1A3b-Ks9xObBstzBva-di-BAV7A8YC7qh__1sb8
-Message-ID: <CADnq5_NkuyG_dmVeTzSe41F_8CHjiy4Nh0WH6DjDYx78jpjYLg@mail.gmail.com>
-Subject: Re: [PATCH] Revert "drm/amdgpu: debugfs: avoid extra EOLs in
- amdgpu_gem_info"
-To: sashiko-reviews@lists.linux.dev
-Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- dri-devel@lists.freedesktop.org
+Date: Tue, 8 Sep 2026 17:41:12 -0400
+X-Gm-Features: AcwNN1XCfKRR9Pp_3osr-NXErQWimzUuIEmAIhBaOCMAWbp5aPXAHcWmLCqHV_s
+Message-ID: <CADnq5_NZKS0Ng_8sy=AS=Jby_6dCwVKMziyvRgK8XHVYEQRD1g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/ras: Adjust second parameter of
+ mp1_v13_0_eeprom_send_msg()
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ YiPeng Chai <YiPeng.Chai@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -109,81 +111,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu, Sep 3, 2026 at 3:40=E2=80=AFAM Nathan Chancellor <nathan@kernel.org=
+> wrote:
+>
+> When building with -Wincompatible-function-pointer-types-strict, a
+> warning designed to catch kernel control flow integrity (kCFI) issues at
+> build time, there is an instance around mp1_v13_0_eeprom_send_msg():
+>
+>   drivers/gpu/drm/amd/amdgpu/../ras/ras_mgr/amdgpu_ras_mp1_v13_0.c:157:25=
+: error: incompatible function pointer types initializing 'int (*)(struct r=
+as_core_context *, u32, uint32_t, uint32_t *)' (aka 'int (*)(struct ras_cor=
+e_context *, unsigned int, unsigned int, unsigned int *)') with an expressi=
+on of type 'int (struct ras_core_context *, enum ras_fw_eeprom_cmd, uint32_=
+t, uint32_t *)' (aka 'int (struct ras_core_context *, enum ras_fw_eeprom_cm=
+d, unsigned int, unsigned int *)') [-Werror,-Wincompatible-function-pointer=
+-types-strict]
+>     157 |         .mp1_send_eeprom_msg =3D mp1_v13_0_eeprom_send_msg,
+>         |                                ^~~~~~~~~~~~~~~~~~~~~~~~~
+>
+> While 'u32' and 'enum ras_fw_eeprom_cmd' are ABI compatible, hence no
+> regular warning from -Wincompatible-function-pointer-types, the mismatch
+> will trigger a kCFI violation when mp1_v13_0_eeprom_send_msg() is called
+> indirectly.
+>
+> Update the second parameter of mp1_v13_0_eeprom_send_msg()' to be
+> 'u32 msg_id' to match the prototype in 'struct ras_mp1_sys_func' (which
+> was recently changed to support mp1_v15_0), clearing up the warning and
+> kCFI violation.
+>
+> Fixes: 11a948c7817b ("drm/amd/ras: Support retrieving bad page info from =
+mp1_v15_0")
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+
 Applied.  Thanks!
 
-On Tue, Sep 8, 2026 at 4:20=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
+> diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c b/dri=
+vers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c
+> index 7aa818a433f6..548594373d0b 100644
+> --- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c
+> +++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c
+> @@ -105,14 +105,14 @@ static int mp1_v13_0_dump_valid_bank(struct ras_cor=
+e_context *ras_core,
+>  }
 >
-> Pre-existing issues:
-> - [High] NULL pointer dereference when printing imported BOs in debugfs.
+>  static int mp1_v13_0_eeprom_send_msg(struct ras_core_context *ras_core,
+> -                               enum ras_fw_eeprom_cmd index, uint32_t pa=
+ram, uint32_t *read_arg)
+> +                               u32 msg_id, uint32_t param, uint32_t *rea=
+d_arg)
+>  {
+>         struct amdgpu_device *adev =3D (struct amdgpu_device *)ras_core->=
+dev;
+>         int ret =3D 0;
+>
+>         if (down_read_trylock(&adev->reset_domain->sem)) {
+>                 ret =3D mp1_v13_send_smu_msg(adev,
+> -                       pmfw_eeprom_msgs[index], param, read_arg);
+> +                       pmfw_eeprom_msgs[msg_id], param, read_arg);
+>                 up_read(&adev->reset_domain->sem);
+>         } else {
+>                 ret =3D -RAS_CORE_GPU_IN_MODE1_RESET;
+>
+> ---
+> base-commit: 8fad652e7235dbf3bebfab1460610b0b0e75b199
+> change-id: 20260902-amdgpu-ras-wifpts-c8628642e565
+>
+> Best regards,
 > --
+> Cheers,
+> Nathan
 >
-> commit be759dc89504ad9041bef159ec02b120e04cf61b
-> Author: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
->
-> Revert "drm/amdgpu: debugfs: avoid extra EOLs in amdgpu_gem_info"
->
-> This commit reverts an earlier change that removed newlines when no fence=
-s
-> were attached to a dma_resv struct. The original change caused multiple B=
-Os
-> to be printed on the same line, reducing debugfs readability.
->
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_object.c
-> > index 5d9d137209b6f..1b6c32a177fb6 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > @@ -1701,9 +1701,8 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo=
- *bo, struct seq_file *m)
->
-> [Severity: High]
-> This is a pre-existing issue, but can the access to dma_buf->file cause a
-> NULL pointer dereference?
->
-> In amdgpu_bo_print_info(), earlier in this function:
->
->         dma_buf =3D READ_ONCE(bo->tbo.base.dma_buf);
->         attachment =3D READ_ONCE(bo->tbo.base.import_attach);
->
->         if (attachment)
->                 seq_printf(m, " imported from ino:%llu", file_inode(dma_b=
-uf->file)->i_ino);
->
-> If attachment is non-NULL, dma_buf is dereferenced via
-> file_inode(dma_buf->file)->i_ino.  However, bo->tbo.base.dma_buf can be N=
-ULL
-> for imported BOs in several scenarios:
->
-> - BOs imported via amdgpu_gem_prime_import() allocate a fresh GEM object
->   via amdgpu_dma_buf_create_obj(), which does not populate obj->dma_buf
->   and relies entirely on obj->import_attach.
->
-> - When userspace closes the GEM handle of a BO,
->   drm_gem_object_handle_put_unlocked() calls
->   drm_gem_object_exported_dma_buf_free(), explicitly setting
->   obj->dma_buf =3D NULL, even though the BO itself may still be kept aliv=
-e
->   if it is mapped.
->
-> When debugfs iterates over these BOs, reading dma_buf->file dereferences =
-a
-> NULL pointer.  Since this can be triggered by reading debugfs files like
-> amdgpu_vm_info, could this deterministically oops the system?
->
-> >       if (dma_resv_trylock(bo->tbo.base.resv)) {
-> >               dma_resv_describe(bo->tbo.base.resv, m);
-> >               dma_resv_unlock(bo->tbo.base.resv);
-> > -     } else {
-> > -             seq_puts(m, "\n");
-> >       }
-> > +     seq_puts(m, "\n");
-> >
-> >       return size;
-> >  }
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-amdgpu_d=
-ebugfs-v1-1-3b659e744691@igalia.com?part=3D1
