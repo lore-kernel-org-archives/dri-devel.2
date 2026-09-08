@@ -4,83 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E14B4C79F99
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 18:41:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2F99C79F99
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 18:56:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47BB910ED38;
-	Tue,  8 Sep 2026 18:41:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DABC310E4CE;
+	Tue,  8 Sep 2026 18:56:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HgI+/1mb";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LasUKB3z";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51AEE10ED38
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 18:41:39 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-499ac87c92bso53225095e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 11:41:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788892898; x=1789497698; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Cr8h1Yq/NnZMM4WE8/4qnlK3saUP4YTKFSQMTgTF9Wk=;
- b=HgI+/1mbz9z/tnWmuy9VZIz2WQ6M1UwLdLiRg/ElfVbO9U1wdpdm8ovhNFc/36rbE8
- AT6D+5rYiD6RD6gWHgEF5E/SnJyJSbHJMOh/KuZd+n/qH92IOipRfQFBP+/71tG+FZzo
- IfRVWIV7glWcK7bECZQ1Qk2KBc9ABYHnsys/elReXa0AmqQyNZdwu3qHGDlM4dPHT6XV
- iQlpmReaFbrBjYAaCdL2/VCpJoi9COk+WF4+vlhq5wyzDnyh9ng1+lrF/LKXAs1gBkM8
- krCkYkpg5BHWYiaTxOSnt2ySIgaD79Gz/3Icb+j/QJH2fxsdt/DZx4rj7XO5ysXEE07j
- AWtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788892898; x=1789497698;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Cr8h1Yq/NnZMM4WE8/4qnlK3saUP4YTKFSQMTgTF9Wk=;
- b=n81fTL/ISiCoy/IbtPu+JZIMrCnYxjik9DUCYXtZ/X7jW2KokHJwjRzXQ7UyE4pALv
- gWeapNe8/ujZH6wpSxEfHPdUtAgH/9ah9Djb6IYVAN5ym/+4bFSqrgjSfhoFLu32ltdx
- JBSqMv2HKBz4xSJVm8Xt+5O3mYR4lROBwtaxmQ3IUF0YduTN6x4/kTJ1c2fvs4lYnur7
- u9KV6oeSgKYrwfHl47zWeDF5Ydsz0gaKLBaTVP4tuRLd2Idr2Wg+tjmlev7ZVkb7lxKX
- yVNHyA4zejJBEiAOKBY5GgGrrznxVrmcs3HgipEBbGjmQpQBSzHlWoWS7z+wmNmbak61
- GvGA==
-X-Forwarded-Encrypted: i=1;
- AKwUvByTGN/Uiugd9WdeKC52+4SKe1gFf2t3hm8hPbuw39wqy4J0BO5GBKuA1D+E4G863Ta+6S2XWAeXE6Q=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kBipxRQ82CismB2NL44Qo6Kk3n1UDkbulUpI+822Z+wwP66nsA
- 1lcx3oXCjli2S6Nd2TzMJql540SAmqkJbdOKtj8SdFCIDxzKGHIntBx3
-X-Gm-Gg: AYBFou02ApciTSIc8rn1goLxwGBVaPSi6VocZVZNXEUCNMICmytdb+A2x0Jhxxntm9e
- UuRm4cbm0+0pubkreufIeQyPyOUIU42ouysLTDnBkvoJ8fKYvQgWYWDclwei4FWCj8njrdYR+if
- sBouhYPWqxrGg2Snck1dG4BUpz3nvXWFN1Mdd+xPtD40NsdCrntpSNRZa0o7Lup+pZvEKhq9Prs
- ShBrbzE7IH0GDO60wx2re7bBWQbkd9ohG4JQFQJ+b8O7RyR/wz7xzBoFHURq6L5jHM3yozrKi5X
- mJ/qmUjDriRhC1knPa5Ec9C6aH5noUxpP7rSigITBRshV9UhY6i6/Qkdv3Xr0x+HetRHgsMnOYm
- AwynbzcykOVg4BeUIlszjIxsIf85QnnFaEAHj5wWIP7gUbipvLx535ltkojJNdKq1UUlXYverSr
- LxtDo8SgdFdAfgQtL87vGQw4XjJpjaf9+lrBsXVHd/Ut1VdJ175pWmyhmx
-X-Received: by 2002:a05:600c:1da8:b0:49c:cf18:494e with SMTP id
- 5b1f17b1804b1-49cf825a530mr371178485e9.12.1788892897552; 
- Tue, 08 Sep 2026 11:41:37 -0700 (PDT)
-Received: from luca-vm.lan ([154.61.61.58]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-485883c81c3sm38558775f8f.26.2026.09.08.11.41.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 11:41:37 -0700 (PDT)
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-To: linux-mediatek@lists.infradead.org
-Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- CK Hu <ck.hu@mediatek.com>, Jitao shi <jitao.shi@mediatek.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: [PATCH RESEND v2] dt-bindings: mediatek: hdmi-ddc: Correct the
- compatibles for mt7623-mt8167
-Date: Tue,  8 Sep 2026 20:41:05 +0200
-Message-ID: <20260908184125.10916-1-l.scorcia@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67A7010E173;
+ Tue,  8 Sep 2026 18:56:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788893773; x=1820429773;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=iogi/bWLrt9Uh1fWOBtCKZOPqVFdvKbfsf/y2qql35s=;
+ b=LasUKB3zp5TgZpGyxUwFXmuOWdEsLPxA/HIfwcBHStwsSMVRZ9iuRlCl
+ JfyWZMctoOSw/w+KZe+WzBUDl4FBAPKrd07BvuFOz0eYJ4os8EfraJPnf
+ ucIPA9fC3I7GLr2jHe4Uf0CXFGG9/75TsqEGEuGNaM4pJzXvFQtb7ysaj
+ PYGeJt8P9+AIkPh82hUa8w3QufkIVjmf2KE7WLpYjxgPVr6Nr81pHwwjM
+ ybBYMvuaViy03dsIBEbsTJ9UnkIdGN1BAey+DD3llD90Ca2ykZRlgB4QQ
+ wDy9mwk5vBnlpxBXzycP35HUUQPMTDUPL0Wx/PQ0yBbrz2XO751ba8Fb6 g==;
+X-CSE-ConnectionGUID: vAt7InmxQkKU7BYQd6KjzQ==
+X-CSE-MsgGUID: AWi25JFMSHqEwMh7ARKx7w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="93003899"
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; d="scan'208";a="93003899"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2026 11:56:12 -0700
+X-CSE-ConnectionGUID: xG8i8XFWSle4EPNXaN7U7Q==
+X-CSE-MsgGUID: EuGQkW2XTACb1uHJ6gRoAw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; d="scan'208";a="271589438"
+Received: from aalteres-desk1.fm.intel.com ([10.121.64.173])
+ by orviesa009.jf.intel.com with ESMTP; 08 Sep 2026 11:56:12 -0700
+From: Alan Previn <alan.previn.teres.alexis@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
+ dri-devel@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>
+Subject: [PATCH] drm/xe/mmio: Fix xe_mmio_wait32() to honor delay/sleep
+ maximums
+Date: Tue,  8 Sep 2026 11:56:08 -0700
+Message-ID: <20260908185609.359565-2-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -99,46 +66,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The HDMI DDC driver for both mt7623 and mt8167 is actually the same as
-mt8173-hdmi-ddc and the mt7623n.dtsi board include file already uses
-mt8173-hdmi-ddc compatible as a fallback, but the documentation lists
-them as separate entries. Correct the binding by adding the correct
-fallback.
+Check for overflow in udelay/usleep_range use in __xe_mmio_wait32
+and pick the correct helper according to the wait time and atomic.
+Implement a similar helper to replace DIV_ROUND_UP for 32-bit CPUs.
+Avoid growing delays becoming intollerably large by capping the
+in-loop wait time.
 
-Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+v2: - Fixed checkpatch failure.
+    - Added helper for 64-bit DIV_ROUND_UP on 32-bit CPU (Shasiko
+      review). Fixed bug max range in usleep_range(Shasiko review)
+
+Fixes: 5c09bd6ccd41 ("drm/xe/mmio: Move xe_mmio_wait32() to xe_mmio.c")
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+Assisted-by: Github-Copilot:Claude-Sonnet-5-0
 ---
-Fixes the following dtbs_check error in mt7623n-rfb-emmc.dts and
-mt7623n-bananapi-bpi-r2.dts:
+ drivers/gpu/drm/xe/xe_mmio.c | 50 ++++++++++++++++++++++++++++++++----
+ 1 file changed, 45 insertions(+), 5 deletions(-)
 
-i2c@11013000 (mediatek,mt7623-hdmi-ddc): compatible:
-  ['mediatek,mt7623-hdmi-ddc', 'mediatek,mt8173-hdmi-ddc'] is too long
-
- .../bindings/display/mediatek/mediatek,hdmi-ddc.yaml  | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml
-index bd8f7b8ae0ff..966127e1ee63 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml
-@@ -15,10 +15,13 @@ description: |
+diff --git a/drivers/gpu/drm/xe/xe_mmio.c b/drivers/gpu/drm/xe/xe_mmio.c
+index 7fa18dfcb5a2..1ae382f009de 100644
+--- a/drivers/gpu/drm/xe/xe_mmio.c
++++ b/drivers/gpu/drm/xe/xe_mmio.c
+@@ -7,6 +7,8 @@
  
- properties:
-   compatible:
--    enum:
--      - mediatek,mt7623-hdmi-ddc
--      - mediatek,mt8167-hdmi-ddc
--      - mediatek,mt8173-hdmi-ddc
-+    oneOf:
-+      - const: mediatek,mt8173-hdmi-ddc
-+      - items:
-+          - enum:
-+              - mediatek,mt7623-hdmi-ddc
-+              - mediatek,mt8167-hdmi-ddc
-+          - const: mediatek,mt8173-hdmi-ddc
+ #include <linux/delay.h>
+ #include <linux/io-64-nonatomic-lo-hi.h>
++#include <linux/math.h>
++#include <linux/math64.h>
+ #include <linux/minmax.h>
+ #include <linux/pci.h>
  
-   reg:
-     maxItems: 1
+@@ -320,6 +322,30 @@ u64 xe_mmio_read64_2x32(struct xe_mmio *mmio, struct xe_reg reg)
+ 	return (u64)udw << 32 | ldw;
+ }
+ 
++/**
++ * __div_round_up64() - alternative to DIV_ROUND_UP for use by __xe_mmio_wait32
++ * @dividend: 64 bit positive number to divide
++ * @divisor: 64 bit positive divisor
++ *
++ * DIV_ROUND_UP() relies on plain '/' and '%' operators, which for 64-bit
++ * operands on a 32-bit CPU get turned into calls to libgcc's __divdi3()/
++ * __moddi3(), routines the kernel does not link against. Provide a
++ * do_div()-based equivalent that works for signed 64-bit inputs on any
++ * architecture.
++ *
++ * Returns: rounded up division result
++ */
++static inline s64 __div_round_up64(s64 dividend, s64 divisor)
++{
++	u64 abs_dividend = abs(dividend);
++	u64 abs_divisor = abs(divisor);
++	u64 result = abs_dividend + abs_divisor - 1;
++
++	do_div(result, abs_divisor);
++	/* dont check for negative values as local caller only uses positive numbers */
++	return (s64)result;
++}
++
+ static int __xe_mmio_wait32(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val,
+ 			    u32 timeout_us, u32 *out_val, bool atomic, bool expect_match)
+ {
+@@ -349,11 +375,25 @@ static int __xe_mmio_wait32(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u
+ 		if (ktime_after(ktime_add_us(cur, wait), end))
+ 			wait = ktime_us_delta(end, cur);
+ 
+-		if (atomic)
+-			udelay(wait);
+-		else
+-			usleep_range(wait, wait << 1);
+-		wait <<= 1;
++#define __XE_MMIO_WAIT_MAX_INLOOP_100MS (100 * USEC_PER_MSEC)
++		if (atomic) {
++			if (wait <= MAX_UDELAY_MS * USEC_PER_MSEC)
++				udelay(wait);
++			else if (BITS_PER_LONG == 32)
++				mdelay(DIV_ROUND_UP(wait, USEC_PER_MSEC));
++			else
++				mdelay(__div_round_up64(wait, USEC_PER_MSEC));
++		} else {
++			usleep_range(wait, wait + (wait >> 2)); /* range till wait + 25% */
++		}
++		/*
++		 * As we keep doubling the wait time for every check that fails, cap the
++		 * in-loop delay-or-sleep to less than 2x 100 milliseconds to prevent from
++		 * expanding 'wait' into exponentially longer wait times per loop that
++		 * end up delaying the next completion check way later than tolerable.
++		 */
++		wait = wait < __XE_MMIO_WAIT_MAX_INLOOP_100MS >> 1 ?
++		       wait << 1 : __XE_MMIO_WAIT_MAX_INLOOP_100MS;
+ 	}
+ 
+ 	if (ret != 0) {
 -- 
 2.43.0
 
