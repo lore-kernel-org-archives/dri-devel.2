@@ -4,81 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34C12C79F99
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 07:02:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86A4BC79F99
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 07:04:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F74910E095;
-	Tue,  8 Sep 2026 07:02:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D97CA10E03E;
+	Tue,  8 Sep 2026 07:04:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="blL82ncD";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mlzeTykR";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="K3SaNjDd";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0968310E03E
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 07:02:52 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- d9443c01a7336-2d6ff3936easo693995ad.2
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 00:02:52 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E80E10E03E
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 07:04:06 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6886M2172712375
+ for <dri-devel@lists.freedesktop.org>; Tue, 8 Sep 2026 07:04:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ rSgnM7WQLIr2JaQ5sXzvM8SpynBQx/3leL7JcFUsetI=; b=mlzeTykRkXaD+r/e
+ qHrt6wRxHQgbe8cKzUm6jbUJKOKQowVaNY/rFVyO4EanxNfPn89LV+es3Txi7ePw
+ XKI5EGhjsigTTh2QdUs66wrQjpoJEawOtPYWfB1EyW+ND2tUc97tuQCaqt2bSkqI
+ 7m0PQYt5aAwusVD9PK2kOAdbkf2dY66qEi/Ohdya4K9qBkyhQfLGC2BwSsdUBFPr
+ UQCoBg/54M/JjcfHw9ngzrd0h5zCXmDeAoN02vAEI7mpg8g6FMRpum3yFZQl/gEs
+ 3ByD0RnGyZ4uYlEltGlPxoxudohx2XV0dxu58WvPFs5HaCWqFNa63r8VSLjTIgNL
+ U68zzA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghtdqkxdw-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 07:04:04 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-9310484c005so56216185a.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 00:04:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788850971; x=1789455771; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=NELnY7rhvN2fX0w+mwkpJWMxqnyiES6ZAAlSHyGONzo=;
- b=blL82ncD7+OZW6ylfNcuUhfzLey9T42ac6hIOb8C7TJ53Cw3ep44iiOl9o1Bih1u+z
- q0klpiArlgPnRC6+2QcyUQjfD8NNb4OfH9flRhURvSX54S28Zde3RVuSvO659lDX0bt2
- Shp0fJ4obY1Xkqgu9PNFZYG9+hTJRcsGRZ2lCGzTN9cKXWzPN88jXs3M4a1CBj0038ES
- jFU2bm3ZHvBcDENcRXjiy3Vap/G5H4AGoPr3JOTMVn7A/Ts0rmSZaK6JykUd0OoSPt+w
- 8HBrHLpF317pbpJLw4u/1TCPtqGS/IvqyI7sM8vXJym3WjYOgSsIAjeTAwalWsGK2Z/b
- 1FLA==
+ d=oss.qualcomm.com; s=google; t=1788851040; x=1789455840;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=rSgnM7WQLIr2JaQ5sXzvM8SpynBQx/3leL7JcFUsetI=;
+ b=K3SaNjDdV7IoBFSMbxMhLa0Tyw/ZizRrMMC/QjSha9EWMRs3SyI8bYX/ZK1kM/au1u
+ TeJcia7Z4BLchjGcIA2Myhr+ndNjCDK7awynlkjZc1ifyyp/ZlyR2icE92MhD1bz04U4
+ gwPEZofl7zPRMi3JzVh3GZGmiR2V/OVa4lNncjSu8Jw5141pM9eL8Zu6Gk73pLMiRISK
+ z6XBaCeBoI4eT8MtsY1yfEurqInR3U3yXHyKs+Q1HYH1mcCpGqj9Tvz93FLFyApEBXrI
+ /cqnVluCD/+IPXN9yExLkX0wmFi5+wPUn+yGjIMuyWOoGFBl4xvBtcP64TJaT4/eWd47
+ 3nqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788850971; x=1789455771;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1788851040; x=1789455840;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=NELnY7rhvN2fX0w+mwkpJWMxqnyiES6ZAAlSHyGONzo=;
- b=A64FoqjlL9lrpETj8YSHjV4xWs9cSbuXnKUp4UwBgDoGtkb9f3DtpCgoMUPlDbjxSG
- 1mGLG/JmcNHgtPKRvMQt7CrwD/5uSM0fj17kiHZWRHnLxxmlDwIh+uVtTPeiulwc1rgc
- nTOl8prqzTVuCbz3qXoiWB20HX0P5s8i1+Fal0JYGQ2fY5qs2+pYJkJLyPsVuQwQvdGa
- sgJjSEx6XMXwVaB4QUZ1amMlIx4tEw/Q+rlpIl/AYPuxLB4zXC9iKiuTm0ZHZCzkbS1b
- VFYccDHN+KUKE9GAEeZHGKH3Aw66IDXB7dupNNcVrsYQPyafqVC6K5QCflD+dRJPnCBh
- 0o8Q==
-X-Gm-Message-State: AFuF++nFarBFrDginpzuEm1jA3AqMiZ8UtUAl4AGmsFgtT5mja+Evxsz
- GpgjceJrFiX0zeAI8N7i23hAq+4HPzP8h20W0ngqNTjVnNxMIixl9usQ
-X-Gm-Gg: AYBFou0GnPohyMTcV45KzcSl7YO15CwaI0n8TG0dPEHc32Pkg+vUILyRvCyLwc/z0OD
- WDx+KxYSHwQp7B92ELHpxTpl1x1oDtnBjo+OtsyYYX4VrD0tMD+voNzZa5aoTmT6q4EpLbSzxv/
- 6qbbH60NqVH7dbLhgIvODOOK/v+7+cCwDGEdxSNoilVWEVVdz+q5t6gce0A+dEs+qBelC+9i1LU
- IBEJMOmsIRr3ZKKuE0Z8QRCqSlH1h77o13HL2AiR/mSGQUpRWCsbT9aaFtpS8cpFQtMin4CWx8l
- GFsriDLjUaaY18rBNRRqHC5WLuxil4A1HfmiCk029b24BBKCv3XwTZOJmZeKLySI/tWgzqtV+WN
- uCbF1ulwSTGoDE2sHPvZyYHj/bcVE0owWzx4ngPhP4QlFSZbnhMHs6sVouigFvPtvIrMxGkg8qX
- oJK95DmfPcq3+JH3MFqXBbcNOhMKYF8bNSKCcrnWarDIGLeExuwwdCWuh66+/NiTsT9/gS+7Gef
- NCm52TXefeYjQ==
-X-Received: by 2002:a17:903:38cc:b0:2c7:ef84:c58e with SMTP id
- d9443c01a7336-2db276b8656mr203032685ad.1.1788850971418; 
- Tue, 08 Sep 2026 00:02:51 -0700 (PDT)
-Received: from fedora (45.62.127.193.16clouds.com. [45.62.127.193])
+ bh=rSgnM7WQLIr2JaQ5sXzvM8SpynBQx/3leL7JcFUsetI=;
+ b=IQHuw0UYy1yaTsWNGumd2PMV+IRRDkhIFqX6RRgG+OeG5H1REgnMSil/Qa7fhipJZ8
+ 59ADoR72pDYj9DtqIxKz3IUAOpOgY35hlSpbV/XIBN3viqHlac98gD2mHpY4P5J763mV
+ SJFY2aZz/JQSl7U4wKPFmo74i7LTmaQfhIQsY4NdYBHw2vpFxy4q8Hpr1eB91WY8yXU7
+ 9qtxnsANGPiyLuIkGhxnICh3OHpMe4EaIln1cwTWJ7q5IoLmqo2EmjwLBQwzW5nBGCv6
+ vVl+lIoA2vqr//P/JbJx8ABU1CSw2BQ7wia658FdwQOi8OQfUHNoLlkc2YP5uXDYoV1s
+ U1TA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy0Ioa5vVTsOskQQYXEm65LkjFkpXDJ0VC1Jq7RADZqcOUlHJ+mUiXQblN4jptD1WbLRRPR109DKl4=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lubfSRR523Pq9izkS0okFNie0376Pp2G/y0TCV1EubnoMARUcr
+ IwSGCwPx71kT2ndVoCGwF2nQPFcRbrTVmkUf/Yx46JR1sganOkxwaeb6enuS/+nEytE4KJWVIT3
+ zRStEz2G/6tgtbyWGWWNjEPaXV1XRQ4zIHutFQKF4rKz57JqcsYUtvdLz/pNwbb75Wf5kJmg=
+X-Gm-Gg: AYBFou0CjwiJhKbp/BWk+9Pg3/ZLV/XgrEkZgsgvnZ6ab0Ygx/FuyfZg4hRuYQcrxh/
+ +cXhICyp0zSVSY3bmw6zB1AOipG9fMSH5RVHho1hOpQcDPMutY6Zovvkll2ImSDfBACDijB9chF
+ HtW2mFoKiOp7NiOHziBVx7RzC+ViPjI5sdTtNjrnQi82HS/gESdJzw7N+QbzFGiIj5Sv+sIxciW
+ tQl9NSrZmEChsDMXtM7dDspJBeENyxf8fiKJyRrm3TniR9e8FUWgacwFWvnUdglT9xXMayi4PW/
+ nBW2Lvn3s55rO9Q0P7cp2SDvtHlNouf1DsQyH3qKzmllqPcwhCA6XcEmTRgK/4Ra8MfDeq2x3GS
+ GZ7WRuYSM4NJ9rQNK8X+BcQ==
+X-Received: by 2002:a05:620a:4623:b0:931:23a:83ca with SMTP id
+ af79cd13be357-93980be17f4mr2342017385a.4.1788851040221; 
+ Tue, 08 Sep 2026 00:04:00 -0700 (PDT)
+X-Received: by 2002:a05:620a:4623:b0:931:23a:83ca with SMTP id
+ af79cd13be357-93980be17f4mr2342006485a.4.1788851038866; 
+ Tue, 08 Sep 2026 00:03:58 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2db1483ea94sm54981615ad.9.2026.09.08.00.02.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 00:02:50 -0700 (PDT)
-From: Frank Zhang <rmxpzlb@gmail.com>
-To: royalnet026@gmail.com, Laurent.pinchart@ideasonboard.com,
- airlied@gmail.com, andrzej.hajda@intel.com, luca.ceresoli@bootlin.com,
- cristian.ciocaltea@collabora.com, daniels@collabora.com,
- detlev.casanova@collabora.com, dmitry.baryshkov@oss.qualcomm.com,
- heiko@sntech.de, jernej.skrabec@gmail.com, jonas@kwiboo.se,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- neil.armstrong@linaro.org, rfoss@kernel.org, simona@ffwll.ch,
- tzimmermann@suse.de, sebastian.reichel@collabora.com,
- macromorgan@hotmail.com
-Cc: dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v5] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe when
- PHY is down
-Date: Tue,  8 Sep 2026 15:02:20 +0800
-Message-ID: <20260908070220.41574-1-rmxpzlb@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ a640c23a62f3a-c260d5497cbsm564096566b.34.2026.09.08.00.03.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Sep 2026 00:03:58 -0700 (PDT)
+Message-ID: <80eb9f51-9cff-4c07-822a-759360617cbf@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 09:03:55 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/adreno: keep the GPU timestamp monotonic across
+ power collapse
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260828-b4-adreno-timestamp-v1-1-273525da144c@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260828-b4-adreno-timestamp-v1-1-273525da144c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA3MSBTYWx0ZWRfX5GLCq0tWd1Ho
+ AiAUx0SDybbAlotQC1UqWArfO7BnrBcNgB15rUt6NpCUbJ9DsDb3fAlmuKYZw+LcwBHuuzz6prw
+ CiTLqZl+OGkfL2oRI8dnR2wrEJyuTzGMGlIYfjH6VDVSu9ANjSah5WcL1OG1OB3XjT2awDGGmrt
+ iXA602WCVMscYzOPn96hsxtjhmR5KYj/vZeRq/q2RyvifqrUSeMzG/SRPUdXhsvI6OCQ11QNa0J
+ 5oIDooo3qsHz9iFD/wmE1kpJ47ydW+vvdJ0/hQ7v7fbqZsAcDHNdF26x1wDoHfT6QATIzvDPmGr
+ igYX3k0FecHJ17XgpoV8yYnZJf10odnmHBePcAsWmEfH1+KkmzErFCPSGztSZthNUT2L5ZEpWJu
+ zpd5Q9K8dc0p5Lpiu+OtgPU4Uo6ObagJIT9o6yMVckntR5nWKF/xogQ73Wui7O8x3LCey4Pb8GX
+ FskBRT/wpvx8CmgWaxw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA3MSBTYWx0ZWRfX2WzEpNoo4rOz
+ Bbb+Xm5/0ALNfisbsk3lba+3PENFT1IySz57BQdxl0iv8k+7MCtNVnUo5b86ZyH+WONn4QsGdg8
+ ZPI6tg6W1hRd/BM9X0HavadJnf25c0o=
+X-Proofpoint-ORIG-GUID: omfwTWs4qpqAglem9Dox4vvAJzv75DQY
+X-Authority-Analysis: v=2.4 cv=U6aiy+ru c=1 sm=1 tr=0 ts=6a9fb365 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=xJso4tAO6kuAywU0jPoA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-GUID: omfwTWs4qpqAglem9Dox4vvAJzv75DQY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 impostorscore=0 phishscore=0 clxscore=1015
+ lowpriorityscore=0 malwarescore=0 priorityscore=1501 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609080071
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,102 +152,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The following panic was observed during system reboot:
+On 8/28/26 1:13 AM, Dmitry Baryshkov wrote:
+> The always-on counter behind MSM_PARAM_TIMESTAMP sits in the GPU power
+> domain on a4xx, a5xx and the GMU-less a6xx parts, so it restarts from
+> zero whenever the GPU is powered up again and the timestamp reported to
+> userspace jumps backwards. On an a702 six reads three seconds apart all
+> land in the 500..1200 tick range, stepping backwards twice, and on an
+> a530 the OpenCL device timer conformance test fails because
+> clGetDeviceAndHostTimer() returns an end time below the start time.
+> 
+> Save the counter in the suspend path of the affected generations, while
+> the GPU is still powered, and add the accumulated ticks to the value
+> reported to userspace.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+> The always-on counter behind MSM_PARAM_TIMESTAMP sits in the GPU power
+> domain on a4xx, a5xx and the GMU-less a6xx parts, so it restarts from zero
+> whenever the GPU is powered up again and the timestamp userspace reads
+> jumps backwards.  Accumulate what the counter reached before each suspend
+> and add it to what is reported afterwards.
 
-Kernel panic - not syncing: Asynchronous SError Interrupt
-CPU: 6 UID: 1000 PID: 2348 Comm: pipewire ... 7.0.5+ #4 PREEMPT(full)
-Call trace:
- ...
- regmap_update_bits_base+0x70/0xa8
- dw_hdmi_qp_bridge_clear_audio_infoframe+0x3c/0x58 [dw_hdmi_qp]
- drm_bridge_connector_clear_audio_infoframe+0x2c/0x48 [drm_display_helper]
- ...
- dw_hdmi_qp_audio_disable+0x28/0xa8 [dw_hdmi_qp]
- drm_bridge_connector_audio_shutdown+0x38/0x68 [drm_display_helper]
- drm_connector_hdmi_audio_shutdown+0x28/0x40 [drm_display_helper]
- hdmi_codec_shutdown+0x60/0x90 [snd_soc_hdmi_codec]
- ...
- snd_pcm_release_substream+0xcc/0x120 [snd_pcm]
- snd_pcm_release+0x4c/0xc0 [snd_pcm]
- ...
+Could (some) a5xx parts use A5XX_GPMU_ALWAYS_ON_COUNTER/0xa879?
+msm-3.x defines it as KGSL_PERFCOUNTER_NOT_USED fwiw..
 
-The root cause is pipewire tries to close the HDMI audio device after
-atomic_disable(), which sets tmds_char_rate to 0 and disables the PHY.
-
-In this case, dw_hdmi_qp_audio_disable() will call
-dw_hdmi_qp_bridge_clear_audio_infoframe(), accessing register without
-checking tmds_char_rate.
-
-Guard the register access in drm_display_helper callback function with
-tmds_char_rate check.
-
-Fixes: fd0141d1a8a2 ("drm/bridge: synopsys: Add audio support for dw-hdmi-qp")
-Cc: stable@vger.kernel.org
-Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
-
----
-Changes in v2:
-- Move drm_atomic_helper_connector_hdmi_clear_audio_infoframe() inside
-  the if (hdmi->tmds_char_rate) of dw_hdmi_qp_audio_disable().
-- Link to v1: https://lore.kernel.org/all/20260416093150.13853-1-rmxpzlb@gmail.com/
-
-Changes in v3:
-- Add a tmds_char_rate guard in clear_audio_infoframe path.
-- Decouple write_audio_infoframe from clear_audio_infoframe.
-- Balance the PKTSCHED_AMD_TX_EN bit enable/disable.
-- Link to v2: https://lore.kernel.org/all/20260418101936.7731-1-rmxpzlb@gmail.com/
-
-Changes in v4:
-- Update panic stack on 7.0.5
-- Link to v3: https://lore.kernel.org/all/20260423081514.15444-1-rmxpzlb@gmail.com/
-
-Changes in v5:
-- Reuse the origin dw_hdmi_qp_bridge_clear_audio_infoframe and add
-  tmds_char_rate guard in new callback function.
-- Link to v4: https://lore.kernel.org/all/20260512103153.8861-1-rmxpzlb@gmail.com/
----
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index 1c214a8e6dc2..8729783d4eb6 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -880,7 +880,7 @@ static int dw_hdmi_qp_bridge_clear_spd_infoframe(struct drm_bridge *bridge)
- 	return 0;
- }
- 
--static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
-+static int __dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
- {
- 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
- 
-@@ -893,6 +893,16 @@ static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
- 	return 0;
- }
- 
-+static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
-+{
-+	struct dw_hdmi_qp *hdmi = bridge->driver_private;
-+
-+	if (hdmi->tmds_char_rate > 0)
-+		return __dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
-+
-+	return 0;
-+}
-+
- static void dw_hdmi_qp_write_pkt(struct dw_hdmi_qp *hdmi, const u8 *buffer,
- 				 size_t start, size_t len, unsigned int reg)
- {
-@@ -987,7 +997,7 @@ static int dw_hdmi_qp_bridge_write_audio_infoframe(struct drm_bridge *bridge,
- {
- 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
- 
--	dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
-+	__dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
- 
- 	/*
- 	 * AUDI_CONTENTS0: { RSV, HB2, HB1, RSV }
--- 
-2.55.0
-
+Konrad
