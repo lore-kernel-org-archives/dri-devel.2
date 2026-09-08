@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87F50C79FA1
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 22:18:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60149C79FA1
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 22:18:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7B5B10E545;
-	Tue,  8 Sep 2026 22:18:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F0F410EDCC;
+	Tue,  8 Sep 2026 22:18:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SalXP7lN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Rqvsp2ep";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67DA910E545
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 22:18:19 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E397210EDCC
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 22:18:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7263B601F9
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 22:18:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F25721F00A3A;
- Tue,  8 Sep 2026 22:18:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CD2C141639
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 22:18:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 927AF1F00A3A;
+ Tue,  8 Sep 2026 22:18:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788905898;
- bh=PBrIP2DJBT88HSlRiXtLS4awhCcSQfSKt0kBQOARubg=;
+ s=k20260515; t=1788905903;
+ bh=wfsBmdFAySsvGk3lfeNwqwIsh2Jn2nSDGzG1yWDWNNw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SalXP7lNgsGJgQ/OwtvxY4chRAmhOeNDxNl3Ua8timC4XK+EkCQl+SpfcwijPCO7n
- JWp9AgT3AZGH9YS8Z0DkVKkESkkHisvyu3icNrpizQnxZ6LOcknsqj+AS7FAro0jkt
- xf3RaXhEn0r7sfVIA/c0xaSrpmAg48FHS1HCkcY+5fCWyni1uF4t1hxfPUjsZazgq9
- Q/iHgM6u27WLl/IPWZBwxG79b5d5XqalBEk62ExZ/hi10hrXth6cKzEcIlkLQYIKyV
- N1Zn6HNpuY/T7z+IrgkueDFMcOI5p3jvvt5TpwleLWaNgQKjc+CGvI0bXZAt80wI5O
- 1LRNz+QkLL01A==
+ b=Rqvsp2epKNoKgMdMiFd2zV++i09fVeMDPpukJV2QteU1Myp3adXvR0+MSpeD4Jpov
+ HuhD997p0ASV4k7wdUFDXF/jf5zto4ipegYP3N0TLl7+EeqwAnbC9+IGs/fN1opUst
+ 0WXwajry5oKJDUkRTuDa1ORnYp2bB7Ks5+GGLqgYTVrd9Smzu1xGv82v+GuyzhUaIr
+ b3xFtUp66f18NgGX6Q0IU5C3mAEpNmw2UbfM8lhZtp6/qvLxTF3iQZw5QiNFBzH237
+ 2HoGWDaNG0ZC+bu6UCfKdD3jsEo4fcXjEd0Xbg1r5EZ2hjJEQw9QRhWKQlsN9C2g5x
+ qixNpowbghY3A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 04/22] accel: ethosu: Disable clocks on PM setup failure
+Subject: Re: [PATCH v3 03/22] accel: ethosu: Fix probe error cleanup
 To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260908-ethosu-fixes-v3-4-490fe215286f@kernel.org>
+In-Reply-To: <20260908-ethosu-fixes-v3-3-490fe215286f@kernel.org>
 References: <20260908-ethosu-fixes-v3-0-490fe215286f@kernel.org>
- <20260908-ethosu-fixes-v3-4-490fe215286f@kernel.org>
+ <20260908-ethosu-fixes-v3-3-490fe215286f@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 22:18:17 +0000
-Message-Id: <20260908221817.F25721F00A3A@smtp.kernel.org>
+Date: Tue, 08 Sep 2026 22:18:23 +0000
+Message-Id: <20260908221823.927AF1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,175 +57,167 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The IRQ handler accesses hardware registers unconditionally withou=
-t verifying if the device is active via pm_runtime_get_if_active(), risking=
- a system crash on spurious interrupts.
-- [High] DRM scheduler is finalized before its file-bound entities are dest=
-royed, resulting in a Use-After-Free.
-- [High] NPU SRAM is not cleared between consecutive jobs from different pr=
-ocesses, leading to data leakage.
-- [High] Missing upper bound check against UAPI array size leads to out-of-=
-bounds read/write in `ethosu_ioctl_perfmon_create`.
-- [High] Unvalidated hardware register `QREAD` used as an array index cause=
-s out-of-bounds memory read in `ethosu_job_timedout`.
+- [High] The IRQ is requested and enabled before the DRM scheduler is fully=
+ initialized and before device clocks are enabled, causing potential crashe=
+s or bus stalls on spurious/pending interrupts.
+- [High] The DRM scheduler is torn down while the device IRQ is still activ=
+e, allowing the IRQ handler to access destroyed scheduler structures.
+- [High] `ethosu_job_fini()` clears the `in_flight_job` without signaling i=
+ts `done_fence`, causing tasks waiting on the fence to hang indefinitely.
+- [High] Use-After-Free during device removal due to missing `drm_dev_enter=
+()`/`drm_dev_exit()` in ioctls.
 --
 
-commit 9bfcf97ff7178db9d34db7f9533d5df371a4f57c
+commit cee294332b061aafaf416ab459f70a84d756797f
 Author: Rob Herring (Arm) <robh@kernel.org>
 
-accel: ethosu: Disable clocks on PM setup failure
+accel: ethosu: Fix probe error cleanup
+   =20
+This commit fixes a probe error path bug in the Ethos-U NPU driver.
+If ethosu_init() or drm_dev_register() fails, the probe function returns
+without tearing down the job scheduler or freeing the SRAM pool.
+The commit adds proper resource unwinding for these failure paths.
 
-ethosu_init() enables the clocks directly to reset and query the NPU
-before runtime PM takes over. If runtime-PM setup fails, the error path
-returns while those clocks remain enabled. Disable the clocks before
-returning the setup error to balance the initial direct resume.
+Cc: stable@vger.kernel.org
 
 > diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/eth=
 osu_drv.c
-> index 2c8d735767b2a..9d063daa1aa7d 100644
+> index 1f6fb5d18cf22..2c8d735767b2a 100644
 > --- a/drivers/accel/ethosu/ethosu_drv.c
 > +++ b/drivers/accel/ethosu/ethosu_drv.c
-> @@ -311,8 +311,10 @@ static int ethosu_init(struct ethosu_device *ethosud=
-ev)
->  	pm_runtime_set_autosuspend_delay(ethosudev->base.dev, 50);
->  	pm_runtime_use_autosuspend(ethosudev->base.dev);
->  	ret =3D devm_pm_runtime_set_active_enabled(ethosudev->base.dev);
-> -	if (ret)
-> +	if (ret) {
-> +		ethosu_device_suspend(ethosudev->base.dev);
->  		return ret;
-> +	}
->  	pm_runtime_get_noresume(ethosudev->base.dev);
+> @@ -375,9 +375,20 @@ static int ethosu_probe(struct platform_device *pdev)
 > =20
->  	ethosudev->npu_info.id =3D id =3D readl_relaxed(ethosudev->regs + NPU_R=
-EG_ID);
-
-
-> drivers/accel/ethosu/ethosu_job.c:ethosu_job_irq_handler()
-> {
-> 	struct ethosu_device *dev =3D data;
-> 	u32 status =3D readl_relaxed(dev->regs + NPU_REG_STATUS);
->=20
-> 	if (!(status & STATUS_IRQ_RAISED))
-> 		return IRQ_NONE;
+>  	ret =3D ethosu_init(ethosudev);
+>  	if (ret)
+> -		return ret;
+> +		goto err_job_fini;
 
 [Severity: High]
-This is a pre-existing issue, but does this IRQ handler need to verify if
-the device is active?
+This is a pre-existing issue, but does calling ethosu_job_init() before
+ethosu_init() leave us vulnerable to spurious interrupts?
 
-If a spurious interrupt occurs while the device is in the RPM_SUSPENDED
-state with clocks disabled, will this unclocked register access result in a
-synchronous external abort and a kernel panic?
+In ethosu_probe(), the IRQ is requested and enabled via
+devm_request_threaded_irq() (without IRQF_NO_AUTOEN) during
+ethosu_job_init(). However, device clocks are not enabled until
+ethosu_init() runs.
 
-Should this check pm_runtime_get_if_active() before accessing the register?
+If a pending or spurious interrupt fires immediately before clocks are enab=
+led:
 
+ethosu_job_irq_handler() {
+    u32 status =3D readl_relaxed(dev->regs + NPU_REG_STATUS);
+    ...
+}
 
-> drivers/accel/ethosu/ethosu_job.c:ethosu_job_fini()
-> {
-> 	drm_sched_fini(&dev->sched);
-> }
->=20
-> [ ... ]
->=20
-> drivers/accel/ethosu/ethosu_job.c:ethosu_job_close()
-> {
-> 	struct drm_sched_entity *entity =3D &ethosu_priv->sched_entity;
->=20
-> 	drm_sched_entity_destroy(entity);
-> }
+Can reading from memory-mapped registers with disabled clocks stall the bus
+or cause a synchronous external abort? Furthermore, if the thread handler
+executes, it calls drm_sched_fault() on a scheduler that may not be fully
+initialized yet.
 
-[Severity: High]
-This is a pre-existing issue, but does this lead to a use-after-free when
-closing file descriptors?
-
-When the device is unbound, ethosu_remove() tears down the scheduler.
-However, if a userspace process holds a file descriptor open, its
-sched_entity remains active.
-
-When the file descriptor is later closed, ethosu_job_close() calls
-drm_sched_entity_destroy().
-
-Will drm_sched_entity_destroy() attempt to access the already destroyed
-and freed scheduler via entity->rq->sched, causing a panic?
-
-
-> drivers/accel/ethosu/ethosu_job.c:ethosu_job_hw_submit()
-> {
-> 	[ ... ]
->=20
-> 	if (job->sram_size) {
-> 		writel_relaxed(lower_32_bits(dev->sramphys),
-> 			       dev->regs + NPU_REG_BASEP(ETHOSU_SRAM_REGION));
+>  	ret =3D drm_dev_register(&ethosudev->base, 0);
+> +	if (ret)
+> +		goto err_sram_free;
+> +
+> +	return 0;
+> +
+> +err_sram_free:
+> +	if (ethosudev->sram)
+> +		gen_pool_free(ethosudev->srampool, (unsigned long)ethosudev->sram,
+> +			      ethosudev->npu_info.sram_size);
+> +err_job_fini:
+> +	ethosu_job_fini(ethosudev);
 
 [Severity: High]
-This is a pre-existing issue, but is there a data leakage risk here?
+This is a pre-existing issue, but does calling ethosu_job_fini() here tear
+down the scheduler while the device IRQ is still active?
 
-The NPU SRAM is shared globally across jobs. It appears it is only cleared
-during ethosu_device_reset() when runtime PM resumes. Because the driver
-uses a 50ms autosuspend delay, consecutive jobs submitted within 50ms do
-not trigger a suspend/resume cycle and the SRAM is not cleared.
+ethosu_job_fini() calls synchronize_irq() to wait for executing handlers,
+but does not disable the IRQ line before calling drm_sched_fini().
 
-Can a malicious process submit a job immediately after another process's
-job and craft a command stream to DMA the contents of the
-ETHOSU_SRAM_REGION to its own memory, exfiltrating the previous process's
-weights or intermediate activations?
+Because the IRQ is managed by devres, it remains enabled until devres
+teardown, which happens after the probe error path completes. If the device
+generates an interrupt in this window, the thread handler can execute:
 
+ethosu_job_handle_irq() {
+    ...
+    drm_sched_fault(&dev->sched);
+}
 
-> drivers/accel/ethosu/ethosu_perfmon.c:ethosu_ioctl_perfmon_create()
-> {
-> 	/* Number of monitored counters cannot exceed HW limits. */
-> 	if (req->ncounters > ethosu->npu_info.pmu_counters)
-> 		return -EINVAL;
->=20
-> 	[ ... ]
->=20
-> 	perfmon =3D kzalloc_flex(*perfmon, values, req->ncounters);
-> 	if (!perfmon)
-> 		return -ENOMEM;
->=20
-> 	for (i =3D 0; i < req->ncounters - 1; i++)
-> 		perfmon->counters[i] =3D req->counters[i];
+Could this result in a use-after-free by accessing the already-destroyed
+DRM scheduler?
 
 [Severity: High]
-This is a pre-existing issue, but does this lack an upper bound check on
-the UAPI array size?
+This is also a pre-existing issue, but does ethosu_job_fini() clear the
+in-flight job without signaling its completion fence?
 
-The function validates req->ncounters against the hardware-reported count
-rather than the static UAPI array size limit
-(DRM_ETHOSU_MAX_PERF_EVENT_COUNTERS, which is 8).
+When ethosu_job_fini() checks READ_ONCE(dev->in_flight_job), if it is
+populated, it clears the pointer and resets the hardware:
 
-If the hardware reports more than 8 counters, and userspace passes
-req->ncounters > 8, will this loop read past the end of the req->counters
-array and write past the end of the perfmon->counters array, corrupting the
-dynamically allocated values array?
+ethosu_job_fini() {
+    ...
+    if (READ_ONCE(dev->in_flight_job)) {
+        WRITE_ONCE(dev->in_flight_job, NULL);
+        ethosu_device_reset(dev);
+    }
+    ...
+}
 
+Because the hardware is reset, the completion interrupt will never arrive.
+Without extracting the job and signaling its done_fence (e.g., with
+-ECANCELED), could this cause userspace or kernel tasks waiting on the
+fence to hang indefinitely during probe failure or driver unbind?
 
-> drivers/accel/ethosu/ethosu_job.c:ethosu_job_timedout()
-> {
-> 	[ ... ]
->=20
-> 	cmdaddr =3D readl_relaxed(dev->regs + NPU_REG_QREAD);
->=20
-> 	[ ... ]
->=20
-> 	dev_err(dev->base.dev, "NPU sched timed out: NPU %s, cmdstream offset 0x=
-%x: 0x%x\n",
-> 		running ? "running" : "stopped",
-> 		cmdaddr, bocmds[cmdaddr / 4]);
+>  	return ret;
+>  }
+> =20
+> diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/eth=
+osu_job.c
+> index 8dce74db0cb48..ec65305e0cd7d 100644
+> --- a/drivers/accel/ethosu/ethosu_job.c
+> +++ b/drivers/accel/ethosu/ethosu_job.c
+
+[ ... ]
+
+> @@ -355,14 +355,10 @@ int ethosu_job_init(struct ethosu_device *edev)
+>  	ret =3D drm_sched_init(&edev->sched, &args);
+>  	if (ret) {
+>  		dev_err(dev, "Failed to create scheduler: %d\n", ret);
+> -		goto err_sched;
+> +		return ret;
+>  	}
+> =20
+>  	return 0;
+> -
+> -err_sched:
+> -	drm_sched_fini(&edev->sched);
+> -	return ret;
+>  }
 
 [Severity: High]
-This is a pre-existing issue, but can this cause an out-of-bounds memory
-read?
+This isn't a bug introduced by this patch, but are the driver's ioctls
+missing drm_dev_enter() and drm_dev_exit() protections?
 
-Since cmdaddr is read directly from the hardware and entirely unvalidated,
-if userspace crafts a malformed command stream that hangs the NPU and
-leaves QREAD with a large value, will cmdaddr / 4 exceed the bounds of the
-mapped bocmds buffer and cause an invalid memory access?
+During a hot-unplug event, ethosu_remove() calls drm_dev_unregister(),
+which stops new opens but allows existing file descriptors to persist. It
+then tears down the DRM scheduler via ethosu_job_fini().
+
+However, ethosu_ioctl_submit() and the ETHOSU_PERFMON_* ioctls do not verify
+the device plug state. A concurrent userspace process holding the file
+descriptor can still issue the ETHOSU_SUBMIT ioctl:
+
+ethosu_ioctl_submit_job() {
+    ...
+    ret =3D drm_sched_job_init(&ejob->base, &file_priv->sched_entity, ...);
+    ...
+}
+
+Can this lead to a use-after-free if userspace calls into the DRM scheduler
+after dev->sched has been destroyed during device removal?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-ethosu-fix=
-es-v3-0-490fe215286f@kernel.org?part=3D4
+es-v3-0-490fe215286f@kernel.org?part=3D3
