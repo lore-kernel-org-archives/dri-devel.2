@@ -4,102 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EC6BC79F99
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 19:45:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EBEEC79F99
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 19:47:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B53410E40D;
-	Tue,  8 Sep 2026 19:45:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55BCF10E172;
+	Tue,  8 Sep 2026 19:47:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="Ck/aUgKV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hw6T8i1n";
 	dkim-atps=neutral
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com
- [209.85.222.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8EAE10E40D
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 19:45:01 +0000 (UTC)
-Received: by mail-qk1-f181.google.com with SMTP id
- af79cd13be357-9399d52b1efso146342785a.0
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 12:45:01 -0700 (PDT)
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
+ [74.125.227.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA61010E172
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 19:47:29 +0000 (UTC)
+Received: by mail-pj2-f12.google.com with SMTP id
+ 98e67ed59e1d1-39666e7c9edso484662a91.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 12:47:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788896849; cv=none;
+ d=google.com; s=arc-20260327;
+ b=WEclFNJfANO7Xio4GYH6TU5b+KyvOajDwyn+ApUWeHD81hA/KNHfmlA0axbQHnVqop
+ DIh7qEwermtaEvC7fwmWn8Yz9fvde/Ie7yQveBetoFH3aRTVcIgHOTttLuGQdhl+uWGn
+ Xj6MOYdkt4C7dFDbc/FEpUWAY3g1vU1Uy3/rFQDBmfVLZ71KECeNH3XHGiI9V73rR/SL
+ pd5A0/pCzbtSVBLumIat/v45UZ3ysO6Y6Em7VLHH96E8DEqrEwwtNQYa2dRe3imu37Bk
+ zinToec/6a4PwjcicAJGN9n3CFU22FUXomDsw4TJoiQiYvnbzsRI8HZJ1d0y1QYvaYLU
+ Hurw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=iY5QnsT4qlVhjZv2PDQCFtybqjTxSMGZqhX7XmXrD0U=;
+ fh=KpTxspJqQ+dYYz+xdVFKutkbMTh3R/cWHXvEE9yI4Ys=;
+ b=cRlAjJLCi3sNzaXtP2Yy6L/hLzbxZAAgQjSDq0+dDzmX4OFdoyw5W6gfBYUSxy/Mm/
+ Z4r+VlPRZmaeehYUzhwd30IBdiDR1j0AqzrEADu9T0BmklYsIs4php/YYR8EiNzle4sh
+ BAm1uiCSiI5jmEbp5J+ZyzwWjvqQdvA8nRphe9ffgQOV8v/OPoECx2pDpBfE0OHAtVrO
+ LhLDXu9S0AYOtn6a5f23OQg9+mZvkr5NDPkLJaxC9gIu5QanJF5rMkcvWMSNUR00kxaS
+ KN5J1qIotaCpT1jvYCFT0/6qYfkwOSA5HdxCeg4LbL6JzcsbrVtPKiuYJ/CWuRC+yI0D
+ 4Rrg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1788896701; x=1789501501;
- darn=lists.freedesktop.org; 
- h=mime-version:user-agent:content-type:autocrypt:references
- :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1788896849; x=1789501649; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=V3TjnSkAaGngA7Ul+JQ8TuSqUVKVX25sXhLVMtD92ig=;
- b=Ck/aUgKVsJ/ks82lnivOmIzR40zdBHUrhuzEgZ6IugC1dn1uHs8Uj4X2cCYSsRFmbE
- 9ZWzpftWGDcOZr9dJAwPlPlyznyWX/kMZ03EeGKAG7SVwJYazoJkOugrlpjjiGIhFRfb
- fta0N5x2mcXpxwDByaE5uEsTFlLlDCAbg9crvO3y53cc0MSwLeNGf1wEKM+1EHrl3q5Q
- ynGfpwcS+jCmv1G3XK7jeu7V2vQzV+zRJP/xWTJ3ErNFRCfQygVcnFPJAvQM4KNnVw+D
- EKarXSgGIaBZWBdtQXMv1U5n/Qlk11vUL6kYuIIgGjdVLclaIRr/UfQqhf3pCJPwIg/o
- zY/w==
+ bh=iY5QnsT4qlVhjZv2PDQCFtybqjTxSMGZqhX7XmXrD0U=;
+ b=hw6T8i1nQtssjw8U2tcu+hMlUiCY1fx6OSzmfTcMOdJN5yHafuuWEudnWvCnFo6G4I
+ /IJdyZyH2DxoEsuQZx8sY2ohwAUfvtqivJUIFa2QeINnRPKA+JzDCyj3lmpiB8kuvgtj
+ OjLHYWv3TA/JeImtnz0Q9BED7nLB0w2dHypxZ3pMxjDQgvZutttYPrkYSaAUfmjSNp8S
+ cTSrfrlrYrqn56qiUDQ768eT5Q/ugkMyHImWNsrNATgH2m/FdCkQ/SGSh7GJ+p1PKyD/
+ XHGYgx9g/9ROC00BAXkkHIjNS3ewPv4mABaLvXD7tMBtxQhLgWi9d60/AqCLEWyQ/oAi
+ DNxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788896701; x=1789501501;
- h=mime-version:user-agent:content-type:autocrypt:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ d=1e100.net; s=20251104; t=1788896849; x=1789501649;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=V3TjnSkAaGngA7Ul+JQ8TuSqUVKVX25sXhLVMtD92ig=;
- b=sN8uIdDK3CkRUA8UtzggOJsb6lNtaX/WC1e3T/0gT8K9lwBExHyOavnA9AqKYPCBgS
- 8NIhHPwtAIsLvlWbbgG5F7yCOpaHDl95FVzP3ij9zhwwT4T+Bu9wA2j6RNXOSAR6sKgc
- j5wf0G/EVFUp9vhnOYV4pcVbyXMqkM+VaZURxsztrbwKM9YHtcADpJkolxzj4aN+0tad
- Tuw0Gu15Ea9RvCw4y37UNcGdb1n6e46jwILxLhZJbqfS0LDlzVauHFa/+B8uyRTSRHu5
- Wk85rN7sComUKa8vxUFNs8fwlvZ+0n+lJy5PESVm37sa68MEZrYmBVVZh3uHUHoBOxPw
- 0mpQ==
+ bh=iY5QnsT4qlVhjZv2PDQCFtybqjTxSMGZqhX7XmXrD0U=;
+ b=SYlFsJs1bVAZbLQSerrjLAlU1KGVAH7pO/TJ16UwcUox9WQxTIytBqyAMKwt1eebFr
+ s819kJVlsGjUY/3/c/ZMgY8h6Ih+10/hTLfgJ9IyWSVlY+ZpcYssL0BZYQZWT/MhrcJ7
+ Q/S5G7HagDaTJ19AS0C73gBs4J3Qe1HKoiTpyXD4GVWNz0G8+pcWaQ1y/e/uFzNRklKq
+ xL0S863b+nbJMpGRC/hr9UxNsVEeMDy/GUdu+FM8j7ntvM5Nk4hi1Z7YpPt4bnMi7qMi
+ x4g8Aa6T2/6tL34ukhE1g9lyexP7P0x1Wy8qmJJb5IGoN9cBHEU+3nZep4RsCPxO+veX
+ I4Yw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw/YE0BnnB8rDZ7ZJ0LwmO4jpDTBX1sxfAPNSP6OJzXaQ4eYcL534xCuN5trr7ZrvPogfQqedgDgV8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kBtrJZQlibbvVPGAgKtNKcIrWU3owO9ouWe/4d5dOOqJnoQdRQ
- BbUK3pjlO+EwWHnUXHoymjve4mg1/sZ0FWV40cMHn//VifXnLI/B3trf1mkMHqO3BVk=
-X-Gm-Gg: AYBFou1FxThovZ9lV8xWUIIt7ijOS7q5Z6jvZ4EH02DpI6fMv0oY7iIAyUTNdB2MqSB
- eAV8I5XbgxTWiQXt7Ye/VklvCyBmHx3ZmsdNzFl0Qi2XIeCkYOPH81gDoivgR4x5sDD8lVudPZe
- otRh6DP+ScvX20jtHF+OX8n4hcLNPKU1hnkCW2GhSdw4+2KQDRSKrDd/JaCEN1qCc4zaCtw/OD7
- bqCZQ8e2o+vox+0Jvyyv6KBiNBphnpih5AoNM7owwRRw3CgjiGlujJk5Ia7tKRRw9ybs32lYUm0
- CMjxXRclq7QGpGgKrzygoKbaN2F5HEpPt1w02bm8IEg1CK5DXNncEonGzRxg4al1pSDoRuYAQxa
- gJVV7m7n5q+8pHDJGjIhiKYKpUpo++/pVkDiRxlQeRx/vD4lPD9jAhOpbYTQHiV2Sc1dvvewtkg
- DDn12rYsGdLQ/Kn8E0wkDUatjmTwq/wp0w7nqO/ZJ9on/8JDpxx+EzHNdU3shrtys48CMyj2jfh
- I9vF2KLN6sg/fM=
-X-Received: by 2002:a05:620a:8393:b0:939:6df7:73f0 with SMTP id
- af79cd13be357-9398058750cmr3405750385a.50.1788896700593; 
- Tue, 08 Sep 2026 12:45:00 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:e221::5ac? ([2606:6d00:15:e221::5ac])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9397f9f4b3csm1210879385a.5.2026.09.08.12.44.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 12:44:59 -0700 (PDT)
-Message-ID: <c58d711ff5c9a01cfd69c2ddf86bfd969b36cc63.camel@ndufresne.ca>
-Subject: Re: [PATCH 3/7] arm64: dts: rockchip: rk3588: add an OPP table for
- the NPU
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Igor Paunovic <royalnet026@gmail.com>, Tomeu Vizoso
- <tomeu@tomeuvizoso.net>,  Oded Gabbay <ogabbay@kernel.org>, Heiko Stuebner
- <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sidong Yang <sidong.yang@furiosa.ai>,
- Diederik de Haas	 <diederik@cknow-tech.com>, Sebastian Reichel
- <sebastian.reichel@collabora.com>,  Jiaxing Hu <gahing@gahingwoo.com>,
- Jonas Karlman <jonas@kwiboo.se>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 08 Sep 2026 15:44:56 -0400
-In-Reply-To: <20260904130858.27803-4-royalnet026@gmail.com>
-References: <20260904130858.27803-1-royalnet026@gmail.com>
- <20260904130858.27803-4-royalnet026@gmail.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-6ejhBySV5wLJspcm2TMq"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+ AKwUvByGFIGi/ROGyhiE0UXVxFvz2QYXIdqY2WXkFg3/+SxSdgcL4q/71jS4XoRe82G0Vei9zWPlSTcB4yU=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lK2AAH50ty+5VK81wJgqnn1++5QsOfkg2w4Ixm72TT9f/YaWxc
+ I7Y4xvGZVgoDr+0KRlnYjfrm06DGO8Cqcj4OQQhcVXUe7+Pox2yEvciN6sixJ95f7KiF9MmbROW
+ r2y/CBvhVdeDZWuiP5UXH8dX7FaFqKUQ=
+X-Gm-Gg: AYBFou3Nm6Y5Iyoc3/IlBSJEzswBhabuKuJCV7TorO2PeSRha0OiSyQhYJsK+YJP2ve
+ QoveSfgR1ZTNHoapRLNcVPAvWtn4qhw4eHldqVOPs7OLHcnnJ54NxaDEHNGYYtG0sopOhDPGhlK
+ dKR+wNNg329Bt/xwV5vwY2/sy4ArlXc25Csqajjd4WVvGJhX6Wwz8aC0h5BoB3mpMZqc/K2bnjQ
+ BCmZ3w6iYW01DVxQ9K40gTCgX2kwO4NjA/q6T6TA09ynEPgsAOaRLwSsaRJkR8u7m90RNTmwtE/
+ lYfLKtSLYkyX0cBJX6+Z1dCGyZs1k7QXHyTzBnUEJJPkCiuST/OBNs2xZIf/AO4rHnQy1XAFz7i
+ NBQ5/HsARHQQnNS9fj1CvpUGLWANWnHZHrU89isqqkenQ/FWKT0obQ2d5splv93daLNqan6W5N4
+ fSx9tcxDwWgy2iBjJqeJEQKQ+9fOuRFTj6sg4oFKSd4kkkCz+h3oM=
+X-Received: by 2002:a17:90b:2801:b0:38f:aa76:88b with SMTP id
+ 98e67ed59e1d1-39b3d7d056fmr21707651a91.4.1788896849093; Tue, 08 Sep 2026
+ 12:47:29 -0700 (PDT)
 MIME-Version: 1.0
+References: <20260908-tyr-ioctls-v2-0-88bea777df67@kylinos.cn>
+ <20260908-tyr-ioctls-v2-1-88bea777df67@kylinos.cn>
+In-Reply-To: <20260908-tyr-ioctls-v2-1-88bea777df67@kylinos.cn>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 8 Sep 2026 21:47:15 +0200
+X-Gm-Features: AcwNN1XXa9g_iZLSTKQDHhq0xMt2HPgPqo8BFVOYoRvUTe0z8qL0cOKPZrDxOdc
+Message-ID: <CANiq72mdp9hS_U=Mtf5F6Qv8M9=m38xOXtCP_a4c_QtkwhpFEA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/9] rust: sizes: add SZ_4G constant
+To: sunke@kylinos.cn
+Cc: rust-for-linux@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Lyude Paul <lyude@redhat.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, dri-devel@lists.freedesktop.org, 
+ Alvin Sun <alvin.sun@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,208 +122,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Mon, Sep 7, 2026 at 6:48=E2=80=AFPM Ke Sun via B4 Relay
+<devnull+sunke.kylinos.cn@kernel.org> wrote:
+>
+> SZ_4G is used by the Tyr driver when splitting the GPU VA range into
+> user and kernel regions.
 
---=-6ejhBySV5wLJspcm2TMq
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The message should explain what changes, e.g. a new paragraph after
+this one like "Thus add a new trait that ... and implement it for
+`u64` because ...".
 
-Hi there,
+> +const unsigned long long RUST_CONST_HELPER_SZ_4G =3D SZ_4G;
 
-please note, I didn't submit as I didn't finish learning the implication of
-everything in the series. I've used AI because I needed something quick and
-dirty for a demo. But let me ask few questions here though:
+Is it added here to be nearby other sizes, or something else?
 
-Le vendredi 04 septembre 2026 =C3=A0 15:08 +0200, Igor Paunovic a =C3=A9cri=
-t=C2=A0:
-> The NPU compute clock is driven by the firmware, which only accepts one o=
-f
-> the rates in its own PVTPLL table: 300, 400, 500, 600, 700, 800, 900 and
-> 1000 MHz through the PVTPLL, plus 200 MHz off GPLL. Anything else comes
-> back as SCMI_INVALID_PARAMETERS, so the table has to name those rates
-> exactly rather than describe a range.
->=20
-> 200 MHz is included even though the vendor table stops at 300, because
-> mainline pins the cores there with assigned-clock-rates and that is the
-> rate the NPU boots and idles at. Leaving it out would put the boot state
-> outside the table and give a driver nowhere to return to. Its voltage is
-> the same 700 mV the vendor uses for 300 MHz, so it is conservative.
->=20
-> The voltages are the vendor's, and the upper half of the table matches th=
-e
-> GPU table in this file step for step: 700 MHz at 700 mV, 800 at 750, 900 =
-at
-> 800, 1000 at 850. There is no PVTM or binning here, for the same reason t=
-he
-> GPU table has none: mainline uses conservative worst-case voltages instea=
-d
-> of per-chip nvmem data.
->=20
-> The table is attached to rknn_core_0 alone. All three cores share one clo=
-ck
-> and one supply and cannot be scaled independently, and the driver hangs i=
-ts
-> devfreq device off the core that carries the table.
+> +/// Only implemented for `u64`.
 
-The goal of DT is to describe the hardware. You made the choice to not desc=
-ribe
-the rate of core 1 and 2, and also are missing something to describe the cl=
-ock
-relation (well indirectly you can probably notice they point to the same cl=
-ock).
-My impression, and I was to study this properly is that having the same tab=
-le
-on every core and adding the opp-shared set on it was actually probably the
-proper way to describe this "single clock for all" relationship.
+Intra-doc link: [`u64`]
 
-My driver implementation though hard coded this fact for simplicity, but if=
- we
-add a variant in the future that does not have this limitation, we can just=
- read
-the opp-shared property to differentiate them instead of coding it for ever=
-y
-compatibles. Matching clock to be the same would also be an option, but mor=
-e
-work. I'm curious what's the right approach, and what is the real meaning o=
-f
-opp-shared if I got that wrong.
+With that:
 
->=20
-> The full SoC range is described rather than a per-board subset, so that a
-> board which cannot cool the upper rates drops them in its own .dts with a
-> /delete-node/ on the OPP it does not want. A board may only delete OPPs
-> that way, never invent intermediate ones: a rate that is not in the
-> firmware's table is rejected outright.
->=20
-> There is deliberately no opp-suspend property. The driver has to resume
-> every core before it may touch the shared clock, so letting the devfreq
-> core drive a suspend OPP from inside a runtime-suspend callback would
-> deadlock against the driver's own governor worker. The driver records the
-> boot rate and restores it itself instead.
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
 
-We must not justify our DTS choices based on driver behaviours (or miss-
-behaviour). We must justify it based on how accurate the hardware descripti=
-on
-is. In my attempt, I was unable to go back to 200MHz and I could only resum=
-e at
-200MHz (could have been a bug ...). So opp-suspend described the rate the c=
-ore
-will be once resumed. But it goes a little confused, as resume/suspend isn'=
-t per
-core. I'm also curious the exact meaning of opp-suspend, and if my
-interpretation was right or wrong.
+Thanks!
 
-It should probably be fine to not use opp-suspend, if transition back to 20=
-0Mhz
-works. It not fine if its to avoid a driver deadlock (argually due to a bug=
-).
-
->=20
-> The consumer is the devfreq support added later in this series; until the=
-n
-> the table is inert and the NPU keeps the fixed rate that
-> assigned-clock-rates gives it today.
-
-This is irrelevant, I think you can drop this paragraph.
-
->=20
-> rk3588j.dtsi does not include this file; it carries its own derated table=
-s
-> for the CPU clusters and the GPU, and it gets no NPU table here. That is
-> deliberate. The J part is rated lower than the rates in this table and no=
-ne
-> of it can be measured on the hardware this was written on, so inventing a
-> derated NPU table would be guessing. Its NPU node stays disabled, so
-> nothing binds and the cooling map added later in this series is simply
-> never resolved.
-
-Ack, this is safe thing to do.
-
->=20
-> The same rates and voltages were arrived at independently by Nicolas
-> Dufresne in a proof of concept that was never posted to the list; his
-> version differs in that it marks 200 MHz as opp-suspend, shares one table
-> across all three cores and drops the assigned-clock-rates pins.
-> Link: https://gitlab.collabora.com/nicolas/linux/-/commits/rock5b-npu-poc=
--4
->=20
-> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-> Assisted-by: LLM checkpatch dtbs_check
-> ---
->  arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi | 45 ++++++++++++++++++++
->  1 file changed, 45 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi b/arch/arm64/bo=
-ot/dts/rockchip/rk3588-opp.dtsi
-> index b5d630d2c879f..3711727020ed1 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi
-> @@ -151,6 +151,47 @@ opp-1000000000 {
->  			opp-microvolt =3D <850000 850000 850000>;
->  		};
->  	};
-> +
-> +	npu_opp_table: opp-table-npu {
-> +		compatible =3D "operating-points-v2";
-> +
-> +		opp-200000000 {
-> +			opp-hz =3D /bits/ 64 <200000000>;
-> +			opp-microvolt =3D <700000 700000 850000>;
-> +		};
-> +		opp-300000000 {
-> +			opp-hz =3D /bits/ 64 <300000000>;
-> +			opp-microvolt =3D <700000 700000 850000>;
-> +		};
-> +		opp-400000000 {
-> +			opp-hz =3D /bits/ 64 <400000000>;
-> +			opp-microvolt =3D <700000 700000 850000>;
-> +		};
-> +		opp-500000000 {
-> +			opp-hz =3D /bits/ 64 <500000000>;
-> +			opp-microvolt =3D <700000 700000 850000>;
-> +		};
-> +		opp-600000000 {
-> +			opp-hz =3D /bits/ 64 <600000000>;
-> +			opp-microvolt =3D <700000 700000 850000>;
-> +		};
-> +		opp-700000000 {
-> +			opp-hz =3D /bits/ 64 <700000000>;
-> +			opp-microvolt =3D <700000 700000 850000>;
-> +		};
-> +		opp-800000000 {
-> +			opp-hz =3D /bits/ 64 <800000000>;
-> +			opp-microvolt =3D <750000 750000 850000>;
-> +		};
-> +		opp-900000000 {
-> +			opp-hz =3D /bits/ 64 <900000000>;
-> +			opp-microvolt =3D <800000 800000 850000>;
-> +		};
-> +		opp-1000000000 {
-> +			opp-hz =3D /bits/ 64 <1000000000>;
-> +			opp-microvolt =3D <850000 850000 850000>;
-> +		};
-> +	};
->  };
-> =20
->  &cpu_b0 {
-> @@ -188,3 +229,7 @@ &cpu_l3 {
->  &gpu {
->  	operating-points-v2 =3D <&gpu_opp_table>;
->  };
-> +
-> +&rknn_core_0 {
-> +	operating-points-v2 =3D <&npu_opp_table>;
-> +};
-
---=-6ejhBySV5wLJspcm2TMq
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaqBluAAKCRDZQZRRKWBy
-9J8NAP9lh1Widy2Bvw8gl4Tm1t9qqrXQdz+1CoaInkUXYDSEugEAjMajp1p87Z/m
-tw6c0cbl4VSaOEug7JqUmeEGnhtkTQQ=
-=zxz6
------END PGP SIGNATURE-----
-
---=-6ejhBySV5wLJspcm2TMq--
+Cheers,
+Miguel
