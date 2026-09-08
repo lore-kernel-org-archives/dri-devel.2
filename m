@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BBF6C79F8C
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:54:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1C3BC79FAA
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:54:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B66310EF00;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A956D10EF04;
 	Wed,  9 Sep 2026 06:54:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NlASPuvf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ib6OrkQa";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A5D910E4BE
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:08:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B812D10ED4B
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:20:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2689D4192E;
- Tue,  8 Sep 2026 20:08:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 082D31F00A3A;
- Tue,  8 Sep 2026 20:08:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 96A7B429C5;
+ Tue,  8 Sep 2026 20:20:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74CF81F00A3D;
+ Tue,  8 Sep 2026 20:19:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788898119;
- bh=8M2KGQ/Rdd7X1qvg4n3rsyBcsIsT/58MPgOQgnVvrcw=;
+ s=k20260515; t=1788898805;
+ bh=XwIdZujBqtKUK3euRg5palCjbTo4zKXqAqucXZZYP/8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=NlASPuvfs4H3JIxf4W5s8uf9UD5hDKleqbnI+oaJKfZsJVnF/y2v6u5ZZwTdOqjXk
- YeSA64QfUB8Dg7K7sHUpwpK7nOxobcWUqRFBzZHQ5m1pZ4mnoIyXZ0ukMZBT+4Dadk
- 9MFqLZ/F+NGk7d1iXYEtgPHXQUyrVf8g2K5fBjsWBlm87Qr91SAxyG1iZK3I0QdlsE
- rufrzQZHA5jgiE7aazRN5WnzQBFmnsTQsLjyxmMBs0ok1z+BMQanwKaU6tSgZgbfeQ
- 0tRoGU04rqbhv2hAuNJdjt/7v9wGGCnAromOCPh0TRFnyaN2Pu1c8j2iOpAy9AWK/1
- AqgCTn0WT4UfQ==
+ b=ib6OrkQaVOGNdEgkkwJSPE1x+xuwct1sSpK4L9Lpw0VYWdv5gdKeBCi3IhHDfyT7C
+ q79PcScmoJFWwrISRw4qy4r32PwNLqpO1wJ10HZyrHY8L53E8acw/6mAN/nocnE+b3
+ GefZzaAwiQYNrn2WOfgpmMkvW5CjyhDgyEeSEo/gX9HTDcyfa35SeaVblxbwlMpwhF
+ A4Nr70HQLI9bHRBSKvB/bVpUJDntQ1mUJdhqJhWxoPHHGSHcwacRIMoT0ABUUYZtw3
+ R4SX2ee+lc5YlPzBVw9I29ExT5XGfdjbxacQfaXN8tESywXHEZ10tMcW4bLdxoMbR7
+ PpUkIZPHsOLNg==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 08 Sep 2026 21:01:17 +0100
-Subject: [PATCH 13/39] bpf: arena: mark arena_map_mmap() mappings VM_MIXEDMAP
+Date: Tue, 08 Sep 2026 21:01:41 +0100
+Subject: [PATCH 37/39] fuse: dax: do not set VM_MIXEDMAP
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-13-dacf19cce22b@kernel.org>
+Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-37-dacf19cce22b@kernel.org>
 References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
 In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -120,12 +120,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2077; i=ljs@kernel.org;
- h=from:subject:message-id; bh=fdJtBNQadhST13A5/QqOS4hxZn92kbQM6NW+rZ1tlXQ=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG66xMrArN4c7jCJMXVipdQSDo1pk9fLeDIvn8Tv/
- Kv7mfuMjlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAEzkxx5Gho07Ve4KtFZ/9BXe
- vbpxTb93we9SAY8t0xM81WU81ueWPGRk+N/4KMc9ryDBwy3/eNcasVOSaoUc009dCu5ui0jK6Tn
- NCAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1455; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=RCEYQjEW6MHyrFoJLHJtSFluFNRdmgFFgjkTdNXkXXM=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG47eHamOnP2bFu95NK1gnEyAc8/3xbQ/H6y8+Txd
+ X2bvy482lHKwiDGxSArpsjy/Iv4/iCRsHmdF/zdYOawMoEMYeDiFICJtPAw/DO9sOT1drErN7dr
+ tEQt6Kybumvtk5Z64Sm2E4/2eG3R1hFi+Ge0gkMzbs6ZqTuLhI12ClQ9u3GgqeXk+559ckI73MO
+ vn2YBAA==
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:54:46 +0000
@@ -144,54 +144,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The bpf_map->ops->map_mmap callback invoked by bpf_map_mmap() can be set to
-one of ringbuf_map_mmap_kern(), ringbuf_map_mmap_user(), array_map_mmap()
-or arena_map_mmap().
+Commit e1fb4a086495 ("dax: remove VM_MIXEDMAP for fsdax and device dax")
+prevented fsdax and device-dax from setting VM_MIXEDMAP, as DAX no longer
+relies on it to direct core mm paths.
 
-It is convention in mm to mark mappings whose pages the kernel manages
-itself with VM_MIXEDMAP, so the core mm knows not to treat them as ordinary
-page cache or anonymous memory.
+The fuse DAX implementation, added later, copied the old pattern and still
+sets it.
 
-The map_mmap callbacks ringbuf_map_mmap_kern() and ringbuf_map_mmap_user()
-use remap_vmalloc_range(), which ultimately invokes vm_insert_page() and so
-marks the ranges VM_MIXEDMAP, and array_map_mmap() sets VM_MIXEDMAP
-explicitly.
+Fuse DAX maps pages the same way fsdax does, via dax_iomap_fault() and
+ultimately vmf_insert_page_mkwrite() and vmf_insert_folio_pmd(), which
+insert ordinary refcounted pages and so do not require VM_MIXEDMAP.
 
-However, the exception to this is arena_map_mmap(), which doesn't set the
-flag.
+Setting it only serves to mark the mapping as kernel-owned, making fuse DAX
+the sole DAX implementation whose mappings are unmergeable, cannot be
+mlock()'d, eagerly copy page tables on fork and reject MADV_DOFORK and
+MADV_DODUMP.
 
-This patch corrects this and updates the comment to reflect it.
+It also requires vma_is_special_huge() in mm/huge_memory.c to carve DAX out
+of its kernel-owned check explicitly.
 
-The pages are refcounted and vm_normal_page() finds them regardless of the
-flag, and VM_DONTEXPAND remains set (marking the memory as VM_SPECIAL and
-thus unmergeable). The one effect is that NUMA balancing now skips these
-VMAs, as it already does for the other bpf map mappings, which is the
-reason array_map_mmap() gives for setting the flag.
-
-The intent of this patch is to be able to establish the invariant that only
-PFN-mapped or mixed map ranges may clear the VM_MAYWRITE flag, as is done
-in bpf_map_mmap().
+There is no reason for fuse DAX to keep on using this flag so drop it.
 
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- kernel/bpf/arena.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ fs/fuse/dax.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
-index 7b6847200b43..b69fe5e34339 100644
---- a/kernel/bpf/arena.c
-+++ b/kernel/bpf/arena.c
-@@ -620,8 +620,9 @@ static int arena_map_mmap(struct bpf_map *map, struct vm_area_struct *vma)
- 	 * clears VM_MAYEXEC. Set VM_DONTEXPAND to avoid potential change
- 	 * of user_vm_start. Set VM_DONTCOPY to prevent arena VMA from
- 	 * being copied into the child process on fork.
-+	 * This is a kernel page so set VM_MIXEDMAP.
- 	 */
--	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTCOPY);
-+	vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTCOPY);
- 	vma->vm_ops = &arena_vm_ops;
+diff --git a/fs/fuse/dax.c b/fs/fuse/dax.c
+index 85cdf0199bc0..a5994f1c637d 100644
+--- a/fs/fuse/dax.c
++++ b/fs/fuse/dax.c
+@@ -826,7 +826,7 @@ int fuse_dax_mmap(struct file *file, struct vm_area_struct *vma)
+ {
+ 	file_accessed(file);
+ 	vma->vm_ops = &fuse_dax_vm_ops;
+-	vm_flags_set(vma, VM_MIXEDMAP | VM_HUGEPAGE);
++	vma_set_flags(vma, VMA_HUGEPAGE_BIT);
  	return 0;
  }
+ 
 
 -- 
 2.55.0
