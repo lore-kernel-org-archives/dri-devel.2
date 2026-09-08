@@ -4,97 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AE03C79FAA
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0AD1C79FB5
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D3EE10EF3C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC76A10EF3F;
 	Wed,  9 Sep 2026 06:55:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d9Bl6cAv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AEp1REBG";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FDFE10EB0F
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 10:49:18 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-3964dfb5a69so5807619a91.1
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 03:49:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788864558; x=1789469358; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:content-type:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=H7Reb5/FkRfbcDYcZ4Sxy1Xn1C7+jIuC2a5ZFlPXPUA=;
- b=d9Bl6cAvu9svBVoTKaJM7/1cU3J+GPu1LYOTs25ew4U+zDdxh594ZGjOBAsEWpFmeV
- l8Usc3/Ap9CJMCq1pzdzJQBTGDE/BPbKFGaoLQpwCQJkWKEo7waXzS3UjPvdPyauCB0L
- QdlPfc3njuTt8HZUcVplKsa5qEYjt2XgVI401Bd4RwuwpAX/GFqVOy7O1LeALExbD6pf
- bDFN15Fy9p6qETCN4e1mVg20gUN9ikE2j2m6+VJrz7BjuPuanJxNN3uLtbohPxShLOt+
- 4TOQDSPsD9WW7IqGg8oj+mtPIa+diw/EwAkjyQT+VCEGJ/fjRl1IDfJMcwcGu3ipytUb
- Ouhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788864558; x=1789469358;
- h=content-transfer-encoding:mime-version:content-type:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=H7Reb5/FkRfbcDYcZ4Sxy1Xn1C7+jIuC2a5ZFlPXPUA=;
- b=E1xVI4bFpfOg64gPCjDx3i3pWN9W6BxWiwIYOLvayYW1f0fsZ0HRxvMbUJJPiJkk8O
- uQtid4uWbEVjOUqRQ62M/hy+37zTVK/+0dazPgjrwziUPjdzP5vKY9QarKv1T8yQJXFL
- /GuHE16wvh2PgUZOCa78ICaKrofqB/WrlbI8zhSoxjgZVpyIF5S9mmeTaA4RwzbDPewh
- AxQKv5WlYKSIBVD7OtqYt3e6qn2+P75dHU+w0hF8dLPuq4KXZygD92GcPAIgRQYM44iV
- 86i6HjlpBlomxcmDhn0xop1qk4D2HKDaB2x5JQYZ5eO2KJFeaMitn9rpKCE6DugQSo8p
- cPZw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzCM2y1jy+nPGMJ5pE3j4R833fo6xh7bf9X1iSElX1/yR+RDFwzPhw4u0xIuVL9qCSIsns5Z3vX+0o=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++k1BY6o2xkGe4DK1DU3tZ39SGAyept3lxbFpY8cR0PpYayACvu9
- L5BS9xyGKWldZMPDHvaacV4qpLE0IIjqlrsr+UhFmD9SnZ/GIVKlcte10O8NOclRvA==
-X-Gm-Gg: AYBFou0D5pXPSwUm56wNV+qqVruHftrvX53BXAMtCaN5Z8BKOfpRUHz7RD+4nfYxWop
- 2xjkMDAY+jNzX3rG8hBPSsC9z9my5oluFeNM4Rn8eUT5zUo1zYlLuF50K5wMMSWkV5MOnzYBXXH
- 08O85nx7WP6Y9IpyyC8adTbgqU5ogbeWCwmMyR62VvUHL0/KNlrklp7YZR/UHaACFnfb+LIdAcN
- p7dJR1Gxg69i7F2TbJ+s2z0W/kZqvXabi30/Wf5dOQTw9xlMJFB3AEcM88DYXWZ0xAtJv535+mR
- 2jL4Pmffzr9OMnh8q5DFQzu8cpwZSAMZd4tCHKD44gJRDXsKXP6M07KaESiDf0i5uHWMtE7YIv3
- 7yKwvova+jvYegD6BotumGqmfIJUdYaPeZipGjyBCoETGnyBUhIIgR40Z0FjxsnMzMQWU2cUdLv
- GP+lfSS+77fqiLHS/2LDzyXm85sI0iaC3kEmA8h8mugQjkx5VhL8S7BjEkmyMR+Mp4GdKzgFV9Y
- h2oTmywHHucwSNmQkwncG3Mx2U=
-X-Received: by 2002:a17:90b:39ab:b0:398:9be8:ea68 with SMTP id
- 98e67ed59e1d1-39b261da75cmr43885301a91.21.1788864557719; 
- Tue, 08 Sep 2026 03:49:17 -0700 (PDT)
-Received: from MalHyuk.localdomain ([211.201.32.99])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39b260f64ecsm26116182a91.8.2026.09.08.03.49.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 03:49:17 -0700 (PDT)
-From: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-To: christian.koenig@amd.com, phasta@kernel.org, tursulin@ursulin.net,
- matthew.brost@intel.com, dakr@kernel.org
-Cc: Jonghyuk Kim <malhyuk97@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, mdaenzer@redhat.com,
- alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- stable@vger.kernel.org
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-Date: Tue,  8 Sep 2026 19:49:10 +0900
-Message-ID: <20260908104910.183638-1-malhyuk97@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <825c1f02-b9ad-4160-8e4b-53f2393a7bff@amd.com>
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
- <20260904080618.2098450-2-malhyuk97@gmail.com>
- <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
- <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
- <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
- <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
- <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
- <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
- <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
- <c3434f0a80318390d183a3a2f8f8fb3ae71c9906.camel@mailbox.org>
- <2aa58eb8-a33f-45b9-8ee0-518d72160f41@ursulin.net>
- <206df2dad0c68b8c25862c74c0a8399940044af2.camel@mailbox.org>
- <fa12360b-2ccf-41c4-a158-84e34835c0e9@amd.com>
- <299ef4389875fe1333bb934edcece3bee5c5526b.camel@mailbox.org>
- <825c1f02-b9ad-4160-8e4b-53f2393a7bff@amd.com>
-Content-Type: text/plain; charset=UTF-8
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C247210ED4A
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:21:02 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 999014196D;
+ Tue,  8 Sep 2026 20:21:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81F2A1F00A3D;
+ Tue,  8 Sep 2026 20:20:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788898862;
+ bh=MOMisn73rdVVhY8+AjzvTNNmNUkAEb20IWBzE7CPZUU=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=AEp1REBGH+pakt3xHUNX2JKqVONYzgzvgZGlCes8VpWTcWPNIU+TMTKT2sVwlEKVf
+ 3d3HkthAX1FMsxxuYzx8BEFXz0VIq1fV7vOp89w+HJFBkSkxQzPGw8pf6KjunCOEha
+ aAStY4j8dulgMJGDKYfg6byPl0UaLo7QmScwkKnJQEb6SoGID7WBqLjmi9Q6nJiQDi
+ mFJrZqwN9amg72vbTmq5g4P0vaGZ3NaK3J55pnKuUo/GxMyGPJDy7MEpcYr2/8hWSF
+ tX/1SpYavP4hBrQt3jwlo8PTcuszTSW3joN1et5kS8WFYzcq8/vxvnduS3NkwS0fQ2
+ k0/tNEa3pZ2VQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 08 Sep 2026 21:01:43 +0100
+Subject: [PATCH 39/39] mm/vma: introduce and use vma[_flags]_can_gup()
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-39-dacf19cce22b@kernel.org>
+References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6584; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=kPVMWaJCwo1lhrTWXad/wqA8hcD1f6brZZ1kpIuur1c=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG6vmyVSwLU385PLJLOsm8wrPI48vnjnyrRcyfpXr
+ QZ5rW9tO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCR5KWMDE9+ar3kPPvQ5u7F
+ 6lzR+P7LZzmWGP6c93zVo4ye57oHDxox/BU80L30947zd/l2STndnSQ2b77G82v3+VnlD9utDXp
+ utJEDAA==
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:54:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -111,29 +144,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 07/09/2026 17:21, Christian König wrote:
->> Maybe Jonghyuk can give your patch a test run and then we could use
->> it as a hot-fix to backport
-> 
-> Completely agree.
+GUP cannot be used for VMAs which set VMA_IO_BIT - because memory-mapped
+I/O must not be accessed on the user's behalf - or VMA_PFNMAP_BIT - because
+PFN maps have no folios which the kernel is permitted to access.
 
-Ran 0001 on v7.3-rc1-99-g89a312991dc6 with the KUnit regression test from my
-v4 3/3 (mock scheduler, KASAN, no hardware). Without it the test fails with
+Rather than keeping these checks open-coded, abstract them to
+vma_flags_can_gup() and its VMA wrapper vma_can_gup().
 
-  BUG: KASAN: slab-use-after-free in drm_sched_fence_get_timeline_name+0x9c/0xb0
+This is useful as there are a number of additional places within the kernel
+that need to check whether a mapping can be accessed via GUP.
 
-and with it applied it passes. Reverted and re-applied twice, same both times.
+Therefore, update all such occurrences.
 
-Tested-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
+While here, drop a reference to 'special' and replace a use of the
+deprecated VMA flags API in vma_dump_size().
 
-Two things it doesn't cover: it's x86 only, so nothing about the load ordering
-you discussed; and only the signaled case - for a fence exported before it
-signals, get_timeline_name() is still reached and reads fence->sched->name.
-I haven't tried to build that case.
+No functional change intended.
 
-Could you add a Reported-by for me when you post it? I'm happy to drop my
-v4 1/3 in favour of this, and can respin the KUnit test standalone so the
-fix lands with a regression test.
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ fs/coredump.c      |  4 ++--
+ include/linux/mm.h | 29 +++++++++++++++++++++++++++++
+ mm/gup.c           |  7 +++----
+ mm/hmm.c           |  3 +--
+ mm/memory.c        | 14 ++++++++------
+ mm/mempolicy.c     |  3 ++-
+ 6 files changed, 45 insertions(+), 15 deletions(-)
 
-Thanks,
-Jonghyuk
+diff --git a/fs/coredump.c b/fs/coredump.c
+index fb21fb6703dd..9f729c594c47 100644
+--- a/fs/coredump.c
++++ b/fs/coredump.c
+@@ -1616,8 +1616,8 @@ static unsigned long vma_dump_size(struct vm_area_struct *vma,
+ 		return 0;
+ 	}
+ 
+-	/* Do not dump I/O mapped devices or special mappings */
+-	if (vma->vm_flags & VM_IO)
++	/* Do not dump memory-mapped I/O, which may have side effects on read. */
++	if (vma_test(vma, VMA_IO_BIT))
+ 		return 0;
+ 
+ 	/* By default, dump shared memory if mapped from an anonymous file. */
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index b5784685272a..1902d4c77481 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -1777,6 +1777,35 @@ static inline bool vma_is_persistent(const struct vm_area_struct *vma)
+ 	return vma_flags_is_persistent(&vma->flags);
+ }
+ 
++/**
++ * vma_flags_can_gup() - Do the specified VMA flags permit GUP to access the
++ * mapping's pages?
++ * @flags: The VMA flags to test.
++ *
++ * GUP cannot access pages belonging to mappings whose pages are not permitted
++ * to be accessed (VMA_PFNMAP_BIT) and must not manipulate or provide access to
++ * memory-mapped I/O ranges to users (VMA_IO_BIT).
++ *
++ * Returns: true if GUP may access pages from the mapping, otherwise false.
++ */
++static inline bool vma_flags_can_gup(const vma_flags_t *flags)
++{
++	return !vma_flags_test_any(flags, VMA_IO_BIT, VMA_PFNMAP_BIT);
++}
++
++/**
++ * vma_can_gup() - May GUP obtain pages from @vma?
++ * @vma: The VMA to test.
++ *
++ * See vma_flags_can_gup() for details.
++ *
++ * Returns: true if GUP may access pages from the mapping, otherwise false.
++ */
++static inline bool vma_can_gup(const struct vm_area_struct *vma)
++{
++	return vma_flags_can_gup(&vma->flags);
++}
++
+ /**
+  * vma_kernel_pagesize - Default page size granularity for this VMA.
+  * @vma: The user mapping.
+diff --git a/mm/gup.c b/mm/gup.c
+index 66b306911703..f4d0cfcb602b 100644
+--- a/mm/gup.c
++++ b/mm/gup.c
+@@ -1204,7 +1204,7 @@ static int check_vma_flags(struct vm_area_struct *vma, unsigned long gup_flags)
+ 	int foreign = (gup_flags & FOLL_REMOTE);
+ 	bool vma_anon = vma_is_anonymous(vma);
+ 
+-	if (vm_flags & (VM_IO | VM_PFNMAP))
++	if (!vma_can_gup(vma))
+ 		return -EFAULT;
+ 
+ 	if ((gup_flags & FOLL_ANON) && !vma_anon)
+@@ -1955,7 +1955,7 @@ int __mm_populate(unsigned long start, unsigned long len, int ignore_errors)
+ 		 * range with the first VMA. Also, skip undesirable VMA types.
+ 		 */
+ 		nend = min(end, vma->vm_end);
+-		if (vma->vm_flags & (VM_IO | VM_PFNMAP))
++		if (!vma_can_gup(vma))
+ 			continue;
+ 		if (nstart < vma->vm_start)
+ 			nstart = vma->vm_start;
+@@ -2017,8 +2017,7 @@ static long __get_user_pages_locked(struct mm_struct *mm, unsigned long start,
+ 			break;
+ 
+ 		/* protect what we can, including chardevs */
+-		if ((vma->vm_flags & (VM_IO | VM_PFNMAP)) ||
+-		    !(vm_flags & vma->vm_flags))
++		if (!vma_can_gup(vma) || !(vm_flags & vma->vm_flags))
+ 			break;
+ 
+ 		if (pages) {
+diff --git a/mm/hmm.c b/mm/hmm.c
+index 2f1e98c6b644..e9569b82a1f0 100644
+--- a/mm/hmm.c
++++ b/mm/hmm.c
+@@ -595,8 +595,7 @@ static int hmm_vma_walk_test(unsigned long start, unsigned long end,
+ 	struct hmm_range *range = hmm_vma_walk->range;
+ 	struct vm_area_struct *vma = walk->vma;
+ 
+-	if (!(vma->vm_flags & (VM_IO | VM_PFNMAP)) &&
+-	    vma->vm_flags & VM_READ)
++	if (vma_can_gup(vma) && vma_test(vma, VMA_READ_BIT))
+ 		return 0;
+ 
+ 	/*
+diff --git a/mm/memory.c b/mm/memory.c
+index 9a38c7d4cc40..cb56d67b17ca 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2417,11 +2417,11 @@ static bool vm_mixed_zeropage_allowed(struct vm_area_struct *vma)
+ 	 * be problematic as soon as the zeropage gets replaced by a different
+ 	 * page due to vma->vm_ops->pfn_mkwrite, because what's mapped would
+ 	 * now differ to what GUP looked up. FSDAX is incompatible to
+-	 * FOLL_LONGTERM and VM_IO is incompatible to GUP completely (see
+-	 * check_vma_flags).
++	 * FOLL_LONGTERM and memory-mapped I/O is incompatible to GUP completely
++	 * (see vma_can_gup()).
+ 	 */
+ 	return vma->vm_ops && vma->vm_ops->pfn_mkwrite &&
+-	       (vma_is_fsdax(vma) || vma->vm_flags & VM_IO);
++	       (vma_is_fsdax(vma) || vma_test(vma, VMA_IO_BIT));
+ }
+ 
+ static int validate_page_before_insert(struct vm_area_struct *vma,
+@@ -7116,7 +7116,8 @@ int follow_pfnmap_start(struct follow_pfnmap_args *args)
+ 	if (unlikely(address < vma->vm_start || address >= vma->vm_end))
+ 		goto out;
+ 
+-	if (!(vma->vm_flags & (VM_IO | VM_PFNMAP)))
++	/* Only mappings GUP cannot handle are followed here. */
++	if (vma_can_gup(vma))
+ 		goto out;
+ retry:
+ 	pgdp = pgd_offset(mm, address);
+@@ -7310,8 +7311,9 @@ static int __access_remote_vm(struct mm_struct *mm, unsigned long addr,
+ 			}
+ 
+ 			/*
+-			 * Check if this is a VM_IO | VM_PFNMAP VMA, which
+-			 * we can access using slightly different code.
++			 * GUP failed, perhaps because this is a mapping it
++			 * cannot handle (see vma_can_gup()) - such mappings may
++			 * provide access via vm_ops->access() instead.
+ 			 */
+ 			bytes = 0;
+ #ifdef CONFIG_HAVE_IOREMAP_PROT
+diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+index aeb99c5933cb..ed444061631c 100644
+--- a/mm/mempolicy.c
++++ b/mm/mempolicy.c
+@@ -2011,7 +2011,8 @@ SYSCALL_DEFINE5(get_mempolicy, int __user *, policy,
+ 
+ bool vma_migratable(struct vm_area_struct *vma)
+ {
+-	if (vma->vm_flags & (VM_IO | VM_PFNMAP))
++	/* Pages which GUP cannot obtain cannot be migrated either. */
++	if (!vma_can_gup(vma))
+ 		return false;
+ 
+ 	/*
+
+-- 
+2.55.0
+
