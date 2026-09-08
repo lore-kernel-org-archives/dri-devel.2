@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76BA6C79F9E
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 15:27:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4CF9C79F9E
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 15:27:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D15B10ECB4;
-	Tue,  8 Sep 2026 15:27:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EECDA10ECB7;
+	Tue,  8 Sep 2026 15:27:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i5c65ouB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XvCV66AB";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D70EB10ECAF;
- Tue,  8 Sep 2026 15:27:26 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D187810ECB9;
+ Tue,  8 Sep 2026 15:27:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B8A88601FB;
- Tue,  8 Sep 2026 15:27:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7F591F00A3A;
- Tue,  8 Sep 2026 15:27:24 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B8DC54081D;
+ Tue,  8 Sep 2026 15:27:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 205C11F00A3D;
+ Tue,  8 Sep 2026 15:27:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788881245;
- bh=9Y0RYiQlqdq8T8rHGKcY5WJFbZOHMj5XD8BYUCfkmiM=;
+ s=k20260515; t=1788881277;
+ bh=qQbruPdcRkbgl8HfIhF5I/ft20+teeU0jvwgM4rj26A=;
  h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=i5c65ouBuEyZ6oB7J0Er0dVut/Yg1ePEEy4oGAe64mY5uM6ZfpbkeT5m9W1IA29ab
- JpZ8/TAPB6a+2NvkxIL3f43y3pKy3+R0TC/cYTdy6ySa2sA4ar26sqHKau57vlmrUD
- jUqXiw954XFwqTofPlkk19Rd+03vy+ibx0rr6Jd6qWdhOzm+xsuUUy33Uj1Yq52ZJW
- ijmyGte57XMTYBeOmQngxbymMaE/F8EJ6TAWS+WzjcxZj+Lz3mcDTkMdZK7PZzdBmi
- IYXFACNOY2LwM8qmgJLPf4tQ/RvntUz7HPGkC10AaLkELj5a6/IQ76M/xV1tJVqxDk
- w55vjeDNey8AA==
-Message-ID: <315455b0aa801c7dbd1b1e2ecf7282c3@kernel.org>
-Date: Tue, 08 Sep 2026 15:27:22 +0000
+ b=XvCV66ABTo4OWC/44sKVa92p43c+0v2J/iue6EFeR7/Ok7g9uSLGMfm7n9kpFj+16
+ eaikSUvoM2QGhoGsPbre8P6lPx0m5u79AcCtOL8NixpXvvpGIOiF04OfQV3zomh5TZ
+ f3fXub9npQTUMyUJhRJ5Fswyh1Z5p5dLb8nCk+HQiCMiFmNxmADmW9gI0h4g6nfSGw
+ EXqAJM6Y8TwdYsZiWXGUcNq56dSWn3+VTCvOiUanLgZEith4u8+5FXT6jvORYU7bXF
+ O2/G0LRiyojLTsip/Af1WrCdo3eZlYiM4WM7rNVggZa/d3sP+EDG9zDB+raGj+HlMv
+ 9IimSxGYTwg7g==
+Message-ID: <73f10ae2aa96eeefbec0f1308d85899b@kernel.org>
+Date: Tue, 08 Sep 2026 15:27:54 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Subject: Re: [PATCH v2 4/7] vga_switcheroo: Add post_switch callback to
- client ops
-In-Reply-To: <20260709092215.168172-5-tzimmermann@suse.de>
-References: <20260709092215.168172-5-tzimmermann@suse.de>
+Subject: Re: [PATCH v2 5/7] drm: Implement struct
+ vga_switcheroo_client_ops.pre_switch
+In-Reply-To: <20260709092215.168172-6-tzimmermann@suse.de>
+References: <20260709092215.168172-6-tzimmermann@suse.de>
 Cc: airlied@gmail.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
  christian.koenig@amd.com, dakr@kernel.org, deller@gmx.de,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
@@ -63,12 +63,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 9 Jul 2026 11:16:00 +0200, Thomas Zimmermann wrote:
-> Add post_switch to struct vga_switcheroo_client_ops to inform the
-> switcheroo client about a completed switch of the output.
+On Thu, 9 Jul 2026 11:16:01 +0200, Thomas Zimmermann wrote:
+> Call drm_client_dev_acquire_outputs() from vga_switcheroo's pre_switch
+> callback. Pushes fbcon updates from vga_switcheroo into DRM's fbdev
+> emulation. This affects amdgpu, i915, nouveau and radeon. No other
+> drivers implement vga_switcheroo.
 > 
-> This callback is intended to replace the reprobe client op. It is a
-> rename of reprobe for consistency with pre_switch.
 > 
 > [ ... ]
 
