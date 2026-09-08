@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CFA0C79F99
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 13:04:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BACA1C79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 13:05:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E04410EBDB;
-	Tue,  8 Sep 2026 13:04:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB13710EBDC;
+	Tue,  8 Sep 2026 13:05:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GME5OEfm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BaRrzSMA";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1C6110EBDB
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 13:04:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C099E10EBDC
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 13:05:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DD5E2601DB;
- Tue,  8 Sep 2026 13:04:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA4F21F00A3A;
- Tue,  8 Sep 2026 13:04:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 09CFB601F6;
+ Tue,  8 Sep 2026 13:05:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 038CC1F00A3A;
+ Tue,  8 Sep 2026 13:05:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788872686;
- bh=0c6VVgpgr8QRvVK0L3AA+Ya2VGnRG3C/SeaIoCEOEIw=;
+ s=k20260515; t=1788872717;
+ bh=aGTtaq+6H/MylUW1RWg3sjvRgbOJMdbhBr1FvgmlBNM=;
  h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=GME5OEfmBM3W0vV/lVcz+5iVnZEC5ckUSFlvI8uKcFRfnIi/d7yvCw33IdTcWPrOG
- +ODsMzky9dGz8w1QvGQ90Rjxbc6478UAnrg7p0yiOWzjOSF7WU7wxuE4NUxRanh3EY
- J5K091ChOVt841MVIvPiboxtyhgRplOqOOGj15aUxNb1vbrf5IZl/UbnwkrW5qD87Q
- Ov23nnRh40+Y3J/7ubOvVyg/lyu1P7SFBrsi4Q6EDRPLYoKu2jm4Xv30Yk+DFrdsJn
- XkOmt3S3WSQ7t2wPuUTZli7yc041+BiDeff9S74+zS6fP2gdhUrypH5nX4llhwjzd3
- 3Dk7FHiMKatdw==
-Message-ID: <0ec40db90bd0d2ece46b185deb3c8eca@kernel.org>
-Date: Tue, 08 Sep 2026 13:04:43 +0000
+ b=BaRrzSMAn8EfjT4wRWhWrmfDz3x8XeYQnqZBLLwgqh1oJ1Oc4pdvbE5XJoSjByxhY
+ 2wvb+OFrl2a3PjTSpfVjroAfOBcmdBcjr2C/uLiDV6NXhYvHfwc3Ogfeu6T8HxwhVE
+ bgQkr067DWEIH4gYyjiZT6x5mozingz+yPwOfUlDIdVfasy+7VJBL9+qedyEzH2x2N
+ yhABRXMH7nDhhHoGKyOKtybXt6WT1qOJjcX95PUXYlIPpQ8ueJo3Brozfj2WA3T6E0
+ DylCu8/1RdTxJE85P/L4lVXfXnEJixtF20gT6+i25aXRiULJt0200kBuvjyVG0F3lK
+ TSpNFZUQvLO6w==
+Message-ID: <0d05dad937047c8c8e18df7d5a92f89f@kernel.org>
+Date: Tue, 08 Sep 2026 13:05:14 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Subject: Re: [PATCH v11 45/74] drm/vc4: hdmi: Propagate -EDEADLK to the top
- level
-In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-45-bc12954a0688@collabora.com>
-References: <20260901-dw-hdmi-qp-scramb-v11-45-bc12954a0688@collabora.com>
+Subject: Re: [PATCH v11 47/74] drm/vc4: hdmi: Convert to common HDMI 2.0
+ scrambling infrastructure
+In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-47-bc12954a0688@collabora.com>
+References: <20260901-dw-hdmi-qp-scramb-v11-47-bc12954a0688@collabora.com>
 Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com,
  linux-arm-kernel@lists.infradead.org, linux-fbdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
@@ -79,12 +79,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 1 Sep 2026 21:51:09 +0300, Cristian Ciocaltea wrote:
-> drm_connector_helper_funcs.detect_ctx() is expected to propagate
-> -EDEADLK so that context owners, e.g. drm_helper_probe_detect_ctx(), can
-> perform the required backoff and retry.
+On Tue, 1 Sep 2026 21:51:11 +0300, Cristian Ciocaltea wrote:
+> Replace driver local scrambling logic with the newly introduced common
+> HDMI 2.0 scrambling support:
 > 
-> vc4_hdmi_handle_hotplug() instead runs its own retry loop and calls
+> - Advertise source-side scrambling capability by setting supported HDMI
+>   version based on the variant's max_pixel_clock.
 > 
 > [ ... ]
 
