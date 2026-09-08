@@ -4,133 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65BD6C79F99
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 06:32:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F41B7C79FA0
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 06:41:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 643F210E08F;
-	Tue,  8 Sep 2026 06:32:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3652110EA0B;
+	Tue,  8 Sep 2026 06:41:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="FiQCn5VO";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="B6DSuA1j";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JQJACMV0";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5H0FtDEQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N4nDdphA";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AB2610E08F
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 06:32:56 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E60FE1F796;
- Tue,  8 Sep 2026 06:32:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788849171; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=q5KZD/XW23R32T6r6MBWpZy3syCbREHJcxvpt9GzgO0=;
- b=FiQCn5VO93vIro4DbxQjaMTXfB3OwK+wye9IHY0fJyDejt9C3oq1Vghuo1c9kG2a+GEkMf
- sc2+3EBqfD1iil1EpfU1UOw9RkCtJAynTckJWzhLiIDd48GH11NSP4hnVYEP6uMXPzGfWD
- iqSNKcSRD+E3jvOlmZsjKvhoCtLVRhw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788849171;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=q5KZD/XW23R32T6r6MBWpZy3syCbREHJcxvpt9GzgO0=;
- b=B6DSuA1jF6uocTW0EBLNFiOwTMypvQOCQm/JLsQ65WD6jQzP39qVOq7KJp9pojpHPG51Bi
- no3FC320ZfoTNjCg==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=JQJACMV0;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=5H0FtDEQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788849166; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=q5KZD/XW23R32T6r6MBWpZy3syCbREHJcxvpt9GzgO0=;
- b=JQJACMV0xqgNsFSnyQ+NXxTolXIMTlPbTo7E2OQ8iyYbEXmhlSdlcvjPLVePOIUbJurWb+
- BQsZMzmfMaud63pRVvVEl2ZypWVA0blE9FdTKPkKKNtP0lPeOCADZ62biZgiEv6xPOcQIY
- 3LQ/l87Lg1FJvYt1DIV0w2FWKGWaFmY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788849166;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=q5KZD/XW23R32T6r6MBWpZy3syCbREHJcxvpt9GzgO0=;
- b=5H0FtDEQszLjrvW13ZnLjgfLMhQo140RQCwg7HpVdPHu91ywRCKwatJGI2norkIkY2ufSc
- tyZHCOM8SxjpOEAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AA2DD1347F;
- Tue,  8 Sep 2026 06:32:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id +CsDKA6sn2rWKgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 08 Sep 2026 06:32:46 +0000
-Message-ID: <8c592732-6025-4073-b075-0e3e6911c935@suse.de>
-Date: Tue, 8 Sep 2026 08:32:46 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/gud: Merge damage clips in full update mode
-To: Sophie D <patches@scd31.com>, rubenru09@aol.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260907230849.31032-1-patches@scd31.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260907230849.31032-1-patches@scd31.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: E60FE1F796
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- FREEMAIL_ENVRCPT(0.00)[aol.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
- MIME_TRACE(0.00)[0:+]; FREEMAIL_TO(0.00)[scd31.com,aol.com];
- MID_RHS_MATCH_FROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_FIVE(0.00)[5]; RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,bootlin.com:url,scd31.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:mid];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E24CA10EA0B
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 06:41:02 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0593B6022B;
+ Tue,  8 Sep 2026 06:41:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87FC61F00A3A;
+ Tue,  8 Sep 2026 06:41:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788849661;
+ bh=VzgSxDt3W40ywf6DuzqN2jSyauvottaXg/7z8/fZ8hw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=N4nDdphAll54UKpRUBhhZ+aKq6O7Vmpn1ya/r+Wu0Q2vFMB9st1qQrp5E8qEWzsNe
+ 76VQhj1DSQmXCTweu36ON6pPEL37bg3+LCJiWLP2u8C2AROmpt/B4lckQU9kvWccz1
+ W0SjFPE8N/AEyHHF6qy3cTpZFzqZWWRz78AMet6apNF4mqQzCCVLuAlAxjjcPRRBpm
+ wNXbdWrllxL9C4NMLAQl42ME4/+WwdRIwJAB4x7IkRn3c2n+82tIgGN9rej54DSC3r
+ erTXU6oI6uWIz2yUw+/VF+JiHGsQvyOjCw/q48T3/PslpuaUn/41BQAV2em9aZzLTI
+ qCBw1FM6EO2Xg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe
+ when PHY is down
+To: "Frank Zhang" <rmxpzlb@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260908062708.39437-1-rmxpzlb@gmail.com>
+References: <20260908062708.39437-1-rmxpzlb@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 06:41:01 +0000
+Message-Id: <20260908064101.87FC61F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,69 +53,83 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Am 08.09.26 um 01:08 schrieb Sophie D:
-> When running in full update mode, previously small updates (such as
-> moving the mouse across the screen) would cause many full frames to be
-> generated. This would bog down the bus and lower the effective framerate
-> significantly - I was seeing a drop from 60 FPS to 2 FPS.
->
-> This patch fixes the bug by merging damage clips together.
->
-> Fixes: 73cfd166e045 ("drm/gud: Replace simple display pipe with DRM atomic helpers")
-> Cc: <stable@vger.kernel.org> # 6.18.x
-> Signed-off-by: Sophie D <patches@scd31.com>
-> ---
->   drivers/gpu/drm/gud/gud_pipe.c | 11 ++++++++---
->   1 file changed, 8 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pipe.c
-> index 5ef887d84..20418bf81 100644
-> --- a/drivers/gpu/drm/gud/gud_pipe.c
-> +++ b/drivers/gpu/drm/gud/gud_pipe.c
-> @@ -647,9 +647,14 @@ void gud_plane_atomic_update(struct drm_plane *plane,
->   	if (ret)
->   		goto out;
->   
-> -	drm_atomic_helper_damage_iter_init(&iter, old_state, new_state);
-> -	drm_atomic_for_each_plane_damage(&iter, &damage)
-> -		gud_fb_handle_damage(gdrm, fb, &shadow_plane_state->data[0], &damage);
-> +	if (gdrm->flags & GUD_DISPLAY_FLAG_FULL_UPDATE) {
-> +		if (drm_atomic_helper_damage_merged(old_state, new_state, &damage))
-> +			gud_fb_handle_damage(gdrm, fb, &shadow_plane_state->data[0], &damage);
-> +	} else {
-> +		drm_atomic_helper_damage_iter_init(&iter, old_state, new_state);
-> +		drm_atomic_for_each_plane_damage(&iter, &damage)
-> +			gud_fb_handle_damage(gdrm, fb, &shadow_plane_state->data[0], &damage);
-> +	}
-
-Such state needs to be checked much earlier. Please set 
-plane_state->ignore_damage_clips [1] at the end of 
-gud_plane_atomic_check [2] if in full-update mode.  The damage iterator 
-will then do the right thing.
-
-[1] 
-https://elixir.bootlin.com/linux/v7.2.2/source/include/drm/drm_plane.h#L207
-[2] 
-https://elixir.bootlin.com/linux/v7.2.2/source/drivers/gpu/drm/gud/gud_pipe.c#L569
-
-Best regards
-Thomas
-
->   
->   	drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
->   
-
--- 
+Pre-existing issues:
+- [High] Missing synchronization lock between DRM atomic disable and ALSA c=
+allbacks leaves a Time-Of-Check to Time-Of-Use (TOCTOU) race condition, fai=
+ling to fix the kernel panic.
 --
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
+commit 41e47d6bcdba49646deba6ac74845c934529f2f4
+Author: Frank Zhang <rmxpzlb@gmail.com>
 
+drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe when PHY is down
+
+This commit attempts to fix a kernel panic caused when an audio server
+closes the HDMI audio device concurrently with an atomic_disable. It tries
+to guard register accesses in the audio teardown path by checking the
+tmds_char_rate state variable.
+
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/d=
+rm/bridge/synopsys/dw-hdmi-qp.c
+> index cfd1b18c06e62..f0e9324249d66 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+[ ... ]
+> @@ -893,6 +893,16 @@ static int dw_hdmi_qp_bridge_clear_audio_infoframe(s=
+truct drm_bridge *bridge)
+>  	return 0;
+>  }
+> =20
+> +static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *br=
+idge)
+> +{
+> +	struct dw_hdmi_qp *hdmi =3D bridge->driver_private;
+> +
+> +	if (hdmi->tmds_char_rate > 0)
+> +		return __dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
+> +
+> +	return 0;
+> +}
+> +
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this lockless check
+leave an open Time-Of-Check to Time-Of-Use (TOCTOU) race condition?
+
+If a userspace audio server (like pipewire) closes the HDMI audio device at
+the same time as a DRM modeset disables the display, the ALSA teardown path
+can execute dw_hdmi_qp_bridge_clear_audio_infoframe() and successfully
+evaluate this unguarded check.
+
+Concurrently, dw_hdmi_qp_bridge_atomic_disable() can execute:
+
+    hdmi->tmds_char_rate =3D 0;
+    hdmi->phy.ops->disable(hdmi, hdmi->phy.data);
+
+This zeroes the state variable and powers off the PHY without
+synchronization. The ALSA thread can then resume and invoke
+__dw_hdmi_qp_bridge_clear_audio_infoframe(), writing to the now-disabled
+PHY registers and triggering the Asynchronous SError Interrupt panic this
+patch is trying to fix.
+
+Additionally, could the same race exist in dw_hdmi_qp_audio_prepare()?
+
+    if (!hdmi->tmds_char_rate)
+        return -ENODEV;
+   =20
+    // ... further down ...
+    dw_hdmi_qp_set_audio_interface(hdmi, fmt, hparms);
+
+This path configures multiple registers after a lockless check, making the
+entire preparation sequence vulnerable to the same race condition.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908062708.3943=
+7-1-rmxpzlb@gmail.com?part=3D1
