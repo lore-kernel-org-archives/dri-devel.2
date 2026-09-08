@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56CBDC79F9E
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 14:49:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D646C79F9E
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 14:49:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A903B10EC83;
-	Tue,  8 Sep 2026 14:49:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4338C10EC84;
+	Tue,  8 Sep 2026 14:49:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bnbQmmnR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P4OaeQ/W";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA3A010EC83
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 14:49:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B89D810EC84
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 14:49:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4DD25601F9;
- Tue,  8 Sep 2026 14:49:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 761251F00A3F;
- Tue,  8 Sep 2026 14:49:42 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3DAEA6020C;
+ Tue,  8 Sep 2026 14:49:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59C4F1F00A3E;
+ Tue,  8 Sep 2026 14:49:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788878983;
- bh=7Ls+NvHNklb+Bsu/U28EvAEbavqoLs1ZOqSz3mrEaN8=;
+ s=k20260515; t=1788878986;
+ bh=AIl8kApfwY+PuNIQ0bDGRHbZMl/F8Fxkf58n8ZSsscI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=bnbQmmnRDM39A6zet2cLX+90b4SGUYIBlEiJh46hVFANevvuRTtNyWUWxy79z0QU6
- BW1GKqye03DHH1tsFdLcYPHGlR4VLZekqqFl8GI/84AIdNTY+n9ZnBrwx2/Rc9IEJ0
- jSGbectrC54YP7JLr84SsflGK0hHLWh3oWXDCIAbGqxPltskrraYi625skEEmTERH8
- PC4UKZ9+X5bJFU4FMITLiVk51afE1SaANlBPQZH7wI3QZ6/PLLq9rPm18aFIi/j8yC
- 2CmP/ZVNxPTQhoiEB9ts1o1yqSYMg24qMJVhK8YSjmHW1BQnLlBdoO2tV3QvG4VhnY
- wKKildwvwbM2g==
+ b=P4OaeQ/W0v/arqslgoJthsdFPLxI9+4O2PfeeHWgc/UQ8cew4CvFMTDsHlNlRkdUX
+ 6h1IPxznMFEH0GpG4BDK59CeWc/YMX2oJaud7m2ObuCHzYDZ3rKT7vF1/4wf0bfFjw
+ g+B8ZBK92nnMM8E1MMjVR1KbXU3gJy4O0OL8uzVpy40Nqt38ugUYMyZMViU7m0RqVC
+ iAh+ovf71Wjc6uP5Kzv98BQuNX1uIuHoDUoxN7XDLWLzVgd/+/w7G4d2isKlhLILDR
+ MPbst0Miubnt9pJNW6dRJ0ufPDdzhjfKR2xz64tauhe/J7eQxU4Qyr2yUQow/pSKC2
+ KJk/O6Dqd9EFQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 08 Sep 2026 16:47:08 +0200
-Subject: [PATCH v4 37/41] drm/shmobile: Convert to atomic_create_state
+Date: Tue, 08 Sep 2026 16:47:09 +0200
+Subject: [PATCH v4 38/41] drm/sun4i: layer: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-drm-no-more-plane-reset-v4-37-a31b3fcfc989@kernel.org>
+Message-Id: <20260908-drm-no-more-plane-reset-v4-38-a31b3fcfc989@kernel.org>
 References: <20260908-drm-no-more-plane-reset-v4-0-a31b3fcfc989@kernel.org>
 In-Reply-To: <20260908-drm-no-more-plane-reset-v4-0-a31b3fcfc989@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- geert+renesas@glider.be, linux-renesas-soc@vger.kernel.org
+ linux-sunxi@lists.linux.dev, samuel@sholland.org, wens@kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6989; i=mripard@kernel.org;
- h=from:subject:message-id; bh=lFb0/r5T37LtcZ/fZlU32akwUACaoc0XZlKURDhjlM8=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkL5O/+bfmRef33ixedL7U/mk7dmF7E8+lKnodoJt/Xb
- 0bhGxQ1O6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEmN0Y6z2LBBwky6/n6LOo
- ZpiInxbmP/DsMffHtJViJtsvS27ZvXmBbbhk5K1TeiI2C7kKjt+ewlgrcp9168ovJ3Zkm5z8Fym
- +7+yluhXaE/pN93yL0v92Y0MEM//1h5m813LlitfN6P8+peYTAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6982; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=a9d7GCveTjYpNRIq2WMAfA2b9JIVG5W2l1O1/6gTPp4=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkL5O89LNBysBTZ4V7VkcwodEPpso2PmPI7v1aeBZ/Wb
+ tDk1mPumMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABOpjGJsaOI8fX7xwT0Cbe/M
+ 5VS2vJt6Wa87PrndpvPozGfznzDdmOdyP9L5GLuIyAHR55/LG+RYGRumbQma/9K1W3ypqu/F3mt
+ TJQxeRRSmLHxx6WFeRoVM6B2DmikFth06XsKKKg+fZtb1TQUA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -335,59 +335,64 @@ expression PS;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: geert+renesas@glider.be
-Cc: linux-renesas-soc@vger.kernel.org
+Cc: linux-sunxi@lists.linux.dev
+Cc: samuel@sholland.org
+Cc: wens@kernel.org
 ---
- drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c | 15 ++++++---------
- 1 file changed, 6 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/sun4i/sun4i_layer.c | 21 ++++++++-------------
+ 1 file changed, 8 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c b/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
-index 148de34af785..4dec4d2c941e 100644
---- a/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
-+++ b/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
-@@ -249,24 +249,21 @@ static void shmob_drm_plane_atomic_destroy_state(struct drm_plane *plane,
- {
- 	__drm_atomic_helper_plane_destroy_state(state);
- 	kfree(to_shmob_plane_state(state));
- }
+diff --git a/drivers/gpu/drm/sun4i/sun4i_layer.c b/drivers/gpu/drm/sun4i/sun4i_layer.c
+index d65587d96d9e..7ec6d8131908 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_layer.c
++++ b/drivers/gpu/drm/sun4i/sun4i_layer.c
+@@ -14,26 +14,21 @@
+ #include "sun4i_backend.h"
+ #include "sun4i_frontend.h"
+ #include "sun4i_layer.h"
+ #include "sunxi_engine.h"
  
--static void shmob_drm_plane_reset(struct drm_plane *plane)
-+static struct drm_plane_state *shmob_drm_plane_create_state(struct drm_plane *plane)
+-static void sun4i_backend_layer_reset(struct drm_plane *plane)
++static struct drm_plane_state *sun4i_backend_layer_create_state(struct drm_plane *plane)
  {
- 	struct shmob_drm_plane_state *state;
+ 	struct sun4i_layer_state *state;
  
 -	if (plane->state) {
--		shmob_drm_plane_atomic_destroy_state(plane, plane->state);
+-		state = state_to_sun4i_layer_state(plane->state);
+-
+-		__drm_atomic_helper_plane_destroy_state(&state->state);
+-
+-		kfree(state);
 -		plane->state = NULL;
 -	}
 -
  	state = kzalloc_obj(*state);
- 	if (state == NULL)
--		return;
+-	if (state)
+-		__drm_atomic_helper_plane_reset(plane, &state->state);
++	if (!state)
 +		return ERR_PTR(-ENOMEM);
- 
--	__drm_atomic_helper_plane_reset(plane, &state->base);
-+	__drm_atomic_helper_plane_state_init(&state->base, plane);
 +
-+	return &state->base;
++	__drm_atomic_helper_plane_state_init(&state->state, plane);
++
++	return &state->state;
  }
  
- static const struct drm_plane_helper_funcs shmob_drm_plane_helper_funcs = {
- 	.atomic_check = shmob_drm_plane_atomic_check,
- 	.atomic_update = shmob_drm_plane_atomic_update,
-@@ -281,11 +278,11 @@ static const struct drm_plane_helper_funcs shmob_drm_primary_plane_helper_funcs
+ static struct drm_plane_state *
+ sun4i_backend_layer_duplicate_state(struct drm_plane *plane)
+ {
+@@ -131,11 +126,11 @@ static const struct drm_plane_helper_funcs sun4i_backend_layer_helper_funcs = {
+ static const struct drm_plane_funcs sun4i_backend_layer_funcs = {
+ 	.atomic_destroy_state	= sun4i_backend_layer_destroy_state,
+ 	.atomic_duplicate_state	= sun4i_backend_layer_duplicate_state,
+ 	.destroy		= drm_plane_cleanup,
+ 	.disable_plane		= drm_atomic_helper_disable_plane,
+-	.reset			= sun4i_backend_layer_reset,
++	.atomic_create_state	= sun4i_backend_layer_create_state,
+ 	.update_plane		= drm_atomic_helper_update_plane,
+ 	.format_mod_supported	= sun4i_layer_format_mod_supported,
  };
  
- static const struct drm_plane_funcs shmob_drm_plane_funcs = {
- 	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
--	.reset = shmob_drm_plane_reset,
-+	.atomic_create_state = shmob_drm_plane_create_state,
- 	.atomic_duplicate_state = shmob_drm_plane_atomic_duplicate_state,
- 	.atomic_destroy_state = shmob_drm_plane_atomic_destroy_state,
- };
- 
- static const uint32_t formats[] = {
+ static const uint32_t sun4i_layer_formats[] = {
 
 -- 
 2.55.0
