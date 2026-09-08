@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DACCC79F9E
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 14:47:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EAEBC79FAA
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 14:47:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CC5C10EC5F;
-	Tue,  8 Sep 2026 14:47:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 285A210EC60;
+	Tue,  8 Sep 2026 14:47:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gEye4RaJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z7TKmXve";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11FD310EC5F
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 14:47:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA5EC10EC61
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 14:47:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EEDC740E18;
- Tue,  8 Sep 2026 14:47:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C4F31F00A3A;
- Tue,  8 Sep 2026 14:47:48 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B384340E18;
+ Tue,  8 Sep 2026 14:47:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12ECA1F00A3D;
+ Tue,  8 Sep 2026 14:47:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788878868;
- bh=ECY9z8OMVwSntWtogdSW4iJOh98bgl+qLv60Ql/+f7I=;
+ s=k20260515; t=1788878872;
+ bh=88t+YLiFUI+K5O2LYm1+llhaPFd2/0sP6B6Nan3OY8U=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=gEye4RaJb5QtPDZtI0sGmRi/00P9wbSU3LG438r1Cqj2rrWtyNcjkNBMKwSDawCwj
- uov3pmb/9Q0n9fcVPOUD4hA1OPgmP22FXbgfDinF3AYIJngOHxXzGEBj/5a2cSVxnS
- DzRtNBu9+ObcHS7Yu/qzQIL87isZ1rS44yMAc+oezMb76N9Vi+fzQnvd2cuqtMARXT
- yNmMi02uLeLq9e007Att1G660ViKtSaJ7Hq3qcr5uGUhFsNuRhiYsHcLG11PPkWu8J
- ehDQh+Hbc0zEt4ECmryiAO+p2npboSS8P9xbMoxXl+GQIFNDa9Cw5EkRiLl+IRi4XM
- Eo17SVugicXBQ==
+ b=Z7TKmXveJfBp7uTFmLT5Q2aQodHI1n4qdq9cmbqnyiSe0qIMPunaY1LbHw9efLOGE
+ lps7FhXgD5L+u4oDlrwBdY/zHOOLjyDEzknz/FggRuIaR5ff0PXKT5PK8DZxsItoRt
+ LJKlKvYv4rUxtg3hpvANrM2+zGkDUeIHRzmbaI1Yxbcw5FO/PEQXfoHcPf+wdaBngR
+ GpfELWY1qWBZbgKiMwirOPscJ8J4TSPc3ekg0LhbCiMsSYtzMAqPS6YvZ3J6T45Q/I
+ iCRL5uhZsZTtYD2KtHcl3repiDl8glOAT9InW5U8MK9N6/mqH5xionRqg/+i5sUAvk
+ SxHBXB6aJHlbg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 08 Sep 2026 16:46:43 +0200
-Subject: [PATCH v4 12/41] drm/lcdif: Convert to atomic_create_state
+Date: Tue, 08 Sep 2026 16:46:44 +0200
+Subject: [PATCH v4 13/41] drm/mxsfb: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-drm-no-more-plane-reset-v4-12-a31b3fcfc989@kernel.org>
+Message-Id: <20260908-drm-no-more-plane-reset-v4-13-a31b3fcfc989@kernel.org>
 References: <20260908-drm-no-more-plane-reset-v4-0-a31b3fcfc989@kernel.org>
 In-Reply-To: <20260908-drm-no-more-plane-reset-v4-0-a31b3fcfc989@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -46,12 +46,12 @@ Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
  Frank.Li@nxp.com, Sascha Hauer <s.hauer@pengutronix.de>, festevam@gmail.com, 
  imx@lists.linux.dev, kernel@pengutronix.de, marex@denx.de, stefan@agner.ch
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6141; i=mripard@kernel.org;
- h=from:subject:message-id; bh=Z2pkX1ugEMJ+R2ckj2e922g81fn6IyGPyKnPWp5snA8=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkL5C95nCh/tshQ4LBdkOmdqmStu2+8r6cypHh7aviEz
- ndfnnm8YyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEyEx5OxvqQgeU7twiXhx+IW
- HVXa6xp2oTT6g8dd6+Z6K7lrRWvX/MydXWVWPNFvbZ7UrurtfFe0GOvDpyXkGtmZbxL/84w5oH0
- ry6Sz+f5mz58lie3YF/Vs8g3NIHv1auaJnrP4eNZbBHBeLAUA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6146; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=qsY/E2qp4BzJoPB3EoYrbQ38YpDw3uz6jagVosG5tJM=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkL5C9f0m4453xvz58ZL2/Gi0vf2vNWcGbFlCldza7dr
+ C/LlhYVd0xlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJ+LQzNsxeOWtKzYR/k+c/
+ KlUOXLPhM/cVZt7SPZK29wPearvtdkp/F6hi11wj9av3kXPAmiN8Eox1xjPVlzOEL9e7P/1/rF8
+ H+9IN+9x+MSxhNFyaYP1vtg3/X7vU71MuHmXJODzNwePSM8dGAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -343,16 +343,16 @@ Cc: kernel@pengutronix.de
 Cc: marex@denx.de
 Cc: stefan@agner.ch
 ---
- drivers/gpu/drm/mxsfb/lcdif_kms.c | 2 +-
+ drivers/gpu/drm/mxsfb/mxsfb_kms.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/mxsfb/lcdif_kms.c b/drivers/gpu/drm/mxsfb/lcdif_kms.c
-index 5f0fbec3a390..c67f58a408d0 100644
---- a/drivers/gpu/drm/mxsfb/lcdif_kms.c
-+++ b/drivers/gpu/drm/mxsfb/lcdif_kms.c
-@@ -721,11 +721,11 @@ static const struct drm_plane_helper_funcs lcdif_plane_primary_helper_funcs = {
- static const struct drm_plane_funcs lcdif_plane_funcs = {
- 	.format_mod_supported	= lcdif_format_mod_supported,
+diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+index 36ea285182b4..6e82f8f76793 100644
+--- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
++++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+@@ -641,11 +641,11 @@ static const struct drm_plane_helper_funcs mxsfb_plane_overlay_helper_funcs = {
+ static const struct drm_plane_funcs mxsfb_plane_funcs = {
+ 	.format_mod_supported	= mxsfb_format_mod_supported,
  	.update_plane		= drm_atomic_helper_update_plane,
  	.disable_plane		= drm_atomic_helper_disable_plane,
  	.destroy		= drm_plane_cleanup,
@@ -362,7 +362,7 @@ index 5f0fbec3a390..c67f58a408d0 100644
  	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
  };
  
- static const u32 lcdif_primary_plane_formats[] = {
+ static const uint32_t mxsfb_primary_plane_formats[] = {
 
 -- 
 2.55.0
