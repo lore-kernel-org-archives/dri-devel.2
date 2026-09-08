@@ -4,82 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B159AC79FAA
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B17AC79F8C
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EBC810EF1F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6083210EF20;
 	Wed,  9 Sep 2026 06:55:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sAGSrdb9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gRKBNnJJ";
 	dkim-atps=neutral
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com
- [209.85.161.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F40A410EAA4
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 09:02:08 +0000 (UTC)
-Received: by mail-oo1-f41.google.com with SMTP id
- 006d021491bc7-6b1b766bf01so1767805eaf.0
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 02:02:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788858128; x=1789462928; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=5yQQXf0ptX+tS4ybVpXcfW4E0EqwJo75cLYXDPk6+nY=;
- b=sAGSrdb9U+ASxXYs2b6OTX4INYuuqLSvGqGeJ8HRxskLWhpB2vmrt0HF7DBH3JO8E6
- BcWmLHCjYUts5eFax+ND3rQGElpcGDjsFgJLDmINOT/TuB/M9QkTMbvEC7oL8/9mKDga
- wX519pkrOCn3a9QRK51J+fIAYKQpha0n4SN4XvVxpaNa2EddCvZLn9daW4C8o4jnVLGS
- 8Ul5OtAXITCQkkUSYso7DgKKEL3xwQjKriMlFvL/C08V0e4KSruJzzp1Gi5NbcWB4kYV
- duA24XhmboIax7tiMCKOUHKXxmoXAVgS4Ryz5aPcQiZ21klXHntEJ8rBmTYWEYbhJUKF
- iFQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788858128; x=1789462928;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=5yQQXf0ptX+tS4ybVpXcfW4E0EqwJo75cLYXDPk6+nY=;
- b=fdVS2zEM0gb1xvehy4rXIvPUjrxpE+c4l3pqghU9wAb8mHj8CGBMeIQEem5Q7FCske
- ryrdPB6G9em3NEOgne+SxBxRwSf0KBZvovVEFMDEqhO+j4zmlNBy5bO2uBM1vJPKCOxp
- c0Id3C9TqaKPyHzVy0Pkk1wC8pr9aSblUqLhHDSBerYjEK+uAC3xF7b0YsdI2yNgtZrR
- 1tFn9rwl5xmWbo19PUKrqOwlguusE8PcTvgwpXDrrIQSlAVuScWSv2rQVlKm4uej4aOG
- +Zh9gLtN0g82p9RAt01+Ut7tnM6J59Z5I1aLSTPVCZpmIhpq6eg13wYQ0fBuxT+eZgZt
- Xv7Q==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxHh7xK1foHfespFonQNPSs/RWYT8fXN67sMI9QL0GDSMijiJEIhMovToCrySy2LLB9TtRJaVfAR74=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++k5LMASxLuqOogV7BvPWO8mfTFUaO3sn5aUC7dnW5/XwNT++T4z
- ZGNNxr62vysQLovidyXDGxvrALRNNWfE4I+7lk/2UAvnEyQfLC0/CSay
-X-Gm-Gg: AYBFou16hIR5mDqWEkN3He/+LPqAbztT0ta/J9qygk3oYG0HxfhsGabW6oeNsJgua89
- sBodP+SNxa2rMVl3q50bnb9GAOSKM5eIzxW73uQZIyv+RdsTNbP3vgjTKBRxxN6szmw9PjFVaF0
- rDnB/hdcwIkUUtJWZ4wqH+LzyvtXgSdyuHPfTssO4/MrHDvrF5n7bHloYRWKhHADaS8KaDkIjZS
- IKpLEFi4wigjFaPn5FCVbMYmFgoufvKoJLg6Nn85K7TMmdkvRCSTHQCS8dOSjjWBTOT3MQc7h6l
- cS4eLRmFuyyhfqX12feONAPBz+gP5lvGKkoYVh6nUSsomWL4qlCtrS2Fg//vQ8qfcGUbTa5hrCy
- didGxYMk2z/7MtBl1Jba63IQzFPbN5lTh8k6oGpeLvStdL+eM9Wj3H4AE+Vd5psAN4AUcNNFVO3
- f0vncKc+vsggqyGRSw+utTx9Fhv8NYYhztiDv5Dv/tJkkDT9PAvaahgTtaMlFKffRzjOi8h+LXu
- YCkoGgNcLIZ2LK6F5jtTjvEiHYV28FEDwp3qDjdbX5k
-X-Received: by 2002:a05:6820:1890:b0:6b1:464d:4d1d with SMTP id
- 006d021491bc7-6b6fb8d25aemr15032941eaf.11.1788858127679; 
- Tue, 08 Sep 2026 02:02:07 -0700 (PDT)
-Received: from flyingfox.tail3d542a.ts.net
- ([2402:a00:163:2ce9:6c87:7904:21fa:8675])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3339b8f44d7sm33641223eec.22.2026.09.08.02.02.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 02:02:07 -0700 (PDT)
-From: 092vk <vk092kumar@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org, 092vk <vk092kumar@gmail.com>
-Subject: [PATCH] drm/msm/dp: don't gate eDP on DP_SINK_COUNT
-Date: Tue,  8 Sep 2026 14:31:46 +0530
-Message-ID: <20260908090146.3100787-1-vk092kumar@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B7AC10ED4A
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:19:37 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1980F435FA;
+ Tue,  8 Sep 2026 20:19:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECB871F00A3A;
+ Tue,  8 Sep 2026 20:19:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788898777;
+ bh=xaEH9s0394VnHAUaB/1RjJOd4x2IZyvIZAfGxratmM0=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=gRKBNnJJRHtxe4qw4P+kLKngn7k0FkyLX5IKKgFD73pNGeVNwWz/N1S0Z2OZh0Kd6
+ lzMdwxp3HZVOsNFt5P37eVI4Mdak699X/wWJ9/aCl2v9Plga0u62hPw7JluK4xNEhM
+ NbEal2VMOa+wLil6Mq32V0b1NBmsWbGifsFFLaCnEIoWS9mmYjk6uv6lr5uiYqvvuF
+ oI8KVmkDpJ3xyG6ktJ/dwHjaERy6tm8OywQe0iwHPYevEq7/7aKEs5n1Fe7FgkVOGx
+ qi5OJ/UpXbASs1Lm9FzuHeecPsW31A05efDwIhZDQBrxXSqZWZSX1dplv8V+1/Q08H
+ H78RamrKZXtkw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 08 Sep 2026 21:01:40 +0100
+Subject: [PATCH 36/39] mm: eliminate VM_SPECIAL, VMA_SPECIAL_FLAGS
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-36-dacf19cce22b@kernel.org>
+References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2135; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=WdrPDwIiJWyraucoH4JeeXWA6KhoQfToyMCGWnY9BCA=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG6b+Pb+phn/5szf/a/rVOl883DNulb++I77Uo9Yr
+ nOwTDJt6ChlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEJHoZ/idmySdc4mV9Hce7
+ Z4qvcOgdR9cjR+e871jnX6GtEyfJwcXI0FFncaK8Olj/kvv2z52WZyYXqRzsqGyxP22v/UT+bWg
+ tDwA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:54:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,89 +144,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-msm_dp_display_prepare_link(), msm_dp_display_disable(), and
-msm_dp_hpd_unplug_handle() all treat dp->link->sink_count == 0 as
-"nothing is connected", and in msm_dp_display_prepare_link() this
-causes probe/enable to fail outright with -ENOTCONN.
+Every user of the VM_SPECIAL or VMA_SPECIAL_FLAGS has now been converted to
+predicates which explicitly express what is actually being checked for
+rather than the nebulous concept of possessing 'special' VMA flags.
 
-This is correct for external DisplayPort, where a compliant sink is
-required to report a valid DP_SINK_COUNT over the AUX channel. It is
-not correct for eDP: some eDP sinks -- particularly fixed-format
-eDP-to-HDMI bridge chips with no downstream AUX-capable panel
-behind them -- never populate DP_SINK_COUNT with a nonzero value,
-even while otherwise participating normally in DPCD capability
-exchange and link training.
+In any case 'special' is not so special a term of art in mm - it includes
+VDSO/VVAR mappings, special in the sense of vm_normal_folio() and probably
+other cases too.
 
-drm_dp_read_sink_count_cap() already accounts for this by excluding
-eDP connectors from the sink-count requirement for other DPCD-derived
-checks (msm_dp_bridge_detect() takes care). Apply the same exemption
-to the raw sink_count reads in this file via a small shared
-helper, so eDP outputs with a non-AUX-capable downstream sink are
-not treated as permanently disconnected.
+Therefore make things less special by eliminating these now unused flags.
 
-Tested on a Qualcomm QCS6490-based board driving a fixed-format
-eDP-to-HDMI bridge IC (chrontel,ch7218a) with no negotiable
-DPCD-capable panel behind it; without this fix,
-msm_dp_display_prepare_link() unconditionally returns -ENOTCONN
-and the display never comes up.
+No functional change intended.
 
-Fixes: ca16db3d18cf ("drm/msm/dp: break up dp_display_enable into two parts")
-
-Signed-off-by: 092vk <vk092kumar@gmail.com>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/gpu/drm/msm/dp/dp_display.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ include/linux/mm.h              | 8 --------
+ tools/testing/vma/include/dup.h | 8 --------
+ 2 files changed, 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index bc646d172abe..9254f080f0ea 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -400,6 +400,12 @@ static int msm_dp_display_handle_irq_hpd(struct msm_dp_display_private *dp)
- 	return 0;
- }
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index e6c3ebb09c8d..b5784685272a 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -576,14 +576,6 @@ enum {
+ #define VM_ACCESS_FLAGS (VM_READ | VM_WRITE | VM_EXEC)
+ #define VMA_ACCESS_FLAGS mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT, VMA_EXEC_BIT)
  
-+static inline bool msm_dp_link_no_sink(struct msm_dp_display_private *dp)
-+{
-+	/* eDP sinks are not required to report a valid sink count */
-+	return !dp->msm_dp_display.is_edp && dp->link->sink_count == 0;
-+}
-+
- static int msm_dp_hpd_plug_handle(struct msm_dp_display_private *dp)
- {
- 	int ret;
-@@ -467,7 +473,7 @@ static int msm_dp_hpd_unplug_handle(struct msm_dp_display_private *dp)
- 		drm_edid_connector_update(dp->msm_dp_display.connector, NULL);
+-/*
+- * Special vmas that are non-mergable, non-mlock()able.
+- */
+-
+-#define VMA_SPECIAL_FLAGS mk_vma_flags(VMA_IO_BIT, VMA_DONTEXPAND_BIT, \
+-				       VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT)
+-#define VM_SPECIAL vma_flags_to_legacy(VMA_SPECIAL_FLAGS)
+-
+ /*
+  * Physically remapped pages are special. Tell the
+  * rest of the world about it:
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index e6cb2ea196f2..61b08589e592 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -352,14 +352,6 @@ enum {
+ #define VM_ACCESS_FLAGS (VM_READ | VM_WRITE | VM_EXEC)
+ #define VMA_ACCESS_FLAGS mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT, VMA_EXEC_BIT)
  
- 	/* triggered by irq_hdp with sink_count = 0 */
--	if (dp->link->sink_count == 0)
-+	if (msm_dp_link_no_sink(dp))
- 		msm_dp_display_host_phy_exit(dp);
+-/*
+- * Special vmas that are non-mergable, non-mlock()able.
+- */
+-#define VM_SPECIAL (VM_IO | VM_DONTEXPAND | VM_PFNMAP | VM_MIXEDMAP)
+-
+-#define VMA_SPECIAL_FLAGS mk_vma_flags(VMA_IO_BIT, VMA_DONTEXPAND_BIT, \
+-				       VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT)
+-
+ #define VMA_REMAP_FLAGS mk_vma_flags(VMA_IO_BIT, VMA_PFNMAP_BIT,	\
+ 				     VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT)
  
- 	/*
-@@ -634,7 +640,7 @@ static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
- 		return rc;
- 	}
- 
--	if (dp->link->sink_count == 0)
-+	if (msm_dp_link_no_sink(dp))
- 		return -ENOTCONN;
- 
- 	if (!msm_dp_display->power_on) {
-@@ -723,12 +729,12 @@ static int msm_dp_display_disable(struct msm_dp_display_private *dp,
- 	msm_dp_ctrl_off_pixel_clk(dp->ctrl);
- 
- 	/* dongle is still connected but sinks are disconnected */
--	if (dp->link->sink_count == 0)
-+	if (msm_dp_link_no_sink(dp))
- 		msm_dp_link_psm_config(dp->link, &msm_dp_panel->link_info, true);
- 
- 	msm_dp_ctrl_off_link(dp->ctrl, msm_dp_panel);
- 
--	if (dp->link->sink_count == 0)
-+	if (msm_dp_link_no_sink(dp))
- 		/* re-init the PHY so that we can listen to Dongle disconnect */
- 		msm_dp_ctrl_reinit_phy(dp->ctrl);
- 	else
+
 -- 
 2.55.0
 
