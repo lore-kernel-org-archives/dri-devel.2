@@ -4,107 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 450F4C79F82
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 15:09:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72410C79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 15:15:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46A5610E2AB;
-	Tue,  8 Sep 2026 15:09:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12B0E10E120;
+	Tue,  8 Sep 2026 15:15:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CYl+nrSq";
+	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="bzDV0iRa";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D782110E120
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 15:09:29 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- 98e67ed59e1d1-39b1a806664so604846a91.3
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 08:09:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788880169; cv=none;
- d=google.com; s=arc-20260327;
- b=s3ZFzJqRTHYiWTqah6r+G8JBbw29dCLRII3t8OpG/Ufxx9hf1cSv+lPC6c6+z3FO5K
- z9OP0KIc+GlkZAyyOPYdaxOZyPFIWqCey8j4+sfeWusXzkB46LNnqabjTixg7ky6qWsk
- zI/Zs19vlmWO5uiyPaDb1ehm4KcDrTpneg8bUntLH+TUnx7dmjhMzDfMe4wGxdXSBRSa
- 34oHoQdUEZN1UyntIzKyL77Zqa49Spjn3Cg7qznojaiBvcWcGugm9/srorNQpEPp7puM
- dcQfKhAC2sLq4L2KefQru7xBHau+mCC5yJm8I0Spw/MKD6Fx/c7mEXDVc+j/39yIHSD3
- I9OQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=7VyQi/ZkPUG+zy3skQVlnP5ix8MZF/MBT4Cn4vahwwM=;
- fh=IK9P5FH6khLwqA9tEpHnKGx0mDKrQ/K8yYaQY90AZOI=;
- b=p86aK4EEpcp9uZLatyNV5jdJZzjye+slO1ReA6wXN8yBbEbbeRX9FUv4MN6llQH3P/
- Ng08o7V694PD5CduuJIPGAESRCixnTf3WHQlRtBbvNrLuK7KEau9caiPBEByawxp1BIn
- HR18BDREMkEFVRLfPe18I2AEmHmWXCxoU0WHRP3QNFsz/y+NclwiwXXEsK/VFklOOjki
- z5FcwR5k5b+JpYRUv4HYn5vLvLK9wmgust+gC4Q6DMr+k1QLj1I+ADI5gp2GxUDokMp5
- Sc6dxH3x9ItjABM1jShb3b+iotvw+RQMywgY9ZPJ98A2cPm2qcUaFDzVw5QciUCiccf6
- Fzkg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788880169; x=1789484969; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=7VyQi/ZkPUG+zy3skQVlnP5ix8MZF/MBT4Cn4vahwwM=;
- b=CYl+nrSq05o756UA2dtWaY4XCe6mD28ga1u9IuWwgcm2I0CDgqVqwiQHWUpNVL0Xd8
- w/nia+N86d6xAItpJNKTCiBztcYF2+GunS0dQ/Ou0RnaP55GGX997p8cvcaRf2heYI9S
- MnM5Vn2HPTdRgtE0WFBItG1hemM/dknGovgZstDnNLMzrWpFuAIhC+SQ7bksMK8bztd5
- ToXvDzzu1RlYGlUxvQ4DxH3lAUt7WFBi2Fjh76Uk1jAF2d/knEKOQQMFDvpl23iwTRai
- SUUHvnPUM0ho8frslCTecntBtadFuZ9+a+CP3iFCw9cXCynwcV+lDoqTT/aqVr05qDjj
- qeCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788880169; x=1789484969;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=7VyQi/ZkPUG+zy3skQVlnP5ix8MZF/MBT4Cn4vahwwM=;
- b=nvey1THqGrNLXxNONf9aj+RkVtcHrZdrkMiqe+QZJ++Br/ZejiA93epqLplRHUcRAS
- KxBOmQXwv7Pfg/syz2FPL5cpoShTFQt5GAsY77z62uxTVeQZgYeEB9G7dWhuWDFcR68E
- /EEV/riJffSl8SkFrGPDcwoz0YrkkBJEtxeIq1lOI90h5HHnQ3Z7owKAalBfXgdK2VWz
- l3/83Tmk3gzrOff5CN3D14krBsxM2np7+CBedX5PDEGY68+2aK3R62jFFL0g6Ck9IUZ5
- Fb77eVK6OHVWryxzJN/Bwlh0cAUXyti6HBGcUKigy56wmR+uTCexQgc7/OE3syqT8Hfe
- dSYg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBw+hUxvG6nqqQYtMiBvUDD4Qa9WvkUwBMUAvYxzUhahoamNh3N+bqWX7OqT9ceAP0VNU5koNejIEww=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mq1WuZ8jTwHWpBYRjva4Yqa9j+oD/CHXcyfEg6+GihuQw35iq6
- cldv1+hZJ178FHwknGsc7otNpm3wyvuG698e/OUCIPFl7IVAcxS6mYAAA4RsdD12J1dlbR5ghJw
- ls18cmpiJQ4norXE+j7mCQHJZevl1EeM=
-X-Gm-Gg: AYBFou0QlvzeIaRKWalLqzs9WWl9xyLHea6FXmHOnhRwwyPakhjvAgLmgYZB6pHfizm
- srOwKkN7WkKkoEH59ceXe/JPAoCvAdPJ5fd506OjDeWqBYaU9J1CWSuP4exHq2Bj6ZCKdCdtDrC
- 5XjJzehuZ/bTfWRBtN5n3PCZmwpIiRij8vkFcKdshZeDAfqOInY+d8AdueiTGQrimX6yNFh1hx8
- PLVFGVG2iwf/BtqA/2GugHaMcbL71yKCoRFq2l/JKjQlMZAIiMQPX7UQYaAfWfdUo4gqXY9TWWP
- N6YFaVFlwL/XSHobNaQ6T1cv/LaG79TdsjcXn+m3ZSWyNZd9HgBPGata2qBzJ7ukjEqM+Fi2quT
- c
-X-Received: by 2002:a17:90b:3ccf:b0:39b:34ef:3b24 with SMTP id
- 98e67ed59e1d1-39b3d5aaa70mr21302626a91.1.1788880169185; Tue, 08 Sep 2026
- 08:09:29 -0700 (PDT)
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [188.68.63.166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B86910E120;
+ Tue,  8 Sep 2026 15:15:01 +0000 (UTC)
+Received: from mors-relay-8202.netcup.net (localhost [127.0.0.1])
+ by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4hfSD270bqz48f7;
+ Tue,  8 Sep 2026 17:14:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1788880499;
+ bh=npBVPIx/WRGawCVtXNGKZVl2Ht00Z+1uN1WEVDLUYEM=;
+ h=Date:Subject:To:References:From:Cc:In-Reply-To:From;
+ b=bzDV0iRasfIGoJ4eLj1TCVT70hJaEAOMRX7MIRrV5legW5CJh40FsucJFRm0xinxd
+ VSRAH2lnZTCW26I73YqQH0CzEhv+UKgfhE3rNts3CcTlfL6fLhwLarUaXQjI2TvO64
+ tHz6Z+I4GbUQbkfjVjwf82ds839gkPvHpHG51VbJlS+aMOX104cO14AS1n9+xE8FbD
+ QrItJsNcCCsnr+xemks/qx8yPJsQ1p5UXz/mZ56jGa1OWzbYJh9u4bUYkRhBM0g3qe
+ Z/Bc9BKJ2feWuNglm1ngFw7E42dPdaGaPgU1OLaaySRHe6l/zH9smHiomdWlZFBTL3
+ P4n3lkhjff7dA==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+ by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4hfSD26JNLz48V3;
+ Tue,  8 Sep 2026 17:14:58 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hfSD13Gv4z8svL;
+ Tue,  8 Sep 2026 17:14:57 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
+ [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id 983795F9C3;
+ Tue,  8 Sep 2026 17:14:56 +0200 (CEST)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
+ smtp.mailfrom=linux@leemhuis.info
+ smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <1b3d0eb2-9e9a-4d4e-b8c0-ff966033ef03@leemhuis.info>
+Date: Tue, 8 Sep 2026 17:14:55 +0200
 MIME-Version: 1.0
-References: <20260828-b4-adreno-timestamp-v1-1-273525da144c@oss.qualcomm.com>
- <CACu1E7GGdxTOsn+MRDT+7Guhjs-DDkZVx0Yet=RTxgQ4CNCKhw@mail.gmail.com>
- <CACSVV00BtmA0CotRucd8jG=cQLQw0YmLKEkTOV70qHBx=sG0sA@mail.gmail.com>
- <fl5uoffoh3gyod3f6jxgze33ut4jj4ttmgivtyoa5oykbt2aqp@rkktjz4yh4ll>
- <CACSVV03ShOw8D8d-5gDPYdzH3_Hp7EMz2CdfA3x08pCKAtw57g@mail.gmail.com>
-In-Reply-To: <CACSVV03ShOw8D8d-5gDPYdzH3_Hp7EMz2CdfA3x08pCKAtw57g@mail.gmail.com>
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Tue, 8 Sep 2026 11:09:17 -0400
-X-Gm-Features: AcwNN1UlPD6ctgDPf5NWumSwcQmlkV-egtOEnEpVqtiYB2PLdBiSmUTMS3asYaU
-Message-ID: <CACu1E7H9KsUU=dV+iwQPOOX62+V8S5xstFf2LXhzeE7oSb3V4A@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/adreno: keep the GPU timestamp monotonic across
- power collapse
-To: rob.clark@oss.qualcomm.com
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: rust: Build error in DRM bindings
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "open list:RUST:Keyword:b(?i:rust)b" <rust-for-linux@vger.kernel.org>
+References: <4da62a4b-c4ef-492a-9a27-b56bd4784acf@suse.de>
+From: Thorsten Leemhuis <linux@leemhuis.info>
+Content-Language: de-DE, en-US
+Autocrypt: addr=linux@leemhuis.info; keydata=
+ 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 MEK4
+Cc: Mukul Joshi <mukul.joshi@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Linux kernel regressions list <regressions@lists.linux.dev>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>
+In-Reply-To: <4da62a4b-c4ef-492a-9a27-b56bd4784acf@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <178888049708.3336765.16009071836980567864@mxe9fb.netcup.net>
+X-NC-CID: +8MkgHCp8RC5tsRYXFuTLb6WzoXvHmnlhMHKCi6gQfsCOicsRNQ=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,94 +128,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 8, 2026 at 10:51=E2=80=AFAM Rob Clark <rob.clark@oss.qualcomm.c=
-om> wrote:
->
-> On Tue, Sep 8, 2026 at 4:41=E2=80=AFAM Dmitry Baryshkov
-> <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> >
-> > On Mon, Sep 07, 2026 at 04:20:43PM -0700, Rob Clark wrote:
-> > > On Thu, Aug 27, 2026 at 9:07=E2=80=AFPM Connor Abbott <cwabbott0@gmai=
-l.com> wrote:
-> > > >
-> > > > On Thu, Aug 27, 2026 at 7:13=E2=80=AFPM Dmitry Baryshkov
-> > > > <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> > > > >
-> > > > > The always-on counter behind MSM_PARAM_TIMESTAMP sits in the GPU =
-power
-> > > > > domain on a4xx, a5xx and the GMU-less a6xx parts, so it restarts =
-from
-> > > > > zero whenever the GPU is powered up again and the timestamp repor=
-ted to
-> > > > > userspace jumps backwards. On an a702 six reads three seconds apa=
-rt all
-> > > > > land in the 500..1200 tick range, stepping backwards twice, and o=
-n an
-> > > > > a530 the OpenCL device timer conformance test fails because
-> > > > > clGetDeviceAndHostTimer() returns an end time below the start tim=
-e.
-> > > > >
-> > > > > Save the counter in the suspend path of the affected generations,=
- while
-> > > > > the GPU is still powered, and add the accumulated ticks to the va=
-lue
-> > > > > reported to userspace.
-> > > >
-> > > > This is useless because the entire point of clGetDeviceAndHostTimer=
-()
-> > > > (and the similar thing in Vulkan) is to match what the GPU itself
-> > > > returns, and now you've broken that by adding an offset.
-> > >
-> > > Just to clarify, the timestamp needs to match what UMD reads directly
-> > > from hw in various different ways (timestamp queries, shader_clock,
-> > > etc)..
-> > >
-> > > If we can _restore_ the value (ie. write the hw reg) on resume, that
-> > > would be ok.. but it doesn't look possible.
-> >
-> > Yes, a quick check shows that all relevant registers are write-ignore.
-> >
-> > > Otherwise I guess we need
-> > > some scheme where an offset value is stored in memory somewhere, and
-> > > some coordination with userspace to add the offset in various
-> > > different paths.  But the kernel shouldn't be adding the offset to
-> > > what it returns to userspace itself.
-> >
-> > Ack, thanks for the explanation. I tried to match what kgsl was doing.
-> > It reads the GPU timers directly from the GPU, but for the CPU timers i=
-t
-> > reads the value from KGSL driver which accumulates the offset.
-> >
-> > If I understand you correctly, we need to export the offset to the
-> > userspace via some extra page (like vdso) and let Mesa read it. Correct=
-?
->
-> Yeah, it doesn't look like there is an existing GPU_READONLY && !APRIV
-> BO we could re-use, so I think we need to create a new global (TTBR1)
-> "vdso" BO which is read-only to the GPU but otherwise accessible to
-> IB1+, along w/ MSM_PARAM_VDSO for UMD to query the address of this BO.
-> (And update msm_mapping test in igt to validate that it is read-only.)
->
-> (I'm not married to the name "vdso" but not creative enough this
-> morning to think of something better)
->
-> I'm a bit curious if kgsl handles this differently.. maybe there is
-> something I'm missing.  But somehow timestamps need to agree between
-> what is read on the GPU and what is read on CPU.
->
-> BR,
-> -R
+On 9/8/26 09:11, Thomas Zimmermann wrote:
 
-I think the kgsl timestamp offset stuff was only added for the new
-A750+ CX GMU counter which is not read-only. We do need to port that
-over to drm/msm. If the offset is applied for older GPUs, it's
-probably another case of kgsl not bothering to keep support for older
-GPUs in newer branches.
+> when building the Rust-DRM bindings with v7.3-rc2, I get
+> 
+>>>>
+> 
+>   RUSTC L rust/kernel.o
+> error[E0063]: missing field `handle_free` in initializer of
+> `drm_gem_object_funcs`
+>    --> /home/tzimmermann/Projekte/linux/rust/kernel/drm/gem/shmem.rs:130:52
+>     |
+> 130 |     const VTABLE: bindings::drm_gem_object_funcs =
+> bindings::drm_gem_object_funcs {
+>     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `handle_free`
+> 
+> error[E0063]: missing field `handle_free` in initializer of
+> `drm_gem_object_funcs`
+>    --> /home/tzimmermann/Projekte/linux/rust/kernel/drm/gem/mod.rs:265:58
+>     |
+> 265 |     const OBJECT_FUNCS: bindings::drm_gem_object_funcs =
+> bindings::drm_gem_object_funcs {
+>     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `handle_free`
+> 
+> error: aborting due to 2 previous errors
+> 
+> For more information about this error, try `rustc --explain E0063`.
+And I already wondered if I'm the only one that is running into this, as
+I reported this a few days ago already. Pseudo-patch to work around this
+can be found here:
+https://lore.kernel.org/all/apyTR-f8W6Jt7uP5@soda.int.kasm.eu/
 
-Connor
+But for bisectibility I think it would be best if that fix could be
+folded into the culprit.
 
->
->
-> > --
-> > With best wishes
-> > Dmitry
+Ciao, Thorsten
