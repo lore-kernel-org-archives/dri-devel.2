@@ -4,44 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13FACC79FAC
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 04:57:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17448C79F99
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 05:02:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FEC210EA19;
-	Tue,  8 Sep 2026 04:57:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52E2910E9AF;
+	Tue,  8 Sep 2026 05:02:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fXBpNIGw";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="Ea0ngCsT";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D1B710EA19;
- Tue,  8 Sep 2026 04:57:03 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 26456601DB;
- Tue,  8 Sep 2026 04:57:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9F571F00A3A;
- Tue,  8 Sep 2026 04:57:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788843421;
- bh=LTw7oPUB5qsIzmkPq7jctl86v6y/Bzdvyc18djgV3sc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fXBpNIGworgIrw9ZdpjejOVxepR3yDnWd0/TL4INbILImw6y7aDpKQwfruvWxVZcR
- MxGv3YaIVP3WvdjVG4nuXTfICUf1hjJ+HNNXWCcZ8iWZO3snRFgZtpMZAwkJc9XojZ
- h9/DRoYL1a5CjgyO3/pLTVdUQxCHxQJIXTm7f2RW/UYsu99hF6/zjahf7Cz8b5mG1I
- IZJ9sACm4ZC0KVXrCyHCKAHIqEtO9iq4m6q7IdBbqjy0luXyQiszIZsLBQO8InzVX9
- x7WyjU15pIfCYeEkp5OlpdKAPxGFoF8jijlNAGC+3amJ4/D0CIX41Fp6xHb5dhiwD5
- CeF166FF2HqCA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 08/14] drm/amd/display: use drm backlight
-To: "Mario Limonciello" <mario.limonciello@amd.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260908044035.62093-9-mario.limonciello@amd.com>
-References: <20260908044035.62093-1-mario.limonciello@amd.com>
- <20260908044035.62093-9-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 04:57:01 +0000
-Message-Id: <20260908045701.A9F571F00A3A@smtp.kernel.org>
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F05310E9AF
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 05:02:42 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-38dc4553f62so3925337a91.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 22:02:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1788843761; x=1789448561;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Q5Plj4uGj3BvxxxoyuAGWT0KJk9RqOTiZJAPsoPxBFY=;
+ b=Ea0ngCsTSBM8FD934uB3pu2V8GGOU277I9LvnrjXmr3N1lQ+yqgKju8TyluXkRFgWD
+ 07ka3peLZZJCGySI+61KyOFpoekK/HaVJuwafvcUyPh0mA52OVpyFWKaC8OHSFaBXdH6
+ BPVcRUN+Vk4HFVwpnkRtFutbq/UjJKTO1VIEA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788843761; x=1789448561;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Q5Plj4uGj3BvxxxoyuAGWT0KJk9RqOTiZJAPsoPxBFY=;
+ b=kCwVVifXGnVGxfjWqdeTaMZW09kmrZz2ODy/Nqq5cNrfHon6tyqaxfzeDoxJevAw45
+ MJZUJ7GNQn/Guf5tQzb4YiT+N0UiZrYzkfLfp8pdTtz6OsGLLyXKiyUFZ0vX+Y09aYVM
+ +cNhAREU18NVlPAB41iohGJ+H0sfaWoQOnJU3qYpjU1WcvjeydwF7zHpwzbOMeazaJv2
+ nUkmyTJFNzB1JjfIpFIvvh/IldPGMd4usQq6sq8xUj3LKGcqRQH0/v0h6vxT50gdKYP9
+ gDJlVEiRZog9aiVFy1kZ7Sfb/qHO77HTvUMXhlnqfeHraXE1aK2h27Rbrn4q78LqYytj
+ +GBQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxP+6FCKer6kRea5fUbBuVFugGuAhZRCvDhvbD1Sr/O+kcWIzZ1cf0uEgZxr6W6Tf4TOENdYpAHuGI=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++n/NP9+mpQ2rXV7CFwdsJDSgxRd5vtUwpIWgrBq846JnGpfikdQ
+ l9EhKElowcV2wYb5zAVNZfOTPMag7D0yZf9bAtFMBM+i98sRCVqr//aIpXJkIwZ+RQ==
+X-Gm-Gg: AYBFou3Be3NtWMF3+usvuVs3GsPZ6yDsQPDWoZHkJr6aMMgz6sd76mswYXBR7T1OELM
+ KZimvW1LOxcTs3E5NYa7JD2h3UCHYIoTq/ePVf+8gEM2F2YURnTI6sD4AAA8RbvHwDEMiVsFZqo
+ AC8nRVcqlAgVagKVbwPw8zUe8XXEezVxozQiMtarPpk6OskHY/NWZXTWhn7q4t2BYcLJnHFzs4F
+ JvnvN3zjwdosEQZWdz9g9vBvF+w+JrDy4YaPlIW+4MG9sCz/4+dns7B47S07K3+KVn17xZZca0v
+ t4GCkNbMrX9WRqZBOq+slNRG4wAI5CFaaerUXrl44v3asRkzX6YlHlul7jlpRRzxpcqgUMwi07b
+ tEsRxhZ8NI/OofrCssER6j8u251pfFXITCt7SoP/N0tP0sJUqq1HTmGLWDtNpHO3WaIzHdqH3bK
+ tobxFYMGNhP+G4p6NZ2fMiZsOgXY0CM7mS+DHWth5h5ZHr/wwaclXVytjA4HAYi0A78dENAaPXF
+ C+DgEwdiSjKlUTxZ+g7K/NE9ETLopub5NrkEOpVtJhvnE2jArpm/xs7Wg==
+X-Received: by 2002:a17:90b:4fcb:b0:381:a766:efcb with SMTP id
+ 98e67ed59e1d1-39b26100e5dmr38830828a91.4.1788843761523; 
+ Mon, 07 Sep 2026 22:02:41 -0700 (PDT)
+Received: from wenst-7875.tpe.corp.google.com
+ ([2a00:79e0:201d:8:e541:8c2f:4ce9:823a])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39b813fb4ddsm6342730a91.10.2026.09.07.22.02.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 07 Sep 2026 22:02:40 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej@kernel.org>,
+ Samuel Holland <samuel@sholland.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, dri-devel@lists.freedesktop.org,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v2] drm/sun4i: Align VI buffer addresses for subsampled formats
+Date: Tue,  8 Sep 2026 13:02:28 +0800
+Message-ID: <20260908050229.754977-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,127 +87,57 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Unconditional creation of the DRM LUMINANCE property breaks bright=
-ness control on systems relying on ACPI video backlight.
-- [High] Lockless access to the global `crtc->state` pointer during brightn=
-ess-only commits leads to a Use-After-Free (UAF) and race condition.
-- [High] TOCTOU race when accessing `dm->dc->current_state` leads to a pote=
-ntial NULL pointer dereference or Use-After-Free.
---
+Commit 79ac1c945ab8 ("drm/sun4i: layers: Use drm_fb_dma_get_gem_addr() to
+get display memory") dropped the code to calculate the framebuffer's DMA
+address in favor of drm_fb_dma_get_gem_addr().
 
-commit 2a535fc7f658113715bee173a4202a46e91b7048
-Author: Mario Limonciello <mario.limonciello@amd.com>
+This turned out to be wrong in a couple ways. The hardware can handle
+pixel offsets within a sub-sampling block, but the buffer address must
+start at the beginning of the subsampled block for all planes. The
+hardware then does the interpolation internally. However the helper
+gives the address exact pixel for luma, which messes up the result.
 
-drm/amd/display: use drm backlight
+Instead of reverting the commit, calculate the intra-block offset and
+adjust the buffer address so that it points to the start of the block.
 
-This commit converts the AMD display driver to use the DRM backlight
-infrastructure, exposing brightness control through the connector LUMINANCE
-property.
+Fixes: 79ac1c945ab8 ("drm/sun4i: layers: Use drm_fb_dma_get_gem_addr() to get display memory")
+Cc: <stable@vger.kernel.org> # 7.1+
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+This is an alternative to Jernej's original revert:
+https://lore.kernel.org/all/3980ea1aeb3f7fe8b4700e36560deeba3d050664.1785772659.git.jernej.skrabec@gmail.com/
+---
+ drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 2fe934036e363..f7b1eaf34b59d 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-[ ... ]
-> @@ -5050,10 +5050,21 @@ static void amdgpu_dm_atomic_commit_tail(struct d=
-rm_atomic_commit *state)
->  			old_crtc_state =3D drm_atomic_get_old_crtc_state(state, &acrtc->base);
->  		}
-> =20
-> +		/*
-> +		 * Apply the LUMINANCE property first: a brightness-only commit
-> +		 * does not pull the CRTC into the atomic state (so new_crtc_state
-> +		 * is NULL), and a modeset is skipped below - in both cases the
-> +		 * backlight must still follow the requested luminance.
-> +		 */
-> +		drm_atomic_helper_connector_apply_luminance(new_con_state);
+diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+index 2e9cda45c04e..185e9e5211c1 100644
+--- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
++++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+@@ -207,6 +207,20 @@ static void sun8i_vi_layer_update_buffer(struct sun8i_layer *layer,
+ 		/* Get the start of the displayed memory */
+ 		dma_addr = drm_fb_dma_get_gem_addr(fb, state, i);
+ 
++		/*
++		 * The mixer can handle odd offsets into sub-sampled YUV
++		 * planes, but needs the address of the first pixel in each
++		 * sub-sampled block. Adjust the luma buffer address backwards.
++		 */
++		if (i == 0) {
++			u32 x_diff, y_diff;
++
++			x_diff = (state->src.x1 >> 16) & (format->hsub - 1);
++			y_diff = (state->src.y1 >> 16) & (format->vsub - 1);
++			dma_addr -= y_diff * fb->pitches[i];
++			dma_addr -= x_diff * format->cpp[i];
++		}
++
+ 		/* Set the line width */
+ 		DRM_DEBUG_DRIVER("Layer %d. line width: %d bytes\n",
+ 				 i + 1, fb->pitches[i]);
+-- 
+2.55.0.979.g7e5102b832-goog
 
-[Severity: High]
-Does this introduce a race condition leading to a use-after-free?
-
-Since the CRTC is intentionally not pulled into the atomic state during a
-brightness-only commit, the CRTC lock is not held in this path. However,
-drm_atomic_helper_connector_apply_luminance() dereferences the global
-conn_state->crtc->state->active property locklessly.
-
-If a concurrent modeset or display disable commit acquires the lock,
-swaps the state, and frees the old one, this non-blocking brightness commit
-could end up reading freed memory. Is it safe to call this helper without
-ensuring the CRTC lock is held?
-
-[ ... ]
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-> index 406a821d03cd6..1fefe3837e4cf 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-[ ... ]
-> @@ -224,13 +225,17 @@ struct dc_stream_state *dm_find_stream_with_link(
->  	struct amdgpu_display_manager *dm,
->  	struct dc_link *link)
->  {
-> -	struct dc_state *cur_dc_state =3D dm->dc->current_state;
->  	struct dc_stream_state *stream =3D NULL;
->  	int i;
-> =20
-> +	if (!dm || !dm->dc || !dm->dc->current_state || !link)
-> +		return NULL;
-> +
-> +	cur_dc_state =3D dm->dc->current_state;
-
-[Severity: High]
-Can this result in a double-fetch/TOCTOU race?
-
-This code checks that dm->dc->current_state is not NULL, but then immediate=
-ly
-re-reads the pointer from dm->dc->current_state.=20
-
-If a concurrent modeset or teardown updates the state between the check and
-the assignment, cur_dc_state could be NULL or point to freed memory when it
-is subsequently dereferenced in the loop below.=20
-
-Should this be changed to read the state pointer once into cur_dc_state,
-and then perform the NULL check on the local variable?
-
-[ ... ]
-> @@ -600,6 +610,13 @@ void amdgpu_dm_setup_backlight_device(struct amdgpu_=
-display_manager *dm,
-> =20
->  	amdgpu_dm_update_connector_ext_caps(aconnector);
-> =20
-> +	caps =3D &dm->backlight_caps[bl_idx];
-> +	amdgpu_dm_backlight_fill_props(caps, power_supply_is_system_supplied() =
-> 0,
-> +				       !(amdgpu_dc_debug_mask &
-> +					 DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE),
-> +				       &props);
-> +	drm_backlight_create_property(&aconnector->base, props.max_brightness, =
-false);
-
-[Severity: High]
-Does unconditionally creating this property break brightness control on
-systems relying on ACPI video backlight?
-
-By creating the LUMINANCE property here, we expose it to userspace before
-verifying if the native backlight backend will actually be used.=20
-
-During later registration in amdgpu_dm_register_backlight_device(), if
-acpi_video_backlight_use_native() is false, the driver exits early and never
-links a backend to this property.=20
-
-Will modern userspace compositors attempt to use this exposed but
-non-functional LUMINANCE property and silently fail to adjust brightness,
-ignoring the working ACPI sysfs interface entirely?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908044035.6209=
-3-1-mario.limonciello@amd.com?part=3D8
