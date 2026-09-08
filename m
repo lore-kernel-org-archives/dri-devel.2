@@ -4,43 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DC27C79F82
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 13:45:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7737BC79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 13:50:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CA0E10EBFA;
-	Tue,  8 Sep 2026 13:45:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9692110EC03;
+	Tue,  8 Sep 2026 13:50:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KJpqqfFT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lSJwv7Mb";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 895BF10EBFA
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 13:45:49 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1245610EBF9
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 13:50:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3C87B42E7F;
- Tue,  8 Sep 2026 13:45:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E991D1F00A3A;
- Tue,  8 Sep 2026 13:45:48 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 417DF601DB;
+ Tue,  8 Sep 2026 13:50:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC82C1F00A3A;
+ Tue,  8 Sep 2026 13:50:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788875149;
- bh=CGg/2UkLfJeJ+k5jR9FOoTHDWlC07NhBd74Oy+A1F8I=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KJpqqfFTQX/5Nf7nYF5YcIe6ezMnTaPqzmTopj0DSDk5RCARkSvGdw/wGl5m+k2MC
- Y4J24tb4kO+ylZssGplSj2l3fTRKlfDsQt/aH+gI+bGhHfEGwf1rrRCUkEzFXoO4dh
- EFU7p8eGRNl5tOhLzbxSIMXzluiNZ27XcYTdHenVFiVTiDm0DATPGcgDszW4IV0slG
- wvNovDW0eOThB5LSYZ+lQ56NabqxvfjGnAJKiX4kvPkN5yQ8sqwp2tQdv+r28o3zCW
- XfC1NtIWLgv5azgobksI17b53cD55NcnBKUW5PBKYbKjNYS/28pGxtck+kEqPAMncm
- RLY/E41ylhNpA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/dp_mst: Track allocated_pbn from ALLOCATE_PAYLOAD
- down-reply
-To: "Xiao Lu" <xiaolu.xie@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260908132844.2309047-1-xiaolu.xie@intel.com>
-References: <20260908132844.2309047-1-xiaolu.xie@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 13:45:48 +0000
-Message-Id: <20260908134548.E991D1F00A3A@smtp.kernel.org>
+ s=k20260515; t=1788875428;
+ bh=Ypcd7yY7vmcX83+gZqkee0+O9dXiuC/9T0z33M3cUFk=;
+ h=Date:From:To:Cc:Subject;
+ b=lSJwv7Mb7mimvTKptRb6W953vcSK3IIZLRxcmOkNbU+und+J8o1WzUuqRCxHEuQoy
+ P1B1UPrZX+4g2Lwhk+NWQR8H6ru91mt1Wj487PKX61+hO1/Ebb3MGsDjm9vkcEJpA5
+ w2GAyUh1S9BP7VuOuAxpwTVRPhQJpqBTPWkIKgJfOiRyUmqo3FK5qLe5QS0PGh0Zzy
+ iQezruoWh0tKakmKSsUVt5Wq/J0nUfTWVthMa1ul3S2ZljKrxBmhEbOksp0vQKTvNb
+ 0UECf7r24gUqP9wjbP3UcPjk5mvHwdG8QUPX0AMCRl62UQKseL4i/v8DeP0AIatV/v
+ MXQEvQZ8QC1cQ==
+Date: Tue, 8 Sep 2026 14:50:23 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: build failure after merge of the drm tree
+Message-ID: <aqASn9YDPLpu_vb0@sirena.org.uk>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="rlzMlQ66gZljiiQn"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,107 +55,50 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Data race and TOCTOU flaw on payload->allocated_pbn.
-- [Medium] Stale allocated_pbn constraint leads to spurious -ENOSPC errors =
-when reducing bandwidth.
---
 
-commit 51837e7219143c6b9b0e48d938f61a3258bf06cd
-Author: Xiao Lu <xiaolu.xie@intel.com>
+--rlzMlQ66gZljiiQn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-drm/dp_mst: Track allocated_pbn from ALLOCATE_PAYLOAD down-reply
+Hi all,
 
-The DP MST ALLOCATE_PAYLOAD sideband message returns the payload bandwidth
-actually allocated by the branch in the allocated_pbn field of the down-rep=
-ly.
-That value may differ from the requested PBN when an intermediate branch
-applies its own constraints, so the source should keep track of it instead
-of only relying on the local request.
+After merging the drm tree, today's linux-next build (x86_64 allmodconfig)
+failed like this:
 
-> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/=
-drm/display/drm_dp_mst_topology.c
-> index 7ce9e212770ad..86a42c5e2debb 100644
-> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-[ ... ]
-> @@ -3166,10 +3167,14 @@ static int drm_dp_payload_send_msg(struct drm_dp_=
-mst_topology_mgr *mgr,
->  	 */
->  	ret =3D drm_dp_mst_wait_tx_reply(mstb, txmsg);
->  	if (ret > 0) {
-> -		if (txmsg->reply.reply_type =3D=3D DP_SIDEBAND_REPLY_NAK)
-> +		if (txmsg->reply.reply_type =3D=3D DP_SIDEBAND_REPLY_NAK) {
->  			ret =3D -EINVAL;
-> -		else
-> +		} else {
-> +			if (payload)
-> +				payload->allocated_pbn =3D
-> +					txmsg->reply.u.allocate_payload.allocated_pbn;
+/tmp/next/build/sound/soc/ti/omap-hdmi.c:408:6: error: no member named 'card' in 'struct hdmi_audio_data'
+  408 |         ad->card = card;
+      |         ~~  ^
 
-[Severity: High]
-Can this write to payload->allocated_pbn cause a data race with concurrent
-atomic checks?
+Caused by commit
 
-When a non-blocking mode commit runs atomic_commit_tail in a workqueue, it
-writes to payload->allocated_pbn here. Concurrently, if userspace initiates=
- a
-new atomic check, it calls drm_dp_mst_duplicate_state(), which synchronously
-copies the active payload object:
+   699e5975e2a53 (drm/omap: Report HDMI hotplug events to the ASoC HDMI codec)
 
-drivers/gpu/drm/display/drm_dp_mst_topology.c:drm_dp_mst_duplicate_state() {
-    ...
-    list_for_each_entry(pos, &old_state->payloads, next) {
-        ...
-        payload =3D kmemdup(pos, sizeof(*payload), GFP_KERNEL);
-    ...
-}
+which has been generating the exact same build failure in drm-misc since
+this time last week (it looks like the promised fix finally appeared
+there today, though there's yet another build failure in there behind
+it).  Please take a look at your processes here, there is something
+messed up if not only does it take a week to get what should be a fairly
+trivial build issue addressed but the build issue gets sent upstream
+unfixed in that period, comfortably after it was reported.
 
-This unsynchronized kmemdup() could result in a torn read of
-payload->allocated_pbn, which is later evaluated during the atomic check in
-drm_dp_mst_atomic_check_port_bw_limit().
+I have used the tree from next-20260907 instead.
 
->  			ret =3D 0;
-> +		}
->  	}
->  	kfree(txmsg);
->  fail_put:
-[ ... ]
-> @@ -5352,7 +5359,7 @@ drm_dp_mst_atomic_check_port_bw_limit(struct drm_dp=
-_mst_port *port,
->  			return -EINVAL;
->  		}
-> =20
-> -		pbn_used =3D payload->pbn;
-> +		pbn_used =3D max(payload->pbn, payload->allocated_pbn);
+--rlzMlQ66gZljiiQn
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[Severity: Medium]
-Will this stale payload->allocated_pbn constraint lead to spurious -ENOSPC
-errors when reducing bandwidth?
+-----BEGIN PGP SIGNATURE-----
 
-If userspace initially sets a high resolution, payload->allocated_pbn is
-populated with a high bandwidth value. Later, if userspace requests a lower
-resolution, drm_dp_atomic_find_time_slots() updates payload->pbn but leaves
-payload->allocated_pbn unchanged:
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqgEp8ACgkQJNaLcl1U
+h9CJLwf8D5Jj48mie3CTsq1qlg6Aua5XtQrNuAT+gsXGwprFZ+T+tpMa7HmwAspk
+O5drF2SX62eNilqcleFjsuoavMPONgAhzEBpkULE5lR0icPLlRaJDn+KENhGFV5c
+FoMSp6jLw4AxC00kNGPvKhjBOFcbZ0NGrurQrHAkyMSqnJ2plE8vA8HnGwlbogYo
+JDb51kpROcjTb0Px2KguzWiPvL5ffEJ51FFvjDeP6MJ+6PlGsz0hfQU4h9ageb7k
+wYEDUjw+i3WK7xm1UqXjRMhN0iYIog3BViYkSBesF0amoO/iLbd3LWJQN9UKZ4t2
+XlyiWvoYvjLTUugjehzgz9EZ7U1mIw==
+=KlRh
+-----END PGP SIGNATURE-----
 
-drivers/gpu/drm/display/drm_dp_mst_topology.c:drm_dp_atomic_find_time_slots=
-() {
-    ...
-    payload->time_slots =3D req_slots;
-    payload->pbn =3D pbn;
-    return req_slots;
-}
-
-Because payload->allocated_pbn is not cleared or updated,
-max(payload->pbn, payload->allocated_pbn) will resolve to the old, larger
-bandwidth. This could falsely fail the bandwidth limit check and prevent
-userspace from reclaiming bandwidth for other displays.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908132844.2309=
-047-1-xiaolu.xie@intel.com?part=3D1
+--rlzMlQ66gZljiiQn--
