@@ -4,75 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A129C79F99
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 12:45:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A20CFC79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 12:48:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 587FC10EBC6;
-	Tue,  8 Sep 2026 12:45:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D151310E0E8;
+	Tue,  8 Sep 2026 12:48:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kiS+uzC2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MksgKu6u";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDAA010EBC5
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A1DBF43D07;
- Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 80982C2BCFD;
- Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1788871504;
- bh=vzch2M62/WWHWost2D/9T230FaN7wq32AuSjdqMctMQ=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=kiS+uzC22HVOdgVM8xJzFJJOpakF1Ym0C6VAUQRTpznk+I/ZtO5w9G+w0t/GoCb61
- f4wbyU3Km6pvxpJom1q/WTBm5VvbRmDaiCvSxQrbrISlmZHD71SXpBA5Z4j3JDdBsC
- oNKn/zHg1Uy+CxzdMH56RNb0NUVMvGe0kGIPSZJbugdYXD0JL0UhACP5/P2eiVpQ7I
- ZR5tKl7uEOluP3o+IcTHLHdmJVbJmj3AfjGycuUrCYX/nnJXGvtdGegfeWzvYoUwYU
- DFZL8gE4Qf39gf6Vllyg+u7Zu9tYBzr8rmF7N7TO5u/IwvTOEdsEKbK+44Q3BVPFYG
- Md0ma5nKeEqMg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 647FCC79FA1;
- Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Tue, 08 Sep 2026 14:45:03 +0200
-Subject: [PATCH v2 2/3] drm/panel: ebbg-ft8719: Fix the MODULE_LICENSE() string
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E3DE10E0E8
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 12:48:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id D9C51601FA;
+ Tue,  8 Sep 2026 12:48:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D14E11F00A3D;
+ Tue,  8 Sep 2026 12:48:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788871692;
+ bh=feEGDyi6VU/sb4agsQYzpOSCawLfSkaWQda6dgDR2p4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=MksgKu6uyO2Gguiv8Rq3+UUSn2sYyMCbhn4A5JnjyzKXKmkqOedfI2gppAaqvEHVJ
+ rRBAhiB6rGjwR0JoGODhOBOECe7zcNNFUAE05c7DWeacbZyEK8RvbCTIJ4/16HMzEC
+ MAnNAqV2snxIOSOtuDgsFsxtmJKNKBAA9zpkOrukWnWmtp5+S6BDLredgM5cXzEJvd
+ GrZU6s8B9QoHqrr0WyNgI1+Mi+Y/yMljhQDkmq6uaj2bB8HnRD6KR9uUEUDSa+/2fr
+ YZq56+cUDFuTrIXKNi5nF6fbD6tGEDBJbJzecf28OwddCE6o5k8iS0jArCktqp12lv
+ 2X7cUZTftHpfQ==
+Date: Tue, 8 Sep 2026 14:48:08 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, Sandy Huang <hjc@rock-chips.com>, 
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Algea Cao <algea.cao@rock-chips.com>, Daniel Stone <daniels@collabora.com>, 
+ Liu Ying <victor.liu@nxp.com>, Phong LE <ple@baylibre.com>,
+ Helge Deller <deller@gmx.de>, 
+ kernel@collabora.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-rockchip@lists.infradead.org, 
+ linux-fbdev@vger.kernel.org, Maud Spierings <maud_spierings@hotmail.com>, 
+ Diederik de Haas <diederik@cknow-tech.com>
+Subject: Re: [PATCH v11 30/74] drm/bridge: dw-hdmi-qp: Provide
+ dw_hdmi_qp_hpd_notify() helper
+Message-ID: <aqAD7Imd8VyYgaYr@houat>
+References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
+ <20260901-dw-hdmi-qp-scramb-v11-30-bc12954a0688@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-ebbg-ft8719-fixups-v2-2-5454ae1f5581@ixit.cz>
-References: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
-In-Reply-To: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
-To: Joel Selvaraj <foss@joelselvaraj.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sam Ravnborg <sam@ravnborg.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>, 
- Linus Walleij <linusw@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1249; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=pcKWoYS6L82YgpVkEYWbN55kI5NvaLGqQcKX3/w4Jbc=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqoANObviOu0ox4MSAY8PbmPEAfrKuso2+WBjwi
- ga4pOVvfDWJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqADTgAKCRBgAj/E00kg
- ck7SD/9BssSUhW1R5woL/myJctiVqZjTmd0pwcw+ZwuaNzsI4ZSLE2XXFR2bgpZ+zBvAqf5iJn8
- x15C6iD6dvW713r0htE9XL/VhtJHqULfQgpF3Eeq8ZF0VbKYKqcXFvm6ItQKeM1cThN8RBN16iz
- oxLg+9/FlVoeNPKnS/lkvG73Aa/KJ51Mjf43SuCX1rHl/mmWvcUX+eCg92SPMrt7tOE9Pb11FZ4
- Z7MblAsgt6Lb466HFpIFUeAoCDW55yQMk+5aifONk7uIa0bEYCsSLTybDHeKCjnQXzSqu65lyVd
- O1BYLHu9kC8Po79tAbPhZuS/Y9pWUTnurEJKEtyEQ3rmawwwRtQ73oGH2s1cWheTbherinsap76
- TFQkHeP3L5iNqnfMi2qTF2ZvDpf0CXCD3NifBdfsU3LjdK14+Z/I4HD7R0WYAAHkgO41W/5yU/g
- rrrl8JUxiGjYGPJ3WTE8T7x2xuvHP1sk4lGJrqD048XzJKOuXo3eM4v1juypspfAyDO0Xe0tyMl
- GSabg/Bd9nXct3H/8fRqCXyCcRDXucbUgm5fi/5uAVfz1JxfOGw8m+O+0W+H53SJiCyHPoUg5IG
- QhixLZeVqlNzoSzYzEGuG9Ooj9bUP7C43dY1ni3mAZW4XMFNZ/Xh/bZqDSQG0lLO5bdzdKAvwaP
- 5n8FnYrInSqhPmw==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="7br5rkaa3pyhecrc"
+Content-Disposition: inline
+In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-30-bc12954a0688@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,43 +80,83 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: david@ixit.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: David Heidelberg <david@ixit.cz>
 
-Replace the bogus "GPL v2" with "GPL" as MODULE_LICNSE() string. The
-value does not declare the module's exact license, but only lets the
-module loader test whether the module is Free Software or not.
+--7br5rkaa3pyhecrc
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v11 30/74] drm/bridge: dw-hdmi-qp: Provide
+ dw_hdmi_qp_hpd_notify() helper
+MIME-Version: 1.0
 
-See commit bf7fbeeae6db ("module: Cure the MODULE_LICENSE "GPL" vs.
-"GPL v2" bogosity") in the details of the issue. The fix is to use
-"GPL" for all modules under any variant of the GPL.
+On Tue, Sep 01, 2026 at 09:50:54PM +0300, Cristian Ciocaltea wrote:
+> Export dw_hdmi_qp_hpd_notify() for platform drivers to report hot-plug
+> detection events.  Unlike drm_helper_hpd_irq_event() which polls all
+> connectors, this helper targets only the affected connector and ensures
+> .detect_ctx() is invoked on reconnection events to trigger SCDC state
+> recovery.
+>=20
+> Note that this helper may sleep, so it must only be called from a
+> threaded HPD interrupt handler or a work function.
+>=20
+> Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+> Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, R=
+ock 5B
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> ---
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 37 ++++++++++++++++++++++=
+++++++
+>  include/drm/bridge/dw_hdmi_qp.h              |  1 +
+>  2 files changed, 38 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/d=
+rm/bridge/synopsys/dw-hdmi-qp.c
+> index ee74266b7aa9..a2277531182c 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> @@ -28,6 +28,7 @@
+>  #include <drm/drm_edid.h>
+>  #include <drm/drm_modes.h>
+>  #include <drm/drm_print.h>
+> +#include <drm/drm_probe_helper.h>
+> =20
+>  #include <media/cec.h>
+> =20
+> @@ -163,6 +164,8 @@ struct dw_hdmi_qp {
+>  	struct regmap *regm;
+>  	int main_irq;
+> =20
+> +	/* Written by the atomic enable/disable hooks, read locklessly by HPD */
+> +	struct drm_connector *curr_conn;
+>  	unsigned long tmds_char_rate;
+>  	bool no_hpd;
+>  };
+> @@ -785,6 +788,8 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct dr=
+m_bridge *bridge,
+>  	dw_hdmi_qp_mod(hdmi, op_mode, OPMODE_DVI, LINK_CONFIG0);
+> =20
+>  	drm_atomic_helper_connector_hdmi_update_infoframes(connector, state);
+> +
+> +	WRITE_ONCE(hdmi->curr_conn, connector);
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+You need to take a reference to the connector, and you really should use
+a mutex here.
 
-diff --git a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-index 1ab09c50a6306..14982263a94f1 100644
---- a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-+++ b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-@@ -241,9 +241,9 @@ static struct mipi_dsi_driver ebbg_ft8719_driver = {
- 		.name = "panel-ebbg-ft8719",
- 		.of_match_table = ebbg_ft8719_of_match,
- 	},
- };
- module_mipi_dsi_driver(ebbg_ft8719_driver);
- 
- MODULE_AUTHOR("Joel Selvaraj <jo@jsfamily.in>");
- MODULE_DESCRIPTION("DRM driver for EBBG FT8719 video dsi panel");
--MODULE_LICENSE("GPL v2");
-+MODULE_LICENSE("GPL");
+Maxime
 
--- 
-2.55.0
+--7br5rkaa3pyhecrc
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaqAECAAKCRAnX84Zoj2+
+dkkDAYC+AWGm80pVYEp640sKNhCVwlFRg0NA45EvZymN4J4AhE4kXnPASU52wEFN
+x6mrzgIBgN7eoUGtFrPVC1JlZqSlVzCPzTRW2tTeI5qXVl4QpF/Mbac11+3SSsJp
+N9wlWFp5OQ==
+=XLln
+-----END PGP SIGNATURE-----
+
+--7br5rkaa3pyhecrc--
