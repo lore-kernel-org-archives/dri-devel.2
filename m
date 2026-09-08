@@ -4,131 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85AD0C79FB5
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B159AC79FAA
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A27910EF1E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EBC810EF1F;
 	Wed,  9 Sep 2026 06:55:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jc+25493";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sAGSrdb9";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 892E910ED43
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:05:48 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2DA5D4391C;
- Tue,  8 Sep 2026 20:05:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07C1F1F00A3A;
- Tue,  8 Sep 2026 20:05:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788897948;
- bh=iscL7XQ2qz+Nzy4lBqsV3dTnKv6z1UKwiafW35/dBb4=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Jc+25493tsckTbWCOZP+Zyv7md+VlPGAmEn3On6Sc+eAYFaK+dxOenSmzWLxaAOv8
- i3nIqz8EUF8c80uLWntZ2aH9Lokq5iMJ74K7L9SPQTDc33lfTe5MZE/3gRynv7Y9JW
- Od6nbpeIIyAIOfstTWQdWkxXIeIQErrA+CfTpMp4DPftLLDpReZQ0x/FCFNigTagYU
- m78Su9hMxY5pV5va1RRv8CX4QDeKU3wEGpZI797elPK/sE2gaxlEp405CEO3TbJme1
- akL1BLZnCJhjae4iUstmbk8Shgs+1z8bevPlT8sngmYD4yFsXVXTY4rdXE3RXyOJiN
- X4RroRrlG5uvg==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 08 Sep 2026 21:01:11 +0100
-Subject: [PATCH 07/39] mm: add mmap action for discontiguous kernel page
- mapping
+Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com
+ [209.85.161.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F40A410EAA4
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 09:02:08 +0000 (UTC)
+Received: by mail-oo1-f41.google.com with SMTP id
+ 006d021491bc7-6b1b766bf01so1767805eaf.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 02:02:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788858128; x=1789462928; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=5yQQXf0ptX+tS4ybVpXcfW4E0EqwJo75cLYXDPk6+nY=;
+ b=sAGSrdb9U+ASxXYs2b6OTX4INYuuqLSvGqGeJ8HRxskLWhpB2vmrt0HF7DBH3JO8E6
+ BcWmLHCjYUts5eFax+ND3rQGElpcGDjsFgJLDmINOT/TuB/M9QkTMbvEC7oL8/9mKDga
+ wX519pkrOCn3a9QRK51J+fIAYKQpha0n4SN4XvVxpaNa2EddCvZLn9daW4C8o4jnVLGS
+ 8Ul5OtAXITCQkkUSYso7DgKKEL3xwQjKriMlFvL/C08V0e4KSruJzzp1Gi5NbcWB4kYV
+ duA24XhmboIax7tiMCKOUHKXxmoXAVgS4Ryz5aPcQiZ21klXHntEJ8rBmTYWEYbhJUKF
+ iFQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788858128; x=1789462928;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=5yQQXf0ptX+tS4ybVpXcfW4E0EqwJo75cLYXDPk6+nY=;
+ b=fdVS2zEM0gb1xvehy4rXIvPUjrxpE+c4l3pqghU9wAb8mHj8CGBMeIQEem5Q7FCske
+ ryrdPB6G9em3NEOgne+SxBxRwSf0KBZvovVEFMDEqhO+j4zmlNBy5bO2uBM1vJPKCOxp
+ c0Id3C9TqaKPyHzVy0Pkk1wC8pr9aSblUqLhHDSBerYjEK+uAC3xF7b0YsdI2yNgtZrR
+ 1tFn9rwl5xmWbo19PUKrqOwlguusE8PcTvgwpXDrrIQSlAVuScWSv2rQVlKm4uej4aOG
+ +Zh9gLtN0g82p9RAt01+Ut7tnM6J59Z5I1aLSTPVCZpmIhpq6eg13wYQ0fBuxT+eZgZt
+ Xv7Q==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxHh7xK1foHfespFonQNPSs/RWYT8fXN67sMI9QL0GDSMijiJEIhMovToCrySy2LLB9TtRJaVfAR74=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++k5LMASxLuqOogV7BvPWO8mfTFUaO3sn5aUC7dnW5/XwNT++T4z
+ ZGNNxr62vysQLovidyXDGxvrALRNNWfE4I+7lk/2UAvnEyQfLC0/CSay
+X-Gm-Gg: AYBFou16hIR5mDqWEkN3He/+LPqAbztT0ta/J9qygk3oYG0HxfhsGabW6oeNsJgua89
+ sBodP+SNxa2rMVl3q50bnb9GAOSKM5eIzxW73uQZIyv+RdsTNbP3vgjTKBRxxN6szmw9PjFVaF0
+ rDnB/hdcwIkUUtJWZ4wqH+LzyvtXgSdyuHPfTssO4/MrHDvrF5n7bHloYRWKhHADaS8KaDkIjZS
+ IKpLEFi4wigjFaPn5FCVbMYmFgoufvKoJLg6Nn85K7TMmdkvRCSTHQCS8dOSjjWBTOT3MQc7h6l
+ cS4eLRmFuyyhfqX12feONAPBz+gP5lvGKkoYVh6nUSsomWL4qlCtrS2Fg//vQ8qfcGUbTa5hrCy
+ didGxYMk2z/7MtBl1Jba63IQzFPbN5lTh8k6oGpeLvStdL+eM9Wj3H4AE+Vd5psAN4AUcNNFVO3
+ f0vncKc+vsggqyGRSw+utTx9Fhv8NYYhztiDv5Dv/tJkkDT9PAvaahgTtaMlFKffRzjOi8h+LXu
+ YCkoGgNcLIZ2LK6F5jtTjvEiHYV28FEDwp3qDjdbX5k
+X-Received: by 2002:a05:6820:1890:b0:6b1:464d:4d1d with SMTP id
+ 006d021491bc7-6b6fb8d25aemr15032941eaf.11.1788858127679; 
+ Tue, 08 Sep 2026 02:02:07 -0700 (PDT)
+Received: from flyingfox.tail3d542a.ts.net
+ ([2402:a00:163:2ce9:6c87:7904:21fa:8675])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3339b8f44d7sm33641223eec.22.2026.09.08.02.02.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Sep 2026 02:02:07 -0700 (PDT)
+From: 092vk <vk092kumar@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org, 092vk <vk092kumar@gmail.com>
+Subject: [PATCH] drm/msm/dp: don't gate eDP on DP_SINK_COUNT
+Date: Tue,  8 Sep 2026 14:31:46 +0530
+Message-ID: <20260908090146.3100787-1-vk092kumar@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-7-dacf19cce22b@kernel.org>
-References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
-In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=12539; i=ljs@kernel.org;
- h=from:subject:message-id; bh=RVcXI/9kSHuUo8O2heRZlHSZv1OgtVQ9ABB55RKE5TI=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG4U2FvyUfRZ7qrcGX7ettfbfIQWMv3c5vsl01KS+
- ZfSGYGjHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZjIotkM/9PrnrryT5T9JbHv
- 7FUt4W8ihz56XkprWBZecM9Gab5lYT8jw/XSN3Zb3/VGtSsx1gq/ucS4tTJ3k4J33a4fkycVXNm
- RwgwA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:54:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -145,375 +96,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The existing kernel page mapping mmap actions allow for partial and full
-mapping of an array of struct page pointers.
+msm_dp_display_prepare_link(), msm_dp_display_disable(), and
+msm_dp_hpd_unplug_handle() all treat dp->link->sink_count == 0 as
+"nothing is connected", and in msm_dp_display_prepare_link() this
+causes probe/enable to fail outright with -ENOTCONN.
 
-However some drivers require the mapping of discontiguous ranges. Permit
-this by providing discontig_kernel_page_ops which allows a driver to
-specify how the operation should begin and how batches of pages should be
-retrieved.
+This is correct for external DisplayPort, where a compliant sink is
+required to report a valid DP_SINK_COUNT over the AUX channel. It is
+not correct for eDP: some eDP sinks -- particularly fixed-format
+eDP-to-HDMI bridge chips with no downstream AUX-capable panel
+behind them -- never populate DP_SINK_COUNT with a nonzero value,
+even while otherwise participating normally in DPCD capability
+exchange and link training.
 
-It uses the minimum exposed interface to do so, providing address, page
-offset and both vm_private_data state and a local private state object.
+drm_dp_read_sink_count_cap() already accounts for this by excluding
+eDP connectors from the sink-count requirement for other DPCD-derived
+checks (msm_dp_bridge_detect() takes care). Apply the same exemption
+to the raw sink_count reads in this file via a small shared
+helper, so eDP outputs with a non-AUX-capable downstream sink are
+not treated as permanently disconnected.
 
-ops->init can establish state for the operation, and ops->get outputs the
-pages to map and their count. Should an error arise the core unmaps the
-VMA, invoking vm_ops->close, which is therefore where any state established
-by ops->init is released.
+Tested on a Qualcomm QCS6490-based board driving a fixed-format
+eDP-to-HDMI bridge IC (chrontel,ch7218a) with no negotiable
+DPCD-capable panel behind it; without this fix,
+msm_dp_display_prepare_link() unconditionally returns -ENOTCONN
+and the display never comes up.
 
-The code carefully checks to ensure the user doesn't exceed VMA bounds. It
-intentionally allows mapping of less than the VMA range in case the driver
-wishes to allow the user to map an area larger than available data.
+Fixes: ca16db3d18cf ("drm/msm/dp: break up dp_display_enable into two parts")
 
-To use it, users invoke mmap_action_map_discontig_kernel_pages() with
-initial local private state and a set of operations.
-
-Users can then use one of the provided helper functions to perform an
-action:
-
-* discontig_kernel_map_abort() - Abort and leave the mapping as it has
-  been accumulated so far.
-* discontig_kernel_map_page() - Map a single page, or a compound page given
-  its head page.
-* discontig_kernel_map_page_range() - Maps a struct page ** array of a
-  specified count.
-
-The enum copy in the userland VMA tests is updated accordingly.
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: 092vk <vk092kumar@gmail.com>
 ---
- include/linux/mm.h              |  45 +++++++++++++++++
- include/linux/mm_types.h        |  44 +++++++++++++++-
- mm/internal.h                   |   3 ++
- mm/memory.c                     | 108 ++++++++++++++++++++++++++++++++++++++--
- mm/util.c                       |   7 +++
- tools/testing/vma/include/dup.h |   5 +-
- 6 files changed, 203 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_display.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 94b860b8c50a..4604cd011ca4 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -4647,10 +4647,55 @@ static inline void mmap_action_map_kernel_pages_full(struct vm_area_desc *desc,
- 				     vma_desc_pages(desc));
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index bc646d172abe..9254f080f0ea 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -400,6 +400,12 @@ static int msm_dp_display_handle_irq_hpd(struct msm_dp_display_private *dp)
+ 	return 0;
  }
  
-+static inline
-+void mmap_action_map_discontig_kernel_pages(struct vm_area_desc *desc,
-+		void *init_private, const struct discontig_kernel_page_ops *ops)
++static inline bool msm_dp_link_no_sink(struct msm_dp_display_private *dp)
 +{
-+	struct mmap_action *action = &desc->action;
-+
-+	action->type = MMAP_DISCONTIG_KERNEL_PAGES;
-+	action->map_kernel_discontig.init_private = init_private;
-+	action->map_kernel_discontig.ops = ops;
++	/* eDP sinks are not required to report a valid sink count */
++	return !dp->msm_dp_display.is_edp && dp->link->sink_count == 0;
 +}
 +
- int mmap_action_prepare(struct vm_area_desc *desc);
- int mmap_action_complete(struct vm_area_struct *vma,
- 			 struct mmap_action *action, bool is_compat);
- 
-+static inline void
-+discontig_kernel_map_abort(struct discontig_kernel_page_state *state)
-+{
-+	state->action = DISCONTIG_KERNEL_PAGE_ABORT;
-+}
-+
-+static inline void
-+discontig_kernel_map_page(struct discontig_kernel_page_state *state,
-+			  struct page *page)
-+{
-+	struct folio *folio = page_folio(page);
-+
-+	if (folio_test_large(folio)) {
-+		VM_WARN_ON_ONCE(page != folio_page(folio, 0));
-+		state->action = DISCONTIG_KERNEL_PAGE_MAP_COMPOUND_PAGE;
-+		state->__folio = folio;
-+		state->__nr_pages = min(state->nr_pages_remain,
-+					folio_nr_pages(folio));
-+	} else {
-+		state->action = DISCONTIG_KERNEL_PAGE_MAP_PAGE;
-+		state->__page = page;
-+		state->__nr_pages = 1;
-+	}
-+}
-+
-+static inline void
-+discontig_kernel_map_page_range(struct discontig_kernel_page_state *state,
-+				struct page **page_arr, unsigned long nr_pages)
-+{
-+	state->action = DISCONTIG_KERNEL_PAGE_MAP_PAGE_RANGE;
-+	state->__page_arr = page_arr;
-+	state->__nr_pages = nr_pages;
-+}
-+
- /* Look up the first VMA which exactly match the interval vm_start ... vm_end */
- static inline struct vm_area_struct *find_exact_vma(struct mm_struct *mm,
- 				unsigned long vm_start, unsigned long vm_end)
-diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-index 9ca2ea3664bc..0cb4f9603956 100644
---- a/include/linux/mm_types.h
-+++ b/include/linux/mm_types.h
-@@ -818,8 +818,44 @@ enum mmap_action_type {
- 	MMAP_NOTHING,
- 	MMAP_REMAP_PFN,
- 	MMAP_IO_REMAP_PFN,
--	MMAP_SIMPLE_IO_REMAP,	/* I/O remap with guardrails. */
--	MMAP_KERNEL_PAGES,	/* Map kernel page range from array. */
-+	MMAP_SIMPLE_IO_REMAP,		/* I/O remap with guardrails. */
-+	MMAP_KERNEL_PAGES,		/* Map kernel page range from array. */
-+	MMAP_DISCONTIG_KERNEL_PAGES,	/* Map kernel discontig page range. */
-+};
-+
-+enum discontig_kernel_page_action {
-+	DISCONTIG_KERNEL_PAGE_ABORT,
-+	DISCONTIG_KERNEL_PAGE_MAP_PAGE,
-+	DISCONTIG_KERNEL_PAGE_MAP_COMPOUND_PAGE,
-+	DISCONTIG_KERNEL_PAGE_MAP_PAGE_RANGE,
-+};
-+
-+struct discontig_kernel_page_state {
-+	/* Map state. */
-+	const unsigned long start;	/* Start address of VMA. */
-+	const unsigned long end;	/* End address of VMA. */
-+	unsigned long addr;		/* The current address to be mapped. */
-+	pgoff_t pgoff;			/* The current pgoff to be mapped. */
-+	unsigned long nr_pages_mapped;	/* The number of pages mapped. */
-+	unsigned long nr_pages_remain;	/* The number of pages remaining. */
-+
-+	/* User-defined state. */
-+	void *vm_private_data;		/* VMA private data. */
-+	void *private;			/* Mapping private data. */
-+
-+	/* Users should not touch these, use discontig_kernel_map_*() helpers. */
-+	enum discontig_kernel_page_action action;
-+	union {
-+		struct page *__page;
-+		struct folio *__folio;
-+		struct page **__page_arr;
-+	};
-+	unsigned long __nr_pages;
-+};
-+
-+struct discontig_kernel_page_ops {
-+	int (*init)(void *vm_private_data, void **private);
-+	int (*get)(struct discontig_kernel_page_state *state);
- };
- 
- /*
-@@ -844,6 +880,10 @@ struct mmap_action {
- 			unsigned long nr_pages;
- 			pgoff_t pgoff;
- 		} map_kernel;
-+		struct {
-+			void *init_private;
-+			const struct discontig_kernel_page_ops *ops;
-+		} map_kernel_discontig;
- 	};
- 	enum mmap_action_type type;
- 
-diff --git a/mm/internal.h b/mm/internal.h
-index fe93be1cea32..a86b9803a4c3 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1520,6 +1520,9 @@ int simple_ioremap_prepare(struct vm_area_desc *desc);
- int map_kernel_pages_prepare(struct vm_area_desc *desc);
- int map_kernel_pages_complete(struct vm_area_struct *vma,
- 			      struct mmap_action *action);
-+int map_discontig_kernel_pages_prepare(struct vm_area_desc *desc);
-+int map_discontig_kernel_pages_complete(struct vm_area_struct *vma,
-+					struct mmap_action *action);
- 
- static inline int io_remap_pfn_range_prepare(struct vm_area_desc *desc)
+ static int msm_dp_hpd_plug_handle(struct msm_dp_display_private *dp)
  {
-diff --git a/mm/memory.c b/mm/memory.c
-index dc38cad1dcb7..8c9675451d4b 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -2609,17 +2609,23 @@ int vm_insert_pages(struct vm_area_struct *vma, unsigned long addr,
- }
- EXPORT_SYMBOL(vm_insert_pages);
+ 	int ret;
+@@ -467,7 +473,7 @@ static int msm_dp_hpd_unplug_handle(struct msm_dp_display_private *dp)
+ 		drm_edid_connector_update(dp->msm_dp_display.connector, NULL);
  
-+static void __map_kernel_pages_prepare(struct vm_area_desc *desc)
-+{
-+	if (vma_desc_test(desc, VMA_MIXEDMAP_BIT))
-+		return;
-+
-+	VM_WARN_ON_ONCE(mmap_read_trylock(desc->mm));
-+	VM_WARN_ON_ONCE(vma_desc_test(desc, VMA_PFNMAP_BIT));
-+	vma_desc_set_flags(desc, VMA_MIXEDMAP_BIT);
-+}
-+
- int map_kernel_pages_prepare(struct vm_area_desc *desc)
- {
- 	const struct mmap_action *action = &desc->action;
- 	const unsigned long addr = action->map_kernel.start;
- 	unsigned long nr_pages, end;
+ 	/* triggered by irq_hdp with sink_count = 0 */
+-	if (dp->link->sink_count == 0)
++	if (msm_dp_link_no_sink(dp))
+ 		msm_dp_display_host_phy_exit(dp);
  
--	if (!vma_desc_test(desc, VMA_MIXEDMAP_BIT)) {
--		VM_WARN_ON_ONCE(mmap_read_trylock(desc->mm));
--		VM_WARN_ON_ONCE(vma_desc_test(desc, VMA_PFNMAP_BIT));
--		vma_desc_set_flags(desc, VMA_MIXEDMAP_BIT);
--	}
-+	__map_kernel_pages_prepare(desc);
- 
- 	nr_pages = action->map_kernel.nr_pages;
- 	end = addr + PAGE_SIZE * nr_pages;
-@@ -2640,6 +2646,98 @@ int map_kernel_pages_complete(struct vm_area_struct *vma,
- 			    &nr_pages, vma->vm_page_prot);
- }
- 
-+int map_discontig_kernel_pages_prepare(struct vm_area_desc *desc)
-+{
-+	const struct mmap_action *action = &desc->action;
-+	const struct discontig_kernel_page_ops *ops =
-+		action->map_kernel_discontig.ops;
-+
-+	/* At minimum need to be able to get pages. */
-+	if (WARN_ON_ONCE(!ops->get))
-+		return -EINVAL;
-+
-+	__map_kernel_pages_prepare(desc);
-+	return 0;
-+}
-+
-+static int apply_discontig_action(struct vm_area_struct *vma,
-+				  struct discontig_kernel_page_state *state)
-+{
-+	unsigned long nr_pages = state->__nr_pages;
-+	unsigned long addr = state->addr;
-+	unsigned long i;
-+
-+	if (state->action == DISCONTIG_KERNEL_PAGE_MAP_PAGE)
-+		return insert_page(vma, addr, state->__page,
-+				   vma->vm_page_prot, /*mkwrite=*/false);
-+	if (state->action == DISCONTIG_KERNEL_PAGE_MAP_PAGE_RANGE)
-+		return insert_pages(vma, addr, state->__page_arr,
-+				    &nr_pages, vma->vm_page_prot);
-+
-+	/* Compound folio - have to iterate through each page. */
-+	for (i = 0; i < nr_pages; i++, addr += PAGE_SIZE) {
-+		struct page *page = folio_page(state->__folio, i);
-+		int err;
-+
-+		err = insert_page(vma, addr, page, vma->vm_page_prot,
-+				  /*mkwrite=*/false);
-+		if (err)
-+			return err;
-+	}
-+	return 0;
-+}
-+
-+int map_discontig_kernel_pages_complete(struct vm_area_struct *vma,
-+					struct mmap_action *action)
-+{
-+	const struct discontig_kernel_page_ops *ops =
-+		action->map_kernel_discontig.ops;
-+	struct discontig_kernel_page_state state = {
-+		.start = vma->vm_start,
-+		.end = vma->vm_end,
-+		.addr = vma->vm_start,
-+		.pgoff = vma->vm_pgoff,
-+		.nr_pages_mapped = 0,
-+		.nr_pages_remain = vma_pages(vma),
-+		.vm_private_data = vma->vm_private_data,
-+		.private = action->map_kernel_discontig.init_private,
-+	};
-+	int err = 0;
-+
-+	if (ops->init)
-+		err = ops->init(vma->vm_private_data, &state.private);
-+	if (err)
-+		return err;
-+
-+	do {
-+		unsigned long end, pgoff_end;
-+		unsigned long nr_pages;
-+
-+		/* Default to abort. */
-+		state.action = DISCONTIG_KERNEL_PAGE_ABORT;
-+		err = ops->get(&state);
-+		if (err || state.action == DISCONTIG_KERNEL_PAGE_ABORT)
-+			return err;
-+		nr_pages = state.__nr_pages;
-+
-+		end = state.addr + PAGE_SIZE * nr_pages;
-+		if (end > vma->vm_end)
-+			return -EINVAL;
-+		pgoff_end = state.pgoff + nr_pages;
-+
-+		err = apply_discontig_action(vma, &state);
-+		if (err)
-+			return err;
-+
-+		state.addr = end;
-+		state.pgoff = pgoff_end;
-+		state.nr_pages_mapped += nr_pages;
-+		state.nr_pages_remain -= nr_pages;
-+	} while (state.addr < vma->vm_end);
-+
-+	return 0;
-+}
-+
- /**
-  * vm_insert_page - insert single page into user vma
-  * @vma: user vma to map to
-diff --git a/mm/util.c b/mm/util.c
-index b6f1bec9da15..5a1916d8fdc1 100644
---- a/mm/util.c
-+++ b/mm/util.c
-@@ -1464,6 +1464,8 @@ int mmap_action_prepare(struct vm_area_desc *desc)
- 		return simple_ioremap_prepare(desc);
- 	case MMAP_KERNEL_PAGES:
- 		return map_kernel_pages_prepare(desc);
-+	case MMAP_DISCONTIG_KERNEL_PAGES:
-+		return map_discontig_kernel_pages_prepare(desc);
+ 	/*
+@@ -634,7 +640,7 @@ static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
+ 		return rc;
  	}
  
- 	WARN_ON_ONCE(1);
-@@ -1496,6 +1498,9 @@ int mmap_action_complete(struct vm_area_struct *vma,
- 	case MMAP_KERNEL_PAGES:
- 		err = map_kernel_pages_complete(vma, action);
- 		break;
-+	case MMAP_DISCONTIG_KERNEL_PAGES:
-+		err = map_discontig_kernel_pages_complete(vma, action);
-+		break;
- 	case MMAP_IO_REMAP_PFN:
- 	case MMAP_SIMPLE_IO_REMAP:
- 		/* Should have been delegated. */
-@@ -1517,6 +1522,7 @@ int mmap_action_prepare(struct vm_area_desc *desc)
- 	case MMAP_IO_REMAP_PFN:
- 	case MMAP_SIMPLE_IO_REMAP:
- 	case MMAP_KERNEL_PAGES:
-+	case MMAP_DISCONTIG_KERNEL_PAGES:
- 		WARN_ON_ONCE(1); /* nommu cannot handle these. */
- 		break;
- 	}
-@@ -1538,6 +1544,7 @@ int mmap_action_complete(struct vm_area_struct *vma,
- 	case MMAP_IO_REMAP_PFN:
- 	case MMAP_SIMPLE_IO_REMAP:
- 	case MMAP_KERNEL_PAGES:
-+	case MMAP_DISCONTIG_KERNEL_PAGES:
- 		WARN_ON_ONCE(1); /* nommu cannot handle this. */
+-	if (dp->link->sink_count == 0)
++	if (msm_dp_link_no_sink(dp))
+ 		return -ENOTCONN;
  
- 		err = -EINVAL;
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 1098655a5f4a..52eee05e6c32 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -457,8 +457,9 @@ enum mmap_action_type {
- 	MMAP_NOTHING,
- 	MMAP_REMAP_PFN,
- 	MMAP_IO_REMAP_PFN,
--	MMAP_SIMPLE_IO_REMAP,	/* I/O remap with guardrails. */
--	MMAP_KERNEL_PAGES,	/* Map kernel page range from array. */
-+	MMAP_SIMPLE_IO_REMAP,		/* I/O remap with guardrails. */
-+	MMAP_KERNEL_PAGES,		/* Map kernel page range from array. */
-+	MMAP_DISCONTIG_KERNEL_PAGES,	/* Map kernel discontig page range. */
- };
+ 	if (!msm_dp_display->power_on) {
+@@ -723,12 +729,12 @@ static int msm_dp_display_disable(struct msm_dp_display_private *dp,
+ 	msm_dp_ctrl_off_pixel_clk(dp->ctrl);
  
- /*
-
+ 	/* dongle is still connected but sinks are disconnected */
+-	if (dp->link->sink_count == 0)
++	if (msm_dp_link_no_sink(dp))
+ 		msm_dp_link_psm_config(dp->link, &msm_dp_panel->link_info, true);
+ 
+ 	msm_dp_ctrl_off_link(dp->ctrl, msm_dp_panel);
+ 
+-	if (dp->link->sink_count == 0)
++	if (msm_dp_link_no_sink(dp))
+ 		/* re-init the PHY so that we can listen to Dongle disconnect */
+ 		msm_dp_ctrl_reinit_phy(dp->ctrl);
+ 	else
 -- 
 2.55.0
 
