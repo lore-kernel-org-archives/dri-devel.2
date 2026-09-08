@@ -4,128 +4,162 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47CC4C79FA0
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 07:09:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E9F5C79F99
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 07:11:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 729A110EA5C;
-	Tue,  8 Sep 2026 07:08:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A10FB10E092;
+	Tue,  8 Sep 2026 07:10:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=hotmail.com header.i=@hotmail.com header.b="bBHwBO5r";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mALv5SUk";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iGtEo+ne";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azolkn19012037.outbound.protection.outlook.com [52.103.23.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 291CC10E029;
- Mon,  7 Sep 2026 14:37:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rls0qNgwjS3hyu8BdfiSauW+20Q15znzGX3gOPnJyTP1d7qCflS/H3oFRPkuipaguNCpm0e9SF2Tm1w0qRiqrvave3KSJbVAOcCwc3SVAvBTr3gBw1W/O26e/HsQ4gbqeEL95JTLcgPubm2Qexu660YWtl0hg41+X1sajZvja5+u+a0vWgYrGpwj023qIfruxSozdKd8Ed6mIx6m7NdLVkT5BneTTYSoKUUIeZ7IDkS2hh3CgI/2TUuv7r6wW3V/HOLliNKYbkxmOfTHC+Z6Yzttjk0eop67C3dwjZN60sDjJZcvbK+WjPIUV61FAsdTqq/CTJm83khY00z23mvjAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NHFazzkIL2W9Du9PeeUSPfL6F+d1uPRXr7wW9+2hNGk=;
- b=Ndqalx2LiC7gaPPmBAgWee1YnBjlfZxaf4+shGfLCwFyQ06koNu+DKiJn7VIr2crsFQIoXzZRWVTk6bxj6RSlhSnOT5at9aILzR3XpsRozq1ZRfQRzw6McOuIKGn6h0pJhK4KAPuFogYM0Ej1Kea9cRREotQdCi59Dqiif3kgbB0o+IrJMHgaXIii1K1d0V+mqmTPBrgnr8G+kUfKINWZaPpdya+MbnMBSN+o2xJU8w6IR8YeNGBTL5ildRzPyu+eH5kuo9VG/KHUMie7/a3HiwnPbU8nMzMeJb3cgBSAmaAGBTS8+hk5gXO/QTsjLLoqUmzyyJYA52apo4ISzHJAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NHFazzkIL2W9Du9PeeUSPfL6F+d1uPRXr7wW9+2hNGk=;
- b=bBHwBO5rVe4uTbvdYhls/ow81vxrdwyUA38D4MNFK6BWz2M3bpiPRFG76ABfc969WSSjIXq/+0wgzkNCyjHMOd5JiMTk5eoexXYkM/SXvUNVDLuqOuv6Jiq1DEJnMjz5sV8Wn9IUCte5+xVYiO0C4aGYlEtf+vL3hlkYagQd+mr77EIxlT39FxGAA4B9v5OVOXNjgUSiH1moVhqhrzDVsN9xKfgBFQamaLrX+6/Ku1sYaGvplKvrw+vZfjWFMfxwxR6F8PGjlxSOw8ID3sWD1C7wcJVZylkOph5n3j3sWuCKA4pLf/BNDi6QGzPqDz8hehVebfHqvitGSnDIwIKTWw==
-Received: from CPUPR80MB6583.lamprd80.prod.outlook.com (2603:10d6:103:180::10)
- by SCYPR80MB7598.lamprd80.prod.outlook.com (2603:10d6:300:86::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 14:37:34 +0000
-Received: from CPUPR80MB6583.lamprd80.prod.outlook.com
- ([fe80::26cd:a90b:7748:403d]) by CPUPR80MB6583.lamprd80.prod.outlook.com
- ([fe80::26cd:a90b:7748:403d%4]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
- 14:37:34 +0000
-From: Danilo Machado <danilomachado2002@hotmail.com>
-To: "regzbot@leemhuis.info" <regzbot@leemhuis.info>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>
-Subject: [BUG REPORT] AMD Radeon R9 380 (Tonga) - HDMI no signal after suspend
- / regression tracking update
-Thread-Topic: [BUG REPORT] AMD Radeon R9 380 (Tonga) - HDMI no signal after
- suspend / regression tracking update
-Thread-Index: AQHdPtYqJOmSkr3UH0WwsXZ041k7tA==
-Date: Mon, 7 Sep 2026 14:37:33 +0000
-Message-ID: <CPUPR80MB6583B3189E299B6E138BD9A0A3B22@CPUPR80MB6583.lamprd80.prod.outlook.com>
-Accept-Language: pt-BR, en-US
-Content-Language: pt-BR
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CPUPR80MB6583:EE_|SCYPR80MB7598:EE_
-x-ms-office365-filtering-correlation-id: 27e25b90-a90a-40f0-36f0-08df0ced8e09
-x-microsoft-antispam: BCL:0;
- ARA:14566002|24021099003|55001999006|15080799012|21061999006|31061999003|5062599005|15030799006|41001999006|22091999003|25031999004|24121999003|4140399003|8062599012|8060799015|19110799012|25010399006|40105399003|52005399003|1602099012|10035399007|2607281247196008|102099032|4302099013|440099028|3412199025;
-x-microsoft-antispam-message-info: =?iso-8859-1?Q?+HhsPQaVgQ+rCtHkhbg2cCGyqGL2/3qiEwvAZJ0Q4UdRm+sq29wmwR893J?=
- =?iso-8859-1?Q?tvLc6BYxulpHJYHmgD384nKJVmMC04e2wXEUJ0rT9Tl6hBaD1XVcRn/4qn?=
- =?iso-8859-1?Q?8aT9u44COnOzwQ/Cvy/hu7qbySC7jE4Zid6N4xAlmG00X6Gf25E2xes6CX?=
- =?iso-8859-1?Q?O5/bzzKBwtsQIAR7/KhRn4QSSS5jtae0dlQWWdyFtGjU/EBFnGC1Shj1Oe?=
- =?iso-8859-1?Q?kCyYC4JE7nKCJ3xhW0Zr4lncjHLcelr+PcF/7mIOwF6xXJbhJULZ+YWawO?=
- =?iso-8859-1?Q?mgZgxhbsNK24c8MVaPztDE/s3dkz/PdWWkckFJXWJxUwFEzK7gPRScDNr3?=
- =?iso-8859-1?Q?qQHDJFDuGSFifA+xpxoBpr7OZlAFFbCcalFV1OT2Cf3OJbDtKWXJmlhuT7?=
- =?iso-8859-1?Q?wVm1FlMXUGXViGQAfTWE82J5c+V3qbgJkz3/3WosZ74HVizdevHQg1IJaw?=
- =?iso-8859-1?Q?iHTYvxkWWwIcIOKDIVlxTBp4JHiZS39RukOZCzbXPBKqokpysLajL8g+UZ?=
- =?iso-8859-1?Q?GkhcFbzhEDbV+wTJ4AriiSOlcKXIFtPeMD6YJNxzU1E8Oe6HvhFyPB0g0u?=
- =?iso-8859-1?Q?12+me0xdxC+vsQR03zJtj8e0qJOyFDoI78Hzs8iYIpqD1iD1rQ2lZvCP0/?=
- =?iso-8859-1?Q?GJ8wIm9MH2IQoLswSro0+GwLXZtwe9GToTG7kZatj7/avoanE31vpfMQ01?=
- =?iso-8859-1?Q?5nvz+f9JQyg3p90jlFFv+VgP0uHg39LRU9EqCqqHgtNAQQFT4LYOiXKB35?=
- =?iso-8859-1?Q?T4vAeXU4ieS0RxKQN8/yWb3TEYMABfkx4GvjWQWGLPGyYQuqiccza5FwxS?=
- =?iso-8859-1?Q?4LJG58vop6GgnciTwhe/6t4TlhA7d3MV92/TJA3WwQ6VXPxyuW2xdxZJLc?=
- =?iso-8859-1?Q?nlIePxPZz2Gd8mWVbPGYKh2pX+s06gAhcVvaO1TIlC0A3kjcgruGp8MfJr?=
- =?iso-8859-1?Q?cXVSrBvQy/XzWGv7Jl8Z1qHg/UCd5qVfCMl7lTmnQa1JJmNO5OTd01bOkX?=
- =?iso-8859-1?Q?OLEwJi9Vwxzl2WkrRVHUcRTwvufS/Foyl0S/KG2X41r0CJPDZQgts6W0je?=
- =?iso-8859-1?Q?7x5+zPFZUfhIANbYgzxaBRNpG0+toMfPyjV10EJ7NlkKUVIB2ccgjQxf1v?=
- =?iso-8859-1?Q?5o/FFAYciLeqFx7GmQkP3xknHwt9IJ+JVzuU4unm2r29JPD4ctiEyBNt3G?=
- =?iso-8859-1?Q?fQmVx3trqZAuOHd9IqGZu9dLj3N3jNTa2rTbshsAitZUZ8Iy5Yt0ko+OPZ?=
- =?iso-8859-1?Q?r2d/2nHLJQ/oQ4RzWn+Fze9itQ/s52LFJaHgey55o=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?iXyCCQMGQfS/bibfuZNuNL5jaRup/kO0NSiTkE8a4l/Mvdq2jAv29aqoRc?=
- =?iso-8859-1?Q?WpqtS+O8Z/c0hF6ddCt2ETT9zpmcf0z4SLqhJO17tWLbgkQUP3A6aRkF5I?=
- =?iso-8859-1?Q?kMiuLx8BwKdYKuyONhuTkIlM73FGHDuEjvmzXJIk3JgsV7s5JhZ8Fqshb+?=
- =?iso-8859-1?Q?OfpFKmDszR83tfB+j0KVS4+mqMiims4PGxKOaRzjEmVQU9UjRUR1qwojYF?=
- =?iso-8859-1?Q?ij1Kzm88oLuXeh6dbh5GdA3uuHZTyPWoikZcCU6RDIFdJLVtBzqLeZRGSh?=
- =?iso-8859-1?Q?BMjCKaOSsaGh+5x2q9kZw+yyCwbHm/nTRvCyleWmYbpMXIFFJDbdqRyzTQ?=
- =?iso-8859-1?Q?+WAATh7i3v9BGhbQo29pZM7grImaX45rXLPRKR3Hx+hBmVnu90L4Gx3u9o?=
- =?iso-8859-1?Q?NA/EqaDaN3/TvLNbmrlgerfLKi/0mJL1gF+m4jdr17VZiZouMzAaXqW4Sb?=
- =?iso-8859-1?Q?NrP1ky0/GqfcWQATSDTEeT+CnI13E4O5M35rvUya0Q/SAnn7qbiSKXwIbr?=
- =?iso-8859-1?Q?QuiiC6DKMC1YNti9Na53kqF0cqgUCBHL04kSJuHeSqxIzcyHu2Y+w14cQl?=
- =?iso-8859-1?Q?vj6AwPrs7lhm1aN3L0ulrD/reroFsRW9+QYEsG6ArvOS52AtwtX3DRi/Ik?=
- =?iso-8859-1?Q?bLHq75nmJuJrsmpZGxGPREz2wfYreRT3g7Er5lqOwpN2TmMfqpRPUq75T4?=
- =?iso-8859-1?Q?6/9th6uGvP/Xm/BpIhaHLt+IX4bx2s9IzaVg+CRMNlSfxUocir2M+jo2Ia?=
- =?iso-8859-1?Q?CEgZ5CfSbSOyOTtFKJi/jbYPyOppfPCahz1Lbi5f6ZghzrikUiqieJfVDn?=
- =?iso-8859-1?Q?1slcIUdN7pA9nkec/e95lwUopyuRVFRVmPCMzOgzHk2G1T6c2iYQi+HcvG?=
- =?iso-8859-1?Q?nhkNb8mlzWFA+/lC8oTmto905Imzq9nYzBN51g0Ftdhv3HRTSwRJthJvGZ?=
- =?iso-8859-1?Q?fiaGrsLxekbAm12/lBc5YAnz/M97B+a9klnLUxMBNQHFbQpvgeeCiuwclQ?=
- =?iso-8859-1?Q?Oq2xfhyM3RtoNBleEo/3OzUgcbgu7aadpfOPF8JpKFKjkO2Hp4TrwBJnyZ?=
- =?iso-8859-1?Q?zWuG+mDIahulTtAyGCJuvvhf+2itbLf95CN3FVPx2V33ZRnl201uo7wsoh?=
- =?iso-8859-1?Q?F/fTdrXwFmVcOZbPJQ6Otrgl6bCECAXGwZrY6Q16jyK7vrqJzbA/pV0a7j?=
- =?iso-8859-1?Q?n/86TRxGc6xUH0IUdld3SlAVfMWT/OjXG9AM7lA8hbCXDRIQKCkx4DiUVa?=
- =?iso-8859-1?Q?6ixlaC8CPXGfAAfojFw3JZoV0XE3ywq3SwmYpLe8/fVM+a+z0enaEgMYEI?=
- =?iso-8859-1?Q?KLcEd+xl4frxzcCWdUM1PQACrVtHo0pBbRyu76t95uxYzvitNYnEsJ+jSk?=
- =?iso-8859-1?Q?TwaPycExHMvD2KtpuJkHBMHlTCT1FRIp6mzSR+36+hvfdv846ml+tz9fOM?=
- =?iso-8859-1?Q?vqBqjO/uvV+829j9s4oE6bn2HQerAqxd0cXdzonPAu5g6lC7ZObZJq/jgs?=
- =?iso-8859-1?Q?l6vIHCoRkz7uMgqMgsqaurywYXcL26t5oIu/Xnq/9BIQ=3D=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_CPUPR80MB6583B3189E299B6E138BD9A0A3B22CPUPR80MB6583lamp_"
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42B7210E0A1
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 07:10:58 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6886LiaH950275
+ for <dri-devel@lists.freedesktop.org>; Tue, 8 Sep 2026 07:10:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=f8RLbWT86kAkeJotJylv89
+ teUUDEjaGV6y6BRtUcATE=; b=mALv5SUkqnDUsl4GL3wX5hU0aPn/stRcTljTLU
+ hfQltbgPBHIPrb0QIuvpBvSDFw8TKpaBkZiAVLeL0fdAsvW5JDuG8EHpIVnuvepK
+ LyhWzMuvCmpjS64vhmRXkMwUr8eUDjEQ5Oqx4Cul2MY5+5YjQIpgoWVdQXXeoysH
+ uMB6LO8W13ZzVS2Y9iZGcYtoiYGgR3ZfMshRBgkL+nzUO003Ol5xC3A7oHUYCt+V
+ /PPwETnTLC2kGdffZ9v9IIQG1YHlimnQsktA2v0Sn+FPmxv3lpsksaLt9t6eqktf
+ 69iIdDoBQwsLMZlh3Vn10ODL9XKuy8LDL9yMO8XovG5SWnKQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjcrp899q-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 07:10:57 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-930b571432fso651749685a.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 00:10:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1788851456; x=1789456256;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=f8RLbWT86kAkeJotJylv89teUUDEjaGV6y6BRtUcATE=;
+ b=iGtEo+ne8hIkPVnrkvgX1EZbnkMy/hMGSgd1zaksp9Bwlvr93wzk1zwu5fRtP4uQXa
+ S4KIqUnZhcQJV8nwa5z5utj+dySP3vkETW9WTDnoUGE398HzIPjMoMwSfpahPe6nu7Dm
+ z4ahK4+rrSMM6UKsTFpc9qcLuQcmqtMqILHAIDESerIvJRC/+jZDsgRLGhJdUtVepiqB
+ XMXQXLdy5Ylb4ModyWbSRq/k4baLdA9DISTzZrhghzsUQ2lP6TYG6/e19D9QDtqgiwp8
+ b9W+a+sFBPLj8KBoonfbzYjztqxmO/sIujtCj8e7hoEPnbP3q0z9RWOP7Rk+xtfYzDl8
+ Unww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788851456; x=1789456256;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=f8RLbWT86kAkeJotJylv89teUUDEjaGV6y6BRtUcATE=;
+ b=sedu3CTkdjyK4lJMfu282T37AQeX3ouElLTydApDcAqG9QoI6pSAKN7htClJ31BuQi
+ jz8C5UIT9rCZOa2nGv0/agymxzEcGtanvZCXW3di8BYHyZ3ULTRpt9RAowW4yEwpM1X/
+ IokyfDNfW8+PSl6BwMTIm7MyCo3QqAe+1snzEAb8OfdZnyo7OE1bSIAb2z01oeL7qTX7
+ 34MpftSuTg5OQlpXcIWeWxoj21eU7hoABEMxvHtN4ZQQ77SG93Zta9A1PlsA1aUmc23+
+ GjbSlAB1thc0MvKH+xcQYNRk47auEMBLJ+ec6JVGFcRcIhvOMY4wPkXL7Y7w+4kBo3Ov
+ FtFA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzL5Rb6scWx7SgXHucwRoHHn3WGI0lZW8E1mJpy7eNeEF7hvJnP2GyY0yirawJ3cF8E63dd//QaI9Q=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nZgR0LH6jxEDXasjUlKzterXrKTWSLnVgvM5RrDTRqNKQEdOzX
+ fnzU3umHOMBiTxkEoOF4TUob4lMQMur7nhWyDIjtHHl0ZxjmCqnnglezQZqcnsQieO/FKneqDMk
+ qxzYmHydDZqCnp3EFOdDr7wKyYunbVeSBzbOykzdtOYj1DRkjggAw585usdSZg5WHv/rMMLI=
+X-Gm-Gg: AYBFou1LofYW4u2+KvalocjYDmOQaHQq5k3kcJQMTvPRLwzlTzuckAwO8CrQAbZ44QO
+ 9ZckKwUwWdOdPh3t/d77jnaYW8eETyLN6py7JAdcKtnn1J3ItqiRNyNGlKnWCkL4uiagvkKPUGU
+ CfA4v0gN6JfUwL7V8FZK/ymU0xWwvzXme9VHck3BCJX/ZhBaOViWxHTmi3e34iHqYsmt3HmKMv1
+ 6U1VCqKd1hEfQbAg2mSGCFZx6lDlVnUv3pXwJ3q1dkHZ2CrJKiaCY6Oztm0qMr5xY6hdS//1jNh
+ RmjktEODuio73V1Ec4ZlUEDh62Zc7/hMCRxOb+iv4NqpoKZfZH3JDeSAiHWNt7eHTQdM6BnUxEn
+ kq0oN3rL8Ri9tuGt4BN/neEs=
+X-Received: by 2002:a05:620a:8894:b0:937:6f98:c68f with SMTP id
+ af79cd13be357-9396deac481mr1835658485a.1.1788851456341; 
+ Tue, 08 Sep 2026 00:10:56 -0700 (PDT)
+X-Received: by 2002:a05:620a:8894:b0:937:6f98:c68f with SMTP id
+ af79cd13be357-9396deac481mr1835656885a.1.1788851455920; 
+ Tue, 08 Sep 2026 00:10:55 -0700 (PDT)
+Received: from [127.0.1.1] ([178.197.219.214])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49ce5927b68sm453173805e9.1.2026.09.08.00.10.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Sep 2026 00:10:55 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v3 0/7] drm/msm/hdmi: Fixes/Cleanups before Eliza
+Date: Tue, 08 Sep 2026 09:10:40 +0200
+Message-Id: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-0-dcf8956878ca@oss.qualcomm.com>
 MIME-Version: 1.0
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-665fe.templateTenant
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CPUPR80MB6583.lamprd80.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27e25b90-a90a-40f0-36f0-08df0ced8e09
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Sep 2026 14:37:33.9518 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SCYPR80MB7598
-X-Mailman-Approved-At: Tue, 08 Sep 2026 07:08:43 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OTQ6CMBBGr0K6dkipPwVX3sOw6M8gNZRqB4hKu
+ LsFL+Bmkpe8vG9mRhgdEjtnM4s4OXKhT7DfZcy0qr8hOJuYCS5OvOISbPTgyUNrvYPGvZBAYxM
+ iAnbuo8BU2siiPNryYFiqPCJuVopc6x/TqO9ohjW7Gq2jIcT39sIkVu//tUkAB80raZoClZHyE
+ ojy56g6E7zP02H1sixfK7NdUucAAAA=
+X-Change-ID: 20260907-drm-msm-hdmi-fixes-before-eliza-c9bc7185d84c
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Archit Taneja <architt@codeaurora.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, stable@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1927;
+ i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=zpq5mCKUOT/wUAOeHfp/xfgg0ZRiJ3FqfBhoFrs/1jQ=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqn7TzbhTLLrihthOjdQaXbEX7ard2KTMOpshYK
+ dG2hWcKYVKJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCap+08wAKCRDBN2bmhouD
+ 18MID/9CapUwvmX25INfBr39Gll9U/8pN03nzwdBZlCLFVy6itzrlfHBldIARd1vuBwuXhWZ5Rf
+ nhoOZqMah7Iqx931BoVqwC1grAVL2E84/sRNENNAo3tChayo5x0AzNQHnDojBB6w6ZWbk9h0Sak
+ 8tYiFRBVobHfBF6r+Og/sSM0w7d62hae9OfuwqyNyqVIofCDE05u7Vpfg0aWoDQLv5ojw3yjEfD
+ trIvac1gB/TdPBtcEDkB5fMFlOWWR+T12lsFerzwmumLJzLyqdX9S+dXmWb/Ka/pgpOZlqh8gJT
+ qLBSEyns7q/N5RxqZCTYP+pcoyr6LrVbqQKNA+dgAjFMc2GP9nSgeYGbSy195NpWe+EqDqwJZfI
+ pzl6GiQL56KZKX7HdFAKNKh7AS0oKOHhicMVxv9iF47/RANiw2JnJVbQJOAkT3CPna1pm2VE1Ic
+ Dlv0HUYYR9a+Eh0cO0uaWgLrRmvoOPB4SmcyCSuVY7BgglBnkheo3nzkwQLy50hIdITR358IgUH
+ vMGCLme10caSNWives336h/8ecrCm1H3u213zbY9I/ArVnqNT1tlL+iI2A+6nkahQetMTxwXvr0
+ eOP1eV5WSo8rd1Rp+Rt2SxfF4tQJP5vtjchjBG3NHCMdLX1aiXE5P1ircKto5hgHdegOT4IUOzS
+ 4rQWQeiwEncs8CQ==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+X-Authority-Analysis: v=2.4 cv=UfRhjqSN c=1 sm=1 tr=0 ts=6a9fb501 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=zNiOfXrd8CByh7D4QjQA:9
+ a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: lDjGy45qE84UNM8OyLaYpzLweVu9fQz4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA3MiBTYWx0ZWRfX9EU9I05fbVK/
+ U5NTa3IU6dBjww42TNWBHHq/1/1Ydj981U6ySBEs+m1f2PG82QpMoBIkmpqqtuFoq8Kpkl+IrHo
+ QS9IDam8TBkUevqmbkmt5KjmyPr/HdquK0y9q1/uKDDTriF6bnjUZFz+VeitATPd57+un/Qd5Uv
+ 0il1WlDVr0NAtHJ7cEn3YdVSPMWNeuEAdstGsaYxMQDDlcIHfG4b0/6Q0AOonYd+XxCdq1NsoNN
+ iQ5D9ulwiJeCmc3XeVV3+cVTUoyVSznMDjHPrzMoAwlspm4eUl/pYDBNw8qvBYgcSy5xe1/LfQg
+ 2XQUdklCIS4WcEJ3aSRS0LUHRDdYkOM6m8XBBlflHc4aLUnxQuGkYDUCCGL1DzMTMfOcnO3fVQm
+ Hx3xj3ORRKh4AomuEdGBctfABPnnUozDQEmqJhQC4vtVvvIAm6UP1pHuI4DOW0Ox/2wPWCM+Kok
+ Xv9ign2FnEv/Uf4SpZA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA3MiBTYWx0ZWRfX8DRtbi0d+7pQ
+ wgRbzsHcRd9dxUF+MANpvJGT2pvjSqIgBQ9IMduFknbgoznZDKl1EctDR7nupClj053GXlfYRAF
+ DfEU5sMDcw4Q81b73lWg3TewF9oNK7M=
+X-Proofpoint-GUID: lDjGy45qE84UNM8OyLaYpzLweVu9fQz4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 phishscore=0 suspectscore=0
+ spamscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080072
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,186 +175,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---_000_CPUPR80MB6583B3189E299B6E138BD9A0A3B22CPUPR80MB6583lamp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Changes in v3:
+- Add missing regulator_bulk_disable() in msm_hdmi_phy_resource_enable()
+- Set hdmi->power_off=false before calling msm_hdmi_audio_update()
+- Link to v2: https://patch.msgid.link/20260907-drm-msm-hdmi-fixes-before-eliza-v2-0-b097cf1eac77@oss.qualcomm.com
 
-#regzbot back in-progress
-#regzbot monitor https://bugs.launchpad.net/ubuntu/+source/linux/+bug/21423=
-89
-#regzbot monitor https://gitlab.freedesktop.org/drm/amd/-/work_items/5123
+Split from Eliza patchset, thus `b4 diff` won't exactly work.
+v1:
+https://lore.kernel.org/all/20260828-drm-msm-hdmi-eliza-v1-0-67843277de17@oss.qualcomm.com/
 
-Hi Thorsten, Alex, and Linux Kernel Maintainers,
+Changes since v1:
+1. New patches:
+   drm/msm/hdmi_phy: Cleanup after msm_hdmi_phy_resource_enable() failure
+   drm/msm/hdmi: Handle msm_hdmi_power_on() errors during .atomic_pre_enable()
+   drm/msm/hdmi_bridge: Correct poweroff/audio cleanup order in post_disable
 
-I am writing to update the status of this regression after checking the Reg=
-zbot tracking dashboard:
-https://linux-regtracking.leemhuis.info/regzbot/regression/lore/CAOnW2VTGBP=
-=3DMMWM=3DW41uPDLrzTVHM1sw8P1myvftnNk0vEMMFw@mail.gmail.com/
+2. Patch #5: use simpler ?:
 
-The dashboard currently lists this issue as "fizzled out / resolved: inconc=
-lusive", but I want to clarify that this bug is ACTIVE, UNRESOLVED, and act=
-ively tracked. The lack of recent email activity on LKML was due to ongoing=
- technical data collection on Launchpad and GitLab while awaiting upstream =
-feedback.
+3. Add tags.
 
-Current Status & Verification:
+---
+Krzysztof Kozlowski (7):
+      drm/msm/hdmi_phy: Cleanup after msm_hdmi_phy_resource_enable() failure
+      drm/msm/hdmi: Handle msm_hdmi_power_on() errors during .atomic_pre_enable()
+      drm/msm/hdmi_bridge: Correct poweroff/audio cleanup order in post_disable
+      drm/msm/hdmi_bridge: Drop redundant initialization in msm_hdmi_bridge_init()
+      drm/msm: Properly handle msm_ioremap() without name
+      drm/msm/dsi: Fix indentation of if block in dsi_mgr_bridge_mode_valid()
+      dt-bindings: display/msm: hdmi: Correct name of disallowed supplies
 
-1. Launchpad Report (#2142389):
-   - Status: Confirmed (assigned to maintainer Timo Aaltonen).
-   - Heat/Users: 220 Bug Heat points with 44+ explicitly confirmed affected=
- users across various AMD architectures (Tonga R9 380, Polaris RX 400/500, =
-and recent Vega APUs).
-   - Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142389
-
-2. Freedesktop GitLab Issue (#5123):
-   - Status: Open.
-   - Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5123
-
-3. Technical Summary:
-   - I have executed 3 full git bisect routines on hardware testbenches, is=
-olating the regression behavior between kernel transitions.
-   - Recent user reports confirm the same black screen / no EDID handshake =
-failure upon resume and DPMS display wake-up across multiple Linux distribu=
-tions (Ubuntu, Fedora, Void Linux) and kernel versions (up to kernel 7.0).
-
-Please re-open and maintain active tracking for this regression on Regzbot.=
- I remain available to test candidate patches, kernel builds, or debug flag=
-s on physical hardware.
+ .../devicetree/bindings/display/msm/hdmi.yaml      |  4 +--
+ drivers/gpu/drm/msm/dsi/dsi_manager.c              |  2 +-
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c             | 34 +++++++++++++++-------
+ drivers/gpu/drm/msm/hdmi/hdmi_phy.c                | 16 ++++++++--
+ drivers/gpu/drm/msm/msm_io_utils.c                 |  6 ++--
+ 5 files changed, 44 insertions(+), 18 deletions(-)
+---
+base-commit: 6e95d4043b2c59f1887fd72d1620b7fd3d3138a5
+change-id: 20260907-drm-msm-hdmi-fixes-before-eliza-c9bc7185d84c
 
 Best regards,
-Danilo Machado
+--  
+Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
---_000_CPUPR80MB6583B3189E299B6E138BD9A0A3B22CPUPR80MB6583lamp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: &quot;Calibri&quot;, &quot;Helvetica&quot;, sans=
--serif; font-size: 12pt; color: rgb(0, 0, 0);">
-#regzbot back in-progress</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-#regzbot monitor https://bugs.launchpad.net/ubuntu/+source/linux/+bug/21423=
-89</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-#regzbot monitor https://gitlab.freedesktop.org/drm/amd/-/work_items/5123</=
-div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-Hi Thorsten, Alex, and Linux Kernel Maintainers,</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-I am writing to update the status of this regression after checking the Reg=
-zbot tracking dashboard:</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-https://linux-regtracking.leemhuis.info/regzbot/regression/lore/CAOnW2VTGBP=
-=3DMMWM=3DW41uPDLrzTVHM1sw8P1myvftnNk0vEMMFw@mail.gmail.com/</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-The dashboard currently lists this issue as &quot;fizzled out / resolved: i=
-nconclusive&quot;, but I want to clarify that this bug is ACTIVE, UNRESOLVE=
-D, and actively tracked. The lack of recent email activity on LKML was due =
-to ongoing technical data collection on Launchpad
- and GitLab while awaiting upstream feedback.</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-Current Status &amp; Verification:</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-1. Launchpad Report (#2142389):</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-&nbsp; &nbsp;- Status: Confirmed (assigned to maintainer Timo Aaltonen).</d=
-iv>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-&nbsp; &nbsp;- Heat/Users: 220 Bug Heat points with 44+ explicitly confirme=
-d affected users across various AMD architectures (Tonga R9 380, Polaris RX=
- 400/500, and recent Vega APUs).</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-&nbsp; &nbsp;- Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2=
-142389</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-2. Freedesktop GitLab Issue (#5123):</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-&nbsp; &nbsp;- Status: Open.</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-&nbsp; &nbsp;- Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/51=
-23</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-3. Technical Summary:</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-&nbsp; &nbsp;- I have executed 3 full git bisect routines on hardware testb=
-enches, isolating the regression behavior between kernel transitions.</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-&nbsp; &nbsp;- Recent user reports confirm the same black screen / no EDID =
-handshake failure upon resume and DPMS display wake-up across multiple Linu=
-x distributions (Ubuntu, Fedora, Void Linux) and kernel versions (up to ker=
-nel 7.0).</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-Please re-open and maintain active tracking for this regression on Regzbot.=
- I remain available to test candidate patches, kernel builds, or debug flag=
-s on physical hardware.</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
-uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-Best regards,</div>
-<div style=3D"font-family: &quot;Calibri&quot;, &quot;Helvetica&quot;, sans=
--serif; font-size: 12pt; color: rgb(0, 0, 0);">
-Danilo Machado</div>
-</body>
-</html>
-
---_000_CPUPR80MB6583B3189E299B6E138BD9A0A3B22CPUPR80MB6583lamp_--
