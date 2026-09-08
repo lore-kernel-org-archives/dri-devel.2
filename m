@@ -4,59 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70FC1C79F82
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 18:01:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9885C79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 18:05:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C291D10E6C7;
-	Tue,  8 Sep 2026 18:00:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEABE10E15F;
+	Tue,  8 Sep 2026 18:05:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LVJlAWto";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eF+t98oI";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BB8A10E6C7;
- Tue,  8 Sep 2026 18:00:58 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92ED610E15F
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 18:05:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BA385601DE;
- Tue,  8 Sep 2026 18:00:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93F391F00A3D;
- Tue,  8 Sep 2026 18:00:53 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5A9DB43598;
+ Tue,  8 Sep 2026 18:05:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0830E1F00A3A;
+ Tue,  8 Sep 2026 18:05:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788890457;
- bh=iYO80B8I1+w6R8uwt1KzWcOb68xdO6xDg2rGoee6Wvo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=LVJlAWto+Ot4fi9SIelMgvzf2MC5fZEhyoOiXt6RxRXS3XHJdojlTHxbrBF8J8N6v
- Ya2pwq6P5LmtPvHY6LbdSTP6SKUJygK9x3xUrluezkA4rfwyewfXJZcfCF48C8Hchs
- 1m7eCYAk6FM0PlV/uhZDdoiuIWW7es3tRJkyu3V6EMpCTr53TIAcaViocRjV5uPyJO
- r5LHwr/WOViFrLTPJfOvqOB3FFuwNc8SlM6n7iPSppoBmjF5h0dKZHLwS63fhkQdnE
- 3f/01erVZYr9gvASHCbv5nY5PNsBdNI1y+d7UiQKELu4uJ+w+awHBBoUnI6PDKL0l0
- pZ01Ntsoo9C4A==
-Date: Tue, 8 Sep 2026 19:00:51 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Archit Taneja <architt@codeaurora.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 7/7] dt-bindings: display/msm: hdmi: Correct name of
- disallowed supplies
-Message-ID: <20260908-very-rocker-799f0b4eb26b@spud>
-References: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-0-dcf8956878ca@oss.qualcomm.com>
- <20260908-drm-msm-hdmi-fixes-before-eliza-v3-7-dcf8956878ca@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="vyaPzKmKVJe2FvgC"
-Content-Disposition: inline
-In-Reply-To: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-7-dcf8956878ca@oss.qualcomm.com>
+ s=k20260515; t=1788890755;
+ bh=ysKHgdCuuxhDtCixCvpnOhl+V9jnIBHvVWNnrErzFfM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=eF+t98oIqoCTOGEFhtFVs9min63YXTr6sUCkWwEU2eruuEr8e/sk7gGieQVhTxFcU
+ YGSU0330WOJ1kUPd9wdFxc0A6cuONxblwZB3nmzJyFRdm1R/NPelWGdzvWsXzXPVVw
+ ErbyXlLFs4rdHKgTPaOvklMyev016AZ/k27JJP3zyuxy244jI3mTXjkhFxUT3BcZz5
+ 3lPrzqLesbVVCew2IgqXbto5MOpc+PnOf8q35ZkKo4oI9Htoqdl7pkOhMWL8duQcsB
+ NGBYvfWgaVj4d9904Ga6Am8O68xKbFMOha3T6yJgn6kS8YIpg27+L/XCb9Vr7y/CCX
+ rjNeL3hoIDunQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] rust/drm/gem: initialize callbacks with
+ ..pin_init::zeroed()
+To: "Klara Modin" <klarasmodin@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
+In-Reply-To: <20260908175427.47207-1-klarasmodin@gmail.com>
+References: <20260908175427.47207-1-klarasmodin@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 18:05:54 +0000
+Message-Id: <20260908180555.0830E1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,33 +53,86 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---vyaPzKmKVJe2FvgC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Incomplete fix: missing `handle_free` field in conditionally com=
+piled `shmem.rs`.
+--
 
-On Tue, Sep 08, 2026 at 09:10:47AM +0200, Krzysztof Kozlowski wrote:
-> There are no properties in DTS or Linux drivers called
-> "core-vcc-supplies" or "hdmi-mux-supplies", so the binding probably
-> wanted "-supply" properties instead.
->=20
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+commit b5b83bb373847c99ca6d286c268d2e0ffab299f0
+Author: Klara Modin <klarasmodin@gmail.com>
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+rust/drm/gem: initialize callbacks with ..pin_init::zeroed()
 
---vyaPzKmKVJe2FvgC
-Content-Type: application/pgp-signature; name=signature.asc
+This commit updates the drm_gem_object_funcs struct initialization in the D=
+RM
+GEM module to use pin_init::zeroed() instead of explicitly assigning None to
+unused callbacks. This fixes a build failure caused by a newly added callba=
+ck
+field in the C structure.
 
------BEGIN PGP SIGNATURE-----
+Closes: https://lore.kernel.org/all/aaef18cd-ab55-4fb8-8563-ca3a5ea9cbc6@le=
+emhuis.info
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBNUwAKCRB4tDGHoIJi
-0oO7APsGmykE3+6RN+2pC/OzeWImWqXs3tPqdm85hWcBCC+MBAEAwQAtr/IdzR64
-GIh/rMnDt4ifvpxhUSy7oCiAj3QRnwE=
-=40c7
------END PGP SIGNATURE-----
+> diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
+> index e1ebad77ebe2a..c63b0fe5a15e1 100644
+> --- a/rust/kernel/drm/gem/mod.rs
+> +++ b/rust/kernel/drm/gem/mod.rs
+> @@ -266,18 +266,8 @@ impl<T: DriverObject, Ctx: DeviceContext> Object<T, =
+Ctx> {
+>          free: Some(Self::free_callback),
+>          open: Some(open_callback::<T>),
+>          close: Some(close_callback::<T>),
+> -        print_info: None,
+> -        export: None,
+> -        pin: None,
+> -        unpin: None,
+> -        get_sg_table: None,
+> -        vmap: None,
+> -        vunmap: None,
+> -        mmap: None,
+> -        status: None,
+>          vm_ops: core::ptr::null_mut(),
+> -        evict: None,
+> -        rss: None,
+> +        ..pin_init::zeroed()
+>      };
 
---vyaPzKmKVJe2FvgC--
+[Severity: Medium]
+Does this commit miss a similar update in rust/kernel/drm/gem/shmem.rs?
+
+The VTABLE initialization in shmem.rs explicitly lists fields without
+using pin_init::zeroed(), similar to what was fixed here. When compiling
+with CONFIG_RUST_DRM_GEM_SHMEM_HELPER=3Dy, won't this cause a missing
+field error for the newly added handle_free callback?
+
+rust/kernel/drm/gem/shmem.rs:
+    const VTABLE: bindings::drm_gem_object_funcs =3D bindings::drm_gem_obje=
+ct_funcs {
+        free: Some(Self::free_callback),
+        open: Some(super::open_callback::<T>),
+        close: Some(super::close_callback::<T>),
+        print_info: Some(bindings::drm_gem_shmem_object_print_info),
+        export: None,
+        pin: Some(bindings::drm_gem_shmem_object_pin),
+        unpin: Some(bindings::drm_gem_shmem_object_unpin),
+        get_sg_table: Some(bindings::drm_gem_shmem_object_get_sg_table),
+        vmap: Some(bindings::drm_gem_shmem_object_vmap),
+        vunmap: Some(bindings::drm_gem_shmem_object_vunmap),
+        mmap: Some(bindings::drm_gem_shmem_object_mmap),
+        status: None,
+        rss: None,
+        #[allow(unused_unsafe, reason =3D "Safe since Rust 1.82.0")]
+        // SAFETY: drm_gem_shmem_vm_ops is a valid, static const on the C s=
+ide.
+        vm_ops: unsafe { &raw const bindings::drm_gem_shmem_vm_ops },
+        evict: None,
+    };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908175427.4720=
+7-1-klarasmodin@gmail.com?part=3D1
