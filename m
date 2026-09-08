@@ -4,46 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FF2DC79F9E
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 14:01:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80E6BC79F99
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 14:05:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F6B210E115;
-	Tue,  8 Sep 2026 14:01:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A154F10E2A8;
+	Tue,  8 Sep 2026 14:05:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="S0Pvh77G";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pQeJr+WP";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C701D89EAE;
- Tue,  8 Sep 2026 14:01:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0DC8D601DB;
- Tue,  8 Sep 2026 14:01:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4933E1F00A3A;
- Tue,  8 Sep 2026 14:01:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788876110;
- bh=ASO1YLZO+3Ki8lA+q6vKQbYAHU3cyVD1rsR3m5ZiDS0=;
- h=Date:From:To:Cc:Subject;
- b=S0Pvh77GnZjZ7C5vbB/1bSilLS5Mv60rVGCfzGATWxN69zCQRQNQevDfyuTh8KpNb
- LpzbEzabCmeSvQxTHEjdEHz03kN69PdCWd06tJ54V4hI5g/S/g3WPi/F0oauMMoha0
- 0U9mTKfNyS2jpO0uPeRwg6g1Zzx+KD5Nq21AxYuvX1PXcAaJ/0RpKlSrV1+ITl/jK0
- 3lEvMktf2TTY8nwoaTv8D496heRupcKeKa/fWe8qUceh6kdYcDVFYqGeoVdX6q2LYt
- 9BCxo7L4eQLp9SAAcc/BaHqwpDO+DhGIemYZB5Jsn8Obbb91qlYHREcruBXIVJC1BF
- UtcFVtja5LPAg==
-Date: Tue, 8 Sep 2026 15:01:46 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Simona Vetter <simona.vetter@ffwll.ch>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>, Alex Huang <Alex.Huang2@amd.com>,
- Mario Limonciello <superm1@kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: build failure after merge of the drm-misc tree
-Message-ID: <aqAVSgsypMch2c0v@sirena.org.uk>
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012002.outbound.protection.outlook.com [52.101.53.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B24ED10E2A8
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 14:05:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YpsiSgcciASxnkqOF6UhpM0EuRSiG2ACbK/U/Wd3L5TZFLRQZpt+fxX/GlZPVbxrVrX+W2Qq9G8tx/VYwekSR6B4S4w9Pp53I5OGNvBeEgjajhPXsDErY1sPIDqqrumdhwD+orkKsLsh8tJDeJgQnBe17EACW8jwzAGetFiZr4H/26PLYnjn6h7z4/xpT4Gozsz9IclZrCCin5pMvaPDgC2oGPI9kndkanVjFNR8FEidQHcwZNiXqXr5/p77bKE9K0jNr4aXMgzgNho/o3foPtYjxDfl1izkUzb0QK0Qlssa2A5jkhrzAg8jE41Tm6Cp0PtIFyPiHsbogWpRrnHehQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sd8lL+uNAkOT7JykRdDAcjZeuuytXTXH0gHrvdtebu8=;
+ b=D/JcEosjsFjmZ5IOUZaVaYJ2XKlyooHdKjxZsXwyrQsHs2erk1IQhDfKYVQRcMpBUePGmkbtHAueXZsBaRIEIkrb9SaKtaX9bVNVDPhE2RxhrEbkGB+ls36ybqspoF4oynsDjR/JIkI4XIE9g+5bO7YIl7+cUhrnkSaCKdlyndc2J7Z6G8DGhEmm2D5VJov+RPAKUwKkA9+1wqI3hIz/onV0Budnj9c0aiepvghqch+EDZcTdwnnE9YjcJH7obNhMBavWfDSKQsEYEjd2Q0YDZXnPQXstyAu/PGlnbOVWJhJG/oqNxS0PLszqQY8oLjjLZEle+ELjFKMfK8jeLMMrA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sd8lL+uNAkOT7JykRdDAcjZeuuytXTXH0gHrvdtebu8=;
+ b=pQeJr+WPlILY+OtvXUg3D0aG3yCGzGnOuoBCnA5/g4mCxg9HSltkbD0NN3h7B22qScjVMt9CkouqO5WKvUUwr4nRFy9slIQelwV68Y087H3PGt6qS8O8PUavHuwM2MbcDcurGUr22TVwtFHgvxjlclcZaJGPTHXYXA+vT/CY3xY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB7794.namprd12.prod.outlook.com (2603:10b6:510:276::15)
+ by CH0PR12MB8551.namprd12.prod.outlook.com (2603:10b6:610:186::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.14; Tue, 8 Sep
+ 2026 14:05:03 +0000
+Received: from PH7PR12MB7794.namprd12.prod.outlook.com
+ ([fe80::e0be:f851:96ea:cf85]) by PH7PR12MB7794.namprd12.prod.outlook.com
+ ([fe80::e0be:f851:96ea:cf85%4]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
+ 14:05:03 +0000
+Message-ID: <daf90404-9aa1-4f86-ac41-bf6e28446b08@amd.com>
+Date: Tue, 8 Sep 2026 19:34:58 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/drm_exec: fix contention when num_objects is 0
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sunil Khatri <sunil.khatri@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Cc: dri-devel@lists.freedesktop.org, stable@vger.kernel.org
+References: <20260908091729.2749399-1-sunil.khatri@amd.com>
+ <1081fa83-d2f7-40be-816d-29f28c6e7576@amd.com>
+Content-Language: en-US
+From: "Khatri, Sunil" <sukhatri@amd.com>
+In-Reply-To: <1081fa83-d2f7-40be-816d-29f28c6e7576@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0046.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:98::22) To PH7PR12MB7794.namprd12.prod.outlook.com
+ (2603:10b6:510:276::15)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="oCgtILCq07VH6vPj"
-Content-Disposition: inline
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB7794:EE_|CH0PR12MB8551:EE_
+X-MS-Office365-Filtering-Correlation-Id: c771bb7c-7ea2-4c01-89b3-08df0db22dd8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|1800799024|376014|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 3CgrPFvUHTD1xWaC5iGzhmg9X84HN7IUWcICPFtlTV9A/JUjPR562tnnVTOn9cdbOyAvkSj/pRIFCo1geqMfC+hTgoyteI2XRNwh6QIISXLxIqX7kaiiEV2LqCIhfFM87ssEa2UIIel8tuGeMM4gFVYvYObUK77QQDediDtroMzGOeXJLJNUVMxAzt9o59+lLZdTMUytU5Q07DmaJPMfqTPxMva08/Ajr0JVQ/9ho9v3QeIXic59H2/Hanu2gSyID+FWdRrl5KEJU0R62M5fSQB20pPR7Om7/244do9fJOii7LMscU1qqbemtQoj1i/Ina9XK2g/YnM7rPf1cbg8IcI37g0adWqgPXFQ8Lu1TX33AGWsdak/cCx/qsXln4nQUyFePwOerXO/qITmib1LsT4C7711UYcWAL24ZiXD/7bL9rLCE0PpiukcXVsKv6qPp+IXWFtovQYt4SHj2CQ8ytmDb7DRol6H5ZOh5wAK/xV95a9cOsy4ccoqpqjBs3gVdTVuEN8YPsWiSI7B4z7nZR633yUNQRVJW2l/mOS2Mm31UzeHSRQyJUHMQkJtixvQmz/iZFcHjuB1TAtxV+D90qpGmK23pSHfVHmDLJ3NeYrm3ARipihN4MrOA7eySPSyeV0W/rRRJtbPsg1HHNk9AL1ln33OdSLPplScUwlzp6I=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB7794.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MUlicE5TVlhCTENrSEN6c0R0R0VVNmp3WmtIVEMyczRyQzV5cjJqNmR4RTFk?=
+ =?utf-8?B?bm1wZmtpdkxRWlNUTjNndUZkUlhKRGZsdlozZHJNMWR2U1lRczE2THpwNk1N?=
+ =?utf-8?B?eEJKem5hL1l6S041ZmhNcStRbmtLd2VZRUgzTCt3TStmaUc5U2h6ZjZCMVpI?=
+ =?utf-8?B?RWZVb2dQTnhLOUxUN2VkakJPcVgwVVBTSDJ3ZVI3c3lQNEhsb0lPRzBEVE9r?=
+ =?utf-8?B?dUhPN3k2b1lTNDM4dWhuNDNuZStyTUJNbWhRUmNOR0FEbEVPV01Ob3BTbnA1?=
+ =?utf-8?B?dTNFYXN2ZndDbjF1WUdaRnVySXE4aElHa0ZaVjU0TU81T1BDRStzZ01BajBq?=
+ =?utf-8?B?VFpGWldrSUd3V3FOR25GbGlCNjNBRzZZOVZYaU9IOWoraVZJcTNkYXVQVjZ2?=
+ =?utf-8?B?TlhFT0c1S0NzbFlqTGYzQ1IzZTBYdktFd0k5OFMydUpXcFZPZXlvTk1ZMlIr?=
+ =?utf-8?B?WkFXT1NxbnV3a2IyMTVNZXQvQUJ4RnZqL0lXaVVrdXQ3M0lsNFFxelNvdlI4?=
+ =?utf-8?B?eTRTTGZsTDc2OWF6UTdRaVVaZmJ2Y2hHcUV4K2o5RjRnZ1YrZGxWUmFIMGd6?=
+ =?utf-8?B?Z0JiWk9rc2hLU2tlVGYyeldCeWRoMG85Yk9rOTlpeUNteUloN3BQRy9iR3Zw?=
+ =?utf-8?B?SHVjZnB3bmt1MnY4MUVaVnEvVUlUOEMrbENpQTFqdElKVm9ibG1IN2VZUExl?=
+ =?utf-8?B?c2lxaXRxa3ltZHJoQUZBdjFXSVlseGFMelV0TnhLRkhXVTh5ZE8rZmJ1U3A1?=
+ =?utf-8?B?WG00RlZnbVpXZGpmVWgrRzZteUphbUgyeXJIaGtwTEE5MjVHQ0trcUExVjBz?=
+ =?utf-8?B?SkI0QmlIV2UvUzlOdXJrL3hHTXRHR1A2UU1sY3YrdmRVTkpVZDlrR0NCMnN3?=
+ =?utf-8?B?bWtWeTRSY1I4d1Rsa093QmZ4WmsyWEJKTUtLSmdWbVRuZjRYempTQ2Vpbkh5?=
+ =?utf-8?B?bW9hYUhZM3d4MS92b1FnZ0JGejNoUGFuY25IaE5jbHRoZnRqSGZHQ3NNakR0?=
+ =?utf-8?B?eVlPc1BmZ21CR29ob1RYcXZBeXNIcTZkVG5TeXBiU3c3dGJ2RzBPYmdOL0NK?=
+ =?utf-8?B?NkY1S0VZN1E5dy9QUDdKSFF3OUt5VDJlRG41Z0drdTkwdy9qL1V1K0R4TGMw?=
+ =?utf-8?B?Z3RlU1FYOHBzSE9pMGNSSGxiQi8vMm42MjhoUEhZRVdzbndBM1FoOFRZVnJF?=
+ =?utf-8?B?NVFjc21FbXFMMUp4UFB2VWZqcUJxeWhVNTVReWdpY3RhNFJJRm5ib0xWS0di?=
+ =?utf-8?B?S2ZyNVJpdlhNdEJTUDg2RmNVRk13QVBndTBJVVBvVUhCck1vUlF3Z25Xck9C?=
+ =?utf-8?B?M0NkenR0WGpIN3ByZU9Za0pTYm9pRm0zUjYveStwUEl5UTB0NGtuZXRMZWVK?=
+ =?utf-8?B?WmNIUlhCWHE5aHlBZXc2dXhpODFlR2FYSkYydDZKclFrdW9uVlJsY1ZSa2tp?=
+ =?utf-8?B?ZU04SmhSNHdFTERJTnF2dTVNamxOdFFOK0ZWaS9sWmx5TXpUZmlqUTRJaUVC?=
+ =?utf-8?B?akZyYmxlcnNIR0V2K1hVRTBCaVRmdkZxelMzUmYxVlg2RXZCdVcycG5Bdnha?=
+ =?utf-8?B?eFg5UktQQlk4ano0OTNlMUt5YS9xS2YzbnhPcTd3WXhPOFVRemtKU3BBV1ZV?=
+ =?utf-8?B?VVVYb1pWbC95SncyazMxQkhKMStYZzc0R2x6cGtxU3dEZGtUMnlyb1F3Y0pE?=
+ =?utf-8?B?Slo1Y2dzZDJObU5CVnBJYmFPdFZZeVNpc3FOcStRMzQ5aVlsaE5jWjdjd3V2?=
+ =?utf-8?B?WVRoQ09sUGJKT0s0OHlHaHhrRGwxYmZJZGZNL2VYQlY2YmNLUmE1RWE5aFZy?=
+ =?utf-8?B?QXVYRld6UUlSUlB0cnROVklWN3N2QjcweEpqc1FlY2JBOW1pMnVCd1ZPNlNX?=
+ =?utf-8?B?cDk0SE9sQWptVTlycXY2WE9jc1E3UDgzS2RnSzAvdHI0a3V4N0pLMkZ0QVF4?=
+ =?utf-8?B?dEw5dGdVMHpEVTloR0E0NWlsby8xQ1RYMld6eVFxNVU3ZDlma0VZSHMzR0U0?=
+ =?utf-8?B?QlBQanFYTHZKWWRtYStUaXZEUDQ2YWdETUJEblBDQzlES0Z6Tm1Bdmc1cC9i?=
+ =?utf-8?B?YVhTVm5Nd0xlOFY1Q2thdFFTZEd1M0hnam5JMmMrUXY2QktBMFpEdUplVEs0?=
+ =?utf-8?B?VE9SeDdvVjBrVHVvemZ1TmU1U2preVJzR20zVXQxZm12Z1RwdER5ZWlyZWdD?=
+ =?utf-8?B?VFRWY0JQSThjUVBXd3VrYzY4ZVFTSlRkNldGQktBTEtiS0xPNnNZU1pRZ1JG?=
+ =?utf-8?B?YUJyeUNSbFpoRkhzVkJFVUhQS0EvOWNGNUxzMWowWHlLd1dudVNrOWRLRkNH?=
+ =?utf-8?B?Z2VjNmoxa3pFRHdKbVRXUkhuY0Vyb3cyVmlZeC9FNk1sV1l1a0Z2UT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c771bb7c-7ea2-4c01-89b3-08df0db22dd8
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7794.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 14:05:03.7666 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tUOnbyDycBA/rsHmWaxOkYeDMwDOcWguOAaJXtBXS9zS1WpuvcYa6jbHetrLx/4OOsHcZSi8NMtoUdvfS1uMXw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8551
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,36 +137,77 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---oCgtILCq07VH6vPj
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 08-09-2026 07:26 pm, Christian König wrote:
+> On 9/8/26 11:17, Sunil Khatri wrote:
+>> drm_exec_prepare_array() silently returns success without calling
+>> drm_exec_lock_contended() when num_objects is zero. This breaks the
+>> invariant upheld by drm_exec_lock_obj(), where every entry point into
+>> the locking sequence must first attempt to lock any previously
+>> contended object before proceeding.
+>>
+>> Drivers that chain multiple drm_exec_prepare_array() calls per
+>> drm_exec_until_all_locked() iteration (e.g. amdgpu's userq signal/wait
+>> ioctls, which prepare separate read and write BO arrays) can pass an
+>> empty array for one of the two calls. If contention is hit while
+>> preparing the non-empty array, exec->contended is set and the loop
+>> retries; on retry, the empty-array call preceding it is a no-op that
+>> never clears exec->contended, so drm_exec_retry_on_contention()
+>> immediately jumps back to the top of the loop without ever reaching
+>> the call that would resolve the contention. This spins forever.
+>>
+>> Fix it by having drm_exec_prepare_array() call drm_exec_lock_contended()
+>> directly when num_objects is zero, so a pending contended object dont
+>> loop infinitely.
+>>
+>> Fixes: 09593216bff1 ("drm: execution context for GEM buffers v7")
+>> CC: stable@vger.kernel.org
+> I've added a # v6.6+ here.
+>
+> BTW: If you identified the commit you can use "git tag --contains=09593216bff1" to figure that out.
+Sure thanks.  So the first tag when the change is introduced to be used 
+which here is v6.6.
+Thanks for the tag command.
+>
+>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> Reviewed-by: Christian König <christian.koenig@amd.com>
+>
+> I'm going to push this to drm-misc-fixes, please sync with Alex to get that cherry picked into amd-staging-drm-next as well.
 
-Hi all,
+Sure once i fine it in drm-misc-fixes i will sync with alex to 
+cherry-pick it into amd-staging-drm-next.
 
-After merging the drm-misc tree, today's linux-next build (x86_64
-allmodconfig) failed like this:
+Thanks
+Sunil Khatri
 
-ERROR: modpost: drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/tests/amdgpu_dm_connector_test.ko: symbol 'parse_hdmi_amd_vsdb' undefined!
-
-Caused by commit
-
-   65198b3d0738 (drm/amd/display: Use HDMI FreeSync range from common EDID parser)
-
-I have continued to use the version from next-20260831 instead.
-
---oCgtILCq07VH6vPj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqgFUoACgkQJNaLcl1U
-h9BPXgf/VvfYotmhsQHXtyVeE14Iia+Lsczx6xzeIK0C4iDQCZpb0FBLm2OWpf9u
-oQU3Oa8WOW5kIjXQ0mYOob9fvNUJj3c3MUa/0NzYlJgBtAn+Nw4IbgIZh7JrgRKD
-G9oKark58335VLe4R/uG+giFS/JoRqm8Wt1WUfSSYJ8vbPR0Oqt2EWor7BsAhHuE
-AlIvX2KLFEu2LEn7PI0QvYMGf3l0eZCmZDmNPctfRdCSpcMtxeBu7y3CEaPN5EnB
-+6Df+PqKdWLLsglC3t+I0SwR2LERDZQ6TC16dZ3y2oHJJ7SgtUMBXhXFV0A4fIXz
-gVgcXdzLx4ynHRKe6sIMtw/TRJ2GHg==
-=vZ/X
------END PGP SIGNATURE-----
-
---oCgtILCq07VH6vPj--
+>
+> Thanks,
+> Christian.
+>
+>> ---
+>>   drivers/gpu/drm/drm_exec.c | 13 +++++++++++++
+>>   1 file changed, 13 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
+>> index fa923852fae4..f4503ab82c66 100644
+>> --- a/drivers/gpu/drm/drm_exec.c
+>> +++ b/drivers/gpu/drm/drm_exec.c
+>> @@ -322,6 +322,19 @@ int drm_exec_prepare_array(struct drm_exec *exec,
+>>   {
+>>   	int ret;
+>>   
+>> +	/*
+>> +	 * Make sure to lock a contended object even when no objects are
+>> +	 * given, otherwise drm_exec_retry_on_contention() would loop
+>> +	 * forever on patterns like:
+>> +	 *
+>> +	 *	ret = drm_exec_prepare_array(exec, objs, num_objects, ...);
+>> +	 *	drm_exec_retry_on_contention(exec);
+>> +	 *
+>> +	 * with num_objects == 0.
+>> +	 */
+>> +	if (!num_objects)
+>> +		return drm_exec_lock_contended(exec);
+>> +
+>>   	for (unsigned int i = 0; i < num_objects; ++i) {
+>>   		ret = drm_exec_prepare_obj(exec, objects[i], num_fences);
+>>   		if (unlikely(ret))
