@@ -4,32 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73A1DC79F9E
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 12:41:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D103C79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 12:45:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A51E589048;
-	Tue,  8 Sep 2026 12:41:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 565FC10E0ED;
+	Tue,  8 Sep 2026 12:45:06 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LvCSllkj";
+	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F9DE89048
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 12:41:21 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6E980417A9;
- Tue,  8 Sep 2026 12:41:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2646F1F00A3A;
- Tue,  8 Sep 2026 12:41:21 +0000 (UTC)
-Date: Tue, 8 Sep 2026 07:41:19 -0500
-From: Rob Herring <robh@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v2 01/19] accel: ethosu: Suspend after initialization
-Message-ID: <20260908124119.GA2692068-robh@kernel.org>
-References: <20260904-ethosu-fixes-v2-0-3767738756a4@kernel.org>
- <20260904-ethosu-fixes-v2-1-3767738756a4@kernel.org>
- <20260905005735.3AB221F00A3D@smtp.kernel.org>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1B7B10E0FC
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7EB1B42E6C;
+ Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 56667C2BCFB;
+ Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1788871504;
+ bh=tggSJCl2AdaSwI6K1UKsXMUFn3nfnZ+dlVIx8qMmy08=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=LvCSllkj2sm2J7JLd9pjsN4toGFiIanibYlRwxG8GRLppF9gcb+Q9E/2lfAUlcAMd
+ CZ2Tqh3jfpZVXNznujApSMNDS8W9gpLjcB5jp9Ct9Wvyo6ZQC9MdB0CGxFHjG6XTne
+ BPyDrS6EnQ9wDYqYk/7jikloDFqQMMvfIE0YVjXhgJEnhaOCoNZSs5/Gjil7A6YpEe
+ 0rp387o2TmN1ZzqVs7BmQ1jPJwnuBA4xVDYVJm2aacX9r1A3QSs6skSiwegDEdrvai
+ CQlQNOswOM533J5YZhr8zVl+TPdfEbAOMSkmPvWN9X41qJhm77/1A6akfI9O/cX1VB
+ DAVBVuXNoGOjA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 39B8FC79F99;
+ Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH v2 0/3] Xiaomi Poco F1 (ebbg display variant) fixes
+Date: Tue, 08 Sep 2026 14:45:01 +0200
+Message-Id: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260905005735.3AB221F00A3D@smtp.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NsQ6DMAxEfwV5rivHAgqd+I+KgQQDXgAlFNEi/
+ r0pXTu+O927HYJ4lQD3ZAcvqwadxgh8ScANzdgLahsZmDgnw4xibY/dUtxMiZ1uzzmgdZKlBWd
+ kiSEOZy+xOaWPOvKgYZn86/xYzTf96UrK/+lWg4SpFGmeGXJNayrddLm6N9THcXwAEn4yybIAA
+ AA=
+X-Change-ID: 20260122-ebbg-ft8719-fixups-bce548250b02
+To: Joel Selvaraj <foss@joelselvaraj.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sam Ravnborg <sam@ravnborg.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ Linus Walleij <linusw@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>, 
+ Casey Connolly <casey.connolly@linaro.org>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1011; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=tggSJCl2AdaSwI6K1UKsXMUFn3nfnZ+dlVIx8qMmy08=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqoANOFJeLQjNYi0kXTpsGdTO+bBpMS+a5Wl0S6
+ Nl0RyjUoaiJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqADTgAKCRBgAj/E00kg
+ ciBnD/wNSFGRfZVkyBhqNF/AkPwW+A9tFaAfw6x8X3yaefweifSqELEDIH87v+L6N1TSxgj32QD
+ RNZ6ocaJEAZge4WV6qcvklwSJcWGlwhWFoBDHnIndBbRudUMIkdZkxvIo1htvE9Wn9Gq7GCsCwY
+ mhIRGr05Uba06qS+W0SoZt1jt8U+Y0O9N1AOql3NGNv0qRXD63M8cPh2PYBuOFgcu/nQVOrF3m8
+ GNB9GKF5dPRjRfjNB7Yp0pUCX+4OrS1opxeRZ4qZi9pin26icIIoMHBqMV+tz7qY+x5eRNJSL5y
+ RmNkl2frVAmm4Apapb120L0gG4Rezu9RS/0hC94pRoRAypz4Ku2ZkhJ/7IlDbgEV8yNu4S0zCyg
+ WoRACCzChM1NvHTey88xChBgEzsNleOO1GXjqVvzTNkCnFyNuTqIMDBdmhdM0poX/QGKu5Y4dPX
+ F2dXB8APaQPmZssiW72lizk5G84nletKZKvHiPRO/y9M4B4pRzyGmw2cQ86Q+XSADb7Hj7HjZlk
+ g3r6G1Dt47ugA8YxFSSvqT+CJH+zhTxcc+DbXHn2+Ein+ejEjocHPVGm1NCIrh6RUmvxULnvBOB
+ FkHPEFCE+Z1A61t5ROmhpTKdQwRjALU9ow3HIQD40cy5V2cZLJGGWQbZs0Sfrg4hJxyvbBZljdv
+ laqYTedl76R230A==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,62 +89,38 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: david@ixit.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Sep 05, 2026 at 12:57:34AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> 
-> Pre-existing issues:
-> - [High] IRQ handler accesses hardware registers while device may be suspended.
-> --
-> 
-> commit db83f58315d24bc892c6b008ce7d120f57ecaff1
-> Author: Rob Herring (Arm) <robh@kernel.org>
-> 
-> accel: ethosu: Suspend after initialization
-> 
-> The initial runtime-PM reference is held only while initializing the NPU.
-> Release it synchronously from ethosu_init() after the final hardware
-> access, before registering the DRM device.
-> 
-> > diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
-> > index 8108622de258f..df76253d01a64 100644
-> > --- a/drivers/accel/ethosu/ethosu_drv.c
-> > +++ b/drivers/accel/ethosu/ethosu_drv.c
-> > @@ -338,6 +338,8 @@ static int ethosu_init(struct ethosu_device *ethosudev)
-> >  		 ethosudev->npu_info.sram_size / 1024,
-> >  		 ethosudev->npu_info.pmu_counters);
-> >  
-> > +	pm_runtime_put_sync_suspend(ethosudev->base.dev);
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does putting the device into
-> an immediate synchronous suspend here expose a vulnerability in the interrupt
-> handler?
-> 
-> Looking at ethosu_job_irq_handler() in drivers/accel/ethosu/ethosu_job.c:
-> 
-> static irqreturn_t ethosu_job_irq_handler(int irq, void *data)
-> {
-> 	struct ethosu_device *dev = data;
-> 	u32 status = readl_relaxed(dev->regs + NPU_REG_STATUS);
-> 	...
-> }
-> 
-> The hardirq handler accesses hardware registers unconditionally without
-> verifying the device's PM state.
-> 
-> If a spurious interrupt occurs while the device is in the RPM_SUSPENDED
-> state (where clocks are disabled via ethosu_device_suspend()), could
-> reading NPU_REG_STATUS cause a Synchronous External Abort?
-> 
-> The PM subsystem guidelines mandate using pm_runtime_get_if_active() in
-> IRQ handlers to prevent accessing powered-off hardware registers.
+Been broken in mainline for some time.
 
-Not an issue.
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes in v2:
+- Ignore the disable() errors, as there were ignored before too. (Neil)
+- Update the `Split initialization into enable/disable fn` commit
+  message. (Neil)
+- Replaced the maintainer old email with new, so Joel gets notified
+  about this patchset being sent.
+- Link to v1: https://patch.msgid.link/20260906-ebbg-ft8719-fixups-v1-0-4e846510cad1@ixit.cz
 
-The h/w will only generate an interrupt if a job has been submitted in 
-which case we are not suspended.
+---
+Casey Connolly (1):
+      drm/panel: ebbg-ft8719: Set prepare_prev_first
 
-Rob
+David Heidelberg (2):
+      drm/panel: ebbg-ft8719: Fix the MODULE_LICENSE() string
+      drm/panel: ebbg-ft8719: Split initialization into enable/disable fn
+
+ drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 23 +++++++++++------------
+ 1 file changed, 11 insertions(+), 12 deletions(-)
+---
+base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
+change-id: 20260122-ebbg-ft8719-fixups-bce548250b02
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
+
