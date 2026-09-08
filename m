@@ -4,97 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD144C79F82
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 23:00:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 888FFC79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 23:05:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06D1010E141;
-	Tue,  8 Sep 2026 23:00:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B273E10E53B;
+	Tue,  8 Sep 2026 23:05:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZsD2llIY";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y9hVBuld";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="hmzqmxQ4";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Vzvrs7vX";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE47E10E141
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 23:00:56 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47E4010E53B
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 23:05:24 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 688Mglr8482942
- for <dri-devel@lists.freedesktop.org>; Tue, 8 Sep 2026 23:00:55 GMT
+ 688Mgbqe3697408
+ for <dri-devel@lists.freedesktop.org>; Tue, 8 Sep 2026 23:05:23 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=ihPYqdrPGXWVbmFBzBhN4BZ9
- OU7yUZppyNtH0Hlwg+k=; b=ZsD2llIYuQgi0sjhlL9VY5XcKD05Cms4T5S7p32D
- FuZh1o86KtTVKXDXy29YuSCtOVg0XQsdeqjUwl3YZHk4UMDPzCMcpWvef5UXgQgx
- dXjRk+QsQ1nBTKve3ACVZmUnOcdjZVSfdH6j0S1/EwF6ZTjj404E27H/9vvG43LE
- f8FN4kFyozAONXPxHSpm3CDpypkUp9G3QV8VdiFYAP968Y5m2uUNAFPSJ4oi6PbF
- SRDP/uXQEdFmFRIpfHKG4hbLplTqPsThnhw1njeIGCiwKPGdyzsjdWjiatKKadND
- guHN7bu/fd1w2rPO2rZyD+U6kW5VQMOJM6fYSFXJPrK8EQ==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com
- [209.85.217.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjqf1h3hc-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ /GhhHa8OWdtOiPSMUGlb1pW6jJlr+86zcpdLSW1zB4c=; b=hmzqmxQ42BEaEeVT
+ IvNKp7PG5jp6hEdrg0XvJzRNv5f6ND/AmKEpWuGd/N5xmhEiJASv/TWngbjQAqzh
+ 7gCMVK4IQCk3Z8PBOM9Xh6ZkGqqHV+2j+WW8hmFsyWuexQbLjafy+z73SG47xBcX
+ vAuyJtWjOgbFifUvlCB9tSXi3R81jy9c33TvL6BpYJg1M5iS8RVvdpjCRTLvPoGl
+ UTPT/0dCwtgWp67I0l7aZZViLCVvM+LgN6AZrRF27MyKSN3vxxEiJYL0VbzAGnSO
+ R/yKHeK5QEM8WyHi7a0gvAdRlAo/n68JhMLAeMoDRwTKEdMroGjl9mbWdW5fYszH
+ KQoBtQ==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
+ [209.85.217.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjjvujngp-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 23:00:55 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id
- ada2fe7eead31-78faf713ab2so39736137.0
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 16:00:55 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 23:05:20 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id
+ ada2fe7eead31-78481f4ba52so4680381137.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 16:05:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1788908454; x=1789513254;
+ d=oss.qualcomm.com; s=google; t=1788908720; x=1789513520;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ihPYqdrPGXWVbmFBzBhN4BZ9OU7yUZppyNtH0Hlwg+k=;
- b=Y9hVBuld7W0/s/EGlQ/gYDwvSHUKypARHrK5ZMfU0+LHFZskFSGllbx4KbZxPvTOp/
- JlU5+3NoI4RlRWyH55M2OFn57Iap9fwi32qf9reJunWRUGU0tehmxLNCDb/6Pmw7WW0D
- pNqBNlxsoiSgzewLO5QDsB+0cBVOLSevTLNIO0OrfOfZ8MoZYRr1pO9fjNLP2IEs9qS/
- KNUQmuTl5FtZriZZBr0WE7Pb7kD+GaWruEdImYWWEm9W1TVIvgoBNMIrbxjQs7iRxvXG
- JAs6SUltWd0TM/nvl6swWMz82u2aLtK16ocddb8gbeVUaZN0k+A/McGUZ3ECToHskONv
- ET0g==
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=/GhhHa8OWdtOiPSMUGlb1pW6jJlr+86zcpdLSW1zB4c=;
+ b=Vzvrs7vXKPq7Ws1w8GiltxGcsOfHDG35/S7+kybOA2FLAs/kAChoA+rB7YDy+aW11k
+ TKM7EgrgcEhx20wG462coBLhIaAUqltutiG2FFsqjkfOAaV43UOIq1zBxb4BYCoo/e1A
+ yBiWcKPUcsNWcG4m9EIoXNVQ7a+4c/Pr9ShXTKUEv7Y0yUvTdsXXDyEuTX3LfXc5PCxP
+ hBNnXrrnY1qV6W+uiFhGt3424DcQ+NpN8sbl60uFygIDC9KgiFmEBECmWxWomptwRu4c
+ k078+/IHHHbpZLLjipsu3w40Ma/jyc2QMRGvYNLYe7gaSd6Pp+r6m6CSJlvb6cjgXFm6
+ +x9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788908454; x=1789513254;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ihPYqdrPGXWVbmFBzBhN4BZ9OU7yUZppyNtH0Hlwg+k=;
- b=nN6cKvh7fVkYKVtVIO6zbRMdtaGadfJ/iCVk4f9LvhWHAhDOtKtTF0WgFCENvC0zlg
- r91HmrhQrTIhuMHRmBNIPoiV2jwPxXIoWT6Su6RGl2Ch5nyVb6AdEhStkRKTVBk0ao3+
- xkjPXDZjZ/VJyZF6GeqLKgjHdMtkLm1DtDzkeFRgWbR5vVz4rWnADrZPPBN6Oi6n7xv8
- kOr7ytxDB6c50J3KGa8jGgSwI2bCKMILOSNyQEp7XSn4zjU6bLyNsZP6vL2EjuNE4+zh
- f3DZ/UNZXUUQFfh/Di6vUMENKXbMqi6Nvn6mpN39dxuGWhP7yUcSoR2pa1K2erDxhW50
- v3Kg==
+ d=1e100.net; s=20251104; t=1788908720; x=1789513520;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=/GhhHa8OWdtOiPSMUGlb1pW6jJlr+86zcpdLSW1zB4c=;
+ b=ZyO4omC0U8dJFWOihwowEC0bEIPTCjiWlE3h3os1wqMTkLjdzhi6NNROAYODPtlpo3
+ vsmpDjg990y6qawcf2hyybG0kOXZlsYoPC9rHodc93cTVOn1GvZ+82x5dtljwCkKULp7
+ BTsxSEorjsVzQp7Tb4DYunk/5IvTNPIDETycRJYDrGEDCA5dsopam+7K149/s/w9vknx
+ ySh31vQesCq4yKHPrTWdM4Q/MyGOo2tI3mCInE3MAZ52hWKiX5Enr0sSVYOo4chtFmKM
+ 8koMrZkMaZVLQFIMAQjILXIEoDoXaBYmtP5E9fh/j1XwpMp+13P/yCLrGzutcDVIzDBo
+ sW5g==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwZGn7upqsiiyo7OuLTDr7kBFyIsER7iX3PfB3qhMuvIKLgFcPkLVSFqdrQHBsYH9oiUJ0DzCVtUCM=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kFHVbwLdUegcEfgRkfbUsoSKh+Kzxrjce/UeNJk4sV+C0+zYWE
- KvSy8542RsJ5JEJhBUW9ZGwdI4CEHfu1iZQ9hisOMQ6o6BiDBihlMVFGx5BfQEf5AYcFLfslhzf
- R/GoTRkHh/MDNh12SLrS/eCovsxdqqPg8PLnfyA5fqqzGNIxlw4CKjtOyFLTPlDttipxMG9o=
-X-Gm-Gg: AYBFou1fec71CHe2SRHv2ALyrmoagr+eGctGxyxWJi/EI48EBLUB0+3AbzVTG3Kv5Ww
- L7kw9NmbTu+80eblpzt7fA2GV+iZ+CZ39sj/KZwNPuT7VYgJ+x3FMDF4uGHxX8qWBxoGuH8J79B
- pSeaRK+PUHnUxHSZnO3OG7Tb7gZPviu1Mg8vTMIzknHwcPY23bzNlCFDXqREzle8ei2rEV8Tt7e
- A/fiZXc2leFpIHcvHmEvOCI2j5EH78voFBOUbVRHguU9wzU22gi1s9fPNqMHecOGWHfAyOxkYuc
- eQTPwogdMV349E7ApQh+KXAdGyN08SeEj8kc2iOstCzOq9onPwH1nlSdt1lC/3d35xrUOKgwXwZ
- TxXBSi3tdP+a3XUdD5WwjKAbeDbdl0x/GyGzkr+MHeMP6EAG0V++8jgR8WXzekCtQxt2tRpoI+2
- MBfNB1RauQQqar
-X-Received: by 2002:a05:6102:5e90:b0:780:d949:663f with SMTP id
- ada2fe7eead31-78f73e27b69mr1092799137.4.1788908454332; 
- Tue, 08 Sep 2026 16:00:54 -0700 (PDT)
-X-Received: by 2002:a05:6102:5e90:b0:780:d949:663f with SMTP id
- ada2fe7eead31-78f73e27b69mr1092766137.4.1788908453845; 
- Tue, 08 Sep 2026 16:00:53 -0700 (PDT)
+ AKwUvBxnAug8d/FSM2g4QqUPJCsa/xxx7n7tDDo6QR5Y3l/p45vH3/jLHZWC2Ei03Cw7NnkUUs5EgUt6qEg=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nLv++4gd16qrMqH3XkI5oglTKxxgVbATCh9X9R4XjK4x0/Lu1M
+ 6efHWfbyJI8S0hwyy0zrE5Of7B9gM4HQQiZZzItE6kWTOkJuaOXip6EDEOBEAXKOSvTObcJ4bXv
+ BUyP1pl97aenccGM4y5FcRVoEm2PJ05R1RcNb/q19jAHzs9aEjELlXwxAca9TS1elphv08D8=
+X-Gm-Gg: AYBFou0BDf/gSfdyB+DuB9AtQ8eKYFav3adIts7GSyZ0y2DnDHu9NC7SVXt7drm/9hZ
+ hXljM6uOsAQneRBPQaAySx2mInCdXLlqX5KS40YIZqjF0LxjGyPh863pWbSUx8CnjLS0kia87dN
+ fG+kUrbzmGNyxlGM9yK8ae4cRrgCn4q7iUdw/yEY63dou6JbSbXb641bJi9PfxBQjaPyAxiAgxN
+ S6UXNTUi/QLqbDt+Sgm3Ss6g4XnL7wYgk5OvsWx4K4wyKBguWTTdJUILfmiDvGRlVn+DX03svZU
+ mnWaA+6GOt30M8iWa+5IbMERCH63jqgI2fHDd69Qw+CBAe25ZLM9QesRpma5+zE47XyAN43ZyAe
+ e36fTVfW0kH8EuHsErriS4V+tOrXkcvPstMwTYgtERirOShnTOZIDf7bx5tRj5u5Dm86voza3G5
+ iRmpbpQ8v/ls1s
+X-Received: by 2002:a05:6102:e0d:b0:778:5bbb:b2d2 with SMTP id
+ ada2fe7eead31-78a4a97bda0mr14097724137.11.1788908720207; 
+ Tue, 08 Sep 2026 16:05:20 -0700 (PDT)
+X-Received: by 2002:a05:6102:e0d:b0:778:5bbb:b2d2 with SMTP id
+ ada2fe7eead31-78a4a97bda0mr14097683137.11.1788908719796; 
+ Tue, 08 Sep 2026 16:05:19 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b6166fbe6fsm3317542e87.41.2026.09.08.16.00.50
+ 38308e7fff4ca-3a37058669fsm36735161fa.17.2026.09.08.16.05.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 16:00:52 -0700 (PDT)
-Date: Wed, 9 Sep 2026 02:00:49 +0300
+ Tue, 08 Sep 2026 16:05:18 -0700 (PDT)
+Date: Wed, 9 Sep 2026 02:05:16 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: rob.clark@oss.qualcomm.com,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
  Shuah Khan <skhan@linuxfoundation.org>,
  Randy Dunlap <rdunlap@infradead.org>,
  Nathan Chancellor <nathan@kernel.org>,
@@ -107,6 +106,7 @@ Cc: rob.clark@oss.qualcomm.com,
  Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
  Bharath Kumar <quic_bkumar@quicinc.com>,
  Chenna Kesava Raju <quic_chennak@quicinc.com>,
  srinivas.kandagatla@oss.qualcomm.com, linux-kernel@vger.kernel.org,
@@ -114,44 +114,43 @@ Cc: rob.clark@oss.qualcomm.com,
  linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
  iommu@lists.linux.dev, linux-media@vger.kernel.org,
  linaro-mm-sig@lists.linaro.org
-Subject: Re: [PATCH v2 09/15] accel/qda: Add DMA-backed GEM objects and
- memory manager integration
-Message-ID: <iviywddjpdvfx6qcsj7ki2ketbljkzqvkcmwfeop3ur5z2x3dl@fqicfxi5shh7>
+Subject: Re: [PATCH v2 11/15] accel/qda: Add PRIME DMA-BUF import support
+Message-ID: <d4ykcbhd2bqisv47s6hutrpdtlox2aid3j6pkgif6tptivaqkn@tko3tts7hzcn>
 References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
- <20260817-qda-v2-v2-9-69a02e9090d4@oss.qualcomm.com>
- <7030a8f8-f320-4b09-b2de-2c8e897409f8@amd.com>
- <CACSVV00MubttbkVJgMommPMorf67yqn7D1kfwpxVUZ0t-6au8Q@mail.gmail.com>
- <2febead3-0f0c-4e0d-b11a-8c61ec027f44@oss.qualcomm.com>
+ <20260817-qda-v2-v2-11-69a02e9090d4@oss.qualcomm.com>
+ <l7gt2mr3rrnzmkc46ntqw5e5sirdimavv5do4wmdf6jktryp7g@772ovv3qlgcv>
+ <c1da4243-36d1-4b65-a5da-f660ab8c63b3@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <2febead3-0f0c-4e0d-b11a-8c61ec027f44@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDI1MCBTYWx0ZWRfX4IS3G3mqG/CG
- Tex8a86uShX9Gv6pnUVT27jWfj9yEdVZokplp6Dj56WLNqkXr7GJb2XUW3u7OkjV/MhZLWBr8Dn
- oDidUnqK0ZJHFlgY1o29Wbd7zUHOi/KrfFwmapVbk4JIF1FaL19xzGNTlxpDjVlPaygE3xx9O/Y
- ZgZrdKvf9L5i2l4c4ZIEpSD35mNXCmyM130giHEGd13c23e2zg0ihQuUeuO0SnpztgJyTR52kcA
- xOGYOV6d5rHZ3GmJRJkGQIgk/2I/mj4MqsaHxGQJ4diAe7WcEkpYD0INtbFvkkNiOJwfYTq3/U4
- r4x+DIxqlJKezMGatMPTFZXBAWTOE65DguK6bbbTprw4GidRZZP6NcDRMS7g05Ke6/5TRbCEIUy
- a6nZ3QmvRXQ7KUfGMxgosYu6m2CLrrt7zyUYzAArbcJlOilP7J07ozkY5X8R2crfHap67sV+etV
- f/M19b1mKhwxL/LhHBA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDI1MCBTYWx0ZWRfX61Wb5gE27qP+
- cfeErBQc1/uFf4NPEkAklUd47m5n+sUPOnUC0xsSwINF81m1f8D3rooiISVuiBcamyZe560a15R
- wZ0mtlxPg16gMoH6d3wu5L1YX6LZHUs=
-X-Proofpoint-GUID: lJ8vS4IyfX3YnC0dBLTxsGkXHCotI4GD
-X-Authority-Analysis: v=2.4 cv=JY2Ma0KV c=1 sm=1 tr=0 ts=6aa093a7 cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c1da4243-36d1-4b65-a5da-f660ab8c63b3@oss.qualcomm.com>
+X-Proofpoint-GUID: DNYQszKtyhQzLMJi8yHV0niJssWmB_4Q
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDI1MSBTYWx0ZWRfX+LfTkQQ1LW3j
+ nKbV/JL+IH+/J6vSx5HVrE6Gsurnr8KwMVyRcpwptY6EHKVK2ocP3RI3PY9o0kWHxN4E1MUp8YF
+ hbV+kxjSOX2obVdaypQ5nevubWLgQ16Att8qLfsT3JFZcRqr/OlGAM5RQ98EBM6LWYbBJ8/wQ8G
+ 79gDFB34JYXuFEBm3+yyCvPJMk7KxDLSFCGHmJmoDVgAaDSRchTYRk82rRcED+iYBGMMVeQdiPo
+ JY2v0yHUS4D0Vi481F6YjN2m7qC2U9I9n+2q6ZaWZF0TX8Ojg4pqLuzCiWhAK3VEYiip1GeAiFi
+ 2nmpXP9XbUTGAuRVntUsJmlLLVb0A9wau7+d/vItogkfz3ppbPD4E5sHB1evjBdZj/qbjf9/6Ls
+ SM2Ho+TVzLunmpHxHPaJk2EN08vxgjzVhIlfYNujHwQVpa5nQh/mwEiPoGcGZ1v7vaqx/9KMp/w
+ c92BI1sXlZ6+UsSK1ow==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDI1MSBTYWx0ZWRfX0A8etIyaqohK
+ IsGUt4ZeuzblSwv7qJNRVZpre08T3V6Tbn8GhZ7a53ztO8LpUA65e4EzACkPBjZeLt9Rv94fuYS
+ DGaGER49hjWJyTtsbWFqzS04uomBUlg=
+X-Proofpoint-ORIG-GUID: DNYQszKtyhQzLMJi8yHV0niJssWmB_4Q
+X-Authority-Analysis: v=2.4 cv=X8hi7mTe c=1 sm=1 tr=0 ts=6aa094b2 cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=sLzL-2GVjjNmCx-rav0A:9
- a=CjuIK1q_8ugA:10 a=gYDTvv6II1OnSo0itH1n:22
-X-Proofpoint-ORIG-GUID: lJ8vS4IyfX3YnC0dBLTxsGkXHCotI4GD
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=pwSLSVGh1Xxsrx2JAEcA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=ODZdjJIeia2B_SHc_B0f:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0 phishscore=0
- suspectscore=0 adultscore=0 priorityscore=1501 spamscore=0 bulkscore=0
+ bulkscore=0 adultscore=0 spamscore=0 clxscore=1015 priorityscore=1501
+ suspectscore=0 impostorscore=0 phishscore=0 malwarescore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080250
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080251
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,72 +166,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 26, 2026 at 07:15:07PM +0530, Ekansh Gupta wrote:
-> On 24-08-2026 20:37, Rob Clark wrote:
-> >>> qda_memory_dma.c / qda_memory_dma.h
-> >>>   DMA coherent allocation backend. qda_dma_alloc() calls
-> >>>   dma_alloc_coherent() on the CB device and encodes the stream ID
-> >>>   (SID) in the upper 32 bits of the returned DMA address, following
-> >>>   the Qualcomm FastRPC convention for IOMMU address space tagging.
-> >>>   qda_dma_free() strips the SID prefix before calling
-> >>>   dma_free_coherent().
-> >>>
-> >>> qda_memory_manager.c
-> >>>   Adds process-to-device assignment: each DRM file (process) is
-> >>>   assigned one IOMMU context bank device for the lifetime of the
-> >>>   session. qda_memory_manager_assign_device() first checks whether
-> >>>   the process already has a device (reusing it with a refcount
-> >>>   increment), then falls back to claiming an unassigned device.
-> >>>   qda_memory_manager_alloc() and qda_memory_manager_free() delegate
-> >>>   to the DMA backend after resolving the correct CB device for the
-> >>>   calling process.
-> >> Oh, stuff like that is usually a pretty big NO-GO now.
+On Tue, Aug 18, 2026 at 11:55:50AM +0530, Ekansh Gupta wrote:
+> On 18-08-2026 09:25, Dmitry Baryshkov wrote:
+> > On Mon, Aug 17, 2026 at 10:17:46AM +0530, Ekansh Gupta wrote:
+> >> Allow user-space to import DMA-BUF file descriptors from other
+> >> subsystems (GPU, camera, video) into the QDA driver via the standard
+> >> DRM PRIME interface.
 > >>
-> >> AMD has made the same mistake with KFD and it resulted in a massive chaos.
+> >> qda_prime.c
+> >>   Implements qda_gem_prime_import(), which is set as the driver's
+> >>   .gem_prime_import callback. On import it:
+> >>   1. Short-circuits self-import: if the dma_buf was exported by this
+> >>      device and is not itself an import, the existing GEM object is
+> >>      returned with an incremented reference count.
+> >>   2. Attaches to the dma_buf and maps it with DMA_BIDIRECTIONAL via
+> >>      dma_buf_map_attachment_unlocked(), obtaining an sg_table whose
+> >>      DMA addresses are IOMMU virtual addresses in the CB device's
+> >>      address space.
+> >>   3. Calls qda_memory_manager_alloc() to record the mapping and encode
+> >>      the SID in the upper bits of the DMA address, matching the
+> >>      convention used for natively allocated buffers.
 > >>
-> >> The DRM file is the driver context your process uses and even if there are multiple DRM files for the same PID you should absolute *NOT* share anything between them.
-> >>
-> >> The general rule of thumb is to not attach anything to the process using the DRM file descriptor.
-> > A couple other things to keep in mind:
+> >>   qda_prime_fd_to_handle() wraps drm_gem_prime_fd_to_handle() under
+> >>   qdev->import_lock, storing the calling file_priv in
 > > 
-> > 1. drm device fd can be passed across processes
-> > 2. virtgpu/virglrenderer drm native ctx is a single process that opens
-> > the drm device file N times on behalf of N guest userspace processes.
-> > 
-> > All that to say, Christian is right here.. drm_file is your context,
-> > pgtables should be attached to the drm_file (potentially via
-> > drm_gpuvm.. which you perhaps want to use).
-> > 
-> > BR,
-> > -R
-> > 
-> >> Regards,
-> >> Christian.
-> >>
-> 
-> Hi Christian, Rob,
-> 
-> Thank you for highlighting this.
-> 
-> I'll rework the CB assignment to be per-drm_file. Each open() will get a
-> CB assigned from the available pool (find-first-available, not
-> find-by-PID). The assigned_pid field and PID-matching logic will be
-> removed entirely.
-> 
-> The hardware has a limited number of context banks that serve many
-> sessions (on fastrpc, via the DT "qcom,nsessions" property), so multiple
-> drm_files may end up sharing the same underlying CB due to hardware
-> constraints, but while implementing that also, I'll ensure that the
-> association goes through drm_file->driver_priv, never through a PID scan.
+> > Why do you need a separate lock?
+> Will add details in commit message,
+> The lock serialises the `fd_to_handle → gem_prime_import` call so that
+> `current_import_file_priv` is valid for the duration of the import.
+> Without it, two concurrent imports could race and each see the other's
+> `file_priv`.
 
-I'd strongly suggest to implement a simple case and not to implement CB
-sharing for now.
+What is different from other DRM drivers which can use
+drm_gem_prime_fd_to_handle() directly?
 
-> I'll also look into drm_gpuvm for the longer-term address space
-> management as Rob suggested.
+> > 
+> >>   qdev->current_import_file_priv so that qda_gem_prime_import() can
+> >>   retrieve it (the .gem_prime_import callback does not receive
+> >>   file_priv directly, but the context bank to attach to is per-process).
+> >>
+> >> qda_gem.c
+> >>   qda_gem_free_object() is extended to handle the imported-buffer
+> >>   teardown path: unmap the sg_table, detach from the dma_buf, and
+> >>   release the dma_buf reference.
+> >>   qda_gem_mmap_obj() rejects mmap requests on imported objects, which
+> >>   must be mapped through the exporter instead.
+> >>
+> >> qda_memory_manager.c
+> >>   The DSP is given a single base address per buffer, so only buffers
+> >>   that are mapped as one contiguous range can be described to it.
+> > 
+> > Is there no IOMMU in front of the DSP? Can we remap the buffer to a
+> > linear are inside the DSP map?
+> The DSP firmware's buffer descriptor format carries a single
+> {base_address, size} pair per buffer and it does not support
+> scatter-gather or multi-entry page tables on its side. This is a
+> firmware interface constraint that we cannot change from the kernel. So
+> imported buffers must present as one contiguous IOVA range, and
+> non-contiguous ones are rejected.
 
-Nice. I think I've beeng trying point it out, but maybe not very
-explicit.
+I think the main part of the question ended up being ignored. Can we use
+_IOMMU_ in front of the DSP to make buffer scattered through the
+multiple pages to look linear? Or maybe I'm misunderstanding what you
+wrote. If I have a buffer spanning three non-contiguous pages PA, PB and
+PC, can we still use that buffer with the DSP?
+
+> 
+> Will add this information in commit message and during the check.>
 
 -- 
 With best wishes
