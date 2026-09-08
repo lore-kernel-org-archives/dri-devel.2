@@ -4,144 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5933C79F82
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 08:40:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB096C79FAC
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 08:46:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B307810E6E1;
-	Tue,  8 Sep 2026 08:40:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A63CA10E5F0;
+	Tue,  8 Sep 2026 08:46:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mm9l/doq";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZrdG5MEC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZagvFGLw";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31F5310E52B
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 08:40:00 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6886Lrdb2154211
- for <dri-devel@lists.freedesktop.org>; Tue, 8 Sep 2026 08:39:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- liMTX+5W1ZhScG/VtPCEXcVGP5PSRJI5VVuw8P97m6A=; b=mm9l/doqRsf8Bc5n
- wAGT9LOAROOQh1pUSyZ1rIGXOuVoDdTqBSZuFjBsS0L1XeH+89x4BxdgpZaKrbx3
- iVR3ajG/3eXLVOoAcN+kESDPCW7w8kEdY5Hsfh3oda6OOKtjDoQQPYKxaWLb4cy+
- nL5VIcrzm6PCUdQnGi2dnfeKovg1d985Z84C3YcAqKUvcbAj4aI35y0aCWqhLC7r
- +gRBgwXk/xZMNDRGywoyR0YMA+ifM5tSprEg+fB4BpaGYzYWXSc47cSNi4F9VDDI
- N1yt4KVYT+uPRUhdNxoxhDGvNLqpIqZWKL3aVZEvgw3KYz4T/qUc4hcOidwt8Ete
- n+gapQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gj1rwjh70-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 08:39:59 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-934963b2bc0so801473085a.3
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 01:39:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1788856798; x=1789461598;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=liMTX+5W1ZhScG/VtPCEXcVGP5PSRJI5VVuw8P97m6A=;
- b=ZrdG5MEC8ueqKkgtBibVRe9ECi5l0i+0pzicKrkN7iD5Uqf0KDBS9lqRDaF/voOGnR
- 9QnmletCFNT4xTspQHFEfoTUxn1X1PbMoLgacVI7M+podfdJRodYpfjsTmlBzIXdWntA
- 4r7a0YUOh77TXcV2tpjMqy41LYXPmoRZwvlzRFW5BwLQodgP15GQnHzZzXsk9W6Yp81n
- tXsygWQZCmnmvP42Rhlq/3hGLlopkKtJ/8f1zhc/0oFz3JAu/Hxr1xPI7q0Zu4p7PHlq
- x3HuRxoYC55xYpFUPNYY7zpPVLwn5Rmf4PdkOz+1aaNGr1Eb0PY4sl205uuKkz1xOK+L
- CMDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788856798; x=1789461598;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=liMTX+5W1ZhScG/VtPCEXcVGP5PSRJI5VVuw8P97m6A=;
- b=Ec94A0u1KsSZqlOENFFuZ98uE9llpBYdaw7+YQm+LGzHaP9LMYTovOLzuHPBVeYcHj
- x5ORZIOj2UjrkyTLBtV3+nHbSBhls5rGS9R+JDsYZSfpqFcvTucejlu0wNwf6YwMK910
- T/t9+wZHH3EVARLMv9UiG2dad1VO2OmxJsMuMvSMsIiW+JeN+Mqo5ORDjANe9q7L7zCH
- CiL3On6VxUYbm7qGf1H9EkMI8te/at0+p9jg0kqSK2uPi0cywbPIyt4WWLY4h+EA3wyA
- 0/8RCymOR/PLwm735OlkhqddXIsMLGNjsjr5WUFSYiFS9XWW8kZcV74HdK15Pqr7GVtf
- 4woQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwU/unaaPKv1alMWDDB8V9UgzhjXeKeBY2EwBUiXzvHI5gIcIrKG2JBePSxMSCgoHgZrLcHP33nglg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n5fvwWTqHgXmHjNNBNj9d8uPuF24qjqyPSZLEpxWgEPH1ksV4p
- KW4mK61LJkR0k7cLsgr51d8Y2RYiNMkgG9uaT9Pga/MvVegLt7df2uz/F0Ao1g3c/jvUvee6Va8
- NDcDiqG/A+9VWw+dqYZBLwFBWafNY4uoRSg4oj4lyKt5Zu7tFphmdkpZt1aOpUsro4A0NTYc=
-X-Gm-Gg: AYBFou3nETi13gav4uPlnFgvVeCMDHufh6YONJs7sQa0s6lZ+s97jmLDKTehgV/p0dT
- QqQGkN/+9A94A5LlxNJxtCAbW/YqKCwXOCMqI3eGwB/eEihkBpbR5Rc4a7mi5e5UFExrvYlbOz6
- SHUi6eJp7d2ufmprvFy6eg9W0bfWx4ktHDn0C2CN6/jn+TQTRGMM6CAq3E+MQ7P5Y8+so/0up0o
- NnMfI/LCcJh8YXP1phDYhan/btaLHbAhVBHmhcoNY2eXWeAcU24//RWpd0uvGP6V3ijnPD1ryXU
- XGXWg3cBHaIgb8p8fsZfPHZDLO73NWWwMUmGQYzjntgcwqRL7Me4Pm3bfVbDfuchglcIO9lJQOG
- axNglGnepxBy+3LHE2GWQYPBRFPxr
-X-Received: by 2002:a05:620a:2617:b0:939:7683:33d5 with SMTP id
- af79cd13be357-9398037b951mr3141905885a.19.1788856798434; 
- Tue, 08 Sep 2026 01:39:58 -0700 (PDT)
-X-Received: by 2002:a05:620a:2617:b0:939:7683:33d5 with SMTP id
- af79cd13be357-9398037b951mr3141903985a.19.1788856797991; 
- Tue, 08 Sep 2026 01:39:57 -0700 (PDT)
-Received: from [192.168.1.110] ([178.197.219.214])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49cf755c22esm377307385e9.0.2026.09.08.01.39.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Sep 2026 01:39:57 -0700 (PDT)
-Message-ID: <6380c418-afb1-46a3-837c-582175d51cf5@oss.qualcomm.com>
-Date: Tue, 8 Sep 2026 10:39:54 +0200
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010006.outbound.protection.outlook.com [52.101.85.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2471310E0D7;
+ Tue,  8 Sep 2026 08:46:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RDC3uhhzBrFH89G/l7l9RL0F/4tEvfH0Ie2LJbODB9XcoMxeLvCtq3XXkUf8XSstG07hpZ3W98QUyDBdvq17lcpTcXjUsxr3tXMM2XL6z2eASrthoeKaopSQIZCwn8eXicZJwOUN2TPPVxmISnpkbFEK2kYR1eyMdn9ieeweWLGSESuvVFVKkq9KARM1nkSVKbky3CJvyuPuSQ0CeCQCna4SOy79yAYR1aRKP5USYrq/NmfKb+206AreRUm8U6OZR+10ndr4AF3/QNkivZOOufNCkyi5tsTz2WPVM62WRGyXfzbkKFSK2iUYirYKa1Yj7eKaCMJX+VTzjTCEgiwE5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6brJ9xSKGLWRtz5LgcT1HlzZrssaw79bS9DxugncFHk=;
+ b=gtIiV0+KCe3CrEr6eESSduOg8U3S2EfOg8VORWAFKYCK/NNv5LWocZTCalpBRLTHHDlTz8UtnqJ3LPJbgt0uSq6MskBKi0rQ1dZtTpu1f0FXb25eN3lriEDWHLoZv9EWzFhwQbHCofc0yJraOX5HO7aqZj6MtO9i9viPVp3Hk0LBkxIXx+y0pvCGJdtnlRDYw7IotFhBatzbalpJIo5oHIXgLIJMivM/x+N528EbYaSZSSDvGeU/p5D/39rZaI+62bf+vbW9qrcUuds+vfzzn6NfyDpvDsyx3CSAVE1a0pAJ0XF0n7sPkGAZUJvyt91aqEWFaqFNT6CI7HMqEQjLqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6brJ9xSKGLWRtz5LgcT1HlzZrssaw79bS9DxugncFHk=;
+ b=ZagvFGLwmy30db0PwQtVJ/Zb5w0a+Mq3bgLz4UUCotbx2/sRmPME/Z1006gWzN/8Tpj3gvt1TLQZfjrhhSn5VlUT/SwPA66t/TMqXRIr5tn0W39WcCGm/oSRK81goES36ffEXnEyTk6fE1HJywS3OBaz+zLYIE+UAP8WmaLPyCg=
+Received: from BN9PR03CA0295.namprd03.prod.outlook.com (2603:10b6:408:f5::30)
+ by MN0PR12MB6223.namprd12.prod.outlook.com (2603:10b6:208:3c1::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 08:46:45 +0000
+Received: from BL6PEPF00022570.namprd02.prod.outlook.com
+ (2603:10b6:408:f5:cafe::1e) by BN9PR03CA0295.outlook.office365.com
+ (2603:10b6:408:f5::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
+ Sep 2026 08:46:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF00022570.mail.protection.outlook.com (10.167.249.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 08:46:45 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 8 Sep 2026 03:46:42 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: <matthew.brost@intel.com>
+CC: <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+Subject: [PATCH v8 0/3] drm: Extract dma-fence-to-workqueue pattern into
+ common helpers
+Date: Tue, 8 Sep 2026 14:16:24 +0530
+Message-ID: <20260908084627.352535-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/7] drm/msm: Properly handle msm_ioremap() without name
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Archit Taneja <architt@codeaurora.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
-References: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-0-dcf8956878ca@oss.qualcomm.com>
- <20260908-drm-msm-hdmi-fixes-before-eliza-v3-5-dcf8956878ca@oss.qualcomm.com>
- <51fceedb-2dbb-483c-8eee-9409ca61b1cc@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <51fceedb-2dbb-483c-8eee-9409ca61b1cc@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=Ga8nWwXL c=1 sm=1 tr=0 ts=6a9fc9df cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=JWgyNuB4YE4UXSG_TMQA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA5MCBTYWx0ZWRfX84DrOzlaCYeA
- hAlk/8EAFdcQF+rRR3L9Wycyv7TTpiwoi0AlhXgsOxcU3kWO5Y5FWIwFAjnImZNjlIJveNHXxwD
- yVZJUtzj8lLQUPEoWmv+oQkHCQf8sPvHfH/i8hD8lzMrX4rIF0Mp7CcVRgtHXndq/zHkPuB5sfL
- PA96gqw+f/6DqY9xi2C9DlVQJuW/W9Rutl2m/8C8LbXXrx7V0wXb+32a25u0MguF2vPh6mhSOM5
- HgbDWXhFSDEdZGrakwPlzHwxX3LhPrGSv8BsuaHZ9hBTkBhK8q4RWngoY/HuooGc96Z9iyOCXT4
- vRUvI3RqMaPx9JGTbtTYpclLnf47gk8wWivpmyAIGDwEh8OIX/XlmHsvnBqRDt5XWTZYj3GDRXW
- ZanNq4UuVU/T39AwBijrmx2iNV2xm/GrnIaMwoma9cHSaHCpWn0izwHiLW4Pl5+lGikKyRz7wVV
- 0kjrikyBmmIRXT6onMQ==
-X-Proofpoint-ORIG-GUID: -R8kxHVaGiRd9DbSlhlxMOOJCE1_e8BS
-X-Proofpoint-GUID: -R8kxHVaGiRd9DbSlhlxMOOJCE1_e8BS
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA5MCBTYWx0ZWRfX5bZb2JvFdmh3
- Eo08TWPRj7+9JokcOIhlqjMtZWlCp4+9MEXBblQ8bhUFlVqC3Bn1KYT/p/9AF0018GyBVhnF+cj
- xAXCQuKT/oM+OuYZXJVPFqbgcSG4fgk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 suspectscore=0 clxscore=1015 impostorscore=0
- bulkscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080090
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022570:EE_|MN0PR12MB6223:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb617224-cb1c-414e-ed14-08df0d85b683
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|23010399003|1800799024|36860700016|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: IXW8TpY3m7orO7ieIAfvnAYDKBWwMeSEo92neQcSxtXv7WggXLqvWoGyDgXtF7Tr4PQ2aZtu6g4H3xtJhKiU1sEEnZ2wscfFza4rxdzcjOdQOzEuQ6mNNmBa3sw0YwPcn4CnkYK69cXh5PTfmn4FbXQ811hEhaY8xAtt+dlZhKBeCNlaGqgid6DLSeVDFacqUNXBwFCqD6kDLLCnQL2BzidxhdcDL9F7JmLu/ttUZP8nmJ92m0S3CTneatwduCrzi14kJ2+/g+Y+V11gS8fA1QMNIneNRKQMX6PT+3LfiAS8KaSFVTlwupfmWZyL9+W6pyKK9YEObbojsUWyusRLFrOgm5xK6NxvDQJJwFGr50VGz016nAJupMMP4kIS8orn353zIyB5exmW9qILoJDSz3G+JnEllQP6tI2AY/dNs5uCOskcnmhvvrSt2V+PXAdM+xqkLsZSLe+iPhktd6J/OszLjgFs7MSAzbch+pav+VWa7vmAmcWV/3cm/GHmrtNelnNND9949kzHtBRQSAek6ejaRlPnKb07MuDx0+IqOydt2Sn6CFN9XOD8evwGG0YYtM+yKQ4InXeGbF9EwxCUDDTJgCzjNMz7ri9zkrTQZ9kgXcAY20yIJDY4I+raDayjO6iOHWqXFyOUGuYef3D7MO+p9UF5Bqt6Ktdz+8cNiifumL2Y8xpkxBK2btRKjv0VpnqqSyN183MesyR0F6WiDA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(23010399003)(1800799024)(36860700016)(10067099003)(56012099006)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: +0HT9dlc1/hRJUFkuFAjR05K+cU7Hb+E8ik/eBn4+pO269mf00AyaxL8LoSsz9WeOjgROMnm45/UWBCpVCUTfn8uRBxbAncBQwGBLHWta8Pzr6SA5laQcqPSXiNfi3Xm/VTO00cLiiTaC8t9JkLtRsaesLWj5i2JKArlWmuQlXxQ1RsfM4gEMYBEDigfa7IfHoEZCoK3vCNXbYJGVELNkwtMZ1Ts8hbVzMJ95zmkD/eA8NZuVjaojmohbmzraN9MBB+Fw9Iyhbf8dNakLIyxLghLUd4UIbIQSCZqJ6sokSyARYdrWKMwvocHxHnTJfbuyR3UGpbVUqrRNyeyW66CAttkdONXvyL8oxJjeHTzS7t98S97fXKPl89Cn7POdMF5Zd2HQLUtrRS1GLoVrj/AnBdf9cw2VHEXSBY5OHsi4rgIGXLCi/aa3y6newo0Z7kq
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 08:46:45.3373 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb617224-cb1c-414e-ed14-08df0d85b683
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00022570.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6223
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,44 +112,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 08/09/2026 09:59, Konrad Dybcio wrote:
-> On 9/8/26 9:10 AM, Krzysztof Kozlowski wrote:
->> msm_ioremap() accepts being called without name of the region to map and
->> in such case maps by index 0.  However error paths still use the name in
->> error message.
->>
->> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
->> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->> ---
->>  drivers/gpu/drm/msm/msm_io_utils.c | 6 ++++--
->>  1 file changed, 4 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/msm_io_utils.c b/drivers/gpu/drm/msm/msm_io_utils.c
->> index a6efe1eac271..0a4ac0fc5fb5 100644
->> --- a/drivers/gpu/drm/msm/msm_io_utils.c
->> +++ b/drivers/gpu/drm/msm/msm_io_utils.c
->> @@ -77,7 +77,8 @@ static void __iomem *_msm_ioremap(struct platform_device *pdev, const char *name
->>  
->>  	if (!res) {
->>  		if (!quiet)
->> -			DRM_DEV_ERROR(&pdev->dev, "failed to get memory resource: %s\n", name);
->> +			DRM_DEV_ERROR(&pdev->dev, "failed to get memory resource: %s\n",
->> +				      (name ? name : "#0"));
->>  		return ERR_PTR(-EINVAL);
->>  	}
->>  
->> @@ -86,7 +87,8 @@ static void __iomem *_msm_ioremap(struct platform_device *pdev, const char *name
->>  	ptr = devm_ioremap(&pdev->dev, res->start, size);
->>  	if (!ptr) {
->>  		if (!quiet)
->> -			DRM_DEV_ERROR(&pdev->dev, "failed to ioremap: %s\n", name);
->> +			DRM_DEV_ERROR(&pdev->dev, "failed to ioremap: %s\n",
->> +				      (name ?: "#0"));
->>  		return ERR_PTR(-ENOMEM);
-> 
-> It's odd to see one being ?: and one being open-coded..
+This series extracts the dma-fence-callback-to-workqueue pattern shared
+between XE and AMDGPU into common DRM helpers.
 
-Oh crap :/
+Patch 1 introduces drm_work_fence — a generic helper that queues a work
+item when a dma-fence signals, for work that cannot run in IRQ context.
 
-Best regards,
-Krzysztof
+Patch 2 introduces drm_user_fence — extends drm_work_fence with
+kthread_use_mm() support for drivers that need to write completion
+status to userspace memory.
+
+Patch 3 converts XE's open-coded xe_user_fence to use drm_user_fence.
+
+v8:
+- Fix copyright: The Linux Foundation → Advanced Micro Devices, Inc.
+- Switch EXPORT_SYMBOL_GPL → EXPORT_SYMBOL for MIT-licensed code (Matt)
+- Rename drm_work_fence_ops callback: writeback → worker (Matt)
+- Rename drm_user_fence_ops callback: worker → writeback (Matt)
+- Fix xe_ufence_worker ordering: WRITE_ONCE before copy_to_user,
+  add smp_wmb() before wake_up_all (Matt, confirmed via 8ae04fe9ffc93)
+- Rename .worker → .writeback in xe_ufence_ops (Matt)
+- Drop Patch 4 pending design decision on compare address read method
+
+Suggested-by: Matthew Brost <matthew.brost@intel.com>
+Suggested-by: Christian König <christian.koenig@amd.com>
+
+Srinivasan Shanmugam (3):
+  drm: Add drm_work_fence helper
+  drm: Add drm_user_fence helper
+  drm/xe: Convert xe_user_fence to drm_user_fence
+
+ drivers/gpu/drm/Makefile           |   2 +
+ drivers/gpu/drm/drm_user_fence.c   |  70 +++++++++++
+ drivers/gpu/drm/drm_work_fence.c   | 184 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_sync.c       | 154 +++++++++++++-----------
+ drivers/gpu/drm/xe/xe_sync.h       |   2 +
+ drivers/gpu/drm/xe/xe_sync_types.h |   1 -
+ drivers/gpu/drm/xe/xe_vm.c         |   1 +
+ include/drm/drm_user_fence.h       | 123 +++++++++++++++++++
+ include/drm/drm_work_fence.h       |  69 +++++++++++
+ 9 files changed, 537 insertions(+), 69 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_user_fence.c
+ create mode 100644 drivers/gpu/drm/drm_work_fence.c
+ create mode 100644 include/drm/drm_user_fence.h
+ create mode 100644 include/drm/drm_work_fence.h
+
+-- 
+2.34.1
+
