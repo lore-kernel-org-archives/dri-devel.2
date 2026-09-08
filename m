@@ -4,40 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A550DC79FA1
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 11:46:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE983C79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 11:46:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F158010EB83;
-	Tue,  8 Sep 2026 11:46:24 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H/ekudPM";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F6EF10EB83
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 11:46:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F6A910EB85;
+	Tue,  8 Sep 2026 11:46:38 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA4DC10EB85
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 11:46:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id ECC1460A9B;
- Tue,  8 Sep 2026 11:46:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF17F1F00A3D;
- Tue,  8 Sep 2026 11:46:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788867983;
- bh=Thmzt2bA5oDRdHIBsmWHHi7LxhCvKiJQFfK9uAWWp6I=;
- h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=H/ekudPMgJ3J+jTc+71sHPNQdwtVeyDUOof+Ch1isOl1fL3ScUIpdBNrFFqFvZU6I
- 6kZRGvza+AIlaSsGfs73K892T969F/JfZN8wJVkD3c2QIMdhiUKU0x3wAV84RnNvuw
- kGAfT+S8Aq1qdy0I46HqN9BrFP+/78pv8K3lIWiQx3Bm0SFhcW2H+kNeGkdTJMQsxQ
- s8yC9yidBrK7ZaKyU3nZmDUVRuXLFWXdyZgElpaBUDAB+lK/Wolr1Jh5cy/xBx3eLe
- if6LnlxqxBuD/bx6L7aQjhh0pH4ESwSs2nUoFr6La5hceGZ4hhHNmfR7gUvg2zoCDT
- nN4MvN0BYenmQ==
-Message-ID: <a609592dd139aedc19fa400cfa55c048@kernel.org>
-Date: Tue, 08 Sep 2026 11:46:20 +0000
+ by sea.source.kernel.org (Postfix) with ESMTP id 7946443EA4;
+ Tue,  8 Sep 2026 11:46:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFBBD1F00A3F;
+ Tue,  8 Sep 2026 11:46:35 +0000 (UTC)
+Message-ID: <e7add84e596d02ac9d917dedba7ea949@kernel.org>
+Date: Tue, 08 Sep 2026 11:46:33 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Subject: Re: [PATCH v11 55/74] drm/bridge: lontium-lt9611: Advertise HDMI
- 1.4 capabilities
-In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-55-bc12954a0688@collabora.com>
-References: <20260901-dw-hdmi-qp-scramb-v11-55-bc12954a0688@collabora.com>
+Subject: Re: [PATCH v11 56/74] drm/rockchip: rk3066_hdmi: Advertise HDMI 1.4
+ capabilities
+In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-56-bc12954a0688@collabora.com>
+References: <20260901-dw-hdmi-qp-scramb-v11-56-bc12954a0688@collabora.com>
 Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com,
  linux-arm-kernel@lists.infradead.org, linux-fbdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
@@ -79,11 +66,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 1 Sep 2026 21:51:19 +0300, Cristian Ciocaltea wrote:
-> Bridges using DRM_BRIDGE_OP_HDMI are expected to provide the supported
-> HDMI version.  This is not enforced yet, but will become mandatory once
-> the migration to the caps-based HDMI connector initialization API is
-> complete.
+On Tue, 1 Sep 2026 21:51:20 +0300, Cristian Ciocaltea wrote:
+> Bridges using DRM_BRIDGE_OP_HDMI are now expected to also provide a
+> supported HDMI version.  This is not yet enforced, but will become
+> mandatory once the migration to the new caps-based HDMI connector
+> initialization API is completed.
 > 
 > 
 > [ ... ]
