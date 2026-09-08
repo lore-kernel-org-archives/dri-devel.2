@@ -4,52 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DB2AC79F82
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 13:31:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04D6DC79F99
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 13:36:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08A5210E138;
-	Tue,  8 Sep 2026 13:31:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5716B10E100;
+	Tue,  8 Sep 2026 13:36:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jm4D3N32";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HtNgWRof";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C422510E138
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 13:31:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788874274; x=1820410274;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Ka8lArvdDS0XqOpgdDmGFHcaj1D7gKWmNYMqT3uuuLI=;
- b=jm4D3N329B5onvYw29DZ/WKhwVsBEztTtxpJLnB90f1htkHSb9ad7vJl
- edqO9/Lhnifw8Tilvv3OaI4N1gKevKpMJ+MtCmz/JXTCIenbhFcSkIYOS
- dFRpXjrHMTdkq6y4DSW1rLR+kCPe5Hls3lvgZfA4RjetQIaLxcsOMHoB+
- 49QXYqR4ALVeWMwZCm46ct2T2MzXokj0oQ2Jh9WCEhDk8/rBLsXh47eRl
- LA3lWAAQ9RQWDKeg5Emoul7/I8kwuPwKEfFNdG9vjvhDADpmPfFNf/Kyj
- +gRRfOdyhj8D+f0NvyVjRTf6n5HFulW896kEwAJU5SRvwwITKRF4uI52j w==;
-X-CSE-ConnectionGUID: xH6Vl7qLT12rLj3FEl373A==
-X-CSE-MsgGUID: K+Rg9gsLTcGM5QvZVszOPg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="93096535"
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; d="scan'208";a="93096535"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2026 06:31:13 -0700
-X-CSE-ConnectionGUID: xO7XYgh2RfihgJ5fkCasYw==
-X-CSE-MsgGUID: 6mk0me+gSSuz9RbbdmrXxA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; d="scan'208";a="269671453"
-Received: from xiaolu.sh.intel.com ([10.239.146.103])
- by orviesa010.jf.intel.com with ESMTP; 08 Sep 2026 06:31:11 -0700
-From: Xiao Lu <xiaolu.xie@intel.com>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Xiao Lu <xiaolu.xie@intel.com>
-Subject: [PATCH] drm/dp_mst: Track allocated_pbn from ALLOCATE_PAYLOAD
- down-reply
-Date: Tue,  8 Sep 2026 21:28:44 +0800
-Message-ID: <20260908132844.2309047-1-xiaolu.xie@intel.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7358910E100
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 13:36:30 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-499de29beb7so1124965e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 06:36:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788874589; x=1789479389; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=vkSrwpgV5JMC0Es79U5v7Gmcys29XZ3okUYq0XQB02Q=;
+ b=HtNgWRofn1hWz30GX8Et6qr+6V62RfCTXhariqLX7ktiAqRMwCozKLuzt+rhg/fay6
+ mKoxHUuLyDEyvJl9Pt3OsNJ0ecjWqfN8xFw2hV2PbLsh3PfgX5Fwjbex19OW2OJnzlKS
+ ouGTa4sT11O45EWMHl1VKP8Jj3fbkl5vldFIAS700fTeB8ELkRVbi1OUyK7RnSDmVgfd
+ HFbQHChqgRB21o7UeBv09VK9rx4d5UdHi69ty0ydJuEWwtuWjubz83Daz4KTu0DbFuN2
+ Ufgn8K2FJ7WzMfWIThJEPsLnojeiUm8Xori8nq7TJul5XmOQ5j/+PAAoUocllYXRz1ik
+ NP6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788874589; x=1789479389;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=vkSrwpgV5JMC0Es79U5v7Gmcys29XZ3okUYq0XQB02Q=;
+ b=JyHXJxFrLFnMvo6itzObewXb24UpmJ1hQBzXTwu6wM4KOnuWxQZH0oLGADJKltaJhM
+ +tr5Qcp9TguwKGwGOULV5LeT/7slhpPy4105v2CwTS98SdnhKwtJWuHWkB/+fVgoX3ZF
+ ndyQSEVYLFIr5A2Ok8TIwELmxXTl1OMXp0aC9DLCabWMOK2YYQCdUqTRqut6/nsZXRja
+ YaAYfqDRVMFrc5dHkLeQ2mcj1k1icli0t8dWE9JXmFugPTIH6pfllSKRGbff81bOdIEP
+ WSsxl3tYHPA16pbj8IAuMr+n00MKpAbhrrZB5c5dLCBcVEL4Xij7FvRLoC51TXs/pQsB
+ 7P0A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwMQrKFxlGvrWYYUQgJ8f0WHWmRK71Yl3Q14tZiIbzx5zSA9yu67I/E+TPhfPKvXZM42+F6A2haMIM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++klNlxx+ViO2rlIi/WAElQ+gLEsWy8cvvz27feF/M4ULncesCJS
+ Ht7Tcl0lsZVlikEdk42RwdSGRMpckc5IqHtFlDYLbhvpUgeEuG2F3KCl
+X-Gm-Gg: AYBFou2bFsm6RRkZPU+DPkA4SvORI0pwrmkf6+dQqroWDr7luI1gwh6PZD91fT3Q/JA
+ k6FdKWKYBzpnRbK7YNKG6Qi0f38iU6fz9aGhNyGOTdpmEl8ovwuVRbrz4pcM6JPp9mxcj0mrSxq
+ VMSxXXV3m30pbF7acMl+aeva7I737s4GL3fJ8j03You2ZKpaG3EPvdXHcteOmYN9GUpxgTObX5L
+ wkzhdOAPlujR6nNCdz0ltc7fNAWdMEcgXn3sr8qjGq2GYIYE8wlMvJnU4tpobGaqrhAsfvGhgDT
+ RUKtcWhBE8TFjRCgeK3W/UokUil7Xu+Txsy7/B/xXisM6pTl7JNPSxPiE0RzDtR6wJJkqvOmPnL
+ HNmbHS9SQOU8OUDFAnH604qLfKTGC319OpNWjigbqEn4UfLbE4YEMrlpx+WkjacICpQ8repd4KN
+ P4AfTCwMIK4OiHsrYojISpdvfadQ3B909qaYbvvoDB5Yp5wY5Mcon6xoDNWQ0EpApixF89VG1E0
+ Zol2ODX5VEsjsVQ44kZkby29L9NWpbc+WTLKzPuU3HTodn6ntjacTmxkuw+7D2MpbK2
+X-Received: by 2002:a05:600c:8b2e:b0:49c:cbf4:572b with SMTP id
+ 5b1f17b1804b1-49d01dcc1fdmr181152325e9.2.1788874588385; 
+ Tue, 08 Sep 2026 06:36:28 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B825D0079B84A36A788F67A.dsl.pool.telekom.hu.
+ [2001:4c4e:1b82:5d00:79b8:4a36:a788:f67a])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49cfd3f815bsm293320765e9.4.2026.09.08.06.36.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Sep 2026 06:36:28 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Frank Zhang <rmxpzlb@gmail.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Detlev Casanova <detlev.casanova@collabora.com>,
+ dmitry.baryshkov@oss.qualcomm.com, heiko@sntech.de, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, neil.armstrong@linaro.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe
+ when PHY is down
+Date: Tue,  8 Sep 2026 15:35:12 +0200
+Message-ID: <20260908133513.9302-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <ap_3zjRWm5-RXKKx@venus>
+References: <20260908070220.41574-1-rmxpzlb@gmail.com> <ap_3zjRWm5-RXKKx@venus>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -67,109 +98,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The DP MST ALLOCATE_PAYLOAD sideband message returns the payload bandwidth actually allocated by the branch in the allocated_pbn field of the down-reply. That value may differ from the requested PBN when an intermediate branch applies its own constraints, so the source should keep track of it instead of only relying on the local request.
+Hi Frank, Sebastian,
 
-Store the allocated_pbn returned by the ALLOCATE_PAYLOAD down-reply sideband message and use the larger of requested PBN and allocated PBN for the MST bandwidth limit checks. Also carry the value across dependent atomic commits and clear it when releasing the payload, matching the lifetime of the remote allocation state.
+Just so the tag is not lost when the split goes away: what I tested and
+what my Tested-by is about is the tmds_char_rate check on the path that
+runs from hdmi_codec_shutdown(), not the introduction of the second
+function. With ftrace I confirmed the check is what stops the register
+access, so folding it back into the original function as Sebastian
+suggests does not change anything I measured, and the tag applies to
+that form as well.
 
-Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
----
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 17 ++++++++++++-----
- include/drm/display/drm_dp_mst_helper.h       | 10 ++++++++++
- 2 files changed, 22 insertions(+), 5 deletions(-)
+If you would still rather have it re-tested on the simplified version,
+send v6 and I will run the same reproducer and confirm.
 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 7ce9e2127..86a42c5e2 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -3120,6 +3120,7 @@ drm_dp_get_last_connected_port_and_mstb(struct drm_dp_mst_topology_mgr *mgr,
- 
- static int drm_dp_payload_send_msg(struct drm_dp_mst_topology_mgr *mgr,
- 				   struct drm_dp_mst_port *port,
-+				   struct drm_dp_mst_atomic_payload *payload,
- 				   int id,
- 				   int pbn)
- {
-@@ -3166,10 +3167,14 @@ static int drm_dp_payload_send_msg(struct drm_dp_mst_topology_mgr *mgr,
- 	 */
- 	ret = drm_dp_mst_wait_tx_reply(mstb, txmsg);
- 	if (ret > 0) {
--		if (txmsg->reply.reply_type == DP_SIDEBAND_REPLY_NAK)
-+		if (txmsg->reply.reply_type == DP_SIDEBAND_REPLY_NAK) {
- 			ret = -EINVAL;
--		else
-+		} else {
-+			if (payload)
-+				payload->allocated_pbn =
-+					txmsg->reply.u.allocate_payload.allocated_pbn;
- 			ret = 0;
-+		}
- 	}
- 	kfree(txmsg);
- fail_put:
-@@ -3285,7 +3290,7 @@ static int drm_dp_create_payload_to_remote(struct drm_dp_mst_topology_mgr *mgr,
- 	if (!port)
- 		return -EIO;
- 
--	ret = drm_dp_payload_send_msg(mgr, port, payload->vcpi, payload->pbn);
-+	ret = drm_dp_payload_send_msg(mgr, port, payload, payload->vcpi, payload->pbn);
- 	drm_dp_mst_topology_put_port(port);
- 	return ret;
- }
-@@ -3298,7 +3303,7 @@ static void drm_dp_destroy_payload_at_remote_and_dfp(struct drm_dp_mst_topology_
- 
- 	/* it's okay for these to fail */
- 	if (payload->payload_allocation_status == DRM_DP_MST_PAYLOAD_ALLOCATION_REMOTE) {
--		drm_dp_payload_send_msg(mgr, payload->port, payload->vcpi, 0);
-+		drm_dp_payload_send_msg(mgr, payload->port, NULL, payload->vcpi, 0);
- 		payload->payload_allocation_status = DRM_DP_MST_PAYLOAD_ALLOCATION_DFP;
- 	}
- 
-@@ -4575,6 +4580,7 @@ int drm_dp_atomic_release_time_slots(struct drm_atomic_commit *state,
- 	drm_dbg_atomic(mgr->dev, "[MST PORT:%p] TU %d -> 0\n", port, payload->time_slots);
- 	if (!payload->delete) {
- 		payload->pbn = 0;
-+		payload->allocated_pbn = 0;
- 		payload->delete = true;
- 		if (payload->vcpi > 0)
- 			topology_state->payload_mask &= ~BIT(payload->vcpi - 1);
-@@ -4670,6 +4676,7 @@ void drm_dp_mst_atomic_wait_for_dependencies(struct drm_atomic_commit *state)
- 			new_payload = drm_atomic_get_mst_payload_state(new_mst_state,
- 								       old_payload->port);
- 			new_payload->vc_start_slot = old_payload->vc_start_slot;
-+			new_payload->allocated_pbn = old_payload->allocated_pbn;
- 			new_payload->payload_allocation_status =
- 							old_payload->payload_allocation_status;
- 		}
-@@ -5352,7 +5359,7 @@ drm_dp_mst_atomic_check_port_bw_limit(struct drm_dp_mst_port *port,
- 			return -EINVAL;
- 		}
- 
--		pbn_used = payload->pbn;
-+		pbn_used = max(payload->pbn, payload->allocated_pbn);
- 	} else {
- 		pbn_used = drm_dp_mst_atomic_check_mstb_bw_limit(port->mstb,
- 								 state,
-diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
-index 27658bfb5..1a9430a62 100644
---- a/include/drm/display/drm_dp_mst_helper.h
-+++ b/include/drm/display/drm_dp_mst_helper.h
-@@ -572,6 +572,16 @@ struct drm_dp_mst_atomic_payload {
- 	int time_slots;
- 	/** @pbn: The payload bandwidth for this payload */
- 	int pbn;
-+	/**
-+	 * @allocated_pbn: The payload bandwidth actually confirmed by the
-+	 * branch device in the ALLOCATE_PAYLOAD reply. Each MST branch along
-+	 * the path overrides this field to the maximum of the requested and
-+	 * its own constrained value, so the value received by the source
-+	 * reflects the tightest bottleneck along the entire path.
-+	 * Used instead of @pbn for bandwidth limit checks so that the source
-+	 * accounts for any per-hop adjustments made by intermediate branches.
-+	 */
-+	int allocated_pbn;
- 
- 	/** @delete: Whether or not we intend to delete this payload during this atomic commit */
- 	bool delete : 1;
--- 
-2.43.0
-
+Igor
