@@ -4,131 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42FAAC79FB9
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:56:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F14DC79FB8
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:56:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 568C610EF46;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81E1E10EF47;
 	Wed,  9 Sep 2026 06:55:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cyp8Sc1T";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UrTmL8Tt";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10A1910ED6B
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:18:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BD4884068D;
- Tue,  8 Sep 2026 20:18:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E3E21F00A3A;
- Tue,  8 Sep 2026 20:18:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788898719;
- bh=d3TWxBMlwlg/BAGS9Nv7Cc0TGFLPZ6nzTJBsPZVVy/8=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Cyp8Sc1T+RmXSRizmkCM77apMQ0zY67JT8PF0wNp+pLX/z82E2W5ee+eDvgVXCusm
- s4L6sxsPR4WIGnduLmy9OYvIhF6a9Yy1aQffhmAP3svFk6A4xtcPfq2fDY2B9MH+Cb
- G1uQaKSN8TLLwwUevyOv7FxPFFpcDwzpMHXHu4DbI0KiLL7fZWcf5YKraJLNTekDMv
- oRsgWuiMY39VZBg64m6WyhvgH1c9LP2WwMBxUjsDBNlabsYbJgBFTC5MJEUPnyoE24
- fRYKpSAQlZc16KBFKiPGQQgx/o0ZXMwBrz89FLdq8WhNlMVZJooriOisB+XjcXfMhw
- 3K0sNcj35wU1Q==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 08 Sep 2026 21:01:38 +0100
-Subject: [PATCH 34/39] mm: eliminate VMA_SPECIAL_FLAGS check in
- lru_gen_look_around()
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1513410EAE6
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 09:29:07 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-2d942c7cc2fso36319065ad.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 02:29:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788859746; x=1789464546; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=QPg1uLKI5p/H7J2E4b3w0DPqeVInWxkk5y+GYwVR13I=;
+ b=UrTmL8TteCC3NSD4D/4vHhaobKdF/e5yWsIGKPoqbTBqA3tYhrPE8aaxOfHtNtgBvO
+ HidREkXS15y2XHzroYMDEC1fZs7PLWMAdjFr+g5EfgMpjBUuyvUyvTI037mrd6QkFZLA
+ m2SmnDFLP5v6ZPRJV1i8ob8+CwkdbpkKCARx2nh9jGe+/bU3LWr00iREGAEye7KhJ64u
+ bXh5VPuTd5cpL0DK/i6uk180G6f2L3B40W7ztvmsxKPtpqul7Pubhv9LFuV5yorLoAc6
+ Wvc5Yb4jOkNhl2Jj6ZvT5JO21STzx5/i22OZQARGTTn0tLFztCnuq074eWq9BrX5AVdl
+ 9zvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788859746; x=1789464546;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=QPg1uLKI5p/H7J2E4b3w0DPqeVInWxkk5y+GYwVR13I=;
+ b=gaH/VYatBWa/RYfoZveklGtHVjm6CXrwtHA8PzP70vhxYuHogVj0vxNLRfT6R3Ths+
+ guVOcLy5AXwAwcjnEMmgFGXO3/xFNHdslj2JxeNMJr3yYnd1M5NX22MRfO9mTvOMNdjf
+ o/nOAq6+9DTHMxohpW3lCBIjBSoPLgXag071hFu6JIUaGUG7DU7WFuhmr/JFUVmTfmpB
+ 7WeWvgGL5D6Jq+Vu9Wg4n/0FEjkeKzpLB/oCll0HXS4dkZ9bFtBcVVGo53EayyEfd6JB
+ Fl+DRFf9Wi88dLowtrGz9fhPj7HOFldUUwSnB20p+Vz18SADmXvXZpgK0kTwlE4wQgNN
+ B2Lg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxGNZrnpD5FmSU2wyeKLuLq9hzO7+hRcS60fPYwvuqdfwV5UZ4xk/iL7DmIvAl5OA7IjeqHKi/U6z0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kyDIPPfLlnfhZDNimogUuQ7TsHFvKlavRqQbQT8ndweG46Ab6L
+ ug7w2RBIwXFTiUlOCFUdVDWDCGgyC3a8z7M5RP5dGKDOY2JXbWwE2eqq
+X-Gm-Gg: AYBFou1DhcHt9BhJEHGCsncUV1TN+EshjJ8FRveOd+1NVuE9/21EOSficW3nuA6qsO6
+ pHlbRjH2j/ZQlO8zLI+MdZ8uqHgsX+m0jgKALRLndY8F5tjoFq4w1fD45qYBnOEjOUwCePkjJXd
+ zWVteN2pVrnamu+ovrq+3+90o4QJo7eaiWhoSvX0jxl0Plg7+tHwljw9Lfx+UJxBRUfMjA3Z28B
+ GTDD1JHOUlo+OnOz/FLfhyBXROx1TAyHcQmm2/T74Ohw6f+NkEAp5gTWYr+L9INzIkXm+DsMfoc
+ hP+8LeZDQ7ecrdEzdVQn5JWax7N2T3NM4sevACLos6CaopmgIRp4/jJDdJLA2iLOCWvn5J5HirD
+ mn4HKgqPCzAhFc/OaLna7byihDotl3GerAZfEdhJRMo2WyzggkLphB/WBNRs2jkKKYwD+OPL6PS
+ Y1YyRAvGbh/eDH+UuTIixIVPiRDeN/RJrSNu8YKYhu2b5VnBY8sY1beGULDo8PmHMlrrvmztynP
+ eMPi45vtM0L87Kzzw9pIzIkYOT/H0Y9N/FKsXCr9Maua0iiASyDxBImC2c5iEg=
+X-Received: by 2002:a17:90b:1641:b0:399:1f8b:d255 with SMTP id
+ 98e67ed59e1d1-39b260dd3fdmr40172772a91.5.1788859746500; 
+ Tue, 08 Sep 2026 02:29:06 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net.
+ [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39b08c39227sm32109846a91.9.2026.09.08.02.29.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Sep 2026 02:29:06 -0700 (PDT)
+From: Joey Lu <a0987203069@gmail.com>
+To: zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Joey Lu <a0987203069@gmail.com>
+Subject: [PATCH v6 5/6] drm/verisilicon: add DCUltraLite chip identity to HWDB
+Date: Tue,  8 Sep 2026 17:28:39 +0800
+Message-ID: <20260908092840.225220-6-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260908092840.225220-1-a0987203069@gmail.com>
+References: <20260908092840.225220-1-a0987203069@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-34-dacf19cce22b@kernel.org>
-References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
-In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1176; i=ljs@kernel.org;
- h=from:subject:message-id; bh=wg6tA2nn+6f1lbuGoW1F+V8Pi2Wvdfqvh3DOyGzlDxk=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG6LffC5V7Do08lrkz51pDevaTzF1aQZfHZqXTffp
- NUblpw931HKwiDGxSArpsjy/Iv4/iCRsHmdF/zdYOawMoEMYeDiFICJfGpiZFhRphmg+WLxFNNF
- nQLnFdol3sxcKrh8QcHpT88XiM09bS/B8N//+Yk9jk/Xawtt9V6/6N7/Jw8XutlMlTh0yfnBm92
- Pzq3iBgA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:54:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -145,37 +95,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A kernel-owned or fixed mapping is one which sets VMA_PFNMAP_BIT,
-VMA_MIXEDMAP_BIT or VMA_DONTEXPAND_BIT, which is precisely what
-VMA_SPECIAL_FLAGS tests for other than VMA_IO_BIT, which is safe to drop as
-only kernel-owned mappings may set it.
+The Nuvoton MA35D1 chip contains a DCUltraLite display controller with
+model number 0x0 (sic, the model name contains no number either),
+revision 0x5560 and customer ID 0x305.  It has a similar register map
+with DC8000, only one display output and only 32x32 cursor supported.
 
-Using these predicates rather than VMA_SPECIAL_FLAGS makes the check
-self-documenting and helps eliminate the confusion around 'special' flags.
-
-No functional change intended.
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Joey Lu <a0987203069@gmail.com>
+Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 ---
- mm/vmscan.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/verisilicon/vs_hwdb.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 803754caf4fa..0082afbdbbdd 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4364,8 +4364,8 @@ bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr)
- 	if (spin_is_contended(pvmw->ptl))
- 		return true;
+diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c b/drivers/gpu/drm/verisilicon/vs_hwdb.c
+index 91524d16f7785..7d630a667a3f0 100644
+--- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
++++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
+@@ -129,6 +129,16 @@ static struct vs_chip_identity vs_chip_identities[] = {
+ 		.max_cursor_size = 64,
+ 		.formats = &vs_formats_no_yuv444,
+ 	},
++	{
++		.model = 0x0,		/* DCUltraLite */
++		.revision = 0x5560,
++		.customer_id = 0x305,
++
++		.generation = VSDC_GEN_DC8000,
++		.display_count = 1,
++		.max_cursor_size = 32,
++		.formats = &vs_formats_no_yuv444,
++	},
+ };
  
--	/* exclude special VMAs containing anon pages from COW */
--	if (vma->vm_flags & VM_SPECIAL)
-+	/* exclude kernel-owned and fixed VMAs containing anon pages from COW */
-+	if (vma_is_kernel_owned(vma) || vma_is_fixed_mapping(vma))
- 		return true;
- 
- 	/* avoid taking the LRU lock under the PTL when possible */
-
+ int vs_fill_chip_identity(struct regmap *regs,
 -- 
-2.55.0
+2.43.0
 
