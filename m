@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 278B3C79FAE
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 09:53:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2BF2C79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 09:58:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5818010E0D1;
-	Tue,  8 Sep 2026 09:53:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 295A610E71D;
+	Tue,  8 Sep 2026 09:58:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OQbJYS0r";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="URYU6/qi";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF70110E0D1
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 09:53:15 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAE7B10E71D
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 09:58:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0035E601DB;
- Tue,  8 Sep 2026 09:53:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF4A91F00A3A;
- Tue,  8 Sep 2026 09:53:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7EBDF435F9;
+ Tue,  8 Sep 2026 09:58:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8A8F1F00A3F;
+ Tue,  8 Sep 2026 09:58:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788861194;
- bh=6r6FK2ldE1DBGZWHW8Lq4ye4RQylsVurmE4OZ7oMsQ0=;
+ s=k20260515; t=1788861530;
+ bh=cE2GIGpzCoTJfok5ialF83+vS2toupukOH7Ha7eEy2A=;
  h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=OQbJYS0rq9/0PwrUixs0rFOKNvMTlvZZCW23RMMNGRHPBMRueu9MZhAuDL4efqHe0
- hqrHWz0AajIufXy7KYlkHMH5brbbMvpOpDjPGPu/PPLhODkAFDiwh1WaGDhX3+MBhO
- 6s3MJuwY78ik25i6qfF+dEcyA3Bly9+gQfA30IfypvbRfTWly3Fx7x964behRnKRUj
- 1V1lscDB/WzhbkUoqcJGXqegCCXQ2M7sO7q3E+1wOnSgLtF2DVIgw6Uvp0uaX3Rh6M
- /Txn44sovOu2LlPxavCj5WqAashE/DLsXsRqXSSIrtv/mgRFC7NWY2ceAyoNzA7v+G
- IdqC8b2NwgYVw==
-Message-ID: <b906ecb04f597dcc08e7343588d14015@kernel.org>
-Date: Tue, 08 Sep 2026 09:53:11 +0000
+ b=URYU6/qiDVZf8Bnwa3wJeFRuNJbuks2TgRJWOal//UegZQVZZMGJnvJ4ixFtBRVON
+ nkt9ubX3XDXScngwGHC9n7WJbZdAtFApQF5wKSAcAicX6j8ag4qkUyPDCWduJxFvNO
+ i9c5ik2MQso1iHtJXP3j4JKoyXmEf2f0DK27PAozWDIkrsp1rau7+i2UHOjACydIki
+ YbIibC+9eXiSHVBCEcB9FVbm4GSjnGg6qqFdYJnvaAMGosJkIuMEDG9kNnT/w+G6/m
+ LoxEc/UkkscsQjMDfpX/2JEbGaAIotd9v+xK924GpPZ2GEDxoHSr0RR/h8M9QBOAoG
+ sboGsRJqI2FAg==
+Message-ID: <dbd7ce5178e8e3049486aa89798abcce@kernel.org>
+Date: Tue, 08 Sep 2026 09:58:47 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Subject: Re: [PATCH v11 25/74] drm/display: bridge_connector: Switch to
- .force_ctx() connector helper
-In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-25-bc12954a0688@collabora.com>
-References: <20260901-dw-hdmi-qp-scramb-v11-25-bc12954a0688@collabora.com>
+Subject: Re: [PATCH v11 50/74] drm/bridge: adv7511: Advertise HDMI 1.2
+ capabilities
+In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-50-bc12954a0688@collabora.com>
+References: <20260901-dw-hdmi-qp-scramb-v11-50-bc12954a0688@collabora.com>
 Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com,
  linux-arm-kernel@lists.infradead.org, linux-fbdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
@@ -79,12 +79,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 1 Sep 2026 21:50:49 +0300, Cristian Ciocaltea wrote:
-> Turn drm_bridge_connector_force() into a .force_ctx() implementation and
-> hand the acquire context over to
-> drm_atomic_helper_connector_hdmi_force_ctx(), so that the HDMI connector
-> framework can reset the CRTC to recover the SCDC state when the sink
-> reconnects while the display pipeline is active.
+On Tue, 1 Sep 2026 21:51:14 +0300, Cristian Ciocaltea wrote:
+> Bridges using DRM_BRIDGE_OP_HDMI are now expected to also provide a
+> supported HDMI version.  This is not yet enforced, but will become
+> mandatory once the migration to the new caps-based HDMI connector
+> initialization API is completed.
+> 
 > 
 > [ ... ]
 
