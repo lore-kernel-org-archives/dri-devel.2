@@ -4,66 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 441DFC79FAA
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 08:21:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC532C79FA0
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 08:36:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 600EA10E6B0;
-	Tue,  8 Sep 2026 08:21:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7B8C10E514;
+	Tue,  8 Sep 2026 08:36:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="KmAefoZG";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mkOewvSR";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IQ5jvqo4";
 	dkim-atps=neutral
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C78510E0A6
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 08:21:03 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260908082102euoutp01c5e696c3f2aac1fdb878b74f2fc5c3e2~TSr840UhA3089630896euoutp016
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 08:21:02 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20260908082102euoutp01c5e696c3f2aac1fdb878b74f2fc5c3e2~TSr840UhA3089630896euoutp016
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1788855662;
- bh=Sfx91CShzrdAeYPF8QQviGdlRmGljU972NsYhPjm+hY=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=KmAefoZGlo4tlmfgmycp5ej0k1xg7W7ABt9FWYLRrWFZZNx9ougFH/ZmcCnWZGvya
- f+WAV8zZQ464ojpc5Sv21SuCvzi/f98EEKTVuIGoWrWR0y5Tp+Zg7yIH5vZMWUZgRX
- Pr9DllXIxRHLWDddd/tr97W6bfWXSq0Vr9Vhu5cQ=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20260908082101eucas1p1b98597ee7866e0889bb1a853c318175c~TSr8gW6EM0711007110eucas1p1J;
- Tue,  8 Sep 2026 08:21:01 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20260908082100eusmtip2b264cdb1a3edc330096d5427b9dc35a5~TSr7mezgn3204232042eusmtip2C;
- Tue,  8 Sep 2026 08:21:00 +0000 (GMT)
-Message-ID: <fa91f9e3-ae45-44b2-9429-348fbc73c285@samsung.com>
-Date: Tue, 8 Sep 2026 10:21:00 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FB2F10E05B
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 08:36:36 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6886LkLZ3299414
+ for <dri-devel@lists.freedesktop.org>; Tue, 8 Sep 2026 08:36:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ tiYasFIpEE/Y34RE614DnJmliaBqbzzu2btysmodjNw=; b=mkOewvSRFnOF0E3+
+ qq1rNZ1Q8vtRFjpVAdEKQA6fxCJB8eOppF7CfUdX5QMnn2CpVw9/cO4UIaskeY+l
+ 18RnIebbn8MdK+tpCTnb08hweR4BIdJFBEUZOMJtKhsdbpHJBkj789oy5rKjXloX
+ 2I9q+tkyBUUhrCNDn8Wh1cDXrOqIqAq3nzqVVhGnK7RvVfspDErYcxf7+ImFFBC+
+ HnY/gpv7kuV1PEF3P2UwaeeGTyuZnh90aNZ/j2nKEFlDWbLSX/m9TEdr0TbBL48f
+ 304e5L9qbQw8Ay89AedMSNdZnw8if4zX6KSen58i1UxfJZXIZMGOZWedKDZOaq1/
+ wuUJRg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjb0p908u-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 08:36:35 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-93975d63ffcso483694485a.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 01:36:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1788856595; x=1789461395;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=tiYasFIpEE/Y34RE614DnJmliaBqbzzu2btysmodjNw=;
+ b=IQ5jvqo44yRwGiYCkS6+0Eks/KWcW8axjzFetymlDgeZCjcTvnQ961ieBgUlpGP48S
+ XHQOIHBEoIXpmwrSNPiml3CJJl69Le5AIXpVjST0MMktJmUNkiejCDpb2ytbALl9Dzel
+ ltgYY8agY6scO1+qRscY96ua6EwHpCu+XTEufErhqw4AYfJOqBeaiJE2OzvHDOiBV+an
+ oZYw0dv7F20NSQGJGzbydjclyVt/Ros82stHP75MPzRvctarJfKjpS2PvT+iz1ky+iIr
+ QR96tyxPoSuDB/0XgDUCTpgSI/JUw1um8miKZ+BPuKdYkLnnnrWI8qDPUKdOopaxmjqO
+ sNbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788856595; x=1789461395;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=tiYasFIpEE/Y34RE614DnJmliaBqbzzu2btysmodjNw=;
+ b=j4ddrvYp4kdW4yODzkI5oTbUHMuy4IP24M8gN5k2NUFbTtlnAYHgoRIYcqOtBjmlKG
+ 1A9eWCtkBP0nDZAhuS2JD7Qkw65OkSRMIWaanwmm4FBls4/vL2w8FtooP81f7/Ew59Ez
+ nH9LuVtnjYMeq9fZXctxGydTfSlGk2RPega6fWaEgqimwjXihR2XUnrA1xN6u4AeO3BM
+ MzWnXIaVWRqoT0cSZSYF7IohR2Zj6z8pvX5SWYP1VO3eNLhbeYRlfEi4gtWXiSrFSbvc
+ LHx2plCAC9ut6tu+7fNmlKZdL8/1nZ99PI3Vcph8cbgDXFGbF/UR4/hLcvT3wa9soJi1
+ nNWQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzIaET0ivV9MCb2FUnq84/HD7rDqMC0ktI1KN8qOhY0+GYcW8MipvDanXc9XRwJq4ZiRqQH7+YcIG8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++laI6aS+CNEk9jK8n8xERMVxk2pO2Bt3Znr20+LUGdaVepMnyCH
+ bB0kia/CQ6+mRa3x5to03yk/i3VeRk5nb6AWhUEGr3g1i4S/QBzGcP5yMLQtnzOlNEbKt3PZ2aX
+ Ap9WeC//dBuNG/6XxmsoVa846gsJWqDG4PAFeF+ySxhfeh66Z+LS/GWij0JKcj1cP2LbkQdM=
+X-Gm-Gg: AYBFou25lPN4S1RQ9xbHgG5mbMH9FyJR0QliLZZ9yuogAA3pE1c6D6mljVWlrWgR1oA
+ GObma6IxuO9In/IpcAvsgCheb/YcBzOPR7rqPmZMV8hEglUO3gtj+oA+hfQ2D1QpAJ3iKaOzS8O
+ t2Hizs68NVQraopDSYVMyyuzoU0UQYU0XMrH9ZRHHy766i2lTMsqlrLrX8HvyBEITJJUk4SKdYp
+ qU9lKM69Xk/b7AyXwgcwcGXCREQvu4rPE6r1V6ymN4/0vkd1KKaBzqPC8Mf5TWWaLZ3nlVrRg14
+ 40l3MQYCPbJJSFkny5PvhF483I8wJxS7zWY3DetSXmukff2GiWQOGyJDX3BFmICTqsgKJxIaTjd
+ TjjZPaH5DxrPtAhsKjQItZ4fK2hTB
+X-Received: by 2002:a05:620a:46a1:b0:939:922b:3de1 with SMTP id
+ af79cd13be357-939922b4881mr2238182885a.44.1788856594826; 
+ Tue, 08 Sep 2026 01:36:34 -0700 (PDT)
+X-Received: by 2002:a05:620a:46a1:b0:939:922b:3de1 with SMTP id
+ af79cd13be357-939922b4881mr2238180685a.44.1788856594450; 
+ Tue, 08 Sep 2026 01:36:34 -0700 (PDT)
+Received: from [192.168.1.110] ([178.197.219.214])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49cee6024a8sm482095385e9.6.2026.09.08.01.36.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Sep 2026 01:36:33 -0700 (PDT)
+Message-ID: <0e876b5f-13cc-4fdb-b7b5-78621cfdd80d@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 10:36:32 +0200
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v6 07/12] mm/cma: Introduce cma_alloc_at() API
-To: Thierry Reding <thierry.reding@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
-Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
- linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 7/7] dt-bindings: display/msm: hdmi: Correct name of
+ disallowed supplies
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+References: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-0-dcf8956878ca@oss.qualcomm.com>
+ <20260908-drm-msm-hdmi-fixes-before-eliza-v3-7-dcf8956878ca@oss.qualcomm.com>
+ <20260908072249.83C5B1F00A3A@smtp.kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20260904-tegra-vpr-v6-7-79042cfa8de5@nvidia.com>
+In-Reply-To: <20260908072249.83C5B1F00A3A@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260908082101eucas1p1b98597ee7866e0889bb1a853c318175c
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260904104542eucas1p15f23d1ef005ed971314ee29521fc1e9d
-X-EPHeader: CA
-X-CMS-RootMailID: 20260904104542eucas1p15f23d1ef005ed971314ee29521fc1e9d
-References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
- <CGME20260904104542eucas1p15f23d1ef005ed971314ee29521fc1e9d@eucas1p1.samsung.com>
- <20260904-tegra-vpr-v6-7-79042cfa8de5@nvidia.com>
+X-Proofpoint-ORIG-GUID: MEcT0AjDQz5-PWDWz3qRyHnG2jANLpA7
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA5MCBTYWx0ZWRfX6eZqaagaAIBn
+ m09m3I1OvKDvPU699k0pbUoSQ9q5I9gqaKfRBF0/089nFirhC5yjLXxwirXItYg35PUAfbXeizP
+ 9Mmwe8Mo36pgOigFicQV/f+qmMmc1s4=
+X-Authority-Analysis: v=2.4 cv=HL3z0Itv c=1 sm=1 tr=0 ts=6a9fc913 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=VwQbUJbxAAAA:8 a=12aO51z3czoBTLisYu4A:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-GUID: MEcT0AjDQz5-PWDWz3qRyHnG2jANLpA7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA5MCBTYWx0ZWRfXw9zHsa70A6sU
+ QhPBtkYiUHOHBhV7ApZ5hlKUNHX8Hsm3SajutkaPA/908xa0zNFuLCofiybkD3poy4OG9ciwC1/
+ h3MKIQtL0UH2OSga/9XZGwYUPDgYzx7ic8nY3vuUQ2dIczZIvA7W09ujbKEhZDV82BjP0unYqSD
+ k5oN9GyD+GcNVAcO+a1ae2UvTN6DDeLezp0+PVjy3Qe1hgiJw/YiCQCqfOwjeklBDrYhv1zAuPv
+ MnetxBFHdxlKrXVGUWH4hV4Pu40IRYuj92gVQfWzZAhK0f//3qlqvH3H3zQW55JW0N2dpEfnNwF
+ /rsRTtFF9i+LFrdolRgtWOc4l42qGeTp+27PqcTRlFiNzoAQEtnRMe6aYqTjF7qqz6o3aIzJfk7
+ LAo6FAhpEI4Vpq8e8wHZmevLm/WF65sVNL2wX6VTOJPwuuEdJV5nFQHeMS2oi8xGV91xRPS0625
+ nLyei6v8NGY0vSS8xhQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 clxscore=1015 suspectscore=0
+ impostorscore=0 spamscore=0 phishscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609080090
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,355 +147,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 04.09.2026 12:44, Thierry Reding wrote:
-> From: Thierry Reding <treding@nvidia.com>
->
-> This API can be used to allocate a number of CMA pages starting at a
-> fixed offset. This is useful, for example, if the CMA area is used as
-> backing storage for a nested allocator that has stricter requirements
-> than CMA itself.
->
-> In order to reuse most of the existing code, the cma_range_alloc()
-> function is enhanced to take as inputs a range of pages to look for a
-> free region. If this range encompasses the entire CMA range, the
-> behavior is as before, but the range can also be specified to match
-> the offset and size passed in from cma_alloc_at(), in which case that
-> is the range that will be allocated (or allocation will fail if the
-> range is not available).
->
-> Suggested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
-Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> ---
-> Changes in v6:
-> - refactor cma_range_alloc() so it can be reused for _at() code paths
-> ---
->  include/linux/cma.h        |  4 +++
->  include/trace/events/cma.h | 77 ++++++++++++++++++++++++++++++++++++++--
->  mm/cma.c                   | 88 +++++++++++++++++++++++++++++++++++-----------
->  3 files changed, 146 insertions(+), 23 deletions(-)
->
-> diff --git a/include/linux/cma.h b/include/linux/cma.h
-> index 8555d38a97b1..844404459a42 100644
-> --- a/include/linux/cma.h
-> +++ b/include/linux/cma.h
-> @@ -49,11 +49,15 @@ extern int cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
->  					struct cma **res_cma);
->  extern struct page *cma_alloc(struct cma *cma, unsigned long count, unsigned int align,
->  			      bool no_warn);
-> +extern struct page *cma_alloc_at(struct cma *cma, unsigned long offset,
-> +				 unsigned long count, bool no_warn);
->  extern bool cma_release(struct cma *cma, const struct page *pages, unsigned long count);
->  
->  struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
->  		unsigned int align, bool no_warn);
->  struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order);
-> +struct page *cma_alloc_at_frozen(struct cma *cma, unsigned long offset,
-> +				 unsigned long count, bool no_warn);
->  bool cma_release_frozen(struct cma *cma, const struct page *pages,
->  		unsigned long count);
->  
-> diff --git a/include/trace/events/cma.h b/include/trace/events/cma.h
-> index 37195edf2498..4e0ab63e303f 100644
-> --- a/include/trace/events/cma.h
-> +++ b/include/trace/events/cma.h
-> @@ -38,13 +38,17 @@ TRACE_EVENT(cma_release,
->  
->  TRACE_EVENT(cma_alloc_start,
->  
-> -	TP_PROTO(const char *name, unsigned long request_count, unsigned long available_count,
-> +	TP_PROTO(const char *name, unsigned long start, unsigned long end,
-> +		unsigned long request_count, unsigned long available_count,
->  		unsigned long total_count, unsigned int align),
->  
-> -	TP_ARGS(name, request_count, available_count, total_count, align),
-> +	TP_ARGS(name, start, end, request_count, available_count, total_count,
-> +		align),
->  
->  	TP_STRUCT__entry(
->  		__string(name, name)
-> +		__field(unsigned long, start)
-> +		__field(unsigned long, end)
->  		__field(unsigned long, request_count)
->  		__field(unsigned long, available_count)
->  		__field(unsigned long, total_count)
-> @@ -53,14 +57,18 @@ TRACE_EVENT(cma_alloc_start,
->  
->  	TP_fast_assign(
->  		__assign_str(name);
-> +		__entry->start = start;
-> +		__entry->end = end;
->  		__entry->request_count = request_count;
->  		__entry->available_count = available_count;
->  		__entry->total_count = total_count;
->  		__entry->align = align;
->  	),
->  
-> -	TP_printk("name=%s request_count=%lu available_count=%lu total_count=%lu align=%u",
-> +	TP_printk("name=%s start=%lu end=%lu request_count=%lu available_count=%lu total_count=%lu align=%u",
->  		  __get_str(name),
-> +		  __entry->start,
-> +		  __entry->end,
->  		  __entry->request_count,
->  		  __entry->available_count,
->  		  __entry->total_count,
-> @@ -132,6 +140,69 @@ TRACE_EVENT(cma_alloc_busy_retry,
->  		  __entry->align)
->  );
->  
-> +TRACE_EVENT(cma_alloc_at_start,
-> +
-> +	TP_PROTO(const char *name, unsigned long pfn,
-> +		 unsigned long request_count, unsigned long available_count,
-> +		 unsigned long total_count),
-> +
-> +	TP_ARGS(name, pfn, request_count, available_count, total_count),
-> +
-> +	TP_STRUCT__entry(
-> +		__string(name, name)
-> +		__field(unsigned long, pfn)
-> +		__field(unsigned long, request_count)
-> +		__field(unsigned long, available_count)
-> +		__field(unsigned long, total_count)
-> +	),
-> +
-> +	TP_fast_assign(
-> +		__assign_str(name);
-> +		__entry->pfn = pfn;
-> +		__entry->request_count = request_count;
-> +		__entry->available_count = available_count;
-> +		__entry->total_count = total_count;
-> +	),
-> +
-> +	TP_printk("name=%s pfn=%lx, request_count=%lu available_count=%lu total_count=%lu",
-> +		  __get_str(name),
-> +		  __entry->pfn,
-> +		  __entry->request_count,
-> +		  __entry->available_count,
-> +		  __entry->total_count)
-> +);
-> +
-> +TRACE_EVENT(cma_alloc_at_finish,
-> +
-> +	TP_PROTO(const char *name, unsigned long pfn, const struct page *page,
-> +		 unsigned long count, int errorno),
-> +
-> +	TP_ARGS(name, pfn, page, count, errorno),
-> +
-> +	TP_STRUCT__entry(
-> +		__string(name, name)
-> +		__field(unsigned long, pfn)
-> +		__field(const struct page *, page)
-> +		__field(unsigned long, count)
-> +		__field(int, errorno)
-> +	),
-> +
-> +	TP_fast_assign(
-> +		__assign_str(name);
-> +		__entry->pfn = pfn;
-> +		__entry->page = page;
-> +		__entry->count = count;
-> +		__entry->errorno = errorno;
-> +	),
-> +
-> +	TP_printk("name=%s pfn=0x%lx page=%p count=%lu errorno=%d",
-> +		  __get_str(name),
-> +		  __entry->pfn,
-> +		  __entry->page,
-> +		  __entry->count,
-> +		  __entry->errorno)
-> +);
-> +
->  #endif /* _TRACE_CMA_H */
->  
->  /* This part must be outside protection */
-> diff --git a/mm/cma.c b/mm/cma.c
-> index a10ea37a261d..f92d3a188209 100644
-> --- a/mm/cma.c
-> +++ b/mm/cma.c
-> @@ -783,25 +783,32 @@ static void cma_debug_show_areas(struct cma *cma)
->  	spin_unlock_irq(&cma->lock);
->  }
->  
-> +/*
-> + * Searches the CMA memrange, from @start to @end, for a free region of
-> + * @count bits. If @end is less or equal to @start, will search the entire
-> + * memrange.
-> + */
->  static int cma_range_alloc(struct cma *cma, struct cma_memrange *cmr,
-> -				unsigned long count, unsigned int align,
-> -				struct page **pagep, gfp_t gfp)
-> +			   unsigned long start, unsigned long end,
-> +			   unsigned long count, unsigned int align,
-> +			   struct page **pagep, gfp_t gfp)
->  {
->  	unsigned long bitmap_maxno, bitmap_no, bitmap_count;
-> -	unsigned long start, pfn, mask, offset;
-> -	int ret = -EBUSY;
-> +	unsigned long pfn, mask, offset;
->  	struct page *page = NULL;
-> +	int ret = -EBUSY;
->  
->  	mask = cma_bitmap_aligned_mask(cma, align);
->  	offset = cma_bitmap_aligned_offset(cma, cmr, align);
-> -	bitmap_maxno = cma_bitmap_maxno(cma, cmr);
-> +	bitmap_maxno = (end > start) ? end : cma_bitmap_maxno(cma, cmr);
->  	bitmap_count = cma_bitmap_pages_to_bits(cma, count);
->  
->  	if (bitmap_count > bitmap_maxno)
->  		goto out;
->  
-> -	for (start = 0; ; start = bitmap_no + mask + 1) {
-> +	while (true) {
->  		spin_lock_irq(&cma->lock);
-> +
->  		/*
->  		 * If the request is larger than the available number
->  		 * of pages, stop right away.
-> @@ -810,6 +817,7 @@ static int cma_range_alloc(struct cma *cma, struct cma_memrange *cmr,
->  			spin_unlock_irq(&cma->lock);
->  			break;
->  		}
-> +
->  		bitmap_no = bitmap_find_next_zero_area_off(cmr->bitmap,
->  				bitmap_maxno, start, bitmap_count, mask,
->  				offset);
-> @@ -835,10 +843,11 @@ static int cma_range_alloc(struct cma *cma, struct cma_memrange *cmr,
->  
->  		bitmap_set(cmr->bitmap, bitmap_no, bitmap_count);
->  		cma->available_count -= count;
-> +
->  		/*
-> -		 * It's safe to drop the lock here. We've marked this region for
-> -		 * our exclusive use. If the migration fails we will take the
-> -		 * lock again and unmark it.
-> +		 * It's safe to drop the lock here. We've marked this region
-> +		 * for our exclusive use. If the migration fails we will take
-> +		 * the lock again and unmark it.
->  		 */
->  		spin_unlock_irq(&cma->lock);
->  
-> @@ -856,37 +865,45 @@ static int cma_range_alloc(struct cma *cma, struct cma_memrange *cmr,
->  			 __func__, pfn, page);
->  
->  		trace_cma_alloc_busy_retry(cma->name, pfn, page, count, align);
-> +		start = bitmap_no + mask + 1;
->  	}
-> +
->  out:
->  	if (!ret)
->  		*pagep = page;
-> +
->  	return ret;
->  }
->  
-> -static struct page *__cma_alloc_frozen(struct cma *cma,
-> -		unsigned long count, unsigned int align, gfp_t gfp)
-> +static struct page *__cma_alloc_frozen(struct cma *cma, unsigned long start,
-> +				       unsigned long end, unsigned long count,
-> +				       unsigned int align, gfp_t gfp)
->  {
->  	struct page *page = NULL;
->  	int ret = -ENOMEM, r;
->  	unsigned long i;
-> -	const char *name = cma ? cma->name : NULL;
-> +
-> +	/* cma_alloc_at() and friends will only work with single-range CMA */
-> +	if (WARN_ON_ONCE(start > 0 && cma->nranges != 1))
-> +		return page;
->  
->  	if (!cma || !cma->count)
->  		return page;
->  
-> -	pr_debug("%s(cma %p, name: %s, count %lu, align %d)\n", __func__,
-> -		(void *)cma, cma->name, count, align);
-> +	pr_debug("%s(cma %p, name: %s, start %lu, end %lu, count %lu, align %d)\n",
-> +		 __func__, (void *)cma, cma->name, start, end, count, align);
->  
->  	if (!count)
->  		return page;
->  
-> -	trace_cma_alloc_start(name, count, cma->available_count, cma->count, align);
-> +	trace_cma_alloc_start(cma->name, start, end, count,
-> +			      cma->available_count, cma->count, align);
->  
->  	for (r = 0; r < cma->nranges; r++) {
->  		page = NULL;
->  
-> -		ret = cma_range_alloc(cma, &cma->ranges[r], count, align,
-> -				       &page, gfp);
-> +		ret = cma_range_alloc(cma, &cma->ranges[r], start, end,
-> +				      count, align, &page, gfp);
->  		if (ret != -EBUSY || page)
->  			break;
->  	}
-> @@ -908,7 +925,7 @@ static struct page *__cma_alloc_frozen(struct cma *cma,
->  	}
->  
->  	pr_debug("%s(): returned %p\n", __func__, page);
-> -	trace_cma_alloc_finish(name, page ? page_to_pfn(page) : 0,
-> +	trace_cma_alloc_finish(cma->name, page ? page_to_pfn(page) : 0,
->  			       page, count, align, ret);
->  	if (page) {
->  		count_vm_event(CMA_ALLOC_SUCCESS);
-> @@ -926,14 +943,22 @@ struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
->  {
->  	gfp_t gfp = GFP_KERNEL | (no_warn ? __GFP_NOWARN : 0);
->  
-> -	return __cma_alloc_frozen(cma, count, align, gfp);
-> +	return __cma_alloc_frozen(cma, 0, 0, count, align, gfp);
->  }
->  
->  struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order)
->  {
->  	gfp_t gfp = GFP_KERNEL | __GFP_COMP | __GFP_NOWARN;
->  
-> -	return __cma_alloc_frozen(cma, 1 << order, order, gfp);
-> +	return __cma_alloc_frozen(cma, 0, 0, 1 << order, order, gfp);
-> +}
-> +
-> +struct page *cma_alloc_at_frozen(struct cma *cma, unsigned long offset,
-> +				 unsigned long count, bool no_warn)
-> +{
-> +	gfp_t gfp = GFP_KERNEL | (no_warn ? __GFP_NOWARN : 0);
-> +
-> +	return __cma_alloc_frozen(cma, offset, offset + count, count, 0, gfp);
->  }
->  
->  /**
-> @@ -959,6 +984,29 @@ struct page *cma_alloc(struct cma *cma, unsigned long count,
->  }
->  EXPORT_SYMBOL_GPL(cma_alloc);
->  
-> +/**
-> + * cma_alloc_at() - allocate pages from contiguous area at fixed offset
-> + * @cma:     Contiguous memory region for which the allocation is performed.
-> + * @offset:  Index of the first page to allocate.
-> + * @count:   Requested number of pages (in PAGE_SIZE order).
-> + * @no_warn: Avoid printing message about failed allocation.
-> + *
-> + * This function allocates a part of the contiguous memory on a specific
-> + * contiguous memory area.
-> + */
-> +struct page *cma_alloc_at(struct cma *cma, unsigned long offset,
-> +			  unsigned long count, bool no_warn)
-> +{
-> +	struct page *page;
-> +
-> +	page = cma_alloc_at_frozen(cma, offset, count, no_warn);
-> +	if (page)
-> +		set_pages_refcounted(page, count);
-> +
-> +	return page;
-> +}
-> +EXPORT_SYMBOL_GPL(cma_alloc_at);
-> +
->  static struct cma_memrange *find_cma_memrange(struct cma *cma,
->  		const struct page *pages, unsigned long count)
->  {
->
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+On 08/09/2026 09:22, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] Unclocked register access in `msm_hdmi_bridge_atomic_post_disable` if `atomic_pre_enable` fails, leading to a system crash.
+> --
 
+False positive
+
+Best regards,
+Krzysztof
