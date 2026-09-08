@@ -4,41 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B679C79F82
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 14:48:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3559CC79FAA
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 14:48:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A82B10EC61;
-	Tue,  8 Sep 2026 14:47:59 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0417510EC61;
- Tue,  8 Sep 2026 14:47:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A4D710EC65;
+	Tue,  8 Sep 2026 14:48:02 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LVulBfmG";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41AB410EC63
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 14:48:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7C54B601FE;
- Tue,  8 Sep 2026 14:47:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB9181F00A3E;
- Tue,  8 Sep 2026 14:47:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2B32F43CC5;
+ Tue,  8 Sep 2026 14:48:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD6961F00A3F;
+ Tue,  8 Sep 2026 14:48:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788878881;
+ bh=EnBo6eqfm20VoU8CFUCK+pCP52GsNCMrfz4EAuIY4n4=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=LVulBfmG5XTCf8tJhY+us9DSmXmCo0wr2B+140s/LKnLGYliCiUmBuVuJcioG2I9l
+ 9+sidO8IT1DDiPvEI47+4qvBcGuikm51s37cvm6E2L1GIJGbBFqa2lf02XCKkrtX/b
+ cG5QIqDRlVCIdthQfAe+nfO3hRD1Y6g+Pj3o/O860RWzIA4SBgv2UVZxiMRSitbANq
+ 0pJyS4OI+F1y5p43JxOsTmDngHdyi8qx8fQd68d5TXpYiKIUBGJ1208ij250HHR4Tc
+ CfDiMTdSVPEZPhVD8zRDsDlbMNiOPsKIIhoFVuNf7j3bex4PVd5oY+Dxh9FmIiGwEW
+ qBdLWKyET90Jg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 08 Sep 2026 16:46:45 +0200
-Subject: [PATCH v4 14/41] drm/qxl: Convert to atomic_create_state
+Date: Tue, 08 Sep 2026 16:46:46 +0200
+Subject: [PATCH v4 15/41] drm/rockchip: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-drm-no-more-plane-reset-v4-14-a31b3fcfc989@kernel.org>
+Message-Id: <20260908-drm-no-more-plane-reset-v4-15-a31b3fcfc989@kernel.org>
 References: <20260908-drm-no-more-plane-reset-v4-0-a31b3fcfc989@kernel.org>
 In-Reply-To: <20260908-drm-no-more-plane-reset-v4-0-a31b3fcfc989@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- airlied@redhat.com, kraxel@redhat.com, spice-devel@lists.freedesktop.org, 
- virtualization@lists.linux.dev
+ andy.yan@rock-chips.com, heiko@sntech.de, hjc@rock-chips.com, 
+ linux-rockchip@lists.infradead.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6661; i=mripard@kernel.org;
- h=from:subject:message-id; bh=Rnz+l7dCa+RJ0rgHLk59kec3s+fW1wEhxovhfo0D2mI=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkL5C/rTVYoY5yc8rLnkN1Wri8vGqR3mG1SisxxbRZ1n
- Ll7nWZjx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhIhRhjw9pjSX8ebQwN54j3
- s/9Y42N3dE7l+y9WExYWSp0oTgjvfLvGflug1v8p2f+FW338UztOMzZ822Vqr/r/d9OHZ5ZT5GU
- qU6KfTJ+d/ThDa8WZ++YvVzcd83s6m0Xx0eFPERql1g+mC70AAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6962; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=qJBkAj8sMu0YC2yOSu4CGiooz2xOVvkwLHBd+SRcgNI=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkL5K8INUZt3M67YObd0skrXj7d92Btddij0qlrvr6cd
+ Li4fMot2Y6pLAzCnAyyYoosT2TCTi9vX1zlYL/yB8wcViaQIQxcnAIwkSu8jPWe1gzflUXi+dO4
+ Fv00WDYpQnL1Jy3LeGFDS5vb+Se+vzuTa/Ev4bxAUbPdK75ps0PMDzM2HMx3P3F4fUi86isnjgu
+ njXguJnH7+EfW3girPbbqiPG+BWVn7VS8rwY11tl8eVo3j2szAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -322,44 +335,49 @@ expression PS;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: airlied@redhat.com
-Cc: kraxel@redhat.com
-Cc: spice-devel@lists.freedesktop.org
-Cc: virtualization@lists.linux.dev
+Cc: andy.yan@rock-chips.com
+Cc: heiko@sntech.de
+Cc: hjc@rock-chips.com
+Cc: linux-rockchip@lists.infradead.org
 ---
- drivers/gpu/drm/qxl/qxl_display.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop.c  | 2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_display.c
-index 7654575bcf00..9a2c2010dc7a 100644
---- a/drivers/gpu/drm/qxl/qxl_display.c
-+++ b/drivers/gpu/drm/qxl/qxl_display.c
-@@ -927,11 +927,11 @@ static const struct drm_plane_helper_funcs qxl_cursor_helper_funcs = {
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
+index bd02597dc2d7..b327a475b5bb 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
+@@ -1155,11 +1155,11 @@ static const struct drm_plane_helper_funcs plane_helper_funcs = {
  
- static const struct drm_plane_funcs qxl_cursor_plane_funcs = {
+ static const struct drm_plane_funcs vop_plane_funcs = {
  	.update_plane	= drm_atomic_helper_update_plane,
  	.disable_plane	= drm_atomic_helper_disable_plane,
- 	.destroy	= drm_plane_helper_destroy,
--	.reset		= drm_atomic_helper_plane_reset,
+ 	.destroy = drm_plane_cleanup,
+-	.reset = drm_atomic_helper_plane_reset,
 +	.atomic_create_state = drm_atomic_helper_plane_create_state,
  	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
  	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+ 	.format_mod_supported = rockchip_mod_supported,
  };
  
- static const uint32_t qxl_primary_plane_formats[] = {
-@@ -949,11 +949,11 @@ static const struct drm_plane_helper_funcs primary_helper_funcs = {
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index b2f3a579bbe5..bfb384142568 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -1495,11 +1495,11 @@ static const struct drm_plane_helper_funcs vop2_plane_helper_funcs = {
  
- static const struct drm_plane_funcs qxl_primary_plane_funcs = {
+ static const struct drm_plane_funcs vop2_plane_funcs = {
  	.update_plane	= drm_atomic_helper_update_plane,
  	.disable_plane	= drm_atomic_helper_disable_plane,
- 	.destroy	= drm_plane_helper_destroy,
--	.reset		= drm_atomic_helper_plane_reset,
+ 	.destroy = drm_plane_cleanup,
+-	.reset = drm_atomic_helper_plane_reset,
 +	.atomic_create_state = drm_atomic_helper_plane_create_state,
  	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
  	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+ 	.format_mod_supported = rockchip_vop2_mod_supported,
  };
  
- static struct drm_plane *qxl_create_plane(struct qxl_device *qdev,
 
 -- 
 2.55.0
