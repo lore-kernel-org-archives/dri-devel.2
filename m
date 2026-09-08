@@ -4,53 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDABBC79FAD
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 09:59:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8190C79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 10:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2547B10E874;
-	Tue,  8 Sep 2026 09:59:20 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD5A010E84D
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 09:59:13 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EE82060A93;
- Tue,  8 Sep 2026 09:59:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35B621F00A3A;
- Tue,  8 Sep 2026 09:59:12 +0000 (UTC)
-Message-ID: <e2276f3d021d374a4638dd6dc899e24b@kernel.org>
-Date: Tue, 08 Sep 2026 09:59:08 +0000
-From: "Maxime Ripard" <mripard@kernel.org>
-To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Subject: Re: [PATCH v11 52/74] drm/bridge: ite-it6263: Drop redundant
- .mode_valid hook
-In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-52-bc12954a0688@collabora.com>
-References: <20260901-dw-hdmi-qp-scramb-v11-52-bc12954a0688@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com,
- linux-arm-kernel@lists.infradead.org, linux-fbdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-sunxi@lists.linux.dev, "Algea
- Cao" <algea.cao@rock-chips.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>,
- "Andy
- Yan" <andy.yan@rock-chips.com>, "Chen-Yu Tsai" <wens@kernel.org>, "Daniel
- Stone" <daniels@collabora.com>,
- "Dave Stevenson" <dave.stevenson@raspberrypi.com>, "David
- Airlie" <airlied@gmail.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- =?utf-8?b?SGVpa28gU3TDvGJuZXI=?= <heiko@sntech.de>,
- "Helge Deller" <deller@gmx.de>, "Jernej
- Skrabec" <jernej.skrabec@gmail.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Liu Ying" <victor.liu@nxp.com>,
- "Luca Ceresoli" <luca.ceresoli@bootlin.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime
- Ripard" <mripard@kernel.org>, =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>,
- "Neil
- Armstrong" <neil.armstrong@linaro.org>, "Phong LE" <ple@baylibre.com>, "Raphael
- Gallais-Pou" <rgallaispou@gmail.com>,
- "Raspberry Pi Kernel Maintenance" <kernel-list@raspberrypi.com>, "Robert
- Foss" <rfoss@kernel.org>, "Samuel Holland" <samuel@sholland.org>, "Sandy
- Huang" <hjc@rock-chips.com>, "Simona Vetter" <simona@ffwll.ch>, "Thomas
- Zimmermann" <tzimmermann@suse.de>
-Content-Transfer-Encoding: 7bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CD7B10E84D;
+	Tue,  8 Sep 2026 10:02:44 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="k2QjJN2P";
+	dkim-atps=neutral
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 060F710E9E3
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 10:02:41 +0000 (UTC)
+Received: from francesco-nb.corp.toradex.com
+ (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
+ by mail11.truemail.it (Postfix) with ESMTPA id 955FB2037C;
+ Tue,  8 Sep 2026 12:02:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+ s=default; t=1788861759;
+ bh=s44HXDX+ZX1RHp9/nbKIfpiIWQyXK7l4galcUQO1A5g=; h=From:To:Subject;
+ b=k2QjJN2PqtVSe4hTRSXLytQvozeeNJY/ZU2WE1WBNR7+sr1vuxLcKYa4vMj3hqOrS
+ rAERFZZ8wX2meMOUpxXCHsEZ9IpnIdAZJ09EuJkliOEZKzWNKrN+QIGzkQrNJ4KPEo
+ G8FJQcLm/AjDd/hPr4e4i5zDC/LapZNLPb3YMlLDaLK3jZY2VlvI+3sgwkKu1kkxAy
+ PhOBEkB+SwOyii4Ijp2tUAbMU9BYTUe45SBefgACypceakRssTv16iRIJZc7XN3S0M
+ B5qvZCj//QaGOTG8dvSNg0GcCkZnwTfTZrTA/ILojTqjkCOWlvGugsMXr8nZGIdafm
+ Xwy7+wWhKikAQ==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Francesco Dolcini <francesco@dolcini.it>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v1 0/3] drm/bridge: Add Thine THC63LVD827 LVDS encoder and
+ 10inch LVDS panel on Colibri iMX7
+Date: Tue,  8 Sep 2026 12:02:24 +0200
+Message-ID: <20260908100230.83796-1-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,16 +70,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 1 Sep 2026 21:51:16 +0300, Cristian Ciocaltea wrote:
-> Bridges using DRM_BRIDGE_OP_HDMI expect connectors to be created through
-> drm_bridge_connector_init(), thereby relying on the bridge connector's
-> .mode_valid hook to invoke drm_hdmi_connector_mode_valid().
-> 
-> The generic helper computes the mode's TMDS character rate and forwards
-> 
-> [ ... ]
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
+This series adds support for the Thine THC63LVD827 DPI to LVDS encoder and
+afterward uses it to add a DT overlay to enable the Toradex 10inch LVDS panel
+on Colibri iMX7 / Iris
 
-Thanks!
-Maxime
+Francesco Dolcini (3):
+  dt-bindings: display: bridge: Add THine THC63LVD827
+  drm/bridge: Add THine THC63LVD827 LVDS encoder
+  ARM: dts: imx7d-colibri-emmc: Add Toradex Capacitive Touch Display 10"
+    LVDS
+
+ .../display/bridge/thine,thc63lvd827.yaml     | 126 ++++++++++++
+ MAINTAINERS                                   |   6 +
+ arch/arm/boot/dts/nxp/imx/Makefile            |   6 +
+ ...emmc-iris-panel-cap-touch-10inch-lvds.dtso |  92 +++++++++
+ drivers/gpu/drm/bridge/Kconfig                |  11 +
+ drivers/gpu/drm/bridge/Makefile               |   1 +
+ drivers/gpu/drm/bridge/thc63lvd827.c          | 193 ++++++++++++++++++
+ 7 files changed, 435 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/bridge/thine,thc63lvd827.yaml
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-iris-panel-cap-touch-10inch-lvds.dtso
+ create mode 100644 drivers/gpu/drm/bridge/thc63lvd827.c
+
+-- 
+2.47.3
+
