@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3479CC79FAA
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07B74C79FB5
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E99E310EF0F;
-	Wed,  9 Sep 2026 06:55:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1937410EF10;
+	Wed,  9 Sep 2026 06:55:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NX+FtPcF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="np/JQQhi";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1835910E4BE
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:11:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C757610E1BA
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:04:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D0507409B5;
- Tue,  8 Sep 2026 20:11:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C089D1F00A3D;
- Tue,  8 Sep 2026 20:11:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A4C194179B;
+ Tue,  8 Sep 2026 20:04:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D0D1F00A3D;
+ Tue,  8 Sep 2026 20:03:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788898318;
- bh=W+GInhg3kWngclwIBI6LIN8QeZAUoh1n+q1azU6i5lM=;
+ s=k20260515; t=1788897862;
+ bh=lbRhb9Yb4gDbpWqPbus0qjNX5XJi5UO6wGbL0nzbXu8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=NX+FtPcFw02/CuLs003CLYtuxHGTtCLAKxV0f7iniTsepgdSWBnGTIuct5GAXt/gR
- 4AjS3MIYwY7s0g7oTLUx1rlVaWjNrpenZbgmO+duwVRJQ3DLa0chfVyHoON7+r7+SU
- ihpWKH2iFPWgoAqwpA1Gel7jhEPnDre0zksv3fhbBpQ+onlKt4w4/7SvTCmg22qDMQ
- iznK6neaQBvBFhhlncbeDbNKkHF8Ko06C/767ZAi0wxnNw3TS9zVp/h2PDHglo8rYq
- faSKR/ddNCHv6kcMC8qH+2sYYtf5q0LoDmE8qkdz6lIGNl1tYNPgXkRonpfka4QDdY
- +PFM2WpG+OKIg==
+ b=np/JQQhiq88j7qchaSLG5nKK+4MTAVPV5Cz/tGHq/JRR0GyrZjG7aNu4nPxIBia1c
+ jxac+RkNG1cGl1z4g9eRlXzaCXAbqAkvsPkLIrATIct1AWudgqYZBwWohxnnT3WSWQ
+ YiA74xVHAsTgahglVY85Lg8X3snP5j7qvgAmsk9aiVkpC3AZ4NfifYUKvjBafriw4B
+ UQSWvtm0tLvagxTwX7bNEtXNA01kKexizL2SWm/SuAEifeoCc54u49ya9tW9AlrzTC
+ tFzHfaN+2G9FPnBpbhcQPIj04P6m7U/FX8Zrp5dY+eVRXmY5qGs+wh872cMcGdMv7b
+ mU8+hdM5Yt1Vg==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 08 Sep 2026 21:01:24 +0100
-Subject: [PATCH 20/39] mm/gup: error out early on !VMA_MAYREAD_BIT VMAs
+Date: Tue, 08 Sep 2026 21:01:08 +0100
+Subject: [PATCH 04/39] mm/vma: ensure mmap_prepare doesn't set actions on a
+ mergeable vma
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-20-dacf19cce22b@kernel.org>
+Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-4-dacf19cce22b@kernel.org>
 References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
 In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -120,12 +121,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1289; i=ljs@kernel.org;
- h=from:subject:message-id; bh=0xVbMIjlxJVEqff8evxHaJHGQIlqwm40RTiR4EqieKI=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG5edsnojOAZATdxs5e7z35KcbDru7vC84n71n6bc
- pZZq1MedZSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAie8wYfrPGLqjSOKx2raUx
- YV8Xh1/HhgcGE+JF5S/IrD4jHylnFMzIsPbO5gK5rkTTD9dsElISF1zk95pTcNBN409F+e4TXHZ
- s7AA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1311; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=S4K4xxOQqYF6aIxj0t3GkPHnntUAtdbixR+JacKisSY=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG64mvHudrS5dtz0Zef5H4ZMmtBj+u3ouxQnCTeBu
+ kCOVR3dHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZgIexAjwycGkz3ceeXz8uek
+ 5bxS9eCxT72j7DFdY/FCsZ0Sti4LCxgZpqzNbPedJSK4tdIn2mXq1+UPbFJKX/pYL7kwpb/4R3Q
+ CEwA=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:54:46 +0000
@@ -144,44 +145,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When populating a VMA range via the aptly named populate_vma_page_range()
-an unreadable VMA will always eventually fail with -EFAULT.
+When a user requests an mmap_action be performed in mmap_prepare, this
+involves populating the VMA range with data.
 
-That a VMA is accessible is always checked, however VMA_MAYREAD_BIT is not.
+However, if the VMA is mergeable, it might then mistakenly be merged with
+another VMA without having populated the range.
 
-All user mappings always have VMA_MAYREAD_BIT set, so this check only
-impacts kernel mappings.
+Every mmap action currently available sets VMA flags such that the VMA
+cannot be merged.
 
-It is implemented specifically to disallow population of uprobes XOL
-mappings which are exec-only.
-
-A nasty interaction with these mappings may occur if they are mlocked, so
-actively disallow this early.
-
-This allows a subsequent commit to remove the VM_IO check in
-__mm_populate() which otherwise requires non-MMIO mappings to be wrongly
-flagged simply as a workaround.
+However, to ensure that no future mmap action falls foul of this, assert
+that this is the case upon mmap_prepare validation.
 
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/gup.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ mm/vma.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/mm/gup.c b/mm/gup.c
-index a4036c02e213..f5dc227bd6e1 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -1836,6 +1836,10 @@ long populate_vma_page_range(struct vm_area_struct *vma,
- 	if (!vma_is_accessible(vma))
- 		return -EFAULT;
- 
-+	/* Unreadable VMAs also cannot be faulted in. */
-+	if (!vma_test(vma, VMA_MAYREAD_BIT))
-+		return -EFAULT;
+diff --git a/mm/vma.c b/mm/vma.c
+index a24f04428580..9e45fc83f74c 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2794,6 +2794,15 @@ static int mmap_validate(unsigned long prev_start,
+ int mmap_prepare_validate(const struct vm_area_desc *prev_desc,
+ 			  const struct vm_area_desc *desc)
+ {
++	/*
++	 * It is not valid to execute mmap actions for VMAs which can be merged,
++	 * as any such merge would leave portions of the mapping incorrectly
++	 * unmapped.
++	 */
++	if (vma_flags_can_merge(&desc->vma_flags) &&
++	    WARN_ON_ONCE(desc->action.type != MMAP_NOTHING))
++		return -EINVAL;
 +
- 	gup_flags = FOLL_TOUCH;
- 	/*
- 	 * We want to touch writable mappings with a write fault in order
+ 	return mmap_validate(prev_desc->start, desc->start,
+ 			     &prev_desc->vma_flags, &desc->vma_flags);
+ }
 
 -- 
 2.55.0
