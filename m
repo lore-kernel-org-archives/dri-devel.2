@@ -4,68 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09E4AC79F8C
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ED8DC79FAA
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9097810EF2C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8607A10EF2A;
 	Wed,  9 Sep 2026 06:55:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="eDojvma5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Fl/YCDPj";
 	dkim-atps=neutral
-X-Greylist: delayed 166744 seconds by postgrey-1.36 at gabe;
- Wed, 09 Sep 2026 03:42:23 UTC
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.67.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A39C510E4CB
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 03:42:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
- s=iohv2404; t=1788925334;
- bh=S3S48v9NyNCygvo9ANS4o5ZQWKXiieL6rO7xfL97yBU=;
- h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=eDojvma5PJOHwvlA/LgzO5UmoFaiDJaJ+589eBlp4AhGEfb7tWeQI07A2f1XXvFjp
- r7FE2mXlY4f5TqDnf/O3W5UkKh9RkAzQhJnIKnB2JwiGoKzmAHCo3Pp6mvW3IKTfAj
- qmLtv5Gm8wdvI8F0xZxpKyyfaaA/tIeQG6IozPyQ=
-X-QQ-mid: esmtpsz18t1788925330tbaeb4760
-X-QQ-Originating-IP: mQAzD3pkNlHdp5jpzSQImebKhWrNlUia+t09hwY2gow=
-Received: from [127.0.0.1] ( [124.70.231.75]) by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 09 Sep 2026 11:42:09 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 12620112044545498370
-Message-ID: <1FD435BC6A08027E+0a49ab9c-e991-4af0-b484-b57ee65cf79a@smail.nju.edu.cn>
-Date: Wed, 9 Sep 2026 11:42:08 +0800
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63A1A10E4BE
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:13:25 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C956A601F6;
+ Tue,  8 Sep 2026 20:13:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 799EB1F00A3A;
+ Tue,  8 Sep 2026 20:12:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788898404;
+ bh=5K16GlzsQoy0h7+0CkyHUMkjHsarATEzCzpeYhQPaCY=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=Fl/YCDPjRM8WBFFd2e8aQAOkcjORUNEDvBkYPZ0czOwSoKB9JUkzPuLgU9/uPT+28
+ HH9oU0LFFmBARTFN9q3OvmwkkSEllMdPfkkJ9Y0U4lcd9dKI721He/knHyzy2TvflO
+ /ou7DeEyJdwsk2wtsr6GfTfLEqwo/CfTcJ8EWEmtspNdXFBue7A1s/ztnSI4zxOZgM
+ Nwfu2DysRSUinri8xi4SNPc7I2bJJhyUcL7w8lvFQJemkasfX86nje5c0yC+QmHl2H
+ B9q5ltTeHhkkn7x4cw0Ot5AdEHPEyJ29dkPxUp/lKTqSNFoO8AzSgt/f+h+Kc06hgL
+ bU7IDnReUhc5g==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 08 Sep 2026 21:01:27 +0100
+Subject: [PATCH 23/39] mm/mlock: eliminate weird VMA_IO_BIT abuse and simplify
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtio: fix memory leak of fence event on execbuffer
- failure
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-References: <D320EAB5680C1411+20260908121323.2405044-1-peiyang_he@smail.nju.edu.cn>
- <20260908123440.84D501F00A3D@smtp.kernel.org>
-Content-Language: en-US
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
-In-Reply-To: <20260908123440.84D501F00A3D@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: M3ZkD08p3wd5I0LmwxsEQLQRT2YADXbaboooCybJYRBELheiyV+syXNJ
- m480R/FBeoV4V+WxLW87vJX9c7qPfKe0RQzjOcNLKaH/wZsa07Agqth3DiKuZMF39xgjZBI
- aa4Koudnk/jMGlzyA5bQpxrqyAxhx54/hI/Y6dpVEIOF7xiDwta4ft9/UT+cdNvi3rhjDEK
- rA0FQkpSVgYnpkCR3ZNfF831o7Ip9XBOUK4SatM4ziD+wo5oJE6huJDxU557XAq/6gc8scM
- 5DN7MpUOg+3Tct0k335m7+Z4dII750WWmpp3DL7wpELCrQdv8eVxGVv5WXGPjhks4ECBm4y
- c/jYHRJGIjLInYR6RqqNTdh3dKt1qZST8GYNPvYCFAvDEdIuYMUmM8juAVimHNCzPh1idEO
- INb9DopyMMHhQA9F3E4IODDvoUD6kMP0gbs3hygsIxctIEz6tIWl6F/sYyNnaQhHiwVjSjS
- MbZv/EuIfxBGLLgdMI5XZN3guUtXCpzY4Ym/eSH6Q/9WqQu1Sp1qdEWzd5+YQ4sqofkkSuj
- xHYtZwTvZXG51rdIN9nqlI/vYiiXaCiSplcG/3q/vIfhhwA3jQlmtfu4ecPLRGjCvtbDlaH
- xvlTbAQWZWIU4ol4eGFBdcsNGhKDZBr5ntQHiRu4lppaUDSnujNht75rDcvZn4OpZo9btsR
- r6+hRKNg7XpU1LelBIUTqO5iZBn22S8YZNPVZqud+kFbI2IdsL2Z9baUILT8mYNguEUpl1Z
- qsDmIVSfkraxC0Tg3n+ysrNdMaL0FOcYgJEXBFVRolwHWlvo1ljIY2ipZg686Rkvu9ZtA2I
- olSszA6v3Mpk30n1kvTRsjgr6nHroq0yacX79qk/VREevG7WA/JETKIP04ae2Mq+L632cRK
- 5HWQ4uXTB3nTgQ/ONzkNAe6PCljIVW0BSRTLjw/q2wNZMi+iJ9Bf+O3EIYMp4k6Epj5z3lc
- hqHeczDhRawDskQ5ArQZgP3m1i87ba8q963F+MKb5zDOqj5MlcwqdeUyp6b9OnVsV6pgVIw
- POwYwdn6ugdalUd8F3
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-23-dacf19cce22b@kernel.org>
+References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7044; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=vEqZNj/orhd3A72a0KyhZ8lk/+VHtX68aC52ZbOqwFo=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG7RL7u2o4dd6mTohG0XpLh3TvjX9Gf1FYOdaqsvH
+ GXtOFR7paOUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQATyUlmZOgIPuqrHpV47LaA
+ aNfVw+2Lwhi9tDrPpU6+6l1edqHjhRDD/xxpMcYXGXueC8Z/OXa2u74xNjtI2T7XKerKxJOTr6f
+ v5AEA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:54:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,41 +144,200 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026/9/8 20:34, sashiko-bot@kernel.org wrote:
-> [Severity: High]
-> This is another pre-existing issue, but is it possible for
-> virtio_gpu_fence_alloc() to fail and cause a NULL pointer dereference
-> earlier in the submission path?
-> 
-> Looking at virtio_gpu_init_submit() called earlier in this ioctl, it does
-> not check the return value of virtio_gpu_fence_alloc():
-> 
-> drivers/gpu/drm/virtio/virtgpu_submit.c:virtio_gpu_init_submit() {
->     ...
->         out_fence = virtio_gpu_fence_alloc(vgdev, fence_ctx, ring_idx);
->     else
->         out_fence = NULL;
-> 
->     if (drm_fence_event) {
->         err = virtio_gpu_fence_event_create(dev, file, out_fence, ring_idx);
->     ...
-> }
-> 
-> And in virtio_gpu_fence_event_create():
-> 
-> drivers/gpu/drm/virtio/virtgpu_submit.c:virtio_gpu_fence_event_create() {
->     ...
->     fence->e = e;
->     ...
-> }
-> 
-> If kzalloc_obj() inside virtio_gpu_fence_alloc() fails due to memory pressure,
-> it returns NULL, which is then unconditionally dereferenced.
-> 
-> Can unprivileged userspace trigger this by invoking the execbuffer ioctl
-> under constrained memory conditions?
-> 
+When performing mlock() or munlock() otherwise normal VMAs have VMA_IO_BIT
+solely to fix a race with migration which might otherwise double-count
+mlock VMAs.
 
-Our fuzzing results confirm this NULL pointer deref path is valid.
-Will send a patch soon.
+This is unnecessary - at the point of applying folio mlock state, whether
+setting or clearing PG_mlocked, we know whether or not we are locking.
+
+Solve this in two ways - thread a boolean through the page table walk
+indicating whether a lock or unlock is being performed, and run a locking
+walk with VMA_LOCKONFAULT_BIT set and VMA_LOCKED_BIT cleared.
+
+This state never occurs otherwise, as VMA_LOCKONFAULT_BIT always implies
+VMA_LOCKED_BIT. These are also always cleared together.
+
+Then, update folio_add_lru_vma() and mlock_folio() to check only for
+VMA_LOCKED_BIT, and update try_to_unmap_one() to check for VMA_LOCKED_MASK
+instead.
+
+Also remove the useless invocation of allow_mlock_munlock() which simply
+returns true if unlocking and instead rename it to allow_mlock() and only
+call it when locking.
+
+Finally, with the other mlock abuse of VMA_IO_BIT addressed, update
+mlock_vma_folio(), munlock_vma_folio() and folio_add_lru_vma() to simply
+test for VMA_LOCKED_BIT.
+
+While here, also replace some deprecated VMA flag predicates.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ mm/folio.c    |  2 +-
+ mm/internal.h |  5 ++---
+ mm/mlock.c    | 51 +++++++++++++++++++--------------------------------
+ mm/rmap.c     |  4 +++-
+ 4 files changed, 25 insertions(+), 37 deletions(-)
+
+diff --git a/mm/folio.c b/mm/folio.c
+index 50a6dbe55998..a3f5c463f665 100644
+--- a/mm/folio.c
++++ b/mm/folio.c
+@@ -502,7 +502,7 @@ void folio_add_lru_vma(struct folio *folio, struct vm_area_struct *vma)
+ {
+ 	VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
+ 
+-	if (unlikely((vma->vm_flags & (VM_LOCKED | VM_SPECIAL)) == VM_LOCKED))
++	if (vma_test(vma, VMA_LOCKED_BIT))
+ 		mlock_new_folio(folio);
+ 	else
+ 		folio_add_lru(folio);
+diff --git a/mm/internal.h b/mm/internal.h
+index 6e27d3b10c01..04b1f1d3d960 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -975,8 +975,7 @@ void mlock_folio(struct folio *folio);
+ static inline void mlock_vma_folio(struct folio *folio,
+ 				struct vm_area_struct *vma)
+ {
+-	/* The VM_IO check prevents migration from double-counting during mlock. */
+-	if (unlikely((vma->vm_flags & (VM_LOCKED|VM_SPECIAL)) == VM_LOCKED))
++	if (vma_test(vma, VMA_LOCKED_BIT))
+ 		mlock_folio(folio);
+ }
+ 
+@@ -993,7 +992,7 @@ static inline void munlock_vma_folio(struct folio *folio,
+ 	 * always munlock the folio and page reclaim will correct it
+ 	 * if it's wrong.
+ 	 */
+-	if (unlikely(vma->vm_flags & VM_LOCKED))
++	if (unlikely(vma_test(vma, VMA_LOCKED_BIT)))
+ 		munlock_folio(folio);
+ }
+ 
+diff --git a/mm/mlock.c b/mm/mlock.c
+index 39215a3eab1f..4235a1518fc9 100644
+--- a/mm/mlock.c
++++ b/mm/mlock.c
+@@ -316,22 +316,10 @@ static inline unsigned int folio_mlock_step(struct folio *folio,
+ 	return folio_pte_batch(folio, pte, ptent, count);
+ }
+ 
+-static inline bool allow_mlock_munlock(struct folio *folio,
++static inline bool allow_mlock(struct folio *folio,
+ 		struct vm_area_struct *vma, unsigned long start,
+ 		unsigned long end, unsigned int step)
+ {
+-	/*
+-	 * For unlock, allow munlock large folio which is partially
+-	 * mapped to VMA. As it's possible that large folio is
+-	 * mlocked and VMA is split later.
+-	 *
+-	 * During memory pressure, such kind of large folio can
+-	 * be split. And the pages are not in VM_LOCKed VMA
+-	 * can be reclaimed.
+-	 */
+-	if (!vma_test(vma, VMA_LOCKED_BIT))
+-		return true;
+-
+ 	/* folio_within_range() cannot take KSM, but any small folio is OK */
+ 	if (!folio_test_large(folio))
+ 		return true;
+@@ -352,6 +340,7 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
+ 
+ {
+ 	struct vm_area_struct *vma = walk->vma;
++	const bool lock = walk->private;
+ 	spinlock_t *ptl;
+ 	pte_t *start_pte, *pte;
+ 	pte_t ptent;
+@@ -368,7 +357,7 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
+ 		folio = pmd_folio(*pmd);
+ 		if (folio_is_zone_device(folio))
+ 			goto out;
+-		if (vma_test(vma, VMA_LOCKED_BIT))
++		if (lock)
+ 			mlock_folio(folio);
+ 		else
+ 			munlock_folio(folio);
+@@ -390,10 +379,10 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
+ 			continue;
+ 
+ 		step = folio_mlock_step(folio, pte, addr, end);
+-		if (!allow_mlock_munlock(folio, vma, start, end, step))
++		if (lock && !allow_mlock(folio, vma, start, end, step))
+ 			goto next_entry;
+ 
+-		if (vma_test(vma, VMA_LOCKED_BIT))
++		if (lock)
+ 			mlock_folio(folio);
+ 		else
+ 			munlock_folio(folio);
+@@ -428,31 +417,29 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
+ 		.pmd_entry = mlock_pte_range,
+ 		.walk_lock = PGWALK_WRLOCK_VERIFY,
+ 	};
++	const bool lock = vma_flags_test(new_vma_flags, VMA_LOCKED_BIT);
++	vma_flags_t walk_flags = *new_vma_flags;
+ 
+ 	/*
+-	 * There is a slight chance that concurrent page migration,
+-	 * or page reclaim finding a page of this now-VMA_LOCKED_BIT vma,
+-	 * will call mlock_vma_folio() and raise page's mlock_count:
+-	 * double counting, leaving the page unevictable indefinitely.
+-	 * Communicate this danger to mlock_vma_folio() with VMA_IO_BIT,
+-	 * which is a VMA_SPECIAL_FLAGS flag not allowed on VMA_LOCKED_BIT vmas.
+-	 * mmap_lock is held in write mode here, so this weird
+-	 * combination should not be visible to other mmap_lock users;
+-	 * but WRITE_ONCE so rmap walkers must see VMA_IO_BIT if VMA_LOCKED_BIT.
++	 * LOCKONFAULT without LOCKED never otherwise occurs: it marks a walk in
++	 * progress so that rmap-side callers, which test VMA_LOCKED_BIT, do not
++	 * count folios, while try_to_unmap_one(), which tests VMA_LOCKED_MASK,
++	 * still refuses to unmap them.
+ 	 */
+-	if (vma_flags_test(new_vma_flags, VMA_LOCKED_BIT))
+-		vma_flags_set(new_vma_flags, VMA_IO_BIT);
++	if (lock) {
++		vma_flags_clear(&walk_flags, VMA_LOCKED_BIT);
++		vma_flags_set(&walk_flags, VMA_LOCKONFAULT_BIT);
++	}
++
+ 	vma_start_write(vma);
+-	vma_flags_reset_once(vma, new_vma_flags);
++	vma_flags_reset_once(vma, &walk_flags);
+ 
+ 	lru_add_drain();
+-	walk_page_range_vma(vma, start, end, &mlock_walk_ops, NULL);
++	walk_page_range_vma(vma, start, end, &mlock_walk_ops, (void *)lock);
+ 	lru_add_drain();
+ 
+-	if (vma_flags_test(new_vma_flags, VMA_IO_BIT)) {
+-		vma_flags_clear(new_vma_flags, VMA_IO_BIT);
++	if (lock)
+ 		vma_flags_reset_once(vma, new_vma_flags);
+-	}
+ }
+ 
+ /*
+diff --git a/mm/rmap.c b/mm/rmap.c
+index 5fefe5b060b1..120c894d2dde 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -2239,9 +2239,11 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 
+ 		/*
+ 		 * If the folio is in an mlock()d vma, we must not swap it out.
++		 * VMA_LOCKONFAULT_BIT alone marks an mlock walk in progress, see
++		 * mlock_vma_pages_range().
+ 		 */
+ 		if (!(flags & TTU_IGNORE_MLOCK) &&
+-		    (vma->vm_flags & VM_LOCKED)) {
++		    vma_test_any_mask(vma, VMA_LOCKED_MASK)) {
+ 			ptes++;
+ 
+ 			/*
+
+-- 
+2.55.0
 
