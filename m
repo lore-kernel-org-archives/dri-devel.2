@@ -4,144 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0266C79FA0
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 08:02:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0133DC79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 08:21:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F29F210E0BC;
-	Tue,  8 Sep 2026 08:02:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4940010E0A6;
+	Tue,  8 Sep 2026 08:21:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="arIuAESW";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WCwC+BeQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ipr+Q4fq";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9454810E0A6
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 08:02:15 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6886Lneh950642
- for <dri-devel@lists.freedesktop.org>; Tue, 8 Sep 2026 08:02:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- WozNudziLKgBxiX08uWyerO5nuWlCikb2YN/NDCsgqM=; b=arIuAESWcUWwrGI2
- pjqkoOyJNILtKK2cq6jHIw1appcqCWGaIrfPiN9hHaHs8t++cmtKy3CztvswBNVD
- t/6GjjGovrE5VKW00dJhb7Di5oG4pOLrSRwr8G6SqWWHV1FuFCfZmy4YkB9ya1+K
- ocMxPyWERANVyf/04rKh2xg5jPmZiBXA5WaefWlk1WEX21EhXsYBQ3zNmjkhImXz
- /7lfYFr6uGGQjS4gm+sKQ6MLV5ExzzAtYG7G/n3z9v55eWrDxNxZ/2IDzXUQUCDa
- O6gJ401SKTb7APWF/bnEwrDYZif3Ao/9o7AHNWUmW0JvheanXxCTexjM44ZEqwbO
- cpWkFQ==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
- [209.85.217.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjcrp8fx2-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 08:02:14 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id
- ada2fe7eead31-783743bffb9so61253137.3
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 01:02:14 -0700 (PDT)
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
+ [209.85.215.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 279B210E0A6
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 08:21:05 +0000 (UTC)
+Received: by mail-pg1-f172.google.com with SMTP id
+ 41be03b00d2f7-cbe827e3cb4so4547185a12.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 01:21:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1788854534; x=1789459334;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=WozNudziLKgBxiX08uWyerO5nuWlCikb2YN/NDCsgqM=;
- b=WCwC+BeQ0AczLzVSeFwc9VdvRDBCNNuntr/kTxAS7miX6x7VM4wH3sq2+W6qjSgdwk
- Mb80XalnSzWob8HCpWedRMbhEUnpv6x37A9IpvBDI6wkgaSbMilt3NLnMacpXy4YKCFj
- dqzVbWxhxSnI3idkAK8tvHXTvPKu9/GER5rwCI3mZ9R36mleRXGFQKFgiFq7kl/1DpgW
- vPuIAHzPquAXUJcqc1RP2Emplgef+0rrEE4yg2mtwLeuLd0u/XIfWMvNVIIfJQSOwO52
- W1KkTlFzzunud/FoqXP3+DmGll67zmbDvroxx6uNECefLYTg9wCf94O9E/NBoMpi+DIm
- wCSw==
+ d=gmail.com; s=20251104; t=1788855664; x=1789460464; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=S7HjTv87pabPliSISNoP4qhkCnlBzRe6Bo3kxEzQXmU=;
+ b=ipr+Q4fqXStgzAPIAiN+WIfkPtFO8zELnE0kFday2JqCPZxmHai2BhzIFZDR6QYl2a
+ //lzXyrt5MdJG6p7fsrLtObgzFy2GHYDk+dekl9lMJzGMAEVLJ+ao6NRnCZvz3JnN9w+
+ Lq6jXa0ppwCX/mZjIGPkSL2XBDyAKWzuPYlT1N413Dkl4/VJJyzailqu+EOiKm/9veey
+ 5dSH7+R75dHos5W/2UDNybWGrzyQEJLmktp17MZ8wp2qtwxtVr2iXik+rontyocrHgN/
+ Fo1jyUKktT4frGmMkJQztUp3aEo1dHXolXZ7eMq8z8YZP7oX+zIcRc9axSI2/fcKzwRk
+ f0ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788854534; x=1789459334;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1788855665; x=1789460465;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=WozNudziLKgBxiX08uWyerO5nuWlCikb2YN/NDCsgqM=;
- b=pyunX1U9cWJyXNG76rH0+SQE3oqJ+SGCxUYsP3qEhkievyX5aOyNWVzwfH+vKc44sn
- 22nbGTe7MjHxcyL81m8LTkea8+LHDeZw9uyD/YfahlZbIxcT+BYlcGbuwIeQgF296veZ
- 4qku2JuaR05thu6M2AiI+S14say9Whwcji64b0nLQtvxjDwAv/iPlhCtruph4S7t3hES
- 049Kf1mtMqwNFzbjRcb7/84G7Wv5dqMeo+7XEbIaPKGqnv91RvGBXvxBNBVYLxrWjx4v
- uGIowsRSwldtGZ0VkT995EDkRYVUTUS4T64geGoXgxxpNb311cbVtPcqdGAIJFmugKRH
- GCnQ==
+ bh=S7HjTv87pabPliSISNoP4qhkCnlBzRe6Bo3kxEzQXmU=;
+ b=pdN/T5StaK/QEbCxxBsAkV5PLITFbwDD7PdZOaW5BCKfIWvgKpZk2qopUN5CncItzt
+ sOtX/Dwz8tZ+SB+0pW1gGZKSseV4D17dC+WZoKJkFDfAqOZhU2Abr/jlLFI75tby0VOc
+ 2wtmHFF7mGdyRk3V5oFi5X2M0htAKvQ9s1dWfGLvbxX1Er8RXLQE5IADS18BWPYwrA8/
+ moEsB7MZffCKOJ82VwsUDOYlUANockZJOEQrR3UlpXo7O8FfQXzrfO6XNXB5TVEHmo3R
+ 1D0FVmBDj26gMGu8RTx/mVwNpSBqyKNyP6uCbrc3Ir8fZPyz4wilAa++Ec+fSTFKFaLp
+ CbaQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBykhCegiDlLOWGdufMjOfqry6OshgQVjgQ32EAKi5RcFBRjlIejrdf2buOH2PcaKsAfO9u4pZMpZhM=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lUBQ2g+6oZI1Lbou/B3DpNjp13A+TrVliCFGqgIxVsbJ6XPcLd
- KCQMz7FmOtafMw06EqoCqMAkHVdF2Mb/PgDbINGyUwIDHcxq+5vBHEooT4w/szZctDjHXqfMPJJ
- YSjU8m8g0hFpkc6Bk34M3grdYn+GGBv/UE7NvEBhQz72PpnIK8pl3dJ6SlVPFs3zEJrwBFWM=
-X-Gm-Gg: AYBFou07vJKZ+fIdOys/U/63FjSPu8HtIrHoNAEg9sXG6io76sO0MvEY51+Qh2LBao8
- 48Q0eQG6sPqoME92C3AHctdy/6ddwWyW/tsL52Q0ipHjlS6I9Jjton13BRDCF4MbxU3i3ttW3zl
- Mrs9ePVwijGkzA6dltx/s/0W4UVXsvt+0uYyQVQEUXYizMfn21t/zwda0R754blT2BmwXIq4Y9Z
- 7cehSsUzm51NMzx94kSN2iIc73RRPUBa5fpuiFSqFi3APbUS1ZKz9QmJmiuKtEG01pWa56V+9gs
- rul6eea2udbHLPX6rvsgn0B3BnBNV3vVc4Yu/htoKXnc+Zmd053NrhQi/4F/Z/TVtC61vPuC+VN
- TxV0ddDAmDisS0wA1KwxBGQ==
-X-Received: by 2002:a05:6102:b03:b0:781:9922:78f3 with SMTP id
- ada2fe7eead31-78a60e5b62amr2664039137.2.1788854533915; 
- Tue, 08 Sep 2026 01:02:13 -0700 (PDT)
-X-Received: by 2002:a05:6102:b03:b0:781:9922:78f3 with SMTP id
- ada2fe7eead31-78a60e5b62amr2664022137.2.1788854533373; 
- Tue, 08 Sep 2026 01:02:13 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
+ AKwUvByfMpw2RoYzGThSx/RlWh3UhkPCEV9uUoDGJavz7nZ+E7f+7sCMOvQ+2o6+lmk+cXYORCDtLbXS48w=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kxodsrQjE97/FpPXGdHOw8BBiKliAbp8H+YA+sRNukz3Vfg/hY
+ br9wQGp/792FKssf86fJBA3tyudvCEOpRoZzVLQWaEvG8lMPZYYYRI7j
+X-Gm-Gg: AYBFou2prQROzESDVOKqRc+Fg22fPTNkAcX3aJXTCINKHJ9KPEqgICOOyWXQHWIV9UX
+ 4tv6wBt/KvC3Un7W5FiyWGxpYJvr9Uh1jzOJco8JKgxBLT9zyJwY3/3d2+SYFDnc/p722KSioVE
+ Nh2V3XoVonpHtUxmILwMVBPXv6eVy6wONBnF/msUlXcdk457JKbc8UapVXPCdbqcaIuH3tW5KIW
+ qsqo2wEOPwhZJZEOnSQxWEcMVxx+axfZQyNblfh9uWyRBtLnYGZYdJRBYaJakW2eXUCLxj46B1t
+ dC8Evd5x7E6+LF3O9Y/o4h1WXMHW0wIGyGvmpTtcASyhpek2m/xjtDB7l3PqESXLce27ZaJ24Vc
+ UARD/vtunRsaXDS/KMffOdFnZXzJDd+xAPrWvXOPmH+E3Ij9+As7W2koLgRFVEZWx5t02l+N6Ll
+ 6lgbVKSzj3gIZy6HFQWgxb9LQSmzDK2YkJjH+K2/zEsqGzh/hQEx+xmQisuiEPNtVmU+dV8ioti
+ HkXKztgRzOkL604GCQkSdB68MLka3YezPK5YX46bQcVkg==
+X-Received: by 2002:a05:6300:6ccf:20b0:3da:a65a:84f5 with SMTP id
+ adf61e73a8af0-3daa65a8585mr3710405637.22.1788855664397; 
+ Tue, 08 Sep 2026 01:21:04 -0700 (PDT)
+Received: from localhost.localdomain ([49.37.219.138])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c260d559364sm565451966b.35.2026.09.08.01.02.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Sep 2026 01:02:12 -0700 (PDT)
-Message-ID: <06bb2b19-bdb0-4dcc-a6e2-6805edd9084e@oss.qualcomm.com>
-Date: Tue, 8 Sep 2026 10:02:09 +0200
+ 5a478bee46e88-333c9db92b1sm34177167eec.9.2026.09.08.01.21.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Sep 2026 01:21:03 -0700 (PDT)
+From: Mohammed Anees <pvmohammedanees2003@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org,
+ Mohammed Anees <pvmohammedanees2003@gmail.com>
+Subject: [PATCH] drm/amdgpu: pass scanout position values directly
+Date: Tue,  8 Sep 2026 13:50:45 +0530
+Message-ID: <20260908082045.99555-1-pvmohammedanees2003@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/7] drm/msm/hdmi_phy: Cleanup after
- msm_hdmi_phy_resource_enable() failure
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Archit Taneja <architt@codeaurora.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, stable@vger.kernel.org
-References: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-0-dcf8956878ca@oss.qualcomm.com>
- <20260908-drm-msm-hdmi-fixes-before-eliza-v3-1-dcf8956878ca@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-1-dcf8956878ca@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=UfRhjqSN c=1 sm=1 tr=0 ts=6a9fc106 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=dCp4QOuT8fr3gmi_UlEA:9 a=QEXdDO2ut3YA:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-ORIG-GUID: PCyelX5lwPuEAsIAcYrXVEx68vYB2NX3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA4MiBTYWx0ZWRfXyDsW5hpuJCJj
- 6SMtKBpWMkTQOVPTzGOyPMU+oy/IynlXMLEItuHw/L3LaU3MzpnMFbof1eB7K8pvC0K8tmLtcsH
- 3XorQouwQojsbR+Mqlqmaw3CR5LMSR+hKXbeHeyFpFXuF0p9h5dc+c0CjjZGJkF4ughp4L6FjVG
- YsUfWyCJtWxhnArNyP6HTFUgnPFwYMsUoZFlFj7mW+tvnnR781aIQKcUaQwSYW9aKab5K7erY9Y
- QFIEwYpLa+rnypgNhdgniE5fdxZjwcKr1t3lNUN8XBHbenS3UK6/1gTVuRQ4lItPCPSZN5vuH7J
- Ywtcm+olNFlwso1xL/nP0huC5TOM69yLD4Vmgyf92E3jN+13tatqKgfy8XJ7xekX4im/zuZ0kGa
- 2rDnqmqIQsDsjyb5JWKeMuPppF1dVZy9o671P4r3763KTkWafgrQDO+bCFLKpLllr41MjtoWTh5
- p57blbM0fgFJim+SgZg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA4MiBTYWx0ZWRfXyeQTcM0c+0cv
- up3GVkRVYaH5czV2FcemnJpr7I/h8KGhgBmPcAoHcufHUyV8b0DbF7SgoFHlA6FQbVFB6SET3pH
- Lhy78TXzJ+PmmKV/ZUVSbl3/Lsib8nk=
-X-Proofpoint-GUID: PCyelX5lwPuEAsIAcYrXVEx68vYB2NX3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 clxscore=1015 phishscore=0 suspectscore=0
- spamscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080082
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,31 +89,393 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/8/26 9:10 AM, Krzysztof Kozlowski wrote:
-> If msm_hdmi_phy_resource_enable() fails, e.g. when enabling regulators,
-> it should reverse the state of things already changed.
-> msm_hdmi_phy_resource_enable() is used also in probe path, thus such
-> failure, which could be simple deferred probe, would leave these
-> resources permanently enabled for the rest of the runtime.
-> 
-> Cc: <stable@vger.kernel.org>
-> Fixes: 15b4a4523859 ("drm/msm/hdmi: Create a separate HDMI PHY driver")
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/hdmi/hdmi_phy.c | 16 ++++++++++++++--
->  1 file changed, 14 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-> index eb1088755cb3..15e37596bdb1 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-> @@ -67,16 +67,28 @@ int msm_hdmi_phy_resource_enable(struct hdmi_phy *phy)
->  	ret = regulator_bulk_enable(cfg->num_regs, phy->regs);
->  	if (ret) {
->  		DRM_DEV_ERROR(dev, "failed to enable regulators: (%d)\n", ret);
-> -		return ret;
-> +		goto err_pm_put;
+The DC scanout position helper already returns vblank start, vblank end,
+horizontal position and vertical position as separate values.
 
-If you're a fan, there's PM_RUNTIME_ACQUIRE_xxx in cleanup.h
+dm_crtc_get_scanoutpos() currently packs these values into the legacy
+register-style vbl and position values, only for the amdgpu base driver
+to unpack them again.
 
-Konrad
+Change page_flip_get_scanoutpos() to return the individual values
+directly.
+
+For the legacy DCE implementations, keep decoding the packed hardware
+register values in the backend before returning them through the common
+interface. This keeps the register specific representation local to the
+DCE code.
+
+Signed-off-by: Mohammed Anees <pvmohammedanees2003@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 22 ++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.h   |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  8 ++-
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        | 20 +++++--
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         | 20 +++++--
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         | 20 +++++--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 31 +++++-----
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  3 +-
+ .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 56 ++++++++++++-------
+ 9 files changed, 124 insertions(+), 60 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index 59ea338b554c..86c806f9fa97 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -1762,7 +1762,8 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
+ 			int *hpos, ktime_t *stime, ktime_t *etime,
+ 			const struct drm_display_mode *mode)
+ {
+-	u32 vbl = 0, position = 0;
++	u32 scan_vbl_start = 0, scan_vbl_end = 0;
++	u32 scan_vpos = 0, scan_hpos = 0;
+ 	int vbl_start, vbl_end, vtotal, ret = 0;
+ 	bool in_vbl = true;
+ 
+@@ -1774,8 +1775,14 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
+ 	if (stime)
+ 		*stime = ktime_get();
+ 
+-	if (amdgpu_display_page_flip_get_scanoutpos(adev, pipe, &vbl, &position) == 0)
++	if (amdgpu_display_page_flip_get_scanoutpos(adev, pipe,
++						    &scan_vbl_start, &scan_vbl_end,
++						    &scan_vpos, &scan_hpos) == 0) {
+ 		ret |= DRM_SCANOUTPOS_VALID;
++	}
++
++	*vpos = scan_vpos;
++	*hpos = scan_hpos;
+ 
+ 	/* Get optional system timestamp after query. */
+ 	if (etime)
+@@ -1783,16 +1790,11 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
+ 
+ 	/* preempt_enable_rt() should go right here in PREEMPT_RT patchset. */
+ 
+-	/* Decode into vertical and horizontal scanout position. */
+-	*vpos = position & 0x1fff;
+-	*hpos = (position >> 16) & 0x1fff;
+-
+ 	/* Valid vblank area boundaries from gpu retrieved? */
+-	if (vbl > 0) {
+-		/* Yes: Decode. */
++	if (scan_vbl_start || scan_vbl_end) {
+ 		ret |= DRM_SCANOUTPOS_ACCURATE;
+-		vbl_start = vbl & 0x1fff;
+-		vbl_end = (vbl >> 16) & 0x1fff;
++		vbl_start = scan_vbl_start;
++		vbl_end = scan_vbl_end;
+ 	} else {
+ 		/* No: Fake something reasonable which gives at least ok results. */
+ 		vbl_start = mode->crtc_vdisplay;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
+index 49a29bf47a37..9390154c12a2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
+@@ -33,7 +33,9 @@
+ #define amdgpu_display_hpd_get_gpio_reg(adev) (adev)->mode_info.funcs->hpd_get_gpio_reg((adev))
+ #define amdgpu_display_bandwidth_update(adev) (adev)->mode_info.funcs->bandwidth_update((adev))
+ #define amdgpu_display_page_flip(adev, crtc, base, async) (adev)->mode_info.funcs->page_flip((adev), (crtc), (base), (async))
+-#define amdgpu_display_page_flip_get_scanoutpos(adev, crtc, vbl, pos) (adev)->mode_info.funcs->page_flip_get_scanoutpos((adev), (crtc), (vbl), (pos))
++#define amdgpu_display_page_flip_get_scanoutpos(adev, crtc, vbl_start, vbl_end, vpos, hpos) \
++	((adev)->mode_info.funcs->page_flip_get_scanoutpos((adev), (crtc), \
++			(vbl_start), (vbl_end), (vpos), (hpos)))
+ #define amdgpu_display_add_encoder(adev, e, s, c) (adev)->mode_info.funcs->add_encoder((adev), (e), (s), (c))
+ #define amdgpu_display_add_connector(adev, ci, sd, ct, ib, coi, h, r) (adev)->mode_info.funcs->add_connector((adev), (ci), (sd), (ct), (ib), (coi), (h), (r))
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+index 7c784277396a..7033531001cd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+@@ -277,8 +277,12 @@ struct amdgpu_display_funcs {
+ 	/* pageflipping */
+ 	void (*page_flip)(struct amdgpu_device *adev,
+ 			  int crtc_id, u64 crtc_base, bool async);
+-	int (*page_flip_get_scanoutpos)(struct amdgpu_device *adev, int crtc,
+-					u32 *vbl, u32 *position);
++	int (*page_flip_get_scanoutpos)(struct amdgpu_device *adev,
++					int crtc,
++					u32 *vbl_start,
++					u32 *vbl_end,
++					u32 *vpos,
++					u32 *hpos);
+ 	/* display topology setup */
+ 	void (*add_encoder)(struct amdgpu_device *adev,
+ 			    uint32_t encoder_enum,
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+index 7de7adc8f225..8bbef608c5dd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+@@ -256,14 +256,26 @@ static void dce_v10_0_page_flip(struct amdgpu_device *adev,
+ 	RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS + amdgpu_crtc->crtc_offset);
+ }
+ 
+-static int dce_v10_0_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
+-					u32 *vbl, u32 *position)
++static int dce_v10_0_crtc_get_scanoutpos(struct amdgpu_device *adev,
++					 int crtc,
++					 u32 *vbl_start,
++					 u32 *vbl_end,
++					 u32 *vpos,
++					 u32 *hpos)
+ {
++	u32 vbl, position;
++
+ 	if ((crtc < 0) || (crtc >= adev->mode_info.num_crtc))
+ 		return -EINVAL;
+ 
+-	*vbl = RREG32(mmCRTC_V_BLANK_START_END + crtc_offsets[crtc]);
+-	*position = RREG32(mmCRTC_STATUS_POSITION + crtc_offsets[crtc]);
++	vbl = RREG32(mmCRTC_V_BLANK_START_END + crtc_offsets[crtc]);
++	position = RREG32(mmCRTC_STATUS_POSITION + crtc_offsets[crtc]);
++
++	*vbl_start = vbl & 0x1fff;
++	*vbl_end = (vbl >> 16) & 0x1fff;
++
++	*vpos = position & 0x1fff;
++	*hpos = (position >> 16) & 0x1fff;
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+index 3c1d6901127d..2181fe57dfdd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+@@ -220,14 +220,26 @@ static void dce_v6_0_page_flip(struct amdgpu_device *adev,
+ 	RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS + amdgpu_crtc->crtc_offset);
+ }
+ 
+-static int dce_v6_0_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
+-					u32 *vbl, u32 *position)
++static int dce_v6_0_crtc_get_scanoutpos(struct amdgpu_device *adev,
++					int crtc,
++					u32 *vbl_start,
++					u32 *vbl_end,
++					u32 *vpos,
++					u32 *hpos)
+ {
++	u32 vbl, position;
++
+ 	if ((crtc < 0) || (crtc >= adev->mode_info.num_crtc))
+ 		return -EINVAL;
+ 
+-	*vbl = RREG32(mmCRTC_V_BLANK_START_END + crtc_offsets[crtc]);
+-	*position = RREG32(mmCRTC_STATUS_POSITION + crtc_offsets[crtc]);
++	vbl = RREG32(mmCRTC_V_BLANK_START_END + crtc_offsets[crtc]);
++	position = RREG32(mmCRTC_STATUS_POSITION + crtc_offsets[crtc]);
++
++	*vbl_start = vbl & 0x1fff;
++	*vbl_end = (vbl >> 16) & 0x1fff;
++
++	*vpos = position & 0x1fff;
++	*hpos = (position >> 16) & 0x1fff;
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+index a17944d5e843..1388f2161ae8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+@@ -204,14 +204,26 @@ static void dce_v8_0_page_flip(struct amdgpu_device *adev,
+ 	RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS + amdgpu_crtc->crtc_offset);
+ }
+ 
+-static int dce_v8_0_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
+-					u32 *vbl, u32 *position)
++static int dce_v8_0_crtc_get_scanoutpos(struct amdgpu_device *adev,
++					int crtc,
++					u32 *vbl_start,
++					u32 *vbl_end,
++					u32 *vpos,
++					u32 *hpos)
+ {
++	u32 vbl, position;
++
+ 	if ((crtc < 0) || (crtc >= adev->mode_info.num_crtc))
+ 		return -EINVAL;
+ 
+-	*vbl = RREG32(mmCRTC_V_BLANK_START_END + crtc_offsets[crtc]);
+-	*position = RREG32(mmCRTC_STATUS_POSITION + crtc_offsets[crtc]);
++	vbl = RREG32(mmCRTC_V_BLANK_START_END + crtc_offsets[crtc]);
++	position = RREG32(mmCRTC_STATUS_POSITION + crtc_offsets[crtc]);
++
++	*vbl_start = vbl & 0x1fff;
++	*vbl_end = (vbl >> 16) & 0x1fff;
++
++	*vpos = position & 0x1fff;
++	*hpos = (position >> 16) & 0x1fff;
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index f49cc198fb0d..f77054060d87 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -186,10 +186,13 @@ STATIC_IFN_KUNIT u32 dm_vblank_get_counter(struct amdgpu_device *adev, int crtc)
+ }
+ EXPORT_IF_KUNIT(dm_vblank_get_counter);
+ 
+-STATIC_IFN_KUNIT int dm_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
+-					    u32 *vbl, u32 *position)
++STATIC_IFN_KUNIT int dm_crtc_get_scanoutpos(struct amdgpu_device *adev,
++					    int crtc,
++					    u32 *vbl_start,
++					    u32 *vbl_end,
++					    u32 *vpos,
++					    u32 *hpos)
+ {
+-	u32 v_blank_start = 0, v_blank_end = 0, h_position = 0, v_position = 0;
+ 	struct amdgpu_crtc *acrtc = NULL;
+ 	struct dc *dc = adev->dm.dc;
+ 
+@@ -207,18 +210,16 @@ STATIC_IFN_KUNIT int dm_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc
+ 	if (dc && dc->caps.ips_support && dc->idle_optimizations_allowed)
+ 		dc_allow_idle_optimizations(dc, false);
+ 
+-	/*
+-	 * TODO rework base driver to use values directly.
+-	 * for now parse it back into reg-format
+-	 */
+-	dc_stream_get_scanoutpos(acrtc->dm_irq_params.stream,
+-				 &v_blank_start,
+-				 &v_blank_end,
+-				 &h_position,
+-				 &v_position);
+-
+-	*position = v_position | (h_position << 16);
+-	*vbl = v_blank_start | (v_blank_end << 16);
++	if (!dc_stream_get_scanoutpos(acrtc->dm_irq_params.stream,
++				      vbl_start,
++				      vbl_end,
++				      hpos,
++				      vpos)) {
++		*vbl_start = 0;
++		*vbl_end = 0;
++		*vpos = 0;
++		*hpos = 0;
++	}
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 089741ba0619..2819b58e8a9e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -1167,7 +1167,8 @@ int dm_set_powergating_state(struct amdgpu_ip_block *ip_block,
+ void dm_bandwidth_update(struct amdgpu_device *adev);
+ u32 dm_vblank_get_counter(struct amdgpu_device *adev, int crtc);
+ int dm_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
+-			   u32 *vbl, u32 *position);
++			   u32 *vbl_start, u32 *vbl_end,
++			   u32 *vpos, u32 *hpos);
+ struct dm_atomic_state *dm_atomic_get_new_state(struct drm_atomic_commit *state);
+ struct drm_private_state *dm_atomic_duplicate_state(struct drm_private_obj *obj);
+ void dm_atomic_destroy_state(struct drm_private_obj *obj,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
+index a67774e6db36..4180f519b57b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
+@@ -158,15 +158,19 @@ static void dm_test_vblank_get_counter_no_stream(struct kunit *test)
+ static void dm_test_crtc_get_scanoutpos_invalid_crtc(struct kunit *test)
+ {
+ 	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
+-	u32 vbl = 0;
+-	u32 position = 0;
++	u32 vbl_start = 0;
++	u32 vbl_end = 0;
++	u32 vpos = 0;
++	u32 hpos = 0;
+ 
+ 	adev->mode_info.num_crtc = 1;
+ 
+-	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, -1, &vbl, &position),
+-			-EINVAL);
+-	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 1, &vbl, &position),
+-			-EINVAL);
++	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, -1,
++						     &vbl_start, &vbl_end,
++						     &vpos, &hpos), -EINVAL);
++	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 1,
++						     &vbl_start, &vbl_end,
++						     &vpos, &hpos), -EINVAL);
+ }
+ 
+ /**
+@@ -177,8 +181,10 @@ static void dm_test_crtc_get_scanoutpos_no_stream(struct kunit *test)
+ {
+ 	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
+ 	struct amdgpu_crtc *acrtc;
+-	u32 vbl = 0;
+-	u32 position = 0;
++	u32 vbl_start = 0;
++	u32 vbl_end = 0;
++	u32 vpos = 0;
++	u32 hpos = 0;
+ 
+ 	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, acrtc);
+@@ -186,9 +192,13 @@ static void dm_test_crtc_get_scanoutpos_no_stream(struct kunit *test)
+ 	adev->mode_info.num_crtc = 1;
+ 	adev->mode_info.crtcs[0] = acrtc;
+ 
+-	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 0, &vbl, &position), 0);
+-	KUNIT_EXPECT_EQ(test, vbl, 0U);
+-	KUNIT_EXPECT_EQ(test, position, 0U);
++	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 0,
++						     &vbl_start, &vbl_end,
++						     &vpos, &hpos), 0);
++	KUNIT_EXPECT_EQ(test, vbl_start, 0U);
++	KUNIT_EXPECT_EQ(test, vbl_end, 0U);
++	KUNIT_EXPECT_EQ(test, vpos, 0U);
++	KUNIT_EXPECT_EQ(test, hpos, 0U);
+ }
+ 
+ /**
+@@ -1211,14 +1221,20 @@ static void dm_test_crtc_get_scanoutpos_unmapped_stream(struct kunit *test)
+ {
+ 	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
+ 	struct dc *dc = dm_kunit_alloc_dc_with_ctx(test);
+-	u32 vbl = 0xdeadbeef;
+-	u32 position = 0xdeadbeef;
++	u32 vbl_start = 0xdeadbeef;
++	u32 vbl_end = 0xdeadbeef;
++	u32 vpos = 0xdeadbeef;
++	u32 hpos = 0xdeadbeef;
+ 
+ 	dm_test_crtc_with_stream(test, adev, dc);
+ 
+-	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 0, &vbl, &position), 0);
+-	KUNIT_EXPECT_EQ(test, vbl, 0U);
+-	KUNIT_EXPECT_EQ(test, position, 0U);
++	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 0,
++						     &vbl_start, &vbl_end,
++						     &vpos, &hpos), 0);
++	KUNIT_EXPECT_EQ(test, vbl_start, 0U);
++	KUNIT_EXPECT_EQ(test, vbl_end, 0U);
++	KUNIT_EXPECT_EQ(test, vpos, 0U);
++	KUNIT_EXPECT_EQ(test, hpos, 0U);
+ }
+ 
+ /**
+@@ -1229,14 +1245,16 @@ static void dm_test_crtc_get_scanoutpos_exits_idle(struct kunit *test)
+ {
+ 	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
+ 	struct dc *dc = dm_kunit_alloc_dc_with_ctx(test);
+-	u32 vbl = 0;
+-	u32 position = 0;
++	u32 vbl_start = 0, vbl_end = 0;
++	u32 vpos = 0, hpos = 0;
+ 
+ 	dm_test_crtc_with_stream(test, adev, dc);
+ 	dc->caps.ips_support = true;
+ 	dc->idle_optimizations_allowed = true;
+ 
+-	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 0, &vbl, &position), 0);
++	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 0,
++						     &vbl_start, &vbl_end,
++						     &vpos, &hpos), 0);
+ }
+ 
+ static struct drm_atomic_commit *dm_test_alloc_commit(struct kunit *test,
+-- 
+2.55.0
+
