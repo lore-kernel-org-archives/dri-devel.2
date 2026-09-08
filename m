@@ -4,42 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BB3FC79FA0
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 09:31:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BF19C79FA0
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 09:36:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E14A10E063;
-	Tue,  8 Sep 2026 09:31:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85F8710E0DA;
+	Tue,  8 Sep 2026 09:36:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MCqzN2dw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bA50JpBo";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21E6D10E063
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 09:31:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1965210E0DA
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 09:36:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D62CA4341F;
- Tue,  8 Sep 2026 09:31:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F5E31F00A3D;
- Tue,  8 Sep 2026 09:31:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C7AC740187;
+ Tue,  8 Sep 2026 09:36:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60DBE1F00A3A;
+ Tue,  8 Sep 2026 09:36:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788859867;
- bh=m2MWnb0vwDGTo6Oio/0mTOCEYN7VUOdLLQFifG1JOkI=;
+ s=k20260515; t=1788860186;
+ bh=Mq34waoJSk3F6r5C2Uw1p9anvggTnBAYjIx5URUw9Hk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MCqzN2dwfuZorFHd7V26w3LF4b5BGsxGgXW+OV9Y+IvdnD+sLObTRtkeFh5+LtIJv
- D+PGNK/p25URWICY20VNCVrhP65K5cOlCuRYBt9eTLFwZrIl+Jwi7e+9jatH0sihxL
- ViRMC41MIj3zFwFqWgGgHPpkn3FXU4s4hYAhyPzKr0xLY5Qljhk7wC4WtEIjXJxnOv
- JyFIPgBs2YuX6idBeXmaJyeWJYoS6z7T0pq4bAc+sEPWEkDrxjg723I2hjqQVX78km
- 0s/0zK6Y6LoGM2gu8hxt/SBzN8mILoy63xP6kCmehg106pI7SroQ+6rWr/4QYK8/bj
- 9W40C0YUSCuyQ==
+ b=bA50JpBoC1nkh7i1D2n3vOEyGjXcM2i6D3F2cGoV/Q2HTTs6JLvQySm35PQV9hkpK
+ LWAssyaQFRRg2v8EgbX/eooDQjs99LFVqQzGR1V/LyT6NnOwD84gME8Um3rbP+NYHR
+ tzYNuw3Gj3pPr0sGlZKnvPK2i5Tk/CUoXyG2dOz75KnW/gSYVlJ4Z4kH2tMIM8aPCQ
+ q3sIwaUJAV2SFZ3lTMOVYid6bM83LyI5s3Ez54Nk6NrQmFnhj9Z6QrE1907S/y5G3f
+ lTwlE7I0DcT4Y9UeH1w4a7IbPGEzaj7zaVrQE0KgJOqk0RMM0VvngnpcXDDPlegIV2
+ itRftGnN63/bw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/msm/dp: don't gate eDP on DP_SINK_COUNT
-To: "Vivek Kumar" <vk092kumar@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260908091708.3123735-1-vk092kumar@gmail.com>
-References: <20260908091708.3123735-1-vk092kumar@gmail.com>
+Subject: Re: [PATCH v6 1/6] dt-bindings: display: verisilicon,dc: add
+ support for nuvoton,ma35d1-dcu
+To: "Joey Lu" <a0987203069@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260908092840.225220-2-a0987203069@gmail.com>
+References: <20260908092840.225220-1-a0987203069@gmail.com>
+ <20260908092840.225220-2-a0987203069@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 09:31:06 +0000
-Message-Id: <20260908093107.8F5E31F00A3D@smtp.kernel.org>
+Date: Tue, 08 Sep 2026 09:36:25 +0000
+Message-Id: <20260908093626.60DBE1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,92 +59,58 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Incomplete fix leaves eDP branch devices gated on sink_count and s=
-kips critical initialization.
-
-Pre-existing issues:
-- [High] PM runtime usage counter underflow on pm_runtime_resume_and_get fa=
-ilure.
+- [Low] The schema fails to restrict the `ports` property to prevent `port@=
+1` for the `nuvoton,ma35d1-dcu` compatible, despite the hardware only havin=
+g a single output port.
 --
 
-commit 2e22ab220d8aa377241f1c1461ea7061493df07f
-Author: Vivek Kumar <vk092kumar@gmail.com>
+commit aa050e9da3d62c01f3875ac6fea01c9b0fc78e94
+Author: Joey Lu <a0987203069@gmail.com>
 
-    drm/msm/dp: don't gate eDP on DP_SINK_COUNT
-   =20
-    msm_dp_display_prepare_link(), msm_dp_display_disable(), and
-    msm_dp_hpd_unplug_handle() all treat dp->link->sink_count =3D=3D 0 as
-    "nothing is connected", and in msm_dp_display_prepare_link() this
-    causes probe/enable to fail outright with -ENOTCONN.
+dt-bindings: display: verisilicon,dc: add support for nuvoton,ma35d1-dcu
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> index bc646d172abe0..9254f080f0ea6 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+This commit adds support for the Nuvoton MA35D1 DCUltraLite in the
+verisilicon,dc binding. It adjusts the global minimum clocks and resets,
+and applies specific topology limits for supported variants via an allOf
+block.
+
+> diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yam=
+l b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
 [ ... ]
-> @@ -634,7 +640,7 @@ static int msm_dp_display_prepare_link(struct msm_dp_=
-display_private *dp)
->  		return rc;
->  	}
+> @@ -79,6 +84,45 @@ required:
+[ ... ]
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: nuvoton,ma35d1-dcu
+> +    then:
+> +      properties:
+> +        clocks:
+> +          maxItems: 4
+> +
+> +        clock-names:
+> +          maxItems: 4
+> +
+> +        resets:
+> +          maxItems: 1
+> +
+> +        reset-names:
+> +          maxItems: 1
 
-[Severity: High]
-This is a pre-existing issue, but can this early return cause a PM runtime
-usage counter underflow?
+[Severity: Low]
+Does this conditional block also need to restrict the ports property?
 
-If pm_runtime_resume_and_get() fails here in msm_dp_display_prepare_link(),=
- it
-returns a negative error and drops the reference. This failure propagates b=
-ack,
-and eventually the DRM core calls msm_dp_display_atomic_post_disable(), whi=
-ch
-unconditionally executes msm_dp_display_unprepare() and calls
-pm_runtime_put_sync(), decrementing a counter that was never incremented.
-
-> -	if (dp->link->sink_count =3D=3D 0)
-> +	if (msm_dp_link_no_sink(dp))
-
-[Severity: High]
-Does this fix miss the eDP sink count exemption in msm_dp_panel_read_link_c=
-aps(),
-leaving eDP branch devices gated and causing critical initialization to be
-skipped?
-
-When an eDP branch device with a 0 sink_count is connected,
-msm_dp_panel_read_link_caps() in dp_panel.c still aborts:
-
-		count =3D drm_dp_read_sink_count(panel->aux);
-		if (!count) {
-			panel->link->sink_count =3D 0;
-			return -ENOTCONN;
-		}
-
-Because this failure propagates back to msm_dp_display_process_hpd_high(), =
-it
-skips EDID reading and PSM link configuration:
-
-	rc =3D msm_dp_panel_read_link_caps(dp->panel, connector);
-	if (rc)
-		goto end;
-
-Then, earlier in msm_dp_display_prepare_link(), the return value of
-msm_dp_hpd_plug_handle() (which calls msm_dp_display_process_hpd_high) is
-ignored for eDP:
-
-	if (msm_dp_display->is_edp)
-		msm_dp_hpd_plug_handle(dp);
-
-As a result, the driver proceeds to use the display in an uninitialized and
-degraded state.
-
->  		return -ENOTCONN;
-> =20
->  	if (!msm_dp_display->power_on) {
+The commit message notes that the DCUltraLite has a single output port,
+but the schema doesn't restrict port@1 from being used for the
+nuvoton,ma35d1-dcu compatible. Without disallowing the non-existent
+second output port here, an invalid device tree specifying port@1 would
+silently pass static schema validation.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908091708.3123=
-735-1-vk092kumar@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908092840.2252=
+20-1-a0987203069@gmail.com?part=3D1
