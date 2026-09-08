@@ -4,143 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36BCBC79FA1
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 11:41:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96843C79FAD
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 11:42:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90D0210EB67;
-	Tue,  8 Sep 2026 11:41:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E820B10EB6B;
+	Tue,  8 Sep 2026 11:42:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EoqdOlb9";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dOK7ePXn";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="M/S5KLcF";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D07810EB67
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 11:41:55 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 688BY7aX2874371
- for <dri-devel@lists.freedesktop.org>; Tue, 8 Sep 2026 11:41:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- QV+zIsOLcXKbaqJsaB3LhZDmxFIlCQEKE/EB4eMCTJw=; b=EoqdOlb9tpch7yFZ
- C54PVTVRxYWr6u7w+vdXvC8ojefp2+j8mJzcDsiC9r6fuMOlxigg+RmplSK61RYG
- odtFe6n2VW3/XYnklcXRORQzI3apZzXTIoJ6/ZFvwzjc+vG0TUQtTg0yPDjabfz2
- MY+hFq2ymJlcg9irGqEGBLVXG5ra9vTpyzWAA8EMUN15bwhaJ3caOrYbYGRRNh6n
- BR1FhxO391BBbu3nwy7mlHRX3rZdPyxiybEWDjbQ17LJh97jx5WG2GrNDPIiLL3M
- t21+U7AhOLPigN2syXVFcNqbv8PcIRtVOor05s5JF5RQBrLxBVQbIrxB3XilZeFZ
- xOuy3g==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
- [209.85.217.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjhkj00x8-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 11:41:55 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id
- ada2fe7eead31-7819910f8adso3911326137.3
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 04:41:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1788867714; x=1789472514;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=QV+zIsOLcXKbaqJsaB3LhZDmxFIlCQEKE/EB4eMCTJw=;
- b=dOK7ePXnE2kaheTmYZFqXYDlFutTPCrYHjaLdEhXjcAWWAAYzmd5YAzMZBaYU3IF5J
- oIBeDIsma1AKvs501P6nVDtG5gbsjAsl8Iuhy0WehOnyxhhLlFuLDyN8KK+u5Auizoey
- NaiaFKuJ4b4KXn6HuNQYZkBy+njU71ui6rgylL3DC0rl5tKYldEKJ3UKvGGd6GzQJPe3
- haYmkLdyAzELZ83ZmjshjhuGMjBDcbADk2gHXmLNJ/aOmd9LlcD/E3l0T+OBWGj6pIhI
- DxP7OJf8H9yZHXljXC7MPhpAP8LkK9sYELk4+S0/rwY20rHGYuY8ewL88f63uYAc95th
- NQHA==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8725B10EB6B
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 11:42:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1788867723;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=RrNJtw6g290ODPNBtFlQPVdYDxDOj1rXvh8h+/vQvhk=;
+ b=M/S5KLcFgMhfhZhOsB3t9TILoJn+aaiTXr4VfHD2g8ekOf+lR+vjcJLkWh0RLfc8Ei/XeW
+ zshYvJociPAL6utr0iNoXQ8JkDYoTnpZiUZnfTZPyiAw/BbhvN7D3wAYSOiXf+wjS7rLjn
+ 9VdemQpmZBX093Jk8EIgk1lSQkA/0/E=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-582-owQYkfPyMmyXBauIcdfHQQ-1; Tue, 08 Sep 2026 07:42:02 -0400
+X-MC-Unique: owQYkfPyMmyXBauIcdfHQQ-1
+X-Mimecast-MFC-AGG-ID: owQYkfPyMmyXBauIcdfHQQ_1788867721
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-49ccb223bceso26533105e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 04:42:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788867714; x=1789472514;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=QV+zIsOLcXKbaqJsaB3LhZDmxFIlCQEKE/EB4eMCTJw=;
- b=inLpYP7MwlPP0J26DGW7ro4POknxb8p/DI9+fDpEahnrtv8eNAkCn5JYzh3iZhVbny
- /hT0xajZCXErTzi3qtCRl8oKSDvCLy/YcACJYcQmJwnKlns4KpxJxiMTjPHoWxIqnTNn
- v/O1x+e2w4A/XIVKS4fEP5eoRhhmxfgvpt0POV3ZH9bwsbbhQnZyoJLIYko/YeMessqg
- oLaWO0/A6fdpTZieo68gcm2xFEaUYLtn6McQkbgF7z9slq//P543Vxlgze48K3ZwOX/L
- faWr6rfk7HdntsuJlT6JGcdLVXro6702e8np6tUr0nUaWDXQG9rdtkLwyCCQmN62ygpD
- l/0w==
+ d=1e100.net; s=20251104; t=1788867721; x=1789472521;
+ h=content-type:mime-version:message-id:date:references:in-reply-to
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=RrNJtw6g290ODPNBtFlQPVdYDxDOj1rXvh8h+/vQvhk=;
+ b=qj+wbtFy3Yiollfj+1TAcabU5VAUO6QJGIzJbXBFC4+zeqIIVPEzIESbho9qNkTDwR
+ dxG4cI1k1S0GbW45/215wCWrQSQSM0oqjm0JoS3ySktt++Sdow3jeTVoRJT3tFVrd94D
+ 9y87lFfzOOWXw0xzLTBW2EPVVOEj/5lvEX9jYMoaP+BKckmkO+lf65pjhbXzhRt+9RJD
+ GhSlAdUGsdTbdJAQatXODp45cK2AtvdaaVOD2gcCS8T90GNiO9McaNSZH5MxFTIaAh08
+ DS6M6gjO7bLE5TdyVArfKj5OnWamrlMGGk3Z7vFi5GmqPpQOhiefnD0s6/8SB/rngUbv
+ Oi9w==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxdyzNtG7UsFD+7bwezEA8WuARUBhizmDECT1rDyXlHhU3eDfbQ5/MvFPcHqu2QbZYAJARajvmqomY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mBnbjdMrIwUOoS4w8Eqa+U1uSqZCWHczmaofcK0Io38zTOtCIQ
- ++ku3BhsWom6oh3LlbWbJKEgKMo0jWEihKI0hY8c0y7JdDggvhGORP1JEOM75XpJ+1q3BAZnXKT
- iEb14Qde7ZpMWPWQgtvVsJc6AErWknr++KhQ+OEUMeo+WxOYS1MDMMN2ul6+XZD5DigldoJg=
-X-Gm-Gg: AYBFou0aAVRc5SVVEVrMcBrDBjzE2o+KyMxzcScJ3FswZy47HbMeZMv4M0QhQSh69dT
- hWxq4+LrtVk319E4EC8QwiXrAg1eR1QGViOsXyd9CHP12BwCRjPQr1zt3fgrQgvMyxazR0CK8MF
- 5XuKlWszYlIX8Z5ArIzLbRlNtgGQQJHHvVTWvK9uOLwL1FNaiHtPb/mzVjNbncaRfWAKwiNP9ot
- W6Kr3LLIheOdx0gKapG7mca8qxyfN8evmASkqcSFVQSxiSIWhXP1jGY2ms6U013muRpv4hgIQz8
- BtMqzevA3YVaXJj+19Z09n1oS3zIK1GrMBHrXFwaSELgYP92D3ZjoWBD1++KxKFhxp0r8aqYNPp
- s+dzAVIJADeNVztU/jtU20+BygoCYXotHKM/FO/VEYYY7CQPLFmuAU/hf65yYL+ZJ0E8MypiTyx
- AUW8h/MaVumTYj
-X-Received: by 2002:a05:6102:2c8e:b0:785:b0ac:54bb with SMTP id
- ada2fe7eead31-78a4a9eebcbmr11094435137.7.1788867714005; 
- Tue, 08 Sep 2026 04:41:54 -0700 (PDT)
-X-Received: by 2002:a05:6102:2c8e:b0:785:b0ac:54bb with SMTP id
- ada2fe7eead31-78a4a9eebcbmr11094401137.7.1788867713514; 
- Tue, 08 Sep 2026 04:41:53 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ AKwUvBwGrDlgom+NhLyqRhofawib523P0waxDJIPVnHOzXWt60vrWGmL9lnmKqOvKWyjhPKeZNCw2R/i3gw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++k9bGC+HFFLcSl6Ga+C/QYNi3/KUN7CEWkJsW84+Z967aaOk9Vp
+ wVIg8Aa4cfIYjYFXnCS2X7k2ajHkCAMJieUojA4rIHXAUF1ZKjwQtbVjc9DyYIW8yX9NJsj/gm+
+ 6uXXBcthVvFSUAUKSKqkgYOovjhnX1UHBI/y92ohW6LJ9rH1O9Xul7PPbmNUHqcpg3MzQcA==
+X-Gm-Gg: AYBFou37ChPwkCtPOkB7V92LXPDf9iiejiH32lNH5YddJGQle8+ZdnZFN9+499p9mMn
+ DTElYpjULPzIzOK+NR9ECqvhZZznMZ6eoVb+Pwj4iwKNHnclkjso1X7dkHu5En5rC9De1iers6w
+ TsSoqL5qy/oI+U2qjDtjJwsRQ4e5+S+BlFazw1B274PtBKSXGqU/xemllWXN7HOvIHM1kzxRUzB
+ MW2FZq2TUDFJHzWCfVsC6YiluR7mbSoOeGKasgdFc/zbXt0vNb/VneKiWOiuXOdHzHGD2DQQDMH
+ OpfqP+h8tjfpdFwVYhDwlMJIjBUXe6WjHYfYjnNVvKgLO5dulDqaZGE4OcYWR30aKxmiz4F4ogw
+ Jw2wdj/3YDrlV8N9cxQFb/SiEjLg08NqW/izV5UGCSUCdYfQHBCTIRy29SA==
+X-Received: by 2002:a05:600c:4752:b0:499:59fd:dbfc with SMTP id
+ 5b1f17b1804b1-49d175439dbmr67723935e9.1.1788867720850; 
+ Tue, 08 Sep 2026 04:42:00 -0700 (PDT)
+X-Received: by 2002:a05:600c:4752:b0:499:59fd:dbfc with SMTP id
+ 5b1f17b1804b1-49d175439dbmr67723525e9.1.1788867720384; 
+ Tue, 08 Sep 2026 04:42:00 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b6166ecfbcsm3048299e87.13.2026.09.08.04.41.52
+ 5b1f17b1804b1-49d03543064sm296441395e9.13.2026.09.08.04.41.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 04:41:52 -0700 (PDT)
-Date: Tue, 8 Sep 2026 14:41:50 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Rob Clark <rob.clark@oss.qualcomm.com>
-Cc: Connor Abbott <cwabbott0@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/adreno: keep the GPU timestamp monotonic across
- power collapse
-Message-ID: <fl5uoffoh3gyod3f6jxgze33ut4jj4ttmgivtyoa5oykbt2aqp@rkktjz4yh4ll>
-References: <20260828-b4-adreno-timestamp-v1-1-273525da144c@oss.qualcomm.com>
- <CACu1E7GGdxTOsn+MRDT+7Guhjs-DDkZVx0Yet=RTxgQ4CNCKhw@mail.gmail.com>
- <CACSVV00BtmA0CotRucd8jG=cQLQw0YmLKEkTOV70qHBx=sG0sA@mail.gmail.com>
+ Tue, 08 Sep 2026 04:41:59 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Fabio Piparo <holofermes@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Amit Barzilai
+ <amit.barzilai22@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Fabio Piparo <holofermes@gmail.com>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] drm/ssd130x: Set the address window in
+ ssd132x_clear_screen()
+In-Reply-To: <20260817152500.703770-1-holofermes@gmail.com>
+References: <20260817152500.703770-1-holofermes@gmail.com>
+Date: Tue, 08 Sep 2026 13:41:58 +0200
+Message-ID: <87h5k0dl6h.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACSVV00BtmA0CotRucd8jG=cQLQw0YmLKEkTOV70qHBx=sG0sA@mail.gmail.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDEyNSBTYWx0ZWRfX/Gt2udjYMxQW
- cRa6K4ZsFhR+TEVBQUQ8Kw/7yxYWv57f/DG4D2/clU8Pn19KFs6YlkF1yd8BqEL8UNS9I7zQLOd
- IBrxW8FufH7TZT95InYMmbA0WnEwEuk=
-X-Proofpoint-GUID: N6z9qJ8JtCPKG_ERJZyitchs27eC8w_d
-X-Authority-Analysis: v=2.4 cv=VYjH+lp9 c=1 sm=1 tr=0 ts=6a9ff483 cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=pGLkceISAAAA:8
- a=EUspDBNiAAAA:8 a=NK-yGmZRxCvKOhKFziUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-ORIG-GUID: N6z9qJ8JtCPKG_ERJZyitchs27eC8w_d
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDEyNSBTYWx0ZWRfX1uLMXosC0aQW
- 9CKX7DbAmZ00iIqEwhBJisCNFEhgzKp0mD2Aurfi3TuACWM7DnYCTh7eD1Nwzxdti7llobkwTFd
- 7NbR9BVWb3P0Jrqb6O2VTM5uT1HXDdi49ICfFVV21jcwYC9MYuBStgYzBYewLCL6SOX1SpMZJjH
- 4JetsWkEzmVRsKA47GtRbu2L1hO8qhUgerLMtLHaMI7fQUG5+VzoJwEtm0sAvk9WTlaTOOE8VtD
- QpjjYIBozao8c4illOl87Du6g6eVp3W4t+ZjNr54ZvQDYY/O7G2NZr7UEi4/167DpeOqTeTh6ry
- dI8wg0ScN77KiGr75NsKoEgXAhCxCcn0EHpjjHAiVfumxeSuvmYpqGG6qZAItaY8FRbjThdsfFz
- 9UzFINAMwBPmCmz0czP1xBPiKpCt7pLbhvFH/URFPVmKnpXlMHoVB8NFxz0fKvJgSRr3ydAEbjE
- Oa6wEmnHO4sSkYOAqBQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_02,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 bulkscore=0 phishscore=0 adultscore=0
- priorityscore=1501 suspectscore=0 spamscore=0 impostorscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080125
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: jGb5TB6msO2lrRp9yNLClzPVbuUNj7lPRdMEoR3eXHk_1788867721
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,50 +102,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Sep 07, 2026 at 04:20:43PM -0700, Rob Clark wrote:
-> On Thu, Aug 27, 2026 at 9:07 PM Connor Abbott <cwabbott0@gmail.com> wrote:
-> >
-> > On Thu, Aug 27, 2026 at 7:13 PM Dmitry Baryshkov
-> > <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> > >
-> > > The always-on counter behind MSM_PARAM_TIMESTAMP sits in the GPU power
-> > > domain on a4xx, a5xx and the GMU-less a6xx parts, so it restarts from
-> > > zero whenever the GPU is powered up again and the timestamp reported to
-> > > userspace jumps backwards. On an a702 six reads three seconds apart all
-> > > land in the 500..1200 tick range, stepping backwards twice, and on an
-> > > a530 the OpenCL device timer conformance test fails because
-> > > clGetDeviceAndHostTimer() returns an end time below the start time.
-> > >
-> > > Save the counter in the suspend path of the affected generations, while
-> > > the GPU is still powered, and add the accumulated ticks to the value
-> > > reported to userspace.
-> >
-> > This is useless because the entire point of clGetDeviceAndHostTimer()
-> > (and the similar thing in Vulkan) is to match what the GPU itself
-> > returns, and now you've broken that by adding an offset.
-> 
-> Just to clarify, the timestamp needs to match what UMD reads directly
-> from hw in various different ways (timestamp queries, shader_clock,
-> etc)..
-> 
-> If we can _restore_ the value (ie. write the hw reg) on resume, that
-> would be ok.. but it doesn't look possible.
+Fabio Piparo <holofermes@gmail.com> writes:
 
-Yes, a quick check shows that all relevant registers are write-ignore.
+Hello Fabio,
 
-> Otherwise I guess we need
-> some scheme where an offset value is stored in memory somewhere, and
-> some coordination with userspace to add the offset in various
-> different paths.  But the kernel shouldn't be adding the offset to
-> what it returns to userspace itself.
+Sorry for the delay. I was on vacation for a few weeks and I'm just
+catching up on email.
 
-Ack, thanks for the explanation. I tried to match what kgsl was doing.
-It reads the GPU timers directly from the GPU, but for the CPU timers it
-reads the value from KGSL driver which accumulates the offset.
+> ssd132x_clear_screen() sends its zeroes without setting the column and
+> row ranges first, so they land in whatever window the last
+> ssd132x_update_rect() left programmed. A partial final update then
+> leaves the rest of the screen uncleared, with fbcon the last damage is
+> typically the cursor cell, so blanking keeps the console content on
+> the panel.
+>
+> Set the full-screen window first, as ssd130x_clear_screen() already
+> does.
+>
 
-If I understand you correctly, we need to export the offset to the
-userspace via some extra page (like vdso) and let Mesa read it. Correct?
+All this makes a lot of sense to me.
+
+> Fixes: fdd591e00a9c ("drm/ssd130x: Add support for the SSD132x OLED controller family")
+> Assisted-by: LLM
+
+I was going to mention that this isn't the convention documented in
+https://docs.kernel.org/process/coding-assistants.html#attribution,
+but I just noticed that there is a recent commit 816d9992d9ed
+("coding-assistants: simplify attribution").
+
+So your tag is correct and I learned today that "AGENT_NAME:MODEL_VERSION"
+got deprecated.
+
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fabio Piparo <holofermes@gmail.com>
+> ---
+> Exercised on an SPI SSD1322 under local enablement patches for that
+> chip; compile-tested only on the SSD1325/1327. ssd133x_clear_screen()
+> has the same problem, left alone here for lack of hardware.
+>
+>  drivers/gpu/drm/solomon/ssd130x.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+>
+
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+
+I'll push to drm-misc (drm-misc-fixes). Thanks for fixing this issue!
 
 -- 
-With best wishes
-Dmitry
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
