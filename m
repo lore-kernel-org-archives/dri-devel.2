@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D568C79FAC
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 04:41:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAABDC79FAA
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 04:41:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9B1F10E989;
-	Tue,  8 Sep 2026 04:41:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25BA410E9A4;
+	Tue,  8 Sep 2026 04:41:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YZ7xlRwd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rOO/h4vl";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010023.outbound.protection.outlook.com [52.101.56.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B071710E989;
- Tue,  8 Sep 2026 04:41:02 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011061.outbound.protection.outlook.com [40.107.208.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FA5610E990;
+ Tue,  8 Sep 2026 04:41:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v99fJUIcqNvnkyLT/OFlrIpSFbBSMOT1ctHssy2/GFbxKcdpnyBmDp6rAoo7SLX4B3sl3T9O26OdMtoA+oDVoMnHAD/sfhQvn44cZ7FM/RjTOEpZhaTBoGXbyZ4zO6Nm2TyftCNGsnhuPAN8Q7GUKCRgchRmHnYwlypyI8madoyOlzZ71AA/l028iQDGe9dahv8schIlfXbtST1F3x0k3ohnmTY6zITu/Cuoz6F4T8xSZnGMDDPOrEUJ+cRF0AhPDzyrtedt5u9gcseurF1a4ARByCATnzFvQlHFySuVLsEhOMxGiUpzKpX2BDluDaujKWfDO9XDX8DLV0czkUwNPQ==
+ b=GaMBGfLc0aqSOfykMrg/NrVkoq5R/9dcmpZCh6TqKNfAo4f7x81UnB9p0iz3CRIGCoTeexmJVmneH6bxXgfo0BTrcSswa3WCBk78nWF9NpnWfkzhbjfGuxSJN3So5szPtMXuEOirv/xvYfuCCRYjQS7AcSJvMqyKbGgKPbu9xNL3kERIzsSuUER2Gk2pC4vJGP66JGqLdHGPRTKcEA7jJ/h+pE/QJMG4VHfEW6usk1EYEsvRDhwLK0Yplin1qU5BE/0fI71JcenbnjMmcK58XVOwRnSbxap5FQDdnB/28vK2EmN9Mih4TPpxi1YmwkbhF/kX391AukbWQCL5lo8b+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZnMkDdXucdrP/LVeqPrAPx3T3bPhA7jibVoaWfY4Qt4=;
- b=dhF/4LzF1x9+JVMuAVy+TRlZJLBa4tHEyswrvsEGHaK0gT05f5atBzPky02M3e3hSRCcHvix39vaFmJ6sgM6P9a6du/x9H/N3BUr6e2NiUm8wsjZMzo5CKazBe5392emiA0F1nPfBlvZOFXIqsFgftv2YBo0Lg+/Psj0HuNoWUg6WG21MBSgI/IYjpfhtKE/Fpq203u8gu8yLcFbuot68d/iulGtEMpB8WxIvxZQxy6Va48AC0uRbGhIg8LhEAgLsJoN2W/Wt/8lII8I4YWLOerKsVwptJWdx2XDaedUo9nA9Ud37P4dQQqOKxRSWYaJENv2AQciOI6WVagULxtsWw==
+ bh=HXUZPw4IjaV/Jl3g1rLVIpFoaFec43nRPQco+bmpwks=;
+ b=qFx9v92QlIvY42m+L3+tP9n5cZnrovb9Qs5b5ptdjzF0uhubJNMiFb6TlSPAWWG0Q1dfRln3l9oWhItYJYuRZ+2x884VhluRC7jBqfL+Icm+O5q2k7aVHhE8Hhjy+P4aX6k2oIQJaAX3vP4TyaSq7R9FtAvKpfrA62Pusx7hZhacprQk/QKRtNDBK/HuLAb7gBnUUmIJhnKm6QJwgxYDrIlWbVZLSwg9eAYcMJQenEveF7eweFc+GVXWxZdt7QUA6raF619qxA+Moqq8jQmctbiULygMYLCXYKCINXNY5aeITfLoP8pukBdQRM961EW5LonW+aqPZT8a/GLGPkAMDA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZnMkDdXucdrP/LVeqPrAPx3T3bPhA7jibVoaWfY4Qt4=;
- b=YZ7xlRwd+cKdjKMon3zFhiE2gAUr8w+D49O6G0+QEOkgpD1Zda8cDiZH7kXBpDqq7cRynWuI/fzI2WvtC5VwWiLnh4tT1lxnvP8bU0VAprod5v9STcGI75UuWxC7h9O1rtxSXSB8v9KQMklGN7uLVhGIC1qkfL/DFbEPYjpwA3I=
-Received: from CY8PR12CA0034.namprd12.prod.outlook.com (2603:10b6:930:49::22)
- by SJ2PR12MB8942.namprd12.prod.outlook.com (2603:10b6:a03:53b::8)
+ bh=HXUZPw4IjaV/Jl3g1rLVIpFoaFec43nRPQco+bmpwks=;
+ b=rOO/h4vlNfyVfnNRW4S+Vjvqi0fMrVtEgmrgDkFZKq4uiKKEfR/aRIKYZqTQkQRp2v54oQGiLq6Pig6moEd8jneLBDgS9i2i1oB81KvqH23ibj+96UemNfhsyNM5mpaFuLAsgkoXw2V3cQYL+ZziE+urnsIdha/snDKBnveBK+o=
+Received: from CY8PR12CA0048.namprd12.prod.outlook.com (2603:10b6:930:49::11)
+ by CY5PR12MB6525.namprd12.prod.outlook.com (2603:10b6:930:32::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 04:40:56 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
+ 04:40:56 +0000
 Received: from CY4PEPF0000EE37.namprd05.prod.outlook.com
- (2603:10b6:930:49:cafe::72) by CY8PR12CA0034.outlook.office365.com
- (2603:10b6:930:49::22) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:930:49:cafe::ae) by CY8PR12CA0048.outlook.office365.com
+ (2603:10b6:930:49::11) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
  Sep 2026 04:40:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -54,7 +54,7 @@ Received: from satlexmb07.amd.com (165.204.84.17) by
 Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 7 Sep 2026 23:40:55 -0500
+ 15.2.2562.46; Mon, 7 Sep 2026 23:40:53 -0500
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <harry.wentland@amd.com>, Simona Vetter
  <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, "Maarten
@@ -65,12 +65,11 @@ CC: Xaver Hugl <xaver.hugl@gmail.com>, <amd-gfx@lists.freedesktop.org>, "open
  list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
  <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM DISPLAY FOR XE AND
  I915 DRIVERS" <intel-xe@lists.freedesktop.org>, Hans de Goede
- <hansg@kernel.org>, Mario Limonciello <mario.limonciello@amd.com>, "David
- Herrmann" <dh.herrmann@gmail.com>, Marta Lofstedt <marta.lofstedt@intel.com>, 
- Mario Limonciello <superm1@kernel.org>
-Subject: [PATCH v8 02/14] backlight: add kernel-internal backlight API
-Date: Mon, 7 Sep 2026 23:40:23 -0500
-Message-ID: <20260908044035.62093-3-mario.limonciello@amd.com>
+ <hansg@kernel.org>, Mario Limonciello <mario.limonciello@amd.com>, "Mario
+ Limonciello" <superm1@kernel.org>
+Subject: [PATCH v8 01/14] Revert "backlight: Remove notifier"
+Date: Mon, 7 Sep 2026 23:40:22 -0500
+Message-ID: <20260908044035.62093-2-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260908044035.62093-1-mario.limonciello@amd.com>
 References: <20260908044035.62093-1-mario.limonciello@amd.com>
@@ -82,29 +81,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE37:EE_|SJ2PR12MB8942:EE_
-X-MS-Office365-Filtering-Correlation-Id: be5df3d8-84cb-4dab-1a2b-08df0d635fa4
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE37:EE_|CY5PR12MB6525:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3cefb87-82cd-42a8-9d0d-08df0d635f64
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|7416014|82310400026|1800799024|376014|10067099003|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: oir7Na+fibBJbRvfH1Wqw4NLXpIGwhW8yrm5ydlEReqr2Z/XnEkNBJ4mC8l9zZaTYRZrYq2h58hUxBX1h9FXQo7JQ0RDVWRdwgIHAJfMhiFFVpjURf7IeX1w+LT+qA8qml+YPYovosaZrNZ/e+J/BDXzSODU0Al3DNJZgC/g+XkFuyb5xCbnsRoAws2yieZVgPM/kCM/LIPtw4CB59Xe1bt2V+NZar6fjWMiH4b+BIc0Fm7dI4qXLPslNMICnfbvn2bADAbrmgnVJtasqlkiSZwOAPJsabGuko8tnuR5XhGOhzew2+jKPCXG1xc81qA0V37latCm/Q6P1bAi5yEj3Eyv6XgbOXPK40nYlXwP+2cQXNMz3uhOhwsv6ZHYFWnnh44WEw8AlCYMgEluaB0Ta/eSDfzUMXOPgzkIATFy0ALh9bk+UThUkgwSGPtaUfNhYqeiExUFjdFS8LF1fVdiXqBTnXAFqr/xZydEegFRSQBrj1vMtGyu04ScIth0NUDyEL4a62mVREBdHMdtp+aYfqhYFCxBfsQ1JKKYyBl9zQFyNB5g/DMqDgjDmucb9G9NwYdFR4J65MemJifp1KNBscGS+9bCe/xAnnkxSAduIX93aDmfKFOLrDRvoJxPsPcCGB/+U6J60ZSgMGIATfmi3pACn5+7nsaoJ8K+XFDVr5uplzV6GcKOWEL4Ac//pGmv5mEP24KEpOXNUmS/Xhzvew==
+ ARA:13230040|376014|7416014|82310400026|23010399003|1800799024|36860700016|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: Jf2RGqxfx7d1stFKhcI5wSdfgJY+CtPDHJ/JDdTbdEVXSYrt7Qp/d08wYjeom5Yv9AH/xPrwv8bYoI+bBzCCw+gP4+0XyYIQsKK/Kg3uvKXkgEMWxXr5hlgnrqqNCCihsqPwTOa4C1aB44enA8842pbZ+pBS3KOoYra5gnl8SnhG5l/Gz6Bdj7u2Ez5/FG7YXcaBg9hY1R29YNeJVcDUAFpTqT3D4ZDbTTw9ln8WMBCv9n4bcVGdNDyrmsqEjJOgYIz0bMMSXM5KNQ7rOiOMEYgPSYRVPf8uZdSz7H4aJx1EGb/V7lci1myT1j9vz64gfhNhcXntGbk/o5W5QR9MXpt7Yvg3B2soqPoVstsKPpkyhoQgljoN9rRyj3sFn+m1oSIY4CTM+sDDMvSIkkDRS8iKL0ADKvH9Dfz6EQrTIIcpJWkdjj7MTUPMF/k+M9bgfgBYC1jOSKnVDoS+k1dE+ZkwM3lMxR0fwhsmOJOxZPCS/kVeQIli8+bZneYvoIsgVYcDY59Tjz/j/Vb++ymSo0foP7Udb7VmRFmWuM5KrmseiC3GbL/KFsGyVU8RXMvP2CNU+gjzxdnEB+jl46OfrRKhDR+RMmVcOLVW+miKkZfRzRmO4eQOuvUPLY8+2pCiRumI+1iPxvbBqEO5GKkmIvROFxe9T8voo8H6JO00PQbPMiksEOkc8VP56NvI98H9KINPRZlVSX1Eo8KrMF39MQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(7416014)(82310400026)(1800799024)(376014)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006);
+ SFS:(13230040)(376014)(7416014)(82310400026)(23010399003)(1800799024)(36860700016)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ArTSXc3ysnSUN/WXd8oPkeXf1VEQVLT+RF6MuDwnok6IKBLOpJXPXNUk9O7n0RvyF7mjLiljgaHHcsJWpTt6phzKV1W9koFyzCtoewNpK1v3buwR71v9ault/aBRvBsN5TGO9ec7Ul1qanD97Is+kc/iPJ+fCXfcyMhlTKIfoxMMwupffgdY5R8daNgNxLwZIjAfnde+GkhjkyfhiUxNzzespaByqDjK1uzbHmAY2AcNZeZnXhOXIAXYNOakR4upG1PdaiPtV8/cTDol6Ohge9BCZJZ8Vr4DNRMuvVhABnKYFY8WL37CGAuzz16G0zCaBpIzLwPtuHca7pAI29zjficU56sHjWegaT9WAZtdzfwSvIgLPr9Rtps0OsmZ1zwHV5dKcoLGhkWAIKthxBtDUn5/QL7eDp3+fzx6aA9W7Nlq3SYtVfU5/dc+7IQsAm7o
+X-MS-Exchange-AntiSpam-MessageData-0: Cc7N0xv6YZGCTNusLeydAURUaaGt64ZGejiLKWfqi7qNQ6Ancxzc88baBvspnnoSoEUylcVgJJEfwGdc6fPyQdkvxzyeVyF2aQX+DtniKlv1O+0ZAnvJK0TkPjpzqUMPWhYeRGXhqQ8IYXn6c+8SN2+l74dSBn5YiI2Zy/6cPCOpY8OdoY8di1+q/9EZjp3Q5y50MFKrd7fHLh4Xt6c3HWkBpC63vzLHm81rL1h0nfysLDRntjLzwrc54nRjGRaPyAus7bv1Pp9hmN7Y2qad+omhZnb2n/RYzB8Oj2+yEl4slC+vtwtsYRGZza2eYp5mcb0fo5UljRKiqWX96qPwcM5W+CCaZiFoFRGq0DJMYflCtRN2Hmk+RFPCZK+BzXKabqjepfAvY0n/qsYKYP/t2jDcNrR1PPji0migcT9q8rkDCx/One9PwXT+htrpVAA5
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 04:40:56.6788 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: be5df3d8-84cb-4dab-1a2b-08df0d635fa4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 04:40:56.2377 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3cefb87-82cd-42a8-9d0d-08df0d635f64
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE37.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8942
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6525
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,232 +119,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-So far backlights have only been controlled via sysfs. However, sysfs is
-not a proper user-space API for runtime modifications, and never was
-intended to provide such. The DRM drivers are now prepared to provide
-such a backlight link so user-space can control backlight via DRM
-connector properties. This allows us to employ the same access-management
-we use for mode-setting.
-
-This patch adds a few kernel-internal backlight helpers so we can modify
-backlights from within DRM, a brightness-changed notification, and a
-per-device takeover count so that legacy sysfs writes can be inhibited
-(-EBUSY) while a luminance-aware DRM client is in control.
-
-Signed-off-by: David Herrmann <dh.herrmann@gmail.com>
-
-V2: Marta Lofstedt <marta.lofstedt@intel.com>
-- rebase
-- minor edit for checkpatch warning
-
-Signed-off-by: Marta Lofstedt <marta.lofstedt@intel.com>
-
-V3: Mario Limonciello (AMD) <superm1@kernel.org>
- - rebase
- - Use guard(mutex)
-
-V4: Mario Limonciello (AMD) <superm1@kernel.org>
- - Adjust return type for backlight_set_brightness() to return errors
- - Stop clamping in backlight_set_brightness()
- - Drop backlight_device_lookup()
+This reverts commit 5461f3fd74a89757f95f351eb0bc26aafc2a2e91.
+The backlight notifier support is needed in order to add backlight
+control support into DRM connectors.
 
 Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
 ---
- drivers/video/backlight/backlight.c | 66 +++++++++++++++++++++++++++++
- include/linux/backlight.h           | 45 ++++++++++++++++++++
- 2 files changed, 111 insertions(+)
+ drivers/video/backlight/backlight.c | 42 +++++++++++++++++++++++++++++
+ include/linux/backlight.h           | 22 +++++++++++++++
+ 2 files changed, 64 insertions(+)
 
 diff --git a/drivers/video/backlight/backlight.c b/drivers/video/backlight/backlight.c
-index 4401f6294ccc8..1c700c1e77c3f 100644
+index fc9bb303e8c5f..4401f6294ccc8 100644
 --- a/drivers/video/backlight/backlight.c
 +++ b/drivers/video/backlight/backlight.c
-@@ -126,6 +126,9 @@ static void backlight_generate_event(struct backlight_device *bd,
- 	case BACKLIGHT_UPDATE_HOTKEY:
- 		envp[0] = "SOURCE=hotkey";
- 		break;
-+	case BACKLIGHT_UPDATE_DRM:
-+		envp[0] = "SOURCE=drm";
-+		break;
- 	default:
- 		envp[0] = "SOURCE=unknown";
- 		break;
-@@ -150,6 +153,13 @@ static ssize_t bl_power_store(struct device *dev, struct device_attribute *attr,
- 	struct backlight_device *bd = to_backlight_device(dev);
- 	unsigned long power, old_power;
+@@ -65,6 +65,7 @@
  
-+	/* A luminance-aware DRM client has taken over this backlight; the
-+	 * legacy sysfs interface is disabled until the last such client
-+	 * goes away.
-+	 */
-+	if (atomic_read(&bd->drm_takeover) > 0)
-+		return -EBUSY;
-+
- 	rc = kstrtoul(buf, 0, &power);
- 	if (rc)
- 		return rc;
-@@ -214,6 +224,13 @@ static ssize_t brightness_store(struct device *dev,
- 	struct backlight_device *bd = to_backlight_device(dev);
- 	unsigned long brightness;
+ static struct list_head backlight_dev_list;
+ static struct mutex backlight_dev_list_mutex;
++static struct blocking_notifier_head backlight_notifier;
  
-+	/* A luminance-aware DRM client has taken over this backlight; the
-+	 * legacy sysfs interface is disabled until the last such client
-+	 * goes away.
-+	 */
-+	if (atomic_read(&bd->drm_takeover) > 0)
-+		return -EBUSY;
+ static const char *const backlight_types[] = {
+ 	[BACKLIGHT_RAW] = "raw",
+@@ -415,6 +416,9 @@ struct backlight_device *backlight_device_register(const char *name,
+ 	list_add(&new_bd->entry, &backlight_dev_list);
+ 	mutex_unlock(&backlight_dev_list_mutex);
+ 
++	blocking_notifier_call_chain(&backlight_notifier,
++				     BACKLIGHT_REGISTERED, new_bd);
 +
- 	rc = kstrtoul(buf, 0, &brightness);
- 	if (rc)
- 		return rc;
-@@ -514,6 +531,41 @@ static int devm_backlight_device_match(struct device *dev, void *res,
+ 	return new_bd;
+ }
+ EXPORT_SYMBOL(backlight_device_register);
+@@ -484,6 +488,9 @@ void backlight_device_unregister(struct backlight_device *bd)
+ 	mutex_unlock(&pmac_backlight_mutex);
+ #endif
+ 
++	blocking_notifier_call_chain(&backlight_notifier,
++				     BACKLIGHT_UNREGISTERED, bd);
++
+ 	mutex_lock(&bd->ops_lock);
+ 	bd->ops = NULL;
+ 	mutex_unlock(&bd->ops_lock);
+@@ -507,6 +514,40 @@ static int devm_backlight_device_match(struct device *dev, void *res,
  	return *r == data;
  }
  
 +/**
-+ * backlight_set_brightness - set brightness on a backlight device
-+ * @bd: backlight device to operate on
-+ * @value: brightness value to set on the device
-+ * @reason: backlight-change reason to use for notifications
++ * backlight_register_notifier - get notified of backlight (un)registration
++ * @nb: notifier block with the notifier to call on backlight (un)registration
 + *
-+ * This is the in-kernel API equivalent of writing into the 'brightness' sysfs
-+ * file. It calls into the underlying backlight driver to change the brightness
-+ * value.
-+ * A uevent notification is sent with the reason set to @reason.
-+ * Return: 0 if successfully notified, -EINVAL for invalid values, -ENXIO if the
-+ * device has no ops (e.g. it is being unregistered)
++ * Register a notifier to get notified when backlight devices get registered
++ * or unregistered.
++ *
++ * RETURNS:
++ *
++ * 0 on success, otherwise a negative error code
 + */
-+int backlight_set_brightness(struct backlight_device *bd, unsigned int value,
-+			      enum backlight_update_reason reason)
++int backlight_register_notifier(struct notifier_block *nb)
 +{
-+	int rc = -ENXIO;
-+
-+	scoped_guard(mutex, &bd->ops_lock) {
-+		if (bd->ops) {
-+			if (value > bd->props.max_brightness)
-+				return -EINVAL;
-+
-+			dev_dbg(&bd->dev, "set brightness to %u\n", value);
-+			bd->props.brightness = value;
-+			rc = backlight_update_status(bd);
-+		}
-+	}
-+	if (rc == 0)
-+		backlight_generate_event(bd, reason);
-+
-+	return rc;
++	return blocking_notifier_chain_register(&backlight_notifier, nb);
 +}
-+EXPORT_SYMBOL_GPL(backlight_set_brightness);
++EXPORT_SYMBOL(backlight_register_notifier);
 +
- /**
-  * backlight_register_notifier - get notified of backlight (un)registration
-  * @nb: notifier block with the notifier to call on backlight (un)registration
-@@ -548,6 +600,20 @@ int backlight_unregister_notifier(struct notifier_block *nb)
- }
- EXPORT_SYMBOL(backlight_unregister_notifier);
- 
 +/**
-+ * backlight_notify_brightness - notify brightness change to listeners
-+ * @bd: backlight device that changed
++ * backlight_unregister_notifier - unregister a backlight notifier
++ * @nb: notifier block to unregister
 + *
-+ * Notify registered listeners that the backlight brightness has changed.
-+ * This is called automatically after successful brightness updates.
++ * Unregister a notifier previously registered with
++ * backlight_register_notifier().
++ *
++ * RETURNS:
++ *
++ * 0 on success, otherwise a negative error code
 + */
-+void backlight_notify_brightness(struct backlight_device *bd)
++int backlight_unregister_notifier(struct notifier_block *nb)
 +{
-+	blocking_notifier_call_chain(&backlight_notifier,
-+				     BACKLIGHT_BRIGHTNESS_CHANGED, bd);
++	return blocking_notifier_chain_unregister(&backlight_notifier, nb);
 +}
-+EXPORT_SYMBOL(backlight_notify_brightness);
++EXPORT_SYMBOL(backlight_unregister_notifier);
 +
  /**
   * devm_backlight_device_register - register a new backlight device
   * @dev: the device to register
+@@ -674,6 +715,7 @@ static int __init backlight_class_init(void)
+ 
+ 	INIT_LIST_HEAD(&backlight_dev_list);
+ 	mutex_init(&backlight_dev_list_mutex);
++	BLOCKING_INIT_NOTIFIER_HEAD(&backlight_notifier);
+ 
+ 	return 0;
+ }
 diff --git a/include/linux/backlight.h b/include/linux/backlight.h
-index 015183d129f96..fac1acbc698a1 100644
+index f29a9ef1052e7..015183d129f96 100644
 --- a/include/linux/backlight.h
 +++ b/include/linux/backlight.h
-@@ -31,6 +31,12 @@ enum backlight_update_reason {
- 	 * @BACKLIGHT_UPDATE_SYSFS: The backlight was updated using sysfs.
- 	 */
- 	BACKLIGHT_UPDATE_SYSFS,
-+
-+	/**
-+	 * @BACKLIGHT_UPDATE_DRM: The backlight was updated from DRM, i.e. through
-+	 * a connector LUMINANCE property rather than the legacy sysfs interface.
-+	 */
-+	BACKLIGHT_UPDATE_DRM,
- };
+@@ -13,6 +13,8 @@
+ #include <linux/mutex.h>
+ #include <linux/types.h>
  
++struct notifier_block;
++
  /**
-@@ -82,6 +88,11 @@ enum backlight_notification {
- 	 * @BACKLIGHT_UNREGISTERED: The backlight revice is unregistered.
- 	 */
- 	BACKLIGHT_UNREGISTERED,
-+
-+	/**
-+	 * @BACKLIGHT_BRIGHTNESS_CHANGED: The backlight brightness has changed.
-+	 */
-+	BACKLIGHT_BRIGHTNESS_CHANGED,
+  * enum backlight_update_reason - what method was used to update backlight
+  *
+@@ -64,6 +66,24 @@ enum backlight_type {
+ 	BACKLIGHT_TYPE_MAX,
  };
  
++/**
++ * enum backlight_notification - the type of notification
++ *
++ * The notifications that is used for notification sent to the receiver
++ * that registered notifications using backlight_register_notifier().
++ */
++enum backlight_notification {
++	/**
++	 * @BACKLIGHT_REGISTERED: The backlight device is registered.
++	 */
++	BACKLIGHT_REGISTERED,
++
++	/**
++	 * @BACKLIGHT_UNREGISTERED: The backlight revice is unregistered.
++	 */
++	BACKLIGHT_UNREGISTERED,
++};
++
  /** enum backlight_scale - the type of scale used for brightness values
-@@ -310,8 +321,23 @@ struct backlight_device {
- 	 * @use_count: The number of unblanked displays.
- 	 */
- 	int use_count;
-+
-+	/**
-+	 * @drm_takeover: Number of luminance-aware DRM clients that have
-+	 * taken over brightness control of this device. When non-zero,
-+	 * writes to the legacy sysfs ``brightness`` attribute return
-+	 * ``-EBUSY``. Managed by the DRM backlight helpers.
-+	 */
-+	atomic_t drm_takeover;
- };
- 
-+/* Forward declaration for backlight_update_status */
-+#if IS_REACHABLE(CONFIG_BACKLIGHT_CLASS_DEVICE)
-+void backlight_notify_brightness(struct backlight_device *bd);
-+#else
-+static inline void backlight_notify_brightness(struct backlight_device *bd) {}
-+#endif
-+
- /**
-  * backlight_update_status - force an update of the backlight device status
-  * @bd: the backlight device
-@@ -325,6 +351,10 @@ static inline int backlight_update_status(struct backlight_device *bd)
- 		ret = bd->ops->update_status(bd);
- 	mutex_unlock(&bd->update_lock);
- 
-+	/* Notify DRM and other listeners that brightness changed */
-+	if (ret == 0)
-+		backlight_notify_brightness(bd);
-+
- 	return ret;
- }
- 
-@@ -431,6 +461,21 @@ static inline void backlight_notify_blank_all(struct device *display_dev,
- { }
- #endif
- 
-+int backlight_set_brightness(struct backlight_device *bd, unsigned int value,
-+			      enum backlight_update_reason reason);
-+
-+static inline void backlight_device_ref(struct backlight_device *bd)
-+{
-+	if (bd)
-+		get_device(&bd->dev);
-+}
-+
-+static inline void backlight_device_unref(struct backlight_device *bd)
-+{
-+	if (bd)
-+		put_device(&bd->dev);
-+}
-+
- #define to_backlight_device(obj) container_of(obj, struct backlight_device, dev)
- 
- /**
+  *
+  * The type of scale used for brightness values.
+@@ -388,6 +408,8 @@ void devm_backlight_device_unregister(struct device *dev,
+ 				      struct backlight_device *bd);
+ void backlight_force_update(struct backlight_device *bd,
+ 			    enum backlight_update_reason reason);
++int backlight_register_notifier(struct notifier_block *nb);
++int backlight_unregister_notifier(struct notifier_block *nb);
+ struct backlight_device *backlight_device_get_by_name(const char *name);
+ struct backlight_device *backlight_device_get_by_type(enum backlight_type type);
+ int backlight_device_set_brightness(struct backlight_device *bd,
 -- 
 2.43.0
 
