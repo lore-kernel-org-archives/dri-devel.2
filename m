@@ -4,85 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04D6DC79F99
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 13:36:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3881C79F99
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 13:37:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5716B10E100;
-	Tue,  8 Sep 2026 13:36:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F6CA10E0F1;
+	Tue,  8 Sep 2026 13:37:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HtNgWRof";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Dotc9vbu";
 	dkim-atps=neutral
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
- [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7358910E100
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 13:36:30 +0000 (UTC)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-499de29beb7so1124965e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 06:36:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788874589; x=1789479389; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=vkSrwpgV5JMC0Es79U5v7Gmcys29XZ3okUYq0XQB02Q=;
- b=HtNgWRofn1hWz30GX8Et6qr+6V62RfCTXhariqLX7ktiAqRMwCozKLuzt+rhg/fay6
- mKoxHUuLyDEyvJl9Pt3OsNJ0ecjWqfN8xFw2hV2PbLsh3PfgX5Fwjbex19OW2OJnzlKS
- ouGTa4sT11O45EWMHl1VKP8Jj3fbkl5vldFIAS700fTeB8ELkRVbi1OUyK7RnSDmVgfd
- HFbQHChqgRB21o7UeBv09VK9rx4d5UdHi69ty0ydJuEWwtuWjubz83Daz4KTu0DbFuN2
- Ufgn8K2FJ7WzMfWIThJEPsLnojeiUm8Xori8nq7TJul5XmOQ5j/+PAAoUocllYXRz1ik
- NP6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788874589; x=1789479389;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=vkSrwpgV5JMC0Es79U5v7Gmcys29XZ3okUYq0XQB02Q=;
- b=JyHXJxFrLFnMvo6itzObewXb24UpmJ1hQBzXTwu6wM4KOnuWxQZH0oLGADJKltaJhM
- +tr5Qcp9TguwKGwGOULV5LeT/7slhpPy4105v2CwTS98SdnhKwtJWuHWkB/+fVgoX3ZF
- ndyQSEVYLFIr5A2Ok8TIwELmxXTl1OMXp0aC9DLCabWMOK2YYQCdUqTRqut6/nsZXRja
- YaAYfqDRVMFrc5dHkLeQ2mcj1k1icli0t8dWE9JXmFugPTIH6pfllSKRGbff81bOdIEP
- WSsxl3tYHPA16pbj8IAuMr+n00MKpAbhrrZB5c5dLCBcVEL4Xij7FvRLoC51TXs/pQsB
- 7P0A==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwMQrKFxlGvrWYYUQgJ8f0WHWmRK71Yl3Q14tZiIbzx5zSA9yu67I/E+TPhfPKvXZM42+F6A2haMIM=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++klNlxx+ViO2rlIi/WAElQ+gLEsWy8cvvz27feF/M4ULncesCJS
- Ht7Tcl0lsZVlikEdk42RwdSGRMpckc5IqHtFlDYLbhvpUgeEuG2F3KCl
-X-Gm-Gg: AYBFou2bFsm6RRkZPU+DPkA4SvORI0pwrmkf6+dQqroWDr7luI1gwh6PZD91fT3Q/JA
- k6FdKWKYBzpnRbK7YNKG6Qi0f38iU6fz9aGhNyGOTdpmEl8ovwuVRbrz4pcM6JPp9mxcj0mrSxq
- VMSxXXV3m30pbF7acMl+aeva7I737s4GL3fJ8j03You2ZKpaG3EPvdXHcteOmYN9GUpxgTObX5L
- wkzhdOAPlujR6nNCdz0ltc7fNAWdMEcgXn3sr8qjGq2GYIYE8wlMvJnU4tpobGaqrhAsfvGhgDT
- RUKtcWhBE8TFjRCgeK3W/UokUil7Xu+Txsy7/B/xXisM6pTl7JNPSxPiE0RzDtR6wJJkqvOmPnL
- HNmbHS9SQOU8OUDFAnH604qLfKTGC319OpNWjigbqEn4UfLbE4YEMrlpx+WkjacICpQ8repd4KN
- P4AfTCwMIK4OiHsrYojISpdvfadQ3B909qaYbvvoDB5Yp5wY5Mcon6xoDNWQ0EpApixF89VG1E0
- Zol2ODX5VEsjsVQ44kZkby29L9NWpbc+WTLKzPuU3HTodn6ntjacTmxkuw+7D2MpbK2
-X-Received: by 2002:a05:600c:8b2e:b0:49c:cbf4:572b with SMTP id
- 5b1f17b1804b1-49d01dcc1fdmr181152325e9.2.1788874588385; 
- Tue, 08 Sep 2026 06:36:28 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B825D0079B84A36A788F67A.dsl.pool.telekom.hu.
- [2001:4c4e:1b82:5d00:79b8:4a36:a788:f67a])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49cfd3f815bsm293320765e9.4.2026.09.08.06.36.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 06:36:28 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Frank Zhang <rmxpzlb@gmail.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Detlev Casanova <detlev.casanova@collabora.com>,
- dmitry.baryshkov@oss.qualcomm.com, heiko@sntech.de, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, neil.armstrong@linaro.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe
- when PHY is down
-Date: Tue,  8 Sep 2026 15:35:12 +0200
-Message-ID: <20260908133513.9302-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <ap_3zjRWm5-RXKKx@venus>
-References: <20260908070220.41574-1-rmxpzlb@gmail.com> <ap_3zjRWm5-RXKKx@venus>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EDE510E0F1
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 13:37:31 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 72F2B601DB;
+ Tue,  8 Sep 2026 13:37:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 018851F00ACF;
+ Tue,  8 Sep 2026 13:37:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788874650;
+ bh=DEudI5QJBz4swIevmG+FMF7o/96k+Fr5gw2H3onFgzI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Dotc9vbuX/u3VTboP2z9MQ6maamqGSInVQa/lNrzcagIDBrNM4TY/VVTD0/cz4i19
+ eTZDylK+c/lsuz66/rVzDB+3XegEz9bTbDzXAaQIuaCSuTcB68nlZvil1YiIj/pV4x
+ X9C5HogUqFxg16iGCqkUwB7XXKuNtvybd256+P13/CGYLb7qRqXICTvxTEr+2Eircc
+ Q7wHnieOYtA8RskMR0FhoQCFAOr1LQ2mwYsSFUij/uemR7ciBcb9ybzBy+tzMDtIk3
+ KYoD4rUrJDiatPmYJP3UJiJdcq61Zqo0GkUMmy4EtsE6a1HcolyuxkoTKV5WbtuMgs
+ UvUVXtU52puqA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] drm/msm/a6xx: Use CX AO Counter register for
+ timestamp on a750 GPUs
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-2-284880d6e68b@linaro.org>
+References: <20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-0-284880d6e68b@linaro.org>
+ <20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-2-284880d6e68b@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 13:37:29 +0000
+Message-Id: <20260908133730.018851F00ACF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,20 +54,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Frank, Sebastian,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] The lockless 64-bit counter read loop will spin indefinitely o=
+n A750 GPUs, causing a hard CPU hang, because the high and low register off=
+sets for the CX AO counter are swapped in their XML definitions.
+--
 
-Just so the tag is not lost when the split goes away: what I tested and
-what my Tested-by is about is the tmds_char_rate check on the path that
-runs from hdmi_codec_shutdown(), not the introduction of the second
-function. With ftrace I confirmed the check is what stops the register
-access, so folding it back into the original function as Sebastian
-suggests does not change anything I measured, and the tag applies to
-that form as well.
+commit cf31c6e4a536e6c06c20aa83c73f0af1762a7d51
+Author: Neil Armstrong <neil.armstrong@linaro.org>
 
-If you would still rather have it re-tested on the simplified version,
-send v6 and I will run the same reproducer and confirm.
+drm/msm/a6xx: Use CX AO Counter register for timestamp on a750 GPUs
 
-Igor
+The a750 uses the CX AO Counters instead of the GMU_ALWAYS_ON_COUNTER
+register on A6xx and other A7xx GPUs, use it when running a A750 GPU.
+
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
+adreno/a6xx_gpu.c
+> index f9de9329dee39..081e79ea46528 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -23,9 +23,15 @@ static u64 a6xx_gmu_get_timestamp(struct msm_gpu *gpu)
+>  	u64 count_hi, count_lo, temp;
+> =20
+>  	do {
+> -		count_hi =3D gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H=
+);
+> -		count_lo =3D gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_L=
+);
+> -		temp =3D gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
+> +		if (adreno_is_a750_family(adreno_gpu)) {
+> +			count_hi =3D gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_H);
+> +			count_lo =3D gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_L);
+> +			temp =3D gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_H);
+> +		} else {
+> +			count_hi =3D gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_=
+H);
+> +			count_lo =3D gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_=
+L);
+> +			temp =3D gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
+> +		}
+>  	} while (unlikely(count_hi !=3D temp));
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: Critical]
+Could this cause an infinite loop on A750 GPUs?
+
+In drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml, the register offsets
+for the A750 CX AO counter appear to be swapped:
+
+	<reg32 offset=3D"0x1f880" name=3D"GMU_CX_AO_COUNTER_H" variants=3D"A7XX"/>
+	<reg32 offset=3D"0x1f881" name=3D"GMU_CX_AO_COUNTER_L" variants=3D"A7XX"/>
+
+Since the H offset points to the lower 32 bits (0x1f880), this loop will
+read the fast-changing lower 32 bits into count_hi and temp. Because these
+bits change rapidly, won't the comparison (count_hi !=3D temp) almost always
+evaluate to true, causing a hard CPU hang in a6xx_gmu_get_timestamp()?
+
+> =20
+>  	return (count_hi << 32) | count_lo;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-topic-sm86=
+50-gmu-a750-timestamp-reg-v1-0-284880d6e68b@linaro.org?part=3D2
