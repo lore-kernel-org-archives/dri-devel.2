@@ -4,50 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6A08C79F82
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 11:08:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ADDDC79FA1
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 11:12:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1688F10EB14;
-	Tue,  8 Sep 2026 11:08:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5018410E09E;
+	Tue,  8 Sep 2026 11:12:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="JXwRZByQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="l9VlG/Aj";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id E92D310EB14
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 11:08:46 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A44381476
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 04:08:42 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 1A1973F7B4
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 04:08:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1788865726; bh=y4vz4D5RryrHFY2Ojox7ZbAALJZGSizZnfEyF/6Gj0M=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JXwRZByQsmbInGmZXeCYbpJl6HWJvP+sshMc0Es+B9BgIW/AXqWX1yqQWOejIEB0M
- WJPwIJQdCxFF17Kg1wtV709YvJAZPLCjpHFbFq+m7JhJ2KVOFgakaeALGrA3oRi4BW
- 83EjC55jSnRSLwS1CcwgxIrWvmlmj2WiR9RsVsy4=
-Date: Tue, 8 Sep 2026 12:08:32 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel@collabora.com
-Subject: Re: [PATCH v3] drm/panthor: Display priorities of panthor groups
- over debugfs
-Message-ID: <ap_ssLU9HnIOZLP4@e142607>
-References: <20260904-panthor-sched-group-prio-v3-1-678afcca08b8@collabora.com>
-MIME-Version: 1.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E427B10EB2F
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 11:12:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id A14B840407
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 11:12:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 642D91F00A3D;
+ Tue,  8 Sep 2026 11:12:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788865944;
+ bh=ryq3156UMj4hk94mWoStQtsVoMeUlA5M8L1u2D6B39g=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=l9VlG/Ajke1+S9jLnC4Scwph51RvJDlqnGsPpHoNQ9r0cDEAjH8JszuU1ck1edAAr
+ M0lwQo1FyT+OVYoHVo8lUBqDx0E19OVj5dhtzUtHcCauGqsSPx2VKGLU0NRtb26/RT
+ Q0IljgOScLMlW4+MKOyyQwTIsuQIQAYqKjMDduUC8TC0GveZB4fFUKwuW1NDBcd9+l
+ oF4eWJ+QbeOw/FEA/0UQo0qFVScgPFb9kEJfliAY2C1VcM7eQRZPlJTRMuMmiZPuwm
+ VamIiJd40BkyICkh74z7yQsZNrzl8CJXpIKxjnREVBC2LQYK1NqHuRFslLXXTUS4kh
+ j0flFbyqC252A==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 1/2] dma-fence: Solve dma_fence's problems with
+ additional spinlock
+To: "Philipp Stanner" <phasta@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260908105926.1120378-2-phasta@kernel.org>
+References: <20260908105926.1120378-2-phasta@kernel.org>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260904-panthor-sched-group-prio-v3-1-678afcca08b8@collabora.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 11:12:23 +0000
+Message-Id: <20260908111224.642D91F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,180 +53,210 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Sep 04, 2026 at 07:38:09PM +0200, Nicolas Frattaroli wrote:
-> Analogous to what was added in Commit d41c79838c47 ("drm/panfrost:
-> Display list of device JM contexts over debugfs") for panfrost, add
-> similar debugfs information for panthor.
-> 
-> The group priority does not change over the lifetime of the group, so no
-> effort to synchronise with the scheduler lock is being made.
-> 
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [Critical] Synchronous freeing of `dma_fence` objects causes a Use-After-=
+Free for concurrent lockless RCU readers.
+- [High] Self-deadlock in `dma_fence_is_signaled` and `dma_fence_is_signale=
+d_locked` due to recursive `full_lock` acquisition.
+- [High] Accessing `fence->ops` after a driver module has unloaded causes a=
+ fatal page fault or control flow hijack.
+- [High] Tracepoints and other callers fail to compile because `dma_fence_d=
+river_name` now returns `void`.
+- [High] ABBA deadlock between per-fence `full_lock` and shared `external_l=
+ock`.
+- [High] Missing `external_lock` in `dma_fence_set_deadline` causes data ra=
+ces and list corruption on `cb_list`.
+- [High] Executing callbacks with `full_lock` held causes recursive deadloc=
+ks.
+--
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+commit 525455b941dbaf30c6ab94a87c9eed2d046b6ee0
+Author: Philipp Stanner <phasta@kernel.org>
 
-Best regards,
-Liviu
+dma-fence: Solve dma_fence's problems with additional spinlock
+   =20
+This commit introduces a dedicated internal full_lock spinlock to dma_fence
+to guard its state. It removes the RCU grace periods from the implementatio=
+n,
+opting instead for synchronous resource freeing and deterministic decoupling
+once a fence is signaled.
 
-> ---
-> Changes in v3:
-> - Move group number to after the per-file specific information, which
->   helps readability
-> - Link to v2: https://patch.msgid.link/20260831-panthor-sched-group-prio-v2-1-a74c79b4b830@collabora.com
-> 
-> Changes in v2:
-> - Take groups xa lock around the loop in show_file_groups to guard
->   against group object UAF
-> - Flatten the listing, removing most of the code in show_each_file,
->   printing that info for each group instead
-> - Also show queue count for each group
-> - Link to v1: https://patch.msgid.link/20260818-panthor-sched-group-prio-v1-1-1836857c53e9@collabora.com
-> ---
->  drivers/gpu/drm/panthor/panthor_drv.c   |  1 +
->  drivers/gpu/drm/panthor/panthor_sched.c | 73 +++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/panthor/panthor_sched.h |  5 +++
->  3 files changed, 79 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index 46a3080b0b20..8cdba0c1a14b 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -1769,6 +1769,7 @@ static void panthor_debugfs_init(struct drm_minor *minor)
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+[ ... ]
+>  void dma_fence_signal_timestamp_locked_full(struct dma_fence *fence,
+>  				      ktime_t timestamp)
 >  {
->  	panthor_mmu_debugfs_init(minor);
->  	panthor_gem_debugfs_init(minor);
-> +	panthor_sched_debugfs_init(minor);
->  }
->  #endif
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index 60b2417deb81..ac6aee554820 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -1,6 +1,7 @@
->  // SPDX-License-Identifier: GPL-2.0 or MIT
->  /* Copyright 2023 Collabora ltd. */
->  
-> +#include <drm/drm_debugfs.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_exec.h>
->  #include <drm/drm_file.h>
-> @@ -4175,3 +4176,75 @@ int panthor_sched_init(struct panthor_device *ptdev)
->  	ptdev->scheduler = sched;
->  	return 0;
->  }
-> +
-> +#ifdef CONFIG_DEBUG_FS
-> +
-> +static const char *
-> +panthor_sched_prio_str(enum panthor_csg_priority prio)
-> +{
-> +	switch (prio) {
-> +	case PANTHOR_CSG_PRIORITY_LOW:
-> +		return "LOW";
-> +	case PANTHOR_CSG_PRIORITY_MEDIUM:
-> +		return "MEDIUM";
-> +	case PANTHOR_CSG_PRIORITY_HIGH:
-> +		return "HIGH";
-> +	case PANTHOR_CSG_PRIORITY_RT:
-> +		return "REAL-TIME";
-> +	default:
-> +		return "UNKNOWN";
-> +	}
-> +}
-> +
-> +static int show_file_groups(struct drm_file *file, struct seq_file *m)
-> +{
-> +	struct panthor_file *pfile = file->driver_priv;
-> +	struct panthor_group *group;
-> +	unsigned long i;
-> +
-> +	if (IS_ERR_OR_NULL(pfile->groups))
-> +		return -ENOENT;
-> +
-> +	xa_lock(&pfile->groups->xa);
-> +	xa_for_each_marked(&pfile->groups->xa, i, group, GROUP_REGISTERED) {
-> +		seq_printf(m, "client_id %8llu pid %8d command %s: group %2lu priority %s queue count %u\n",
-> +			   file->client_id, group->task_info.pid, group->task_info.comm, i,
-> +			   panthor_sched_prio_str(group->priority), group->queue_count);
-> +	}
-> +	xa_unlock(&pfile->groups->xa);
-> +
-> +	return 0;
-> +}
-> +
-> +static int show_each_file(struct seq_file *m, void *arg)
-> +{
-> +	struct drm_info_node *node = (struct drm_info_node *)m->private;
-> +	struct drm_device *ddev = node->minor->dev;
-> +	int (*show)(struct drm_file *, struct seq_file *) =
-> +		node->info_ent->data;
-> +	struct drm_file *file;
-> +	int ret;
-> +
-> +	scoped_cond_guard(mutex_intr, return -EINTR, &ddev->filelist_mutex) {
-> +		list_for_each_entry(file, &ddev->filelist, lhead) {
-> +			ret = show(file, m);
-> +			if (ret < 0)
-> +				return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static struct drm_info_list panthor_sched_debugfs_list[] = {
-> +	{ "sched_groups", show_each_file, 0, show_file_groups },
-> +};
-> +
-> +void panthor_sched_debugfs_init(struct drm_minor *minor)
-> +{
-> +	drm_debugfs_create_files(panthor_sched_debugfs_list,
-> +				 ARRAY_SIZE(panthor_sched_debugfs_list),
-> +				 minor->debugfs_root, minor);
-> +}
-> +
-> +#endif /* CONFIG_DEBUG_FS */
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.h b/drivers/gpu/drm/panthor/panthor_sched.h
-> index 9a8692de8ade..d87cbdba4d40 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.h
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.h
-> @@ -10,6 +10,7 @@ struct drm_file;
->  struct drm_gem_object;
->  struct drm_sched_job;
->  struct drm_memory_stats;
-> +struct drm_minor;
->  struct drm_panthor_group_create;
->  struct drm_panthor_queue_create;
->  struct drm_panthor_group_get_state;
-> @@ -55,4 +56,8 @@ void panthor_sched_report_fw_events(struct panthor_device *ptdev, u32 events);
->  
->  void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile);
->  
-> +#ifdef CONFIG_DEBUG_FS
-> +void panthor_sched_debugfs_init(struct drm_minor *minor);
-> +#endif
-> +
->  #endif
-> 
-> ---
-> base-commit: 17c6b88e85ffe5de5720004ae8c2176d52944aca
-> change-id: 20260814-panthor-sched-group-prio-c987f6a15690
-> 
-> Best regards,
-> --  
-> Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> 
+[ ... ]
+> -	/*
+> -	 * When neither a release nor a wait operation is specified set the ops
+> -	 * pointer to NULL to allow the fence structure to become independent
+> -	 * from who originally issued it.
+> -	 */
+> -	ops =3D rcu_dereference_protected(fence->ops, true);
+> -	if (!ops->release && !ops->wait)
+> -		RCU_INIT_POINTER(fence->ops, NULL);
+> -
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+[Severity: High]
+Since fence->ops is no longer cleared here, could we dereference a dangling
+pointer later in dma_fence_release() if the driver module unloads before the
+fence is released by all users? If a user holds a sync_file descriptor for =
+an
+old fence and the driver is unloaded, the driver's functions are freed, whi=
+ch
+could lead to a fatal page fault when the release callback is eventually
+invoked.
+
+>  	/* Stash the cb_list before replacing it with the timestamp */
+>  	list_replace(&fence->cb_list, &cb_list);
+> =20
+> @@ -385,7 +378,6 @@ void dma_fence_signal_timestamp_locked(struct dma_fen=
+ce *fence,
+>  		cur->func(fence, cur);
+>  	}
+>  }
+
+[Severity: High]
+Will executing the callbacks synchronously here while holding full_lock lead
+to a deadlock? If a user callback attempts to query the fence status via
+dma_fence_get_status(), it will try to reacquire full_lock and hang.
+
+[ ... ]
+>  void dma_fence_signal(struct dma_fence *fence)
+>  {
+> -	unsigned long flags;
+> +	unsigned long flags, flags_full;
+>  	bool tmp;
+> =20
+>  	if (WARN_ON(!fence))
+> @@ -495,9 +500,13 @@ void dma_fence_signal(struct dma_fence *fence)
+> =20
+>  	tmp =3D dma_fence_begin_signalling();
+> =20
+> +	dma_fence_lock_full(fence, &flags_full);
+>  	dma_fence_lock_irqsave(fence, flags);
+
+[Severity: High]
+Is there an ABBA deadlock risk established by this lock ordering?
+Here, dma_fence_signal() takes full_lock and then takes the external lock.
+However, dma_fence_signal_locked() is called with the external lock already
+held, and then it acquires full_lock. If CPU 1 calls dma_fence_signal() on
+one fence, and CPU 2 calls dma_fence_signal_locked() on another fence shari=
+ng
+the same external lock, couldn't this cause a deadlock?
+
+[ ... ]
+>  void dma_fence_free(struct dma_fence *fence)
+>  {
+> -	kfree_rcu(fence, rcu);
+> +	kfree(fence);
+>  }
+
+[Severity: Critical]
+By switching from kfree_rcu() to a synchronous kfree(), does this introduce=
+ a
+use-after-free for concurrent lockless readers? Lockless paths such as
+dma_fence_get_rcu_safe() rely on the RCU grace period to safely elevate the
+reference count. Freeing the memory instantly invalidates that assumption.
+
+[ ... ]
+>  void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
+>  {
+> -	const struct dma_fence_ops *ops;
+> +	unsigned long flags;
+> =20
+> -	rcu_read_lock();
+> -	ops =3D rcu_dereference(fence->ops);
+> -	if (ops && ops->set_deadline && !dma_fence_is_signaled(fence))
+> -		ops->set_deadline(fence, deadline);
+> -	rcu_read_unlock();
+> +	dma_fence_lock_full(fence, &flags);
+> +	if (dma_fence_is_signaled_locked_full(fence))
+> +		goto out;
+> +
+> +	if (fence->ops->set_deadline && !dma_fence_is_signaled_locked_full(fenc=
+e))
+> +		fence->ops->set_deadline(fence, deadline);
+> +
+> +out:
+> +	dma_fence_unlock_full(fence, &flags);
+>  }
+
+[Severity: High]
+Does acquiring only full_lock here create a data race on cb_list?
+If the deadline triggers a signal, the ops->set_deadline callback can
+ultimately mutate cb_list. Concurrently, functions like
+dma_fence_default_wait() mutate cb_list while holding only the external loc=
+k.
+Could this result in linked list corruption if both locks are not held?
+
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
+[ ... ]
+> -const char __rcu *dma_fence_driver_name(struct dma_fence *fence);
+> -const char __rcu *dma_fence_timeline_name(struct dma_fence *fence);
+> +void dma_fence_driver_name(struct dma_fence *fence, char *buff, unsigned=
+ short len);
+> +void dma_fence_timeline_name(struct dma_fence *fence, char *buff, unsign=
+ed short len);
+
+[Severity: High]
+Does changing the return type to void break compilation for tracepoints?
+The TRACE_EVENT definitions for dma_fence in include/trace/events/dma_fence=
+.h
+still use __string(driver, dma_fence_driver_name(fence)). The macro expects=
+ a
+valid string pointer for its length computation and copying, and will fail =
+to
+compile when it encounters a void return type.
+
+[ ... ]
+>  static inline bool
+>  dma_fence_is_signaled(struct dma_fence *fence)
+>  {
+> -	const struct dma_fence_ops *ops;
+> +	unsigned long flags;
+> +	bool ret =3D false;
+> =20
+> -	if (dma_fence_test_signaled_flag(fence))
+> -		return true;
+> +	dma_fence_lock_full(fence, &flags);
+> +
+> +	if (dma_fence_test_signaled_flag(fence)) {
+> +		ret =3D true;
+> +		goto out;
+> +	}
+> =20
+> -	rcu_read_lock();
+> -	ops =3D rcu_dereference(fence->ops);
+> -	if (ops && ops->signaled && ops->signaled(fence)) {
+> -		rcu_read_unlock();
+>  		dma_fence_signal(fence);
+> -		return true;
+>  	}
+> -	rcu_read_unlock();
+> =20
+> -	return false;
+> +out:
+> +	dma_fence_unlock_full(fence, &flags);
+> +	return ret;
+>  }
+
+[Severity: High]
+Could this result in a recursive self-deadlock?
+dma_fence_is_signaled() acquires full_lock, and if fence->ops->signaled(fen=
+ce)
+evaluates to true, it directly calls dma_fence_signal(fence).
+dma_fence_signal() will then immediately try to acquire full_lock again.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908105926.1120=
+378-2-phasta@kernel.org?part=3D1
