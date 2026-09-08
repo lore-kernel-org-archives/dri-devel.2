@@ -4,121 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21BCEC79FA1
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 09:11:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22194C79FA0
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 09:13:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DB2110EAC4;
-	Tue,  8 Sep 2026 09:11:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D2D110EADD;
+	Tue,  8 Sep 2026 09:13:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="SgPXJTy+";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AkSJ2Qln";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MOrcYKVL";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6170510EAC4
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 09:11:02 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-49d036e0e99so16242365e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 02:11:02 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F14E10EADC
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 09:13:20 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6886Lrjt2154211
+ for <dri-devel@lists.freedesktop.org>; Tue, 8 Sep 2026 09:13:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ KWwNAX2mUWCs5FzODk/uly2iRuerdONpcs5Tz35srsM=; b=AkSJ2QlnMd5zFhSx
+ iS0uYsgDfVBP3rqbT6mRixx3ng+7k9pB3MWUSnLkfutt0Cg0vGvJoQjQTBld47tj
+ bagplflc+bng1oQpUvTS5nXy0Cz+d2xD5Yy315ZXNU79DYc9xs8BqI9P+U+cQv34
+ XkSoVvm162JJezqAVWQp8vjwnPtsOnbl1kvlb0gLYhKGrh8KQDWWhVPHBZEYqoXI
+ zvpSR8ID1gk2jpmJE8L1l2GvHzchVJSswoghmWGDVgnKSCyKPMXpt93SN/bzhxRt
+ 0INkUdk+66nuJ0OY0bPB1y+/qoxg69B9MLh+FLJ3hs55FOeZedX9V5sqNjgIoLZO
+ sAh9HA==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gj1rwjnu6-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 09:13:19 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2db3734d06dso53581915ad.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 02:13:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1788858660; x=1789463460;
+ d=oss.qualcomm.com; s=google; t=1788858798; x=1789463598;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=jO5c4Bt3ZAdytp/EWde+NVli4TynjxjjAsIpB98Fp84=;
- b=SgPXJTy+WHaToLoSrw4CgXz/1k/qfOOqWcFV/sMM67zfNVeW/umCM5nGDOGlO+dHjc
- gJzplKwltDAunEFcSMgVQus8wa0/yZdDd0N9JKmCa+55iecgaQlhV4hIuMiwZn2FP1Vp
- pjIo22FNazZlhsxOExQUsSgz2x/XqAVYqNrOxN3AvCfZjzZ5w4VBsfdVyrJ3JreTvGcs
- Y5I3HcrYMzOrsMW9594UoJ50kVx0fhP8IJr/mqs9+kzSfPDh+LquyzEezulGtgLTpR3t
- g907VINA3YaOH40rInZcAK8vTKSw36MbZ+VpNdSgwjykHbdTHSyrwmR1xKx0ONelf9ZN
- nFJg==
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=KWwNAX2mUWCs5FzODk/uly2iRuerdONpcs5Tz35srsM=;
+ b=MOrcYKVLfJJpMLbdMKbPV/bqHo59jg/pAZ1GFdSFKnzO2NrXNhbAt7uJZ5MrOseR6o
+ FeeKcst5HNI/ddKdRd06heK5X2Xfnrm7zgonu+ri9vRdB0IOYWVMjQAEx0FgZDX4tPnY
+ 9/d2PrLUx0CiEWoRvQhAgdlchtAa1InTBR63h6GkOSCGuKlLXr96VFwJeuHq2BQwhYP+
+ SOwtgCFuAM7MCgSrKTYdFNStFHnV8pcz3kgZjAYuAfs7rN9S7Wae8wGNvrdewtFuaJmW
+ uTvHFoxonHe6PIZ1yf/1E2D2J1RX/YeACd0IuQivfBW5X0zRRGNHe/QIPjW48bmPcNvz
+ JZfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788858660; x=1789463460;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=jO5c4Bt3ZAdytp/EWde+NVli4TynjxjjAsIpB98Fp84=;
- b=LmSdc2TtKoq6jTHcU3F0klK5zdjpsch0rMVBMTsQGrSS/FaOYHV7ojxPg/aSVK4FCt
- lEfitbOyCOW0SDK0PQIRm6byaeOJOiJul6pEIA8yjtWN9dG2Y60v2Xs1Ds7SyGopRWB3
- 9cO2aQjO4IHqfPS9ywkw6U41aYZqltbY5sbtJ/pWBidq5vW/4cddvvbnFpajp4lkUIqc
- OhL3LUdm7qtuEBZNSttcCwIKd8w6HmqiD9Rg5ub1/WUIEXWk0RBoRKhNCJfvlEnTcP+k
- vu5GXf843jxTIu1C9p+oaGuzQyfl/9/efncEsbue/jjQ5eQn3vYgs8NYa+/0YwTl/5Ya
- QwiA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz58aBPXfA0px+iCUND+F4KwNLxHz97i5a/mqomXYaSlRY+6qf8nJ4TVZeAe22+IpiaqfWLe437RT8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nroC9yDxgNoPgp3zvHgVgbqWiU7EZMXOtBBxq2NXhXU2STmb+C
- HdvDFr3DLBpO8X6dQaw0qvIRmUXEHjyNw+7QzZ4/Slqrm4ENM5meocN6x5JSJy9hvQ==
-X-Gm-Gg: AYBFou0ZsHwuXR0TXEx9hJ8heYRKzNQdI+yGdyfQw5NxARwDTbDIQzM2DucCnydrvH2
- aYDWaw8D2fTu86E+mrzZOfU5luHykERNzIn3EyEMhaIVGjshkm8ncYqnNhZMc5Um82vF+/RL+IA
- W7cE0hqQwK2ZaCKixbDuaYN/jtBUV/Xrw8PkFukK2vzrnBb8w9jaeN0mGzTLoNHR7ZbHK7o0qE6
- iQsGPVSe3YlxjwEd4Ckey4Q6aUYeKL5y1/Sgv92h7L3fdsnzERqooUaSj5W23YmfbuclKRxUS0q
- 7sxVPLTESoeB8uaswWRCU0Pbzis+1O/EA9KY11k1iQgBkHbcvGZO+FxgA0s2o1fDjyaolaKbaqf
- 5y9rPHxjId3c1oxhCWtilE1yOM/zAqbhha99XhPkAWsx8yGlWVPs+JZAGSTijF+2XQlelzefll4
- Li3cLO8urzruer5+AOKc00PRw/vDR/bLgRIGO9xNu0tQ/ceb4BZfjDGPIgbDg8UhhaZutWU9i4B
- FBcAnrkqPVok7/hPw9tus224l2qIBBb0Mw6MsAbmE0=
-X-Received: by 2002:a05:600c:1549:b0:499:a5fc:2087 with SMTP id
- 5b1f17b1804b1-49cf81f47e6mr290181665e9.6.1788858659472; 
- Tue, 08 Sep 2026 02:10:59 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com.
- [104.155.91.135]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49cfd3f815bsm279081265e9.4.2026.09.08.02.10.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 02:10:58 -0700 (PDT)
-Date: Tue, 8 Sep 2026 10:10:55 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Will Deacon <will@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ d=1e100.net; s=20251104; t=1788858798; x=1789463598;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=KWwNAX2mUWCs5FzODk/uly2iRuerdONpcs5Tz35srsM=;
+ b=XcmkMCmyq5N9/AqlT7LiPZLrBVDbQLTIA/IkbUghukP2truDJiodP16r/snF0EiERo
+ O+eJRa2D7ehnHseSTQmGxnu/WYFT+uue+tWiGMWnNxJjLxXLppvxTZdbkS/0jqmFCvy/
+ gau/S6TO/YGrAAwCX8f4qXZuNc6zF/ZQomNYA9swdjOqXUY0b7viUzGwq15Ugk+cJL1D
+ FNPbsf31q2+7jqIX5GVo3NzjdUfPlBcgn7bhGOU0CjeJ6zVwYykKf8GLYh/hdzwqRV2l
+ m5OI8mKsJgJicoy2VNZUpkOn5b9ni6/piOydyYN552vvmzq+W3zFKzmQNn9OnGqA8HPk
+ UA4A==
+X-Gm-Message-State: AFuF++nK/e++4MOpxRbaDqML/K4Ds9INLyKOGK1FcfjPKk99XbsHJx23
+ fpJbSsb92evXXHtuYnKcaQnXIKo9ARA+stT4D6DOu59t4ugepUafueI3hwavM09vsu7GPyMjQ0m
+ HVVK43mKUpZDd1OkgsaxKPW3vD7eLkgUn0vrvPK47EQdW3CugvDj9xs0vMx/YJAGZAZxWIhk=
+X-Gm-Gg: AYBFou2UeIbt2GjByI4+1S8Kep23vfV5I36w1WwKVcDw8grZ9qeZkjDd3lq15OY/PW3
+ XtG/i/qum0WK3W1uUGTnOb3sis8wiysDoCLupygN3IHbRufVZs8nXo0+iSFtYNLObvB5CiNItId
+ lFtPRLG/9unVdXuojJnb/FLJAZ9DF358HRdJd0O5vcSn5gRUQDzbK5xGXrEJsYR/KSMhPZWWuON
+ ObyvBheXyXVYQcdlQmJqEWmhVBN9ky+b571aosN3CF1/trcX6Mh0uGFFXHEwIZ+5+mwMYaG/f+B
+ +XUO/RgO7GWKVLcpwer0RM0cluXLHXtcl6c0wjghd9OSk2Zya4c3NOcVhTzc4sc4G3DuZWUuENy
+ vRvDba9VxU/nnLELYUbIDDDp7s/Yqui9Ks6i/T77Xqa5+nJERF5UmQSZ7bzL31fKHPaQOXDru
+X-Received: by 2002:a17:903:13c8:b0:2db:56da:6a0e with SMTP id
+ d9443c01a7336-2db56da6ea1mr164573715ad.9.1788858798198; 
+ Tue, 08 Sep 2026 02:13:18 -0700 (PDT)
+X-Received: by 2002:a17:903:13c8:b0:2db:56da:6a0e with SMTP id
+ d9443c01a7336-2db56da6ea1mr164572905ad.9.1788858797666; 
+ Tue, 08 Sep 2026 02:13:17 -0700 (PDT)
+Received: from [10.133.33.226] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2db1497d455sm56667045ad.30.2026.09.08.02.13.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Sep 2026 02:13:17 -0700 (PDT)
+Message-ID: <3541a607-0699-4028-8a06-70a5acbdd2b7@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 17:13:07 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] drm/msm/dp: Add MSM Type-C MST support
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Russell King <linux@armlinux.org.uk>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Chun Ng <chunn@nvidia.com>, Mark Rutland <mark.rutland@arm.com>,
- Saravana Kannan <saravanak@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-s390@vger.kernel.org, linux-mm@kvack.org,
- iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
- linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
-Subject: Re: [PATCH v6 00/12] dma-buf: heaps: Add support for Tegra VPR
-Message-ID: <ap_RH4ZDE3XI0rng@google.com>
-References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
- <apquUWgrD9C2jWQ0@willie-the-truck> <ap_HzwVp-6aOKEbJ@orome>
- <ap_OFQepcu26g88u@google.com> <ap_QJG8EevX98SXa@orome>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ap_QJG8EevX98SXa@orome>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+References: <20260629-msm-dp-msttypec-v1-0-646a10256233@oss.qualcomm.com>
+Content-Language: en-US
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+In-Reply-To: <20260629-msm-dp-msttypec-v1-0-646a10256233@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=Ga8nWwXL c=1 sm=1 tr=0 ts=6a9fd1af cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=e5mUnYsNAAAA:8 a=daqqUZpfhLtBxDMUUs8A:9
+ a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA5NiBTYWx0ZWRfX6nzNpGRqnrTD
+ vf6xdh/ZYAf6R5sme6dMfMXIUAB/sRA8LIVRgD/4NONojdkD/j8q2dZfAtN/NSudPVUvupH7DPy
+ kthMcNFIt7i4Al7jO+Sx98xmmTGUCwSHeABrwynLZr4X+a5fGBXdqpUR9oJ/HQ1nQEZKaSuv70N
+ KPmZBkn76Th/uSpBIkrNiHHMxG+Q9+J1D0zj5rE3gN647p1BMrZFyIJpsPIkRDEZIWAmPffPEKN
+ TItJPIApHgXY9scLTJhwbDhyrdg56ghW3ICzGEBUUYiYBs703pVzcuu82CceR1TrRQxFXjZmlQn
+ BPjBrA8WV5SUXgLJ5ri82fgKZneMVludeLM/E3U4CCZngn0TYUihuYrXyx8Tyekpj0MH2jZwYQ5
+ Bmzv23AV1UofqqOVQ4MDze7t2suVk8xbLMirZbAngibogWMZ8QW5eZ01qBTZvqg0WjeLi4abY3F
+ nrr5GVSi+iksg5O4L3g==
+X-Proofpoint-ORIG-GUID: 0An-CyPrXmL_8RSsFd67ldL0mCFl5x_s
+X-Proofpoint-GUID: 0An-CyPrXmL_8RSsFd67ldL0mCFl5x_s
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA5NiBTYWx0ZWRfX5VTW9mGpS8VJ
+ f8YVRhOjNDpNp/zXTu76OhQZQlDA39Ap6tSMKlc27H82Fj2zt/SpWb0lrNyWG6jKNxPi6X/QuWI
+ vV7S1LIFE327xRLdWQdpia6h5EDShrM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 suspectscore=0 clxscore=1015 impostorscore=0
+ bulkscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080096
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,85 +160,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 08, 2026 at 11:08:26AM +0200, Thierry Reding wrote:
-> On Tue, Sep 08, 2026 at 09:57:57AM +0100, Vincent Donnefort wrote:
-> > On Tue, Sep 08, 2026 at 10:39:17AM +0200, Thierry Reding wrote:
-> > > On Fri, Sep 04, 2026 at 12:41:05PM +0100, Will Deacon wrote:
-> > > > Hi Thierry,
-> > > > 
-> > > > On Fri, Sep 04, 2026 at 12:44:51PM +0200, Thierry Reding wrote:
-> > > > > This series adds support for the video protection region (VPR) used on
-> > > > > Tegra SoC devices. It's a special region of memory that is protected
-> > > > > from accesses by the CPU and used to store DRM protected content (both
-> > > > > decrypted stream data as well as decoded video frames).
-> > > > > 
-> > > > > Patches 1 through 3 add DT binding documentation for the VPR and add the
-> > > > > VPR to the list of memory-region items for display, host1x and NVDEC.
-> > > > > 
-> > > > > The set_direct_map_*_noflush() functions that will be used later in this
-> > > > > series are exported in patch 4 so that the drivers that use them can be
-> > > > > built as a module.
-> > > > > 
-> > > > > Patch 5 adds bitmap_allocate(), which is like bitmap_allocate_region()
-> > > > > but works on sizes that are not a power of two.
-> > > > > 
-> > > > > The of_node_to_nid() function is exported in patch 6 because it is used
-> > > > > in a later patch adding a driver that can be built as a module.
-> > > > > 
-> > > > > Patch 7 introduces new APIs needed by the Tegra VPR implementation that
-> > > > > allow memory to be allocated at a fixed offset within a CMA area. Tegra
-> > > > > VPR needs this in order to implement its own allocator on top of CMA to
-> > > > > meet the strict hardware requirements. This replaces the dynamic CMA
-> > > > > area creation patch from earlier versions.
-> > > > 
-> > > > Did you get a chance to see how this could work with Vincent's series:
-> > > > 
-> > > > https://lore.kernel.org/r/20260902104712.2399797-1-vdonnefort@google.com
-> > > > 
-> > > > ? I think that should remove your reliance on can_set_direct_map() and
-> > > > mean that you can retain block mappings for most of the linear mapping.
-> > > 
-> > > I'm not sure if it would help all that much. Yes, if we mark the VPR
-> > > region as LLMAP (or PTE_MAP, whichever it ends up being), it should make
-> > > the checks for can_set_direct_map() redundant. However, from what I can
-> > > tell, Vincent's series still forces page-granularity on these regions,
-> > > so it won't retain block mappings at all for them.
-> > > 
-> > > The block mappings can be retained for the non-VPR memory, so that's
-> > > nice. It also reduces the amount of external prerequisites, but I had
-> > > kind of hoped that we could go one step further and keep block mappings
-> > > even for the VPR memory if the region happened to be a multiple of the
-> > > block size.
-> > > 
-> > > The recent addition of page count to the set_direct_map_*() functions
-> > > helps reduce the amount of checks that need to be run, so maybe there's
-> > > not too much to be gained from removing whole block mappings at once
-> > > from the linear map.
-> > > 
-> > > Thierry
-> > 
-> > I should be able to add PMD_SIZE mapping support to the series. That was
-> > actually my original idea as we can easily force the CMA allocation granule to
-> > be PMD_SIZE too.
-> > 
-> > I didn't implement it as I thought there were not much interest in the end (and
-> > also as contiguous.c is always using PAGE_SIZE granularity).
-> > 
-> > But now as I have implemented a specific pool (and do not use contiguous.c as
-> > originally planned), if you believe it is important for the VPR driver, let me
-> > see if I can extend the support in a V2.
-> 
-> I don't think it needs to be part of a v2 and can be a follow-up. It
-> should be transparent from an API point of view and merely be an
-> optimisation for that specific case.
-> 
-> Eventually it'd be nice to have, though it might also be worth checking
-> what the actually gains are.
-> 
-> Thierry
 
-Ack. I'll keep it as is then and we will see later how to extend it, if it is
-necessary.
 
--- 
-Vincent
+On 6/29/2026 10:48 PM, Yongxing Mou wrote:
+> The bridge connector framework currently treats every HPD notification
+> as a connector state update and emits a userspace hotplug event.
+> Once MST is enabled, however, connector creation, removal and hotplug
+> handling are already managed by the DRM DP MST topology manager.
+> 
+> As a result:
+> 
+>    - the SST connector may transiently transition between connected and
+>      disconnected during MST initialization
+> 
+>    - MST IRQ notifications may generate duplicate userspace hotplug
+>      events, once from the bridge connector layer and once from the MST
+>      topology manager
+> 
+> Introduce explicit support for IRQ-only HPD notifications in the bridge
+> connector framework and allow bridge drivers to suppress connector
+> hotplug events when those events are already handled elsewhere.
+> 
+> MSM DP uses these mechanisms to integrate Type-C MST hubs without
+> generating duplicate or spurious userspace hotplug notifications.
+> 
+> Testing
+> -------
+> Tested on Hamoa-EVK with a Type-C MST hub and dual-monitor setup.
+> Both fbcon and Weston were exercised. No duplicate hotplug events,
+> connector state oscillation or display flickering were observed after
+> hub attachment.
+> 
+> Dependencies
+> ------------
+> This patch series was made on top of:
+> 
+> [1] drm: handle IRQ_HPD events correctly (v4)
+>      https://lore.kernel.org/r/20260608-hpd-irq-events-v4-0-30b62b335487@oss.qualcomm.com
+> 
+Hi, Gentle ping on the IRQ HPD series. I'd like to understand whether 
+the next version of this series is expected to separate the IRQ 
+interfaces or continue with the current design.
+> [2] drm/msm/dp: Add MST support for MSM chipsets (v5)
+>      https://patchwork.freedesktop.org/series/142207/#rev5
+> 
+> [3] drm/msm/dp: Prerequisite cleanup for upcoming MST support (v7)
+>      https://lore.kernel.org/r/20260609-dp_mstclean-v7-0-ea04113e8233@oss.qualcomm.com
+> 
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> ---
+> Yongxing Mou (5):
+>        drm/bridge: allow hpd_notify() to suppress connector hotplug events
+>        drm/bridge_connector: preserve connector status for IRQ-only HPD events
+>        drm/msm/dp: suppress bridge hotplug events during MST operation
+>        drm/msm/dp: report IRQ_HPD as an IRQ-only notification
+>        drm/msm/dp: mark the SST connector disconnected when MST is enabled
+> 
+>   drivers/gpu/drm/bridge/lontium-lt9611uxc.c     |  3 +-
+>   drivers/gpu/drm/display/drm_bridge_connector.c | 31 ++++++++++++++++-----
+>   drivers/gpu/drm/meson/meson_encoder_hdmi.c     |  3 +-
+>   drivers/gpu/drm/msm/dp/dp_display.c            | 38 +++++++++++++++-----------
+>   drivers/gpu/drm/msm/dp/dp_drm.h                |  3 +-
+>   drivers/gpu/drm/omapdrm/dss/hdmi4.c            |  3 +-
+>   drivers/soc/qcom/pmic_glink_altmode.c          | 14 ++++++----
+>   include/drm/drm_bridge.h                       |  3 +-
+>   8 files changed, 65 insertions(+), 33 deletions(-)
+> ---
+> base-commit: e7d700e14934e68f86338c5610cf2ae76798b663
+> change-id: 20260629-msm-dp-msttypec-b420df7da587
+> prerequisite-message-id: <20260608-hpd-irq-events-v4-0-30b62b335487@oss.qualcomm.com>
+> prerequisite-patch-id: adc6d802a2f71d23c077a5cdb9a257809e9db50e
+> prerequisite-patch-id: bbd956a3b65a90c1fe9e884bc32c49bd83fd3129
+> prerequisite-patch-id: 014460a25c380d089764ab4e1a58577ebc1b9e71
+> prerequisite-patch-id: fc03fb9435b8c60321f9ae28e396a6bff2f347ae
+> prerequisite-patch-id: cd4cd57a72c798fc95afdfdeb9b81cc7a2dbd25d
+> prerequisite-patch-id: fe431fb614383eb6444f6bfb928e7e40c2de951e
+> prerequisite-patch-id: 2a058aa8309016f424b1d4ca19a9b20e92f4d8b6
+> prerequisite-patch-id: 64c3616bb979b663a01342d1f217588b347ae8bb
+> prerequisite-change-id: 20260410-msm-dp-mst-35130b6e8b84:v5
+> prerequisite-patch-id: 1d440cb9fed2bdd66d8de0e1e20475f0fe166973
+> prerequisite-patch-id: be0f4b80697df7224c80362b161b8a9f0a542184
+> prerequisite-patch-id: eefa6e6353df301420feae1da704a9db2c2155f2
+> prerequisite-patch-id: 9e9095f82dd6c131c9f3c1de4fdb8a62bd65ca24
+> prerequisite-patch-id: 3e635f008f9b56823101abd9253905f078fcb3b5
+> prerequisite-patch-id: e39e0dc124ed043c7a419610ebe03ad105da27db
+> prerequisite-patch-id: 945af39213cd4241e1a5929fada04a9286aeb5db
+> prerequisite-patch-id: 898ae7e4582a6b31492c223e7dd167fb9ce78096
+> prerequisite-patch-id: 3887553893357c1ffbda99eb010801bc2166cbad
+> prerequisite-patch-id: 7ccd961fa3c6f925659dee7d7a5bd167c8e7331b
+> prerequisite-patch-id: be2bf918e0e87ec2ea999927f36bd172c498748e
+> prerequisite-patch-id: 6aacdabb2dd0536dc04da04f8419ae39e35f8b19
+> prerequisite-patch-id: a9f27eff8f643ff445810b17d670891928f5b416
+> prerequisite-patch-id: efd300a2b52715153b8c1c7407db696eb331594b
+> prerequisite-patch-id: 950abefc4862050ef606404977fd27c5dd2cbb2b
+> prerequisite-patch-id: c6a9aaba753b5538864f7f6e065d910833baec21
+> prerequisite-patch-id: c73c1f6eb16b2a6ff11b20495fa0981683bdaaee
+> prerequisite-patch-id: 94957394b3870ec63ab766d682df592da978dd19
+> prerequisite-patch-id: f27cba0cf5f08d21f59f29a0c9ed7f197ddfa2c7
+> prerequisite-patch-id: 683855949a9ed37bc0cc4d1899373e55eac4ddc3
+> prerequisite-patch-id: 9b3a2b526476c32c8a859824e551e23412674766
+> prerequisite-patch-id: be866cf2acd4960f31f0dbd05e21f0722dcb70ab
+> prerequisite-patch-id: 58bd115be590c0d892a72e06794f5b244dbdb7f8
+> prerequisite-patch-id: 87435a0f6827516f4e2b5d8471a2b289bb73a88c
+> prerequisite-patch-id: 1064db7111fc77377dbf246eb0fdef90c18c46ee
+> prerequisite-patch-id: e112aaf6088f2bfa90bc67feaac86a4fc1ad23ca
+> prerequisite-patch-id: fcc0f2ee6dc0358d62593c1295d26a013fa11223
+> prerequisite-patch-id: 66364b8806fc6abeabe1a0b871e4e8c841ce2aa7
+> prerequisite-patch-id: 243046f52a14b416caead3469d580ea5b029f9bb
+> prerequisite-patch-id: efd8014f647a6aa5fadc9d62a6e1920d76a6c80f
+> prerequisite-patch-id: f4dbd5ae84a01ea89c7d00ca39fd76cd247bc353
+> prerequisite-patch-id: 30a16a45edefc8769b10d90a7807b6522cd31f15
+> prerequisite-patch-id: e12fd2908ca33de1f1265fd40190eaad8637e569
+> prerequisite-patch-id: 3baac076fdda664d00aa9a83481f76ec38c07e8a
+> prerequisite-patch-id: ee6a93ffa2d5461ee7b07929ff21626a14773b7a
+> prerequisite-patch-id: c8d444e2a6512f106da2675d4a42a92208d5c6f1
+> prerequisite-patch-id: 0491a69feb036cfa2e75401e093ebad387cf2846
+> prerequisite-patch-id: 707e7a3e5114c86f5bcc0b36e7cc8beb0c957780
+> prerequisite-patch-id: b1ae90d73bd7c3d19cfe4371b5dc9a816f1316a6
+> prerequisite-patch-id: 4c183b8ffd599169c8d3c5f3aad5ecc467b150f2
+> prerequisite-message-id: <20260609-dp_mstclean-v7-0-ea04113e8233@oss.qualcomm.com>
+> prerequisite-patch-id: 1d440cb9fed2bdd66d8de0e1e20475f0fe166973
+> prerequisite-patch-id: be0f4b80697df7224c80362b161b8a9f0a542184
+> prerequisite-patch-id: eefa6e6353df301420feae1da704a9db2c2155f2
+> prerequisite-patch-id: 9e9095f82dd6c131c9f3c1de4fdb8a62bd65ca24
+> prerequisite-patch-id: 3e635f008f9b56823101abd9253905f078fcb3b5
+> prerequisite-patch-id: e39e0dc124ed043c7a419610ebe03ad105da27db
+> prerequisite-patch-id: 945af39213cd4241e1a5929fada04a9286aeb5db
+> prerequisite-patch-id: 898ae7e4582a6b31492c223e7dd167fb9ce78096
+> prerequisite-patch-id: 3887553893357c1ffbda99eb010801bc2166cbad
+> prerequisite-patch-id: 7ccd961fa3c6f925659dee7d7a5bd167c8e7331b
+> prerequisite-patch-id: be2bf918e0e87ec2ea999927f36bd172c498748e
+> prerequisite-patch-id: 6aacdabb2dd0536dc04da04f8419ae39e35f8b19
+> prerequisite-patch-id: a9f27eff8f643ff445810b17d670891928f5b416
+> prerequisite-patch-id: efd300a2b52715153b8c1c7407db696eb331594b
+> prerequisite-patch-id: 950abefc4862050ef606404977fd27c5dd2cbb2b
+> 
+> Best regards,
+
