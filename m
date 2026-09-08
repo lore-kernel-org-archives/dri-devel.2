@@ -4,82 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64CE5C79FAA
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:54:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BBF6C79F8C
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:54:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64C8A10EEFD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B66310EF00;
 	Wed,  9 Sep 2026 06:54:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B0UyyjoT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NlASPuvf";
 	dkim-atps=neutral
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9540610E144
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 17:55:02 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-5b4adcce4b1so4212539e87.1
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 10:55:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788890100; x=1789494900; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=S3mHm6ZqbhRQ6tXzMkeFKmTWTzRDfTiWOZtRcgd3yZs=;
- b=B0UyyjoTWiug5OSX31wuiBxNfCmTYICWIg6NwqjSpCNiz19t+BfUay/6lOD7w+ktPz
- kKxD86ayi6J9jXkV7bB5+2RpOEssyw7Bc2/lryJjla2PabIKVtsSw2yUh0Y02VOqVfwW
- myDNyrRspLFphYm4F8luUc8iz4v7lFwamgIti52Tjx5iYXc/j1SjbKF4GZPdL3fftZhb
- PthPmFysH9loXeYRKOe6QYA1/8m3cQya/64yoN93wrnPb7MDModacAj2cUiQjuKnGTh+
- ewHSG5eSN1yT0415o39/Gurzh4RAyihNkZwRRNRima+q0FZcu+lmCdrY1oCjCRZhWNbK
- hhUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788890100; x=1789494900;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=S3mHm6ZqbhRQ6tXzMkeFKmTWTzRDfTiWOZtRcgd3yZs=;
- b=S4QLC1pYx3V8jvJFW8b5lZiTEqbG+IlyHR1EVKPnL945s+wJvYaOH60id03lIs+YNz
- Qb4Y4I2cFanVpjGil+AIk/yo809zFz4VDXWAzL0N8v2BYuvxXWt8GWl3mmITTWa//AD2
- PwY1d7ug3DBIk7gPpPi8OeX0jZgfh5znyK19XdhqYOPl/3xS0c0SCEhXh1i0+fhDJWuF
- EJMrd4jzWt3etFhE9kuOWaFUdSTOXW/3cr2ZhBL9hu8CJVQPi9kTaxY0wAmbTmNH+D+J
- kKsx/mC7gxAvIGLC4lo0nc8b6rQYdDiU6NllMFMo7UfwlZ6GGgWVDiWuVsWngetvqNTS
- WCzg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBypbM1on4UF+cRMD09aypCYuJYCSsCsY3qhpxq6sKJwGmDpddTzssY1zRxHdWbRp/2PXMCSQb6MnOw=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++k2VFFXlBCuH9kdwWR60RSjUXXWRpDnKEiLf/xza27RMKo533wC
- uCQFC6dkq2DapxYsVKZ5AClNG0lK1v9pg+vvjwEZfne04/tW7wDNNaO4
-X-Gm-Gg: AYBFou3yeTC2it5RiKdEN0ZZKlbR2dvteW7Zpt7AW0fguYo09JcBg/bkHw3lI5APgGV
- vFcKDUjMlAjdeBq+fEsYUpSHg8DsPAf+ZXLbrBT0IGBXNC7S9dTx08fzDm7OJYbUp8VJzWWUbul
- 84uUvP7DwovO0B/Ll5fkd1n1DmnesiW5SJnQ7fv5uVRYxZAz+tNMBG6q4rHHhON5YSWIeFszD8a
- ymDwm29jSbHrSoMEaCRmMTF8EYGdxX0PtSdto+KLAC1XEJF+vKo+OKjGXWAh6CNO+eYdJ1lmWeK
- Gwjcm87WK3f16OAlIohGeT/AFsNtM1xk6whL2tDz7yz4+URHfyGB20QwGWgC/5o6hgC49JLDkm4
- JHq20Gf3xB7N8qcaAUlpjqBxeoVMACpGofj2M+XUXjRW2vvuVcDVCH9Fn1YXNx+WxTYw6Dv5kRc
- UioOC0UHfi0Epb34TEBL45rhrKraY2+7APjt0Ygke+Zanpixqg2jhPYYz5EV6YUnpwtAFIr/6KO
- hKckyzzkORs
-X-Received: by 2002:a05:6512:8393:b0:5b6:1836:8082 with SMTP id
- 2adb3069b0e04-5b6183683cbmr7614121e87.28.1788890099983; 
- Tue, 08 Sep 2026 10:54:59 -0700 (PDT)
-Received: from soda.int.kasm.eu (soda.int.kasm.eu.
- [2001:678:a5c:1202:7b92:9ac1:b9ef:5287])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b6166fcdf9sm3172156e87.46.2026.09.08.10.54.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 10:54:59 -0700 (PDT)
-From: Klara Modin <klarasmodin@gmail.com>
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Alex Deucher <alexander.deucher@amd.com>,
- Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Thorsten Leemhuis <linux@leemhuis.info>,
- Manuel Ebner <manuelebner@mailbox.org>, Gary Guo <gary@garyguo.net>,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Klara Modin <klarasmodin@gmail.com>
-Subject: [PATCH] rust/drm/gem: initialize callbacks with ..pin_init::zeroed()
-Date: Tue,  8 Sep 2026 19:54:27 +0200
-Message-ID: <20260908175427.47207-1-klarasmodin@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A5D910E4BE
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:08:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2689D4192E;
+ Tue,  8 Sep 2026 20:08:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 082D31F00A3A;
+ Tue,  8 Sep 2026 20:08:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788898119;
+ bh=8M2KGQ/Rdd7X1qvg4n3rsyBcsIsT/58MPgOQgnVvrcw=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=NlASPuvfs4H3JIxf4W5s8uf9UD5hDKleqbnI+oaJKfZsJVnF/y2v6u5ZZwTdOqjXk
+ YeSA64QfUB8Dg7K7sHUpwpK7nOxobcWUqRFBzZHQ5m1pZ4mnoIyXZ0ukMZBT+4Dadk
+ 9MFqLZ/F+NGk7d1iXYEtgPHXQUyrVf8g2K5fBjsWBlm87Qr91SAxyG1iZK3I0QdlsE
+ rufrzQZHA5jgiE7aazRN5WnzQBFmnsTQsLjyxmMBs0ok1z+BMQanwKaU6tSgZgbfeQ
+ 0tRoGU04rqbhv2hAuNJdjt/7v9wGGCnAromOCPh0TRFnyaN2Pu1c8j2iOpAy9AWK/1
+ AqgCTn0WT4UfQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 08 Sep 2026 21:01:17 +0100
+Subject: [PATCH 13/39] bpf: arena: mark arena_map_mmap() mappings VM_MIXEDMAP
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-13-dacf19cce22b@kernel.org>
+References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2077; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=fdJtBNQadhST13A5/QqOS4hxZn92kbQM6NW+rZ1tlXQ=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG66xMrArN4c7jCJMXVipdQSDo1pk9fLeDIvn8Tv/
+ Kv7mfuMjlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAEzkxx5Gho07Ve4KtFZ/9BXe
+ vbpxTb93we9SAY8t0xM81WU81ueWPGRk+N/4KMc9ryDBwy3/eNcasVOSaoUc009dCu5ui0jK6Tn
+ NCAA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:54:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,46 +144,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When the commit b67d2d039f64 ("drm/gem: Add callback for when handle
-count goes to 0") added the handle_free callback, it did not update the
-rust abstraction, which will cause a build failure when that is enabled.
-Rather than just adding another None initializer, use
-..pin_init::zeroed() to make all unlisted callbacks None, and remove the
-existing None-initializations.
+The bpf_map->ops->map_mmap callback invoked by bpf_map_mmap() can be set to
+one of ringbuf_map_mmap_kern(), ringbuf_map_mmap_user(), array_map_mmap()
+or arena_map_mmap().
 
-Fixes: b67d2d039f64 ("drm/gem: Add callback for when handle count goes to 0")
-Reported-by: Thorsten Leemhuis <linux@leemhuis.info>
-Closes: https://lore.kernel.org/all/aaef18cd-ab55-4fb8-8563-ca3a5ea9cbc6@leemhuis.info
-Suggested-by: Gary Guo <gary@garyguo.net>
-Signed-off-by: Klara Modin <klarasmodin@gmail.com>
+It is convention in mm to mark mappings whose pages the kernel manages
+itself with VM_MIXEDMAP, so the core mm knows not to treat them as ordinary
+page cache or anonymous memory.
+
+The map_mmap callbacks ringbuf_map_mmap_kern() and ringbuf_map_mmap_user()
+use remap_vmalloc_range(), which ultimately invokes vm_insert_page() and so
+marks the ranges VM_MIXEDMAP, and array_map_mmap() sets VM_MIXEDMAP
+explicitly.
+
+However, the exception to this is arena_map_mmap(), which doesn't set the
+flag.
+
+This patch corrects this and updates the comment to reflect it.
+
+The pages are refcounted and vm_normal_page() finds them regardless of the
+flag, and VM_DONTEXPAND remains set (marking the memory as VM_SPECIAL and
+thus unmergeable). The one effect is that NUMA balancing now skips these
+VMAs, as it already does for the other bpf map mappings, which is the
+reason array_map_mmap() gives for setting the flag.
+
+The intent of this patch is to be able to establish the invariant that only
+PFN-mapped or mixed map ranges may clear the VM_MAYWRITE flag, as is done
+in bpf_map_mmap().
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- rust/kernel/drm/gem/mod.rs | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
+ kernel/bpf/arena.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
-index 80d8f524f9d5..af8274134a71 100644
---- a/rust/kernel/drm/gem/mod.rs
-+++ b/rust/kernel/drm/gem/mod.rs
-@@ -266,18 +266,8 @@ impl<T: DriverObject, Ctx: DeviceContext> Object<T, Ctx> {
-         free: Some(Self::free_callback),
-         open: Some(open_callback::<T>),
-         close: Some(close_callback::<T>),
--        print_info: None,
--        export: None,
--        pin: None,
--        unpin: None,
--        get_sg_table: None,
--        vmap: None,
--        vunmap: None,
--        mmap: None,
--        status: None,
-         vm_ops: core::ptr::null_mut(),
--        evict: None,
--        rss: None,
-+        ..pin_init::zeroed()
-     };
- 
-     /// Returns the `Device` that owns this GEM object.
+diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
+index 7b6847200b43..b69fe5e34339 100644
+--- a/kernel/bpf/arena.c
++++ b/kernel/bpf/arena.c
+@@ -620,8 +620,9 @@ static int arena_map_mmap(struct bpf_map *map, struct vm_area_struct *vma)
+ 	 * clears VM_MAYEXEC. Set VM_DONTEXPAND to avoid potential change
+ 	 * of user_vm_start. Set VM_DONTCOPY to prevent arena VMA from
+ 	 * being copied into the child process on fork.
++	 * This is a kernel page so set VM_MIXEDMAP.
+ 	 */
+-	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTCOPY);
++	vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTCOPY);
+ 	vma->vm_ops = &arena_vm_ops;
+ 	return 0;
+ }
+
 -- 
 2.55.0
 
