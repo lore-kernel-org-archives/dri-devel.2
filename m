@@ -4,85 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BAB5C79FA0
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 09:06:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB266C79FA0
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 09:07:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42F9410E0BE;
-	Tue,  8 Sep 2026 09:06:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAFDD10E0C8;
+	Tue,  8 Sep 2026 09:07:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JYrWkFPC";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="oStquiTO";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C433810E0BE
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 09:06:04 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E19E260A93;
- Tue,  8 Sep 2026 09:06:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5AC41F00A3A;
- Tue,  8 Sep 2026 09:06:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788858363;
- bh=AX+7FxB8zQI4HWmkMOozVd16GP4ljWtJaR2TsbzyprU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=JYrWkFPCdWEPSJH4cIfkWL2PGgf2NCTn1HI3WLNDkla5VfmVA0JpBbh/4qpIUp0Yp
- IoY+25twEkLH7elroyqUuVV6DcdnHrpszENRNnxwyt2GKnMgm/4Q03ASscrcZg40b3
- Ubk4eFhBkGpjWX3xCKCZhlLiVqF3tv5u8mhpAGomSttsDDk8yWmsVONvfu8TAju6RV
- 6WPuJUjmZwzSTEeojQF2YPHYWtx5i6zNiQG2RCmElIQQqewGZwhxSmxLRlSmFgP8Gr
- UmR5TzSeslYUV56Lerkf4IkwebNxuHeHzkWIjBrEEir8STlG9excW/k9Gpn57F+T0J
- 9UB3P/4TmP32Q==
-Date: Tue, 8 Sep 2026 11:06:00 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Will Deacon <will@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Russell King <linux@armlinux.org.uk>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, 
- Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
- "T.J. Mercier" <tjmercier@google.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Catalin Marinas <catalin.marinas@arm.com>, 
- Chun Ng <chunn@nvidia.com>, Mark Rutland <mark.rutland@arm.com>, 
- Saravana Kannan <saravanak@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>, 
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-mm@kvack.org, 
- iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
- linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
- vdonnefort@google.com
-Subject: Re: [PATCH v6 00/12] dma-buf: heaps: Add support for Tegra VPR
-Message-ID: <ap_MnVK8NYvEtYHS@orome>
-References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
- <apquUWgrD9C2jWQ0@willie-the-truck> <ap_HzwVp-6aOKEbJ@orome>
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
+ [209.85.215.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15C0B10E0C8
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 09:07:55 +0000 (UTC)
+Received: by mail-pg1-f172.google.com with SMTP id
+ 41be03b00d2f7-cc2276e6daeso3049870a12.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 02:07:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1788858474; x=1789463274;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=IMi1Y04Cowkyywav7yYVH94ClrmOV8qsvBcUcq9aXsA=;
+ b=oStquiTO5XjFDzaFa8b+oeK8qG3HfSfXN0yeyRY5+6/1LEBScC4WBBpadzm5FHDMfT
+ 6ZrJiYP+Te2hacYsYNkKMEqLwg7sXbCBOB2gS3u2N1/jmMcPCx+aq0O4tmXM+kqIpu/Z
+ ht20FP/LhVMyQ+w96PbFFYsueb0fQ4o7q+De0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788858474; x=1789463274;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=IMi1Y04Cowkyywav7yYVH94ClrmOV8qsvBcUcq9aXsA=;
+ b=E/Eo0rUokqVSb483iucNS8zt/7RgSCATLV1bTDaFqxx+GTN7fqDjHfqI7/7CokeLOW
+ bwBgUCQff6a2QjA/8IvivPn3o9bRIbqGAcIc/rCT2bpzUFnxKoQEyvqjjsHup8STEkc/
+ CvqdTdBtx6hEd6HFxz4kM6LWTNV8mzhj2UEHvthUyaTwRmORsmceqLx7dXsZC7gI2QEH
+ bPPw5JzHupAT6gE8SD7TsxtXNEzYf+cmItG3M7fd/ZDYPpyOkdsCOooBo+5QIr7lscq4
+ 48Tar0XzuJRhu0jhvmAQXUV3AiMOW3ccKvO9KgPTcV3XmVkTMacaqntsoQlHWu1BT4gD
+ g/TQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByz11/B48EPS8a/vx8DwJm61wFnrG/vDRSp+E7fD+oAj7VYjI5rMWUKkBgWe6EiqGot5koSmzs5fl8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kb8rTr2pG5fpIqXsUWvLQOdR7V7fz0FPgNUrBdKYi+l9Ax/zI8
+ QUi4pQudDvnQ5UAH3CQVbZU8T7LXKQgHlZ9oR6prpMo/vLUXLew+GfFee8XfeROk4A==
+X-Gm-Gg: AYBFou0SxL0bMQOKQ32jkhsiWSGwTu5TRaHzFSC5xxH+1xb2AF6VrAbEtuIOltQAsFC
+ XLljKa3XurHTTX8nRz2kO6BvzagStciKv04lsb5QQE6fz6Yj2q0GxDZ5ts3X+Mnzm6+O4jSB6QD
+ 3T2BBuac0vbIGPlgTITOYoEztoOV1/X8oxrsrpHg2O8MhicMp8vXgAdGDmkBC83LJdQ031A1Pqx
+ aU5ZbmGF3YSDjRxsitMa1jnvrU7FPmY9Aohqae8ApmlUcPpyyHWxa1EehxzWXFIv+rekqxKWMy0
+ O+rgX/3/4xITZ7aPQq+rcgZvVtm6z2n1PZg5IeCJ58ISA3vGCD1rnI3PMY7Ek1IYtDOLrBYBrrI
+ fBAYZXThkXeWHYWiulzsHyR3bESIrRD8XQD/V9fPWlBZKYUi6EgpLqYwIOyt7QR74pesRr3VsGn
+ Cwf3IxJ97o4K21kGWzjtcc0Rkz5FGB2+6MDI5TnmA7afuwAftcIg2jnE/AYDrfZKJBhv2MTAfdX
+ nbB0y/h7qmgBqhavr3yuYeHhAo3LqrVn4++zLS3xd1pHMw=
+X-Received: by 2002:a17:90a:d010:b0:38e:bbf1:de3f with SMTP id
+ 98e67ed59e1d1-39b26272ef9mr45630109a91.12.1788858474627; 
+ Tue, 08 Sep 2026 02:07:54 -0700 (PDT)
+Received: from wenst-7875.tpe.corp.google.com
+ ([2a00:79e0:201d:8:e541:8c2f:4ce9:823a])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39b4b72f62esm19718804a91.5.2026.09.08.02.07.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Sep 2026 02:07:53 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Liu Ying <victor.liu@nxp.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-sunxi@lists.linux.dev,
+ imx@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 0/4] drm: Add and use drm_fb_dma_get_gem_clipped_addr() helper
+Date: Tue,  8 Sep 2026 17:07:39 +0800
+Message-ID: <20260908090745.1089143-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="i6qijyjefsd32euh"
-Content-Disposition: inline
-In-Reply-To: <ap_HzwVp-6aOKEbJ@orome>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,122 +93,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi,
 
---i6qijyjefsd32euh
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 00/12] dma-buf: heaps: Add support for Tegra VPR
-MIME-Version: 1.0
+This series adds a helper to retrieve the buffer starting address of a
+"clipped" framebuffer. This contrasts with drm_fb_dma_get_gem_addr(),
+which gives the address of the full buffer.
 
-On Tue, Sep 08, 2026 at 10:39:17AM +0200, Thierry Reding wrote:
-> On Fri, Sep 04, 2026 at 12:41:05PM +0100, Will Deacon wrote:
-> > Hi Thierry,
-> >=20
-> > On Fri, Sep 04, 2026 at 12:44:51PM +0200, Thierry Reding wrote:
-> > > This series adds support for the video protection region (VPR) used on
-> > > Tegra SoC devices. It's a special region of memory that is protected
-> > > from accesses by the CPU and used to store DRM protected content (both
-> > > decrypted stream data as well as decoded video frames).
-> > >=20
-> > > Patches 1 through 3 add DT binding documentation for the VPR and add =
-the
-> > > VPR to the list of memory-region items for display, host1x and NVDEC.
-> > >=20
-> > > The set_direct_map_*_noflush() functions that will be used later in t=
-his
-> > > series are exported in patch 4 so that the drivers that use them can =
-be
-> > > built as a module.
-> > >=20
-> > > Patch 5 adds bitmap_allocate(), which is like bitmap_allocate_region()
-> > > but works on sizes that are not a power of two.
-> > >=20
-> > > The of_node_to_nid() function is exported in patch 6 because it is us=
-ed
-> > > in a later patch adding a driver that can be built as a module.
-> > >=20
-> > > Patch 7 introduces new APIs needed by the Tegra VPR implementation th=
-at
-> > > allow memory to be allocated at a fixed offset within a CMA area. Teg=
-ra
-> > > VPR needs this in order to implement its own allocator on top of CMA =
-to
-> > > meet the strict hardware requirements. This replaces the dynamic CMA
-> > > area creation patch from earlier versions.
-> >=20
-> > Did you get a chance to see how this could work with Vincent's series:
-> >=20
-> > https://lore.kernel.org/r/20260902104712.2399797-1-vdonnefort@google.com
-> >=20
-> > ? I think that should remove your reliance on can_set_direct_map() and
-> > mean that you can retain block mappings for most of the linear mapping.
->=20
-> I'm not sure if it would help all that much. Yes, if we mark the VPR
-> region as LLMAP (or PTE_MAP, whichever it ends up being), it should make
-> the checks for can_set_direct_map() redundant. However, from what I can
-> tell, Vincent's series still forces page-granularity on these regions,
-> so it won't retain block mappings at all for them.
->=20
-> The block mappings can be retained for the non-VPR memory, so that's
-> nice. It also reduces the amount of external prerequisites, but I had
-> kind of hoped that we could go one step further and keep block mappings
-> even for the VPR memory if the region happened to be a multiple of the
-> block size.
->=20
-> The recent addition of page count to the set_direct_map_*() functions
-> helps reduce the amount of checks that need to be run, so maybe there's
-> not too much to be gained from removing whole block mappings at once
-> from the linear map.
+Some drivers program their hardware with clipped dimensions, so they
+should be using the clipped buffer address as well, unless the hardware
+can advance the scanout directly. (Side note: many drivers still use
+the non-clipped dimensions.)
 
-I don't think everyone received Sashiko's review, so let me discuss this
-here. Sashiko rightly pointed out that set_direct_map_invalid_noflush()
-and set_direct_map_default_noflush() return 0 when can_set_direct_map()
-fails and that code will then simply continue to work as if the pages
-had been removed (or added back) even though they weren't.
+The sun4i driver was recently incorrectly converted to use the unclipped
+drm_fb_dma_get_gem_addr() helper. This broke offsets into subsampled
+pixel groups, but also exposed the mismatch between the dimensions used
+vs the buffer address.
 
-    arch/arm64/mm/pageattr.c:set_direct_map_invalid_noflush() {
-            ...
-            if (!can_set_direct_map())
-                    return 0;
-            ...
-    }
 
-Looking into this a bit, it looks like this is maybe a remnant from the
-early days when the check was simpler ("if (!rodata_full)", though I'm
-not sure the 0 return value made sense even then), but it seems wrong
-indeed for this to result in success when clearly the operation was
-skipped.
+Patch 1 adds the new helper to return the buffer address based on
+clipped coordinates.
 
-None of the other architectures seem to have similar checks, except for
-clear cases of no-ops (like the address being outside the linear
-mapping, the number of pages being 0 or there not being any actual
-changes). All of the three callers seem to be prepared to deal with
-failure, so I think we should just make these fail instead of returning
-0.
+Patch 2 switches the sun4i driver to the new helper, and fixes the
+luma plane buffer address offset for subsampled YUV formats.
 
-Any thought?
+Patch 3 converts the imx/dc driver to use the new helper. This fixes a
+mismatch between the programmed coordinates and the buffer address.
 
-Thierry
+Patch 4 replaces the open coded buffer address calculation in the
+imx/dcss driver with the new helper.
 
---i6qijyjefsd32euh
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+Please have a look.
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqfz/UACgkQ3SOs138+
-s6HbmA//a7qNERZAQ3yRWiydhrePbED3kRKv0HSv9N2gumrzKUdZsgRPZt9zq+tY
-jlGfE+pLkVxKn9OrAHS+c8ueItFNHkjdZbkMB9lYG0Wpclm5gpU11iBiiZtrzOHz
-WiEzKPtBJh4akwTJo0BLTQDqnf052vCmT1HW7/m51TmDBsYy531XuMqcF4V1cViJ
-L1KdyPc66KlBivmtcC0Kh0lVSbmsyS+SWJcxOvg+kwY8t02f68EHrUV9UTRgCmr8
-T5YO/ibccZVaey6WNDCqbdaQyUhHRzJNKuIrMGob5e49tDWOd4wB8Pa8CPMMgpUK
-3QPmfzDWrjHUimwGKdzu8R5LAk+zzEaxQMAlcaf3iEejg7WVY0DvDFA5m0Rbee8O
-BsryJINxaGuetAUqaF00N5UnCu5LreyjIiOFejWHY6BQM9oMlN0aBNnBMaozYOqF
-gvn9ioMnbVs4hhjggmGf7MOoKA87DU8Sb8JoZuZDTO51DrCB2P8gThFJHPkj7lgB
-hXjnzHdct/pO4qeaj6Y4FC63HBI58QoNMpmJGr7mZWeb5wWZQgj1Oobal1TbUZy1
-2G7m21x2Zegi9MmRwyS0XfXdGChMdxCttK0/XFo74Md1rKurzUjH8W3N2HdXTRrD
-DPvDE6pSnJSWnFNeDPebiamX72hoF000TpCe857/MUEH5n7Aamk=
-=GOLb
------END PGP SIGNATURE-----
 
---i6qijyjefsd32euh--
+Thanks
+ChenYu
+
+
+Chen-Yu Tsai (4):
+  drm/fb-dma-helper: Add drm_fb_dma_get_gem_clipped_addr()
+  drm/sun4i: layers: Fix VI buffer address for clipped offsets
+  drm/imx/dc: plane: Switch to drm_fb_dma_get_gem_clipped_addr()
+  drm/imx/dcss: plane: Switch to drm_fb_dma_get_gem_clipped_addr()
+
+ drivers/gpu/drm/drm_fb_dma_helper.c    | 63 +++++++++++++++++++-------
+ drivers/gpu/drm/imx/dc/dc-plane.c      |  4 +-
+ drivers/gpu/drm/imx/dcss/dcss-plane.c  | 34 ++++++--------
+ drivers/gpu/drm/sun4i/sun8i_ui_layer.c |  2 +-
+ drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 16 ++++++-
+ include/drm/drm_fb_dma_helper.h        |  4 ++
+ 6 files changed, 83 insertions(+), 40 deletions(-)
+
+-- 
+2.55.0.979.g7e5102b832-goog
+
