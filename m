@@ -4,79 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84B6CC79F8C
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:54:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64CE5C79FAA
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:54:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 427D010E178;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64C8A10EEFD;
 	Wed,  9 Sep 2026 06:54:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hLF0wWCx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B0UyyjoT";
 	dkim-atps=neutral
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com
- [74.125.224.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C13B710E12B
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 09:17:30 +0000 (UTC)
-Received: by mail-yx1-f50.google.com with SMTP id
- 956f58d0204a3-66bd7857841so4101695d50.3
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 02:17:30 -0700 (PDT)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9540610E144
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 17:55:02 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-5b4adcce4b1so4212539e87.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 10:55:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788859049; x=1789463849; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788890100; x=1789494900; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=04BJLFntpwJWlUY4qt1TWhif2X5sPaJQXijGBxMTbU4=;
- b=hLF0wWCx7azYaCsYFM1E4ttjuXD/uSmAWwsEN11fWX/8g4HOQkrniiaPUQ2LYqVex2
- RpDdhaB1qshLhvKzmJV4/KeZZbSclPzwUcejNWn5xFDLxdYlVS2DNGbCRa80NGx7OcNA
- 7IilmR4xeHNDubaHsq3v0B+dZdXIMirfSbjmCYYbgVHBT8dyUzj/8GGz9o4ZDbb5M2js
- H+eTp+tBBIjsTm1S1nNHWOj40lEmctOaYc9O3DLSJB/mjgQZS15Eu64bBMDqZjKeZ4/P
- qVNw/ECjnejWhnssw6vbvTmKG6dfYxwdwvjghoSUpH37nBokrK2mjnuvL65vrGujaHrd
- 8ERw==
+ bh=S3mHm6ZqbhRQ6tXzMkeFKmTWTzRDfTiWOZtRcgd3yZs=;
+ b=B0UyyjoTWiug5OSX31wuiBxNfCmTYICWIg6NwqjSpCNiz19t+BfUay/6lOD7w+ktPz
+ kKxD86ayi6J9jXkV7bB5+2RpOEssyw7Bc2/lryJjla2PabIKVtsSw2yUh0Y02VOqVfwW
+ myDNyrRspLFphYm4F8luUc8iz4v7lFwamgIti52Tjx5iYXc/j1SjbKF4GZPdL3fftZhb
+ PthPmFysH9loXeYRKOe6QYA1/8m3cQya/64yoN93wrnPb7MDModacAj2cUiQjuKnGTh+
+ ewHSG5eSN1yT0415o39/Gurzh4RAyihNkZwRRNRima+q0FZcu+lmCdrY1oCjCRZhWNbK
+ hhUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788859049; x=1789463849;
+ d=1e100.net; s=20251104; t=1788890100; x=1789494900;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=04BJLFntpwJWlUY4qt1TWhif2X5sPaJQXijGBxMTbU4=;
- b=ma0bQ1NRvMXHMJs1y89mp03MuYILNdWoW8RuXYDdGDJ108N0MtVTNTWEd8R7VeWQTq
- tN0ltOT2bcjh8m0evXj2xVvDL54hmwXppJ6sS66ytUuMCNNMN5eBvTXdf20/u5tdL943
- I0ZJ+5MbT+w5yjMhUnRTpNfHoKNu/dAKl/dwXAUUpWK2u21ULzLPQZcxt923F2ZOpMEq
- qdDE76DcrkQt/htow/XgGo9dTdN/ib3/68CljfoyaiOk+2ZRDedNCY9ublDfajt0bVGL
- 0R0K6fCFG5f6zDm6FD0rNyQsXWMJ0iMxhuV4l4rLLiiOvXaTEnbJhBf2mpVDN4gIFIls
- YEpQ==
+ bh=S3mHm6ZqbhRQ6tXzMkeFKmTWTzRDfTiWOZtRcgd3yZs=;
+ b=S4QLC1pYx3V8jvJFW8b5lZiTEqbG+IlyHR1EVKPnL945s+wJvYaOH60id03lIs+YNz
+ Qb4Y4I2cFanVpjGil+AIk/yo809zFz4VDXWAzL0N8v2BYuvxXWt8GWl3mmITTWa//AD2
+ PwY1d7ug3DBIk7gPpPi8OeX0jZgfh5znyK19XdhqYOPl/3xS0c0SCEhXh1i0+fhDJWuF
+ EJMrd4jzWt3etFhE9kuOWaFUdSTOXW/3cr2ZhBL9hu8CJVQPi9kTaxY0wAmbTmNH+D+J
+ kKsx/mC7gxAvIGLC4lo0nc8b6rQYdDiU6NllMFMo7UfwlZ6GGgWVDiWuVsWngetvqNTS
+ WCzg==
 X-Forwarded-Encrypted: i=1;
- AKwUvByonhSFyUkizRn4zxw+IQ7o7xpPMMWyL6VKgb9OUWycoOI03nwETYgqUKTB/K7AP1vYl6Iu+W4I6pE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mctZF5MCKD+Amm1xudDqN6AV80STGggwRrAnB5vH7mniEdJBJr
- me0tm041URO3P546FIGJzpTUaNlsyotSF6MMTejCzTH8VpE3ti1epcf+
-X-Gm-Gg: AYBFou1ZxVPEaADXyAOuJEJXdxKC7Zf1yN1SM2aeHdAyctByF0vDvl5xC8DK4heaFDD
- cIybm1PluQ37tDo3vRJkxnBEPjlULjn9aP0tGdpWGTGmrbr2Y1DAb4R1UDzlDXMNaFvhIylt7gQ
- wTfaBW9mgvPwLKiwEZjywk7TNu6LdXcpnOdIiWp6N/jF8AD65Lq6yOkOjlQzht5bkwzJiXGpUzg
- VvGXYdJrPvaQbKR7m96k5DgrZOR1hF0I3niQ9zkMcEK6rrpTd570a4R5dUYUttYfuysuiGmueDN
- y3lTPA3LSGhLMGuZGjr0JE0eAWrhtx0BsrCE4e5zW3ZF5H9S1ioCrRlyGfQnbLem+upZ983pZZx
- DKZGNscLmnYbkOF0p7acZTWyNiTnU9LPfNmfjFihWouWja6lyKEY2n84zb2A4q7DQ5gj57Li/ww
- pk4plnp4T5b21In464Nc0Hpp3tTp100ngBMiGYkbA1rXnDbRX44R1Yv8oyG9Ne4upHuQV5TuHyh
- CuaaTu+iDpp8+XLN6Wqv21rwddc3zdcSEfmnOcfNiB/DvZkJhYSOVQ=
-X-Received: by 2002:a05:690e:4845:b0:66f:dd72:8fd7 with SMTP id
- 956f58d0204a3-66fdd729038mr1907789d50.90.1788859049437; 
- Tue, 08 Sep 2026 02:17:29 -0700 (PDT)
-Received: from flyingfox.tail3d542a.ts.net
- ([2402:a00:163:2ce9:6c87:7904:21fa:8675])
+ AKwUvBypbM1on4UF+cRMD09aypCYuJYCSsCsY3qhpxq6sKJwGmDpddTzssY1zRxHdWbRp/2PXMCSQb6MnOw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++k2VFFXlBCuH9kdwWR60RSjUXXWRpDnKEiLf/xza27RMKo533wC
+ uCQFC6dkq2DapxYsVKZ5AClNG0lK1v9pg+vvjwEZfne04/tW7wDNNaO4
+X-Gm-Gg: AYBFou3yeTC2it5RiKdEN0ZZKlbR2dvteW7Zpt7AW0fguYo09JcBg/bkHw3lI5APgGV
+ vFcKDUjMlAjdeBq+fEsYUpSHg8DsPAf+ZXLbrBT0IGBXNC7S9dTx08fzDm7OJYbUp8VJzWWUbul
+ 84uUvP7DwovO0B/Ll5fkd1n1DmnesiW5SJnQ7fv5uVRYxZAz+tNMBG6q4rHHhON5YSWIeFszD8a
+ ymDwm29jSbHrSoMEaCRmMTF8EYGdxX0PtSdto+KLAC1XEJF+vKo+OKjGXWAh6CNO+eYdJ1lmWeK
+ Gwjcm87WK3f16OAlIohGeT/AFsNtM1xk6whL2tDz7yz4+URHfyGB20QwGWgC/5o6hgC49JLDkm4
+ JHq20Gf3xB7N8qcaAUlpjqBxeoVMACpGofj2M+XUXjRW2vvuVcDVCH9Fn1YXNx+WxTYw6Dv5kRc
+ UioOC0UHfi0Epb34TEBL45rhrKraY2+7APjt0Ygke+Zanpixqg2jhPYYz5EV6YUnpwtAFIr/6KO
+ hKckyzzkORs
+X-Received: by 2002:a05:6512:8393:b0:5b6:1836:8082 with SMTP id
+ 2adb3069b0e04-5b6183683cbmr7614121e87.28.1788890099983; 
+ Tue, 08 Sep 2026 10:54:59 -0700 (PDT)
+Received: from soda.int.kasm.eu (soda.int.kasm.eu.
+ [2001:678:a5c:1202:7b92:9ac1:b9ef:5287])
  by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-670f4f6d3cdsm1803318d50.6.2026.09.08.02.17.21
+ 2adb3069b0e04-5b6166fcdf9sm3172156e87.46.2026.09.08.10.54.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 02:17:28 -0700 (PDT)
-From: Vivek Kumar <vk092kumar@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org, Vivek Kumar <vk092kumar@gmail.com>
-Subject: [PATCH v2] drm/msm/dp: don't gate eDP on DP_SINK_COUNT
-Date: Tue,  8 Sep 2026 14:47:08 +0530
-Message-ID: <20260908091708.3123735-1-vk092kumar@gmail.com>
+ Tue, 08 Sep 2026 10:54:59 -0700 (PDT)
+From: Klara Modin <klarasmodin@gmail.com>
+To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Alex Deucher <alexander.deucher@amd.com>,
+ Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Thorsten Leemhuis <linux@leemhuis.info>,
+ Manuel Ebner <manuelebner@mailbox.org>, Gary Guo <gary@garyguo.net>,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Klara Modin <klarasmodin@gmail.com>
+Subject: [PATCH] rust/drm/gem: initialize callbacks with ..pin_init::zeroed()
+Date: Tue,  8 Sep 2026 19:54:27 +0200
+Message-ID: <20260908175427.47207-1-klarasmodin@gmail.com>
 X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -96,89 +96,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-msm_dp_display_prepare_link(), msm_dp_display_disable(), and
-msm_dp_hpd_unplug_handle() all treat dp->link->sink_count == 0 as
-"nothing is connected", and in msm_dp_display_prepare_link() this
-causes probe/enable to fail outright with -ENOTCONN.
+When the commit b67d2d039f64 ("drm/gem: Add callback for when handle
+count goes to 0") added the handle_free callback, it did not update the
+rust abstraction, which will cause a build failure when that is enabled.
+Rather than just adding another None initializer, use
+..pin_init::zeroed() to make all unlisted callbacks None, and remove the
+existing None-initializations.
 
-This is correct for external DisplayPort, where a compliant sink is
-required to report a valid DP_SINK_COUNT over the AUX channel. It is
-not correct for eDP: some eDP sinks -- particularly fixed-format
-eDP-to-HDMI bridge chips with no downstream AUX-capable panel
-behind them -- never populate DP_SINK_COUNT with a nonzero value,
-even while otherwise participating normally in DPCD capability
-exchange and link training.
-
-drm_dp_read_sink_count_cap() already accounts for this by excluding
-eDP connectors from the sink-count requirement for other DPCD-derived
-checks (msm_dp_bridge_detect() takes care). Apply the same exemption
-to the raw sink_count reads in this file via a small shared
-helper, so eDP outputs with a non-AUX-capable downstream sink are
-not treated as permanently disconnected.
-
-Tested on a Qualcomm QCS6490-based board driving a fixed-format
-eDP-to-HDMI bridge IC (chrontel,ch7218a) with no negotiable
-DPCD-capable panel behind it; without this fix,
-msm_dp_display_prepare_link() unconditionally returns -ENOTCONN
-and the display never comes up.
-
-Fixes: ca16db3d18cf ("drm/msm/dp: break up dp_display_enable into two parts")
-
-Signed-off-by: Vivek Kumar <vk092kumar@gmail.com>
+Fixes: b67d2d039f64 ("drm/gem: Add callback for when handle count goes to 0")
+Reported-by: Thorsten Leemhuis <linux@leemhuis.info>
+Closes: https://lore.kernel.org/all/aaef18cd-ab55-4fb8-8563-ca3a5ea9cbc6@leemhuis.info
+Suggested-by: Gary Guo <gary@garyguo.net>
+Signed-off-by: Klara Modin <klarasmodin@gmail.com>
 ---
- drivers/gpu/drm/msm/dp/dp_display.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ rust/kernel/drm/gem/mod.rs | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index bc646d172abe..9254f080f0ea 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -400,6 +400,12 @@ static int msm_dp_display_handle_irq_hpd(struct msm_dp_display_private *dp)
- 	return 0;
- }
+diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
+index 80d8f524f9d5..af8274134a71 100644
+--- a/rust/kernel/drm/gem/mod.rs
++++ b/rust/kernel/drm/gem/mod.rs
+@@ -266,18 +266,8 @@ impl<T: DriverObject, Ctx: DeviceContext> Object<T, Ctx> {
+         free: Some(Self::free_callback),
+         open: Some(open_callback::<T>),
+         close: Some(close_callback::<T>),
+-        print_info: None,
+-        export: None,
+-        pin: None,
+-        unpin: None,
+-        get_sg_table: None,
+-        vmap: None,
+-        vunmap: None,
+-        mmap: None,
+-        status: None,
+         vm_ops: core::ptr::null_mut(),
+-        evict: None,
+-        rss: None,
++        ..pin_init::zeroed()
+     };
  
-+static inline bool msm_dp_link_no_sink(struct msm_dp_display_private *dp)
-+{
-+	/* eDP sinks are not required to report a valid sink count */
-+	return !dp->msm_dp_display.is_edp && dp->link->sink_count == 0;
-+}
-+
- static int msm_dp_hpd_plug_handle(struct msm_dp_display_private *dp)
- {
- 	int ret;
-@@ -467,7 +473,7 @@ static int msm_dp_hpd_unplug_handle(struct msm_dp_display_private *dp)
- 		drm_edid_connector_update(dp->msm_dp_display.connector, NULL);
- 
- 	/* triggered by irq_hdp with sink_count = 0 */
--	if (dp->link->sink_count == 0)
-+	if (msm_dp_link_no_sink(dp))
- 		msm_dp_display_host_phy_exit(dp);
- 
- 	/*
-@@ -634,7 +640,7 @@ static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
- 		return rc;
- 	}
- 
--	if (dp->link->sink_count == 0)
-+	if (msm_dp_link_no_sink(dp))
- 		return -ENOTCONN;
- 
- 	if (!msm_dp_display->power_on) {
-@@ -723,12 +729,12 @@ static int msm_dp_display_disable(struct msm_dp_display_private *dp,
- 	msm_dp_ctrl_off_pixel_clk(dp->ctrl);
- 
- 	/* dongle is still connected but sinks are disconnected */
--	if (dp->link->sink_count == 0)
-+	if (msm_dp_link_no_sink(dp))
- 		msm_dp_link_psm_config(dp->link, &msm_dp_panel->link_info, true);
- 
- 	msm_dp_ctrl_off_link(dp->ctrl, msm_dp_panel);
- 
--	if (dp->link->sink_count == 0)
-+	if (msm_dp_link_no_sink(dp))
- 		/* re-init the PHY so that we can listen to Dongle disconnect */
- 		msm_dp_ctrl_reinit_phy(dp->ctrl);
- 	else
+     /// Returns the `Device` that owns this GEM object.
 -- 
 2.55.0
 
