@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BF1EC79FB5
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48A32C79FB8
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D069E10EF2D;
-	Wed,  9 Sep 2026 06:55:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F03810EF2E;
+	Wed,  9 Sep 2026 06:55:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kN/btgh0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WUvpBjcJ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0338410E4DE
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:07:15 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F1A810ED47
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:16:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D8E58601F9;
- Tue,  8 Sep 2026 20:07:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CBD61F00A3D;
- Tue,  8 Sep 2026 20:06:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5D96840324;
+ Tue,  8 Sep 2026 20:16:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43B171F00A3D;
+ Tue,  8 Sep 2026 20:16:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788898033;
- bh=/OHowaZfNnH6j5YLgvEYzRWeKR373+5I1ONZvwtiOGM=;
+ s=k20260515; t=1788898605;
+ bh=00Ytz0fGJRHe4Ncuh0cIgBWI8kQ1fPndDbpD79dfnG8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=kN/btgh0eap/SzTnfSMyA1+JQMgNNTZgMm76v6K5xBzJeML5mC6bG1ehwUm074Wwt
- mu4BBs8HNe0Scxfm6+rZRxODax9ptXPYgz7B2VRoWj8rT2IIaLy/Cf4P9VNig+4yyC
- yOaismpmUijBljgnNHYEJwqhIK9m6OdzBDFFAG6yyCnuLxT6Xo+zf9WHbNsdJBH0Dk
- VXiJQ1zJjohovh+PxvEB01WbD/6CZKPV5fgwDx+/uK1/qaRGlUUCUss+MZaWX6yRbS
- RWufKT4bxmMVtAXkBT+1COQY8ZPY7lN1TDNimdMZuPtkgIZ5IZm7N3RznryoHsyHuE
- 3KSVVirl3z1hA==
+ b=WUvpBjcJK9lkzTNgIphelUj7gR86mDfMTCrOwhcFWV7g9p3pkJ5JhkmROJL5ByxoX
+ 9Nki+EY0vDqqzBpPdR18j9HlKTmxYLMJJruC3U8CEzXLNOUbs6LIRhoMLhjQCpSCqN
+ Wf1s3OkrIjuYuUJuPfOKprUFhl9DF7x33b6Pasm361AA0CZR+1G2TbyfZ80ECy3N7W
+ ZinGditQa0WlJZ2zIjqxeO/H7xGHW8LZ6YtDotQbIkvTmpD/hKHGaLw9qEFWf22ucU
+ PsZ5SrQdViLWdi2omxqJS0HS6iJIP8ppo/0YWIVXJi+m+G7hAOWXEoIPKzyC2G0qXA
+ j93Z0/FzwiV1w==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 08 Sep 2026 21:01:14 +0100
-Subject: [PATCH 10/39] infiniband: update hfi1 to use remap_vmalloc_range()
+Date: Tue, 08 Sep 2026 21:01:34 +0100
+Subject: [PATCH 30/39] mm/vma: introduce vma[_flags]_is_persistent()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-10-dacf19cce22b@kernel.org>
+Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-30-dacf19cce22b@kernel.org>
 References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
 In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -120,12 +120,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9393; i=ljs@kernel.org;
- h=from:subject:message-id; bh=DvnDuvgsaeIMg1k0R/1O6RcBwGnMt/C+7lANJzJCM1I=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG78/93P99pW//+K9zMzmHMuySj6SmXx3BA+HjfzV
- wS7XCpTRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACZyVY7hf9XsAj25r/dzk15F
- roqSV7otOy9/9/WU1OyWLzedko5M5GD4X9X9cNIO4e7kGfU2x5Vf3GdOnV/C1Hfk99YTD/evFtv
- xnAUA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3843; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=OGo5/9n5J+oAqKddihiTXuavq5GzTxtl2VUhPHcEqY0=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG5lCnKMU3Q12TQzKnBGa53ytyTXH5z37x7z8xGx0
+ xEt/RjYUcrCIMbFICumyPL8i/j+IJGweZ0X/N1g5rAygQxh4OIUgInYmzEyzC0J3nr3h/bjeXZd
+ XS4/2fNf5cx35/r96fBGHsaE8EyBvQz/y6zqu7Sq56n+6/yTem/yPnPBhrXLLhXMkPzn8n/uUoV
+ KTgA=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:54:46 +0000
@@ -144,259 +144,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In cases which map chip memory from vmalloc()'d ranges, the hfi1 infiniband
-drivers currently installs a fault handler, and then smuggles the kernel
-virtual address of this range in vma->vm_pgoff.
+Introduce vma[_flags]_is_persistent() for the purposes of identifying
+mappings that are persistent in the sense that bytes to the mapping stay
+there, and bytes read from the mapping are the same unless changed by
+actions taken by userland.
 
-This is exposing KASLR-sensitive internal kernel state in the VMA, and is
-entirely unnecessary.
+Kernel-owned mappings do not fall into this category, as their owner may
+change the contents without the user having initiated it, and nor of course
+does memory-mapped I/O.
 
-Instead, use remap_vmalloc_range() to remap the VMA to the span, and
-eliminate the fault handler altogether.
+We exclude fixed mappings as these are singled out as being unmergeable and
+so cannot be guaranteed to persist user data.
 
-remap_vmalloc_range() checks that the VMA does not extend beyond the
-vmalloc area, and the driver already requires the VMA to exactly match the
-span of the memory being mapped, so this has no impact.
+hugetlb mappings are fixed mappings, but their contents are entirely the
+user's, so they are explicitly carved out as persistent, as the MADV_DODUMP
+check already does.
 
-The memory is all preallocated so not having a fault handler has no impact
-either, other than pre-mapping the ranges which is beneficial.
+It excludes droppable mappings, which by their nature are ephemeral.
 
-We also remove the VM_IO flag as it's not appropriate here, and the
-VM_DONTEXPAND flag as remap_vmalloc_range() will set it (and also mark the
-range correctly as a mixed map).
+Use this functionality to update the madvise MADV_DODUMP check to test for
+persistence rather than open-coding this.
 
-We also update the vmalloc paths to place the virtual kernel address in
-memvirt, rather than overloading the physical address memaddr. We predicate
-the vmalloc handling on the vmalloc flag before we check memvirt for the
-virtual address-derived PFN remap path, so this works fine.
+This replaces the VM_SPECIAL check which means it no longer checks for
+VMA_IO_BIT, however this is safe as we have established the invariant that
+only kernel-owned mappings may set VMA_IO_BIT, so we implicitly include
+these.
 
-remap_vmalloc_range() requires that the vmalloc()'d areas were all
-allocated using vmalloc_user() - each of cq->comps,
-uctxt->subctxt_rcvegrbuf, uctxt->subctxt_rcvhdr_base,
-uctxt->subctxt_uregbase and dd->events were allocated this way, so that
-requirement is satisfied.
-
-We also remove VM_IO and VM_DONTEXPAND from the STATUS command, as these
-are both set on remap.
-
-Finally, we remove VM_DONTEXPAND from the PIO_BUFS, PIO_BUFS_SOP and UREGS
-commands, as these are also all set on remap. PIO_CRED retains it, as
-dma_mmap_coherent() may map via vm_insert_page() on the IOMMU-DMA path,
-which sets only VM_MIXEDMAP.
-
-Note that we retain expected behaviour throughout - the vmalloc remapped
-ranges set VM_MIXEDMAP | VM_DONTDUMP | VM_DONTEXPAND for each range.
-
-VM_IO was never appropriate as the ranges are explicitly not MMIO, and the
-reference to the v3.7 VM_RESERVED semantics map on to VM_MIXEDMAP |
-VM_DONTDUMP | VM_DONTEXPAND correctly - no core dump, unmergeable, no
-normal vm page for purposes of reclaim/migration/etc.
-
-There is a change in behaviour in that pages mapped using
-remap_vmalloc_range() will now have normal GUP-able pages, however this
-should have no impact as there is no reason not to allow this.
+No functional change intended.
 
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/infiniband/hw/hfi1/file_ops.c | 79 ++++++++++-------------------------
- 1 file changed, 22 insertions(+), 57 deletions(-)
+ include/linux/mm.h | 44 ++++++++++++++++++++++++++++++++++++++++++++
+ mm/madvise.c       |  4 ++--
+ 2 files changed, 46 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/infiniband/hw/hfi1/file_ops.c b/drivers/infiniband/hw/hfi1/file_ops.c
-index dc548e6802e2..7119d734edc7 100644
---- a/drivers/infiniband/hw/hfi1/file_ops.c
-+++ b/drivers/infiniband/hw/hfi1/file_ops.c
-@@ -70,7 +70,6 @@ static int set_ctxt_pkey(struct hfi1_ctxtdata *uctxt, unsigned long arg);
- static int ctxt_reset(struct hfi1_ctxtdata *uctxt);
- static int manage_rcvq(struct hfi1_ctxtdata *uctxt, u16 subctxt,
- 		       unsigned long arg);
--static vm_fault_t vma_fault(struct vm_fault *vmf);
- static long hfi1_file_ioctl(struct file *fp, unsigned int cmd,
- 			    unsigned long arg);
- 
-@@ -85,10 +84,6 @@ static const struct file_operations hfi1_file_ops = {
- 	.llseek = noop_llseek,
- };
- 
--static const struct vm_operations_struct vm_ops = {
--	.fault = vma_fault,
--};
--
- /*
-  * Types of memories mapped into user processes' space
-  */
-@@ -304,13 +299,13 @@ static ssize_t hfi1_write_iter(struct kiocb *kiocb, struct iov_iter *from)
- 	return reqs;
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index d8ee0ca63ccf..e6c3ebb09c8d 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -1741,6 +1741,50 @@ static inline bool vma_can_merge(const struct vm_area_struct *vma)
+ 	return vma_flags_can_merge(&vma->flags);
  }
  
--static inline void mmap_cdbg(u16 ctxt, u8 subctxt, u8 type, u8 mapio, u8 vmf,
-+static inline void mmap_cdbg(u16 ctxt, u8 subctxt, u8 type, u8 mapio, u8 is_vmalloc,
- 			     u64 memaddr, void *memvirt, dma_addr_t memdma,
- 			     ssize_t memlen, struct vm_area_struct *vma)
- {
- 	hfi1_cdbg(PROC,
--		  "%u:%u type:%u io/vf/dma:%d/%d/%d, addr:0x%llx, len:%lu(%lu), flags:0x%lx",
--		  ctxt, subctxt, type, mapio, vmf, !!memdma,
-+		  "%u:%u type:%u io/vmalloc/dma:%d/%d/%d, addr:0x%llx, len:%lu(%lu), flags:0x%lx",
-+		  ctxt, subctxt, type, mapio, is_vmalloc, !!memdma,
- 		  memaddr ?: (u64)memvirt, memlen,
- 		  vma->vm_end - vma->vm_start, vma->vm_flags);
- }
-@@ -325,7 +320,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		memaddr = 0;
- 	void *memvirt = NULL;
- 	dma_addr_t memdma = 0;
--	u8 subctxt, mapio = 0, vmf = 0, type;
-+	u8 subctxt, mapio = 0, is_vmalloc = 0, type;
- 	ssize_t memlen = 0;
- 	int ret = 0;
- 	u16 ctxt;
-@@ -347,7 +342,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 	/*
- 	 * vm_pgoff is used as a buffer selector cookie.  Always mmap from
- 	 * the beginning.
--	 */ 
++/**
++ * vma_flags_is_persistent() - Do the specified VMA flags imply that the VMA
++ * contains persistent data?
++ * @flags: The VMA flags to test.
++ *
++ * Persistent in the sense that - if you write bytes to the mapping - do they
++ * stay written?
++ *
++ * If the kernel or a device could write to the memory independently of
++ * userland, or the kernel could arbitrarily discard it, then it is not
++ * persistent.
++ *
++ * Returns: true if the flags imply this VMA is persistent, otherwise false.
++ */
++static inline bool vma_flags_is_persistent(const vma_flags_t *flags)
++{
++	/* hugetlb is a fixed mapping, but its contents are the user's own. */
++	if (vma_flags_is_hugetlb(flags))
++		return true;
++	/*
++	 * MMIO mappings may not store what is written and may be changed by the
++	 * device. Kernel-owned and fixed mappings may be changed by their owner
++	 * without the user having initiated it.
 +	 */
- 	vma->vm_pgoff = 0;
- 	flags = vma->vm_flags;
- 
-@@ -366,7 +361,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		 */
- 		memlen = PAGE_ALIGN(uctxt->sc->credits * PIO_BLOCK_SIZE);
- 		flags &= ~VM_MAYREAD;
--		flags |= VM_DONTCOPY | VM_DONTEXPAND;
-+		flags |= VM_DONTCOPY;
- 		vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
- 		mapio = 1;
++	if (vma_flags_is_kernel_owned(flags) ||
++	    vma_flags_is_fixed_mapping(flags))
++		return false;
++	/* Droppable memory is discardable by definition. */
++	return !vma_flags_test_single_mask(flags, VMA_DROPPABLE);
++}
++
++/**
++ * vma_is_persistent() - Does the VMA contain persistent data?
++ * @vma: The VMA to test.
++ *
++ * See vma_flags_is_persistent() for details.
++ *
++ * Returns: true if the VMA is persistent, otherwise false.
++ */
++static inline bool vma_is_persistent(const struct vm_area_struct *vma)
++{
++	return vma_flags_is_persistent(&vma->flags);
++}
++
+ /**
+  * vma_kernel_pagesize - Default page size granularity for this VMA.
+  * @vma: The user mapping.
+diff --git a/mm/madvise.c b/mm/madvise.c
+index d0b14cfe38a1..0fc31835fee1 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -1419,8 +1419,8 @@ static int madvise_vma_behavior(struct madvise_behavior *madv_behavior)
+ 		new_flags |= VM_DONTDUMP;
  		break;
-@@ -438,7 +433,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 			memvirt = uctxt->egrbufs.buffers[i].addr;
- 			memdma = uctxt->egrbufs.buffers[i].dma;
- 			vma->vm_end += memlen;
--			mmap_cdbg(ctxt, subctxt, type, mapio, vmf, memaddr,
-+			mmap_cdbg(ctxt, subctxt, type, mapio, is_vmalloc, memaddr,
- 				  memvirt, memdma, memlen, vma);
- 			ret = dma_mmap_coherent(&dd->pcidev->dev, vma,
- 						memvirt, memdma, memlen);
-@@ -467,7 +462,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		 * user registers.
- 		 */
- 		memlen = PAGE_SIZE;
--		flags |= VM_DONTCOPY | VM_DONTEXPAND;
-+		flags |= VM_DONTCOPY;
- 		vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
- 		mapio = 1;
+ 	case MADV_DODUMP:
+-		if ((!vma_is_hugetlb(vma) && (new_flags & VM_SPECIAL)) ||
+-		    (new_flags & VM_DROPPABLE))
++		/* Non-persistent memory cannot be dumped. */
++		if (!vma_is_persistent(vma))
+ 			return -EINVAL;
+ 		new_flags &= ~VM_DONTDUMP;
  		break;
-@@ -476,15 +471,10 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		 * Use the page where this context's flags are. User level
- 		 * knows where it's own bitmap is within the page.
- 		 */
--		memaddr = (unsigned long)
--			(dd->events + uctxt_offset(uctxt)) & PAGE_MASK;
-+		memvirt = dd->events + uctxt_offset(uctxt);
-+		memvirt = (void *)(((uintptr_t)memvirt) & PAGE_MASK);
- 		memlen = PAGE_SIZE;
--		/*
--		 * v3.7 removes VM_RESERVED but the effect is kept by
--		 * using VM_IO.
--		 */
--		flags |= VM_IO | VM_DONTEXPAND;
--		vmf = 1;
-+		is_vmalloc = 1;
- 		break;
- 	case STATUS:
- 		if (flags & VM_WRITE) {
-@@ -493,7 +483,6 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		}
- 		memaddr = kvirt_to_phys((void *)dd->status);
- 		memlen = PAGE_SIZE;
--		flags |= VM_IO | VM_DONTEXPAND;
- 		break;
- 	case RTAIL:
- 		if (!HFI1_CAP_IS_USET(DMA_RTAIL)) {
-@@ -514,23 +503,20 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		flags &= ~VM_MAYWRITE;
- 		break;
- 	case SUBCTXT_UREGS:
--		memaddr = (u64)uctxt->subctxt_uregbase;
-+		memvirt = uctxt->subctxt_uregbase;
- 		memlen = PAGE_SIZE;
--		flags |= VM_IO | VM_DONTEXPAND;
--		vmf = 1;
-+		is_vmalloc = 1;
- 		break;
- 	case SUBCTXT_RCV_HDRQ:
--		memaddr = (u64)uctxt->subctxt_rcvhdr_base;
-+		memvirt = uctxt->subctxt_rcvhdr_base;
- 		memlen = rcvhdrq_size(uctxt) * uctxt->subctxt_cnt;
--		flags |= VM_IO | VM_DONTEXPAND;
--		vmf = 1;
-+		is_vmalloc = 1;
- 		break;
- 	case SUBCTXT_EGRBUF:
--		memaddr = (u64)uctxt->subctxt_rcvegrbuf;
-+		memvirt = uctxt->subctxt_rcvegrbuf;
- 		memlen = uctxt->egrbufs.size * uctxt->subctxt_cnt;
--		flags |= VM_IO | VM_DONTEXPAND;
- 		flags &= ~VM_MAYWRITE;
--		vmf = 1;
-+		is_vmalloc = 1;
- 		break;
- 	case SDMA_COMP: {
- 		struct hfi1_user_sdma_comp_q *cq = fd->cq;
-@@ -539,10 +525,9 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 			ret = -EFAULT;
- 			goto done;
- 		}
--		memaddr = (u64)cq->comps;
-+		memvirt = cq->comps;
- 		memlen = PAGE_ALIGN(sizeof(*cq->comps) * cq->nentries);
--		flags |= VM_IO | VM_DONTEXPAND;
--		vmf = 1;
-+		is_vmalloc = 1;
- 		break;
- 	}
- 	default:
-@@ -559,12 +544,10 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 	}
- 
- 	vm_flags_reset(vma, flags);
--	mmap_cdbg(ctxt, subctxt, type, mapio, vmf, memaddr, memvirt, memdma, 
-+	mmap_cdbg(ctxt, subctxt, type, mapio, is_vmalloc, memaddr, memvirt, memdma,
- 		  memlen, vma);
--	if (vmf) {
--		vma->vm_pgoff = PFN_DOWN(memaddr);
--		vma->vm_ops = &vm_ops;
--		ret = 0;
-+	if (is_vmalloc) {
-+		ret = remap_vmalloc_range(vma, memvirt, 0);
- 	} else if (memdma) {
- 		ret = dma_mmap_coherent(&dd->pcidev->dev, vma,
- 					memvirt, memdma, memlen);
-@@ -588,24 +571,6 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 	return ret;
- }
- 
--/*
-- * Local (non-chip) user memory is not mapped right away but as it is
-- * accessed by the user-level code.
-- */
--static vm_fault_t vma_fault(struct vm_fault *vmf)
--{
--	struct page *page;
--
--	page = vmalloc_to_page((void *)(vmf->pgoff << PAGE_SHIFT));
--	if (!page)
--		return VM_FAULT_SIGBUS;
--
--	get_page(page);
--	vmf->page = page;
--
--	return 0;
--}
--
- static __poll_t hfi1_poll(struct file *fp, struct poll_table_struct *pt)
- {
- 	struct hfi1_ctxtdata *uctxt;
 
 -- 
 2.55.0
