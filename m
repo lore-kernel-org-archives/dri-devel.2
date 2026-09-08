@@ -4,123 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E005CC79FA0
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 07:16:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B28E2C79F99
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 07:18:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E1C210E07B;
-	Tue,  8 Sep 2026 07:16:27 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zV3LFn65";
-	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012038.outbound.protection.outlook.com
- [40.93.195.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39FFC10E07B
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 07:16:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EmYyCLilKcIh6Numdb1Ybw/6boWDC5Cd4oQl8LnQH+nZOnkaPqMnOyACUncJNnS3Hks5j+64RdH4/Pm743bez0dTApHj64HUNofLGdjwN/l4G+ZAiIbIaKxsJmMCNnEcLlZR5X8J+ShT7TL6OZo+yCq3qEO9zbKBJYFNVKvEghuAfBKNAFGYX7rkN2xDV4WeDIgn8oRTmt66ckKb57Vmkci+UH9foH99VRzV4kXZcfbm1uTS+6I2D4naVO4AnVvtohQuVj+9uCbwjLK4WvuimtBQSo8PmPiKbYTL/Oca3dqRBOY2/bUt8d1S5FqVTkaawcBOizpdngYG3oMvmUoWkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OBN0BNt1rimzLQbh+hgpHfcTbv1ki6oowOF5UVjgk1w=;
- b=FnVwVjvYMy+8xYNxRu8FqsX2DKNEWzwrxol1CVfwPAhuH9yGdlWDyDGfCNmSThnwTOVdSRFbIFeKpXlX5L27/XtQ75bTLA5oJEIP5uc+YRPqhYmBvgApuzkDR5Ye8502HVJnw2BY9CSbMAWNhHDDpF7w4mi2Eev2fglq7NVxAecFANzFCKoKXrN8kLIw/nc2jCeLVimhQCkb3yJu/TYbwR3+AzoTu/RM99DS9IXkWxUy+LZ50NZq+F8Hw16TRyqNU8N+u/dfRIGhG4O1S9Ps7IPPeB6KtfgS0ANwg/o2tW2OUrddjXClpLsuE1SSb29JQvyTghWGkFx7n8Uvx3PcjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OBN0BNt1rimzLQbh+hgpHfcTbv1ki6oowOF5UVjgk1w=;
- b=zV3LFn65An2sN6U1Kag75NYUB25KPl9saTkLu32byjuKQKtkzHkNyM161sDZcKqunXbltGxYNeprNXqY4JfRQlOQ43KDGARQtmMK9JHNBc/yGPC75eaOMgUszlTIenFkoNOudFoO0bOLxS0OiTbzeR3WWzvbWMccGGU1hNvlBEM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SN7PR12MB7810.namprd12.prod.outlook.com (2603:10b6:806:34c::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 07:16:23 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Tue, 8 Sep 2026
- 07:16:22 +0000
-Message-ID: <fc21c582-b9b2-48ad-a2c8-ba02c9860c34@amd.com>
-Date: Tue, 8 Sep 2026 09:16:18 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/drm_exec: remove contention for num_objects is 0
-To: Sunil Khatri <sunil.khatri@amd.com>
-Cc: dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- "Gopalakrishnan, Veerabadhran (Veera)" <Veerabadhran.Gopalakrishnan@amd.com>
-References: <20260907153810.2694832-1-sunil.khatri@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260907153810.2694832-1-sunil.khatri@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0334.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ea::10) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E282710E0A2;
+	Tue,  8 Sep 2026 07:18:51 +0000 (UTC)
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com
+ [209.85.221.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15F0610E0A2
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 07:18:51 +0000 (UTC)
+Received: by mail-vk1-f182.google.com with SMTP id
+ 71dfb90a1353d-5c65d654c23so1747008e0c.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 00:18:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788851930; x=1789456730;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ASzOob7GnYKJXcWv8xLMRXcs4durQAzV6NwhNCTQzS0=;
+ b=QalqWfrwMs8Uhdai3ZYwjt88Lm8nq1+1QhZpCP/ECLgCRaBFTeqb/SBNMjM0At677y
+ e6FtdEOV27OiHF+uL2vML9AAd0iJTHvjMtAypClTdjs5WKLdWtIuSTc2qoGJ+xcBBPCV
+ /045JX26jiiWvll4qt2VaFJbuGF3D6/3VX9/5eiaN4lBR2bZHrhYVzK/ER+qJ9GAw8Ar
+ tq6e+8k+gbAIVrnLirL0t4AdnZsC6SueLnZkfvjDXlCYpHj58XT145zINzCtHahWjEDS
+ B5W1gvlTi5h3bVZiLzwG/mtp/KB8O76KOuycmuQhJE23gpwuEYRD1Tlt00656zbI82Zc
+ CbjQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwBLfm2Y3sx59z958FSEgC0CxOXA7jiFEDoEg/YZm65bYS4mBdbhgCHD7vXKHcs+I4n1R47AsuMNuM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mlbP0NmsOLDYaZJSwFcXzNVlzzugdFpFuWYkdkL+/VGr8XRKks
+ fmDu14uiTm7e7YxYW54E7rpYiL8IR8vCeaW13uc07NJBLyHtjdIXoKoP3e7xclPN
+X-Gm-Gg: AYBFou2eKU1oiEOnf3tQGuRuBnyJCuqWir8+seSoYwEl1G8a32yXUwZ+5UU569peHbE
+ ZJZIP2UfFqNvQ5Fm600lH6RJPz7t/TBkRVeb9WAx53ypARFTZwoLTM98z0cUO1O3oYJh7k5xbuA
+ RVlXyC0ngCgsPwUbzHInV3OBZayspof98cVOVVLY9D2lqOaLrQ3/IMUCXzB/FqQsyLb640HEqe1
+ tg9lsPxPfI/JAsPVK2PEDrvNeLwHxeukaalnZkHwCG7L6+sviBuRfBE118ACZ5uZtCYriNqcULM
+ TcSNSrPEIhlpM1uL7sGFB06LSN06Dhz9Hj7sJ/m+yGh+4u+Ptl6vy1JD9xaX/BEDeFrDi7Xq6xT
+ GXVHnWJXC4M9xwPgtOfjybBc5Ti7DPyabhSue4aNY2gbMCAFLpVL7NQtlWhFfnR6bTZLdz4P2Y6
+ 9VqWXncpKdkNsjWrmRoVmYr+15gml/qcR18g7lhBpJYXGp12fh4RLXCfLKQ1dkiio1LATCvTXS9
+ Jz+yZuOjfw6x8OPV1OlIzhPRw==
+X-Received: by 2002:a05:6122:da0:b0:5c7:ae9a:a056 with SMTP id
+ 71dfb90a1353d-5c7ed457809mr11508223e0c.8.1788851929660; 
+ Tue, 08 Sep 2026 00:18:49 -0700 (PDT)
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com.
+ [209.85.217.53]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5c7ec3874acsm9035068e0c.15.2026.09.08.00.18.49
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Sep 2026 00:18:49 -0700 (PDT)
+Received: by mail-vs1-f53.google.com with SMTP id
+ ada2fe7eead31-754ac74c495so1344415137.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 00:18:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzenAjSkzbvPkxjm9fRKqNAwd+6zsuGBF0TDO88v/yIelJgR/bH7+y1OY6tDZgZHYHKR4p4Vg6kXbY=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:5493:b0:789:5f54:2367 with SMTP id
+ ada2fe7eead31-78a4a718223mr9320013137.4.1788851928902; Tue, 08 Sep 2026
+ 00:18:48 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB7810:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2cc20c9f-6070-46c6-9330-08df0d791654
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|23010399003|1800799024|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: Vz5oKyHjqLv8qoBLf+FILMTKVNTORTXl5mE9VqnKKsCcS6erW4m8FLESi8P/TELGj2v+dgU6L2Hr3B+XzHQn7uaoIOFW8PSOa3k0J9vI6FzLLTzKC6gBQ1htbglVP3nFiT6Wpawp4+SJDuut+JhlPH5WJ29zNBpj9Q3EEn5/qFinIyQf2vIOWMG47b+5kAxhlRtYRZ1I0WekbV8P5MlL1VNb5cBJyrOfjfsUWS6jsFNb06jctQdCKs7fUrqjFzyF3F9cyhd+k69ctG6PVUR1rB5z6PHKJc2nctUOSwo5HzYcr7cUhkkiNpeSCvwya/2fL4l4SJgVfsz72MYe1iP0a+X7drK7BIpmSb9GUEORCNy5zr5uP1cvDHfEWNbUZAbSbpxQQGahS4AEFn84P2gEFK+zUdyaouqFfTwBvxZXx7rqLPHJcLdJVwjvBTe7I1NhBmlJTkLDXKjg+kSu37qeemMg73STUh9EHSzdzPYZG1fYufooyw9RgdnsA+2OWITmLiDOTcp/b2u+b7qn6qOK7VSsv5cjkFqaFWVcxzGIo42zcvtdJRhEEdLheHV4K7iCGwlD1am5qr77I6s86T/KxeJANmU+bnVZynB5spFvHq4yuXR4vIB+ESUZydBJKIYEjRdibaGXp/DWonxhWjUwhId6zK2Lk9VKuW/Ns7+xZw8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N3MwNUtadmc4Mkx0SXhRaXVPTTlFRS83RHVnS0xtckQzUjFWb0R1dEdzditk?=
- =?utf-8?B?REUvdHlxa2ZCL21hTnU3RzFnNWxjR1d1dllyM1V3OHFHbTJOYkZtV3JjY3ln?=
- =?utf-8?B?OVR3Wis1SjVvdDdaR2tHTWVkNFlnenRzS0psSlhpS1Q4akJqdENEckVLOE1s?=
- =?utf-8?B?Y0IwZys0UGlTSFBnb21nZXZEM3FHODIxL2lKZ2FzL2d4TjdWK3Q4bTVuY0tK?=
- =?utf-8?B?U1gyTEY5RHVzcUwxYm8xUS9DSXF3SU9ob0NlcnNFV3RqNzRINDZXcDRRK3V2?=
- =?utf-8?B?em9kcGRwZUUybkZ2QzlKTWErWDJoWWxzbE5oYm9GMTJvQ1hrZTJQRFNnRXhB?=
- =?utf-8?B?Tk1kSTd4QzUzdXlDT3owUjlCSnVJdGVkYTcyWE02dUd4UnYzaU8rQThSN001?=
- =?utf-8?B?MUJkTlNXWjJGYWl0cm96bEVpVXoyRmxIVUFVek9vSjlEMCtjVC9sVVNwbzhl?=
- =?utf-8?B?NFRESHhzanhQVWZtekdTYXdSRzJSR01tN3dZb1hVRE9GenU4a01zSkZIU1pm?=
- =?utf-8?B?cGpvNGZtQjl1ZHhxVStmL0xGQldMcmJ5ZTlHZm1FdDVSWHlrRDRLTDI2ekpq?=
- =?utf-8?B?ZmgyTGVSaUFBTWh5dW1uZHRWeTJBSkI4cHd6b1VYenBMUHlMVU15cGovcisy?=
- =?utf-8?B?a2RpSm1TTlpUSHNXZzNrVVo2bmNwS1IvY1MxR0kwWGJlbGFEYkJOVDJPdlZs?=
- =?utf-8?B?ZnRvQXZYMTF6WHRZN2JzSGc1Z2pvWGNKaHYzTHRtK2VuOHJZc0d4MTFhN2Q4?=
- =?utf-8?B?OWhaTjhNMWttbjIzK3g0QnVLdGF4dFJEZ2MyMSsza2k0K3d6TTBpdXM1UDVi?=
- =?utf-8?B?RDZ1ek8zQWNUMno3S2Z0b0c1WlJheXlDemdyN3k0MFpzbmV2UGJzeC9vOGJk?=
- =?utf-8?B?OHdFNlNRQUtiM0dvOVcwc0lTcVFyaGF2RDlTdmRJOHR3WXpVYVNQN2tjODBt?=
- =?utf-8?B?NTI1blRuNGh2NEV2bXlSWk1kM09TTVdLOXNiaVhpN2V1NFRkY1Fzb1E4MVJH?=
- =?utf-8?B?Q3E0OEZaVzNWRk5rRWxIcUFKREU2QUJpNzhxdE8rYlB4VUZTcTJYUVlJVVA3?=
- =?utf-8?B?RmVqRWFrb0JKbmI0aWJ3cjRpYlBnMWd0WnJRVmVLN1BBVnJ2bkc0UEk5amc0?=
- =?utf-8?B?OXJNT2JvSVZ6UTZBcEUyOHIxU2NKMXRIRVVaaHdGdUhMKzJCMWtpZmI4M3BG?=
- =?utf-8?B?b3lReU42ay9FY2Y0ZDdBMkpHd0svSUo5UE5XV2YxeGloOW5rNDd5RDBXNXJa?=
- =?utf-8?B?SFFoSUdHeFJyVURoV29FdkhXY0lRdWdIbUp1bUQrei91eTZVSUJRakN1SDRS?=
- =?utf-8?B?dHR5U0c1VlMvQ1cyN1dHemI2TEM1dlI5UXlqbDI0YXNaNklNOGZreXFvblBW?=
- =?utf-8?B?QUdaM3lZeHdpOHRRZG1vMTZIY2UvT3Y4SnpUMTBjdmloVjNzRHJBeTJJb0RO?=
- =?utf-8?B?UnF5Wjh5NFJXYWdLQ2VwampXbjVNZjY4aGFNZ1B3VXBWa2w0VEdFMTZkYmtO?=
- =?utf-8?B?YXNFcERhL0Y5eTNjOTNETnZPNXB0VFlMWElWOWlYTjYyZjJKSDBkKytySzNy?=
- =?utf-8?B?dnNDVmtDQnAwbDdzdjJFbTVKTGFqY2hYallSU2V6Y3R0eUpRWUJiYkttWUYv?=
- =?utf-8?B?bC9hSG81eDhteGY2TUVIdHhKMjZTWmhOK09SaXVTR1BtZkY3VHNEdGtrcnhj?=
- =?utf-8?B?ZFhveGVzWUNWRk9tVVEwUFFURkI2NzhGd3lORlQ4SzlDaFpKVXE3citTUkdy?=
- =?utf-8?B?cnNlbnF5bzFZWk9UdFdKYzlVUEIrNFZrZVpsMUV4dXRzd3VDdWhHYXZ4T1hX?=
- =?utf-8?B?YlRHamFFZDlYcU96eEZKampkSFlHeDVYanFpQkkrMWJGejVvMWNpTkt6R2xC?=
- =?utf-8?B?WFV6RGRYZ1lsT2c0bDlONnJmRzZ1cmJIaVZnQ3AvZUJYNWQ4V0lIWGswY1Ix?=
- =?utf-8?B?WUNaYjRQam1NR3NWV25XVHZndGNsNzhRMFpZdDEwTlA1SUtmZU53UkVDRHpo?=
- =?utf-8?B?WG1xTlh4ejFtYXJnd09BR1RtVkR1alFMSDZiMm5QSWNSRTg5Z1k4MDZrR3Ez?=
- =?utf-8?B?NmphVHRJM0JONjNYNGVDcGEwcjB5QW1hci92ZjYyT203QXJLVFQ2a1ZvQkYw?=
- =?utf-8?B?NE94OEpidnpNY1V1S05CcEpoZDlZS0JvSksvZmFRbXA2cEF5TWNUQzZ2bFMx?=
- =?utf-8?B?K2FTZFE5ZDFUOHA0UFl4ZjU5RmRuU0NWSlZQZ25lL0JMWG5vdENoRnI5NDdz?=
- =?utf-8?B?ZlJQR2ZwMWRSNkhkUXU2bFdLcERSd2VpSFNTZms2Y0Z5d1p2alhLZG8xdE0v?=
- =?utf-8?Q?K6WA9H7s5ziHaPJ+81?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2cc20c9f-6070-46c6-9330-08df0d791654
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 07:16:22.8130 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yaHbbvnYco4aHCouuXv0W7DSsKnVVzXSsfF4Ixg4Ir8FFLLSGNSDgppUXs/W+nk6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7810
+References: <20260827093948.2825531-1-lilinmao@kylinos.cn>
+ <e4a2ba2e-c533-04d8-0795-e3d43caf47b9@gmail.com>
+ <CAN5rfbSh9ZoUkReAqv9rHYowqKcZFa-Svy6LP-MHvqfBVhjdBQ@mail.gmail.com>
+ <4f3c7184-1b5c-4074-b8a1-49261833df8f@gmail.com>
+In-Reply-To: <4f3c7184-1b5c-4074-b8a1-49261833df8f@gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 8 Sep 2026 09:18:37 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWoZBGyH=WeiTG4QCNC4hr_+pC4QQb-wjK0afZgMUy1Fw@mail.gmail.com>
+X-Gm-Features: AcwNN1XmAqsgmY9dglWOajpNmnnts6xxj9nL1ZG-ZrxbM9jWTj4q9h8M9EtZsAE
+Message-ID: <CAMuHMdWoZBGyH=WeiTG4QCNC4hr_+pC4QQb-wjK0afZgMUy1Fw@mail.gmail.com>
+Subject: Re: [PATCH] fbdev: atafb: Restrict SuperBlitter to supported formats
+To: Michael Schmitz <schmitzmic@gmail.com>
+Cc: =?UTF-8?B?TWlybyBLcm9ww6HEjWVr?= <miro.kropacek@gmail.com>, 
+ Linmao Li <lilinmao@kylinos.cn>, deller@gmx.de, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,55 +91,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The subject line should be something like "fix contention when num_objects is 0" to actually note that this is an important bug fix.
+Hi Michael,
 
-On 9/7/26 17:38, Sunil Khatri wrote:
-> Drivers that chain multiple drm_exec_prepare_array()
-> calls per drm_exec_until_all_locked() iteration could
-> pass num_objects as 0 in one prepare array under
-> contention could lead to infinite retry to lock loop
-> check as contention is never reset in loop with 0 objects.
+On Mon, 7 Sept 2026 at 22:14, Michael Schmitz <schmitzmic@gmail.com> wrote:
+> On 7/09/26 23:14, Miro Krop=C3=A1=C4=8Dek wrote:
+> > On Sun, 6 Sept 2026 at 11:49, Michael Schmitz <schmitzmic@gmail.com> wr=
+ote:
+> >> Hi Linmao,
+> >>
+> >> thanks for your patch!
+> >>
+> >> Am 27.08.2026 um 21:39 schrieb Linmao Li:
+> >>> The SuperBlitter operations derive an integer byte count per pixel.  =
+The
+> >>> accelerated fill path handles only one-, two- and four-byte pixels.
+> >>> However, the operations are currently installed for every external
+> >>> framebuffer in SuperVidel RAM, including planar 1/2/4/8-bpp and 24-bp=
+p
+> >>> truecolor modes accepted by the external video parser.
+> >>>
+> >>> For 1/2/4-bpp modes, the byte count becomes zero, so accelerated copi=
+es do
+> >>> nothing and fills fall through to 32-bit stores.  Planar 8-bpp uses a=
+n
+> >>> incompatible memory layout.  For 24-bpp modes, fills also use 32-bit =
+stores
+> >>> despite advancing addresses by three bytes per pixel.  These cases ca=
+n
+> >>> corrupt the framebuffer beyond the requested rectangle.
+> >> I believe 24 bpp mode can be rescued using something like this (entire=
+ly
+> >> untested):
+> >>
+> >> --- a/drivers/video/fbdev/atafb.c
+> >> +++ b/drivers/video/fbdev/atafb.c
+> >> @@ -2463,6 +2463,11 @@ static void svblit_fillrect(struct fb_info *inf=
+o,
+> >>           case 2:
+> >>                   memset16((u16 *)line, pix, rect->width);
+> >>                   break;
+> >> +       case 3:
+> >> +               memset(line, pix, ((rect->width * bytespp) % 4));
+> >> +               line +=3D ((rect->width * bytespp) % 4);
+> >> +               memset32((u32 *)line, pix, (rect->width * bytespp) / 4=
+);
+> >> +               break;
+> >>           default:
+> >>                   memset32((u32 *)line, pix, rect->width);
+> >>                   break;
+> >>
+> >> Can't test this on hardware, and would need Miro to confirm it works a=
+s
+> >> intended.
+> > Linmao's patch: I ran it on a Falcon with SuperVidel at
+> > 1920x1080x32bpp, all good.
+> >
+> > Michael's 24bpp fill: I cannot test it because the SuperVidel has no
+> > 24bpp video mode. It was planned but never implemented. Its mode
+> > register offers 1/2/4/8-bit bitplane, 8-bit chunky, 16-bit highcolor
+> > and 32-bit truecolor (24-bit RGB plus an alpha byte), with the
+> > remaining code reserved - and TOS offers no 24bpp mode to set.
+> Without a 24 bpp mode, the 24 bpp fill is pointless, so no point trying
+> to keep that mode alive.
+> > Unless I overlooked something, the fill also looks wrong on paper: the
+> > first line is filled with a repeated byte and then with repeated
+> > 32-bit words of the same value, which cannot reproduce a 3-byte pixel
+> > pattern unless all three bytes are equal.
+>
+> You're correct - we'd need a memset24() to account for that. Without
 
-That needs a bit more description. I know what it is all about but somebody not familiar with the problem won't get why this can cause an endless loop.
+Unless the frame buffer would be using a DIRECT_COLOR visual (which
+is not the case), then you could draw pixels in the 16 console colors
+by replicating the color index in all 3 bytes ;-)
 
-> 
-> Add an additional check during prepare when num_objects is
-> zero resolved this infinite loop.
-> 
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> hardware support this is an academic exercise that I don't have time for =
+:-)
 
-That needs CC: stable and Fixes tag. Potentially the patch when drm_exec_prepare_array() was added.
+True. And as this code is used only to fill the first line (the blitter
+replicates it into the other lines), the performance difference between
+a simple byte loop and a true memset24() won't be that large.
 
-> ---
->  drivers/gpu/drm/drm_exec.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
-> index 7988f5e7d56a..cd360f0c903a 100644
-> --- a/drivers/gpu/drm/drm_exec.c
-> +++ b/drivers/gpu/drm/drm_exec.c
-> @@ -322,6 +322,9 @@ int drm_exec_prepare_array(struct drm_exec *exec,
->  {
->  	int ret;
->  
-> +	if (!num_objects)
-> +		return drm_exec_lock_contended(exec);
-> +
 
-We need a comment here explaining why that is important to have.
+Gr{oetje,eeting}s,
 
-Something like:
+                        Geert
 
-/**
- * Make sure to clear look contention when no objects are handled to avoid endless loop in patterns like:
- * ret = drm_exec_prepare_array(exec, objs, num_objects); with num_objects = 0
- * drm_exec_retry_on_contention(exec);
- */
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
 
-Regards,
-Christian.
-
->  	for (unsigned int i = 0; i < num_objects; ++i) {
->  		ret = drm_exec_prepare_obj(exec, objects[i], num_fences);
->  		if (unlikely(ret))
-
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
