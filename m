@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5BAEC79F9E
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 14:47:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E2D8C79F9E
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 14:47:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1ABF510EC56;
-	Tue,  8 Sep 2026 14:47:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5026610EC54;
+	Tue,  8 Sep 2026 14:47:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="chL4Z0mO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="goENQmil";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 735BA10EC52;
- Tue,  8 Sep 2026 14:47:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DE7E10EC54
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 14:47:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 553E640379;
- Tue,  8 Sep 2026 14:47:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A84B91F00A3E;
- Tue,  8 Sep 2026 14:47:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1569D43E32;
+ Tue,  8 Sep 2026 14:47:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D4961F00A3F;
+ Tue,  8 Sep 2026 14:47:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788878842;
- bh=pcVhbktb+ZLK/BWb3ZKSyjQG2YjKk8/F6dnaTZS0yi8=;
+ s=k20260515; t=1788878846;
+ bh=OgBoSPL1hPTZZ35ktytUyiF3XRAGjxdBi6IgZowpwGY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=chL4Z0mOlcg/b+EkYPb6bJ7KroEPr2lJo/scC1VUPUQue2viNO6a/c+pbWYsQ3W6h
- oA8Bn9LJiDWEbQtghVl2beDvPBgLCR/UmhLe5x9cl7KbJO4rsGAwxGpdi/JfV2mJx+
- rmjggOPApac0xGyZilI5vqIU+/Ula/pzTarzXhLsCR3KYqY7tmhSB6AH+L1beA/aDh
- 68m3TkJhkZy09IyAxYSYNIL/4m3uB9HwXkxcSClVSMFm1jzgXpjE197dNYV4MYzTFq
- xrfma67JuYaGMN8LO1aBnLncwwkCREdb8kDKPBwVDM+54dnH7A9UGarDhi6bb8frXU
- Do4zrIu8yieWQ==
+ b=goENQmil44reKF0LAwxG3tzdu4sqe5bAdpA2R604r0XaYxbGkf4aF3+Pz+7AxmVic
+ 7arwGpSF4XVdcq9/a2qTked1xNEdXZe0k0WkWfkwlzw5QUvL8WkKnq4mX3mEhp5QwW
+ KPbPI2uRPwMfB6MlMidnhlEDvwCAkImtAe76VjHUabK+de7xJObn4M5FsTh4YtvItf
+ 0q0Q/9ecKluan/LUKi6x896idoLVwQRY77utdULCh1oia6O12i7vV7vjmhpdWSaopf
+ JdTdni7DpZXtZr8FxF+RUGSnu7OI0FsgXZokUUbiQzpQouVIySjTs/NTBQFk8uXFsF
+ dJO9k1jBcMJjQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 08 Sep 2026 16:46:36 +0200
-Subject: [PATCH v4 05/41] drm/amdgpu: Convert to atomic_create_state
+Date: Tue, 08 Sep 2026 16:46:37 +0200
+Subject: [PATCH v4 06/41] drm/fsl-dcu: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-drm-no-more-plane-reset-v4-5-a31b3fcfc989@kernel.org>
+Message-Id: <20260908-drm-no-more-plane-reset-v4-6-a31b3fcfc989@kernel.org>
 References: <20260908-drm-no-more-plane-reset-v4-0-a31b3fcfc989@kernel.org>
 In-Reply-To: <20260908-drm-no-more-plane-reset-v4-0-a31b3fcfc989@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, 
- christian.koenig@amd.com
+ alison.wang@nxp.com, stefan@agner.ch
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6064; i=mripard@kernel.org;
- h=from:subject:message-id; bh=Kz+h/AXtCUR1p5V73Uq9YzmdRgMG9pFd0/DHNgUDAhk=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkL5M+LzVy81/6h66sYsd36IY8cbnj9cmWM/5yWuevKd
- RG5cxkCHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAikh8Y66Pmmj1w9n9iZ89T
- fXKfgMTJkh/pBf/Eb9xK8euqK6o6/+K7opRycXeU1KYO5k9e61N/MdZHuj6Xf7eu8V0U29XcxfJ
- iOcXMD5UW9T9Z/muthIPL+ytlxgn2CTyr/MImhX9/VzDlQBQA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6027; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=Fk2yvdxVakf8hSDeQ1qHNjYIoLPHIm/owpVV7Kjt5kY=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkL5C9cTnl5e93yNfWfLk5L6QlndOGU/Peuu2rnYwOHN
+ T+Fp8aydExlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJ8DExNrwrvJ7JOcFEJOX1
+ AaW7Ae7+bLkbtCzyDQ6bzp4qslCvYd/j892c3zO4Grb3CdUZXv+WwlgrppK/VeZt4XWGtNPBeTN
+ 4tivNXebteyV65iarZQuN5x89u2tXJQvTgsBtwaaVzFd4F1QCAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -335,30 +334,29 @@ expression PS;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: alexander.deucher@amd.com
-Cc: amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com
+Cc: alison.wang@nxp.com
+Cc: stefan@agner.ch
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 2 +-
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_plane.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-index c835504fdf2b..8a6275eec3eb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-@@ -142,11 +142,11 @@ static const struct drm_connector_helper_funcs amdgpu_vkms_conn_helper_funcs = {
- 
- static const struct drm_plane_funcs amdgpu_vkms_plane_funcs = {
- 	.update_plane		= drm_atomic_helper_update_plane,
- 	.disable_plane		= drm_atomic_helper_disable_plane,
- 	.destroy		= drm_plane_cleanup,
--	.reset			= drm_atomic_helper_plane_reset,
-+	.atomic_create_state = drm_atomic_helper_plane_create_state,
+diff --git a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_plane.c b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_plane.c
+index b34f880c1e09..92794b337512 100644
+--- a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_plane.c
++++ b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_plane.c
+@@ -175,11 +175,11 @@ static const struct drm_plane_helper_funcs fsl_dcu_drm_plane_helper_funcs = {
+ static const struct drm_plane_funcs fsl_dcu_drm_plane_funcs = {
  	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
- 	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
+ 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+ 	.destroy = drm_plane_helper_destroy,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+-	.reset = drm_atomic_helper_plane_reset,
++	.atomic_create_state = drm_atomic_helper_plane_create_state,
+ 	.update_plane = drm_atomic_helper_update_plane,
  };
  
- static void amdgpu_vkms_plane_atomic_update(struct drm_plane *plane,
+ static const u32 fsl_dcu_drm_plane_formats[] = {
+ 	DRM_FORMAT_RGB565,
 
 -- 
 2.55.0
