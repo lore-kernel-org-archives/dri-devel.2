@@ -4,81 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38AC5C79F82
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 09:00:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E4DDC79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 09:00:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7999810E96D;
-	Tue,  8 Sep 2026 09:00:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3311210EA0F;
+	Tue,  8 Sep 2026 09:00:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VuBC24f9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NJQ1BAWj";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCE5B10E96D
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 09:00:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77FB810EA0F;
+ Tue,  8 Sep 2026 09:00:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 79B34417B1;
- Tue,  8 Sep 2026 09:00:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D18731F00A3A;
- Tue,  8 Sep 2026 08:59:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 501FB40B15;
+ Tue,  8 Sep 2026 09:00:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC6441F00A3A;
+ Tue,  8 Sep 2026 09:00:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788858006;
- bh=untjC3R5unkqrbBKG3Kk2zewkBrUw7LG0Av0ChJGZUc=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date;
- b=VuBC24f9OPpyU6RZ5YcWsuOQIHiBXVzStsfZ6KLHWxnkDUu5F4/T4CCCr6aQxJ03C
- RnShT64miQYk2T8sGQ7OnVpHe1UrnYJy04QxoSPBUJ4An6P3/IId7LZOAPRMlBF8HW
- pfge9RAFb0FsUOT8fWsQ6zKyvgAnLeFA0vbHur9FacGxYKtW+seyToAdha6igfwH3I
- mJ9b6O2jStQyCUGLeCaIppQpryp2gbZ7yFkJYGiIMir7EsT+7m2CJIyAihBWfSKp+I
- P01YzMOThfDS8cnMqwyWzGMlXvEvln2gBFgI9hil0Ywd51oUYQAwHpmouq0x9t+Hw6
- dwshvv+wKxNeQ==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Gary Guo <gary@garyguo.net>, Danilo Krummrich <dakr@kernel.org>, Lorenzo
- Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, "Liam R.
- Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, Miguel
- Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, =?utf-8?Q?Bj?=
- =?utf-8?Q?=C3=B6rn?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Trevor Gross
- <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir
- Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>, Lyude Paul
- <lyude@redhat.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Arve =?utf-8?B?SGrDuG5uZXY=?=
- =?utf-8?B?w6Vn?=
- <arve@android.com>, Todd Kjos <tkjos@android.com>, Christian Brauner
- <brauner@kernel.org>, Carlos Llamas <cmllamas@google.com>, "Rafael J.
- Wysocki" <rafael@kernel.org>, Dave Ertman <david.m.ertman@intel.com>, Leon
- Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, Serge
- Hallyn <sergeh@kernel.org>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Alexander Viro <viro@zeniv.linux.org.uk>, Jan
- Kara <jack@suse.cz>, Igor Korotin <igor.korotin@linux.dev>, Viresh Kumar
- <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>, Stephen Boyd
- <sboyd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Krzysztof
- =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Pavel Tikhomirov
- <ptikhomirov@virtuozzo.com>, Michal Wilczynski <m.wilczynski@samsung.com>,
- Ira Weiny <iweiny@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, driver-core@lists.linux.dev,
- linux-block@vger.kernel.org, linux-security-module@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-usb@vger.kernel.org, Asahi Lina
- <lina+kernel@asahilina.net>
-Subject: Re: [PATCH v20 4/8] rust: page: convert to `Ownable`'
-In-Reply-To: <CAH5fLgjYmvp1Ph3dYXnTKkAvWgNpgCAPeq_7PZhRai6pCNmVmw@mail.gmail.com>
-References: <20260824-unique-ref-v20-0-490735672187@kernel.org>
- <20260824-unique-ref-v20-4-490735672187@kernel.org>
- <ao2WubjLtDuHvRzx@google.com> <DL894TFXM5AT.2QOXN683UKXIF@garyguo.net>
- <CAH5fLggAMfBcxprKJxs4JbieKadC_mKg4B0xNETOH1QUi72UGQ@mail.gmail.com>
- <8733vlxmm8.fsf@t14s.mail-host-address-is-not-set>
- <2dpwVpJS3VbfQ7CmE3HeY4IJSSMXTP_O9sSP3HHHUD7Z29RNEG4Hc0m8f94jKWjFlekcTXvIBA-QdGYrf8w1sw==@protonmail.internalid>
- <CAH5fLgjEfZO9DwcUxaKCWd_hFUrXU+cxiwmRg1UnM2pKD6gPvg@mail.gmail.com>
- <87zextw4c4.fsf@t14s.mail-host-address-is-not-set>
- <CAH5fLgjYmvp1Ph3dYXnTKkAvWgNpgCAPeq_7PZhRai6pCNmVmw@mail.gmail.com>
-Date: Tue, 08 Sep 2026 10:46:59 +0200
-Message-ID: <87qzj4w2nw.fsf@t14s.mail-host-address-is-not-set>
-MIME-Version: 1.0
+ s=k20260515; t=1788858051;
+ bh=a8Ltia0GByPxgdoSJvLhktlFCPb5qC9/gzdL1/p1hgA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=NJQ1BAWjrfP4ZIg1TWuQMpTWGWwiaYfwRFWKbt3DeIZc8ucbt7LKriV3qieaxLnTf
+ Yp6jE9JLx+3F8qsXYzjKrDx2JoCfMsGFhlZ/gZu7GsTMkXuqYE02T2vvvc485BP6gZ
+ mRm3qOVnNmsiHQ4ThSyJaAhP5Lgr4jw4Rs+UXb3f+WQUIr9YBpzdPvsZT/QvfY29iO
+ P7PPDotAzvoiA6K1zPe5zfd7cQ7rJuAT0wh2o+CF0X4jdHQt6qNA14STgG1cD7Pc0T
+ ych2DVgfum0nTaDb34NNmSOzkLqKsWDRonyrC9d9mDmRsZcN8D/iwArOo3VFtFcQd7
+ m6QaSRaqMHL3g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 3/3] drm/xe: Convert xe_user_fence to drm_user_fence
+To: "Srinivasan Shanmugam" <srinivasan.shanmugam@amd.com>
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+In-Reply-To: <20260908084627.352535-4-srinivasan.shanmugam@amd.com>
+References: <20260908084627.352535-1-srinivasan.shanmugam@amd.com>
+ <20260908084627.352535-4-srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 09:00:50 +0000
+Message-Id: <20260908090050.BC6441F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,153 +53,113 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Alice Ryhl <aliceryhl@google.com> writes:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-> On Mon, Sep 7, 2026 at 3:58=E2=80=AFPM Andreas Hindborg <a.hindborg@kerne=
-l.org> wrote:
->>
->> "Alice Ryhl" <aliceryhl@google.com> writes:
->>
->> > On Mon, Sep 7, 2026 at 2:38=E2=80=AFPM Andreas Hindborg <a.hindborg@ke=
-rnel.org> wrote:
->> >>
->> >> Alice Ryhl <aliceryhl@google.com> writes:
->> >>
->> >> > On Sun, Sep 6, 2026 at 3:02=E2=80=AFPM Gary Guo <gary@garyguo.net> =
-wrote:
->> >> >>
->> >> >> On Tue Aug 25, 2026 at 2:20 PM BST, Alice Ryhl wrote:
->> >> >> > On Mon, Aug 24, 2026 at 01:17:56PM +0200, Andreas Hindborg wrote:
->> >> >> >> +        // SAFETY: We just successfully allocated a page, so w=
-e now have ownership of the newly
->> >> >> >> +        // allocated page. We transfer that ownership to the n=
-ew `Owned<Page>` object.
->> >> >> >> +        // Since `Page` is transparent, we can cast the pointe=
-r directly.
->> >> >> >> +        Ok(unsafe { Owned::from_raw(page.cast()) })
->> >> >> >
->> >> >> > This doesn't satisfy the safety requirements of Owned::from_raw()
->> >> >> > because the page may be used with vm_insert_page(), which increm=
-ents its
->> >> >> > refcount and causes it to be shared the vma system, and this occ=
-urs
->> >> >> > before Page::release() is called.
->> >> >>
->> >> >> I suppose the existing vm_insert_page() abstraction we have is alr=
-eady
->> >> >> problematic, because it uses `&Page`?
->> >> >>
->> >> >> Maybe we want to change the API to use `ARef<Page>` so it already =
-has to be
->> >> >> shared? Conceptually it takes a reference count from a `&Page`, wh=
-ich isn't
->> >> >> possible because `Page` is not `AlwaysRefCounted`, so it needs a `=
-&ARef<Page>`
->> >> >> to be able to do that op.
->> >> >
->> >> > Honestly, the problem is the safety requirements of Owned::from_raw=
-().
->> >> > Pages have a "special" main reference, and free_page() does more th=
-an
->> >> > put_page(). It even does something when the refcount does not hit
->> >> > zero.
->> >> >
->> >> > The correct behavior for Page is to allow the user to hold one
->> >> > Owned<Page> whose drop calls free_page(), *plus* any number of
->> >> > ARef<Page> references that invoke put_page() on drop. This way, the
->> >> > owned page controls the special drop codepath.
->> >>
->> >> This does not mesh well with the model of `Owned` behaving like
->> >> `UniqueArc` to `ARef` behaving like an `Arc`.
->> >
->> > It's a different case, I agree.
->> >
->> >> Please help me understand; with page having a main ref and an auxilia=
-ry
->> >> refcount, if we model that with a single `Owned<Page>` and a number of
->> >> `ARef<Page>`, what would happen in the case where the main ref (`Owne=
-d`)
->> >> is dropped first? Is this legal?
->> >
->> > Yes, it's legal.
->> >
->> >> My intuition here would be to follow Garry's suggestion and have
->> >> `vm_insert_page` take an `ARef<Page>`. Can you elaborate why this is =
-not
->> >> an option?
->> >
->> > That would be the wrong ownership semantics. The C side increments the
->> > refcount rather than take ownership of a passed-in refcount, so the
->> > correct argument type is &Page.
->>
->> Or `&ARef<Page>`? Because with `Page` being `Ownable` it would not be
->> OK to increment the refcount from just a `&Page`.
->
-> That's just a limitation in your traits. There is no problem with
-> creating a refcount from just a &Page.
+New issues:
+- [High] Missing memory barrier allows visibility inversion between the use=
+r fence value and the signalled flag.
 
-Yes, I agree. The limitation is by design. My point is, `vm_insert_page`
-can work fine with the `&ARef<Page>` type. So if that would be OK with
-you, I would patch that as part of this patch.
+Pre-existing issues:
+- [High] Denial of Service (DoS) due to indefinitely blocking `copy_to_user=
+` stalling the device-wide ordered workqueue.
+--
 
->
->> > Now, for the use-case in Binder I believe we could switch to
->> > put_page(), as we don't need the extra stuff from free_page(), in
->> > which case we only want ARef<Page> and do not require Owned support.
->> > But as long as we are calling free_page(), it needs to not be
->> > clonable.
->>
->> You are calling `__free_page` directly in binder? I could not find this
->> with grep except in the C binder. Is this code you are calling into from
->> Rust binder?
->
-> Via the Drop of Page, not directly of course.
->
->> From `__free_pages()` kernel-doc (`mm/page_alloc.c`):
->>
->> > If the last reference to this page is speculative, it will be
->> > released by put_page() which only frees the first page of a
->> > non-compound allocation. [...] **If you want to use the page's
->> > reference count to decide when to free the allocation, you should
->> > allocate a compound page, and use put_page() instead of
->> > __free_pages().**
->>
->> I guess this is what you are referring to? We could change `Page` to
->> this style as well and all would be fine I think?
->>
->> At any rate, today I learned about Pfn walkers, compaction,
->> memory-failure, etc. that take transient refcounts
->> pages. With that in mind we need to reformulate the invariant of
->> `Ownable` to exclude optimistic transient references.
->
-> Yes we can switch Rust Binder to use put_page() and have Page not
-> implement Ownable at all. That would be okay, because Binder's pages
-> are not higher order.
+commit a3a566db4faca9c6c8375b3c0711ddb1c2742bca
+Author: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Subject: drm/xe: Convert xe_user_fence to drm_user_fence
 
-As far as I can tell, we can also switch `Owned<Page>` to allocate the
-page with `__GFP_COMP` and use `put_page` in drop.
+This commit replaces the open-coded user fence implementation in the xe dri=
+ver
+with the new common drm_user_fence helper. It wraps the new helper in
+xe_user_fence and moves the worker and callback logic to the provided
+writeback and destroy ops.
 
-> But this case still does highlight that
-> Ownable<_> currently does not address the use-case where the
-> Ownable<T> is a special reference there can only be one of, rather
-> than a completely unique reference.
+> diff --git a/drivers/gpu/drm/xe/xe_sync.c b/drivers/gpu/drm/xe/xe_sync.c
+> index 37866768d64c2..c0e720cf579ac 100644
+> --- a/drivers/gpu/drm/xe/xe_sync.c
+> +++ b/drivers/gpu/drm/xe/xe_sync.c
+[ ... ]
+> +static void xe_ufence_worker(struct drm_user_fence *base, bool mm_ok)
+>  {
+> +	struct xe_user_fence *ufence =3D container_of(base, struct xe_user_fenc=
+e, base);
+> =20
+> -	mmdrop(ufence->mm);
+> -	kfree(ufence);
+> -}
+> +	/*
+> +	 * Mark signalled before the userspace write so that if userspace
+> +	 * observes the written value and immediately issues a VM unmap,
+> +	 * check_ufence() will see signalled=3D1 and not return -EBUSY.
+> +	 *
+> +	 * NOTE: copy_to_user() may block if userspace backs the address with
+> +	 * userfaultfd or FUSE. Drivers requiring non-blocking semantics should
+> +	 * use a dedicated workqueue instead of xe->ordered_wq.
+> +	 */
+> +	WRITE_ONCE(ufence->signalled, 1);
+> =20
+> -static void user_fence_get(struct xe_user_fence *ufence)
+> -{
+> -	kref_get(&ufence->refcount);
+> +	if (mm_ok) {
+> +		if (copy_to_user(ufence->addr, &ufence->value,
+> +				 sizeof(ufence->value)))
 
-This is not the use case `Ownable` aims to solve.
+[Severity: High]
+Does this missing memory barrier allow visibility inversion?
 
-> For instance, the GPUVM abstraction would be another case where
-> Ownable<_> could be used if we have this other model where Ownable<_>
-> and ARef<_> are legal at the same time. Currently GPUVM uses a special
-> UniqueRefGpuVm type to solve this problem.
+In xe_ufence_worker(), WRITE_ONCE(ufence->signalled, 1) is called before
+copy_to_user(). If a weakly ordered CPU (like ARM64) reorders these stores,
+could userspace observe the new value in memory and issue a VM unmap ioctl
+before the signalled flag is globally visible?
 
-I am wondering if we can make case I intend to solve (Ownable is a
-unique reference) coexist with the "at most one of this ref can exist".
-The "at most one of this kind" sounds similar to the `ListArc` use case
-to me, which is a different problem.
+The previous implementation relied on the implicit full memory barrier of
+mmget_not_zero() between these two operations, but this refactoring moved
+that check before the worker executes. Should there be an smp_wmb() between
+the WRITE_ONCE() and copy_to_user() calls to prevent spurious -EBUSY
+failures in the VM unmap path?
 
-Best regards,
-Andreas Hindborg
+> +			drm_dbg(&ufence->xe->drm,
+> +				"copy_to_user failed, user fence wasn't signaled\n");
+> +	} else {
+> +		drm_dbg(&ufence->xe->drm,
+> +			"mmget_not_zero() failed, ufence wasn't signaled\n");
+> +	}
+[ ... ]
+> -	ufence->xe =3D xe;
+> -	kref_init(&ufence->refcount);
+> -	ufence->addr =3D ptr;
+> +	ufence->xe    =3D xe;
+> +	ufence->addr  =3D ptr;
+>  	ufence->value =3D value;
+> -	ufence->mm =3D current->mm;
+> -	mmgrab(ufence->mm);
+> +	drm_user_fence_init(&ufence->base, xe->ordered_wq, &xe_ufence_ops);
 
+[Severity: High]
+This is a pre-existing issue, but can this indefinitely blocking userspace
+memory access stall the device-wide ordered workqueue?
 
+If an unprivileged userspace application maps a memory region with
+userfaultfd, submits a user fence operation pointing to this region, and
+refuses to resolve the fault, copy_to_user() will block indefinitely.
+
+Since the worker is initialized with xe->ordered_wq, this could permanently
+stall the single-threaded workqueue used for critical device-wide operations
+like GT resets, TDRs, and compute mode preempt rebinds, leading to a denial
+of service.
+
+> =20
+>  	return ufence;
+>  }
+> =20
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908084627.3525=
+35-1-srinivasan.shanmugam@amd.com?part=3D3
