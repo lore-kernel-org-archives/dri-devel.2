@@ -4,27 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE983C79F82
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 11:46:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF538C79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 11:47:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F6A910EB85;
-	Tue,  8 Sep 2026 11:46:38 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA4DC10EB85
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 11:46:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1852B10EB86;
+	Tue,  8 Sep 2026 11:47:30 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dQJYVkOa";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1549310EB86
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 11:47:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7946443EA4;
- Tue,  8 Sep 2026 11:46:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFBBD1F00A3F;
- Tue,  8 Sep 2026 11:46:35 +0000 (UTC)
-Message-ID: <e7add84e596d02ac9d917dedba7ea949@kernel.org>
-Date: Tue, 08 Sep 2026 11:46:33 +0000
+ by tor.source.kernel.org (Postfix) with ESMTP id 8A10E601DB;
+ Tue,  8 Sep 2026 11:47:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D4EF1F00A3A;
+ Tue,  8 Sep 2026 11:47:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788868048;
+ bh=Jhp7GY07oWtgx4+eRD3D6AU0jdo5ZC0oQmnbdRp7qjQ=;
+ h=Date:From:To:Subject:In-Reply-To:References:Cc;
+ b=dQJYVkOaLFUmuGJ3y9t87rV+WC6JytC0cDe6qJEfWf0rE6hPIAJzgfjjdn/mcBZpH
+ jxZFTfhyo71BxY+KjCcP/FtyitayNTieBC0r6K80L27le2OeLRPUT3sLGUngMp+WZL
+ sMrEaq+lcbduBKa3M/kv4gvFNeW892shI51zriF1MFx/QQKOIemR9KZ2HkZyLGfa2a
+ l6AIpLZtErjv03s8DD5Q97NxlRh7zboFqfdelA0SEmGZ49HA5/gn38o7zsMRDpb6Rl
+ nCCUre2QXd3B0SB5bJM1ch6Jct7iOC5ASKgITk3p4lJSw+Ve4a52o16DL5a7AbaQTI
+ Vo3NPWY8pUYFQ==
+Message-ID: <26dc7e8210bbcc26f57f5b15dcab269e@kernel.org>
+Date: Tue, 08 Sep 2026 11:47:24 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Subject: Re: [PATCH v11 56/74] drm/rockchip: rk3066_hdmi: Advertise HDMI 1.4
- capabilities
-In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-56-bc12954a0688@collabora.com>
-References: <20260901-dw-hdmi-qp-scramb-v11-56-bc12954a0688@collabora.com>
+Subject: Re: [PATCH v11 60/74] drm/tests: edid: Fix conformity for 4K
+ RGB/YUV 340MHz EDID
+In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-60-bc12954a0688@collabora.com>
+References: <20260901-dw-hdmi-qp-scramb-v11-60-bc12954a0688@collabora.com>
 Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com,
  linux-arm-kernel@lists.infradead.org, linux-fbdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
@@ -66,12 +79,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 1 Sep 2026 21:51:20 +0300, Cristian Ciocaltea wrote:
-> Bridges using DRM_BRIDGE_OP_HDMI are now expected to also provide a
-> supported HDMI version.  This is not yet enforced, but will become
-> mandatory once the migration to the new caps-based HDMI connector
-> initialization API is completed.
+On Tue, 1 Sep 2026 21:51:24 +0300, Cristian Ciocaltea wrote:
+> The test EDID added by commit 54a5f1c4d5f8 ("drm/tests: hdmi: Provide
+> EDID supporting 4K@30Hz with RGB/YUV") fails 'edid-decode --check'
+> (v1.33.0) with the following issues:
 > 
+>   Warnings:
 > 
 > [ ... ]
 
