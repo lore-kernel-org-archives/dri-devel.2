@@ -4,76 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0133DC79F82
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 08:21:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 441DFC79FAA
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 08:21:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4940010E0A6;
-	Tue,  8 Sep 2026 08:21:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 600EA10E6B0;
+	Tue,  8 Sep 2026 08:21:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ipr+Q4fq";
+	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="KmAefoZG";
 	dkim-atps=neutral
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 279B210E0A6
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 08:21:05 +0000 (UTC)
-Received: by mail-pg1-f172.google.com with SMTP id
- 41be03b00d2f7-cbe827e3cb4so4547185a12.3
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 01:21:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788855664; x=1789460464; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=S7HjTv87pabPliSISNoP4qhkCnlBzRe6Bo3kxEzQXmU=;
- b=ipr+Q4fqXStgzAPIAiN+WIfkPtFO8zELnE0kFday2JqCPZxmHai2BhzIFZDR6QYl2a
- //lzXyrt5MdJG6p7fsrLtObgzFy2GHYDk+dekl9lMJzGMAEVLJ+ao6NRnCZvz3JnN9w+
- Lq6jXa0ppwCX/mZjIGPkSL2XBDyAKWzuPYlT1N413Dkl4/VJJyzailqu+EOiKm/9veey
- 5dSH7+R75dHos5W/2UDNybWGrzyQEJLmktp17MZ8wp2qtwxtVr2iXik+rontyocrHgN/
- Fo1jyUKktT4frGmMkJQztUp3aEo1dHXolXZ7eMq8z8YZP7oX+zIcRc9axSI2/fcKzwRk
- f0ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788855665; x=1789460465;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=S7HjTv87pabPliSISNoP4qhkCnlBzRe6Bo3kxEzQXmU=;
- b=pdN/T5StaK/QEbCxxBsAkV5PLITFbwDD7PdZOaW5BCKfIWvgKpZk2qopUN5CncItzt
- sOtX/Dwz8tZ+SB+0pW1gGZKSseV4D17dC+WZoKJkFDfAqOZhU2Abr/jlLFI75tby0VOc
- 2wtmHFF7mGdyRk3V5oFi5X2M0htAKvQ9s1dWfGLvbxX1Er8RXLQE5IADS18BWPYwrA8/
- moEsB7MZffCKOJ82VwsUDOYlUANockZJOEQrR3UlpXo7O8FfQXzrfO6XNXB5TVEHmo3R
- 1D0FVmBDj26gMGu8RTx/mVwNpSBqyKNyP6uCbrc3Ir8fZPyz4wilAa++Ec+fSTFKFaLp
- CbaQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvByfMpw2RoYzGThSx/RlWh3UhkPCEV9uUoDGJavz7nZ+E7f+7sCMOvQ+2o6+lmk+cXYORCDtLbXS48w=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kxodsrQjE97/FpPXGdHOw8BBiKliAbp8H+YA+sRNukz3Vfg/hY
- br9wQGp/792FKssf86fJBA3tyudvCEOpRoZzVLQWaEvG8lMPZYYYRI7j
-X-Gm-Gg: AYBFou2prQROzESDVOKqRc+Fg22fPTNkAcX3aJXTCINKHJ9KPEqgICOOyWXQHWIV9UX
- 4tv6wBt/KvC3Un7W5FiyWGxpYJvr9Uh1jzOJco8JKgxBLT9zyJwY3/3d2+SYFDnc/p722KSioVE
- Nh2V3XoVonpHtUxmILwMVBPXv6eVy6wONBnF/msUlXcdk457JKbc8UapVXPCdbqcaIuH3tW5KIW
- qsqo2wEOPwhZJZEOnSQxWEcMVxx+axfZQyNblfh9uWyRBtLnYGZYdJRBYaJakW2eXUCLxj46B1t
- dC8Evd5x7E6+LF3O9Y/o4h1WXMHW0wIGyGvmpTtcASyhpek2m/xjtDB7l3PqESXLce27ZaJ24Vc
- UARD/vtunRsaXDS/KMffOdFnZXzJDd+xAPrWvXOPmH+E3Ij9+As7W2koLgRFVEZWx5t02l+N6Ll
- 6lgbVKSzj3gIZy6HFQWgxb9LQSmzDK2YkJjH+K2/zEsqGzh/hQEx+xmQisuiEPNtVmU+dV8ioti
- HkXKztgRzOkL604GCQkSdB68MLka3YezPK5YX46bQcVkg==
-X-Received: by 2002:a05:6300:6ccf:20b0:3da:a65a:84f5 with SMTP id
- adf61e73a8af0-3daa65a8585mr3710405637.22.1788855664397; 
- Tue, 08 Sep 2026 01:21:04 -0700 (PDT)
-Received: from localhost.localdomain ([49.37.219.138])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-333c9db92b1sm34177167eec.9.2026.09.08.01.21.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 01:21:03 -0700 (PDT)
-From: Mohammed Anees <pvmohammedanees2003@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
- harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- dri-devel@lists.freedesktop.org,
- Mohammed Anees <pvmohammedanees2003@gmail.com>
-Subject: [PATCH] drm/amdgpu: pass scanout position values directly
-Date: Tue,  8 Sep 2026 13:50:45 +0530
-Message-ID: <20260908082045.99555-1-pvmohammedanees2003@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C78510E0A6
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 08:21:03 +0000 (UTC)
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20260908082102euoutp01c5e696c3f2aac1fdb878b74f2fc5c3e2~TSr840UhA3089630896euoutp016
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 08:21:02 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20260908082102euoutp01c5e696c3f2aac1fdb878b74f2fc5c3e2~TSr840UhA3089630896euoutp016
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1788855662;
+ bh=Sfx91CShzrdAeYPF8QQviGdlRmGljU972NsYhPjm+hY=;
+ h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+ b=KmAefoZGlo4tlmfgmycp5ej0k1xg7W7ABt9FWYLRrWFZZNx9ougFH/ZmcCnWZGvya
+ f+WAV8zZQ464ojpc5Sv21SuCvzi/f98EEKTVuIGoWrWR0y5Tp+Zg7yIH5vZMWUZgRX
+ Pr9DllXIxRHLWDddd/tr97W6bfWXSq0Vr9Vhu5cQ=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260908082101eucas1p1b98597ee7866e0889bb1a853c318175c~TSr8gW6EM0711007110eucas1p1J;
+ Tue,  8 Sep 2026 08:21:01 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20260908082100eusmtip2b264cdb1a3edc330096d5427b9dc35a5~TSr7mezgn3204232042eusmtip2C;
+ Tue,  8 Sep 2026 08:21:00 +0000 (GMT)
+Message-ID: <fa91f9e3-ae45-44b2-9429-348fbc73c285@samsung.com>
+Date: Tue, 8 Sep 2026 10:21:00 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v6 07/12] mm/cma: Introduce cma_alloc_at() API
+To: Thierry Reding <thierry.reding@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
+Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
+ linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20260904-tegra-vpr-v6-7-79042cfa8de5@nvidia.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260908082101eucas1p1b98597ee7866e0889bb1a853c318175c
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260904104542eucas1p15f23d1ef005ed971314ee29521fc1e9d
+X-EPHeader: CA
+X-CMS-RootMailID: 20260904104542eucas1p15f23d1ef005ed971314ee29521fc1e9d
+References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
+ <CGME20260904104542eucas1p15f23d1ef005ed971314ee29521fc1e9d@eucas1p1.samsung.com>
+ <20260904-tegra-vpr-v6-7-79042cfa8de5@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,393 +79,355 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The DC scanout position helper already returns vblank start, vblank end,
-horizontal position and vertical position as separate values.
-
-dm_crtc_get_scanoutpos() currently packs these values into the legacy
-register-style vbl and position values, only for the amdgpu base driver
-to unpack them again.
-
-Change page_flip_get_scanoutpos() to return the individual values
-directly.
-
-For the legacy DCE implementations, keep decoding the packed hardware
-register values in the backend before returning them through the common
-interface. This keeps the register specific representation local to the
-DCE code.
-
-Signed-off-by: Mohammed Anees <pvmohammedanees2003@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 22 ++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.h   |  4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  8 ++-
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        | 20 +++++--
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         | 20 +++++--
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         | 20 +++++--
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 31 +++++-----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  3 +-
- .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 56 ++++++++++++-------
- 9 files changed, 124 insertions(+), 60 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 59ea338b554c..86c806f9fa97 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -1762,7 +1762,8 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
- 			int *hpos, ktime_t *stime, ktime_t *etime,
- 			const struct drm_display_mode *mode)
- {
--	u32 vbl = 0, position = 0;
-+	u32 scan_vbl_start = 0, scan_vbl_end = 0;
-+	u32 scan_vpos = 0, scan_hpos = 0;
- 	int vbl_start, vbl_end, vtotal, ret = 0;
- 	bool in_vbl = true;
- 
-@@ -1774,8 +1775,14 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
- 	if (stime)
- 		*stime = ktime_get();
- 
--	if (amdgpu_display_page_flip_get_scanoutpos(adev, pipe, &vbl, &position) == 0)
-+	if (amdgpu_display_page_flip_get_scanoutpos(adev, pipe,
-+						    &scan_vbl_start, &scan_vbl_end,
-+						    &scan_vpos, &scan_hpos) == 0) {
- 		ret |= DRM_SCANOUTPOS_VALID;
-+	}
-+
-+	*vpos = scan_vpos;
-+	*hpos = scan_hpos;
- 
- 	/* Get optional system timestamp after query. */
- 	if (etime)
-@@ -1783,16 +1790,11 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
- 
- 	/* preempt_enable_rt() should go right here in PREEMPT_RT patchset. */
- 
--	/* Decode into vertical and horizontal scanout position. */
--	*vpos = position & 0x1fff;
--	*hpos = (position >> 16) & 0x1fff;
--
- 	/* Valid vblank area boundaries from gpu retrieved? */
--	if (vbl > 0) {
--		/* Yes: Decode. */
-+	if (scan_vbl_start || scan_vbl_end) {
- 		ret |= DRM_SCANOUTPOS_ACCURATE;
--		vbl_start = vbl & 0x1fff;
--		vbl_end = (vbl >> 16) & 0x1fff;
-+		vbl_start = scan_vbl_start;
-+		vbl_end = scan_vbl_end;
- 	} else {
- 		/* No: Fake something reasonable which gives at least ok results. */
- 		vbl_start = mode->crtc_vdisplay;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-index 49a29bf47a37..9390154c12a2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-@@ -33,7 +33,9 @@
- #define amdgpu_display_hpd_get_gpio_reg(adev) (adev)->mode_info.funcs->hpd_get_gpio_reg((adev))
- #define amdgpu_display_bandwidth_update(adev) (adev)->mode_info.funcs->bandwidth_update((adev))
- #define amdgpu_display_page_flip(adev, crtc, base, async) (adev)->mode_info.funcs->page_flip((adev), (crtc), (base), (async))
--#define amdgpu_display_page_flip_get_scanoutpos(adev, crtc, vbl, pos) (adev)->mode_info.funcs->page_flip_get_scanoutpos((adev), (crtc), (vbl), (pos))
-+#define amdgpu_display_page_flip_get_scanoutpos(adev, crtc, vbl_start, vbl_end, vpos, hpos) \
-+	((adev)->mode_info.funcs->page_flip_get_scanoutpos((adev), (crtc), \
-+			(vbl_start), (vbl_end), (vpos), (hpos)))
- #define amdgpu_display_add_encoder(adev, e, s, c) (adev)->mode_info.funcs->add_encoder((adev), (e), (s), (c))
- #define amdgpu_display_add_connector(adev, ci, sd, ct, ib, coi, h, r) (adev)->mode_info.funcs->add_connector((adev), (ci), (sd), (ct), (ib), (coi), (h), (r))
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-index 7c784277396a..7033531001cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -277,8 +277,12 @@ struct amdgpu_display_funcs {
- 	/* pageflipping */
- 	void (*page_flip)(struct amdgpu_device *adev,
- 			  int crtc_id, u64 crtc_base, bool async);
--	int (*page_flip_get_scanoutpos)(struct amdgpu_device *adev, int crtc,
--					u32 *vbl, u32 *position);
-+	int (*page_flip_get_scanoutpos)(struct amdgpu_device *adev,
-+					int crtc,
-+					u32 *vbl_start,
-+					u32 *vbl_end,
-+					u32 *vpos,
-+					u32 *hpos);
- 	/* display topology setup */
- 	void (*add_encoder)(struct amdgpu_device *adev,
- 			    uint32_t encoder_enum,
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-index 7de7adc8f225..8bbef608c5dd 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-@@ -256,14 +256,26 @@ static void dce_v10_0_page_flip(struct amdgpu_device *adev,
- 	RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS + amdgpu_crtc->crtc_offset);
- }
- 
--static int dce_v10_0_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
--					u32 *vbl, u32 *position)
-+static int dce_v10_0_crtc_get_scanoutpos(struct amdgpu_device *adev,
-+					 int crtc,
-+					 u32 *vbl_start,
-+					 u32 *vbl_end,
-+					 u32 *vpos,
-+					 u32 *hpos)
- {
-+	u32 vbl, position;
-+
- 	if ((crtc < 0) || (crtc >= adev->mode_info.num_crtc))
- 		return -EINVAL;
- 
--	*vbl = RREG32(mmCRTC_V_BLANK_START_END + crtc_offsets[crtc]);
--	*position = RREG32(mmCRTC_STATUS_POSITION + crtc_offsets[crtc]);
-+	vbl = RREG32(mmCRTC_V_BLANK_START_END + crtc_offsets[crtc]);
-+	position = RREG32(mmCRTC_STATUS_POSITION + crtc_offsets[crtc]);
-+
-+	*vbl_start = vbl & 0x1fff;
-+	*vbl_end = (vbl >> 16) & 0x1fff;
-+
-+	*vpos = position & 0x1fff;
-+	*hpos = (position >> 16) & 0x1fff;
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index 3c1d6901127d..2181fe57dfdd 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -220,14 +220,26 @@ static void dce_v6_0_page_flip(struct amdgpu_device *adev,
- 	RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS + amdgpu_crtc->crtc_offset);
- }
- 
--static int dce_v6_0_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
--					u32 *vbl, u32 *position)
-+static int dce_v6_0_crtc_get_scanoutpos(struct amdgpu_device *adev,
-+					int crtc,
-+					u32 *vbl_start,
-+					u32 *vbl_end,
-+					u32 *vpos,
-+					u32 *hpos)
- {
-+	u32 vbl, position;
-+
- 	if ((crtc < 0) || (crtc >= adev->mode_info.num_crtc))
- 		return -EINVAL;
- 
--	*vbl = RREG32(mmCRTC_V_BLANK_START_END + crtc_offsets[crtc]);
--	*position = RREG32(mmCRTC_STATUS_POSITION + crtc_offsets[crtc]);
-+	vbl = RREG32(mmCRTC_V_BLANK_START_END + crtc_offsets[crtc]);
-+	position = RREG32(mmCRTC_STATUS_POSITION + crtc_offsets[crtc]);
-+
-+	*vbl_start = vbl & 0x1fff;
-+	*vbl_end = (vbl >> 16) & 0x1fff;
-+
-+	*vpos = position & 0x1fff;
-+	*hpos = (position >> 16) & 0x1fff;
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index a17944d5e843..1388f2161ae8 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -204,14 +204,26 @@ static void dce_v8_0_page_flip(struct amdgpu_device *adev,
- 	RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS + amdgpu_crtc->crtc_offset);
- }
- 
--static int dce_v8_0_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
--					u32 *vbl, u32 *position)
-+static int dce_v8_0_crtc_get_scanoutpos(struct amdgpu_device *adev,
-+					int crtc,
-+					u32 *vbl_start,
-+					u32 *vbl_end,
-+					u32 *vpos,
-+					u32 *hpos)
- {
-+	u32 vbl, position;
-+
- 	if ((crtc < 0) || (crtc >= adev->mode_info.num_crtc))
- 		return -EINVAL;
- 
--	*vbl = RREG32(mmCRTC_V_BLANK_START_END + crtc_offsets[crtc]);
--	*position = RREG32(mmCRTC_STATUS_POSITION + crtc_offsets[crtc]);
-+	vbl = RREG32(mmCRTC_V_BLANK_START_END + crtc_offsets[crtc]);
-+	position = RREG32(mmCRTC_STATUS_POSITION + crtc_offsets[crtc]);
-+
-+	*vbl_start = vbl & 0x1fff;
-+	*vbl_end = (vbl >> 16) & 0x1fff;
-+
-+	*vpos = position & 0x1fff;
-+	*hpos = (position >> 16) & 0x1fff;
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index f49cc198fb0d..f77054060d87 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -186,10 +186,13 @@ STATIC_IFN_KUNIT u32 dm_vblank_get_counter(struct amdgpu_device *adev, int crtc)
- }
- EXPORT_IF_KUNIT(dm_vblank_get_counter);
- 
--STATIC_IFN_KUNIT int dm_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
--					    u32 *vbl, u32 *position)
-+STATIC_IFN_KUNIT int dm_crtc_get_scanoutpos(struct amdgpu_device *adev,
-+					    int crtc,
-+					    u32 *vbl_start,
-+					    u32 *vbl_end,
-+					    u32 *vpos,
-+					    u32 *hpos)
- {
--	u32 v_blank_start = 0, v_blank_end = 0, h_position = 0, v_position = 0;
- 	struct amdgpu_crtc *acrtc = NULL;
- 	struct dc *dc = adev->dm.dc;
- 
-@@ -207,18 +210,16 @@ STATIC_IFN_KUNIT int dm_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc
- 	if (dc && dc->caps.ips_support && dc->idle_optimizations_allowed)
- 		dc_allow_idle_optimizations(dc, false);
- 
--	/*
--	 * TODO rework base driver to use values directly.
--	 * for now parse it back into reg-format
--	 */
--	dc_stream_get_scanoutpos(acrtc->dm_irq_params.stream,
--				 &v_blank_start,
--				 &v_blank_end,
--				 &h_position,
--				 &v_position);
--
--	*position = v_position | (h_position << 16);
--	*vbl = v_blank_start | (v_blank_end << 16);
-+	if (!dc_stream_get_scanoutpos(acrtc->dm_irq_params.stream,
-+				      vbl_start,
-+				      vbl_end,
-+				      hpos,
-+				      vpos)) {
-+		*vbl_start = 0;
-+		*vbl_end = 0;
-+		*vpos = 0;
-+		*hpos = 0;
-+	}
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 089741ba0619..2819b58e8a9e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -1167,7 +1167,8 @@ int dm_set_powergating_state(struct amdgpu_ip_block *ip_block,
- void dm_bandwidth_update(struct amdgpu_device *adev);
- u32 dm_vblank_get_counter(struct amdgpu_device *adev, int crtc);
- int dm_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
--			   u32 *vbl, u32 *position);
-+			   u32 *vbl_start, u32 *vbl_end,
-+			   u32 *vpos, u32 *hpos);
- struct dm_atomic_state *dm_atomic_get_new_state(struct drm_atomic_commit *state);
- struct drm_private_state *dm_atomic_duplicate_state(struct drm_private_obj *obj);
- void dm_atomic_destroy_state(struct drm_private_obj *obj,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-index a67774e6db36..4180f519b57b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-@@ -158,15 +158,19 @@ static void dm_test_vblank_get_counter_no_stream(struct kunit *test)
- static void dm_test_crtc_get_scanoutpos_invalid_crtc(struct kunit *test)
- {
- 	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
--	u32 vbl = 0;
--	u32 position = 0;
-+	u32 vbl_start = 0;
-+	u32 vbl_end = 0;
-+	u32 vpos = 0;
-+	u32 hpos = 0;
- 
- 	adev->mode_info.num_crtc = 1;
- 
--	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, -1, &vbl, &position),
--			-EINVAL);
--	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 1, &vbl, &position),
--			-EINVAL);
-+	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, -1,
-+						     &vbl_start, &vbl_end,
-+						     &vpos, &hpos), -EINVAL);
-+	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 1,
-+						     &vbl_start, &vbl_end,
-+						     &vpos, &hpos), -EINVAL);
- }
- 
- /**
-@@ -177,8 +181,10 @@ static void dm_test_crtc_get_scanoutpos_no_stream(struct kunit *test)
- {
- 	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
- 	struct amdgpu_crtc *acrtc;
--	u32 vbl = 0;
--	u32 position = 0;
-+	u32 vbl_start = 0;
-+	u32 vbl_end = 0;
-+	u32 vpos = 0;
-+	u32 hpos = 0;
- 
- 	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, acrtc);
-@@ -186,9 +192,13 @@ static void dm_test_crtc_get_scanoutpos_no_stream(struct kunit *test)
- 	adev->mode_info.num_crtc = 1;
- 	adev->mode_info.crtcs[0] = acrtc;
- 
--	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 0, &vbl, &position), 0);
--	KUNIT_EXPECT_EQ(test, vbl, 0U);
--	KUNIT_EXPECT_EQ(test, position, 0U);
-+	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 0,
-+						     &vbl_start, &vbl_end,
-+						     &vpos, &hpos), 0);
-+	KUNIT_EXPECT_EQ(test, vbl_start, 0U);
-+	KUNIT_EXPECT_EQ(test, vbl_end, 0U);
-+	KUNIT_EXPECT_EQ(test, vpos, 0U);
-+	KUNIT_EXPECT_EQ(test, hpos, 0U);
- }
- 
- /**
-@@ -1211,14 +1221,20 @@ static void dm_test_crtc_get_scanoutpos_unmapped_stream(struct kunit *test)
- {
- 	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
- 	struct dc *dc = dm_kunit_alloc_dc_with_ctx(test);
--	u32 vbl = 0xdeadbeef;
--	u32 position = 0xdeadbeef;
-+	u32 vbl_start = 0xdeadbeef;
-+	u32 vbl_end = 0xdeadbeef;
-+	u32 vpos = 0xdeadbeef;
-+	u32 hpos = 0xdeadbeef;
- 
- 	dm_test_crtc_with_stream(test, adev, dc);
- 
--	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 0, &vbl, &position), 0);
--	KUNIT_EXPECT_EQ(test, vbl, 0U);
--	KUNIT_EXPECT_EQ(test, position, 0U);
-+	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 0,
-+						     &vbl_start, &vbl_end,
-+						     &vpos, &hpos), 0);
-+	KUNIT_EXPECT_EQ(test, vbl_start, 0U);
-+	KUNIT_EXPECT_EQ(test, vbl_end, 0U);
-+	KUNIT_EXPECT_EQ(test, vpos, 0U);
-+	KUNIT_EXPECT_EQ(test, hpos, 0U);
- }
- 
- /**
-@@ -1229,14 +1245,16 @@ static void dm_test_crtc_get_scanoutpos_exits_idle(struct kunit *test)
- {
- 	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
- 	struct dc *dc = dm_kunit_alloc_dc_with_ctx(test);
--	u32 vbl = 0;
--	u32 position = 0;
-+	u32 vbl_start = 0, vbl_end = 0;
-+	u32 vpos = 0, hpos = 0;
- 
- 	dm_test_crtc_with_stream(test, adev, dc);
- 	dc->caps.ips_support = true;
- 	dc->idle_optimizations_allowed = true;
- 
--	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 0, &vbl, &position), 0);
-+	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 0,
-+						     &vbl_start, &vbl_end,
-+						     &vpos, &hpos), 0);
- }
- 
- static struct drm_atomic_commit *dm_test_alloc_commit(struct kunit *test,
+On 04.09.2026 12:44, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
+>
+> This API can be used to allocate a number of CMA pages starting at a
+> fixed offset. This is useful, for example, if the CMA area is used as
+> backing storage for a nested allocator that has stricter requirements
+> than CMA itself.
+>
+> In order to reuse most of the existing code, the cma_range_alloc()
+> function is enhanced to take as inputs a range of pages to look for a
+> free region. If this range encompasses the entire CMA range, the
+> behavior is as before, but the range can also be specified to match
+> the offset and size passed in from cma_alloc_at(), in which case that
+> is the range that will be allocated (or allocation will fail if the
+> range is not available).
+>
+> Suggested-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
+Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> ---
+> Changes in v6:
+> - refactor cma_range_alloc() so it can be reused for _at() code paths
+> ---
+>  include/linux/cma.h        |  4 +++
+>  include/trace/events/cma.h | 77 ++++++++++++++++++++++++++++++++++++++--
+>  mm/cma.c                   | 88 +++++++++++++++++++++++++++++++++++-----------
+>  3 files changed, 146 insertions(+), 23 deletions(-)
+>
+> diff --git a/include/linux/cma.h b/include/linux/cma.h
+> index 8555d38a97b1..844404459a42 100644
+> --- a/include/linux/cma.h
+> +++ b/include/linux/cma.h
+> @@ -49,11 +49,15 @@ extern int cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
+>  					struct cma **res_cma);
+>  extern struct page *cma_alloc(struct cma *cma, unsigned long count, unsigned int align,
+>  			      bool no_warn);
+> +extern struct page *cma_alloc_at(struct cma *cma, unsigned long offset,
+> +				 unsigned long count, bool no_warn);
+>  extern bool cma_release(struct cma *cma, const struct page *pages, unsigned long count);
+>  
+>  struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
+>  		unsigned int align, bool no_warn);
+>  struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order);
+> +struct page *cma_alloc_at_frozen(struct cma *cma, unsigned long offset,
+> +				 unsigned long count, bool no_warn);
+>  bool cma_release_frozen(struct cma *cma, const struct page *pages,
+>  		unsigned long count);
+>  
+> diff --git a/include/trace/events/cma.h b/include/trace/events/cma.h
+> index 37195edf2498..4e0ab63e303f 100644
+> --- a/include/trace/events/cma.h
+> +++ b/include/trace/events/cma.h
+> @@ -38,13 +38,17 @@ TRACE_EVENT(cma_release,
+>  
+>  TRACE_EVENT(cma_alloc_start,
+>  
+> -	TP_PROTO(const char *name, unsigned long request_count, unsigned long available_count,
+> +	TP_PROTO(const char *name, unsigned long start, unsigned long end,
+> +		unsigned long request_count, unsigned long available_count,
+>  		unsigned long total_count, unsigned int align),
+>  
+> -	TP_ARGS(name, request_count, available_count, total_count, align),
+> +	TP_ARGS(name, start, end, request_count, available_count, total_count,
+> +		align),
+>  
+>  	TP_STRUCT__entry(
+>  		__string(name, name)
+> +		__field(unsigned long, start)
+> +		__field(unsigned long, end)
+>  		__field(unsigned long, request_count)
+>  		__field(unsigned long, available_count)
+>  		__field(unsigned long, total_count)
+> @@ -53,14 +57,18 @@ TRACE_EVENT(cma_alloc_start,
+>  
+>  	TP_fast_assign(
+>  		__assign_str(name);
+> +		__entry->start = start;
+> +		__entry->end = end;
+>  		__entry->request_count = request_count;
+>  		__entry->available_count = available_count;
+>  		__entry->total_count = total_count;
+>  		__entry->align = align;
+>  	),
+>  
+> -	TP_printk("name=%s request_count=%lu available_count=%lu total_count=%lu align=%u",
+> +	TP_printk("name=%s start=%lu end=%lu request_count=%lu available_count=%lu total_count=%lu align=%u",
+>  		  __get_str(name),
+> +		  __entry->start,
+> +		  __entry->end,
+>  		  __entry->request_count,
+>  		  __entry->available_count,
+>  		  __entry->total_count,
+> @@ -132,6 +140,69 @@ TRACE_EVENT(cma_alloc_busy_retry,
+>  		  __entry->align)
+>  );
+>  
+> +TRACE_EVENT(cma_alloc_at_start,
+> +
+> +	TP_PROTO(const char *name, unsigned long pfn,
+> +		 unsigned long request_count, unsigned long available_count,
+> +		 unsigned long total_count),
+> +
+> +	TP_ARGS(name, pfn, request_count, available_count, total_count),
+> +
+> +	TP_STRUCT__entry(
+> +		__string(name, name)
+> +		__field(unsigned long, pfn)
+> +		__field(unsigned long, request_count)
+> +		__field(unsigned long, available_count)
+> +		__field(unsigned long, total_count)
+> +	),
+> +
+> +	TP_fast_assign(
+> +		__assign_str(name);
+> +		__entry->pfn = pfn;
+> +		__entry->request_count = request_count;
+> +		__entry->available_count = available_count;
+> +		__entry->total_count = total_count;
+> +	),
+> +
+> +	TP_printk("name=%s pfn=%lx, request_count=%lu available_count=%lu total_count=%lu",
+> +		  __get_str(name),
+> +		  __entry->pfn,
+> +		  __entry->request_count,
+> +		  __entry->available_count,
+> +		  __entry->total_count)
+> +);
+> +
+> +TRACE_EVENT(cma_alloc_at_finish,
+> +
+> +	TP_PROTO(const char *name, unsigned long pfn, const struct page *page,
+> +		 unsigned long count, int errorno),
+> +
+> +	TP_ARGS(name, pfn, page, count, errorno),
+> +
+> +	TP_STRUCT__entry(
+> +		__string(name, name)
+> +		__field(unsigned long, pfn)
+> +		__field(const struct page *, page)
+> +		__field(unsigned long, count)
+> +		__field(int, errorno)
+> +	),
+> +
+> +	TP_fast_assign(
+> +		__assign_str(name);
+> +		__entry->pfn = pfn;
+> +		__entry->page = page;
+> +		__entry->count = count;
+> +		__entry->errorno = errorno;
+> +	),
+> +
+> +	TP_printk("name=%s pfn=0x%lx page=%p count=%lu errorno=%d",
+> +		  __get_str(name),
+> +		  __entry->pfn,
+> +		  __entry->page,
+> +		  __entry->count,
+> +		  __entry->errorno)
+> +);
+> +
+>  #endif /* _TRACE_CMA_H */
+>  
+>  /* This part must be outside protection */
+> diff --git a/mm/cma.c b/mm/cma.c
+> index a10ea37a261d..f92d3a188209 100644
+> --- a/mm/cma.c
+> +++ b/mm/cma.c
+> @@ -783,25 +783,32 @@ static void cma_debug_show_areas(struct cma *cma)
+>  	spin_unlock_irq(&cma->lock);
+>  }
+>  
+> +/*
+> + * Searches the CMA memrange, from @start to @end, for a free region of
+> + * @count bits. If @end is less or equal to @start, will search the entire
+> + * memrange.
+> + */
+>  static int cma_range_alloc(struct cma *cma, struct cma_memrange *cmr,
+> -				unsigned long count, unsigned int align,
+> -				struct page **pagep, gfp_t gfp)
+> +			   unsigned long start, unsigned long end,
+> +			   unsigned long count, unsigned int align,
+> +			   struct page **pagep, gfp_t gfp)
+>  {
+>  	unsigned long bitmap_maxno, bitmap_no, bitmap_count;
+> -	unsigned long start, pfn, mask, offset;
+> -	int ret = -EBUSY;
+> +	unsigned long pfn, mask, offset;
+>  	struct page *page = NULL;
+> +	int ret = -EBUSY;
+>  
+>  	mask = cma_bitmap_aligned_mask(cma, align);
+>  	offset = cma_bitmap_aligned_offset(cma, cmr, align);
+> -	bitmap_maxno = cma_bitmap_maxno(cma, cmr);
+> +	bitmap_maxno = (end > start) ? end : cma_bitmap_maxno(cma, cmr);
+>  	bitmap_count = cma_bitmap_pages_to_bits(cma, count);
+>  
+>  	if (bitmap_count > bitmap_maxno)
+>  		goto out;
+>  
+> -	for (start = 0; ; start = bitmap_no + mask + 1) {
+> +	while (true) {
+>  		spin_lock_irq(&cma->lock);
+> +
+>  		/*
+>  		 * If the request is larger than the available number
+>  		 * of pages, stop right away.
+> @@ -810,6 +817,7 @@ static int cma_range_alloc(struct cma *cma, struct cma_memrange *cmr,
+>  			spin_unlock_irq(&cma->lock);
+>  			break;
+>  		}
+> +
+>  		bitmap_no = bitmap_find_next_zero_area_off(cmr->bitmap,
+>  				bitmap_maxno, start, bitmap_count, mask,
+>  				offset);
+> @@ -835,10 +843,11 @@ static int cma_range_alloc(struct cma *cma, struct cma_memrange *cmr,
+>  
+>  		bitmap_set(cmr->bitmap, bitmap_no, bitmap_count);
+>  		cma->available_count -= count;
+> +
+>  		/*
+> -		 * It's safe to drop the lock here. We've marked this region for
+> -		 * our exclusive use. If the migration fails we will take the
+> -		 * lock again and unmark it.
+> +		 * It's safe to drop the lock here. We've marked this region
+> +		 * for our exclusive use. If the migration fails we will take
+> +		 * the lock again and unmark it.
+>  		 */
+>  		spin_unlock_irq(&cma->lock);
+>  
+> @@ -856,37 +865,45 @@ static int cma_range_alloc(struct cma *cma, struct cma_memrange *cmr,
+>  			 __func__, pfn, page);
+>  
+>  		trace_cma_alloc_busy_retry(cma->name, pfn, page, count, align);
+> +		start = bitmap_no + mask + 1;
+>  	}
+> +
+>  out:
+>  	if (!ret)
+>  		*pagep = page;
+> +
+>  	return ret;
+>  }
+>  
+> -static struct page *__cma_alloc_frozen(struct cma *cma,
+> -		unsigned long count, unsigned int align, gfp_t gfp)
+> +static struct page *__cma_alloc_frozen(struct cma *cma, unsigned long start,
+> +				       unsigned long end, unsigned long count,
+> +				       unsigned int align, gfp_t gfp)
+>  {
+>  	struct page *page = NULL;
+>  	int ret = -ENOMEM, r;
+>  	unsigned long i;
+> -	const char *name = cma ? cma->name : NULL;
+> +
+> +	/* cma_alloc_at() and friends will only work with single-range CMA */
+> +	if (WARN_ON_ONCE(start > 0 && cma->nranges != 1))
+> +		return page;
+>  
+>  	if (!cma || !cma->count)
+>  		return page;
+>  
+> -	pr_debug("%s(cma %p, name: %s, count %lu, align %d)\n", __func__,
+> -		(void *)cma, cma->name, count, align);
+> +	pr_debug("%s(cma %p, name: %s, start %lu, end %lu, count %lu, align %d)\n",
+> +		 __func__, (void *)cma, cma->name, start, end, count, align);
+>  
+>  	if (!count)
+>  		return page;
+>  
+> -	trace_cma_alloc_start(name, count, cma->available_count, cma->count, align);
+> +	trace_cma_alloc_start(cma->name, start, end, count,
+> +			      cma->available_count, cma->count, align);
+>  
+>  	for (r = 0; r < cma->nranges; r++) {
+>  		page = NULL;
+>  
+> -		ret = cma_range_alloc(cma, &cma->ranges[r], count, align,
+> -				       &page, gfp);
+> +		ret = cma_range_alloc(cma, &cma->ranges[r], start, end,
+> +				      count, align, &page, gfp);
+>  		if (ret != -EBUSY || page)
+>  			break;
+>  	}
+> @@ -908,7 +925,7 @@ static struct page *__cma_alloc_frozen(struct cma *cma,
+>  	}
+>  
+>  	pr_debug("%s(): returned %p\n", __func__, page);
+> -	trace_cma_alloc_finish(name, page ? page_to_pfn(page) : 0,
+> +	trace_cma_alloc_finish(cma->name, page ? page_to_pfn(page) : 0,
+>  			       page, count, align, ret);
+>  	if (page) {
+>  		count_vm_event(CMA_ALLOC_SUCCESS);
+> @@ -926,14 +943,22 @@ struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
+>  {
+>  	gfp_t gfp = GFP_KERNEL | (no_warn ? __GFP_NOWARN : 0);
+>  
+> -	return __cma_alloc_frozen(cma, count, align, gfp);
+> +	return __cma_alloc_frozen(cma, 0, 0, count, align, gfp);
+>  }
+>  
+>  struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order)
+>  {
+>  	gfp_t gfp = GFP_KERNEL | __GFP_COMP | __GFP_NOWARN;
+>  
+> -	return __cma_alloc_frozen(cma, 1 << order, order, gfp);
+> +	return __cma_alloc_frozen(cma, 0, 0, 1 << order, order, gfp);
+> +}
+> +
+> +struct page *cma_alloc_at_frozen(struct cma *cma, unsigned long offset,
+> +				 unsigned long count, bool no_warn)
+> +{
+> +	gfp_t gfp = GFP_KERNEL | (no_warn ? __GFP_NOWARN : 0);
+> +
+> +	return __cma_alloc_frozen(cma, offset, offset + count, count, 0, gfp);
+>  }
+>  
+>  /**
+> @@ -959,6 +984,29 @@ struct page *cma_alloc(struct cma *cma, unsigned long count,
+>  }
+>  EXPORT_SYMBOL_GPL(cma_alloc);
+>  
+> +/**
+> + * cma_alloc_at() - allocate pages from contiguous area at fixed offset
+> + * @cma:     Contiguous memory region for which the allocation is performed.
+> + * @offset:  Index of the first page to allocate.
+> + * @count:   Requested number of pages (in PAGE_SIZE order).
+> + * @no_warn: Avoid printing message about failed allocation.
+> + *
+> + * This function allocates a part of the contiguous memory on a specific
+> + * contiguous memory area.
+> + */
+> +struct page *cma_alloc_at(struct cma *cma, unsigned long offset,
+> +			  unsigned long count, bool no_warn)
+> +{
+> +	struct page *page;
+> +
+> +	page = cma_alloc_at_frozen(cma, offset, count, no_warn);
+> +	if (page)
+> +		set_pages_refcounted(page, count);
+> +
+> +	return page;
+> +}
+> +EXPORT_SYMBOL_GPL(cma_alloc_at);
+> +
+>  static struct cma_memrange *find_cma_memrange(struct cma *cma,
+>  		const struct page *pages, unsigned long count)
+>  {
+>
+Best regards
 -- 
-2.55.0
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
