@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15042C79F8C
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BDC6C79FB5
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6290E10EF3D;
-	Wed,  9 Sep 2026 06:55:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6953C10EF33;
+	Wed,  9 Sep 2026 06:55:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h9GkKh5X";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vs0Mg3ar";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BAB610E4BE
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:11:31 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F25E10E4BE
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:12:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 91897601F6;
- Tue,  8 Sep 2026 20:11:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48B331F00A3A;
- Tue,  8 Sep 2026 20:11:02 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 250E7432BA;
+ Tue,  8 Sep 2026 20:12:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFD5D1F00A3D;
+ Tue,  8 Sep 2026 20:12:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788898290;
- bh=FhSwIhda5SwYvYTkOqlzzzYcm2yovY5S5sJ87DUE+qE=;
+ s=k20260515; t=1788898376;
+ bh=QHHORr5JJz/ySIh3gX90PJx9IHB99angztW63GXDee8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=h9GkKh5X0jcgjb2IqzG0A9dMUBhG0CSmrU4/fWVjIOCvlMAmyRU+9t8DsxdM7hCgk
- xy7li52rTR3mkNeStCdKcEq4CgPfdozE6ERzSAZjPXDnWqbVYmbPxUAO/r6fbXvRhk
- AV5x44hKZmoOGA59UNltzyCZ9bhdyNfjzt8Novg09Qa+dWrkHxSe+8f5iUdxF/RABu
- MXCNlK867DngB0zjUjNKFtIUJFUTn2P+WruMSmicmjtpjTp9LRxvUSEswIqxSoMJXl
- iWmmf828OqX6/yuWA3UJ47biS25/bMKA4U3us/o93XIMLx+TaZV4CxJCPmwK1volM9
- T7MGQlEWI2o7g==
+ b=Vs0Mg3arwsVcSXEmxq5o+FmpfXNpdelLwiHrc7m63iGLN9sQgp9XuYAVxV7u4es1v
+ EYlQHJVyUm+HFIzM+g++Vu0aB8BBgKEhIYVyz32b4rPamI4g9ttd0hX4qKFlcWkF0F
+ vkAQ/8EILn9v1PML95T62JXW1ZTSvMN0tdnZSpv2cuRX1fFjF2eg+/l7q/LTFMI7DC
+ TDTjZBO9aHEmBiqhIpY4zmmAvLfFGav5kJrIjJSZBGNNPp7yDiE9hiEMYqbnnV2ItV
+ R5moZ1pKmsOpaiF3U7rO1+W1T3kkCX0UTSaLY4kcTgeJLg8nT7gpuZA4W1VkZwChT3
+ BHmriro6ICMOA==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 08 Sep 2026 21:01:23 +0100
-Subject: [PATCH 19/39] HSI: cmt_speech: convert mmap hook to mmap_prepare,
- refactor
+Date: Tue, 08 Sep 2026 21:01:26 +0100
+Subject: [PATCH 22/39] mm/mlock: clear VMA_LOCKED_MASK over mmap callback
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-19-dacf19cce22b@kernel.org>
+Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-22-dacf19cce22b@kernel.org>
 References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
 In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -121,12 +120,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2632; i=ljs@kernel.org;
- h=from:subject:message-id; bh=GNn4/WHo/gNb5sHnp4BEq122HpiBRxK72Bb5u1n+58g=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG7+/y9OYub6mImCvR7C8yfMXeFVZv409uAnUz2JY
- yuWKfwo6ShlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEFp9k+F8Tmn8/JmjzrmCH
- U4li1foTT7b/DLBp2Ss0lfnf4QULLi1iZFj9Lt7r/RHFgIQ1yi7r7V/5N6QGGHdq+jcav/zcl53
- jygUA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2741; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=owzDO9vl5baUVRjHzuAZ7IOE+AaPo04FqzxJP0WdolM=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG5hfPr/NsPvDJ/+8pAC7cn//z6fOuly7nvLy42ml
+ uGz7pjd7ihlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEcoQY/jvaS7b92s3ie+H8
+ ZL0yzoUWRuLhJa8SN/Zl3L7Ctqru2z5Ghv1N02uV9r9a3tfQneR7au+uk7JXl3mf/rVKvjMtWFD
+ PkQEA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:54:46 +0000
@@ -145,85 +144,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use the mmap_prepare in favour of the deprecated mmap hook as part of the
-work to convert one to another.
+Currently there's a confusing mess around VMA_LOCKED_BIT and
+VMA_LOCKONFAULT_BIT.
 
-Since this is simply a refcounted kernel page that has been allocated, it
-should not be marked VM_IO and should be inserted using the kernel page
-insertion mechanism, so convert it to do this instead.
+It is permitted for drivers to set any flags they like, with the VMA
+already possessing lock flags.
 
-Use the VMA descriptor's private data field as a scratch buffer to store
-the page in - this stays valid throughout the kernel page mapping
-operation.
+This results in the absurd situation of a VMA possessing both
+VMA_SPECIAL_FLAGS and VMA_LOCKED_MASK flags, which is not permitted.
+
+This has resulted in mlock_vma_folio() having a very silly check for this
+scenario to work around it.
+
+There is no need for this - just clear the flags before invoking the hook
+and reinstate them afterwards if they are required.
+
+Nothing relies upon this being set during the mmap operation.
+
+mmap_prepare is unaffected by this so requires no fix.
 
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/hsi/clients/cmt_speech.c | 33 +++++++++------------------------
- 1 file changed, 9 insertions(+), 24 deletions(-)
+ mm/internal.h |  9 +--------
+ mm/vma.c      | 14 ++++++++++++++
+ 2 files changed, 15 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/hsi/clients/cmt_speech.c b/drivers/hsi/clients/cmt_speech.c
-index 7226677ebde7..801697b74d4f 100644
---- a/drivers/hsi/clients/cmt_speech.c
-+++ b/drivers/hsi/clients/cmt_speech.c
-@@ -1084,22 +1084,6 @@ static void cs_hsi_stop(struct cs_hsi_iface *hi)
- 	kfree(hi);
- }
- 
--static vm_fault_t cs_char_vma_fault(struct vm_fault *vmf)
--{
--	struct cs_char *csdata = vmf->vma->vm_private_data;
--	struct page *page;
--
--	page = virt_to_page((void *)csdata->mmap_base);
--	get_page(page);
--	vmf->page = page;
--
--	return 0;
--}
--
--static const struct vm_operations_struct cs_char_vm_ops = {
--	.fault	= cs_char_vma_fault,
--};
--
- static int cs_char_fasync(int fd, struct file *file, int on)
+diff --git a/mm/internal.h b/mm/internal.h
+index a86b9803a4c3..6e27d3b10c01 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -975,14 +975,7 @@ void mlock_folio(struct folio *folio);
+ static inline void mlock_vma_folio(struct folio *folio,
+ 				struct vm_area_struct *vma)
  {
- 	struct cs_char *csdata = file->private_data;
-@@ -1256,18 +1240,19 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
- 	return r;
+-	/*
+-	 * The VM_SPECIAL check here serves two purposes.
+-	 * 1) VM_IO check prevents migration from double-counting during mlock.
+-	 * 2) Although mmap_region() and mlock_fixup() take care that VM_LOCKED
+-	 *    is never left set on a VM_SPECIAL vma, there is an interval while
+-	 *    file->f_op->mmap() is using vm_insert_page(s), when VM_LOCKED may
+-	 *    still be set while VM_SPECIAL bits are added: so ignore it then.
+-	 */
++	/* The VM_IO check prevents migration from double-counting during mlock. */
+ 	if (unlikely((vma->vm_flags & (VM_LOCKED|VM_SPECIAL)) == VM_LOCKED))
+ 		mlock_folio(folio);
  }
+diff --git a/mm/vma.c b/mm/vma.c
+index 526428753218..cb0c4c625756 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2594,6 +2594,11 @@ static int __mmap_new_file_vma(struct mmap_state *map,
+ 	if (!map->file->f_op->mmap)
+ 		return 0;
  
--static int cs_char_mmap(struct file *file, struct vm_area_struct *vma)
-+static int cs_char_mmap_prepare(struct vm_area_desc *desc)
- {
--	if (vma->vm_end < vma->vm_start)
--		return -EINVAL;
-+	struct file *file = desc->file;
-+	struct cs_char *csdata = file->private_data;
-+	struct page **pages = (struct page **)&desc->private_data;
++	/*
++	 * Driver-specified flags may make the lock flags invalid, so clear
++	 * VMA_LOCKED_MASK and reinstate it afterwards if appropriate.
++	 */
++	vma_clear_flags_mask(vma, VMA_LOCKED_MASK);
+ 	error = mmap_file(vma->vm_file, vma);
+ 	if (error) {
+ 		UNMAP_STATE(unmap, vmi, vma, vma->vm_start, vma->vm_end,
+@@ -2607,6 +2612,15 @@ static int __mmap_new_file_vma(struct mmap_state *map,
+ 		return error;
+ 	}
  
--	if (vma_pages(vma) != 1)
-+	if (vma_desc_pages(desc) != 1)
- 		return -EINVAL;
++	/* If VMA flags still valid for locked mask, reinstate. */
++	if (vma_supports_mlock(vma)) {
++		const vma_flags_t mask =
++			vma_flags_and_mask(&map->vma_flags,
++					   VMA_LOCKED_MASK);
++
++		vma_set_flags_mask(vma, mask);
++	}
++
+ 	map->file = vma->vm_file;
+ 	map->vma_flags = vma->flags;
  
--	vm_flags_set(vma, VM_IO | VM_DONTDUMP | VM_DONTEXPAND);
--	vma->vm_ops = &cs_char_vm_ops;
--	vma->vm_private_data = file->private_data;
-+	vma_desc_set_flags(desc, VMA_DONTDUMP_BIT, VMA_DONTEXPAND_BIT);
- 
-+	*pages = virt_to_page((void *)csdata->mmap_base);
-+	mmap_action_map_kernel_pages_full(desc, pages);
- 	return 0;
- }
- 
-@@ -1353,7 +1338,7 @@ static const struct file_operations cs_char_fops = {
- 	.write		= cs_char_write,
- 	.poll		= cs_char_poll,
- 	.unlocked_ioctl	= cs_char_ioctl,
--	.mmap		= cs_char_mmap,
-+	.mmap_prepare	= cs_char_mmap_prepare,
- 	.open		= cs_char_open,
- 	.release	= cs_char_release,
- 	.fasync		= cs_char_fasync,
 
 -- 
 2.55.0
