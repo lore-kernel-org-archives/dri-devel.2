@@ -4,110 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B054C79F82
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 12:16:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 686B7C79F9E
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 12:17:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9752C10EB9F;
-	Tue,  8 Sep 2026 12:16:58 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="x153Wv/W";
-	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A02310EB9F
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 12:16:57 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-49b0d8bc2aaso57347005e9.0
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 05:16:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1788869816; x=1789474616; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=GscIAiMi1PshYZNojpTcqqxjTAW/t//XtB7WYCOhKZ0=;
- b=x153Wv/WbQIF0qyStLMKGfDL4AT4LJcz9wOSj57iDFXkExd2v0Pc4BU5cJHfSKRcRu
- 1EfcN6lq0CKRJbncPYNsNilnedbU+QG7AOlIJKuR7nfcQ7BpucOxQq8Pcym5aYl4oBQe
- sr8/uVpvfWY0cOa5EjsqAp31TVWPna77c7y+e6GYU7P6lWHJOUlyjFUjYKU4lFUSBvRf
- kebdFyDwvyaNXUu212ZxQ4Ydem6+mwMAmJ5V+//JuJtL9KiI37WmU4UPngyfvkW0gb0Y
- s49QdlefuW3ZlUegWiIbEAryuMHVmDHT1Lzmh5PHEF3L+08vA4DYNYeZyCsFPKwBuKxl
- QSpw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F46C10EBA6;
+	Tue,  8 Sep 2026 12:17:07 +0000 (UTC)
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com
+ [209.85.217.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 353A910EBA6
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 12:17:06 +0000 (UTC)
+Received: by mail-vs1-f51.google.com with SMTP id
+ ada2fe7eead31-785d603efdeso1494022137.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 05:17:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788869816; x=1789474616;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=GscIAiMi1PshYZNojpTcqqxjTAW/t//XtB7WYCOhKZ0=;
- b=PY+p68FjO/fgGfjcsFq0mi1g8eh7Q8CqgdY8bBTcEusAE0mYbPFLKuSgIDyp06GijR
- 0Vsp+B3+q6+Ving0sa0xgz9su74oHzDej2z0AXqJFPpQOLhwnUM3t72k6f+GKVdv8got
- Ws1QYwu7pNXlnqJFPmbJ2xXglT4z0wB+trCe0TRDyqGfvsyKXcOgLdL4DCXBwISPTE9/
- etiGakmMoq0YJz9n3aVlTz0YLSKH7pKrRpltbSQOGZaSs1MOxnqYEJes01XhSzKyI9ET
- ahO4AqTGpMA3b4oZOKDXwaS/HO0udwQGxBqs89LUsh9CoLPXzXZnZThva/SGmD+Kbr9l
- t6uw==
-X-Gm-Message-State: AFuF++kZlkudBiWv8QTbV4X0zNDzAMlXzbcSt+AcGsWh6aSliKa6+OOt
- WrbHQi9V38Vi3QSg7la3dpccAtQl1W0XuvUU8VQBz39mubBwr6nmfqiKZ/dzWXkAkps=
-X-Gm-Gg: AYBFou1Yv4ByrDaiT5hxkMSwSvBMErnVbaLMCSeQBtpYcCM3ICWk1X6A7hLoXGGbeiI
- mqATASiP0G0W937kIyx09Hr45qKius6FMZSrEHLYM7OwoCNrimiw0dcODItgBmMG1mK02G1EnRV
- 5sZUMtpN8os3BuKVe0ahmNFwwPPeE4PA9TQfGwz2J7SC9umBHFhPJrk7Tz/EisEmNwq7/eW43uJ
- 2bXWzUxdkPGUJSycy1vS1QO4DdbJVqXAC0e3SQz/d6DKyYIrgXzA9gjGPp+WZiI1nuS70NZa/dP
- 0aUxU3dulX60LVi2JheDulquAs9WQpyAj+DQKPnMjtvnw1NNeRTwGQIOt1VzBvtONrsn7kG+GQA
- uVhUybSgZBbS9UPBE9bjPlmI3PuHQAjXuC8mqPKAadIzzjWSJd/UNBy4iFSKX61I3ujMxwuE1yE
- LO1E+RUmrogmkdajMrR/AD7vg+HA6zv8xVFkLILMcOaLUyFEP6LsZU4f3q2EoYVK2o1J2/JHV3j
- wWS4pDVWhsOS78PekrYv4IWljM0tighudtdUXJQVsk=
-X-Received: by 2002:a05:600c:548c:b0:49c:c96a:d36b with SMTP id
- 5b1f17b1804b1-49cf8267dd3mr297679935e9.12.1788869815441; 
- Tue, 08 Sep 2026 05:16:55 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:ea45:883b:8b89:b4e5?
- ([2a01:e0a:106d:1080:ea45:883b:8b89:b4e5])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49ce592b01bsm1456845e9.2.2026.09.08.05.16.54
+ d=1e100.net; s=20251104; t=1788869825; x=1789474625;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=1ITJx792r+ituep1jxzGor7V94Ftkp9w2SLxSuD0zdE=;
+ b=LwTPUoS4K/Z3lct/mBrre0hpoDFmo8ckF0gfT9YG7oeHl4D4yVfCBvZPSRtNsP7qgD
+ Mnvv5IF1K7gLTOC6o7q3GKJMJROnQ6jmtp/2T91tj9oqwNsw4Al0bdLOjbXQ0l6ClcZj
+ Ne/VRU4qkW9i+zkX2mRvIbJ+fGlrPXW+mpkeA2W1dOh1IsjHYEPTwofCyKZFMS0iE0s9
+ WSw+vzLtDVTYe4yTDf5Ilumq+hBbg3plbB1K6t85ECf+AYK8FsYCbFDcZeMca43Xmj+V
+ mwaNWQAz4UIqjE4M4UIlgIKIVo9BjAoWKi1nAKxnEc0yARmbZWSUFYfDAAdaVtan/v3E
+ btGA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByE+cfbkrp3ZUljMRvFeDJV0HFXVZMVMm5IcW/CeSwrcyVEwdQQZLpiaZ+cScHnDM5HJGDCXKQUZnQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l34QArXPJiZYwCa0gOPKFVUnU1ytR1EdXLlWE8E259paZnQH3o
+ Q6/N08xTeo3yCSy8o5ss75tY2bG3z2fqGJjaksOkbJnxbCHkqTrnvNX2PS/hZkKx
+X-Gm-Gg: AYBFou10U63DB3qnwu1308zHf8g8yyQYPunM17WgWXIf1ZWitxzJtmMI6r7RmCOi2y4
+ iV8o2e9s19xTEJ5obNYANWfw2SuqhBezFtKm5hONQiid+nqVKDOkcnvQgd/AY+gt1NyW+2P5d7h
+ lCA7yS7CLaRzHQsvf+/zxxBfmH3hhftpUkFNtw78RF4zrATfVxUS7azsP6FlBQnNXyx0O+wLtBi
+ LCVrrhfgTyzw3rf5KtLzl3Wtp9QkLxpd+TyznrVyfsmul4rXSCXl4E1fqpPUobeLSuzYaLa0WHE
+ JpXvqwlaMbVDm/kVEniQxLQb25DPiKIA6PSmZ09dWCgcFaQ7bihwUPb5o0jSqeRwyxRLGxXG3Gs
+ V8G8SZ15huuMC3N2VpDQP9/LgIHZU4ig/pg9hwF2lZMdOXAaUP0FG9KQZVXoaL6bKPdPN0q/Cft
+ 8FyD0AJbkWHluYo9iiVqkF93sASf2qxkz6kpNSvUao5fM9KQiTNFoW+CtHjvSXHfgWz4eRdSxJl
+ id+/uxvSubjKcnVlRRq6DFMSXb1Xg==
+X-Received: by 2002:a05:6102:644c:b0:786:d33d:af15 with SMTP id
+ ada2fe7eead31-78a4a94a067mr10638165137.6.1788869824367; 
+ Tue, 08 Sep 2026 05:17:04 -0700 (PDT)
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com.
+ [209.85.221.172]) by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-78a47b3468csm8865312137.11.2026.09.08.05.17.02
+ for <dri-devel@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Sep 2026 05:16:54 -0700 (PDT)
-Message-ID: <07ebc005-7443-4231-8908-e71f7d7c35a4@linaro.org>
-Date: Tue, 8 Sep 2026 14:16:53 +0200
+ Tue, 08 Sep 2026 05:17:03 -0700 (PDT)
+Received: by mail-vk1-f172.google.com with SMTP id
+ 71dfb90a1353d-5bf83925ddaso2591610e0c.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 05:17:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwvi9AmCffR/vSw9UZOb+xfN0XcQG43OVr2vdk9+u5yaf3uvCXte1fYeKFQKi4Y9R2FeVq/6+oDZ9k=@lists.freedesktop.org
+X-Received: by 2002:a05:6122:4698:b0:5bf:4522:fca7 with SMTP id
+ 71dfb90a1353d-5c7ed3b2275mr10642726e0c.4.1788869822558; Tue, 08 Sep 2026
+ 05:17:02 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 0/2] drm/panel: samsung: Share test key command helpers
-To: Linus Walleij <linusw@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
+References: <20260907-rcar-du-dsc-v6-0-f8ef711a7494@ideasonboard.com>
+ <20260907-rcar-du-dsc-v6-5-f8ef711a7494@ideasonboard.com>
+In-Reply-To: <20260907-rcar-du-dsc-v6-5-f8ef711a7494@ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 8 Sep 2026 14:16:50 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUpLrjtUh5pGP9ys_PSFt10vKdQCyo3UGaedcwaf8UEww@mail.gmail.com>
+X-Gm-Features: AcwNN1XnePIl5mdE7u2itKH3ZKW58ZQZ46L6E5RD6lZgFL-MnDqW0nO0uTjSR8c
+Message-ID: <CAMuHMdUpLrjtUh5pGP9ys_PSFt10vKdQCyo3UGaedcwaf8UEww@mail.gmail.com>
+Subject: Re: [PATCH v6 5/6] arm64: dts: renesas: sparrow-hawk: Enable
+ DisplayPort by adding DSC
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- David Heidelberg <david@ixit.cz>, Dzmitry Sankouski <dsankouski@gmail.com>,
- Yedaya Katsman <yedaya.ka@gmail.com>,
- Casey Connolly <casey.connolly@linaro.org>
-Cc: dri-devel@lists.freedesktop.org
-References: <20260903-drm-panels-sofef0-v1-0-9e841645beba@kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260903-drm-panels-sofef0-v1-0-9e841645beba@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,47 +100,38 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/3/26 23:21, Linus Walleij wrote:
-> Several Samsung display controller drivers use identical three-byte
-> commands to enable and disable test key levels. The commands are
-> currently repeated as driver-specific macros or raw DCS writes.
-> 
-> Add a private Samsung DSI header with typed helpers for all three test
-> key levels. Use it in the drivers that already identify these commands
-> by level, including the S6E88A0 AMS452EF01 driver whose comments identify
-> the raw F0 pair as level 2 commands.
-> 
-> Drivers with conflicting level numbering or without an established
-> test-key name are deliberately left unchanged.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
-> Linus Walleij (2):
->        drm/panel: samsung: Add shared test key helpers
->        drm/panel: samsung-s6e88a0-ams452ef01: Use test key helpers
-> 
->   drivers/gpu/drm/panel/panel-samsung-dsi.h          | 38 ++++++++++++
->   drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c   | 71 +++++++++-------------
->   drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c      | 70 +++++++++------------
->   .../drm/panel/panel-samsung-s6e88a0-ams452ef01.c   |  6 +-
->   .../gpu/drm/panel/panel-samsung-s6e8fc0-m1906f9.c  | 23 +++----
->   drivers/gpu/drm/panel/panel-samsung-sofef00.c      | 15 ++---
->   6 files changed, 116 insertions(+), 107 deletions(-)
-> ---
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> change-id: 20260903-drm-panels-sofef0-73886714ac49
-> 
-> Best regards,
-> --
-> Linus Walleij <linusw@kernel.org>
-> 
+On Mon, 7 Sept 2026 at 11:30, Tomi Valkeinen
+<tomi.valkeinen+renesas@ideasonboard.com> wrote:
+> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+>
+> DisplayPort on the Sparrow Hawk board uses sn65dsi86 bridge, which in
+> turn gets the video stream from the SoC's DSI1 port. DSI1 pipeline has a
+> DSC block in between the DU and the DSI1. However, there was no DSC
+> driver in Linux and also the DSC was not defined in the dts files, and
+> thus the DisplayPort output did not work.
+>
+> Now that we have DSC defined in the SoC dts file (r8a779g0.dtsi), we can
+> enable DSC for sparrowhawk.
+>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> [tomi.valkeinen: separated the sparrow hawk changes from the soc changes]
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.4, pending acceptance of the
+DSC DT bindings.
 
-Thanks,
-Neil
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
