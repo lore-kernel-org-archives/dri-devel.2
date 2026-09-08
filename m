@@ -4,178 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1511C79FB8
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4FA9C79F8C
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E024310EF32;
-	Wed,  9 Sep 2026 06:55:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D0B210EF35;
+	Wed,  9 Sep 2026 06:55:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="vcJPn1JB";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BimnQo1L";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DFD910E177
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:22:59 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- d9443c01a7336-2d6ff3aca07so1905ad.1
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 13:22:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788898979; cv=none;
- d=google.com; s=arc-20260327;
- b=cFp7abR884hQ9vdCI3g3dJ+M9QUv9D/qHvqHK7PaBHf1T3pMidlD0FHHciNZ+dQYS0
- 9ghrBps98lfcMbSH1OoTYJpp1gf2IExetAEibbEer50ILqiv3cnRmO6YHXiIFWyj7TpD
- E3VGK+XL6SrjEFm4VcjudRIQLxxFWplTApHUsK6gmefpkAYHsFIXe2z+JN/fVgUqWF/I
- KyDq3942h5ZClulGsJAN9rAuTCNUJqIAELG+sF8GhFsddkYfSvPCGDLUGePENeOzzr2Q
- ZkQ/P7RSmWFt7QCIIVBmcALQ9b9z92uNyeTiC6QwrE9gnFX2D3/yJHw8lf17F8WpKpLf
- rfAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=TsLhOzf+D46xHpyx683mbvtqY0bc9njzNbabbHNEj0I=;
- fh=oeyUP3MOimLLIULZ+G0J13z0fCHlE+7d1qb9huE4DLU=;
- b=Xwou9mT2V+Tc2WWmTrxtqWTm0HZC73nWTEsxau2OMDSaUH511FPsTkDU6Wz77WDKj2
- Ngr+MtuW+y7XeVzbctgoAEqpGrfvgMTlW9M8SQTDdA50BovQ5QaCmF0QATrIu+I6ZCcx
- rs/fVcQTOqkVNpXtYfoTH0Q5FzXpZsX1u5rVr6z9ofo3D8HHUp6iDFhU79qztyCWi4Ne
- 0x5+ubloqlZYbY7eTAbb8it8MynbkFwlco2pFgdbgmLJbkAQSrEFDTdnSEYOIT25rdyz
- uk01YNzBeJZ0iAZ0Zxo4upNzwLELmvN3VSStG56ZvST/UNTuu19RTh2VYP3BlqLlZ9Jh
- WuJA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20FB910EAE6
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 09:28:52 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-39266382df6so3441308a91.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 02:28:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1788898979; x=1789503779;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=TsLhOzf+D46xHpyx683mbvtqY0bc9njzNbabbHNEj0I=;
- b=vcJPn1JBoUAEmOoSYq8IbrX7p82npVRacZ9v69+opxUB9kaahDrG3uVNwT1eh2o+GJ
- Ts31W8XdZ6jVKug2MgvZ0Mj/a6pqLMfGK9XgZs/irTZvfTEmjCZ4CKG/ZN8Q1N1aeImX
- Ljr2s3wSvjkzexMOs0h80PTF9zj/PFIKqanQ97o+PTxvd3YN2zxvMNtraLWMhp/tB1Bv
- OFyjmGDa5t2iqE9mgrFNGQmu0XEQDogKoRKV/l2WOpDLXV692ZhfldqoWeogGFMvz64l
- XbHASguNRVvfkf90RRq4KvHLQ35nCEZvxomLHh18GAmuFfR00TdsUAAE8YvzXxId/WaM
- miFg==
+ d=gmail.com; s=20251104; t=1788859732; x=1789464532; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=8EcwJ6FJdDLZqAgx4ZJcfrdseGR1/I5SVESCmgXprts=;
+ b=BimnQo1LTYWMmMPbCquepm7I8BJ+PyUAag/jQJDX6OJkf4thpwLEMpI3FqplLCBqAa
+ Uv2IGcnOSrVnYQuw1qleneyrRPBoRY+cRPzSVVv57YpwSILBsaqPvhvuwcRT9C7EbGdb
+ 5JW0dVhZnoob85gQXuvYZWsWsbzhQ19Jt05F71r6oU+YdhiZ/lhe5i0oF/N085EV2Ktu
+ x0PMoqcYMBRWIFt7GhNNMcdRv7/lepjc3Unhqwgz9XLcFwDlKey6ktIS0Y9vcqpdE7Og
+ MSTlY9vvZFCbxmDhegpIj3PTq6BE+vaGoGI4Lk+38gGb+vTyobU9z8iJ5NZmiRgwJ7V+
+ SJJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788898979; x=1789503779;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=TsLhOzf+D46xHpyx683mbvtqY0bc9njzNbabbHNEj0I=;
- b=l0EG435hSwfXtJHt+A6c6RQT1wmzGF0Q5vQeDlIpbbkleYsgVCJhq4cfU1munZ1vcH
- FxTf3xjg6z6vouFc0Ug6rmB8UbcsNCMSDQItmF6ZBz91CLZDHYtlMqZkx1Lp03amQbbJ
- X0lBR8GJUpnAeJHbRDkjV08/YldIfccwCU4IDelYkb11R57k3zBXAa6j5vzXCsa9wCmf
- uRUs5UKVH4l0YTZccbK5b3xAFhu4p/nIiaZfy5c+wZXE10Q8+e4f8id2R+Z3nP/3NRbj
- 2Lsob5Q7jCmY99FgCxtoAEUtTEk/K8/naC+fIyXPljXIdDb8nm9rfD4KfLRE7eSdDitH
- yfww==
+ d=1e100.net; s=20251104; t=1788859732; x=1789464532;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=8EcwJ6FJdDLZqAgx4ZJcfrdseGR1/I5SVESCmgXprts=;
+ b=M1Tq+0BcD6rGT10rzGsPId0bESpUXPYl/2fwLAwqmaytneQRmI2QnJvabhbhPm+Bsd
+ edvHkI48as7US14Bd2kNG/Ebpcjl0F7Fj2of5q1vn7KJtPpP9i/iipEMOzMLrILSBUI+
+ BzKQ8xeRFgAGnUzBEnwWyc+fY/33FGTSSlrsB0H1i4cme0T4HwGYXtY4iH9wHlaEBhhJ
+ ohnMSOajemos0aJMdUHV8nEAzkA5UePOx5bMPjgd0KE9RisRQkaRsB5skl2GuJsbF0kX
+ T+2gH0JqhOd01p9pz7VekD3vCU4ul5xl47Su6JmE8dI7hCU4sb13v48sjfCpPf5jinQf
+ qfTA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzBGQXmIrOcbPLTN4Co5Eqc+Jt2IhrS4elDYcLVc1zOIo5+UlYhc6kHqYLI9yMAypE1FadukNDTbK0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l+V+zPPdJ2Nzj8I+3Q3RHvVCu9eQDvB6uvzbQSqg3hlIIA0lRU
- ZQw239rkTCzJGi6mcm9sHUe0C1HiAiHEuq/yB8CfkFrMwn6pXsQCRU5+iYq3OBq/hKw6qJkJl78
- X7JHAb8yKWt/JUuOfSM6IolhIk3YGEKLT1KSKYbeH
-X-Gm-Gg: AYBFou28bYE/DixpFMdUIpOsV6m0ayBjYqmobMcV5BwlYuGga0SUC6oUYbQF0ng8vOZ
- 9IDdDz2rqylYDHns0NzHNxIT5YttSTP1cWmYuuOVpFT6mU2UmSKSKYiRWPDwi7fGAS4KofzykZi
- 9nZUgxdTOuwHQ7Ebx4gNCU1I/GXEKU9pVwLaQCS1UgGd3PADJ2P6ufd2rbO2qv1h50Mcd8lUZ2P
- QP6q+LH0cJiy3UXposCHBcEye2txkkpMDCz0N0bmul8gQQFye7n3kyzqugFr20kZkmM4VAUV/e4
- xwJFfNQZWWk/zR4jHPGdl0YCM76DWRSxdpL5GpBNb9ePQkXtnmllcEpYKDZoIFDYrusDBJ7A5fk
- 7XSQBwHglh1DvDKHVWKl3YB22irCAEx3r
-X-Received: by 2002:a17:903:fa4:b0:2d1:1d3d:97c3 with SMTP id
- d9443c01a7336-2dbfeccdf9bmr1436185ad.13.1788898978067; Tue, 08 Sep 2026
- 13:22:58 -0700 (PDT)
+ AKwUvBxS5ZeI5lWpTvhYujZ6xrQleqOzUnUaodaGfOFdew6CkexFRNFWKkQALwuz7eG4iul0WPLfFOeWUv0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nd2IubAhw2X37bCQcjsDKjOOnKGlc0vVzSCxHm6eT4DkU6nAKz
+ A8SqCgZDgWPmO0WFR5RmD9hqfcX4wVIgkxxA4/MQKE1zhJL1doMFHADR
+X-Gm-Gg: AYBFou19EVYQMKIy9s+TSWf57/WmT248T/ZTfNGiuWkgXcw73/Q1pFBg88omNFDop+0
+ CDV1SJRHLU9CjPJlmxeV8n3MvukXPGA+1z6OC/BqFFlXpIx5Nbtz819F75ocvdybxcHSydZnwmp
+ 4YdoA4gEb2HiDn7ZpnS4mm/JNE+yrRmRVYp4/5w478ZNrzblBHxpZyC3UtGLtNV7UDeaAMLITCF
+ nMFZyYcFWqdaCIrlH42ehM58O0HoFVM90R/m1xDkiMFTSVpJO+FzFAh8UNUlJ8hMKeLLOKdnWdx
+ L9F5Jclor+WQXiek7e6IG/B832GWv6UBzBUVb1/ol+D/JcQ5hNFtuvWdwLKUMQIpbGBgGHjK0TF
+ lslz4YQjar6GVBfZ50xveOMsaMK46JNeF/M5KbUNBrGWyQZYTAKn97l9ucG/PaSFdDZ45u7mGRw
+ k3hNSdwQ4gaei4P2NscYWEZWPnzD8wZ5POY0iO+BJ3qr2g4OOZ7j1KywV23lUcYQpzSN6w4rCfR
+ RY4Ewgdr1Lt2FXvA39smXXgmIBML8AgTICbOKWx57M1K4SAJ8NS
+X-Received: by 2002:a17:90b:2808:b0:398:b46d:48c0 with SMTP id
+ 98e67ed59e1d1-39b262aaeb7mr44896355a91.18.1788859731444; 
+ Tue, 08 Sep 2026 02:28:51 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net.
+ [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39b08c39227sm32109846a91.9.2026.09.08.02.28.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Sep 2026 02:28:51 -0700 (PDT)
+From: Joey Lu <a0987203069@gmail.com>
+To: zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Joey Lu <a0987203069@gmail.com>
+Subject: [PATCH v6 1/6] dt-bindings: display: verisilicon,
+ dc: add support for nuvoton, ma35d1-dcu
+Date: Tue,  8 Sep 2026 17:28:35 +0800
+Message-ID: <20260908092840.225220-2-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260908092840.225220-1-a0987203069@gmail.com>
+References: <20260908092840.225220-1-a0987203069@gmail.com>
 MIME-Version: 1.0
-References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
- <20260908-b4-mmap-prepare-vma-flag-sanify-v1-11-dacf19cce22b@kernel.org>
-In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-11-dacf19cce22b@kernel.org>
-From: Jann Horn <jannh@google.com>
-Date: Tue, 8 Sep 2026 22:22:20 +0200
-X-Gm-Features: AcwNN1W16jAho4HwK_fzY15wUA-qa4DGJ92-DrEx1Ojg_VFhiHj2JxDdZTxOKSI
-Message-ID: <CAG48ez3Ucb8HyhjC1-fijFiYJsnWcTLYHvJjzMyU710mgegxnA@mail.gmail.com>
-Subject: Re: [PATCH 11/39] selinux: reject writable opens of policy file, drop
- mmap shared/write check
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>,
- Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>,
- John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Muchun Song <muchun.song@linux.dev>, 
- Oscar Salvador <osalvador@suse.de>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
- Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
- linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:54:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -192,27 +96,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 8, 2026 at 10:07=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.o=
-rg> wrote:
-> The policy file has no write method and is exposed read-only (S_IRUGO in
-> selinux_files[]), yet sel_open_policy() performs no open mode check, so a
-> CAP_DAC_OVERRIDE caller can open it O_RDWR. Reject FMODE_WRITE at open, a=
-s
-> kernfs does.
->
-> The file can then never be mapped with FMODE_WRITE, so do_mmap() always
-> clears VM_MAYWRITE and VM_SHARED for MAP_SHARED mappings and the VM_SHARE=
-D
-> check in sel_mmap_policy() cannot be reached. Remove it.
+Add the Nuvoton MA35D1 DCUltraLite (nuvoton,ma35d1-dcu) to the binding.
+The DCUltraLite uses only four clocks (core, axi, ahb, pix0) and one
+reset (core), with a single output port.
 
-You should also be able to remove the sel_mmap_policy_ops.page_mkwrite
-handler, which is only for shared-writable faults, right?
+The MA35D1 clock controller gates the core, AXI and AHB clocks with a
+single bit, but each remains a distinct clock line feeding the IP with
+its own rate constraints, so all four must still be listed individually
+in the devicetree; core, axi and ahb happen to share the same clock
+phandle.
 
-> This also stops sel_mmap_policy() clearing VM_MAYWRITE on a mapping that =
-is
-> neither a PFN map nor a mixed map, ahead of the core enforcing that only
-> such mappings may do so.
->
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Move the clocks/clock-names minItems to 4 and resets/reset-names
+minItems to 1 at the top level, since that is the lowest count any
+supported variant needs.  Add an allOf/if block that tightens the
+constraint back up to the fixed 5-clock/3-reset topology required by
+the existing thead,th1520-dc8200 compatible, and another one that caps
+the new nuvoton,ma35d1-dcu compatible at the 4-clock/1-reset count it
+actually wires up.
 
-Reviewed-by: Jann Horn <jannh@google.com>
+Signed-off-by: Joey Lu <a0987203069@gmail.com>
+---
+ .../bindings/display/verisilicon,dc.yaml      | 44 +++++++++++++++++++
+ 1 file changed, 44 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+index 919a900122012..773966677d0f4 100644
+--- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
++++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+@@ -17,6 +17,7 @@ properties:
+     items:
+       - enum:
+           - thead,th1520-dc8200
++          - nuvoton,ma35d1-dcu
+       - const: verisilicon,dc # DC IPs have discoverable ID/revision registers
+ 
+   reg:
+@@ -26,6 +27,7 @@ properties:
+     maxItems: 1
+ 
+   clocks:
++    minItems: 4
+     items:
+       - description: DC Core clock
+       - description: DMA AXI bus clock
+@@ -34,6 +36,7 @@ properties:
+       - description: Pixel clock of output 1
+ 
+   clock-names:
++    minItems: 4
+     items:
+       - const: core
+       - const: axi
+@@ -42,12 +45,14 @@ properties:
+       - const: pix1
+ 
+   resets:
++    minItems: 1
+     items:
+       - description: DC Core reset
+       - description: DMA AXI bus reset
+       - description: Configuration AHB bus reset
+ 
+   reset-names:
++    minItems: 1
+     items:
+       - const: core
+       - const: axi
+@@ -79,6 +84,45 @@ required:
+   - reset-names
+   - ports
+ 
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: thead,th1520-dc8200
++    then:
++      properties:
++        clocks:
++          minItems: 5
++
++        clock-names:
++          minItems: 5
++
++        resets:
++          minItems: 3
++
++        reset-names:
++          minItems: 3
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: nuvoton,ma35d1-dcu
++    then:
++      properties:
++        clocks:
++          maxItems: 4
++
++        clock-names:
++          maxItems: 4
++
++        resets:
++          maxItems: 1
++
++        reset-names:
++          maxItems: 1
++
+ additionalProperties: false
+ 
+ examples:
+-- 
+2.43.0
+
