@@ -4,105 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C14E4C79F99
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 04:41:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6DA2C79F99
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 04:43:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 938A910E9DB;
-	Tue,  8 Sep 2026 04:41:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26BB110E9A6;
+	Tue,  8 Sep 2026 04:43:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XBdqpzJH";
+	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="Q6BiCJay";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012005.outbound.protection.outlook.com [52.101.43.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8706010E9C8;
- Tue,  8 Sep 2026 04:41:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hvYhJQ+Ru3+522OltMfLACkBZX6NGiwMPiUuM2zNrxPyhsiKI6UvZgo1Nt2Ms1xHXLpKjNqUKQQbVh8U8Isrsp2McVfHWr62SrxKpgk2Vfy3tBHmZdr/JJcJlf0UwW5+MJCJtAN4We72oYRNuPljh0TszBl6/1VlO0sZ31GPnDzw8FV0xudjz7XTZ7J4q+4w2DL87OfmeBwBuVWnsUE9OnLEPSTpVTpfSzSXS5T+Gnu0HcqLvunTTBWuc8SCW8IBWW5UiLOJQGmH57DIAGJydhUEdISWvceog0i8MrKWDDnfY+MLZiYkBcvnp/muMR0zSRl3V+zTFfhqAEwPvp+Pcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f1snRTPQk0QZ9/kSGzjFRZHdaQ1t1A+9LRQWdULndog=;
- b=Sh0NYI9uRl76Hpfm5TAVxT4HGRp0O+WRruoZ7irN66KdrIT2Xb/kzuvoW8EmamDTDiOlEib0PTo2b0g4xpY5ac8u9kNZAHkzXfb5HP2aoGeHSU1tq6mhHedcRynB+M69EiAkHRjPI5NlIbVmfQiz2AEniXjGRi+EL1Ez2aGLxwLBuHdaTm81DBMcd5ze7p2RQu//XvVFyPpSKUvv8NI1TU99P6MUyuRIz39VmVGhhlBurVLQAwV/XdVJSHgW1OunJ1Usep3EuczIDVrzMzB7YN2kHYc6Ov8ieNYyyJexwK9gvosiRvbw6ReP+AjQ2D6x5N5pg/j28DFNopOeYn43aQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f1snRTPQk0QZ9/kSGzjFRZHdaQ1t1A+9LRQWdULndog=;
- b=XBdqpzJHGMKYNBxf2GZjnvKt1TZNel5j3R4MO2ZC5oaAIqUo7hJsClFLLQQPSQajDgRXFtf7bgPni7zLBzgUurej4kWYdC1UHpMDk9IqdgvXlV/2AtainZXM7eVc5dfDWWrI11Swh6kxstKgPOUf1bVqkJBflvS1NkRI/jqTmQc=
-Received: from CY8PR12CA0048.namprd12.prod.outlook.com (2603:10b6:930:49::11)
- by CY3PR12MB9629.namprd12.prod.outlook.com (2603:10b6:930:101::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 04:41:12 +0000
-Received: from CY4PEPF0000EE37.namprd05.prod.outlook.com
- (2603:10b6:930:49:cafe::67) by CY8PR12CA0048.outlook.office365.com
- (2603:10b6:930:49::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
- Sep 2026 04:41:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000EE37.mail.protection.outlook.com (10.167.242.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 04:41:12 +0000
-Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 7 Sep 2026 23:41:10 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <harry.wentland@amd.com>, Simona Vetter
- <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>
-CC: Xaver Hugl <xaver.hugl@gmail.com>, <amd-gfx@lists.freedesktop.org>, "open
- list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM DISPLAY FOR XE AND
- I915 DRIVERS" <intel-xe@lists.freedesktop.org>, Hans de Goede
- <hansg@kernel.org>, Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH v8 14/14] drm/i915/display: use drm backlight
-Date: Mon, 7 Sep 2026 23:40:35 -0500
-Message-ID: <20260908044035.62093-15-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260908044035.62093-1-mario.limonciello@amd.com>
-References: <20260908044035.62093-1-mario.limonciello@amd.com>
+X-Greylist: delayed 532 seconds by postgrey-1.36 at gabe;
+ Tue, 08 Sep 2026 04:43:00 UTC
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [188.68.63.166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2B2E10E9A6;
+ Tue,  8 Sep 2026 04:43:00 +0000 (UTC)
+Received: from mors-relay-8202.netcup.net (localhost [127.0.0.1])
+ by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4hfB045B4Tz4829;
+ Tue,  8 Sep 2026 06:33:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1788842020;
+ bh=RM2uDjlFoSwaGz1ZGrnrQMAsuHPyc1eT3wom3p+9gY4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Q6BiCJayzYz6GjTSA2Dl8fdAucdaLi+G1TnvA83i/G4XOpecCGlYOF3m2FTY9qvW7
+ PnRLZeJ9nSfceueOj9zyN5b5yEw5Migl07zQJqKj1GRARpF61/7KB0CdJd/jYShGTm
+ Z/NLuXHcAFA4YKNSb9o3ziC+2CuUohSJJ+3z8fr4fu6ArgIe99UlU2L27cFPLZHSQN
+ mc71aqGH0YDJitkLJE9Bzn3IxNcYhWlEk3NwlKnzyIX6o9dNIFdmiS2QWOObFFJXgE
+ 2dQPCirqJvrDVluRVVXMslRq18XtlGPHREIEfxJ3a8Pf/gLtQ31dwPOEBwQZn5fumv
+ 8/6nIRfgpIiOQ==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+ by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4hfB044TD9z4825;
+ Tue,  8 Sep 2026 06:33:40 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hfB035dhHz8sZP;
+ Tue,  8 Sep 2026 06:33:39 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
+ [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id D879A5F9CD;
+ Tue,  8 Sep 2026 06:33:34 +0200 (CEST)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
+ smtp.mailfrom=linux@leemhuis.info
+ smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <d408716c-7af3-4f29-a796-cda595befb98@leemhuis.info>
+Date: Tue, 8 Sep 2026 06:33:33 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/gem: Add callback for when handle count goes to 0
+To: Klara Modin <klarasmodin@gmail.com>, Manuel Ebner <manuelebner@mailbox.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Felix.Kuehling@amd.com,
+ Mukul Joshi <mukul.joshi@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Mark Brown <broonie@kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+References: <20260831183311.1090131-1-alexander.deucher@amd.com>
+ <20260831183311.1090131-2-alexander.deucher@amd.com>
+ <aaef18cd-ab55-4fb8-8563-ca3a5ea9cbc6@leemhuis.info>
+ <e8a53eb241b2cc912e9cfad5f6a0120aa9683481.camel@mailbox.org>
+ <apyTR-f8W6Jt7uP5@soda.int.kasm.eu>
+From: Thorsten Leemhuis <linux@leemhuis.info>
+Content-Language: de-DE, en-US
+Autocrypt: addr=linux@leemhuis.info; keydata=
+ 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 MEK4
+In-Reply-To: <apyTR-f8W6Jt7uP5@soda.int.kasm.eu>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE37:EE_|CY3PR12MB9629:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4c7da662-2b1f-4bbd-4c97-08df0d636932
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|7416014|23010399003|1800799024|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: JTU0NmYqvhWo8yJdmX3+/s9cj1CF3JatGlXzge4QKN5z6jrpKUY2sPWr1KuPDVZroSmlzpDoimUKKYQL/4M1oEEKFHxTqCqIkrXoDLRbuZZioFkVgTUpi1yaUjwWtXlQO+9emYBeai3jYz5N+Zx89/KLt19JXOpsoK3DWVWwqznU007utMB61cwjpabAR8n9OclFkSGcQLD9RgVzyHIcg5NeyLNU3hisxVhfZPRVv3xR8L/SO+13+qMukXf5V35saEvb0v/nuY6gqdhEXAZAJLUZX5IhxiRyFtibKM/2B46O01/Nls94cTqbtbrEwSiNBLinzxS413VjxdUr0Uq5HDF4tes6XqC2auplA0p1LDKidJRywLKjMzxIeCOnTrU4J7Qxj77G7TjXfwpT0ZoDoery9PUu6lP7xXJR/JlvWwifT9DGESrvpyLOYBVpyRhzTzvcWjLpo3s8x1hKfe6S2KqSiU4aThZ5wuJ7+1YTBuS5pr++fFd3X+U3cN7LcBjkk9D53xCFlN4oe9ovVBRKinYvGisA0CditoQ/bPVElMJcqZN1nKOKLLN9JFcts98ZD9W4z83IQJ/7jFmrY3/iCLu/zue0F9rfOyC4rb1k4Z/AW9zx7cZ817T2Z8uNU+8XSP75aBsJdDGC76NcdvozNa9XJWwprl1zAiY0dq6SCMz4UeS7NEDjCd8ObrK7a6aa4iEVEUuh6ErAxKlM++IetQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(7416014)(23010399003)(1800799024)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: G5HVP41uvCCAH/joMqKvQIg0lGVs2UjIub6PkJMTGci9UWNDHSMsOQVfm4Y2RqEkj65LY62XftTwlmFvCZLfljLasyt4l/536+2/mmshdS9N8WQss8UAHn0kFZikbcHG0OVQ/ejYKF05/s0HZaoNShujy/0r6/J2zBcHRK548v5FIOCGQqB6Kiq/Ig7PtM8V3hF0EFxjHl7TkZwDrXNDcz5GXMTrvbfoqBzEDYN343jdkssRki+6KhyBTmOdibNpcDGw6eL+eBalWslkDfAvQ03yTHdCaBopMfZY8916GibX8/vnZMtknV9mFFhZlQzD8qqqZgWQhu2PO2OwVQpcY2YP09ozU+g4rWPMs6WtnAyXPJbotqjyzyEe1JZNOP6E2xtbrttVFQXa2RUtMXx4oL+rIbTgaNkPFhhvo/Q7kgieIV2kZVC0VaAlPh2mdLrY
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 04:41:12.6842 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4c7da662-2b1f-4bbd-4c97-08df0d636932
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE37.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9629
+X-PPP-Message-ID: <178884201540.1018164.10882620288814615527@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: D879A5F9CD
+X-NC-CID: OfPuqa33tXIzRDlFuj7qC37NDFfZmiRRCGlOBkBPRqdvFQtbZiw=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,84 +133,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Convert the Intel display drivers (i915 and xe) to the DRM backlight
-infrastructure so brightness can be controlled through the connector
-LUMINANCE property. Link the backlight device to the eDP connector on
-registration and unlink it on unregistration; the DRM core owns the
-embedded backlight state and its property.
+On 9/6/26 00:25, Klara Modin wrote:
+> On 2026-09-05 11:31:41 +0200, Manuel Ebner wrote:
+>> On Sat, 2026-09-05 at 07:36 +0200, Thorsten Leemhuis wrote:
+>>> On 8/31/26 20:33, Alex Deucher wrote:
+>>>> From: Mukul Joshi <mukul.joshi@amd.com>
+>
+>>>>> error[E0063]: missing field `handle_free` in initializer of `drm_gem_object_funcs`
+>>>>>    --> rust/kernel/drm/gem/mod.rs:265:58
+>>>>>     |
+>>>>> 265 |     const OBJECT_FUNCS: bindings::drm_gem_object_funcs = bindings::drm_gem_object_funcs {
+>>>>>     |                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `handle_free`
+>>>>>
+>>>>> error: aborting due to 1 previous error
+>>>>>
+>>>>> For more information about this error, try `rustc --explain E0063`.
+>>>>> make[2]: *** [rust/Makefile:799: rust/kernel.o] Error 1
+>>>>> make[1]: *** [/builddir/build/BUILD/kernel-7.3.0-build/kernel-next-20260904/linux-7.3.0-0.0.next.20260904.221.vanilla.fc43.aarch64/Makefile:1442: prepare] Error 2
+>>>>> make: *** [Makefile:256: __sub-make] Error 2
+>>> Full log:
+>>> https://download.copr.fedorainfracloud.org/results/@kernel-vanilla/next/fedora-43-aarch64/10951622-next-next-all/builder-live.log.gz
+>>>
+>>> Reverting this change and 2/3 from this set fixed the problem for me.
+> 
+> That leaves only the documentation without the feature so might as well
+> drop 3/3 too in that case?
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/i915/display/intel_backlight.c | 6 ++++++
- drivers/gpu/drm/i915/display/intel_display.c   | 7 ++++++-
- 2 files changed, 12 insertions(+), 1 deletion(-)
+My intention was just to confirm that these patches are the problem, not
+suggest this as a solution, so I didn't bother about the docs. :-D
+> Otherwise, the following also fixes it for me:
 
-diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
-index b128896cb1c2d..3ed8c4f7af425 100644
---- a/drivers/gpu/drm/i915/display/intel_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_backlight.c
-@@ -9,6 +9,7 @@
- #include <linux/string_helpers.h>
- #include <acpi/video.h>
- 
-+#include <drm/drm_backlight.h>
- #include <drm/drm_file.h>
- #include <drm/drm_print.h>
- #include <drm/intel/pci_config.h>
-@@ -1004,6 +1005,8 @@ int intel_backlight_device_register(struct intel_connector *connector)
- 		    "[CONNECTOR:%d:%s] backlight device %s registered\n",
- 		    connector->base.base.id, connector->base.name, name);
- 
-+	drm_backlight_link(&connector->base, bd);
-+
- out:
- 	kfree(name);
- 
-@@ -1015,6 +1018,7 @@ void intel_backlight_device_unregister(struct intel_connector *connector)
- 	struct intel_panel *panel = &connector->panel;
- 
- 	if (panel->backlight.device) {
-+		drm_backlight_link(&connector->base, NULL);
- 		backlight_device_unregister(panel->backlight.device);
- 		panel->backlight.device = NULL;
- 	}
-@@ -1703,6 +1707,8 @@ int intel_backlight_setup(struct intel_connector *connector, enum pipe pipe)
- 
- 	panel->backlight.present = true;
- 
-+	drm_backlight_create_property(&connector->base, panel->backlight.max, false);
-+
- 	drm_dbg_kms(display->drm,
- 		    "[CONNECTOR:%d:%s] backlight initialized, %s, brightness %u/%u\n",
- 		    connector->base.base.id, connector->base.name,
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 9dfd095f325f7..d53e5f4bdf57d 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -7496,10 +7496,12 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 	struct intel_display *display = to_intel_display(state);
- 	struct intel_uncore *uncore = to_intel_uncore(display->drm);
- 	struct intel_crtc_state *new_crtc_state, *old_crtc_state;
-+	struct drm_connector_state *new_conn_state;
-+	struct drm_connector *connector;
- 	struct intel_crtc *crtc;
- 	struct intel_power_domain_mask put_domains[I915_MAX_PIPES] = {};
- 	struct ref_tracker *wakeref = NULL;
--	int power_async_delay;
-+	int power_async_delay, i;
- 
- 	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state)
- 		intel_atomic_dsb_prepare(state, crtc);
-@@ -7608,6 +7610,9 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 	/* Now enable the clocks, plane, pipe, and connectors that we set up. */
- 	display->modeset.funcs->commit_modeset_enables(state);
- 
-+	for_each_new_connector_in_state(&state->base, connector, new_conn_state, i)
-+		drm_atomic_helper_connector_apply_luminance(new_conn_state);
-+
- 	intel_display_power_dc3co_compute(state);
- 
- 	/* FIXME probably need to sequence this properly */
--- 
-2.43.0
+Thx, for me, too.
 
+Ciao, Thorsten
+> diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
+> index e1ebad77ebe2..847e0ee38863 100644
+> --- a/rust/kernel/drm/gem/mod.rs
+> +++ b/rust/kernel/drm/gem/mod.rs
+> @@ -278,6 +278,7 @@ impl<T: DriverObject, Ctx: DeviceContext> Object<T, Ctx> {
+>          vm_ops: core::ptr::null_mut(),
+>          evict: None,
+>          rss: None,
+> +        handle_free: None,
+>      };
+>  
+>      /// Returns the `Device` that owns this GEM object.
