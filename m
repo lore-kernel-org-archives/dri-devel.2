@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7312C79FAA
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 04:55:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D755C79FAB
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 04:57:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03FD010EA15;
-	Tue,  8 Sep 2026 04:55:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FC5010EA1A;
+	Tue,  8 Sep 2026 04:57:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kkTLthO5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NP2s0d/i";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BB0C10EA13;
- Tue,  8 Sep 2026 04:55:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E76F10EA16;
+ Tue,  8 Sep 2026 04:57:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1A4F840259;
- Tue,  8 Sep 2026 04:55:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCAEB1F00A3A;
- Tue,  8 Sep 2026 04:55:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A944741B24;
+ Tue,  8 Sep 2026 04:57:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 562901F00A3A;
+ Tue,  8 Sep 2026 04:57:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788843331;
- bh=a/AgNhJVmXnAp0HHx3gB5cCRW5p/wGn/JlW5G8OFqw4=;
+ s=k20260515; t=1788843422;
+ bh=TjGQcQ+U//aWuATA9gfkX/7y2TPeBZWnNWjcgEQcAqY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kkTLthO5eNe2FyXYW8RiYunzMRwcEDgi8Dp/mxRIItBZz0khNEFn5rt5c68F701cu
- YV0/vpDnV8tVX/6f4GI9VIruI8WD4rwWkPevJeN6p4ZH0O8+JK0/ejBd5XxVUPVyi2
- RheT1HUIR52qSQELMxHHYoJqzw0mS6e7g0AVjV2yvEPfKPt3IUROXkFKtoqWwVjdjR
- du8XeQZaHrJe69kj704ZkpFvks5ftzb2JJ6f1sNhwTOOgdlwyg7q/Yiw+W6OVBeK+n
- Dp4QAXhABTWtc4F3q8FnFg0eK7tAIEeqPKjS9zfy6oKL4zeqBGYvYArKtJDzUbO5gB
- PcNZp37yUf+FA==
+ b=NP2s0d/iR1n+pvIpdCVxsm/dSvt7DXstvdlT8MFaxKCM2WG84EAcliyoHOX8p7JT5
+ Tg6zi1c3kiDB7pLDTuWUIXZnjCB3Xr1tzYhyIPljHMYUWck4dR3Ji4IZdIztoVqcMW
+ p4DWZnhQfYogPMXwlRRHAfiaRFuHdwwps9wKhZTtaqwR03V4NU9VvABaN4jzsFh5D4
+ MtDsTWS1Q4T080y6D5DJwoRPvm3VsJUhPPuGa7k7GvaAijv6ZIMTDBqbJMLi9ahCiB
+ 61hWdvInDWD6HixbwvXgOAoum2r6ZvM7HqcFLFIgEmM5HAwPf2lrTvmifoUJbPPQYH
+ rpu8uCX4UTuLA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 05/14] drm: add DRM_CLIENT_CAP_LUMINANCE
+Subject: Re: [PATCH v8 12/14] drm/xe: Indicate support for luminance on the
+ connector
 To: "Mario Limonciello" <mario.limonciello@amd.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260908044035.62093-6-mario.limonciello@amd.com>
+In-Reply-To: <20260908044035.62093-13-mario.limonciello@amd.com>
 References: <20260908044035.62093-1-mario.limonciello@amd.com>
- <20260908044035.62093-6-mario.limonciello@amd.com>
+ <20260908044035.62093-13-mario.limonciello@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 04:55:30 +0000
-Message-Id: <20260908045530.BCAEB1F00A3A@smtp.kernel.org>
+Date: Tue, 08 Sep 2026 04:57:01 +0000
+Message-Id: <20260908045702.562901F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,122 +59,53 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] TOCTOU race between `drm_backlight_link()` and device-wide backlig=
-ht inhibit/uninhibit iterations causes permanent count corruption.
-- [High] The LUMINANCE property is unconditionally exposed to all atomic cl=
-ients, violating the DRM_CLIENT_CAP_LUMINANCE capability contract.
-- [Low] Clients cannot cleanly unset DRM_CLIENT_CAP_LUMINANCE if they have =
-previously unset DRM_CLIENT_CAP_ATOMIC.
+- [Low] The DRIVER_CONNECTOR_LUMINANCE feature flag is placed unconditional=
+ly in the general driver features mask instead of inside the display-specif=
+ic XE_DISPLAY_DRIVER_FEATURES macro.
 --
 
-commit 3e9d95a8d4fc1bbb26ab6124a33c012ee7b1f848
+commit 15b98d1b5f359c6f4e02b8f0bf3cb53a02d509bd
 Author: Mario Limonciello <mario.limonciello@amd.com>
+Subject: drm/xe: Indicate support for luminance on the connector
 
-drm: add DRM_CLIENT_CAP_LUMINANCE
+This commit enables luminance support on connectors for the xe driver,=20
+allowing eDP panels to report luminance information to userspace.
 
-This patch adds a DRIVER_CONNECTOR_LUMINANCE driver feature and a
-DRM_CLIENT_CAP_LUMINANCE client capability. When a client sets this
-capability, every DRM-connected backlight is marked as taken over, and
-legacy sysfs writes return -EBUSY.
-
-> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-> index 9039a39c43243..de2c9d9ab5285 100644
-> --- a/drivers/gpu/drm/drm_ioctl.c
-> +++ b/drivers/gpu/drm/drm_ioctl.c
-
-[ ... ]
-
-> @@ -392,6 +394,28 @@ drm_setclientcap(struct drm_device *dev, void *data,=
- struct drm_file *file_priv)
->  		file_priv->plane_color_pipeline =3D req->value;
->  		break;
->  	}
-> +	case DRM_CLIENT_CAP_LUMINANCE:
-> +		if (!drm_core_check_feature(dev, DRIVER_CONNECTOR_LUMINANCE))
-> +			return -EOPNOTSUPP;
-> +		if (!file_priv->atomic)
-> +			return -EINVAL;
+> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_devic=
+e.c
+> index ee732e5495f7d..b74afe1594842 100644
+> --- a/drivers/gpu/drm/xe/xe_device.c
+> +++ b/drivers/gpu/drm/xe/xe_device.c
+> @@ -397,6 +397,7 @@ static const struct drm_driver regular_driver =3D {
+>  	    XE_DISPLAY_DRIVER_FEATURES |
+>  	    DRIVER_GEM |
+>  	    DRIVER_RENDER | DRIVER_SYNCOBJ |
+> +	    DRIVER_CONNECTOR_LUMINANCE |
 
 [Severity: Low]
-Can this prevent clients from cleanly unsetting DRM_CLIENT_CAP_LUMINANCE if
-they have previously unset DRM_CLIENT_CAP_ATOMIC?
+Should DRIVER_CONNECTOR_LUMINANCE be included inside the=20
+XE_DISPLAY_DRIVER_FEATURES macro rather than added unconditionally here?
 
-If a client sets ATOMIC=3D1, LUMINANCE=3D1, ATOMIC=3D0, and then tries to u=
-nset
-LUMINANCE=3D0, this unconditional atomic check will cause the last call to
-return -EINVAL.
+When the xe driver is compiled without display support (CONFIG_DRM_XE_DISPL=
+AY
+is disabled), XE_DISPLAY_DRIVER_FEATURES correctly evaluates to 0, which om=
+its
+DRIVER_MODESET and DRIVER_ATOMIC.=20
 
-> +		if (req->value > 1)
-> +			return -EINVAL;
-> +
-> +		/*
-> +		 * Serialize the compare-and-act so concurrent ioctls on a shared
-> +		 * fd cannot unbalance the device-wide inhibit count.
-> +		 */
-> +		mutex_lock(&dev->mode_config.mutex);
-> +		if (req->value !=3D file_priv->supports_luminance_control) {
-> +			if (req->value)
-> +				drm_backlight_inhibit_legacy_all(dev);
+Because DRIVER_CONNECTOR_LUMINANCE is placed outside of that macro, it appe=
+ars
+the driver will unconditionally advertise this display capability to usersp=
+ace=20
+via the DRM_IOCTL_SET_CLIENT_CAP mask, even when the display components are=
+=20
+compiled out.
 
-[Severity: High]
-Does this call introduce a TOCTOU race between drm_backlight_link() and the
-device-wide backlight inhibit iteration?
-
-Looking at drm_backlight_inhibit_legacy_all() in
-drivers/gpu/drm/drm_backlight.c, it drops drm_backlight_lock before
-iterating connectors:
-
-	scoped_guard(spinlock, &drm_backlight_lock)
-		dev->mode_config.luminance_clients++;
-
-	drm_connector_list_iter_begin(dev, &iter);
-
-If a concurrent hotplug/probe thread calls drm_backlight_link(), it reads
-the already-incremented dev->mode_config.luminance_clients and assigns it to
-the new connector's b->luminance_clients.
-
-Then the ioctl thread resumes, iterates the connector list, reaches this
-newly linked connector, and calls drm_backlight_inhibit_legacy(), which
-increments b->luminance_clients again. This causes the connector's count to
-get permanently stuck at a non-zero value, locking out legacy sysfs backlig=
-ht
-control for the rest of the system uptime.
-
-> +			else
-> +				drm_backlight_uninhibit_legacy_all(dev);
-> +			file_priv->supports_luminance_control =3D req->value;
-
-[Severity: High]
-Is the LUMINANCE property being unconditionally exposed to all atomic clien=
-ts,
-violating the DRM_CLIENT_CAP_LUMINANCE capability contract?
-
-The UAPI behavior documented in include/uapi/drm/drm.h states: "The LUMINAN=
-CE
-property becomes visible on supported connectors".
-
-However, the capability tracked here (file_priv->supports_luminance_control)
-is never utilized by the DRM core (e.g., in drm_mode_object_get_properties)
-to filter property visibility. drm_mode_object_get_properties() only checks
-if the client is atomic, but fails to check if the property is luminance and
-if the client supports it:
-
-	if ((prop->flags & DRM_MODE_PROP_ATOMIC) && !atomic)
-		continue;
-
-As a result, any generic atomic client (like a compositor restoring state)
-will see and restore the LUMINANCE property without setting
-DRM_CLIENT_CAP_LUMINANCE, bypassing the sysfs inhibition.
-
-> +		}
-> +		mutex_unlock(&dev->mode_config.mutex);
-> +		break;
->  	default:
->  		return -EINVAL;
->  	}
+>  	    DRIVER_SYNCOBJ_TIMELINE,
+>  	.open =3D xe_file_open,
+>  	.postclose =3D xe_file_close,
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908044035.6209=
-3-1-mario.limonciello@amd.com?part=3D5
+3-1-mario.limonciello@amd.com?part=3D12
