@@ -4,59 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62FA3C79FAD
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 10:02:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8134DC79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 10:04:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78B8210EACF;
-	Tue,  8 Sep 2026 10:02:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5EDC10EAE2;
+	Tue,  8 Sep 2026 10:04:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="RS5h5kpt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="esKUUaDC";
 	dkim-atps=neutral
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8841E10E87A
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 10:02:44 +0000 (UTC)
-Received: from francesco-nb.corp.toradex.com
- (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
- by mail11.truemail.it (Postfix) with ESMTPA id C5CE920472;
- Tue,  8 Sep 2026 12:02:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
- s=default; t=1788861763;
- bh=MCbiA6d2rt3S8lOdzp5UrMVswALZKd4o8wNqLwS4zQI=; h=From:To:Subject;
- b=RS5h5kpti2SyYd5yW2ROAgvenmgN5O/dVg9BxwIRiwseTW+g37UFGKhvaQJMQ3OGA
- coO3PpehTRRb//aoN4TRCWJxJ/wxobkSxiP79EhKr5uVOLs3wLTOyJhb4rUmWKMrTL
- st1RbLQbfy1uJ9quwNKNEFzA9UoJ+/XMV6IFd8d+gd45aq7BhW5MYfRfmCw0j1/LZx
- 1YLpv6ynhzsiYvzM5Ypp6UmTmppohGvGjGAoOxzBEGPfWTaaXiCtN1aN7qZSZzZedx
- W9b2y40pXHopN6KKpovjWS7fhw78NpMmZJH2qGI+gUJiFWYmJ1dHU++nBRnxr6PeHe
- 4/B3TMn+pUzkQ==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Francesco Dolcini <francesco@dolcini.it>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v1 3/3] ARM: dts: imx7d-colibri-emmc: Add Toradex Capacitive
- Touch Display 10" LVDS
-Date: Tue,  8 Sep 2026 12:02:27 +0200
-Message-ID: <20260908100230.83796-4-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260908100230.83796-1-francesco@dolcini.it>
-References: <20260908100230.83796-1-francesco@dolcini.it>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E817110EAE2
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 10:04:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id AE9FA419C7;
+ Tue,  8 Sep 2026 10:04:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E82C1F00A3A;
+ Tue,  8 Sep 2026 10:04:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788861861;
+ bh=y3VDoJY/ddJR02OQMQtg9KGif/6Y6mDm+so2rnX5Zds=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=esKUUaDC07Qmu3eis1IvG+RKjneRZ2c/UmvmWrNh/BjImTJzNZKpXt2jYrwHgvlje
+ WbGIxIh+icdyUymFcNahT55dhFWUiA15SoVO6ZnTueQh+ANrXe/m0Vy5IC4IRDRm+H
+ Q2U3ewe49x+//sXCnkP4WveoGDzBfaZHihUk0mUsMnBrW4ifTbe8pKfL0RmDDmm6A2
+ wNnpboanzaY69LQXwI//pkSDrOhzUqJdO+rpnPOed355KH40kZhq8jLf/cIwB8/65U
+ ynPMbQmFJBoBXzc5UpfxaTuzYeFm9jE9ObvcnPgEX3uBc+ZPq2JwjNxMTesxrMHgAv
+ oNI3JJL7+Ka+A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 4/6] drm/verisilicon: add DC8000 (DCUltraLite)
+ display controller support
+To: "Joey Lu" <a0987203069@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260908092840.225220-5-a0987203069@gmail.com>
+References: <20260908092840.225220-1-a0987203069@gmail.com>
+ <20260908092840.225220-5-a0987203069@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 10:04:20 +0000
+Message-Id: <20260908100421.4E82C1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,153 +55,122 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Add a device tree overlay for the Toradex Capacitive Touch Display 10.1"
-LVDS connected via a DPI to LVDS on Iris carrier board. The panel is a
-LogicTechno LT170410-2WHC 10.1" WXGA IPS LCD and the touch input is
-provided by an Atmel MaxTouch capacitive touch controller.
+New issues:
+- [High] The `vs_dc8000_panel_enable_ex` and `vs_dc8000_panel_disable_ex` f=
+unctions incorrectly modify the `VSDC_FB_CONFIG` register using the `VSDC_F=
+B_CONFIG_RESET` bit, instead of setting the `PANEL_CONFIG.RUNNING` bit.
+- [High] The `vs_dc8000_crtc_begin` and `vs_dc8000_crtc_flush` functions ha=
+ve inverted logic for the `VSDC_FB_CONFIG_VALID` bit.
+- [Medium] The `vs_dc8000_irq_ack` function reads `VSDC_DISP_IRQ_STA` but f=
+ails to perform any hardware write to clear the pending hardware interrupts.
 
-The overlay is also combined with the Iris v2 carrier board device tree
-to provide a ready-to-use DTB.
+Pre-existing issues:
+- [High] Early interrupt registration in `vs_dc_probe` causes a NULL pointe=
+r dereference if an interrupt fires before DRM initialization is complete.
+--
 
-Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
-this is based on https://lore.kernel.org/all/20260901124921.78635-1-francesco@dolcini.it/
----
- arch/arm/boot/dts/nxp/imx/Makefile            |  6 ++
- ...emmc-iris-panel-cap-touch-10inch-lvds.dtso | 92 +++++++++++++++++++
- 2 files changed, 98 insertions(+)
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-iris-panel-cap-touch-10inch-lvds.dtso
+commit 71018d22eb0156b0806e61d4495897f9c4f2d35b
+Author: Joey Lu <a0987203069@gmail.com>
 
-diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
-index d1272104ef27..b9456e7e5310 100644
---- a/arch/arm/boot/dts/nxp/imx/Makefile
-+++ b/arch/arm/boot/dts/nxp/imx/Makefile
-@@ -424,6 +424,10 @@ imx7d-colibri-emmc-aster-panel-cap-touch-7inch-parallel-dtbs := \
- 	imx7d-colibri-emmc-aster.dtb \
- 	imx7d-colibri-emmc-panel-cap-touch-7inch-parallel.dtbo
- 
-+imx7d-colibri-emmc-iris-v2-panel-cap-touch-10inch-lvds-dtbs := \
-+	imx7d-colibri-emmc-iris-v2.dtb \
-+	imx7d-colibri-emmc-iris-panel-cap-touch-10inch-lvds.dtbo
-+
- imx7d-colibri-emmc-iris-v2-panel-cap-touch-7inch-parallel-dtbs := \
- 	imx7d-colibri-emmc-iris-v2.dtb \
- 	imx7d-colibri-emmc-panel-cap-touch-7inch-parallel.dtbo
-@@ -459,8 +463,10 @@ dtb-$(CONFIG_SOC_IMX7D) += \
- 	imx7d-colibri-emmc-aster-panel-cap-touch-7inch-parallel.dtb \
- 	imx7d-colibri-emmc-aster-vga.dtb \
- 	imx7d-colibri-emmc-iris.dtb \
-+	imx7d-colibri-emmc-iris-panel-cap-touch-10inch-lvds.dtbo \
- 	imx7d-colibri-emmc-iris-vga.dtb \
- 	imx7d-colibri-emmc-iris-v2.dtb \
-+	imx7d-colibri-emmc-iris-v2-panel-cap-touch-10inch-lvds.dtb \
- 	imx7d-colibri-emmc-iris-v2-panel-cap-touch-7inch-parallel.dtb \
- 	imx7d-colibri-emmc-iris-v2-vga.dtb \
- 	imx7d-colibri-emmc-eval-v3.dtb \
-diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-iris-panel-cap-touch-10inch-lvds.dtso b/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-iris-panel-cap-touch-10inch-lvds.dtso
-new file mode 100644
-index 000000000000..ad0f37c71708
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-iris-panel-cap-touch-10inch-lvds.dtso
-@@ -0,0 +1,92 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex Capacitive Touch Display 10.1" LVDS
-+ *
-+ * Toradex Capacitive Touch Display 10.1" on Iris v2 carrier board X7 / X5
-+ * connectors through on-carrier LVDS transmitter
-+ *
-+ * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-+ * https://www.toradex.com/accessories/capacitive-touch-display-10.1-inch-lvds
-+ * https://developer.toradex.com/hardware/colibri-som-family/carrier-boards/iris-carrier-board/
-+ * https://www.toradex.com/products/carrier-board/iris-carrier-board
-+ * https://docs.toradex.com/108421-colibri_arm_iris_carrier_board_datasheet.pdf
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+
-+&{/} {
-+	lvds-encoder {
-+		compatible = "thine,thc63lvd827";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_lvds_transceiver>;
-+		b6b8-gpios = <&gpio7 2 GPIO_ACTIVE_HIGH>;
-+		map-gpios = <&gpio2 13 GPIO_ACTIVE_HIGH>;
-+		mode-gpios = <&gpio7 3 GPIO_ACTIVE_HIGH>;
-+		powerdown-gpios = <&gpio7 11 GPIO_ACTIVE_LOW>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				lvds_bridge_in: endpoint {
-+					pclk-sample = <1>;
-+					remote-endpoint = <&lcdif_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				lvds_bridge_out: endpoint {
-+					remote-endpoint = <&lvds_panel_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	lvds-panel {
-+		compatible = "logictechno,lt170410-2whc";
-+		backlight = <&backlight>;
-+		power-supply = <&reg_3v3>;
-+
-+		port {
-+			lvds_panel_in: endpoint {
-+				remote-endpoint = <&lvds_bridge_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&atmel_mxt_ts {
-+	pinctrl-0 = <&pinctrl_atmel_connector>;
-+	/* SODIMM 107 / TOUCH_INT# */
-+	interrupt-parent = <&gpio2>;
-+	interrupts = <15 IRQ_TYPE_EDGE_FALLING>;
-+	/* SODIMM 106 / TOUCH_RST# */
-+	reset-gpios = <&gpio2 28 GPIO_ACTIVE_LOW>;
-+
-+	status = "okay";
-+};
-+
-+&backlight {
-+	status = "okay";
-+};
-+
-+&lcdif {
-+	status = "okay";
-+
-+	port {
-+		lcdif_out: endpoint {
-+			remote-endpoint = <&lvds_bridge_in>;
-+		};
-+	};
-+};
--- 
-2.47.3
+drm/verisilicon: add DC8000 (DCUltraLite) display controller support
 
+This commit adds support for the DC8000 (DCUltraLite) display controller
+generation to the Verisilicon DRM driver. It introduces a new vs_dc_funcs
+implementation that directly latches framebuffer updates through FB_CONFIG,
+handles panel output, and acknowledges VSYNC interrupts.
+
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8000.c b/drivers/gpu/drm/ve=
+risilicon/vs_dc8000.c
+> new file mode 100644
+> index 0000000000000..df7bd5bdd7f2a
+> --- /dev/null
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc8000.c
+> @@ -0,0 +1,92 @@
+
+[ ... ]
+
+> +static void vs_dc8000_panel_enable_ex(struct vs_dc *dc, unsigned int out=
+put)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_RESET);
+> +}
+> +
+> +static void vs_dc8000_panel_disable_ex(struct vs_dc *dc, unsigned int ou=
+tput)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			  VSDC_FB_CONFIG_RESET);
+> +}
+
+[Severity: High]
+The commit message states that "panel output starts as soon as
+PANEL_CONFIG.RUNNING is set", but vs_dc8000_panel_enable_ex() and
+vs_dc8000_panel_disable_ex() modify VSDC_FB_CONFIG with the
+VSDC_FB_CONFIG_RESET bit instead of setting the PANEL_CONFIG.RUNNING bit.
+Will this cause the panel output to never start and inadvertently hold the
+framebuffer in reset?
+
+> +static void vs_dc8000_crtc_begin(struct vs_dc *dc, unsigned int output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_VALID);
+> +}
+> +
+> +static void vs_dc8000_crtc_flush(struct vs_dc *dc, unsigned int output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			  VSDC_FB_CONFIG_VALID);
+> +}
+
+[Severity: High]
+Does this invert the logic for the VSDC_FB_CONFIG_VALID bit? By asserting
+validity in vs_dc8000_crtc_begin() before plane register updates occur, and
+de-asserting it in vs_dc8000_crtc_flush() after the plane state is written,
+could this prevent the hardware from latching the correct configuration and
+lead to visual corruption?
+
+[ ... ]
+
+> +static u32 vs_dc8000_irq_ack(struct vs_dc *dc)
+> +{
+> +	u32 hw_irqs, unified =3D 0, known =3D 0;
+> +	unsigned int i;
+> +
+> +	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &hw_irqs);
+
+[Severity: Medium]
+The commit message implies the VSYNC interrupt is acknowledged through
+DISP_IRQ_STA/DISP_IRQ_EN, but vs_dc8000_irq_ack() only reads from
+VSDC_DISP_IRQ_STA without performing any hardware write to clear the
+pending interrupts. If the register does not auto-clear on read, could this
+missing clear mechanism cause an interrupt storm and hang the system?
+
+> +
+> +	for (i =3D 0; i < VSDC_MAX_OUTPUTS; i++) {
+> +		known |=3D VSDC_DISP_IRQ_VSYNC(i);
+> +		if (hw_irqs & VSDC_DISP_IRQ_VSYNC(i))
+> +			unified |=3D VSDC_IRQ_VSYNC(i);
+> +	}
+> +
+> +	drm_WARN_ONCE(&dc->drm_dev->base, hw_irqs & ~known,
+> +		      "Unknown hardware IRQ bits: %#x\n", hw_irqs & ~known);
+
+[Severity: High]
+This is a pre-existing issue, but in vs_dc_probe() the interrupt line is
+registered and unmasked via devm_request_irq() before vs_drm_initialize()
+is called. If an interrupt fires early (e.g. left over from the bootloader),
+vs_dc8000_irq_ack() will be called while dc->drm_dev is still NULL, causing
+a NULL pointer dereference when accessing &dc->drm_dev->base here. Can the
+interrupt registration be deferred until DRM initialization is complete?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908092840.2252=
+20-1-a0987203069@gmail.com?part=3D4
