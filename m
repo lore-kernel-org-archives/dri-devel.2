@@ -4,95 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E57C0C79F99
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 05:17:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEE4CC79F9E
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 05:33:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED1E510E9F0;
-	Tue,  8 Sep 2026 05:17:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2F2510E043;
+	Tue,  8 Sep 2026 05:33:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="TK/yG1AV";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yR+Gw8dq";
 	dkim-atps=neutral
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com
- [74.125.224.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37EB710E9F0
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 05:17:26 +0000 (UTC)
-Received: by mail-yx1-f42.google.com with SMTP id
- 956f58d0204a3-66fc7196ca0so2389670d50.3
- for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 22:17:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788844645; cv=none;
- d=google.com; s=arc-20260327;
- b=RaKq6RTzf9LRpc9zcOFguRufzJ4P6OjwllIlHYAOplJdInI3+g+s9g94guFpMzBUSx
- DCOd/9i25kNie2z9w5bY6+CmXdoKARamLIm14odutP6qyiLKWnZEq7rDQDqLmIxbB/cM
- R1ViVTCmaxTkuv/97w5asVmzL/MUxGNlaCKhsmuXjBNPOt5J68VspADunQe+QzlKSRrQ
- /ZkYTVcqI6pgohkEcaGbl5xObIQcdCaFqHdPQEhsmc8lw+CJrAdk1mdLi28FvlU8PLop
- 0/KolokXrEo1pb412Mbyc5ybfgVUdWcELXdcN9WXjBEYWAhmSW9Ee3VAMJwFAe5l3ZlV
- xaQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=7FCFgCrO8nYxa4w36rz8tfzjeCQplkAjHhgkmQ0tkA8=;
- fh=bJnCt/34SShorKEiVZ5JBNsml96m4cWEDbffbUA55eE=;
- b=MZhom/jyC23CD/B9w5UoQGLlMX/m2XrRH9c0CpUnhVqqGCXC2M0vsm5WmjZABNQJBy
- Cy42HUIM8hFm49lc+gbGfV3sLsWJIGvU7CrOrCT1tI7xxiRbbKw/ra1Xe+9NEvcTol4N
- 6k/DpjzB5mpZoB1uo2Ex+PwmXjUyvQv/FbchwF5aaggCEMgk1xaKON8h6wPlICDluicC
- 0lB0m+SezGbxPCDB8JVG+YNoTRmGUn3RpNCbrGtOB15Lwn5R8IDKn1ffo9YprbR3BPi6
- Ti7ZZsK3t0dtzTumQYmRc+R/hXhN2wvaTEeSXq7idVK6gnQNr5I8yBq8Iciz6P+dZzyv
- LZ9Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1788844645; x=1789449445;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=7FCFgCrO8nYxa4w36rz8tfzjeCQplkAjHhgkmQ0tkA8=;
- b=TK/yG1AVCHzuPGs2E4JALlf7zUXv6vThNwIz2hMpJerx2DfO1oX3TXchJ3b1wbqTGG
- e+norY29+JbnV35NsEZ6X5vXlWNHLgFpPh9SZBoDobbi6fo6pCAeY4cEGGGe3Y30SmZg
- JcTyBxxReuzJkEIT2SKJOi5iFWUsxvd/j8iJo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788844645; x=1789449445;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=7FCFgCrO8nYxa4w36rz8tfzjeCQplkAjHhgkmQ0tkA8=;
- b=hy/5tOImMAm9uKzoQEfZEwwZKYw7szXXbNQzcdKXQG0D5rGSVk6nUQFQl5fzi2oIZi
- clE8ITkenOfNmgoyJCp+e97DXRsC1S1xdT19ZOzyoC7ehDEPCletEfk6+elb/u0LUIxf
- jZsLa2m6ZDXwIjQR7z8s5tdsFxBIzeii0RVlQiyFYs0hoevnNVVHzga2a8mZ63LAiH6O
- TpyoCB6lBNq8yN1BDA3FbEICtUqpxAXxnEYL+uUX95Ke4YDmCUrHYe4w37GveA8MEW1S
- 2IXqh66Z9p2V6RScOxOwJsSpwzcLmKx2BdCqklAwRGyX+m9SIjSe9UW3EjF92Nd7TP/2
- k/Sg==
-X-Gm-Message-State: AFuF++ngalT/G4SV0qtXruVxE725dfxNXj2R/hqtFVVdShJaptk5Tl3t
- 1uDkbAVgOA4VXYSene3QI56G75yTUPN1Ol10ksU+cE5arv/2b47zsmGB9MoA9piWReEvlelvalH
- pAKQxV6ZWXL6SZIT/4ddDaFLpVakY6S+ziK95Y7Ga
-X-Gm-Gg: AYBFou1pzo1dt9UsgvOeIJhPnWJskxG6BoT/2GC3PVaRn9mDvVOWUf/3gTtj2uEEuu4
- 7zCncRXYiQsyTa109GJ7V3ke6QVtmBUHs6Kv/PkZhiSpD7Bq5bTL6pj6/dY7YY1O5/WGEYOjX//
- GfZInWxCBX1yDBC8s+CnfwxIcDCbh00/DnH3WagYQ+nus6yyMBJLnEMAsdFB4WFGVVeBrX/I67V
- P4Fx75v3g/hzQYtdSAG7rZkBohDlQxsKWmH47ThVEpoPNDXksBBcPeQIJ8kZ7vFkeYPSIqUsyty
- eFveRyOfrCfT0gE1SAwNpDCadWLyNeL8Ka9L2o+c/JiZl2dddutp8rVpPUBNWS3O4Zn239fkJNI
- =
-X-Received: by 2002:a05:690e:d49:b0:66f:c1bc:87db with SMTP id
- 956f58d0204a3-66fc1bc8991mr4871587d50.52.1788844645029; Mon, 07 Sep 2026
- 22:17:25 -0700 (PDT)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010043.outbound.protection.outlook.com [52.101.201.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0478E10E043
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 05:33:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iSbTQIoj7u1cDXPNR03xEa539tyocqZEf8buMX2Yd4ZPN+C2G/AASiH4ayL/SGTxa4zzKsmmR0HhU+H23yNx03LDQsnN6FuiAYvGE0l87ULiEOXCNlqZCT8OOHNoXH4TAa3bDU0+mLVrDHDWuo9ZTANCHdPgW5vXWMfXynXo6iV02ika4vEyVUUGb6PrLzhW4OTFRlqllSSCtwxEChDax2b1bbAR+dyTDRwDNUJeotA+PorLpTBgNCHqh3zz4SVnqpwNelgsHr8CakgqNyMNfjAhQxZmklZLMO9kkE0DfpMYhQevI2mfgaxUVeTdDHEom/nO+mlRsZEJRTPjCwn8zA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GeuiPf7USSxgFsmNjvg3g9OXorJmI1iO2uJ52aEY71E=;
+ b=Tvd3nyzvoSr5hOAiHorzMA7McSVf3CPnAOscMr3zi3xmVNii+lz3EeM8X4wyXfkYA2cmCJ37dKyibqdIMWJ9SialQexMFY6vNasukqYMzwXezi61oyFYZ0/Qc8ehUQT2hvxSleq1zH+7hqE1IBkuP6QInL6B+mSyu4TbFfUlvr4qXcOmmJO2oRjxlB7sYqCJENBWelu1o0GlxaIa9+3EQTfMx3mfcKsRIvCWfLPxtIiRXZfXkTr0h3R9mdnQS4ICgS30V4YeDC6dQWEuhaNW15Qgw89K+e+o2AO1obsjEH8nAv3cBvVbll6StF5HcL6VvXlUolRyMS2ngPHPfRwhoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GeuiPf7USSxgFsmNjvg3g9OXorJmI1iO2uJ52aEY71E=;
+ b=yR+Gw8dqCVCOYGSaxVl+02iEErPKls/2AhiDCPjhKSb4lvSerz9TgyH+hlclOVDi0ZOd0AN6zpY7Viji5YJqwCF73RQ0B1S3LRao7cqNsSkSwJ+RDjuGzRJ/NMUUv6XW07DyL1kYqNJrGvul+5vvtTRsIfDFAOnlzs1lvpNwqaU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
+ by MW3PR12MB4427.namprd12.prod.outlook.com (2603:10b6:303:52::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 05:33:18 +0000
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f%6]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
+ 05:33:18 +0000
+Message-ID: <0a135279-74da-4982-98bf-6de06131c285@amd.com>
+Date: Tue, 8 Sep 2026 13:33:08 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: About new backend for GPU compute ROCm in qemu
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+Cc: qemu-devel@nongnu.org, virtio-comment@lists.oasis-open.org,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ Honglei Huang <honglei1.huang@amd.com>, Huang Rui <Ray.Huang@amd.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
+ <alex.bennee@linaro.org>, =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?=
+ <marcandre.lureau@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, David Airlie <airlied@redhat.com>,
+ Peter Maydell <peter.maydell@linaro.org>
+References: <ba0b1bbf-5ebf-4ac3-9f7b-8740e3bc283b@amd.com>
+ <ea899a6b-0a59-4a9c-9e81-3ed70711da59@rsg.ci.i.u-tokyo.ac.jp>
+ <78f0583f-93c0-4374-ba37-fd36f6388f0e@amd.com>
+ <c79bbd91-0057-4e9a-bc56-28ca4c4ccae2@rsg.ci.i.u-tokyo.ac.jp>
+ <3c3eb833-8026-44ad-8e33-dea346752db2@amd.com>
+ <33bf6649-c1b9-43f6-94dd-09167d8e5db6@rsg.ci.i.u-tokyo.ac.jp>
+ <63d485c3-a418-493d-aad0-26b3c115f5b8@amd.com>
+ <7fa93963-880b-47fd-a51b-880a651be963@rsg.ci.i.u-tokyo.ac.jp>
+ <ef751787-8688-4e30-8bc4-f1740ef162fc@amd.com>
+ <14c4d7ac-607f-4372-8d1f-ca836f36498b@rsg.ci.i.u-tokyo.ac.jp>
+ <9640c016-1a64-4ef9-91f1-7955c3fb63a3@amd.com>
+ <ebc19ae7-0cc7-4252-a85d-1f010aea8a12@collabora.com>
+Content-Language: en-US
+From: "Huang, Honglei" <honghuan@amd.com>
+In-Reply-To: <ebc19ae7-0cc7-4252-a85d-1f010aea8a12@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: KU2P306CA0067.MYSP306.PROD.OUTLOOK.COM
+ (2603:1096:d10:39::11) To CY8PR12MB7170.namprd12.prod.outlook.com
+ (2603:10b6:930:5a::18)
 MIME-Version: 1.0
-References: <20260908050229.754977-1-wenst@chromium.org>
-In-Reply-To: <20260908050229.754977-1-wenst@chromium.org>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Tue, 8 Sep 2026 13:17:13 +0800
-X-Gm-Features: AcwNN1UvbZam4KMBF7rri3O2usHHuyHcUFKj6A3hEX1XxQedM-d5CJUALYS2SIM
-Message-ID: <CAGXv+5FjHY36sHc+osF2ENjpz9Y97WDCzFEE0c+unXtyxR23Dw@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/sun4i: Align VI buffer addresses for subsampled
- formats
-To: Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej@kernel.org>, 
- Samuel Holland <samuel@sholland.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|MW3PR12MB4427:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9fb0e3f9-befc-4f9c-df17-08df0d6ab028
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|23010399003|366016|4143699003|11063799006|56012099006|18002099003|22082099003|10067099003;
+X-Microsoft-Antispam-Message-Info: U6txMLFvDRZcuJq66DVaW6uq+ik49WXWinFLRFPN823BidEauo2P41k9fyhAlHw4itfm6X/ed7wMLon9N01HI3VNovawSj/SC/IWZ4r1Q06JPOL8IRE7DDedVyICYWn8s41ad3E2mWCGk2KIIxbYinTeyW1P4QmGPYvPqvqC1vNaQ8KW9kAUyNzstvclbnosHj08ObgjEZFPgsyBytyiSH+PXqip84opU8k4ogBmlAE8wq/I0w0dJKGOPoE/HY+1xlMct6Bfeu/TWOCx6SuL3H/49jRlFfC2obuKU6cPz/IJrJI+Z5VGwCkUNGXuzbBR0ElVY62mxTOMn4VvQhZWgIRZ+GzTFU3Zn+QFeHOnfx9u8/eYFHMBzXPiHrLBCJRZ9vtKgBwSAmAqH+fvuEm9wMxfBu77Jr1pYTwXDYvJE833vlxNtzOcoEOirzXco0Hl1p9t0XXnBjoXj7DsxcwnniQm5ttOCUF2hr/FBt04+r6vqWiwRq1h4U9SkgvoEaed+AGniaicyOa70obBxXMvKRERNCWLu1MGfQPFpp5NiCosV6YCjAbyhP35I8QJKvo26mJjOMJ5366uTCgIaWiyHW2hzAZaUpLv9taBol0gW4GZ/a6rQbjyuF03K8kJJnsVj4PA1kQTjHmEBAyofVOOrwWNxH34ahIuUrjE8RfGpeA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T2ZHOEhXZm40d1o5aHNRVWVzdTlTdDJTMzZCK2sxU2xYU05tRkI2SnpScHU3?=
+ =?utf-8?B?Y2o1UFhPR3oxQUM2SXJsYmlvc2EwcHBKbGhVZGF4VXlmYmVNZmhqN2hCbVBr?=
+ =?utf-8?B?dkhKTCt4QTNxTkRMWDcxRU1yb1RkT2lxeEwwSFFjWU1sdHdlSE1YMUtnZk1r?=
+ =?utf-8?B?Nmt4VStmZmNDQ1l2ZUVLR0NRcllhV1l1bzdRVWcwMkpGMnRwUGpYRFEzSy9n?=
+ =?utf-8?B?REsrcW0za2grNElIUk93K0hWYStxSTdQZGZSNm9IanBMZU5xa3JZbVJQMjlu?=
+ =?utf-8?B?Smlvam1HdmJyM1Q5T2RkVXFQTlZIa1RueHUvWmh4ZlFEd0VMcnkzVDhwOXNZ?=
+ =?utf-8?B?RXovSXFBc0l3SkQveEgycVBGNE5YcERrSnhmTTFQb2VBRW1UVlhnZWozNkJv?=
+ =?utf-8?B?MHcwem5IWEYzVTk4a3dQUmEybVVhNlhIM1JzQU80T2J1Sng3YUwrRm9TNzJE?=
+ =?utf-8?B?blpXNStORUxMQXBZNUR6eFh6MUNOVkE5ZmdsVGNlSi9pRURaZ0IyZGRUcHo2?=
+ =?utf-8?B?OFRTYmRWTThhTUN5WHJlalhvb1YyMjZ0emg5RENwUkZMR1NiZlpqeThIbHF4?=
+ =?utf-8?B?WHJ6NGdsc3A0N1JMWXdCVGk3VlVrczh3UE5WdXFMejlwWjg5TllVNHFSSEFu?=
+ =?utf-8?B?Ujd4c09LbnRpb1ZHb0xMdCt3bzlqZXZaTUsxUVZ6ME80MTBTTFNhbnNpTGl2?=
+ =?utf-8?B?ZVMvL3dRc1JIZVhkY1RXalJRcm1oaWI5ZUFLVEZZWVIreU1zaTFNY0hhcExu?=
+ =?utf-8?B?VlRvTDJqSXY4WnpjNGdlTS9VTTgrRCtKRjVGaHh2cEpmeDR6Wm1VWUkzYnFG?=
+ =?utf-8?B?RDNrenBZMHRIYWhtVVJQM0c2QU5qT0FhVlduVy8rUHowNnlHK1pxMWdjSEhT?=
+ =?utf-8?B?MDNiZVFZUnUzNlprMDd5UFZxRG9XK3ZvanhtWjhqd0FCc0g0TWZoYVNHQWY5?=
+ =?utf-8?B?MFVRZ2pSdjdHRXVkSFB0Zzh0bGo5NHpqWFI1NG9jQVdGVWJpOVdFSzNvMkxI?=
+ =?utf-8?B?L3E5anhya3NjSHNFUU5Dem9WRU1rcmZtL2pEamZFVm1kelJZMEhUd1VUeGpz?=
+ =?utf-8?B?NGxVRTZ4UHNHMEVROTMxSjFVRXpaRTFYQU4zU3ZCUE9WczJFL0FZeXRqQlBN?=
+ =?utf-8?B?RzU5Wkh4Tm8xcHlrdHFremZ3cGhDN0Vsc2Z6OXArU25LU3ZIb1lNdUYyb2F0?=
+ =?utf-8?B?Y3kreVdtQmNuaW11SDVXemVvZXBJS09WRlVMbWI5U3NUZjFHUDJLOFh0U2Z5?=
+ =?utf-8?B?dDZsZDVweTQybG5iRlk5ZjYvWm45UlNBc0xGM3FsMTBSVjl3VDdlRGEzcGRj?=
+ =?utf-8?B?ZnpiWHZIdTBMZ2RSeGQ2dm11NHg0Vks4YTd1K2hOdGY5dCs3ckd1T0ZjTkhY?=
+ =?utf-8?B?ZEV5WDNQUjVReUNlOVhIaHFuVFBPUThQWXJCa1dLRzhDd3Y4R3ZWODVYck1T?=
+ =?utf-8?B?eEdla0gxTnllMGwvT0FETmc5MHFMamtMUzFiUC9UTFcxMXRDZU5pYUlSQ213?=
+ =?utf-8?B?ck1nOEwvc2dKMDJiSjJLb3ZTMjZ5ZkNDRE0raXVlTVhzZzhMbkxPckpzYllp?=
+ =?utf-8?B?Zlh0SXlTQ25MMVYyTlpKamd4RzZMclJGY3ptUGk0QVVKaHFVcGkzdHQrUzJ3?=
+ =?utf-8?B?ZkZ0RFBuWE1pMStzRDBjSHBkRTJGNjM2UEJoVm53d2NPc1k4Y1FIZlF5Szlw?=
+ =?utf-8?B?Z0I1NWRZTUJSaUlKUi9xKzhDc1pSbStidnlGOUtBWlk3THZ5dENOYWkrQ1FM?=
+ =?utf-8?B?ckQ3d0FHak81cU9nUkcvYUF2MFBUemJxSXJiWkY1eHgvOFdMTFlNRWVUY0F3?=
+ =?utf-8?B?Z1JETWhscFpCRmk0RUFNZDRJb01JejQyTHlHbS93eVRDUnRHNnV1QjlJcWxU?=
+ =?utf-8?B?aDBkczd4dUZWaHlxeU5DTHVMT2RuY005dlZTaEtiSjdJdmorQkhTSjZjMHQv?=
+ =?utf-8?B?bkhZSzU1dTRWalVsbHdnUzRsOVpRYWlESFM4U3pScXVETXN1YmxqQzRFa0VK?=
+ =?utf-8?B?Ym1pbDd6YisvOUo1TTFxcVdtMkpOWlZYMXAwczBZNVlLd0U4ZWRFcS92WFk5?=
+ =?utf-8?B?elA0VnRPWjlrTzNxVDNnd2lXaTI5eldsSXRCbkpDdGV3WUthdG9paVZmSWM4?=
+ =?utf-8?B?bkJJYnFmZHNxZ3RNT1U5ZWlTcjZKREZiR3l5OEZUdVR3Y2xNNjY4MXpmWXBO?=
+ =?utf-8?B?N25hak5oTlh5NXdKSEUyb0RTUTI1eVZ3YXVLUnh6Znd5L1NQTjRiREpKRWZS?=
+ =?utf-8?B?WG9Db0wvRGEvcU5KY1EwL0RrL2xrcGhGampLRmtzZ3BISXNLVjlVaFlHb2Rj?=
+ =?utf-8?B?eVdjYnl0enlIRmRlQ0x0eDVIUTYwUkxkUmxuZnQ3cndFMVFpS0d3dz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9fb0e3f9-befc-4f9c-df17-08df0d6ab028
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 05:33:18.4429 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9bzbIdV0eLA5O+RBW+ZUt2Jq5earJHBc/0W1BExl+XzEb6qmSLlH/XfoU+9yzxGpKMrEpRvAnT+BOjBg6zTMBQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4427
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,75 +153,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 8, 2026 at 1:02=E2=80=AFPM Chen-Yu Tsai <wenst@chromium.org> wr=
-ote:
->
-> Commit 79ac1c945ab8 ("drm/sun4i: layers: Use drm_fb_dma_get_gem_addr() to
-> get display memory") dropped the code to calculate the framebuffer's DMA
-> address in favor of drm_fb_dma_get_gem_addr().
->
-> This turned out to be wrong in a couple ways. The hardware can handle
-> pixel offsets within a sub-sampling block, but the buffer address must
-> start at the beginning of the subsampled block for all planes. The
-> hardware then does the interpolation internally. However the helper
-> gives the address exact pixel for luma, which messes up the result.
->
-> Instead of reverting the commit, calculate the intra-block offset and
-> adjust the buffer address so that it points to the start of the block.
->
-> Fixes: 79ac1c945ab8 ("drm/sun4i: layers: Use drm_fb_dma_get_gem_addr() to=
- get display memory")
-> Cc: <stable@vger.kernel.org> # 7.1+
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-
-Please ignore this one. As Sashiko pointed out, this could underflow the
-buffer address.
-
-Instead this should be sent along with another fix I have that switches
-this back to the clipped buffer address.
 
 
-Sorry for the noise.
+On 9/7/2026 9:12 PM, Dmitry Osipenko wrote:
+> On 8/20/26 13:49, Huang, Honglei wrote:
+...
+>>>
+>>> These are great news. I suggest updating the MR description then so
+>>> that potential reviewers can see the progress.
+>>
+>> Will update the virtio userptr and virglrenderer PR in future. But
+>> unclear how compute will eventually evolve on virtio. The virgl version
+>> may only support old ROCm version.
+>>
+>> And a single control queue is the design of the virtio GPU, and it is
+>> indeed a bottleneck, modifying it is difficult. However, some other
+>> virtio devices have multi queues for different usages.
+>>
+>> And actually such as NPUs, TPUs, or custom ASICs, no display compute
+>> card all go to the virglrenderer seem like not a natural long term
+>> abstraction.
+> 
+> It's not clear to me if you're still wanting to have current virtio-gpu
+> ROCm context version landed upstream, or you now looking for a better
+> alternative?
+> 
+> Virtio-gpu multi-queue support was in discussions over past years,
+> primary driven by ChromeOS+crosvm needs. Yes, it's not a trivial task to
+> support multi-queue, no progress was made on it AFAIK.
+> 
 
-> ---
-> This is an alternative to Jernej's original revert:
-> https://lore.kernel.org/all/3980ea1aeb3f7fe8b4700e36560deeba3d050664.1785=
-772659.git.jernej.skrabec@gmail.com/
-> ---
->  drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
->
-> diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun=
-4i/sun8i_vi_layer.c
-> index 2e9cda45c04e..185e9e5211c1 100644
-> --- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-> +++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-> @@ -207,6 +207,20 @@ static void sun8i_vi_layer_update_buffer(struct sun8=
-i_layer *layer,
->                 /* Get the start of the displayed memory */
->                 dma_addr =3D drm_fb_dma_get_gem_addr(fb, state, i);
->
-> +               /*
-> +                * The mixer can handle odd offsets into sub-sampled YUV
-> +                * planes, but needs the address of the first pixel in ea=
-ch
-> +                * sub-sampled block. Adjust the luma buffer address back=
-wards.
-> +                */
-> +               if (i =3D=3D 0) {
-> +                       u32 x_diff, y_diff;
-> +
-> +                       x_diff =3D (state->src.x1 >> 16) & (format->hsub =
-- 1);
-> +                       y_diff =3D (state->src.y1 >> 16) & (format->vsub =
-- 1);
-> +                       dma_addr -=3D y_diff * fb->pitches[i];
-> +                       dma_addr -=3D x_diff * format->cpp[i];
-> +               }
-> +
->                 /* Set the line width */
->                 DRM_DEBUG_DRIVER("Layer %d. line width: %d bytes\n",
->                                  i + 1, fb->pitches[i]);
-> --
-> 2.55.0.979.g7e5102b832-goog
->
+Yes, we are still aiming to land the upstream ROCm native context on 
+virtio-gpu.
+
+And please take the large buffer mapping into design consider for multi 
+queue support, we have a performance bottleneck here.
+
+
+Regards,
+Honglei
+
+
+
