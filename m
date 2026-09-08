@@ -4,51 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1BE5C79FA1
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 11:00:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41297C79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 11:07:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40F6210EB13;
-	Tue,  8 Sep 2026 11:00:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8491410E0E3;
+	Tue,  8 Sep 2026 11:07:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HLWafxTw";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="GwfEaMs2";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04D3410EB13
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 11:00:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 33C8260AA2;
- Tue,  8 Sep 2026 11:00:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D3361F00A3F;
- Tue,  8 Sep 2026 11:00:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788865255;
- bh=YUBi9cz8P5up80+XfrrGReU0+/VNjJYUMKNLQu76ATw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=HLWafxTwNoUcaPxfktKqbC1ra7sh9/CWHu+D2DJTV8lZcAWyoKxwWO7A6yP8IMkA2
- AhFipwqC2X/sx3X63BxphU/0fWifll25efLNDQmGMhzZU/ciwWg6GOUl6OAQI+4N6r
- nhqqhCpcf1s5f2myySQvwhoP9l+OUvbwsnd6LpmaIgV8/oQY+YF9qX671Vmtp1X9KU
- JPsX0fr5JJPTmHCys882nX4+WhZ2fLm9ZCwrVcQLAo7Jgjo4hIhlzyDnbIBN2VX7rH
- UMsx5p9O9AkrwD0IeFL9rwkuUkwvtIAH8jz0d4OgkNYCh3nFVg57wCRhf7GUHYHP/v
- mgaph7wKPnsUA==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, dakr@kernel.org,
- Marco Pagani <marco.pagani@linux.dev>, Alice Ryhl <aliceryhl@google.com>,
- Gary Guo <gary@garyguo.net>, Jonghyuk Kim <malhyuk97@gmail.com>,
- Maxime Ripard <mripard@kernel.org>, Jiri Slaby <jirislaby@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Philipp Stanner <phasta@kernel.org>
-Subject: [RFC PATCH 2/2] drm/i915: Adjust to RCU-less fence
-Date: Tue,  8 Sep 2026 12:59:27 +0200
-Message-ID: <20260908105926.1120378-3-phasta@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260908105926.1120378-2-phasta@kernel.org>
-References: <20260908105926.1120378-2-phasta@kernel.org>
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 683F210E0E3
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 11:07:55 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hfLkw2XVqzMlGk;
+ Tue, 08 Sep 2026 13:07:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1788865672; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=w7Bt62xe+5MP6LLxYlu1Io9gYViozGYzljouWDKNZL8=;
+ b=GwfEaMs2ZM1KbNLWf04twW9UZAKtrk0RzznFK26PlgE4yglGKlDk5BpM/6qdagCJOhOxIF
+ 1OrmtaKx9AByJsVFBEopM2td8IPz/U+Jn30LRY+a4ZYNsC12euOZfKG/wH31g++r4kzWiE
+ ksw6/sIEYPhS8Ab8E8hKIZKEwcKxb99/dQpaRI3RzQbc9XqkezdUYyObXpq7WJqMYbUD6E
+ aGLm3yt1N/shapBejM+R8wNQNoTsRv24DdQSKpkfez3+es5VQPtAdkdQT6Ta+mWbEx5JKx
+ Flz48oLJdi5FS0h1DZcgd76fwWEIdYF81WrEbyMDSe2R7P3Igi0lSrR4Ig/JIQ==
+Message-ID: <909f7ed1b2688fb2f727afb879642cda5cad9e5e.camel@mailbox.org>
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
+ use-after-free
+From: Philipp Stanner <phasta@mailbox.org>
+To: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>, christian.koenig@amd.com,
+ phasta@kernel.org, tursulin@ursulin.net, matthew.brost@intel.com,
+ dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
+ stable@vger.kernel.org
+Date: Tue, 08 Sep 2026 13:07:46 +0200
+In-Reply-To: <20260908104910.183638-1-malhyuk97@gmail.com>
+References: <20260904080618.2098450-1-malhyuk97@gmail.com>
+ <20260904080618.2098450-2-malhyuk97@gmail.com>
+ <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
+ <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
+ <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
+ <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
+ <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
+ <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
+ <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
+ <c3434f0a80318390d183a3a2f8f8fb3ae71c9906.camel@mailbox.org>
+ <2aa58eb8-a33f-45b9-8ee0-518d72160f41@ursulin.net>
+ <206df2dad0c68b8c25862c74c0a8399940044af2.camel@mailbox.org>
+ <fa12360b-2ccf-41c4-a158-84e34835c0e9@amd.com>
+ <299ef4389875fe1333bb934edcece3bee5c5526b.camel@mailbox.org>
+ <825c1f02-b9ad-4160-8e4b-53f2393a7bff@amd.com>
+ <20260908104910.183638-1-malhyuk97@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: o1s5duoqc8bbq7toip8p36w6dz5a93e9
+X-MBO-RS-ID: 63113cdb2f871110c03
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,121 +80,45 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dma_fence has been reworked in a way that it allows for handling fences
-without any need for RCU functionality.
+On Tue, 2026-09-08 at 19:49 +0900, Jonghyuk Kim(MalHyuk) wrote:
+> Tested-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
+>=20
+> Two things it doesn't cover: it's x86 only, so nothing about the load ord=
+ering
+> you discussed;
 
-Adjust i915 accordingly.
+Christian and I think that it shouldn't be an issue anymore. Both
+values are loaded and the ops pointer cannot become invalid until an
+RCU grace period has passed. Similarly, sched must not be cleaned up
+before that.
 
-(Serves as an example to show how the situation gets easier for users)
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- drivers/gpu/drm/i915/gt/intel_gt_requests.c | 10 ++++------
- drivers/gpu/drm/i915/i915_request.c         |  6 ++----
- drivers/gpu/drm/i915/i915_sw_fence.c        | 10 ++++------
- 3 files changed, 10 insertions(+), 16 deletions(-)
+>  and only the signaled case - for a fence exported before it
+> signals, get_timeline_name() is still reached and reads fence->sched->nam=
+e.
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.c b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-index 93298820bee2..724c4359f688 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-@@ -238,6 +238,8 @@ void intel_gt_fini_requests(struct intel_gt *gt)
- 
- void intel_gt_watchdog_work(struct work_struct *work)
- {
-+	char driver[64] = "";
-+	char timeline[64] = "";
- 	struct intel_gt *gt =
- 		container_of(work, typeof(*gt), watchdog.work);
- 	struct i915_request *rq, *rn;
-@@ -250,17 +252,13 @@ void intel_gt_watchdog_work(struct work_struct *work)
- 	llist_for_each_entry_safe(rq, rn, first, watchdog.link) {
- 		if (!i915_request_completed(rq)) {
- 			struct dma_fence *f = &rq->fence;
--			const char __rcu *timeline;
--			const char __rcu *driver;
- 
--			rcu_read_lock();
--			driver = dma_fence_driver_name(f);
--			timeline = dma_fence_timeline_name(f);
-+			dma_fence_driver_name(f, driver, 64);
-+			dma_fence_timeline_name(f, timeline, 64);
- 			pr_notice("Fence expiration time out i915-%s:%s:%llx!\n",
- 				  rcu_dereference(driver),
- 				  rcu_dereference(timeline),
- 				  f->seqno);
--			rcu_read_unlock();
- 			i915_request_cancel(rq, -EINTR);
- 		}
- 		i915_request_put(rq);
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index d2c7b1090df0..2a3df13217b9 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -2185,7 +2185,7 @@ void i915_request_show(struct drm_printer *m,
- 		       const char *prefix,
- 		       int indent)
- {
--	const char __rcu *timeline;
-+	char timeline[64] = "";
- 	char buf[80] = "";
- 	int x = 0;
- 
-@@ -2221,8 +2221,7 @@ void i915_request_show(struct drm_printer *m,
- 
- 	x = print_sched_attr(&rq->sched.attr, buf, x, sizeof(buf));
- 
--	rcu_read_lock();
--	timeline = dma_fence_timeline_name((struct dma_fence *)&rq->fence);
-+	dma_fence_timeline_name((struct dma_fence *)&rq->fence, timeline, 64);
- 	drm_printf(m, "%s%.*s%c %llx:%lld%s%s %s @ %dms: %s\n",
- 		   prefix, indent, "                ",
- 		   queue_status(rq),
-@@ -2232,7 +2231,6 @@ void i915_request_show(struct drm_printer *m,
- 		   buf,
- 		   jiffies_to_msecs(jiffies - rq->emitted_jiffies),
- 		   rcu_dereference(timeline));
--	rcu_read_unlock();
- }
- 
- static bool engine_match_ring(struct intel_engine_cs *engine, struct i915_request *rq)
-diff --git a/drivers/gpu/drm/i915/i915_sw_fence.c b/drivers/gpu/drm/i915/i915_sw_fence.c
-index f24f616e23ee..d0e733beff86 100644
---- a/drivers/gpu/drm/i915/i915_sw_fence.c
-+++ b/drivers/gpu/drm/i915/i915_sw_fence.c
-@@ -427,25 +427,23 @@ static void dma_i915_sw_fence_wake(struct dma_fence *dma,
- 
- static void timer_i915_sw_fence_wake(struct timer_list *t)
- {
-+	char driver[64] = "";
-+	char timeline[64] = "";
- 	struct i915_sw_dma_fence_cb_timer *cb = timer_container_of(cb, t,
- 								   timer);
- 	struct i915_sw_fence *fence;
--	const char __rcu *timeline;
--	const char __rcu *driver;
- 
- 	fence = xchg(&cb->base.fence, NULL);
- 	if (!fence)
- 		return;
- 
--	rcu_read_lock();
--	driver = dma_fence_driver_name(cb->dma);
--	timeline = dma_fence_timeline_name(cb->dma);
-+	dma_fence_driver_name(cb->dma, driver, 64);
-+	dma_fence_timeline_name(cb->dma, timeline, 64);
- 	pr_notice("Asynchronous wait on fence %s:%s:%llx timed out (hint:%ps)\n",
- 		  rcu_dereference(driver),
- 		  rcu_dereference(timeline),
- 		  cb->dma->seqno,
- 		  i915_sw_fence_debug_hint(fence));
--	rcu_read_unlock();
- 
- 	i915_sw_fence_set_error_once(fence, -ETIMEDOUT);
- 	i915_sw_fence_complete(fence);
--- 
-2.55.0
+Is this an issue? A fence can only be exported if the scheduler exists.
 
+The hard rule with dma_fence is that all drivers must signal all of
+them before they tear down the scheduler and clean up driver resources.
+This then does the decoupling.
+
+I think that rule is really the only chance we have to get things
+right.
+
+> I haven't tried to build that case.
+>=20
+> Could you add a Reported-by for me when you post it? I'm happy to drop my
+> v4 1/3 in favour of this, and can respin the KUnit test standalone so the
+> fix lands with a regression test.
+
++1
+I think since it's @Christian's patch he'll take care of it
+
+
+Thanks
+P.
