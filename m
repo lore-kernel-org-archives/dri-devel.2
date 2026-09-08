@@ -4,43 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60149C79FA1
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 22:18:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9923C79FA1
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 22:18:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F0F410EDCC;
-	Tue,  8 Sep 2026 22:18:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0897E10EDD1;
+	Tue,  8 Sep 2026 22:18:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Rqvsp2ep";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=leandro.ribeiro@collabora.com header.b="kTEnG4Aw";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E397210EDCC
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 22:18:23 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CD2C141639
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 22:18:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 927AF1F00A3A;
- Tue,  8 Sep 2026 22:18:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788905903;
- bh=wfsBmdFAySsvGk3lfeNwqwIsh2Jn2nSDGzG1yWDWNNw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Rqvsp2epKNoKgMdMiFd2zV++i09fVeMDPpukJV2QteU1Myp3adXvR0+MSpeD4Jpov
- HuhD997p0ASV4k7wdUFDXF/jf5zto4ipegYP3N0TLl7+EeqwAnbC9+IGs/fN1opUst
- 0WXwajry5oKJDUkRTuDa1ORnYp2bB7Ks5+GGLqgYTVrd9Smzu1xGv82v+GuyzhUaIr
- b3xFtUp66f18NgGX6Q0IU5C3mAEpNmw2UbfM8lhZtp6/qvLxTF3iQZw5QiNFBzH237
- 2HoGWDaNG0ZC+bu6UCfKdD3jsEo4fcXjEd0Xbg1r5EZ2hjJEQw9QRhWKQlsN9C2g5x
- qixNpowbghY3A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 03/22] accel: ethosu: Fix probe error cleanup
-To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260908-ethosu-fixes-v3-3-490fe215286f@kernel.org>
-References: <20260908-ethosu-fixes-v3-0-490fe215286f@kernel.org>
- <20260908-ethosu-fixes-v3-3-490fe215286f@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 22:18:23 +0000
-Message-Id: <20260908221823.927AF1F00A3A@smtp.kernel.org>
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 797E410EDD1
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 22:18:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1788905916; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=ZfQ1fHSTdL4Utckb7F8TIEPF3XaBGg+HB/ABRvZ2oKPwNVS7UXmtC0YbskMcdJirF9B8Nuf9HJJUL/52hC6kXWK13Cs+x1Vv0YdltRMce2SzXd51z5Uq+wH8SJSqAMWoj2/oCUiWj/HD/WXqAYm9jMKJWj5WjrGWez755kqyJ+Q=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1788905916;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=uX34t09K/6FyPyum4/uGWqSmdiYpZyqWkAPNdfi7dkI=; 
+ b=hQEcRL0GUdUoRow6VydCozYW+dfP+j7hNI4HQ3jgRSrUps2d9+wn1Yx8IvXlTlR43XRiYotFBeoioGtz8fOlXpGMpc+bZogqOmZhzL3yxbool4PWEvLY6XZMer7X6mvWEUtHl2Sw+XDrztYuZr9B3Ck0Vwdnt6sTi+/Z4MWgSAc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=leandro.ribeiro@collabora.com;
+ dmarc=pass header.from=<leandro.ribeiro@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788905916; 
+ s=zohomail; d=collabora.com; i=leandro.ribeiro@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=uX34t09K/6FyPyum4/uGWqSmdiYpZyqWkAPNdfi7dkI=;
+ b=kTEnG4AweUAcrf2bnxFvoVfIEu29rIm3OKOqdng6yADsoBA11ONtYq2fQ+Jo7eJA
+ IXhyzrzo50W1FKYnK94G8Q7c7Q0q8oFM2Yusis8f4DFxf+smZxAWSKSPdMj28uFK1dM
+ qkLJYDxWoydnHqqDSAkShJmIA2KLkaHIuKcIvzM0=
+Received: by mx.zohomail.com with SMTPS id 1788905915266449.26774191890786;
+ Tue, 8 Sep 2026 15:18:35 -0700 (PDT)
+Message-ID: <44c5ceae-4824-4b45-878c-1aac9e646116@collabora.com>
+Date: Tue, 8 Sep 2026 19:18:29 -0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/vkms: Add pixel blend mode property
+To: oushixiong1025@163.com, Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Melissa Wen <melissa.srw@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>,
+ Ye Liu <liuye@kylinos.cn>
+References: <20260828090257.788076-1-oushixiong1025@163.com>
+Content-Language: en-US
+From: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+In-Reply-To: <20260828090257.788076-1-oushixiong1025@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,171 +69,85 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] The IRQ is requested and enabled before the DRM scheduler is fully=
- initialized and before device clocks are enabled, causing potential crashe=
-s or bus stalls on spurious/pending interrupts.
-- [High] The DRM scheduler is torn down while the device IRQ is still activ=
-e, allowing the IRQ handler to access destroyed scheduler structures.
-- [High] `ethosu_job_fini()` clears the `in_flight_job` without signaling i=
-ts `done_fence`, causing tasks waiting on the fence to hang indefinitely.
-- [High] Use-After-Free during device removal due to missing `drm_dev_enter=
-()`/`drm_dev_exit()` in ioctls.
---
 
-commit cee294332b061aafaf416ab459f70a84d756797f
-Author: Rob Herring (Arm) <robh@kernel.org>
-
-accel: ethosu: Fix probe error cleanup
-   =20
-This commit fixes a probe error path bug in the Ethos-U NPU driver.
-If ethosu_init() or drm_dev_register() fails, the probe function returns
-without tearing down the job scheduler or freeing the SRAM pool.
-The commit adds proper resource unwinding for these failure paths.
-
-Cc: stable@vger.kernel.org
-
-> diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/eth=
-osu_drv.c
-> index 1f6fb5d18cf22..2c8d735767b2a 100644
-> --- a/drivers/accel/ethosu/ethosu_drv.c
-> +++ b/drivers/accel/ethosu/ethosu_drv.c
-> @@ -375,9 +375,20 @@ static int ethosu_probe(struct platform_device *pdev)
-> =20
->  	ret =3D ethosu_init(ethosudev);
->  	if (ret)
-> -		return ret;
-> +		goto err_job_fini;
-
-[Severity: High]
-This is a pre-existing issue, but does calling ethosu_job_init() before
-ethosu_init() leave us vulnerable to spurious interrupts?
-
-In ethosu_probe(), the IRQ is requested and enabled via
-devm_request_threaded_irq() (without IRQF_NO_AUTOEN) during
-ethosu_job_init(). However, device clocks are not enabled until
-ethosu_init() runs.
-
-If a pending or spurious interrupt fires immediately before clocks are enab=
-led:
-
-ethosu_job_irq_handler() {
-    u32 status =3D readl_relaxed(dev->regs + NPU_REG_STATUS);
-    ...
-}
-
-Can reading from memory-mapped registers with disabled clocks stall the bus
-or cause a synchronous external abort? Furthermore, if the thread handler
-executes, it calls drm_sched_fault() on a scheduler that may not be fully
-initialized yet.
-
->  	ret =3D drm_dev_register(&ethosudev->base, 0);
+On 8/28/26 6:02 AM, oushixiong1025@163.com wrote:
+> From: Shixiong Ou <oushixiong@kylinos.cn>
+> 
+> The vkms planes expose formats with an alpha channel but do not
+> create the pixel blend mode property. Since
+> commit 860e748bddcc ("drm: ensure blend mode supported if pixel
+> format with alpha exposed") this triggers a warning during
+> drm_mode_config_validate():
+> 
+> [  993.538979] ------------[ cut here ]------------
+> [  993.539000] [PLANE:35:plane-0] pixel format with alpha exposed but blend mode not setup
+> [  993.539063] WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate
+> ......
+> [  993.539578] Call trace:
+> [  993.539580]  drm_mode_config_validate+0x398/0x558 [drm] (P)
+> [  993.539707]  drm_dev_register+0x1cc/0x2a0 [drm]
+> [  993.539832]  vkms_create+0x184/0x1d0 [vkms]
+> [  993.539854]  vkms_init+0x78/0xff8 [vkms]
+> ......
+> 
+> The vkms composer only blends premultiplied alpha, see
+> pre_mul_alpha_blend(), so create the property with
+> DRM_MODE_BLEND_PREMULTI as the only supported mode.
+> 
+> Reported-by: Ye Liu <liuye@kylinos.cn>
+> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+> ---
+>  drivers/gpu/drm/vkms/vkms_plane.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
+> index 6ee5c3f3207c..c4272f5f0354 100644
+> --- a/drivers/gpu/drm/vkms/vkms_plane.c
+> +++ b/drivers/gpu/drm/vkms/vkms_plane.c
+> @@ -276,6 +276,7 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
+>  {
+>  	struct drm_device *dev = &vkmsdev->drm;
+>  	struct vkms_plane *plane;
+> +	int ret;
+>  
+>  	plane = drmm_universal_plane_alloc(dev, struct vkms_plane, base, 0,
+>  					   &vkms_plane_funcs,
+> @@ -287,6 +288,15 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
+>  
+>  	drm_plane_helper_add(&plane->base, &vkms_plane_helper_funcs);
+>  
+> +	/*
+> +	 * The vkms composer only blends premultiplied alpha, see
+> +	 * pre_mul_alpha_blend(), so that is the only supported mode.
+> +	 */
+> +	ret = drm_plane_create_blend_mode_property(&plane->base,
+> +						   BIT(DRM_MODE_BLEND_PREMULTI));
 > +	if (ret)
-> +		goto err_sram_free;
+> +		return ERR_PTR(ret);
 > +
-> +	return 0;
-> +
-> +err_sram_free:
-> +	if (ethosudev->sram)
-> +		gen_pool_free(ethosudev->srampool, (unsigned long)ethosudev->sram,
-> +			      ethosudev->npu_info.sram_size);
-> +err_job_fini:
-> +	ethosu_job_fini(ethosudev);
 
-[Severity: High]
-This is a pre-existing issue, but does calling ethosu_job_fini() here tear
-down the scheduler while the device IRQ is still active?
+Hello,
 
-ethosu_job_fini() calls synchronize_irq() to wait for executing handlers,
-but does not disable the IRQ line before calling drm_sched_fini().
+This looks good to me! But I think the comment in pre_mul_alpha_blend()
+could also be updated. It states:
 
-Because the IRQ is managed by devres, it remains enabled until devres
-teardown, which happens after the probe error path completes. If the device
-generates an interrupt in this window, the thread handler can execute:
+"The current DRM assumption is that pixel color values have been already
+pre-multiplied with the alpha channel values"
 
-ethosu_job_handle_irq() {
-    ...
-    drm_sched_fault(&dev->sched);
-}
+Which is not true anymore.
 
-Could this result in a use-after-free by accessing the already-destroyed
-DRM scheduler?
+With this change:
 
-[Severity: High]
-This is also a pre-existing issue, but does ethosu_job_fini() clear the
-in-flight job without signaling its completion fence?
+Reviewed-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
 
-When ethosu_job_fini() checks READ_ONCE(dev->in_flight_job), if it is
-populated, it clears the pointer and resets the hardware:
+>  	drm_plane_create_rotation_property(&plane->base, DRM_MODE_ROTATE_0,
+>  					   DRM_MODE_ROTATE_MASK | DRM_MODE_REFLECT_MASK);
+>  
 
-ethosu_job_fini() {
-    ...
-    if (READ_ONCE(dev->in_flight_job)) {
-        WRITE_ONCE(dev->in_flight_job, NULL);
-        ethosu_device_reset(dev);
-    }
-    ...
-}
+-- 
+Leandro Ribeiro
 
-Because the hardware is reset, the completion interrupt will never arrive.
-Without extracting the job and signaling its done_fence (e.g., with
--ECANCELED), could this cause userspace or kernel tasks waiting on the
-fence to hang indefinitely during probe failure or driver unbind?
-
->  	return ret;
->  }
-> =20
-> diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/eth=
-osu_job.c
-> index 8dce74db0cb48..ec65305e0cd7d 100644
-> --- a/drivers/accel/ethosu/ethosu_job.c
-> +++ b/drivers/accel/ethosu/ethosu_job.c
-
-[ ... ]
-
-> @@ -355,14 +355,10 @@ int ethosu_job_init(struct ethosu_device *edev)
->  	ret =3D drm_sched_init(&edev->sched, &args);
->  	if (ret) {
->  		dev_err(dev, "Failed to create scheduler: %d\n", ret);
-> -		goto err_sched;
-> +		return ret;
->  	}
-> =20
->  	return 0;
-> -
-> -err_sched:
-> -	drm_sched_fini(&edev->sched);
-> -	return ret;
->  }
-
-[Severity: High]
-This isn't a bug introduced by this patch, but are the driver's ioctls
-missing drm_dev_enter() and drm_dev_exit() protections?
-
-During a hot-unplug event, ethosu_remove() calls drm_dev_unregister(),
-which stops new opens but allows existing file descriptors to persist. It
-then tears down the DRM scheduler via ethosu_job_fini().
-
-However, ethosu_ioctl_submit() and the ETHOSU_PERFMON_* ioctls do not verify
-the device plug state. A concurrent userspace process holding the file
-descriptor can still issue the ETHOSU_SUBMIT ioctl:
-
-ethosu_ioctl_submit_job() {
-    ...
-    ret =3D drm_sched_job_init(&ejob->base, &file_priv->sched_entity, ...);
-    ...
-}
-
-Can this lead to a use-after-free if userspace calls into the DRM scheduler
-after dev->sched has been destroyed during device removal?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-ethosu-fix=
-es-v3-0-490fe215286f@kernel.org?part=3D3
