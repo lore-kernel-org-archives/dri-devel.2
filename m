@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A9FAC79F9E
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 14:47:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEA87C79F9E
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 14:47:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7882210EC5B;
-	Tue,  8 Sep 2026 14:47:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BE6310EC5C;
+	Tue,  8 Sep 2026 14:47:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oULxo5+P";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L0uGtzpo";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71F9E10EC5B
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 14:47:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4660F10EC5C
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 14:47:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5BD6843930;
- Tue,  8 Sep 2026 14:47:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6EA21F00A3D;
- Tue,  8 Sep 2026 14:47:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2EBBF40E18;
+ Tue,  8 Sep 2026 14:47:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F8B21F00A3A;
+ Tue,  8 Sep 2026 14:47:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788878861;
- bh=hZOz635FpRFueJ8vpjQ1tvj25AorcZJOJy3wCfSXsgM=;
+ s=k20260515; t=1788878865;
+ bh=5hOFIYPfiwTq67bizRYyz9qKOKq5NVxm/eJt2w1yefU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=oULxo5+PT9d9GKf8L9+E2VGtRBJZy9jNWyuIkvY1pB0ELDhpCvMTVqIE8LlJImFT8
- 8EIjSvS8rdhdXMupF6U4vymWOcJesWdrA3owddxtshHScfqF7pBhu8njkVafUAnZTC
- b5EjJJf44o8e3oDHoCkRphnLR7Q+kCS8wyhm/6cg45b+seh078ki9CDpPsW25jzC0P
- b7BJV3Cxbd7NiMHGUAp1oQ3hcZUOLXQfknw5Wqv02cOy7/KuuUGO6GHAvuEHeao952
- My8+M3+tpCbQAvLisBegSGzJBcvrSG04mjnYMulX9Upv32iYn6XIIISkeBA6Phh/9K
- XKxA1vxCOR6gQ==
+ b=L0uGtzpoNPYuxPNF95DoxCG/xc4M/9jb+X2guS0CLT2ucgtyP5SVK8afTaOlSSj2L
+ Bq0mK3fGH1x/w5VXbRJd28zM3GtelWEapeWfhaAdpucvH+6vqT0IjMPZPz/rX/dbf0
+ F37lqLd/4CX+vc05jjMBG+jt0f3DrDzmmFz6Z1FmnLS4XR2X12iY7RLrE/cJBd3h7T
+ tEDoSE/HyLBWtjMGePrKhGgIucPObUEkkFFq51fflXxfEvYv8uw8DnV7DRA8QZq8Ot
+ oulVMsHHHXPprfq8hJYgjluuk69Ojna9pcAIJWzk9vAXuZryuOCx/2Ig23d//ZIM6h
+ tCVx3Lj6FEI2g==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 08 Sep 2026 16:46:41 +0200
-Subject: [PATCH v4 10/41] drm/logicvc: Convert to atomic_create_state
+Date: Tue, 08 Sep 2026 16:46:42 +0200
+Subject: [PATCH v4 11/41] drm/loongson: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-drm-no-more-plane-reset-v4-10-a31b3fcfc989@kernel.org>
+Message-Id: <20260908-drm-no-more-plane-reset-v4-11-a31b3fcfc989@kernel.org>
 References: <20260908-drm-no-more-plane-reset-v4-0-a31b3fcfc989@kernel.org>
 In-Reply-To: <20260908-drm-no-more-plane-reset-v4-0-a31b3fcfc989@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- paulk@sys-base.io
+ chenhuacai@kernel.org, jeffbai@aosc.io, lvjianmin@loongson.cn, 
+ wuqianhai@loongson.cn, xry111@xry111.site, zhengxingda@iscas.ac.cn
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5965; i=mripard@kernel.org;
- h=from:subject:message-id; bh=8p12zpZ9zfmp51eV3qp3OFIOiWR9HMnoyrCUlmg/nNQ=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkL5C9uPf635+pM/mmCHM6bjlndqn1zJ0+H533elYTGh
- XVL6o29OqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBE1p1kbFhRceFBKcO317cW
- Xjj+fP7l2/8+2RXfbG4NFyvq322zdpp0ktudmEnzp99NkF8VE/mQ/wxjDc+tjFXPZ7coLzy6cMm
- FZ+/Wlm1Qs+XZeGftwVX5q45mps5evmbj7vSHEZ4BUxTlyz9/8AAA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6065; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=NFa8GBQIWH/RTB1sSHzWjfMvbOOHhOnfWPhCSxmLEfk=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkL5C/xPn57veFZbr2xg7WdM2NcoVLZyqjMp1/49nH6F
+ VT4r3/ZMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACZyKJKx4d7tmv8Lqw4uDJXy
+ 273Bky+B6Y7djOY4/b5/U23Ohj7T5sk1WLrOx/go+5WrDz/Oz1Q0YKyv/snNsHHZcvc6izM8Tj1
+ HH75Nm8/MZpVgWD85X/jZrOm7DfpbZv0Jei2QXPVYuG7dl6MA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -334,28 +335,33 @@ expression PS;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: paulk@sys-base.io
+Cc: chenhuacai@kernel.org
+Cc: jeffbai@aosc.io
+Cc: lvjianmin@loongson.cn
+Cc: wuqianhai@loongson.cn
+Cc: xry111@xry111.site
+Cc: zhengxingda@iscas.ac.cn
 ---
- drivers/gpu/drm/logicvc/logicvc_layer.c | 2 +-
+ drivers/gpu/drm/loongson/lsdc_plane.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/logicvc/logicvc_layer.c b/drivers/gpu/drm/logicvc/logicvc_layer.c
-index 7f5ba000188a..947416856381 100644
---- a/drivers/gpu/drm/logicvc/logicvc_layer.c
-+++ b/drivers/gpu/drm/logicvc/logicvc_layer.c
-@@ -249,11 +249,11 @@ static struct drm_plane_helper_funcs logicvc_plane_helper_funcs = {
+diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c b/drivers/gpu/drm/loongson/lsdc_plane.c
+index bea42215796d..25a38e6a6e51 100644
+--- a/drivers/gpu/drm/loongson/lsdc_plane.c
++++ b/drivers/gpu/drm/loongson/lsdc_plane.c
+@@ -450,11 +450,11 @@ static void lsdc_plane_atomic_print_state(struct drm_printer *p,
  
- static const struct drm_plane_funcs logicvc_plane_funcs = {
- 	.update_plane		= drm_atomic_helper_update_plane,
- 	.disable_plane		= drm_atomic_helper_disable_plane,
- 	.destroy		= drm_plane_cleanup,
--	.reset			= drm_atomic_helper_plane_reset,
-+	.atomic_create_state	= drm_atomic_helper_plane_create_state,
- 	.atomic_duplicate_state	= drm_atomic_helper_plane_duplicate_state,
- 	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
+ static const struct drm_plane_funcs lsdc_plane_funcs = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+ 	.destroy = drm_plane_cleanup,
+-	.reset = drm_atomic_helper_plane_reset,
++	.atomic_create_state = drm_atomic_helper_plane_create_state,
+ 	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+ 	.atomic_print_state = lsdc_plane_atomic_print_state,
  };
  
- int logicvc_layer_buffer_find_setup(struct logicvc_drm *logicvc,
 
 -- 
 2.55.0
