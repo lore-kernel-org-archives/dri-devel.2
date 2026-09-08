@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 786EAC79FB8
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:56:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9983FC79FAA
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:56:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55DE310EF5B;
-	Wed,  9 Sep 2026 06:55:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E1DC10EF5F;
+	Wed,  9 Sep 2026 06:55:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f+Mr+LZ5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BIny8R0H";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7E0610E4BE
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:13:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 929C410E4DE
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:16:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4ABB5601F9;
- Tue,  8 Sep 2026 20:13:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 041C11F00A3D;
- Tue,  8 Sep 2026 20:13:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1477E601DE;
+ Tue,  8 Sep 2026 20:16:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD5741F00A3A;
+ Tue,  8 Sep 2026 20:15:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788898433;
- bh=zxsoHiZuiEmxcJzcWN4k6DuzJHqi17MQRpDsUiD+p6A=;
+ s=k20260515; t=1788898576;
+ bh=pdqrKu8t+WYJ+ouEDCa9SDonWfa/NDTVSZ6bOn7dzu0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=f+Mr+LZ58EWjR1Vj2Y5dhsxFsGCZxc+h1J3z0LW/Dz9YFUtW31pXWkPAuPHaQLwT6
- XID45ZVviQp1sn4ZyDvfZC0qj8TiV4MhitcrJ5xl4HyXLD4mbiHsILxVcHNJu1r1eF
- +IgSffXPhD1650r0HHbohuhzizR6waCzyazMS2u9ne16fJavkbA8xOgfWVIY7CLOev
- +CXWw8pxxuoSNswby4MLsIWIbEgAVKt0RocXC7OHhsVYfUZSss/lLjIkmorwpW+XTm
- XGAivUcLQSspqcjTNjKulBCyAjPHqAYEL4W5mIN09vBk00oewkoopdDJb/9JVzsb8j
- wR2ZUYVjlTEEQ==
+ b=BIny8R0H16xJOceHNFcowy6Hr/hPn3LpxBR3bBmr4ZsMC9AipqSk8VrHCGZMG90j4
+ +rVBnsAk/T4cv60Ej5f8N4w8zpucQ/kpjVhsajnXqYy/eJn98Ogd/N0Aq6Mjfn3vgb
+ YvxmZ8zyRYOnkjzeww3CKnk+IP7ZU4VyRCnICMQc5STFGwsOeq2zUB1jgb6y0Xedh1
+ DCKtBeX7Z7Zld3RG3/pPTQEfrE+z0+SP5og2sTRztF2Jlg7Rljt4VdSbtfiLJaH6Ul
+ WMqVFncdOGI3cpq3kl4nMgr2YmIhGLFyxfSzlEXpxv/oxYHx1w+q3ZX278KV0w4la+
+ Gz0T8bZwmz9/w==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 08 Sep 2026 21:01:28 +0100
-Subject: [PATCH 24/39] mm/vma: enforce that only kernel-owned mappings may
- set VMA_IO_BIT
+Date: Tue, 08 Sep 2026 21:01:33 +0100
+Subject: [PATCH 29/39] mm/madvise: update is_valid_guard_vma() to use
+ vma_can_merge()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-24-dacf19cce22b@kernel.org>
+Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-29-dacf19cce22b@kernel.org>
 References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
 In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -121,12 +121,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=988; i=ljs@kernel.org;
- h=from:subject:message-id; bh=Waz7DiD3rguBJppiiScbshRu8gUGaEpIlzQeObU8kmI=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG6xdK1TKJ/+t6vvAO+7/4wPmDUiFX991cpqLJkr4
- rrsxsr3HaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZjIrl+MDGuZw/32qyX85TdQ
- 2J3TPqvM223zrmdpi5nrqw3n2xX8/MDwPyZeaV/9mzmlK9K3p066/oSRYfW007c8v/9Ivea/xOh
- KCjcA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1939; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=ggho2nxN8+GLmUxl2AhYwXCAN84J7vCZcuIKKsWQe0k=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG41r7miprb/jZSCkXTIIZ3+TOGnJ3YKTDta80Thr
+ Ov9BZ+ndZSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiDkyMDFsWcE/vDbgY2jCD
+ R+ZzzP+HT+4KPvb/MW3p7El9O7/qF7QyMqyeKRI3OeOiz/pLa2Y9miPUXGz4+Py6Wp/gfNNLS9y
+ Pe7MBAA==
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:54:46 +0000
@@ -145,38 +145,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-It makes no sense for a mapping whose contents the kernel does not own to
-specify that the range is MMIO.
+We currently disallow the installation of lightweight guard regions in VMAs
+whose flags intersect VMA_SPECIAL_FLAGS or VMA_HUGETLB_BIT, or
+VMA_LOCKED_BIT unless allow_locked is set.
 
-Prior to this patch, all in-tree drivers which did so have been updated
-such that they are marked as kernel-owned. The check WARNs and fails the
-mmap for any out-of-tree driver that still sets VMA_IO_BIT without a kernel
-mapping.
+hugetlb VMAs set VMA_DONTEXPAND_BIT so this was already redundant,
+VMA_SPECIAL_FLAGS already sufficed.
 
-No functional change intended for in-tree code.
+However, now that VMA_IO_BIT is only set if VMA_PFNMAP or VMA_MIXEDMAP_BIT
+is set, this check collapses to being the equivalent of
+!vma_can_merge().
+
+Update is_valid_guard_vma() to reflect this.
+
+No functional change intended.
 
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/vma.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ mm/madvise.c | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/mm/vma.c b/mm/vma.c
-index cb0c4c625756..5996757d5aaf 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -2772,6 +2772,12 @@ static int mmap_validate_vma_flags(const vma_flags_t *flags)
- 		return -EINVAL;
- #endif
- 
-+	if (!vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT)) {
-+		/* Only kernel-owned mappings may set VMA_IO_BIT. */
-+		if (WARN_ON_ONCE(vma_flags_test(flags, VMA_IO_BIT)))
-+			return -EINVAL;
-+	}
-+
- 	return 0;
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 2db11c832d0f..d0b14cfe38a1 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -1055,19 +1055,25 @@ static long madvise_remove(struct madvise_behavior *madv_behavior)
+ 	return error;
  }
  
+-static bool is_valid_guard_vma(struct vm_area_struct *vma, bool allow_locked)
++static bool is_valid_guard_vma(const struct vm_area_struct *vma,
++			       bool allow_locked)
+ {
+-	vm_flags_t disallowed = VM_SPECIAL | VM_HUGETLB;
+-
+ 	/*
+-	 * A user could lock after setting a guard range but that's fine, as
++	 * A user could lock after setting a guard range but that's fine as
+ 	 * they'd not be able to fault in. The issue arises when we try to zap
+ 	 * existing locked VMAs. We don't want to do that.
+ 	 */
+-	if (!allow_locked)
+-		disallowed |= VM_LOCKED;
++	if (!allow_locked && vma_test(vma, VMA_LOCKED_BIT))
++		return false;
++	/*
++	 * Guard regions require a VMA whose page tables are managed solely by
++	 * the core, which is also what merging requires, so disallow any flags
++	 * that would prevent a merge.
++	 */
++	if (!vma_can_merge(vma))
++		return false;
+ 
+-	return !(vma->vm_flags & disallowed);
++	return true;
+ }
+ 
+ static bool is_guard_pte_marker(pte_t ptent)
 
 -- 
 2.55.0
