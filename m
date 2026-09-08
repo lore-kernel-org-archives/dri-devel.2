@@ -4,43 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9348CC79FA1
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 08:58:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38AC5C79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 09:00:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFC7D10E81A;
-	Tue,  8 Sep 2026 08:58:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7999810E96D;
+	Tue,  8 Sep 2026 09:00:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O6WZZ5om";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VuBC24f9";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CF1810E81A;
- Tue,  8 Sep 2026 08:58:41 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCE5B10E96D
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 09:00:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D5B8A601DB;
- Tue,  8 Sep 2026 08:58:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57CFB1F00A3D;
- Tue,  8 Sep 2026 08:58:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 79B34417B1;
+ Tue,  8 Sep 2026 09:00:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D18731F00A3A;
+ Tue,  8 Sep 2026 08:59:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788857920;
- bh=aH26wH+fJnU5hoJxue/sRsPR364h/BpWw8xFR/sa41c=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=O6WZZ5omvqycjzOrmuQtRTSL44Vwxx6ma94i6qr3G//x3LriJ/aXdvH9FWKZusk7b
- I1M2b53+vZkdvxTxWAIL93f/v6tyncT9sFy7R0+swQqLEfqyswyRszeP8Uz2k877p1
- zBp2GstyI8qgF+t2ns9vQTXh0hWRBB8XzpnlYbL67g7EiEKHhuHdF0dqkOfDzG0rbt
- sTC2rSCJADrd86ONW6vRf21OIHxphaeUDLQAolna0OXMxMEcVZ3rGJRudZpHcj9WcY
- EQNFvOEu9sT3fZfzXM7zDjqWcew2rc+SPai8yKuLyp6c9cJwlSQqkOr4efw6xIqSMO
- K5wgGsEnbmcxw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 1/3] drm: Add drm_work_fence helper
-To: "Srinivasan Shanmugam" <srinivasan.shanmugam@amd.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260908084627.352535-2-srinivasan.shanmugam@amd.com>
-References: <20260908084627.352535-1-srinivasan.shanmugam@amd.com>
- <20260908084627.352535-2-srinivasan.shanmugam@amd.com>
+ s=k20260515; t=1788858006;
+ bh=untjC3R5unkqrbBKG3Kk2zewkBrUw7LG0Av0ChJGZUc=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date;
+ b=VuBC24f9OPpyU6RZ5YcWsuOQIHiBXVzStsfZ6KLHWxnkDUu5F4/T4CCCr6aQxJ03C
+ RnShT64miQYk2T8sGQ7OnVpHe1UrnYJy04QxoSPBUJ4An6P3/IId7LZOAPRMlBF8HW
+ pfge9RAFb0FsUOT8fWsQ6zKyvgAnLeFA0vbHur9FacGxYKtW+seyToAdha6igfwH3I
+ mJ9b6O2jStQyCUGLeCaIppQpryp2gbZ7yFkJYGiIMir7EsT+7m2CJIyAihBWfSKp+I
+ P01YzMOThfDS8cnMqwyWzGMlXvEvln2gBFgI9hil0Ywd51oUYQAwHpmouq0x9t+Hw6
+ dwshvv+wKxNeQ==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Gary Guo <gary@garyguo.net>, Danilo Krummrich <dakr@kernel.org>, Lorenzo
+ Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, "Liam R.
+ Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, Miguel
+ Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, =?utf-8?Q?Bj?=
+ =?utf-8?Q?=C3=B6rn?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Trevor Gross
+ <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir
+ Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>, Lyude Paul
+ <lyude@redhat.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Arve =?utf-8?B?SGrDuG5uZXY=?=
+ =?utf-8?B?w6Vn?=
+ <arve@android.com>, Todd Kjos <tkjos@android.com>, Christian Brauner
+ <brauner@kernel.org>, Carlos Llamas <cmllamas@google.com>, "Rafael J.
+ Wysocki" <rafael@kernel.org>, Dave Ertman <david.m.ertman@intel.com>, Leon
+ Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, Serge
+ Hallyn <sergeh@kernel.org>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Alexander Viro <viro@zeniv.linux.org.uk>, Jan
+ Kara <jack@suse.cz>, Igor Korotin <igor.korotin@linux.dev>, Viresh Kumar
+ <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>, Stephen Boyd
+ <sboyd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Krzysztof
+ =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Pavel Tikhomirov
+ <ptikhomirov@virtuozzo.com>, Michal Wilczynski <m.wilczynski@samsung.com>,
+ Ira Weiny <iweiny@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, driver-core@lists.linux.dev,
+ linux-block@vger.kernel.org, linux-security-module@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-pwm@vger.kernel.org, linux-usb@vger.kernel.org, Asahi Lina
+ <lina+kernel@asahilina.net>
+Subject: Re: [PATCH v20 4/8] rust: page: convert to `Ownable`'
+In-Reply-To: <CAH5fLgjYmvp1Ph3dYXnTKkAvWgNpgCAPeq_7PZhRai6pCNmVmw@mail.gmail.com>
+References: <20260824-unique-ref-v20-0-490735672187@kernel.org>
+ <20260824-unique-ref-v20-4-490735672187@kernel.org>
+ <ao2WubjLtDuHvRzx@google.com> <DL894TFXM5AT.2QOXN683UKXIF@garyguo.net>
+ <CAH5fLggAMfBcxprKJxs4JbieKadC_mKg4B0xNETOH1QUi72UGQ@mail.gmail.com>
+ <8733vlxmm8.fsf@t14s.mail-host-address-is-not-set>
+ <2dpwVpJS3VbfQ7CmE3HeY4IJSSMXTP_O9sSP3HHHUD7Z29RNEG4Hc0m8f94jKWjFlekcTXvIBA-QdGYrf8w1sw==@protonmail.internalid>
+ <CAH5fLgjEfZO9DwcUxaKCWd_hFUrXU+cxiwmRg1UnM2pKD6gPvg@mail.gmail.com>
+ <87zextw4c4.fsf@t14s.mail-host-address-is-not-set>
+ <CAH5fLgjYmvp1Ph3dYXnTKkAvWgNpgCAPeq_7PZhRai6pCNmVmw@mail.gmail.com>
+Date: Tue, 08 Sep 2026 10:46:59 +0200
+Message-ID: <87qzj4w2nw.fsf@t14s.mail-host-address-is-not-set>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 08:58:39 +0000
-Message-Id: <20260908085840.57CFB1F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,111 +91,153 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] Race conditions in dma-fence signaling and callback addition a=
-llow deferred work to be queued after cancellation completes, leading to Us=
-e-After-Free.
---
+Alice Ryhl <aliceryhl@google.com> writes:
 
-commit 43b8d6b8cd3ff463894478af19fe890e4879d181
-Author: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Subject: drm: Add drm_work_fence helper
+> On Mon, Sep 7, 2026 at 3:58=E2=80=AFPM Andreas Hindborg <a.hindborg@kerne=
+l.org> wrote:
+>>
+>> "Alice Ryhl" <aliceryhl@google.com> writes:
+>>
+>> > On Mon, Sep 7, 2026 at 2:38=E2=80=AFPM Andreas Hindborg <a.hindborg@ke=
+rnel.org> wrote:
+>> >>
+>> >> Alice Ryhl <aliceryhl@google.com> writes:
+>> >>
+>> >> > On Sun, Sep 6, 2026 at 3:02=E2=80=AFPM Gary Guo <gary@garyguo.net> =
+wrote:
+>> >> >>
+>> >> >> On Tue Aug 25, 2026 at 2:20 PM BST, Alice Ryhl wrote:
+>> >> >> > On Mon, Aug 24, 2026 at 01:17:56PM +0200, Andreas Hindborg wrote:
+>> >> >> >> +        // SAFETY: We just successfully allocated a page, so w=
+e now have ownership of the newly
+>> >> >> >> +        // allocated page. We transfer that ownership to the n=
+ew `Owned<Page>` object.
+>> >> >> >> +        // Since `Page` is transparent, we can cast the pointe=
+r directly.
+>> >> >> >> +        Ok(unsafe { Owned::from_raw(page.cast()) })
+>> >> >> >
+>> >> >> > This doesn't satisfy the safety requirements of Owned::from_raw()
+>> >> >> > because the page may be used with vm_insert_page(), which increm=
+ents its
+>> >> >> > refcount and causes it to be shared the vma system, and this occ=
+urs
+>> >> >> > before Page::release() is called.
+>> >> >>
+>> >> >> I suppose the existing vm_insert_page() abstraction we have is alr=
+eady
+>> >> >> problematic, because it uses `&Page`?
+>> >> >>
+>> >> >> Maybe we want to change the API to use `ARef<Page>` so it already =
+has to be
+>> >> >> shared? Conceptually it takes a reference count from a `&Page`, wh=
+ich isn't
+>> >> >> possible because `Page` is not `AlwaysRefCounted`, so it needs a `=
+&ARef<Page>`
+>> >> >> to be able to do that op.
+>> >> >
+>> >> > Honestly, the problem is the safety requirements of Owned::from_raw=
+().
+>> >> > Pages have a "special" main reference, and free_page() does more th=
+an
+>> >> > put_page(). It even does something when the refcount does not hit
+>> >> > zero.
+>> >> >
+>> >> > The correct behavior for Page is to allow the user to hold one
+>> >> > Owned<Page> whose drop calls free_page(), *plus* any number of
+>> >> > ARef<Page> references that invoke put_page() on drop. This way, the
+>> >> > owned page controls the special drop codepath.
+>> >>
+>> >> This does not mesh well with the model of `Owned` behaving like
+>> >> `UniqueArc` to `ARef` behaving like an `Arc`.
+>> >
+>> > It's a different case, I agree.
+>> >
+>> >> Please help me understand; with page having a main ref and an auxilia=
+ry
+>> >> refcount, if we model that with a single `Owned<Page>` and a number of
+>> >> `ARef<Page>`, what would happen in the case where the main ref (`Owne=
+d`)
+>> >> is dropped first? Is this legal?
+>> >
+>> > Yes, it's legal.
+>> >
+>> >> My intuition here would be to follow Garry's suggestion and have
+>> >> `vm_insert_page` take an `ARef<Page>`. Can you elaborate why this is =
+not
+>> >> an option?
+>> >
+>> > That would be the wrong ownership semantics. The C side increments the
+>> > refcount rather than take ownership of a passed-in refcount, so the
+>> > correct argument type is &Page.
+>>
+>> Or `&ARef<Page>`? Because with `Page` being `Ownable` it would not be
+>> OK to increment the refcount from just a `&Page`.
+>
+> That's just a limitation in your traits. There is no problem with
+> creating a refcount from just a &Page.
 
-GPU drivers often need to queue work when a dma-fence signals
-because certain operations (copy_to_user, eventfd_signal, memory
-allocation) cannot run in IRQ context. This helper handles the
-dma-fence-callback-to-workqueue pattern.
+Yes, I agree. The limitation is by design. My point is, `vm_insert_page`
+can work fine with the `&ARef<Page>` type. So if that would be OK with
+you, I would patch that as part of this patch.
 
-> diff --git a/drivers/gpu/drm/drm_work_fence.c b/drivers/gpu/drm/drm_work_=
-fence.c
-> index 0000000000000..ac66ba129ffff
-> --- /dev/null
-> +++ b/drivers/gpu/drm/drm_work_fence.c
-[ ... ]
-> +static void drm_work_fence_cb(struct dma_fence *fence, struct dma_fence_=
-cb *cb)
-> +{
-> +	struct drm_work_fence *wfence =3D
-> +		container_of(cb, struct drm_work_fence, cb);
-> +
-> +	drm_work_fence_queue(wfence);
-> +	/* Single ref: wfence->fence released in drm_work_fence_destroy(). */
-> +}
+>
+>> > Now, for the use-case in Binder I believe we could switch to
+>> > put_page(), as we don't need the extra stuff from free_page(), in
+>> > which case we only want ARef<Page> and do not require Owned support.
+>> > But as long as we are calling free_page(), it needs to not be
+>> > clonable.
+>>
+>> You are calling `__free_page` directly in binder? I could not find this
+>> with grep except in the C binder. Is this code you are calling into from
+>> Rust binder?
+>
+> Via the Drop of Page, not directly of course.
+>
+>> From `__free_pages()` kernel-doc (`mm/page_alloc.c`):
+>>
+>> > If the last reference to this page is speculative, it will be
+>> > released by put_page() which only frees the first page of a
+>> > non-compound allocation. [...] **If you want to use the page's
+>> > reference count to decide when to free the allocation, you should
+>> > allocate a compound page, and use put_page() instead of
+>> > __free_pages().**
+>>
+>> I guess this is what you are referring to? We could change `Page` to
+>> this style as well and all would be fine I think?
+>>
+>> At any rate, today I learned about Pfn walkers, compaction,
+>> memory-failure, etc. that take transient refcounts
+>> pages. With that in mind we need to reformulate the invariant of
+>> `Ownable` to exclude optimistic transient references.
+>
+> Yes we can switch Rust Binder to use put_page() and have Page not
+> implement Ownable at all. That would be okay, because Binder's pages
+> are not higher order.
 
-[Severity: Critical]
-Does this callback execution leave a race window?
+As far as I can tell, we can also switch `Owned<Page>` to allocate the
+page with `__GFP_COMP` and use `put_page` in drop.
 
-The callback in drm_work_fence_cb() executes asynchronously. Between its
-execution and the call to queue_work(), there appears to be no state indica=
-ting
-to cancel_work_sync() that the work is active.
+> But this case still does highlight that
+> Ownable<_> currently does not address the use-case where the
+> Ownable<T> is a special reference there can only be one of, rather
+> than a completely unique reference.
 
-[ ... ]
-> +int drm_work_fence_add_callback(struct drm_work_fence *wfence,
-> +				struct dma_fence *fence)
-> +{
-> +	int err;
-> +
-> +	drm_work_fence_get(wfence);
-> +	wfence->fence =3D fence;	/* transfer caller's ref =E2=80=94 single ref,=
- no get */
-> +
-> +	err =3D dma_fence_add_callback(fence, &wfence->cb, drm_work_fence_cb);
-> +	if (err =3D=3D -ENOENT) {
-> +		drm_work_fence_queue(wfence);
-> +		err =3D 0;
+This is not the use case `Ownable` aims to solve.
 
-[Severity: Critical]
-Does this -ENOENT fast path also contain the same race window?
+> For instance, the GPUVM abstraction would be another case where
+> Ownable<_> could be used if we have this other model where Ownable<_>
+> and ARef<_> are legal at the same time. Currently GPUVM uses a special
+> UniqueRefGpuVm type to solve this problem.
 
-If drm_work_fence_cancel_sync() is called by a teardown thread just before
-drm_work_fence_queue() is executed here, it seems cancel_work_sync() could
-fail to wait for the work to finish.
+I am wondering if we can make case I intend to solve (Ownable is a
+unique reference) coexist with the "at most one of this ref can exist".
+The "at most one of this kind" sounds similar to the `ListArc` use case
+to me, which is a different problem.
 
-[ ... ]
-> +void drm_work_fence_cancel_sync(struct drm_work_fence *wfence)
-> +{
-> +	if (drm_work_fence_cancel(wfence))
-> +		return;
-> +	if (cancel_work_sync(&wfence->work))
-> +		drm_work_fence_put(wfence);
-> +}
+Best regards,
+Andreas Hindborg
 
-[Severity: Critical]
-Could this logic lead to a use-after-free regression during teardown?
 
-This function seems to assume that if the callback is not in the list, eith=
-er
-the work is already pending/running, or the work has finished. It appears to
-ignore the window where the work is about to be queued but is not yet pendi=
-ng.
-
-Can this sequence occur when an unprivileged userspace application concurre=
-ntly
-signals a fence and destroys the context?
-
-CPU1 (signaling thread or -ENOENT path)
-Removes callback from the list, then executes drm_work_fence_cb() but is
-preempted before calling queue_work().
-
-CPU2 (teardown thread) sees this in drm_work_fence_cancel_sync():
-    if (drm_work_fence_cancel(wfence))
-        // Returns false because callback is not in the list
-
-    if (cancel_work_sync(&wfence->work))
-        // Returns false immediately because work hasn't been queued yet
-
-Function returns, allowing the driver to tear down resources.
-
-CPU1 resumes:
-Calls queue_work(), and the worker executes, accessing the freed driver
-resources.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908084627.3525=
-35-1-srinivasan.shanmugam@amd.com?part=3D1
