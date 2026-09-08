@@ -4,45 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDCE2C79F99
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 07:25:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3652FC79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 07:36:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1379810EA82;
-	Tue,  8 Sep 2026 07:25:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65CB310EA4B;
+	Tue,  8 Sep 2026 07:36:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PPCy7M0k";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BQPT05Zc";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 372FF10EA85
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 07:25:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F84510EA3E
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 07:36:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 752E8601DB;
- Tue,  8 Sep 2026 07:25:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 645FF1F00A3A;
- Tue,  8 Sep 2026 07:25:46 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4E969601DB;
+ Tue,  8 Sep 2026 07:36:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAB131F00A3A;
+ Tue,  8 Sep 2026 07:36:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788852347;
- bh=1lgD2/r9LjhQmUOUH0YH3LrX/i+KeQI0zSLtZTqIS20=;
+ s=k20260515; t=1788852986;
+ bh=TWgLeXn/XAnbhfbNSo0SFTJ2P5whhvomnAy4yjqKkaU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PPCy7M0kEV/l5uMwCDewbk5ofC7S+199WVCjwjePE5xMFlpWt3DCukjEiId8ZnQsE
- hYLsJvy1uQRjvRscFQaEb98lAhL7ibXwHBhi8U8Nd+AXji1lUjIwGSm0VPJz0zkJIF
- ZVAFhNq0PaJXc81j6Pbvfzdt0D55iJgWG0yxOWQYgw6j/LqZiTN8s5m5ZsHJj1oaZB
- 2EwMukTw18IZmoBOSZLDRY943Df1e3JaKfeS8ylG0ASdBfOzOk7BMk2CRgkDN2DSw0
- OP0jclFfkglLXBVLkyeC33RtCD1+A/pVKYgb3N6ht4YH7w8/AmdUQ6cQ02koaV334p
- 4nPHZ/o7qV2iQ==
+ b=BQPT05Zc9aegjvjQhuiV08CM3tkHsBHGV1R2y6D01XiONdeaUsvXGyTQAel8hJV7g
+ cZtK8KrwMNg0L6WAlMKQD81/5/uqgJo0eMoIrh0Bj9O4PgOlcgwZDKlHK7YMZnkt9u
+ 2m8qzDBpZCqvItlximFXTVPoOqs6F4VN737xgC5yNW6F4FpIiHDDOUdG+OOsdXHwOa
+ M7LFkabyoQ4KhM/6MP9p43qMi3RuEbDM5w/eveJQipgbtnbHmrhoVK1NBHqEturTKd
+ yTD9LMUskC4LgQAoNvEeAuUB/haJ+Q20THvHVYY35U44z4/AnVhatSmxvM2zBayVFy
+ Q6WYpLjKEwGHQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/7] drm/msm/hdmi: Handle msm_hdmi_power_on() errors
- during .atomic_pre_enable()
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-2-dcf8956878ca@oss.qualcomm.com>
-References: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-0-dcf8956878ca@oss.qualcomm.com>
- <20260908-drm-msm-hdmi-fixes-before-eliza-v3-2-dcf8956878ca@oss.qualcomm.com>
+Subject: Re: [PATCH v5] drm/imagination: Propagate all errors from KCCB
+ command submission code
+To: "Alexandru Dadu" <alexandru.dadu@imgtec.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260908-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v5-1-5e262721454b@imgtec.com>
+References: <20260908-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v5-1-5e262721454b@imgtec.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 07:25:45 +0000
-Message-Id: <20260908072546.645FF1F00A3A@smtp.kernel.org>
+Date: Tue, 08 Sep 2026 07:36:25 +0000
+Message-Id: <20260908073625.DAB131F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,97 +57,192 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
 
 New issues:
-- [High] Aborting `atomic_pre_enable()` on power-on failure guarantees an i=
-mprecise abort (system crash) in `atomic_post_disable()` due to uncondition=
-al accesses to unpowered PHY and HDMI controller registers.
+- [Critical] Unrecoverable queue state, CCCB corruption, and Use-After-Free=
+ when a KCCB kick fails in pvr_queue_run_job().
+- [High] KCCB slot reservation leak in pvr_kccb_send_cmd_powered() on error.
+- [Medium] WARN_ON(err) triggers continuously when the device is lost, floo=
+ding dmesg.
 
 Pre-existing issues:
-- [High] Unclocked MMIO access in `msm_hdmi_set_timings()` before the HDMI =
-PM runtime is resumed.
+- [High] Paired fragment job hangs indefinitely when the geometry job fails=
+ to acquire PM reference or fails the KCCB kick.
+- [High] Kernel's CCCB `write_offset` is not reset during a GPU hard reset,=
+ causing immediate firmware faults on subsequent submissions.
 --
 
-commit 9912da31672d32069f2e4d118d3714a533a0157a
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-drm/msm/hdmi: Handle msm_hdmi_power_on() errors during .atomic_pre_enable()
+commit 71ee1590b98c30900f70c9456403e8740176ca27
+Author: Alessio Belle <alessio.belle@imgtec.com>
 
-This commit adds error handling for msm_hdmi_power_on() during the=20
-.atomic_pre_enable() phase to prevent register accesses if the power=20
-domain fails to come up.
+drm/imagination: Propagate all errors from KCCB command submission code
 
-Cc: <stable@vger.kernel.org>
+This commit updates the KCCB kick command variants to propagate errors
+up to the DRM scheduler's run_job callback. It introduces error checking
+in pvr_queue_run_job and early returns for lost devices.
 
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm=
-/hdmi/hdmi_bridge.c
-> index 157f19bd90b4e..db85400e574e4 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+Link: https://patch.msgid.link/20260907-b4-upstream-propagate-all-errors-fr=
+om-kccb-cmd-submission-code-v4-1-b684f58a06ce@imgtec.com
+
+> diff --git a/drivers/gpu/drm/imagination/pvr_ccb.c b/drivers/gpu/drm/imag=
+ination/pvr_ccb.c
+> index b702d122d7918..dfd0682705425 100644
+> --- a/drivers/gpu/drm/imagination/pvr_ccb.c
+> +++ b/drivers/gpu/drm/imagination/pvr_ccb.c
+> @@ -268,19 +273,25 @@ pvr_kccb_send_cmd_reserved_powered(struct pvr_devic=
+e *pvr_dev,
+>  	struct rogue_fwif_ccb_ctl *ctrl =3D pvr_ccb->ctrl;
+>  	u32 old_write_offset;
+>  	u32 new_write_offset;
+> +	int err;
+> =20
+> -	WARN_ON(pvr_dev->lost);
+> +	if (pvr_dev->lost)
+> +		return -EIO;
+
+[Severity: High]
+Does this early return cause a permanent resource leak of KCCB slot
+reservations?
+
+When the device is lost, this returns -EIO directly and bypasses the success
+path where pvr_dev->kccb.reserved_count-- is decremented.
+
+Is a call to pvr_kccb_release_slot() needed here or in the caller to undo
+the reservation?
 
 [ ... ]
-
-> @@ -287,13 +294,18 @@ static void msm_hdmi_bridge_atomic_pre_enable(struc=
-t drm_bridge *bridge,
+> @@ -378,8 +396,7 @@ pvr_kccb_send_cmd_powered(struct pvr_device *pvr_dev,=
+ struct rogue_fwif_kccb_cmd
+>  	if (err)
+>  		return err;
 > =20
->  	msm_hdmi_set_timings(hdmi, &crtc_state->adjusted_mode);
+> -	pvr_kccb_send_cmd_reserved_powered(pvr_dev, cmd, kccb_slot);
+> -	return 0;
+> +	return pvr_kccb_send_cmd_reserved_powered(pvr_dev, cmd, kccb_slot);
 
 [Severity: High]
-This is a pre-existing issue, but does calling msm_hdmi_set_timings() here
-risk unclocked MMIO access?
+Similarly, if pvr_kccb_send_cmd_reserved_powered() fails, does this direct
+return propagate the error without releasing the slot reserved earlier in t=
+his
+function by pvr_kccb_reserve_slot_sync()?
 
-This register access occurs before the power domain is reliably enabled by
-msm_hdmi_power_on() later in this function. If the connector is forced on
-while disconnected (so HPD is disabled and no background PM reference is
-held), the AHB/APB clocks for the HDMI block are off.
+[ ... ]
+> diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/im=
+agination/pvr_queue.c
+> index 09993e858df8b..8aba8fbfccfa4 100644
+> --- a/drivers/gpu/drm/imagination/pvr_queue.c
+> +++ b/drivers/gpu/drm/imagination/pvr_queue.c
+[ ... ]
+>  	if (job->paired_job) {
+>  		err =3D pvr_job_get_pm_ref(job->paired_job);
+>  		if (WARN_ON(err))
+> -			return ERR_PTR(err);
+> +			goto err_release;
 
-Writing to these registers without an active clock can immediately stall the
-bus and cause an imprecise external abort (kernel panic).
+[Severity: High]
+This is a pre-existing issue, but can an early failure here (like failing to
+acquire the PM ref) or during a KCCB kick failure cause a paired fragment j=
+ob
+to hang indefinitely?=20
 
-> -	mutex_lock(&hdmi->state_mutex);
-> -	if (!hdmi->power_on) {
-> -		msm_hdmi_phy_resource_enable(phy);
-> -		msm_hdmi_power_on(bridge);
-> -		hdmi->power_on =3D true;
-> +	scoped_guard(mutex, &hdmi->state_mutex) {
-> +		if (!hdmi->power_on) {
-> +			if (msm_hdmi_phy_resource_enable(phy))
-> +				return;
+The geometry job would abort and be completed with an error by the DRM
+scheduler, but it doesn't appear to clean up or error out the paired fragme=
+nt
+job.=20
+
+Since the combined firmware submission never occurred, the fragment queue
+might stall indefinitely, eventually triggering a full GPU reset.
+
+[ ... ]
+> @@ -793,25 +795,37 @@ static struct dma_fence *pvr_queue_run_job(struct d=
+rm_sched_job *sched_job)
+> =20
+>  		/* Submit the fragment job along the geometry job and send a combined =
+kick. */
+>  		pvr_queue_submit_job_to_cccb(frag_job);
+> -		pvr_cccb_send_kccb_combined_kick(pvr_dev,
+> -						 &geom_queue->cccb, &frag_queue->cccb,
+> -						 pvr_context_get_fw_addr(geom_job->ctx) +
+> -						 geom_queue->ctx_offset,
+> -						 pvr_context_get_fw_addr(frag_job->ctx) +
+> -						 frag_queue->ctx_offset,
+> -						 job->hwrt,
+> -						 frag_job->fw_ccb_cmd_type =3D=3D
+> -						 ROGUE_FWIF_CCB_CMD_TYPE_FRAG_PR);
+> +		err =3D pvr_cccb_send_kccb_combined_kick(pvr_dev,
+> +						       &geom_queue->cccb, &frag_queue->cccb,
+> +						       pvr_context_get_fw_addr(geom_job->ctx) +
+> +						       geom_queue->ctx_offset,
+> +						       pvr_context_get_fw_addr(frag_job->ctx) +
+> +						       frag_queue->ctx_offset,
+> +						       job->hwrt,
+> +						       frag_job->fw_ccb_cmd_type =3D=3D
+> +						       ROGUE_FWIF_CCB_CMD_TYPE_FRAG_PR);
+>  	} else {
+>  		struct pvr_queue *queue =3D container_of(job->base.sched,
+>  						       struct pvr_queue, scheduler);
+> =20
+> -		pvr_cccb_send_kccb_kick(pvr_dev, &queue->cccb,
+> -					pvr_context_get_fw_addr(job->ctx) + queue->ctx_offset,
+> -					job->hwrt);
+> +		err =3D pvr_cccb_send_kccb_kick(pvr_dev, &queue->cccb,
+> +					      pvr_context_get_fw_addr(job->ctx) +
+> +					      queue->ctx_offset,
+> +					      job->hwrt);
+> +	}
 > +
-> +			if (msm_hdmi_power_on(bridge)) {
-> +				msm_hdmi_phy_resource_disable(phy);
-> +				return;
+> +	if (WARN_ON(err)) {
+
+[Severity: Critical]
+If a KCCB kick fails (e.g., due to a lost device), does taking this error p=
+ath
+leave the queue in an unrecoverable state?
+
+Before sending the kick, pvr_queue_submit_job_to_cccb() is called, which wr=
+ites
+the job commands to the CCCB and advances the write offset.=20
+
+If the kick fails and the error is propagated to the DRM scheduler, the job=
+'s
+memory backing will be freed. However, because the CCCB write_offset and
+in_flight_job_count are not rolled back, the aborted commands remain pendin=
+g in
+the hardware queue.=20
+
+Can this lead to CCCB corruption and a use-after-free by the firmware?
+
+[Severity: Medium]
+Additionally, does WARN_ON(err) cause excessive dmesg spam?
+
+When the device is lost, pvr_kccb_send_cmd_reserved_powered() legitimately
+returns -EIO. If the DRM scheduler subsequently attempts to process queued =
+jobs,
+each one will fail with -EIO and trigger a full stack trace warning.
 
 [Severity: High]
-Does aborting here guarantee a crash later during teardown?
+This is a pre-existing issue, but does a GPU hard reset break future submis=
+sions
+because the kernel's CCCB write_offset is not reset?
 
-When this error path disables PHY resources and returns early, it leaves
-hdmi->power_on =3D false. However, because atomic_pre_enable() returns void,
-the DRM core is unaware of the failure and continues the modeset sequence.
+During a hard reset, the firmware's control offsets are reset to 0 (e.g., in
+cccb_ctrl_init(), WRITE_ONCE(ctrl->write_offset, 0)). However, the kernel's
+local pvr_cccb->write_offset is never synchronized to match.=20
 
-Eventually, the DRM core will call msm_hdmi_bridge_atomic_post_disable(),
-which unconditionally writes to unpowered registers:
+On the next submission, the kernel writes at the old offset, but the firmwa=
+re
+expects commands at offset 0, which might contain zero-filled memory, leadi=
+ng
+to immediate firmware faults.
 
-msm_hdmi_bridge_atomic_post_disable() {
-    ...
-    msm_hdmi_set_mode(hdmi, hdmi->hpd_enabled);
-    msm_hdmi_phy_powerdown(phy);
-}
-
-Since the PHY clocks were explicitly disabled by this error path, accessing
-these registers without an active clock will cause an imprecise external
-abort on MSM hardware.
-
-> +			}
-> +			hdmi->power_on =3D true;
-> +		}
+> +		pvr_job_release_pm_ref(job);
+> +		if (job->paired_job)
+> +			pvr_job_release_pm_ref(job->paired_job);
+> +		goto err_release;
 >  	}
-> -	mutex_unlock(&hdmi->state_mutex);
-> =20
->  	if (connector->display_info.is_hdmi)
->  		msm_hdmi_audio_update(hdmi);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-drm-msm-hd=
-mi-fixes-before-eliza-v3-0-dcf8956878ca@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-b4-upstrea=
+m-propagate-all-errors-from-kccb-cmd-submission-code-v5-1-5e262721454b@imgt=
+ec.com?part=3D1
