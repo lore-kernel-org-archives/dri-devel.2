@@ -4,134 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26986C79FA0
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 08:37:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AA67C79FAA
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 08:39:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E60310E0B8;
-	Tue,  8 Sep 2026 08:37:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52AB710E522;
+	Tue,  8 Sep 2026 08:39:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MaO2e8Eu";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IKJM5W1t";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f31djqHM";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A508A10E0B8
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 08:37:50 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6886M2Rq2712391
- for <dri-devel@lists.freedesktop.org>; Tue, 8 Sep 2026 08:37:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- xZTaGxO48p7y5EHqLgyxjGdy5PCz3+Tijey3+jZj03E=; b=MaO2e8Euaz4HQABZ
- XziflilKhZc4V7K/gf1k3DWHnRL0CBpuu3X0xhzr1d4+5Sw5cNvq5jNeuJkLPXc+
- xKI6MWA9yo7ETUl7aUhw9N2pNH1+GHhRBZvtLpSi4uFhzvJj2Ju///ehtNWYtNAy
- A7FFAU59d3lklwK0juKifK/1043S5ggHydiLv2LwRVIeHhsaA3fhKkmIyAHDNpAq
- z5pyensd1StF01VROFMJYF54DLwYYszIaRhOqJ50JnS7icwpa1EyUxIn95QUt8Qw
- p7TdtCMFnTvgwf/XRPMRd5vZxVvffJ85d3/88PZH8cQj7uOxGbknFHJIrObzrRcB
- eNvzww==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghtdqmac4-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 08:37:49 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-93903982af1so941750285a.3
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 01:37:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1788856669; x=1789461469;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=xZTaGxO48p7y5EHqLgyxjGdy5PCz3+Tijey3+jZj03E=;
- b=IKJM5W1tJprbUDKpr6Uikmfjh7RIDvoluOFy1MTa2GL5blZKKKGRjkhPmdmXCXBQbg
- moF722gRzv6XP1Y3HLZgRI0CTT05OQWQWEEN4RKzsqVd7nViGIVdryafxYu1c5MZu+zs
- /CFP0JE8yZB4xHWhaA0Ls/6oFXOGkUJy7HAOqCMZTlMrACDZa5LwK9poYnbymp7bao03
- oBJcmdgFXj7P6XFmv7tv5mH0Dj9TUlyD2Hmq2DsYP75VedVLOfOF9AaYQQK+oUo97bZd
- Vb/ebnXJdoUZ+ekbptVc0bhZbEfq7rVq+Y/uMKyLdFatL/UMJHXTaWGywB+zUY8+a2/L
- oG6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788856669; x=1789461469;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=xZTaGxO48p7y5EHqLgyxjGdy5PCz3+Tijey3+jZj03E=;
- b=AuERmyvmBc7+uNT41p6sysoFvH9b3XwI6Zaz84sMIcxqkZfFRBBQLLsmO9ugsNi3A5
- zhLUjLUnya0bAxazjninp5Qqh4DMqdx/9Yszwg54BPVipSauDRXoOO0jhWQcRaypGloV
- lw2p1fc6ECd7KBpBHTowfLkoKA6yCddiMX1Of9Qfs5nncm2X6Qjmi+FBkKuZ8uJSOvWm
- 1uH/+Nw74M02pppNmy6Uq2rFkVEdFvgWSKav5kpUUkbn/PbGmLZHBu5zlcxbBHB3J1pN
- j72/4Gp6Aeb91+6GPGT0cXL8cD1QUQgoMHeM+nXhpSaxjyFIzErcZO/0SfPlJ7zZg+OS
- xO9Q==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwSj3XLb//v0lXtpFOUCaLMCZfQ6QPbykObaZTvFKHsdqyTCgJt3QverhMWHU7p/g7wGKCKRvv2r9k=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++meI4nMtJgg9KmkKydBsI2gjJnvkwppm/tHzVv8V3wPvxQZR8FX
- dTyfXvOgamNTbxzMEgrcJySYgOT6UB85o8POLy+rAzmYj40VyW/NUe/pipfZBHTX2EytLJW1fTw
- /q6gYhhgyUupOGmM8A/Ilv5vA3G9w/biIbNpZyBgaIm3qbPQMTOG66WKU5jVHjHehjGCKs/c=
-X-Gm-Gg: AYBFou3SpzZNbAP3zbrRUlJvUtQCwWni8Dir2bnX94f6aq2Roc540R9b0XN7B9o8B1/
- OAyrz90HnmyybKrG7vKd0sGmekoppNM1XM6y6QI/o1vsLoR39AEXCXocO31HNRWxTa59fPH3VLR
- 4weKHpUGZSiK+FtYFmvNy5skGgcjUJjZS4UyEWC4isIiQbBDo2+VZKvVBrq07zcztwPJvWaKFAn
- 1T/+GDZks0UligVOPyyfLEYD5c2UBPbuI43lbjjEuU0GJ4oiVTOiTf+l1In3ckuhwZLoL56KUeL
- tOTqmkvEQSksJIx43HAjPP7vAUyUlTRq6SKqUIdnDMBxxG3+270Ye/538ZuR6L/0X7Bv7c7uGjb
- KdR/RrLE9nluiju1oj8iW5ds4nNAs
-X-Received: by 2002:a05:620a:25d4:b0:939:6df9:1996 with SMTP id
- af79cd13be357-9398077453bmr2891048285a.50.1788856668707; 
- Tue, 08 Sep 2026 01:37:48 -0700 (PDT)
-X-Received: by 2002:a05:620a:25d4:b0:939:6df9:1996 with SMTP id
- af79cd13be357-9398077453bmr2891046685a.50.1788856668327; 
- Tue, 08 Sep 2026 01:37:48 -0700 (PDT)
-Received: from [192.168.1.110] ([178.197.219.214])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c260d53c37csm563974466b.32.2026.09.08.01.37.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Sep 2026 01:37:47 -0700 (PDT)
-Message-ID: <c7d1d6f2-4c47-4259-abf8-fdec33a27f95@oss.qualcomm.com>
-Date: Tue, 8 Sep 2026 10:37:45 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B58ED10E522
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 08:39:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9AC1A60A93;
+ Tue,  8 Sep 2026 08:39:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C23A1F00A3A;
+ Tue,  8 Sep 2026 08:39:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788856760;
+ bh=slUWdnwq0XGj7f4s3OzgJoorkVnZmUKvVcYJXpe/QEA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=f31djqHMq1zm0NH10E6jABNFN/XEtBtVUywkW/jJEx2y3vkNmMXh/1kd/Sjj72P04
+ T6L92RsSr9CQrX66jc0wrPwHh6ZjVD5aSMaTpkb+Cxjgp9ZU6YrbkkYXhDrOYryDaO
+ ZTgU5gp6BdSkoU54QhSCWPpRXJjEqeQ7gFPhqonFR9QaQp7K9wC3t0y6YPinAZxwQV
+ h+w9nS9hTC4LwZO/38s9ryPJzCgNR+G1JO/Mul0cHse249ia1+soSZnoBYdeQ4kY0m
+ HeH3O938M7uXInW4K+dnzPNL73PzwIIfEEPV3T8JCftA19ij/TKmEUEYsg1ScglZFI
+ YJglKg/Ofvcpw==
+Date: Tue, 8 Sep 2026 10:39:17 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Will Deacon <will@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Russell King <linux@armlinux.org.uk>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Chun Ng <chunn@nvidia.com>, Mark Rutland <mark.rutland@arm.com>, 
+ Saravana Kannan <saravanak@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>, 
+ devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+ linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
+ vdonnefort@google.com
+Subject: Re: [PATCH v6 00/12] dma-buf: heaps: Add support for Tegra VPR
+Message-ID: <ap_HzwVp-6aOKEbJ@orome>
+References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
+ <apquUWgrD9C2jWQ0@willie-the-truck>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/7] drm/msm/hdmi: Handle msm_hdmi_power_on() errors
- during .atomic_pre_enable()
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-References: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-0-dcf8956878ca@oss.qualcomm.com>
- <20260908-drm-msm-hdmi-fixes-before-eliza-v3-2-dcf8956878ca@oss.qualcomm.com>
- <20260908072546.645FF1F00A3A@smtp.kernel.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260908072546.645FF1F00A3A@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA5MCBTYWx0ZWRfX7f46Loqb7tX3
- avzy4Qd6ix6werT0/6k7WasKG4RqWL1UgFcRCFw9bd7OnNcgkkz9OPgB1KckC/Pxg/Lr1kJZfHD
- j5HzprXg6jO6w0nnnRoIEsHMZaaNx/SWNQaRVB/xzRt9/0idiWUtNTqieni7gA4fo8dbdJH3kgj
- 6h+R+I4ahNNtTh3VLjxZ4jb5I6gqScLwWiaeAbkyTUgdvK/NPLWwPOs40lDnrjTXUtE/RigNOLy
- CfLcqxAh60wqDNCbtyUzL1JScdoYjq8Hg0lVLP57dgcQk3DRf+4hxrtDVNhm9ZZo8uem5aykzs4
- UBDlemo2aWY8O0mowv7qK9di9E6iw7z77RUp0jRJ1GYxpdRK5SFg0O/xEooxEjNvssw0lBA+Tt4
- JZ/Z3UolOAPM+faDBFW2XRnA2QW0lpgr9HEUlW2XoMShoTl+4SOyZNRDRfanPFi8B4WqVbRXF8+
- OcZlPASMo/wyOy5v9jA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA5MCBTYWx0ZWRfX7s/C3O7Cfdnh
- A+5HQgJ7j04O7VThYwUQB38t2Tj0vOGH7F3FOhKv/Qxn4ujSGly7yL67s9XY/57lvJQLrvaFg3f
- mqE0QAz/vQdlKKFygAL+FS7KKnp7syM=
-X-Proofpoint-ORIG-GUID: 28JOH0XLS2kY4J23uOGjUnATjAGJWqwh
-X-Authority-Analysis: v=2.4 cv=U6aiy+ru c=1 sm=1 tr=0 ts=6a9fc95d cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=dYODrq4-AUaYJTIoUJAA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: 28JOH0XLS2kY4J23uOGjUnATjAGJWqwh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 impostorscore=0 phishscore=0 clxscore=1015
- lowpriorityscore=0 malwarescore=0 priorityscore=1501 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609080090
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="a5apqptzjdcu2eq7"
+Content-Disposition: inline
+In-Reply-To: <apquUWgrD9C2jWQ0@willie-the-truck>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,18 +98,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 08/09/2026 09:25, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> 
-> New issues:
-> - [High] Aborting `atomic_pre_enable()` on power-on failure guarantees an imprecise abort (system crash) in `atomic_post_disable()` due to unconditional accesses to unpowered PHY and HDMI controller registers.
 
-Pre existing issue really.
+--a5apqptzjdcu2eq7
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 00/12] dma-buf: heaps: Add support for Tegra VPR
+MIME-Version: 1.0
 
+On Fri, Sep 04, 2026 at 12:41:05PM +0100, Will Deacon wrote:
+> Hi Thierry,
+>=20
+> On Fri, Sep 04, 2026 at 12:44:51PM +0200, Thierry Reding wrote:
+> > This series adds support for the video protection region (VPR) used on
+> > Tegra SoC devices. It's a special region of memory that is protected
+> > from accesses by the CPU and used to store DRM protected content (both
+> > decrypted stream data as well as decoded video frames).
+> >=20
+> > Patches 1 through 3 add DT binding documentation for the VPR and add the
+> > VPR to the list of memory-region items for display, host1x and NVDEC.
+> >=20
+> > The set_direct_map_*_noflush() functions that will be used later in this
+> > series are exported in patch 4 so that the drivers that use them can be
+> > built as a module.
+> >=20
+> > Patch 5 adds bitmap_allocate(), which is like bitmap_allocate_region()
+> > but works on sizes that are not a power of two.
+> >=20
+> > The of_node_to_nid() function is exported in patch 6 because it is used
+> > in a later patch adding a driver that can be built as a module.
+> >=20
+> > Patch 7 introduces new APIs needed by the Tegra VPR implementation that
+> > allow memory to be allocated at a fixed offset within a CMA area. Tegra
+> > VPR needs this in order to implement its own allocator on top of CMA to
+> > meet the strict hardware requirements. This replaces the dynamic CMA
+> > area creation patch from earlier versions.
+>=20
+> Did you get a chance to see how this could work with Vincent's series:
+>=20
+> https://lore.kernel.org/r/20260902104712.2399797-1-vdonnefort@google.com
+>=20
+> ? I think that should remove your reliance on can_set_direct_map() and
+> mean that you can retain block mappings for most of the linear mapping.
 
-> 
-> Pre-existing issues:
-> - [High] Unclocked MMIO access in `msm_hdmi_set_timings()` before the HDMI PM runtime is resumed.
-> --
-Best regards,
-Krzysztof
+I'm not sure if it would help all that much. Yes, if we mark the VPR
+region as LLMAP (or PTE_MAP, whichever it ends up being), it should make
+the checks for can_set_direct_map() redundant. However, from what I can
+tell, Vincent's series still forces page-granularity on these regions,
+so it won't retain block mappings at all for them.
+
+The block mappings can be retained for the non-VPR memory, so that's
+nice. It also reduces the amount of external prerequisites, but I had
+kind of hoped that we could go one step further and keep block mappings
+even for the VPR memory if the region happened to be a multiple of the
+block size.
+
+The recent addition of page count to the set_direct_map_*() functions
+helps reduce the amount of checks that need to be run, so maybe there's
+not too much to be gained from removing whole block mappings at once
+=66rom the linear map.
+
+Thierry
+
+--a5apqptzjdcu2eq7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqfybIACgkQ3SOs138+
+s6HeMBAAuLF8s85+tHae/nBOh6j4pUVcjE5KyexYHpAnHyj8HIuDuERbHercMMPe
+CyLnvqYhkNgu1LmEjo9O0OVzGEe65BJoHkdgmXMTyFLQ/9NGtdvaaTCabe99iBCm
+1BGL8d0KtegUlzTJLntnV+ubRKhLjZthpMxxjuThV2TJaFTQXtS4kcaldKUTw73o
+k9bbvnuX2PsQCVZTL+aAKsRtvXHT011GzCwlfufuRnkX1kJ7vXidndwdsMOFoIJm
+lThSDnPii6F/bJc74o9ztJlObQ8gjs/6hzMjrFu9FVFoMa0sucCfM6d+q6wOw/QF
+nS7Gtk7mV9RgQ2PkT6o+Umw0l1Nnwd5R5XGKo+vuVb8hCy6hmTe1jPkIy0PyFyan
+k54nErXH09l91YA06FpSI4HmeoCYUk4cUU/hKlKYVbE+7DrP7GLNBgEl//Xm5zfB
+do1TCokmrQMoFu3UniXLhSmKJMZOuvW23cj5FVP81q3t3cJxvONGp7hvXMyAz5Yy
+tx3HYQn+1z1GuPrmlI/PQ7bCz2ZHhepUHPcP6fx3qQoEcECZr23Ud1xVA1xrxNKS
+AfvLgsWqAZnG0bTq0hOp2xW38FlPOEB/Gn0A3ux9viOHbMyVuOHqET3wahXk3XgN
+OkCpZ+OS8PyANuhW2WySDdpC1HnKIgfn0ghFX2BlmOZ86qZ1LTg=
+=5HqX
+-----END PGP SIGNATURE-----
+
+--a5apqptzjdcu2eq7--
