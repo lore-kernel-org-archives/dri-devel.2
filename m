@@ -4,36 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76CAEC79FAA
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 15:29:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11A72C79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 15:38:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AF8010ECC8;
-	Tue,  8 Sep 2026 15:29:09 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46C0610ECC3;
- Tue,  8 Sep 2026 15:29:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54C1610EC9E;
+	Tue,  8 Sep 2026 15:38:41 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4FBA10EC9E
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 15:38:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BD4B2601FA;
- Tue,  8 Sep 2026 15:29:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F16FA1F00A3D;
- Tue,  8 Sep 2026 15:29:06 +0000 (UTC)
-Message-ID: <449b3558fdef8f6d6356b72c933e751b@kernel.org>
-Date: Tue, 08 Sep 2026 15:29:00 +0000
-From: "Maxime Ripard" <mripard@kernel.org>
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Subject: Re: [PATCH v2 7/7] vga-switcheroo: Remove unused interfaces
-In-Reply-To: <20260709092215.168172-8-tzimmermann@suse.de>
-References: <20260709092215.168172-8-tzimmermann@suse.de>
-Cc: airlied@gmail.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, dakr@kernel.org, deller@gmx.de,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- jani.nikula@linux.intel.com, jfalempe@redhat.com,
- joonas.lahtinen@linux.intel.com, linux-fbdev@vger.kernel.org, lukas@wunner.de,
- lyude@redhat.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- nouveau@lists.freedesktop.org, rodrigo.vivi@intel.com,
- sashiko-reviews@lists.linux.dev, simona@ffwll.ch, tursulin@ursulin.net,
- "Maxime Ripard" <mripard@kernel.org>
-Content-Transfer-Encoding: 7bit
+ by sea.source.kernel.org (Postfix) with ESMTP id 332874013E;
+ Tue,  8 Sep 2026 15:38:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00A621F00A3A;
+ Tue,  8 Sep 2026 15:38:38 +0000 (UTC)
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/6] drm/msm: serialise framebuffer pin state
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260908-fd-kms-fix-smmu-v2-1-9391815742a8@oss.qualcomm.com>
+References: <20260908-fd-kms-fix-smmu-v2-0-9391815742a8@oss.qualcomm.com>
+ <20260908-fd-kms-fix-smmu-v2-1-9391815742a8@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 15:38:08 +0000
+Message-Id: <20260908153839.00A621F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,19 +40,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 9 Jul 2026 11:16:03 +0200, Thomas Zimmermann wrote:
-> Remove all unused interfaces that used to implement the functionality
-> of pre_switch and post_switch.
-> 
-> For pre_switch, remove vga_switcheroo_client_fb_set(). This further
-> allows for removing all symbols and data structures that refer to
-> 
-> [ ... ]
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Initialization order vulnerability: mutex and refcount initialized=
+ after object is globally visible.
+--
 
-Acked-by: Maxime Ripard <mripard@kernel.org>
+commit 43edb96a02a3e020c9ba63b15f602a74d5eb759f
+Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Thanks!
-Maxime
+drm/msm: serialise framebuffer pin state
+
+This commit introduces a mutex to serialize framebuffer pin states,=20
+resolving an issue where parallel prepare and cleanup callbacks could=20
+leave a plane programmed with a NULL base address.
+
+> diff --git a/drivers/gpu/drm/msm/msm_fb.c b/drivers/gpu/drm/msm/msm_fb.c
+> --- a/drivers/gpu/drm/msm/msm_fb.c
+> +++ b/drivers/gpu/drm/msm/msm_fb.c
+
+[ ... ]
+
+> @@ -206,6 +227,7 @@ msm_framebuffer_init(struct drm_device *dev, const st=
+ruct drm_format_info *info,
+>  	}
+> =20
+>  	refcount_set(&msm_fb->dirtyfb, 1);
+> +	mutex_init(&msm_fb->lock);
+
+[Severity: High]
+Since drm_framebuffer_init() is called just before this block and registers
+the object in the DRM core IDR, the framebuffer becomes immediately visible
+to userspace.
+
+If userspace guesses the assigned framebuffer ID and concurrently issues an
+atomic commit ioctl, could msm_framebuffer_prepare() execute and call
+mutex_lock(&msm_fb->lock) before mutex_init() finishes here?
+
+Could this race lead to memory corruption or deadlocks by clobbering the
+mutex state? Would it be safer to move the mutex initialization to before
+the drm_framebuffer_init() call?
+
+> =20
+>  	drm_dbg_state(dev, "create: FB ID: %d (%p)\n", fb->base.id, fb);
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-fd-kms-fix=
+-smmu-v2-0-9391815742a8@oss.qualcomm.com?part=3D1
