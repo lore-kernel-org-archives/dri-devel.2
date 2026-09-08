@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8134DC79F82
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 10:04:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 686FEC79FA1
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 10:15:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5EDC10EAE2;
-	Tue,  8 Sep 2026 10:04:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F6C910EAEB;
+	Tue,  8 Sep 2026 10:15:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="esKUUaDC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XGoLGhYj";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E817110EAE2
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 10:04:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F75C10EAEB
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 10:15:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AE9FA419C7;
- Tue,  8 Sep 2026 10:04:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E82C1F00A3A;
- Tue,  8 Sep 2026 10:04:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 300FA402F9;
+ Tue,  8 Sep 2026 10:15:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9C021F00A3D;
+ Tue,  8 Sep 2026 10:15:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788861861;
- bh=y3VDoJY/ddJR02OQMQtg9KGif/6Y6mDm+so2rnX5Zds=;
+ s=k20260515; t=1788862509;
+ bh=andQw+ebjgmfPYJID6s08wjhK0YCGL9Mdxmg0Pc61Qs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=esKUUaDC07Qmu3eis1IvG+RKjneRZ2c/UmvmWrNh/BjImTJzNZKpXt2jYrwHgvlje
- WbGIxIh+icdyUymFcNahT55dhFWUiA15SoVO6ZnTueQh+ANrXe/m0Vy5IC4IRDRm+H
- Q2U3ewe49x+//sXCnkP4WveoGDzBfaZHihUk0mUsMnBrW4ifTbe8pKfL0RmDDmm6A2
- wNnpboanzaY69LQXwI//pkSDrOhzUqJdO+rpnPOed355KH40kZhq8jLf/cIwB8/65U
- ynPMbQmFJBoBXzc5UpfxaTuzYeFm9jE9ObvcnPgEX3uBc+ZPq2JwjNxMTesxrMHgAv
- oNI3JJL7+Ka+A==
+ b=XGoLGhYjjvGi7roh7OkDuqiebVuR8PxkMZJ+OHGNnrUlkjBxDhrwGLQXnzi7lOjIH
+ O5BB17Hz7aXiH+Ycvr9pM38XTJkUatXJbvDuPfBN2S5riruNvzEoxl5Up6VcBPmeWc
+ oNtzjYO2JjoUJcNUm3Hl9vqHgz6Q8Vo6GOQriTRqKR1IiWkYQQ+U+23kTVWb9yKBnV
+ rWuaXvSoQ9lXG8D0a5GUVt2Rc04aN0nOLHCD0RwT62zlA+qtBd0yC1VBpG/lN2yo7D
+ dnMSXYk7oia+Xt+2tGzQuJtxu/r00Y8pZckH0GYj4pIi/xkkEOu2lAgmApaziqIspk
+ J5Apw3SdhLMsg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 4/6] drm/verisilicon: add DC8000 (DCUltraLite)
- display controller support
+Subject: Re: [PATCH v6 5/6] drm/verisilicon: add DCUltraLite chip identity
+ to HWDB
 To: "Joey Lu" <a0987203069@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260908092840.225220-5-a0987203069@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260908092840.225220-6-a0987203069@gmail.com>
 References: <20260908092840.225220-1-a0987203069@gmail.com>
- <20260908092840.225220-5-a0987203069@gmail.com>
+ <20260908092840.225220-6-a0987203069@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 10:04:20 +0000
-Message-Id: <20260908100421.4E82C1F00A3A@smtp.kernel.org>
+Date: Tue, 08 Sep 2026 10:15:08 +0000
+Message-Id: <20260908101508.B9C021F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,118 +59,93 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
-New issues:
-- [High] The `vs_dc8000_panel_enable_ex` and `vs_dc8000_panel_disable_ex` f=
-unctions incorrectly modify the `VSDC_FB_CONFIG` register using the `VSDC_F=
-B_CONFIG_RESET` bit, instead of setting the `PANEL_CONFIG.RUNNING` bit.
-- [High] The `vs_dc8000_crtc_begin` and `vs_dc8000_crtc_flush` functions ha=
-ve inverted logic for the `VSDC_FB_CONFIG_VALID` bit.
-- [Medium] The `vs_dc8000_irq_ack` function reads `VSDC_DISP_IRQ_STA` but f=
-ails to perform any hardware write to clear the pending hardware interrupts.
-
 Pre-existing issues:
-- [High] Early interrupt registration in `vs_dc_probe` causes a NULL pointe=
-r dereference if an interrupt fires before DRM initialization is complete.
+- [High] Negative cursor coordinates are programmed incorrectly because the=
+ offset values are not shifted before being passed to regmap_update_bits().
 --
 
-commit 71018d22eb0156b0806e61d4495897f9c4f2d35b
+commit 71dc0bfa33a2021c1ba93da0095ed32939fb4009
 Author: Joey Lu <a0987203069@gmail.com>
 
-drm/verisilicon: add DC8000 (DCUltraLite) display controller support
+drm/verisilicon: add DCUltraLite chip identity to HWDB
+   =20
+The Nuvoton MA35D1 chip contains a DCUltraLite display controller with
+model number 0x0 (sic, the model name contains no number either),
+revision 0x5560 and customer ID 0x305.  It has a similar register map
+with DC8000, only one display output and only 32x32 cursor supported.
 
-This commit adds support for the DC8000 (DCUltraLite) display controller
-generation to the Verisilicon DRM driver. It introduces a new vs_dc_funcs
-implementation that directly latches framebuffer updates through FB_CONFIG,
-handles panel output, and acknowledges VSYNC interrupts.
-
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8000.c b/drivers/gpu/drm/ve=
-risilicon/vs_dc8000.c
-> new file mode 100644
-> index 0000000000000..df7bd5bdd7f2a
-> --- /dev/null
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc8000.c
-> @@ -0,0 +1,92 @@
-
+> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c b/drivers/gpu/drm/veri=
+silicon/vs_hwdb.c
+> index 91524d16f7785..7d630a667a3f0 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
 [ ... ]
-
-> +static void vs_dc8000_panel_enable_ex(struct vs_dc *dc, unsigned int out=
-put)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			VSDC_FB_CONFIG_RESET);
-> +}
+> @@ -129,6 +129,16 @@ static struct vs_chip_identity vs_chip_identities[] =
+=3D {
+>  		.max_cursor_size =3D 64,
+>  		.formats =3D &vs_formats_no_yuv444,
+>  	},
+> +	{
+> +		.model =3D 0x0,		/* DCUltraLite */
+> +		.revision =3D 0x5560,
+> +		.customer_id =3D 0x305,
 > +
-> +static void vs_dc8000_panel_disable_ex(struct vs_dc *dc, unsigned int ou=
-tput)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			  VSDC_FB_CONFIG_RESET);
-> +}
+> +		.generation =3D VSDC_GEN_DC8000,
+> +		.display_count =3D 1,
+> +		.max_cursor_size =3D 32,
+> +		.formats =3D &vs_formats_no_yuv444,
+> +	},
+>  };
 
 [Severity: High]
-The commit message states that "panel output starts as soon as
-PANEL_CONFIG.RUNNING is set", but vs_dc8000_panel_enable_ex() and
-vs_dc8000_panel_disable_ex() modify VSDC_FB_CONFIG with the
-VSDC_FB_CONFIG_RESET bit instead of setting the PANEL_CONFIG.RUNNING bit.
-Will this cause the panel output to never start and inadvertently hold the
-framebuffer in reset?
+This isn't a bug introduced by this patch, but while reviewing the cursor
+handling code related to this new controller, I noticed an issue with how
+negative cursor coordinates are programmed.
 
-> +static void vs_dc8000_crtc_begin(struct vs_dc *dc, unsigned int output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			VSDC_FB_CONFIG_VALID);
-> +}
-> +
-> +static void vs_dc8000_crtc_flush(struct vs_dc *dc, unsigned int output)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			  VSDC_FB_CONFIG_VALID);
-> +}
+Looking at vs_cursor_plane_atomic_update() in
+drivers/gpu/drm/verisilicon/vs_cursor_plane.c, when handling negative
+X coordinates:
 
-[Severity: High]
-Does this invert the logic for the VSDC_FB_CONFIG_VALID bit? By asserting
-validity in vs_dc8000_crtc_begin() before plane register updates occur, and
-de-asserting it in vs_dc8000_crtc_flush() after the plane state is written,
-could this prevent the hardware from latching the correct configuration and
-lead to visual corruption?
+	} else {
+		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
+				   VSDC_CURSOR_CONFIG_X_OFF_MASK,
+				   -state->crtc_x);
+		regmap_update_bits(dc->regs, VSDC_CURSOR_LOCATION(output),
+				   VSDC_CURSOR_LOCATION_X_MASK, 0);
+	}
 
-[ ... ]
+Is the unshifted X offset (-state->crtc_x) completely masked out to 0 by
+regmap_update_bits() because it lacks the necessary shift macro (like
+VSDC_CURSOR_CONFIG_X_OFF)?
 
-> +static u32 vs_dc8000_irq_ack(struct vs_dc *dc)
-> +{
-> +	u32 hw_irqs, unified =3D 0, known =3D 0;
-> +	unsigned int i;
-> +
-> +	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &hw_irqs);
+Similarly, for the Y coordinate:
 
-[Severity: Medium]
-The commit message implies the VSYNC interrupt is acknowledged through
-DISP_IRQ_STA/DISP_IRQ_EN, but vs_dc8000_irq_ack() only reads from
-VSDC_DISP_IRQ_STA without performing any hardware write to clear the
-pending interrupts. If the register does not auto-clear on read, could this
-missing clear mechanism cause an interrupt storm and hang the system?
+	} else {
+		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
+				   VSDC_CURSOR_CONFIG_Y_OFF_MASK,
+				   -state->crtc_y);
+		regmap_update_bits(dc->regs, VSDC_CURSOR_LOCATION(output),
+				   VSDC_CURSOR_LOCATION_Y_MASK, 0);
+	}
 
-> +
-> +	for (i =3D 0; i < VSDC_MAX_OUTPUTS; i++) {
-> +		known |=3D VSDC_DISP_IRQ_VSYNC(i);
-> +		if (hw_irqs & VSDC_DISP_IRQ_VSYNC(i))
-> +			unified |=3D VSDC_IRQ_VSYNC(i);
-> +	}
-> +
-> +	drm_WARN_ONCE(&dc->drm_dev->base, hw_irqs & ~known,
-> +		      "Unknown hardware IRQ bits: %#x\n", hw_irqs & ~known);
+Does this also cause the unshifted Y offset (-state->crtc_y) to be
+masked out to 0?
 
-[Severity: High]
-This is a pre-existing issue, but in vs_dc_probe() the interrupt line is
-registered and unmasked via devm_request_irq() before vs_drm_initialize()
-is called. If an interrupt fires early (e.g. left over from the bootloader),
-vs_dc8000_irq_ack() will be called while dc->drm_dev is still NULL, causing
-a NULL pointer dereference when accessing &dc->drm_dev->base here. Can the
-interrupt registration be deferred until DRM initialization is complete?
+When the cursor is moved off the left or top edge of the screen, the hardwa=
+re
+offset is intended to clip the cursor.
+
+However, if the unshifted offset value is masked out by regmap_update_bits(=
+),
+it results in an offset of 0.
+
+This would cause the cursor to stick at the edge of the screen fully visibl=
+e,
+rather than sliding smoothly off-screen.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908092840.2252=
-20-1-a0987203069@gmail.com?part=3D4
+20-1-a0987203069@gmail.com?part=3D5
