@@ -4,78 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B28E2C79F99
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 07:18:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96389C79F99
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 07:20:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E282710E0A2;
-	Tue,  8 Sep 2026 07:18:51 +0000 (UTC)
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com
- [209.85.221.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15F0610E0A2
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 07:18:51 +0000 (UTC)
-Received: by mail-vk1-f182.google.com with SMTP id
- 71dfb90a1353d-5c65d654c23so1747008e0c.3
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 00:18:51 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788851930; x=1789456730;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ASzOob7GnYKJXcWv8xLMRXcs4durQAzV6NwhNCTQzS0=;
- b=QalqWfrwMs8Uhdai3ZYwjt88Lm8nq1+1QhZpCP/ECLgCRaBFTeqb/SBNMjM0At677y
- e6FtdEOV27OiHF+uL2vML9AAd0iJTHvjMtAypClTdjs5WKLdWtIuSTc2qoGJ+xcBBPCV
- /045JX26jiiWvll4qt2VaFJbuGF3D6/3VX9/5eiaN4lBR2bZHrhYVzK/ER+qJ9GAw8Ar
- tq6e+8k+gbAIVrnLirL0t4AdnZsC6SueLnZkfvjDXlCYpHj58XT145zINzCtHahWjEDS
- B5W1gvlTi5h3bVZiLzwG/mtp/KB8O76KOuycmuQhJE23gpwuEYRD1Tlt00656zbI82Zc
- CbjQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwBLfm2Y3sx59z958FSEgC0CxOXA7jiFEDoEg/YZm65bYS4mBdbhgCHD7vXKHcs+I4n1R47AsuMNuM=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mlbP0NmsOLDYaZJSwFcXzNVlzzugdFpFuWYkdkL+/VGr8XRKks
- fmDu14uiTm7e7YxYW54E7rpYiL8IR8vCeaW13uc07NJBLyHtjdIXoKoP3e7xclPN
-X-Gm-Gg: AYBFou2eKU1oiEOnf3tQGuRuBnyJCuqWir8+seSoYwEl1G8a32yXUwZ+5UU569peHbE
- ZJZIP2UfFqNvQ5Fm600lH6RJPz7t/TBkRVeb9WAx53ypARFTZwoLTM98z0cUO1O3oYJh7k5xbuA
- RVlXyC0ngCgsPwUbzHInV3OBZayspof98cVOVVLY9D2lqOaLrQ3/IMUCXzB/FqQsyLb640HEqe1
- tg9lsPxPfI/JAsPVK2PEDrvNeLwHxeukaalnZkHwCG7L6+sviBuRfBE118ACZ5uZtCYriNqcULM
- TcSNSrPEIhlpM1uL7sGFB06LSN06Dhz9Hj7sJ/m+yGh+4u+Ptl6vy1JD9xaX/BEDeFrDi7Xq6xT
- GXVHnWJXC4M9xwPgtOfjybBc5Ti7DPyabhSue4aNY2gbMCAFLpVL7NQtlWhFfnR6bTZLdz4P2Y6
- 9VqWXncpKdkNsjWrmRoVmYr+15gml/qcR18g7lhBpJYXGp12fh4RLXCfLKQ1dkiio1LATCvTXS9
- Jz+yZuOjfw6x8OPV1OlIzhPRw==
-X-Received: by 2002:a05:6122:da0:b0:5c7:ae9a:a056 with SMTP id
- 71dfb90a1353d-5c7ed457809mr11508223e0c.8.1788851929660; 
- Tue, 08 Sep 2026 00:18:49 -0700 (PDT)
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com.
- [209.85.217.53]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5c7ec3874acsm9035068e0c.15.2026.09.08.00.18.49
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Sep 2026 00:18:49 -0700 (PDT)
-Received: by mail-vs1-f53.google.com with SMTP id
- ada2fe7eead31-754ac74c495so1344415137.0
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 00:18:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBzenAjSkzbvPkxjm9fRKqNAwd+6zsuGBF0TDO88v/yIelJgR/bH7+y1OY6tDZgZHYHKR4p4Vg6kXbY=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:5493:b0:789:5f54:2367 with SMTP id
- ada2fe7eead31-78a4a718223mr9320013137.4.1788851928902; Tue, 08 Sep 2026
- 00:18:48 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9CE410E9E0;
+	Tue,  8 Sep 2026 07:20:49 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="uaBJUnJT";
+	dkim-atps=neutral
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
+ [91.207.212.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 358D110E9D8;
+ Tue,  8 Sep 2026 07:20:48 +0000 (UTC)
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+ by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6887H9Jf2043923; Tue, 8 Sep 2026 08:20:38 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=dk201812; bh=94/7cSjGumKbLVojsGn6txU
+ VsvIoMwFl9PmGiw3utUw=; b=uaBJUnJTHOEdpOctawzgNT9G+NNkvRlpZh2+hPM
+ vwa48zJ6iY7irQxz4IhCUSfaIN66BO3+ddsT1iMmgpQ31SmS3HhaJMDlrhtuzeW/
+ 0lhiBaCUhDcUrGMYC2IplcDlUgIzLjx4Mxgh/jj8/d8NTzWMc0hkxO1P4xrXCdsh
+ QZReRPRxARTlTs8iaK7rBkfnDLV1dkdjoOA1pgn4aa+g78++j5SN/5LAXEjmhgNK
+ 5KO0u2QhjmY/xdn2AcMibUXn8G129tFn+blbNWFb9g9RrQRItlyk6ImN5CIrPp+0
+ z4Im9WQl4XJJOpU2bySfu4+924bLmDEKhX9M1/2+OUDj+NA==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gg9brj64q-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 08 Sep 2026 08:20:38 +0100 (BST)
+Received: from [127.0.1.1] (172.25.5.88) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
+ 2026 08:20:37 +0100
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Date: Tue, 8 Sep 2026 10:20:27 +0300
+Subject: [PATCH v5] drm/imagination: Propagate all errors from KCCB command
+ submission code
 MIME-Version: 1.0
-References: <20260827093948.2825531-1-lilinmao@kylinos.cn>
- <e4a2ba2e-c533-04d8-0795-e3d43caf47b9@gmail.com>
- <CAN5rfbSh9ZoUkReAqv9rHYowqKcZFa-Svy6LP-MHvqfBVhjdBQ@mail.gmail.com>
- <4f3c7184-1b5c-4074-b8a1-49261833df8f@gmail.com>
-In-Reply-To: <4f3c7184-1b5c-4074-b8a1-49261833df8f@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 8 Sep 2026 09:18:37 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWoZBGyH=WeiTG4QCNC4hr_+pC4QQb-wjK0afZgMUy1Fw@mail.gmail.com>
-X-Gm-Features: AcwNN1XmAqsgmY9dglWOajpNmnnts6xxj9nL1ZG-ZrxbM9jWTj4q9h8M9EtZsAE
-Message-ID: <CAMuHMdWoZBGyH=WeiTG4QCNC4hr_+pC4QQb-wjK0afZgMUy1Fw@mail.gmail.com>
-Subject: Re: [PATCH] fbdev: atafb: Restrict SuperBlitter to supported formats
-To: Michael Schmitz <schmitzmic@gmail.com>
-Cc: =?UTF-8?B?TWlybyBLcm9ww6HEjWVr?= <miro.kropacek@gmail.com>, 
- Linmao Li <lilinmao@kylinos.cn>, deller@gmx.de, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260908-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v5-1-5e262721454b@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIADq3n2oC/63PTU7DMBAF4KtUXjPIcTxp2hX3QF34Z5wa6jqy0
+ 6ioyt2xixCgLsPySTPzvbmxTMlTZvvNjSWaffbxXAI+bZg5qvNA4G3JTHDR8b7hoCVcxjwlUgH
+ GFEc1qIlAnU5AKcWUwaUY4N0YDSZYyBcdfK5XwURLwK0i6Tg6o5EVZEzk/PVe4PXwlcvKG5mpq
+ nXi6PMU08e94dzUue8yzdoycwMNOGcRBUrbWfHiwzCReTYxsNpmFr89udoTxWuxRXTKIlf04LU
+ /3o5vV3tt8SRue8UL6Lrdgyf/15PF010vHRayM3//W5blE2GR/f9vAgAA
+X-Change-ID: 20260810-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-0dae4f05fcb5
+To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
+ <luigi.santivetti@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Alexandru Dadu <alexandru.dadu@imgtec.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788852037; l=11858;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=ZZiwfI+qgl0Hx83CxY1CLvtp9ZhpkXmyRKUDpQ/Fuw4=;
+ b=uYiKIBGuvM2hQCvrWAbmuIbu9m855bOsyg5joUhInu8Moz2Qp2356ELu/X4kUs/jHTQBbfou1
+ B3yvqOG6m/nCTVyPuVPsilPJmqOBPt9TRV3x5K0FbxXoXk8U2R/zh59
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Originating-IP: [172.25.5.88]
+X-Proofpoint-GUID: j65CyzqErrl7DmLmIXsFN8hoIMGUbC4h
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA3NSBTYWx0ZWRfXzkfbNtDL2z92
+ f7ykIYBgPQkJCo9eLrOn/5EVxSwO4R/z+a5jjBwFSDyLrbIDfE1NK5uNpi/2YxrOhqc3BY1c2t/
+ t/wk5TaAtT3alvHb5uw8J/tu88bG+G7IJBvFq+4VBddt+qKQxBww4ihW9MIBfy5HOdqVXiQL4iP
+ FGxyiGxztqDazP0+kjibWuP6tmIQXDQNHjmwiAvQjCTQ5aIU0iTzuDrMZ9hYBMfEGU1eY9D2Qe7
+ I5Mtu2zwzplE1Qw0nUv1CG//Pg2iTLO+HMeQ6PN9UAYkdbTR5zpJ9gxEC7KAk86KQ7cjztUMc54
+ CIqPjpM0ZDbissjvX23sqJJ5FUXSG9g1qqB78yRDHHDgF9xsN2gyBiPxSZM7unhWdVNrgWjqeB/
+ HbhC7nSU21cnnRYdL/I6F1coyi0JnsieO9J5kspbtbAVDlydxlXRb5Yh6kJE6KBLfqEy+kQb8UM
+ h4egYcltxvmic34Nuvg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA3NSBTYWx0ZWRfX2KV+a7Ba/EmV
+ tK9Ruzz9FLFu+3A1Z36FGCZo2E0A8Ar8RIh8Y6dZ2LboLaRgl0Bj2curnuBYFBt9e2NOLiz8+hS
+ kfxfuNXQikiyEhu3MruXhkLK11FMeAo=
+X-Proofpoint-ORIG-GUID: j65CyzqErrl7DmLmIXsFN8hoIMGUbC4h
+X-Authority-Analysis: v=2.4 cv=ePQbHnp1 c=1 sm=1 tr=0 ts=6a9fb746 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=YP7Kpn5otooA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=e5mUnYsNAAAA:8 a=-Hwv4S9AhHCUfRXPc_sA:9 a=QEXdDO2ut3YA:10
+ a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22 a=Vxmtnl_E_bksehYqCbjh:22
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,97 +102,312 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Michael,
+From: Alessio Belle <alessio.belle@imgtec.com>
 
-On Mon, 7 Sept 2026 at 22:14, Michael Schmitz <schmitzmic@gmail.com> wrote:
-> On 7/09/26 23:14, Miro Krop=C3=A1=C4=8Dek wrote:
-> > On Sun, 6 Sept 2026 at 11:49, Michael Schmitz <schmitzmic@gmail.com> wr=
-ote:
-> >> Hi Linmao,
-> >>
-> >> thanks for your patch!
-> >>
-> >> Am 27.08.2026 um 21:39 schrieb Linmao Li:
-> >>> The SuperBlitter operations derive an integer byte count per pixel.  =
-The
-> >>> accelerated fill path handles only one-, two- and four-byte pixels.
-> >>> However, the operations are currently installed for every external
-> >>> framebuffer in SuperVidel RAM, including planar 1/2/4/8-bpp and 24-bp=
-p
-> >>> truecolor modes accepted by the external video parser.
-> >>>
-> >>> For 1/2/4-bpp modes, the byte count becomes zero, so accelerated copi=
-es do
-> >>> nothing and fills fall through to 32-bit stores.  Planar 8-bpp uses a=
-n
-> >>> incompatible memory layout.  For 24-bpp modes, fills also use 32-bit =
-stores
-> >>> despite advancing addresses by three bytes per pixel.  These cases ca=
-n
-> >>> corrupt the framebuffer beyond the requested rectangle.
-> >> I believe 24 bpp mode can be rescued using something like this (entire=
-ly
-> >> untested):
-> >>
-> >> --- a/drivers/video/fbdev/atafb.c
-> >> +++ b/drivers/video/fbdev/atafb.c
-> >> @@ -2463,6 +2463,11 @@ static void svblit_fillrect(struct fb_info *inf=
-o,
-> >>           case 2:
-> >>                   memset16((u16 *)line, pix, rect->width);
-> >>                   break;
-> >> +       case 3:
-> >> +               memset(line, pix, ((rect->width * bytespp) % 4));
-> >> +               line +=3D ((rect->width * bytespp) % 4);
-> >> +               memset32((u32 *)line, pix, (rect->width * bytespp) / 4=
-);
-> >> +               break;
-> >>           default:
-> >>                   memset32((u32 *)line, pix, rect->width);
-> >>                   break;
-> >>
-> >> Can't test this on hardware, and would need Miro to confirm it works a=
-s
-> >> intended.
-> > Linmao's patch: I ran it on a Falcon with SuperVidel at
-> > 1920x1080x32bpp, all good.
-> >
-> > Michael's 24bpp fill: I cannot test it because the SuperVidel has no
-> > 24bpp video mode. It was planned but never implemented. Its mode
-> > register offers 1/2/4/8-bit bitplane, 8-bit chunky, 16-bit highcolor
-> > and 32-bit truecolor (24-bit RGB plus an alpha byte), with the
-> > remaining code reserved - and TOS offers no 24bpp mode to set.
-> Without a 24 bpp mode, the 24 bpp fill is pointless, so no point trying
-> to keep that mode alive.
-> > Unless I overlooked something, the fill also looks wrong on paper: the
-> > first line is filled with a repeated byte and then with repeated
-> > 32-bit words of the same value, which cannot reproduce a 3-byte pixel
-> > pattern unless all three bytes are equal.
->
-> You're correct - we'd need a memset24() to account for that. Without
+pvr_kccb_send_cmd_reserved_powered() returned void while the other two
+variants of pvr_kccb_send_cmd*() returned int.
 
-Unless the frame buffer would be using a DIRECT_COLOR visual (which
-is not the case), then you could draw pixels in the 16 console colors
-by replicating the color index in all 3 bytes ;-)
+The error is now propagated all the way to the DRM scheduler's run_job()
+callback, which is the only user of pvr_kccb_send_cmd_reserved_powered()
+outside of the other variants of pvr_kccb_send_cmd*().
 
-> hardware support this is an academic exercise that I don't have time for =
-:-)
+Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+---
+Changes in v5:
+- Added pvr_job_release_pm_ref() to the kccb kick command return value
+check.
+- Update v4 description typo.
+- Link to v4: https://patch.msgid.link/20260907-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v4-1-b684f58a06ce@imgtec.com
 
-True. And as this code is used only to fill the first line (the blitter
-replicates it into the other lines), the performance difference between
-a simple byte loop and a true memset24() won't be that large.
+Changes in v4:
+- Added a check over the return value of the kccb kick command.
+- Link to v3: https://patch.msgid.link/20260907-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v3-1-4578a0fadf69@imgtec.com
 
+Changes in v3:
+- Dropped the job->kccb_fence check since pvr_queue_prepare_job() makes
+sure that the check would always be true.
+- Dropped the power references from the patch.
+- Link to v2: https://patch.msgid.link/20260814-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v2-1-35355fad50ae@imgtec.com
 
-Gr{oetje,eeting}s,
+Changes in v2:
+- Provide an error path in pvr_queue_run_job(). The path will use
+pvr_kccb_release_slot() to avoid resource leaks.
+- Link to v1: https://patch.msgid.link/20260811-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v1-1-ffd55254d6d2@imgtec.com
 
-                        Geert
+To: Alessio Belle <alessio.belle@imgtec.com>
+To: Luigi Santivetti <luigi.santivetti@imgtec.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: imagination@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/gpu/drm/imagination/pvr_ccb.c   | 33 +++++++++++++++++------
+ drivers/gpu/drm/imagination/pvr_ccb.h   |  6 ++---
+ drivers/gpu/drm/imagination/pvr_cccb.c  | 12 ++++++---
+ drivers/gpu/drm/imagination/pvr_cccb.h  | 20 +++++++-------
+ drivers/gpu/drm/imagination/pvr_queue.c | 46 +++++++++++++++++++++------------
+ 5 files changed, 76 insertions(+), 41 deletions(-)
 
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
+diff --git a/drivers/gpu/drm/imagination/pvr_ccb.c b/drivers/gpu/drm/imagination/pvr_ccb.c
+index b702d122d791..dfd068270542 100644
+--- a/drivers/gpu/drm/imagination/pvr_ccb.c
++++ b/drivers/gpu/drm/imagination/pvr_ccb.c
+@@ -257,8 +257,13 @@ pvr_kccb_used_slot_count_locked(struct pvr_device *pvr_dev)
+  * @pvr_dev: Device pointer.
+  * @cmd: Command to send.
+  * @kccb_slot: Address to store the KCCB slot for this command. May be %NULL.
++ *
++ * Returns:
++ * * Zero on success,
++ * * -EIO if the device is lost, or
++ * * -EINVAL if a KCCB slot was not reserved or is not available.
+  */
+-void
++int
+ pvr_kccb_send_cmd_reserved_powered(struct pvr_device *pvr_dev,
+ 				   struct rogue_fwif_kccb_cmd *cmd,
+ 				   u32 *kccb_slot)
+@@ -268,19 +273,25 @@ pvr_kccb_send_cmd_reserved_powered(struct pvr_device *pvr_dev,
+ 	struct rogue_fwif_ccb_ctl *ctrl = pvr_ccb->ctrl;
+ 	u32 old_write_offset;
+ 	u32 new_write_offset;
++	int err;
+ 
+-	WARN_ON(pvr_dev->lost);
++	if (pvr_dev->lost)
++		return -EIO;
+ 
+ 	mutex_lock(&pvr_ccb->lock);
+ 
+-	if (WARN_ON(!pvr_dev->kccb.reserved_count))
++	if (WARN_ON(!pvr_dev->kccb.reserved_count)) {
++		err = -EINVAL;
+ 		goto out_unlock;
++	}
+ 
+ 	old_write_offset = READ_ONCE(ctrl->write_offset);
+ 
+ 	/* We reserved the slot, we should have one available. */
+-	if (WARN_ON(!pvr_ccb_slot_available_locked(pvr_ccb, &new_write_offset)))
++	if (WARN_ON(!pvr_ccb_slot_available_locked(pvr_ccb, &new_write_offset))) {
++		err = -EINVAL;
+ 		goto out_unlock;
++	}
+ 
+ 	memcpy(&kccb[old_write_offset], cmd,
+ 	       sizeof(struct rogue_fwif_kccb_cmd));
+@@ -298,8 +309,14 @@ pvr_kccb_send_cmd_reserved_powered(struct pvr_device *pvr_dev,
+ 	pvr_fw_mts_schedule(pvr_dev,
+ 			    PVR_FWIF_DM_GP & ~ROGUE_CR_MTS_SCHEDULE_DM_CLRMSK);
+ 
++	mutex_unlock(&pvr_ccb->lock);
++
++	return 0;
++
+ out_unlock:
+ 	mutex_unlock(&pvr_ccb->lock);
++
++	return err;
+ }
+ 
+ /**
+@@ -365,8 +382,9 @@ static int pvr_kccb_reserve_slot_sync(struct pvr_device *pvr_dev)
+  * @kccb_slot: Address to store the KCCB slot for this command. May be %NULL.
+  *
+  * Returns:
+- *  * Zero on success, or
+- *  * -EBUSY if timeout while waiting for a free KCCB slot.
++ * * Zero on success,
++ * * Any error returned by pvr_kccb_reserve_slot_sync(), or
++ * * Any error returned by pvr_kccb_send_cmd_reserved_powered().
+  */
+ int
+ pvr_kccb_send_cmd_powered(struct pvr_device *pvr_dev, struct rogue_fwif_kccb_cmd *cmd,
+@@ -378,8 +396,7 @@ pvr_kccb_send_cmd_powered(struct pvr_device *pvr_dev, struct rogue_fwif_kccb_cmd
+ 	if (err)
+ 		return err;
+ 
+-	pvr_kccb_send_cmd_reserved_powered(pvr_dev, cmd, kccb_slot);
+-	return 0;
++	return pvr_kccb_send_cmd_reserved_powered(pvr_dev, cmd, kccb_slot);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/imagination/pvr_ccb.h b/drivers/gpu/drm/imagination/pvr_ccb.h
+index 4c8aef31eeb0..8b698206c68b 100644
+--- a/drivers/gpu/drm/imagination/pvr_ccb.h
++++ b/drivers/gpu/drm/imagination/pvr_ccb.h
+@@ -60,9 +60,9 @@ int pvr_kccb_send_cmd(struct pvr_device *pvr_dev,
+ int pvr_kccb_send_cmd_powered(struct pvr_device *pvr_dev,
+ 			      struct rogue_fwif_kccb_cmd *cmd,
+ 			      u32 *kccb_slot);
+-void pvr_kccb_send_cmd_reserved_powered(struct pvr_device *pvr_dev,
+-					struct rogue_fwif_kccb_cmd *cmd,
+-					u32 *kccb_slot);
++int pvr_kccb_send_cmd_reserved_powered(struct pvr_device *pvr_dev,
++				       struct rogue_fwif_kccb_cmd *cmd,
++				       u32 *kccb_slot);
+ int pvr_kccb_wait_for_completion(struct pvr_device *pvr_dev, u32 slot_nr, u32 timeout,
+ 				 u32 *rtn_out);
+ bool pvr_kccb_is_idle(struct pvr_device *pvr_dev);
+diff --git a/drivers/gpu/drm/imagination/pvr_cccb.c b/drivers/gpu/drm/imagination/pvr_cccb.c
+index 4fabab41bea7..da6e6d94e29f 100644
+--- a/drivers/gpu/drm/imagination/pvr_cccb.c
++++ b/drivers/gpu/drm/imagination/pvr_cccb.c
+@@ -220,8 +220,12 @@ static void fill_cmd_kick_data(struct pvr_cccb *cccb, u32 ctx_fw_addr,
+  * You must call pvr_kccb_reserve_slot() and wait for the returned fence to
+  * signal (if this function didn't return NULL) before calling
+  * pvr_cccb_send_kccb_kick().
++ *
++ * Returns:
++ * * Zero on success, or
++ * * Any error returned by pvr_kccb_send_cmd_reserved_powered().
+  */
+-void
++int
+ pvr_cccb_send_kccb_kick(struct pvr_device *pvr_dev,
+ 			struct pvr_cccb *pvr_cccb, u32 cctx_fw_addr,
+ 			struct pvr_hwrt_data *hwrt)
+@@ -235,10 +239,10 @@ pvr_cccb_send_kccb_kick(struct pvr_device *pvr_dev,
+ 	/* Make sure the writes to the CCCB are flushed before sending the KICK. */
+ 	wmb();
+ 
+-	pvr_kccb_send_cmd_reserved_powered(pvr_dev, &cmd_kick, NULL);
++	return pvr_kccb_send_cmd_reserved_powered(pvr_dev, &cmd_kick, NULL);
+ }
+ 
+-void
++int
+ pvr_cccb_send_kccb_combined_kick(struct pvr_device *pvr_dev,
+ 				 struct pvr_cccb *geom_cccb,
+ 				 struct pvr_cccb *frag_cccb,
+@@ -263,5 +267,5 @@ pvr_cccb_send_kccb_combined_kick(struct pvr_device *pvr_dev,
+ 	/* Make sure the writes to the CCCB are flushed before sending the KICK. */
+ 	wmb();
+ 
+-	pvr_kccb_send_cmd_reserved_powered(pvr_dev, &cmd_kick, NULL);
++	return pvr_kccb_send_cmd_reserved_powered(pvr_dev, &cmd_kick, NULL);
+ }
+diff --git a/drivers/gpu/drm/imagination/pvr_cccb.h b/drivers/gpu/drm/imagination/pvr_cccb.h
+index 943fe8f2c963..a2155f732bf1 100644
+--- a/drivers/gpu/drm/imagination/pvr_cccb.h
++++ b/drivers/gpu/drm/imagination/pvr_cccb.h
+@@ -59,16 +59,16 @@ void pvr_cccb_fini(struct pvr_cccb *cccb);
+ void pvr_cccb_write_command_with_header(struct pvr_cccb *pvr_cccb,
+ 					u32 cmd_type, u32 cmd_size, void *cmd_data,
+ 					u32 ext_job_ref, u32 int_job_ref);
+-void pvr_cccb_send_kccb_kick(struct pvr_device *pvr_dev,
+-			     struct pvr_cccb *pvr_cccb, u32 cctx_fw_addr,
+-			     struct pvr_hwrt_data *hwrt);
+-void pvr_cccb_send_kccb_combined_kick(struct pvr_device *pvr_dev,
+-				      struct pvr_cccb *geom_cccb,
+-				      struct pvr_cccb *frag_cccb,
+-				      u32 geom_ctx_fw_addr,
+-				      u32 frag_ctx_fw_addr,
+-				      struct pvr_hwrt_data *hwrt,
+-				      bool frag_is_pr);
++int pvr_cccb_send_kccb_kick(struct pvr_device *pvr_dev,
++			    struct pvr_cccb *pvr_cccb, u32 cctx_fw_addr,
++			    struct pvr_hwrt_data *hwrt);
++int pvr_cccb_send_kccb_combined_kick(struct pvr_device *pvr_dev,
++				     struct pvr_cccb *geom_cccb,
++				     struct pvr_cccb *frag_cccb,
++				     u32 geom_ctx_fw_addr,
++				     u32 frag_ctx_fw_addr,
++				     struct pvr_hwrt_data *hwrt,
++				     bool frag_is_pr);
+ bool pvr_cccb_cmdseq_fits(struct pvr_cccb *pvr_cccb, size_t size);
+ 
+ /**
+diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
+index 09993e858df8..8aba8fbfccfa 100644
+--- a/drivers/gpu/drm/imagination/pvr_queue.c
++++ b/drivers/gpu/drm/imagination/pvr_queue.c
+@@ -769,17 +769,19 @@ static struct dma_fence *pvr_queue_run_job(struct drm_sched_job *sched_job)
+ 		    (job->type != DRM_PVR_JOB_TYPE_GEOMETRY ||
+ 		     job->paired_job->type != DRM_PVR_JOB_TYPE_FRAGMENT ||
+ 		     job->hwrt != job->paired_job->hwrt ||
+-		     job->ctx != job->paired_job->ctx)))
+-		return ERR_PTR(-EINVAL);
++		     job->ctx != job->paired_job->ctx))) {
++		err = -EINVAL;
++		goto err_release;
++	}
+ 
+ 	err = pvr_job_get_pm_ref(job);
+ 	if (WARN_ON(err))
+-		return ERR_PTR(err);
++		goto err_release;
+ 
+ 	if (job->paired_job) {
+ 		err = pvr_job_get_pm_ref(job->paired_job);
+ 		if (WARN_ON(err))
+-			return ERR_PTR(err);
++			goto err_release;
+ 	}
+ 
+ 	/* Submit our job to the CCCB */
+@@ -793,25 +795,37 @@ static struct dma_fence *pvr_queue_run_job(struct drm_sched_job *sched_job)
+ 
+ 		/* Submit the fragment job along the geometry job and send a combined kick. */
+ 		pvr_queue_submit_job_to_cccb(frag_job);
+-		pvr_cccb_send_kccb_combined_kick(pvr_dev,
+-						 &geom_queue->cccb, &frag_queue->cccb,
+-						 pvr_context_get_fw_addr(geom_job->ctx) +
+-						 geom_queue->ctx_offset,
+-						 pvr_context_get_fw_addr(frag_job->ctx) +
+-						 frag_queue->ctx_offset,
+-						 job->hwrt,
+-						 frag_job->fw_ccb_cmd_type ==
+-						 ROGUE_FWIF_CCB_CMD_TYPE_FRAG_PR);
++		err = pvr_cccb_send_kccb_combined_kick(pvr_dev,
++						       &geom_queue->cccb, &frag_queue->cccb,
++						       pvr_context_get_fw_addr(geom_job->ctx) +
++						       geom_queue->ctx_offset,
++						       pvr_context_get_fw_addr(frag_job->ctx) +
++						       frag_queue->ctx_offset,
++						       job->hwrt,
++						       frag_job->fw_ccb_cmd_type ==
++						       ROGUE_FWIF_CCB_CMD_TYPE_FRAG_PR);
+ 	} else {
+ 		struct pvr_queue *queue = container_of(job->base.sched,
+ 						       struct pvr_queue, scheduler);
+ 
+-		pvr_cccb_send_kccb_kick(pvr_dev, &queue->cccb,
+-					pvr_context_get_fw_addr(job->ctx) + queue->ctx_offset,
+-					job->hwrt);
++		err = pvr_cccb_send_kccb_kick(pvr_dev, &queue->cccb,
++					      pvr_context_get_fw_addr(job->ctx) +
++					      queue->ctx_offset,
++					      job->hwrt);
++	}
++
++	if (WARN_ON(err)) {
++		pvr_job_release_pm_ref(job);
++		if (job->paired_job)
++			pvr_job_release_pm_ref(job->paired_job);
++		goto err_release;
+ 	}
+ 
+ 	return dma_fence_get(job->done_fence);
++
++err_release:
++	pvr_kccb_release_slot(pvr_dev);
++	return ERR_PTR(err);
+ }
+ 
+ static void pvr_queue_stop(struct pvr_queue *queue, struct pvr_job *bad_job)
 
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+---
+base-commit: bd4f284df04d76fd65e57141cb1e6e7a49e4c3cb
+change-id: 20260810-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-0dae4f05fcb5
+
+Best regards,
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
+
