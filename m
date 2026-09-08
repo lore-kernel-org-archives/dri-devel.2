@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A334AC79FAA
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 22:05:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65DBDC79FAF
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 22:05:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B0BB10EDBB;
-	Tue,  8 Sep 2026 22:05:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0881410EDBC;
+	Tue,  8 Sep 2026 22:05:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vx8Knk28";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QcIgNaHn";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC7FC10EDB7
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 22:05:10 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED3F710EDA0
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 22:04:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6FB0560219;
- Tue,  8 Sep 2026 22:05:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF07D1F00A3A;
- Tue,  8 Sep 2026 22:05:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C58D943E5E;
+ Tue,  8 Sep 2026 22:04:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7142F1F00A3D;
+ Tue,  8 Sep 2026 22:04:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788905110;
- bh=81+2lTuoLtNrrFz1cjX0UEXbYP1lwwUoV5MIK36Dgqc=;
+ s=k20260515; t=1788905095;
+ bh=qwUK2PGPRP9N49QDc9653gAgUPcVpEE3+mhOYY7c0D4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Vx8Knk28Kc8ND3QWDC+qXD1kMPPNCkoFWn2f2bq+y2Y01KjrSASkxa+vvAJEpDuiG
- hkOprJXcJgAaduSVt/U4DDEXe5wtxsWX8Iv+CqhtkbG/AeeDpswA31fA3iHOFReiXb
- J0c8QaQJYkS9FVw+sAYrXSuL/7rgioC2LruYeWkAE4Rb7xPhmB1hMEXwqAnEnk/5r3
- k2yqu1fkFSr6/CT5AAPUjnJX9oBPVK6goQLW/PtNAgzftq1qzTqdbvLWFvTkF0uxEp
- wYgbdGoMZi38LcNkxKESa0elzDjITzU7Npb6XmtzxRR8HubCwX6g6YnP9mW/gEgtW7
- NKA6p3rq0U5Dw==
+ b=QcIgNaHnvXKOcubmt/xp5UWcjJDPUO0ISoikgJFGKAmrV4uQS0Y4fM6WlljzC0NaB
+ ls1zUlsZ4FmxDA94LbK0I+iwMckHWpPKXa2m3Jdm/KhR3t/EyFQCHSrKaGdPXem8Fu
+ Uzv/8nW10Bmq0WTwZmYIUbm/OJhO07FbiNaJBPPyK3A3b4FOg3BWGIuHK0RUyWlKX2
+ n2Et8WmKsiBN0zMcewDD3on1T1H75orxWg4W21/jYV7vYPnkbAhK6cqlAhnvn6/npA
+ /ZUVt9dEGGdOZb2P2TkpkW+BEJGRm9SzDVU4XNmqpCvAbvnM7MX34p5mkYX0O4KUhf
+ HJLC2UptOXqbQ==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Tue, 08 Sep 2026 17:04:51 -0500
-Subject: [PATCH v3 14/22] accel: ethosu: Account for feature map element size
+Date: Tue, 08 Sep 2026 17:04:40 -0500
+Subject: [PATCH v3 03/22] accel: ethosu: Fix probe error cleanup
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-ethosu-fixes-v3-14-490fe215286f@kernel.org>
+Message-Id: <20260908-ethosu-fixes-v3-3-490fe215286f@kernel.org>
 References: <20260908-ethosu-fixes-v3-0-490fe215286f@kernel.org>
 In-Reply-To: <20260908-ethosu-fixes-v3-0-490fe215286f@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -58,11 +58,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The feature map bounds calculation currently accounts for only one byte
-of the final element. This can leave the tail of B16, B32, and B64
-elements outside the validated buffer.
+Once the job scheduler has been initialized, failures from ethosu_init()
+or drm_dev_register() return from probe without tearing it down. The
+registration failure also leaves the SRAM-pool allocation in use, because
+the platform remove callback is not called after a failed probe.
 
-Use the feature map element size when calculating the final byte.
+Unwind the initialized resources on both paths. Also do not call
+drm_sched_fini() after a failed drm_sched_init(): the scheduler initializer
+already unwinds its partial setup, while drm_sched_fini() requires a
+successfully initialized scheduler.
 
 Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 Cc: stable@vger.kernel.org
@@ -70,24 +74,58 @@ Assisted-by: LLM
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
 v2:
- - new patch
+ - Adjust for previous patch reworking runtime-PM suspend
 ---
- drivers/accel/ethosu/ethosu_gem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/accel/ethosu/ethosu_drv.c | 13 ++++++++++++-
+ drivers/accel/ethosu/ethosu_job.c |  6 +-----
+ 2 files changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
-index 11aa3f4dd0e7..974cf562ef49 100644
---- a/drivers/accel/ethosu/ethosu_gem.c
-+++ b/drivers/accel/ethosu/ethosu_gem.c
-@@ -426,7 +426,7 @@ static u64 feat_matrix_length(struct ethosu_device *edev,
- 		return U64_MAX;
+diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
+index 1f6fb5d18cf2..2c8d735767b2 100644
+--- a/drivers/accel/ethosu/ethosu_drv.c
++++ b/drivers/accel/ethosu/ethosu_drv.c
+@@ -375,9 +375,20 @@ static int ethosu_probe(struct platform_device *pdev)
+ 
+ 	ret = ethosu_init(ethosudev);
+ 	if (ret)
+-		return ret;
++		goto err_job_fini;
+ 
+ 	ret = drm_dev_register(&ethosudev->base, 0);
++	if (ret)
++		goto err_sram_free;
++
++	return 0;
++
++err_sram_free:
++	if (ethosudev->sram)
++		gen_pool_free(ethosudev->srampool, (unsigned long)ethosudev->sram,
++			      ethosudev->npu_info.sram_size);
++err_job_fini:
++	ethosu_job_fini(ethosudev);
+ 	return ret;
+ }
+ 
+diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
+index 8dce74db0cb4..ec65305e0cd7 100644
+--- a/drivers/accel/ethosu/ethosu_job.c
++++ b/drivers/accel/ethosu/ethosu_job.c
+@@ -355,14 +355,10 @@ int ethosu_job_init(struct ethosu_device *edev)
+ 	ret = drm_sched_init(&edev->sched, &args);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to create scheduler: %d\n", ret);
+-		goto err_sched;
++		return ret;
  	}
  
--	if (check_add_overflow(addr, 1ULL, &offset))
-+	if (check_add_overflow(addr, (u64)element_size, &offset))
- 		return U64_MAX;
+ 	return 0;
+-
+-err_sched:
+-	drm_sched_fini(&edev->sched);
+-	return ret;
+ }
  
- 	info->region_size[fm->region] = max(info->region_size[fm->region], offset);
+ void ethosu_job_fini(struct ethosu_device *dev)
 
 -- 
 2.53.0
