@@ -4,81 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 089BEC79FA0
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 06:27:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65BD6C79F99
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 06:32:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29CC110E070;
-	Tue,  8 Sep 2026 06:27:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 643F210E08F;
+	Tue,  8 Sep 2026 06:32:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hkGHIN+z";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="FiQCn5VO";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="B6DSuA1j";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JQJACMV0";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5H0FtDEQ";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B4BA10E070
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 06:27:36 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- d9443c01a7336-2d6ff2f2c4eso4355825ad.1
- for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 23:27:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788848856; x=1789453656; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Do+tyJs/In1J8gFUGP4c/jQC48P3JQhaviUTpiPjDi0=;
- b=hkGHIN+zYtrFXyWdbAHz05afzqJnrLQJt7QPrf1qfxQ3OTe8L3vZJyj/NgYYjzKnJi
- qaPT96/YymRZ7CmDUK3SgcUmNOp3MZYuX2RnEE1q6F+qS2wz5OOMzX4UafMCoBC0GP5Y
- zRrPdM4oabrEzxwzjfb+ASi+t++r4iwIajTczFGknjpNYISKz7T9yB0MYHN+7nTGEM5H
- OFKvidX5TsvEdO3+ioR/RQ4mrDkm1CzNm/h4zBrWZ9SLEjbdk7v1Y54PCZ+4o6UT0AvA
- oBnzge/3kDzOEckAfBkUcweL7pUBLui1miFRRwj9m/I1FdhYeUCgdEfhTCjkTCYI5kia
- APSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788848856; x=1789453656;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Do+tyJs/In1J8gFUGP4c/jQC48P3JQhaviUTpiPjDi0=;
- b=TorOBRAngZygEeEWrBAICjdUs7Vt7ypfGNXjJzPiZzy4oxWSBQZzAZ7m35HHUKgbmb
- dqQ2yZ2Njk+YrJVbUhhX3peswytDt76cw+ZOy9Q/VaqTAekv8U8N+vZJZ3Jw+DDcNx9Y
- NXKGKTfxB5Qu5VktO5sYZWK0Q+KnR3XKjbPQqrvztkWiTiooQBk/POUbX5YfmRDPNiRu
- /FUaifi/kyFrdFi/4/LNOUSY3k8/GeSVfNkOh+tOPDDnI8sToo0lHeGQgFWyfJ5d9gEc
- IkvsQUvMPZ04jyg80yKcCup7t2Ma/AW8VYgqTK6dof6reu4Jw3WxER/Ey29h0rg913a0
- YFiw==
-X-Gm-Message-State: AFuF++n3i+Zl0g86LRXaF4TP7sdANcrAUz2PB0YE5gVAzG1joP9YWKWA
- psDK8W/eVG7y8ZXKwuAftdDwBwSjG4E3MhHPMFGjYlAW7EBTWFKRG+KC
-X-Gm-Gg: AYBFou0Ro9AuPUksfh6GusQIsLGjhr7QFXrCR1BvoMqgEaA5HtYY5LpOMYk1bgdhZlQ
- lWdbo7QiruxltCL6fWGPB9hEk5CrSLb74FLp/45GwOSBZLTvjdUjsVcpp5E9buyPmSx5PeJQBZc
- bB1mjX2dvSr5ixy9nuZY1Pgpz/RMiZWLyCPGCOMOLA385i6HLZG6cf6jYsw7/SoYBdKpRz6wxOz
- zddQncrKGr995+1pRGQZTZltDpUzZu1D9fiWquJwONBfaNo0gpylVMsqr7QAj6QCPaXw7JeiZou
- KsO/LdVtKBaygJ1mej6Xr7V8LyKWT5FcFhjL2FxWHEAtj4EGdu0+Rt8gx3NVMNpgEvuNzH/y2hc
- CSFJdbXHxqrrMNnegj4f8RcpYmLbuqK+u9r2Nwgnr0i2HHPdlAcj/TLXhBFKOvBe+HG/HmobT/e
- qMRi+vbXKCjt7kntvPHAl5+vowusrvWJU6ey3qnHj0HyIgw6AUyLeqVsMbFhvvFbveG3bzMWkfS
- /0=
-X-Received: by 2002:a17:902:ced2:b0:2cb:2b50:d9da with SMTP id
- d9443c01a7336-2db2779b54fmr189996155ad.3.1788848853049; 
- Mon, 07 Sep 2026 23:27:33 -0700 (PDT)
-Received: from fedora (45.62.127.193.16clouds.com. [45.62.127.193])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2db1497fbf8sm54701565ad.43.2026.09.07.23.27.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Sep 2026 23:27:32 -0700 (PDT)
-From: Frank Zhang <rmxpzlb@gmail.com>
-To: royalnet026@gmail.com, Laurent.pinchart@ideasonboard.com,
- airlied@gmail.com, andrzej.hajda@intel.com, luca.ceresoli@bootlin.com,
- cristian.ciocaltea@collabora.com, daniels@collabora.com,
- detlev.casanova@collabora.com, dmitry.baryshkov@oss.qualcomm.com,
- heiko@sntech.de, jernej.skrabec@gmail.com, jonas@kwiboo.se,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- neil.armstrong@linaro.org, rfoss@kernel.org, simona@ffwll.ch,
- tzimmermann@suse.de, sebastian.reichel@collabora.com,
- macromorgan@hotmail.com
-Cc: dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe when PHY
- is down
-Date: Tue,  8 Sep 2026 14:27:08 +0800
-Message-ID: <20260908062708.39437-1-rmxpzlb@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AB2610E08F
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 06:32:56 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E60FE1F796;
+ Tue,  8 Sep 2026 06:32:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1788849171; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=q5KZD/XW23R32T6r6MBWpZy3syCbREHJcxvpt9GzgO0=;
+ b=FiQCn5VO93vIro4DbxQjaMTXfB3OwK+wye9IHY0fJyDejt9C3oq1Vghuo1c9kG2a+GEkMf
+ sc2+3EBqfD1iil1EpfU1UOw9RkCtJAynTckJWzhLiIDd48GH11NSP4hnVYEP6uMXPzGfWD
+ iqSNKcSRD+E3jvOlmZsjKvhoCtLVRhw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1788849171;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=q5KZD/XW23R32T6r6MBWpZy3syCbREHJcxvpt9GzgO0=;
+ b=B6DSuA1jF6uocTW0EBLNFiOwTMypvQOCQm/JLsQ65WD6jQzP39qVOq7KJp9pojpHPG51Bi
+ no3FC320ZfoTNjCg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=JQJACMV0;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=5H0FtDEQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1788849166; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=q5KZD/XW23R32T6r6MBWpZy3syCbREHJcxvpt9GzgO0=;
+ b=JQJACMV0xqgNsFSnyQ+NXxTolXIMTlPbTo7E2OQ8iyYbEXmhlSdlcvjPLVePOIUbJurWb+
+ BQsZMzmfMaud63pRVvVEl2ZypWVA0blE9FdTKPkKKNtP0lPeOCADZ62biZgiEv6xPOcQIY
+ 3LQ/l87Lg1FJvYt1DIV0w2FWKGWaFmY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1788849166;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=q5KZD/XW23R32T6r6MBWpZy3syCbREHJcxvpt9GzgO0=;
+ b=5H0FtDEQszLjrvW13ZnLjgfLMhQo140RQCwg7HpVdPHu91ywRCKwatJGI2norkIkY2ufSc
+ tyZHCOM8SxjpOEAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AA2DD1347F;
+ Tue,  8 Sep 2026 06:32:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id +CsDKA6sn2rWKgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 08 Sep 2026 06:32:46 +0000
+Message-ID: <8c592732-6025-4073-b075-0e3e6911c935@suse.de>
+Date: Tue, 8 Sep 2026 08:32:46 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/gud: Merge damage clips in full update mode
+To: Sophie D <patches@scd31.com>, rubenru09@aol.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260907230849.31032-1-patches@scd31.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260907230849.31032-1-patches@scd31.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: E60FE1F796
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FREEMAIL_ENVRCPT(0.00)[aol.com];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
+ MIME_TRACE(0.00)[0:+]; FREEMAIL_TO(0.00)[scd31.com,aol.com];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_FIVE(0.00)[5]; RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,bootlin.com:url,scd31.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:mid];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,99 +146,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The following panic was observed during system reboot:
+Hi
 
-Kernel panic - not syncing: Asynchronous SError Interrupt
-CPU: 6 UID: 1000 PID: 2348 Comm: pipewire ... 7.0.5+ #4 PREEMPT(full)
-Call trace:
- ...
- regmap_update_bits_base+0x70/0xa8
- dw_hdmi_qp_bridge_clear_audio_infoframe+0x3c/0x58 [dw_hdmi_qp]
- drm_bridge_connector_clear_audio_infoframe+0x2c/0x48 [drm_display_helper]
- ...
- dw_hdmi_qp_audio_disable+0x28/0xa8 [dw_hdmi_qp]
- drm_bridge_connector_audio_shutdown+0x38/0x68 [drm_display_helper]
- drm_connector_hdmi_audio_shutdown+0x28/0x40 [drm_display_helper]
- hdmi_codec_shutdown+0x60/0x90 [snd_soc_hdmi_codec]
- ...
- snd_pcm_release_substream+0xcc/0x120 [snd_pcm]
- snd_pcm_release+0x4c/0xc0 [snd_pcm]
- ...
+Am 08.09.26 um 01:08 schrieb Sophie D:
+> When running in full update mode, previously small updates (such as
+> moving the mouse across the screen) would cause many full frames to be
+> generated. This would bog down the bus and lower the effective framerate
+> significantly - I was seeing a drop from 60 FPS to 2 FPS.
+>
+> This patch fixes the bug by merging damage clips together.
+>
+> Fixes: 73cfd166e045 ("drm/gud: Replace simple display pipe with DRM atomic helpers")
+> Cc: <stable@vger.kernel.org> # 6.18.x
+> Signed-off-by: Sophie D <patches@scd31.com>
+> ---
+>   drivers/gpu/drm/gud/gud_pipe.c | 11 ++++++++---
+>   1 file changed, 8 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pipe.c
+> index 5ef887d84..20418bf81 100644
+> --- a/drivers/gpu/drm/gud/gud_pipe.c
+> +++ b/drivers/gpu/drm/gud/gud_pipe.c
+> @@ -647,9 +647,14 @@ void gud_plane_atomic_update(struct drm_plane *plane,
+>   	if (ret)
+>   		goto out;
+>   
+> -	drm_atomic_helper_damage_iter_init(&iter, old_state, new_state);
+> -	drm_atomic_for_each_plane_damage(&iter, &damage)
+> -		gud_fb_handle_damage(gdrm, fb, &shadow_plane_state->data[0], &damage);
+> +	if (gdrm->flags & GUD_DISPLAY_FLAG_FULL_UPDATE) {
+> +		if (drm_atomic_helper_damage_merged(old_state, new_state, &damage))
+> +			gud_fb_handle_damage(gdrm, fb, &shadow_plane_state->data[0], &damage);
+> +	} else {
+> +		drm_atomic_helper_damage_iter_init(&iter, old_state, new_state);
+> +		drm_atomic_for_each_plane_damage(&iter, &damage)
+> +			gud_fb_handle_damage(gdrm, fb, &shadow_plane_state->data[0], &damage);
+> +	}
 
-The root cause is pipewire tries to close the HDMI audio device after
-atomic_disable(), which sets tmds_char_rate to 0 and disables the PHY.
+Such state needs to be checked much earlier. Please set 
+plane_state->ignore_damage_clips [1] at the end of 
+gud_plane_atomic_check [2] if in full-update mode.  The damage iterator 
+will then do the right thing.
 
-In this case, dw_hdmi_qp_audio_disable() will call
-dw_hdmi_qp_bridge_clear_audio_infoframe(), accessing register without
-checking tmds_char_rate.
+[1] 
+https://elixir.bootlin.com/linux/v7.2.2/source/include/drm/drm_plane.h#L207
+[2] 
+https://elixir.bootlin.com/linux/v7.2.2/source/drivers/gpu/drm/gud/gud_pipe.c#L569
 
-Guard the register access in drm_display_helper callback function with
-tmds_char_rate check.
+Best regards
+Thomas
 
-Fixes: fd0141d1a8a2 ("drm/bridge: synopsys: Add audio support for dw-hdmi-qp")
-Cc: stable@vger.kernel.org
-Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
+>   
+>   	drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
+>   
 
----
-Changes in v2:
-- Move drm_atomic_helper_connector_hdmi_clear_audio_infoframe() inside
-  the if (hdmi->tmds_char_rate) of dw_hdmi_qp_audio_disable().
-- Link to v1: https://lore.kernel.org/all/20260416093150.13853-1-rmxpzlb@gmail.com/
-
-Changes in v3:
-- Add a tmds_char_rate guard in clear_audio_infoframe path.
-- Decouple write_audio_infoframe from clear_audio_infoframe.
-- Balance the PKTSCHED_AMD_TX_EN bit enable/disable.
-- Link to v2: https://lore.kernel.org/all/20260418101936.7731-1-rmxpzlb@gmail.com/
-
-Changes in v4:
-- Update panic stack on 7.0.5
-- Link to v3: https://lore.kernel.org/all/20260423081514.15444-1-rmxpzlb@gmail.com/
-
-Changes in v5:
-- Reuse the origin dw_hdmi_qp_bridge_clear_audio_infoframe and add
-  tmds_char_rate guard in new callback function.
-- Link to v4: https://lore.kernel.org/all/20260512103153.8861-1-rmxpzlb@gmail.com/
-
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index 1c214a8e6dc2..8729783d4eb6 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -880,7 +880,7 @@ static int dw_hdmi_qp_bridge_clear_spd_infoframe(struct drm_bridge *bridge)
- 	return 0;
- }
- 
--static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
-+static int __dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
- {
- 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
- 
-@@ -893,6 +893,16 @@ static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
- 	return 0;
- }
- 
-+static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
-+{
-+	struct dw_hdmi_qp *hdmi = bridge->driver_private;
-+
-+	if (hdmi->tmds_char_rate > 0)
-+		return __dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
-+
-+	return 0;
-+}
-+
- static void dw_hdmi_qp_write_pkt(struct dw_hdmi_qp *hdmi, const u8 *buffer,
- 				 size_t start, size_t len, unsigned int reg)
- {
-@@ -987,7 +997,7 @@ static int dw_hdmi_qp_bridge_write_audio_infoframe(struct drm_bridge *bridge,
- {
- 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
- 
--	dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
-+	__dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
- 
- 	/*
- 	 * AUDI_CONTENTS0: { RSV, HB2, HB1, RSV }
 -- 
-2.55.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
