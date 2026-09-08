@@ -4,133 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 270C8C79FA0
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 08:36:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26986C79FA0
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 08:37:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FF9710E05B;
-	Tue,  8 Sep 2026 08:36:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E60310E0B8;
+	Tue,  8 Sep 2026 08:37:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="f3nz8CVq";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YT1jVaDN";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MaO2e8Eu";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IKJM5W1t";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDDB210E05B
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 08:36:52 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A508A10E0B8
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 08:37:50 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6886Lufu3299555
- for <dri-devel@lists.freedesktop.org>; Tue, 8 Sep 2026 08:36:52 GMT
+ 6886M2Rq2712391
+ for <dri-devel@lists.freedesktop.org>; Tue, 8 Sep 2026 08:37:49 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Ad0bKhP+N11QtS34YNu13QejnMaDsA1lHN5IGmY+Ajg=; b=f3nz8CVqx9DdA4Nx
- hSW8/csdCpEQoc+XuupdEMfT7bwFYtwuvwDCYGJVKT3FhUbpjSMGclKjVALGoTPy
- GnTWJKClAQ0270tzB+EDNYEHzJWb++l5+EbUpMM83CDxDhqYt5mF9eGQJ3WSfvoM
- nlgQEH4SCeI+WLCI+vt588WVu+yXX/4VI5Osv3tEWxjmETewBts8H4goPbg77GDF
- ObMpCG6/xGB7nM7PHAGtgc1evI93KFRi3WsMhEYqHwMjHG37dbmGHak1Kq74CA5d
- wKLly/Id4Mb1+FGJBq5DJzqgrl+sHcSo/GwjkmOlbLcTLGemvcrPm7dULenws3Np
- t4DOPw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjb0p909v-1
+ xZTaGxO48p7y5EHqLgyxjGdy5PCz3+Tijey3+jZj03E=; b=MaO2e8Euaz4HQABZ
+ XziflilKhZc4V7K/gf1k3DWHnRL0CBpuu3X0xhzr1d4+5Sw5cNvq5jNeuJkLPXc+
+ xKI6MWA9yo7ETUl7aUhw9N2pNH1+GHhRBZvtLpSi4uFhzvJj2Ju///ehtNWYtNAy
+ A7FFAU59d3lklwK0juKifK/1043S5ggHydiLv2LwRVIeHhsaA3fhKkmIyAHDNpAq
+ z5pyensd1StF01VROFMJYF54DLwYYszIaRhOqJ50JnS7icwpa1EyUxIn95QUt8Qw
+ p7TdtCMFnTvgwf/XRPMRd5vZxVvffJ85d3/88PZH8cQj7uOxGbknFHJIrObzrRcB
+ eNvzww==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghtdqmac4-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 08:36:52 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-9390a2c895bso894968085a.0
- for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 01:36:52 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 08:37:49 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-93903982af1so941750285a.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 01:37:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1788856611; x=1789461411;
+ d=oss.qualcomm.com; s=google; t=1788856669; x=1789461469;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Ad0bKhP+N11QtS34YNu13QejnMaDsA1lHN5IGmY+Ajg=;
- b=YT1jVaDNJ9FSMrVpecHTu9OjPu3T1m99omFI2bNjV2giS7KTl4U3fNua/Iw0uMNPnA
- 3ZdYXQjo3iLgtGVbz9Ug7i46C+qcDa/3CDi8eHrgQWVr9gocbvZoYO2e3dFA5h7ag697
- 39gINlWKleYaTz55QQLGtTZYe6mSN1RCrUbsSogQcYV7MYSGVa+ibcmitMHqlbvtqzw3
- IHYISH3Twrp31sHBCYyfRIY7AIZytry8To6jTDuB7LDEUJHWR6qGMqNFYbDISgcQjMl1
- biOyjhjDGTtSXViBwT7aARSdsDwHNku7gyXeJ8N7f5apLKRhmjujsyUMfNYBgRCeGhpq
- aI5w==
+ bh=xZTaGxO48p7y5EHqLgyxjGdy5PCz3+Tijey3+jZj03E=;
+ b=IKJM5W1tJprbUDKpr6Uikmfjh7RIDvoluOFy1MTa2GL5blZKKKGRjkhPmdmXCXBQbg
+ moF722gRzv6XP1Y3HLZgRI0CTT05OQWQWEEN4RKzsqVd7nViGIVdryafxYu1c5MZu+zs
+ /CFP0JE8yZB4xHWhaA0Ls/6oFXOGkUJy7HAOqCMZTlMrACDZa5LwK9poYnbymp7bao03
+ oBJcmdgFXj7P6XFmv7tv5mH0Dj9TUlyD2Hmq2DsYP75VedVLOfOF9AaYQQK+oUo97bZd
+ Vb/ebnXJdoUZ+ekbptVc0bhZbEfq7rVq+Y/uMKyLdFatL/UMJHXTaWGywB+zUY8+a2/L
+ oG6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788856611; x=1789461411;
+ d=1e100.net; s=20251104; t=1788856669; x=1789461469;
  h=content-transfer-encoding:content-type:in-reply-to:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Ad0bKhP+N11QtS34YNu13QejnMaDsA1lHN5IGmY+Ajg=;
- b=iP5g8Om80qjCGeSx2WqiTjmclICGo8T7wBywSbMRQnf1/eAqQ+/7zmhLkJX1suW9sg
- y/UQRK4VSnFcwXt7t4SNhYysLPf42DD9BBqtgQSo4LX6+r1G5KrQvHPM/ANxMT4/V2ll
- Z9KUv1QSGQK3UN5Ir3EMsjYoc7+Zwdeol8prxcZWvQP9e9CJlH8orJ31kezcC5trhwSv
- bfD9DXWnPrj7OGNvEV1VCkb8/k0jte2XmR5Af/whh9QWvcZpOaRlsFn/w4J0AI6Ciy/t
- RmhcHJt9v2eD6arAN3DmmUzi67fc1vRA7WeVHUhfIHSRRVYfTPgM++JZF7AyxeMOVdsl
- 3GgA==
+ bh=xZTaGxO48p7y5EHqLgyxjGdy5PCz3+Tijey3+jZj03E=;
+ b=AuERmyvmBc7+uNT41p6sysoFvH9b3XwI6Zaz84sMIcxqkZfFRBBQLLsmO9ugsNi3A5
+ zhLUjLUnya0bAxazjninp5Qqh4DMqdx/9Yszwg54BPVipSauDRXoOO0jhWQcRaypGloV
+ lw2p1fc6ECd7KBpBHTowfLkoKA6yCddiMX1Of9Qfs5nncm2X6Qjmi+FBkKuZ8uJSOvWm
+ 1uH/+Nw74M02pppNmy6Uq2rFkVEdFvgWSKav5kpUUkbn/PbGmLZHBu5zlcxbBHB3J1pN
+ j72/4Gp6Aeb91+6GPGT0cXL8cD1QUQgoMHeM+nXhpSaxjyFIzErcZO/0SfPlJ7zZg+OS
+ xO9Q==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw2EzC5jxqLlRtHS1kZsN1777i9swdou8M9riF0Zm3j2Qgn2NESVCt9alaLUk5iATDFGlZzjTwIgzg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n8EQkNqKkhO/pEG3sZRtSlfFZS4C/xotWyI91xEt4b2RGy5ifH
- oaxKWoTvc3dqgRov8XUResX+b9dXZdZbkwUUXa+nb6oanuESWEKKCs0jm5/QuXbhiBG6HwRli41
- ZsmDeZpkH8y9ZhfM1p1Kl2JBkLOLq8WFaV2odsETvP/1M+RMIgKntUDQIbHK7H5NsJmv06SEgQC
- OLdr8=
-X-Gm-Gg: AYBFou23M63cxngnYTBJnlYsjbO+IQKTuglU5Ei0nMTs5HzVxkaJi3ZPfoTlYPuiTfv
- Rswxvc6fLWvaUU9HwQqba2hxHa5ke3PpU74M3BPU6TjFT7LQXYtboUPTUpeWr/JKjYRSD1DVHI0
- 3MrUKJru1e9nIDoUutja7LqfgzVUU/WEHxtM8lhd3SssKNBdLw2bWWSUYw8WfBUnhc7wC7zD1Pq
- 2XwcuSutE5VGQgVt2OiTNdMxpcU25Pl2dYKRknmM7IOIfYT+VUiiYGxa//49j4S526q1tKOnXWj
- xpM0ZzCTzEJGutw25KDoSPMlTalIg1wF90W0S4VL69MfPc3cf5eQ1yh3ktahPXV6RFWEcMDTeeg
- ZCcYX4QRV0U43K9+xSjZ4pSJo8Xli
-X-Received: by 2002:a05:620a:43a4:b0:939:6de9:4cf9 with SMTP id
- af79cd13be357-9398072e3ecmr763283785a.44.1788856611392; 
- Tue, 08 Sep 2026 01:36:51 -0700 (PDT)
-X-Received: by 2002:a05:620a:43a4:b0:939:6de9:4cf9 with SMTP id
- af79cd13be357-9398072e3ecmr763280285a.44.1788856610853; 
- Tue, 08 Sep 2026 01:36:50 -0700 (PDT)
+ AKwUvBwSj3XLb//v0lXtpFOUCaLMCZfQ6QPbykObaZTvFKHsdqyTCgJt3QverhMWHU7p/g7wGKCKRvv2r9k=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++meI4nMtJgg9KmkKydBsI2gjJnvkwppm/tHzVv8V3wPvxQZR8FX
+ dTyfXvOgamNTbxzMEgrcJySYgOT6UB85o8POLy+rAzmYj40VyW/NUe/pipfZBHTX2EytLJW1fTw
+ /q6gYhhgyUupOGmM8A/Ilv5vA3G9w/biIbNpZyBgaIm3qbPQMTOG66WKU5jVHjHehjGCKs/c=
+X-Gm-Gg: AYBFou3SpzZNbAP3zbrRUlJvUtQCwWni8Dir2bnX94f6aq2Roc540R9b0XN7B9o8B1/
+ OAyrz90HnmyybKrG7vKd0sGmekoppNM1XM6y6QI/o1vsLoR39AEXCXocO31HNRWxTa59fPH3VLR
+ 4weKHpUGZSiK+FtYFmvNy5skGgcjUJjZS4UyEWC4isIiQbBDo2+VZKvVBrq07zcztwPJvWaKFAn
+ 1T/+GDZks0UligVOPyyfLEYD5c2UBPbuI43lbjjEuU0GJ4oiVTOiTf+l1In3ckuhwZLoL56KUeL
+ tOTqmkvEQSksJIx43HAjPP7vAUyUlTRq6SKqUIdnDMBxxG3+270Ye/538ZuR6L/0X7Bv7c7uGjb
+ KdR/RrLE9nluiju1oj8iW5ds4nNAs
+X-Received: by 2002:a05:620a:25d4:b0:939:6df9:1996 with SMTP id
+ af79cd13be357-9398077453bmr2891048285a.50.1788856668707; 
+ Tue, 08 Sep 2026 01:37:48 -0700 (PDT)
+X-Received: by 2002:a05:620a:25d4:b0:939:6df9:1996 with SMTP id
+ af79cd13be357-9398077453bmr2891046685a.50.1788856668327; 
+ Tue, 08 Sep 2026 01:37:48 -0700 (PDT)
 Received: from [192.168.1.110] ([178.197.219.214])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49ce554d52esm325117055e9.3.2026.09.08.01.36.48
+ a640c23a62f3a-c260d53c37csm563974466b.32.2026.09.08.01.37.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Sep 2026 01:36:49 -0700 (PDT)
-Message-ID: <f16a09b6-9ae9-4a3a-ac31-48182bf8a179@oss.qualcomm.com>
-Date: Tue, 8 Sep 2026 10:36:47 +0200
+ Tue, 08 Sep 2026 01:37:47 -0700 (PDT)
+Message-ID: <c7d1d6f2-4c47-4259-abf8-fdec33a27f95@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 10:37:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/7] drm/msm/hdmi_bridge: Correct poweroff/audio
- cleanup order in post_disable
+Subject: Re: [PATCH v3 2/7] drm/msm/hdmi: Handle msm_hdmi_power_on() errors
+ during .atomic_pre_enable()
 To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
 References: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-0-dcf8956878ca@oss.qualcomm.com>
- <20260908-drm-msm-hdmi-fixes-before-eliza-v3-3-dcf8956878ca@oss.qualcomm.com>
- <20260908072335.611331F00A3A@smtp.kernel.org>
+ <20260908-drm-msm-hdmi-fixes-before-eliza-v3-2-dcf8956878ca@oss.qualcomm.com>
+ <20260908072546.645FF1F00A3A@smtp.kernel.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Content-Language: en-US
-In-Reply-To: <20260908072335.611331F00A3A@smtp.kernel.org>
+In-Reply-To: <20260908072546.645FF1F00A3A@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: OIgrfazk3oJGL9y1H_QD-dl4LS9nFoli
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA5MCBTYWx0ZWRfXyX0+5ABjtGfD
- TKrAboCihlTPXzzrwuEuvrP/zqpOhSDJO72FN/zSne9uZR4bugksqKe90XL5jdZUi8ECCUtLGjN
- 65+2+NvOe9t8a3yLxezyqI8gfyXM/F0=
-X-Authority-Analysis: v=2.4 cv=HL3z0Itv c=1 sm=1 tr=0 ts=6a9fc924 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA5MCBTYWx0ZWRfX7f46Loqb7tX3
+ avzy4Qd6ix6werT0/6k7WasKG4RqWL1UgFcRCFw9bd7OnNcgkkz9OPgB1KckC/Pxg/Lr1kJZfHD
+ j5HzprXg6jO6w0nnnRoIEsHMZaaNx/SWNQaRVB/xzRt9/0idiWUtNTqieni7gA4fo8dbdJH3kgj
+ 6h+R+I4ahNNtTh3VLjxZ4jb5I6gqScLwWiaeAbkyTUgdvK/NPLWwPOs40lDnrjTXUtE/RigNOLy
+ CfLcqxAh60wqDNCbtyUzL1JScdoYjq8Hg0lVLP57dgcQk3DRf+4hxrtDVNhm9ZZo8uem5aykzs4
+ UBDlemo2aWY8O0mowv7qK9di9E6iw7z77RUp0jRJ1GYxpdRK5SFg0O/xEooxEjNvssw0lBA+Tt4
+ JZ/Z3UolOAPM+faDBFW2XRnA2QW0lpgr9HEUlW2XoMShoTl+4SOyZNRDRfanPFi8B4WqVbRXF8+
+ OcZlPASMo/wyOy5v9jA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA5MCBTYWx0ZWRfX7s/C3O7Cfdnh
+ A+5HQgJ7j04O7VThYwUQB38t2Tj0vOGH7F3FOhKv/Qxn4ujSGly7yL67s9XY/57lvJQLrvaFg3f
+ mqE0QAz/vQdlKKFygAL+FS7KKnp7syM=
+X-Proofpoint-ORIG-GUID: 28JOH0XLS2kY4J23uOGjUnATjAGJWqwh
+X-Authority-Analysis: v=2.4 cv=U6aiy+ru c=1 sm=1 tr=0 ts=6a9fc95d cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=VwQbUJbxAAAA:8 a=N0GlATqSIOfpj-D0eqQA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: OIgrfazk3oJGL9y1H_QD-dl4LS9nFoli
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA5MCBTYWx0ZWRfX1WiwK7+8xW0f
- be3xrIANldhFGrX5mRBbdG87NFHSlHRhOaWiYYsxbuj89MbLdXLv2ZtHeufXBQD1GVmtwYr5tG/
- LLWLQMQyr2S9lxnIooxfpHwO7l4mxqgewmM+7bGAjLjrAJo6mirfy3ZtUanFChHgdT9p9G7fzC2
- YaBrQblUOtlwNOS9FB9eINIQbGnIwAAHJB6InyM+fTfKE50jSakIKWHqVnKpYw0F9ps0333xp2x
- Gk9SyA//IRM/0Pqkokttg2g0UQmWK4LCpUZCsGHE2aatBLe/5ieqAAO1eOo1aUT9k4ef1kCFJva
- 5ViQaQ8vj3JnID3+MEfPovve/3FqVRRbB4wZxdDJ4Ukbgqe8RE+jtx4YlC5pEYocjb+6uZjTMnY
- x8x3N/AqLHFDurhE/T9BV80m1JrtABmu6BCxq23a4R1EBv1kWxaw9AFxnLyL7trefCJIYetu2+F
- 2LA36IxLwL0biZQWIBg==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=dYODrq4-AUaYJTIoUJAA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-GUID: 28JOH0XLS2kY4J23uOGjUnATjAGJWqwh
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 clxscore=1015 suspectscore=0
- impostorscore=0 spamscore=0 phishscore=0 malwarescore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ bulkscore=0 adultscore=0 impostorscore=0 phishscore=0 clxscore=1015
+ lowpriorityscore=0 malwarescore=0 priorityscore=1501 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
  definitions=main-2609080090
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -148,15 +147,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 08/09/2026 09:23, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+On 08/09/2026 09:25, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> 
+> New issues:
+> - [High] Aborting `atomic_pre_enable()` on power-on failure guarantees an imprecise abort (system crash) in `atomic_post_disable()` due to unconditional accesses to unpowered PHY and HDMI controller registers.
+
+Pre existing issue really.
+
+
 > 
 > Pre-existing issues:
-> - [High] ALSA audio callbacks execute locklessly and can run concurrently with the DRM modeset disable sequence or when the display is fully powered off, leading to unclocked MMIO access exceptions (kernel panics) and register corruption.
+> - [High] Unclocked MMIO access in `msm_hdmi_set_timings()` before the HDMI PM runtime is resumed.
 > --
-> 
-
-Not fixing this.
-
 Best regards,
 Krzysztof
