@@ -4,69 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22C26C79FAE
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 16:33:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBEB7C79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 16:48:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6865E10E15E;
-	Tue,  8 Sep 2026 16:33:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDA3210E145;
+	Tue,  8 Sep 2026 16:48:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="H6eQYWIA";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="FFx8GxvX";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24D0910E15E;
- Tue,  8 Sep 2026 16:33:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788885217; x=1820421217;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=Zwms8LENiBypMxRUgVnbRobEhZCSbNKOrZa9Q7mf45U=;
- b=H6eQYWIAvYCc6p3ioNFAlOhI2pp274pbTVmuHMSd8r8VwsEhVhlHo/Yp
- ssd2MOm3ftrnCRynpyAXWbsjGlQnqlHwWNFZK0/j+/3xxBWDexkQ0WtV7
- AcmyQrbs6kuGDkOgGubgyqnO9/eMdc/T7G3sSAJrt4PIBsNyld/7yPPHS
- PYK7EZDOOs6LXul/DM1J3jYcPUe3e5EYByz2E2SU2C1Kpyi1atlw5I/Rq
- MLofZaCtRmt+zt6OgUN3vFU52hBAwHJnbpz06mr0ouUvHDbfmSGgMoe4n
- 1gxN+yiqwsOj3DBUkSTD52w3fJtJNioVcgtRVb4Ajr2TSW5bYOcmOO7RY Q==;
-X-CSE-ConnectionGUID: ZzZCk02FSWCM/QsoNcOUxg==
-X-CSE-MsgGUID: Cajnnv1ES5uwzVd9PvUKPg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="88227849"
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; d="scan'208";a="88227849"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2026 09:33:36 -0700
-X-CSE-ConnectionGUID: 5bYttxrYTRyyz5BKiYqUVA==
-X-CSE-MsgGUID: lLPjEYKWRkmBbYSlikbP7g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; d="scan'208";a="275180153"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.140])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2026 09:33:32 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, harry.wentland@amd.com, Simona Vetter
- <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>
-Cc: Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org, "open
- list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM DISPLAY FOR XE AND
- I915 DRIVERS" <intel-xe@lists.freedesktop.org>, Hans de Goede
- <hansg@kernel.org>, David Herrmann <dh.herrmann@gmail.com>, Marta Lofstedt
- <marta.lofstedt@intel.com>, Mario Limonciello <superm1@kernel.org>
-Subject: Re: [PATCH v8 02/14] backlight: add kernel-internal backlight API
-In-Reply-To: <f8d54027-ea66-44ec-bc7b-0abb69e918ed@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260908044035.62093-1-mario.limonciello@amd.com>
- <20260908044035.62093-3-mario.limonciello@amd.com>
- <dd7f11d6772b9422793cbcf1011f4f1aa98bfa3d@intel.com>
- <f8d54027-ea66-44ec-bc7b-0abb69e918ed@amd.com>
-Date: Tue, 08 Sep 2026 19:33:30 +0300
-Message-ID: <236b657d2c01dd569a527d96613b1d4258f331b0@intel.com>
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20A2210E145
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 16:48:09 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hfVHV4Hg8zMlBX;
+ Tue, 08 Sep 2026 18:48:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1788886086;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=mBNavf/W3lZrxPMwGNFSc+f7vCLC4CALQ5e8BPseE7s=;
+ b=FFx8GxvXl/s/MWiZUYz39+Xv0nvzYvMIADDnZ0BbhtEJUNB8PlbqfXlAwJFJtXM/iIBQf3
+ mkUmuzeTVJYbwWhglslgN4xo8fepNP0yVgHswx+GEGqFlYy4iahDbsCS+87ckjbPqRwVZk
+ s2xTrNU1mJbYMobZMeHvVAJZ0FbMIx/BgkRKTtcCL9coTIlmFZt4FMjTUDk3geMl1NhlFL
+ jrf19jxCvQhH0FnymCi1DZYEI2B608RpUCpa5mBRGyUwh73wRwy+d0QUreGR2FRKLQPY+g
+ eoXcLmSiNSSua5x1ZyZ+T1GJnzXMLKlSwabXdMKIpWFCshrRZ5HQn1lb9aEP7g==
+Message-ID: <aa37076f-6963-45e2-910c-e45f4e08bebb@mailbox.org>
+Date: Tue, 8 Sep 2026 18:48:02 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: Re: [PATCH v2 4/4] drm/panel: ilitek-ili9882t: Add support for Ilitek
+ ILI79600A-based panels
+To: dri-devel@lists.freedesktop.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+References: <20260820185506.84448-1-marek.vasut+renesas@mailbox.org>
+ <20260820185506.84448-4-marek.vasut+renesas@mailbox.org>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <20260820185506.84448-4-marek.vasut+renesas@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: hkf7ukp56y8zazyspe65q1jobg1mdcct
+X-MBO-RS-ID: b9e5883bb32405da422
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,38 +73,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 08 Sep 2026, Mario Limonciello <mario.limonciello@amd.com> wrote:
-> On 9/8/26 10:45, Jani Nikula wrote:
->> On Mon, 07 Sep 2026, Mario Limonciello <mario.limonciello@amd.com> wrote:
->>> +/* Forward declaration for backlight_update_status */
->>> +#if IS_REACHABLE(CONFIG_BACKLIGHT_CLASS_DEVICE)
->> 
->> I think IS_REACHABLE() is almost always a mistake. It's a hack to avoid
->> link errors when something in a module needs something that is
->> built-in. It's a combo that should be handled at Kconfig level, not at
->> build level.
->> 
->> BR,
->> Jani.
->
-> That came from this feedback from Thomas Zimmerman (I originally had it 
-> as select:
->
-> https://lore.kernel.org/dri-devel/8224920a-3a10-4400-9503-f014b7059329@suse.de/
->
-> I was trying to use IS_REACHABLE to make it optional, but it sounds like 
-> that's not the right direction then?
+On 8/20/26 8:54 PM, Marek Vasut wrote:
+> The Ilitek ILI79600A display controller is similar to the ILI9882T and can
+> be supported within the existing `panel-ilitek-ili9882t.c` driver.
+> 
+> This patch extends the ILI9882T driver to handle ILI79600A-based panels,
+> such as the 10" Raspberry Pi Touch Display 2. The ILI79600A uses a similar
+> command sequence and initialization flow, with minor differences in power
+> supply configuration and timing.
+Should I still change anything with this patchset ?
 
-I agree with Thomas, but he's also not suggesting to use IS_REACHABLE()!
-
-The point is, if you express the dependencies properly with "depends on"
-in Kconfig, you won't need IS_REACHABLE(). It's the "select" that can
-lead to incorrect configurations, and IS_REACHABLE() is band-aid to work
-around this.
-
-BR,
-Jani.
-
-
--- 
-Jani Nikula, Intel
+Thank you for your help !
