@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD1FAC79F82
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 20:42:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40FD0C79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 20:42:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECEED10ED85;
-	Tue,  8 Sep 2026 20:42:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E94B10ED86;
+	Tue,  8 Sep 2026 20:42:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="niXtcxlv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LxRd+Fdy";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE07010ED83
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:42:13 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F99B10ED86
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:42:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 875EA40B5E;
- Tue,  8 Sep 2026 20:42:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A4BC1F00A3D;
- Tue,  8 Sep 2026 20:42:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C802C601FB;
+ Tue,  8 Sep 2026 20:42:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2BEF1F00A3A;
+ Tue,  8 Sep 2026 20:42:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788900133;
- bh=hZJHLSYuWsPGHgMsZ6wDtKv+Nmu7iCoJKynKPiE+7QY=;
+ s=k20260515; t=1788900159;
+ bh=ETJ4Djg5bofgWaCi5hHewz86P/RVyCsx8I4gSoD+EXU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=niXtcxlvQiNTpo+iCoXferY/ogFz6WgWQTcJwN0FBdhNy5NdE8YpL2eiELkmgv5Xp
- Y8B1/4ajJgLvZ4q6UeTnWqPc5l8dCGWOcAlo+R5PQQr9uL6uxe4wRnmBa6GhEFvQXf
- nPd6S6Jm/Xt/OyG90lsCWrwwr3c1lamReaSg7AT+hqN8C4XUMoaDoblckBcChQj9do
- ht3Acrl0DKeg00F7ecI8wS3sSvnUDKcUrFklZBA0zTt2hcEdf/tRUAKQ/1mznL9Pay
- Lx7X7zqPRnZ8hdMAIy2oVJEaT9/wOmMI0l9KxO62fOSbkbhkLkNxjvKaNUfAOUEPP5
- yTFCsYXfO7bUQ==
+ b=LxRd+Fdyp7XWo0cNipI2m7tQL/tsgUWNkHmrbcWwaflpirjph08CT6gqLi2d+BR83
+ ulxO3fbv1OJOiY6tdYltq66I52Hx9jcKRTgIitXjBNphvHa59/5K2SdS1HTA3NZImo
+ wqG7PVTjCseSemjpe4Rswx+l2V+oYSAIdTmEBJJ1tnO+dyNzambPYt4Ri+7FUNYdYR
+ 8O0A4smTVIKJu2TsV/PpxkAq4MvAdyDfLqVLL4khvdNAQ8L0ECeyLc0gH+6bXQvT/y
+ AzagAIk75XbBcIdS/bmWHsYuC81g2l94EiSpG4qyXUMefR8RK5Qvy/P8qjdRsUMlBd
+ WZjeGAhXZIaRQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 15/39] mm/vma: only allow mmap to clear VMA_MAYWRITE_BIT
- if kernel-owned
+Subject: Re: [PATCH 01/39] mm/vma: predicate setting mmap_prepare VMA fields
+ on new vma alloc
 To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
-Cc: kvm@vger.kernel.org, selinux@vger.kernel.org,
- "Vasily Gorbik" <gor@linux.ibm.com>, linux-trace-kernel@vger.kernel.org,
- kvmarm@lists.linux.dev, "Christian
- Borntraeger" <borntraeger@linux.ibm.com>, linux-perf-users@vger.kernel.org,
- "Alexander
- Gordeev" <agordeev@linux.ibm.com>, "Oliver Upton" <oupton@kernel.org>, "Marc
- Zyngier" <maz@kernel.org>, bpf@vger.kernel.org, linux-scsi@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-s390@vger.kernel.org, "Heiko
- Carstens" <hca@linux.ibm.com>
-In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-15-dacf19cce22b@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-perf-users@vger.kernel.org, "Heiko
+ Carstens" <hca@linux.ibm.com>, linux-scsi@vger.kernel.org,
+ kvm@vger.kernel.org, "Alexander
+ Gordeev" <agordeev@linux.ibm.com>, selinux@vger.kernel.org, bpf@vger.kernel.org,
+ "Marc Zyngier" <maz@kernel.org>, linux-trace-kernel@vger.kernel.org,
+ kvmarm@lists.linux.dev, "Oliver
+ Upton" <oupton@kernel.org>, linux-s390@vger.kernel.org,
+ "Vasily Gorbik" <gor@linux.ibm.com>, "Christian
+ Borntraeger" <borntraeger@linux.ibm.com>
+In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-1-dacf19cce22b@kernel.org>
 References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
- <20260908-b4-mmap-prepare-vma-flag-sanify-v1-15-dacf19cce22b@kernel.org>
+ <20260908-b4-mmap-prepare-vma-flag-sanify-v1-1-dacf19cce22b@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 20:42:12 +0000
-Message-Id: <20260908204212.9A4BC1F00A3D@smtp.kernel.org>
+Date: Tue, 08 Sep 2026 20:42:38 +0000
+Message-Id: <20260908204238.E2BEF1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,72 +66,90 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Leaked struct file reference when a driver replaces desc->vm_file =
-but mmap_prepare_validate() subsequently fails.
+- [High] File reference leak when a file is swapped during mmap_prepare and=
+ the mapping is subsequently merged.
+- [High] File reference leak in call_mmap_prepare() error paths when valida=
+tion fails after file replacement.
 --
 
-commit bf1e56ed42b1d9fbc6eb9edeebea26ac54edd5c4
+commit 8df6960e843adc0f8e640f756781ceaed05911b5
 Author: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-mm/vma: only allow mmap to clear VMA_MAYWRITE_BIT if kernel-owned
+mm/vma: predicate setting mmap_prepare VMA fields on new vma alloc
 
-This commit restricts the ability to clear the VMA_MAYWRITE_BIT to
-kernel-owned mappings. It ensures that drivers which do not own the
-mapping's contents cannot violate file system semantics by altering file
-attributes. Any mmap hook attempting to do so without establishing a
-kernel-owned mapping will now fail validation.
+This commit ensures that VMA fields are only manipulated if a new VMA is
+allocated, rather than merged, as VMA merging preserves existing fields.
+It also constifies have_mmap_prepare.
 
 > diff --git a/mm/vma.c b/mm/vma.c
-> index 9e45fc83f74c6..5264287532182 100644
+> index 97567fb7ef33d..2a90c509bb312 100644
 > --- a/mm/vma.c
 > +++ b/mm/vma.c
-> @@ -2780,6 +2780,11 @@ static int mmap_validate(unsigned long prev_start,
->  	if (WARN_ON_ONCE(!was_maywrite && is_maywrite))
->  		return -EINVAL;
+[ ... ]
+> @@ -2909,7 +2909,7 @@ static unsigned long __mmap_region(struct file *fil=
+e, unsigned long addr,
+>  		allocated_new =3D true;
+>  	}
 > =20
-> +	/* Only kernel-owned mappings may clear VMA_MAYWRITE_BIT. */
-> +	if (!vma_flags_is_kernel_owned(curr_flags) &&
-> +	    WARN_ON_ONCE(was_maywrite && !is_maywrite))
-> +		return -EINVAL;
-> +
+> -	if (have_mmap_prepare && !map_is_anon(&map))
+> +	if (have_mmap_prepare && allocated_new && !map_is_anon(&map))
 
 [Severity: High]
-This isn't a bug introduced by this patch, but this new validation failure
-exposes a pre-existing resource leak. Does this code leak the struct file
-reference if the driver legitimately replaced desc->vm_file during the
-mmap_prepare hook?
+This is a pre-existing issue, but does __mmap_region() leak a file reference
+if the mapping is successfully merged after the file is swapped?
 
-If a driver's f_op->mmap_prepare hook swaps desc->vm_file (acquiring a new
-file reference via split ownership) and then fails this new validation
-step (e.g., clearing VMA_MAYWRITE_BIT without being kernel-owned),
-call_mmap_prepare() will return early:
+If the VMA is successfully merged with an adjacent mapping:
 
-mm/vma.c:call_mmap_prepare() {
-        ...
-        err =3D mmap_prepare_validate(&prev_desc, desc);
-        if (err)
-                return err;
-               =20
-        map->pgoff =3D desc->pgoff;
-        if (desc->vm_file !=3D map->file) {
-                map->file_doesnt_need_get =3D true;
-                map->file =3D desc->vm_file;
-        }
-        ...
+mm/vma.c:__mmap_region() {
+    ...
+    if (map.prev || map.next) {
+        VMG_MMAP_STATE(vmg, &map, /* vma =3D */ NULL);
+        vma =3D vma_merge_new_range(&vmg);
+    }
+    ...
 }
 
-Because the early return happens before map->file and
-map->file_doesnt_need_get are updated, the core cleanup path in
-__mmap_region() remains unaware of the new file and fails to fput() it,
-leaking the file reference and pinning the mount.
+allocated_new remains false, bypassing __mmap_new_vma() and the normal
+consumption of the swapped file reference.
 
->  	return mmap_validate_vma_flags(curr_flags);
->  }
+The function then returns on success without executing an fput(map.file) to
+clean up the unconsumed extra reference when map.file_doesnt_need_get is
+true and allocated_new is false.
+
+[Severity: High]
+This is also a pre-existing issue, but does call_mmap_prepare() leak a file
+reference in its error paths when validation fails after a file replacement?
+
+If vfs_mmap_prepare() successfully replaces desc->vm_file, but a subsequent
+validation check fails:
+
+mm/vma.c:call_mmap_prepare() {
+    ...
+    err =3D vfs_mmap_prepare(map->file, desc);
+    if (err)
+        return err;
+
+    if (!desc->vm_ops)
+        return -EINVAL;
+
+    err =3D call_action_prepare(map, desc);
+    if (err)
+        return err;
+    ...
+}
+
+The function returns early without updating map->file_doesnt_need_get. This
+leaves the newly acquired desc->vm_file unreferenced by the error teardown
+logic in __mmap_region(), leading to a leak.
+
+>  		set_vma_user_defined_fields(vma, &map);
+> =20
+>  	__mmap_complete(&map, vma);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-b4-mmap-pr=
-epare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org?part=3D15
+epare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org?part=3D1
