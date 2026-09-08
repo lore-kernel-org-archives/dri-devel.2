@@ -4,43 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29F3BC79F99
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 05:59:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F730C79F99
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 06:00:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A8C710E090;
-	Tue,  8 Sep 2026 05:59:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B8E110E836;
+	Tue,  8 Sep 2026 06:00:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M9lp5qUC";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="mP+NOydg";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85CBF10E090
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 05:59:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3D2B2438F9;
- Tue,  8 Sep 2026 05:59:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 028281F00A3A;
- Tue,  8 Sep 2026 05:59:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788847196;
- bh=eG/ks7iVrBPsCbCRo6evEwdZXlZuMB+Go8ahtIVUagg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=M9lp5qUCq042o9n5J/c2b4JtbolAAxlWusvSgmErbB8+RPUjLKNzy2uoyGTf8Q7MP
- fSVmtYt5Eg/Bvf+WzsgfeOnwYei9RaQFs7pLdKLY1mZ8DS4kFkokuIL3n7PZaUhFem
- a1aiIhf75x+By6q8FiNZqB1c+dAryYwmuLWzrk6orYK+G3T2cXA51bTeXJGShw9Dej
- VMCPgAeGheKqDhfrSkY8Ca6+ajhNiKxH4Sxa23S36+ceAOiR2ZaJy9e1AgqJdPHOwi
- AE/S7uxpnPwUheK9dtOOSJccl6Z3VNQzuNywYFQh+vzvCX0F8Td/OT+rNujrtUJ4py
- MIXBCnF1MNcXA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amd/display: Fix wrong plane index in dcn6
- writeback latency loop
-To: yaolu@kylinos.cn
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260908055202.141884-1-yaolu@kylinos.cn>
-References: <20260908055202.141884-1-yaolu@kylinos.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 05:59:55 +0000
-Message-Id: <20260908055956.028281F00A3A@smtp.kernel.org>
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1909E10E836
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 06:00:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=1Y
+ Ohb3D73/8SdyecCiPhE4vQmQl1qBOdVYxBb3ICr88=; b=mP+NOydgwCA/j2md0M
+ pdnX7VH0oUSz5zrWzegbQgreh5L1x5Y5Ltgy6svop/x3GyDGtXOCy/vH1F6rRyzu
+ bd6rkkf8O57jsV8EbOUipz9uUSWdL5f5VnVQyOTuEOy5ebjeAgE4vAM3MIuFc/WO
+ Qgxxi/QVM8XeMpEpCMOzww0pc=
+Received: from localhost.localdomain (unknown [])
+ by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id
+ _____wBHOVhSpJ9qyCC7BQ--.30517S2; 
+ Tue, 08 Sep 2026 13:59:47 +0800 (CST)
+From: oushixiong1025@163.com
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH v4] drm/sched: Create a fake device for KUnit tests
+Date: Tue,  8 Sep 2026 13:59:41 +0800
+Message-Id: <20260908055941.351486-1-oushixiong1025@163.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wBHOVhSpJ9qyCC7BQ--.30517S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGFW5ur1fJrW5Cr17WFW3Wrg_yoW5Wr1rpF
+ WkXFWYgrWrtrZFg3y3ua95XFyfGwsrA3yxKr1kX34a9F1qgFyfJr17KrW3t347ArWDZFWS
+ q3Z0gw47Gr4jyw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnL05UUUUU=
+X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC4RO-zmqfpFNyzwAA38
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,82 +59,87 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+From: Shixiong Ou <oushixiong@kylinos.cn>
 
-Pre-existing issues:
-- [High] Incomplete fix: identical array indexing bugs exist in CalculateSt=
-utterEfficiency functions where `stream_descriptors` is incorrectly indexed=
- with the plane index `k` instead of the mapped stream index.
---
+The DRM scheduler KUnit tests pass NULL for the dev field in
+drm_sched_init_args, which NULL-pointer dereferences in the drm_sched_job
+trace event via dev_name() on sched->dev.
 
-commit 9f32a635ed6555b0a150b8f427a0ef1a3afa7d82
-Author: Lu Yao <yaolu@kylinos.cn>
-Subject: drm/amd/display: Fix wrong plane index in dcn6 writeback latency l=
-oop
+Give the mock scheduler a device with kunit_device_register(), which is
+also cleaned up at test exit. A per-function counter keeps the device
+names unique, since some tests create several mock schedulers.
 
-This commit fixes a loop boundary in
-dcn6_calculate_watermarks_and_dram_speed_change_support() by correctly
-using the plane index instead of the inner loop variable to access the
-stream descriptor.
+Fixes: 5a99350794fe ("drm/sched: Add scheduler unit testing infrastructure and some basic tests")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+Acked-by: Maxime Ripard <mripard@kernel.org>
 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dm=
-l2_core_dcn6_calcs_dchub.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/sr=
-c/dml2_core/dml2_core_dcn6_calcs_dchub.c
-> index ba0082e216d59..ba4dad0cfdf4f 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core=
-_dcn6_calcs_dchub.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core=
-_dcn6_calcs_dchub.c
-[ ... ]
-> @@ -1271,7 +1271,7 @@ void dcn6_calculate_watermarks_and_dram_speed_chang=
-e_support(
->  			DML_LOG_VERBOSE("DML::%s: k=3D%u, VActiveLatencyHidingUs =3D %f\n", _=
-_func__, k, p->VActiveLatencyHidingUs[k]);
->  		}
-> =20
-> -		for (unsigned int j =3D 0; j < p->display_cfg->stream_descriptors[p->d=
-isplay_cfg->plane_descriptors[j].stream_index].writeback.active_writebacks_=
-per_stream; ++j) {
-> +		for (unsigned int j =3D 0; j < p->display_cfg->stream_descriptors[p->d=
-isplay_cfg->plane_descriptors[k].stream_index].writeback.active_writebacks_=
-per_stream; ++j) {
->  			double byte_per_pixel_luma_in_buffer =3D 1.0;
->  			double buffer_for_luma =3D (double)p->WritebackInterfaceBufferSize * =
-1024.0 / 2.0;
+---
+v3->v4:
+  - Initialize the instance counter explicitly
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this fix miss identical
-array indexing bugs in the stutter efficiency calculations?
+v2->v3:
+  - Start the mock scheduler device numbering at 0, using
+    instance++ instead of ++instance
 
-In dml2_core_dcn6_calcs_dchub.c:dcn6_calculate_stutter_efficiency(), the
-code incorrectly uses the plane index (k) directly instead of the mapped
-stream index:
+v1->v2:
+  - Switch from faux_device_create() to kunit_device_register(), which also
+    cleans the device up automatically at test exit (Maxime Ripard)
+  - Build the device name on top of args.name (Philipp Stanner)
+  - Make the instance counter a static unsigned int local to
+    drm_mock_sched_new() (Philipp Stanner)
+  - Add a Fixes: tag and Cc: stable for the NULL dev dereference
 
-    for (unsigned int j =3D 0; j < p->display_cfg->stream_descriptors[k].wr=
-iteback.active_writebacks_per_stream; j++)
+ drivers/gpu/drm/scheduler/tests/mock_scheduler.c | 11 ++++++++
+ 1 file changed, 11 insertions(+)
 
-This exact same direct indexing pattern also occurs in:
-- dml2_core_dcn5_calcs_dchub.c:dcn5_CalculateStutterEfficiency()
-- dml2_core_dcn4_calcs.c:CalculateStutterEfficiency()
+diff --git a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+index 8e9ae7d980eb..12dc61f56192 100644
+--- a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
++++ b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+@@ -1,6 +1,8 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /* Copyright (c) 2025 Valve Corporation */
+ 
++#include <kunit/device.h>
++
+ #include "sched_tests.h"
+ 
+ /*
+@@ -288,6 +290,7 @@ static const struct drm_sched_backend_ops drm_mock_scheduler_ops = {
+  */
+ struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, long timeout)
+ {
++	static unsigned int instance = 0;
+ 	struct drm_sched_init_args args = {
+ 		.ops		= &drm_mock_scheduler_ops,
+ 		.num_rqs	= DRM_SCHED_PRIORITY_COUNT,
+@@ -297,11 +300,19 @@ struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, long timeout)
+ 		.name		= "drm-mock-scheduler",
+ 	};
+ 	struct drm_mock_scheduler *sched;
++	struct device *dev;
++	char name[64];
+ 	int ret;
+ 
+ 	sched = kunit_kzalloc(test, sizeof(*sched), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, sched);
+ 
++	snprintf(name, sizeof(name), "%s-%u", args.name, instance++);
++	dev = kunit_device_register(test, name);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
++
++	args.dev = dev;
++
+ 	ret = drm_sched_init(&sched->base, &args);
+ 	KUNIT_ASSERT_EQ(test, ret, 0);
+ 
+-- 
+2.43.0
 
-When multiple planes exist and are mapped to streams non-linearly (e.g.,
-plane 0 mapped to stream 1) while writeback is active, the wrong stream
-descriptor is accessed. This causes the driver to incorrectly calculate
-TotalActiveWriteback as 0 instead of its true value.
+No virus found
+		Checked by Hillstone Network AntiVirus
 
-Since stuttering is incorrectly kept enabled when writeback is active,
-the display core could fail to meet memory bandwidth deadlines, resulting
-in display underflow.
-
->  			if (p->display_cfg->stream_descriptors[p->display_cfg->plane_descript=
-ors[k].stream_index].writeback.writeback_stream[j].pixel_format =3D=3D dml2=
-_444_64) {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908055202.1418=
-84-1-yaolu@kylinos.cn?part=3D1
