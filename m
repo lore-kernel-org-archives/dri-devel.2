@@ -4,53 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 054D8C79F9E
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 14:49:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2044C79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 14:49:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EBBB10EC7A;
-	Tue,  8 Sep 2026 14:49:11 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U+aqbwi3";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D8A710EC74;
+	Tue,  8 Sep 2026 14:49:15 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BF5510EC73
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 14:49:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C92A810EC77
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 14:49:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A6394601DB;
- Tue,  8 Sep 2026 14:49:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB53B1F00A3A;
- Tue,  8 Sep 2026 14:49:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788878942;
- bh=Ppwyhrb/ywrGWjpc5k+GhJzL8zeVg2kbFgwS+7tyWfQ=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=U+aqbwi3gAVMqbSiHxua/KAZjkZtfdXZjcppsvejGxfPPmDTPrurBh4JCEQb4Btdn
- WSS3sJGRXl3dBSygRTLKMLu06+Godqhy1StSh/7FEUg2hG+UHGDgJFDLK6TWStv4aQ
- /OmOoviTzqtLGWlqLCF743hDRWXuVLoXcomgENfBykPwSOu5e1vR8XPR0XfgwVhtZY
- jRb+FDUbaHlbpS9qJUYsDkfUNyz7pXb7V/EStvSVM+JiVJ+ety/dJ6gbY5MJ8LI/mj
- gV4dyL6OyPVrPYx4vu+tDfI+sNNuoyjhe/vO9BLU1ORHpPLqnUc98mJy3WsoSXWlUQ
- 2Z2oHrMiz+oWw==
+ by tor.source.kernel.org (Postfix) with ESMTP id 4C84B601F6;
+ Tue,  8 Sep 2026 14:49:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A2861F00A3E;
+ Tue,  8 Sep 2026 14:49:09 +0000 (UTC)
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 08 Sep 2026 16:46:58 +0200
-Subject: [PATCH v4 27/41] drm/armada: Convert to atomic_create_state
+Date: Tue, 08 Sep 2026 16:47:00 +0200
+Subject: [PATCH v4 29/41] drm/atmel-hlcdc: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-drm-no-more-plane-reset-v4-27-a31b3fcfc989@kernel.org>
+Message-Id: <20260908-drm-no-more-plane-reset-v4-29-a31b3fcfc989@kernel.org>
 References: <20260908-drm-no-more-plane-reset-v4-0-a31b3fcfc989@kernel.org>
 In-Reply-To: <20260908-drm-no-more-plane-reset-v4-0-a31b3fcfc989@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- linux@armlinux.org.uk
+ Manikandan Muralidharan <manikandan.m@microchip.com>, 
+ alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev, 
+ dharma.b@microchip.com, manikandan.m@microchip.com, 
+ nicolas.ferre@microchip.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10636; i=mripard@kernel.org;
- h=from:subject:message-id; bh=ulxmdfAQgV6myg18QMompnjRwVHaiZOXfEy0bXU+6UI=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkL5G9Kux2917P7dMChJ027+t+bTNcIN9+4vYkl776Ye
- 3+Niodex1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhI7nzGhsUf9m678imhiv3g
- 79Wv2t2PM7rFqDYJqR8LmXFY6snBvo3nvu+9uYErOeOyDMfT4h/qbxkblrW4ZG0X36btdzFtp8v
- 12G8uc+J3hITc0HrXyK6ZzWy09a2W7QyHdJsk7/s/3v/YJNcOAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7180; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=mE9QJtSX1ZYIKIYFMD5NkF08HlyTW/7xdvp58Luzap8=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkL5G9JqzUvfSK5tfV8pvpS4xK1xtRVTXoWz6eJfums2
+ KX2ZcrLjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjARBSHGhq1u3zOFgs11dmya
+ +uKsZt2Mv++yvBPMouaaL1/e6VbxS9IrPirUu+aL4o2bZVmXrvIWMtZHMbFkFdtHT/1zriV56b/
+ 0dZcufORoYLwY56lTeZz9xKQ3L92cdntJ7627mV7w94fkqvsA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -333,145 +323,73 @@ expression PS;
 +	return &PS->base;
 }
 
+Tested-by: Manikandan Muralidharan <manikandan.m@microchip.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: linux@armlinux.org.uk
+Cc: alexandre.belloni@bootlin.com
+Cc: claudiu.beznea@tuxon.dev
+Cc: dharma.b@microchip.com
+Cc: manikandan.m@microchip.com
+Cc: nicolas.ferre@microchip.com
 ---
- drivers/gpu/drm/armada/armada_overlay.c | 39 +++++++++++++++------------------
- drivers/gpu/drm/armada/armada_plane.c   | 15 +++++++------
- drivers/gpu/drm/armada/armada_plane.h   |  2 +-
- 3 files changed, 27 insertions(+), 29 deletions(-)
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c | 30 ++++++++++++-------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/armada/armada_overlay.c b/drivers/gpu/drm/armada/armada_overlay.c
-index 3da0b857ef95..e75706b85dd1 100644
---- a/drivers/gpu/drm/armada/armada_overlay.c
-+++ b/drivers/gpu/drm/armada/armada_overlay.c
-@@ -299,34 +299,31 @@ armada_overlay_plane_update(struct drm_plane *plane, struct drm_crtc *crtc,
- fail:
- 	drm_atomic_commit_put(state);
- 	return ret;
+diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c
+index 70a1cef24388..e09ce6342085 100644
+--- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c
++++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c
+@@ -1181,35 +1181,35 @@ static void atmel_hlcdc_plane_atomic_destroy_state(struct drm_plane *p,
+ 	__drm_atomic_helper_plane_destroy_state(s);
+ 
+ 	kfree(state);
  }
  
--static void armada_overlay_reset(struct drm_plane *plane)
-+static struct drm_plane_state *armada_overlay_create_state(struct drm_plane *plane)
+-static void atmel_hlcdc_plane_reset(struct drm_plane *p)
++static struct drm_plane_state *atmel_hlcdc_plane_create_state(struct drm_plane *p)
  {
- 	struct armada_overlay_state *state;
- 
--	if (plane->state)
--		__drm_atomic_helper_plane_destroy_state(plane->state);
--	kfree(plane->state);
--	plane->state = NULL;
+ 	struct atmel_hlcdc_plane_state *state;
 -
+-	if (p->state) {
+-		atmel_hlcdc_plane_atomic_destroy_state(p, p->state);
+-		p->state = NULL;
+-	}
++	int ret;
+ 
  	state = kzalloc_obj(*state);
 -	if (state) {
--		state->colorkey_yr = 0xfefefe00;
--		state->colorkey_ug = 0x01010100;
--		state->colorkey_vb = 0x01010100;
--		state->colorkey_mode = CFG_CKMODE(CKMODE_RGB) |
--				       CFG_ALPHAM_GRA | CFG_ALPHA(0);
--		state->colorkey_enable = ADV_GRACOLORKEY;
--		state->brightness = DEFAULT_BRIGHTNESS;
--		state->contrast = DEFAULT_CONTRAST;
--		state->saturation = DEFAULT_SATURATION;
--		__drm_atomic_helper_plane_reset(plane, &state->base.base);
--		state->base.base.color_encoding = DEFAULT_ENCODING;
--		state->base.base.color_range = DRM_COLOR_YCBCR_LIMITED_RANGE;
--	}
+-		if (atmel_hlcdc_plane_alloc_dscrs(p, state)) {
+-			kfree(state);
+-			drm_err(p->dev,
+-				"Failed to allocate initial plane state\n");
+-			return;
+-		}
+-		__drm_atomic_helper_plane_reset(p, &state->base);
 +	if (!state)
 +		return ERR_PTR(-ENOMEM);
 +
-+	state->colorkey_yr = 0xfefefe00;
-+	state->colorkey_ug = 0x01010100;
-+	state->colorkey_vb = 0x01010100;
-+	state->colorkey_mode = CFG_CKMODE(CKMODE_RGB) | CFG_ALPHAM_GRA | CFG_ALPHA(0);
-+	state->colorkey_enable = ADV_GRACOLORKEY;
-+	state->brightness = DEFAULT_BRIGHTNESS;
-+	state->contrast = DEFAULT_CONTRAST;
-+	state->saturation = DEFAULT_SATURATION;
-+	__drm_atomic_helper_plane_state_init(&state->base.base, plane);
-+	state->base.base.color_encoding = DEFAULT_ENCODING;
-+	state->base.base.color_range = DRM_COLOR_YCBCR_LIMITED_RANGE;
++	ret = atmel_hlcdc_plane_alloc_dscrs(p, state);
++	if (ret) {
++		kfree(state);
++		drm_err(p->dev, "Failed to allocate initial plane state\n");
++		return ERR_PTR(ret);
+ 	}
 +
-+	return &state->base.base;
++	__drm_atomic_helper_plane_state_init(&state->base, p);
++
++	return &state->base;
  }
  
- static struct drm_plane_state *
- armada_overlay_duplicate_state(struct drm_plane *plane)
- {
-@@ -464,11 +461,11 @@ static int armada_overlay_get_property(struct drm_plane *plane,
- 
- static const struct drm_plane_funcs armada_ovl_plane_funcs = {
- 	.update_plane	= armada_overlay_plane_update,
- 	.disable_plane	= drm_atomic_helper_disable_plane,
- 	.destroy	= drm_plane_helper_destroy,
--	.reset		= armada_overlay_reset,
-+	.atomic_create_state = armada_overlay_create_state,
- 	.atomic_duplicate_state = armada_overlay_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
- 	.atomic_set_property = armada_overlay_set_property,
- 	.atomic_get_property = armada_overlay_get_property,
- };
-diff --git a/drivers/gpu/drm/armada/armada_plane.c b/drivers/gpu/drm/armada/armada_plane.c
-index fe46a8e4508a..1f5172d6816b 100644
---- a/drivers/gpu/drm/armada/armada_plane.c
-+++ b/drivers/gpu/drm/armada/armada_plane.c
-@@ -254,19 +254,20 @@ static const struct drm_plane_helper_funcs armada_primary_plane_helper_funcs = {
- 	.atomic_check	= armada_drm_plane_atomic_check,
- 	.atomic_update	= armada_drm_primary_plane_atomic_update,
- 	.atomic_disable	= armada_drm_primary_plane_atomic_disable,
+ static const struct drm_plane_funcs layer_plane_funcs = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+-	.reset = atmel_hlcdc_plane_reset,
++	.atomic_create_state = atmel_hlcdc_plane_create_state,
+ 	.atomic_duplicate_state = atmel_hlcdc_plane_atomic_duplicate_state,
+ 	.atomic_destroy_state = atmel_hlcdc_plane_atomic_destroy_state,
  };
  
--void armada_plane_reset(struct drm_plane *plane)
-+struct drm_plane_state *armada_plane_create_state(struct drm_plane *plane)
- {
- 	struct armada_plane_state *st;
--	if (plane->state)
--		__drm_atomic_helper_plane_destroy_state(plane->state);
--	kfree(plane->state);
- 	st = kzalloc_obj(*st);
--	if (st)
--		__drm_atomic_helper_plane_reset(plane, &st->base);
-+	if (!st)
-+		return ERR_PTR(-ENOMEM);
-+
-+	__drm_atomic_helper_plane_state_init(&st->base, plane);
-+
-+	return &st->base;
- }
- 
- struct drm_plane_state *armada_plane_duplicate_state(struct drm_plane *plane)
- {
- 	struct armada_plane_state *st;
-@@ -283,11 +284,11 @@ struct drm_plane_state *armada_plane_duplicate_state(struct drm_plane *plane)
- 
- static const struct drm_plane_funcs armada_primary_plane_funcs = {
- 	.update_plane	= drm_atomic_helper_update_plane,
- 	.disable_plane	= drm_atomic_helper_disable_plane,
- 	.destroy	= drm_plane_helper_destroy,
--	.reset		= armada_plane_reset,
-+	.atomic_create_state = armada_plane_create_state,
- 	.atomic_duplicate_state = armada_plane_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
- };
- 
- int armada_drm_primary_plane_init(struct drm_device *drm,
-diff --git a/drivers/gpu/drm/armada/armada_plane.h b/drivers/gpu/drm/armada/armada_plane.h
-index 69bef09ea028..be2b1eaafad7 100644
---- a/drivers/gpu/drm/armada/armada_plane.h
-+++ b/drivers/gpu/drm/armada/armada_plane.h
-@@ -23,11 +23,11 @@ void armada_drm_plane_calc(struct drm_plane_state *state, u32 addrs[2][3],
- 	u16 pitches[3], bool interlaced);
- void armada_drm_plane_cleanup_fb(struct drm_plane *plane,
- 	struct drm_plane_state *old_state);
- int armada_drm_plane_atomic_check(struct drm_plane *plane,
- 	struct drm_atomic_commit *state);
--void armada_plane_reset(struct drm_plane *plane);
-+struct drm_plane_state *armada_plane_create_state(struct drm_plane *plane);
- struct drm_plane_state *armada_plane_duplicate_state(struct drm_plane *plane);
- void armada_plane_destroy_state(struct drm_plane *plane,
- 				struct drm_plane_state *state);
- 
- int armada_drm_primary_plane_init(struct drm_device *drm,
+ static int atmel_hlcdc_plane_create(struct drm_device *dev,
 
 -- 
 2.55.0
