@@ -4,76 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CC7EC79F82
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 20:53:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D96B9C79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 21:09:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C4CF10E126;
-	Tue,  8 Sep 2026 20:53:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05E5A10E12C;
+	Tue,  8 Sep 2026 21:09:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MUBUX+Od";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e0wc0Wnp";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63EC910E126
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:53:53 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A857C601FA;
- Tue,  8 Sep 2026 20:53:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 502E8C2BCB8;
- Tue,  8 Sep 2026 20:53:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1788900832;
- bh=9ydGklz8bZHOpqIknHpNgAna7Etxuu7JUtYpdMotKqE=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=MUBUX+OdC6MdOoyat4SfIhsk/mYkz4s59QX5MjXRe2hVpWVeJ381rg3owK6oNbOCo
- lUgR2Qs/oUYIm01oYYv3pUM+/u9SXoV8CMBvQrIr2qHTXie/VUP27aKbQv/wtCqHnf
- BRk5aqt8t2RJ2WWR3NVFtBx0lxDkTWQmHGmUAYdr50BtU5K4g3P92UIav2P6/Tu6iQ
- uvcezXgqwcb5r1UdX3UlPVUt++cyYYegCEZAYiRf2MPNfr2lsjrEMGv0CDMtTIpnkB
- iS137AuY68j1uaP/Ll00PU2sSut/z2yLy4jfQe0YF3NgB9qG5BgC1B4nO3DTtatBqh
- gUqU0HZytNieg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 2FE48C79FAA;
- Tue,  8 Sep 2026 20:53:52 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Tue, 08 Sep 2026 22:53:47 +0200
-Subject: [PATCH] backlight: qcom-wled: Fix unbalanced OVP IRQ enable at probe
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-qcom-wled-backlight-v1-1-c4dd4eabda07@ixit.cz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSQ6DMAxA0asgr2spDVPpVRALSAyYUoaESULcn
- QDLt/h/B0uGycLX28HQwpb7zuH98kDVeVcRsnYGKWQkEvHBUfV/XFvSWOTq13JVT1jqJIwDIWM
- /9MGVg6GSt/uaZo/tXDSkpmsFx3ECFD8JCncAAAA=
-X-Change-ID: 20260908-qcom-wled-backlight-fd9574027353
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, 
- Kiran Gunda <quic_kgunda@quicinc.com>, 
- Marco Mattiolo <marco.mattiolo@hotmail.it>, 
- =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, stable@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6457; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=yBiYmO8d6SvubGxXelZ3t3PQpKGgRFigdJU1itdaGJI=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqoHXe926RXgnO3S+glWPVaG88ro/W9WLSTAOOa
- RVPKlHctlSJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqB13gAKCRBgAj/E00kg
- cpJiD/98Rs8zIQxocR0idSCh6Ogmgd/J9rMxS2zgWMK/zQLttQS/ry88pN69AVygf/93I4oNLXT
- HOB/m1kb0y4/vP04Ienuwm5+EbyozXYR6U1IKI475fEIlf+W/Jx3ajQN+wNw/h34kM6syjK0ceq
- ZWSxCkvl4y6seLqWv0lKPk/wJNudf0fbnUgXQ6wyooL9i7KE8SkFLKpcx/U7+VSmJbm5wAloaam
- cBR3qw/Eos3TXqHer9+V9BYwpRhnG/MKWFx3k5GpNAc3kYdZxEoSGVFH+CZAC1mT6+soAIZXRLd
- Kt1lAgvuVps7P8XY/dtqDFRAXe4HZb9OO/dElfUmuBbUDveVZpo5w3QiPMufOhCGgvXQZV5f4pN
- rKrQBqoriJrTSefr34riwr8EKBVmXUDIM2vCPJUGpkp6RJThGtK5+qyGSJ2HGg8Ol6kHdzi3M/N
- FJ8pCz6dV09pOGUASI5AmctCOb/wX17gf5rDiy6I2HYqe3j0NcxGYxl5NbNMwTT16KqzA6ZG6Ap
- NqzBPVcmY2zIJ5MbjnITAvToNfbkGQIL8jK0DpJw7ePlzdoBcrUHP9IZDXI80kpa0RV1VINV3M+
- IOiJmgxpKkR0z38200Q80msIDnmBFhfnd/6aP7d9a9HJG44syQg15ObqUKjU7aSFwWL3ZQkH/jT
- adohQTBb5LbvUuQ==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FF0F10E12C
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 21:09:48 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 73A42601DE;
+ Tue,  8 Sep 2026 21:09:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 099E21F00A3A;
+ Tue,  8 Sep 2026 21:09:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788901787;
+ bh=eErbz38Mvi8UKKqW6nugpbH3fFw7sA01g2WOGyK87T4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=e0wc0WnpBX1jOkkNsdPrjpxtxznsSAx1K3vuitqpM4JBAt4wl9LBq1Q8MdPacV/cj
+ N85lzFtCpbsBqNwJn0W/PloDIxLDNBwDCKTaVhDzIqx7OGVMwxJ6pEWsR0+PU13Cco
+ TaAdkK358jvukvckWnh5N1hhblzZAxt+41aoPmT6+WmzBEP6K7mYLjG3OF/weS7Jr4
+ caPoZTfIj3/sdNA/T5YZpE1X/5oU3gdi0KNPVoRghygQ/dbK4VsvgkVrI0gBBw2d9g
+ A5lrSHpwBioefqC0IXAI4x2q2rdvjCv8vUdGZFDQDIzHbGBAbv4mUHYCUqRyv0dWe4
+ OWNg0ACtqVGjQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] backlight: qcom-wled: Fix unbalanced OVP IRQ enable at
+ probe
+To: "David Heidelberg" <david@ixit.cz>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260908-qcom-wled-backlight-v1-1-c4dd4eabda07@ixit.cz>
+References: <20260908-qcom-wled-backlight-v1-1-c4dd4eabda07@ixit.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 21:09:46 +0000
+Message-Id: <20260908210947.099E21F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,200 +53,236 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: david@ixit.cz
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: David Heidelberg <david@ixit.cz>
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
 
-wled_configure_ovp_irq() derives the initial state of the OVP interrupt
-from the hardware:
+New issues:
+- [High] If default-brightness is 0, the OVP IRQ is incorrectly disabled wh=
+ile the hardware module remains active, and the module cannot be subsequent=
+ly disabled.
 
-        /* Keep OVP irq disabled until module is enabled */
-        if (!(val & WLED3_CTRL_REG_MOD_EN_MASK))
-                disable_irq(wled->ovp_irq);
+Pre-existing issues:
+- [High] Missing platform_set_drvdata() in probe causes a guaranteed NULL p=
+ointer dereference in wled_remove().
+- [High] wled_remove() calls disable_irq() with negative or uninitialized I=
+RQ values if the IRQs failed to map during probe.
+- [High] Tearing down synchronization primitives in wled_remove() before th=
+e devm-managed backlight is unregistered creates a use-after-free window.
+- [High] WLED3 devices lack the wled_auto_detection_required function handl=
+er, leading to a NULL pointer dereference if the OVP IRQ fires.
+- [High] The short IRQ handler unconditionally re-enables the hardware modu=
+le, overriding software intentions.
+--
 
-but wled->brightness, which is what the rest of the driver uses to tell
-whether the module is on, is left at zero.
+commit 5bacd29d54de18ff6f2680d6c09d873e1a8a3c3a
+Author: David Heidelberg <david@ixit.cz>
 
-On boards where the bootloader hands the kernel a lit backlight the two
-disagree. MOD_EN is already set, so the interrupt is left enabled, while
-wled_update_status() still believes the backlight is off and takes
+    backlight: qcom-wled: Fix unbalanced OVP IRQ enable at probe
 
-        if (!!brightness != !!wled->brightness)
-                rc = wled_module_enable(wled, !!brightness);
+This commit fixes an issue where the OVP IRQ was unbalanced at probe. It re=
+ads
+the hardware module enable state to initialize the software brightness leve=
+l,
+and keys the OVP IRQ enable off this software state rather than the hardware
+state to avoid mismatches.
 
-on the first backlight update. wled_module_enable() then schedules
-wled_ovp_work(), which calls enable_irq() on the already enabled
-interrupt:
+> diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backligh=
+t/qcom-wled.c
+> index 650dd95f06ef5..344b8cad90105 100644
+> --- a/drivers/video/backlight/qcom-wled.c
+> +++ b/drivers/video/backlight/qcom-wled.c
+> @@ -1627,7 +1627,6 @@ static int wled_configure_ovp_irq(struct wled *wled,
+>  				  struct platform_device *pdev)
+>  {
+>  	int rc;
+> -	u32 val;
+> =20
+>  	wled->ovp_irq =3D platform_get_irq_byname(pdev, "ovp");
+>  	if (wled->ovp_irq < 0) {
 
-  Unbalanced enable for IRQ 176
-  WARNING: CPU: 0 PID: 160 at kernel/irq/manage.c:774 __enable_irq+0x50/0x80
-  Hardware name: Xiaomi Pocophone F1 (DT)
-  Workqueue: events wled_ovp_work
-  Call trace:
-   __enable_irq+0x50/0x80
-   enable_irq+0x48/0xa0
-   wled_ovp_work+0x18/0x24
-   process_one_work+0x1d0/0x350
-   worker_thread+0x13c/0x460
-   kthread+0x110/0x114
-   ret_from_fork+0x10/0x20
+[Severity: High]
+This is a pre-existing issue, but if platform_get_irq_byname() fails and
+returns a negative error code, it is left in wled->ovp_irq without being
+reset to 0.
 
-The bootloader is not the only way to get there. The readback runs after
-wledN_setup(), and wled4_setup() sets MOD_EN itself on the path where the
-sink configuration does not already match, as does the tail of
-wled_auto_string_detection(), which all three setup paths can reach
-through wled_auto_detection_at_init(). A cold-booted board with a dark
-panel can therefore reach the same disagreement.
+Could this cause a regression during module removal?
 
-Move the MOD_EN readback into wled_probe() and use it to seed
-wled->brightness, so the driver starts out agreeing with the hardware,
-and key the OVP interrupt off wled->brightness instead. The first
-backlight update then only reprograms the brightness registers and
-leaves both the module and the interrupt alone. The OVP interrupt also
-stays armed from probe whenever the module is already enabled, rather
-than being disabled at probe and only enabled once something writes
-brightness.
+drivers/video/backlight/qcom-wled.c:wled_remove() {
+...
+    disable_irq(wled->ovp_irq);
+...
+}
 
-Note that a backlight update requesting brightness 0 before any non-zero
-one now really does turn the module off wherever MOD_EN was already set,
-where before it was silently ignored.
+It appears wled_remove() calls disable_irq() unconditionally, which would
+result in an out-of-bounds IRQ descriptor lookup or inadvertently disabling=
+ a
+system IRQ if wled->ovp_irq is negative.
 
-wled->brightness is seeded with default-brightness rather than the level
-the bootloader actually programmed, so the first update can still step
-the brightness. Reading that level back needs a per-version accessor and
-is left for later.
+[ ... ]
+> @@ -1643,13 +1642,8 @@ static int wled_configure_ovp_irq(struct wled *wle=
+d,
+>  		return 0;
+>  	}
+> =20
+> -	rc =3D regmap_read(wled->regmap, wled->ctrl_addr +
+> -			 WLED3_CTRL_REG_MOD_EN, &val);
+> -	if (rc < 0)
+> -		return rc;
+> -
+> -	/* Keep OVP irq disabled until module is enabled */
+> -	if (!(val & WLED3_CTRL_REG_MOD_EN_MASK))
+> +	/* Keep the OVP irq disabled until the module is enabled */
+> +	if (!wled->brightness)
+>  		disable_irq(wled->ovp_irq);
 
-Assisted-by: LLM
-Fixes: 8663c188beea ("backlight: qcom-wled: Add auto string detection logic")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-this is slightly annoying bug sdm845-mainline had patched for a years,
-but not very well. This should be the proper patch, got ack from people
-with Xiaomi Poco F1 (ebbg variant) which does use this so it works.
+[Severity: High]
+If default-brightness is 0, wled->brightness will be seeded with 0 later in
+wled_probe(). Will this incorrectly disable the OVP IRQ while the hardware
+module remains active?
 
-Adding MSM8953 folks into Cc too, which use the early fix.
----
- drivers/video/backlight/qcom-wled.c | 32 +++++++++++++++++++++-----------
- 1 file changed, 21 insertions(+), 11 deletions(-)
+If the bootloader leaves the backlight ON, but default-brightness in the de=
+vice
+tree is 0, checking !wled->brightness instead of the hardware MOD_EN state
+disables the OVP IRQ while hardware is still ON.
 
-diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
-index 650dd95f06ef5..344b8cad90105 100644
---- a/drivers/video/backlight/qcom-wled.c
-+++ b/drivers/video/backlight/qcom-wled.c
-@@ -1622,54 +1622,49 @@ static int wled_configure_short_irq(struct wled *wled,
- 
- 	return rc;
- }
- 
- static int wled_configure_ovp_irq(struct wled *wled,
- 				  struct platform_device *pdev)
- {
- 	int rc;
--	u32 val;
- 
- 	wled->ovp_irq = platform_get_irq_byname(pdev, "ovp");
- 	if (wled->ovp_irq < 0) {
- 		dev_dbg(&pdev->dev, "OVP IRQ not found - disabling automatic string detection\n");
- 		return 0;
- 	}
- 
- 	rc = devm_request_threaded_irq(wled->dev, wled->ovp_irq, NULL,
- 				       wled_ovp_irq_handler, IRQF_ONESHOT,
- 				       "wled_ovp_irq", wled);
- 	if (rc < 0) {
- 		wled->ovp_irq = 0;
- 		return 0;
- 	}
- 
--	rc = regmap_read(wled->regmap, wled->ctrl_addr +
--			 WLED3_CTRL_REG_MOD_EN, &val);
--	if (rc < 0)
--		return rc;
--
--	/* Keep OVP irq disabled until module is enabled */
--	if (!(val & WLED3_CTRL_REG_MOD_EN_MASK))
-+	/* Keep the OVP irq disabled until the module is enabled */
-+	if (!wled->brightness)
- 		disable_irq(wled->ovp_irq);
- 
- 	return 0;
- }
- 
- static const struct backlight_ops wled_ops = {
- 	.update_status = wled_update_status,
- };
- 
- static int wled_probe(struct platform_device *pdev)
- {
- 	struct backlight_properties props;
- 	struct backlight_device *bl;
- 	struct wled *wled;
- 	struct regmap *regmap;
-+	u32 mod_en;
- 	u32 val;
- 	int rc;
- 
- 	regmap = dev_get_regmap(pdev->dev.parent, NULL);
- 	if (!regmap) {
- 		dev_err(&pdev->dev, "Unable to get regmap\n");
- 		return -EINVAL;
- 	}
-@@ -1729,27 +1724,42 @@ static int wled_probe(struct platform_device *pdev)
- 
- 	default:
- 		dev_err(wled->dev, "Invalid WLED version\n");
- 		break;
- 	}
- 
- 	INIT_DELAYED_WORK(&wled->ovp_work, wled_ovp_work);
- 
-+	val = WLED_DEFAULT_BRIGHTNESS;
-+	of_property_read_u32(pdev->dev.of_node, "default-brightness", &val);
-+
-+	/*
-+	 * The module may already be enabled, either by a bootloader that left
-+	 * the backlight lit or by the setup above. Record that, so that the
-+	 * first brightness update does not enable an already enabled module,
-+	 * and so that the OVP irq is armed from probe rather than from that
-+	 * first update.
-+	 */
-+	rc = regmap_read(wled->regmap, wled->ctrl_addr + WLED3_CTRL_REG_MOD_EN,
-+			 &mod_en);
-+	if (rc < 0)
-+		return rc;
-+
-+	if (mod_en & WLED3_CTRL_REG_MOD_EN_MASK)
-+		wled->brightness = val;
-+
- 	rc = wled_configure_short_irq(wled, pdev);
- 	if (rc < 0)
- 		return rc;
- 
- 	rc = wled_configure_ovp_irq(wled, pdev);
- 	if (rc < 0)
- 		return rc;
- 
--	val = WLED_DEFAULT_BRIGHTNESS;
--	of_property_read_u32(pdev->dev.of_node, "default-brightness", &val);
--
- 	memset(&props, 0, sizeof(struct backlight_properties));
- 	props.type = BACKLIGHT_RAW;
- 	props.brightness = val;
- 	props.max_brightness = wled->max_brightness;
- 	bl = devm_backlight_device_register(&pdev->dev, wled->name,
- 					    &pdev->dev, wled,
- 					    &wled_ops, &props);
- 	return PTR_ERR_OR_ZERO(bl);
+Additionally, a user space request to set brightness to 0 evaluates
+!!0 !=3D !!0 as false, silently ignoring the request and leaving the hardwa=
+re
+permanently ON without OVP protection.
 
----
-base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
-change-id: 20260908-qcom-wled-backlight-fd9574027353
+[ ... ]
+> @@ -1734,6 +1729,24 @@ static int wled_probe(struct platform_device *pdev)
+> =20
+>  	INIT_DELAYED_WORK(&wled->ovp_work, wled_ovp_work);
+> =20
+> +	val =3D WLED_DEFAULT_BRIGHTNESS;
+> +	of_property_read_u32(pdev->dev.of_node, "default-brightness", &val);
+> +
+> +	/*
+> +	 * The module may already be enabled, either by a bootloader that left
+> +	 * the backlight lit or by the setup above. Record that, so that the
+> +	 * first brightness update does not enable an already enabled module,
+> +	 * and so that the OVP irq is armed from probe rather than from that
+> +	 * first update.
+> +	 */
+> +	rc =3D regmap_read(wled->regmap, wled->ctrl_addr + WLED3_CTRL_REG_MOD_E=
+N,
+> +			 &mod_en);
+> +	if (rc < 0)
+> +		return rc;
+> +
+> +	if (mod_en & WLED3_CTRL_REG_MOD_EN_MASK)
+> +		wled->brightness =3D val;
+> +
 
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
+[Severity: High]
+This isn't a bug introduced by this patch, but WLED3 devices lack the
+wled_auto_detection_required function handler:
 
+drivers/video/backlight/qcom-wled.c:wled_configure() {
+...
+    case 3:
+        u32_opts =3D wled3_opts;
+        size =3D ARRAY_SIZE(wled3_opts);
+        *cfg =3D wled3_config_defaults;
+        wled->wled_set_brightness =3D wled3_set_brightness;
+        wled->wled_sync_toggle =3D wled3_sync_toggle;
+...
+}
 
+Does this lead to a NULL pointer dereference if the OVP IRQ fires?
+
+drivers/video/backlight/qcom-wled.c:wled_ovp_irq_handler() {
+...
+    if (fault_sts & WLED3_CTRL_REG_OVP_FAULT_BIT) {
+        if (wled->wled_auto_detection_required(wled)) {
+            mutex_lock(&wled->lock);
+...
+}
+
+[Severity: High]
+This is a pre-existing issue, but the short IRQ handler unconditionally
+re-enables the hardware module:
+
+drivers/video/backlight/qcom-wled.c:wled_short_irq_handler() {
+...
+    rc =3D wled_module_enable(wled, true);
+...
+}
+
+Does this override the software intentions if the backlight is logically OFF
+(or being turned OFF) in wled->brightness when the short-circuit IRQ trigge=
+rs?
+
+This could cause the hardware backlight to become stuck ON, leading to perm=
+anent
+battery drain and incorrect state.
+
+[ ... ]
+> @@ -1742,9 +1755,6 @@ static int wled_probe(struct platform_device *pdev)
+>  	if (rc < 0)
+>  		return rc;
+> =20
+> -	val =3D WLED_DEFAULT_BRIGHTNESS;
+> -	of_property_read_u32(pdev->dev.of_node, "default-brightness", &val);
+> -
+>  	memset(&props, 0, sizeof(struct backlight_properties));
+>  	props.type =3D BACKLIGHT_RAW;
+>  	props.brightness =3D val;
+
+[Severity: High]
+This is a pre-existing issue, but wled_probe() never calls
+platform_set_drvdata() before returning successfully:
+
+drivers/video/backlight/qcom-wled.c:wled_probe() {
+...
+    bl =3D devm_backlight_device_register(&pdev->dev, wled->name,
+                                        &pdev->dev, wled,
+                                        &wled_ops, &props);
+    return PTR_ERR_OR_ZERO(bl);
+}
+
+Will this cause a guaranteed NULL pointer dereference in wled_remove() when
+unbinding the driver?
+
+drivers/video/backlight/qcom-wled.c:wled_remove() {
+    struct wled *wled =3D platform_get_drvdata(pdev);
+
+    mutex_destroy(&wled->lock);
+...
+}
+
+[Severity: High]
+This is another pre-existing issue, but tearing down synchronization primit=
+ives
+in wled_remove() before the devm-managed backlight is unregistered creates a
+use-after-free window.
+
+drivers/video/backlight/qcom-wled.c:wled_remove() {
+...
+    mutex_destroy(&wled->lock);
+    cancel_delayed_work_sync(&wled->ovp_work);
+...
+}
+
+The backlight device is registered via devm_backlight_device_register(), me=
+aning
+it remains active until devres cleanup after wled_remove() returns.
+
+Could this lead to lock corruption or use-after-free if userspace accesses =
+the
+sysfs interface concurrently while the driver is being removed?
+
+drivers/video/backlight/qcom-wled.c:wled_update_status() {
+...
+    mutex_lock(&wled->lock);
+...
+}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-qcom-wled-=
+backlight-v1-1-c4dd4eabda07@ixit.cz?part=3D1
