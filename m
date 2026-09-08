@@ -4,50 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B232CC79F99
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 20:34:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0217DC79F82
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 20:34:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04BC110ED6E;
-	Tue,  8 Sep 2026 20:34:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A46710ED6F;
+	Tue,  8 Sep 2026 20:34:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GuoTKeTJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mUgNQSRk";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A623910ED6E
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:34:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9954510ED6F
+ for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:34:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2B42E601DE;
- Tue,  8 Sep 2026 20:34:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1876A1F00A3A;
- Tue,  8 Sep 2026 20:34:13 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1F07760235;
+ Tue,  8 Sep 2026 20:34:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 597861F00ACA;
+ Tue,  8 Sep 2026 20:34:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788899653;
- bh=vB+bEPol9wUUVJBfbK6MzyNE6mz3Befcd7ErB1ajxhE=;
+ s=k20260515; t=1788899679;
+ bh=qUqXvKxxXiUI2Z6BlbfFAF4xv+3v4ywt9F9wctfbeX0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GuoTKeTJuepHEC1KRZlCLpDY/Wfs1aOd7bO5p4JlitjvSNJY2seFdousOt7ptjRCA
- LFJEiDD+2iiht6Q5o3bAhJojTA4h2nDph82IDqjLmBXumZ7KJ3pgT4xnREtO5ywiRJ
- btFrRQlKE1NlyGSoMCY7qMU71BrE1L83ByvJ0d6ibozDS2jl1/x0/mtixa4eKePue8
- sLE65OByhF4muXMbh4wUnZB0P4aeJU4pxPCOySXzDAGZkrFzcSm5iEl3x0jusvqCIX
- aA3JQlxnMGMrMmVWbnDCf5wCYaV7rwPqAUufMC/uP8tXOVqnUw4QqTuNTrmPrZ2npA
- 5go43qg7LXECw==
+ b=mUgNQSRkEFqX3iOnwuUf4mB0qF1os53i5Hk1cJCVSkSbxtwcRvxdfOwTvVvXmkra+
+ VL+lGKB8dRmhqJ1BJzutIsYOPqiDO16k+znkfDPQ/sKgdjHIkqiyH4CTkEVFKcs0IQ
+ lXGERSfYhQOrviyRxTqrmwbv5DqleNPWiaItfrTjhhOYPjJ8mdntOCTAgmNee2xPnf
+ QRyvlls/s4nb2ES408QQx87Me/m+iCpI9IiBVmtaNVviknIMxnJe+kCgCf3rGDhWXw
+ gyTTxBDFwrvWsy3BqgJVKw4uEwfyOyxq/F+pIPEOEc6dbIEH5se/8/7UGkusawaDgK
+ sW9++qOBNMp7g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 26/39] mm: remove hugetlb_inline.h
+Subject: Re: [PATCH 13/39] bpf: arena: mark arena_map_mmap() mappings
+ VM_MIXEDMAP
 To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
-Cc: "Vasily Gorbik" <gor@linux.ibm.com>, linux-trace-kernel@vger.kernel.org,
- bpf@vger.kernel.org, selinux@vger.kernel.org, "Christian
- Borntraeger" <borntraeger@linux.ibm.com>, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, kvmarm@lists.linux.dev, "Marc
- Zyngier" <maz@kernel.org>, dri-devel@lists.freedesktop.org, kvm@vger.kernel.org,
- "Oliver
- Upton" <oupton@kernel.org>, "Heiko Carstens" <hca@linux.ibm.com>, "Alexander
- Gordeev" <agordeev@linux.ibm.com>, linux-perf-users@vger.kernel.org
-In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-26-dacf19cce22b@kernel.org>
+Cc: kvm@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ "Marc Zyngier" <maz@kernel.org>, "Vasily
+ Gorbik" <gor@linux.ibm.com>, linux-trace-kernel@vger.kernel.org, "Oliver
+ Upton" <oupton@kernel.org>, "Heiko Carstens" <hca@linux.ibm.com>,
+ selinux@vger.kernel.org, "Alexander
+ Gordeev" <agordeev@linux.ibm.com>, bpf@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, "Christian
+ Borntraeger" <borntraeger@linux.ibm.com>, kvmarm@lists.linux.dev
+In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-13-dacf19cce22b@kernel.org>
 References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
- <20260908-b4-mmap-prepare-vma-flag-sanify-v1-26-dacf19cce22b@kernel.org>
+ <20260908-b4-mmap-prepare-vma-flag-sanify-v1-13-dacf19cce22b@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 20:34:12 +0000
-Message-Id: <20260908203413.1876A1F00A3A@smtp.kernel.org>
+Date: Tue, 08 Sep 2026 20:34:39 +0000
+Message-Id: <20260908203439.597861F00ACA@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,24 +66,37 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> This header really makes little sense - every place it is included mm.h is
-> also included, and the header itself includes mm.h, so it does nothing to
-> reduce header size.
+> The bpf_map->ops->map_mmap callback invoked by bpf_map_mmap() can be set =
+to
+> one of ringbuf_map_mmap_kern(), ringbuf_map_mmap_user(), array_map_mmap()
+> or arena_map_mmap().
 >=20
-> It also oddly does an #ifdef around checking VMA_HUGETLB_BIT, however
-> VMA_HUGETLB_BIT is unconditionally available, and will never be set if
-> hugetlb is not enabled.
+> It is convention in mm to mark mappings whose pages the kernel manages
+> itself with VM_MIXEDMAP, so the core mm knows not to treat them as ordina=
+ry
+> page cache or anonymous memory.
 >=20
-> Simply remove the header, eliminate the odd ifdeffery and place the
-> predicates in mm.h.
+> The map_mmap callbacks ringbuf_map_mmap_kern() and ringbuf_map_mmap_user()
+> use remap_vmalloc_range(), which ultimately invokes vm_insert_page() and =
+so
+> marks the ranges VM_MIXEDMAP, and array_map_mmap() sets VM_MIXEDMAP
+> explicitly.
 >=20
-> The naming of these predicates is odd, but to keep changes separate, we
-> will address this in a separate patch.
+> However, the exception to this is arena_map_mmap(), which doesn't set the
+> flag.
 >=20
-> The file was never put into MAINTAINERS so there's no change required
-> there.
+> This patch corrects this and updates the comment to reflect it.
 >=20
-> No functional change intended.
+> The pages are refcounted and vm_normal_page() finds them regardless of the
+> flag, and VM_DONTEXPAND remains set (marking the memory as VM_SPECIAL and
+> thus unmergeable). The one effect is that NUMA balancing now skips these
+> VMAs, as it already does for the other bpf map mappings, which is the
+> reason array_map_mmap() gives for setting the flag.
+>=20
+> The intent of this patch is to be able to establish the invariant that on=
+ly
+> PFN-mapped or mixed map ranges may clear the VM_MAYWRITE flag, as is done
+> in bpf_map_mmap().
 >=20
 > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
@@ -89,5 +104,5 @@ Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-b4-mmap-pr=
-epare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org?part=3D26
+epare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org?part=3D13
 
