@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B684C79FAD
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 09:44:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D3E5C79F8C
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 09:44:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C50710F06E;
-	Wed,  9 Sep 2026 09:44:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 099F010F070;
+	Wed,  9 Sep 2026 09:44:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aGCVbomS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ca+kykha";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5C7A10F072
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 09:44:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11F9310F076
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 09:44:23 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id AEE2240467;
+ by sea.source.kernel.org (Postfix) with ESMTP id D6E5243EA5;
  Wed,  9 Sep 2026 09:44:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 84301C2BCF4;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A6EB0C4AF0B;
  Wed,  9 Sep 2026 09:44:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1788947062;
- bh=p/FFus9bKe5tMEJQcywlfhVh8H2JBkhG45wwhRpVejU=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=aGCVbomS++Z2D+pnl6D6I/WvraSgdcxXB1PWnieNuY/YFqXVDyDvx4gwD8NdKxola
- gKTEE8wsE5zssmRlKcXpsHX7LI5eMEdSl27dwgmRx4FLy+falJR15j4VpoCOJzQdK+
- nX2QkvLvz5aInYezpjesG2lqKKRw+C8f94FDj//QntD8/grEncLgLKvxBb8LgZ5eyg
- 0O5jLZYx2yNWn5XQb/SQaTjaefeiNOinx/XKBmUpe5MCFMb9YXQTu0BUz8Pw27o38Z
- YJfB2EYHFS5rGI2WFHBGRmGDzGAcKiVnKPmF3J7wBBNBqGDYpNzNZclxeia/ptaKi0
- RGm2ekaof4N5A==
+ bh=CRNCNFOv1d/GN5B5RDOOI3W6Az4pcT/yOZ7OHd2PmTU=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=Ca+kykhajnNckAaTgWwCtYDMwntf2X0wkKrXlvNUTTINw9pfmajZwXe2mCtVHDXkS
+ eSzJjxzbPFw+aTWc9xCtU02u6fR0Fduew3A08cvSMVtz5i9fAxyb8eoiApeB+XL1dl
+ uvP2eAAOTxcPT2MLZXToPLVcJDF+jwUjhY0Vtuqtv7prm0zkdH87TjRBrtX19ZT/2e
+ fGyIhNRN4Bfb55rxaR5Sa8pvR2jYydZmc5J4NRllPJvBCJFzVTwUvmmRffLXGe4BfQ
+ f3BnW+tiHI/RNfGA5ewq3n9IwTS5keBbKWxfKx75PoNf+xLoyVyBRkbRHBM/7fVO5g
+ GG9JeGilqKlgA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 5E507C79FB6;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 885CCC79F8C;
  Wed,  9 Sep 2026 09:44:22 +0000 (UTC)
 From: linuszeng via B4 Relay <devnull+linuszeng.tencent.com@kernel.org>
-Subject: [PATCH v2 0/3] mm: page_counter: move hierarchical protection out
- of struct page_counter
-Date: Wed, 09 Sep 2026 17:44:18 +0800
-Message-Id: <20260909-descriptive-name-v2-0-d7dd7c099049@tencent.com>
+Date: Wed, 09 Sep 2026 17:44:20 +0800
+Subject: [PATCH v2 2/3] mm: page_counter: track protection state in
+ page_counter_protection
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAHIqoWoC/32NQQ7CIBBFr9LM2jFAkwquvEfTBcLUzqK0AUI0D
- XcXewCX7yX//QMSRaYE9+6ASIUTb6GBunTgFhtehOwbgxJqEEYY9JRc5D1zIQx2JaReK9vP5qa
- 9hzbbI838PpPj1HjhlLf4OR+K/Nk/sSJRoNRKm0G6p5D2kSk4CvnqthWmWusX0JWKTLIAAAA=
+Message-Id: <20260909-descriptive-name-v2-2-d7dd7c099049@tencent.com>
+References: <20260909-descriptive-name-v2-0-d7dd7c099049@tencent.com>
+In-Reply-To: <20260909-descriptive-name-v2-0-d7dd7c099049@tencent.com>
 To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
  Roman Gushchin <roman.gushchin@linux.dev>, 
  Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
@@ -61,11 +60,11 @@ Cc: Michal Hocko <mhocko@suse.com>, cgroups@vger.kernel.org,
  linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linuszeng <linuszeng@tencent.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788947061; l=4455;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788947061; l=9367;
  i=linuszeng@tencent.com; s=20260909; h=from:subject:message-id;
- bh=p/FFus9bKe5tMEJQcywlfhVh8H2JBkhG45wwhRpVejU=;
- b=hJTwX6JHH/uUOp9uHufT3TwNsMm+bWbW8cQjl9xqdJC3KPtmdS0V4dRJcPJJbMw26XXmcfYw6
- f4kAsSPB1svC72rIgJlJBLAxwUHAIMyEP1iKgbuGtVIe8pJCi+QT/mm
+ bh=XnbhI6+XRiaUlggWoaB82VSvLpQ+T9RolGkd/4opeEI=;
+ b=5VgMCSoPCaXiCqb5wg+bntHG8d6Ak9j8BQa82fZVBGqZccF2FPppQ4a8KIUtrqj7tSklZX58w
+ J1XUmGOlDWkCMxeVIF2N7KV/UqP5LXntzd+BqFlzw8g7w4RgPHAeSVX
 X-Developer-Key: i=linuszeng@tencent.com; a=ed25519;
  pk=6K54xRzYIRWqatrAPy86M4E0MsI92BVJBhXwz5NdC74=
 X-Endpoint-Received: by B4 Relay for linuszeng@tencent.com/20260909 with
@@ -87,97 +86,266 @@ Reply-To: linuszeng@tencent.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hierarchical memory protection (memory.min / memory.low) is built on
-struct page_counter today: every counter carries the full protection
-state - emin/elow, the protected-usage trackers (min_usage,
-children_min_usage, low_usage, children_low_usage), the configured
-min/low values and a protection_support flag - although only the memory
-page counter (and dmem pools) ever participates in protection.
-swap/memsw, kmem, tcpmem and hugetlb counters ship this state around
-unused.
+From: linuszeng <linuszeng@tencent.com>
 
-This series moves that state into a dedicated struct
-page_counter_protection, instantiated only for the counters that
-actually support protection, which shrinks struct page_counter by one
-cache line.
+Move the read/write side of hierarchical protection from struct
+page_counter to struct page_counter_protection: propagate_protected_usage()
+updates the protection context of the parent, page_counter_set_min()/low()
+and page_counter_calculate_protection() operate on it, and memcg and dmem
+accessors (including dmem_cgroup_below_min()/below_low()) read
+min/low/emin/elow and children_*_usage from it.
 
-Patch 1 adds struct page_counter_protection and links it to struct
-page_counter through a ->prot pointer (NULL when protection is not
-supported).  page_counter_init() loses its protection_support argument,
-and the new page_counter_init_protection() attaches the context.
-Protection stays enabled only on the cgroup v2 hierarchy, matching the
-previous page_counter_init(..., memcg_on_dfl) behaviour, and the root
-memcg keeps it unconditionally.
+struct page_counter keeps its now-unused protection fields for now; they
+are removed in a follow-up commit.
 
-Patch 2 migrates the read/write side of protection onto the new
-structure: propagate_protected_usage(), page_counter_set_min()/low()
-and page_counter_calculate_protection() now operate on the protection
-context, and the memcg and dmem accessors (mem_cgroup_protection,
-mem_cgroup_below_min/low, the dmem below_min/low helpers and the dmem
-eviction check) read emin/elow/children_*_usage from it.
-
-Patch 3 deletes the now-unused fields from struct page_counter.  On
-64-bit the structure drops from three cache lines to two, one cache
-line saved per counter.  For reference, pahole shows the layout before
-and after (x86_64, 64-byte cache lines):
-
-    before:                                after:
-     0  usage                               0  usage
-     8  failcnt                             8  failcnt
-    64  emin                               64  watermark
-    72  min_usage                          72  local_watermark
-    80  children_min_usage                 80  track_failcnt
-    88  elow                               88  high
-    96  low_usage                          96  max
-   104  children_low_usage                104  parent
-   112  watermark                         112  prot
-   120  local_watermark
-   128  protection_support                 size 128, 2 cachelines,
-   129  track_failcnt                         11 members
-   136  min
-   144  low                                (the protection fields moved
-   152  high                               into struct
-   160  max                                page_counter_protection,
-   168  parent                              72 bytes, allocated only
-                                           where protection is used)
-   size 192, 3 cachelines, 19 members
-
-The four embedded page counters of struct mem_cgroup all shrink by 64
-bytes, which translates to 128 bytes saved per cgroup once the one
-embedded page_counter_protection is accounted for (2176 -> 2048 bytes
-with CONFIG_MEMCG_V1=y, verified with pahole).
-
-No functional change is intended: protection semantics and the cgroup
-v1/v2 behaviour are preserved.
-
-Signed-off-by: linuszeng <linuszeng@tencent.com>
+No functional change.
 ---
-Changes in v2:
-- dmem: fix up prot.parent in get_cg_pool_locked() too, so bottom-up
-  created pools keep hierarchical protection.
-- Drop the orphaned _pad2_ padding and its stale comment from struct
-  page_counter.
-- Link to v1: https://lore.kernel.org/r/20260909-descriptive-name-v1-0-1828961cb01a@tencent.com
+ include/linux/memcontrol.h |  8 +++----
+ kernel/cgroup/dmem.c       | 12 +++++-----
+ mm/memcontrol.c            |  8 +++----
+ mm/page_counter.c          | 59 +++++++++++++++++++++++++++++-----------------
+ 4 files changed, 52 insertions(+), 35 deletions(-)
 
----
-linuszeng (3):
-      mm: page_counter: add page_counter_protection struct and init API
-      mm: page_counter: track protection state in page_counter_protection
-      mm: page_counter: drop protection fields from struct page_counter
+diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+index ed863f4ed233..44065001a66a 100644
+--- a/include/linux/memcontrol.h
++++ b/include/linux/memcontrol.h
+@@ -591,8 +591,8 @@ static inline void mem_cgroup_protection(struct mem_cgroup *root,
+ 	if (root == memcg)
+ 		return;
+ 
+-	*min = READ_ONCE(memcg->memory.emin);
+-	*low = READ_ONCE(memcg->memory.elow);
++	*min = READ_ONCE(memcg->memory_prot.emin);
++	*low = READ_ONCE(memcg->memory_prot.elow);
+ }
+ 
+ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+@@ -616,7 +616,7 @@ static inline bool mem_cgroup_below_low(struct mem_cgroup *target,
+ 	if (mem_cgroup_unprotected(target, memcg))
+ 		return false;
+ 
+-	return READ_ONCE(memcg->memory.elow) >=
++	return READ_ONCE(memcg->memory_prot.elow) >=
+ 		page_counter_read(&memcg->memory);
+ }
+ 
+@@ -626,7 +626,7 @@ static inline bool mem_cgroup_below_min(struct mem_cgroup *target,
+ 	if (mem_cgroup_unprotected(target, memcg))
+ 		return false;
+ 
+-	return READ_ONCE(memcg->memory.emin) >=
++	return READ_ONCE(memcg->memory_prot.emin) >=
+ 		page_counter_read(&memcg->memory);
+ }
+ 
+diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+index a4bac0d5ac3b..4027d3d309c8 100644
+--- a/kernel/cgroup/dmem.c
++++ b/kernel/cgroup/dmem.c
+@@ -212,12 +212,12 @@ set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val, bool nonblock)
+ 
+ static u64 get_resource_low(struct dmem_cgroup_pool_state *pool)
+ {
+-	return pool ? READ_ONCE(pool->cnt.low) : 0;
++	return pool ? READ_ONCE(pool->cnt.prot->low) : 0;
+ }
+ 
+ static u64 get_resource_min(struct dmem_cgroup_pool_state *pool)
+ {
+-	return pool ? READ_ONCE(pool->cnt.min) : 0;
++	return pool ? READ_ONCE(pool->cnt.prot->min) : 0;
+ }
+ 
+ static u64 get_resource_max(struct dmem_cgroup_pool_state *pool)
+@@ -388,13 +388,13 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
+ 	dmem_cgroup_calculate_protection(limit_pool, test_pool);
+ 
+ 	used = page_counter_read(ctest);
+-	min = READ_ONCE(ctest->emin);
++	min = READ_ONCE(ctest->prot->emin);
+ 
+ 	if (used <= min)
+ 		return false;
+ 
+ 	if (!ignore_low) {
+-		low = READ_ONCE(ctest->elow);
++		low = READ_ONCE(ctest->prot->elow);
+ 		if (used > low)
+ 			return true;
+ 
+@@ -787,7 +787,7 @@ bool dmem_cgroup_below_min(struct dmem_cgroup_pool_state *root,
+ 	 * here.
+ 	 */
+ 	dmem_cgroup_calculate_protection(root, test);
+-	return page_counter_read(&test->cnt) <= READ_ONCE(test->cnt.emin);
++	return page_counter_read(&test->cnt) <= READ_ONCE(test->cnt.prot->emin);
+ }
+ EXPORT_SYMBOL_GPL(dmem_cgroup_below_min);
+ 
+@@ -818,7 +818,7 @@ bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
+ 	 * here.
+ 	 */
+ 	dmem_cgroup_calculate_protection(root, test);
+-	return page_counter_read(&test->cnt) <= READ_ONCE(test->cnt.elow);
++	return page_counter_read(&test->cnt) <= READ_ONCE(test->cnt.prot->elow);
+ }
+ EXPORT_SYMBOL_GPL(dmem_cgroup_below_low);
+ 
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index ffa1ced3baae..b4c01a0dfd4f 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -4823,7 +4823,7 @@ static ssize_t memory_peak_write(struct kernfs_open_file *of, char *buf,
+ static int memory_min_show(struct seq_file *m, void *v)
+ {
+ 	return seq_puts_memcg_tunable(m,
+-		READ_ONCE(mem_cgroup_from_seq(m)->memory.min));
++		READ_ONCE(mem_cgroup_from_seq(m)->memory_prot.min));
+ }
+ 
+ static ssize_t memory_min_write(struct kernfs_open_file *of,
+@@ -4846,7 +4846,7 @@ static ssize_t memory_min_write(struct kernfs_open_file *of,
+ static int memory_low_show(struct seq_file *m, void *v)
+ {
+ 	return seq_puts_memcg_tunable(m,
+-		READ_ONCE(mem_cgroup_from_seq(m)->memory.low));
++		READ_ONCE(mem_cgroup_from_seq(m)->memory_prot.low));
+ }
+ 
+ static ssize_t memory_low_write(struct kernfs_open_file *of,
+@@ -6271,6 +6271,6 @@ void mem_cgroup_show_protected_memory(struct mem_cgroup *memcg)
+ 		memcg = root_mem_cgroup;
+ 
+ 	pr_warn("Memory cgroup min protection %lukB -- low protection %lukB",
+-		K(atomic_long_read(&memcg->memory.children_min_usage)),
+-		K(atomic_long_read(&memcg->memory.children_low_usage)));
++		K(atomic_long_read(&memcg->memory_prot.children_min_usage)),
++		K(atomic_long_read(&memcg->memory_prot.children_low_usage)));
+ }
+diff --git a/mm/page_counter.c b/mm/page_counter.c
+index 38cb99f5f50e..401201c8e390 100644
+--- a/mm/page_counter.c
++++ b/mm/page_counter.c
+@@ -21,28 +21,29 @@ static bool track_protection(struct page_counter *c)
+ static void propagate_protected_usage(struct page_counter *c,
+ 				      unsigned long usage)
+ {
++	struct page_counter_protection *prot = c->prot;
+ 	unsigned long protected, old_protected;
+ 	long delta;
+ 
+-	if (!c->parent)
++	if (!prot || !prot->parent)
+ 		return;
+ 
+-	protected = min(usage, READ_ONCE(c->min));
+-	old_protected = atomic_long_read(&c->min_usage);
++	protected = min(usage, READ_ONCE(prot->min));
++	old_protected = atomic_long_read(&prot->min_usage);
+ 	if (protected != old_protected) {
+-		old_protected = atomic_long_xchg(&c->min_usage, protected);
++		old_protected = atomic_long_xchg(&prot->min_usage, protected);
+ 		delta = protected - old_protected;
+ 		if (delta)
+-			atomic_long_add(delta, &c->parent->children_min_usage);
++			atomic_long_add(delta, &prot->parent->children_min_usage);
+ 	}
+ 
+-	protected = min(usage, READ_ONCE(c->low));
+-	old_protected = atomic_long_read(&c->low_usage);
++	protected = min(usage, READ_ONCE(prot->low));
++	old_protected = atomic_long_read(&prot->low_usage);
+ 	if (protected != old_protected) {
+-		old_protected = atomic_long_xchg(&c->low_usage, protected);
++		old_protected = atomic_long_xchg(&prot->low_usage, protected);
+ 		delta = protected - old_protected;
+ 		if (delta)
+-			atomic_long_add(delta, &c->parent->children_low_usage);
++			atomic_long_add(delta, &prot->parent->children_low_usage);
+ 	}
+ }
+ 
+@@ -257,7 +258,10 @@ void page_counter_set_min(struct page_counter *counter, unsigned long nr_pages)
+ {
+ 	struct page_counter *c;
+ 
+-	WRITE_ONCE(counter->min, nr_pages);
++	if (!counter->prot)
++		return;
++
++	WRITE_ONCE(counter->prot->min, nr_pages);
+ 
+ 	for (c = counter; c; c = c->parent)
+ 		propagate_protected_usage(c, atomic_long_read(&c->usage));
+@@ -274,7 +278,10 @@ void page_counter_set_low(struct page_counter *counter, unsigned long nr_pages)
+ {
+ 	struct page_counter *c;
+ 
+-	WRITE_ONCE(counter->low, nr_pages);
++	if (!counter->prot)
++		return;
++
++	WRITE_ONCE(counter->prot->low, nr_pages);
+ 
+ 	for (c = counter; c; c = c->parent)
+ 		propagate_protected_usage(c, atomic_long_read(&c->usage));
+@@ -445,9 +452,18 @@ void page_counter_calculate_protection(struct page_counter *root,
+ 				       struct page_counter *counter,
+ 				       bool recursive_protection)
+ {
++	struct page_counter_protection *prot = counter->prot;
++	struct page_counter_protection *parent_prot;
+ 	unsigned long usage, parent_usage;
+ 	struct page_counter *parent = counter->parent;
+ 
++	/*
++	 * Only counters with protection support (memory, dmem pools) are
++	 * ever passed here, but guard anyway.
++	 */
++	if (!prot)
++		return;
++
+ 	/*
+ 	 * Effective values of the reclaim targets are ignored so they
+ 	 * can be stale. Have a look at mem_cgroup_protection for more
+@@ -463,23 +479,24 @@ void page_counter_calculate_protection(struct page_counter *root,
+ 		return;
+ 
+ 	if (parent == root) {
+-		counter->emin = READ_ONCE(counter->min);
+-		counter->elow = READ_ONCE(counter->low);
++		prot->emin = READ_ONCE(prot->min);
++		prot->elow = READ_ONCE(prot->low);
+ 		return;
+ 	}
+ 
++	parent_prot = parent->prot;
+ 	parent_usage = page_counter_read(parent);
+ 
+-	WRITE_ONCE(counter->emin, effective_protection(usage, parent_usage,
+-			READ_ONCE(counter->min),
+-			READ_ONCE(parent->emin),
+-			atomic_long_read(&parent->children_min_usage),
++	WRITE_ONCE(prot->emin, effective_protection(usage, parent_usage,
++			READ_ONCE(prot->min),
++			READ_ONCE(parent_prot->emin),
++			atomic_long_read(&parent_prot->children_min_usage),
+ 			recursive_protection));
+ 
+-	WRITE_ONCE(counter->elow, effective_protection(usage, parent_usage,
+-			READ_ONCE(counter->low),
+-			READ_ONCE(parent->elow),
+-			atomic_long_read(&parent->children_low_usage),
++	WRITE_ONCE(prot->elow, effective_protection(usage, parent_usage,
++			READ_ONCE(prot->low),
++			READ_ONCE(parent_prot->elow),
++			atomic_long_read(&parent_prot->children_low_usage),
+ 			recursive_protection));
+ }
+ #endif /* CONFIG_MEMCG || CONFIG_CGROUP_DMEM */
 
- include/linux/memcontrol.h   | 15 ++++++---
- include/linux/page_counter.h | 73 +++++++++++++++++++++++++++++++-------------
- kernel/cgroup/dmem.c         | 21 +++++++------
- mm/hugetlb_cgroup.c          |  4 +--
- mm/memcontrol.c              | 29 ++++++++++--------
- mm/page_counter.c            | 61 +++++++++++++++++++++++-------------
- 6 files changed, 133 insertions(+), 70 deletions(-)
----
-base-commit: d118502628f8b673be9023db8bdf878f64a7ed45
-change-id: 20260909-descriptive-name-e382a3f978dd
-
-Best regards,
 -- 
-linuszeng <linuszeng@tencent.com>
+2.43.7
 
 
