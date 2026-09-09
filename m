@@ -4,78 +4,183 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29817C88E47
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 10:07:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3552DC88E46
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 10:07:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F52A10F41D;
-	Thu, 10 Sep 2026 10:06:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFDCF10F419;
+	Thu, 10 Sep 2026 10:06:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="reJQyvQW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TLY49pi+";
 	dkim-atps=neutral
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EE1510E220
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 01:05:59 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-2d6fe26ef1cso69300165ad.2
- for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 18:05:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789002359; x=1789607159; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=i3KZVybWmfPUW8DJx5y+rAR9UZPpXnS8RWCoLGg5ZjQ=;
- b=reJQyvQWGt8BnOs1Xu41Z+NeqkoEwSHnGAZe+ZQgz2JMRuOkM/lVrdOfbyHkr9/13n
- 6rDPaO5fWebnUhR6SIX+CD3dVtoWfByTKYX10ncJyGtDSizYVH9UFfgElzFjh1NDmvkZ
- NR8zor0eKY+RYgQX2wTk3eO+8nC2P8zHdeqhk1XD0f5b4kpneVBkvvq4K+u5ljFGAPko
- p4oEfKReIDaD9qK+wHQVv2alPw/064PH7vvWWtu57QnUQecd2ewLXs0hJIOD05kRUPht
- 1y0q9BFr80uBiDYdFzj/rRmn0NrYqc8aVaumT9fo6HxL2GJ/xcGbeabk2PNuwtcWC21S
- LKsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789002359; x=1789607159;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=i3KZVybWmfPUW8DJx5y+rAR9UZPpXnS8RWCoLGg5ZjQ=;
- b=Sg6kkYD6ZFy5WRBXk7pH8+N9ks26le1hcqb3dY0ZonKJ9s/YoxPB1t2Rtxj8HgOTdt
- 2owGmZXvEkrqaXV8Ak8VdE/IK/EfcQLgzJezt95WsPQ5+lIb/JNA+6u60GGXEOSvRqOE
- bpPn1fFkMpjO+NDZkd37hBe71EQ7qOL99btl7DO4ff7zZW7xm+PMNIalgO760sMemZqj
- pdEZGjjhwTTp2uTX1wifZYV3Ij1IV1EAHJqggeibFhPPtFWi0EmRBZ6h9PXkzZksQJjI
- A0hBioFqborFdlou33P5b4yyXo/Fmts93JV87Fd5obQ6XZGjTHlcTbPyTrpiQ/81qTU5
- 1V6w==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxPmLSnr9E3Cfdzsy6eNq/9CmU62s9uHHFsdQpp0Yna4jKXH1jo0QKnJbBCjoVeIPt+TnrLEACpkso=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++k7hRy3BoCdiamhG31LmwlPX58Hl5M2q1ImZpzV5G2DHK2+qFJu
- jI2bJaUSlzPMU2H/MPhXDhou51p4Hr9abH20zPAAlOjS4Ds3KLUODVM=
-X-Gm-Gg: AYBFou0EoR5zfkQGVxJ+8vuVGKx1ON63FqooETRRvN4M5U+qiZYp6IBVx+hbQ0cnvfN
- WmXQUz39eTriH7WcAdJa3CEtDHmu0nU/vh53yKl4pJbursAD5mov94+RXC4oG52zvbXSQpMqTQu
- ieRcYbNZQXqnnosFQAWdqMt/xUmJR0mf7/r3/iYp7WHYKucFTmel3/TlPE/pLe2Ex5krTjtk5//
- TIFY9LvQdFm9fSyVOgWPL+re9fbDorJlP502ZTSOrFhSXqcgo66pX3EVbjhimP915P0091AZpJj
- Qf5FpLr3XmHOx8w1Zh3xPzaffo/L3mCrjYykhuHqfiP4UQF6+xz2Ico0/gxBoq/0XAnh1kSFbTu
- qyHL0qxrqb4oOPy1b1zpViqx4+4onZHT4+mKlLMIIBqer2SF1xLmFHPYSU2ddEIlbR6B7ijAW3v
- LRgxDAp1A5H1eUcn8jXutI3Dr6ZpOMxLvBiw53XgSM3RnfhIpLjcvjt0U6gBt3D+vUApB4Wq2cs
- WPBYGDIiKFV1PPUtnWVKqAU1g==
-X-Received: by 2002:a17:90b:35d2:b0:396:d28e:bd8 with SMTP id
- 98e67ed59e1d1-39b260fe242mr59283556a91.3.1789002358576; 
- Wed, 09 Sep 2026 18:05:58 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA
- ([2001:2d8:7f04:fd2a:f01d:1dc7:1e5:47d8])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39d77608fb4sm2231505a91.15.2026.09.09.18.05.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Sep 2026 18:05:58 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- donggeunyoo.kernel@gmail.com
-Subject: [PATCH v2] drm/sched: Drop the unused entity argument from
- drm_sched_fence_alloc()
-Date: Thu, 10 Sep 2026 10:05:53 +0900
-Message-ID: <20260910010553.531847-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1C3010E4EA
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 12:08:03 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 05A6F6020A;
+ Wed,  9 Sep 2026 12:08:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59B041F00A3D;
+ Wed,  9 Sep 2026 12:08:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788955682;
+ bh=s0XvwQqrYpxLMLTJmGlP3OBogX+H2vHo2hOLlq5lC/4=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=TLY49pi+Cs7EEMaDTGcn4qy6Qpcb4tCLLQabsiuxRuieFcOduuhR0SXsNy/UqV053
+ LTLJzRsrZobFM+u8KAWi/AxL9rak8lF/hB3ASc5j/P5gK6JsTYTLznyOIjtDTtDa+k
+ ORmjuFe/YcEbLMRVg0hXrf/0pz4nkqGBIjyKjBGWoHBcNRUe90PkvSLs5HLrZYszHB
+ EdQZy99ss9QvvDBlcj1jiu7Nbzz/FMu6uLgae9WC6VNYg9MrsiTw00X9RT6CKbWfK3
+ uOoG3Ngxmo6HIBl33vl+TtXZPg1CPUWrOiI2FFoUv677uPNi2hHjh6Cry1F/dt0+F4
+ wpDbNWMsR4n5Q==
+Received: from sofa.misterjones.org ([185.219.108.64]
+ helo=goblin-girl.misterjones.org)
+ by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <maz@kernel.org>) id 1x4H5r-00000006fj0-1Co8;
+ Wed, 09 Sep 2026 12:07:59 +0000
+Date: Wed, 09 Sep 2026 13:07:57 +0100
+Message-ID: <86y0da39wi.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, David Hildenbrand <david@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>,
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Oliver Upton <oupton@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Youngjun Park <youngjun.park@lge.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev
+Subject: Re: [PATCH 27/39] mm: rename is_vm_hugetlb_page() to vma_is_hugetlb()
+In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-27-dacf19cce22b@kernel.org>
+References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+ <20260908-b4-mmap-prepare-vma-flag-sanify-v1-27-dacf19cce22b@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: ljs@kernel.org, akpm@linux-foundation.org,
+ liam@infradead.org, vbabka@kernel.org, jannh@google.com, pfalcato@suse.de,
+ david@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+ corbet@lwn.net, gregkh@linuxfoundation.org,
+ dennis.dalessandro@cornelisnetworks.com, jgg@ziepe.ca, leon@kernel.org,
+ paul@paul-moore.com, stephen.smalley.work@gmail.com, perex@perex.cz,
+ tiwai@suse.com, ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
+ eddyz87@gmail.com, memxor@gmail.com, ziy@nvidia.com,
+ baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ryan.roberts@arm.com,
+ dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev,
+ usama.arif@linux.dev, kas@kernel.org, dgilbert@interlog.com,
+ James.Bottomley@HansenPartnership.com, mkp@kernel.org, jayalk@intworks.biz,
+ simona@ffwll.ch, deller@gmx.de, sre@kernel.org, jhubbard@nvidia.com,
+ peterx@redhat.com, mhiramat@kernel.org, oleg@redhat.com, peterz@infradead.org,
+ tglx@kernel.org, mingo@redhat.com, bp@alien8.de, dave.hansen
+ @linux.intel.com, x86@kernel.org, acme@kernel.org, namhyung@kernel.org,
+ mark.rutland@arm.com, riel@surriel.com, harry@kernel.org,
+ juri.lelli@redhat.com, vincent.guittot@linaro.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, will@kernel.org, aneesh.kumar@kernel.org, npiggin@gmail.com,
+ arnd@arndb.de, muchun.song@linux.dev, osalvador@suse.de, willy@infradead.org,
+ jack@suse.cz, oupton@kernel.org, catalin.marinas@arm.com, maddy@linux.ibm.com,
+ anup@brainfault.org, pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+ borntraeger@linux.ibm.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com,
+ agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com, hca@linux.ibm.com,
+ gor@linux.ibm.com, davem@davemloft.net, andreas@gaisler.com,
+ viro@zeniv.linux.org.uk, brauner@kernel.org, matthew.brost@intel.com,
+ joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com, gourry@gourry.net,
+ ying.huang@linux.alibaba.com, apopple@nvidia.com, chrisl@kernel.
+ org, kasong@tencent.com, shikemeng@huaweicloud.com, nphamcs@gmail.com,
+ baoquan.he@linux.dev, youngjun.park@lge.com, hannes@cmpxchg.org,
+ qi.zheng@linux.dev, shakeel.butt@linux.dev, axelrasmussen@google.com,
+ yuanchu@google.com, weixugc@google.com, xu.xin16@zte.com.cn,
+ chengming.zhou@linux.dev, mhocko@kernel.org, miklos@szeredi.hu,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, fuse-d
+ evel@lists.linux.dev
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
+ SAEximRunCond expanded to false
 X-Mailman-Approved-At: Thu, 10 Sep 2026 10:06:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,72 +197,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In commit dbe48d030b28 ("drm/sched: Split drm_sched_job_init") the only
-use of the entity argument of drm_sched_fence_alloc(), fence->sched =
-entity->rq->sched, moved into drm_sched_fence_init(), and the now unused
-argument was left behind.
+On Tue, 08 Sep 2026 21:01:31 +0100,
+"Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+> 
+> The is_vm_hugetlb_page() predicate is badly named - the mapping can span
+> more than a page and it is inconsistent with other VMA predicates that
+> typically are prefixed by vma_.
+> 
+> Rename to vma_is_hugetlb() for consistency, and while we're here update
+> some VM_BUG_ON_VMA() to VM_WARN_ON_ONCE_VMA() as to avoid unnecessary
+> oopses.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  arch/arm64/kvm/mmu.c                      |  4 ++--
+>  arch/powerpc/mm/book3s64/radix_tlb.c      |  6 +++---
+>  arch/powerpc/mm/nohash/e500_hugetlbpage.c |  2 +-
+>  arch/powerpc/mm/nohash/tlb.c              |  2 +-
+>  arch/riscv/kvm/mmu.c                      |  2 +-
+>  arch/riscv/mm/tlbflush.c                  |  2 +-
+>  arch/s390/mm/gmap_helpers.c               |  6 +++---
+>  arch/sparc/mm/init_64.c                   |  2 +-
+>  drivers/gpu/drm/drm_gpusvm.c              |  2 +-
+>  fs/coredump.c                             |  2 +-
+>  fs/hugetlbfs/inode.c                      |  2 +-
+>  fs/proc/task_mmu.c                        |  8 ++++----
+>  include/asm-generic/tlb.h                 |  2 +-
+>  include/linux/hugetlb.h                   |  4 ++--
+>  include/linux/mm.h                        | 19 ++++++++++++++++---
+>  include/linux/rmap.h                      |  2 +-
+>  kernel/events/core.c                      |  2 +-
+>  kernel/sched/fair.c                       |  2 +-
+>  mm/gup.c                                  |  4 ++--
+>  mm/huge_memory.c                          |  2 +-
+>  mm/hugetlb.c                              | 14 +++++++-------
+>  mm/internal.h                             |  2 +-
+>  mm/madvise.c                              |  4 ++--
+>  mm/memory.c                               | 12 ++++++------
+>  mm/mempolicy.c                            |  2 +-
+>  mm/migrate_device.c                       |  2 +-
+>  mm/mmap.c                                 |  2 +-
+>  mm/mmu_gather.c                           |  2 +-
+>  mm/mprotect.c                             |  2 +-
+>  mm/mremap.c                               |  6 +++---
+>  mm/page_vma_mapped.c                      |  4 ++--
+>  mm/pagewalk.c                             |  2 +-
+>  mm/swapfile.c                             |  2 +-
+>  mm/userfaultfd.c                          | 26 +++++++++++++-------------
+>  mm/vma.c                                  |  8 ++++----
+>  mm/vmscan.c                               |  2 +-
+>  tools/testing/vma/include/stubs.h         |  2 +-
+>  37 files changed, 92 insertions(+), 79 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> index 9ba86450fe4a..a7968f8d24bf 100644
+> --- a/arch/arm64/kvm/mmu.c
+> +++ b/arch/arm64/kvm/mmu.c
+> @@ -1463,13 +1463,13 @@ static int get_vma_page_shift(struct vm_area_struct *vma, unsigned long hva)
+>  {
+>  	unsigned long pa;
+>  
+> -	if (is_vm_hugetlb_page(vma) && !(vma->vm_flags & VM_PFNMAP))
+> +	if (vma_is_hugetlb(vma) && !(vma->vm_flags & VM_PFNMAP))
+>  		return huge_page_shift(hstate_vma(vma));
+>  
+>  	if (!(vma->vm_flags & VM_PFNMAP))
+>  		return PAGE_SHIFT;
+>  
+> -	VM_BUG_ON(is_vm_hugetlb_page(vma));
+> +	VM_BUG_ON(vma_is_hugetlb(vma));
+>  
+>  	pa = (vma->vm_pgoff << PAGE_SHIFT) + (hva - vma->vm_start);
+>  
 
-Drop the argument. The sole caller still passes the entity to
-drm_sched_fence_init() at arm time, so behavior is unchanged. This also
-removes the parameter-name mismatch between the declaration (s_entity)
-and the definition (entity).
+Acked-by: Marc Zyngier <maz@kernel.org>
 
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Assisted-by: Claude:claude-fable-5
----
-Targets drm-misc-next. No functional change; compile-tested with W=1.
+	M.
 
-v2: trim the first paragraph, which read as if the patch addressed a bug
-    when it only removes an unused argument (Philipp Stanner). Capitalize
-    the subject to match the subtree.
-Link to v1: https://lore.kernel.org/dri-devel/20260909005112.278538-1-donggeunyoo.kernel@gmail.com/
-
- drivers/gpu/drm/scheduler/sched_fence.c    | 3 +--
- drivers/gpu/drm/scheduler/sched_internal.h | 3 +--
- drivers/gpu/drm/scheduler/sched_main.c     | 2 +-
- 3 files changed, 3 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/scheduler/sched_fence.c
-index 096fe28aa9c9..b7a4cb921234 100644
---- a/drivers/gpu/drm/scheduler/sched_fence.c
-+++ b/drivers/gpu/drm/scheduler/sched_fence.c
-@@ -205,8 +205,7 @@ struct drm_sched_fence *to_drm_sched_fence(struct dma_fence *f)
- }
- EXPORT_SYMBOL(to_drm_sched_fence);
- 
--struct drm_sched_fence *drm_sched_fence_alloc(struct drm_sched_entity *entity,
--					      void *owner,
-+struct drm_sched_fence *drm_sched_fence_alloc(void *owner,
- 					      u64 drm_client_id)
- {
- 	struct drm_sched_fence *fence = NULL;
-diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
-index a901801fce85..32d3ddb820be 100644
---- a/drivers/gpu/drm/scheduler/sched_internal.h
-+++ b/drivers/gpu/drm/scheduler/sched_internal.h
-@@ -58,8 +58,7 @@ drm_sched_rq_select_entity(struct drm_gpu_scheduler *sched,
- void drm_sched_entity_select_rq(struct drm_sched_entity *entity);
- struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity);
- 
--struct drm_sched_fence *drm_sched_fence_alloc(struct drm_sched_entity *s_entity,
--					      void *owner, u64 drm_client_id);
-+struct drm_sched_fence *drm_sched_fence_alloc(void *owner, u64 drm_client_id);
- void drm_sched_fence_init(struct drm_sched_fence *fence,
- 			  struct drm_sched_entity *entity);
- void drm_sched_fence_free(struct drm_sched_fence *fence);
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 6cb6f9546493..e4835b99ca60 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -612,7 +612,7 @@ int drm_sched_job_init(struct drm_sched_job *job,
- 
- 	job->entity = entity;
- 	job->credits = credits;
--	job->s_fence = drm_sched_fence_alloc(entity, owner, drm_client_id);
-+	job->s_fence = drm_sched_fence_alloc(owner, drm_client_id);
- 	if (!job->s_fence)
- 		return -ENOMEM;
- 
 -- 
-2.53.0
-
+Without deviation from the norm, progress is not possible.
