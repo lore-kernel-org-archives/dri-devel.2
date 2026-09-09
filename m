@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E6ADC79FAD
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:18:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25D7DC79FB6
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:18:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3540410E1A4;
-	Wed,  9 Sep 2026 13:18:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DAB310E54E;
+	Wed,  9 Sep 2026 13:18:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QkDwwsHi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L4is6ELt";
 	dkim-atps=neutral
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
- [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF76010E1A4
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 13:18:13 +0000 (UTC)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49b912e2406so9393255e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 06:18:13 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BDF110E54E
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 13:18:19 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-49b96837ca3so46049195e9.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 06:18:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788959892; x=1789564692; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788959897; x=1789564697; darn=lists.freedesktop.org;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:cc:to:from:from:to
  :cc:subject:date:message-id:reply-to:content-type;
- bh=R4bCu5HRDrBYxQ3ZQ5U942enQUCmlULb13io90gargA=;
- b=QkDwwsHiDD7m9CdKR3a4sD3t2uHiyXhWlXSm2Lx5FqvNsoVZ7konNXJWwVsottgh3/
- nAWK5QTPzf/ByDi2rvd/FjvBt91hgTAVZwZjC303RQXs7R/K6q9N7HKlHI5qSMyMgy+Y
- 1PyejrEkFLW0661egAAz6CrUDLOQIevYdt3YIMrXTUr1uIgUlCMnylhrYUCCGCd4a+UG
- 1bD569m6TSbM49s5JJRQ3DOSdW1lRfKIzFARGWVWwYpNrqTdEYBekgifY76bsG8w9u8k
- azOOsSQmDajeybYpcVWKO3uZvx8Xfp50u3Kd6EzFmOJ5SybOPhOaLHfG7+nIuLdONde7
- DoAg==
+ bh=+AiVzdutjGcRUDNFx0/iYhbxY4PM+Gwrdgc6/3SbWR4=;
+ b=L4is6ELtr1L60UJslRIEJ+4qdqlKsNT1voUPHLz4MzwR/jRNynhn8MVhZ/9iNsvbP4
+ friGhgjKwnpTqDdQzrRMgqnNtp8OgpL6N1lwfUPbhGM2ULvUskTZ2jCP2VKBr9anyGJa
+ tSlg1tiMJEAjacEwxt3oiGN3oAPaOb0JUroUeD5EhwY02uGieMq5MFKD1nvt8J+QBnkJ
+ XoAK5ZvfSVoOg9hmTX7oI7jZLA6QYmRj20dvpOajJXvRGF5wOkcvKQnandrXk/gBu7Tp
+ A7bgRpkYK2+ZpH2WWG+R5YxmfnBcJuJl5cI0n4OSBnSA1tegdnEkjZxhC0DHXZ+Zzz1v
+ nNtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788959892; x=1789564692;
+ d=1e100.net; s=20251104; t=1788959897; x=1789564697;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=R4bCu5HRDrBYxQ3ZQ5U942enQUCmlULb13io90gargA=;
- b=tGKSEAgylw3X3ZoJtZmaGhTkHPdyaAuClky7ptgOCHL286FQJnZqMBLtO4gG8R/ixX
- 9mv6A7Gmzt4g+1tvu9vMMWD2wo/QnPaUO/1qSFgTV3pbeux3+8n7cbWfKT/+h6OQ+JS5
- hiV3Sgnf3m5Z6L33sTh713NMcWURMVHzasPW3NGm62phVwMj7IOD4dNfFFf/2Sh5RQIU
- p/Aq8Is1N8SDUT9op6YWnHZFy/WFw9+EPf4OUVIUBgEUNSF947mU36PGxP72wIZHnsT5
- U+JuOaQtpBOB1HyetPCrolrZjHtEfae27sHtmSEDtxJqKhVFEcueBzvEKmOo7HMLhjB3
- l7hg==
-X-Gm-Message-State: AFuF++mq3RxN1fp2k2+/7UnPntQ/wN2k/dyKaqXAT/kEC+XM3O0HNAa2
- seFD2/eRjZ/Xc5eOV5Z+ZwyQAdAk8eL+wE3D12AFq3Bb9QWD4JxKjoWe
-X-Gm-Gg: AYBFou2AIuQteofQ1ZB0Z2CuwKh+0jvM5Hncti08KwrzGghm9r/WiMghw9D7GO5RwYR
- 2mcEzrexc1OlIfTMKYDDAmo+5BW4bwmK0eJ/KKj39+qj/twBPWW1IGUbaPdk3F7TC5bo4FZaKly
- 10LEvq3TJaoXiLPzetD0W275kK4cUeKbSbqlZXh3fGHyJX47Q1ppUpVIbEpSinCq77dUD18cEnG
- cST+o1nFh8Pj1OjG0gQKYdE0oVYswBiwbUiPF1Q5mOXl7hdOHFUnYNdXixezc9Idic5ijSp2bN1
- 8vU09j3RuTY6zs/roC4ErVkVSG42MSxUuEXqsw0BKJe8QTMpe3ZdKf7n/6Mmfb29X5w/pVCm0Ca
- sdRdZ1+30+GxtvIVe4BO7bvAskmPqWuG1YJ/hnwfZQ9PgBIAJfV9T5gud5DZFug2Ept24Ovgfpg
- 8hZdtZZe7NUR4+GAuWfjbJhj0HLf3hUi3qaYMI7mJCnipouHSkqMO8Q8mZ0QXAwfuOCXYzVfjX9
- NUPAre/RLNO
-X-Received: by 2002:a05:600c:b8d:b0:49c:e37e:4389 with SMTP id
- 5b1f17b1804b1-49d1754e950mr144997695e9.4.1788959892008; 
+ bh=+AiVzdutjGcRUDNFx0/iYhbxY4PM+Gwrdgc6/3SbWR4=;
+ b=hwDAlsogCrE8HYC7OyVaNpy4MOcVvJ1wCRrSwWH5jqSIWvIN02aT8t2S79FXrOThy2
+ a3sHe3FsmBKSbz+iPbaMaQnkRH8NUb7Ta4yiFJWF5bb+5uy9hoe+xn/xkKa2Ob2ZZvng
+ lXOAqI5P2XlwO7J9J3Zh46Lu2aRied7L+QbwsWf31il11EOdl6KJ8WH7wx9d/XX8DM2E
+ XocfgynUX6QrAZ14RkWF8vN9d8LE8HwY7eOQHe6oCNFOy34aWX6nj3DEQIxcPDtNn6gF
+ nruwkEItQCgOqLwEuTZa8GuYDbtDBJGn6mM6R0Lwxgism711BloawmKR2n7ylrKnjd1W
+ xRvQ==
+X-Gm-Message-State: AFuF++nWpLD4/jK3cy1WW/xDur3mbnbo4zqw1omSbSYIGoBeWTfpGd3h
+ LaS1xiPD2/lPTQLpSj/Ilt1wEpJCa6+T0Svksk8xPD5dJ5C99qvS2og7
+X-Gm-Gg: AYBFou1+8/0S2njqxocAv7N4kHrVIIqgS0PkHIUhy+HW8KxOgUW1Hzuc/1D0ImukxM8
+ ow3Fs2GrIJwsbg6fxg48xMP8NrHG0IbDAinuAwapQJWQgWmsyjmxpHqaN9P9tWVV+KZECnNHznK
+ I+gqnJPn+49v3PB99/WaQpEPiQwuqiZ2vdaEQNmtERtPh9naUT/gKY5+qIuakqvkj7q7ALVdEkj
+ tqBIY98fpDWQhH6AN/Vxnw2BoaRW2bRuA3NYUqeGlkEPk72HO+gsvqQahvUi/EuWvjdpr+5qntD
+ CAVgmGsCKs+axnYL2axPKAsXaB5JB6stj9Cgqls7I7jyccMx03Nb301ifSj/dGVarJmGm+9cU0i
+ jtm5v/H7Zwvh6LsS/mPuj6iUrPoOEKtRenM4Pu0IXwUW0InjiY83OqiBmuzcm04vplOxeduJd1G
+ 5/Fz3Kt5jNe37CUSGWaeg/3fwn1yu8t8NkV3tktY2cNbfJOoGSVU+JEBKn4T0MPO5OV39qWtcaO
+ k0Lrj16mgCw
+X-Received: by 2002:a05:600c:a087:b0:49c:d26a:cf70 with SMTP id
+ 5b1f17b1804b1-49cf825a75dmr368157315e9.15.1788959892792; 
  Wed, 09 Sep 2026 06:18:12 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:1568:cb00:7389:2b93:7e4e:44c7])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49cee80eda4sm555457755e9.15.2026.09.09.06.18.11
+ 5b1f17b1804b1-49cee80eda4sm555457755e9.15.2026.09.09.06.18.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Sep 2026 06:18:11 -0700 (PDT)
+ Wed, 09 Sep 2026 06:18:12 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -69,10 +69,9 @@ To: phasta@mailbox.org, malhyuk97@gmail.com, tursulin@ursulin.net,
  matthew.brost@intel.com, dakr@kernel.org
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com
-Subject: [PATCH 1/2] dma-buf/dma-fence: fix checking signaling bit for
- timeline and driver name
-Date: Wed,  9 Sep 2026 15:14:23 +0200
-Message-ID: <20260909131808.2201-2-christian.koenig@amd.com>
+Subject: [PATCH 2/2] drm/sched: document the RCU dependency
+Date: Wed,  9 Sep 2026 15:14:24 +0200
+Message-ID: <20260909131808.2201-3-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260909131808.2201-1-christian.koenig@amd.com>
 References: <20260909131808.2201-1-christian.koenig@amd.com>
@@ -95,52 +94,37 @@ Reply-To: christian.koenig@amd.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The patch "dma-buf: dma-fence: Fix potential NULL pointer dereference"
-changed the check to test for the ops pointer instead of the signaled
-bit to avoid a potential NULL dereference when the ops pointer has been
-cleared.
+Tvrkos patches added RCU protection to the returned strings from
+get_timeline_name()/get_driver_name() callbacks of the dma_fence
+backends.
 
-The problem is now that the ops pointer is cleared only when neither the
-release nor the wait callback is implemented and this isn't true for a lot
-of dma_fence implementations yet. So those implementations lost the RCU
-protection after signaling of the returned string resulting in potential
-use after free.
+This fixed use after free problems for a couple of drivers, but we never
+documented the consequences for the drm_sched_fence.
 
-Add the signaling check additional to the ops pointer check so that we
-have both the protection against NULL dereference as well as the RCU
-protection after signaling for the returned string.
+Add a few words on the function documentation to note that we need an
+RCU grace period between signaling the last scheduler fence and
+scheduler teardown.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
-Fixes: 035219a760ed ("dma-buf: dma-fence: Fix potential NULL pointer dereference")
-CC: stable@vger.kernel.org # 7.2+
-Reported-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
-Tested-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
 ---
- drivers/dma-buf/dma-fence.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/scheduler/sched_main.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index 05090fb0fd5a..e92f9df8d63c 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -1170,7 +1170,7 @@ const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
- 
- 	/* RCU protection is required for safe access to returned string */
- 	ops = rcu_dereference(fence->ops);
--	if (ops)
-+	if (!dma_fence_test_signaled_flag(fence) && ops)
- 		return (const char __rcu *)ops->get_driver_name(fence);
- 	else
- 		return (const char __rcu *)"detached-driver";
-@@ -1203,7 +1203,7 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
- 
- 	/* RCU protection is required for safe access to returned string */
- 	ops = rcu_dereference(fence->ops);
--	if (ops)
-+	if (!dma_fence_test_signaled_flag(fence) && ops)
- 		return (const char __rcu *)ops->get_timeline_name(fence);
- 	else
- 		return (const char __rcu *)"signaled-timeline";
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 6cb6f9546493..22103cb07782 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -1203,6 +1203,10 @@ static void drm_sched_cancel_remaining_jobs(struct drm_gpu_scheduler *sched)
+  * is implemented, all jobs will be canceled through it and afterwards cleaned
+  * up through &struct drm_sched_backend_ops.free_job. If cancel_job is not
+  * implemented, memory could leak.
++ *
++ * The scheduler fences timeline name is returned protected by the signaled
++ * status and RCU, so an RCU grace period is necessary between signaling the
++ * last scheduler fence and tearing down the scheduler who originated it.
+  */
+ void drm_sched_fini(struct drm_gpu_scheduler *sched)
+ {
 -- 
 2.43.0
 
