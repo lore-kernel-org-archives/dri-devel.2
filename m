@@ -4,104 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14563C79FB6
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:07:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C676AC79FB6
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:18:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E18E10E13D;
-	Wed,  9 Sep 2026 13:07:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14DA110E1B0;
+	Wed,  9 Sep 2026 13:18:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="QYNZO/Av";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RZuFXX5d";
 	dkim-atps=neutral
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10E5510F0FE
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 13:07:44 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-485850cf499so4036783f8f.3
- for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 06:07:43 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B03210E1A4
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 13:18:13 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-49ccfae359fso50726875e9.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 06:18:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1788959262; x=1789564062; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=sf3kDe6vLMOFTu1A3Jzs1A3L0YjE2Jrq1HnW9/y61N0=;
- b=QYNZO/AvHyCQZHgRgAkPECpW+f0c7IAj2vR3DnyiTPBMe2jTH/c593F1fyceZ/alg8
- GkISrB8kM0WgMDK0FU6xs+tnCMCYhvFJboQn1NF1Wh3FRRBW6DAAqElMHOXp4wskfLSS
- 5Nb+0pUH0Ol3hPqyH8wVBVY7ZUMFt44QBasHDQuYUtIZTQCp4vqdvZxHq+mO28XOo/Pf
- f3bmNf1t0ueMWGOdXyO+d3jA++3zTRmqEWpgK9Xizrd599locn06jHL+hqrPKZ7ycjGI
- 8fmOWAvN16k9Q/ja/M6JZYv6cKJ/AdIHzW2xQuceZCcp25jmwrHDiBhnGLC0hva2xhkN
- q3/A==
+ d=gmail.com; s=20251104; t=1788959891; x=1789564691; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=HvghOuLjdGckWUGg22tsk2EsT2+V1tsYrjUZGr3klh0=;
+ b=RZuFXX5dSk1ajB8BBKKG8pYsUSxKm7Xn6jwzlykhvViTNqmbWplYk0Vc+Q5ZiMj3da
+ OyOKL7n15WRnTuicJeLqP3BC+0dMu/LwmrDWXYX25G8br5x8+Fk9KWa/nzrt97vAf8/r
+ DDpMRZrQa9STx6jHSUvxx55M2WlR/yuKrm9JVIGDSYQNnDAtt/DZFEsLV7u7lzriksZt
+ oXKbV7wwhF6ZccpvzbzvInqKtRBQXvGNFj3SBCdrcAtF4r0N9MdyavK0HOymunwzc2rK
+ zdSCjazL9kfpBMvhOmjRbI8Khe7ot+jUMOZPutERIhWZ6pBTXh/kHfMNej6oYJ6UI+kS
+ uD7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788959262; x=1789564062;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=sf3kDe6vLMOFTu1A3Jzs1A3L0YjE2Jrq1HnW9/y61N0=;
- b=PTj8EqsEdStZP3Cd56/BJfefWS0UH2Kt3j4HZP1c9lsdkPv5cDuE8WhNKg8OeZxpJQ
- Mvgy6ApgLe+D0CjsAKcpecK7luiEvGTK2lXR3sWjWI3W6msZHj3qrsl7EnliYzZBiGwP
- bcs26J5h3VMioG5bJbRk/rjvK2jkLVkGrLvFDLKKY9p4fn9/4z7nxud7W2wLAR2IY5tJ
- t7rQGqXvKnkJ5bOW5gL3jRoV1rF4nPqOoSse5mujuuhErOTIOc92hu1ygJ6P5RNkIDWh
- EhmZnQEbXYfGTF5SBv4n+B+rQMXFVxZR9yqfhHr0cvljkk+oNTQNTx84U8th7zOZOm7t
- MzOw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBw+LfvR0JcOJTSVP0XIuV8AVc0f7JoPp/lFO66jjN1OiD+X2jr8i8JYZp7fmdvZa3bU9S4Mtu1Ii60=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kZWkjEADn1/zUnKWNwxPtkn4thc1gIjeldE5yCmmWTT2QGp+kr
- MvbVIOQfyCotgy4ogLlBCatn25q5lgYquvoHTGV2SAypmKoT3yrdAFoenbiRUf4QXzI=
-X-Gm-Gg: AYBFou2Xn2Uv21nIiWyDJcRMNC/VH6ElE9KbobRIREgzzxnUzKXsSsT6kcxldG5T3Yx
- joTw4D9gYjPAumPJku/24KoMTT0Nuw60aS38Cl1P3IYieQKBNoYQ72bfKGSK8Bqx59wB3Osf19n
- Po74r3mW7DFdxIF44UoT4RkBDFLECgSsi0k3uAEVrlCYxJRIb23EL5EybTrp9ioIrac9Q9//y7M
- xoYPxez1lvXKHUyEtEZbwXFW46P0HwL5/aVVnyuMvlz2yru4h9eR5iNuctgZSj9ZVEW3xUBfCfK
- tyeM5SS/YA7O4lnQHJDd/AB918N2/hglwMi4JfLa9jxJNKuf7hVw/VALf1s5MBrRRGtRBn1Vh1V
- lgEgRQ5SmQvleT8UXoYAAZCVdSuggnenUjkr62aj6YoyurC3cMFlMy3oo1uxtKLuQuxWu31JcIU
- DQPK6DUh9y7h3BSDUCKQ34lQpxho8XVWI/1IVF1H43EvRAo+krZIFG93zEIqN8DWHZ/cxg49gLp
- bFd/kXrrNJ4cQFaGH8=
-X-Received: by 2002:a05:6000:40c9:b0:485:b0a2:6e0e with SMTP id
- ffacd0b85a97d-485b0a26ffcmr3240438f8f.24.1788959262300; 
- Wed, 09 Sep 2026 06:07:42 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+ d=1e100.net; s=20251104; t=1788959891; x=1789564691;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=HvghOuLjdGckWUGg22tsk2EsT2+V1tsYrjUZGr3klh0=;
+ b=aQYkw7G89IdMjEewEHhsSMW95NEsRYOegGXGxYr6YsmcBxyYfsKnu3Fi3/VezW+7x8
+ ZMheoz7lKqQyJOKijMHhhTL+zgyHWbvYTgE3i4QQdWj4xQrreCdJH+N25N2AWG0dSfB1
+ s0bDMSHVoDVUhH4+K6EfP3Bzf7tOAoQoSR/83/T14N4dCVwr8e+DwBymnIFVlOR2trmk
+ SmCX27hPqMJSZ1oudKw7T9Gd07T24eGL7vE5LAFen2njrSkccHJFk7X73CyLhdloYC/i
+ wGd5rdlkLUSkM675h9j9AfHFQC9Yq5Jki08D44VoR4gFjjoIUaGvVbwIKUd0v2fdgJaz
+ fuRg==
+X-Gm-Message-State: AFuF++k6wn9JR2fdaOlihu6oYPnWMErQTsdHg6Nxaz56nxrUOJ01h9HH
+ gau4GjsWe91FbWxAW+SrjjkX+0L8MoLpvfXUQL394brp3LRJJpNYIhO5
+X-Gm-Gg: AYBFou0uh8Z/tDv8Okl8+vEQZbmbc3vtNNsB/uiSobHA37LmDXjk8fHARnjSsv91eRy
+ epOMsDv6Je7Lgfy+YsXPsNjez0rLzzR7j2k5OMmYGeWtJZhmNMWsruNA2/GvTYw0d3f402k6sSl
+ sOG6fhIlgWc7o7yaUuh6qvd1relwQEgPoYxk5bwFj1RB+99yC1OhLucy/5/YYwWgGW5DX0fHbNr
+ Zqwh0EJ6PEdy7qzVegqmzYAY2rRTFomexxhrbM3uQ1oQgMPItFxy2WBvDa6M0uxhtszbvBLnMXI
+ YFSyr+93ekvEvVUmZzqwP7oSlLiUimXc9IsqNfqYmjZYdQmc3NPJarwCjtc5Kqb37A2tHNQfQAv
+ r4Q5pxqwvVq3+uF0OxOJpLqQpCqtnL8OQJONQthqfQxb4mgtcvIi9jSWDnqhnhrpLaGLRE7xZMv
+ uOOS7PBLj+5ESnYi/bHt+BZIKt4ltSJssZ8UY18KT5QXql4MEUSi7dHJJceHPfjGk5KfDpHAz2V
+ MxLa/3tTwmR
+X-Received: by 2002:a05:600c:c173:b0:49c:cedc:3c36 with SMTP id
+ 5b1f17b1804b1-49cf82a514cmr371518115e9.16.1788959891201; 
+ Wed, 09 Sep 2026 06:18:11 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:1568:cb00:7389:2b93:7e4e:44c7])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-485883927a3sm34031175f8f.11.2026.09.09.06.07.41
+ 5b1f17b1804b1-49cee80eda4sm555457755e9.15.2026.09.09.06.18.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Sep 2026 06:07:41 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Wed, 09 Sep 2026 15:07:37 +0200
-Subject: [PATCH v2 1/2] drm/msm/a6xx: Add CX AO Counter registers used for
- a750 GPUs
+ Wed, 09 Sep 2026 06:18:10 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: phasta@mailbox.org, malhyuk97@gmail.com, tursulin@ursulin.net,
+ matthew.brost@intel.com, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com
+Subject: Fix dma_fence use after free regression
+Date: Wed,  9 Sep 2026 15:14:22 +0200
+Message-ID: <20260909131808.2201-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-topic-sm8650-gmu-a750-timestamp-reg-v2-1-091d74958951@linaro.org>
-References: <20260909-topic-sm8650-gmu-a750-timestamp-reg-v2-0-091d74958951@linaro.org>
-In-Reply-To: <20260909-topic-sm8650-gmu-a750-timestamp-reg-v2-0-091d74958951@linaro.org>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1220;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=F9UtKl4B6t8wbkHKbIW9J3bu7weHA8+ItYSrU6pYN94=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqoVobyq26GnIpkdy6FzKAuEhbx9QR7aKpHnSmPRKH
- ZinVqHaJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaqFaGwAKCRB33NvayMhJ0V5nD/
- 0eM0YwQTU29l+Cb7wkg9KONqEkXNSerFYyomOk1Ei/FYnvg0Sg25LM96S6UX0iOADZ+xQ5jjEevn3b
- Bn5ZHvWwKTNA2BS0GiLZvkrihtzql2KaKpekViV6IV6cjb9CU+f+AL1q7ho1TuwX1ZvGnB5p4sGfWM
- unzFyHyEoCD4o+xwLkKfB0Y6xsRnwHtg3ulEodDFOTXPy0+fIotoLLo0c2nOXjtuY4Yh5ppI+aV7yX
- NKqge6DZEg6dTyELZXchyy23uqYpVzz1rZ0/POkgTCMCUmFZgsYcgX/nquHJuvrfVtvyWdAEmo9PSl
- qE/tL9CCOqpNrD12B02e5mvVWuz708IBVV5stqr9ERhI/iDMxT5Vw6HNUCAqkreWhTaF/qVcUcn6l6
- fgBLreutoP1mQk7eUgXJxVttd4jSCvp+Q68C610TsV5fUTG8n4ynwmzcjQ+ZdmhbY1GFkD3UqVulii
- 1CCqIZbErl64jwcrrgph6bR13NtiEEGRicy75zWFahqxifo3rE2d3bMVY/107zTqfqAljKyklBi0XI
- 8JoC9ZON7ESbaQ6DfoRT166ze9U3OOdDsLpJDi7H8Y21cmtLZrRfLnydVJFAl3F/PTbdSw8DjlE+WI
- k/hbukm+4jSYwmJXCuSh7tAR9T2F8xoJ45FsfsAkbNAyvcJY14AODjrNhMrw==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,28 +88,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The a750 uses the CX AO Counters instead of the GMU_ALWAYS_ON_COUNTER
-register on A6xx and other A7xx GPUs.
+Hi everyone,
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml | 2 ++
- 1 file changed, 2 insertions(+)
+as discussed in a separate thread Jonghyuk Kim(MalHyuk) stumbled over an
+use after free which we through should have already been fixed last
+year.
 
-diff --git a/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml b/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml
-index 33404eb18fd0..b3082738c99d 100644
---- a/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml
-+++ b/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml
-@@ -141,6 +141,8 @@ xsi:schemaLocation="https://gitlab.freedesktop.org/freedreno/ rules-fd.xsd">
- 	<reg32 offset="0x1f9f0" name="GMU_BOOT_KMD_LM_HANDSHAKE"/>
- 	<reg32 offset="0x1f957" name="GMU_LLM_GLM_SLEEP_CTRL"/>
- 	<reg32 offset="0x1f958" name="GMU_LLM_GLM_SLEEP_STATUS"/>
-+	<reg32 offset="0x1f880" name="GMU_CX_AO_COUNTER_L" variants="A7XX"/>
-+	<reg32 offset="0x1f881" name="GMU_CX_AO_COUNTER_H" variants="A7XX"/>
- 	<reg32 offset="0x1f888" name="GMU_ALWAYS_ON_COUNTER_L" variants="A6XX-A7XX"/>
- 	<reg32 offset="0x1f840" name="GMU_ALWAYS_ON_COUNTER_L" variants="A8XX-"/>
- 	<reg32 offset="0x1f889" name="GMU_ALWAYS_ON_COUNTER_H" variants="A6XX-A7XX"/>
+Turned out that a recent patch regressed that by limiting the check to
+the ops pointer instead of checking both ops and signaling status of a
+dma_fence.
 
--- 
-2.34.1
+Fix this and also add a few lines of comments to drm_sched_fini() to
+document the necessity of an RCU barriere after signaling the last
+drm_sched_fence object.
+
+Please review and comment,
+Christian.
 
