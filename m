@@ -4,86 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D302DC79FB7
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 16:38:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0DB7C79FB6
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 16:49:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28FBC10F1E0;
-	Wed,  9 Sep 2026 16:38:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB85910E1E3;
+	Wed,  9 Sep 2026 16:49:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dCXIkp2X";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iiXSEP5G";
 	dkim-atps=neutral
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
- [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27E1F10F1E0
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 16:38:09 +0000 (UTC)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49b93204449so2985115e9.3
- for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 09:38:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788971887; x=1789576687; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=MeVq8rDairowljrEmGCrzLch2/pf7DNyzkC5aOrOsz0=;
- b=dCXIkp2Xr1fW8i+Be2esNqF5/97E4uvYTpCbH38So16Fi2Rn2R/uljAB4MsqvLNYGg
- Dfmlw9/01jtktJl91dip5O8/TXnGzhCAmBnNjqM15ar5MHxV9cFQq2MvItFgobo4l/0X
- ldj9FMikS5xdwrTJY9aMAxJ7XIVAFflSgTmU4+ZAHwhONczpVYe6+V7X8Z+23SZLMNME
- T6zuPl/5ABw0V6AF5r5R1h4r/caN9Rnyim2FPzMIOvMLV8SIO0GHaRy13Ssfki37uVOQ
- 0Obh/wmkwIi1SzHgVBVhJYfwR42aNiXc7bn6AUhVVay+sCqH2vEyz8d3bY1FQWld1DkW
- 5zFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788971887; x=1789576687;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=MeVq8rDairowljrEmGCrzLch2/pf7DNyzkC5aOrOsz0=;
- b=lAikOikW7Gprm47X8eXl4/FkvbEySs59jtZu+zOWmA+VkLVTG66Sn9tcsJEXYrT2H4
- TIkk9FW1EwLUMOot1xjwvxTXk7LiD+uCcZyftUdtJZWymv/jHznD9UAof98oC4YxrMG/
- 5NBBhgFv2WjQ0BsipNJ7LLoFtbPjYu+kYTZ9krN6lZTKDDF4pchmF5sXgDo+7coli/6l
- qiE43IXfVcP0aVT5J1v2+mLFHeqgN3oNjXZVHajDfTzYE8XvY2hWTxw4ZOmD33HVW0Rt
- RzNLqHTn5JrvIYNvb1vqKMlLYgS+QDTgIXRK+YphJu8VZqs/R0byucMsZNSQ3aiDCR52
- juyQ==
-X-Gm-Message-State: AFuF++mwarrRmEzwx5ZjrVZa4KsdgAKgjqlfpt2WaXGxqkx/X7l6sVKi
- 8B3nWFtr/61z3PhvuAQ/UIBKFOX+Lm4U24YPttFYkzuMSPaNI7gPrVPOLPmOZcHX
-X-Gm-Gg: AYBFou36KQL+c+L4PWtVwLaT4xzyyu10VEsNsMOcoGtjm95BkU6C29We6bw6PIIXbIp
- OnO6JMswbByOYvSqYtpkFgV6jh1vDXewrzhTwLJVi3+uQffUq3228hzA2uQEnvLomLrwHYxVivo
- wk18RySOuu2jYMZcJBdnwZXDrRaeP5Idoj/wbEV7spJOsIH3xnARbOmuPXGqF7oZucP4xpx9SjB
- 60Me4c+A5PnpnnoWCaTr4fX3ihaxr+hM3x4/QiBRROu+yQ0x2woqsu9/JsfD7GdlAGMbxP97H82
- J7BjZ54gQ9UADWksa+WyNCzHSpbw2mqtSto4iNjmuBDWb6nrEAtGv8giIh95YZ5fAR/vCXdcazq
- JOvb3NQ+MPLmRSTLFBiauWNtONSKBCy4Lyc4dPku+OPsmvbSuieZZGuZ/cVMHiavRXaYN6hd3ql
- cX5r8sWpZ/jNFgqznnDk50Q5wY7NEpErHfSmY2vRaber5dA0n0NdTXYU30jh9ktuaNr/ISPDzy5
- RLYHUW81/H0KZxHHfHvil5/FVDPuKUF8bxGRcYgllc1CtsyrwjP/c7x+GFAuyhioDF7vsQCPEEA
- c5sS
-X-Received: by 2002:a05:600c:530d:b0:49c:e363:c66e with SMTP id
- 5b1f17b1804b1-49d01dce86fmr262368785e9.1.1788971887351; 
- Wed, 09 Sep 2026 09:38:07 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B836900E58FC5516AABB3E4.dsl.pool.telekom.hu.
- [2001:4c4e:1b83:6900:e58f:c551:6aab:b3e4])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49d20fb40e1sm66537515e9.2.2026.09.09.09.38.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Sep 2026 09:38:07 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Igor Paunovic <royalnet026@gmail.com>, intel-gfx@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Maxime Ripard <mripard@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Heiko Stuebner <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Ville Syrjala <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH v2 0/3] drm/dp: shared HDR metadata SDP helper,
- and max bpc for dw-dp
-Date: Wed,  9 Sep 2026 18:37:40 +0200
-Message-ID: <20260909163742.37003-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909163206.36409-1-royalnet026@gmail.com>
-References: <20260909163206.36409-1-royalnet026@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F0D510E1E3
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 16:49:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id D8EFF41496;
+ Wed,  9 Sep 2026 16:49:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91F811F000FF;
+ Wed,  9 Sep 2026 16:49:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788972551;
+ bh=ZuDGALqa/JtpWg/yFYbwcac9fK3ThOHmY3rtX5BgMJg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=iiXSEP5GoUjFgJQeMbI2+mGy3h9w/pwvhZmhUJpZy1XPWoS77p3403Vk5dEQzOTFO
+ Ci0P3ZxOpi6ao4TYUQukKnJqqfef7P7x24MlXl6o0FNnjrOttUFjhFWST+OQiRDUKb
+ rcegkTKcJdbxZcJeNeRAqiuYiYerA0evXtfQOmCn7DSN/qjz4h69s42HfP1CH+5chW
+ sVa1eiXPp/PUwh9YrjwsUSX291jbJ4SspLtEH1Yq4aYouUEVSF7DbSL9HYa3cEgCwu
+ autvTMroKY41NgtsXi0ycT3kF7EPNdR2KYVRl0OzMFAJeEctv2QMPBfoKa82C3dS9A
+ h/MPXKp4Gg55g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V1 1/1] accel/amdxdna: Fix unsafe use of handle_mm_fault()
+To: "Lizhi Hou" <lizhi.hou@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260909163211.950709-1-lizhi.hou@amd.com>
+References: <20260909163211.950709-1-lizhi.hou@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 16:49:11 +0000
+Message-Id: <20260909164911.91F811F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,29 +52,89 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Following up on my own cover letter, where I said the series had not
-been built.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Using remap_pfn_range() to map normal refcounted shmem folios crea=
+tes special PTEs, violating MM invariants.
+--
 
-It has now. On top of drm-misc-next bf63a72ea005, x86_64 allmodconfig,
-building the five objects the series touches with W=1:
+commit 2da717e72d7319305e74d66b3b963f132ff12737
+Author: Lizhi Hou <lizhi.hou@amd.com>
 
-  drivers/gpu/drm/display/drm_dp_helper.o
-  drivers/gpu/drm/display/drm_bridge_connector.o
-  drivers/gpu/drm/drm_connector.o
-  drivers/gpu/drm/i915/display/intel_dp.o
-  drivers/gpu/drm/rockchip/dw_dp-rockchip.o
+accel/amdxdna: Fix unsafe use of handle_mm_fault()
 
-All five build with no errors and no new warnings. intel_dp.o is the one
-I most wanted to see, since 1/3 moves code out of it.
+This commit removes the unsafe use of handle_mm_fault() from the mmap
+callback since the VMA is not yet linked. For shmem BOs, it replaces the
+faulting loop with direct calls to remap_pfn_range(), and for imported BOs
+it marks the mapping as invalid to be faulted in later.
 
-To be exact about what this is and is not: it is a compile test only. I
-have still not booted this exact series, for the reason given in the
-cover - the runtime testing behind v1 was done on a rockchip-devel
-kernel carrying the v9 generation of the dw-dp series, and mainline's
-dw_dp-rockchip.c is not the file that was exercised. If you want a boot
-test on the Orange Pi 5 Plus before taking this, say so and I will do it.
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/=
+amdxdna_gem.c
+> index 3f05fa8811af1..7a5b0ad3235fd 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
 
-Igor
+[ ... ]
+
+> @@ -490,16 +491,10 @@ static int amdxdna_insert_pages(struct amdxdna_gem_=
+obj *abo,
+
+[ ... ]
+
+> +	ret =3D drm_gem_shmem_mmap(&abo->base, vma);
+> +	if (ret) {
+> +		XDNA_ERR(xdna, "Failed shmem mmap %d", ret);
+> +		return ret;
+>  	}
+> =20
+> -	do {
+> -		vm_fault_t fault_ret;
+> +	for (i =3D 0; i < num_pages; i++) {
+> =20
+> -		fault_ret =3D handle_mm_fault(vma, vma->vm_start + offset,
+> -					    FAULT_FLAG_WRITE, NULL);
+> -		if (fault_ret & VM_FAULT_ERROR) {
+> -			XDNA_ERR(xdna, "Fault in page failed");
+> -			amdxdna_mark_mapp_invalid(abo, vma);
+> -			break;
+> +		ret =3D remap_pfn_range(vma, vma->vm_start + (i << PAGE_SHIFT),
+> +				      page_to_pfn(abo->base.pages[vma->vm_pgoff + i]),
+> +				      PAGE_SIZE, vma->vm_page_prot);
+
+[Severity: High]
+Does using remap_pfn_range() here to map normal refcounted shmem folios
+create special PTEs?
+
+Since remap_pfn_range() is designed for raw PFN mappings, it sets the
+special bit on the resulting page table entries. If this is applied to
+normal refcounted folios from the shmem BO, it violates the memory
+management invariant that normal folios must not have special PTEs.
+
+When the special bit is set, vm_normal_page() returns NULL, which hides
+these pages from page table walkers, GUP (get_user_pages), and
+mapcount-based refcount management. Can this break reverse mapping (rmap)
+and lead to memory management corruption?
+
+> +		if (ret) {
+> +			if (i > 0)
+> +				zap_special_vma_range(vma, vma->vm_start, i << PAGE_SHIFT);
+> +			dma_resv_lock(to_gobj(abo)->resv, NULL);
+> +			drm_gem_shmem_put_pages_locked(&abo->base);
+> +			dma_resv_unlock(to_gobj(abo)->resv);
+> +			return ret;
+>  		}
+> -
+> -		offset +=3D PAGE_SIZE;
+> -	} while (--num_pages);
+> +	}
+> =20
+>  	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909163211.9507=
+09-1-lizhi.hou@amd.com?part=3D1
