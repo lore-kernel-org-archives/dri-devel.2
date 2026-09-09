@@ -4,76 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3151C79FBF
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 14:51:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85C4DC79FB7
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 15:02:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C402510E175;
-	Wed,  9 Sep 2026 14:51:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A63AF10E55B;
+	Wed,  9 Sep 2026 15:02:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Q3MzKuIF";
+	dkim=pass (2048-bit key; unprotected) header.d=cirrus.com header.i=@cirrus.com header.b="TtGGPJ5I";
+	dkim=pass (1024-bit key; unprotected) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="FDUp0aca";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29A3310E175;
- Wed,  9 Sep 2026 14:51:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788965487; x=1820501487;
- h=mime-version:content-transfer-encoding:in-reply-to:
- references:subject:from:cc:to:date:message-id;
- bh=S6Bg5dd0rBRENwk7hGa55DW3vqRfuWWzVAUJKJGp/Xk=;
- b=Q3MzKuIFtd3+o1DRa1YMndxWC717gdIOr/oxY3eBRQHC2YtZV23pWK72
- SLWnJdvTkn7Gk3HVJ1g1e4XoeQnQulUd8ecZx4ME36CwDpe3W8IRa9nWt
- WZce8h44DXnBX7AnNHAaMeKnlJydGsnByDm9ujVwFeFl280Qp+kXirDMM
- bdNH0vFuIwqgdRnf5CtKIUbd501E+uJMLgqsWNRGjIYFuU9jQgRM78z/0
- L6pWSXHiIkJOu3qs+6e2IL2M9hGYi0+7NYWVHjkWh7XDQSLyqP48+FwpF
- yER7itAyiSgcmPaNoWUGLY1/Pk48bOx7ghuxkKMAjYXulHhONbZmWx6de A==;
-X-CSE-ConnectionGUID: xZBgGUTzRUWbF4TZRkRstQ==
-X-CSE-MsgGUID: pOkRfrUrThqtu7m+EodZYA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89263198"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="89263198"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2026 07:51:26 -0700
-X-CSE-ConnectionGUID: 88RNOmbkSHiGwLK5a5PqvQ==
-X-CSE-MsgGUID: ILfhd0crSpuNLp0FcqyurA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="267662499"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.37])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2026 07:51:22 -0700
-Content-Type: text/plain; charset="utf-8"
+X-Greylist: delayed 1385 seconds by postgrey-1.36 at gabe;
+ Wed, 09 Sep 2026 15:02:31 UTC
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B02D10E55B
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 15:02:31 +0000 (UTC)
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6893npgp1578475; Wed, 9 Sep 2026 09:39:00 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=PODMain02222019; bh=iLxABrejSUqDTt1/QH
+ DrlHY0R8rI0yqLu3zIX8J+ing=; b=TtGGPJ5I0/tPslm98C45xdSDDX/dh1/rcB
+ pw3p5/lg35GZ9vBnb7zGn4rqv/biZVYRNEcqWZMUl69bpug9HqiwXoZl8kJfLMOC
+ HK6z/SC+bc5cNuk3NFyhaHhSYlGP6E25W0jVz2raaeEOKOGD0X4ex2+lZ4f481II
+ Q6SzgKpFm4lcRdDxCQELcqGrHYoHLBGLAIlJM+te+d1hWkH18yQZuzopmECdNA0m
+ cl1Ts4zbYmCmAwqa5dc3X0xLASUd8cx86cky56sOBHJd8Q+V2u5m19Oe0Fm3E18X
+ bbnQPnIwhEzsdj/MEm/LSVgazVsEGuqf6bGzgDjKoGLkVzycQzsA==
+Received: from byapr05cu005.outbound.protection.outlook.com
+ (mail-westusazon11020110.outbound.protection.outlook.com [52.101.85.110])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4gggfwn796-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Wed, 09 Sep 2026 09:38:59 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GpD7cObPJDqnGtvmuWP964XJzEzwsVY0y0WXrUS4H2+U1cDIqPRJVilJj1LIGEjogh+zZR5gE5GEBOSvBiK79Gtr9uOKbpBiNzJ9iAmZchHlSUTmjatHAOMHLbiDTJ7rajWt9KNAcfTn6mTJFWJertUZcwiZJB3GarTqNgPFDZiMKCgXqMKuM0zmC88xW2tiPhyajY7umO7i2RhpEQvpbLtSiVOfHildYZb0QjWtqnW76+rC1469F0YnFuND74eQNN4U9nadO36fgIvU0wUw7n4EYdqOfGH0Po563YjGt4SlVfe1CJA/9w/pXbuA7iR7+cicnFD5yHmN81mA0SHXqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iLxABrejSUqDTt1/QHDrlHY0R8rI0yqLu3zIX8J+ing=;
+ b=lmDGFUjF3uYe7h9+K/15lCfvlvezMBk9wlrslgJgoTFcb9StZtZKADvvBWfetKXh8YqIgjBtFzB1tS5Jp//LmtenWjAf4pg317RDi5zLt5j28M2ySMhJN+vye/9eMCvsVq2HORziDy2C6cmQu7y8HRocfCJCIiKmQ7r9aqA1nyAK6/IoLiscXS9vdzUYqmgndj9khuBEceHXsUdBnB+KvUsP3J+hPnP2BlnsszMKKg/6bYxr1iqWQByxl9eYhcRlctY+v6iGMKOSdkZAR3KOKhXg4SC43I6cvA2BIT4XxumPGkMzJmYkO/NPohnnG0QVke7JmNVwGG6Try36kM4wwg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=analog.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iLxABrejSUqDTt1/QHDrlHY0R8rI0yqLu3zIX8J+ing=;
+ b=FDUp0acaoiGa5YHU1dS686D9x1BxMdrgL8Bc4OOrtg2kNN5h/0OS+d8COpbSQ9SBhQgTHuyF3qFc81MotVwGe0smw/Q3oQl0tfmMoUI0YLS3kkV6Kx0TbyjOwIjYc3CCp7aUhHRP1hMultmL6i5F+o0uTuEJ/TaE2bdBNMgqOLU=
+Received: from PH5P220CA0011.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:34a::11)
+ by AT6PR19MB679231.namprd19.prod.outlook.com (2603:10b6:170:10f::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
+ 14:38:55 +0000
+Received: from SA2PEPF00003AE4.namprd02.prod.outlook.com
+ (2603:10b6:510:34a:cafe::71) by PH5P220CA0011.outlook.office365.com
+ (2603:10b6:510:34a::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.8 via Frontend Transport; Wed, 9
+ Sep 2026 14:38:55 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
+ smtp.mailfrom=opensource.cirrus.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ SA2PEPF00003AE4.mail.protection.outlook.com (10.167.248.4) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.5
+ via Frontend Transport; Wed, 9 Sep 2026 14:38:54 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com
+ [198.61.86.93])
+ by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id AF99B406543;
+ Wed,  9 Sep 2026 14:38:53 +0000 (UTC)
+Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+ by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 8F5E782024B;
+ Wed,  9 Sep 2026 14:38:53 +0000 (UTC)
+Date: Wed, 9 Sep 2026 15:38:52 +0100
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Jonathan Cameron <jic23@kernel.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Pavel Machek <pavel@kernel.org>,
+ Michael Hennerich <michael.hennerich@analog.com>,
+ Support Opensource <support.opensource@diasemi.com>,
+ Sebastian Reichel <sre@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ patches@opensource.cirrus.com, linux-watchdog@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-leds@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, llvm@lists.linux.dev
+Subject: Re: [PATCH 04/14] mfd: remove unused wm8400 driver
+Message-ID: <aqFvfMcocLR4qU7s@opensource.cirrus.com>
+References: <20260909132153.1596191-1-arnd@kernel.org>
+ <20260909132153.1596191-5-arnd@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <3c7020e8-eeab-4cc2-9286-2ca613c08e07@amd.com>
-References: <20260903145952.848051-1-mika.kuoppala@linux.intel.com>
- <20260903145952.848051-5-mika.kuoppala@linux.intel.com>
- <20260903152224.AD48C1F00A3F@smtp.kernel.org>
- <178878748003.179185.16833574173741290547@jlahtine-mobl>
- <178894801687.37859.4186888279082797860@jlahtine-mobl>
- <aqEzHQMrI8p9XVcu@phenom.ffwll.local>
- <785085e8-c9db-4d84-ab55-3a8caf9f4a35@amd.com>
- <178895308548.62143.17472983986994555742@jlahtine-mobl>
- <3c7020e8-eeab-4cc2-9286-2ca613c08e07@amd.com>
-Subject: Re: FUSE deadlocks vs. copy_from_user() and locks (Was: Re: [PATCH
- v10 04/27] drm/xe/eudebug: Introduce discovery for resources)
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, Bernd Schubert <bernd@bsbernd.com>,
- Joanne Koong <joannelkoong@gmail.com>, Amir Goldstein <amir73il@gmail.com>,
- intel-xe@lists.freedesktop.org, fuse-devel@lists.linux.dev,
- sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?utf-8?q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Mika Kuoppala <mika.kuoppala@linux.intel.com>,
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>
-To: Christian =?utf-8?q?K=C3=B6nig?= <christian.koenig@amd.com>,
- Simona Vetter <simona.vetter@ffwll.ch>
-Date: Wed, 09 Sep 2026 17:51:18 +0300
-Message-ID: <178896547895.102087.5758513424678942429@jlahtine-mobl>
-User-Agent: alot/0.13.dev2+g40c57d620
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909132153.1596191-5-arnd@kernel.org>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE4:EE_|AT6PR19MB679231:EE_
+X-MS-Office365-Filtering-Correlation-Id: ec7fac24-9101-4f11-927f-08df0e80133e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700016|23010399003|7416014|376014|61400799027|4143699003|11063799006|56012099006|10067099003|16102099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: umTZJUeE244Ysy4jKRn57ca4h2aKB79jfm6ciPHGP5leBO5wHA28Nmy4JqBwfF9Uqh/ff5J7lbX0RWtuKdvsocfkylpRPGFX2Hw8HDYfF7W3yO+TYcGVL+Fajd+ognL01CmM+mNXv0RU9r+3AQ/7KSfLkyGEX8+Z0ElE1dreBCydVrKcIcoSaLP0s9UYt/qib1T9V0sOz+C784u/S1RcGzm+UpoGYqYiVEs/XGI+yKGvv16siiWoVVgNkiFWbhwCDc51eahMh+86LQWy3ZAxv00JvmWVGvgFAv09HVHb6TPT7HK5qMqijQI/D6wotW2/kygS//+vc9vgeld/oN6u+TNyQcZtjcA01cwLyraBl6BLIbU7w8rEophz/quN8zNRf3TSZGVZwxx7+lzHpVwYkyKgF9zKOTZjHGgMxV4Levsyb7BNSIELadD/OlxeGNBCygS7IP/duFM6ErzAw5fuCdw+6LS/8a7aLdZfXAeQ7hXvEU/O+KEjGeKL3QMA2DsxBrgQEx/jQ+0DluRtJuEbs7gHZ8xA2O0uCf+eUu41mVXa0saQlAXOPZKGd3zGe42owMIb4HH+nNA6uL176FOEk6+/dLhFZbTuAdjhdSqZd/O26c71x7CQmMgPfUW/WKbX4KQYjkYv6x8wNUjkCQ+l4efMhCfHSAiFAvOUwann9b1hyrhhgj/b9J9+Nutl98yQcOFhsLy270njZPvi7O44FQ==
+X-Forefront-Antispam-Report: CIP:84.19.233.75; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:edirelay1.ad.cirrus.com; PTR:InfoDomainNonexistent;
+ CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(23010399003)(7416014)(376014)(61400799027)(4143699003)(11063799006)(56012099006)(10067099003)(16102099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: W73cWf+nadA/TjwpKvQt3TuJx5pVAdLs1N5g52ywoVzP6/7gOfiBYcQDqfh/PBmEkBxKDq0NFwUrFM0OGDW3GtFzH355tgzjie/rX2UBmqj2yNRj6u505FSVRH0fToHeF5QsEYK+SMy4sF1IzYS6k9WdxoDImnQWGe9zIMN1OisW9qXBDA/0CwOB2sxE/1zLLbhiYHFZ+crj20416vGmLtm2C+O5M0BFjxkvKnp4kGTnzijDNDottAnTJfp+wF3o5wzBR/LuT5Fn92fEpIrXcxyD4b8/77QK+FDcfr2axvHkkrQGOfOZrkiEIKuE9g/fCyR3KMS7O6OSifpBKf5k7hqwxw5uvBGxEjHrqrqeadULKth63TLASklIvtdRGuJXTF+CMmt/vq9PBsXxAjmrxqSGiH+r8tVivEvhVrs2lN5WbYMoGOeiRJspmTJ2C2BD
+X-Exchange-RoutingPolicyChecked: eWFOBkeid2X4h02brkV7H0m+IyHpFtaCXGSSavq0O+VCN7eNoKFNvudS6UcGSqBnBt3ZlynMScvrmdPGau5d0T+AFZIq8Dxa7DNmn7Kh1e0v6rXQnYdgvrtyinlixbX7MuBIKesS64DVXi3o904xhFj0wMycYWKTppSdvpcx5qtLE6pGpEuQljf4kd9gSGbhbsGBbatP2mH0NuSFHL5ej1CluEp+rN+0jRvdFZKEIDWQe4mGLNnD4nDzcXAupNOsSCpspan+qqJoT8bSbkwAHwOF53pGmS1k3YgkAtVfDWFEyzD3wLqJyuF1S8tFbR1bdsWL07S/ChbIWQdQEOJO5w==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 14:38:54.8916 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ec7fac24-9101-4f11-927f-08df0e80133e
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8; Ip=[84.19.233.75];
+ Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-SA2PEPF00003AE4.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AT6PR19MB679231
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE2MyBTYWx0ZWRfXynIz4HG4D4sQ
+ MAOkhMS5r/Buiuc5nK6CHoF/KLLcibYq2FV8rnJ/OxmvXnKrVAZFGhUqS3JpzAjm7VorTzHDIgs
+ MgAH9215NzY/uPRmL/N0rnhtcLhcbuk=
+X-Proofpoint-ORIG-GUID: cQQGe3MGS0BJVNfkCGMGTzoPm8s29Xry
+X-Proofpoint-GUID: cQQGe3MGS0BJVNfkCGMGTzoPm8s29Xry
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE2MyBTYWx0ZWRfX43Pxx/TTOfCS
+ IhixKPi8xIbQpapsUfIpYMmbOObdn1D2rgvoLtG5wnECczjS8n34rJY/HXMTtjwnvC3MKz9EaY4
+ ujTyqv+iOV1lIUNWUJg9wZipVlSmB6Y8U9IxE3XVcz2TlPAKhTNJkmNxu0EXyFLeu3KhAZ999Bc
+ RsowwrOMMSL6Id/i+N3NINgR926EaGziIyk74HRGslz/q60npQVRz0V6LNt8zWQ91XenZ01a3ZY
+ HhsYn2Aobf8bZAB0va8b6r0F1pm11NicCMhYJvzWs2nlPomlJVi0TZVPDm6CIiEU3so23RNz1S1
+ p4Eu7TflpKaI0RMzavJQYyfZZwYEI4mj3iQVRGebaBE9IdWgE/LzZiNtBQe4jI9NSByGK6rLabj
+ yhFM16nAsobUDGhRe+2pc2GM47wskz5VydWQKw3kpQ8ucPXvCLsGMPg6v7VZQqFRLTeq376zUyl
+ qGOjXybQ+Z07ETUdWjA==
+X-Authority-Analysis: v=2.4 cv=fK4JG5ae c=1 sm=1 tr=0 ts=6aa16f83 cx=c_pps
+ a=54yuESksmrMaP3RwvbuPCA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
+ a=w1d2syhTAAAA:8 a=3CKuFnzYrga0DEbIuDIA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,208 +178,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Quoting Christian K=C3=B6nig (2026-09-09 16:03:30)
-> On 9/9/26 13:24, Joonas Lahtinen wrote:
-> > (+ userfaultfd maintainers)
-> >=20
-> > Quoting Christian K=C3=B6nig (2026-09-09 14:02:21)
-> >> On 9/9/26 12:21, Simona Vetter wrote:
-> >>> On Wed, Sep 09, 2026 at 01:00:16PM +0300, Joonas Lahtinen wrote:
-> >>>> (Adding bunch of FUSE folks and DRM folks in the hopes of coming to a
-> >>>> resolution here.)
-> >>>>
-> >>>> Quoting Joonas Lahtinen (2026-09-07 16:24:40)
-> >>>>> Quoting sashiko-bot@kernel.org (2026-09-03 18:22:23)
-> >>>>>> Thank you for your contribution! Sashiko AI review found 2 potenti=
-al issue(s) to consider:
-> >>>>>> - [High] Global ordered workqueue stall via copy_from_user block w=
-hile holding ioctl_lock.
-> >>>>>> - [Medium] Event sequence numbers (seqno) can be queued out-of-ord=
-er in the event stream due to a race between seqno generation and event que=
-uing.
-> >>>>>> --
-> >>>>>>
-> >>>>>> commit e2061e72d8e954a17bde35e9c970ee41bc2db0ad
-> >>>>>> Author: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-> >>>>>>
-> >>>>>>     drm/xe/eudebug: Introduce discovery for resources
-> >>>>>>
-> >>>>>> This commit introduces a resource discovery mechanism for debugger=
- connections.
-> >>>>>> When a debugger connects, all existing resources for the target cl=
-ient are
-> >>>>>> relayed as events via an ordered workqueue, and DRM ioctls are blo=
-cked using
-> >>>>>> an rw_semaphore until discovery is complete.
-> >>>>>>
-> >>>>>>> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/=
-xe_device.c
-> >>>>>>> index 032a7ec5fbc8d..f10959b898297 100644
-> >>>>>>> --- a/drivers/gpu/drm/xe/xe_device.c
-> >>>>>>> +++ b/drivers/gpu/drm/xe/xe_device.c
-> >>>>>> [ ... ]
-> >>>>>>> @@ -238,8 +239,12 @@ static long xe_drm_ioctl(struct file *file, =
-unsigned int cmd, unsigned long arg)
-> >>>>>>> =20
-> >>>>>>>       ACQUIRE(xe_pm_runtime_ioctl, pm)(xe);
-> >>>>>>>       ret =3D ACQUIRE_ERR(xe_pm_runtime_ioctl, &pm);
-> >>>>>>> -     if (ret >=3D 0)
-> >>>>>>> +     if (ret >=3D 0) {
-> >>>>>>> +             bool lock =3D xe_eudebug_discovery_lock(file, cmd);
-> >>>>>>>               ret =3D drm_ioctl(file, cmd, arg);
-> >>>>>>
-> >>>>>> [Severity: High]
-> >>>>>> Does holding the discovery lock across drm_ioctl() create a vector=
- for a
-> >>>>>> workqueue stall?=20
-> >>>>>>
-> >>>>>> If an unprivileged user maps the ioctl argument pointer to a block=
-ing FUSE
-> >>>>>> or userfaultfd region, drm_ioctl() can be stalled indefinitely dur=
-ing
-> >>>>>> copy_from_user() while holding xef->eudebug.ioctl_lock for read.
-> >>>>>
-> >>>>> Don't think this is a very realistic vector to address, as it would
-> >>>>> also extend to every other copy_from_user() and also to userptr acr=
-oss
-> >>>>> all drivers.
-> >>
-> >> Yeah I don't think that this is a major problem.
-> >>
-> >> Using copy_from_user() while holding a lock is usually fundamentally b=
-roken in the first place.
-> >=20
-> > Well, ultimately also applies to userptr. How would we go about
-> > implementing that without any outer locks?
-> >=20
-> > Grab locks, figure out what pages are needed, release locks, pre-fault,
-> > re-grab locks and do best attempt to resolve? And that's going to be a
-> > live-lock at best again.
->=20
-> Yeah and that is exactly what you *must* do for userptrs.
->=20
-> There is no really alternative to that because you can't grab the same lo=
-ck outside a page fault you do inside an MMU notfier.
+On Wed, Sep 09, 2026 at 03:21:41PM +0200, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> This driver requires a platform_data definition, which does not exist
+> in the kernel.
+> 
+> According to Mark Brown, the hardware supported by this driver was never
+> shipped in production.
+> 
+> Since this is clearly unused, remove it.
+> 
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
 
-Sure, not same locks. But essentially any device or HW unit level
-locks held while dealing with userptr or using copy_from_user() would
-now become potential deadlocks automatically. No need to take any nested
-locks, it's just that whichever shared lock is taken will immediately
-become a potential deadlock for completely unrelated DRM client and
-thus also different process.
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-> So all drivers who use userptrs basically implement the following sequenc=
-e:
->=20
-> 1. Take a copy of page table update sequence number.
-> 2. Walk page tables, extract PFNs.
-> 3. Prepare your DMA operations.
-> 4. Grab the MMU notifier lock.
-> 5. Compare your sequence number, if it doesn't match revert everything an=
-d try again.
-> 6. Submit your DMA operation to the HW
-> 7. Drop the MMU notifier lock.
->=20
-> What you describe above for eudebug sounds a lot like it won't work corre=
-ctly, you can't work with outside locks in the userptr handling.
-
-For the eudebug scenario here it's not to do with userptr. The access is
-now done in patch 13 with access_process_vm() and hopefully in future
-with access_remote_vm().
-
-This lock we actually can easily refactor out. It's just a lock to
-easily allow generating a coherent snapshot of DRM client resources
-and debug metadata.
-
-I'm just raising to concern generically for any userspace memory
-access path be it copy_from_user() or userptr. Any lock taken on the
-outside of such handling will become poisoned for all other DRM clients.
-
-> > That'd be a massive undertaking for each driver, I think.
-> >=20
-> >> But there are other issues which are much more problematic.
-> >>
-> >>>>>
-> >>>>> Having a malfunctioning FUSE driver and getting a malfunctioning sy=
-stem
-> >>>>> as a result is probably somewhat expected.
-> >>>>
-> >>>> Based on further chatting on this with Sima, I was volunteered to pu=
-ll
-> >>>> together the discussion here.
-> >>>>
-> >>>> We seem to have Sashiko picking up on patterns about accessing users=
-pace
-> >>>> memory with locks held and potential for copy_from_user() (or userpt=
-r) to
-> >>>> then take indefinitely long to resolve. And that spreads to deadlocks
-> >>>> everywhere situation very fast.
-> >>>>
-> >>>> Based on reading of [1] and [2], it seems pretty much expected FUSE
-> >>>> drivers can trivially deadlock and ultimately in worst case the situ=
-ation
-> >>>> can only be solved by manually aborting those connections by sysadmi=
-n.
-> >>
-> >> The real problem comes with userfaultfd and the combination with HMM.
-> >>
-> >> Drivers implementing HMM usually use a background workers to resolve r=
-ecoverable page faults using the function hmm_range_fault().
-> >>
-> >> If userfaultfd together with hmm_range_fault() can block those backgro=
-und workers indefinitely it can block other applications from using the HW =
-without any sysadmin having any chance to figure out what is going on.
-> >>
-> >> That is a classic local deny of service attack and I fear hmm_range_fa=
-ult() needs something like a timeout to handle that.
-> >=20
-> > From my position, if userspace is injected to the dependency path for
-> > resolving page-faults, with potentially unbounded execution times, the
-> > timeouts would better be asserted at the FUSE/UFFD side and then simply
-> > failing the operations with a bang if not met.
->=20
-> That won't work like that. Both FUSE and UFFD can take any time they want=
- for an operation.
-
-Wouldn't that then directly mean that anything to do with page-faults
-would immediately exclude everything related to dma-bufs?
-
-> >>>> It also seems (from the Sashiko comments) that by design, there's no
-> >>>> upper bound for how long an operation can take, so a bad FUSE driver
-> >>>> may stall for however long it sees fit to serve page-fault or in the
-> >>>> case of [3] it may decide to not actually populate the PTEs (or maybe
-> >>>> invalidate them immediately).
-> >>>>
-> >>>> Should we really be refactoring the whole kernel for the sake of
-> >>>> knowingly allowing potentially malicious userspace driver to idefini=
-tely
-> >>>> stall or incorrectly resolve page faults? That'll be quite a lot of
-> >>>> complexity added to all the other drivers.
-> >>
-> >> +1
-> >>
-> >> Regards,
-> >> Christian.
-> >=20
-> > I was also meaning to convey that I don't think indefinitely blocking
-> > copy_from_user() is acceptable, either. However earlier you seemed to
-> > indicate towards that being something we should expect?
->=20
-> Correct, that copy_from_user() can take any amount of time is perfectly e=
-xpected.
->=20
-> The problem is that most GPU HW currently can't deal with that because it=
- can't take the work of the HW in case of a fault.
-
-Doesn't that then raise the question if indefinitely stalling page fault
-responses or improperly handling page fault responses is actually reasonable
-if we want to support most GPU HW? Which I kinda hope we do want to support.
-
-Regards, Joonas
-
->=20
-> Regards,
-> Christian.
->=20
-> >=20
-> > Regards, Joonas
+Thanks,
+Charles
