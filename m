@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92DE0C79F82
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 00:56:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10920C79FB6
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 00:56:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B873710EE1B;
-	Wed,  9 Sep 2026 00:56:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE70410EE2A;
+	Wed,  9 Sep 2026 00:56:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LMsrRwcQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bI1lAFB2";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 976A410EDF4
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 00:55:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EBE210EDF4
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 00:55:09 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C30224484C;
- Wed,  9 Sep 2026 00:55:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A00B7C2BCFC;
- Wed,  9 Sep 2026 00:55:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D8C24448C0;
+ Wed,  9 Sep 2026 00:55:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B9BD8C2BCFB;
+ Wed,  9 Sep 2026 00:55:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1788915303;
- bh=4yFDcwyI69G2bWcoUgL7hYk3k9sTU3o4DvUhGrImdEo=;
+ s=k20201202; t=1788915304;
+ bh=Pu4jFw/n2qmbKY5gxWu8WCu6XgpSwe1vy3HOi4Z4JJM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=LMsrRwcQIwhKDt7LhnlkO0AhbwZ14FtZ7hHkITsV0PAHuaegwhT8CTl/Xi4+9JYcl
- QPlw81IYRh+BTN+v40yf3VHNagAiQksmPBTo7FfkyLVlHr1KctQEqxQqdTDRoeMaot
- 512fJKxsREBttD7ZA+0LMf/lmqa6GRbta5oyPOTJpdGFVz1R8fOLzjhKjHVFF0KtFF
- xN+mcik3b49cJamfrm24j10WFEe6llpbkQn06OVI43npf7ZJxEMuIEZ9r7xNavWi0U
- x6mFHwSKQE203joUxGQVV/4pHfJ0HHPex2D4UpbkQ8vMy73TLRI64HulBmYX1JO4jy
- 5ka02umaIvpcA==
+ b=bI1lAFB2jyoLkpx2YPhyQlqT9X6P6MmuoQCAMpo+vmOoH0u3y8zDYS85XbNQj8RPa
+ ddXPbk1H172MGmWsUJSDj1XlIZi5nVKyRonor3UUeW3pI3tesTEjvMAeoifdRNEkQ3
+ lUmp5owSmRgOT7EgpiaE5oDFtWh8IhVTnljp9tj52holNFmUhBGPJm2mp5D9bPvR4a
+ ydJWNNxnqScly3urjjhuKmuKDhAJvoXGzcO8DUcgImbmAUt4TO9jRYqGXfpnIrkYAJ
+ C5sQ81fW/j2Omh1e9QL6DYnw0Lfmj5B9iBju1fu54vh4ufoM3WD5eZ8lyxyl7T60RR
+ +WsWM7avPjsCg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 8DA66C79FB6;
- Wed,  9 Sep 2026 00:55:03 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id A7EB9C79F82;
+ Wed,  9 Sep 2026 00:55:04 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Tue, 08 Sep 2026 18:55:18 -0600
-Subject: [PATCH v9 22/39] dyndbg: move mod_name down from struct
- ddebug_table to _ddebug_info
+Date: Tue, 08 Sep 2026 18:55:33 -0600
+Subject: [PATCH v9 37/39] dyndbg: add epilogue to dynamic_debug/control
+ file
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-dd-cmap-part2-clean-v9-22-3a3f621f4a10@gmail.com>
+Message-Id: <20260908-dd-cmap-part2-clean-v9-37-3a3f621f4a10@gmail.com>
 References: <20260908-dd-cmap-part2-clean-v9-0-3a3f621f4a10@gmail.com>
 In-Reply-To: <20260908-dd-cmap-part2-clean-v9-0-3a3f621f4a10@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -63,14 +63,13 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
- Jim Cromie <jim.cromie@gmail.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>
+ Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788915300; l=7843;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788915300; l=2252;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=OdQnI6wg1tD9PWZjXE0HLn+JaQjGFTHnL6PDsbb22Dc=;
- b=GXLW9VmAosGPSj3mdByyJgIIkKH5bSTI6Ha1w7MZyfNIbPicg+xZq64f+z03eJrb63N4afM1R
- OB2cjLIIg6cAfRxGvK+IfPfT0hIMcAbqM+9yjg+ZNQGNH8bYz/dObo5
+ bh=oYHWUJL7INC4Y/mX988tAYogU/OZy4J+TTkT4CPamL8=;
+ b=Q+FNT832FBcFf4Lw6LX8mDpUlmsZNcM7Jq9/wT7sgCRBuEXEHUeXKefbiDBE5GXI3iBtxZxDk
+ 0HvnuTmkEBsCGzyEfLqcMVgbEcaJo3OdrgkkGeCi8qxBu5hldwOiTzh
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -94,222 +93,80 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-struct _ddebug_info already has most of dyndbg's info for a module;
-push debug_table.mod_name down into it, finishing the encapsulation.
+Add an epilogue to the control-file, to allow display of statistics
+etc, without disturbing the header.
 
-This allows refactoring several callchains, passing &_ddebug_info
-instead of &ddebug_table, and hoisting the "&dt->info" deref up
-instead of repeating it thru the callchans
-
-ddebug_table contains a _ddebug_info member, so code with a ptr to a
-ddebug_table still have access to mod_name, just now with "->info."
-added in.
-
-In static ddebug_add_module(&di), reinforce the cursor-model by
-dropping the modname arg, and setting di->mod_name at each caller.
+NB: epilogue lines should start with "#: " to distinguish them from
+lines describing pr_debugs (and from the header line).  No new lines
+are added here, only the place to do so.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
-v2: move RvB after SoB
-
-old-v12
-. moved up 1 position in series, ahead of hoist...
+v9:
+. update ddebug_proc_start() to return EPILOGUE_TOKEN when seeking directly to epilogue.
 ---
- include/linux/dynamic_debug.h |  1 +
- lib/dynamic_debug.c           | 52 ++++++++++++++++++++++---------------------
- 2 files changed, 28 insertions(+), 25 deletions(-)
+ lib/dynamic_debug.c | 23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 535aa3fc36e1..144a2a947abc 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -115,6 +115,7 @@ struct _ddebug_class_maps {
- };
- 
- struct _ddebug_info {
-+	const char *mod_name;
- 	struct _ddebug_descs descs;
- 	struct _ddebug_class_maps maps;
- };
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 52990a814345..81396f25623b 100644
+index afde13a2121f..77976e7b264c 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -46,7 +46,6 @@ extern struct ddebug_class_map __stop___dyndbg_class_maps[];
- 
- struct ddebug_table {
- 	struct list_head link;
--	const char *mod_name;
- 	struct _ddebug_info info;
- };
- 
-@@ -252,11 +251,12 @@ static int ddebug_change(const struct ddebug_query *query,
- 	/* search for matching ddebugs */
- 	mutex_lock(&ddebug_lock);
- 	list_for_each_entry(dt, &ddebug_tables, link) {
-+		struct _ddebug_info *di = &dt->info;
- 
- 		/* match against the module name */
- 		if (query->module &&
--		    !match_wildcard_hyphen(query->module, dt->mod_name) &&
--		    !match_wildcard_hyphen(query->module, kbasename(dt->mod_name)))
-+		    !match_wildcard_hyphen(query->module, di->mod_name) &&
-+		    !match_wildcard_hyphen(query->module, kbasename(di->mod_name)))
- 			continue;
- 
- 		if (query->class_string) {
-@@ -268,8 +268,8 @@ static int ddebug_change(const struct ddebug_query *query,
- 			valid_class = _DPRINTK_CLASS_DFLT;
- 		}
- 
--		for (i = 0; i < dt->info.descs.len; i++) {
--			struct _ddebug *dp = &dt->info.descs.start[i];
-+		for (i = 0; i < di->descs.len; i++) {
-+			struct _ddebug *dp = &di->descs.start[i];
- 
- 			if (!ddebug_match_desc(query, dp, valid_class))
- 				continue;
-@@ -289,7 +289,7 @@ static int ddebug_change(const struct ddebug_query *query,
- #endif
- 			v4pr_info("changed %s:%d [%s]%s %s => %s\n",
- 				  trim_prefix(dp->filename), dp->lineno,
--				  dt->mod_name, dp->function,
-+				  di->mod_name, dp->function,
- 				  ddebug_describe_flags(dp->flags, &fbuf),
- 				  ddebug_describe_flags(newflags, &nbuf));
- 			dp->flags = newflags;
-@@ -1084,12 +1084,12 @@ static bool ddebug_class_in_range(const int class_id, const struct ddebug_class_
- 		class_id < map->base + map->length);
- }
- 
--static const char *ddebug_class_name(struct ddebug_table *dt, struct _ddebug *dp)
-+static const char *ddebug_class_name(struct _ddebug_info *di, struct _ddebug *dp)
+@@ -1159,6 +1159,9 @@ static struct _ddebug *ddebug_iter_next(struct ddebug_iter *iter)
+  * read() call from userspace.  Takes the ddebug_lock and
+  * seeks the seq_file's iterator to the given position.
+  */
++static char ddebug_epilogue_token;
++#define EPILOGUE_TOKEN (&ddebug_epilogue_token)
++
+ static void *ddebug_proc_start(struct seq_file *m, loff_t *pos)
  {
- 	struct ddebug_class_map *map;
- 	int i;
- 
--	for_subvec(i, map, &dt->info, maps)
-+	for_subvec(i, map, di, maps)
- 		if (ddebug_class_in_range(dp->class_id, map))
- 			return map->class_names[dp->class_id - map->base];
- 
-@@ -1117,13 +1117,13 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
- 
- 	seq_printf(m, "%s:%u [%s]%s =%s \"",
- 		   trim_prefix(dp->filename), dp->lineno,
--		   iter->table->mod_name, dp->function,
-+		   iter->table->info.mod_name, dp->function,
- 		   ddebug_describe_flags(dp->flags, &flags));
- 	seq_escape_str(m, dp->format, ESCAPE_SPACE, "\t\r\n\"");
- 	seq_putc(m, '"');
- 
- 	if (dp->class_id != _DPRINTK_CLASS_DFLT) {
--		class = ddebug_class_name(iter->table, dp);
-+		class = ddebug_class_name(&iter->table->info, dp);
- 		if (class)
- 			seq_printf(m, " class:%s", class);
- 		else
-@@ -1184,7 +1184,7 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
- 	 * and length of the subrange at its edges.
- 	 */
- 	for_subvec(i, cm, di, maps) {
--		if (!strcmp(cm->mod_name, dt->mod_name)) {
-+		if (!strcmp(cm->mod_name, dt->info.mod_name)) {
- 			if (!nc) {
- 				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
- 					  i, cm->mod_name, cm->base, cm->length, cm->map_type);
-@@ -1198,34 +1198,33 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
- 	}
- 	dt->info.maps.len = nc;
- 	if (nc)
--		vpr_info("module:%s attached %d classes\n", dt->mod_name, nc);
-+		vpr_info("module:%s attached %d classes\n", dt->info.mod_name, nc);
+ 	struct ddebug_iter *iter = m->private;
+@@ -1174,7 +1177,9 @@ static void *ddebug_proc_start(struct seq_file *m, loff_t *pos)
+ 	dp = ddebug_iter_first(iter);
+ 	while (dp != NULL && --n > 0)
+ 		dp = ddebug_iter_next(iter);
+-	return dp;
++	if (dp)
++		return dp;
++	return n == 0 ? EPILOGUE_TOKEN : NULL;
  }
  
  /*
-  * Allocate a new ddebug_table for the given module
-  * and add it to the global list.
-  */
--static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
-+static int ddebug_add_module(struct _ddebug_info *di)
- {
- 	struct ddebug_table *dt;
+@@ -1187,12 +1192,20 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
+ 	struct ddebug_iter *iter = m->private;
+ 	struct _ddebug *dp;
  
- 	if (!di->descs.len)
- 		return 0;
- 
--	v3pr_info("add-module: %s %d sites\n", modname, di->descs.len);
-+	v3pr_info("add-module: %s %d sites\n", di->mod_name, di->descs.len);
- 
- 	dt = kzalloc_obj(*dt);
- 	if (dt == NULL) {
--		pr_err("error adding module: %s\n", modname);
-+		pr_err("error adding module: %s\n", di->mod_name);
- 		return -ENOMEM;
- 	}
- 	/*
--	 * For built-in modules, name lives in .rodata and is
--	 * immortal. For loaded modules, name points at the name[]
--	 * member of struct module, which lives at least as long as
--	 * this struct ddebug_table.
-+	 * For built-in modules, name (as supplied in di by its
-+	 * callers) lives in .rodata and is immortal. For loaded
-+	 * modules, name points at the name[] member of struct module,
-+	 * which lives at least as long as this struct ddebug_table.
- 	 */
--	dt->mod_name = modname;
- 	dt->info = *di;
- 
- 	INIT_LIST_HEAD(&dt->link);
-@@ -1237,7 +1236,7 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- 	list_add_tail(&dt->link, &ddebug_tables);
- 	mutex_unlock(&ddebug_lock);
- 
--	vpr_info("%3u debug prints in module %s\n", di->descs.len, modname);
-+	vpr_info("%3u debug prints in module %s\n", di->descs.len, di->mod_name);
- 	return 0;
++	(*pos)++;
++
++	if (p == EPILOGUE_TOKEN)
++		return NULL;
++
+ 	if (p == SEQ_START_TOKEN)
+ 		dp = ddebug_iter_first(iter);
+ 	else
+ 		dp = ddebug_iter_next(iter);
+-	++*pos;
+-	return dp;
++
++	if (dp)
++		return dp;
++
++	return EPILOGUE_TOKEN;
  }
  
-@@ -1300,7 +1299,7 @@ static int ddebug_remove_module(const char *mod_name)
+ static bool ddebug_class_map_in_range(const int class_id, const struct ddebug_class_map *map)
+@@ -1244,6 +1257,10 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 			 "# filename:lineno [module]function flags format\n");
+ 		return 0;
+ 	}
++	if (p == EPILOGUE_TOKEN) {
++		/* use this soon */
++		return 0;
++	}
  
- 	mutex_lock(&ddebug_lock);
- 	list_for_each_entry_safe(dt, nextdt, &ddebug_tables, link) {
--		if (dt->mod_name == mod_name) {
-+		if (dt->info.mod_name == mod_name) {
- 			ddebug_table_free(dt);
- 			ret = 0;
- 			break;
-@@ -1320,7 +1319,8 @@ static int ddebug_module_notify(struct notifier_block *self, unsigned long val,
- 
- 	switch (val) {
- 	case MODULE_STATE_COMING:
--		ret = ddebug_add_module(&mod->dyndbg_info, mod->name);
-+		mod->dyndbg_info.mod_name = mod->name;
-+		ret = ddebug_add_module(&mod->dyndbg_info);
- 		if (ret)
- 			WARN(1, "Failed to allocate memory: dyndbg may not work properly.\n");
- 		break;
-@@ -1416,7 +1416,8 @@ static int __init dynamic_debug_init(void)
- 		if (strcmp(modname, iter->modname)) {
- 			di.descs.len = mod_sites;
- 			di.descs.start = iter_mod_start;
--			ret = ddebug_add_module(&di, modname);
-+			di.mod_name = modname;
-+			ret = ddebug_add_module(&di);
- 			if (ret)
- 				goto out_err;
- 
-@@ -1430,7 +1431,8 @@ static int __init dynamic_debug_init(void)
- 
- 	di.descs.len = mod_sites;
- 	di.descs.start = iter_mod_start;
--	ret = ddebug_add_module(&di, modname);
-+	di.mod_name = modname;
-+	ret = ddebug_add_module(&di);
- 	if (ret)
- 		goto out_err;
- 
+ 	seq_printf(m, "%s:%u [%s]%s =%s \"",
+ 		   trim_prefix(dp->filename), dp->lineno,
 
 -- 
 2.55.0
