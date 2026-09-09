@@ -4,43 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5117AC79FAA
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 07:44:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA8E1C79F8C
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 07:44:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09DB610EF75;
-	Wed,  9 Sep 2026 07:44:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C653610EF88;
+	Wed,  9 Sep 2026 07:44:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ciYnLxaG";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="FAksSGDL";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25EE910EF75
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 07:44:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F0A45601FD;
- Wed,  9 Sep 2026 07:44:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 658241F00A3A;
- Wed,  9 Sep 2026 07:44:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788939878;
- bh=tixwgiWwREE+e/O+XQzoT2C82NYobPgNbFeLqiM0sjc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ciYnLxaGp3aO4UD5fLXeNL0fOiiO/AOgzouPf2HJ/wQUowsaovGKMY6XFFuL43Ob7
- o9xC2R+xVa4sXg4ISf/yWQta+Vpqtd2J4l4too9g86odZry/9p3ZhfGg2KMQxpn9Zi
- jKcGwgKrbDD9PXO/t5UKJf22EXhBdUoOCZ5abD1e+Z8UOFKYWTwO37hE9vRSLsqaPs
- ZbxYvOIgKZH+jexfUuiO4JDJJDX2S/MY9DSYyMFWhfaVNGfAzN1Pc46hbU4Rsa1/uD
- Eqfu/O/AwPodNgJSsLbRjDb6ZcO/3ialglSt7C4NP+G1GfVdXyLfB0MN41Pv52c39h
- Y2CDLw1SDgVSw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/virtio: Replace deprecated drm_simple_encoder_init()
-To: "Davide Bonatto" <bonatto.davide@gmail.com>
-Cc: "Eugenio Perez" <eperezma@redhat.com>, virtualization@lists.linux.dev,
- dri-devel@lists.freedesktop.org, "Michael S. Tsirkin" <mst@redhat.com>
-In-Reply-To: <20260909073440.52641-1-bonatto.davide@gmail.com>
-References: <20260909073440.52641-1-bonatto.davide@gmail.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B17510EF84
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 07:44:46 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hftB32BD7zKmVL;
+ Wed, 09 Sep 2026 09:44:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1788939883; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=b10mfZ88wGp7KfLoV6nUByhsnDqOrPuHynKA2s9tIt4=;
+ b=FAksSGDLnQZv069yd8pPw+HvCvPFXsZ02lgJ5VIVA7AIAVWuOkFMNS2fSdMgOqLX65LxYu
+ f8WZ6P5HyHcD9RFC4dAETL2pIt/nhe1HZfOYDLxQnuER5hVYEsUASN6K3DBd6UBJUf8n0O
+ KW0oTH6HxZ9pfhu1fjJjl/HFqfm30Q3uZlug7urylTtdjLV5Z7nETRZHUzEfLlGX0qU5Qc
+ HYE1T3gux9erCWEKeUTum0gF5K9sHzFliwsKh2hB1Iwcfr1BDKsqeqdHFGgGHQiLBXGBVA
+ 4WzOFIuRmKThQ0HLS1I/tJm6m3E/BFUtcsYawXS575wBDZ/A4z/EcZODypI5Dg==
+Message-ID: <a9903d42a115bfa5373e02c7ec197ed03ee7c669.camel@mailbox.org>
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
+ use-after-free
+From: Philipp Stanner <phasta@mailbox.org>
+To: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>, phasta@kernel.org, 
+ christian.koenig@amd.com, tursulin@ursulin.net, matthew.brost@intel.com, 
+ dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
+ stable@vger.kernel.org
+Date: Wed, 09 Sep 2026 09:44:38 +0200
+In-Reply-To: <20260909003754.1128738-1-malhyuk97@gmail.com>
+References: <20260904080618.2098450-1-malhyuk97@gmail.com>
+ <20260904080618.2098450-2-malhyuk97@gmail.com>
+ <825c1f02-b9ad-4160-8e4b-53f2393a7bff@amd.com>
+ <20260908104910.183638-1-malhyuk97@gmail.com>
+ <909f7ed1b2688fb2f727afb879642cda5cad9e5e.camel@mailbox.org>
+ <20260909003754.1128738-1-malhyuk97@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 07:44:37 +0000
-Message-Id: <20260909074438.658241F00A3A@smtp.kernel.org>
+MIME-Version: 1.0
+X-MBO-RS-META: 9d141xdfi4hdzqsfbg8ppo4w3ydtt4iw
+X-MBO-RS-ID: defea9319307905a299
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,63 +69,46 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Missing error check for drm_encoder_init return value.
---
+On Wed, 2026-09-09 at 09:37 +0900, Jonghyuk Kim(MalHyuk) wrote:
+> On 08/09/2026 13:07, Philipp Stanner wrote:
+> > Is this an issue? A fence can only be exported if the scheduler exists.
+> > The hard rule with dma_fence is that all drivers must signal all of
+> > them before they tear down the scheduler
+>=20
+> Agreed for the bug at hand - that fence is signaled, so 0001 covers it.
+>=20
+> My point was narrower: nothing enforces the rule. drm_sched_fini() only d=
+oes
+>=20
+> =C2=A0 if (!list_empty(&sched->pending_list))
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_warn(sched->de=
+v, "Tearing down scheduler while jobs are pending!\n");
+>=20
+> and the one path that would drain the list, drm_sched_cancel_remaining_jo=
+bs(),
+> needs ops->cancel_job, which no driver in current mainline implements -
+> the only user is the mock scheduler in the KUnit tests. So a driver that
+> gets it wrong gets a warning, not a stopped teardown. Not an argument
+> against the hot-fix.
 
-commit 731688e34b570f6cb070588f1d74f9b42481123c
-Author: Davide Bonatto <bonatto.davide@gmail.com>
+True. The cancel_job() cb is currently the recommended solution
+(although there was disagreement back then) that Tvrtko and I came up
+with a while ago. The issue was that drm_sched was designed with no
+idiomatic solution for handling remaining jobs in sched->pending_list
+on teardown, which is why all drivers presumably have different
+solutions. cancel_job() was an attempt at providing an idiomatic
+solution.
 
-drm/virtio: Replace deprecated drm_simple_encoder_init()
+It's afaik currently being used by Asahi downstream and was used in
+Nouveau, but Nouveau doesn't need it / cannot use it for other reasons
+that have to do with page table cleanup AFAIR. So Nouveau covers it
+with a waitqueue. We could add it to Nouveau again, but then it would
+never be called because the waitqueue comes first and needs to stay=E2=80=
+=A6
 
-This patch replaces the deprecated drm_simple_encoder_init() with a direct
-call to drm_encoder_init(), defining a default cleanup callback directly in=
-=20
-virtio_gpu_encoder_funcs.
-
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_display.c b/drivers/gpu/drm/v=
-irtio/virtgpu_display.c
-> index a1a875a0c706a..85986578001fe 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_display.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_display.c
-
-[ ... ]
-
-> @@ -306,7 +310,9 @@ static int vgdev_output_init(struct virtio_gpu_device=
- *vgdev, int index)
->  	if (vgdev->has_edid)
->  		drm_connector_attach_edid_property(connector);
-> =20
-> -	drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_VIRTUAL);
-> +	drm_encoder_init(dev, encoder, &virtio_gpu_encoder_funcs,
-> +		DRM_MODE_ENCODER_VIRTUAL, NULL);
-
-[Severity: Medium]
-Does this code need to check the return value of drm_encoder_init()?
-
-If drm_encoder_init() fails (for example, due to a memory allocation failur=
-e=20
-for the encoder name), it returns a negative error code like -ENOMEM and=20
-cleans up the partially initialized object.
-
-Since this return value is not validated in vgdev_output_init(), the functi=
-on=20
-will proceed to use the uninitialized encoder, attaching it to a connector =
-and=20
-registering the connector with userspace. Could this lead to a NULL pointer=
-=20
-dereference or corrupted state when the DRM subsystem interacts with it?
-
-> +
->  	drm_encoder_helper_add(encoder, &virtio_gpu_enc_helper_funcs);
->  	encoder->possible_crtcs =3D 1 << index;
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909073440.5264=
-1-1-bonatto.davide@gmail.com?part=3D1
+So should you see a driver that could make good use of it, I would
+appreciate if you'd try to add it :)
