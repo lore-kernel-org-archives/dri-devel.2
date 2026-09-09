@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63399C79F82
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 00:55:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E342C79F82
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 00:55:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0220710EDEC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45DC110EDF7;
 	Wed,  9 Sep 2026 00:55:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QCSyCowq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PbHgkAK9";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E42C010EDEB
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 00:55:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5580D10EDEB
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 00:55:03 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 99B8044247;
+ by sea.source.kernel.org (Postfix) with ESMTP id AA4E94451B;
  Wed,  9 Sep 2026 00:55:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 26891C2BCFC;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 45B9CC4AF0E;
  Wed,  9 Sep 2026 00:55:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1788915302;
- bh=quH97pzV1CtXlnKeUyBN5rKrZ5ibIEYYlVcGld/HXrU=;
+ bh=NDrZE41402D/UHYSx49263+3eXhDlauLvRgsYeGLj0M=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=QCSyCowqQnCXTC/6izUL74mGb4hy/OiU9MYmp5W5Dj+1uIT7UMdh08Nmx0vCNB5BU
- 4zp+cFZOaD9ZAOStGOIJuvHVtwhqw+1BcKc74omHkTkLMEOY3zsBAUdaSFZ/V0YTD2
- mvI+kYdkqlg74fRp2DD8V5+wg6cA5ILNpaQcPjbcG7fltlq/doiYiS/ePSa/PQVwGe
- rVIsDL/olbp+knjz55QIZGOwRY0rxncF2tUjit7oaIULuXaWBBsZAShtHKTbKgPYqj
- SbobFB5FOa3GcCbuaqDn56bppV6j3puuthyyZu9vJ10oo2RKcHhPX/JIUPd5sQlHzt
- NK+OZPFhZrRsQ==
+ b=PbHgkAK9ngwYn++/Ja9jj5TLlmAQ9qJSQYwd139Lu0jPvsjmG4CTcZzj9z6vOhRV6
+ 1ui4putIb9BNXGHKu4ad6cBlrYWl4VqbeCuBVxDMmmU+76eTRRE1ZxRwz5m/yRapXM
+ cIZp+HrCmRzaikBLEtwN0DpZi/v0VZOXQclqjSJBFyBPBeyx0hlJV17f5oouSFXH1d
+ Cje7YiBYYykOHN5fNRwaAquPNA6NNfqWKBqy8LjrwCODFUx7maA9NmJjDWs1zdBFDk
+ xiYpCjC3aWEY4jU1Gv/pLzfe77xppkNEQp8461a6RqMxH9URJZdhvkIIat7zrhR6Bl
+ 3COZ+EUs3ZyZg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 0691FC79F82;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 29EF2C79FAF;
  Wed,  9 Sep 2026 00:55:02 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Tue, 08 Sep 2026 18:54:58 -0600
-Subject: [PATCH v9 02/39] vmlinux.lds.h: refactor BOUNDED_SECTION_* macros
- into bounded_sections.lds.h
+Date: Tue, 08 Sep 2026 18:55:00 -0600
+Subject: [PATCH v9 04/39] vmlinux.lds.h: Fix ALIGN(8) omission causing NULL
+ ptr on i386
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-dd-cmap-part2-clean-v9-2-3a3f621f4a10@gmail.com>
+Message-Id: <20260908-dd-cmap-part2-clean-v9-4-3a3f621f4a10@gmail.com>
 References: <20260908-dd-cmap-part2-clean-v9-0-3a3f621f4a10@gmail.com>
 In-Reply-To: <20260908-dd-cmap-part2-clean-v9-0-3a3f621f4a10@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -63,13 +63,14 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
- Jim Cromie <jim.cromie@gmail.com>
+ Jim Cromie <jim.cromie@gmail.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788915300; l=4249;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788915300; l=6221;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=DmN3dQkizTo0tooZt8HHaXhkTJxaFppBGFefz+LuWYE=;
- b=v7N4ha2YuF2EaPsTpnFBCyDESLqVEHui4ve968E1pMxtWBUW9vP35HewzhIHjASQh0kqZbfh7
- 6zWWsK1X4xADzaL/lzV8SwCyi4Pp11A8p4q/ouShe2MF8TwyHdKii8w
+ bh=22WCSuGF05p8gA76uv7PlnmHWahruFec5XONc19uauM=;
+ b=WVCCZUGUnawxlEC6XR7RGI5ZKaSqZkT2G4g3Q6Szkqb8u/654vrqu02A/i+mbT/7OA+6xntRE
+ FhLvHyahzwPAUbiOiNvkT91o+buAIFxNsUFPvnxh285uea3rmLjnr5o
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -93,122 +94,160 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Move BOUNDED_SECTION_* macros to a new helper file:
-include/asm-generic/bounded_sections.lds.h and include it back into
-vmlinux.lds.h.  This allows its reuse later to fix a failure to keep
-dyndbg sections in some circumstances.
+Almost all uses of the BOUNDED_SECTION macros are ALIGN(8), either
+explicitly, or by being below an aligned section containing x*8 byte
+objects.  The noteworthy exception is BOUNDED_SECTION(__dyndbg), which
+immediately follows BOUNDED_SECTION(__dyndbg_classes).
 
-NOTES:
+On i386, struct _ddebug_classmap is 28 bytes, so without an explicit
+ALIGN(8) in the macro, the following __dyndbg section gets misaligned,
+causing a NULL ptr deref in dynamic_debug_init().
 
-These macros are only for use in vmlinux.lds.h, where the _start &
-_end symbols are needed.  Modules keep sections separate in ELF
-sections, with their boundaries known, so the _start and _end are not
-useful, and may confuse tools not expecting them.
+So fix this with an explicit ALIGN(8) in the existing BOUNDED_SECTION
+macros, and introduce _ALIGNED variants to handle the cases with an
+explicit . = ALIGN(x)
 
-This patch ignores a checkpatch warning, because new file is covered
-by "GENERIC INCLUDE/ASM HEADER FILES" in MAINTAINERS
+Also add explicit alignments for: EXCEPTION_TABLE, ORC_UNWIND_TABLE,
+TRACEDATA, INIT_SETUP, and NOTES.
 
-CC: Arnd Bergmann <arnd@arndb.de>
-CC: linux-arch@vger.kernel.org
+update BOUNDED_SECTION uses inside . = ALIGN(x) stanzas to use
+_ALIGNED variants, but keep the outer ALIGNs so the symbols between
+them are not "re-aligned".
+
+In particular, scripts/sorttable.c does not tolerate sloppy padding.
+
+At the top of ORC_UNWIND_TABLE, add . = ALIGN(4) to match the struct
+orc_header __align() call in the code:
+
+commit b9f174c811e3 ("x86/unwind/orc: Add ELF section with ORC version identifier")
+
+Suggested-by: Louis Chauvet <louis.chauvet@bootlin.com>  # _ALIGNED variants.
+Link: https://lore.kernel.org/lkml/177402491426.6181.12855763650074831089.b4-review@b4/
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-v3: move include to top
+v3:
+
+sashiko complained about NOTES and .BTF_ids.
+gemini asserts that NOTES are natively 4-byte aligned, add comment repeating it.
+.BTF_ids doesnt use BOUNDED_BY, since start/end isnt needed;
+sashiko evidently got confused by immediately preceding usage.
+
+v2:
+
+sashiko picked up 2 cases, added to the explicit list above
+https://sashiko.dev/#/patchset/20260515-asm-generic-1-v3-0-680b273666d4%40gmail.com
 ---
- include/asm-generic/bounded_sections.lds.h | 36 ++++++++++++++++++++++++++++++
- include/asm-generic/vmlinux.lds.h          | 31 +------------------------
- 2 files changed, 37 insertions(+), 30 deletions(-)
+ include/asm-generic/bounded_sections.lds.h | 17 ++++++++++++++---
+ include/asm-generic/vmlinux.lds.h          | 18 ++++++++++--------
+ 2 files changed, 24 insertions(+), 11 deletions(-)
 
 diff --git a/include/asm-generic/bounded_sections.lds.h b/include/asm-generic/bounded_sections.lds.h
-new file mode 100644
-index 000000000000..8c29293ca7fb
---- /dev/null
+index 268cdc34389b..8ff3e3420f60 100644
+--- a/include/asm-generic/bounded_sections.lds.h
 +++ b/include/asm-generic/bounded_sections.lds.h
-@@ -0,0 +1,36 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+
-+#ifndef _ASM_GENERIC_BOUNDED_SECTIONS_H
-+#define _ASM_GENERIC_BOUNDED_SECTIONS_H
-+
-+#define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+	_BEGIN_##_label_ = .;						\
-+	KEEP(*(_sec_))							\
-+	_END_##_label_ = .;
-+
-+#define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+	_label_##_BEGIN_ = .;						\
-+	KEEP(*(_sec_))							\
-+	_label_##_END_ = .;
-+
-+#define BOUNDED_SECTION_BY(_sec_, _label_)				\
-+	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
-+
-+#define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
-+
-+#define HEADERED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
-+	_HDR_##_label_	= .;						\
-+	KEEP(*(.gnu.linkonce.##_sec_))					\
-+	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)
-+
-+#define HEADERED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
-+	_label_##_HDR_ = .;						\
-+	KEEP(*(.gnu.linkonce.##_sec_))					\
-+	BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)
-+
-+#define HEADERED_SECTION_BY(_sec_, _label_)				\
-+	HEADERED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
-+
-+#define HEADERED_SECTION(_sec)	 HEADERED_SECTION_BY(_sec, _sec)
-+
-+#endif /* _ASM_GENERIC_BOUNDED_SECTIONS_H */
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index b2988aa12f66..b4ece391f7b1 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -50,6 +50,7 @@
-  *               [__nosave_begin, __nosave_end] for the nosave data
-  */
- 
-+#include <asm-generic/bounded_sections.lds.h>
- #include <asm-generic/codetag.lds.h>
- 
- #ifndef LOAD_OFFSET
-@@ -211,36 +212,6 @@
- # endif
- #endif
+@@ -3,19 +3,30 @@
+ #ifndef _ASM_GENERIC_BOUNDED_SECTIONS_H
+ #define _ASM_GENERIC_BOUNDED_SECTIONS_H
  
 -#define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
--	_BEGIN_##_label_ = .;						\
--	KEEP(*(_sec_))							\
--	_END_##_label_ = .;
--
++#define BOUNDED_SECTION_PRE_LABEL_ALIGNED(_sec_, _label_, _BEGIN_, _END_, _ALIGNED_) \
++	. = ALIGN(_ALIGNED_);						\
+ 	_BEGIN_##_label_ = .;						\
+ 	KEEP(*(_sec_))							\
+ 	_END_##_label_ = .;
+ 
 -#define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
--	_label_##_BEGIN_ = .;						\
--	KEEP(*(_sec_))							\
--	_label_##_END_ = .;
--
--#define BOUNDED_SECTION_BY(_sec_, _label_)				\
--	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
--
++#define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
++	BOUNDED_SECTION_PRE_LABEL_ALIGNED(_sec_, _label_, _BEGIN_, _END_, 8)
++
++#define BOUNDED_SECTION_POST_LABEL_ALIGNED(_sec_, _label_, _BEGIN_, _END_, _ALIGNED_) \
++	. = ALIGN(_ALIGNED_);						\
+ 	_label_##_BEGIN_ = .;						\
+ 	KEEP(*(_sec_))							\
+ 	_label_##_END_ = .;
+ 
++#define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
++	BOUNDED_SECTION_POST_LABEL_ALIGNED(_sec_, _label_, _BEGIN_, _END_, 8)
++
+ #define BOUNDED_SECTION_BY(_sec_, _label_)				\
+ 	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
+ 
 -#define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
--
--#define HEADERED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
--	_HDR_##_label_	= .;						\
--	KEEP(*(.gnu.linkonce.##_sec_))					\
--	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)
--
--#define HEADERED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
--	_label_##_HDR_ = .;						\
--	KEEP(*(.gnu.linkonce.##_sec_))					\
--	BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)
--
--#define HEADERED_SECTION_BY(_sec_, _label_)				\
--	HEADERED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
--
--#define HEADERED_SECTION(_sec)	 HEADERED_SECTION_BY(_sec, _sec)
--
- #ifdef CONFIG_TRACE_BRANCH_PROFILING
- #define LIKELY_PROFILE()						\
- 	BOUNDED_SECTION_BY(_ftrace_annotated_branch, _annotated_branch_profile)
++#define BOUNDED_SECTION_BY_ALIGNED(_sec_, _label_, _ALIGNED_)		\
++	BOUNDED_SECTION_PRE_LABEL_ALIGNED(_sec_, _label_, __start, __stop, _ALIGNED_)
++
++#define BOUNDED_SECTION(_sec)   BOUNDED_SECTION_BY(_sec, _sec)
+ 
+ #endif /* _ASM_GENERIC_BOUNDED_SECTIONS_H */
+diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
+index b4ece391f7b1..b1a69f8af6d2 100644
+--- a/include/asm-generic/vmlinux.lds.h
++++ b/include/asm-generic/vmlinux.lds.h
+@@ -640,7 +640,7 @@
+ #define EXCEPTION_TABLE(align)						\
+ 	. = ALIGN(align);						\
+ 	__ex_table : AT(ADDR(__ex_table) - LOAD_OFFSET) {		\
+-		BOUNDED_SECTION_BY(__ex_table, ___ex_table)		\
++		BOUNDED_SECTION_BY_ALIGNED(__ex_table, ___ex_table, align) \
+ 	}
+ 
+ /*
+@@ -650,7 +650,7 @@
+ #define BTF								\
+ 	. = ALIGN(PAGE_SIZE);						\
+ 	.BTF : AT(ADDR(.BTF) - LOAD_OFFSET) {				\
+-		BOUNDED_SECTION_BY(.BTF, _BTF)				\
++		BOUNDED_SECTION_BY_ALIGNED(.BTF, _BTF, PAGE_SIZE)	\
+ 	}								\
+ 	. = ALIGN(PAGE_SIZE);						\
+ 	.BTF_ids : AT(ADDR(.BTF_ids) - LOAD_OFFSET) {			\
+@@ -840,16 +840,17 @@
+ 
+ #ifdef CONFIG_UNWINDER_ORC
+ #define ORC_UNWIND_TABLE						\
++	. = ALIGN(4);							\
+ 	.orc_header : AT(ADDR(.orc_header) - LOAD_OFFSET) {		\
+-		BOUNDED_SECTION_BY(.orc_header, _orc_header)		\
++		BOUNDED_SECTION_BY_ALIGNED(.orc_header, _orc_header, 4)	\
+ 	}								\
+ 	. = ALIGN(4);							\
+ 	.orc_unwind_ip : AT(ADDR(.orc_unwind_ip) - LOAD_OFFSET) {	\
+-		BOUNDED_SECTION_BY(.orc_unwind_ip, _orc_unwind_ip)	\
++		BOUNDED_SECTION_BY_ALIGNED(.orc_unwind_ip, _orc_unwind_ip, 4)\
+ 	}								\
+ 	. = ALIGN(2);							\
+ 	.orc_unwind : AT(ADDR(.orc_unwind) - LOAD_OFFSET) {		\
+-		BOUNDED_SECTION_BY(.orc_unwind, _orc_unwind)		\
++		BOUNDED_SECTION_BY_ALIGNED(.orc_unwind, _orc_unwind, 2)	\
+ 	}								\
+ 	text_size = _etext - _stext;					\
+ 	. = ALIGN(4);							\
+@@ -877,7 +878,7 @@
+ #define TRACEDATA							\
+ 	. = ALIGN(4);							\
+ 	.tracedata : AT(ADDR(.tracedata) - LOAD_OFFSET) {		\
+-		BOUNDED_SECTION_POST_LABEL(.tracedata, __tracedata, _start, _end) \
++		BOUNDED_SECTION_POST_LABEL_ALIGNED(.tracedata, __tracedata, _start, _end, 4) \
+ 	}
+ #else
+ #define TRACEDATA
+@@ -906,13 +907,14 @@
+ 		*(.note.gnu.property)					\
+ 	}								\
+ 	.notes : AT(ADDR(.notes) - LOAD_OFFSET) {			\
+-		BOUNDED_SECTION_BY(.note.*, _notes)			\
++		/* *(.note.*) are natively 4-byte aligned */		\
++		BOUNDED_SECTION_BY_ALIGNED(.note.*, _notes, 4)		\
+ 	} NOTES_HEADERS							\
+ 	NOTES_HEADERS_RESTORE
+ 
+ #define INIT_SETUP(initsetup_align)					\
+ 		. = ALIGN(initsetup_align);				\
+-		BOUNDED_SECTION_POST_LABEL(.init.setup, __setup, _start, _end)
++		BOUNDED_SECTION_POST_LABEL_ALIGNED(.init.setup, __setup, _start, _end, initsetup_align)
+ 
+ #define INIT_CALLS_LEVEL(level)						\
+ 		__initcall##level##_start = .;				\
 
 -- 
 2.55.0
