@@ -4,78 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5ED8C79FB6
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 20:47:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F07D8C79FB7
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 20:50:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBDEC10E6BF;
-	Wed,  9 Sep 2026 20:47:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B77110EA32;
+	Wed,  9 Sep 2026 20:50:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nspB5071";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gOMeFThn";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E491510E6BF
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 20:47:06 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E63910E943
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 20:50:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B0A8B434FA
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 20:47:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C79151F00898;
- Wed,  9 Sep 2026 20:47:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 61343601F0;
+ Wed,  9 Sep 2026 20:50:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73AC61F00893;
+ Wed,  9 Sep 2026 20:50:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788986826;
- bh=v2JjZ/AR3wGVNWpMfGkri5D4yVOiJejXVZCAAY3Mv1w=;
+ s=k20260515; t=1788987014;
+ bh=sEYSNtkQsHWLYM3PXCQWIlCK3l7SMDlKCMnAzv0/c04=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject;
- b=nspB5071AtFnuE/G8Kg521ZFyysvUz+Qhjam+y514c4ehjiskQ6k0FzurMKeHcT+n
- jqV2QP3l1kn5yFNc3XGH3WnQ1u8sp9MLVuzuGHa2eOVSEhnUHTV70FM+4Ou1ylk77q
- ZeEHxG1ygcG9lZw5BQ37pnZcxD5p6OnqkGqXpJZxhV55HoO3sy0BZhMTSlxWU7Xi7E
- TmVaz9tv1ADysDFiB7YqWs8swU9/PbZ9UCngDdF+JyqsoZH6unyXD/ABuq1PeRj23m
- 73P4+9j8oc+cCnc2k21fT79B0caMBUN3w9gp+FZbsjWuiOsT3yp7iNHEHSarSlmeNK
- 9P/v7JmoW5vJg==
+ b=gOMeFThnbpVMkbb/Ox7his+45bTJSZUYII58tClT7B8IjjpnIKFg6jLm5H0UsoOJY
+ RUXCNaGZpbKb5PEhI/OdxxWOoBTXYoZfHWNmCVkVoepyaqJWuS6Qr+gtbhw1myp8bm
+ 2OZUGUh8j0ZkNjOUvlTeX/HNUf11W90knVRiU3Z0Lr2AtlfBHcoH3rUgk6yqGBw/77
+ t61uzTrJ2RmBaP8oTPgK1nQSi5NC5Rgq6AYLeAXtZSIJaGWHHrvi5MpcXjkeMEsamA
+ 8HnZh94+oYrhwK7Ivk/BCHl9N1x8LjC+uOgJ6yV9CduQC/WH37KV6z7otqORactsEp
+ dB8mtHsZclHfw==
 Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
- by mailfauth.ams.internal (Postfix) with ESMTP id 39968198003A;
- Wed,  9 Sep 2026 16:47:04 -0400 (EDT)
+ by mailfauth.ams.internal (Postfix) with ESMTP id C2B03198003A;
+ Wed,  9 Sep 2026 16:50:10 -0400 (EDT)
 Received: from ams-imap-03 ([10.64.2.23])
- by ams-compute-02.internal (MEProxy); Wed, 09 Sep 2026 16:47:04 -0400
-X-ME-Sender: <xms:xcWhaq8_Q61kXo0IMDQ58fPAqQTZ8tf5kHPD1cbQysphdJirlfmWmw>
- <xme:xcWhalgrvIMf_6LUwFUkeHmkL_iOofTXxLXCkcPPpenSv6I1RHHFkRCKG2VtbIPmK
- EbGq-zKwVvlSDAnl4MuU9IeLvxKf63PszZ43lnehBRZDMepx531apmWGw>
-X-ME-Proxy-Cause: dmFkZTFqb0S1UKeED46t7V7AaDZQOyNUriK9lNpweq+oFuFsncA5u/n+amUPWXVGSZwRp0
- aoA/8/u8xfnY7DjRsbI2Jns+nH3zbzBghMPk0AMvv+HCAV1xtzlgjq12QYSqN1X88VeN/A
- pym+2CmbNo0bNNwmFK6AeRvLW7Lf3NSnfmAyULhcp0dZ93rt6kdDUZJIXfZ8gmVGnEo6tx
- gKfs3a3Pus8LjknyRCpkJUQWOFxNv6HOJ0tLWp4tDej+BdccpbNL7qVfwWpDSbo3xgP0ZV
- +LhwuibAxpRy+AXBwU9SB7e4fILZ2mtX+VJdpi7tO54CsxcxGrO2+30XpZGxL4aqy3X/Nl
- 1gPfo82LOa75pb29VtCYbi7hbSrE+I1bAkEgEiiv2NahNkgB1t4s7Ewp80829rozxNkfJK
- KPwFlhghrb1eG05pdm2MzE0XUZYdOwfxlVP9q5OXPtjel2gMm8pti3W78nBqyKf/o4lflK
- Qpu/bK2jlU6URCRZGWhIu30fo/vdFe2DLJPa4pZ9W5XyvsRkq1mBMPdz24wkDsMeQQjwYu
- LXKft9xGEeRQQBdbwdQBtdkNf5QlHj+uDZGeqt6FOmrz1v6RH+XgsibxEKPcfw1OJB9ctn
- msCK7eigEkKHrI2i4qJjI3ns5yxsfUgtgsVG9ygdlwAVs/BRSBsJvb7egJ8w
-X-ME-Proxy: <xmx:yMWhageO8A4LP83Jmioohhfjwe6thY3V70kJBRBqQyIe5itMVwFwcw>
- <xmx:yMWhauiM_Cnexb6zkCeq4RHXfTjukjG049orpmNjHE6TSxnRQfpsEw>
- <xmx:yMWhajIR9pbTPc4bsQ2f6KyOLxYZShCrER8pNrzwIuSZqnWfJ1y0GQ>
- <xmx:yMWhajH9lNnB7WpxdL9cthPnoEJ8jc-F-aFDyzTqIhmNVfechJ_aaw>
- <xmx:yMWhah1w9ymXahoKekUZ7b_C32f4SemT7T4BKD4Q17lhnEtTf0Wjs4Z->
+ by ams-compute-02.internal (MEProxy); Wed, 09 Sep 2026 16:50:10 -0400
+X-ME-Sender: <xms:gMahahDNLKkgf41aoJ7QltWnM6RjqnFpLfXsEojPI_9JWYuPk2iNog>
+ <xme:gMahaqWDng7vjgrXuNAJZtouBbnOu9dKHOb_H84YyQJQkj3qP0y8S-vvvD1z-CQ7u
+ tpVSYnCSUxwrq2nqgQjHhARBIoqOZDKM8W--cYdHTAmXZL6hXtrCpuW>
+X-ME-Proxy-Cause: dmFkZTG0uhuAwommTLNbPA5zod+Ry1qWg/m7XlAGS9AdDnt3HTzO0NGzxkWWcRme1Tw0h6
+ 2oy+SYxgKztzRfyTjPJiM9vSe+eacDZh4DciJUPEIZV25DTKFUp824VkumpHvRrGOv/0uZ
+ ITnJQHUUoBa9V3Il4KqyRBk26etkkKEVTIsIjSYZfhjUr+jIr27VYJ4CUq9E6v0MqhyHHT
+ Pa0UQQrdGQNuqNG6ZLgVgfay6/rIuK7BT7LhjOY8wUuwIQoryxN6QuDg5BU2J/1X+OK6Ua
+ OrBdMMNlKJPGlQuVV1BHGhlCy9po7rYP0YrFEfYf4v1gpVIY+KoUh0HRsQhWy9Z1NcphWX
+ W8sG8Mtoj6S1OZxYPWVZPKkNHhvIs7VSSqEjX33Rj6p04iZ+bqaVzR/Xcb0c5IeJD0evQr
+ +eBpaz3wbej2T+yt4olZbvQCvZMP88jwwKNZFqZCdJC4uemKpuNXA9uqW0Xh3TyuuzQRMq
+ qmYBwykaCczZAe/Vls5T0E9LtGoPESTCNComwicK60COcZaapRYsW1HNZw0sdFhXKPPK/S
+ 5wQD0N+O3DZpgl/p6Gg6ikRyWnFIKINIurficUB19XTpSUuiqo8cL0VbFqagd6oxH6kRLi
+ cm8qR4ZH1F1Y3jJ+GxSwPhDHaQvfeIom0Om/ZrEbgHhWGxbgAzdfgFyt0zqg
+X-ME-Proxy: <xmx:gsahagC8DuynwTStL5ScvWsLHE4Pod8CYU1jOS5DnTK-BttUxCdX9w>
+ <xmx:gsahau3Vr7wX7MCFw_jYXNrh6a-x0a8e6SQ0Zmt9VHhZY4VyWakx8g>
+ <xmx:gsahalOmgsfnZ8TiK2vbZqQHgFzdb5bOjWnkh5RJ2MWqpmVwb-td2Q>
+ <xmx:gsahaj4i2OtfLp4fLGOgmxvOaUJeQPp0JAqE7M3ADtmx_KbHPQpJaA>
+ <xmx:gsahaqbk07EfSSONzdTia82tGwneMbOHRyPdPWn7pCFmJT79vSYE6br9>
 Feedback-ID: i36794607:Fastmail
 Received: by mailuser.ams.internal (Postfix, from userid 501)
- id BB78832A007B; Wed,  9 Sep 2026 16:47:01 -0400 (EDT)
+ id 81AA132A007B; Wed,  9 Sep 2026 16:50:08 -0400 (EDT)
 X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-X-ThreadId: AlHo1ocPbBlo
-Date: Wed, 09 Sep 2026 22:46:41 +0200
+X-ThreadId: Arw8dbDHChV7
+Date: Wed, 09 Sep 2026 22:49:48 +0200
 From: "Arnd Bergmann" <arnd@kernel.org>
 To: sashiko-reviews@lists.linux.dev
-Cc: "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
- linux-watchdog@vger.kernel.org, linux-input@vger.kernel.org,
- linux-rtc@vger.kernel.org, "Conor Dooley" <conor+dt@kernel.org>,
- media-ci@linuxtv.org, linux-leds@vger.kernel.org,
- "Rob Herring" <robh@kernel.org>, "Lee Jones" <lee@kernel.org>,
- devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
- "Dmitry Torokhov" <dmitry.torokhov@gmail.com>, mfd@lists.linux.dev,
- dri-devel@lists.freedesktop.org
-Message-Id: <5c169e15-45a5-46dc-bfdc-84228eb773a5@app.fastmail.com>
-In-Reply-To: <20260909134910.33A1C1F00A3D@smtp.kernel.org>
+Cc: mfd@lists.linux.dev, "Lee Jones" <lee@kernel.org>,
+ linux-rtc@vger.kernel.org,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+ linux-input@vger.kernel.org, media-ci@linuxtv.org,
+ "Conor Dooley" <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ "Rob Herring" <robh@kernel.org>, linux-leds@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ "Dmitry Torokhov" <dmitry.torokhov@gmail.com>
+Message-Id: <9cd2bbe1-6e0a-4387-b082-5ea4d70c7379@app.fastmail.com>
+In-Reply-To: <20260909133929.AB9A01F00A3D@smtp.kernel.org>
 References: <20260909132153.1596191-1-arnd@kernel.org>
- <20260909132153.1596191-14-arnd@kernel.org>
- <20260909134910.33A1C1F00A3D@smtp.kernel.org>
-Subject: Re: [PATCH 13/14] mfd: remove unused menelaus driver
+ <20260909132153.1596191-11-arnd@kernel.org>
+ <20260909133929.AB9A01F00A3D@smtp.kernel.org>
+Subject: Re: [PATCH 10/14] mfd: remove unused rc5t583 driver
 Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -93,62 +94,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 9, 2026, at 15:49, sashiko-bot@kernel.org wrote:
+On Wed, Sep 9, 2026, at 15:39, sashiko-bot@kernel.org wrote:
+
 > [Severity: Low]
-> Is the omap24xx platform completely removed?
+> Does this removal break Kconfig consistency and leave dead code in the tree?
 >
-> It looks like arch/arm/mach-omap2/board-n8x0.c and 
-> arch/arm/mach-omap2/common-board-devices.h still exist and unconditionally
-> include the deleted header, which breaks the build for OMAP2 configurations:
+> The config GPIO_RC5T583 in drivers/gpio/Kconfig still depends on MFD_RC5T583,
+> which violates Kconfig rules since the target dependency is now missing.
 >
-> arch/arm/mach-omap2/board-n8x0.c:
->     #include <linux/mfd/menelaus.h>
+> Additionally, drivers/gpio/gpio-rc5t583.c is left in the tree and still includes
+> the deleted <linux/mfd/rc5t583.h> header, making it unbuildable, and its entry
+> is still present in drivers/gpio/Makefile.
 >
-> arch/arm/mach-omap2/common-board-devices.h:
->     #include <linux/mfd/menelaus.h>
->     extern struct menelaus_platform_data n8x0_menelaus_platform_data;
+> Should the GPIO driver be removed in this patch as well?
 
-As mentioned in the cover letter, this is one of the four drivers
-that are only orphaned after the series I sent yesterday to remove
-omap2 and other platforms.
-
->> diff --git a/drivers/mfd/menelaus.c b/drivers/mfd/menelaus.c
->> deleted file mode 100644
->> index a125d40fa121b..0000000000000
->> --- a/drivers/mfd/menelaus.c
->> +++ /dev/null
->> @@ -1,1251 +0,0 @@
->
-> [Severity: Low]
-> Should the reference to this file in MAINTAINERS also be removed?
->
-> MAINTAINERS:
->     F: drivers/mfd/menelaus.c
-
-This was accidentally removed in the omap2 patch, moving it to this
-patch now.
-
-> [ ... ]
->
->> diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
->> index ec73533703f72..9dfe1ea08c250 100644
->> --- a/drivers/rtc/Kconfig
->> +++ b/drivers/rtc/Kconfig
->> @@ -570,15 +570,6 @@ config RTC_DRV_BQ32K
->>  	  This driver can also be built as a module. If so, the module
->>  	  will be called rtc-bq32k.
->>  
->> -config RTC_DRV_TWL92330
->> -	bool "TI TWL92330/Menelaus"
->
-> [Severity: Low]
-> Does this leave an orphaned defconfig entry?
->
-> arch/arm/configs/omap2plus_defconfig still references the removed config:
->
-> arch/arm/configs/omap2plus_defconfig:
->     CONFIG_RTC_DRV_TWL92330=y
-
-This is now removed in the omap2 removal patch as well.
+Right, I had this as a separate patch but folded that in here now.
 
       Arnd
