@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 365FBC79FA1
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 01:08:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95C28C79FA1
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 01:08:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 924DA10EE37;
-	Wed,  9 Sep 2026 01:08:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0178610EE35;
+	Wed,  9 Sep 2026 01:08:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="au1gVv83";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oPABHvmu";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4D8410EE37
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 01:08:15 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A319F10EE35
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 01:08:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E1B6B601FB;
- Wed,  9 Sep 2026 01:08:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61D901F00A3A;
- Wed,  9 Sep 2026 01:08:14 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8826B42B57;
+ Wed,  9 Sep 2026 01:08:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C71C1F00A3A;
+ Wed,  9 Sep 2026 01:08:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788916094;
- bh=QgUx71SE8d71pLrq+PVW9L01Jc1Tir2GTbsSq0aMYNQ=;
+ s=k20260515; t=1788916125;
+ bh=QwRpdg8NcrFFvxWTqNXfbksaWl9qNZnHPrjgsilbqQc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=au1gVv83amCR7ceF1rQ0qLKkL6nRXIao0hwomcT+m6byPcxcqP1YQ5rqX1Q4KpC2a
- hlxa5sV47zo2ryJCbcxdYD1T6d4GiOiDaqFu2yN6bYCpQi7wE/Z8ir1K4T+VEe0/JL
- 0WkAVPCWsgwQS/shzW+AMQ4awVS7Uo24QP1V8b1y9Fo3URIk1J5JUTvKCZipzkflQV
- 3mCxqaXpTCi0S5mZ13SRRoIEq51f9f6agbdf/oH1lwDqk7GlTxOObXyKQKIxWk8shv
- XenrZ7DHP1PHp+sH0C6hENOXSRQ7jnAapMcKGQIdlD3Btn26IOYZNyaUT4ef38HU9+
- AWLEe7AT4anIw==
+ b=oPABHvmuqjxTVt9Qovzg3Dq2umJEf3o+AiVoCtA8QhIa6SMy23TvqyD+qxEEdJLqz
+ 9EcIaKY9XtQFHWWdCxIzXFtwnEvaVDx2HJnCqkQ0vpIpctbtdOP4iO5fkKYBx2btm7
+ DGSJMT67wtlPYPpBnxrHUer+tASm2MjeT3xNUNXHgMg8qhwJIzSMaiX5qNMnwLixbD
+ d4SkjcRD5/KqxoS4IlIX7wg82YyRNXODl1Ylx+3oEC9QUblf5attwXBcPmpRlS1gGC
+ cdS7eaa8CXNI6vVV1AEDB/ZYVgx3Z0cP8nwbZVOnz22+1AsyiRWUGXwlivNX6knQN7
+ gtqWxVMlxX7uA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 28/39] dyndbg-test: add do_bulk testpoint, rename
- do_prints to do_classes
+Subject: Re: [PATCH v9 29/39] dyndbg-API: promote
+ DYNAMIC_DEBUG_CLASSMAP_PARAM to API
 To: "Jim Cromie" <jim.cromie@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org
-In-Reply-To: <20260908-dd-cmap-part2-clean-v9-28-3a3f621f4a10@gmail.com>
+In-Reply-To: <20260908-dd-cmap-part2-clean-v9-29-3a3f621f4a10@gmail.com>
 References: <20260908-dd-cmap-part2-clean-v9-0-3a3f621f4a10@gmail.com>
- <20260908-dd-cmap-part2-clean-v9-28-3a3f621f4a10@gmail.com>
+ <20260908-dd-cmap-part2-clean-v9-29-3a3f621f4a10@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 01:08:14 +0000
-Message-Id: <20260909010814.61D901F00A3A@smtp.kernel.org>
+Date: Wed, 09 Sep 2026 01:08:44 +0000
+Message-Id: <20260909010845.3C71C1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,82 +58,95 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] The function do_bulk() contains a loop that will run infinitely =
-if the module parameter 'ct' is set to UINT_MAX, leading to an unkillable t=
-ask and a denial of service.
-- [Low] New classes V8 and Vu8 were added to the enums, but were not added =
-to the classmap definition or the test output function, resulting in dead c=
-ode.
+- [High] When CONFIG_DYNAMIC_DEBUG is disabled, DYNAMIC_DEBUG_CLASSMAP_PARA=
+M_REF evaluates to an empty macro, which will silently drop the module para=
+meter for consumers like DRM.
+- [Medium] The commit message claims a modification to `ddebug_sync_classbi=
+ts()` that does not exist in the patch.
+- [Medium] DYNAMIC_DEBUG_CLASSMAP_PARAM zeroes the bitvector regardless of =
+the `DEBUG` macro, causing state desynchronization and an inability to disa=
+ble debug classes when compiled with DEBUG.
 --
 
-commit 7bf906f06540c9e08d2719aba493b1c2f6501853
+commit a5fb641199d77a5e65f10185304cd8aae102e99f
 Author: Jim Cromie <jim.cromie@gmail.com>
 
-dyndbg-test: add do_bulk testpoint, rename do_prints to do_classes
+dyndbg-API: promote DYNAMIC_DEBUG_CLASSMAP_PARAM to API
 
-This commit updates test_dynamic_debug.ko by renaming do_prints to
-do_classes and introducing a new do_bulk feature. It aims to generate
-significant workloads with a single write to sysfs nodes and consolidate
-the parameter operations for these features.
+move the DYNAMIC_DEBUG_CLASSMAP_PARAM macro from test-dynamic-debug.c into
+the header, and refine it, by distinguishing the 2 use cases.
 
-> diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-> index 01ce07001d4c7..b7f9ed9b2794e 100644
-> --- a/lib/test_dynamic_debug.c
-> +++ b/lib/test_dynamic_debug.c
-[ ... ]
-> @@ -103,7 +123,10 @@ enum cat_disjoint_bits {
->  	D2_DRMRES };
-> =20
->  /* numeric verbosity, V2 > V1 related.  V1 is > D2_DRMRES */
-> -enum cat_level_num { V1 =3D 16, V2, V3, V4, V5, V6, V7 };
-> +enum cat_level_num { V1 =3D 16, V2, V3, V4, V5, V6, V7, V8 };
-> +
-> +/* test _USE_ w offset */
-> +enum cat_level_offset { Vu1 =3D V1 + 8, Vu2, Vu3, Vu4, Vu5, Vu6, Vu7, Vu=
-8 };
-
-[Severity: Low]
-This isn't a bug, but since V8 and Vu8 were added to these enumerations,
-should they also be added to the classmap definitions and tested in
-do_levels()? Currently, it appears they are left out of the corresponding
-prdbg() calls and will not generate any log output.
-
-[ ... ]
-> @@ -213,17 +237,42 @@ static void do_levels(void)
->  #endif
->  }
-> =20
-> -static void do_prints(void)
-> +static void do_classes(unsigned int ct)
->  {
-[ ... ]
-> +static void do_bulk(unsigned int ct)
-> +{
-> +	unsigned int i;
-> +
-> +	pr_debug("do_bulk %u times:\n", ct);
-> +	for (i =3D 1; i <=3D ct; i++) {
+> Modify ddebug_sync_classbits() argtype deref inside the fn, to give
+> access to all kp members.
 
 [Severity: Medium]
-If a user sets the sysfs parameter to UINT_MAX, could this loop condition
-become always true?
+The commit message claims a modification to ddebug_sync_classbits() that do=
+es
+not exist in the patch. Is this an oversight or an artifact from an older
+revision?
 
-The commit message mentions using unsigned int to prevent wrapping lockups =
-on
-UINT_MAX. However, if ct reaches UINT_MAX, the condition (i <=3D ct) remains
-true when i reaches UINT_MAX. Then, i++ wraps i back to 0, which is also
-less than UINT_MAX, meaning the loop would never terminate and the task
-would become unkillable.
+> diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+> index b53e7488b7f7d..cc203b6c1b565 100644
+> --- a/include/linux/dynamic_debug.h
+> +++ b/include/linux/dynamic_debug.h
+> @@ -293,6 +293,44 @@ struct ddebug_class_param {
+>  		.offset =3D _offset					\
+>  	}
+> =20
+> +/**
+> + * DYNAMIC_DEBUG_CLASSMAP_PARAM - control a ddebug-classmap from a sys-p=
+aram
+> + * @_name:  sysfs node name
+> + * @_var:   name of the classmap var defining the controlled classes/bits
+> + * @_flags: flags to be toggled, typically just 'p'
+> + *
+> + * Creates a sysfs-param to control the classes defined by the
+> + * exported classmap, with bits 0..N-1 mapped to the classes named.
+> + * This version keeps class-state in a private long int.
+> + */
+> +#define DYNAMIC_DEBUG_CLASSMAP_PARAM(_name, _var, _flags)		\
+> +	static u32 _name##_bvec;					\
+> +	__DYNAMIC_DEBUG_CLASSMAP_PARAM(_name, _name##_bvec, _var, _flags)
 
-Should ct be clamped during parsing in param_set_do_repeats(), or the loop
-structure modified to safely handle UINT_MAX?
+[Severity: Medium]
+Does this macro unconditionally zero-initialize the state bitvector, breaki=
+ng
+synchronization with the actual enabled state of call sites if the module is
+compiled with DEBUG?
 
-> +		pr_debug("bulk msg %u.0\n", i);
-> +		pr_debug("bulk msg %u.1\n", i);
+If a module using this macro is compiled with -DDEBUG, its dynamic debug ca=
+ll
+sites are enabled by default. However, the static state vector _name##_bvec
+is forcibly zero-initialized.
+
+If a user writes 0 to the sysfs parameter to disable the logs,
+param_set_dyndbg_module_classes() compares the new 0 against the old 0 state
+and skips sending the -p queries, leaving the logs permanently enabled.
+
 [ ... ]
+
+> @@ -476,6 +514,8 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+>  #define DYNAMIC_DEBUG_CLASSMAP_DEFINE(_var, _mapty, _base, ...)
+>  #define DYNAMIC_DEBUG_CLASSMAP_USE(_var)
+>  #define DYNAMIC_DEBUG_CLASSMAP_USE_(_var, _offset)
+> +#define DYNAMIC_DEBUG_CLASSMAP_PARAM(_name, _var, _flags)
+> +#define DYNAMIC_DEBUG_CLASSMAP_PARAM_REF(_name, _bits, _var, _flags)
+>  #define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt)
+
+[Severity: High]
+When CONFIG_DYNAMIC_DEBUG is disabled, DYNAMIC_DEBUG_CLASSMAP_PARAM_REF
+evaluates to an empty macro. Will this silently drop the module parameter
+for consumers like DRM?
+
+Consumers of this macro will completely lose their sysfs module parameters
+(e.g., /sys/module/drm/parameters/debug) on kernels built without
+CONFIG_DYNAMIC_DEBUG.
+
+Does the macro need to provide a fallback like module_param_named() to avoid
+breaking kernel ABI expectations for these debugging parameters?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-dd-cmap-pa=
-rt2-clean-v9-0-3a3f621f4a10@gmail.com?part=3D28
+rt2-clean-v9-0-3a3f621f4a10@gmail.com?part=3D29
