@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE92EC79F8C
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 04:07:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 033B0C79F8C
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 04:07:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A11910EE91;
-	Wed,  9 Sep 2026 04:07:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FA0610EE93;
+	Wed,  9 Sep 2026 04:07:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UP3yNutc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PDVfTLe2";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A70810EE91
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 04:07:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B952C10EE93
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 04:07:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DFA5643469;
- Wed,  9 Sep 2026 04:07:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D43D1F00A3A;
- Wed,  9 Sep 2026 04:07:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A23EF40F84;
+ Wed,  9 Sep 2026 04:07:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E1211F00A3D;
+ Wed,  9 Sep 2026 04:07:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788926850;
- bh=DO2yrBIrBGucc4BWF/L/nRU1pvJD6GyS25GhO2rivgg=;
+ s=k20260515; t=1788926866;
+ bh=LpiyQLdpbfhHb+u3xqe69GPkWib5HJD+gnktxfGJlB0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UP3yNutcGPaWBh3dAdcxsATzTiToNj8P/0Sl0bsJT2rWu4VGOpn5cu+CvRDHjZGrl
- FfEPji9IjdTC3B3QjmXZ1ZkjO6/YGEqhEUzdeUE1Ww8qg13hR4ZtRfqBPxSlBFIWMX
- vzQv7x9xYdDYrd8TRsP1aItErrXucz3/u7nzdopd5OFxL+W5A1DUeXadMMs4rcLy3i
- MRSzm0ertwwVHv8BfALvK3vm95uaTLFxzuK8RMhOsU6Y38lxANpdHDiI0N6kjEEMG1
- Yyy1Nm5SCDu9NEWb1U3jqRSa6F3GIAU7VQc9o7nA8EyawJ/PlnnoIBZWmUSJtdnAlR
- 0QcQcstqbEmog==
+ b=PDVfTLe2w98ZnBbxsI+UyAmOnsO9bszBqbNEQCxftPbr1mXyCBLgiN6XAfR6MG/3M
+ ng836fHYolG6oMD0yKEz8MfutboqpFCDxgdxYsQy8dkCUzlnTN/BBjI2aM1upgj87x
+ g60/U+ipBcuYzgnCW9v+f6oUr5PX16yR7BIRbYGmqMCazJ3igiCDV90/gRYrz4F3FM
+ dB8GRSx0/ULj2XLSxUdnvx9JAYsVdnYCxccjC+XqxJ4z/OK8rsieYtEBsUs+tiNF5j
+ YXNdMcKut53s3v3p2P54pE/54mL9ZMoJuy1qDaaI8Bxw6aad8haEfoLNdC7kB51efj
+ JM9M8bFKMtQxA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 10/16] gpu: nova-core: mm: Add page table walker for MMU
- v2/v3
+Subject: Re: [PATCH 04/16] gpu: nova-core: mm: pagetable: Add PteOps trait
 To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260909-mmrebase-v1-10-8dd5d4225d2e@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, "Alexandre Courbot" <acourbot@nvidia.com>,
+ "Danilo Krummrich" <dakr@kernel.org>
+In-Reply-To: <20260909-mmrebase-v1-4-8dd5d4225d2e@nvidia.com>
 References: <20260909-mmrebase-v1-0-8dd5d4225d2e@nvidia.com>
- <20260909-mmrebase-v1-10-8dd5d4225d2e@nvidia.com>
+ <20260909-mmrebase-v1-4-8dd5d4225d2e@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 04:07:30 +0000
-Message-Id: <20260909040730.8D43D1F00A3A@smtp.kernel.org>
+Date: Wed, 09 Sep 2026 04:07:45 +0000
+Message-Id: <20260909040746.4E1211F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,105 +58,50 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The page table walker treats valid system-memory PDEs as missing, =
-which can lead to silent lookup failures or page table corruption if overwr=
-itten.
-- [High] The page table walker silently truncates system-memory Dual PDEs, =
-bypassing the VRAM location check and causing it to read from an invalid ph=
-ysical address.
-- [Medium] The page table walker unconditionally traverses only the small p=
-age table in Dual PDEs, ignoring big page mappings and incorrectly reportin=
-g them as missing or unmapped.
+- [Low] Vertical imports in the `crate::mm` block are not alphabetically so=
+rted.
 --
 
-commit 8ab80bbde0121304a601722ca26dc100aca36061
+commit ee1cdc1cc3fda4aebff8e2ad80ace37f03baef14
 Author: Joel Fernandes <joelagnelf@nvidia.com>
-gpu: nova-core: mm: Add page table walker for MMU v2/v3
 
-This commit adds the page table walker implementation that traverses the
-page table hierarchy for both MMU v2 (5-level) and MMU v3 (6-level) to
-resolve virtual addresses to physical addresses or find PTE locations.
+gpu: nova-core: mm: pagetable: Add PteOps trait
 
-> diff --git a/drivers/gpu/nova-core/mm/pagetable/walk.rs b/drivers/gpu/nov=
-a-core/mm/pagetable/walk.rs
-> new file mode 100644
-> index 0000000000000..76c1729971f53
-> --- /dev/null
-> +++ b/drivers/gpu/nova-core/mm/pagetable/walk.rs
+This introduces a trait for GPU Page Table Entries. New read and write
+helpers are provided that go through a Pramin, allowing the later
+page-table walker and mapper to call PTE operations.
+
+> diff --git a/drivers/gpu/nova-core/mm/pagetable.rs b/drivers/gpu/nova-cor=
+e/mm/pagetable.rs
+> --- a/drivers/gpu/nova-core/mm/pagetable.rs
+> +++ b/drivers/gpu/nova-core/mm/pagetable.rs
+> @@ -8,9 +8,18 @@
+> =20
+>  #![expect(dead_code)]
+> =20
+> -use kernel::num::Bounded;
+> +use kernel::{
+> +    io::Io,
+> +    num::Bounded,
+> +    prelude::*, //
+> +};
+> =20
+>  use crate::gpu::Architecture;
+> +use crate::mm::{
+> +    pramin,
+> +    Pfn,
+> +    VramAddress, //
+> +};
+
+[Severity: Low]
+This isn't a bug, but it looks like the vertical imports in the crate::mm
+block are not alphabetically sorted. Should Pfn precede pramin to comply
+with the Rust kernel coding guidelines for import formatting?
 
 [ ... ]
 
-> +    pub(super) fn walk_pde_levels(
-> +        &self,
-> +        pramin: &mut pramin::Pramin<'_>,
-> +        vfn: Vfn,
-> +        resolve_prepared: impl Fn(VramAddress) -> Option<VramAddress>,
-> +    ) -> Result<WalkPdeResult> {
-> +        let va =3D VirtualAddress::from(vfn);
-> +        let mut cur_table =3D self.pdb_addr;
-> +
-> +        for &level in M::PDE_LEVELS {
-> +            let idx =3D M::level_index(va, level.as_index());
-> +            let install_addr =3D Self::entry_addr(cur_table, level, idx);
-> +
-> +            if level =3D=3D M::DUAL_PDE_LEVEL {
-> +                // 128-bit dual PDE with big+small page table pointers.
-> +                let dpde =3D M::DualPde::read(pramin, install_addr)?;
-> +                if dpde.has_small() {
-
-[Severity: Medium]
-Are big page mappings intentionally ignored here? The walker unconditionally
-traverses only the small page table in Dual PDEs.
-
-If a virtual address is mapped via a big page, this would either fall
-through to WalkPdeResult::Missing (if has_small() is false) or incorrectly
-search the small page table and fail, resulting in lookup failures instead
-of returning an explicit error or resolving the mapping.
-
-> +                    cur_table =3D dpde.small_vram_address();
-
-[Severity: High]
-Does this silently truncate system-memory Dual PDEs?=20
-
-Unlike the regular PDE path which explicitly checks pde.is_valid_vram() to
-prevent truncating the wider system-memory frame number, this Dual PDE path
-unconditionally calls dpde.small_vram_address(). If a Dual PDE points to a
-small page table in system memory, this could read from an invalid physical
-VRAM address, leading to data corruption or a GPU fault.
-
-> +                    continue;
-> +                }
-> +            } else {
-> +                // Regular 64-bit PDE. Use `is_valid_vram()` because
-> +                // `table_vram_address()` only reads the VRAM frame-numb=
-er
-> +                // bitfield; system-memory PDEs store the address in a
-> +                // different (wider) field and would be silently truncat=
-ed.
-> +                let pde =3D M::Pde::read(pramin, install_addr)?;
-> +                if pde.is_valid_vram() {
-> +                    cur_table =3D pde.table_vram_address();
-> +                    continue;
-> +                }
-> +            }
-> +
-> +            // PDE missing in HW. Ask caller for resolution.
-> +            if let Some(prepared_addr) =3D resolve_prepared(install_addr=
-) {
-
-[Severity: High]
-Could this lead to overwriting valid system-memory PDEs?=20
-
-When walk_pde_levels() encounters a regular PDE that points to system
-memory, pde.is_valid_vram() will return false. The logic then falls through
-to this "PDE missing" block.
-
-If the walker is used to allocate or install a missing PDE, it could
-instruct the caller to overwrite the valid system-memory PDE with a new VRAM
-PDE, causing a memory leak of the old page table and loss of its mappings.
-
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-mmrebase-v=
-1-0-8dd5d4225d2e@nvidia.com?part=3D10
+1-0-8dd5d4225d2e@nvidia.com?part=3D4
