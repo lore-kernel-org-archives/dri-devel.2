@@ -4,45 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B85EC79F8C
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 04:19:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63D42C79F8C
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 04:25:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F39A710EEA2;
-	Wed,  9 Sep 2026 04:19:00 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CnOG0pNN";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFB6710EEA2
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 04:18:59 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C04AF43CEC;
- Wed,  9 Sep 2026 04:18:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61FF11F00A3A;
- Wed,  9 Sep 2026 04:18:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788927539;
- bh=+oD4dm05hw5M/cWvLh1yAyaLYIKPJMWlv66Pfz7uEl8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CnOG0pNNQa7C+HHQeDkKQUhD5hSS795IQe1lxMHYmNP51p7gGTTi8ScTJIWduuM87
- SycMR9pTKO4nUz5p0+momtyDOt0o3TSSz1y7wL8PlHO0iSMQenn1HZFjycngb8B/9k
- jcPcB5hZKxciyH7Mc+DEPqJQZUJFeVDg4eFmHgqJMr8F5q7rkRmAFL4XGfygQP2P5Q
- xZFMspCWnuD23KdbAPozIlJQupqNHOCiSSwIHFIlKau3uWBxAh+trQ/Bm3kA/zwNHP
- dGP6NzjCpac4N3/c7mGPM8pfp0D03xjciF9KGUH6IMAtKurcD9VuKvhjLPaTg7xL53
- Nq7YDFN9Fa5RQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 16/16] gpu: nova-core: mm: Add BAR1 memory management
- self-tests
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260909-mmrebase-v1-16-8dd5d4225d2e@nvidia.com>
-References: <20260909-mmrebase-v1-0-8dd5d4225d2e@nvidia.com>
- <20260909-mmrebase-v1-16-8dd5d4225d2e@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 04:18:58 +0000
-Message-Id: <20260909041859.61FF11F00A3A@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C782F10EEA4;
+	Wed,  9 Sep 2026 04:25:28 +0000 (UTC)
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net
+ (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D715610EEA4
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 04:25:26 +0000 (UTC)
+Received: from zju.edu.cn (unknown [10.98.66.117])
+ by mtasvr (Coremail) with SMTP id _____wA3IT+q36BqsMIBAQ--.6619S3;
+ Wed, 09 Sep 2026 12:25:15 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+ by mail-app2 (Coremail) with SMTP id zC_KCgAnl8yp36Bq1ERlBA--.7899S2;
+ Wed, 09 Sep 2026 12:25:14 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: ogabbay@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, koby.elbaz@intel.com, konstantin.sinyuk@intel.com,
+ Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] accel/habanalabs: fix use-after-free of decoder array on
+ removal
+Date: Wed,  9 Sep 2026 04:23:33 +0000
+Message-Id: <20260909042333.652206-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zC_KCgAnl8yp36Bq1ERlBA--.7899S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?XK2YWwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+ sfncGSG+szpQCInt5Y8rbJUI1WPFe0A9UKFs1YTwuduIBOmQvZqqXZuwkW8ECt1H6MeYyT
+ 6x7/eIh0Wrdk168UJUs=
+X-Coremail-Antispam: 1Uk129KBj93XoW7urWxAw4fCrWDuF13tw13GFX_yoW8uF1rpF
+ WrGFWrAFW7Ga1xCw1Yyay0vFy3u3sI9rWIkF1Ikw4Skrs8Jry8Gw15KF1Y9ry3CrWxZa4j
+ vF4qqrW5uF45JrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+ xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+ CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+ xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+ kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+ 6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+ I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+ 6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+ 0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
+ JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,141 +65,65 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Hardware Use-After-Free due to dangling Page Directory Entries (PD=
-Es) when temporary Vmm instances are dropped.
-- [High] Hardware Use-After-Free: Early error returns bypass explicit unmap=
-ping, leaking hardware PTEs pointing to freed VRAM.
-- [Medium] Logic Error: Overlapping Virtual Frame Number (VFN) allocations =
-corrupt global state.
-- [Medium] Hardware Synchronization: Missing dummy reads to flush posted MM=
-IO writes across different PCI BARs.
-- [Low] Unconditional `#[expect(dead_code)]` causes a build error when self=
-tests are enabled.
---
+The abnormal decoder interrupt queues the decoder's abnrm_intr_work
+work item on the system workqueue, and the work callback uses the
+decoder entry it is embedded in.
 
-commit 8fda415a03ac7ee1e1b918cb7cfe5d0bb8315e6c
-Author: Joel Fernandes <joelagnelf@nvidia.com>
+hl_device_fini() releases the decoder interrupts through
+cleanup_resources() -> halt_engines() before it calls hl_dec_fini(),
+which frees the decoder array without waiting for these work items.
+A work item queued by one of the last interrupts can still be pending
+and run after the array has been freed.
 
-gpu: nova-core: mm: Add BAR1 memory management self-tests
+Fix this by waiting for each decoder's work item in hl_dec_fini()
+before the array is freed. The error path of hl_dec_init() keeps
+freeing the array directly: no interrupt has been requested yet, and
+the entries past the failing one have never been initialized.
 
-Add self-tests for BAR1 access during driver probe when
-CONFIG_NOVA_CORE_SELFTESTS is enabled (default disabled). This results in
-testing the Vmm, GPU buddy allocator and BAR1 region all of which should
-function correctly for the tests to pass.
+This issue was found by an in-house static analysis tool.
 
-> diff --git a/drivers/gpu/nova-core/mm/bar_user.rs b/drivers/gpu/nova-core=
-/mm/bar_user.rs
-> index ef1d8e6f8c9c3..1bef01d147ada 100644
-> --- a/drivers/gpu/nova-core/mm/bar_user.rs
-> +++ b/drivers/gpu/nova-core/mm/bar_user.rs
+Fixes: d7bb1ac89b2f ("habanalabs: add gaudi2 asic-specific code")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/accel/habanalabs/common/decoder.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-[ ... ]
+diff --git a/drivers/accel/habanalabs/common/decoder.c b/drivers/accel/habanalabs/common/decoder.c
+index e4802f30c08a..ed0c25934206 100644
+--- a/drivers/accel/habanalabs/common/decoder.c
++++ b/drivers/accel/habanalabs/common/decoder.c
+@@ -85,6 +85,16 @@ static void dec_abnrm_intr_work(struct work_struct *work)
+ 
+ void hl_dec_fini(struct hl_device *hdev)
+ {
++	struct asic_fixed_properties *prop = &hdev->asic_prop;
++	int i;
++
++	if (!hdev->dec)
++		return;
++
++	/* interrupts are gone, but a queued work item may still be pending */
++	for (i = 0; i < prop->max_dec; i++)
++		cancel_work_sync(&hdev->dec[i].abnrm_intr_work);
++
+ 	kfree(hdev->dec);
+ }
+ 
+@@ -119,7 +129,8 @@ int hl_dec_init(struct hl_device *hdev)
+ 	return 0;
+ 
+ err_dec_fini:
+-	hl_dec_fini(hdev);
++	/* No interrupt was requested yet, so no work could be queued. */
++	kfree(hdev->dec);
+ 
+ 	return rc;
+ }
 
-> @@ -84,6 +87,7 @@ pub(crate) struct BarUserAccess<'gpu> {
->      mapped: Option<MappedRange>,
->  }
-> =20
-> +#[expect(dead_code)]
->  impl BarUserAccess<'_> {
->      /// Tear down the BAR1 mapping.
->      pub(crate) fn release(mut self, mm: &mut GpuMm<'_>) -> Result {
-
-[Severity: Low]
-When CONFIG_NOVA_CORE_SELFTESTS is enabled, try_read32 and release are
-used by the self-test, so they are no longer dead code. Since kernel
-Rust builds treat warnings as errors, does this unconditional lint
-expectation cause a build failure?=20
-
-Should this use cfg_attr to be conditionally applied?
-
-[ ... ]
-
-> +    // Create a VMM of size 64K to track virtual memory mappings.
-> +    let mut vmm =3D Vmm::new(pdb_addr, chipset.mmu_version(), SZ_64K.int=
-o_safe_cast())?;
-
-[Severity: High]
-Does dropping this temporary Vmm later in the function leave dangling PDEs
-in the live hardware pointing to freed VRAM?=20
-
-The Vmm allocates PT pages from the buddy allocator and writes PDEs into the
-live hardware page directory, but its Drop implementation does not clear th=
-em,
-and the PT VRAM is freed when the temporary Vmm is dropped. If this VRAM is
-reallocated for user buffers, could the GPU MMU misinterpret user data as
-page tables?
-
-[Severity: Medium]
-Will this temporary Vmm (and the BarUser created later) allocate VFN 0
-for their first mappings and blindly overwrite mappings placed in the
-global page directory by the live driver's bar_user?
-
-> +
-> +    // Create a test mapping.
-> +    let mapped =3D vmm.map_pages(mm, &[test_pfn], None, true)?;
-> +    let test_vfn =3D mapped.vfn_start;
-> +
-> +    // Pre-compute test addresses for the PRAMIN to BAR1 read test.
-> +    let vfn_offset: usize =3D test_vfn.raw().into_safe_cast();
-> +    let bar1_base_offset =3D vfn_offset.checked_mul(PAGE_SIZE).ok_or(EOV=
-ERFLOW)?;
-> +    let bar1_read_offset: usize =3D bar1_base_offset + 0x100;
-> +    let vram_read_addr =3D test_vram + 0x100;
-> +
-> +    // Test 1: Write via PRAMIN, read via BAR1.
-> +    mm.pramin_mut()
-> +        .window_at::<u32>(vram_read_addr)?
-> +        .view()
-> +        .write_val(PATTERN_PRAMIN);
-> +
-> +    // Read back via BAR1 aperture.
-> +    let bar1_value =3D bar1.try_read32(bar1_read_offset)?;
-
-[Severity: Medium]
-Since PCI memory space writes are posted operations, could the read from
-the BAR1 aperture arrive at VRAM before the write via PRAMIN completes?
-
-Is a dummy read from PRAMIN required to explicitly flush the write before
-reading via BAR1 to avoid spurious test failures?
-
-[Severity: High]
-If try_read32() returns an error, the function will return early via the
-`?` operator. Since the early return bypasses explicit cleanup calls like
-vmm.unmap_pages(), does this leak live PTEs in hardware pointing to freed
-VRAM?
-
-If the selftest fails early, the driver probe continues normally since the
-error is caught in run_selftests() in gpu.rs, which would cement this UAF
-condition in the running system.
-
-[ ... ]
-
-> +        for j in 0..num_pages {
-> +            let page_bar1_off =3D bar1_base + j * PAGE_SIZE;
-> +            let j_u64: u64 =3D j.into_safe_cast();
-> +            let page_phys =3D block.offset()
-> +                + j_u64
-> +                    .checked_mul(PAGE_SIZE.into_safe_cast())
-> +                    .ok_or(EOVERFLOW)?;
-> +
-> +            bar1.try_write32(PATTERN_BAR1, page_bar1_off)?;
-> +
-> +            let pramin_val =3D mm
-> +                .pramin_mut()
-> +                .window_at::<u32>(VramAddress::from_raw(page_phys))?
-> +                .view()
-> +                .read_val();
-
-[Severity: Medium]
-Similarly, does writing to BAR1 and immediately reading from PRAMIN
-require a dummy read from BAR1 to flush the posted write?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-mmrebase-v=
-1-0-8dd5d4225d2e@nvidia.com?part=3D16
