@@ -4,62 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C676AC79FB6
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:18:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E6ADC79FAD
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:18:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14DA110E1B0;
-	Wed,  9 Sep 2026 13:18:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3540410E1A4;
+	Wed,  9 Sep 2026 13:18:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RZuFXX5d";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QkDwwsHi";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B03210E1A4
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF76010E1A4
  for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 13:18:13 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-49ccfae359fso50726875e9.3
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-49b912e2406so9393255e9.1
  for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 06:18:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788959891; x=1789564691; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=HvghOuLjdGckWUGg22tsk2EsT2+V1tsYrjUZGr3klh0=;
- b=RZuFXX5dSk1ajB8BBKKG8pYsUSxKm7Xn6jwzlykhvViTNqmbWplYk0Vc+Q5ZiMj3da
- OyOKL7n15WRnTuicJeLqP3BC+0dMu/LwmrDWXYX25G8br5x8+Fk9KWa/nzrt97vAf8/r
- DDpMRZrQa9STx6jHSUvxx55M2WlR/yuKrm9JVIGDSYQNnDAtt/DZFEsLV7u7lzriksZt
- oXKbV7wwhF6ZccpvzbzvInqKtRBQXvGNFj3SBCdrcAtF4r0N9MdyavK0HOymunwzc2rK
- zdSCjazL9kfpBMvhOmjRbI8Khe7ot+jUMOZPutERIhWZ6pBTXh/kHfMNej6oYJ6UI+kS
- uD7w==
+ d=gmail.com; s=20251104; t=1788959892; x=1789564692; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:reply-to:content-type:mime-version
+ :references:in-reply-to:message-id:date:subject:cc:to:from:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=R4bCu5HRDrBYxQ3ZQ5U942enQUCmlULb13io90gargA=;
+ b=QkDwwsHiDD7m9CdKR3a4sD3t2uHiyXhWlXSm2Lx5FqvNsoVZ7konNXJWwVsottgh3/
+ nAWK5QTPzf/ByDi2rvd/FjvBt91hgTAVZwZjC303RQXs7R/K6q9N7HKlHI5qSMyMgy+Y
+ 1PyejrEkFLW0661egAAz6CrUDLOQIevYdt3YIMrXTUr1uIgUlCMnylhrYUCCGCd4a+UG
+ 1bD569m6TSbM49s5JJRQ3DOSdW1lRfKIzFARGWVWwYpNrqTdEYBekgifY76bsG8w9u8k
+ azOOsSQmDajeybYpcVWKO3uZvx8Xfp50u3Kd6EzFmOJ5SybOPhOaLHfG7+nIuLdONde7
+ DoAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788959891; x=1789564691;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=HvghOuLjdGckWUGg22tsk2EsT2+V1tsYrjUZGr3klh0=;
- b=aQYkw7G89IdMjEewEHhsSMW95NEsRYOegGXGxYr6YsmcBxyYfsKnu3Fi3/VezW+7x8
- ZMheoz7lKqQyJOKijMHhhTL+zgyHWbvYTgE3i4QQdWj4xQrreCdJH+N25N2AWG0dSfB1
- s0bDMSHVoDVUhH4+K6EfP3Bzf7tOAoQoSR/83/T14N4dCVwr8e+DwBymnIFVlOR2trmk
- SmCX27hPqMJSZ1oudKw7T9Gd07T24eGL7vE5LAFen2njrSkccHJFk7X73CyLhdloYC/i
- wGd5rdlkLUSkM675h9j9AfHFQC9Yq5Jki08D44VoR4gFjjoIUaGvVbwIKUd0v2fdgJaz
- fuRg==
-X-Gm-Message-State: AFuF++k6wn9JR2fdaOlihu6oYPnWMErQTsdHg6Nxaz56nxrUOJ01h9HH
- gau4GjsWe91FbWxAW+SrjjkX+0L8MoLpvfXUQL394brp3LRJJpNYIhO5
-X-Gm-Gg: AYBFou0uh8Z/tDv8Okl8+vEQZbmbc3vtNNsB/uiSobHA37LmDXjk8fHARnjSsv91eRy
- epOMsDv6Je7Lgfy+YsXPsNjez0rLzzR7j2k5OMmYGeWtJZhmNMWsruNA2/GvTYw0d3f402k6sSl
- sOG6fhIlgWc7o7yaUuh6qvd1relwQEgPoYxk5bwFj1RB+99yC1OhLucy/5/YYwWgGW5DX0fHbNr
- Zqwh0EJ6PEdy7qzVegqmzYAY2rRTFomexxhrbM3uQ1oQgMPItFxy2WBvDa6M0uxhtszbvBLnMXI
- YFSyr+93ekvEvVUmZzqwP7oSlLiUimXc9IsqNfqYmjZYdQmc3NPJarwCjtc5Kqb37A2tHNQfQAv
- r4Q5pxqwvVq3+uF0OxOJpLqQpCqtnL8OQJONQthqfQxb4mgtcvIi9jSWDnqhnhrpLaGLRE7xZMv
- uOOS7PBLj+5ESnYi/bHt+BZIKt4ltSJssZ8UY18KT5QXql4MEUSi7dHJJceHPfjGk5KfDpHAz2V
- MxLa/3tTwmR
-X-Received: by 2002:a05:600c:c173:b0:49c:cedc:3c36 with SMTP id
- 5b1f17b1804b1-49cf82a514cmr371518115e9.16.1788959891201; 
- Wed, 09 Sep 2026 06:18:11 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1788959892; x=1789564692;
+ h=content-transfer-encoding:reply-to:content-type:mime-version
+ :references:in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=R4bCu5HRDrBYxQ3ZQ5U942enQUCmlULb13io90gargA=;
+ b=tGKSEAgylw3X3ZoJtZmaGhTkHPdyaAuClky7ptgOCHL286FQJnZqMBLtO4gG8R/ixX
+ 9mv6A7Gmzt4g+1tvu9vMMWD2wo/QnPaUO/1qSFgTV3pbeux3+8n7cbWfKT/+h6OQ+JS5
+ hiV3Sgnf3m5Z6L33sTh713NMcWURMVHzasPW3NGm62phVwMj7IOD4dNfFFf/2Sh5RQIU
+ p/Aq8Is1N8SDUT9op6YWnHZFy/WFw9+EPf4OUVIUBgEUNSF947mU36PGxP72wIZHnsT5
+ U+JuOaQtpBOB1HyetPCrolrZjHtEfae27sHtmSEDtxJqKhVFEcueBzvEKmOo7HMLhjB3
+ l7hg==
+X-Gm-Message-State: AFuF++mq3RxN1fp2k2+/7UnPntQ/wN2k/dyKaqXAT/kEC+XM3O0HNAa2
+ seFD2/eRjZ/Xc5eOV5Z+ZwyQAdAk8eL+wE3D12AFq3Bb9QWD4JxKjoWe
+X-Gm-Gg: AYBFou2AIuQteofQ1ZB0Z2CuwKh+0jvM5Hncti08KwrzGghm9r/WiMghw9D7GO5RwYR
+ 2mcEzrexc1OlIfTMKYDDAmo+5BW4bwmK0eJ/KKj39+qj/twBPWW1IGUbaPdk3F7TC5bo4FZaKly
+ 10LEvq3TJaoXiLPzetD0W275kK4cUeKbSbqlZXh3fGHyJX47Q1ppUpVIbEpSinCq77dUD18cEnG
+ cST+o1nFh8Pj1OjG0gQKYdE0oVYswBiwbUiPF1Q5mOXl7hdOHFUnYNdXixezc9Idic5ijSp2bN1
+ 8vU09j3RuTY6zs/roC4ErVkVSG42MSxUuEXqsw0BKJe8QTMpe3ZdKf7n/6Mmfb29X5w/pVCm0Ca
+ sdRdZ1+30+GxtvIVe4BO7bvAskmPqWuG1YJ/hnwfZQ9PgBIAJfV9T5gud5DZFug2Ept24Ovgfpg
+ 8hZdtZZe7NUR4+GAuWfjbJhj0HLf3hUi3qaYMI7mJCnipouHSkqMO8Q8mZ0QXAwfuOCXYzVfjX9
+ NUPAre/RLNO
+X-Received: by 2002:a05:600c:b8d:b0:49c:e37e:4389 with SMTP id
+ 5b1f17b1804b1-49d1754e950mr144997695e9.4.1788959892008; 
+ Wed, 09 Sep 2026 06:18:12 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:1568:cb00:7389:2b93:7e4e:44c7])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49cee80eda4sm555457755e9.15.2026.09.09.06.18.10
+ 5b1f17b1804b1-49cee80eda4sm555457755e9.15.2026.09.09.06.18.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Sep 2026 06:18:10 -0700 (PDT)
+ Wed, 09 Sep 2026 06:18:11 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -67,11 +69,15 @@ To: phasta@mailbox.org, malhyuk97@gmail.com, tursulin@ursulin.net,
  matthew.brost@intel.com, dakr@kernel.org
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com
-Subject: Fix dma_fence use after free regression
-Date: Wed,  9 Sep 2026 15:14:22 +0200
-Message-ID: <20260909131808.2201-1-christian.koenig@amd.com>
+Subject: [PATCH 1/2] dma-buf/dma-fence: fix checking signaling bit for
+ timeline and driver name
+Date: Wed,  9 Sep 2026 15:14:23 +0200
+Message-ID: <20260909131808.2201-2-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260909131808.2201-1-christian.koenig@amd.com>
+References: <20260909131808.2201-1-christian.koenig@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,23 +91,56 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: christian.koenig@amd.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi everyone,
+The patch "dma-buf: dma-fence: Fix potential NULL pointer dereference"
+changed the check to test for the ops pointer instead of the signaled
+bit to avoid a potential NULL dereference when the ops pointer has been
+cleared.
 
-as discussed in a separate thread Jonghyuk Kim(MalHyuk) stumbled over an
-use after free which we through should have already been fixed last
-year.
+The problem is now that the ops pointer is cleared only when neither the
+release nor the wait callback is implemented and this isn't true for a lot
+of dma_fence implementations yet. So those implementations lost the RCU
+protection after signaling of the returned string resulting in potential
+use after free.
 
-Turned out that a recent patch regressed that by limiting the check to
-the ops pointer instead of checking both ops and signaling status of a
-dma_fence.
+Add the signaling check additional to the ops pointer check so that we
+have both the protection against NULL dereference as well as the RCU
+protection after signaling for the returned string.
 
-Fix this and also add a few lines of comments to drm_sched_fini() to
-document the necessity of an RCU barriere after signaling the last
-drm_sched_fence object.
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Fixes: 035219a760ed ("dma-buf: dma-fence: Fix potential NULL pointer dereference")
+CC: stable@vger.kernel.org # 7.2+
+Reported-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
+Tested-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
+---
+ drivers/dma-buf/dma-fence.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Please review and comment,
-Christian.
+diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+index 05090fb0fd5a..e92f9df8d63c 100644
+--- a/drivers/dma-buf/dma-fence.c
++++ b/drivers/dma-buf/dma-fence.c
+@@ -1170,7 +1170,7 @@ const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
+ 
+ 	/* RCU protection is required for safe access to returned string */
+ 	ops = rcu_dereference(fence->ops);
+-	if (ops)
++	if (!dma_fence_test_signaled_flag(fence) && ops)
+ 		return (const char __rcu *)ops->get_driver_name(fence);
+ 	else
+ 		return (const char __rcu *)"detached-driver";
+@@ -1203,7 +1203,7 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
+ 
+ 	/* RCU protection is required for safe access to returned string */
+ 	ops = rcu_dereference(fence->ops);
+-	if (ops)
++	if (!dma_fence_test_signaled_flag(fence) && ops)
+ 		return (const char __rcu *)ops->get_timeline_name(fence);
+ 	else
+ 		return (const char __rcu *)"signaled-timeline";
+-- 
+2.43.0
 
