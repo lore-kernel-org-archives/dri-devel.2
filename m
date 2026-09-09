@@ -4,127 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A616C79F8C
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 07:06:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93FA2C79F8C
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 07:11:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C9D610EF78;
-	Wed,  9 Sep 2026 07:05:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C34F810EF7B;
+	Wed,  9 Sep 2026 07:11:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="b7DZiH3T";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="vNs+D0Pg";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="RWGZAnFM";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="hEGDkRml";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="0W9jX+aB";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013041.outbound.protection.outlook.com
- [40.107.201.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FD0510EF77;
- Wed,  9 Sep 2026 07:05:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=p0DzyUbfTncMAfrlO3bZtotd/Qv4Tytg6608hp2YrRw8oaMKhGBMzgZHtjbiyVJxOp0b3qIGDaOoq570grVUaK/GDJB7L8M3EHBiInMCyu+5Vvds+HgO1XmMrxhegIepfUJxsttlinTZwNpqOtxyC+h59dBBMKnKYhDne6TtaejuNOIIQcLRQGPg7BIt5AugN33hVg406duP8cuDhpY5jJF65D2GTK+u5l28Wu2NtijL7MTORo7xW2YbrCDxcwd2CzG0/PoJJO4NLEe++6WTGyhhdbFAeK4kIjYJMU73q33DR+tAAPjhzFeY3a494MwAH6UHB0Az5nEfQZk0+R8y7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ceg6YiE1E5WaDiw64jHGUklgCOYbHYyWU2Zr1b+ClgQ=;
- b=SghVLmJmM+B6OjJwLszVmTvxoPRJ6glIp3vITTDAp8GDBioB3ZKIx7XyvDFRUXhH+nFkyGHf+AADVHHv4E7J8686AFPyAiAN6wmw/4l/cmZI2l4ORLEs8rTN/kt9rNLuLAtqbVkqVRPtQ3zgaqsLHgi0bO/7IqKJNLTTD0Y0VIpurWWe6varizRIGyCD/IKYKZGYTHKxHEhKnrX70z/gPjUJ/GbC2H6LXRECYcsj81m8kmme/8NrK+APs/2wWk5UZwA+02UFR9Ba8JnhUg7pnFa6JmRsRrA76hhHiV6oii7MnJuu+AzmgNstLgGNoBiKI6McXu4HcvpAGMo25KgBiQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ceg6YiE1E5WaDiw64jHGUklgCOYbHYyWU2Zr1b+ClgQ=;
- b=b7DZiH3T7aKBxAXm1tcKjMY/MC8zBEElAJensUjK5khMuTh2odXzpwDx1ikgUzlYdr/lLb30JoQVyhYzs+vcUiePFOk/91FFvB3hP3hFirJktPLqW5dM1n4heWScOjdCbQY1i6a9fYlFSShkq678J8AXSApYPaY+TB47xFCt+kA=
-Received: from MW4PR12MB6803.namprd12.prod.outlook.com (2603:10b6:303:20e::10)
- by DS0PR12MB9345.namprd12.prod.outlook.com (2603:10b6:8:1a9::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
- 07:05:51 +0000
-Received: from MW4PR12MB6803.namprd12.prod.outlook.com
- ([fe80::c193:ef2e:260f:dcfd]) by MW4PR12MB6803.namprd12.prod.outlook.com
- ([fe80::c193:ef2e:260f:dcfd%6]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 07:05:51 +0000
-From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, Ed Schofield
- <ed@aicharmers.com>
-CC: "Guna R . Bharati" <062bel313@gmail.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] drm/amdgpu/smu: Enable UCLK after init in AMD Radeon Pro
- 5300
-Thread-Topic: [PATCH] drm/amdgpu/smu: Enable UCLK after init in AMD Radeon Pro
- 5300
-Thread-Index: AQHdM/uLjqzkZB8+v0CfrEH3NFaxZLbF5zkQ
-Date: Wed, 9 Sep 2026 07:05:51 +0000
-Message-ID: <MW4PR12MB6803F4CF9FA37FAE2FB0C5778EB02@MW4PR12MB6803.namprd12.prod.outlook.com>
-References: <20260824190409.1724-1-atharvatiwarilinuxdev@gmail.com>
-In-Reply-To: <20260824190409.1724-1-atharvatiwarilinuxdev@gmail.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-09T06:51:09.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4PR12MB6803:EE_|DS0PR12MB9345:EE_
-x-ms-office365-filtering-correlation-id: 64b59fc1-ef0e-4b34-6eb3-08df0e40c858
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|23010399003|1800799024|38070700021|10067099003|11063799006|56012099006|22082099003|18002099003;
-x-microsoft-antispam-message-info: aSbEtr5UJu9YIy4JmO/qiSLPLuTIfjChSnAw35p0gch8YU5fW+zuppb+pAOSNbGF0bnHTsW2ZlDt/8gopzV7mETWcj4agdEvvxL61BYxqKl0NO0upJzqQN5RovGJxcyr+60yRQBXJ4IOYkb0tplu8rED5nEGCN4HgTwDuBltWgWxQKvEwPzxxK3yiCZfDUTtg+3x9RDCu4fM5ZdU/k67+DAM7Vl7D2fgeoL+m07AX9PWyGtGQYrjDtMopGppLdnmHxoY1VqmQul/576Tjut0gfnetxFksyaRnXy4dRuh2inkSLRB8SC1yV/Q5hVXXqavO8fw6HeayY5LgG1OKtGGoK2ELi6UxW/rnnZoXbIdXjKFzWXX+4okRquRVJSlAyYAKaXCQ8RnscUnv+BT33HStyDyI2ZsP9e2Yc3qXx4tetmAr9RMv/u9OMT99R0Fhl+/VivT6VNQ4pcwe3JJmU6Whh7FJOGJu1E6STOS2GVdZPMBJ/HcssZi18/Cu4Bnia0reY3bonbRreWirv1D0KU2pvasXlAcOhjqJ5L+suBKcgPK/Kw1k/fBJrbDj8L41B1TZPlWLUATauA79MGH+HZa2qoh67s8P6NZ/ZfugQk/OflaNJPrXJEBAzoHxMVGWI/cnoynS9ZbIGFgD7K8PGFzF82y8f+sdKCyB7N8ACctzvk=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6803.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(38070700021)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?rImCTL7CtrF92USAB6jimoUtgTKdQo25GS1Pd+ulj1d5Vc9hmy/jgfleSD9x?=
- =?us-ascii?Q?CN/SiVfyC+VIsLXIw0DdWwNT+OijaM9+RYhwclVwL0LwAG0CsrD966TY8mwb?=
- =?us-ascii?Q?7BV2WFjZAwH+6gRP+hYy7wswcIPH/yZ78EIgSKwzcwcj+xFCa6x4MkPD/+qd?=
- =?us-ascii?Q?NyKpRd905ppH/nhK6mKKm6d9aGcLoKgfJtzhSsWJn6vbWM3wQaAtLxrLpcOC?=
- =?us-ascii?Q?xoz1Jlt9aKYrVAnQW4GUeiNYhIA5vQo7s+55b/IE7/19ZTdhja8sTKjIbCDw?=
- =?us-ascii?Q?7inl/fzx/9Xf9P6cxGmD/kSShQVhBCJqEmd7TiYJF1dkJvPonLW/saH6aCNr?=
- =?us-ascii?Q?Nzkib5r8AHwVBu/XnTlz+Nw/lzYy5vBop8/Jr1P/Xj/UFprI74Ur/EDY9TNB?=
- =?us-ascii?Q?CGUPasdlFZoGY7chdQWvkgnsXIhVWH1w8ntcuWrU48C1dvCp4xMCKsRT5m7j?=
- =?us-ascii?Q?FvYx5pwBvFnW28pKX94hsjLImM1iIAc9MOuKnjfphvUIT/iXHiCIQnrRlydH?=
- =?us-ascii?Q?J7T10CU7ZAsaTjvHDPvU2sE0yWZvp9t8+VqHlGNSh9Inmz4Nf3BVgwIaiCIk?=
- =?us-ascii?Q?ZS3PoU7BEgBPbRrw/LAvIvHwtYf1OtwQ7ys4pcp56cs1BWZOhQnu3p58p5QB?=
- =?us-ascii?Q?2Ov5/9tcZ/31mGR1uJvsDbbEn2J4CQg+3vxVIuLXrUWsaRtwMZGD3LKAoRsi?=
- =?us-ascii?Q?ycoHk41HhlPcknq6P7M0ZpjKtDa4rzip62y81jma1x6x5rS9tDUHWwVIov74?=
- =?us-ascii?Q?fOtvoTBnnwyAhlBsCF533M6zb/E8gESLf7mF/61LjLhyD1ZxS88CzF/VAdBj?=
- =?us-ascii?Q?kzbhMmSxe6mzWEg7OCTvenn71dQrXgK1XmQ7lLV2yOkbEyvYick/o2KHvjlU?=
- =?us-ascii?Q?pkCBoIpGc6JSTixOaXthIpER06zIHRUm7Peg6sJhoLFNSNJWoq2xitW1DIh3?=
- =?us-ascii?Q?M8SwJpsMfIBThSzPRa8RNO2d8C/2MmiLp2qwAOeVvkPNYTnb+fFev0WhYlvD?=
- =?us-ascii?Q?z9GnIJI963Z/xATNKnz8MYfDO6ACXAfMbF6xT1dfiZkGaWb18eFTE5XFCLqm?=
- =?us-ascii?Q?9gMacOoFNS/4hxpJ9pUYI9wpd09DIhaBo0iQDuW0xKn3vn8rSkFCkLt857oG?=
- =?us-ascii?Q?0U4Qd9rIIun4KXXcZHmHNH8yM/yy0uUC1lZpoAJOAlhEdM15EyY82dBdvpLD?=
- =?us-ascii?Q?vaytRVuo2xNq0EDeZX40hVZF8GROpaM3bh4eABGvwo2xFvuztM9U9FgKUXZC?=
- =?us-ascii?Q?/y8bnFxio1PRDvysrWDwIDAVH1iKkg4StYMBhbz+5h4jrHWTGOctO4T4Pljk?=
- =?us-ascii?Q?YYtt1IlyGXIY3hlwhH/9zVlW049NqHNU6JVHBqrtQTUt8jIJhLwWHRncgyGM?=
- =?us-ascii?Q?MLc8OgycW6Z3qEBG225AekE1Q30oOw/ps4a4waQvKyFHxQtq5A20xBa+rUow?=
- =?us-ascii?Q?uRIRDVBMwCw4xcwOjl/w0qKtWSBtSgWvYlNeRGvCI9I6QwTZmCT8+cYanw8v?=
- =?us-ascii?Q?7MK8cWJJsePsoFl4uj/m+VqP5Jokbz93GAejXfxKPCdlQo+PFZ6F9L0/kYy2?=
- =?us-ascii?Q?CIaUPgpCCLBKIrj5MynL9xzKOMf283AUZDwYpL7twWPX5RWKU3Q9GajZtwV0?=
- =?us-ascii?Q?rzsPN6iA0V38gu9JY+GnqyHYtEp72XG7JQ7tIyXqwXtfy3Pb7+n4U4uSz6Im?=
- =?us-ascii?Q?6Jh3tsjrPWP+/VZxRYsxa6aI8B32Rej+HqaW+Wf7RXluiCoK?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE6D610EF7B
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 07:11:41 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CF943219DA;
+ Wed,  9 Sep 2026 07:11:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1788937896; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=aUI4+zj2EvS7gfICS4d+xSlhGhCbEQduwf6oUT/4Mvw=;
+ b=vNs+D0PgQQ7bcIZg4GmY1h2B21xvsg0Mp7IaVzFBtdGSPCvP2dPzoOVb7J43DoYWuKp7vH
+ Gdai9vJBpdlu58OP22Vw+8kW5hYomboi2uurVCQCC8Ji/CtgY+Mvk0VZQNWlLl2VMxdvG6
+ FhyvTUKp2b0FVD7B9cd5/JOkR6XB7zw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1788937896;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=aUI4+zj2EvS7gfICS4d+xSlhGhCbEQduwf6oUT/4Mvw=;
+ b=RWGZAnFMmHCLsiHaMgzbkJcvriqHe1gPd8UWdoJUFHBaiLWs/0XCVjKPp53+ZXn/FpsYNK
+ 4Mpsk0FAbI7IkpCQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=hEGDkRml;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=0W9jX+aB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1788937891; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=aUI4+zj2EvS7gfICS4d+xSlhGhCbEQduwf6oUT/4Mvw=;
+ b=hEGDkRmlYbS7p/eXvaVURNRZSi6jHir1dsVL5rMgyRbNGL39sCQ8FWVzu7SWa60m306gET
+ 9o7Jv9aQ7rL9+d7g12ONNfIKAIWBwxJcquH7bhaiX9pJIoV+2nvHl6O2YiO46iUzts1N6J
+ GEx59gpBIs5oLeyR8Co9ikcWK20/56o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1788937891;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=aUI4+zj2EvS7gfICS4d+xSlhGhCbEQduwf6oUT/4Mvw=;
+ b=0W9jX+aBJwb/Ra3Pyr7LXpACfLWa5084QRQ0fgG25P3rvClw/eT7PWsvZKDajf8CKZ85oD
+ weSH8oFFXzPfKhAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1D5531347F;
+ Wed,  9 Sep 2026 07:11:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id SuGCBKMGoWqcZwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 09 Sep 2026 07:11:31 +0000
+Message-ID: <559028c6-7707-4d4c-a879-6487e0b5e3c5@suse.de>
+Date: Wed, 9 Sep 2026 09:11:30 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6803.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 64b59fc1-ef0e-4b34-6eb3-08df0e40c858
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2026 07:05:51.1724 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1kU+/4A7g5GHVnAx7YK9gc6p9qCCP5sY2YiOAnToQBj6dZF2Q1+ACgXhn7dLBDS7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9345
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 08/11] drm/atomic: Allow filling a commit with pristine
+ object states
+To: Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Daniel Stone <daniels@collabora.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>, =?UTF-8?Q?Jonas_=C3=85dahl?=
+ <jadahl@redhat.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>,
+ Victoria Brekenfeld <victoria@system76.com>, Xaver Hugl
+ <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
+ <20260908-drm-reset-state-flag-v3-8-905570f387a4@kernel.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260908-drm-reset-state-flag-v3-8-905570f387a4@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: CF943219DA
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[16]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,135 +158,217 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-AMD General
-
-This issue is also addressed in the thread: [RFC PATCH] drm/amd/pm: defer U=
-CLK DPM enablement on Apple Navi 14 0218.
-I think the workaround can be merged for Apple specifically between this pa=
-tch and that patch from Ed Schofield.
-The same questions:
-1. can this workaround setting be put right after the SMU_MSG_EnableAllSmuF=
-eatures is acked?
-2. Does Apple accept this workaround instead of a root cause on how SMU_MSG=
-_EnableAllSmuFeatures is not acked back?
-Thanks.
 
 
------Original Message-----
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-Sent: Tuesday, August 25, 2026 3:04 AM
-Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>; Guna R . Bharati <062=
-bel313@gmail.com>; Feng, Kenneth <Kenneth.Feng@amd.com>; Deucher, Alexander=
- <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>;=
- David Airlie <airlied@gmail.com>; Simona Vetter <simona@ffwll.ch>; amd-gfx=
-@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-kernel@vger.=
-kernel.org
-Subject: [PATCH] drm/amdgpu/smu: Enable UCLK after init in AMD Radeon Pro 5=
-300
+Am 08.09.26 um 16:35 schrieb Maxime Ripard:
+> The upcoming DRM_MODE_ATOMIC_RESET flag will need to create an atomic
+> commit that brings the entire device back to a pristine state, as if
+> no configuration had ever been applied.
+>
+> Create drm_atomic_commit_fill_with_defaults() which iterates over all
+> CRTCs, planes, connectors, and color operations in the device and
+> inserts a fresh default state for each one into the commit. This uses
+> the atomic_create_state() hooks rather than atomic_duplicate_state(),
+> since atomic_create_state() provides exactly this pristine state on a
+> per-object basis.
+>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+>   drivers/gpu/drm/drm_atomic.c | 123 +++++++++++++++++++++++++++++++++++++++++++
+>   drivers/gpu/drm/drm_ioctl.c  |   1 +
+>   include/drm/drm_atomic.h     |   1 +
+>   3 files changed, 125 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index 508a027398af..4c15757308d6 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -1661,10 +1661,133 @@ bool drm_atomic_can_create_state(struct drm_device *dev)
+>   
+>   	return true;
+>   }
+>   EXPORT_SYMBOL(drm_atomic_can_create_state);
+>   
+> +/**
+> + * drm_atomic_commit_fill_with_defaults - populate a commit with pristine states
+> + * @commit: atomic commit to fill
+> + *
+> + * Iterate over all CRTCs, planes, connectors, and color operations in
+> + * the device and insert a freshly created default state for each one
+> + * into @commit. The states are created through the atomic_create_state()
+> + * hooks, producing the same initial state the driver starts with rather
+> + * than a copy of the current hardware state.
+> + *
+> + * This is meant to be used with the %DRM_MODE_ATOMIC_RESET flag, which
+> + * needs to bring the device back to a known baseline before applying
+> + * userspace property changes on top.
+> + *
+> + * Returns:
+> + * 0 on success, or a negative error code on failure.
+> + */
+> +int drm_atomic_commit_fill_with_defaults(struct drm_atomic_commit *commit)
+> +{
+> +	struct drm_device *dev = commit->dev;
+> +	struct drm_mode_config *config = &dev->mode_config;
+> +	struct drm_crtc *crtc;
+> +	struct drm_plane *plane;
+> +	struct drm_connector *connector;
+> +	struct drm_connector_list_iter conn_iter;
+> +	struct drm_colorop *colorop;
+> +	int ret;
+> +
+> +	WARN_ON(!commit->acquire_ctx);
 
-[You don't often get email from atharvatiwarilinuxdev@gmail.com. Learn why =
-this is important at https://aka.ms/LearnAboutSenderIdentification ]
+drm_WARN_ON
 
-On the AMD Radeon PRO 5300, enabling UCLK_BIT in navi10_init_allowed_featur=
-es causes errors such as:
+> +
+> +	if (!drm_atomic_can_create_state(dev))
+> +		return -EOPNOTSUPP;
 
-SMU: No response msg_reg: 6 resp_reg: 0
+I'd push this test into the caller and maybe do a 
+drm_WARN_ON(!_can_create_state) here.   I think that this helper 
+shouldn't even be called if there's no reset support.
 
-or:
+Best regards
+Thomas
 
-SMU: I'm not done with your previous command: SMN_C2PMSG_66:0x00000006 SMN_=
-C2PMSG_82:0x00000000
 
-To work around this issue, we use smu_set_pp_feature_mask() to enable UCLK_=
-BIT instead.
+> +
+> +	/*
+> +	 * Private objects are ignored because none have userspace
+> +	 * properties we might want to reset. atomic_check
+> +	 * implementations will derive or infer their private obj state
+> +	 * from the state that will end up being committed anyway.
+> +	 */
+> +	drm_for_each_colorop(colorop, dev) {
+> +		struct drm_colorop_state *colorop_state;
+> +
+> +		ret = drm_modeset_lock(&colorop->plane->mutex, commit->acquire_ctx);
+> +		if (ret)
+> +			return ret;
+> +
+> +		colorop_state = drm_atomic_helper_colorop_create_state(colorop);
+> +		if (IS_ERR(colorop_state))
+> +			return PTR_ERR(colorop_state);
+> +
+> +		ret = drm_atomic_commit_set_colorop_state(commit, colorop, colorop_state);
+> +		if (ret) {
+> +			drm_colorop_atomic_destroy_state(colorop, colorop_state);
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	drm_for_each_plane(plane, dev) {
+> +		struct drm_plane_state *plane_state;
+> +
+> +		ret = drm_modeset_lock(&plane->mutex, commit->acquire_ctx);
+> +		if (ret)
+> +			return ret;
+> +
+> +		plane_state = plane->funcs->atomic_create_state(plane);
+> +		if (IS_ERR(plane_state))
+> +			return PTR_ERR(plane_state);
+> +
+> +		ret = drm_atomic_commit_set_plane_state(commit, plane, plane_state);
+> +		if (ret) {
+> +			plane->funcs->atomic_destroy_state(plane, plane_state);
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	drm_for_each_crtc(crtc, dev) {
+> +		struct drm_crtc_state *crtc_state;
+> +
+> +		ret = drm_modeset_lock(&crtc->mutex, commit->acquire_ctx);
+> +		if (ret)
+> +			return ret;
+> +
+> +		crtc_state = crtc->funcs->atomic_create_state(crtc);
+> +		if (IS_ERR(crtc_state))
+> +			return PTR_ERR(crtc_state);
+> +
+> +		ret = drm_atomic_commit_set_crtc_state(commit, crtc, crtc_state);
+> +		if (ret) {
+> +			crtc->funcs->atomic_destroy_state(crtc, crtc_state);
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	drm_connector_list_iter_begin(dev, &conn_iter);
+> +	drm_for_each_connector_iter(connector, &conn_iter) {
+> +		struct drm_connector_state *connector_state;
+> +
+> +		ret = drm_modeset_lock(&config->connection_mutex, commit->acquire_ctx);
+> +		if (ret) {
+> +			drm_connector_list_iter_end(&conn_iter);
+> +			return ret;
+> +		}
+> +
+> +		connector_state = connector->funcs->atomic_create_state(connector);
+> +		if (IS_ERR(connector_state)) {
+> +			drm_connector_list_iter_end(&conn_iter);
+> +			ret = PTR_ERR(connector_state);
+> +			return ret;
+> +		}
+> +
+> +		ret = drm_atomic_commit_set_connector_state(commit, connector, connector_state);
+> +		if (ret) {
+> +			connector->funcs->atomic_destroy_state(connector, connector_state);
+> +			drm_connector_list_iter_end(&conn_iter);
+> +			return ret;
+> +		}
+> +	}
+> +	drm_connector_list_iter_end(&conn_iter);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(drm_atomic_commit_fill_with_defaults);
+> +
+>   /**
+>    * drm_atomic_add_encoder_bridges - add bridges attached to an encoder
+>    * @state: atomic state
+>    * @encoder: DRM encoder
+>    *
+> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+> index 9039a39c4324..0dbf04d4aa9e 100644
+> --- a/drivers/gpu/drm/drm_ioctl.c
+> +++ b/drivers/gpu/drm/drm_ioctl.c
+> @@ -31,10 +31,11 @@
+>   #include <linux/export.h>
+>   #include <linux/nospec.h>
+>   #include <linux/pci.h>
+>   #include <linux/uaccess.h>
+>   
+> +#include <drm/drm_atomic.h>
+>   #include <drm/drm_auth.h>
+>   #include <drm/drm_crtc.h>
+>   #include <drm/drm_drv.h>
+>   #include <drm/drm_file.h>
+>   #include <drm/drm_ioctl.h>
+> diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+> index 7dc26e3da65c..b60f67619bfa 100644
+> --- a/include/drm/drm_atomic.h
+> +++ b/include/drm/drm_atomic.h
+> @@ -701,10 +701,11 @@ int drm_crtc_commit_wait(struct drm_crtc_commit *commit);
+>   struct drm_atomic_commit * __must_check
+>   drm_atomic_commit_alloc(struct drm_device *dev);
+>   void drm_atomic_commit_clear(struct drm_atomic_commit *state);
+>   
+>   bool drm_atomic_can_create_state(struct drm_device *dev);
+> +int drm_atomic_commit_fill_with_defaults(struct drm_atomic_commit *commit);
+>   
+>   /**
+>    * drm_atomic_commit_get - acquire a reference to the atomic state
+>    * @state: The atomic state
+>    *
+>
 
-Fixes:
-https://gitlab.freedesktop.org/drm/amd/-/work_items/4895
-
-Tested-by: Guna R. Bharati <062bel313@gmail.com>
-Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
----
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 33 +++++++++++++++++++
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  7 +++-
- 2 files changed, 39 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/am=
-d/pm/swsmu/amdgpu_smu.c
-index 3969a7670..c05ceb0be 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -905,6 +905,33 @@ static int smu_apply_default_config_table_settings(str=
-uct smu_context *smu)
-        return smu_set_config_table(smu, &adev->pm.config_table);  }
-
-+static int smu_apply_late_quirks(struct smu_context *smu) {
-+       struct pci_dev *pdev =3D smu->adev->pdev;
-+       int ret =3D 0;
-+       uint32_t features[2];
-+       struct smu_feature_bits feature_mask;
-+       uint64_t mask;
-+
-+       if (pdev->device =3D=3D 0x7340 &&
-+                       pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID_APPLE &=
-&
-+                       pdev->subsystem_device =3D=3D 0x0219) {
-+               ret =3D smu_feature_get_enabled_mask(smu, &feature_mask);
-+               if (ret)
-+                       return ret;
-+
-+               smu_feature_bits_to_arr32(&feature_mask, features, 64);
-+               features[0] |=3D BIT(3);
-+               mask =3D ((uint64_t)features[1] << 32) | features[0];
-+
-+               ret =3D smu_set_pp_feature_mask(smu, mask);
-+               if (ret)
-+                       return ret;
-+       }
-+
-+       return 0;
-+}
-+
- static int smu_late_init(struct amdgpu_ip_block *ip_block)  {
-        struct amdgpu_device *adev =3D ip_block->adev; @@ -977,6 +1004,12 @=
-@ static int smu_late_init(struct amdgpu_ip_block *ip_block)
-
-        smu_restore_dpm_user_profile(smu);
-
-+       ret =3D smu_apply_late_quirks(smu);
-+       if (ret) {
-+               dev_err(adev->dev, "Unable to apply late quirks\n");
-+               return ret;
-+       }
-+
-        return 0;
- }
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/=
-drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 6dfc3b585..ed67e4bfc 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -349,7 +349,12 @@ navi10_init_allowed_features(struct smu_context *smu)
-              (amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(11, 0=
-, 0)) &&
-              (adev->rev_id =3D=3D 0)) &&
-            (adev->pm.pp_feature & PP_MCLK_DPM_MASK)) {
--               smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, FEA=
-TURE_DPM_UCLK_BIT);
-+               if (!(adev->pdev->device =3D=3D 0x7340 &&
-+                               adev->pdev->subsystem_vendor =3D=3D PCI_VEN=
-DOR_ID_APPLE &&
-+                               adev->pdev->subsystem_device =3D=3D 0x0219)=
-)
-+                       smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLO=
-WED,
-+                                       FEATURE_DPM_UCLK_BIT);
-+
-                smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, FEA=
-TURE_MEM_VDDCI_SCALING_BIT);
-                smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, FEA=
-TURE_MEM_MVDD_SCALING_BIT);
-        }
+-- 
 --
-2.43.0
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
