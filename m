@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18B03C79FB6
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 11:47:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1479C79FAD
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 11:47:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F66410E1C0;
-	Wed,  9 Sep 2026 11:47:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7E3510F0D3;
+	Wed,  9 Sep 2026 11:47:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mIXo1KEc";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="r6NOYoU2";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2460810E1C0;
- Wed,  9 Sep 2026 11:47:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C5AE10F0D3;
+ Wed,  9 Sep 2026 11:47:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 436E860120;
- Wed,  9 Sep 2026 11:47:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DCE71F00A3A;
- Wed,  9 Sep 2026 11:47:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1A554601FF;
+ Wed,  9 Sep 2026 11:47:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4504A1F00A3A;
+ Wed,  9 Sep 2026 11:47:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1788954445;
- bh=z6z+pLAb/s5MlRCV9V2eTOzLbl55cogNJG5WC4FpWgQ=;
+ s=korg; t=1788954470;
+ bh=JACaNHNmHxIE/tlyEv6SUwECo5kIGIEuVZ9NO/q8F2Q=;
  h=Subject:To:Cc:From:Date;
- b=mIXo1KEcDRBJUUQAtkc4EzQx5jIyUYCyspHYpK5IFYhUxNWWgMqDS9szq3TcbWTBO
- yZoIbcPql55137LqyD1ddj/PN76rKXXXqdpouuIoq/Qsf+dEGLg6L0alqHroW0XEhL
- gE6SnK6o/nxZkyxVLty1pDcbm+jgPQ9FFeVGJMpo=
+ b=r6NOYoU2rwV0CWgSG5nL3yiEzAd/6/fuPl4gN6ZGmQZW5uabfLxEZIBbGpSU1DT/N
+ jz+XQwGx7FgMBz/e1ANDFHQSDC3EnPat4EQpjN+Oi05aa5BA8ik6xiOKerSZkR55c7
+ Hb97TR1mzqTZjYWTG/CFtliFML1Mnv4YDs0UACGU=
 Subject: Patch "drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()" has
- been added to the 6.18-stable tree
+ been added to the 7.2-stable tree
 To: Arunpravin.PaneerSelvam@amd.com, alexander.deucher@amd.com,
  amd-gfx@lists.freedesktop.org, cascardo@igalia.com, christian.koenig@amd.com,
  dev@lankhorst.se, dri-devel@lists.freedesktop.org, friedrich.vock@gmx.de,
@@ -37,8 +37,8 @@ To: Arunpravin.PaneerSelvam@amd.com, alexander.deucher@amd.com,
  tj@kernel.org
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:30:37 +0200
-Message-ID: <2026090937-mangle-cinema-f62f@gregkh>
+Date: Wed, 09 Sep 2026 13:30:39 +0200
+Message-ID: <2026090939-sarcasm-demeaning-4889@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -64,12 +64,12 @@ This is a note to let you know that I've just added the patch titled
 
     drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
 
-to the 6.18-stable tree which can be found at:
+to the 7.2-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      drm-amdgpu-fix-init-ordering-in-amdgpu_vram_mgr_init.patch
-and it can be found in the queue-6.18 subdirectory.
+and it can be found in the queue-7.2 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -160,4 +160,4 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from thomas.hellstrom@linux.intel.com are
 
-queue-6.18/drm-amdgpu-fix-init-ordering-in-amdgpu_vram_mgr_init.patch
+queue-7.2/drm-amdgpu-fix-init-ordering-in-amdgpu_vram_mgr_init.patch
