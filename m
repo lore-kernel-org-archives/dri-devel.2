@@ -4,102 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AA15C79FB6
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 16:32:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36ACEC79FB7
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 16:32:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E3CC10F1F1;
-	Wed,  9 Sep 2026 16:32:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9638910E559;
+	Wed,  9 Sep 2026 16:32:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vUwo+Ff3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nX1U3Gj+";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012055.outbound.protection.outlook.com [52.101.48.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF4E510F1F1
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 16:32:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J7PmC1K/vvJb9tn7Fm1of8XdTcPgjNRejxzQP18d0TLTDxYZnncZEue1aupGe9FxcxOle9voE7bpsJDeOnc76BphPqyPu7s6KatTF4btqPdv+5pLBqhwY2aJUMczDdDe2oNQ3PdDl8H9R4PbnP3UWf7nb35Qs8pd+8URq9BNHbmSr2VyB4rULkMNMpuXvMh6Ns6R+h0yZ2SUBSC30MpCnEL+M/M5FcmoJSpkJ71gACQtuUbvSo3xAlioam9RK0dCynKyYP+JKtvuHgbuvrZAAvLNv5Hx2AFTguGvcQAMZ1FUu3/WZYvTo4acjcaGU/k39MuNO0SjSl1womuo09Vo1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=olPYyDUk7ClEwuOPKR75lNKZHDovqAMuGIF/AjWATf4=;
- b=AwAWuVly2RXU2MiE4651etdAiOxRTCg6BVolgckh09nI6l7u7PAm6d12tKqIpnax+yy6zgltbM+Kv2vSIvQXnfpegm5IrpZqPGDrGuwE41nyQ2TgqT1RLFpYsNVSUo2HHyRzt2bF9cftPoxIpq9J8Ja5AcS5ZOKI/WNoR2aEdzTYNaKtry1W2MhWkmb1KlWV7t9U7xnSE7MQH/pIHALp0bJ5prGnL/6A2P48aKsl0St06yvr0B3jwyApfQcVECx+AC+lb0Yy+x/DQ98xOCxfVYWCuQFhcyaokHIqGU5Te6pjRttlFw3YrqTkXXAbHEomzWri1BCABbtvTagAwaqmsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=olPYyDUk7ClEwuOPKR75lNKZHDovqAMuGIF/AjWATf4=;
- b=vUwo+Ff30uu22nJGA64wGVU6CCaaR4/xca44YS6rlI/cGbY70tFACKX/VPM8q04mryBGQUBw5zob4L0CTXRH0YUcep2boc8xg/6BktOvGfqn9IkOTH2SsLp150hpM04nvsRyc6+sXyPdXLjj3GaDxdpeYlH7rxIiSadF9MmNzW8=
-Received: from CH0PR04CA0058.namprd04.prod.outlook.com (2603:10b6:610:77::33)
- by CY5PR12MB6201.namprd12.prod.outlook.com (2603:10b6:930:26::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Wed, 9 Sep
- 2026 16:32:15 +0000
-Received: from DS3PEPF000099E0.namprd04.prod.outlook.com
- (2603:10b6:610:77:cafe::35) by CH0PR04CA0058.outlook.office365.com
- (2603:10b6:610:77::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.8 via Frontend Transport; Wed, 9
- Sep 2026 16:32:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS3PEPF000099E0.mail.protection.outlook.com (10.167.17.203) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Wed, 9 Sep 2026 16:32:15 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 9 Sep
- 2026 11:32:13 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 9 Sep
- 2026 11:32:13 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Wed, 9 Sep 2026 11:32:12 -0500
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
- <mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>,
- <dri-devel@lists.freedesktop.org>, <max.zhen@amd.com>
-CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
- <sonal.santan@amd.com>
-Subject: [PATCH V1 1/1] accel/amdxdna: Fix unsafe use of handle_mm_fault()
-Date: Wed, 9 Sep 2026 09:32:10 -0700
-Message-ID: <20260909163211.950709-1-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD80010E559
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 16:32:30 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-49d1331ce1bso1432505e9.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 09:32:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788971549; x=1789576349; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=yG+S01jgDNF6gG2aUjEkOKkHDiymuefIawG26yDnYyI=;
+ b=nX1U3Gj+Bff6Oko2mi4Osktn5cYKAkj7Kgy3yZXr6z6g8BAncfqoUoBwC0ZG2hCAXT
+ eecVjLURj3uR8IR7jbQziJoxB0UAkp3NFPFFjUwjzzsgtCdmA87mrBFxBwwsP3SkifoP
+ bDe0zKO4yZalcZau72YhUKOb0uvt4BHd/HVovF0XYAwVkv3TuGVlLsvCSqBn6GxH9klB
+ QKjD1VdDS65DngiQLm8NbJUxLOf3TyuqU3ztLewscB0R0cxQ/+6rBLs3/1G8RgRPH3v+
+ KratySELrCkzygDFay5oE0wv9cCcF8vSZ3C4WyLqBHWpIjkczPZRr85Tq5xo8rS1H1pG
+ sz2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788971549; x=1789576349;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=yG+S01jgDNF6gG2aUjEkOKkHDiymuefIawG26yDnYyI=;
+ b=fyfpbduUJDqgV3vi4S4aYyMI2SUnH/OPqsVIrdEswZ9Nwian/+vXfTVj1fxgMBPFYI
+ Cmd8Zk54bso5BXfGDMlRmjnCoI8JX859jzCrGmQmxRk7AUz26q8GyQKoDoEJZwbU+/8t
+ Y+84HOPMrJ2G1Lt9E+LlY3pyygKFvBa6LgXUyIQ8KVtE5uxHk8yL5UQY2sEW65jnmxaI
+ XUjRBo3NHpvwgv9G79l6skGwMpJSInWpAedG7hgrKpUl6InCuibIu6IWEeH3p5Pi5lD/
+ YlIeFtGh4G16/eu499n9gP4VzwZuBbYmWfnuvFgaMt4IUMJy0MGfTxEHbjuK3mzPRS3B
+ fIpA==
+X-Gm-Message-State: AFuF++n7jr5nsdQJILXnivnqB9ZSdkFkwiDWZVkl7RWB90HA4mlpQBrd
+ Y/7NDndBTKB9l4l4ATufXU/F0kgwhkq4aG7YPC0b7vFN65/rNh36sRlsn5D+Oc87
+X-Gm-Gg: AYBFou1a8eHRSp3wWPctudjfvJJpDY2PTSFaL/zbLE2R9nUMrL5M9leY5Q//a08UfrX
+ nZgK0msT9biapfvywVYcFexcy/Hvq3cnSlBH10sT+45agqNIFxiMrzYyK+XnPlwlJY4T7yIKL5R
+ Ni8ZfLAH1m1smJQlL0WBOlXbAj+RXovBI7AOvWG8bMrLgLtKiJ3N1RtfGTG6MPqfzkcvwdL0jYW
+ DGT5+VaTDT8ukmnNTCZVynWV+L9P6UG7UXmPv2+Xt41X8/yvRy5bk/PupvyhrXJqpzY3J0jbKVq
+ mY0bI89n08zioyJZglgDCVf78BSYRFmlmTVwBeyBHDC7HR/C1b5eUb12zg1kfPyihVKaahKw8DD
+ VsZ1zTY69VPBCqfQQOSRC0xuLRRWmokYbQHvJsW+ZMP4/kdFFWUfpmJvDKXSTHnKUIIlvrRqbQU
+ Ac4dVY9cgtUX4VAn3qEJKaoMX2jJ3YZa6iETiVfXQM5QA+y000twGd0SrS/xLcBQSmTPdtiZk8E
+ 9Ax7a1+8rXirKEfTI1znVbLIajSQCooWgXCb7s60w3FWzoKd4G1jMnuEGVzWod6XYWqIem++MNv
+ Onjc
+X-Received: by 2002:a05:600c:620f:b0:49c:eac2:ddad with SMTP id
+ 5b1f17b1804b1-49d2570acaemr21422495e9.1.1788971549021; 
+ Wed, 09 Sep 2026 09:32:29 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B836900E58FC5516AABB3E4.dsl.pool.telekom.hu.
+ [2001:4c4e:1b83:6900:e58f:c551:6aab:b3e4])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49d26bf332esm2604635e9.8.2026.09.09.09.32.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Sep 2026 09:32:28 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Igor Paunovic <royalnet026@gmail.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Sandy Huang <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Ville Syrjala <ville.syrjala@linux.intel.com>,
+ Imre Deak <imre.deak@intel.com>,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH v2 0/3] drm/dp: shared HDR metadata SDP helper,
+ and max bpc for dw-dp
+Date: Wed,  9 Sep 2026 18:31:58 +0200
+Message-ID: <20260909163206.36409-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099E0:EE_|CY5PR12MB6201:EE_
-X-MS-Office365-Filtering-Correlation-Id: f33b6254-bd89-4c47-ffaf-08df0e8fe883
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|10067099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info: nbJNALv7YOTnin+CXx5a49csm7WmvR9SypR6cf7C+FdEOZOAM0HQNQf39qBLj2R2+jJUoSKiLpwCZVlGm4GmFSeOYIM8g7mO0D9xAcDCiKk9kQfbR8/jmiCMDP+yKRrmaEw9R6qwaDj3X921Ykxx5wFm4ZvIk9Wr08hZ01DDaDWRnYaNBzG7OEu/CatA2Q2zfAiakVoIMEssNqoDIEYz7ELNpQ8nEF7hZD4YZGmgjPlZrdXmXQ7GEEaO1E9I45rsjPfouVP5q/LsF4Co+oMMWdXoOXj22EAUGx29WHEWL0VWPg4ZMJvbxuJIMER/FZFqjgkioSwxhDIbyaWEm1+XwyErQcN8ipz2gJV1ThIiiH6pPlXIcjNlGuuPwdPk+OlihGAk5WScfETHPb9IqiC+PIMihG/jlgkmPm47TJUi+Yz8LZtAanZNPnGnxRWdGZ9xaoXLG2CloI+q16xzS/z2LMjHLYuZCKJq9GvWPFV2KnEsfOc4t9CkS4VFemhlg4f3/Npz+eNyOamVlVZfr4WmgxRWoIPpMKMLYLI5jvMN9265bhCnIVJia2DM1OGDIIbBJMJ76skJGZnwMiL/ANll78W251nljbEknqe/pNqUTpcc9jjbKNoGwUTchTfx8CQW0SAtFXwx5JZAfDSLPOfYBc+hJT2tXYxVmeeAq8IXUYl7FJc1NEAhqBhY9/rS321B1lONGGl7EeMWcbqWZh1g3Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(10067099003)(56012099006)(11063799006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: EJCHiisowTuy8Kb+fP+5whEuBljUr6er21Iutr8MnYhNAgRL2zrR+5jXJbtXefvwtv7geQzWjrk8FXqRqKoW1N5cF+7o14brBHKMb7y5SOyu7dNHXuwkoyWmRSZq7es2OjKMbFLjDYyqfELHmLQzGeqPRVpt/7aNz2GrBFUuHwluBx/c/SYFuGlTojlHUMOsEU4AeC1npUmqkYf12PXSajuCXoCR0wz6prSgIgNAOBYrZKij2Em5KgrXLIyrf46Au19VM06zQcQrjDm5rx+UpyfM57mYN2dvGlCqQpP4XzdVZSgHKAa7cvXxPEfUjWR50dPRuC/ZkGQhkC/PlTE60fD8lE2eq9Dhfy1tx1qA3rO6e7xhb+A8MgF0iyqdZLLSHLlhBztidgTLt34+xfcXjltObi5d7+g0TgWH7SOAxg60hzDJyha7C3AgGC/qqqoQ
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 16:32:15.3169 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f33b6254-bd89-4c47-ffaf-08df0e8fe883
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099E0.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6201
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,97 +109,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-handle_mm_fault() must not be called from the mmap callback because
-the VMA has not yet been linked. The handle_mm_fault() API contract
-assumes that the VMA is already linked.
+This is v2 of "drm/bridge: synopsys: dw-dp: Add HDR support" [1], resent
+as three patches instead of five.
 
-Remove the handle_mm_fault() call from the mmap callback. For shmem
-BOs, use remap_pfn_range() instead. For imported BOs, mark the
-mapping as invalid and rely on the first command submission to fault
-in the pages.
+The two patches that actually enabled HDR output on dw-dp are not here.
+They were written on top of Sebastian's "Synopsys DisplayPort Controller
+improvements for RK3588" series, and that series has not landed. I
+checked rather than assumed: against drm-misc-next they no longer apply,
+and every failing hunk sits on context that only exists in that series -
+vsc_sdp_nr, audio_sdp_nr, dw_dp_clear_sdp(), the runtime PM conversion
+and dw_dp_rockchip_hpd_sw_cfg(). None of those symbols are in mainline.
+Holding the rest hostage to that seemed wrong when the first three
+patches stand on their own, so they go alone and I will resend the other
+two once the dw-dp work is in.
 
-Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
----
- drivers/accel/amdxdna/amdxdna_gem.c | 43 ++++++++++++++++-------------
- 1 file changed, 24 insertions(+), 19 deletions(-)
+What is left is useful without them:
 
-diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-index 0d165b66c1fc..3092e327c500 100644
---- a/drivers/accel/amdxdna/amdxdna_gem.c
-+++ b/drivers/accel/amdxdna/amdxdna_gem.c
-@@ -13,6 +13,7 @@
- #include <linux/dma-buf.h>
- #include <linux/dma-direct.h>
- #include <linux/iosys-map.h>
-+#include <linux/mm.h>
- #include <linux/pagemap.h>
- #include <linux/vmalloc.h>
- 
-@@ -490,16 +491,10 @@ static int amdxdna_insert_pages(struct amdxdna_gem_obj *abo,
- {
- 	struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
- 	unsigned long num_pages = vma_pages(vma);
--	unsigned long offset = 0;
-+	unsigned long i;
- 	int ret;
- 
--	if (!is_import_bo(abo)) {
--		ret = drm_gem_shmem_mmap(&abo->base, vma);
--		if (ret) {
--			XDNA_ERR(xdna, "Failed shmem mmap %d", ret);
--			return ret;
--		}
--	} else {
-+	if (is_import_bo(abo)) {
- 		vma->vm_private_data = NULL;
- 		vma->vm_ops = NULL;
- 		ret = dma_buf_mmap(abo->dma_buf, vma, 0);
-@@ -508,23 +503,33 @@ static int amdxdna_insert_pages(struct amdxdna_gem_obj *abo,
- 			return ret;
- 		}
- 
-+		amdxdna_mark_mapp_invalid(abo, vma);
-+
- 		/* Drop the reference drm_gem_mmap_obj() acquired.*/
- 		drm_gem_object_put(to_gobj(abo));
-+		return 0;
-+	}
-+
-+	ret = drm_gem_shmem_mmap(&abo->base, vma);
-+	if (ret) {
-+		XDNA_ERR(xdna, "Failed shmem mmap %d", ret);
-+		return ret;
- 	}
- 
--	do {
--		vm_fault_t fault_ret;
-+	for (i = 0; i < num_pages; i++) {
- 
--		fault_ret = handle_mm_fault(vma, vma->vm_start + offset,
--					    FAULT_FLAG_WRITE, NULL);
--		if (fault_ret & VM_FAULT_ERROR) {
--			XDNA_ERR(xdna, "Fault in page failed");
--			amdxdna_mark_mapp_invalid(abo, vma);
--			break;
-+		ret = remap_pfn_range(vma, vma->vm_start + (i << PAGE_SHIFT),
-+				      page_to_pfn(abo->base.pages[vma->vm_pgoff + i]),
-+				      PAGE_SIZE, vma->vm_page_prot);
-+		if (ret) {
-+			if (i > 0)
-+				zap_special_vma_range(vma, vma->vm_start, i << PAGE_SHIFT);
-+			dma_resv_lock(to_gobj(abo)->resv, NULL);
-+			drm_gem_shmem_put_pages_locked(&abo->base);
-+			dma_resv_unlock(to_gobj(abo)->resv);
-+			return ret;
- 		}
--
--		offset += PAGE_SIZE;
--	} while (--num_pages);
-+	}
- 
- 	return 0;
- }
--- 
-2.34.1
+ 1/3 moves i915's private HDR metadata SDP packing into a shared DP
+     helper and converts i915 to use it. No functional change; the
+     second user follows later. Jani's Ack from v1 is carried over.
 
+ 2/3 fixes a real bug: the bridge connector loses its max bpc value on
+     connector reset, so a driver that attaches the property gets it
+     reset behind userspace's back.
+
+ 3/3 attaches the "max bpc" property on dw-dp. To be precise about what
+     that does: the property is a limit, not an enabler.
+     drm_atomic_connector_check() derives max_bpc from the sink's EDID
+     and only clamps it against max_requested_bpc when the property
+     exists, so the min() can never raise it. dw-dp's format filter
+     therefore already lets its 10 bpc entries through on a sink that
+     reports 10 bpc, with no property attached. What the property adds
+     is userspace control - the ability to ask for less - and a defined
+     upper bound of 10, the deepest entry in dw_dp_output_formats[]. It
+     is also the case that motivated 2/3, and a prerequisite for the
+     HDR patches that follow later.
+
+Changes in v2:
+ - Dropped 4/5 and 5/5; they depend on the dw-dp improvements series
+   and no longer apply to drm-misc-next.
+ - Retitled the series, since it no longer adds HDR support by itself.
+ - Rebased onto drm-misc-next bf63a72ea005. No changes to the code.
+
+One thing worth flagging for 2/3 and 3/3: Cristian's HDMI 2.0 series
+removes connector->max_bpc in its patch 71. That series is not in
+drm-misc-next either, so these two are correct as they stand today, but
+if it lands first I will respin them against whatever replaces that
+field. Say the word if you would rather I wait for it.
+
+A note on how this was made, since the patches carry Assisted-by tags.
+I work in a pair: I run the board, take the measurements and decide what
+goes in; an LLM assistant (Claude, by Anthropic) helps me read the
+source, draft the changelogs and re-check my claims against the tree
+before I send anything.
+
+What I have not done here is boot-test this exact three-patch series on
+hardware. The code is unchanged from v1, whose runtime testing was done
+on an Orange Pi 5 Plus running a rockchip-devel kernel that carried the
+v9 generation of the dw-dp series, with the patches on top; those runtime
+tests were never repeated on plain drm-misc-next. That caveat bites
+hardest on 3/3: mainline's dw_dp-rockchip.c is not the file I tested
+against. For v2 I have only checked that the patches apply and build-
+tested nothing. Say so and I will do a full build and boot test before
+you take it.
+
+[1] https://lore.kernel.org/all/20260808095749.9428-1-royalnet026@gmail.com/
+
+Igor Paunovic (3):
+  drm/dp: Add drm_dp_hdr_metadata_infoframe_sdp_pack()
+  drm/display: bridge-connector: Preserve max bpc across connector reset
+  drm/rockchip: dw_dp: Attach "max bpc" connector property
+
+ drivers/gpu/drm/display/drm_bridge_connector.c |  6 +-
+ drivers/gpu/drm/display/drm_dp_helper.c        | 88 ++++++++++++++++++++++++++
+ drivers/gpu/drm/drm_connector.c                |  5 ++
+ drivers/gpu/drm/i915/display/intel_dp.c        | 84 +-----------------------
+ drivers/gpu/drm/rockchip/dw_dp-rockchip.c      | 26 ++++++++
+ include/drm/display/drm_dp_helper.h            |  4 ++
+ 6 files changed, 131 insertions(+), 82 deletions(-)
+
+base-commit: bf63a72ea005d5e1cc12a9ad5e228c4b44246b0f
