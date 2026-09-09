@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0194C79FB7
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 14:10:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E54DC79FB7
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 14:14:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CF0210E358;
-	Wed,  9 Sep 2026 14:10:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C49E10E35F;
+	Wed,  9 Sep 2026 14:13:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ynrTM7wA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Qz+4vPNk";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AA1510E358
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 14:10:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D35610E348
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 14:13:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9D44B41831;
- Wed,  9 Sep 2026 14:10:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFDEC1F00A3E;
- Wed,  9 Sep 2026 14:10:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1788963043;
- bh=rbshUT+P6xp+6YeR8BeijHusYdIc4HL5hNOykrA5Z0U=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=ynrTM7wArUjMSE7bYsjMRP7JVfqRK3Vlmiuzkmdlhq2/qqApwa0L66gR4omIXz5IJ
- RBMl5I3RI5uhShBYEQgkh1pIkl/nNU/csH5iEeC16iBdSMFjYctCmBKYUrZLYvR8uE
- naFH6GT921ySf66+EhffKBZmBVkIMzUMztOnzIr8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Matthew Brost <matthew.brost@intel.com>
-Subject: [PATCH 7.2 500/556] drm/ttm: Drop tt->restore after successful restore
-Date: Wed,  9 Sep 2026 15:43:00 +0200
-Message-ID: <20260909134248.062400026@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
-References: <20260909134230.441546314@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+ by sea.source.kernel.org (Postfix) with ESMTP id 1C85C4383B;
+ Wed,  9 Sep 2026 14:13:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CA3E1F00A3A;
+ Wed,  9 Sep 2026 14:13:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788963238;
+ bh=wtJUwmkneS78SkeaMlMZd/Famswtp8LstdVQj8FmaDQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Qz+4vPNk6Jd7iPBq0qdG/dHEByUXKsFSGOPK67yDzkFsN7zDunRS/NBgzBNYKswau
+ 9N29PNJqyVeXAhAk4vWBOYuVc8OMZEKJBdnuEtt3w4t7pq7JsB5nA1O3P8cwUoujXj
+ QALzMVT6FUMlVms56dmB/QMBdIDTigPUo8E0tYZNvK62LYyJE6U/9V4LOYNOT/lilv
+ dPf7NqtFenhHa0POd4eoJwntl/KNFfbyxLT4Yi9KInTx1koc/puQJ08Zze6rWrgyqD
+ y+dQniJoCfHiVZqzymMdfPFp15xeh2LZdT9ev1wvTz1YtVEOP7riJ/ue9qaq1iOFCF
+ +Il2c/U0E5waA==
+Date: Wed, 9 Sep 2026 16:13:55 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, Heiko Carstens <hca@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, conor+dt@kernel.org,
+ Vasily Gorbik <gor@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, robh@kernel.org,
+ media-ci@linuxtv.org, 
+ devicetree@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 03/12] dt-bindings: gpu: host1x: Document
+ memory-regions for NVDEC
+Message-ID: <aqFpV1HHbZSU8bqq@orome>
+References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
+ <20260904-tegra-vpr-v6-3-79042cfa8de5@nvidia.com>
+ <20260904110359.799131F00A3F@smtp.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="obh3mo7oaagtja7c"
+Content-Disposition: inline
+In-Reply-To: <20260904110359.799131F00A3F@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,118 +66,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
 
-------------------
+--obh3mo7oaagtja7c
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 03/12] dt-bindings: gpu: host1x: Document
+ memory-regions for NVDEC
+MIME-Version: 1.0
 
-From: Matthew Brost <matthew.brost@intel.com>
+On Fri, Sep 04, 2026 at 11:03:59AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] The `memory-region` and `memory-region-names` properties for t=
+he Video Protection Region (VPR) were added to the Tegra234 NVDEC binding b=
+ut omitted from the older NVDEC binding (`nvidia,tegra210-nvdec.yaml`) whic=
+h covers Tegra210, Tegra186, and Tegra194. Other hardware blocks on these o=
+lder chips (such as VIC and DC) already document and use `memory-region` fo=
+r the VPR, indicating that the hardware shares the same capability. Failing=
+ to update the related YAML files in the same family causes schema validati=
+on to fail for complete device trees.
+> --
+>=20
+> commit c5ee297bfa8219c2a7d714b86f0738c220914705
+> Author: Thierry Reding <treding@nvidia.com>
+>=20
+> dt-bindings: gpu: host1x: Document memory-regions for NVDEC
+>=20
+> The video protection region is a reserved memory region that can be used
+> for secure video playback. NVDEC can access this region to decode images
+> into securely.
+>=20
+> > diff --git a/Documentation/devicetree/bindings/gpu/host1x/nvidia,tegra2=
+34-nvdec.yaml b/Documentation/devicetree/bindings/gpu/host1x/nvidia,tegra23=
+4-nvdec.yaml
+> > index 4eb325cfd2961..bcaaabca945dc 100644
+> > --- a/Documentation/devicetree/bindings/gpu/host1x/nvidia,tegra234-nvde=
+c.yaml
+> > +++ b/Documentation/devicetree/bindings/gpu/host1x/nvidia,tegra234-nvde=
+c.yaml
+> > @@ -60,6 +60,14 @@ properties:
+> >        - const: dma-mem
+> >        - const: write
+> > =20
+> > +  memory-region:
+> > +    items:
+> > +      - description: reference to the video protection memory region
+> > +
+> > +  memory-region-names:
+> > +    items:
+> > +      - const: protected
+>=20
+> [Severity: Medium]
+> Should these properties also be added to the older NVDEC binding
+> (nvidia,tegra210-nvdec.yaml) which covers Tegra210, Tegra186, and Tegra19=
+4?
+>=20
+> Other hardware blocks on these older chips (such as VIC and DC) already
+> document and use memory-region for the Video Protection Region, indicating
+> that the hardware shares the same capability.
+>=20
+> If a device tree for Tegra210, Tegra186, or Tegra194 correctly specifies
+> the Video Protection Region for NVDEC, will it fail schema validation
+> because the properties are undocumented and additionalProperties: false
+> is set in the older binding?
 
-commit 941ac10529b3be5965a88d432a161ab459672ba8 upstream.
+For the record: we'll add this to the Tegra210 NVDEC bindings in due
+time. It's currently only been tested on Tegra234, hence why only that
+binding is updated.
 
-ttm_pool_restore_and_alloc() can successfully complete the restore
-process via ttm_pool_restore_commit(), but tt->restore is not dropped
-afterward. As a result, subsequent backup/restore flows observe what
-appears to be a completed restore, while in reality shmem handles are
-still installed in tt->pages, leading to the stack trace below.
+Thierry
 
-Fix this by freeing and dropping tt->restore in
-ttm_pool_restore_and_alloc() upon successful completion of the restore.
+--obh3mo7oaagtja7c
+Content-Type: application/pgp-signature; name="signature.asc"
 
-20545 [  309.784531] RIP: 0010:sg_alloc_append_table_from_pages+0x38c/0x490
-20547 [  309.809570] RSP: 0018:ffffc9000623b838 EFLAGS: 00010206
-20548 [  309.814827] RAX: 0000000000001000 RBX: ffff88816e42a160 RCX: 0000000000000000
-20549 [  309.821986] RDX: 0000000000002000 RSI: 0000000000000003 RDI: 0000000000001000
-20550 [  309.829147] RBP: ffff88816e42a168 R08: 0000000000000002 R09: 000000007ffff000
-20551 [  309.836310] R10: ffffc9000623b928 R11: 0000000000000000 R12: 000000007ffff000
-20552 [  309.843471] R13: ffff88815ba5a100 R14: 0000000000000000 R15: 0000000000000001
-20553 [  309.850634] FS:  00007f9ff305e700(0000) GS:ffff888276c94000(0000) knlGS:0000000000000000
-20554 [  309.858749] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-20555 [  309.864519] CR2: 00007f9fca701000 CR3: 00000001565e2005 CR4: 0000000008f70ef0
-20556 [  309.871678] PKRU: 55555558
-20557 [  309.874403] Call Trace:
-20558 [  309.876866]  <TASK>
-20559 [  309.878988]  sg_alloc_table_from_pages_segment+0x60/0x100
-20560 [  309.884415]  ? ttm_resource_manager_usage+0x36/0x60 [ttm]
-20561 [  309.889845]  ? xe_tt_map_sg+0x7d/0xd0 [xe]
-20562 [  309.894045]  xe_tt_map_sg+0x7d/0xd0 [xe]
-20563 [  309.898037]  xe_bo_move+0x927/0xaa0 [xe]
-20564 [  309.902029]  ttm_bo_handle_move_mem+0xba/0x170 [ttm]
-20565 [  309.907022]  ttm_bo_validate+0xbe/0x190 [ttm]
-20566 [  309.911405]  xe_bo_validate+0x9a/0x120 [xe]
-20567 [  309.915663]  xe_gpuvm_validate+0xd9/0x140 [xe]
-20568 [  309.920206]  drm_gpuvm_validate+0x2f0/0x5b0 [drm_gpuvm]
-20569 [  309.925459]  ? drm_exec_lock_obj+0x63/0x210 [drm_exec]
-20570 [  309.930627]  xe_vm_validate_rebind+0x46/0xb0 [xe]
-20571 [  309.935428]  xe_exec_fn+0x20/0x40 [xe]
-20572 [  309.939249]  drm_gpuvm_exec_lock+0x78/0xc0 [drm_gpuvm]
-20573 [  309.944410]  xe_validation_exec_lock+0x5a/0xa0 [xe]
-20574 [  309.949385]  xe_exec_ioctl+0x806/0xc30 [xe]
-20575 [  309.953639]  ? ttwu_queue_wakelist+0xd9/0xf0
-20576 [  309.957935]  ? __pfx_xe_exec_fn+0x10/0x10 [xe]
-20577 [  309.962449]  ? __wake_up_common+0x73/0xa0
-20578 [  309.966482]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
-20579 [  309.971263]  drm_ioctl_kernel+0xa3/0x100
-20580 [  309.975209]  drm_ioctl+0x213/0x440
-20581 [  309.978637]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
-20582 [  309.983415]  xe_drm_ioctl+0x67/0xd0 [xe]
-20583 [  309.987408]  __x64_sys_ioctl+0x7f/0xd0
+-----BEGIN PGP SIGNATURE-----
 
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Link: https://patch.msgid.link/20260617015531.1164189-1-matthew.brost@intel.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/ttm/ttm_pool.c |   15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqhaaMACgkQ3SOs138+
+s6HOBBAAixwmzfQHyM9WXL+DZjzt8AieUmwS4BbXjWP4un7OGI6d6VIup46Telx5
+OOLTbeLvY1W5KDl0RPiZajCerlDvYI5f8lQXj+9e9QjWulPRyIMNGqkdXyHvSxKs
+j+9SIIjV2c1w6/gz6K9mNpsLHhcum0C8NVhFOZfn3BWQQWWmLiL95l1nYje7EqHF
+hVVMm09Z3QEKupRNbOrS351U0sTUS0EY3rg6WwY0Fy6FP1lMUfsJzBC6UoRYVlA/
+D8uDMQRjfaZMqxwyWMBdYSUeJfBVNPqlNzmycAcfAUMOSOmNVB391pE3Eor7dS0M
+UlBVR2a6mZoaVywgJWkbnl54Jh+GGor1C6tJfvCC57I2lvFR+o6FxNxx4cYNTUML
+ZmU+rOO+2WZi5UTWSHM9IHLNnhCspFabPDGNGpQhLJMrn60wuJ7vAWoSiCdyQeRM
+Hi9/7Y9g2GyBvvRtcMExJyduL2bzYmv0UGZ/hGD/8hjhYIRvem5lmGtkItfAiEfK
+y832lyTZ+CoLbVkyo8zILFE8OgN4mgZuNjPQCGBV+z/fxI5yT7SzBsdIQQGm6i0O
+hz2075LcLqdy2Ch6Jugi8qW6sNbBARfUn/46msoKrXWly9H566ElsUTKsTORwV+9
+L04vi8Z1uuYnwVIDMo83mnSbNJPiUeycaG0jdfmRCbAnrZGnUIk=
+=R8wl
+-----END PGP SIGNATURE-----
 
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -917,6 +917,7 @@ int ttm_pool_restore_and_alloc(struct tt
- {
- 	struct ttm_pool_tt_restore *restore = tt->restore;
- 	struct ttm_pool_alloc_state alloc;
-+	int ret;
- 
- 	if (WARN_ON(!ttm_tt_is_backed_up(tt)))
- 		return -EINVAL;
-@@ -940,14 +941,22 @@ int ttm_pool_restore_and_alloc(struct tt
- 	} else {
- 		alloc = restore->snapshot_alloc;
- 		if (ttm_pool_restore_valid(restore)) {
--			int ret = ttm_pool_restore_commit(restore, tt->backup,
--							  ctx, &alloc);
-+			ret = ttm_pool_restore_commit(restore, tt->backup,
-+						      ctx, &alloc);
- 
- 			if (ret)
- 				return ret;
- 		}
--		if (!alloc.remaining_pages)
-+		if (!alloc.remaining_pages) {
-+			ret = ttm_pool_apply_caching(&alloc);
-+			if (ret)
-+				return ret;
-+
-+			kfree(tt->restore);
-+			tt->restore = NULL;
-+
- 			return 0;
-+		}
- 	}
- 
- 	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
-
-
+--obh3mo7oaagtja7c--
