@@ -4,42 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0DB7C79FB6
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 16:49:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CE8DC79FB6
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 16:52:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB85910E1E3;
-	Wed,  9 Sep 2026 16:49:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C77D010E130;
+	Wed,  9 Sep 2026 16:52:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iiXSEP5G";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CfC+MCc0";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F0D510E1E3
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 16:49:12 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DF9710E130
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 16:52:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D8EFF41496;
- Wed,  9 Sep 2026 16:49:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91F811F000FF;
- Wed,  9 Sep 2026 16:49:11 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 08948600CB;
+ Wed,  9 Sep 2026 16:52:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 573181F000FF;
+ Wed,  9 Sep 2026 16:51:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788972551;
- bh=ZuDGALqa/JtpWg/yFYbwcac9fK3ThOHmY3rtX5BgMJg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=iiXSEP5GoUjFgJQeMbI2+mGy3h9w/pwvhZmhUJpZy1XPWoS77p3403Vk5dEQzOTFO
- Ci0P3ZxOpi6ao4TYUQukKnJqqfef7P7x24MlXl6o0FNnjrOttUFjhFWST+OQiRDUKb
- rcegkTKcJdbxZcJeNeRAqiuYiYerA0evXtfQOmCn7DSN/qjz4h69s42HfP1CH+5chW
- sVa1eiXPp/PUwh9YrjwsUSX291jbJ4SspLtEH1Yq4aYouUEVSF7DbSL9HYa3cEgCwu
- autvTMroKY41NgtsXi0ycT3kF7EPNdR2KYVRl0OzMFAJeEctv2QMPBfoKa82C3dS9A
- h/MPXKp4Gg55g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V1 1/1] accel/amdxdna: Fix unsafe use of handle_mm_fault()
-To: "Lizhi Hou" <lizhi.hou@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260909163211.950709-1-lizhi.hou@amd.com>
-References: <20260909163211.950709-1-lizhi.hou@amd.com>
+ s=k20260515; t=1788972723;
+ bh=HgC9sEOwgkiHFo9nm8IwcHna7p/hR9fCjHKYivIfM14=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=CfC+MCc0nrX7sMf/aBoff2VzQK24psnb39s3VkoDRq+ZhH3P6alsK7j92SN649FA2
+ tUPITzXgmaBspYY1PWbUV0Xe+VvZbGNMPtCQMuPYziiEtX6wORnCfKwQUu3mfaqvNC
+ xVjLr2LssKMqtTMNkIc8gK+Ls02og5sFm/2iZVlAr686Dwx/qUGgseOBLqXw2RRMFo
+ Y+A6ZRAKwJJAwo9StOnlUkdJLHDJ5Du4eSU5yr0OBveWL3Wwr/JBHZiM47stWgtTQ+
+ x9tv2u5sEyTUYm2gHMCBe9ere+sf4Ji91HsSBzcj8YAl8glI4XJJ+raDv2lGkpojQu
+ X1hp2a542rnZg==
+Date: Wed, 9 Sep 2026 18:51:54 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org, 
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, 
+ chunkuang.hu@kernel.org, p.zabel@pengutronix.de, justin.yeh@mediatek.com, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, kernel@collabora.com
+Subject: Re: [PATCH v3 01/12] dt-bindings: phy: Document MT8195 and MT8196
+ DisplayPort PHYs
+Message-ID: <flb6ugxd5ssocnrxqs7vtjfvtjschvscoputms6bruw2uelpf3@xp2eumt5pwmk>
+References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
+ <20260707154245.198361-2-angelogioacchino.delregno@collabora.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 16:49:11 +0000
-Message-Id: <20260909164911.91F811F000FF@smtp.kernel.org>
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260707154245.198361-2-angelogioacchino.delregno@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,89 +63,24 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Using remap_pfn_range() to map normal refcounted shmem folios crea=
-tes special PTEs, violating MM invariants.
---
+On Tue, Jul 07, 2026 at 05:42:34PM +0200, AngeloGioacchino Del Regno wrote:
+> This adds bindings for the DisplayPort and Embedded DisplayPort
+> PHYs found in the MediaTek MT8195 SoC (and variants of) and for
+> the Embedded DisplayPort found in the MT8196 SoC (and variants).
+> 
+> This PHY supports varying impedance calibrations for the various
+> signals to reach an optimal EYE signal pattern for any specific
+> board(s), especially useful for very high bitrates such as HBR3
+> and higher, depending on board design.
+> 
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-commit 2da717e72d7319305e74d66b3b963f132ff12737
-Author: Lizhi Hou <lizhi.hou@amd.com>
+Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-accel/amdxdna: Fix unsafe use of handle_mm_fault()
+- Mani
 
-This commit removes the unsafe use of handle_mm_fault() from the mmap
-callback since the VMA is not yet linked. For shmem BOs, it replaces the
-faulting loop with direct calls to remap_pfn_range(), and for imported BOs
-it marks the mapping as invalid to be faulted in later.
-
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/=
-amdxdna_gem.c
-> index 3f05fa8811af1..7a5b0ad3235fd 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.c
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-
-[ ... ]
-
-> @@ -490,16 +491,10 @@ static int amdxdna_insert_pages(struct amdxdna_gem_=
-obj *abo,
-
-[ ... ]
-
-> +	ret =3D drm_gem_shmem_mmap(&abo->base, vma);
-> +	if (ret) {
-> +		XDNA_ERR(xdna, "Failed shmem mmap %d", ret);
-> +		return ret;
->  	}
-> =20
-> -	do {
-> -		vm_fault_t fault_ret;
-> +	for (i =3D 0; i < num_pages; i++) {
-> =20
-> -		fault_ret =3D handle_mm_fault(vma, vma->vm_start + offset,
-> -					    FAULT_FLAG_WRITE, NULL);
-> -		if (fault_ret & VM_FAULT_ERROR) {
-> -			XDNA_ERR(xdna, "Fault in page failed");
-> -			amdxdna_mark_mapp_invalid(abo, vma);
-> -			break;
-> +		ret =3D remap_pfn_range(vma, vma->vm_start + (i << PAGE_SHIFT),
-> +				      page_to_pfn(abo->base.pages[vma->vm_pgoff + i]),
-> +				      PAGE_SIZE, vma->vm_page_prot);
-
-[Severity: High]
-Does using remap_pfn_range() here to map normal refcounted shmem folios
-create special PTEs?
-
-Since remap_pfn_range() is designed for raw PFN mappings, it sets the
-special bit on the resulting page table entries. If this is applied to
-normal refcounted folios from the shmem BO, it violates the memory
-management invariant that normal folios must not have special PTEs.
-
-When the special bit is set, vm_normal_page() returns NULL, which hides
-these pages from page table walkers, GUP (get_user_pages), and
-mapcount-based refcount management. Can this break reverse mapping (rmap)
-and lead to memory management corruption?
-
-> +		if (ret) {
-> +			if (i > 0)
-> +				zap_special_vma_range(vma, vma->vm_start, i << PAGE_SHIFT);
-> +			dma_resv_lock(to_gobj(abo)->resv, NULL);
-> +			drm_gem_shmem_put_pages_locked(&abo->base);
-> +			dma_resv_unlock(to_gobj(abo)->resv);
-> +			return ret;
->  		}
-> -
-> -		offset +=3D PAGE_SIZE;
-> -	} while (--num_pages);
-> +	}
-> =20
->  	return 0;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909163211.9507=
-09-1-lizhi.hou@amd.com?part=3D1
+-- 
+மணிவண்ணன் சதாசிவம்
