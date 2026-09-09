@@ -4,45 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75A88C79FB6
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 12:00:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4EA2C79FB6
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 12:04:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D3FC10E6D1;
-	Wed,  9 Sep 2026 12:00:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E923510F0D9;
+	Wed,  9 Sep 2026 12:04:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="m1TxbYPh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X+8w40zG";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0417B10E6D1
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 12:00:04 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB96210F0D9
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 12:04:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BAD3242E99;
- Wed,  9 Sep 2026 12:00:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46B6B1F00A3A;
- Wed,  9 Sep 2026 12:00:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1788955204;
- bh=6MxWIGIfxAmoR1bbNCCQODrAWBSUz8+bBEJk6ocjW/0=;
- h=Subject:To:Cc:From:Date;
- b=m1TxbYPhjDSQDl6PtacXgC8MroYg3GClwc0K32WxQ+XTr6wbShpAKwg8ClHOzE/Ry
- A+OlNlefDnBmEIhdnfvXhBtYFf2RACVJRTypMYOAept24RZWULs+jy+uzepqCWwisE
- XfauvaeiuvUCn0WymbqCZ2+FST0L8aknSkf+RgK0=
-Subject: Patch "drm/ttm: Drop tt->restore after successful restore" has been
- added to the 7.2-stable tree
-To: airlied@gmail.com, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
- maarten.lankhorst@linux.intel.com, matthew.auld@intel.com,
- matthew.brost@intel.com, mripard@kernel.org, ray.huang@amd.com,
- simona@ffwll.ch, thomas.hellstrom@linux.intel.com, tzimmermann@suse.de
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:56:29 +0200
-Message-ID: <2026090929-daycare-brute-301f@gregkh>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
+ by tor.source.kernel.org (Postfix) with ESMTP id DF96360207;
+ Wed,  9 Sep 2026 12:04:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B9811F00A3A;
+ Wed,  9 Sep 2026 12:04:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788955481;
+ bh=9rYxiJZq9jRLTihWKw9Y5pcuS+v/rfGDs1KFvYOo6iQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=X+8w40zGNJPwZ41f7ZG17nsX0CjDrv7l2+3rnRnuv5pwCvGaaNqFiXlYIXkh1/oAg
+ NFtS+ABaNe0hSHR6Stp0Bgt6vulcNCLN1f3SYN8C438N6l5bVWb8MA4aJM4mWv6F+H
+ WXD7ZuPNvp8AqlggjGuqYahPlFSzAezIYAc7JlhuvBuPO/ASU1ak5w30W0lhesuAkm
+ PAfARCKfhSXztYGSLkVM4ZeULlwrBNhka78ZC/b9Pogm4ZFO0IU0+bPS9hmt67suzD
+ +Jqz6smafkEJ/dTjpIbq9iT83cOgHFAkkr78hp2sguOED+LKQn7iaKj6vPPPTj/5ez
+ CSvIi07IYHUdQ==
+From: sashiko-bot@kernel.org
+Subject: Re: Patch "drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()"
+ has been added to the 7.2-stable tree
+To: gregkh@linuxfoundation.org
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <2026090939-sarcasm-demeaning-4889@gregkh>
+References: <2026090939-sarcasm-demeaning-4889@gregkh>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 12:04:40 +0000
+Message-Id: <20260909120441.6B9811F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,147 +53,96 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-This is a note to let you know that I've just added the patch titled
+Pre-existing issues:
+- [High] Unfixed teardown kernel panic when gpu_buddy_init() fails
+--
 
-    drm/ttm: Drop tt->restore after successful restore
+commit 96e42e3ef488e9ad28452efe2bd6b23f7a53c47b
+Author: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
 
-to the 7.2-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
 
-The filename of the patch is:
-     drm-ttm-drop-tt-restore-after-successful-restore.patch
-and it can be found in the queue-7.2 subdirectory.
+The commit moves drmm_cgroup_register_region() to after the list and
+buddy allocator are fully initialized to fix a teardown kernel panic.
+When drmm_cgroup_register_region() fails, it triggers the teardown path
+which used to crash because the buddy allocator and lists weren't
+initialized.
 
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
+Link: https://patch.msgid.link/20260725100036.2372-2-thomas.hellstrom@linux=
+.intel.com
 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_vram_mgr.c
+> index 2a241a5b12c42..ac3f71d77140a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
 
-From 941ac10529b3be5965a88d432a161ab459672ba8 Mon Sep 17 00:00:00 2001
-From: Matthew Brost <matthew.brost@intel.com>
-Date: Tue, 16 Jun 2026 18:55:31 -0700
-Subject: drm/ttm: Drop tt->restore after successful restore
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+[ ... ]
 
-From: Matthew Brost <matthew.brost@intel.com>
+> @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
+>  	if (err)
+>  		return err;
 
-commit 941ac10529b3be5965a88d432a161ab459672ba8 upstream.
+[Severity: High]
+This is a pre-existing issue, but does this still lead to a kernel panic
+during teardown if gpu_buddy_init() fails?
 
-ttm_pool_restore_and_alloc() can successfully complete the restore
-process via ttm_pool_restore_commit(), but tt->restore is not dropped
-afterward. As a result, subsequent backup/restore flows observe what
-appears to be a completed restore, while in reality shmem handles are
-still installed in tt->pages, leading to the stack trace below.
+Because adev->mman.initialized is set to true earlier in amdgpu_ttm_init(),
+a failure from gpu_buddy_init() triggers the teardown path in
+amdgpu_ttm_fini(), which calls amdgpu_vram_mgr_fini().
 
-Fix this by freeing and dropping tt->restore in
-ttm_pool_restore_and_alloc() upon successful completion of the restore.
+amdgpu_vram_mgr_fini() unconditionally calls gpu_buddy_fini():
 
-20545 [  309.784531] RIP: 0010:sg_alloc_append_table_from_pages+0x38c/0x490
-20547 [  309.809570] RSP: 0018:ffffc9000623b838 EFLAGS: 00010206
-20548 [  309.814827] RAX: 0000000000001000 RBX: ffff88816e42a160 RCX: 0000000000000000
-20549 [  309.821986] RDX: 0000000000002000 RSI: 0000000000000003 RDI: 0000000000001000
-20550 [  309.829147] RBP: ffff88816e42a168 R08: 0000000000000002 R09: 000000007ffff000
-20551 [  309.836310] R10: ffffc9000623b928 R11: 0000000000000000 R12: 000000007ffff000
-20552 [  309.843471] R13: ffff88815ba5a100 R14: 0000000000000000 R15: 0000000000000001
-20553 [  309.850634] FS:  00007f9ff305e700(0000) GS:ffff888276c94000(0000) knlGS:0000000000000000
-20554 [  309.858749] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-20555 [  309.864519] CR2: 00007f9fca701000 CR3: 00000001565e2005 CR4: 0000000008f70ef0
-20556 [  309.871678] PKRU: 55555558
-20557 [  309.874403] Call Trace:
-20558 [  309.876866]  <TASK>
-20559 [  309.878988]  sg_alloc_table_from_pages_segment+0x60/0x100
-20560 [  309.884415]  ? ttm_resource_manager_usage+0x36/0x60 [ttm]
-20561 [  309.889845]  ? xe_tt_map_sg+0x7d/0xd0 [xe]
-20562 [  309.894045]  xe_tt_map_sg+0x7d/0xd0 [xe]
-20563 [  309.898037]  xe_bo_move+0x927/0xaa0 [xe]
-20564 [  309.902029]  ttm_bo_handle_move_mem+0xba/0x170 [ttm]
-20565 [  309.907022]  ttm_bo_validate+0xbe/0x190 [ttm]
-20566 [  309.911405]  xe_bo_validate+0x9a/0x120 [xe]
-20567 [  309.915663]  xe_gpuvm_validate+0xd9/0x140 [xe]
-20568 [  309.920206]  drm_gpuvm_validate+0x2f0/0x5b0 [drm_gpuvm]
-20569 [  309.925459]  ? drm_exec_lock_obj+0x63/0x210 [drm_exec]
-20570 [  309.930627]  xe_vm_validate_rebind+0x46/0xb0 [xe]
-20571 [  309.935428]  xe_exec_fn+0x20/0x40 [xe]
-20572 [  309.939249]  drm_gpuvm_exec_lock+0x78/0xc0 [drm_gpuvm]
-20573 [  309.944410]  xe_validation_exec_lock+0x5a/0xa0 [xe]
-20574 [  309.949385]  xe_exec_ioctl+0x806/0xc30 [xe]
-20575 [  309.953639]  ? ttwu_queue_wakelist+0xd9/0xf0
-20576 [  309.957935]  ? __pfx_xe_exec_fn+0x10/0x10 [xe]
-20577 [  309.962449]  ? __wake_up_common+0x73/0xa0
-20578 [  309.966482]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
-20579 [  309.971263]  drm_ioctl_kernel+0xa3/0x100
-20580 [  309.975209]  drm_ioctl+0x213/0x440
-20581 [  309.978637]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
-20582 [  309.983415]  xe_drm_ioctl+0x67/0xd0 [xe]
-20583 [  309.987408]  __x64_sys_ioctl+0x7f/0xd0
+drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:amdgpu_vram_mgr_fini() {
+    ...
+	if (!adev->gmc.is_app_apu)
+		gpu_buddy_fini(&mgr->mm);
+    ...
+}
 
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Link: https://patch.msgid.link/20260617015531.1164189-1-matthew.brost@intel.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/ttm/ttm_pool.c |   15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+However, if gpu_buddy_init() fails, it cleans up internally and leaves
+mm->free_trees as a NULL or dangling pointer:
 
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -917,6 +917,7 @@ int ttm_pool_restore_and_alloc(struct tt
- {
- 	struct ttm_pool_tt_restore *restore = tt->restore;
- 	struct ttm_pool_alloc_state alloc;
-+	int ret;
- 
- 	if (WARN_ON(!ttm_tt_is_backed_up(tt)))
- 		return -EINVAL;
-@@ -940,14 +941,22 @@ int ttm_pool_restore_and_alloc(struct tt
- 	} else {
- 		alloc = restore->snapshot_alloc;
- 		if (ttm_pool_restore_valid(restore)) {
--			int ret = ttm_pool_restore_commit(restore, tt->backup,
--							  ctx, &alloc);
-+			ret = ttm_pool_restore_commit(restore, tt->backup,
-+						      ctx, &alloc);
- 
- 			if (ret)
- 				return ret;
- 		}
--		if (!alloc.remaining_pages)
-+		if (!alloc.remaining_pages) {
-+			ret = ttm_pool_apply_caching(&alloc);
-+			if (ret)
-+				return ret;
-+
-+			kfree(tt->restore);
-+			tt->restore = NULL;
-+
- 			return 0;
-+		}
- 	}
- 
- 	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
+drivers/gpu/buddy.c:gpu_buddy_init() {
+    ...
+out_free_tree:
+	while (i--)
+		kfree(mm->free_trees[i]);
+	kfree(mm->free_trees);
+	return -ENOMEM;
+}
 
+Then gpu_buddy_fini() blindly iterates over these pointers:
 
-Patches currently in stable-queue which might be from matthew.brost@intel.com are
+drivers/gpu/buddy.c:gpu_buddy_fini() {
+    ...
+	for_each_free_tree(i)
+		kfree(mm->free_trees[i]);
 
-queue-7.2/mm-mempolicy-fix-sleeping-allocation-in-alloc_pages_bulk_weighted_interleave.patch
-queue-7.2/drm-ttm-drop-tt-restore-after-successful-restore.patch
-queue-7.2/drm-xe-vram-report-flat_ccs-base-misalignment.patch
-queue-7.2/mm-migrate_device-avoid-out-of-bounds-writes-for-compound-folios.patch
+	kfree(mm->free_trees);
+	kfree(mm->roots);
+}
+
+Could this crash during module load under memory pressure when the
+allocation in gpu_buddy_init() fails?
+
+> =20
+> +	man->cg =3D drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev=
+->gmc.real_vram_size);
+> +	if (IS_ERR(man->cg))
+> +		return PTR_ERR(man->cg);
+> +
+>  	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
+>  	ttm_resource_manager_set_used(man, true);
+>  	return 0;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/2026090939-sarcasm-=
+demeaning-4889@gregkh?part=3D1
