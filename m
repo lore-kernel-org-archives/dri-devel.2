@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D589C79FB7
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:40:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FC57C79FB6
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:41:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 582CF10F173;
-	Wed,  9 Sep 2026 13:40:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FC0310F115;
+	Wed,  9 Sep 2026 13:41:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kK4Zzt0k";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M/mxKVZi";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A12E310F172
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 13:39:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D75C10F115
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 13:41:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8A2C442B6B;
- Wed,  9 Sep 2026 13:39:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4DD51F00A3D;
- Wed,  9 Sep 2026 13:39:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EAEF243394;
+ Wed,  9 Sep 2026 13:41:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 157A01F00A3A;
+ Wed,  9 Sep 2026 13:41:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788961197;
- bh=WA4y5vV3v0lUi1+6hd/3b8x4mAITSQ81uAkJYhdoYXk=;
+ s=k20260515; t=1788961263;
+ bh=wxMXjNBdXbhhVdeekOL7ly4h76Cr8A1CF6EPfA72hcE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kK4Zzt0kKlS3vN2zHQ8dhJw4lH7McJ00cIC+ipL9koVVCN/bhONTQ9VHYEId7n6aV
- +BetxU1jr2pmTqo9KaZQAYP9MCk5pzScSUnfq7tUoa1/YH3Pox8UGMZtSv8oo/2S07
- KKyQQ2oYGRgGRLjeVwR3rRTsj4yaqeoUofERsqHzVOBtXNMid9FC+iI+DodTsvpu/h
- +kLor+mUrSdMJI0qR6XqXfJRMp5ll0TVND5+7dZ1g+sYDk+6FhZdMJ/9UVizatGX+K
- 5YvNhH1wrSACnUHH/Qj5z0FT6PncVAkkbMS28iCS4Jl6xFhQajRMwejA6/aYRdJGhe
- f0Jpdh8gbMKqA==
+ b=M/mxKVZiP6/lVyh2S0uVt5RwObq0pHb2AISuZ9ZhkQDt5uk+a7izGlK34Gbr9mdzM
+ rfOfnPojA2Am84NNqUghl5XiM7B4w5BHUDTEGkjUz8wsV2e0AwNtADXa6FsZ7dKtRs
+ B4VFLVFv4pX98WYQDE+zoiFd+zDlHUtwvzB0GqdJB64v90VbKM31NBn/ZNPSEVh3Ce
+ 7Ahvh6E2Re3e3UFIaBPVPVLYB0de8NsA1tb7ULqpYHelbw7WVKutu7H7f+H3rsHMKp
+ wJMFJq+UiG186ONqmlDHzyp93h2g3CXXLZz9C7z6NSHYFwULyP0CW1kdaQ7lFpbzRl
+ 66N3LgVdIyyoQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 02/14] mfd: remove unused rdc321x southbridge support
+Subject: Re: [PATCH 11/14] mfd: remove unused wm8350 driver
 To: "Arnd Bergmann" <arnd@kernel.org>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- media-ci@linuxtv.org, mfd@lists.linux.dev, linux-leds@vger.kernel.org,
- dri-devel@lists.freedesktop.org, robh@kernel.org, linux-input@vger.kernel.org,
- "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>, dmitry.torokhov@gmail.com,
- linux-watchdog@vger.kernel.org, lee@kernel.org, linux-rtc@vger.kernel.org,
- conor+dt@kernel.org
-In-Reply-To: <20260909132153.1596191-3-arnd@kernel.org>
+Cc: linux-leds@vger.kernel.org, linux-input@vger.kernel.org, lee@kernel.org,
+ conor+dt@kernel.org, linux-watchdog@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org,
+ mfd@lists.linux.dev, dmitry.torokhov@gmail.com, linux-hwmon@vger.kernel.org,
+ linux-rtc@vger.kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>, media-ci@linuxtv.org
+In-Reply-To: <20260909132153.1596191-12-arnd@kernel.org>
 References: <20260909132153.1596191-1-arnd@kernel.org>
- <20260909132153.1596191-3-arnd@kernel.org>
+ <20260909132153.1596191-12-arnd@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 13:39:56 +0000
-Message-Id: <20260909133956.E4DD51F00A3D@smtp.kernel.org>
+Date: Wed, 09 Sep 2026 13:41:02 +0000
+Message-Id: <20260909134103.157A01F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,39 +64,55 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Incomplete removal of RDC321x support leaves dead reboot fixups, PC=
-I IDs, and a stale MAINTAINERS entry.
+- [Low] Stale documentation references to the removed wm8350 driver.
 --
 
-commit d66c645a0b11af3b988f3b3f1fe1a950247d9884
+commit 180d02f3fe78e14ad7acf9b29e2590c4c4ee3a29
 Author: Arnd Bergmann <arnd@arndb.de>
 
-mfd: remove unused rdc321x southbridge support
+mfd: remove unused wm8350 driver
 
-This commit removes the rdc321x southbridge support (MFD, GPIO, and Watchdo=
-g),
-as the older i486 chips can no longer boot Linux.
+This commit removes the wm8350 driver entirely, as it relied on platform
+data probing for development boards that have been dropped from the kernel.
+It removes the core driver along with its hwmon, gpio, led, power,
+regulator, rtc, watchdog, and sound codec components.
 
-> Remove this driver, as there is no way to run Linux any more on the
-> older chips after i486 support has been removed.
+> mfd: remove unused wm8350 driver
 >=20
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> This driver was used on the i.MX31 ADS reference board from Freescale
+> and the smdk6410 reference board from Samsung. Both used platform_data
+> based driver probing and are now gone from the kernel.
+>=20
+> Since probing with devicetree has never been supported by wm8350,
+> it is clear that nothing can use the driver on an upstream kernel,
+> and it is unlikely that anyone is still interested in a devicetree
+> conversion, so remove it.
 
 [Severity: Low]
-Since the entire platform and driver support is being removed, should we
-also clean up the remaining dead references to the RDC321x platform?
+Since the wm8350 driver is being completely removed here, should we also
+update the documentation files that still reference it as a working example=
+?=20
 
-Specifically, the reboot fixup code in arch/x86/kernel/reboot_fixups_32.c
-has a rdc321x_reset() function and an associated entry in fixups_table that
-appear to be left behind now that the hardware is no longer supported.
+Currently, there are a few places left behind that point developers to the
+removed driver code. For instance, in Documentation/scheduler/completion.rst
+referencing wait_for_completion_interruptible_timeout:
 
-Additionally, the PCI_DEVICE_ID_RDC_R6030 definition in include/linux/pci_i=
-ds.h
-is no longer used by any active driver.
+    why (e.g. see drivers/mfd/wm8350-core.c wm8350_read_auxadc())::
 
-Finally, there is a stale "RDC R-321X SoC" entry in MAINTAINERS that might
-need to be removed to complete the cleanup.
+And its Chinese translation in
+Documentation/translations/zh_CN/scheduler/completion.rst:
+
+    =EF=BC=88=E4=BE=8B=E5=A6=82=EF=BC=8C=E8=A7=81drivers/mfd/wm8350-core.c =
+wm8350_read_auxadc()::
+
+Additionally, Documentation/sound/soc/jack.rst points to the removed codec:
+
+    CODEC integrated jack detection can be see in the WM8350 driver.
+
+Would it make sense to update these documents to point to a different,
+active driver as an example to avoid confusing developers who might try
+to look up the removed files?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909132153.1596=
-191-1-arnd@kernel.org?part=3D2
+191-1-arnd@kernel.org?part=3D11
