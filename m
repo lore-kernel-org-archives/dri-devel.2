@@ -4,50 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86845C79FB6
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 15:41:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A79A5C79FB7
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 15:46:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C655410E1D9;
-	Wed,  9 Sep 2026 15:41:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D32A10E1DA;
+	Wed,  9 Sep 2026 15:46:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="31sVd3lT";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="RrRxL6K+";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 736DB10E1C8;
- Wed,  9 Sep 2026 15:41:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=4jGEiWuc3LNhn0aOVdAeuDAY3lihVYe3loGnLwhG5ig=; b=31sVd3lTXwmDP95C/LYFKf+7tj
- NoGRXuYEaeQCfG2DjsdWcv1/bc/Rxt1IKSMZg4cGFbTfUjLkI89TCkq2acz0oe310Zx0n9GOmyDC5
- IE9fq8qTbUNoZpIBpcHA6vNJX4X9nk7/kS6f8Oxw6rQVGqJswkHxwwsC3r+HMVGKi0qQ3TcXk71rn
- gv417w+Ue5sCPiGxo9qylUkqB4+Ni7Ip3Di4xynh9bl+BoPHl/QE97rn2LIH3geyzwGG4/2PCjGjR
- Dt6k3e8eBQAlxGqhFT1ENF4P86rly7jJNEYkDr3VREuh6V6n3EiqbnX9osqA7KvP3zlhjS0VBLduG
- Je3u5++A==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
- by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1x4KQN-0000000CCjG-11zN; Wed, 09 Sep 2026 15:41:23 +0000
-Message-ID: <84851571-6fdb-4a23-9ff7-8e36de16a435@infradead.org>
-Date: Wed, 9 Sep 2026 08:41:22 -0700
+X-Greylist: delayed 99327 seconds by postgrey-1.36 at gabe;
+ Wed, 09 Sep 2026 15:46:34 UTC
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F91310E1DA
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 15:46:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1788968791; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=bIP7FxCUP7PHjxh/nM4jKTnSi4O3I6PRlfBOfFxAVACnPdkG1o4ROdKc9mHAKRk9dawZAajHbag1i0Dtm5oZk73POFNeyTsIoMQdqnIex15/DdocxTTJLcvNzHv+8W2Brfrmzqd5aG+ycRGI3Kd6X4Q83AZV8i/HAccJDK0A7uQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1788968791;
+ h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=+2jg2ESPMMGY2dLnVmlBMJSk4zf6hyXqLuJROhsLZFs=; 
+ b=fHK0xZYkJa0EQ8iscGhXs3nCz+azjAIWs6h68cT2ql692DXJDd4uXiAI5yoxp5+3TWpg0puF6aimsbN7lur+FafMxu8awciKl9BP+tkdlvpc/mFm22kHkLG3ENAuLoHnilj1qqzm/Fi5AAKKvOLxax8bDHgaJF7386Ys1Wsq9ck=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+ dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788968791; 
+ s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+ bh=+2jg2ESPMMGY2dLnVmlBMJSk4zf6hyXqLuJROhsLZFs=;
+ b=RrRxL6K+fJgetX/zevzIf8shNUQZ64sHRap9E0npkCTqOSQIKdGw7QGQsmmT/nEh
+ MDEWBwP3A3JSNrYY6AU5UVrxINL1kX0CeJRhDr083WK6iOkhdTlz+KNgeB67XQeShiX
+ D9sDnGwGS2S6atyJx9cWGAcEY8UQgBcy05nf5uW0=
+Received: by mx.zohomail.com with SMTPS id 1788968790593167.81978655910598;
+ Wed, 9 Sep 2026 08:46:30 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+ id 24C93183377; Wed, 09 Sep 2026 17:46:21 +0200 (CEST)
+Date: Wed, 9 Sep 2026 17:46:21 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Pavel Machek <pavel@kernel.org>, 
+ Michael Hennerich <michael.hennerich@analog.com>,
+ Support Opensource <support.opensource@diasemi.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, Helge Deller <deller@gmx.de>,
+ dri-devel@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-watchdog@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-input@vger.kernel.org, 
+ linux-leds@vger.kernel.org, linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, llvm@lists.linux.dev
+Subject: Re: [PATCH 06/14] mfd: remove unused da903x driver
+Message-ID: <aqF_GZq1C4Tv1JB9@venus>
+References: <20260909132153.1596191-1-arnd@kernel.org>
+ <20260909132153.1596191-7-arnd@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Documentation nova: Fix bracket
-To: Manuel Ebner <manuelebnerli@mailbox.org>,
- Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260909135319.1364776-3-manuelebnerli@mailbox.org>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260909135319.1364776-3-manuelebnerli@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="jrej5ylckfdda26t"
+Content-Disposition: inline
+In-Reply-To: <20260909132153.1596191-7-arnd@kernel.org>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.959.6
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,32 +95,73 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
+--jrej5ylckfdda26t
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 06/14] mfd: remove unused da903x driver
+MIME-Version: 1.0
 
-On 9/9/26 6:53 AM, Manuel Ebner wrote:
-> Add missing ')'.
-> 
-> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+Hi,
 
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-Thanks.
- 
+On Wed, Sep 09, 2026 at 03:21:43PM +0200, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+>=20
+> This driver was used on a handful of ARM/PXA boards until those
+> got removed a few years ago. Without devicetree support, there is
+> no way to use them upstream.
+>=20
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 > ---
->  Documentation/gpu/nova/core/todo.rst | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/gpu/nova/core/todo.rst b/Documentation/gpu/nova/core/todo.rst
-> index d5130b2b0..a01c362b1 100644
-> --- a/Documentation/gpu/nova/core/todo.rst
-> +++ b/Documentation/gpu/nova/core/todo.rst
-> @@ -33,7 +33,7 @@ A good example from nova-core would be the ``Chipset`` enum type, which defines
->  the value ``AD102``. When probing the GPU the value ``0x192`` can be read from a
->  certain register indication the chipset AD102. Hence, the enum value ``AD102``
->  should be derived from the number ``0x192``. Currently, nova-core uses a custom
-> -implementation (``Chipset::from_u32`` for this.
-> +implementation (``Chipset::from_u32``) for this.
->  
->  Instead, it would be desirable to have something like the ``FromPrimitive``
->  trait [1] from the num crate.
+>  MAINTAINERS                           |   1 -
+>  drivers/input/touchscreen/Kconfig     |  13 -
+>  drivers/input/touchscreen/Makefile    |   1 -
+>  drivers/input/touchscreen/da9034-ts.c | 365 ----------------
+>  drivers/leds/Kconfig                  |   8 -
+>  drivers/leds/Makefile                 |   1 -
+>  drivers/leds/leds-da903x.c            | 145 -------
+>  drivers/mfd/Kconfig                   |  11 -
+>  drivers/mfd/Makefile                  |   2 -
+>  drivers/mfd/da903x.c                  | 565 -------------------------
+>  drivers/power/supply/Kconfig          |   7 -
+>  drivers/power/supply/Makefile         |   1 -
+>  drivers/power/supply/da9030_battery.c | 581 --------------------------
+>  drivers/regulator/Kconfig             |   8 -
+>  drivers/regulator/Makefile            |   1 -
+>  drivers/regulator/da903x-regulator.c  | 495 ----------------------
+>  drivers/video/backlight/Kconfig       |   7 -
+>  drivers/video/backlight/Makefile      |   1 -
+>  drivers/video/backlight/da903x_bl.c   | 160 -------
+>  19 files changed, 2373 deletions(-)
+>  delete mode 100644 drivers/input/touchscreen/da9034-ts.c
+>  delete mode 100644 drivers/leds/leds-da903x.c
+>  delete mode 100644 drivers/mfd/da903x.c
+>  delete mode 100644 drivers/power/supply/da9030_battery.c
+>  delete mode 100644 drivers/regulator/da903x-regulator.c
+>  delete mode 100644 drivers/video/backlight/da903x_bl.c
 
--- 
-~Randy
+Acked-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+
+-- Sebastian
+
+--jrej5ylckfdda26t
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmqhf0gACgkQ2O7X88g7
++ppaAhAAjamgA9v7fn8KcrThl75UZh6bOUT/5XiVqaq9zEwVJoY2fygDVmYao95K
+QhI39+RMyWRuGdnDCBrpw0eVA53PbFPc1VTm+Iw4FWehLC1skbbSwDpPLFSIZaLe
+DJlLr11UbevMyqcmNKw8yeRolbQfUbAA4leflpjAbhhEvAzotNSeIxLY3yFHNXoV
+hJsWKIRE4cFFb5bsx3qTlJFQMop9WidRYq3vdPeoGVCUW2zjROm5drG9e8Hb2dvd
+I1KgIIFgyn2WJYDlD3u0eLwYZk/YabwYv3PUfxRXIXRS3+JMzwA3ubQyoMit/SHv
+MMH4/sJdjtgUjUcnWKA9Ktle3BQgYFr80H6HHHaBoFQveCC2B/98B85Ev0wwi9Xa
+60t+RHmELFKX9TnD6o797ZxnsXxErlDhjl+UZhEKQpsQjKwBQHnV1RzX3QLFWYkv
+i16c5MyNzgDusXB4zpTBiAy/kVNKUysPwY13R8BBvr2NsQcBf9uYDTRHr/g+3Xd4
+wquTx7yb8tYLUn6cJr9jXHrSseS5TpMUu+8scdSVZBC9KSuaeRYigm5dLM0X6Zj5
+vmXaD9vlAGtPL7fv+zomhwt4Ufe51v2YGxWa8IQSEsyOG1eUO6zdfFIiajXpgBTR
+mZ6OWJdhnZ9sRSQVANNafU85fqkka6x1/ZAQvqaKPBGVE7bXzhc=
+=3btz
+-----END PGP SIGNATURE-----
+
+--jrej5ylckfdda26t--
