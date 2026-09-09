@@ -4,57 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33ED4C79FAD
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 05:25:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F94EC79F8C
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 05:36:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 554EE10E152;
-	Wed,  9 Sep 2026 05:25:14 +0000 (UTC)
-X-Greylist: delayed 3594 seconds by postgrey-1.36 at gabe;
- Wed, 09 Sep 2026 05:25:13 UTC
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net
- (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0A23510E152
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 05:25:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5AD610E049;
+	Wed,  9 Sep 2026 05:36:25 +0000 (UTC)
+X-Greylist: delayed 4260 seconds by postgrey-1.36 at gabe;
+ Wed, 09 Sep 2026 05:36:23 UTC
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net
+ [207.46.229.174])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 437A210E049
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 05:36:23 +0000 (UTC)
 Received: from zju.edu.cn (unknown [10.98.66.117])
- by mtasvr (Coremail) with SMTP id _____wBHIX6w7aBq6uoBAQ--.7104S3;
- Wed, 09 Sep 2026 13:25:05 +0800 (CST)
+ by mtasvr (Coremail) with SMTP id _____wAH4X1L8KBqy_MBAQ--.32620S3;
+ Wed, 09 Sep 2026 13:36:12 +0800 (CST)
 Received: from localhost.localdomain (unknown [10.98.66.117])
- by mail-app1 (Coremail) with SMTP id yy_KCgAHnKaw7aBqbcFoBA--.45453S2;
- Wed, 09 Sep 2026 13:25:04 +0800 (CST)
+ by mail-app4 (Coremail) with SMTP id zi_KCgDnGDBK8KBq8CGoAw--.35214S2;
+ Wed, 09 Sep 2026 13:36:10 +0800 (CST)
 From: Fan Wu <fanwu01@zju.edu.cn>
-To: lucas.demarchi@intel.com
-Cc: thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
- airlied@gmail.com, simona@ffwll.ch, intel-xe@lists.freedesktop.org,
+To: mripard@kernel.org
+Cc: dave.stevenson@raspberrypi.com, mcanal@igalia.com,
+ kernel-list@raspberrypi.com, maarten.lankhorst@linux.intel.com,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, eric@anholt.net,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org, Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] drm/xe/i2c: cancel the client work on remove
-Date: Wed,  9 Sep 2026 05:23:28 +0000
-Message-Id: <20260909052328.654682-1-fanwu01@zju.edu.cn>
+Subject: [PATCH] drm/vc4: drain the hangcheck timer and works on V3D unbind
+Date: Wed,  9 Sep 2026 05:35:09 +0000
+Message-Id: <20260909053509.657074-1-fanwu01@zju.edu.cn>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: yy_KCgAHnKaw7aBqbcFoBA--.45453S2
+X-CM-TRANSID: zi_KCgDnGDBK8KBq8CGoAw--.35214S2
 X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?YhfASgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
- sfnVCjTgEH9dVomQuWcozCBBFzIrCNcQHfV2ckOR5KAS8rZcN3Zc9b3RzG5I2YoyNUuUXV
- JaRR6vAqtJ69vbf58Vip9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7Cw4Dtr47KFW8Kry7Kw1UXFc_yoW8CF17pr
- sxWrW5GrZF9F42gw47Za1xAFyUCr4fArWSkr17J343WwsxKry8Zr98tayUJFyjyayrZa4j
- yrn0q3y3urW5AFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+X-CM-DELIVERINFO: =?B?/TeuFgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+ sfnXz+g1OQfMo27QHy5TwQyZwfdQ11pk717IchTpzFSURcVSijrRuNKLDtryceijmISBFH
+ tRa/3CMSLNfM+754Feup9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW7Cr1rCrW3Aw48JFW3CrW5XFc_yoW5Jr17pF
+ sxCFZ0qrWkWFW3t3sxZ3Z7ZFyrAw4rtry7GFy29w42kwnIyryrKFyqk34YgFyDJayDWrW3
+ tFsxJ3909Fy5A3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
  sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+ 0xBIdaVrnRJUUUPjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
  IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
  e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
- xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
- CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
- xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
- kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
- 6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
- I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
- 6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
- 0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
- JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
+ 0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+ 6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+ kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+ 6r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+ Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+ 42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
+ WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
+ I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F
+ 4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
+ 6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU7rcfUUUUU
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,46 +71,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-xe_i2c_notifier() stores the DesignWare adapter in i2c->adapter and
-schedules i2c->work when the adapter is registered under the xe I2C
-platform device, and xe_i2c_client_work() then instantiates the AMC
-client device on that adapter.
+The hangcheck timer, which every submitted job arms and which queues
+reset_work once a job stops making progress, and the job_done_work,
+which the render-done interrupt queues to release completed jobs, are
+never drained at teardown: vc4_irq_disable() cancels only
+overflow_mem_work, and vc4_gem_destroy() runs from the drm-managed
+release, after vc4_v3d_unbind() has already uninstalled the V3D
+interrupt and cleared vc4->v3d.
 
-xe_i2c_remove() unregisters the client devices, the bus notifier and
-the adapter platform device, but it never drains i2c->work. A work
-item that is still queued or running when the adapter is unregistered
-dereferences i2c->adapter in i2c_new_client_device() after
-platform_device_unregister() has released the adapter. The work item
-is also embedded in the devm-allocated struct xe_i2c, so a work item
-still queued after the drm device devm unwind frees that allocation
-runs its callback on freed memory.
+A timer still armed by then reads V3D registers through the NULL
+vc4->v3d pointer, and late callbacks run on the vc4_dev embedding
+them after it has been freed.
 
-Cancel the work in xe_i2c_remove(), after bus_unregister_notifier()
-so that no new instance can be scheduled, and before the adapter is
-unregistered so that a running instance still finds a live adapter.
+Drain them in vc4_v3d_unbind(): shut the hangcheck timer down and
+cancel reset_work before the interrupt is taken down, because
+vc4_irq_reset() in a straggler reset re-enables it, then cancel
+job_done_work once no source is left, before vc4->v3d is cleared.
 
 This issue was found by an in-house static analysis tool.
 
-Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
-Cc: stable@vger.kernel.org
+Fixes: d5b1a78a772f ("drm/vc4: Add support for drawing 3D frames.")
+Cc: stable@vger.kernel.org # 6.13+: vc4->gen does not exist on older trees
 Assisted-by: Codex:gpt-5.6
 Co-developed-by: Song Li <songl@zju.edu.cn>
 Signed-off-by: Song Li <songl@zju.edu.cn>
 Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- drivers/gpu/drm/xe/xe_i2c.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/vc4/vc4_v3d.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-index 706783863d07..5a176d78193b 100644
---- a/drivers/gpu/drm/xe/xe_i2c.c
-+++ b/drivers/gpu/drm/xe/xe_i2c.c
-@@ -311,6 +311,7 @@ static void xe_i2c_remove(void *data)
- 		i2c_unregister_device(i2c->client[i]);
+diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
+index f32410420d3e..11d4df3164b4 100644
+--- a/drivers/gpu/drm/vc4/vc4_v3d.c
++++ b/drivers/gpu/drm/vc4/vc4_v3d.c
+@@ -9,6 +9,7 @@
+ #include <linux/component.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
++#include <linux/timer.h>
  
- 	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
-+	cancel_work_sync(&i2c->work);
- 	xe_i2c_unregister_adapter(i2c);
- 	xe_i2c_remove_irq(i2c);
- }
+ #include <drm/drm_print.h>
+ 
+@@ -497,8 +498,18 @@ static void vc4_v3d_unbind(struct device *dev, struct device *master,
+ 	struct drm_device *drm = data;
+ 	struct vc4_dev *vc4 = to_vc4_dev(drm);
+ 
++	/* Kill the timer, then reset_work: vc4_irq_reset() re-enables it. */
++	if (vc4->gen == VC4_GEN_4) {
++		timer_shutdown_sync(&vc4->hangcheck.timer);
++		cancel_work_sync(&vc4->hangcheck.reset_work);
++	}
++
+ 	vc4_irq_uninstall(drm);
+ 
++	/* Nothing can queue job_done_work any more; drain it. */
++	if (vc4->gen == VC4_GEN_4)
++		cancel_work_sync(&vc4->job_done_work);
++
+ 	/* Disable the binner's overflow memory address, so the next
+ 	 * driver probe (if any) doesn't try to reuse our old
+ 	 * allocation.
 
