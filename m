@@ -4,45 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEE13C79FAD
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 09:55:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D2B4C79FAD
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 09:57:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2097510F07E;
-	Wed,  9 Sep 2026 09:55:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7AE910E15C;
+	Wed,  9 Sep 2026 09:57:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DrTl92rE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A53tuRIi";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7F9F10F083
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 09:55:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 047B710E15C
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 09:57:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 79E3F43BD9;
- Wed,  9 Sep 2026 09:55:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11DAA1F00A3A;
- Wed,  9 Sep 2026 09:55:46 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2CE9960218;
+ Wed,  9 Sep 2026 09:57:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A9161F00A3A;
+ Wed,  9 Sep 2026 09:57:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788947746;
- bh=k3ZoXUWw8+ylgNyx+mvqFr+Yin7qk9+Vwg/NP0wfrn8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DrTl92rEH/58vPKQjtHiWyOV3KtyaiStg2D3hgRsDfaHIuvGGm3iPKBfxrZUNK3NT
- 1JWeD/g7yqWTNpUeVrbfTQOmhfCI7cPRuFvWEvs40xWMeAdKxn9DqS+nNMrUYVgZEd
- h0v6buzJRD8k0y0J95bb+zS8nWP7RkKrZFtR562GpPzF0S3ebDqmJn4UcNjCGmTe2d
- 3xF+VG7TCDpCB8y5+S/tLgPkaBvMMYeLwfEr331arK5Eau66TsNKdKNCKTgaomCSUh
- 5yGWDhLRYhhEuOnyTDzD4RYSB9hgfiiWBN4ot52ua+oaOIN092k9fjeoTncbkkgEv4
- vBacFmIfBj3HQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] mm: page_counter: track protection state in
- page_counter_protection
-To: linuszeng <linuszeng@tencent.com>
-Cc: dri-devel@lists.freedesktop.org, tj@kernel.org, mkoutny@suse.com,
- hannes@cmpxchg.org
-In-Reply-To: <20260909-descriptive-name-v2-2-d7dd7c099049@tencent.com>
-References: <20260909-descriptive-name-v2-0-d7dd7c099049@tencent.com>
- <20260909-descriptive-name-v2-2-d7dd7c099049@tencent.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 09:55:45 +0000
-Message-Id: <20260909095546.11DAA1F00A3A@smtp.kernel.org>
+ s=k20260515; t=1788947861;
+ bh=ACS7vz8pGD479SlSiRi90udXcJvc5D6Uo+sv7aFEyS0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=A53tuRIiFTkeViWFyJKiOLB8Dku0djstP2HReCfBOtb4pEciOnCmgSMWlo5kpEFBl
+ pm6oD0twfYoZRhg0QE7e8fhPbb8RYCx15yWjfr/CD1DNq5wwtcf57MBFeSwFui/t3v
+ 3j6l9fkDb+tgGXt0kSL1rFaeX7i0L1M7HWbz8KLlqMaiQZaTvwRt08ypgg0MIDpjxp
+ 6wCKaFGeLTcj1qzx9njjILHVSXQXZZ0TEq8rLwrR1R1hYTYyrLjABW5WWhkGpluuN5
+ fV10mP+YKmwWZmPdkX/TBwp/ISduYkHNYsNjmGTdgXiI+x/UJDxElDwrvG36ZOn6ii
+ 35IODZPcbGzvw==
+Date: Wed, 9 Sep 2026 11:57:38 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+ Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, Albert Esteve <aesteve@redhat.com>,
+ Anusha Srivatsa <asrivats@redhat.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
+ drm_panel
+Message-ID: <aqEqx0zBQgmUgwqL@houat>
+References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
+ <20260903-drm-bridge-every-panel-v2-5-2ab8ee24538e@bootlin.com>
+ <678ddef7e56703d9adffff5c490d4857af515343@intel.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="k6dpjrdgn3b4kb6y"
+Content-Disposition: inline
+In-Reply-To: <678ddef7e56703d9adffff5c490d4857af515343@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,84 +74,106 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] Concurrent dmem cgroup eviction can observe a partially initialize=
-d pool and trigger a NULL pointer dereference.
---
+--k6dpjrdgn3b4kb6y
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
+ drm_panel
+MIME-Version: 1.0
 
-commit 505dda1717b6dcbcc1903e6c7cc5e90077d70bb6
-Author: linuszeng <linuszeng@tencent.com>
-Subject: mm: page_counter: track protection state in page_counter_protection
+On Tue, Sep 08, 2026 at 07:18:53PM +0300, Jani Nikula wrote:
+> On Thu, 03 Sep 2026, Luca Ceresoli <luca.ceresoli@bootlin.com> wrote:
+> > Adding a drm_panel does currently not add a panel_bridge wrapping
+> > it. Usually the panel_bridge creation happens later, when some other dr=
+iver
+> > (e.g. the previous bridge or the encoder) calls *_of_get_bridge() and t=
+he
+> > following element in the pipeline is a panel.
+> >
+> > This has some drawbacks:
+> >
+> >  * the bridge API is currently the best practice to access various
+> >    components of the pipeline, especially with complex cards where brid=
+ges
+> >    can be combined in different ways on different hardware
+> >  * the panel_bridge is not created in the context of the driver of the
+> >    underlying physical device (the panel driver), but of some other dri=
+ver
+> >  * that other driver is not aware of whether the returned drm_bridge
+> >    pointer is a panel_bridge created on the fly, a pre-existing
+> >    panel_bridge or a non-panel bridge
+> >  * removal of a panel_bridge requires calling drm_panel_bridge_remove(),
+> >    but that other driver doesn't know whether this is needed because it
+> >    doesn't know whether it has created a panel_bridge or not
+> >
+> > Other drivers call [a variant of] drm_panel_bridge_add(), which also has
+> > some of the above drawbacks.
+> >
+> > So far the current approach was working mostly because devm and drmm en=
+sure
+> > the panel bridge would be dealloacted at some later point. However with=
+ the
+> > upcoming implementation of bridge hotplug and dynamic bridge lifetime t=
+his
+> > will get more complicated.
+> >
+> > Switch to the new approach: embed a drm_bridge inside every drm_panel,
+> > which behaves just like the current drm_panel_bridge.
+>=20
+> What does this mean for drivers like i915 that use drm_panel *only* for
+> handling panel followers? We don't need the bridge for anything. It'll
+> just be excess midlayer baggage.
 
-This patch moves the read/write side of hierarchical protection from struct
-page_counter to struct page_counter_protection. It updates
-propagate_protected_usage and calculate_protection, along with accessors to
-operate on the new context structure. The patch intends to introduce no
-functional changes.
+If we're talking about this series alone and assuming no regression,
+nothing. The drm_panel struct and lookup API is still there, you can use
+it.
 
-> diff --git a/mm/page_counter.c b/mm/page_counter.c
-> index 38cb99f5f50ed..401201c8e3902 100644
-> --- a/mm/page_counter.c
-> +++ b/mm/page_counter.c
+Long term though, there's talks already about panels needing a more
+full-fledged API (with access to drm_atomic_commit for example), and
+especially if this series land it might just make more sense to
+deprecate panels entirely and implement them using bridges.
 
-[ ... ]
+So, I'd keep an eye on these discussions.
 
-> @@ -463,23 +479,24 @@ void page_counter_calculate_protection(struct page_=
-counter *root,
->  		return;
-> =20
->  	if (parent =3D=3D root) {
-> -		counter->emin =3D READ_ONCE(counter->min);
-> -		counter->elow =3D READ_ONCE(counter->low);
-> +		prot->emin =3D READ_ONCE(prot->min);
-> +		prot->elow =3D READ_ONCE(prot->low);
->  		return;
->  	}
-> =20
-> +	parent_prot =3D parent->prot;
+> I'm also concerned about the embedded struct drm_connector being added,
+> since that can't and will not be a drm_connector that we'll use. All of
+> our drm_connector are embedded in intel_connector, and all of our
+> codebase expects this, and we init them ourselves. Having additional
+> drm_connector (not embedded in intel_connector) added by library code
+> *will* oops in our driver.
+>=20
+> I haven't had the time for an in-depth look, but it feels like this
+> assumes a certain driver model, instead of providing building blocks for
+> drivers to use.
 
-[Severity: High]
-This is a pre-existing issue, but could this code encounter a null pointer
-dereference if concurrent dmem cgroup eviction observes a partially
-initialized pool?
+I really wish i915 was at least *trying* to fit within the larger model
+basically everybody else uses. I understand that it's a large
+undertaking and regression prone and everything, but I'm also concerned
+about having the "we can't because of i915" or "supported by everybody
+else but i915" on a regular basis now.
 
-Looking at alloc_pool_single in kernel/cgroup/dmem.c, a new pool is
-published to the RCU-protected pools list before its parent link is fully
-established:
+Anyway, I'm not sure it's a big concern because the connector is only
+created when the bridge is attached, which you will never do if you
+don't support bridges. Worst case scenario, I guess we can always put
+that code under an ifdef?
 
-alloc_pool_single()
-    ...
-    list_add_tail_rcu(&pool->css_node, &dmemcs->pools);
-    ...
+Maxime
 
-If a concurrent thread running dmem_cgroup_state_evict_valuable or
-dmem_cgroup_below_min iterates over the cgroup descendants via
-css_for_each_descendant_pre, it can find this partially initialized pool and
-pass it to page_counter_calculate_protection.
+--k6dpjrdgn3b4kb6y
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Since counter->parent is null and does not match the root argument, the
-early return above is skipped, leading to a dereference of parent->prot
-here when parent is null.
+-----BEGIN PGP SIGNATURE-----
 
-Does the eviction path need to synchronize with the completion of pool
-initialization, or should page_counter_calculate_protection check if parent
-is null before dereferencing it?
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaqEtiwAKCRAnX84Zoj2+
+dvCsAX98+lv4KCDpQoNeGYrORnL7ssSVmSmd5PK2/X27rZn+qZdO1ibUqXmqfK2d
+joTFsOwBegKScSARUzJyYICLfU99vwIy88TBzg82tumq6vC4MvzRMOYqDpRn0Rzn
+ZNTO/DzvxA==
+=P0/x
+-----END PGP SIGNATURE-----
 
->  	parent_usage =3D page_counter_read(parent);
-> =20
-> -	WRITE_ONCE(counter->emin, effective_protection(usage, parent_usage,
-> -			READ_ONCE(counter->min),
-> -			READ_ONCE(parent->emin),
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-descriptiv=
-e-name-v2-0-d7dd7c099049@tencent.com?part=3D2
+--k6dpjrdgn3b4kb6y--
