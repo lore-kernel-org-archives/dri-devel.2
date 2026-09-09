@@ -4,128 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0028C79F8C
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 08:38:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 890B2C79FB9
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 08:38:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFBD910EFD2;
-	Wed,  9 Sep 2026 08:38:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D48CB10EFD3;
+	Wed,  9 Sep 2026 08:38:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fMvwOMtK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RgnP1cse";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D625510E54C
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 07:38:03 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 63E7941501;
- Wed,  9 Sep 2026 07:38:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8484C1F00A3A;
- Wed,  9 Sep 2026 07:38:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1788939483;
- bh=z7WoiQ3kTHyw/Ii8U53W3jB43VLKD3M/+zE0Et0v4Dk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=fMvwOMtKjnQJHWqbGOBFRkxLXNBsibipPgj2Q6P064WQJWMW7wfdq4gqVuVvBLOBi
- mw2LdSGq7nWqdIa6eYDVqIpvJUSLUA2zonOikKUX6K36rwbteoOJo/Gwa7LLNDfbhI
- EHt9w7bjV4yHdhIGfrHtCRftSsoS+o6rrCDY1usY=
-Date: Wed, 9 Sep 2026 09:37:54 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, David Hildenbrand <david@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Doug Gilbert <dgilbert@interlog.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>,
- Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>,
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Jan Kara <jack@suse.cz>, Marc Zyngier <maz@kernel.org>,
- Oliver Upton <oupton@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- "David S. Miller" <davem@davemloft.net>,
- Andreas Larsson <andreas@gaisler.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Youngjun Park <youngjun.park@lge.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>,
- Michal Hocko <mhocko@kernel.org>,
- Miklos Szeredi <miklos@szeredi.hu>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-rdma@vger.kernel.org,
- selinux@vger.kernel.org, linux-sound@vger.kernel.org,
- bpf@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-trace-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
- kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
- sparclinux@vger.kernel.org, fuse-devel@lists.linux.dev
-Subject: Re: [PATCH 09/39] drivers/usb/mon: update to use mmap_prepare + map
- kernel pages
-Message-ID: <2026090947-daycare-gentleman-9796@gregkh>
-References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
- <20260908-b4-mmap-prepare-vma-flag-sanify-v1-9-dacf19cce22b@kernel.org>
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
+ [74.125.225.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A36110EF7A
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 07:35:04 +0000 (UTC)
+Received: by mail-wr2-f12.google.com with SMTP id
+ ffacd0b85a97d-4843cedd129so395237f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 00:35:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788939302; x=1789544102; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=rwJskRf230nVoXvEhVqyDUFt4l3Cq8VmWwWkkc6yiy4=;
+ b=RgnP1cseMhn8n8dEQGyjKsq/lsHNi/nzuZxmJbaZsTolZt5is4Ju8LmGBl2MKLjZXc
+ EJcJtMnP4A8PWNU4a6R1Ik1xfXB8cMPN3CeB3S/vWq4y+EkM6TVkhRrxnZIrUku/ExEY
+ xjh7wG6F5e7kvESexhSvmnOtuXOMo4gdgya/mwB0xp5LrBVWVG0UfcDfNRQaKDjmUPtW
+ LnpnwlA3Q/Tgh+Ubk98hZU7cOgSAZrhI/tnSvv3XlRyCETP2Avz/nnPOKdZIow3C9xBS
+ E2mTVn8iQe5ljA7E79LLeLXxYIAWEdTI0ZFQIMi1nvN2SZxAcxky7aKaz9yxnirRTK3h
+ 5ZIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788939302; x=1789544102;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=rwJskRf230nVoXvEhVqyDUFt4l3Cq8VmWwWkkc6yiy4=;
+ b=kJ2hmtN4DHHj/hNhuyWeO6yzjSlwUDGKv72oic3jQKo840YzQKOvXo5TSsdpdbShwI
+ yntQcBAsFZvryRrX1OuI4s6tcKllcx3Pa73aN1Y4COigXLxh2YnchFynFbiLfKJ7twDV
+ 5NEPOELLZ7SWzk+ps0ytkCrq18cAy3P83kiB7cQDnM2AYSoHOGyGvCvVs5OPyFDpLZT0
+ U+zlgk8IJiSbAwcP5AU0vbsNkmHOUbq8dcq05gC8CifIDdGSLTLFy+fJazJyuLyJ1WsE
+ zphLZPMQGjiO6e/Rnf73lB80ZTgobcTWYY5F+gh6UZIYkxkL8VejrL1dQgSDjIsK+2Qg
+ S94Q==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzbsVzBSnC9Q8Emkap63ctDSdQibECsmLBC0pWBiQCXWNsuVfi+Eop+LVh1vwp4cbViE9k6p4HG4fg=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ltQGtmxLnCA97wh364T91Aq8mqOozAg8O5w+dvb1SFAzNzEr3h
+ U/yarjY62dOb+iMXcIUOEqCgnGJhC/O+QtIb2UKjVUdrjOwQIsj5DzoG
+X-Gm-Gg: AYBFou0mrTVUcTzy/rONd9aO5XrH6UWRW1EC0r+RG3V8DSumrQqDTISzmWMPl/vA011
+ L0kBMxvvs4qj/AVql6+bf4BU0aWg3ow2g/xvmmHKJFmg77Ov0AcrqETlbnJJnyhMHm0B3KzfJ9Q
+ 1OlqKeqoqAAM0rarHt3Qx8jDRo8W0V6LRlXqSUp+SkXgaXwKNIIX37UfmFIoO5QuNE8vJGKw2Xs
+ aRJYumvaFBmKub+XXPGUi8KEIHFD4dMqS5RVkokvzO+EjV4OWyEuqxjTL0e8Rt5cGHHwcnlWjex
+ /DQiWTmsJaiuCzVv4yz/gbyXKFdzSvgzuBcyVenNl4LKbJ2C+UmZI7RwZXvuI4H8kIf0yj7tDT0
+ YpdaV84zSdZoX7lZquwurgiN9u+0hQBXw6TyzvYLEwbdRuzRKAm2ixvWZn7tv5O2GFC3Ydf/nRL
+ ZINkqQa5iSoZV8h8H/UBzDfyNUy8fevVkgIZbsLh27puRBinlQKLcw9uanuOJqfuZIPLL1Edy0B
+ dKsFlESrmkOjBRB31/5ij522Lhi6B2l2JdnLLRtO0U8YxoiiJ9RFK6fBVley0g65Jd76MTqdHrM
+ XUi9pDxRbVpfFDGOdTwU2pWb6/91n3k+1W8IK68=
+X-Received: by 2002:a05:600c:604a:b0:49d:1012:893a with SMTP id
+ 5b1f17b1804b1-49d1f320b72mr55194575e9.7.1788939302009; 
+ Wed, 09 Sep 2026 00:35:02 -0700 (PDT)
+Received: from PC-Davide.homenet.telecomitalia.it
+ (host-79-24-252-102.retail.telecomitalia.it. [79.24.252.102])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49cee5d476esm588770945e9.1.2026.09.09.00.35.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Sep 2026 00:35:01 -0700 (PDT)
+From: Davide Bonatto <bonatto.davide@gmail.com>
+To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Davide Bonatto <bonatto.davide@gmail.com>
+Subject: [PATCH] drm/virtio: Replace deprecated drm_simple_encoder_init()
+Date: Wed,  9 Sep 2026 09:34:38 +0200
+Message-ID: <20260909073440.52641-1-bonatto.davide@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-9-dacf19cce22b@kernel.org>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 09 Sep 2026 08:38:27 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,42 +94,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 08, 2026 at 09:01:13PM +0100, Lorenzo Stoakes (ARM) wrote:
-> Replace the deprecated .mmap hook with its replacement .mmap_prepare. As
-> part of this change, additionally take the approach of mapping pages upon
-> mmap rather than providing a fault handler.
-> 
-> The page span cannot be mutated when an mmap mapping is in place, so this
-> is safe to do in advance (the MON_IOCT_RING_SIZE ioctl operation exits
-> -EBUSY if it's attempted, gated by the rp->mmap_active reference count).
-> 
-> Utilise the newly introduced mmap_action_map_discontig_kernel_pages() to do
-> this, which allows for iteration over pages in mon_bin_discontig_get().
-> 
-> mon_bin_discontig_init() increments the rp->mmap_active reference count to
-> stabilise page spans. Should an error arise the core unmaps the VMA and
-> mon_bin_vma_close() drops the reference again.
-> 
-> The vm_ops->close hook implemented in mon_bin_vma_close() will ensure
-> correct reference count arithmetic upon unmap (with mon_bin_vma_open()
-> accounting for splitting).
-> 
-> The existing semantics are all retained, including not mapping past the
-> range of available pages, with a SIGBUS being raised in a userland process
-> that attempts to access past this point.
-> 
-> Ultimately insert_page() is invoked to insert each page, which increments
-> the reference count on each mapped page. This mimics what was being done
-> previously, only we pre-map the entire range rather than doing so on
-> demand.
-> 
-> The existing fault handler did nothing that required demand paging, and was
-> presumably implemented this way due for historic reasons.
-> 
-> One behavioural difference: pages are no longer faulted in on demand, so a
-> page discarded with MADV_DONTNEED is not repopulated and a subsequent
-> access raises SIGBUS, as with other pre-populated kernel mappings.
-> 
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+drm_simple_encoder_init() is deprecated as it introduces an unnecessary
+intermediate layer between atomic modesetting and DRM drivers.
 
-Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Inline the helper call in virtgpu_display by defining
+virtio_gpu_encoder_funcs with the default drm_encoder_cleanup callback,
+and migrate directly to drm_encoder_init()
+
+Signed-off-by: Davide Bonatto <bonatto.davide@gmail.com>
+---
+ drivers/gpu/drm/virtio/virtgpu_display.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/virtio/virtgpu_display.c b/drivers/gpu/drm/virtio/virtgpu_display.c
+index a1a875a0c706..85986578001f 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_display.c
++++ b/drivers/gpu/drm/virtio/virtgpu_display.c
+@@ -67,6 +67,10 @@ static const struct drm_framebuffer_funcs virtio_gpu_fb_funcs = {
+ 	.dirty = drm_atomic_helper_dirtyfb,
+ };
+ 
++static const struct drm_encoder_funcs virtio_gpu_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static int
+ virtio_gpu_framebuffer_init(struct drm_device *dev,
+ 			    struct virtio_gpu_framebuffer *vgfb,
+@@ -306,7 +310,9 @@ static int vgdev_output_init(struct virtio_gpu_device *vgdev, int index)
+ 	if (vgdev->has_edid)
+ 		drm_connector_attach_edid_property(connector);
+ 
+-	drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_VIRTUAL);
++	drm_encoder_init(dev, encoder, &virtio_gpu_encoder_funcs,
++		DRM_MODE_ENCODER_VIRTUAL, NULL);
++
+ 	drm_encoder_helper_add(encoder, &virtio_gpu_enc_helper_funcs);
+ 	encoder->possible_crtcs = 1 << index;
+ 
+-- 
+2.43.0
+
