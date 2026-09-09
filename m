@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A44BC79F8C
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 04:12:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C532BC79FAD
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 04:14:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE0C510EE99;
-	Wed,  9 Sep 2026 04:12:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EF8010EE98;
+	Wed,  9 Sep 2026 04:14:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ErFuqJCT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nm1GfNTL";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AE9810EE99
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 04:12:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B9A410EE98
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 04:14:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F1845601FB;
- Wed,  9 Sep 2026 04:12:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A9751F00A3A;
- Wed,  9 Sep 2026 04:12:46 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5EF99601FB;
+ Wed,  9 Sep 2026 04:14:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD7E51F00A3A;
+ Wed,  9 Sep 2026 04:14:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788927166;
- bh=SS5Oe6SrI7CnlQVcAlGDuCFW8OYErXYRg6Jy3ugHrf4=;
+ s=k20260515; t=1788927284;
+ bh=KvWHQ57lFszbkAQAhWElYlrGrskSJYUsFIuHFBNZ2E8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ErFuqJCTScI0E/Y5vHnqOgWQGUZErCvkRu6fHr3thU0ONd1OKWiNw4et+kj1U2TyE
- M6njlW2LDcSzGd5P3gvjdWhlVT5mWVzITwBBRFZ9/GxWbMF1FPWsO8r7CVzpiMVtf4
- eYDs5zMd+TDU2Xs2BYJSnQoueFXm2B+je2Kp1iETI8wtviwPQmhaglsz8DD9MBGn32
- iMSoPP1CQQvqz0TgJxsPbOe/bVQIhZD5P6BhL6W3JVq0TidtjJhxSUazBs2IFjl7P6
- dvP1UurKZ9MDxd51wrhER6AwNibAgDhXqYG7TkN3ihbOEWfd4SRsk7EK3/yDWjp+us
- bnJAoTqtWkw4w==
+ b=nm1GfNTLQJWclPEZdsWmMgDOlPTTTLVV6t1kbD/VnCwGxyT1CfxaLO7cB9A9AGgkN
+ UBt14fPBqPJ2xKXrX4Y0LPsq0Q8qtnAVdQ7UTFCQOguRJzm5TC4F2NrkzyexRdk3Ek
+ usM+xTR0mv9vTsPK3bNKlgmlSTcpUMmSBetpJrC64N2viCd2codNA+OvfSASpddb0z
+ YQ1/gQLhZ4nMqDP2doh2rBXjpa8m6uhIQzziNKlzWU9hRXhOKmd+dQnCq9wg2dztmi
+ Ve+5hmbw1lLFKIXrye3EpcRF36yHIfyuwb1YHY6L2pKbQjzA9wew5M7r1EYhW3rilb
+ 96GcAv1yRCdsg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 07/16] gpu: nova-core: mm: Add MMU v2 page table types
+Subject: Re: [PATCH 14/16] gpu: nova-core: Add BAR1 aperture type and size
+ constant
 To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org,
- "Danilo Krummrich" <dakr@kernel.org>
-In-Reply-To: <20260909-mmrebase-v1-7-8dd5d4225d2e@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260909-mmrebase-v1-14-8dd5d4225d2e@nvidia.com>
 References: <20260909-mmrebase-v1-0-8dd5d4225d2e@nvidia.com>
- <20260909-mmrebase-v1-7-8dd5d4225d2e@nvidia.com>
+ <20260909-mmrebase-v1-14-8dd5d4225d2e@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 04:12:46 +0000
-Message-Id: <20260909041246.7A9751F00A3A@smtp.kernel.org>
+Date: Wed, 09 Sep 2026 04:14:43 +0000
+Message-Id: <20260909041443.CD7E51F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,72 +59,54 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] PdeOps::invalid in MMU v2 creates a valid large page PTE instead o=
-f an invalid PDE.
-- [Medium] Commit message claims MMU v2 is for Hopper, contradicting the co=
-de implementation.
+- [Medium] Mismatch between commit message and code: missing BAR1_SIZE cons=
+tant.
 --
 
-commit 123f278dccc75525e59331c1fb9bc862c6096243
+commit db55f37382f142c32f879637ebd2448ef45bd83e
 Author: Joel Fernandes <joelagnelf@nvidia.com>
 
-gpu: nova-core: mm: Add MMU v2 page table types
+gpu: nova-core: Add BAR1 aperture type and size constant
 
-Add page table entry and directory structures for MMU version 2. The Pte,
-Pde, and DualPde types each implement traits for the version-agnostic API
-used by the forthcoming page-table walker and mapper.
+This commit adds the Bar1 type alias and related GSP structures for BAR1
+memory access functionality. It also adds parsing for the BAR1 PDE base
+address.
 
->     Add page table entry and directory structures for MMU version 2 used =
-by
->     Hopper and later GPUs.
+>     gpu: nova-core: Add BAR1 aperture type and size constant
+>    =20
+>     Add BAR1_SIZE constant and Bar1 type alias for the 256MB BAR1 apertur=
+e.
 
 [Severity: Medium]
-Does the commit message have a typo regarding the supported architectures?
+Is the BAR1_SIZE constant missing from this patch?
 
-The commit message states MMU version 2 is used by Hopper and later GPUs,
-but the module documentation in drivers/gpu/nova-core/mm/pagetable/ver2.rs
-specifies it is for Turing, Ampere, and Ada GPUs. Hopper uses MMU v3.
+The commit message explicitly states that a BAR1_SIZE constant is added,
+but it appears to be entirely missing from the changes.
 
-> diff --git a/drivers/gpu/nova-core/mm/pagetable/ver2.rs b/drivers/gpu/nov=
-a-core/mm/pagetable/ver2.rs
-> new file mode 100644
-> index 0000000000000..089e5cc2bfc30
-> --- /dev/null
-> +++ b/drivers/gpu/nova-core/mm/pagetable/ver2.rs
+Note that this omission does not cause runtime bounds checks to fail, as
+pci::Bar gracefully falls back to dynamic runtime bounds checks against the
+actual PCI resource length. However, there is a mismatch between the intend=
+ed
+change described in the commit message and the actual code.
 
-[ ... ]
+> diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driv=
+er.rs
+> index 8cef4c284277f..5723ff8f71ea4 100644
+> --- a/drivers/gpu/nova-core/driver.rs
+> +++ b/drivers/gpu/nova-core/driver.rs
+> @@ -38,6 +38,8 @@ pub(crate) struct NovaCore<'bound> {
+> =20
+>  pub(crate) type Bar0<'a> =3D &'a pci::Bar<'a, BAR0_SIZE>;
+>  pub(crate) type NovaRegisters =3D kernel::io::Region<BAR0_SIZE>;
+> +#[expect(dead_code)]
+> +pub(crate) type Bar1<'a> =3D pci::Bar<'a>;
 
-> +impl PdeOps for Pde {
-> +    fn from_raw(val: u64) -> Self {
-> +        Self::from_raw(val)
-> +    }
-
-[ ... ]
-
-> +    fn invalid() -> Self {
-> +        Self::zeroed()
-> +            .with_valid_inverted(true)
-> +            .with_aperture(AperturePde::Invalid)
-> +    }
-
-[Severity: High]
-Does PdeOps::invalid() in MMU v2 create a valid large page PTE in hardware
-instead of an invalid PDE?
-
-By setting valid_inverted to true (bit 0 =3D 1), this constructs a raw value
-where bit 0 is set. In NVIDIA MMU hardware, bit 0 at the PDE level acts as
-the IS_PTE bit (0 =3D PDE, 1 =3D large page PTE).
-
-The hardware will interpret this as a valid large page mapped to VRAM
-physical address 0. If this is accessed, could it cause severe memory
-corruption?=20
-
-While currently unreachable by untrusted input because install_mappings()
-only uses AperturePde::VideoMemory, this breaks the page table abstraction
-for any future code that uses invalid() to clear a PDE slot.
+[Severity: Medium]
+This is where the Bar1 type alias is defined. Should this include the
+promised BAR1_SIZE constant as a generic parameter, similar to Bar0?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-mmrebase-v=
-1-0-8dd5d4225d2e@nvidia.com?part=3D7
+1-0-8dd5d4225d2e@nvidia.com?part=3D14
