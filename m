@@ -4,136 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4062C79F8C
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:31:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F877C79FB5
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:32:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2893010EECC;
-	Wed,  9 Sep 2026 06:31:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6688D10EEDA;
+	Wed,  9 Sep 2026 06:32:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="myaRdGsa";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3oz1h7eE";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="fJvfytp4";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yzFArzV+";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZA+l7Emj";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C695110EECC
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 06:31:08 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id ECCDA1F79C;
- Wed,  9 Sep 2026 06:30:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788935463; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ukbUOG2rKT1Ej+kB+aDSzr7OQjOLlu9tMNdz6i0Z15w=;
- b=myaRdGsa7gLHnoS+Taajh7MABZxePeB9Zu64JilXMFfYZAxoo+Jfd2gBzv60/2SfjG31TF
- 9EEb1PmaFG2+JiSP5RNuQEu+sHqw/rO7rBDlIav8WNZgV2/DOWNhs8ACoveL+ZDCCH3G5c
- 7uSJT88YqTHNSYQACNW7vgZjw5MZOQg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788935463;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ukbUOG2rKT1Ej+kB+aDSzr7OQjOLlu9tMNdz6i0Z15w=;
- b=3oz1h7eEOJgmTnCzjZJ1F9AxsncJ9W4HQ0n6EXTK1DZ7kHg5i1uFiRBH2az6PvVrswRg7v
- h7RONf9zzXcCBHCw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788935458; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ukbUOG2rKT1Ej+kB+aDSzr7OQjOLlu9tMNdz6i0Z15w=;
- b=fJvfytp4DNPw2X6+Dj+zCD3e7DH1fIBv+tD2i6RKSEwtXQ4xlmtAh1Js8XoEh7MyFbLrYU
- pJG3S19TdcEsmllO+ODKunaCxnuMxB8mc5aWdnRMQCODfBIg8O0VlJ5ttLtdp0olslxUtG
- wVpHAVU0QGhRu/o+HKKDcdAw4TJ0uK4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788935458;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ukbUOG2rKT1Ej+kB+aDSzr7OQjOLlu9tMNdz6i0Z15w=;
- b=yzFArzV+NS0w5mkO2O+C0JC9W/UcOK1Qe/N9oHYc3I0SbwgibI9xqR+S7S/XpAWrH39/rY
- 7YXLIaTX4QItCBCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 56E0713354;
- Wed,  9 Sep 2026 06:30:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id gV7BEyL9oGpCQQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 09 Sep 2026 06:30:58 +0000
-Message-ID: <19146699-b0ae-4268-833b-82aa3bf35fba@suse.de>
-Date: Wed, 9 Sep 2026 08:30:57 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CADFC10EED3;
+ Wed,  9 Sep 2026 06:32:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788935545; x=1820471545;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=/h5dVSsvfROejpBSrh4qJEooPtApHAkZjDTpJfrhuQY=;
+ b=ZA+l7EmjqprglOrQWzB0i9sufXFof/FXgFyqNqZjLnsxHJEI6lq1+Qy4
+ Rs+hTFpn3ypJFF5OJ183TOF2spXA+n6/8qcYXunXVTs+8VGZfBo/UVOm9
+ VpARtbDKC4dYGPz9cxe/Uo52EXG+eNRv2PB41COekxCmN6mz7ZAB5lisJ
+ DMQdLHUjCCkyU5nh8ihC5edPcmw7WFV6TNKGylB3mzz2CIEBJS64Ninlb
+ QFNZqHr+za7k3kFR+a8QUeDG7zP9/gTXtzcqZg/siFwEwfH56GX1qkzBt
+ QSHHIHJXw2l2VO2MzpYBjp0uB8vLya7MyqvZv4I3xPYz8QgmE97+qqXcx w==;
+X-CSE-ConnectionGUID: 2JH5RXQ4TpCq+djf4dfUmQ==
+X-CSE-MsgGUID: sFKN2jS/SkKBNuVhgiGThA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="88287201"
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="88287201"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2026 23:32:23 -0700
+X-CSE-ConnectionGUID: SDa6DcYJTIC/ahidQJuRXg==
+X-CSE-MsgGUID: TO1bLLsmSXWOgVzeU5xgkw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="269886196"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.20])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2026 23:32:20 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Werner Sembach <wse@tuxedocomputers.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Werner Sembach <wse@tuxedocomputers.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 2/2] drm/intel: Add quirk to disable rc6 on some TUXEDO
+ devices
+In-Reply-To: <20260908200707.65516-2-wse@tuxedocomputers.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260908200707.65516-1-wse@tuxedocomputers.com>
+ <20260908200707.65516-2-wse@tuxedocomputers.com>
+Date: Wed, 09 Sep 2026 09:32:16 +0300
+Message-ID: <7764d157c4bd6f832adeb7860baded67ae151901@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/11] drm/atomic: Create function to insert CRTC state
- into a commit
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Daniel Stone <daniels@collabora.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, =?UTF-8?Q?Jonas_=C3=85dahl?=
- <jadahl@redhat.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>,
- Victoria Brekenfeld <victoria@system76.com>, Xaver Hugl
- <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
- <20260908-drm-reset-state-flag-v3-2-905570f387a4@kernel.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260908-drm-reset-state-flag-v3-2-905570f387a4@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
- RCPT_COUNT_TWELVE(0.00)[16]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:mid,
- imap1.dmz-prg2.suse.org:helo, suse.com:url]
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,106 +77,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue, 08 Sep 2026, Werner Sembach <wse@tuxedocomputers.com> wrote:
+> Some TUXEDO devices have random rare hard resets during video streaming.
+
+Is there a gitlab issue for this?
+
+> Disabling rc6 fixes this. Until the root cause is found this is a pragmatic
+> workaround.
+
+The way to do this is to add your own local struct pci_device_id array
+somewhere, and use pci_match_id() or similar on it.
+
+We're *not* going to change the high level device info or PCI ID
+definitions for this.
+
+Ugly stuff needs to be localized and hidden away.
 
 
-Am 08.09.26 um 16:35 schrieb Maxime Ripard:
-> drm_atomic_get_crtc_state() allocates a new CRTC state by duplicating
-> the current one and inserts it into the atomic commit as a single
-> operation.
+BR,
+Jani.
+
+
 >
-> However, a later change will need to insert a CRTC state into a
-> commit without going through the full allocation and duplication path
-> in drm_atomic_get_crtc_state().
->
-> Extract the state insertion logic into a new static
-> drm_atomic_commit_set_crtc_state() helper, and convert
-> drm_atomic_get_crtc_state() to use it.
-
-Another change that makes sense on its own.
-
->
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
 > ---
->   drivers/gpu/drm/drm_atomic.c | 29 +++++++++++++++++++++++------
->   1 file changed, 23 insertions(+), 6 deletions(-)
+>  drivers/gpu/drm/i915/i915_pci.c | 11 +++++++++++
+>  include/drm/intel/pciids.h      | 22 ++++++++++++++++++++++
+>  2 files changed, 33 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 5c0f7b7024d1..153d959bd4ff 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -421,10 +421,27 @@ void __drm_atomic_commit_free(struct kref *ref)
->   
->   	drm_dev_put(dev);
->   }
->   EXPORT_SYMBOL(__drm_atomic_commit_free);
->   
-> +static int drm_atomic_commit_set_crtc_state(struct drm_atomic_commit *commit,
-> +					    struct drm_crtc *crtc,
-> +					    struct drm_crtc_state *crtc_state)
-> +{
-> +	int index = drm_crtc_index(crtc);
+> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+> index 2f03f95945f1b..a52b56bedcf4f 100644
+> --- a/drivers/gpu/drm/i915/i915_pci.c
+> +++ b/drivers/gpu/drm/i915/i915_pci.c
+> @@ -687,6 +687,16 @@ static const struct intel_device_info adl_p_info = {
+>  	.dma_mask_size = 39,
+>  };
+>  
+> +static const struct intel_device_info adl_p_tux_ibp8_quirk_info = {
+> +	GEN12_FEATURES,
+> +	PLATFORM(INTEL_ALDERLAKE_P),
+> +	.platform_engine_mask =
+> +		BIT(RCS0) | BIT(BCS0) | BIT(VECS0) | BIT(VCS0) | BIT(VCS2),
+> +	.__runtime.ppgtt_size = 48,
+> +	.dma_mask_size = 39,
+> +	.has_rc6 = 0,
+> +};
 > +
-> +	drm_modeset_lock_assert_held(&crtc->mutex);
+>  #undef GEN
+>  
+>  #define XE_HP_PAGE_SIZES \
+> @@ -863,6 +873,7 @@ static const struct pci_device_id pciidlist[] = {
+>  	INTEL_DG1_IDS(INTEL_VGA_DEVICE, &dg1_info),
+>  	INTEL_RPLS_IDS(INTEL_VGA_DEVICE, &adl_s_info),
+>  	INTEL_RPLU_IDS(INTEL_VGA_DEVICE, &adl_p_info),
+> +	INTEL_RPLP_TUX_IBP8_QUIRK_IDS(INTEL_VGA_DEVICE, &adl_p_tux_ibp8_quirk_info),
+>  	INTEL_RPLP_IDS(INTEL_VGA_DEVICE, &adl_p_info),
+>  	INTEL_DG2_IDS(INTEL_VGA_DEVICE, &dg2_info),
+>  	INTEL_ATS_M_IDS(INTEL_VGA_DEVICE, &ats_m_info),
+> diff --git a/include/drm/intel/pciids.h b/include/drm/intel/pciids.h
+> index 7a4a5658942d2..e4f74916a62c2 100644
+> --- a/include/drm/intel/pciids.h
+> +++ b/include/drm/intel/pciids.h
+> @@ -712,6 +712,28 @@
+>  	MACRO__(0xA7AC, ## __VA_ARGS__), \
+>  	MACRO__(0xA7AD, ## __VA_ARGS__)
+>  
+> +#define INTEL_RPLP_TUX_IBP8_QUIRK_IDS(MACRO__, ...) \
+> +	MACRO__##_SUB(0xA720, 0x1D05, 0x124A, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA720, 0x1D05, 0x124C, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA720, 0x1D05, 0x124E, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA720, 0x1D05, 0x130F, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7A0, 0x1D05, 0x124A, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7A0, 0x1D05, 0x124C, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7A0, 0x1D05, 0x124E, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7A0, 0x1D05, 0x130F, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7A8, 0x1D05, 0x124A, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7A8, 0x1D05, 0x124C, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7A8, 0x1D05, 0x124E, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7A8, 0x1D05, 0x130F, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7AA, 0x1D05, 0x124A, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7AA, 0x1D05, 0x124C, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7AA, 0x1D05, 0x124E, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7AA, 0x1D05, 0x130F, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7AB, 0x1D05, 0x124A, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7AB, 0x1D05, 0x124C, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7AB, 0x1D05, 0x124E, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7AB, 0x1D05, 0x130F, ## __VA_ARGS__)
 > +
-> +	commit->crtcs[index].state_to_destroy = crtc_state;
-> +	commit->crtcs[index].old_state = crtc->state;
-> +	commit->crtcs[index].new_state = crtc_state;
-> +	commit->crtcs[index].ptr = crtc;
-> +	crtc_state->state = commit;
-> +
-> +	return 0;
-> +}
-> +
->   /**
->    * drm_atomic_get_crtc_state - get CRTC state
->    * @state: global atomic state object
->    * @crtc: CRTC to get state object for
->    *
-> @@ -443,11 +460,11 @@ EXPORT_SYMBOL(__drm_atomic_commit_free);
->    */
->   struct drm_crtc_state *
->   drm_atomic_get_crtc_state(struct drm_atomic_commit *state,
->   			  struct drm_crtc *crtc)
->   {
-> -	int ret, index = drm_crtc_index(crtc);
-> +	int ret;
->   	struct drm_crtc_state *crtc_state;
->   
->   	WARN_ON(!state->acquire_ctx);
->   	drm_WARN_ON(state->dev, state->checked);
->   
-> @@ -461,15 +478,15 @@ drm_atomic_get_crtc_state(struct drm_atomic_commit *state,
->   
->   	crtc_state = crtc->funcs->atomic_duplicate_state(crtc);
->   	if (!crtc_state)
->   		return ERR_PTR(-ENOMEM);
->   
-> -	state->crtcs[index].state_to_destroy = crtc_state;
-> -	state->crtcs[index].old_state = crtc->state;
-> -	state->crtcs[index].new_state = crtc_state;
-> -	state->crtcs[index].ptr = crtc;
-> -	crtc_state->state = state;
-> +	ret = drm_atomic_commit_set_crtc_state(state, crtc, crtc_state);
-> +	if (ret) {
-> +		crtc->funcs->atomic_destroy_state(crtc, crtc_state);
-> +		return ERR_PTR(ret);
-> +	}
->   
->   	drm_dbg_atomic(state->dev, "Added [CRTC:%d:%s] %p state to %p\n",
->   		       crtc->base.id, crtc->name, crtc_state, state);
->   
->   	return crtc_state;
->
+>  /* RPL-P */
+>  #define INTEL_RPLP_IDS(MACRO__, ...) \
+>  	MACRO__(0xA720, ## __VA_ARGS__), \
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+Jani Nikula, Intel
