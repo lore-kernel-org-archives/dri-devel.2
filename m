@@ -4,103 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36671C88E46
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 10:06:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35221C79FB9
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 10:06:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30C8810F412;
-	Thu, 10 Sep 2026 10:06:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04E7610F41A;
+	Thu, 10 Sep 2026 10:06:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=szeredi.hu header.i=@szeredi.hu header.b="mEx4ynb6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PSSdoryc";
 	dkim-atps=neutral
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com
- [209.85.219.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44FD010F0A7
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 10:30:35 +0000 (UTC)
-Received: by mail-qv1-f49.google.com with SMTP id
- 6a1803df08f44-90e7bde5596so72428016d6.1
- for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 03:30:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788949834; cv=none;
- d=google.com; s=arc-20260327;
- b=AX2sCmwd1AzpwSrtSoCtKYqAQGMkhv9YEsvMVdO2GzEg8qdR/uIu+sg+oeh/HTVhMq
- 5LEvkKqaOBbThUOxG0vo4hGLdK7c8kFa/DB/+kqB/RGe+JEqvJcfrB6VZEzJpxzIb+y6
- BbLybzgbO+Awxc3oH/RLDCR7m7/EfRF1MVltZrNkwNwNqOuY+/1o7rXsXsHhak3mbBi9
- lLvvkztoDq5oxliFfUiINaBHwNQ/1FRB56xPmmtZieiU6qG3fAJF95RchBgut3ukE6EX
- 6P3MmXoxnmRP+kLEsqFNw9p3JnMMskD2B7ZQ8/xEUT8xY7S1fnE9w2pHqo4iu5f245mh
- FJLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=jpRvNvSvD7V0OL3stsnfs9SVxZoTLrRcZKUqJWQu3kQ=;
- fh=n0QSagqzLQTyAFuCJYe5p5MYBfiiQrTx04SdEhPKR28=;
- b=YfNtNPdgY2AfTL7gqPpIWpEQvIPP23xmYD9qqyr3verhEvjgNhwZ5bPTADYp9EW1kO
- 8bNns3UvrFxtTs2mWHffYnTwReum9MWSG6lQ9c12mLHrUjux3wDBP+P6WrKUF2umbtOo
- Sme6rsQdQ4DW3DrLw5joOcWRtRASXpynXMwEBR1Vot+921EpzNfnegXxeBoMCsosvW/K
- aE3qdJu2FJgobqpzmO8UPF4l/jqGU4PEy6vPvq3jvb4RLs4KYxiEJz45/MC2QMMIcZY/
- yG04CoX1F1iT4IMZO3mNiqLX1x+z4Po4OGF261R5CqS6AwndxpLpGph5iOEdHxSI6e/C
- SRNA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com
+ [74.125.230.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE58910E583
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 17:45:15 +0000 (UTC)
+Received: by mail-lr2-f12.google.com with SMTP id
+ 38308e7fff4ca-3a30521edd8so8808871fa.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 10:45:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=szeredi.hu; s=google; t=1788949834; x=1789554634; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=jpRvNvSvD7V0OL3stsnfs9SVxZoTLrRcZKUqJWQu3kQ=;
- b=mEx4ynb6OCfaub9Fv4e292wq7T+lw6whmfDdYkJlQ8ertK/gTJZ2cnr8/tDzj/LIJF
- wmVFlk3zCk6rv58oDAuIAVNkszwitNP75EWXowDuESiQgfHAw6aS8/PjThwRTN5a3Pkj
- 8HY0tNu8+4sz0gyTifmY4K9TMydAqlbstHPGw=
+ d=gmail.com; s=20251104; t=1788975914; x=1789580714; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ZFJ8LJvBoSFpLXLWJCrf1H0OwBPOca5szWV2v59OKPs=;
+ b=PSSdorycJR9/t0YpIXurj2tYwV4N7hyA2FuG3zOFR6+PT1t9m+xhHOJy4EclqMOJ24
+ 2rGDH8RZfRej2wSN/AnRMnWT9h6EBNH/XsNI3C6qIlKqFX11TPOXyojlxn9lX75grqqZ
+ Y/+GcqFCpyBGdihCzYoJyppOwDOp5s+TTxRPXg6dVMLjFihTS5SSWM/yzg+N1Wt7W3Sy
+ qy23TOQLw6ChOZvCBY+nuku0l+xqDd0p6ClEAH23ql0MzzKggpDs402m6VQMYj+iDUGQ
+ /F4VfkWjryEKlsWoofUWdLCgteRj4osM1GTBIQUh8ruAWGzxH+cUbcHXYklxSxLl8c5U
+ d1mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788949834; x=1789554634;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=jpRvNvSvD7V0OL3stsnfs9SVxZoTLrRcZKUqJWQu3kQ=;
- b=VSCl4hkuPjRS2cPblOOeZdUlZE7k2fq7jBFJhPYVlMIkTkHEJ1VwXhD/yxbucl2AOI
- kgOlvoWW2wwE8fvHT3dqFVq+icy7fiY19W0jJcUUHpLnHalqZ+sPcjPzJGupguGjOwgA
- ny0ehTYKmGrgx+bp3r/2FXMHbQ+z3j9n9IOcOQxjHtrrHeDWnNQ7FlxrVJjg9aFgSXig
- CrNmx4hqlIw2hr8COHTFVz0lUAFDbyHrKRFnX7Q5aoy9EX1gkU+E7IdqgXiAwGsZJubk
- slpSG8G3QQSCrw6eo03ct2NondrcUAHzmWD6lv+NAur75U0322xnZ/ihlZwtrufehUHz
- iIOw==
+ d=1e100.net; s=20251104; t=1788975914; x=1789580714;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=ZFJ8LJvBoSFpLXLWJCrf1H0OwBPOca5szWV2v59OKPs=;
+ b=MWWmlo+FyW4CQ4SDKr3fHZEiQpmKenj9YqVHlzwGtbgDC65TWNOB10Fmoyma/b5ryb
+ GldDIy9K23cHLBeF7+eB0vBLt1qpM2BQbSdXUQXg1fC99oBYf4xqSTgMEbdrjIWuzF0W
+ d0bmYZYStQPN7ZKPFXTrCXiPEkCr7sKaPacmRS1gwzS31Qq34/ZvA7jkyNKu52GmDguv
+ 9dJm4XJPGPGksz6pbV8rvGL2Kjy3oHCmXd5uXvIjz7bLwPJ/AXaO1Aw5PVa9Tl67zCK7
+ kkeJ0wPeXXyEd/TxOKJzHnb098/X0+L1xO5X2wPu+Y9ZNmuxdbkcmPSQlxFrXG23KK/Y
+ aPKg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwd31SY6H+0i4rr7oNzwN4GQlxU/xMX/DrzNp4LNQDRZFR35Ju4FtfBe50/6/tLrGdfcecwe0L5PIs=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++li6XxVI14AgSq3GCOHsiSd9SdIv7GV/pSYufPaZB+0wGuHDJmx
- K2OdGPKNNfRGrLWXslia7t8sp2JDuNc2jgrXGZYdvdNRhd7elCywxzjuZlYNd15ryhQ0s4u9sUt
- 7h61v+yXg1RvggmERBxJvnKxn4N6+qv5c/ZgTApdFKw==
-X-Gm-Gg: AYBFou2PL4N52nTSRrL2fV3ZuLDOKu/tdcJPWt+wK1rzB1gCmugHPfGKxxjtn9Yj3PW
- 7e8oWrk0TMV1Sj+McBswW+TOzto2+0FSisiXflninParpbuo0zcVc54E9xMEyCKWNjMJN2sD+/0
- RRj6fkYaAAq56VRwGrgrq5cxSLgrusKHNxqFn33lrqqCHcYotOaZCJHmIHRBLawvsXaNFXc2tZH
- lN+WWIlSGVdPaE3Ibh8Y5ZEOL5nBX9d3Bq/gPONAMdq/EZc8K3lSe5cbdI/AjiSj2RUJTN22YFN
- 8V2w/eUBVBfYkPUCLwmUlyNkkwgsF+wSPN0wU6H5BRjLLejGR3x3GGZKxctZoImxQ6sGIAMHg1t
- ay5viHe/Zkuv/
-X-Received: by 2002:a05:622a:1489:b0:52f:bc89:4933 with SMTP id
- d75a77b69052e-5305483d9ecmr389465191cf.20.1788949831561; Wed, 09 Sep 2026
- 03:30:31 -0700 (PDT)
+ AKwUvBxiGeGWYO+SrCSeMaf6l3hSle37sAeMU/+5m6MDUuRMdMuQ+HihnpU8xkxSmWzL8nFGjydQWe3yw2k=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mse2LEKs/rr5du2QU83LF33fVfpEV/TKgSyVmKbE7DQr4q/vMA
+ pIQwgK6k9JV3pNGnDhbT2itpYqgYmlaU2hA/7uSsJ2vYEonaQm7iupaQ
+X-Gm-Gg: AYBFou2eQqx6INbKnhOuXIaJwPCjLN8c+10wfmKCxUDj6wprdOwTfOVMW9H6Z/JTmuZ
+ Qi4R+4k8NJpU9zKhyHrM0n6TSDWUkK7i8GmEtdI/kKK0Z6QqiVkShIx2o85Vlui+hjwZZzypSAo
+ TJp30gayIPb8+0jQBNiFkoC0QHG4RkJZNZFH2JhTVg5oBkwfSbakF3aEOfD/P021dZ4XvdfeBKj
+ 4LXbo8aOmo0takeKg+VHIsq7WT5m+4AwRT86y60vFSHDX1KaI/eHmbKO3woP0pAikYvHYnnc4Si
+ O/CMdC0Tfk84sJPpVTYgSRw6yyuIfVvJku+ihI2QnPGQPQp+eaRUuuAt9qqs5UWpob/yDSAfrca
+ IdfUL8LqpHYv+15Xicao20XiLXUYAjQidoP7woEX+2zF0/9hPSba9kF4dCKOqra7jl/ES8t8LMJ
+ 6aLJainz/vTYXb2V66q9jjiJY+rFxdymaIPyk2io0Pw5hAK08CAiCfUDXMrVcToyonumQpnW4eL
+ /EVx9RMlVEnEQ==
+X-Received: by 2002:a05:6512:1590:b0:5b4:ac27:8f76 with SMTP id
+ 2adb3069b0e04-5b89a2fb651mr67482e87.7.1788975913434; 
+ Wed, 09 Sep 2026 10:45:13 -0700 (PDT)
+Received: from localhost (soda.int.kasm.eu.
+ [2001:678:a5c:1202:7b92:9ac1:b9ef:5287])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5b6166ecf24sm4071183e87.16.2026.09.09.10.45.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Sep 2026 10:45:13 -0700 (PDT)
+Date: Wed, 9 Sep 2026 19:45:12 +0200
+From: Klara Modin <klarasmodin@gmail.com>
+To: Mike Lothian <mike@fireburn.co.uk>
+Cc: Alex Deucher <alexdeucher@gmail.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Thorsten Leemhuis <linux@leemhuis.info>, 
+ Gary Guo <gary@garyguo.net>, dri-devel@lists.freedesktop.org, dakr@kernel.org, 
+ aliceryhl@google.com, alexander.deucher@amd.com, mukul.joshi@amd.com, 
+ rust-for-linux@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] rust: drm: gem: add missing handle_free to the object
+ vtables
+Message-ID: <aqGaa4sEAvIIOLjK@soda.int.kasm.eu>
+References: <20260909094729.1593-1-mike@fireburn.co.uk>
+ <CADnq5_Mf5mQ4CF=8UTnEjYPGVUS-Hf29sHmesvtwdfnNxtrQMA@mail.gmail.com>
 MIME-Version: 1.0
-References: <20260903145952.848051-1-mika.kuoppala@linux.intel.com>
- <20260903145952.848051-5-mika.kuoppala@linux.intel.com>
- <20260903152224.AD48C1F00A3F@smtp.kernel.org>
- <178878748003.179185.16833574173741290547@jlahtine-mobl>
- <178894801687.37859.4186888279082797860@jlahtine-mobl>
-In-Reply-To: <178894801687.37859.4186888279082797860@jlahtine-mobl>
-From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Wed, 9 Sep 2026 12:30:20 +0200
-X-Gm-Features: AcwNN1Uh9cE_469mX3O2aBqf9qMn4Rt3GJCs03Vdits2s9ouaewG7zKYcPHnkzU
-Message-ID: <CAJfpegsFJkghPimBYAnJ_KyZt43T66cAATAvpENZeX5Lj73zSQ@mail.gmail.com>
-Subject: Re: FUSE deadlocks vs. copy_from_user() and locks (Was: Re: [PATCH
- v10 04/27] drm/xe/eudebug: Introduce discovery for resources)
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Bernd Schubert <bernd@bsbernd.com>, Joanne Koong <joannelkoong@gmail.com>, 
- Amir Goldstein <amir73il@gmail.com>, intel-xe@lists.freedesktop.org, 
- fuse-devel@lists.linux.dev, sashiko-bot@kernel.org, 
- sashiko-reviews@lists.linux.dev, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- Matthew Brost <matthew.brost@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- dri-devel@lists.freedesktop.org, 
- Mika Kuoppala <mika.kuoppala@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADnq5_Mf5mQ4CF=8UTnEjYPGVUS-Hf29sHmesvtwdfnNxtrQMA@mail.gmail.com>
 X-Mailman-Approved-At: Thu, 10 Sep 2026 10:06:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -117,25 +100,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 9 Sept 2026 at 12:00, Joonas Lahtinen
-<joonas.lahtinen@linux.intel.com> wrote:
+On 2026-09-09 11:57:37 -0400, Alex Deucher wrote:
+> Adding a few people.  Alternative patch at:
+> https://lists.freedesktop.org/archives/amd-gfx/2026-September/152673.html
+> 
+> Alex
+> 
+> On Wed, Sep 9, 2026 at 5:47 AM Mike Lothian <mike@fireburn.co.uk> wrote:
+> >
+> > Both OBJECT_FUNCS and the shmem VTABLE initialise every member of
+> > drm_gem_object_funcs explicitly, so adding a field to the C struct
+> > breaks the Rust build:
+> >
+> >   error[E0063]: missing field `handle_free` in initializer of
+> >   `drm_gem_object_funcs`
+> >
+> > The callback is optional and the Rust abstraction has no equivalent
+> > DriverObject method, so leave it unset.
+> >
+> > The shmem copy is only built with CONFIG_RUST_DRM_GEM_SHMEM_HELPER,
+> > which DRM_TYR selects.
 
-> Based on reading of [1] and [2], it seems pretty much expected FUSE
-> drivers can trivially deadlock and ultimately in worst case the situation
-> can only be solved by manually aborting those connections by sysadmin.
+Sorry, I missed you when sending my v2. It's at
+https://lore.kernel.org/lkml/20260909173103.73656-1-klarasmodin@gmail.com/T/#u
+if you want to have a look.
 
-Exactly.
+Regards,
+Klara Modin
 
-The real question is, how far the effects of this deadlock can spread.
-If it remains within control of the user that mounted the fuse
-filesystem, than that's okay.  If it affects processes not controlled
-by the user, that's bad.
-
-So it's not about being able to stall a process that accesses the
-filesystem, that's trivially doable using fuse even without any page
-faults.
-
-I'ts about being able to stall an unrelated process.
-
-Thanks,
-Miklos
+> >
+> > Fixes: b67d2d039f64 ("drm/gem: Add callback for when handle count goes to 0")
+> > Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
+> > Assisted-by: Claude:Opus-5 [Claude Code]
+> > ---
+> >
+> > b67d2d039f64 is only in agd5f/drm-next, so this can be squashed into it
+> > instead if you would rather keep that branch bisectable.
+> >
+> > The shmem hunk is by inspection - CONFIG_RUST_DRM_GEM_SHMEM_HELPER is
+> > not set in my config, so only the mod.rs copy is compile-tested.
+> >
+> >  rust/kernel/drm/gem/mod.rs   | 1 +
+> >  rust/kernel/drm/gem/shmem.rs | 1 +
+> >  2 files changed, 2 insertions(+)
+> >
+> > diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
+> > index 80d8f524f9d5..ae61ca7e1246 100644
+> > --- a/rust/kernel/drm/gem/mod.rs
+> > +++ b/rust/kernel/drm/gem/mod.rs
+> > @@ -278,6 +278,7 @@ impl<T: DriverObject, Ctx: DeviceContext> Object<T, Ctx> {
+> >          vm_ops: core::ptr::null_mut(),
+> >          evict: None,
+> >          rss: None,
+> > +        handle_free: None,
+> >      };
+> >
+> >      /// Returns the `Device` that owns this GEM object.
+> > diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+> > index a687d46d170d..d08a03cb7a13 100644
+> > --- a/rust/kernel/drm/gem/shmem.rs
+> > +++ b/rust/kernel/drm/gem/shmem.rs
+> > @@ -145,6 +145,7 @@ impl<T: DriverObject> Object<T> {
+> >          // SAFETY: `drm_gem_shmem_vm_ops` is a valid, static const on the C side.
+> >          vm_ops: unsafe { &raw const bindings::drm_gem_shmem_vm_ops },
+> >          evict: None,
+> > +        handle_free: None,
+> >      };
+> >
+> >      /// Return a raw pointer to the embedded drm_gem_shmem_object.
+> > --
+> > 2.55.0
+> >
