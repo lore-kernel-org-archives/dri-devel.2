@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F39EC79FB7
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:36:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC613C79FB7
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:37:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BD5E10F162;
-	Wed,  9 Sep 2026 13:36:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1E0010E565;
+	Wed,  9 Sep 2026 13:37:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2PJImAPi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QnhsT7tY";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14D7B10E565
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 13:36:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E69A210F164
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 13:37:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 29E5A6020A;
- Wed,  9 Sep 2026 13:36:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B87A1F00A3A;
- Wed,  9 Sep 2026 13:36:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1788960966;
- bh=WnpS2yGxKI44jYHhvDpX+wa+5acQMRQRU+9l/6MzidY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=2PJImAPiXTNHRQ7hP2x3oYT0BLtP1K511PRmOlIgApf57TwmUNurL976ZqzkF7JMQ
- zy4BCLjinkulIlTgqoBJgyVxudGDsCtY59l8Qa1OWHGGCsPRBhZgpNIXk6vmFDs6Rg
- YxtEK2boO7fMsSbWTfcTPazN2t+BJk3gev9PCSB0=
-Date: Wed, 9 Sep 2026 15:35:59 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Li Wang <liwang@kylinos.cn>
-Cc: Arnd Bergmann <arnd@arndb.de>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, io-uring@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-Subject: Re: [RFC PATCH] misc: fgds: enable GPU-NVMe direct I/O via POSIX and
- io_uring
-Message-ID: <2026090924-corsage-shout-833d@gregkh>
-References: <20260908131545.105987-1-liwang@kylinos.cn>
- <2026090913-landline-encroach-c544@gregkh>
- <6aed7ecf-d125-40d1-a82d-1a7f62049605@kylinos.cn>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6aed7ecf-d125-40d1-a82d-1a7f62049605@kylinos.cn>
+ by tor.source.kernel.org (Postfix) with ESMTP id 5D13D60211;
+ Wed,  9 Sep 2026 13:37:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D7381F00A3E;
+ Wed,  9 Sep 2026 13:37:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788961023;
+ bh=gP2J3Cxis167N9i4GkT0UHGuHaQXVlyYWuVTPiqTku8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=QnhsT7tYqtVP4BwisJTxLkTlV5J3GPFfdeCo03AGE+GliYqNriirpdxg12t+dU/b6
+ reYDXWJVaWvYICLrVwYXLBbzxBF/9wV/cxlqq503aV3YIId1w4UxH4VuAijffEcJiC
+ lRUiosTb5K1MSxnKOE+fJo+/BVu+9bVJW5WNX8tO7lWOtkgMkOl8NicA/Az73gnuY0
+ Hx4AC5+olnu8zRn/8M1pG25o/TAtKQcKhJX9qxjdmK+dD8dbpvbtse2XlOwFBen3TD
+ ogLGzdt03UL5sGbQiO5tR0umQPjexXfcOc+JsPZg7Q6Q/C3pqn2DI9fkye1QcOm5IO
+ i6vS9FJfhhMnQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 01/14] mfd: remove unused 88pm80x driver
+To: "Arnd Bergmann" <arnd@kernel.org>
+Cc: linux-rtc@vger.kernel.org, robh@kernel.org, media-ci@linuxtv.org,
+ linux-watchdog@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-leds@vger.kernel.org, lee@kernel.org, dmitry.torokhov@gmail.com,
+ linux-input@vger.kernel.org, conor+dt@kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>, mfd@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+In-Reply-To: <20260909132153.1596191-2-arnd@kernel.org>
+References: <20260909132153.1596191-1-arnd@kernel.org>
+ <20260909132153.1596191-2-arnd@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 13:37:01 +0000
+Message-Id: <20260909133702.4D7381F00A3E@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,45 +58,21 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 09, 2026 at 06:42:03PM +0800, Li Wang wrote:
-> Hi Greg,
->   Thanks for the review!
-> 
-> > 
-> > That's not really needed in a changelog text, it could be in the 0/X
-> > patch :)
-> > 
-> Sorry for the clutter. I will move most of them into the 0/X patch in v2.
-> 
-> > Anyway, you didn't cc: the io_uring list, why?
-> > 
-> `scripts/get_maintainer.pl` didn't output the io_uring mailing list, likely 
-> because this patch doesn't directly touch the io_uring codebase itself. It only 
-> enables remapping GPU memory buffers to CPU virtual addresses, which can then be 
-> consumed via standard io_uring APIs.
-> 
-> I've added io-uring@vger.kernel.org to CC for this reply and will keep it in v2.
+> From: Arnd Bergmann <arnd@arndb.de>
+>=20
+> This pair of drivers was originally added as companion chips for pxa/mmp
+> SoCs, but the corresponding platform code was never merged, so it has
+> been unused the entire time.
+>=20
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-Great, as you are using that as the api, there might be some parts that
-will need to be reviewed by them.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-> > Nor why "fgds" is the name, that's going to be hard to remember, does it
-> > stand for something?
-> > 
-> "FGDS" stands for Fast GPUDirect Storage. GPUDirect Storage (GDS) is NVIDIA's 
-> technology enabling direct I/O between GPU memory and files on NVMe, 
-> widely used in LLM workloads to bypass CPU overhead.
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909132153.1596=
+191-1-arnd@kernel.org?part=3D1
 
-That's nvidia's specific solution, but this works on other devices,
-right?  Or just for that one platform?
-
-And you are using this as a "bypass" for the normal accel subsystem,
-shouldn't this be part of that subsystem instead of a custom user/kernel
-api like you are creating here?
-
-thanks,
-
-greg k-h
