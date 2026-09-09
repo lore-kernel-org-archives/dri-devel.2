@@ -4,77 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52378C79FB9
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 10:06:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E262C88E45
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 10:06:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08FF910F410;
-	Thu, 10 Sep 2026 10:06:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30E7510F40C;
+	Thu, 10 Sep 2026 10:06:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bTQJo7WZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JHTJG87g";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AAB010E0A3
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 05:12:58 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- d9443c01a7336-2d747ed9866so9878845ad.2
- for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 22:12:58 -0700 (PDT)
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 331D810E579
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 17:31:16 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-5b754cc3b6aso3594190e87.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 10:31:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789017178; x=1789621978; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788975074; x=1789579874; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=vWZ9MY/he+iOdU7sp8KwPR4BW00q3+d2WWzt1qSCeEs=;
- b=bTQJo7WZQQnlEdLrSaxs7lviklfYTnXoUXWGeEodC77Sj0jA/tTCSxAyOK8W7EL9bn
- 5fWbGMbs4Ryq3I/ZoDMFN0TG32A1k/PI+z/CJcIlpA6Zgk4w7gQBR7/c4aB1pOJQ1rET
- u4uPo/PrfFoufK/wYLBwSmpLnllaCQqz+n3tO2gR59MPvVH+mZXXRd3MIf5N72YMU6vf
- eCMmK35vdpHnHaeIgxIE1cAPmsWlkcbznL+IAWgj5kKaxyPnonO1koE3vdFkGcp1Ga3R
- gY8oHK5lB+k4rFAtXvhRfhgjFlg2iYv8FHK33lE4SxGUa0QYogHm/cclVP4ZdLQMI9gW
- 6SPg==
+ bh=COlbN8g71PZLS8Vw0yv0Jnd68gVBxKrHka7KfWabY50=;
+ b=JHTJG87gmU171YL9kqJztJjADBnxL7Pa17ndamIATcTgSIvkOq/+BNwJUFw6mm0Ebv
+ 8H4EC1P6p37KBmRhNMpJX/nRAajwWjcz71bqTKqrkAJH3KAdrMLa6mKOr24lvyzD1XQ4
+ wC2b7fKCzQYM/I4cfM+2BC+1+Qh8d3IoG1f3v5aIRKaoVFEKZzFLvylcp2pY77rtlPHz
+ NThRnQJyb9zfHyrvCZ+p1lvVrYjGSE9LCsfUMxE+FSiiDUyzrnGx0WbnD73H1dJ1T4BK
+ NJzZKnNkmzYjzjwlTmowyuj2G4DBnRTOCUp2iuveuQPJV3xy2Hc53xW3QRM9hMs674L+
+ W85A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789017178; x=1789621978;
+ d=1e100.net; s=20251104; t=1788975074; x=1789579874;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=vWZ9MY/he+iOdU7sp8KwPR4BW00q3+d2WWzt1qSCeEs=;
- b=i9GkVjxk6xqagl67L8mkiXoK5G9hWbLkgjU+aI1sJpgOXO/sK32JHAMhl32dCJCBC6
- VfxFaUs2Do3kYp/SOJ3mEXkwcly3bmVkP472KDvPr0dZ0QU9nbUhgibrMqZ4nZE6vwsk
- bZej2GqgkFtl5mHoPs2wKEHRhBx5b7MTLUl4CNgxzoXpseGV13DHGxTqGTxM5Loh0/1i
- 8WnV71BKrUbCZMRmEgjJaqrJjkNOoL55VXQxrCsNaWb1UY1hLb3h3WFezBJeSN3S5vvg
- rKShjkjGpKIBP2QmA7wGvmsWjMbLHc/O/KOH7uCYdSQ+5jXrvemQfMU+Sut7ISSr8kJz
- eXJg==
+ bh=COlbN8g71PZLS8Vw0yv0Jnd68gVBxKrHka7KfWabY50=;
+ b=VjtyavjvuRRBng25x726Bz0hTTVhH4yQcxtisDuQePBV9jKjm5bwW7cerSAkxGER6s
+ Dk3YU4F0JeYV6Ca1e1FYiSgDDe67sBJ8p2n5AA52eq+RO5LFF6zAciZOIyOKUpNfH86H
+ oz1M8VCp4u9S8+t0PLuSErVKbRPDVvjvy7Va2KKbxuF3JOdrvpqx48tu0Mtmobg17gGO
+ ozQRy4yJeDtej7DL4Q+kUbm0tuX5vyDPN7lLcZQ2nvMF5FiCUbePDcWbvVzn5zYesyUx
+ XT0a8fOdxN5phpi9qvbgHgVitT1D/mvTsw0MSaIJndQgZoyqCEfCK/H7S92+/X2IA+qs
+ 7NrA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwyGIjqoCK0bGuFN2APB7COdj8BtknvJX36mjBX0J3v0x9zhR37Wsc0+xfEn63sVpbLScOGoXuDJbY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nBweVq9Bbi1lLoqT9YuBEZLePEJIG+vEQzwp/bhDPgdSC3dvIe
- m3dM/0D3zISlaGJzYnVF6Qn6zsIjCQ/3sRDjTDE1neTJ16Bh3993pms=
-X-Gm-Gg: AYBFou0pzHcy9f0pxNga3q42LQJ5/bbN+VRt3qfKm1gNmG+G2HREXN9asxfOUo6V1M0
- /X7AlLBAYKdKx8PZJ9pWz1XuhmGqDShRDWKFU/2icx+RcFaepyWfOEVbLaIFb69lVWJeFDLmIJE
- nKV5CAEK1D08tfccZESKAMVhxMKg6pjYAuDxKfwSpd42D0N71Kk0+TeCL23JLUxdOGN0WmpoSbd
- /n0FoGpxNuSXOU2P6TtUijGN95gQEp78LaZzDImr1IdEaEgyk/QA8/5hnsjJKivYqurn8tsm3i7
- XF22aYfxWB+w/anZ9soXFSW4AMubi6AI4xOAY2BA/mCATHz7EvBdaGwOhaGAZznRos95vzKqcWj
- NHB4SRNkMoFRKW6dwbhfzNA4w/jd2/Vpgr6GFqNg3IAsiG7UfRSapR4ptZoP1YzWOz73lk0jh3r
- pBSU9ljJvrSXetwS5gSrrYKA1R24QLFF88+k05P0425VgBDrJYBfhR1cLB6PP2Jdt6hw7iaIiEE
- iPzpPcKNhk8LVInT0N4xdzlUw==
-X-Received: by 2002:a17:90b:1a86:b0:398:ba96:1afd with SMTP id
- 98e67ed59e1d1-39d709dfda5mr7432511a91.8.1789017176754; 
- Wed, 09 Sep 2026 22:12:56 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA
- ([2001:2d8:7f04:fd2a:f01d:1dc7:1e5:47d8])
+ AKwUvBxQwSoch+SInkEGjnettEqQoyqAOiYp7IgqdsylqMGz/UUohVOIhs33nL2QAEeMZt3WTPkt/f3FXrg=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nGNOSwuS+6UJ4DsAKWFJ+ll4uSFBFMHX/fAlyBFyXh0S5Em+ql
+ qTtNgvkpabt8kCEIaivi5o5B1JUeWIKu8OHfg0U4JFgkATB0rMoxYhjW
+X-Gm-Gg: AYBFou3n/1xOtE2/XHhK6uzHD5rwQOWl9w0RtA4M5FPy/cZJ2WMFOEpTh7MXqfmpWnZ
+ XWj9dNI/lMzCNfuNf4EiczDm/AMky/pQOtX2HOrMZyGCaDoL68cll+sWpvARTMkSU1X0+yE/FeB
+ 3NNbSBXyF0DjW6hRmtIoRYTm2BNS7+Rnay7D/RkQvBvUk97Vpi1U7En5nfPyn57FA/3+E/H1+5Y
+ kElO9cGFCUwzEbPnDTpIuD2tu2oyOESFZwoLpEqCBtGQI8r2Xij9MDuZhpiJp2+osYO9WEe3uRc
+ bxScvOeQe95T4C690nXq/TQyAtgiYPDYBfxAJbFt/8JS8U5/BiNe4BX2ZzgnPEnK4aEKkCa2Gdp
+ NZy0QI9xfUJFG33BI5XozH9V5e2l1eUzaizjmrI5MqHSmklVGteNbFvbWQeEdlp2PGcb40E6yb3
+ 3BiEkZ3lNaClne4EHnLSjkoBlcd9gBjotmeWDNs4HWMDR7oA9Nmce32d2eCbNJm36LP8cKo7Pnb
+ ULfC8u4LmCve/0pLockEOa47hb9f2tKTg==
+X-Received: by 2002:a05:6512:3e09:b0:5b6:4ad:77b5 with SMTP id
+ 2adb3069b0e04-5b616f4e76fmr5968551e87.29.1788975073832; 
+ Wed, 09 Sep 2026 10:31:13 -0700 (PDT)
+Received: from soda.int.kasm.eu (soda.int.kasm.eu.
+ [2001:678:a5c:1202:7b92:9ac1:b9ef:5287])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39d7e776192sm1972397a91.4.2026.09.09.22.12.52
+ 2adb3069b0e04-5b752df233bsm2780995e87.25.2026.09.09.10.31.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Sep 2026 22:12:55 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Philipp Stanner <phasta@kernel.org>
-Cc: Luben Tuikov <ltuikov89@gmail.com>,
+ Wed, 09 Sep 2026 10:31:13 -0700 (PDT)
+From: Klara Modin <klarasmodin@gmail.com>
+To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Alex Deucher <alexander.deucher@amd.com>,
+ Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich <dakr@kernel.org>, dri-devel@lists.freedesktop.org,
- donggeunyoo.kernel@gmail.com
-Subject: drm/sched: run queues freed before the TDR that drm_sched_fini()
- waits for
-Date: Thu, 10 Sep 2026 14:12:49 +0900
-Message-ID: <20260910051249.625794-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ Thorsten Leemhuis <linux@leemhuis.info>,
+ Manuel Ebner <manuelebner@mailbox.org>, Gary Guo <gary@garyguo.net>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Klara Modin <klarasmodin@gmail.com>
+Subject: [PATCH v2] rust/drm/gem: initialize callbacks with
+ ..pin_init::zeroed()
+Date: Wed,  9 Sep 2026 19:31:03 +0200
+Message-ID: <20260909173103.73656-1-klarasmodin@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 10 Sep 2026 10:06:32 +0000
@@ -93,40 +97,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Philipp,
+When the commit b67d2d039f64 ("drm/gem: Add callback for when handle
+count goes to 0") added the handle_free callback, it did not update the
+rust abstraction, which will cause a build failure when that is enabled.
+Rather than just adding another None initializer, use
+..pin_init::zeroed() to make all unlisted callbacks None, and remove the
+existing zero-initializations.
 
-drm_sched_fini() frees the run queues above the two steps that wait for
-users of them:
+Fixes: b67d2d039f64 ("drm/gem: Add callback for when handle count goes to 0")
+Reported-by: Thorsten Leemhuis <linux@leemhuis.info>
+Closes: https://lore.kernel.org/all/aaef18cd-ab55-4fb8-8563-ca3a5ea9cbc6@leemhuis.info
+Reported-by: Thomas Zimmermann <tzimmermann@suse.de>
+Closes: https://lore.kernel.org/all/4da62a4b-c4ef-492a-9a27-b56bd4784acf@suse.de
+Suggested-by: Gary Guo <gary@garyguo.net>
+Signed-off-by: Klara Modin <klarasmodin@gmail.com>
+---
+v2:
+- also remove initialization of vm_ops, which is also handled by
+  ..pin_init::zeroed() (thanks Gary)
+- fix the same issue in the shmem helper (thanks Thomas, also reported
+  by Sashiko)
+- v1: https://lore.kernel.org/lkml/20260908175427.47207-1-klarasmodin@gmail.com
+---
+ rust/kernel/drm/gem/mod.rs   | 13 +------------
+ rust/kernel/drm/gem/shmem.rs |  5 +----
+ 2 files changed, 2 insertions(+), 16 deletions(-)
 
-	for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++)
-		kfree(sched->sched_rq[i]);
+diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
+index 80d8f524f9d5..9d4280002765 100644
+--- a/rust/kernel/drm/gem/mod.rs
++++ b/rust/kernel/drm/gem/mod.rs
+@@ -266,18 +266,7 @@ impl<T: DriverObject, Ctx: DeviceContext> Object<T, Ctx> {
+         free: Some(Self::free_callback),
+         open: Some(open_callback::<T>),
+         close: Some(close_callback::<T>),
+-        print_info: None,
+-        export: None,
+-        pin: None,
+-        unpin: None,
+-        get_sg_table: None,
+-        vmap: None,
+-        vunmap: None,
+-        mmap: None,
+-        status: None,
+-        vm_ops: core::ptr::null_mut(),
+-        evict: None,
+-        rss: None,
++        ..pin_init::zeroed()
+     };
+ 
+     /// Returns the `Device` that owns this GEM object.
+diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+index a687d46d170d..24cb5343e0db 100644
+--- a/rust/kernel/drm/gem/shmem.rs
++++ b/rust/kernel/drm/gem/shmem.rs
+@@ -132,19 +132,16 @@ impl<T: DriverObject> Object<T> {
+         open: Some(super::open_callback::<T>),
+         close: Some(super::close_callback::<T>),
+         print_info: Some(bindings::drm_gem_shmem_object_print_info),
+-        export: None,
+         pin: Some(bindings::drm_gem_shmem_object_pin),
+         unpin: Some(bindings::drm_gem_shmem_object_unpin),
+         get_sg_table: Some(bindings::drm_gem_shmem_object_get_sg_table),
+         vmap: Some(bindings::drm_gem_shmem_object_vmap),
+         vunmap: Some(bindings::drm_gem_shmem_object_vunmap),
+         mmap: Some(bindings::drm_gem_shmem_object_mmap),
+-        status: None,
+-        rss: None,
+         #[allow(unused_unsafe, reason = "Safe since Rust 1.82.0")]
+         // SAFETY: `drm_gem_shmem_vm_ops` is a valid, static const on the C side.
+         vm_ops: unsafe { &raw const bindings::drm_gem_shmem_vm_ops },
+-        evict: None,
++        ..pin_init::zeroed()
+     };
+ 
+     /// Return a raw pointer to the embedded drm_gem_shmem_object.
+-- 
+2.55.0
 
-	/* Wakeup everyone stuck in drm_sched_entity_flush for this scheduler */
-	wake_up_all(&sched->job_scheduled);
-
-	/* Confirm no work left behind accessing device structures */
-	cancel_delayed_work_sync(&sched->work_tdr);
-
-4827d6d83f07 ("drm/sched: Remove racy hack from drm_sched_fini()") did not
-change that ordering - the kfree() was above the wakeup before it as well,
-and has been since 56e449603f0a ("drm/sched: Convert the GPU scheduler to
-variable number of run-queues") made the run queues separately allocated.
-But with the loop body gone there no longer seems to be anything holding
-the free up there.
-
-A KUnit case that keeps the TDR inside timedout_job() while drm_sched_fini()
-runs, with the callback calling drm_sched_increase_karma() as amdgpu does:
-
-  BUG: KASAN: slab-use-after-free in _raw_spin_lock+0x2b/0x40
-  Workqueue: events drm_sched_job_timedout
-   drm_sched_increase_karma+0x138/0x3e0
-   fini_uaf_timedout_job+0x4c/0x140
-   drm_sched_job_timedout+0x1b4/0x620
-  allocated by drm_sched_init+0x49c, freed by drm_sched_fini+0xec
-
-Moving the loop down beside kfree(sched->sched_rq) silences it, and nothing
-between the two positions reads the run queues. Is that the right fix, or is
-the intended rule that the TDR can never still be running at that point?
-
-Thanks,
-Donggeun
