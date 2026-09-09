@@ -4,100 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D992C79FBD
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 17:27:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5639AC79FBD
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 17:36:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA83110F223;
-	Wed,  9 Sep 2026 17:27:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A230010E1EA;
+	Wed,  9 Sep 2026 17:36:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eXr77W9F";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pYgHYVYY";
 	dkim-atps=neutral
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
- [209.85.215.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3574910F223
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 17:27:01 +0000 (UTC)
-Received: by mail-pg1-f177.google.com with SMTP id
- 41be03b00d2f7-cc4aa0220f2so407262a12.0
- for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 10:27:01 -0700 (PDT)
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BE8410E1EA
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 17:36:10 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-49d1ddd5d0aso1222175e9.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 10:36:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788974821; x=1789579621; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=BxkJmMQiuFGLIVhYvP7iekSRoJyyqxrT2LFSLJP0a4Q=;
- b=eXr77W9FZU/WDQSwwer5PHFdDAVm0iNiWNEQF4p7vCek8EopwKxAvFqqDamCmWBljo
- lzarOJ3AToDSmsNKco0877+oYu3hhR4zI0lWdXE3uQi25h3N3hYdLBJEe+9l3ktVqRAh
- 8LE7+Y0FpDcRqxhWYebw0QEq+AIga91NLsE05M4tMmQbL+6Oppplk5ibvpjG7/lQsWWY
- tXQDGTDxYA2wDEYFZQ4PO+gnIlndmGKCiC1OLOFL9eAQZDsbLUHAgFj9p1/7jkbgPVWF
- 31NHrjuK77MRkVVypLJVR4EYnFna7jxi5aZBN62BUACmfYzur9VNxIqcb5/oL0sxv6db
- j5BA==
+ d=gmail.com; s=20251104; t=1788975368; x=1789580168; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=K5xZwe6BB14FgiUoJeEDcecfAKoT6SnPT8CWcokGDbQ=;
+ b=pYgHYVYY2dfe/B1aGHFWYO3Lih0hLkN4BYmv1xPWKQvKAv3cujppK9ztTQEOttMDD4
+ Ivoau9NRtrydbOdJ5/OqgTCGeQo1WR7V6jLNCfdH8N3TNGEMC3RZWxLx8IdO8xiuLT0W
+ wBVA59uO/dYIVmoqLRdu92JoQfK3YomWS4uJcqX7ZQb5d2BXV1i/JH5dmwNkDT7WaTet
+ 6tVQvO/6EwoTEp+ifxxIVLKhVDvZkPkm1EUCtrBS5TkP/VEWwdwrzs1gBEgBFTr7qb0r
+ t0AnRU3cMTxRFQ0WYs9zEUZw+ZQF0tI4SInF2ikec5qbpLUBkreljBPy45TU7Jq0X5Np
+ YKxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788974821; x=1789579621;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=BxkJmMQiuFGLIVhYvP7iekSRoJyyqxrT2LFSLJP0a4Q=;
- b=muXH/FnaIfx8wvFZbEbnIxL7BlQ9+2AV+6U7kUkhwfjaWmNppxS+k3JmZQMLbFv7Wc
- +R97MazYTIr15LCJ3ihzYOwdNnsuxIptYBMEKeTrdH2Fvkm5B61BF3t/LhWBl/uWzM/x
- Z4MYgZSKxRn7RE/ayIxnz+EVmYPvkpkK9VrL9araOFvt3jH6ybquOckP/Vh7iIpNHixa
- z0WamUDYt6i7kfB7zOqB2UrrYzbUE93+my3h5qs1W/Jb6KgJhbppoj6ICn4E/xaMhCkW
- C/tQALJiybHQooRMFUVLXqS7SbPK4J0dl5PrLDPBPI/jxt+KXSIlOZr2ZAeKywChgLSF
- pVww==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx+S66WrH41xe9JtVN4srf0u3/+dX31V1jQLrUI7bATArI/NspoZEUkx0Y3DtzthbRScoI9Vwa879c=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m1puILkbVQoQ94sdW24nddnxkCtJDVKjTagP7Hh7WE1sSqJE4Z
- iXxfqm8BwkOfEuX/paCgFrAl4GjAMHX7BL/eYGIes3Vkew9J4JcYLyxT
-X-Gm-Gg: AYBFou3vso3jmVeH3gpQLOar4WWblLKStYm/wqB0uqFAquw4uOdEKgLHUymTjCXL8OG
- HodQnWO/jBl+cJso9J6h5wCCnWSosw4P1ng/I+LIto7K00RPJr3EUTbWTh7W4EZVXh2kHC4fqbO
- VSA7AxHAoYkLEcjm9pP5pEMwQ10LUysP7x4UPe+4M92h2VAw0HJ6vm4SJd6DDFBUMENO+drMSfc
- gY9Z3bjG9A+taioh8Ud0mi9bsEpiuyf9rEdwpfLpwgCbXz6QuhdDeaWhtHz9hsjzTpUhzA3605K
- VnNOpr19s6kAliwUNYgEmp0Clj3In8sEqJtdBTeKv+fmA8OppQ48NudVITpG9tbja2obr2rz/72
- Izdjl3pHoLS2Z3+qRkKv2GSr2VB6w7QWCNsnZB8A60X4RvAX6lPaJNUfPNAl5HX4d941/v72Llv
- i/+E/nUN+qAzA8fiWgiWsgu/f8H6vnSkeh4frvVF287sBP4kQYQlMfkX8WEP3BhUAaJbbdaraM3
- regzufghbfnY5nMkLA+/A3PnWx+Dcg/kSsUSd170m7N0B4yUMSI
-X-Received: by 2002:a05:6a21:9d84:b0:3d3:af85:eb98 with SMTP id
- adf61e73a8af0-3da3a16a579mr57975715637.26.1788974820346; 
- Wed, 09 Sep 2026 10:27:00 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:2d43:5153:5c50:643e])
+ d=1e100.net; s=20251104; t=1788975368; x=1789580168;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=K5xZwe6BB14FgiUoJeEDcecfAKoT6SnPT8CWcokGDbQ=;
+ b=lmj9xkK+f/ttUpjcech9kmjGPNsfwa6DvWO8u/2HQO/8oI5Dan3U6oXsFfDVdi8eoY
+ AjTY0l20OHuKa1FVE+Og6s1vWho/0Jd7oZUM1pKXW7aRxPqpc5vT/r0h9M7Y96HrNhMC
+ H89IQ16wc094QAZoANjjMjbZLqQdI3+EmrW5IG1mcNSnqdv/6fNlN45qMu+eEgrREcmQ
+ LQ9wwOA7RFwX+7SCdKW9AdKrC3Xt9TzBZju2hjRaNQuR61kJjc/d7vrJFjvEFeJZgkSO
+ cjiNzBFu0f+KlNiwnHHIGTTn919veSpjObFL6DNlcXARSI4cnssQ+zLlDoDgwyEegtWz
+ NY1g==
+X-Gm-Message-State: AFuF++lfC1yffqRmDuIbC48Pe6t/0cOUpkOIATG7st3YbsMM6mUjE/tP
+ LcDO4414zESYRFZa7gfh9Mwd1iC9IpFFII1MbFGg/Yfa3ljfRZl4VY7EMw3Wo52F
+X-Gm-Gg: AYBFou3zQalPgafwHe62SXAoEHsS2ki9bqDGANacLrGrEuB1RvH834zp9kJ0XAKbd9h
+ +HvmgT22NEmc8XvCvEwu07IG7vjhTBwDhoQCUfCnSp/uf3c6cxRn4PgSlrI/re5Jrur8TKOHEou
+ PJ/jnsERqgppH7CBz5mqgdOCHmi65x8xvl4sgaVowuzRigiv+ofJEKDr91yeKg4HhOhgTRp9DfX
+ VP4kRpg401a2dHgz5O2UzqiWm5pOIscv6YXkpV8CxF773sAV0RNVqeRQGlF6PccoB4mugZZnBbb
+ xC/X1bBFYcrvac6BlJqPZ7lQv11yNa1ZW4xa3CuvCRjWyQXB/CPOegPFpBvblc821KQYiO3IITX
+ 8Odsnf+0cZOSgvaBgQZzgqZPDBmq0pdUUFAKK7U2xnAaM6Hkfg3HsijFdDTOgIAylxCf5JcaNHs
+ zasNzFFW5YEtEbkq413iKlZGYvQV9H0xI2HNixWPBOUTJW1k2Tt1p3+g9DnM8RFzlRbxm+BcdKg
+ dW9xPZXuHlnj/gMXbR1K1iSVs/bG1rlHfcWy9LHN7Sez0i06sp2ZZU/E5HG1DrqMRBPdo+TXg+E
+ HA==
+X-Received: by 2002:a05:600c:8485:b0:499:5b0f:72b with SMTP id
+ 5b1f17b1804b1-49d01dcc32cmr256409415e9.1.1788975368210; 
+ Wed, 09 Sep 2026 10:36:08 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B836900B0110705BF092680.dsl.pool.telekom.hu.
+ [2001:4c4e:1b83:6900:b011:705:bf09:2680])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3339a534df1sm52422943eec.7.2026.09.09.10.26.57
+ 5b1f17b1804b1-49d26c06f04sm6876575e9.13.2026.09.09.10.36.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Sep 2026 10:26:59 -0700 (PDT)
-Date: Wed, 9 Sep 2026 10:26:55 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Guenter Roeck <linux@roeck-us.net>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
- Pavel Machek <pavel@kernel.org>,
- Michael Hennerich <michael.hennerich@analog.com>, 
- Support Opensource <support.opensource@diasemi.com>,
- Sebastian Reichel <sre@kernel.org>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, Helge Deller <deller@gmx.de>,
- dri-devel@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com,
- linux-watchdog@vger.kernel.org, 
- linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-input@vger.kernel.org, 
- linux-leds@vger.kernel.org, linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, llvm@lists.linux.dev
-Subject: Re: [PATCH 00/14] mfd: unused driver purge
-Message-ID: <aqGWjAuGXq_JHvxk@google.com>
-References: <20260909132153.1596191-1-arnd@kernel.org>
+ Wed, 09 Sep 2026 10:36:07 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Igor Paunovic <royalnet026@gmail.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Sandy Huang <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Ville Syrjala <ville.syrjala@linux.intel.com>,
+ Imre Deak <imre.deak@intel.com>,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: Re: [PATCH v2 0/3] drm/dp: shared HDR metadata SDP helper,
+ and max bpc for dw-dp
+Date: Wed,  9 Sep 2026 19:35:37 +0200
+Message-ID: <20260909173542.14030-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260909163206.36409-1-royalnet026@gmail.com>
+References: <20260909163206.36409-1-royalnet026@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909132153.1596191-1-arnd@kernel.org>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,38 +112,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 09, 2026 at 03:21:37PM +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> As part of my cleanup of old platforms, I had a look at all drivers that
-> may have become unused because the last platform_data or DT definition
-> was removed, or because of unmet Kconfig dependencies.
-> 
-> These are all the mfd drivers I found. The first ten in the list
-> actually turned out to have been unusable long before my series, and
-> I have added explanations on how I determined this in each patch. The
-> last four patches are still in use in linux-7.3 but become unused after
-> my series [1] that I hope to get merged for 7.4.
-> 
-> Somewhat unorthodox, I took a shortcut here and remove both the mfd drivers
-> and the corresponding subsystem drivers (gpio, hwmon, iio, input, led,
-> media, power, regulator, rtc, video, watchdog, asoc) in a combined patch,
-> to simplify the interdependencies: removing just the mfd driver would
-> leave unselectable or broken drivers in other subsystems.  I also have
-> additional patches for each of the other subsystems, currently a total
-> of 300 patches, many of which still need better testing or proper
-> changelog texts.
-> 
-> Please let me know if you all think this approach is ok, or if I should
-> explode this further and turn these 14 patches into 70 individual ones
-> by splitting them per subsystem.
+The three patches of this series never reached the lists. The mistake
+is mine: when sending, only the cover letter carried the recipients,
+so the patches went to nobody but my own inbox. I noticed while
+checking the archive after the fact.
 
-Sounds good to me, especially if Lee makes an immutable branch from this
-pull so we can all pull it in...
+Resent below as replies to this cover, byte-identical to what should
+have arrived with it. Sorry for the noise.
 
-Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com> # for input
-
-Thanks.
-
--- 
-Dmitry
+Igor
