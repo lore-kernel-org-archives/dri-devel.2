@@ -4,64 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D2B4C79FAD
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 09:57:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE601C79F8C
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 09:59:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7AE910E15C;
-	Wed,  9 Sep 2026 09:57:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DFEA10F083;
+	Wed,  9 Sep 2026 09:59:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A53tuRIi";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fGGcSd72";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 047B710E15C
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 09:57:42 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2CE9960218;
- Wed,  9 Sep 2026 09:57:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A9161F00A3A;
- Wed,  9 Sep 2026 09:57:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788947861;
- bh=ACS7vz8pGD479SlSiRi90udXcJvc5D6Uo+sv7aFEyS0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=A53tuRIiFTkeViWFyJKiOLB8Dku0djstP2HReCfBOtb4pEciOnCmgSMWlo5kpEFBl
- pm6oD0twfYoZRhg0QE7e8fhPbb8RYCx15yWjfr/CD1DNq5wwtcf57MBFeSwFui/t3v
- 3j6l9fkDb+tgGXt0kSL1rFaeX7i0L1M7HWbz8KLlqMaiQZaTvwRt08ypgg0MIDpjxp
- 6wCKaFGeLTcj1qzx9njjILHVSXQXZZ0TEq8rLwrR1R1hYTYyrLjABW5WWhkGpluuN5
- fV10mP+YKmwWZmPdkX/TBwp/ISduYkHNYsNjmGTdgXiI+x/UJDxElDwrvG36ZOn6ii
- 35IODZPcbGzvw==
-Date: Wed, 9 Sep 2026 11:57:38 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Linus Walleij <linusw@kernel.org>, 
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, Albert Esteve <aesteve@redhat.com>,
- Anusha Srivatsa <asrivats@redhat.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
- drm_panel
-Message-ID: <aqEqx0zBQgmUgwqL@houat>
-References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
- <20260903-drm-bridge-every-panel-v2-5-2ab8ee24538e@bootlin.com>
- <678ddef7e56703d9adffff5c490d4857af515343@intel.com>
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012020.outbound.protection.outlook.com [40.107.209.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CDF110F076;
+ Wed,  9 Sep 2026 09:59:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zNb7prscUv0SB1974X2uRRn92T1U7X6L9jkQR4BXIWlsrsLbkk9tOZGUEJjiX0svBr0PDvL2ySbTIHoc4uFJxIZSw4GT2ARhXqlRux2+g84f/c8tGuorea5UnAT3QXQIV9h3V71z+bMspxQeixpU8oDcltTU24ZkkRce13/bevGbzQ9mejyCEF2slvtRxJyH+3R8OykoZEQZD0ZtWN8nxOzsp4hp4Fjqjg7R8H+dLE6c2vsgbuKdejjBsd0Fh+lxjbCgt9K3X7+X85/XGJLBTyEDX32EsUMJS4t3M7ZpOF9K6nWQX6z1CoWsJK0CSpirWmAF68UtcWiP2pBX72YDRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SyNYFSmzaG3Fk5BQaWiMbkKJ4hE948d9BWn9KQTap1E=;
+ b=xq8VwBav2a8QXkajLTCGSCjW/K2U+wGMqQ6iE+80aHgqYK8A8qtFhWBtPVqGvAJJtzYHqIQ6hvHGJGOJ6gn7FYZUP4tBpLlVw3v3sFFdrVuzV2GjKsrywUS69wFdxH0JIPRvofUhLzItou1kZdS20jBNfhMnwdn8dZz+yueeEdW/h49Bmdu6PM6LDEcXDFZYFYnNAXl8AeQ/MD/A+tiHEb7yVe+FkRoqSMg8SCUHMX+dZk0Gjjtmhb4pbEf8EQioewSGy75z3WyphxCA/eIUhgBeRCFgGCC7nMHemHCa3w34jx8qeKQEMagRRE/bCtt/htr4OPBYfEtxB4Vps0bZRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SyNYFSmzaG3Fk5BQaWiMbkKJ4hE948d9BWn9KQTap1E=;
+ b=fGGcSd72gv7sGh41AWCnwchhWRFaawpNARs3zw3QiKKATXXBsLkmmEWTRcQsh9fDifKNjH1oAQXkM3KdOCT09Aoy9eie+PIrcSueIT612hpUkZinb3qJ5HvJG+t3xWquTIi0FMbJ3m5eMfmMqzHEBGk/bs9BKQTecrysZirxGaE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH7PR12MB5855.namprd12.prod.outlook.com (2603:10b6:510:1d6::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
+ 09:59:53 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
+ 09:59:53 +0000
+Message-ID: <37e9400e-47e7-49bf-9d75-0cfe9ae210ab@amd.com>
+Date: Wed, 9 Sep 2026 11:59:48 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: remove redundant NULL check in
+ amdgpu_cs_vm_handling
+To: Jiangshan Yi <yijiangshan@kylinos.cn>, alexander.deucher@amd.com,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: tvrtko.ursulin@igalia.com, sunil.khatri@amd.com, vitaly.prosyak@amd.com,
+ pierre-eric.pelloux-prayer@amd.com, moonafterrain@outlook.com,
+ candice.li@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ 13667453960@163.com
+References: <20260909093728.642473-1-yijiangshan@kylinos.cn>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260909093728.642473-1-yijiangshan@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BLAPR03CA0019.namprd03.prod.outlook.com
+ (2603:10b6:208:32b::24) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="k6dpjrdgn3b4kb6y"
-Content-Disposition: inline
-In-Reply-To: <678ddef7e56703d9adffff5c490d4857af515343@intel.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB5855:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7881f562-4f00-415d-850b-08df0e591857
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|376014|366016|6133799003|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 2QuAQPBZGHmhI9PqsCwR6asuF6PVndJbGOKfoBxLOoiYZLNrdIxiDqskjqYyUndJnlvZ04iwl4xPOh+3LJ3ArBbI1OGQtzUdU2o/xNPhKFy1gjAJZz+/IplXKlxJufa5CedQo9FpRkqfDNQdTeYkmTWmYk8VTp9V3hWh3pSpzJdMJYp2AEpJFrYTCFThIR38lZkVeIMMcx4Wi9oHeiao0UGGT0hFEiQ69c4SolTcvsm83KtD3sf7qO1BuWcaJnWoEutOVTUBeaBPaJj4JvDEW/DZvoEdlkil4iizB2Oo24Xdv9VLy0ofgOp1gU5a7md4L8SmI5IFINYowDdJk0qeY6dRRUnYWBxCrSGR1lRyu0kVK/KicsvvrHoiZfHgn8MoLK+vhhB4wAAyAekhHGuUB2uBPKI2XjgA6aW2tFp+CAzOHjwRJdS52ZzmB1DOqsNcsTdYENeXe4j/04Jog9vdv/KO9WU/f4tPf1vSFL3weqT6w3JeUdeXQR465QlE2V4ZQ8MkvR9ytBi9b9OH+7UX1jPGfzafQO5k6ckNXs70zOAoWY645XwfVxqgvWg94YWNuxIU9/K8gPAkDih1oI7/TEwmndBgd/6RpA88czSpfi9wyQVAEypKNdwhYA3teukglmPCSs6yGblIkDhIrB6BG8GJO7CB/u3dubHvcKndwu4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VzVpYlFpZUlGeDJWZWxsWTIzZHU3YlNqRm45MW40RisrUUJZdkJkT3VveGpC?=
+ =?utf-8?B?ZmMzRlZzclY0bnFaa2lTTmZDbldMQ0JQRHVXaDh4dy9UTFhtVy9CWGsxcjRh?=
+ =?utf-8?B?bFE5Q1Bpa3ZrdWFObCtCNmhNeUV0dmRSWGZFMkRrN0hmTVNueEtaditDaE9X?=
+ =?utf-8?B?VzZOTVcwTkpmSkNBSjF2Z2tEWDZLcmlrZmFCSFJuUERLNWcrMVZTQTc5LzNl?=
+ =?utf-8?B?OGtzdFRwcDUzTllYWjhGRFFDYUY3OU13RXYzZk1CenJlL2JKT0cvb29QNm1p?=
+ =?utf-8?B?cXI4N2dBaWJ1MlUybzlJSVlkaWtPV2wzaEllR3FYV3Z4N0hUemFXcVNHV2JF?=
+ =?utf-8?B?S2k2cEdqUUkxUFNKYVpRblBSVWRLRzJkMFRLdDM0RHhUUW5NekIrNGM2c05l?=
+ =?utf-8?B?U1doK0Y5Y3VlRlNMOFB1clZlQWVoNEFUenVzVG54WGdFLzFYVXdnNSs5dWpp?=
+ =?utf-8?B?RTROMlZPcU9oU1JOUG1zWVVZYmo3TTVLek8vZ2VrdW15MGFINWpWdXVISUVt?=
+ =?utf-8?B?VWxyZXFrTEtMeVpRVG1tQVNDQitUc0xyYVBlWlAvem1jOFlXd2MyZTZ4NFFF?=
+ =?utf-8?B?c2x5aVMyRW9IR3FUdGlqRXlDNUhQMEhuaURORENlVUVXUlVDMUdnNTB2aUpv?=
+ =?utf-8?B?Q2lQV2kzVnVNN2ZwVHlxbmxYTXdGWVg2ZTI0STBjdWFiVDZRWHBuMUhvMWZI?=
+ =?utf-8?B?cnl0TDZRd3NVZU93Y2JtTFNKWk5XVU9lM21jWFhNdGkrUGY5WlFGcGxLeDhz?=
+ =?utf-8?B?OHk4RGpKWEFJT1cxQ2NERXIvcnRDamI0QjF4MDZISjZhUXVzaUJXS3VVQVZh?=
+ =?utf-8?B?T0xiUUtuRk1YTEkyT1VJZTFKUHBPblJpQkRJdzdWc0NRZWFNM00rSnVDa0s0?=
+ =?utf-8?B?dTFmYkQzMnZrQTg3YlV5K2FyaVE5L0JCOHVkUGgrYWRIN1JrT2hnWXJTNjBz?=
+ =?utf-8?B?cnQ3blVpR0RrdG5DRmZObjZXcnFyb3piK3grS0RVaEhVTVc3SXh3cHRTUFY5?=
+ =?utf-8?B?dHRDNllyYlpDdlBuQmNWSjFRUlY2aExWN3JkNTJkeUxFdmw1NU1obXNOZzkv?=
+ =?utf-8?B?MnNJUVU4RGh3R0NaYjFvK2w1dXRoUlhNQ2UvNVNBMytQSnNGRWpNV1ovOEZI?=
+ =?utf-8?B?YUk1Z2ZSd3NXaDRpVkhuZWlEVzFldXduR0lPd1l3RitTZi9CSVkraXZNdVFp?=
+ =?utf-8?B?OHVKUjJncWllRGs2K0FTUktidGpIUW93bGpWb3RJTGFmRkdrcElsYWMxcjVq?=
+ =?utf-8?B?MUhzNUVvWjlKWnFMUGV6QjV6SW9WZEQzSzNFaTY4REdUY1kxajY2T0R2dEhq?=
+ =?utf-8?B?WnJyTXB1QlVTa1J3T0IxVUpKSGRCSVl3ampza3MwZ0xmRHQrMUNlajd5clFS?=
+ =?utf-8?B?ZXZBNkd0YzAwR0FYc1VhM1dCK3U3NXVSRVJnTXBxUWJDc3M3VzRHekVsYkZ0?=
+ =?utf-8?B?SnpWT1pMaDA1NjY0UFpOMTMvdEMzTW5qRnBQdWVFdHJkSVZvV0d3d2FaYlBn?=
+ =?utf-8?B?N05Ib2F1c0NocmZaYWhSeW5zY3BzMzNMYkU5SzdkZGNzWkNzZVRmNUhPaXZN?=
+ =?utf-8?B?WTRrWGUyQ3lBSEp2c1p4VmJjQkZvY003QjhzcU1ueFRoQ0xidVMycGdhajJQ?=
+ =?utf-8?B?UjlNWGZXQzdNcGJ1NkYxUmZwSkkwck5RdHBxMEhUYzIyT2p0SHgxU2p0MTZi?=
+ =?utf-8?B?WWszNHl6RTg2MnJHd3AvRitQamhhb1RrNFhrakpoVkh5UDhYdVRZVllEbDM2?=
+ =?utf-8?B?MXQ1NCtPSEtVbjNaK1l3VGdHMXlmYlAwNTZmczB1QzVrckV2cWZPVjBrYmNP?=
+ =?utf-8?B?SHpSTi9FU3pzZXl5dGVhK2ZLcWowYmZkTC85V0ZaWTJqQ0Y5OW90U1AvZ2Vk?=
+ =?utf-8?B?eHJjaGpjOWtxN2FIS3EwdEVPUUZ4eUhkQ29qU0FYM0kycDB6djFNMmE2VEtN?=
+ =?utf-8?B?Y1FwWFdGWFcycTNiWTFjQ1JDckZJb0lKWUJIQ2RGeVQySzlEU0lQaS9xRUVH?=
+ =?utf-8?B?WVNWTDVKQ0lLWmpXcm0wL3R3QUhuOTJsc2FGSkM2bkVUUWhyWjNRc2hNdisw?=
+ =?utf-8?B?U1hCOWZhSkt0NDNQMUwvVmV1ZUY3LythakdxeVRjUU4rN3NYeVgzVExtRkxS?=
+ =?utf-8?B?WG1jeDlGSzhSOHZpbmgyeTY3Z3BtSDd5OWhibGQyZGRBWFRTeXA4QktETDMz?=
+ =?utf-8?B?cTcvUlM4OGwxTGRrdkxNR1hGRjg2MnlSVU5tdU95Q1laTVNmYVZMQW5wQTFa?=
+ =?utf-8?B?Q0l6RXM5anlTeGhjYzlna3FRNGg0Y3FnczM1QUF1WmF3ZVY3WGFUVGdrTVpT?=
+ =?utf-8?Q?/z4fNTL86cD4z6DbeM?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7881f562-4f00-415d-850b-08df0e591857
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 09:59:53.4862 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oGs75/higBeBzAAV8K1F9AexlNCrH/eaS+pM72dtL07j+TorQLhfj3vqdIt1Dty5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5855
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,103 +140,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 9/9/26 11:37, Jiangshan Yi wrote:
+> bo_va is assigned from fpriv->csa_va, which is already verified to be
+> non-NULL by the surrounding if statement. The inner NULL check can
+> therefore never trigger and is dead code, so remove it.
+> 
+> Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
 
---k6dpjrdgn3b4kb6y
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
- drm_panel
-MIME-Version: 1.0
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-On Tue, Sep 08, 2026 at 07:18:53PM +0300, Jani Nikula wrote:
-> On Thu, 03 Sep 2026, Luca Ceresoli <luca.ceresoli@bootlin.com> wrote:
-> > Adding a drm_panel does currently not add a panel_bridge wrapping
-> > it. Usually the panel_bridge creation happens later, when some other dr=
-iver
-> > (e.g. the previous bridge or the encoder) calls *_of_get_bridge() and t=
-he
-> > following element in the pipeline is a panel.
-> >
-> > This has some drawbacks:
-> >
-> >  * the bridge API is currently the best practice to access various
-> >    components of the pipeline, especially with complex cards where brid=
-ges
-> >    can be combined in different ways on different hardware
-> >  * the panel_bridge is not created in the context of the driver of the
-> >    underlying physical device (the panel driver), but of some other dri=
-ver
-> >  * that other driver is not aware of whether the returned drm_bridge
-> >    pointer is a panel_bridge created on the fly, a pre-existing
-> >    panel_bridge or a non-panel bridge
-> >  * removal of a panel_bridge requires calling drm_panel_bridge_remove(),
-> >    but that other driver doesn't know whether this is needed because it
-> >    doesn't know whether it has created a panel_bridge or not
-> >
-> > Other drivers call [a variant of] drm_panel_bridge_add(), which also has
-> > some of the above drawbacks.
-> >
-> > So far the current approach was working mostly because devm and drmm en=
-sure
-> > the panel bridge would be dealloacted at some later point. However with=
- the
-> > upcoming implementation of bridge hotplug and dynamic bridge lifetime t=
-his
-> > will get more complicated.
-> >
-> > Switch to the new approach: embed a drm_bridge inside every drm_panel,
-> > which behaves just like the current drm_panel_bridge.
->=20
-> What does this mean for drivers like i915 that use drm_panel *only* for
-> handling panel followers? We don't need the bridge for anything. It'll
-> just be excess midlayer baggage.
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 --
+>  1 file changed, 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index 03b41f803520..c978f042ae1f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -1146,8 +1146,6 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
+> 
+>         if (fpriv->csa_va) {
+>                 bo_va = fpriv->csa_va;
+> -               if (!bo_va)
+> -                       return -ENOMEM;
+>                 r = amdgpu_vm_bo_update(adev, bo_va, false);
+>                 if (r)
+>                         return r;
+> --
+> 2.25.1
+> 
 
-If we're talking about this series alone and assuming no regression,
-nothing. The drm_panel struct and lookup API is still there, you can use
-it.
-
-Long term though, there's talks already about panels needing a more
-full-fledged API (with access to drm_atomic_commit for example), and
-especially if this series land it might just make more sense to
-deprecate panels entirely and implement them using bridges.
-
-So, I'd keep an eye on these discussions.
-
-> I'm also concerned about the embedded struct drm_connector being added,
-> since that can't and will not be a drm_connector that we'll use. All of
-> our drm_connector are embedded in intel_connector, and all of our
-> codebase expects this, and we init them ourselves. Having additional
-> drm_connector (not embedded in intel_connector) added by library code
-> *will* oops in our driver.
->=20
-> I haven't had the time for an in-depth look, but it feels like this
-> assumes a certain driver model, instead of providing building blocks for
-> drivers to use.
-
-I really wish i915 was at least *trying* to fit within the larger model
-basically everybody else uses. I understand that it's a large
-undertaking and regression prone and everything, but I'm also concerned
-about having the "we can't because of i915" or "supported by everybody
-else but i915" on a regular basis now.
-
-Anyway, I'm not sure it's a big concern because the connector is only
-created when the bridge is attached, which you will never do if you
-don't support bridges. Worst case scenario, I guess we can always put
-that code under an ifdef?
-
-Maxime
-
---k6dpjrdgn3b4kb6y
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaqEtiwAKCRAnX84Zoj2+
-dvCsAX98+lv4KCDpQoNeGYrORnL7ssSVmSmd5PK2/X27rZn+qZdO1ibUqXmqfK2d
-joTFsOwBegKScSARUzJyYICLfU99vwIy88TBzg82tumq6vC4MvzRMOYqDpRn0Rzn
-ZNTO/DzvxA==
-=P0/x
------END PGP SIGNATURE-----
-
---k6dpjrdgn3b4kb6y--
