@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6C2EC79FB5
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 00:55:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89099C79FB8
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 00:55:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A183A10EE22;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D709110EE24;
 	Wed,  9 Sep 2026 00:55:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qzn5PN/b";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RX4cBup0";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEE0C10EDF9
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 00:55:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD8CD10EDF8
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 00:55:07 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 32FDD447F0;
- Wed,  9 Sep 2026 00:55:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id F12D6C4AF09;
- Wed,  9 Sep 2026 00:55:02 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3E3AD447A1;
+ Wed,  9 Sep 2026 00:55:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 189AFC2BCFD;
+ Wed,  9 Sep 2026 00:55:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1788915303;
- bh=HYh+PdX1won8kuxbGPgkiI4LhAQJSu2ZmSyX44SU7ps=;
+ s=k20201202; t=1788915304;
+ bh=TYgXRw5pJZLXBWxTWBSQMD9CItLybhwxqK4tsKgV0Hw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=qzn5PN/bHa8hKH1ABBeIVGINjVuVaddkEkY2RhF+ZKGka35peml0Gof+x6O1pG/XQ
- gtS9f9+EyIXyLTA4+SzcHnan9S5Xm/fF7ugWYt5wzZG8TI9wmoCOa/QmTFiHzD4pvU
- 983IIsRjhCyemKboQQ2Qmlhval/M0ixog1GTK/6oRQ2X7pXsLLhevXTQ+h1CWafbiC
- X9BBT4TgEz1vjAiSoqhVTAMq7k8f1/ICR/maHmahb1uZhhYl0TirxAVejWSkM8ttIg
- wP/zJ7/8wKGhfYx1bCpcTQyf9nMZe70P4bNLN0zVOZTSGB2rY6ue0atwCa5HhIekBH
- bmITtIFkcNklA==
+ b=RX4cBup030LI9FxXuRMm46SpAzzpAywKpSRkFQ8rDZjf52V1oarbeynREnuaMWDNU
+ MOhwh/jGEHnE6/pfHvJxxzjBmrOqgEFzp5LDjvIYiAnfsk/MgWe/zU8TKiir/U3Y+z
+ Sq1LJrnXEevUiHt0xK8NRqHi84V6H872GljsaL7rwVEZd+oVyz25Y4pJrW4zgYol5U
+ g0C1NlJb8HURZhkqNwGfnFCjayQ8VHk/9r6GQWTBdGCpXkCzYI8V7/TB3zp/He0PCT
+ 4j5FzqTW5/re3SWrOhxl1L5fwT6xq+SZ+0P3fuhzZ/HmVkrI8gO7jQA805czgWCozb
+ YIWhBYSSSrqOQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id D8E30C79FA1;
- Wed,  9 Sep 2026 00:55:02 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 064D9C79FA1;
+ Wed,  9 Sep 2026 00:55:04 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Tue, 08 Sep 2026 18:55:10 -0600
-Subject: [PATCH v9 14/39] lib/parser: add match_wildcard_hyphen() for
- agnostic matching
+Date: Tue, 08 Sep 2026 18:55:24 -0600
+Subject: [PATCH v9 28/39] dyndbg-test: add do_bulk testpoint, rename
+ do_prints to do_classes
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-dd-cmap-part2-clean-v9-14-3a3f621f4a10@gmail.com>
+Message-Id: <20260908-dd-cmap-part2-clean-v9-28-3a3f621f4a10@gmail.com>
 References: <20260908-dd-cmap-part2-clean-v9-0-3a3f621f4a10@gmail.com>
 In-Reply-To: <20260908-dd-cmap-part2-clean-v9-0-3a3f621f4a10@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -65,11 +65,11 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
  Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788915300; l=4874;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788915300; l=15905;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=VVrWeKOkQRL4T3vAYCy0RnOLdaaMyLNU7Rl2KzQNToo=;
- b=y/h7Rk+KEYGl5ogdjaz3zjWgEnFpodf1D12RswnxFy6ORAAgYsOezesFG8ZhPloKtBI3jjf+C
- Yq0vG+YhjXjDXBRF+RfRsZ7mILpL5tRjGcBYtHTLw5Xu9Mbpnpf6kdv
+ bh=4DoF8TE28o2eb0ciNgCyQmZ+mgrihNlFe52+h/qGQnw=;
+ b=wMxMR6CvrDxgPiPdQbnAmsfybpZaoqO9QpnWpjzcPzanKRrio3ZgdeKSVCHpKFX3RIjHWJXh3
+ uFCw3yZ/pDBByOuQyOqpYyH9peN52FfiRBMhVxnYqtl+W3/NJjxS+vf
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -93,140 +93,408 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-This commit introduces match_wildcard_hyphen() as a variant of the
-existing match_wildcard() function. It treats hyphens and underscores
-as identical characters during the matching process.
+test_dynamic_debug.ko currently has the do_prints sysnode to support
+testing of the classmaps feature, it calls ~16 class'd pr_debug()s,
+*once* for each class defined in the module.
 
-This is necessary for subsystems like dynamic_debug that need to match
-module names provided by users (who often use underscores) against
-names stored in the kernel (which may use hyphens, especially when
-using KBUILD_MODFILE for built-ins).
+Improve the versatility of this support by:
 
-To avoid code duplication, the core logic is refactored into a private
-__match_wildcard() function marked as __always_inline. This allows the
-compiler to generate optimized versions for both the strict and agnostic
-callsites with zero runtime overhead.
+ 1. changing do_prints() to do_classes()
+    to better align with its actual purpose
+
+ 2. new parameters/do_bulk & do_bulk(N):
+    loops over 10 pr_debugs, N times
+    creates idempotent non-repetetive (ie 1..N lines) output
+    meant for creating high-volume workloads
+
+ 3. using common param-ops for both (no reason not to)
+    ie: do_classes(N) now accepts work-count.
+
+So now we can generate significant workloads with a single write.
+
+    modprobe test_dynamic_debug dyndbg=+p
+    echo 100  > /sys/module/test_dynamic_debug/parameters/do_classes
+    echo 2000 > /sys/module/test_dynamic_debug/parameters/do_bulk
+
+TODO: enable do_bulk() callsites by default, since the modprobe is an
+explicit act, the user intends to use it, lets turn it on.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-v5: move ahead of array-slice patch to silence sashiko complaint about it
-v4: initial version
+v9:
+. use unsigned int for loop index in do_bulk() to prevent wrapping lockups on UINT_MAX.
+. add cond_resched() to do_classes() and do_bulk() loops.
+v8: fix a test which had commas, from the future, adjust KRECs
 ---
- include/linux/parser.h                             |  1 +
- lib/parser.c                                       | 58 ++++++++++++++++------
- .../selftests/dynamic_debug/dyndbg_selftest.sh     |  2 +-
- 3 files changed, 45 insertions(+), 16 deletions(-)
+ lib/test_dynamic_debug.c                           | 107 ++++++++++++-----
+ .../selftests/dynamic_debug/dyndbg_selftest.sh     | 126 ++++++++++++++-------
+ 2 files changed, 166 insertions(+), 67 deletions(-)
 
-diff --git a/include/linux/parser.h b/include/linux/parser.h
-index dd79f45a37b8..a3cc7bc5fb93 100644
---- a/include/linux/parser.h
-+++ b/include/linux/parser.h
-@@ -34,6 +34,7 @@ int match_u64(substring_t *, u64 *result);
- int match_octal(substring_t *, int *result);
- int match_hex(substring_t *, int *result);
- bool match_wildcard(const char *pattern, const char *str);
-+bool match_wildcard_hyphen(const char *pattern, const char *str);
- size_t match_strlcpy(char *, const substring_t *, size_t);
- char *match_strdup(const substring_t *);
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index 01ce07001d4c..b7f9ed9b2794 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -28,25 +28,45 @@
+ #endif
  
-diff --git a/lib/parser.c b/lib/parser.c
-index 62da0ac0d438..d5be01fa9adf 100644
---- a/lib/parser.c
-+++ b/lib/parser.c
-@@ -268,20 +268,13 @@ int match_hex(substring_t *s, int *result)
- }
- EXPORT_SYMBOL(match_hex);
+ #include <linux/module.h>
++#include <linux/sched.h>
  
--/**
-- * match_wildcard - parse if a string matches given wildcard pattern
-- * @pattern: wildcard pattern
-- * @str: the string to be parsed
-- *
-- * Description: Parse the string @str to check if matches wildcard
-- * pattern @pattern. The pattern may contain two types of wildcards:
-- *
-- * * '*' - matches zero or more characters
-- * * '?' - matches one character
-- *
-- * Return: If the @str matches the @pattern, return true, else return false.
-- */
--bool match_wildcard(const char *pattern, const char *str)
-+static inline char dash2underscore(char c)
-+{
-+	return (c == '-') ? '_' : c;
-+}
-+
-+static __always_inline bool __match_wildcard(const char *pattern, const char *str,
-+					     bool hyphen_agnostic)
+-/* re-gen output by reading or writing sysfs node: do_prints */
++/* re-trigger debug output by reading or writing sysfs nodes: do_classes or do_bulk */
++static void do_classes(unsigned int); /* device under test */
++static void do_bulk(unsigned int);    /* device under test */
+ 
+-static void do_prints(void); /* device under test */
+-static int param_set_do_prints(const char *instr, const struct kernel_param *kp)
++static int param_set_do_repeats(const char *instr, const struct kernel_param *kp)
  {
- 	const char *s = str;
- 	const char *p = pattern;
-@@ -301,7 +294,9 @@ bool match_wildcard(const char *pattern, const char *str)
- 			pattern = p;
- 			break;
- 		default:
--			if (*s == *p) {
-+			if (hyphen_agnostic ?
-+			    (dash2underscore(*s) == dash2underscore(*p)) :
-+			    (*s == *p)) {
- 				s++;
- 				p++;
- 			} else {
-@@ -319,8 +314,41 @@ bool match_wildcard(const char *pattern, const char *str)
- 		++p;
- 	return !*p;
+-	do_prints();
++	int rc;
++	unsigned int ct;
++	void (*repeat_fn)(unsigned int) = kp->arg;
++
++	rc = kstrtouint(instr, 0, &ct);
++	if (rc) {
++		pr_err("expecting numeric input, using 1 instead\n");
++		ct = 1;
++	}
++
++	repeat_fn(ct);
++
+ 	return 0;
  }
+-static int param_get_do_prints(char *buffer, const struct kernel_param *kp)
 +
-+/**
-+ * match_wildcard - parse if a string matches given wildcard pattern
-+ * @pattern: wildcard pattern
-+ * @str: the string to be parsed
-+ *
-+ * Description: Parse the string @str to check if matches wildcard
-+ * pattern @pattern. The pattern may contain two types of wildcards:
-+ *
-+ * * '*' - matches zero or more characters
-+ * * '?' - matches one character
-+ *
-+ * Return: If the @str matches the @pattern, return true, else return false.
-+ */
-+bool match_wildcard(const char *pattern, const char *str)
-+{
-+	return __match_wildcard(pattern, str, false);
-+}
- EXPORT_SYMBOL(match_wildcard);
++static int param_get_do_repeats(char *buffer, const struct kernel_param *kp)
+ {
+-	do_prints();
+-	return scnprintf(buffer, PAGE_SIZE, "did do_prints\n");
++	void (*repeat_fn)(unsigned int) = kp->arg;
++
++	repeat_fn(1);
++
++	return scnprintf(buffer, PAGE_SIZE, "did 1 %s\n", kp->name);
+ }
+-static const struct kernel_param_ops param_ops_do_prints = {
+-	.set = param_set_do_prints,
+-	.get = param_get_do_prints,
++
++static const struct kernel_param_ops param_ops_do_repeats = {
++	.set = param_set_do_repeats,
++	.get = param_get_do_repeats,
+ };
+-module_param_cb(do_prints, &param_ops_do_prints, NULL, 0600);
++
++module_param_cb(do_classes, &param_ops_do_repeats, do_classes, 0600);
++module_param_cb(do_bulk, &param_ops_do_repeats, do_bulk, 0600);
  
-+/**
-+ * match_wildcard_hyphen - parse if a string matches given wildcard pattern
-+ * @pattern: wildcard pattern
-+ * @str: the string to be parsed
-+ *
-+ * Description: Same as match_wildcard, but treats '-' and '_' as identical.
-+ *
-+ * Return: If the @str matches the @pattern, return true, else return false.
-+ */
-+bool match_wildcard_hyphen(const char *pattern, const char *str)
-+{
-+	return __match_wildcard(pattern, str, true);
-+}
-+EXPORT_SYMBOL(match_wildcard_hyphen);
+ /*
+  * Using the CLASSMAP api:
+@@ -103,7 +123,10 @@ enum cat_disjoint_bits {
+ 	D2_DRMRES };
+ 
+ /* numeric verbosity, V2 > V1 related.  V1 is > D2_DRMRES */
+-enum cat_level_num { V1 = 16, V2, V3, V4, V5, V6, V7 };
++enum cat_level_num { V1 = 16, V2, V3, V4, V5, V6, V7, V8 };
 +
- /**
-  * match_strlcpy - Copy the characters from a substring_t to a sized buffer
-  * @dest: where to copy to
++/* test _USE_ w offset */
++enum cat_level_offset { Vu1 = V1 + 8, Vu2, Vu3, Vu4, Vu5, Vu6, Vu7, Vu8 };
+ 
+ /* recapitulate DRM's multi-classmap setup */
+ #if !defined(TEST_DYNAMIC_DEBUG_SUBMOD)
+@@ -136,18 +159,6 @@ DYNAMIC_DEBUG_CLASSMAP_DEFINE(map_level_num, DD_CLASS_TYPE_LEVEL_NUM,
+ DYNAMIC_DEBUG_CLASSMAP_DEFINE(classid_range_conflict, 0, D2_CORE + 1, "D3_CORE");
+ #endif
+ 
+-#else /* TEST_DYNAMIC_DEBUG_SUBMOD */
+-
+-/*
+- * in submod/drm-drivers, use the classmaps defined in top/parent
+- * module above.
+- */
+-
+-DYNAMIC_DEBUG_CLASSMAP_USE(map_disjoint_bits);
+-DYNAMIC_DEBUG_CLASSMAP_USE_(map_level_num, 7);
+-
+-enum cat_level_offset { Vu1 = V1 + 7, Vu2, Vu3, Vu4, Vu5, Vu6, Vu7 };
+-
+ #if defined(DD_MACRO_ARGCHECK)
+ /*
+  * Exersize compile-time arg-checks in DYNAMIC_DEBUG_CLASSMAP_DEFINE.
+@@ -160,6 +171,19 @@ DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_emptyclass, 0, 0 /* ,empty */);
+ DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_maptype, 3, 10, "no such type");
+ DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_len, 0, 60,
+ 			      "base", "plus", "classes", "length", "too-big");
++#endif
++
++#else /* TEST_DYNAMIC_DEBUG_SUBMOD */
++
++/*
++ * in submod/drm-drivers, use the classmaps defined in top/parent
++ * module above.
++ */
++
++DYNAMIC_DEBUG_CLASSMAP_USE(map_disjoint_bits);
++DYNAMIC_DEBUG_CLASSMAP_USE_(map_level_num, 7);
++
++#if defined(DD_MACRO_ARGCHECK)
+ DYNAMIC_DEBUG_CLASSMAP_USE_(fail_offset_big, 100);
+ #endif /* DD_MACRO_ARGCHECK */
+ 
+@@ -213,17 +237,42 @@ static void do_levels(void)
+ #endif
+ }
+ 
+-static void do_prints(void)
++static void do_classes(unsigned int ct)
+ {
+-	pr_debug("do_prints:\n");
+-	do_cats();
+-	do_levels();
++	/* maybe clamp this */
++	pr_debug("do_classes %u times:\n", ct);
++	for (; ct; ct--) {
++		do_cats();
++		do_levels();
++		cond_resched();
++	}
++}
++
++static void do_bulk(unsigned int ct)
++{
++	unsigned int i;
++
++	pr_debug("do_bulk %u times:\n", ct);
++	for (i = 1; i <= ct; i++) {
++		pr_debug("bulk msg %u.0\n", i);
++		pr_debug("bulk msg %u.1\n", i);
++		pr_debug("bulk msg %u.2\n", i);
++		pr_debug("bulk msg %u.3\n", i);
++		pr_debug("bulk msg %u.4\n", i);
++		pr_debug("bulk msg %u.5\n", i);
++		pr_debug("bulk msg %u.6\n", i);
++		pr_debug("bulk msg %u.7\n", i);
++		pr_debug("bulk msg %u.8\n", i);
++		pr_debug("bulk msg %u.9\n", i);
++		cond_resched();
++	}
+ }
+ 
+ static int __init test_dynamic_debug_init(void)
+ {
+ 	pr_debug("init start\n");
+-	do_prints();
++	do_classes(1);
++	do_bulk(1);
+ 	pr_debug("init done\n");
+ 	return 0;
+ }
 diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index e9f9db35fb7f..69a1787a4302 100755
+index 0c9af93aef7c..10dc3f2b3fa8 100755
 --- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
 +++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -591,7 +591,7 @@ builtin_tests=(
-     FT_grammar_errs
-     FT_basic_queries
-     #FT_path_module_queries
--    #FT_hyphen_underscore
-+    FT_hyphen_underscore
- )
+@@ -207,7 +207,7 @@ function verify_modprobe_param_logging {
+     # capture bookends to verify their actual pr_debug logging!
+ 
+     if [ "$param" = "p_disjoint_bits" ] || [ "$param" = "p_level_num" ]; then
+-        set_param 1 /sys/module/test_dynamic_debug/parameters/do_prints
++        set_param 1 /sys/module/test_dynamic_debug/parameters/do_classes
+     fi
+ 
+     log_stop
+@@ -480,44 +480,29 @@ function FT_test_classes {
+ 
+     # 1. Verify initial multi-query enablement state via file slice
+     my_modprobe test_dynamic_debug \
+-        dyndbg="class,D2_CORE,+pf;class,D2_KMS,+ps;class,D2_ATOMIC,+pm"
++        dyndbg="class D2_CORE,+pf;class D2_KMS,+ps;class D2_ATOMIC +pm"
+     verify_control_slice '\[test_dynamic_debug\]'
+ 
+     # 2. Verify state transition and live-printing end-to-end via ddcmd_load!
+-    ddcmd_load "class,D2_CORE,+pmf;class,D2_KMS,+pls;class,D2_ATOMIC,+pml" \
++    ddcmd_load "class D2_CORE +pmf;class D2_KMS +pls;class D2_ATOMIC +pml" \
+         '\[test_dynamic_debug\]' \
+-        "/sys/module/test_dynamic_debug/parameters/do_prints" "1"
++        "/sys/module/test_dynamic_debug/parameters/do_classes" "1"
+ 
+     ifrmmod test_dynamic_debug
+ }
+ 
+ function FT_classmap_inheritance {
+-    v_echo "${GREEN}# TEST_MOD_SUBMOD ${NC}"
++    v_echo "${GREEN}# TEST_MOD_SUBMOD - Classmap state inheritance between supermod and submod ${NC}"
+ 
+     ifrmmod test_dynamic_debug_submod
+     ifrmmod test_dynamic_debug
+ 
+-    # modprobe with plain-old +p & 3 class enablements
+-    my_modprobe test_dynamic_debug \
+-	"dyndbg=+p;class D2_CORE +pf;class D2_KMS +pt;class D2_ATOMIC +pm"
+-    verify_control_slice '\[test_dynamic_debug\]'
+-
+-    set_param 5 /sys/module/test_dynamic_debug/parameters/p_level_num
+-    verify_control_slice '\[test_dynamic_debug\]'
+-
+-    my_modprobe test_dynamic_debug_submod
+-    verify_control_slice 'test_dynamic_debug_submod'
+-
+-    # fresh start, to clear all above flags (test-fn limits)
+-    ifrmmod test_dynamic_debug_submod
+-    ifrmmod test_dynamic_debug
+-
+-    # load submod, which loads supermod
++    # 1. Load submod directly (which auto-loads supermod with default parameters)
+     my_modprobe test_dynamic_debug_submod \
+ 	"dyndbg=+p;class D2_CORE +pfs;class D2_KMS +pts;class D2_ATOMIC +pmf"
+     verify_control_slice 'test_dynamic_debug'
+ 
+-    # runtime changes to both
++    # 2. Runtime parameter changes to supermod propagate to submod descriptors
+     set_param 0x57 /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
+     set_param 4 /sys/module/test_dynamic_debug/parameters/p_level_num
+     verify_control_slice 'test_dynamic_debug'
+@@ -525,19 +510,17 @@ function FT_classmap_inheritance {
+     ifrmmod test_dynamic_debug_submod
+     ifrmmod test_dynamic_debug
+ 
+-    # set super-mod params at load-time
++    # 3. Pre-initialize supermod parameter state at load-time
+     my_modprobe test_dynamic_debug p_disjoint_bits=0x16 p_level_num=5
+     verify_control_slice '\[test_dynamic_debug\]'
+ 
+-    # see them picked up by submod
++    # 4. Verify submod inherits pre-initialized supermod classmap parameter state upon load
+     my_modprobe test_dynamic_debug_submod
+     verify_control_slice 'test_dynamic_debug'
+ 
+-    # Real-time mathematical proof that load-time (modprobe) parameter parsing
+-    # and runtime (sysfs write) parameter configurations are perfectly equivalent!
++    # 5. Prove load-time (modprobe) and runtime (sysfs write) parameter equivalence
+     local hash_modprobe=$(slice_and_hash_ddctrl '\[test_dynamic_debug\]')
+ 
+-    # Fresh load with default parameters, then configure them dynamically at runtime
+     ifrmmod test_dynamic_debug_submod
+     ifrmmod test_dynamic_debug
+     my_modprobe test_dynamic_debug
+@@ -552,16 +535,45 @@ function FT_classmap_inheritance {
+     else
+         v_echo "${GREEN}: Proven: parameter load-time (modprobe) " \
+             "and runtime (sysfs write) are equivalent!${NC}"
+-    fi    # --- Live Content Fingerprinting Phase ---
++    fi
++
++    # 6. End-to-end syslog content logging verification
+     log_start
+-    echo 1 > /sys/module/test_dynamic_debug/parameters/do_prints
+-    echo 1 > /sys/module/test_dynamic_debug_submod/parameters/do_prints
++    echo 1 > /sys/module/test_dynamic_debug/parameters/do_classes
++    echo 1 > /sys/module/test_dynamic_debug_submod/parameters/do_classes
+     log_stop
+ 
+     ifrmmod test_dynamic_debug_submod
+     ifrmmod test_dynamic_debug
+ }
+ 
++function FT_modprobe_w_param {
++    v_echo "${GREEN}# TEST_MODPROBES ${NC}"
++    local verbose
++
++    ifrmmod test_dynamic_debug_submod
++    ifrmmod test_dynamic_debug
++
++    for verbose in 1 2; do # 3 4 0; do
++	echo $verbose > /sys/module/dynamic_debug/parameters/verbose
++
++	# Verify each parameter load sequence with 100% DRY modularity
++	verify_modprobe_param_logging "do_classes" "1"
++	verify_modprobe_param_logging "do_bulk" "1"
++
++	# Sequence composite bitmasks to verify disjoint bit transitions
++	for mask in "0x05" "0x12" "0x1f" "0x00"; do
++            verify_modprobe_param_logging "p_disjoint_bits" "$mask"
++	done
++
++	# Sequence levels to verify both growing and shrinking verbose transitions
++	for lvl in "3" "5" "4" "0"; do
++            verify_modprobe_param_logging "p_level_num" "$lvl"
++	done
++    done
++    ddcmd =_
++}
++
+ # Built-in Feature Tests (Can run on any CONFIG_DYNAMIC_DEBUG kernel, modular or monolithic)
+ builtin_tests=(
+     FT_grammar_ok
+@@ -573,7 +585,9 @@ builtin_tests=(
  
  # Modular Feature Tests (Require CONFIG_MODULES=y and test_dynamic_debug*.ko available)
+ modular_tests=(
++    FT_test_classes
+     FT_classmap_inheritance
++    FT_modprobe_w_param
+ )
+ 
+ # ==============================================================================
+@@ -639,14 +653,50 @@ function GOLDEN_RECORDS {
+ #K= f2b4f24fece9c55f5a5d28323c2019f8 FT_basic_queries.5
+ #K= 8c2dd1164fbcefb721345ce62a864a37 FT_basic_queries.6
+ #K= 4542e1e5e7eadcbe8f90a9c934635618 FT_basic_queries.7
+-#K= fb294f02a4207b28b2a874524ef07afd FT_classmap_inheritance.1
+-#K= 7a0b87016fdc237077dfe96bbbb3661b FT_classmap_inheritance.2
+-#K= 2784d60f5056fc5cc03b3ceb854293f5 FT_classmap_inheritance.3
+-#K= bf66aaf8ff612272c0cda29778ed2131 FT_classmap_inheritance.4
+-#K= 49fdd29d91a4c1d16f8b59bb431e741b FT_classmap_inheritance.5
+-#K= a8aa244285d048b5ebe33061fa99c424 FT_classmap_inheritance.6
+-#K= 3060b86a0f553dd5a826bb7023284925 FT_classmap_inheritance.7
+-#K= f43e0aff8a4b38435b73d90ed8100d1b FT_classmap_inheritance.8
++#K= 3bcbdc30323082d6e961b5f0e269fff7 FT_test_classes.1
++#K= 5516e3d13cba7ea4197a7fb6c033887a FT_test_classes.2
++#K= 22213a7bf431c3e0efd3edbfcba69677 FT_test_classes.3
++#K= 3a6afd41fadaaf70fad18f8a4632ffec FT_classmap_inheritance.1
++#K= 6f1e347f0a7930814d2e54d589439465 FT_classmap_inheritance.2
++#K= a6e6aab5a6cb9a792d4296b1200ba409 FT_classmap_inheritance.3
++#K= 315cc5dad3a775c54a0b60a0276300b7 FT_classmap_inheritance.4
++#K= 7e92245008439ee79fe2460aeaa16a9b FT_classmap_inheritance.5
++#K= 94610c57ac44bd7011002a654fd78f93 FT_modprobe_w_param.1
++#K= 94610c57ac44bd7011002a654fd78f93 FT_modprobe_w_param.2
++#K= c1309e18dc9bf2f57184fa13164d917d FT_modprobe_w_param.3
++#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.4
++#K= a1232e658d95fbca8b23a69e9a0db965 FT_modprobe_w_param.5
++#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.6
++#K= af7b3d532325b1c5ab990e4b32fed577 FT_modprobe_w_param.7
++#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.8
++#K= 591411c42cf52d7c4c46d76bcc345a5f FT_modprobe_w_param.9
++#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.10
++#K= b0435304108118e64529469e59332111 FT_modprobe_w_param.11
++#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.12
++#K= 4d036833ce9f661057a4e13d97295c65 FT_modprobe_w_param.13
++#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.14
++#K= 5c3c6ecf6a46f9ccebd60c5ca9ebdbb7 FT_modprobe_w_param.15
++#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.16
++#K= 73a93377a823739e8aae44856a20fa7f FT_modprobe_w_param.17
++#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.18
++#K= 10464b2c3e3972f05e93c609700f8fb2 FT_modprobe_w_param.19
++#K= 10464b2c3e3972f05e93c609700f8fb2 FT_modprobe_w_param.20
++#K= 07c1f81d5a58675a291dc77acd6938c4 FT_modprobe_w_param.21
++#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.22
++#K= b070066b0eb13a033446bd05850b15e2 FT_modprobe_w_param.23
++#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.24
++#K= 32ca47823c27e629e03c21aebfc25095 FT_modprobe_w_param.25
++#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.26
++#K= 7b91db8e9f160aebb1ee87fab2232404 FT_modprobe_w_param.27
++#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.28
++#K= e393499e02677de414e478f4e710eeb9 FT_modprobe_w_param.29
++#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.30
++#K= 375e38613af3b49bb7c7689dfecf4177 FT_modprobe_w_param.31
++#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.32
++#K= 745a61d20e26a6a22db0b99420fea80a FT_modprobe_w_param.33
++#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.34
++#K= 3d2538bf868e71bff17c768cf118c352 FT_modprobe_w_param.35
++#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.36
+ EOF
+         # Read the K-recs and skip those for tests that can't run
+         while read -r line; do
 
 -- 
 2.55.0
