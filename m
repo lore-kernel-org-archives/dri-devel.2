@@ -4,43 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 094EDC79FA1
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 01:17:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C173BC79F82
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 01:39:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F93410E0FD;
-	Wed,  9 Sep 2026 01:17:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB5C310E031;
+	Wed,  9 Sep 2026 01:39:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GNg/7bXw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h0zD6f1o";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40DE010E0FD
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 01:17:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0F4A040319;
- Wed,  9 Sep 2026 01:17:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBC081F00A3A;
- Wed,  9 Sep 2026 01:17:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788916641;
- bh=0xXKFyA5MyNJRjVNbpbkZHcpK2+w394cJQ5/L9Gbt6w=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GNg/7bXwCgB38z6LGRTLZh0SwUsqSP276hDetEO4RtsWYzHGpg3+aRllYsIgLHhNz
- pcSkDO6f2Z7E4Wiet9DoH2M9BDfr8Pp8D0vQfcJTeiRIpE68k/cgcpA64UTv5ba5w5
- 8/4fptv8FoqHRGySXsGw6P7/nPxQktwPjTMViyoC9ocxGcSnxpfSfiwIJ9jnzzvLbz
- IM2OPzbkEvvONbHPj0K7f/S70H0S1bz97hnxu1arg2tGHhbeth50ItA0gQUhvw4vKc
- uA/RzOtxtMuX2uNlmsQPFJTLoIMQE8CnO9FlUVVpG5fxcHF3CgbAJsIfpiEZG4FISH
- F7m4vG2niG8qQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 33/39] dyndbg: resolve "protection" of class'd pr_debug
-To: "Jim Cromie" <jim.cromie@gmail.com>
-Cc: linux-modules@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260908-dd-cmap-part2-clean-v9-33-3a3f621f4a10@gmail.com>
-References: <20260908-dd-cmap-part2-clean-v9-0-3a3f621f4a10@gmail.com>
- <20260908-dd-cmap-part2-clean-v9-33-3a3f621f4a10@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 01:17:21 +0000
-Message-Id: <20260909011721.BBC081F00A3A@smtp.kernel.org>
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
+ [74.125.227.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5418F10E031
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 01:39:10 +0000 (UTC)
+Received: by mail-pj2-f12.google.com with SMTP id
+ 98e67ed59e1d1-39931869b4aso503021a91.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 08 Sep 2026 18:39:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788917950; x=1789522750; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=JjI4DgjlDDON3NUoadRh7LpaMb/RUtoIPEQT63OcGFI=;
+ b=h0zD6f1o76n7T8X7fz02fYYsXFLfA6cuZg+u1ifG9V44tTwwnRveD2Smjgb/RqHp5N
+ l2229K8ZxFBo6hCBDsA+Q4c2w6jMw0r+pIn4zZXSayR1vgLMgj1NAJojzKsOkiyqmbIB
+ EoOg0gm29MTy12m/Jrfg4f4b4Z9mB/wNhoLI57TSWlIdnDSsO9zn9UwBY5W8Cks399Qe
+ 3YiXMrYN1L7N22iZj6M5x9m1n/F+JTTv5aYIUxqptutphn3NCUS7QT3f8eJ+XprPJxLj
+ BGfKamVX3uzZ7X9G9SEddjui97n2y8gMrRYFXoCSISFB/TTOrMDlf7bTfImJ81kggitY
+ kqOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788917950; x=1789522750;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=JjI4DgjlDDON3NUoadRh7LpaMb/RUtoIPEQT63OcGFI=;
+ b=oKJd2snI3dBb9bXHQGDbC9vn5iQsYoN23NW8S+JjPdLO3fdV1osJ8n7gSiBxZi6ryI
+ mtZa/WxUmfhzGZQGp9tZZDE4XwUP1+aLjmiMQLWqg9WBkAUewgDAq0PatjkZ1OMVzV0Y
+ TXCvzbu0m5VuZ/K92dOEbkzCF+5DsbUntmAMm210Joli6X0mek4okKW50pMCzTozKISz
+ 6dd4CD3ZlrGkL4CAtO1GEJvDhZWKuO7O0cJl15ucXFTYBbfxrW5JZzdxBY335R6y6/hj
+ j3ddK2M+JK7hCIqwgh5/ZbyZtSUfHmSrsLYB2bERYfKGqdOHZumhGuWanKLV4GuqS2iu
+ VDnQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByNjl0w2A8fjnBN2XLmFaFAgp6t9MzJrA2XzGrxcuigY3a35GAk+FIOPLh8v+8OjNvjWuhmBdMhaus=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mcKhzwitn8M8mTm1wu/YsII0lpAu5lmm0Q2hTc/9dyadAmZV3j
+ Br8SSqhOU+Ik1hlXyXORZEfisuo85YKP62Pr2i3eUt1iLJh1+kU/VAma
+X-Gm-Gg: AYBFou2xRVUu9yBkm6FKfCJZ1VXcfDOWQa6osvz4ziGED3Bhs3RXPRPyALuhUdFrJR/
+ Tk/fpHCS2PieJ2Q02tntfOl/HTbDgTarF9Ip3eEdwIltQhVp6f70nG52xunqNZgy0FfwLqc1LN/
+ Rs7nsdBBzWk3XwVIZERo4DYdtPzA+jxrg6p9JnhL1PPOVcUesn0S6lWh0FkAftY1WhsO/L/rZmF
+ oDkLkYI8jJFI8Cxl3O+xT6OwSLOntIsiJ9HbSfkS5e68pgBCNiYBIeH+6pwtcd68UiVh6bsOt3+
+ Yu3xBSxs3PSKp6C2MYn1/AkeRHY8t11NQpCUpg/Msij6ggj4oa0o0lHAU/3Wpi7V/CqhPCgpXND
+ HFSTYpstZiVzlPXyRaPBt50CaTKX4xMD8Okqi2lUFkfK8zprQ7bs93Wrl3/wN4NiEsQJZ82JieF
+ R8SxdW/2zYqXB7aSRsGZbCrUN3r9qZjL/NDA4zpRovfgVCkraN4OQ7qbSUQB5qvO4TDM4fg9Bwz
+ QDK/NHAtPuaHiCKFz9t28zB5bpLTpDlqWLHmRnPxg==
+X-Received: by 2002:a17:90b:384d:b0:398:bac0:238e with SMTP id
+ 98e67ed59e1d1-39b3d8377camr26729792a91.6.1788917949644; 
+ Tue, 08 Sep 2026 18:39:09 -0700 (PDT)
+Received: from [192.168.0.203]
+ (2607-8700-5500-a805-0000-0000-0000-0002.16clouds.com.
+ [2607:8700:5500:a805::2]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-33688cfc714sm21198511eec.20.2026.09.08.18.38.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Sep 2026 18:39:08 -0700 (PDT)
+Message-ID: <395cded7-4f9f-47ff-810e-41bed3f8a068@gmail.com>
+Date: Wed, 9 Sep 2026 09:38:46 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe
+ when PHY is down
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: royalnet026@gmail.com, Laurent.pinchart@ideasonboard.com,
+ airlied@gmail.com, andrzej.hajda@intel.com, luca.ceresoli@bootlin.com,
+ cristian.ciocaltea@collabora.com, daniels@collabora.com,
+ detlev.casanova@collabora.com, dmitry.baryshkov@oss.qualcomm.com,
+ heiko@sntech.de, jernej.skrabec@gmail.com, jonas@kwiboo.se,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ neil.armstrong@linaro.org, rfoss@kernel.org, simona@ffwll.ch,
+ tzimmermann@suse.de, macromorgan@hotmail.com,
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260908070220.41574-1-rmxpzlb@gmail.com> <ap_3zjRWm5-RXKKx@venus>
+Content-Language: en-US
+From: Frank Zhang <rmxpzlb@gmail.com>
+In-Reply-To: <ap_3zjRWm5-RXKKx@venus>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,142 +100,124 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The function `ddebug_apply_class_maps` is enclosed in an `#if 0` b=
-lock, preventing `controlling_param` from being initialized for defining mo=
-dules. This breaks the protection mechanism for parameterized classmaps and=
- fails to apply boot/load-time kernel parameters to the defining module's c=
-allsites.
-- [Medium] The module is exposed to userspace queries via `ddebug_tables` b=
-efore its `map->controlling_param` protection state is initialized, creatin=
-g a data race and TOCTOU vulnerability where concurrent classless queries c=
-an bypass protection.
---
+On 9/8/26 20:10, Sebastian Reichel wrote:
+> Hi,
+> 
+> On Tue, Sep 08, 2026 at 03:02:20PM +0800, Frank Zhang wrote:
+>> The following panic was observed during system reboot:
+>>
+>> Kernel panic - not syncing: Asynchronous SError Interrupt
+>> CPU: 6 UID: 1000 PID: 2348 Comm: pipewire ... 7.0.5+ #4 PREEMPT(full)
+>> Call trace:
+>>   ...
+>>   regmap_update_bits_base+0x70/0xa8
+>>   dw_hdmi_qp_bridge_clear_audio_infoframe+0x3c/0x58 [dw_hdmi_qp]
+>>   drm_bridge_connector_clear_audio_infoframe+0x2c/0x48 [drm_display_helper]
+>>   ...
+>>   dw_hdmi_qp_audio_disable+0x28/0xa8 [dw_hdmi_qp]
+>>   drm_bridge_connector_audio_shutdown+0x38/0x68 [drm_display_helper]
+>>   drm_connector_hdmi_audio_shutdown+0x28/0x40 [drm_display_helper]
+>>   hdmi_codec_shutdown+0x60/0x90 [snd_soc_hdmi_codec]
+>>   ...
+>>   snd_pcm_release_substream+0xcc/0x120 [snd_pcm]
+>>   snd_pcm_release+0x4c/0xc0 [snd_pcm]
+>>   ...
+>>
+>> The root cause is pipewire tries to close the HDMI audio device after
+>> atomic_disable(), which sets tmds_char_rate to 0 and disables the PHY.
+>>
+>> In this case, dw_hdmi_qp_audio_disable() will call
+>> dw_hdmi_qp_bridge_clear_audio_infoframe(), accessing register without
+>> checking tmds_char_rate.
+>>
+>> Guard the register access in drm_display_helper callback function with
+>> tmds_char_rate check.
+>>
+>> Fixes: fd0141d1a8a2 ("drm/bridge: synopsys: Add audio support for dw-hdmi-qp")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
+>>
+>> ---
+>> Changes in v2:
+>> - Move drm_atomic_helper_connector_hdmi_clear_audio_infoframe() inside
+>>    the if (hdmi->tmds_char_rate) of dw_hdmi_qp_audio_disable().
+>> - Link to v1: https://lore.kernel.org/all/20260416093150.13853-1-rmxpzlb@gmail.com/
+>>
+>> Changes in v3:
+>> - Add a tmds_char_rate guard in clear_audio_infoframe path.
+>> - Decouple write_audio_infoframe from clear_audio_infoframe.
+>> - Balance the PKTSCHED_AMD_TX_EN bit enable/disable.
+>> - Link to v2: https://lore.kernel.org/all/20260418101936.7731-1-rmxpzlb@gmail.com/
+>>
+>> Changes in v4:
+>> - Update panic stack on 7.0.5
+>> - Link to v3: https://lore.kernel.org/all/20260423081514.15444-1-rmxpzlb@gmail.com/
+>>
+>> Changes in v5:
+>> - Reuse the origin dw_hdmi_qp_bridge_clear_audio_infoframe and add
+>>    tmds_char_rate guard in new callback function.
+>> - Link to v4: https://lore.kernel.org/all/20260512103153.8861-1-rmxpzlb@gmail.com/
+>> ---
+>>   drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 14 ++++++++++++--
+>>   1 file changed, 12 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+>> index 1c214a8e6dc2..8729783d4eb6 100644
+>> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+>> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+>> @@ -880,7 +880,7 @@ static int dw_hdmi_qp_bridge_clear_spd_infoframe(struct drm_bridge *bridge)
+>>   	return 0;
+>>   }
+>>   
+>> -static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
+>> +static int __dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
+>>   {
+>>   	struct dw_hdmi_qp *hdmi = bridge->driver_private;
+>>   
+>> @@ -893,6 +893,16 @@ static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
+>>   	return 0;
+>>   }
+>>   
+>> +static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
+>> +{
+>> +	struct dw_hdmi_qp *hdmi = bridge->driver_private;
+>> +
+>> +	if (hdmi->tmds_char_rate > 0)
+>> +		return __dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>>   static void dw_hdmi_qp_write_pkt(struct dw_hdmi_qp *hdmi, const u8 *buffer,
+>>   				 size_t start, size_t len, unsigned int reg)
+>>   {
+>> @@ -987,7 +997,7 @@ static int dw_hdmi_qp_bridge_write_audio_infoframe(struct drm_bridge *bridge,
+>>   {
+>>   	struct dw_hdmi_qp *hdmi = bridge->driver_private;
+>>   
+>> -	dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
+>> +	__dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
+> 
+> Why? Having the extra tmds_char_rate check being done here is not a
+> problem except for some extra instructions. Considering this is
+> definetly not a hot path, introducing the extra function is not
+> worth the trouble. Just patch the original function to add the check
+> resulting in a nice and simple 2 lines fix and you are done.
+Add tmds_char_rate check in the original function 
+`dw_hdmi_qp_bridge_clear_audio_infoframe` discussed in v1, Detlev 
+Casanova recommend no need to check for tmds_char_rate in every
+dw_hdmi_qp_bridge_clear_audio_infoframe() call.>
+>>   
+>>   	/*
+>>   	 * AUDI_CONTENTS0: { RSV, HB2, HB1, RSV }
+>> -- 
+>> 2.55.0
+>>
+> 
+> Greetings,
+> 
+> -- Sebastian
 
-commit 3a846cbf484a221d77612af005e27faf83c306df
-Author: Jim Cromie <jim.cromie@gmail.com>
-
-dyndbg: resolve "protection" of class'd pr_debug
-
-This commit adds protection for dynamically debugged classes against
-class-less queries by using sysfs parameters. It sets a controlling
-parameter for parameterized classmaps to prevent accidental modification
-from queries that lack a specific class identifier.
-
-> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-> index e6f5a524d63b6..8c90b1e4cd33e 100644
-> --- a/lib/dynamic_debug.c
-> +++ b/lib/dynamic_debug.c
-
-[ ... ]
-
-> @@ -1297,25 +1358,35 @@ static void ddebug_sync_classbits(const struct ke=
-rnel_param *kp, const char *mod
->  	}
->  }
-> =20
-> -static void ddebug_match_apply_kparam(const struct kernel_param *kp,
-> -				      const struct ddebug_class_map *map,
-> -				      const char *mod_name)
-> +static struct ddebug_class_param *
-> +ddebug_get_classmap_kparam(const struct kernel_param *kp,
-> +			   const struct ddebug_class_map *map)
->  {
->  	struct ddebug_class_param *dcp;
-> =20
->  	if (kp->ops !=3D &param_ops_dyndbg_classes)
-> -		return;
-> +		return NULL;
-> =20
->  	dcp =3D (struct ddebug_class_param *)kp->arg;
-> +	return (map =3D=3D dcp->map)
-> +		? dcp : (struct ddebug_class_param *)NULL;
-> +}
-> +
-> +static void ddebug_match_apply_kparam(const struct kernel_param *kp,
-> +				      struct ddebug_class_map *map,
-> +				      const char *mod_name)
-> +{
-> +	struct ddebug_class_param *dcp =3D ddebug_get_classmap_kparam(kp, map);
-> =20
->  	if (dcp && dcp->map =3D=3D map) {
-> +		map->controlling_param =3D dcp;
-
-[Severity: Medium]
-Could this lockless write to map->controlling_param cause a data race?
-
-When a module is loaded, ddebug_add_module() adds the module to the
-ddebug_tables list under the ddebug_lock:
-
-mutex_lock(&ddebug_lock);
-list_add_tail(&dt->link, &ddebug_tables);
-mutex_unlock(&ddebug_lock);
-
-It then drops the lock and calls ddebug_apply_class_users(), which reaches
-this code and locklessly writes to map->controlling_param.
-
-Since the module is already visible in ddebug_tables before this
-initialization completes, could a concurrent classless sysfs query bypass
-protection by evaluating ddebug_class_wants_protection() on a newly added
-module before controlling_param is set?
-
-> +		v2pr_info(" kp:%s.%s =3D0x%x", mod_name, kp->name, *dcp->bits);
-> +		vpr_cm_info(map, " %s maps ", mod_name);
-> +		ddebug_sync_classbits(kp, mod_name);
->  	}
->  }
-
-[ ... ]
-
-> @@ -1338,6 +1409,26 @@ static void ddebug_apply_params(const struct ddebu=
-g_class_map *cm, const char *m
->  	}
->  }
-> =20
-> +#if 0
-> +/*
-> + * called from add_module, ie early. it can find controlling kparams,
-> + * which can/does? enable protection of this classmap from class-less
-> + * queries, on the grounds that the user created the kparam, means to
-> + * use it, and expects it to reflect reality.  We should oblige him,
-> + * and protect those classmaps from classless "-p" changes.
-> + */
-> +static void ddebug_apply_class_maps(const struct _ddebug_info *di)
-> +{
-> +	struct ddebug_class_map *cm;
-> +	int i;
-> +
-> +	for_subvec(i, cm, di, maps)
-> +		ddebug_apply_params(cm, cm->mod_name);
-> +
-> +	v2pr_di_info(di, "attached %d class-maps to ", i);
-> +}
-> +#endif
-
-[Severity: High]
-Does this disabled code block break the intended protection for parameteriz=
-ed
-classmaps defined within the module?
-
-Because ddebug_apply_class_maps() is enclosed in an #if 0 block, the
-controlling_param is never initialized for the module defining the classmap.
-As a result, ddebug_class_wants_protection() will evaluate to false because
-site_map->controlling_param is NULL.
-
-Will this cause boot and load-time kernel parameters (like drm.debug=3DVAL)
-to not be applied to the defining module's callsites, allowing class-less
-queries to improperly modify them?
-
-> +
->  static void ddebug_apply_class_users(const struct _ddebug_info *di)
->  {
->  	struct ddebug_class_user *cli;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-dd-cmap-pa=
-rt2-clean-v9-0-3a3f621f4a10@gmail.com?part=3D33
