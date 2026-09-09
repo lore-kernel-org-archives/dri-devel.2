@@ -4,124 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12955C79FAD
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 12:46:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1ED6C79FB6
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 12:48:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EF1110F12B;
-	Wed,  9 Sep 2026 12:46:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0320210F12E;
+	Wed,  9 Sep 2026 12:48:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="L+dcn1uS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pR9u8nLK";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012000.outbound.protection.outlook.com [52.101.53.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D959B10F129;
- Wed,  9 Sep 2026 12:46:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V22dYnH/tIfXn19WNLbWwmETVQuhP1yoFQK+Wd2IsIXkoTYeMRfa1ilVEA9UASXCQj8HzWG12eD0QC+wc+Ci+WSp1pp3oNHDXjiQvPZJXOHrC96xvbiTegnBYT5S2rPpSCKg6xYgsPBhZm+J1LiYU4/GC+Y8jKipNQOP1I+rCvteQsImvbpmdFQYF2umPbgeuCRFzWqYvQsoRnWd+QtUlBclBfJxQ+eGfcQOeIP0qrmfCKO7bHCPEX6dTEirjWG4Xvg8oOpmSIaPfzgXwg7vMP5pwMCJata5w3JXLW8qAouW1Jrbv4zELbuyVMXHDQbH+W+KMOQ5wf4tt/SCzLYY3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3oGIQMo+WLd9zVt7lebo274xJIUgWrS6sG44LNEij6E=;
- b=Ffk/cM7uESAgxXmtpFlyr8U64uN5y45WdwPykRi0HU44ZGmU380MoD3LF5WbRsfemHy5o6p1NHB5sdGzXmcufEU0RKr3+LIra2+/YLQAWaaeDDhFHGjbfFex3eO79sgxOmhF+0gCwFASggj/BHOiw500RNvmvQ+Qhrvqt6ER1o9soSAtgZXYYfED5aOSI1ZYMZZlMCxdODGV13CsHNmiNS4+mageqo4GeSzQ1l1y7pfGr3szpiZlEtyubmDA5bS2o67K7B6ZjT5aM4FIUvsiNa4jb49892F3Ausit9JRVV9IDoKvcWvDAH5P5iNWwS7DF16CRDx7FC0/IunzVUgJBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3oGIQMo+WLd9zVt7lebo274xJIUgWrS6sG44LNEij6E=;
- b=L+dcn1uS5Duivu/zAhdK1kxCQx/sdrb8WnKdyKBdU1mhmBxZO8dk72Lf7lwwFtruQ5516nnTh4w0cVlO3MNT3G8r7p1p1qQIzPCJEnZPZLtH34N0r4o56MjsYp1GzQpjmp8rkhIIKbW2v1TssaADOlX4FB4sriQ93M3gsjKC3UE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
- 12:46:35 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 12:46:35 +0000
-Message-ID: <e63d8ae9-f102-424f-88a5-0fd6837d79d4@amd.com>
-Date: Wed, 9 Sep 2026 14:46:32 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: don't migrate a dma-buf into VRAM while
- runtime suspended
-To: Mike Lothian <mike@fireburn.co.uk>, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, kevinyang.wang@amd.com,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org
-References: <20260909020854.58462-1-mike@fireburn.co.uk>
- <20260909094609.1541-1-mike@fireburn.co.uk>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260909094609.1541-1-mike@fireburn.co.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN2PR07CA0023.namprd07.prod.outlook.com
- (2603:10b6:208:1a0::33) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
+ [74.125.225.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71BFE10F12E
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 12:48:26 +0000 (UTC)
+Received: by mail-wr2-f12.google.com with SMTP id
+ ffacd0b85a97d-485843116d2so477529f8f.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 05:48:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788958105; x=1789562905; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ktTcKvzi+Dmn6xaiXbKoHfLb8FntlzV6x0/ox6k4ynw=;
+ b=pR9u8nLKe4BuwVTFCCpOCUkY2Yu9wF+BtbT4neQppG/8le/AjsIziqTEcklFZElp+1
+ rAC/PSS2aaADc7bd10mmvztztwQGN40rT2ttZwrLS65SIk2c5MkrhKT1ZSXdQ5ANPLRh
+ q/hYmPrqLHFVQLUa7ShEEXb6loT0RZZBUykRK6lxCLb6n32a/T5wSdPDPlW5IJEr//fp
+ leHb9/NTT3ZqfZHAewCi5fMHHJFwJGiHcL444uAvWRZORpb7V4z66fTCywDeakvsr4N8
+ lQ4pEs2Cvo81UcSMy2E8Y2mQNRKtemJaxvcyuupUvI21Zdv4wX5yuAOklPd02aCmj5go
+ Glug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788958105; x=1789562905;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ktTcKvzi+Dmn6xaiXbKoHfLb8FntlzV6x0/ox6k4ynw=;
+ b=O44SM0NbpIrbPGmoJ5nS6FyGHyTBkJXBaBVTC49uBtOh/AF+rgSsOw0BHe2IB4YTma
+ jGKsCHFk6qeKBvGJklBrljVlepJTKRJGv/aHSCEbhw47vbz1cyLi8pKyWgSJ7bQ0zfTx
+ LC+/njZdcmI1EJqFNht+GXCrhAZo13p0EAVbJjWM+wMNunD++ld4lh22xUhq+tTHeNk2
+ VluhilS4kyhF+uldYkWGieas9aFcFZqmCfIEIYl2AoOiYTVzQ1X+TB7MzrFOcClQR2dz
+ q09T0HqRblFw+gL+OyKgtzIK2Vh88ssvXNeSZmY6lhKygiIuBIspbZdoDC4FvSx5UFRv
+ EA5g==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzCNsc+Tr0wh3ag6X71YsUPyQTXUIzp77+/w6rhik9zx8XWvldrva/q5AykjhxufysFpKTJ6GZY2y8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lzJN4B9xxghD4VS254nm6iMgN4Jp3KJ18cL6cDqBy117uLwYI6
+ wcUVDMPOcT0qj/ODkUTjgyp3hPV1Jj/ydUKTcBx7GAJnwNpCYxxQDPPo
+X-Gm-Gg: AYBFou3DEsQg8XJyAsEWdzv/K4J2ZRCQsKgKiYczrlfrYAAJ6YVFj5wg2I9p66l7Lmw
+ 2cVQ82+gGdErBng0NDXRwrFf4svVK2iLikrqIlP8KQI0Z6eKbN8z8rpVZNvzYuPUB9iEqmfrOgx
+ 2CErA4dNvbAzHfxLJzOpEAhWQ29vhRj+KZi8MvEWyWHK9/hr7xPUm++KL9qNblv32eo17nLN5jn
+ D7bt+a3Lozxs2rsLShi3IyvtMn+lK82P68SqtSMeBSTWN/1ggaxQxmpya2uEG4h3zP9ydcWkqOO
+ oawRxizbCZIE0krefWXaFeZ7bXp1kn4rTxA7MCLtmwrFkzkKwrwznRKXyDMp5eVFz2t4U8oj8a8
+ npaa8B+6hAiLxqt1oUIVN9toQ+qN2bfEluGMi4B0TgiGv0QdHagFoHLRJDnGIg4SzrJGSyF/zc8
+ 5f8oKV2Eb4IDauWF9vsAA4kDUNaXT0kR3pRslPupVd5naDbG6sncyQpYrNrbG+eWbbshIBZZNdT
+ VBG3DzgfkI47l12TvwBbg/XTXDR2X1bI1ZEZ2ZE1qTI6Sjse5D2daZ0R5WnTOmeVY9i9Gcdlrtz
+ xlo=
+X-Received: by 2002:a5d:5e0a:0:b0:484:3310:f393 with SMTP id
+ ffacd0b85a97d-485908001bdmr27918574f8f.5.1788958104422; 
+ Wed, 09 Sep 2026 05:48:24 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B836900E58FC5516AABB3E4.dsl.pool.telekom.hu.
+ [2001:4c4e:1b83:6900:e58f:c551:6aab:b3e4])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-485883a9b49sm36853890f8f.17.2026.09.09.05.48.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Sep 2026 05:48:24 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: Igor Paunovic <royalnet026@gmail.com>, linux-rockchip@lists.infradead.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v9 05/13] dt-bindings: npu: rockchip: add rockchip,
+ rk3576-rknn-core
+Date: Wed,  9 Sep 2026 14:48:04 +0200
+Message-ID: <20260909124806.14525-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260903112208.952061-1-gahing@gahingwoo.com>
+References: <20260903112208.952061-1-gahing@gahingwoo.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB6486:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85a77297-0deb-446e-b913-08df0e706217
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|6133799003|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 8dx7JiS0nh5XbzNZL3VjzCOsE8DMYagnUJLBTNzRRSd3v2mNko7I8+i02K2CdBBK1U9ltXXJJtxxNz65qic35vQhKRf0y3Uld2WzlLLZJEgzCnYCE2KJwNrWWSvostixxwkzKVSu6+//JFPCEbqel3TQhBzqguyN6LtQPr+yFbzzA3DJmDHWy8dO3dbV7fJY7cdcT+CmwERWxM7R7U6d9OZlMXcXS9MZhRMtHuPt3IS1pvTy/yR4qu4Nvjue0ECUfkSUY4SaJ8lEvSJL4cn1s+O0x7nt1OMusnO1WwYbRZTB6ZyQ26J6/Z+w3f4Sv+6mUJf7TmlCFVVEKqzt2iJbqtjkjtYlRuk5Xlv0kfV+OacLRVn3SUiyEF7SE4g5qo3RuomDhCIda/kgFgyceh2bKGzOA/sR+BHxBiEZh6131Z7FiUfGD4l+HYLNwL/t+3cRa1MMNvqlft/LX3eMGw13dV2hypkKN3OVol9alnhGYgzujd9HFSkRbA/vG9TUIwXMYgXvY0gWe2NHK0L6/IazTwQ+DwX+kzg85ObkylrvnIPgn7n8oe3fXabc/Mhsvxnp3Cg6yGCKjSD6ikFtWB5oY39c1Z8NuaLnz1Qc1+FHqDydWSv2VVnLYazyNu3a3jiLUQ0+VhvgpzvyzawTMgnvLmHzBlWwmOWPOeSEnraknzE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(6133799003)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QW95UFd2SkhkQ24vRTJXOXRlSkx6R0luL2NCeWJ2alFXMi9oMW1xT3RHMDZC?=
- =?utf-8?B?Ly9HOUE2Nm90bU0xZXRDOWNzc2pNL2ZiVGpBS2prekV4OHlmZnExeVBWd2Ra?=
- =?utf-8?B?ZVR4OUhYYUtWeW84LzVRQ3M4OXRxNmdaWVg0eFdzM0hIWmlxWEJVL1prcWVS?=
- =?utf-8?B?S3crTnVJS1NobmI3WXZoZ3FDdkNMY21pQTRnMnZEMEdsWC8zMUFLaDNtTFZM?=
- =?utf-8?B?SEpYZVd0OTJ4bEpocWtsZnIvZkxnTHZTNU02M21JUitQbWVaWHVhVUxMOHNG?=
- =?utf-8?B?VE9FekVCQlRrUVVyUnlyK09JNTUxYzk1U3RsTFhwSGlmandRNWpaU3lWeVF0?=
- =?utf-8?B?QmhDdGV4QXZFUmpOaERWVjROa0EwMU5LdUdtOTFaRnozb0hEMGtnK3NQc01H?=
- =?utf-8?B?TVpMMzh3RWNadFNiTnEvZE5PUXI4WGh1Z1h0b0c1aEcwcHZZNm9DKytaM2lD?=
- =?utf-8?B?TWlLdzhhclBUMTZGQ2lwa0RvNlJJUlFtd3FtcGZaK09CVXhMOFhnVW5zSDEz?=
- =?utf-8?B?TzMxZUt3TmhRbTF5cUIwRnRDYklsZWNXNU5lMDBwSWN5dFpSRjFyUkdDVCs0?=
- =?utf-8?B?emVEMVdNVWJvY0JzbmUzNlhYU2dyNCtDdnBzNXdqQm5malo4WmFLYmJ0Rmln?=
- =?utf-8?B?NURrdUtnT1d6ekhvWXNNcDMvK2w3YjZqSDJmMll5RnJvM2FVemc0OWhldkVx?=
- =?utf-8?B?MnVDWEdCTmRBemtWWFczTnp5dk9TWVpJSkRSWEVzR3kyM1c5ZHlMY2M5c28x?=
- =?utf-8?B?T3AwTmpJWlByOHFMMnA2dG1TaDlJQXdldlQwNndORUtISjZDSUxMZzVOcTRU?=
- =?utf-8?B?b1M5YXhpWlZPWnExOFQydEx0a0orRDM4cVZ5L0FrQlpiaTNkeGVmNHgvRDdu?=
- =?utf-8?B?NVlTbTN3YzhaZVY0NXQ3OGt1ZHAwVGxucHovUWpOL2ZNRjBpZ1ZSdUc3bDBa?=
- =?utf-8?B?TndRaFFoU3ZEMzFINWowbExwOGp4YkQ2OFpDdHZueU9TMmF5aFczSFRxTGJl?=
- =?utf-8?B?VTR1VE1lTjltV3JWajhUaGZLNXJWbzRmLzZUMVVtYjdpTFN0ZzZIV0RnWThr?=
- =?utf-8?B?Q0xibWhIUlVlelNFaGxpby9zemk3SU50QXZqbDZQMDduZ3JDZ0tIUGJZNldn?=
- =?utf-8?B?MHFGckZmekVZWlBDVDA1L01rNXRHUkJSeVVqR2NKVUordXprdzhBclY0bSty?=
- =?utf-8?B?eitmN3BsRjFCeXMxYTNhK3FHY3RMVjVrTFJTSS90eGxDaXBFRGdITUloeS9m?=
- =?utf-8?B?Z3MySm1xeTREYXFMcVpHeVlUdEhiY2QzczI2eFA1THpFZDhvZ2MxZ0dhbFll?=
- =?utf-8?B?aE1hRmhtelllUVo3UkNWNXprVUJEN1Qyay8wRlBaeEJOVXZGMU5NSDk0V0Fp?=
- =?utf-8?B?ZmJYbldGRXB3emZSRDZ3N2ZMTVZHWjVpVmlHRUduSFp2TGgvUXYxSnpOZjdN?=
- =?utf-8?B?dDRuMkU1SE8xVDI4M2ZocFVoclR2cjJDZlN5UDBpSFp1RzBSVUY0OVIxUzI2?=
- =?utf-8?B?NnB6Nzg1MHJuNHlhRy9MaUMrYkdhdzc1c2laaGs2c1ZieVdPd3BXRm5SQXJi?=
- =?utf-8?B?b09XeSt3RXdwTXNPWXVwNDR3dlV6cDliaHZvSzBDRzQrNVhLWkV4SWNsc1do?=
- =?utf-8?B?TTZiS2tUbi9KZXR5U2Q1ZzdvWk5JVVp5V2dPb0tSeVc3TzB6Ni9uN2lLK1lu?=
- =?utf-8?B?K3c5dXdiL282cGJpRmFMVVJJZ2huMGt0MjV1Qm9pR05EK1AzbFMvaCsySENW?=
- =?utf-8?B?aVN0UzFha2ZieUw0SnU2NGpUNzB1dmVVMVhVYnV5M0lMeVFEVW1GWEpLdDdI?=
- =?utf-8?B?RnZyUEFhc0xXNTliQk9adjhqblRpWXRWUHpndTVhMXh2RWFmKzYySmI1OHc3?=
- =?utf-8?B?N0JpMjdFQ0RRMm0wL0M1Ym5xQ0JoTDB5M3ZROEI3aityTUJqR2ZHblQ5SkpS?=
- =?utf-8?B?S2VRd1JoR25mZHBYNTRIYzd1SXdMK2JDUUZPM21nMHFUNUJ5R3BiaWJ5OVdp?=
- =?utf-8?B?ZGMwTjh3MWtCc25wbVJiek5ZYThTdE9zVnU3cGtNTTYwRTVmQXQ0dDZQUkly?=
- =?utf-8?B?RGNDQXVHTEZBMVZYblhZU2hNb0w4OEJLek5xUm1MS1JxZU5EdXlubEpBTENj?=
- =?utf-8?B?LytvOS96eEQ1R1FkT0JvVUx6czV2Tm1OdW5GendFTlc1czNvcmhMenF4R3cx?=
- =?utf-8?B?NjBDTVlTV0I5SUpLbzhZbWJzZWVlcDlwcHNMSnNhUzl6U0JFZkZscmlBdEU0?=
- =?utf-8?B?YkpiRTlTNDlTc01hcTI0cDUvcXl5a0NDLzRjSWZ6MTF1RmVtZStycmFLNFRG?=
- =?utf-8?Q?QUrGlz8pu+i5yQRiKy?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85a77297-0deb-446e-b913-08df0e706217
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 12:46:35.6534 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S25PH1aPPAh6RWIACR9KotoEXzsEn2OlPWdRZJk5m7ugqjtWKHpoIBunHCS7wnR5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6486
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,132 +94,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/9/26 11:46, Mike Lothian wrote:
-> amdgpu_dma_buf_map() adds VRAM to the allowed domains for a peer2peer
-> attachment, so ttm_bo_validate() can migrate the buffer from GTT into
-> VRAM.  While the exporting device is runtime suspended its SDMA rings
-> are down and the move fails:
-> 
->   amdgpu: Move buffer fallback to memcpy unavailable
-> 
-> An importer on a second GPU reaches this holding no runtime PM
-> reference on the exporter, e.g. a compositor on the APU submitting a
-> frame that references a buffer exported by an idle dGPU:
-> 
->   amdgpu_cs_ioctl -> amdgpu_cs_parser_bos -> amdgpu_cs_bo_validate
->     -> ttm_bo_validate -> amdgpu_bo_move -> dma_buf_map_attachment
->       -> amdgpu_dma_buf_map -> ttm_bo_validate -> amdgpu_bo_move
-> 
-> Only migrate into VRAM while holding the exporter awake.
-> pm_runtime_get_if_active() takes a reference only when the device is
-> already active and never resumes it, so it cannot deadlock against the
-> reservation held across these callbacks.  That deadlock is why
-> commit 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference
-> when we attach a buffer" v2") removed the pm_runtime_get_sync() from
-> the attach callback.
-> 
-> If the device is suspended or suspending the buffer stays in GTT, which
-> remains accessible while the GPU is powered down.  A negative return
-> means runtime PM is disabled, so the device cannot suspend and VRAM
-> stays usable.
+Hi Jiaxing,
 
-That is a good catch, but your bug explanation as well as the solution still look a bit questionable to me.
-> Fixes: 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference when we attach a buffer" v2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
-> Assisted-by: Claude:Opus-5 [Claude Code]
-> ---
-> 
-> v2: hold the exporter with pm_runtime_get_if_active() across the
->     validate instead of testing adev->mman.buffer_funcs_enabled.  The
->     v1 check was racy - the device could suspend between the test and
->     ttm_bo_validate(), so amdgpu_bo_move() could still see the rings
->     torn down.  Reported by Sashiko AI review.
-> 
-> Is this the failure that commit c52feb436539 ("drm/amdgpu: Disable
-> runtime PM for externally attached dGPUs") was working around?  That
-> commit explains how to detect external attachment but not what breaks,
-> so I can't tell which.
-> 
-> If it is the same thing, could the pci_is_thunderbolt_attached() ||
-> dev_is_removable() check there be narrowed or dropped on top of this,
-> so eGPU users keep runtime PM?
-> 
-> I can't test that here: this box hits the bug by missing that check.
-> The dGPU is on an oculink port off a native AMD root port, so
-> pci_is_thunderbolt_attached() is false, dev_is_removable() is empty,
-> and runtime PM stays enabled.
-> 
-> Reproduced on a HawkPoint APU [1002:1900] driving the display with a
-> Navi 48 [Radeon AI PRO R9700] [1002:7551] on oculink for render
-> offload.  Without the patch kwin_wayland hits the call chain above
-> within a minute of the dGPU autosuspending and the desktop stops
-> repainting until it resumes.
+I finally ran reserved0-build.py. Three things back, one of them a bug
+in the script.
 
-That sounds like there is also a bug in kwin as well.
+First, it works: pointed at your geom corpus it produces the full
+report, 415 lines, no warnings. Thank you for writing it in a way that
+runs anywhere - only numpy, and the parts that need your files skip
+themselves cleanly.
 
-The GPU can only go into suspend when the rendering application closes it driver connection and that usually only happens when it terminates.
+Second, the bug. Point it one directory higher, at a corpus that also
+contains files outside the geometry set, and it dies:
 
-So question is here why is kwin still having that imported DMA-buf as necessary resource for the rendering?
+  File "reserved0-build.py", line 431, in dump
+    % (o["off"], o["v"], o["RESERVED_0"],
+  KeyError: 'v'
 
-But we still need to fix this properly in the kernel anyway to avoid having a deny of service.
+The cause is small and I think you will spot it faster than I can
+describe it. read_ops() gives an undecoded dispatch a short dict -
+dict(off=off, undecoded=True), no "v", no "RESERVED_0". Everywhere else
+you are careful about that: the good/bad split, the row groups, the
+per-file value sets, and the "mixed" comprehension itself all filter on
+"if not o['undecoded']". dump() is the one place that walks f["ops"]
+straight through, so the first undecoded dispatch in a dumped file
+raises.
 
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 16 ++++++++++++++--
->  1 file changed, 14 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> index b33c300e26e2..c89846f266d3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> @@ -43,6 +43,7 @@
->  #include <linux/dma-buf.h>
->  #include <linux/dma-fence-array.h>
->  #include <linux/pci-p2pdma.h>
-> +#include <linux/pm_runtime.h>
->  
->  static const struct dma_buf_attach_ops amdgpu_dma_buf_attach_ops;
->  
-> @@ -189,14 +190,25 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
->  		/* move buffer into GTT or VRAM */
->  		struct ttm_operation_ctx ctx = { false, false };
->  		unsigned int domains = AMDGPU_GEM_DOMAIN_GTT;
-> +		int pm_ref = 0;
->  
->  		if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM &&
->  		    attach->peer2peer) {
-> -			bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
-> -			domains |= AMDGPU_GEM_DOMAIN_VRAM;
-> +			/*
-> +			 * Only migrate into VRAM while the exporter is held
-> +			 * awake.  A negative return means runtime PM is
-> +			 * disabled, so it cannot suspend either.
-> +			 */
+It needs a corpus where a file has both more than one RESERVED_0 and at
+least one undecoded dispatch. In mine that is exactly one file out of
+thirteen: chain, with 2 undecoded dispatches out of 26. It lands in
+"others", so dump(others[0]) hits it. Skipping undecoded ops in dump(),
+or printing them as a short "undecoded" line, is all it takes.
 
-Setting AMDGPU_GEM_DOMAIN_VRAM doesn't automatically migrate the BO, it just sets this as possible placement.
+Third, the corpus I owe you. I have not collected it yet, and I do not
+want to give you a date I am not sure of. To be precise about where it
+stands: every .rknn on this disk is still yours - 103 files, and all
+103 declare the same build string, 2.3.2 (@2025-04-03T08:26:16). So the
+axis I offered to test, whether 34/66 <-> 0x4044 survives a different
+toolkit version, is still untested. It is on my list, behind the DVFS
+series review.
 
-BO migration is only triggered if the BO is swapped out or similar. What most likely happens instead is that we suspend while something is still ongoing.
+One more thing, unrelated to the script, from your earlier mail: the
+/dev/accel/accel2 you saw after two rebind cycles is the same thing I
+hit on RK3588, where the minor walked 1 -> 10 over ten cycles and only
+rmmod reset it. I traced it in the source afterwards: rocket_device_init()
+allocates the DRM device with devm on the shared rknn platform device,
+which is only unregistered at module removal, so each unbind leaves a
+drm_device alive holding its minor.
 
-But anyway the problem goes deeper than just the amdgpu_dma_buf_map() callback.
+You do not need a new patch for it - it is already written and waiting:
 
-We have picked up pinning DMA-buf to VRAM for RDMA without ODP (e.g. exactly the feature I mention in the commit message of c52feb436539), but failed to correctly fix the PM handling.
+  [PATCH v2 1/2] accel/rocket: release the shared device's devres on teardown
+  https://lore.kernel.org/all/20260731064933.12548-2-royalnet026@gmail.com/
 
-So we really need to call pm_runtime_get_if_active() in amdgpu_dma_buf_attach() and fail to let some other driver attach if the device is already suspended.
+That series has your Reviewed-by on 2/2 already. If you rebind on RK3576
+often, that patch is worth carrying locally in the meantime.
 
-Regards,
-Christian.
+Thanks again for the script.
 
-> +			pm_ref = pm_runtime_get_if_active(adev_to_drm(adev)->dev);
-> +			if (pm_ref) {
-> +				bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
-> +				domains |= AMDGPU_GEM_DOMAIN_VRAM;
-> +			}
->  		}
->  		amdgpu_bo_placement_from_domain(bo, domains);
->  		r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
-> +		if (pm_ref > 0)
-> +			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->  		if (r)
->  			return ERR_PTR(r);
->  	}
-
+Igor
