@@ -4,72 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FEA9C79FB6
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 09:44:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14CFDC79F8C
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 09:46:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DC6410F07F;
-	Wed,  9 Sep 2026 09:44:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4462310F072;
+	Wed,  9 Sep 2026 09:46:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Hj8TJM05";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="exB6boDY";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F2AE10F072
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 09:44:25 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id EDCC66022E;
- Wed,  9 Sep 2026 09:44:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 967D2C2BCFC;
- Wed,  9 Sep 2026 09:44:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1788947062;
- bh=DzE6a8ucUIKezdLyiT87i1fHKPmzHSKWoTm6ztJGBrE=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=Hj8TJM05RMbUz9l8edeAbgRMFTc2BxpJxnU49GGVlssA5yqJhzTXQWVFa75FQQdPO
- J4YNpewm/4ro6Y07XRGNqQL9cyOySQMVgEjUxIke3w8Oo3Fb4DdRSEuUgrbsnrzlNb
- 1PHUoFfpWtXrr4dtkw8qbvWyPKKVq2GmCyMVn9YQouAr1HiKc8i9a7oSWwU1y7WLvJ
- htEEwBsrMUDiJiPqabaUxG/VxfLFjo8rmBkvgao1rD7D105RjhTVaetCJDL26KiXap
- xXAGno8zLj2EJFQvj9BbhsxFkOa/Wyda2kvb6t8qeqAekqRjR0ruPXiwwYxelzU18l
- zSNvHb8QC44ww==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 74424C79FAD;
- Wed,  9 Sep 2026 09:44:22 +0000 (UTC)
-From: linuszeng via B4 Relay <devnull+linuszeng.tencent.com@kernel.org>
-Date: Wed, 09 Sep 2026 17:44:19 +0800
-Subject: [PATCH v2 1/3] mm: page_counter: add page_counter_protection
- struct and init API
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A57BC10F062
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 09:46:17 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-498028b3d5eso53646495e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 02:46:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1788947176; x=1789551976;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ej2jXznQ8MiiebMcPklRSS9215NaFP0hQU6L/r3E0Cc=;
+ b=exB6boDY8YcdkR4fg6q0E2ZW2ZuqyLcKMRjgZZ3XlyKoHxdqZnEMox+KNNFkKaVMet
+ GmfjtH+stJIqHjX3u7L5zRZIpVBP2r7RcKgkDG29NvK0tJCd0GkEFbg3IibYR+7X++1V
+ dZTWYA6BrQTGDVMkXeffHS2zC0FjSsYxG59TpjLrxdmF7mzBKtlwT8Cm21Dm/IIV+6/t
+ sU+2G2zzyv1//nKE091+qa0+gegZb3kqL4/M40O/PCWsvxYFcRmnYqvCmJFV1Ai5BlCN
+ Cm5nRNr2/7zUDj/gJrUwwH/XH0KMUj4QPUe5XXPQnhYAdP/VSfQSxKfwn8xafkJB9zuD
+ bXNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788947176; x=1789551976;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ej2jXznQ8MiiebMcPklRSS9215NaFP0hQU6L/r3E0Cc=;
+ b=IxjusVxqa2DHCiFfU25MZDjEQXUOCU/t1AzJz1eAxnSHBbXR6eX1pDtD5YIjJnO0Kh
+ LCVlSybtesnGZT567tEg43lnb8Ypp5ujjSs+hY+VeU0TqnDaujgv8HL7iu41YoG0A7Yj
+ nrbgESOyHOqHtnnWGi34zwRZGksDA+KimrOw/6cUA2OdHSrdb6gU68g8qYTup/bwgYAu
+ r+6iavNnEgo4e31ZL6vvr37chVxhJ/3acj/7M7/EIEXLY+D0E21TbctkWXa+8GzpewX5
+ aTUGPL+zwpXjbAnhcefLX+C0fWWjeUaq4fsUBCphzcHeWmLpjk3V7EyWfv2tKqDNf9Bh
+ Js0A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBybr+anZriHoB21hhnTZRJBRmxMXPlOY39R7YR8R0jtAa0kNGwV/GKZR40gmDkjGdl6C/t/frNjaho=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nbqoEdtktNgftwLPhbwHRJRSB1XlZI5boGv3cbAYKh5eC5QlB/
+ JcDwk6Ci+8dhoUEevuijLgA97BjMeZEKgA0Wkd6mnLPXnNLrcY2ZF8iVh8ZLS4bKpA==
+X-Gm-Gg: AYBFou2hVOdTXJ0DKvg9gDNF8Lo3oM1LBjtWgTrJ2ZTnVebQ6Hw1JLcTI4PYfM15bxR
+ FVv0yRopkTMJ1RxDj6YPKF7Q8nQXF4c80u2uElNqBaqzGkF0DsklY9IWGtRH8PbXMv3cQHmhn67
+ SzYgjmyhgG5UsiciCIqByYubdp2HZK0DGBMKV31YKu/vms8RUMQs4T1zORJwhMQdMLZgQmHkps+
+ 5LqEQ+JCQLoX4Dq/X1NKeFaWtBvzSJTgpkt1Qc+AJzGB91iYmXy5Qd2AtXj3dK4vbZG4pgN3SUV
+ fWdVaM05KBSw4+EdZ0yWlwuoCFkmldJzUGozpR2ydKPnEVjuUi0Nh7dxW3UakfnO1hrwN8eA45w
+ jGafXPngvF1ac+GgEbPWw046ZzMsoOvSLdeJyZBsX7bslGR4p682znd20DoasZOMwL62AYhG/Eq
+ jwYETFgHUGK1QN+2KqOnzmIuBzLjd7QepkfUxt6dRPuLCb0ZHwGgvp3j+POzguhx5haQD8CjamB
+ NV3yaVfTKHLMkqLScrVnZOJXJo=
+X-Received: by 2002:a05:600c:8b48:b0:49c:fff9:f684 with SMTP id
+ 5b1f17b1804b1-49cfff9f6efmr260109905e9.21.1788947175442; 
+ Wed, 09 Sep 2026 02:46:15 -0700 (PDT)
+Received: from quark ([2a01:4b00:d309:1c00:7807:3ba6:3446:4db2])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49cf772692dsm537897555e9.10.2026.09.09.02.46.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Sep 2026 02:46:14 -0700 (PDT)
+From: Mike Lothian <mike@fireburn.co.uk>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
+ kevinyang.wang@amd.com, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org, Mike Lothian <mike@fireburn.co.uk>
+Subject: [PATCH v2] drm/amdgpu: don't migrate a dma-buf into VRAM while
+ runtime suspended
+Date: Wed,  9 Sep 2026 10:46:09 +0100
+Message-ID: <20260909094609.1541-1-mike@fireburn.co.uk>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909020854.58462-1-mike@fireburn.co.uk>
+References: <20260909020854.58462-1-mike@fireburn.co.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-descriptive-name-v2-1-d7dd7c099049@tencent.com>
-References: <20260909-descriptive-name-v2-0-d7dd7c099049@tencent.com>
-In-Reply-To: <20260909-descriptive-name-v2-0-d7dd7c099049@tencent.com>
-To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
- Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Oscar Salvador <osalvador@suse.de>, 
- Jingxiang Zeng <jingxiangzeng.cas@gmail.com>
-Cc: Michal Hocko <mhocko@suse.com>, cgroups@vger.kernel.org, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linuszeng <linuszeng@tencent.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788947061; l=8820;
- i=linuszeng@tencent.com; s=20260909; h=from:subject:message-id;
- bh=qRo7579G0THOdatUrKxYMO5fc5xqKHZM+hDjreNI4ZA=;
- b=sm9aZHKSL3UgtbwsCx3EepH0eABzrIRsPuV/OQa6YtjA4YYenyUMrOOwjC/BuCeTXIw+F2a4w
- E94ynhOvlhRA+SfoBNns+mQRxSsyDGgong2OQVembX7Fcbr5Hz7AA6T
-X-Developer-Key: i=linuszeng@tencent.com; a=ed25519;
- pk=6K54xRzYIRWqatrAPy86M4E0MsI92BVJBhXwz5NdC74=
-X-Endpoint-Received: by B4 Relay for linuszeng@tencent.com/20260909 with
- auth_id=1017
-X-Original-From: linuszeng <linuszeng@tencent.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,248 +90,112 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: linuszeng@tencent.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: linuszeng <linuszeng@tencent.com>
+amdgpu_dma_buf_map() adds VRAM to the allowed domains for a peer2peer
+attachment, so ttm_bo_validate() can migrate the buffer from GTT into
+VRAM.  While the exporting device is runtime suspended its SDMA rings
+are down and the move fails:
 
-This commit extracts the hierarchical protection state (memory.min and
-memory.low) from struct page_counter into a new page_counter_protection
-structure.  It introduces page_counter_init_protection() to attach this
-context, saving space for counters that don't support protection.
+  amdgpu: Move buffer fallback to memcpy unavailable
 
-The dmem pool allocator now points its counter at the embedded
-protection context, and the pool fix-up path in get_cg_pool_locked()
-links the new prot->parent the same way it links cnt.parent, so pools
-created bottom-up do not lose hierarchical protection.
+An importer on a second GPU reaches this holding no runtime PM
+reference on the exporter, e.g. a compositor on the APU submitting a
+frame that references a buffer exported by an idle dGPU:
 
-No functional change.
+  amdgpu_cs_ioctl -> amdgpu_cs_parser_bos -> amdgpu_cs_bo_validate
+    -> ttm_bo_validate -> amdgpu_bo_move -> dma_buf_map_attachment
+      -> amdgpu_dma_buf_map -> ttm_bo_validate -> amdgpu_bo_move
+
+Only migrate into VRAM while holding the exporter awake.
+pm_runtime_get_if_active() takes a reference only when the device is
+already active and never resumes it, so it cannot deadlock against the
+reservation held across these callbacks.  That deadlock is why
+commit 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference
+when we attach a buffer" v2") removed the pm_runtime_get_sync() from
+the attach callback.
+
+If the device is suspended or suspending the buffer stays in GTT, which
+remains accessible while the GPU is powered down.  A negative return
+means runtime PM is disabled, so the device cannot suspend and VRAM
+stays usable.
+
+Fixes: 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference when we attach a buffer" v2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
+Assisted-by: Claude:Opus-5 [Claude Code]
 ---
- include/linux/memcontrol.h   |  7 ++++++
- include/linux/page_counter.h | 59 +++++++++++++++++++++++++++++++++++++++-----
- kernel/cgroup/dmem.c         |  9 ++++---
- mm/hugetlb_cgroup.c          |  4 +--
- mm/memcontrol.c              | 21 ++++++++++------
- mm/page_counter.c            |  2 +-
- 6 files changed, 82 insertions(+), 20 deletions(-)
 
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index 058ebd73ff16..ed863f4ed233 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -195,6 +195,13 @@ struct mem_cgroup {
- 	/* Accounted resources */
- 	struct page_counter memory;		/* Both v1 & v2 */
- 
-+	/*
-+	 * Hierarchical memory.min/memory.low protection tracking for the
-+	 * memory page counter. swap/memsw, kmem and tcpmem counters do not
-+	 * support protection and have no such context.
-+	 */
-+	struct page_counter_protection memory_prot;
-+
- 	union {
- 		struct page_counter swap;	/* v2 only */
- 		struct page_counter memsw;	/* v1 only */
-diff --git a/include/linux/page_counter.h b/include/linux/page_counter.h
-index 07b7cb12249c..b81f16702764 100644
---- a/include/linux/page_counter.h
-+++ b/include/linux/page_counter.h
-@@ -7,6 +7,32 @@
- #include <linux/limits.h>
- #include <asm/page.h>
- 
-+/*
-+ * Hierarchical protection (memory.min / memory.low) tracking.
-+ *
-+ * Only the memory page counter (and dmem pools) participate in protection.
-+ * swap/memsw, kmem and tcpmem page counters never do, so the protection
-+ * fields are kept out of struct page_counter in this separate structure to
-+ * save space in the common case. struct page_counter links to it via ->prot,
-+ * which is NULL for counters without protection support.
-+ */
-+struct page_counter_protection {
-+	struct page_counter_protection *parent;
-+
-+	/* effective memory.min and memory.min usage tracking */
-+	unsigned long emin;
-+	atomic_long_t min_usage;
-+	atomic_long_t children_min_usage;
-+
-+	/* effective memory.low and memory.low usage tracking */
-+	unsigned long elow;
-+	atomic_long_t low_usage;
-+	atomic_long_t children_low_usage;
-+
-+	unsigned long min;
-+	unsigned long low;
-+};
-+
- struct page_counter {
- 	/*
- 	 * Make sure 'usage' does not share cacheline with any other field in
-@@ -41,6 +67,12 @@ struct page_counter {
- 	unsigned long high;
- 	unsigned long max;
- 	struct page_counter *parent;
-+
-+	/*
-+	 * Hierarchical protection context, NULL for counters that do not
-+	 * support memory.min/memory.low (swap, memsw, kmem, tcpmem, ...).
-+	 */
-+	struct page_counter_protection *prot;
- } ____cacheline_internodealigned_in_smp;
- 
- #if BITS_PER_LONG == 32
-@@ -49,18 +81,33 @@ struct page_counter {
- #define PAGE_COUNTER_MAX (LONG_MAX / PAGE_SIZE)
- #endif
- 
--/*
-- * Protection is supported only for the first counter (with id 0).
-- */
- static inline void page_counter_init(struct page_counter *counter,
--				     struct page_counter *parent,
--				     bool protection_support)
-+				     struct page_counter *parent)
- {
- 	counter->usage = (atomic_long_t)ATOMIC_LONG_INIT(0);
- 	counter->max = PAGE_COUNTER_MAX;
- 	counter->parent = parent;
--	counter->protection_support = protection_support;
- 	counter->track_failcnt = false;
-+	counter->prot = NULL;
-+}
-+
-+/*
-+ * Enable hierarchical protection (memory.min/memory.low) on @counter.
-+ * @prot and @parent are the protection contexts of @counter and its
-+ * parent page counter respectively. Only the memory page counter (and
-+ * dmem pools) call this.
-+ *
-+ * The remaining members of @prot (emin, elow and the usage counters) are
-+ * expected to be zero already, so @prot must come from zeroed memory.
-+ */
-+static inline void page_counter_init_protection(struct page_counter *counter,
-+						struct page_counter_protection *prot,
-+						struct page_counter_protection *parent)
-+{
-+	counter->prot = prot;
-+	prot->parent = parent;
-+	prot->min = 0;
-+	prot->low = 0;
- }
- 
- static inline unsigned long page_counter_read(struct page_counter *counter)
-diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-index 4683f3d68022..a4bac0d5ac3b 100644
---- a/kernel/cgroup/dmem.c
-+++ b/kernel/cgroup/dmem.c
-@@ -88,6 +88,7 @@ struct dmem_cgroup_pool_state {
- 	struct rcu_head rcu;
- 
- 	struct page_counter cnt;
-+	struct page_counter_protection prot;
- 	struct dmem_cgroup_pool_state *parent;
- 
- 	refcount_t ref;
-@@ -426,8 +427,9 @@ alloc_pool_single(struct dmemcg_state *dmemcs, struct dmem_cgroup_region *region
- 	if (parent)
- 		ppool = find_cg_pool_locked(parent, region);
- 
--	page_counter_init(&pool->cnt,
--			  ppool ? &ppool->cnt : NULL, true);
-+	page_counter_init(&pool->cnt, ppool ? &ppool->cnt : NULL);
-+	page_counter_init_protection(&pool->cnt, &pool->prot,
-+				     ppool ? &ppool->prot : NULL);
- 	reset_all_resource_limits(pool);
- 	refcount_set(&pool->ref, 1);
- 	kref_get(&region->ref);
-@@ -480,8 +482,9 @@ get_cg_pool_locked(struct dmemcg_state *dmemcs, struct dmem_cgroup_region *regio
- 		/* ppool was created if it didn't exist by above loop. */
- 		ppool = find_cg_pool_locked(pp, region);
- 
--		/* Fix up parent links, mark as inited. */
-+		/* Fix up parent links (counter and protection), mark as inited. */
- 		pool->cnt.parent = &ppool->cnt;
-+		pool->prot.parent = &ppool->prot;
- 		if (ppool && !pool->parent) {
- 			pool->parent = ppool;
- 			dmemcg_pool_get(ppool);
-diff --git a/mm/hugetlb_cgroup.c b/mm/hugetlb_cgroup.c
-index ecb6e0b7819a..7fdae504cfc6 100644
---- a/mm/hugetlb_cgroup.c
-+++ b/mm/hugetlb_cgroup.c
-@@ -108,8 +108,8 @@ static void hugetlb_cgroup_init(struct hugetlb_cgroup *h_cgroup,
- 		fault = hugetlb_cgroup_counter_from_cgroup(h_cgroup, idx);
- 		rsvd = hugetlb_cgroup_counter_from_cgroup_rsvd(h_cgroup, idx);
- 
--		page_counter_init(fault, fault_parent, false);
--		page_counter_init(rsvd, rsvd_parent, false);
-+		page_counter_init(fault, fault_parent);
-+		page_counter_init(rsvd, rsvd_parent);
- 
- 		if (!cgroup_subsys_on_dfl(hugetlb_cgrp_subsys)) {
- 			fault->track_failcnt = true;
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 86ff580c7018..ffa1ced3baae 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -4267,25 +4267,30 @@ mem_cgroup_css_alloc(struct cgroup_subsys_state *parent_css)
- #endif
- 	page_counter_set_high(&memcg->swap, PAGE_COUNTER_MAX);
- 	if (parent) {
--		page_counter_init(&memcg->memory, &parent->memory, memcg_on_dfl);
--		page_counter_init(&memcg->swap, &parent->swap, false);
-+		page_counter_init(&memcg->memory, &parent->memory);
-+		if (memcg_on_dfl)
-+			page_counter_init_protection(&memcg->memory, &memcg->memory_prot,
-+						     &parent->memory_prot);
-+		page_counter_init(&memcg->swap, &parent->swap);
- #ifdef CONFIG_MEMCG_V1
- 		WRITE_ONCE(memcg->swappiness, mem_cgroup_swappiness(parent));
- 		memcg->memory.track_failcnt = !memcg_on_dfl;
- 		memcg->memsw.track_failcnt = !memcg_on_dfl;
- 		WRITE_ONCE(memcg->oom_kill_disable, READ_ONCE(parent->oom_kill_disable));
--		page_counter_init(&memcg->kmem, &parent->kmem, false);
--		page_counter_init(&memcg->tcpmem, &parent->tcpmem, false);
-+		page_counter_init(&memcg->kmem, &parent->kmem);
-+		page_counter_init(&memcg->tcpmem, &parent->tcpmem);
- 		memcg->tcpmem.track_failcnt = !memcg_on_dfl;
- #endif
- 	} else {
- 		init_memcg_stats();
- 		init_memcg_events();
--		page_counter_init(&memcg->memory, NULL, true);
--		page_counter_init(&memcg->swap, NULL, false);
-+		page_counter_init(&memcg->memory, NULL);
-+		page_counter_init_protection(&memcg->memory, &memcg->memory_prot,
-+					     NULL);
-+		page_counter_init(&memcg->swap, NULL);
- #ifdef CONFIG_MEMCG_V1
--		page_counter_init(&memcg->kmem, NULL, false);
--		page_counter_init(&memcg->tcpmem, NULL, false);
-+		page_counter_init(&memcg->kmem, NULL);
-+		page_counter_init(&memcg->tcpmem, NULL);
- #endif
- 		root_mem_cgroup = memcg;
- 		return &memcg->css;
-diff --git a/mm/page_counter.c b/mm/page_counter.c
-index 450543f4b318..38cb99f5f50e 100644
---- a/mm/page_counter.c
-+++ b/mm/page_counter.c
-@@ -15,7 +15,7 @@
- 
- static bool track_protection(struct page_counter *c)
- {
--	return c->protection_support;
-+	return c->prot != NULL;
- }
- 
- static void propagate_protected_usage(struct page_counter *c,
+v2: hold the exporter with pm_runtime_get_if_active() across the
+    validate instead of testing adev->mman.buffer_funcs_enabled.  The
+    v1 check was racy - the device could suspend between the test and
+    ttm_bo_validate(), so amdgpu_bo_move() could still see the rings
+    torn down.  Reported by Sashiko AI review.
 
+Is this the failure that commit c52feb436539 ("drm/amdgpu: Disable
+runtime PM for externally attached dGPUs") was working around?  That
+commit explains how to detect external attachment but not what breaks,
+so I can't tell which.
+
+If it is the same thing, could the pci_is_thunderbolt_attached() ||
+dev_is_removable() check there be narrowed or dropped on top of this,
+so eGPU users keep runtime PM?
+
+I can't test that here: this box hits the bug by missing that check.
+The dGPU is on an oculink port off a native AMD root port, so
+pci_is_thunderbolt_attached() is false, dev_is_removable() is empty,
+and runtime PM stays enabled.
+
+Reproduced on a HawkPoint APU [1002:1900] driving the display with a
+Navi 48 [Radeon AI PRO R9700] [1002:7551] on oculink for render
+offload.  Without the patch kwin_wayland hits the call chain above
+within a minute of the dGPU autosuspending and the desktop stops
+repainting until it resumes.
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index b33c300e26e2..c89846f266d3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -43,6 +43,7 @@
+ #include <linux/dma-buf.h>
+ #include <linux/dma-fence-array.h>
+ #include <linux/pci-p2pdma.h>
++#include <linux/pm_runtime.h>
+ 
+ static const struct dma_buf_attach_ops amdgpu_dma_buf_attach_ops;
+ 
+@@ -189,14 +190,25 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
+ 		/* move buffer into GTT or VRAM */
+ 		struct ttm_operation_ctx ctx = { false, false };
+ 		unsigned int domains = AMDGPU_GEM_DOMAIN_GTT;
++		int pm_ref = 0;
+ 
+ 		if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM &&
+ 		    attach->peer2peer) {
+-			bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+-			domains |= AMDGPU_GEM_DOMAIN_VRAM;
++			/*
++			 * Only migrate into VRAM while the exporter is held
++			 * awake.  A negative return means runtime PM is
++			 * disabled, so it cannot suspend either.
++			 */
++			pm_ref = pm_runtime_get_if_active(adev_to_drm(adev)->dev);
++			if (pm_ref) {
++				bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
++				domains |= AMDGPU_GEM_DOMAIN_VRAM;
++			}
+ 		}
+ 		amdgpu_bo_placement_from_domain(bo, domains);
+ 		r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
++		if (pm_ref > 0)
++			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+ 		if (r)
+ 			return ERR_PTR(r);
+ 	}
 -- 
-2.43.7
-
+2.55.0
 
