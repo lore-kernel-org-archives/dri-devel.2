@@ -4,44 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CA47C79F8C
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 09:06:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A06C8C79F8C
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 09:06:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9548810E146;
-	Wed,  9 Sep 2026 09:06:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C264610F030;
+	Wed,  9 Sep 2026 09:06:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RA3c3I9g";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="R5MkzCNf";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ar4zMhVO";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE8C510E146
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 09:06:21 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CF3FD601FF;
- Wed,  9 Sep 2026 09:06:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DCC31F00A3D;
- Wed,  9 Sep 2026 09:06:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788944780;
- bh=FAL7Dm/W/QsCfNk7BhIHNon+A3YKI7/DuwahG4heNEg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=RA3c3I9gVha2tIGXnRf8zpXDbn11dDXIrZs0Zycy2fMTaIuZrY/7JgcuToFtW4tQA
- A0hyt+rQ2W0ik2DAUsw+2u7qBeiCpP3bt5cpi9N9BIZmWTYNDuSCWL9gXhfZL+Suf5
- s4ACVjilcUwbkxEc0ywteTlvTjN9OsPAW/N7inbLcg1VnRmcWl1P2LoEm/K6UMTOxX
- Ooa2aWpVgGtHLnliGERUD1HIBT3qHnGIuteCVhOo/4EkmedAasmZNV+96Bj+xIGDkP
- 7ryekKcn6RmX+Rphu6WmXQZZtJVRiT97ipbChU/LPhGByFcsdw3aJ58lkISGCQug9u
- szi9BycGicslA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/msm: split DPU core IRQ handler under
- CONFIG_PREEMPT_RT
-To: vishnu.saini@oss.qualcomm.com
-Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260909-drm-mis-next-split-irq-v1-1-89bc9c512c53@oss.qualcomm.com>
-References: <20260909-drm-mis-next-split-irq-v1-1-89bc9c512c53@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 09:06:19 +0000
-Message-Id: <20260909090620.4DCC31F00A3D@smtp.kernel.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CABE010F02B
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 09:06:28 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6896c3tM482265
+ for <dri-devel@lists.freedesktop.org>; Wed, 9 Sep 2026 09:06:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ oLPtpvb5yV7GW2CVT7bLRhge7vNl77o0SOVL4Mkt9ak=; b=R5MkzCNfXOLTy4zr
+ njn+glFqrnLbIc84z1tp7TRk1KEjGyV2AYNg/OMx3LV5ZnTDf6mL4XcNiBXkbB+S
+ nie37pqqzLE7wBPNgDete+WZJwcEdpe6r5BIVBU4W4SbC+5g3JCPj+gBNZXA1+ci
+ zFxtJtkGkJVZ4LI98OZZopq++yMYUFB1dRXmIPEwjMi/SNW6OdvtfcXkPDVyDAxW
+ f1menFYcbVEpxf8dGacC6RpfYUXzan46UNq2TcdntElKtICAE/hrcesOvlp3WDwv
+ vF/GOWSzbHziz+lGz9M3Q5qHjHztm3C69OHUPQyzXmHBUeMf+mJ5EQ7zlbzmBE95
+ qLkAyQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjqf1k510-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 09:06:27 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-9103db79014so16544726d6.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 02:06:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1788944787; x=1789549587;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=oLPtpvb5yV7GW2CVT7bLRhge7vNl77o0SOVL4Mkt9ak=;
+ b=Ar4zMhVOIdT4pI5FPR6OvS7FXPM6Hevdqiz0XAfjYeAaCJr9zyZ73d9C4QlBAyviXr
+ +3lFtazKjNA2zGqJSo/62VcCA2kXT2chaEnm79xL5GTxNhjL786ZUtsHo16PgihgNBgd
+ cuvJ8NzXHCRtxs8WmXySvubt66HIZw/53ikwq52ZoV/21I6kFqxJqcTjFu6QqUC9blG6
+ 8LP2VwPbTWifsdbELlYgmxlqRkU7ibVtNxfIbxDazALPAPNyehpdLb8WIHqZYzGbS1sN
+ DLa40ypWPjvrqIKbqRcmrqYT67SDcFzDx5EVmG0XcVMKj4VseRK18p007vOIJq78FfVX
+ HjjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788944787; x=1789549587;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=oLPtpvb5yV7GW2CVT7bLRhge7vNl77o0SOVL4Mkt9ak=;
+ b=M09elLxAzmIS66QJ493uG4vuNsVFYozoEwospnDS8C9EveavFwINB9Db6rUNU2qNFW
+ L14P0+rvPToF4B8BCEeJ6xZphTNtEGwrqfr7LuYQ8mLz5KdZvqpJAxZTNVHXBiB7oDfd
+ EmS7/QDVFrOcwZnAOD5zE/LpRU5WoTaZrYlJIe1tapk3fqxiSsOvD5uOPMB8wqd19BDR
+ dvDmQHuYRJqMh66aN308AB2ajHhr5Ui3oL9eTueOw1Iq803J/ymEQw9iGGm6p79Ub88R
+ UWlEYhLsngr2oWD6KGbEYrlFgrqpDbj0Xjg0CKyeRwc3okMKsm8LupXhvljaosaIyzWD
+ +nAA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwU9ksVpZp1AbBEGI6FWw5uCnKrricaQlRmiQ0SO8lGPB9NqSbhsz78Gtzowfm2IhiwFnANJyitspk=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ldlNer2u0V7+o+9NfN4E5mIUg82t4ObrcsGHhlPSsEKNZZNfAW
+ KypUN+/wuM1hGaspvtY61/OwPJzJyyZRjyQrZsAX9Fla5guCTB6AAoOm6/7vR9HeictNfj9VY09
+ pz+mNvqaCwHHNsVkhcq7QlZMR1gcxjpGK0ypMKY9b8mPXsSkjIj32qVow/Z+CIdtqTJridZ0=
+X-Gm-Gg: AYBFou1CBOISpF5P2d5DXLpz53mI/Bsgu1ctyPZ8XvEqSgamTd32b9885qCkd7+p4+G
+ EvCs26J/F8FyEOKOLVHswFvAJkwK4/9/H5pFWF5rl3xeMt0mB64zM3qyWAB59jYlFM7fVxRyhJ8
+ AvHt1KvCxRw70VPSF+9FcEZp0mpBFKIAzhtiCAmTDHQJRSEvYg0vj6W//LtWkN34/u3a4V6UThh
+ kCdNYrzMAwgjJhoUb3E4ZQEwmAR7UShWiXzDVyT7bu3nFsz2MpwDviDmqMuytui6vVrVI6tmI56
+ 9hUTrVpqtaJafC27FEDCOTeas3LtVCw001hc57RaXDboD6r7wG2dBK7dA7UUALjt9qv4Bv6ccKD
+ Irb4uOetoVChBSGbdBex9vg==
+X-Received: by 2002:ad4:596f:0:b0:90e:9952:82e4 with SMTP id
+ 6a1803df08f44-9104795fc63mr261666706d6.4.1788944787093; 
+ Wed, 09 Sep 2026 02:06:27 -0700 (PDT)
+X-Received: by 2002:ad4:596f:0:b0:90e:9952:82e4 with SMTP id
+ 6a1803df08f44-9104795fc63mr261666156d6.4.1788944786500; 
+ Wed, 09 Sep 2026 02:06:26 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c26204ecdbcsm648279666b.25.2026.09.09.02.06.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 09 Sep 2026 02:06:24 -0700 (PDT)
+Message-ID: <47f0399d-bb31-48bc-b69d-4abd445727b4@oss.qualcomm.com>
+Date: Wed, 9 Sep 2026 11:06:21 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/msm/a6xx: Use CX AO Counter register for
+ timestamp on a750 GPUs
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-0-284880d6e68b@linaro.org>
+ <20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-2-284880d6e68b@linaro.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-2-284880d6e68b@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDEwMCBTYWx0ZWRfX2XIUrtKbriCY
+ qcTgzLu0IHJCG6D4nLavrtvzKa/rRuKHcHq0xEfDsumaw0rR1PxUBUWSPIuiA1mfzPACv1kLFiQ
+ s7QPz5Z4hf0JG182T8kZy1kKyCUQGivicKXm9F1PH8jLn+jxTNliO5ZiyzClzqu6NLbBhOXhZ7z
+ QAq37nWUj3SkdoBQqeaiBJl8UyJoAxAC+hvJMTKZYWSErTXO/6mBHjF1d6O//AeOnpYJ5q6UaJN
+ 4a3bYdP6GUK1DP9cka1wKLNP3iz13u2BQAQiNeWFUIm2uo8ghSVjASfOlIa4o0q5kLq8GvwUaCx
+ OguDDCIJkKFUooltIxQ5+poRN24K5cyagVV4nUABQaxQHzyLlozwxRQTpJ5FrDd/mgQ12Z55xoI
+ AbCsHRvEJ7wxfforBt2xkO0AeQiqaJhLjD9suGjWHPayQ4UzUwfort+yOWnKwYcEtVz2O/5Bgkm
+ NNWfQcRLx7hsrWzmQGA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDEwMCBTYWx0ZWRfX/neaaUPFb+cp
+ Kfj6DbwEZyYMs2n/Tk/hjeBd34BZiZEYoPei/3t9pRBkFG+7TuAkf0grkrogroFqx0CP9NwTnrR
+ PsKdoDAuOCKZ09fgm+qvW7nN85aZkX4=
+X-Proofpoint-GUID: Kzrzh4a2iKBbvaI1UuxoQGm14thKqDSr
+X-Authority-Analysis: v=2.4 cv=JY2Ma0KV c=1 sm=1 tr=0 ts=6aa12193 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=KKAkSRfTAAAA:8 a=ubtBxe2QYwUAodWgXbcA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: Kzrzh4a2iKBbvaI1UuxoQGm14thKqDSr
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0 phishscore=0
+ suspectscore=0 adultscore=0 priorityscore=1501 spamscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090100
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,263 +149,39 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [Critical] Setting `IRQF_NO_THREAD` for backends without `irq_thread` for=
-ces them into hardirq context on PREEMPT_RT, causing kernel panics.
-- [High] Race condition in threaded IRQ handler leading to NULL pointer der=
-eference or Use-After-Free on PREEMPT_RT.
-- [High] Acquiring sleepable `spinlock_t` inside `raw_spinlock_t` on non-RT=
- kernels violates wait-context rules, triggering lockdep splats.
-- [High] `dpu_core_irq_read()` reads hardware registers directly without ch=
-ecking `irq_pending_mask`, causing fault recovery loops to falsely timeout =
-on PREEMPT_RT.
-- [Medium] Primary IRQ handler incorrectly returns `IRQ_NONE` after clearin=
-g masked interrupts, risking permanent IRQ disablement.
---
+On 9/8/26 3:24 PM, Neil Armstrong wrote:
+> The a750 uses the CX AO Counters instead of the GMU_ALWAYS_ON_COUNTER
+> register on A6xx and other A7xx GPUs, use it when running a A750 GPU.
+> 
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 12 +++++++++---
+>  1 file changed, 9 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index f9de9329dee3..081e79ea4652 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -23,9 +23,15 @@ static u64 a6xx_gmu_get_timestamp(struct msm_gpu *gpu)
+>  	u64 count_hi, count_lo, temp;
+>  
+>  	do {
+> -		count_hi = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
+> -		count_lo = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_L);
+> -		temp = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
+> +		if (adreno_is_a750_family(adreno_gpu)) {
+> +			count_hi = gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_H);
+> +			count_lo = gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_L);
+> +			temp = gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_H);
 
-commit de5a98b2b15837b087edf7ff28d14a0650953129
-Author: Naman S Thaker <namathak@qti.qualcomm.com>
-Subject: drm/msm: split DPU core IRQ handler under CONFIG_PREEMPT_RT
+KGSL apparently *writes* the system time to these registers, is that
+an idiosyncrasy regarding how the vendor userland drivers then use
+this counter?
 
-This commit splits dpu_core_irq() into a minimal hardirq handler and a new
-dpu_core_irq_thread() to dispatch per-encoder callbacks on PREEMPT_RT
-kernels. It also changes irq_lock to raw_spinlock_t and drops IRQF_NO_THREAD
-where threaded handlers are not implemented.
+Konrad
 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/=
-gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> index 5b7cd5241f450..95b016e8d7df1 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> @@ -322,6 +322,52 @@ static void dpu_core_irq_callback_handler(struct dpu=
-_kms *dpu_kms, unsigned int
->  	irq_entry->cb(irq_entry->arg);
->  }
-> =20
-> +/*
-> + * dpu_core_irq_dispatch() runs the fired bits for @reg_idx through their
-> + * registered callbacks directly. Only used on non-PREEMPT_RT kernels, w=
-here
-> + * dpu_core_irq() itself is allowed to take the sleepable locks reached =
-via
-> + * those callbacks.
-> + */
-> +static void dpu_core_irq_dispatch(struct dpu_kms *dpu_kms, int reg_idx, =
-u32 irq_status)
-> +{
-> +	unsigned int irq_idx;
-> +	int bit;
-> +
-> +	/*
-> +	 * Search through matching intr status.
-> +	 */
-> +	while ((bit =3D ffs(irq_status)) !=3D 0) {
-> +		irq_idx =3D DPU_IRQ_IDX(reg_idx, bit - 1);
-> +
-> +		dpu_core_irq_callback_handler(dpu_kms, irq_idx);
+P.S. looks like a8xx also has this counter
 
-[Severity: High]
-On non-RT kernels, this dispatch happens while holding the raw_spin_lock=20
-acquired in dpu_core_irq(). Does this violate wait-context rules?
-
-The dispatched callbacks (e.g., DRM vblank event handlers) acquire standard
-spinlock_t locks. Acquiring a spinlock_t (wait context LD_WAIT_CONFIG) while
-holding a raw_spinlock_t (wait context LD_WAIT_SPIN) constitutes an invalid
-wait context and triggers a lockdep splat on non-RT kernels.
-
-[ ... ]
-
-> @@ -332,16 +378,14 @@ irqreturn_t dpu_core_irq(struct msm_kms *kms)
->  	struct dpu_kms *dpu_kms =3D to_dpu_kms(kms);
->  	struct dpu_hw_intr *intr =3D dpu_kms->hw_intr;
->  	int reg_idx;
-> -	unsigned int irq_idx;
->  	u32 irq_status;
->  	u32 enable_mask;
-> -	int bit;
-> -	unsigned long irq_flags;
-> +	bool wake_thread =3D false;
-> =20
->  	if (!intr)
->  		return IRQ_NONE;
-> =20
-> -	spin_lock_irqsave(&intr->irq_lock, irq_flags);
-> +	raw_spin_lock(&intr->irq_lock);
->  	for (reg_idx =3D 0; reg_idx < MDP_INTR_MAX; reg_idx++) {
->  		if (!test_bit(reg_idx, &intr->irq_mask))
->  			continue;
-> @@ -363,6 +407,52 @@ irqreturn_t dpu_core_irq(struct msm_kms *kms)
->  		if (!irq_status)
->  			continue;
-
-[Severity: Medium]
-Will this lead to the generic IRQ subsystem permanently disabling the displ=
-ay
-IRQ line?
-
-If an interrupt fires but is filtered out by enable_mask, the hardware
-interrupt is actively cleared a few lines above this, but irq_status
-becomes 0, meaning the loop continues and wake_thread remains false.
-
-> =20
-> +		if (IS_ENABLED(CONFIG_PREEMPT_RT)) {
-> +			dpu_core_irq_defer_to_thread(intr, reg_idx, irq_status);
-> +			wake_thread =3D true;
-> +		} else {
-> +			dpu_core_irq_dispatch(dpu_kms, reg_idx, irq_status);
-> +		}
-> +	}
-> +
-> +	/* ensure register writes go through */
-> +	wmb();
-> +
-> +	raw_spin_unlock(&intr->irq_lock);
-> +
-> +	if (IS_ENABLED(CONFIG_PREEMPT_RT))
-> +		return wake_thread ? IRQ_WAKE_THREAD : IRQ_NONE;
-
-[Severity: Medium]
-(Continued from above)
-On PREEMPT_RT, returning IRQ_NONE after actively clearing a masked interrupt
-falsely tells the generic IRQ subsystem that the interrupt was unhandled.
-This could cause the spurious interrupt detector to disable the IRQ line.
-
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +#ifdef CONFIG_PREEMPT_RT
-> +/*
-> + * dpu_core_irq_thread() runs in a genuine preemptible IRQ thread (woken=
- via
-> + * IRQ_WAKE_THREAD from dpu_core_irq() above), so it's safe for it -- an=
-d the
-> + * per-encoder callbacks it dispatches to -- to take spinlock_t/rt_mutex
-> + * locks such as enc_spinlock, dpu_crtc::spin_lock, and the various DRM-=
-core
-> + * locks reached via vblank/CRC/writeback handling.
-> + */
-> +irqreturn_t dpu_core_irq_thread(struct msm_kms *kms)
-> +{
-> +	struct dpu_kms *dpu_kms =3D to_dpu_kms(kms);
-> +	struct dpu_hw_intr *intr =3D dpu_kms->hw_intr;
-> +	int reg_idx;
-> +	unsigned int irq_idx;
-> +	u32 irq_status;
-> +	unsigned long irq_flags;
-> +	int bit;
-> +
-> +	if (!intr)
-> +		return IRQ_NONE;
-> +
-> +	for (reg_idx =3D 0; reg_idx < MDP_INTR_MAX; reg_idx++) {
-> +		raw_spin_lock_irqsave(&intr->irq_lock, irq_flags);
-> +		irq_status =3D intr->irq_pending_mask[reg_idx];
-> +		intr->irq_pending_mask[reg_idx] =3D 0;
-> +		raw_spin_unlock_irqrestore(&intr->irq_lock, irq_flags);
-> +
->  		/*
->  		 * Search through matching intr status.
->  		 */
-
-[Severity: High]
-Does this leave the callback dispatch completely unprotected from concurrent
-modifications?
-
-Since raw_spin_unlock_irqrestore() is called before iterating over the bits,
-the callback pointers can be concurrently set to NULL by
-dpu_core_irq_unregister_callback() (which acquires irq_lock).=20
-
-This allows the callback pointer to be zeroed between the check and executi=
-on
-in the thread, which could lead to a deterministic NULL pointer dereference.
-Furthermore, if the caller frees the callback context immediately after
-unregistering, it causes a Use-After-Free since no synchronization prevents
-the thread from executing the concurrently running callback.
-
-[ ... ]
-
-> @@ -554,7 +640,7 @@ u32 dpu_core_irq_read(struct dpu_kms *dpu_kms,
->  		return 0;
->  	}
-> =20
-> -	spin_lock_irqsave(&intr->irq_lock, irq_flags);
-> +	raw_spin_lock_irqsave(&intr->irq_lock, irq_flags);
-> =20
->  	reg_idx =3D DPU_IRQ_REG(irq_idx);
->  	intr_status =3D DPU_REG_READ(&intr->hw,
-> @@ -567,7 +653,7 @@ u32 dpu_core_irq_read(struct dpu_kms *dpu_kms,
->  	/* ensure register writes go through */
->  	wmb();
-> =20
-> -	spin_unlock_irqrestore(&intr->irq_lock, irq_flags);
-> +	raw_spin_unlock_irqrestore(&intr->irq_lock, irq_flags);
-> =20
->  	return intr_status;
->  }
-
-[Severity: High]
-Could this result in false timeout errors on PREEMPT_RT?
-
-dpu_core_irq_read() is used by driver wait paths to verify if a hardware ev=
-ent
-fired but the software callback was delayed. Because it reads the hardware
-register directly (which reads as 0 because the hardirq already cleared it)
-and ignores the new irq_pending_mask, it could falsely conclude that the
-interrupt never fired.
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
-> index e5d0ea6294484..f7d045f283ad9 100644
-> --- a/drivers/gpu/drm/msm/msm_kms.c
-> +++ b/drivers/gpu/drm/msm/msm_kms.c
-> @@ -76,7 +90,25 @@ static int msm_irq_install(struct drm_device *dev, uns=
-igned int irq)
-> =20
->  	msm_irq_preinstall(dev);
-> =20
-> +#ifdef CONFIG_PREEMPT_RT
-> +	/*
-> +	 * Some KMS backends (e.g. dpu1) split their handler into a minimal
-> +	 * hardirq primary handler that only acks hardware and a threaded
-> +	 * handler that does the actual (sleep-capable) callback dispatch.
-> +	 * IRQF_ONESHOT keeps the primary handler running as a true hardirq
-> +	 * even under PREEMPT_RT's forced-threading (see
-> +	 * irq_setup_forced_threading() in kernel/irq/manage.c), the same
-> +	 * property IRQF_NO_THREAD gives the backends that don't split their
-> +	 * handler and must run their whole ->irq() in hardirq context.
-> +	 */
-> +	if (kms->funcs->irq_thread)
-> +		ret =3D request_threaded_irq(irq, msm_irq, msm_irq_thread,
-> +					   IRQF_ONESHOT, dev->driver->name, dev);
-> +	else
-> +		ret =3D request_irq(irq, msm_irq, IRQF_NO_THREAD, dev->driver->name, d=
-ev);
-
-[Severity: Critical]
-Will setting IRQF_NO_THREAD force legacy backends into hardirq context on
-PREEMPT_RT, causing kernel panics?
-
-The patch sets IRQF_NO_THREAD for legacy KMS backends (e.g., MDP5, MDP4)
-because they don't implement the new irq_thread callback. However, this
-explicitly disables forced-threading on PREEMPT_RT. Because these legacy
-handlers acquire standard spinlock_t locks (which are sleepable rt_mutexes
-on RT), running them strictly in hardirq context is invalid and will result
-in a "scheduling while atomic" crash.
-
-> +#else
->  	ret =3D request_irq(irq, msm_irq, 0, dev->driver->name, dev);
-> +#endif
->  	if (ret)
->  		return ret;
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-drm-mis-ne=
-xt-split-irq-v1-1-89bc9c512c53@oss.qualcomm.com?part=3D1
