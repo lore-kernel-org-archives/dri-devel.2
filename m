@@ -4,105 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B91CDC79FAD
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 08:58:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A860C79F8C
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 08:58:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8D5410EFE2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCA5610EFE4;
 	Wed,  9 Sep 2026 08:58:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="F+iUndIS";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pGY3Jl4q";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="UfKjLaIH";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="y0v7ugMy";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YuKWt6C5";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C1F010E0F6;
- Wed,  9 Sep 2026 08:58:42 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 47B901F833;
- Wed,  9 Sep 2026 08:58:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788944316; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=n+NVgiDm8yCWuTVont+j2lDiIVnIv4x8V5t0nRp0Jrc=;
- b=F+iUndISp7VOlk94I7wbFXrR6kUJAL+i77YM4T3QSxvs2uf47P36uUEzrWvPhcAQBTvTnH
- 3gfQpZTR8XPXsicQ0rfg6xuOI7CikW9tMBoLlEuJo3GkYpbus9fStmxOvTf2VDaqc0iLc+
- NzueHF8BAMIi33Cj8gZipMgkmCr2rew=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788944316;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=n+NVgiDm8yCWuTVont+j2lDiIVnIv4x8V5t0nRp0Jrc=;
- b=pGY3Jl4qrsZDtCo1n9kE6bFQbK3kV2MJTTSu+IXA8nFbCwZPPPd2VLUxJGoO+eu0ggOCD0
- XsFvGzpACJP4L/Bg==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=UfKjLaIH;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=y0v7ugMy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788944312; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=n+NVgiDm8yCWuTVont+j2lDiIVnIv4x8V5t0nRp0Jrc=;
- b=UfKjLaIHGee0WQbf1amyG0laYlKvQoSx/of69T54B4k08bIgEhIgS6bAZcpzzEl+nc1jqr
- JcJ19y8qIeHPnDSqBQm9wqQWz81iOtIHu/kPoNb7n1eJwszWtPHdR0+BYzsq7+j/GpZkty
- 3dlrAyW3KvY7L7AfMxKcdcfLlOGFHZI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788944312;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=n+NVgiDm8yCWuTVont+j2lDiIVnIv4x8V5t0nRp0Jrc=;
- b=y0v7ugMy/cUox0AYwWLE7zcW2m3NpvQYKrzh16w0jsb/6E0YaxD8y9vr18omuaNkJphwN+
- HEYsaB5f1+6WkzCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9FEA41347F;
- Wed,  9 Sep 2026 08:58:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id QGGlJbcfoWoVUQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 09 Sep 2026 08:58:31 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: jfalempe@redhat.com, javierm@redhat.com, airlied@gmail.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- geert@linux-m68k.org, rdunlap@infradead.org
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
- sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v4 00/14] drm/panic: Split into core and helpers
-Date: Wed,  9 Sep 2026 10:55:15 +0200
-Message-ID: <20260909085826.64529-1-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.55.0
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013003.outbound.protection.outlook.com
+ [40.93.201.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B67D10EFD9
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 08:58:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AqMsQ9M/bbVGD1XcY3yuQipE0mo/BIv/u/5EyHmSF95gBaz//XDc5jwPyAjwI1E5wRds4Pg2m/N9xADqTAFr+8Pi1LLFmKqjAzIA+xiLhpyQSzlx6vlW02CiugHbC+DN9W5+ubW2N7ZSQfetRiI7NLc+wNA64FZVpaEjdqe85YNHI6A0FdDgag6AZHVUFMPTZkjaNzy9FRVaL+eQAE8DxAqDS2OsiSun+Ai+ly/QHTvgYZ5QC01h1h+c6Jz6HUjArpeEqcF1ibEHMvEu8/2kYvzM71SxwZCcU4vjy0Ln8C22396h9/ZWPe3AWNIUns/j4S7JDAVKNeH16Tce8PPUyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AJsjxfspxxTGbQt6XXjtu4VB6eSG123JdzGoxgj4qoc=;
+ b=ejRBp5IE2Mqyvkz4rB+JV9JFDXLbsxF9yqYlFCAmjK4gei6/ntzhuMdxe8pbb9656TEzD0jyNn4XRt/jiq2QmP5HDwnGJT6JlzoUNk9A4zspgw+7VtWhSBaWQeO+sidX+YU6P2IuIaSkZ1rghVaeNlFM3EfGLIcz43CknG4OeYjZmcgEebfiDdqJJ8P3zdsYruDH3Ymej/5bqMmvgnZ0lwsZq7Ng4XYESWXy8vDU2U7mwTy+XcrnxMGmqDurAKzCbI6K2F/E7nVUisjwVPrdxW3BGBgXX5qBr3xSa7kkbOYMuot9kVNfYUjkhV5dSCHdbtqdUZas+B5sESTrIRvX0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AJsjxfspxxTGbQt6XXjtu4VB6eSG123JdzGoxgj4qoc=;
+ b=YuKWt6C5KDBbu/gXerNe5uIfB04FJhhRwj6wS2wYZuIRJGho2PgGD0ufkeCVvks9oQCRE4CwrD46QTk4IxsiQHZV239N06Fphg7KxHhLb3Vx+0w+atGnJr/7bGcAqSrbkc7le/aG1+/qzHom+FU0BWA9M5Ws+VI3p4WNS4NsiBQ=
+Received: from SA1PR12MB9491.namprd12.prod.outlook.com (2603:10b6:806:458::21)
+ by SA0PR12MB4349.namprd12.prod.outlook.com (2603:10b6:806:98::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Wed, 9 Sep
+ 2026 08:58:38 +0000
+Received: from SA1PR12MB9491.namprd12.prod.outlook.com
+ ([fe80::d6c8:69ed:eea1:1797]) by SA1PR12MB9491.namprd12.prod.outlook.com
+ ([fe80::d6c8:69ed:eea1:1797%3]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
+ 08:58:38 +0000
+From: "Huang, Lei" <Lei.Huang@amd.com>
+To: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
+ "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
+CC: "airlied@redhat.com" <airlied@redhat.com>, "kraxel@redhat.com"
+ <kraxel@redhat.com>, "dmitry.osipenko@collabora.com"
+ <dmitry.osipenko@collabora.com>, "gurchetansingh@chromium.org"
+ <gurchetansingh@chromium.org>, "olvaffe@gmail.com" <olvaffe@gmail.com>,
+ "mst@redhat.com" <mst@redhat.com>
+Subject: [RFC] virtio-gpu: guest request for host-managed HDCP
+Thread-Topic: [RFC] virtio-gpu: guest request for host-managed HDCP
+Thread-Index: Ad1AONHpC2P9NZ8VTkyKBnXGVCl6Pg==
+Date: Wed, 9 Sep 2026 08:58:38 +0000
+Message-ID: <SA1PR12MB9491792A2649FE3DD576B8C7E6B02@SA1PR12MB9491.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-09T08:40:06.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR12MB9491:EE_|SA0PR12MB4349:EE_
+x-ms-office365-filtering-correlation-id: 1d24396a-54fa-4799-6283-08df0e508a2f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|23010399003|38070700021|6133799003|3023799007|10067099003|5023799004|11063799006|56012099006|18002099003;
+x-microsoft-antispam-message-info: CO5+m+H88Xvi6KXqt3MZl9+2J4OyBwjOusPoIjSG47F7UGxRFHzDXHTN3qNiojpTltfWEWlOa7a2dFVlIX1mvQZPsbJlmgTYsmi0bjoxthu2fyh9fW4lFMYOBPC5r6N75vPbiiJeqohJUuckVdlIugSYwaG3adoC90JdpfENuwsPNoqXZ2fjpELyJuQjVcxUj89pE02zUC+DhHpyk88EopA6Vd/LYEdscm1Z936OgZXy1T/EoFTX1wks1V5Sg0b54rVGTNjhfzlLoPNKz8ICO/HQl+rggHgjqWgHFKZ8Hl1KxcdEtC7xCaPsXL9jHzeSrLD+g9pv0yH+8KSEhBWx2SPbPwSiEjzr16/VJhS1XpgXfXZmardeuS0LD9Blz9iYOaJwJl84UMnmKI/16bMKs7QJtCfmbqSDm/dLaf/vAeqJcvbZFuHPPnhGTENjAS4RLb+VqVwnQia0KVBYWNkrNNuvjajK6ur0/JIV4nx0u0eFgUo5Ypi5F+Wet0F1r7CqnMCqtUd1gykkCH87U2fN8x6HZf4kNN0IFQ3vrOzgfQOjjPjLFRe3m+bgQLEwZCDZnulB9R3F59Z3NnpMW/NJDUuKiJgRDoXdXtMUyO+ldY73h8Blm70KC+jlKuEHJ+YUCpBjYzjQkPtfFnw2IwZNccAiasUnNr1FnQwZji/uFoJuaAU4wjQjR9YPeaa9cnHQ3FVQf1UswP568u2xvSrcky/gqWZD8f0gLFGiERBqprg=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR12MB9491.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(38070700021)(6133799003)(3023799007)(10067099003)(5023799004)(11063799006)(56012099006)(18002099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?99xjtO/IkjRe+UpUULjli5yXjtxEB9KXqU8EJL+36BL55sbpzYYExf3iXZGQ?=
+ =?us-ascii?Q?jWVWAatTG/S61Bl2w8SfgB7kV35TsoOMMjj0+dlF6uemvCb4o0haKaz8DODu?=
+ =?us-ascii?Q?zIPJFS9/o+J5CaXHwmyldfHaUd5TUIFPS0Yp0jLL2VLqs44oBfrBimU0yZkn?=
+ =?us-ascii?Q?laOSe3bnzpL0ypiKJsCB6Eic8sorzKuad4DodE28Udfhs/YnskWe7XdeEssU?=
+ =?us-ascii?Q?hfZ249s0geTgrDduA04lPYOjbB0CGD/aulu7sruk1DkQZGrtkQiHWlxZmNrY?=
+ =?us-ascii?Q?rAzEIJ7KFZ5Sm/WCE2Sw4E0coSyfAeA4Wf7X5op0MOqZkOygmsmgeNV9EoS6?=
+ =?us-ascii?Q?zoYTs6cIBTmjuOYYquxD19BIzJfzmJl8VCgKywo/H4pEMBhu5KIhYBBwG9Ft?=
+ =?us-ascii?Q?PhxJF9qvnPuFGiKVRzKsWuBY4s5tdCcWgd+FOW1Plo5ACnVdwqMNi51WSIfE?=
+ =?us-ascii?Q?19f5g0ehmvzYd62rWqYPQhmGNUhfqZB/+GN8cM1dmK5d2AbVSKubHtn3LXCO?=
+ =?us-ascii?Q?9XILL3zxQjwiUW+T52Vp1K+5WV/wrticndH2W41cdP/JN2Ts5Xc14hCNG9L+?=
+ =?us-ascii?Q?Q7g1Ox/18WIzEcQWEhc9Dqmviq6pc22An0T2TicnkZCWdp7mBir3FZRrFaTS?=
+ =?us-ascii?Q?6RqNbBuxm3iawpW58sn9bgAMnCI3Gc7B1kbOJshlK4EDRP/cj1DyjBOFSLYR?=
+ =?us-ascii?Q?KuVOVb+HRuiFDvEocuMjYcbDnAEF7YrKk5KnxsifMnMeF28G/DDF7t7W85mw?=
+ =?us-ascii?Q?Zd4u69GvMlO4mrhyjhxjZU/WTtFwPln9D91i+zIqwWFAoL+02h1Q3M7k1uDi?=
+ =?us-ascii?Q?rKXbG5tr7/63WFk1Rkc1rte3YCQgHHx0A//JiBNFViCjGv9ol/JD8MTs434b?=
+ =?us-ascii?Q?KbTNcZo4AX6Nq5XciJTCG+zeOzYUif9UzCJXvyReJhhV8TymLfHVeib4CxSW?=
+ =?us-ascii?Q?xwOXUzgy2KkR7/psoqy2aRkYrTgyzq5OdZhUDLBMsr7vTYyjUknPyWdoQpcY?=
+ =?us-ascii?Q?iYwMG8US5I18o+T6y/Vux1GQqCERwfjqhLd1aY48R0yBvd5oEzCIMAzc+NHF?=
+ =?us-ascii?Q?y1TrSJCWeFtA0O6LtYzPD3uZJMu4QlMrnHeZm20iZ8aa/jNov85yMPgfRunG?=
+ =?us-ascii?Q?ilHQzKpKhDy9x1l252FzgiDmEyewSQB/n1fq0DxMVYXwLm4R9ferhJCewjsv?=
+ =?us-ascii?Q?uC2DumLepQ8yDGVmbr2myqvVdmhtMq5B2lV0i/C/I8uzMDio1hlgLL20xVHO?=
+ =?us-ascii?Q?ongbdaPSsgYWkHZ4gW+e7U9kGub7z3B3nI+dUI/CSyWmu3ivP8IBDJCyAHzB?=
+ =?us-ascii?Q?BXSNkQBIGnqeAjhXR+PMOlzpvtz9njPJidbxTkmNtrq7IFjGQKRueEhZpZ/W?=
+ =?us-ascii?Q?9+YL/YXi6XQi4SyRw7oZRXV3XxuieFgRsmOttefQ5i3PcPpCTdgF/SAFlqJR?=
+ =?us-ascii?Q?uyq+hjsqYgoD7Uonpj/oOPv/d1vgnUNE/YnIIetDwgbnBp5Jpk+2wIqbDnDh?=
+ =?us-ascii?Q?tsU2jA5Ri/Bv4cSv0zAIWX0ANPCICY1PHhdFOt4J7buU1kwCo9J1WSr+cJIY?=
+ =?us-ascii?Q?2URMFFsjDuD5CKfYRNX5kpTcc6+XXW7bRkCo6DLmN8KGuELxO7UrcH6vfUKD?=
+ =?us-ascii?Q?URcdPmHYQUzwAD7Hi7OcVTi6TwuEL/zzl2NW6+NsD61jScOeo/0LAr7cxaZW?=
+ =?us-ascii?Q?3vmWwgKCyMLPUZqpMWC7zmMGLLMzbB+xA9dF7RRjdpUl3Xzr?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 47B901F833
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- URIBL_BLOCKED(0.00)[drm_panic_qr.rs:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid,drm_panic_helper_qr.rs:url];
- MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[21];
- TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
- FROM_HAS_DN(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid];
- FREEMAIL_TO(0.00)[redhat.com,gmail.com,linux.intel.com,kernel.org,linux-m68k.org,infradead.org];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLo585esf9b7txaosbn5shab9z)];
- DKIM_TRACE(0.00)[suse.de:+]
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB9491.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d24396a-54fa-4799-6283-08df0e508a2f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2026 08:58:38.8215 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /hl6rb/9ZVJ2DQ++zQwj1zJYMAFKXkcFR4F4ubRVTq45tXzSV0qAgLj3FC9IYrl2Dc2+OKHi+MXTCI1usCeqVA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4349
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,143 +136,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Split DRM's current panic handling into a core and a helper module.
-The core is still part of DRM's core library. The panic helpers are
-part of DRM's KMS helper module (for now).
+AMD General
 
-The motivation behind this series is to get panic handling's drawing
-code out of the DRM core. At some point it should share a single
-module with DRM's other drawing and format conversion.
+  Hi,
 
-With the series applied, panic handling follows DRM's established
-design pattern of having a DRM core interface with a dedicated
-implementation in each driver. Drivers share common code in helper
-modules. For panic handling, the DRM core still contains the panic
-entry points, the parameters and the debugfs interface. All drawing
-is now located in the panic helpers.
+  We would like to discuss adding an interface that allows a
+  virtio-gpu guest to request HDCP on the host connector associated
+  with a guest display output.
 
-Patches 1 to 4 improve several issues in the current panic code. It
-makes sense to fix them before moving the core around.
+  Our use case has a trusted host and a fixed one-to-one mapping between
+  a virtio-gpu output and a physical host connector dedicated to that
+  guest display output. An Android guest uses the standard DRM Content
+  Protection and HDCP Content Type properties, while the host owns the
+  physical connector and performs HDCP authentication.
 
-Patches 5 to 8 put handling of all panic state and locking into a
-single place, drm_panic_display_panic_screen(). It is maintained by
-panic handling's DRM core code. This also enables the test cases to
-work more independently from the kernel's configuration.
+  The intended flow is:
 
-Patches 9 to 13 split the panic-handling code into the core and panic
-helpers. The former maintains all state, locking and public interfaces.
-The latter handles drawing and details of the involved framebuffers.
+  1. The feature is negotiated at the device level, and the host reports
+     for each guest display output whether it can service HDCP requests
+     and which request parameters, such as HDCP Content Type, it
+     supports.
 
-DRM devices that offer panic handling provide a single callback, struct
-drm_plane_funcs.display_panic_screen. A new initializer macro makes it
-point to the existing panic-drawing implementation. Hence there's no
-change in features or functionality. If panic handling is configured
-off, it all clears out to NULL.
+  2. The guest driver exposes the corresponding DRM content-protection
+     properties only on outputs for which the host can service such
+     requests. Whether the currently connected sink can establish the
+     requested protection is reflected in the resulting state rather
+     than by dynamically adding or removing the properties.
 
-Patch 14 reworks the test cases slighly, so that they can be build as
-a separate module. Do 'modprobe drm_panic_helper_test' to run them.
+  3. Guest userspace sets the DRM Content Protection property to DESIRED
+     or UNDESIRED. DESIRED requests protection, while UNDESIRED withdraws
+     the guest's request. When applicable, the HDCP Content Type property
+     is included in the request.
 
-Tested under bochs, i915, amdgpu with debugfs and test cases.
+  4. The virtio-gpu guest driver sends the request to the host.
 
-Future directions:
+  5. The host validates the request against its policy and either applies
+     it to the corresponding physical connector or rejects it. The host
+     remains responsible for access control, HDCP key handling, and
+     authentication.
 
-- Panic handling shares drawing code with format conversion and
-clients. There's even more drawing code in vkms. Later series' can
-attempt to unify and harmonize all these implementations in a single
-draw module.
+  6. The host reports the effective HDCP state for that guest display
+     output.
 
-- The drawing helper drm_plane_helper_display_panic_screen() still
-implements various access schemes (map, set_pixel, memcpy) in a single
-function. It could be split up into specialized helpers.
+  7. The guest driver reports ENABLED only after the host confirms that
+     HDCP authentication has completed successfully. If protection is
+     subsequently lost while the requested state remains DESIRED, the
+     guest property returns from ENABLED to DESIRED.
 
-- If we ever need a driver-specific helper, it is now possible to
-implement a custom version of display_panic_screen.
+  After hotplug or a virtio device reset, the guest would stop reporting
+  ENABLED until the host reports that protection is active again.
 
-v4:
-- test font size against scanout buffer (Jocelyn)
-- remove obsolete comment on fbcon (Jocelyn)
-v3:
-- keep qrbuf allocation as-is (Jocelyn)
-- handle kmap failures gracefully
-- handle unescaped URL strings correctly
-- fix per-plane panic testing
-- clean up after test cases
-v2:
-- resolve the various Kconfig issues (Randy)
-- remove changes to qrbuf allocation (Jocelyn, Geert)
-- fix possible URL format-string attack
-- make test cases work again uder certain edge cases
-- add better error reporting from failed draw_screen
-- filter out non-primary planes from panic handling
+  A request response would indicate whether the host accepted or
+  rejected the request. Acceptance would not mean that HDCP
+  authentication had completed successfully. The guest would therefore
+  also need a way to query the effective state and to be notified when
+  that state changes.
 
-Thomas Zimmermann (14):
-  drm/panic: Do not use un-escaped URL as format string
-  drm/panic: Test address from kmap op for NULL
-  drm/panic: Return -EINVAL if font is not available
-  drm/panic: Return errno codes if panic output fails
-  drm/panic: Pass colors to draw_panic_dispatch()
-  drm/panic: Pass global module parameters to drm_panic_dispatch()
-  drm/panic: Return from screen_user if display is too small
-  drm/panic: Retry in dispatch function if panic output fails
-  drm/panic: Split draw_panic_plane()
-  drm/panic: Restrict to primary planes
-  drm/panic: Display panic screen via per-plane callback
-  drm/panic: Internalize panic locking in DRM core and helpers
-  drm/panic: Move panic display code into helper library
-  drm/panic: Compile KUnit tests as module
+  This interface assumes a trusted host. It does not protect guest
+  framebuffers from the host and does not claim to provide a complete
+  protected media path. Hosts without a fixed mapping to a dedicated,
+  controllable physical connector, such as normal windowed, VNC, or
+  SPICE display backends, would not offer this feature.
 
- Documentation/gpu/drm-kms-helpers.rst         |  11 +-
- Documentation/gpu/drm-kms.rst                 |   3 +
- MAINTAINERS                                   |  11 +-
- drivers/gpu/drm/Kconfig                       |   9 +-
- drivers/gpu/drm/Kconfig.debug                 |   1 +
- drivers/gpu/drm/Makefile                      |   3 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |   2 +
- drivers/gpu/drm/ast/ast_mode.c                |   2 +
- drivers/gpu/drm/drm_atomic_helper.c           |   2 +-
- drivers/gpu/drm/drm_crtc_internal.h           |   2 -
- drivers/gpu/drm/drm_drv.c                     |   3 +-
- drivers/gpu/drm/drm_kms_helper_common.c       |  14 +
- drivers/gpu/drm/drm_modeset_helper.c          |   2 +
- drivers/gpu/drm/drm_panic.c                   | 925 +-----------------
- drivers/gpu/drm/drm_panic_helper.c            | 918 +++++++++++++++++
- ...drm_panic_qr.rs => drm_panic_helper_qr.rs} |   4 +-
- drivers/gpu/drm/drm_panic_internal.h          |  69 ++
- drivers/gpu/drm/hyperv/hyperv_drm_modeset.c   |   2 +
- drivers/gpu/drm/i915/display/i9xx_plane.c     |   3 +
- .../drm/i915/display/skl_universal_plane.c    |   4 +
- drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c       |   2 +
- drivers/gpu/drm/mgag200/mgag200_drv.h         |   4 +-
- drivers/gpu/drm/nouveau/dispnv50/wndw.c       |   2 +
- .../gpu/drm/renesas/rcar-du/rcar_du_plane.c   |   2 +
- .../drm/renesas/shmobile/shmob_drm_plane.c    |   2 +
- drivers/gpu/drm/sysfb/drm_sysfb_helper.h      |   4 +-
- drivers/gpu/drm/sysfb/vesadrm.c               |   1 +
- drivers/gpu/drm/tests/Makefile                |   1 +
- ...m_panic_test.c => drm_panic_helper_test.c} |  73 +-
- drivers/gpu/drm/tidss/tidss_plane.c           |   2 +
- drivers/gpu/drm/tiny/bochs.c                  |   4 +-
- drivers/gpu/drm/virtio/virtgpu_plane.c        |   2 +
- include/drm/drm_mode_config.h                 |   4 +-
- include/drm/drm_modeset_helper_vtables.h      |  11 +-
- include/drm/drm_panic.h                       | 117 +--
- include/drm/drm_panic_helper.h                |  40 +
- include/drm/drm_plane.h                       |  57 ++
- rust/bindings/bindings_helper.h               |   4 +-
- 38 files changed, 1286 insertions(+), 1036 deletions(-)
- create mode 100644 drivers/gpu/drm/drm_panic_helper.c
- rename drivers/gpu/drm/{drm_panic_qr.rs => drm_panic_helper_qr.rs} (99%)
- create mode 100644 drivers/gpu/drm/drm_panic_internal.h
- rename drivers/gpu/drm/tests/{drm_panic_test.c => drm_panic_helper_test.c} (77%)
- create mode 100644 include/drm/drm_panic_helper.h
+  Before preparing a virtio specification proposal, we would appreciate
+  feedback on the following questions:
+
+  1. Is a fixed guest-output-to-dedicated-host-connector mapping an
+     acceptable model for an optional virtio-gpu HDCP feature?
+
+  2. Should the host expose per-output request support and current HDCP
+     state through control commands, or is another virtio-gpu mechanism
+     preferred?
+
+  3. What is the preferred way to notify the guest when authentication
+     completes or when an enabled HDCP link subsequently loses
+     protection?
+
+  4. Should the protocol expose HDCP-specific values, or generic
+     content-protection request and state values which the guest driver
+     maps to DRM properties?
+
+  If this model is acceptable, we can follow up with a virtio
+  specification RFC, a host implementation, and Linux virtio-gpu driver
+  patches.
 
 
-base-commit: 1b610f06b6cdafb64a8f1743390944a30f37b4db
-prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
-prerequisite-patch-id: a5a973e527c88a5b47053d7a72aefe0b550197cb
-prerequisite-patch-id: b9adc9622920a3e70168e672c2c92795b3e3a106
-prerequisite-patch-id: 5030de433a01c2e99056cadb676a8e2ba35f055a
-prerequisite-patch-id: e5324d8ee0764b4f43e2e6606f7c9a1a32bc1819
--- 
-2.55.0
+BRs,
+Lei
+
+
+
+
 
