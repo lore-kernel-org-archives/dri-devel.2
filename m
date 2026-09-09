@@ -4,66 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 597F0C79F8C
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:54:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2298CC79FB8
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1C8B10EF01;
-	Wed,  9 Sep 2026 06:54:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96B3710EF09;
+	Wed,  9 Sep 2026 06:54:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="AbMwDCKf";
+	dkim=pass (2048-bit key; unprotected) header.d=gehealthcare.com header.i=@gehealthcare.com header.b="XPAxbeSD";
 	dkim-atps=neutral
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A1E910EB9E
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 12:14:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
- s=iohv2404; t=1788869637;
- bh=OU42xnYgBuQIIGsbiQd3edAdK/2WUQRNb9zNrW3eZIk=;
- h=From:To:Subject:Date:Message-ID:MIME-Version;
- b=AbMwDCKfU7zk36Plc4V9yxvCA5fXKOr7w0hLfKKDF5+Y/PNPsRGRtuYlDhRLuTe+J
- Jpb/JGZbU3tvpUzaybyMuUjGfWfxrXDYdFLjeJIErSaEFojVkcwNpgVeKQyZasVvyP
- Q3OEmY1RWQHzH73bC5FpM/wekdeAL3JGzTSZm9aQ=
-X-QQ-mid: zesmtpgz8t1788869631t68f93279
-X-QQ-Originating-IP: NNglehT6aMwsIV0lPfkuSjfZJOylKUr5I3iD3JMVzh0=
-Received: from hepeiyang-vm.wu.lxd ( [36.152.24.145])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Tue, 08 Sep 2026 20:13:27 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 13790185854937703597
-EX-QQ-RecipientCnt: 9
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
-To: airlied@redhat.com, kraxel@redhat.com, dmitry.osipenko@collabora.com,
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010026.outbound.protection.outlook.com [52.101.201.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CDEF10E0FE
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 05:15:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EPbPaYmgynbxG5DlaswR/GiNGfi1Daxq6g4nnDx8HY6F+hUKXB3tEH479OfGycfeogJrCR8XbQ2mP2jLRnb9kALcR5uVq5zitR4yRDLRa6y7e25IosVkshQzmGSLZEPjFWbURiKl20xAuWdNUGFfuWKT91Ii5o/RJh7V2KZJiCN5+4DnX5LkPvSsLeXMV5KJLFkV05Xhv5xhEGkBnsCslSjfKeX2m+3B9Wt+VcUKbkwU8o6FU9+Pw31VsWJLUHfvNuf2mlKiw3HK3Jm5ovhewUI8TThXA1qZRJyc1dGRzWahCfmdkvi7Hj4wRyQKBSCoK2SZhUZJki+12wDGV1JpoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Xhw5l7UoJvUA4dP/0V8Rlbg5J9+2xEguVAEq5+5OcE4=;
+ b=nhTz+loHr/SSEWCMBB/TRyKVF4Pj5h7iYf+dFEkv1odiUMZvzimCnPdfWl2MHADnwGDDltsXAILHJIrvzp1vX8h2NEYSOfzM6yRczLlvBiEc8ccdbPv3j246RgVQQkrv2A/DKSOq5wAWxxatK6bPDTTClF8SkjuxPTk0BzOPLZ2oBoIe0ovBncBEIGHu0GFyKNgvfMMopuZUCiOgdfNvCMTqf4R39tIdO3H9Hf9VKlkg7mz2ox0cKpX1eZap51XBEneVGGAiidTtsTOawDkHtihzf01Y7kXhlYreby3odKZRdV+dtx0wLKHnx7bhoaEEjFCa9lLMVUhBgeNeuLXeKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 165.85.157.49) smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=gehealthcare.com; dmarc=fail (p=quarantine sp=quarantine
+ pct=100) action=quarantine header.from=gehealthcare.com; dkim=none (message
+ not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gehealthcare.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Xhw5l7UoJvUA4dP/0V8Rlbg5J9+2xEguVAEq5+5OcE4=;
+ b=XPAxbeSD3FyOQnj2pyu6ooqnIK/v/HxL1m/HXMnKfN8VVyzv/LtXa6NmyEyQ6Cu8AQ+INSJ0P5I3pJ16o9hvsnjq1u5AEY2vZWcJDyPre0jOF3UYoqeMsTM8FXG+MU2aoWdqkCMyr0LSHz2dOo1VIeFxkqLtpxKnpslE7xyJn9Umr5A9DP6bQIhvHgdrVZaIiuKMOVheRereDArBqpQHKRvfJrWRsnJ4lZE3Pxr6IU0xDT41NFn/c48HZ8+pdWyul1wttz4ZtpG2xkf+zZcSG6QU/O49mu9mzwahqFOfl51y/p6pJdn1KC94pdHQ7OzdZYNER3gUDEXjbKlFHfIZ3Q==
+Received: from MN0PR04CA0009.namprd04.prod.outlook.com (2603:10b6:208:52d::30)
+ by IA2PR22MB5563.namprd22.prod.outlook.com (2603:10b6:208:4aa::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Wed, 9 Sep
+ 2026 05:15:27 +0000
+Received: from BN2PEPF000055DF.namprd21.prod.outlook.com
+ (2603:10b6:208:52d:cafe::25) by MN0PR04CA0009.outlook.office365.com
+ (2603:10b6:208:52d::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Wed, 9
+ Sep 2026 05:15:27 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 165.85.157.49)
+ smtp.mailfrom=gehealthcare.com; dkim=none (message not
+ signed) header.d=none;dmarc=fail action=quarantine
+ header.from=gehealthcare.com;
+Received-SPF: Fail (protection.outlook.com: domain of gehealthcare.com does
+ not designate 165.85.157.49 as permitted sender)
+ receiver=protection.outlook.com; client-ip=165.85.157.49;
+ helo=atlrelay1.compute.ge-healthcare.net;
+Received: from atlrelay1.compute.ge-healthcare.net (165.85.157.49) by
+ BN2PEPF000055DF.mail.protection.outlook.com (10.167.245.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.1 via Frontend Transport; Wed, 9 Sep 2026 05:15:27 +0000
+Received: from zeus (zoo13.fihel.lab.ge-healthcare.net [10.168.174.111])
+ by builder1.fihel.lab.ge-healthcare.net (Postfix) with SMTP id BE35EE4DB;
+ Wed,  9 Sep 2026 08:15:23 +0300 (EEST)
+Date: Wed, 9 Sep 2026 08:15:23 +0300
+From: Ian Ray <ian.ray@gehealthcare.com>
+To: Gabriel Windlin <gawindlin@gmail.com>
+Cc: Peter Senna Tschudin <peter.senna@gmail.com>,
+ Martyn Welch <martyn.welch@collabora.co.uk>, Frank Li <Frank.Li@nxp.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ "Rob Herring (Arm)" <robh@kernel.org>, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- virtualization@lists.linux.dev, gurchetansingh@chromium.org,
- Peiyang He <peiyang_he@smail.nju.edu.cn>
-Subject: [PATCH] drm/virtio: fix memory leak of fence event on execbuffer
- failure
-Date: Tue,  8 Sep 2026 20:13:23 +0800
-Message-ID: <D320EAB5680C1411+20260908121323.2405044-1-peiyang_he@smail.nju.edu.cn>
-X-Mailer: git-send-email 2.43.0
+Subject: Re: [PATCH] MAINTAINERS: update MEGACHIPS dt-binding path to yaml
+Message-ID: <aqDra7p-Wgh0mKIA@zeus>
+References: <20260908205203.649957-1-gawindlin@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: Nl7eTg5yGHnwHFfuMYie3uzOH+MV3o3VNn8RrdTFB4ddVof9TNOenLKy
- 5geAAIaZpZaD3SEX4AXEKg05EuqffXN5kgL34njDKfni45tyESJ6aoQC1tq1Fu54s+T1IH1
- HBUAZ5TIkJyIis/G6wiVzjbc1/2WKDnJZtwRV3bM+vik95YFvQcw2sey+OccaFT0jZ2NVmv
- C/XoMsche5idT4i0G+6lJ88RU1xJLuuc/YrutbUj/rwZaZy8OQaxc3CF3PusEWwZS3srwPK
- FclHF/RMrdZaOxWXP6kwglkUg6myeIEjaztV1cvb8DVDqcL94Oyr+Jfeh7UQoBlxDidw8JF
- ytd0yJ8lVGvT2Oin9qQ//u1Q6m74C1sbxkEa5SZMj0ozXNAvM+CcTsWNHO966spDN6ttGYB
- KTdL6+djaQHvdhS8ASXXq6Cb5fKG+v4mQetenb6zZ7lFPNa/xNEVHvn5R0Q2kyprsOxZFu6
- AcfDqMfWFmTF+AyUYAkB532MEXafLSkVU972qJF9IjJmv6FUdrmpSECgpXlNfDP003TxiJk
- h28lIdaZhAELPUcpDf3T6102/eYKiKWgOPGBrGE1+a5Xk2ELPBDVyzwpzAuQDFWE8EEkGc9
- Ud3a29fUI4YFBFeyEkl5ixQCa10iveeMDix9n2eFwp4lRPk+n/dNOwiUVqLkuLJPWTAkOuW
- z8dsR1/JJSWrHijlIW98XXWwPcKrfQHFim+r/XNJnM+V1zOaCVQeFfBhCtqkJvQHvPthdhw
- 3/qzdQpcLShtcL2VS0W3MjUP7BKeteV9+/IIOMvzome4CPvYQ2Ljz1VicPgypbp/knyl5L2
- tTsYejBehq3Jxk7RZJqJpY/nIaoSQcGcSRy15q1bVdydxSPN3Jfx74KxD/r16BrN6cU6V+g
- NOOK2PYXk18vTP/nn6nV3aiyOENmTKt1T0WDeuke9TdH6So0p/xCGTSezMizjXHY7XEQe5P
- PY+jPaeOKUhteVvEmNW9YBFYV1Xr7eEe34YkZiCOba0e90Cwln+QHppRfP4zdFa/svkd870
- RarM7pukCiReRagDHEJsYf3eOb3E7UgRwTOiszFWmh0shZB/DNeS3GHERGX4I=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908205203.649957-1-gawindlin@gmail.com>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DF:EE_|IA2PR22MB5563:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79d302e3-cac4-461c-d8de-08df0e315c2d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|1800799024|36860700016|82310400026|3023799007|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 0r6Q3ipJICtASQFZEREswFX9ETssnjuZ7Z1YHth7DoxHgm5MyFyLgY520YNBC5MSJ/nf+A/Y8znss6xuAvXkCWZdEXq8zQA1MI5VQPaxCYcq/QJSNNyYpOT7Iv5cuqqWOLoDCUQRxup0GIrWP/tG+0ZTSSOmiYopXYP+2DxisNp2CTI4pTbWuWiNbaopeDT/wpak4ig8L9BNxKvx2TKvI3B3wWyjlwc62pAlKPUPIDPFBLqj9UPdIUgbIOJNthcrzKrwOvUdSYc+oS2981AEQg1c9UWNXYo+JyyIc6RV4Y8sFjHP8wKdNk9xA67txKKtKeu5D3j0YxArp36vkSMjUn2cJwZf6kPWthEYNvo0TCNMMX3ICPPyG2RzjNqQ64HNulQMXQMFDzg2l9pp/gmJaKgLODMrSd6OFF/Cu2OB5cxvAIpmWIfeQQF2ytA7AQm+KsffCa/kya/uNxNMlPMGJc7Bt14X2//WUYLKs3UTKA3kjqA7RkiljRNrfengIdCp5jEUlI721v0RdebD44YAYndPM2BnfbvAac97ztSuuiXobrAm3R7T4yrN/thYUwwKfP1qIbPQfeXYwaG1dkXMNTrM7a9iINFJwa73e3bD/niBKHV+Iw8hF6zJ1IwwO8DUfmOMIrUh3nUyKUDuTJRyiuaGwKO64ajPueqJR/asJF2QCU3Lm+6JbY7W6tMZaY0txcS/soCIfwtDbH+fbcX2Lw==
+X-Forefront-Antispam-Report: CIP:165.85.157.49; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:atlrelay1.compute.ge-healthcare.net;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(3023799007)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: n/N6pVHoDqcaFLGaZnNYDvwOiwsy/uJ/kn8qGN5rW9zEvyfdVA7HxBsNoxs4JfWfNGWKIJjjknBGtmPx5plJIEMmFEfXapXXy81ubR+kwuB5sDULdRG9E4PFm+jERBrg0UPiiNS3tTYnbiojmMPtI+xE48Rafknb0O9meov/EbAlEd76NTLNDCv2Qf5WPx4hCuyUNpK51MGCq0tPjfdH6KfTLsXtWScu1oFuyB4yyyKSwxdf/yZ+ji2v8L1u9vgB5l9SCtT/O+twhjM7F0X8pSYaAB2O+uBaXWALzHWFnyb6w4AsJdmOni/ZFdFMfjcKtXt9HpCXJ0RUwHdaKpwbu/CTXQwC7Ha26bqTPnCktV+zPMk7N273qJJD1eNm0iZlBBveMPygxHJdE4V5R45sd3IhSBbZ8Rxj/RaqqLAY1B9WxjYhhZywrXLqSVuxlGb/
+X-OriginatorOrg: gehealthcare.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 05:15:27.0799 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79d302e3-cac4-461c-d8de-08df0e315c2d
+X-MS-Exchange-CrossTenant-Id: 9a309606-d6ec-4188-a28a-298812b4bbbf
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=9a309606-d6ec-4188-a28a-298812b4bbbf; Ip=[165.85.157.49];
+ Helo=[atlrelay1.compute.ge-healthcare.net]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BN2PEPF000055DF.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA2PR22MB5563
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:54:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,76 +117,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-virtio_gpu_execbuffer_ioctl() reserves a DRM event with
-drm_event_reserve_init() when VIRTGPU_EXECBUF_RING_IDX selects a ring that
-userspace has enabled polling for. virtio_gpu_init_submit() does this
-before the BO handles, the command buffer, the syncobj arrays and the
-in-fence are processed, so every later error path runs with the event
-already pending, including plain argument validation failures such as an
-invalid bo_handle or an in-syncobj that carries no fence.
+On Tue, Sep 08, 2026 at 10:52:02PM +0200, Gabriel Windlin wrote:
+> Commit 74459b0dacce ("dt-bindings: display: bridge: convert
+>         megachips-stdpxxxx-ge-b850v3-fw.txt to yaml") converted the legacy text
+> binding to YAML schema and renamed the file, but forgot to update the
+> corresponding entry in MAINTAINERS.
+> 
+> Fix the path to point to the new YAML binding schema.
+> 
+> Fixes: 74459b0dacce ("dt-bindings: display: bridge: convert megachips-stdpxxxx-ge-b850v3-fw.txt to yaml")
+> 
+> Signed-off-by: Gabriel Windlin <gawindlin@gmail.com>
 
-On those paths, virtio_gpu_cleanup_submit() drops the out-fence without
-cancelling the event. The fence is freed without ever having been emitted,
-taking the only driver-side pointer to the event with it. Closing the DRM
-file does not help. drm_events_release() unlinks pending events but
-deliberately leaves the freeing to the driver's later drm_send_event(),
-which never runs for an orphaned event, so the allocation is leaked
-permanently.
+Thanks for fixing this.
 
-Found when fuzzing the virtio driver with Syzkaller:
+Reviewed-by: Ian Ray <ian.ray@gehealthcare.com>
 
-	BUG: memory leak
-	unreferenced object 0xffff88802c176e80 (size 96):
-	comm "syz.1.367", pid 10561, jiffies 4294960122
-	hex dump (first 32 bytes):
-		00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-		c8 6e 17 2c 80 88 ff ff 00 00 00 00 00 00 00 00  .n.,............
-	backtrace (crc e1973c6b):
-		kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-		slab_post_alloc_hook mm/slub.c:4597 [inline]
-		slab_alloc_node mm/slub.c:4917 [inline]
-		__kmalloc_cache_noprof+0x49d/0x6f0 mm/slub.c:5485
-		_kmalloc_noprof include/linux/slab.h:988 [inline]
-		_kzalloc_noprof include/linux/slab.h:1309 [inline]
-		virtio_gpu_fence_event_create drivers/gpu/drm/virtio/virtgpu_submit.c:282 [inline]
-		virtio_gpu_init_submit drivers/gpu/drm/virtio/virtgpu_submit.c:398 [inline]
-		virtio_gpu_execbuffer_ioctl+0xbbf/0x1aa0 drivers/gpu/drm/virtio/virtgpu_submit.c:505
-		drm_ioctl_kernel+0x1f4/0x3e0 drivers/gpu/drm/drm_ioctl.c:817
-		drm_ioctl+0x5f4/0xc70 drivers/gpu/drm/drm_ioctl.c:914
-		vfs_ioctl fs/ioctl.c:51 [inline]
-		__do_sys_ioctl fs/ioctl.c:597 [inline]
-		__se_sys_ioctl fs/ioctl.c:583 [inline]
-		__x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
-		do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-		do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
-		entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Fix by cancelling and freeing the DRM event on the execbuffer error path
-before dropping the fence. Clear the fence's event pointer after
-cancellation so it does not retain a dangling pointer.
-
-Fixes: cd7f5ca33585 ("drm/virtio: implement context init: add virtio_gpu_fence_event")
-Cc: stable@vger.kernel.org
-Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Assisted-by: Codex:gpt-5.6-luna
----
- drivers/gpu/drm/virtio/virtgpu_submit.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/gpu/drm/virtio/virtgpu_submit.c b/drivers/gpu/drm/virtio/virtgpu_submit.c
-index 32cb1e4aa425..734b1e976a75 100644
---- a/drivers/gpu/drm/virtio/virtgpu_submit.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_submit.c
-@@ -538,6 +538,10 @@ int virtio_gpu_execbuffer_ioctl(struct drm_device *dev, void *data,
- 	virtio_gpu_process_post_deps(&submit);
- 	virtio_gpu_complete_submit(&submit);
- cleanup:
-+	if (ret && submit.out_fence && submit.out_fence->e) {
-+		drm_event_cancel_free(dev, &submit.out_fence->e->base);
-+		submit.out_fence->e = NULL;
-+	}
- 	virtio_gpu_cleanup_submit(&submit);
- 
- 	return ret;
--- 
-2.43.0
+> ---
+>  MAINTAINERS | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index da3e42d2d190..e830a31525d4 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -16848,7 +16848,7 @@ M:      Peter Senna Tschudin <peter.senna@gmail.com>
+>  M:     Ian Ray <ian.ray@gehealthcare.com>
+>  M:     Martyn Welch <martyn.welch@collabora.co.uk>
+>  S:     Maintained
+> -F:     Documentation/devicetree/bindings/display/bridge/megachips-stdpxxxx-ge-b850v3-fw.txt
+> +F:  Documentation/devicetree/bindings/display/bridge/megachips,stdp2690-ge-b850v3-fw.yaml
+>  F:     drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
+> 
+>  MEGARAID SCSI/SAS DRIVERS
+> 
+> base-commit: 5acbae5f7eb3d5275120abfe698c394b7325dcec
+> --
+> 2.55.0
+> 
