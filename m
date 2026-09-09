@@ -4,53 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E54DC79FB7
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 14:14:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14FE7C79FB6
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 14:28:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C49E10E35F;
-	Wed,  9 Sep 2026 14:13:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 536B810E156;
+	Wed,  9 Sep 2026 14:28:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Qz+4vPNk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z7QMs4Ri";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D35610E348
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 14:13:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7E1010E156
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 14:28:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1C85C4383B;
- Wed,  9 Sep 2026 14:13:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CA3E1F00A3A;
- Wed,  9 Sep 2026 14:13:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4ABCB43CF2;
+ Wed,  9 Sep 2026 14:28:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FED01F00A3A;
+ Wed,  9 Sep 2026 14:28:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788963238;
- bh=wtJUwmkneS78SkeaMlMZd/Famswtp8LstdVQj8FmaDQ=;
+ s=k20260515; t=1788964126;
+ bh=oj01JFfB6AavahYppTc9T4EaPEzdF+98Q38ewNDpUTY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Qz+4vPNk6Jd7iPBq0qdG/dHEByUXKsFSGOPK67yDzkFsN7zDunRS/NBgzBNYKswau
- 9N29PNJqyVeXAhAk4vWBOYuVc8OMZEKJBdnuEtt3w4t7pq7JsB5nA1O3P8cwUoujXj
- QALzMVT6FUMlVms56dmB/QMBdIDTigPUo8E0tYZNvK62LYyJE6U/9V4LOYNOT/lilv
- dPf7NqtFenhHa0POd4eoJwntl/KNFfbyxLT4Yi9KInTx1koc/puQJ08Zze6rWrgyqD
- y+dQniJoCfHiVZqzymMdfPFp15xeh2LZdT9ev1wvTz1YtVEOP7riJ/ue9qaq1iOFCF
- +Il2c/U0E5waA==
-Date: Wed, 9 Sep 2026 16:13:55 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, Heiko Carstens <hca@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, conor+dt@kernel.org,
- Vasily Gorbik <gor@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, robh@kernel.org,
- media-ci@linuxtv.org, 
- devicetree@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 03/12] dt-bindings: gpu: host1x: Document
- memory-regions for NVDEC
-Message-ID: <aqFpV1HHbZSU8bqq@orome>
-References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
- <20260904-tegra-vpr-v6-3-79042cfa8de5@nvidia.com>
- <20260904110359.799131F00A3F@smtp.kernel.org>
+ b=Z7QMs4RiqWS030pqfJQFKcD4kpDjcDp9BD5a+akwoYLqcUihHv+wSZ6QhT0us4Ivx
+ na8itMh1dn35cgoDZE7Z6YvcVVOtBzcXk9tDFNZs6aaQFijXwVCnTmpplCq3jQrp69
+ Zm0FQd/eFwcb2/eXBhnoPHXpIEtOl58BkbyXyLiZLpzsqLzBcyLOu8bF69rvZIZcU7
+ HoeL79Z/qDBO3qBe/fQnhB5yOR1wgneYTr9XlTk/T5lqf4IBT5Xpyg5aQSMY3IkQ11
+ tstkpmU9RfUkygK+f1e+l4DfhNj4l46RU299qS29x4XBWbzJ1ZhHeTlajAMluRH4Gl
+ /KdgW/jOcGFxw==
+Date: Wed, 9 Sep 2026 16:28:42 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+ Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, Albert Esteve <aesteve@redhat.com>,
+ Anusha Srivatsa <asrivats@redhat.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
+ drm_panel
+Message-ID: <aqFsTzyf1YbQkh6W@houat>
+References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
+ <20260903-drm-bridge-every-panel-v2-5-2ab8ee24538e@bootlin.com>
+ <678ddef7e56703d9adffff5c490d4857af515343@intel.com>
+ <aqEqx0zBQgmUgwqL@houat>
+ <3efb06a30baae6ba1bfcf2be449bf207a30f674d@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="obh3mo7oaagtja7c"
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="xvg2t2buvlbvtces"
 Content-Disposition: inline
-In-Reply-To: <20260904110359.799131F00A3F@smtp.kernel.org>
+In-Reply-To: <3efb06a30baae6ba1bfcf2be449bf207a30f674d@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,94 +80,47 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---obh3mo7oaagtja7c
+--xvg2t2buvlbvtces
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 03/12] dt-bindings: gpu: host1x: Document
- memory-regions for NVDEC
+Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
+ drm_panel
 MIME-Version: 1.0
 
-On Fri, Sep 04, 2026 at 11:03:59AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Medium] The `memory-region` and `memory-region-names` properties for t=
-he Video Protection Region (VPR) were added to the Tegra234 NVDEC binding b=
-ut omitted from the older NVDEC binding (`nvidia,tegra210-nvdec.yaml`) whic=
-h covers Tegra210, Tegra186, and Tegra194. Other hardware blocks on these o=
-lder chips (such as VIC and DC) already document and use `memory-region` fo=
-r the VPR, indicating that the hardware shares the same capability. Failing=
- to update the related YAML files in the same family causes schema validati=
-on to fail for complete device trees.
-> --
+On Wed, Sep 09, 2026 at 05:02:58PM +0300, Jani Nikula wrote:
+> On Wed, 09 Sep 2026, Maxime Ripard <mripard@kernel.org> wrote:
+> > I really wish i915 was at least *trying* to fit within the larger model
+> > basically everybody else uses. I understand that it's a large
+> > undertaking and regression prone and everything, but I'm also concerned
+> > about having the "we can't because of i915" or "supported by everybody
+> > else but i915" on a regular basis now.
 >=20
-> commit c5ee297bfa8219c2a7d714b86f0738c220914705
-> Author: Thierry Reding <treding@nvidia.com>
->=20
-> dt-bindings: gpu: host1x: Document memory-regions for NVDEC
->=20
-> The video protection region is a reserved memory region that can be used
-> for secure video playback. NVDEC can access this region to decode images
-> into securely.
->=20
-> > diff --git a/Documentation/devicetree/bindings/gpu/host1x/nvidia,tegra2=
-34-nvdec.yaml b/Documentation/devicetree/bindings/gpu/host1x/nvidia,tegra23=
-4-nvdec.yaml
-> > index 4eb325cfd2961..bcaaabca945dc 100644
-> > --- a/Documentation/devicetree/bindings/gpu/host1x/nvidia,tegra234-nvde=
-c.yaml
-> > +++ b/Documentation/devicetree/bindings/gpu/host1x/nvidia,tegra234-nvde=
-c.yaml
-> > @@ -60,6 +60,14 @@ properties:
-> >        - const: dma-mem
-> >        - const: write
-> > =20
-> > +  memory-region:
-> > +    items:
-> > +      - description: reference to the video protection memory region
-> > +
-> > +  memory-region-names:
-> > +    items:
-> > +      - const: protected
->=20
-> [Severity: Medium]
-> Should these properties also be added to the older NVDEC binding
-> (nvidia,tegra210-nvdec.yaml) which covers Tegra210, Tegra186, and Tegra19=
-4?
->=20
-> Other hardware blocks on these older chips (such as VIC and DC) already
-> document and use memory-region for the Video Protection Region, indicating
-> that the hardware shares the same capability.
->=20
-> If a device tree for Tegra210, Tegra186, or Tegra194 correctly specifies
-> the Video Protection Region for NVDEC, will it fail schema validation
-> because the properties are undocumented and additionalProperties: false
-> is set in the older binding?
+> Okay, let's hear it, please name a few things where i915 is alone in
+> doing something bonkers that amd, radeon, nouveau also don't do, and
+> what would be the changes that would bring i915 closer to everybody
+> else?
 
-For the record: we'll add this to the Tegra210 NVDEC bindings in due
-time. It's currently only been tested on Tegra234, hence why only that
-binding is updated.
+Where did I say "bonkers"?
 
-Thierry
+But since you're asking, because it doesn't implement .reset, we had that
+conversation this week for
 
---obh3mo7oaagtja7c
+https://lore.kernel.org/r/20260908-drm-reset-state-flag-v3-0-905570f387a4@k=
+ernel.org
+
+Maxime
+
+--xvg2t2buvlbvtces
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqhaaMACgkQ3SOs138+
-s6HOBBAAixwmzfQHyM9WXL+DZjzt8AieUmwS4BbXjWP4un7OGI6d6VIup46Telx5
-OOLTbeLvY1W5KDl0RPiZajCerlDvYI5f8lQXj+9e9QjWulPRyIMNGqkdXyHvSxKs
-j+9SIIjV2c1w6/gz6K9mNpsLHhcum0C8NVhFOZfn3BWQQWWmLiL95l1nYje7EqHF
-hVVMm09Z3QEKupRNbOrS351U0sTUS0EY3rg6WwY0Fy6FP1lMUfsJzBC6UoRYVlA/
-D8uDMQRjfaZMqxwyWMBdYSUeJfBVNPqlNzmycAcfAUMOSOmNVB391pE3Eor7dS0M
-UlBVR2a6mZoaVywgJWkbnl54Jh+GGor1C6tJfvCC57I2lvFR+o6FxNxx4cYNTUML
-ZmU+rOO+2WZi5UTWSHM9IHLNnhCspFabPDGNGpQhLJMrn60wuJ7vAWoSiCdyQeRM
-Hi9/7Y9g2GyBvvRtcMExJyduL2bzYmv0UGZ/hGD/8hjhYIRvem5lmGtkItfAiEfK
-y832lyTZ+CoLbVkyo8zILFE8OgN4mgZuNjPQCGBV+z/fxI5yT7SzBsdIQQGm6i0O
-hz2075LcLqdy2Ch6Jugi8qW6sNbBARfUn/46msoKrXWly9H566ElsUTKsTORwV+9
-L04vi8Z1uuYnwVIDMo83mnSbNJPiUeycaG0jdfmRCbAnrZGnUIk=
-=R8wl
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaqFtDwAKCRAnX84Zoj2+
+doBSAX46K8ejTapIIYk/SeycKWdQwI0tlzsXrMG+ZW7UOhK2h/7KaVEyj4ZDsGjK
+dz9VoPgBfAiC3uX8Vw2zw6OMzOZKaidwZ1GSyeGkNSFBaiRnGT6VYthRJkFjw6Kp
+CxhOEjtOwg==
+=l7Kh
 -----END PGP SIGNATURE-----
 
---obh3mo7oaagtja7c--
+--xvg2t2buvlbvtces--
