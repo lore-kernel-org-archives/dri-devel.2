@@ -4,55 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81D01C79F8C
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 05:44:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17922C79FAD
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 05:51:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C303D10EEC6;
-	Wed,  9 Sep 2026 05:44:20 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE50210EEC6
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 05:44:18 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.66])
- by APP-03 (Coremail) with SMTP id rQCowAD3_Doq8qBqbs49Bw--.1368S2;
- Wed, 09 Sep 2026 13:44:11 +0800 (CST)
-Message-ID: <f74168b54fe8f070b7cfe79dc2fc83a63c2e8842.camel@iscas.ac.cn>
-Subject: Re: [PATCH v6 1/6] dt-bindings: display: verisilicon,dc: add
- support for nuvoton,ma35d1-dcu
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Wed, 09 Sep 2026 13:44:10 +0800
-In-Reply-To: <20260908092840.225220-2-a0987203069@gmail.com>
-References: <20260908092840.225220-1-a0987203069@gmail.com>
- <20260908092840.225220-2-a0987203069@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.58.3 
-MIME-Version: 1.0
-X-CM-TRANSID: rQCowAD3_Doq8qBqbs49Bw--.1368S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxArW8uFWkGryUArWUXrWrZrb_yoWrWF48pF
- 95tFWUJryxJrn3Xr4UKr1jyFyUJw1kJw1DJr1xXF1UKr4UJr10qr4Ygr1qgF15Jr48Xry5
- JF1UWr17Zr12yr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUPCb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
- 8E87Iv6xkF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4xvF2IEb7IF0Fy264kE64k0F24l
- FcxC0VAYjxAxZF0Ex2IqxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtV
- W8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v2
- 6r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2
- Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
- Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMI
- IF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UMVCEFcxC0VAYjxAxZFUvcSsGvfC2KfnxnUUI
- 43ZEXa7IU8-Aw3UUUUU==
-X-Originating-IP: [112.94.100.66]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71CDA10E544;
+	Wed,  9 Sep 2026 05:51:42 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KD/TwhJ9";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E013710E544
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 05:51:40 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 83B1B438AD;
+ Wed,  9 Sep 2026 05:51:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46EA31F00A3A;
+ Wed,  9 Sep 2026 05:51:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788933100;
+ bh=wY0dgqQzdeCiUdLnkLIuQkS6BZkXE1Xym7yGIArrxOw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=KD/TwhJ9zjrA/Pu3pSlYnm8fW7n0gBdt/cEOI8SrWN4Q37KtpJrDyfGwCLXIV6UXw
+ NyYKkwDzx9rgMWbaqTBygWW05MfNLE10ppD9RW+2WQGIrguJSMQvXiK0H9r3pDKYR2
+ 48OUgoavIi+/usaDtcxMURHKw3gwJ94sG5opY9Nq6NLxcZqlkpcryrtzAfA8LlqN7K
+ pR1d5zMFuvsLwEP1CiJzt33+Kvg98LwHTvaNaGSLf0jjVsshFTmYUjSey1mXlkaIZj
+ PRwEcI7Q3bVWTPKgTf6c5l8FCuAFYyooeCtETf1mBtLfdRvM4HMf83/Lk3sf8GV1uo
+ lLQl6NRaEkqBA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/vc4: drain the hangcheck timer and works on V3D unbind
+To: "Fan Wu" <fanwu01@zju.edu.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260909053509.657074-1-fanwu01@zju.edu.cn>
+References: <20260909053509.657074-1-fanwu01@zju.edu.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 05:51:39 +0000
+Message-Id: <20260909055140.46EA31F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,77 +52,113 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-5ZyoIDIwMjYtMDktMDjkuoznmoQgMTc6MjggKzA4MDDvvIxKb2V5IEx15YaZ6YGT77yaCj4gQWRk
-IHRoZSBOdXZvdG9uIE1BMzVEMSBEQ1VsdHJhTGl0ZSAobnV2b3RvbixtYTM1ZDEtZGN1KSB0byB0
-aGUKPiBiaW5kaW5nLgo+IFRoZSBEQ1VsdHJhTGl0ZSB1c2VzIG9ubHkgZm91ciBjbG9ja3MgKGNv
-cmUsIGF4aSwgYWhiLCBwaXgwKSBhbmQgb25lCj4gcmVzZXQgKGNvcmUpLCB3aXRoIGEgc2luZ2xl
-IG91dHB1dCBwb3J0Lgo+IAo+IFRoZSBNQTM1RDEgY2xvY2sgY29udHJvbGxlciBnYXRlcyB0aGUg
-Y29yZSwgQVhJIGFuZCBBSEIgY2xvY2tzIHdpdGggYQo+IHNpbmdsZSBiaXQsIGJ1dCBlYWNoIHJl
-bWFpbnMgYSBkaXN0aW5jdCBjbG9jayBsaW5lIGZlZWRpbmcgdGhlIElQCj4gd2l0aAo+IGl0cyBv
-d24gcmF0ZSBjb25zdHJhaW50cywgc28gYWxsIGZvdXIgbXVzdCBzdGlsbCBiZSBsaXN0ZWQKPiBp
-bmRpdmlkdWFsbHkKPiBpbiB0aGUgZGV2aWNldHJlZTsgY29yZSwgYXhpIGFuZCBhaGIgaGFwcGVu
-IHRvIHNoYXJlIHRoZSBzYW1lIGNsb2NrCj4gcGhhbmRsZS4KClRoaXMgaXMgd2VpcmQsIGJ1dCBJ
-IG11c3QgYWRtaXQgdGhhdCB3ZSdyZSBsaW1pdGVkIGJ5IHRoZSBDb21tb24gQ2xvY2sKRnJhbWV3
-b3JrIGhlcmUsIHNvIEkgY2Fubm90IGdpdmUgYSBiZXR0ZXIgc29sdXRpb24gZWl0aGVyLgoKQW55
-d2F5IGxldCdzIHNldHRsZSB3aXRoIHRoZSBjdXJyZW50IHJlc3VsdC4KCj4gCj4gTW92ZSB0aGUg
-Y2xvY2tzL2Nsb2NrLW5hbWVzIG1pbkl0ZW1zIHRvIDQgYW5kIHJlc2V0cy9yZXNldC1uYW1lcwo+
-IG1pbkl0ZW1zIHRvIDEgYXQgdGhlIHRvcCBsZXZlbCwgc2luY2UgdGhhdCBpcyB0aGUgbG93ZXN0
-IGNvdW50IGFueQo+IHN1cHBvcnRlZCB2YXJpYW50IG5lZWRzLsKgIEFkZCBhbiBhbGxPZi9pZiBi
-bG9jayB0aGF0IHRpZ2h0ZW5zIHRoZQo+IGNvbnN0cmFpbnQgYmFjayB1cCB0byB0aGUgZml4ZWQg
-NS1jbG9jay8zLXJlc2V0IHRvcG9sb2d5IHJlcXVpcmVkIGJ5Cj4gdGhlIGV4aXN0aW5nIHRoZWFk
-LHRoMTUyMC1kYzgyMDAgY29tcGF0aWJsZSwgYW5kIGFub3RoZXIgb25lIHRoYXQKPiBjYXBzCj4g
-dGhlIG5ldyBudXZvdG9uLG1hMzVkMS1kY3UgY29tcGF0aWJsZSBhdCB0aGUgNC1jbG9jay8xLXJl
-c2V0IGNvdW50IGl0Cj4gYWN0dWFsbHkgd2lyZXMgdXAuCj4gCj4gU2lnbmVkLW9mZi1ieTogSm9l
-eSBMdSA8YTA5ODcyMDMwNjlAZ21haWwuY29tPgo+IC0tLQo+IMKgLi4uL2JpbmRpbmdzL2Rpc3Bs
-YXkvdmVyaXNpbGljb24sZGMueWFtbMKgwqDCoMKgwqAgfCA0NAo+ICsrKysrKysrKysrKysrKysr
-KysKPiDCoDEgZmlsZSBjaGFuZ2VkLCA0NCBpbnNlcnRpb25zKCspCj4gCj4gZGlmZiAtLWdpdAo+
-IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVyaXNpbGljb24s
-ZGMueWFtbAo+IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVy
-aXNpbGljb24sZGMueWFtbAo+IGluZGV4IDkxOWE5MDAxMjIwMTIuLjc3Mzk2NjY3N2QwZjQgMTAw
-NjQ0Cj4gLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVy
-aXNpbGljb24sZGMueWFtbAo+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5n
-cy9kaXNwbGF5L3ZlcmlzaWxpY29uLGRjLnlhbWwKPiBAQCAtMTcsNiArMTcsNyBAQCBwcm9wZXJ0
-aWVzOgo+IMKgwqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGVudW06Cj4gwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgLSB0aGVhZCx0aDE1MjAtZGM4MjAwCj4gK8KgwqDCoMKgwqDCoMKgwqDCoCAt
-IG51dm90b24sbWEzNWQxLWRjdQo+IMKgwqDCoMKgwqDCoCAtIGNvbnN0OiB2ZXJpc2lsaWNvbixk
-YyAjIERDIElQcyBoYXZlIGRpc2NvdmVyYWJsZSBJRC9yZXZpc2lvbgo+IHJlZ2lzdGVycwo+IMKg
-Cj4gwqDCoCByZWc6Cj4gQEAgLTI2LDYgKzI3LDcgQEAgcHJvcGVydGllczoKPiDCoMKgwqDCoCBt
-YXhJdGVtczogMQo+IMKgCj4gwqDCoCBjbG9ja3M6Cj4gK8KgwqDCoCBtaW5JdGVtczogNAo+IMKg
-wqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGRlc2NyaXB0aW9uOiBEQyBDb3JlIGNsb2Nr
-Cj4gwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IERNQSBBWEkgYnVzIGNsb2NrCj4gQEAgLTM0
-LDYgKzM2LDcgQEAgcHJvcGVydGllczoKPiDCoMKgwqDCoMKgwqAgLSBkZXNjcmlwdGlvbjogUGl4
-ZWwgY2xvY2sgb2Ygb3V0cHV0IDEKPiDCoAo+IMKgwqAgY2xvY2stbmFtZXM6Cj4gK8KgwqDCoCBt
-aW5JdGVtczogNAo+IMKgwqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGNvbnN0OiBjb3Jl
-Cj4gwqDCoMKgwqDCoMKgIC0gY29uc3Q6IGF4aQo+IEBAIC00MiwxMiArNDUsMTQgQEAgcHJvcGVy
-dGllczoKPiDCoMKgwqDCoMKgwqAgLSBjb25zdDogcGl4MQo+IMKgCj4gwqDCoCByZXNldHM6Cj4g
-K8KgwqDCoCBtaW5JdGVtczogMQo+IMKgwqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGRl
-c2NyaXB0aW9uOiBEQyBDb3JlIHJlc2V0Cj4gwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IERN
-QSBBWEkgYnVzIHJlc2V0Cj4gwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IENvbmZpZ3VyYXRp
-b24gQUhCIGJ1cyByZXNldAo+IMKgCj4gwqDCoCByZXNldC1uYW1lczoKPiArwqDCoMKgIG1pbkl0
-ZW1zOiAxCj4gwqDCoMKgwqAgaXRlbXM6Cj4gwqDCoMKgwqDCoMKgIC0gY29uc3Q6IGNvcmUKPiDC
-oMKgwqDCoMKgwqAgLSBjb25zdDogYXhpCj4gQEAgLTc5LDYgKzg0LDQ1IEBAIHJlcXVpcmVkOgo+
-IMKgwqAgLSByZXNldC1uYW1lcwo+IMKgwqAgLSBwb3J0cwo+IMKgCj4gK2FsbE9mOgo+ICvCoCAt
-IGlmOgo+ICvCoMKgwqDCoMKgIHByb3BlcnRpZXM6Cj4gK8KgwqDCoMKgwqDCoMKgIGNvbXBhdGli
-bGU6Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoCBjb250YWluczoKPiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBjb25zdDogdGhlYWQsdGgxNTIwLWRjODIwMAo+ICvCoMKgwqAgdGhlbjoKPiArwqDCoMKg
-wqDCoCBwcm9wZXJ0aWVzOgo+ICvCoMKgwqDCoMKgwqDCoCBjbG9ja3M6Cj4gK8KgwqDCoMKgwqDC
-oMKgwqDCoCBtaW5JdGVtczogNQo+ICsKPiArwqDCoMKgwqDCoMKgwqAgY2xvY2stbmFtZXM6Cj4g
-K8KgwqDCoMKgwqDCoMKgwqDCoCBtaW5JdGVtczogNQo+ICsKPiArwqDCoMKgwqDCoMKgwqAgcmVz
-ZXRzOgo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWluSXRlbXM6IDMKPiArCj4gK8KgwqDCoMKgwqDC
-oMKgIHJlc2V0LW5hbWVzOgo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWluSXRlbXM6IDMKPiArCj4g
-K8KgIC0gaWY6Cj4gK8KgwqDCoMKgwqAgcHJvcGVydGllczoKPiArwqDCoMKgwqDCoMKgwqAgY29t
-cGF0aWJsZToKPiArwqDCoMKgwqDCoMKgwqDCoMKgIGNvbnRhaW5zOgo+ICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIGNvbnN0OiBudXZvdG9uLG1hMzVkMS1kY3UKPiArwqDCoMKgIHRoZW46Cj4gK8Kg
-wqDCoMKgwqAgcHJvcGVydGllczoKPiArwqDCoMKgwqDCoMKgwqAgY2xvY2tzOgo+ICvCoMKgwqDC
-oMKgwqDCoMKgwqAgbWF4SXRlbXM6IDQKPiArCj4gK8KgwqDCoMKgwqDCoMKgIGNsb2NrLW5hbWVz
-Ogo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWF4SXRlbXM6IDQKPiArCj4gK8KgwqDCoMKgwqDCoMKg
-IHJlc2V0czoKPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1heEl0ZW1zOiAxCj4gKwo+ICvCoMKgwqDC
-oMKgwqDCoCByZXNldC1uYW1lczoKPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1heEl0ZW1zOiAxCgpN
-YXliZSBpdCdzIHJlYXNvbmFibGUgdG8gcmVzdHJpY3QgbWF4IHBvcnQgY291bnQgdG8gMSBmb3Ig
-TUEzNUQxPwpBbHRob3VnaCBJIGFtIG5vdCBzdXJlIGFib3V0IGhvdyB0byBkbyB0aGlzLi4uCgpU
-aGFua3MsCkljZW5vd3kKCj4gKwo+IMKgYWRkaXRpb25hbFByb3BlcnRpZXM6IGZhbHNlCj4gwqAK
-PiDCoGV4YW1wbGVzOgo=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
+New issues:
+- [Medium] Canceling `job_done_work` without explicitly draining `job_done_=
+list` directly leaks completed jobs and resources.
+
+Pre-existing issues:
+- [High] Missing drm_dev_enter() in DRM ioctls allows concurrent V3D unbind=
+ to directly cause a NULL pointer dereference.
+- [High] Spurious interrupt execution directly after `vc4->v3d` clearance c=
+auses a NULL pointer crash.
+--
+
+commit c625fc5a6f0d8fd20c510d6e8829315b01c15ab3
+Author: Fan Wu <fanwu01@zju.edu.cn>
+
+drm/vc4: drain the hangcheck timer and works on V3D unbind
+
+The hangcheck timer, which every submitted job arms and which queues
+reset_work once a job stops making progress, and the job_done_work,
+which the render-done interrupt queues to release completed jobs, are
+never drained at teardown. This commit shuts the hangcheck timer down
+and cancels reset_work and job_done_work during vc4_v3d_unbind().
+
+> diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
+> index f32410420d3e4..11d4df3164b49 100644
+> --- a/drivers/gpu/drm/vc4/vc4_v3d.c
+> +++ b/drivers/gpu/drm/vc4/vc4_v3d.c
+[ ... ]
+> @@ -497,8 +498,18 @@ static void vc4_v3d_unbind(struct device *dev, struc=
+t device *master,
+>  	struct drm_device *drm =3D data;
+>  	struct vc4_dev *vc4 =3D to_vc4_dev(drm);
+> =20
+> +	/* Kill the timer, then reset_work: vc4_irq_reset() re-enables it. */
+> +	if (vc4->gen =3D=3D VC4_GEN_4) {
+> +		timer_shutdown_sync(&vc4->hangcheck.timer);
+> +		cancel_work_sync(&vc4->hangcheck.reset_work);
+> +	}
+> +
+>  	vc4_irq_uninstall(drm);
+
+[Severity: High]
+This is a pre-existing issue, but could this lead to a spurious interrupt
+execution causing a NULL pointer crash?
+
+When vc4_v3d_unbind() executes, it disables the hardware interrupts and lat=
+er
+sets vc4->v3d =3D NULL, but it does not unregister the IRQ handler (since i=
+t is
+devm-managed by the parent device).
+
+If a spurious interrupt arrives after this point, would vc4_irq() execute a=
+nd
+unconditionally dereference vc4->v3d via the V3D_READ macro, causing an
+immediate crash?
+
+> =20
+> +	/* Nothing can queue job_done_work any more; drain it. */
+> +	if (vc4->gen =3D=3D VC4_GEN_4)
+> +		cancel_work_sync(&vc4->job_done_work);
+
+[Severity: Medium]
+Will this cancel_work_sync() directly leak completed jobs and resources?
+
+If there are completed jobs pending in the job_done_list when the device is
+unbound, the work is canceled before it can process the list.
+
+Since no subsequent cleanup code (e.g., vc4_gem_destroy()) iterates over and
+frees the items in job_done_list, won't these jobs and their associated BOs=
+ be
+permanently leaked?
+
+> +
+>  	/* Disable the binner's overflow memory address, so the next
+>  	 * driver probe (if any) doesn't try to reuse our old
+>  	 * allocation.
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the ioctl path lack
+drm_dev_enter() protection, allowing concurrent V3D unbind to directly cause
+a NULL pointer dereference?
+
+A user-space application could concurrently call DRM_IOCTL_VC4_SUBMIT_CL wh=
+ile
+the administrator unbinds the v3d component via sysfs. The ioctl checks
+if (!vc4->v3d) without holding a reference (e.g., drm_dev_enter()):
+
+drivers/gpu/drm/vc4/vc4_gem.c:vc4_submit_cl_ioctl() {
+	if (!vc4->v3d) {
+		DRM_DEBUG("VC4_SUBMIT_CL with no VC4 V3D probed\n");
+		return -ENODEV;
+	}
+	...
+}
+
+Immediately after this check, vc4_v3d_unbind() executes and sets
+vc4->v3d =3D NULL.
+
+Would the ioctl then proceed to access vc4->v3d (e.g., in vc4_v3d_pm_get()),
+resulting in a direct NULL pointer dereference?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909053509.6570=
+74-1-fanwu01@zju.edu.cn?part=3D1
