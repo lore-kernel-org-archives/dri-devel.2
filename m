@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7C57C79FAD
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 04:16:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 289BEC79F8C
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 04:17:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22C9F10EE9D;
-	Wed,  9 Sep 2026 04:16:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C7EF10EE9E;
+	Wed,  9 Sep 2026 04:17:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BIetPqOH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hGOF50mN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BD5410EE9D
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 04:16:47 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3522A10EE9E
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 04:17:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A4C3143C1E;
- Wed,  9 Sep 2026 04:16:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 476821F00A3A;
- Wed,  9 Sep 2026 04:16:46 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 95F5D601FE;
+ Wed,  9 Sep 2026 04:17:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1596A1F00A3A;
+ Wed,  9 Sep 2026 04:17:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788927406;
- bh=Kk+n7+Tp0if0aUpMMf85NHG2HS4ZYASCEPouOUOYss0=;
+ s=k20260515; t=1788927427;
+ bh=2eJgv8KprPlbudHwyfe8f0TdGvmnicEsY9nSKyfBgPQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BIetPqOHDJiEgxE5tIjC7iO2UZkzlcsPz5BJ/VHycA2uY5ZvTPW4C4RCTKpY8THf4
- pXxy1GM5n8vUT4hyxxAcNrbf+VbEvJRmr/LHnUdyx1e/CF2D9gEQ9cYemxxrK0+XBH
- 3qZr1/TRqreM2wPuFRC/HHXATv2oSQOvtgQbwlBiYIsmQNMVZcFxz5pC3wLqwyGX76
- JKFx6Kajkr6Iqf/jqpIdfBTql5vs5AGR6Z97XSp7NJ6+rzleQRTcNqGkdMcv3DSp4Q
- yUeIgFpm1wMsQGqmp38y2EZw74KCD7v7v03HzzPX4qPnA+8muIQyfD3jhUDuxiMmi/
- tWTLo1kCNGDmw==
+ b=hGOF50mNqSv5rWm0aHKKRawcKHco4KzNn/TXu4zCbRMSjYHOYHM6rwCOY9QL4w3u2
+ JdaGA7ZAvQtyMY8YvDCrC4Wu6YOg7DZCGAhTyDJAmWx92x4GX4lGUt/O5ZY23ge72F
+ Ix63fvB2/GBF1ujoJ9ogHXeiXaTNUMgfguiPXHIlnAs7ndxYIMvm+g+JP5ddb2O08t
+ PEBxP6p+WlCVjsC9ux3xFXQkOzfm0kwmhUVx41FrD1Co/kUUvPN6iUx81u1VUUqyh4
+ SlINCmK3fgb44W1om3u3gNdOGHXk0iY/YmPSKrWCeAN9Dbszoz4vKedia/Lew/dw1w
+ 3bc64EWP1/Jvw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 15/16] gpu: nova-core: mm: Add BAR1 user interface
+Subject: Re: [PATCH 13/16] gpu: nova-core: mm: Add multi-page mapping API to
+ VMM
 To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, dri-devel@lists.freedesktop.org,
+Cc: dri-devel@lists.freedesktop.org, "Danilo Krummrich" <dakr@kernel.org>,
  "Alexandre Courbot" <acourbot@nvidia.com>
-In-Reply-To: <20260909-mmrebase-v1-15-8dd5d4225d2e@nvidia.com>
+In-Reply-To: <20260909-mmrebase-v1-13-8dd5d4225d2e@nvidia.com>
 References: <20260909-mmrebase-v1-0-8dd5d4225d2e@nvidia.com>
- <20260909-mmrebase-v1-15-8dd5d4225d2e@nvidia.com>
+ <20260909-mmrebase-v1-13-8dd5d4225d2e@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 04:16:45 +0000
-Message-Id: <20260909041646.476821F00A3A@smtp.kernel.org>
+Date: Wed, 09 Sep 2026 04:17:06 +0000
+Message-Id: <20260909041707.1596A1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,154 +59,248 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] Insufficient bounds check in `bar_offset()` allows out-of-bounds m=
-ulti-byte accesses across mapping boundaries.
-- [Medium] Decoupled `GpuMm` lifetime in `BarUser::map` and `release` allow=
-s cross-device page table corruption.
-- [Medium] `BarUserAccess` breaks RAII, silently leaking address space on s=
-tandard Rust error paths.
-- [Medium] BAR1 is mapped as uncacheable MMIO instead of write-combining (W=
-C), causing massive performance degradation.
+- [Critical] Capacity exhaustion during page table installation causes hard=
+ware Use-After-Free.
+- [Critical] Freeing the VFN range on partial mapping/unmapping failure lea=
+ves dangling hardware PTEs.
+- [High] Early error return in `invalidate_ptes` skips mandatory TLB flush.
+- [Medium] `PreparedMapping` and `MappedRange` permanently leak VFN space o=
+n drop.
+- [Low] Spurious false-positive kernel warning on `execute_map` validation =
+failure.
 --
 
-commit f4c54c8b0e0e82f490fc3199121f6bdbfd3815b4
+commit dc299c1a2ad37eca6a9c91c4b5425f4e7871fa45
 Author: Joel Fernandes <joelagnelf@nvidia.com>
-Subject: gpu: nova-core: mm: Add BAR1 user interface
 
-Adds the BAR1 user interface for CPU access to GPU virtual memory through
-the BAR1 aperture.
+gpu: nova-core: mm: Add multi-page mapping API to VMM
 
-> diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driv=
-er.rs
-> index 5723ff8f71ea4..0672a0707a713 100644
-> --- a/drivers/gpu/nova-core/driver.rs
-> +++ b/drivers/gpu/nova-core/driver.rs
+Add the page table mapping and unmapping API to the Virtual Memory
+Manager, implementing a two-phase prepare/execute model suitable for
+use both inside and outside the DMA fence signalling critical path.
+
+> diff --git a/drivers/gpu/nova-core/mm/pagetable/map.rs b/drivers/gpu/nova=
+-core/mm/pagetable/map.rs
+> --- a/drivers/gpu/nova-core/mm/pagetable/map.rs
+> +++ b/drivers/gpu/nova-core/mm/pagetable/map.rs
 [ ... ]
-> @@ -82,12 +105,18 @@ fn probe<'bound>(
-> =20
->              Ok(try_pin_init!(NovaCore {
->                  bar: pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core=
-/bar0")?,
-> -                // TODO: Use `&bar` self-referential pin-init syntax onc=
-e available.
-> -                //
-> -                // SAFETY: `bar` is initialized before this expression i=
-s evaluated
-> -                // (`try_pin_init!()` initializes fields in declaration =
-order), lives at a pinned
-> -                // stable address, and is dropped after `gpu` (struct fi=
-eld drop order).
-> -                gpu <- Gpu::new(pdev, unsafe { &*core::ptr::from_ref(bar=
-) }),
-> +                bar1: {
-> +                    let bar1_idx =3D bar1_resource_index(pdev)?;
-> +                    pdev.iomap_region(bar1_idx, c"nova-core/bar1")?
-
-[Severity: Medium]
-Will this uncacheable MMIO mapping cause severe performance bottlenecks for=
-=20
-CPU-to-GPU transfers?
-
-BAR1 is the framebuffer aperture and is designed for bulk data transfers li=
-ke
-USERD or command buffers. By using iomap_region (uncacheable), every write
-will generate a separate, synchronous PCIe transaction. Could this be mappe=
-d=20
-with write-combining instead, even if it requires adding new WC bindings to=
-=20
-the Rust pci module?
-
-> +                },
-> +                // TODO: Use self-referential pin-init syntax once avail=
-able.
-[ ... ]
-> diff --git a/drivers/gpu/nova-core/mm/bar_user.rs b/drivers/gpu/nova-core=
-/mm/bar_user.rs
-> new file mode 100644
-> index 0000000000000..ef1d8e6f8c9c3
-> --- /dev/null
-> +++ b/drivers/gpu/nova-core/mm/bar_user.rs
-[ ... ]
-> +    /// Map physical pages to a contiguous BAR1 virtual range.
-> +    pub(crate) fn map(
-> +        self: &Arc<Self>,
+> +    pub(super) fn prepare_map(
+> +        &self,
 > +        mm: &mut GpuMm<'_>,
+> +        vfn_start: Vfn,
+> +        num_pages: usize,
+> +        page_table_allocs: &mut KVec<Pin<KBox<AllocatedBlocks>>>,
+> +        pt_pages: &mut RBTree<VramAddress, PreparedPtPage>,
+> +    ) -> Result {
+> +        // Pre-reserve so install_mappings() can use push_within_capacit=
+y (no alloc
+> +        // in fence signalling critical path).
+> +        let pt_upper_bound =3D M::pt_pages_upper_bound(num_pages);
+> +        page_table_allocs.reserve(pt_upper_bound, GFP_KERNEL)?;
+
+[Severity: Critical]
+Does this reservation fail to account for multiple pending allocations?
+If prepare_map() is called multiple times before execute_map() or fails
+partway through, orphaned pages accumulate in the shared pt_pages tree.
+This regression occurs because page_table_allocs.reserve() does not
+accumulate capacity across multiple calls, causing install_mappings()
+to later run out of reserved capacity.
+
+[ ... ]
+> +    pub(super) fn install_mappings(
+> +        &self,
+> +        mm: &mut GpuMm<'_>,
+> +        pt_pages: &mut RBTree<VramAddress, PreparedPtPage>,
+> +        page_table_allocs: &mut KVec<Pin<KBox<AllocatedBlocks>>>,
+> +        vfn_start: Vfn,
 > +        pfns: &[Pfn],
 > +        writable: bool,
-> +    ) -> Result<BarUserAccess<'gpu>> {
+> +    ) -> Result {
+> +        {
+> +            let pramin =3D mm.pramin_mut();
+> +
+> +            // Drain prepared PT pages, install all pending PDEs.
+> +            let mut cursor =3D pt_pages.cursor_front_mut();
+> +            while let Some(c) =3D cursor {
+> +                let (next, node) =3D c.remove_current();
+> +                let (install_addr, page) =3D node.to_key_value();
+> +                let page_vram =3D
+> +                    VramAddress::from_raw(page.alloc.iter().next().ok_or=
+(ENOMEM)?.offset());
+> +
+> +                if page.level =3D=3D M::DUAL_PDE_LEVEL {
+> +                    let new_dpde =3D M::DualPde::new_small(Pfn::from(pag=
+e_vram));
+> +                    new_dpde.write(pramin, install_addr)?;
+> +                } else {
+> +                    let new_pde =3D M::Pde::new(AperturePde::VideoMemory=
+, Pfn::from(page_vram));
+> +                    new_pde.write(pramin, install_addr)?;
+> +                }
+> +
+> +                page_table_allocs
+> +                    .push_within_capacity(page.alloc)
+> +                    .map_err(|_| ENOMEM)?;
 
-[Severity: Medium]
-Does this decoupled GpuMm lifetime allow cross-device page table corruption?
+[Severity: Critical]
+Can this capacity check failure lead to a use-after-free in the hardware?
+The physical memory is committed to the hardware PDE right before the
+capacity check fails. If push_within_capacity() returns an error, this
+regression causes the allocation to be dropped and the memory to be freed
+back to the buddy allocator, but the hardware PDE is left pointing to that
+freed memory.
 
-Because the mm parameter uses an unbound anonymous lifetime instead of the
-'gpu lifetime associated with BarUser, the Rust compiler cannot statically
-prevent cross-device mixing.=20
-
-In a multi-GPU system, could a caller inadvertently pass a GpuMm belonging =
-to
-a different device into the map or release methods, causing the method to=20
-allocate from the first GPU's VMM but write page table entries to the second
-GPU's PRAMIN?
-
-> +        if pfns.is_empty() {
-> +            return Err(EINVAL);
-> +        }
-> +        let mut vmm =3D self.vmm.lock();
-> +        let mapped =3D vmm.map_pages(mm, pfns, None, writable)?;
 [ ... ]
-> +    /// Translate an offset within this mapping to a BAR1 aperture offse=
-t.
-> +    fn bar_offset(&self, offset: usize) -> Result<usize> {
-> +        if offset >=3D self.size() {
-> +            return Err(EINVAL);
-> +        }
+> +    pub(super) fn invalidate_ptes(
+> +        &self,
+> +        mm: &mut GpuMm<'_>,
+> +        vfn_start: Vfn,
+> +        num_pages: usize,
+> +    ) -> Result {
+> +        let invalid_pte =3D M::Pte::invalid();
+> +
+> +        {
+> +            let pramin =3D mm.pramin_mut();
+> +            for i in 0..num_pages {
+> +                let i_u64: u64 =3D i.into_safe_cast();
+> +                let vfn =3D Vfn::new(vfn_start.raw() + i_u64);
+> +                let result =3D self.walker.walk_to_pte_lookup_with_windo=
+w(pramin, vfn)?;
+> +
+> +                match result {
+> +                    WalkResult::Mapped { pte_addr, .. } | WalkResult::Un=
+mapped { pte_addr } =3D> {
+> +                        invalid_pte.write(pramin, pte_addr)?;
+> +                    }
 
 [Severity: High]
-Does this bounds check properly account for the multi-byte access width?
+Does the ? operator here skip the mandatory TLB flush? If a hardware I/O
+error occurs during the page table window write, the function returns
+early.
 
-When callers use BarUserAccess::try_read32/64 or try_write32/64, the access
-extends 4 or 8 bytes past the provided offset. If offset =3D self.size() - =
-2,
-this check passes, but the access will overflow the mapping boundary. Could
-this lead to unmapped MMIO reads/writes or accesses into adjacent=20
-allocations?
-
-> +
-> +        let base_vfn: usize =3D self.mapped().vfn_start.raw().into_safe_=
-cast();
-> +        let base =3D base_vfn.checked_mul(PAGE_SIZE).ok_or(EOVERFLOW)?;
-> +        base.checked_add(offset).ok_or(EOVERFLOW)
-> +    }
-[ ... ]
-> +impl Drop for BarUserAccess<'_> {
-> +    fn drop(&mut self) {
-> +        if self.mapped.is_some() {
-> +            kernel::pr_warn!(
-> +                "BarUserAccess dropped without calling release(). BarUse=
-r address space will leak.\n"
-> +            );
+> +                    WalkResult::PageTableMissing =3D> {
+> +                        continue;
+> +                    }
+> +                }
+> +            }
 > +        }
+> +
+> +        mm.tlb().flush(self.pdb_addr)
+> +    }
 
-[Severity: Medium]
-Could this design break Rust's RAII guarantees and permanently leak address
-space on standard error paths?
+[Severity: High]
+This required TLB flush is bypassed on the early error return mentioned
+above. Any PTEs successfully invalidated before the error will remain
+active in the GPU's TLB, creating a regression where continued access to
+memory is allowed after it has been unmapped and freed.
 
-If a caller maps BAR1, performs some fallible operations using the ? operat=
-or,
-and returns an error before manually calling access.release(mm), the BAR1=20
-virtual address space will leak.=20
-
-Since BarUserAccess does not hold a reference to GpuMm, its Drop=20
-implementation cannot unmap the pages. Is there a way to refactor this to=20
-ensure automatic cleanup during drop?
-
-> +        // The inner `MappedRange`'s own `MustUnmapGuard` will also fire,
-> +        // identifying the leaked VA range.
+> diff --git a/drivers/gpu/nova-core/mm/vmm.rs b/drivers/gpu/nova-core/mm/v=
+mm.rs
+> --- a/drivers/gpu/nova-core/mm/vmm.rs
+> +++ b/drivers/gpu/nova-core/mm/vmm.rs
+[ ... ]
+> +impl Drop for MustExecuteGuard {
+> +    fn drop(&mut self) {
+> +        if self.armed.get() {
+> +            kernel::pr_warn!("PreparedMapping dropped without calling ex=
+ecute_map()\n");
+> +        }
 > +    }
 > +}
 
+[Severity: Medium]
+Does this drop guard permanently leak the allocated VFN space? While the
+guard logs a warning, it lacks a reference to the Vmm and cannot free the
+underlying virtual address allocation from the maple tree, causing a
+regression that permanently leaks virtual address space.
+
+[ ... ]
+> +impl Drop for MustUnmapGuard {
+> +    fn drop(&mut self) {
+> +        if self.armed.get() {
+> +            kernel::pr_warn!("MappedRange dropped without calling unmap_=
+pages()\n");
+> +        }
+> +    }
+> +}
+
+[Severity: Medium]
+Similarly, does dropping a MappedRange without calling unmap_pages() leak
+the virtual address space? If a caller propagates an error and drops the
+range, the warning is printed but the VFN space is permanently lost.
+
+[ ... ]
+> +    pub(crate) fn execute_map(
+> +        &mut self,
+> +        mm: &mut GpuMm<'_>,
+> +        prepared: PreparedMapping,
+> +        pfns: &[Pfn],
+> +        writable: bool,
+> +    ) -> Result<MappedRange> {
+> +        if pfns.len() !=3D prepared.num_pages {
+> +            self.free_vfn(prepared.vfn_start);
+> +            return Err(EINVAL);
+> +        }
+
+[Severity: Low]
+Could this validation failure trigger a false-positive kernel warning?
+The prepared mapping is passed by value and is dropped on this early
+return. Because its drop guard is still armed, MustExecuteGuard::drop()
+will log a warning that the mapping was dropped without calling
+execute_map(), even though the caller did correctly invoke execute_map().
+
+[ ... ]
+> +        if let Err(e) =3D self.pt_map.install_mappings(
+> +            mm,
+> +            &mut self.pt_pages,
+> +            &mut self.page_table_allocs,
+> +            vfn_start,
+> +            pfns,
+> +            writable,
+> +        ) {
+> +            self.free_vfn(vfn_start);
+> +            return Err(e);
+> +        }
+
+[Severity: Critical]
+Does freeing the VFN range on partial mapping failure leave dangling
+hardware PTEs? If install_mappings() returns early due to an I/O error
+after writing some PTEs, self.free_vfn() frees the virtual address space,
+and the caller will likely free the underlying physical pages. However, the
+successfully written hardware PTEs are not rolled back. This regression
+allows the GPU to access the freed physical memory.
+
+[ ... ]
+> +    pub(crate) fn unmap_pages(&mut self, mm: &mut GpuMm<'_>, range: Mapp=
+edRange) -> Result {
+> +        let result =3D self
+> +            .pt_map
+> +            .invalidate_ptes(mm, range.vfn_start, range.num_pages);
+> +
+> +        // TODO: Internal page table pages (PDE, PTE pages) are still ke=
+pt around.
+> +        // This is by design as repeated maps/unmaps will be fast. As a =
+future TODO,
+> +        // we can add a reclaimer here to reclaim if VRAM is short. For =
+now, the PT
+> +        // pages are dropped once the `Vmm` is dropped.
+> +
+> +        // Free the VA range regardless of PTE invalidation success, so =
+that the VA
+> +        // range is recovered even on failure (PTEs may be stale, but th=
+at is better
+> +        // than leaking both PTEs and VA range).
+> +        self.free_vfn(range.vfn_start);
+
+[Severity: Critical]
+Is it safe to free the VFN range if PTE invalidation fails? If
+invalidate_ptes() fails partially, explicit freeing of the VFN range
+leaves active, stale PTEs in the hardware. This regression allows the GPU
+to retain access to physical pages that the caller will assume are safe to
+free and reuse.
+
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-mmrebase-v=
-1-0-8dd5d4225d2e@nvidia.com?part=3D15
+1-0-8dd5d4225d2e@nvidia.com?part=3D13
