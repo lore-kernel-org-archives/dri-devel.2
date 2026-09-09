@@ -4,43 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F0EAC79FB7
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:54:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8515EC79FB7
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:55:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D72E10F1A3;
-	Wed,  9 Sep 2026 13:54:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC5F310F18D;
+	Wed,  9 Sep 2026 13:55:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X2bhPCG3";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="NtIyIZwG";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CD4E10F18E
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 13:54:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 86F8E6020A;
- Wed,  9 Sep 2026 13:54:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D19F1F00A3A;
- Wed,  9 Sep 2026 13:54:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788962095;
- bh=+q1Se3dbJUmLNuot7rhv4SeuRLZSVDWdZ/YT25NWXdo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=X2bhPCG3/+wvofmQj2GeHQYlBFgwogs05/Kieu1RHnDxc1HwaraorETjf7LVBYvwv
- Day/W+ofr5tUmYzC61YSbLn/nZGUyrV3W4+xWiCscQTF5lr8lmDXr3bBuhXjMA5VLa
- nTxBkGG6DDOIxjhuQ2p7m6+2N629Cs+bhMtNGswnmMbLlUXb8GwCRt+8Q4B7oi0ooD
- riRCB4xzqN+/Zg/AL5dCK+80qDuZ5t5/boz1ZaYiVKjklxOtiBMFrG83Ddq8ypmEC0
- HwLpGkIqRwjxe+v4qx369OMbBHxt80mWe2EvLZaFRXCigThiQ4Yhde+MFLgP5fjqCq
- Fm1CFJ9CCIhJg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v3] drm/msm: default separate_gpu_kms to auto
- selection
-To: "Mahadevan P" <mahadevan.p@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260909-separate_gpu_kms-v3-1-eae64dfbb635@oss.qualcomm.com>
-References: <20260909-separate_gpu_kms-v3-1-eae64dfbb635@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D080610F18D
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 13:55:29 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hg2Pn6f3mzKnP7;
+ Wed, 09 Sep 2026 15:55:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1788962125; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=9HuOb49my3ANCpYPmIDIpmU8QlJxqy2gxQn/eBQchu4=;
+ b=NtIyIZwGfZs/bSz1LfwziDkzXMgjOpkNL/nvDutYipkyfiFUVhMH2izVhbBImuLkPGYhxm
+ oovKSEPpXq4pSFoETWdQzkc7YDclRaOFcqoGnP8bz8aPYs4CGp0HV+GJmg/WxVSO3FNSwk
+ Pd0hOi2w5XJJK9Jv3p8vg6L3gGrA3y05c/Y3YWJF0g/Zgslmz2Yf0/yh5EKGDTcqKX5ito
+ p6/9Pfbcnl8j6BV5tuojTi6IN5CVz8f4ovVXrZ5We2Yle3FY9uNtgpaqwq4QzX3KmZTYBG
+ j5NZRE5pK3EUUmV6l7QoEzCYSzUoQONiPbZJVNhGS6xgiUObn0WpMCSl4QPY3Q==
+Message-ID: <9dedaa001c468be2afaf6ab19cd4f8cd96d0a8c7.camel@mailbox.org>
+Subject: Re: [PATCH 2/2] drm/sched: document the RCU dependency
+From: Philipp Stanner <phasta@mailbox.org>
+To: christian.koenig@amd.com, malhyuk97@gmail.com, tursulin@ursulin.net, 
+ matthew.brost@intel.com, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com
+Date: Wed, 09 Sep 2026 15:55:22 +0200
+In-Reply-To: <20260909131808.2201-3-christian.koenig@amd.com>
+References: <20260909131808.2201-1-christian.koenig@amd.com>
+ <20260909131808.2201-3-christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 13:54:54 +0000
-Message-Id: <20260909135455.1D19F1F00A3A@smtp.kernel.org>
+MIME-Version: 1.0
+X-MBO-RS-META: y5385w57kgiq1hkrxyodsepte56gnhs6
+X-MBO-RS-ID: 7a86e2088934aeb0d8a
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,60 +62,58 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Missing `of_node_put()` causes an OF node reference leak in `msm=
-_separate_gpu_kms_components()`.
---
+On Wed, 2026-09-09 at 15:14 +0200, Christian K=C3=B6nig wrote:
+> Tvrkos patches added RCU protection to the returned strings from
+> get_timeline_name()/get_driver_name() callbacks of the dma_fence
+> backends.
+>=20
+> This fixed use after free problems for a couple of drivers, but we never
+> documented the consequences for the drm_sched_fence.
+>=20
+> Add a few words on the function documentation to note that we need an
+> RCU grace period between signaling the last scheduler fence and
+> scheduler teardown.
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> ---
+> =C2=A0drivers/gpu/drm/scheduler/sched_main.c | 4 ++++
+> =C2=A01 file changed, 4 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/sch=
+eduler/sched_main.c
+> index 6cb6f9546493..22103cb07782 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -1203,6 +1203,10 @@ static void drm_sched_cancel_remaining_jobs(struct=
+ drm_gpu_scheduler *sched)
+> =C2=A0 * is implemented, all jobs will be canceled through it and afterwa=
+rds cleaned
+> =C2=A0 * up through &struct drm_sched_backend_ops.free_job. If cancel_job=
+ is not
+> =C2=A0 * implemented, memory could leak.
+> + *
+> + * The scheduler fences timeline name is returned protected by the signa=
+led
+> + * status and RCU, so an RCU grace period is necessary between signaling=
+ the
+> + * last scheduler fence and tearing down the scheduler who originated it=
+.
+> =C2=A0 */
 
-commit 46360e93ded31d3fb12ccb01a8d959a4c7390270
-Author: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+The API user does not signal a "scheduler fence", typically. Are you
+referring to the hardware-fence?
 
-drm/msm: default separate_gpu_kms to auto selection
+The user must signal all hardware-fences, which will cause all
+finished-fences (which are at the root of the addressed problem) to be
+signaled.
 
-This commit updates the separate_gpu_kms module parameter to a tristate,
-defaulting to an auto-selection mode. It allows the driver to automatically
-split the display and GPU devices depending on the hardware topology,
-improving support for multi-display platforms.
+So what you probably want to say is "The user must wait one RCU grace
+period between signaling the last hardware-fence and calling this
+function because =E2=80=A6".
 
-Link: https://lore.kernel.org/r/20260317-separate_gpu_kms-v2-1-b027ca97b9fe=
-@oss.qualcomm.com
 
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-[ ... ]
-> +bool msm_separate_gpu_kms_components(void)
->  {
-> -	return separate_gpu_kms;
-> +	struct device_node *np;
-> +
-> +	np =3D of_find_matching_node(NULL, msm_gpu_match);
-> +	if (!msm_gpu_node_present(np))
-> +		return true;
-> +	if (separate_gpu_kms =3D=3D 1)
-> +		return true;
-> +	if (separate_gpu_kms =3D=3D 0)
-> +		return false;
-> +	return msm_separate_gpu_kms_auto();
-
-[Severity: Medium]
-Does this code leak the device node reference in
-msm_separate_gpu_kms_components() in drivers/gpu/drm/msm/msm_drv.c?
-
-The of_find_matching_node() function returns a node with its reference
-count incremented. When np is not NULL, the function returns through
-multiple paths without calling of_node_put() to release the reference.
-
->  }
-> =20
->  static int msm_drm_uninit(struct device *dev, const struct component_ops=
- *gpu_ops)
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-separate_g=
-pu_kms-v3-1-eae64dfbb635@oss.qualcomm.com?part=3D1
+P.
