@@ -4,71 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05E1DC79FB7
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:52:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F0EAC79FB7
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:54:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C66810F188;
-	Wed,  9 Sep 2026 13:52:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D72E10F1A3;
+	Wed,  9 Sep 2026 13:54:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="ioCAXYPV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X2bhPCG3";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93FF910F184
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 13:52:00 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 07A784E41592;
- Wed,  9 Sep 2026 13:51:59 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id CD57B60448;
- Wed,  9 Sep 2026 13:51:58 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id A566B11C7AF8E; 
- Wed,  9 Sep 2026 15:51:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1788961916; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- in-reply-to:references; bh=X3TXa8ZqMQb4DnauQKRwN/9Bqzakf4XtPXYK7Pd7tsY=;
- b=ioCAXYPVeyyJMca8ak7CEqrnzMHTUnvRr+T9Em1q2K55JSPptr9oF0sf8wq+LQEdMpFEKD
- 00Vkzm8CTC+NdwdC1gZZ9VtovHy1m5ebKW8EgpOtx8a6YUjVa/AU6YAMdmkFMBXUnNt/NX
- 09GgLdWETkP2R+00Kf9hLVtcVDO20S1blQ18HThNPki10EisBVPE0hTs6dtgpE5pofHJc8
- YP07DdcaByF7h4IU4ii4lOqWfFZiccMDPuveULOScrip6ulVUSm+uyjN8NNdXeHizLT7vS
- HqNPdXLA9lk7kniz17hGVcOlsGTDe8/Z24UFy3FJqS9SaDzfZNGprIAeNTOJ8A==
-Date: Wed, 9 Sep 2026 15:51:49 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Pavel Machek <pavel@kernel.org>,
- Michael Hennerich <michael.hennerich@analog.com>,
- Support Opensource <support.opensource@diasemi.com>,
- Sebastian Reichel <sre@kernel.org>, Helge Deller <deller@gmx.de>,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com,
- linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-rtc@vger.kernel.org, linux-fbdev@vger.kernel.org,
- linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- llvm@lists.linux.dev
-Subject: Re: [PATCH 13/14] mfd: remove unused menelaus driver
-Message-ID: <20260909135149e7d73952@mail.local>
-References: <20260909132153.1596191-1-arnd@kernel.org>
- <20260909132153.1596191-14-arnd@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909132153.1596191-14-arnd@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CD4E10F18E
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 13:54:56 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 86F8E6020A;
+ Wed,  9 Sep 2026 13:54:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D19F1F00A3A;
+ Wed,  9 Sep 2026 13:54:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788962095;
+ bh=+q1Se3dbJUmLNuot7rhv4SeuRLZSVDWdZ/YT25NWXdo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=X2bhPCG3/+wvofmQj2GeHQYlBFgwogs05/Kieu1RHnDxc1HwaraorETjf7LVBYvwv
+ Day/W+ofr5tUmYzC61YSbLn/nZGUyrV3W4+xWiCscQTF5lr8lmDXr3bBuhXjMA5VLa
+ nTxBkGG6DDOIxjhuQ2p7m6+2N629Cs+bhMtNGswnmMbLlUXb8GwCRt+8Q4B7oi0ooD
+ riRCB4xzqN+/Zg/AL5dCK+80qDuZ5t5/boz1ZaYiVKjklxOtiBMFrG83Ddq8ypmEC0
+ HwLpGkIqRwjxe+v4qx369OMbBHxt80mWe2EvLZaFRXCigThiQ4Yhde+MFLgP5fjqCq
+ Fm1CFJ9CCIhJg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RESEND v3] drm/msm: default separate_gpu_kms to auto
+ selection
+To: "Mahadevan P" <mahadevan.p@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260909-separate_gpu_kms-v3-1-eae64dfbb635@oss.qualcomm.com>
+References: <20260909-separate_gpu_kms-v3-1-eae64dfbb635@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 13:54:54 +0000
+Message-Id: <20260909135455.1D19F1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,21 +53,60 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 09/09/2026 15:21:50+0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> Menelaus was a companion chip for the omap24xx platform, which has
-> been remvoed from the kernel, so now the menelaus driver is unused
-> and can be removed.
-> 
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Missing `of_node_put()` causes an OF node reference leak in `msm=
+_separate_gpu_kms_components()`.
+--
 
-Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+commit 46360e93ded31d3fb12ccb01a8d959a4c7390270
+Author: Mahadevan P <mahadevan.p@oss.qualcomm.com>
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+drm/msm: default separate_gpu_kms to auto selection
+
+This commit updates the separate_gpu_kms module parameter to a tristate,
+defaulting to an auto-selection mode. It allows the driver to automatically
+split the display and GPU devices depending on the hardware topology,
+improving support for multi-display platforms.
+
+Link: https://lore.kernel.org/r/20260317-separate_gpu_kms-v2-1-b027ca97b9fe=
+@oss.qualcomm.com
+
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+[ ... ]
+> +bool msm_separate_gpu_kms_components(void)
+>  {
+> -	return separate_gpu_kms;
+> +	struct device_node *np;
+> +
+> +	np =3D of_find_matching_node(NULL, msm_gpu_match);
+> +	if (!msm_gpu_node_present(np))
+> +		return true;
+> +	if (separate_gpu_kms =3D=3D 1)
+> +		return true;
+> +	if (separate_gpu_kms =3D=3D 0)
+> +		return false;
+> +	return msm_separate_gpu_kms_auto();
+
+[Severity: Medium]
+Does this code leak the device node reference in
+msm_separate_gpu_kms_components() in drivers/gpu/drm/msm/msm_drv.c?
+
+The of_find_matching_node() function returns a node with its reference
+count incremented. When np is not NULL, the function returns through
+multiple paths without calling of_node_put() to release the reference.
+
+>  }
+> =20
+>  static int msm_drm_uninit(struct device *dev, const struct component_ops=
+ *gpu_ops)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-separate_g=
+pu_kms-v3-1-eae64dfbb635@oss.qualcomm.com?part=3D1
