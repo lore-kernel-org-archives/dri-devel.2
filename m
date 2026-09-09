@@ -4,43 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02E66C79F8C
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 10:00:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72C50C79FAD
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 10:00:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62AA510F080;
-	Wed,  9 Sep 2026 10:00:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBC6F10F086;
+	Wed,  9 Sep 2026 10:00:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="pq7xzWb8";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ld8YTZJw";
 	dkim-atps=neutral
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5AF210F080
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 10:00:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
- s=gloria202408;
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=FgD35pJ/63i446Ew876QrrSReSn6cC76bWMhun13S24=; b=pq7xzWb8yKj6T054GsfnRDUGEd
- kveBzPiFZvRPfV6Ku0oEFpasOP8sPaeL7hU0ZBz22U6brJI7DBKOTESl9YB9eiL41wkwd7V8sNL+l
- OaEYlngjRHZG4VWo/Vf8VJX00tjq4xnT8fcUUXqqFspBRD4881U9mryO8FeoGP/NNUq9FvD3Ewgoy
- 5pe3lj2pe2bFWbroSI5K2z/EULPNhwdCTgkTglJ4ww/fWcG+iPWWcOmdHyLsZPGX64Ujf60GwWIpB
- j7400qv89rgjq4ZWOY5hdjxHB4a34VEcOo1QBuzsHmMvFElR+MVR+ENYq4d4RGQX36pWGnbc92b1l
- SUp9tnvw==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- andy.yan@rock-chips.com, hjc@rock-chips.com,
- linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH v4 15/41] drm/rockchip: Convert to atomic_create_state
-Date: Wed, 09 Sep 2026 12:00:07 +0200
-Message-ID: <10120529.VV5PYv0bhD@diego>
-In-Reply-To: <20260908-drm-no-more-plane-reset-v4-15-a31b3fcfc989@kernel.org>
-References: <20260908-drm-no-more-plane-reset-v4-0-a31b3fcfc989@kernel.org>
- <20260908-drm-no-more-plane-reset-v4-15-a31b3fcfc989@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D3EA10F086;
+ Wed,  9 Sep 2026 10:00:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788948025; x=1820484025;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=eNGgSSjrjGwGa7MyUDUhNbv97kA+7jiJHOtpwZPzqqI=;
+ b=Ld8YTZJwhk5hfj22Uz/8tr4WqLqEWhINAjO8qSEHtWGpj5OCwpUsJ2Jq
+ 6Zy97XYCedCOSD8Jz+6mI4UF2gSOuiYdBgcfpy5yho/blj2zsm2Fb2QMe
+ Q0KhJDJgoafsLMnH+42tpI8Jah4z/lel427EPKOZpPrIJ7ppdnlBhGwfW
+ CJy8MjctWx6UbU8y/x1wNhLEzwRQc5XWwHoE4ygWdEZB/V/IGvVkvr8Yb
+ lVP6Bz+Det6qdmtd54iAItnA7ZQZEQS1JBAuGbM9FtJCMZcb9P9S/1Nn2
+ 2f+iULWvnm+/ihUKNUoQI8u+xTWONdCvViolvIRnrvOqFUl5uNXpQ/iFn Q==;
+X-CSE-ConnectionGUID: wFVzUNHJQxe0XeYENsM0KA==
+X-CSE-MsgGUID: JLJQre/uQj+k3LKJ8eznsQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="112144523"
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="112144523"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2026 03:00:24 -0700
+X-CSE-ConnectionGUID: 8kL4oKFrTO6EoWZIuU2syw==
+X-CSE-MsgGUID: kQPjiEa8SV+/VRiuMWp26Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="301145261"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.37])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2026 03:00:20 -0700
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <178878748003.179185.16833574173741290547@jlahtine-mobl>
+References: <20260903145952.848051-1-mika.kuoppala@linux.intel.com>
+ <20260903145952.848051-5-mika.kuoppala@linux.intel.com>
+ <20260903152224.AD48C1F00A3F@smtp.kernel.org>
+ <178878748003.179185.16833574173741290547@jlahtine-mobl>
+Subject: FUSE deadlocks vs. copy_from_user() and locks (Was: Re: [PATCH v10
+ 04/27] drm/xe/eudebug: Introduce discovery for resources)
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: intel-xe@lists.freedesktop.org, fuse-devel@lists.linux.dev,
+ sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Christian =?utf-8?q?K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?utf-8?q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, Mika Kuoppala <mika.kuoppala@linux.intel.com>
+To: Miklos Szeredi <miklos@szeredi.hu>, Bernd Schubert <bernd@bsbernd.com>,
+ Joanne Koong <joannelkoong@gmail.com>, Amir Goldstein <amir73il@gmail.com>
+Date: Wed, 09 Sep 2026 13:00:16 +0300
+Message-ID: <178894801687.37859.4186888279082797860@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,275 +82,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Am Dienstag, 8. September 2026, 16:46:46 Mitteleurop=C3=A4ische Sommerzeit =
-schrieb Maxime Ripard:
-> The plane only initializes a pristine state in its reset hook
-> using drm_atomic_helper_plane_reset(), which is equivalent to what
-> atomic_create_state expects. Convert to it.
->=20
-> The conversion was done using the following Coccinelle semantic patch:
->=20
-> @@
-> identifier funcs;
-> symbol drm_atomic_helper_plane_reset;
-> symbol drm_atomic_helper_plane_create_state;
-> @@
->=20
-> struct drm_plane_funcs funcs =3D {
->   ...,
-> - .reset =3D drm_atomic_helper_plane_reset,
-> + .atomic_create_state =3D drm_atomic_helper_plane_create_state,
->   ...,
-> };
->=20
-> @match_struct_reset@
-> identifier funcs, reset_func;
-> @@
-> struct drm_plane_funcs funcs =3D {
->     ...,
->     .reset =3D reset_func,
->     ...,
-> };
->=20
-> @reset_uses_helpers depends on match_struct_reset@
-> identifier match_struct_reset.reset_func;
-> @@
->=20
->  void reset_func(...)
->  {
->  	<+...
-> (
->  	__drm_atomic_helper_plane_reset(...);
-> |
-> 	__drm_gem_reset_shadow_plane(...);
-> )
->  	...+>
->  }
->=20
-> @match_struct_destroy@
-> identifier funcs, destroy_func;
-> @@
-> struct drm_plane_funcs funcs =3D {
->     ...,
->     .atomic_destroy_state =3D destroy_func,
->     ...,
-> };
->=20
-> @script:python renamed_func@
-> old_name << match_struct_reset.reset_func;
-> new_name;
-> @@
-> if old_name.endswith("_reset"):
->     coccinelle.new_name =3D old_name.replace("_reset", "_create_state")
-> else:
->     coccinelle.new_name =3D old_name
->=20
-> @update_struct depends on match_struct_reset && reset_uses_helpers@
-> identifier match_struct_reset.funcs, match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> @@
-> struct drm_plane_funcs funcs =3D {
->     ...,
-> -   .reset =3D reset_func,
-> +   .atomic_create_state =3D new_name,
->     ...,
-> };
->=20
-> @drop_destroy depends on update_struct && match_struct_destroy@
-> identifier match_struct_reset.reset_func;
-> identifier match_struct_destroy.destroy_func;
-> identifier container_func;
-> identifier P;
-> symbol drm_atomic_helper_plane_destroy_state;
-> symbol __drm_atomic_helper_plane_destroy_state;
-> @@
->=20
->  void reset_func(struct drm_plane *P)
->  {
->  	...
-> (
-> -	if (P->state) {
-> - 		<+...
-> (
-> -		drm_atomic_helper_plane_destroy_state(P, P->state);
-> |
-> -		__drm_atomic_helper_plane_destroy_state(P->state);
-> |
-> -		P->funcs->atomic_destroy_state(P, P->state);
-> |
-> -		destroy_func(P, P->state);
-> )
-> - 		...+>
-> - 	}
-> |
-> -	drm_WARN_ON_ONCE(P->dev, P->state);
-> |
-> -	WARN_ON(P->state);
-> )
->  	...
-> (
-> -	kfree(P->state);
-> |
-> -	kfree(container_func(P->state));
-> |
->  	// kfree is optional
-> )
-> (
-> -	P->state =3D NULL;
-> |
->  	// plane->state clearing is optional
-> )
->  	...
->  }
->=20
-> @drop_destroy_mtk depends on update_struct@
-> identifier P;
-> symbol __drm_atomic_helper_plane_destroy_state;
-> symbol to_mtk_plane_state;
-> @@
->=20
->  void mtk_plane_reset(struct drm_plane *P)
->  {
->  	...
-> -	if (P->state) {
-> -		__drm_atomic_helper_plane_destroy_state(P->state);
-> -		...
-> -	} else {
->  		...
-> -	}
->  	...
->  }
->=20
-> @transform_nv50_wndw depends on update_struct@
-> identifier S;
-> @@
->=20
->  void nv50_wndw_reset(...)
->  {
->  	...
-> -	if (WARN_ON(!(S =3D kzalloc_obj(*S))))
-> +	S =3D kzalloc_obj(*S);
-> +	if (WARN_ON(!S))
->  		return;
->  	...
->  }
->=20
-> @transform_kzalloc depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier P, S;
-> statement ST;
-> statement list STL;
-> @@
->=20
->  void reset_func(struct drm_plane *P)
->  {
->  	<...
->  	S =3D kzalloc_obj(*S);
-> (
-> -	if (S)
-> -	{
-> -		STL
-> -	}
-> +	if (!S) return;
-> +
-> +	STL
-> |
-> -	if (S) ST
-> +	if (!S) return;
-> +
-> +	ST
-> )
-> 	...>
->  }
->=20
-> @transform_body depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier S, P;
-> expression PS;
-> @@
-> - void reset_func(struct drm_plane *P)
-> + struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> 	...
->  	S =3D kzalloc_obj(*S);
-> 	...
-> (
->  	if (!S) {
-> 		...
-> -		return;
-> +		return ERR_PTR(-ENOMEM);
->  	}
-> |
->  	if (WARN_ON(!S)) {
-> 		...
-> -		return;
-> +		return ERR_PTR(-ENOMEM);
->  	}
-> |
->  	if (S =3D=3D NULL) {
->  		...
-> -		return;
-> +		return ERR_PTR(-ENOMEM);
->  	}
-> )
-> 	...
-> (
-> -	__drm_atomic_helper_plane_reset(P, PS);
-> +	__drm_atomic_helper_plane_state_init(PS, P);
-> |
-> -	__drm_gem_reset_shadow_plane(P, PS);
-> +	__drm_gem_shadow_plane_state_init(P, PS);
-> )
-> 	...
-> }
->=20
-> @update_early_return depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
->  struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> 	<+...
-> -	return;
-> +	return ERR_PTR(-EINVAL);
-> 	...+>
-> }
->=20
-> @update_return_plane depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
->  struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> 	...
->  	__drm_atomic_helper_plane_state_init(PS, P);
-> 	...
-> +
-> +	return PS;
-> }
->=20
-> @update_return_shadow depends on update_struct@
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
->  struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> 	...
->  	__drm_gem_shadow_plane_state_init(P, PS);
-> 	...
-> +
-> +	return &PS->base;
-> }
->=20
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+(Adding bunch of FUSE folks and DRM folks in the hopes of coming to a
+resolution here.)
 
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+Quoting Joonas Lahtinen (2026-09-07 16:24:40)
+> Quoting sashiko-bot@kernel.org (2026-09-03 18:22:23)
+> > Thank you for your contribution! Sashiko AI review found 2 potential is=
+sue(s) to consider:
+> > - [High] Global ordered workqueue stall via copy_from_user block while =
+holding ioctl_lock.
+> > - [Medium] Event sequence numbers (seqno) can be queued out-of-order in=
+ the event stream due to a race between seqno generation and event queuing.
+> > --
+> >=20
+> > commit e2061e72d8e954a17bde35e9c970ee41bc2db0ad
+> > Author: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+> >=20
+> >     drm/xe/eudebug: Introduce discovery for resources
+> >=20
+> > This commit introduces a resource discovery mechanism for debugger conn=
+ections.
+> > When a debugger connects, all existing resources for the target client =
+are
+> > relayed as events via an ordered workqueue, and DRM ioctls are blocked =
+using
+> > an rw_semaphore until discovery is complete.
+> >=20
+> > > diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_d=
+evice.c
+> > > index 032a7ec5fbc8d..f10959b898297 100644
+> > > --- a/drivers/gpu/drm/xe/xe_device.c
+> > > +++ b/drivers/gpu/drm/xe/xe_device.c
+> > [ ... ]
+> > > @@ -238,8 +239,12 @@ static long xe_drm_ioctl(struct file *file, unsi=
+gned int cmd, unsigned long arg)
+> > > =20
+> > >       ACQUIRE(xe_pm_runtime_ioctl, pm)(xe);
+> > >       ret =3D ACQUIRE_ERR(xe_pm_runtime_ioctl, &pm);
+> > > -     if (ret >=3D 0)
+> > > +     if (ret >=3D 0) {
+> > > +             bool lock =3D xe_eudebug_discovery_lock(file, cmd);
+> > >               ret =3D drm_ioctl(file, cmd, arg);
+> >=20
+> > [Severity: High]
+> > Does holding the discovery lock across drm_ioctl() create a vector for a
+> > workqueue stall?=20
+> >=20
+> > If an unprivileged user maps the ioctl argument pointer to a blocking F=
+USE
+> > or userfaultfd region, drm_ioctl() can be stalled indefinitely during
+> > copy_from_user() while holding xef->eudebug.ioctl_lock for read.
+>=20
+> Don't think this is a very realistic vector to address, as it would
+> also extend to every other copy_from_user() and also to userptr across
+> all drivers.
+>=20
+> Having a malfunctioning FUSE driver and getting a malfunctioning system
+> as a result is probably somewhat expected.
+
+Based on further chatting on this with Sima, I was volunteered to pull
+together the discussion here.
+
+We seem to have Sashiko picking up on patterns about accessing userspace
+memory with locks held and potential for copy_from_user() (or userptr) to
+then take indefinitely long to resolve. And that spreads to deadlocks
+everywhere situation very fast.
+
+Based on reading of [1] and [2], it seems pretty much expected FUSE
+drivers can trivially deadlock and ultimately in worst case the situation
+can only be solved by manually aborting those connections by sysadmin.
+
+It also seems (from the Sashiko comments) that by design, there's no
+upper bound for how long an operation can take, so a bad FUSE driver
+may stall for however long it sees fit to serve page-fault or in the
+case of [3] it may decide to not actually populate the PTEs (or maybe
+invalidate them immediately).
+
+Should we really be refactoring the whole kernel for the sake of
+knowingly allowing potentially malicious userspace driver to idefinitely
+stall or incorrectly resolve page faults? That'll be quite a lot of
+complexity added to all the other drivers.
+
+Or should there be more protections on FUSE / uffd to ensure such
+idefinitive stall can't happen? Or maybe this is just an academic
+problem and we amend review-prompts not to bring it up?
+
+Or maybe I missed some part of the FUSE docs and this isn't a real
+problem?
+
+Regards, Joonas
+
+PS. There is a related patch in [3] which tries to address the problem,
+but we'll quickly run into live-locks and other issues even if we
+refactored things into: pre-fault, take locks, do _nofault() access, and
+retry if that fails.
 
 
-
+[1] https://www.kernel.org/doc/html/next/filesystems/fuse.html#kernel-users=
+pace-interface
+[2] https://www.kernel.org/doc/html/next/filesystems/fuse.html#aborting-a-f=
+ilesystem-connection
+[3] https://sashiko.dev/#/patchset/20260827062142.4038272-1-srinivasan.shan=
+mugam%40amd.com
