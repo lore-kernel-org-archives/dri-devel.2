@@ -4,130 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FA50C79FB8
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09E4AC79F8C
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:55:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B92910EF2B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9097810EF2C;
 	Wed,  9 Sep 2026 06:55:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ChV4bRWW";
+	dkim=pass (1024-bit key; unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="eDojvma5";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6200D10E1BA
- for <dri-devel@lists.freedesktop.org>; Tue,  8 Sep 2026 20:05:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CCF4E601DE;
- Tue,  8 Sep 2026 20:05:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86F2B1F00A3D;
- Tue,  8 Sep 2026 20:04:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788897919;
- bh=U36DZGnKOUdxM7zJJhG5T3WAmK0mIYPM7XNxAdT+L68=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ChV4bRWWxR83B0qrk/BBBiY+oDL9aWo6ayFwYes5nSucV+Chp306BmAdi1w74jlQj
- SGsG2d0q4IfMdE2/dllKZ0UhcIbPH1Z1TR9DuV56PilgnBu/oLPJMYrua5iHuhxLIs
- CErXZ8fFRVcaj8nl/3Ta31HHrq9+mW2dn/Ps04f0XsX/rcUzbLjfbe852b9g55fqVM
- c/EWnmBrMopK5BilxfqBAy0UgCLsgprXc+CY9azvzmSJLUK0sVbMOITXAsT8log5UB
- Wg2xxTQ8fLfP9yL8TUOlBruIZhxAUG6ToyHN+/qw6GVQ9IPXBoClkpN0JoarU7OlIb
- I4V/LAtmYfXEg==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 08 Sep 2026 21:01:10 +0100
-Subject: [PATCH 06/39] mm/vma: tidy up map kernel pages enum values
+X-Greylist: delayed 166744 seconds by postgrey-1.36 at gabe;
+ Wed, 09 Sep 2026 03:42:23 UTC
+Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.67.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A39C510E4CB
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 03:42:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+ s=iohv2404; t=1788925334;
+ bh=S3S48v9NyNCygvo9ANS4o5ZQWKXiieL6rO7xfL97yBU=;
+ h=Message-ID:Date:MIME-Version:Subject:To:From;
+ b=eDojvma5PJOHwvlA/LgzO5UmoFaiDJaJ+589eBlp4AhGEfb7tWeQI07A2f1XXvFjp
+ r7FE2mXlY4f5TqDnf/O3W5UkKh9RkAzQhJnIKnB2JwiGoKzmAHCo3Pp6mvW3IKTfAj
+ qmLtv5Gm8wdvI8F0xZxpKyyfaaA/tIeQG6IozPyQ=
+X-QQ-mid: esmtpsz18t1788925330tbaeb4760
+X-QQ-Originating-IP: mQAzD3pkNlHdp5jpzSQImebKhWrNlUia+t09hwY2gow=
+Received: from [127.0.0.1] ( [124.70.231.75]) by bizesmtp.qq.com (ESMTP) with 
+ id ; Wed, 09 Sep 2026 11:42:09 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 12620112044545498370
+Message-ID: <1FD435BC6A08027E+0a49ab9c-e991-4af0-b484-b57ee65cf79a@smail.nju.edu.cn>
+Date: Wed, 9 Sep 2026 11:42:08 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/virtio: fix memory leak of fence event on execbuffer
+ failure
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+References: <D320EAB5680C1411+20260908121323.2405044-1-peiyang_he@smail.nju.edu.cn>
+ <20260908123440.84D501F00A3D@smtp.kernel.org>
+Content-Language: en-US
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+In-Reply-To: <20260908123440.84D501F00A3D@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-6-dacf19cce22b@kernel.org>
-References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
-In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3944; i=ljs@kernel.org;
- h=from:subject:message-id; bh=Bv4qXKOuaaNRzjtlcRyEKTvdZCxVUpR8GVW5J10sIxg=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG7ckONmolgSWOfS7npbQePAQ49wAZ9i2wz2yYocG
- hsvrinvKGVhEONikBVTZHn+RXx/kEjYvM4L/m4wc1iZQIYwcHEKwESctBkZpt6apZK9aOfJhE1r
- 1gq22q8OMGJpvlrzdyJz9OEXYXF3PRj+51WFbDwuK7hqTxhXE/+R2bk9G1oVbq5N58hdvzl1lZE
- 4PwA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: M3ZkD08p3wd5I0LmwxsEQLQRT2YADXbaboooCybJYRBELheiyV+syXNJ
+ m480R/FBeoV4V+WxLW87vJX9c7qPfKe0RQzjOcNLKaH/wZsa07Agqth3DiKuZMF39xgjZBI
+ aa4Koudnk/jMGlzyA5bQpxrqyAxhx54/hI/Y6dpVEIOF7xiDwta4ft9/UT+cdNvi3rhjDEK
+ rA0FQkpSVgYnpkCR3ZNfF831o7Ip9XBOUK4SatM4ziD+wo5oJE6huJDxU557XAq/6gc8scM
+ 5DN7MpUOg+3Tct0k335m7+Z4dII750WWmpp3DL7wpELCrQdv8eVxGVv5WXGPjhks4ECBm4y
+ c/jYHRJGIjLInYR6RqqNTdh3dKt1qZST8GYNPvYCFAvDEdIuYMUmM8juAVimHNCzPh1idEO
+ INb9DopyMMHhQA9F3E4IODDvoUD6kMP0gbs3hygsIxctIEz6tIWl6F/sYyNnaQhHiwVjSjS
+ MbZv/EuIfxBGLLgdMI5XZN3guUtXCpzY4Ym/eSH6Q/9WqQu1Sp1qdEWzd5+YQ4sqofkkSuj
+ xHYtZwTvZXG51rdIN9nqlI/vYiiXaCiSplcG/3q/vIfhhwA3jQlmtfu4ecPLRGjCvtbDlaH
+ xvlTbAQWZWIU4ol4eGFBdcsNGhKDZBr5ntQHiRu4lppaUDSnujNht75rDcvZn4OpZo9btsR
+ r6+hRKNg7XpU1LelBIUTqO5iZBn22S8YZNPVZqud+kFbI2IdsL2Z9baUILT8mYNguEUpl1Z
+ qsDmIVSfkraxC0Tg3n+ysrNdMaL0FOcYgJEXBFVRolwHWlvo1ljIY2ipZg686Rkvu9ZtA2I
+ olSszA6v3Mpk30n1kvTRsjgr6nHroq0yacX79qk/VREevG7WA/JETKIP04ae2Mq+L632cRK
+ 5HWQ4uXTB3nTgQ/ONzkNAe6PCljIVW0BSRTLjw/q2wNZMi+iJ9Bf+O3EIYMp4k6Epj5z3lc
+ hqHeczDhRawDskQ5ArQZgP3m1i87ba8q963F+MKb5zDOqj5MlcwqdeUyp6b9OnVsV6pgVIw
+ POwYwdn6ugdalUd8F3
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:54:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,118 +82,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-MMAP_MAP_KERNEL_PAGES is a mouthful, discard the MAP_ as that's implied by
-MMAP.
+On 2026/9/8 20:34, sashiko-bot@kernel.org wrote:
+> [Severity: High]
+> This is another pre-existing issue, but is it possible for
+> virtio_gpu_fence_alloc() to fail and cause a NULL pointer dereference
+> earlier in the submission path?
+> 
+> Looking at virtio_gpu_init_submit() called earlier in this ioctl, it does
+> not check the return value of virtio_gpu_fence_alloc():
+> 
+> drivers/gpu/drm/virtio/virtgpu_submit.c:virtio_gpu_init_submit() {
+>     ...
+>         out_fence = virtio_gpu_fence_alloc(vgdev, fence_ctx, ring_idx);
+>     else
+>         out_fence = NULL;
+> 
+>     if (drm_fence_event) {
+>         err = virtio_gpu_fence_event_create(dev, file, out_fence, ring_idx);
+>     ...
+> }
+> 
+> And in virtio_gpu_fence_event_create():
+> 
+> drivers/gpu/drm/virtio/virtgpu_submit.c:virtio_gpu_fence_event_create() {
+>     ...
+>     fence->e = e;
+>     ...
+> }
+> 
+> If kzalloc_obj() inside virtio_gpu_fence_alloc() fails due to memory pressure,
+> it returns NULL, which is then unconditionally dereferenced.
+> 
+> Can unprivileged userspace trigger this by invoking the execbuffer ioctl
+> under constrained memory conditions?
+> 
 
-Also while we're here delete useless comments for mmap actions whose names
-clearly indicate what they are for.
-
-Also update the userland VMA tests to reflect this change.
-
-No functional change intended.
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- include/linux/mm.h              | 2 +-
- include/linux/mm_types.h        | 8 ++++----
- mm/util.c                       | 8 ++++----
- tools/testing/vma/include/dup.h | 8 ++++----
- 4 files changed, 13 insertions(+), 13 deletions(-)
-
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 5709b03b6ed3..94b860b8c50a 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -4623,7 +4623,7 @@ static inline void mmap_action_map_kernel_pages(struct vm_area_desc *desc,
- {
- 	struct mmap_action *action = &desc->action;
- 
--	action->type = MMAP_MAP_KERNEL_PAGES;
-+	action->type = MMAP_KERNEL_PAGES;
- 	action->map_kernel.start = start;
- 	action->map_kernel.pages = pages;
- 	action->map_kernel.nr_pages = nr_pages;
-diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-index 5413bd10fff2..9ca2ea3664bc 100644
---- a/include/linux/mm_types.h
-+++ b/include/linux/mm_types.h
-@@ -815,11 +815,11 @@ struct pfnmap_track_ctx {
- 
- /* What action should be taken after an .mmap_prepare call is complete? */
- enum mmap_action_type {
--	MMAP_NOTHING,		/* Mapping is complete, no further action. */
--	MMAP_REMAP_PFN,		/* Remap PFN range. */
--	MMAP_IO_REMAP_PFN,	/* I/O remap PFN range. */
-+	MMAP_NOTHING,
-+	MMAP_REMAP_PFN,
-+	MMAP_IO_REMAP_PFN,
- 	MMAP_SIMPLE_IO_REMAP,	/* I/O remap with guardrails. */
--	MMAP_MAP_KERNEL_PAGES,	/* Map kernel page range from array. */
-+	MMAP_KERNEL_PAGES,	/* Map kernel page range from array. */
- };
- 
- /*
-diff --git a/mm/util.c b/mm/util.c
-index a3cef493ed70..b6f1bec9da15 100644
---- a/mm/util.c
-+++ b/mm/util.c
-@@ -1462,7 +1462,7 @@ int mmap_action_prepare(struct vm_area_desc *desc)
- 		return io_remap_pfn_range_prepare(desc);
- 	case MMAP_SIMPLE_IO_REMAP:
- 		return simple_ioremap_prepare(desc);
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		return map_kernel_pages_prepare(desc);
- 	}
- 
-@@ -1493,7 +1493,7 @@ int mmap_action_complete(struct vm_area_struct *vma,
- 	case MMAP_REMAP_PFN:
- 		err = remap_pfn_range_complete(vma, action);
- 		break;
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		err = map_kernel_pages_complete(vma, action);
- 		break;
- 	case MMAP_IO_REMAP_PFN:
-@@ -1516,7 +1516,7 @@ int mmap_action_prepare(struct vm_area_desc *desc)
- 	case MMAP_REMAP_PFN:
- 	case MMAP_IO_REMAP_PFN:
- 	case MMAP_SIMPLE_IO_REMAP:
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		WARN_ON_ONCE(1); /* nommu cannot handle these. */
- 		break;
- 	}
-@@ -1537,7 +1537,7 @@ int mmap_action_complete(struct vm_area_struct *vma,
- 	case MMAP_REMAP_PFN:
- 	case MMAP_IO_REMAP_PFN:
- 	case MMAP_SIMPLE_IO_REMAP:
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		WARN_ON_ONCE(1); /* nommu cannot handle this. */
- 
- 		err = -EINVAL;
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 2986ae6ca1e5..1098655a5f4a 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -454,11 +454,11 @@ static __always_inline bool vma_flags_empty(const vma_flags_t *flags)
- 
- /* What action should be taken after an .mmap_prepare call is complete? */
- enum mmap_action_type {
--	MMAP_NOTHING,		/* Mapping is complete, no further action. */
--	MMAP_REMAP_PFN,		/* Remap PFN range. */
--	MMAP_IO_REMAP_PFN,	/* I/O remap PFN range. */
-+	MMAP_NOTHING,
-+	MMAP_REMAP_PFN,
-+	MMAP_IO_REMAP_PFN,
- 	MMAP_SIMPLE_IO_REMAP,	/* I/O remap with guardrails. */
--	MMAP_MAP_KERNEL_PAGES,	/* Map kernel page range from an array. */
-+	MMAP_KERNEL_PAGES,	/* Map kernel page range from array. */
- };
- 
- /*
-
--- 
-2.55.0
+Our fuzzing results confirm this NULL pointer deref path is valid.
+Will send a patch soon.
 
