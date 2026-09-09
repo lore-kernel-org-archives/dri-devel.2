@@ -4,49 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74AE2C79FB7
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:43:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EB1AC79FB7
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:45:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A87CC10F177;
-	Wed,  9 Sep 2026 13:43:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34C6110F174;
+	Wed,  9 Sep 2026 13:45:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O0r7S8RU";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="qFOrBYn+";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B54010F174
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 13:43:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6BFFC6020A;
- Wed,  9 Sep 2026 13:43:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ED151F00A3A;
- Wed,  9 Sep 2026 13:43:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788961436;
- bh=RdwnXzBL7WyMLLjYxNFInZCiDTIkVZjGk6NUVcwdr5I=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=O0r7S8RUBf3AvCE6uMfgQ79R48DFP6URtXbvVhBzoboogAcWCuNfDijEk9TrxGtGu
- C6Xkk8kuXoDHVrr0qtku4f1SJsFZOVgtKIJ0mbJa4Ot2Ps1tJ8xlE/V5UvFE3N4+3q
- AoQT77+P3Loy24fTFgexcVLF6f0OY23EQzo5Dgo9Uqhmg3TqD8z68nF8as1ohTJs3b
- SLaLCu86dujBm/lIoHZ4sUR5QH40FkUyqs2ajiGkzZKkrpbUePCKcyksYYGHaZM072
- jJqVZJMyeOr71hQxFBeTY6W0RKzAUxFWUY/zWKJwOM1fMIHeYHD5Pt9p92e+la2IX6
- ZqvxuH1BNb9yA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 14/14] mfd: remove unused iPaq micro driver
-To: "Arnd Bergmann" <arnd@kernel.org>
-Cc: media-ci@linuxtv.org, lee@kernel.org, robh@kernel.org,
- dmitry.torokhov@gmail.com, linux-rtc@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-input@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-watchdog@vger.kernel.org,
- mfd@lists.linux.dev, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>, conor+dt@kernel.org,
- linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260909132153.1596191-15-arnd@kernel.org>
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C211A10F17F
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 13:45:02 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 2E3924E41592;
+ Wed,  9 Sep 2026 13:45:01 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id E847760448;
+ Wed,  9 Sep 2026 13:45:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 6CCDC11C7AF3A; 
+ Wed,  9 Sep 2026 15:44:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1788961494; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ in-reply-to:references; bh=SddRT3djP09Ed0ShkS8xpytcBnp+LMCenJGnP73m0/E=;
+ b=qFOrBYn+NlO3vUgsMN69fPT6LsFBYJ9WZx3ZN0bi+TXRklU5lr5/kdcqj8w+UMRPRv0j5t
+ 1K3rOH7Bm7qvQu3jiyoKp6uHYGM8c6x1rhNO8aOD1Lqa6rFd6ssvwG5tRwPsppSGAGtRgd
+ 5b7gVfCUPfVEFQMfGBUsdERF2y+Dm2OOXl5ZKnXmxvHCRKffwFRioHPfWG2OwRUDNrwXtE
+ ercet4pqf4lgc/m27S+AgsBlIdNPFQsq5ss03yxvE6jIxeHl0BvkjKMfvAs9dRYxJa2i7A
+ gY/Zw554xS/+HkDK8qpgmxzcL+SfGlFij2ztErujl+hxzRnuQbt80smJlDX5gQ==
+Date: Wed, 9 Sep 2026 15:44:43 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Jonathan Cameron <jic23@kernel.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Pavel Machek <pavel@kernel.org>,
+ Michael Hennerich <michael.hennerich@analog.com>,
+ Support Opensource <support.opensource@diasemi.com>,
+ Sebastian Reichel <sre@kernel.org>, Helge Deller <deller@gmx.de>,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-rtc@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ llvm@lists.linux.dev
+Subject: Re: [PATCH 01/14] mfd: remove unused 88pm80x driver
+Message-ID: <20260909134443876d2166@mail.local>
 References: <20260909132153.1596191-1-arnd@kernel.org>
- <20260909132153.1596191-15-arnd@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 13:43:54 +0000
-Message-Id: <20260909134355.5ED151F00A3A@smtp.kernel.org>
+ <20260909132153.1596191-2-arnd@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909132153.1596191-2-arnd@kernel.org>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,81 +81,21 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The patch removes the MFD_IPAQ_MICRO core driver, but leaves behin=
-d references to its non-existent Kconfig symbol in select statements, as we=
-ll as orphaned child drivers and header files.
-- [Low] The commit message does not follow the mandatory prefix and capital=
-ization rules for the MFD subsystem.
---
+On 09/09/2026 15:21:38+0200, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> This pair of drivers was originally added as companion chips for pxa/mmp
+> SoCs, but the corresponding platform code was never merged, so it has
+> been unused the entire time.
+> 
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 
-commit 083382aa696919c18a4b69206eaec876c285e518
-Author: Arnd Bergmann <arnd@arndb.de>
 
-mfd: remove unused iPaq micro driver
-
-The iPaq support has been removed from the kernel, this driver is
-no longer used anywhere.
-
-> mfd: remove unused iPaq micro driver
-
-[Severity: Low]
-Is the commit message subject missing the standard MFD prefix format?
-It appears the format should be "mfd: <Driver>: <Capitalized description>"
-rather than "mfd: remove unused iPaq micro driver".
-
-> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-> index 02e52398fcd28..6189bd7cc1098 100644
-> --- a/drivers/mfd/Kconfig
-> +++ b/drivers/mfd/Kconfig
-> @@ -780,16 +780,6 @@ config MFD_INTEL_PMC_BXT
->  	  Register and P-unit access. In addition this creates devices
->  	  for iTCO watchdog and telemetry that are part of the PMC.
-> =20
-> -config MFD_IPAQ_MICRO
-> -	bool "Atmel Micro ASIC (iPAQ h3100/h3600/h3700) Support"
-
-[Severity: High]
-Are there still orphaned references to this config symbol in other parts of
-the tree?
-
-For example, arch/arm/mach-sa1100/Kconfig still selects this symbol for
-SA1100_H3600:
-
-    select MFD_IPAQ_MICRO
-
-This causes unmet dependency warnings during the build.
-
-Additionally, child drivers like KEYBOARD_IPAQ_MICRO in
-drivers/input/keyboard/Kconfig still depend on it:
-
-    depends on MFD_IPAQ_MICRO
-
-which turns them into unselectable dead code.
-
-Should the child driver source files and headers be removed as well?
-In drivers/leds/leds-ipaq-micro.c, micro_leds_brightness_set() attempts to
-call a function from the MFD core that has just been removed:
-
-    return ipaq_micro_tx_msg_sync(micro, &msg);
-
-The header include/linux/mfd/ipaq-micro.h also remains, declaring APIs like
-ipaq_micro_tx_msg() that no longer have an implementation.
-
-> -	depends on SA1100_H3600
-> -	select MFD_CORE
-> -	help
-> -	  Select this to get support for the Microcontroller found in
-> -	  the Compaq iPAQ handheld computers. This is an Atmel
-> -	  AT90LS8535 microcontroller flashed with a special iPAQ
-> -	  firmware using the custom protocol implemented in this driver.
-> -
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909132153.1596=
-191-1-arnd@kernel.org?part=3D14
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
