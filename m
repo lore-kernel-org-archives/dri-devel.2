@@ -4,79 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 714E2C79FB5
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:29:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4062C79F8C
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:31:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B1D410E315;
-	Wed,  9 Sep 2026 06:29:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2893010EECC;
+	Wed,  9 Sep 2026 06:31:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Tb4jeXvc";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4TWE+OnT";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="U4BnwlC1";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HoEvHJUI";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="myaRdGsa";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3oz1h7eE";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="fJvfytp4";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yzFArzV+";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6D1110E07C
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 06:29:02 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C695110EECC
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 06:31:08 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 369F5219C9;
- Wed,  9 Sep 2026 06:28:53 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id ECCDA1F79C;
+ Wed,  9 Sep 2026 06:30:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788935337; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1788935463; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=B0oCX5KMpd7x5PI6OZxyukHi8rD2vQm93yVg8CbvZCc=;
- b=Tb4jeXvcvx9gyX//R56F2xo2xIIiTANiRwTnMFwO20hA2y/jX1uhsySsURiudYm9CxriWd
- tGSLEdPGsVprp9Xro0fDT82k653sUtwU2cmWZHzRr01X2n+eAViFIHd54FQw1CxYVCKm89
- zPhuCw22s9n7GTUGzvn8jIMziRe3aQg=
+ bh=ukbUOG2rKT1Ej+kB+aDSzr7OQjOLlu9tMNdz6i0Z15w=;
+ b=myaRdGsa7gLHnoS+Taajh7MABZxePeB9Zu64JilXMFfYZAxoo+Jfd2gBzv60/2SfjG31TF
+ 9EEb1PmaFG2+JiSP5RNuQEu+sHqw/rO7rBDlIav8WNZgV2/DOWNhs8ACoveL+ZDCCH3G5c
+ 7uSJT88YqTHNSYQACNW7vgZjw5MZOQg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788935337;
+ s=susede2_ed25519; t=1788935463;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=B0oCX5KMpd7x5PI6OZxyukHi8rD2vQm93yVg8CbvZCc=;
- b=4TWE+OnTzD9Ykx833TWy2cxSka6lpDjU1oY7kEFKMPiSjB1eENU+q7/9xyrjpJ6oDGKSpF
- 5lH2I2sQ5kRw82CA==
-Authentication-Results: smtp-out1.suse.de;
+ bh=ukbUOG2rKT1Ej+kB+aDSzr7OQjOLlu9tMNdz6i0Z15w=;
+ b=3oz1h7eEOJgmTnCzjZJ1F9AxsncJ9W4HQ0n6EXTK1DZ7kHg5i1uFiRBH2az6PvVrswRg7v
+ h7RONf9zzXcCBHCw==
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788935333; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1788935458; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=B0oCX5KMpd7x5PI6OZxyukHi8rD2vQm93yVg8CbvZCc=;
- b=U4BnwlC14yHpa67+CwxYaLPKFPMmIm5Dmldgee7oa9X/foglmkt+AFPt30neN+CgXG3pva
- JZ7t5ixru3bklmHZnaKBoLjtwTAyjn6SGojDo0jzPfWi/QTTacWyf6itfnoW+kQIg6tcDX
- Ik9Cop4R88E8ZW7PLCPB+4z0d0MXZ1k=
+ bh=ukbUOG2rKT1Ej+kB+aDSzr7OQjOLlu9tMNdz6i0Z15w=;
+ b=fJvfytp4DNPw2X6+Dj+zCD3e7DH1fIBv+tD2i6RKSEwtXQ4xlmtAh1Js8XoEh7MyFbLrYU
+ pJG3S19TdcEsmllO+ODKunaCxnuMxB8mc5aWdnRMQCODfBIg8O0VlJ5ttLtdp0olslxUtG
+ wVpHAVU0QGhRu/o+HKKDcdAw4TJ0uK4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788935333;
+ s=susede2_ed25519; t=1788935458;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=B0oCX5KMpd7x5PI6OZxyukHi8rD2vQm93yVg8CbvZCc=;
- b=HoEvHJUIb7Ao18J/W00fnvPl1gHQlx//mxzDrWGDVwywWkRK0JOvawx1KAxtwDCuoheqS6
- WhvvujRAm0UaHZBQ==
+ bh=ukbUOG2rKT1Ej+kB+aDSzr7OQjOLlu9tMNdz6i0Z15w=;
+ b=yzFArzV+NS0w5mkO2O+C0JC9W/UcOK1Qe/N9oHYc3I0SbwgibI9xqR+S7S/XpAWrH39/rY
+ 7YXLIaTX4QItCBCg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 81A1A13354;
- Wed,  9 Sep 2026 06:28:52 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 56E0713354;
+ Wed,  9 Sep 2026 06:30:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 6lG4HaT8oGr9PgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 09 Sep 2026 06:28:52 +0000
-Message-ID: <2b3ff8c0-09b4-48fd-9965-9df70d19778c@suse.de>
-Date: Wed, 9 Sep 2026 08:28:51 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id gV7BEyL9oGpCQQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 09 Sep 2026 06:30:58 +0000
+Message-ID: <19146699-b0ae-4268-833b-82aa3bf35fba@suse.de>
+Date: Wed, 9 Sep 2026 08:30:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/11] drm/atomic: colorop: Rename state to
- state_to_destroy
+Subject: Re: [PATCH v3 02/11] drm/atomic: Create function to insert CRTC state
+ into a commit
 To: Maxime Ripard <mripard@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
@@ -90,7 +90,7 @@ Cc: Daniel Stone <daniels@collabora.com>,
  <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
 References: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
- <20260908-drm-reset-state-flag-v3-1-905570f387a4@kernel.org>
+ <20260908-drm-reset-state-flag-v3-2-905570f387a4@kernel.org>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -117,24 +117,23 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260908-drm-reset-state-flag-v3-1-905570f387a4@kernel.org>
+In-Reply-To: <20260908-drm-reset-state-flag-v3-2-905570f387a4@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
  NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[16];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
  MIME_TRACE(0.00)[0:+];
  FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[16]; MID_RHS_MATCH_FROM(0.00)[];
  FREEMAIL_ENVRCPT(0.00)[gmail.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid,suse.com:url];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
  TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
  TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:email, suse.de:mid,
- imap1.dmz-prg2.suse.org:helo]
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:mid,
+ imap1.dmz-prg2.suse.org:helo, suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,17 +152,19 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 Am 08.09.26 um 16:35 schrieb Maxime Ripard:
-> The atomic state tracking structures used to have a generic state
-> field to track the state to free when tearing down the
-> drm_atomic_commit. It has since been renamed to state_to_destroy in
-> __drm_planes_state, __drm_crtcs_state, __drm_connnectors_state, and
-> __drm_private_objs_state to better describe its purpose.
+> drm_atomic_get_crtc_state() allocates a new CRTC state by duplicating
+> the current one and inserts it into the atomic commit as a single
+> operation.
 >
-> The colorop support has been added after that rename, but
-> __drm_colorops_state still uses the old state name. Rename it to
-> state_to_destroy for consistency, and add the matching kerneldoc.
+> However, a later change will need to insert a CRTC state into a
+> commit without going through the full allocation and duplication path
+> in drm_atomic_get_crtc_state().
+>
+> Extract the state insertion logic into a new static
+> drm_atomic_commit_set_crtc_state() helper, and convert
+> drm_atomic_get_crtc_state() to use it.
 
-Makes sense. Please merge this as you see fit.
+Another change that makes sense on its own.
 
 >
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
@@ -171,94 +172,75 @@ Makes sense. Please merge this as you see fit.
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
 > ---
->   drivers/gpu/drm/drm_atomic.c        |  6 +++---
->   drivers/gpu/drm/drm_atomic_helper.c |  2 +-
->   include/drm/drm_atomic.h            | 18 +++++++++++++++++-
->   3 files changed, 21 insertions(+), 5 deletions(-)
+>   drivers/gpu/drm/drm_atomic.c | 29 +++++++++++++++++++++++------
+>   1 file changed, 23 insertions(+), 6 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 45df6376f408..5c0f7b7024d1 100644
+> index 5c0f7b7024d1..153d959bd4ff 100644
 > --- a/drivers/gpu/drm/drm_atomic.c
 > +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -341,13 +341,13 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
+> @@ -421,10 +421,27 @@ void __drm_atomic_commit_free(struct kref *ref)
 >   
->   		if (!colorop)
->   			continue;
+>   	drm_dev_put(dev);
+>   }
+>   EXPORT_SYMBOL(__drm_atomic_commit_free);
 >   
->   		drm_colorop_atomic_destroy_state(colorop,
-> -						 state->colorops[i].state);
-> +						 state->colorops[i].state_to_destroy);
->   		state->colorops[i].ptr = NULL;
-> -		state->colorops[i].state = NULL;
-> +		state->colorops[i].state_to_destroy = NULL;
->   		state->colorops[i].old_state = NULL;
->   		state->colorops[i].new_state = NULL;
->   	}
+> +static int drm_atomic_commit_set_crtc_state(struct drm_atomic_commit *commit,
+> +					    struct drm_crtc *crtc,
+> +					    struct drm_crtc_state *crtc_state)
+> +{
+> +	int index = drm_crtc_index(crtc);
+> +
+> +	drm_modeset_lock_assert_held(&crtc->mutex);
+> +
+> +	commit->crtcs[index].state_to_destroy = crtc_state;
+> +	commit->crtcs[index].old_state = crtc->state;
+> +	commit->crtcs[index].new_state = crtc_state;
+> +	commit->crtcs[index].ptr = crtc;
+> +	crtc_state->state = commit;
+> +
+> +	return 0;
+> +}
+> +
+>   /**
+>    * drm_atomic_get_crtc_state - get CRTC state
+>    * @state: global atomic state object
+>    * @crtc: CRTC to get state object for
+>    *
+> @@ -443,11 +460,11 @@ EXPORT_SYMBOL(__drm_atomic_commit_free);
+>    */
+>   struct drm_crtc_state *
+>   drm_atomic_get_crtc_state(struct drm_atomic_commit *state,
+>   			  struct drm_crtc *crtc)
+>   {
+> -	int ret, index = drm_crtc_index(crtc);
+> +	int ret;
+>   	struct drm_crtc_state *crtc_state;
 >   
->   	for (i = 0; i < state->num_private_objs; i++) {
-> @@ -706,11 +706,11 @@ drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
+>   	WARN_ON(!state->acquire_ctx);
+>   	drm_WARN_ON(state->dev, state->checked);
 >   
->   	colorop_state = drm_atomic_helper_colorop_duplicate_state(colorop);
->   	if (!colorop_state)
+> @@ -461,15 +478,15 @@ drm_atomic_get_crtc_state(struct drm_atomic_commit *state,
+>   
+>   	crtc_state = crtc->funcs->atomic_duplicate_state(crtc);
+>   	if (!crtc_state)
 >   		return ERR_PTR(-ENOMEM);
 >   
-> -	state->colorops[index].state = colorop_state;
-> +	state->colorops[index].state_to_destroy = colorop_state;
->   	state->colorops[index].ptr = colorop;
->   	state->colorops[index].old_state = colorop->state;
->   	state->colorops[index].new_state = colorop_state;
->   	colorop_state->state = state;
+> -	state->crtcs[index].state_to_destroy = crtc_state;
+> -	state->crtcs[index].old_state = crtc->state;
+> -	state->crtcs[index].new_state = crtc_state;
+> -	state->crtcs[index].ptr = crtc;
+> -	crtc_state->state = state;
+> +	ret = drm_atomic_commit_set_crtc_state(state, crtc, crtc_state);
+> +	if (ret) {
+> +		crtc->funcs->atomic_destroy_state(crtc, crtc_state);
+> +		return ERR_PTR(ret);
+> +	}
 >   
-> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-> index 285aac3554df..c4752bd7d999 100644
-> --- a/drivers/gpu/drm/drm_atomic_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> @@ -3349,11 +3349,11 @@ int drm_atomic_helper_swap_state(struct drm_atomic_commit *state,
->   		WARN_ON(colorop->state != old_colorop_state);
+>   	drm_dbg_atomic(state->dev, "Added [CRTC:%d:%s] %p state to %p\n",
+>   		       crtc->base.id, crtc->name, crtc_state, state);
 >   
->   		old_colorop_state->state = state;
->   		new_colorop_state->state = NULL;
->   
-> -		state->colorops[i].state = old_colorop_state;
-> +		state->colorops[i].state_to_destroy = old_colorop_state;
->   		colorop->state = new_colorop_state;
->   	}
->   
->   	drm_panic_lock(state->dev, flags);
->   	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
-> diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-> index 88087910ab1a..00b3e9fc429a 100644
-> --- a/include/drm/drm_atomic.h
-> +++ b/include/drm/drm_atomic.h
-> @@ -157,11 +157,27 @@ struct drm_crtc_commit {
->   	bool abort_completion;
->   };
->   
->   struct __drm_colorops_state {
->   	struct drm_colorop *ptr;
-> -	struct drm_colorop_state *state, *old_state, *new_state;
-> +
-> +	/**
-> +	 * @state_to_destroy:
-> +	 *
-> +	 * Used to track the @drm_colorop_state we will need to free
-> +	 * when tearing down the associated &drm_atomic_commit in
-> +	 * $drm_mode_config_funcs.atomic_state_clear or
-> +	 * drm_atomic_commit_default_clear().
-> +	 *
-> +	 * Before a commit, and the call to
-> +	 * drm_atomic_helper_swap_state() in particular, it points to
-> +	 * the same state than @new_state. After a commit, it points to
-> +	 * the same state than @old_state.
-> +	 */
-> +	struct drm_colorop_state *state_to_destroy;
-> +
-> +	struct drm_colorop_state *old_state, *new_state;
->   };
->   
->   struct __drm_planes_state {
->   	struct drm_plane *ptr;
->   
+>   	return crtc_state;
 >
 
 -- 
