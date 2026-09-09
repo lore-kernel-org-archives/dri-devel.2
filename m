@@ -4,46 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48809C79FAA
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:47:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB508C79F8C
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:52:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FE0A10EEFB;
-	Wed,  9 Sep 2026 06:47:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33AAA10EEF9;
+	Wed,  9 Sep 2026 06:52:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="syhmPmyh";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="v+plabNE";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="nEH0lAf9";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="gu+5AEWN";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Tc0tr02Y";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B850110EEF9
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 06:47:04 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 971A3601FB;
- Wed,  9 Sep 2026 06:47:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAC7F1F00A3A;
- Wed,  9 Sep 2026 06:47:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1788936423;
- bh=Z3KVIaddpfCo8To//cbSyOpxz2vaMHff+bwmPbywxBo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=syhmPmyhhf6g0BZmvYqPKfBPAWpZeyZ2icgrI0NTcachxc/q/dX2I5xqq1YV6g729
- q9hpXb4MuU//e8dS2YK7JSzX3ZMx7xoN3KGYXyqu1v5685rLmbw3MI9Ido0s4jME1Z
- zd/MLkIOUwhBhNCmBnbJq8afPK8pekdg/v8FEdxk=
-Date: Wed, 9 Sep 2026 08:10:51 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Li Wang <liwang@kylinos.cn>
-Cc: Arnd Bergmann <arnd@arndb.de>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-Subject: Re: [RFC PATCH] misc: fgds: enable GPU-NVMe direct I/O via POSIX and
- io_uring
-Message-ID: <2026090913-landline-encroach-c544@gregkh>
-References: <20260908131545.105987-1-liwang@kylinos.cn>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D278810EEF9
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 06:52:14 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 22187219FE;
+ Wed,  9 Sep 2026 06:52:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1788936729; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=cTt0jFB4+zQipgMujsRjRecWNFqUaVl5wuX8dC/vqwk=;
+ b=v+plabNEMMlL5CS/NLEx9p4dMTPWFXNYkiuIKXSvvUjDNVczgU5a5gyOlTzTPRnYNv9BRF
+ OTVUXNGpGKs7yIKv5srGD/yL8RApHoC9JymkwIRF3SXtneQwnaYeaAQgphZ3GW00RSD0dp
+ edL+JhcZ0T3z0LVMq+gmnuyoJfwa7iw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1788936729;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=cTt0jFB4+zQipgMujsRjRecWNFqUaVl5wuX8dC/vqwk=;
+ b=nEH0lAf9Ba+IiozM9frriYkJuYYEc2ZJrBeJxEUK0DigeAQRRI+aIRSEabSW8EpMwDcFaN
+ gMZ5bmoQPPN7/DDg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1788936725; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=cTt0jFB4+zQipgMujsRjRecWNFqUaVl5wuX8dC/vqwk=;
+ b=gu+5AEWNwxIObakbGBg1FJyyvonGroxc/+Y5D1DHVNwT/mRpjyenOFcY18zRUNZBkXMCTd
+ CP+tu+RtH9qH2LvWsMW0xBDjRhjrcDpdnamYslNsIqdXpFY6GQbSrlZsMUJ0twJczEkXAI
+ ZsB/IU6V7Ui09t9QyMJBmIQe8YqQ0p8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1788936725;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=cTt0jFB4+zQipgMujsRjRecWNFqUaVl5wuX8dC/vqwk=;
+ b=Tc0tr02YJKvVGufqSo1zSvIGw+jsn3ST8u/eYo6w8zzpe4jiE11glpFqL/xc68kkRDOvgy
+ +kZuENZvVhpeCBAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7F93F1347F;
+ Wed,  9 Sep 2026 06:52:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id RIpSHRQCoWqVVQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 09 Sep 2026 06:52:04 +0000
+Message-ID: <00b9f0f0-baf4-4407-b2cb-055949edd48c@suse.de>
+Date: Wed, 9 Sep 2026 08:52:03 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 06/11] drm/atomic: Create function to insert connector
+ state into a commit
+To: Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Daniel Stone <daniels@collabora.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>, =?UTF-8?Q?Jonas_=C3=85dahl?=
+ <jadahl@redhat.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>,
+ Victoria Brekenfeld <victoria@system76.com>, Xaver Hugl
+ <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
+ <20260908-drm-reset-state-flag-v3-6-905570f387a4@kernel.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260908-drm-reset-state-flag-v3-6-905570f387a4@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260908131545.105987-1-liwang@kylinos.cn>
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[16];
+ MIME_TRACE(0.00)[0:+];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, imap1.dmz-prg2.suse.org:helo,
+ suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,167 +149,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 08, 2026 at 09:15:45PM +0800, Li Wang wrote:
-> From: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-> 
-> Inspired by the paper published in SC'25 [1], we implemented a character
-> device named fgds that provides two ioctl interfaces:
-> `REG_BUFFER/UNREG_BUFFER`. It enables applications to perform direct I/O
-> between GPU memory and NVMe via POSIX and io_uring APIs. This is
-> particularly useful for LLM workloads, such as model loading, KV cache
-> offloading, and checkpointing. The fgds device corresponds one-to-one with
-> the PCIe GPU on the machine. The usage is straightforward: an application
-> simply opens the corresponding fgds device, calls ioctl on the returned fd
-> with REG_BUFFER, taking the target GPU memory buffer address (represented
-> as a dma-buf fd), and the buffer length as inputs, and then invokes mmap on
-> the fgds device fd, using the return value of ioctl as the input. The mmap
-> call returns a CPU virtual address (call it cpu_vaddr). Afterward,
-> cpu_vaddr can be passed directly to pread/pwrite, or
-> io_uring_prep_read/io_uring_prep_write to perform direct I/O between files
-> on NVMe and GPU memory. A minimal working example can be found in [2].
-> The underlying mechanism is that, with the support of fgds device,
-> cpu_vaddr is made to point directly to the GPU memory buffer corresponding
-> to the dma-buf fd. This solution is loosely coupled with the GPU vendor's
-> driver; the GPU vendor only needs to support exporting the allocated GPU
-> memory buffer through the standard Linux kernel dma-buf framework, which
-> the vast majority of mainstream GPUs already support. This allows both
-> applications and the fgds device to work seamlessly with GPUs from
-> different vendors without any modifications. Furthermore, applications no
-> longer need to call vendor-specific proprietary APIs (such as NVIDIA's
-> cuFile API) or install vendor-specific kernel modules (such as NVIDIA's
-> nvidia-fs.ko) for different GPU vendors. We have tested fgds on GPU cards
-> from NVIDIA, AMD, and several other vendors, and it works well.
-> 
-> Besides the benefits in ease of use and compatibility, another key
-> advantage of this solution is higher performance. [2] presents the
-> performance comparison results between fgds and NVIDIA GDS. Because fgds
-> eliminates the overhead of phony buffers incurred by NVIDIA GDS, it
-> achieves significantly higher performance. For example, for reads, fgds
-> outperforms GDS by 11% to 109%; for writes, fgds outperforms GDS by 10%
-> to 71%.
-> 
-> To further accelerate the read and write operations of large files or
-> massive data volumes—which are very common in LLM scenarios—we have
-> implemented library functions `fgds_read` and `fgds_write`. Under the hood,
-> these interfaces split large data into chunks and submit them
-> asynchronously and in parallel via io_uring, thereby further boosting I/O
-> performance, with read performance improved by up to 115% and write
-> performance by up to 40%. In addition, we also provide the `fgds_register`
-> library interface to encapsulate the `open`, `ioctl' and `mmap` operations.
-> Readers who are interested can refer to [2].
-> 
-> In addition, we have added the LMCache backend, enabling vLLM to offload KV
-> cache via LMCache using fgds, which accelerates inference performance. We
-> also added PyTorch APIs, compatible with the PyTorch GDS API, to improve
-> the performance of reading and writing checkpoints during LLM training.
-> 
-> We look forward to community feedback and are fully committed to iterating
-> on this series to work towards upstreaming.
-
-That's not really needed in a changelog text, it could be in the 0/X
-patch :)
-
-Anyway, you didn't cc: the io_uring list, why?
-
-Also, as a first cut, please see the sashiko comments on this patch:
-	https://sashiko.dev/#/patchset/20260908131545.105987-1-liwang@kylinos.cn
 
 
-
-> 
-> [1] https://dl.acm.org/doi/10.1145/3712285.3759862
-> [2] https://github.com/Storage-and-OS-for-AI/fgds
-> 
-> Signed-off-by: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-> Signed-off-by: Li Wang <liwang@kylinos.cn>
+Am 08.09.26 um 16:35 schrieb Maxime Ripard:
+> drm_atomic_get_connector_state() allocates a new connector state by
+> duplicating the current one and inserts it into the atomic commit as
+> a single operation.
+>
+> However, a later change will need to insert a connector state into a
+> commit without going through the full allocation and duplication path
+> in drm_atomic_get_connector_state().
+>
+> Extract the state insertion logic, including the dynamic array
+> reallocation, into a new static
+> drm_atomic_commit_set_connector_state() helper, and convert
+> drm_atomic_get_connector_state() to use it.
+>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
 > ---
->  drivers/misc/Kconfig      |   9 +
->  drivers/misc/Makefile     |   1 +
->  drivers/misc/fgds.c       | 989 ++++++++++++++++++++++++++++++++++++++
->  include/uapi/linux/fgds.h |  54 +++
->  4 files changed, 1053 insertions(+)
->  create mode 100644 drivers/misc/fgds.c
->  create mode 100644 include/uapi/linux/fgds.h
-> 
-> diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-> index 7364931dad3a..2f3a5a5fd0bf 100644
-> --- a/drivers/misc/Kconfig
-> +++ b/drivers/misc/Kconfig
-> @@ -568,6 +568,15 @@ config MCHP_LAN966X_PCI
->  	    - lan966x-miim (MDIO_MSCC_MIIM)
->  	    - lan966x-switch (LAN966X_SWITCH)
->  
-> +config FGDS
-> +	tristate "GPU-NVMe direct I/O control driver"
-> +	depends on PCI && DMA_SHARED_BUFFER && ZONE_DEVICE
-> +	help
-> +	  Say Y here if you want to support GPU-NVME direct I/O
-> +	  via POSIX/io_uring interfaces.
-> +
-> +	  If unsure, say N.
-
-Module name is not listed here.
-
-Nor why "fgds" is the name, that's going to be hard to remember, does it
-stand for something?
-
-
-> +
->  source "drivers/misc/c2port/Kconfig"
->  source "drivers/misc/eeprom/Kconfig"
->  source "drivers/misc/cb710/Kconfig"
-> diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-> index e8d8d5d88c0d..04985abe1678 100644
-> --- a/drivers/misc/Makefile
-> +++ b/drivers/misc/Makefile
-> @@ -71,3 +71,4 @@ obj-y				+= keba/
->  obj-y				+= amd-sbi/
->  obj-$(CONFIG_MISC_RP1)		+= rp1/
->  obj-$(CONFIG_INTEL_SSEI)	+= issei/
-> +obj-$(CONFIG_FGDS)		+= fgds.o
-> diff --git a/drivers/misc/fgds.c b/drivers/misc/fgds.c
-> new file mode 100644
-> index 000000000000..3aa4945f701b
-> --- /dev/null
-> +++ b/drivers/misc/fgds.c
-> @@ -0,0 +1,989 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Fast GPU Direct Storage via dma-buf.
-> + *
-> + * Copyright (C) 2026 KylinSoft. Co., Ltd. All rights reserved.
-> + *
-> + * Maps GPU memory into user space to enable direct NVME-to-GPU DMA
-> + * pread/pwrite syscalls. BAR pages are remapped into ZONE_DEVICE via
-> + * devm_memremap_pages() and populated using dma-buf backing pages.
-> + */
-> +#define pr_fmt(fmt) "fgds: " fmt
-
-You are a driver, always use dev_*() print functions, not pr_()
-functions, as you will loose the device information.  For example:
-
-> +/*
-> + * BAR-based mapping requires device physical addresses. When using
-> + * IOMMU, DMA addresses are IOVAs, which cannot be mapped directly.
-> + */
-> +static int fgds_check_gpu_iommu(struct pci_dev *pdev)
+>   drivers/gpu/drm/drm_atomic.c | 67 +++++++++++++++++++++++++++-----------------
+>   1 file changed, 42 insertions(+), 25 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index 1be4af940ed1..19678e8a2bd4 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -1412,10 +1412,46 @@ drm_atomic_get_new_crtc_for_encoder(struct drm_atomic_commit *state,
+>   
+>   	return conn_state->crtc;
+>   }
+>   EXPORT_SYMBOL(drm_atomic_get_new_crtc_for_encoder);
+>   
+> +static int drm_atomic_commit_set_connector_state(struct drm_atomic_commit *commit,
+> +						 struct drm_connector *connector,
+> +						 struct drm_connector_state *connector_state)
 > +{
-> +	struct iommu_domain *domain;
+> +	struct drm_mode_config *config = &connector->dev->mode_config;
+> +	int index;
 > +
-> +	domain = iommu_get_domain_for_dev(&pdev->dev);
-> +	if (domain && domain->type != IOMMU_DOMAIN_IDENTITY) {
-> +		pr_warn("%s: reject attaching a translating IOMMU domain (requires iommu=pt or off\n",
-> +			dev_name(&pdev->dev));
+> +	drm_modeset_lock_assert_held(&config->connection_mutex);
+> +
+> +	index = drm_connector_index(connector);
+> +	if (index >= commit->num_connector) {
+> +		struct __drm_connnectors_state *c;
+> +		int alloc = max(index + 1, config->num_connector);
+> +
+> +		c = krealloc_array(commit->connectors, alloc,
+> +				   sizeof(*commit->connectors), GFP_KERNEL);
 
-Should be dev_warn(), right?
+This entire branch looks like it mostly open-codes the functionality of 
+krealloc_array(). If you can use __GFP_ZERO here, it appears that this 
+whole branching could be collapsed to a single unconditional 
+reallocation plus an update of num_connector.
 
-But what can userspace do with that warning, did something just break?
+Best regards
+Thomas
 
-> +	pr_info("loaded successfully: %u GPU(s) active\n", fgds_dev_count);
+> +		if (!c)
+> +			return -ENOMEM;
+> +
+> +		commit->connectors = c;
+> +		memset(&commit->connectors[commit->num_connector], 0,
+> +		       sizeof(*commit->connectors) * (alloc - commit->num_connector));
+> +
+> +		commit->num_connector = alloc;
+> +	}
+> +
+> +	drm_connector_get(connector);
+> +	commit->connectors[index].state_to_destroy = connector_state;
+> +	commit->connectors[index].old_state = connector->state;
+> +	commit->connectors[index].new_state = connector_state;
+> +	commit->connectors[index].ptr = connector;
+> +	connector_state->state = commit;
+> +
+> +	return 0;
+> +}
+> +
+>   /**
+>    * drm_atomic_get_connector_state - get connector state
+>    * @state: global atomic state object
+>    * @connector: connector to get state object for
+>    *
+> @@ -1430,53 +1466,34 @@ EXPORT_SYMBOL(drm_atomic_get_new_crtc_for_encoder);
+>    */
+>   struct drm_connector_state *
+>   drm_atomic_get_connector_state(struct drm_atomic_commit *state,
+>   			  struct drm_connector *connector)
+>   {
+> -	int ret, index;
+> +	int ret;
+>   	struct drm_mode_config *config = &connector->dev->mode_config;
+>   	struct drm_connector_state *connector_state;
+>   
+>   	WARN_ON(!state->acquire_ctx);
+>   	drm_WARN_ON(state->dev, state->checked);
+>   
+>   	ret = drm_modeset_lock(&config->connection_mutex, state->acquire_ctx);
+>   	if (ret)
+>   		return ERR_PTR(ret);
+>   
+> -	index = drm_connector_index(connector);
+> -
+> -	if (index >= state->num_connector) {
+> -		struct __drm_connnectors_state *c;
+> -		int alloc = max(index + 1, config->num_connector);
+> -
+> -		c = krealloc_array(state->connectors, alloc,
+> -				   sizeof(*state->connectors), GFP_KERNEL);
+> -		if (!c)
+> -			return ERR_PTR(-ENOMEM);
+> -
+> -		state->connectors = c;
+> -		memset(&state->connectors[state->num_connector], 0,
+> -		       sizeof(*state->connectors) * (alloc - state->num_connector));
+> -
+> -		state->num_connector = alloc;
+> -	}
+> -
+>   	connector_state = drm_atomic_get_new_connector_state(state, connector);
+>   	if (connector_state)
+>   		return connector_state;
+>   
+>   	connector_state = connector->funcs->atomic_duplicate_state(connector);
+>   	if (!connector_state)
+>   		return ERR_PTR(-ENOMEM);
+>   
+> -	drm_connector_get(connector);
+> -	state->connectors[index].state_to_destroy = connector_state;
+> -	state->connectors[index].old_state = connector->state;
+> -	state->connectors[index].new_state = connector_state;
+> -	state->connectors[index].ptr = connector;
+> -	connector_state->state = state;
+> +	ret = drm_atomic_commit_set_connector_state(state, connector, connector_state);
+> +	if (ret) {
+> +		connector->funcs->atomic_destroy_state(connector, connector_state);
+> +		return ERR_PTR(ret);
+> +	}
+>   
+>   	drm_dbg_atomic(connector->dev, "Added [CONNECTOR:%d:%s] %p state to %p\n",
+>   			 connector->base.id, connector->name,
+>   			 connector_state, state);
+>   
+>
 
-When drivers work, they are quiet, please remove this, and the other
-pr_info() lines, as they seem to be left over from your debugging.
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
-thanks,
 
-greg k-h
