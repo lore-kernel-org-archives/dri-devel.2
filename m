@@ -4,75 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7764AC79FB7
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 14:03:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EC30C79FB7
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 14:04:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3D4D10E55F;
-	Wed,  9 Sep 2026 14:03:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B19A10F194;
+	Wed,  9 Sep 2026 14:04:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WHysCADl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZTT+DAzl";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75C6810E55F
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 14:03:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788962588; x=1820498588;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=cd4JeYv5F5dPa0SI4hhDwoObMvk28qrjEPebQcnU2gY=;
- b=WHysCADlSc+MtA5GPJ6qsDnyPpTdWtDQzb8yDnMiAJ8oQeBcpJetm7W4
- WEsYUt2jNGJo76VRC5FEqbHxMZyiIK0BQ2KY+aBH2F9NFxH2VYzj0FQKD
- YiCMX2r72P8wYELUmyxDsyXce53ZKeCkLBRF+Vn+Q4r0EpoLTdgaWj08P
- c2DH+/JWSWTBv3WDbwXvPQCR/95Lh6ifr7OGsK+ap8mCAdeunfqPeVAUx
- JjSZDVMpBi0+jL+MI5Whjbb20lkJwkuC9QGS9aNMwJKnKYK/P2BBsJvC+
- p+KIOlsekqygW7D4iv+X7fFAEiXH6cAR0QcfrlDxpG9p4ibEO2CS852ZI A==;
-X-CSE-ConnectionGUID: FcbjuIVxQyWjYmF/c+sJrA==
-X-CSE-MsgGUID: hXLt/mTPRXaw0Y3fSgX+lA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="76948644"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="76948644"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2026 07:03:07 -0700
-X-CSE-ConnectionGUID: ub7ontpfRMqfkJniY7VrCA==
-X-CSE-MsgGUID: cyj9KUgvQYCCAelxJzajEw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="265122705"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost)
- ([10.245.245.20])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2026 07:03:01 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Jessica
- Zhang <jesszhan0024@gmail.com>, Linus Walleij <linusw@kernel.org>, Inki
- Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, Marek
- Szyprowski <m.szyprowski@samsung.com>, Albert Esteve <aesteve@redhat.com>,
- Anusha Srivatsa <asrivats@redhat.com>, Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>, Hui Pu <Hui.Pu@gehealthcare.com>, Ian
- Ray <ian.ray@gehealthcare.com>, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Ville =?utf-8?B?U3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
- drm_panel
-In-Reply-To: <aqEqx0zBQgmUgwqL@houat>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
- <20260903-drm-bridge-every-panel-v2-5-2ab8ee24538e@bootlin.com>
- <678ddef7e56703d9adffff5c490d4857af515343@intel.com>
- <aqEqx0zBQgmUgwqL@houat>
-Date: Wed, 09 Sep 2026 17:02:58 +0300
-Message-ID: <3efb06a30baae6ba1bfcf2be449bf207a30f674d@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4FD210F194
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 14:04:03 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3380C6022C
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 14:04:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6C4D1F00ACF
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 14:04:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788962642;
+ bh=0qvI3Ij6pHot4GWpLZbVGJuwCMn3p13tzKFz475rd7w=;
+ h=From:In-Reply-To:References:Date:Subject:To:Cc;
+ b=ZTT+DAzlKSXBjYpX73WnjIUnaP6TjJfF7Vuuf1RzuLFdc+xCTqtUljqK65Ws6ijHD
+ ckfGyZ6owx4DTYBLML2blor0OOs0NVCBtJ2uowjMJOYUeiKvIj/spcJvNw/wzuoDsQ
+ sukkvnqVfSddWBK4wcMLuEusAPlMDSrDDx13a+4bD1wS9CcWLmHi8cLIHzMyhh/feg
+ s2+vwmK2dRw1y7fsWg9jScf7AvVGsag2Aj7j7yUye5TacAnswbxRsJF80N/tSVJqW1
+ WklzT+iyUNL1fwBPbneHxtmJjodQ0uAxFZIGJH6q1b6/dq3DqmCSG0iyi4eHcsWdEM
+ GtsQFgig7/E9A==
+Received: by mail-lj1-f174.google.com with SMTP id
+ 38308e7fff4ca-3a49a022221so8694841fa.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 07:04:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwVhI6w5b83w9Udso4mpArcRLk7cg7v0stpaa2oEBU01bLwPPJ473inrDCNbh5yVIWhICz9lpQaPQo=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++k5P48bEZEKMYZFd6+zI7vhCptlNHgYEcRZ9e//0a4VmlLTKlsg
+ 5LR2B5DFTSIN/0z9Qo+LrdbUvrOaIuXgK3LVJzFqxr2q4TZQIovF+3Vw3+PhNc5Qo9imha6ZFaP
+ uhxohbnslTs9YbezIyK4sb62SsOZEg7ds9tkzrE7cQQ==
+X-Received: by 2002:a05:651c:a103:10b0:3a4:973c:9387 with SMTP id
+ 38308e7fff4ca-3a4973c96fdmr5064251fa.26.1788962641476; Wed, 09 Sep 2026
+ 07:04:01 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 9 Sep 2026 07:03:58 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 9 Sep 2026 07:03:57 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260909132153.1596191-1-arnd@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260909132153.1596191-1-arnd@kernel.org>
+Date: Wed, 9 Sep 2026 07:03:57 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfvwcvV7yvkXz_YikGxQ8M0_ajgGA3bf==ZpT_Z46v7EA@mail.gmail.com>
+X-Gm-Features: AcwNN1US7FJNeFLdpa5M-NPN5cGI7wXmVw6SZ5lmp-9zPkwIPUzMBGaaTvwumLk
+Message-ID: <CAMRc=MfvwcvV7yvkXz_YikGxQ8M0_ajgGA3bf==ZpT_Z46v7EA@mail.gmail.com>
+Subject: Re: [PATCH 00/14] mfd: unused driver purge
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Pavel Machek <pavel@kernel.org>, 
+ Michael Hennerich <michael.hennerich@analog.com>, 
+ Support Opensource <support.opensource@diasemi.com>,
+ Sebastian Reichel <sre@kernel.org>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, Helge Deller <deller@gmx.de>,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com, 
+ linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
+ linux-leds@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-rtc@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ llvm@lists.linux.dev, Lee Jones <lee@kernel.org>, mfd@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,22 +93,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 09 Sep 2026, Maxime Ripard <mripard@kernel.org> wrote:
-> I really wish i915 was at least *trying* to fit within the larger model
-> basically everybody else uses. I understand that it's a large
-> undertaking and regression prone and everything, but I'm also concerned
-> about having the "we can't because of i915" or "supported by everybody
-> else but i915" on a regular basis now.
+On Wed, 9 Sep 2026 15:21:37 +0200, Arnd Bergmann <arnd@kernel.org> said:
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> As part of my cleanup of old platforms, I had a look at all drivers that
+> may have become unused because the last platform_data or DT definition
+> was removed, or because of unmet Kconfig dependencies.
+>
+> These are all the mfd drivers I found. The first ten in the list
+> actually turned out to have been unusable long before my series, and
+> I have added explanations on how I determined this in each patch. The
+> last four patches are still in use in linux-7.3 but become unused after
+> my series [1] that I hope to get merged for 7.4.
+>
+> Somewhat unorthodox, I took a shortcut here and remove both the mfd drivers
+> and the corresponding subsystem drivers (gpio, hwmon, iio, input, led,
+> media, power, regulator, rtc, video, watchdog, asoc) in a combined patch,
+> to simplify the interdependencies: removing just the mfd driver would
+> leave unselectable or broken drivers in other subsystems.  I also have
+> additional patches for each of the other subsystems, currently a total
+> of 300 patches, many of which still need better testing or proper
+> changelog texts.
+>
+> Please let me know if you all think this approach is ok, or if I should
+> explode this further and turn these 14 patches into 70 individual ones
+> by splitting them per subsystem.
+>
+> See [2] for the current state of the overall series.
+>
+>      Arnd
+>
+> [1] https://lore.kernel.org/lkml/20260908152808.3928630-1-arnd@kernel.org/
+> [2] https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=board-remove-7.3
+>
+> Arnd Bergmann (14):
+>   mfd: remove unused 88pm80x driver
+>   mfd: remove unused rdc321x southbridge support
+>   mfd: remove unused si476x driver
+>   mfd: remove unused wm8400 driver
+>   mfd: remove unused adp5520 driver
+>   mfd: remove unused da903x driver
+>   mfd: remove unused lp8788 driver
+>   mfd: remove unused aat2870 driver
+>   mfd: remove unused lm3533 driver
+>   mfd: remove unused rc5t583 driver
+>   mfd: remove unused wm8350 driver
+>   mfd: remove unused mcp-sa11x0/ucb1x00 driver
+>   mfd: remove unused menelaus driver
+>   mfd: remove unused iPaq micro driver
+>
+>  .../ABI/testing/sysfs-class-backlight         |   11 -
+>  Documentation/admin-guide/devices.txt         |    1 -
+>  .../admin-guide/media/radio-cardlist.rst      |    1 -
+>  Documentation/admin-guide/media/si476x.rst    |  160 --
+>  .../admin-guide/media/v4l-drivers.rst         |    1 -
+>  .../devicetree/bindings/regulator/88pm800.txt |   38 -
+>  Documentation/hwmon/index.rst                 |    1 -
+>  Documentation/hwmon/wm8350.rst                |   30 -
+>  .../watchdog/watchdog-parameters.rst          |    7 -
+>  MAINTAINERS                                   |   14 -
+>  drivers/gpio/Kconfig                          |   22 -
+>  drivers/gpio/Makefile                         |    3 -
+>  drivers/gpio/gpio-adp5520.c                   |  169 --
+>  drivers/gpio/gpio-rdc321x.c                   |  199 --
+>  drivers/gpio/gpio-wm8350.c                    |  144 --
 
-Okay, let's hear it, please name a few things where i915 is alone in
-doing something bonkers that amd, radeon, nouveau also don't do, and
-what would be the changes that would bring i915 closer to everybody
-else?
+For GPIO:
 
-
-BR,
-Jani.
-
-
--- 
-Jani Nikula, Intel
+Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
