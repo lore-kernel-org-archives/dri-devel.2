@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2DBFC79FB7
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 19:26:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D03EC79FB7
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 19:28:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D706510E589;
-	Wed,  9 Sep 2026 19:26:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABB6410F261;
+	Wed,  9 Sep 2026 19:28:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SFmJk7Wt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Fdj6L30u";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C47410F261
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 19:26:55 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CC8610F261
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 19:28:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 395B5600CB;
- Wed,  9 Sep 2026 19:26:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C24201F000FF;
- Wed,  9 Sep 2026 19:26:53 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5139240436;
+ Wed,  9 Sep 2026 19:28:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2105E1F000FF;
+ Wed,  9 Sep 2026 19:28:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788982013;
- bh=fqoqz2V1rDGICCd1wWLjrqUqtLi4Ako3KyJf/wxMtJY=;
+ s=k20260515; t=1788982100;
+ bh=4b21H7el1UQdRa7b9riXfS1yW0LY9veqRZk4N9jLdHY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SFmJk7WtMhDyRt4qaYNDrUkPil9y7xVnjsyOAyUEKF5vVqowqze+rHj6QZDqhFidU
- 0THTBMBUDza+5QCCSTrRHGHg8BU6jXTGu+XUltDpMddgzpBUbSxFkedixdklo3klb4
- 1OhWmCoAkIBpAiYGzeiXKBKM2X+0BRzofBDs3bvDcOstcSSqKkTyQOEj3wsyU9/+N6
- cDQ8JQQh5MN9QG5AgFSMcIvab7aVlj5zBa354NYkuz6uW6p/+Epy/XK0Ld1TYU6l8k
- HE14YsdB8e1qcklRnCvOeOLQ15rgUS3qwHZ9fm+PkZZTk8SdWdOTS98VhEfchrlEzS
- /i/DpEXhpH8/Q==
+ b=Fdj6L30uL6K4dvQEWKqzJQwnhd2bngM7uSsrS13WIVue96kxVkga/YtEo/NZDMaDE
+ fb6Oq6Pe+4xOfchk92wWXEWJHtj8S77ZpXyEqYQ9k9f4CxwuXNpI1exJZezwmKGjMw
+ OO+YWIKLiW+ObKiW/XvsPaoGlscuv8+Cpvh3JuwblRRQitv1lWf8e0xi8RZS+tDS33
+ dhBxWsGBc+vxpXITMBsiz4vDlpM2b0nKvGw9dIKfM3qLhJ4gM76Rh0feG/GjTnB24y
+ essnSW2BpwH2snyrBv7BkaffdzazWmrycuqj10scTgaqHGL/JvU703k6MvOQHcRVhP
+ 0y8VTvh+QcxNg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/imagination: suspend the GPU for system sleep, not
- just runtime PM
-To: "Ryan Brue" <ryanbrue.dev@gmail.com>
+Subject: Re: [PATCH] fbdev: vfb: defer cleanup until the last reference
+To: "Weiming Shi" <bestswngs@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v1-1-f45847bc951b@gmail.com>
-References: <20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v1-1-f45847bc951b@gmail.com>
+In-Reply-To: <20260909191022.847295-2-bestswngs@gmail.com>
+References: <20260909191022.847295-2-bestswngs@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 19:26:53 +0000
-Message-Id: <20260909192653.C24201F000FF@smtp.kernel.org>
+Date: Wed, 09 Sep 2026 19:28:19 +0000
+Message-Id: <20260909192820.2105E1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,214 +56,120 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Delegating system suspend to pm_runtime_force_suspend causes syste=
-m sleep to abort if the device is lost/unplugged.
-
 Pre-existing issues:
-- [Critical] Unkillable D-state deadlock when drm_dev_unplug() is called fr=
-om within a drm_dev_enter() critical section.
-- [High] Disabling a shared IRQ line during runtime suspend breaks other de=
-vices on the same interrupt line.
-- [High] Hardware registers are accessed in a shared IRQ handler without ve=
-rifying the runtime PM state, causing spurious wakeups and infinite loops.
-- [High] Failing to suspend leaves the GPU watchdog permanently disabled.
-- [High] drm_dev_unplug() is called after device teardown, creating a Use-A=
-fter-Free race window with userspace ioctls.
-- [High] The watchdog worker is cancelled after device teardown, allowing i=
-t to access freed firmware structures.
+- [High] fb_release calls module_put before put_fb_info, allowing a concurr=
+ent module unload to unmap the driver's code before fb_destroy is executed.
+- [High] If fbcon_fb_registered fails, do_register_framebuffer returns an e=
+rror without unwinding the registration, leaving a freed pointer in the glo=
+bal registered_fb array.
+- [High] Concurrent execution of `unregister_framebuffer` and `FBIOPUT_VSCR=
+EENINFO` causes Use-After-Free on `info->modelist`.
 --
 
-commit 957b9f18f16307577f7e0df349c4dedcef008a8d
-Author: Ryan Brue <ryanbrue.dev@gmail.com>
+commit 58269d102e8231ba399afb90f35aad905f703fbf
+Author: Weiming Shi <bestswngs@gmail.com>
 
-drm/imagination: suspend the GPU for system sleep, not just runtime PM
+fbdev: vfb: defer cleanup until the last reference
 
-This commit addresses a system suspend bug where the GPU is not informed=20
-of the suspend if it is runtime-active. By delegating system suspend to=20
-the runtime PM force helpers, the GPU firmware is properly disabled=20
-during system sleep.
+This patch defers the freeing of the vfb colormap and screen buffer
+until the final reference to the framebuffer is released. It accomplishes
+this by moving the cleanup code into a new fb_destroy callback to prevent
+use-after-free issues during concurrent ioctls.
 
->    The reset-path deadlock itself (drm_dev_unplug() waiting on an SRCU se=
-ction
->    held by the ioctl that called pvr_power_reset()) is a separate problem=
- and
->    is not addressed here; this change only stops the system-sleep path fr=
-om
->    triggering it.
+Link: https://lore.kernel.org/linux-fbdev/f2Kf9GYn1lKR5S1dbvGVtykMxK1RlgP5z=
+8sW@bugs.sh/
 
-[Severity: Critical]
-This is a pre-existing issue, but the commit message acknowledges a deadlock
-where drm_dev_unplug() blocks synchronously waiting for the SRCU lock held =
-by
-the caller, leaving the process in an unkillable D-state.
+> diff --git a/drivers/video/fbdev/vfb.c b/drivers/video/fbdev/vfb.c
+> index 5b7965f36c5ed..de137b2bdaedc 100644
+> --- a/drivers/video/fbdev/vfb.c
+> +++ b/drivers/video/fbdev/vfb.c
+> @@ -87,6 +94,7 @@ static const struct fb_ops vfb_ops =3D {
+>  	.fb_pan_display	=3D vfb_pan_display,
+>  	__FB_DEFAULT_SYSMEM_OPS_DRAW,
+>  	.fb_mmap	=3D vfb_mmap,
+> +	.fb_destroy	=3D vfb_destroy,
 
-Can this still be triggered by local userspace submitting a job that hangs =
-the
-firmware or by an organic firmware hang?
+[Severity: High]
+This isn't a bug introduced by this patch, but does adding this callback ex=
+pose
+a race with module unloading?
 
-If pvr_mmu_flush_exec() takes an SRCU read lock via drm_dev_enter(), and a
-firmware lockup causes a flush timeout:
+In drivers/video/fbdev/core/fb_chrdev.c:fb_release(), the module reference =
+is
+released before calling put_fb_info():
 
-drivers/gpu/drm/imagination/pvr_mmu.c:pvr_mmu_flush_exec()
-	err =3D pvr_power_reset(pvr_dev, true);
+    module_put(info->fbops->owner);
+    unlock_fb_info(info);
+    put_fb_info(info);
 
-drivers/gpu/drm/imagination/pvr_power.c:pvr_power_reset()
-err_device_lost:
-	drm_err(from_pvr_device(pvr_dev), "GPU device lost");
-	pvr_device_lost(pvr_dev);
+If a user opens the device and a concurrent rmmod is initiated, the rmmod
+blocks until the module refcount reaches zero. When the user closes the
+device, fb_release() calls module_put(), which unblocks rmmod and unloads
+the module. Then fb_release() proceeds to call put_fb_info(), which
+executes:
 
-drivers/gpu/drm/imagination/pvr_device.c:pvr_device_lost()
-	drm_dev_unplug(from_pvr_device(pvr_dev));
+    if (fb_info->fbops->fb_destroy)
+        fb_info->fbops->fb_destroy(fb_info);
 
-Will drm_dev_unplug() cause a deadlock by calling synchronize_srcu() to wait
-for all drm_dev_enter() readers to exit, while the thread is waiting on its=
-elf?
+Since the module has been unloaded, info->fbops->fb_destroy now points to
+unmapped memory. Does the core framework need to defer module_put() until
+after put_fb_info(), or is there another mechanism preventing this?
 
-> diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imag=
-ination/pvr_drv.c
-> index 5c965ef0274ff..23d353141589f 100644
-> --- a/drivers/gpu/drm/imagination/pvr_drv.c
-> +++ b/drivers/gpu/drm/imagination/pvr_drv.c
-> @@ -1517,6 +1517,7 @@ MODULE_DEVICE_TABLE(of, dt_match);
+>  };
 > =20
->  static const struct dev_pm_ops pvr_pm_ops =3D {
->  	RUNTIME_PM_OPS(pvr_power_device_suspend, pvr_power_device_resume, pvr_p=
-ower_device_idle)
-> +	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
-
-[Severity: High]
-Does delegating system suspend to pm_runtime_force_suspend() cause the syst=
-em
-sleep to abort if the device is lost or unplugged?
-
-If the GPU crashes and is marked lost via drm_dev_unplug(), the PM core cal=
-ls
-the .suspend callback, which delegates to pvr_power_device_suspend():
-
-drivers/gpu/drm/imagination/pvr_power.c:pvr_power_device_suspend()
-	if (!drm_dev_enter(drm_dev, &idx))
-		return -EIO;
-
-Since the device is unplugged, drm_dev_enter() fails, and the function retu=
-rns
--EIO. Will this permanently break system suspend for the entire system until
-reboot, since the PM core aborts system suspend if any device's .suspend
-callback returns an error?
-
 [ ... ]
+> @@ -485,9 +493,6 @@ static void vfb_remove(struct platform_device *dev)
+> =20
+>  	if (info) {
+>  		unregister_framebuffer(info);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does disabling a shared IRQ =
-line
-during runtime suspend break other devices on the same interrupt line?
+This is another pre-existing issue in the core framework, but can
+unregister_framebuffer() race with concurrent ioctls modifying the
+modelist?
 
-The driver registers its interrupt with IRQF_SHARED:
+In drivers/video/fbdev/core/fbmem.c:do_unregister_framebuffer(), the
+modelist items are freed without holding info->lock:
 
-drivers/gpu/drm/imagination/pvr_device.c:pvr_device_irq_init()
-				    IRQF_SHARED | IRQF_ONESHOT, "gpu", pvr_dev);
+    fb_destroy_modelist(&fb_info->modelist);
+    registered_fb[fb_info->node] =3D NULL;
 
-When the GPU enters runtime suspend organically:
+If an ioctl like FBIOPUT_VSCREENINFO concurrently executes fb_set_var() on
+an open file descriptor, it iterates over the modelist:
 
-drivers/gpu/drm/imagination/pvr_power.c:pvr_power_fw_disable()
-		/* This also waits for late processing of GPU or firmware IRQs in other c=
-ores */
-		disable_irq(pvr_dev->irq);
+    if (info->modelist.prev && info->modelist.next &&
+        !list_empty(&info->modelist))
+        ret =3D fb_add_videomode(&mode, &info->modelist);
 
-Will disabling a shared IRQ at the controller level silently stop other dev=
-ices
-on the same line from receiving interrupts, potentially breaking their
-functionality or hanging the system? Should this use synchronize_irq() inst=
-ead,
-as mandated by the PM guidelines?
+Can this lead to a use-after-free when accessing the freed modelist
+pointers? Is it possible to hold info->lock during the modelist cleanup?
 
 [Severity: High]
-This is a pre-existing issue, but are hardware registers accessed in a shar=
-ed
-IRQ handler without verifying the runtime PM state, potentially causing spu=
-rious
-wakeups and infinite loops?
+This isn't a bug introduced by this patch, but is there a risk of a memory
+leak or use-after-free in the core registration error path?
 
-If another device on the shared interrupt line triggers an IRQ while the GP=
-U is
-in D3cold (powered off), the handler reads hardware registers:
+In drivers/video/fbdev/core/fbmem.c:do_register_framebuffer(), if
+fbcon_fb_registered() fails, it returns an error but leaves the pointer in
+the global registered_fb[] array:
 
-drivers/gpu/drm/imagination/pvr_device.c:pvr_device_irq_handler()
-	if (!pvr_fw_irq_pending(pvr_dev) && !safety_irq_pending)
-		return IRQ_NONE; /* Spurious IRQ - ignore. */
+    return fbcon_fb_registered(fb_info);
 
-	return IRQ_WAKE_THREAD;
+If this probe error path executes, the driver attempts to free the
+framebuffer, but it fails because info->count is still 1. If the driver
+frees the backing videomemory, subsequent opens of /dev/fb0 could fetch
+the leaked fb_info from the array and operate on freed videomemory. Can
+do_register_framebuffer() unwind the registered_fb[i] assignment on this
+error path?
 
-drivers/gpu/drm/imagination/pvr_fw_meta.c:pvr_meta_irq_pending()
-	return pvr_cr_read32(pvr_dev, ROGUE_CR_META_SP_MSLVIRQSTATUS) &
-	       ROGUE_CR_META_SP_MSLVIRQSTATUS_TRIGVECT2_EN;
-
-On powered-off hardware, reads typically return 0xffffffff. Since this matc=
-hes
-the _EN bitmasks, will it falsely evaluate to true and return IRQ_WAKE_THRE=
-AD,
-leaving the threaded IRQ handler stuck in an infinite loop attempting to cl=
-ear
-non-existent interrupts? Should this check pm_runtime_get_if_active() before
-accessing registers in shared handlers?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does failing to suspend leave
-the GPU watchdog permanently disabled?
-
-When the driver attempts runtime suspend:
-
-drivers/gpu/drm/imagination/pvr_power.c:pvr_power_fw_disable()
-		cancel_delayed_work_sync(&pvr_dev->watchdog.work);
-
-		err =3D pvr_power_request_idle(pvr_dev);
-		if (err)
-			return err;
-
-If the firmware idle request times out, it returns the error immediately. D=
-oes
-this leave the watchdog disabled without restarting it in the error path,
-meaning a firmware hang will never be detected or recovered?
-
-[Severity: High]
-This is a pre-existing issue, but is drm_dev_unplug() called after device
-teardown, creating a use-after-free race window with userspace ioctls?
-
-drivers/gpu/drm/imagination/pvr_drv.c:pvr_remove()
-	pvr_device_fini(pvr_dev);
-	drm_dev_unplug(drm_dev);
-
-If the device is unbound (e.g., via sysfs), pvr_device_fini() tears down
-hardware state and frees structures. Because drm_dev_unplug() is only called
-after teardown, drm_dev_enter() will still succeed inside concurrent ioctls.
-Can this allow userspace ioctls to operate on freed firmware structures and
-VM contexts?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is the async watchdog worker
-cancelled after device teardown, allowing it to access freed firmware
-structures?
-
-drivers/gpu/drm/imagination/pvr_drv.c:pvr_remove()
-	pvr_device_fini(pvr_dev);
-	drm_dev_unplug(drm_dev);
-	pvr_watchdog_fini(pvr_dev);
-
-Because drm_dev_unplug() is ordered incorrectly, concurrent ioctls can cause
-pm_runtime_suspend() to return -EAGAIN, leaving the device active.
-pvr_device_fini() then frees firmware structures.
-
-Since the watchdog delayed work is only cancelled later via
-pvr_watchdog_fini(), if it fires in the meantime, can it access freed memor=
-y?
-
-drivers/gpu/drm/imagination/pvr_power.c:pvr_watchdog_kccb_stalled()
-	u32 kccb_cmds_executed =3D pvr_dev->fw_dev.fwif_osdata->kccb_cmds_executed;
+> -		vfree(videomemory);
+> -		fb_dealloc_cmap(&info->cmap);
+> -		framebuffer_release(info);
+>  	}
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-rbrue-suez=
--upstreaming-pvr-suspend-gpu-system-sleep-v1-1-f45847bc951b@gmail.com?part=
-=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909191022.8472=
+95-2-bestswngs@gmail.com?part=3D1
