@@ -4,59 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA8E1C79F8C
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 07:44:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3CB2C79FAA
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 07:52:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C653610EF88;
-	Wed,  9 Sep 2026 07:44:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06B5A10EF93;
+	Wed,  9 Sep 2026 07:52:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="FAksSGDL";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="pT/a3oqC";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B17510EF84
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 07:44:46 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hftB32BD7zKmVL;
- Wed, 09 Sep 2026 09:44:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1788939883; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=b10mfZ88wGp7KfLoV6nUByhsnDqOrPuHynKA2s9tIt4=;
- b=FAksSGDLnQZv069yd8pPw+HvCvPFXsZ02lgJ5VIVA7AIAVWuOkFMNS2fSdMgOqLX65LxYu
- f8WZ6P5HyHcD9RFC4dAETL2pIt/nhe1HZfOYDLxQnuER5hVYEsUASN6K3DBd6UBJUf8n0O
- KW0oTH6HxZ9pfhu1fjJjl/HFqfm30Q3uZlug7urylTtdjLV5Z7nETRZHUzEfLlGX0qU5Qc
- HYE1T3gux9erCWEKeUTum0gF5K9sHzFliwsKh2hB1Iwcfr1BDKsqeqdHFGgGHQiLBXGBVA
- 4WzOFIuRmKThQ0HLS1I/tJm6m3E/BFUtcsYawXS575wBDZ/A4z/EcZODypI5Dg==
-Message-ID: <a9903d42a115bfa5373e02c7ec197ed03ee7c669.camel@mailbox.org>
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-From: Philipp Stanner <phasta@mailbox.org>
-To: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>, phasta@kernel.org, 
- christian.koenig@amd.com, tursulin@ursulin.net, matthew.brost@intel.com, 
- dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- stable@vger.kernel.org
-Date: Wed, 09 Sep 2026 09:44:38 +0200
-In-Reply-To: <20260909003754.1128738-1-malhyuk97@gmail.com>
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
- <20260904080618.2098450-2-malhyuk97@gmail.com>
- <825c1f02-b9ad-4160-8e4b-53f2393a7bff@amd.com>
- <20260908104910.183638-1-malhyuk97@gmail.com>
- <909f7ed1b2688fb2f727afb879642cda5cad9e5e.camel@mailbox.org>
- <20260909003754.1128738-1-malhyuk97@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 754EB10EF93
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 07:52:20 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id ADCCB1A1A73;
+ Wed,  9 Sep 2026 07:52:18 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 7BD1060448;
+ Wed,  9 Sep 2026 07:52:18 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 603A011C7AF4F; 
+ Wed,  9 Sep 2026 09:52:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1788940336; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=JAvW8vyFsOHN+djQaHC9viq07f5HEJTSFyQy/FJZP+8=;
+ b=pT/a3oqCMaEh+7KfHHiVbinaY1Rk29A+MNmHdwy2pqPEIffvpg02DAa03svSjfNC58rRf7
+ ZEfEbKh7HH0j/0AaC8UhaRq3QKAgqRTytK/V7LdyB9uIW8uUqFJisaaO1zWGwIujfaUlDf
+ P1sp+QhXS57hjTR9eWOs19rP4cJWDOBq0wucHNMAP01AhXTN1mATAXoGfDzClOxzz/fZRy
+ k/7sKMJL3BKVx4De2IjbhKTP4EftHY9LNBM+SjG93kCFzvEbnIReDYmgNCfbvUjp/xsVR8
+ w7bvg8zstsxSxGMQd1EXNmtIKSIuwJIE90oFU0gsemmxMRKFJ7nXNIy7AV/sbA==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MBO-RS-META: 9d141xdfi4hdzqsfbg8ppo4w3ydtt4iw
-X-MBO-RS-ID: defea9319307905a299
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 09 Sep 2026 09:52:05 +0200
+Message-Id: <DLAMF47GKNSA.1PJ5V8Z86U1C6@bootlin.com>
+To: "Jani Nikula" <jani.nikula@linux.intel.com>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Linus Walleij" <linusw@kernel.org>, "Inki Dae"
+ <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Marek
+ Szyprowski" <m.szyprowski@samsung.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
+ drm_panel
+Cc: "Albert Esteve" <aesteve@redhat.com>, "Anusha Srivatsa"
+ <asrivats@redhat.com>, "Dmitry Baryshkov"
+ <dmitry.baryshkov@oss.qualcomm.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>,
+ "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?=
+ <ville.syrjala@linux.intel.com>
+X-Mailer: aerc 0.22.0
+References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
+ <20260903-drm-bridge-every-panel-v2-5-2ab8ee24538e@bootlin.com>
+ <678ddef7e56703d9adffff5c490d4857af515343@intel.com>
+In-Reply-To: <678ddef7e56703d9adffff5c490d4857af515343@intel.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,46 +78,90 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-09-09 at 09:37 +0900, Jonghyuk Kim(MalHyuk) wrote:
-> On 08/09/2026 13:07, Philipp Stanner wrote:
-> > Is this an issue? A fence can only be exported if the scheduler exists.
-> > The hard rule with dma_fence is that all drivers must signal all of
-> > them before they tear down the scheduler
->=20
-> Agreed for the bug at hand - that fence is signaled, so 0001 covers it.
->=20
-> My point was narrower: nothing enforces the rule. drm_sched_fini() only d=
-oes
->=20
-> =C2=A0 if (!list_empty(&sched->pending_list))
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_warn(sched->de=
-v, "Tearing down scheduler while jobs are pending!\n");
->=20
-> and the one path that would drain the list, drm_sched_cancel_remaining_jo=
-bs(),
-> needs ops->cancel_job, which no driver in current mainline implements -
-> the only user is the mock scheduler in the KUnit tests. So a driver that
-> gets it wrong gets a warning, not a stopped teardown. Not an argument
-> against the hot-fix.
+Hello Jani,
 
-True. The cancel_job() cb is currently the recommended solution
-(although there was disagreement back then) that Tvrtko and I came up
-with a while ago. The issue was that drm_sched was designed with no
-idiomatic solution for handling remaining jobs in sched->pending_list
-on teardown, which is why all drivers presumably have different
-solutions. cancel_job() was an attempt at providing an idiomatic
-solution.
+On Tue Sep 8, 2026 at 6:18 PM CEST, Jani Nikula wrote:
+> On Thu, 03 Sep 2026, Luca Ceresoli <luca.ceresoli@bootlin.com> wrote:
+>> Adding a drm_panel does currently not add a panel_bridge wrapping
+>> it. Usually the panel_bridge creation happens later, when some other dri=
+ver
+>> (e.g. the previous bridge or the encoder) calls *_of_get_bridge() and th=
+e
+>> following element in the pipeline is a panel.
+>>
+>> This has some drawbacks:
+>>
+>>  * the bridge API is currently the best practice to access various
+>>    components of the pipeline, especially with complex cards where bridg=
+es
+>>    can be combined in different ways on different hardware
+>>  * the panel_bridge is not created in the context of the driver of the
+>>    underlying physical device (the panel driver), but of some other driv=
+er
+>>  * that other driver is not aware of whether the returned drm_bridge
+>>    pointer is a panel_bridge created on the fly, a pre-existing
+>>    panel_bridge or a non-panel bridge
+>>  * removal of a panel_bridge requires calling drm_panel_bridge_remove(),
+>>    but that other driver doesn't know whether this is needed because it
+>>    doesn't know whether it has created a panel_bridge or not
+>>
+>> Other drivers call [a variant of] drm_panel_bridge_add(), which also has
+>> some of the above drawbacks.
+>>
+>> So far the current approach was working mostly because devm and drmm ens=
+ure
+>> the panel bridge would be dealloacted at some later point. However with =
+the
+>> upcoming implementation of bridge hotplug and dynamic bridge lifetime th=
+is
+>> will get more complicated.
+>>
+>> Switch to the new approach: embed a drm_bridge inside every drm_panel,
+>> which behaves just like the current drm_panel_bridge.
+>
+> What does this mean for drivers like i915 that use drm_panel *only* for
+> handling panel followers? We don't need the bridge for anything. It'll
+> just be excess midlayer baggage.
 
-It's afaik currently being used by Asahi downstream and was used in
-Nouveau, but Nouveau doesn't need it / cannot use it for other reasons
-that have to do with page table cleanup AFAIR. So Nouveau covers it
-with a waitqueue. We could add it to Nouveau again, but then it would
-never be called because the waitqueue comes first and needs to stay=E2=80=
-=A6
+i915 does not call drm_bridge_attach() nor drm_bridge_add(), right? So the
+newly embedded bridge would not even be observable, it would not even be in
+the global bridge_list. The only effect would be some extra allocated
+memory.
 
-So should you see a driver that could make good use of it, I would
-appreciate if you'd try to add it :)
+> I'm also concerned about the embedded struct drm_connector being added,
+> since that can't and will not be a drm_connector that we'll use.
+
+The drm_connector is added only if drm_bridge_attach() is called (with the
+DRM_BRIDGE_ATTACH_NO_CONNECTOR flag not set). As above, i915 does not call
+drm_bridge_attach() at all, so no drm_connector is added.
+
+> All of
+> our drm_connector are embedded in intel_connector, and all of our
+> codebase expects this, and we init them ourselves. Having additional
+> drm_connector (not embedded in intel_connector) added by library code
+> *will* oops in our driver.
+
+It would be great if you could test this series (even without reviewing if
+you can't). Based on my analysis above there should be no regression, and
+having that confirmed runtime would be helpful.
+
+And if you can review, this is the one patch that matters. The following
+only affect bridge-based drivers. The previous ones are about moving code
+around across modules and will be different in v4.
+
+> I haven't had the time for an in-depth look, but it feels like this
+> assumes a certain driver model, instead of providing building blocks for
+> drivers to use.
+
+For drivers not using drm_bridge, this patch should be just implementation
+details changes and some more allocated memory.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
