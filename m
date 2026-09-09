@@ -4,115 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B5BFC79FB6
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 11:04:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A78DC79FB6
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 11:11:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 771A110F0C2;
-	Wed,  9 Sep 2026 11:04:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5411010E111;
+	Wed,  9 Sep 2026 11:11:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="o1cSYkRm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KNm8FlNj";
 	dkim-atps=neutral
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com
- [74.125.224.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAB1310F0C2
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 11:04:13 +0000 (UTC)
-Received: by mail-yx1-f51.google.com with SMTP id
- 956f58d0204a3-66dbce0b639so4361640d50.1
- for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 04:04:13 -0700 (PDT)
+Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com
+ [74.125.231.205])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D08C510E111
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 11:11:49 +0000 (UTC)
+Received: by mail-oi2-f13.google.com with SMTP id
+ 5614622812f47-4c0766cbe64so42668b6e.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 04:11:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788952309; cv=none;
+ d=google.com; s=arc-20260327;
+ b=CmQazk0JAHu7Q6NlR0GgJrpHgHBf9MAO3JaGlEC3eRyTEOAp2ZY+XhYHAML0NHQqit
+ nfm3NZMcsXz20lCgijeqtkbHGZ5DU8f7tbHNNPyJO15Za2YpwGbWHm9rswb7MsBvHsAq
+ uvL694dm1ikIU6nB2cBEVk29uY4vDRDJ27xnuTi3G2b9+eH0UDCEnNcRqBJ17NaaxPpw
+ AzVl2pk6T5ityXfJvvgRanNu2rcmWxDFUydFytTtIdgrEd06zisOBusJbebNDJyKJEO1
+ 942H7LfH5BFlGsmc8luQnjlERTss41yRQpCjEwd8jP/w/HKy14nG/12RdGr01/s7/VLv
+ MO/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Ck8lakGDSM+8IA5gpwp94I/I8q3qxhf1fiaN168K/CQ=;
+ fh=QcAiv51foEEp/poTcMcL0Fpeg9pcUWNJEev7+LQnv8s=;
+ b=k0+80k520suuKJWDMax03ESVtSvtppXs37rEKU2fssfPi1I4+bnkSrlhwzOxJTkiUR
+ sVAC7VtC9tzv+UnKrEn5nJe8pxFos2/W0rGTqarDQFco89jVjbepionQRu5FbGDnnp1m
+ BIp3iMIcwMxUswhyZjsXd8p16PGrBRHx3KqFQpMY7YZTmer2Zl92HvBgBX62KIXBpNP0
+ r6Em+IkQl1Ur4JiLyM2JBMBhUe1U/c4c05pMyhMBcqeX1qRvBQznT+JYBbdLHRenQUbZ
+ az/oz3592N5hbTg/MXEklR/VG6fHW8g9fTdZyUvPdOLlU0IMXorL2M445M56AWJqz3QI
+ D0Lg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788951852; x=1789556652; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :references:cc:to:from:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=yu6XBq0/lXnZ7cWMkDYqnoMO3CTujhBWMHDaaEEIfu8=;
- b=o1cSYkRmvp9kt/6fi4SI7fcvsNbmJigbrAnEOzuj+LampMxLUtsgrERLbgXbyLyZeG
- UTUlG2BuMEzrPxxxKJFEAgRSxojcze2zoFjNioRO8CDwkAPftxPV3SgA4+6MHkyHbhTJ
- ZQpI/eU9vC/qbyQL+qpMZHRBuMriYMM4a65Er9bdt6TDDFWczK5hK78pdLKlBl4rCaA+
- ygGaBjEcpPGSXr1RzxAMoPpt+1a9RLWodyLADN+a+HsTEHCvFsHq6VgmT+Vm0pmC0njv
- zvqkO6XQopnoqn8ulAKU33kTry81CS8xjVvKI4aR21nukYFXOWwwr31k79YUVY4T7ubM
- uIAw==
+ d=gmail.com; s=20251104; t=1788952309; x=1789557109; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Ck8lakGDSM+8IA5gpwp94I/I8q3qxhf1fiaN168K/CQ=;
+ b=KNm8FlNjMeA+mFwwJC5jHEom1JlLx01qefZZFLJJAeI6Gs3EmD1848pBl1/g9dFyeu
+ y6Z1UCuNNU9UAUdEvXTDYnjKq0lE+MvffpFOLMukdPGjtBI1V9aWHS1TuptJdKvJ2uSD
+ 79KU61R0eBIs6HHSRtFJNYn2MPsijetFMetaq2Oc5kvxUZy3P1iYCpyykR8uSvDR0dLV
+ xXJewMRQn+coVbOUiGGdzO5QxUYMxfI03ZBLA2tdVsBVT8dcHYP3mpMsAQwcuCVJ9VGf
+ tfuFIW/EyopAlQ2/xzJD/3fpVE/KCjYSs7OnGOpHg4rBfuRmBF/XKPu/x8U3tLnbBCMQ
+ Gstw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788951852; x=1789556652;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :references:cc:to:from:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=yu6XBq0/lXnZ7cWMkDYqnoMO3CTujhBWMHDaaEEIfu8=;
- b=TSDqnWUUi4Sftd0TDsSX2n7+j1kebWBFbqaCrWXCOmyLSV5q+Uv+uieeKAJhxAIjrQ
- dAiURlZuCAGIX1xPXhz8PzI7OetdJ0/k0F6QRUO8jUXOITDYc+4YvrsD3ZRD9pqi758G
- kcHcJ3jNSm7rzNn08kwt5hAdOXX56yGLVG6NTvVBXAvu6uagc9qZRFEnAoR9l2es/e6i
- YIwzzNv7Lkz2vE0yn+TjVvQ1tbe0YtdlRB2FTIoxt4Hh3M3Kgxn1oX8lYYUTt27vo+19
- +N4avVLVga9NJYy3r/Ks9Sk+9ON9DP9qrQ0WqgbE2kUwhfOjw153Ub/m9EvsFb3hpA+g
- nhjg==
+ d=1e100.net; s=20251104; t=1788952309; x=1789557109;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Ck8lakGDSM+8IA5gpwp94I/I8q3qxhf1fiaN168K/CQ=;
+ b=BqNzlakmic0Ujgs9L7eiObCNPOh4YLap/0RJA1FzLBtam0MWwEMWqRAlx5Ly7VEeeY
+ UV8SyZUtyT7hqa4VNaB6E2DuwRIO3ytnOZCgCICWj2NRIOd1hoBPB3olaDD4TBNrtINr
+ b1Ur8KSvuB867cmDfUDQ3MLJKKIS6TDbqJjxwd02pC80yXMeUD8Otb6Udxokcgbkg0hh
+ 5Cd5VLhNwXyMilxjrdA52CiAzh4A0C6+tQipzGTMakVx5Yh9ApnA9LS902i5bn4/J8ZG
+ xKRkqrJ4r1SaSUsp9eJUOhBjl5N6oz52OMWoERdnRntS4tFGN5/y6q2OIRfT0O6B8MFA
+ zseQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxxW6su0hpGNbHclVP2T5uECpy1FQRsc2c83AKSmF+ybb5A3HLAR1mZiGVpqTpqZFOUB8DC+Y82J3Y=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m7SIQ5kU2p0S5643KppWiuRYQZIUebbk4IbH9BghNI2SO3vJXs
- mGKv8tIQSEH0xWZhk4VmBPBFFoURu9FR6KnctljIHClWRKPzrVMZCuTk
-X-Gm-Gg: AYBFou2o2QuGtQktDZb8V+a3cEKnHA7CIpK0/lU8Rq2+ZrmaOTkfjBMcWQroxlIDlKq
- INGPv5C56SeRa8qa768wxnEjUjxSYiPr9wX/1loasqvEDcsuoSgpcnwWaLD4WdrICgumXkwZNRs
- sLB6kaH/4rVUtGtERT+EeTBGK18sohbefz8n/LqS1F8pDKoRIm/Ks09LiODry7ShNfyxHThS2F0
- s9WMl2cG4ChArG3sT1eMw0p4s4F6CcY8o4YVbeEQ+DwKu/iO9t64Cgzomh4QBbDKDwj5bGOyJAn
- UWn3Lym/HQ13GkFua7+EObb59oDeZkI4GNVIzfbNN4wnTSpxKXMJ4L4iDu5Yp4ufivpP3ygU+Aa
- ExV1EOPPvIn5EqyFmZdgYOEFyAUojRxsl/l/41XLqGBmrxtP+NSh5TwH+zzpmwUc4uyzd3D68ud
- JayBr/IqW5nOSIKXdYs1AqGENY8Vgickj2YdJL8FErjLbnbdABDs9e9lArkzrnGVM3aGWnOrXHt
- LdyJiRZs6zwdn0EiIvjzEieU8NA
-X-Received: by 2002:a05:690e:34f:b0:66d:2469:2518 with SMTP id
- 956f58d0204a3-66fb593f3e0mr8590219d50.13.1788951852153; 
- Wed, 09 Sep 2026 04:04:12 -0700 (PDT)
-Received: from [10.254.153.217] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-91040694c35sm140718096d6.36.2026.09.09.04.04.04
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 09 Sep 2026 04:04:11 -0700 (PDT)
-Message-ID: <2fd989b4-06ea-42e6-b18a-bc3ef2e069f5@gmail.com>
-Date: Wed, 9 Sep 2026 13:04:03 +0200
+ AKwUvByDttO7dQaoUB8oWzwQt26Ih+043J+xW1D9tFm/6PCIBziyULSAdEJ29kAhKBdXKASrg/K/gciGz40=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nEc40pXYuYMvoI8eiY6o+Zm+2Odmj7NIcvXWy7nAfcRUChuwd+
+ Si7iBT6O5VKMy7vPc1Ww3xxMmNKK/+5WDC1MwfspcoV2qzUiffV66oxDXbgtpo+LNcV8BzaukJ6
+ JZLvRuh2yYjVXl+qNt3kPYNRGU2BCGxM=
+X-Gm-Gg: AYBFou2kutlilWS4egLrr0vmGCKmiyLqO4jxRISvVuurkiEriNWN6HtRiEbTKdim1Ql
+ kveMVaia8iEre13E8S1OzFnQdnvbG6aEFly2XG/lU/rKAxq0cnSuy+gMGAY9+UtIvGLz/9QEAwB
+ UzemTQy4BC2wPz5dH3c0+oXYzrJe6HRe2QTI7RsAojNr7Eb5nCKEmQmhnBptVRgDtAZMQMxLsE+
+ BMeqcJOb3g1zKIt5K7V0PeCPjcrWQTrPxKlXArnwu6af5mHnhLJsEVHTqJkPqcR/22+I4Y6220j
+ 7gpirgNKbzH9MsVOzMjPxYV9XminK5IvUBL6r7n7/APwILUccZlZs54=
+X-Received: by 2002:a05:6808:4f60:b0:4be:d8dc:be57 with SMTP id
+ 5614622812f47-4c14069c4e9mr417269b6e.4.1788952308835; Wed, 09 Sep 2026
+ 04:11:48 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 08/12] dma-buf: heaps: Add debugfs support
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-To: Thierry Reding <thierry.reding@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Russell King <linux@armlinux.org.uk>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Chun Ng <chunn@nvidia.com>, Mark Rutland <mark.rutland@arm.com>,
- Saravana Kannan <saravanak@kernel.org>
-Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
- linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
-References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
- <20260904-tegra-vpr-v6-8-79042cfa8de5@nvidia.com>
- <a77730b2-b5d6-49f9-a8ab-72eac4e241b6@amd.com>
-Content-Language: en-US
-In-Reply-To: <a77730b2-b5d6-49f9-a8ab-72eac4e241b6@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260903071149.423579-1-oushixiong1025@163.com>
+In-Reply-To: <20260903071149.423579-1-oushixiong1025@163.com>
+From: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Date: Wed, 9 Sep 2026 13:11:37 +0200
+X-Gm-Features: AcwNN1WC5y6ETq-rkRFRm9BLnr617x6FxvJuPUgFKT2cKfdWM2Rc3Anl1-zwsRI
+Message-ID: <CAMeQTsaMhb=neBOcfi62rs5hHCB0nvE2_4qaF0GbeHonp-JZ3Q@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/gma500: Create the primary plane in the driver
+To: oushixiong1025@163.com
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Shixiong Ou <oushixiong@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,146 +110,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since AMDs mail servers blocked me from sending this out, here once more from my gmail account.
+On Thu, Sep 3, 2026 at 9:12=E2=80=AFAM <oushixiong1025@163.com> wrote:
+>
+> From: Shixiong Ou <oushixiong@kylinos.cn>
+>
+> drm_crtc_init() creates the primary plane from a fixed format list
+> that includes ARGB8888. The display engine programs the primary plane
+> with DISPPLANE_32BPP_NO_ALPHA, so it does not support per-pixel alpha
+> and must not advertise alpha formats. Since commit 860e748bddcc
+> ("drm: ensure blend mode supported if pixel format with alpha exposed"),
+> drm_mode_config_validate() warns about this at probe time.
+>
+> Replace drm_crtc_init() with a driver-owned primary plane that
+> advertises only XRGB8888. The plane is allocated by
+> drmm_universal_plane_alloc() and the "pixel blend mode" property is
+> not needed because no format with alpha is exposed.
+>
+> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
 
-Regards,
-Christian.
+Thanks for the patch. Applied to drm-misc-next
 
-On 9/4/26 15:00, Christian König wrote:
-> On 9/4/26 12:44, Thierry Reding wrote:
->> From: Thierry Reding <treding@nvidia.com>
->>
->> Add a callback to struct dma_heap_ops that heap providers can implement
->> to show information about the state of the heap in debugfs. A top-level
->> directory named "dma_heap" is created in debugfs and individual files
->> will be named after the heaps.
->>
->> Reviewed-by: Maxime Ripard <mripard@kernel.org>
->> Signed-off-by: Thierry Reding <treding@nvidia.com>
-> 
-> One minimal nit pick below, with that taken care of Reviewed-by: Christian König <christian.koenig@amd.com>.
-> 
->> ---
->> Changes in v5:
->> - fix failure handling during debugfs root directory creation
->> - add more cleanup to the newly introduced dma_heap_exit()
->> ---
->>  drivers/dma-buf/dma-heap.c | 52 ++++++++++++++++++++++++++++++++++++++++++++++
->>  include/linux/dma-heap.h   |  2 ++
->>  2 files changed, 54 insertions(+)
->>
->> diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
->> index 8a6c2b6e0cc6..65c80dac6500 100644
->> --- a/drivers/dma-buf/dma-heap.c
->> +++ b/drivers/dma-buf/dma-heap.c
->> @@ -7,6 +7,7 @@
->>   */
->>  
->>  #include <linux/cdev.h>
->> +#include <linux/debugfs.h>
->>  #include <linux/device.h>
->>  #include <linux/dma-buf.h>
->>  #include <linux/dma-heap.h>
->> @@ -225,6 +226,40 @@ const char *dma_heap_get_name(struct dma_heap *heap)
->>  }
->>  EXPORT_SYMBOL_NS_GPL(dma_heap_get_name, "DMA_BUF_HEAP");
->>  
->> +#ifdef CONFIG_DEBUG_FS
->> +static int dma_heap_debug_show(struct seq_file *s, void *unused)
->> +{
->> +	struct dma_heap *heap = s->private;
->> +	int err = 0;
->> +
->> +	if (heap->ops && heap->ops->show)
->> +		err = heap->ops->show(s, heap);
->> +
->> +	return err;
->> +}
->> +DEFINE_SHOW_ATTRIBUTE(dma_heap_debug);
->> +
->> +static struct dentry *dma_heap_debugfs_dir;
->> +
->> +static void dma_heap_init_debugfs(void)
->> +{
->> +	dma_heap_debugfs_dir = debugfs_create_dir("dma_heap", NULL);
->> +}
->> +
->> +static void dma_heap_exit_debugfs(void)
->> +{
->> +	debugfs_remove_recursive(dma_heap_debugfs_dir);
->> +}
->> +#else
->> +static void dma_heap_init_debugfs(void)
->> +{
->> +}
->> +
->> +static void dma_heap_exit_debugfs(void)
->> +{
->> +}
->> +#endif
->> +
->>  /**
->>   * dma_heap_add - adds a heap to dmabuf heaps
->>   * @exp_info: information needed to register this heap
->> @@ -299,6 +334,13 @@ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
->>  
->>  	/* Add heap to the list */
->>  	list_add(&heap->list, &heap_list);
->> +
->> +#ifdef CONFIG_DEBUG_FS
->> +	if (heap->ops && heap->ops->show)
->> +		debugfs_create_file(heap->name, 0444, dma_heap_debugfs_dir,
->> +				    heap, &dma_heap_debug_fops);
->> +#endif
->> +
->>  	mutex_unlock(&heap_list_lock);
->>  
->>  	return heap;
->> @@ -335,6 +377,16 @@ static int dma_heap_init(void)
->>  	}
->>  	dma_heap_class->devnode = dma_heap_devnode;
->>  
->> +	dma_heap_init_debugfs();
->> +
->>  	return 0;
->>  }
->>  subsys_initcall(dma_heap_init);
->> +
->> +static void __exit dma_heap_exit(void)
->> +{
->> +	dma_heap_exit_debugfs();
->> +	class_destroy(dma_heap_class);
->> +	unregister_chrdev_region(dma_heap_devt, NUM_HEAP_MINORS);
->> +}
->> +__exitcall(dma_heap_exit);
->> diff --git a/include/linux/dma-heap.h b/include/linux/dma-heap.h
->> index 648328a64b27..1c9bed1f4dde 100644
->> --- a/include/linux/dma-heap.h
->> +++ b/include/linux/dma-heap.h
->> @@ -12,6 +12,7 @@
->>  #include <linux/types.h>
->>  
->>  struct dma_heap;
->> +struct seq_file;
->>  
->>  /**
->>   * struct dma_heap_ops - ops to operate on a given heap
->> @@ -24,6 +25,7 @@ struct dma_heap_ops {
->>  				    unsigned long len,
->>  				    u32 fd_flags,
->>  				    u64 heap_flags);
->> +	int (*show)(struct seq_file *s, struct dma_heap *heap);
-> 
-> I found it good coding practice for objects ops pointer tables to have the object the function works with as first parameter.
-> 
-> Absolutely not a must have, but just looks a little bit more consistent.
-> 
-> Regards,
-> Christian.
-> 
->>  };
->>  
->>  /**
->>
-> 
+-Patrik
 
+> ---
+> v1->v2:
+>   - Open-code DRM_PLANE_NON_ATOMIC_FUNCS without .destroy, which
+>     drmm_universal_plane_alloc() rejects
+>   - Use drmm_universal_plane_alloc() for automatic cleanup
+>   - Move the formats comment above the array
+>
+>  drivers/gpu/drm/gma500/psb_intel_display.c | 34 +++++++++++++++++++++-
+>  1 file changed, 33 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/gma500/psb_intel_display.c b/drivers/gpu/drm=
+/gma500/psb_intel_display.c
+> index 0df75a4a7739..f79484b9d593 100644
+> --- a/drivers/gpu/drm/gma500/psb_intel_display.c
+> +++ b/drivers/gpu/drm/gma500/psb_intel_display.c
+> @@ -9,8 +9,11 @@
+>  #include <linux/delay.h>
+>  #include <linux/i2c.h>
+>
+> +#include <drm/drm_fourcc.h>
+>  #include <drm/drm_modeset_helper.h>
+>  #include <drm/drm_modeset_helper_vtables.h>
+> +#include <drm/drm_plane.h>
+> +#include <drm/drm_plane_helper.h>
+>  #include <drm/drm_print.h>
+>
+>  #include "framebuffer.h"
+> @@ -471,11 +474,25 @@ static void psb_intel_cursor_init(struct drm_device=
+ *dev,
+>         REG_WRITE(base[gma_crtc->pipe], 0);
+>  }
+>
+> +/*
+> + * The display engine programs the primary plane with
+> + * DISPPLANE_32BPP_NO_ALPHA, so no formats with alpha.
+> + */
+> +static const uint32_t gma_primary_formats[] =3D {
+> +       DRM_FORMAT_XRGB8888,
+> +};
+> +
+> +static const struct drm_plane_funcs gma_primary_plane_funcs =3D {
+> +       .update_plane =3D drm_plane_helper_update_primary,
+> +       .disable_plane =3D drm_plane_helper_disable_primary,
+> +};
+> +
+>  void psb_intel_crtc_init(struct drm_device *dev, int pipe,
+>                      struct psb_intel_mode_device *mode_dev)
+>  {
+>         struct drm_psb_private *dev_priv =3D to_drm_psb_private(dev);
+>         struct gma_crtc *gma_crtc;
+> +       struct drm_plane *primary;
+>         int i;
+>
+>         /* We allocate a extra array of drm_connector pointers
+> @@ -494,7 +511,17 @@ void psb_intel_crtc_init(struct drm_device *dev, int=
+ pipe,
+>                 return;
+>         }
+>
+> -       drm_crtc_init(dev, &gma_crtc->base, &gma_crtc_funcs);
+> +       primary =3D drmm_universal_plane_alloc(dev, struct drm_plane, dev=
+, 0,
+> +                                            &gma_primary_plane_funcs,
+> +                                            gma_primary_formats,
+> +                                            ARRAY_SIZE(gma_primary_forma=
+ts),
+> +                                            NULL, DRM_PLANE_TYPE_PRIMARY=
+, NULL);
+> +       if (IS_ERR(primary))
+> +               goto err_free_crtc;
+> +
+> +       if (drm_crtc_init_with_planes(dev, &gma_crtc->base, primary, NULL=
+,
+> +                                     &gma_crtc_funcs, NULL))
+> +               goto err_free_crtc;
+>
+>         /* Set the CRTC clock functions from chip specific data */
+>         gma_crtc->clock_funcs =3D dev_priv->ops->clock_funcs;
+> @@ -524,6 +551,11 @@ void psb_intel_crtc_init(struct drm_device *dev, int=
+ pipe,
+>
+>         /* Set to true so that the pipe is forced off on initial config. =
+*/
+>         gma_crtc->active =3D true;
+> +       return;
+> +
+> +err_free_crtc:
+> +       kfree(gma_crtc->crtc_state);
+> +       kfree(gma_crtc);
+>  }
+>
+>  struct drm_crtc *psb_intel_get_crtc_from_pipe(struct drm_device *dev, in=
+t pipe)
+> --
+> 2.25.1
+>
+>
+> No virus found
+>                 Checked by Hillstone Network AntiVirus
+>
