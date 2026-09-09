@@ -4,97 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A78DC79FB6
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 11:11:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67E93C79FAD
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 11:24:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5411010E111;
-	Wed,  9 Sep 2026 11:11:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BBE610E147;
+	Wed,  9 Sep 2026 11:24:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KNm8FlNj";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CpCx1zha";
 	dkim-atps=neutral
-Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com
- [74.125.231.205])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D08C510E111
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 11:11:49 +0000 (UTC)
-Received: by mail-oi2-f13.google.com with SMTP id
- 5614622812f47-4c0766cbe64so42668b6e.3
- for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 04:11:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788952309; cv=none;
- d=google.com; s=arc-20260327;
- b=CmQazk0JAHu7Q6NlR0GgJrpHgHBf9MAO3JaGlEC3eRyTEOAp2ZY+XhYHAML0NHQqit
- nfm3NZMcsXz20lCgijeqtkbHGZ5DU8f7tbHNNPyJO15Za2YpwGbWHm9rswb7MsBvHsAq
- uvL694dm1ikIU6nB2cBEVk29uY4vDRDJ27xnuTi3G2b9+eH0UDCEnNcRqBJ17NaaxPpw
- AzVl2pk6T5ityXfJvvgRanNu2rcmWxDFUydFytTtIdgrEd06zisOBusJbebNDJyKJEO1
- 942H7LfH5BFlGsmc8luQnjlERTss41yRQpCjEwd8jP/w/HKy14nG/12RdGr01/s7/VLv
- MO/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Ck8lakGDSM+8IA5gpwp94I/I8q3qxhf1fiaN168K/CQ=;
- fh=QcAiv51foEEp/poTcMcL0Fpeg9pcUWNJEev7+LQnv8s=;
- b=k0+80k520suuKJWDMax03ESVtSvtppXs37rEKU2fssfPi1I4+bnkSrlhwzOxJTkiUR
- sVAC7VtC9tzv+UnKrEn5nJe8pxFos2/W0rGTqarDQFco89jVjbepionQRu5FbGDnnp1m
- BIp3iMIcwMxUswhyZjsXd8p16PGrBRHx3KqFQpMY7YZTmer2Zl92HvBgBX62KIXBpNP0
- r6Em+IkQl1Ur4JiLyM2JBMBhUe1U/c4c05pMyhMBcqeX1qRvBQznT+JYBbdLHRenQUbZ
- az/oz3592N5hbTg/MXEklR/VG6fHW8g9fTdZyUvPdOLlU0IMXorL2M445M56AWJqz3QI
- D0Lg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788952309; x=1789557109; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Ck8lakGDSM+8IA5gpwp94I/I8q3qxhf1fiaN168K/CQ=;
- b=KNm8FlNjMeA+mFwwJC5jHEom1JlLx01qefZZFLJJAeI6Gs3EmD1848pBl1/g9dFyeu
- y6Z1UCuNNU9UAUdEvXTDYnjKq0lE+MvffpFOLMukdPGjtBI1V9aWHS1TuptJdKvJ2uSD
- 79KU61R0eBIs6HHSRtFJNYn2MPsijetFMetaq2Oc5kvxUZy3P1iYCpyykR8uSvDR0dLV
- xXJewMRQn+coVbOUiGGdzO5QxUYMxfI03ZBLA2tdVsBVT8dcHYP3mpMsAQwcuCVJ9VGf
- tfuFIW/EyopAlQ2/xzJD/3fpVE/KCjYSs7OnGOpHg4rBfuRmBF/XKPu/x8U3tLnbBCMQ
- Gstw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788952309; x=1789557109;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Ck8lakGDSM+8IA5gpwp94I/I8q3qxhf1fiaN168K/CQ=;
- b=BqNzlakmic0Ujgs9L7eiObCNPOh4YLap/0RJA1FzLBtam0MWwEMWqRAlx5Ly7VEeeY
- UV8SyZUtyT7hqa4VNaB6E2DuwRIO3ytnOZCgCICWj2NRIOd1hoBPB3olaDD4TBNrtINr
- b1Ur8KSvuB867cmDfUDQ3MLJKKIS6TDbqJjxwd02pC80yXMeUD8Otb6Udxokcgbkg0hh
- 5Cd5VLhNwXyMilxjrdA52CiAzh4A0C6+tQipzGTMakVx5Yh9ApnA9LS902i5bn4/J8ZG
- xKRkqrJ4r1SaSUsp9eJUOhBjl5N6oz52OMWoERdnRntS4tFGN5/y6q2OIRfT0O6B8MFA
- zseQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvByDttO7dQaoUB8oWzwQt26Ih+043J+xW1D9tFm/6PCIBziyULSAdEJ29kAhKBdXKASrg/K/gciGz40=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nEc40pXYuYMvoI8eiY6o+Zm+2Odmj7NIcvXWy7nAfcRUChuwd+
- Si7iBT6O5VKMy7vPc1Ww3xxMmNKK/+5WDC1MwfspcoV2qzUiffV66oxDXbgtpo+LNcV8BzaukJ6
- JZLvRuh2yYjVXl+qNt3kPYNRGU2BCGxM=
-X-Gm-Gg: AYBFou2kutlilWS4egLrr0vmGCKmiyLqO4jxRISvVuurkiEriNWN6HtRiEbTKdim1Ql
- kveMVaia8iEre13E8S1OzFnQdnvbG6aEFly2XG/lU/rKAxq0cnSuy+gMGAY9+UtIvGLz/9QEAwB
- UzemTQy4BC2wPz5dH3c0+oXYzrJe6HRe2QTI7RsAojNr7Eb5nCKEmQmhnBptVRgDtAZMQMxLsE+
- BMeqcJOb3g1zKIt5K7V0PeCPjcrWQTrPxKlXArnwu6af5mHnhLJsEVHTqJkPqcR/22+I4Y6220j
- 7gpirgNKbzH9MsVOzMjPxYV9XminK5IvUBL6r7n7/APwILUccZlZs54=
-X-Received: by 2002:a05:6808:4f60:b0:4be:d8dc:be57 with SMTP id
- 5614622812f47-4c14069c4e9mr417269b6e.4.1788952308835; Wed, 09 Sep 2026
- 04:11:48 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0C2610E147;
+ Wed,  9 Sep 2026 11:24:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788953096; x=1820489096;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=cvVFhXBmgFXlYV+tk99qU5Tx4j17ZIhxHwpHwQD5ZD0=;
+ b=CpCx1zhaH1+e9GsDYIooNlaZvu5amkRfWBxqeAhupNZ2FlX2Dv3UKfH+
+ psxRPIfFEpmuu2X5tpb9dTmv4o2xsHCrNE9vQ/vxCTtv/kzgeKX8i8K8X
+ WXrMpDGjIoslpB8y7sMmTqZT7pLAlH8zZ2Ea8zQhP4OCujvuGXmbdnNeH
+ bAHxMPfj2AeCq1Z0Jgw72wYqz52QyMXQCOrHjQMPENUpZWiURYbwyfOTD
+ PIm2GM4vgbIaYEzhdCNJiCk4z+3rC92kmk7Np9Ae4+igOjBjtjLcnb7jU
+ r5rGqiUlMOHECHOek/DKfs2Y/BvwLN8ijpKZdS4XGB/Rc7bCbt4AmmxT5 g==;
+X-CSE-ConnectionGUID: npJINcISR1Cirboqq7JvCg==
+X-CSE-MsgGUID: fCt5i0H1Sbet7HHMktNn3Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="106745370"
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="106745370"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2026 04:24:54 -0700
+X-CSE-ConnectionGUID: mFZnOXZhR1WLuvbLKEzLXw==
+X-CSE-MsgGUID: FJCsdA1ZRDm/2lW/TD+CdQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="268041571"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.37])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2026 04:24:49 -0700
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-References: <20260903071149.423579-1-oushixiong1025@163.com>
-In-Reply-To: <20260903071149.423579-1-oushixiong1025@163.com>
-From: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-Date: Wed, 9 Sep 2026 13:11:37 +0200
-X-Gm-Features: AcwNN1WC5y6ETq-rkRFRm9BLnr617x6FxvJuPUgFKT2cKfdWM2Rc3Anl1-zwsRI
-Message-ID: <CAMeQTsaMhb=neBOcfi62rs5hHCB0nvE2_4qaF0GbeHonp-JZ3Q@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/gma500: Create the primary plane in the driver
-To: oushixiong1025@163.com
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Shixiong Ou <oushixiong@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <785085e8-c9db-4d84-ab55-3a8caf9f4a35@amd.com>
+References: <20260903145952.848051-1-mika.kuoppala@linux.intel.com>
+ <20260903145952.848051-5-mika.kuoppala@linux.intel.com>
+ <20260903152224.AD48C1F00A3F@smtp.kernel.org>
+ <178878748003.179185.16833574173741290547@jlahtine-mobl>
+ <178894801687.37859.4186888279082797860@jlahtine-mobl>
+ <aqEzHQMrI8p9XVcu@phenom.ffwll.local>
+ <785085e8-c9db-4d84-ab55-3a8caf9f4a35@amd.com>
+Subject: Re: FUSE deadlocks vs. copy_from_user() and locks (Was: Re: [PATCH
+ v10 04/27] drm/xe/eudebug: Introduce discovery for resources)
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, Bernd Schubert <bernd@bsbernd.com>,
+ Joanne Koong <joannelkoong@gmail.com>, Amir Goldstein <amir73il@gmail.com>,
+ intel-xe@lists.freedesktop.org, fuse-devel@lists.linux.dev,
+ sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?utf-8?q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, Mika Kuoppala <mika.kuoppala@linux.intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>
+To: Christian =?utf-8?q?K=C3=B6nig?= <christian.koenig@amd.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>
+Date: Wed, 09 Sep 2026 14:24:45 +0300
+Message-ID: <178895308548.62143.17472983986994555742@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,125 +87,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 3, 2026 at 9:12=E2=80=AFAM <oushixiong1025@163.com> wrote:
->
-> From: Shixiong Ou <oushixiong@kylinos.cn>
->
-> drm_crtc_init() creates the primary plane from a fixed format list
-> that includes ARGB8888. The display engine programs the primary plane
-> with DISPPLANE_32BPP_NO_ALPHA, so it does not support per-pixel alpha
-> and must not advertise alpha formats. Since commit 860e748bddcc
-> ("drm: ensure blend mode supported if pixel format with alpha exposed"),
-> drm_mode_config_validate() warns about this at probe time.
->
-> Replace drm_crtc_init() with a driver-owned primary plane that
-> advertises only XRGB8888. The plane is allocated by
-> drmm_universal_plane_alloc() and the "pixel blend mode" property is
-> not needed because no format with alpha is exposed.
->
-> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+(+ userfaultfd maintainers)
 
-Thanks for the patch. Applied to drm-misc-next
+Quoting Christian K=C3=B6nig (2026-09-09 14:02:21)
+> On 9/9/26 12:21, Simona Vetter wrote:
+> > On Wed, Sep 09, 2026 at 01:00:16PM +0300, Joonas Lahtinen wrote:
+> >> (Adding bunch of FUSE folks and DRM folks in the hopes of coming to a
+> >> resolution here.)
+> >>
+> >> Quoting Joonas Lahtinen (2026-09-07 16:24:40)
+> >>> Quoting sashiko-bot@kernel.org (2026-09-03 18:22:23)
+> >>>> Thank you for your contribution! Sashiko AI review found 2 potential=
+ issue(s) to consider:
+> >>>> - [High] Global ordered workqueue stall via copy_from_user block whi=
+le holding ioctl_lock.
+> >>>> - [Medium] Event sequence numbers (seqno) can be queued out-of-order=
+ in the event stream due to a race between seqno generation and event queui=
+ng.
+> >>>> --
+> >>>>
+> >>>> commit e2061e72d8e954a17bde35e9c970ee41bc2db0ad
+> >>>> Author: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+> >>>>
+> >>>>     drm/xe/eudebug: Introduce discovery for resources
+> >>>>
+> >>>> This commit introduces a resource discovery mechanism for debugger c=
+onnections.
+> >>>> When a debugger connects, all existing resources for the target clie=
+nt are
+> >>>> relayed as events via an ordered workqueue, and DRM ioctls are block=
+ed using
+> >>>> an rw_semaphore until discovery is complete.
+> >>>>
+> >>>>> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe=
+_device.c
+> >>>>> index 032a7ec5fbc8d..f10959b898297 100644
+> >>>>> --- a/drivers/gpu/drm/xe/xe_device.c
+> >>>>> +++ b/drivers/gpu/drm/xe/xe_device.c
+> >>>> [ ... ]
+> >>>>> @@ -238,8 +239,12 @@ static long xe_drm_ioctl(struct file *file, un=
+signed int cmd, unsigned long arg)
+> >>>>> =20
+> >>>>>       ACQUIRE(xe_pm_runtime_ioctl, pm)(xe);
+> >>>>>       ret =3D ACQUIRE_ERR(xe_pm_runtime_ioctl, &pm);
+> >>>>> -     if (ret >=3D 0)
+> >>>>> +     if (ret >=3D 0) {
+> >>>>> +             bool lock =3D xe_eudebug_discovery_lock(file, cmd);
+> >>>>>               ret =3D drm_ioctl(file, cmd, arg);
+> >>>>
+> >>>> [Severity: High]
+> >>>> Does holding the discovery lock across drm_ioctl() create a vector f=
+or a
+> >>>> workqueue stall?=20
+> >>>>
+> >>>> If an unprivileged user maps the ioctl argument pointer to a blockin=
+g FUSE
+> >>>> or userfaultfd region, drm_ioctl() can be stalled indefinitely during
+> >>>> copy_from_user() while holding xef->eudebug.ioctl_lock for read.
+> >>>
+> >>> Don't think this is a very realistic vector to address, as it would
+> >>> also extend to every other copy_from_user() and also to userptr across
+> >>> all drivers.
+>=20
+> Yeah I don't think that this is a major problem.
+>=20
+> Using copy_from_user() while holding a lock is usually fundamentally brok=
+en in the first place.
 
--Patrik
+Well, ultimately also applies to userptr. How would we go about
+implementing that without any outer locks?
 
-> ---
-> v1->v2:
->   - Open-code DRM_PLANE_NON_ATOMIC_FUNCS without .destroy, which
->     drmm_universal_plane_alloc() rejects
->   - Use drmm_universal_plane_alloc() for automatic cleanup
->   - Move the formats comment above the array
+Grab locks, figure out what pages are needed, release locks, pre-fault,
+re-grab locks and do best attempt to resolve? And that's going to be a
+live-lock at best again.
+
+That'd be a massive undertaking for each driver, I think.
+
+> But there are other issues which are much more problematic.
+>=20
+> >>>
+> >>> Having a malfunctioning FUSE driver and getting a malfunctioning syst=
+em
+> >>> as a result is probably somewhat expected.
+> >>
+> >> Based on further chatting on this with Sima, I was volunteered to pull
+> >> together the discussion here.
+> >>
+> >> We seem to have Sashiko picking up on patterns about accessing userspa=
+ce
+> >> memory with locks held and potential for copy_from_user() (or userptr)=
+ to
+> >> then take indefinitely long to resolve. And that spreads to deadlocks
+> >> everywhere situation very fast.
+> >>
+> >> Based on reading of [1] and [2], it seems pretty much expected FUSE
+> >> drivers can trivially deadlock and ultimately in worst case the situat=
+ion
+> >> can only be solved by manually aborting those connections by sysadmin.
+>=20
+> The real problem comes with userfaultfd and the combination with HMM.
+>=20
+> Drivers implementing HMM usually use a background workers to resolve reco=
+verable page faults using the function hmm_range_fault().
+>=20
+> If userfaultfd together with hmm_range_fault() can block those background=
+ workers indefinitely it can block other applications from using the HW wit=
+hout any sysadmin having any chance to figure out what is going on.
+>=20
+> That is a classic local deny of service attack and I fear hmm_range_fault=
+() needs something like a timeout to handle that.
+
+From my position, if userspace is injected to the dependency path for
+resolving page-faults, with potentially unbounded execution times, the
+timeouts would better be asserted at the FUSE/UFFD side and then simply
+failing the operations with a bang if not met.
+
+> >> It also seems (from the Sashiko comments) that by design, there's no
+> >> upper bound for how long an operation can take, so a bad FUSE driver
+> >> may stall for however long it sees fit to serve page-fault or in the
+> >> case of [3] it may decide to not actually populate the PTEs (or maybe
+> >> invalidate them immediately).
+> >>
+> >> Should we really be refactoring the whole kernel for the sake of
+> >> knowingly allowing potentially malicious userspace driver to idefinite=
+ly
+> >> stall or incorrectly resolve page faults? That'll be quite a lot of
+> >> complexity added to all the other drivers.
+>=20
+> +1
 >
->  drivers/gpu/drm/gma500/psb_intel_display.c | 34 +++++++++++++++++++++-
->  1 file changed, 33 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/gma500/psb_intel_display.c b/drivers/gpu/drm=
-/gma500/psb_intel_display.c
-> index 0df75a4a7739..f79484b9d593 100644
-> --- a/drivers/gpu/drm/gma500/psb_intel_display.c
-> +++ b/drivers/gpu/drm/gma500/psb_intel_display.c
-> @@ -9,8 +9,11 @@
->  #include <linux/delay.h>
->  #include <linux/i2c.h>
->
-> +#include <drm/drm_fourcc.h>
->  #include <drm/drm_modeset_helper.h>
->  #include <drm/drm_modeset_helper_vtables.h>
-> +#include <drm/drm_plane.h>
-> +#include <drm/drm_plane_helper.h>
->  #include <drm/drm_print.h>
->
->  #include "framebuffer.h"
-> @@ -471,11 +474,25 @@ static void psb_intel_cursor_init(struct drm_device=
- *dev,
->         REG_WRITE(base[gma_crtc->pipe], 0);
->  }
->
-> +/*
-> + * The display engine programs the primary plane with
-> + * DISPPLANE_32BPP_NO_ALPHA, so no formats with alpha.
-> + */
-> +static const uint32_t gma_primary_formats[] =3D {
-> +       DRM_FORMAT_XRGB8888,
-> +};
-> +
-> +static const struct drm_plane_funcs gma_primary_plane_funcs =3D {
-> +       .update_plane =3D drm_plane_helper_update_primary,
-> +       .disable_plane =3D drm_plane_helper_disable_primary,
-> +};
-> +
->  void psb_intel_crtc_init(struct drm_device *dev, int pipe,
->                      struct psb_intel_mode_device *mode_dev)
->  {
->         struct drm_psb_private *dev_priv =3D to_drm_psb_private(dev);
->         struct gma_crtc *gma_crtc;
-> +       struct drm_plane *primary;
->         int i;
->
->         /* We allocate a extra array of drm_connector pointers
-> @@ -494,7 +511,17 @@ void psb_intel_crtc_init(struct drm_device *dev, int=
- pipe,
->                 return;
->         }
->
-> -       drm_crtc_init(dev, &gma_crtc->base, &gma_crtc_funcs);
-> +       primary =3D drmm_universal_plane_alloc(dev, struct drm_plane, dev=
-, 0,
-> +                                            &gma_primary_plane_funcs,
-> +                                            gma_primary_formats,
-> +                                            ARRAY_SIZE(gma_primary_forma=
-ts),
-> +                                            NULL, DRM_PLANE_TYPE_PRIMARY=
-, NULL);
-> +       if (IS_ERR(primary))
-> +               goto err_free_crtc;
-> +
-> +       if (drm_crtc_init_with_planes(dev, &gma_crtc->base, primary, NULL=
-,
-> +                                     &gma_crtc_funcs, NULL))
-> +               goto err_free_crtc;
->
->         /* Set the CRTC clock functions from chip specific data */
->         gma_crtc->clock_funcs =3D dev_priv->ops->clock_funcs;
-> @@ -524,6 +551,11 @@ void psb_intel_crtc_init(struct drm_device *dev, int=
- pipe,
->
->         /* Set to true so that the pipe is forced off on initial config. =
-*/
->         gma_crtc->active =3D true;
-> +       return;
-> +
-> +err_free_crtc:
-> +       kfree(gma_crtc->crtc_state);
-> +       kfree(gma_crtc);
->  }
->
->  struct drm_crtc *psb_intel_get_crtc_from_pipe(struct drm_device *dev, in=
-t pipe)
-> --
-> 2.25.1
->
->
-> No virus found
->                 Checked by Hillstone Network AntiVirus
+> Regards,
+> Christian.
+
+I was also meaning to convey that I don't think indefinitely blocking
+copy_from_user() is acceptable, either. However earlier you seemed to
+indicate towards that being something we should expect?
+
+Regards, Joonas
+
+> >>
+> >> Or should there be more protections on FUSE / uffd to ensure such
+> >> idefinitive stall can't happen? Or maybe this is just an academic
+> >> problem and we amend review-prompts not to bring it up?
+> >>
+> >> Or maybe I missed some part of the FUSE docs and this isn't a real
+> >> problem?
+> >=20
+> > Thanks for typing this up, matches what I think is going on here.
+> >=20
+> >> Regards, Joonas
+> >>
+> >> PS. There is a related patch in [3] which tries to address the problem,
+> >> but we'll quickly run into live-locks and other issues even if we
+> >> refactored things into: pre-fault, take locks, do _nofault() access, a=
+nd
+> >> retry if that fails.
+> >=20
+> > Yeah just quickly wanting to add here that in my opinion, trying to sort
+> > this out in all the various subsystem is not how we should even start to
+> > think about this issue. This would be a fundamental change in how
+> > subsystems are allowed to nest locking with stuff that can trigger
+> > userspace faults.
+> >=20
+> > I did ponder a bit how this could be solved on the fuse side of things,
+> > maybe with some seccomp style filters. Like maybe lockdep could be
+> > enlisted to help catch deadlocks, with a special "this is a fuse proces=
+s,
+> > it all defacto runs in fault handler context. But that only catches bugs
+> > in normal use, not malicious exploits. And given that userspace can cho=
+ose
+> > the timing and unblock at will (I think so at least), this is pretty
+> > powerful tool for being nasty to the kernel.
+> >=20
+> > But mostly I want to really, really stand back in awe about this issue =
+and
+> > not think too hard about it.
+> >=20
+> > Cheers, Sima
+> >=20
+> >> [1] https://www.kernel.org/doc/html/next/filesystems/fuse.html#kernel-=
+userspace-interface
+> >> [2] https://www.kernel.org/doc/html/next/filesystems/fuse.html#abortin=
+g-a-filesystem-connection
+> >> [3] https://sashiko.dev/#/patchset/20260827062142.4038272-1-srinivasan=
+.shanmugam%40amd.com
+> >=20
 >
