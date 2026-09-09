@@ -4,128 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEEE7C79FB5
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 03:05:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13A48C79FAD
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 04:00:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3966710EE5D;
-	Wed,  9 Sep 2026 03:05:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34AC610E11B;
+	Wed,  9 Sep 2026 04:00:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nPWX1RYM";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="QE5ZCx9l";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010006.outbound.protection.outlook.com [52.101.61.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B79BE10E1D8;
- Wed,  9 Sep 2026 03:05:02 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013045.outbound.protection.outlook.com
+ [40.107.201.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 612EF10E11B
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 03:59:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hCUKCRJDNzxalF9a6d24eVEkpxxQ58RsHSJ/Sf858nPsv9147Y909TFQDHbJKcLBNGE5aCt8I6AewlNpgHoAw8xXdnfiyaxlXvFEzDjtlgLLP67kMvFHTu2xueVZVBaI7voU2HYCWk3XIp8rUsN9tl1QgczazbFZUo8C2BBFH4aEzZtA0RdhsxEEj0cyJJVNU2TJrA2vsIOJRxXFtSWa+Kzn5dFpSeBi6WDFxn81/Cyz4ZJ5Yp7gpSoV4xXefjW+oFuT9z34ajPgRcyPMcOn4QI6mjVXJucrXsOb+EmaTVahwFy9m2trntkmPVdSKu7o9T6Hqhq3tejDZ9GrM75s4w==
+ b=hh22T9mnO9BHm+gthIAHzPytIy3fIBVj+RWfMTSJzYAlSvwajV2nzMnKwhd0jBVc3dQptoCYvuccNfl4WyFsx3TMjVWjbBjxgKlLxINR/AmjP7DxrpWakerKmigN3ZLgZczgT2W8EKqtazYJoYDedIVscKB0WG8+YU69NN6QMVLnsvMvb5q3bjnff4B2BkdoJXtyZpmwM4doNuyPm7FhCtMb29rPHqhB1lPqFg24R91f/tqDKWJH48gz1f9PNptUx++ISWRNlhSObXIu/T0qyJBQbJ2ngHKxU6WL4cqdpI5+ADSDGVi3PRNzpvKSLVHPSrkOuUX1rauYZXf+i/po5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cE7XgqHQ6QSed6woJLAYZrsE9KbIhdZ4pKJhLki/YGQ=;
- b=P35MWYeDZJ3L/FqcsaIrWbF1zjAdkLBMfwdAUhWoY9Dd69tN82CItjToSgz019leNfxyzd8RBs/WfqkIGM6LTal9H4vrwOVmtXeGltIm1LpAv8sHRymLTQ9DBQQ1ZYuerbPzWjdFtlHg5KBfL4c5C1YDm+XcNY2tEXqTBYYw4LilQ/LTaK9yoijy74tKV7cD6JXf+nyaBfrXysK3E5LRamRRJsCcKhQT0UWFZmlR4hfQyvOYD/bOT7sgXB0slBP8EhhByn5M7DzgUAA1F7lBZab5bbP+xKDRad+pcT5FH/QuydnEX4GEGUXdJ8eJsFeesphO12yLxRfX31TQhBJkFg==
+ bh=zDNo6ZXTuOpqydKZP/3FiUjabJXPVkcteZcuqk8iuw0=;
+ b=yYboB3z0nZ3ZGzxe3YsDJR7CiCre42zJCu9XVN+jJmxD/CQMl8vU6IJnMAD9bZvTfDH2ol7TiM0UwTYtMoWiGaQtJKocCiGf3MmS4G7lr62wn+QR9TjHQPjL3rbLm45vgCQJsu71U5QjflBKOWrEZEMPddxHcQa5l/vgdvUPzZlQMyprSfwgTx/LRu5hKgziM4SKXq4i/9zRnUkXImtwNuQ08H82sQi/EvKf0IXRDkQzGGS9rsZUVyBPjQf69kji4lPs1ZvOypD0dQcYKbh18G9bwLarFlx1C9VEc2jEc2ZV0bXTEIZi4y1R/BIFECuvcNW2cvAgPbBD3QSyEsaAtA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cE7XgqHQ6QSed6woJLAYZrsE9KbIhdZ4pKJhLki/YGQ=;
- b=nPWX1RYMxUDTi7svskghbC1okysFADkrIVUZkryAZe6m+ceypwQJ/uroLzgDJ8nz0o2P4NceHlTN0MU6H9MxSZRqyBHA0izW97Z7PkKpxTADFQ9TW/u5+BfvRxMpZaEllKlV0MllNiBR9U9dvUImbbU6As5Bu2YzknhJroPqvHs=
+ bh=zDNo6ZXTuOpqydKZP/3FiUjabJXPVkcteZcuqk8iuw0=;
+ b=QE5ZCx9lRYPpCWN6ZyjFEkTOO7ezNfg8iGaN4DPISJtgcSz0AUpy4RAe8wM6jWQjr7HxowAkmnp23cUXxuTGcr7OZ2U9M2zURKYPjvRL+1retl/4+TkOg6zvR+FGZRFpSnhRkgArVjiJRFHtc2NsgqKrncvZWEn7O5pnYwtjg1PetC3XXquW1TyNfWV2AvtQjD3IzmfveTnj2lGmVcKrFT8LkBF9hYkG5jmzRzs0Hg+HpJsOo49v1nChIG4DYP/uDVqPguG788vMVO+MJa+dlUHO1S5RQY1icQpi//PLDRvFfBRb2UU5MYrNLgDtB9MAoVFgIqxDeXMTLFCbfzPRGA==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB8199.namprd12.prod.outlook.com (2603:10b6:8:de::20) by
- SA3PR12MB9089.namprd12.prod.outlook.com (2603:10b6:806:39f::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.7; Wed, 9 Sep 2026 03:04:59 +0000
-Received: from DS0PR12MB8199.namprd12.prod.outlook.com
- ([fe80::fdd3:ff85:ce0b:7c27]) by DS0PR12MB8199.namprd12.prod.outlook.com
- ([fe80::fdd3:ff85:ce0b:7c27%6]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 03:04:59 +0000
-Message-ID: <c3fa041e-9da4-4ac7-93c5-c5514f78acdb@amd.com>
-Date: Wed, 9 Sep 2026 08:34:53 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 3/3] drm/xe: Convert xe_user_fence to drm_user_fence
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Mika Kuoppala
- <mika.kuoppala@linux.intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-References: <20260908084627.352535-1-srinivasan.shanmugam@amd.com>
- <20260908084627.352535-4-srinivasan.shanmugam@amd.com>
- <aqBufwAli0Krw+s3@gsse-cloud1.jf.intel.com>
-Content-Language: en-US
-From: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>
-In-Reply-To: <aqBufwAli0Krw+s3@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0146.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d7::6) To DS0PR12MB8199.namprd12.prod.outlook.com
- (2603:10b6:8:de::20)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ SA3PR12MB699018.namprd12.prod.outlook.com (2603:10b6:806:510::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
+ 03:59:55 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
+ 03:59:55 +0000
+From: Eliot Courtney <ecourtney@nvidia.com>
+Subject: [PATCH 00/16] gpu: nova-core: GPU page table, vmm, and bar1
+ mapping
+Date: Wed, 09 Sep 2026 12:59:38 +0900
+Message-Id: <20260909-mmrebase-v1-0-8dd5d4225d2e@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WOSY7CMBBFrxJ5TUkeyGBfpcWibJfBCCdpO4m6h
+ bg7JvSiN+z+l94f7qxQjlSYae4s0xZLnMZqxKFh7oLjmSD66pnksuMDbyGlTBYLgRCqHSQGy7l
+ iFZ8zhfizV32d3r6s9kpueeX/iEzfa91Y3hjbi9yUUlxMQx1Kp4eBvO6wRYWhFVX35CzqOi2FD
+ TI4zv5/M83+TPMeEs43giUTQaHRQ/kdHaA49toLtIpLs8lP2dlFqH+nNTuCcMNzAduj9xa5Vcd
+ gNsFOj8cTvyFG6y4BAAA=
+X-Change-ID: 20260805-mmrebase-113582afb003
+To: Danilo Krummrich <dakr@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>, 
+ Joel Fernandes <joelagnelf@nvidia.com>, Zhi Wang <zhiw@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TY4P286CA0102.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:380::16) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB8199:EE_|SA3PR12MB9089:EE_
-X-MS-Office365-Filtering-Correlation-Id: 327cf9ab-ac31-46e4-7055-08df0e1f227b
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|SA3PR12MB699018:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d025fd4-e4a2-406a-a937-08df0e26cedc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|23010399003|6133799003|10067099003|4143699003|5023799004|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: rJUBW7xRuRZEffBG3IH6fpO9AXwUyNMEeokHhr0zn5mfP2XJ2RiQl1FNUQV3CmjXlf2LHdDesabowQrhrGfwC2rpE/IiwAKRA6W8KtA3XEblTgTgxNg2kxphpC7ZTJQWt7dorg62tAU0a+t1bN1IfjmrKZs90Cw4kHFFjLsUfGxpB5qOrO4wFuGn8FXCbwq3qRmhiE4GhRyJu8AgDUXLm/r5DbLOjhkDA2SyavxB9GAs2xwWr5pw7FMWLjbTMCiaO62pymVTaoQ/lKLUUkW7AWqhOVPJ+8JUka4um1KOAYVE1fQbr+Og+bUgBEu4ZB58T4/epgt298y8itraABgDnb8i081g5b3ZyN5MnSxzV61bfpf3HEC0KDtW7/3njsIoE4g+MKlZ+K/lsWtY/CRKTTnLDOen51t0rfs2hl67/O0D76OL9tIDpZ4wzDBZSFMDMhMAjzT9+Q8w+9Q7Mf/HAnHZREHn/LZnq0LsetjWcZ/PscxbovPjI9b5dtsUOW/APIg9679USM3BFrcWUV2CnHBLriGM+fQmZVmz5MhaV70amq0amC7uWrb1XiDiDynuTY7MwVTcz1MfvNTgThJY0bOJEGH5nzUSwEtCtuONGyznszHcxcOGWDGXyafYnv/B2vIUj70lH7hJs7ajPgaMgxdGAJ6+bPoTyan7xwjuWkY=
+ ARA:13230040|376014|1800799024|23010399003|366016|10070799003|6133799003|3023799007|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: R8Nm9A9ZVwZ1oQzChX955Kb0vBQU31Oo/h+49nbOKk4Ucjf3blrES9KuPWJbkMYKRobmWgfhUzqBaeamhk2ZJaYwH1H+8+DTOhNbiFLdzkjBnAP8iCcAbaF2s+pP+fpfB+0HYlJeuFPhQRTyL/LAVeBBj9+9QAFKg/EmTwyPDhTlvZPu9RWtlnMRHMvrl7neM+87hbV+Gv/mOMcdZF1OBvgdHSbnYG2jFiOMs5eASYUjRouyIQtZFWVBHoZ2okVRiJlFVf7JeBX25/TFeg9NsmK1IJ4TSBvxPrYlOq8T1xhUpeDVb+xPTh/AjRg69ZmYbWn7oDt647jBTIdqfuABXJCo1PDTYbNCuzz+TNj8sbSZjg+v330bT3HL6HyuvXTQVXonJ6YT6RqQc//FIN5+38KZ0REyTiG2hXiR0/fwDhyZbP3+5FjStqVSmmTxz8wWIc69pkLTV8jm/PKFjQSrfMiFUBBseE2k7ThEPlC+blFxQs0j2qXWfBeB2z23um0o7EJSx5fRytzujsB7p8l4IvhPiAta8V41j2E5ii67eczO0Pq+cexxFhqhBCdrTe/xQE6gXRqYqsbH1uy22WObapdW6TZlykh/L3N9NRpdLOcPNd9s2uYj8bgt8vXQGjc//M+5Ec553YFzFXKENA1gMEz+gWNp+IfZUqrDlRQsvD8=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB8199.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(6133799003)(10067099003)(4143699003)(5023799004)(56012099006)(11063799006)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10070799003)(6133799003)(3023799007)(10067099003)(11063799006)(56012099006)(18002099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aEtFY3VpWEFzZ1UzRlZlU1Z5cDVDWHVFZzg0NU1PTXRzMml5aFZxQWd6aFBt?=
- =?utf-8?B?M0VQTU8wZ25pQnpqc2NnVmtmOEhPR3JCMkc1eDY4Y3dOMHFpUlR6eGhlekpS?=
- =?utf-8?B?OFdFRFQxd0pwQ2FTVmkybnlBUTU2ZjliKzFQaHYwQk1hcUJaR0xIU2VsRnRJ?=
- =?utf-8?B?d05OemhEbjdhZEo3YTNHNnp6MzVTbitvOWtyYjlNVUJYaTl3ejl1a0k4aWc2?=
- =?utf-8?B?UnNrc05yWElheXRDQkt5d0xramdXREtOMTFDR3kyeDkzVFdlcHpGKzJ2Rk90?=
- =?utf-8?B?Y0dLZmZqQmZlZTZsSndHbzdyaVJhb1ZFTmJSTUkrZG81NjZWVmFQa1crcGZ2?=
- =?utf-8?B?b0ZyTkpUU2hTVUNUek9lY1M4Wjd6Tk9BM2ZKeFJjMHJPT0wzVm1PbUJPYWZk?=
- =?utf-8?B?SU90MnRuSnFmeFA2eEFLWDl3SVMvZDRQbDhoT3FCc005VlpwbHFYblA0aXZD?=
- =?utf-8?B?alF4LzYzNlRRTlZ4OVVlUVg2Y0V6OGR4UkVyaC9hczU4bk1QZFFsTVJzM3ZL?=
- =?utf-8?B?SlhsRWNhcjlWcnhTVmNTRWN2ZE5uVDhKVkU5VVNmR0U1K0VjcWlCaE9FRFMv?=
- =?utf-8?B?R3lRbGIwWklya2NndTByYUxGQUtETUhlVW8vZENkcHBXOGdXZVQ4bzUxVHd6?=
- =?utf-8?B?L2NGNFhvUlZZQ0JTL29tN1hsUVZDcC9GZEFldFpzTUJBa0FWT2hVUEl5dDlo?=
- =?utf-8?B?eE52ZHkrU2NFN2p2K1VraFp4UUV6c1BocjdtNVhQdENaRXRQM2I5Y0NQalp2?=
- =?utf-8?B?VlN0WlRwZ2NXT0RJZFZ4SlJ1dnlSQnJEQlVrczZ2Um44RE4vRDVzYWJnZjd5?=
- =?utf-8?B?eHp4RDEyMk9EVmtoTDhrTDAxektEMUlvUVQ1YkxyTTNzeFNRZHZpT2YvdGdK?=
- =?utf-8?B?WWpDTDEwcFY3N2lyM3pjU2ZCZGRsdlVEZkZlM0xJNHFYK3hNVFFlRHBxSEZQ?=
- =?utf-8?B?c3B1NGJOOVJIYnNuOWpORnZRNnl3RkxWLy8vSzhYMVMreG1CUmVQaXYrTkQz?=
- =?utf-8?B?ZGJjbFJWTmVvbmIyeGI1cko2VnlVRlVzQXlYb1RvbTFMLytGaUR6MjVlUS9X?=
- =?utf-8?B?YUNMYVN4UExWYTFZKy84YXJkTFhSaEJPOGNZMTdLaUkyeDd2VVJxbXN1KzZE?=
- =?utf-8?B?U0luSEJzSXRGWDNZSStOQklQUjJnZmJqUncrUXgrMkp0Mzc2aU91K0FTanVX?=
- =?utf-8?B?TmtGam9xbGw4T1lUa2ZLa2ZsSHRkOWxkZmtCM3kzZGwwb2pxZVdEWFRrTEZH?=
- =?utf-8?B?VVE0a2JydWhWd3V6TVdSZWVyRXJFS0RWUGtoZ09QTEVHdFVud3poYi9MV3Zm?=
- =?utf-8?B?UWEyV2x4UFhMWWlBZVFIQzBEQ1lEYXRPdWovLzBZV3BsRGR4K0krVkYveitW?=
- =?utf-8?B?RnlaQkcrYUR3RTF4ODJXYUM1ZVhPWjNjVWxIbmNOQ3F3TFk3Z0JxVGZ4cVZj?=
- =?utf-8?B?b2hiSy9jWUxUK1R2N2pJaE1yWithNmJyK2V6Smc5YjdLTnhINnFyek5sWmtv?=
- =?utf-8?B?T2hFbjBhckVFM0NLOTIvU3V2SmN2MzZXd3RMa2xXY2JPSTlFTFMweXgrbHNw?=
- =?utf-8?B?QUNEcHlUeHZEZWQvRlExbVdxYmRTekhwS3RkbllibmdOeVdaNFFKOWNmdE5y?=
- =?utf-8?B?UWtqdm1xSTZRcHlqRlhoTkl4My84Ykt4eVF6TitTU3UxN3ZBeU8zb2hCUm9m?=
- =?utf-8?B?UDI4ZWJCenJId1c2aThDMVBUeUo0Sk1DRmhiQ25Ja0ZKM2hZOFc0Y3pSYTBB?=
- =?utf-8?B?OTFlYzRnbDVIVFV4ZW1nRlRCTHRtV01xN3h1Mk9nZmJrQ0xISUovNE9KVEl2?=
- =?utf-8?B?Z1puYTVFSmhMV3BUOVBtanBhcWtaR1lMaUZvS2JvYkNZa1g2RVR1UHNHU0My?=
- =?utf-8?B?M3c0S09RZkVVNVhYRTRDbWxTQnFPclpIV28xM0RiSGYzblBpdWJ2RTJOM2RV?=
- =?utf-8?B?SkVFYktJK2VoR3hQL2FqRXFUV3dPRFZKeFF2S3hlSkN0bDdoQTR2VWJUQ2U4?=
- =?utf-8?B?bVEwdElYOHBWckVMVVVteFpNTHZ4RTE5OUZhS0pqQ3RXek05dzdNRyszVjdV?=
- =?utf-8?B?KzVOdEdjWmppcGlOKzlnSmxOZXBCZ3MyZUVKV1pjSE1jQmlieEdvcmRJVVVC?=
- =?utf-8?B?YVRCNWorSFhybXhXeVBzUVFzZmhjOGdBVVFjQ0hVVjNWQUg4WFpGMnN0b2xu?=
- =?utf-8?B?NHA3N05oRjFIaWhsTXJSZWVYa2JVWHAyNFF4aUFtMzdTRGZtUmlEMHpzN0U0?=
- =?utf-8?B?ckI4ZzU0bHhLRExubDdRYjRpbS9WaWtLbmlxUHJtNUpuRWtsMkttVFVjaHpm?=
- =?utf-8?Q?aWXx8BRyL0Oh+dkbpA?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 327cf9ab-ac31-46e4-7055-08df0e1f227b
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB8199.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cGppNStvTHUxRmpNRTIxOFNCZTRDaUhIMWtGTUUraGpEMCtySDNKWXViTTdl?=
+ =?utf-8?B?aVdNNkR3K1g2YnY4SEVHRW9GaUV5ZUVaNDNDbDZ5dXZZSnY3NXhTZVRBNVRL?=
+ =?utf-8?B?K1NjM3oxa01ueGovM2kzcmNKOUtJMEYvWnhvRlIzNkR6Y1FGaWlRSURCY2kx?=
+ =?utf-8?B?K2dhV20xenJFNDNoUEJQOFFkdjg5QUUxVlowL1oxUlFudkhpNzJid2cxdFlP?=
+ =?utf-8?B?K00xZksxMEdEWktSREtWRnFyYlQ2TE5LZTEwdmhYZ1VzSWtTN282V3NrOVRB?=
+ =?utf-8?B?TWN3dUhQZVdOa3VpY01LY2t5eEhnMDZLUmNXbTBSTGZYMVpMd2E5VmhWU1Ji?=
+ =?utf-8?B?N1RnSWxxaUd6QkxwZWRjaURZeXpTdWlpbEUrZXRadm55ZVIrdFNkVVdENWl4?=
+ =?utf-8?B?ZHRENjhwT1QydGRBbVNZaXBHeVhtbkNDU3d6THpNMkdNQ0U4dzdEWmhsNkdV?=
+ =?utf-8?B?T0F3M2FGTEZrQWV6Zm1iWUNMWTF3TWxhV2hMSmNtWWhoSCtocWx4cXprUmlK?=
+ =?utf-8?B?TEZ0aWlkdFAwaE9BbkdYNDNsZnl5Y3BTTjRRUzBweXVyMERxT0Nkanprc0RB?=
+ =?utf-8?B?eTB6aVRYcXEzNFFmTDdweUFjRE5MeGJaVitJeGFORi9IMTF3bzZJSENDK2lB?=
+ =?utf-8?B?c09DNHZ6RVNxRXNpYTVsYVh2RHJUeVFkTVZ2aXBETVR0K3pqTkNna3U1SlVw?=
+ =?utf-8?B?d2ZTVTBZa2NiK29uN2d0cVVTaExYZFg4ZjlGNXF4b1g4ZHNkWGxPS0dzZ0lJ?=
+ =?utf-8?B?WHBrOFpQOFFJVXJJUVdWWU9XRU51SmoxVXVkYVNhRWI1VDdQeWM5eVd6UFpK?=
+ =?utf-8?B?UDVHWFlQaEt5dnNscmkwMEZDNWtqdXphUFNnT0NWRCtQM3VRRncrRlMrZHc5?=
+ =?utf-8?B?NjR0WFZVSFZKQVZ4MG1aM2FOUGplK1k1RWNhYytlWE9PSGgycG9vT0RsMUl0?=
+ =?utf-8?B?QVBhajh2NXNDMW1tM2cyeVRXSU5mTTZtdEhBbEhXeEdqRCs3TE0raEtTZkNC?=
+ =?utf-8?B?ZlYzaDMzNm94K0c1NElGekhrRnNPV3U5aVdxMnZGeVA5U2JXRkp6VlVXc3Jx?=
+ =?utf-8?B?eDdSV2EyYlphNkpHUHNIOGhqanNLSGFTSXNJMmlGeVJsN3FSb2U2VWo5WkFD?=
+ =?utf-8?B?N1BpL05MWGh4WnIreEcrWEJrQUFlc2w5ZU5tVUxNUkp3Z00yRHVHd1hRVG9K?=
+ =?utf-8?B?UWV4bm9NMjI2ZTl3N2JPMFRNbjQ4UHlNSWNmVDFYUHFlUVptazNHZjBjbHdB?=
+ =?utf-8?B?TGNLRHJMS1BEL2tMOVhYV1RwUzFVa2lPcERwaERFRmk5bmtBRTBLYVBQRytt?=
+ =?utf-8?B?a3JZTkdWMndEWGU2dnQzTmZjRHhkUE1DZVNuV0k5U1dCNVJTR3RZUXlaZ0lt?=
+ =?utf-8?B?Q0VpamhuekNxL1lOREE0VHhVc3Nsc2cyQlk5RE50UzFKQytYVFE1RTR3Wmo4?=
+ =?utf-8?B?SjB6TWlsM29vbkNmS0JVNUs5VHZHZlRjRTEyQUlpMzRVS0xXQURWemw5T1Bu?=
+ =?utf-8?B?b043WW1Cb1BFeFQ0Z1hvQVMrMnVlVy8wckFjd3VRRmZwcWlQeHdZOERVUkd1?=
+ =?utf-8?B?ZmkwRzV2L0ZUekZqQWNtTlR6dkJFQnVjM0RWTE96VFQ3K25LenZrTzhFK1M0?=
+ =?utf-8?B?UUU0ZEg3TGxTV296SWt2SUl5dVlmbFlyVjV3RXpsNEFDYkYvd2VIUzdPak1I?=
+ =?utf-8?B?R1hpU0poTUVuYzhuT0l2TGhmeHlCdFY2Z3hPNnJ5RVd3c05kZzZWYkprRFN0?=
+ =?utf-8?B?U0pubjJTR0xnZ0RrdlRzc1FaVEtSblZvZlo0ZTM0cEExOVdjYWZQQk9zLzdG?=
+ =?utf-8?B?b2ZiWWIyblVZbmc3RHk4WUJnRHJiaE0wVi95N1FobWpIM0QzcFNjYitJL2F0?=
+ =?utf-8?B?RW53eUxmcWdtbzk4NHUwVnlEZXVNc3FxRjJibTUxNG5NU0llN3hSVFk0NEov?=
+ =?utf-8?B?cjV1TC9ZY0hHUElrZlIzTWdiTlQ5cVNNT3F1dmV0bFZYcXNCOWdUNTNidTM2?=
+ =?utf-8?B?RWFlOFQwOE1GQ3crSmxtY1gya2UzcWVwa0JBekNRQytRYVZrNzRacysxb3NM?=
+ =?utf-8?B?UmVCYklqemllTTAxbkpmN2xsbVNqQW5HMW1PZmV5eW5HNEdOeVl5bmQ2L0Ew?=
+ =?utf-8?B?dUhGQ1gzQmdKdEs3YUVReUVCWVd1Z3c0ZmZHQ1BLdUJjQnBLeWVKZ2Fmc1ha?=
+ =?utf-8?B?RmgycjZsTnY4SDNjeFFyaVhYOXJVaXdKK0ZwYit4cWUweUFTWWNoYVFXS28v?=
+ =?utf-8?B?SEVid1NSanVqWU5Oc2w3M0RvVE05MmV3RllzQURJQXZ6aFkwOHBrMzNBWjNt?=
+ =?utf-8?B?SHlWak45SkpSdHl0NVE2UFNEVk03emV6UCtBb3A5TjZLNzFJRzVuM2lXZHh6?=
+ =?utf-8?Q?bRjPi0XCdCiYqNefnH3tOBJMOiJhnS99K/52RCUNcDtTQ?=
+X-MS-Exchange-AntiSpam-MessageData-1: OAPYOOGXhw610Q==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d025fd4-e4a2-406a-a937-08df0e26cedc
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 03:04:59.6359 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 03:59:55.3623 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pX3Wgkhb9FRYn76jPexGQ9nuQ9F4pPv6+N4rYW6waghRZ2UujIC0wTUMM3SXbtGP9rfCb/GGVqRFMPtTWfUZqQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9089
+X-MS-Exchange-CrossTenant-UserPrincipalName: LVZyZAZShrmD8K35lYdpEt0fMnS3BPoOhQI7HKP6/NH7DxtQLY9ejBAnewKySySr8Asu0rVO27hE3/1SISjSwg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB699018
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,317 +147,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+I am reposting Joel Fernandes's original series [1]. The rebase adapts
+the patches to recent changes in the rust infra, like HRT lifetimes. It
+also adapts to the changes I posted in [2]. It keeps Joel's design and
+patch split.
 
-On 9/9/2026 1:52 AM, Matthew Brost wrote:
-> On Tue, Sep 08, 2026 at 02:16:27PM +0530, Srinivasan Shanmugam wrote:
->> Replace the open-coded user fence implementation in xe_sync.c with the
->> new common drm_user_fence helper.
->>
->> struct xe_user_fence now embeds struct drm_user_fence as its base.
->> XE-specific fields (xe_device pointer for the ufence_wq wake-up,
->> userspace VA, expected value, signalled flag) remain in the wrapper.
->>
->> The local user_fence_destroy/get/put/worker/kick_ufence/user_fence_cb
->> functions are removed. Their logic moves to xe_ufence_ops.writeback and
->> xe_ufence_ops.destroy, which are called by the drm_user_fence helper.
->>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
->> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: dri-devel@lists.freedesktop.org
->> Cc: intel-xe@lists.freedesktop.org
->> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
->> ---
->> v8:
->> - Fix xe_ufence_worker ordering: WRITE_ONCE(signalled, 1) before
->>    copy_to_user(), add smp_wmb() before wake_up_all() (Matt,
->>    mirrors upstream fix 8ae04fe9ffc93)
->> - Rename .worker → .writeback in xe_ufence_ops (Matt)
->> - Update commit message: xe_ufence_ops.writeback (not .worker)
->>
->>   drivers/gpu/drm/xe/xe_sync.c       | 154 ++++++++++++++++-------------
->>   drivers/gpu/drm/xe/xe_sync.h       |   2 +
->>   drivers/gpu/drm/xe/xe_sync_types.h |   1 -
->>   drivers/gpu/drm/xe/xe_vm.c         |   1 +
->>   4 files changed, 89 insertions(+), 69 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/xe/xe_sync.c b/drivers/gpu/drm/xe/xe_sync.c
->> index 37866768d64c..c0e720cf579a 100644
->> --- a/drivers/gpu/drm/xe/xe_sync.c
->> +++ b/drivers/gpu/drm/xe/xe_sync.c
->> @@ -6,12 +6,11 @@
->>   #include "xe_sync.h"
->>   
->>   #include <linux/dma-fence-array.h>
->> -#include <linux/kthread.h>
->> -#include <linux/sched/mm.h>
->>   #include <linux/uaccess.h>
->>   
->>   #include <drm/drm_print.h>
->>   #include <drm/drm_syncobj.h>
->> +#include <drm/drm_user_fence.h>
->>   #include <uapi/drm/xe_drm.h>
->>   
->>   #include "xe_device.h"
->> @@ -19,36 +18,65 @@
->>   #include "xe_macros.h"
->>   #include "xe_sched_job_types.h"
->>   
->> +/*
->> + * xe_user_fence wraps drm_user_fence with XE-specific fields.
->> + * The drm_user_fence base handles MM borrowing and work-item lifetime.
->> + */
->>   struct xe_user_fence {
->> -	struct xe_device *xe;
->> -	struct kref refcount;
->> -	struct dma_fence_cb cb;
->> -	struct work_struct worker;
->> -	struct mm_struct *mm;
->> -	u64 __user *addr;
->> -	u64 value;
->> -	int signalled;
->> +	struct drm_user_fence base;
->> +	struct xe_device     *xe;
->> +	u64 __user           *addr;
->> +	u64                   value;
->> +	int                   signalled;
->>   };
->>   
->> -static void user_fence_destroy(struct kref *kref)
->> +static void xe_ufence_worker(struct drm_user_fence *base, bool mm_ok)
->>   {
->> -	struct xe_user_fence *ufence = container_of(kref, struct xe_user_fence,
->> -						 refcount);
->> +	struct xe_user_fence *ufence = container_of(base, struct xe_user_fence, base);
->>   
->> -	mmdrop(ufence->mm);
->> -	kfree(ufence);
->> -}
->> +	/*
->> +	 * Mark signalled before the userspace write so that if userspace
->> +	 * observes the written value and immediately issues a VM unmap,
->> +	 * check_ufence() will see signalled=1 and not return -EBUSY.
->> +	 *
->> +	 * NOTE: copy_to_user() may block if userspace backs the address with
->> +	 * userfaultfd or FUSE. Drivers requiring non-blocking semantics should
->> +	 * use a dedicated workqueue instead of xe->ordered_wq.
->> +	 */
->> +	WRITE_ONCE(ufence->signalled, 1);
->>   
->> -static void user_fence_get(struct xe_user_fence *ufence)
->> -{
->> -	kref_get(&ufence->refcount);
->> +	if (mm_ok) {
->> +		if (copy_to_user(ufence->addr, &ufence->value,
->> +				 sizeof(ufence->value)))
->> +			drm_dbg(&ufence->xe->drm,
->> +				"copy_to_user failed, user fence wasn't signaled\n");
->> +	} else {
->> +		drm_dbg(&ufence->xe->drm,
->> +			"mmget_not_zero() failed, ufence wasn't signaled\n");
->> +	}
->> +
->> +	/*
->> +	 * Ensure both signalled=1 and the fence value written by copy_to_user()
->> +	 * are visible to all CPUs before wake_up_all() wakes waiters. Without
->> +	 * this barrier, weakly ordered architectures (e.g. ARM64) may allow
->> +	 * waiters to observe the wakeup before seeing the updated values.
->> +	 */
->> +	smp_wmb();
->> +	wake_up_all(&ufence->xe->ufence_wq);
->>   }
->>   
->> -static void user_fence_put(struct xe_user_fence *ufence)
->> +static void xe_ufence_destroy(struct drm_user_fence *base)
->>   {
->> -	kref_put(&ufence->refcount, user_fence_destroy);
->> +	struct xe_user_fence *ufence = container_of(base, struct xe_user_fence, base);
->> +
->> +	kfree(ufence);
->>   }
->>   
->> +static const struct drm_user_fence_ops xe_ufence_ops = {
->> +	.writeback = xe_ufence_worker,
->> +	.destroy   = xe_ufence_destroy,
->> +};
->> +
->>   static struct xe_user_fence *user_fence_create(struct xe_device *xe, u64 addr,
->>   					       u64 value)
->>   {
->> @@ -63,51 +91,22 @@ static struct xe_user_fence *user_fence_create(struct xe_device *xe, u64 addr,
->>   	if (!ufence)
->>   		return ERR_PTR(-ENOMEM);
->>   
->> -	ufence->xe = xe;
->> -	kref_init(&ufence->refcount);
->> -	ufence->addr = ptr;
->> +	ufence->xe    = xe;
->> +	ufence->addr  = ptr;
->>   	ufence->value = value;
->> -	ufence->mm = current->mm;
->> -	mmgrab(ufence->mm);
->> +	drm_user_fence_init(&ufence->base, xe->ordered_wq, &xe_ufence_ops);
->>   
->>   	return ufence;
->>   }
->>   
->> -static void user_fence_worker(struct work_struct *w)
->> -{
->> -	struct xe_user_fence *ufence = container_of(w, struct xe_user_fence, worker);
->> -
->> -	WRITE_ONCE(ufence->signalled, 1);
->> -	if (mmget_not_zero(ufence->mm)) {
->> -		kthread_use_mm(ufence->mm);
->> -		if (copy_to_user(ufence->addr, &ufence->value, sizeof(ufence->value)))
->> -			XE_WARN_ON("Copy to user failed");
->> -		kthread_unuse_mm(ufence->mm);
->> -		mmput(ufence->mm);
->> -	} else {
->> -		drm_dbg(&ufence->xe->drm, "mmget_not_zero() failed, ufence wasn't signaled\n");
->> -	}
->> -
->> -	/*
->> -	 * Wake up waiters only after updating the ufence state, allowing the UMD
->> -	 * to safely reuse the same ufence without encountering -EBUSY errors.
->> -	 */
->> -	wake_up_all(&ufence->xe->ufence_wq);
->> -	user_fence_put(ufence);
->> -}
->> -
->> -static void kick_ufence(struct xe_user_fence *ufence, struct dma_fence *fence)
->> +static void user_fence_get(struct xe_user_fence *ufence)
->>   {
->> -	INIT_WORK(&ufence->worker, user_fence_worker);
->> -	queue_work(ufence->xe->ordered_wq, &ufence->worker);
->> -	dma_fence_put(fence);
->> +	drm_user_fence_get(&ufence->base);
->>   }
->>   
->> -static void user_fence_cb(struct dma_fence *fence, struct dma_fence_cb *cb)
->> +static void user_fence_put(struct xe_user_fence *ufence)
->>   {
->> -	struct xe_user_fence *ufence = container_of(cb, struct xe_user_fence, cb);
->> -
->> -	kick_ufence(ufence, fence);
->> +	drm_user_fence_put(&ufence->base);
->>   }
->>   
->>   int xe_sync_entry_parse(struct xe_device *xe, struct xe_file *xef,
->> @@ -282,24 +281,15 @@ void xe_sync_entry_signal(struct xe_sync_entry *sync, struct dma_fence *fence)
->>   	} else if (sync->syncobj) {
->>   		drm_syncobj_replace_fence(sync->syncobj, fence);
->>   	} else if (sync->ufence) {
->> -		int err;
->> -
->>   		drm_syncobj_add_point(sync->ufence_syncobj,
->>   				      sync->ufence_chain_fence,
->>   				      fence, sync->ufence_timeline_value);
->>   		sync->ufence_chain_fence = NULL;
->>   
->>   		fence = drm_syncobj_fence_get(sync->ufence_syncobj);
->> -		user_fence_get(sync->ufence);
->> -		err = dma_fence_add_callback(fence, &sync->ufence->cb,
->> -					     user_fence_cb);
->> -		if (err == -ENOENT) {
->> -			kick_ufence(sync->ufence, fence);
->> -		} else if (err) {
->> +		if (drm_user_fence_add_callback(&sync->ufence->base, fence))
->>   			XE_WARN_ON("failed to add user fence");
->> -			user_fence_put(sync->ufence);
->> -			dma_fence_put(fence);
->> -		}
->> +		/* fence ref consumed by drm_user_fence_add_callback */
->>   	}
->>   }
->>   
->> @@ -434,6 +424,34 @@ void xe_sync_ufence_put(struct xe_user_fence *ufence)
->>   	user_fence_put(ufence);
->>   }
->>   
->> +/**
->> + * xe_sync_ufence_cancel() - Non-blocking cancel of user fence callback
->> + * @ufence: user fence reference
->> + *
->> + * Attempts to cancel the pending callback without waiting for the worker.
->> + * Safe to call while holding dma_resv_lock or vm->lock. If the callback
->> + * has already fired, the worker runs independently — xe_ufence_worker
->> + * only accesses device-level and userspace resources, both safe after
->> + * VMA teardown.
->> + */
->> +void xe_sync_ufence_cancel(struct xe_user_fence *ufence)
->> +{
->> +	drm_user_fence_cancel(&ufence->base);
->> +}
->> +
->> +/**
->> + * xe_sync_ufence_cancel_sync() - Cancel user fence callback and wait for worker
->> + * @ufence: user fence reference
->> + *
->> + * Cancels any pending dma-fence callback and waits for the worker to fully
->> + * complete before returning. Must be called during teardown before freeing
->> + * any resources accessed by the worker.
->> + */
->> +void xe_sync_ufence_cancel_sync(struct xe_user_fence *ufence)
->> +{
->> +	drm_user_fence_cancel_sync(&ufence->base);
->> +}
-> This is unused in this patch.
+From Joel's original cover letter:
 
-Agreed — it has no caller in this patch. Will remove in v9.
+  This series introduces page-table types and a Virtual Memory Manager (VMM)
+  for the nova-core driver, plus a BAR1 user (with selftests) layered on top.
+  The page-table layer uses trait-based generics (PteOps, PdeOps, DualPdeOps,
+  MmuConfig) to dispatch between MMU v2 and v3 formats. The Vmm tracks
+  virtual-address ranges with a maple tree, and the BAR1 user exposes mapped
+  CPU access to VRAM through a small allocation API exercised by the selftests.
 
+This series depends on Joel's maple tree Send and Sync patch [3] and his
+PCI resource_flags() accessor [4], which I am reposting separately.
 
->
->> +
->>   /**
->>    * xe_sync_ufence_get_status() - Get user fence status
->>    * @ufence: user fence
->> diff --git a/drivers/gpu/drm/xe/xe_sync.h b/drivers/gpu/drm/xe/xe_sync.h
->> index 6b949194acff..b5ff3387c592 100644
->> --- a/drivers/gpu/drm/xe/xe_sync.h
->> +++ b/drivers/gpu/drm/xe/xe_sync.h
->> @@ -44,6 +44,8 @@ static inline bool xe_sync_is_ufence(struct xe_sync_entry *sync)
->>   struct xe_user_fence *__xe_sync_ufence_get(struct xe_user_fence *ufence);
->>   struct xe_user_fence *xe_sync_ufence_get(struct xe_sync_entry *sync);
->>   void xe_sync_ufence_put(struct xe_user_fence *ufence);
->> +void xe_sync_ufence_cancel(struct xe_user_fence *ufence);
->> +void xe_sync_ufence_cancel_sync(struct xe_user_fence *ufence);
->>   int xe_sync_ufence_get_status(struct xe_user_fence *ufence);
->>   
->>   #endif
->> diff --git a/drivers/gpu/drm/xe/xe_sync_types.h b/drivers/gpu/drm/xe/xe_sync_types.h
->> index b88f1833e28c..67048199b070 100644
->> --- a/drivers/gpu/drm/xe/xe_sync_types.h
->> +++ b/drivers/gpu/drm/xe/xe_sync_types.h
->> @@ -12,7 +12,6 @@ struct drm_syncobj;
->>   struct dma_fence;
->>   struct dma_fence_chain;
->>   struct drm_xe_sync;
->> -struct user_fence;
->>   
->>   struct xe_sync_entry {
->>   	struct drm_syncobj *syncobj;
->> diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
->> index b01f31ed4417..fbd2c28de8a6 100644
->> --- a/drivers/gpu/drm/xe/xe_vm.c
->> +++ b/drivers/gpu/drm/xe/xe_vm.c
->> @@ -1181,6 +1181,7 @@ static void xe_vma_destroy_late(struct xe_vma *vma)
->>   	struct xe_bo *bo = xe_vma_bo(vma);
->>   
->>   	if (vma->ufence) {
->> +		xe_sync_ufence_cancel(vma->ufence);
-> This is a behavior change in this patch. Why is this change?
+This series is based on drm-rust-next.
 
-The cancel was added defensively to prevent the user fence worker from
-running after VMA teardown, since the concern was that the callback
-could fire during or after xe_vma_destroy_late() and access freed
-resources. However, you are correct that this is unnecessary —
-xe_ufence_worker only accesses device-level resources (xe->ufence_wq)
-and the userspace address via copy_to_user(), and does not touch any
-VMA-specific state. So the worker is safe to run after VMA teardown,
-exactly as the original code allowed. Will remove the cancel call in
-v9, keeping only xe_sync_ufence_put().
+[1] https://lore.kernel.org/all/20260518181126.2493572-1-joelagnelf@nvidia.com/
+[2] https://lore.kernel.org/all/20260827-pramin-split-v3-0-24b24d7afc52@nvidia.com/
+[3] https://lore.kernel.org/all/20260511143604.3848176-1-joelagnelf@nvidia.com/
+[4] https://lore.kernel.org/all/20260518180342.2387845-2-joelagnelf@nvidia.com/
 
-Srini
+Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+---
+Joel Fernandes (16):
+      gpu: nova-core: mm: Add common types for virtual memory management
+      gpu: nova-core: mm: Add buddy allocator and TLB to GpuMm
+      gpu: nova-core: mm: Add common types for all page table formats
+      gpu: nova-core: mm: pagetable: Add PteOps trait
+      gpu: nova-core: mm: pagetable: Add PdeOps trait
+      gpu: nova-core: mm: pagetable: Add DualPdeOps trait
+      gpu: nova-core: mm: Add MMU v2 page table types
+      gpu: nova-core: mm: Add MMU v3 page table types
+      gpu: nova-core: mm: pagetable: Add MmuConfig trait
+      gpu: nova-core: mm: Add page table walker for MMU v2/v3
+      gpu: nova-core: mm: Add Virtual Memory Manager
+      gpu: nova-core: mm: Add virtual address range tracking to VMM
+      gpu: nova-core: mm: Add multi-page mapping API to VMM
+      gpu: nova-core: Add BAR1 aperture type and size constant
+      gpu: nova-core: mm: Add BAR1 user interface
+      gpu: nova-core: mm: Add BAR1 memory management self-tests
+
+ drivers/gpu/nova-core/Kconfig              |   1 +
+ drivers/gpu/nova-core/driver.rs            |  45 ++-
+ drivers/gpu/nova-core/gpu.rs               |  68 ++++-
+ drivers/gpu/nova-core/gsp/commands.rs      |   3 +
+ drivers/gpu/nova-core/gsp/fw/commands.rs   |   8 +
+ drivers/gpu/nova-core/mm.rs                | 177 +++++++++++-
+ drivers/gpu/nova-core/mm/bar_user.rs       | 422 +++++++++++++++++++++++++++++
+ drivers/gpu/nova-core/mm/pagetable.rs      | 422 +++++++++++++++++++++++++++++
+ drivers/gpu/nova-core/mm/pagetable/map.rs  | 342 +++++++++++++++++++++++
+ drivers/gpu/nova-core/mm/pagetable/ver2.rs | 271 ++++++++++++++++++
+ drivers/gpu/nova-core/mm/pagetable/ver3.rs | 417 ++++++++++++++++++++++++++++
+ drivers/gpu/nova-core/mm/pagetable/walk.rs | 244 +++++++++++++++++
+ drivers/gpu/nova-core/mm/tlb.rs            | 120 ++++++++
+ drivers/gpu/nova-core/mm/vmm.rs            | 346 +++++++++++++++++++++++
+ drivers/gpu/nova-core/regs.rs              |  68 +++++
+ 15 files changed, 2937 insertions(+), 17 deletions(-)
+---
+base-commit: e6a2c988ed96a5a3af51ed97ecba980521bf2fc0
+change-id: 20260805-mmrebase-113582afb003
+prerequisite-change-id: 20260907-maple-tree-send-sync-a1479d1ab302:v2
+prerequisite-patch-id: 81d532949891e2dd846cca5c420e4ba32e9161a7
+prerequisite-change-id: 20260907-pci-resource-flags-b7addba0b34f:v1
+prerequisite-patch-id: bdd1c2eb4adbedf1c53f1be61ea958743d2a2660
+
+Best regards,
+--  
+Eliot Courtney <ecourtney@nvidia.com>
 
