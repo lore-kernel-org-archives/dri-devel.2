@@ -4,82 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E152AC79FB6
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 11:26:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C945C79FB6
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 11:34:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 223CB10E16E;
-	Wed,  9 Sep 2026 11:26:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6A8310E180;
+	Wed,  9 Sep 2026 11:34:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V5EVt2dY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GMB6cuEL";
 	dkim-atps=neutral
 Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
  [74.125.225.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AA0F10E16E
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 11:26:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65A2310E180
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 11:34:23 +0000 (UTC)
 Received: by mail-wr2-f12.google.com with SMTP id
- ffacd0b85a97d-4843703c170so439527f8f.2
- for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 04:26:15 -0700 (PDT)
+ ffacd0b85a97d-4838dbf1bbeso525540f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 04:34:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788953174; x=1789557974; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788953662; x=1789558462; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=X9DeehTFtKYcoXYYj70SGng74boW4Lx0fudui6KbUDU=;
- b=V5EVt2dYro/gfvWJ/BV0XIRBe3wrnugDGG34gzTjPp3oVxW2yOi/BdUbrtBl/qMd97
- GvxeA5GOgKyWzTaPFaeEP4J4m5zCRbVinj0Rxv/fOGpGZlOmJ77apePe0G4LakYGEWkx
- r8XbJp3EefOMNYSmQqA2y8BdiQJ6jVHfOpDEf96FYAvDNdLfYeLFJmOlNniF/4z+8yjK
- EplThOkVQ5pPSRCuAKsdW5G8xYpalTo2Rq83Bi94EpYiaPXADwjc3DW3/gDn4Uhpn2+Z
- iXLRpjtDu7mRXIdt4iY4nerOYfXy2IOrzp0+Bs3ovKBZlkL1UUmOmqq5y2z88QrVUYsP
- zEPA==
+ bh=BDAFJuDlghFFa//FTOTLPnlGuO3PdxiOtfn+DAJGPPw=;
+ b=GMB6cuEL4Mhu9Nc1zzcTvkQZDio3jX0quSKdr9yfftkQ1i6Oc/Xl1LRqDBzoSofIUs
+ ZD2M8U/b2OfJ543DGbT1DL5s+f6H/F8+z+WNxlTDznrAARamcNnUSNhgHaMg1UI0Sk8G
+ omf6Djl2d+UjOlNJ/ynC4MHRPJ+lyMq+VC6KOc+PXphv83wRnJfO6mppskCeY2Pr9+0j
+ kMUVvOBQQWmIeFN/NtpPKL3W4W2nPaYKrsS6pbtdTNVNIsoGYRbg77S2RR35dv9dt0N7
+ EYoGDmv/LzHgX6qbVQlgJWN1WpKV1sABVivD2/RMy5U9wnaWdAwzfSFISZ2rbFGnsbY5
+ VMzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788953174; x=1789557974;
+ d=1e100.net; s=20251104; t=1788953662; x=1789558462;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=X9DeehTFtKYcoXYYj70SGng74boW4Lx0fudui6KbUDU=;
- b=Gurn32/18SoDHKv0rX5BGBOGmkWK7F+taLya0H4u+GgVrS03w1dtU0hVS3DXz/EGWM
- MCeNMYTUHNnAJYqRioAnZz8v+bif/YUQLlE7p22HO+4IVesfi/tGXjYl7XBaeqfZ+nep
- H5D1BnM5Bj1zZ5LhcFywNAdSp+NcT4OhvfbaQ1JBNZiOMwmUPuXAfs4mk6TAr8o2jb3a
- jn4ys39deX+BHQWMaBoBLfrl8OiSVf38mNy80BYkeoeOOdN4VcIAMxos7W6hRwg3Ul6b
- auQfRoPX6kOjvPwzev03Wem988oFv9yJOtddLPV1iRyB4fEuh2yNg6YIKmuFMdwJRc86
- cDZg==
+ bh=BDAFJuDlghFFa//FTOTLPnlGuO3PdxiOtfn+DAJGPPw=;
+ b=bjsEbtTpKNBmFUynYw9DQBN+UwFZDpNiwcs0EhxtbzuAaCnmpJEBk2kTYsiBcUyhFV
+ P8Ntu2S7ZIjCqsFO2l6oxlZ8Y54VSmVMKp4XwixoVscefKhpi8PFjwRac32qcpADOiX8
+ lmCKxah1lsjZ9oVrq6vCYoY33bzxMZaHj30qsz6TgwHLMexa+tQaRuyEsrGj9A+BdM3C
+ X7cRb+88XbgBi9SDl5lSgWtz4DbVWp3gwPUAnUTrEZ01KowqdSN6hNTg6+oUJBTVXfXS
+ n1e224XHGCERI3x90pGPL60nDC47LfBcYTVxcpcaEY1u/nmrr1zeDRYui2k8ZQJWaH+o
+ 08SA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBykk8vGLSwVnhfGgYzY7BV4YHH+0Um2pI1xzEtRFP2rUR75jEm+X0UaqcjGkIDVN2g2TNpm8Iky/zs=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mTT7ppk9B/N3QilqyXzJm+2LkP8hQ4amApB13LmTEGzB9rft2O
- KkKCiyJCdhw/aQ8VWqNm/3Bo4NHQIebIPr9jjW28dmlNhjWhLSar6EZv
-X-Gm-Gg: AYBFou3cslTlXWG3gTMhyrPzENjISJv3kC4wb1zRF8/Dg/TBQBK/TnVkXEvXcC8VRvW
- nRDtKgvQNRfksPh/s1hmkXjRMeoWw61FyPXDYrFDFBHg5ws4CYZbNVOmv85fZBrttNddwvC23x6
- ijD4XgNZs6i33IkjroHt2QpO1rjXpQ0yqql/yq7GiFP3gWGaXnUYWjeGx8wt7efxfUQU1j27AHf
- MFnL/WR/37V9YV4PcKt/B0man2aaqVp1t54zwSbbwiinf6SRayTq2mrYTMIE1uqHZ/HTQ4AB19w
- GEvVY97B8pEQ7xX5cPHDx1jUAgJiPXMrFJQHAqV32CC2Ity1minhUV63dFEaKg0derlvHiDH9iB
- Q0ErxQtazZEcTGMwLDHKa3I11JAFyoVBE/UhYvd+2YtSghCXF/Dbv+YPjLx/Hf0gjNe70RL0ZsL
- 5GNdhBDyLm7ro1qTAy/2iETv074DZVgwpmiGsz4uGJ6Ci+3HFlvh87jjiAbkWsgkmMNuK6WdW++
- NLQ+t1wIOTzzJCiVlGSuoNODxFge/TB+u9aDntoQHfOqK6N5jk0RXobd77MLtD0iQmPDdGO1bkZ
- /kY=
-X-Received: by 2002:a05:6000:4805:b0:482:e0f3:462c with SMTP id
- ffacd0b85a97d-4859796300amr24943997f8f.0.1788953174092; 
- Wed, 09 Sep 2026 04:26:14 -0700 (PDT)
+ AKwUvBxa2VKyxgNI5V03Vy1PGN+0rjPcpLx9j/ROGIAjyU2+PCdJAo5OxDcKzuLijTNc50eIEJUCXeCYBPw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++koJL9TrP472qzSwx6qxOgI2DDqxOShX8A9LpRqyT2kYQkhOvBI
+ Q7bmVyfWGcVYmVYyxh+KwW3SGCcIARe6u2N+J7xXRGnArFYf+bGSvMev
+X-Gm-Gg: AYBFou23oof5KqqsXrXeS+5bTGI9+hnGMaegnCmgHtOrqzjg74lkiv+WifFeKErSutg
+ DMbhgJC3N76X+eniixhD6E6YlswmpPvTxUgSgo+xKvGxpFZdmNC6B4cA6O6M+HKXJNv02Df41sg
+ UPKUVGGAjKSm0AWkfh9b5cEWFLAS2x56POP51KDV7L1DbWciY5GjjQeyUGqkQwAHvFjacAcOt6r
+ 4NymWFfyt/suahtPvrPQUjS2RFHrhZbcmPQmPBkNl76FyZqj3bJKF4bGjnqs6fETStgXP6mXiqM
+ oolHAgBTADu3l1UW2DsVvea+9ceFWZZHFOQfK7IlaQL4CJeS1EF+AL7Hx76T3LmLWdRjKAB4AOQ
+ MhHcHGNRau54yBIGcRxA8m6qxQPHZ47poqUTTXEYWQNOHqjWFxWQs1uMgcX7OTnCnhDvujEkr1+
+ 911ebx5kOiUxG7h2epugWI0aJ8lOCar3bWSBffwRfUo5t4bMBIdsZdt7bJNMUQheFvr+Na1yQ+i
+ l5wHSTvzSNaEZDJI/+cqMWcw4DswN/5YQCWY9Nyxd2LWPs4iL6Nev+2bJN0qGSjTkcy+COQCL11
+ bTs0X3CXEoBWnw==
+X-Received: by 2002:a05:600c:8485:b0:499:5b0f:72b with SMTP id
+ 5b1f17b1804b1-49d01dcc32cmr238211625e9.1.1788953661666; 
+ Wed, 09 Sep 2026 04:34:21 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME
  (20014C4E1B836900E58FC5516AABB3E4.dsl.pool.telekom.hu.
  [2001:4c4e:1b83:6900:e58f:c551:6aab:b3e4])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-485883a9b49sm36475476f8f.17.2026.09.09.04.26.12
+ 5b1f17b1804b1-49d057f4778sm364624455e9.8.2026.09.09.04.34.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Sep 2026 04:26:13 -0700 (PDT)
+ Wed, 09 Sep 2026 04:34:21 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Igor Paunovic <royalnet026@gmail.com>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>, Maxime Ripard <mripard@kernel.org>,
+To: Sandy Huang <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Diederik de Haas <diederik@cknow-tech.com>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH v2] drm/rockchip: dw_hdmi_qp: attach the HDMI Colorspace
- connector property
-Date: Wed,  9 Sep 2026 13:25:40 +0200
-Message-ID: <20260909112543.6913-1-royalnet026@gmail.com>
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/rockchip: vop2: add COLOR_ENCODING and COLOR_RANGE
+ plane properties
+Date: Wed,  9 Sep 2026 13:33:59 +0200
+Message-ID: <20260909113400.8295-1-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260805153416.8459-1-royalnet026@gmail.com>
-References: <20260805153416.8459-1-royalnet026@gmail.com>
+In-Reply-To: <20260716113024.15357-1-royalnet026@gmail.com>
+References: <20260716113024.15357-1-royalnet026@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -97,23 +100,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Heiko,
+Hi,
 
-Gentle ping on this one - it has been a month without review.
+Gentle ping on this one - it has had no review since July.
 
-I re-checked it today rather than assuming: it still applies cleanly on
-drm-misc-next (8ce26b09f652), with no offset and no fuzz, and nothing
-merged since attaches the Colorspace property for this connector. So the
-gap is still there: without it KWin reports the outputs as "HDR:
-incapable" on RK3588 even though the sinks and the rest of the kernel
-side are ready.
+I re-checked it against the tree today rather than assuming it still
+stands. On drm-misc-next (8ce26b09f652) all five hunks still apply at
+their original line numbers, with no offset and no fuzz, and nothing
+merged since exposes these properties. So the gap the patch describes is
+unchanged: every YUV plane is still converted with the BT.709 limited
+range matrix, which is wrong for BT.601 (SD) and BT.2020 content.
 
-The patch is independent of Cristian's dw-hdmi-qp HDMI 2.0 series; that
-series is not in drm-misc-next yet, and when it lands its patch 34 will
-touch the first context line of my hunk, so I will rebase and resend as
-v3 at that point. The change itself does not overlap with it.
+One thing worth flagging, since it decides the merge order rather than
+the content. Cristian's "drm/rockchip: vop2: Switch to enum
+vop_csc_format" (10/14 of the VOP2 series) touches the same two lines of
+vop2_setup_csc_mode() that this patch touches. The two changes are
+complementary rather than conflicting: that patch tightens the type of
+csc_mode and replaces the "csc_mode = false" assignment, while this one
+replaces where the value comes from - the hardcoded input_csc is dropped
+in favour of the plane's COLOR_ENCODING and COLOR_RANGE. Whichever lands
+second needs a small rebase.
 
-Happy to respin if you would rather have it on top of that series.
+I am happy to do that rebase in either direction. If you would rather
+have this on top of the VOP2 series, say so and I will send a v2 once it
+lands, with vop2_convert_color_encoding() returning enum vop_csc_format
+so the two fit together properly.
 
 Thanks,
 Igor
