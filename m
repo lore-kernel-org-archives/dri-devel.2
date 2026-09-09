@@ -4,109 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20171C79FB6
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 14:31:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BAB1C79FB7
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 14:47:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 344F710E4EF;
-	Wed,  9 Sep 2026 14:31:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AB4810E164;
+	Wed,  9 Sep 2026 14:47:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TMTTHeX6";
+	dkim=pass (2048-bit key; unprotected) header.d=cirrus.com header.i=@cirrus.com header.b="MBRgwD4f";
+	dkim=pass (1024-bit key; unprotected) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="KtGaRaXx";
 	dkim-atps=neutral
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com
- [74.125.228.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E721410E4EF
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 14:31:30 +0000 (UTC)
-Received: by mail-pz2-f12.google.com with SMTP id
- 41be03b00d2f7-cc1e1b51234so260444a12.3
- for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 07:31:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788964290; cv=none;
- d=google.com; s=arc-20260327;
- b=cmWh1OsuuDbmH9IAGHBN2JCDiva+LsGdcfHxdcpXoXLjK1cVuuYsWOfsASZIQ/oQ9I
- DQhAyJXg3I2dpYdU+Uyk791xdLCHlquI/7CFiWSIzjqxQwL3AhkFFWraMOhj/umootlf
- 2NueCK6hTHOQvBBF2JNKxYMSNdN7uNaQn7FsX57E180bx77hgAl3ywalvTLyk79H4iTx
- hLi/G7MaWkr6QABvSuM4sJpm5P2p4OKefnP86ri+5KyotvYXp/tmwsARf/A7SJ8sPxG4
- kjknqjCYOiCbX8vctSX7Ig40djiymhIemjsG5+5Itgus1VG94EWSOmGIi1FanD6kgjNS
- QxwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=r6d1bbraxxEbRqi2dCUG5O4sMDZatQ/k1ITQSbR2TYM=;
- fh=qD3FWRdZvKq/LYEavuaJESxtlyrb2bObYQgfjFn4HAk=;
- b=c1KuSQ+CTCTinHsqLmy9h24F1sgUDzYsDnVa2VTrEi3gnyLkrKMpQFEB+TtK2w1E8a
- 3pFmTgUhHU4rjQlD4SxSHyKm1mG/ssewxceUdWeZnTYexXbv/+zP16pMlDxCrInxw+xu
- 2OYpO/rvBboihnEJK2PnrekoTerQLUmQyjQ/Do7EEbLDawsPo9YweWWo62wIe7TXoDap
- +p/vWQcTq5zfkJJZLgj3tqnr6SYmOeqhRGiau4iOfXPv1LgyvSesnzqk8zqoReiH5t7i
- lkWUJfcLu2iQMA6ijITSTRkHLwi78cZqf57s7tXr1AzLUz86ImnwIxIN69ge0J9uehAu
- EZZg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+X-Greylist: delayed 484 seconds by postgrey-1.36 at gabe;
+ Wed, 09 Sep 2026 14:47:47 UTC
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34FB210E164
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 14:47:47 +0000 (UTC)
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6893mxEb584136; Wed, 9 Sep 2026 09:39:16 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=PODMain02222019; bh=6pJrEqWo0mLWRGOdSD
+ ClNeDqWhy1UIfKpehsrdXbgOE=; b=MBRgwD4fapZQR4S7b9YTf+nki+lUjkYRsU
+ wYeIEeVnltZ7jAAjgQyIDrss6P086PdowhWkQgHIEncArkeqdqeSr2LDLfjnf+eR
+ yUV73uN0WK9UANczrqo9cercWFcxLxKIrvvJilYuDbMNtsYc5tqyeGcnDTxsp6q3
+ P1vjHf6HJi8a9EcQJFrPHhnf4qCPmZfS6z+CRdZIeNjaJ2NPfbp8450MJK6RY5x1
+ hVL3j57sk8b3OYcWN8n9pEZTC6LKOHkF44etu4b7tf+QhiCmSb5T9aA00FjphK00
+ tgqRnfhv9adAyQPJdRJObFuls57V7B8f2KgxMtV12Tmlm4y8JuwA==
+Received: from ph0pr06cu001.outbound.protection.outlook.com
+ (mail-westus3azon11021118.outbound.protection.outlook.com [40.107.208.118])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4ggfgjw5pq-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Wed, 09 Sep 2026 09:39:16 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ms88K2otvIGb++fGCc/6FWWZXjIV7gy8uBdy6OQIKrIZ9jgK8g13tuyLi1lDgDn0T9JWF9c2ipvwsP+S+2GArwuZ1fkEGcLFyp3OuhyApeaNK+/D3y9lPD0YHyQTa+de9vPc2w077WVSIhuGKPaNuYgIO+5CYDXvkQmMnHSTxbl+Cv6ojYXlFWwEokUGEJD/y4evLYQMGhky41BsrmTggJOwohxAINSF0fz95xJSyE340BvAo1N8xAoH+Kn7AtT1INGPhhfqlUiI6al7Loxsv8RowLxh8QXgf6NOVTTUMwwIz758SsMAN6+00GIWwlIGHUAMf/De6PDAIj5z4d/bXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6pJrEqWo0mLWRGOdSDClNeDqWhy1UIfKpehsrdXbgOE=;
+ b=ffaGmWBxnIKE2GGuGuthLW3ERNrQvMGUQmeqG7QvKFr6qOed+VOIkmutNuwMWhqpzM4LlkLggNJyuGd8cTVbUQSEls9dUvfu1i31mcqhqKIoJf7VLFg2apMtjS2VMUh0lAzQd65gXNiFU2ReeNSTzQpixaNkdKhtbmi9nVAS9xmVTecHoLQ4ObjmUxjpcIx7fQC6DgoA+KpOEQSMi4HUGcRwJAT/AbKjZ1EjS8GrXnFdx5nEAUC0ev9LiM/GTOFOZs6tPodKUS/WDjlCfwiRsa5+S9iCQrYgv5v6sBf01VgrWL8VZzHV3ByoWO7ZP10QSe/W/E+uXBzN7vJD3YFr4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=analog.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788964290; x=1789569090; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=r6d1bbraxxEbRqi2dCUG5O4sMDZatQ/k1ITQSbR2TYM=;
- b=TMTTHeX6NIng1s4o44oU7v+3YX25zv0Hty5BicLHZ4AjEyRMSTvmqisaVzmnaNb8+Z
- 1KULSyu0ho1CimAiPFCWgcmo1pW632G6apV2Qb890pFeNDn0XUjaqgX0vyJiM+yxA7D6
- Y5Et1EyrMj3Ev+arIss5Oxu+NeD13wCtX6MSR9qUjA9D8MX7SppBmxqD7CquQ5CIYQVe
- 263jLXCh12xtd9S1oExrKEZos9X3NxJKfjCAqwTV6h0UhKRWEmwDrhpSJc9uBhDngbsz
- Wh8VapUXyjIJ5X75OZMVCLwsdQMhuNU1YVldNGfT/H/0qcYRMSlg40vYztz/ZViUhngp
- D62A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788964290; x=1789569090;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=r6d1bbraxxEbRqi2dCUG5O4sMDZatQ/k1ITQSbR2TYM=;
- b=KF5jw1I8rjBYdCZXRt4R5Qby6nNcPG1cDuDB1bq2Xen42tJb5QU9RyQDCCPT7YZ4Xy
- XacYL6PiuxXv9Y/OPUZuqxUTT6hVwt0UM/n/vJ7rB9kbgmR+5C3rrhxkDZcpmug6Xfeo
- NRLouVCQpL2uqV1+Xiqv6mM35xG6qAfeATRlNzfp6Nfy+j3I0j3pF1Z55pwUvnf28Z6+
- 0UBVbK3mMHDRNNfrIHymn1emSxWdByv6ukAWyMPZfBIuF2d1k+3GvPkNjiCOuJUx7g9Z
- 3h/RnI4nAM7atulauFPRVk0cc4UM8jJrRiRD7tVaSxBQemPGB59GTe+rmeM37c1r6Ic9
- aePQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxcLK2B3sZTf7/HmorkB30Yr1v53tdm3a6oe9NaSF7/9ZkO5SGISn0zILTpu6XDiAYycVwgRiiUSmo=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nSdbnhDmQj54vdDBO23xOppeW1zf8M5kc8ACImPkoqqOBmvB0K
- FISPR9+ACP2ch4KWxWBF0Wt8TRckYalLPfubikuFK2XpkrrW7yJMoLMC/icAj3eWZbItvblVaGZ
- HjmZkrbIeujDEmrZE2CNcETuvU3P02ZY=
-X-Gm-Gg: AYBFou38+nUHJe2lQlYsXyOzF9tpvgv622xU8r8vBm22LT6bpcqR1NmksXnfrVTwmpd
- 5L3REbz5gRGUPZobjgm1I/IHGuBVsq7m/oSjUzSTV6n8xbWF3q/ii3fYgRpG+btOQCOTV1z0+Hb
- sf6McwhfA54xOetf/Td4jpoF6r9Hv9PEljVSFLKiwJECW1Qu6dNwdwRJwR9FphLS7Ek5HyLyeyj
- 7oAbQVi8l1PVVRgXo9VlgByLOcSFaltvIHwVMebdKIn4Kw6S1n7vpcVuHz+XH89Dol1TibojHXh
- suoNuXy/JW09sEnagA3oJbfXjDK1ZEhdDIXuMtTkeuhsGoVcO/oaez1zJC+bYPxMrSRy2wYbuBo
- bYtPCCgiaJG4=
-X-Received: by 2002:a17:90b:2dc5:b0:381:bcfb:e710 with SMTP id
- 98e67ed59e1d1-39b9a99459fmr10318254a91.3.1788964289978; Wed, 09 Sep 2026
- 07:31:29 -0700 (PDT)
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6pJrEqWo0mLWRGOdSDClNeDqWhy1UIfKpehsrdXbgOE=;
+ b=KtGaRaXx/vJnfbpCkjIQ/2VO6GcVbQMdMLvqXe7S0Zzed8rMIhQVzeCGUPj22fYPbs06Ao/s2X3X/5HBHuskc9Gg7JV7mesBH3krys9UJ4MBnHYhsxu+BgCEOMfM2cm1xQAqY/JFETLDD7VmsTbArzUi13t4sQuY959bQxyyyYM=
+Received: from SJ0PR13CA0029.namprd13.prod.outlook.com (2603:10b6:a03:2c0::34)
+ by DS2PR19MB059743.namprd19.prod.outlook.com (2603:10b6:8:401::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
+ 14:39:12 +0000
+Received: from CO1PEPF00012E64.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c0:cafe::50) by SJ0PR13CA0029.outlook.office365.com
+ (2603:10b6:a03:2c0::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.6 via Frontend Transport; Wed, 9
+ Sep 2026 14:39:11 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
+ smtp.mailfrom=opensource.cirrus.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ CO1PEPF00012E64.mail.protection.outlook.com (10.167.249.73) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.5
+ via Frontend Transport; Wed, 9 Sep 2026 14:39:10 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com
+ [198.61.86.93])
+ by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 96C1A406557;
+ Wed,  9 Sep 2026 14:39:09 +0000 (UTC)
+Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+ by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 82F0A82024B;
+ Wed,  9 Sep 2026 14:39:09 +0000 (UTC)
+Date: Wed, 9 Sep 2026 15:39:08 +0100
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Jonathan Cameron <jic23@kernel.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Pavel Machek <pavel@kernel.org>,
+ Michael Hennerich <michael.hennerich@analog.com>,
+ Support Opensource <support.opensource@diasemi.com>,
+ Sebastian Reichel <sre@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ patches@opensource.cirrus.com, linux-watchdog@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-leds@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, llvm@lists.linux.dev
+Subject: Re: [PATCH 11/14] mfd: remove unused wm8350 driver
+Message-ID: <aqFvjLMp+NpH8Ixa@opensource.cirrus.com>
+References: <20260909132153.1596191-1-arnd@kernel.org>
+ <20260909132153.1596191-12-arnd@kernel.org>
 MIME-Version: 1.0
-References: <20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-0-284880d6e68b@linaro.org>
- <20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-2-284880d6e68b@linaro.org>
- <47f0399d-bb31-48bc-b69d-4abd445727b4@oss.qualcomm.com>
- <5bd35343-1bd9-43c6-90f9-d57d67e6d416@linaro.org>
- <CACu1E7Fs-=sKJ07Pcb_7BCTFaXLCMVGEu=yQ6+hfG3Vjc2Y_RQ@mail.gmail.com>
- <6763c530-ffb6-4480-9a56-2594bfe8a010@linaro.org>
-In-Reply-To: <6763c530-ffb6-4480-9a56-2594bfe8a010@linaro.org>
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Wed, 9 Sep 2026 10:31:18 -0400
-X-Gm-Features: AcwNN1W6JfBlDjrb1_5nbhBQz72mGClexEs4modSAjAw6CNXol8sRbktxQsrmMU
-Message-ID: <CACu1E7GZa8QwWLk0qiCYiYzJN-2HorU93bYkkFChzR2gnExmGg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/msm/a6xx: Use CX AO Counter register for
- timestamp on a750 GPUs
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909132153.1596191-12-arnd@kernel.org>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E64:EE_|DS2PR19MB059743:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8abe4302-c6e7-4934-04ca-08df0e801cde
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|30052699003|61400799027|36860700016|23010399003|7416014|376014|22082099003|16102099003|18002099003|5023799004|11063799006|4143699003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: CjnWSTDnaPoG2LIh/5k9rzeVss2Qh8ANuWh+uPKVLInPXWloWtD5+VfZsMb1xIezrDPPR52oYzFpX5qU0Pa6zL/aOOh9n857KXUD8qmqXCxlll6zmLNg/6k8X5yijcy/JqzwGiTZ7Oyeory69q0sLN5OyvVf5BWRTWESv0GShAeVDZqSBVyKJcr7UI3EDY7a4IcrqKrvvrTjsj48zw292hH/gRxkQtMEt1SkcDhNmxOOEn8RjxS05tc5xYt50PzkVaNSZpOerRIV8FrAqnP9G+qIZdqx2wMb+0I8wBa2Y/NgCREtpNsgG2jKRPdbSW/Vp1bbZlN0vhQf1k0JaASOI/d8LxF3RljsrxOpD1Ey6puefN2jHDbQKL1la7/DivZJ6ZqM1XmkYItWoO8+p3U7dfUmaLFXo+kv3fz2EO1Ef1TGLCcLnHRYEofhLBVu/E6j2cZgFcBUxzNxKK5op8clIO+VNopHLOKjOCZWQm1zp+OkAV5nsPokarmvCov+jN0Wh4QLBlIW6WYdAq2O9AWCQxeBtJR5bNNXO8cILAnj7ZcRGnJqkU/rHnMwikooXoXUigLE3kGHYkyPoc2FNfyqNolICPZ3hgoSlesfKRoFzvOs7HlKn1CiU+VnYkTqZIdlGAVwesBo1KrMRoPvhV7xXEAv+4DlIMRXg3xfujo1keLYAI0Za1bjUijtALFGAnL5dYoK03tV7//A0l2i95ZY1Q==
+X-Forefront-Antispam-Report: CIP:84.19.233.75; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:edirelay1.ad.cirrus.com; PTR:InfoDomainNonexistent;
+ CAT:NONE;
+ SFS:(13230040)(82310400026)(30052699003)(61400799027)(36860700016)(23010399003)(7416014)(376014)(22082099003)(16102099003)(18002099003)(5023799004)(11063799006)(4143699003)(56012099006)(10067099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: Dp6J0K8V8bwzYsrX6EtjW1JexDgYuzmoByCf4ADwn8D4ry6cFUAr0NJZ8NFIhbggTx0o+aNhQxQ/fIRDK/0CPesGojhk6fsf199yF36ZiLb9JHZFLyxkqi9c9KV3PqedsIgDFP9uHu1nN5yYFGeC09FDHyEA3+y0WpmwGBFsx7RWKJmGwzXkoG9W4V7U8lOWtgIw6yTL7UajI9gG5smLrYGH9lboPyJRqbZax8M9Qo5bG4FgZnuD7D68lKmcPYIeerSVTi2L5LIL/xNQdwgui8NGhgU3CaUTmgkvqASbBzd8/kGvRKkV1x7lsOJUTK471ci8BGG2hAKgw+kwLKCkv6NzrJ3TAQHlC6tOZ9S9qqG2RfDCOZmJsm5LmLyKT/tg9au/4D8SEhYhJz1Qfk0JWXmoI/0of7o2vQHP9wW6VXPJVAScLlt12JwyzPnF9Wgx
+X-Exchange-RoutingPolicyChecked: OO7BmBkMvypYphj2ThprKYnqyZdH1kCjE+qYhXPte/N51DTCLeqniWsHQ1csDhrC+EzVytjg0ycvCvSoPkRtKFYyGN6OVW1WcKhD6XYYCM4pt/k6D+cCfU8AkV75zv9t5gmrO2xhcwKKfUVugt2dhn1srYReseaZ6HYTTceaVKKeyD/Rt27uvfulO0fEjMYmINh8gNkY9GaJ3euXULcUMTu6xhbpkSMh5vt0sH9ADRz7Z6qlqRt5dkEYahvYZVVlX02zgnM7umQa83NowziBwIfyx9OHM7KbubXKil4TuNGdp1uUj8zrkpcN66+pua0N8l1Zjklrep5SF8dCgE/J1Q==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 14:39:10.9901 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8abe4302-c6e7-4934-04ca-08df0e801cde
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8; Ip=[84.19.233.75];
+ Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-CO1PEPF00012E64.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR19MB059743
+X-Authority-Analysis: v=2.4 cv=bpd8wkai c=1 sm=1 tr=0 ts=6aa16f94 cx=c_pps
+ a=M/tNFvKf9qcYTEXzCPs7dA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
+ a=w1d2syhTAAAA:8 a=xo24t3wAf2OcpJBrjYsA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE2MyBTYWx0ZWRfXxpr6vtb38lrz
+ JHQh8AsZCrBA2Zzw6SbeOlctGrzgQihsOUvP5DEbyeSqDQQkjSVYgo5KULdka0D6fIv7eH9ISgB
+ 4g7a69XlgolKUVLUc6bm5i0q/jPBXsIMFQn8F3xTpMp8XrzSs8bJkHRg+kyqkgeBgT2/rFqAPre
+ vu8G35ZX3Btr2r4Jv0rf1pON9s6ARTtSM56ndpJNf8kgKUx/44wuQbqqOAFXxyEDY4LmdAZKKo9
+ mbPnkHV1WB61iZBQZn+ZOrF8wQw6vDC2b6PBcC/1ecPgu5UXA0KyfCr0Pkye/HtOYPoIO9FyDAJ
+ aPz57uYx/LadBz0qHfQX+ydVkCcbFa6FojLVNNaMcdVA0UmHZkPm5uxXJdCyGYpe7Dt9R5FUT+u
+ +NTeeiklKQWKjQfYidxj59jtRCdE5AJYJ6p+1RSzrPlYTIGAVvLsup8knaLelCHYKZjHKBkwuY9
+ o8Bc67rcqnmeuvo5Tlw==
+X-Proofpoint-ORIG-GUID: xGGMELUOrrSqA-l5XsinEeHFr4DsjBiD
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE2MyBTYWx0ZWRfX2yQ34r3LFjpL
+ a2K/xG1Z/tvgptxD3XKM8ovGE5nCPN2h0w2UMXgrRH37Bi/nBMfbdta1ctXI0k6OSxsXx/R8LBz
+ RG9IJ1GoVJ/ma+Vyi75id/7jgzQIWqk=
+X-Proofpoint-GUID: xGGMELUOrrSqA-l5XsinEeHFr4DsjBiD
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,89 +178,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 9, 2026 at 10:29=E2=80=AFAM Neil Armstrong
-<neil.armstrong@linaro.org> wrote:
->
-> On 9/9/26 15:24, Connor Abbott wrote:
-> > On Wed, Sep 9, 2026 at 5:32=E2=80=AFAM Neil Armstrong <neil.armstrong@l=
-inaro.org> wrote:
-> >>
-> >> On 9/9/26 11:06, Konrad Dybcio wrote:
-> >>> On 9/8/26 3:24 PM, Neil Armstrong wrote:
-> >>>> The a750 uses the CX AO Counters instead of the GMU_ALWAYS_ON_COUNTE=
-R
-> >>>> register on A6xx and other A7xx GPUs, use it when running a A750 GPU=
-.
-> >>>>
-> >>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> >>>> ---
-> >>>>    drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 12 +++++++++---
-> >>>>    1 file changed, 9 insertions(+), 3 deletions(-)
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm=
-/msm/adreno/a6xx_gpu.c
-> >>>> index f9de9329dee3..081e79ea4652 100644
-> >>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >>>> @@ -23,9 +23,15 @@ static u64 a6xx_gmu_get_timestamp(struct msm_gpu =
-*gpu)
-> >>>>       u64 count_hi, count_lo, temp;
-> >>>>
-> >>>>       do {
-> >>>> -            count_hi =3D gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWA=
-YS_ON_COUNTER_H);
-> >>>> -            count_lo =3D gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWA=
-YS_ON_COUNTER_L);
-> >>>> -            temp =3D gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_O=
-N_COUNTER_H);
-> >>>> +            if (adreno_is_a750_family(adreno_gpu)) {
-> >>>> +                    count_hi =3D gmu_read(&a6xx_gpu->gmu, REG_A7XX_=
-GMU_CX_AO_COUNTER_H);
-> >>>> +                    count_lo =3D gmu_read(&a6xx_gpu->gmu, REG_A7XX_=
-GMU_CX_AO_COUNTER_L);
-> >>>> +                    temp =3D gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_=
-CX_AO_COUNTER_H);
-> >>>
-> >>> KGSL apparently *writes* the system time to these registers, is that
-> >>> an idiosyncrasy regarding how the vendor userland drivers then use
-> >>> this counter?
-> >>
-> >> This is a GMU counter, no sure why & how KGSL or freedreno would write=
- anything to it...
-> >
-> > It is writeable. This is part of implementing
-> > VK_KHR_calibrated_timestamps. The idea is that when the GPU suspends
-> > and resumes, we keep track of how many ticks it would've taken and
-> > then pretend to advance the counter by writing the CX counter (after
-> > powering on CX but before powering on GX which initializes the normal
-> > GMU counter).
-> >
-> > Note that VK_KHR_calibrated_timestamps worked initially on turnip but
-> > the tests started failing with v6.19. I haven't bisected yet but my
-> > guess is CX was never actually collapsing for whatever reason and we
-> > made it collapse hence breaking the tests. So we probably do need
-> > this.
->
-> OK thanks for the detail! Today it's only used for perfetto, but still
-> on A750 a different register is used for this purpose.
->
-> Neil
+On Wed, Sep 09, 2026 at 03:21:48PM +0200, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> This driver was used on the i.MX31 ADS reference board from Freescale
+> and the smdk6410 reference board from Samsung. Both used platform_data
+> based driver probing and are now gone from the kernel.
+> 
+> Since probing with devicetree has never been supported by wm8350,
+> it is clear that nothing can use the driver on an upstream kernel,
+> and it is unlikely that anyone is still interested in a devicetree
+> conversion, so remove it.
+> 
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
 
-Well technically no, today this function is also used by
-VK_KHR_calibrated_timestamps on turnip and today it's broken because
-of a kernel regression...
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-Connor
-
->
-> >
-> > Connor
-> >
-> >>
-> >>>
-> >>> Konrad
-> >>>
-> >>> P.S. looks like a8xx also has this counter
-> >>>
-> >>
->
+Thanks,
+Charles
