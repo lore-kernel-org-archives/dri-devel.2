@@ -4,136 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02B7FC79FB5
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 06:58:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1E98C79FAA
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 07:01:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3958F10EF6D;
-	Wed,  9 Sep 2026 06:58:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C78C410EF74;
+	Wed,  9 Sep 2026 07:01:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="0/8vtP+X";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="X11V6Uef";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vzPQdsZT";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rENVUtkq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ufrvIEt4";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC5A110EF6D
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 06:58:41 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1898721A15;
- Wed,  9 Sep 2026 06:58:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788937116; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=BxGowlxBehHp9k2qr8/gotoZnXf4or006RpTsEQpy28=;
- b=0/8vtP+X0Url+sEnYAO+6hb2ATixIlTo5ysTVK+7u+YwkNuuMK9W1drQ0fJuoX4v2wuxa2
- 8Ylo65ZoD9xoN8RIQh2E/SSucflRCF8Bd8CloUDHysc3lvX7RqkoX/zgNJ3o0w3L+zGlzb
- gqqjuUWkSa2oYeWN0EEdjus06D4Ck7Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788937116;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=BxGowlxBehHp9k2qr8/gotoZnXf4or006RpTsEQpy28=;
- b=X11V6UefNRudncesuOIeT5dQIPSJkYd5O/2CIlgIaNXfxmEgpsGhCYkXcDFyS+XQJekkzB
- LhpEnMQPSq0NZhCQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788937112; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=BxGowlxBehHp9k2qr8/gotoZnXf4or006RpTsEQpy28=;
- b=vzPQdsZTMCMn5nV9xGej1uESyw+gQavRdJswE4Bt5xfnGSmSVTho5syrOlTqbJx42kBarP
- eguQ6iZPvXB3dMhOzXTtIXZo0y9fDVRym1yQbT/H/giPrGFI7GsdJuWkHka2uXCxgy2aTt
- A5r/1ivw/ZKkI+1MBV/5GO1SjqAPAyQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788937112;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=BxGowlxBehHp9k2qr8/gotoZnXf4or006RpTsEQpy28=;
- b=rENVUtkqOys1WMmI1Z8T9Bsk8w7ltswhqfiAzu4gyFVp54gUQSl7rXjK8hx5DiyUfg4M1w
- ZH6JQCYXfltUzKDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8E0011347F;
- Wed,  9 Sep 2026 06:58:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id S/U2IZcDoWpmWwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 09 Sep 2026 06:58:31 +0000
-Message-ID: <66236146-7c2d-4bbd-a508-d415fbb358ce@suse.de>
-Date: Wed, 9 Sep 2026 08:58:30 +0200
-MIME-Version: 1.0
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011020.outbound.protection.outlook.com
+ [40.93.194.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C440010EF74
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 07:01:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HjJicTrzb5BBv/mE7NtE4uLj63zVwfG/BVVq8Mafb8GDak7HXTzFz5OMIJ3bExkX9PQEuc1rvNa1+dKnXzMn+BWUBrsN+JId+IK/eWYmwWG8Yl3HoubadGIl6z3yoDCl++BARkocFmSk0FArd1vzT4vMFdT0fjjhZnmHXIEqfmv+qoEhsNWdQ9m30dl53MYgX+Xig4li8MCS561zhfUjH/aQodre56/OFzbk28QF02xBv0Ug+EaUTh4ohzyPlE6mnr7+SpRX34WKhCPmXqrHHs0mZw2Q0KipDSwAJX9oBjMalBh4mhydHZdDIClJOG400aK3z85mA2BytCSO6G8Utg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=14SjdRw8rfNyqA886NN97ZJpVSaRjJDNcsqeg/W2z50=;
+ b=AkZJFXZ+/UT0ZnTbPJk5U3L+7Sqr2gM21Gt9JjMZBk6NGel/1KAs7OS9ioY+cyZd1Ts5sKyfB0WsVlNBL+TRbUyVtCdyyEQosGprpOAFXW0fRC8L6An0lVLdMcGNLdak/kNJ2zZHbTQgTyqHpzuujC1Si4yjQhna46svANg8Meh7ReQyu/r/rNk+83EWcNNF0+GPIxghyvPJteADpOEsrCbXQnE8FjY7ZJ1qDqm49LrBRx2F5PdrlPtVdRbA1tBW7JIZ9fScUEL9Za52+PPTBfXnvYKB5YKQ1D2vb+/dfXUnPKurejuoUAgp5nR2lc90cOfHpPMci5oPvgToViHLYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=14SjdRw8rfNyqA886NN97ZJpVSaRjJDNcsqeg/W2z50=;
+ b=ufrvIEt4fd4fEkT+xoSSA1bvtIqhvIxIWZfxcjUobdaCdV1uC10nGkxaStCrmmYoqksWedPKx/Kco53v0c/oTPc2NqUHE/aVbVIV0XA3BfxDausPQSHFzOio3gQPx5avPoGHnuirS7Jx6OTMCbilzw7MFy6Yl3I7BUuRRBjFy6c=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
+ by SA1PR12MB7038.namprd12.prod.outlook.com (2603:10b6:806:24d::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
+ 07:01:05 +0000
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d%4]) with mapi id 15.21.0406.007; Wed, 9 Sep 2026
+ 07:01:05 +0000
+Message-ID: <006076c6-50cc-41e0-9427-f54df628588f@amd.com>
+Date: Wed, 9 Sep 2026 12:30:59 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 07/11] drm/atomic: Add drm_atomic_can_create_state()
- helper
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Daniel Stone <daniels@collabora.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, =?UTF-8?Q?Jonas_=C3=85dahl?=
- <jadahl@redhat.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>,
- Victoria Brekenfeld <victoria@system76.com>, Xaver Hugl
- <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
- <20260908-drm-reset-state-flag-v3-7-905570f387a4@kernel.org>
+Subject: Re: [PATCH] gpu: buddy: Drop the stale @p line from the
+ gpu_buddy_print() kernel-doc
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Matthew Auld <matthew.auld@intel.com>
+Cc: Joel Fernandes <joelagnelf@nvidia.com>, dri-devel@lists.freedesktop.org
+References: <20260907012125.21209-1-kmehltretter@gmail.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260908-drm-reset-state-flag-v3-7-905570f387a4@kernel.org>
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <20260907012125.21209-1-kmehltretter@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
- RCPT_COUNT_TWELVE(0.00)[16]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, imap1.dmz-prg2.suse.org:helo,
- suse.com:url]
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0073.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:23::18) To DM4PR12MB5039.namprd12.prod.outlook.com
+ (2603:10b6:5:38a::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|SA1PR12MB7038:EE_
+X-MS-Office365-Filtering-Correlation-Id: 53cd9982-02b3-4f6c-c916-08df0e401da6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|23010399003|366016|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: sIiS/gEIOGxuv7Wjlw2K+tfH0H4yCsjU+cdVwYxryCR6/RWOgupf8dd7T0wdF0tgCAPKQwO/r/9+PbJtIX66oCGntH/0pKlqbYYB64yx7/RGzjL12BEuNuj0Ugq7FWkn1f8esfQ0S4pwmDtupf7DOYVlbFStBoP2vUWG16YIQ2fbIg2JqycivF7cdgZGh7YLN+NZXCjgjHnm/lWyIlK5cMP9LJkqkv4OK+JPwQJWIHp/36zUXPO3O6/HVstArwhIleqhJrRoIVqrRl5cXltspEngvH/me1jYxZ7uBfY078bhbCYo5sfcUunTaEvpiXAfRFqb2fTGFhwQ9JJvqlaVgzOTrybwYwAqKx+GIJ3C9mKRo9C8y7u9z3qrZ5Bg5BCZavPkgSfcysM0d+YtCqY7QGrbTwaBmJFU7xEEPIdKuybTYAIPGFgoW5y588cTtO1MJ0Sl7zURuPiMsM3S0cZmmXbouLhyb/DbMbjn73zsgPjW7iUxl1KFjgsT4+5k4JUGHo34ereT4lh5V/lJPMWxgJn0vPfP3osGarsD/65U0jw+gCI4xHLwUBQ6EB5K+fwxC8tylAdtaxHd9HmqK6XEBd7Bpcz5ejfa6M2qe5D0fZhxkypSl3aR4IWW8WwN8Ft+APnJTN9dRd4MBu5MLjGeWy6WUJZl4vlAl86u3Lc9tN0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5039.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UDF0Yk9jWnZ0a0JvUkFsbTlPTU1XRFZKWWh6WUtZbG44S0ZHNnMzN3FEeHVp?=
+ =?utf-8?B?UXlXNGNKYXNJbWN1WXArTlhucEQ1amwyV2V1RUZhbE85TnBHWlJVMnBQMC9q?=
+ =?utf-8?B?aHFydDlveGJnSFdjL3FTK0hBblZ4Q1FTU1RObkdvUkZLUGRnazQ1bDZYaTB1?=
+ =?utf-8?B?Sy9WdC9aa3ZjeWdOOE9IeGhHaCtTMUhad0lEZTlaQ2RtV3R2U1B4bHVxdEZY?=
+ =?utf-8?B?OEZGYzVYckgxWmtuNU14Z05nRmxsakc4VmUzUVR5Qjh4RWhGK1UrVmZqNDEx?=
+ =?utf-8?B?c1ZmQ1NRMXJ6Y3B5MWVIdTloaWN4bVdLMW1GcW1tOUlFVmw1NDZUZ3hzTlNp?=
+ =?utf-8?B?Z2grWFlYSHMrbUtUa0ZqUytuZk4zUDVPZ3ZYOXg2ZS9LNkh2VVZUcVZnOW1m?=
+ =?utf-8?B?ZjZtUGZhYjZqcDRyMTdWYWkvWDB1dWVPMlc0Y3o3Yk5Oa1ArS3RNK2NRR3BL?=
+ =?utf-8?B?dGJscWdzd0d1YjhxTi8yS3MvNHhUVCtyeUlXeFVzMjJrZHNZMXlOcVR0dHVR?=
+ =?utf-8?B?SjNKSmo3V0xTczNBb1A2VjVrQ0JtWElheVNCMTJRTTNYWXJJWGc1Wkc5UTBB?=
+ =?utf-8?B?cGo5RkJzbkRaQk8zUnhXZ212c2JLL3ZXRWcrUTFvKzZQeFVWZFhtazRKcnoy?=
+ =?utf-8?B?VGRsVDg0YUF5dnRVL1dHVHlmOFB2bDdyeXhkdzA3NXp3dHZUUEg1Uno2TThK?=
+ =?utf-8?B?UWkrcDZSRllMc0VpQmtUWjZFRFdYWlJFZXM5bVVaTVY0ZXpabnZOL2VNSmJ0?=
+ =?utf-8?B?RkVOcVkwRmQ0Z1pBQUNtMDVGSDkxTzhJcjlxRUtLUlRmOThsWTFHSlR2VEJr?=
+ =?utf-8?B?MFludjFEV3hmRWRLUjZ5NGFNTCt5Y3B5cWNVSlNRODBZVm5tTExWQlN1UXJC?=
+ =?utf-8?B?WXZ0THRzL0xmcXYwWmRxbFAwVTZwR0lOTXNiVFA5QkxCdkpzZnBmSmhPRWZp?=
+ =?utf-8?B?M0RsU081TFpXS28zRGpPUkViR1lsaitkRzJoaVZZajZPbTZlSXZIaEMvWnBV?=
+ =?utf-8?B?aHpPTjYxQXVOS25sZHNPaHlSSVcwRlZPajdPUUdNZzM3Q1FqdzQxMStTVWVZ?=
+ =?utf-8?B?c0I2V2krUXRSK3VheU80OCszVnVhQ3FxOWtTTThrNVNCOVhmb09uQlVTUTBG?=
+ =?utf-8?B?V3dOVmpGVHBqTm1FRG9US3hUZFpVSHdObytOeCtScXRsbkpleHZrcDVsSkdB?=
+ =?utf-8?B?UktFUFFaaWJmSFFaYmRNT3Q5M0lDZzRITWpPUXhOMGkxZ1NFdG1OUVpuTDdB?=
+ =?utf-8?B?SmtQVG1JazV5T3hzOG91WGM3ZGxPNXQ0NGJxL25aNFlKWDduL1d0YmJnY2U3?=
+ =?utf-8?B?L1YvS0FyeStVVmQvN2VPNmRUdlpEbmVSQUdrOVpJaTlUVkFsSTErcmlEanpp?=
+ =?utf-8?B?S1ZnQmxYUG8zQy8wdGhPUWZvekVYOUdXbUMyaFlBSDhHRnkzcU5Sb1k3OFR3?=
+ =?utf-8?B?S1pXdkEvWCtYcjlpcGMrUUJCZE11WHNrenVvWWlPNHhFODZMRUh2djZKZ2xo?=
+ =?utf-8?B?b2k5MUNzN3NkSjdIUkdlM3FhL3QzTnhUaitpajEzUWUvbFlXWGZPK3liUmw4?=
+ =?utf-8?B?TTc1d2ZBelJXd1dKRE5BVTJ1aE9UM0Y0S3o5RkJUbDVlQUNReWVLcDNCVjZy?=
+ =?utf-8?B?dU9KQk9YZ2NKVjhxM1dVVHBsS0JoazR0R2lGYWJRM0ZuUWZkd2M2bzU4K2tI?=
+ =?utf-8?B?MkJRQnhHcnZxYlpmVmxNVzZibE9XVG1KREtrdEJ5K0R2QmVrTUhnRVNIZzEy?=
+ =?utf-8?B?MzNJMk8ycEUzT1RPcjdSZ1lxMUUwRUxJYWNEZ010U3pUOExGQkNvVFBzam9m?=
+ =?utf-8?B?Wi9MK1hQWEdNS1NKdHJ4dGpDSHUrNHNvM3dNSnoxSmp0NWZQZUwwNU54elpK?=
+ =?utf-8?B?YnRuWlI5dGZTNU4rRXArM1luQVBxbmNxRk5TVG5zK1pJUUVPY2hwNUFnSWFa?=
+ =?utf-8?B?aHFvY204UnVZL2ljdUdEQ1RYK29LSFRjUm5BU0VTa3V1T1FJZEc0bEl0UStU?=
+ =?utf-8?B?L1hNVW11WUNnVHRja3JFNW9FR3BTSG5BR3VINTF1bFR3MTJMb1B3a0U3bVVr?=
+ =?utf-8?B?QmdxL1NsRTcxQU1oVDNrbm92dmpYcWdydWxxWHhrQXJBYXNnTnZGSWNCLy8z?=
+ =?utf-8?B?QUJVVVdiWjNnTGtva0g4ZGorWHczb0EvL2R5ZmNET0M2NDMzb043M2RkdGRE?=
+ =?utf-8?B?c0VWeE1wbFoySy9Md0FQbXVTUGQ5N3NiMUxra3UyNUFNc1hySGxYMnJjUElM?=
+ =?utf-8?B?cEJiQmtEOFA5ZWlPREVrYmtqNEpkWWIvOFZ0QllzdVVieE1RZStVUVJWNENp?=
+ =?utf-8?B?TERtT3RYTlRDb1JyWmNlSzY2TmRpMVliYm1MeWZmdmZDUkp4WDRodz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 53cd9982-02b3-4f6c-c916-08df0e401da6
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 07:01:05.1417 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ta37flt8Y9xShFt2plrdTvdQbldfCabYrqcl3Ou6jbxOKvMhopjOlh7WpshoUU9hfmoJMO9OCEtQkurOZjHUfA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7038
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,124 +137,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 
-Am 08.09.26 um 16:35 schrieb Maxime Ripard:
-> The atomic reset path will need to create pristine default states from
-> scratch for every plane, CRTC, and connector. This requires all of them
-> to implement the atomic_create_state hook.
+On 9/7/2026 6:51 AM, Karl Mehltretter wrote:
+> gpu_buddy_print() takes only the allocator since commit ba110db8e1bc
+> ("gpu: Move DRM buddy allocator one level up (part two)"), but the
+> kernel-doc still describes a printer argument and kernel-doc warns about
+> the excess parameter on every docs build.
 >
-> Introduce a drm_atomic_can_create_state() helper that iterates over all
-> planes, CRTCs, and connectors and returns whether they all provide the
-> hook. Color operations are excluded since they always use
-> drm_atomic_helper_colorop_create_state() directly.
+> Drop the line.
 >
-> This will be used both as a precondition before filling a commit with
-> default states, and to report the device capability to userspace.
->
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> Fixes: ba110db8e1bc ("gpu: Move DRM buddy allocator one level up (part two)")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 > ---
->   drivers/gpu/drm/drm_atomic.c | 49 ++++++++++++++++++++++++++++++++++++++++++++
->   include/drm/drm_atomic.h     |  2 ++
->   2 files changed, 51 insertions(+)
+>   drivers/gpu/buddy.c | 1 -
+>   1 file changed, 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 19678e8a2bd4..508a027398af 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -1612,10 +1612,59 @@ drm_atomic_get_new_bridge_state(const struct drm_atomic_commit *state,
->   
->   	return drm_priv_to_bridge_state(obj_state);
->   }
->   EXPORT_SYMBOL(drm_atomic_get_new_bridge_state);
->   
-> +/**
-> + * drm_atomic_can_create_state - check if a device supports creating pristine states
-> + * @dev: DRM device
-
-I find this name a bit vague, because all mode-setting pipelines can 
-create states in one way or another. Given how it is used, I suggest 
-naming this helper _can_create_default_states or _can_reset_state.
-
-Best regards
-Thomas
-
-> + *
-> + * Check whether every plane, CRTC, and connector in @dev implements the
-> + * &drm_plane_funcs.atomic_create_state, &drm_crtc_funcs.atomic_create_state,
-> + * and &drm_connector_funcs.atomic_create_state hooks respectively. These hooks
-> + * are required to create default states from scratch rather than duplicating
-> + * the current state.
-> + *
-> + * Color operations are not checked because they always use
-> + * drm_atomic_helper_colorop_create_state() and do not have a per-driver hook.
-> + *
-> + * Returns:
-> + * True if all objects implement atomic_create_state, false otherwise.
-> + */
-> +bool drm_atomic_can_create_state(struct drm_device *dev)
-> +{
-> +	struct drm_connector_list_iter conn_iter;
-> +	struct drm_connector *connector;
-> +	struct drm_plane *plane;
-> +	struct drm_crtc *crtc;
-> +
-> +	/*
-> +	 * colorops don't have an atomic_create_state hook but
-> +	 * drm_atomic_helper_colorop_create_state()
-> +	 */
-> +
-> +	drm_for_each_plane(plane, dev)
-> +		if (!plane->funcs->atomic_create_state)
-> +			return false;
-> +
-> +	drm_for_each_crtc(crtc, dev)
-> +		if (!crtc->funcs->atomic_create_state)
-> +			return false;
-> +
-> +	drm_connector_list_iter_begin(dev, &conn_iter);
-> +	drm_for_each_connector_iter(connector, &conn_iter) {
-> +		if (!connector->funcs->atomic_create_state) {
-> +			drm_connector_list_iter_end(&conn_iter);
-> +			return false;
-> +		}
-> +	}
-> +	drm_connector_list_iter_end(&conn_iter);
-> +
-> +	return true;
-> +}
-> +EXPORT_SYMBOL(drm_atomic_can_create_state);
-> +
->   /**
->    * drm_atomic_add_encoder_bridges - add bridges attached to an encoder
->    * @state: atomic state
->    * @encoder: DRM encoder
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index a5553fcec28c..cc993909b79e 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
+> @@ -1591,7 +1591,6 @@ EXPORT_SYMBOL(gpu_buddy_block_print);
+>    * gpu_buddy_print - print allocator state
 >    *
-> diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-> index 00b3e9fc429a..7dc26e3da65c 100644
-> --- a/include/drm/drm_atomic.h
-> +++ b/include/drm/drm_atomic.h
-> @@ -700,10 +700,12 @@ int drm_crtc_commit_wait(struct drm_crtc_commit *commit);
->   
->   struct drm_atomic_commit * __must_check
->   drm_atomic_commit_alloc(struct drm_device *dev);
->   void drm_atomic_commit_clear(struct drm_atomic_commit *state);
->   
-> +bool drm_atomic_can_create_state(struct drm_device *dev);
-> +
->   /**
->    * drm_atomic_commit_get - acquire a reference to the atomic state
->    * @state: The atomic state
->    *
->    * Returns a new reference to the @state
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
+>    * @mm: GPU buddy manager
+> - * @p: GPU printer to use
+>    */
+>   void gpu_buddy_print(struct gpu_buddy *mm)
+>   {
 
