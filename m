@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E95F5C79FBE
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:24:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DB4FC79FB6
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:24:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 394B210F153;
-	Wed,  9 Sep 2026 13:24:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0EC110F154;
+	Wed,  9 Sep 2026 13:24:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d+JiQCIK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Fb9Czzs0";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F373610F150
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 13:24:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68A7610F154
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 13:24:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D77474131C;
- Wed,  9 Sep 2026 13:24:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C747C1F00A3F;
- Wed,  9 Sep 2026 13:23:55 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4DB47414AB;
+ Wed,  9 Sep 2026 13:24:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D2971F00A3A;
+ Wed,  9 Sep 2026 13:24:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788960243;
- bh=GsvUef4hneB+xdHcxkeILGXl9Km9+VtxY+PwGgE+eto=;
+ s=k20260515; t=1788960252;
+ bh=Lye/Jf1dOi+8XdONpZIwqIkzopRqNDVQ0y37tedrO3I=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=d+JiQCIKd3jlqqdaDOteHFuE3oG36JyWUU+QWxk/n59ROKREnLLnr5WsLTb/dbd8L
- TPYEzmQIQ8Ym5n29AU5nqJ5FW67xXpBkMFFbpJ0AmjUYdaxaiVP8kFXbY1KTiTVA1n
- oXATGrn9c3jdn9KFcxvC5wrDXA+UN0S3zZvJRgYaJpcbunvy3t6vaEuyxsi9ym+1DC
- R3WpH0TtC77Zu3s2j9csObvAri9x3Q1R6JRZ20sM2vdysNr2fZu7hvZJMz7xXlzh5v
- KMhh5pIn8Lqh+TzFPcmbq+ZTpfzm2Hykvic25JUD39YmziT4GSfSsqmNbyKTODNYjg
- ucMA2X1FARVvQ==
+ b=Fb9Czzs05NwubUhoM3MvdN/mj6SBjPnfoWIZVvFP2EoixU+KCLNywlcOwMEDtKJJW
+ f8E154ESU3wgQQq6aMPO8ADKBDBEoMNGd4FRJSGQ763QZJqIIe/6xWdct4QeQgUDMR
+ u8M02SfvAYETNzvOcgNo0YEjLd37Xbq2O1D0o3KdGEs2AXbzIcooFB600Dma7/sXD2
+ EK5YCs+C9NrJd9YvLXTQL3OQ9KNgK2b10bL+nTuts4WV2t7JGNNIF78Nz5jjGF7KcD
+ iSJX+IxNScfK9xXOG8ft7Ev38xjnYSDhsIGn3IQjS1aACh9GVt3hAuRwdCTZnsN1O5
+ 6L3WdZrBaGV1w==
 From: Arnd Bergmann <arnd@kernel.org>
 To: Lee Jones <lee@kernel.org>,
 	mfd@lists.linux.dev
@@ -57,9 +57,9 @@ Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
  linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, llvm@lists.linux.dev
-Subject: [PATCH 12/14] mfd: remove unused mcp-sa11x0/ucb1x00 driver
-Date: Wed,  9 Sep 2026 15:21:49 +0200
-Message-ID: <20260909132153.1596191-13-arnd@kernel.org>
+Subject: [PATCH 13/14] mfd: remove unused menelaus driver
+Date: Wed,  9 Sep 2026 15:21:50 +0200
+Message-ID: <20260909132153.1596191-14-arnd@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909132153.1596191-1-arnd@kernel.org>
 References: <20260909132153.1596191-1-arnd@kernel.org>
@@ -82,2439 +82,1376 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-The sa1100 platform has been removed, so these drivers are no longer
-used anywhere.
+Menelaus was a companion chip for the omap24xx platform, which has
+been remvoed from the kernel, so now the menelaus driver is unused
+and can be removed.
 
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- Documentation/admin-guide/devices.txt        |   1 -
- drivers/mfd/Kconfig                          |  24 -
- drivers/mfd/Makefile                         |   8 -
- drivers/mfd/mcp-core.c                       | 235 ------
- drivers/mfd/mcp-sa11x0.c                     | 304 -------
- drivers/mfd/ucb1x00-assabet.c                | 175 ----
- drivers/mfd/ucb1x00-core.c                   | 795 -------------------
- drivers/mfd/ucb1x00-ts.c                     | 445 -----------
- include/linux/mfd/mcp.h                      |  63 --
- include/linux/mfd/ucb1x00.h                  | 261 ------
- include/linux/platform_data/mfd-mcp-sa11x0.h |  17 -
- 11 files changed, 2328 deletions(-)
- delete mode 100644 drivers/mfd/mcp-core.c
- delete mode 100644 drivers/mfd/mcp-sa11x0.c
- delete mode 100644 drivers/mfd/ucb1x00-assabet.c
- delete mode 100644 drivers/mfd/ucb1x00-core.c
- delete mode 100644 drivers/mfd/ucb1x00-ts.c
- delete mode 100644 include/linux/mfd/mcp.h
- delete mode 100644 include/linux/mfd/ucb1x00.h
- delete mode 100644 include/linux/platform_data/mfd-mcp-sa11x0.h
+ drivers/mfd/Kconfig          |   10 -
+ drivers/mfd/Makefile         |    1 -
+ drivers/mfd/menelaus.c       | 1251 ----------------------------------
+ drivers/rtc/Kconfig          |    9 -
+ include/linux/mfd/menelaus.h |   41 --
+ 5 files changed, 1312 deletions(-)
+ delete mode 100644 drivers/mfd/menelaus.c
+ delete mode 100644 include/linux/mfd/menelaus.h
 
-diff --git a/Documentation/admin-guide/devices.txt b/Documentation/admin-guide/devices.txt
-index f544399675fa..eaaa03118fc1 100644
---- a/Documentation/admin-guide/devices.txt
-+++ b/Documentation/admin-guide/devices.txt
-@@ -262,7 +262,6 @@
- 		 10 = /dev/adbmouse	Apple Desktop Bus mouse
- 		 11 = /dev/vrtpanel	Vr41xx embedded touch panel
- 		 13 = /dev/vpcmouse	Connectix Virtual PC Mouse
--		 14 = /dev/touchscreen/ucb1x00  UCB 1x00 touchscreen
- 		 15 = /dev/touchscreen/mk712	MK712 touchscreen
- 		128 = /dev/beep		Fancy beep device
- 		129 =
 diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-index 8a3bbb628693..0395af7270f9 100644
+index 0395af7270f9..02e52398fcd2 100644
 --- a/drivers/mfd/Kconfig
 +++ b/drivers/mfd/Kconfig
-@@ -2258,30 +2258,6 @@ config MFD_QCOM_PM8008
- 	  under it in the device tree. Additional drivers must be enabled in
- 	  order to use the functionality of the device.
+@@ -1893,16 +1893,6 @@ config TWL6040_CORE
+ 	  additional drivers must be enabled in order to use the
+ 	  functionality of the device (audio, vibra).
  
--menu "Multimedia Capabilities Port drivers"
--	depends on ARCH_SA1100
+-config MENELAUS
+-	bool "TI TWL92330/Menelaus PM chip"
+-	depends on I2C=y && ARCH_OMAP2
+-	help
+-	  If you say yes here you get support for the Texas Instruments
+-	  TWL92330/Menelaus Power Management chip. This include voltage
+-	  regulators, Dual slot memory card transceivers, real-time clock
+-	  and other features that are often used in portable devices like
+-	  cell phones and PDAs.
 -
--config MCP
--	tristate
--
--# Interface drivers
--config MCP_SA11X0
--	tristate "Support SA11x0 MCP interface"
--	depends on ARCH_SA1100
--	select MCP
--
--# Chip drivers
--config MCP_UCB1200
--	tristate "Support for UCB1200 / UCB1300"
--	depends on MCP_SA11X0
--	select MCP
--
--config MCP_UCB1200_TS
--	tristate "Touchscreen interface support"
--	depends on MCP_UCB1200 && INPUT
--
--endmenu
--
- config MFD_VEXPRESS_SYSREG
- 	tristate "Versatile Express System Registers"
- 	depends on VEXPRESS_CONFIG && GPIOLIB
+ config MFD_TIMBERDALE
+ 	tristate "Timberdale FPGA"
+ 	select MFD_CORE
 diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-index 2cdbc693ee33..ff62e922209e 100644
+index ff62e922209e..a88a13c8bab8 100644
 --- a/drivers/mfd/Makefile
 +++ b/drivers/mfd/Makefile
-@@ -126,14 +126,6 @@ obj-$(CONFIG_MFD_OCELOT)	+= ocelot-soc.o
+@@ -102,7 +102,6 @@ obj-$(CONFIG_MFD_TPS65912_SPI)  += tps65912-spi.o
+ obj-$(CONFIG_MFD_TPS6594)	+= tps6594-core.o
+ obj-$(CONFIG_MFD_TPS6594_I2C)	+= tps6594-i2c.o
+ obj-$(CONFIG_MFD_TPS6594_SPI)	+= tps6594-spi.o
+-obj-$(CONFIG_MENELAUS)		+= menelaus.o
  
- obj-$(CONFIG_MFD_CPCAP)		+= motorola-cpcap.o
- 
--obj-$(CONFIG_MCP)		+= mcp-core.o
--obj-$(CONFIG_MCP_SA11X0)	+= mcp-sa11x0.o
--obj-$(CONFIG_MCP_UCB1200)	+= ucb1x00-core.o
--obj-$(CONFIG_MCP_UCB1200_TS)	+= ucb1x00-ts.o
--
--ifeq ($(CONFIG_SA1100_ASSABET),y)
--obj-$(CONFIG_MCP_UCB1200)	+= ucb1x00-assabet.o
--endif
- 
- obj-$(CONFIG_PMIC_DA9052)	+= da9052-irq.o
- obj-$(CONFIG_PMIC_DA9052)	+= da9052-core.o
-diff --git a/drivers/mfd/mcp-core.c b/drivers/mfd/mcp-core.c
+ obj-$(CONFIG_TWL4030_CORE)	+= twl-core.o twl4030-irq.o twl6030-irq.o
+ obj-$(CONFIG_TWL4030_POWER)    += twl4030-power.o
+diff --git a/drivers/mfd/menelaus.c b/drivers/mfd/menelaus.c
 deleted file mode 100644
-index be08eaee0a90..000000000000
---- a/drivers/mfd/mcp-core.c
+index a125d40fa121..000000000000
+--- a/drivers/mfd/menelaus.c
 +++ /dev/null
-@@ -1,235 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
+@@ -1,1251 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-or-later
 -/*
-- *  linux/drivers/mfd/mcp-core.c
+- * Copyright (C) 2004 Texas Instruments, Inc.
 - *
-- *  Copyright (C) 2001 Russell King
+- * Some parts based tps65010.c:
+- * Copyright (C) 2004 Texas Instruments and
+- * Copyright (C) 2004-2005 David Brownell
 - *
-- *  Generic MCP (Multimedia Communications Port) layer.  All MCP locking
-- *  is solely held within this file.
+- * Some parts based on tlv320aic24.c:
+- * Copyright (C) by Kai Svahn <kai.svahn@nokia.com>
+- *
+- * Changes for interrupt handling and clean-up by
+- * Tony Lindgren <tony@atomide.com> and Imre Deak <imre.deak@nokia.com>
+- * Cleanup and generalized support for voltage setting by
+- * Juha Yrjola
+- * Added support for controlling VCORE and regulator sleep states,
+- * Amit Kucheria <amit.kucheria@nokia.com>
+- * Copyright (C) 2005, 2006 Nokia Corporation
 - */
+-
 -#include <linux/module.h>
--#include <linux/init.h>
--#include <linux/errno.h>
--#include <linux/smp.h>
--#include <linux/device.h>
+-#include <linux/i2c.h>
+-#include <linux/interrupt.h>
+-#include <linux/sched.h>
+-#include <linux/mutex.h>
+-#include <linux/workqueue.h>
+-#include <linux/delay.h>
+-#include <linux/rtc.h>
+-#include <linux/bcd.h>
 -#include <linux/slab.h>
--#include <linux/string.h>
--#include <linux/mfd/mcp.h>
+-#include <linux/mfd/menelaus.h>
+-
+-#include <asm/mach/irq.h>
 -
 -
--#define to_mcp(d)		container_of(d, struct mcp, attached_device)
--#define to_mcp_driver(d)	container_of(d, struct mcp_driver, drv)
+-#define DRIVER_NAME			"menelaus"
 -
--static int mcp_bus_match(struct device *dev, const struct device_driver *drv)
--{
--	return 1;
--}
+-#define MENELAUS_I2C_ADDRESS		0x72
 -
--static int mcp_bus_probe(struct device *dev)
--{
--	struct mcp *mcp = to_mcp(dev);
--	struct mcp_driver *drv = to_mcp_driver(dev->driver);
+-#define MENELAUS_REV			0x01
+-#define MENELAUS_VCORE_CTRL1		0x02
+-#define MENELAUS_VCORE_CTRL2		0x03
+-#define MENELAUS_VCORE_CTRL3		0x04
+-#define MENELAUS_VCORE_CTRL4		0x05
+-#define MENELAUS_VCORE_CTRL5		0x06
+-#define MENELAUS_DCDC_CTRL1		0x07
+-#define MENELAUS_DCDC_CTRL2		0x08
+-#define MENELAUS_DCDC_CTRL3		0x09
+-#define MENELAUS_LDO_CTRL1		0x0A
+-#define MENELAUS_LDO_CTRL2		0x0B
+-#define MENELAUS_LDO_CTRL3		0x0C
+-#define MENELAUS_LDO_CTRL4		0x0D
+-#define MENELAUS_LDO_CTRL5		0x0E
+-#define MENELAUS_LDO_CTRL6		0x0F
+-#define MENELAUS_LDO_CTRL7		0x10
+-#define MENELAUS_LDO_CTRL8		0x11
+-#define MENELAUS_SLEEP_CTRL1		0x12
+-#define MENELAUS_SLEEP_CTRL2		0x13
+-#define MENELAUS_DEVICE_OFF		0x14
+-#define MENELAUS_OSC_CTRL		0x15
+-#define MENELAUS_DETECT_CTRL		0x16
+-#define MENELAUS_INT_MASK1		0x17
+-#define MENELAUS_INT_MASK2		0x18
+-#define MENELAUS_INT_STATUS1		0x19
+-#define MENELAUS_INT_STATUS2		0x1A
+-#define MENELAUS_INT_ACK1		0x1B
+-#define MENELAUS_INT_ACK2		0x1C
+-#define MENELAUS_GPIO_CTRL		0x1D
+-#define MENELAUS_GPIO_IN		0x1E
+-#define MENELAUS_GPIO_OUT		0x1F
+-#define MENELAUS_BBSMS			0x20
+-#define MENELAUS_RTC_CTRL		0x21
+-#define MENELAUS_RTC_UPDATE		0x22
+-#define MENELAUS_RTC_SEC		0x23
+-#define MENELAUS_RTC_MIN		0x24
+-#define MENELAUS_RTC_HR			0x25
+-#define MENELAUS_RTC_DAY		0x26
+-#define MENELAUS_RTC_MON		0x27
+-#define MENELAUS_RTC_YR			0x28
+-#define MENELAUS_RTC_WKDAY		0x29
+-#define MENELAUS_RTC_AL_SEC		0x2A
+-#define MENELAUS_RTC_AL_MIN		0x2B
+-#define MENELAUS_RTC_AL_HR		0x2C
+-#define MENELAUS_RTC_AL_DAY		0x2D
+-#define MENELAUS_RTC_AL_MON		0x2E
+-#define MENELAUS_RTC_AL_YR		0x2F
+-#define MENELAUS_RTC_COMP_MSB		0x30
+-#define MENELAUS_RTC_COMP_LSB		0x31
+-#define MENELAUS_S1_PULL_EN		0x32
+-#define MENELAUS_S1_PULL_DIR		0x33
+-#define MENELAUS_S2_PULL_EN		0x34
+-#define MENELAUS_S2_PULL_DIR		0x35
+-#define MENELAUS_MCT_CTRL1		0x36
+-#define MENELAUS_MCT_CTRL2		0x37
+-#define MENELAUS_MCT_CTRL3		0x38
+-#define MENELAUS_MCT_PIN_ST		0x39
+-#define MENELAUS_DEBOUNCE1		0x3A
 -
--	return drv->probe(mcp);
--}
+-#define IH_MENELAUS_IRQS		12
+-#define MENELAUS_MMC_S1CD_IRQ		0	/* MMC slot 1 card change */
+-#define MENELAUS_MMC_S2CD_IRQ		1	/* MMC slot 2 card change */
+-#define MENELAUS_MMC_S1D1_IRQ		2	/* MMC DAT1 low in slot 1 */
+-#define MENELAUS_MMC_S2D1_IRQ		3	/* MMC DAT1 low in slot 2 */
+-#define MENELAUS_LOWBAT_IRQ		4	/* Low battery */
+-#define MENELAUS_HOTDIE_IRQ		5	/* Hot die detect */
+-#define MENELAUS_UVLO_IRQ		6	/* UVLO detect */
+-#define MENELAUS_TSHUT_IRQ		7	/* Thermal shutdown */
+-#define MENELAUS_RTCTMR_IRQ		8	/* RTC timer */
+-#define MENELAUS_RTCALM_IRQ		9	/* RTC alarm */
+-#define MENELAUS_RTCERR_IRQ		10	/* RTC error */
+-#define MENELAUS_PSHBTN_IRQ		11	/* Push button */
+-#define MENELAUS_RESERVED12_IRQ		12	/* Reserved */
+-#define MENELAUS_RESERVED13_IRQ		13	/* Reserved */
+-#define MENELAUS_RESERVED14_IRQ		14	/* Reserved */
+-#define MENELAUS_RESERVED15_IRQ		15	/* Reserved */
 -
--static void mcp_bus_remove(struct device *dev)
--{
--	struct mcp *mcp = to_mcp(dev);
--	struct mcp_driver *drv = to_mcp_driver(dev->driver);
+-/* VCORE_CTRL1 register */
+-#define VCORE_CTRL1_BYP_COMP		(1 << 5)
+-#define VCORE_CTRL1_HW_NSW		(1 << 7)
 -
--	drv->remove(mcp);
--}
+-/* GPIO_CTRL register */
+-#define GPIO_CTRL_SLOTSELEN		(1 << 5)
+-#define GPIO_CTRL_SLPCTLEN		(1 << 6)
+-#define GPIO1_DIR_INPUT			(1 << 0)
+-#define GPIO2_DIR_INPUT			(1 << 1)
+-#define GPIO3_DIR_INPUT			(1 << 2)
 -
--static const struct bus_type mcp_bus_type = {
--	.name		= "mcp",
--	.match		= mcp_bus_match,
--	.probe		= mcp_bus_probe,
--	.remove		= mcp_bus_remove,
+-/* MCT_CTRL1 register */
+-#define MCT_CTRL1_S1_CMD_OD		(1 << 2)
+-#define MCT_CTRL1_S2_CMD_OD		(1 << 3)
+-
+-/* MCT_CTRL2 register */
+-#define MCT_CTRL2_VS2_SEL_D0		(1 << 0)
+-#define MCT_CTRL2_VS2_SEL_D1		(1 << 1)
+-#define MCT_CTRL2_S1CD_BUFEN		(1 << 4)
+-#define MCT_CTRL2_S2CD_BUFEN		(1 << 5)
+-#define MCT_CTRL2_S1CD_DBEN		(1 << 6)
+-#define MCT_CTRL2_S2CD_BEN		(1 << 7)
+-
+-/* MCT_CTRL3 register */
+-#define MCT_CTRL3_SLOT1_EN		(1 << 0)
+-#define MCT_CTRL3_SLOT2_EN		(1 << 1)
+-#define MCT_CTRL3_S1_AUTO_EN		(1 << 2)
+-#define MCT_CTRL3_S2_AUTO_EN		(1 << 3)
+-
+-/* MCT_PIN_ST register */
+-#define MCT_PIN_ST_S1_CD_ST		(1 << 0)
+-#define MCT_PIN_ST_S2_CD_ST		(1 << 1)
+-
+-static void menelaus_work(struct work_struct *_menelaus);
+-
+-struct menelaus_chip {
+-	struct mutex		lock;
+-	struct i2c_client	*client;
+-	struct work_struct	work;
+-#ifdef CONFIG_RTC_DRV_TWL92330
+-	struct rtc_device	*rtc;
+-	u8			rtc_control;
+-	unsigned		uie:1;
+-#endif
+-	unsigned		vcore_hw_mode:1;
+-	u8			mask1, mask2;
+-	void			(*handlers[16])(struct menelaus_chip *);
+-	void			(*mmc_callback)(void *data, u8 mask);
+-	void			*mmc_callback_data;
 -};
 -
--/**
-- *	mcp_set_telecom_divisor - set the telecom divisor
-- *	@mcp: MCP interface structure
-- *	@div: SIB clock divisor
-- *
-- *	Set the telecom divisor on the MCP interface.  The resulting
-- *	sample rate is SIBCLOCK/div.
-- */
--void mcp_set_telecom_divisor(struct mcp *mcp, unsigned int div)
--{
--	unsigned long flags;
+-static struct menelaus_chip *the_menelaus;
 -
--	spin_lock_irqsave(&mcp->lock, flags);
--	mcp->ops->set_telecom_divisor(mcp, div);
--	spin_unlock_irqrestore(&mcp->lock, flags);
+-static int menelaus_write_reg(int reg, u8 value)
+-{
+-	int val = i2c_smbus_write_byte_data(the_menelaus->client, reg, value);
+-
+-	if (val < 0) {
+-		pr_err(DRIVER_NAME ": write error");
+-		return val;
+-	}
+-
+-	return 0;
 -}
--EXPORT_SYMBOL(mcp_set_telecom_divisor);
 -
--/**
-- *	mcp_set_audio_divisor - set the audio divisor
-- *	@mcp: MCP interface structure
-- *	@div: SIB clock divisor
-- *
-- *	Set the audio divisor on the MCP interface.
-- */
--void mcp_set_audio_divisor(struct mcp *mcp, unsigned int div)
+-static int menelaus_read_reg(int reg)
 -{
--	unsigned long flags;
+-	int val = i2c_smbus_read_byte_data(the_menelaus->client, reg);
 -
--	spin_lock_irqsave(&mcp->lock, flags);
--	mcp->ops->set_audio_divisor(mcp, div);
--	spin_unlock_irqrestore(&mcp->lock, flags);
--}
--EXPORT_SYMBOL(mcp_set_audio_divisor);
--
--/**
-- *	mcp_reg_write - write a device register
-- *	@mcp: MCP interface structure
-- *	@reg: 4-bit register index
-- *	@val: 16-bit data value
-- *
-- *	Write a device register.  The MCP interface must be enabled
-- *	to prevent this function hanging.
-- */
--void mcp_reg_write(struct mcp *mcp, unsigned int reg, unsigned int val)
--{
--	unsigned long flags;
--
--	spin_lock_irqsave(&mcp->lock, flags);
--	mcp->ops->reg_write(mcp, reg, val);
--	spin_unlock_irqrestore(&mcp->lock, flags);
--}
--EXPORT_SYMBOL(mcp_reg_write);
--
--/**
-- *	mcp_reg_read - read a device register
-- *	@mcp: MCP interface structure
-- *	@reg: 4-bit register index
-- *
-- *	Read a device register and return its value.  The MCP interface
-- *	must be enabled to prevent this function hanging.
-- */
--unsigned int mcp_reg_read(struct mcp *mcp, unsigned int reg)
--{
--	unsigned long flags;
--	unsigned int val;
--
--	spin_lock_irqsave(&mcp->lock, flags);
--	val = mcp->ops->reg_read(mcp, reg);
--	spin_unlock_irqrestore(&mcp->lock, flags);
+-	if (val < 0)
+-		pr_err(DRIVER_NAME ": read error");
 -
 -	return val;
 -}
--EXPORT_SYMBOL(mcp_reg_read);
 -
--/**
-- *	mcp_enable - enable the MCP interface
-- *	@mcp: MCP interface to enable
-- *
-- *	Enable the MCP interface.  Each call to mcp_enable will need
-- *	a corresponding call to mcp_disable to disable the interface.
-- */
--void mcp_enable(struct mcp *mcp)
+-static int menelaus_enable_irq(int irq)
 -{
--	unsigned long flags;
--
--	spin_lock_irqsave(&mcp->lock, flags);
--	if (mcp->use_count++ == 0)
--		mcp->ops->enable(mcp);
--	spin_unlock_irqrestore(&mcp->lock, flags);
--}
--EXPORT_SYMBOL(mcp_enable);
--
--/**
-- *	mcp_disable - disable the MCP interface
-- *	@mcp: MCP interface to disable
-- *
-- *	Disable the MCP interface.  The MCP interface will only be
-- *	disabled once the number of calls to mcp_enable matches the
-- *	number of calls to mcp_disable.
-- */
--void mcp_disable(struct mcp *mcp)
--{
--	unsigned long flags;
--
--	spin_lock_irqsave(&mcp->lock, flags);
--	if (--mcp->use_count == 0)
--		mcp->ops->disable(mcp);
--	spin_unlock_irqrestore(&mcp->lock, flags);
--}
--EXPORT_SYMBOL(mcp_disable);
--
--static void mcp_release(struct device *dev)
--{
--	struct mcp *mcp = container_of(dev, struct mcp, attached_device);
--
--	kfree(mcp);
--}
--
--struct mcp *mcp_host_alloc(struct device *parent, size_t size)
--{
--	struct mcp *mcp;
--
--	mcp = kzalloc(sizeof(struct mcp) + size, GFP_KERNEL);
--	if (mcp) {
--		spin_lock_init(&mcp->lock);
--		device_initialize(&mcp->attached_device);
--		mcp->attached_device.parent = parent;
--		mcp->attached_device.bus = &mcp_bus_type;
--		mcp->attached_device.dma_mask = parent->dma_mask;
--		mcp->attached_device.release = mcp_release;
+-	if (irq > 7) {
+-		irq -= 8;
+-		the_menelaus->mask2 &= ~(1 << irq);
+-		return menelaus_write_reg(MENELAUS_INT_MASK2,
+-				the_menelaus->mask2);
+-	} else {
+-		the_menelaus->mask1 &= ~(1 << irq);
+-		return menelaus_write_reg(MENELAUS_INT_MASK1,
+-				the_menelaus->mask1);
 -	}
--	return mcp;
--}
--EXPORT_SYMBOL(mcp_host_alloc);
--
--int mcp_host_add(struct mcp *mcp, void *pdata)
--{
--	mcp->attached_device.platform_data = pdata;
--	dev_set_name(&mcp->attached_device, "mcp0");
--	return device_add(&mcp->attached_device);
--}
--EXPORT_SYMBOL(mcp_host_add);
--
--void mcp_host_del(struct mcp *mcp)
--{
--	device_del(&mcp->attached_device);
--}
--EXPORT_SYMBOL(mcp_host_del);
--
--void mcp_host_free(struct mcp *mcp)
--{
--	put_device(&mcp->attached_device);
--}
--EXPORT_SYMBOL(mcp_host_free);
--
--int mcp_driver_register(struct mcp_driver *mcpdrv)
--{
--	mcpdrv->drv.bus = &mcp_bus_type;
--	return driver_register(&mcpdrv->drv);
--}
--EXPORT_SYMBOL(mcp_driver_register);
--
--void mcp_driver_unregister(struct mcp_driver *mcpdrv)
--{
--	driver_unregister(&mcpdrv->drv);
--}
--EXPORT_SYMBOL(mcp_driver_unregister);
--
--static int __init mcp_init(void)
--{
--	return bus_register(&mcp_bus_type);
 -}
 -
--static void __exit mcp_exit(void)
+-static int menelaus_disable_irq(int irq)
 -{
--	bus_unregister(&mcp_bus_type);
--}
--
--module_init(mcp_init);
--module_exit(mcp_exit);
--
--MODULE_AUTHOR("Russell King <rmk@arm.linux.org.uk>");
--MODULE_DESCRIPTION("Core multimedia communications port driver");
--MODULE_LICENSE("GPL");
-diff --git a/drivers/mfd/mcp-sa11x0.c b/drivers/mfd/mcp-sa11x0.c
-deleted file mode 100644
-index 228c4a2f4c1f..000000000000
---- a/drivers/mfd/mcp-sa11x0.c
-+++ /dev/null
-@@ -1,304 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- *  linux/drivers/mfd/mcp-sa11x0.c
-- *
-- *  Copyright (C) 2001-2005 Russell King
-- *
-- *  SA11x0 MCP (Multimedia Communications Port) driver.
-- *
-- *  MCP read/write timeouts from Jordi Colomer, rehacked by rmk.
-- */
--#include <linux/module.h>
--#include <linux/io.h>
--#include <linux/errno.h>
--#include <linux/kernel.h>
--#include <linux/delay.h>
--#include <linux/spinlock.h>
--#include <linux/platform_device.h>
--#include <linux/pm.h>
--#include <linux/mfd/mcp.h>
--
--#include <mach/hardware.h>
--#include <asm/mach-types.h>
--#include <linux/platform_data/mfd-mcp-sa11x0.h>
--
--#define DRIVER_NAME "sa11x0-mcp"
--
--struct mcp_sa11x0 {
--	void __iomem	*base0;
--	void __iomem	*base1;
--	u32		mccr0;
--	u32		mccr1;
--};
--
--/* Register offsets */
--#define MCCR0(m)	((m)->base0 + 0x00)
--#define MCDR0(m)	((m)->base0 + 0x08)
--#define MCDR1(m)	((m)->base0 + 0x0c)
--#define MCDR2(m)	((m)->base0 + 0x10)
--#define MCSR(m)		((m)->base0 + 0x18)
--#define MCCR1(m)	((m)->base1 + 0x00)
--
--#define priv(mcp)	((struct mcp_sa11x0 *)mcp_priv(mcp))
--
--static void
--mcp_sa11x0_set_telecom_divisor(struct mcp *mcp, unsigned int divisor)
--{
--	struct mcp_sa11x0 *m = priv(mcp);
--
--	divisor /= 32;
--
--	m->mccr0 &= ~0x00007f00;
--	m->mccr0 |= divisor << 8;
--	writel_relaxed(m->mccr0, MCCR0(m));
--}
--
--static void
--mcp_sa11x0_set_audio_divisor(struct mcp *mcp, unsigned int divisor)
--{
--	struct mcp_sa11x0 *m = priv(mcp);
--
--	divisor /= 32;
--
--	m->mccr0 &= ~0x0000007f;
--	m->mccr0 |= divisor;
--	writel_relaxed(m->mccr0, MCCR0(m));
--}
--
--/*
-- * Write data to the device.  The bit should be set after 3 subframe
-- * times (each frame is 64 clocks).  We wait a maximum of 6 subframes.
-- * We really should try doing something more productive while we
-- * wait.
-- */
--static void
--mcp_sa11x0_write(struct mcp *mcp, unsigned int reg, unsigned int val)
--{
--	struct mcp_sa11x0 *m = priv(mcp);
--	int ret = -ETIME;
--	int i;
--
--	writel_relaxed(reg << 17 | MCDR2_Wr | (val & 0xffff), MCDR2(m));
--
--	for (i = 0; i < 2; i++) {
--		udelay(mcp->rw_timeout);
--		if (readl_relaxed(MCSR(m)) & MCSR_CWC) {
--			ret = 0;
--			break;
--		}
+-	if (irq > 7) {
+-		irq -= 8;
+-		the_menelaus->mask2 |= (1 << irq);
+-		return menelaus_write_reg(MENELAUS_INT_MASK2,
+-				the_menelaus->mask2);
+-	} else {
+-		the_menelaus->mask1 |= (1 << irq);
+-		return menelaus_write_reg(MENELAUS_INT_MASK1,
+-				the_menelaus->mask1);
 -	}
--
--	if (ret < 0)
--		printk(KERN_WARNING "mcp: write timed out\n");
 -}
 -
--/*
-- * Read data from the device.  The bit should be set after 3 subframe
-- * times (each frame is 64 clocks).  We wait a maximum of 6 subframes.
-- * We really should try doing something more productive while we
-- * wait.
-- */
--static unsigned int
--mcp_sa11x0_read(struct mcp *mcp, unsigned int reg)
+-static int menelaus_ack_irq(int irq)
 -{
--	struct mcp_sa11x0 *m = priv(mcp);
--	int ret = -ETIME;
--	int i;
+-	if (irq > 7)
+-		return menelaus_write_reg(MENELAUS_INT_ACK2, 1 << (irq - 8));
+-	else
+-		return menelaus_write_reg(MENELAUS_INT_ACK1, 1 << irq);
+-}
 -
--	writel_relaxed(reg << 17 | MCDR2_Rd, MCDR2(m));
+-/* Adds a handler for an interrupt. Does not run in interrupt context */
+-static int menelaus_add_irq_work(int irq,
+-		void (*handler)(struct menelaus_chip *))
+-{
+-	int ret = 0;
 -
--	for (i = 0; i < 2; i++) {
--		udelay(mcp->rw_timeout);
--		if (readl_relaxed(MCSR(m)) & MCSR_CRC) {
--			ret = readl_relaxed(MCDR2(m)) & 0xffff;
--			break;
--		}
--	}
--
--	if (ret < 0)
--		printk(KERN_WARNING "mcp: read timed out\n");
+-	mutex_lock(&the_menelaus->lock);
+-	the_menelaus->handlers[irq] = handler;
+-	ret = menelaus_enable_irq(irq);
+-	mutex_unlock(&the_menelaus->lock);
 -
 -	return ret;
 -}
 -
--static void mcp_sa11x0_enable(struct mcp *mcp)
+-/* Removes handler for an interrupt */
+-static int menelaus_remove_irq_work(int irq)
 -{
--	struct mcp_sa11x0 *m = priv(mcp);
+-	int ret = 0;
 -
--	writel(-1, MCSR(m));
--	m->mccr0 |= MCCR0_MCE;
--	writel_relaxed(m->mccr0, MCCR0(m));
--}
+-	mutex_lock(&the_menelaus->lock);
+-	ret = menelaus_disable_irq(irq);
+-	the_menelaus->handlers[irq] = NULL;
+-	mutex_unlock(&the_menelaus->lock);
 -
--static void mcp_sa11x0_disable(struct mcp *mcp)
--{
--	struct mcp_sa11x0 *m = priv(mcp);
--
--	m->mccr0 &= ~MCCR0_MCE;
--	writel_relaxed(m->mccr0, MCCR0(m));
--}
--
--/*
-- * Our methods.
-- */
--static struct mcp_ops mcp_sa11x0 = {
--	.set_telecom_divisor	= mcp_sa11x0_set_telecom_divisor,
--	.set_audio_divisor	= mcp_sa11x0_set_audio_divisor,
--	.reg_write		= mcp_sa11x0_write,
--	.reg_read		= mcp_sa11x0_read,
--	.enable			= mcp_sa11x0_enable,
--	.disable		= mcp_sa11x0_disable,
--};
--
--static int mcp_sa11x0_probe(struct platform_device *dev)
--{
--	struct mcp_plat_data *data = dev_get_platdata(&dev->dev);
--	struct resource *mem0, *mem1;
--	struct mcp_sa11x0 *m;
--	struct mcp *mcp;
--	int ret;
--
--	if (!data)
--		return -ENODEV;
--
--	mem0 = platform_get_resource(dev, IORESOURCE_MEM, 0);
--	mem1 = platform_get_resource(dev, IORESOURCE_MEM, 1);
--	if (!mem0 || !mem1)
--		return -ENXIO;
--
--	if (!request_mem_region(mem0->start, resource_size(mem0),
--				DRIVER_NAME)) {
--		ret = -EBUSY;
--		goto err_mem0;
--	}
--
--	if (!request_mem_region(mem1->start, resource_size(mem1),
--				DRIVER_NAME)) {
--		ret = -EBUSY;
--		goto err_mem1;
--	}
--
--	mcp = mcp_host_alloc(&dev->dev, sizeof(struct mcp_sa11x0));
--	if (!mcp) {
--		ret = -ENOMEM;
--		goto err_alloc;
--	}
--
--	mcp->owner		= THIS_MODULE;
--	mcp->ops		= &mcp_sa11x0;
--	mcp->sclk_rate		= data->sclk_rate;
--
--	m = priv(mcp);
--	m->mccr0 = data->mccr0 | 0x7f7f;
--	m->mccr1 = data->mccr1;
--
--	m->base0 = ioremap(mem0->start, resource_size(mem0));
--	m->base1 = ioremap(mem1->start, resource_size(mem1));
--	if (!m->base0 || !m->base1) {
--		ret = -ENOMEM;
--		goto err_ioremap;
--	}
--
--	platform_set_drvdata(dev, mcp);
--
--	/*
--	 * Initialise device.  Note that we initially
--	 * set the sampling rate to minimum.
--	 */
--	writel_relaxed(-1, MCSR(m));
--	writel_relaxed(m->mccr1, MCCR1(m));
--	writel_relaxed(m->mccr0, MCCR0(m));
--
--	/*
--	 * Calculate the read/write timeout (us) from the bit clock
--	 * rate.  This is the period for 3 64-bit frames.  Always
--	 * round this time up.
--	 */
--	mcp->rw_timeout = DIV_ROUND_UP(64 * 3 * 1000000, mcp->sclk_rate);
--
--	ret = mcp_host_add(mcp, data->codec_pdata);
--	if (ret == 0)
--		return 0;
--
-- err_ioremap:
--	iounmap(m->base1);
--	iounmap(m->base0);
--	mcp_host_free(mcp);
-- err_alloc:
--	release_mem_region(mem1->start, resource_size(mem1));
-- err_mem1:
--	release_mem_region(mem0->start, resource_size(mem0));
-- err_mem0:
 -	return ret;
 -}
 -
--static void mcp_sa11x0_remove(struct platform_device *dev)
--{
--	struct mcp *mcp = platform_get_drvdata(dev);
--	struct mcp_sa11x0 *m = priv(mcp);
--	struct resource *mem0, *mem1;
--
--	if (m->mccr0 & MCCR0_MCE)
--		dev_warn(&dev->dev,
--			 "device left active (missing disable call?)\n");
--
--	mem0 = platform_get_resource(dev, IORESOURCE_MEM, 0);
--	mem1 = platform_get_resource(dev, IORESOURCE_MEM, 1);
--
--	mcp_host_del(mcp);
--	iounmap(m->base1);
--	iounmap(m->base0);
--	mcp_host_free(mcp);
--	release_mem_region(mem1->start, resource_size(mem1));
--	release_mem_region(mem0->start, resource_size(mem0));
--}
--
--static int mcp_sa11x0_suspend(struct device *dev)
--{
--	struct mcp_sa11x0 *m = priv(dev_get_drvdata(dev));
--
--	if (m->mccr0 & MCCR0_MCE)
--		dev_warn(dev, "device left active (missing disable call?)\n");
--
--	writel(m->mccr0 & ~MCCR0_MCE, MCCR0(m));
--
--	return 0;
--}
--
--static int mcp_sa11x0_resume(struct device *dev)
--{
--	struct mcp_sa11x0 *m = priv(dev_get_drvdata(dev));
--
--	writel_relaxed(m->mccr1, MCCR1(m));
--	writel_relaxed(m->mccr0, MCCR0(m));
--
--	return 0;
--}
--
--static const struct dev_pm_ops mcp_sa11x0_pm_ops = {
--	.suspend = mcp_sa11x0_suspend,
--	.freeze = mcp_sa11x0_suspend,
--	.poweroff = mcp_sa11x0_suspend,
--	.resume_noirq = mcp_sa11x0_resume,
--	.thaw_noirq = mcp_sa11x0_resume,
--	.restore_noirq = mcp_sa11x0_resume,
--};
--
--static struct platform_driver mcp_sa11x0_driver = {
--	.probe		= mcp_sa11x0_probe,
--	.remove		= mcp_sa11x0_remove,
--	.driver		= {
--		.name	= DRIVER_NAME,
--		.pm	= pm_sleep_ptr(&mcp_sa11x0_pm_ops),
--	},
--};
--
 -/*
-- * This needs re-working
+- * Gets scheduled when a card detect interrupt happens. Note that in some cases
+- * this line is wired to card cover switch rather than the card detect switch
+- * in each slot. In this case the cards are not seen by menelaus.
+- * FIXME: Add handling for D1 too
 - */
--module_platform_driver(mcp_sa11x0_driver);
--
--MODULE_ALIAS("platform:" DRIVER_NAME);
--MODULE_AUTHOR("Russell King <rmk@arm.linux.org.uk>");
--MODULE_DESCRIPTION("SA11x0 multimedia communications port driver");
--MODULE_LICENSE("GPL");
-diff --git a/drivers/mfd/ucb1x00-assabet.c b/drivers/mfd/ucb1x00-assabet.c
-deleted file mode 100644
-index 698f60aa9756..000000000000
---- a/drivers/mfd/ucb1x00-assabet.c
-+++ /dev/null
-@@ -1,175 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- *  linux/drivers/mfd/ucb1x00-assabet.c
-- *
-- *  Copyright (C) 2001-2003 Russell King, All Rights Reserved.
-- *
-- *  We handle the machine-specific bits of the UCB1x00 driver here.
-- */
--#include <linux/device.h>
--#include <linux/err.h>
--#include <linux/fs.h>
--#include <linux/gpio/machine.h>
--#include <linux/gpio/property.h>
--#include <linux/init.h>
--#include <linux/input.h>
--#include <linux/module.h>
--#include <linux/platform_device.h>
--#include <linux/proc_fs.h>
--#include <linux/property.h>
--#include <linux/slab.h>
--#include <linux/mfd/ucb1x00.h>
--
--#define UCB1X00_ATTR(name,input)\
--static ssize_t name##_show(struct device *dev, struct device_attribute *attr, \
--			   char *buf)	\
--{								\
--	struct ucb1x00 *ucb = classdev_to_ucb1x00(dev);		\
--	int val;						\
--	ucb1x00_adc_enable(ucb);				\
--	val = ucb1x00_adc_read(ucb, input, UCB_NOSYNC);		\
--	ucb1x00_adc_disable(ucb);				\
--	return sprintf(buf, "%d\n", val);			\
--}								\
--static DEVICE_ATTR_RO(name)
--
--UCB1X00_ATTR(vbatt, UCB_ADC_INP_AD1);
--UCB1X00_ATTR(vcharger, UCB_ADC_INP_AD0);
--UCB1X00_ATTR(batt_temp, UCB_ADC_INP_AD2);
--
--static const struct property_entry ucb1x00_gpio_keys_props[] = {
--	PROPERTY_ENTRY_STRING("label", "ucb1x00"),
--	PROPERTY_ENTRY_U32("poll-interval", 50),
--	{ }
--};
--
--#define UCB1X00_BTN_PROPS(_idx)						\
--struct property_entry ucb1x00_btn##_idx##_props[] = {			\
--	PROPERTY_ENTRY_U32("linux,code", BTN_0 + (_idx)),		\
--	PROPERTY_ENTRY_GPIO("gpios", &ucb1x00_gpiochip_node,		\
--			    _idx, GPIO_ACTIVE_HIGH),			\
--	PROPERTY_ENTRY_STRING("label", "btn" #_idx),			\
--	PROPERTY_ENTRY_BOOL("linux,can-disable"),			\
--	{ }								\
--}
--
--static const UCB1X00_BTN_PROPS(0);
--static const UCB1X00_BTN_PROPS(1);
--static const UCB1X00_BTN_PROPS(2);
--static const UCB1X00_BTN_PROPS(3);
--static const UCB1X00_BTN_PROPS(4);
--static const UCB1X00_BTN_PROPS(5);
--
--static const struct property_entry * const ucb1x00_btn_props[] = {
--	ucb1x00_btn0_props,
--	ucb1x00_btn1_props,
--	ucb1x00_btn2_props,
--	ucb1x00_btn3_props,
--	ucb1x00_btn4_props,
--	ucb1x00_btn5_props,
--};
--
--struct ucb1x00_assabet_priv {
--	struct platform_device *pdev;
--	struct fwnode_handle *keys_node;
--	struct fwnode_handle *button_nodes[ARRAY_SIZE(ucb1x00_btn_props)];
--};
--
--static void ucb1x00_assabet_remove_nodes(struct ucb1x00_assabet_priv *priv, int n)
+-static void menelaus_mmc_cd_work(struct menelaus_chip *menelaus_hw)
 -{
--	while (--n >= 0)
--		fwnode_remove_software_node(priv->button_nodes[n]);
+-	int reg;
+-	unsigned char card_mask = 0;
 -
--	fwnode_remove_software_node(priv->keys_node);
--}
+-	reg = menelaus_read_reg(MENELAUS_MCT_PIN_ST);
+-	if (reg < 0)
+-		return;
 -
--static int ucb1x00_assabet_add(struct ucb1x00_dev *dev)
--{
--	struct ucb1x00 *ucb = dev->ucb;
--	struct platform_device_info pdevinfo = {
--		.name = "gpio-keys",
--		.id = PLATFORM_DEVID_NONE,
--		.parent = &ucb->dev,
--	};
--	int ret;
--	int i;
+-	if (!(reg & 0x1))
+-		card_mask |= MCT_PIN_ST_S1_CD_ST;
 -
--	struct ucb1x00_assabet_priv *priv;
+-	if (!(reg & 0x2))
+-		card_mask |= MCT_PIN_ST_S2_CD_ST;
 -
--	priv = kzalloc_obj(*priv);
--	if (!priv)
--		return -ENOMEM;
--
--	priv->keys_node = fwnode_create_software_node(ucb1x00_gpio_keys_props, NULL);
--	if (IS_ERR(priv->keys_node)) {
--		ret = PTR_ERR(priv->keys_node);
--		goto err_free_priv;
--	}
--
--	for (i = 0; i < ARRAY_SIZE(ucb1x00_btn_props); i++) {
--		priv->button_nodes[i] = fwnode_create_software_node(ucb1x00_btn_props[i],
--								    priv->keys_node);
--		if (IS_ERR(priv->button_nodes[i])) {
--			ret = PTR_ERR(priv->button_nodes[i]);
--			goto err_free_buttons;
--		}
--	}
--
--	pdevinfo.fwnode = priv->keys_node;
--
--	priv->pdev = platform_device_register_full(&pdevinfo);
--	ret = PTR_ERR_OR_ZERO(priv->pdev);
--	if (ret)
--		goto err_free_buttons;
--
--	device_create_file(&ucb->dev, &dev_attr_vbatt);
--	device_create_file(&ucb->dev, &dev_attr_vcharger);
--	device_create_file(&ucb->dev, &dev_attr_batt_temp);
--
--	dev->priv = priv;
--	return 0;
--
--err_free_buttons:
--	ucb1x00_assabet_remove_nodes(priv, i);
--err_free_priv:
--	kfree(priv);
--	return ret;
--}
--
--static void ucb1x00_assabet_remove(struct ucb1x00_dev *dev)
--{
--	struct ucb1x00_assabet_priv *priv = dev->priv;
--
--	if (!IS_ERR(priv->pdev))
--		platform_device_unregister(priv->pdev);
--
--	ucb1x00_assabet_remove_nodes(priv, ARRAY_SIZE(priv->button_nodes));
--
--	device_remove_file(&dev->ucb->dev, &dev_attr_batt_temp);
--	device_remove_file(&dev->ucb->dev, &dev_attr_vcharger);
--	device_remove_file(&dev->ucb->dev, &dev_attr_vbatt);
--
--	kfree(priv);
--}
--
--static struct ucb1x00_driver ucb1x00_assabet_driver = {
--	.add	= ucb1x00_assabet_add,
--	.remove	= ucb1x00_assabet_remove,
--};
--
--static int __init ucb1x00_assabet_init(void)
--{
--	return ucb1x00_register_driver(&ucb1x00_assabet_driver);
--}
--
--static void __exit ucb1x00_assabet_exit(void)
--{
--	ucb1x00_unregister_driver(&ucb1x00_assabet_driver);
--}
--
--module_init(ucb1x00_assabet_init);
--module_exit(ucb1x00_assabet_exit);
--
--MODULE_AUTHOR("Russell King <rmk@arm.linux.org.uk>");
--MODULE_DESCRIPTION("Assabet noddy testing only example ADC driver");
--MODULE_LICENSE("GPL");
-diff --git a/drivers/mfd/ucb1x00-core.c b/drivers/mfd/ucb1x00-core.c
-deleted file mode 100644
-index 90edf0352d05..000000000000
---- a/drivers/mfd/ucb1x00-core.c
-+++ /dev/null
-@@ -1,795 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- *  linux/drivers/mfd/ucb1x00-core.c
-- *
-- *  Copyright (C) 2001 Russell King, All Rights Reserved.
-- *
-- *  The UCB1x00 core driver provides basic services for handling IO,
-- *  the ADC, interrupts, and accessing registers.  It is designed
-- *  such that everything goes through this layer, thereby providing
-- *  a consistent locking methodology, as well as allowing the drivers
-- *  to be used on other non-MCP-enabled hardware platforms.
-- *
-- *  Note that all locks are private to this file.  Nothing else may
-- *  touch them.
-- */
--#include <linux/module.h>
--#include <linux/kernel.h>
--#include <linux/sched.h>
--#include <linux/slab.h>
--#include <linux/init.h>
--#include <linux/errno.h>
--#include <linux/interrupt.h>
--#include <linux/irq.h>
--#include <linux/device.h>
--#include <linux/mutex.h>
--#include <linux/mfd/ucb1x00.h>
--#include <linux/pm.h>
--#include <linux/property.h>
--#include <linux/gpio/driver.h>
--
--static DEFINE_MUTEX(ucb1x00_mutex);
--static LIST_HEAD(ucb1x00_drivers);
--static LIST_HEAD(ucb1x00_devices);
--
--/**
-- *	ucb1x00_io_set_dir - set IO direction
-- *	@ucb: UCB1x00 structure describing chip
-- *	@in:  bitfield of IO pins to be set as inputs
-- *	@out: bitfield of IO pins to be set as outputs
-- *
-- *	Set the IO direction of the ten general purpose IO pins on
-- *	the UCB1x00 chip.  The @in bitfield has priority over the
-- *	@out bitfield, in that if you specify a pin as both input
-- *	and output, it will end up as an input.
-- *
-- *	ucb1x00_enable must have been called to enable the comms
-- *	before using this function.
-- *
-- *	This function takes a spinlock, disabling interrupts.
-- */
--void ucb1x00_io_set_dir(struct ucb1x00 *ucb, unsigned int in, unsigned int out)
--{
--	unsigned long flags;
--
--	spin_lock_irqsave(&ucb->io_lock, flags);
--	ucb->io_dir |= out;
--	ucb->io_dir &= ~in;
--
--	ucb1x00_reg_write(ucb, UCB_IO_DIR, ucb->io_dir);
--	spin_unlock_irqrestore(&ucb->io_lock, flags);
--}
--
--/**
-- *	ucb1x00_io_write - set or clear IO outputs
-- *	@ucb:   UCB1x00 structure describing chip
-- *	@set:   bitfield of IO pins to set to logic '1'
-- *	@clear: bitfield of IO pins to set to logic '0'
-- *
-- *	Set the IO output state of the specified IO pins.  The value
-- *	is retained if the pins are subsequently configured as inputs.
-- *	The @clear bitfield has priority over the @set bitfield -
-- *	outputs will be cleared.
-- *
-- *	ucb1x00_enable must have been called to enable the comms
-- *	before using this function.
-- *
-- *	This function takes a spinlock, disabling interrupts.
-- */
--void ucb1x00_io_write(struct ucb1x00 *ucb, unsigned int set, unsigned int clear)
--{
--	unsigned long flags;
--
--	spin_lock_irqsave(&ucb->io_lock, flags);
--	ucb->io_out |= set;
--	ucb->io_out &= ~clear;
--
--	ucb1x00_reg_write(ucb, UCB_IO_DATA, ucb->io_out);
--	spin_unlock_irqrestore(&ucb->io_lock, flags);
--}
--
--/**
-- *	ucb1x00_io_read - read the current state of the IO pins
-- *	@ucb: UCB1x00 structure describing chip
-- *
-- *	Return a bitfield describing the logic state of the ten
-- *	general purpose IO pins.
-- *
-- *	ucb1x00_enable must have been called to enable the comms
-- *	before using this function.
-- *
-- *	This function does not take any mutexes or spinlocks.
-- */
--unsigned int ucb1x00_io_read(struct ucb1x00 *ucb)
--{
--	return ucb1x00_reg_read(ucb, UCB_IO_DATA);
--}
--
--static int ucb1x00_gpio_set(struct gpio_chip *chip, unsigned int offset,
--			    int value)
--{
--	struct ucb1x00 *ucb = gpiochip_get_data(chip);
--	unsigned long flags;
--
--	spin_lock_irqsave(&ucb->io_lock, flags);
--	if (value)
--		ucb->io_out |= 1 << offset;
--	else
--		ucb->io_out &= ~(1 << offset);
--
--	ucb1x00_enable(ucb);
--	ucb1x00_reg_write(ucb, UCB_IO_DATA, ucb->io_out);
--	ucb1x00_disable(ucb);
--	spin_unlock_irqrestore(&ucb->io_lock, flags);
--
--	return 0;
--}
--
--static int ucb1x00_gpio_get(struct gpio_chip *chip, unsigned offset)
--{
--	struct ucb1x00 *ucb = gpiochip_get_data(chip);
--	unsigned val;
--
--	ucb1x00_enable(ucb);
--	val = ucb1x00_reg_read(ucb, UCB_IO_DATA);
--	ucb1x00_disable(ucb);
--
--	return !!(val & (1 << offset));
--}
--
--static int ucb1x00_gpio_direction_input(struct gpio_chip *chip, unsigned offset)
--{
--	struct ucb1x00 *ucb = gpiochip_get_data(chip);
--	unsigned long flags;
--
--	spin_lock_irqsave(&ucb->io_lock, flags);
--	ucb->io_dir &= ~(1 << offset);
--	ucb1x00_enable(ucb);
--	ucb1x00_reg_write(ucb, UCB_IO_DIR, ucb->io_dir);
--	ucb1x00_disable(ucb);
--	spin_unlock_irqrestore(&ucb->io_lock, flags);
--
--	return 0;
--}
--
--static int ucb1x00_gpio_direction_output(struct gpio_chip *chip, unsigned offset
--		, int value)
--{
--	struct ucb1x00 *ucb = gpiochip_get_data(chip);
--	unsigned long flags;
--	unsigned old, mask = 1 << offset;
--
--	spin_lock_irqsave(&ucb->io_lock, flags);
--	old = ucb->io_out;
--	if (value)
--		ucb->io_out |= mask;
--	else
--		ucb->io_out &= ~mask;
--
--	ucb1x00_enable(ucb);
--	if (old != ucb->io_out)
--		ucb1x00_reg_write(ucb, UCB_IO_DATA, ucb->io_out);
--
--	if (!(ucb->io_dir & mask)) {
--		ucb->io_dir |= mask;
--		ucb1x00_reg_write(ucb, UCB_IO_DIR, ucb->io_dir);
--	}
--	ucb1x00_disable(ucb);
--	spin_unlock_irqrestore(&ucb->io_lock, flags);
--
--	return 0;
--}
--
--static int ucb1x00_to_irq(struct gpio_chip *chip, unsigned offset)
--{
--	struct ucb1x00 *ucb = gpiochip_get_data(chip);
--
--	return ucb->irq_base > 0 ? ucb->irq_base + offset : -ENXIO;
+-	if (menelaus_hw->mmc_callback)
+-		menelaus_hw->mmc_callback(menelaus_hw->mmc_callback_data,
+-					  card_mask);
 -}
 -
 -/*
-- * UCB1300 data sheet says we must:
-- *  1. enable ADC	=> 5us (including reference startup time)
-- *  2. select input	=> 51*tsibclk  => 4.3us
-- *  3. start conversion	=> 102*tsibclk => 8.5us
-- * (tsibclk = 1/11981000)
-- * Period between SIB 128-bit frames = 10.7us
+- * Toggles the MMC slots between open-drain and push-pull mode.
 - */
--
--/**
-- *	ucb1x00_adc_enable - enable the ADC converter
-- *	@ucb: UCB1x00 structure describing chip
-- *
-- *	Enable the ucb1x00 and ADC converter on the UCB1x00 for use.
-- *	Any code wishing to use the ADC converter must call this
-- *	function prior to using it.
-- *
-- *	This function takes the ADC mutex to prevent two or more
-- *	concurrent uses, and therefore may sleep.  As a result, it
-- *	can only be called from process context, not interrupt
-- *	context.
-- *
-- *	You should release the ADC as soon as possible using
-- *	ucb1x00_adc_disable.
-- */
--void ucb1x00_adc_enable(struct ucb1x00 *ucb)
+-int menelaus_set_mmc_opendrain(int slot, int enable)
 -{
--	mutex_lock(&ucb->adc_mutex);
+-	int ret, val;
 -
--	ucb->adc_cr |= UCB_ADC_ENA;
--
--	ucb1x00_enable(ucb);
--	ucb1x00_reg_write(ucb, UCB_ADC_CR, ucb->adc_cr);
--}
--
--/**
-- *	ucb1x00_adc_read - read the specified ADC channel
-- *	@ucb: UCB1x00 structure describing chip
-- *	@adc_channel: ADC channel mask
-- *	@sync: wait for syncronisation pulse.
-- *
-- *	Start an ADC conversion and wait for the result.  Note that
-- *	synchronised ADC conversions (via the ADCSYNC pin) must wait
-- *	until the trigger is asserted and the conversion is finished.
-- *
-- *	This function currently spins waiting for the conversion to
-- *	complete (2 frames max without sync).
-- *
-- *	If called for a synchronised ADC conversion, it may sleep
-- *	with the ADC mutex held.
-- */
--unsigned int ucb1x00_adc_read(struct ucb1x00 *ucb, int adc_channel, int sync)
--{
--	unsigned int val;
--
--	if (sync)
--		adc_channel |= UCB_ADC_SYNC_ENA;
--
--	ucb1x00_reg_write(ucb, UCB_ADC_CR, ucb->adc_cr | adc_channel);
--	ucb1x00_reg_write(ucb, UCB_ADC_CR, ucb->adc_cr | adc_channel | UCB_ADC_START);
--
--	for (;;) {
--		val = ucb1x00_reg_read(ucb, UCB_ADC_DATA);
--		if (val & UCB_ADC_DAT_VAL)
--			break;
--		/* yield to other processes */
--		set_current_state(TASK_INTERRUPTIBLE);
--		schedule_timeout(1);
--	}
--
--	return UCB_ADC_DAT(val);
--}
--
--/**
-- *	ucb1x00_adc_disable - disable the ADC converter
-- *	@ucb: UCB1x00 structure describing chip
-- *
-- *	Disable the ADC converter and release the ADC mutex.
-- */
--void ucb1x00_adc_disable(struct ucb1x00 *ucb)
--{
--	ucb->adc_cr &= ~UCB_ADC_ENA;
--	ucb1x00_reg_write(ucb, UCB_ADC_CR, ucb->adc_cr);
--	ucb1x00_disable(ucb);
--
--	mutex_unlock(&ucb->adc_mutex);
--}
--
--/*
-- * UCB1x00 Interrupt handling.
-- *
-- * The UCB1x00 can generate interrupts when the SIBCLK is stopped.
-- * Since we need to read an internal register, we must re-enable
-- * SIBCLK to talk to the chip.  We leave the clock running until
-- * we have finished processing all interrupts from the chip.
-- */
--static void ucb1x00_irq(struct irq_desc *desc)
--{
--	struct ucb1x00 *ucb = irq_desc_get_handler_data(desc);
--	unsigned int isr, i;
--
--	ucb1x00_enable(ucb);
--	isr = ucb1x00_reg_read(ucb, UCB_IE_STATUS);
--	ucb1x00_reg_write(ucb, UCB_IE_CLEAR, isr);
--	ucb1x00_reg_write(ucb, UCB_IE_CLEAR, 0);
--
--	for (i = 0; i < 16 && isr; i++, isr >>= 1)
--		if (isr & 1)
--			generic_handle_irq(ucb->irq_base + i);
--	ucb1x00_disable(ucb);
--}
--
--static void ucb1x00_irq_update(struct ucb1x00 *ucb, unsigned mask)
--{
--	ucb1x00_enable(ucb);
--	if (ucb->irq_ris_enbl & mask)
--		ucb1x00_reg_write(ucb, UCB_IE_RIS, ucb->irq_ris_enbl &
--				  ucb->irq_mask);
--	if (ucb->irq_fal_enbl & mask)
--		ucb1x00_reg_write(ucb, UCB_IE_FAL, ucb->irq_fal_enbl &
--				  ucb->irq_mask);
--	ucb1x00_disable(ucb);
--}
--
--static void ucb1x00_irq_noop(struct irq_data *data)
--{
--}
--
--static void ucb1x00_irq_mask(struct irq_data *data)
--{
--	struct ucb1x00 *ucb = irq_data_get_irq_chip_data(data);
--	unsigned mask = 1 << (data->irq - ucb->irq_base);
--
--	raw_spin_lock(&ucb->irq_lock);
--	ucb->irq_mask &= ~mask;
--	ucb1x00_irq_update(ucb, mask);
--	raw_spin_unlock(&ucb->irq_lock);
--}
--
--static void ucb1x00_irq_unmask(struct irq_data *data)
--{
--	struct ucb1x00 *ucb = irq_data_get_irq_chip_data(data);
--	unsigned mask = 1 << (data->irq - ucb->irq_base);
--
--	raw_spin_lock(&ucb->irq_lock);
--	ucb->irq_mask |= mask;
--	ucb1x00_irq_update(ucb, mask);
--	raw_spin_unlock(&ucb->irq_lock);
--}
--
--static int ucb1x00_irq_set_type(struct irq_data *data, unsigned int type)
--{
--	struct ucb1x00 *ucb = irq_data_get_irq_chip_data(data);
--	unsigned mask = 1 << (data->irq - ucb->irq_base);
--
--	raw_spin_lock(&ucb->irq_lock);
--	if (type & IRQ_TYPE_EDGE_RISING)
--		ucb->irq_ris_enbl |= mask;
--	else
--		ucb->irq_ris_enbl &= ~mask;
--
--	if (type & IRQ_TYPE_EDGE_FALLING)
--		ucb->irq_fal_enbl |= mask;
--	else
--		ucb->irq_fal_enbl &= ~mask;
--	if (ucb->irq_mask & mask) {
--		ucb1x00_reg_write(ucb, UCB_IE_RIS, ucb->irq_ris_enbl &
--				  ucb->irq_mask);
--		ucb1x00_reg_write(ucb, UCB_IE_FAL, ucb->irq_fal_enbl &
--				  ucb->irq_mask);
--	}
--	raw_spin_unlock(&ucb->irq_lock);
--
--	return 0;
--}
--
--static int ucb1x00_irq_set_wake(struct irq_data *data, unsigned int on)
--{
--	struct ucb1x00 *ucb = irq_data_get_irq_chip_data(data);
--	struct ucb1x00_plat_data *pdata = ucb->mcp->attached_device.platform_data;
--	unsigned mask = 1 << (data->irq - ucb->irq_base);
--
--	if (!pdata || !pdata->can_wakeup)
+-	if (slot != 1 && slot != 2)
 -		return -EINVAL;
--
--	raw_spin_lock(&ucb->irq_lock);
--	if (on)
--		ucb->irq_wake |= mask;
--	else
--		ucb->irq_wake &= ~mask;
--	raw_spin_unlock(&ucb->irq_lock);
--
--	return 0;
--}
--
--static struct irq_chip ucb1x00_irqchip = {
--	.name = "ucb1x00",
--	.irq_ack = ucb1x00_irq_noop,
--	.irq_mask = ucb1x00_irq_mask,
--	.irq_unmask = ucb1x00_irq_unmask,
--	.irq_set_type = ucb1x00_irq_set_type,
--	.irq_set_wake = ucb1x00_irq_set_wake,
--};
--
--static int ucb1x00_add_dev(struct ucb1x00 *ucb, struct ucb1x00_driver *drv)
--{
--	struct ucb1x00_dev *dev;
--	int ret;
--
--	dev = kmalloc_obj(struct ucb1x00_dev);
--	if (!dev)
--		return -ENOMEM;
--
--	dev->ucb = ucb;
--	dev->drv = drv;
--
--	ret = drv->add(dev);
--	if (ret) {
--		kfree(dev);
+-	mutex_lock(&the_menelaus->lock);
+-	ret = menelaus_read_reg(MENELAUS_MCT_CTRL1);
+-	if (ret < 0) {
+-		mutex_unlock(&the_menelaus->lock);
 -		return ret;
 -	}
--
--	list_add_tail(&dev->dev_node, &ucb->devs);
--	list_add_tail(&dev->drv_node, &drv->devs);
--
--	return ret;
--}
--
--static void ucb1x00_remove_dev(struct ucb1x00_dev *dev)
--{
--	dev->drv->remove(dev);
--	list_del(&dev->dev_node);
--	list_del(&dev->drv_node);
--	kfree(dev);
--}
--
--/*
-- * Try to probe our interrupt, rather than relying on lots of
-- * hard-coded machine dependencies.  For reference, the expected
-- * IRQ mappings are:
-- *
-- *  	Machine		Default IRQ
-- *	adsbitsy	IRQ_GPCIN4
-- *	cerf		IRQ_GPIO_UCB1200_IRQ
-- *	flexanet	IRQ_GPIO_GUI
-- *	freebird	IRQ_GPIO_FREEBIRD_UCB1300_IRQ
-- *	graphicsclient	ADS_EXT_IRQ(8)
-- *	graphicsmaster	ADS_EXT_IRQ(8)
-- *	lart		LART_IRQ_UCB1200
-- *	omnimeter	IRQ_GPIO23
-- *	pfs168		IRQ_GPIO_UCB1300_IRQ
-- *	simpad		IRQ_GPIO_UCB1300_IRQ
-- *	shannon		SHANNON_IRQ_GPIO_IRQ_CODEC
-- *	yopy		IRQ_GPIO_UCB1200_IRQ
-- */
--static int ucb1x00_detect_irq(struct ucb1x00 *ucb)
--{
--	unsigned long mask;
--
--	mask = probe_irq_on();
--
--	/*
--	 * Enable the ADC interrupt.
--	 */
--	ucb1x00_reg_write(ucb, UCB_IE_RIS, UCB_IE_ADC);
--	ucb1x00_reg_write(ucb, UCB_IE_FAL, UCB_IE_ADC);
--	ucb1x00_reg_write(ucb, UCB_IE_CLEAR, 0xffff);
--	ucb1x00_reg_write(ucb, UCB_IE_CLEAR, 0);
--
--	/*
--	 * Cause an ADC interrupt.
--	 */
--	ucb1x00_reg_write(ucb, UCB_ADC_CR, UCB_ADC_ENA);
--	ucb1x00_reg_write(ucb, UCB_ADC_CR, UCB_ADC_ENA | UCB_ADC_START);
--
--	/*
--	 * Wait for the conversion to complete.
--	 */
--	while ((ucb1x00_reg_read(ucb, UCB_ADC_DATA) & UCB_ADC_DAT_VAL) == 0);
--	ucb1x00_reg_write(ucb, UCB_ADC_CR, 0);
--
--	/*
--	 * Disable and clear interrupt.
--	 */
--	ucb1x00_reg_write(ucb, UCB_IE_RIS, 0);
--	ucb1x00_reg_write(ucb, UCB_IE_FAL, 0);
--	ucb1x00_reg_write(ucb, UCB_IE_CLEAR, 0xffff);
--	ucb1x00_reg_write(ucb, UCB_IE_CLEAR, 0);
--
--	/*
--	 * Read triggered interrupt.
--	 */
--	return probe_irq_off(mask);
--}
--
--static void ucb1x00_release(struct device *dev)
--{
--	struct ucb1x00 *ucb = classdev_to_ucb1x00(dev);
--	kfree(ucb);
--}
--
--static struct class ucb1x00_class = {
--	.name		= "ucb1x00",
--	.dev_release	= ucb1x00_release,
--};
--
--const struct software_node ucb1x00_gpiochip_node = {
--	.name = "ucb1x00-gpio",
--};
--EXPORT_SYMBOL_GPL(ucb1x00_gpiochip_node);
--
--static int ucb1x00_probe(struct mcp *mcp)
--{
--	struct ucb1x00_plat_data *pdata = mcp->attached_device.platform_data;
--	struct ucb1x00_driver *drv;
--	struct ucb1x00 *ucb;
--	unsigned id, i, irq_base;
--	int ret = -ENODEV;
--
--	/* Tell the platform to deassert the UCB1x00 reset */
--	if (pdata && pdata->reset)
--		pdata->reset(UCB_RST_PROBE);
--
--	mcp_enable(mcp);
--	id = mcp_reg_read(mcp, UCB_ID);
--	mcp_disable(mcp);
--
--	if (id != UCB_ID_1200 && id != UCB_ID_1300 && id != UCB_ID_TC35143) {
--		printk(KERN_WARNING "UCB1x00 ID not found: %04x\n", id);
--		goto out;
--	}
--
--	ucb = kzalloc_obj(struct ucb1x00);
--	ret = -ENOMEM;
--	if (!ucb)
--		goto out;
--
--	device_initialize(&ucb->dev);
--	ucb->dev.class = &ucb1x00_class;
--	ucb->dev.parent = &mcp->attached_device;
--	dev_set_name(&ucb->dev, "ucb1x00");
--
--	raw_spin_lock_init(&ucb->irq_lock);
--	spin_lock_init(&ucb->io_lock);
--	mutex_init(&ucb->adc_mutex);
--
--	ucb->id  = id;
--	ucb->mcp = mcp;
--
--	ret = device_add_software_node(&ucb->dev, &ucb1x00_gpiochip_node);
--	if (ret)
--		goto err_swnode_add;
--
--	ret = device_add(&ucb->dev);
--	if (ret)
--		goto err_dev_add;
--
--	ucb1x00_enable(ucb);
--	ucb->irq = ucb1x00_detect_irq(ucb);
--	ucb1x00_disable(ucb);
--	if (!ucb->irq) {
--		dev_err(&ucb->dev, "IRQ probe failed\n");
--		ret = -ENODEV;
--		goto err_no_irq;
--	}
--
--	ucb->gpio.base = -1;
--	irq_base = pdata ? pdata->irq_base : 0;
--	ucb->irq_base = irq_alloc_descs(-1, irq_base, 16, -1);
--	if (ucb->irq_base < 0) {
--		dev_err(&ucb->dev, "unable to allocate 16 irqs: %d\n",
--			ucb->irq_base);
--		ret = ucb->irq_base;
--		goto err_irq_alloc;
--	}
--
--	for (i = 0; i < 16; i++) {
--		unsigned irq = ucb->irq_base + i;
--
--		irq_set_chip_and_handler(irq, &ucb1x00_irqchip, handle_edge_irq);
--		irq_set_chip_data(irq, ucb);
--		irq_clear_status_flags(irq, IRQ_NOREQUEST);
--	}
--
--	irq_set_irq_type(ucb->irq, IRQ_TYPE_EDGE_RISING);
--	irq_set_chained_handler_and_data(ucb->irq, ucb1x00_irq, ucb);
--
--	if (pdata && pdata->gpio_base) {
--		ucb->gpio.label = dev_name(&ucb->dev);
--		ucb->gpio.parent = &ucb->dev;
--		ucb->gpio.owner = THIS_MODULE;
--		ucb->gpio.base = pdata->gpio_base;
--		ucb->gpio.ngpio = 10;
--		ucb->gpio.set = ucb1x00_gpio_set;
--		ucb->gpio.get = ucb1x00_gpio_get;
--		ucb->gpio.direction_input = ucb1x00_gpio_direction_input;
--		ucb->gpio.direction_output = ucb1x00_gpio_direction_output;
--		ucb->gpio.to_irq = ucb1x00_to_irq;
--		ret = gpiochip_add_data(&ucb->gpio, ucb);
--		if (ret)
--			goto err_gpio_add;
--	} else
--		dev_info(&ucb->dev, "gpio_base not set so no gpiolib support");
--
--	mcp_set_drvdata(mcp, ucb);
--
--	if (pdata)
--		device_set_wakeup_capable(&ucb->dev, pdata->can_wakeup);
--
--	INIT_LIST_HEAD(&ucb->devs);
--	mutex_lock(&ucb1x00_mutex);
--	list_add_tail(&ucb->node, &ucb1x00_devices);
--	list_for_each_entry(drv, &ucb1x00_drivers, node) {
--		ucb1x00_add_dev(ucb, drv);
--	}
--	mutex_unlock(&ucb1x00_mutex);
--
--	return ret;
--
-- err_gpio_add:
--	irq_set_chained_handler(ucb->irq, NULL);
-- err_irq_alloc:
--	if (ucb->irq_base > 0)
--		irq_free_descs(ucb->irq_base, 16);
-- err_no_irq:
--	device_del(&ucb->dev);
-- err_dev_add:
--	device_remove_software_node(&ucb->dev);
-- err_swnode_add:
--	put_device(&ucb->dev);
-- out:
--	if (pdata && pdata->reset)
--		pdata->reset(UCB_RST_PROBE_FAIL);
--	return ret;
--}
--
--static void ucb1x00_remove(struct mcp *mcp)
--{
--	struct ucb1x00_plat_data *pdata = mcp->attached_device.platform_data;
--	struct ucb1x00 *ucb = mcp_get_drvdata(mcp);
--	struct list_head *l, *n;
--
--	mutex_lock(&ucb1x00_mutex);
--	list_del(&ucb->node);
--	list_for_each_safe(l, n, &ucb->devs) {
--		struct ucb1x00_dev *dev = list_entry(l, struct ucb1x00_dev, dev_node);
--		ucb1x00_remove_dev(dev);
--	}
--	mutex_unlock(&ucb1x00_mutex);
--
--	if (ucb->gpio.base != -1)
--		gpiochip_remove(&ucb->gpio);
--
--	irq_set_chained_handler(ucb->irq, NULL);
--	irq_free_descs(ucb->irq_base, 16);
--	device_del(&ucb->dev);
--	device_remove_software_node(&ucb->dev);
--	put_device(&ucb->dev);
--
--	if (pdata && pdata->reset)
--		pdata->reset(UCB_RST_REMOVE);
--}
--
--int ucb1x00_register_driver(struct ucb1x00_driver *drv)
--{
--	struct ucb1x00 *ucb;
--
--	INIT_LIST_HEAD(&drv->devs);
--	mutex_lock(&ucb1x00_mutex);
--	list_add_tail(&drv->node, &ucb1x00_drivers);
--	list_for_each_entry(ucb, &ucb1x00_devices, node) {
--		ucb1x00_add_dev(ucb, drv);
--	}
--	mutex_unlock(&ucb1x00_mutex);
--	return 0;
--}
--
--void ucb1x00_unregister_driver(struct ucb1x00_driver *drv)
--{
--	struct list_head *n, *l;
--
--	mutex_lock(&ucb1x00_mutex);
--	list_del(&drv->node);
--	list_for_each_safe(l, n, &drv->devs) {
--		struct ucb1x00_dev *dev = list_entry(l, struct ucb1x00_dev, drv_node);
--		ucb1x00_remove_dev(dev);
--	}
--	mutex_unlock(&ucb1x00_mutex);
--}
--
--static int ucb1x00_suspend(struct device *dev)
--{
--	struct ucb1x00_plat_data *pdata = dev_get_platdata(dev);
--	struct ucb1x00 *ucb = dev_get_drvdata(dev);
--	struct ucb1x00_dev *udev;
--
--	mutex_lock(&ucb1x00_mutex);
--	list_for_each_entry(udev, &ucb->devs, dev_node) {
--		if (udev->drv->suspend)
--			udev->drv->suspend(udev);
--	}
--	mutex_unlock(&ucb1x00_mutex);
--
--	if (ucb->irq_wake) {
--		unsigned long flags;
--
--		raw_spin_lock_irqsave(&ucb->irq_lock, flags);
--		ucb1x00_enable(ucb);
--		ucb1x00_reg_write(ucb, UCB_IE_RIS, ucb->irq_ris_enbl &
--				  ucb->irq_wake);
--		ucb1x00_reg_write(ucb, UCB_IE_FAL, ucb->irq_fal_enbl &
--				  ucb->irq_wake);
--		ucb1x00_disable(ucb);
--		raw_spin_unlock_irqrestore(&ucb->irq_lock, flags);
--
--		enable_irq_wake(ucb->irq);
--	} else if (pdata && pdata->reset)
--		pdata->reset(UCB_RST_SUSPEND);
--
--	return 0;
--}
--
--static int ucb1x00_resume(struct device *dev)
--{
--	struct ucb1x00_plat_data *pdata = dev_get_platdata(dev);
--	struct ucb1x00 *ucb = dev_get_drvdata(dev);
--	struct ucb1x00_dev *udev;
--
--	if (!ucb->irq_wake && pdata && pdata->reset)
--		pdata->reset(UCB_RST_RESUME);
--
--	ucb1x00_enable(ucb);
--	ucb1x00_reg_write(ucb, UCB_IO_DATA, ucb->io_out);
--	ucb1x00_reg_write(ucb, UCB_IO_DIR, ucb->io_dir);
--
--	if (ucb->irq_wake) {
--		unsigned long flags;
--
--		raw_spin_lock_irqsave(&ucb->irq_lock, flags);
--		ucb1x00_reg_write(ucb, UCB_IE_RIS, ucb->irq_ris_enbl &
--				  ucb->irq_mask);
--		ucb1x00_reg_write(ucb, UCB_IE_FAL, ucb->irq_fal_enbl &
--				  ucb->irq_mask);
--		raw_spin_unlock_irqrestore(&ucb->irq_lock, flags);
--
--		disable_irq_wake(ucb->irq);
--	}
--	ucb1x00_disable(ucb);
--
--	mutex_lock(&ucb1x00_mutex);
--	list_for_each_entry(udev, &ucb->devs, dev_node) {
--		if (udev->drv->resume)
--			udev->drv->resume(udev);
--	}
--	mutex_unlock(&ucb1x00_mutex);
--	return 0;
--}
--
--static DEFINE_SIMPLE_DEV_PM_OPS(ucb1x00_pm_ops,
--				ucb1x00_suspend, ucb1x00_resume);
--
--static struct mcp_driver ucb1x00_driver = {
--	.drv		= {
--		.name	= "ucb1x00",
--		.owner	= THIS_MODULE,
--		.pm	= pm_sleep_ptr(&ucb1x00_pm_ops),
--	},
--	.probe		= ucb1x00_probe,
--	.remove		= ucb1x00_remove,
--};
--
--static int __init ucb1x00_init(void)
--{
--	int ret = class_register(&ucb1x00_class);
--	if (ret == 0) {
--		ret = mcp_driver_register(&ucb1x00_driver);
--		if (ret)
--			class_unregister(&ucb1x00_class);
--	}
--	return ret;
--}
--
--static void __exit ucb1x00_exit(void)
--{
--	mcp_driver_unregister(&ucb1x00_driver);
--	class_unregister(&ucb1x00_class);
--}
--
--module_init(ucb1x00_init);
--module_exit(ucb1x00_exit);
--
--EXPORT_SYMBOL(ucb1x00_io_set_dir);
--EXPORT_SYMBOL(ucb1x00_io_write);
--EXPORT_SYMBOL(ucb1x00_io_read);
--
--EXPORT_SYMBOL(ucb1x00_adc_enable);
--EXPORT_SYMBOL(ucb1x00_adc_read);
--EXPORT_SYMBOL(ucb1x00_adc_disable);
--
--EXPORT_SYMBOL(ucb1x00_register_driver);
--EXPORT_SYMBOL(ucb1x00_unregister_driver);
--
--MODULE_ALIAS("mcp:ucb1x00");
--MODULE_AUTHOR("Russell King <rmk@arm.linux.org.uk>");
--MODULE_DESCRIPTION("UCB1x00 core driver");
--MODULE_LICENSE("GPL");
-diff --git a/drivers/mfd/ucb1x00-ts.c b/drivers/mfd/ucb1x00-ts.c
-deleted file mode 100644
-index 39fe187eea1f..000000000000
---- a/drivers/mfd/ucb1x00-ts.c
-+++ /dev/null
-@@ -1,445 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- *  Touchscreen driver for UCB1x00-based touchscreens
-- *
-- *  Copyright (C) 2001 Russell King, All Rights Reserved.
-- *  Copyright (C) 2005 Pavel Machek
-- *
-- * 21-Jan-2002 <jco@ict.es> :
-- *
-- * Added support for synchronous A/D mode. This mode is useful to
-- * avoid noise induced in the touchpanel by the LCD, provided that
-- * the UCB1x00 has a valid LCD sync signal routed to its ADCSYNC pin.
-- * It is important to note that the signal connected to the ADCSYNC
-- * pin should provide pulses even when the LCD is blanked, otherwise
-- * a pen touch needed to unblank the LCD will never be read.
-- */
--#include <linux/module.h>
--#include <linux/moduleparam.h>
--#include <linux/init.h>
--#include <linux/interrupt.h>
--#include <linux/sched.h>
--#include <linux/spinlock.h>
--#include <linux/completion.h>
--#include <linux/delay.h>
--#include <linux/string.h>
--#include <linux/input.h>
--#include <linux/device.h>
--#include <linux/freezer.h>
--#include <linux/slab.h>
--#include <linux/kthread.h>
--#include <linux/mfd/ucb1x00.h>
--
--#include <mach/collie.h>
--#include <asm/mach-types.h>
--
--
--
--struct ucb1x00_ts {
--	struct input_dev	*idev;
--	struct ucb1x00		*ucb;
--
--	spinlock_t		irq_lock;
--	unsigned		irq_disabled;
--	wait_queue_head_t	irq_wait;
--	struct task_struct	*rtask;
--	u16			x_res;
--	u16			y_res;
--
--	unsigned int		adcsync:1;
--};
--
--static int adcsync;
--
--static inline void ucb1x00_ts_evt_add(struct ucb1x00_ts *ts, u16 pressure, u16 x, u16 y)
--{
--	struct input_dev *idev = ts->idev;
--
--	input_report_abs(idev, ABS_X, x);
--	input_report_abs(idev, ABS_Y, y);
--	input_report_abs(idev, ABS_PRESSURE, pressure);
--	input_report_key(idev, BTN_TOUCH, 1);
--	input_sync(idev);
--}
--
--static inline void ucb1x00_ts_event_release(struct ucb1x00_ts *ts)
--{
--	struct input_dev *idev = ts->idev;
--
--	input_report_abs(idev, ABS_PRESSURE, 0);
--	input_report_key(idev, BTN_TOUCH, 0);
--	input_sync(idev);
--}
--
--/*
-- * Switch to interrupt mode.
-- */
--static inline void ucb1x00_ts_mode_int(struct ucb1x00_ts *ts)
--{
--	ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
--			UCB_TS_CR_TSMX_POW | UCB_TS_CR_TSPX_POW |
--			UCB_TS_CR_TSMY_GND | UCB_TS_CR_TSPY_GND |
--			UCB_TS_CR_MODE_INT);
--}
--
--/*
-- * Switch to pressure mode, and read pressure.  We don't need to wait
-- * here, since both plates are being driven.
-- */
--static inline unsigned int ucb1x00_ts_read_pressure(struct ucb1x00_ts *ts)
--{
--	if (machine_is_collie()) {
--		ucb1x00_io_write(ts->ucb, COLLIE_TC35143_GPIO_TBL_CHK, 0);
--		ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
--				  UCB_TS_CR_TSPX_POW | UCB_TS_CR_TSMX_POW |
--				  UCB_TS_CR_MODE_POS | UCB_TS_CR_BIAS_ENA);
--
--		udelay(55);
--
--		return ucb1x00_adc_read(ts->ucb, UCB_ADC_INP_AD2, ts->adcsync);
+-	val = ret;
+-	if (slot == 1) {
+-		if (enable)
+-			val |= MCT_CTRL1_S1_CMD_OD;
+-		else
+-			val &= ~MCT_CTRL1_S1_CMD_OD;
 -	} else {
--		ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
--				  UCB_TS_CR_TSMX_POW | UCB_TS_CR_TSPX_POW |
--				  UCB_TS_CR_TSMY_GND | UCB_TS_CR_TSPY_GND |
--				  UCB_TS_CR_MODE_PRES | UCB_TS_CR_BIAS_ENA);
--
--		return ucb1x00_adc_read(ts->ucb, UCB_ADC_INP_TSPY, ts->adcsync);
+-		if (enable)
+-			val |= MCT_CTRL1_S2_CMD_OD;
+-		else
+-			val &= ~MCT_CTRL1_S2_CMD_OD;
 -	}
+-	ret = menelaus_write_reg(MENELAUS_MCT_CTRL1, val);
+-	mutex_unlock(&the_menelaus->lock);
+-
+-	return ret;
 -}
+-EXPORT_SYMBOL(menelaus_set_mmc_opendrain);
 -
--/*
-- * Switch to X position mode and measure Y plate.  We switch the plate
-- * configuration in pressure mode, then switch to position mode.  This
-- * gives a faster response time.  Even so, we need to wait about 55us
-- * for things to stabilise.
-- */
--static inline unsigned int ucb1x00_ts_read_xpos(struct ucb1x00_ts *ts)
+-int menelaus_set_slot_sel(int enable)
 -{
--	if (machine_is_collie())
--		ucb1x00_io_write(ts->ucb, 0, COLLIE_TC35143_GPIO_TBL_CHK);
--	else {
--		ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
--				  UCB_TS_CR_TSMX_GND | UCB_TS_CR_TSPX_POW |
--				  UCB_TS_CR_MODE_PRES | UCB_TS_CR_BIAS_ENA);
--		ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
--				  UCB_TS_CR_TSMX_GND | UCB_TS_CR_TSPX_POW |
--				  UCB_TS_CR_MODE_PRES | UCB_TS_CR_BIAS_ENA);
--	}
--	ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
--			UCB_TS_CR_TSMX_GND | UCB_TS_CR_TSPX_POW |
--			UCB_TS_CR_MODE_POS | UCB_TS_CR_BIAS_ENA);
+-	int ret;
 -
--	udelay(55);
--
--	return ucb1x00_adc_read(ts->ucb, UCB_ADC_INP_TSPY, ts->adcsync);
--}
--
--/*
-- * Switch to Y position mode and measure X plate.  We switch the plate
-- * configuration in pressure mode, then switch to position mode.  This
-- * gives a faster response time.  Even so, we need to wait about 55us
-- * for things to stabilise.
-- */
--static inline unsigned int ucb1x00_ts_read_ypos(struct ucb1x00_ts *ts)
--{
--	if (machine_is_collie())
--		ucb1x00_io_write(ts->ucb, 0, COLLIE_TC35143_GPIO_TBL_CHK);
--	else {
--		ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
--				  UCB_TS_CR_TSMY_GND | UCB_TS_CR_TSPY_POW |
--				  UCB_TS_CR_MODE_PRES | UCB_TS_CR_BIAS_ENA);
--		ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
--				  UCB_TS_CR_TSMY_GND | UCB_TS_CR_TSPY_POW |
--				  UCB_TS_CR_MODE_PRES | UCB_TS_CR_BIAS_ENA);
--	}
--
--	ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
--			UCB_TS_CR_TSMY_GND | UCB_TS_CR_TSPY_POW |
--			UCB_TS_CR_MODE_POS | UCB_TS_CR_BIAS_ENA);
--
--	udelay(55);
--
--	return ucb1x00_adc_read(ts->ucb, UCB_ADC_INP_TSPX, ts->adcsync);
--}
--
--/*
-- * Switch to X plate resistance mode.  Set MX to ground, PX to
-- * supply.  Measure current.
-- */
--static inline unsigned int ucb1x00_ts_read_xres(struct ucb1x00_ts *ts)
--{
--	ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
--			UCB_TS_CR_TSMX_GND | UCB_TS_CR_TSPX_POW |
--			UCB_TS_CR_MODE_PRES | UCB_TS_CR_BIAS_ENA);
--	return ucb1x00_adc_read(ts->ucb, 0, ts->adcsync);
--}
--
--/*
-- * Switch to Y plate resistance mode.  Set MY to ground, PY to
-- * supply.  Measure current.
-- */
--static inline unsigned int ucb1x00_ts_read_yres(struct ucb1x00_ts *ts)
--{
--	ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
--			UCB_TS_CR_TSMY_GND | UCB_TS_CR_TSPY_POW |
--			UCB_TS_CR_MODE_PRES | UCB_TS_CR_BIAS_ENA);
--	return ucb1x00_adc_read(ts->ucb, 0, ts->adcsync);
--}
--
--static inline int ucb1x00_ts_pen_down(struct ucb1x00_ts *ts)
--{
--	unsigned int val = ucb1x00_reg_read(ts->ucb, UCB_TS_CR);
--
--	if (machine_is_collie())
--		return (!(val & (UCB_TS_CR_TSPX_LOW)));
+-	mutex_lock(&the_menelaus->lock);
+-	ret = menelaus_read_reg(MENELAUS_GPIO_CTRL);
+-	if (ret < 0)
+-		goto out;
+-	ret |= GPIO2_DIR_INPUT;
+-	if (enable)
+-		ret |= GPIO_CTRL_SLOTSELEN;
 -	else
--		return (val & (UCB_TS_CR_TSPX_LOW | UCB_TS_CR_TSMX_LOW));
+-		ret &= ~GPIO_CTRL_SLOTSELEN;
+-	ret = menelaus_write_reg(MENELAUS_GPIO_CTRL, ret);
+-out:
+-	mutex_unlock(&the_menelaus->lock);
+-	return ret;
 -}
+-EXPORT_SYMBOL(menelaus_set_slot_sel);
 -
--/*
-- * This is a RT kernel thread that handles the ADC accesses
-- * (mainly so we can use semaphores in the UCB1200 core code
-- * to serialise accesses to the ADC).
-- */
--static int ucb1x00_thread(void *_ts)
+-int menelaus_set_mmc_slot(int slot, int enable, int power, int cd_en)
 -{
--	struct ucb1x00_ts *ts = _ts;
--	DECLARE_WAITQUEUE(wait, current);
--	bool frozen, ignore = false;
--	int valid = 0;
+-	int ret, val;
 -
--	set_freezable();
--	add_wait_queue(&ts->irq_wait, &wait);
--	while (!kthread_freezable_should_stop(&frozen)) {
--		unsigned int x, y, p;
--		signed long timeout;
+-	if (slot != 1 && slot != 2)
+-		return -EINVAL;
+-	if (power >= 3)
+-		return -EINVAL;
 -
--		if (frozen)
--			ignore = true;
+-	mutex_lock(&the_menelaus->lock);
 -
--		ucb1x00_adc_enable(ts->ucb);
--
--		x = ucb1x00_ts_read_xpos(ts);
--		y = ucb1x00_ts_read_ypos(ts);
--		p = ucb1x00_ts_read_pressure(ts);
--
--		/*
--		 * Switch back to interrupt mode.
--		 */
--		ucb1x00_ts_mode_int(ts);
--		ucb1x00_adc_disable(ts->ucb);
--
--		msleep(10);
--
--		ucb1x00_enable(ts->ucb);
--
--
--		if (ucb1x00_ts_pen_down(ts)) {
--			set_current_state(TASK_INTERRUPTIBLE);
--
--			spin_lock_irq(&ts->irq_lock);
--			if (ts->irq_disabled) {
--				ts->irq_disabled = 0;
--				enable_irq(ts->ucb->irq_base + UCB_IRQ_TSPX);
--			}
--			spin_unlock_irq(&ts->irq_lock);
--			ucb1x00_disable(ts->ucb);
--
--			/*
--			 * If we spat out a valid sample set last time,
--			 * spit out a "pen off" sample here.
--			 */
--			if (valid) {
--				ucb1x00_ts_event_release(ts);
--				valid = 0;
--			}
--
--			timeout = MAX_SCHEDULE_TIMEOUT;
--		} else {
--			ucb1x00_disable(ts->ucb);
--
--			/*
--			 * Filtering is policy.  Policy belongs in user
--			 * space.  We therefore leave it to user space
--			 * to do any filtering they please.
--			 */
--			if (!ignore) {
--				ucb1x00_ts_evt_add(ts, p, x, y);
--				valid = 1;
--			}
--
--			set_current_state(TASK_INTERRUPTIBLE);
--			timeout = HZ / 100;
--		}
--
--		schedule_timeout(timeout);
+-	ret = menelaus_read_reg(MENELAUS_MCT_CTRL2);
+-	if (ret < 0)
+-		goto out;
+-	val = ret;
+-	if (slot == 1) {
+-		if (cd_en)
+-			val |= MCT_CTRL2_S1CD_BUFEN | MCT_CTRL2_S1CD_DBEN;
+-		else
+-			val &= ~(MCT_CTRL2_S1CD_BUFEN | MCT_CTRL2_S1CD_DBEN);
+-	} else {
+-		if (cd_en)
+-			val |= MCT_CTRL2_S2CD_BUFEN | MCT_CTRL2_S2CD_BEN;
+-		else
+-			val &= ~(MCT_CTRL2_S2CD_BUFEN | MCT_CTRL2_S2CD_BEN);
 -	}
+-	ret = menelaus_write_reg(MENELAUS_MCT_CTRL2, val);
+-	if (ret < 0)
+-		goto out;
 -
--	remove_wait_queue(&ts->irq_wait, &wait);
+-	ret = menelaus_read_reg(MENELAUS_MCT_CTRL3);
+-	if (ret < 0)
+-		goto out;
+-	val = ret;
+-	if (slot == 1) {
+-		if (enable)
+-			val |= MCT_CTRL3_SLOT1_EN;
+-		else
+-			val &= ~MCT_CTRL3_SLOT1_EN;
+-	} else {
+-		int b;
 -
--	ts->rtask = NULL;
--	return 0;
+-		if (enable)
+-			val |= MCT_CTRL3_SLOT2_EN;
+-		else
+-			val &= ~MCT_CTRL3_SLOT2_EN;
+-		b = menelaus_read_reg(MENELAUS_MCT_CTRL2);
+-		b &= ~(MCT_CTRL2_VS2_SEL_D0 | MCT_CTRL2_VS2_SEL_D1);
+-		b |= power;
+-		ret = menelaus_write_reg(MENELAUS_MCT_CTRL2, b);
+-		if (ret < 0)
+-			goto out;
+-	}
+-	/* Disable autonomous shutdown */
+-	val &= ~(MCT_CTRL3_S1_AUTO_EN | MCT_CTRL3_S2_AUTO_EN);
+-	ret = menelaus_write_reg(MENELAUS_MCT_CTRL3, val);
+-out:
+-	mutex_unlock(&the_menelaus->lock);
+-	return ret;
+-}
+-EXPORT_SYMBOL(menelaus_set_mmc_slot);
+-
+-int menelaus_register_mmc_callback(void (*callback)(void *data, u8 card_mask),
+-				   void *data)
+-{
+-	int ret = 0;
+-
+-	the_menelaus->mmc_callback_data = data;
+-	the_menelaus->mmc_callback = callback;
+-	ret = menelaus_add_irq_work(MENELAUS_MMC_S1CD_IRQ,
+-				    menelaus_mmc_cd_work);
+-	if (ret < 0)
+-		return ret;
+-	ret = menelaus_add_irq_work(MENELAUS_MMC_S2CD_IRQ,
+-				    menelaus_mmc_cd_work);
+-	if (ret < 0)
+-		return ret;
+-	ret = menelaus_add_irq_work(MENELAUS_MMC_S1D1_IRQ,
+-				    menelaus_mmc_cd_work);
+-	if (ret < 0)
+-		return ret;
+-	ret = menelaus_add_irq_work(MENELAUS_MMC_S2D1_IRQ,
+-				    menelaus_mmc_cd_work);
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL(menelaus_register_mmc_callback);
+-
+-void menelaus_unregister_mmc_callback(void)
+-{
+-	menelaus_remove_irq_work(MENELAUS_MMC_S1CD_IRQ);
+-	menelaus_remove_irq_work(MENELAUS_MMC_S2CD_IRQ);
+-	menelaus_remove_irq_work(MENELAUS_MMC_S1D1_IRQ);
+-	menelaus_remove_irq_work(MENELAUS_MMC_S2D1_IRQ);
+-
+-	the_menelaus->mmc_callback = NULL;
+-	the_menelaus->mmc_callback_data = NULL;
+-}
+-EXPORT_SYMBOL(menelaus_unregister_mmc_callback);
+-
+-struct menelaus_vtg {
+-	const char *name;
+-	u8 vtg_reg;
+-	u8 vtg_shift;
+-	u8 vtg_bits;
+-	u8 mode_reg;
+-};
+-
+-struct menelaus_vtg_value {
+-	u16 vtg;
+-	u16 val;
+-};
+-
+-static int menelaus_set_voltage(const struct menelaus_vtg *vtg, int mV,
+-				int vtg_val, int mode)
+-{
+-	int val, ret;
+-	struct i2c_client *c = the_menelaus->client;
+-
+-	mutex_lock(&the_menelaus->lock);
+-
+-	ret = menelaus_read_reg(vtg->vtg_reg);
+-	if (ret < 0)
+-		goto out;
+-	val = ret & ~(((1 << vtg->vtg_bits) - 1) << vtg->vtg_shift);
+-	val |= vtg_val << vtg->vtg_shift;
+-
+-	dev_dbg(&c->dev, "Setting voltage '%s'"
+-			 "to %d mV (reg 0x%02x, val 0x%02x)\n",
+-			vtg->name, mV, vtg->vtg_reg, val);
+-
+-	ret = menelaus_write_reg(vtg->vtg_reg, val);
+-	if (ret < 0)
+-		goto out;
+-	ret = menelaus_write_reg(vtg->mode_reg, mode);
+-out:
+-	mutex_unlock(&the_menelaus->lock);
+-	if (ret == 0) {
+-		/* Wait for voltage to stabilize */
+-		msleep(1);
+-	}
+-	return ret;
+-}
+-
+-static int menelaus_get_vtg_value(int vtg, const struct menelaus_vtg_value *tbl,
+-				  int n)
+-{
+-	int i;
+-
+-	for (i = 0; i < n; i++, tbl++)
+-		if (tbl->vtg == vtg)
+-			return tbl->val;
+-	return -EINVAL;
 -}
 -
 -/*
-- * We only detect touch screen _touches_ with this interrupt
-- * handler, and even then we just schedule our task.
+- * Vcore can be programmed in two ways:
+- * SW-controlled: Required voltage is programmed into VCORE_CTRL1
+- * HW-controlled: Required range (roof-floor) is programmed into VCORE_CTRL3
+- * and VCORE_CTRL4
+- *
+- * Call correct 'set' function accordingly
 - */
--static irqreturn_t ucb1x00_ts_irq(int irq, void *id)
--{
--	struct ucb1x00_ts *ts = id;
 -
--	spin_lock(&ts->irq_lock);
--	ts->irq_disabled = 1;
--	disable_irq_nosync(ts->ucb->irq_base + UCB_IRQ_TSPX);
--	spin_unlock(&ts->irq_lock);
--	wake_up(&ts->irq_wait);
+-static const struct menelaus_vtg_value vcore_values[] = {
+-	{ 1000, 0 },
+-	{ 1025, 1 },
+-	{ 1050, 2 },
+-	{ 1075, 3 },
+-	{ 1100, 4 },
+-	{ 1125, 5 },
+-	{ 1150, 6 },
+-	{ 1175, 7 },
+-	{ 1200, 8 },
+-	{ 1225, 9 },
+-	{ 1250, 10 },
+-	{ 1275, 11 },
+-	{ 1300, 12 },
+-	{ 1325, 13 },
+-	{ 1350, 14 },
+-	{ 1375, 15 },
+-	{ 1400, 16 },
+-	{ 1425, 17 },
+-	{ 1450, 18 },
+-};
+-
+-int menelaus_set_vcore_hw(unsigned int roof_mV, unsigned int floor_mV)
+-{
+-	int fval, rval, val, ret;
+-	struct i2c_client *c = the_menelaus->client;
+-
+-	rval = menelaus_get_vtg_value(roof_mV, vcore_values,
+-				      ARRAY_SIZE(vcore_values));
+-	if (rval < 0)
+-		return -EINVAL;
+-	fval = menelaus_get_vtg_value(floor_mV, vcore_values,
+-				      ARRAY_SIZE(vcore_values));
+-	if (fval < 0)
+-		return -EINVAL;
+-
+-	dev_dbg(&c->dev, "Setting VCORE FLOOR to %d mV and ROOF to %d mV\n",
+-	       floor_mV, roof_mV);
+-
+-	mutex_lock(&the_menelaus->lock);
+-	ret = menelaus_write_reg(MENELAUS_VCORE_CTRL3, fval);
+-	if (ret < 0)
+-		goto out;
+-	ret = menelaus_write_reg(MENELAUS_VCORE_CTRL4, rval);
+-	if (ret < 0)
+-		goto out;
+-	if (!the_menelaus->vcore_hw_mode) {
+-		val = menelaus_read_reg(MENELAUS_VCORE_CTRL1);
+-		/* HW mode, turn OFF byte comparator */
+-		val |= (VCORE_CTRL1_HW_NSW | VCORE_CTRL1_BYP_COMP);
+-		ret = menelaus_write_reg(MENELAUS_VCORE_CTRL1, val);
+-		the_menelaus->vcore_hw_mode = 1;
+-	}
+-	msleep(1);
+-out:
+-	mutex_unlock(&the_menelaus->lock);
+-	return ret;
+-}
+-
+-static const struct menelaus_vtg vmem_vtg = {
+-	.name = "VMEM",
+-	.vtg_reg = MENELAUS_LDO_CTRL1,
+-	.vtg_shift = 0,
+-	.vtg_bits = 2,
+-	.mode_reg = MENELAUS_LDO_CTRL3,
+-};
+-
+-static const struct menelaus_vtg_value vmem_values[] = {
+-	{ 1500, 0 },
+-	{ 1800, 1 },
+-	{ 1900, 2 },
+-	{ 2500, 3 },
+-};
+-
+-int menelaus_set_vmem(unsigned int mV)
+-{
+-	int val;
+-
+-	if (mV == 0)
+-		return menelaus_set_voltage(&vmem_vtg, 0, 0, 0);
+-
+-	val = menelaus_get_vtg_value(mV, vmem_values, ARRAY_SIZE(vmem_values));
+-	if (val < 0)
+-		return -EINVAL;
+-	return menelaus_set_voltage(&vmem_vtg, mV, val, 0x02);
+-}
+-EXPORT_SYMBOL(menelaus_set_vmem);
+-
+-static const struct menelaus_vtg vio_vtg = {
+-	.name = "VIO",
+-	.vtg_reg = MENELAUS_LDO_CTRL1,
+-	.vtg_shift = 2,
+-	.vtg_bits = 2,
+-	.mode_reg = MENELAUS_LDO_CTRL4,
+-};
+-
+-static const struct menelaus_vtg_value vio_values[] = {
+-	{ 1500, 0 },
+-	{ 1800, 1 },
+-	{ 2500, 2 },
+-	{ 2800, 3 },
+-};
+-
+-int menelaus_set_vio(unsigned int mV)
+-{
+-	int val;
+-
+-	if (mV == 0)
+-		return menelaus_set_voltage(&vio_vtg, 0, 0, 0);
+-
+-	val = menelaus_get_vtg_value(mV, vio_values, ARRAY_SIZE(vio_values));
+-	if (val < 0)
+-		return -EINVAL;
+-	return menelaus_set_voltage(&vio_vtg, mV, val, 0x02);
+-}
+-EXPORT_SYMBOL(menelaus_set_vio);
+-
+-static const struct menelaus_vtg_value vdcdc_values[] = {
+-	{ 1500, 0 },
+-	{ 1800, 1 },
+-	{ 2000, 2 },
+-	{ 2200, 3 },
+-	{ 2400, 4 },
+-	{ 2800, 5 },
+-	{ 3000, 6 },
+-	{ 3300, 7 },
+-};
+-
+-static const struct menelaus_vtg vdcdc2_vtg = {
+-	.name = "VDCDC2",
+-	.vtg_reg = MENELAUS_DCDC_CTRL1,
+-	.vtg_shift = 0,
+-	.vtg_bits = 3,
+-	.mode_reg = MENELAUS_DCDC_CTRL2,
+-};
+-
+-static const struct menelaus_vtg vdcdc3_vtg = {
+-	.name = "VDCDC3",
+-	.vtg_reg = MENELAUS_DCDC_CTRL1,
+-	.vtg_shift = 3,
+-	.vtg_bits = 3,
+-	.mode_reg = MENELAUS_DCDC_CTRL3,
+-};
+-
+-int menelaus_set_vdcdc(int dcdc, unsigned int mV)
+-{
+-	const struct menelaus_vtg *vtg;
+-	int val;
+-
+-	if (dcdc != 2 && dcdc != 3)
+-		return -EINVAL;
+-	if (dcdc == 2)
+-		vtg = &vdcdc2_vtg;
+-	else
+-		vtg = &vdcdc3_vtg;
+-
+-	if (mV == 0)
+-		return menelaus_set_voltage(vtg, 0, 0, 0);
+-
+-	val = menelaus_get_vtg_value(mV, vdcdc_values,
+-				     ARRAY_SIZE(vdcdc_values));
+-	if (val < 0)
+-		return -EINVAL;
+-	return menelaus_set_voltage(vtg, mV, val, 0x03);
+-}
+-
+-static const struct menelaus_vtg_value vmmc_values[] = {
+-	{ 1850, 0 },
+-	{ 2800, 1 },
+-	{ 3000, 2 },
+-	{ 3100, 3 },
+-};
+-
+-static const struct menelaus_vtg vmmc_vtg = {
+-	.name = "VMMC",
+-	.vtg_reg = MENELAUS_LDO_CTRL1,
+-	.vtg_shift = 6,
+-	.vtg_bits = 2,
+-	.mode_reg = MENELAUS_LDO_CTRL7,
+-};
+-
+-int menelaus_set_vmmc(unsigned int mV)
+-{
+-	int val;
+-
+-	if (mV == 0)
+-		return menelaus_set_voltage(&vmmc_vtg, 0, 0, 0);
+-
+-	val = menelaus_get_vtg_value(mV, vmmc_values, ARRAY_SIZE(vmmc_values));
+-	if (val < 0)
+-		return -EINVAL;
+-	return menelaus_set_voltage(&vmmc_vtg, mV, val, 0x02);
+-}
+-EXPORT_SYMBOL(menelaus_set_vmmc);
+-
+-
+-static const struct menelaus_vtg_value vaux_values[] = {
+-	{ 1500, 0 },
+-	{ 1800, 1 },
+-	{ 2500, 2 },
+-	{ 2800, 3 },
+-};
+-
+-static const struct menelaus_vtg vaux_vtg = {
+-	.name = "VAUX",
+-	.vtg_reg = MENELAUS_LDO_CTRL1,
+-	.vtg_shift = 4,
+-	.vtg_bits = 2,
+-	.mode_reg = MENELAUS_LDO_CTRL6,
+-};
+-
+-int menelaus_set_vaux(unsigned int mV)
+-{
+-	int val;
+-
+-	if (mV == 0)
+-		return menelaus_set_voltage(&vaux_vtg, 0, 0, 0);
+-
+-	val = menelaus_get_vtg_value(mV, vaux_values, ARRAY_SIZE(vaux_values));
+-	if (val < 0)
+-		return -EINVAL;
+-	return menelaus_set_voltage(&vaux_vtg, mV, val, 0x02);
+-}
+-EXPORT_SYMBOL(menelaus_set_vaux);
+-
+-int menelaus_get_slot_pin_states(void)
+-{
+-	return menelaus_read_reg(MENELAUS_MCT_PIN_ST);
+-}
+-EXPORT_SYMBOL(menelaus_get_slot_pin_states);
+-
+-int menelaus_set_regulator_sleep(int enable, u32 val)
+-{
+-	int t, ret;
+-	struct i2c_client *c = the_menelaus->client;
+-
+-	mutex_lock(&the_menelaus->lock);
+-	ret = menelaus_write_reg(MENELAUS_SLEEP_CTRL2, val);
+-	if (ret < 0)
+-		goto out;
+-
+-	dev_dbg(&c->dev, "regulator sleep configuration: %02x\n", val);
+-
+-	ret = menelaus_read_reg(MENELAUS_GPIO_CTRL);
+-	if (ret < 0)
+-		goto out;
+-	t = (GPIO_CTRL_SLPCTLEN | GPIO3_DIR_INPUT);
+-	if (enable)
+-		ret |= t;
+-	else
+-		ret &= ~t;
+-	ret = menelaus_write_reg(MENELAUS_GPIO_CTRL, ret);
+-out:
+-	mutex_unlock(&the_menelaus->lock);
+-	return ret;
+-}
+-
+-/*-----------------------------------------------------------------------*/
+-
+-/* Handles Menelaus interrupts. Does not run in interrupt context */
+-static void menelaus_work(struct work_struct *_menelaus)
+-{
+-	struct menelaus_chip *menelaus =
+-			container_of(_menelaus, struct menelaus_chip, work);
+-	void (*handler)(struct menelaus_chip *menelaus);
+-
+-	while (1) {
+-		unsigned isr;
+-
+-		isr = (menelaus_read_reg(MENELAUS_INT_STATUS2)
+-				& ~menelaus->mask2) << 8;
+-		isr |= menelaus_read_reg(MENELAUS_INT_STATUS1)
+-				& ~menelaus->mask1;
+-		if (!isr)
+-			break;
+-
+-		while (isr) {
+-			int irq = fls(isr) - 1;
+-			isr &= ~(1 << irq);
+-
+-			mutex_lock(&menelaus->lock);
+-			menelaus_disable_irq(irq);
+-			menelaus_ack_irq(irq);
+-			handler = menelaus->handlers[irq];
+-			if (handler)
+-				handler(menelaus);
+-			menelaus_enable_irq(irq);
+-			mutex_unlock(&menelaus->lock);
+-		}
+-	}
+-	enable_irq(menelaus->client->irq);
+-}
+-
+-/*
+- * We cannot use I2C in interrupt context, so we just schedule work.
+- */
+-static irqreturn_t menelaus_irq(int irq, void *_menelaus)
+-{
+-	struct menelaus_chip *menelaus = _menelaus;
+-
+-	disable_irq_nosync(irq);
+-	(void)schedule_work(&menelaus->work);
 -
 -	return IRQ_HANDLED;
 -}
 -
--static int ucb1x00_ts_open(struct input_dev *idev)
--{
--	struct ucb1x00_ts *ts = input_get_drvdata(idev);
--	unsigned long flags = 0;
--	int ret = 0;
--
--	BUG_ON(ts->rtask);
--
--	if (machine_is_collie())
--		flags = IRQF_TRIGGER_RISING;
--	else
--		flags = IRQF_TRIGGER_FALLING;
--
--	ts->irq_disabled = 0;
--
--	init_waitqueue_head(&ts->irq_wait);
--	ret = request_irq(ts->ucb->irq_base + UCB_IRQ_TSPX, ucb1x00_ts_irq,
--			  flags, "ucb1x00-ts", ts);
--	if (ret < 0)
--		goto out;
--
--	/*
--	 * If we do this at all, we should allow the user to
--	 * measure and read the X and Y resistance at any time.
--	 */
--	ucb1x00_adc_enable(ts->ucb);
--	ts->x_res = ucb1x00_ts_read_xres(ts);
--	ts->y_res = ucb1x00_ts_read_yres(ts);
--	ucb1x00_adc_disable(ts->ucb);
--
--	ts->rtask = kthread_run(ucb1x00_thread, ts, "ktsd");
--	if (!IS_ERR(ts->rtask)) {
--		ret = 0;
--	} else {
--		free_irq(ts->ucb->irq_base + UCB_IRQ_TSPX, ts);
--		ts->rtask = NULL;
--		ret = -EFAULT;
--	}
--
-- out:
--	return ret;
--}
+-/*-----------------------------------------------------------------------*/
 -
 -/*
-- * Release touchscreen resources.  Disable IRQs.
+- * The RTC needs to be set once, then it runs on backup battery power.
+- * It supports alarms, including system wake alarms (from some modes);
+- * and 1/second IRQs if requested.
 - */
--static void ucb1x00_ts_close(struct input_dev *idev)
+-#ifdef CONFIG_RTC_DRV_TWL92330
+-
+-#define RTC_CTRL_RTC_EN		(1 << 0)
+-#define RTC_CTRL_AL_EN		(1 << 1)
+-#define RTC_CTRL_MODE12		(1 << 2)
+-#define RTC_CTRL_EVERY_MASK	(3 << 3)
+-#define RTC_CTRL_EVERY_SEC	(0 << 3)
+-#define RTC_CTRL_EVERY_MIN	(1 << 3)
+-#define RTC_CTRL_EVERY_HR	(2 << 3)
+-#define RTC_CTRL_EVERY_DAY	(3 << 3)
+-
+-#define RTC_UPDATE_EVERY	0x08
+-
+-#define RTC_HR_PM		(1 << 7)
+-
+-static void menelaus_to_time(char *regs, struct rtc_time *t)
 -{
--	struct ucb1x00_ts *ts = input_get_drvdata(idev);
--
--	if (ts->rtask)
--		kthread_stop(ts->rtask);
--
--	ucb1x00_enable(ts->ucb);
--	free_irq(ts->ucb->irq_base + UCB_IRQ_TSPX, ts);
--	ucb1x00_reg_write(ts->ucb, UCB_TS_CR, 0);
--	ucb1x00_disable(ts->ucb);
+-	t->tm_sec = bcd2bin(regs[0]);
+-	t->tm_min = bcd2bin(regs[1]);
+-	if (the_menelaus->rtc_control & RTC_CTRL_MODE12) {
+-		t->tm_hour = bcd2bin(regs[2] & 0x1f) - 1;
+-		if (regs[2] & RTC_HR_PM)
+-			t->tm_hour += 12;
+-	} else
+-		t->tm_hour = bcd2bin(regs[2] & 0x3f);
+-	t->tm_mday = bcd2bin(regs[3]);
+-	t->tm_mon = bcd2bin(regs[4]) - 1;
+-	t->tm_year = bcd2bin(regs[5]) + 100;
 -}
 -
--
--/*
-- * Initialisation.
-- */
--static int ucb1x00_ts_add(struct ucb1x00_dev *dev)
+-static int time_to_menelaus(struct rtc_time *t, int regnum)
 -{
--	struct ucb1x00_ts *ts;
--	struct input_dev *idev;
--	int err;
+-	int	hour, status;
 -
--	ts = kzalloc_obj(struct ucb1x00_ts);
--	idev = input_allocate_device();
--	if (!ts || !idev) {
--		err = -ENOMEM;
--		goto fail;
--	}
--
--	ts->ucb = dev->ucb;
--	ts->idev = idev;
--	ts->adcsync = adcsync ? UCB_SYNC : UCB_NOSYNC;
--	spin_lock_init(&ts->irq_lock);
--
--	idev->name       = "Touchscreen panel";
--	idev->id.product = ts->ucb->id;
--	idev->open       = ucb1x00_ts_open;
--	idev->close      = ucb1x00_ts_close;
--	idev->dev.parent = &ts->ucb->dev;
--
--	idev->evbit[0]   = BIT_MASK(EV_ABS) | BIT_MASK(EV_KEY);
--	idev->keybit[BIT_WORD(BTN_TOUCH)] = BIT_MASK(BTN_TOUCH);
--
--	input_set_drvdata(idev, ts);
--
--	ucb1x00_adc_enable(ts->ucb);
--	ts->x_res = ucb1x00_ts_read_xres(ts);
--	ts->y_res = ucb1x00_ts_read_yres(ts);
--	ucb1x00_adc_disable(ts->ucb);
--
--	input_set_abs_params(idev, ABS_X, 0, ts->x_res, 0, 0);
--	input_set_abs_params(idev, ABS_Y, 0, ts->y_res, 0, 0);
--	input_set_abs_params(idev, ABS_PRESSURE, 0, 0, 0, 0);
--
--	err = input_register_device(idev);
--	if (err)
+-	status = menelaus_write_reg(regnum++, bin2bcd(t->tm_sec));
+-	if (status < 0)
 -		goto fail;
 -
--	dev->priv = ts;
+-	status = menelaus_write_reg(regnum++, bin2bcd(t->tm_min));
+-	if (status < 0)
+-		goto fail;
+-
+-	if (the_menelaus->rtc_control & RTC_CTRL_MODE12) {
+-		hour = t->tm_hour + 1;
+-		if (hour > 12)
+-			hour = RTC_HR_PM | bin2bcd(hour - 12);
+-		else
+-			hour = bin2bcd(hour);
+-	} else
+-		hour = bin2bcd(t->tm_hour);
+-	status = menelaus_write_reg(regnum++, hour);
+-	if (status < 0)
+-		goto fail;
+-
+-	status = menelaus_write_reg(regnum++, bin2bcd(t->tm_mday));
+-	if (status < 0)
+-		goto fail;
+-
+-	status = menelaus_write_reg(regnum++, bin2bcd(t->tm_mon + 1));
+-	if (status < 0)
+-		goto fail;
+-
+-	status = menelaus_write_reg(regnum++, bin2bcd(t->tm_year - 100));
+-	if (status < 0)
+-		goto fail;
 -
 -	return 0;
+-fail:
+-	dev_err(&the_menelaus->client->dev, "rtc write reg %02x, err %d\n",
+-			--regnum, status);
+-	return status;
+-}
 -
-- fail:
--	input_free_device(idev);
--	kfree(ts);
+-static int menelaus_read_time(struct device *dev, struct rtc_time *t)
+-{
+-	struct i2c_msg	msg[2];
+-	char		regs[7];
+-	int		status;
+-
+-	/* block read date and time registers */
+-	regs[0] = MENELAUS_RTC_SEC;
+-
+-	msg[0].addr = MENELAUS_I2C_ADDRESS;
+-	msg[0].flags = 0;
+-	msg[0].len = 1;
+-	msg[0].buf = regs;
+-
+-	msg[1].addr = MENELAUS_I2C_ADDRESS;
+-	msg[1].flags = I2C_M_RD;
+-	msg[1].len = sizeof(regs);
+-	msg[1].buf = regs;
+-
+-	status = i2c_transfer(the_menelaus->client->adapter, msg, 2);
+-	if (status != 2) {
+-		dev_err(dev, "%s error %d\n", "read", status);
+-		return -EIO;
+-	}
+-
+-	menelaus_to_time(regs, t);
+-	t->tm_wday = bcd2bin(regs[6]);
+-
+-	return 0;
+-}
+-
+-static int menelaus_set_time(struct device *dev, struct rtc_time *t)
+-{
+-	int		status;
+-
+-	/* write date and time registers */
+-	status = time_to_menelaus(t, MENELAUS_RTC_SEC);
+-	if (status < 0)
+-		return status;
+-	status = menelaus_write_reg(MENELAUS_RTC_WKDAY, bin2bcd(t->tm_wday));
+-	if (status < 0) {
+-		dev_err(&the_menelaus->client->dev, "rtc write reg %02x "
+-				"err %d\n", MENELAUS_RTC_WKDAY, status);
+-		return status;
+-	}
+-
+-	/* now commit the write */
+-	status = menelaus_write_reg(MENELAUS_RTC_UPDATE, RTC_UPDATE_EVERY);
+-	if (status < 0)
+-		dev_err(&the_menelaus->client->dev, "rtc commit time, err %d\n",
+-				status);
+-
+-	return 0;
+-}
+-
+-static int menelaus_read_alarm(struct device *dev, struct rtc_wkalrm *w)
+-{
+-	struct i2c_msg	msg[2];
+-	char		regs[6];
+-	int		status;
+-
+-	/* block read alarm registers */
+-	regs[0] = MENELAUS_RTC_AL_SEC;
+-
+-	msg[0].addr = MENELAUS_I2C_ADDRESS;
+-	msg[0].flags = 0;
+-	msg[0].len = 1;
+-	msg[0].buf = regs;
+-
+-	msg[1].addr = MENELAUS_I2C_ADDRESS;
+-	msg[1].flags = I2C_M_RD;
+-	msg[1].len = sizeof(regs);
+-	msg[1].buf = regs;
+-
+-	status = i2c_transfer(the_menelaus->client->adapter, msg, 2);
+-	if (status != 2) {
+-		dev_err(dev, "%s error %d\n", "alarm read", status);
+-		return -EIO;
+-	}
+-
+-	menelaus_to_time(regs, &w->time);
+-
+-	w->enabled = !!(the_menelaus->rtc_control & RTC_CTRL_AL_EN);
+-
+-	/* NOTE we *could* check if actually pending... */
+-	w->pending = 0;
+-
+-	return 0;
+-}
+-
+-static int menelaus_set_alarm(struct device *dev, struct rtc_wkalrm *w)
+-{
+-	int		status;
+-
+-	if (the_menelaus->client->irq <= 0 && w->enabled)
+-		return -ENODEV;
+-
+-	/* clear previous alarm enable */
+-	if (the_menelaus->rtc_control & RTC_CTRL_AL_EN) {
+-		the_menelaus->rtc_control &= ~RTC_CTRL_AL_EN;
+-		status = menelaus_write_reg(MENELAUS_RTC_CTRL,
+-				the_menelaus->rtc_control);
+-		if (status < 0)
+-			return status;
+-	}
+-
+-	/* write alarm registers */
+-	status = time_to_menelaus(&w->time, MENELAUS_RTC_AL_SEC);
+-	if (status < 0)
+-		return status;
+-
+-	/* enable alarm if requested */
+-	if (w->enabled) {
+-		the_menelaus->rtc_control |= RTC_CTRL_AL_EN;
+-		status = menelaus_write_reg(MENELAUS_RTC_CTRL,
+-				the_menelaus->rtc_control);
+-	}
+-
+-	return status;
+-}
+-
+-#ifdef CONFIG_RTC_INTF_DEV
+-
+-static void menelaus_rtc_update_work(struct menelaus_chip *m)
+-{
+-	/* report 1/sec update */
+-	rtc_update_irq(m->rtc, 1, RTC_IRQF | RTC_UF);
+-}
+-
+-static int menelaus_ioctl(struct device *dev, unsigned cmd, unsigned long arg)
+-{
+-	int	status;
+-
+-	if (the_menelaus->client->irq <= 0)
+-		return -ENOIOCTLCMD;
+-
+-	switch (cmd) {
+-	/* alarm IRQ */
+-	case RTC_AIE_ON:
+-		if (the_menelaus->rtc_control & RTC_CTRL_AL_EN)
+-			return 0;
+-		the_menelaus->rtc_control |= RTC_CTRL_AL_EN;
+-		break;
+-	case RTC_AIE_OFF:
+-		if (!(the_menelaus->rtc_control & RTC_CTRL_AL_EN))
+-			return 0;
+-		the_menelaus->rtc_control &= ~RTC_CTRL_AL_EN;
+-		break;
+-	/* 1/second "update" IRQ */
+-	case RTC_UIE_ON:
+-		if (the_menelaus->uie)
+-			return 0;
+-		status = menelaus_remove_irq_work(MENELAUS_RTCTMR_IRQ);
+-		status = menelaus_add_irq_work(MENELAUS_RTCTMR_IRQ,
+-				menelaus_rtc_update_work);
+-		if (status == 0)
+-			the_menelaus->uie = 1;
+-		return status;
+-	case RTC_UIE_OFF:
+-		if (!the_menelaus->uie)
+-			return 0;
+-		status = menelaus_remove_irq_work(MENELAUS_RTCTMR_IRQ);
+-		if (status == 0)
+-			the_menelaus->uie = 0;
+-		return status;
+-	default:
+-		return -ENOIOCTLCMD;
+-	}
+-	return menelaus_write_reg(MENELAUS_RTC_CTRL, the_menelaus->rtc_control);
+-}
+-
+-#else
+-#define menelaus_ioctl	NULL
+-#endif
+-
+-/* REVISIT no compensation register support ... */
+-
+-static const struct rtc_class_ops menelaus_rtc_ops = {
+-	.ioctl			= menelaus_ioctl,
+-	.read_time		= menelaus_read_time,
+-	.set_time		= menelaus_set_time,
+-	.read_alarm		= menelaus_read_alarm,
+-	.set_alarm		= menelaus_set_alarm,
+-};
+-
+-static void menelaus_rtc_alarm_work(struct menelaus_chip *m)
+-{
+-	/* report alarm */
+-	rtc_update_irq(m->rtc, 1, RTC_IRQF | RTC_AF);
+-
+-	/* then disable it; alarms are oneshot */
+-	the_menelaus->rtc_control &= ~RTC_CTRL_AL_EN;
+-	menelaus_write_reg(MENELAUS_RTC_CTRL, the_menelaus->rtc_control);
+-}
+-
+-static inline void menelaus_rtc_init(struct menelaus_chip *m)
+-{
+-	int	alarm = (m->client->irq > 0);
+-	int	err;
+-
+-	/* assume 32KDETEN pin is pulled high */
+-	if (!(menelaus_read_reg(MENELAUS_OSC_CTRL) & 0x80)) {
+-		dev_dbg(&m->client->dev, "no 32k oscillator\n");
+-		return;
+-	}
+-
+-	m->rtc = devm_rtc_allocate_device(&m->client->dev);
+-	if (IS_ERR(m->rtc))
+-		return;
+-
+-	m->rtc->ops = &menelaus_rtc_ops;
+-
+-	/* support RTC alarm; it can issue wakeups */
+-	if (alarm) {
+-		if (menelaus_add_irq_work(MENELAUS_RTCALM_IRQ,
+-				menelaus_rtc_alarm_work) < 0) {
+-			dev_err(&m->client->dev, "can't handle RTC alarm\n");
+-			return;
+-		}
+-		device_init_wakeup(&m->client->dev, 1);
+-	}
+-
+-	/* be sure RTC is enabled; allow 1/sec irqs; leave 12hr mode alone */
+-	m->rtc_control = menelaus_read_reg(MENELAUS_RTC_CTRL);
+-	if (!(m->rtc_control & RTC_CTRL_RTC_EN)
+-			|| (m->rtc_control & RTC_CTRL_AL_EN)
+-			|| (m->rtc_control & RTC_CTRL_EVERY_MASK)) {
+-		if (!(m->rtc_control & RTC_CTRL_RTC_EN)) {
+-			dev_warn(&m->client->dev, "rtc clock needs setting\n");
+-			m->rtc_control |= RTC_CTRL_RTC_EN;
+-		}
+-		m->rtc_control &= ~RTC_CTRL_EVERY_MASK;
+-		m->rtc_control &= ~RTC_CTRL_AL_EN;
+-		menelaus_write_reg(MENELAUS_RTC_CTRL, m->rtc_control);
+-	}
+-
+-	err = devm_rtc_register_device(m->rtc);
+-	if (err) {
+-		if (alarm) {
+-			menelaus_remove_irq_work(MENELAUS_RTCALM_IRQ);
+-			device_init_wakeup(&m->client->dev, 0);
+-		}
+-		the_menelaus->rtc = NULL;
+-	}
+-}
+-
+-#else
+-
+-static inline void menelaus_rtc_init(struct menelaus_chip *m)
+-{
+-	/* nothing */
+-}
+-
+-#endif
+-
+-/*-----------------------------------------------------------------------*/
+-
+-static struct i2c_driver menelaus_i2c_driver;
+-
+-static int menelaus_probe(struct i2c_client *client)
+-{
+-	struct menelaus_chip	*menelaus;
+-	int			rev = 0;
+-	int			err = 0;
+-	struct menelaus_platform_data *menelaus_pdata =
+-					dev_get_platdata(&client->dev);
+-
+-	if (the_menelaus) {
+-		dev_dbg(&client->dev, "only one %s for now\n",
+-				DRIVER_NAME);
+-		return -ENODEV;
+-	}
+-
+-	menelaus = devm_kzalloc(&client->dev, sizeof(*menelaus), GFP_KERNEL);
+-	if (!menelaus)
+-		return -ENOMEM;
+-
+-	i2c_set_clientdata(client, menelaus);
+-
+-	the_menelaus = menelaus;
+-	menelaus->client = client;
+-
+-	/* If a true probe check the device */
+-	rev = menelaus_read_reg(MENELAUS_REV);
+-	if (rev < 0) {
+-		pr_err(DRIVER_NAME ": device not found");
+-		return -ENODEV;
+-	}
+-
+-	/* Ack and disable all Menelaus interrupts */
+-	menelaus_write_reg(MENELAUS_INT_ACK1, 0xff);
+-	menelaus_write_reg(MENELAUS_INT_ACK2, 0xff);
+-	menelaus_write_reg(MENELAUS_INT_MASK1, 0xff);
+-	menelaus_write_reg(MENELAUS_INT_MASK2, 0xff);
+-	menelaus->mask1 = 0xff;
+-	menelaus->mask2 = 0xff;
+-
+-	/* Set output buffer strengths */
+-	menelaus_write_reg(MENELAUS_MCT_CTRL1, 0x73);
+-
+-	if (client->irq > 0) {
+-		err = request_irq(client->irq, menelaus_irq, 0,
+-				  DRIVER_NAME, menelaus);
+-		if (err) {
+-			dev_dbg(&client->dev,  "can't get IRQ %d, err %d\n",
+-					client->irq, err);
+-			return err;
+-		}
+-	}
+-
+-	mutex_init(&menelaus->lock);
+-	INIT_WORK(&menelaus->work, menelaus_work);
+-
+-	pr_info("Menelaus rev %d.%d\n", rev >> 4, rev & 0x0f);
+-
+-	err = menelaus_read_reg(MENELAUS_VCORE_CTRL1);
+-	if (err < 0)
+-		goto fail;
+-	if (err & VCORE_CTRL1_HW_NSW)
+-		menelaus->vcore_hw_mode = 1;
+-	else
+-		menelaus->vcore_hw_mode = 0;
+-
+-	if (menelaus_pdata != NULL && menelaus_pdata->late_init != NULL) {
+-		err = menelaus_pdata->late_init(&client->dev);
+-		if (err < 0)
+-			goto fail;
+-	}
+-
+-	menelaus_rtc_init(menelaus);
+-
+-	return 0;
+-fail:
+-	free_irq(client->irq, menelaus);
+-	flush_work(&menelaus->work);
 -	return err;
 -}
 -
--static void ucb1x00_ts_remove(struct ucb1x00_dev *dev)
+-static void menelaus_remove(struct i2c_client *client)
 -{
--	struct ucb1x00_ts *ts = dev->priv;
+-	struct menelaus_chip	*menelaus = i2c_get_clientdata(client);
 -
--	input_unregister_device(ts->idev);
--	kfree(ts);
+-	free_irq(client->irq, menelaus);
+-	flush_work(&menelaus->work);
+-	the_menelaus = NULL;
 -}
 -
--static struct ucb1x00_driver ucb1x00_ts_driver = {
--	.add		= ucb1x00_ts_add,
--	.remove		= ucb1x00_ts_remove,
+-static const struct i2c_device_id menelaus_id[] = {
+-	{ "menelaus" },
+-	{ }
+-};
+-MODULE_DEVICE_TABLE(i2c, menelaus_id);
+-
+-static struct i2c_driver menelaus_i2c_driver = {
+-	.driver = {
+-		.name		= DRIVER_NAME,
+-	},
+-	.probe		= menelaus_probe,
+-	.remove		= menelaus_remove,
+-	.id_table	= menelaus_id,
 -};
 -
--static int __init ucb1x00_ts_init(void)
--{
--	return ucb1x00_register_driver(&ucb1x00_ts_driver);
--}
+-module_i2c_driver(menelaus_i2c_driver);
 -
--static void __exit ucb1x00_ts_exit(void)
--{
--	ucb1x00_unregister_driver(&ucb1x00_ts_driver);
--}
--
--module_param(adcsync, int, 0444);
--module_init(ucb1x00_ts_init);
--module_exit(ucb1x00_ts_exit);
--
--MODULE_AUTHOR("Russell King <rmk@arm.linux.org.uk>");
--MODULE_DESCRIPTION("UCB1x00 touchscreen driver");
+-MODULE_AUTHOR("Texas Instruments, Inc. (and others)");
+-MODULE_DESCRIPTION("I2C interface for Menelaus.");
 -MODULE_LICENSE("GPL");
-diff --git a/include/linux/mfd/mcp.h b/include/linux/mfd/mcp.h
+diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
+index 4120ff2cebc3..52be691c62ac 100644
+--- a/drivers/rtc/Kconfig
++++ b/drivers/rtc/Kconfig
+@@ -570,15 +570,6 @@ config RTC_DRV_BQ32K
+ 	  This driver can also be built as a module. If so, the module
+ 	  will be called rtc-bq32k.
+ 
+-config RTC_DRV_TWL92330
+-	bool "TI TWL92330/Menelaus"
+-	depends on MENELAUS
+-	help
+-	  If you say yes here you get support for the RTC on the
+-	  TWL92330 "Menelaus" power management chip, used with OMAP2
+-	  platforms. The support is integrated with the rest of
+-	  the Menelaus driver; it's not separate module.
+-
+ config RTC_DRV_TWL4030
+ 	tristate "TI TWL4030/TWL5030/TWL6030/TPS659x0"
+ 	depends on TWL4030_CORE
+diff --git a/include/linux/mfd/menelaus.h b/include/linux/mfd/menelaus.h
 deleted file mode 100644
-index fd5cafc77e8a..000000000000
---- a/include/linux/mfd/mcp.h
+index ce489aba88ec..000000000000
+--- a/include/linux/mfd/menelaus.h
 +++ /dev/null
-@@ -1,63 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
+@@ -1,41 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
 -/*
-- *  linux/drivers/mfd/mcp.h
-- *
-- *  Copyright (C) 2001 Russell King, All Rights Reserved.
+- * Functions to access Menelaus power management chip
 - */
--#ifndef MCP_H
--#define MCP_H
 -
--#include <linux/device.h>
+-#ifndef __ASM_ARCH_MENELAUS_H
+-#define __ASM_ARCH_MENELAUS_H
 -
--struct mcp_ops;
+-struct device;
 -
--struct mcp {
--	struct module	*owner;
--	struct mcp_ops	*ops;
--	spinlock_t	lock;
--	int		use_count;
--	unsigned int	sclk_rate;
--	unsigned int	rw_timeout;
--	struct device	attached_device;
+-struct menelaus_platform_data {
+-	int (* late_init)(struct device *dev);
 -};
 -
--struct mcp_ops {
--	void		(*set_telecom_divisor)(struct mcp *, unsigned int);
--	void		(*set_audio_divisor)(struct mcp *, unsigned int);
--	void		(*reg_write)(struct mcp *, unsigned int, unsigned int);
--	unsigned int	(*reg_read)(struct mcp *, unsigned int);
--	void		(*enable)(struct mcp *);
--	void		(*disable)(struct mcp *);
--};
+-extern int menelaus_register_mmc_callback(void (*callback)(void *data, u8 card_mask),
+-					  void *data);
+-extern void menelaus_unregister_mmc_callback(void);
+-extern int menelaus_set_mmc_opendrain(int slot, int enable);
+-extern int menelaus_set_mmc_slot(int slot, int enable, int power, int cd_on);
 -
--void mcp_set_telecom_divisor(struct mcp *, unsigned int);
--void mcp_set_audio_divisor(struct mcp *, unsigned int);
--void mcp_reg_write(struct mcp *, unsigned int, unsigned int);
--unsigned int mcp_reg_read(struct mcp *, unsigned int);
--void mcp_enable(struct mcp *);
--void mcp_disable(struct mcp *);
--#define mcp_get_sclk_rate(mcp)	((mcp)->sclk_rate)
+-extern int menelaus_set_vmem(unsigned int mV);
+-extern int menelaus_set_vio(unsigned int mV);
+-extern int menelaus_set_vmmc(unsigned int mV);
+-extern int menelaus_set_vaux(unsigned int mV);
+-extern int menelaus_set_vdcdc(int dcdc, unsigned int mV);
+-extern int menelaus_set_slot_sel(int enable);
+-extern int menelaus_get_slot_pin_states(void);
+-extern int menelaus_set_vcore_hw(unsigned int roof_mV, unsigned int floor_mV);
 -
--struct mcp *mcp_host_alloc(struct device *, size_t);
--int mcp_host_add(struct mcp *, void *);
--void mcp_host_del(struct mcp *);
--void mcp_host_free(struct mcp *);
+-#define EN_VPLL_SLEEP	(1 << 7)
+-#define EN_VMMC_SLEEP	(1 << 6)
+-#define EN_VAUX_SLEEP	(1 << 5)
+-#define EN_VIO_SLEEP	(1 << 4)
+-#define EN_VMEM_SLEEP	(1 << 3)
+-#define EN_DC3_SLEEP	(1 << 2)
+-#define EN_DC2_SLEEP	(1 << 1)
+-#define EN_VC_SLEEP	(1 << 0)
 -
--struct mcp_driver {
--	struct device_driver drv;
--	int (*probe)(struct mcp *);
--	void (*remove)(struct mcp *);
--};
--
--int mcp_driver_register(struct mcp_driver *);
--void mcp_driver_unregister(struct mcp_driver *);
--
--#define mcp_get_drvdata(mcp)	dev_get_drvdata(&(mcp)->attached_device)
--#define mcp_set_drvdata(mcp,d)	dev_set_drvdata(&(mcp)->attached_device, d)
--
--static inline void *mcp_priv(struct mcp *mcp)
--{
--	return mcp + 1;
--}
--
--#endif
-diff --git a/include/linux/mfd/ucb1x00.h b/include/linux/mfd/ucb1x00.h
-deleted file mode 100644
-index 66ecad4667c9..000000000000
---- a/include/linux/mfd/ucb1x00.h
-+++ /dev/null
-@@ -1,261 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--/*
-- *  linux/include/mfd/ucb1x00.h
-- *
-- *  Copyright (C) 2001 Russell King, All Rights Reserved.
-- */
--#ifndef UCB1200_H
--#define UCB1200_H
--
--#include <linux/device.h>
--#include <linux/mfd/mcp.h>
--#include <linux/gpio/consumer.h>
--#include <linux/gpio/driver.h>
--#include <linux/mutex.h>
--
--#define UCB_IO_DATA	0x00
--#define UCB_IO_DIR	0x01
--
--#define UCB_IO_0		(1 << 0)
--#define UCB_IO_1		(1 << 1)
--#define UCB_IO_2		(1 << 2)
--#define UCB_IO_3		(1 << 3)
--#define UCB_IO_4		(1 << 4)
--#define UCB_IO_5		(1 << 5)
--#define UCB_IO_6		(1 << 6)
--#define UCB_IO_7		(1 << 7)
--#define UCB_IO_8		(1 << 8)
--#define UCB_IO_9		(1 << 9)
--
--#define UCB_IE_RIS	0x02
--#define UCB_IE_FAL	0x03
--#define UCB_IE_STATUS	0x04
--#define UCB_IE_CLEAR	0x04
--#define UCB_IE_ADC		(1 << 11)
--#define UCB_IE_TSPX		(1 << 12)
--#define UCB_IE_TSMX		(1 << 13)
--#define UCB_IE_TCLIP		(1 << 14)
--#define UCB_IE_ACLIP		(1 << 15)
--
--#define UCB_IRQ_TSPX		12
--
--#define UCB_TC_A	0x05
--#define UCB_TC_A_LOOP		(1 << 7)	/* UCB1200 */
--#define UCB_TC_A_AMPL		(1 << 7)	/* UCB1300 */
--
--#define UCB_TC_B	0x06
--#define UCB_TC_B_VOICE_ENA	(1 << 3)
--#define UCB_TC_B_CLIP		(1 << 4)
--#define UCB_TC_B_ATT		(1 << 6)
--#define UCB_TC_B_SIDE_ENA	(1 << 11)
--#define UCB_TC_B_MUTE		(1 << 13)
--#define UCB_TC_B_IN_ENA		(1 << 14)
--#define UCB_TC_B_OUT_ENA	(1 << 15)
--
--#define UCB_AC_A	0x07
--#define UCB_AC_B	0x08
--#define UCB_AC_B_LOOP		(1 << 8)
--#define UCB_AC_B_MUTE		(1 << 13)
--#define UCB_AC_B_IN_ENA		(1 << 14)
--#define UCB_AC_B_OUT_ENA	(1 << 15)
--
--#define UCB_TS_CR	0x09
--#define UCB_TS_CR_TSMX_POW	(1 << 0)
--#define UCB_TS_CR_TSPX_POW	(1 << 1)
--#define UCB_TS_CR_TSMY_POW	(1 << 2)
--#define UCB_TS_CR_TSPY_POW	(1 << 3)
--#define UCB_TS_CR_TSMX_GND	(1 << 4)
--#define UCB_TS_CR_TSPX_GND	(1 << 5)
--#define UCB_TS_CR_TSMY_GND	(1 << 6)
--#define UCB_TS_CR_TSPY_GND	(1 << 7)
--#define UCB_TS_CR_MODE_INT	(0 << 8)
--#define UCB_TS_CR_MODE_PRES	(1 << 8)
--#define UCB_TS_CR_MODE_POS	(2 << 8)
--#define UCB_TS_CR_BIAS_ENA	(1 << 11)
--#define UCB_TS_CR_TSPX_LOW	(1 << 12)
--#define UCB_TS_CR_TSMX_LOW	(1 << 13)
--
--#define UCB_ADC_CR	0x0a
--#define UCB_ADC_SYNC_ENA	(1 << 0)
--#define UCB_ADC_VREFBYP_CON	(1 << 1)
--#define UCB_ADC_INP_TSPX	(0 << 2)
--#define UCB_ADC_INP_TSMX	(1 << 2)
--#define UCB_ADC_INP_TSPY	(2 << 2)
--#define UCB_ADC_INP_TSMY	(3 << 2)
--#define UCB_ADC_INP_AD0		(4 << 2)
--#define UCB_ADC_INP_AD1		(5 << 2)
--#define UCB_ADC_INP_AD2		(6 << 2)
--#define UCB_ADC_INP_AD3		(7 << 2)
--#define UCB_ADC_EXT_REF		(1 << 5)
--#define UCB_ADC_START		(1 << 7)
--#define UCB_ADC_ENA		(1 << 15)
--
--#define UCB_ADC_DATA	0x0b
--#define UCB_ADC_DAT_VAL		(1 << 15)
--#define UCB_ADC_DAT(x)		(((x) & 0x7fe0) >> 5)
--
--#define UCB_ID		0x0c
--#define UCB_ID_1200		0x1004
--#define UCB_ID_1300		0x1005
--#define UCB_ID_TC35143          0x9712
--
--#define UCB_MODE	0x0d
--#define UCB_MODE_DYN_VFLAG_ENA	(1 << 12)
--#define UCB_MODE_AUD_OFF_CAN	(1 << 13)
--
--struct software_node;
--extern const struct software_node ucb1x00_gpiochip_node;
--
--enum ucb1x00_reset {
--	UCB_RST_PROBE,
--	UCB_RST_RESUME,
--	UCB_RST_SUSPEND,
--	UCB_RST_REMOVE,
--	UCB_RST_PROBE_FAIL,
--};
--
--struct ucb1x00_plat_data {
--	void			(*reset)(enum ucb1x00_reset);
--	unsigned		irq_base;
--	int			gpio_base;
--	unsigned		can_wakeup;
--};
--
--struct ucb1x00 {
--	raw_spinlock_t		irq_lock;
--	struct mcp		*mcp;
--	unsigned int		irq;
--	int			irq_base;
--	struct mutex		adc_mutex;
--	spinlock_t		io_lock;
--	u16			id;
--	u16			io_dir;
--	u16			io_out;
--	u16			adc_cr;
--	u16			irq_fal_enbl;
--	u16			irq_ris_enbl;
--	u16			irq_mask;
--	u16			irq_wake;
--	struct device		dev;
--	struct list_head	node;
--	struct list_head	devs;
--	struct gpio_chip 	gpio;
--};
--
--struct ucb1x00_driver;
--
--struct ucb1x00_dev {
--	struct list_head	dev_node;
--	struct list_head	drv_node;
--	struct ucb1x00		*ucb;
--	struct ucb1x00_driver	*drv;
--	void			*priv;
--};
--
--struct ucb1x00_driver {
--	struct list_head	node;
--	struct list_head	devs;
--	int	(*add)(struct ucb1x00_dev *dev);
--	void	(*remove)(struct ucb1x00_dev *dev);
--	int	(*suspend)(struct ucb1x00_dev *dev);
--	int	(*resume)(struct ucb1x00_dev *dev);
--};
--
--#define classdev_to_ucb1x00(cd)	container_of(cd, struct ucb1x00, dev)
--
--int ucb1x00_register_driver(struct ucb1x00_driver *);
--void ucb1x00_unregister_driver(struct ucb1x00_driver *);
--
--/**
-- *	ucb1x00_clkrate - return the UCB1x00 SIB clock rate
-- *	@ucb: UCB1x00 structure describing chip
-- *
-- *	Return the SIB clock rate in Hz.
-- */
--static inline unsigned int ucb1x00_clkrate(struct ucb1x00 *ucb)
--{
--	return mcp_get_sclk_rate(ucb->mcp);
--}
--
--/**
-- *	ucb1x00_enable - enable the UCB1x00 SIB clock
-- *	@ucb: UCB1x00 structure describing chip
-- *
-- *	Enable the SIB clock.  This can be called multiple times.
-- */
--static inline void ucb1x00_enable(struct ucb1x00 *ucb)
--{
--	mcp_enable(ucb->mcp);
--}
--
--/**
-- *	ucb1x00_disable - disable the UCB1x00 SIB clock
-- *	@ucb: UCB1x00 structure describing chip
-- *
-- *	Disable the SIB clock.  The SIB clock will only be disabled
-- *	when the number of ucb1x00_enable calls match the number of
-- *	ucb1x00_disable calls.
-- */
--static inline void ucb1x00_disable(struct ucb1x00 *ucb)
--{
--	mcp_disable(ucb->mcp);
--}
--
--/**
-- *	ucb1x00_reg_write - write a UCB1x00 register
-- *	@ucb: UCB1x00 structure describing chip
-- *	@reg: UCB1x00 4-bit register index to write
-- *	@val: UCB1x00 16-bit value to write
-- *
-- *	Write the UCB1x00 register @reg with value @val.  The SIB
-- *	clock must be running for this function to return.
-- */
--static inline void ucb1x00_reg_write(struct ucb1x00 *ucb, unsigned int reg, unsigned int val)
--{
--	mcp_reg_write(ucb->mcp, reg, val);
--}
--
--/**
-- *	ucb1x00_reg_read - read a UCB1x00 register
-- *	@ucb: UCB1x00 structure describing chip
-- *	@reg: UCB1x00 4-bit register index to write
-- *
-- *	Read the UCB1x00 register @reg and return its value.  The SIB
-- *	clock must be running for this function to return.
-- */
--static inline unsigned int ucb1x00_reg_read(struct ucb1x00 *ucb, unsigned int reg)
--{
--	return mcp_reg_read(ucb->mcp, reg);
--}
--/**
-- *	ucb1x00_set_audio_divisor - 
-- *	@ucb: UCB1x00 structure describing chip
-- *	@div: SIB clock divisor
-- */
--static inline void ucb1x00_set_audio_divisor(struct ucb1x00 *ucb, unsigned int div)
--{
--	mcp_set_audio_divisor(ucb->mcp, div);
--}
--
--/**
-- *	ucb1x00_set_telecom_divisor -
-- *	@ucb: UCB1x00 structure describing chip
-- *	@div: SIB clock divisor
-- */
--static inline void ucb1x00_set_telecom_divisor(struct ucb1x00 *ucb, unsigned int div)
--{
--	mcp_set_telecom_divisor(ucb->mcp, div);
--}
--
--void ucb1x00_io_set_dir(struct ucb1x00 *ucb, unsigned int, unsigned int);
--void ucb1x00_io_write(struct ucb1x00 *ucb, unsigned int, unsigned int);
--unsigned int ucb1x00_io_read(struct ucb1x00 *ucb);
--
--#define UCB_NOSYNC	(0)
--#define UCB_SYNC	(1)
--
--unsigned int ucb1x00_adc_read(struct ucb1x00 *ucb, int adc_channel, int sync);
--void ucb1x00_adc_enable(struct ucb1x00 *ucb);
--void ucb1x00_adc_disable(struct ucb1x00 *ucb);
--
--#endif
-diff --git a/include/linux/platform_data/mfd-mcp-sa11x0.h b/include/linux/platform_data/mfd-mcp-sa11x0.h
-deleted file mode 100644
-index b589e61bbc2e..000000000000
---- a/include/linux/platform_data/mfd-mcp-sa11x0.h
-+++ /dev/null
-@@ -1,17 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--/*
-- *  Copyright (C) 2005 Russell King.
-- */
--#ifndef __MFD_MCP_SA11X0_H
--#define __MFD_MCP_SA11X0_H
--
--#include <linux/types.h>
--
--struct mcp_plat_data {
--	u32 mccr0;
--	u32 mccr1;
--	unsigned int sclk_rate;
--	void *codec_pdata;
--};
+-extern int menelaus_set_regulator_sleep(int enable, u32 val);
 -
 -#endif
 -- 
