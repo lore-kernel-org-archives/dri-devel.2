@@ -4,71 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EB1AC79FB7
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:45:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FB2DC88E41
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 13:45:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34C6110F174;
-	Wed,  9 Sep 2026 13:45:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 658B210F182;
+	Wed,  9 Sep 2026 13:45:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="qFOrBYn+";
+	dkim=pass (1024-bit key; unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="gvT1IT8M";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C211A10F17F
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 13:45:02 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 2E3924E41592;
- Wed,  9 Sep 2026 13:45:01 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id E847760448;
- Wed,  9 Sep 2026 13:45:00 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 6CCDC11C7AF3A; 
- Wed,  9 Sep 2026 15:44:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1788961494; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- in-reply-to:references; bh=SddRT3djP09Ed0ShkS8xpytcBnp+LMCenJGnP73m0/E=;
- b=qFOrBYn+NlO3vUgsMN69fPT6LsFBYJ9WZx3ZN0bi+TXRklU5lr5/kdcqj8w+UMRPRv0j5t
- 1K3rOH7Bm7qvQu3jiyoKp6uHYGM8c6x1rhNO8aOD1Lqa6rFd6ssvwG5tRwPsppSGAGtRgd
- 5b7gVfCUPfVEFQMfGBUsdERF2y+Dm2OOXl5ZKnXmxvHCRKffwFRioHPfWG2OwRUDNrwXtE
- ercet4pqf4lgc/m27S+AgsBlIdNPFQsq5ss03yxvE6jIxeHl0BvkjKMfvAs9dRYxJa2i7A
- gY/Zw554xS/+HkDK8qpgmxzcL+SfGlFij2ztErujl+hxzRnuQbt80smJlDX5gQ==
-Date: Wed, 9 Sep 2026 15:44:43 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Pavel Machek <pavel@kernel.org>,
- Michael Hennerich <michael.hennerich@analog.com>,
- Support Opensource <support.opensource@diasemi.com>,
- Sebastian Reichel <sre@kernel.org>, Helge Deller <deller@gmx.de>,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com,
- linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-rtc@vger.kernel.org, linux-fbdev@vger.kernel.org,
- linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- llvm@lists.linux.dev
-Subject: Re: [PATCH 01/14] mfd: remove unused 88pm80x driver
-Message-ID: <20260909134443876d2166@mail.local>
-References: <20260909132153.1596191-1-arnd@kernel.org>
- <20260909132153.1596191-2-arnd@kernel.org>
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
+ [157.90.84.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5FCC10F17D;
+ Wed,  9 Sep 2026 13:45:29 +0000 (UTC)
+Received: from [10.10.12.8] (business-24-134-105-141.pool2.vodafone-ip.de
+ [24.134.105.141]) (Authenticated sender: wse@tuxedocomputers.com)
+ by mail.tuxedocomputers.com (Postfix) with ESMTPSA id 665EC2FC008D;
+ Wed,  9 Sep 2026 15:45:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+ s=default; t=1788961528;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=FwCNJryO9ASRAeZtfRIHKuqP9uPce6zNRFZ+i5WEDxw=;
+ b=gvT1IT8MVrjJ4uSOd7pVCMJZLCwlaFi39wMzkskm0VT6JlQ6YuaX2Y179iSTZSU3tBPbXi
+ 2/3MRt+F2sNKlnMSGZeddpMaqpqhb6U4y77UdV9l+sp2XoSAspgz+XHy82ZXvXYawbY9Yj
+ yf5nQNa4z1/JVpOJdalTzsOaRsXB/x4=
+Authentication-Results: mail.tuxedocomputers.com;
+ auth=pass smtp.auth=wse@tuxedocomputers.com
+ smtp.mailfrom=wse@tuxedocomputers.com
+Message-ID: <267b62f1-cc8e-4fa3-87fe-aedd5cba914b@tuxedocomputers.com>
+Date: Wed, 9 Sep 2026 15:45:26 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909132153.1596191-2-arnd@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/intel: Add quirk to disable rc6 on some TUXEDO
+ devices
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org
+References: <20260908200707.65516-1-wse@tuxedocomputers.com>
+ <20260908200707.65516-2-wse@tuxedocomputers.com>
+ <7764d157c4bd6f832adeb7860baded67ae151901@intel.com>
+Content-Language: en-US
+From: Werner Sembach <wse@tuxedocomputers.com>
+In-Reply-To: <7764d157c4bd6f832adeb7860baded67ae151901@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,18 +70,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 09/09/2026 15:21:38+0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> This pair of drivers was originally added as companion chips for pxa/mmp
-> SoCs, but the corresponding platform code was never merged, so it has
-> been unused the entire time.
-> 
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Hi Jani,
 
+Am 09.09.26 um 08:32 schrieb Jani Nikula:
+> On Tue, 08 Sep 2026, Werner Sembach <wse@tuxedocomputers.com> wrote:
+>> Some TUXEDO devices have random rare hard resets during video streaming.
+> Is there a gitlab issue for this?
+Not yet, but I can make one, presumably here? 
+https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items?sort=created_date&state=opened&first_page_size=20 
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+>
+>> Disabling rc6 fixes this. Until the root cause is found this is a pragmatic
+>> workaround.
+> The way to do this is to add your own local struct pci_device_id array
+> somewhere, and use pci_match_id() or similar on it.
+>
+> We're *not* going to change the high level device info or PCI ID
+> definitions for this.
+OK, can do it in v2, was mislead here by the INTEL_QUANTA_VGA_DEVICE which also 
+depends on specific sub-ids so thought it is ok to add also very specific 
+entries here.
+>
+> Ugly stuff needs to be localized and hidden away.
+
+I probably do it somewhere around the where the HAS_RC6 macro is called? Sadly 
+that's not a function so can't directly integrate it easily.
+
+Best regards,
+
+Werner
+
+>
+>
+> BR,
+> Jani.
+>
+>
+>> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+>> ---
+>>   drivers/gpu/drm/i915/i915_pci.c | 11 +++++++++++
+>>   include/drm/intel/pciids.h      | 22 ++++++++++++++++++++++
+>>   2 files changed, 33 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+>> index 2f03f95945f1b..a52b56bedcf4f 100644
+>> --- a/drivers/gpu/drm/i915/i915_pci.c
+>> +++ b/drivers/gpu/drm/i915/i915_pci.c
+>> @@ -687,6 +687,16 @@ static const struct intel_device_info adl_p_info = {
+>>   	.dma_mask_size = 39,
+>>   };
+>>   
+>> +static const struct intel_device_info adl_p_tux_ibp8_quirk_info = {
+>> +	GEN12_FEATURES,
+>> +	PLATFORM(INTEL_ALDERLAKE_P),
+>> +	.platform_engine_mask =
+>> +		BIT(RCS0) | BIT(BCS0) | BIT(VECS0) | BIT(VCS0) | BIT(VCS2),
+>> +	.__runtime.ppgtt_size = 48,
+>> +	.dma_mask_size = 39,
+>> +	.has_rc6 = 0,
+>> +};
+>> +
+>>   #undef GEN
+>>   
+>>   #define XE_HP_PAGE_SIZES \
+>> @@ -863,6 +873,7 @@ static const struct pci_device_id pciidlist[] = {
+>>   	INTEL_DG1_IDS(INTEL_VGA_DEVICE, &dg1_info),
+>>   	INTEL_RPLS_IDS(INTEL_VGA_DEVICE, &adl_s_info),
+>>   	INTEL_RPLU_IDS(INTEL_VGA_DEVICE, &adl_p_info),
+>> +	INTEL_RPLP_TUX_IBP8_QUIRK_IDS(INTEL_VGA_DEVICE, &adl_p_tux_ibp8_quirk_info),
+>>   	INTEL_RPLP_IDS(INTEL_VGA_DEVICE, &adl_p_info),
+>>   	INTEL_DG2_IDS(INTEL_VGA_DEVICE, &dg2_info),
+>>   	INTEL_ATS_M_IDS(INTEL_VGA_DEVICE, &ats_m_info),
+>> diff --git a/include/drm/intel/pciids.h b/include/drm/intel/pciids.h
+>> index 7a4a5658942d2..e4f74916a62c2 100644
+>> --- a/include/drm/intel/pciids.h
+>> +++ b/include/drm/intel/pciids.h
+>> @@ -712,6 +712,28 @@
+>>   	MACRO__(0xA7AC, ## __VA_ARGS__), \
+>>   	MACRO__(0xA7AD, ## __VA_ARGS__)
+>>   
+>> +#define INTEL_RPLP_TUX_IBP8_QUIRK_IDS(MACRO__, ...) \
+>> +	MACRO__##_SUB(0xA720, 0x1D05, 0x124A, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA720, 0x1D05, 0x124C, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA720, 0x1D05, 0x124E, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA720, 0x1D05, 0x130F, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7A0, 0x1D05, 0x124A, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7A0, 0x1D05, 0x124C, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7A0, 0x1D05, 0x124E, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7A0, 0x1D05, 0x130F, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7A8, 0x1D05, 0x124A, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7A8, 0x1D05, 0x124C, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7A8, 0x1D05, 0x124E, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7A8, 0x1D05, 0x130F, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7AA, 0x1D05, 0x124A, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7AA, 0x1D05, 0x124C, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7AA, 0x1D05, 0x124E, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7AA, 0x1D05, 0x130F, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7AB, 0x1D05, 0x124A, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7AB, 0x1D05, 0x124C, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7AB, 0x1D05, 0x124E, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7AB, 0x1D05, 0x130F, ## __VA_ARGS__)
+>> +
+>>   /* RPL-P */
+>>   #define INTEL_RPLP_IDS(MACRO__, ...) \
+>>   	MACRO__(0xA720, ## __VA_ARGS__), \
