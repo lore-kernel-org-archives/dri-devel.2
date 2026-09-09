@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89099C79FB8
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 00:55:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D4A8C79FB6
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 00:55:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D709110EE24;
-	Wed,  9 Sep 2026 00:55:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F85510EE26;
+	Wed,  9 Sep 2026 00:55:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RX4cBup0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gVxqOL0H";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD8CD10EDF8
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 00:55:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFB3010EDF4
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 00:55:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3E3AD447A1;
+ by sea.source.kernel.org (Postfix) with ESMTP id C7143448B6;
  Wed,  9 Sep 2026 00:55:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 189AFC2BCFD;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A7A36C2BCFD;
  Wed,  9 Sep 2026 00:55:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1788915304;
- bh=TYgXRw5pJZLXBWxTWBSQMD9CItLybhwxqK4tsKgV0Hw=;
+ bh=kS3r0u64XE2u9vAS78gpy9RsRf4MHyKrlGv9A7en2XU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=RX4cBup030LI9FxXuRMm46SpAzzpAywKpSRkFQ8rDZjf52V1oarbeynREnuaMWDNU
- MOhwh/jGEHnE6/pfHvJxxzjBmrOqgEFzp5LDjvIYiAnfsk/MgWe/zU8TKiir/U3Y+z
- Sq1LJrnXEevUiHt0xK8NRqHi84V6H872GljsaL7rwVEZd+oVyz25Y4pJrW4zgYol5U
- g0C1NlJb8HURZhkqNwGfnFCjayQ8VHk/9r6GQWTBdGCpXkCzYI8V7/TB3zp/He0PCT
- 4j5FzqTW5/re3SWrOhxl1L5fwT6xq+SZ+0P3fuhzZ/HmVkrI8gO7jQA805czgWCozb
- YIWhBYSSSrqOQ==
+ b=gVxqOL0H4WTx8np+Sv7AQJPwdBLC1wrvqoWsfTf1Tun7m9e/dHJyquqBR0L+3i/bQ
+ myZto7QGhOL6lchZ/98t4PgOMzLhc6l5v1Jm70btON8joAdZXlEOcR8i6KCON9YCNU
+ gtw6OenwnEx2g0l2zKlK1ty80/sFV/lY4xhufgaNmFIRpJ5A8+hTMTngp2UTvKE3Nk
+ 3qpNY6WBvtA+IuDd6PXBX4cSY3za4sSFf9Q8Xmk3bA8+a6Oq862+SrWXiU553ZOG4o
+ caZwj1S2xJlGR9N2pf1ecxCm2BSSAislrY4Eg7Rc5hgB5y7Wp9wKJeuHt1sEG374ED
+ R9JF2P2mfv/Wg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 064D9C79FA1;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 973E4C79FB7;
  Wed,  9 Sep 2026 00:55:04 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Tue, 08 Sep 2026 18:55:24 -0600
-Subject: [PATCH v9 28/39] dyndbg-test: add do_bulk testpoint, rename
- do_prints to do_classes
+Date: Tue, 08 Sep 2026 18:55:32 -0600
+Subject: [PATCH v9 36/39] dyndbg: Ignore additional arguments from pr_fmt
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-dd-cmap-part2-clean-v9-28-3a3f621f4a10@gmail.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260908-dd-cmap-part2-clean-v9-36-3a3f621f4a10@gmail.com>
 References: <20260908-dd-cmap-part2-clean-v9-0-3a3f621f4a10@gmail.com>
 In-Reply-To: <20260908-dd-cmap-part2-clean-v9-0-3a3f621f4a10@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -63,13 +62,13 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
- Jim Cromie <jim.cromie@gmail.com>
+ Jim Cromie <jim.cromie@gmail.com>, Philipp Hahn <phahn-oss@avm.de>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788915300; l=15905;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788915300; l=8312;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=4DoF8TE28o2eb0ciNgCyQmZ+mgrihNlFe52+h/qGQnw=;
- b=wMxMR6CvrDxgPiPdQbnAmsfybpZaoqO9QpnWpjzcPzanKRrio3ZgdeKSVCHpKFX3RIjHWJXh3
- uFCw3yZ/pDBByOuQyOqpYyH9peN52FfiRBMhVxnYqtl+W3/NJjxS+vf
+ bh=/A60lUIkH61bJfL+P8nVPAZClgD7ugNv+jDM6NGco90=;
+ b=scWmCDUSh2gbt7E4Eju27StH0aAVspB2JMsaaMPu3Gy+RLRl2wv5WblUNfq06+ksFDnRKZxCP
+ HzwQC1cQmk5ARV1CKeFdtqlNN3EU9IjT04xMSSkUGmr6BQQF90p6b8E
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -91,407 +90,161 @@ Reply-To: jim.cromie@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Jim Cromie <jim.cromie@gmail.com>
+From: Philipp Hahn <phahn-oss@avm.de>
 
-test_dynamic_debug.ko currently has the do_prints sysnode to support
-testing of the classmaps feature, it calls ~16 class'd pr_debug()s,
-*once* for each class defined in the module.
+pr_fmt can be used to add a common prefix to any output from a module:
+	#define pr_fmt(fmt) KBUILD_MODNAME ".%s " fmt, __func__
 
-Improve the versatility of this support by:
+But adding additional arguments breaks dynamic debug:
+> error: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" passed 4 arguments, but takes just 3
+> |         pr_debug_ratelimited("%s", "Hello world!");
+> |                                                  ^
+> note: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" defined here
+> | #define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)       \
+> |
+> error: ‘DEFINE_DYNAMIC_DEBUG_METADATA_CLS’ undeclared (first use in this function)
+> |         DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT, fmt)
+> |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> note: in expansion of macro ‘DEFINE_DYNAMIC_DEBUG_METADATA’
+> |         DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, pr_fmt(fmt));         \
+> |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> note: in expansion of macro ‘pr_debug_ratelimited’
+> |         pr_debug_ratelimited("%s", "Hello world!");
+> |         ^~~~~~~~~~~~~~~~~~~~
 
- 1. changing do_prints() to do_classes()
-    to better align with its actual purpose
+Add an additional ', ...' to DEFINE_DYNAMIC_DEBUG_METADATA_CLS to slurp
+any additional argument, which `pr_fmt` might add.
 
- 2. new parameters/do_bulk & do_bulk(N):
-    loops over 10 pr_debugs, N times
-    creates idempotent non-repetetive (ie 1..N lines) output
-    meant for creating high-volume workloads
-
- 3. using common param-ops for both (no reason not to)
-    ie: do_classes(N) now accepts work-count.
-
-So now we can generate significant workloads with a single write.
-
-    modprobe test_dynamic_debug dyndbg=+p
-    echo 100  > /sys/module/test_dynamic_debug/parameters/do_classes
-    echo 2000 > /sys/module/test_dynamic_debug/parameters/do_bulk
-
-TODO: enable do_bulk() callsites by default, since the modprobe is an
-explicit act, the user intends to use it, lets turn it on.
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
+[pr_fmt change on test_dynamic_debug_submod instead of parent]
+Reviewed-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-v9:
-. use unsigned int for loop index in do_bulk() to prevent wrapping lockups on UINT_MAX.
-. add cond_resched() to do_classes() and do_bulk() loops.
-v8: fix a test which had commas, from the future, adjust KRECs
----
- lib/test_dynamic_debug.c                           | 107 ++++++++++++-----
- .../selftests/dynamic_debug/dyndbg_selftest.sh     | 126 ++++++++++++++-------
- 2 files changed, 166 insertions(+), 67 deletions(-)
+ include/linux/dynamic_debug.h                      |  2 +-
+ lib/test_dynamic_debug.c                           |  4 +-
+ .../selftests/dynamic_debug/dyndbg_selftest.sh     | 68 +++++++++++-----------
+ 3 files changed, 37 insertions(+), 37 deletions(-)
 
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 32a34a80672b..39de59c8bac2 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -364,7 +364,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ 		dump_stack();					\
+ }
+ 
+-#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)	\
++#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt, ...)	\
+ 	static struct _ddebug  __aligned(8)			\
+ 	__section("__dyndbg_descs") name = {			\
+ 		.modname = DDEBUG_MODNAME,			\
 diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index 01ce07001d4c..b7f9ed9b2794 100644
+index 97f2c9e1b92b..bce0993443b4 100644
 --- a/lib/test_dynamic_debug.c
 +++ b/lib/test_dynamic_debug.c
-@@ -28,25 +28,45 @@
+@@ -23,7 +23,7 @@
+  * the usage clearer.
+  */
+ #if defined(TEST_DYNAMIC_DEBUG_SUBMOD)
+-  #define pr_fmt(fmt) "test_dd_submod: " fmt
++  #define pr_fmt(fmt) "test_dd_submod: %s " fmt, __func__
+ #else
+   #define pr_fmt(fmt) "test_dd: " fmt
  #endif
+@@ -270,7 +270,7 @@ static int __init test_dynamic_debug_init(void)
  
- #include <linux/module.h>
-+#include <linux/sched.h>
- 
--/* re-gen output by reading or writing sysfs node: do_prints */
-+/* re-trigger debug output by reading or writing sysfs nodes: do_classes or do_bulk */
-+static void do_classes(unsigned int); /* device under test */
-+static void do_bulk(unsigned int);    /* device under test */
- 
--static void do_prints(void); /* device under test */
--static int param_set_do_prints(const char *instr, const struct kernel_param *kp)
-+static int param_set_do_repeats(const char *instr, const struct kernel_param *kp)
+ static void __exit test_dynamic_debug_exit(void)
  {
--	do_prints();
-+	int rc;
-+	unsigned int ct;
-+	void (*repeat_fn)(unsigned int) = kp->arg;
-+
-+	rc = kstrtouint(instr, 0, &ct);
-+	if (rc) {
-+		pr_err("expecting numeric input, using 1 instead\n");
-+		ct = 1;
-+	}
-+
-+	repeat_fn(ct);
-+
- 	return 0;
- }
--static int param_get_do_prints(char *buffer, const struct kernel_param *kp)
-+
-+static int param_get_do_repeats(char *buffer, const struct kernel_param *kp)
- {
--	do_prints();
--	return scnprintf(buffer, PAGE_SIZE, "did do_prints\n");
-+	void (*repeat_fn)(unsigned int) = kp->arg;
-+
-+	repeat_fn(1);
-+
-+	return scnprintf(buffer, PAGE_SIZE, "did 1 %s\n", kp->name);
- }
--static const struct kernel_param_ops param_ops_do_prints = {
--	.set = param_set_do_prints,
--	.get = param_get_do_prints,
-+
-+static const struct kernel_param_ops param_ops_do_repeats = {
-+	.set = param_set_do_repeats,
-+	.get = param_get_do_repeats,
- };
--module_param_cb(do_prints, &param_ops_do_prints, NULL, 0600);
-+
-+module_param_cb(do_classes, &param_ops_do_repeats, do_classes, 0600);
-+module_param_cb(do_bulk, &param_ops_do_repeats, do_bulk, 0600);
- 
- /*
-  * Using the CLASSMAP api:
-@@ -103,7 +123,10 @@ enum cat_disjoint_bits {
- 	D2_DRMRES };
- 
- /* numeric verbosity, V2 > V1 related.  V1 is > D2_DRMRES */
--enum cat_level_num { V1 = 16, V2, V3, V4, V5, V6, V7 };
-+enum cat_level_num { V1 = 16, V2, V3, V4, V5, V6, V7, V8 };
-+
-+/* test _USE_ w offset */
-+enum cat_level_offset { Vu1 = V1 + 8, Vu2, Vu3, Vu4, Vu5, Vu6, Vu7, Vu8 };
- 
- /* recapitulate DRM's multi-classmap setup */
- #if !defined(TEST_DYNAMIC_DEBUG_SUBMOD)
-@@ -136,18 +159,6 @@ DYNAMIC_DEBUG_CLASSMAP_DEFINE(map_level_num, DD_CLASS_TYPE_LEVEL_NUM,
- DYNAMIC_DEBUG_CLASSMAP_DEFINE(classid_range_conflict, 0, D2_CORE + 1, "D3_CORE");
- #endif
- 
--#else /* TEST_DYNAMIC_DEBUG_SUBMOD */
--
--/*
-- * in submod/drm-drivers, use the classmaps defined in top/parent
-- * module above.
-- */
--
--DYNAMIC_DEBUG_CLASSMAP_USE(map_disjoint_bits);
--DYNAMIC_DEBUG_CLASSMAP_USE_(map_level_num, 7);
--
--enum cat_level_offset { Vu1 = V1 + 7, Vu2, Vu3, Vu4, Vu5, Vu6, Vu7 };
--
- #if defined(DD_MACRO_ARGCHECK)
- /*
-  * Exersize compile-time arg-checks in DYNAMIC_DEBUG_CLASSMAP_DEFINE.
-@@ -160,6 +171,19 @@ DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_emptyclass, 0, 0 /* ,empty */);
- DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_maptype, 3, 10, "no such type");
- DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_len, 0, 60,
- 			      "base", "plus", "classes", "length", "too-big");
-+#endif
-+
-+#else /* TEST_DYNAMIC_DEBUG_SUBMOD */
-+
-+/*
-+ * in submod/drm-drivers, use the classmaps defined in top/parent
-+ * module above.
-+ */
-+
-+DYNAMIC_DEBUG_CLASSMAP_USE(map_disjoint_bits);
-+DYNAMIC_DEBUG_CLASSMAP_USE_(map_level_num, 7);
-+
-+#if defined(DD_MACRO_ARGCHECK)
- DYNAMIC_DEBUG_CLASSMAP_USE_(fail_offset_big, 100);
- #endif /* DD_MACRO_ARGCHECK */
- 
-@@ -213,17 +237,42 @@ static void do_levels(void)
- #endif
+-	pr_debug("exited\n");
++	pr_debug_ratelimited("exited\n");
  }
  
--static void do_prints(void)
-+static void do_classes(unsigned int ct)
- {
--	pr_debug("do_prints:\n");
--	do_cats();
--	do_levels();
-+	/* maybe clamp this */
-+	pr_debug("do_classes %u times:\n", ct);
-+	for (; ct; ct--) {
-+		do_cats();
-+		do_levels();
-+		cond_resched();
-+	}
-+}
-+
-+static void do_bulk(unsigned int ct)
-+{
-+	unsigned int i;
-+
-+	pr_debug("do_bulk %u times:\n", ct);
-+	for (i = 1; i <= ct; i++) {
-+		pr_debug("bulk msg %u.0\n", i);
-+		pr_debug("bulk msg %u.1\n", i);
-+		pr_debug("bulk msg %u.2\n", i);
-+		pr_debug("bulk msg %u.3\n", i);
-+		pr_debug("bulk msg %u.4\n", i);
-+		pr_debug("bulk msg %u.5\n", i);
-+		pr_debug("bulk msg %u.6\n", i);
-+		pr_debug("bulk msg %u.7\n", i);
-+		pr_debug("bulk msg %u.8\n", i);
-+		pr_debug("bulk msg %u.9\n", i);
-+		cond_resched();
-+	}
- }
- 
- static int __init test_dynamic_debug_init(void)
- {
- 	pr_debug("init start\n");
--	do_prints();
-+	do_classes(1);
-+	do_bulk(1);
- 	pr_debug("init done\n");
- 	return 0;
- }
+ module_init(test_dynamic_debug_init);
 diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index 0c9af93aef7c..10dc3f2b3fa8 100755
+index 25137663d554..9713b13be4e2 100755
 --- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
 +++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -207,7 +207,7 @@ function verify_modprobe_param_logging {
-     # capture bookends to verify their actual pr_debug logging!
- 
-     if [ "$param" = "p_disjoint_bits" ] || [ "$param" = "p_level_num" ]; then
--        set_param 1 /sys/module/test_dynamic_debug/parameters/do_prints
-+        set_param 1 /sys/module/test_dynamic_debug/parameters/do_classes
-     fi
- 
-     log_stop
-@@ -480,44 +480,29 @@ function FT_test_classes {
- 
-     # 1. Verify initial multi-query enablement state via file slice
-     my_modprobe test_dynamic_debug \
--        dyndbg="class,D2_CORE,+pf;class,D2_KMS,+ps;class,D2_ATOMIC,+pm"
-+        dyndbg="class D2_CORE,+pf;class D2_KMS,+ps;class D2_ATOMIC +pm"
-     verify_control_slice '\[test_dynamic_debug\]'
- 
-     # 2. Verify state transition and live-printing end-to-end via ddcmd_load!
--    ddcmd_load "class,D2_CORE,+pmf;class,D2_KMS,+pls;class,D2_ATOMIC,+pml" \
-+    ddcmd_load "class D2_CORE +pmf;class D2_KMS +pls;class D2_ATOMIC +pml" \
-         '\[test_dynamic_debug\]' \
--        "/sys/module/test_dynamic_debug/parameters/do_prints" "1"
-+        "/sys/module/test_dynamic_debug/parameters/do_classes" "1"
- 
-     ifrmmod test_dynamic_debug
- }
- 
- function FT_classmap_inheritance {
--    v_echo "${GREEN}# TEST_MOD_SUBMOD ${NC}"
-+    v_echo "${GREEN}# TEST_MOD_SUBMOD - Classmap state inheritance between supermod and submod ${NC}"
- 
-     ifrmmod test_dynamic_debug_submod
-     ifrmmod test_dynamic_debug
- 
--    # modprobe with plain-old +p & 3 class enablements
--    my_modprobe test_dynamic_debug \
--	"dyndbg=+p;class D2_CORE +pf;class D2_KMS +pt;class D2_ATOMIC +pm"
--    verify_control_slice '\[test_dynamic_debug\]'
--
--    set_param 5 /sys/module/test_dynamic_debug/parameters/p_level_num
--    verify_control_slice '\[test_dynamic_debug\]'
--
--    my_modprobe test_dynamic_debug_submod
--    verify_control_slice 'test_dynamic_debug_submod'
--
--    # fresh start, to clear all above flags (test-fn limits)
--    ifrmmod test_dynamic_debug_submod
--    ifrmmod test_dynamic_debug
--
--    # load submod, which loads supermod
-+    # 1. Load submod directly (which auto-loads supermod with default parameters)
-     my_modprobe test_dynamic_debug_submod \
- 	"dyndbg=+p;class D2_CORE +pfs;class D2_KMS +pts;class D2_ATOMIC +pmf"
-     verify_control_slice 'test_dynamic_debug'
- 
--    # runtime changes to both
-+    # 2. Runtime parameter changes to supermod propagate to submod descriptors
-     set_param 0x57 /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
-     set_param 4 /sys/module/test_dynamic_debug/parameters/p_level_num
-     verify_control_slice 'test_dynamic_debug'
-@@ -525,19 +510,17 @@ function FT_classmap_inheritance {
-     ifrmmod test_dynamic_debug_submod
-     ifrmmod test_dynamic_debug
- 
--    # set super-mod params at load-time
-+    # 3. Pre-initialize supermod parameter state at load-time
-     my_modprobe test_dynamic_debug p_disjoint_bits=0x16 p_level_num=5
-     verify_control_slice '\[test_dynamic_debug\]'
- 
--    # see them picked up by submod
-+    # 4. Verify submod inherits pre-initialized supermod classmap parameter state upon load
-     my_modprobe test_dynamic_debug_submod
-     verify_control_slice 'test_dynamic_debug'
- 
--    # Real-time mathematical proof that load-time (modprobe) parameter parsing
--    # and runtime (sysfs write) parameter configurations are perfectly equivalent!
-+    # 5. Prove load-time (modprobe) and runtime (sysfs write) parameter equivalence
-     local hash_modprobe=$(slice_and_hash_ddctrl '\[test_dynamic_debug\]')
- 
--    # Fresh load with default parameters, then configure them dynamically at runtime
-     ifrmmod test_dynamic_debug_submod
-     ifrmmod test_dynamic_debug
-     my_modprobe test_dynamic_debug
-@@ -552,16 +535,45 @@ function FT_classmap_inheritance {
-     else
-         v_echo "${GREEN}: Proven: parameter load-time (modprobe) " \
-             "and runtime (sysfs write) are equivalent!${NC}"
--    fi    # --- Live Content Fingerprinting Phase ---
-+    fi
-+
-+    # 6. End-to-end syslog content logging verification
-     log_start
--    echo 1 > /sys/module/test_dynamic_debug/parameters/do_prints
--    echo 1 > /sys/module/test_dynamic_debug_submod/parameters/do_prints
-+    echo 1 > /sys/module/test_dynamic_debug/parameters/do_classes
-+    echo 1 > /sys/module/test_dynamic_debug_submod/parameters/do_classes
-     log_stop
- 
-     ifrmmod test_dynamic_debug_submod
-     ifrmmod test_dynamic_debug
- }
- 
-+function FT_modprobe_w_param {
-+    v_echo "${GREEN}# TEST_MODPROBES ${NC}"
-+    local verbose
-+
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+
-+    for verbose in 1 2; do # 3 4 0; do
-+	echo $verbose > /sys/module/dynamic_debug/parameters/verbose
-+
-+	# Verify each parameter load sequence with 100% DRY modularity
-+	verify_modprobe_param_logging "do_classes" "1"
-+	verify_modprobe_param_logging "do_bulk" "1"
-+
-+	# Sequence composite bitmasks to verify disjoint bit transitions
-+	for mask in "0x05" "0x12" "0x1f" "0x00"; do
-+            verify_modprobe_param_logging "p_disjoint_bits" "$mask"
-+	done
-+
-+	# Sequence levels to verify both growing and shrinking verbose transitions
-+	for lvl in "3" "5" "4" "0"; do
-+            verify_modprobe_param_logging "p_level_num" "$lvl"
-+	done
-+    done
-+    ddcmd =_
-+}
-+
- # Built-in Feature Tests (Can run on any CONFIG_DYNAMIC_DEBUG kernel, modular or monolithic)
- builtin_tests=(
-     FT_grammar_ok
-@@ -573,7 +585,9 @@ builtin_tests=(
- 
- # Modular Feature Tests (Require CONFIG_MODULES=y and test_dynamic_debug*.ko available)
- modular_tests=(
-+    FT_test_classes
-     FT_classmap_inheritance
-+    FT_modprobe_w_param
- )
- 
- # ==============================================================================
-@@ -639,14 +653,50 @@ function GOLDEN_RECORDS {
- #K= f2b4f24fece9c55f5a5d28323c2019f8 FT_basic_queries.5
- #K= 8c2dd1164fbcefb721345ce62a864a37 FT_basic_queries.6
- #K= 4542e1e5e7eadcbe8f90a9c934635618 FT_basic_queries.7
--#K= fb294f02a4207b28b2a874524ef07afd FT_classmap_inheritance.1
--#K= 7a0b87016fdc237077dfe96bbbb3661b FT_classmap_inheritance.2
--#K= 2784d60f5056fc5cc03b3ceb854293f5 FT_classmap_inheritance.3
--#K= bf66aaf8ff612272c0cda29778ed2131 FT_classmap_inheritance.4
--#K= 49fdd29d91a4c1d16f8b59bb431e741b FT_classmap_inheritance.5
--#K= a8aa244285d048b5ebe33061fa99c424 FT_classmap_inheritance.6
--#K= 3060b86a0f553dd5a826bb7023284925 FT_classmap_inheritance.7
--#K= f43e0aff8a4b38435b73d90ed8100d1b FT_classmap_inheritance.8
-+#K= 3bcbdc30323082d6e961b5f0e269fff7 FT_test_classes.1
-+#K= 5516e3d13cba7ea4197a7fb6c033887a FT_test_classes.2
-+#K= 22213a7bf431c3e0efd3edbfcba69677 FT_test_classes.3
-+#K= 3a6afd41fadaaf70fad18f8a4632ffec FT_classmap_inheritance.1
-+#K= 6f1e347f0a7930814d2e54d589439465 FT_classmap_inheritance.2
-+#K= a6e6aab5a6cb9a792d4296b1200ba409 FT_classmap_inheritance.3
-+#K= 315cc5dad3a775c54a0b60a0276300b7 FT_classmap_inheritance.4
-+#K= 7e92245008439ee79fe2460aeaa16a9b FT_classmap_inheritance.5
-+#K= 94610c57ac44bd7011002a654fd78f93 FT_modprobe_w_param.1
-+#K= 94610c57ac44bd7011002a654fd78f93 FT_modprobe_w_param.2
-+#K= c1309e18dc9bf2f57184fa13164d917d FT_modprobe_w_param.3
-+#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.4
-+#K= a1232e658d95fbca8b23a69e9a0db965 FT_modprobe_w_param.5
-+#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.6
-+#K= af7b3d532325b1c5ab990e4b32fed577 FT_modprobe_w_param.7
-+#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.8
-+#K= 591411c42cf52d7c4c46d76bcc345a5f FT_modprobe_w_param.9
-+#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.10
-+#K= b0435304108118e64529469e59332111 FT_modprobe_w_param.11
-+#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.12
-+#K= 4d036833ce9f661057a4e13d97295c65 FT_modprobe_w_param.13
-+#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.14
-+#K= 5c3c6ecf6a46f9ccebd60c5ca9ebdbb7 FT_modprobe_w_param.15
-+#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.16
-+#K= 73a93377a823739e8aae44856a20fa7f FT_modprobe_w_param.17
-+#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.18
-+#K= 10464b2c3e3972f05e93c609700f8fb2 FT_modprobe_w_param.19
-+#K= 10464b2c3e3972f05e93c609700f8fb2 FT_modprobe_w_param.20
-+#K= 07c1f81d5a58675a291dc77acd6938c4 FT_modprobe_w_param.21
-+#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.22
-+#K= b070066b0eb13a033446bd05850b15e2 FT_modprobe_w_param.23
-+#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.24
-+#K= 32ca47823c27e629e03c21aebfc25095 FT_modprobe_w_param.25
-+#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.26
-+#K= 7b91db8e9f160aebb1ee87fab2232404 FT_modprobe_w_param.27
-+#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.28
-+#K= e393499e02677de414e478f4e710eeb9 FT_modprobe_w_param.29
-+#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.30
-+#K= 375e38613af3b49bb7c7689dfecf4177 FT_modprobe_w_param.31
-+#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.32
-+#K= 745a61d20e26a6a22db0b99420fea80a FT_modprobe_w_param.33
-+#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.34
-+#K= 3d2538bf868e71bff17c768cf118c352 FT_modprobe_w_param.35
-+#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.36
+@@ -691,50 +691,50 @@ function GOLDEN_RECORDS {
+ #K= cce9c41c3ac297e910c3ee3b10852cb3 FT_multi_query.2
+ #K= 8c2dd1164fbcefb721345ce62a864a37 FT_multi_query.3
+ #K= 4542e1e5e7eadcbe8f90a9c934635618 FT_multi_query.4
+-#K= 8146f6f983c3a76783c89b78b892ed48 FT_test_classes.1
++#K= fd730021392c7d0044408f304d683c69 FT_test_classes.1
+ #K= a15ec4843acd721fbdfddc0b512c8032 FT_test_classes.2
+ #K= bc074e657d8d7f0bbc960e4dfa8de25d FT_test_classes.3
+-#K= 878c5b9b20cbe8b93f2f3e92fc8b77bb FT_classmap_inheritance.1
+-#K= 0eb7e891704074434646c2340ddac152 FT_classmap_inheritance.2
+-#K= a6e6aab5a6cb9a792d4296b1200ba409 FT_classmap_inheritance.3
+-#K= 5b6d86bcaa2477699aab655447d780dd FT_classmap_inheritance.4
+-#K= f43e0aff8a4b38435b73d90ed8100d1b FT_classmap_inheritance.5
++#K= 824adca66a686b530ae8393351b16ecf FT_classmap_inheritance.1
++#K= c26dcd19a11f51322965a08e1fa5c98e FT_classmap_inheritance.2
++#K= cd150aea538ee12e9c18cafd2c95a39a FT_classmap_inheritance.3
++#K= 3aa6360c73a9509c30fff0c4f95f1607 FT_classmap_inheritance.4
++#K= 62b6803edf43519186d6185bebf34352 FT_classmap_inheritance.5
+ #K= 94610c57ac44bd7011002a654fd78f93 FT_modprobe_w_param.1
+ #K= 94610c57ac44bd7011002a654fd78f93 FT_modprobe_w_param.2
+-#K= c1309e18dc9bf2f57184fa13164d917d FT_modprobe_w_param.3
+-#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.4
+-#K= a1232e658d95fbca8b23a69e9a0db965 FT_modprobe_w_param.5
+-#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.6
+-#K= af7b3d532325b1c5ab990e4b32fed577 FT_modprobe_w_param.7
+-#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.8
++#K= 8ce6fcd5958d99524509f8ee8b337762 FT_modprobe_w_param.3
++#K= a6dd47315e45f54d89fd2561f83b9bf0 FT_modprobe_w_param.4
++#K= e99561131cb0877e244ded16465d17be FT_modprobe_w_param.5
++#K= a6dd47315e45f54d89fd2561f83b9bf0 FT_modprobe_w_param.6
++#K= a6c1e1585418e199de271b71a9746d93 FT_modprobe_w_param.7
++#K= a6dd47315e45f54d89fd2561f83b9bf0 FT_modprobe_w_param.8
+ #K= 591411c42cf52d7c4c46d76bcc345a5f FT_modprobe_w_param.9
+-#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.10
+-#K= 46d24fecc507a8f9be0bd120e27ff64f FT_modprobe_w_param.11
+-#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.12
+-#K= 79298a323d3dcca4f74fb9fc0de5a87e FT_modprobe_w_param.13
+-#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.14
+-#K= f649752dfb07a68087f04dafc00ed1e8 FT_modprobe_w_param.15
+-#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.16
++#K= a6dd47315e45f54d89fd2561f83b9bf0 FT_modprobe_w_param.10
++#K= b425428024ebf309fd38ac6c67d954ef FT_modprobe_w_param.11
++#K= a6dd47315e45f54d89fd2561f83b9bf0 FT_modprobe_w_param.12
++#K= 35c26142670166a021b523097db2e418 FT_modprobe_w_param.13
++#K= a6dd47315e45f54d89fd2561f83b9bf0 FT_modprobe_w_param.14
++#K= 090cde34d0a22f90f2bba1fed561aa9c FT_modprobe_w_param.15
++#K= a6dd47315e45f54d89fd2561f83b9bf0 FT_modprobe_w_param.16
+ #K= 73a93377a823739e8aae44856a20fa7f FT_modprobe_w_param.17
+-#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.18
++#K= a6dd47315e45f54d89fd2561f83b9bf0 FT_modprobe_w_param.18
+ #K= 10464b2c3e3972f05e93c609700f8fb2 FT_modprobe_w_param.19
+ #K= 10464b2c3e3972f05e93c609700f8fb2 FT_modprobe_w_param.20
+-#K= 07c1f81d5a58675a291dc77acd6938c4 FT_modprobe_w_param.21
+-#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.22
+-#K= b070066b0eb13a033446bd05850b15e2 FT_modprobe_w_param.23
+-#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.24
+-#K= 32ca47823c27e629e03c21aebfc25095 FT_modprobe_w_param.25
+-#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.26
++#K= 69502938a4be4936847568d8aad027f6 FT_modprobe_w_param.21
++#K= a6dd47315e45f54d89fd2561f83b9bf0 FT_modprobe_w_param.22
++#K= 51fe322a7f368d936d2292c951247b33 FT_modprobe_w_param.23
++#K= a6dd47315e45f54d89fd2561f83b9bf0 FT_modprobe_w_param.24
++#K= 91391932971be1d599d19ba04d6f6a34 FT_modprobe_w_param.25
++#K= a6dd47315e45f54d89fd2561f83b9bf0 FT_modprobe_w_param.26
+ #K= 7b91db8e9f160aebb1ee87fab2232404 FT_modprobe_w_param.27
+-#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.28
+-#K= d3d111da544dd5cee254e88178823b9d FT_modprobe_w_param.29
+-#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.30
+-#K= b5a30ebac06aea6e77a44322667effc7 FT_modprobe_w_param.31
+-#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.32
+-#K= bbe7b47ed089428429f4264c8cc2a066 FT_modprobe_w_param.33
+-#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.34
++#K= a6dd47315e45f54d89fd2561f83b9bf0 FT_modprobe_w_param.28
++#K= 9d29af8b8039ca84138b6b030a3b2eb7 FT_modprobe_w_param.29
++#K= a6dd47315e45f54d89fd2561f83b9bf0 FT_modprobe_w_param.30
++#K= 2a90475b035790006963c6245334edab FT_modprobe_w_param.31
++#K= a6dd47315e45f54d89fd2561f83b9bf0 FT_modprobe_w_param.32
++#K= b4f6d119e4d5fea58ac3a78f6bd64540 FT_modprobe_w_param.33
++#K= a6dd47315e45f54d89fd2561f83b9bf0 FT_modprobe_w_param.34
+ #K= 3d2538bf868e71bff17c768cf118c352 FT_modprobe_w_param.35
+-#K= 13c54ef65e199294fd078ba72c0cd69a FT_modprobe_w_param.36
++#K= a6dd47315e45f54d89fd2561f83b9bf0 FT_modprobe_w_param.36
  EOF
          # Read the K-recs and skip those for tests that can't run
          while read -r line; do
