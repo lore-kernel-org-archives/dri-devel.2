@@ -4,83 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89D7AC79FB6
-	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 12:35:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24126C79FAD
+	for <dri-devel@archiver.kernel.org>; Wed,  9 Sep 2026 12:37:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CB7D10E0DE;
-	Wed,  9 Sep 2026 12:35:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65E6410E4EA;
+	Wed,  9 Sep 2026 12:37:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aicharmers.com header.i=@aicharmers.com header.b="OfBf5NR0";
+	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="NR0sJ+ZS";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="NR0sJ+ZS";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93B8110E0DE
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 12:35:02 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-38e42560ebcso4370676a91.1
- for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 05:35:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=aicharmers.com; s=google; t=1788957302; x=1789562102;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=J/1sOUviqZ1rKZwRK0a5dgseTFfkWU+hFt9DbmOcrck=;
- b=OfBf5NR0VREG7vqWPNLI4uhpyfY7JHsbpNgSR+24Hd3Z4JXnxUnVliai62MmfURi0F
- bP4yDZSaL5jhShuZXb/8tUMqctbn3b+2/TBXSqBsLZsXai7vEFw7Jy19AH8wk0VzBsTV
- Nvd6e9/Xj/KDHToJsfErPia9npNcTgU3b+q8QLyQbIkbNOWChzf/HdrCo23eWuktFAP/
- MDaVREoCiaHxtSgCGxb1myyZSn1Mu1lp6zz5re6IBSBdTzpToNmBuKG5rspjOwWuPxeQ
- 1TujyWhZxLDFXfl0sOjKSmKPVvE7NL78bks+bS3lU4rvV25kzeykN/gMM39WAlJTds6d
- Rg3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788957302; x=1789562102;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=J/1sOUviqZ1rKZwRK0a5dgseTFfkWU+hFt9DbmOcrck=;
- b=a6uQIFEEe/x5S8KToFd0AuPkGR35Ega4vXyRSYhPO5n2hyyjflCzZdm5u5Yo+K1yFc
- mlVcks2IccONzNXiykF3q7XbpizZ2DvBBZLJqSH+22S+jmDEA15uW/qfygUlPfOxoVe9
- yP2vbBasu+WsuEayWp8oBWKDLlzvxvVGiaOkJ8dA5JxDjy2LxDRTQGqZq+MG+Jnm67Fz
- 0giGAOdAZYHwI7FUj8jzbbrxtxtEfYvyAT2iP38FauIv5iMNRaerpGQ+PgH58nqXVXEl
- IxFCSRKQja2Yba4GyPJ7uMq9JV26x8h4qfRyFbURIfuoqyKhtz4MUjPLmqlKFR7J9rWT
- 6u5Q==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzzmpddAqySzvc+YdA3dfljWxHRRc+3lEn+S94zFAG/nUNhiQ4a4Dclnziaz+1MOaCLr9QRJ6odA1g=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kuDHrUfDjH5eWx1bEiGeFY8mzK2Gwfj+uzpaH3D17Ghbt7Y/w7
- x9Ap6wSbSdfxeo3bfNjND0bff5MZ59PHf7SgPDtSnY3LM5Z7evvBvVSGAn26Ch0jnsw=
-X-Gm-Gg: AYBFou01lgPzrz2xiHUVSRBnOjpYMXs8a4waDoRu1zXwhInk0tFQBnCX7BxH8v3fIVW
- RC6kVO3d6FhvoilK3axk6bLJjVbool2qja9jBmzR43AtLsnhq2AXdZXZEVrCAGAp3z6hKB2yWZ/
- nEBjpOQFbmcsNNmyEdaajMYC6c2qrr9jIp8NGT8u2OqrdqmZgpiXWnEVot31dEmuL6qJs/Ety6W
- pMbFJzC7lPyDQxVZYllyqiz0WXSd/KUUfGcnE5p3YDootzjEvfMCb6LTNSZR14rPXFhL5M9U1v4
- qMa+4pxyDsaWhmiSU1xnnzsrfO9EtE3+5GVeZ5++xERG4j+boOClY0LaiPgDD/YqtGMc14P6eBw
- vmZi56xNTylh4etUZgLPwt1RGk+7Mfp2y5cwgtUp3SF99HIT6BIRSvHjnG0tI0nhdtTkqWuj1/3
- wDrVPptusAnOkDQtQ5BNnqxasuvAY9/U3saCrF+1K9ysnbtFUG7lHOgBwjoQnhujKVGwPkYPBWf
- U8kRDMTWZdha+2EB6hGDMdRW3Jazlm1qNOlUY2qaPZ59E9hhOdBRRr52tJrEDjg8o5mRx81V7vc
- g2kYHBHih7EwmhKOu6FmQCcGUDj2un7QMghMVRidDviQZLRL5/HDjKF8U7t3
-X-Received: by 2002:a17:90b:394e:b0:37f:fd1f:d30f with SMTP id
- 98e67ed59e1d1-39b26272d76mr53476830a91.12.1788957301779; 
- Wed, 09 Sep 2026 05:35:01 -0700 (PDT)
-Received: from ip-192-168-20-19.ap-southeast-2.compute.internal
- (2403-5803-1750-0-4b7-4fed-6113-1a7c.ip6.aussiebb.net.
- [2403:5803:1750:0:4b7:4fed:6113:1a7c])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39b08cacba5sm40179457a91.12.2026.09.09.05.34.56
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Wed, 09 Sep 2026 05:35:00 -0700 (PDT)
-From: Ed Schofield <ed@aicharmers.com>
-To: Kenneth.Feng@amd.com
-Cc: atharvatiwarilinuxdev@gmail.com, 062bel313@gmail.com,
- amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
- Christian.Koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 14
-Date: Wed,  9 Sep 2026 22:34:43 +1000
-Message-ID: <20260909123443.88228-1-ed@aicharmers.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <MW4PR12MB6803F4CF9FA37FAE2FB0C5778EB02@MW4PR12MB6803.namprd12.prod.outlook.com>
-References: <MW4PR12MB6803F4CF9FA37FAE2FB0C5778EB02@MW4PR12MB6803.namprd12.prod.outlook.com>
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazon11013024.outbound.protection.outlook.com [52.101.72.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EAF210F0E3
+ for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 12:37:17 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=A8pOoXyZcenrx1ZkhBAHeR+h8wNJiZ5o5JvCxYH7Nt9nTEZXtPhMrkpIsHCpHuv8/EgPGP4TA57evXeUJVFKyiBmjycstukFnwFsJO2BY7z/LCZP6EvNE7X0zyOqS66ScYMsPZ3da1rSXrraa2/McKfkYSwxKeouH7uoDPCBpKcxcLisT3Kg41XQPAv7d6JkS5YwosSpdjjoQu3z0961IpjVNq1LrgE2RixsL7vJPCGi/YR0T353UdadS1ryt7HfhTBtyg4d6IdA0hULKcfudz+QdzY7nKU/XKwNnrIDwv8qd1Tz9aOC989ZbaLcpXKNM/MHdYQZQyygpPl8xQfkgw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MRWhjjcBXfIs06YlcDjKUDLw422IQzw4xBnygKwTS/s=;
+ b=BbGylazeVbP7EJNHGylSs0teth2UsW0de+X62IzcgHbOhJwvJ2JFfngQJQoh//pgiOZ+n8yVYwrDaUv/pUI8wqCH/UKOI2yTxULXx/x5Ooh6ANCOo2HRsycLK4byYNI/Un5yEKk0g+QHoFrC5aCzaEj9acIHn0Js8IK7B1iJdb5t0MHa9JrBj4LMBid/rQ9XBV/GRmynf3OjWXwmQdjkyi9q/0D79/IYwsjMlgUvC7BK438WmJN5Bsp+cZ8UmVYf5a1tUCeU6sdK4BCpwyNOIY4zOPO6tWiwzVe5ZeMyyXG3LhE4UFr8c04klvqgxxYzXp05R+oRUhOKiN4O+AiKYg==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=kernel.org smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MRWhjjcBXfIs06YlcDjKUDLw422IQzw4xBnygKwTS/s=;
+ b=NR0sJ+ZSU8elsvqdwkewfdzrK3YcGSDn4t+z0Hr/8V/0GSz3kGXt+W9iArB7Nh2gXeNac5txjvsK1kKcGVNrVppZGmvQWN0UER3hptUGT6xH2sKOAL2L/lHWJSA6GqRNvR8F3ZycVdADQEY24eEsIs6BsY69N46cVrSBPSr4Ewk=
+Received: from DU2PR04CA0229.eurprd04.prod.outlook.com (2603:10a6:10:2b1::24)
+ by AM0PR08MB5489.eurprd08.prod.outlook.com (2603:10a6:208:18e::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
+ 12:37:13 +0000
+Received: from DB5PEPF00014B9F.eurprd02.prod.outlook.com
+ (2603:10a6:10:2b1:cafe::8a) by DU2PR04CA0229.outlook.office365.com
+ (2603:10a6:10:2b1::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Wed, 9
+ Sep 2026 12:37:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DB5PEPF00014B9F.mail.protection.outlook.com (10.167.8.169) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.5
+ via Frontend Transport; Wed, 9 Sep 2026 12:37:12 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lKm/RTAjlxg/6dq0bhQwbrJYSDu3T6Qu51XXJrX8MIWeqVEbRq/mu8F9oUShc31XlIkMdCf7AA/vxbjH3pC2eZMU9GL7PPo134EbV2s73zXR1EsAwJt0c99piX+uEZZjXU6smxZA3sOQNBR/SWaIleHB2cCd2JqwxEJ4tpet+/+TX9pULmGLlSjCPMvVDP/jBDWXBsilzmrKcv+9sWpj57pGMqr+Hn5E61QqNyxxNNFBgAhWUyZY0/mkR5ds5K01UBvwE2di/BJUg4LQOlrrtBly3HvVYVPDWjHlhVHKaZCYgM4gN2T9Su5+LixnmrQfUYsAlhZFcujCTEsatBb3kQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MRWhjjcBXfIs06YlcDjKUDLw422IQzw4xBnygKwTS/s=;
+ b=nCF6bfwqIXoBU1boRPLba0QRf6wKURSaYJpZ7JqoJVFiDz/gNlPZfjYlbTAPQSB8tV7iHh+5gNeUXe1tOgl71HosUmwIE6/9cdzQC92vLiFKYlv3ykn5eXompze1IaNtn6pQmUpII9R3SDDHUyVYf1JOm+rQ9amjEgQtBkyGOATxqX9g3Sum+Cr782iWPtTwE6f/iRPh2Fh/7VTxjwEjZ5SRU1EP7XYRjzqZeNVQl9ZrQw3NdGSyS6bTz50i8dRZRjSENgHhKx3/cPiUTH6Um+aGM7MLkgZyjqTcmsejJN5+qRrj3kaQsJuwWtfHla8s7aoOEKbUsWhgKFsm2VrJMQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MRWhjjcBXfIs06YlcDjKUDLw422IQzw4xBnygKwTS/s=;
+ b=NR0sJ+ZSU8elsvqdwkewfdzrK3YcGSDn4t+z0Hr/8V/0GSz3kGXt+W9iArB7Nh2gXeNac5txjvsK1kKcGVNrVppZGmvQWN0UER3hptUGT6xH2sKOAL2L/lHWJSA6GqRNvR8F3ZycVdADQEY24eEsIs6BsY69N46cVrSBPSr4Ewk=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from GV1PR08MB10455.eurprd08.prod.outlook.com
+ (2603:10a6:150:16f::10) by DB4PR08MB9286.eurprd08.prod.outlook.com
+ (2603:10a6:10:3f6::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
+ 12:36:34 +0000
+Received: from GV1PR08MB10455.eurprd08.prod.outlook.com
+ ([fe80::af66:6019:a08:d04]) by GV1PR08MB10455.eurprd08.prod.outlook.com
+ ([fe80::af66:6019:a08:d04%4]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
+ 12:36:34 +0000
+From: Bence Csokas <bence.csokas@arm.com>
+Subject: [PATCH 0/2] Add scope-based cleanup capability to eventfd_ctx
+Date: Wed, 09 Sep 2026 14:36:28 +0200
+Message-Id: <20260909-efd-autofree-v1-0-c6c3c19cc702@arm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMxSoWoC/yWMQQrCMBBFr1JmbaBmEYNXEReT5MdGMJWZtAild
+ zfV5Xv8/zZSSIHSddhIsBYtc+1wPg0UJ64PmJI6kx2tG711BjkZXtqcBTAX57qFT56Z+uUtyOX
+ zy93uf9YlPBHb0TgWgRUmCNc4HerF2iC071+rPOE3iQAAAA==
+X-Change-ID: 20260826-efd-autofree-766608e8d8aa
+To: Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, Bence Csokas <bence.csokas@arm.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: LO4P123CA0087.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:190::20) To GV1PR08MB10455.eurprd08.prod.outlook.com
+ (2603:10a6:150:16f::10)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-TrafficTypeDiagnostic: GV1PR08MB10455:EE_|DB4PR08MB9286:EE_|DB5PEPF00014B9F:EE_|AM0PR08MB5489:EE_
+X-MS-Office365-Filtering-Correlation-Id: a83d3825-2156-4f7a-ea71-08df0e6f129d
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|23010399003|11063799006|56012099006|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info-Original: qFqt1bHB1IS/MtyLGhVo0QSqukjlB5x8ibVySjHNkxu8sAeQB+oDBhNSmM+FUGOsAtxWaimsPzyQ/KfKn2p9uV9EAZS5Zs3yMpY89IQ+nkRsvx5/jpTITJPmO4kB0ZacyFjfn+ayjBNq2dd4ZeYVhdZWpCZG2MV0Om4obkzYzi7C9K5nI03WNk5dnCAs8PGUzvlAxcbfb2WSGsZu4ablPpZYTZJpTXkQYJ94YQey691mU5l4cm9nMSgI/VM0SXMhVj3vYarngcbTnI9nXHs2E8VcmrNsB41wif1u6cpqeHeDtGAApqK8htvZXkJyROzOobNWsrVaLGmiA0CNpktG7fsXSCGXBIuc6qfURhMDTw51USh/kZxKeAahuIplIduPRMyBmn5bYU92rXaepZsDyqkbMLH7OKkJaMrsGkdgOcsXQqO5Cbh/6UYC1e/qcTgw1CamvGpiaG802lEJbItRtdZJMGSSwGCYJRUnDq0och2+Cyr21BQPyZx0NxuRxk31DfQm4UkJGkg0+ieEqJ4pozzn15fgHt52tVuQljXO6ozh9qy1ClY4zDpvi2vm1P11Bej9NFyFvuniRSyOluA/68kKzTDGuWTjjZ1iLK+FCKqx7ss9wuMpXuQRw5IlZNCY9x5h8BVDjqEycVaT/7+LQKEA6j+jps3K/DRmyRbNKIo=
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:GV1PR08MB10455.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(11063799006)(56012099006)(18002099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-Exchange-RoutingPolicyChecked: 3msv4WcegbPwGYsOV59YJxop/yYmqTab1nuQu2IFy8j4dokwl14aCXbmIihGaF//jQffbSS5rHClVlPYZsxIRJoBFhBOoBVG3t06WwvWDQ6Z0J0Om8y/d4CwHzxUKXAwqpphbK+qCqSE0CQLIzOzDXTRa9ovi7sxvMAfiahWGtXWUkkwt2blmM7cJ0JEylM72EH6YjU1M5pMAvdRGNbIeZaBkGwAsH0zR+psQzAieckboaTZI7CBKgNdsaJ2Nh1KtmXOntmz63Icv4ayPJtbzLSNFHVpmapLZdVdvDe/K3CBqY9PRgzzI0qRXKvXyxmHKOvngHL78U1+nT4LqceG2w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR08MB9286
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: DB5PEPF00014B9F.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: b7bbdf60-281d-4552-f670-08df0e6efbab
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700016|376014|23010399003|7416014|1800799024|35042699022|14060799003|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: cdeyfGykFNTWMtR1rZSdTvCNsnAUK/Lvxwacmc1dtfgXET0+TPzr01f/N8UNPp8hG4RpZ+s0AoZegqGH+ht6topdwBuQPgeXsL6ACJghIggmWT+WL/5+WEwxPxNHsqtq873+0wnq9e8Nhp5miLsm5o5N5uzcLrsZSXeGQfDOcwubFmcbbPiUGlznLNuHNB5Dme/m422JG0w/EtWTn/QR1/8A3yl7twhiTdUeKTvl5TC6/JTtmCrC0zhHVC3LVs93t4RT/dSjdNClUIEq1yvHNASXWL8xz5Y6mb6PZTfHpjdkOvPmVInRMYm5Clgpd3DUoX+pbPKb/FuAr2ZyImpOObVKO6+OcHCGyvY01j6+NiTIphBnhX7gxE3DpNWFsD87u0HglOud5jn6qxd8Hl5wkj2X8oes5OQHpbTSUxEYAnaeS5XA7DybCxGzzWb+fBMri8KSosfM49uO9owQ4C40lKarBRuPSpq3p2VT7wfEg4q8rzZ6ltBdfGiiD74w8/Ad1XUlahvIcoXzyMYRuSdpLLDvm0+7n/iMsjBpcD+rZ4GBTfCkWOMTki+ky4SlcTMxnN8ZYpdjp0A+DYR0ORMq9AN/hjuB4ujuXJRH/JWag79iqRmC3ca6kh6vl1PINeFhDjZRHcMZXUpnqJ712uQWCSAnj0jSQjKtOQhG6YUnC65Mrs/I3zKLMCDcrI4732QFN/teARJnKzmgpvimRMWEVQ==
+X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(7416014)(1800799024)(35042699022)(14060799003)(10067099003)(11063799006)(56012099006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: xplXIrWNhG+ktOuwzKVcBN9rb7xfC1PWWVqROyxFYwSDm0eDoATcXKo2RIJ68W9csDjQh8/NAkH/EdS/hgNnZypeO8PsHvhjThRRHmMrwdGFdFR/ozCPQ7IRTCT2EsiUOLEHfP4DdMYXfrWn9yjqQ9FJ7T7nNfaKNhXzVQ8XW1W+8QqTIRnHnObFxkikb88+I88qY1SRqmDvnjM/c/CzpPF/jD9D6MH6xXEfJgK7HuUb4M1jSESQ2Eny7cENujsoHzzPNNs6vnDvpC1YgfMHVMNas6PprkvpApQZiK0m4PBxn3RM5H0fnGwK5ngDw1ki4kq/kOGjDgNaeXxwCK7hp426P2L3MN3RRVK45OLChQ4O9pkwOs4LvM0Cai9oNws3h1kdOInDaZDIYHVtcax75T9eZ+ps2iJWcs3PBeyQx8/N72CZJujfy7+UySZs+J/l
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 12:37:12.5345 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a83d3825-2156-4f7a-ea71-08df0e6f129d
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
+ Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource: DB5PEPF00014B9F.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB5489
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,175 +156,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Apple Navi 14 boards 1002:7340/106b:0218 (revision 0x41) and
-1002:7340/106b:0219 can time out when EnableAllSmuFeatures includes
-UCLK DPM, leaving amdgpu without a DRM device.
+Add __free() support to eventfd and update drm_syncobj to use it as an
+example consumer.
 
-Exclude only UCLK DPM from the initial allowed features and enable it
-separately in the Navi post-init callback. On 0218, enabling UCLK just
-after EnableAllSmuFeatures or at the start of default DPM table setup
-still timed out. The earlier 0218-only patch passed ten warm boots with
-UCLK enabled in post-init. The earliest safe point remains unknown.
+A minor discrepancy I encountered is whether to put a semicolon after
+DEFINE_FREE(). It seems some in-tree code does, some doesn't. In the end,
+I followed the example set in core-api/cleanup.rst, and omitted it.
 
-Check the enabled firmware bit, update the supported-feature bit and
-rebuild the memory DPM table and sustainable clock limits before the
-UMC workaround and UMD clock setup. Validate the PPT memory states that
-DCN20 consumes before post-init. Preserve both memory-voltage features
-and honor PP_MCLK_DPM_MASK.
-
-Combine Atharva Tiwari's delayed-UCLK proposal for 0219 with the Navi
-post-init implementation for 0218. Retain the revision restriction for
-0218 and the revision-independent 0219 match from Atharva's proposal.
-
-The combined patch passed ten warm boots on 0218, with rendering and
-H.264 video decoding checks on every boot. Testing on 0219 is still
-pending.
-
-Link: https://www.mail-archive.com/amd-gfx@lists.freedesktop.org/msg149770.html
-Link: https://github.com/t2linux/kernel/issues/19#issuecomment-5537823876
-Assisted-by: Codex:GPT-6
-Signed-off-by: Ed Schofield <ed@aicharmers.com>
+Signed-off-by: Bence Csokas <bence.csokas@arm.com>
 ---
-Changes since the 0218-only RFC:
-- Add the 0219 board match from Atharva's proposal, without a revision
-  restriction. Keep the 0218 match limited to revision 0x41.
-- Keep the Navi post-init implementation and clock-state updates from
-  the RFC. Atharva's proposal enabled UCLK at the end of smu_late_init().
-- Record the failed tests at the start of default DPM table setup and
-  ten successful warm boots of the combined patch on 0218.
+Bence Csokas (2):
+      eventfd: Add scope-based cleanup capability
+      drm/syncobj: Use scope-based cleanup for eventfd_ctx
 
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 82 +++++++++++++++++++
- 1 file changed, 82 insertions(+)
+ drivers/gpu/drm/drm_syncobj.c | 9 ++++-----
+ fs/eventfd.c                  | 3 +++
+ include/linux/eventfd.h       | 3 +++
+ 3 files changed, 10 insertions(+), 5 deletions(-)
+---
+base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+change-id: 20260826-efd-autofree-766608e8d8aa
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index f8ca5eb9a..d7cc41a5d 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -60,6 +60,19 @@
- 
- static int navi10_init_ppt_limits(struct smu_context *smu);
- 
-+static bool navi14_needs_late_uclk(struct amdgpu_device *adev)
-+{
-+	struct pci_dev *pdev = adev->pdev;
-+
-+	return pdev->vendor == PCI_VENDOR_ID_ATI &&
-+		pdev->device == 0x7340 &&
-+		pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
-+		((pdev->subsystem_device == 0x0218 &&
-+		  pdev->revision == 0x41) ||
-+		 pdev->subsystem_device == 0x0219) &&
-+		(adev->pm.pp_feature & PP_MCLK_DPM_MASK);
-+}
-+
- static const struct smu_feature_bits navi10_dpm_features = {
- 	.bits = {
- 		SMU_FEATURE_BIT_INIT(FEATURE_DPM_PREFETCHER_BIT),
-@@ -356,6 +369,11 @@ navi10_init_allowed_features(struct smu_context *smu)
- 		smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, FEATURE_MEM_MVDD_SCALING_BIT);
- 	}
- 
-+	/* These boards time out if EnableAllSmuFeatures includes UCLK DPM. */
-+	if (navi14_needs_late_uclk(adev))
-+		smu_feature_list_clear_bit(smu, SMU_FEATURE_LIST_ALLOWED,
-+					   FEATURE_DPM_UCLK_BIT);
-+
- 	if (is_asic_secure(smu) &&
- 	    (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(11, 0, 0)) &&
- 	    (adev->rev_id == 0))
-@@ -470,6 +488,25 @@ static int navi10_store_powerplay_table(struct smu_context *smu)
- 	return 0;
- }
- 
-+/* DCN20 consumes these PPT states before the post-init UCLK enable. */
-+static int navi14_imac_check_uclk_states(struct smu_context *smu)
-+{
-+	PPTable_t *ppt = smu->smu_table.driver_pptable;
-+	unsigned int count, i;
-+
-+	if (!navi14_needs_late_uclk(smu->adev))
-+		return 0;
-+
-+	count = ppt->DpmDescriptor[PPCLK_UCLK].NumDiscreteLevels;
-+	if (!count || count > ARRAY_SIZE(ppt->FreqTableUclk))
-+		return -EINVAL;
-+	for (i = 0; i < count; i++) {
-+		if (!ppt->FreqTableUclk[i])
-+			return -EINVAL;
-+	}
-+	return 0;
-+}
-+
- static int navi10_setup_pptable(struct smu_context *smu)
- {
- 	int ret = 0;
-@@ -490,6 +527,10 @@ static int navi10_setup_pptable(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
-+	ret = navi14_imac_check_uclk_states(smu);
-+	if (ret)
-+		return ret;
-+
- 	return navi10_init_ppt_limits(smu);
- }
- 
-@@ -3219,6 +3260,41 @@ static int navi10_enable_mgpu_fan_boost(struct smu_context *smu)
- 					       NULL);
- }
- 
-+/* Rebuild memory clocks before the UMC workaround and UMD clock setup. */
-+static int navi14_imac_late_uclk_enable(struct smu_context *smu)
-+{
-+	struct smu_11_0_dpm_context *dpm = smu->smu_dpm.dpm_context;
-+	struct smu_dpm_table *table = &dpm->dpm_tables.uclk_table;
-+	PPTable_t *ppt = smu->smu_table.driver_pptable;
-+	struct smu_feature_bits enabled;
-+	int ret;
-+
-+	if (!navi14_needs_late_uclk(smu->adev))
-+		return 0;
-+
-+	ret = smu_cmn_feature_set_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT, true);
-+	if (ret)
-+		return ret;
-+	ret = smu_cmn_get_enabled_mask(smu, &enabled);
-+	if (ret)
-+		return ret;
-+	if (!smu_feature_bits_is_set(&enabled, FEATURE_DPM_UCLK_BIT))
-+		return -EIO;
-+
-+	smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_SUPPORTED,
-+				 FEATURE_DPM_UCLK_BIT);
-+	table->clk_type = SMU_UCLK;
-+	ret = smu_v11_0_set_single_dpm_table(smu, SMU_UCLK, table);
-+	if (ret)
-+		return ret;
-+	if (!table->count)
-+		return -EINVAL;
-+	if (!ppt->DpmDescriptor[PPCLK_UCLK].SnapToDiscrete)
-+		table->flags |= SMU_DPM_TABLE_FINE_GRAINED;
-+
-+	return smu_v11_0_init_max_sustainable_clocks(smu);
-+}
-+
- static int navi10_post_smu_init(struct smu_context *smu)
- {
- 	struct amdgpu_device *adev = smu->adev;
-@@ -3227,6 +3303,12 @@ static int navi10_post_smu_init(struct smu_context *smu)
- 	if (amdgpu_sriov_vf(adev))
- 		return 0;
- 
-+	ret = navi14_imac_late_uclk_enable(smu);
-+	if (ret) {
-+		dev_err(adev->dev, "Failed to enable late UCLK DPM: %d\n", ret);
-+		return ret;
-+	}
-+
- 	ret = navi10_run_umc_cdr_workaround(smu);
- 	if (ret)
- 		dev_err(adev->dev, "Failed to apply umc cdr workaround!\n");
+Best regards,
+--  
+Bence Csokas <bence.csokas@arm.com>
 
-base-commit: c22f9a61e288580824edbbc3ae5a29c9a338594f
--- 
-2.55.0
