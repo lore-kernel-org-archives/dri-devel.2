@@ -4,103 +4,186 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B65A9C79FBF
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 19:58:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04BAAC79FBB
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 20:02:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCEFB10E1AE;
-	Thu, 10 Sep 2026 19:58:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28B1D10E1DE;
+	Thu, 10 Sep 2026 20:02:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IwlYktdt";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="UDngg2zR";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013067.outbound.protection.outlook.com
- [40.93.201.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 403F510E1AE
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 19:58:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D9Q1B/LwGsjufOCGa7/87k6oT5rz+QU3TzqPL+O3/skUPW/WC8DUCp0KcFmGXr0xsDdWZK0XbmuCorF+3fGRIwKXX2FMy8FOWetqsP2COJCyhnpOFJtQm+YP5D3Nr0A0lOoTGLpOT84Ba6kSuUUWjtqJGb/sXFYCLSMbvgSAcT8URGxmwcHtnWs7/6vNZs0yzzlAryxicuVGKbavrBGuJ93Bug4l/f6oy5OXe51LGXuywDPbBPTCQAuYszNQhYR1vF9eNnLMB/ZFXixHLYLMrHQBWmGZSISJ7p1vu1HpGXoKZOQcrWmi2SUwKw7tISFFDQHZ9xJl7u7D7rMkturiag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eF7n2fY2lL2UgLJ9njeCNH/IWTx0dWQZwrBQsVfbYEw=;
- b=a1y3/wmAnHvALQn22a44ms2VCMWQf6pZd+/x2VXXyCu2SYOzh5LM3GhvWobF5JG8VyLy0SIAATMuIZgp1o6+8MDWZLjHt/EaOoITb+GPf0GrBivxKhzZdHE1rGZP6S0f5r38XHNtvD4vWMlKsyHeB5WP9BqDafNcauknsJKq0inWgvHJMsbgb8d0dzGXo7aenSf2SyosDl4OsvGtkV+UVOhZT1a2nZyIwVJJnfgpEQSX2HSFtdJBVbDsyHQfWqOHCneOyYP/0WC7Iys2w7eo2YAEPOV0eRIWEHb2kbnhqib92QzbLV/y39pTr3wN1S+LBJGH1Qp7ZA3T6A1ykTqoJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eF7n2fY2lL2UgLJ9njeCNH/IWTx0dWQZwrBQsVfbYEw=;
- b=IwlYktdtuphTtRhsxi/XlfQgUEpLQfi+OcOrlbG1H3r1GzetWXhqgK/KuuPAVcPhBNlDmZUtaMHWf5oQeV6dQnbGYLkPnKonTL8/dDTBIOW5iR9ZjPY0sofYA2DPpxNgUnBMFbEmdqw39Q+CWm7yctb1ttrhHyfs81gk2IRrq8A=
-Received: from BL1PR13CA0114.namprd13.prod.outlook.com (2603:10b6:208:2b9::29)
- by SN7PR12MB7371.namprd12.prod.outlook.com (2603:10b6:806:29a::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Thu, 10 Sep
- 2026 19:58:16 +0000
-Received: from BN7PEPF00000093.namprd03.prod.outlook.com
- (2603:10b6:208:2b9:cafe::8f) by BL1PR13CA0114.outlook.office365.com
- (2603:10b6:208:2b9::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.6 via Frontend Transport; Thu, 10
- Sep 2026 19:58:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN7PEPF00000093.mail.protection.outlook.com (10.167.245.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 19:58:13 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
- 2026 14:58:13 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
- 2026 14:58:12 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Thu, 10 Sep 2026 14:58:12 -0500
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
- <mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>,
- <dri-devel@lists.freedesktop.org>, <max.zhen@amd.com>
-CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
- <sonal.santan@amd.com>
-Subject: [PATCH V2] accel/amdxdna: Fix unsafe use of handle_mm_fault()
-Date: Thu, 10 Sep 2026 12:58:07 -0700
-Message-ID: <20260910195807.1093852-1-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0302210E1DE
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 20:02:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1789070568; x=1789675368; i=deller@gmx.de;
+ bh=tAm5057CHlLPrvYsjn+vbColzV5+gZV73fwSOuyscv0=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=UDngg2zRhXNQXDDKdSMZJfXJa8ky9IL9ckky788Ahw/9jVk8s50lzRo/An0tWs5k
+ pr7CEwXuTv+8m1iwqLSYZRMHd4YyJDfjg1bDWxjNjShZeNbnxFIx/5zGQRZuZtwAG
+ N5o8oKGV748xEg9gtIDZqpfc8EPtw6sYpErHSXmGvKC0LABqEvkkSULWkdzUVoREx
+ +7FmbeKvL0+rDwl4cnzJrKusZnPZmlLLXYI0lqKNt57cz+8jGkldJ2kIcfUx0c3HM
+ BflNduyeZ/TDttZCkLxeRVMP+3jwfu7zNRMM+l+iiYEgCIrGbItQtxhstabsiih75
+ DkEXuAsOp9kIqxV5lw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MXXuH-1xKXbj1ITv-00WlkN; Thu, 10
+ Sep 2026 22:02:48 +0200
+Message-ID: <39c574c0-7890-4a91-bbcb-c5038a758514@gmx.de>
+Date: Thu, 10 Sep 2026 22:02:43 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF00000093:EE_|SN7PR12MB7371:EE_
-X-MS-Office365-Filtering-Correlation-Id: 56ca72f2-3894-4eba-5610-08df0f75d8d8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|56012099006|10067099003|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info: 2RI3OVpCtkIQNzqum8AMP4AAqtRYbAyDQE0T3dhzqgFDocE3F6CYPp4PNdu+PqAdbbSFJulYtb9EXCKckiIWXh2/kZq4adWkzOJH/K45VmCIoayw552JRj55w0kZXQznrPPEao1iwUXfOgFdF46V6yx1ihy73H2qNTtbEsRFywBNX5yYioppwhNzSZTyRY0j0v2w7sW685wk3O7Wb58WJGzF58ddZHXvMRNt6o5qrAplcyURcSd/AkYRrXOoDUR/NRptwYjW2UE5XPnG+BfI+g9NKN12+Aybx9kS+MVCbHAvI9uZ3ywts5SR6DCDdSovpkUuPQDxI/yzUCAK7xXDGqNDVdSw9YM2iY+pkV/tPDrTzOaCYbgBliG1P37o0zIbKF3Ql54gXI7dLNv5+P0A3vV3z+qMmkO6ZuGsKRZsymo3p9CKcw00eXVl6jneIEXSegb+Rf4C6HfPDpMvujKwlJ/FmEu7bQREMYDprvme1wIj1ccYnFRdTJPk1pYbDaVIAlt3ZBQLBEhJMf1y4E0sGiI+pCR8DTIHStTYEPSmSZBiaTs8FH71fM1yIqqWup6fgvI9hEOPsWZjacyMbq9QsR1ZcUdz/LJXsZ/DEqUC9z6QuKNjg5EjXK5t/eE+QRC9SkhVuwdPIS18Y2vq+pZZCo1JUZBGXknP81cG+4XkbodNnerW22n3RFFMfpPFKYXwRNUuvwYNRbBSPivT1AYJ6g==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(56012099006)(10067099003)(11063799006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 8UYW1bMwWf/0JSfjIYGSGS1iTFMgpZXzRAeo2sNi2KISZnqyDSqg+Ev6KA2nxTWp2nCJJUTdIlmzRLAut1RiuMG9ZINS+ufeXSBM34GabTOVUDDlhyp99WnwlDVuKORlNLNap8YJ5e+ZiATWlvXpKzAk4MgjvclWeRtjg/rDT6Z7goDrvSCg+J4oYB/3u5ODyaXpvlnNQTBxAQFvHjQ57nGWc7Vyg3Vwg8tf0ZRzdt56ZX53DZtqagSMGJTmCEBmaeOENYZgWzORjHVjvvQkRUcOWAFMhyrvqcWMT5u4y3kzJMGh5di6I/0JYB+8pFoUr8LwUWazw6uoXzB49zAb7YAXJT+YHcE5U2ek7nqFHNkSQiY3rue+SWEvLBRQkeEbtskCQ+jrvLJSZbuGbb39/zbC8v6QGWSkktoT/2FgSGCVaalMCeHJOnJ5CXU3eyc8
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 19:58:13.3108 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56ca72f2-3894-4eba-5610-08df0f75d8d8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF00000093.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7371
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fbdev: ssd1307fb: fix NULL pointer dereference on missing
+ match data
+To: Yang Zi <2959243019@qq.com>, linux-fbdev@vger.kernel.org
+Cc: sh_def@163.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <tencent_93CDCEC8A5EA657378E58B59854679079C0A@qq.com>
+Content-Language: en-US
+From: Helge Deller <deller@gmx.de>
+Autocrypt: addr=deller@gmx.de; keydata=
+ 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
+In-Reply-To: <tencent_93CDCEC8A5EA657378E58B59854679079C0A@qq.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:Fm24Q0q53iY+REkPe41eOsnkd+5QbKNql6KuOU0sSjAQzoC+jDG
+ SVdJbyMHq8Xx7uOTgSnOwFSAHNsN6QKegznjQR/QYEJ4MI+kwUDhKQCj+zA1VV8yhZRZQ2b
+ uraA4U4Cd31rPgJn4P9PDj3ctjGZ4/4XyLDRUnJMiD/xL/8h0cWY7GactGEVcpA+7sAnN3H
+ YYifzExRIAqD2UNznTtrw==
+UI-OutboundReport: notjunk:1;M01:P0:dpjq3m9C+mA=;xOwyRgK1GLnE91i/1Wktjhno+OE
+ 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
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,248 +199,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-handle_mm_fault() must not be called from the mmap callback because
-the VMA has not yet been linked. The handle_mm_fault() API contract
-assumes that the VMA is already linked.
+On 8/25/26 10:58, Yang Zi wrote:
+> device_get_match_data() can return NULL, e.g. when the device is matched
+> through the I2C device ID table rather than the OF match table. The
+> returned value is stored in par->device_info and later dereferenced when
+> initializing par->vcomh, causing a NULL pointer dereference.
+>=20
+> Check the return value right after the assignment and bail out with
+> -ENODEV (releasing the already allocated framebuffer) before any
+> dereference.
+>=20
+> Signed-off-by: Yang Zi <2959243019@qq.com>
 
-Remove the handle_mm_fault() call from the mmap callback. For imported
-BOs, mark the mapping as invalid and rely on the first command submission
-to fault in the pages.
+The patch did not apply cleanly. I fixed it up manually and applied it.
 
-For shmem BOs, set the VM_MIXEDMAP flag and use vm_insert_pages().
-Implement amdxdna_gem_mixed_vm_ops to handle the page faults.
+Thanks!
+Helge
 
-Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
----
-v2:
-  Fix sashiko comment.
-
- drivers/accel/amdxdna/amdxdna_gem.c | 144 +++++++++++++++++++++-------
- 1 file changed, 111 insertions(+), 33 deletions(-)
-
-diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-index 0d165b66c1fc..f4dbe165d800 100644
---- a/drivers/accel/amdxdna/amdxdna_gem.c
-+++ b/drivers/accel/amdxdna/amdxdna_gem.c
-@@ -14,6 +14,7 @@
- #include <linux/dma-direct.h>
- #include <linux/iosys-map.h>
- #include <linux/pagemap.h>
-+#include <linux/swap.h>
- #include <linux/vmalloc.h>
- 
- #include "amdxdna_cbuf.h"
-@@ -490,16 +491,12 @@ static int amdxdna_insert_pages(struct amdxdna_gem_obj *abo,
- {
- 	struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
- 	unsigned long num_pages = vma_pages(vma);
--	unsigned long offset = 0;
- 	int ret;
- 
--	if (!is_import_bo(abo)) {
--		ret = drm_gem_shmem_mmap(&abo->base, vma);
--		if (ret) {
--			XDNA_ERR(xdna, "Failed shmem mmap %d", ret);
--			return ret;
--		}
--	} else {
-+	if (vma->vm_pgoff - drm_vma_node_start(&to_gobj(abo)->vma_node))
-+		return -EINVAL;
-+
-+	if (is_import_bo(abo)) {
- 		vma->vm_private_data = NULL;
- 		vma->vm_ops = NULL;
- 		ret = dma_buf_mmap(abo->dma_buf, vma, 0);
-@@ -508,23 +505,28 @@ static int amdxdna_insert_pages(struct amdxdna_gem_obj *abo,
- 			return ret;
- 		}
- 
-+		amdxdna_mark_mapp_invalid(abo, vma);
-+
- 		/* Drop the reference drm_gem_mmap_obj() acquired.*/
- 		drm_gem_object_put(to_gobj(abo));
-+		return 0;
- 	}
- 
--	do {
--		vm_fault_t fault_ret;
--
--		fault_ret = handle_mm_fault(vma, vma->vm_start + offset,
--					    FAULT_FLAG_WRITE, NULL);
--		if (fault_ret & VM_FAULT_ERROR) {
--			XDNA_ERR(xdna, "Fault in page failed");
--			amdxdna_mark_mapp_invalid(abo, vma);
--			break;
--		}
-+	ret = drm_gem_shmem_mmap(&abo->base, vma);
-+	if (ret) {
-+		XDNA_ERR(xdna, "Failed shmem mmap %d", ret);
-+		return ret;
-+	}
- 
--		offset += PAGE_SIZE;
--	} while (--num_pages);
-+	vm_flags_mod(vma, VM_MIXEDMAP, VM_PFNMAP);
-+	ret = vm_insert_pages(vma, vma->vm_start, abo->base.pages, &num_pages);
-+	if (ret) {
-+		XDNA_ERR(xdna, "Failed to insert pages %d", ret);
-+		dma_resv_lock(to_gobj(abo)->resv, NULL);
-+		drm_gem_shmem_put_pages_locked(&abo->base);
-+		dma_resv_unlock(to_gobj(abo)->resv);
-+		return ret;
-+	}
- 
- 	return 0;
- }
-@@ -536,6 +538,10 @@ static int amdxdna_gem_obj_mmap(struct drm_gem_object *gobj,
- 	struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
- 	int ret;
- 
-+	XDNA_DBG(xdna, "BO map_offset 0x%llx type %d userptr 0x%lx size 0x%lx",
-+		 drm_vma_node_offset_addr(&gobj->vma_node), abo->type,
-+		 vma->vm_start, gobj->size);
-+
- 	ret = amdxdna_hmm_register(abo, vma);
- 	if (ret)
- 		return ret;
-@@ -546,9 +552,6 @@ static int amdxdna_gem_obj_mmap(struct drm_gem_object *gobj,
- 		goto hmm_unreg;
- 	}
- 
--	XDNA_DBG(xdna, "BO map_offset 0x%llx type %d userptr 0x%lx size 0x%lx",
--		 drm_vma_node_offset_addr(&gobj->vma_node), abo->type,
--		 vma->vm_start, gobj->size);
- 	return 0;
- 
- hmm_unreg:
-@@ -556,33 +559,108 @@ static int amdxdna_gem_obj_mmap(struct drm_gem_object *gobj,
- 	return ret;
- }
- 
-+/*
-+ * VM operations for amdxdna shmem VMAs that use VM_MIXEDMAP.
-+ *
-+ * drm_gem_shmem_vm_ops cannot be used on VM_MIXEDMAP VMAs because its fault
-+ * handler calls vmf_insert_pfn() → vmf_insert_pfn_prot() which contains:
-+ *   BUG_ON((vma->vm_flags & VM_MIXEDMAP) && pfn_valid(pfn))
-+ * All amdxdna shmem pages are ordinary struct pages so pfn_valid() is always
-+ * true, making the combination fatal.
-+ *
-+ * These ops use vmf_insert_page() (struct-page based) instead, which is the
-+ * correct API for VM_MIXEDMAP VMAs backed by real struct pages.  The open and
-+ * close handlers replicate drm_gem_shmem_vm_open/close using only exported
-+ * symbols.
-+ */
-+static vm_fault_t amdxdna_gem_mixedmap_fault(struct vm_fault *vmf)
-+{
-+	struct vm_area_struct *vma = vmf->vma;
-+	struct drm_gem_object *gobj = vma->vm_private_data;
-+	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
-+	loff_t num_pages = gobj->size >> PAGE_SHIFT;
-+	vm_fault_t ret = VM_FAULT_SIGBUS;
-+	pgoff_t page_offset;
-+	struct page *page;
-+
-+	page_offset = vmf->pgoff - drm_vma_node_start(&gobj->vma_node);
-+
-+	dma_resv_lock(gobj->resv, NULL);
-+
-+	if (!shmem->pages || shmem->madv < 0 || page_offset >= num_pages)
-+		goto out;
-+
-+	page = shmem->pages[page_offset];
-+	if (WARN_ON_ONCE(!page))
-+		goto out;
-+
-+	/*
-+	 * Use vmf_insert_page() (struct-page path) not vmf_insert_pfn()
-+	 * (PFN path) because this VMA carries VM_MIXEDMAP.
-+	 */
-+	ret = vmf_insert_page(vma, vmf->address, page);
-+	if (ret == VM_FAULT_NOPAGE)
-+		folio_mark_accessed(page_folio(page));
-+
-+out:
-+	dma_resv_unlock(gobj->resv);
-+	return ret;
-+}
-+
-+static void amdxdna_gem_mixedmap_vm_open(struct vm_area_struct *vma)
-+{
-+	struct drm_gem_object *gobj = vma->vm_private_data;
-+	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
-+
-+	/*
-+	 * Bump pages_use_count so the page array stays alive for the new
-+	 * mapping copy created by fork().  Mirrors drm_gem_shmem_vm_open().
-+	 */
-+	dma_resv_lock(gobj->resv, NULL);
-+	drm_WARN_ON_ONCE(gobj->dev, !refcount_inc_not_zero(&shmem->pages_use_count));
-+	dma_resv_unlock(gobj->resv);
-+
-+	drm_gem_vm_open(vma);
-+}
-+
-+static void amdxdna_gem_mixedmap_vm_close(struct vm_area_struct *vma)
-+{
-+	struct drm_gem_object *gobj = vma->vm_private_data;
-+	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
-+
-+	dma_resv_lock(gobj->resv, NULL);
-+	drm_gem_shmem_put_pages_locked(shmem);
-+	dma_resv_unlock(gobj->resv);
-+
-+	drm_gem_vm_close(vma);
-+}
-+
-+static const struct vm_operations_struct amdxdna_gem_mixedmap_vm_ops = {
-+	.fault  = amdxdna_gem_mixedmap_fault,
-+	.open   = amdxdna_gem_mixedmap_vm_open,
-+	.close  = amdxdna_gem_mixedmap_vm_close,
-+};
-+
- static int amdxdna_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *vma)
- {
- 	struct drm_gem_object *gobj = dma_buf->priv;
- 	struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
--	unsigned long num_pages = vma_pages(vma);
- 	int ret;
- 
--	vma->vm_ops = &drm_gem_shmem_vm_ops;
-+	vma->vm_ops = &amdxdna_gem_mixedmap_vm_ops;
- 	vma->vm_private_data = gobj;
- 
- 	drm_gem_object_get(gobj);
-+	vma->vm_pgoff += drm_vma_node_start(&gobj->vma_node);
- 	ret = drm_gem_shmem_mmap(&abo->base, vma);
- 	if (ret)
- 		goto put_obj;
- 
- 	/* The buffer is based on memory pages. Fix the flag. */
- 	vm_flags_mod(vma, VM_MIXEDMAP, VM_PFNMAP);
--	ret = vm_insert_pages(vma, vma->vm_start, abo->base.pages,
--			      &num_pages);
--	if (ret)
--		goto close_vma;
- 
- 	return 0;
- 
--close_vma:
--	vma->vm_ops->close(vma);
--	return ret;
- put_obj:
- 	drm_gem_object_put(gobj);
- 	return ret;
-@@ -878,7 +956,7 @@ static const struct drm_gem_object_funcs amdxdna_gem_shmem_funcs = {
- 	.vmap = amdxdna_gem_obj_vmap,
- 	.vunmap = amdxdna_gem_obj_vunmap,
- 	.mmap = amdxdna_gem_obj_mmap,
--	.vm_ops = &drm_gem_shmem_vm_ops,
-+	.vm_ops = &amdxdna_gem_mixedmap_vm_ops,
- 	.export = amdxdna_gem_prime_export,
- };
- 
--- 
-2.34.1
+> ---
+> diff --git a/drivers/video/fbdev/ssd1307fb.c b/drivers/video/fbdev/ssd13=
+07fb.c
+> index c4fdecafd856..4d185c754284 100644
+> --- a/drivers/video/fbdev/ssd1307fb.c
+> +++ b/drivers/video/fbdev/ssd1307fb.c
+> @@ -665,6 +665,10 @@ static int ssd1307fb_probe(struct i2c_client *clien=
+t)
+>  =C2=A0 =C2=A0 =C2=A0spin_lock_init(&par->damage_lock);
+>  =20
+>  =C2=A0 =C2=A0 =C2=A0par->device_info =3D device_get_match_data(dev);
+> +=C2=A0 =C2=A0 if (!par->device_info) {
+> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D -ENODEV;
+> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 goto fb_alloc_error;
+> +=C2=A0 =C2=A0 }
+>  =20
+>  =C2=A0 =C2=A0 =C2=A0par->reset =3D devm_gpiod_get_optional(dev, "reset"=
+, GPIOD_OUT_LOW);
+>  =C2=A0 =C2=A0 =C2=A0if (IS_ERR(par->reset)) {
+>=20
 
