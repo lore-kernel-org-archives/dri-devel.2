@@ -4,43 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 158C3C79FB9
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 13:21:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16F4BC79F9F
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 13:36:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A68710E5F9;
-	Thu, 10 Sep 2026 13:21:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EBA810E27E;
+	Thu, 10 Sep 2026 13:36:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ggi8TlUw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UDaA4zYd";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2114810E5F9
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 13:21:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 71C71600E2;
- Thu, 10 Sep 2026 13:21:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07D6B1F000FF;
- Thu, 10 Sep 2026 13:21:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789046516;
- bh=kk/nlQmNnPFwq5Dw0ZPFNELIOAKWZxwI65NOlsDRGaA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ggi8TlUwkg//6isk0WhReiLp7xdqIE0sDgSATXQihonnzqJZA2imQQFOK2d8sAQ30
- /SXda9tfr/Robf6TcRdR/Vij8L+Mebl98MeT3Jwgac2cM3T/Hle1drBZtgmxxlAq29
- PJaqW0A3tKq7mXkoxkul9TLgDiWYBFnP2UdWodyD+MirpDd4vTMQoR5PincML1q2/i
- 1bwBQYWKDmAZNnFWsFLXbvQGe91hknmegIi/bQWmB8FYAmJsflsl3nsmXxKQITPcVb
- Bt+Y7tQioYm5Sj3Rk4J2KJx1z1Hh5jF8T+Hg7AtzN4pt03bdIXR5vSOBf2DwR31qp/
- OuCghHJ8iIGIQ==
-From: sashiko-bot@kernel.org
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47C9D10E27E
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 13:36:25 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-49cd82be878so4292005e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 06:36:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789047384; x=1789652184; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=SdfNZLHoTwaSRGbzkk1xRxTbtBIxs9oY1WLjA5lMVdw=;
+ b=UDaA4zYdhGKPc5rr+Izz2iqGkhwVIAuLuSbtHqO6U52i1S4flRBnPqnNi3+sMZnV+v
+ 8JZzHJM2GKfWhaBsBWeOFUap/tNqFgb7uEokbbt+J/jLu3xyqyMeeJUgECWUW4ybiaxw
+ w5SU7YJPSDtdT5zVHNH9LUQiS0hDj8+TowLss4UgRB9NT5Ju7khblwEkerTXoSLoHZJV
+ YVLxB9U+E+D85n+QHNA6VPEf2UmK9wiSJYb+6pIj792sJRlssUShmn+9t6YHHHqKyCFQ
+ ZInA69CoqwJ+EhHptjHbYMzyjKDwzHBpFOaX4DBzP2YYUnWCUlHCF0gVsBHUZMQXzSNN
+ IRRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789047384; x=1789652184;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=SdfNZLHoTwaSRGbzkk1xRxTbtBIxs9oY1WLjA5lMVdw=;
+ b=Ugx6BCpZnx4lTGk1gxqG+kmlSLpe3sv4tepoESwHLDUkE+cw+ifbuzGWAs07xiPYjA
+ pcCCGQ1saOo9eS5t4cr3wzRvRxDHe4oPvGAli2yaWjWW7l/JsnfTmhy7sCelRRXDScQ7
+ k9rvmEdMwlNRe7O5Hh+yxAJ6DMR8oQCLKIioHQ25R6nUgIuCXTh0YYR1mUnKFx7B7VE6
+ UQgtllqFx01sLChFfP4Mvppd5Y10nP89bWEXdopzrm6iYCWwo2/UvakWDVwkYlMOzdXZ
+ T6URXM0KuzfWVjHhGtJITLn5Qgpyf27Q/J6zcxeah7ybdSPUrr0ilp9Cwwp/NUbIy4Kx
+ 96yA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzUmR8cKeIbklLErxffCsawofbYTs/zpejkCx4uqIdV9kKa0A6ozNWYs2c1ip/p8Ez8uMZl9dQqZsY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nsgYLPc2wnTCSyMYOHPy1F+K/nIhUZVNvJFaEeJjtmL4FhliSL
+ B2Ti/TumO9vXRPicToPrlZoP+4PBOfRjHXKOw6OB/HYouivlJk9rpzIf
+X-Gm-Gg: AYBFou3BFOfATQQzG2GX52ZweI1r6McGQYLf/rJeskmUtRYdTAlzY+q/CyiJBd4ap/D
+ v6p1yGP21axJiGxuAjYMMV4xNCgRznszXzYruI5nH0TbMeyBBcBP008yL9FY0DU2ESFbU3E6kLf
+ YCh9hIrfdZHLM1xLgB00cMcBFCY8OQGoI+L26oO/j4+T7yt/d/mKl2l8HeFmYPIYmuKFVa94Wde
+ IPb1wKt11GgJFysm9e0R0i2y1zIBRn0Ef4Q6j36qnjVQLsL06fGva5hAcQUdqz0jE/tvs9cpmSW
+ 6BO+kVktd1TWmPxpHi8kpr3XxVCAeJbayM9TfHBuq/7APwbnORGUpjn/ck3cERMGc8DMDnwUCXk
+ k1ro4awZE+xznnHI4bQQfNwa7X4K/4xW6L6/sX1TzARFzFsTQC37yOhDwMky6nL6BB3ZjLyKYyV
+ W0NsKfPlwpv2OaJ0MwIdmja00d8JK5H23MoC3nTT4fUcPAR7dOB0tMwXEoaJEOx0FuOUXqC4OVb
+ gFjIMB9v7vo+EtUWyPtF/YyC/bX3JGc40gScF41Lf3DUw0ugOyIdyulv0zpn9uewtBaMMXzOVjS
+ gUUQEKv/EcuWvvA=
+X-Received: by 2002:a05:600c:530d:b0:49c:e363:c66e with SMTP id
+ 5b1f17b1804b1-49d01dce86fmr310949945e9.1.1789047383351; 
+ Thu, 10 Sep 2026 06:36:23 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B914600506D8644FC6130D5.dsl.pool.telekom.hu.
+ [2001:4c4e:1b91:4600:506d:8644:fc61:30d5])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49d26be3e0asm77721735e9.1.2026.09.10.06.36.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 10 Sep 2026 06:36:22 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Sandy Huang <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Alexey Charkov <alchark@flipper.net>, Owen <support@armdesigner.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 Subject: Re: [PATCH v3] drm/rockchip: vop2: Scale the AXI clock to the
  bandwidth the mode needs
-To: "Igor Paunovic" <royalnet026@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260910130824.6587-1-royalnet026@gmail.com>
-References: <20260910130824.6587-1-royalnet026@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 13:21:55 +0000
-Message-Id: <20260910132156.07D6B1F000FF@smtp.kernel.org>
+Date: Thu, 10 Sep 2026 15:36:02 +0200
+Message-ID: <20260910133603.8993-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260910132156.07D6B1F000FF@smtp.kernel.org>
+References: <20260910132156.07D6B1F000FF@smtp.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,135 +101,49 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On 9/10/26 15:21, sashiko-bot@kernel.org wrote:
+> [Severity: High]
+> Does calling drm_crtc_commit_wait() here cause a kernel warning or potential
+> deadlock?
+>
+> According to the DRM Subsystem Details, drm_atomic_helper_commit_tail()
+> and its variants execute in atomic context where sleeping is forbidden.
 
-New issues:
-- [High] Sleeping functions called from atomic commit tail path.
+Both findings rest on that premise, and it does not hold.  The commit
+tail runs in process context: drm_atomic_helper_commit() calls
+commit_tail() on the caller's stack for a blocking commit and queues it
+on a workqueue for a nonblocking one.  commit_tail() then calls
+drm_atomic_helper_wait_for_fences() and
+drm_atomic_helper_wait_for_dependencies() - three loops of
+drm_crtc_commit_wait(), the very function flagged here - immediately
+before the ->atomic_commit_tail hook.  The default hooks block in
+drm_atomic_helper_wait_for_vblanks(), and the CRTC atomic_enable and
+atomic_disable helpers run inside them.
 
-Pre-existing issues:
-- [High] Preexisting sleeping functions called from CRTC atomic disable cal=
-lback.
---
+The wait itself is what the core asks for.  From the drm_private_obj
+documentation in drm_atomic.h: "Drivers should store (and get a
+reference to) the &drm_crtc_commit structure in our private state in
+&drm_mode_config_helper_funcs.atomic_commit_setup, and then wait for
+that commit to complete as the first step of
+&drm_mode_config_helper_funcs.atomic_commit_tail, similar to
+drm_atomic_helper_wait_for_dependencies()."  vc4_atomic_commit_tail()
+does exactly that, followed by clk_set_min_rate(), which takes the same
+clk prepare_lock as clk_set_rate().  The wait is on the previous
+commits' drm_crtc_commit, never on the current one, so it cannot wait
+on itself.
 
-commit ba765a9b53922b23dd96c53d16b5f0f7d8aa8c99
-Author: Igor Paunovic <royalnet026@gmail.com>
+The pre-existing note answers itself: vop2_crtc_atomic_disable() is
+called from that same commit tail, and the @atomic_commit_tail
+documentation says "When disabling a CRTC this hook _must_ stall for
+the commit to complete."  It also calls clk_set_parent() and
+clk_disable_unprepare() there, unchanged.
 
-drm/rockchip: vop2: Scale the AXI clock to the bandwidth the mode needs
+I suspect the two senses of "atomic" got conflated: an atomic commit is
+an all-or-nothing modeset update, not in_atomic() context.  There is no
+might_sleep() or context restriction on this path.
 
-This patch dynamically scales the VOP2 AXI clock on RK3588 based on the
-bandwidth requirements of the video mode. It tracks the clock requirement v=
-ia
-a global atomic state object and updates the clock in the atomic commit tail
-path.
-
-Link: https://lore.kernel.org/all/20260808104240.13776-1-royalnet026@gmail.=
-com/
-Link: https://lore.kernel.org/all/20767137.geO5KgaWL5@diego/ [1]
-
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
-rm/rockchip/rockchip_drm_vop2.c
-> index b2f3a579bbe52..cf574e48f9561 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-[ ... ]
-> +static void vop2_commit_tail_begin(struct rockchip_drm_commit_hooks *hoo=
-ks,
-> +				   struct drm_atomic_commit *state)
-> +{
-> +	struct vop2 *vop2 =3D vop2_from_commit_hooks(hooks);
-> +	struct drm_private_state *old_priv_state, *new_priv_state;
-> +	struct vop2_aclk_state *old_aclk_state;
-> +	unsigned int i;
-> +
-> +	old_priv_state =3D drm_atomic_get_old_private_obj_state(state, &vop2->a=
-clk_obj);
-> +	new_priv_state =3D drm_atomic_get_new_private_obj_state(state, &vop2->a=
-clk_obj);
-> +	if (!old_priv_state || !new_priv_state)
-> +		return;
-> +
-> +	old_aclk_state =3D to_vop2_aclk_state(old_priv_state);
-> +
-> +	for (i =3D 0; i < ARRAY_SIZE(old_aclk_state->pending_commit); i++) {
-> +		struct drm_crtc_commit *commit =3D old_aclk_state->pending_commit[i];
-> +
-> +		if (!commit)
-> +			continue;
-> +
-> +		if (drm_crtc_commit_wait(commit))
-> +			drm_err(vop2->drm, "timed out waiting for the commit on vp%u\n", i);
-
-[Severity: High]
-Does calling drm_crtc_commit_wait() here cause a kernel warning or potentia=
-l=20
-deadlock?=20
-
-According to the DRM Subsystem Details, drm_atomic_helper_commit_tail()=20
-and its variants execute in atomic context where sleeping is forbidden.=20
-Since drm_crtc_commit_wait() uses wait_for_completion_timeout() internally,=
-=20
-it can sleep and may lead to issues when called from the atomic commit tail
-path.
-
-> +
-> +		drm_crtc_commit_put(commit);
-> +		old_aclk_state->pending_commit[i] =3D NULL;
-> +	}
-> +
-> +	vop2_set_aclk_rate(vop2,
-> +			   max(vop2_aclk_rate(vop2, old_aclk_state),
-> +			       vop2_aclk_rate(vop2, to_vop2_aclk_state(new_priv_state))));
-> +}
-> +
-> +/*
-> + * Every port has moved over: settle at the rate the new configuration n=
-eeds.
-> + * Runs before drm_atomic_helper_commit_hw_done(), so the next commit, w=
-hich
-> + * waits for hw_done, never sees this write land after its own.
-> + */
-> +static void vop2_commit_tail_end(struct rockchip_drm_commit_hooks *hooks,
-> +				 struct drm_atomic_commit *state)
-> +{
-> +	struct vop2 *vop2 =3D vop2_from_commit_hooks(hooks);
-> +	struct drm_private_state *priv_state;
-> +
-> +	priv_state =3D drm_atomic_get_new_private_obj_state(state, &vop2->aclk_=
-obj);
-> +	if (!priv_state)
-> +		return;
-> +
-> +	vop2_set_aclk_rate(vop2, vop2_aclk_rate(vop2, to_vop2_aclk_state(priv_s=
-tate)));
-
-[Severity: High]
-Can this call to vop2_set_aclk_rate() sleep while in an atomic context?
-
-This path eventually calls clk_set_rate() which takes a mutex and is a=20
-sleeping function. Just like with drm_crtc_commit_wait() above, invoking=20
-this from the atomic commit tail could lead to warnings or deadlocks.
-
-> +}
-> +
->  static void vop2_crtc_atomic_disable(struct drm_crtc *crtc,
->  				     struct drm_atomic_commit *state)
->  {
-
-[Severity: High]
-This is a pre-existing issue, but it appears that the implementation of
-vop2_crtc_atomic_disable() calls sleeping functions from an atomic context.
-
-Specifically, it calls vop2_lock() which acquires a mutex, and=20
-wait_for_completion_timeout() for vp->dsp_hold_completion. The subsystem=20
-guidelines state that CRTC atomic disable callbacks run in atomic context=20
-where sleeping is forbidden. This might also be contributing to kernel
-warnings or system instability.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910130824.6587=
--1-royalnet026@gmail.com?part=3D1
+Thanks,
+Igor
