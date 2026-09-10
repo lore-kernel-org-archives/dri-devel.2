@@ -4,78 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9153EC79F9F
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 08:49:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1402C79FB9
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 08:50:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95EA910F382;
-	Thu, 10 Sep 2026 08:49:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03D7B10F388;
+	Thu, 10 Sep 2026 08:50:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="xz0E0wOF";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="E+0VUor4";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="eukcLfZi";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FLq54bPr";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="yAKPzKFD";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fe47nvyf";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="AA2zBIdD";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="JAEfuqya";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAA3110F382
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 08:49:44 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A77FA10F388
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 08:50:56 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 934B221C9F;
- Thu, 10 Sep 2026 08:49:34 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 01FB21FD88;
+ Thu, 10 Sep 2026 08:50:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789030178; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1789030251; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8EXLxuIVb7PAEbIyO16FTI1ShA95b9ts/qlzUcFe9u8=;
- b=xz0E0wOFNpPQhbzsmv7kqs66AX0akuk1/fPWfzj14N30o23ee950SSMG2mSuR/RErrTMO7
- ERPGDMfqubBnHB4/6Ln+quDAJgCzQbo60qQEBDJgttyQ0KK/+9HE/Ry0m3cBB5WZSXvVl+
- JAPgQEa0S8G4i0DsNLM5pS8npOJDFg0=
+ bh=qBTtNYb31EDDSDjGXsudaY5pzgm/9HvQiSXP0jyRnwU=;
+ b=yAKPzKFDKqkxe5hIn2WWKVFotgBgWI14zkboufxsBdd1cQz+c2M/ilrdI5qwVXVrAU1iQh
+ 6S2FJA3/Vd3H2plnwcyYBtlMRMPFtVM5dsMbHimXWnbrdbL3HVvHXhrtvOu2dHa4mjwJee
+ F51Iu3D62OhcZzwajV+Ne2TR+7AuzE4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789030178;
+ s=susede2_ed25519; t=1789030251;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8EXLxuIVb7PAEbIyO16FTI1ShA95b9ts/qlzUcFe9u8=;
- b=E+0VUor4g/2xxf//dD4YdmejJAVfzywFcM5T3PIUl+OpEVSTWACty0lXnBwtz1cnBNnghl
- 66nigS0O9aT/DNAA==
-Authentication-Results: smtp-out1.suse.de;
+ bh=qBTtNYb31EDDSDjGXsudaY5pzgm/9HvQiSXP0jyRnwU=;
+ b=fe47nvyf9fX0AAKgq550RlMSq844lE0RUF3rj7J9Vfsgmn/ZWo6nwJzNFlejbHFX8mBXoO
+ Iwp4ikAH9D8Zf7DA==
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789030174; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1789030247; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8EXLxuIVb7PAEbIyO16FTI1ShA95b9ts/qlzUcFe9u8=;
- b=eukcLfZin8MzRrcVPMy/WImGNtOHte+bidlvkleTSbYS0HdIaqwaI7bswhGHgnozXLyLwC
- k4o6kJTJq64GcaA9vTCPE+CNd3cgTOuUq/9JZfnvMCY8U4uanxLHi1U2Wg5lAV2vkrYbmp
- WyA/H5twyaStGkO7LrRjBoFhcYF/wr0=
+ bh=qBTtNYb31EDDSDjGXsudaY5pzgm/9HvQiSXP0jyRnwU=;
+ b=AA2zBIdDryqJLfxUkHMtMFyiRn/M7heRAiXST6zFlgnWx4sQPbBWhyhWjZv6FsGPmz+KmG
+ h7527vB8YCrOmKSkRVkqyrZez1bvzzAYrtqlPpexgK79Lc1PNLr/UwrhGja3rH7zar0ey+
+ /dvwlNZ0UsJNWEWV/94BdDLEP0zvnOY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789030174;
+ s=susede2_ed25519; t=1789030247;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8EXLxuIVb7PAEbIyO16FTI1ShA95b9ts/qlzUcFe9u8=;
- b=FLq54bPrVMzpitz1IxCDEHhJZ/QZ7qUR058ZWti1N/NGMdX7Meo5sIemm8eyCnAo6q0wf4
- y7u0thPzKlLjWeCQ==
+ bh=qBTtNYb31EDDSDjGXsudaY5pzgm/9HvQiSXP0jyRnwU=;
+ b=JAEfuqya5EJFPrVtpZNav3gK9acwgRhaErOiFMtSYqeLH/kvz/x6ts4+03+E9vnb1erKuD
+ +9bYWT4pbRV9nmCQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 380B31321C;
- Thu, 10 Sep 2026 08:49:34 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 99BA8137FD;
+ Thu, 10 Sep 2026 08:50:46 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id u7sLAR5vomrXaQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 10 Sep 2026 08:49:34 +0000
-Message-ID: <953008c0-57b3-49b7-ab81-027b7626269c@suse.de>
-Date: Thu, 10 Sep 2026 10:49:33 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id j2tpF2ZvompRawAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 10 Sep 2026 08:50:46 +0000
+Message-ID: <ab4d7464-34e2-41d0-8697-f3abca13e7bb@suse.de>
+Date: Thu, 10 Sep 2026 10:50:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/verisilicon: set blend mode for the primary plane
+Subject: Re: [PATCH 2/2] drm/verisilicon: set blend mode for the cursor plane
 To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>
@@ -83,6 +83,7 @@ Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Icenowy Zheng <uwu@icenowy.me>
 References: <20260901171703.1161592-1-zhengxingda@iscas.ac.cn>
+ <20260901171703.1161592-2-zhengxingda@iscas.ac.cn>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -109,7 +110,7 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260901171703.1161592-1-zhengxingda@iscas.ac.cn>
+In-Reply-To: <20260901171703.1161592-2-zhengxingda@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
@@ -124,8 +125,8 @@ X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,icenowy.me];
  TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
  TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[iscas.ac.cn:email, suse.com:url, suse.de:mid,
- suse.de:email, imap1.dmz-prg2.suse.org:helo]
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:email, suse.com:url,
+ iscas.ac.cn:email, imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,21 +145,30 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 Am 01.09.26 um 19:17 schrieb Icenowy Zheng:
-> Blend modes are now required to expose pixel formats w/ alpha.
+> Blend mode properties are now required to expose pixel formats w/ alpha.
 >
-> As it's the primary plane and blending is explicitly disabled, just
-> expose PIXEL_NONE blend mode.
+> Experiments show that the fixed blending mode for the cursor seems to be
+> COVERAGE:
+>
+> - With a cursor plane filled with R=G=0, B=0xff, A=0x40, the cursor is
+>    visible on a pure-white background, which means the background is
+>    multiplied.
+> - With a cursor plane filled with R=G=B=0xff, A=0x40, the cursor isn't
+>    pure white and non-white patterns can be see through, which means the
+>    cursor is multiplied.
+>
+> Add a fixed COVERAGE blend mode property for the cursor plane.
 >
 > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 > ---
->   drivers/gpu/drm/verisilicon/vs_primary_plane.c | 3 +++
+>   drivers/gpu/drm/verisilicon/vs_cursor_plane.c | 3 +++
 >   1 file changed, 3 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> index 1f2be41ae496c..8d58682d88ef8 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> @@ -7,6 +7,7 @@
+> diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+> index fa4f601dd0c87..36e3664373fa1 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+> @@ -11,6 +11,7 @@
 >   
 >   #include <drm/drm_atomic.h>
 >   #include <drm/drm_atomic_helper.h>
@@ -166,18 +176,16 @@ Am 01.09.26 um 19:17 schrieb Icenowy Zheng:
 >   #include <drm/drm_crtc.h>
 >   #include <drm/drm_fourcc.h>
 >   #include <drm/drm_framebuffer.h>
-> @@ -179,5 +180,7 @@ struct drm_plane *vs_primary_plane_init(struct drm_device *drm_dev, struct vs_dc
+> @@ -268,5 +269,7 @@ struct drm_plane *vs_cursor_plane_init(struct drm_device *drm_dev,
 >   
->   	drm_plane_helper_add(plane, &vs_primary_plane_helper_funcs);
+>   	drm_plane_helper_add(plane, &vs_cursor_plane_helper_funcs);
 >   
 > +	drm_plane_create_blend_mode_property(plane,
-> +					     BIT(DRM_MODE_BLEND_PIXEL_NONE));
-
-No empty line before that call. I think it also fits onto a single line. 
-Apart from the style
+> +					     BIT(DRM_MODE_BLEND_COVERAGE));
 
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
+Please see the other patch for my comments on coding style.
 
 >   	return plane;
 >   }
