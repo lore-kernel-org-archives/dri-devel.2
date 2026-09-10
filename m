@@ -4,90 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C700C79FB7
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 07:23:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25A78C79FB7
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 07:25:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 965F610E250;
-	Thu, 10 Sep 2026 07:23:58 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="jTjQ7F8L";
-	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9650A10E250
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 07:23:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1789025036;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=MOllz7iFisoMuqz9HYVsrPAX9tAU/LdtpLGaNl5A5Bo=;
- b=jTjQ7F8Lt+rVplHy3HwNU1pqr/HmxUzhYo9A4Iq4Y5CHz/T2igNCGBo4RM5nAFvY+S6KWy
- rxUIH4aPrDEtOS3L4QvohViE7IkgMOX9wGirOGRVfqNq6MI9Oc79iEgvZ37Ig7Rgd3kPih
- +r17+LoGeBFdpREbNDmqTZcBsndQPrg=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-677-1ofWDJrQPPeiyvcFNf2EyA-1; Thu, 10 Sep 2026 03:23:55 -0400
-X-MC-Unique: 1ofWDJrQPPeiyvcFNf2EyA-1
-X-Mimecast-MFC-AGG-ID: 1ofWDJrQPPeiyvcFNf2EyA_1789025034
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-49ccfbe060aso46551015e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 00:23:55 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789025034; x=1789629834;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :references:in-reply-to:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Jz9koIHvC3GBX/XUcgHOfcrwJtKrYjkKEL6ZBTQ6TM0=;
- b=EbmJAeJvzq2GjsyJ5dPY1ocb3yrNwh+wy7brTQY0/igoYcS+vHYUWZ/gWionb/Levk
- 7ySFeRBKuaAzICavxRzyBHD2BUQng0wZeW1b/bEphKFrcUkM57QfjlVN/W6cMueE6uy/
- YHJVnTtNal9Cw5geWBAFA5umE+Wd9xFyW63Yxy6snvgBGuRgF70fYcK7Yt5e960vH5I0
- PTlFEAWSj+hilla7y384NzyY8EHg7Wl9Z7uSf0eHbQZfpuFgM+C6X3yYgOzZmMe32bxm
- T7RXmlSGsJPuWeboABP8YgGkwvC+jamuU9lppJNNVWtkq6exxbdtmvEoPt0jTXZZ8pnl
- F88w==
-X-Gm-Message-State: AFuF++m2F4fsgn680GUuIUfUcI6DZahUGXYKjHdvOAL45reSKByXCByZ
- mF5YrL1CNGPFHGkOLB0nqaBxHHqu8BnGu6Jg65pwRlFtPMW5sbBaAKf/2+xpFmZEmxeUFY4tvSg
- oj6xu2hi7EbR5vXJO0HP2iN6kr4qs6icXzvc7pWbs590qj+HtLa8HnJvU9dkO0NWuNl90Dw==
-X-Gm-Gg: AYBFou2KBkYIUHiZN57BABQekC5f+InC7kuOt7pR6zFSU3NBRVoKbYkVTp5fFEXFXGh
- c8COWbUfNfPehf2wCHQFHQDrOpTygsI+JpweRrkZ/1GI2DkOYsEwxbapCFzz0ykkgnF28VrBrhb
- aO8uZx+bZ0IvLwZBPnbsbSEySnG1dQb1vH5qGlLgirM3lhAKj4D10ZLMA2xNVyWegrL1D61LLE2
- ESRDMTpgOuOpU/AFEh5ypdOvrsUJuPs6fYbZ/9FHdZDmU7nQim79lTP3jKIxY4OgHSkYBpOrcys
- nHzqmuUe5CjFcsESDj7hrTNRa6WI2/rqPIWGIJVeJtrNUHQtNIvzNOdKnpQ+hVeSEvZeB1ofLdV
- cN1MFG0axj38ziz9naJYcMnb0uipKOiyNfO0gvH9WUOFZPrNEPKJngxIM9A==
-X-Received: by 2002:a05:600c:46d5:b0:497:fecd:5b00 with SMTP id
- 5b1f17b1804b1-49d258d8be2mr48295445e9.9.1789025034237; 
- Thu, 10 Sep 2026 00:23:54 -0700 (PDT)
-X-Received: by 2002:a05:600c:46d5:b0:497:fecd:5b00 with SMTP id
- 5b1f17b1804b1-49d258d8be2mr48294805e9.9.1789025033597; 
- Thu, 10 Sep 2026 00:23:53 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49db038401fsm19301115e9.13.2026.09.10.00.23.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Sep 2026 00:23:49 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, ardb@kernel.org,
- ilias.apalodimas@linaro.org, jani.nikula@linux.intel.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-efi@vger.kernel.org,
- sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v4 1/3] firmware/sysfb: Remove rotation quirk for Lenovo
- D330
-In-Reply-To: <20260904090850.43060-2-tzimmermann@suse.de>
-References: <20260904090850.43060-1-tzimmermann@suse.de>
- <20260904090850.43060-2-tzimmermann@suse.de>
-Date: Thu, 10 Sep 2026 09:23:48 +0200
-Message-ID: <871pb1efi3.fsf@ocarina.mail-host-address-is-not-set>
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: vro0iQETGyp0ikyFdPq41cbyUPTtF91VzwYvb0qiynk_1789025034
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62FFF10F32F;
+	Thu, 10 Sep 2026 07:25:24 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 677DE10F32F
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 07:25:22 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.66])
+ by APP-01 (Coremail) with SMTP id qwCowAD3y+9cW6JqR4qWBw--.18774S2;
+ Thu, 10 Sep 2026 15:25:17 +0800 (CST)
+Message-ID: <e66fdb299d87ffdfea1c871cfeab88eeed7755ce.camel@iscas.ac.cn>
+Subject: Re: [PATCH v6 4/6] drm/verisilicon: add DC8000 (DCUltraLite)
+ display controller support
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Thu, 10 Sep 2026 15:25:16 +0800
+In-Reply-To: <20260908092840.225220-5-a0987203069@gmail.com>
+References: <20260908092840.225220-1-a0987203069@gmail.com>
+ <20260908092840.225220-5-a0987203069@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
+MIME-Version: 1.0
+X-CM-TRANSID: qwCowAD3y+9cW6JqR4qWBw--.18774S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3WFyfCFW5Ar1fJF18tryxXwb_yoWxGw45pF
+ 4jyay8WrWUXay29r97tFy8tF90kw1xtw4fGrZ7G34avrn8tF98WFW8XFyUZaykWrZrJF12
+ vFs2gr47Cr42v3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+ 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+ 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+ Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+ c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+ 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+ 14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+ IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+ 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+ IFyTuYvjxU2wIDUUUUU
+X-Originating-IP: [112.94.100.66]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,65 +67,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thomas Zimmermann <tzimmermann@suse.de> writes:
+=E5=9C=A8 2026-09-08=E4=BA=8C=E7=9A=84 17:28 +0800=EF=BC=8CJoey Lu=E5=86=99=
+=E9=81=93=EF=BC=9A
+> The Verisilicon DC IP family also ships in a DCUltraLite (DC8000
+> generation) configuration that lacks the DC8200's CONFIG_EX staging
+> registers and PANEL_START sync register, and exposes its VSYNC
+> interrupt through a differently laid out status/enable register pair.
+>=20
+> Add a vs_dc_funcs implementation for the DC8000 generation in
+> vs_dc8000.c: framebuffer updates are latched directly through
+> FB_CONFIG's enable/reset/valid bits instead of a staging commit,
+> panel
+> output starts as soon as PANEL_CONFIG.RUNNING is set with no separate
+> sync register to arm, and the VSYNC interrupt is acknowledged through
+> DISP_IRQ_STA/DISP_IRQ_EN.=C2=A0 Select this vtable in the probe path base=
+d
+> on the chip identity's generation field.
+>=20
+> Signed-off-by: Joey Lu <a0987203069@gmail.com>
 
-Hello Thomas,
+Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 
-> The Lenovo D330 is a notebook with detachable display. The display
-> is installed in landscape orientation, but the display mode is in
-> portrait orientation. By default, the display output is rotated to
-> the left by 90=C2=B0.
->
-> The sysfb quirk breaks the display by swapping display width and
-> height; and thus mixing up the display geometry. Fix this by keeping
-> the display as-is. The sysfb DRM drivers, usually efidrm, will pick
-> the correct panel orientation for the display.
->
-> The exact behavior might depend on the version of the BIOS release,
-> but the exact version numbers of broken and good releases are unknown.
-> Users are advised to update to the latest firmware.
->
-> Tested on a Lenovo D330-10IGM IdeaPad with firmware 8NCN43WW.
->
-> v3:
-> - mention possible dependency on BIOS release in commit description
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Acked-by: Ard Biesheuvel <ardb@kernel.org>
+Thanks,
+Icenowy
+
 > ---
->  drivers/firmware/efi/sysfb_efi.c | 9 ---------
->  1 file changed, 9 deletions(-)
->
-> diff --git a/drivers/firmware/efi/sysfb_efi.c b/drivers/firmware/efi/sysf=
-b_efi.c
-> index 685283bb7327..2338de73c62c 100644
-> --- a/drivers/firmware/efi/sysfb_efi.c
-> +++ b/drivers/firmware/efi/sysfb_efi.c
-> @@ -301,15 +301,6 @@ static const struct dmi_system_id efifb_dmi_swap_wid=
-th_height[] __initconst =3D {
->  =09=09},
->  =09=09.callback =3D efifb_swap_width_height,
->  =09},
-> -=09{
-> -=09=09/* Lenovo D330 with 800x1280 or 1200x1920 portrait screen */
-> -=09=09.matches =3D {
-> -=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-> -=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_VERSION,
-> -=09=09=09=09=09"Lenovo ideapad D330-10IGM"),
-> -=09=09},
-> -=09=09.callback =3D efifb_swap_width_height,
-> -=09},
-
-Agreed that is better to rely on the information provided by the
-firmware, instead of having this quirk. Specially given that it
-breaks when the firmware provides the correct display geometry.
-
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-
---=20
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+> =C2=A0drivers/gpu/drm/verisilicon/Makefile=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/verisilicon/vs_dc.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
+ 5 +-
+> =C2=A0drivers/gpu/drm/verisilicon/vs_dc.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
+ 1 +
+> =C2=A0drivers/gpu/drm/verisilicon/vs_dc8000.c | 92
+> +++++++++++++++++++++++++
+> =C2=A04 files changed, 98 insertions(+), 2 deletions(-)
+> =C2=A0create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8000.c
+>=20
+> diff --git a/drivers/gpu/drm/verisilicon/Makefile
+> b/drivers/gpu/drm/verisilicon/Makefile
+> index 9d4cd16452fa1..d2fd8e4dff242 100644
+> --- a/drivers/gpu/drm/verisilicon/Makefile
+> +++ b/drivers/gpu/drm/verisilicon/Makefile
+> @@ -1,6 +1,6 @@
+> =C2=A0# SPDX-License-Identifier: GPL-2.0-only
+> =C2=A0
+> -verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
+> vs_drm.o vs_hwdb.o \
+> +verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
+> vs_dc8000.o vs_drm.o vs_hwdb.o \
+> =C2=A0	vs_plane.o vs_primary_plane.o vs_cursor_plane.o
+> =C2=A0
+> =C2=A0obj-$(CONFIG_DRM_VERISILICON_DC) +=3D verisilicon-dc.o
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c
+> b/drivers/gpu/drm/verisilicon/vs_dc.c
+> index 9729b693d360e..3e9e2c0264f5d 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
+> @@ -134,7 +134,10 @@ static int vs_dc_probe(struct platform_device
+> *pdev)
+> =C2=A0	dev_info(dev, "Found DC%x rev %x customer %x\n", dc-
+> >identity.model,
+> =C2=A0		 dc->identity.revision, dc->identity.customer_id);
+> =C2=A0
+> -	dc->funcs =3D &vs_dc8200_funcs;
+> +	if (dc->identity.generation =3D=3D VSDC_GEN_DC8200)
+> +		dc->funcs =3D &vs_dc8200_funcs;
+> +	else
+> +		dc->funcs =3D &vs_dc8000_funcs;
+> =C2=A0
+> =C2=A0	if (port_count > dc->identity.display_count) {
+> =C2=A0		dev_err(dev, "too many downstream ports than HW
+> capability\n");
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.h
+> b/drivers/gpu/drm/verisilicon/vs_dc.h
+> index 825f5dd6bf174..ac96ad7011994 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_dc.h
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc.h
+> @@ -66,5 +66,6 @@ struct vs_dc {
+> =C2=A0};
+> =C2=A0
+> =C2=A0extern const struct vs_dc_funcs vs_dc8200_funcs;
+> +extern const struct vs_dc_funcs vs_dc8000_funcs;
+> =C2=A0
+> =C2=A0#endif /* _VS_DC_H_ */
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8000.c
+> b/drivers/gpu/drm/verisilicon/vs_dc8000.c
+> new file mode 100644
+> index 0000000000000..df7bd5bdd7f2a
+> --- /dev/null
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc8000.c
+> @@ -0,0 +1,92 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2026 Joey Lu <yclu4@nuvoton.com>
+> + */
+> +
+> +#include <linux/regmap.h>
+> +
+> +#include <drm/drm_print.h>
+> +
+> +#include "vs_crtc_regs.h"
+> +#include "vs_dc.h"
+> +#include "vs_drm.h"
+> +#include "vs_primary_plane_regs.h"
+> +
+> +static void vs_dc8000_panel_enable_ex(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_RESET);
+> +}
+> +
+> +static void vs_dc8000_panel_disable_ex(struct vs_dc *dc, unsigned
+> int output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			=C2=A0 VSDC_FB_CONFIG_RESET);
+> +}
+> +
+> +static void vs_dc8000_crtc_begin(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_VALID);
+> +}
+> +
+> +static void vs_dc8000_crtc_flush(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			=C2=A0 VSDC_FB_CONFIG_VALID);
+> +}
+> +
+> +static void vs_dc8000_crtc_enable_ex(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_ENABLE);
+> +}
+> +
+> +static void vs_dc8000_crtc_disable_ex(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			=C2=A0 VSDC_FB_CONFIG_ENABLE);
+> +}
+> +
+> +static void vs_dc8000_enable_vblank(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_DISP_IRQ_EN,
+> +			VSDC_DISP_IRQ_VSYNC(output));
+> +}
+> +
+> +static void vs_dc8000_disable_vblank(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_DISP_IRQ_EN,
+> +			=C2=A0 VSDC_DISP_IRQ_VSYNC(output));
+> +}
+> +
+> +static u32 vs_dc8000_irq_ack(struct vs_dc *dc)
+> +{
+> +	u32 hw_irqs, unified =3D 0, known =3D 0;
+> +	unsigned int i;
+> +
+> +	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &hw_irqs);
+> +
+> +	for (i =3D 0; i < VSDC_MAX_OUTPUTS; i++) {
+> +		known |=3D VSDC_DISP_IRQ_VSYNC(i);
+> +		if (hw_irqs & VSDC_DISP_IRQ_VSYNC(i))
+> +			unified |=3D VSDC_IRQ_VSYNC(i);
+> +	}
+> +
+> +	drm_WARN_ONCE(&dc->drm_dev->base, hw_irqs & ~known,
+> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "Unknown hardware IRQ bits: %#x\n", hw_=
+irqs &
+> ~known);
+> +
+> +	return unified;
+> +}
+> +
+> +const struct vs_dc_funcs vs_dc8000_funcs =3D {
+> +	.panel_enable_ex	=3D vs_dc8000_panel_enable_ex,
+> +	.panel_disable_ex	=3D vs_dc8000_panel_disable_ex,
+> +	.crtc_begin		=3D vs_dc8000_crtc_begin,
+> +	.crtc_flush		=3D vs_dc8000_crtc_flush,
+> +	.crtc_enable_ex		=3D vs_dc8000_crtc_enable_ex,
+> +	.crtc_disable_ex	=3D vs_dc8000_crtc_disable_ex,
+> +	.enable_vblank		=3D vs_dc8000_enable_vblank,
+> +	.disable_vblank		=3D vs_dc8000_disable_vblank,
+> +	.irq_ack		=3D vs_dc8000_irq_ack,
+> +};
 
