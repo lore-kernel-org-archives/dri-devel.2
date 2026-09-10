@@ -4,45 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39D49C79FB9
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 08:34:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6242C79FB9
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 08:34:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4142410E5C7;
-	Thu, 10 Sep 2026 08:34:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0B1F10F376;
+	Thu, 10 Sep 2026 08:34:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="b9s1ipUC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EC+u8d71";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2795010E5C7
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 08:34:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64F6610F37E
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 08:34:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2DB5060211;
- Thu, 10 Sep 2026 08:34:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 796031F000FF;
- Thu, 10 Sep 2026 08:34:04 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D5F10600D4;
+ Thu, 10 Sep 2026 08:34:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA041F000FF;
+ Thu, 10 Sep 2026 08:34:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789029244;
- bh=9cw27fkaVmFB07acOvjOiu/8R7jib31Qg3vHM/XgxEQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=b9s1ipUCTutUg3na3zZBHZQc5r2mdwVOcONaKO06zkEKqTkLW+kiDNwVX1dkP2zwO
- 8c6CCO2Q96WjZAdir5ORsqg+oV/wrpQDmWVlKU6LTJ9r82SPpQThyTClZP08sMcThu
- EK17j6hrYQpXMIlLcGCbFuMB9Q+WYwN5jfKsUfnjw9paJ5CyWiobrBkXb/fe/IMdyA
- l2UuJhKNlnv3AFgbtnnh298AUh49QnPF4o03bjUEnxavGXL3OCMvtdjXrBk8kEEcHV
- G4fOgSLIRc2WBHxmPbvBBmbi+9ROBDqd7F5jWb5ORexKQY32BY9m9ZXgXLZj/rKDPR
- 3/vg3L4Hm84eg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH/RFC 1/3] dt-bindings: gpu: img,powervr-rogue: Document
- R-Car V4H and V4M support
-To: "Geert Uytterhoeven" <geert+renesas@glider.be>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
- wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org
-In-Reply-To: <1c2771f8882cde0fde694b9f5aae50c02a2ae4cb.1789028076.git.geert+renesas@glider.be>
-References: <cover.1789028076.git.geert+renesas@glider.be>
- <1c2771f8882cde0fde694b9f5aae50c02a2ae4cb.1789028076.git.geert+renesas@glider.be>
+ s=k20260515; t=1789029287;
+ bh=az0kiZ6Vkg/DvTV9UcQQ1SWFv3DTv1KIes24E9gOO0Y=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=EC+u8d71j2WycnMf8Rx/Q+VbqSCS2snfakFw7Cm7u1f/m9J/4f4/CihF4SEm129Te
+ GsZmSY8hs2YqP3NDSZ6eq++rS8Ozr8UFNxDeaXWL+y5Un/mkNlEhL7bNu4/FSwxbnC
+ AaV8kLEdS8ZiMcRlHDMrdIFTvu03KkrI8jlDGA5LsaOu5VMBnBxOSpFHiiigBiCaR6
+ K/ngYO1NKF+oOSzx1pup3Pu3kFmELfMeSRcrHjE3NEix62oVqfQHdXaeqO07YxnXIB
+ 6jQmir41XTMnu8+XQGTg87PJZVoFZDHDVBGU3GMhUcLcKHK5DzZwebu0JDarbK+pFh
+ BYln0KM2aPhLw==
+Date: Thu, 10 Sep 2026 10:34:43 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>,
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>,
+ Hal Feng <hal.feng@starfivetech.com>,
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Heiko Stuebner <heiko@sntech.de>, Conor Dooley <conor@kernel.org>,
+ Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, 
+ Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Maud Spierings <maud_spierings@murena.io>, 
+ Graham Markall <hello@big-grey.co.uk>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Subject: Re: [PATCH v3 06/19] dt-bindings: display: verisilicon: Add
+ starfive,jh7110-dc8200
+Message-ID: <20260910-amorphous-vigilant-jaybird-d65c4f@quoll>
+References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
+ <CGME20260904132719eucas1p1c900149ffa1b8771aca238e6441482ee@eucas1p1.samsung.com>
+ <20260904-jh7110-clean-send-v3-6-484f9ae72715@samsung.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 08:34:04 +0000
-Message-Id: <20260910083404.796031F000FF@smtp.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20260904-jh7110-clean-send-v3-6-484f9ae72715@samsung.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,74 +85,22 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The newly added compatible string `img,img-axm-8-256` is omitted=
- from the `power-domains` conditional block, allowing incomplete device tre=
-e nodes to silently pass validation.
---
+On Fri, Sep 04, 2026 at 03:27:07PM +0200, Michal Wilczynski wrote:
+> The JH7110 embeds a DC8200. The binding requires an SoC specific
+> compatible ahead of the generic one, so add the JH7110 to the enum.
+> 
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+> ---
+>  Documentation/devicetree/bindings/display/verisilicon,dc.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-commit 2124d2433f8e144a72392a5dd4a2382c06e9682a
-Author: Geert Uytterhoeven <geert+renesas@glider.be>
+And this one must be before patch #5 or switch in your patch #5 to
+compatibles-style for children, instead of $ref (see some recent
+display/msm/*mdss* bindings like sm8750).
 
-dt-bindings: gpu: img,powervr-rogue: Document R-Car V4H and V4M support
-   =20
-The Renesas R-Car V4H SoC integrates an Imagination Technologies IMG
-AXM-8-256 GPU, while R-Car V4M integrates an Imagination Technologies
-IMG BXS-4-64 GPU.  Both variants can generate 8 interrupts.
+Best regards,
+Krzysztof
 
-> diff --git a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml=
- b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
-> index e9218e0f363d1..9bea037602c13 100644
-> --- a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
-> +++ b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
-> @@ -35,6 +35,11 @@ properties:
->            # work with newer dts.
->            - const: img,img-axe
->            - const: img,img-rogue
-> +      - items:
-> +          - enum:
-> +              - renesas,r8a779g0-gpu
-> +          - const: img,img-axm-8-256
-> +          - const: img,img-rogue
-
-[Severity: Medium]
-Does the newly added img,img-axm-8-256 compatible string need to be included
-in the power-domains conditional block?
-
-Looking at the allOf/power-domains constraints further down in
-Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml, the existing
-block requires two power domains for similar hardware:
-
-  - if:
-      properties:
-        compatible:
-          contains:
-            enum:
-              - img,img-bxs-4-64
-              - img,img-ge7800
-              - img,img-gx6250
-    then:
-      properties:
-        power-domains:
-          minItems: 2
-        power-domain-names:
-          minItems: 2
-      required:
-        - power-domains
-        - power-domain-names
-
-If a developer compiles a device tree using renesas,r8a779g0-gpu without
-providing the required two power domains, will the dtbs_check tool process
-the device tree without flagging the omission?
-
-Should this enum list be updated to include img,img-axm-8-256 to correctly
-enforce the two power domains requirement for the R-Car V4H hardware?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1789028076.gi=
-t.geert+renesas@glider.be?part=3D1
