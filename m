@@ -4,85 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 875B8C79F9F
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 10:06:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0919C79FBF
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 10:06:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09F5010F3EC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38F8410F3FD;
 	Thu, 10 Sep 2026 10:06:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ERSfU4C4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eJ0mjHb0";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA34110E22B
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 01:53:04 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- d9443c01a7336-2d8fb334ddcso8648265ad.0
- for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 18:53:04 -0700 (PDT)
+Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 407A810E08B
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 03:54:01 +0000 (UTC)
+Received: by mail-oa2-f1.google.com with SMTP id
+ 586e51a60fabf-448a12ddfb4so2897996fac.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 20:54:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789005184; x=1789609984; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1789012440; x=1789617240; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=B3AxC7gchtFJwmTqUc6Eo/wyWrQDc1+3uptrgZICrdw=;
- b=ERSfU4C47hBJ+L0cBZjesKZiOfutG30BimUp2NPvFbnivNHwHDiMqDUyEPCn3AYkM5
- RF+Ie6VxY5aaSs7EVYiCsOKA5j9l5SmCfuO1aybRcBVM+DbzsJbGQ257w9a+uYbM6jPi
- 6Poi9VSGmdTaoLLs9jiUwhJxzmE9lMGfZI9i2hnyf4OnVWxfmdTEBKd5XazT2r37cbNG
- GUVtCiyWhNFHOh3GapfODsjbW5uxVKcX6OJgvr6QyTwtHvmTwAE20DSdts8i+CYLxoA0
- QdVq7etSenfn72wdG7Y/pTwGu7sYnJdewc/IqrMAvx1X8FmsBtm1zfvjT+VXpzJMbXed
- GMtw==
+ :content-type; bh=MphXScIlea9Ch/HqYCopSdk5l+/MgVBRqofI+uB1fjg=;
+ b=eJ0mjHb00f7j8XXKdTOofe+S2H1xp42gPmGjEkCktTdRDQdT/E1WpWGvbMTQw7VnqV
+ l6DLUl/9Kt3Cqm+fS0cm7wQa9O1S1yO0xVF4GUMzjyZ+NMSW6pZKSBbqY+QxzPAQUHl+
+ u3I6W3khjy2qbyd09lBd+LXSnL9EBft6kUxJ9DxtBO07LxH+M1AINK0BtusKjAcAXw4R
+ /xtwRXQ+8IVI9Mi4MHD/9F8RKVzFUT/HCI0il/m97cCnHhwZLO/IZNxOYxvDEi3PDiy+
+ TsJER3ItJuQSlEu/6odFPSn70mGdsJ3WLwKzMaR/YFNvJ+xLpvnSViuOar7Wji0PmpqI
+ pCzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789005184; x=1789609984;
+ d=1e100.net; s=20251104; t=1789012440; x=1789617240;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=B3AxC7gchtFJwmTqUc6Eo/wyWrQDc1+3uptrgZICrdw=;
- b=jG9LseJrHRSP1urcDRuCTXdJSA7Hkzos2rgBVmf4f4Wy4SbezE8HjcgHZJf80Hi4HN
- D903hTAJjugSoMsCaqjzD/07VMzoz1MSemRjSHcpuroM5MmjLRR0BI9h31rctvvAdOEX
- TkNPQbPBOVepD/LINDAJTAUjgYZ1BfFDDiqPF3pGAXscqjujAJgAshOB2b46D1xqNmR4
- tFOV9W3k9+PRyu0xaU7Bo73zGns1fOoZxRRAYcS/W44klQ1DZyM/cRmPsyVmPa8ACGAX
- 1qGP6JZ6Tyw2VcYmWoAbsslsaOnr7o4GltTkVQh1/S1oBUCqcd/8ahc1FjCvEyylE9at
- noOQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxnNG+799BMvVKPp7DrOf0Zplg3kzkXDyIKq74+kPcXKw7FZjYLduB/WJDwe6ktzIJ/QZpYf2u0HBs=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nVpjepMqkmTrq9XlIShZfORB/Gp0JG3y+2bpdB52uJxicU0Lx0
- XHQqVW73BJeE0PcTMecC2UABe52WuN+Bwz2rTFsqxn2cNoLdq7ctlfbp
-X-Gm-Gg: AYBFou0XQbAi6CFkPZnqc8lCUh1vY4L4bBburLQ1x4YocV8Hy+BC8+f8n7nLhYATapX
- npKRcJLWSWZENBmudP4/D/NZoCX0VH1LE5zEXBDUx8j1hcjTJsVf4MLqL4WDajz3Zjj77tQ0oPA
- 1aNHo8QmTFeTwXFsAWq78LvP3fPtABKkJI7PqBaYhBvWBGAs405WHlpgjZe7gC9mkldFY6LAqVN
- UQhvMTsYlfJpny1oO59mQhYybWF25q7JgENG7yr28GMGzzkDh8SqYQ3pcaNJVf9hv/3mCsmPR7j
- wzxl27F4bKjxq6RHDkmz5sv3RMTbhcJFe5yAJ4qso/s7f4vIMjooOFezv02k0LfDJbZ/4EOheK7
- 0qBgsRiwLComPCtI0gnL3T2JbYi/09MueJw7mE54qNWxOHkmS7q6vEcqdpIlKgA+kfeQ4XEQ4PP
- /KZtRoOq4Y6dDIuo8/o26dJaemPmAaP6bFqk2C2jDDN7wVwOwMLwFwHzf3/wTfvmuhJNN4UKkd6
- Jm4ls5BWy9Y7UgbRXBldBjVyiFJeQJMJiTmwKPxANrnYIVKQvTzyDs=
-X-Received: by 2002:a17:902:d58a:b0:2d9:4358:73ab with SMTP id
- d9443c01a7336-2dd07b9c78cmr64548885ad.19.1789005184028; 
- Wed, 09 Sep 2026 18:53:04 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2db1499d92dsm79698945ad.52.2026.09.09.18.53.00
+ bh=MphXScIlea9Ch/HqYCopSdk5l+/MgVBRqofI+uB1fjg=;
+ b=jWeFTc67KivFSi6oP6kFoqcE/k09pUlurb3eEKJDucSTCI3g73XWjdvqEA1rSIoLlz
+ b350PdvqCJEg5NYKbtaqTnKRS0BBszMccPa048V+Ow27b4m2bxXsTIKhn+z9QBZLrM56
+ O6ubVD8ZqTC+B+22nlgOusQf9yWJna1uI3kFDuwLbHkboqfd7wL1psch8suVOruVGWf+
+ 2pmAFepvtokdkJyQyXswuCevwMi/tTqnWynGspnRGKdgLbfM2o/6p+V4xqUSwXILTxjL
+ zT02TciblJQwfqcSO3MBglqOkQElCjc4I77HQiCdNZ+ik9LBQc63Xe7QmOsH7HQAbZxS
+ iEzw==
+X-Gm-Message-State: AFuF++kr7vNYsa6xOnwvo5lWbR7sAQnp1mInZCd1O1SOSsy/0TkCd3Iv
+ yfZTNNZ6cz6mPmHUellWi48cTEbYl+PGVHz3VeKXe+9/r+ItefIP5ChTIYBPN3mX0lQ=
+X-Gm-Gg: AYBFou2898bmcRz4iGbWpoRh7tvA20vjcsRFEyscpC+193FBi17zPL0fdDQbhFhmCHU
+ wFpja07yMxog1IapoHAheeKX2+ib6ud4vKZmchjLb8S70q9hbcdWQu/oVhMhKlT1ipexq1aeqp6
+ pIIJdhhnumXp/oAE8vWlXEJSTkITf9fRJ4zkb2xvPILr0D5lMur29OrAYz+j2VkEA47NGzPx8Ny
+ T4HMHR4HpBCn0NQplR7X6OpEgwbibzOqbC4c6bWqVICYDyKE8G4Z8TZBbTKe8/tKTMNcVcLSpX7
+ t4S8NkgzrKnb8QwUPViU7J2c2u34Jm6dT752xI+V/Jgzgw8JB6pVqEjS17zaFOHnt+Ao7TyawbB
+ u2RQV8nQPnoVz/AkIyE4MYmVrQ/ixMHAePWS4DBmz9VrGgo9DRCqWAxvaTR2M9y4WjmxQCqmVX9
+ HQxgY+B42wZyUKWNC7Pma/ymZjXfwgbtULhh5tjXOXtXV1alsAETGHTiCJdrBJqMa1t+I0Oir9Q
+ wlbSgMPddTnGRav5kYIinxSj+o=
+X-Received: by 2002:a05:6820:81cc:b0:6b1:9f9d:7a00 with SMTP id
+ 006d021491bc7-6bee25409d4mr5533822eaf.5.1789012439997; 
+ Wed, 09 Sep 2026 20:53:59 -0700 (PDT)
+Received: from ?IPV6:2600:8804:5716:d800::b712? ([2600:8804:5716:d800::b712])
+ by smtp.gmail.com with ESMTPSA id
+ 586e51a60fabf-475543fcaa9sm15753624fac.7.2026.09.09.20.53.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Sep 2026 18:53:03 -0700 (PDT)
-Message-ID: <9d697240-3632-401f-aeba-c1fa5c2a29d4@gmail.com>
-Date: Thu, 10 Sep 2026 09:52:58 +0800
+ Wed, 09 Sep 2026 20:53:59 -0700 (PDT)
+Message-ID: <31087903-ac71-4561-aa6c-00abdb309fe0@gmail.com>
+Date: Wed, 9 Sep 2026 22:53:57 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/6] dt-bindings: display: verisilicon, dc: add support
- for nuvoton,ma35d1-dcu
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260908092840.225220-1-a0987203069@gmail.com>
- <20260908092840.225220-2-a0987203069@gmail.com>
- <f74168b54fe8f070b7cfe79dc2fc83a63c2e8842.camel@iscas.ac.cn>
+Subject: Re: [PATCH] drm/imagination: suspend the GPU for system sleep, not
+ just runtime PM
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+References: <20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v1-1-f45847bc951b@gmail.com>
+ <20260909192653.C24201F000FF@smtp.kernel.org>
 Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <f74168b54fe8f070b7cfe79dc2fc83a63c2e8842.camel@iscas.ac.cn>
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+In-Reply-To: <20260909192653.C24201F000FF@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 10 Sep 2026 10:06:32 +0000
@@ -101,164 +92,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 9/9/26 2:26 PM, sashiko-bot@kernel.org wrote:
 
-Icenowy Zheng 於 2026/9/9 下午 01:44 寫道:
-> 在 2026-09-08二的 17:28 +0800，Joey Lu写道：
->> Add the Nuvoton MA35D1 DCUltraLite (nuvoton,ma35d1-dcu) to the
->> binding.
->> The DCUltraLite uses only four clocks (core, axi, ahb, pix0) and one
->> reset (core), with a single output port.
->>
->> The MA35D1 clock controller gates the core, AXI and AHB clocks with a
->> single bit, but each remains a distinct clock line feeding the IP
->> with
->> its own rate constraints, so all four must still be listed
->> individually
->> in the devicetree; core, axi and ahb happen to share the same clock
->> phandle.
-> This is weird, but I must admit that we're limited by the Common Clock
-> Framework here, so I cannot give a better solution either.
+> [Severity: High]
+> Does delegating system suspend to pm_runtime_force_suspend() cause the system
+> sleep to abort if the device is lost or unplugged?
 >
-> Anyway let's settle with the current result.
+> If the GPU crashes and is marked lost via drm_dev_unplug(), the PM core calls
+> the .suspend callback, which delegates to pvr_power_device_suspend():
 >
->> Move the clocks/clock-names minItems to 4 and resets/reset-names
->> minItems to 1 at the top level, since that is the lowest count any
->> supported variant needs.  Add an allOf/if block that tightens the
->> constraint back up to the fixed 5-clock/3-reset topology required by
->> the existing thead,th1520-dc8200 compatible, and another one that
->> caps
->> the new nuvoton,ma35d1-dcu compatible at the 4-clock/1-reset count it
->> actually wires up.
->>
->> Signed-off-by: Joey Lu <a0987203069@gmail.com>
->> ---
->>   .../bindings/display/verisilicon,dc.yaml      | 44
->> +++++++++++++++++++
->>   1 file changed, 44 insertions(+)
->>
->> diff --git
->> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> index 919a900122012..773966677d0f4 100644
->> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> @@ -17,6 +17,7 @@ properties:
->>       items:
->>         - enum:
->>             - thead,th1520-dc8200
->> +          - nuvoton,ma35d1-dcu
->>         - const: verisilicon,dc # DC IPs have discoverable ID/revision
->> registers
->>   
->>     reg:
->> @@ -26,6 +27,7 @@ properties:
->>       maxItems: 1
->>   
->>     clocks:
->> +    minItems: 4
->>       items:
->>         - description: DC Core clock
->>         - description: DMA AXI bus clock
->> @@ -34,6 +36,7 @@ properties:
->>         - description: Pixel clock of output 1
->>   
->>     clock-names:
->> +    minItems: 4
->>       items:
->>         - const: core
->>         - const: axi
->> @@ -42,12 +45,14 @@ properties:
->>         - const: pix1
->>   
->>     resets:
->> +    minItems: 1
->>       items:
->>         - description: DC Core reset
->>         - description: DMA AXI bus reset
->>         - description: Configuration AHB bus reset
->>   
->>     reset-names:
->> +    minItems: 1
->>       items:
->>         - const: core
->>         - const: axi
->> @@ -79,6 +84,45 @@ required:
->>     - reset-names
->>     - ports
->>   
->> +allOf:
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: thead,th1520-dc8200
->> +    then:
->> +      properties:
->> +        clocks:
->> +          minItems: 5
->> +
->> +        clock-names:
->> +          minItems: 5
->> +
->> +        resets:
->> +          minItems: 3
->> +
->> +        reset-names:
->> +          minItems: 3
->> +
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: nuvoton,ma35d1-dcu
->> +    then:
->> +      properties:
->> +        clocks:
->> +          maxItems: 4
->> +
->> +        clock-names:
->> +          maxItems: 4
->> +
->> +        resets:
->> +          maxItems: 1
->> +
->> +        reset-names:
->> +          maxItems: 1
-> Maybe it's reasonable to restrict max port count to 1 for MA35D1?
-> Although I am not sure about how to do this...
+> drivers/gpu/drm/imagination/pvr_power.c:pvr_power_device_suspend()
+> 	if (!drm_dev_enter(drm_dev, &idx))
+> 		return -EIO;
 >
-> Thanks,
-> Icenowy
-  I found the same kind of per-compatible port restriction already used 
-upstream in renesas,du.yaml, e.g.:
+> Since the device is unplugged, drm_dev_enter() fails, and the function returns
+> -EIO. Will this permanently break system suspend for the entire system until
+> reboot, since the PM core aborts system suspend if any device's .suspend
+> callback returns an error?
+>
+> [ ... ]
+Yes, this is a real regression in v1. Thanks for catching it. The chain is:
 
-         ports:
-           properties:
-             port@2: false
-             port@3: false
-           required:
-             - port@0
-             - port@1
+   pvr_device_lost() sets pvr_dev->lost and calls drm_dev_unplug(), which
+   sets dev->unplugged (drm_drv.c);
+   drm_dev_enter() then returns false;
+   pvr_power_device_suspend() returns -EIO (pvr_power.c);
+   pm_runtime_force_suspend() propagates it -- "if (ret) goto err;", and
+   the error path is pm_runtime_enable(dev); return ret; (runtime.c);
+   the PM core aborts the system suspend.
 
-Applied to our binding, that would look like:
+pm_runtime_force_suspend() only reaches the callback if the device is 
+runtime-active, and a lost device cannot runtime-suspend either, for the 
+same -EIO. As a result, it stays active and every subsequent system 
+suspend fails the same way. All that can fix it at that point is a 
+reboot or a rebind.
 
-         ports:
-           properties:
-             port@1: false
-           required:
-             - port@0
+v2 wraps the force helpers and returns 0 early when the device is 
+already unplugged, because at that point there's nothing left to power 
+down. I test drm_dev_is_unplugged() rather than pvr_dev->lost so the 
+guard matches the exact condition the -EIO comes from, therefore also 
+covering an unplug arriving by any other path.
 
-in the existing nuvoton,ma35d1-dcu allOf/if/then block, so schema checks 
-would reject a port@1 node on this compatible instead of silently 
-accepting it.
+I verified v2 on my Amazon Fire HD 10 (2017) tablet, with no patch as 
+the control. The same kernel, same config, same tree, with the only 
+different being this patch applied and powervr.ko rebuilt and swapped (I 
+have the module as =m, so no reflash was needed; vermagic identical). 
+The control failed, and the v2 patch worked.
 
-Happy to add it if you'd like the schema to enforce this, but wanted to 
-check whether you consider it worth the extra lines given it doesn't 
-reflect an actual bug in any DT today. Let me know which way you'd 
-prefer and I'll fold it into the next version.
+The test pins the GPU runtime-active -- the condition that fails -- then
+system-suspends for 35 s and touches the GPU.
 
-Thanks.
->> +
->>   additionalProperties: false
->>   
->>   examples:
+With the patch:
+
+   runtime_status before suspend: active
+   state write rc=0, uptime 606.04 -> 642.39
+   runtime_status after resume: active
+   vulkaninfo --summary: rc=0, deviceName = PowerVR Rogue GX6250
+
+Without it, the same run, GPU working beforehand (rc=0, same deviceName) 
+and the suspend itself succeeding (uptime 52.62 -> 87.82):
+
+   VERDICT: FAIL -- GPU op still running after 100s
+   pid 2862 state: D
+
+and the kernel's hung-task detector produced two stacks, from two 
+different ioctls, both wedged in the same place:
+
+   pvr_power_reset+0x64/0x534 [powervr]
+   pvr_mmu_flush_exec+0xec/0x18c [powervr]
+   pvr_mmu_op_context_destroy+0x58/0x1ec [powervr]
+   pvr_vm_bind_op_fini+0xa4/0xd0 [powervr]
+   pvr_vm_unmap_obj_locked+0x1f4/0x260 [powervr]
+   pvr_vm_unmap+0x5c/0x90 [powervr]
+   pvr_ioctl_vm_unmap+0x50/0x80 [powervr]
+   drm_ioctl_kernel+0xec/0x13c [drm]
+   drm_ioctl+0x254/0x3c4 [drm]
+
+   pvr_power_reset+0x64/0x534 [powervr]
+   pvr_mmu_flush_exec+0xec/0x18c [powervr]
+   pvr_submit_jobs+0x838/0xa60 [powervr]
+   pvr_ioctl_submit_jobs+0x6c/0x19c [powervr]
+   drm_ioctl_kernel+0xec/0x13c [drm]
+   drm_ioctl+0x254/0x3c4 [drm]
+
+That's the chain from the commit message, and it also answers your 
+question about the deadlock: both stacks are under drm_ioctl, so 
+pvr_power_reset() is calling drm_dev_unplug() from inside the very SRCU 
+read section the ioctl holds. The box needed a reboot afterwards, and 
+the reboot itself was slow because the D-state task cannot be killed.
+
+One note on this: this is a check-then-act, and kernel workqueues are 
+not frozen during dpm_suspend, so the watchdog worker could in principle 
+lose the device between the test and the callback. The window is small 
+and the consequence is one failed suspend rather than a permanent one, 
+but it is not zero. The alternative is to stop 
+pvr_power_device_suspend() reporting failure for hardware that is gone, 
+which removes the race and is arguably more correct for the runtime path 
+too -- but it changes existing behaviour, so I didn't fold it into this 
+fix. I can do it that way instead if it's preferred, just let me know in 
+v2.
+> [Severity: High]
+> This isn't a bug introduced by this patch, but does failing to suspend leave
+> the GPU watchdog permanently disabled?
+Confirmed, pvr_power_fw_disable() does 
+cancel_delayed_work_sync(&watchdog.work) and then returns early if 
+pvr_power_request_idle() fails, without requeueing. The only requeue is 
+the queue_delayed_work() in pvr_power_fw_enable(), on the resume path, 
+and the PM core doesn't call resume for a device whose suspend failed. 
+So the watchdog stays cancelled and a firmware hang later on would go 
+undetected.
+
+It's pre-existing, but my patch adds a new way to reach it through 
+system sleep, so I mentioned it in the v2 commit message. I can also 
+send a separate patch restarting the watchdog on that error path, if 
+that's wanted.
+
+---
+
+Everything else seems to be pre-existing and probably not worth 
+addressing in my v2.
+
+For the v2, I'm not including sarah.walker@imgtec.com and 
+donald.robson@imgtec.com -- the sends to them bounced. b4 --auto-to-cc 
+included them, but I'll just remove them for v2.
+
+I'll also Cc Chen-Yu Tsai, Icenowy Zheng, and YoungJoon Lee, who are 
+also working on the same GPU and are much more experienced with this 
+hardware than I am :) I have an Amazon Fire HD 10 with the same GPU, but 
+I believe they are working on Chromebooks.
+
+Thanks again,
+Ryan
+
+
