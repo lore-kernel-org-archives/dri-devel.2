@@ -4,61 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AB0AC79F9F
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 07:14:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9E17C79F9F
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 07:17:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51AC810F327;
-	Thu, 10 Sep 2026 07:14:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E507010F32D;
+	Thu, 10 Sep 2026 07:17:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dL8aMwUD";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="X4ubh83p";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9889010F327
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 07:14:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789024493; x=1820560493;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=k4nyCBxi7fpuVu67lXrSDcu9nkhykGQULtMJku448KU=;
- b=dL8aMwUD3TGSlJN5DJ1bQv36D4Rb/26kxvHS28z5bLIclZ4snib90jl/
- 1++PZvRl84jBvA7RY6T8esAXjXtzcYjxAkGxuePX26mNQkTEW3nNQPt77
- 2jW8tXj63y/v0ISDjRY/EnPJ+cJmDNJ3a5/skkyN5D2Jst5Aa7y8rLaSo
- EaYZPGo5gI769s5PIYM7T01IYO6fJ5jCCEhrDlHAaHPGETQFj+kn7T+h7
- 939REmyy9twPRof+Vz1qTbjcu6JXPGBuiH4ehypI2iSdf3Zq757iXBhD0
- mNNPNqtRKQ9CxSQO30E4igQmxX5gTSzbgG+2oGgJ+bj7byh3CejoP/0uM g==;
-X-CSE-ConnectionGUID: gRNxxE3FSTi9xzLrW5Jo6w==
-X-CSE-MsgGUID: VMUA0NvjQfu9XG/W1KbI0g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89481356"
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; d="scan'208";a="89481356"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2026 00:14:53 -0700
-X-CSE-ConnectionGUID: F0sv97FpTDe5+bnQSepLkA==
-X-CSE-MsgGUID: +1GF7q62SVuRahHI+JQv4w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; d="scan'208";a="267260720"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.245.193])
- ([10.245.245.193])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2026 00:14:50 -0700
-Message-ID: <067e5ddc2268ae4678745a900108e93d0c6eeb74.camel@linux.intel.com>
-Subject: Re: [PATCH] drm/ttm: fix swapped-out resources never leaving their
- bulk_move range
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Vadim Nikitushkin <bub4z0r@gmail.com>, christian.koenig@amd.com, 
- ray.huang@amd.com, matthew.auld@intel.com, matthew.brost@intel.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, skainsworth@gmail.com, alexander.deucher@amd.com, 
- bernardomagri21@gmail.com
-Date: Thu, 10 Sep 2026 09:14:47 +0200
-In-Reply-To: <20260909205028.13799-1-bub4z0r@gmail.com>
-References: <20260909205028.13799-1-bub4z0r@gmail.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from mail-m93200.xmail.ntesmail.com (mail-m93200.xmail.ntesmail.com
+ [103.126.93.200])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 359EF10F32D
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 07:17:01 +0000 (UTC)
+Received: from [127.0.0.1] (unknown [58.22.7.114])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4d3f9f7ab;
+ Thu, 10 Sep 2026 15:16:57 +0800 (GMT+08:00)
+Message-ID: <9e77b5c5-f1d9-484b-ae02-846fae1b3642@rock-chips.com>
+Date: Thu, 10 Sep 2026 15:16:55 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] drm/rockchip: dw_dp: Attach "max bpc" connector
+ property
+To: Igor Paunovic <royalnet026@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Sandy Huang <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Ville Syrjala <ville.syrjala@linux.intel.com>,
+ Imre Deak <imre.deak@intel.com>, Ankit Nautiyal
+ <ankit.k.nautiyal@intel.com>, dri-devel@lists.freedesktop.org
+References: <20260909163206.36409-1-royalnet026@gmail.com>
+ <20260909173542.14030-4-royalnet026@gmail.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20260909173542.14030-4-royalnet026@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa08a2d43d903a7kunm43c471656ab21a
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGUNJSFYfTE9PQx1PGE
+ oeQ05WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+ tIVUpLSEpKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=X4ubh83p0G7uLB3w+lrLYEOhoz65fWCAkqGrIJipe55SMi1B8b7sBWrETpX6u7mqZV2UtmXqL8GouAC77jFox9pATG10cszdwRxdBt7NlC4wL5cyIGKkBVncmcAe0Uhp8XJ7/wLWdFFNhrisczrU8ivzIKTni3OR0XOOoI2tWRk=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=Tpyr9lMkObRQjaiycSSz5ViShzTcyMZHhq0kg2XVVgw=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,91 +79,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-09-09 at 23:50 +0300, Vadim Nikitushkin wrote:
-> ttm_tt_swapout() returns the number of pages swapped out on success
-> and
-> a negative error code on failure; for a populated ttm it never
-> returns
-> zero. Commit b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite
-> LRU
-> walk on swapout failure") moved the bulk_move bookkeeping in
-> ttm_bo_swapout_cb() under "if (!ret)", so the
-> ttm_resource_del_bulk_move_unevictable() /
-> ttm_resource_move_to_lru_tail()
-> pair is now skipped on every successful swapout. The equivalent
-> change
-> for the shrinker in commit 1d59f36e95f7 ("drm/ttm: Fix
-> ttm_bo_shrink()
-> infinite LRU walk on backup failure") tests "lret > 0", which is what
-> was intended here as well.
->=20
-> Before b2ed01e7ad3d the resource was taken off the bulk_move before
-> the
-> swapout; since then a swapped-out resource stays inside its BO's
-> bulk_move range (and on the manager LRU) although it is unevictable.
-> When it is later freed or the BO leaves the bulk_move
-> (ttm_resource_free(), ttm_bo_set_bulk_move() via amdgpu_vm_bo_del()),
-> ttm_resource_del_bulk_move() skips it because of its
-> !ttm_resource_unevictable() guard, so a range endpoint in pos->first
-> /
-> pos->last is left pointing at freed memory. The next
-> ttm_lru_bulk_move_tail() or ttm_resource_add_bulk_move() on that
-> cursor
-> is a use-after-free, seen as the resv WARN in
-> ttm_lru_bulk_move_add(),
-> "list_del corruption" in ttm_resource_move_to_lru_tail() or a NULL
-> dereference in ttm_resource_manager_next() -- minutes to hours after
-> a
-> hibernation, or at process exit / reboot following one. Samuel
-> Ainsworth's analysis of drm/amd issue 5387 (see Link) identified the
-> dangling cursor; the missing removal at swapout time is the reason it
-> dangles.
->=20
-> Testing the condition for success restores the removal. On an AMD
-> Phoenix APU (ASUS UM3406GA, gfx1103) running suspend-then-hibernate
-> on
-> a 7.0.y stable kernel carrying the backport (Ubuntu 7.0.0-31) the bug
-> crashed 5 of 18 hibernation cycles; a function profile of one
-> hibernation showed 336 ttm_tt_swapout() calls and zero
-> ttm_resource_del_bulk_move_unevictable() calls. With this change the
-> removal happens for every swapped-out resource and 12 further cycles
-> were clean.
->=20
-> Fixes: b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU walk
-> on swapout failure")
-> Cc: stable@vger.kernel.org=C2=A0# v7.1+
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5387
-> Link:
-> https://lore.kernel.org/dri-devel/CAHYiNPa6aVacJoLOje-qZ1GyYx-9p0tN4NuP8D=
-_eSL+UJeevXw@mail.gmail.com/
-> Signed-off-by: Vadim Nikitushkin <bub4z0r@gmail.com>
+Hello Igor,
 
-Nice catch.
-
-This also explains why https://patchwork.freedesktop.org/series/170311/
-appeared to fix the issue. But that series actually kept the resource
-on the bulk sublist until someone bumped the LRU or removed it.
-
-Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-
+On 9/10/2026 1:35 AM, Igor Paunovic wrote:
+> The dw-dp bridge already filters candidate output formats on
+> conn_state->max_bpc in dw_dp_bridge_atomic_get_output_bus_fmts() and
+> validates the result against the link bandwidth, but the connector
+> never exposes the "max bpc" property, so userspace cannot limit the
+> bit depth. Attach the property with a range of 6 to 10, matching
+> dw_dp_output_formats[]: the smallest entry is 6 bpc RGB and the
+> deepest entries are 10 bpc.
+> 
+> drm_connector_attach_max_bpc_property() initializes
+> connector->state->max_requested_bpc and therefore requires the
+> connector to have a state. Rockchip binds its components before
+> drm_mode_config_reset() runs, so the freshly created bridge connector
+> does not have one yet - create the connector state before attaching
+> the property, exactly like drmm_connector_hdmi_init() does for HDMI
+> bridge connectors. The later drm_mode_config_reset() then re-creates
+> the connector state, and the preceding patch makes
+> drm_bridge_connector_create_state() restore max_requested_bpc from
+> connector->max_bpc, so clients that never set the property (fbcon in
+> particular) keep the full range instead of ending up with 0.
+> 
+> With the property attached, compositors such as KWin write "max bpc"
+> on every atomic modeset; any in-range value is handled by the existing
+> format filter and bandwidth checks.
+> 
+> Assisted-by: LLM checkpatch
+> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
 > ---
-> =C2=A0drivers/gpu/drm/ttm/ttm_bo.c | 2 +-
-> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
-> b/drivers/gpu/drm/ttm/ttm_bo.c
-> index ef56c18..9b85b5f 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-> @@ -1434,7 +1434,7 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk,
-> struct ttm_buffer_object *bo)
-> =C2=A0
-> =C2=A0	if (ttm_tt_is_populated(tt)) {
-> =C2=A0		ret =3D ttm_tt_swapout(bdev, tt, swapout_walk-
-> >gfp_flags);
-> -		if (!ret) {
-> +		if (ret > 0) {
-> =C2=A0			spin_lock(&bdev->lru_lock);
-> =C2=A0			ttm_resource_del_bulk_move_unevictable(bo-
-> >resource, bo);
-> =C2=A0			ttm_resource_move_to_lru_tail(bo->resource);
+>  drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 26 +++++++++++++++++++++++
+>  1 file changed, 26 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> index b23efb153c9e6..8ff27353b1417 100644
+> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> @@ -112,6 +112,32 @@ static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *
+>  				     "Failed to init bridge connector\n");
+>  	}
+>  
+> +	/*
+> +	 * The components are bound before drm_mode_config_reset() runs, so
+> +	 * the connector has no state yet, but
+> +	 * drm_connector_attach_max_bpc_property() requires one. Create the
+> +	 * connector state first, like drmm_connector_hdmi_init() does.
+> +	 */
+> +	if (connector->funcs->atomic_create_state) {
+> +		struct drm_connector_state *state;
+> +
+> +		state = connector->funcs->atomic_create_state(connector);
+> +		if (IS_ERR(state)) {
+> +			dw_dp_unbind(dp->base);
+> +			return PTR_ERR(state);
+> +		}
+> +
+> +		connector->state = state;
+> +	} else if (connector->funcs->reset) {
+> +		connector->funcs->reset(connector);
+> +	}
+> +
+> +	ret = drm_connector_attach_max_bpc_property(connector, 6, 10);
+> +	if (ret) {
+> +		dw_dp_unbind(dp->base);
+> +		return ret;
+> +	}
+> +
+>  	return 0;
+>  }
+> 
+
+I don't think this is the correct way to go.
+
+I believe max_bpc should be handled in drm_bridge_connector_init(). 
+Take a look at its implementation. HDMI already does max_bpc there, 
+so DP should probably do something similar.
+
+-- 
+Best, 
+Chaoyi
