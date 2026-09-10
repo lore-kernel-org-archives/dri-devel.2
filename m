@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29CDDC79FBF
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 11:32:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C3FBC79F9F
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 11:32:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 369BF10F45F;
-	Thu, 10 Sep 2026 11:32:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A491C10F460;
+	Thu, 10 Sep 2026 11:32:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FYYnw0pN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ccb3Piqx";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B0A510F45D
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 11:32:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1827A10F460
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 11:32:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3EA8343A09;
- Thu, 10 Sep 2026 11:32:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75EDD1F00893;
- Thu, 10 Sep 2026 11:32:47 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DDE81431CB;
+ Thu, 10 Sep 2026 11:32:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D45BE1F00893;
+ Thu, 10 Sep 2026 11:32:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789039968;
- bh=6iVQXJrfzqj9H9Mn6XbNg8yLfGKcJ/HPEopWBqbnUfE=;
+ s=k20260515; t=1789039974;
+ bh=cAJyIat4limGWSmrmndSZaY7FfmdAnSZ8M1EcuzJ9BU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=FYYnw0pNDucrBfisYbPo4EzYmBSrkTBtO/V4OVKYu8xDzGF6uagI6O4ssyReZzKf8
- 70mVSOp+v0P4nTizehY4D9rSn84D9kDG7FiqBGMFa3cLyoZYco6daNHoRwrDqeoNmQ
- CF4OoJi+rNBFbGLedqlWhbAavPU2J6htZapHdT4fHAJgmslsRt6zo6Ln/7SW4td6hW
- RgviG7nlCs0Nt7+c/mRmR8V7qjQ42T1ypWVlmMSuRy6mjrbAB+EGOLwY2t7fFO8Mni
- NskOAtwsOuRULfejMPkTLeF+4MkZjF4tAH391H0RZXl5fqEMJAOGQT7VpH3Ng1FSc3
- pTDTxZv5ChKpQ==
+ b=Ccb3PiqxnrWAaVZDisld7hOwJ9PKqmHnfV7oR7h+sntAWIYV5I6F9QhyJx+Cd++XI
+ VLT0kOSwl5CbzDhctzj2GZk1oFXizQ8rV6z1ab8LzJZk5IuQALQDCQ7oRnRA2ERZeb
+ IqlU0Ymq6XfdOd016tt6R6ShrqgBdiv8/9Wez3ja9XOHul10Gyfx8U595ENSy3unZJ
+ IuJOs3Nm/J1cLFudydh3Corm0GIHsHBXWdQFIfq+4QuDMt648o3IrOfRCYKoJr/AuB
+ xsdNJrT8DZ0WBLJFEgJh7BDLzz5glE3mVHcuctp4rdv7R9tZ301S5rWBaENzwGzwMh
+ XFqn/HhhQpB4w==
 From: Leon Romanovsky <leon@kernel.org>
 To: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
  Chaitanya Kulkarni <kch@nvidia.com>,
@@ -47,10 +47,10 @@ Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
  Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
  linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-Subject: [PATCH v5 09/18] PCI/P2PDMA: Route Relaxed Ordering Completions
- directly
-Date: Thu, 10 Sep 2026 14:32:04 +0300
-Message-ID: <20260910-fix-p2p-acs-v4-0-v5-9-856087f63c0d@nvidia.com>
+Subject: [PATCH v5 11/18] PCI/P2PDMA: Route Translated Requests under Direct
+ Translated P2P
+Date: Thu, 10 Sep 2026 14:32:06 +0300
+Message-ID: <20260910-fix-p2p-acs-v4-0-v5-11-856087f63c0d@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260910-fix-p2p-acs-v4-0-v5-0-856087f63c0d@nvidia.com>
 References: <20260910-fix-p2p-acs-v4-0-v5-0-856087f63c0d@nvidia.com>
@@ -75,42 +75,41 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Leon Romanovsky <leonro@nvidia.com>
 
-ACS P2P Completion Redirect leaves Completions carrying the Relaxed
-Ordering attribute alone. PCIe r7.0 sec 6.12.1.1 redirects only those "that
-do not have the Relaxed Ordering Attribute bit set", and sec 7.7.12.5
-describes the enable bit as "applicable only to Completions whose Relaxed
-Ordering Attribute is clear". P2PDMA reports one answer for every kind of
-TLP, so a client whose provider returns such Completions is sent through
-the host bridge for a redirect that never happens to it.
+A Downstream Port with ACS Direct Translated P2P enabled routes a Request
+whose Address Type is Translated "to the peer Egress Port without
+redirection, regardless of ACS P2P Request Redirect and ACS P2P Egress
+Control", per PCIe r7.0 sec 6.12.3. P2PDMA assumes every Request carries an
+Untranslated address, so it sends an ATS client through the host bridge
+even where the fabric would route it straight to the peer.
 
-Add enum pci_p2pdma_tlp_flags and let a caller state that property.
+Add PCI_P2PDMA_TLP_TRANSLATED and consult Direct Translated P2P for the
+Requests it describes.
 
 Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- drivers/pci/p2pdma.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/pci/p2pdma.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index fac765d0a16f..327b6a14e07d 100644
+index 94c0760f27e5..77ff5cda8292 100644
 --- a/drivers/pci/p2pdma.c
 +++ b/drivers/pci/p2pdma.c
-@@ -540,11 +540,15 @@ pci_acs_p2pdma_request(u16 ctrl, unsigned int tlp_flags)
- /*
-  * Decide how a peer-to-peer Completion at an ACS-capable ingress port routes.
-  * PCIe r7.0 sec 6.12.1.1: no ACS control other than P2P Completion Redirect
-- * affects a Completion.
-+ * affects a Completion, and that one leaves Completions carrying the Relaxed
-+ * Ordering attribute alone.
-  */
- static enum pci_acs_p2pdma_state
- pci_acs_p2pdma_completion(u16 ctrl, unsigned int tlp_flags)
- {
-+	if (tlp_flags & PCI_P2PDMA_TLP_RELAXED_CPL)
-+		return PCI_ACS_P2PDMA_DIRECT;
+@@ -544,6 +544,15 @@ pci_acs_p2pdma_request(u16 ctrl, unsigned int tlp_flags)
+ 		 */
+ 		if (ctrl & PCI_ACS_TB)
+ 			return PCI_ACS_P2PDMA_BLOCKED;
 +
- 	return ctrl & PCI_ACS_CR ? PCI_ACS_P2PDMA_REDIRECT :
- 				   PCI_ACS_P2PDMA_DIRECT;
- }
++		/*
++		 * PCIe r7.0 sec 6.12.3: ACS Direct Translated P2P routes a
++		 * Request carrying a Translated address to the peer "without
++		 * redirection, regardless of ACS P2P Request Redirect and ACS
++		 * P2P Egress Control settings".
++		 */
++		if (ctrl & PCI_ACS_DT)
++			return PCI_ACS_P2PDMA_DIRECT;
+ 	}
+ 
+ 	return ctrl & (PCI_ACS_RR | PCI_ACS_EC) ?
 
 -- 
 2.55.0
