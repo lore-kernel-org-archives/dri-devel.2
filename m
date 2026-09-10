@@ -4,49 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03D26C79F9F
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 07:09:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AB0AC79F9F
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 07:14:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3275F10F322;
-	Thu, 10 Sep 2026 07:09:20 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A57CF10F322
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 07:09:17 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.66])
- by APP-01 (Coremail) with SMTP id qwCowABXLPCZV6JqEVKWBw--.33934S2;
- Thu, 10 Sep 2026 15:09:13 +0800 (CST)
-Message-ID: <35cf76a67f7473d5ef86d01c812d680abc41687e.camel@iscas.ac.cn>
-Subject: Re: [PATCH 1/2] drm/verisilicon: set blend mode for the primary plane
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Thu, 10 Sep 2026 15:09:13 +0800
-In-Reply-To: <20260901171703.1161592-1-zhengxingda@iscas.ac.cn>
-References: <20260901171703.1161592-1-zhengxingda@iscas.ac.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51AC810F327;
+	Thu, 10 Sep 2026 07:14:55 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dL8aMwUD";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9889010F327
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 07:14:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789024493; x=1820560493;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=k4nyCBxi7fpuVu67lXrSDcu9nkhykGQULtMJku448KU=;
+ b=dL8aMwUD3TGSlJN5DJ1bQv36D4Rb/26kxvHS28z5bLIclZ4snib90jl/
+ 1++PZvRl84jBvA7RY6T8esAXjXtzcYjxAkGxuePX26mNQkTEW3nNQPt77
+ 2jW8tXj63y/v0ISDjRY/EnPJ+cJmDNJ3a5/skkyN5D2Jst5Aa7y8rLaSo
+ EaYZPGo5gI769s5PIYM7T01IYO6fJ5jCCEhrDlHAaHPGETQFj+kn7T+h7
+ 939REmyy9twPRof+Vz1qTbjcu6JXPGBuiH4ehypI2iSdf3Zq757iXBhD0
+ mNNPNqtRKQ9CxSQO30E4igQmxX5gTSzbgG+2oGgJ+bj7byh3CejoP/0uM g==;
+X-CSE-ConnectionGUID: gRNxxE3FSTi9xzLrW5Jo6w==
+X-CSE-MsgGUID: VMUA0NvjQfu9XG/W1KbI0g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89481356"
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; d="scan'208";a="89481356"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Sep 2026 00:14:53 -0700
+X-CSE-ConnectionGUID: F0sv97FpTDe5+bnQSepLkA==
+X-CSE-MsgGUID: +1GF7q62SVuRahHI+JQv4w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; d="scan'208";a="267260720"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.245.193])
+ ([10.245.245.193])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Sep 2026 00:14:50 -0700
+Message-ID: <067e5ddc2268ae4678745a900108e93d0c6eeb74.camel@linux.intel.com>
+Subject: Re: [PATCH] drm/ttm: fix swapped-out resources never leaving their
+ bulk_move range
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Vadim Nikitushkin <bub4z0r@gmail.com>, christian.koenig@amd.com, 
+ ray.huang@amd.com, matthew.auld@intel.com, matthew.brost@intel.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, skainsworth@gmail.com, alexander.deucher@amd.com, 
+ bernardomagri21@gmail.com
+Date: Thu, 10 Sep 2026 09:14:47 +0200
+In-Reply-To: <20260909205028.13799-1-bub4z0r@gmail.com>
+References: <20260909205028.13799-1-bub4z0r@gmail.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowABXLPCZV6JqEVKWBw--.33934S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CrW7Gw4xAFy5WFykuw4kZwb_yoW8Jw1xpF
- srAFWqkrWFywsrJa47Ja9FkFW3ua1fG3s7Wry8uwnrXwsrtr15uF4ktr90gFW5JrW7Ww1a
- qrn7CF1UCr1UCr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkIb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
- C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxAI
- w28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr
- 4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxG
- rwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJw
- CI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2
- z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8OzVUUUUUU==
-X-Originating-IP: [112.94.100.66]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,45 +74,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-09-02=E4=B8=89=E7=9A=84 01:17 +0800=EF=BC=8CIcenowy Zheng=E5=
-=86=99=E9=81=93=EF=BC=9A
-> Blend modes are now required to expose pixel formats w/ alpha.
+On Wed, 2026-09-09 at 23:50 +0300, Vadim Nikitushkin wrote:
+> ttm_tt_swapout() returns the number of pages swapped out on success
+> and
+> a negative error code on failure; for a populated ttm it never
+> returns
+> zero. Commit b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite
+> LRU
+> walk on swapout failure") moved the bulk_move bookkeeping in
+> ttm_bo_swapout_cb() under "if (!ret)", so the
+> ttm_resource_del_bulk_move_unevictable() /
+> ttm_resource_move_to_lru_tail()
+> pair is now skipped on every successful swapout. The equivalent
+> change
+> for the shrinker in commit 1d59f36e95f7 ("drm/ttm: Fix
+> ttm_bo_shrink()
+> infinite LRU walk on backup failure") tests "lret > 0", which is what
+> was intended here as well.
 >=20
-> As it's the primary plane and blending is explicitly disabled, just
-> expose PIXEL_NONE blend mode.
-
-Gently ping for reviews.
-
-Thanks,
-Icenowy
-
+> Before b2ed01e7ad3d the resource was taken off the bulk_move before
+> the
+> swapout; since then a swapped-out resource stays inside its BO's
+> bulk_move range (and on the manager LRU) although it is unevictable.
+> When it is later freed or the BO leaves the bulk_move
+> (ttm_resource_free(), ttm_bo_set_bulk_move() via amdgpu_vm_bo_del()),
+> ttm_resource_del_bulk_move() skips it because of its
+> !ttm_resource_unevictable() guard, so a range endpoint in pos->first
+> /
+> pos->last is left pointing at freed memory. The next
+> ttm_lru_bulk_move_tail() or ttm_resource_add_bulk_move() on that
+> cursor
+> is a use-after-free, seen as the resv WARN in
+> ttm_lru_bulk_move_add(),
+> "list_del corruption" in ttm_resource_move_to_lru_tail() or a NULL
+> dereference in ttm_resource_manager_next() -- minutes to hours after
+> a
+> hibernation, or at process exit / reboot following one. Samuel
+> Ainsworth's analysis of drm/amd issue 5387 (see Link) identified the
+> dangling cursor; the missing removal at swapout time is the reason it
+> dangles.
 >=20
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> Testing the condition for success restores the removal. On an AMD
+> Phoenix APU (ASUS UM3406GA, gfx1103) running suspend-then-hibernate
+> on
+> a 7.0.y stable kernel carrying the backport (Ubuntu 7.0.0-31) the bug
+> crashed 5 of 18 hibernation cycles; a function profile of one
+> hibernation showed 336 ttm_tt_swapout() calls and zero
+> ttm_resource_del_bulk_move_unevictable() calls. With this change the
+> removal happens for every swapped-out resource and 12 further cycles
+> were clean.
+>=20
+> Fixes: b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU walk
+> on swapout failure")
+> Cc: stable@vger.kernel.org=C2=A0# v7.1+
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5387
+> Link:
+> https://lore.kernel.org/dri-devel/CAHYiNPa6aVacJoLOje-qZ1GyYx-9p0tN4NuP8D=
+_eSL+UJeevXw@mail.gmail.com/
+> Signed-off-by: Vadim Nikitushkin <bub4z0r@gmail.com>
+
+Nice catch.
+
+This also explains why https://patchwork.freedesktop.org/series/170311/
+appeared to fix the issue. But that series actually kept the resource
+on the bulk sublist until someone bumped the LRU or removed it.
+
+Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+
 > ---
-> =C2=A0drivers/gpu/drm/verisilicon/vs_primary_plane.c | 3 +++
-> =C2=A01 file changed, 3 insertions(+)
+> =C2=A0drivers/gpu/drm/ttm/ttm_bo.c | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
 >=20
-> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> index 1f2be41ae496c..8d58682d88ef8 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> @@ -7,6 +7,7 @@
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
+> b/drivers/gpu/drm/ttm/ttm_bo.c
+> index ef56c18..9b85b5f 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -1434,7 +1434,7 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk,
+> struct ttm_buffer_object *bo)
 > =C2=A0
-> =C2=A0#include <drm/drm_atomic.h>
-> =C2=A0#include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_blend.h>
-> =C2=A0#include <drm/drm_crtc.h>
-> =C2=A0#include <drm/drm_fourcc.h>
-> =C2=A0#include <drm/drm_framebuffer.h>
-> @@ -179,5 +180,7 @@ struct drm_plane *vs_primary_plane_init(struct
-> drm_device *drm_dev, struct vs_dc
-> =C2=A0
-> =C2=A0	drm_plane_helper_add(plane, &vs_primary_plane_helper_funcs);
-> =C2=A0
-> +	drm_plane_create_blend_mode_property(plane,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0
-> BIT(DRM_MODE_BLEND_PIXEL_NONE));
-> =C2=A0	return plane;
-> =C2=A0}
-
+> =C2=A0	if (ttm_tt_is_populated(tt)) {
+> =C2=A0		ret =3D ttm_tt_swapout(bdev, tt, swapout_walk-
+> >gfp_flags);
+> -		if (!ret) {
+> +		if (ret > 0) {
+> =C2=A0			spin_lock(&bdev->lru_lock);
+> =C2=A0			ttm_resource_del_bulk_move_unevictable(bo-
+> >resource, bo);
+> =C2=A0			ttm_resource_move_to_lru_tail(bo->resource);
