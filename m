@@ -4,54 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A317C79FB9
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 07:18:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85FF0C79FB9
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 07:23:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4EF210F338;
-	Thu, 10 Sep 2026 07:18:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CF9910E181;
+	Thu, 10 Sep 2026 07:23:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="eP4juDlS";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="l3M8BPu5";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91D5010F334
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 07:18:06 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hgTXq43H6zKmTw;
- Thu, 10 Sep 2026 09:18:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1789024683; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=+1zmxJeDmDJwzvkVkV4IGrkUV2Tvu3F2l7ySW6LsSfM=;
- b=eP4juDlSsvCuXMaXLGytbVmZ6JcVeKrubgNxhlKyr5reEV21lnav3VSPMXhaKzgUcnCUcC
- SrgeWXlRbg6WNAFMFLlb9otubfpC+ObHIZ0RccuhZGfnXGAbWn4uds8E2XxtFpBcbFIUFW
- niKa7LuWo5K3vYN2mgtjJcqhJIfJJjfwQWzgkB4jqTJXqg2dwWsYozwopCib5HnhYV/K1X
- gQaadJVqcRNUCrTC59OtScxG/DaVG18elmEz9PO2LVdA9DR/RgZD5wRGqILDstjJ4VbHgF
- gCNsYVXTmYrr3SWm/lF0lkNWXjHLgdCsNzA3yPSdmLqiOV+AXxG1hfX9vrThjQ==
-Message-ID: <514c6865ede98be45b4a628049ae950b519e0b23.camel@mailbox.org>
-Subject: Re: [PATCH drm-rust-next] rust: dma_fence: gate abstractions on
- CONFIG_DMA_SHARED_BUFFER
-From: Philipp Stanner <phasta@mailbox.org>
-To: Edwin Peer <epeer@nvidia.com>, dakr@kernel.org, aliceryhl@google.com, 
- phasta@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com
-Cc: jhubbard@nvidia.com, rust-for-linux@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-Date: Thu, 10 Sep 2026 09:17:59 +0200
-In-Reply-To: <20260909202327.33285-1-epeer@nvidia.com>
-References: <20260909202327.33285-1-epeer@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
+ [74.125.225.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DA7010E181
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 07:23:52 +0000 (UTC)
+Received: by mail-wr2-f12.google.com with SMTP id
+ ffacd0b85a97d-485933b2522so855201f8f.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 00:23:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1789025031; x=1789629831; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=wMpBVc24Sz11F3KFnL8+840MzJ31UofYHjzEvyoJR1s=;
+ b=l3M8BPu50PJlOFRTd1WuP2uuA4m4lWpvQbGGBrDQx6exTsffzQ29MWSE8pf1uuU5ly
+ nRpLeSo4UD0+pEaytGEqALGFCUUSJA69CD4ImXlF6aidpKR2GC3fKAxoqBo3PCqV91rj
+ wHl7ZkBPaL9q4WxzEG5jTXZM3wAmAVW/t/LNXFnT3IrUi28JQxFxDvMCM0X/AoY57W4D
+ 4OTMsFM20q4VFiMHeIZ9zrFivFgC3EiL2TrUYiKIVw5Nk3/Mbw4dqXxutnywAiuCqpHY
+ yfb3Yst4ouNIQ4w3QwcRxg0+572fOCIHA/hs1DWJ1EiQY/FdiilOp0dXqOKSPAl2dG3f
+ RQ+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789025031; x=1789629831;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=wMpBVc24Sz11F3KFnL8+840MzJ31UofYHjzEvyoJR1s=;
+ b=Fi+5QHMJEJQTMW7SZxbPqKfOeRbIvAiDot5LQG3A1jLYQEI74TMr+KVhXhqnPolQu1
+ R9SzH2oZY4W69I9LJThyZ9kdCWn+hVaA3YqGvbIjdYZ5oozExLc8EfPEdWobmhszXTWy
+ CT85O+fFhJVv47Gm6mezTbs5ZyD8oGe5brgDIpDAJfDcG9jqDosiNF64HBdf041douLp
+ AXWgdf19MvMALFcMsQs0L8UV0H0agdDuxjyHRtWfcPiMcKgPa61Z4C5/rhS+65Q9u49M
+ Yc0klz7xutAPps9UYpWw5gWWX8B0JVWBpJutPfs+9DMsSkbDioNqnTlxl4SSmGdNmsBx
+ sA+g==
+X-Gm-Message-State: AFuF++kEHHAhnYUDjL5UAiZwZspxJ62zRRTscgL+md7Z1TTiceEbBqI8
+ Byl16Kjeiwyys3GSWwuxOYzz2Z6KNHG+4zVnLMz8DzBn8F8dKqsAZ3bBwtCxjYzqei8=
+X-Gm-Gg: AYBFou2chvnMqDVqtz+t9Rayu7J9C9p2zCJzQ8uPolNW18b5BfmdtPjUaD0wG9wtwEQ
+ eMJLJVsYHNwKiAd/d4QugzRlBmHechUcGFFjNwBqNpAqA/V6vdJAbSSqyi4wweM3NImTaclqb+q
+ nSXJJIKh0qBH/X9qpPCjhbs6Sn69yP3Bz4WOAE6+twVnyo9sks5dCrH0fkKL0bu/LiVjhh9S2+P
+ Qq0iXQVKqRiYomrM/7qU1hIVQPCpX+BVx8dzOqQSMGPUEU2dlzoYGgovvTQ2YrcPrlgsxS+bj2A
+ G6kHDtsP0v5jQoJaX9mzayxudy7pzjL31b4J5LiuhKZl5KTBc1TUbNB9YmfzV7p4aYJmHI7lgxD
+ iw2oS+n1txj6oPSPxiM7BmH6oZLw0tKOvyyQUr3DFevVLx1J4Lg3/0e0bvEoqgeugimMsY11Srq
+ NUlW9MUuzRSdsDQWO2izCRx5SdXLjQxbAb0vFF4oPr2l2vALLlbvaf7XLIFRHvnjGTvtisDn33W
+ gruFUVsZXHeXS/uyIBYIU3dqXEf5Zt3i18Uzu6psQTFckJLkG8/42wMqG9Pj9dn
+X-Received: by 2002:a05:6000:2dc5:b0:485:afd8:3e42 with SMTP id
+ ffacd0b85a97d-485c23ec07cmr11470084f8f.22.1789025030483; 
+ Thu, 10 Sep 2026 00:23:50 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:3caf:d840:c911:29a9?
+ ([2a01:e0a:106d:1080:3caf:d840:c911:29a9])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-485885bbb51sm51488978f8f.30.2026.09.10.00.23.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 10 Sep 2026 00:23:41 -0700 (PDT)
+Message-ID: <ca31e73c-09be-43fe-8904-8a813152c3ca@linaro.org>
+Date: Thu, 10 Sep 2026 09:23:18 +0200
 MIME-Version: 1.0
-X-MBO-RS-META: faztazzf75br86cbck75geih8jrxjyxi
-X-MBO-RS-ID: 5cd1705c7d2ed4d554d
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH] drm/meson: fix device_node leak in
+ meson_encoder_dsi_probe()
+To: mileskrause5200@gmail.com,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Nicolas Belin <nbelin@baylibre.com>, Jagan Teki <jagan@amarulasolutions.com>
+Cc: dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260906-meson-dsi-of-node-leak-v1-1-9d183560279d@gmail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260906-meson-dsi-of-node-leak-v1-1-9d183560279d@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,67 +122,58 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-09-09 at 13:23 -0700, Edwin Peer wrote:
-> The dma_fence abstractions added by commit 3282d5916019 ("rust: Add
-> dma_fence abstractions") are compiled unconditionally, but the C
-> `dma_fence_*` symbols they reference live in
-> drivers/dma-buf/dma-fence.c, which is only built when
-> CONFIG_DMA_SHARED_BUFFER=3Dy. Kernels with CONFIG_RUST=3Dy and
-> CONFIG_RUST_KERNEL_DOCTESTS=3Dy but CONFIG_DMA_SHARED_BUFFER=3Dn fail
-> to link:
->=20
-> =C2=A0 ld.lld: error: undefined symbol: dma_fence_release
-> =C2=A0 >>> referenced by usercopy_64.c
-> =C2=A0 >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 vmlinux.o:(rust_helper_dma_fence_put)
-> =C2=A0 ... dma_fence_signal{,_locked}, dma_fence_context_alloc,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dma_fence_init, dma_fence_{add,remove}_cal=
-lback ...
->=20
-> Wrap the dma_fence.c helper include in the same
-> `pub mod dma_buf;` in rust/kernel/lib.rs with a matching #[cfg].
-
-Oh dear, yes. Sorry about that, thx for fixing!
-
->=20
-> Fixes: 3282d5916019 ("rust: Add dma_fence abstractions")
-> Signed-off-by: Edwin Peer <epeer@nvidia.com>
-> Reviewed-by: John Hubbard <jhubbard@nvidia.com>
-
-Reviewed-by: Philipp Stanner <phasta@kernel.org>
-
+On 9/6/26 21:43, Miles Krause via B4 Relay wrote:
+> From: Miles Krause <mileskrause5200@gmail.com>
+> 
+> meson_encoder_dsi_probe() looks up the DSI transceiver's device node
+> with of_graph_get_remote_node() and hands it to
+> of_drm_find_and_get_bridge(), but never drops the reference that the
+> lookup returned.
+> 
+> of_graph_get_remote_node() returns the node with its refcount
+> incremented, and of_drm_find_and_get_bridge() takes its own reference
+> on the bridge it finds, so 'remote' is leaked on every path once the
+> lookup succeeds: on the -EPROBE_DEFER return taken when no bridge is
+> found, and on a fully successful probe alike.
+> 
+> The two sibling encoders in this driver already handle this correctly.
+> meson_encoder_cvbs_probe() calls of_node_put(remote) immediately after
+> of_drm_find_and_get_bridge(), and meson_encoder_hdmi_probe() releases
+> the node both on its error path and after of_find_device_by_node().
+> 
+> Release the reference in the same place meson_encoder_cvbs_probe()
+> does, which covers both the error and the success path.
+> 
+> Fixes: 42dcf15f901c ("drm/meson: add DSI encoder")
+> Signed-off-by: Miles Krause <mileskrause5200@gmail.com>
 > ---
-> =C2=A0rust/helpers/helpers.c | 2 +-
-> =C2=A0rust/kernel/lib.rs=C2=A0=C2=A0=C2=A0=C2=A0 | 1 +
-> =C2=A02 files changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
-> index 609689fba3dd..2c5eecc091c4 100644
-> --- a/rust/helpers/helpers.c
-> +++ b/rust/helpers/helpers.c
-> @@ -57,8 +57,8 @@
-> =C2=A0#include "cred.c"
-> =C2=A0#include "device.c"
-> =C2=A0#include "dma.c"
-> -#include "dma_fence.c"
-> =C2=A0#ifdef CONFIG_DMA_SHARED_BUFFER
-> +#include "dma_fence.c"
-> =C2=A0#include "dma-resv.c"
-> =C2=A0#endif
-> =C2=A0#include "drm.c"
-> diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-> index 72f5527ba66c..f9ef36217bb5 100644
-> --- a/rust/kernel/lib.rs
-> +++ b/rust/kernel/lib.rs
-> @@ -67,6 +67,7 @@
-> =C2=A0pub mod device_id;
-> =C2=A0pub mod devres;
-> =C2=A0pub mod dma;
-> +#[cfg(CONFIG_DMA_SHARED_BUFFER)]
-> =C2=A0pub mod dma_buf;
-> =C2=A0pub mod driver;
-> =C2=A0#[cfg(CONFIG_DRM =3D "y")]
+>   drivers/gpu/drm/meson/meson_encoder_dsi.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/meson/meson_encoder_dsi.c b/drivers/gpu/drm/meson/meson_encoder_dsi.c
+> index 3e422b612f74..3fe604496294 100644
+> --- a/drivers/gpu/drm/meson/meson_encoder_dsi.c
+> +++ b/drivers/gpu/drm/meson/meson_encoder_dsi.c
+> @@ -120,6 +120,7 @@ int meson_encoder_dsi_probe(struct meson_drm *priv)
+>   	}
+>   
+>   	meson_encoder_dsi->bridge.next_bridge = of_drm_find_and_get_bridge(remote);
+> +	of_node_put(remote);
+>   	if (!meson_encoder_dsi->bridge.next_bridge)
+>   		return dev_err_probe(priv->dev, -EPROBE_DEFER,
+>   				     "Failed to find DSI transceiver bridge\n");
+> 
+> ---
+> base-commit: 88405f0ad1d5c680afe3ea0ce9345fa9e1deaac8
+> change-id: 20260906-meson-dsi-of-node-leak-744899da5712
+> 
+> Best regards,
+
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+
+Thanks,
+Neil
