@@ -4,43 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 667D4C88E41
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 22:47:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79A48C79FBB
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 23:17:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 961A310EF9F;
-	Thu, 10 Sep 2026 22:47:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA40110F0E8;
+	Thu, 10 Sep 2026 23:17:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dYauf2cp";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="D5FUsM20";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E1A310EF9F
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 22:47:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 81451601F0;
- Thu, 10 Sep 2026 22:47:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15F871F000FF;
- Thu, 10 Sep 2026 22:47:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789080439;
- bh=j0HIO4Rm49ICndcmBJd3Nh/hldg5pcD5mJ70dlNjB0s=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dYauf2cpH1s3Ple5DOspGQBx+rz7A/M17+4G+rPp5oXMFjZ7OqRH+ZdVXSzJxbzEA
- ufsl96co6YPQ/Gao5OpbcqtYzxaidPvlkLkXYFcbF25kV4saaYmYIZSzLwQI0baQkC
- pIM5xrnCkkvNoJlyrNFAdVxWPan8nBTXcJyUkAWkyx3BdGX2kIudIOw83LswWcuwlH
- gKQK9SD9T8pClIxdkZW91F7FhTL5c9tX41I4EgVVmnbn+nXYlGwJXRZ85bNbJdL4tk
- dPHxNXtXhxyKbQeSX9BeqUk+UlB0HVFxbOAuMQLWRiKwgaRyLgL62xbgGXcRpSWjZf
- +7zJx8XD0yUTw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/panel: simple: Clean up resources on DSI attach
- failure
-To: "Myeonghun Pak" <mhun512@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260910223803.8552-1-mhun512@gmail.com>
-References: <20260910223803.8552-1-mhun512@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 22:47:18 +0000
-Message-Id: <20260910224719.15F871F000FF@smtp.kernel.org>
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D233C10F0E8
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 23:17:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1789081320; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Vct1JUYy56GduX2B1Kf34yaSQbpxCJclzCyeoETz/PKJ/Ai+wgzNvTe+nbzUIZhJUWaRiPQWus5giBOHj+juyBxzLwEO2J5RYqRAZ5DGxtfrR3ngb7RD4NY0p/qW6mZf5IWOhpJWJgSdNTJliWOSYCwgpxftzWJXMC7BjBiqBWE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1789081320;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=YPcNiTNd+EFqHZBOKeezkN1gDau+W9MRCDQDDa3NZpM=; 
+ b=NZDDrs924TpWiX428fioqCGIRkD9dKyLfbwsI8fxAoxv90PlMhzMDIi04JCx+7yfwsHti46SmQVXCH36xJn9v6Swi9vhNykxHTXD2NjZ/fL5Xv6BDxwiIIBXz2l7CXNA1Vuog02v+eNSu8BEWbeQlMdy8/s9r/q7bBNG7IfayJU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+ dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789081320; 
+ s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
+ bh=YPcNiTNd+EFqHZBOKeezkN1gDau+W9MRCDQDDa3NZpM=;
+ b=D5FUsM200wVutwLdYXdllYKdOkVp0LvgDVJtIHg8qxI6KW7KD/jexLhrtBum55Pz
+ gu+F3TyjwpPN+yoWjdufMZlJHJ/lw6ygjzWUqglCxinLeJE9NpMNO3Cp/4qetq1eUQD
+ Ahxar1QWroU+r9q8U3f+nO35lR8tw7KQOqAzbZGM=
+Received: by mx.zohomail.com with SMTPS id 1789081319983511.92469138538536;
+ Thu, 10 Sep 2026 16:01:59 -0700 (PDT)
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+Date: Thu, 10 Sep 2026 16:01:36 -0700
+Subject: [PATCH] drm/tyr: reduce size of doorbell array
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260910-b4-doorbell-v1-1-f3ca2f501600@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avIrBN0EMGuEi20xhoQDYUIwrsnL
+ d/i/xcaVaYGs3ih0s2NSx7Qk4Dt9PkgyfswoEKrnFYyGLmXUgOlJBGNszZ65dHBKK5KkZ//tqy
+ 9f5QsxNRdAAAA
+X-Change-ID: 20260910-b4-doorbell-224966fa0a29
+To: Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, gary@garyguo.net, 
+ boris.brezillon@collabora.com, laura.nao@collabora.com, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1973;
+ i=deborah.brouwer@collabora.com; h=from:subject:message-id;
+ bh=EysiNMAymz+CEI4gdX9gD9dZg1YUoVzI7UUvFIg8T1A=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDFmLze6GpCndzdO5o9N06p/WRmH9HWYq70JXdik/PPah5
+ lzbrL8hHaUsDGJcDLJiiixn7Y16xKveG+nO/98MM4eVCWQIAxenAEzksDLDP434b2qp5dsC5l5J
+ 9zc03lPLZPP7xyH3ikWsL53Wz8tr02T4w/1iZbn8rpS7U15ntITduViS/kGX40nJTlGT8uzH4bO
+ PsgMA
+X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
+ fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,120 +77,52 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+Currently the number of doorbells is set to 64 which is an architectural
+maximum for the Mali GPU major v10 supported by Tyr. Since each doorbell
+needs a 64 KiB page, the doorbell array alone would need 4 MiB of register
+memory. Since the doorbell array starts at offset 0x80000, its exclusive
+end would be 0x480000, but the rk3588 device that Tyr is compatible with
+only provides a 2 MiB iomem region in total.
 
-Pre-existing issues:
-- [Critical] Use-After-Free (UAF) of the panel structure due to premature r=
-egistration during probe
-- [High] Unbalanced runtime PM and resource leak in panel_simple_remove()
-- [High] TOCTOU race in panel_simple_shutdown() leading to lockless state c=
-orruption
---
+Reduce the number of doorbells so that they fit into the rk3588 iomem
+region. This is consistent with Panthor’s doorbell id assignment.
+Doorbell 0 is the global doorbell. Panthor assigns the remaining doorbells
+to the active command stream group (CSG) slots. The number of slots is
+capped at 16 (MAX_CSG_PRIO + 1). Therefore Panthor uses a maximum of 17
+doorbells. The 17 doorbell pages span 0x110000 bytes. Since the doorbell
+array starts at offset 0x80000 its exclusive end is 0x190000 and so fits
+within the 2 MiB register region.
 
-commit 887f69784ef5d71614e53c7181f7e8b567905759
-Author: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+---
+ drivers/gpu/drm/tyr/regs.rs | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-drm/panel: simple: Clean up resources on DSI attach failure
+diff --git a/drivers/gpu/drm/tyr/regs.rs b/drivers/gpu/drm/tyr/regs.rs
+index 0c419c4e1186..68701c39aee2 100644
+--- a/drivers/gpu/drm/tyr/regs.rs
++++ b/drivers/gpu/drm/tyr/regs.rs
+@@ -1802,7 +1802,10 @@ pub(crate) mod doorbell_block {
+     use crate::driver::TyrRegisters;
+ 
+     /// Number of doorbells available.
+-    pub(crate) const NUM_DOORBELLS: usize = 64;
++    /// The architectural maximum is 64 but this full array does not
++    /// fit in the 2 MiB iomem region. Panthor currently uses a maximum of
++    /// 17 doorbells so do the same here.
++    pub(crate) const NUM_DOORBELLS: usize = 17;
+ 
+     /// Doorbell block stride (64KiB).
+     ///
 
-This patch modifies panel_simple_dsi_probe() to call panel_simple_remove()
-when mipi_dsi_attach() fails. This cleans up common probe resources instead
-of just undoing panel registration.
+---
+base-commit: 73e5616f3d197c1af5a04a481fe0f13aa3913bd1
+change-id: 20260910-b4-doorbell-224966fa0a29
 
-> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel=
-/panel-simple.c
-> index c95964ba25a95..767068de68160 100644
-> --- a/drivers/gpu/drm/panel/panel-simple.c
-> +++ b/drivers/gpu/drm/panel/panel-simple.c
-> @@ -6552,11 +6552,8 @@ static int panel_simple_dsi_probe(struct mipi_dsi_=
-device *dsi)
->  	dsi->lanes =3D desc->lanes;
-> =20
->  	err =3D mipi_dsi_attach(dsi);
-> -	if (err) {
-> -		struct panel_simple *panel =3D mipi_dsi_get_drvdata(dsi);
-> -
-> -		drm_panel_remove(&panel->base);
-> -	}
-> +	if (err)
-> +		panel_simple_remove(&dsi->dev);
+Best regards,
+-- 
+Deborah Brouwer <deborah.brouwer@collabora.com>
 
-[Severity: Critical]
-This isn't a bug introduced by this patch, but could this error path lead to
-a Use-After-Free (UAF) of the panel structure?
-
-When panel_simple_dsi_probe() calls panel_simple_probe(), the panel is
-allocated using devm_kzalloc() and registered globally via drm_panel_add().
-At this point, it is visible to the system and a concurrent display driver
-can discover it via of_drm_find_panel() and store a pointer to it.
-
-If mipi_dsi_attach() fails here, panel_simple_remove() is called to
-unregister it, and the probe function returns an error. Returning an error
-triggers the driver core's devres cleanup, completely freeing the panel
-structure memory. However, the concurrent display driver might still hold a
-dangling pointer to this freed structure, resulting in a critical UAF upon
-subsequent access (e.g., calling drm_panel_prepare()).
-
-[Severity: High]
-This is a pre-existing issue, but does calling panel_simple_remove() here
-lead to an unbalanced runtime PM state and resource leak?
-
-Looking at panel_simple_remove():
-
-static void panel_simple_remove(struct device *dev)
-{
-    ...
-    panel_simple_shutdown(dev);
-    pm_runtime_dont_use_autosuspend(dev);
-    pm_runtime_disable(dev);
-    ...
-}
-
-panel_simple_shutdown() unprepares the panel, which calls
-pm_runtime_put_autosuspend() to schedule an asynchronous suspend, but leaves
-the device in the RPM_ACTIVE state. Then, pm_runtime_dont_use_autosuspend()
-and pm_runtime_disable() cancel the pending autosuspend and disable runtime
-PM entirely.
-
-Because a synchronous suspend (e.g., pm_runtime_suspend or
-pm_runtime_force_suspend) is omitted, the panel_simple_suspend() callback
-never executes. Will this leave the panel's regulator and GPIO permanently
-enabled, leading to a persistent hardware state and regulator enable count
-leak?
-
-[Severity: High]
-This is also a pre-existing issue, but is there a TOCTOU race in
-panel_simple_shutdown() (which is called by panel_simple_remove() above)?
-
-In panel_simple_shutdown():
-
-static void panel_simple_shutdown(struct device *dev)
-{
-    ...
-    if (panel->base.enabled)
-        drm_panel_disable(&panel->base);
-    if (panel->base.prepared)
-        drm_panel_unprepare(&panel->base);
-    ...
-}
-
-These states are checked without holding any synchronization primitives
-(such as DRM modeset locks). If this runs concurrently with a DRM display
-controller performing a modeset (which independently calls
-drm_panel_disable), both threads may observe panel->base.enabled =3D=3D true
-simultaneously.
-
-Could this lockless race lead to double-disabling of the panel, unbalanced
-regulator disables, and potential hardware state corruption?
-
-> =20
->  	return err;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910223803.8552=
--1-mhun512@gmail.com?part=3D1
