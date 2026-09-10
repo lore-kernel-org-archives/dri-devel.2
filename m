@@ -4,65 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2020C88E53
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 07:50:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B77E6C79FA1
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 07:50:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8227110F51D;
-	Fri, 11 Sep 2026 07:50:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3F6D10F521;
+	Fri, 11 Sep 2026 07:50:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="ykWp9MEi";
+	dkim=pass (2048-bit key; unprotected) header.d=sicoop.com header.i=@sicoop.com header.b="eHuLCaJM";
 	dkim-atps=neutral
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B475510F359;
- Thu, 10 Sep 2026 08:07:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
- s=iohv2404; t=1789027646;
- bh=CHrVd4QupN2Icd5LuQOXtHU8JZxOORarAdWW213eHzg=;
- h=From:To:Subject:Date:Message-ID:MIME-Version;
- b=ykWp9MEiSk7Jc+yhTjpeebX8Pp7PdhLcJ3kXtQBnhjKPTXM/xF3iJXF/tNf/kmaX1
- to8hx3iKMxszLgigEloFvFEPuVsXusS8aJBdcooKYrYZdbIOzpbpg4+r/EdvN0jJUk
- chzaSR1PiSbZDEDANYn56MnQ/I/aVzNnDSrolUHU=
-X-QQ-mid: zesmtpsz6t1789027641tf2e5ab1e
-X-QQ-Originating-IP: v57H0f8v9d+o9uYBjxvMedZTdt78u9k9xEX1xQad5tc=
-Received: from hepeiyang-vm.wu.lxd ( [114.212.83.113])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Thu, 10 Sep 2026 16:07:19 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 14959840024138416349
-EX-QQ-RecipientCnt: 8
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
-To: lyude@redhat.com, dakr@kernel.org, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, bskeggs@redhat.com,
- Peiyang He <peiyang_he@smail.nju.edu.cn>
-Subject: [PATCH] drm/nouveau: don't bump pin count on failed re-pin in
- nouveau_bo_pin_locked()
-Date: Thu, 10 Sep 2026 16:06:59 +0800
-Message-ID: <4C61D1CE5BB7CD58+20260910080659.2798052-1-peiyang_he@smail.nju.edu.cn>
-X-Mailer: git-send-email 2.43.0
+Received: from smtpout10.mo540.mail-out.ovh.net
+ (smtpout10.mo540.mail-out.ovh.net [51.210.91.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5D7910E64A
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 16:52:29 +0000 (UTC)
+Received: from director5.derp.mail-out.ovh.net
+ (director5.derp.mail-out.ovh.net [79.137.60.225])
+ by mo540.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHb5gdxz452h;
+ Thu, 10 Sep 2026 16:52:27 +0000 (UTC)
+Received: from director5.derp.mail-out.ovh.net
+ (director5.derp.mail-out.ovh.net. [127.0.0.1])
+ by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+ for <christian.koenig@amd.com>; Thu, 10 Sep 2026 16:52:27 +0000 (UTC)
+Received: from mta2.priv.ovhmail-u2.ea.mail.ovh.net (unknown [10.110.178.248])
+ by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id
+ 4hgkHb412sz6MbM; Thu, 10 Sep 2026 16:52:27 +0000 (UTC)
+Received: from sicoop.com (unknown [10.1.6.2])
+ (Authenticated sender: michaltoma@sicoop.com)
+ by mta2.priv.ovhmail-u2.ea.mail.ovh.net (Postfix) with ESMTPSA id 0D7F4941C3B; 
+ Thu, 10 Sep 2026 16:52:26 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-100R003a667408e-8f09-46f7-ac05-eac24a551907,
+ D184D1A0A1014A0D56F8A815F0DE21A15A548AA1) smtp.auth=michaltoma@sicoop.com
+X-OVh-ClientIp: 89.91.4.113
+From: Michal TOMA <michaltoma@sicoop.com>
+To: Zack Rusin <zack.rusin@broadcom.com>
+Cc: Michal TOMA <michaltoma@sicoop.com>, bcm-kernel-feedback-list@broadcom.com,
+ ian.forbes@broadcom.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, sumit.semwal@linaro.org, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ stable@vger.kernel.org
+Subject: [PATCH v2 3/3] drm/vmwgfx: Don't leak a GEM handle when referencing a
+ surface by fd
+Date: Thu, 10 Sep 2026 18:52:21 +0200
+Message-ID: <20260910165221.7558-4-michaltoma@sicoop.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260910165221.7558-1-michaltoma@sicoop.com>
+References: <20260910165221.7558-1-michaltoma@sicoop.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: NpfbsqbTlzxUOvzqVtC/TKNNUMMBZqoi3BMLUiaduAYbs2die1X2i2g/
- EY9q0s7n+cB+RsdxX2JxQyA8Dos0iPQm3xhb54Q27Mg+MtwpFY9jGMW9QhNwM7xcnrUvSOm
- 5EiQ6lxXtRGw3zjwqaMsL1abWg6J2hEFlsE5Rv+Q35cKLrSkwuzdKts5rOUrlnf7DwUChHr
- 7cyJeZqDuVDkZiIvOM7wbznVZe28kd0Ai4x3ybQUWdA93xWCvSL3Sk16g0xvJqdn5MYBjCG
- HmdbMTCdWsfay1Dw4kC1OSrsXCMLDIHfGGr07eT/p6Pu6FdKmMpal1XASi0QulNHiX/R5SA
- Dx6rZPzpWSC2uKJXTd534geCr4H7ZILEZfiM5hppxIHcxVPsyAhSte4ksGl/UmNv9hnSoAU
- 0TULnaPwzCx8Rydg4t6NdlDsH2TPXbF8xnSQN1KaoylvuhC24u7KnQ9uFFKwWdpPP/D94xN
- BoVSCXucZs7YBN1SGcXYtQ64OAWl3Yopac4bR6UWEaCmu0RW8GVbCLX11lNNKvv2wWDT63X
- zmDYSluXhUCvxF9v/iVdFaxIv0VVrzPjh6wl/hUyUJe8rDnbMHuuB63NRqkSGPPpMzSkjqU
- tWJNcuBmb7eBC4Np8IhYiSjWFcOL87/3Hc4P0jE2rpvRa/vE1tD+FaIWVYFTiIzB5vVAsTV
- GtkJyBu5XhO37hCBap0ta1SOJQgPMbX1D4EGO6Yael08h2DCN3vFFMyyybfxVIarYDEH5Db
- EelEPOOYfpN1Mk1iyp6hRnL6Nfd8XzT1/15I9vwtSEn5SGLCMsBMbxgmXCERhHd72hVHRku
- ITT3NzI4Mtb9kcLnhJQsi3V/dzEKWcrBVRCP4Kr44nYBeJE/xUxKlCICg5U1om9A7zAYcNL
- PY7EOT8e29RDAjXJI+LEpRKI2bMLL/3uY6iwR8Ywd8fS/mBMPYA0i8Coz2fsVgxMV8i8GPi
- Vf7LyTZLiYOdIho0vf+hsKQzRvaaFW5Wssho+nNB9DdVUuWeRuIQEDdSvNx3nQyuvKGcU7h
- t8Kmz667Ttb5JbxSL/
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+x-ovh-tracer-id: 16162011691840459035
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTGg6wAZ5z5m4YdOZGlRvPlWvQ83qxrX0rycDpYlbiCAYEpx32LeXRz6zw+UeX55tidPV15i9F5JJX63eEc1JCT6wHVaKV/OhSN6LgwM58uI8yevCLazs8kKF9On9E4ThlTFZNkPOQ6mpgxNIBwb7hWHF/0E4+YW+s+/GZBnJCHjjNhGt9qzJ9+Dc66SkgCk2DdRRZ//ZY2nlpCJ5DSRYat8+/GO5Lgvp//nPcYh81iq7GWZiK315nkZFDCOgv20EiLuiJcuIH6EBIl+FPFLIr1p1SjOXj8KYsEa9ySW43cYk0cUc1nhxRsLzhm7RgCzFiB1KJ/GM4G0cGyhLeeNE9/ao2fRm+hdRKsfPiXwR6JtPvE9uBwWaUZGfOuYkoIaNwSABKYA4FYmqFzX8LXG8sNY4aL3OYy0PDsoE9ZPIu9x0Dy4AE4M3iVSH9Hoegxy/nPDe9moS4EAD64MaxOGzMoCYxtmQn1G7Bnod9owt3hZtTTVL+1Ir4efHM0l2cv4cnF1O1j8nKHok7la0l/Pj/N2RSInIhRHon05lDGezlMonevEAcGfkk6zmj3UyYYZ5jwUcNigAbaPUGHSzxG/02ZhpS9YDrY6JgYHRpw21c7f0NO4544eUQ3Msfo190FJ4saBIVi0+ikA43aDEQXEH3nC1nilyBUMerjzPNIzgFltlw
+DKIM-Signature: a=rsa-sha256; bh=VgeMh5kbh20ZiKkQLJh6YqAh8e02PiCBUeJC60hC1Iw=; 
+ c=relaxed/relaxed; d=sicoop.com; h=From; s=ovhmo62391-selector1;
+ t=1789059148; v=1;
+ b=eHuLCaJMoWoP+OzjUgqU3rkTjhTSQ/xCMPD0o6rDpIhcZYr6C3yJwRe9u2b5qn2x27/wE62X
+ +44dFSB1aHtgiBtZg1SLw6Ah1ZYtzwf9b1NQ0jT72Dd72HokDX/4oukAIE7ItLGwejAi8x33taq
+ qvC5LWzfL+I9U795oHyJwr3YAlHkf/CaL6V+Y5OWfuly05QIWJRhDlQz1DQkiD9dbq4DbyTc+4s
+ UzPb8+pzlfCzCZn8eIZjLFc9LdRj9YLzEktESqqp6aWP990MlCXy2zKa6qviGMhFIGQ5yLtauxm
+ QWrOdrHUm98F36tKOBk+cOyVsVwS/xTgaPtVMpJOq07Ww==
 X-Mailman-Approved-At: Fri, 11 Sep 2026 07:50:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,116 +81,292 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-nouveau_bo_pin_locked() checks whether an already pinned BO is in a
-memory domain compatible with a new pin request. When the domains are
-incompatible, it sets -EBUSY but still calls ttm_bo_pin() before
-returning.
+DRM_VMW_GB_SURFACE_REF_EXT with DRM_VMW_HANDLE_PRIME first tries
+ttm_prime_fd_to_handle(). If the fd is not a vmwgfx surface export,
+vmw_surface_handle_reference() falls back to
+vmw_buffer_prime_to_surface_base(). That function calls
+drm_gem_prime_fd_to_handle() to turn the fd into a GEM handle in the
+caller's file, then looks for a surface attached to that buffer.
 
-Callers treat a failed nouveau_bo_pin() as not having acquired a new pin,
-so the extra pin count is never decreased by a matching unpin.
-This triggers the warning in ttm_bo_release():
+That handle is never returned to userspace, since the ioctl reports the
+surface handle and a separate backup buffer handle, and it is never
+deleted. Every call that gets this far therefore leaves a GEM handle
+behind in the file, whether it fails or succeeds, and whatever the
+handle references stays alive until the file is closed.
 
-	WARN_ON_ONCE(bo->pin_count);
+For a dma-buf from another exporter, such as udmabuf, this is an
+actual import: drm_gem_prime_fd_to_handle() attaches to the dma-buf,
+maps it and creates a new GEM object. The surface lookup then always
+fails, because such a buffer never has a surface. The WARN_ON() fires
+and the ioctl returns -EINVAL, but the import stays referenced by the
+stray handle.
 
-Found when fuzzing the nouveau driver with a modified Syzkaller:
+Mesa's svga winsys passes dma-buf fds to DRM_VMW_GB_SURFACE_REF_EXT as
+DRM_VMW_HANDLE_PRIME, and KWin 6.7 imports every wl_shm client buffer
+as a udmabuf through EGL. On a Plasma Wayland session this pins one
+window-sized buffer inside the compositor's DRM file for every
+attempted import, for as long as the compositor runs, and logs a full
+WARN backtrace each time. On a VirtualBox VMSVGA guest with 3D
+acceleration on and the previous patch applied, 103 udmabufs (750 MiB)
+had accumulated this way 40 minutes after boot. 99 of them had a
+dma-buf refcount of 3, were still attached to the vmwgfx device and
+were held by no process fd or mapping.
 
-	WARNING: drivers/gpu/drm/ttm/ttm_bo.c:256 at ttm_bo_release+0x827/0x9e0 drivers/gpu/drm/ttm/ttm_bo.c:256, CPU#1: syz.3.24/2212
-	Modules linked in:
-	CPU: 1 UID: 0 PID: 2212 Comm: syz.3.24 Not tainted 7.2.0 #24 PREEMPT(lazy) 
-	nouveau 0000:01:00.0: gsp:msg fn:103 len:0x40/0x20 res:0x19 resp:0x19
-	Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-	RIP: 0010:ttm_bo_release+0x827/0x9e0 drivers/gpu/drm/ttm/ttm_bo.c:256
-	Code: 02 00 0f 85 51 01 00 00 48 8b 7b 08 e8 d2 20 01 00 e9 80 fd ff ff e8 d8 15 c0 fe 90 0f 0b 90 e9 e1 f8 ff ff e8 ca 15 c0 fe 90 <0f> 0b 90 e9 a4 f8 ff ff e8 bc 15 c0 fe be 03 00 00 00 4c 89 e7 e8
-	msg: 00000000: 05 00 d0 c1 04 00 f0 f1 01 30 00 00 2d 90 00 00  .........0..-...
-	RSP: 0018:ffffc9000f5cf710 EFLAGS: 00010293
-	RAX: 0000000000000000 RBX: ffff888018e5d2a8 RCX: ffffffff82bb1b36
-	RDX: ffff888017b68000 RSI: 0000000000000004 RDI: ffff888018e5d2a8
-	msg: 00000010: 19 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-	RBP: ffff88801261c720 R08: 0000000000000001 R09: ffffed10031cba55
-	R10: ffff888018e5d2ab R11: 00000000000000f3 R12: ffff888018e5d290
-	R13: ffff888018e5d2d4 R14: ffff88801b219c18 R15: dffffc0000000000
-	FS:  0000000000000000(0000) GS:ffff8880e0f6f000(0000) knlGS:0000000000000000
-	CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-	CR2: 0000001b31223ffc CR3: 0000000028e00005 CR4: 0000000000770ef0
-	PKRU: 80000000
-	Call Trace:
-	<TASK>
-	kref_put include/linux/kref.h:65 [inline]
-	ttm_bo_put drivers/gpu/drm/ttm/ttm_bo.c:325 [inline]
-	ttm_bo_fini+0x55/0x80 drivers/gpu/drm/ttm/ttm_bo.c:330
-	nouveau_gem_object_del+0xb2/0x1b0 drivers/gpu/drm/nouveau/nouveau_gem.c:90
-	drm_gem_object_free+0x5f/0x90 drivers/gpu/drm/drm_gem.c:1165
-	kref_put include/linux/kref.h:65 [inline]
-	__drm_gem_object_put include/drm/drm_gem.h:562 [inline]
-	drm_gem_object_put include/drm/drm_gem.h:575 [inline]
-	nouveau_abi16_chan_fini.constprop.0+0x44f/0x5a0 drivers/gpu/drm/nouveau/nouveau_abi16.c:195
-	nouveau 0000:01:00.0: syz.2.23[2209]: Unknown handle 0x00000000
-	nouveau_abi16_fini+0x1d0/0x340 drivers/gpu/drm/nouveau/nouveau_abi16.c:225
-	nouveau_drm_postclose+0x18b/0x3e0 drivers/gpu/drm/nouveau/nouveau_drm.c:1284
-	nouveau 0000:01:00.0: syz.2.23[2209]: validate_init
-	drm_file_free.part.0+0x6d6/0xb60 drivers/gpu/drm/drm_file.c:267
-	drm_file_free drivers/gpu/drm/drm_file.c:237 [inline]
-	drm_close_helper.isra.0+0x11a/0x160 drivers/gpu/drm/drm_file.c:290
-	drm_release+0x1ab/0x330 drivers/gpu/drm/drm_file.c:438
-	__fput+0x39c/0xa60 fs/file_table.c:512
-	nouveau 0000:01:00.0: syz.2.23[2209]: validate: -2
-	task_work_run+0x15a/0x230 kernel/task_work.c:233
-	exit_task_work include/linux/task_work.h:40 [inline]
-	do_exit+0x82b/0x25a0 kernel/exit.c:1009
-	do_group_exit+0xc2/0x280 kernel/exit.c:1152
-	get_signal+0x1d6e/0x1f30 kernel/signal.c:3046
-	arch_do_signal_or_restart+0x7d/0x6e0 arch/x86/kernel/signal.c:337
-	__exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
-	exit_to_user_mode_loop+0xdf/0x440 kernel/entry/common.c:101
-	__exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
-	syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
-	syscall_exit_to_user_mode include/linux/entry-common.h:318 [inline]
-	do_syscall_64+0x4f8/0x690 arch/x86/entry/syscall_64.c:100
-	entry_SYSCALL_64_after_hwframe+0x77/0x7f
-	RIP: 0033:0x7f12bac8594d
-	Code: Unable to access opcode bytes at 0x7f12bac85923.
-	RSP: 002b:00007f12b96e70d8 EFLAGS: 00000246 ORIG_RAX: 00000000000000ca
-	RAX: 0000000000000001 RBX: 00007f12baf15fa8 RCX: 00007f12bac8594d
-	RDX: 00000000000f4240 RSI: 0000000000000081 RDI: 00007f12baf15fac
-	RBP: 00007f12baf15fa0 R08: 00007f12baee8000 R09: 0000000000000000
-	R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-	R13: 00007f12baf16038 R14: 0000000000000006 R15: 00007ffe2ed394b0
-	</TASK>
-	irq event stamp: 47867
-	hardirqs last  enabled at (47883): [<ffffffff815cafc6>] __up_console_sem+0x66/0x70 kernel/printk/printk.c:347
-	hardirqs last disabled at (47892): [<ffffffff815cafab>] __up_console_sem+0x4b/0x70 kernel/printk/printk.c:345
-	softirqs last  enabled at (47880): [<ffffffff81434277>] __do_softirq kernel/softirq.c:656 [inline]
-	softirqs last  enabled at (47880): [<ffffffff81434277>] invoke_softirq kernel/softirq.c:496 [inline]
-	softirqs last  enabled at (47880): [<ffffffff81434277>] __irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
-	softirqs last disabled at (47875): [<ffffffff81434277>] __do_softirq kernel/softirq.c:656 [inline]
-	softirqs last disabled at (47875): [<ffffffff81434277>] invoke_softirq kernel/softirq.c:496 [inline]
-	softirqs last disabled at (47875): [<ffffffff81434277>] __irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
+Look the buffer up through the dma-buf instead of importing it. Only
+GEM buffers exported by this device can have a surface, so reject
+anything else with drm_gem_is_prime_exported_dma_buf() before touching
+it. For our own buffers, use dma_buf->priv directly: the dma-buf holds
+a reference to the GEM object for as long as we hold the dma-buf, so
+neither a handle nor an extra object reference is needed. The surface
+lookup and the ttm_ref_object_add() reference that the callers rely on
+are unchanged.
 
-Fix by going to the out path as soon as the incompatible placement
-is detected. This matches the correct bahaviour in other DRM drivers
-such as amdgpu_bo_pin() in amdgpu.
+While restructuring the function, also:
+ - replace the WARN_ON() on a buffer without a surface with a debug
+   message. Userspace can trigger that case at will.
+ - drop the base object reference taken by
+   vmw_lookup_user_surface_for_buffer() when ttm_ref_object_add() fails.
+   It was leaked before.
 
-Cc: stable@vger.kernel.org
-Fixes: ad76b3f7c7a0 ("drm/nouveau: teach nouveau_bo_pin() how to force a contig vram allocation")
-Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Assisted-by: Codex:gpt-5.5
+Build tested on drm-misc-fixes (4600b4d1a9ee) with W=1 (no warnings in
+drivers/gpu/drm/vmwgfx/) and checkpatch.pl --strict. Runtime tested on
+the same guest and 7.2.3 kernel as the previous patch, comparing a
+vmwgfx.ko with only the previous patch against one with both. Calls
+from a second render file:
+ - udmabuf fd: -EINVAL both times. Before, each call left the import
+   held by the file (refcount 3, attached) and logged a WARN. Now
+   nothing is imported and nothing is logged.
+ - fd of a dumb buffer exported from the primary node: -EINVAL both
+   times. Before, a stray GEM handle and a WARN per call; now neither.
+ - fd of a buffer exported before a GB surface was created on it, which
+   reaches this function and succeeds: the exporter's surface is
+   returned both times. Before, each call left a GEM handle in the
+   file; now it does not.
+ - fd of a buffer created together with its surface, which is exported
+   as a TTM prime surface and does not reach this function: succeeds
+   both times.
+During a 5-minute KWin 6.7 test replaying a terminal workload, the
+udmabuf count went from 4 to 20 (140 MiB) with only the previous patch,
+with WARNs logged. With both patches it stayed at 6 during the run,
+returned to 4 afterwards, and no WARN was logged.
+
+Fixes: d6667f0ddf46 ("drm/vmwgfx: Fix handling of dumb buffers")
+Cc: stable@vger.kernel.org # v6.11+
+Assisted-by: LLM
+Signed-off-by: Michal TOMA <michaltoma@sicoop.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_bo.c | 1 +
- 1 file changed, 1 insertion(+)
+Reproducer (results and environment are in the cover letter). Run as
+root, since it counts udmabufs in debugfs:
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c b/drivers/gpu/drm/nouveau/nouveau_bo.c
-index 0e8de6d4b36f..bdd0390b590e 100644
---- a/drivers/gpu/drm/nouveau/nouveau_bo.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
-@@ -578,6 +578,7 @@ int nouveau_bo_pin_locked(struct nouveau_bo *nvbo, uint32_t domain, bool contig)
- 				      "0x%08x vs 0x%08x\n", bo,
- 				 bo->resource->mem_type, domain);
- 			ret = -EBUSY;
-+			goto out;
- 		}
- 		ttm_bo_pin(&nvbo->bo);
+  cc -o vmwgfx-surfref-fd-leak vmwgfx-surfref-fd-leak.c
+  ./vmwgfx-surfref-fd-leak
+
+// SPDX-License-Identifier: MIT
+/*
+ * Reproducer for "drm/vmwgfx: Don't leak a GEM handle when referencing a
+ * surface by fd": DRM_VMW_GB_SURFACE_REF_EXT(DRM_VMW_HANDLE_PRIME) with a
+ * udmabuf fd. Run as root, since it counts udmabufs in debugfs.
+ *
+ *   cc -o vmwgfx-surfref-fd-leak vmwgfx-surfref-fd-leak.c && ./vmwgfx-surfref-fd-leak
+ *
+ * The render node stays open after the calls. Expected lines 2 and 3
+ * (udmabufs left while the node is open / after it is closed):
+ *   with this fix:       0 / 0
+ *   without it:          8 / 0 if "drm/vmwgfx: Release PRIME import in
+ *                        the BO destroy path" is applied, otherwise
+ *                        8 / 8 (pinned until reboot)
+ */
+#define _GNU_SOURCE
+#include <errno.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <sys/mman.h>
+#include <linux/udmabuf.h>
+#include <drm/drm.h>
+#include <drm/vmwgfx_drm.h>
+
+#define DRM_IOCTL_VMW_GB_SURFACE_REF_EXT \
+	DRM_IOWR(DRM_COMMAND_BASE + DRM_VMW_GB_SURFACE_REF_EXT, \
+		 union drm_vmw_gb_surface_reference_ext_arg)
+#define N 8
+#define SIZE (6UL << 20)
+
+/* udmabufs of @size listed in dma_buf/bufinfo */
+static int count_udmabufs(unsigned long size)
+{
+	FILE *f = fopen("/sys/kernel/debug/dma_buf/bufinfo", "r");
+	char line[512];
+	int n = 0;
+
+	if (!f) {
+		perror("/sys/kernel/debug/dma_buf/bufinfo");
+		return -1;
+	}
+	while (fgets(line, sizeof(line), f)) {
+		unsigned long sz;
+
+		if (sscanf(line, "%lu", &sz) == 1 && sz == size &&
+		    strstr(line, "udmabuf"))
+			n++;
+	}
+	fclose(f);
+	return n;
+}
+
+int main(void)
+{
+	int render = open("/dev/dri/renderD128", O_RDWR | O_CLOEXEC);
+	int udm = open("/dev/udmabuf", O_RDWR | O_CLOEXEC);
+	int before, einval = 0;
+
+	if (render < 0 || udm < 0) {
+		perror("open");
+		return 1;
+	}
+	before = count_udmabufs(SIZE);
+	for (int i = 0; i < N; i++) {
+		int memfd = memfd_create("surfref", MFD_ALLOW_SEALING | MFD_CLOEXEC);
+		struct udmabuf_create create = {
+			.memfd = memfd, .flags = UDMABUF_FLAGS_CLOEXEC, .size = SIZE,
+		};
+		union drm_vmw_gb_surface_reference_ext_arg arg;
+		int dmabuf;
+
+		if (memfd < 0 || ftruncate(memfd, SIZE) ||
+		    fcntl(memfd, F_ADD_SEALS, F_SEAL_SHRINK)) {
+			perror("memfd");
+			return 1;
+		}
+		dmabuf = ioctl(udm, UDMABUF_CREATE, &create);
+		if (dmabuf < 0) {
+			perror("UDMABUF_CREATE");
+			return 1;
+		}
+		memset(&arg, 0, sizeof(arg));
+		arg.req.sid = dmabuf;
+		arg.req.handle_type = DRM_VMW_HANDLE_PRIME;
+		if (ioctl(render, DRM_IOCTL_VMW_GB_SURFACE_REF_EXT, &arg) &&
+		    errno == EINVAL)
+			einval++;
+		close(dmabuf);
+		close(memfd);
+	}
+	close(udm);
+	usleep(500000);
+	printf("GB_SURFACE_REF_EXT with a udmabuf fd: %d/%d calls failed with EINVAL\n",
+	       einval, N);
+	printf("6 MiB udmabufs left, render node open:   %d (before: %d)\n",
+	       count_udmabufs(SIZE), before);
+	close(render);
+	usleep(500000);
+	printf("6 MiB udmabufs left, render node closed: %d\n",
+	       count_udmabufs(SIZE));
+	return 0;
+}
+
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c | 48 ++++++++++++++-----------
+ 1 file changed, 28 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+index bd0563741..27f68fd9c 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+@@ -16,8 +16,11 @@
+ #include "device_include/svga3d_surfacedefs.h"
+ 
+ #include <drm/drm_dumb_buffers.h>
++#include <drm/drm_prime.h>
+ #include <drm/ttm/ttm_placement.h>
+ 
++#include <linux/dma-buf.h>
++
+ #define SVGA3D_FLAGS_64(upper32, lower32) (((uint64_t)upper32 << 32) | lower32)
+ 
+ /**
+@@ -931,33 +934,37 @@ u32 vmw_lookup_surface_handle_for_buffer(struct vmw_private *vmw,
+ 
+ static int vmw_buffer_prime_to_surface_base(struct vmw_private *dev_priv,
+ 					    struct drm_file *file_priv,
+-					    u32 fd, u32 *handle,
++					    u32 fd,
+ 					    struct ttm_base_object **base_p)
+ {
+ 	struct ttm_base_object *base;
+-	struct vmw_bo *bo;
++	struct dma_buf *dma_buf;
+ 	struct ttm_object_file *tfile = vmw_fpriv(file_priv)->tfile;
+ 	struct vmw_user_surface *user_srf;
+ 	int ret;
+ 
+-	ret = drm_gem_prime_fd_to_handle(&dev_priv->drm, file_priv, fd, handle);
+-	if (ret) {
+-		drm_warn(&dev_priv->drm,
+-			 "Wasn't able to find user buffer for fd = %u.\n", fd);
+-		return ret;
+-	}
++	dma_buf = dma_buf_get(fd);
++	if (IS_ERR(dma_buf))
++		return PTR_ERR(dma_buf);
+ 
+-	ret = vmw_user_bo_lookup(file_priv, *handle, &bo);
+-	if (ret) {
+-		drm_warn(&dev_priv->drm,
+-			 "Wasn't able to lookup user buffer for handle = %u.\n", *handle);
+-		return ret;
++	/*
++	 * Only buffers exported by this device can have a user surface.
++	 * Look the buffer up through the dma-buf, which holds a reference
++	 * to it, instead of importing the fd into file_priv: the GEM handle
++	 * that would create is never returned to userspace, so nothing
++	 * would release it (or a foreign dma-buf) until the file is closed.
++	 */
++	if (!drm_gem_is_prime_exported_dma_buf(&dev_priv->drm, dma_buf)) {
++		ret = -EINVAL;
++		goto out;
+ 	}
+ 
+-	user_srf = vmw_lookup_user_surface_for_buffer(dev_priv, bo, *handle);
+-	if (WARN_ON(!user_srf)) {
+-		drm_warn(&dev_priv->drm,
+-			 "User surface fd %d (handle %d) is null.\n", fd, *handle);
++	user_srf = vmw_lookup_user_surface_for_buffer(dev_priv,
++						      to_vmw_bo(dma_buf->priv),
++						      fd);
++	if (!user_srf) {
++		drm_dbg_driver(&dev_priv->drm,
++			       "No user surface for buffer fd %d.\n", fd);
+ 		ret = -EINVAL;
  		goto out;
-
-base-commit: df2908090cda368b01ff43709f51890076c56157
+ 	}
+@@ -966,13 +973,15 @@ static int vmw_buffer_prime_to_surface_base(struct vmw_private *dev_priv,
+ 	ret = ttm_ref_object_add(tfile, base, NULL, false);
+ 	if (ret) {
+ 		drm_warn(&dev_priv->drm,
+-			 "Couldn't add an object ref for the buffer (%d).\n", *handle);
++			 "Couldn't add an object ref for buffer fd %d (%d).\n",
++			 fd, ret);
++		ttm_base_object_unref(&base);
+ 		goto out;
+ 	}
+ 
+ 	*base_p = base;
+ out:
+-	vmw_user_bo_unref(&bo);
++	dma_buf_put(dma_buf);
+ 
+ 	return ret;
+ }
+@@ -996,7 +1005,6 @@ vmw_surface_handle_reference(struct vmw_private *dev_priv,
+ 			return vmw_buffer_prime_to_surface_base(dev_priv,
+ 								file_priv,
+ 								u_handle,
+-								&handle,
+ 								base_p);
+ 	} else {
+ 		handle = u_handle;
 -- 
-2.43.0
+2.55.0
+
