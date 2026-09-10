@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44B1CC79FA1
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 07:50:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B60C1C88E4C
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 07:50:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2F7B10F514;
-	Fri, 11 Sep 2026 07:50:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD24810F520;
+	Fri, 11 Sep 2026 07:50:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=sicoop.com header.i=@sicoop.com header.b="RxoLap6c";
+	dkim=pass (2048-bit key; unprotected) header.d=sicoop.com header.i=@sicoop.com header.b="kybPoW2M";
 	dkim-atps=neutral
-X-Greylist: delayed 561 seconds by postgrey-1.36 at gabe;
- Thu, 10 Sep 2026 14:33:26 UTC
-Received: from smtpout5.mo538.mail-out.ovh.net
- (smtpout5.mo538.mail-out.ovh.net [51.210.91.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AFA410F494
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 14:33:26 +0000 (UTC)
-Received: from director2.derp.mail-out.ovh.net
- (director2.derp.mail-out.ovh.net [79.137.60.36])
- by mo538.mail-out.ovh.net (Postfix) with ESMTPS id 4hgg0L1DfNz5xMy;
- Thu, 10 Sep 2026 14:24:02 +0000 (UTC)
-Received: from director2.derp.mail-out.ovh.net
- (director2.derp.mail-out.ovh.net. [127.0.0.1])
- by director2.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <bcm-kernel-feedback-list@broadcom.com>;
- Thu, 10 Sep 2026 14:24:02 +0000 (UTC)
-Received: from mta2.priv.ovhmail-u2.ea.mail.ovh.net (unknown [10.110.101.1])
- by director2.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4hgg0K6yTrz1xp5;
- Thu, 10 Sep 2026 14:24:01 +0000 (UTC)
-Received: from sicoop.com (unknown [10.1.6.5])
+Received: from smtpout7.mo539.mail-out.ovh.net
+ (smtpout7.mo539.mail-out.ovh.net [51.210.91.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B12510E5FB
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 16:52:26 +0000 (UTC)
+Received: from director5.derp.mail-out.ovh.net
+ (director5.derp.mail-out.ovh.net [79.137.60.225])
+ by mo539.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHW6zDZz4F9T;
+ Thu, 10 Sep 2026 16:52:23 +0000 (UTC)
+Received: from director5.derp.mail-out.ovh.net
+ (director5.derp.mail-out.ovh.net. [127.0.0.1])
+ by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+ for <christian.koenig@amd.com>; Thu, 10 Sep 2026 16:52:23 +0000 (UTC)
+Received: from mta2.priv.ovhmail-u2.ea.mail.ovh.net (unknown [10.110.164.80])
+ by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id
+ 4hgkHW5mLnz6MbJ; Thu, 10 Sep 2026 16:52:23 +0000 (UTC)
+Received: from sicoop.com (unknown [10.1.6.2])
  (Authenticated sender: michaltoma@sicoop.com)
- by mta2.priv.ovhmail-u2.ea.mail.ovh.net (Postfix) with ESMTPSA id 4B878941C3B; 
- Thu, 10 Sep 2026 14:24:00 +0000 (UTC)
+ by mta2.priv.ovhmail-u2.ea.mail.ovh.net (Postfix) with ESMTPSA id 05683941C3D; 
+ Thu, 10 Sep 2026 16:52:21 +0000 (UTC)
 Authentication-Results: garm.ovh; auth=pass
- (GARM-106R0068dd60d49-3a7b-4cef-993d-6e5cb923b62a,
+ (GARM-100R003a0747e58-7207-4f04-b569-9e5900309981,
  D184D1A0A1014A0D56F8A815F0DE21A15A548AA1) smtp.auth=michaltoma@sicoop.com
 X-OVh-ClientIp: 89.91.4.113
 From: Michal TOMA <michaltoma@sicoop.com>
 To: Zack Rusin <zack.rusin@broadcom.com>
 Cc: Michal TOMA <michaltoma@sicoop.com>, bcm-kernel-feedback-list@broadcom.com,
- ian.forbes@broadcom.com, martin.krastev@broadcom.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH] drm/vmwgfx: Release PRIME import in the BO destroy path
-Date: Thu, 10 Sep 2026 16:23:59 +0200
-Message-ID: <20260910142359.13716-1-michaltoma@sicoop.com>
+ ian.forbes@broadcom.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, sumit.semwal@linaro.org, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Michal TOMA <mt@sicoop.com>
+Subject: [PATCH v2 0/3] drm/vmwgfx: Fix dma-buf import leaks and a crash on
+ imported BOs
+Date: Thu, 10 Sep 2026 18:52:18 +0200
+Message-ID: <20260910165221.7558-1-michaltoma@sicoop.com>
 X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 13655477022551134491
+x-ovh-tracer-id: 16160885791526768937
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTEMYgBh5jAs2CqhmicLsFk6VAjE8McmgpxCm7G7Xlp2LR1OYnIrkEevB8t2xcM2fRNGBogZDQ2KC0s9TZBE9nAQkRou+AD++XnGtcPTSRalkKORA1T9DDG3cTUJYLDyWdooREfoC28gAHluAMahqxIKbomWdGDmCM8nztoHCHkU4nL+/QGrPypd1/N+Is7gTFLsLsPkj4Bom1eoR8rlt34hjlyMK8WwMYF2GRo6kVku/LtCEHhq7JTHoP+Tn2syGBuwRW/CfLMAws3HdSPtyVcKtNhC4popB3n803jaTwjeX+wjIsq5Sstt++/yjHO/nZrOnrZTziRcqRkP0s2XMjOIQWTP9v9vIVBk6FFxUKOr46iWJUc3w9SBkecHm/QaJuAmUIcCkKlPgIXeaLHks7g5/e9jzzuSn+xHd+/LeJ82Y4GqeR7OFJslNBdLiuyVIfaK83ZS9ONjMl042pzgUe2O/5NXuVpdvyP4LsxPboxFj1b94xIkbP8z0nY+0+ZPcBmIj/N3hYCt5Eaa8rzdRufSNvLnr9hAXDTAHrB55crloGKP0cIVWIP2bgBxz5QnxYCC2d7vSn9umc1b0HysFUT9xyd0HYpQhUGLdKu2vDPi3eQ4A6qpDuDowfKqV5F+idlV1XW89P2yb5/kXFkvu6GX7yIv3wQ/F3GwSqpYF3wokw
-DKIM-Signature: a=rsa-sha256; bh=9oI3S3DvLqTfUvqstD//cyIYy5+Mq2YSKPAElvuGvFA=; 
+X-VR-SPAMCAUSE: dmFkZTE14sWrx7m374hSunvwVZVkMQdJT1m8+gokp34rQLFtzW5Sa9jZXRf5NOGq/bCeiagz5hrElxgUAK41vhINK3nmhgXCtyziNObQoKyzJSmxCRbl0Brel4OYibN24VzbQDnuWVjUN8aionwXI0KD1pTQ1JunSDCwlqaJVYkxSSgUQkzHTBjLz1EJvXjyQTvOEGv3kI2IRxE/Fp7/AKY32L/c5N1GtOCqWiOO11HYiErQKCalE2jMM2XBwQW4eESxdTAJwbtOCjlC4lUI0xUPF1i9HNBmA+zL4KJBuWlG996FWfIpSLqPSBKgZlg/lpvIP1Pt9c5kGg//TzRFS2XErl2gHkFjHnPn2g1966CtioNNZdj2LzMBZ/4+0Syk49sWWdwrx/o5xsb0X71XS0MihMaKRnSJfk1HtuegaK0Rb52IQghQS5EqJjhT4AjCuCorVEbCuj9RrYyFX5iF023QwIbJht71pOqA5B+5ar5MINwPqpCFPVC3VJ/dqiH9hElau29MIMio3egS/QtlmtRozbXGYJ5FZjykcgzH1EYaDCVoWntTGhJ6/cSjh7p8blxF9JoM3RDLhgGZLoVk0sEb/fAEUzwlsJwMlwcbTUVvMb2c5bBHwfoIowXw/wpZq0laediK/6XlN3xlbh+/r4BibpfcCK6V6CKbfggTshmUQhpvKg
+DKIM-Signature: a=rsa-sha256; bh=XsTgs84U0IAxOKk0L+IcUrkWh42l5P9yE0BWfIt9oqM=; 
  c=relaxed/relaxed; d=sicoop.com; h=From; s=ovhmo62391-selector1;
- t=1789050242; v=1;
- b=RxoLap6cJkDBxJ/BmXn3FU0t82i5K5bcByFp7ZxCYz0TO2mliEcT8OFZxhXSvrWhifqKTAYR
- XkvFK1fkoCbSiAfMlpM7a5rMvQOMDNMIS2fM+07oEWJXFdf7chOkeu/4aUGplwUFypyKYs3uM/K
- SKUG5b9akue5qaEmLv7xTDawyQ6Q+4KABoVGsQ8nwIVKoqLGS/spazVhLTtYujoo4MlvFdREFeK
- O6i8g3P7PjrZpmK120jbVeGmvoJGh4X85ZxWdb1hvCthusZyCho4bT4ef4T7COAXj9Zhbm90MF6
- IhKG9nn1rdMkppdqM7uQ7veAMXPDhiGZpyCACcVMbWleQ==
+ t=1789059144; v=1;
+ b=kybPoW2M4UIgZJ2dapCIF4ihptGEldhOUI/Hngxx4Y7Otgnrrf7NK39s7hYzdrb0dh0dfOB0
+ oVTWk9nF2ux6r+41AzsAEY0XJnF5+chOk0f5xJKMcL7sev4Ew+4YcVUzr1p8sHpYnHbok0eMHo9
+ F3mOB9Fy3xd443dD7Sc+8Ozyg9gZdY+ULxQJAXeE8PV3eZqsR/f7Z/7uuuT5S1/Oy/bbcFu4ZKP
+ hjR0keEihdIgKyw0NKrcINWegUyY+mjLJiwFYbJTayR04f+H1dkoQSlvO0hKeyyesykJZT5qGrH
+ KR3H+qSx/TPw0Uvstt6TukogmX0/aEbelUGakPCq8P1dQ==
 X-Mailman-Approved-At: Fri, 11 Sep 2026 07:50:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,210 +79,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_gem_prime_import_dev() attaches to a foreign dma-buf, takes a
-reference with get_dma_buf(), maps the attachment and, once
-vmw_prime_import_sg_table() has created the TTM buffer object, stores
-the attachment in obj->import_attach. Drivers that import this way have
-to undo it by calling drm_prime_gem_destroy() when the object is freed.
+From: Michal TOMA <mt@sicoop.com>
 
-vmwgfx never does. The TTM destroy callback, vmw_bo_free(), only calls
-drm_gem_object_release() and kfree(). For every imported dma-buf, the
-sg mapping, the attachment and the dma-buf reference are leaked when
-the last GEM reference goes away, and the exporter's backing pages stay
-pinned until reboot.
+v1 was a single patch, "drm/vmwgfx: Release PRIME import in the BO
+destroy path":
 
-Any process that can open the vmwgfx render node can hit this by
-importing a dma-buf from another exporter, for example with
-DRM_IOCTL_PRIME_FD_TO_HANDLE. It showed up as a memory drain on a
-VirtualBox VMSVGA guest running a Plasma 6.7 Wayland session with the
-host's 3D acceleration off. KWin 6.7 wraps wl_shm client buffers in
-udmabufs and imports them through EGL on llvmpipe, and it keeps many of
-those imports referenced while it runs, which is a separate userspace
-problem. Restarting the compositor did not give the memory back,
-though: with about 1.5 GiB of client buffers imported, killing KWin
-left 211 udmabufs in /sys/kernel/debug/dma_buf/bufinfo with a refcount
-of 1, still attached to the vmwgfx device, after every userspace
-reference was gone. Their pages are no longer mapped or in any page
-cache, so reclaim and swap cannot free them.
+  https://lore.kernel.org/r/20260910142359.13716-1-michaltoma@sicoop.com
 
-Call drm_prime_gem_destroy() for imported objects before
-drm_gem_object_release(), as amdgpu, radeon and nouveau do in their TTM
-destroy callbacks, and include <drm/drm_prime.h> for it. The check is
-safe on the import error path: drm_gem_prime_import_dev() only sets
-obj->import_attach after gem_prime_import_sg_table() succeeded, so a
-buffer object destroyed before that point is not unmapped, detached or
-put a second time. ttm_bo_release() tears down the TTM backing and
-drops the reservation lock before calling the destroy callback, which
-fits the _unlocked unmap done by drm_prime_gem_destroy().
+Please do not apply that one on its own. An automated review flagged an
+interaction with the existing TTM_TT_FLAG_EXTERNAL handling in
+vmw_ttm_map_dma(), and it turned out to be real: with v1 applied and
+nothing else, an unprivileged render node client can oops the kernel.
+That is what patch 1 of this series fixes, and it has to come first.
 
-The leak was found by walking /proc/kpageflags, which attributed the
-missing memory to orphaned shmem pages. Those matched the udmabuf
-objects in dma_buf/bufinfo, and the remaining reference was traced to
-the missing PRIME teardown. It was confirmed without a compositor using
-a small reproducer: create a memfd, wrap it with UDMABUF_CREATE, import
-it with DRM_IOCTL_PRIME_FD_TO_HANDLE on the vmwgfx render node, close
-the GEM handle and every file descriptor, then check bufinfo.
+  1/3 drm/vmwgfx: Don't map or free the exporter's sg_table for
+      imported BOs
+      Fixes: b32233acceff, Cc: stable # v6.9+
+  2/3 drm/vmwgfx: Release PRIME import in the BO destroy path
+      (v1, unchanged)
+      Fixes: b32233acceff, Cc: stable # v6.6+
+  3/3 drm/vmwgfx: Don't leak a GEM handle when referencing a surface
+      by fd
+      Fixes: d6667f0ddf46, Cc: stable # v6.11+
 
-Build tested on drm-misc-fixes (4600b4d1a9ee) with the openSUSE 7.2.3
-config and W=1: drivers/gpu/drm/vmwgfx/ builds without warnings before
-and after the change, and checkpatch.pl --strict is clean. Runtime
-tested on a VirtualBox 7.2 VMSVGA guest with kernel 7.2.3, whose vmwgfx
-sources for the files involved are identical to drm-misc-fixes, using a
-vmwgfx.ko built from them with this change. With the reproducer, all 8
-imported udmabufs stayed pinned without the change and none with it,
-with 3D acceleration both on and off. With KWin on llvmpipe, killing
-the compositor now released 84 of 92 udmabufs (610 MiB) within 10
-seconds, where the same test on the unpatched driver released none.
+Changes since v1:
+ - new 1/3. Without it, 2/3 turns a silent leak into a NULL pointer
+   dereference.
+ - new 3/3. It was written before v1 was posted but held back, since
+   the two fixes are independent.
+ - 2/3 is byte for byte what was posted as v1.
 
-Fixes: b32233acceff ("drm/vmwgfx: Fix prime import/export")
-Cc: stable@vger.kernel.org # v6.6+
-Assisted-by: LLM
-Signed-off-by: Michal TOMA <michaltoma@sicoop.com>
----
-Reproducer
-----------
-Run as a user with access to the render node and /dev/udmabuf:
+Why the order matters
+---------------------
+For a TTM tt with TTM_TT_FLAG_EXTERNAL, vmw_ttm_map_dma() points
+vsgt->sgt at the exporter's sg_table and then calls
+vmw_ttm_map_for_dma(), which maps &vmw_tt->sgt: the inline table, which
+for an imported buffer is never populated. dma_map_sgtable() is called
+with orig_nents == 0, warns, and returns -EIO, and out_map_fail then
+calls sg_free_table() on the exporter's table, leaving sgl == NULL and
+orig_nents unchanged.
 
-#!/usr/bin/env python3
-import fcntl, os, struct
-N, SIZE = 8, 4 * 1024 * 1024
-UDMABUF_CREATE     = 0x40187542  # _IOW('u', 0x42, struct udmabuf_create)
-PRIME_FD_TO_HANDLE = 0xC00C642E  # DRM_IOWR(0x2e, struct drm_prime_handle)
-GEM_CLOSE          = 0x40086409  # DRM_IOW(0x09, struct drm_gem_close)
-render = os.open('/dev/dri/renderD128', os.O_RDWR | os.O_CLOEXEC)
-udm = os.open('/dev/udmabuf', os.O_RDWR | os.O_CLOEXEC)
-for i in range(N):
-    mfd = os.memfd_create(f'prime-leak-{i}', os.MFD_ALLOW_SEALING)
-    os.ftruncate(mfd, SIZE)
-    fcntl.fcntl(mfd, fcntl.F_ADD_SEALS, fcntl.F_SEAL_SHRINK)
-    create = bytearray(struct.pack('IIQQ', mfd, 1, 0, SIZE))
-    dfd = fcntl.ioctl(udm, UDMABUF_CREATE, create)
-    ph = bytearray(struct.pack('IIi', 0, 0, dfd))
-    fcntl.ioctl(render, PRIME_FD_TO_HANDLE, ph)
-    handle = struct.unpack('IIi', ph)[0]
-    fcntl.ioctl(render, GEM_CLOSE, bytearray(struct.pack('II', handle, 0)))
-    os.close(dfd)
-    os.close(mfd)
-os.close(udm)
-os.close(render)
+Today that only corrupts and leaks, because vmwgfx never releases a
+PRIME import, so nothing ever unmaps the attachment. 2/3 fixes exactly
+that leak, and in doing so makes the exporter unmap the table that
+vmwgfx already freed:
 
-Then look at the 4 MiB udmabuf entries in
-/sys/kernel/debug/dma_buf/bufinfo. Without the fix, all 8 are still
-listed with a count of 1 and attached to the vmwgfx device after the
-script has exited. The same loop without the PRIME_FD_TO_HANDLE and
-GEM_CLOSE steps frees every udmabuf.
+  dma_unmap_sgtable(dev, sg with sgl == NULL, orig_nents == N)
+    dma_direct_unmap_sg() -> for_each_sg(NULL, sg, N, i)
+
+which dereferences NULL, in the TTM delayed-delete worker.
+
+1/3 is worth having on its own: binding an imported dma-buf has never
+worked, it always failed with -EIO and damaged the exporter's table on
+the way out. With 1/3 it works.
+
+Reachability, and how this was reproduced
+-----------------------------------------
+Three ioctls, all DRM_RENDER_ALLOW, as an ordinary user: import a
+dma-buf with DRM_IOCTL_PRIME_FD_TO_HANDLE (a udmabuf here), create a
+guest-backed surface on it with DRM_VMW_GB_SURFACE_CREATE_EXT
+(base.buffer_handle = the imported handle), then submit
+SVGA_3D_CMD_UPDATE_GB_SURFACE for that surface with DRM_VMW_EXECBUF.
+Validation moves the buffer to VMW_BO_DOMAIN_MOB, which binds the tt.
+
+Without 1/3, with 2/3 applied:
+
+  WARNING: kernel/dma/mapping.c:266 at __dma_map_sg_attrs+0xdd/0x1d0
+   dma_map_sgtable+0x1d/0x30
+   vmw_ttm_map_dma+0xf6/0x140 [vmwgfx]
+   vmw_move+0x1cd/0x2c0 [vmwgfx]
+   ttm_bo_handle_move_mem+0xc0/0x180 [ttm]
+   ttm_bo_validate+0xd2/0x1d0 [ttm]
+   vmw_validation_bo_validate+0xb5/0x180 [vmwgfx]
+   vmw_execbuf_process+0x852/0x1330 [vmwgfx]
+   vmw_execbuf_ioctl+0x10d/0x1d0 [vmwgfx]
+
+  vmwgfx 0000:00:02.0: [drm] VSG table map failed!
+
+and then, when the buffer is released:
+
+  BUG: kernel NULL pointer dereference, address: 000000000000001c
+  Workqueue: ttm ttm_bo_delayed_delete [ttm]
+  RIP: 0010:dma_direct_unmap_sg+0x62/0x200
+   unmap_udmabuf+0x24/0x40
+   dma_buf_unmap_attachment_unlocked+0x46/0x70
+   drm_prime_gem_destroy+0x28/0x50
+   vmw_bo_free+0x15b/0x1f0 [vmwgfx]
+
+The closing process exits normally, since this runs in the delete
+worker; the worker dies holding TTM and dma-resv locks and the machine
+wedges shortly afterwards.
+
+With the full series, the same program logs nothing, the execbuf is
+accepted, and the buffer is released with no entry left in
+/sys/kernel/debug/dma_buf/bufinfo.
 
 Test results
 ------------
-Kernel 7.2.3, comparing the stock vmwgfx.ko with one built from the same
-sources plus this patch:
-- Reproducer, 8 x 4 MiB udmabufs: all 8 left on the stock driver, none
-  left with the patch, with 3D acceleration on and off.
-- KWin 6.7.4 on llvmpipe (3D off), after about 1.5 GiB of client
-  buffers had been imported, killing kwin_wayland (kwin_wayland_wrapper
-  restarts it):
-    stock driver (7.2.2 at the time): udmabufs went 212 -> 220 and
-      nothing was freed. Their refcounts dropped from mostly 3 to mostly
-      1, still attached.
-    patched: 84 of 92 udmabufs (610 MiB) released within 10 seconds, and
-      MemAvailable rose from 1.50 to 2.20 GiB.
-  The module used for the KWin run also carried a separate vmwgfx fix
-  (see below), but that fix is not on this path: with 3D off, KWin's
-  imports go through DRM_IOCTL_PRIME_FD_TO_HANDLE, which kprobes
-  confirmed.
-- The kernel log showed no vmwgfx warnings with the patched module.
+Kernel 7.2.3 on the guest below, comparing modules built from its own
+vmwgfx sources, which are identical to drm-misc-fixes for the files
+involved.
 
-While it runs on llvmpipe, KWin itself keeps many of these imports
-referenced through GEM handles on its render node file. A 60-second
-trace counted 130 import handles created and 119 deleted. That is a
-separate userspace issue and is not addressed here; this patch makes
-sure the memory is released once those handles go away.
+  import + surface + execbuf + release, as above:
+    2/3 only:      WARN, "VSG table map failed!", execbuf -EIO,
+                   then an oops in ttm_bo_delayed_delete and a hang
+    1/3 + 2/3 + 3/3: no WARN, execbuf accepted, buffer released, no
+                   oops, kernel taint unchanged
 
-With 3D acceleration on, KWin's imports go through
-DRM_VMW_GB_SURFACE_REF_EXT instead, which has its own handle leak. I'm
-sending a separate patch for that: "drm/vmwgfx: Don't leak a GEM handle
-when referencing a surface by fd".
+  PRIME_FD_TO_HANDLE reproducer, 8 x 4 MiB udmabufs (2/3):
+    stock:  all 8 remain, count 1, still attached
+    series: none remain, with 3D acceleration on and off
+
+  DRM_VMW_GB_SURFACE_REF_EXT(PRIME) from a second render file (3/3),
+  each checked while that file was still open:
+    udmabuf fd, 8 calls:
+      without 3/3: -EINVAL, 8 imports held (count 3), 8 WARNs
+      with 3/3:    -EINVAL, nothing imported, no WARN
+    dumb buffer fd, 4 calls:
+      without 3/3: -EINVAL, 4 stray GEM handles, 4 WARNs
+      with 3/3:    -EINVAL, no stray handle, no WARN
+    buffer exported before a surface was created on it, 4 calls
+    (reaches the changed function and succeeds):
+      without 3/3: surface returned, 4 stray GEM handles
+      with 3/3:    surface returned, no stray handle
+    buffer created together with its surface (a TTM prime export that
+    never reaches the changed function), 4 calls:
+      unchanged either way
+
+  KWin 6.7.4, 5-minute replay of a terminal workload, 3D on:
+    2/3 only:  udmabufs 4 -> 20 (140 MiB), never released, WARNs
+    2/3 + 3/3: udmabufs 4 -> 6 -> 4, no pinned pages, no WARN
+  (not re-run with 1/3 in place; 1/3 does not touch that path)
 
 Test environment
 ----------------
 - VirtualBox 7.2 (Guest Additions 7.2.16), VMSVGA adapter, 4 vCPUs,
-  3.8 GiB RAM. Tested with 3D acceleration on (vmwgfx shader model SM_5)
-  and off (shader model Legacy).
-- openSUSE Tumbleweed kernel 7.2.3-1-default. vmwgfx_bo.c, vmwgfx_gem.c,
-  vmwgfx_prime.c, ttm_object.c, vmwgfx_bo.h and vmwgfx_drv.h are
-  byte-identical to drm-misc-fixes 4600b4d1a9ee. The patched module was
-  built out of tree from those sources, which adds the E taint.
+  3.8 GiB RAM. Tested with 3D acceleration on (vmwgfx shader model
+  SM_5) and off (Legacy). DMA map mode is vmw_dma_map_populate.
+- openSUSE Tumbleweed kernel 7.2.3-1-default. The vmwgfx files
+  involved are byte-identical to drm-misc-fixes 4600b4d1a9ee. The test
+  modules were built out of tree from those sources, which adds the E
+  taint.
 - The kernel was already tainted W+O before any test: two boot-time
   warnings unrelated to vmwgfx (arch/x86/mm/pat/set_memory.c:727 and
   kernel/rcu/tree_plugin.h:823), plus VirtualBox's out-of-tree
   vboxguest/vboxsf.
 - KDE Plasma / KWin 6.7.4, Mesa 26.2.1.
 - W=1 build of drivers/gpu/drm/vmwgfx/ on drm-misc-fixes: no warnings
-  before or after the patch. checkpatch.pl --strict is clean.
+  before or after. checkpatch.pl --strict is clean on all three.
 
 Not tested
 ----------
 - VMware Workstation or ESXi hosts; only VirtualBox VMSVGA.
-- A full kernel built from drm-misc-fixes; only the 7.2.3 kernel with a
-  module built from identical vmwgfx sources.
+- A full kernel built from drm-misc-fixes; only the 7.2.3 kernel with
+  modules built from identical vmwgfx sources.
 - Kernels with KASAN, lockdep or kmemleak enabled. IGT was not run.
-- Stable backports were not built.
+- Stable backports were not built. 3/3 uses
+  drm_gem_is_prime_exported_dma_buf(), added in v6.17 (660cd44659a0);
+  older trees carrying d6667f0ddf46 would need that helper as well.
+
+Not fixed here
+--------------
+The review of v1 also pointed out that vmw_prime_import_sg_table()
+returns NULL rather than an ERR_PTR when vmw_bo_create() fails, and
+that drm_gem_prime_import_dev() only checks IS_ERR() before
+dereferencing the result. That is real, but reaching it needs a buffer
+object allocation failure; I have not managed to trigger it, so I am
+not posting an untested patch for it here.
 
 Classification
 --------------
-I'm treating this as a regular bug rather than a vulnerability, per
-Documentation/process/threat-model.rst. The pinned pages are charged to
-the importing process's memory cgroup, so the impact is bounded by
-memory limits. The same class of reference leak (f739416dc555,
-"drm/vmwgfx: drop dma_buf reference on foreign-fd prime import") was
-handled as a regular fix.
+Per Documentation/process/threat-model.rst I am treating these as
+regular bugs. The leaks are bounded by the importing process's memory
+cgroup, and the crash needs 2/3 applied without 1/3, which exists only
+in this posting and in the v1 mail.
 
-Separate observation (not addressed here, untested)
----------------------------------------------------
-vmw_prime_import_sg_table() returns NULL rather than an ERR_PTR when
-vmw_bo_create() fails, because vmw_bo_create() sets *p_bo = NULL on
-error. drm_gem_prime_import_dev() only checks IS_ERR() and then
-dereferences the result (obj->import_attach = attach). This could only
-trigger on buffer object allocation failure, and I have not tried to
-reproduce it with fault injection.
-
-Workaround for affected users
------------------------------
-Setting KWIN_DISABLE_UDMABUF_IMPORT=1 in the session environment makes
-KWin 6.7 use its copy path again, which avoids the import.
+Workaround for the leaks
+------------------------
+KWIN_DISABLE_UDMABUF_IMPORT=1 in the session environment makes KWin 6.7
+use its copy path, which avoids the imports entirely.
 
 Tool use
 --------
 I found the problem because my VM repeatedly ran out of memory and had
 to be rebooted. An LLM coding assistant (Claude, Anthropic) did the
-diagnostics that traced it back to this code, wrote the patch and this
-changelog, and built the reproducer and the test tooling used to confirm
-that the patch fixes the issue.
+diagnostics that traced it back to this code, wrote these patches and
+their changelogs, and built the reproducers and the test tooling used
+to confirm the results above, including the crash that prompted 1/3.
 
- drivers/gpu/drm/vmwgfx/vmwgfx_bo.c | 3 +++
- 1 file changed, 3 insertions(+)
+Michal TOMA (3):
+  drm/vmwgfx: Don't map or free the exporter's sg_table for imported BOs
+  drm/vmwgfx: Release PRIME import in the BO destroy path
+  drm/vmwgfx: Don't leak a GEM handle when referencing a surface by fd
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-index 9c7a73c0b..56bc94edc 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-@@ -30,6 +30,7 @@
- #include "vmwgfx_drv.h"
- #include "vmwgfx_resource_priv.h"
- 
-+#include <drm/drm_prime.h>
- #include <drm/ttm/ttm_placement.h>
- 
- /**
-@@ -69,6 +70,8 @@ static void vmw_bo_free(struct ttm_buffer_object *bo)
- 		vmw_surface_unreference(&vbo->dumb_surface);
- 	}
- 	WARN_ON(!RB_EMPTY_ROOT(&vbo->res_tree));
-+	if (drm_gem_is_imported(&vbo->tbo.base))
-+		drm_prime_gem_destroy(&vbo->tbo.base, vbo->tbo.sg);
- 	drm_gem_object_release(&vbo->tbo.base);
- 	WARN_ON(vbo->dirty);
- 	kfree(vbo);
+ drivers/gpu/drm/vmwgfx/vmwgfx_bo.c         |  3 ++
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c    | 48 +++++++++++++---------
+ drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c | 20 +++++++--
+ 3 files changed, 47 insertions(+), 24 deletions(-)
+
 
 base-commit: 4600b4d1a9ee730d03ddac5ce409cd2730ce8c0c
 -- 
