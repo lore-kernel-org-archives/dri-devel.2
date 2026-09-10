@@ -4,176 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 424EEC79FA1
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 07:50:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF542C88E50
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 07:50:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7948B10F51C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C98710F51E;
 	Fri, 11 Sep 2026 07:50:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hRwGRc6S";
+	dkim=pass (2048-bit key; unprotected) header.d=sicoop.com header.i=@sicoop.com header.b="QSPT4AZy";
 	dkim-atps=neutral
-Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com
- [74.125.231.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8244310E0CA
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 18:11:31 +0000 (UTC)
-Received: by mail-oo2-f43.google.com with SMTP id
- 006d021491bc7-6b1ae71686cso88718eaf.1
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 11:11:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789063890; cv=none;
- d=google.com; s=arc-20260327;
- b=ceezU6GGk0wRjuZ6NNZNWxgbWR27DxabrVIQxS+r26n6dGGEb4iarrOCJQbi3Pt4Mh
- 3h+qI5/H3jzIN281nBKzFmChMBTAaMgg+yWoCiKQSg92JSTQQf9m3FdHfKEtRgmAM+7x
- e1+SRaxqHAGVH1jeSXrOc3JIvMUBhGrThLRoYWeGN1AOilOecbPORNGaq2pf+6cdVf7Q
- dvo56/GMyY1463hF8pqqObSOjsGhNUDIw68Fiusie65Bm+SRJ52+tiBcOc7fIgsvcv3b
- wrpK4N6YM0FP6jj0w1bya8KUgzPfvP/nCPsbUixuHs0dL5c0YA7shpH5dgQxoKokZb+3
- kykQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=gxuS67QpsgmiVo7SJODgVn7jNGL8PaTVeXELBYXj9Vc=;
- fh=LuT0Pgryh2zepHFrL4w1S2Mc9nepEjFPj05Clzlzrxc=;
- b=R76nBl3LBMmhtOU5Ye1V+aiKYdE+NCHE3W3Kmdlb7wxnvxbVInJznzmb8Msrd+/ZEq
- nou/N3kGc/d0Bk/+fpb3pxAZxeKTgCZXikGHBGsG0aG6cUBLFI1El1gvZWGQvttR3SC8
- cIEbENScalXmVKamq69tepZR/QNWj/Ln5k+LJmhx5EDW9AkV4jiBv38dFD9Twq/vUPU4
- SWM7M9M5eR4GGfsM+jY+so/iNDCNQr85zjJIws8194VZgi4aztexwCqd9157DfuOIyS9
- aF7bobVZvT2qHpjzwKlezKzndXS1BZHADc1wEv8gYO2hMdR4tg/J6NaI02zIFICFQlxZ
- BhyQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789063890; x=1789668690; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=gxuS67QpsgmiVo7SJODgVn7jNGL8PaTVeXELBYXj9Vc=;
- b=hRwGRc6Syw7nKKUH3P7fmsaCRgG67C0WRdig3SOj9bx0/RmmWGkwGkaFEWyIvY28TS
- fkxjpHsFleAc+snEDC7vn4I5PwSFbUtDSBM787uRwNBzQ8Am9+jOeJdCxZC2P0+pVFAP
- 4VCsZV1YvUXwnD4WpoBud89VArUrTRuFLYRdKdEuwjlXeZa68GxZXorC0e+VkqYTG+pC
- A9XW+A6nY76BUORvnIZ9EBx/ZSoZ6sycMP81r1Cdzn7H5gic9IZ1ybfV65msMyJmpYk1
- Wx+Szha2WyI0njhkmv53QPIkThoKxOpPOn6sa6D702b7t6Q6OGr4xjuWc480xC1hdgyt
- nQvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789063890; x=1789668690;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=gxuS67QpsgmiVo7SJODgVn7jNGL8PaTVeXELBYXj9Vc=;
- b=Fu30vZl7dtSeSvOle0T1VY6i4EoC74RG5Pjdl8KOQ+T4+nsYMIqijIpclY+loeQjnS
- YzRcVncFBNnez/I7QGLD0IqJBlQcLgVRmNpOzLED4Re7lCl+1zaOyteYWnRat89Qj29J
- 5J1De+RwJ8GBAEgBjrWcxj8ILC+ms62EqaSiOX7LmQalLfMn2B+jZEy2MH5CIe+jvwJ/
- wPdj5zi4TDdZfpPSuTLwPrv83ddQ6+RS++5RgW/6goVuraQgF2RhtCDBH9J3vFo2SObp
- /f9BPara96mBjj+kVSWiEgA+Y/EIoRnvk9A9qDyttqsyP997ZUiNxO9ONmArIQhQTzsg
- NbSA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzhsN2RH8L7apEOvUlLZBGXt6Zi0MUBmwslvCccdJirAw/KAVbJa8SxsNlOuuzZKe9IhR+c3SxeSGc=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nbWTlqr6ykFnS7O1TdZgkSS8u74KzoNlMngfkDKecxoavopZhr
- ExO7mjSbpwmShdRNDK3T4nYb87lMgnwi+XZk+r2404lXLIuRt0hWh4DXPaiYINYwsF8tFdgFUx8
- V2LXrDQliIPnAe2b/2XwNzu0wlMOYvI0=
-X-Gm-Gg: AYBFou1Gq3cpintw10Fy/l2nrM5Zl9LFbcLV2Ms8Dpmr0W1gA7p5eAbQZntjY8t/FAs
- 55zocqVMfK6AnLFX3ZmBjhPdU4CZfhCKXBez8KvVHYg4bVECZ74fvPvsnXwlzfaTOqOh24k00Yo
- UVXOL52EfqBbUdvzK+Ap+mVWtatdlCSQq9p2hSsjAkoUOwytFInOq7ZrMATh9Uv5B0CuBk1RR5/
- z7RQsXQz6M6M352PDnUDLOmPC7PUSK7W/liFEyQ7/W4k967ZP6Jk0beYw7DPbctgr9EW9y3uhxV
- t8lbxnAZKbnipN+qM99X9/0+MMsgkMFLhfob4golPQ0C8JYNBzf1WbY=
-X-Received: by 2002:a05:6820:55d3:20b0:6b1:ac4f:f708 with SMTP id
- 006d021491bc7-6c0bc1d3ad3mr241038eaf.17.1789063890425; Thu, 10 Sep 2026
- 11:11:30 -0700 (PDT)
+Received: from smtpout4.mo538.mail-out.ovh.net
+ (smtpout4.mo538.mail-out.ovh.net [51.210.91.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D77410E610
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 16:52:27 +0000 (UTC)
+Received: from director5.derp.mail-out.ovh.net
+ (director5.derp.mail-out.ovh.net [79.137.60.225])
+ by mo538.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHY2HKVz6DM8;
+ Thu, 10 Sep 2026 16:52:25 +0000 (UTC)
+Received: from director5.derp.mail-out.ovh.net
+ (director5.derp.mail-out.ovh.net. [127.0.0.1])
+ by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+ for <christian.koenig@amd.com>; Thu, 10 Sep 2026 16:52:25 +0000 (UTC)
+Received: from mta2.priv.ovhmail-u2.ea.mail.ovh.net (unknown [10.110.188.184])
+ by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id
+ 4hgkHY116qz6GrV; Thu, 10 Sep 2026 16:52:25 +0000 (UTC)
+Received: from sicoop.com (unknown [10.1.6.2])
+ (Authenticated sender: michaltoma@sicoop.com)
+ by mta2.priv.ovhmail-u2.ea.mail.ovh.net (Postfix) with ESMTPSA id 76158941C3B; 
+ Thu, 10 Sep 2026 16:52:23 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-100R00350eeada4-356d-4531-b89e-ad671e8ca1bc,
+ D184D1A0A1014A0D56F8A815F0DE21A15A548AA1) smtp.auth=michaltoma@sicoop.com
+X-OVh-ClientIp: 89.91.4.113
+From: Michal TOMA <michaltoma@sicoop.com>
+To: Zack Rusin <zack.rusin@broadcom.com>
+Cc: Michal TOMA <michaltoma@sicoop.com>, bcm-kernel-feedback-list@broadcom.com,
+ ian.forbes@broadcom.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, sumit.semwal@linaro.org, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ stable@vger.kernel.org
+Subject: [PATCH v2 1/3] drm/vmwgfx: Don't map or free the exporter's sg_table
+ for imported BOs
+Date: Thu, 10 Sep 2026 18:52:19 +0200
+Message-ID: <20260910165221.7558-2-michaltoma@sicoop.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260910165221.7558-1-michaltoma@sicoop.com>
+References: <20260910165221.7558-1-michaltoma@sicoop.com>
 MIME-Version: 1.0
-References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
- <20260908-b4-mmap-prepare-vma-flag-sanify-v1-11-dacf19cce22b@kernel.org>
-In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-11-dacf19cce22b@kernel.org>
-From: Stephen Smalley <stephen.smalley.work@gmail.com>
-Date: Thu, 10 Sep 2026 14:11:18 -0400
-X-Gm-Features: AcwNN1XLr_yN2lEzELD3PcXDse2cuW9BBHCwsQpnROCV_SxzPvFmiqhSaiK704I
-Message-ID: <CAEjxPJ7hXSi=oLtQPV+7GEvN+txfYwZ-u-v_EysNHM0gSGNrCw@mail.gmail.com>
-Subject: Re: [PATCH 11/39] selinux: reject writable opens of policy file, drop
- mmap shared/write check
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>,
- Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>,
- Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>,
- John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Muchun Song <muchun.song@linux.dev>, 
- Oscar Salvador <osalvador@suse.de>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
- Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
- linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+x-ovh-tracer-id: 16161448740256764187
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTGg6wAZ5z5m4YdOZGlRvPlWvQ83qxrX0rycDpYlbiCAYEpx32LeXRz6zw+UeX55tidPV15i9F5JJX63eEc1JCT6wHVaKV/OhSN6LgwM58uI8yevCLazs8kKF9On9E4ThlTFZNkPOQ6mpgxNIBwb7hWHF/0E4+YW+s+/GZBnJCHjjNhGt9qzJ9+Dc66SkgCk2DdRRZ//ZY2nlpCJ5DSRYat8+/GO5Lgvp//nPcYh81iq7GWZiK315nkZFDCOgv20EiLuiJcuIH6EBIl+FPFLIr1p1SjOXj8KYsEa9ySW43cYk0cUc1nhxRsLzhm7RgCzFiB1KJ/GM4G0cGyhLeeNE9/aJ55Rvp0OwdgfYjyIyVOA4GjkJ3AUayJQ12PN/0LdjhCHM4nNrCbH5WIwuv5d0SLWxwsrSrMMM1TsxIx/S9bmyurSJBaj0ipwTfXjT4MgVdCci/mSA5AK17ODDLAp8ctX+dW1jSkTqtet7YwqciO+N+zY39IV/eTOQ0yJ97HiI82ce/TMW91sbwrdodVWl+uciPPF31rzaUdgK4zWmMiC7Thp4/aySHkgHnnv5stVPaFHXqBnUSaIM9dhOl/rkK0kweNEx7ge1GnDzxwlpO6Iy53UPFOIcN08lp8FRhUbgu2xKFED0RJgItP1zFi8vyMqePNyvpmxg0Kl0aCYDZSY7A
+DKIM-Signature: a=rsa-sha256; bh=+q8drlTkuKqRhIVJc6wlGkRTMV5udQFSe+F1A2psgEE=; 
+ c=relaxed/relaxed; d=sicoop.com; h=From; s=ovhmo62391-selector1;
+ t=1789059145; v=1;
+ b=QSPT4AZymfn5UJcS5IAbzMaOT8wzseb0NpFwAoqjuwsIL631VhML0a18W6O/HCO1RvzhAzoe
+ xuAuYtFWZi7zoYbSQ1k0pd2bpRRcg9qxXn5lT4yPJMOrW2RWs+6Z9jpU4neFz8I0ysn7MWS8KcE
+ cpNnb+PDWS0saf9rOpiqi8rx7mM6/5K9EiCKtTCsJd957IWRjJgyAZi0d4tk5krAvitfsMBa6SG
+ BtWMDzgJxf0rkciscxSY+y1Ec809b/jRT8rd0T+cKtIfCwxPLAv06REyXFya3Eo8IYLDhWGlwdd
+ wXIeRBWz7YlaeXyOZo3mNjpYr8qs52BisrzF1QCnknc5Q==
 X-Mailman-Approved-At: Fri, 11 Sep 2026 07:50:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -190,72 +81,284 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 8, 2026 at 4:07=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.or=
-g> wrote:
->
-> The policy file has no write method and is exposed read-only (S_IRUGO in
-> selinux_files[]), yet sel_open_policy() performs no open mode check, so a
-> CAP_DAC_OVERRIDE caller can open it O_RDWR. Reject FMODE_WRITE at open, a=
-s
-> kernfs does.
->
-> The file can then never be mapped with FMODE_WRITE, so do_mmap() always
-> clears VM_MAYWRITE and VM_SHARED for MAP_SHARED mappings and the VM_SHARE=
-D
-> check in sel_mmap_policy() cannot be reached. Remove it.
->
-> This also stops sel_mmap_policy() clearing VM_MAYWRITE on a mapping that =
-is
-> neither a PFN map nor a mixed map, ahead of the core enforcing that only
-> such mappings may do so.
->
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+For a TTM tt with TTM_TT_FLAG_EXTERNAL, vmw_ttm_map_dma() points
+vsgt->sgt at the exporter's sg_table and then calls
+vmw_ttm_map_for_dma(), which maps &vmw_tt->sgt: the inline table, not
+the one vsgt->sgt points to. For an imported buffer object that inline
+table is never populated, since vmw_ttm_tt_create() allocates the
+vmw_ttm_tt with kzalloc() and only the non-external branch fills it in.
+dma_map_sgtable() is therefore called with orig_nents == 0, which trips
+the WARN_ON_ONCE() in __dma_map_sg_attrs() and returns -EIO.
 
-We should likely do something similar for the other sel_open_*() and
-sel_mmap_*() functions too.
-In particular, truncation of the status file can bring down systemd
-since it is mapped by libselinux.
+The error path then calls sg_free_table() on vsgt->sgt, which for an
+imported object is the exporter's table. Its scatterlist is freed while
+the attachment is still live, leaving sgl == NULL and orig_nents
+unchanged. vmw_ttm_unmap_dma() would free that table too, if a mapping
+ever succeeded.
 
-Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+Any process that can open the render node reaches this with three
+DRM_RENDER_ALLOW ioctls: import a dma-buf with
+DRM_IOCTL_PRIME_FD_TO_HANDLE, create a guest-backed surface on it with
+DRM_VMW_GB_SURFACE_CREATE_EXT, and submit SVGA_3D_CMD_UPDATE_GB_SURFACE
+for that surface with DRM_VMW_EXECBUF. Validation moves the buffer to
+VMW_BO_DOMAIN_MOB, and binding the tt takes the path above:
 
-> ---
->  security/selinux/selinuxfs.c | 11 +++--------
->  1 file changed, 3 insertions(+), 8 deletions(-)
->
-> diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
-> index c7d91476971c..545a6f89f9e7 100644
-> --- a/security/selinux/selinuxfs.c
-> +++ b/security/selinux/selinuxfs.c
-> @@ -340,6 +340,9 @@ static int sel_open_policy(struct inode *inode, struc=
-t file *filp)
->         struct policy_load_memory *plm =3D NULL;
->         int rc;
->
-> +       if (filp->f_mode & FMODE_WRITE)
-> +               return -EACCES;
-> +
->         rc =3D avc_has_perm(current_sid(), SECINITSID_SECURITY,
->                           SECCLASS_SECURITY, SECURITY__READ_POLICY, NULL)=
-;
->         if (rc)
-> @@ -424,14 +427,6 @@ static const struct vm_operations_struct sel_mmap_po=
-licy_ops =3D {
->
->  static int sel_mmap_policy(struct file *filp, struct vm_area_struct *vma=
-)
->  {
-> -       if (vma->vm_flags & VM_SHARED) {
-> -               /* do not allow mprotect to make mapping writable */
-> -               vm_flags_clear(vma, VM_MAYWRITE);
-> -
-> -               if (vma->vm_flags & VM_WRITE)
-> -                       return -EACCES;
-> -       }
-> -
->         vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
->         vma->vm_ops =3D &sel_mmap_policy_ops;
->
->
-> --
-> 2.55.0
->
+  WARNING: kernel/dma/mapping.c:266 at __dma_map_sg_attrs+0xdd/0x1d0
+   dma_map_sgtable+0x1d/0x30
+   vmw_ttm_map_dma+0xf6/0x140 [vmwgfx]
+   vmw_move+0x1cd/0x2c0 [vmwgfx]
+   ttm_bo_handle_move_mem+0xc0/0x180 [ttm]
+   ttm_bo_validate+0xd2/0x1d0 [ttm]
+   vmw_validation_bo_validate+0xb5/0x180 [vmwgfx]
+   vmw_execbuf_process+0x852/0x1330 [vmwgfx]
+   vmw_execbuf_ioctl+0x10d/0x1d0 [vmwgfx]
+   drm_ioctl_kernel+0xa6/0x100
+   drm_ioctl+0x2ad/0x590
+   __x64_sys_ioctl+0xb9/0x100
+
+  vmwgfx 0000:00:02.0: [drm] VSG table map failed!
+
+Today the damage stops there, because vmwgfx never releases a PRIME
+import: nothing unmaps the attachment afterwards, so the freed table is
+only leaked. Adding the missing drm_prime_gem_destroy() call to
+vmw_bo_free(), which is the next patch in this series, makes the
+exporter unmap that table on release, and dma_unmap_sgtable() then
+walks a NULL scatterlist:
+
+  BUG: kernel NULL pointer dereference, address: 000000000000001c
+  Workqueue: ttm ttm_bo_delayed_delete [ttm]
+  RIP: 0010:dma_direct_unmap_sg+0x62/0x200
+   unmap_udmabuf+0x24/0x40
+   dma_buf_unmap_attachment_unlocked+0x46/0x70
+   drm_prime_gem_destroy+0x28/0x50
+   vmw_bo_free+0x15b/0x1f0 [vmwgfx]
+
+The exporter has already mapped the table for this device in
+dma_buf_map_attachment(), so there is nothing for vmwgfx to do here:
+use the table as it is, and leave mapping, unmapping and freeing to its
+owner.
+
+Build tested on drm-misc-fixes (4600b4d1a9ee) with W=1 (no warnings in
+drivers/gpu/drm/vmwgfx/) and checkpatch.pl --strict. Runtime tested on
+a VirtualBox 7.2 VMSVGA guest running kernel 7.2.3, whose vmwgfx
+sources for the files involved are identical to drm-misc-fixes, using a
+module built from them.
+
+Without this patch the reproducer above logs the WARN_ON_ONCE() and
+"VSG table map failed!", and DRM_VMW_EXECBUF returns -EIO; releasing the
+buffer afterwards, with the next patch of this series applied, oopsed in
+the TTM delete worker and hung the machine.
+
+With this patch the same reproducer logs nothing: the execbuf is
+accepted, so an imported buffer object can now be bound at all, and
+releasing it afterwards leaves no entry behind in
+/sys/kernel/debug/dma_buf/bufinfo.
+
+Fixes: b32233acceff ("drm/vmwgfx: Fix prime import/export")
+Cc: stable@vger.kernel.org # v6.9+
+Assisted-by: LLM
+Signed-off-by: Michal TOMA <michaltoma@sicoop.com>
+---
+Reproducer (results and environment are in the cover letter). Run as an
+ordinary user with access to the render node and /dev/udmabuf; it needs
+no root. Without this patch it logs the WARN and "VSG table map
+failed!"; with it, the execbuf is accepted and nothing is logged.
+
+// Can userspace get an imported (external) dma-buf BO bound for the device?
+//
+// Chain under test:
+//   udmabuf -> PRIME_FD_TO_HANDLE            (external BO, sits in SYSTEM)
+//   GB_SURFACE_CREATE_EXT buffer_handle=...  (surface backed by the import)
+//   execbuf SVGA_3D_CMD_UPDATE_GB_SURFACE    (validation forces the BO to MOB)
+//     -> vmw_ttm_bind() -> vmw_ttm_map_dma()
+//        external branch maps the wrong (empty, inline) sg_table, fails, and
+//        the out_map_fail path calls sg_free_table() on the EXPORTER's table.
+//
+// Proof of reachability is the kernel message "VSG table map failed!".
+//
+//   vmw-import-execbuf-bind-test            hold the buffer, never release it
+//   vmw-import-execbuf-bind-test --release  also close everything at the end
+//
+// WARNING: --release is the dangerous half. With "drm/vmwgfx: Release PRIME
+// import in the BO destroy path" applied, releasing a buffer whose exporter
+// sg_table was freed in step 3 makes udmabuf run dma_unmap_sgtable() on a
+// table with sgl == NULL and orig_nents != 0 -> NULL pointer dereference.
+// Without that patch the release path never touches the table (it leaks).
+#define _GNU_SOURCE
+#include <errno.h>
+#include <fcntl.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <sys/mman.h>
+#include <linux/udmabuf.h>
+#include <drm/drm.h>
+#include <drm/vmwgfx_drm.h>
+
+#define DRM_IOCTL_VMW_GB_SURFACE_CREATE_EXT \
+	DRM_IOWR(DRM_COMMAND_BASE + DRM_VMW_GB_SURFACE_CREATE_EXT, \
+		 union drm_vmw_gb_surface_create_ext_arg)
+#define DRM_IOCTL_VMW_UNREF_SURFACE \
+	DRM_IOW(DRM_COMMAND_BASE + DRM_VMW_UNREF_SURFACE, struct drm_vmw_surface_arg)
+#define DRM_IOCTL_VMW_EXECBUF \
+	DRM_IOW(DRM_COMMAND_BASE + DRM_VMW_EXECBUF, struct drm_vmw_execbuf_arg)
+
+#define SVGA_3D_CMD_UPDATE_GB_SURFACE 1102
+#define SVGA3D_INVALID_ID 0xffffffff
+#define SIZE (6UL << 20)
+
+struct update_gb_surface_cmd {
+	uint32_t id;		/* SVGA3dCmdHeader.id */
+	uint32_t size;		/* SVGA3dCmdHeader.size: bytes that follow */
+	uint32_t sid;		/* SVGA3dCmdUpdateGBSurface.sid */
+};
+
+int main(int argc, char **argv)
+{
+	int release = (argc > 1 && !strcmp(argv[1], "--release"));
+	int render = open("/dev/dri/renderD128", O_RDWR | O_CLOEXEC);
+	int udm = open("/dev/udmabuf", O_RDWR | O_CLOEXEC);
+	int mfd, dfd;
+
+	if (render < 0 || udm < 0) {
+		perror("open");
+		return 1;
+	}
+	mfd = memfd_create("import-execbuf", MFD_ALLOW_SEALING | MFD_CLOEXEC);
+	if (mfd < 0 || ftruncate(mfd, SIZE) ||
+	    fcntl(mfd, F_ADD_SEALS, F_SEAL_SHRINK)) {
+		perror("memfd");
+		return 1;
+	}
+	struct udmabuf_create c = {
+		.memfd = mfd, .flags = UDMABUF_FLAGS_CLOEXEC, .size = SIZE,
+	};
+	dfd = ioctl(udm, UDMABUF_CREATE, &c);
+	if (dfd < 0) {
+		perror("UDMABUF_CREATE");
+		return 1;
+	}
+
+	struct drm_prime_handle ph = { .fd = dfd };
+	if (ioctl(render, DRM_IOCTL_PRIME_FD_TO_HANDLE, &ph)) {
+		perror("PRIME_FD_TO_HANDLE");
+		return 1;
+	}
+	printf("1. imported udmabuf as GEM handle %u\n", ph.handle);
+
+	union drm_vmw_gb_surface_create_ext_arg a;
+	memset(&a, 0, sizeof(a));
+	a.req.version = drm_vmw_gb_surface_v1;
+	/* HINT_TEXTURE | HINT_RENDERTARGET | BIND_SHADER_RESOURCE | BIND_RENDER_TARGET */
+	a.req.base.svga3d_flags = (1U << 5) | (1U << 6) | (1U << 23) | (1U << 24);
+	a.req.base.format = 142;			/* SVGA3D_B8G8R8X8_UNORM */
+	a.req.base.mip_levels = 1;
+	a.req.base.drm_surface_flags = drm_vmw_surface_flag_shareable;
+	a.req.base.buffer_handle = ph.handle;
+	a.req.base.base_size.width = 1536;
+	a.req.base.base_size.height = 1024;
+	a.req.base.base_size.depth = 1;
+	if (ioctl(render, DRM_IOCTL_VMW_GB_SURFACE_CREATE_EXT, &a)) {
+		printf("2. GB_SURFACE_CREATE_EXT on the imported buffer: FAILED, errno %d (%s)\n",
+		       errno, strerror(errno));
+		return 1;
+	}
+	printf("2. surface backed by the imported buffer: sid %u\n", a.rep.handle);
+
+	struct update_gb_surface_cmd cmd = {
+		.id = SVGA_3D_CMD_UPDATE_GB_SURFACE,
+		.size = sizeof(uint32_t),
+		.sid = a.rep.handle,
+	};
+	struct drm_vmw_execbuf_arg e;
+	memset(&e, 0, sizeof(e));
+	e.commands = (uint64_t)(uintptr_t)&cmd;
+	e.command_size = sizeof(cmd);
+	e.version = DRM_VMW_EXECBUF_VERSION;
+	e.context_handle = SVGA3D_INVALID_ID;
+	errno = 0;
+	if (ioctl(render, DRM_IOCTL_VMW_EXECBUF, &e))
+		printf("3. execbuf UPDATE_GB_SURFACE: returned errno %d (%s)\n",
+		       errno, strerror(errno));
+	else
+		printf("3. execbuf UPDATE_GB_SURFACE: accepted\n");
+	printf("   -> now check the kernel log for \"VSG table map failed!\"\n");
+
+	if (!release) {
+		printf("4. holding the buffer open (no release). Ctrl-C or kill to end;\n"
+		       "   note that ending this process frees the BO, which is the\n"
+		       "   step that can oops with the BO-destroy fix applied.\n");
+		fflush(stdout);
+		pause();
+		return 0;
+	}
+
+	printf("4. --release: dropping the surface, the handle and every fd\n");
+	fflush(stdout);
+	struct drm_vmw_surface_arg u = { .sid = a.rep.handle, .handle_type = DRM_VMW_HANDLE_LEGACY };
+	ioctl(render, DRM_IOCTL_VMW_UNREF_SURFACE, &u);
+	struct drm_gem_close gc = { .handle = ph.handle };
+	ioctl(render, DRM_IOCTL_GEM_CLOSE, &gc);
+	close(dfd);
+	close(mfd);
+	close(udm);
+	close(render);
+	sleep(1);
+	printf("5. released, still alive\n");
+	return 0;
+}
+
+ drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
+index dfd08ee19..3e8bdf246 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
+@@ -189,6 +189,11 @@ static int vmw_ttm_map_dma(struct vmw_ttm_tt *vmw_tt)
+ 	case vmw_dma_map_bind:
+ 	case vmw_dma_map_populate:
+ 		if (vmw_tt->dma_ttm.page_flags  & TTM_TT_FLAG_EXTERNAL) {
++			/*
++			 * The exporter has already mapped its sg_table for
++			 * this device in dma_buf_map_attachment(). Use it as
++			 * it is: it is not ours to map, unmap or free.
++			 */
+ 			vsgt->sgt = vmw_tt->dma_ttm.sg;
+ 		} else {
+ 			vsgt->sgt = &vmw_tt->sgt;
+@@ -199,11 +204,11 @@ static int vmw_ttm_map_dma(struct vmw_ttm_tt *vmw_tt)
+ 				GFP_KERNEL);
+ 			if (ret)
+ 				goto out_sg_alloc_fail;
+-		}
+ 
+-		ret = vmw_ttm_map_for_dma(vmw_tt);
+-		if (unlikely(ret != 0))
+-			goto out_map_fail;
++			ret = vmw_ttm_map_for_dma(vmw_tt);
++			if (unlikely(ret != 0))
++				goto out_map_fail;
++		}
+ 
+ 		break;
+ 	default:
+@@ -237,6 +242,13 @@ static void vmw_ttm_unmap_dma(struct vmw_ttm_tt *vmw_tt)
+ 	if (!vmw_tt->vsgt.sgt)
+ 		return;
+ 
++	if (vmw_tt->dma_ttm.page_flags & TTM_TT_FLAG_EXTERNAL) {
++		/* The mapping and the table belong to the exporter. */
++		vmw_tt->vsgt.sgt = NULL;
++		vmw_tt->mapped = false;
++		return;
++	}
++
+ 	switch (dev_priv->map_mode) {
+ 	case vmw_dma_map_bind:
+ 	case vmw_dma_map_populate:
+-- 
+2.55.0
+
