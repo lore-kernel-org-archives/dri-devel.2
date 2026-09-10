@@ -4,93 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45E6EC79F9F
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 10:06:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 875B8C79F9F
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 10:06:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6738710F3E9;
-	Thu, 10 Sep 2026 10:06:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09F5010F3EC;
+	Thu, 10 Sep 2026 10:06:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ThkArMC7";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ERSfU4C4";
 	dkim-atps=neutral
-Received: from mail-yx2-f1.google.com (mail-yx2-f1.google.com [74.125.224.129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D88810E1F0
- for <dri-devel@lists.freedesktop.org>; Wed,  9 Sep 2026 19:14:21 +0000 (UTC)
-Received: by mail-yx2-f1.google.com with SMTP id
- 00721157ae682-857cb570f53so24797487b3.1
- for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 12:14:21 -0700 (PDT)
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
+ [74.125.227.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA34110E22B
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 01:53:04 +0000 (UTC)
+Received: by mail-pj2-f12.google.com with SMTP id
+ d9443c01a7336-2d8fb334ddcso8648265ad.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 18:53:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788981260; x=1789586060; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=Yzknjs/dgM6cXy8bMP6XtAn4j86y5MQftpHsbTjU4JM=;
- b=ThkArMC7xLyQ5qMrgaG61hn7pkne8O+U6JSN2c4GOUcPhDjKBcVf40umc86s1xcDz/
- FQD1Vb5tHBvGF9gcf4MI+Bg2zicwMGbWHEz+GC+zDuACm/SK+UMRboSSHY7pTdnOIH15
- rrp8RpgXW+IutJ9gwcvFUIbFPP9Q3+tsQczSU27BKmT3nBLtp3pkY9wc57tzW5JxgjAM
- wRj78PnVCMZSSG8YuQ1WFLKd+BNZwzI7f+mGg1J+tXMpNkVDMdz14bTefxqoTClePVmm
- UjJ8ZE3EpPjzQbOcDkDIx7RGhh8WljvV/BSw7EGNreumUxMowT3GmxQPnCP80z9dwUKa
- k0iQ==
+ d=gmail.com; s=20251104; t=1789005184; x=1789609984; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=B3AxC7gchtFJwmTqUc6Eo/wyWrQDc1+3uptrgZICrdw=;
+ b=ERSfU4C47hBJ+L0cBZjesKZiOfutG30BimUp2NPvFbnivNHwHDiMqDUyEPCn3AYkM5
+ RF+Ie6VxY5aaSs7EVYiCsOKA5j9l5SmCfuO1aybRcBVM+DbzsJbGQ257w9a+uYbM6jPi
+ 6Poi9VSGmdTaoLLs9jiUwhJxzmE9lMGfZI9i2hnyf4OnVWxfmdTEBKd5XazT2r37cbNG
+ GUVtCiyWhNFHOh3GapfODsjbW5uxVKcX6OJgvr6QyTwtHvmTwAE20DSdts8i+CYLxoA0
+ QdVq7etSenfn72wdG7Y/pTwGu7sYnJdewc/IqrMAvx1X8FmsBtm1zfvjT+VXpzJMbXed
+ GMtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788981260; x=1789586060;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=Yzknjs/dgM6cXy8bMP6XtAn4j86y5MQftpHsbTjU4JM=;
- b=DDqDeUBVCyUjW9C1Mkh4m1JCTUnmU/kML+oirL3L2xMObJ5RePAgYeNGodrxwF8hVD
- Wc773YiORLOs/8/9Z+UkYFAQN9dlClWPPnvepOXqcZ7Dkr1J8j9MDyhoIc3q/uj5CtH2
- teqFcYPdEFV1Hs1RZ1HIy2gjfe3aHeyVnzTkHBQ2itQ5sMYULqy/khUQKr+SutBNTKh2
- dpYBgPzDKNDUsyVYAyZ1F+bEjJPL+3Yg2uJp0Q1pLAOw5l+mRJ9FwcJfeY+beiau0rPv
- xWBQLum6MvJ2hd36EGxEnoEVo8Po3Rn2zkgAUwaq3Siw7cj+jG/Lr5q4Vujnix9ttn3z
- B/wA==
+ d=1e100.net; s=20251104; t=1789005184; x=1789609984;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=B3AxC7gchtFJwmTqUc6Eo/wyWrQDc1+3uptrgZICrdw=;
+ b=jG9LseJrHRSP1urcDRuCTXdJSA7Hkzos2rgBVmf4f4Wy4SbezE8HjcgHZJf80Hi4HN
+ D903hTAJjugSoMsCaqjzD/07VMzoz1MSemRjSHcpuroM5MmjLRR0BI9h31rctvvAdOEX
+ TkNPQbPBOVepD/LINDAJTAUjgYZ1BfFDDiqPF3pGAXscqjujAJgAshOB2b46D1xqNmR4
+ tFOV9W3k9+PRyu0xaU7Bo73zGns1fOoZxRRAYcS/W44klQ1DZyM/cRmPsyVmPa8ACGAX
+ 1qGP6JZ6Tyw2VcYmWoAbsslsaOnr7o4GltTkVQh1/S1oBUCqcd/8ahc1FjCvEyylE9at
+ noOQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBz82XmZx1bgWPejcJyFpoWp9YmhrXxS8AsBQ8tpwY4Vee0renAXNz0IVxcbUW9xPnKJOTWRmXTicyc=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kiZB84lJuAOUs8AeRhI6eNOXMr8SRZsqrTk2vT8rEqpqKCzc91
- GfnuHPL6MxwGzp8bBhOQ8st/jf7umhLTWx/WjTZDapkJvKALKGpQKNXv
-X-Gm-Gg: AYBFou2MXRoG38m6s7MZV0qCjQK7PKlKTXBLAcMzlnJiI2zV29oLIK8tpQWYNdf0OR3
- xTfLrL6MNuvULUzG+ojdLGK0JIqiamU7zPul5AvKGWj1Nn6KwzD7g0mpLHJUHVvrxzUX8O3E6A1
- pwUakPnjSF7MInDX6/PnDT8aULxuLU//nNTX7iHRb7/qv0ernpXB13Mr291JqEPSyE4vWdjO3J7
- OeD9Qi0YQvWLDV5TLaAnNO1vB9NkfGxEiUtiZ7ld9TXRA4bBTBovuhiquOgCH6R0XjMm/P6u+fM
- lWiiYNCmTkoruvBS4iCDjYnw92VS+HC8SxwsISanNy5bw9quog7ZsVehcNXDv56HQ3/VqOj4SXC
- yu5ufk9MJSThDENiXr3t0hE6zoYrWEDIH9WSK2aXDfZkskSED3K49EsH64qGqQU0QuLXMXzfFC5
- 5rtsX7LhMHLgH+aocEi7TcSN1tVmCypmStkY/kq7DkhZB8VVuibOmdNuKqnLO7lIYQ+OreSsVSM
- K18wJajvoNeIkt+8gVVKojR05eCmjlejuI0XlPC4ydQdZnvFtbTEfWuhjGJaoR48GdI9RIgHB0k
-X-Received: by 2002:a05:690c:e0d5:10b0:857:f33:6f1d with SMTP id
- 00721157ae682-87122396144mr109553227b3.6.1788981259894; 
- Wed, 09 Sep 2026 12:14:19 -0700 (PDT)
-Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net.
- [64.207.253.118]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-91040664be1sm150361316d6.18.2026.09.09.12.14.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Sep 2026 12:14:19 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Wed, 09 Sep 2026 14:14:16 -0500
-Subject: [PATCH] drm/imagination: suspend the GPU for system sleep, not
- just runtime PM
+ AKwUvBxnNG+799BMvVKPp7DrOf0Zplg3kzkXDyIKq74+kPcXKw7FZjYLduB/WJDwe6ktzIJ/QZpYf2u0HBs=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nVpjepMqkmTrq9XlIShZfORB/Gp0JG3y+2bpdB52uJxicU0Lx0
+ XHQqVW73BJeE0PcTMecC2UABe52WuN+Bwz2rTFsqxn2cNoLdq7ctlfbp
+X-Gm-Gg: AYBFou0XQbAi6CFkPZnqc8lCUh1vY4L4bBburLQ1x4YocV8Hy+BC8+f8n7nLhYATapX
+ npKRcJLWSWZENBmudP4/D/NZoCX0VH1LE5zEXBDUx8j1hcjTJsVf4MLqL4WDajz3Zjj77tQ0oPA
+ 1aNHo8QmTFeTwXFsAWq78LvP3fPtABKkJI7PqBaYhBvWBGAs405WHlpgjZe7gC9mkldFY6LAqVN
+ UQhvMTsYlfJpny1oO59mQhYybWF25q7JgENG7yr28GMGzzkDh8SqYQ3pcaNJVf9hv/3mCsmPR7j
+ wzxl27F4bKjxq6RHDkmz5sv3RMTbhcJFe5yAJ4qso/s7f4vIMjooOFezv02k0LfDJbZ/4EOheK7
+ 0qBgsRiwLComPCtI0gnL3T2JbYi/09MueJw7mE54qNWxOHkmS7q6vEcqdpIlKgA+kfeQ4XEQ4PP
+ /KZtRoOq4Y6dDIuo8/o26dJaemPmAaP6bFqk2C2jDDN7wVwOwMLwFwHzf3/wTfvmuhJNN4UKkd6
+ Jm4ls5BWy9Y7UgbRXBldBjVyiFJeQJMJiTmwKPxANrnYIVKQvTzyDs=
+X-Received: by 2002:a17:902:d58a:b0:2d9:4358:73ab with SMTP id
+ d9443c01a7336-2dd07b9c78cmr64548885ad.19.1789005184028; 
+ Wed, 09 Sep 2026 18:53:04 -0700 (PDT)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net.
+ [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2db1499d92dsm79698945ad.52.2026.09.09.18.53.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 09 Sep 2026 18:53:03 -0700 (PDT)
+Message-ID: <9d697240-3632-401f-aeba-c1fa5c2a29d4@gmail.com>
+Date: Thu, 10 Sep 2026 09:52:58 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v1-1-f45847bc951b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNwQ6CMBCE4Vche3aTykGCr2I8UDrUGqnNbktQw
- rtb9fjNYf6NFBKgdG42EixBwzNWHA8NjbchenBw1dSa9mR607NYKWAteHNJmgXDHKLntEgdNSE
- 69qmwvjRjZn0Aie1keze5zpjOUn1Ogimsv+rl+rcWe8eYvyna9w8NeRyNlwAAAA==
-X-Change-ID: 20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-bfb9dfd7007b
-To: Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sarah Walker <sarah.walker@imgtec.com>, 
- Donald Robson <donald.robson@imgtec.com>
-Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788981258; l=2911;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=EDwUvwYj52uRaI2dCh0tF4qDlZkgWRI/RU1+vIfQfts=;
- b=e3Tfw3yuJqdLfhsvfVAyjk7rHzRK6ioMgcmTgeGmoRNT6onFbW6CVKFXi6ZGv4BUSX/EeoMII
- yVSbVc+K6VSA70/wRm0GEMx1VTHB/o73vstNk/nEBUf+3usP2Lttss8
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/6] dt-bindings: display: verisilicon, dc: add support
+ for nuvoton,ma35d1-dcu
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260908092840.225220-1-a0987203069@gmail.com>
+ <20260908092840.225220-2-a0987203069@gmail.com>
+ <f74168b54fe8f070b7cfe79dc2fc83a63c2e8842.camel@iscas.ac.cn>
+Content-Language: en-US
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <f74168b54fe8f070b7cfe79dc2fc83a63c2e8842.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 10 Sep 2026 10:06:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,68 +101,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-pvr_pm_ops has only RUNTIME_PM_OPS, so the GPU gets no callback for system
-suspend at all. That is fine only while the GPU happens to be
-runtime-suspended when the system suspends -- then its own runtime PM has
-already disabled the firmware and powered the domain off. If it is
-runtime-ACTIVE, genpd powers the domain down during the system suspend
-without the driver ever being told, so on resume the driver still believes
-its firmware is running. The first firmware operation then never completes:
 
-  pvr_mmu_flush_exec -> timeout -> pvr_power_reset -> drm_dev_unplug
+Icenowy Zheng 於 2026/9/9 下午 01:44 寫道:
+> 在 2026-09-08二的 17:28 +0800，Joey Lu写道：
+>> Add the Nuvoton MA35D1 DCUltraLite (nuvoton,ma35d1-dcu) to the
+>> binding.
+>> The DCUltraLite uses only four clocks (core, axi, ahb, pix0) and one
+>> reset (core), with a single output port.
+>>
+>> The MA35D1 clock controller gates the core, AXI and AHB clocks with a
+>> single bit, but each remains a distinct clock line feeding the IP
+>> with
+>> its own rate constraints, so all four must still be listed
+>> individually
+>> in the devicetree; core, axi and ahb happen to share the same clock
+>> phandle.
+> This is weird, but I must admit that we're limited by the Common Clock
+> Framework here, so I cannot give a better solution either.
+>
+> Anyway let's settle with the current result.
+>
+>> Move the clocks/clock-names minItems to 4 and resets/reset-names
+>> minItems to 1 at the top level, since that is the lowest count any
+>> supported variant needs.  Add an allOf/if block that tightens the
+>> constraint back up to the fixed 5-clock/3-reset topology required by
+>> the existing thead,th1520-dc8200 compatible, and another one that
+>> caps
+>> the new nuvoton,ma35d1-dcu compatible at the 4-clock/1-reset count it
+>> actually wires up.
+>>
+>> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+>> ---
+>>   .../bindings/display/verisilicon,dc.yaml      | 44
+>> +++++++++++++++++++
+>>   1 file changed, 44 insertions(+)
+>>
+>> diff --git
+>> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>> index 919a900122012..773966677d0f4 100644
+>> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>> @@ -17,6 +17,7 @@ properties:
+>>       items:
+>>         - enum:
+>>             - thead,th1520-dc8200
+>> +          - nuvoton,ma35d1-dcu
+>>         - const: verisilicon,dc # DC IPs have discoverable ID/revision
+>> registers
+>>   
+>>     reg:
+>> @@ -26,6 +27,7 @@ properties:
+>>       maxItems: 1
+>>   
+>>     clocks:
+>> +    minItems: 4
+>>       items:
+>>         - description: DC Core clock
+>>         - description: DMA AXI bus clock
+>> @@ -34,6 +36,7 @@ properties:
+>>         - description: Pixel clock of output 1
+>>   
+>>     clock-names:
+>> +    minItems: 4
+>>       items:
+>>         - const: core
+>>         - const: axi
+>> @@ -42,12 +45,14 @@ properties:
+>>         - const: pix1
+>>   
+>>     resets:
+>> +    minItems: 1
+>>       items:
+>>         - description: DC Core reset
+>>         - description: DMA AXI bus reset
+>>         - description: Configuration AHB bus reset
+>>   
+>>     reset-names:
+>> +    minItems: 1
+>>       items:
+>>         - const: core
+>>         - const: axi
+>> @@ -79,6 +84,45 @@ required:
+>>     - reset-names
+>>     - ports
+>>   
+>> +allOf:
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            const: thead,th1520-dc8200
+>> +    then:
+>> +      properties:
+>> +        clocks:
+>> +          minItems: 5
+>> +
+>> +        clock-names:
+>> +          minItems: 5
+>> +
+>> +        resets:
+>> +          minItems: 3
+>> +
+>> +        reset-names:
+>> +          minItems: 3
+>> +
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            const: nuvoton,ma35d1-dcu
+>> +    then:
+>> +      properties:
+>> +        clocks:
+>> +          maxItems: 4
+>> +
+>> +        clock-names:
+>> +          maxItems: 4
+>> +
+>> +        resets:
+>> +          maxItems: 1
+>> +
+>> +        reset-names:
+>> +          maxItems: 1
+> Maybe it's reasonable to restrict max port count to 1 for MA35D1?
+> Although I am not sure about how to do this...
+>
+> Thanks,
+> Icenowy
+  I found the same kind of per-compatible port restriction already used 
+upstream in renesas,du.yaml, e.g.:
 
-and pvr_power_reset() deadlocks, because drm_dev_unplug() waits in
-synchronize_srcu() for every drm_dev_enter() section to exit while being
-called from inside a DRM ioctl that holds one. The result is an unkillable
-D-state process and a GPU that stays dead until reboot.
+         ports:
+           properties:
+             port@2: false
+             port@3: false
+           required:
+             - port@0
+             - port@1
 
-On mt8173 (amazon-suez) this is deterministic:
+Applied to our binding, that would look like:
 
-  echo on > /sys/devices/platform/soc/13000000.gpu/power/control
-  echo mem > /sys/power/state          # wakes on an RTC alarm
-  vulkaninfo --summary                 # hangs in D state, every time
+         ports:
+           properties:
+             port@1: false
+           required:
+             - port@0
 
-and with an autosuspend delay of 50 ms it is also what makes the failure
-look intermittent in normal use -- it depends purely on whether the GPU was
-idle at the instant of suspend.
+in the existing nuvoton,ma35d1-dcu allOf/if/then block, so schema checks 
+would reject a port@1 node on this compatible instead of silently 
+accepting it.
 
-pvr_power_device_suspend() already disables the firmware and calls the
-platform power_off, and pvr_power_device_resume() is its exact inverse, so
-force them for system sleep. The vendor driver arrives at the same rule by
-a different route: it holds a wakelock while the MFG domain is powered
-("prevent suspend when gpu active") so the system can never suspend with
-the GPU on.
+Happy to add it if you'd like the schema to enforce this, but wanted to 
+check whether you consider it worth the extra lines given it doesn't 
+reflect an actual bug in any DT today. Let me know which way you'd 
+prefer and I'll fold it into the next version.
 
-The reset-path deadlock itself (drm_dev_unplug() waiting on an SRCU section
-held by the ioctl that called pvr_power_reset()) is a separate problem and
-is not addressed here; this change only stops the system-sleep path from
-triggering it.
-
-Fixes: 727538a4bbff ("drm/imagination: Implement power management")
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
- drivers/gpu/drm/imagination/pvr_drv.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
-index 5c965ef0274f..23d353141589 100644
---- a/drivers/gpu/drm/imagination/pvr_drv.c
-+++ b/drivers/gpu/drm/imagination/pvr_drv.c
-@@ -1517,6 +1517,7 @@ MODULE_DEVICE_TABLE(of, dt_match);
- 
- static const struct dev_pm_ops pvr_pm_ops = {
- 	RUNTIME_PM_OPS(pvr_power_device_suspend, pvr_power_device_resume, pvr_power_device_idle)
-+	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
- };
- 
- static struct platform_driver pvr_driver = {
-
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-bfb9dfd7007b
-
-Best regards,
---  
-Ryan Brue <ryanbrue.dev@gmail.com>
-
+Thanks.
+>> +
+>>   additionalProperties: false
+>>   
+>>   examples:
