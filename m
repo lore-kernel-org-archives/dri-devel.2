@@ -4,87 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D7FDC79F9F
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 06:54:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BE4DC79F9F
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 06:55:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97F5810E24E;
-	Thu, 10 Sep 2026 06:54:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8A3F10E5BF;
+	Thu, 10 Sep 2026 06:55:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="wPOSSqx4";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Fk3d9KxY";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wLrSQOjj";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="sJ951wx2";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="p6jjbSVK";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="0AmsFUKf";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LXDRxYJt";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="0ZyyB2O4";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C40F010E24E
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 06:54:10 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECA9710E5AE;
+ Thu, 10 Sep 2026 06:55:41 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1C8301FD8E;
- Thu, 10 Sep 2026 06:54:01 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3BA112191F;
+ Thu, 10 Sep 2026 06:55:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789023245; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1789023336; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=TH8OM22BQI/If7CIEx4KZMbItUo9B2I1X5DAlhLwAkU=;
- b=wPOSSqx4gQqdnKD1OneU3PCi1ZAg4jUI4mc/mjZNvWzmlYLn0zL2wxoqGBBOflUdrDj275
- mNSDWXjQFWMTLauvCOK917i+HzjXVvVOfuylRXhLeIw8joRBTf+iD6uqMfG1ZaEZ+6YjuL
- HQVQJjCpYJlphBbMxUqtMbfcKrE2mYU=
+ bh=3nuKCnqWdAEyKKIj/uvkZwA9fc4PO4FNWz091rM0KII=;
+ b=p6jjbSVK0w1xH2QIVYBnHGTfyCBEps/8r7xWp0+/86ygABw1a7ZEWr5O3btOK2I07YZoUF
+ 2J8phltOGuMtl30HSjPmXvap3UbhnHMOXZh5FeOAxvruNe7t5HOp057oWDWLl11ogTFiOO
+ 7aQPO91vUc7EVCRMgEVo35v3i617CNA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789023245;
+ s=susede2_ed25519; t=1789023336;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=TH8OM22BQI/If7CIEx4KZMbItUo9B2I1X5DAlhLwAkU=;
- b=Fk3d9KxYqV442WcyzFUjmWBvX4/V4wtWOv1qZib7z5WifVjxyCrxp4gkmNEynDTdIt9aTC
- BpX64gpVLUfa+4Cw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=wLrSQOjj;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=sJ951wx2
+ bh=3nuKCnqWdAEyKKIj/uvkZwA9fc4PO4FNWz091rM0KII=;
+ b=0AmsFUKf6aCwAAqovTf/bdKZmX/zNluBvpi6epNiLIXW3WePu+bKtatirgujSxONgZwUs9
+ Hru5vDE7xFrphlAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789023241; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1789023332; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=TH8OM22BQI/If7CIEx4KZMbItUo9B2I1X5DAlhLwAkU=;
- b=wLrSQOjj/OcrDZsyOt/dZXP7wfMY9nvMJhVc0zkcDt2mg1lu838qKOlLVt7Km7n3l9ZEma
- ynFLIdtf5GiZZBdpjQN+pIwzRmBGHc5l0r0pjF8/GC9xTldddOOKhWGGlANBFLBT9Tv+wk
- ghpJ7ML5pYrfsvGGavkDDjuIM+gfboY=
+ bh=3nuKCnqWdAEyKKIj/uvkZwA9fc4PO4FNWz091rM0KII=;
+ b=LXDRxYJtHMnlhcq8WzFum6m1e+AA6JUuhbwho4/luP/MhoUY4GrC8G8opwyP7G7/xY3Gae
+ rFTxQ8nPYcE+Cq0RGOTOOozbN+5ueYtAQ8tKvbIQ0FYXENxMP66AWp9zZYXgsIrB5JLIPL
+ SatS7wqHqMI4NRtnvqjBp7sdtnvFEOc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789023241;
+ s=susede2_ed25519; t=1789023332;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=TH8OM22BQI/If7CIEx4KZMbItUo9B2I1X5DAlhLwAkU=;
- b=sJ951wx2Qf6dgkPiH7XsrmROuFIN9/j7smQPGUoLfGmauX0p4c/GvBtm314eNvVI+liIz+
- scEsVWOawIR9fRDQ==
+ bh=3nuKCnqWdAEyKKIj/uvkZwA9fc4PO4FNWz091rM0KII=;
+ b=0ZyyB2O4WW0sxnpPMkfC3dPVoyqhsLwEck8P134o9l/Y8L7XEc47q9TGORj7XV5YZdZzld
+ Y1fD1gC1qbHdjJAw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B589513185;
- Thu, 10 Sep 2026 06:54:00 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D912013185;
+ Thu, 10 Sep 2026 06:55:31 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Gy5bJwhUomr1RAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 10 Sep 2026 06:54:00 +0000
-Message-ID: <555a84a1-0ea1-4d95-be85-d816d0e939fb@suse.de>
-Date: Thu, 10 Sep 2026 08:54:00 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id UYj4J2NUomqsTAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 10 Sep 2026 06:55:31 +0000
+Message-ID: <04aa79c0-86d0-468f-b62f-69c9c700827b@suse.de>
+Date: Thu, 10 Sep 2026 08:55:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 32/41] drm/mediatek: Convert to atomic_create_state
+Subject: Re: [PATCH v4 33/41] drm/nouveau: Convert to atomic_create_state
 To: Maxime Ripard <mripard@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, angelogioacchino.delregno@collabora.com, 
- chunkuang.hu@kernel.org, matthias.bgg@gmail.com, p.zabel@pengutronix.de
+Cc: dri-devel@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
+ dakr@kernel.org, nouveau@lists.freedesktop.org
 References: <20260908-drm-no-more-plane-reset-v4-0-a31b3fcfc989@kernel.org>
- <20260908-drm-no-more-plane-reset-v4-32-a31b3fcfc989@kernel.org>
+ <20260908-drm-no-more-plane-reset-v4-33-a31b3fcfc989@kernel.org>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -111,32 +109,22 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260908-drm-no-more-plane-reset-v4-32-a31b3fcfc989@kernel.org>
+In-Reply-To: <20260908-drm-no-more-plane-reset-v4-33-a31b3fcfc989@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 1C8301FD8E
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
  FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- FREEMAIL_CC(0.00)[lists.freedesktop.org,collabora.com,kernel.org,gmail.com,pengutronix.de];
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_SEVEN(0.00)[9]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TAGGED_RCPT(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:dkim, suse.de:mid,
- imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo]
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ RCPT_COUNT_SEVEN(0.00)[8]; MIME_TRACE(0.00)[0:+];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
+ suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,56 +143,329 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 Am 08.09.26 um 16:47 schrieb Maxime Ripard:
-[...]
-> -static void mtk_plane_reset(struct drm_plane *plane)
-> +static struct drm_plane_state *mtk_plane_create_state(struct drm_plane *plane)
+> The plane reset implementation creates a custom state
+> subclass, but only initializes a pristine state without resetting any
+> hardware. This is equivalent to what atomic_create_state expects.
+> Convert to it.
+>
+> The conversion was done using the following Coccinelle semantic patch:
+>
+> @@
+> identifier funcs;
+> symbol drm_atomic_helper_plane_reset;
+> symbol drm_atomic_helper_plane_create_state;
+> @@
+>
+> struct drm_plane_funcs funcs = {
+>    ...,
+> - .reset = drm_atomic_helper_plane_reset,
+> + .atomic_create_state = drm_atomic_helper_plane_create_state,
+>    ...,
+> };
+>
+> @match_struct_reset@
+> identifier funcs, reset_func;
+> @@
+> struct drm_plane_funcs funcs = {
+>      ...,
+>      .reset = reset_func,
+>      ...,
+> };
+>
+> @reset_uses_helpers depends on match_struct_reset@
+> identifier match_struct_reset.reset_func;
+> @@
+>
+>   void reset_func(...)
 >   {
->   	struct mtk_plane_state *state;
-> +	state = kzalloc_obj(*state);
-
-I think check-patch will warn about a missing empty line.
-
-> +	if (!state)
-> +		return ERR_PTR(-ENOMEM);
->   
-> -	if (plane->state) {
-> -		__drm_atomic_helper_plane_destroy_state(plane->state);
-> -
-> -		state = to_mtk_plane_state(plane->state);
-> -		memset(state, 0, sizeof(*state));
+>   	<+...
+> (
+>   	__drm_atomic_helper_plane_reset(...);
+> |
+> 	__drm_gem_reset_shadow_plane(...);
+> )
+>   	...+>
+>   }
+>
+> @match_struct_destroy@
+> identifier funcs, destroy_func;
+> @@
+> struct drm_plane_funcs funcs = {
+>      ...,
+>      .atomic_destroy_state = destroy_func,
+>      ...,
+> };
+>
+> @script:python renamed_func@
+> old_name << match_struct_reset.reset_func;
+> new_name;
+> @@
+> if old_name.endswith("_reset"):
+>      coccinelle.new_name = old_name.replace("_reset", "_create_state")
+> else:
+>      coccinelle.new_name = old_name
+>
+> @update_struct depends on match_struct_reset && reset_uses_helpers@
+> identifier match_struct_reset.funcs, match_struct_reset.reset_func;
+> identifier renamed_func.new_name;
+> @@
+> struct drm_plane_funcs funcs = {
+>      ...,
+> -   .reset = reset_func,
+> +   .atomic_create_state = new_name,
+>      ...,
+> };
+>
+> @drop_destroy depends on update_struct && match_struct_destroy@
+> identifier match_struct_reset.reset_func;
+> identifier match_struct_destroy.destroy_func;
+> identifier container_func;
+> identifier P;
+> symbol drm_atomic_helper_plane_destroy_state;
+> symbol __drm_atomic_helper_plane_destroy_state;
+> @@
+>
+>   void reset_func(struct drm_plane *P)
+>   {
+>   	...
+> (
+> -	if (P->state) {
+> - 		<+...
+> (
+> -		drm_atomic_helper_plane_destroy_state(P, P->state);
+> |
+> -		__drm_atomic_helper_plane_destroy_state(P->state);
+> |
+> -		P->funcs->atomic_destroy_state(P, P->state);
+> |
+> -		destroy_func(P, P->state);
+> )
+> - 		...+>
+> - 	}
+> |
+> -	drm_WARN_ON_ONCE(P->dev, P->state);
+> |
+> -	WARN_ON(P->state);
+> )
+>   	...
+> (
+> -	kfree(P->state);
+> |
+> -	kfree(container_func(P->state));
+> |
+>   	// kfree is optional
+> )
+> (
+> -	P->state = NULL;
+> |
+>   	// plane->state clearing is optional
+> )
+>   	...
+>   }
+>
+> @drop_destroy_mtk depends on update_struct@
+> identifier P;
+> symbol __drm_atomic_helper_plane_destroy_state;
+> symbol to_mtk_plane_state;
+> @@
+>
+>   void mtk_plane_reset(struct drm_plane *P)
+>   {
+>   	...
+> -	if (P->state) {
+> -		__drm_atomic_helper_plane_destroy_state(P->state);
+> -		...
 > -	} else {
-> -		state = kzalloc_obj(*state);
-> -		if (!state)
-> -			return;
+>   		...
 > -	}
-> -
-> -	__drm_atomic_helper_plane_reset(plane, &state->base);
-> +	__drm_atomic_helper_plane_state_init(&state->base, plane);
->   
->   	state->base.plane = plane;
->   	state->pending.format = DRM_FORMAT_RGB565;
->   	state->pending.modifier = DRM_FORMAT_MOD_LINEAR;
-
-I can't find where these settings come from.
-
+>   	...
+>   }
+>
+> @transform_nv50_wndw depends on update_struct@
+> identifier S;
+> @@
+>
+>   void nv50_wndw_reset(...)
+>   {
+>   	...
+> -	if (WARN_ON(!(S = kzalloc_obj(*S))))
+> +	S = kzalloc_obj(*S);
+> +	if (WARN_ON(!S))
+>   		return;
+>   	...
+>   }
+>
+> @transform_kzalloc depends on update_struct@
+> identifier match_struct_reset.reset_func;
+> identifier P, S;
+> statement ST;
+> statement list STL;
+> @@
+>
+>   void reset_func(struct drm_plane *P)
+>   {
+>   	<...
+>   	S = kzalloc_obj(*S);
+> (
+> -	if (S)
+> -	{
+> -		STL
+> -	}
+> +	if (!S) return;
 > +
-> +	return &state->base;
+> +	STL
+> |
+> -	if (S) ST
+> +	if (!S) return;
+> +
+> +	ST
+> )
+> 	...>
+>   }
+>
+> @transform_body depends on update_struct@
+> identifier match_struct_reset.reset_func;
+> identifier renamed_func.new_name;
+> identifier S, P;
+> expression PS;
+> @@
+> - void reset_func(struct drm_plane *P)
+> + struct drm_plane_state *new_name(struct drm_plane *P)
+> {
+> 	...
+>   	S = kzalloc_obj(*S);
+> 	...
+> (
+>   	if (!S) {
+> 		...
+> -		return;
+> +		return ERR_PTR(-ENOMEM);
+>   	}
+> |
+>   	if (WARN_ON(!S)) {
+> 		...
+> -		return;
+> +		return ERR_PTR(-ENOMEM);
+>   	}
+> |
+>   	if (S == NULL) {
+>   		...
+> -		return;
+> +		return ERR_PTR(-ENOMEM);
+>   	}
+> )
+> 	...
+> (
+> -	__drm_atomic_helper_plane_reset(P, PS);
+> +	__drm_atomic_helper_plane_state_init(PS, P);
+> |
+> -	__drm_gem_reset_shadow_plane(P, PS);
+> +	__drm_gem_shadow_plane_state_init(P, PS);
+> )
+> 	...
+> }
+>
+> @update_early_return depends on update_struct@
+> identifier match_struct_reset.reset_func;
+> identifier renamed_func.new_name;
+> identifier P;
+> expression PS;
+> @@
+>   struct drm_plane_state *new_name(struct drm_plane *P)
+> {
+> 	<+...
+> -	return;
+> +	return ERR_PTR(-EINVAL);
+> 	...+>
+> }
+>
+> @update_return_plane depends on update_struct@
+> identifier match_struct_reset.reset_func;
+> identifier renamed_func.new_name;
+> identifier P;
+> expression PS;
+> @@
+>   struct drm_plane_state *new_name(struct drm_plane *P)
+> {
+> 	...
+>   	__drm_atomic_helper_plane_state_init(PS, P);
+> 	...
+> +
+> +	return PS;
+> }
+>
+> @update_return_shadow depends on update_struct@
+> identifier renamed_func.new_name;
+> identifier P;
+> expression PS;
+> @@
+>   struct drm_plane_state *new_name(struct drm_plane *P)
+> {
+> 	...
+>   	__drm_gem_shadow_plane_state_init(P, PS);
+> 	...
+> +
+> +	return &PS->base;
+> }
+>
+> Reviewed-by: Lyude Paul <lyude@redhat.com>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+> Cc: dakr@kernel.org
+> Cc: lyude@redhat.com
+> Cc: nouveau@lists.freedesktop.org
+> ---
+>   drivers/gpu/drm/nouveau/dispnv50/wndw.c | 15 +++++++--------
+>   1 file changed, 7 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/nouveau/dispnv50/wndw.c b/drivers/gpu/drm/nouveau/dispnv50/wndw.c
+> index 15a322422f4e..378095138d12 100644
+> --- a/drivers/gpu/drm/nouveau/dispnv50/wndw.c
+> +++ b/drivers/gpu/drm/nouveau/dispnv50/wndw.c
+> @@ -750,22 +750,21 @@ nv50_wndw_zpos_default(struct drm_plane *plane)
+>   {
+>   	return (plane->type == DRM_PLANE_TYPE_PRIMARY) ? 0 :
+>   	       (plane->type == DRM_PLANE_TYPE_OVERLAY) ? 1 : 255;
 >   }
 >   
->   static struct drm_plane_state *mtk_plane_duplicate_state(struct drm_plane *plane)
+> -static void
+> -nv50_wndw_reset(struct drm_plane *plane)
+> +static struct drm_plane_state *nv50_wndw_create_state(struct drm_plane *plane)
 >   {
->   	struct mtk_plane_state *old_state = to_mtk_plane_state(plane->state);
-> @@ -219,11 +213,11 @@ static void mtk_plane_atomic_async_update(struct drm_plane *plane,
+>   	struct nv50_wndw_atom *asyw;
 >   
->   static const struct drm_plane_funcs mtk_plane_funcs = {
+> -	if (WARN_ON(!(asyw = kzalloc_obj(*asyw))))
+> -		return;
+> +	asyw = kzalloc_obj(*asyw);
+> +	if (WARN_ON(!asyw))
+
+Wasn't there already a warning about failed allocation in kzalloc(). I 
+think the WARN_ON can go.
+
+> +		return ERR_PTR(-ENOMEM);
+>   
+> -	if (plane->state)
+> -		plane->funcs->atomic_destroy_state(plane, plane->state);
+> +	__drm_atomic_helper_plane_state_init(&asyw->state, plane);
+>   
+> -	__drm_atomic_helper_plane_reset(plane, &asyw->state);
+> +	return &asyw->state;
+>   }
+>   
+>   static void
+>   nv50_wndw_destroy(struct drm_plane *plane)
+>   {
+> @@ -835,11 +834,11 @@ static bool nv50_plane_format_mod_supported(struct drm_plane *plane,
+>   const struct drm_plane_funcs
+>   nv50_wndw = {
 >   	.update_plane = drm_atomic_helper_update_plane,
 >   	.disable_plane = drm_atomic_helper_disable_plane,
->   	.destroy = drm_plane_cleanup,
-> -	.reset = mtk_plane_reset,
-> +	.atomic_create_state = mtk_plane_create_state,
->   	.atomic_duplicate_state = mtk_plane_duplicate_state,
->   	.atomic_destroy_state = mtk_plane_destroy_state,
->   	.format_mod_supported = mtk_plane_format_mod_supported,
+>   	.destroy = nv50_wndw_destroy,
+> -	.reset = nv50_wndw_reset,
+> +	.atomic_create_state = nv50_wndw_create_state,
+>   	.atomic_duplicate_state = nv50_wndw_atomic_duplicate_state,
+>   	.atomic_destroy_state = nv50_wndw_atomic_destroy_state,
+>   	.format_mod_supported = nv50_plane_format_mod_supported,
 >   };
 >   
 >
