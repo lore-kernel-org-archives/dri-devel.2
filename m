@@ -4,102 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F407EC79FB9
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 13:16:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3C39C79FB9
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 13:21:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A118710E2B3;
-	Thu, 10 Sep 2026 13:16:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 301FA10E609;
+	Thu, 10 Sep 2026 13:21:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="k3fEr0zq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pE8QCnyx";
 	dkim-atps=neutral
 Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com
  [74.125.227.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA97810E2EC
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 13:16:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C27310E5E6
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 13:21:43 +0000 (UTC)
 Received: by mail-vs2-f12.google.com with SMTP id
- ada2fe7eead31-781d5818297so228821137.1
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 06:16:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789046162; cv=none;
+ ada2fe7eead31-79046478449so118346137.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 06:21:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789046502; cv=none;
  d=google.com; s=arc-20260327;
- b=iqOewxSAYV56j7rGnJpzJhJ3zw8JdW2oXm0DlLfmb7No40CP8TV3WsYFhpxIRriO+9
- 45MvN6xtqJLEVA+RdADCfTolsekFGMycCxTaeWLkhzXQ9p6jz+RNwpl6sCIGWUUPKxVh
- gcYsVrvAFj7yfRevUl7XddaIJuRvNW51tSb+vC4ulbzbt7ANn5EaqzdQpo9Kdkh+MgqH
- 7GmAQHcuj6NUP11JwFzXihBL+vWGk4FtLX4iafORrph/O5hJmj0GbnBppnbO9StYB/PO
- OZ/6UtqcnH1q7jESNfd4sNDUy444hix/neh/rFawglvzcJIinyi5Q4NfAhu0P2gRFuuN
- n7Sg==
+ b=W/04Zh4jgCync/exfIkmiXNZlWl4TI3G5eprPjnWl5hfP/pMhQgizuhFtDDQ1VjNd/
+ 79RaxeUXi4zSku86FdSvPjGhfDbkKa0MyNf/J6tJvfSloWoMJHkwdbI07rrB9M00coKW
+ 9MpAB1kbMNz085HzYCZ0tY2pATAOKp4RUpHnPgfcu4Z7S/tge0OAfmiSwQxTAbkSBbLZ
+ LeguqEREAvaDfblGucS8pJCNo60JhRrAv07iQbhpsBH7YGuvWHlRHzBnGQhAkokanxV0
+ I22TKD1hZNk02bZ9RImptAacK/eCwo4ciin0Zvu+HWtYZBHXH1lflIW31Ti8DIFTL/0o
+ H3BQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=moA5jUO3uVa6D/ugtSObUrS5bANjOYs5c5g0mj7H5a0=;
- fh=wpjjkXjO4+TqJzYFHVy7ButAC+/QYIbll08BcazU2s8=;
- b=IORB2wX/6iABaj6GgQcJdVPNwhMBSsqL971IB/ekDhst21hOFgYAIaI/1Vsp7NHdfx
- MTiCK02lLDTczgkLyc/UXWBHt0gOWCJrv3kjUSgTy/9l3dQJoEUWGb1sOZ3+w8Tp4EtM
- 5JvgfNIWvKpVaDYI9jtLxh3oGdxna+Vdw4nuWRkkmWAZwlJKf9fOEBF351Rsp1qoweqs
- ++wjrzC7C9//LNV2wv8Aqtsd7JWLYfQWEvHWljYrqQ6gJyae94Q38iW2VHFPQkD0ipeK
- Y4WAocRpMVD8AqLPV5o8KxxBEio5/mC2rHK2R20tso8QG73eQCXds/Li4MmD2yxBedMq
- M/Ww==; darn=lists.freedesktop.org
+ bh=4PtIkSiFzV3sIf3d9NLRzTCK6vH+MbAiKicnmJs6k5U=;
+ fh=zNGN4qGjdvIQCygjyWWoFXg4TgHVjwOQlIqRbAGoILI=;
+ b=CuykOBnWtTs8sYgOHaHxgkGVAK1CUAPLkk51vxy3jHJwL37kF2zYBe+BxJdRPRdaQL
+ V7YrxgSBdPOOH+cAVEm6hLud/GFjiTiktsjR5HPUq+Sa5JXnSQGOPZTqDqQfmixTgqC7
+ t3+34tZS/cdDO47HMb4cbtjiPI0czXBJNJ8HXtV87W8wFcEVsOc3lKlIwaEIY5tGnlNj
+ oHA0Jq2LmUj07x29kGF5391zeT/NuKw+xf4iYgnw2mQXaMMXJ+lNWeX5FF6YrXVE8k1q
+ KOkFNKRAbXraPIqqMwAVrX2lhS9X1KDxB/HbuwJK3qb+fASNvFECXJ0jWhRKaalThjVg
+ 924w==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789046162; x=1789650962; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1789046502; x=1789651302; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=moA5jUO3uVa6D/ugtSObUrS5bANjOYs5c5g0mj7H5a0=;
- b=k3fEr0zqlvgpWBU+0mud+inxEMOA+WYlHbLBHZOpKE/zJVJRuI6QeTILxyLxsKtnrg
- ImLTI2t2KX/wOTmUrLj7virQd2KkXe8To0oAS03TVSwV2l/XZ9AnMAv26WEgX8lS+sCm
- zZY0o0zn3L4exKr/JYYup/hEpRsOfoRAN9EkOWf7R5Kw2hSUw6G3H/BxoWORcX+Q8Y/Q
- le9xc52QkWhLDfbHGCi1zjASlik7ZJrNHEHxXLrSe1fl9qeMol6sDytZNUazj/GtPoBK
- KVWAhHerzphdw0LZ8OIVlwHFeheaYQTCBcyJ/Tt+9kllbmO59unkT31iActBKXKCUbfj
- K84A==
+ bh=4PtIkSiFzV3sIf3d9NLRzTCK6vH+MbAiKicnmJs6k5U=;
+ b=pE8QCnyxYJhXcnSphSQMlztmDd3WfPujtWuJl0q5VORS1pG1TL5pIA8MyVyIiOotpW
+ bOTmmNikuQltgKf1N43xKQZSoKYv5N8wvFfDWzRD1nEb8D/tS4PNYFy4os+jrrj2BxwT
+ AJ89nWXRZklsBtfCdbyNZhTHkTFph6YQ2oPBSgDvQgXxhpurLfgEHSR6OnjNA4B0XW1g
+ ObdcgWKyF/ha0dDLmWnWwGt2s6uoR2bOsevtd1jsosy+s+kOPCDrmz/h1grC49WgUmge
+ 54sfuh+sHHYJACSuFx5ddt5KFW9QQ8nBfbXCPISBlJjyfh3aGEWGENj5ViDw037f04wB
+ CGNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789046162; x=1789650962;
+ d=1e100.net; s=20251104; t=1789046502; x=1789651302;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=moA5jUO3uVa6D/ugtSObUrS5bANjOYs5c5g0mj7H5a0=;
- b=WpMoMuMqMdAtR7/4ykKrLYVwUkva9X1/3Dl4yt1ydSZdRqfBbzwYRB0focuryy1qke
- Old9eBVK7dWVPecyJm2LjOGvsYCVxKoBBpHgCR3OuVbl7StJUtGYSuYBkC5H/QYVvDCg
- xCLh51wwv51/JSm1VKUKQ3V3MAmj7DLHwYmMMAk5tJ0vj81QzPGpH82g7kVx5nAEgtZP
- HSNi4NcVtqtzYhHo5EWK5r6oGPRZk+zsBfZUc/7YZN584+Te2Qu1gUo/PyP6w4fh28T6
- ITlDSyHvHG0XUEsaNFrgbELSVbvwbzyH7bLgoCSXRCVPF0G04/8DdDmAyn0bLDnmahRg
- qWNg==
+ bh=4PtIkSiFzV3sIf3d9NLRzTCK6vH+MbAiKicnmJs6k5U=;
+ b=Ntp8u2qNInDt/vhnG1fY0W6xvBz9mVKbKaShLrklEz1qtxHyJMghLCC5LkCG2k5b8F
+ xuTekuE8/ti8qlubmXkWtT5LQTm8bckmcdma38wCajAKqfb9YsPOfsMVOsYswe+zk8QI
+ GOUqxLrJoeMk8ctifXHAqcDP3cg137d0pVPUSPMHCofXTw8ZfvXqCPZxXw05HFGt8Jda
+ 9wHwvW6JAM4fsFVypW4ZPQCPTBCuN6rB2rzL1UjULKL9mu5iM2sqL3FOh1yWZOTLKJ5u
+ 3oJ2uFdzf5HTwD6sTlV0RNLW0Aguh+mbAkqwavqH/tJkPVOUSRYaVmN4WJX/9HfCmFm0
+ F37w==
 X-Forwarded-Encrypted: i=1;
- AKwUvByd+AEoWAHWPsm06qRwjFbJn3yxodL+AQ7ouxUI+FsCi+0BTFTk6E6l2zWfHOaq09eeXmq6GACdTMc=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nlVZwp/VdHuCT843Haomkbo8Ua4bHbjDINluiLMb58sSsuvxj3
- bWUyZ2aEutb/MICelM7CWz2aNlmjt4rNOiS636H0ryHKBeOEXdphAB1J9rsdI+sN+ZvRIKElnZm
- n7DKMTcUOIrtZH5XlwIGDiuP6oqcGG7Q=
-X-Gm-Gg: AYBFou0OnqY3UsxK2ae2I9Mt6k3V36tIqoOuByVyZ1gD4ykbx91eK53/7FgPlp5oMYc
- ayQXBgVC6j0Av+m0hcx2aGAmLP0djDtBc8H09G3H0k/EzD/HkErXfLbHf9olhIJqUJzRGZlpN/u
- RlZThSD3Ipn8JckRKrWYiYcTg7O21e1U/eADUe0u2uteI1rwwBhkwr6jMR38lPjilJyYxnRgnn9
- GxXXiyDzwd8Pe5IzUVe8qa2rUyfhohMtFXmJYrFr3d0Sc0189xC4Bidj6QtHvJa3ZwHPu8tOA0L
- +9CDIbmlc/zXkaPEIgSXJ4ZlC7Wcmsa+bJCzKvHBB2Q1Ocd1PQhboFXZ+DdwCNr/kiOHmqWClPr
- nq2FLqlEDbTxbPhRwEjkstkvZjRO3+1yZ5qUuXAjoYw==
-X-Received: by 2002:a67:ebd5:0:b0:790:563:8d1b with SMTP id
- ada2fe7eead31-79005639f22mr1869415137.0.1789046161658; Thu, 10 Sep 2026
- 06:16:01 -0700 (PDT)
+ AKwUvBxze5eoyBbblmqnvT/WEtiPyJJrCmCCxQ7iGfG++mhXd+JISGxtbGt3bYQiXS9n5JF+VNSpFMN4KfI=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nw+Swy6dm5qKuWOAjIuoF3L4wmzCMO4zuKSzNw46KoZ8WPXrHz
+ 8RMD0F3xxlslq1awVFKvdjZtEcZOwcyBsGxEJXtYALeAORn3XzFwgXobkQ7iluOGuHgE/IAzosv
+ u7hGdTWKrWc9R7YmOm5UDdkmQ8zzHNOI=
+X-Gm-Gg: AYBFou0twXpJJNaUr38AVWh84wc0/x7WpRId+U7qWVzbzrixqce06CQHse2KpWzeXBB
+ nH+NDN9Fbux6C6ylsRjFkm8EJ1NWlibEnwk4v+5guVE23wOZ1pIrcUBqdPbx2wiJPoKOPSHK0Vd
+ hQLd6iUnTeBjAezrQst3PI7+a2l1/tk6dVtFSDJ+gokjoDBocCOCDcdmrky2gb7wsrsN7pBgyyr
+ XeH63iue2A73UL5zs0I/uDxTpYs7suP7AXkO1fUmLQ4O3S0uVS6xQEUs+Tkt1Hh77d5PD5d4Pjj
+ 0b9MZMTj/al4CBxzLOoyNP05M0aBmVQUuLlPZvIg0A4IwkDZrGXougH1C5JX4mY9Eyv0tzuwisO
+ 7MuwKlvHYgRKQzuJQg6U7Wbwc+s8JEHntjOjTF7KIvg==
+X-Received: by 2002:a67:cd93:0:b0:791:33c:9d1 with SMTP id
+ ada2fe7eead31-791033c0c0amr737086137.1.1789046501887; 
+ Thu, 10 Sep 2026 06:21:41 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260909173103.73656-1-klarasmodin@gmail.com>
-In-Reply-To: <20260909173103.73656-1-klarasmodin@gmail.com>
+References: <MW4PR12MB6803F4CF9FA37FAE2FB0C5778EB02@MW4PR12MB6803.namprd12.prod.outlook.com>
+ <20260909123443.88228-1-ed@aicharmers.com>
+ <MW4PR12MB6803AED9EAA4A98576CC3F428EBF2@MW4PR12MB6803.namprd12.prod.outlook.com>
+In-Reply-To: <MW4PR12MB6803AED9EAA4A98576CC3F428EBF2@MW4PR12MB6803.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 10 Sep 2026 09:15:48 -0400
-X-Gm-Features: AcwNN1XHoZUcFvWmvZ91jrJEiVXoE4O9xNxPdZc5AmfqfU3fK8LxM3IuZyCmVsY
-Message-ID: <CADnq5_MCChZJ3vFmAeMPhq1xHLC5Ba+=g+v4+OUKZ8ciLbKY3A@mail.gmail.com>
-Subject: Re: [PATCH v2] rust/drm/gem: initialize callbacks with
- ..pin_init::zeroed()
-To: Klara Modin <klarasmodin@gmail.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Miguel Ojeda <ojeda@kernel.org>, 
- Alex Deucher <alexander.deucher@amd.com>, Mukul Joshi <mukul.joshi@amd.com>, 
- Felix Kuehling <felix.kuehling@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Thorsten Leemhuis <linux@leemhuis.info>, Manuel Ebner <manuelebner@mailbox.org>,
- Gary Guo <gary@garyguo.net>, Thomas Zimmermann <tzimmermann@suse.de>,
- dri-devel@lists.freedesktop.org, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org
+Date: Thu, 10 Sep 2026 09:21:28 -0400
+X-Gm-Features: AcwNN1UTe8M1-odt2iCgqossMzi7ldu5z1-OWpaSUlQIWuMy4BqVW8_dndwx5H8
+Message-ID: <CADnq5_PNt5Huo-bk=tqdCLorUp3BDCtdGmaFJDxfVbcKx-CPoQ@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 14
+To: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Cc: Ed Schofield <ed@aicharmers.com>, 
+ "atharvatiwarilinuxdev@gmail.com" <atharvatiwarilinuxdev@gmail.com>, 
+ "062bel313@gmail.com" <062bel313@gmail.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, 
+ "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -117,94 +116,201 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied.  Thanks.
+Applied.  Thanks!
 
-Alex
-
-On Thu, Sep 10, 2026 at 6:08=E2=80=AFAM Klara Modin <klarasmodin@gmail.com>=
- wrote:
+On Thu, Sep 10, 2026 at 6:40=E2=80=AFAM Feng, Kenneth <Kenneth.Feng@amd.com=
+> wrote:
 >
-> When the commit b67d2d039f64 ("drm/gem: Add callback for when handle
-> count goes to 0") added the handle_free callback, it did not update the
-> rust abstraction, which will cause a build failure when that is enabled.
-> Rather than just adding another None initializer, use
-> ..pin_init::zeroed() to make all unlisted callbacks None, and remove the
-> existing zero-initializations.
+> AMD General
 >
-> Fixes: b67d2d039f64 ("drm/gem: Add callback for when handle count goes to=
- 0")
-> Reported-by: Thorsten Leemhuis <linux@leemhuis.info>
-> Closes: https://lore.kernel.org/all/aaef18cd-ab55-4fb8-8563-ca3a5ea9cbc6@=
-leemhuis.info
-> Reported-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Closes: https://lore.kernel.org/all/4da62a4b-c4ef-492a-9a27-b56bd4784acf@=
-suse.de
-> Suggested-by: Gary Guo <gary@garyguo.net>
-> Signed-off-by: Klara Modin <klarasmodin@gmail.com>
+> Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+>
+> -----Original Message-----
+> From: Ed Schofield <ed@aicharmers.com>
+> Sent: Wednesday, September 9, 2026 8:35 PM
+> To: Feng, Kenneth <Kenneth.Feng@amd.com>
+> Cc: atharvatiwarilinuxdev@gmail.com; 062bel313@gmail.com; amd-gfx@lists.f=
+reedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Chr=
+istian <Christian.Koenig@amd.com>; airlied@gmail.com; simona@ffwll.ch; dri-=
+devel@lists.freedesktop.org; linux-kernel@vger.kernel.org
+> Subject: [PATCH v2] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 1=
+4
+>
+> Apple Navi 14 boards 1002:7340/106b:0218 (revision 0x41) and
+> 1002:7340/106b:0219 can time out when EnableAllSmuFeatures includes UCLK =
+DPM, leaving amdgpu without a DRM device.
+>
+> Exclude only UCLK DPM from the initial allowed features and enable it sep=
+arately in the Navi post-init callback. On 0218, enabling UCLK just after E=
+nableAllSmuFeatures or at the start of default DPM table setup still timed =
+out. The earlier 0218-only patch passed ten warm boots with UCLK enabled in=
+ post-init. The earliest safe point remains unknown.
+>
+> Check the enabled firmware bit, update the supported-feature bit and rebu=
+ild the memory DPM table and sustainable clock limits before the UMC workar=
+ound and UMD clock setup. Validate the PPT memory states that
+> DCN20 consumes before post-init. Preserve both memory-voltage features an=
+d honor PP_MCLK_DPM_MASK.
+>
+> Combine Atharva Tiwari's delayed-UCLK proposal for 0219 with the Navi pos=
+t-init implementation for 0218. Retain the revision restriction for
+> 0218 and the revision-independent 0219 match from Atharva's proposal.
+>
+> The combined patch passed ten warm boots on 0218, with rendering and
+> H.264 video decoding checks on every boot. Testing on 0219 is still pendi=
+ng.
+>
+> Link: https://www.mail-archive.com/amd-gfx@lists.freedesktop.org/msg14977=
+0.html
+> Link: https://github.com/t2linux/kernel/issues/19#issuecomment-5537823876
+> Assisted-by: Codex:GPT-6
+> Signed-off-by: Ed Schofield <ed@aicharmers.com>
 > ---
-> v2:
-> - also remove initialization of vm_ops, which is also handled by
->   ..pin_init::zeroed() (thanks Gary)
-> - fix the same issue in the shmem helper (thanks Thomas, also reported
->   by Sashiko)
-> - v1: https://lore.kernel.org/lkml/20260908175427.47207-1-klarasmodin@gma=
-il.com
-> ---
->  rust/kernel/drm/gem/mod.rs   | 13 +------------
->  rust/kernel/drm/gem/shmem.rs |  5 +----
->  2 files changed, 2 insertions(+), 16 deletions(-)
+> Changes since the 0218-only RFC:
+> - Add the 0219 board match from Atharva's proposal, without a revision
+>   restriction. Keep the 0218 match limited to revision 0x41.
+> - Keep the Navi post-init implementation and clock-state updates from
+>   the RFC. Atharva's proposal enabled UCLK at the end of smu_late_init().
+> - Record the failed tests at the start of default DPM table setup and
+>   ten successful warm boots of the combined patch on 0218.
 >
-> diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
-> index 80d8f524f9d5..9d4280002765 100644
-> --- a/rust/kernel/drm/gem/mod.rs
-> +++ b/rust/kernel/drm/gem/mod.rs
-> @@ -266,18 +266,7 @@ impl<T: DriverObject, Ctx: DeviceContext> Object<T, =
-Ctx> {
->          free: Some(Self::free_callback),
->          open: Some(open_callback::<T>),
->          close: Some(close_callback::<T>),
-> -        print_info: None,
-> -        export: None,
-> -        pin: None,
-> -        unpin: None,
-> -        get_sg_table: None,
-> -        vmap: None,
-> -        vunmap: None,
-> -        mmap: None,
-> -        status: None,
-> -        vm_ops: core::ptr::null_mut(),
-> -        evict: None,
-> -        rss: None,
-> +        ..pin_init::zeroed()
->      };
+>  .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 82 +++++++++++++++++++
+>  1 file changed, 82 insertions(+)
 >
->      /// Returns the `Device` that owns this GEM object.
-> diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-> index a687d46d170d..24cb5343e0db 100644
-> --- a/rust/kernel/drm/gem/shmem.rs
-> +++ b/rust/kernel/drm/gem/shmem.rs
-> @@ -132,19 +132,16 @@ impl<T: DriverObject> Object<T> {
->          open: Some(super::open_callback::<T>),
->          close: Some(super::close_callback::<T>),
->          print_info: Some(bindings::drm_gem_shmem_object_print_info),
-> -        export: None,
->          pin: Some(bindings::drm_gem_shmem_object_pin),
->          unpin: Some(bindings::drm_gem_shmem_object_unpin),
->          get_sg_table: Some(bindings::drm_gem_shmem_object_get_sg_table),
->          vmap: Some(bindings::drm_gem_shmem_object_vmap),
->          vunmap: Some(bindings::drm_gem_shmem_object_vunmap),
->          mmap: Some(bindings::drm_gem_shmem_object_mmap),
-> -        status: None,
-> -        rss: None,
->          #[allow(unused_unsafe, reason =3D "Safe since Rust 1.82.0")]
->          // SAFETY: `drm_gem_shmem_vm_ops` is a valid, static const on th=
-e C side.
->          vm_ops: unsafe { &raw const bindings::drm_gem_shmem_vm_ops },
-> -        evict: None,
-> +        ..pin_init::zeroed()
->      };
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gp=
+u/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> index f8ca5eb9a..d7cc41a5d 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> @@ -60,6 +60,19 @@
 >
->      /// Return a raw pointer to the embedded drm_gem_shmem_object.
+>  static int navi10_init_ppt_limits(struct smu_context *smu);
+>
+> +static bool navi14_needs_late_uclk(struct amdgpu_device *adev) {
+> +       struct pci_dev *pdev =3D adev->pdev;
+> +
+> +       return pdev->vendor =3D=3D PCI_VENDOR_ID_ATI &&
+> +               pdev->device =3D=3D 0x7340 &&
+> +               pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID_APPLE &&
+> +               ((pdev->subsystem_device =3D=3D 0x0218 &&
+> +                 pdev->revision =3D=3D 0x41) ||
+> +                pdev->subsystem_device =3D=3D 0x0219) &&
+> +               (adev->pm.pp_feature & PP_MCLK_DPM_MASK); }
+> +
+>  static const struct smu_feature_bits navi10_dpm_features =3D {
+>         .bits =3D {
+>                 SMU_FEATURE_BIT_INIT(FEATURE_DPM_PREFETCHER_BIT),
+> @@ -356,6 +369,11 @@ navi10_init_allowed_features(struct smu_context *smu=
+)
+>                 smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, F=
+EATURE_MEM_MVDD_SCALING_BIT);
+>         }
+>
+> +       /* These boards time out if EnableAllSmuFeatures includes UCLK DP=
+M. */
+> +       if (navi14_needs_late_uclk(adev))
+> +               smu_feature_list_clear_bit(smu, SMU_FEATURE_LIST_ALLOWED,
+> +                                          FEATURE_DPM_UCLK_BIT);
+> +
+>         if (is_asic_secure(smu) &&
+>             (amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(11, 0=
+, 0)) &&
+>             (adev->rev_id =3D=3D 0))
+> @@ -470,6 +488,25 @@ static int navi10_store_powerplay_table(struct smu_c=
+ontext *smu)
+>         return 0;
+>  }
+>
+> +/* DCN20 consumes these PPT states before the post-init UCLK enable. */
+> +static int navi14_imac_check_uclk_states(struct smu_context *smu) {
+> +       PPTable_t *ppt =3D smu->smu_table.driver_pptable;
+> +       unsigned int count, i;
+> +
+> +       if (!navi14_needs_late_uclk(smu->adev))
+> +               return 0;
+> +
+> +       count =3D ppt->DpmDescriptor[PPCLK_UCLK].NumDiscreteLevels;
+> +       if (!count || count > ARRAY_SIZE(ppt->FreqTableUclk))
+> +               return -EINVAL;
+> +       for (i =3D 0; i < count; i++) {
+> +               if (!ppt->FreqTableUclk[i])
+> +                       return -EINVAL;
+> +       }
+> +       return 0;
+> +}
+> +
+>  static int navi10_setup_pptable(struct smu_context *smu)  {
+>         int ret =3D 0;
+> @@ -490,6 +527,10 @@ static int navi10_setup_pptable(struct smu_context *=
+smu)
+>         if (ret)
+>                 return ret;
+>
+> +       ret =3D navi14_imac_check_uclk_states(smu);
+> +       if (ret)
+> +               return ret;
+> +
+>         return navi10_init_ppt_limits(smu);
+>  }
+>
+> @@ -3219,6 +3260,41 @@ static int navi10_enable_mgpu_fan_boost(struct smu=
+_context *smu)
+>                                                NULL);
+>  }
+>
+> +/* Rebuild memory clocks before the UMC workaround and UMD clock setup.
+> +*/ static int navi14_imac_late_uclk_enable(struct smu_context *smu) {
+> +       struct smu_11_0_dpm_context *dpm =3D smu->smu_dpm.dpm_context;
+> +       struct smu_dpm_table *table =3D &dpm->dpm_tables.uclk_table;
+> +       PPTable_t *ppt =3D smu->smu_table.driver_pptable;
+> +       struct smu_feature_bits enabled;
+> +       int ret;
+> +
+> +       if (!navi14_needs_late_uclk(smu->adev))
+> +               return 0;
+> +
+> +       ret =3D smu_cmn_feature_set_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT=
+, true);
+> +       if (ret)
+> +               return ret;
+> +       ret =3D smu_cmn_get_enabled_mask(smu, &enabled);
+> +       if (ret)
+> +               return ret;
+> +       if (!smu_feature_bits_is_set(&enabled, FEATURE_DPM_UCLK_BIT))
+> +               return -EIO;
+> +
+> +       smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_SUPPORTED,
+> +                                FEATURE_DPM_UCLK_BIT);
+> +       table->clk_type =3D SMU_UCLK;
+> +       ret =3D smu_v11_0_set_single_dpm_table(smu, SMU_UCLK, table);
+> +       if (ret)
+> +               return ret;
+> +       if (!table->count)
+> +               return -EINVAL;
+> +       if (!ppt->DpmDescriptor[PPCLK_UCLK].SnapToDiscrete)
+> +               table->flags |=3D SMU_DPM_TABLE_FINE_GRAINED;
+> +
+> +       return smu_v11_0_init_max_sustainable_clocks(smu);
+> +}
+> +
+>  static int navi10_post_smu_init(struct smu_context *smu)  {
+>         struct amdgpu_device *adev =3D smu->adev; @@ -3227,6 +3303,12 @@ =
+static int navi10_post_smu_init(struct smu_context *smu)
+>         if (amdgpu_sriov_vf(adev))
+>                 return 0;
+>
+> +       ret =3D navi14_imac_late_uclk_enable(smu);
+> +       if (ret) {
+> +               dev_err(adev->dev, "Failed to enable late UCLK DPM: %d\n"=
+, ret);
+> +               return ret;
+> +       }
+> +
+>         ret =3D navi10_run_umc_cdr_workaround(smu);
+>         if (ret)
+>                 dev_err(adev->dev, "Failed to apply umc cdr workaround!\n=
+");
+>
+> base-commit: c22f9a61e288580824edbbc3ae5a29c9a338594f
 > --
 > 2.55.0
->
