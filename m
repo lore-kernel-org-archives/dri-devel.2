@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 763EBC88E41
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 22:11:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C56EDC88E41
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 22:21:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDFD110EC18;
-	Thu, 10 Sep 2026 22:11:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61BAF10ECF1;
+	Thu, 10 Sep 2026 22:21:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YXPkwHBa";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Tip9PTBN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 011E610EC18;
- Thu, 10 Sep 2026 22:11:23 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DE8210EBD0;
+ Thu, 10 Sep 2026 22:21:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B09614071E;
- Thu, 10 Sep 2026 22:11:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 676B41F000FF;
- Thu, 10 Sep 2026 22:11:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AD78B601F0;
+ Thu, 10 Sep 2026 22:21:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 686621F000FF;
+ Thu, 10 Sep 2026 22:21:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789078282;
- bh=wWZZV6M2jtgvgSqhCuTmOOsoAMFv5dTKINEq4VrrVro=;
+ s=k20260515; t=1789078879;
+ bh=hMftyWYO7h32qDbE7ZfNTFDE8JGJslDOC+EQt/xXI4E=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=YXPkwHBa8wk6+BvGiegPvHIC9Juu8B/WxOxoh18kcXtSpPSUeEk8x59doiyU3btI5
- mjz4X5a+ZIbxW4YuY3n9pqXIeVkx8YbKW906NbJb/nKLonOSaX1z+vtf/iqNyONc6S
- qgplt/2p21v7Kd/9wKqfBGUASN1APT8GifGix4EE8FFRm8joOl+ZIbwUJPhoFawDCz
- Yevki3TNreFNGoyCErtj7/azRYMlBLLSHiXQD/o6JCADIgAZACZFa14VyuZUAPjxLt
- Uju4lvNwQVMwCrikFhy+IiIcjJWpfUc6IBBdaP1IbL4iYVNHs5wji9eA5jdSMFvUGn
- NqAtCWvzB7c5A==
-Date: Fri, 11 Sep 2026 00:11:18 +0200
+ b=Tip9PTBNfjEkwOldlmzsr09Tpwe1CnquLUhtDgAoEFHcxhb0wIua4iAjduY5UuSF+
+ yOpr+asDCW6rms6qq1sbwpgR/N5lt64sg6JCwO5IfmZWA+fwENwgiyIEx7kKIrVcwj
+ 9nvBWJBdR96bwKC66LB8x6/DHfnclqlpcru2iHeNGko3KclFEzteHEDl15rnGBsEFD
+ udFIImfvhDpE0OAr4AlMlsWoEhIdGaqaufrBD4T0Sjw+uX6EyLN7UCDGyv0QkQsjo8
+ JQ5pxKjryG5ts+Su661Qu7K59g76opmp8SihhRHlDmq/59+fzP5skM8tmjAC/71GIT
+ WmgoY9oTNpOmQ==
+Date: Fri, 11 Sep 2026 00:21:15 +0200
 From: Andi Shyti <andi.shyti@kernel.org>
 To: Krzysztof Karas <krzysztof.karas@intel.com>
 Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
@@ -40,15 +40,14 @@ Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
  Sebastian Brzezinka <sebastian.brzezinka@intel.com>, 
  Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH v6 3/7] drm/i915/gem: Free sg table on failure to acquire
- second folio
-Message-ID: <aqMq8d7aEedeBn8V@zenone.zhora.eu>
+Subject: Re: [PATCH v6 4/7] iommu/dma: Catch scatterlist length overflows
+Message-ID: <aqMrxRny29Kbtkdq@zenone.zhora.eu>
 References: <20260902082525.1149367-1-krzysztof.karas@intel.com>
- <20260902082525.1149367-4-krzysztof.karas@intel.com>
+ <20260902082525.1149367-5-krzysztof.karas@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260902082525.1149367-4-krzysztof.karas@intel.com>
+In-Reply-To: <20260902082525.1149367-5-krzysztof.karas@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,16 +65,44 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi Krzysztof,
 
-On Wed, Sep 02, 2026 at 08:25:21AM +0000, Krzysztof Karas wrote:
-> We should release folios if the first entry was populated, but
-> loop failed before sg advanced (st->nents == 1 && sg == st->sgl).
-> 
-> Fixes: 957ad9a02be6 ("drm/i915/gem: Avoid iterating an empty list")
-> Cc: stable@vger.kernel.org
-> Assisted-by: GitHub Copilot:claude-opus-5
-> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+...
 
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+> @@ -1477,6 +1477,10 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
+>  		sg_dma_len(s) = s_length;
+>  		s->offset -= s_iova_off;
+>  		s_length = iova_align(iovad, s_length + s_iova_off);
+> +		if (overflows_type(s_length, s->length)) {
+> +			ret = -EOVERFLOW;
+
+the value of ret here doesn't really matter because it returns
+anyway an -EINVAL. We can completely remove this assignment.
+
+> +			goto out_restore_sg;
+> +		}
+>  		s->length = s_length;
+>  
+>  		/*
+> @@ -1493,7 +1497,18 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
+>  		 *   time through here (i.e. before it has a meaningful value).
+>  		 */
+>  		if (pad_len && pad_len < s_length - 1) {
+> -			prev->length += pad_len;
+> +			unsigned int new_prev_len;
+
+Please add a blank line here.
+
+> +			/*
+> +			 * For large mappings spanning multiple GBs we
+> +			 * may not be able to fit all needed padding into
+> +			 * sg->length.
+> +			 */
+> +			if (check_add_overflow(prev->length, pad_len, &new_prev_len)) {
+> +				ret = -EOVERFLOW;
+
+same goes here.
 
 Thanks,
 Andi
+
+> +				goto out_restore_sg;
+> +			}
