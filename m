@@ -4,61 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF7DFC79F9F
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 10:08:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99234C79FB9
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 10:31:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BA2F10F425;
-	Thu, 10 Sep 2026 10:08:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C84D310E262;
+	Thu, 10 Sep 2026 10:31:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kuux1Pn6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OO4tVS2A";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B536C10F422;
- Thu, 10 Sep 2026 10:08:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789034885; x=1820570885;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=57ELQZY/6YSaNa7cAB52Gwj5BqsKa034ylhG3IY3A2k=;
- b=kuux1Pn6ggCMl+fyiNkI4VKUFD7T+9RqCJsJdnvB/N8S72lvR2QZraCf
- O3wrtzUemPcX8wBhO2Wj7ftKFJCmPhqW++rEEL/SzAP8WheTSzAA5XJ1o
- dyZPrOcVyMyH2hNq5joJmXWqHFWS7x5wxN5ZVU7hUaVzHttryKcAtvAFr
- y2my+PNKhT0FfdkpKF3BLcOjV6fQoe+L/fGgaRJMsFlIDjh8DQ5IXBd8m
- l5HBIYYa8tSEFVTT87Hd5X8ASkGbVxTiJWVOvcWVUwX/v1rgUrgHk48tO
- Y5SSe1es/7vK2GXgQNHViw5O6HkHg3d9mwP1IU+PZEG9ZzsTL7Yvo0J0p w==;
-X-CSE-ConnectionGUID: sdMnSs/XQwatcM6NXRPlyA==
-X-CSE-MsgGUID: QL28/fSkS7ab3UgSytfZcw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="93345731"
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="93345731"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2026 03:08:05 -0700
-X-CSE-ConnectionGUID: 97P/1oY7ShiO3mu6tU85bw==
-X-CSE-MsgGUID: pzb/FopiRJO9i0V8gBWBRA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; d="scan'208";a="301482347"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.245.193])
- ([10.245.245.193])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2026 03:08:03 -0700
-Message-ID: <3d75cfb6dd151ddb99eccec1e2712c80bfd334ef.camel@linux.intel.com>
-Subject: Re: [PATCH 02/13] drm/xe: Separate AER reset state from device wedging
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Arvind Yadav <arvind.yadav@intel.com>, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Cc: matthew.brost@intel.com, himal.prasad.ghimiray@intel.com, 
- rodrigo.vivi@intel.com
-Date: Thu, 10 Sep 2026 12:07:59 +0200
-In-Reply-To: <20260827101801.1247654-3-arvind.yadav@intel.com>
-References: <20260827101801.1247654-1-arvind.yadav@intel.com>
- <20260827101801.1247654-3-arvind.yadav@intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011017.outbound.protection.outlook.com [52.101.52.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6709E10E262;
+ Thu, 10 Sep 2026 10:31:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XChIr5U+eoPhbxFSS/jpaQ9gqdC5Dw3VptPWc4sajziPK4184/hgxmDoKGlGFyHhTLFsUz+WWLDHynuzDEKCKMbe3EgXAyA1m33uDA29QvcaR4aVQprelyPNC1mwe2tjJX93ywJXRpCR/yC/hh1NYWUqWb6dshlLl8biC9EisErSZCEqZX0pRNW6wX13SpNXCESMAIgc/3Mos32GBju5VbrNGoxvdfAoSzy0+hh2XADhiCDwJy4dhDKUSd71HcGkTIPD1FTeYrwZyRwE4X+1Wt7/N9xY6K6xSV/28O/U+BNuh9pKVyoRJBaIW42QamuS3OKlV4ZcLhfCYjNsD/sLrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XP6F6Pd4VtpD8GCG1OpEFG3xC7ZwWprvhggx0IE2tuQ=;
+ b=UQ3oQqONyWy23XY/1nC5VwiEi+YRUIEsYn3wQ3VgB3NMF/M37EjZORG5t4ObVxNXNUAJZXr1G7XNBapwtSnUc50RN5AHk7mN62e7RqAaXVA1NKfGbvExGSoKlpUUrbgZQgOh0WaaJxOOnnJidT2CvruQlpP1GfXCFQjbJa1XgPLNWIBGLAH7USUWuIO9BXNx/czx5BuzN9CvPoJsnms+ktFUbBQ9eZr0kdPe934jVqesnkkWoQkFtEsykAYzdOY114OhtJMR9d0Rvq+utCk7gRtGDxfXH8eB4qVUZITgOX0s01CgbduxYACp2OI6cmGVnMJO6fzOIfCaJF8FZOqpRg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XP6F6Pd4VtpD8GCG1OpEFG3xC7ZwWprvhggx0IE2tuQ=;
+ b=OO4tVS2ALDdoy2yhtKeoEqf1xxq+atJ5fIKyZQhnO3BSmfEWZMS9WvJsZrVpAuzkkF7C/oPwlHWNpJa3nTmiHtjaeOeT+ivWcCG1FQu0X7xu011G28J51d3RrjAgk1PyvNOE1s2r9+WK+jLRC6BNqAOw+hoYVa0O6sv+kLbdltY=
+Received: from MW4PR12MB6803.namprd12.prod.outlook.com (2603:10b6:303:20e::10)
+ by MN0PR12MB6004.namprd12.prod.outlook.com (2603:10b6:208:380::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
+ 2026 10:31:39 +0000
+Received: from MW4PR12MB6803.namprd12.prod.outlook.com
+ ([fe80::c193:ef2e:260f:dcfd]) by MW4PR12MB6803.namprd12.prod.outlook.com
+ ([fe80::c193:ef2e:260f:dcfd%6]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
+ 10:31:38 +0000
+From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+To: Ed Schofield <ed@aicharmers.com>
+CC: "atharvatiwarilinuxdev@gmail.com" <atharvatiwarilinuxdev@gmail.com>,
+ "062bel313@gmail.com" <062bel313@gmail.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v2] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 14
+Thread-Topic: [PATCH v2] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 14
+Thread-Index: AQHdQFe5SjwIreibnk67bm4xdPhAZrbHnibQ
+Date: Thu, 10 Sep 2026 10:31:38 +0000
+Message-ID: <MW4PR12MB6803AED9EAA4A98576CC3F428EBF2@MW4PR12MB6803.namprd12.prod.outlook.com>
+References: <MW4PR12MB6803F4CF9FA37FAE2FB0C5778EB02@MW4PR12MB6803.namprd12.prod.outlook.com>
+ <20260909123443.88228-1-ed@aicharmers.com>
+In-Reply-To: <20260909123443.88228-1-ed@aicharmers.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-10T10:30:36.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MW4PR12MB6803:EE_|MN0PR12MB6004:EE_
+x-ms-office365-filtering-correlation-id: a4867a0a-f6e8-4f77-76cb-08df0f26b28b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|38070700021|22082099003|18002099003|11063799006|4143699003|56012099006|10067099003;
+x-microsoft-antispam-message-info: NK82oh/dQXWhsPoEeJa+5cG9dl1/w8LDlJJFL0mxym3FiCTlDNCFldZrR29JD3UeE2eTxhfMv/KNwwO0u0jnfw10tl06sm8ppQ3OXHegrCD1B05r2frzu6YwnJ1e58vGSz5gaeHSpbJjkLHp5qo0ls4gkUHPt1PwjcNviiPLZo6NK6yxJHxPNcq8EyYYwE1FXA+sXATMnrk5AtPGAUeJNtPF859J8V6rOYKCP38JoyiPOJTBrs1jBPaUH+Pjsa+IT8MAdt7PMmGbf7rz1Q/pvLnoQ/DiXnyKf6y7J9/9BkP0lLnk9JKSadc0hnLA/NkjO8UWXRhukBec8kuV4p7gWf8NueqHMqFFWdTmpVoFYPWaI4mjVlIjmx0yCkUqb7jscI2sHmqUbTXcXk6Irh3w0g+OsltI0W3KaeyXubEeRlsTUiXzsxtfe9V2Yn2dMk70mSO4EimqSk99NoFjBblR1+UruD0YVWAGZw6MuSvE+xopuPjzlqxp7VPXEKjBqbWLKPQhJFsVgsPSr3HsyImwOOyytnJRLGo9J5HORMM/nk5U2YRME3E8+z84Ih1fxoqKtv9X8colMos8TeyIy/j2GUu0Sh05iSsEy4aj9dGvgTPzj5eY+t3iJ8PDclzur3/m7vPs0h5skw0rcjoEFKNL4YPA2iEEZmq6WBHSZB0igKM=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6803.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(38070700021)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006)(10067099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Vncv4bIgfk1UdWV/W5n6KBRimrbOW1pSG+0C6p5D0lbzSt0FNqp17NYzDKGT?=
+ =?us-ascii?Q?yy3e1us9JrQqcAZUtmjIGw7lrPkbdTLJVJ5IXTZp6jBzC2PpgIu+lYZUxb+E?=
+ =?us-ascii?Q?xwcuxQe6V6UGi5Au0Qpaz8CjKvSFRL4jhwqooZfk2LyWb8WCg252GVNRlSN3?=
+ =?us-ascii?Q?j+v537WLhgwcG/8x4MAlWSIX5KCVqykMr/ySQkIHJckoxuZEFKrpktEqrcXv?=
+ =?us-ascii?Q?8TghRF3dvTAenUZXgVFdj7PHpdB5H9r/B1tkY86DZuphhASaPb5Gw55IXL2K?=
+ =?us-ascii?Q?/34DKCMJtScaz3xQk5IhZ2WR01pKcWnZ/9axyysyd9X2uhQRLQ1+6PLBoBhj?=
+ =?us-ascii?Q?RTjdt1MrXF831numhKMvUNXlFJis56ohIygYDv9whTN3L8WnDTp3n2yjWeWo?=
+ =?us-ascii?Q?mo3Wi08TedTJBQmECs3cuiweUFIKaBp2fSrReReqiQZ4zsmeJ5lutdaxMCbJ?=
+ =?us-ascii?Q?evBuD51OkLSEhRtWra43Lu3MAQQJl7lO2yTu2zE9VmaB83IXuwqvCoZxc3XU?=
+ =?us-ascii?Q?0K+/WAPF1ql7ugQynqIkX0XJeRqmieTKxmciDBDSJjYs9+a+eBttf49iHfh9?=
+ =?us-ascii?Q?gtzw0HM5ZPADG7LjU9iHBWJK/o+GTfNGYGXTnSqut2vucqlVGfpjaTMqBNfE?=
+ =?us-ascii?Q?S7HZmQy1h73NCd0gjwZeoJLUVA09IWneal0XvRYWkySrHXtvmYztVqEE9BBe?=
+ =?us-ascii?Q?82BTW1vRF2N8ZuxJOUslEP3qEEiUi3jNSgkrARC0Z2szvGY9LRga19EL5DPc?=
+ =?us-ascii?Q?Y/jljhq6jXSsnMlZ5Q5joyb3eigrq4leXMNIu1mUPbSesdbG0Tp/AND7An6s?=
+ =?us-ascii?Q?I3Bx5lIhQbEvsLBh6ERNS7LqQRyTlbniJuKIZEdHJdLymj8TSLoYaOMW7Oyn?=
+ =?us-ascii?Q?kV5NsyhXQUZAnOFCRzjkF8EM4Z29Fdb1eGSerMFfGb8Or+Yap33e0cLZuXp2?=
+ =?us-ascii?Q?bnu9g959BPveF0AGYabbxAWre6ZlAa7hRdyeKIrMg5im6OlKLmoCUuvBah0H?=
+ =?us-ascii?Q?MEPn7PfuTXlEw1k3nSbxcrNDNd35t+2Rg9TqQg6Ecl8DE/0ueMSJEDqqyXnC?=
+ =?us-ascii?Q?u2B61AquIz9i7yal1U4Ns9EBsdJviUGyjsSj8cJFH8py0MADHjWxEcLrI1e9?=
+ =?us-ascii?Q?EjWjuUn+zKMXBZLLLZQzJI/RHEDxuko10PDmXcQGM0g03qGPW7/OpUpg1e/T?=
+ =?us-ascii?Q?zFFG56c0F4Dxl+qNY4zS2nCt0pxZ9KUWsQmij39nqg6rBYwKa1bt4D4B3s5W?=
+ =?us-ascii?Q?Zgk/HzpmuapLaQeW/K0HGqLTMlBmml9Xu14pSN+WdM3J6jx5+aGQkmqiOMnI?=
+ =?us-ascii?Q?lLrg9xx43zpM3j4oKymfEqkIUflUnJOrzkT9dAqIg1qP67klGp6aNlb380Yz?=
+ =?us-ascii?Q?mCPGOpamSKZmnFHmUjXI7+9KW0qf0DzcSotxvgjx/YFscZhb+LHmOnee2OIt?=
+ =?us-ascii?Q?w2nijrLCjK+h4/cResfl4AkFYJV3avRiVK/6P4dsrz769qNx5x0ytoOslq/N?=
+ =?us-ascii?Q?r65xD6WHk3r5615uI46xITD6tOecEkfx7XimOQYeRnsAg7haYJYAQbYId9Bf?=
+ =?us-ascii?Q?Mib2l4piu7EwkNtO3QlnNgAuOKJ6UinMr7uBtnEjQ50fPkQtgcL4JYVzqLvN?=
+ =?us-ascii?Q?w5Usavyz4yKIktNUwWAb9OuLCtyEuMTVwBI2BVlfbLmcAI93oZpQ3sI9qxBU?=
+ =?us-ascii?Q?M0MHhufzsnYGAtcG3Th47AJRG6Wpqzi71LCeGgUpYHcROqBH?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6803.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4867a0a-f6e8-4f77-76cb-08df0f26b28b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2026 10:31:38.7796 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ixHdxV8qo8nq42nGVLPIn+vcy9RiB3UHuBfNfwCtPoWy3uFIBwaV13KB9IgdiNyx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6004
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,414 +138,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 2026-08-27 at 15:47 +0530, Arvind Yadav wrote:
-> PCI error recovery currently uses xe->wedged.flag to block driver
-> access. This mixes a temporary AER reset with a permanent device
-> wedge.
->=20
-> If the device wedges during AER recovery, the wedge is not seen as
-> the
-> first transition. The AER resume callback may then clear the flag and
-> make the permanently wedged device appear usable again.
->=20
-> Keep the old device blocked while slot reset removes it, and block
-> the
-> new device until the AER resume callback.
->=20
-> The old AER path took a runtime PM reference to balance
-> xe_device_wedged_fini(), which drops one when wedged.flag is set. AER
-> no
-> longer sets that flag, so keeping the Xe-owned reference would leak
-> it.
-> pcie_do_recovery() holds a PCI-core runtime PM reference across the
-> error_detected, slot_reset and resume callbacks.
->=20
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
-> ---
-> =C2=A0drivers/gpu/drm/xe/xe_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/xe/xe_device.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 4 ++--
-> =C2=A0drivers/gpu/drm/xe/xe_device.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 | 12 ++++++++++++
-> =C2=A0drivers/gpu/drm/xe/xe_guc_ct.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 4 ++--
-> =C2=A0drivers/gpu/drm/xe/xe_guc_pc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 | 10 +++++-----
-> =C2=A0drivers/gpu/drm/xe/xe_guc_rc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 4 ++--
-> =C2=A0drivers/gpu/drm/xe/xe_guc_submit.c=C2=A0=C2=A0=C2=A0 |=C2=A0 8 ++++=
-++--
-> =C2=A0drivers/gpu/drm/xe/xe_guc_tlb_inval.c |=C2=A0 8 +++++++-
-> =C2=A0drivers/gpu/drm/xe/xe_pci_error.c=C2=A0=C2=A0=C2=A0=C2=A0 | 22 ++++=
-+++++++-----------
-> =C2=A0drivers/gpu/drm/xe/xe_sriov_pf.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 2 +-
-> =C2=A010 files changed, 49 insertions(+), 27 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-> index dde309821237..b86cd6030ed6 100644
-> --- a/drivers/gpu/drm/xe/xe_bo.c
-> +++ b/drivers/gpu/drm/xe/xe_bo.c
-> @@ -2094,7 +2094,7 @@ static vm_fault_t xe_bo_cpu_fault(struct
-> vm_fault *vmf)
-> =C2=A0	int err =3D 0;
-> =C2=A0	int idx;
-> =C2=A0
-> -	if (xe_device_wedged(xe) || !drm_dev_enter(&xe->drm, &idx))
-> +	if (xe_device_io_blocked(xe) || !drm_dev_enter(&xe->drm,
-> &idx))
-> =C2=A0		return ttm_bo_vm_dummy_page(vmf, vmf->vma-
-> >vm_page_prot);
-> =C2=A0
-> =C2=A0	ret =3D xe_bo_cpu_fault_fastpath(vmf, xe, bo, needs_rpm);
-> diff --git a/drivers/gpu/drm/xe/xe_device.c
-> b/drivers/gpu/drm/xe/xe_device.c
-> index 74d566693dfd..a92e90acdf0d 100644
-> --- a/drivers/gpu/drm/xe/xe_device.c
-> +++ b/drivers/gpu/drm/xe/xe_device.c
-> @@ -225,7 +225,7 @@ static long xe_drm_ioctl(struct file *file,
-> unsigned int cmd, unsigned long arg)
-> =C2=A0	struct xe_device *xe =3D to_xe_device(file_priv->minor->dev);
-> =C2=A0	long ret;
-> =C2=A0
-> -	if (xe_device_wedged(xe))
-> +	if (xe_device_io_blocked(xe))
-> =C2=A0		return -ECANCELED;
-> =C2=A0
-> =C2=A0	ACQUIRE(xe_pm_runtime_ioctl, pm)(xe);
-> @@ -243,7 +243,7 @@ static long xe_drm_compat_ioctl(struct file
-> *file, unsigned int cmd, unsigned lo
-> =C2=A0	struct xe_device *xe =3D to_xe_device(file_priv->minor->dev);
-> =C2=A0	long ret;
-> =C2=A0
-> -	if (xe_device_wedged(xe))
-> +	if (xe_device_io_blocked(xe))
-> =C2=A0		return -ECANCELED;
-> =C2=A0
-> =C2=A0	ACQUIRE(xe_pm_runtime_ioctl, pm)(xe);
-> diff --git a/drivers/gpu/drm/xe/xe_device.h
-> b/drivers/gpu/drm/xe/xe_device.h
-> index 6c4cfaebc44a..a3f876c60d76 100644
-> --- a/drivers/gpu/drm/xe/xe_device.h
-> +++ b/drivers/gpu/drm/xe/xe_device.h
-> @@ -212,6 +212,18 @@ static inline bool xe_device_wedged(struct
-> xe_device *xe)
-> =C2=A0	return atomic_read(&xe->wedged.flag);
-> =C2=A0}
-> =C2=A0
-> +/*
-> + * Return true when device access must be blocked either permanently
-> because
-> + * the device is wedged or temporarily while PCI error recovery is
-> running.
-> + *
-> + * Do not use this helper for one-way wedged-device decisions such
-> as DMA
-> + * isolation, IRQ resume suppression or recovery-method reporting.
-> + */
-> +static inline bool xe_device_io_blocked(struct xe_device *xe)
-> +{
-> +	return xe_device_wedged(xe) || xe_device_is_in_reset(xe);
-> +}
-> +
-> =C2=A0#ifdef CONFIG_DRM_XE_DEBUG_PAGE_SIZE
-> =C2=A0static inline bool xe_debug_page_size_supported(struct xe_device
-> *xe)
-> =C2=A0{
-> diff --git a/drivers/gpu/drm/xe/xe_guc_ct.c
-> b/drivers/gpu/drm/xe/xe_guc_ct.c
-> index 5c4733da385c..3c3fe4928fa2 100644
-> --- a/drivers/gpu/drm/xe/xe_guc_ct.c
-> +++ b/drivers/gpu/drm/xe/xe_guc_ct.c
-> @@ -1062,7 +1062,7 @@ static int __guc_ct_send_locked(struct
-> xe_guc_ct *ct, const u32 *action,
-> =C2=A0	xe_gt_assert(gt, g2h_len || !num_g2h);
-> =C2=A0	lockdep_assert_held(&ct->lock);
-> =C2=A0
-> -	if (xe_device_wedged(ct_to_xe(ct))) {
-> +	if (xe_device_io_blocked(ct_to_xe(ct))) {
-> =C2=A0		ret =3D -ENOTRECOVERABLE;
-> =C2=A0		goto out;
-> =C2=A0	}
-> @@ -1813,7 +1813,7 @@ static int g2h_read(struct xe_guc_ct *ct, u32
-> *msg, bool fast_path)
-> =C2=A0	xe_gt_assert(gt, xe_guc_ct_initialized(ct));
-> =C2=A0	lockdep_assert_held(&ct->fast_lock);
-> =C2=A0
-> -	if (xe_device_wedged(xe))
-> +	if (xe_device_io_blocked(xe))
-> =C2=A0		return -ENOTRECOVERABLE;
-> =C2=A0
-> =C2=A0	if (ct->state =3D=3D XE_GUC_CT_STATE_DISABLED)
-> diff --git a/drivers/gpu/drm/xe/xe_guc_pc.c
-> b/drivers/gpu/drm/xe/xe_guc_pc.c
-> index 097b075bd89a..9fe397296dc4 100644
-> --- a/drivers/gpu/drm/xe/xe_guc_pc.c
-> +++ b/drivers/gpu/drm/xe/xe_guc_pc.c
-> @@ -188,7 +188,7 @@ static int pc_action_reset(struct xe_guc_pc *pc)
-> =C2=A0	int ret;
-> =C2=A0
-> =C2=A0	ret =3D xe_guc_ct_send(ct, action, ARRAY_SIZE(action), 0, 0);
-> -	if (ret && !(xe_device_wedged(pc_to_xe(pc)) && ret =3D=3D -
-> ECANCELED))
-> +	if (ret && !(xe_device_io_blocked(pc_to_xe(pc)) && ret =3D=3D -
-> ECANCELED))
-> =C2=A0		xe_gt_err(pc_to_gt(pc), "GuC PC reset failed:
-> %pe\n",
-> =C2=A0			=C2=A0 ERR_PTR(ret));
-> =C2=A0
-> @@ -212,7 +212,7 @@ static int pc_action_query_task_state(struct
-> xe_guc_pc *pc)
-> =C2=A0
-> =C2=A0	/* Blocking here to ensure the results are ready before
-> reading them */
-> =C2=A0	ret =3D xe_guc_ct_send_block(ct, action, ARRAY_SIZE(action));
-> -	if (ret && !(xe_device_wedged(pc_to_xe(pc)) && ret =3D=3D -
-> ECANCELED))
-> +	if (ret && !(xe_device_io_blocked(pc_to_xe(pc)) && ret =3D=3D -
-> ECANCELED))
-> =C2=A0		xe_gt_err(pc_to_gt(pc), "GuC PC query task state
-> failed: %pe\n",
-> =C2=A0			=C2=A0 ERR_PTR(ret));
-> =C2=A0
-> @@ -235,7 +235,7 @@ static int pc_action_set_param(struct xe_guc_pc
-> *pc, u8 id, u32 value)
-> =C2=A0		return -EAGAIN;
-> =C2=A0
-> =C2=A0	ret =3D xe_guc_ct_send(ct, action, ARRAY_SIZE(action), 0, 0);
-> -	if (ret && !(xe_device_wedged(pc_to_xe(pc)) && ret =3D=3D -
-> ECANCELED))
-> +	if (ret && !(xe_device_io_blocked(pc_to_xe(pc)) && ret =3D=3D -
-> ECANCELED))
-> =C2=A0		xe_gt_err(pc_to_gt(pc), "GuC PC set param[%u]=3D%u
-> failed: %pe\n",
-> =C2=A0			=C2=A0 id, value, ERR_PTR(ret));
-> =C2=A0
-> @@ -257,7 +257,7 @@ static int pc_action_unset_param(struct xe_guc_pc
-> *pc, u8 id)
-> =C2=A0		return -EAGAIN;
-> =C2=A0
-> =C2=A0	ret =3D xe_guc_ct_send(ct, action, ARRAY_SIZE(action), 0, 0);
-> -	if (ret && !(xe_device_wedged(pc_to_xe(pc)) && ret =3D=3D -
-> ECANCELED))
-> +	if (ret && !(xe_device_io_blocked(pc_to_xe(pc)) && ret =3D=3D -
-> ECANCELED))
-> =C2=A0		xe_gt_err(pc_to_gt(pc), "GuC PC unset param failed:
-> %pe",
-> =C2=A0			=C2=A0 ERR_PTR(ret));
-> =C2=A0
-> @@ -1357,7 +1357,7 @@ static void xe_guc_pc_fini_hw(void *arg)
-> =C2=A0	struct xe_guc_pc *pc =3D arg;
-> =C2=A0	struct xe_device *xe =3D pc_to_xe(pc);
-> =C2=A0
-> -	if (xe_device_wedged(xe))
-> +	if (xe_device_io_blocked(xe))
-> =C2=A0		return;
-> =C2=A0
-> =C2=A0	xe_guc_pc_stop(pc);
-> diff --git a/drivers/gpu/drm/xe/xe_guc_rc.c
-> b/drivers/gpu/drm/xe/xe_guc_rc.c
-> index 99fa127b261f..eb5ec443f7ee 100644
-> --- a/drivers/gpu/drm/xe/xe_guc_rc.c
-> +++ b/drivers/gpu/drm/xe/xe_guc_rc.c
-> @@ -40,7 +40,7 @@ static int guc_action_setup_gucrc(struct xe_guc
-> *guc, u32 control)
-> =C2=A0	int ret;
-> =C2=A0
-> =C2=A0	ret =3D xe_guc_ct_send(&guc->ct, action, ARRAY_SIZE(action),
-> 0, 0);
-> -	if (ret && !(xe_device_wedged(guc_to_xe(guc)) && ret =3D=3D -
-> ECANCELED))
-> +	if (ret && !(xe_device_io_blocked(guc_to_xe(guc)) && ret =3D=3D
-> -ECANCELED))
-> =C2=A0		xe_gt_err(guc_to_gt(guc),
-> =C2=A0			=C2=A0 "GuC RC setup %s(%u) failed (%pe)\n",
-> =C2=A0			=C2=A0=C2=A0 control =3D=3D GUCRC_HOST_CONTROL ?
-> "HOST_CONTROL" :
-> @@ -73,7 +73,7 @@ static void xe_guc_rc_fini_hw(void *arg)
-> =C2=A0	struct xe_device *xe =3D guc_to_xe(guc);
-> =C2=A0	struct xe_gt *gt =3D guc_to_gt(guc);
-> =C2=A0
-> -	if (xe_device_wedged(xe))
-> +	if (xe_device_io_blocked(xe))
-> =C2=A0		return;
-> =C2=A0
-> =C2=A0	CLASS(xe_force_wake, fw_ref)(gt_to_fw(gt), XE_FW_GT);
-> diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c
-> b/drivers/gpu/drm/xe/xe_guc_submit.c
-> index 99d8c807ff05..a307af458cf8 100644
-> --- a/drivers/gpu/drm/xe/xe_guc_submit.c
-> +++ b/drivers/gpu/drm/xe/xe_guc_submit.c
-> @@ -2452,7 +2452,7 @@ static int
-> guc_exec_queue_wait_suspend_done(struct xe_exec_queue *q, bool blocki
-> =C2=A0						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WAIT_COND, HZ
-> * 5);
-> =C2=A0	}
-> =C2=A0
-> -	if (!blocking && vf_recovery(guc) && !xe_device_wedged(xe))
-> +	if (!blocking && vf_recovery(guc) &&
-> !xe_device_io_blocked(xe))
-> =C2=A0		return -EAGAIN;
-> =C2=A0
-> =C2=A0	if (!ret)
-> @@ -2694,7 +2694,11 @@ int xe_guc_submit_reset_prepare(struct xe_guc
-> *guc)
-> =C2=A0
-> =C2=A0void xe_guc_submit_reset_wait(struct xe_guc *guc)
-> =C2=A0{
-> -	wait_event(guc->ct.wq, xe_device_wedged(guc_to_xe(guc)) ||
-> +	/*
-> +	 * AER sets in_reset before declaring the GT wedged, which
-> wakes this
-> +	 * waitqueue.
-> +	 */
-> +	wait_event(guc->ct.wq, xe_device_io_blocked(guc_to_xe(guc))
-> ||
-> =C2=A0		=C2=A0=C2=A0 !xe_guc_read_stopped(guc));
-> =C2=A0}
-> =C2=A0
-> diff --git a/drivers/gpu/drm/xe/xe_guc_tlb_inval.c
-> b/drivers/gpu/drm/xe/xe_guc_tlb_inval.c
-> index 046d0655122f..646e13671cd9 100644
-> --- a/drivers/gpu/drm/xe/xe_guc_tlb_inval.c
-> +++ b/drivers/gpu/drm/xe/xe_guc_tlb_inval.c
-> @@ -34,6 +34,9 @@ static int send_tlb_inval(struct xe_guc *guc, const
-> u32 *action, int len)
-> =C2=A0
-> =C2=A0	xe_gt_assert(gt, action[1]);	/* Seqno */
-> =C2=A0
-> +	if (xe_device_io_blocked(guc_to_xe(guc)))
-> +		return -ECANCELED;
-> +
-> =C2=A0	xe_gt_stats_incr(gt, XE_GT_STATS_ID_TLB_INVAL, 1);
-> =C2=A0	return xe_guc_ct_send(&guc->ct, action, len,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 G2H_LEN_DW_TLB_INVALIDATE, 1);
-> @@ -69,6 +72,9 @@ static int send_tlb_inval_ggtt(struct xe_tlb_inval
-> *tlb_inval, u32 seqno)
-> =C2=A0	 * signals waiters.
-> =C2=A0	 */
-> =C2=A0
-> +	if (xe_device_io_blocked(xe))
-> +		return -ECANCELED;
-> +
-> =C2=A0	if (xe_guc_ct_enabled(&guc->ct) && guc-
-> >submission_state.enabled) {
-> =C2=A0		u32 action[] =3D {
-> =C2=A0			XE_GUC_ACTION_TLB_INVALIDATION,
-> @@ -77,7 +83,7 @@ static int send_tlb_inval_ggtt(struct xe_tlb_inval
-> *tlb_inval, u32 seqno)
-> =C2=A0		};
-> =C2=A0
-> =C2=A0		return send_tlb_inval(guc, action,
-> ARRAY_SIZE(action));
-> -	} else if (xe_device_uc_enabled(xe) &&
-> !xe_device_wedged(xe)) {
-> +	} else if (xe_device_uc_enabled(xe)) {
-> =C2=A0		struct xe_mmio *mmio =3D &gt->mmio;
-> =C2=A0
-> =C2=A0		if (IS_SRIOV_VF(xe))
-> diff --git a/drivers/gpu/drm/xe/xe_pci_error.c
-> b/drivers/gpu/drm/xe/xe_pci_error.c
-> index 79ce0c671549..d82256d8721f 100644
-> --- a/drivers/gpu/drm/xe/xe_pci_error.c
-> +++ b/drivers/gpu/drm/xe/xe_pci_error.c
-> @@ -9,7 +9,6 @@
-> =C2=A0#include "xe_gt.h"
-> =C2=A0#include "xe_log.h"
-> =C2=A0#include "xe_pci.h"
-> -#include "xe_pm.h"
-> =C2=A0#include "xe_printk.h"
-> =C2=A0#include "xe_ras.h"
-> =C2=A0#include "xe_survivability_mode.h"
-> @@ -20,14 +19,15 @@ static void prepare_device_for_reset(struct
-> pci_dev *pdev)
-> =C2=A0	struct xe_gt *gt;
-> =C2=A0	u8 id;
-> =C2=A0
-> +
-> =C2=A0	/*
-> -	 * Wedge the device to prevent userspace access but do not
-> send the uevent.
-> -	 * xe_device_wedged_fini() releases runtime pm if wedged
-> flag is set, so acquire a runtime
-> -	 * pm reference to avoid underflow.
-> +	 * Block device access while PCI error recovery is in
-> progress.
-> +	 *
-> +	 * The old runtime PM reference balanced
-> xe_device_wedged_fini() while
-> +	 * AER set wedged.flag. AER no longer sets that flag, and
-> +	 * pcie_do_recovery() holds its own runtime PM reference
-> across the
-> +	 * recovery callbacks.
+AMD General
 
-This is an in-code comment describing what this patch is doing. A
-future code reader has no idea what "The old runtime PM reference" is.
-Please keep comments involving the old pre-patch code in the commit
-message.
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 
+-----Original Message-----
+From: Ed Schofield <ed@aicharmers.com>
+Sent: Wednesday, September 9, 2026 8:35 PM
+To: Feng, Kenneth <Kenneth.Feng@amd.com>
+Cc: atharvatiwarilinuxdev@gmail.com; 062bel313@gmail.com; amd-gfx@lists.fre=
+edesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Chris=
+tian <Christian.Koenig@amd.com>; airlied@gmail.com; simona@ffwll.ch; dri-de=
+vel@lists.freedesktop.org; linux-kernel@vger.kernel.org
+Subject: [PATCH v2] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 14
 
-> =C2=A0	 */
-> -	if (!atomic_xchg(&xe->wedged.flag, 1))
-> -		xe_pm_runtime_get_noresume(xe);
-> -
-> =C2=A0	xe_device_set_in_reset(xe);
-> =C2=A0
-> =C2=A0	for_each_gt(gt, xe, id)
-> @@ -116,7 +116,6 @@ static pci_ers_result_t
-> xe_pci_error_slot_reset(struct pci_dev *pdev)
-> =C2=A0	 * TODO: optimize by re-initializing only the hardware state
-> and re-creating
-> =C2=A0	 * kernel BOs.
-> =C2=A0	 */
-> -	xe_device_clear_in_reset(xe);
-> =C2=A0	pdev->driver->remove(pdev);
-> =C2=A0	devres_release_group(&pdev->dev, xe->devres_group);
-> =C2=A0
-> @@ -125,8 +124,8 @@ static pci_ers_result_t
-> xe_pci_error_slot_reset(struct pci_dev *pdev)
-> =C2=A0
-> =C2=A0	xe =3D pdev_to_xe_device(pdev);
-> =C2=A0
-> -	/* Wedge the device to prevent I/O operations till the
-> resume callback */
-> -	atomic_set(&xe->wedged.flag, 1);
-> +	/* Block the new instance until the resume callback. */
-> +	xe_device_set_in_reset(xe);
-> =C2=A0
-> =C2=A0	return PCI_ERS_RESULT_RECOVERED;
-> =C2=A0}
-> @@ -137,7 +136,8 @@ static void xe_pci_error_resume(struct pci_dev
-> *pdev)
-> =C2=A0
-> =C2=A0	xe_info(xe, "PCI error: resume\n");
-> =C2=A0
-> -	atomic_set(&xe->wedged.flag, 0);
-> +	/* Resume I/O operations. */
-> +	xe_device_clear_in_reset(xe);
-> =C2=A0}
-> =C2=A0
-> =C2=A0const struct pci_error_handlers xe_pci_error_handlers =3D {
-> diff --git a/drivers/gpu/drm/xe/xe_sriov_pf.c
-> b/drivers/gpu/drm/xe/xe_sriov_pf.c
-> index 33bd754d138f..568b7ed7c380 100644
-> --- a/drivers/gpu/drm/xe/xe_sriov_pf.c
-> +++ b/drivers/gpu/drm/xe/xe_sriov_pf.c
-> @@ -157,7 +157,7 @@ int xe_sriov_pf_wait_ready(struct xe_device *xe)
-> =C2=A0	unsigned int id;
-> =C2=A0	int err;
-> =C2=A0
-> -	if (xe_device_wedged(xe))
-> +	if (xe_device_io_blocked(xe))
-> =C2=A0		return -ECANCELED;
-> =C2=A0
-> =C2=A0	for_each_gt(gt, xe, id) {
+Apple Navi 14 boards 1002:7340/106b:0218 (revision 0x41) and
+1002:7340/106b:0219 can time out when EnableAllSmuFeatures includes UCLK DP=
+M, leaving amdgpu without a DRM device.
 
+Exclude only UCLK DPM from the initial allowed features and enable it separ=
+ately in the Navi post-init callback. On 0218, enabling UCLK just after Ena=
+bleAllSmuFeatures or at the start of default DPM table setup still timed ou=
+t. The earlier 0218-only patch passed ten warm boots with UCLK enabled in p=
+ost-init. The earliest safe point remains unknown.
 
-/Thomas
+Check the enabled firmware bit, update the supported-feature bit and rebuil=
+d the memory DPM table and sustainable clock limits before the UMC workarou=
+nd and UMD clock setup. Validate the PPT memory states that
+DCN20 consumes before post-init. Preserve both memory-voltage features and =
+honor PP_MCLK_DPM_MASK.
+
+Combine Atharva Tiwari's delayed-UCLK proposal for 0219 with the Navi post-=
+init implementation for 0218. Retain the revision restriction for
+0218 and the revision-independent 0219 match from Atharva's proposal.
+
+The combined patch passed ten warm boots on 0218, with rendering and
+H.264 video decoding checks on every boot. Testing on 0219 is still pending=
+.
+
+Link: https://www.mail-archive.com/amd-gfx@lists.freedesktop.org/msg149770.=
+html
+Link: https://github.com/t2linux/kernel/issues/19#issuecomment-5537823876
+Assisted-by: Codex:GPT-6
+Signed-off-by: Ed Schofield <ed@aicharmers.com>
+---
+Changes since the 0218-only RFC:
+- Add the 0219 board match from Atharva's proposal, without a revision
+  restriction. Keep the 0218 match limited to revision 0x41.
+- Keep the Navi post-init implementation and clock-state updates from
+  the RFC. Atharva's proposal enabled UCLK at the end of smu_late_init().
+- Record the failed tests at the start of default DPM table setup and
+  ten successful warm boots of the combined patch on 0218.
+
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 82 +++++++++++++++++++
+ 1 file changed, 82 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/=
+drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index f8ca5eb9a..d7cc41a5d 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -60,6 +60,19 @@
+
+ static int navi10_init_ppt_limits(struct smu_context *smu);
+
++static bool navi14_needs_late_uclk(struct amdgpu_device *adev) {
++       struct pci_dev *pdev =3D adev->pdev;
++
++       return pdev->vendor =3D=3D PCI_VENDOR_ID_ATI &&
++               pdev->device =3D=3D 0x7340 &&
++               pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID_APPLE &&
++               ((pdev->subsystem_device =3D=3D 0x0218 &&
++                 pdev->revision =3D=3D 0x41) ||
++                pdev->subsystem_device =3D=3D 0x0219) &&
++               (adev->pm.pp_feature & PP_MCLK_DPM_MASK); }
++
+ static const struct smu_feature_bits navi10_dpm_features =3D {
+        .bits =3D {
+                SMU_FEATURE_BIT_INIT(FEATURE_DPM_PREFETCHER_BIT),
+@@ -356,6 +369,11 @@ navi10_init_allowed_features(struct smu_context *smu)
+                smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, FEA=
+TURE_MEM_MVDD_SCALING_BIT);
+        }
+
++       /* These boards time out if EnableAllSmuFeatures includes UCLK DPM.=
+ */
++       if (navi14_needs_late_uclk(adev))
++               smu_feature_list_clear_bit(smu, SMU_FEATURE_LIST_ALLOWED,
++                                          FEATURE_DPM_UCLK_BIT);
++
+        if (is_asic_secure(smu) &&
+            (amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(11, 0, =
+0)) &&
+            (adev->rev_id =3D=3D 0))
+@@ -470,6 +488,25 @@ static int navi10_store_powerplay_table(struct smu_con=
+text *smu)
+        return 0;
+ }
+
++/* DCN20 consumes these PPT states before the post-init UCLK enable. */
++static int navi14_imac_check_uclk_states(struct smu_context *smu) {
++       PPTable_t *ppt =3D smu->smu_table.driver_pptable;
++       unsigned int count, i;
++
++       if (!navi14_needs_late_uclk(smu->adev))
++               return 0;
++
++       count =3D ppt->DpmDescriptor[PPCLK_UCLK].NumDiscreteLevels;
++       if (!count || count > ARRAY_SIZE(ppt->FreqTableUclk))
++               return -EINVAL;
++       for (i =3D 0; i < count; i++) {
++               if (!ppt->FreqTableUclk[i])
++                       return -EINVAL;
++       }
++       return 0;
++}
++
+ static int navi10_setup_pptable(struct smu_context *smu)  {
+        int ret =3D 0;
+@@ -490,6 +527,10 @@ static int navi10_setup_pptable(struct smu_context *sm=
+u)
+        if (ret)
+                return ret;
+
++       ret =3D navi14_imac_check_uclk_states(smu);
++       if (ret)
++               return ret;
++
+        return navi10_init_ppt_limits(smu);
+ }
+
+@@ -3219,6 +3260,41 @@ static int navi10_enable_mgpu_fan_boost(struct smu_c=
+ontext *smu)
+                                               NULL);
+ }
+
++/* Rebuild memory clocks before the UMC workaround and UMD clock setup.
++*/ static int navi14_imac_late_uclk_enable(struct smu_context *smu) {
++       struct smu_11_0_dpm_context *dpm =3D smu->smu_dpm.dpm_context;
++       struct smu_dpm_table *table =3D &dpm->dpm_tables.uclk_table;
++       PPTable_t *ppt =3D smu->smu_table.driver_pptable;
++       struct smu_feature_bits enabled;
++       int ret;
++
++       if (!navi14_needs_late_uclk(smu->adev))
++               return 0;
++
++       ret =3D smu_cmn_feature_set_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT, =
+true);
++       if (ret)
++               return ret;
++       ret =3D smu_cmn_get_enabled_mask(smu, &enabled);
++       if (ret)
++               return ret;
++       if (!smu_feature_bits_is_set(&enabled, FEATURE_DPM_UCLK_BIT))
++               return -EIO;
++
++       smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_SUPPORTED,
++                                FEATURE_DPM_UCLK_BIT);
++       table->clk_type =3D SMU_UCLK;
++       ret =3D smu_v11_0_set_single_dpm_table(smu, SMU_UCLK, table);
++       if (ret)
++               return ret;
++       if (!table->count)
++               return -EINVAL;
++       if (!ppt->DpmDescriptor[PPCLK_UCLK].SnapToDiscrete)
++               table->flags |=3D SMU_DPM_TABLE_FINE_GRAINED;
++
++       return smu_v11_0_init_max_sustainable_clocks(smu);
++}
++
+ static int navi10_post_smu_init(struct smu_context *smu)  {
+        struct amdgpu_device *adev =3D smu->adev; @@ -3227,6 +3303,12 @@ st=
+atic int navi10_post_smu_init(struct smu_context *smu)
+        if (amdgpu_sriov_vf(adev))
+                return 0;
+
++       ret =3D navi14_imac_late_uclk_enable(smu);
++       if (ret) {
++               dev_err(adev->dev, "Failed to enable late UCLK DPM: %d\n", =
+ret);
++               return ret;
++       }
++
+        ret =3D navi10_run_umc_cdr_workaround(smu);
+        if (ret)
+                dev_err(adev->dev, "Failed to apply umc cdr workaround!\n")=
+;
+
+base-commit: c22f9a61e288580824edbbc3ae5a29c9a338594f
+--
+2.55.0
