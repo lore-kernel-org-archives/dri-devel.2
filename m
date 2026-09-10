@@ -4,130 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7635C79FB9
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 07:46:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B576C79FB9
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 07:47:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFE5510F336;
-	Thu, 10 Sep 2026 07:46:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF65510F339;
+	Thu, 10 Sep 2026 07:47:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ZXMDQmkX";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="wWHKx78m";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="MP8miy3L";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+zs98xmk";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="VvN5wpW3";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60FD910F336
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 07:46:38 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B041F21B42;
- Thu, 10 Sep 2026 07:46:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789026392; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=W/1nFyWEaqVKCugUxEfivy+nSvc0epaMKTnk4PJqaXY=;
- b=ZXMDQmkXqRZJDk+kfWs5lyxmI+auqMm45QcptQvkua2wmtYuCQLT+WxF0rsrYmMj0l0Zpm
- vJpneFRhPEnuTDcnnYhx/bd/RuCrZ085KYWEjvw7U2HTz1El0IbpH3ucK33mrqaD0zxObL
- cTOq7c+4dze3YGXnuWtcJKInl6OTPxs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789026392;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=W/1nFyWEaqVKCugUxEfivy+nSvc0epaMKTnk4PJqaXY=;
- b=wWHKx78mhiJ5A+EQrV4UcqQzs26Wl/VbNEvXm6BbSvDPGY35+mcdE6DKnBnz9r96+UmwME
- kt/8h/dBMh+QL8Dw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789026388; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=W/1nFyWEaqVKCugUxEfivy+nSvc0epaMKTnk4PJqaXY=;
- b=MP8miy3LvktgsHoL/t4w3LczrSIlHvFOX7v9EnfXJIH8UxaxalYiNH8Oxz2j+tBSJEy2bu
- oXx9b3ZxILlzvJZpWukRC2B4Y+jBqXhNS6Pq5g4+6jGbj9rxW+57o0880ugvQJTOmuEAE8
- XMV6VVV83ZB8E7D/Ng8hypgDg6mWym0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789026388;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=W/1nFyWEaqVKCugUxEfivy+nSvc0epaMKTnk4PJqaXY=;
- b=+zs98xmkipgPxB8PpNveVGDtQUHmghJCNZ2UJQReJfwK/xPDmbxO6olpZmyw5bpTwa9NU2
- mJoNFV6zEZVs6/Dw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4B6C5137FD;
- Thu, 10 Sep 2026 07:46:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id zZVTCVRgomqdKgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 10 Sep 2026 07:46:28 +0000
-Message-ID: <92d94fa9-1e82-4f82-a2a1-345f5ef3abe8@suse.de>
-Date: Thu, 10 Sep 2026 09:46:27 +0200
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013036.outbound.protection.outlook.com
+ [40.93.201.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E12E510F339
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 07:47:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y/plInwk4Ny6UTclw3O3mqwyD2bF+05UUnu9r+q4MDOPBGD436DdQQ+Xt9pEeFFiUWWgQ4HMhDUhwp7MoFv0OBbYayZPUQJP+FEs3utau/9QXH19ENeR05C0zobQA45Sg+VigEiNultPuOKvg1cJO7NOk23/8MTmIke1RwNlzREc3BaXPxB2CHZbQZnK+mj/RMwLLuumRYV6QXk0SqQCZhD/r0o+f0HRo89WXU7WrhYc+dTH8JyhRfkhmSGVhVC4ug/zELCH0Gilq6bP1jbSzepOjdIEakSacDie4Yc2L2pqY0lRp/BDKtbY0dbUNa4r2Sm/3AzYqqZTOHdNGd+d4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dsZvBj8zSgMQrzTRgRt1RAlM6oLm3qx2BIxXGso5whs=;
+ b=s6cupPzTPes9eCbXqeDFt/9DVh32oJI8g7KaZ29GjcKQ0EYifkya6XSoj8Ia+55tFPpt+j6v8lCgVpK4k053eMUY+2Y9QuiaFAcAHjoDGm99I+68u38dQaMeYetKeF4VsLvhzz5yaTE/kMrgYMt1GIV5vO6xHXFue4GZQQWzmB1zI/+u4KZ6ebbQahPSm7Q/TJ9KgNDmTZzkB9/NJ5S2xvDLpJITU6XZwFpSIKlvfGOjhCYVgerEVclMQch+F7bhTQbsGiaKawn/pUqsbQFmXAP1qRoaXtIJJrLA774yOrn6pCv+YLc8HO8gcrLqJeB7uSDvZDpxkAZWng5M5LBHZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dsZvBj8zSgMQrzTRgRt1RAlM6oLm3qx2BIxXGso5whs=;
+ b=VvN5wpW32j1UFKrpewAxVZ/sRykAARf3KHLbMp57eRshIGU8I3+eQ/h5phSSkM8vGAdTYx7gsiTr6cHucNBSyssokv/9/18q99afl1bW1U5wDXkPF0rqxB5UwATp/thPokPPsPwmSu9xGwuJECCdLxC/wK4R0grevyAAYNkjcifRirBjOdZXFfnwOqtEf9XGjmUfyc8g6yceVfGN2jQXMPlg56TFloZicvYGIrRufkGV7SRWxINe0uAX+1QP0TdBT/WjtrEkfcl4KFPh2FknE0n9C9CLUkpWumdMZmkqMfojiC5MMJw/YLqHPIeoL1M8ce1P1PJ56pOad+Hltdnnpw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by CH2PR12MB4040.namprd12.prod.outlook.com (2603:10b6:610:ac::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
+ 2026 07:47:51 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0406.007; Thu, 10 Sep 2026
+ 07:47:51 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 10 Sep 2026 16:47:48 +0900
+Message-Id: <DLBGYDIEZY9O.13PCPPFAA7JN9@nvidia.com>
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
+ <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v2 5/8] gpu: nova-core: add NVKV decoder
+References: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
+ <20260827-b4-nvkv-v2-5-0de9d5c8658c@nvidia.com>
+In-Reply-To: <20260827-b4-nvkv-v2-5-0de9d5c8658c@nvidia.com>
+X-ClientProxiedBy: TY4P286CA0020.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:2b0::13) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] firmware/sysfb: Remove rotation quirk for Lenovo
- D330
-To: Javier Martinez Canillas <javierm@redhat.com>, ardb@kernel.org,
- ilias.apalodimas@linaro.org, jani.nikula@linux.intel.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-efi@vger.kernel.org,
- sashiko-reviews@lists.linux.dev
-References: <20260904090850.43060-1-tzimmermann@suse.de>
- <20260904090850.43060-2-tzimmermann@suse.de>
- <871pb1efi3.fsf@ocarina.mail-host-address-is-not-set>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <871pb1efi3.fsf@ocarina.mail-host-address-is-not-set>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- FREEMAIL_TO(0.00)[redhat.com,kernel.org,linaro.org,linux.intel.com,ffwll.ch,gmail.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- RCPT_COUNT_SEVEN(0.00)[11]; MIME_TRACE(0.00)[0:+];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
- suse.de:email, suse.de:mid]
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CH2PR12MB4040:EE_
+X-MS-Office365-Filtering-Correlation-Id: 27ac46ed-92ab-4e1f-4141-08df0f0fd09c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|10070799003|376014|7416014|4143699003|6133799003|10067099003|11063799006|56012099006|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: hJCkqMO4pAbcO2ID0ZZFw4DbtLOfgIqUVh7PnaA9jjegK0wsZuF+H+c77NcdZ/QOF2KFxuig9LRq7HwzSzlXf2fYPMV988IrPEB8eQovMuh8fUaVtoR94YmxW1cwZoI1TveS5Kzh+Axw7UEihojAkqVjEE3KcyXJNN3O7Ubzdv7b/isby12TCo/mZaDmQb0IDBUNq39QsANLU96JhbrNOWuib4beZWp+TaZSTWEf0IkFE7YfEOmAlMISbD7NUEOXhm1mW8rfQNeXzkl9J4XA94dagUhaWej2o3usLX7RiCpOb480DkzBrUF2ln/Px3nV3dI90js4Y2OtL9iLhx/VPukZiuWEDhvcOg3/U3c+3PoAtpcX+SS5Md6pYTIAyko/Bn+VdbDq7i8u89r0uzaHTJTYjKkV5eJupJt3fhMRuDqxGKcCUbr7n48zV1UcW92w7RlR6MRZIqAnmILFqjKAS5FOeczsoPeUneWQcJmXq/iqbLjLbFhTJcB83VB0LH2M6+ZMRBSeTUJT7Vo0ctx5ua6Zm/NedEhon1X+UY+w5CtkmRVMei7j3qa3ElAkUebUtM4iS2vAbudWwtTH7p+vksnVnGHu1kksx1d7OkiuTAVJWKJW/l0dgEfukS7TUdp4LPW9fduvJMY3mBXLLUz8o7q7rZb51DG3v7HuUz37Ab8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(10070799003)(376014)(7416014)(4143699003)(6133799003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UnpmUTRQTFVjeStnWS95MDNMN2NQM0RXSVF3SnJKQzlSZE5WazlpL3Z6VHM0?=
+ =?utf-8?B?YU85ZkcwN0Z3S0tyUGpPc1hDemwxKysrWEcrTFByL29ma3pRMEhXOU9qMUhq?=
+ =?utf-8?B?SytLeHU5bmlQdmhJYnV1OXgxZG94eGtjOWIyWUJZM0R2emdjUXp2VVR4RC9u?=
+ =?utf-8?B?cVVrN2ZaZU5lcWhaRHFnQm5sS2YzMXUvMnFFT1RXN1U4VndMN0tPVjNkRXBs?=
+ =?utf-8?B?QjByYTMvMGNtVWl5Y3NUNWsxTTJsbGdCRDhaMFI5K3BKbXIwUXZwNEluSlE5?=
+ =?utf-8?B?VE85MzlwMXg4T3JRWHphaENjVEM0anhwbFFaZUFQN3cyYUpTZ3VJMmRuYm5m?=
+ =?utf-8?B?UTJyUmNpT2NFdkEvU3p6enFzbWRqd0dpd3IwZGZwbFdSbFI1YmJFb2c4QXpL?=
+ =?utf-8?B?VHdjNmJFK1JQWWxrWXdjZ2ZHenU1a2tFYjJtbHdScHBiKzgrU2hpeU41RkVa?=
+ =?utf-8?B?d0kzUytBSWl6VWlNRWhOOGJka0MvaGRvdHFRem5hQlA3VGhHSGNRb3JuMGs5?=
+ =?utf-8?B?ek10SHlaajNudzVQWnNrbTBWb09yOG1jZWlXeDR6Y2lhRWJSSHVTUnozOFZR?=
+ =?utf-8?B?VHNuNG93d21iK3JXZVFZeGVMUzduVDhuNWR3YWtjZ0s1UGRxSkhmNWVKMG9n?=
+ =?utf-8?B?QTc1c0lRMjVPanptYzlnNXcvdjNWK2Fadk1uZ1ROeGoyQ2pMN0xJU0VQbjRs?=
+ =?utf-8?B?SGUzaE1VN1doSE5wN2lWUWdqQ014K2FvcUVMNFVDVWU2QlNYMjRyUjZtaDJC?=
+ =?utf-8?B?eVhPSFNVZGJtQjhRZkFmTmRGbU02Q0ZselA0OWxmU2ZrN29SRFRIRklYT1dT?=
+ =?utf-8?B?TWZERU9rZk5mOXF3OE1Maks1dDl6VTRHQ3phOGRhd1phTHI4bGdGS0tKV3dH?=
+ =?utf-8?B?WW5mMks1bTlSa2VIOGViZnhIazUzUlo4RnE5bUJGY2VKOFByT3Q2UktkSUFK?=
+ =?utf-8?B?cUxDNDJSN0p0SE4vQ3JNYjlFeXNpcitrZy9XZjRMY1FGTWxjNVBOU05VeFdx?=
+ =?utf-8?B?cGR1ZTR1RE80UUZWSk9jdnErRnhRQ1FBOGd0YjJjTGtGR01CTG5BbzRPdEVU?=
+ =?utf-8?B?ajg4OFJRVG1FZnRiTnMvN2lHbFdzRGk5dGZBY1NFb3BPNFB5N0NsQ2xKVHcw?=
+ =?utf-8?B?ZHNFU1JyOVoveml0N3JvRTcyV1NDNkQ0eldoOVZNY2VmZGNoY3FRbTZtVkND?=
+ =?utf-8?B?OVcwRWEvN2t0RXQzM0MzWStxdDRtTENpaGx0Y3JmN0JpZklKZkx1WVQ5eDlJ?=
+ =?utf-8?B?Q0UyU3BlN1IwZVVob3BNeU1xUldsRjRBOEdOU2k3MFlKZ1B6Q2tkWXlSOWxX?=
+ =?utf-8?B?NHBnbklodGVMcEx5TjJXRXB0eGx0ODJvRUd6alhLWlZYbGdQZUR2N1BhUjRW?=
+ =?utf-8?B?VkQ2RnlKMUF0aDFFek9Scys2enkzOEZWMVQ3MEp3ZkJkWXY3UkswcFl6ZEs1?=
+ =?utf-8?B?SjA4TG5JZURFMXFERTBUTlVVVlE3a2F5dlBXYlB5UVdkYmREYkVlQWxKMXNM?=
+ =?utf-8?B?NitiQTMvM0RPZ0t3RXpqM1lJS0dGd0N6YWhoclNaTHF2ckdjdDhyeUtBTUpq?=
+ =?utf-8?B?SzdmbGptUVp6RFd2T212TCs2MTIxVmI5am4zZ0QvZERzTnBuTGlGMm42a1RD?=
+ =?utf-8?B?VUd4RG5WckNyNHpIMVZudEJBeTFaU29FNHovdERHNzRmUWhkbC9tODRPWnh1?=
+ =?utf-8?B?R1VtTjdaVkhmYlZQTjFBUklTOE8wRXQ4Q0lJNWhhaG8wS3V6eTVTTWJ5allD?=
+ =?utf-8?B?bnJTYURXamxmQmg3YnFIZ09BVHJZY2gwTHZyU2RDUzBnOThic0pWMUlFVGVn?=
+ =?utf-8?B?WEQvc2xTUVVvZUs1b1FMU0Ivcy9hV3UyQUc4UFd3SElwNWc0c05qVlNyTWpI?=
+ =?utf-8?B?Ui9iM1ZvbEphL1dvY2FoR3hDMllUSjhJa2FjQTgrV0M5cldIQnI0QXJ6OG1j?=
+ =?utf-8?B?c29ablJtNW9zMTU4enozVmJnd25TWW04ZFlTcmhyOGQrSHpDdFBqdUNpTUpa?=
+ =?utf-8?B?Nmw4V0NpTTlwNDJnMzJiRm9QUnpCTGJnQkkwcWI4UG9sakZBcytaY05MWjlH?=
+ =?utf-8?B?dkRhWXJsWTYzY2dvcno4MUhnT0o1ejFuTHovWVZ2ZVhMckl1cTBnQkZ6WFRk?=
+ =?utf-8?B?Y1Y0M0MvSE1GRzcyRHE1Mmg2ME1ZclRvVVFVZWl2elIxMlF1UENncDErQ1dr?=
+ =?utf-8?B?OUt1bjBxR0haeTJDb3pQSXErK0hick5wR0lGdWFNY1FyZTV6a2t4RDFBMFZh?=
+ =?utf-8?B?REd6VmVyMzgxd1d6RlFRcnJLeDBoSG9XVGVwUS9nWFI4OHIwZ1A0bVhDelpO?=
+ =?utf-8?B?bzJML21qem9DQTR2dFp2OG5hc3Jhd0REb2luVmZXVlR6TTdpd2N3SGhsL1Ji?=
+ =?utf-8?Q?y3Q82Mpe7ec3z2uK9mBIdGj0eARFK4A8275Yu4zfxIPsA?=
+X-MS-Exchange-AntiSpam-MessageData-1: P1l9JaPbOA5tFw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27ac46ed-92ab-4e1f-4141-08df0f0fd09c
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 07:47:51.0805 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ACRztmeNPhz9tUID7b0ZDcL9ENFWyKWCH/HZpAalsh18DMjYZnW/7sXMiNuzJIX2d1EWmFVGCAVcR4hfBXUBHg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4040
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,79 +151,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+On Thu Aug 27, 2026 at 11:12 PM JST, Eliot Courtney wrote:
+<...>
+> +    /// Decodes every pair into `schema` and returns the result of [`Sch=
+ema::finish`].
+> +    pub(crate) fn decode<'s, S: Schema>(
+> +        &self,
+> +        schema: &'s mut S,
+> +    ) -> Result<impl Init<S::Target, Error> + 's> {
+> +        let mut cursor =3D Cursor::new(self.data);
+> +        while !cursor.is_empty() {
+> +            let op: Op =3D cursor.take_u64()?.into();
+> +
+> +            let key =3D op.key().into();
+> +            let index =3D op.index();
+> +            let op_value: u32 =3D op.value().into();
+> +            match op.opcode()? {
+> +                Opcode::Imm32 =3D> {
+> +                    self.visit(schema, key, index, DecoderValue::Scalar3=
+2(op_value))?;
+> +                }
+> +                Opcode::Seq32 =3D> {
+> +                    let values =3D cursor.take_u32s(num::u32_as_usize(op=
+_value))?;
+> +                    for (i, &value) in values.iter().enumerate() {
+> +                        let key =3D Self::seq_key(key, i)?;
+> +                        self.visit(schema, key, index, DecoderValue::Sca=
+lar32(value))?;
+> +                    }
+> +                }
+> +                Opcode::Seq64 =3D> {
+> +                    let values =3D cursor.take_u64s(num::u32_as_usize(op=
+_value))?;
+> +                    for (i, &value) in values.iter().enumerate() {
+> +                        let key =3D Self::seq_key(key, i)?;
+> +                        self.visit(schema, key, index, DecoderValue::Sca=
+lar64(value))?;
+> +                    }
+> +                }
 
-Am 10.09.26 um 09:23 schrieb Javier Martinez Canillas:
-> Thomas Zimmermann <tzimmermann@suse.de> writes:
->
-> Hello Thomas,
->
->> The Lenovo D330 is a notebook with detachable display. The display
->> is installed in landscape orientation, but the display mode is in
->> portrait orientation. By default, the display output is rotated to
->> the left by 90°.
->>
->> The sysfb quirk breaks the display by swapping display width and
->> height; and thus mixing up the display geometry. Fix this by keeping
->> the display as-is. The sysfb DRM drivers, usually efidrm, will pick
->> the correct panel orientation for the display.
->>
->> The exact behavior might depend on the version of the BIOS release,
->> but the exact version numbers of broken and good releases are unknown.
->> Users are advised to update to the latest firmware.
->>
->> Tested on a Lenovo D330-10IGM IdeaPad with firmware 8NCN43WW.
->>
->> v3:
->> - mention possible dependency on BIOS release in commit description
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Acked-by: Ard Biesheuvel <ardb@kernel.org>
->> ---
->>   drivers/firmware/efi/sysfb_efi.c | 9 ---------
->>   1 file changed, 9 deletions(-)
->>
->> diff --git a/drivers/firmware/efi/sysfb_efi.c b/drivers/firmware/efi/sysfb_efi.c
->> index 685283bb7327..2338de73c62c 100644
->> --- a/drivers/firmware/efi/sysfb_efi.c
->> +++ b/drivers/firmware/efi/sysfb_efi.c
->> @@ -301,15 +301,6 @@ static const struct dmi_system_id efifb_dmi_swap_width_height[] __initconst = {
->>   		},
->>   		.callback = efifb_swap_width_height,
->>   	},
->> -	{
->> -		/* Lenovo D330 with 800x1280 or 1200x1920 portrait screen */
->> -		.matches = {
->> -			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
->> -			DMI_EXACT_MATCH(DMI_PRODUCT_VERSION,
->> -					"Lenovo ideapad D330-10IGM"),
->> -		},
->> -		.callback = efifb_swap_width_height,
->> -	},
-> Agreed that is better to rely on the information provided by the
-> firmware, instead of having this quirk. Specially given that it
-> breaks when the firmware provides the correct display geometry.
-
-The plan is to tell users to upgrade to the latest firmware if we hear 
-about regressions. The update is available on Lenovo's homepage. If an 
-update really isn't possible for a user, we should at least know which 
-firmware revision is broken. Then we can add back the quirk only for 
-that specific release.
-
-Best regards
-Thomas
-
-
->
-> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+Another thing that could be worth clarifying: are `Seq32`/`Seq64` with a
+count of `0` valid? Right now they won't trigger a visit or an error,
+i.e. they will be silently ignored. Whereas arrays of size 0 do trigger
+a visit (which sounds logical). I'm not saying this is a problem, just
+wondering if the behavior is consistent with what NVKV specifies in such
+cases.
