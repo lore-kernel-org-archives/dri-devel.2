@@ -4,89 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44DB0C79F9F
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 08:56:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4142FC79F9F
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 08:57:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 741AE10F380;
-	Thu, 10 Sep 2026 08:56:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A149510F399;
+	Thu, 10 Sep 2026 08:57:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="j5E6vIjp";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ru+5Zj8v";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0aQWMUOB";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KXhL5KkZ";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="WDYzUx1W";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Q+nnD4YA";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="t/Jsh+1D";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="V/2IgPQj";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B63FA10F380
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 08:56:17 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5BF410F39C
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 08:57:34 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 221751FD96;
- Thu, 10 Sep 2026 08:56:08 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2C07B21A59;
+ Thu, 10 Sep 2026 08:57:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789030572; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1789030649; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=4rwhxyuBA+qCh6Ot+Pso1MDoW/AxAzW5VW2jyH58NCo=;
- b=j5E6vIjpyvkzfU88r6HNSxv8eaNlsNjSlZegKZE7iOkY79tBn3LlfKpsU9vtCmF/FChsWG
- G6hUq7oeOWRJwvz1BnXXSzn8CICJU6RoWGu5UVc3WtAEb3P1T04JhaCF9SwdLwrhE2Eo5C
- /mnRVTaXzzGtaYkNUaHtxGxaXBNEfbU=
+ bh=8H0Ubz2Ej30SibfxTOH1r29Sy5LjeCmcjTLxVVazWCM=;
+ b=WDYzUx1WZQfzJY685aDEGczpzBLCCBn8AL3UvGLV3iHOk27CEF/DDX5qKt4uhVeTzTBFA/
+ rwJniW5NerH9xvrcD+hib3gDjfIkeC3Y1ufcRlpDUxUZYaBJ0nRw0r4Ek09kDx72g4OCXU
+ rPty8SeQy0euvxCVJeZ4HAs6EZC7708=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789030572;
+ s=susede2_ed25519; t=1789030649;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=4rwhxyuBA+qCh6Ot+Pso1MDoW/AxAzW5VW2jyH58NCo=;
- b=ru+5Zj8vUuYy2pueGmCA4WV430HkZR/BjyS9swwA8OdNtLrbwZcOGuwG+Rf7JDsQEBrzky
- kMPcv+F1U5kQHIBQ==
-Authentication-Results: smtp-out2.suse.de;
+ bh=8H0Ubz2Ej30SibfxTOH1r29Sy5LjeCmcjTLxVVazWCM=;
+ b=Q+nnD4YAhQQ9Ojp1nksBEbzqBLN13/X5AbLtuufUBpUYadQC2/GLpcMGp6657nhOAw6JmR
+ llGcKbkvHw4eFACQ==
+Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789030568; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1789030645; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=4rwhxyuBA+qCh6Ot+Pso1MDoW/AxAzW5VW2jyH58NCo=;
- b=0aQWMUOBz7P1cJ2hK3FseSQ3agyCWH57K9oUSqzWSpth+9zcXMqlTIQ8AnWwSHItTLqu7z
- pyXkGu2pQLTDnonE35s9VTU0DzEvItBVpGOEUcqyV5YwMHeBv1zy7/7Y2gar+mOhQJZ6k8
- qY13DFND+H6++JLcXjl+4ATCqvBqqfY=
+ bh=8H0Ubz2Ej30SibfxTOH1r29Sy5LjeCmcjTLxVVazWCM=;
+ b=t/Jsh+1D343/vyR9BnxWkvcHEEAMoN8s87JlOerfvtsKlb2k1opKf92CdplYBI7G9zV6gr
+ Xzr9bIrzwcDgooWYF59vy/eBvtpU/wlX3kU9RisNJ/MOE8qV4oaF2dbb08eGS6K5Tjhm6i
+ UVoGIhKani0m5IYBtDR5e31CY2v2SCc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789030568;
+ s=susede2_ed25519; t=1789030645;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=4rwhxyuBA+qCh6Ot+Pso1MDoW/AxAzW5VW2jyH58NCo=;
- b=KXhL5KkZ+bX+JZtzWtA3XJKqzLG0zeztZbOxKQtfyRGLKhddZwSqF9gDKQQdLzsBBYiH4o
- xCQ+KKZmH8D3GyAQ==
+ bh=8H0Ubz2Ej30SibfxTOH1r29Sy5LjeCmcjTLxVVazWCM=;
+ b=V/2IgPQj0ag+XhdGwJZ9Lj3kVw/pV1xbmsL4k/Mi2DcIbvFO7p5vtK4QZwjyHHAmcJRtFy
+ QhCtAbHOHwx7/vCw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C53201321C;
- Thu, 10 Sep 2026 08:56:07 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B3ED31321C;
+ Thu, 10 Sep 2026 08:57:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id lCapLqdwompscAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 10 Sep 2026 08:56:07 +0000
-Message-ID: <924e1372-6fe2-42ae-a57a-d44d3cf08f5a@suse.de>
-Date: Thu, 10 Sep 2026 10:56:07 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id cghFI/RwompocQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 10 Sep 2026 08:57:24 +0000
+Message-ID: <056f3942-f4ea-4a59-ac25-b2099407784a@suse.de>
+Date: Thu, 10 Sep 2026 10:57:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/verisilicon: set blend mode for the primary plane
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260901171703.1161592-1-zhengxingda@iscas.ac.cn>
- <35cf76a67f7473d5ef86d01c812d680abc41687e.camel@iscas.ac.cn>
- <e2a2f02f-13c4-4919-9344-db7afcd3368b@suse.de>
- <d36bc08a7f954be25b0d3e0fe649698b3944f98a.camel@iscas.ac.cn>
- <e61e51fb-9e29-46c9-888d-5ad377a89311@suse.de>
- <0f79f3bd5175285de4b2112e6419a8f373b0ff81.camel@iscas.ac.cn>
+Subject: Re: [PATCH 2/2] drm/hibmc: Set up vblank event to be send on the next
+ vblank
+To: Yongbang Shi <shiyongbang@huawei.com>,
+ "kongxinwei (A)" <kong.kongxinwei@hisilicon.com>,
+ "tiantao (H)" <tiantao6@hisilicon.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>,
+ "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Chenjianmin <chenjianmin@huawei.com>, shuliubin@huawei.com
+References: <20260827082915.61176-1-tzimmermann@suse.de>
+ <20260827082915.61176-3-tzimmermann@suse.de>
+ <2a5a6bc2-d94b-4102-9c65-cf15dbb20eae@huawei.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -113,23 +114,23 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <0f79f3bd5175285de4b2112e6419a8f373b0ff81.camel@iscas.ac.cn>
+In-Reply-To: <2a5a6bc2-d94b-4102-9c65-cf15dbb20eae@huawei.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
  NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  ARC_NA(0.00)[];
- FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
- MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_TO(0.00)[huawei.com,hisilicon.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ TO_DN_EQ_ADDR_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCPT_COUNT_SEVEN(0.00)[10]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- RCPT_COUNT_SEVEN(0.00)[7]; MID_RHS_MATCH_FROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
- iscas.ac.cn:email, suse.de:mid]
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
+ huawei.com:email, suse.de:mid, suse.de:email]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,108 +148,70 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi
 
-Am 10.09.26 um 10:45 schrieb Icenowy Zheng:
-> 在 2026-09-10四的 10:31 +0200，Thomas Zimmermann写道：
->> Hi
+Am 08.09.26 um 15:23 schrieb Yongbang Shi:
+>> Do not send the vblank event when the page flip completes, but when
+>> the vblank interrupt fires. Sending the vblank event at the wrong time
+>> can break synchronization of the display update with the vblank period.
 >>
->> Am 10.09.26 um 10:00 schrieb Icenowy Zheng:
->>> 在 2026-09-10四的 09:58 +0200，Thomas Zimmermann写道：
->>>> Hi
->>>>
->>>> Am 10.09.26 um 09:09 schrieb Icenowy Zheng:
->>>>> 在 2026-09-02三的 01:17 +0800，Icenowy Zheng写道：
->>>>>> Blend modes are now required to expose pixel formats w/
->>>>>> alpha.
->>>>>>
->>>>>> As it's the primary plane and blending is explicitly
->>>>>> disabled,
->>>>>> just
->>>>>> expose PIXEL_NONE blend mode.
->>>>> Gently ping for reviews.
->>>> What do these alpha formats do?  Are they a hardware feature?  It
->>>> looks
->>>> like they are programmable, but don't differ from XRGB at all.
->>> I think they're for consistency with overlay planes.
->> But there are no overlay planes in this driver, are there?
+>> Use the vblank helper drm_crtc_vblank_atomic_flush(), which sets up
+>> the vblank event accordingly. In case of an error, it still sends out
+>> the vblank event immediately; thus not starving consumers.
 >>
->> What I want to get at is that it might be preferable to remove ARGB
->> entirely from the primary plane if it does not to serve a purpose.
->> But
->> if the driver can do something useful with these formats, it might be
->> worth exposing that instead.
-> On DC8000 display controllers (support for them is WIP by Joey Lu)
-> there seem to be no way to control the blend behavior of the primary
-> plane.
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> ---
+>>   drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c | 16 ++--------------
+>>   1 file changed, 2 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c 
+>> b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+>> index b4ab53db1c08..72ce696e6d11 100644
+>> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+>> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+>> @@ -20,6 +20,7 @@
+>>   #include <drm/drm_gem_atomic_helper.h>
+>>   #include <drm/drm_gem_framebuffer_helper.h>
+>>   #include <drm/drm_vblank.h>
+>> +#include <drm/drm_vblank_helper.h>
+>>     #include "hibmc_drm_drv.h"
+>>   #include "hibmc_drm_regs.h"
+>> @@ -420,19 +421,6 @@ static void hibmc_crtc_atomic_begin(struct 
+>> drm_crtc *crtc,
+>>       /* We can add more initialization as needed. */
+>>   }
+>>   -static void hibmc_crtc_atomic_flush(struct drm_crtc *crtc,
+>> -                    struct drm_atomic_commit *state)
+>> -
+>> -{
+>> -    unsigned long flags;
+>> -
+>> -    spin_lock_irqsave(&crtc->dev->event_lock, flags);
+>> -    if (crtc->state->event)
+>> -        drm_crtc_send_vblank_event(crtc, crtc->state->event);
+>> -    crtc->state->event = NULL;
+>> -    spin_unlock_irqrestore(&crtc->dev->event_lock, flags);
+>> -}
+>> -
+>>   static int hibmc_crtc_enable_vblank(struct drm_crtc *crtc)
+>>   {
+>>       struct hibmc_drm_private *priv = to_hibmc_drm_private(crtc->dev);
+>> @@ -502,7 +490,7 @@ static const struct drm_crtc_funcs 
+>> hibmc_crtc_funcs = {
+>>   static const struct drm_crtc_helper_funcs hibmc_crtc_helper_funcs = {
+>>       .mode_set_nofb    = hibmc_crtc_mode_set_nofb,
+>>       .atomic_begin    = hibmc_crtc_atomic_begin,
+>> -    .atomic_flush    = hibmc_crtc_atomic_flush,
+>> +    .atomic_flush    = drm_crtc_vblank_atomic_flush,
+>>       .atomic_enable    = hibmc_crtc_atomic_enable,
+>>       .atomic_disable    = hibmc_crtc_atomic_disable,
+>>       .mode_valid = hibmc_crtc_mode_valid,
 >
-> On DC8200 display controllers the primary plane does have a blending
-> register, although it seems to be blending with pure black.
+> Reviewed-by: Yongbang Shi <shiyongbang@huawei.com>
 
-IIRC there's a background-color property for the CRTC.  So it might be 
-possible to expose this as read-only property. (Not sure.)
-
->
-> Maybe it's viable to just remove the ARGB formats now, and re-introduce
-> them when overlays are being implemented (and only expose them for the
-> overlay)?
-
-I see. Thanks for digging through this. I've meanwhile acked the patches 
-as there's at least some support in hardware.
+Thanks for reviewing. I've merged the patches into drm-misc-next.
 
 Best regards
 Thomas
 
-
->
-> Thanks,
-> Icenowy
->
->> In pl111, we now remove the ARGB foramts because the hardware does
->> not
->> handle them at all. The situation seems less clear in verisilicon.
->>
->> Best regards
->> Thomas
->>
->>
->>> Thanks,
->>> Icenowy
->>>
->>>> Best regards
->>>> Thomas
->>>>
->>>>> Thanks,
->>>>> Icenowy
->>>>>
->>>>>> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
->>>>>> ---
->>>>>>     drivers/gpu/drm/verisilicon/vs_primary_plane.c | 3 +++
->>>>>>     1 file changed, 3 insertions(+)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>>>> b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>>>> index 1f2be41ae496c..8d58682d88ef8 100644
->>>>>> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>>>> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>>>> @@ -7,6 +7,7 @@
->>>>>>     
->>>>>>     #include <drm/drm_atomic.h>
->>>>>>     #include <drm/drm_atomic_helper.h>
->>>>>> +#include <drm/drm_blend.h>
->>>>>>     #include <drm/drm_crtc.h>
->>>>>>     #include <drm/drm_fourcc.h>
->>>>>>     #include <drm/drm_framebuffer.h>
->>>>>> @@ -179,5 +180,7 @@ struct drm_plane
->>>>>> *vs_primary_plane_init(struct
->>>>>> drm_device *drm_dev, struct vs_dc
->>>>>>     
->>>>>>     	drm_plane_helper_add(plane,
->>>>>> &vs_primary_plane_helper_funcs);
->>>>>>     
->>>>>> +	drm_plane_create_blend_mode_property(plane,
->>>>>> +					
->>>>>> BIT(DRM_MODE_BLEND_PIXEL_NONE));
->>>>>>     	return plane;
->>>>>>     }
 
 -- 
 --
