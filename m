@@ -4,92 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3D05C79F9F
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 11:14:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CA11C79F9F
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 11:16:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F35A010F43A;
-	Thu, 10 Sep 2026 11:14:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4230210E29B;
+	Thu, 10 Sep 2026 11:16:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="ekcny5/p";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="BpuNTwAQ";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 264E210F43A
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 11:14:50 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 108A010E29B
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 11:16:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1789038889;
+ s=mimecast20190719; t=1789039003;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=4aJeoI50tbrmnYJ3Ms6Bai05KfSCa+A5Ag4laiMRAqw=;
- b=ekcny5/pdU/lc4halXfVG5i53fOZ4OKLBo64HYK/9ccAE0NqSJWMdhqH+2nbzrcNtvHsY0
- 1J7H3u1ocBfafotkL0kMt4TuBH9ifEa73VWW7qqhjK6/qrnNmfyaMMYcf7kez1ct3neqU9
- gyTJ47IifSTTZ146tXtvTpvBIVClRcU=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=2YIwXGsyCKQHxSzxIAQbVXvS5Mx9+nIZhzE2of2xmdw=;
+ b=BpuNTwAQnK3qHtq+oAYnE5duhf87BwfbfE5HYRVTq83Ev18TWYUp5SWT17u+Y4eP56VBSZ
+ 4M5Dofy9ggw+mh/JtMjlD4rrUWTOfYVwoliM7HzM4AF1Syh+jAXENn/ZY4WJ8MIqyPaFJW
+ 6SZ1pmGogdiunwiqolXSJOLjPmCjeIc=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-461-PijFbK4sPPqWqnWoJPugzQ-1; Thu, 10 Sep 2026 07:14:47 -0400
-X-MC-Unique: PijFbK4sPPqWqnWoJPugzQ-1
-X-Mimecast-MFC-AGG-ID: PijFbK4sPPqWqnWoJPugzQ_1789038887
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-49b7c1dc61eso55743165e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 04:14:47 -0700 (PDT)
+ us-mta-662-hjqiD9hENCaLR2RtQgeK5g-1; Thu, 10 Sep 2026 07:16:41 -0400
+X-MC-Unique: hjqiD9hENCaLR2RtQgeK5g-1
+X-Mimecast-MFC-AGG-ID: hjqiD9hENCaLR2RtQgeK5g_1789039001
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-482e2541c30so528044f8f.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 04:16:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789038886; x=1789643686;
- h=content-type:mime-version:message-id:date:references:in-reply-to
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=4aJeoI50tbrmnYJ3Ms6Bai05KfSCa+A5Ag4laiMRAqw=;
- b=k5sIy2YITQS4ZiZKtH73gVDdXrN4PIn+SQpFDimzBRe61LLoywOP18oUJcVQUAY0pz
- xel8stIxV+oUg1rk0oWAjJOJHGvATYdB7NHdCeunU4od5C/DM4zoVR4FnX0nnTYLl38H
- H4YKkuo3qZ2UqKCt5mt0aD8UY168qP2ZRWbGVKxmMjew3tHSwXyM2usZDppGxc/iQnVM
- kiyiLfYRhwvV9iZ4QfP+R+eP36l7mfUnT567D5zXpF6//ZS8aKwl5O8GwGyb2fqVoiXB
- 7fARZTuD9wG4hzYEnZwMTN36biewV4CZ9H4rTNeZWMzsbN4TkESXuH3wt9u04QdWL6tp
- IpmA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxEn3Bj52cMJS7s9rCY3F2vpVBCFtPJROrBb589U27jBeQje08CIfv7nPHUchbP0S+oSIjoCtdvem0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mpmHJ2niAM7D/+QRii+7gNwROXKobplHDQsHY6iPgtfvhvn20w
- ogAkXQppACY/agIzNkQA4CbJDa5YF7Fs1wBfaMDh03CJj2GO1AbalLjDmXLkNhNexQx0Nw1iOSc
- 74mpip80kiSnSe1LKQ+oN2Crd/yt5tbH8+GWSx2gSWMtMD98yiUBzVO9M9M5Ix5Mooy60sA==
-X-Gm-Gg: AYBFou3KB6DMdynyuZlsWEX2+gve/+eydiTwRULdM+nhkXyk78+pCDM1zyYY+k1Bxm9
- AN9nh8i6+5r+cwcqUM37zRV1PkUJBFgzZkjp7V/GXTRMTt1xMpqFh2rvvpfvfAj01lDEDlR+FvZ
- 70FrF15hZ94Chzz7yZLoCC0abIwoLTSLywWLwEeABSclnNWgHlpfJGrPB0/KUc2PtnMpkVukto3
- yC5sKw5BAThqBdpaNCk4JD4VI9NZ2GuaIMCDtWTq0hpbJVU6InNfg5YIiCFPWP0Qe/pZFAcxqHv
- N1v63bx6cq/vdUnJVaEf+BLgWQfDUd9GMRCLm9IBaycXY5KBMI8J99tGHGzJ0PkJ4Gjaa7zO1Or
- COHwG1X0ZtvsTnh5JprbdxI0N6bbX8QHaaJZY1rTF9UdI1H5vrO1IYT9Z0w==
-X-Received: by 2002:a05:6000:29c3:b0:486:4fff:da40 with SMTP id
- ffacd0b85a97d-4864fffdc49mr4596031f8f.57.1789038886617; 
- Thu, 10 Sep 2026 04:14:46 -0700 (PDT)
-X-Received: by 2002:a05:6000:29c3:b0:486:4fff:da40 with SMTP id
- ffacd0b85a97d-4864fffdc49mr4596001f8f.57.1789038886245; 
- Thu, 10 Sep 2026 04:14:46 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1789039000; x=1789643800;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :references:in-reply-to:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=5mtIFV5PhR8YaKeQBUyczM0xpE62wYImfp+kBJSJQh8=;
+ b=lk6qP5jaZtPaHpi6c8z7QgjuKgXvUnplFPieI9xo6pWgI5gf4AJ7/KR8kcXmcM8vkb
+ BSKqV+lMEMTnbb9EmRcV1MAeBrwWJ1JpCE9+yauV8WOYwSYkveKjU8K+oer6ksKzgsNH
+ uQwfZGi+9QWaktyVAY/pRf1/VarRvwLqvlMghAePswhdcBCaLORrytgyYSXf3nYQ7LH/
+ qZeqGTVkHePoCrczukjT6nBSdIdSCk52fi9bGYa9V3w1l6SWzS0lIIMOc9zqSnNPdg4X
+ FGE1IXXweXj6+ogk3jr+8gvRm5cUwF9EZQmh7nzqWHHE9OMYPWdzAWe/z8igwm0ZXmtH
+ OJ2g==
+X-Gm-Message-State: AFuF++mZY2dv7MSZHbpp00vFUyXPTHFy5rgbFX95LUYbd//B8MySnjI2
+ snRDO7tNY66QbzrYap4t8vd6otmrADVh4GU2+vleXOpIlXpxTRi1sDaQTpns6yBjwn8kcER23Mc
+ +C8KCiggiV9qC0t5OC2rNHmTagkvgwCbu/adI19sH6zEb6TWb7Ih7X3Q5vNE0m9OH0YAj0w==
+X-Gm-Gg: AYBFou0UKQ3Urz44TMCt8o671Cfm4yXG7Hw1ZpuMzjVKdgeZvfXCenhLWtW8DCEp6K2
+ EJWNg4dhBRnNsftFkeFz7VjTOcbb8c2xVlSXZ5M7k/P0lyUsGzp51besnxsvT//7bPWQBCGWZPa
+ l2Og2k6frByNRlELfa2JfGHKXlWCGvIifsdkhVAoqbD3mg+OCc8QbIgYKpdjbZGLAPhtbFdjZji
+ Kblfyw6lKaB+ed2btXCfShX66FNe2oflHs80wO4rr6GV5Jxj/4lOqagaIJpjDbrFDVAwhGmSyos
+ ZcN/O5WJupzBfIgCUkppnrP5KabjTSPf9APEC0uXh9K0GixNVNgOnqRLpoOiXj1KZmAukPMdWrr
+ GfE9Q0TuvtgkvaW/1YEtqoROY/9gqCXQUQ+I8EqhP0zKW9cMaC/fNHuzs3Q==
+X-Received: by 2002:a05:6000:1801:b0:485:8226:c698 with SMTP id
+ ffacd0b85a97d-486e0f8565fmr3043549f8f.23.1789039000679; 
+ Thu, 10 Sep 2026 04:16:40 -0700 (PDT)
+X-Received: by 2002:a05:6000:1801:b0:485:8226:c698 with SMTP id
+ ffacd0b85a97d-486e0f8565fmr3043528f8f.23.1789039000339; 
+ Thu, 10 Sep 2026 04:16:40 -0700 (PDT)
 Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-485883959f0sm53587265f8f.10.2026.09.10.04.14.45
+ ffacd0b85a97d-48591eb3d3bsm34310512f8f.0.2026.09.10.04.16.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Sep 2026 04:14:45 -0700 (PDT)
+ Thu, 10 Sep 2026 04:16:39 -0700 (PDT)
 From: Javier Martinez Canillas <javierm@redhat.com>
-To: Amit Barzilai <amit.barzilai22@gmail.com>, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: andriy.shevchenko@intel.com, holofermes@gmail.com,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Amit Barzilai
- <amit.barzilai22@gmail.com>, Krzysztof Kozlowski
- <krzysztof.kozlowski@oss.qualcomm.com>
+To: sashiko-reviews@lists.linux.dev, Amit Barzilai <amit.barzilai22@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org,
+ devicetree@vger.kernel.org
 Subject: Re: [PATCH v5 1/6] dt-bindings: display: Add Solomon SSD1351 OLED
  controller
-In-Reply-To: <20260823111959.17029-2-amit.barzilai22@gmail.com>
+In-Reply-To: <20260823112814.896AE1F000E9@smtp.kernel.org>
 References: <20260823111959.17029-1-amit.barzilai22@gmail.com>
  <20260823111959.17029-2-amit.barzilai22@gmail.com>
-Date: Thu, 10 Sep 2026 13:14:44 +0200
-Message-ID: <875x0dmk7v.fsf@ocarina.mail-host-address-is-not-set>
+ <20260823112814.896AE1F000E9@smtp.kernel.org>
+Date: Thu, 10 Sep 2026 13:16:38 +0200
+Message-ID: <8733vhmk4p.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 7S346idZCh7wA3GWIlBDiHg3-hlCkjajn68MCXkJsIE_1789038887
+X-Mimecast-MFC-PROC-ID: zOja2phRfA0AqvpE9Izxuq98pmdvO7CEAxyDTaFNbBc_1789039001
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,26 +101,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Amit Barzilai <amit.barzilai22@gmail.com> writes:
+sashiko-bot@kernel.org writes:
 
-Hello Amit,
-
-Sorry for the delay. I've been on vacation for a few weeks and just catching
-up on my email backlog.
-
-> Add a device tree binding for the Solomon SSD1351, a 128x128 65k-color
-> RGB OLED display controller driven over a 4-wire SPI bus. The binding
-> builds on the shared solomon,ssd-common.yaml properties already used by
-> the other Solomon display controllers.
+>> +allOf:
+>> +  - $ref: solomon,ssd-common.yaml#
+>> +
+>> +properties:
+>> +  compatible:
+>> +    enum:
+>> +      - solomon,ssd1351
 >
-> Assisted-by: Claude:claude-opus-4-8
+> [Severity: Low]
+> Should this properties block also declare default values for solomon,widt=
+h
+> and solomon,height?
+>
+> Other bindings that include solomon,ssd-common.yaml, such as
+> solomon,ssd133x.yaml, establish default geometry values for their specifi=
+c
+> compatible strings in this block. Without these default values, device tr=
+ees
+> that omit the width and height properties will lack a schema-defined defa=
+ult
+> geometry.
+>
+> --=20
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260823111959.17=
+029-1-amit.barzilai22@gmail.com?part=3D1
+>
 
-There have been recent changes on how the attribution should be done and
-you should just use "Assisted-by: LLM":
+I think Sashiko is correct here. Let's include the default values in the
+DT binding schema to be consistent to what is done in the other bindings.
 
-https://docs.kernel.org/process/coding-assistants.html#attribution
-
--- 
+--=20
 Best regards,
 
 Javier Martinez Canillas
