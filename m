@@ -4,54 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A2B4C79F9F
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 08:45:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9153EC79F9F
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 08:49:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA1A110F37F;
-	Thu, 10 Sep 2026 08:45:27 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66C6910F37F
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 08:45:26 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.66])
- by APP-01 (Coremail) with SMTP id qwCowAD3y+8hbqJqcrKXBw--.19756S2;
- Thu, 10 Sep 2026 16:45:21 +0800 (CST)
-Message-ID: <0f79f3bd5175285de4b2112e6419a8f373b0ff81.camel@iscas.ac.cn>
-Subject: Re: [PATCH 1/2] drm/verisilicon: set blend mode for the primary plane
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Thomas Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Thu, 10 Sep 2026 16:45:21 +0800
-In-Reply-To: <e61e51fb-9e29-46c9-888d-5ad377a89311@suse.de>
-References: <20260901171703.1161592-1-zhengxingda@iscas.ac.cn>
- <35cf76a67f7473d5ef86d01c812d680abc41687e.camel@iscas.ac.cn>
- <e2a2f02f-13c4-4919-9344-db7afcd3368b@suse.de>
- <d36bc08a7f954be25b0d3e0fe649698b3944f98a.camel@iscas.ac.cn>
- <e61e51fb-9e29-46c9-888d-5ad377a89311@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95EA910F382;
+	Thu, 10 Sep 2026 08:49:46 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="xz0E0wOF";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="E+0VUor4";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="eukcLfZi";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FLq54bPr";
+	dkim-atps=neutral
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAA3110F382
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 08:49:44 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 934B221C9F;
+ Thu, 10 Sep 2026 08:49:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1789030178; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=8EXLxuIVb7PAEbIyO16FTI1ShA95b9ts/qlzUcFe9u8=;
+ b=xz0E0wOFNpPQhbzsmv7kqs66AX0akuk1/fPWfzj14N30o23ee950SSMG2mSuR/RErrTMO7
+ ERPGDMfqubBnHB4/6Ln+quDAJgCzQbo60qQEBDJgttyQ0KK/+9HE/Ry0m3cBB5WZSXvVl+
+ JAPgQEa0S8G4i0DsNLM5pS8npOJDFg0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1789030178;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=8EXLxuIVb7PAEbIyO16FTI1ShA95b9ts/qlzUcFe9u8=;
+ b=E+0VUor4g/2xxf//dD4YdmejJAVfzywFcM5T3PIUl+OpEVSTWACty0lXnBwtz1cnBNnghl
+ 66nigS0O9aT/DNAA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1789030174; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=8EXLxuIVb7PAEbIyO16FTI1ShA95b9ts/qlzUcFe9u8=;
+ b=eukcLfZin8MzRrcVPMy/WImGNtOHte+bidlvkleTSbYS0HdIaqwaI7bswhGHgnozXLyLwC
+ k4o6kJTJq64GcaA9vTCPE+CNd3cgTOuUq/9JZfnvMCY8U4uanxLHi1U2Wg5lAV2vkrYbmp
+ WyA/H5twyaStGkO7LrRjBoFhcYF/wr0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1789030174;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=8EXLxuIVb7PAEbIyO16FTI1ShA95b9ts/qlzUcFe9u8=;
+ b=FLq54bPrVMzpitz1IxCDEHhJZ/QZ7qUR058ZWti1N/NGMdX7Meo5sIemm8eyCnAo6q0wf4
+ y7u0thPzKlLjWeCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 380B31321C;
+ Thu, 10 Sep 2026 08:49:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id u7sLAR5vomrXaQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 10 Sep 2026 08:49:34 +0000
+Message-ID: <953008c0-57b3-49b7-ab81-027b7626269c@suse.de>
+Date: Thu, 10 Sep 2026 10:49:33 +0200
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowAD3y+8hbqJqcrKXBw--.19756S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZr4UCrW5Xr4fuw45Aw43ZFb_yoW5AFW5pF
- 4DAFWqyFZ5Ars7JryUtw4qyFWava1rG3Z7WrnxJ3ZrXrWDtr1UZF4UJr98uFykJr48Wr15
- trs5AF9rur1UCaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvSb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
- C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxAI
- w28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r1Y6r17MI
- 8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
- xVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
- 8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
- aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43
- ZEXa7IU5-txPUUUUU==
-X-Originating-IP: [112.94.100.66]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/verisilicon: set blend mode for the primary plane
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Icenowy Zheng <uwu@icenowy.me>
+References: <20260901171703.1161592-1-zhengxingda@iscas.ac.cn>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260901171703.1161592-1-zhengxingda@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ ARC_NA(0.00)[]; RCPT_COUNT_SEVEN(0.00)[8];
+ MIME_TRACE(0.00)[0:+]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,icenowy.me];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[iscas.ac.cn:email, suse.com:url, suse.de:mid,
+ suse.de:email, imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,102 +141,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-09-10=E5=9B=9B=E7=9A=84 10:31 +0200=EF=BC=8CThomas Zimmerman=
-n=E5=86=99=E9=81=93=EF=BC=9A
-> Hi
->=20
-> Am 10.09.26 um 10:00 schrieb Icenowy Zheng:
-> > =E5=9C=A8 2026-09-10=E5=9B=9B=E7=9A=84 09:58 +0200=EF=BC=8CThomas Zimme=
-rmann=E5=86=99=E9=81=93=EF=BC=9A
-> > > Hi
-> > >=20
-> > > Am 10.09.26 um 09:09 schrieb Icenowy Zheng:
-> > > > =E5=9C=A8 2026-09-02=E4=B8=89=E7=9A=84 01:17 +0800=EF=BC=8CIcenowy =
-Zheng=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > Blend modes are now required to expose pixel formats w/
-> > > > > alpha.
-> > > > >=20
-> > > > > As it's the primary plane and blending is explicitly
-> > > > > disabled,
-> > > > > just
-> > > > > expose PIXEL_NONE blend mode.
-> > > > Gently ping for reviews.
-> > > What do these alpha formats do?=C2=A0 Are they a hardware feature?=C2=
-=A0 It
-> > > looks
-> > > like they are programmable, but don't differ from XRGB at all.
-> > I think they're for consistency with overlay planes.
->=20
-> But there are no overlay planes in this driver, are there?
->=20
-> What I want to get at is that it might be preferable to remove ARGB=20
-> entirely from the primary plane if it does not to serve a purpose.
-> But=20
-> if the driver can do something useful with these formats, it might be
-> worth exposing that instead.
 
-On DC8000 display controllers (support for them is WIP by Joey Lu)
-there seem to be no way to control the blend behavior of the primary
-plane.
 
-On DC8200 display controllers the primary plane does have a blending
-register, although it seems to be blending with pure black.
+Am 01.09.26 um 19:17 schrieb Icenowy Zheng:
+> Blend modes are now required to expose pixel formats w/ alpha.
+>
+> As it's the primary plane and blending is explicitly disabled, just
+> expose PIXEL_NONE blend mode.
+>
+> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> ---
+>   drivers/gpu/drm/verisilicon/vs_primary_plane.c | 3 +++
+>   1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> index 1f2be41ae496c..8d58682d88ef8 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> @@ -7,6 +7,7 @@
+>   
+>   #include <drm/drm_atomic.h>
+>   #include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_blend.h>
+>   #include <drm/drm_crtc.h>
+>   #include <drm/drm_fourcc.h>
+>   #include <drm/drm_framebuffer.h>
+> @@ -179,5 +180,7 @@ struct drm_plane *vs_primary_plane_init(struct drm_device *drm_dev, struct vs_dc
+>   
+>   	drm_plane_helper_add(plane, &vs_primary_plane_helper_funcs);
+>   
+> +	drm_plane_create_blend_mode_property(plane,
+> +					     BIT(DRM_MODE_BLEND_PIXEL_NONE));
 
-Maybe it's viable to just remove the ARGB formats now, and re-introduce
-them when overlays are being implemented (and only expose them for the
-overlay)?
+No empty line before that call. I think it also fits onto a single line. 
+Apart from the style
 
-Thanks,
-Icenowy
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
->=20
-> In pl111, we now remove the ARGB foramts because the hardware does
-> not=20
-> handle them at all. The situation seems less clear in verisilicon.
->=20
-> Best regards
-> Thomas
->=20
->=20
-> >=20
-> > Thanks,
-> > Icenowy
-> >=20
-> > > Best regards
-> > > Thomas
-> > >=20
-> > > > Thanks,
-> > > > Icenowy
-> > > >=20
-> > > > > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> > > > > ---
-> > > > > =C2=A0=C2=A0=C2=A0drivers/gpu/drm/verisilicon/vs_primary_plane.c =
-| 3 +++
-> > > > > =C2=A0=C2=A0=C2=A01 file changed, 3 insertions(+)
-> > > > >=20
-> > > > > diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > > > b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > > > index 1f2be41ae496c..8d58682d88ef8 100644
-> > > > > --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > > > +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > > > @@ -7,6 +7,7 @@
-> > > > > =C2=A0=C2=A0=20
-> > > > > =C2=A0=C2=A0=C2=A0#include <drm/drm_atomic.h>
-> > > > > =C2=A0=C2=A0=C2=A0#include <drm/drm_atomic_helper.h>
-> > > > > +#include <drm/drm_blend.h>
-> > > > > =C2=A0=C2=A0=C2=A0#include <drm/drm_crtc.h>
-> > > > > =C2=A0=C2=A0=C2=A0#include <drm/drm_fourcc.h>
-> > > > > =C2=A0=C2=A0=C2=A0#include <drm/drm_framebuffer.h>
-> > > > > @@ -179,5 +180,7 @@ struct drm_plane
-> > > > > *vs_primary_plane_init(struct
-> > > > > drm_device *drm_dev, struct vs_dc
-> > > > > =C2=A0=C2=A0=20
-> > > > > =C2=A0=C2=A0=C2=A0	drm_plane_helper_add(plane,
-> > > > > &vs_primary_plane_helper_funcs);
-> > > > > =C2=A0=C2=A0=20
-> > > > > +	drm_plane_create_blend_mode_property(plane,
-> > > > > +				=09
-> > > > > BIT(DRM_MODE_BLEND_PIXEL_NONE));
-> > > > > =C2=A0=C2=A0=C2=A0	return plane;
-> > > > > =C2=A0=C2=A0=C2=A0}
+
+>   	return plane;
+>   }
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
