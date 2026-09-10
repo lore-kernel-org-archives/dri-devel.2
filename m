@@ -4,51 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5373BC79FB9
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 08:00:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 734F8C79FB9
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 08:07:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70D3D10F354;
-	Thu, 10 Sep 2026 08:00:36 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 250DF10F354
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 08:00:34 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.66])
- by APP-01 (Coremail) with SMTP id qwCowABXLfGdY6JqsQ2XBw--.19756S2;
- Thu, 10 Sep 2026 16:00:30 +0800 (CST)
-Message-ID: <d36bc08a7f954be25b0d3e0fe649698b3944f98a.camel@iscas.ac.cn>
-Subject: Re: [PATCH 1/2] drm/verisilicon: set blend mode for the primary plane
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Thomas Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Thu, 10 Sep 2026 16:00:29 +0800
-In-Reply-To: <e2a2f02f-13c4-4919-9344-db7afcd3368b@suse.de>
-References: <20260901171703.1161592-1-zhengxingda@iscas.ac.cn>
- <35cf76a67f7473d5ef86d01c812d680abc41687e.camel@iscas.ac.cn>
- <e2a2f02f-13c4-4919-9344-db7afcd3368b@suse.de>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A32F10E5BA;
+	Thu, 10 Sep 2026 08:07:15 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WrXn+bLJ";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C76710E5BA
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 08:07:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 76C36600C8;
+ Thu, 10 Sep 2026 08:07:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3B3F1F000FF;
+ Thu, 10 Sep 2026 08:07:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789027633;
+ bh=wu44bqMpJmRzCSry4BwDWczEoValyFTrulWWeh+o0MI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=WrXn+bLJNYT2CHcp1zs1zy6pJlQaDA1NiAOvGNrJnQz9iZR/IorKOfwhRfHI0kQMs
+ ERd7qd7GBERf+wjop2NAXD1mWowdb8ObSrOcbvQGJaHB3ypatfbC/ZyUP09mpPIInQ
+ Yutgp2016mEhA2tFNUqNp9qtnnBfj0lzggQikrfDvoM8VF85vYQ9c4PWyXakbZHHOh
+ 6zvhba0r8rkgKarDVXRWnUGm3oB6kfBmREARpuPPV/TN2h3EsPCe1ZUbAdEtv99Jsk
+ cFoqYEKRBOik85j6yJJvs0O0Ok0eEk8aFpU8iIYSmBz+hDIjy4jMM+6Gb0aEc6qoLC
+ L1fONFqMPBSxw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] drm/imagination: Avoid initialisation of unused FW
+ trace buffer pointer
+To: "Alexandru Dadu" <alexandru.dadu@imgtec.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260910-b4-avoid-init-of-unused-fw-trace-buffer-pointer-v1-2-7e10274384c2@imgtec.com>
+References: <20260910-b4-avoid-init-of-unused-fw-trace-buffer-pointer-v1-0-7e10274384c2@imgtec.com>
+ <20260910-b4-avoid-init-of-unused-fw-trace-buffer-pointer-v1-2-7e10274384c2@imgtec.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
-MIME-Version: 1.0
-X-CM-TRANSID: qwCowABXLfGdY6JqsQ2XBw--.19756S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uFWfZw1rAr1kCF4rCr15urg_yoW8AFWfpF
- srAFWjkr4rArsrJry7tasrtaya9a1rGFn2gry5Xwn7X39rtr1UCF48Jr98uFW5Jr4xWw13
- trn3AF9rAr1UCaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkIb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
- C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxAI
- w28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr
- 4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxG
- rwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8Jw
- CI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2
- z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU5k9NDUUUUU==
-X-Originating-IP: [112.94.100.66]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Date: Thu, 10 Sep 2026 08:07:12 +0000
+Message-Id: <20260910080712.F3B3F1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,69 +54,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-09-10=E5=9B=9B=E7=9A=84 09:58 +0200=EF=BC=8CThomas Zimmerman=
-n=E5=86=99=E9=81=93=EF=BC=9A
-> Hi
->=20
-> Am 10.09.26 um 09:09 schrieb Icenowy Zheng:
-> > =E5=9C=A8 2026-09-02=E4=B8=89=E7=9A=84 01:17 +0800=EF=BC=8CIcenowy Zhen=
-g=E5=86=99=E9=81=93=EF=BC=9A
-> > > Blend modes are now required to expose pixel formats w/ alpha.
-> > >=20
-> > > As it's the primary plane and blending is explicitly disabled,
-> > > just
-> > > expose PIXEL_NONE blend mode.
-> > Gently ping for reviews.
->=20
-> What do these alpha formats do?=C2=A0 Are they a hardware feature?=C2=A0 =
-It
-> looks=20
-> like they are programmable, but don't differ from XRGB at all.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-I think they're for consistency with overlay planes.
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the debugfs trac=
+e output formatter uses unbounded `%s` to print firmware-provided assertion=
+ strings, which can read past the end of the allocation if the strings lack=
+ a NUL terminator.
+--
 
-Thanks,
-Icenowy
+commit 97d5534fd4f9139da050fa97ad4093d575e6bdd3
+Author: Alessio Belle <alessio.belle@imgtec.com>
 
->=20
-> Best regards
-> Thomas
->=20
-> >=20
-> > Thanks,
-> > Icenowy
-> >=20
-> > > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> > > ---
-> > > =C2=A0=C2=A0drivers/gpu/drm/verisilicon/vs_primary_plane.c | 3 +++
-> > > =C2=A0=C2=A01 file changed, 3 insertions(+)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > index 1f2be41ae496c..8d58682d88ef8 100644
-> > > --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > @@ -7,6 +7,7 @@
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0#include <drm/drm_atomic.h>
-> > > =C2=A0=C2=A0#include <drm/drm_atomic_helper.h>
-> > > +#include <drm/drm_blend.h>
-> > > =C2=A0=C2=A0#include <drm/drm_crtc.h>
-> > > =C2=A0=C2=A0#include <drm/drm_fourcc.h>
-> > > =C2=A0=C2=A0#include <drm/drm_framebuffer.h>
-> > > @@ -179,5 +180,7 @@ struct drm_plane
-> > > *vs_primary_plane_init(struct
-> > > drm_device *drm_dev, struct vs_dc
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0	drm_plane_helper_add(plane,
-> > > &vs_primary_plane_helper_funcs);
-> > > =C2=A0=20
-> > > +	drm_plane_create_blend_mode_property(plane,
-> > > +				=09
-> > > BIT(DRM_MODE_BLEND_PIXEL_NONE));
-> > > =C2=A0=C2=A0	return plane;
-> > > =C2=A0=C2=A0}
+drm/imagination: Avoid initialisation of unused FW trace buffer pointer
 
+This commit removes the initialization of tracebuf_space->trace_buffer,
+an unused pointer in the firmware interface structure. The trace buffer
+source pointer continues to be used as before.
+
+> diff --git a/drivers/gpu/drm/imagination/pvr_fw_trace.c b/drivers/gpu/drm=
+/imagination/pvr_fw_trace.c
+> index 6bb5baa6c41b7..813b7b0c8d4e9 100644
+> --- a/drivers/gpu/drm/imagination/pvr_fw_trace.c
+> +++ b/drivers/gpu/drm/imagination/pvr_fw_trace.c
+> @@ -101,7 +101,6 @@ tracebuf_ctrl_init(void *cpu_ptr, void *priv)
+>  		pvr_fw_object_get_fw_addr(trace_buffer->buf_obj,
+>  					  &tracebuf_space->trace_buffer_fw_addr);
+> =20
+> -		tracebuf_space->trace_buffer =3D trace_buffer->buf;
+>  		tracebuf_space->trace_pointer =3D 0;
+>  	}
+>  }
+
+[Severity: High]
+This isn't a bug introduced by this patch, but looking at another part of
+pvr_fw_trace.c in fw_trace_seq_show(), the debugfs trace output formatter u=
+ses
+unbounded %s format specifiers to print firmware-provided assertion strings:
+
+    seq_printf(s, "ASSERTION %s failed at %s:%u",
+               trace_seq_data->assert_buf.info,
+               trace_seq_data->assert_buf.path,
+               trace_seq_data->assert_buf.line_num);
+
+Can this read past the end of the allocation if the firmware provides strin=
+gs
+without a NUL terminator?
+
+Since assert_buf is the last member of trace_seq_data, reading past the end=
+ of
+info or path could read out of the structure's bounds into adjacent heap me=
+mory.
+If the unbounded string read crosses a page boundary into an unmapped page,=
+ it
+could cause a kernel panic. Additionally, it might leak adjacent kernel heap
+memory into the debugfs output.
+
+Would it be safer to use %.*s with the maximum buffer size, or forcefully
+NUL-terminate the buffers after copying them from the firmware?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-b4-avoid-i=
+nit-of-unused-fw-trace-buffer-pointer-v1-0-7e10274384c2@imgtec.com?part=3D2
