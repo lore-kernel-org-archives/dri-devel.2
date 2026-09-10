@@ -4,128 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72BFCC79F9F
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 07:46:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7635C79FB9
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 07:46:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B364610F332;
-	Thu, 10 Sep 2026 07:46:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFE5510F336;
+	Thu, 10 Sep 2026 07:46:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="R3//rQuk";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ZXMDQmkX";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="wWHKx78m";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="MP8miy3L";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+zs98xmk";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012061.outbound.protection.outlook.com
- [40.107.200.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30C5210F332
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 07:46:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h5f11QilmlIf1oSM8LP2ugjBOZjp4FiLWPGPNfK/a2l2KNKPrxebvYp1m2QTZcc6Vwqb1M9GI7R1RdhEHhAOne9Ekq3fGSFh+epuMQTmJwO7KQ6B1+Uy+HfwkSey5x2ZO+/jwiXvSEqOq60lU18e9AoPcJCrvLK8Ks4WonuQ0QG/Ej1gywFbKhuzz4qI9Yr40GN9ya7DiPnqvfnenqSEnQ/1LW9ZcX/bfhcd/yRrOa3CzhMh6qiu3PJ8zqGeIzMpjTkixEE4S3+Tw6LsgaC1pKvW7AxkX89KcUOKYz6A82irY4IkyW3CDjFIWKY9lXkN4bVHg4kG0cypwX/ZN8P1+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hqqHF98sc5hG0NSryPbTDEFbm+d7FwHCBeFVxNU0evI=;
- b=HJY2Osh2yBPJTIjMqBqO8poSmtwyZogdltZRdFVNeGM4zS/+GHQcFnuAbyXPCe2bXwlOKjj9jdXEMDRouNNnyvJY3kPh7Grry2nR3S1RZHyrnA+BucdHzEoLvfYbuFLmnMB6r7YI1bm2fzCrTkRaghrHX22PHCW2TKwkGpaCUR13trdM8SATojBXp6ifACLtHMAIf3DnbFPqUvFE3RV0E+LNjg2cGW6o0/sxNNFI1dff/QulJQOmiUXixZ1DzJ+LqrXuKsRy8PiUvXJ2u3Wy3B3lmvIJVnRLT7cc5lYtM3Kyw4yAb+1EniQmeU4QqqwPutXSM4U9HCIRLV+sj5h6og==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hqqHF98sc5hG0NSryPbTDEFbm+d7FwHCBeFVxNU0evI=;
- b=R3//rQukXV3syoS+rlyeY+Fw3rwj2Sl+3SAxYWZK3BaaZ+iCp9xoKm4+OgNXM05Fuad9O7oEtzV791c9V9SKoz670uE5MFOyhxOY4O3stLOidGJ/OGcb5Kad7oJqDzSsYg/3+/mIG9PZpkUkx3LrZpvOZQCPXEt+9dbxbG7YupU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY8PR12MB7337.namprd12.prod.outlook.com (2603:10b6:930:53::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 07:46:12 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
- 07:46:12 +0000
-Message-ID: <853fb020-592b-4f85-a9b5-a522aca6a29e@amd.com>
-Date: Thu, 10 Sep 2026 09:46:07 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/ttm: fix swapped-out resources never leaving their
- bulk_move range
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Vadim Nikitushkin <bub4z0r@gmail.com>, ray.huang@amd.com,
- matthew.auld@intel.com, matthew.brost@intel.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, skainsworth@gmail.com, alexander.deucher@amd.com,
- bernardomagri21@gmail.com, Natalie Vock <natalie.vock@gmx.de>
-References: <20260909205028.13799-1-bub4z0r@gmail.com>
- <067e5ddc2268ae4678745a900108e93d0c6eeb74.camel@linux.intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <067e5ddc2268ae4678745a900108e93d0c6eeb74.camel@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0254.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:af::9) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60FD910F336
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 07:46:38 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B041F21B42;
+ Thu, 10 Sep 2026 07:46:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1789026392; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=W/1nFyWEaqVKCugUxEfivy+nSvc0epaMKTnk4PJqaXY=;
+ b=ZXMDQmkXqRZJDk+kfWs5lyxmI+auqMm45QcptQvkua2wmtYuCQLT+WxF0rsrYmMj0l0Zpm
+ vJpneFRhPEnuTDcnnYhx/bd/RuCrZ085KYWEjvw7U2HTz1El0IbpH3ucK33mrqaD0zxObL
+ cTOq7c+4dze3YGXnuWtcJKInl6OTPxs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1789026392;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=W/1nFyWEaqVKCugUxEfivy+nSvc0epaMKTnk4PJqaXY=;
+ b=wWHKx78mhiJ5A+EQrV4UcqQzs26Wl/VbNEvXm6BbSvDPGY35+mcdE6DKnBnz9r96+UmwME
+ kt/8h/dBMh+QL8Dw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1789026388; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=W/1nFyWEaqVKCugUxEfivy+nSvc0epaMKTnk4PJqaXY=;
+ b=MP8miy3LvktgsHoL/t4w3LczrSIlHvFOX7v9EnfXJIH8UxaxalYiNH8Oxz2j+tBSJEy2bu
+ oXx9b3ZxILlzvJZpWukRC2B4Y+jBqXhNS6Pq5g4+6jGbj9rxW+57o0880ugvQJTOmuEAE8
+ XMV6VVV83ZB8E7D/Ng8hypgDg6mWym0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1789026388;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=W/1nFyWEaqVKCugUxEfivy+nSvc0epaMKTnk4PJqaXY=;
+ b=+zs98xmkipgPxB8PpNveVGDtQUHmghJCNZ2UJQReJfwK/xPDmbxO6olpZmyw5bpTwa9NU2
+ mJoNFV6zEZVs6/Dw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4B6C5137FD;
+ Thu, 10 Sep 2026 07:46:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id zZVTCVRgomqdKgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 10 Sep 2026 07:46:28 +0000
+Message-ID: <92d94fa9-1e82-4f82-a2a1-345f5ef3abe8@suse.de>
+Date: Thu, 10 Sep 2026 09:46:27 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB7337:EE_
-X-MS-Office365-Filtering-Correlation-Id: cae733ea-7615-4f7e-b4b2-08df0f0f9593
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|7416014|376014|1800799024|4143699003|10067099003|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: jSRlBHpD0wEKddwKHTzkcYjIQBbWh65HqunIiDxRYKFu8xCcu/CfiVcuAmB3KI81kMuAhI3EJNS8hZtTkNzimAbEklNuUgqLUTv/YObQGf8sCBjnb4KwzYqi5KI/c1P4c+4f4fLItP6fMeDHtdnzxI997cWXheOAaiO97R3rNAB+/q5ivmrVCt/ZxDg3x2XAVz+YMCFJx50BBMOSR3Cu6KxY1qzoZOcVfHj+FDX4NyJWkutbEKsNDHC917m2hHDdk6fJvOKnPJUyNc55La96LRzETLuOnaBSen96qY6NyMztEh9dQKdUTYPFMGNmpyLrcm3XuJRPisZ+Yv0Re+2rnkGIqSBgkocnWBWGbzkFnDJn/hCN+tCDyqVv6mLz2OL80sU3omOqTpfLT4E7Vwx/nOeCCKNC5Dv8Tu71wYhG7eNTseht3ImeGFoWNDO+3YoHQlV5PBli2GPQOi2bJQD5NxTKjw5GlKusRxwRqmUgiTLd6Sx/wguZp/HkKV9z8cFUzdL8WbTJE6me4q4zKJdB40hjPEGe4VlH8iXuZywIsHypaXOywbXSR3I8dzHoe73kuKSNXMgJm00Xn4O3+JHRagWDJLaXcozJDFQm4Xc0chI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(4143699003)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M2cyUUNCTkpvWkY5d0FjRjJRZnYxY3M5Q1NHeG42ZEdyeTIxbUZRQ3RmeTVO?=
- =?utf-8?B?NGl1VStUaWo3UGQ4dklBRTdBZy8zMS9Bam1oZkxzdXdTZjVaMmxMMDRIME9u?=
- =?utf-8?B?YmlYQlkzRW1oNWJvS0hEOG1NVkhRS1F2cHJPd0F3SCtHVFpWVXB1T1p2QktJ?=
- =?utf-8?B?U3RET0d6QjBJeWlqQmFpb1VrdFg2QSsrbWpmVlZ6ZkloZVZHcDBLWkJjQlRW?=
- =?utf-8?B?OXlrUHZjOEs2T2hNSEpTN2Fybk9kOHc1SVkyemNVK25zamhOTlNkaVNHYkhh?=
- =?utf-8?B?UkNNNy9wN0drOStmNGFGNTFqTW9iUzBBOFh3YTJybCt3c0prb3ZQb1VMaXRn?=
- =?utf-8?B?Ulhkdndma3NxUDBOUkJkMk9RV1FuWXViNzFwb2JKdi9rRUd1WGxYajhIZ3hQ?=
- =?utf-8?B?aHZ5THpMR2dEQlU4WTJHWmtZR2lUcDdXOXBMVzFKRDdhZWpJaUlOOFV5a3h0?=
- =?utf-8?B?aUdhenUyUmJoUHZ4M0VpZHpoMzllbm9lNnQrSmg3cnNLVFV4OEFHSU1xLzlN?=
- =?utf-8?B?cWVjbmtobUdVbUlBYVdZbU1ocDNNKzRCUjAzNWxUMFI2KzAvRUpvTmRBYWhv?=
- =?utf-8?B?aTBQaWRScU8wTjFRTDc0Wm5ad3hQTTJhZWpyK2lYdDNZR0ZrUVJRbVFWYko2?=
- =?utf-8?B?RlVHbFdHbEVHQVd1MDQwNHhEdGdiTGsvdVYvcG9paVpCREVpRnR4WERhRjcy?=
- =?utf-8?B?OW1mazQzSzUyRUw2MHkvYXBJMjJDS3d0eHhnVFFsaEo1TVR0eG1ZTHlSTXdQ?=
- =?utf-8?B?UjBjbEE4bWU2UjlnZ3hxYk9uR3VaUXAyTlBBaWF1dmxBTWFiK0ExamcreGJk?=
- =?utf-8?B?SUJPWWJZYjFPSlpEVVZCZUQyeTRRUHpWeTR6d1Z1aWYwSU9QRTlpY1hJbW5F?=
- =?utf-8?B?RWRJcTJ1K0xoRWZBTXlkWjd2dG1RUndwd291Wldjc0I1TU5xYS8zUEU4U3pC?=
- =?utf-8?B?Y09MWjB1dEtZOUZRRW5UZ2tKYTNzSldXL3pnTXlCSWNSdlNkYTR5RUZPMVM0?=
- =?utf-8?B?Wk9zdmR5akIxalp2QW51RW54RVI5L1l3RlllaThxb2J2bjN6ek9Ta1VDZGU4?=
- =?utf-8?B?ZUo5amlyVFl5bWJVUEVLWDZyd2dwa2g5MjZDVzJpTVRqWnlrT2IrekNxaVBQ?=
- =?utf-8?B?UENBMy8vOTdkelAzNE1WNkgwc08wKzdYZHNIRlYrSGx6TW5PcTY4V29Va1hD?=
- =?utf-8?B?dFFXTTdyOEY2YWd1NjdoMTVlTzZmWTBGWnBoWVc0SnJSRHZRajJmNkd6YlVU?=
- =?utf-8?B?c2ZJYkg0WWc5ak1iT0p6UDl4NUJJa2JKWGtvUUNGRUNyT1V3VmRBL2FHSW1a?=
- =?utf-8?B?T29oWnRLYWw4bHV2V0UyaEVURFZ4bW5PcWludjZRc3lrR3p2UG5LbC9FTTQ5?=
- =?utf-8?B?Tm1saFg3TUlIMmtBd0R3WkJFL1dMWUorMmRKOVh6VFVzeDBuY1dFZkdaOXlo?=
- =?utf-8?B?QmhJTEpDMDdkYmMwZlBzU1lJbmtnNnMxZU5DRFpaclRNcEFrdXpZOHE4cDFL?=
- =?utf-8?B?cEpVdnZjK2dCalVTU1AzVGUzZDJUamRNc2EwUGk1RUQrMXlBdUthaDVMM2Q3?=
- =?utf-8?B?cnk2OEdueG5rR3NhQjczcjFONysxYkNkeUxBK3lMM251a2diMGovOUYzajc4?=
- =?utf-8?B?UC91MGFyaFJqMlBtV0JER0ovSHlpcmN3RlN3YzZ4UTlPUGxrSDN6d1dXbUx5?=
- =?utf-8?B?QVR6akNFalRlUVZWT0FEWEdseEF0Q0d5eXRFTUJRaUcyZlE2cnlacCtGVDNP?=
- =?utf-8?B?WlRZbUtYQTg0SEZXTVFrK1VCWkVHRm1GZjRhT1A5aDAwUHB3NUplK3NLR0ta?=
- =?utf-8?B?WjdQZDJmZ3hTQm5pbjRhY3VJM1NjSUZyVEg4eXdWK21TZHJic2xCNjh4ZFNt?=
- =?utf-8?B?dVQ1a21BVUtJVEZEdzROZ2QxcG10bE94M201c0c3V3NSaTUxRmJNTGFScEtj?=
- =?utf-8?B?UmQrWFRHZlYzMXVGQVVGU1EzMUJVY2ZPRUltcUdFK3JRczZkdm5jbEJHSHVw?=
- =?utf-8?B?SUM0WUEzaUJNZHFGaFZLQmhZbk5WMjExME90RkNFeStMSVI4cEh0N0Vjc08v?=
- =?utf-8?B?WkZwdzBvZ0VOcWRLQ1U0OEh5YnZnUHUrSEhJQThuTEpuWnNEU0hWQm1DZkpH?=
- =?utf-8?B?TlJyTEpHZnROTlFVTDlWK0ZGWGFvcTkzYTI0ZVJLWkMrUmx2UFFWUStBOE82?=
- =?utf-8?B?cTN5QkxTamhpM0tZOHdHajg4WWwzVC9RS3hFSHpLUkg2bWNpTHNUK3RNSS9s?=
- =?utf-8?B?YlJDU1NMeUdNaHFMbkwzRWxwWldXUnh1VmtVMDJNTG5wVWZYL3k0Q1o3TzdD?=
- =?utf-8?Q?B1k0SSRECDvnVQtncm?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cae733ea-7615-4f7e-b4b2-08df0f0f9593
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 07:46:12.2824 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xp6FJdqUj3dGxhONqGbBd8KZ/EJS5/x9SXU0pU88+U0+OldH3Thb+CPR8jSBDtIv
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7337
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] firmware/sysfb: Remove rotation quirk for Lenovo
+ D330
+To: Javier Martinez Canillas <javierm@redhat.com>, ardb@kernel.org,
+ ilias.apalodimas@linaro.org, jani.nikula@linux.intel.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
+ airlied@gmail.com
+Cc: dri-devel@lists.freedesktop.org, linux-efi@vger.kernel.org,
+ sashiko-reviews@lists.linux.dev
+References: <20260904090850.43060-1-tzimmermann@suse.de>
+ <20260904090850.43060-2-tzimmermann@suse.de>
+ <871pb1efi3.fsf@ocarina.mail-host-address-is-not-set>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <871pb1efi3.fsf@ocarina.mail-host-address-is-not-set>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ FREEMAIL_TO(0.00)[redhat.com,kernel.org,linaro.org,linux.intel.com,ffwll.ch,gmail.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ RCPT_COUNT_SEVEN(0.00)[11]; MIME_TRACE(0.00)[0:+];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
+ suse.de:email, suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,103 +143,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/10/26 09:14, Thomas Hellström wrote:
-> On Wed, 2026-09-09 at 23:50 +0300, Vadim Nikitushkin wrote:
->> ttm_tt_swapout() returns the number of pages swapped out on success
->> and
->> a negative error code on failure; for a populated ttm it never
->> returns
->> zero. Commit b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite
->> LRU
->> walk on swapout failure") moved the bulk_move bookkeeping in
->> ttm_bo_swapout_cb() under "if (!ret)", so the
->> ttm_resource_del_bulk_move_unevictable() /
->> ttm_resource_move_to_lru_tail()
->> pair is now skipped on every successful swapout. The equivalent
->> change
->> for the shrinker in commit 1d59f36e95f7 ("drm/ttm: Fix
->> ttm_bo_shrink()
->> infinite LRU walk on backup failure") tests "lret > 0", which is what
->> was intended here as well.
+Hi
+
+Am 10.09.26 um 09:23 schrieb Javier Martinez Canillas:
+> Thomas Zimmermann <tzimmermann@suse.de> writes:
+>
+> Hello Thomas,
+>
+>> The Lenovo D330 is a notebook with detachable display. The display
+>> is installed in landscape orientation, but the display mode is in
+>> portrait orientation. By default, the display output is rotated to
+>> the left by 90°.
 >>
->> Before b2ed01e7ad3d the resource was taken off the bulk_move before
->> the
->> swapout; since then a swapped-out resource stays inside its BO's
->> bulk_move range (and on the manager LRU) although it is unevictable.
->> When it is later freed or the BO leaves the bulk_move
->> (ttm_resource_free(), ttm_bo_set_bulk_move() via amdgpu_vm_bo_del()),
->> ttm_resource_del_bulk_move() skips it because of its
->> !ttm_resource_unevictable() guard, so a range endpoint in pos->first
->> /
->> pos->last is left pointing at freed memory. The next
->> ttm_lru_bulk_move_tail() or ttm_resource_add_bulk_move() on that
->> cursor
->> is a use-after-free, seen as the resv WARN in
->> ttm_lru_bulk_move_add(),
->> "list_del corruption" in ttm_resource_move_to_lru_tail() or a NULL
->> dereference in ttm_resource_manager_next() -- minutes to hours after
->> a
->> hibernation, or at process exit / reboot following one. Samuel
->> Ainsworth's analysis of drm/amd issue 5387 (see Link) identified the
->> dangling cursor; the missing removal at swapout time is the reason it
->> dangles.
+>> The sysfb quirk breaks the display by swapping display width and
+>> height; and thus mixing up the display geometry. Fix this by keeping
+>> the display as-is. The sysfb DRM drivers, usually efidrm, will pick
+>> the correct panel orientation for the display.
 >>
->> Testing the condition for success restores the removal. On an AMD
->> Phoenix APU (ASUS UM3406GA, gfx1103) running suspend-then-hibernate
->> on
->> a 7.0.y stable kernel carrying the backport (Ubuntu 7.0.0-31) the bug
->> crashed 5 of 18 hibernation cycles; a function profile of one
->> hibernation showed 336 ttm_tt_swapout() calls and zero
->> ttm_resource_del_bulk_move_unevictable() calls. With this change the
->> removal happens for every swapped-out resource and 12 further cycles
->> were clean.
+>> The exact behavior might depend on the version of the BIOS release,
+>> but the exact version numbers of broken and good releases are unknown.
+>> Users are advised to update to the latest firmware.
 >>
->> Fixes: b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU walk
->> on swapout failure")
->> Cc: stable@vger.kernel.org # v7.1+
->> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5387
->> Link:
->> https://lore.kernel.org/dri-devel/CAHYiNPa6aVacJoLOje-qZ1GyYx-9p0tN4NuP8D_eSL+UJeevXw@mail.gmail.com/
->> Signed-off-by: Vadim Nikitushkin <bub4z0r@gmail.com>
-> 
-> Nice catch.
-
-Agreed, that is a really good one. We had tons of people staring at the code without seeing that.
-
-> 
-> This also explains why https://patchwork.freedesktop.org/series/170311/
-> appeared to fix the issue. But that series actually kept the resource
-> on the bulk sublist until someone bumped the LRU or removed it.
-> 
-> Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
-If nobody comes up with some last second objections I'm going to push that to drm-misc-fixes ASAP.
-
-Thanks,
-Christian.
-
-> 
+>> Tested on a Lenovo D330-10IGM IdeaPad with firmware 8NCN43WW.
+>>
+>> v3:
+>> - mention possible dependency on BIOS release in commit description
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Acked-by: Ard Biesheuvel <ardb@kernel.org>
 >> ---
->>  drivers/gpu/drm/ttm/ttm_bo.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>   drivers/firmware/efi/sysfb_efi.c | 9 ---------
+>>   1 file changed, 9 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
->> b/drivers/gpu/drm/ttm/ttm_bo.c
->> index ef56c18..9b85b5f 100644
->> --- a/drivers/gpu/drm/ttm/ttm_bo.c
->> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
->> @@ -1434,7 +1434,7 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk,
->> struct ttm_buffer_object *bo)
->>  
->>  	if (ttm_tt_is_populated(tt)) {
->>  		ret = ttm_tt_swapout(bdev, tt, swapout_walk-
->>> gfp_flags);
->> -		if (!ret) {
->> +		if (ret > 0) {
->>  			spin_lock(&bdev->lru_lock);
->>  			ttm_resource_del_bulk_move_unevictable(bo-
->>> resource, bo);
->>  			ttm_resource_move_to_lru_tail(bo->resource);
+>> diff --git a/drivers/firmware/efi/sysfb_efi.c b/drivers/firmware/efi/sysfb_efi.c
+>> index 685283bb7327..2338de73c62c 100644
+>> --- a/drivers/firmware/efi/sysfb_efi.c
+>> +++ b/drivers/firmware/efi/sysfb_efi.c
+>> @@ -301,15 +301,6 @@ static const struct dmi_system_id efifb_dmi_swap_width_height[] __initconst = {
+>>   		},
+>>   		.callback = efifb_swap_width_height,
+>>   	},
+>> -	{
+>> -		/* Lenovo D330 with 800x1280 or 1200x1920 portrait screen */
+>> -		.matches = {
+>> -			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
+>> -			DMI_EXACT_MATCH(DMI_PRODUCT_VERSION,
+>> -					"Lenovo ideapad D330-10IGM"),
+>> -		},
+>> -		.callback = efifb_swap_width_height,
+>> -	},
+> Agreed that is better to rely on the information provided by the
+> firmware, instead of having this quirk. Specially given that it
+> breaks when the firmware provides the correct display geometry.
+
+The plan is to tell users to upgrade to the latest firmware if we hear 
+about regressions. The update is available on Lenovo's homepage. If an 
+update really isn't possible for a user, we should at least know which 
+firmware revision is broken. Then we can add back the quirk only for 
+that specific release.
+
+Best regards
+Thomas
+
+
+>
+> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
