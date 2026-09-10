@@ -4,141 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD434C79FB9
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 06:48:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FA5AC88E40
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 06:53:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7E8510E0A3;
-	Thu, 10 Sep 2026 06:48:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B56CD10E23E;
+	Thu, 10 Sep 2026 06:53:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="kqPXz8Ry";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3lwuCX0z";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ShkPipFK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Lsxi2wnf";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="Nkxdr7OS";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22D9810F313
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 06:48:11 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0AC310E23E
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 06:52:58 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6F56921BC6;
- Thu, 10 Sep 2026 06:48:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789022885; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hgSzq1zdGzKmsk;
+ Thu, 10 Sep 2026 08:52:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1789023175; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=c+hEE9qwdYlPzZYKdRGL0fNRxYsgTtQlaN+/PCZ4bow=;
- b=kqPXz8RyjzpB6OHR8PrdMDn4mXI6ByrUSP17OT6Jwz9YlYwBJwshZf0k3GsVSQlr14P7S/
- jVHmYQXQCfbP11gfhuaG/OwPnzMCYasq6aDDLV/FyVitza4It6nybCpUo3tnlX75Uixy1u
- 5eHPGyEiv1+pvAogJVxB/BQmyKjUt5E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789022885;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=c+hEE9qwdYlPzZYKdRGL0fNRxYsgTtQlaN+/PCZ4bow=;
- b=3lwuCX0zvE6akeImIaizasJROMsBbhxra5VpbmaioaaXc77dKk+jMto8Knb+Y3h47cKfI1
- Uc3z0r1iIHHTFdCQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ShkPipFK;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Lsxi2wnf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789022881; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=c+hEE9qwdYlPzZYKdRGL0fNRxYsgTtQlaN+/PCZ4bow=;
- b=ShkPipFKAazqhdTQ08dLBpuNv7iwcDQ2PeYY2v8mP2LRnuCY20a5N7YzQH8cTH5htzvn7V
- 67VCe5FBKs57mwta+iGcfpvGZmFMhtVz9z/d1RlVulnAO5UKOtUH4oS0pZExt74g+Lvzfw
- sKWjVUVDRNiuyi1v8V1lVtBXbC+tq40=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789022881;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=c+hEE9qwdYlPzZYKdRGL0fNRxYsgTtQlaN+/PCZ4bow=;
- b=Lsxi2wnfcitxoIpxkm+aKa0E/AaFT+ktZPyyLjS4m14Z82kg5MdD75vT38Dn8hbtjNp4Z4
- oRg2kwPGdTZAiNCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 19B6B13675;
- Thu, 10 Sep 2026 06:48:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 8pe3M6BSomotUAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 10 Sep 2026 06:48:00 +0000
-Message-ID: <aab2453e-b8d2-477e-9ac6-8246e7713568@suse.de>
-Date: Thu, 10 Sep 2026 08:48:00 +0200
+ in-reply-to:in-reply-to:references:references;
+ bh=pi9+8gu5d05+KlWCGDBzzias6bpz6p1T0S2Zn5fepjc=;
+ b=Nkxdr7OSC7p/OF9TTkgg0JDir7I4PW2lC0bcw7XGJrJ1UcTKFecReVZhfqK1Yr753AM02b
+ tR+nRSJqy2878kzsP3HCx8nXwmQ877lpugufqYMzSgpEfMDgFKcRkZJ2K1kXkR61lCOIJy
+ wa0yFph/krobND52e2qyljqdVFOVOJultnfB7tDkuPNt09EtJZ106eprKuumdrKueETaZv
+ VHKZwJ9cIob21Zhh2juRTTCrZtX3sxP84bpjzpLMPKihrtuW/upVc5xHj/5vDuPxtqgTxA
+ mcX89tdQv+6aZ2LqTPadBWgupVcEwdnQ2XSj167hXlqyvMHKNC49wMFhrCdMOg==
+Message-ID: <6f52dcbb040b8ba796b56311e9a77465d111c868.camel@mailbox.org>
+Subject: Re: drm/sched: run queues freed before the TDR that
+ drm_sched_fini() waits for
+From: Philipp Stanner <phasta@mailbox.org>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, Philipp Stanner
+ <phasta@kernel.org>
+Cc: Luben Tuikov <ltuikov89@gmail.com>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Matthew Brost <matthew.brost@intel.com>, Danilo
+ Krummrich <dakr@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Date: Thu, 10 Sep 2026 08:52:49 +0200
+In-Reply-To: <20260910054605.634135-1-donggeunyoo.kernel@gmail.com>
+References: <20260910054605.634135-1-donggeunyoo.kernel@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 28/41] drm/atmel-hlcdc: Drop spurious csc_init call
- from reset
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org,
- Dharma Balasubiramani <dharma.b@microchip.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Manikandan Muralidharan <manikandan.m@microchip.com>
-References: <20260908-drm-no-more-plane-reset-v4-0-a31b3fcfc989@kernel.org>
- <20260908-drm-no-more-plane-reset-v4-28-a31b3fcfc989@kernel.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260908-drm-no-more-plane-reset-v4-28-a31b3fcfc989@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 6F56921BC6
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RCPT_COUNT_SEVEN(0.00)[8]; MID_RHS_MATCH_FROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[microchip.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url,suse.de:dkim,suse.de:email,suse.de:mid];
- URIBL_BLOCKED(0.00)[microchip.com:email,suse.com:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email,suse.de:mid];
- DKIM_TRACE(0.00)[suse.de:+]
+X-MBO-RS-META: wbmye4nue85gc5a66nkayf6mup48ktfp
+X-MBO-RS-ID: fef508222f6b22bdbc2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,82 +64,112 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
++Cc Tvrtko
+
+On Thu, 2026-09-10 at 14:46 +0900, Donggeun Yoo wrote:
+> Hi Philipp,
+
+Hello,
+
+>=20
+> drm_sched_fini() frees the run queues above the two steps that wait for
+> users of them:
+>=20
+>  for (i =3D DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++)
+>  kfree(sched->sched_rq[i]);
+>=20
+>  /* Wakeup everyone stuck in drm_sched_entity_flush for this scheduler */
+>  wake_up_all(&sched->job_scheduled);
+
+If we look at that, it indeed seems broken:
+
+long drm_sched_entity_flush(struct drm_sched_entity *entity, long timeout) =
+{ struct drm_gpu_scheduler *sched; struct task_struct *last_user; long ret =
+=3D timeout; if (!entity->rq) return 0; sched =3D entity->rq->sched;
 
 
-Am 08.09.26 um 16:46 schrieb Maxime Ripard:
-> The lcdc_csc_init callback was introduced in commit aa71584b323a ("drm:
-> atmel-hlcdc: add driver ops to differentiate HLCDC and XLCDC IP") and
-> called only once, at init time, from atmel_hlcdc_plane_init_properties().
->
-> commit 81af99cbd9e4 ("drm/atmel-hlcdc: destroy properly the plane state
-> in the reset callback") then reworked the reset hook to use
-> atmel_hlcdc_plane_atomic_destroy_state() instead of duplicating the
-> code. However, it also introduced a new call to lcdc_csc_init in the
-> reset path that wasn't there before and wasn't mentioned in the commit
-> log.
->
-> Since CSC coefficients are hardware constants that only need to be
-> written once at init time. This also prevents the conversion to
-> atomic_create_state, which must not have any hardware side-effect.
->
-> Fixes: 81af99cbd9e4 ("drm/atmel-hlcdc: destroy properly the plane state in the reset callback")
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+At least from the commentary; one would free the pointer of the very
+party we say we're waiting for.
 
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-This looks reasonable, but I don't dare giving it a full r-b.
-
->
-> ---
-> Cc: Dharma Balasubiramani <dharma.b@microchip.com>
-> Cc: Ludovic Desroches <ludovic.desroches@microchip.com>
-> Cc: Manikandan Muralidharan <manikandan.m@microchip.com>
-> ---
->   drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c | 5 -----
->   1 file changed, 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c
-> index f17a832351e9..70a1cef24388 100644
-> --- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c
-> +++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c
-> @@ -1184,12 +1184,10 @@ static void atmel_hlcdc_plane_atomic_destroy_state(struct drm_plane *p,
->   }
->   
->   static void atmel_hlcdc_plane_reset(struct drm_plane *p)
->   {
->   	struct atmel_hlcdc_plane_state *state;
-> -	struct atmel_hlcdc_dc *dc = p->dev->dev_private;
-> -	struct atmel_hlcdc_plane *plane = drm_plane_to_atmel_hlcdc_plane(p);
->   
->   	if (p->state) {
->   		atmel_hlcdc_plane_atomic_destroy_state(p, p->state);
->   		p->state = NULL;
->   	}
-> @@ -1202,13 +1200,10 @@ static void atmel_hlcdc_plane_reset(struct drm_plane *p)
->   				"Failed to allocate initial plane state\n");
->   			return;
->   		}
->   		__drm_atomic_helper_plane_reset(p, &state->base);
->   	}
-> -
-> -	if (plane->layer.desc->layout.csc)
-> -		dc->desc->ops->lcdc_csc_init(plane, plane->layer.desc);
->   }
->   
->   static const struct drm_plane_funcs layer_plane_funcs = {
->   	.update_plane = drm_atomic_helper_update_plane,
->   	.disable_plane = drm_atomic_helper_disable_plane,
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+Maybe @Tvrtko can take a look, who has a sophisticated understanding of
+runqueue management.
 
 
+Let me mention, though, that the entire RQ pointer handling is
+basically undefined behavior since forever:
+
+ /** * @rq: * * Runqueue on which this entity is currently scheduled. * * F=
+IXME: Locking is very unclear for this. Writers are protected by * @lock, b=
+ut readers are generally lockless and seem to just race with * not even a R=
+EAD_ONCE. */ struct drm_sched_rq *rq;
+
+Fixing that is also on our TODO list for interested contributors:
+
+https://docs.kernel.org/gpu/todo.html#add-locking-for-runqueues
+
+>=20
+>  /* Confirm no work left behind accessing device structures */
+>  cancel_delayed_work_sync(&sched->work_tdr);
+>=20
+> 4827d6d83f07 ("drm/sched: Remove racy hack from drm_sched_fini()") did no=
+t
+> change that ordering - the kfree() was above the wakeup before it as well=
+,
+> and has been since 56e449603f0a ("drm/sched: Convert the GPU scheduler to
+> variable number of run-queues") made the run queues separately allocated.
+> But with the loop body gone there no longer seems to be anything holding
+> the free up there.
+
+Then it would have been a race condition, where the occurrence of the
+bug depends on timing.
+
+>=20
+> A KUnit case that keeps the TDR inside timedout_job() while drm_sched_fin=
+i()
+> runs, with the callback calling drm_sched_increase_karma() as amdgpu does=
+:
+
+How precisely are you reproducing the problem? I'm wondering why it
+wasn't observed sooner.
+
+Since you mention amdgpu, many of the twirks in the drm_sched code base
+were added to work around ordering problems in that driver.
+
+The drm_sched life time rules are:
+
+   1. All fences returned through ops->run_job() must be signaled by
+      the driver before calling drm_sched_fini().
+   2. Entities must be torn down before the scheduler.
+
+IOW, I would dare to say that the wake_up_all() maybe shouldn't even
+exist in an ideal world, because the driver would never call
+drm_sched_fini() while it's still blocking in drm_sched_entity_flush().
+Maybe Christian has some wisdom on the background.
+
+>=20
+> =C2=A0 BUG: KASAN: slab-use-after-free in _raw_spin_lock+0x2b/0x40
+> =C2=A0 Workqueue: events drm_sched_job_timedout
+> =C2=A0=C2=A0 drm_sched_increase_karma+0x138/0x3e0
+> =C2=A0=C2=A0 fini_uaf_timedout_job+0x4c/0x140
+> =C2=A0=C2=A0 drm_sched_job_timedout+0x1b4/0x620
+> =C2=A0 allocated by drm_sched_init+0x49c, freed by drm_sched_fini+0xec
+>=20
+> Moving the loop down beside kfree(sched->sched_rq) silences it, and nothi=
+ng
+> between the two positions reads the run queues. Is that the right fix, or=
+ is
+> the intended rule that the TDR can never still be running at that point?
+
+Can you post a patch or RFC patch for fixing it? It's easier to discuss
+then. I think I get what you mean, and it's probably the best cost-
+benefit-ratio fix. I'd then just put some brain power into
+understanding the ordering between threads though
+
+
+
+Regards
+P.
