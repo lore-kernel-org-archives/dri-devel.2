@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DAFFC79FB7
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 01:13:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5687EC79FB7
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 01:14:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41FA410E3B5;
-	Thu, 10 Sep 2026 01:13:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85CBA10E457;
+	Thu, 10 Sep 2026 01:14:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Y8kjtNnQ";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Vl97ZcIO";
 	dkim-atps=neutral
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B913910E3B5
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 01:13:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1789002828; cv=none; 
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79E2910E457
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 01:14:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1789002858; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=dWx3c4tR+pkF+whwnBw+BwhVBHvtylCuAHFq0nsr+/5P4otOhVClcnq3aClJHmCRapY8Ho/U41QNLOBOEmDwb6lkMPhzsAOf47sZ8Z71FSIqO3KurcJJLvH9Jhb51RYBmkRUEd0oyfzIY7KzVuVH+B4KUbxdnXXTBE4PB+O6l/o=
+ b=gXEKXHnwU50R0iUBnEMv48LY+zzIWyVa46yjlEIio0orGsWbk35ObFsWl13uGT3gKQf6WqLQDa4f39hafg0gOjW3rMPfG5NIswq4SJiL1D2+VddjJuqCDF8O8EuPajm2YdqnII7qNATuLqREr+dYSXj+3uTqfPe9c+mWKtmXbEY=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1789002828;
+ s=zohoarc; t=1789002858;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=jDey+7ttYkx0Y5O8d3YOaM3QA0x1jIJoqU46uSTcsSE=; 
- b=ZVRjrbmVPNk/IGtecEaeHYv4K255FliCgkseFON/dIGcno6/B4urljTFc4ZwLiK01WM1ryqT6zznUjCLlGXKUy8TMES3ZvlzINpesgTs7gRNPttf4Nx84NGLOj/MwtxXgK+HYQIEVAJOJvytZITVUkDaKmbEnE5vgNGw6IeM4Oc=
+ bh=xAViyxVnzKU7sIwQUPeaab/vulcgLpCH31RPs3F/His=; 
+ b=cSvCfCMlaUw5nYCRITy1Qe3LEuChuJ0OgSm7cTI0YQ0BxNvPNGWZyt3WKnKBERRqt2mlZWSnje4Q/CaXBaRsx2eVZsVjgnHIaInVhgid4vPIKs6HMRHLq+0DjwyLuA0bXxUU9+gJdaIY2290FxK/Q7Itjgzz/sNNmTDSnFeFFcE=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789002828; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789002858; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
- bh=jDey+7ttYkx0Y5O8d3YOaM3QA0x1jIJoqU46uSTcsSE=;
- b=Y8kjtNnQMYDNXZyKLgtXCJB34ey46q2TWPkWxKG+rmTAFNpBqq7cveY+3G4/IPFp
- +lQUvxChg+hhSyWuPCgglq8IFfy/KLcvc4/fotWTFlv++kj+laC1YCiw+uDFUaLvZDM
- 1porAkCfq9pDgsvela63tUF8A/oYdoPHbLHEAO1M=
-Received: by mx.zohomail.com with SMTPS id 1789002827308415.48494480446436;
- Wed, 9 Sep 2026 18:13:47 -0700 (PDT)
-Date: Thu, 10 Sep 2026 02:13:43 +0100
+ bh=xAViyxVnzKU7sIwQUPeaab/vulcgLpCH31RPs3F/His=;
+ b=Vl97ZcIOgT1GxrvDyA+EFaF8QrZvSz3pk6aOAWAm/UeZFHnuDrAnWdkKs2B3EyrL
+ dKAxCn5HkxDkPt9NPJW2vmad8PNHGjwOWhLaNZj3ngA+t3aHdi7U6SUFw6Bs486vYiu
+ G4EEa4HSdQP+EvAQP6BoUx3WlZVYm3oqrxXc8fYo=
+Received: by mx.zohomail.com with SMTPS id 1789002856824246.88901405836157;
+ Wed, 9 Sep 2026 18:14:16 -0700 (PDT)
+Date: Thu, 10 Sep 2026 02:14:12 +0100
 From: Adrian Larumbe <adrian.larumbe@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>
 Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
@@ -46,17 +46,17 @@ Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
  Maxime Ripard <mripard@kernel.org>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 03/18] drm/panthor: Make panthor_device::pm::state
- non-atomic
-Message-ID: <aqGEW6o3aelM_tX8@sobremesa>
+ linux-kernel@vger.kernel.org, sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 04/18] drm/panthor: Flush the cleanup_wq in the unplug
+ path
+Message-ID: <aqGOgViRY3Tmp3hv@sobremesa>
 References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
- <20260826-panthor-unplug-fixes-v4-3-982cc8f4234b@collabora.com>
+ <20260826-panthor-unplug-fixes-v4-4-982cc8f4234b@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260826-panthor-unplug-fixes-v4-3-982cc8f4234b@collabora.com>
+In-Reply-To: <20260826-panthor-unplug-fixes-v4-4-982cc8f4234b@collabora.com>
 X-Zoho-Virus-Status: 1
 X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.982.46
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,246 +75,69 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 26.08.2026 16:56, Boris Brezillon wrote:
-> Now that the reset logic has been reworked to use disable/enable_work(),
-> there's no need for panthor_device::pm::state to be an atomic. It can
-> simply be accessed under the same lock we use to touch MMIO mappings.
+> If we don't do that, we might face various UAFs, because the resource
+> referenced by these work items might be gone by the time they get
+> executed.
 > 
-> While at it, rename the lock to make it clear it protects more than just
-> the MMIO logic, and transition locked sections to scoped_guard().
+> In each subcomponent making use of the panthor_cleanup_wq, we add a
+> flush_workqueue() at the end of the _unplug() function. Note that this
+> assumes no more work items from this subcomponent gets queued after
+> that point, which is not yet guaranteed, but this will be fixed in
+> upcoming changes.
 > 
+> Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
+> Fixes: 647810ec2476 ("drm/panthor: Add the MMU/VM logical block")
+> Reported-by: sashiko-bot@kernel.org
+> Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com?part=2
 > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 > ---
->  drivers/gpu/drm/panthor/panthor_device.c | 97 +++++++++++++++++---------------
->  drivers/gpu/drm/panthor/panthor_device.h | 16 ++++--
->  2 files changed, 63 insertions(+), 50 deletions(-)
+>  drivers/gpu/drm/panthor/panthor_mmu.c   | 6 ++++++
+>  drivers/gpu/drm/panthor/panthor_sched.c | 6 ++++++
+>  2 files changed, 12 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-> index 2974f4bc0bb1..133e3895cd0a 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -147,8 +147,10 @@ static void panthor_device_reset_work(struct work_struct *work)
->  	/* If the device is entering suspend, we don't reset. A slow reset will
->  	 * be forced at resume time instead.
->  	 */
-> -	if (atomic_read(&ptdev->pm.state) != PANTHOR_DEVICE_PM_STATE_ACTIVE)
-> -		return;
-> +	scoped_guard(mutex, &ptdev->pm.lock) {
-> +		if (ptdev->pm.state != PANTHOR_DEVICE_PM_STATE_ACTIVE)
-> +			return;
-> +	}
->  
->  	if (!drm_dev_enter(&ptdev->base, &cookie))
->  		return;
-> @@ -204,7 +206,7 @@ int panthor_device_init(struct panthor_device *ptdev)
->  	if (ret)
->  		return ret;
->  
-> -	ret = drmm_mutex_init(&ptdev->base, &ptdev->pm.mmio_lock);
-> +	ret = drmm_mutex_init(&ptdev->base, &ptdev->pm.lock);
->  	if (ret)
->  		return ret;
->  
-> @@ -213,7 +215,7 @@ int panthor_device_init(struct panthor_device *ptdev)
->  	INIT_LIST_HEAD(&ptdev->gems.node);
->  #endif
->  
-> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_SUSPENDED);
-> +	ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_SUSPENDED;
->  	p = alloc_page(GFP_KERNEL | __GFP_ZERO);
->  	if (!p)
->  		return -ENOMEM;
-> @@ -432,40 +434,39 @@ static vm_fault_t panthor_mmio_vm_fault(struct vm_fault *vmf)
->  {
->  	struct vm_area_struct *vma = vmf->vma;
->  	struct panthor_device *ptdev = vma->vm_private_data;
-> -	u64 offset = (u64)vma->vm_pgoff << PAGE_SHIFT;
-> -	unsigned long pfn;
-> -	pgprot_t pgprot;
->  	vm_fault_t ret;
-> -	bool active;
->  	int cookie;
->  
->  	if (!drm_dev_enter(&ptdev->base, &cookie))
->  		return VM_FAULT_SIGBUS;
->  
-> -	mutex_lock(&ptdev->pm.mmio_lock);
-> -	active = atomic_read(&ptdev->pm.state) == PANTHOR_DEVICE_PM_STATE_ACTIVE;
-> +	scoped_guard(mutex, &ptdev->pm.lock) {
-> +		bool active = ptdev->pm.state == PANTHOR_DEVICE_PM_STATE_ACTIVE;
-> +		u64 offset = (u64)vma->vm_pgoff << PAGE_SHIFT;
-> +		unsigned long pfn;
-> +		pgprot_t pgprot;
->  
-> -	switch (offset) {
-> -	case DRM_PANTHOR_USER_FLUSH_ID_MMIO_OFFSET:
-> +		switch (offset) {
-> +		case DRM_PANTHOR_USER_FLUSH_ID_MMIO_OFFSET:
-> +			if (active)
-> +				pfn = __phys_to_pfn(ptdev->phys_addr + CSF_GPU_LATEST_FLUSH_ID);
-> +			else
-> +				pfn = page_to_pfn(ptdev->pm.dummy_latest_flush);
-> +			break;
-> +
-> +		default:
-> +			ret = VM_FAULT_SIGBUS;
-> +			goto out_dev_exit;
-> +		}
-> +
-> +		pgprot = vma->vm_page_prot;
->  		if (active)
-> -			pfn = __phys_to_pfn(ptdev->phys_addr + CSF_GPU_LATEST_FLUSH_ID);
-> -		else
-> -			pfn = page_to_pfn(ptdev->pm.dummy_latest_flush);
-> -		break;
-> +			pgprot = pgprot_noncached(pgprot);
->  
-> -	default:
-> -		ret = VM_FAULT_SIGBUS;
-> -		goto out_unlock;
-> +		ret = vmf_insert_pfn_prot(vma, vmf->address, pfn, pgprot);
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index d43ba1c7cd2a..1385ee28bee5 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -3367,6 +3367,12 @@ void panthor_mmu_unplug(struct panthor_device *ptdev)
+>  		}
 >  	}
->  
-> -	pgprot = vma->vm_page_prot;
-> -	if (active)
-> -		pgprot = pgprot_noncached(pgprot);
-> -
-> -	ret = vmf_insert_pfn_prot(vma, vmf->address, pfn, pgprot);
-> -
-> -out_unlock:
-> -	mutex_unlock(&ptdev->pm.mmio_lock);
-> +out_dev_exit:
->  	drm_dev_exit(cookie);
->  	return ret;
->  }
-> @@ -526,10 +527,13 @@ int panthor_device_resume(struct device *dev)
->  	struct panthor_device *ptdev = dev_get_drvdata(dev);
->  	int ret, cookie;
->  
-> -	if (atomic_read(&ptdev->pm.state) != PANTHOR_DEVICE_PM_STATE_SUSPENDED)
-> -		return -EINVAL;
-> +	scoped_guard(mutex, &ptdev->pm.lock) {
-> +		if (ptdev->pm.state != PANTHOR_DEVICE_PM_STATE_SUSPENDED)
-> +			return -EINVAL;
+>  	mutex_unlock(&ptdev->mmu->as.slots_lock);
 > +
-> +		ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_RESUMING;
-> +	}
+> +	/* Ensure any pending job cleanup work are executed before returning,
+> +	 * otherwise those might access objects that are gone if the work is
+> +	 * executed after other components are unplugged.
+> +	 */
+> +	flush_workqueue(panthor_cleanup_wq);
+>  }
 >  
-> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_RESUMING);
->  
->  	ret = clk_prepare_enable(ptdev->clks.core);
->  	if (ret)
-> @@ -574,11 +578,11 @@ int panthor_device_resume(struct device *dev)
->  	 * are removed and the real iomem mapping will be restored on next
->  	 * access.
->  	 */
-> -	mutex_lock(&ptdev->pm.mmio_lock);
-> +	mutex_lock(&ptdev->pm.lock);
+>  static void panthor_mmu_release_wq(struct drm_device *ddev, void *res)
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index 42adfc76b9e1..a6d57dc1b43e 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -4049,6 +4049,12 @@ void panthor_sched_unplug(struct panthor_device *ptdev)
+>  		sched->pm.has_ref = false;
+>  	}
+>  	mutex_unlock(&sched->lock);
+> +
+> +	/* Ensure any pending group release work are executed before returning,
+> +	 * otherwise those might access objects that are gone if the work is
+> +	 * executed after other components are unplugged.
+> +	 */
+> +	flush_workqueue(panthor_cleanup_wq);
 
-Maybe you could replace it with scoped_guard(mutex, &ptdev->pm.lock) {}
-like you've done in other parts of the commit.
-
-Other than that:
+I was wondering about resources group_release_work could access after unplug that are torn down in this
+function, and guessing they had to do something with the Panthor scheduler itself. I didn't see any
+because they're all reference counted, so I suppose the problem is the panthor device itself?
 
 Reviewed-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 
->  	unmap_mapping_range(ptdev->base.anon_inode->i_mapping,
->  			    DRM_PANTHOR_USER_MMIO_OFFSET, 0, 1);
-> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_ACTIVE);
-> -	mutex_unlock(&ptdev->pm.mmio_lock);
-> +	ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_ACTIVE;
-> +	mutex_unlock(&ptdev->pm.lock);
->  
->  	/* Now that everything is resumed, we can re-enable the reset work. */
->  	enable_resets(ptdev);
-> @@ -595,7 +599,9 @@ int panthor_device_resume(struct device *dev)
->  	clk_disable_unprepare(ptdev->clks.core);
->  
->  err_set_suspended:
-> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_SUSPENDED);
-> +	scoped_guard(mutex, &ptdev->pm.lock)
-> +		ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_SUSPENDED;
-> +
->  	atomic_set(&ptdev->pm.recovery_needed, 1);
->  	return ret;
 >  }
-> @@ -605,21 +611,21 @@ int panthor_device_suspend(struct device *dev)
->  	struct panthor_device *ptdev = dev_get_drvdata(dev);
->  	int cookie;
 >  
-> -	if (atomic_read(&ptdev->pm.state) != PANTHOR_DEVICE_PM_STATE_ACTIVE)
-> -		return -EINVAL;
-> -
->  	/* Clear all IOMEM mappings pointing to this device before we
->  	 * shutdown the power-domain and clocks. Failing to do that results
->  	 * in external aborts when the process accesses the iomem region.
->  	 * We change the state and call unmap_mapping_range() with the
-> -	 * mmio_lock held to make sure the vm_fault handler won't set up
-> +	 * lock held to make sure the vm_fault handler won't set up
->  	 * invalid mappings.
->  	 */
-> -	mutex_lock(&ptdev->pm.mmio_lock);
-> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_SUSPENDING);
-> -	unmap_mapping_range(ptdev->base.anon_inode->i_mapping,
-> -			    DRM_PANTHOR_USER_MMIO_OFFSET, 0, 1);
-> -	mutex_unlock(&ptdev->pm.mmio_lock);
-> +	scoped_guard(mutex, &ptdev->pm.lock) {
-> +		if (ptdev->pm.state != PANTHOR_DEVICE_PM_STATE_ACTIVE)
-> +			return -EINVAL;
-> +
-> +		ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_SUSPENDING;
-> +		unmap_mapping_range(ptdev->base.anon_inode->i_mapping,
-> +				    DRM_PANTHOR_USER_MMIO_OFFSET, 0, 1);
-> +	}
->  
->  	/* Make sure we're not interrupted by resets after that point
->  	 * until the GPU is resumed.
-> @@ -644,6 +650,9 @@ int panthor_device_suspend(struct device *dev)
->  	clk_disable_unprepare(ptdev->clks.coregroup);
->  	clk_disable_unprepare(ptdev->clks.stacks);
->  	clk_disable_unprepare(ptdev->clks.core);
-> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_SUSPENDED);
-> +
-> +	scoped_guard(mutex, &ptdev->pm.lock)
-> +		ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_SUSPENDED;
-> +
->  	return 0;
->  }
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index f55baa21b25e..217eec811bdb 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -298,18 +298,22 @@ struct panthor_device {
->  
->  	/** @pm: Power management related data. */
->  	struct {
-> -		/** @state: Power state. */
-> -		atomic_t state;
-> +		/**
-> +		 * @state: Power state.
-> +		 *
-> +		 * Must be accessed with the panthor_device::pm::lock held.
-> +		 */
-> +		enum panthor_device_pm_state state;
->  
->  		/**
-> -		 * @mmio_lock: Lock protecting MMIO userspace CPU mappings.
-> +		 * @lock: Lock protecting PM related fields.
->  		 *
->  		 * This is needed to ensure we map the dummy IO pages when
->  		 * the device is being suspended, and the real IO pages when
-> -		 * the device is being resumed. We can't just do with the
-> -		 * state atomicity to deal with this race.
-> +		 * the device is being resumed. We can't just do with an
-> +		 * atomic state to deal with this race.
->  		 */
-> -		struct mutex mmio_lock;
-> +		struct mutex lock;
->  
->  		/**
->  		 * @dummy_latest_flush: Dummy LATEST_FLUSH page.
+>  static void panthor_sched_fini(struct drm_device *ddev, void *res)
 > 
 > -- 
 > 2.55.0
-
 
 Adrian Larumbe
