@@ -4,50 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 950E0C79FB9
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 09:50:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 661FAC79FB9
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 09:50:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEC3810F3DF;
-	Thu, 10 Sep 2026 09:50:19 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7A0610F3DF
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 09:50:17 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.66])
- by APP-05 (Coremail) with SMTP id zQCowAAHdT9PfaJqKHzSBw--.25577S3;
- Thu, 10 Sep 2026 17:50:10 +0800 (CST)
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Icenowy Zheng <uwu@icenowy.me>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: [PATCH 2/2] drm/verisilicon: remove ARGB formats from primary plane
-Date: Thu, 10 Sep 2026 17:50:00 +0800
-Message-ID: <20260910095000.3505878-2-zhengxingda@iscas.ac.cn>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260910095000.3505878-1-zhengxingda@iscas.ac.cn>
-References: <20260910095000.3505878-1-zhengxingda@iscas.ac.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C20B210F3E3;
+	Thu, 10 Sep 2026 09:50:45 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BjlP95bG";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10CCB10F3E2;
+ Thu, 10 Sep 2026 09:50:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789033844; x=1820569844;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=QaGkdeHt/iTVylswcvkyA74aeou+kOImrpOlB1eTjEw=;
+ b=BjlP95bGgPtgAWlFkBawJVbms6BEdCy+CJ+vRkmKFsuM7ovgwqwQBKxN
+ M7w7oo0EWvJBN009bXwLe/UJYli1ZoNGw7wvaSG8WQztnHeW3kKqScv7Y
+ 74WQp5VaR+6m3vnsTfqswH6HJdxg2V3ewZCGPHqxUZsxYdeF6ElBCY/0c
+ m2Wy16MXvBs7VhVE5ti2pcDbS8FIVSGdUBqbz5hG+EZNrPCAwpseU388j
+ P3GQLklYWuxtm4gNQCpUdB+vyOPSSyVvFGSFkxoTwB/D2QanGCL3Zy5Hv
+ 7GwlY9q2oB6PlDbE2ebRR9CMU1GyWngDJVr0VGDNX5m/BqDFS+mAxp2v4 A==;
+X-CSE-ConnectionGUID: kVLjPgVyTNChobVtAhE9Aw==
+X-CSE-MsgGUID: 9/Gc3Mg1R0i9vSGPB9Qq5A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="88627067"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="88627067"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Sep 2026 02:50:43 -0700
+X-CSE-ConnectionGUID: LuZpvBWWStCLU8bXOMUdQg==
+X-CSE-MsgGUID: H69zuhBGQOSZPYEbOVLh3w==
+X-ExtLoop1: 1
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.245.193])
+ ([10.245.245.193])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Sep 2026 02:50:42 -0700
+Message-ID: <131278e8dbc7b02b5a2395f3ab1ef4575f12fb93.camel@linux.intel.com>
+Subject: Re: [PATCH 01/13] drm/xe/irq: Always free requested IRQs on uninstall
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Arvind Yadav <arvind.yadav@intel.com>, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+Cc: matthew.brost@intel.com, himal.prasad.ghimiray@intel.com, 
+ rodrigo.vivi@intel.com
+Date: Thu, 10 Sep 2026 11:50:39 +0200
+In-Reply-To: <20260827101801.1247654-2-arvind.yadav@intel.com>
+References: <20260827101801.1247654-1-arvind.yadav@intel.com>
+ <20260827101801.1247654-2-arvind.yadav@intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowAAHdT9PfaJqKHzSBw--.25577S3
-X-Coremail-Antispam: 1UD129KBjvJXoW7tr1fJFy8XrykXr43WFyrCrg_yoW8Kr15pF
- y8Ar97X345ZF10yF4kJ345JrWrAa1UGr48ur4UZ3s2qF1UKayjqFZ8JFyrArZFqry8Aa1x
- tF45Jr4rZr4UGrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUBG14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
- x26xkF7I0E14v26r1I6r4UM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
- Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UM2
- 8EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AI
- xVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20x
- vE14v26r106r15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xv
- r2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q6r43Mx
- AIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_
- Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwI
- xGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWx
- JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcV
- C2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUDUUUUUUUU=
-X-Originating-IP: [112.94.100.66]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,85 +73,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-As the blending of the primary plane is currently explicitly disabled
-(and it's not possible on DC8000), remove the ARGB formats from the
-primary plane format tables.
+On Thu, 2026-08-27 at 15:47 +0530, Arvind Yadav wrote:
+> xe_irq_suspend() clears irq.enabled after disabling and synchronizing
+> the
+> interrupts. irq_uninstall() currently returns when that flag is
+> clear, so
+> a suspended device can skip free_irq() during teardown.
+>=20
+> The managed uninstall action is registered only after the IRQ request
+> succeeds. Reset the interrupt registers only when interrupts are
+> still
+> enabled, but always free the requested IRQs.
+>=20
+> Fixes: 4d79a1266d4c ("drm/xe: Make irq enabled flag atomic")
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
 
-Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
----
- drivers/gpu/drm/verisilicon/vs_hwdb.c | 32 ---------------------------
- 1 file changed, 32 deletions(-)
+Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
 
-diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-index 56aa450443068..ebf6f843bc885 100644
---- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-+++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-@@ -15,32 +15,16 @@ static const u32 vs_primary_formats_array_no_yuv444[] = {
- 	DRM_FORMAT_XBGR4444,
- 	DRM_FORMAT_RGBX4444,
- 	DRM_FORMAT_BGRX4444,
--	DRM_FORMAT_ARGB4444,
--	DRM_FORMAT_ABGR4444,
--	DRM_FORMAT_RGBA4444,
--	DRM_FORMAT_BGRA4444,
- 	DRM_FORMAT_XRGB1555,
- 	DRM_FORMAT_XBGR1555,
- 	DRM_FORMAT_RGBX5551,
- 	DRM_FORMAT_BGRX5551,
--	DRM_FORMAT_ARGB1555,
--	DRM_FORMAT_ABGR1555,
--	DRM_FORMAT_RGBA5551,
--	DRM_FORMAT_BGRA5551,
- 	DRM_FORMAT_RGB565,
- 	DRM_FORMAT_BGR565,
- 	DRM_FORMAT_XRGB8888,
- 	DRM_FORMAT_XBGR8888,
- 	DRM_FORMAT_RGBX8888,
- 	DRM_FORMAT_BGRX8888,
--	DRM_FORMAT_ARGB8888,
--	DRM_FORMAT_ABGR8888,
--	DRM_FORMAT_RGBA8888,
--	DRM_FORMAT_BGRA8888,
--	DRM_FORMAT_ARGB2101010,
--	DRM_FORMAT_ABGR2101010,
--	DRM_FORMAT_RGBA1010102,
--	DRM_FORMAT_BGRA1010102,
- 	/* TODO: non-RGB formats */
- };
- 
-@@ -49,32 +33,16 @@ static const u32 vs_primary_formats_array_with_yuv444[] = {
- 	DRM_FORMAT_XBGR4444,
- 	DRM_FORMAT_RGBX4444,
- 	DRM_FORMAT_BGRX4444,
--	DRM_FORMAT_ARGB4444,
--	DRM_FORMAT_ABGR4444,
--	DRM_FORMAT_RGBA4444,
--	DRM_FORMAT_BGRA4444,
- 	DRM_FORMAT_XRGB1555,
- 	DRM_FORMAT_XBGR1555,
- 	DRM_FORMAT_RGBX5551,
- 	DRM_FORMAT_BGRX5551,
--	DRM_FORMAT_ARGB1555,
--	DRM_FORMAT_ABGR1555,
--	DRM_FORMAT_RGBA5551,
--	DRM_FORMAT_BGRA5551,
- 	DRM_FORMAT_RGB565,
- 	DRM_FORMAT_BGR565,
- 	DRM_FORMAT_XRGB8888,
- 	DRM_FORMAT_XBGR8888,
- 	DRM_FORMAT_RGBX8888,
- 	DRM_FORMAT_BGRX8888,
--	DRM_FORMAT_ARGB8888,
--	DRM_FORMAT_ABGR8888,
--	DRM_FORMAT_RGBA8888,
--	DRM_FORMAT_BGRA8888,
--	DRM_FORMAT_ARGB2101010,
--	DRM_FORMAT_ABGR2101010,
--	DRM_FORMAT_RGBA1010102,
--	DRM_FORMAT_BGRA1010102,
- 	/* TODO: non-RGB formats */
- };
- 
--- 
-2.52.0
+> ---
+> =C2=A0drivers/gpu/drm/xe/xe_irq.c | 6 ++----
+> =C2=A01 file changed, 2 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/xe/xe_irq.c
+> b/drivers/gpu/drm/xe/xe_irq.c
+> index 9e49e2241da4..d314993b14a1 100644
+> --- a/drivers/gpu/drm/xe/xe_irq.c
+> +++ b/drivers/gpu/drm/xe/xe_irq.c
+> @@ -786,10 +786,8 @@ static void irq_uninstall(void *arg)
+> =C2=A0{
+> =C2=A0	struct xe_device *xe =3D arg;
+> =C2=A0
+> -	if (!atomic_xchg(&xe->irq.enabled, 0))
+> -		return;
+> -
+> -	xe_irq_reset(xe);
+> +	if (atomic_xchg(&xe->irq.enabled, 0))
+> +		xe_irq_reset(xe);
+> =C2=A0
 
+
+
+> =C2=A0	if (xe_device_has_msix(xe))
+> =C2=A0		xe_irq_msix_free(xe);
