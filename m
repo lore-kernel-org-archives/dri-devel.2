@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 734F8C79FB9
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 08:07:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC290C79FB9
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 08:08:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A32F10E5BA;
-	Thu, 10 Sep 2026 08:07:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1397410F35B;
+	Thu, 10 Sep 2026 08:08:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WrXn+bLJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DlFpcmCi";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C76710E5BA
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 08:07:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2341F10F35B
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 08:08:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 76C36600C8;
- Thu, 10 Sep 2026 08:07:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3B3F1F000FF;
- Thu, 10 Sep 2026 08:07:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4941A600CB
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 08:08:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C603E1F000FF;
+ Thu, 10 Sep 2026 08:08:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789027633;
- bh=wu44bqMpJmRzCSry4BwDWczEoValyFTrulWWeh+o0MI=;
+ s=k20260515; t=1789027735;
+ bh=d9NzW/E5M8u1n5uDLObm8woKJZgfVdSVM5sbmzC96eo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WrXn+bLJNYT2CHcp1zs1zy6pJlQaDA1NiAOvGNrJnQz9iZR/IorKOfwhRfHI0kQMs
- ERd7qd7GBERf+wjop2NAXD1mWowdb8ObSrOcbvQGJaHB3ypatfbC/ZyUP09mpPIInQ
- Yutgp2016mEhA2tFNUqNp9qtnnBfj0lzggQikrfDvoM8VF85vYQ9c4PWyXakbZHHOh
- 6zvhba0r8rkgKarDVXRWnUGm3oB6kfBmREARpuPPV/TN2h3EsPCe1ZUbAdEtv99Jsk
- cFoqYEKRBOik85j6yJJvs0O0Ok0eEk8aFpU8iIYSmBz+hDIjy4jMM+6Gb0aEc6qoLC
- L1fONFqMPBSxw==
+ b=DlFpcmCiusLrYjFy6C5l5LEzXfRX8PF4tgVRquUD45EchZ50Y4Euy9feWrxfWAPlH
+ zLyPPOVoOfYdQaWgCW3fRlOJHZV20KqdT/drRi4uPklqhrc7IcW5G4k/IPi7OhJ/7O
+ noSD6SBHzxXkN8dVN0ZawPMrHneQQW422iH9Dg+swIj8m8FRdsslRFI2ePI+x4Y4q/
+ dHDENk9yQJ0WcuBB8taymbL70uh4isvT+M2IDluMBL87Y5u34X4qFWZM6xjLpQrsjI
+ utmPMPVLIgjy/xOkaWCJdKiQdhcdEtG7XTVBRk/UfkMvOBN8iQAHxtLhFxWpodSSSB
+ ex7a/QV/8HVCw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/imagination: Avoid initialisation of unused FW
- trace buffer pointer
-To: "Alexandru Dadu" <alexandru.dadu@imgtec.com>
+Subject: Re: [PATCH v3 1/3] drm/sched: Lock drm_sched_rq_pop_entity()
+ externally
+To: "Philipp Stanner" <phasta@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260910-b4-avoid-init-of-unused-fw-trace-buffer-pointer-v1-2-7e10274384c2@imgtec.com>
-References: <20260910-b4-avoid-init-of-unused-fw-trace-buffer-pointer-v1-0-7e10274384c2@imgtec.com>
- <20260910-b4-avoid-init-of-unused-fw-trace-buffer-pointer-v1-2-7e10274384c2@imgtec.com>
+In-Reply-To: <20260910075942.2000338-3-phasta@kernel.org>
+References: <20260910075942.2000338-2-phasta@kernel.org>
+ <20260910075942.2000338-3-phasta@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 08:07:12 +0000
-Message-Id: <20260910080712.F3B3F1F000FF@smtp.kernel.org>
+Date: Thu, 10 Sep 2026 08:08:54 +0000
+Message-Id: <20260910080854.C603E1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,62 +62,68 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the debugfs trac=
-e output formatter uses unbounded `%s` to print firmware-provided assertion=
- strings, which can read past the end of the allocation if the strings lack=
- a NUL terminator.
+- [High] Pre-existing NULL pointer dereference in `drm_sched_job_arm()` if =
+all schedulers in the entity's list are not ready.
 --
 
-commit 97d5534fd4f9139da050fa97ad4093d575e6bdd3
-Author: Alessio Belle <alessio.belle@imgtec.com>
+commit 7804887bbadf221d2ccaad830fc83a57f0e74d93
+Author: Philipp Stanner <phasta@kernel.org>
 
-drm/imagination: Avoid initialisation of unused FW trace buffer pointer
+drm/sched: Lock drm_sched_rq_pop_entity() externally
 
-This commit removes the initialization of tracebuf_space->trace_buffer,
-an unused pointer in the firmware interface structure. The trace buffer
-source pointer continues to be used as before.
+As a preparational step for protecting entity->last_scheduled with a
+spinlock, this commit modifies drm_sched_entity_pop_job() to lock
+drm_sched_rq_pop_entity() externally.
 
-> diff --git a/drivers/gpu/drm/imagination/pvr_fw_trace.c b/drivers/gpu/drm=
-/imagination/pvr_fw_trace.c
-> index 6bb5baa6c41b7..813b7b0c8d4e9 100644
-> --- a/drivers/gpu/drm/imagination/pvr_fw_trace.c
-> +++ b/drivers/gpu/drm/imagination/pvr_fw_trace.c
-> @@ -101,7 +101,6 @@ tracebuf_ctrl_init(void *cpu_ptr, void *priv)
->  		pvr_fw_object_get_fw_addr(trace_buffer->buf_obj,
->  					  &tracebuf_space->trace_buffer_fw_addr);
+> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/s=
+cheduler/sched_entity.c
+> index bf97508a45b9a..274d7a7022987 100644
+> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> @@ -565,7 +565,9 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct=
+ drm_sched_entity *entity)
 > =20
-> -		tracebuf_space->trace_buffer =3D trace_buffer->buf;
->  		tracebuf_space->trace_pointer =3D 0;
->  	}
->  }
+>  	spsc_queue_pop(&entity->job_queue);
+> =20
+> +	spin_lock(&entity->lock);
+>  	drm_sched_rq_pop_entity(entity);
+> +	spin_unlock(&entity->lock);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but looking at another part of
-pvr_fw_trace.c in fw_trace_seq_show(), the debugfs trace output formatter u=
-ses
-unbounded %s format specifiers to print firmware-provided assertion strings:
+This isn't a bug introduced by this patch, but this series leaves a
+pre-existing NULL pointer dereference unresolved in the entity runqueue
+selection path.
 
-    seq_printf(s, "ASSERTION %s failed at %s:%u",
-               trace_seq_data->assert_buf.info,
-               trace_seq_data->assert_buf.path,
-               trace_seq_data->assert_buf.line_num);
+If all schedulers in the entity's list have sched->ready =3D=3D false (e.g.,
+during a GPU hang or reset, as documented in the drm_sched_job_init
+comments), drm_sched_pick_best() returns NULL. This causes
+drm_sched_entity_select_rq() to assign NULL to entity->rq:
 
-Can this read past the end of the allocation if the firmware provides strin=
-gs
-without a NUL terminator?
+drivers/gpu/drm/scheduler/sched_entity.c:drm_sched_entity_select_rq() {
+    ...
+    sched =3D drm_sched_pick_best(entity->sched_list, entity->num_sched_lis=
+t);
+    rq =3D sched ? sched->sched_rq[entity->rq_priority] : NULL;
+    if (rq !=3D entity->rq) {
+        drm_sched_rq_remove_entity(entity->rq, entity);
+        entity->rq =3D rq;
+    }
+    ...
+}
 
-Since assert_buf is the last member of trace_seq_data, reading past the end=
- of
-info or path could read out of the structure's bounds into adjacent heap me=
-mory.
-If the unbounded string read crosses a page boundary into an unmapped page,=
- it
-could cause a kernel panic. Additionally, it might leak adjacent kernel heap
-memory into the debugfs output.
+Upon returning to drm_sched_job_arm(), the code unconditionally dereferences
+the NULL entity->rq:
 
-Would it be safer to use %.*s with the maximum buffer size, or forcefully
-NUL-terminate the buffers after copying them from the firmware?
+drivers/gpu/drm/scheduler/sched_main.c:drm_sched_job_arm() {
+    ...
+    drm_sched_entity_select_rq(entity);
+    sched =3D entity->rq->sched;
+    ...
+}
+
+Can this lead to a kernel panic (NULL pointer dereference) if userspace
+continues to submit jobs via ioctl after a hardware fault?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-b4-avoid-i=
-nit-of-unused-fw-trace-buffer-pointer-v1-0-7e10274384c2@imgtec.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910075942.2000=
+338-2-phasta@kernel.org?part=3D1
