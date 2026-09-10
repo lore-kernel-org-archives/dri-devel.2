@@ -4,89 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E788C79FBF
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 16:26:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06FC3C79FBF
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 16:28:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63F8A10E211;
-	Thu, 10 Sep 2026 16:26:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 382E210E2DA;
+	Thu, 10 Sep 2026 16:28:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IJ+jT0II";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mB7+YWTv";
 	dkim-atps=neutral
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
- [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BA1A10E211
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 16:26:21 +0000 (UTC)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49b93204449so12285e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 09:26:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789057580; x=1789662380; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=0smL/d6QKu04fRHQtGBAAZuzGVVYkDUilTOApT5q0GE=;
- b=IJ+jT0IIm5MG4z3fXPHqdEmGJDOEu1FI+liI/76TMCnjNbk58WPiLGrrEtk6U57EYY
- JVFLtBLKzB3MbCCzO30TqHVpcvhkgalfx/hqT3DIh6SyitQQUlmuW9jOdi58Da3WSOcN
- +oyi8tvohRxlLp1rVUfrrxBzl+nZXUPxyG6MvwbSB4bqy1URHuoWgZs4LOc+jxtBzRtH
- Z0fcIRqEcioQiaL0UopmEz6Q//gbom8exyDKjq7G7Adh5WovXH6V7Y5yWx23Y4EGp1st
- jNxv/1s2qriUNzr+Dl81DcxjnWHlVryvR9R4f5F1KcR/IXTeHxKeW/bxaYQBRvBZ1OhC
- tXig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789057580; x=1789662380;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=0smL/d6QKu04fRHQtGBAAZuzGVVYkDUilTOApT5q0GE=;
- b=X9dKRL8h6xVRGxHOEStUNU+mYbQzfg2xN//cRboFxZzOZhc4j7dUTqTlSv0CvR9dtQ
- KjoS+5Ih4bT0AtzwSqdORWayeAqwqolMViKjW9+/sXD6IQIXrsZagebn00v+1CaK3d1D
- z0QPQWhioWXLAKn6w0f9aJMVxo6VPGIq3HGK3twuGL4WBqyJvrgbzVteAXZFea7ke/sV
- fhnTqj8nX+12acGcrZHifnKVGiJLd7L5gsFRBtkVcLA2iws1uWG/YFlnjLJRrqqASJst
- PxyTdv4p5ym2+UnoLuBKkoD9yoYZd39sYCjODxPAQyM/hVchYMtCM9k7Htrmjv3zOg+I
- PqIw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxiEjTQEwJ1ISciBev8AkphmCvej3TZmuS/LvDwVfTDYKtXhBgMYkkfeF4QkBhxouPcc56KGQA3oQg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nkd2bfasntfSfN0LpzwgvhAYe9tk7ESLJlOVGGQOoWmSS2A8I9
- qSopd6XyP3KRl82XMPmmZeMi2lvtvX+7ER7BNUSSXAWmn9jhbLyiC5zJ
-X-Gm-Gg: AYBFou3NU6mKxGK0uY9cCQinAsnSi6OS5HDooJtuXwItgGzwNFyJetQpt4/1euRFRyo
- VEVLo8klJmbT/QFiPIa35lZ+PQs4WPzkKVPkhN8rQYjWp3vN2fq4jR8oIbcMNV5EfhbOmhn64fO
- XDUyOpHOdCAo7N7tbMmoan/j7nlEbEYcNyAZdVkza+2dxRD8MgYbCyB1+OG4NaltGCSJUJH7slQ
- 1CsnOYLQljXuhRqFKF8BqRj7KAUKggUS1Q8BUWakdE0vDT44aZezZWIR6WffxZ+8VlstOMHh6N/
- 1J+Abg5ajNs/q20r7wVALxM8iLfz5feJQbXt7lVaTarpo4dX2GI1LjFIE8i+Xo3OKDKIxopawoK
- uuNW/sp2gmBAbSVMeuUF/so5TEydGVZx1XLJ69aEDpEu08q7NTotg8QcgJkdxCK7e0Mjv5B3JRE
- Bcxb+kSUZMxmYG9RCTL8IxPyI7sn4QxdVFvxjPTEXubivwluVq6eHLM9euxIFR28TOBdMm24RtY
- k0SRp5XuTVGiHGxPtT8E8uDCcG2fOgrBW1idczEycZv2awejddH4+xytFt2uoRQciwqyylv1Pv1
- bJgR
-X-Received: by 2002:a05:600c:c494:b0:499:d95a:41f with SMTP id
- 5b1f17b1804b1-49d010c3969mr322629105e9.0.1789057579609; 
- Thu, 10 Sep 2026 09:26:19 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B91460038D48F9767ABDC4A.dsl.pool.telekom.hu.
- [2001:4c4e:1b91:4600:38d4:8f97:67ab:dc4a])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49e60946249sm7275965e9.0.2026.09.10.09.26.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Sep 2026 09:26:19 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Heiko Stuebner <heiko@sntech.de>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, kernel@collabora.com
-Subject: Re: [PATCH] drm/connector: Cache out-of-band hotplug events
-Date: Thu, 10 Sep 2026 18:25:52 +0200
-Message-ID: <20260910162553.6262-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260821-drm-connector-oob-hotplug-cache-v1-1-e92e146fdc7b@collabora.com>
-References: <20260821-drm-connector-oob-hotplug-cache-v1-1-e92e146fdc7b@collabora.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 012F810E2B7
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 16:28:48 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 87ABB40F64;
+ Thu, 10 Sep 2026 16:28:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2C8A1F000FF;
+ Thu, 10 Sep 2026 16:28:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789057728;
+ bh=rq3v6IDpCKYvcZnfGrqUurfiS216mfdDk4RHW1732TE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=mB7+YWTvTh5ZMcda+z4IaGizwwwsiLok1IBiaPGVIt6PFYVoyCqMqAkbOGsqDjtK4
+ ra9m6kFPyyMWFiTFLAKy2EhYA6771OgGWMUe4FT4LiyhvYr83m1HJCjDa19U+YGvri
+ cMrg1RdTuBdjb8HmGGkz9MPV9Vj5/oYK/BCtBDl5fO/u3fnbPnsZVfYPgNVbwFGT3H
+ FSyMsi1O/sfyBcHyzhoymo17d6B9CB6Vglbmyq8Q5XRSI1BNxj65fDU4Kn91JpmEWJ
+ N60xG0yhTqVkQU/97L+ErDfT/Wteg00jqgBQZ/5vZ2eR4ng/W3YYE44jPT4SzMNAWc
+ FGCj1gX8XHsGQ==
+Date: Thu, 10 Sep 2026 17:28:41 +0100
+From: Lee Jones <lee@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+ Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+ mfd@lists.linux.dev, linux-fbdev@vger.kernel.org
+Subject: [GIT PULL] Immutable branch between MFD, Backlight, IIO and LEDs due
+ for the v7.4 merge window
+Message-ID: <20260910162841.GL1051768@google.com>
+References: <20260731113632.158440-1-clamor95@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260731113632.158440-1-clamor95@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,34 +67,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Sebastian,
+Enjoy!
 
-On 8/21/26 16:55, Sebastian Reichel wrote:
-> When the USB-C state machine finished negotiating DP AltMode before the
-> DRM device has been probed, the out-of-band hotplug events fired to
-> early and are lost. Without replugging the display or reloading the
-> USB-C driver, the DRM driver assumes nothing is plugged.
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-This is the boot race I reported in [1], and the patch fixes it here.
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-Orange Pi 5 Plus (RK3588), a Samsung monitor on USB-C DisplayPort Alt
-Mode behind fusb302, on drm-misc-next plus the dw-dp and Rockchip USBDP
-PHY series.  The same tree also carries my pending vop2 AXI clock patch
-and the pending dw-hdmi-qp audio guard; without those two the board
-does not survive the boot for reasons unrelated to this patch.
+are available in the Git repository at:
 
-Without the patch (one boot on that tree, two more on my daily kernel)
-the DP connector reads "disconnected" from the moment dw-dp binds until
-a boot-time service of mine unbinds and rebinds fusb302 some 45-70 s
-later; only then does the link come up.
+  git://git.kernel.org/pub/scm/linux/kernel/git/lee/mfd.git ib-mfd-backlight-iio-leds-v7.4
 
-With the patch the display comes up on its own: the same service,
-running 40 s after dw-dp bound, finds the connector already "connected"
-and does nothing.  No warnings over the session.
+for you to fetch changes up to 0077e5ed836a01a0c82f23b91afdd38e42ace8b8:
 
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus, USB-C DP Alt Mode
+  video: backlight: lm3533_bl: Implement backlight_scale property (2026-09-10 15:02:16 +0100)
 
-[1] https://lore.kernel.org/all/20260811211534.8618-1-royalnet026@gmail.com/
+----------------------------------------------------------------
+Immutable branch between MFD, Backlight, IIO and LEDs due for the v7.4 merge window
 
-Thanks,
-Igor
+----------------------------------------------------------------
+Svyatoslav Ryhel (13):
+      dt-bindings: leds: Document TI LM3533 LED controller
+      mfd: lm3533: Remove driver specific regmap wrappers
+      mfd: lm3533: Remove extern from shared functions in the header
+      mfd: lm3533: Pass only regmap and light sensor presence to child devices
+      iio: light: lm3533-als: Remove redundant pdata helpers
+      mfd: lm3533-core: Remove redundant pdata helpers
+      mfd: lm3533: Use dev_groups in struct device_driver
+      mfd: lm3533: Convert to use OF bindings
+      mfd: lm3533: Add support for VIN power supply
+      mfd: lm3533: Set DMA mask
+      video: backlight: lm3533_bl: Improve logic of sysfs functions
+      video: backlight: lm3533_bl: Set initial mapping mode from DT
+      video: backlight: lm3533_bl: Implement backlight_scale property
+
+ .../leds/backlight/ti,lm3533-backlight.yaml        |  69 ++++
+ .../devicetree/bindings/leds/ti,lm3533-leds.yaml   |  67 ++++
+ .../devicetree/bindings/leds/ti,lm3533.yaml        | 169 +++++++++
+ drivers/iio/light/lm3533-als.c                     | 185 +++++-----
+ drivers/leds/leds-lm3533.c                         | 121 +++----
+ drivers/mfd/lm3533-core.c                          | 386 ++++++++-------------
+ drivers/mfd/lm3533-ctrlbank.c                      |  33 +-
+ drivers/video/backlight/lm3533_bl.c                | 188 +++++-----
+ include/linux/mfd/lm3533.h                         |  77 +---
+ 9 files changed, 722 insertions(+), 573 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/backlight/ti,lm3533-backlight.yaml
+ create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3533-leds.yaml
+ create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3533.yaml
+
+-- 
+Lee Jones
