@@ -4,82 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 253C8C79FA1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02948C88E54
 	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 07:50:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0604D10F52F;
-	Fri, 11 Sep 2026 07:50:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 461E010F527;
+	Fri, 11 Sep 2026 07:50:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cSrzMbST";
+	dkim=pass (2048-bit key; unprotected) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="CaVJgGpl";
 	dkim-atps=neutral
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
- [209.85.128.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E31D910E1D0
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 18:51:02 +0000 (UTC)
-Received: by mail-yw1-f174.google.com with SMTP id
- 00721157ae682-8834d10a4e3so3823897b3.1
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 11:51:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789066262; x=1789671062; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=7ze+3Q1Zghvt73AjvM76sYvoFHG3lXKdzLgSKzynkjs=;
- b=cSrzMbSTGRkQBX5sQJOvnm+bhve2p3BeG+oAPKBuPzJPdlYf5mJX3XTSsHNl5GR8tu
- HnLw8/S4+9LAmAIdOBD0VyWQxoBqXIzoJl9yBpvRgiR+etuW6QqyJb9VJKyTwcP0ImFp
- bN/Yq3BKYCil79RAM+0cC+6TKsiJOSs3SI1GK3jp00j4ADvw81rq500VVwQ5DhEsTGPL
- 8+zQLf+pCDbBM7ycRIq+gNu1DHZ4mlYdmrpGOjln/+QmoeVmAB7Kn+xOmeTBrVRMZNF+
- fGXpAQfgn5ZOs30q9GWu09rB6AlSXMr8fWFtUaca/PQhloKX3JAYs+DXlqASJu0Du0Y4
- l5HQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789066262; x=1789671062;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=7ze+3Q1Zghvt73AjvM76sYvoFHG3lXKdzLgSKzynkjs=;
- b=FsPlYw6DYBCvSNu5PcFCe3LxaI+gsl13N2d1zcNC7ESAa+uLKrUlko5oayMz5AJZg0
- yJ1LUjk6LquZw4IubS9mWsUJboB5nEmTCBjmX7B/eRXADgjd4/leamNizPC3pB+Vqa/B
- 6iKQzFwbByGeEZUXHZPMxv4A1WxGrxAIDX+tPNo7bvAP2sHOxuHj0i8kWq1DVVVCeLA0
- VYZJiaoGzOclsz8ymUXsur5uOweiRg9aoq9zTd6PEXYupFGhclaK0OylqTF9Erh6muBm
- 9lN/+h1+nnQVYhPzWxBLj0P7zCPXeRnnzA2ABbzujUODPyrLLcvleeHd0wBmf2O6rGcu
- 1aQg==
-X-Gm-Message-State: AFuF++mI2HsY3dB0QG2H/9NKruLDICUghkd1mvjlqRBbrZZCbGNz0/dU
- /8tnSy/MIH9QgiAE+sgpgTmRZ1yl+JIMZik+RRmg4SN1QM5GmHMQYLciqAlaRp7j
-X-Gm-Gg: AYBFou2u/g0n/tRVyeItoiD403cojtIZvmLmUKn4yCgOW1wzCyMMfkaKWu2bb3r4gYs
- dJEdB/fzx14+gvhERi2OAV57abwN+EIcei5zv6FHEM+CZb6BMUsk3O3gF6zc7RQTQc0Tglfiqum
- ryLSGJfaQzw2aYsgmRb+iwAnfBFmyEbSIO+e9YXSleJ4XxPy18X2Sfuiw3ZKvU4KUcHf1LcbQUi
- I1c/jt0znbwQvazvtd+e1pmpLEthVicrY/KzEXI7LOI6ERcT/5tTKU45U6TQK3cxymXniOsfTAO
- E34V3LzHS0kkzoz0DNqmZotD27Qq3UxkF8LSEiJrysSccKUmoE8MqZZ5lgDZAEvHlwQfqa1NdmL
- zHkBkEz7srY1OTiY2EZEpHtyNhuV06xLwVZ/ApkZ+kQAF6nrGKeTmtougQF9sITW9kFyBVeP3Id
- YGP9TXCmTa/33PnezjxXWPusITuY8SE910/TU2JaR+PK9yyDZ0lmuu2tqOlw+H8EGajnvNYMosY
- pJoIgwuEYo=
-X-Received: by 2002:a05:690c:387:b0:873:5c7b:c13b with SMTP id
- 00721157ae682-88206b7b4b9mr20143737b3.35.1789066261756; 
- Thu, 10 Sep 2026 11:51:01 -0700 (PDT)
-Received: from DESKTOP-TLFH1MG ([76.255.203.42])
- by smtp.gmail.com with ESMTPSA id
- 00721157ae682-88486086a50sm3291707b3.17.2026.09.10.11.51.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Sep 2026 11:51:01 -0700 (PDT)
-From: Jonathan Frazin <frazinjonathan@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
- Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
- Alex Lanzano <lanzano.alex@gmail.com>, linux-kernel@vger.kernel.org,
- Jonathan Frazin <frazinjonathan@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-Subject: [PATCH v1 1/2] drm/mipi-dbi: honour the plane source offset when
- flushing
-Date: Thu, 10 Sep 2026 13:48:56 -0500
-Message-ID: <20260910185030.870-2-frazinjonathan@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910185030.870-1-frazinjonathan@gmail.com>
-References: <20260910185030.870-1-frazinjonathan@gmail.com>
+Received: from smtp-8faf.mail.infomaniak.ch (smtp-8faf.mail.infomaniak.ch
+ [83.166.143.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90F5F10E2D0
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 18:15:21 +0000 (UTC)
+Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch
+ [10.4.36.107])
+ by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hgm7C3yXvzyHb;
+ Thu, 10 Sep 2026 20:15:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
+ s=20250113; t=1789064119;
+ bh=RZefKOnVfiL9JNII1ZYlmPnKnTh94CstW5go0Osd9Xg=;
+ h=From:To:Cc:Subject:Date:From;
+ b=CaVJgGpl1eBzB9wnSMes3HiZ+tX/fAtXsEPvdA5HSzKCgQ5flcLi461UIDkE+g5St
+ DR+Q2Xg14CYWzZM0vZpGj2FytrNkTmnUGZysDnVj4bWFLUZZvsbS3Adhca08BfkdFG
+ Pf4sSv5Mf02VNL2eRMdGBuhm3p/xqvMhDfrSShPDuwbaC8N7WMw1tLBeq344pNJCgt
+ ZB7VJCl+kRtfwP0cvnoQA3ZD4aiGJ1BlJze5xskiMFtumP+42oe1Ry1qVU/EX71gZW
+ 9XKGZPVHccWTnq8aoPFgP+S90GcDeHYxRbd+tWH9Vy58tHGRrjMLisHYTibHbX6bCT
+ smb1VRqafm2TA==
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA
+ id 4hgm7B3jv5zf3K; Thu, 10 Sep 2026 20:15:18 +0200 (CEST)
+From: Adrian Betschart <adrian.betschart@cinemaone.ch>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Satyajit Roy <sroy14@alum.utk.edu>, Alex Hung <alex.hung@amd.com>,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/display: Default HDMI RGB output to limited range on
+ CTA modes
+Date: Thu, 10 Sep 2026 20:15:17 +0200
+Message-ID: <20260910181517.68781-1-adrian.betschart@cinemaone.ch>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 X-Mailman-Approved-At: Fri, 11 Sep 2026 07:50:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,69 +64,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-mipi_dbi_fb_dirty() takes the damage rectangle from
-drm_atomic_helper_damage_merged(), which is expressed in framebuffer
-coordinates and already clipped to the plane's source rectangle.  It
-then passed that rectangle straight to mipi_dbi_set_window_address(),
-which is correct only while the source rectangle starts at (0,0) - i.e.
-while the framebuffer is exactly panel-sized.
+With the Broadcast RGB property at Automatic, amdgpu_dm_get_output_color_space()
+selects COLOR_SPACE_SRGB for RGB output, so DC neither compresses the pixels
+nor, without a QS-capable sink, signals full range in the AVI InfoFrame. A sink
+that follows CTA-861 treats the default quantization of a CTA video format as
+limited and expands 16-235 to 0-255: everything below 16 is crushed to black,
+everything above 235 clips.
 
-If a driver allows a framebuffer larger than the panel and the plane
-selects a sub-region with a non-zero src_x/src_y, the controller was
-still addressed in framebuffer coordinates, so the wrong part of the
-panel was written and an out-of-range window could be programmed.
+Follow the CTA-861 default for Automatic instead, as the DRM HDMI state helper
+(hdmi_is_limited_range()) and i915 do: limited range on an HDMI sink for CTA
+modes other than 640x480, full range elsewhere. Full and Limited keep their
+explicit meaning. The same rule applies to the BT.2020 RGB branch. With
+commit a56a50074 ("drm/amd/display: Propagate HDMI RGB quantization
+selectability") the AVI InfoFrame then carries the matching Q value on
+sinks that support selection.
 
-Pass the integer plane source origin down to mipi_dbi_fb_dirty() and
-subtract it when programming the column/page address.  The copy into the
-transfer buffer still uses the framebuffer-coordinate rectangle, so it
-keeps reading the correct pixels from an oversized source.  With a
-panel-sized framebuffer src_x/src_y are zero and behaviour is unchanged.
+Measured on a Radeon RX 7600 (DCN 3.2.1) driving a JVC DLA-RS4100 at
+1920x1080p24 RGB 12 bpc: the sink reports the signal as limited range while
+the picture shows crushed shadows; rendering limited range in the client makes
+it match a reference source.
 
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Signed-off-by: Jonathan Frazin <frazinjonathan@gmail.com>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5796
+Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
+Assisted-by: Claude Code:claude-fable-5-1
 ---
- drivers/gpu/drm/drm_mipi_dbi.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   | 22 +++++++++++++++++--
+ 1 file changed, 20 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_mipi_dbi.c b/drivers/gpu/drm/drm_mipi_dbi.c
-index 25cf04d02..38db45a9d 100644
---- a/drivers/gpu/drm/drm_mipi_dbi.c
-+++ b/drivers/gpu/drm/drm_mipi_dbi.c
-@@ -271,7 +271,8 @@ static void mipi_dbi_set_window_address(struct mipi_dbi_dev *dbidev,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 0b446133e..13cbe099c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -734,6 +734,24 @@ get_aspect_ratio(const struct drm_display_mode *mode_in)
  }
+ EXPORT_IF_KUNIT(get_aspect_ratio);
  
- static void mipi_dbi_fb_dirty(struct iosys_map *src, struct drm_framebuffer *fb,
--			      struct drm_rect *rect, struct drm_format_conv_state *fmtcnv_state)
-+			      struct drm_rect *rect, unsigned int src_x, unsigned int src_y,
-+			      struct drm_format_conv_state *fmtcnv_state)
- {
- 	struct mipi_dbi_dev *dbidev = drm_to_mipi_dbi_dev(fb->dev);
- 	unsigned int height = rect->y2 - rect->y1;
-@@ -298,8 +299,13 @@ static void mipi_dbi_fb_dirty(struct iosys_map *src, struct drm_framebuffer *fb,
- 		tr = src->vaddr; /* TODO: Use mapping abstraction properly */
- 	}
- 
--	mipi_dbi_set_window_address(dbidev, rect->x1, rect->x2 - 1, rect->y1,
--				    rect->y2 - 1);
-+	/*
-+	 * @rect is in framebuffer coordinates and has been clipped to the plane
-+	 * src rectangle by the damage iterator. The panel is addressed relative
-+	 * to the src origin, so subtract it here.
-+	 */
-+	mipi_dbi_set_window_address(dbidev, rect->x1 - src_x, rect->x2 - 1 - src_x,
-+				    rect->y1 - src_y, rect->y2 - 1 - src_y);
- 
- 	if (fb->format->format == DRM_FORMAT_XRGB8888)
- 		dst_format = drm_format_info(dbidev->pixel_format);
-@@ -390,6 +396,8 @@ void drm_mipi_dbi_plane_helper_atomic_update(struct drm_plane *plane,
- 	if (drm_dev_enter(plane->dev, &idx)) {
- 		if (drm_atomic_helper_damage_merged(old_plane_state, plane_state, &rect))
- 			mipi_dbi_fb_dirty(&shadow_plane_state->data[0], fb, &rect,
-+					  plane_state->src_x >> 16,
-+					  plane_state->src_y >> 16,
- 					  &shadow_plane_state->fmtcnv_state);
- 		drm_dev_exit(idx);
- 	}
++/*
++ * CTA-861 5.1: RGB video formats default to limited range except 640x480 (VIC 1).
++ * With Broadcast RGB left at Automatic follow that default, as i915 does.
++ */
++static bool rgb_output_is_limited_range(const struct dc_crtc_timing *dc_crtc_timing,
++					const struct drm_connector_state *connector_state)
++{
++	switch (connector_state->hdmi.broadcast_rgb) {
++	case DRM_HDMI_BROADCAST_RGB_FULL:
++		return false;
++	case DRM_HDMI_BROADCAST_RGB_LIMITED:
++		return true;
++	default:
++		return connector_state->connector->display_info.is_hdmi &&
++		       dc_crtc_timing->vic > 1;
++	}
++}
++
+ enum dc_color_space
+ amdgpu_dm_get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+ 				 const struct drm_connector_state *connector_state)
+@@ -759,7 +777,7 @@ amdgpu_dm_get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+ 	case DRM_MODE_COLORIMETRY_BT2020_RGB:
+ 	case DRM_MODE_COLORIMETRY_BT2020_YCC:
+ 		if (dc_crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB) {
+-			if (connector_state->hdmi.broadcast_rgb == DRM_HDMI_BROADCAST_RGB_LIMITED)
++			if (rgb_output_is_limited_range(dc_crtc_timing, connector_state))
+ 				color_space = COLOR_SPACE_2020_RGB_LIMITEDRANGE;
+ 			else
+ 				color_space = COLOR_SPACE_2020_RGB_FULLRANGE;
+@@ -771,7 +789,7 @@ amdgpu_dm_get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+ 	default:
+ 		if (dc_crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB) {
+ 			color_space = COLOR_SPACE_SRGB;
+-			if (connector_state->hdmi.broadcast_rgb == DRM_HDMI_BROADCAST_RGB_LIMITED)
++			if (rgb_output_is_limited_range(dc_crtc_timing, connector_state))
+ 				color_space = COLOR_SPACE_SRGB_LIMITED;
+ 		/*
+ 		 * 27030khz is the separation point between HDTV and SDTV
 -- 
-2.53.0
+2.55.0
 
