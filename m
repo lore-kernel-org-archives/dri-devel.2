@@ -4,43 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14FCAC79FB7
-	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 04:31:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA74CC88E40
+	for <dri-devel@archiver.kernel.org>; Thu, 10 Sep 2026 05:45:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21D8110E08B;
-	Thu, 10 Sep 2026 04:31:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C909210E1D4;
+	Thu, 10 Sep 2026 05:45:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IEt7rf6r";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lEl8aA3K";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A80A910E08B
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 04:31:28 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A3E6C600CB;
- Thu, 10 Sep 2026 04:31:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6A141F000FF;
- Thu, 10 Sep 2026 04:31:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789014687;
- bh=fXIWvu01dNMuisalwTIAqMJKI/k5cYOAK8SW4sXCqgM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IEt7rf6rZL3LM6Z2QTj2H5YyxnFtGnvRu+9DEwXnZqBqidbH3s4s+SDXweAOY4nrv
- SxDjwKYM0yxlGiugXRds8KA9NmLPEuREr+iYBS56QB67z+TnV/ovHac+SwqDYoflX9
- HndPvRFvx31PYvwlTeuO4es/un/Wv82Ckh4WjZzWaha8/3ljHp7lK2guSVAEgSGpnk
- j+boqCLfywkw+YE2aROUTxZeuv38WMnK9agn0IsMfhAGiGaHOk1pJJJndiYs0c4vz+
- cGdTntB8SfY2ExHoEagRUiFBeF/3DWDSFfYwekSgvCH2QfkpbzfmMghsbYb2pt+Ox0
- xu9r0YgZ1CEaA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/imagination: suspend the GPU for system sleep,
- not just runtime PM
-To: "Ryan Brue" <ryanbrue.dev@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v2-1-66a938e92b87@gmail.com>
-References: <20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v2-1-66a938e92b87@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 04:31:26 +0000
-Message-Id: <20260910043126.E6A141F000FF@smtp.kernel.org>
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDC7510E1D4
+ for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 05:45:45 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-2d944747d41so75288865ad.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 09 Sep 2026 22:45:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789019145; x=1789623945; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=TorC7V36k30jSb5TWYgDiKQ9Uk9U0ujF5LpdwA3W0Vc=;
+ b=lEl8aA3Kw4C+cdeqN+PFqt3KtGi2GILAKyEky1Y+KjpMNLsN3puFStyHB4lrt0yC76
+ KhMkNmwiCeKaA8gGo2PW10IH/PX37ETmXqOs4gccWr9Tb2//hXznUq1iFcadtV7+UQBO
+ E0sI9JqLUWlR0z3kQur19W2VtOqqFVEwStyUL7F8vFeTaF/ugn7AxsXj+ugFamOP2WKP
+ jnSkDXiyUtdyTOkxJ2SV6R6f9bq53gjU44HtAh98Uc/QeUiAeLnKSOhSE4mL94NFluG0
+ 8GT12mtzK/lR9HPWCpvsR8M6VrpXwerR7QwQSuH5ptz9v9rYBfmmk30GxXZ9e5moGy3g
+ ZN+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789019145; x=1789623945;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=TorC7V36k30jSb5TWYgDiKQ9Uk9U0ujF5LpdwA3W0Vc=;
+ b=kflLCwpKKgAKdr5HHLa2UYHy6WH8VfMVjeFnaSy9B8+jwwszj22G2BEWd4kVkFEVvD
+ EHjFX9gLYOHfQRHMJcp1uQhIOE7XJfZ6nGfTD+UurkhVYAPaz38DoB/kDUloGmk2kCGs
+ tBAswUHWg2kPugVZaSb9/HucsdATw/SiIb/8BqKaIowVqg41AFFh/njUXO2LNi8hLz3I
+ hZjvPeD0EMuMiXWoAwTrd0eTiU7xkkfq/aZAPkKe8Czz8SnRpcAbm4G5a8362nTNrOhJ
+ htv2GhzwAvaY2nKdtRkelKuQ4OTDCupQisaAkrhy7Fo5zGo7Ly7/r1oVW+I/3ptyOCWh
+ IHJw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByoecmQ9mHAqQuvYfucy2tROOrZFNNYFJmkvRQhwQRtFtcQR+ri5/3xvxJxekTtTidKCHLQ2MznzPs=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mnC/hM5KrK8aUQfSoFK1KxbWd2nH1mjhnIgbC7rRDOBepXXRw+
+ wBaZbJiZyv9pMqG6xlufukZNKZB6ucsl+NoEBKZCraRvUXcdj2HfOEM=
+X-Gm-Gg: AYBFou1lvhMJZIfVli+t5cM65Rpe+uktbKrWxlBfVB3u7pjbndClFU1LDP2PYJzxY09
+ UKyQM7fS1ZPJMxsMDrK6khzLzNBFbiAeZYMJW7sEpjnnQD0Zr6LpsB5A2/ZHCWaG2pwEK85DvvK
+ 6wqzJb/x4bOQAVa3WPIZzPMRaHfYaSgrC1jMXtkNMTDsLUhY2V7hgmmKO5SXb5ExJMWMTiLBn3K
+ drdUeDpCctBHYTr0KijeRDzuBWDCUj/cuXff2y0tz6wWLpXZ0Nz412ihsLar8nAEh6oz7BBHeeZ
+ q4oQj7eEbaXNGcRGRNhFfNDlHxnbDvVKZPZuw+4vg2jb5GzTCykZKJqslp/59P2YZDL7WoSUND8
+ aMjGZ2hmQSTGeoTEVHXqi0sV0useJcYtwZ8ZmuDoD0tcmreavVCT642KEu79jWQz/uXOMZAfl0s
+ rKfQQvqS/Vuovp99h0ruBb3B8hlf8aCxfw2cZZf265VFvEdm5LdULC2IT33ZYSM6dM2gGNn10Dk
+ EkF6GLPIbdu1ziZGe+Wm1L3msbKJQWdogkL
+X-Received: by 2002:a17:90b:2781:b0:398:9c00:29ee with SMTP id
+ 98e67ed59e1d1-39b26289136mr62814945a91.22.1789019145273; 
+ Wed, 09 Sep 2026 22:45:45 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA
+ ([2001:2d8:7f04:fd2a:f01d:1dc7:1e5:47d8])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39d7740383asm3531936a91.7.2026.09.09.22.45.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Sep 2026 22:45:44 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: Matthew Brost <matthew.brost@intel.com>,
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ donggeunyoo.kernel@gmail.com
+Subject: [PATCH v2] drm/sched: Drop the unused entity argument from
+ drm_sched_fence_alloc()
+Date: Thu, 10 Sep 2026 14:45:37 +0900
+Message-ID: <20260910054537.633952-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,183 +88,78 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+In commit dbe48d030b28 ("drm/sched: Split drm_sched_job_init") the only
+use of the entity argument of drm_sched_fence_alloc(), fence->sched =
+entity->rq->sched, moved into drm_sched_fence_init(), and the now unused
+argument was left behind.
 
-New issues:
-- [Critical] System suspend introduces an AB-BA deadlock between the SRCU r=
-ead lock and the watchdog synchronization.
-- [High] TOCTOU race in `pvr_power_system_suspend()` allows a concurrent un=
-plug to cause a spurious system suspend failure.
+Drop the argument. The sole caller still passes the entity to
+drm_sched_fence_init() at arm time, so behavior is unchanged. This also
+removes the parameter-name mismatch between the declaration (s_entity)
+and the definition (entity).
 
-Pre-existing issues:
-- [High] Error path in `pvr_power_fw_disable()` fails to requeue watchdog w=
-ork, permanently breaking watchdog monitoring.
-- [High] Device structures are destroyed before `drm_dev_unplug()`, creatin=
-g a Use-After-Free for concurrent ioctls.
---
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Assisted-by: Claude:claude-fable-5
+---
+Resent: the original reached lkml but not dri-devel/amd-gfx - I was not
+subscribed at the time. Apologies to those seeing it twice.
 
-commit dc6377c63d9f22c52f5a09300ba23dc0ca1af753
-Author: Ryan Brue <ryanbrue.dev@gmail.com>
+Targets drm-misc-next. No functional change; compile-tested with W=1.
 
-    drm/imagination: suspend the GPU for system sleep, not just runtime PM
+v2: trim the first paragraph, which read as if the patch addressed a bug
+    when it only removes an unused argument (Philipp Stanner). Capitalize
+    the subject to match the subtree.
+Link to v1: https://lore.kernel.org/dri-devel/20260909005112.278538-1-donggeunyoo.kernel@gmail.com/
 
-    pvr_pm_ops has only RUNTIME_PM_OPS, so the GPU gets no callback for
-    system suspend at all. This patch adds SYSTEM_SLEEP_PM_OPS to map
-    system suspend and resume to pm_runtime_force_suspend and
-    pm_runtime_force_resume, wrapped to prevent system suspend failures if
-    the GPU is already unplugged.
+ drivers/gpu/drm/scheduler/sched_fence.c    | 3 +--
+ drivers/gpu/drm/scheduler/sched_internal.h | 3 +--
+ drivers/gpu/drm/scheduler/sched_main.c     | 2 +-
+ 3 files changed, 3 insertions(+), 5 deletions(-)
 
-> ...
-> And pvr_power_fw_disable() cancels the watchdog work before it can fail,
-> and does not restart it on the error path, so a suspend that fails
-> part-way leaves the watchdog dead until the next successful resume --
-> pre-existing, but system sleep is a new way to reach it.
-> ...
+diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/scheduler/sched_fence.c
+index 096fe28aa9c9..b7a4cb921234 100644
+--- a/drivers/gpu/drm/scheduler/sched_fence.c
++++ b/drivers/gpu/drm/scheduler/sched_fence.c
+@@ -205,8 +205,7 @@ struct drm_sched_fence *to_drm_sched_fence(struct dma_fence *f)
+ }
+ EXPORT_SYMBOL(to_drm_sched_fence);
+ 
+-struct drm_sched_fence *drm_sched_fence_alloc(struct drm_sched_entity *entity,
+-					      void *owner,
++struct drm_sched_fence *drm_sched_fence_alloc(void *owner,
+ 					      u64 drm_client_id)
+ {
+ 	struct drm_sched_fence *fence = NULL;
+diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
+index a901801fce85..32d3ddb820be 100644
+--- a/drivers/gpu/drm/scheduler/sched_internal.h
++++ b/drivers/gpu/drm/scheduler/sched_internal.h
+@@ -58,8 +58,7 @@ drm_sched_rq_select_entity(struct drm_gpu_scheduler *sched,
+ void drm_sched_entity_select_rq(struct drm_sched_entity *entity);
+ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity);
+ 
+-struct drm_sched_fence *drm_sched_fence_alloc(struct drm_sched_entity *s_entity,
+-					      void *owner, u64 drm_client_id);
++struct drm_sched_fence *drm_sched_fence_alloc(void *owner, u64 drm_client_id);
+ void drm_sched_fence_init(struct drm_sched_fence *fence,
+ 			  struct drm_sched_entity *entity);
+ void drm_sched_fence_free(struct drm_sched_fence *fence);
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 6cb6f9546493..e4835b99ca60 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -612,7 +612,7 @@ int drm_sched_job_init(struct drm_sched_job *job,
+ 
+ 	job->entity = entity;
+ 	job->credits = credits;
+-	job->s_fence = drm_sched_fence_alloc(entity, owner, drm_client_id);
++	job->s_fence = drm_sched_fence_alloc(owner, drm_client_id);
+ 	if (!job->s_fence)
+ 		return -ENOMEM;
+ 
+-- 
+2.53.0
 
-[Severity: High]
-This isn't a bug introduced by this patch, but since system sleep now
-provides a reachable path for this to happen, could this leave the GPU
-permanently dead on subsequent hangs?
-
-If pvr_power_fw_disable() cancels the work, and then bails out early
-before requeuing it:
-
-drivers/gpu/drm/imagination/pvr_power.c:pvr_power_fw_disable() {
-    cancel_delayed_work_sync(&pvr_dev->watchdog.work);
-
-    err =3D pvr_power_request_idle(pvr_dev);
-    if (err)
-        return err;
-    ...
-}
-
-Will the watchdog remain permanently disabled without a subsequent
-successful resume to restart it?
-
-> diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imag=
-ination/pvr_drv.c
-> index 5c965ef0274ff..09eb162353aac 100644
-> --- a/drivers/gpu/drm/imagination/pvr_drv.c
-> +++ b/drivers/gpu/drm/imagination/pvr_drv.c
-> @@ -1517,6 +1517,7 @@ MODULE_DEVICE_TABLE(of, dt_match);
-> =20
->  static const struct dev_pm_ops pvr_pm_ops =3D {
->  	RUNTIME_PM_OPS(pvr_power_device_suspend, pvr_power_device_resume, pvr_p=
-ower_device_idle)
-> +	SYSTEM_SLEEP_PM_OPS(pvr_power_system_suspend, pvr_power_system_resume)
->  };
-> =20
->  static struct platform_driver pvr_driver =3D {
->  	.probe =3D pvr_probe,
->  	.remove =3D pvr_remove,
-
-[Severity: High]
-This is a pre-existing issue, but does pvr_remove() create a
-use-after-free condition for concurrent ioctls?
-
-Looking at drivers/gpu/drm/imagination/pvr_drv.c:pvr_remove():
-
-    xa_destroy(&pvr_dev->job_ids);
-    xa_destroy(&pvr_dev->free_list_ids);
-
-    pm_runtime_suspend(drm_dev->dev);
-    pvr_device_fini(pvr_dev);
-    drm_dev_unplug(drm_dev);
-
-Since drm_dev_unplug() is called after destroying the xarrays, could a
-concurrent ioctl still successfully call drm_dev_enter() and access the
-freed data structures? Should drm_dev_unplug() be called before tearing
-down the internal data structures?
-
-> diff --git a/drivers/gpu/drm/imagination/pvr_power.c b/drivers/gpu/drm/im=
-agination/pvr_power.c
-> index eb4b6ecdf4f4d..55a47bc4e925e 100644
-> --- a/drivers/gpu/drm/imagination/pvr_power.c
-> +++ b/drivers/gpu/drm/imagination/pvr_power.c
-[ ... ]
-> @@ -427,6 +427,37 @@ pvr_power_device_resume(struct device *dev)
->  	return err;
->  }
-> =20
-> +int
-> +pvr_power_system_suspend(struct device *dev)
-> +{
-> +	struct platform_device *plat_dev =3D to_platform_device(dev);
-> +	struct drm_device *drm_dev =3D platform_get_drvdata(plat_dev);
-> +
-> +	/*
-> +	 * A device that has been lost cannot be talked to, and there is
-> +	 * nothing left to power down. pvr_power_device_suspend() answers
-> +	 * -EIO for it, which the PM core turns into a failed system suspend
-> +	 * for the whole machine -- and because nothing clears the condition,
-> +	 * it would fail that way on every subsequent attempt.
-> +	 */
-> +	if (drm_dev_is_unplugged(drm_dev))
-> +		return 0;
-> +
-> +	return pm_runtime_force_suspend(dev);
-
-[Severity: High]
-Does this create a TOCTOU race window?
-
-Because drm_dev_is_unplugged() acquires and then drops the lock, and
-pvr_dev->sched_wq is not allocated with WQ_FREEZABLE, can the watchdog
-worker run concurrently and unplug the device between the check and
-the call to pm_runtime_force_suspend(dev)?
-
-If pm_runtime_force_suspend() is called on a device that was lost in that
-window, wouldn't it result in a spurious system suspend failure?
-
-
-[Severity: Critical]
-Does this bypass runtime PM usage counts and introduce an AB-BA deadlock
-during system suspend?
-
-pm_runtime_force_suspend() calls pvr_power_device_suspend(), which
-acquires the SRCU read lock via drm_dev_enter():
-
-drivers/gpu/drm/imagination/pvr_power.c:pvr_power_device_suspend() {
-    if (!drm_dev_enter(drm_dev, &idx))
-        return -EIO;
-    ...
-    if (READ_ONCE(pvr_dev->fw_dev.initialised)) {
-        err =3D pvr_power_fw_disable(pvr_dev, true);
-
-It then blocks waiting for the watchdog to complete while holding the lock:
-
-drivers/gpu/drm/imagination/pvr_power.c:pvr_power_fw_disable() {
-    cancel_delayed_work_sync(&pvr_dev->watchdog.work);
-
-If the watchdog worker is concurrently executing and triggers a reset that
-fails, it calls drm_dev_unplug():
-
-drivers/gpu/drm/imagination/pvr_power.c:pvr_device_lost() {
-    drm_dev_unplug(from_pvr_device(pvr_dev));
-
-drm_dev_unplug() will block on synchronize_srcu() waiting for the read
-lock held by the suspend path, causing a complete system freeze. Can we
-avoid holding the SRCU read lock while synchronizing with the watchdog?
-
-> +}
-> +
-> +int
-> +pvr_power_system_resume(struct device *dev)
-> +{
-> +	struct platform_device *plat_dev =3D to_platform_device(dev);
-> +	struct drm_device *drm_dev =3D platform_get_drvdata(plat_dev);
-> +
-> +	if (drm_dev_is_unplugged(drm_dev))
-> +		return 0;
-> +
-> +	return pm_runtime_force_resume(dev);
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-rbrue-suez=
--upstreaming-pvr-suspend-gpu-system-sleep-v2-1-66a938e92b87@gmail.com?part=
-=3D1
