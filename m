@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B9FCC88E53
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 19:17:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAA42C88E53
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 19:19:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 504D010F6D0;
-	Fri, 11 Sep 2026 19:17:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11C0910E401;
+	Fri, 11 Sep 2026 19:19:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Qt/7DDRa";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Xot4l4hF";
 	dkim-atps=neutral
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BF8710F6D0
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 19:17:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1789154253; cv=none; 
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6274E10E401
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 19:19:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1789154327; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=XjooYV5kEFQGV08qpZQEhBipdgBbz/vEGnSRQZqowJMzP7SB4FyWxPn0jElB3nBk72epw5NwXrK3n3+YoWk0on93imdmjYlnLheCyAdWCfZjH7pfHpj+oclk9Cdj7vObuPfVgAgE7Pa2PLmGz67Acefzv5pxraBu5szCWAWbZUY=
+ b=KgIoiEMoXqYTZzILMJrJ9WBHq6wBgAy5WFfsPa11sj1o78pz5DjCIJMT3f+k6X/sThl2sEj3LQfhQP8cM9fkogn/qqm/aHJu3mlSm+ukwq0iI/YRQDINvZqD5oN7OD3YyiT86bUnyYR5XUe0t3JhOFFuVV00KAEaW2gjyM7L8IY=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1789154253;
+ s=zohoarc; t=1789154327;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=eUEZD4gf1dPTyyjb0g6E88Kf3E9DOxokbw0BzzvUr6k=; 
- b=Dse7BrjV76DsFGxZO1Wv30tI6k0N2znV+R7tRVwcXc/3ZcTSFRzWUQNH5LtgUyJmw3uIs9CsjOQJW6tmIrsoZJ/ddnsmsczqg+kpUnbPSPgkyaVLS6j+oY4dtkCIoMS+ypHcWa6mJ2f859TOoJxBoMR6KsmJk/Gb8eUQw7a+qv0=
+ bh=lK+pZwRlb5fLtEfqpk+prHr+qVuv4jWiesa+VEIUtzo=; 
+ b=NN7IclaDCTXPueBGCor1LH4yxU6LqugHikOJyeaMNDQc4ZKyeB1+PO3ysjYL+6MkFqSPRZ0KW6pifvxtHYeISLqoU1zDUlV10YMqyNkVzB1tqgzz9lMn481cyoXdC2TkLDy+N8z+9B9MAJcCijat/4/gx44Q4XE4qARMZ1bQTVA=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789154253; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789154327; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
- bh=eUEZD4gf1dPTyyjb0g6E88Kf3E9DOxokbw0BzzvUr6k=;
- b=Qt/7DDRaaAFHS/2MXSvPtUt/zU8W5U57hAPzU4LYFa5E1H3pbGwQeYH4oUDWjZhh
- PQbG434RMMNu1lSw9idMQSj4T2dHP4gGkz3CJk2gkWwJmb/yno/oWudNqoynZzuIYyD
- g6c3ZetmzypJsQrW5Wfsf9utgK6jHKczW6PRffhg=
-Received: by mx.zohomail.com with SMTPS id 1789154251343908.8885510094409;
- Fri, 11 Sep 2026 12:17:31 -0700 (PDT)
-Date: Fri, 11 Sep 2026 20:17:27 +0100
+ bh=lK+pZwRlb5fLtEfqpk+prHr+qVuv4jWiesa+VEIUtzo=;
+ b=Xot4l4hFxuOXrJJ0QG3Cy6+/aaVEHuelXVwBAJCmUVYr3IQQn9mNkOH3DQczqhCV
+ yrZ8kKX0u+H6FR0oZpq+ThKSsyRDMaxBCsUzMnRQU5x/2H8hdwjsofxlRAEMiWZECj8
+ 3t/MtmI4bOzVBC9yxQ0xrGcq54UPpMZ9K07jaJUs=
+Received: by mx.zohomail.com with SMTPS id 1789154325501804.3814371256973;
+ Fri, 11 Sep 2026 12:18:45 -0700 (PDT)
+Date: Fri, 11 Sep 2026 20:18:41 +0100
 From: Adrian Larumbe <adrian.larumbe@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>
 Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
@@ -47,15 +47,16 @@ Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 16/18] drm/panthor: Track user owned groups
-Message-ID: <aqQLUfxvROh3soX_@sobremesa>
+Subject: Re: [PATCH v4 18/18] drm/panthor: Add debugfs knobs to simulate
+ reset failures
+Message-ID: <aqQs54XbOvmxOyzz@sobremesa>
 References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
- <20260826-panthor-unplug-fixes-v4-16-982cc8f4234b@collabora.com>
+ <20260826-panthor-unplug-fixes-v4-18-982cc8f4234b@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260826-panthor-unplug-fixes-v4-16-982cc8f4234b@collabora.com>
+In-Reply-To: <20260826-panthor-unplug-fixes-v4-18-982cc8f4234b@collabora.com>
 X-Zoho-Virus-Status: 1
 X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.144.59
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,145 +77,115 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 Reviewed-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 
 On 26.08.2026 16:56, Boris Brezillon wrote:
-> A group can outlive its user handle because of internal refs. In order
-> to fix the unplug logic, we need to keep track of groups that have a
-> valid user handle so we can release the references that were owned by
-> the user processes in the unplug path.
+> It's almost impossible to trigger a situation where the reset
+> doesn't work now that the driver is more mature, so let's add two
+> knobs to exercise this error path:
 > 
-> This is the prep work to keep track of user owned groups. Note that
-> the destroyed attribute is dropped because it's equivalent to checking
-> whether the group is inserted in the user_owned list now.
+> - a knob to trigger a reset
+> - a knob to fake an error in the reset path
 > 
 > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 > ---
->  drivers/gpu/drm/panthor/panthor_sched.c | 43 ++++++++++++++++++++++++---------
->  1 file changed, 31 insertions(+), 12 deletions(-)
+>  drivers/gpu/drm/panthor/panthor_device.c | 48 +++++++++++++++++++++++++++++++-
+>  drivers/gpu/drm/panthor/panthor_device.h |  8 ++++++
+>  2 files changed, 55 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index 4ea16b40d6b9..bd5dcf4cb580 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -235,6 +235,15 @@ struct panthor_scheduler {
->  		 * This list is evaluated in the @sync_upd_work work.
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+> index 328e601d80e8..8bdc511310c0 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.c
+> +++ b/drivers/gpu/drm/panthor/panthor_device.c
+> @@ -5,6 +5,7 @@
+>  /* Copyright 2025 ARM Limited. All rights reserved. */
+>  
+>  #include <linux/clk.h>
+> +#include <linux/debugfs.h>
+>  #include <linux/mm.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/pm_domain.h>
+> @@ -182,7 +183,10 @@ static void panthor_device_reset_work(struct work_struct *work)
+>  	panthor_hw_soft_reset(ptdev);
+>  	panthor_hw_l2_power_on(ptdev);
+>  	panthor_mmu_post_reset(ptdev);
+> -	ret = panthor_fw_post_reset(ptdev);
+> +	if (ptdev->reset.fake_failure)
+> +		ret = -EIO;
+> +	else
+> +		ret = panthor_fw_post_reset(ptdev);
+>  	atomic_set(&ptdev->reset.pending, 0);
+>  	panthor_sched_post_reset(ptdev, ret != 0);
+>  	drm_dev_exit(cookie);
+> @@ -690,8 +694,50 @@ int panthor_device_suspend(struct device *dev)
+>  }
+>  
+>  #ifdef CONFIG_DEBUG_FS
+> +static int panthor_device_fake_fw_reset_failure_get(void *data, u64 *val)
+> +{
+> +	struct panthor_device *ptdev = data;
+> +
+> +	*val = ptdev->reset.fake_failure ? 1 : 0;
+> +	return 0;
+> +}
+> +
+> +static int panthor_device_fake_fw_reset_failure_set(void *data, u64 val)
+> +{
+> +	struct panthor_device *ptdev = data;
+> +
+> +	ptdev->reset.fake_failure = val ? true : false;
+> +	return 0;
+> +}
+> +
+> +DEFINE_DEBUGFS_ATTRIBUTE(panthor_device_fake_fw_reset_failure_fops,
+> +			 panthor_device_fake_fw_reset_failure_get,
+> +			 panthor_device_fake_fw_reset_failure_set, "%llu\n");
+> +
+> +static ssize_t panthor_device_reset_file_write(struct file *file,
+> +					       const char __user *, size_t size,
+> +					       loff_t *)
+> +{
+> +	struct panthor_device *ptdev = file_inode(file)->i_private;
+> +
+> +	panthor_device_schedule_reset(ptdev);
+> +	return size;
+> +}
+> +
+> +static const struct debugfs_short_fops panthor_device_reset_fops = {
+> +	.write = panthor_device_reset_file_write,
+> +};
+> +
+>  void panthor_device_debugfs_init(struct drm_minor *minor)
+>  {
+> +	struct panthor_device *ptdev = container_of(minor->dev, struct panthor_device, base);
+> +
+> +	debugfs_create_file("fake_fw_reset_failure", 0644,
+> +			    minor->debugfs_root, ptdev,
+> +			    &panthor_device_fake_fw_reset_failure_fops);
+> +	debugfs_create_file("reset", 0200,
+> +			    minor->debugfs_root, ptdev,
+> +			    &panthor_device_reset_fops);
+>  	panthor_mmu_debugfs_init(minor);
+>  	panthor_gem_debugfs_init(minor);
+>  }
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index e12049961912..82ec34347eba 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -294,6 +294,14 @@ struct panthor_device {
+>  		 * all FW sections to make sure we start from a fresh state.
 >  		 */
->  		struct list_head waiting;
+>  		bool fast;
 > +
 > +		/**
-> +		 * @user_owned: List of groups that have a valid user handle.
+> +		 * @fake_failure: When true, pretend the FW boot in the reset path failed.
 > +		 *
-> +		 * All groups are inserted in this list at creation time through their
-> +		 * panthor_group;:user_node, and evicted from this list when
-
-                  Nit: :: instead of ;:
-
-> +		 * panthor_group_destroy() is called.
+> +		 * This is important to check that we're doing the right thing in this very
+> +		 * unlikely case.
 > +		 */
-> +		struct list_head user_owned;
->  	} groups;
+> +		bool fake_failure;
+>  	} reset;
 >  
->  	/**
-> @@ -586,15 +595,6 @@ struct panthor_group {
->  	 */
->  	int csg_id;
->  
-> -	/**
-> -	 * @destroyed: True when the group has been destroyed.
-> -	 *
-> -	 * If a group is destroyed it becomes useless: no further jobs can be submitted
-> -	 * to its queues. We simply wait for all references to be dropped so we can
-> -	 * release the group object.
-> -	 */
-> -	bool destroyed;
-> -
->  	/**
->  	 * @timedout: True when a timeout occurred on any of the queues owned by
->  	 * this group.
-> @@ -707,6 +707,17 @@ struct panthor_group {
->  	 * panthor_group::groups::waiting list.
->  	 */
->  	struct list_head wait_node;
-> +
-> +	/**
-> +	 * @user_node: Used to insert the group in the panthor_scheduler::groups::user_owned list.
-> +	 *
-> +	 * When the group is created, it's inserted in panthor_scheduler::groups::user_owned,
-> +	 * and when panthor_group_destroy, the group is remove from this list.
-> +	 *
-> +	 * When the device is unplugged, all groups that remain in this list must have an extra
-> +	 * put_group() called on them to release the reference owned by the per-file group pool.
-> +	 */
-> +	struct list_head user_node;
->  };
->  
->  struct panthor_job_profiling_data {
-> @@ -969,6 +980,7 @@ static void group_release(struct kref *kref)
->  	struct panthor_device *ptdev = group->ptdev;
->  
->  	drm_WARN_ON(&ptdev->base, group->csg_id >= 0);
-> +	drm_WARN_ON(&ptdev->base, !list_empty(&group->user_node));
->  	drm_WARN_ON(&ptdev->base, !list_empty(&group->run_node));
->  	drm_WARN_ON(&ptdev->base, !list_empty(&group->wait_node));
->  
-> @@ -1003,7 +1015,7 @@ group_can_run(struct panthor_group *group)
->  {
->  	return group->state != PANTHOR_CS_GROUP_TERMINATED &&
->  	       group->state != PANTHOR_CS_GROUP_UNKNOWN_STATE &&
-> -	       !group->destroyed &&
-> +	       !list_empty(&group->user_node) &&
->  	       !atomic_read(&group->fatal_queues) &&
->  	       !atomic_read(&group->timedout);
->  }
-> @@ -2472,7 +2484,7 @@ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *c
->  			 * re-evaluate as soon as possible and get rid of
->  			 * this dangling group.
->  			 */
-> -			if (group->destroyed)
-> +			if (list_empty(&group->user_node))
->  				ctx->immediate_tick = true;
->  			group_put(group);
->  		}
-> @@ -3667,6 +3679,7 @@ int panthor_group_create(struct panthor_file *pfile,
->  	group->tiler_core_mask = group_args->tiler_core_mask;
->  	group->priority = group_args->priority;
->  
-> +	INIT_LIST_HEAD(&group->user_node);
->  	INIT_LIST_HEAD(&group->wait_node);
->  	INIT_LIST_HEAD(&group->run_node);
->  	INIT_WORK(&group->term_work, group_term_work);
-> @@ -3735,8 +3748,13 @@ int panthor_group_create(struct panthor_file *pfile,
->  	mutex_lock(&sched->reset.lock);
->  	if (atomic_read(&sched->reset.in_progress)) {
->  		panthor_group_stop(group);
-> +
-> +		mutex_lock(&sched->lock);
-> +		list_add_tail(&group->user_node, &sched->groups.user_owned);
-> +		mutex_unlock(&sched->lock);
->  	} else {
->  		mutex_lock(&sched->lock);
-> +		list_add_tail(&group->user_node, &sched->groups.user_owned);
->  		list_add_tail(&group->run_node,
->  			      &sched->groups.idle[group->priority]);
->  		mutex_unlock(&sched->lock);
-> @@ -3776,7 +3794,7 @@ int panthor_group_destroy(struct panthor_file *pfile, u32 group_handle)
->  
->  	mutex_lock(&sched->reset.lock);
->  	mutex_lock(&sched->lock);
-> -	group->destroyed = true;
-> +	list_del_init(&group->user_node);
->  	if (group->csg_id >= 0) {
->  		sched_queue_delayed_work(sched, tick, 0);
->  	} else if (!atomic_read(&sched->reset.in_progress)) {
-> @@ -4143,6 +4161,7 @@ int panthor_sched_init(struct panthor_device *ptdev)
->  		INIT_LIST_HEAD(&sched->groups.idle[prio]);
->  	}
->  	INIT_LIST_HEAD(&sched->groups.waiting);
-> +	INIT_LIST_HEAD(&sched->groups.user_owned);
->  
->  	ret = drmm_mutex_init(&ptdev->base, &sched->reset.lock);
->  	if (ret)
+>  	/** @pm: Power management related data. */
 > 
 > -- 
 > 2.55.0
-
 
 Adrian Larumbe
