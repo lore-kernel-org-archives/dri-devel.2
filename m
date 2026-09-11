@@ -4,79 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2486C88E65
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:54:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDE86C88E69
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:54:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC49610EA01;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA8BF10E9FA;
 	Sun, 13 Sep 2026 20:54:26 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nMgwZOQO";
-	dkim-atps=neutral
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
- [74.125.228.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CB3C10E6AC
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 09:18:13 +0000 (UTC)
-Received: by mail-ej2-f12.google.com with SMTP id
- a640c23a62f3a-c2940ff2313so49061966b.1
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 02:18:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789204692; x=1789809492; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=STiZW/IcHvT4e1S/BFbyfQE4PgoHv6tak0bixvasDdQ=;
- b=nMgwZOQOQd0AC2wibBmM6WL29jAHIvGv75YXtXIqkoaiJ7sExEshbGDc/j2feOh4sP
- GtKGp7Mo5Cnxw/hY+3zLhklgcvCnknAF4g9TtYZmt33mfqSaEg+cQxNwVJ4YYsD60upr
- FW6Y6NY9JkuC1YkuxtQovRxUUYDA3xsvOTlGopxJirqVnqAk7IGO8KlMBb7w3UiCXVXO
- EDvvKMyAoKN5b+UBm5IYm53OZTPMiaHDfhn+a58cc+4QLgFMbjwkEom0GaKmKtUoIzY6
- qo7xfbokABy6LCsh65kjLcnAEo11COKem0wnrQpTCbf+1e/T/dR4nXMMhqMz8mSnWSg3
- HZhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789204692; x=1789809492;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=STiZW/IcHvT4e1S/BFbyfQE4PgoHv6tak0bixvasDdQ=;
- b=EztR2PyI/I9SfTGnE7HMOZwFqMGRu0ayQvUJ+L3Rf8vnflL1elqQ7RUeMi6ZLMR53m
- vmp2/sJLxlHb5Io9xxyWAI/CHJPry9K6bwvuv8fUykeY7AZw3hR24lYH3t/b+0UQ2kHz
- 0lPZC0YBXZC36+Mr1kVeQA/7V00FFqhcDUK8HBD6iOBlp8icPmo/F7pKK4pcZJLL9C1y
- o8FrZZu26laILlcoQQSoZ557NwNm9wgA7W+4uOe4ETigYELOjZD8hldRdKJtSWc6WrL/
- 4G4iZYO+VqEyg8tF2HdGUvxPWRDf7FkE6h2W4m7t26SrMVBdVtjYvCw8xZbIt7wY2vs2
- abzw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzIGELA0ddit9bufe8oPMR/Tccoz5eqa/nDuTaaqHolqxDY8HC/jz2+EcVemf9w8CfpspQvwwltrb4=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m3A4aTCAfnLBaPfTE3kCfZD0ahMwswCMtPb5T3FqKLbrwxKnyv
- E6T2KMSJCHB2UNWV710np1+Wg/EyUtgISCYYU2fjkNUBV3PY0YfzPvqJ
-X-Gm-Gg: AYBFou3e1ppxVQlSrC6fxXakpfU8Bcl5Ib6DkR+4MScllTuov6RtrKhDs3SKyXSVAKw
- e/8mYwa6N9KWAlPfp44CWqR/y5fvm+9/ZQTscWYmxRpAZgmAkAltTSiXsTK+H4UA4FFWgDfnC5D
- 4Msz6mZAo6IuxUWs7JzSmOSxVUm2BlLpqPMuNtglwuANil70SwDgpfcZKsGQjcfrX7jx4DUdtcL
- bH4InncRIS/hgj2OODP0ndxcWCjaatMmGh6nA8DxnKJ8RzsHhAfyD3+K3dAfmoY8O+yYWWSxlIk
- lFjcJ3aI0UJ9imCt52mCrIQ4b3/09mVlUk+vNpetlaaYhoA8kTazjsDoGJOlAOnZbCbol7Nl5Fz
- 51ki655gfj7WtukPGkCm8nZPQk+9Mn8gShgDWOiJSdozQ2OTZW1rIJQbKc5SbyS5hHeG6zIF59h
- sbVCzEfgF43y+AXUGcWkuIJjIIe49VoqvPLAdc351vp9aIuxxDUlHoXCqzz0rWFMSvq/uixTvO4
- KmGf4Ak1iteydBXz+2O
-X-Received: by 2002:a17:907:3c86:b0:c25:f7db:4bef with SMTP id
- a640c23a62f3a-c2962c9944bmr512031466b.21.1789204691464; 
- Sat, 12 Sep 2026 02:18:11 -0700 (PDT)
-Received: from cartold.tail1da87c.ts.net ([77.213.69.61])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c29660234e7sm170786066b.15.2026.09.12.02.18.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 12 Sep 2026 02:18:11 -0700 (PDT)
-From: Theo Andersen Carton <andersen.theo@gmail.com>
-To: jani.nikula@linux.intel.com,
-	rodrigo.vivi@intel.com
-Cc: joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Theo Andersen Carton <andersen.theo@gmail.com>
-Subject: [PATCH] drm/i915/ddi: add DDI A force 4 lanes quirk for Apple
- MacBookPro11, 5
-Date: Sat, 12 Sep 2026 11:18:05 +0200
-Message-ID: <20260912091805.531666-1-andersen.theo@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from LO0P265CU003.outbound.protection.outlook.com
+ (mail-uksouthazon11022122.outbound.protection.outlook.com [52.101.96.122])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3487710E16A;
+ Fri, 11 Sep 2026 17:31:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pEd3/wDeX+onZny9fJFHPQS0zLTGFK4ZHSWK3Raqsys3/6mRlBnzikV4Wxmsj3FSkqa10XdGfkuxlELu48QsivNidi3UPAlKiG2LWXDU3biSXl45Wj3kIazSPjZGr+gxMTGPbAKi0s2SmFdRbFoyfK7Vt37ikl6NYYTVab6vyZdhfs/brxSmqisTDmoJ8S1YJ7jtQaFrgvb+S/z2KuPIOgsm8D4dQ7DH8/UqRF8ByhZFxo/ij5hxDhoXYU/zdDhUpis8fBmSM1WKLPfrkA/Ce1W4lmBbIboOG03MHBqa7JvSBYS3u4vwLaWwOHAHJWaZRJKF/j0KLNF21IXHUcIyvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:MIME-Version; 
+ bh=DQ/I4VbEJOQ+IYMhWKIjY1NsA15HkVvhvcoHrSza/2A=;
+ b=lMlCxnFLBeAbPkMzX1aHKdfn/l694bDdiwHCzAVJZW/kls/fUX7adM6xmIiIY0JOS8pIiN5Wilz7lSuqE1EYsG4VGOWkkiPP/msB2ETkcINqeD9lscaiDceIRnpwjy/KBTFiRO8Nolwgw4Nkp+vh/P63a8gFAwRS72mBq67U1u4kJLMuISYi9Hrcf/MaBQ6EbmWkTkg6/XdCahyxV5Q+i7ge+cVx3EwEvd6ka5iWgswqC4JyZH4QrlFocxr+xEgCKwUQ0w1XGadg9VA3cS10u3gluFxLtKvOc7vF5qQ/Ub1FJPqvSA3FINXyzpFYldqjX4sp4a4XTGC88nYwSv9pOg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by CWXP123MB3464.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:83::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 17:31:21 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 17:31:20 +0000
+Date: Fri, 11 Sep 2026 13:31:13 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: Petr Pavlu <petr.pavlu@suse.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Jakub Kicinski <kuba@kernel.org>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simon Horman <horms@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Francois Dugast <francois.dugast@intel.com>,
+ Luis Chamberlain <mcgrof@kernel.org>, 
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+ linux-block@vger.kernel.org, netdev@vger.kernel.org, linux-api@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 
+ linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 6/6] module: Remove the error-injection.h include from
+ linux/module.h
+Message-ID: <46xi4ovj3vulfr4pb7znr2koaltngrgywgbo2fwirbfducs6ay@tr5rhev6snb3>
+References: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
+ <20260911-module-include-error_injection-v1-6-5da895d8c84d@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260911-module-include-error_injection-v1-6-5da895d8c84d@suse.com>
+X-ClientProxiedBy: SJ0PR03CA0350.namprd03.prod.outlook.com
+ (2603:10b6:a03:39c::25) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CWXP123MB3464:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7558224-2d6b-4df8-1e3c-08df102a7e0a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|366016|23010399003|1800799024|3023799007|4143699003|56012099006|5023799004|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: kysciGr7k1voJxrtIN2WGkc9N8o03fy7ApmYFY3+6apHSTYx7+L4Qz6hVvJBX/M+hChvfLOZg6wGCd1M3sVVR7x15/ddtVF5LN3SBAsjCxkREVVLZCy4mIR7YmXkxtxijZqlPpAQSRrk2ymaIri7csr8N5EPBRZpLCJMAczvj0OjsOq+dr7XQL29OT+Qr8xEhch5+C5hW4dJofx37DpAA4Znv/UnMkWwbDuWHn7SQqLF/qmwVyBgmLzl/8BeLmw79wF14rx4E6c2y1U7rzbbVa0X5EgkBKPcs2B2KEQY9PyPvPyqD3mkBnscAVdi7j5ECBZkyi+aDrJL/szmjY3sEzqQ5F4a8hwE+v0IZ64xhb8sKXQ4vKf7FqlpgUbjkzeK3ZOj0J00pSVlQDWgH2QaRh6mH2NAVj22CXqIxTh6QWmSu9gsVQGoU4PuV03aWdmE+TuP67EomDRsu4KyI7ux8ehpfpKyYaiUtCQZnchSm4bI/u4nW07+GZ7xwPrAOR2baDKojsKTTxEkvyDEp84LO959ZJ7WzMhecVDuT+ugfiOSa7ojSKgoztrj41JqBaqnuBQzrXo7HxyWbasy+hNHO/JSn+bP5ZOu6M+n0BGqfv1swPNxKW2QCedk7ned8ADsuU+HXPVTsY5smIQwC5I8Nx1Qxl4oDkbr49BfOj1yhqI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(3023799007)(4143699003)(56012099006)(5023799004)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Qm5FbzNOa3IwVVNkcjl1RmNjaWRFekRXMDhNMTJiTDU2aHkvMnhyaXpUUXhi?=
+ =?utf-8?B?Zzc4Tk1UWW1FSnd4bEhyc0lnN0VNdm1iMXZ2cksycjNWb1BGRXlic0FmNTZ2?=
+ =?utf-8?B?UXR6U1FUaVFGbnpwRGtqYXUyN0NhWmh5a0VhUUU4YkROT2x4WldRdHJHcDdI?=
+ =?utf-8?B?eW9qTjVEdkhaU09YMldvRXB4Z2Q0Q2lURzduanVoV3UyWFhlTGhNZEtKYmtK?=
+ =?utf-8?B?SlFJRzRUZXNwVVIzVWNPWmRDZU1LbzdFdVVBSW10dUFhZlV4MG5LdjR3cFVl?=
+ =?utf-8?B?QWVhN1lERnUvbFErMDhGWkhRRlJuaVpnMHNVVWxkK3hYQlZPMFRhOVhIU05O?=
+ =?utf-8?B?M3Nrd0lsRnFIQlkwekVqblNUSFZ4SWdmK3hSTVlNUWFqb2lEYXBkRW9STHVz?=
+ =?utf-8?B?VWV1SG52SW9qd2hqOWZiS1JXRWdsWXZvM0FtZ1R5KzJ1UXpTYnQyaFRSeXZ3?=
+ =?utf-8?B?eU5xZm8vN0hJZTFqTitDdU1ZdVZDQVE4aEdoMFpyTWIveVFtWThGakJuS3Qy?=
+ =?utf-8?B?c0UrWUd5dDdTSG1EY29jK253MWlONndWYjBUOVRLTmVBVXp6MmcrSlJxUmto?=
+ =?utf-8?B?aDA1MWt2elBWeDFESDhhNW9rWkZTREJsMDJvZm5aaDBKdVZ6U2dLUEtnVEhz?=
+ =?utf-8?B?ZWZQSDlBcnlxckFXWmoxdnI0VmFNWVpDZTVBWjdyQnVJSWJMN3NVMDUzRlJk?=
+ =?utf-8?B?YmxDb2xHRHl1K0NTWGlMU0Jsc2JuUlZnQU9YRE5jUTFIZ290WG1TNzgrc0dX?=
+ =?utf-8?B?MldKTzBHZlpmVjBvNUdub243d0JMT3NmT05ReWl4ek9zcnBLeFQ0VVk5Vjlp?=
+ =?utf-8?B?WEc2a1NTQmRoRng4UWpURS9GdTl1dTRUOG42c2VjTkFSelF5WlQ5bjZDaFFW?=
+ =?utf-8?B?dktaUTFqWWNvYkY3RHRxL1NmS3ltT1YzTEhlQzg3amowdWNRcVduUUIwNVhw?=
+ =?utf-8?B?UVdHOVY5NEJTYXgzOHJzclJoYXdHU2dHclRmN20vbi9YdlZqR3VpK3kxNVJV?=
+ =?utf-8?B?TEpQWXRIMW85eXVCUHdRT1hvWElUUm13UGJRU05mMlBzblFnWFFQczVIR0RD?=
+ =?utf-8?B?QUdhSWJYU0NWZ2x3NXF5MzNwNWxWdFNLNVF5VThSc05CV3VSMzA2MlIwN2ty?=
+ =?utf-8?B?UlFhWVl2K0t4SHZpYkMzMm1LUmhkc0hmVXk0RkpyTExKQkJvZmdUN1FNaFNn?=
+ =?utf-8?B?b3VPQVY3eXpHanJkSnFYSWhJWEptOVg3dzV4czd6MVU2Y2tkSGRwUndzWE5O?=
+ =?utf-8?B?VmthZHFrTVFySnJFRFhJZDgwT1ZGb3hMNnlHT3l1V3hmajAxbCtzZHAyemtP?=
+ =?utf-8?B?bi9nNmJxNnJQS2VEL24yZldtVHNHN1QzRjBxa0ViQ2RYN2ZFc054TVNNZktI?=
+ =?utf-8?B?UnBxWjcyS2V1SGs0UTkrRGw5QmFwZXZsdjlJc3R4cnZoQmFTSVdSK1BySW1t?=
+ =?utf-8?B?ekNqejRjNE01OVFzL2c3MitaaVZWcXR1amZWSHdNVDNIUTUxRmZ2RXpraUlx?=
+ =?utf-8?B?T1JjNm0yeXNhR0ZmWmMvSks5ditiV09GMUFHNDhIaG9hemdVTjNLU1F0Ukgy?=
+ =?utf-8?B?cnhGOUphTE12QjZYNFVEbVI4aFJZTk9ZTVlXVGJGWHdaQm5uYlZvUUR5YVFL?=
+ =?utf-8?B?aHFqWHBBUG5ySENvTW1nVFJNOHRuZWt6ZDNCTHFFMW9UNVNjZWFvMnI0a1My?=
+ =?utf-8?B?ZWRjQkxjeEFrNitJMEQxWkhOalZTYUpKTGFzZDhkYkJLQmJFSlhtUDBKZVdZ?=
+ =?utf-8?B?WnRpRXNBWHBhVEhlNVBUa1RGTmVWNWQ1dWZkSGFmMVkrV0F1MnRPRjJ5N3Ns?=
+ =?utf-8?B?bFdtRGJ3bVhISmZZOXRobnd3VDJyYVBydnA3QlIwdjE1RG14YjJTYnVEbFNJ?=
+ =?utf-8?B?TEVsRHlhdG1KeVh1QThJeXF5eC82NXpKbzYxRHFIQ1BHUFJydE5oaG84SVgw?=
+ =?utf-8?B?bDlYN1hXRWxmWWlwYU4rMU1yL1BwWmJOa3crWG5wYmF6NWk3LytXZklJaXJs?=
+ =?utf-8?B?dHd4V09xQ000QVphWHg3SFlYUGo5TjdGejcrS1RQSW5aUVJmVTAzb1Q1S2tz?=
+ =?utf-8?B?dlRjU3VyMzZJVnlIZTJTOG1ZaTFpakVvRmhXNUYrc3JnVTBsRFpJSXhPa0lz?=
+ =?utf-8?B?c3R2ckw0SkZVYm8xVTZmaHcybk5hZk41ekJVVDF6dXo1SlJZR1V3Kzg3WTV0?=
+ =?utf-8?B?K2FtTGJOa01PTjNKRjFoT3ZER0Vzb01aTjc0NkVsMmNuencrOUN4YkI1N1J5?=
+ =?utf-8?B?Y3AzV3RZclBpVkJ4Q2lRcEJlaVZGZVZmZXIxM3pLbkhnM3Z4cEoyQWJYSHFw?=
+ =?utf-8?B?Q0FuL2ZPR2J2cmdUZlJySWdSeXVWQzdnWG8wUjhCamRGeDRiN1JIZz09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7558224-2d6b-4df8-1e3c-08df102a7e0a
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 17:31:20.4038 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0dghqHAyv1aNmSTQNXjCYdNYSylZyxPSnIkgS66DeRj+JWf8Heio4Nfx5hkPyRgisMgu8Ps60Dda4Gn4Ca998g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP123MB3464
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,136 +145,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On dual-GPU Retina MacBooks the internal panel is muxed to the discrete
-GPU at boot, so Apple's firmware never lights up eDP on the Intel side.
-As a result it never sets DDI_A_4_LANES, and intel_ddi_max_lanes() reads
-back a source maximum of two lanes for port A.
+On Fri, Sep 11, 2026 at 05:04:06PM +0200, Petr Pavlu wrote:
+> linux/module.h appears in roughly 15k #include directives across the
+> kernel. This makes it a "hot" header, so it should avoid pulling in
+> unnecessary definitions.
+> 
+> The header currently includes linux/error-injection.h to obtain the
+> definition of `struct error_injection_entry`. However, this is unnecessary
+> because the type is only referenced in the file as a pointer, for which an
+> incomplete type is sufficient.
+> 
+> Remove the linux/error-injection.h include from linux/module.h and add it
+> to kernel/module/main.c instead, where
+> `sizeof(struct error_injection_entry)` is actually needed.
+> 
+> Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
+> ---
+>  include/linux/module.h | 1 -
+>  kernel/module/main.c   | 1 +
+>  2 files changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/module.h b/include/linux/module.h
+> index 96cc98568eea..b3a3d5827384 100644
+> --- a/include/linux/module.h
+> +++ b/include/linux/module.h
+> @@ -24,7 +24,6 @@
+>  #include <linux/jump_label.h>
+>  #include <linux/export.h>
+>  #include <linux/rbtree_latch.h>
+> -#include <linux/error-injection.h>
+>  #include <linux/tracepoint-defs.h>
+>  #include <linux/srcu.h>
+>  #include <linux/static_call_types.h>
+> diff --git a/kernel/module/main.c b/kernel/module/main.c
+> index d0e1e0bd2ad0..f1392c10907a 100644
+> --- a/kernel/module/main.c
+> +++ b/kernel/module/main.c
+> @@ -60,6 +60,7 @@
+>  #include <linux/codetag.h>
+>  #include <linux/debugfs.h>
+>  #include <linux/execmem.h>
+> +#include <linux/error-injection.h>
+>  #include <uapi/linux/module.h>
+>  #include "internal.h"
+>  
+> 
+> -- 
+> 2.55.0
 
-intel_dp_max_common_lane_count() then takes min3(source_max = 2,
-sink_max = 4, ...) = 2, giving 2 x 2.7 Gbps x 8/10 = 4.32 Gbps of link
-bandwidth. The panel's native 2880x1800@60 8bpc mode needs 8.1 Gbps, so
-every mode is rejected with MODE_CLOCK_HIGH and the connector comes up
-with no usable modes at all -- the panel stays dark whenever i915 is
-made to drive it, which looks like a hardware limitation but is not.
+Reviewed-by: Aaron Tomlin <atomlin@atomlin.com>
 
-The lanes are physically there. Reading the panel's DPCD from the AMD
-side, where amdgpu drives it correctly, reports MAX_LANE_COUNT = 0x84,
-i.e. 4 lanes, and amdgpu's own link_settings shows it running the panel
-at 4 lanes / HBR. macOS likewise drives this panel from the iGPU at its
-native resolution, so all four lanes are routed through the gmux to
-DDI A. Only the register bit is unset.
-
-intel_ddi_a_force_4_lanes() already exists for exactly this situation --
-its neighbouring comment notes that "Some BIOS might fail to set this
-bit on port A if eDP wasn't lit up at boot" -- but it only covers
-Broxton and Geminilake. Extend it with a DMI quirk so affected Macs get
-the correct lane count too.
-
-The DMI match is deliberately narrow. Other dual-GPU models in the same
-family are very likely affected identically, but they are untested, so
-widen the match only as reports come in.
-
-Tested on a MacBookPro11,5 (Broadwell, Iris Pro + Radeon R9 M370X):
-with the quirk, DDI A comes up as 4 lanes, link training passes at
-link rate 270000 / lane count 4, and i915 drives the internal panel at
-its native 2880x1800.
-
-Signed-off-by: Theo Andersen Carton <andersen.theo@gmail.com>
----
- drivers/gpu/drm/i915/display/intel_ddi.c    |  7 +++++
- drivers/gpu/drm/i915/display/intel_quirks.c | 34 +++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
- 3 files changed, 42 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 02a53c9848e1..f746287830b3 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -4976,6 +4976,13 @@ static bool intel_ddi_a_force_4_lanes(struct intel_digital_port *dig_port)
- 	if (display->platform.geminilake || display->platform.broxton)
- 		return true;
- 
-+	/*
-+	 * Machines whose firmware leaves eDP dark on the Intel side never set
-+	 * the bit, so trust the quirk rather than the register.
-+	 */
-+	if (intel_has_quirk(display, QUIRK_DDI_A_FORCE_4_LANES))
-+		return true;
-+
- 	return false;
- }
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 33245f44c0d5..feb28956a013 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -100,6 +100,20 @@ static void quirk_disable_psr2(struct intel_display *display)
- 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
- }
- 
-+/*
-+ * Dual-GPU Macs boot with the internal panel muxed to the discrete GPU, so
-+ * the firmware never lights up eDP on the Intel side and consequently never
-+ * sets DDI_A_4_LANES -- even though all four lanes are wired through the gmux
-+ * to DDI A. Without the bit, port A is capped at two lanes, which is not
-+ * enough bandwidth for the panel's native mode, leaving the connector with no
-+ * usable modes at all.
-+ */
-+static void quirk_ddi_a_force_4_lanes(struct intel_display *display)
-+{
-+	intel_set_quirk(display, QUIRK_DDI_A_FORCE_4_LANES);
-+	drm_info(display->drm, "Applying DDI A force 4 lanes quirk\n");
-+}
-+
- struct intel_quirk {
- 	int device;
- 	int subsystem_vendor;
-@@ -142,6 +156,13 @@ static int intel_dmi_no_pps_backlight(const struct dmi_system_id *id)
- 	return 1;
- }
- 
-+static int intel_dmi_ddi_a_force_4_lanes(const struct dmi_system_id *id)
-+{
-+	DRM_INFO("DDI A is 4 lanes despite firmware on %s\n", id->ident);
-+
-+	return 1;
-+}
-+
- static const struct intel_dmi_quirk intel_dmi_quirks[] = {
- 	{
- 		.dmi_id_list = &(const struct dmi_system_id[]) {
-@@ -188,6 +209,19 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
- 		},
- 		.hook = quirk_no_pps_backlight_power_hook,
- 	},
-+	{
-+		.dmi_id_list = &(const struct dmi_system_id[]) {
-+			{
-+				.callback = intel_dmi_ddi_a_force_4_lanes,
-+				.ident = "Apple MacBookPro11,5",
-+				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro11,5"),
-+				},
-+			},
-+			{ }
-+		},
-+		.hook = quirk_ddi_a_force_4_lanes,
-+	},
- };
- 
- static struct intel_quirk intel_quirks[] = {
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-index 970a4fe52faf..d2b8e9183c62 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.h
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-@@ -23,6 +23,7 @@ enum intel_quirk_id {
- 	QUIRK_EDP_LIMIT_RATE_HBR2,
- 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
- 	QUIRK_DISABLE_PSR2,
-+	QUIRK_DDI_A_FORCE_4_LANES,
- };
- 
- void intel_init_quirks(struct intel_display *display);
 -- 
-2.55.0
-
+Aaron Tomlin
