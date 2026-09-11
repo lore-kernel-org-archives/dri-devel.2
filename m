@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56652C88E4D
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 15:51:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F657C88E4D
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 15:52:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99FDB10E3DC;
-	Fri, 11 Sep 2026 15:51:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DF3A10E3DF;
+	Fri, 11 Sep 2026 15:52:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B05OV+iF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UiisYy43";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89D5010E3DC
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 15:51:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A38610E3DF
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 15:52:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 976BA6025A;
- Fri, 11 Sep 2026 15:51:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C601B1F000FF;
- Fri, 11 Sep 2026 15:51:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B191060202;
+ Fri, 11 Sep 2026 15:52:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E01061F000FF;
+ Fri, 11 Sep 2026 15:52:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789141911;
- bh=VeGUnHpGqSAj1AdqhrIriCmyS5Qd41d9tKbZ0b+uwHA=;
+ s=k20260515; t=1789141962;
+ bh=DQF2TcrsjmsJUxKzEazdTNP9aOG6WziNEWQ8N0SmEGk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=B05OV+iFf5Mr2e/dIc3C4fv6s+Azn3lL0PvwWqQBvcXe0zN8Y+WWoX3w9X9nNlJm1
- 2THfJ16e1eN+tHqqIFZc9WIW73huPRm4OJcj6LkmUeYYvfkgWddEi8U5CWQxhIaOvs
- bWwk4bTRNNrJrXWwdw+Mb9wo2vlVhnM2Y+/S2Di4rQw7cziFCGnS6OBefZylq3uJ3I
- tMHG6LwZx8lAgrXVyDsN9vbVZk1itpE1TL66vsmu4BF4ecYM7mdkv/Jdi6dF481mS+
- iazEI3bGxwOruw2GrF8m5xapbvSbkVIO2+fYr9djq+emSkhSWi0VUHyX7cFnYzWw1t
- ELAmeIEg53nUg==
+ b=UiisYy433kVS5J0urxniFGL6xCiVs2HQZdXnRQ+sMZPuilGRxer5Us/g+jAkvLowD
+ v0VO8IPlFEhKYejp/X0dW4YcMMNYn9axMKdVN/K7etgttzV4UspfByBORVkTTqXtS4
+ 0Xl7QTPV7fOVB43ZC8KlMLHVw23/XWPB9OSP/O7Pfqa+oxB9XzLZlVvoeNDu4sbfBC
+ bQQ272+Yk4iIdRB13vXayuThOW/wLIeNM15gHlzGDC2SxbLg9yCgkvynYeBtLkJXFg
+ sngKzV9u7zEiSRZEPd2sbHphZWl9Yg6dn6zXVndRVjvO8dQndICr3edOnC3MJB4HfS
+ tiY8kiMcHUEaw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 03/17] dt-bindings: display/msm: Document Nord MDSS
+Subject: Re: [PATCH 15/17] phy: qcom: edp: Add Nord LDO, TX lane and TX
+ resistor calibration callbacks
 To: "Nabige Aala" <nabige.aala@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, neil.armstrong@linaro.org,
- linux-phy@lists.infradead.org, vkoul@kernel.org,
- dri-devel@lists.freedesktop.org, conor+dt@kernel.org, olteanv@gmail.com,
- robh@kernel.org
-In-Reply-To: <20260911-nord-drv-dt-v1-3-e25c073cf1b6@oss.qualcomm.com>
+Cc: neil.armstrong@linaro.org, robh@kernel.org, linux-phy@lists.infradead.org,
+ conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, vkoul@kernel.org, olteanv@gmail.com
+In-Reply-To: <20260911-nord-drv-dt-v1-15-e25c073cf1b6@oss.qualcomm.com>
 References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
- <20260911-nord-drv-dt-v1-3-e25c073cf1b6@oss.qualcomm.com>
+ <20260911-nord-drv-dt-v1-15-e25c073cf1b6@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 15:51:50 +0000
-Message-Id: <20260911155150.C601B1F000FF@smtp.kernel.org>
+Date: Fri, 11 Sep 2026 15:52:41 +0000
+Message-Id: <20260911155241.E01061F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,82 +60,73 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The 'qcom,nord-dp' compatible string is omitted from generationa=
-l 'if-then' constraint blocks.
-- [Medium] The compatible string 'qcom,nord-dpu' is referenced for the chil=
-d display controller, but the corresponding DPU binding update is entirely =
-missing from the patch series.
+- [High] The `qcom_edp_ldo_config_nord()` function unconditionally hardcode=
+s LDO configuration values, contradicting the requirements documented in it=
+s block comment and the commit message.
 --
 
-commit 64dd6c393c789d34e5fe84cef41d36aca32b8df0
-Author: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+commit c4e3fc5c792992e3093d5a643cdeaee499d326f5
+Author: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
 
-dt-bindings: display/msm: Document Nord MDSS
+phy: qcom: edp: Add Nord LDO, TX lane and TX resistor calibration callbacks
 
-Add the binding for the display subsystem (MDSS) found on the Qualcomm
-Nord SoC. Nord is MDSS 12.1, DP-only (no DSI), with two independent DP
-controllers.
+This commit adds PHY configuration callbacks for the Nord platform, introdu=
+cing
+specific LDO levels, TX lane control offsets, and TX resistor calibration c=
+odes
+based on HPG Table 2-1-d.
 
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,nord-mdss=
-.yaml b/Documentation/devicetree/bindings/display/msm/qcom,nord-mdss.yaml
-> new file mode 100644
-> index 0000000000000..0b0cacdca9dbd
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,nord-mdss.yaml
-> @@ -0,0 +1,98 @@
+> diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/p=
+hy-qcom-edp.c
+> index 4d1b2c81d9563..361f4e4673518 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-edp.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
+
 [ ... ]
-> +patternProperties:
-> +  "^display-controller@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: true
-> +    properties:
-> +      compatible:
-> +        const: qcom,nord-dpu
 
-[Severity: Medium]
-Is the schema binding for qcom,nord-dpu entirely missing from this patch
-series?
+> +/*
+> + * nord LDO configuration.
+> + * From HPG Table 2-1-d: LDO Configuration section.
+> + * eDP mode: 0xD1 for rates <=3D 8.1 Gbps, 0x00 for UHBR (>8.1 Gbps).
+> + * DP mode: always 0x00.
+> + * Also programs EDP2_DP_PHY_LDO_CFG: 0x03 for eDP rates <=3D 8.1G, 0x00=
+ otherwise.
+> + */
+> +static int qcom_edp_ldo_config_nord(const struct qcom_edp *edp)
+> +{
+> +	const struct phy_configure_opts_dp *dp_opts =3D &edp->dp_opts;
+> +	u32 ldo_config;
+> +	u32 phy_ldo_cfg;
+> +
+> +	ldo_config =3D 0xd0;
+> +	phy_ldo_cfg =3D 0x03;
 
-This compatible string is referenced here for the child display controller,
-but the corresponding DPU binding update is omitted.
+[Severity: High]
+The block comment directly above specifies that the LDO configuration
+should be set dynamically based on the operating mode and link rate, such as
+0xD1 for eDP rates <=3D 8.1 Gbps and 0x00 for UHBR or DP mode.
 
-Without it, full schema validation for the DPU child node cannot occur when
-validating a device tree containing qcom,nord-dpu.
+Does unconditionally hardcoding these values to 0xd0 (which also appears to=
+ be
+a typo for 0xD1) and 0x03 cause incorrect LDO voltages to be applied when t=
+he
+PHY is initialized for DP mode or high-speed eDP links?
+
+Applying these values unconditionally during device probe or link training
+might lead to PHY instability or link failures when operating in DP mode
+or high-speed eDP modes where the hardware programming guide requires 0x00.
 
 > +
-> +  "^displayport-controller@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: true
-> +    properties:
-> +      compatible:
-> +        const: qcom,nord-dp
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but by an earlier patch in this
-series that added qcom,nord-dp to the top-level compatible enum without
-updating the constraint blocks.
-
-Should qcom,nord-dp be included in the generational if-then constraint bloc=
-ks
-in dp-controller.yaml to enforce precise hardware constraints?
-
-Looking at Documentation/devicetree/bindings/display/msm/dp-controller.yaml,
-at the start of the generational conditional blocks:
-
-    allOf:
-      # AUX BUS does not exist on DP controllers
-
-By omitting the string from these constraint blocks, device trees for
-qcom,nord-dp with invalid configurations (e.g., an incorrect number of cloc=
-ks
-or register regions) will silently pass schema validation when running
-dt_binding_check or dtbs_check against a Nord DP node.
-
-They will fall back to the overly permissive top-level defaults (up to 9 reg
-items and 8 clocks).
+> +	writel(ldo_config, edp->tx0 + TXn_LDO_CONFIG);
+> +	writel(dp_opts->lanes > 2 ? ldo_config : 0x00, edp->tx1 + TXn_LDO_CONFI=
+G);
+> +	writel(phy_ldo_cfg, edp->edp + DP_PHY_LDO_CFG);
+> +
+> +	return 0;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-nord-drv-d=
-t-v1-0-e25c073cf1b6@oss.qualcomm.com?part=3D3
+t-v1-0-e25c073cf1b6@oss.qualcomm.com?part=3D15
