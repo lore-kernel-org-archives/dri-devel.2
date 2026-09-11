@@ -4,46 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61D8DC88E50
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 09:10:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F83CC88E53
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 09:18:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C719510E237;
-	Fri, 11 Sep 2026 09:09:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9DCB10E2AD;
+	Fri, 11 Sep 2026 09:18:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mSI3rvXJ";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="YulDvYgT";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E192610E237
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 09:09:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A63134080E;
- Fri, 11 Sep 2026 09:09:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12C931F00898;
- Fri, 11 Sep 2026 09:09:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789117797;
- bh=yhcT9DVCms/R9Gf6VCkcTCqnS/Dzfca5zAxP7CtteL8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mSI3rvXJl8AofQRy82dqnzOJT/wTATVcVFszDx+ednFiQVLZvp0qCkIfpOwwPugrE
- y8gJB9ZREnkTKzQQonoWoasJ/EC8XFIG83BJ+oj+WDf1FGXAQjAdXTqC1uVCqvat9J
- tWs/rPt+KS5RYeB+DFMi9Yzjv8hx33SNPvSzHSy851+ot4qY9cWi0tvPNSdAaDfNU9
- X/EYNaQVJ+TPMYWmQmkvjnSP4rdtlyWJqzO388+Q9KZ3geG04QCX3WvK31gV8Yj6Ap
- 51vk1WdFd0vEA7s5ty10Dxs0/5oXrieQLYLZgwc2NivknhsS9/p5npf6HDUR8yX6uW
- LfXx7ElCxPL0g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 04/10] drm/panel: novatek-nt36672a: add Tianma FHD+
- video mode panel
-To: =?utf-8?b?WcSwxJ7EsFRDQU4gS0FWQUtMSQ==?= <kavakliyigitcan@gmail.com>
-Cc: dmitry.torokhov@gmail.com, linux-leds@vger.kernel.org,
- linux-input@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, lee@kernel.org
-In-Reply-To: <20260911-ginkgo-submission-final-v1-4-0e68e63a18d4@gmail.com>
-References: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
- <20260911-ginkgo-submission-final-v1-4-0e68e63a18d4@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 09:09:56 +0000
-Message-Id: <20260911090957.12C931F00898@smtp.kernel.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0346910E1C8;
+ Fri, 11 Sep 2026 09:18:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=Zly2zTIZMRgDdeHeFEYmS6HpsGyK48gMov9dQgVv400=; b=YulDvYgTXeVcRxyIC8WDXpMsTD
+ T5cqsUQy5nXzCZXVUqFK7n7UFAKewUFwO3w2ZYn8eL+TApG2Daba8+Hod+oXLMKDOdzUooiMG4pTz
+ qkrRBF/bLaektdIQT26rkPDPMDOC7Rn1rs1QhAzDH016vIioQwzBJIQZLE0PosoywQTBi8j2onNXN
+ d2sUrurcV17UCLQ55adDfoZsaa9uaOL22OeHSuIlHnU7QPEFYVa0QfV8HukDRYoxbc6YAV1++fpPA
+ NHOrdSqgrwGJRD8FMRNTn3fd8VUdNvInQuhIe9XFKaH7wXW34GFXHeK+fVwxwOUmMMhNNfoat44MZ
+ x2LV+fxQ==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1x4xOw-000b31-AJ; Fri, 11 Sep 2026 11:18:30 +0200
+Message-ID: <35456574-5fc6-4270-85f9-940201998116@igalia.com>
+Date: Fri, 11 Sep 2026 10:18:29 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/sched: Do not restore unsaved virtual runtime
+To: phasta@kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Luke.Wildhardt@proton.me,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, stable@vger.kernel.org
+References: <20260907130527.52530-1-tvrtko.ursulin@igalia.com>
+ <ad1382b98d5c6cb258658e8e85156a0ccd8dd7cf.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <ad1382b98d5c6cb258658e8e85156a0ccd8dd7cf.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,117 +61,64 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Hardware initialization and teardown sequence reversal
-- [Low] Unconditional delay on error path due to bypassing `mipi_dsi_msleep=
-()`
---
 
-commit 3b4bbeb999e6951e81e05057ded69945b990ecb4
-Author: Y=C4=B0=C4=9E=C4=B0TCAN KAVAKLI <kavakliyigitcan@gmail.com>
+On 11/09/2026 09:56, Philipp Stanner wrote:
+> On Mon, 2026-09-07 at 14:05 +0100, Tvrtko Ursulin wrote:
+>> Prevent pushing a new job to an entity seeing it being the first in the
+>> queue, and hence entering the drm_sched_rq_add_entity() path, if the pop
+>> side in drm_sched_entity_pop_job() has de-queued the job but not yet
+>> updated the saved virtual time.
+> 
+> I think I don't fully get the bug from that message. The bug (is it
+> even one?) you address is the performance bottleneck for CFS under high
+> load, right?
 
-drm/panel: novatek-nt36672a: add Tianma FHD+ video mode panel
+Not high load but a race condition between the save and restore of 
+virtual time when entities enter/leave a run queue.
 
-This commit adds support for the 1080x2340 Tianma video mode panel with
-Novatek NT36672A driver IC. It adds display mode timings, DCS initialization
-sequences, and standard DRM panel enable and disable callbacks to coordinate
-display commands with the active DSI video stream.
+> Anyways, I think I got a better idea:
+> 
+>>
+>> We do this by pulling the locked sections out to encompass both the queue
+>> push/pop and corresponding rbtree management.
+> 
+> So basically you move for locking the spsc-queue, the lockless queue
+> which is usually used with the locks next to it anyways. That's cool
+> stuff. I've suggested this for a while already
+> 
+> https://docs.kernel.org/gpu/todo.html#replace-the-lockless-queue-with-a-locked-list
+> 
+> So from a maintainability perspective, it would be far cooler if you go
+> down this road one step further and kill the spsc_queue for good,
+> replacing it with a fully locked list. AFAIR Christian and Danilo also
+> have agreed to this.
 
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu=
-/drm/panel/panel-novatek-nt36672a.c
-> index 464d9ce47d87d..b69213790441f 100644
-> --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-> @@ -92,18 +92,12 @@ static int nt36672a_panel_unprepare(struct drm_panel =
-*panel)
->  	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D pinfo->link };
-> =20
->  	/* send off cmds */
->  	if (pinfo->desc->send_deinit_cmds)
->  		pinfo->desc->send_deinit_cmds(&dsi_ctx);
+I am happy to work on that just that a) I thought some time back you 
+said someone from RedHat will tackle it, and b) lets please not gate 
+this bugfix on that.
+> 
+> […]
+> 
+>> @@ -343,16 +340,17 @@ drm_sched_rq_next_rr_ts(struct drm_sched_rq *rq,
+>>    */
+>>   void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
+>>   {
+>> +	struct drm_sched_rq *rq = entity->rq;
+>>   	struct drm_sched_job *next_job;
+>> -	struct drm_sched_rq *rq;
+>> +
+>> +	lockdep_assert_held(&entity->lock);
+> 
+> btw. I think it *reads* a bit safer if the rq initalization happens
+> below the lockdep assertion. Also might make the diff nicer.
 
-[Severity: High]
-Does this sequence execute deinitialization commands after the panel is alr=
-eady
-turned off? The new disable callback will turn off the display before the
-unprepare callback runs, meaning the panel might not be able to process the=
-se
-deinitialization commands correctly.
+It makes not practical difference but sure, I agree it reads better so I 
+can respin once you clarify if you are blocking the bugfix until the 
+spsc removal or what.
 
-[ ... ]
-> @@ -146,19 +139,41 @@ static int nt36672a_panel_prepare(struct drm_panel =
-*panel)
-> =20
->  	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-> =20
-> -	/* 0x46 =3D 70 ms delay */
-> -	mipi_dsi_msleep(&dsi_ctx, 70);
-> -
-> -	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-> +	/* 80 ms delay as per DCS spec / downstream timing */
-> +	msleep(80);
+Regards,
 
-[Severity: Low]
-Does this unconditional msleep() cause unnecessary delays on error paths?
-Because this replaces mipi_dsi_msleep(), if the preceding DCS commands
-fail, dsi_ctx.accum_err is set, but this code will still unconditionally
-sleep for 80ms.
-
-> =20
->  	/* Send rest of the init cmds */
->  	if (pinfo->desc->send_init_cmds_2)
->  		pinfo->desc->send_init_cmds_2(&dsi_ctx);
-
-[Severity: High]
-Will the panel properly handle these secondary initialization commands whil=
-e=20
-the display is still off? Since this patch moves the set display on command
-into the enable callback, these post-on brightness settings are being sent
-before the display is turned on, which might cause initialization failures =
-or
-visual artifacts.
-
-[ ... ]
-> +static int nt36672a_panel_enable(struct drm_panel *panel)
-> +{
-> +	struct nt36672a_panel *pinfo =3D to_nt36672a_panel(panel);
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D pinfo->link };
-> +
-> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-> +
-> +	/* Frame settling delay */
-> +	msleep(20);
-
-[Severity: Low]
-Does this msleep() also need to check for preceding errors? This creates an
-unconditional sleep that ignores potential errors from the preceding=20
-mipi_dsi_dcs_set_display_on_multi() call.
-
-> +
-> +	return dsi_ctx.accum_err;
-> +}
-> +
-> +static int nt36672a_panel_disable(struct drm_panel *panel)
-> +{
-> +	struct nt36672a_panel *pinfo =3D to_nt36672a_panel(panel);
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D pinfo->link };
-> +
-> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> +
-> +	/* 120ms delay as per DCS spec */
-> +	msleep(120);
-
-[Severity: Low]
-Similar to the enable path, is this unconditional sleep intended? It ignores
-potential errors from the preceding mipi_dsi_dcs_set_display_off_multi() ca=
-ll,
-causing unnecessary delays during teardown failures.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-ginkgo-sub=
-mission-final-v1-0-0e68e63a18d4@gmail.com?part=3D4
+Tvrtko
