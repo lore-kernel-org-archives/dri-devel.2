@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2992C88E58
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F026C88E4D
 	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 15:49:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C53C910E3C6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 777B110E2EF;
 	Fri, 11 Sep 2026 15:49:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bzox/uuO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JCptqKzZ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AC0F10E3C6
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 891C310E2EF
  for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 15:49:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7560841B00;
- Fri, 11 Sep 2026 15:49:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC8FD1F00893;
+ by tor.source.kernel.org (Postfix) with ESMTP id A9BB060202;
  Fri, 11 Sep 2026 15:49:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB0B81F000FF;
+ Fri, 11 Sep 2026 15:49:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789141749;
- bh=baLZca9m/jVhaS+WTiyTOtwD2+JJChaOsn8UfHM6UuI=;
+ s=k20260515; t=1789141748;
+ bh=hd+UvuJiwOUDiM2w6IpVWyqO25djS1xmTmBKKaDCSdQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Bzox/uuO/qApBgZ74WOd2twhbzder3sxYgJfJUqMG4esgt1Av3hVVp2K20PaREAWH
- djpjcJIqNIWhWSRJ8HIFiv8SphKvr4p1WCfWrL2fXVnXHExhM6xRmx/h//8Y8kBnew
- E+7VZ6raclQzSamDUur4fBWDd/5ud5pe8B0t3YCohTroV2twvLAXCSyxwNXBJe3WXz
- mFne69DbX1UVExko3PVr1A0xJmuXuRkIjV1JZErmXka3NsMuTzNroWo7QSHAazSqjN
- YGSfErEyzf2ev382xqrubZEoxWiteIo1iKLT9uwOuJl5mdixPWaxuXqGR1saq/iN/G
- f8gsYTiNQM34g==
+ b=JCptqKzZ75f32yJlRgCuNxgHtGsNfod82lXksNFXwLA9+FtJtt9MsmuYvPM8/dGs/
+ QOvomvRyoUxVkNxGNULfpJ+d3ywbAK01KTQMsxfzGwt4urlJZoFXll7H9AB6K6bt2l
+ aZUekB8Zv78fWUwChnPW/f0Fuo4zlSjSPEkGA0ueaQ7zW3jg8+iwKDSehi+53h3IF+
+ H5jl0IZ509R1ITFFOgHiBPLuTy8sGH1yrhHaTDNL0sDlnUdBC07afOusPlUBWiR+xz
+ 1oGFCVWwhiU24LN7Z0Snrpc84pji2E67S5t8kqGbHyXV1M10LYWu1UVu6pKPMH3ZPn
+ TeI6ApyF3+qmg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 12/17] phy: qcom: edp: Add Nord bias and clock buffer
- enable callback
+Subject: Re: [PATCH 07/17] phy: qcom: edp: Add Nord-specific register offsets
 To: "Nabige Aala" <nabige.aala@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, olteanv@gmail.com,
- linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
- neil.armstrong@linaro.org, vkoul@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260911-nord-drv-dt-v1-12-e25c073cf1b6@oss.qualcomm.com>
+Cc: vkoul@kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ neil.armstrong@linaro.org, robh@kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, olteanv@gmail.com
+In-Reply-To: <20260911-nord-drv-dt-v1-7-e25c073cf1b6@oss.qualcomm.com>
 References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
- <20260911-nord-drv-dt-v1-12-e25c073cf1b6@oss.qualcomm.com>
+ <20260911-nord-drv-dt-v1-7-e25c073cf1b6@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 15:49:08 +0000
-Message-Id: <20260911154908.DC8FD1F00893@smtp.kernel.org>
+Date: Fri, 11 Sep 2026 15:49:07 +0000
+Message-Id: <20260911154907.BB0B81F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,54 +61,45 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Redundant function added due to an incorrect commit message claim
+- [Low] The newly added register `DP_PHY_LDO_CFG` is missing the `_NORD` su=
+ffix.
 --
 
-commit 3bc884119c8e394e11daa5276d830b8881379d66
+commit d9b8ac1d640ce0c0f48897f46216bd9e72eb391e
 Author: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
 
-phy: qcom: edp: Add Nord bias and clock buffer enable callback
+phy: qcom: edp: Add Nord-specific register offsets
 
-This commit introduces a new callback for the Nord platform to enable the
-internal bias generator and clock buffer. It writes 0x1f to the
-BIAS_EN_CLKBUFLR_EN register.
+This commit adds Nord-specific register offsets for the DP PHY and QSERDES
+v8 COM to allow Nord sequences to reference them directly by name.
 
 > diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/p=
 hy-qcom-edp.c
-> index 6cac4b55b66f6..ec4220cffe693 100644
+> index a3c893f72908f..bf8a17336c7ec 100644
 > --- a/drivers/phy/qualcomm/phy-qcom-edp.c
 > +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
-> @@ -1637,6 +1637,14 @@ static int qcom_edp_phy_com_resetsm_cntrl_nord(con=
-st struct qcom_edp *edp)
->  }
+[ ... ]
+> @@ -41,9 +41,19 @@
 > =20
+>  #define DP_PHY_VCO_DIV                          0x0074
+>  #define DP_PHY_TX0_TX1_LANE_CTL                 0x007c
+> +/* Nord uses a different register layout; non-Nord value is 0x00a0 */
+>  #define DP_PHY_TX2_TX3_LANE_CTL                 0x00a0
+> +#define DP_PHY_TX2_TX3_LANE_CTL_NORD            0x00c0
 > =20
-> +static int qcom_edp_com_bias_en_clkbuflr_nord(const struct qcom_edp *edp)
-> +{
-> +	writel(0x1f, edp->pll + DP_QSERDES_V8_COM_BIAS_EN_CLKBUFLR_EN);
-> +
-> +	return 0;
-> +}
-> +
-> +
+> +/* Nord uses a different register layout; non-Nord value is 0x00e0 */
+>  #define DP_PHY_STATUS                           0x00e0
+> +#define DP_PHY_STATUS_NORD                      0x0110
+> +#define DP_PHY_LDO_CFG                          0x00f0
 
-[Severity: Medium]
-The commit message states that setting BIAS_EN_CLKBUFLR_EN to 0x1f "differs=
-=20
-from the value used on existing SoCs". Is this description accurate?
+[Severity: Low]
+The commit message notes this patch adds Nord-specific defines, and other
+newly introduced registers appropriately use a _NORD suffix (like
+DP_PHY_STATUS_NORD and DP_PHY_TX_LN0_DRV_LVL_NORD).
 
-The existing qcom_edp_com_bias_en_clkbuflr_v8() function already writes exa=
-ctly=20
-0x1f to the same DP_QSERDES_V8_COM_BIAS_EN_CLKBUFLR_EN register.
-
-Does this new qcom_edp_com_bias_en_clkbuflr_nord() function introduce redun=
-dant=20
-code? Could the existing v8 variant be reused to avoid duplication, or shou=
-ld=20
-the commit message be updated to explain why a separate identical callback =
-is=20
-required?
+Does DP_PHY_LDO_CFG also need the _NORD suffix here? Leaving it off makes it
+appear as a generic register rather than a Nord-specific one.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-nord-drv-d=
-t-v1-0-e25c073cf1b6@oss.qualcomm.com?part=3D12
+t-v1-0-e25c073cf1b6@oss.qualcomm.com?part=3D7
