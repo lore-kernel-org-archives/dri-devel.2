@@ -4,70 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25EEFC88E4D
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 22:25:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F076C88E50
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 22:34:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55BBD10E57A;
-	Fri, 11 Sep 2026 22:25:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 607C810E1F1;
+	Fri, 11 Sep 2026 22:34:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="OTS4Kr43";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MmV9JymJ";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E702210F707
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 22:25:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1789165554;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=GtArxXaEurV8BVvM6EYTOe2CdrYTeBsQq9cRZ1ZIWsc=;
- b=OTS4Kr43Gpcwin02fVnf2PSmJYhCOcd1IAc4KgSsNazvoc6mj8gHXa/jAoDElVeCLP8XCk
- ogaJXtQBsp7lg2hNw5UaXB5/FlJ7stcAtbwRvhfhxk//9RU81MQQfzUQoR3f9JkjssbG3S
- 8JTXtPNhEI01oX2IFLOh2fNRtOJ1kFo=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-551-fejDwOKiPECHD579vnd4cQ-1; Fri,
- 11 Sep 2026 18:25:50 -0400
-X-MC-Unique: fejDwOKiPECHD579vnd4cQ-1
-X-Mimecast-MFC-AGG-ID: fejDwOKiPECHD579vnd4cQ_1789165548
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id C55061800A3B; Fri, 11 Sep 2026 22:25:48 +0000 (UTC)
-Received: from GoldenWind.redhat.com (unknown [10.22.88.4])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 8A23819560AB; Fri, 11 Sep 2026 22:25:46 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: "Dave Airlie" <airlied@redhat.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>,
- "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Kees Cook" <kees@kernel.org>, "Simona Vetter" <simona@ffwll.ch>,
- "David Airlie" <airlied@gmail.com>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "Maxime Ripard" <mripard@kernel.org>,
- "Mel Henning" <mhenning@darkrefraction.com>,
- "Hongling Zeng" <zenghongling@kylinos.cn>,
- "Danilo Krummrich" <dakr@kernel.org>, "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH 5/5] drm/nouveau/gsp/r570: Enable Gcoff in fbsr again
-Date: Fri, 11 Sep 2026 17:49:58 -0400
-Message-ID: <20260911222428.752641-6-lyude@redhat.com>
-In-Reply-To: <20260911222428.752641-1-lyude@redhat.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98E5810E1F1
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 22:34:09 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 98160600AA;
+ Fri, 11 Sep 2026 22:34:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C9E31F000FF;
+ Fri, 11 Sep 2026 22:34:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789166048;
+ bh=O8GVaB59YUgmW6AEkB119OnaVnlQus10pTyDq9zHGp8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=MmV9JymJfJN7xrQF5KgPP3DAl9STs6+R59ky6vYoEYeww9+9CkFLsYiYPVDu2cFZz
+ causNyeClsH7MGZz2Jam1eq3DUYGeL0rliwNAeOn7OCz0v4TxIitAolBtZ0sSKeY+y
+ Nr+BcAp8QdUnt0o/1yCS0t51xbp63LThrZdQNe6/jggl8Ebka6iOj4RSLB9QPyp1LL
+ nsM3t6x2riRnuwSDnlCzAWhDWHLGhznFea5e7H2zaZgd+qGO+xbqeVmRMK6Euz80hq
+ gBPttEtwZVrbSWPBTF1SFo5yQ79hywTTPr3DqZ+Xxw+zk/BW8NsCiKdlnXmNQ8+MwU
+ 032j1jypekJEA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/5] drm/nouveau/gsp/r535: Add support for
+ MEMSYS_GET_STATIC_CONFIG
+To: "Lyude Paul" <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260911222428.752641-3-lyude@redhat.com>
 References: <20260911222428.752641-1-lyude@redhat.com>
-MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: DV8wbRt5snex4GWJz6HtvGsl3iTZsQWIPYrggF32ocg_1789165548
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+ <20260911222428.752641-3-lyude@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 11 Sep 2026 22:34:07 +0000
+Message-Id: <20260911223408.2C9E31F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,32 +54,110 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that we're properly saving the compbit backing stores on fbsr init, we
-can start setting bEnteringGcOff = 1 again without things breaking, which
-brings us closer to following the exact same code-paths OpenRM does for
-fbsr.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The `r535_gsp_get_static_memsys_info` function allocates an RPC co=
+mmand payload but never actually executes the command before reading its fi=
+elds, resulting in reading uninitialized memory.
+- [Medium] The memsys static info is never fetched when running on r535 fir=
+mware because the call to `r535_gsp_get_static_memsys_info` is omitted from=
+ `r535_gsp_get_static_info`.
+--
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+commit 80c8c37934b6a701a8974b57594b260a8c0690c0
+Author: Lyude Paul <lyude@redhat.com>
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-index 58f426ba81191..8545be1dde6ed 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-@@ -135,7 +135,7 @@ r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size)
- 	ctrl->hClient = gsp->internal.client.object.handle;
- 	ctrl->hSysMem = memlist.handle;
- 	ctrl->sysmemAddrOfSuspendResumeData = gsp->sr.meta.addr;
--	ctrl->bEnteringGcoffState = 0;
-+	ctrl->bEnteringGcoffState = 1;
- 
- 	ret = nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
- 	if (ret)
--- 
-2.55.0
+drm/nouveau/gsp/r535: Add support for MEMSYS_GET_STATIC_CONFIG
 
+This patch adds support for retrieving a GSP structure describing memory
+management system characteristics during driver load. It fetches the
+configuration for MEMSYS_GET_STATIC_CONFIG and saves it for later use.
+
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/driv=
+ers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
+> index 09b17b85dc1ac..c57a3250d6b96 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
+[ ... ]
+> @@ -1808,6 +1808,23 @@ r535_gsp_fini(struct nvkm_gsp *gsp, enum nvkm_susp=
+end_state suspend)
+>  	return 0;
+>  }
+> =20
+> +int
+> +r535_gsp_get_static_memsys_info(struct nvkm_gsp *gsp)
+> +{
+> +	NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS *ctrl;
+> +
+> +	ctrl =3D nvkm_gsp_rm_ctrl_get(&gsp->internal.device.subdevice,
+> +				    NV2080_CTRL_CMD_INTERNAL_MEMSYS_GET_STATIC_CONFIG,
+> +				    sizeof(*ctrl));
+> +	if (IS_ERR(ctrl))
+> +		return PTR_ERR(ctrl);
+> +
+> +	gsp->memsys.use_raw_mode_comptagline_alloc =3D ctrl->bUseRawModeComptag=
+lineAllocation;
+
+[Severity: High]
+Does this actually execute the RPC command to fetch the data?
+
+It looks like nvkm_gsp_rm_ctrl_get() only allocates the payload buffer in
+memory, but without a subsequent call to nvkm_gsp_rm_ctrl_push() (or by usi=
+ng
+nvkm_gsp_rm_ctrl_rd() instead), the command is never pushed to the firmware.
+
+As a result, this might be reading uninitialized memory instead of the
+firmware's response. This could silently break the workaround introduced in
+the subsequent commit "drm/nouveau/gsp/r570: Add comp mode workaround from
+issue #3172217", as use_raw_mode_comptagline_alloc will contain garbage or
+zero, preventing the workaround from being applied properly.
+
+> +
+> +	nvkm_gsp_rm_ctrl_done(&gsp->internal.device.subdevice, ctrl);
+> +	return 0;
+> +}
+[ ... ]
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c b/driv=
+ers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+> index b45781cd0dfdc..5a51fe7e5ab98 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+> @@ -137,6 +137,14 @@ r570_gsp_get_static_info(struct nvkm_gsp *gsp)
+>  		}
+>  	}
+> =20
+> +	ret =3D r535_gsp_get_static_memsys_info(gsp);
+
+[Severity: Medium]
+Should r535_gsp_get_static_info() also be updated to call
+r535_gsp_get_static_memsys_info(gsp)?
+
+Currently, this is only added to r570_gsp_get_static_info(), which means the
+memsys static info is never fetched when running on r535 firmware, and
+gsp->memsys.use_raw_mode_comptagline_alloc will remain uninitialized for r5=
+35.
+
+While the follow-up commit "drm/nouveau/gsp/r570: Add comp mode workaround
+from issue #3172217" currently only uses this flag in r570-specific suspend
+paths, the commit message implies this configuration should be fetched on
+r535 as well. Any future shared code relying on this flag on r535 could
+receive uninitialized data.
+
+> +	if (ret) {
+> +		nvkm_error(&gsp->subdev, "Retrieving static memsys info failed\n");
+> +		return ret;
+> +	}
+> +	nvkm_debug(&gsp->subdev, "memsys: Use raw mode for comptag allocations?=
+ %s\n",
+> +		   str_yes_no(gsp->memsys.use_raw_mode_comptagline_alloc));
+> +
+>  	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911222428.7526=
+41-1-lyude@redhat.com?part=3D2
