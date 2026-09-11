@@ -4,74 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73B3CC88E63
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A02F2C88E65
 	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:54:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 507E610E9DF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75E1810E9E4;
 	Sun, 13 Sep 2026 20:54:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ireE3+fT";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IyRpGBMI";
 	dkim-atps=neutral
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com
- [74.125.229.204])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4617C10E374
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 07:18:47 +0000 (UTC)
-Received: by mail-lf2-f12.google.com with SMTP id
- 2adb3069b0e04-5b5e4f16f16so760759e87.0
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 00:18:47 -0700 (PDT)
+Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com
+ [209.85.222.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6496810E40C
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 20:33:55 +0000 (UTC)
+Received: by mail-ua1-f47.google.com with SMTP id
+ a1e0cc1a2514c-97ccaa61510so533547241.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 13:33:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789197525; x=1789802325; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1789158834; x=1789763634; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=rLeyn0OC1le5MSTZk6KLze1f/9azpPHpmNeLJDOBQ0U=;
- b=ireE3+fTjBQR7cuDM26y/1v/hClVHmhRwpL/zHLVS00ZIdC0nNpSMcbu/BQsf4xzHH
- IYYnM8FZUk/OOF2Z9CZQ4/DH/rRGBAodzFrIfzJRYLbqF3V9tVqRS+KmvRJuokABKqwh
- UP58dDGmTMXs14ai259JgEn6Zcny4V7QFYzy2Dki3cS4BCweHHXWgMLFZ4Dl5NEVmM8R
- 1aPLwAyYOH6XdNeSrY2rudzPui+Sq5Ss/fdAeLsuEySH/O9wej7+OS3sQ9ziF6MdZmtU
- 5XOA/avAEVwuOd25M3LtexC0ygVIrQXa7xAWzWcYj2Yg6ZNM4H5rmCHq+IaZdLAbG10G
- 9fBQ==
+ bh=TNQAtUsfSHMHHKsvw6ndB+vrFH/q79ludt31IUIO6iA=;
+ b=IyRpGBMIpz83b0gIExz6vrBFVEdLTjZjBh2tiGNnn9GI2xOs1voJuX1leYUoBwoP6T
+ mCyJs9fc0mpTiU6N6oZeBGChnqhwbopak1fPfhPGk6oYLmkXLmYbTClE22pdD3TEWbOn
+ P0LgqE7k8KupSuxhzzhrNyOiuWniAgIVdg25x21RSfJmHCKS/H4nxSIGhTkstF7xX9ep
+ P7zT7Zi5geF77ez4mDJz3HTBmb7gKGG13tb3KjEr4mUD3WMSX6tkXeHHZfMFvjSG8GcL
+ Ggfrd8sZm7FU/0x9Jl8ZQYDsuFUn4brpnHBV19GQCAShOtaXelfTJFWTiMjwfj5yy/z4
+ 40eQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789197525; x=1789802325;
+ d=1e100.net; s=20251104; t=1789158834; x=1789763634;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=rLeyn0OC1le5MSTZk6KLze1f/9azpPHpmNeLJDOBQ0U=;
- b=VjhwJpNgItv4vt0j0S+jy548ZvmWtTKR8c6XJ27goyFXyWNgCyANIppJ4DMTYpSyTX
- 4wzb6md7a2R9wTWtMMJtq2xkiaAsYoGGDeAsv2QdCxd727xXrDZ6rgeKxUP2W9EbQFkI
- S9PyI3qWbnpJ1AYrQUc/y2fn3Rf3KeCsw6l3xTruPxySPxP4B0ZTzjeONRTEhwADpX7j
- ABpibNdwVqZlNEZbbiw5SFzTbn1F4x22bT1894pZRh+7ZvlfREbOmM2J24cOAm811Lov
- +wfXQiRgZ8We/UdN6VAuYnTLSj3RATL9TrFMN+G7mVTH5imp6jqIyZIrh9eImyG5bS42
- Ia+A==
+ bh=TNQAtUsfSHMHHKsvw6ndB+vrFH/q79ludt31IUIO6iA=;
+ b=MX1aWKK5wDRz4PLNKEvH/Pd2gPmfWAxsbvOrNFQDyjfrTJ20A0qOorLpkTgTEx7NYR
+ klAglVjZCmrWhx6UsxcNhj5WbLZEtssQpFzD16fh0kskJuiKKNmofl17Tnz7gvKkJK92
+ 8VMMcONVL/K/94OOHK+Ib/SaMP1rJIpQBRssLqWCXoKybDN5yMHIOCxPANgEixrGgLZr
+ /hP/DslSxI2WzZ4t2hl6ELZhMN4NlqkKXi0PBgnPZjZ4U4+iLzfxnowHrB4AMW0ER8ra
+ ehLaK/rYSMLVflFieU5CdqP/37OfjM0KCkvzCmesvAvfO/rEMQEUHMmJDM33ONKXehOj
+ P9PA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBznvTLe8OAbXeS/TJke4vxzjA0dNjAAz279w/J3gCpiuOtF+02+xVE85ia0VMK54CNOJDVybX8gYpw=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++k+QlPWz2TBQa9ncspcdX+zbbGjHH9AgQ5+ZKBOfhFkkc9ScM2J
- uuS3g2qju4114LU0VQoy/FQngOfKbKdiJGbwShy0YJH18cIp1GeBUO9q
-X-Gm-Gg: AYBFou3hR3yR4ImqqtWpLqM5ta8AK6OEUzGMITvNNneJKXfvmEAJTJGetS8QvmUq5Ld
- TvfACrVMpWOal5uMQu6j8LyPuuGyrFJhB6P7f5sLjyFAwP8luehtkJMIM2QPqvdJN6aVMnWskit
- OXORWQdkzh1UAu+UhBT4REx8Nxk7HsBCOt1FFY+Uob8uKlGPaxNYwZxoXOjz9qqCNYTRRBpkAPx
- ZdkCxgTmf5RowfizYlFyLTrnZqHGNo6AEzg12wn4jrQpF1CpjLfucxNuh0Q+juT9TlNKarAHjGu
- du7jJ7OSwVHyB4IP0tLhtTCdpL3GEWTDv/nfdI4kManb0nvbEAeY961YYPwiPcW2JuU4LhgKJm4
- J6Er1f3XIKLxLZNT4awsP5fLhFTrjHqb8W+VpIj1J40v1E3MgbyLeE4U14Y6TN9h5v2ifr3DZy5
- FdqPUsGdRwPEHsH5KfjUrZn/++rtxz0CTnmdZ5bnHdp9udNJm2lsJ7kjwQVbEMNmtt3AYeBJgyD
- qPFWg==
-X-Received: by 2002:a05:6512:3b87:b0:5b8:9ee1:10fd with SMTP id
- 2adb3069b0e04-5b8a0343aefmr3048202e87.32.1789197524822; 
- Sat, 12 Sep 2026 00:18:44 -0700 (PDT)
-Received: from localhost ([95.190.112.239]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b8a04571b0sm1096277e87.13.2026.09.12.00.18.43
+ AKwUvByNbYkeR0dnVo8mZbrcq4CVt4fXpkuJoysdBfPpOiKuVM99VPhT0rjcZsOTNnmYguby+4K0ujlgX4Y=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kqKftH9yq79zCSFLh95V78zcdGkashRVFiNjpEMW3uWlRCfUzo
+ W2kCxKBoLB9e7V2DOW7owtHrjia9gBmZxRVqlZIPS0oZUTG7okF6zOHp
+X-Gm-Gg: AYBFou3cwn72Ft2udXxuhCXoOiqHTXfOjj5q0NxllvectPX+WTh7oNIEI0ZMEpsy3A2
+ RgamzLwDhnFwIuYMaX2xGApbAvRnMMbOgpkxxW5QgzyfcQ2qzmJMI3kiiXzZhFYhVYMserJrTsr
+ xNb2sxgi/XPfXxfUbifiZIcYTFtnMkLwiwa9h0q6n+/3inHcovHV7d5IvUl19iXSNfZYgFj99An
+ S1zpK5v5OEg5g3fTk4OSt4b9x7rUe6vr/YYCTa19A/EcT3tDw6+ewguh6KRbxbnqi99xsJWs3b8
+ uULTt+KkNe3aaaxWpAE82sC1HjDFwegEGdc1lqfoaaCFPhucrrICp27ofmPbV4jYkrp1WGl9V/z
+ 6JNbm2DP1fg37CL9aYlpk/htCflmkyhDoOt/qxx6aVQXs2YogSSFsOGdtGbxoCIMD9vD4xACuKb
+ RZTz9lDxDCfQqYM5DeLLg0XXfqmm5I0Or8MUp4lWkuPbdZXwx7so+Q3Tk7L6K4uTOZ
+X-Received: by 2002:a05:6122:6217:b0:5c8:46e3:ec57 with SMTP id
+ 71dfb90a1353d-5c846e3ed98mr10169733e0c.1.1789158834008; 
+ Fri, 11 Sep 2026 13:33:54 -0700 (PDT)
+Received: from frese.. ([189.60.169.129]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5c8470e7ef4sm4187018e0c.9.2026.09.11.13.33.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 12 Sep 2026 00:18:44 -0700 (PDT)
-From: Vladislav Zaharov <vladazaharova2018@gmail.com>
-To: dakr@kernel.org,
-	jhubbard@nvidia.com
-Cc: acourbot@nvidia.com, aliceryhl@google.com, ttabi@nvidia.com,
- gary@garyguo.net, nova-gpu@lists.linux.dev,
+ Fri, 11 Sep 2026 13:33:53 -0700 (PDT)
+From: Enzo Frese <freseenzo@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ =?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, devicetree@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, Vladislav Zaharov <vladazaharova2018@gmail.com>
-Subject: [PATCH v3 0/3] gpu: nova-core: retain the GSP-RM log buffers
-Date: Sat, 12 Sep 2026 14:18:39 +0700
-Message-ID: <20260912071842.622696-1-vladazaharova2018@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ Enzo Frese <freseenzo@gmail.com>
+Subject: [PATCH v2] dt-bindings: display: panel: mipi-dbi-spi: add sitronix,
+ st7789v-tft28
+Date: Fri, 11 Sep 2026 17:33:42 -0300
+Message-ID: <20260911203342.76692-1-freseenzo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
@@ -90,86 +91,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The GSP-RM log buffers are exposed through debugfs, but the entries are
-owned by the Gpu that probe() builds, and the buffers themselves are DMA
-allocations that cannot outlive the device. They are therefore gone as
-soon as the GPU is unbound, and in particular as soon as probe() fails -
-which is the case todo.rst singled out, and the one where a GSP log is
-worth having.
+This is a generic 2.8" 240x320 RGB LCD panel with a MIPI DBI compatible
+SPI interface, based on the Sitronix ST7789V controller. It is commonly
+sold by various resellers without an identifiable original manufacturer
+name printed on the PCB.
 
-Patch 1 is a fix this series needs: init() builds the Registration before
-the guard that clears the debugfs root, so a registration that fails
-leaves the root behind with nothing left to remove it, and the next load
-finds the name taken. Patch 2 adds a gsp_keep_logs module parameter: when
-it is set, whatever the GSP wrote is copied into memory owned by the
-module and exposed under a "retained" directory until the module is
-unloaded. Patch 3 drops the now completed task from todo.rst.
+A basic mipi-dbi-cmd[1] script to get the display running looks like
+this:
 
-Changes since v2:
- - rebase onto current drm-rust-next, where Coherent carries the lifetime
-   of the bound device; the live log buffers borrow the device rather
-   than holding a reference to it, and only the copies keep one
- - make gsp_keep_logs a bool, now that module parameters support it
- - add the dma_rmb() discussed on v1, as dma_mb(Read), between reading
-   the "put" pointer and copying the buffer
- - build the debugfs guard before the Registration (patch 1), so that a
-   failed module init cannot leave either directory behind
- - keep nothing when CONFIG_DEBUG_FS is off, where a Dir is a zero-sized
-   type and the copies could never be read back
- - take the snapshots before acquiring the global lock, rather than
-   holding it across three 64 KiB allocations
+$ cat sitronix,st7789v-tft28.txt
+command 0x11
+delay 120
+command 0x3a 0x55
+command 0xb2 0x05 0x05 0x00 0x33 0x33
+command 0xb7 0x75
+command 0xc2 0x01 0xff
+command 0xc3 0x13
+command 0xc4 0x20
+command 0xbb 0x22
+command 0xc5 0x20
+command 0xd0 0xa4 0xa1
+command 0xe0 0xd0 0x05 0x0a 0x09 0x08 0x05 0x2e 0x44 0x45 0x0f 0x17 0x16 0x2b 0x33
+command 0xe1 0xd0 0x05 0x0a 0x09 0x08 0x05 0x2e 0x43 0x45 0x0f 0x16 0x16 0x2b 0x33
+command 0x36 0x00
+command 0x29
+command 0x21
 
-Testing was done on top of drm-rust-next with the TLV firmware images
-installed. On a GB203:
+$ mipi-dbi-cmd sitronix,st7789v-tft28.bin sitronix,st7789v-tft28.txt
 
-  - with gsp_keep_logs unset, no "retained" directory is created and the
-    entries disappear on unbind, as before;
-  - with gsp_keep_logs=1, retained/<BDF>/{loginit,logintr,logrm} hold
-    the contents the live entries had, all 64 KiB of each readable;
-  - binding the GPU again recreates the live entries without disturbing
-    the copies, and unbinding it a second time replaces them, leaving
-    exactly one set behind;
-  - with a failure injected after the GSP has booted, probe() fails with
-    -EINVAL, the driver stays unbound, and the logs of that attempt are
-    still readable;
-  - with a failure injected into the Registration instead, the module
-    fails to load and leaves no debugfs directory behind, where before
-    patch 1 the next load would have found the name taken;
-  - the copies are released on module unload, and three load/unload
-    cycles leave nothing behind;
-  - 1, Y and y turn it on, 0 and N turn it off, and a value that is
-    neither is refused at load time.
+Tested on a Raspberry Pi 4B using the panel-mipi-dbi driver.
 
-The parameter does need a value: the Rust bool param ops do not set
-KERNEL_PARAM_OPS_FL_NOARG, so a bare gsp_keep_logs is refused, where the
-C bool would have taken it.
+[1]: https://github.com/notro/panel-mipi-dbi
 
-No warnings, oopses or refcount complaints in dmesg throughout. Built and
-checked with CLIPPY=1 and rustfmtcheck. checkpatch --strict is clean
-apart from the MAINTAINERS note for the new file, which is already
-covered by the existing "F: drivers/gpu/nova-core/" pattern.
+Signed-off-by: Enzo Frese <freseenzo@gmail.com>
+---
+ .../devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml    | 1 +
+ 1 file changed, 1 insertion(+)
 
-John Hubbard's r000 series adds three more log buffers in gsp.rs.
-Whichever of the two lands second needs a small rebase; the retained
-copies extend to the new buffers by adding them to RetainedLogBuffers.
-
-v2: https://lore.kernel.org/nova-gpu/20260815050826.306717-1-vladazaharova2018@gmail.com/
-v1: https://lore.kernel.org/nova-gpu/20260812113752.532537-1-vladazaharova2018@gmail.com/
-
-Vladislav Zaharov (3):
-  gpu: nova-core: build the debugfs guard before registering the driver
-  gpu: nova-core: gsp: retain the GSP-RM log buffers after unbind
-  Documentation: nova: remove completed GSP log buffer task
-
- Documentation/gpu/nova/core/todo.rst   |  12 --
- drivers/gpu/nova-core/gsp.rs           | 100 ++-------
- drivers/gpu/nova-core/gsp/logbuffer.rs | 267 +++++++++++++++++++++++++
- drivers/gpu/nova-core/nova_core.rs     |  36 +++-
- 4 files changed, 320 insertions(+), 95 deletions(-)
- create mode 100644 drivers/gpu/nova-core/gsp/logbuffer.rs
-
-
-base-commit: 73e5616f3d197c1af5a04a481fe0f13aa3913bd1
+diff --git a/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml b/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
+index 6f0290c4e291..25c176b0098b 100644
+--- a/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
++++ b/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
+@@ -75,6 +75,7 @@ properties:
+           - saef,sftc154b
+           - sainsmart18
+           - shineworld,lh133k
++          - sitronix,st7789v-tft28
+       - const: panel-mipi-dbi-spi
+ 
+   reg:
 -- 
-2.55.0
+2.43.0
 
