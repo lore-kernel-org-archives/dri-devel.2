@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEC2EC88E4C
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 08:51:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 063BFC88E54
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 08:51:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5381A10EC04;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B4EC10EED2;
 	Fri, 11 Sep 2026 08:51:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dQHYx2Q7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J0tv6vcq";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DF2F10E235;
- Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91FFE10E6A7;
+ Fri, 11 Sep 2026 08:51:16 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E8F3B447BB;
- Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id ABBE6C2BD04;
- Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5B4C74480C;
+ Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2EC8BC4DDE2;
+ Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1789116674;
- bh=8RziPjmr86j58LZqVuPJpDkvRLhBLUgcBlPpa46vgoE=;
+ s=k20201202; t=1789116675;
+ bh=X98FQSGCxrDpR2Xx1wxbQobgEl8GwdUVn/NBjCDa5T0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=dQHYx2Q7FEXSskE3N+4PECi8e3dFPWmZtOf/+86Ag1CFzYqmXGYk0cJZdkLQP51LP
- V/AnF0OitSqeniNgmleIMm1QouUkLJXvrZzhgjymmLK9jlLZAYa61OM7BA3JrVAUOh
- /UQebmdKNvqcdybm9Wyf8W9wKl3K+heYYgNF1zPQv7CROkvTjomi3i17yYORRluZ6E
- vW5n/Hc7uPg9yolV8yZuVrrQdp1VhAagcFmLFk1MBGoxc6F5YOWfOh+FikUJJhlPDk
- Y47tXQ1cmb5WBFEZ936kE9NCK+VBjgi4JjOBgFBAhEZutYoq3vCe3rAUIc6RgpcO2g
- jJfYOyzMc+Qog==
+ b=J0tv6vcqJA1X3HnEcnD3OjCpAjmGTGN/dqFA4o8NuRZhg8yHmJgx9Fd5moZHV1UOa
+ yMjiVuIqEpKONfMByf0+wZzwtRSKJt2PiBTZDws4UoutNsjIzhzC+31mCSAU2Zo28D
+ 73hD4vHoMaxC0ivZKyZ8hfsBIgYsOzz8q3kQxvjURU7lKe/IL/qq+5LZR2m3JZTDhF
+ PYdUprtSfcybTY3/8NxqGEsWsxBRPWV0Q8J52Fy3jD5CBwHuuOrCg+mtG6Z8EmIED2
+ fnEhNKkL6MOWRW0gMS5E1cD7Bnl2RkYqK8cwCZHYg7rSXhZlyOrrmE6Y2OGjYByyuC
+ vpxTAlON2Rq2Q==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 903E7C88E53;
- Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 19E25C88E54;
+ Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
 From: =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI_via_B4_Relay?=
  <devnull+kavakliyigitcan.gmail.com@kernel.org>
-Date: Fri, 11 Sep 2026 11:51:00 +0300
-Subject: [PATCH RFC 03/10] dt-bindings: display: panel: novatek,nt36672a:
- add Tianma FHD+ video mode variant
+Date: Fri, 11 Sep 2026 11:51:06 +0300
+Subject: [PATCH RFC 09/10] drm/msm/dsi: separate host link enable from
+ video stream enable
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260911-ginkgo-submission-final-v1-3-0e68e63a18d4@gmail.com>
+Message-Id: <20260911-ginkgo-submission-final-v1-9-0e68e63a18d4@gmail.com>
 References: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
 In-Reply-To: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
@@ -70,11 +70,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI?= <kavakliyigitcan@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789116671; l=1337;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789116671; l=4404;
  i=kavakliyigitcan@gmail.com; s=20260911; h=from:subject:message-id;
- bh=AtK+lXLPgtCAd0x0Q8ZmqlE6229e2DioZldnqFvwW6k=;
- b=CuC7FXTtyIRRqdqKvBCGyMqURAjP2DqWfwpfHd4zVYPkbELnIFOwMkil8+A9jXa9BtQxWIuzD
- 9CC7I9h8FMhBVz5GdwJnIyMxg1Hb2F2jwFbu1IbAx7X3jeL/90Hw5pO
+ bh=V8nqA1aw4sLc5FPA3CMsuU6cEpTrAqNLa+vYEEKpC58=;
+ b=Xgf0bzykBXhHaxOrLtuXKDxVfuAVHziW83ocSKAKZpSsd2068AHVSXqKBe+Olh/lzxrqVGPzv
+ eJMuE07GXCkCuR070oxMTfkNJaNJCaUrsGpJoK9vi85cEDPhpsUfB0k
 X-Developer-Key: i=kavakliyigitcan@gmail.com; a=ed25519;
  pk=W2GaxVotULs2vAjRMMLheaDtMMYs4037zO1LVVfFtPI=
 X-Endpoint-Received: by B4 Relay for kavakliyigitcan@gmail.com/20260911
@@ -99,31 +99,110 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
 
-Add compatible string "tianma,fhd-video-ginkgo" for the 1080x2340 Tianma
-video mode panel found on the Xiaomi Redmi Note 8 (ginkgo / SM6125).
+In video mode DSI displays, enabling the host previously engaged the
+hardware video engine immediately during atomic_pre_enable. When panel
+prepare routines transmit initial DCS sleep-out and setup commands,
+concurrent active video transmission causes DMA timeouts (-110).
 
-The downstream vendor DT identifies the panel as "nt36672a video mode
-dsi tianma panel" without documenting a glass model number. Following
-the established convention of "tianma,fhd-video" for Poco F1, this
-variant is added under the existing NT36672A binding schema.
+Keep the DSI host in command mode during atomic_pre_enable to permit
+clean panel preparation, and start video streaming in atomic_enable
+after the panel has completed initialization.
 
 Signed-off-by: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
 ---
- Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/msm/dsi/dsi.h         |  1 +
+ drivers/gpu/drm/msm/dsi/dsi_host.c    | 23 ++++++++++++-----------
+ drivers/gpu/drm/msm/dsi/dsi_manager.c | 20 ++++++++++++++++++++
+ 3 files changed, 33 insertions(+), 11 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
-index 5d16d85117254ce479cfe9b9b33df8eeafeed1e1..9f42b1ef07669a3b0e6d2285a39a961e2e04cec7 100644
---- a/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
-@@ -23,6 +23,7 @@ properties:
-     items:
-       - enum:
-           - tianma,fhd-video
-+          - tianma,fhd-video-ginkgo
-       - const: novatek,nt36672a
-     description: This indicates the panel manufacturer of the panel that is
-       in turn using the NT36672A panel driver. This compatible string
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+index 93c028a122f3a59b1632da76472e0a3e781c6ae8..cfb2b51cae0a9227fbe88ecc5291ac1a9f82a5ce 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.h
++++ b/drivers/gpu/drm/msm/dsi/dsi.h
+@@ -69,6 +69,7 @@ int msm_dsi_host_cmd_rx(struct mipi_dsi_host *host,
+ void msm_dsi_host_cmd_xfer_commit(struct mipi_dsi_host *host,
+ 					u32 dma_base, u32 len);
+ int msm_dsi_host_enable(struct mipi_dsi_host *host);
++void msm_dsi_host_enable_video(struct mipi_dsi_host *host);
+ int msm_dsi_host_disable(struct mipi_dsi_host *host);
+ void msm_dsi_host_enable_irq(struct mipi_dsi_host *host);
+ void msm_dsi_host_disable_irq(struct mipi_dsi_host *host);
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index b9e2867d435a3ad8b6db6b57c440bbd827180b6e..b2702f772ee195b2758433d98d0f071e3f55955e 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -2438,22 +2438,23 @@ int msm_dsi_host_enable(struct mipi_dsi_host *host)
+ {
+ 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+ 
+-	dsi_op_mode_config(msm_host,
+-		!!(msm_host->mode_flags & MIPI_DSI_MODE_VIDEO), true);
+-
+-	/* TODO: clock should be turned off for command mode,
+-	 * and only turned on before MDP START.
+-	 * This part of code should be enabled once mdp driver support it.
+-	 */
+-	/* if (msm_panel->mode == MSM_DSI_CMD_MODE) {
+-	 *	dsi_link_clk_disable(msm_host);
+-	 *	pm_runtime_put(&msm_host->pdev->dev);
+-	 * }
++	/* Keep DSI host in command mode (VID_MODE_EN = 0) during panel init
++	 * to allow clean DCS communication without premature video engine startup.
+ 	 */
++	dsi_op_mode_config(msm_host, false, true);
++
+ 	msm_host->enabled = true;
+ 	return 0;
+ }
+ 
++void msm_dsi_host_enable_video(struct mipi_dsi_host *host)
++{
++	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
++
++	if (msm_host->mode_flags & MIPI_DSI_MODE_VIDEO)
++		dsi_op_mode_config(msm_host, true, true);
++}
++
+ int msm_dsi_host_disable(struct mipi_dsi_host *host)
+ {
+ 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+index 959daa88b1d022da5f552bb21ca7c04006524fa4..9e3f125ec4ea8e3fae50c8226e67b4106c01dc76 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+@@ -446,12 +446,32 @@ static int dsi_mgr_bridge_attach(struct drm_bridge *bridge,
+ 				 bridge, flags);
+ }
+ 
++static void dsi_mgr_bridge_enable(struct drm_bridge *bridge,
++				  struct drm_atomic_commit *commit)
++{
++	int id = dsi_mgr_bridge_get_id(bridge);
++	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
++	struct msm_dsi *msm_dsi1 = dsi_mgr_get_dsi(DSI_1);
++	struct mipi_dsi_host *host = msm_dsi->host;
++	bool is_bonded_dsi = IS_BONDED_DSI();
++
++	DBG("id=%d", id);
++
++	if (is_bonded_dsi && !IS_MASTER_DSI_LINK(id))
++		return;
++
++	msm_dsi_host_enable_video(host);
++	if (is_bonded_dsi && msm_dsi1)
++		msm_dsi_host_enable_video(msm_dsi1->host);
++}
++
+ static const struct drm_bridge_funcs dsi_mgr_bridge_funcs = {
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+ 	.attach = dsi_mgr_bridge_attach,
+ 	.atomic_pre_enable = dsi_mgr_bridge_pre_enable,
++	.atomic_enable = dsi_mgr_bridge_enable,
+ 	.atomic_post_disable = dsi_mgr_bridge_post_disable,
+ 	.mode_set = dsi_mgr_bridge_mode_set,
+ 	.mode_valid = dsi_mgr_bridge_mode_valid,
 
 -- 
 2.47.3
