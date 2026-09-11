@@ -4,57 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B58F6C88E4C
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 08:25:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDB44C88E50
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 08:51:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC98F10F572;
-	Fri, 11 Sep 2026 08:25:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9E2110E10E;
+	Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="QMurpJZt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VF5ylQ+2";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9276410F572
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 08:25:06 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5E8DE16A3
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 01:25:02 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- E6D6B3F7B4
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 01:25:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1789115106; bh=pg2xKrTSSwShkOsUdLdeGDqS93TawwwTnBwMiecesqU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=QMurpJZtqnybB5+agxGhIxOJebcr3OIGqF0+nDho3/woblZpAc7s/7HRjmJJGYapg
- ecStrJ4l10HiGVIbLkv7WrBXcwk8SsoZIzE3nRLiT8U9Tkn9APm0t0PWIAbKQGAD8u
- 42FnnxRsI5hpxse+82k7KZtyansw9HzKm84PJ1is=
-Date: Fri, 11 Sep 2026 09:24:49 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Zhenhao Wan <whi4ed0g@gmail.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Grant Likely <grant.likely@linaro.org>, Heiko Stuebner <heiko@sntech.de>,
- Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Alice Ryhl <aliceryhl@google.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Lyude Paul <lyude@redhat.com>,
- nouveau@lists.freedesktop.org, Dave Airlie <airlied@redhat.com>,
- Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] drm/gpuvm: reject zero-length range in
- drm_gpuvm_range_valid()
-Message-ID: <aqO60UtyI9WlN0fw@e142607>
-References: <20260902-drm-gpuvm-zerorange-v2-v2-0-da63269c6ec4@gmail.com>
- <20260902-drm-gpuvm-zerorange-v2-v2-2-da63269c6ec4@gmail.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3160610E235;
+ Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id CC4534402E;
+ Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 92810C2BCF5;
+ Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1789116674;
+ bh=07d8wKscWXVq7RDJjHkW9XddOX815xGvrx1VHtKkGvs=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=VF5ylQ+2c/h0Bl+82CoyVZ2QgmKthihLuNpr9gwMdtAbDCuGWaVgpWEuLrmAYyh5f
+ y9PaJRwNV9by3p9x8fFUfOcl4+y5PmZYaBD8129bZ68ekJ3G3Ev2aWTXxhi+kLNu41
+ 8i9bS0sbHnJB9DuBetPM1iwV7w3SlA94CBS4H89x+B/GLWYSrWWx8pjAkK/Dx6o41B
+ A3Qw925Xux6my/4yptEPZrfgkoKs4AVR4ePz47rVhLbSpIJG/G08Uy0HlAkbWpPfH3
+ M+y3tTG1wwhtwR0TI61JLI85jAyFhqI0HGlzdStWHPrGrHxmFcw05lmWhF1FKIIDPj
+ tld0n7NfQE68Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 6BAC6C88E50;
+ Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
+From: =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI_via_B4_Relay?=
+ <devnull+kavakliyigitcan.gmail.com@kernel.org>
+Date: Fri, 11 Sep 2026 11:50:58 +0300
+Subject: [PATCH RFC 01/10] dt-bindings: backlight: add Kinetic KTD3136
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260902-drm-gpuvm-zerorange-v2-v2-2-da63269c6ec4@gmail.com>
+Message-Id: <20260911-ginkgo-submission-final-v1-1-0e68e63a18d4@gmail.com>
+References: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
+In-Reply-To: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Henrik Rydberg <rydberg@bitmath.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, linux-input@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI?= <kavakliyigitcan@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789116671; l=2380;
+ i=kavakliyigitcan@gmail.com; s=20260911; h=from:subject:message-id;
+ bh=1qOWka2RqpGg1tbdhR9VbVnp2Dr9kAnrMfXquGM3d6U=;
+ b=tPsC38NGiMj10cf2MHZTTpvh8GU5kjYbScAMNbDcYn3V2e+KSk4lCvwoX6GGsgBKF0/jvxY1j
+ 92U/sQgU3zNC9FOygauFmLnU35Ax7LZfLjiF0lcSDwfW4mxZjFKgCHj
+X-Developer-Key: i=kavakliyigitcan@gmail.com; a=ed25519;
+ pk=W2GaxVotULs2vAjRMMLheaDtMMYs4037zO1LVVfFtPI=
+X-Endpoint-Received: by B4 Relay for kavakliyigitcan@gmail.com/20260911
+ with auth_id=1024
+X-Original-From: =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI?=
+ <kavakliyigitcan@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,89 +92,98 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: kavakliyigitcan@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 02, 2026 at 08:28:43PM +0800, Zhenhao Wan wrote:
-> drm_gpuvm_range_valid() is the common gate every GPUVM map/unmap path
-> funnels through: drm_gpuva_insert(), __drm_gpuvm_sm_map() and
-> __drm_gpuvm_sm_unmap() all reject a request unless it passes. It checks
-> for overflow, the managed-range bounds and kernel-node overlap, but it
-> never rejects a zero-length range. A range of 0 is page-aligned and
-> addr + 0 does not overflow, so a zero-length VM_BIND request from
-> userspace passes validation.
-> 
-> The GPUVA interval tree derives a node's last key as addr + range - 1
-> (GPUVA_LAST()). With range == 0 this underflows to addr - 1, producing
-> an interval whose end lies below its start (and, for addr == 0, wraps to
-> U64_MAX). __drm_gpuva_insert() then issues its overlap query with that
-> inverted interval, so the -EEXIST guard matches nothing and a malformed
-> zero-length node is inserted, corrupting the augmented interval tree's
-> subtree-last invariant and misleading the overlap checks of later
-> map/unmap operations on the same VM.
-> 
-> Because the shared helper's own kerneldoc promises to validate "the
-> range" yet silently accepts range == 0, drivers have papered over this
-> individually and inconsistently: imagination and xe reject a zero range
-> at/near the ioctl boundary, while nouveau and msm do not. Fix it once at
-> the common gate so every current and future caller is covered.
-> 
-> The only in-tree user that legitimately accepts a zero range,
-> xe's DRM_XE_VM_BIND_OP_UNMAP_ALL, interprets it at its ioctl layer and
-> never passes range == 0 into the GPUVM core, so it is unaffected. The
-> in-core lookups drm_gpuva_find_prev()/drm_gpuva_find_next() pass
-> range == 1 and are likewise unaffected.
-> 
-> Fixes: e6303f323b1a ("drm: manager to keep track of GPUs VA mappings")
-> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-> Assisted-by: Claude:claude-opus-5
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+From: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Add devicetree binding documentation for the Kinetic Technologies
+KTD3136 3-channel LED backlight driver using the official "kinetic"
+vendor prefix.
 
-Best regards,
-Liviu
+The device is controlled over I2C and supports an optional hardware
+enable GPIO line (enable-gpios), supply regulators, and standard
+backlight brightness range properties.
 
-> ---
->  drivers/gpu/drm/drm_gpuvm.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
-> index c422c5af1f4b..b73ad6988171 100644
-> --- a/drivers/gpu/drm/drm_gpuvm.c
-> +++ b/drivers/gpu/drm/drm_gpuvm.c
-> @@ -1021,7 +1021,8 @@ drm_gpuvm_in_kernel_node(struct drm_gpuvm *gpuvm, u64 addr, u64 range)
->   * @addr: the base address
->   * @range: the range starting from the base address
->   *
-> - * Checks whether the range is within the GPUVM's managed boundaries.
-> + * Checks whether the range is non-zero and within the GPUVM's managed
-> + * boundaries.
->   *
->   * Returns: true for a valid range, false otherwise
->   */
-> @@ -1029,7 +1030,8 @@ bool
->  drm_gpuvm_range_valid(struct drm_gpuvm *gpuvm,
->  		      u64 addr, u64 range)
->  {
-> -	return !drm_gpuvm_check_overflow(addr, range) &&
-> +	return range != 0 &&
-> +	       !drm_gpuvm_check_overflow(addr, range) &&
->  	       drm_gpuvm_in_mm_range(gpuvm, addr, range) &&
->  	       !drm_gpuvm_in_kernel_node(gpuvm, addr, range);
->  }
-> 
-> -- 
-> 2.34.1
-> 
+Signed-off-by: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
+---
+ .../bindings/leds/backlight/kinetic,ktd3136.yaml   | 65 ++++++++++++++++++++++
+ 1 file changed, 65 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3136.yaml b/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3136.yaml
+new file mode 100644
+index 0000000000000000000000000000000000000000..f85381c29964529a09989a1ff60d9c9fe4897bb7
+--- /dev/null
++++ b/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3136.yaml
+@@ -0,0 +1,65 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/leds/backlight/kinetic,ktd3136.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Kinetic Technologies KTD3136 3-Channel LED Backlight Driver
++
++maintainers:
++  - Lee Jones <lee@kernel.org>
++
++description: |
++  The Kinetic Technologies KTD3136 is a high efficiency, 3-channel LED
++  backlight driver with 11-bit exponential or linear dimming control
++  via I2C interface.
++
++allOf:
++  - $ref: common.yaml#
++
++properties:
++  compatible:
++    const: kinetic,ktd3136
++
++  reg:
++    maxItems: 1
++
++  enable-gpios:
++    description: GPIO connected to the HWEN (Chip Enable) pin.
++    maxItems: 1
++
++  vin-supply:
++    description: Regulator providing power to the VIN pin.
++
++  default-brightness:
++    minimum: 0
++    maximum: 2047
++    default: 2047
++
++  max-brightness:
++    minimum: 0
++    maximum: 2047
++    default: 2047
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        backlight@36 {
++            compatible = "kinetic,ktd3136";
++            reg = <0x36>;
++            enable-gpios = <&gpio 6 GPIO_ACTIVE_HIGH>;
++            default-brightness = <2047>;
++            max-brightness = <2047>;
++        };
++    };
 
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+2.47.3
+
+
