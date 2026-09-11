@@ -4,61 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAA42C88E53
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 19:19:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 189F0C88E4D
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 19:26:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11C0910E401;
-	Fri, 11 Sep 2026 19:19:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE56110F6D1;
+	Fri, 11 Sep 2026 19:26:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Xot4l4hF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hr+PSViy";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6274E10E401
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 19:19:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1789154327; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=KgIoiEMoXqYTZzILMJrJ9WBHq6wBgAy5WFfsPa11sj1o78pz5DjCIJMT3f+k6X/sThl2sEj3LQfhQP8cM9fkogn/qqm/aHJu3mlSm+ukwq0iI/YRQDINvZqD5oN7OD3YyiT86bUnyYR5XUe0t3JhOFFuVV00KAEaW2gjyM7L8IY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1789154327;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=lK+pZwRlb5fLtEfqpk+prHr+qVuv4jWiesa+VEIUtzo=; 
- b=NN7IclaDCTXPueBGCor1LH4yxU6LqugHikOJyeaMNDQc4ZKyeB1+PO3ysjYL+6MkFqSPRZ0KW6pifvxtHYeISLqoU1zDUlV10YMqyNkVzB1tqgzz9lMn481cyoXdC2TkLDy+N8z+9B9MAJcCijat/4/gx44Q4XE4qARMZ1bQTVA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789154327; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
- bh=lK+pZwRlb5fLtEfqpk+prHr+qVuv4jWiesa+VEIUtzo=;
- b=Xot4l4hFxuOXrJJ0QG3Cy6+/aaVEHuelXVwBAJCmUVYr3IQQn9mNkOH3DQczqhCV
- yrZ8kKX0u+H6FR0oZpq+ThKSsyRDMaxBCsUzMnRQU5x/2H8hdwjsofxlRAEMiWZECj8
- 3t/MtmI4bOzVBC9yxQ0xrGcq54UPpMZ9K07jaJUs=
-Received: by mx.zohomail.com with SMTPS id 1789154325501804.3814371256973;
- Fri, 11 Sep 2026 12:18:45 -0700 (PDT)
-Date: Fri, 11 Sep 2026 20:18:41 +0100
-From: Adrian Larumbe <adrian.larumbe@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Chris Diamand <chris.diamand@arm.com>, Akash Goel <akash.goel@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 18/18] drm/panthor: Add debugfs knobs to simulate
- reset failures
-Message-ID: <aqQs54XbOvmxOyzz@sobremesa>
-References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
- <20260826-panthor-unplug-fixes-v4-18-982cc8f4234b@collabora.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3763210F6D1
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 19:26:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C2A8A417A3;
+ Fri, 11 Sep 2026 19:26:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 388D01F000FF;
+ Fri, 11 Sep 2026 19:26:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789154765;
+ bh=zwltEYL3YNdlrAP6IKVR5tGeGFPOBBkOKK5RahqTZLY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=hr+PSViyFYrJMGSoit0iid0wlgstQnN2Aw0vdLi8Df0yH1Sl8uz+vL3v/h/dEAZ61
+ +LQH6UC8LgKeh54qenqYP3tPy1ZM5fhHgcTvRuNDJ/ScEVU8NAWUW60fiVd3tiyww8
+ LBoUw//JCyW4/WDCRaQ/Q0BNg8QPA1DP36bASCFBwHtDfxfroQaZmMgsPJmKTb4kwt
+ vCCgjZkBA3/3+3xGP6NxDhe2Wo6tpFAuLNlZ4yytlrtOllS1I5gOtG4vtqXSfDB4co
+ GF8IueQmiCrLa2kAmNZB75e8gMd/7MZ4UysauHMXCa/r4OYGI8h2rwGxGVTxZbJko6
+ HYjUzaEbvmfcw==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+ id 698F0DAC7A8; Fri, 11 Sep 2026 20:25:20 +0100 (BST)
+Date: Fri, 11 Sep 2026 20:25:20 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: Grond <grond66@riseup.net>, Stefan Leichter <sle85276@gmx.de>,
+ Grazvydas Ignotas <notasas@gmail.com>, Tony Lindgren <tony@atomide.com>,
+ Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Andreas Kemnade <andreas@kemnade.info>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>,
+ Roger Quadros <rogerq@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Sen Wang <sen@ti.com>, Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Niranjan H Y <niranjan.hy@ti.com>, letux-kernel@openphoenux.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ kernel@pyra-handheld.com, mfd@lists.linux.dev
+Subject: Re: [PATCH 08/16] ASoC: pcm1773-codec: write a driver for the
+ PCM1773 chip from TI
+Message-ID: <aqRVoOCvVwZA3uV5@sirena.org.uk>
+Mail-Followup-To: "H. Nikolaus Schaller" <hns@goldelico.com>,
+ Grond <grond66@riseup.net>, Stefan Leichter <sle85276@gmx.de>,
+ Grazvydas Ignotas <notasas@gmail.com>,
+ Tony Lindgren <tony@atomide.com>,
+ Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Andreas Kemnade <andreas@kemnade.info>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Roger Quadros <rogerq@kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Sen Wang <sen@ti.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Niranjan H Y <niranjan.hy@ti.com>, letux-kernel@openphoenux.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ kernel@pyra-handheld.com, mfd@lists.linux.dev
+References: <cover.1783749722.git.hns@goldelico.com>
+ <7d8989813cbd750259dfdde2e1187082493279a0.1783749722.git.hns@goldelico.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="8VWMi9X2XTocGtq+"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260826-panthor-unplug-fixes-v4-18-982cc8f4234b@collabora.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.144.59
+In-Reply-To: <7d8989813cbd750259dfdde2e1187082493279a0.1783749722.git.hns@goldelico.com>
+X-Cookie: Orders subject to approval.
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,118 +116,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Reviewed-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 
-On 26.08.2026 16:56, Boris Brezillon wrote:
-> It's almost impossible to trigger a situation where the reset
-> doesn't work now that the driver is more mature, so let's add two
-> knobs to exercise this error path:
-> 
-> - a knob to trigger a reset
-> - a knob to fake an error in the reset path
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_device.c | 48 +++++++++++++++++++++++++++++++-
->  drivers/gpu/drm/panthor/panthor_device.h |  8 ++++++
->  2 files changed, 55 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-> index 328e601d80e8..8bdc511310c0 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -5,6 +5,7 @@
->  /* Copyright 2025 ARM Limited. All rights reserved. */
->  
->  #include <linux/clk.h>
-> +#include <linux/debugfs.h>
->  #include <linux/mm.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_domain.h>
-> @@ -182,7 +183,10 @@ static void panthor_device_reset_work(struct work_struct *work)
->  	panthor_hw_soft_reset(ptdev);
->  	panthor_hw_l2_power_on(ptdev);
->  	panthor_mmu_post_reset(ptdev);
-> -	ret = panthor_fw_post_reset(ptdev);
-> +	if (ptdev->reset.fake_failure)
-> +		ret = -EIO;
-> +	else
-> +		ret = panthor_fw_post_reset(ptdev);
->  	atomic_set(&ptdev->reset.pending, 0);
->  	panthor_sched_post_reset(ptdev, ret != 0);
->  	drm_dev_exit(cookie);
-> @@ -690,8 +694,50 @@ int panthor_device_suspend(struct device *dev)
->  }
->  
->  #ifdef CONFIG_DEBUG_FS
-> +static int panthor_device_fake_fw_reset_failure_get(void *data, u64 *val)
-> +{
-> +	struct panthor_device *ptdev = data;
-> +
-> +	*val = ptdev->reset.fake_failure ? 1 : 0;
-> +	return 0;
-> +}
-> +
-> +static int panthor_device_fake_fw_reset_failure_set(void *data, u64 val)
-> +{
-> +	struct panthor_device *ptdev = data;
-> +
-> +	ptdev->reset.fake_failure = val ? true : false;
-> +	return 0;
-> +}
-> +
-> +DEFINE_DEBUGFS_ATTRIBUTE(panthor_device_fake_fw_reset_failure_fops,
-> +			 panthor_device_fake_fw_reset_failure_get,
-> +			 panthor_device_fake_fw_reset_failure_set, "%llu\n");
-> +
-> +static ssize_t panthor_device_reset_file_write(struct file *file,
-> +					       const char __user *, size_t size,
-> +					       loff_t *)
-> +{
-> +	struct panthor_device *ptdev = file_inode(file)->i_private;
-> +
-> +	panthor_device_schedule_reset(ptdev);
-> +	return size;
-> +}
-> +
-> +static const struct debugfs_short_fops panthor_device_reset_fops = {
-> +	.write = panthor_device_reset_file_write,
-> +};
-> +
->  void panthor_device_debugfs_init(struct drm_minor *minor)
->  {
-> +	struct panthor_device *ptdev = container_of(minor->dev, struct panthor_device, base);
-> +
-> +	debugfs_create_file("fake_fw_reset_failure", 0644,
-> +			    minor->debugfs_root, ptdev,
-> +			    &panthor_device_fake_fw_reset_failure_fops);
-> +	debugfs_create_file("reset", 0200,
-> +			    minor->debugfs_root, ptdev,
-> +			    &panthor_device_reset_fops);
->  	panthor_mmu_debugfs_init(minor);
->  	panthor_gem_debugfs_init(minor);
->  }
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index e12049961912..82ec34347eba 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -294,6 +294,14 @@ struct panthor_device {
->  		 * all FW sections to make sure we start from a fresh state.
->  		 */
->  		bool fast;
-> +
-> +		/**
-> +		 * @fake_failure: When true, pretend the FW boot in the reset path failed.
-> +		 *
-> +		 * This is important to check that we're doing the right thing in this very
-> +		 * unlikely case.
-> +		 */
-> +		bool fake_failure;
->  	} reset;
->  
->  	/** @pm: Power management related data. */
-> 
-> -- 
-> 2.55.0
+--8VWMi9X2XTocGtq+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Adrian Larumbe
+On Sat, Jul 11, 2026 at 08:01:55AM +0200, H. Nikolaus Schaller wrote:
+> From: Grond <grond66@riseup.net>
+>=20
+> This chip is used in the OpenPandora.
+
+> +++ b/sound/soc/codecs/pcm1773.c
+> @@ -0,0 +1,149 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * pcm1773.c -- codec for the simple PCM1773 output codec from TI
+> + *
+> + * Shamelessly cobbled together from sound/soc/ti/omap3pandora.c and a f=
+ew
+> + * other codec drivers in sound/soc/codecs/
+
+Please make the entire comment a C++ one so things look more
+intentional.
+
+> +	.playback =3D {
+> +		.stream_name =3D "PCM1773 IN",
+> +		.channels_min =3D 2,
+> +		.channels_max =3D 2,
+> +		.rates =3D SNDRV_PCM_RATE_8000_48000,
+> +		// [TODO] these really should be BE, per the data sheet but for
+> +		// some reason the omap-mcbsp driver claims only to support LE.
+> +		// investigate
+> +		.formats =3D SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE,
+> +	},
+
+The format described here is the in memory format, not the wire format.
+
+> +	ctx->regulator =3D devm_regulator_get(dev, "vcc");
+> +	if (IS_ERR(ctx->regulator)) {
+> +		dev_warn(dev, "cannot get regulator 'vcc'");
+> +		ctx->regulator =3D NULL;
+> +	}
+
+This is obviously broken.  The driver should handle the error as a
+normal error, not just ignore it.
+
+--8VWMi9X2XTocGtq+
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqkVZ8ACgkQJNaLcl1U
+h9ANxQf+NbBkZEJZSsd9ku1cZsPpGBfxhrqMreka7Y24CMLjnIcmPGw4KRrBOcWh
+rRYxpERw/bNXc0OPrSz0k4v7pUdnPmD7XL6q8smQFUqO0cAIZfkapEByQ5NNYXx/
+vNSxUay1sNHex7SauqBichHdhyfPV1YSHJnPu9X2RPsbcvh60u0xvhnTlHIC8egT
+wIPtdj6srM7K+biEegoal8Cvy+5koZfoyRkIHQkSbMD1JFrFDkza3XbamNhPyIlv
+5mP5Lwf0erONIrnizgA3LYZjHMUb6RmtEVoiu1azEwHRv87q42R9pOeiKDQiBhnH
+Gb+jZpZREv9HI5PwAFfeg4z9OuPDwQ==
+=K9b0
+-----END PGP SIGNATURE-----
+
+--8VWMi9X2XTocGtq+--
