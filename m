@@ -4,38 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCA1CC88E53
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 17:10:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44168C88E53
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 17:10:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3AFF10E420;
-	Fri, 11 Sep 2026 17:10:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5324010EBD9;
+	Fri, 11 Sep 2026 17:10:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="o3L2NdFM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ijM28yeS";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCEEA10E420;
- Fri, 11 Sep 2026 17:10:01 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5834810EBD2;
+ Fri, 11 Sep 2026 17:10:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 48B9160008;
+ by sea.source.kernel.org (Postfix) with ESMTP id D8DCD4067A;
+ Fri, 11 Sep 2026 17:10:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF04C1F00893;
  Fri, 11 Sep 2026 17:10:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22A101F000FF;
- Fri, 11 Sep 2026 17:09:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789146600;
- bh=wtZVEwngtJNDR7Dil3pjiAKeqFlagckAJ2vKOo34aps=;
+ s=k20260515; t=1789146616;
+ bh=s9/6KbXsN5PKvzZs2esn/AhPtSfdFVVRLNXzVuGAieA=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=o3L2NdFMRQT+LpNVPaEJvUSryJiMtoEVuBlhvOpTUX3u5oD1j+1IZzuRmDPssCOD4
- 3TfJgTwz9pU1ve9tosOWOXJWeO5W5V83R7OCQQ9yL2AVj6egbjS8vXSL82EbvGhM3T
- X1XDCLrsl04F+9gry2WDolIIzJu6dcCWuJB5K5pbIbQMAi2KKSjOs3tL2GGoqQq/Wi
- xq+SIi39yxW4XtIwV3PkGvVjCoZTgE4SSw6GvxZx1Nypqi8hRWSbbhUoNXXZ0lhxcQ
- kqmPeMm2P5VW+rdouLiwMZzBs9F3xluAom1Yg/u88m56rjWUU4zcY2OLNDN0AVIlpJ
- G63yfKeDG5URw==
-Message-ID: <85ea78b6-f3c7-4a9b-b25d-1fe2ecbf3b40@kernel.org>
-Date: Fri, 11 Sep 2026 19:01:15 +0200
+ b=ijM28yeSeyX61csI7of/aYV6Iu23+fQwE2+XMHuORDOd9Q58+YKhljzXl+IBz4Fum
+ GTMuOS39dD0b/3zG27EdOqjAkusXj6vqwIKDQom13aNYWLtWjARY8yD4Fc6x0WSfAd
+ 5HAYNkwusAIKERa3WHgLnp9dbK4wyC6PAL6LjnODK0XIQGto7t/yd8GJT72smbQhyu
+ OzZ3q1/AtOHdfG+oKc4RjaNN9Ctxu4fwIB3/CiLYKdFCtFfw3NRb+woAMvc191s+Fq
+ 6WOJgh4F2SXLfO/k1FpUXsN9xExTqEQkHaoouynhFq/HctD3ifs1J/7Tb6gKYO0V6p
+ uNN1MzB53btqw==
+Message-ID: <0a4fd9e1-3e7d-4910-99ee-6f6f89b5ca93@kernel.org>
+Date: Fri, 11 Sep 2026 19:09:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/8] mm: rename pointers to software PTE values as
- ptentp
+Subject: Re: [PATCH v2 3/8] mm: use hw_pte_t for generic PTE table storage
 To: Muhammad Usama Anjum <usama.anjum@arm.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
@@ -76,7 +75,7 @@ Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  kasan-dev@googlegroups.com, linux-trace-kernel@vger.kernel.org,
  bpf@vger.kernel.org, linux-perf-users@vger.kernel.org, damon@lists.linux.dev
 References: <20260903103002.1091859-1-usama.anjum@arm.com>
- <20260903103002.1091859-3-usama.anjum@arm.com>
+ <20260903103002.1091859-4-usama.anjum@arm.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -123,7 +122,7 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260903103002.1091859-3-usama.anjum@arm.com>
+In-Reply-To: <20260903103002.1091859-4-usama.anjum@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -142,26 +141,138 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 9/3/26 12:29, Muhammad Usama Anjum wrote:
-> Some interfaces use pte_t * for a software PTE value rather than for an
-> entry stored in a PTE table. These pointers must remain pte_t * when
-> pointers to PTE table storage are converted to hw_pte_t *.
+> Generic page-table interfaces use pte_t * for both pointers to PTE table
+> storage and pointers to software PTE values. Convert the generic
+> declarations and their MM, fs, and kernel users together so parameters,
+> return types, callbacks, and local pointers that designate table storage
+> use hw_pte_t *.
 > 
-> Rename these parameters in the install_pte callback,
-> write_protect_page(), and guard_install_set_pte() to ptentp. The later
-> Coccinelle conversion skips pointers named ptentp, allowing it to convert
-> the remaining PTE table pointers without changing these interfaces.
+> Include linux/pgtable_types.h from headers that expose the converted
+> interfaces. It continues to provide pgprot_t to vmalloc.h through
+> asm/page.h.
 > 
-> Some functions already use ptentp for such pointers, including:
-> - madvise_folio_pte_batch()
-> - folio_pte_batch_flags()
-> No need to rename them.
+> Keep software PTE values as pte_t and retain pte_t * for value interfaces.
 > 
-> This patch only renames parameters and makes no functional change.
+> No architecture selects ARCH_HAS_HW_PTE_T at this point, so hw_pte_t
+> remains an alias of pte_t and this changes the interface vocabulary without
+> changing representation or behavior.
+> 
+> Most of this mechanical conversion was generated with the Coccinelle script
+> included in the cover letter. The script deliberately ignores pte_t *
+> pointers named ptentp because they designate software PTE values. The
+> result was then audited, and sites the script could not convert were
+> updated by hand.
 > 
 > Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 > ---
+> Changes since v1:
+> - Fold the header includes into their first user instead of keeping a
+>   stand-alone preparation patch.
+> - Rebase onto mm-new and rerun the Coccinelle script.
+> - Use software PTE value terminology.
+> 
+> Changes since RFC v1:
+> - Clarify that linux/pgtable_types.h provides both generic hw_pte_t
+>   definitions.
+> - Clarify that the distinct generic definition is activated by an
+>   architecture opt-in.
+> ---
+>  fs/hugetlbfs/inode.c             |  3 +-
+>  fs/proc/task_mmu.c               | 33 ++++++-------
+>  include/asm-generic/hugetlb.h    | 15 +++---
+>  include/asm-generic/pgalloc.h    |  6 +--
+>  include/asm-generic/tlb.h        |  5 +-
+>  include/linux/hugetlb.h          | 50 +++++++++++---------
+>  include/linux/mm.h               | 26 +++++------
+>  include/linux/page_table_check.h | 10 ++--
+>  include/linux/pagewalk.h         |  8 ++--
+>  include/linux/pgtable.h          | 79 +++++++++++++++++---------------
+>  include/linux/rmap.h             |  2 +-
+>  include/linux/swapops.h          |  6 ++-
+>  include/linux/vmalloc.h          |  4 +-
+>  include/trace/events/xen.h       | 10 ++--
+>  kernel/bpf/arena.c               |  9 ++--
+>  kernel/events/core.c             |  3 +-
+>  mm/damon/ops-common.c            |  2 +-
+>  mm/damon/ops-common.h            |  2 +-
+>  mm/damon/vaddr.c                 | 20 ++++----
+>  mm/debug_vm_pgtable.c            |  2 +-
+>  mm/filemap.c                     |  4 +-
+>  mm/gup.c                         |  9 ++--
+>  mm/highmem.c                     | 15 +++---
+>  mm/hmm.c                         |  6 +--
+>  mm/huge_memory.c                 |  4 +-
+>  mm/hugetlb.c                     | 60 ++++++++++++------------
+>  mm/hugetlb_vmemmap.c             | 13 +++---
+>  mm/internal.h                    | 16 +++----
+>  mm/kasan/init.c                  | 12 ++---
+>  mm/kasan/shadow.c                |  6 +--
+>  mm/khugepaged.c                  | 50 ++++++++++++--------
+>  mm/ksm.c                         |  7 +--
+>  mm/madvise.c                     | 14 +++---
+>  mm/mapping_dirty_helpers.c       |  4 +-
+>  mm/memory-failure.c              |  6 +--
+>  mm/memory.c                      | 78 ++++++++++++++++---------------
+>  mm/mempolicy.c                   |  4 +-
+>  mm/migrate.c                     |  4 +-
+>  mm/migrate_device.c              |  4 +-
+>  mm/mincore.c                     |  4 +-
+>  mm/mlock.c                       |  4 +-
+>  mm/mprotect.c                    | 19 ++++----
+>  mm/mremap.c                      |  4 +-
+>  mm/page_table_check.c            |  4 +-
+>  mm/pagewalk.c                    |  9 ++--
+>  mm/percpu.c                      |  2 +-
+>  mm/pgtable-generic.c             | 20 ++++----
+>  mm/ptdump.c                      |  2 +-
+>  mm/rmap.c                        |  6 +--
+>  mm/sparse-vmemmap.c              | 22 ++++-----
+>  mm/swap_state.c                  |  3 +-
+>  mm/swapfile.c                    |  5 +-
+>  mm/userfaultfd.c                 | 32 +++++++------
+>  mm/util.c                        |  2 +-
+>  mm/vmalloc.c                     | 11 +++--
+>  mm/vmscan.c                      |  6 +--
+>  56 files changed, 410 insertions(+), 356 deletions(-)
+> 
+> diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+> index 7611a8470ea26..ddaab714c3e02 100644
+> --- a/fs/hugetlbfs/inode.c
+> +++ b/fs/hugetlbfs/inode.c
+> @@ -328,7 +328,8 @@ static void hugetlb_delete_from_page_cache(struct folio *folio)
+>  static bool hugetlb_vma_maps_pfn(struct vm_area_struct *vma,
+>  				unsigned long addr, unsigned long pfn)
+>  {
+> -	pte_t *ptep, pte;
+> +	hw_pte_t *ptep;
+> +	pte_t pte;
+>  
+>  	ptep = hugetlb_walk(vma, addr, huge_page_size(hstate_vma(vma)));
+>  	if (!ptep)
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+This is interesting.
+
+Assuming we'd had a hugetlb_hw_pte_t, we be able tojust naturally catch things
+like using
+
+	ptep_get()
+
+instead of
+
+	huge_ptep_get()
+
+That caused bugs and headakes before.
+
+But I'm not actually proposing that at this point, because it would make messed
+up infrastructure where we hacked in hugetlb, like page_vma_mapped_walk() harder
+to use.
+
+
+Regarding this patch, I guess we'll regenerate it when the time comes. We
+*might* have to do this stepwise.
+
+E.g., merge patch #1 first, to then convert individual MM components. But we can
+discuss that once the time comes.
 
 -- 
 Cheers,
