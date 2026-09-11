@@ -4,147 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F349C88E50
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 14:44:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39A8FC88E50
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 14:47:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7C4510F62D;
-	Fri, 11 Sep 2026 14:44:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BDA210F638;
+	Fri, 11 Sep 2026 14:47:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="f7ZiCOfP";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="RqKxyASw";
 	dkim-atps=neutral
-Received: from mout.web.de (mout.web.de [212.227.15.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB12B10F62D
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 14:44:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1789137834; x=1789742634; i=markus.elfring@web.de;
- bh=I/lYyq4Pgvywr3fTVgo7T85DV0FEJvz+1sksf8sBs4w=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
- Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
- cc:content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=f7ZiCOfP6mYdZ8z6JaX+RG1WAVXc2zWGn0E59SfDGzf11WaYRXfDKS6lT5jCgxs3
- 4AAqRrkkbudNCW/KndXZio14Bpa0J7qDYDSzqp6fxC16TDEweN+jiPVNo+M/xDIqP
- Od2U7bTnhNMLQtSH5Mp+QlG2IsdETjx+5K8bCjHQ2YRPx3pbVZjtqchocPSSaTqrY
- Sr201Qz2LZhochQQwwo6K0LN7BPgRU4ea90a4yLmsei8K5Qj78jfY3ZvLDqQd9hkg
- Mrl9MC3+jjPxKJa6Nj+GmfmWkjZP+3DFI0Cx+weBb8C9K/ytjCPpQ0SjaU3k2S+79
- Td73d22gkx6UkEHkvg==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb005
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MQPdl-1xRMap0PvV-00Spob; Fri, 11
- Sep 2026 16:43:54 +0200
-Message-ID: <d3cb37a3-7e79-47bd-a27c-3afe76c05b03@web.de>
-Date: Fri, 11 Sep 2026 16:43:44 +0200
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B32E110F638
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 14:46:59 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4980fe6b3beso9238845e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 07:46:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1789138018; x=1789742818; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=6DAY0H524IPnoUin0wM315IyLKxNaVBFm7h+DvdUw5U=;
+ b=RqKxyASwQUNVEYk7hx/5M1x0emFBJYVVdympzZ+o3PjSgJrvB0ZetB+wNCAs7H3kg8
+ jUgRTiSE/7gEP7wrHcsXL2DoAdECpFibjXYfef/716MBEDQqnuPE9xmpO3KDBoySE0vj
+ YNQU8zkutuVCtIo034HvBfns+9aL/wtvl+7SsesqpmTzF3bqTnkPi6py6Bvu53EC+wnd
+ gwYssywMchE0ekTv/fLPut3ib5SND8woNvk3tbjZGbjbKMNdN1pLQMfPtRzsEw3LRDRN
+ MpWD27V8YYO3FA5gLa80SwaPXcubFogAxk4PyCiF2FBItiPpmxqJP8pNgKZonShNXhr5
+ pdeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789138018; x=1789742818;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=6DAY0H524IPnoUin0wM315IyLKxNaVBFm7h+DvdUw5U=;
+ b=K9Np1TS7EE+cWTEMjFxxgqBxJhl/JTJTKB1c8gTgqGIb+s3Bis+8DshidMIjZsyuZ1
+ M1aWsF38ql4ZRmiX6nMdp5/tKwxRCzYYEwbSffKvg//ewq82aJt3FlTi7WKPuChhgWd9
+ kei2+UoFj3Ox7D4eKGjlW5oRwLzzrfz8d50gt+LJFQGWgn83vNWV6+VNHBm1dvngRD56
+ 2VlC/YZvnd3LyMzSTPVk4JcJDz8Drh+Vc1mqDCdVbZ8pSLBE/o8YK2ruoqhpu+0nDlWr
+ gGilLmhHNl8+hSCsN+lxTnfpaQgtcdrWcSt+ojqXcKr4XwxBSVFckpxoUPS6RyH2vAVz
+ 4MFA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByYbKIEOtmuem7fRQpnznGzQi2fHfql02bPvQ0+tfg2rg23s4inNXmmVcbyFB4BVieIYotu6iaVEXw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++n8uMS7ZXl8AbO8smB2rgZhgXW2eKGB++zlODdRdqWsRMqWtQdO
+ EMfkMd5KpgFA2bp8xtdTZAJ9G7eRNrEEEwPJJ0Ny6eCxzzv6i8/Xe9LIAglRzoks9wM=
+X-Gm-Gg: AYBFou13hP1GuqxXSxEg+cZDpRp7/qyrpC95PJd58ESdaIjQOOg2w6m7YTSt5A/okM1
+ aK4YVwvMPQBkds0EpRLC7r7ZLb6gtRNfq8W/NGd+o7/2dpwxeloWotUOz68bmB4lT45LQ/MzDJM
+ HPnyt61tz+Rmbtoa4NOhP6pYdsv53mN1/hcejoaeWbQ7dk0Y8uL2i7sAaLZ0j1GYkKmHe1GpTWc
+ V33DVH9HaApXycl9nwguM3NiZBu/EUo9a1u1+KRwtBD05w1OnT1bkEYK5tex5ULfxUfTmYQ5RGT
+ UmG/rl7ikt/0qO449tM7KJ6/R8huYLPXak/Fq1iwiniNvKilL+Y1dNOXCviWr4Gt/ZMNDfLo9Yw
+ 4tRD3MsuSIBTCtG52bPKBmNrr1MG+RxfoXyCxq3ekO/4NK4XBLmUtX9EdcQihWa8MRLYulNcNq4
+ lWeDyqSGOVZYmQzrKmlYvbFoy6gXWXTaOFvm70YeS0KV2Cb4e/2KAx/JRuhPQkQFQbBGm3nEYjN
+ tqu0w==
+X-Received: by 2002:a05:600d:8444:20b0:49d:27ee:79c9 with SMTP id
+ 5b1f17b1804b1-49d27ee7af0mr93376655e9.8.1789138017731; 
+ Fri, 11 Sep 2026 07:46:57 -0700 (PDT)
+Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-486eb32e8d1sm6328068f8f.11.2026.09.11.07.46.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 11 Sep 2026 07:46:57 -0700 (PDT)
+From: Petr Pavlu <petr.pavlu@suse.com>
+To: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ Philipp Reisner <philipp.reisner@linbit.com>,
+ Lars Ellenberg <lars.ellenberg@linbit.com>,
+ =?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ Jens Axboe <axboe@kernel.dk>, Johan Hovold <johan@kernel.org>,
+ Alex Elder <elder@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Michal Januszewski <spock@gentoo.org>, Helge Deller <deller@gmx.de>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
+ Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>,
+ Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
+ Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
+ Joseph Qi <joseph.qi@linux.alibaba.com>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>, Pavel Machek <pavel@kernel.org>,
+ Len Brown <lenb@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Nikolay Aleksandrov <razor@blackwall.org>,
+ Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ Kentaro Takeda <takedakn@nttdata.co.jp>,
+ Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Cc: linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
+ drbd-dev@lists.linux.dev, linux-block@vger.kernel.org,
+ greybus-dev@lists.linaro.org, linuxppc-dev@lists.ozlabs.org,
+ linux-acpi@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
+ linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev,
+ cgroups@vger.kernel.org, linux-modules@vger.kernel.org,
+ linux-pm@vger.kernel.org, driver-core@lists.linux.dev,
+ bridge@lists.linux.dev, netdev@vger.kernel.org, keyrings@vger.kernel.org,
+ linux-security-module@vger.kernel.org
+Subject: [PATCH v3 0/3] Bring includes in linux/kmod.h up to date
+Date: Fri, 11 Sep 2026 14:46:13 +0000
+Message-ID: <20260911-module-include-kmod-v3-0-6ebccc3e0731@suse.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Melissa Wen <mwen@igalia.com>,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: sashiko-bot@kernel.org, LKML <linux-kernel@vger.kernel.org>,
- kernel-janitors@vger.kernel.org
-References: <20260826-drm_pending_vblank_event_leak-v4-1-f8de8b996b9d@igalia.com>
-Subject: Re: [PATCH v4] drm: Fix drm_pending_vblank_event leak in error path
- for out_fence_ptr
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20260826-drm_pending_vblank_event_leak-v4-1-f8de8b996b9d@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:cUvS1RIXtJOQPYgpZZ8q3J7wQ47PVm+YglRvgSJsvPpXn7sNkw6
- A8PqgdMC4xkDV2zDi7zjE5DeVuzEE0NkOU3AS2nJ08sSPNwUMzjey0Gy7OLCAXDTbVRxPY9
- jlTChtbuBTxbfJRJ5v9wPaoFy3GYHw5AIb7nigvbxOYCy4nUf4ETdnjfRBcFr9zxMLPS9SO
- ZHIHzoFDN9DlxWtDxetXQ==
-UI-OutboundReport: notjunk:1;M01:P0:ugL/aFZUO6c=;FQpAE6LYPdxw3bgaK5jcNRHx0LC
- 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
+Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20260816-module-include-kmod-14d1a0e19462
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,57 +133,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -1458,10 +1458,12 @@ static int prepare_signaling(struct drm_device *=
-dev,
->  			struct dma_fence *fence;
->  			struct drm_out_fence_state *f;
-> =20
-> +			ret =3D -ENOMEM;
-> +
+The usermode helper declarations were previously provided by linux/kmod.h
+but commit c1f3fa2a4fde ("kmod: split off umh headers into its own file")
+moved them to linux/umh.h in 2017. Add explicit includes of linux/umh.h to
+files that use usermode helpers and remove linux/kmod.h where it is no
+longer needed.
 
-How do you think about to refine the source code a bit more?
+Also add a missing include of linux/sysctl.h to kernel/time/jiffies.c.
 
-I imagine that this assignment statement can be moved behind an additional=
- label
-like e_nomem.
+Finally, clean up linux/kmod.h so that it includes only the headers that it
+actually requires, importantly removing the compat linux/umh.h include.
 
+This cleanup is motivated by trying to reduce the preprocessed size of
+linux/module.h, which includes linux/kmod.h. linux/module.h appears in
+roughly 15k #include directives across the kernel. This makes it a "hot"
+header, so it should avoid pulling in unnecessary definitions. Note that
+this series doesn't immediately improve the situation, since most of the
+files included by linux/kmod.h are, for now, also included by
+linux/module.h through other paths.
 
->  			f =3D krealloc(*fence_state, sizeof(**fence_state) *
->  				     (*num_fences + 1), GFP_KERNEL);
->  			if (!f)
-> -				return -ENOMEM;
-> +				goto err_free_event;
-> =20
->  			memset(&f[*num_fences], 0, sizeof(*f));
-> =20
+Apologies for the wide distribution. Acked-bys are appreciated.
 
+---
+Changes in v3:
+- Rebase on top of v7.3-rc2.
+- Clean up commit descriptions.
+- Link to v2: https://patch.msgid.link/20260721131207.803760-1-petr.pavlu@suse.com
 
-=E2=80=A6
-> @@ -1531,6 +1533,11 @@ static int prepare_signaling(struct drm_device *d=
-ev,
->  	}
-> =20
->  	return 0;
-> +
-> +err_free_event:
-> +	drm_event_cancel_free(dev, &crtc_state->event->base);
+Changes in v2:
+- Remove the linux/kmod.h include from kernel/cgroup/cgroup-v1.c.
+- Add a missing include of linux/sysctl.h to kernel/time/jiffies.c.
+- Link to v1: https://patch.msgid.link/20260708154510.6794-1-petr.pavlu@suse.com
 
-+err_reset_event:
+---
+Petr Pavlu (3):
+      umh, treewide: Explicitly include linux/umh.h where needed
+      time/jiffies: Include linux/sysctl.h for proc_int_u2k_conv_uop(), ...
+      module: Bring includes in linux/kmod.h up to date
 
-Would you like to avoid a bit of duplicate source code from an other if br=
-anch?
-https://elixir.bootlin.com/linux/v7.3-rc1/source/drivers/gpu/drm/drm_atomi=
-c_uapi.c#L1457-L1461
-
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
-cumentation/process/coding-style.rst?h=3Dv7.3-rc2#n572
-
-
-> +	crtc_state->event =3D NULL;
-> +	return ret;
->  }
-
-
-Regards,
-Markus
+ arch/x86/kernel/cpu/mce/dev-mcelog.c |  2 +-
+ drivers/block/drbd/drbd_nl.c         |  1 +
+ drivers/greybus/svc_watchdog.c       |  1 +
+ drivers/macintosh/windfarm_core.c    |  1 +
+ drivers/pnp/pnpbios/core.c           |  2 +-
+ drivers/video/fbdev/uvesafb.c        |  1 +
+ fs/coredump.c                        |  2 +-
+ fs/nfs/cache_lib.c                   |  2 +-
+ fs/nfsd/nfs4layouts.c                |  2 +-
+ fs/nfsd/nfs4recover.c                |  1 +
+ fs/ocfs2/stackglue.c                 |  1 +
+ include/linux/kmod.h                 | 12 ++----------
+ kernel/cgroup/cgroup-v1.c            |  2 +-
+ kernel/module/kmod.c                 |  1 +
+ kernel/power/process.c               |  2 +-
+ kernel/reboot.c                      |  2 +-
+ kernel/time/jiffies.c                |  1 +
+ kernel/umh.c                         |  2 +-
+ lib/kobject_uevent.c                 |  2 +-
+ net/bridge/br_stp_if.c               |  2 +-
+ security/keys/request_key.c          |  2 +-
+ security/tomoyo/common.h             |  2 +-
+ 22 files changed, 23 insertions(+), 23 deletions(-)
+---
+base-commit: df2908090cda368b01ff43709f51890076c56157
+change-id: 20260816-module-include-kmod-14d1a0e19462
