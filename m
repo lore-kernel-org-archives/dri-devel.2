@@ -4,37 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4749C88E4D
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 17:00:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCA1CC88E53
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 17:10:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDD0710E8A8;
-	Fri, 11 Sep 2026 17:00:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3AFF10E420;
+	Fri, 11 Sep 2026 17:10:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dqzLbr7P";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="o3L2NdFM";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDFC910EB00;
- Fri, 11 Sep 2026 17:00:43 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCEEA10E420;
+ Fri, 11 Sep 2026 17:10:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 718C64376E;
- Fri, 11 Sep 2026 17:00:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 803B11F000FF;
- Fri, 11 Sep 2026 17:00:27 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 48B9160008;
+ Fri, 11 Sep 2026 17:10:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22A101F000FF;
+ Fri, 11 Sep 2026 17:09:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789146043;
- bh=SDhdb+1yueFGYCfGv2/iY4/JhNsnY4MHmhr2o01xj7U=;
+ s=k20260515; t=1789146600;
+ bh=wtZVEwngtJNDR7Dil3pjiAKeqFlagckAJ2vKOo34aps=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=dqzLbr7PT9UPg2vyaVcVWkqDnTJLnNl/+9rbrIO5j+Xc/wJPxcpDAZtHGb0O5p3wx
- xxwXDj+5wfoXizGaX4IUDbtQjoGNGIBmbFh9r+Ih/Swh0lmJo1x2rXjXAotQlrIA5i
- 8CALl0IKEmojHmvftuOoofMkLRwZj2jPgwYN/P9EP0Ge2Yy2o0vx9O1Tc9LnRc7d8a
- ECioA+6R8JEa+dnDWQvYkyKqpHAO81tDbTlKvOLsbaMVoBHTGt5Y2bsOxTUhPmn5m/
- bZSIlx+oLSNnrcP6gkKiSYENsTC+1lLLRiHh3dEhvB47zpFmLxPKtk1t4g8IwsgehU
- sPQt4Xy2dY91w==
-Message-ID: <e430cbf2-52a0-4fee-8730-06bb9496c1f1@kernel.org>
-Date: Fri, 11 Sep 2026 19:00:24 +0200
+ b=o3L2NdFMRQT+LpNVPaEJvUSryJiMtoEVuBlhvOpTUX3u5oD1j+1IZzuRmDPssCOD4
+ 3TfJgTwz9pU1ve9tosOWOXJWeO5W5V83R7OCQQ9yL2AVj6egbjS8vXSL82EbvGhM3T
+ X1XDCLrsl04F+9gry2WDolIIzJu6dcCWuJB5K5pbIbQMAi2KKSjOs3tL2GGoqQq/Wi
+ xq+SIi39yxW4XtIwV3PkGvVjCoZTgE4SSw6GvxZx1Nypqi8hRWSbbhUoNXXZ0lhxcQ
+ kqmPeMm2P5VW+rdouLiwMZzBs9F3xluAom1Yg/u88m56rjWUU4zcY2OLNDN0AVIlpJ
+ G63yfKeDG5URw==
+Message-ID: <85ea78b6-f3c7-4a9b-b25d-1fe2ecbf3b40@kernel.org>
+Date: Fri, 11 Sep 2026 19:01:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/8] mm: introduce hw_pte_t for PTE table storage
+Subject: Re: [PATCH v2 2/8] mm: rename pointers to software PTE values as
+ ptentp
 To: Muhammad Usama Anjum <usama.anjum@arm.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
@@ -75,7 +76,7 @@ Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  kasan-dev@googlegroups.com, linux-trace-kernel@vger.kernel.org,
  bpf@vger.kernel.org, linux-perf-users@vger.kernel.org, damon@lists.linux.dev
 References: <20260903103002.1091859-1-usama.anjum@arm.com>
- <20260903103002.1091859-2-usama.anjum@arm.com>
+ <20260903103002.1091859-3-usama.anjum@arm.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -122,7 +123,7 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260903103002.1091859-2-usama.anjum@arm.com>
+In-Reply-To: <20260903103002.1091859-3-usama.anjum@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -141,24 +142,21 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 9/3/26 12:29, Muhammad Usama Anjum wrote:
-> pte_t is used both for software PTE values and for entries stored in a PTE
-> table, so pte_t * does not distinguish a pointer to a software PTE
-> value from a pointer to table storage.
+> Some interfaces use pte_t * for a software PTE value rather than for an
+> entry stored in a PTE table. These pointers must remain pte_t * when
+> pointers to PTE table storage are converted to hw_pte_t *.
 > 
-> Introduce hw_pte_t as the generic name for a PTE table element. Define it
-> as a macro alias of pte_t by default. When an architecture selects
-> ARCH_HAS_HW_PTE_T, define it as a structure containing a pte_t instead.
-> This preserves the representation while allowing converted architectures
-> to enforce the distinction at compile time.
+> Rename these parameters in the install_pte callback,
+> write_protect_page(), and guard_install_set_pte() to ptentp. The later
+> Coccinelle conversion skips pointers named ptentp, allowing it to convert
+> the remaining PTE table pointers without changing these interfaces.
 > 
-> Name the generic wrapper structure __hw_pte_t so architectures can
-> forward-declare it when pgtable_t must be defined before the generic
-> hw_pte_t typedef is visible. This avoids header-order dependencies.
+> Some functions already use ptentp for such pointers, including:
+> - madvise_folio_pte_batch()
+> - folio_pte_batch_flags()
+> No need to rename them.
 > 
-> Keep the C type definitions behind an __ASSEMBLY__ check because
-> architecture assembly sources can include this header indirectly. Include
-> asm/page.h so consumers such as linux/vmalloc.h retain the page definitions
-> they previously obtained from that header.
+> This patch only renames parameters and makes no functional change.
 > 
 > Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 > ---
