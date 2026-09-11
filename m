@@ -4,141 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7990C88E4C
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 11:18:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BDEAC88E4C
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 11:40:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0583A10F31C;
-	Fri, 11 Sep 2026 11:18:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DD3F10F033;
+	Fri, 11 Sep 2026 11:40:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="pI8eYSHi";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="dZ+dw9Hx";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012034.outbound.protection.outlook.com [52.101.53.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A63A10E2C1;
- Fri, 11 Sep 2026 11:18:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=B/pGyHraacd7SvYI6u/GrCv1QtbdBt2QUYhSgaYYNPsp1SLaBpXUbOsjoh/lmQnu537yh4qcnX0nAQlIUnci2bRn3USFfouE8dlyfb0Fz9c6bRBeOEPuv+SNLjTcxwET4s2pe9f4K2ZizVMnZp6IHPV+RrX/PH7U5pm168WCKg3Ozwra9Wh+sH0Hgo08TevpHeWk6osmVt1j4rXyCN1aisoG0Ky+68Bu/nfsKRupINEp266eVmHbuTVebNgiroJxtQ2Icxd5I0bioPMCIT2DERZVK+9q1QsKuqQzIY1XQujLHDABz4z59LV24b3mii8aClnItKvng2ntrDEkPAiWsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hafCoMGT2yi/aNJd3ECDQBlQRBJosGNrkmau4HUUGYE=;
- b=gmiWE4589Aa5q83DBMGoLP3WB57IE8r6249pmiAhHWTOhIIVlIIMH6m66k/Ig6KHd2hgAFpFmbFvdAELooBJ0VCZ7jZIEV3PuaI1S8MRXwTJas58ek11G8A+9ztAjhM994xRlLCiT1qxV1bN2mEpJ6mkcN2Z8WOPdnZDNmEQ1h9w8q7TpWPdebk+y2kT/3oPhSP04vPmeZkTEdMC8BdHhw393lKlWjlZEaRwxtgbBIQnVxzgkWagMYFci83vY0OhDDhrSB+4dsccHaPtTskRWKR/BRQ+7InVeD0W51v75M8eAIy1D9G1a5MN8/P1UCoNYmoNiuLKgUilgiT2THjQPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hafCoMGT2yi/aNJd3ECDQBlQRBJosGNrkmau4HUUGYE=;
- b=pI8eYSHiCQk3Kn0Bvy69FyJOeQbFAyuTbpd/vtr0XLYG15vtxWajsGsd+3I7rNAiFl6cCxzwpMILhCI+SsqmdAl5nqOheKMJgtl7wK1xfCpcGDRcXo3Fy+hviHtCC1+EQxLb2xIbKdDdUMYvua8UZwnerLRIKj3tbxrCbwJ/kr/KW8LLhdDzKUIKrvuTvQT2nqdjHp62roScQoELpG+iU9MI6e3ZRejMnwiWV5Xmp2xrJUw6pCqf9W4g4UYLYMIcqVg2Nb1ZTDYjZneOd7pqW/QdnkdZTOSWgvHsaJnhyF35+1H9uiRlP0h2kgy9zbXADqPnYwzgb7VtR3t3eFyM8Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by IA0PR12MB8975.namprd12.prod.outlook.com (2603:10b6:208:48f::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 11:18:19 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 11:18:19 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 11 Sep 2026 20:18:16 +0900
-Message-Id: <DLCG22C6X96C.3A8EKCQAZ37FD@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
- <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v2 6/8] gpu: nova-core: add NVKV typed encoding
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-References: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
- <20260827-b4-nvkv-v2-6-0de9d5c8658c@nvidia.com>
- <DLBHFHGH4MEE.1ZELDBMX36IQC@nvidia.com>
- <DLC8DZY8QM5N.5Q8MS71R0VKQ@nvidia.com>
- <DLC8MGO86DKV.3IIHPUADV9IRY@nvidia.com>
-In-Reply-To: <DLC8MGO86DKV.3IIHPUADV9IRY@nvidia.com>
-X-ClientProxiedBy: TYCPR01CA0199.jpnprd01.prod.outlook.com
- (2603:1096:405:7a::13) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C9A6D10F033
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 11:40:27 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A3D351655;
+ Fri, 11 Sep 2026 04:40:23 -0700 (PDT)
+Received: from e120398-lin.trondheim.arm.com (e120398-lin.trondheim.arm.com
+ [10.42.46.160])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5B8473F59E;
+ Fri, 11 Sep 2026 04:40:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1789126827; bh=y4Y8gWkVV/nPSXn6MMWRiSH8kJFJ9j4ufvHdYDsdIUM=;
+ h=From:To:Cc:Subject:Date:From;
+ b=dZ+dw9Hx6GvSXpNwd4/tBgswYE6lZiraGKCdA+o6BmLppWPpRfty50GXiuDedWg8u
+ n9FT7+RZNMH2a9o5LTU2NIqwSUXda+rYksh3hXpwNMM2oD83NkbPdLiGXxqybvkGzj
+ OIu4yUvtdx2EWAOuufNwiKqParnNKY4F3wOog/I8=
+From: Ketil Johnsen <ketil.johnsen@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Ketil Johnsen <ketil.johnsen@arm.com>
+Subject: [PATCH v3 0/6] drm/panthor: Protected mode support for Mali CSF GPUs
+Date: Fri, 11 Sep 2026 13:40:08 +0200
+Message-ID: <20260911114014.79139-1-ketil.johnsen@arm.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA0PR12MB8975:EE_
-X-MS-Office365-Filtering-Correlation-Id: e1d3b4bf-c564-49ad-8602-08df0ff661b1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|7416014|10070799003|1800799024|18002099003|22082099003|3023799007|5023799004|56012099006|11063799006|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info: BBpTYrKKc+L9Hf7h6nc5TJpIdY/wJNXTi6L1gOTfbqKAI87UW1z52Zoi+0Ho6wQezEvhrdV6Riexi8OEkRSizYS7H4X6QqDAXwRZy6rO7LkIkrEbn4hdz8KkKrOroN0xpqeOfHPk96L7NfGy39G3UaO4bQDGVkr9l09UYUoHSJsv0zPaFU/rlhWfDve9DMwU+rEEbpBIVpLurR8CJ1EQGKL1lGRNoDqP5ledHiORa7MJocfxd4XGfu+1Gwv80KA2nXwnd5wF9wBqvJf8VC0iqmJtNlcmFYWvfxx9NmibfPq8AjpeRdRBF/SXHlzVGg1hBZFMiQ3XK4d84QaXrPPk9TdEFmjLMaPDg+F3WoqhomgWaz8fgcgfpKz5C1RoUS3wCeYhRWVrVKRTpeG6ehY8MPsIDDzSoZzUmoOMrGh0zUSg077qXV+WRpeIFTsvHAm69ppxdgysMctsUEQv4GIAu7i1ZdRIsXVJV7A4dLf39WlTGLAHqNrp3e9x0aymkacHaSbkqpMR12Wfv/hutX/mmlrjwtF0oBbrzgkwEv9OPw8/OrUNeGW3gIF35+subJCuqhhutvCGAx/1AefnGYGmxcfAb8vrXiMnYYb0CUhDpDVCRCJPCynmfLSu49bjqFhclSIvknAi8xEPyZx3aqDzc+NWRPZeQ4oAs+FL+yRJpCs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(7416014)(10070799003)(1800799024)(18002099003)(22082099003)(3023799007)(5023799004)(56012099006)(11063799006)(4143699003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TXoxQkU4VGZvOHRlbXd5V040azZaMzExcjlwZlp6R1ZDaGNtN0VXU0NxbFh6?=
- =?utf-8?B?OTcvMjdJdlpqOXo3TWJreC9UQktCaGRacWcyY3RYVG1qUFJmeWJ2UklLVVpS?=
- =?utf-8?B?TXdySzBxaHFIT1R3VHcrYS9abXV2R3V6QWZTeDRnbWVSTU4vZ2pIbTdzR2hl?=
- =?utf-8?B?NDlPYzRHL1VRY1lFRUVCKzhEZVVFMmptZ0o0R1l3OGxXc1lONEsvM0R3UUg4?=
- =?utf-8?B?Z1ZSakp3K1ZMRXUxTENPVldONU5tMFR2b0J1Q3JNRStmQ0dOWWRZZ05yTDMy?=
- =?utf-8?B?MVozS1pjN0FVMTJVNkI1MUI1TlkxZEZhbStRQ0M3QzI2VnJCR1F6MUpNQjli?=
- =?utf-8?B?WG5DeXFQNlhiLzUwZlNYYytBNFVleitBQVJTRWRCelhxRHExSzhRbVU0OTYy?=
- =?utf-8?B?dEhsR3dueW9wcHpiQS9tcUQ1cmlmM1ViTUlHU1BPai80UFc1N1VBaFZKbEdi?=
- =?utf-8?B?SVptd0RFTVM5bGdmcUJaWjhxZjRRZ1docWFDc05WR054eS9jUVJsMFRZZlB0?=
- =?utf-8?B?RU1RQXBCRnorSnNmcjB1eTl3NHNwMXB5K2M2cEhEdCtXU0ZkNTY2aFVYOHJ1?=
- =?utf-8?B?c2lYNGt0eldLdkRxV01keTNCOXdBdVB4bGM2L3VHMmplUk5rcGtyL0ZsU2k3?=
- =?utf-8?B?NmE4SFdIUW9uUnhvR2JubUE2STFhUVlsSFZ0NFRoaEFoeEo1TjE4aWdIVjBH?=
- =?utf-8?B?Y1hlQ0ZEYS9GT3ZJSExTOHRTU2txL0tJUzlCRUNhZi9DZU9CMjNYZFNOOEhY?=
- =?utf-8?B?b3hyOHZBTkZnQ1dGZlZoMi81MmFCa09DVWhtQ2RWdk9FN2M5bW5JM0FiTEVn?=
- =?utf-8?B?UlVIeXBERGs5R2RFTDRURU9zWWhaYU1PWmZWNWhTNHNPWno4UGIrTmJTby83?=
- =?utf-8?B?VU83NmhVMUNxSE8vMXZBWkptVnZENzNUYk9IL0Q5QTcybG41WVdpamYwbTY2?=
- =?utf-8?B?UVErZ0JFLzBjcVJTb0NjUml3clNmSy9aWGh2SWlHYTQ0dGE2WVVQb1dhVk9x?=
- =?utf-8?B?dkJiWjhZYVRnQlUwUWg4OEM1bEpJUzBPOEI5ZUd5VVNuZ1VJT1hoZmRwQWpW?=
- =?utf-8?B?NHh0UDJDYkppS1RZWk5neXVabWJpS3dFbk4xODFLbUJpcDJBTHlKZktuMThF?=
- =?utf-8?B?TUR2WVV2eEx4eEVibk9NL3kvd1VlcysxNFBVdHBkbkdlUjZlQVJ4ekNmYy85?=
- =?utf-8?B?R3NMUUpVWTZKbVYrWStNdTFIQ3NFK2FPcU9NTHcxNmxGa2xtZXJGMDlxNmVq?=
- =?utf-8?B?SFdIM2ZPVUFEbW9hRTRCc1dFWnZPSHVlMkdoR1N5Nkd1QVdoU01Fd2ZPamI1?=
- =?utf-8?B?KyswOW1Tc3lLSmhMRDh6Ynl2eTlPM0N5NFNuQkdlQ3BoMWErNmtUK0Q4blJn?=
- =?utf-8?B?ZWk2UWlqOVVKSWUyY0h3ZUR4TzdpcGwwOW83Y2RSY3BSSFk4SGFzcUNNUVNm?=
- =?utf-8?B?aWFLVGxOSzA1NVFRR3RJSHJQR0pPRzk5SzNVRjkvZVFFNnFPUFFqbnQ0c1lh?=
- =?utf-8?B?NXNZUE1PbW5tK0o3SEhzV25Cam1LVkxnTVUreGdUZ1lxdmU0VERrV3M5RUZ5?=
- =?utf-8?B?RTNiMlI5NTRBcTM3dFJrdEF3dGF6KzJhWnRXaGVWemhaZExwV2o3VUJnSGJ2?=
- =?utf-8?B?UU5WY1lsR0orelpmbVJpWEQxaVdValBXZzd4b1E4TlU2clJCWEF2Q2JSZWx1?=
- =?utf-8?B?T05qYlFoenRHanhHMWpWQUhvWXJ2eW1QWVFKQ29Mb2Yvak1XajBoSU0vcnZ0?=
- =?utf-8?B?dUZ0blEycW4vRkRKVTQ2K203WXQvaERvTVZRTnNzNTlnZVQ2NWc2bmtwaTVi?=
- =?utf-8?B?ajZ2TG85b20vNEoySVQ2NU02MDI4cTI0NFh6RE0rLzQ3aXhiWi96MW5ibWZS?=
- =?utf-8?B?Wi9qY1Aycm4ybVF0OWNoejBCWkQrbGpJMHBBRG1qU3BOZUtCdC9tcUh0Wk5T?=
- =?utf-8?B?Vi9vQkRLZnZ6MXhHaDBqeHVzNnZWN0N5ZW1NTWdCbVFmVDdwK0VZY2RPNHpl?=
- =?utf-8?B?YTRnZkdkMEZiVmxZMXR0UjM2RWpEbVZYY1lVR3h3TVdOSDl5RVNpNUc5Z2pV?=
- =?utf-8?B?b0R4VEVZcS90MmhaMlVEbExwN3Rxd3FGeFFjdXBQckVvOUdpdFlHZFR5bFFn?=
- =?utf-8?B?UXplbVJRVEJKRnpRZytlbDRCZ3JtUmg1MHh0WFNrM0o3SWM1MlRTQmpWeG80?=
- =?utf-8?B?U1YyK3FPbHQ2eTNGNVBxYjk2bnhEVjNFZ1Z3NjY1SFNxSXpvZWwzcXk3eXM3?=
- =?utf-8?B?cXg3dXo4THlONUhPdU5yN0FGN0dFNHdkSzZPTkpXSk82ZXlybnFBZkZ5MXBU?=
- =?utf-8?B?MENMZEJXeDBoUDEvVDF0d251VGxyM0VUeHAveTZ2Y2NUSndwVWNyZlVnK1V6?=
- =?utf-8?Q?61UaA7uPZ+kBzdgcZ5pFQP8O12BxpjH3rZ0gPnZbJKorY?=
-X-MS-Exchange-AntiSpam-MessageData-1: AXXBKRh/UYgj8w==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e1d3b4bf-c564-49ad-8602-08df0ff661b1
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 11:18:18.9283 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fMEgTxkRg3ok7g1okTlLnnBTophYx8OQuoTbASANSYHG2DUiFSlJNBiUxX1ogEd1ZrcVnNP2Sx+zMhudW4ORfw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8975
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,102 +60,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Sep 11, 2026 at 2:28 PM JST, Eliot Courtney wrote:
-> On Fri Sep 11, 2026 at 2:17 PM JST, Alexandre Courbot wrote:
->> On Thu Sep 10, 2026 at 5:10 PM JST, Alexandre Courbot wrote:
->>> On Thu Aug 27, 2026 at 11:12 PM JST, Eliot Courtney wrote:
->>>> For struct-like GMCAPI messages encoding field by field manually is
->>>> noisy. Add some type machinery and a macro to automate encoding of
->>>> struct-like messages. The `Encodeable` trait can be implemented by any
->>>> type to say that it can be encoded into an NVKV `Encoder`. Add a simpl=
-e
->>>> `nvkv_encode!` macro that works on structs and encodes each field in
->>>> order. Provide some base types, such as `Key` which statically
->>>> associates a NVKV key with some value, to avoid having to make a lot o=
-f
->>>> newtypes and implement `Encodeable` on them.
->>>>
->>>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
->>>> ---
->>>>  drivers/gpu/nova-core/gsp/nvkv.rs        |  49 ++++++++-
->>>>  drivers/gpu/nova-core/gsp/nvkv/encode.rs | 178 ++++++++++++++++++++++=
-+++++++++
->>>>  2 files changed, 226 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/gpu/nova-core/gsp/nvkv.rs b/drivers/gpu/nova-core=
-/gsp/nvkv.rs
->>>> index cbeee7f376b6..10dcbb9e602c 100644
->>>> --- a/drivers/gpu/nova-core/gsp/nvkv.rs
->>>> +++ b/drivers/gpu/nova-core/gsp/nvkv.rs
->>>> @@ -10,8 +10,13 @@
->>>>  //! naturally maps to storing a &str with the GPU name.
->>>> =20
->>>>  #![expect(unused_imports)]
->>>> +#![cfg_attr(not(CONFIG_KUNIT), expect(unused_macros))]
->>>> =20
->>>> -use core::ops::Deref;
->>>> +use core::marker::PhantomData;
->>>> +use core::ops::{
->>>> +    Deref,
->>>> +    DerefMut, //
->>>> +};
->>>> =20
->>>>  use kernel::{
->>>>      alloc::{
->>>> @@ -92,6 +97,48 @@ fn deref(&self) -> &Self::Target {
->>>>  /// The index of an NVKV value.
->>>>  pub(crate) type Index =3D Bounded<u64, 12>;
->>>> =20
->>>> +/// A static association between an NVKV key `KEY_ID` and the storage=
- of its value.
->>>> +///
->>>> +/// Use with the encoder or decoder macros `nvkv_encode!` and `nvkv_d=
-ecode!` to let them know how to
->>>> +/// map the value `Key<T, KEY_ID, As>` to/from encoded data. For brev=
-ity, `As` inserts an additional
->>>> +/// conversion (`From`) to avoid having to implement [`Encodable`] fo=
-r many types. For example,
->>>> +/// enums that are easily convertible to a u32 can have `As =3D u32` =
-and rely on the existing encoding
->>>> +/// for u32.
->>>> +#[repr(transparent)]
->>>> +pub(crate) struct Key<T, const KEY_ID: KeyId, As =3D T>(pub(crate) T,=
- PhantomData<As>);
->>>
->>> Does the `T` need to be `pub(crate)`? The series builds fine with it
->>> being private.
->>>
->>> Also the relationship between `Key` and `IndexedKey` is a bit unclear
->>> with the current type layout. IIUC `Key` is basically a specialization
->>> of `IndexedKey` with an index of 0. And yet `Key` is declared in the
->>> root `nvkv` module while `IndexedKey` is in the `encode` submodule...
->>> I'm also wondering whether it would make sense to make the relationship
->>> completely explicit by making `Key` a newtype embedding a `IndexedKey`
->>> with the invariant that the index is `0`, but not sure about that one s=
-o
->>> your call.
->>
->> Ah, I guess that's because `IndexedKey` is local to `encoder`. In this
->> case keeping it there does indeed make sense. After complaining about
->> the visibility of other declarations, I should have noticed that one
->> too. :P
->>
->> What worries me more is the fact that no index larger than `0` is ever
->> created. This looks more and more like a bug to me.
->
-> We currently don't send anything that wants an index other than zero.
-> But, in the future we will. The way I did this so far is by having
-> 'IndexedKey' which represents the most general thing that can properly
-> encode anything accepted by the NVKV format. Since it's cumbersome to
-> and rare to use, I added Key as a wrapper on top. It would be possible
-> to hard code 0 in the index and only have `Key` but then we'd just have
-> to change it later. Since nothing wants to set a non-zero index
-> currently, it's private to `encoder`.
+Hi,
 
-But surely we should be able to test the non-zero path, even if we don't
-have any real-life user at the moment, right? As this is part of the
-NVKV spec, we should ensure this is correct.
+This is a patch series covering the support for protected mode execution in
+Mali Panthor CSF kernel driver.
 
-If `IndexedKey` is supposed to move down one module when it gains a
-user, I think we should place it in its expected destination from the
-get-go.
+It builds on the initial RFC posted by Florent Tomasin back in January of 2025.
+
+The initial RFC can be found here:
+https://lore.kernel.org/lkml/cover.1738228114.git.florent.tomasin@arm.com/
+
+The Mali CSF GPUs come with the support for protected mode execution at the
+HW level. This feature requires two main changes in the kernel driver:
+
+1) Configure the GPU with a protected buffer. The system must provide a DMA
+   heap from which the driver can get protected buffers.
+   It can be a carved-out memory or dynamically allocated protected memory region.
+   Some system includes a trusted FW which is in charge of the protected memory.
+   This problem is integration specific and the responsibility to allocate the
+   required protected memory from the correct and system specific DMA heap is
+   left to user space (Mesa). Panthor CSF driver must be handed the needed
+   buffers via new IOCTLs.
+
+2) Handle enter and exit of the GPU HW from normal to protected mode of execution.
+   FW sends a request for protected mode entry to the kernel driver.
+   The acknowledgment of that request is a scheduling decision. Effectively,
+   protected mode execution should not overrule normal mode of execution.
+   A fair distribution of execution time will guaranty the overall performance
+   of the device, including the UI (usually executing in normal mode),
+   will not regress when a protected mode job is submitted by an application.
+
+
+Background
+----------
+
+Current Mali Panthor CSF driver does not allow a user space application to
+execute protected jobs on the GPU. This use case is quite common on end-user-device.
+A user may want to watch a video or render content that is under a "Digital Right
+Management" protection, or launch an application with user private data.
+
+1) User-space:
+
+   In order for an application to execute protected jobs on a Mali CSF GPU the
+   user space application must submit jobs to the GPU within a "protected regions"
+   (range of commands to execute in protected mode).
+
+   Find here an example of a command buffer that contains protected commands:
+
+```
+          <--- Normal mode ---><--- Protected mode ---><--- Normal mode --->
+   +-------------------------------------------------------------------------+
+   | ... | CMD_0 | ... | CMD_N | PROT_REGION | CMD_N+1 | ... | CMD_N+M | ... |
+   +-------------------------------------------------------------------------+
+```
+
+   The PROT_REGION command acts as a barrier to notify the HW of upcoming
+   protected jobs. It also defines the number of commands to execute in protected
+   mode.
+
+   The Mesa definition of the opcode can be found here:
+
+     https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/panfrost/lib/genxml/v10.xml?ref_type=heads#L763
+
+2) Kernel-space:
+
+   When loading the FW image, the Kernel driver must also load the data section
+   of CSF FW that comes from the protected memory, in order to allow FW to
+   execute in protected mode.
+
+   The FW uses the same protected memory buffer to execute protected jobs from
+   all processes on the system. Note: This buffer must be provided by a user
+   space process with CAP_SYS_MODULE though.
+
+   In addition, when a CSG (group) is created, it must have a protected suspend
+   buffer. User space must provide this buffer on group creation if it want to
+   execute protected jobs.
+
+   The required size of both these buffer types can be queried. See
+   query type DRM_PANTHOR_DEV_QUERY_PROTM_INFO.
+
+Design decisions
+----------------
+
+The earlier versions (RFC and v1) relied on in-kernel allocation of protected
+DMA-bufs, both for the required FW memory (system wide), and per group
+suspend buffers (per process). This is no longer needed.
+Starting with v2, this is now changed and it is user space which is responsible
+for supplying these buffers.
+Only a user space processes with elevated privileges (CAP_SYS_MODULE) is trusted
+to provide the system wide protected FW memory. This only needs to happen once
+per boot, and is needed before any non-privileged processes can make use of
+protected rendering.
+
+The Mali Panthor CSF kernel driver will handle enter/exit of protected
+mode with a fair consideration of the job scheduling.
+
+If the system integrator does not provide a protected DMA heap, the driver
+will not allow any protected mode execution.
+
+Patch series
+------------
+
+[PATCHES 1-4]:
+  These are refactoring to aid the implementation of the protected rendering
+  feature itself.
+
+  * drm/panthor: De-duplicate FW memory section sync
+  * drm/panthor: Minor scheduler refactoring
+  * drm/panthor: Pass drm_file instead of panthor_file
+  * drm/panthor: Don't allocate protm_suspend_buf
+
+[PATCH 5]:
+  This patch implements the logic to handle enter/exit of the GPU protected
+  mode in Panthor CSF driver.
+
+  Note: To ease the handling of faults from protected mode, only a single CSG is
+        allowed to execute in protected mode. It must be the top priority one.
+
+  * drm/panthor: Add support for entering and exiting protected mode
+
+[PATCH 7]:
+  The final patch exposes this feature via the uAPI and adds the necessary
+  handling/use of user space provided protected memory.
+
+  * drm/panthor: Expose protected rendering features
+
+Testing
+-------
+
+1) Platform and development environment
+
+   Any platform containing a Mali CSF type of GPU and a protected memory allocator
+   that is based on DMA Heap can be used. For example, it can be a physical platform
+   or a simulator such as Arm Total Compute FVPs platforms. Reference to the latter:
+
+     https://developer.arm.com/Tools%20and%20Software/Fixed%20Virtual%20Platforms/Total%20Compute%20FVPs
+
+2) Mesa:
+
+PanVK support can be found here:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/40044
+
+
+Previous versions
+-----------------
+v2: https://lkml.org/lkml/2026/7/12/369
+v1: https://lkml.org/lkml/2026/5/5/1523
+
+
+Highlevel changes
+-----------------
+
+Changes in v3:
+- Dropped patch "drm/panthor: Explicit expansion of locked VM region"
+- See each patch for detailed changes
+
+Changes in v2:
+- Conceptually similar to v1, but heavily reworked to address fault handling
+- User space provides all protected memory buffers (no in-kernel dmabuf alloc)
+
+
+Boris Brezillon (2):
+  drm/panthor: Pass drm_file instead of panthor_file
+  drm/panthor: Expose protected rendering features
+
+Florent Tomasin (2):
+  drm/panthor: Minor scheduler refactoring
+  drm/panthor: Add support for entering and exiting protected mode
+
+Ketil Johnsen (2):
+  drm/panthor: De-duplicate FW memory section sync
+  drm/panthor: Don't allocate protm_suspend_buf
+
+ drivers/gpu/drm/panthor/panthor_device.c |   1 +
+ drivers/gpu/drm/panthor/panthor_device.h |  34 ++
+ drivers/gpu/drm/panthor/panthor_drv.c    |  61 ++-
+ drivers/gpu/drm/panthor/panthor_fw.c     | 274 +++++++++--
+ drivers/gpu/drm/panthor/panthor_fw.h     |   6 +
+ drivers/gpu/drm/panthor/panthor_gem.c    | 106 +++--
+ drivers/gpu/drm/panthor/panthor_gem.h    |   7 +-
+ drivers/gpu/drm/panthor/panthor_gpu.c    |  47 +-
+ drivers/gpu/drm/panthor/panthor_gpu.h    |   4 +
+ drivers/gpu/drm/panthor/panthor_mmu.c    |  35 +-
+ drivers/gpu/drm/panthor/panthor_mmu.h    |   6 +-
+ drivers/gpu/drm/panthor/panthor_sched.c  | 567 +++++++++++++++++++----
+ drivers/gpu/drm/panthor/panthor_sched.h  |  27 +-
+ include/uapi/drm/panthor_drm.h           |  85 +++-
+ 14 files changed, 1033 insertions(+), 227 deletions(-)
+
+-- 
+2.43.0
+
