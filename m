@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32B7BC88E53
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 16:55:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25DFAC88E53
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 16:59:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 367D110E493;
-	Fri, 11 Sep 2026 16:55:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0566310E627;
+	Fri, 11 Sep 2026 16:59:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c0NoZhUu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ou4A8YC2";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05EF010E435;
- Fri, 11 Sep 2026 16:55:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7158110E611;
+ Fri, 11 Sep 2026 16:59:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7B0824005A;
- Fri, 11 Sep 2026 16:55:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EEC91F00893;
- Fri, 11 Sep 2026 16:55:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 27F0C447B3;
+ Fri, 11 Sep 2026 16:59:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 379961F00898;
+ Fri, 11 Sep 2026 16:59:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789145738;
- bh=yE+7Pez0ot5mrGbBn0XwFu3bOI3y9SJeDDhq4Pq3Cgc=;
+ s=k20260515; t=1789145967;
+ bh=qM4x/VyJS4MpFkPRmtAp/dwZSEf7BNj/Y7zsnmyHsqg=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=c0NoZhUuLC8eojSn10Dl+/6UkGx8wGOb/eBDtEA0CIyk1hQ6mP9dgGNHHGBX3N7yA
- X71r+aiXtzF4bhp3C1o/xG+WbKq9dsGWuGA3Hu4bxgxtDeR0HzLHnKDlSwnkTzN4I0
- yNFvdrydYpmyeMrh9F90cWrJC226CBBW/A2ArZjcVPRInVrizb9o3/D2/gMDnyMPx1
- YbCSjQU+p0HSOBH8E3Fyc1mpmYrLR8tCHSP8jSjf3gDgXExbXqvDifcxjWpIDa/PKf
- vZyITqtq+KtGCpN47eXarSnhSRPzuOIVrud/pd7SbcUw4idHZQTzpTNbHJv4fgl0sg
- qtZmvLKps6t8w==
-Message-ID: <dd6ecac2-9bd2-4184-a034-9e13afa614bb@kernel.org>
-Date: Fri, 11 Sep 2026 18:55:18 +0200
+ b=Ou4A8YC2F6O1EQtFW1YZOr6bVr2+s+ihTPkOTXSuzLWS+Cc6eD6PIOzLJeuiKIyvQ
+ JwxsyI6YUXmX45BBAQxB8OYi/wyHeoP2FZWOx4kh82jj8klR9F/LQ8bOCWxW/Oo6Re
+ Eo8mW9QEcAaGuTtykPlAmcPJuXu5gk0wxaGfd2AVAWl/D2lawDmMhQg3iDYUwUuHYw
+ zuWtfU0zvPCWxENsoROZd8H/uu73aHGKmzvV36atSCabSMGxHjg64KkTpB12LVGbzh
+ HWFSQPEDWDvZ5Hi73zQYh3QYUlItPYuBwtcY1gGae8CFr1qGgQfyIGrRgrWzKBkGHM
+ 6ZbPiVuTm6ijA==
+Message-ID: <d5093fa7-d057-471d-9c50-f53e6fe267df@kernel.org>
+Date: Fri, 11 Sep 2026 18:59:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 0/8] mm: distinguish PTE table storage from PTE values
@@ -141,70 +141,12 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 9/3/26 12:29, Muhammad Usama Anjum wrote:
 > Hi,
-> 
-> pte_t currently describes both a software PTE value and an element stored
-> in a PTE table. Consequently, pte_t * can point either to a software PTE
-> value, often a stack copy, or to a PTE-table slot. The compiler cannot
-> distinguish these cases. A value pointer can therefore be passed to an
-> interface that expects table storage, while table storage can be read by
-> direct dereference instead of the architecture accessor.
-> 
-> This series begins a staged conversion at the PTE level. It introduces
-> hw_pte_t as the element type for PTE-table storage and converts generic
-> MM to use hw_pte_t *. Software PTE values remain pte_t. Interfaces that
-> intentionally return a value through pte_t *, such as install_pte,
-> remain value interfaces; the relevant parameters are named ptentp to
-> make that distinction explicit.
-> 
-> The generic definition aliases hw_pte_t to pte_t unless an architecture
-> selects ARCH_HAS_HW_PTE_T, which enables a distinct generic wrapper named
-> __hw_pte_t. Some architectures define pgtable_t in headers parsed before
-> the generic hw_pte_t typedef is visible. The structure tag allows those
-> headers to define pgtable_t as struct __hw_pte_t * without creating an
-> include-order dependency. This is required when converting s390, m68k,
-> powerpc and sparc.
-> 
-> No architecture selects ARCH_HAS_HW_PTE_T in this series, so the
-> representation and behavior of every architecture are preserved. ptep_get()
-> keeps its existing READ_ONCE() semantics and converts the stored element
-> through __pte_from_hw(). An architecture can later select the option and
-> convert its PTE interfaces to make the distinction compiler-enforced.
-> Architecture PTE implementations and most architecture code are
-> deliberately left for those later opt-in conversions.
-> 
-> Here, hw_pte_t identifies PTE-table storage rather than table lifetime:
-> complete PTE tables use hw_pte_t whether or not they are currently
-> linked into a page-table hierarchy, while software PTE values use
-> pte_t. The distinction between complete but unlinked tables and
-> hardware-reachable tables was raised during discussion and remains an
-> important point for review.
-> 
-> PMD, PUD, P4D and PGD storage are deliberately out of scope. They can be
-> converted in later series after the PTE boundary is agreed, avoiding the
-> PMD-specific cases that made an all-level conversion difficult to
-> review.
-> 
-> Most mechanical pointer conversions were generated with the Coccinelle
-> script included below, then audited and fixed by hand.
-> 
-> This series does not add a second ptep_get_once() accessor and does not
-> remove or replace STRICT_MM_TYPECHECKS.
-> 
-> The design discussion is available at [1]; while the original idea came
-> from [2].
-> 
-> I've the patches here [3] for arm64 conversion which I used to find
-> usages in generic code which I missed during development. These would be
-> sent separately.
 
-Unless there is more feedback on the overall approach, the next step for this is
-to have at least one architecture support posted.
+Btw, I was wonder whether the subject would be better as
 
-We should only merge this if at least one architecture (better two? :) arm64 and
-s390x? ) would merge the architecture bits.
+"mm: distinguish HW PTE pointers from SW PTE value pointers"
 
-That is, we should get an ACK from the arch maintainer son the common code bits
-and the arch bits.
+or sth. like that.
 
 -- 
 Cheers,
