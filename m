@@ -4,80 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABE09C88E5C
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:54:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFC7EC88E65
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:54:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF55A10EA07;
-	Sun, 13 Sep 2026 20:54:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EFAE10EA0D;
+	Sun, 13 Sep 2026 20:54:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IbAK6XQV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y2ASSNk/";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3271D10E0B9
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 18:38:11 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- 98e67ed59e1d1-398beb616f5so487014a91.1
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 11:38:11 -0700 (PDT)
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99E5F10E405
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 19:07:26 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-39647aa9d52so1453076a91.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 12:07:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789324691; x=1789929491; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=f8egR4dMbs0feNIgyGf2N4bg3BFUD4E92PNKo+p8ClY=;
- b=IbAK6XQVf6NoXwHF1P7CCh7FogQrYRTTHF+1LBIBJjWcPakgVlwieCs7gm23G9urKB
- P0s5gpYyu24SPoWUIVK5Uf3p4ZC+UZGPWbOa+U4GXJpjzVMAcq5HLINv+XodHfySU6Hw
- vc/jB2cxyIwbt/yAujahNiUjxZL/+Mh0X9p9Nl/M2ZbAUPgFUU5fqtgqs+aIB/sF632j
- CwyYQDIaYfl3R5mfjgWYCiaxAJTo3Rz+LEHUyhohOSCmz6fltZtE3XYWKazrft5Jk6Gt
- H2XOIOfxS2fGoCtH/PwQT4RZVozP298kJXoj6XfQPA4gjI1rS+N+lH71XJR/x6kRoXr/
- CXCg==
+ d=gmail.com; s=20251104; t=1789153646; x=1789758446; darn=lists.freedesktop.org;
+ h=mime-version:content-transfer-encoding:content-type:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=DKCNcuYe/SKPUXfT+hanHdMYg5xRT408M4jqZrd8Y8Q=;
+ b=Y2ASSNk/eFpUnKHJ2EP+v+i0aStrLpIwXRb+nhxrKW511IGtVqXuvhy8TYHiiuzZGG
+ wjHH0K2r0S0TE5PT3pSBwezH4/R2MmWZdXBDz2ZXPkYdLA3JTYu+WBs9JfTYEHitlFJq
+ lji6L5G5KDkvdhGG72BZkJ4Ookg47qLzrn4mb845s8LpecHrV6ivEunFp3bHtvcuw5dJ
+ WecTCOa8plik09iOfO99EAqKlK8CuFkG+y7TkZMt/AlDpqHDFheTMiaYJaVSntlkjK2p
+ RKRDOPy/zxnVnYHdcUJhRb2S/FPJzA66MdbPXriB4o2gQFdEVdRsMUL9ShmtWr1plsRp
+ oeog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789324691; x=1789929491;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=f8egR4dMbs0feNIgyGf2N4bg3BFUD4E92PNKo+p8ClY=;
- b=S7x6Xo3MHvI9cUBKtJBu3/dResx9MhmXnscNo3QtU8TFxD1jykhT8OJJ236wG07b8t
- 0tfcAX/C/4+1pszxE5l/DFG8WbpDer6oI2t7UlMzAn7JHgJWNw1ulmBKQZPxFC42IaDl
- /P8shKWSTN3dFwqdHfG9IUCRfsvUwmIQ52qYtwDKjUxWYTRmCWN88unMLQV78hf3jHXZ
- bkpk7nqIjN3NBlfFFp2LS+R6CaGpATTcWICYxHpAQ9fzUEzZCUJVI5ot4sLKUQc+zron
- eCNjrzdYXxUMJux5S5K7XSdY2tWKSThaj/6HYJ8qhwDiVj4VqbbESSfgeHpI4dkpbho5
- QdwQ==
+ d=1e100.net; s=20251104; t=1789153646; x=1789758446;
+ h=mime-version:content-transfer-encoding:content-type:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=DKCNcuYe/SKPUXfT+hanHdMYg5xRT408M4jqZrd8Y8Q=;
+ b=ci6bhxnbXpvg7AKz749QBw0q65D2S5ysUbVv5xVprHW9vZdUMLRHIleAiMTW5jRN/U
+ 5MxP509PYLCtW5yj0wou07YD45lKp/3RHfwLFu/RiFC70dFTeDXZaD1sLwleIG1BbO9V
+ h+Kfl9+OdY1xjfBh9SG8ZJfMSwZKm3MWAkAkZaXkOLS26sC23b7sfnJ7AJKVrLCddci8
+ 8EY4ZOf2nUIg0ejeC/RQyAAbQNL78ypANBKJyFnqiQLm1v3dYkeEza2gGDnLiBhduMrJ
+ T1OGblO0bz3ToRFRCH+/U2KsUzWWEqJBBzupun0w/Uy6pxlMDFWozQUsJ3QvngfNx0sE
+ rJrQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvByQR/g5WsRh825FHv7l0y62/8Fl9xL9phzwe4lvfcUhszmVCEQ1iO6ZOudNEGgcZNNmRRTuN+2NSNU=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m72XXs448pMdf5V9Wo9bFP6qrlqZp4mCaI2nWrje0TCLdT8gWP
- 6UJqfXXOFnZat6FWxsxlUY7jBxvJxpqCaxwac9jV0So4QaOvQM1fnxHT
-X-Gm-Gg: AYBFou0BrTtt0H42684RIhc4VdFt0oybI8HTRI4V0lJtuxP+W/+bSO0ECfd/6NU5omh
- d09P63ZbvaEKR0ih3XlUUArC5UaCZjMzehAeN9lE/Q5aLr9nkMbyrWr/4fF9fPy8yzACwHN2jXt
- s/Ur9mVoCSLpF2Pbwik7Dk5t2cJIZ2371qhauPJtT/iPOsxTEHeiJCQi/pJIe5Q4fNYPtCnZyji
- OtQVca3Eh1YxbrNxAXB7EtjLfO0NXWlWda0pqkoh8lYmnJX8MQ655PZbT6z6dYWwXMJpRtAyh3u
- VL8xc2tbW0FodhWnzzp9TbS5iUfrCMRIjZZ01OG4KxDmKzoDNAMkzl+xgtJAv6fQTI3EWDCfRRC
- Aq/Ns28SQE8qfirWo7PlnGsgS6Z/zd8v+pmAfudoLtQa5QE72Pwx/L577J8BfAqgFTSzpstYb7X
- C/+d4Oc6R/xP1YAdp/5WRkJzRFtpLu43mktZaAoh0JSy2t0YJk2guboVeDsY7Ln9U+b2NCYRner
- osMU5P+maJ6Ai8gQw==
-X-Received: by 2002:a17:90b:50cf:b0:38e:c232:9d2c with SMTP id
- 98e67ed59e1d1-39dd54d7dd3mr3783446a91.2.1789324690644; 
- Sun, 13 Sep 2026 11:38:10 -0700 (PDT)
-Received: from localhost ([95.190.112.239]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39d9b08165fsm4118447a91.1.2026.09.13.11.38.03
+ AKwUvBwcFTuH4hqGHq7Ja9NWCoa1mg7r7yb/uC8miT9Yp/EKiSmj1OE546hnKJsRZYTyMIhbOocUCRT/6/A=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ni/UeBHVVieq7y8J/pF3v4R6AuCT5cCMAY6f0Nz0ggvzWqpm4d
+ xLr3aa3GtjCsV9JYGFHNaxrCMrqRjzEL4e9BHnTxYsQIFUdWbFD14VE7
+X-Gm-Gg: AYBFou3oWmCAYOXahK1k9M4EHBBD8Zo6Mr/aWvbLdJdJwIcwJ82M34KeF6ocjq6mTkH
+ bPIJYkCbyJiKGj5Rg/3GE2AaQk7oRLD6LJ3da2izHwWjJq8+iwgkgQr+l+U33U7H8js1PUx1Xwe
+ vt42eMIzYc/p3YzXh9uL2nRPiyK+v1HVFlLXL9/4VqJ6khyi2CQVV2S8awvaQVLvC11UOYvgd5L
+ FLDf47CR1qZ/70YX4dniStDU+LTx8qx4/lII5gRrmxnKA58VcEV6ac7mVaJ100/s4rsvqmt7uGr
+ iCh6vz11yo80JDxNWqDZqMmXnCiX8Cl+2fAgidZfaT6MO57RuOZkqe3Cpm4F8hNSPQaQJcSqYpq
+ gmt7PxcLe46y2D4qkzviyZapsLPTKbjLLCOHtdKpWN7xGdZxZHy+h9WYAjARqbJfhWSD24kbAgf
+ 2kXHU+4Rc/bENXTAciE/iDLHn/KNAMsavRlCT4yWYbWSP75VID/+pWlg+4GTIyBA3VTEca4DXvn
+ c5P
+X-Received: by 2002:a17:90b:3fcc:b0:38e:a52e:a3c9 with SMTP id
+ 98e67ed59e1d1-39d7795b9aemr14379383a91.8.1789153645830; 
+ Fri, 11 Sep 2026 12:07:25 -0700 (PDT)
+Received: from [43.242.224.196] ([43.242.224.196])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-33ba4e51449sm7185033eec.5.2026.09.11.12.07.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Sep 2026 11:38:10 -0700 (PDT)
-From: Vladislav Zaharov <vladazaharova2018@gmail.com>
-To: dakr@kernel.org,
-	jhubbard@nvidia.com
-Cc: acourbot@nvidia.com, aliceryhl@google.com, ttabi@nvidia.com,
- gary@garyguo.net, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, Vladislav Zaharov <vladazaharova2018@gmail.com>
-Subject: [PATCH v4 3/3] Documentation: nova: remove completed GSP log buffer
- task
-Date: Mon, 14 Sep 2026 01:37:34 +0700
-Message-ID: <20260913183734.134307-4-vladazaharova2018@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260913183734.134307-1-vladazaharova2018@gmail.com>
-References: <20260913183734.134307-1-vladazaharova2018@gmail.com>
+ Fri, 11 Sep 2026 12:07:25 -0700 (PDT)
+From: Roshan Kumar <roshaen09@gmail.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+ Ze Huang <ze.huang@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] drm/pl111: Advertise no pixel blending
+Date: Fri, 11 Sep 2026 19:07:21 -0000
+Message-ID: <178915364143.207017.11386693869817053993@gmail.com>
+In-Reply-To: <CAD++jLk3Czenn1DdgFGGEwJHQQ9ZrmFng=fmih4MUP8NaRGx3Q@mail.gmail.com>
+References: <20260825105427.686619-1-roshaen09@gmail.com>
+ <CAD++jLnAoOaRwWpkVX0o1z0wF=Qs9PRTKbq9iq-GWSkJ2kyX8w@mail.gmail.com>
+ <CAD++jLnBPAw9CJ4JtZt46yBd7+UEHYA189Dma3tNfuV=wu1TDw@mail.gmail.com>
+ <CAD++jLk3Czenn1DdgFGGEwJHQQ9ZrmFng=fmih4MUP8NaRGx3Q@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,39 +95,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Exposing the GSP-RM log buffers through debugfs is implemented, and with
-the gsp_keep_logs module parameter they now also survive a failed probe,
-which was the part of the task that was still missing.
+Not quite. I tested the newer iteration attached to Thomas' earlier email
+(patch dated Jul 27), which Ze hasn't posted to the list.
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Vladislav Zaharov <vladazaharova2018@gmail.com>
----
- Documentation/gpu/nova/core/todo.rst | 12 ------------
- 1 file changed, 12 deletions(-)
+I also gave the v2 4/8 you linked a boot on the same QEMU setup and it
+behaves the same, so the tag covers either version.
 
-diff --git a/Documentation/gpu/nova/core/todo.rst b/Documentation/gpu/nova/core/todo.rst
-index a01c362b1be0..28fc7329d56b 100644
---- a/Documentation/gpu/nova/core/todo.rst
-+++ b/Documentation/gpu/nova/core/todo.rst
-@@ -141,18 +141,6 @@ Implement support for instmem (bar2) used to store page tables.
- GPU System Processor (GSP)
- ==========================
- 
--Export GSP log buffers
------------------------
--
--Recent patches from Timur Tabi [1] added support to expose GSP-RM log buffers
--(even after failure to probe the driver) through debugfs.
--
--This is also an interesting feature for nova-core, especially in the early days.
--
--| Link: https://lore.kernel.org/nouveau/20241030202952.694055-2-ttabi@nvidia.com/ [1]
--| Reference: Debugfs abstractions
--| Complexity: Intermediate
--
- GSP firmware abstraction
- ------------------------
- 
--- 
-2.55.0
-
+Tested-by: Roshan Kumar <roshaen09@gmail.com> # QEMU vexpress; v2 4/8 and the=
+ Jul 27 iteration
