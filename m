@@ -4,102 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E15EC88E53
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 20:10:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60F4DC88E4D
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 20:26:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8C3D10E4EB;
-	Fri, 11 Sep 2026 20:10:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4ACF610E09F;
+	Fri, 11 Sep 2026 20:26:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="X/fG3gAV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SdMWP7jT";
 	dkim-atps=neutral
-Received: from ixit.cz (ixit.cz [84.42.129.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8522110E412
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 20:10:06 +0000 (UTC)
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown
- [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519) (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id B62285340210;
- Fri, 11 Sep 2026 22:10:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1789157403;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=UOwX9Q3OQdPLSXojSb/y5QcLAt8MW4YCdsPwiCw0hgg=;
- b=X/fG3gAVfygoBCgoPXQoSqqVlsWKl5lq3Xw5GJpfUPKk4bJcgnjmeq2k5BTXKiBvTRYIQ3
- Rs7tlg4EYq5roEQVR3QCHsFNJebBIRMR3RU4MDoTTZ9UC19WfqYI4Nf1FWiN2xZIvJpvIG
- zVJpZnVzLk3QXWc19VgtQoFGnhJ/hls=
-Message-ID: <2e2cdb59-1b0e-435e-917a-0490fad29879@ixit.cz>
-Date: Fri, 11 Sep 2026 22:10:03 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/3] Add driver for Novatek NT35596S panel
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Alexey Minnekhanov <alexeymin@postmarketos.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Molly Sophia <mollysophia379@gmail.com>,
- Arnaud Ferraris <arnaud.ferraris@collabora.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-References: <20250913-nt35596s-v6-0-b5deb05e04af@ixit.cz>
- <477ff72a-fe0b-4c23-8448-a0ec87c7e039@oss.qualcomm.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <477ff72a-fe0b-4c23-8448-a0ec87c7e039@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8A9810E09F
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 20:26:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B2DE160008;
+ Fri, 11 Sep 2026 20:25:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 250EA1F000FF;
+ Fri, 11 Sep 2026 20:25:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789158359;
+ bh=FMQ87La+n3zYM8L3jNEb48smDmU8bZ/yFQYBTNCegPg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=SdMWP7jTM9YT1NkRuc16xD4tGNPe8xT40lNpXGBzNRsfIrS+ZKqB73RfRzmGy/gV+
+ 7qllLWGg1xvA3mPrjlU/fgjKpAmGx6tTwF0lGjZCeYfZTiw5OmjI8hRSgHzA1YY2xK
+ /mCuhZhJspE8i9gbjWgAiHc4h9TqJMdh+knwqmQhP+hn7P44L1obI6dsRBCaQkjKZy
+ k8WhyxddTLN00129ElwN3bm6itu0pHe7VNBrJaVRTOPwqhefju18WVNqu/KaUj1DwM
+ 9x5lNac/3V/dyoiOvVKfyYC19pSJYReCd9URIcFQ/DhW7Ll5dxzfwL/bOPDt4VMLL2
+ ZepdRVtH0wWcw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: display: panel: mipi-dbi-spi: add
+ st7789v-tft28
+To: "Enzo Frese" <freseenzo@gmail.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260911201920.72734-1-freseenzo@gmail.com>
+References: <20260911201920.72734-1-freseenzo@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 11 Sep 2026 20:25:58 +0000
+Message-Id: <20260911202559.250EA1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,39 +54,52 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The newly added compatible string `st7789v-tft28` lacks a mandatory=
+ vendor prefix, violating Devicetree specification rules.
+--
 
-On 11/09/2026 10:55, Konrad Dybcio wrote:
-> On 9/13/25 9:19 PM, David Heidelberg wrote:
->> These patches add support for Novatek NT35596S based JDI FHD panels.
->> This panel is already used by mainlined Xiaomi Mi Mix 2S mobile phone.
-> 
-> Hello, are you going to be following up on this?
+commit b9c6f3f7002bdc4087c21d6e0612fcb912f52747
+Author: Enzo Frese <freseenzo@gmail.com>
 
-X> Ok, I found out in the meantime that Alexey is working on refactoring
-X> nt36672a, so we’ll coordinate. I’ll likely need to rebase this changeset on
-X> top of the refactored nt36672a, or possibly move it into a separate driver.
-X>
-X> See https://github.com/sdm660-mainline/linux/pull/114/commits
+dt-bindings: display: panel: mipi-dbi-spi: add st7789v-tft28
 
-I think it fits even more after refactoring. I hope Alexey will post the
-refactorings soon.
+This commit adds a generic 2.8" 240x320 RGB LCD panel using the
+Sitronix ST7789V controller to the panel-mipi-dbi-spi binding.
 
-I'm afraid Alexey didn't :) (+Cc)
+> diff --git a/Documentation/devicetree/bindings/display/panel/panel-mipi-d=
+bi-spi.yaml b/Documentation/devicetree/bindings/display/panel/panel-mipi-db=
+i-spi.yaml
+> index 6f0290c4e2917..c28659bd05dc1 100644
+> --- a/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.=
+yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.=
+yaml
+> @@ -75,6 +75,7 @@ properties:
+>            - saef,sftc154b
+>            - sainsmart18
+>            - shineworld,lh133k
+> +          - st7789v-tft28
 
-David
+[Severity: Low]
+Does this compatible string violate the Devicetree specification rules
+by missing a mandatory vendor prefix?
 
-P.S. I don't have the hardware so I don't want to do a risky changes.
+Modern dt-schema checks require compatible strings to be in the format
+<vendor>,<device> to prevent global namespace pollution. Since this string
+lacks a comma and an approved vendor prefix (such as sitronix,st7789v-tft28
+or panel,st7789v-tft28), will this cause dt_binding_check to fail validatio=
+n?
 
-> 
-> I noticed we've had the jdi,fhd-nt35596s compatible in the QC tree
-> for 3 years, without bindings and even without a driver..
-> 
-> It's producing DT warnings, so if this is not restarted, I'd like
-> to drop that node soon to quiesce them, with of course proper
-> reintroduction being more than welcome.
-> 
-> Konrad
+>        - const: panel-mipi-dbi-spi
+> =20
+>    reg:
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911201920.7273=
+4-1-freseenzo@gmail.com?part=3D1
