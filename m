@@ -4,103 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 189F0C88E4D
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 19:26:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EF52C88E4D
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 19:29:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE56110F6D1;
-	Fri, 11 Sep 2026 19:26:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFDE310F6CB;
+	Fri, 11 Sep 2026 19:29:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hr+PSViy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UQRJ9Pnf";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3763210F6D1
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 19:26:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C2A8A417A3;
- Fri, 11 Sep 2026 19:26:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 388D01F000FF;
- Fri, 11 Sep 2026 19:26:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789154765;
- bh=zwltEYL3YNdlrAP6IKVR5tGeGFPOBBkOKK5RahqTZLY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=hr+PSViyFYrJMGSoit0iid0wlgstQnN2Aw0vdLi8Df0yH1Sl8uz+vL3v/h/dEAZ61
- +LQH6UC8LgKeh54qenqYP3tPy1ZM5fhHgcTvRuNDJ/ScEVU8NAWUW60fiVd3tiyww8
- LBoUw//JCyW4/WDCRaQ/Q0BNg8QPA1DP36bASCFBwHtDfxfroQaZmMgsPJmKTb4kwt
- vCCgjZkBA3/3+3xGP6NxDhe2Wo6tpFAuLNlZ4yytlrtOllS1I5gOtG4vtqXSfDB4co
- GF8IueQmiCrLa2kAmNZB75e8gMd/7MZ4UysauHMXCa/r4OYGI8h2rwGxGVTxZbJko6
- HYjUzaEbvmfcw==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
- id 698F0DAC7A8; Fri, 11 Sep 2026 20:25:20 +0100 (BST)
-Date: Fri, 11 Sep 2026 20:25:20 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: Grond <grond66@riseup.net>, Stefan Leichter <sle85276@gmx.de>,
- Grazvydas Ignotas <notasas@gmail.com>, Tony Lindgren <tony@atomide.com>,
- Ethan Nelson-Moore <enelsonmoore@gmail.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Andreas Kemnade <andreas@kemnade.info>, Lee Jones <lee@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Sen Wang <sen@ti.com>, Richard Fitzgerald <rf@opensource.cirrus.com>,
- Arnd Bergmann <arnd@arndb.de>,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Niranjan H Y <niranjan.hy@ti.com>, letux-kernel@openphoenux.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- kernel@pyra-handheld.com, mfd@lists.linux.dev
-Subject: Re: [PATCH 08/16] ASoC: pcm1773-codec: write a driver for the
- PCM1773 chip from TI
-Message-ID: <aqRVoOCvVwZA3uV5@sirena.org.uk>
-Mail-Followup-To: "H. Nikolaus Schaller" <hns@goldelico.com>,
- Grond <grond66@riseup.net>, Stefan Leichter <sle85276@gmx.de>,
- Grazvydas Ignotas <notasas@gmail.com>,
- Tony Lindgren <tony@atomide.com>,
- Ethan Nelson-Moore <enelsonmoore@gmail.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Andreas Kemnade <andreas@kemnade.info>, Lee Jones <lee@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Aaro Koskinen <aaro.koskinen@iki.fi>,
- Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Sen Wang <sen@ti.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Arnd Bergmann <arnd@arndb.de>,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Niranjan H Y <niranjan.hy@ti.com>, letux-kernel@openphoenux.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- kernel@pyra-handheld.com, mfd@lists.linux.dev
-References: <cover.1783749722.git.hns@goldelico.com>
- <7d8989813cbd750259dfdde2e1187082493279a0.1783749722.git.hns@goldelico.com>
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DCFE10F6CB
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 19:29:20 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-49b93204449so279405e9.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 12:29:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789154959; x=1789759759; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=9iZH4smAK/5RQM3yN2gdRK991OBVSlxMLJnV0+zPvsg=;
+ b=UQRJ9PnfxuIYnQVuDtEd/fY8um0up3ZKmd8zmPYdBbBSBcfk3qCzoEUUW+JuE9HPia
+ QBBtR0z0oQwpQIdX6kw9hiUxJ4lwuVyXaD+I69QdfTI0Rf7WrchUaMNHi1yxNQjAxFjP
+ GsPALRKjyxRyyo9/2H1C9jbNBiNPfrD2R6rijYyWrUA1UVv/XHxvy7YzYUmKyc8LBvIS
+ ZXA43J1g6GiCV94naJrKo3LJn3Cb6jlvY4VMlyYS/Pnpw517AlFzsXlYQaNMtvaIIyQp
+ XLc/eno4YEB/wtxmLFePNzNW722lVAZTapQGdy1SUtdVY4E2upNZZ1ahKVHgHhPo1VSc
+ lSVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789154959; x=1789759759;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=9iZH4smAK/5RQM3yN2gdRK991OBVSlxMLJnV0+zPvsg=;
+ b=hj1VDUxOVYpeipgOL0iUqrY7WuXtYFYBXDdPFd6RIM8TWoiizd3LvKg956aMh1/5Ez
+ yfzQrUHV8xtK2RkwPpJSRm4ifxHhMteomcAUwES7lr+DMKcV4Z/H9ZVKxIGkwJsRMZWr
+ e7rw9BFahkxxeAC+fubVI0XA10qJVvz01pi0DfjfaLkdIjfEWJZ3OPTbEfWYRyggmU2J
+ AEnrBfS+cNm2sLfNORUgQXJ55FHPYKDdRL/txXaTYG18GykPOCf4XkbWyh08njhuxJHG
+ /NnhH9L3Y1afh5HrGrU+G3ph2ECntGGMyFqElDrM4XlboHaegCbJwJ6zsBE0cmS5djTP
+ tXFQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwC+nNQFzuaqLvxXDL3lOQT+rzLAXRU+/vjKCIzkyk9ZAENUcAbM90Nf6Ehqw5KPpcsSIvLBBGb8m8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mXMVQrq68DZsiezDrpCJ2/F+SKIs02qk1kCjCi8xOsHN0DDy7C
+ aisK0ViJVvL7SE1iyFol538AQjCopDZVu3AjkUOwmlHmnnJbYVRbIC4/
+X-Gm-Gg: AYBFou3ECCquO5VCWOJi7yrna9nS9VwKYDoBA7QHdS5pqO8yVM3XNfZlMCjbXrtw/Bi
+ bgSiX2mYJDBdmyy8/9vYZTIY0DjrlGk+6U8FK/sPIYIH9elFJlIU1ZyVoNE5AEPYn9x6yp3ReB+
+ 2LY81EH9D1Df4A5b39nxa7+5HdCu/Rbj7kKK7/Y/rWn6/ndtaxdJMUoFYIq7XlqiZq1ebT3j580
+ D8bcvSa/xi/TvHNXkezFiLkR3KP2I0CSJmrrV828ZWKL51yV0/4iu4cfx4F8GA9HpV5awC4xCuw
+ BZNEof5w+KQNcf6/3hCkYOZNg+6fOaGH6EIh/QDa0pGdOVqnQnPKYD1MPaiPJEtz0MnjB1pa6vE
+ L7DiI+KT4UYRlpxWX6n3p88hiUcI7kCrih2FpbSzIqFpmiZe95bsdoPcQlWb+cI0sHru7H7j5AE
+ nt5J/Dm3ggPy+1p3SYsdYcFJA7o8XUAJ0d1KGuyVj0hn9PAe0cII4ox7W4HmGD3bikFRsG1NzlP
+ DAruZpbg+ZG15AnwEwXHmB+EzD6RqbasCGvc+bWvMIkNCaEJqNVSz47s1kucKx3KTbf9DAumMCP
+ Izs=
+X-Received: by 2002:a05:600c:4712:b0:499:d95a:41f with SMTP id
+ 5b1f17b1804b1-49e61643939mr56344455e9.0.1789154957725; 
+ Fri, 11 Sep 2026 12:29:17 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B918F00F78D5B181090144B.dsl.pool.telekom.hu.
+ [2001:4c4e:1b91:8f00:f78d:5b18:1090:144b])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49e60ac42b9sm97156775e9.6.2026.09.11.12.29.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 11 Sep 2026 12:29:17 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, linux-rockchip@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, Igor Paunovic <royalnet026@gmail.com>
+Subject: Re: [PATCH v10 00/13] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Fri, 11 Sep 2026 21:28:32 +0200
+Message-ID: <20260911192833.105634-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260911122832.1364839-1-gahing@gahingwoo.com>
+References: <20260831040804.24111-1-gahing@gahingwoo.com>
+ <20260911122832.1364839-1-gahing@gahingwoo.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="8VWMi9X2XTocGtq+"
-Content-Disposition: inline
-In-Reply-To: <7d8989813cbd750259dfdde2e1187082493279a0.1783749722.git.hns@goldelico.com>
-X-Cookie: Orders subject to approval.
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,65 +94,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Jiaxing,
 
---8VWMi9X2XTocGtq+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thanks for going back over it, but the correction needs one more
+turn: both sets of numbers are mine, from two different days.
 
-On Sat, Jul 11, 2026 at 08:01:55AM +0200, H. Nikolaus Schaller wrote:
-> From: Grond <grond66@riseup.net>
->=20
-> This chip is used in the OpenPandora.
+The 45 (12 + 8 + 12 + 13) is the 19 August A/B square on v8 1-2/12
+[1]: no manifestation on either arm, oracle 48/48 throughout. That
+is what the patch text describes, and it is right.
 
-> +++ b/sound/soc/codecs/pcm1773.c
-> @@ -0,0 +1,149 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * pcm1773.c -- codec for the simple PCM1773 output codec from TI
-> + *
-> + * Shamelessly cobbled together from sound/soc/ti/omap3pandora.c and a f=
-ew
-> + * other codec drivers in sound/soc/codecs/
+The 102 is the 25 August re-run on v9 as posted [2]: v9 arm 12 + 11
+resets, all 48/48; differential arm (same base, 1/13 and 2/13
+removed) five runs, 8/10/12/8/15; plus 13 + 13 on a third arm with
+3/13 added [3]. In one of the five differential runs the inference
+issued after the forced autosuspend/resume "succeeded" and returned
+all 48 output channels at 0x80 while the CPU reference varied
+normally, with nothing in dmesg, lockdep or on the serial console.
+That run was on RK3588, on my board, and the v10 cover quoted it as
+I wrote it.
 
-Please make the entire comment a C++ one so things look more
-intentional.
+So the signature is shared, not carried over. Your explanation of
+it (fresh shmem BO zeroed, teflon readback adding 0x80) is the same
+mechanism I inferred from the scorer, which flagged 128 as not this
+model's zero point, i.e. an output buffer that was never written.
+What holds is the caveat I put on it then: one event in 53
+differential resets, zero in 49 with the patches, timing-dependent,
+and my protocol cannot tell a genuinely hung block from a lost
+completion. It bounds; it does not prove. The artifacts (scorer
+output, runtime and genpd state, journal, serial log) are preserved
+if you or Tomeu want them.
 
-> +	.playback =3D {
-> +		.stream_name =3D "PCM1773 IN",
-> +		.channels_min =3D 2,
-> +		.channels_max =3D 2,
-> +		.rates =3D SNDRV_PCM_RATE_8000_48000,
-> +		// [TODO] these really should be BE, per the data sheet but for
-> +		// some reason the omap-mcbsp driver claims only to support LE.
-> +		// investigate
-> +		.formats =3D SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE,
-> +	},
+If you respin, both statements can stand next to each other: 45
+resets with no manifestation on 19 August, and one silent completion
+on the unpatched arm out of 102 resets on 25 August.
 
-The format described here is the in memory format, not the wire format.
+[1] https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail.com/
+[2] https://lore.kernel.org/all/CAEWPSH5mxTbUkNouxm6yecMZYvDowquhvYvhaXQ8HoMtHD5U1g@mail.gmail.com/
+[3] https://lore.kernel.org/all/CAEWPSH5MVzoQMaFOEQ93+1pOPmcXCDNfuXsv5j-X8Lb1fy_hrg@mail.gmail.com/
 
-> +	ctx->regulator =3D devm_regulator_get(dev, "vcc");
-> +	if (IS_ERR(ctx->regulator)) {
-> +		dev_warn(dev, "cannot get regulator 'vcc'");
-> +		ctx->regulator =3D NULL;
-> +	}
-
-This is obviously broken.  The driver should handle the error as a
-normal error, not just ignore it.
-
---8VWMi9X2XTocGtq+
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqkVZ8ACgkQJNaLcl1U
-h9ANxQf+NbBkZEJZSsd9ku1cZsPpGBfxhrqMreka7Y24CMLjnIcmPGw4KRrBOcWh
-rRYxpERw/bNXc0OPrSz0k4v7pUdnPmD7XL6q8smQFUqO0cAIZfkapEByQ5NNYXx/
-vNSxUay1sNHex7SauqBichHdhyfPV1YSHJnPu9X2RPsbcvh60u0xvhnTlHIC8egT
-wIPtdj6srM7K+biEegoal8Cvy+5koZfoyRkIHQkSbMD1JFrFDkza3XbamNhPyIlv
-5mP5Lwf0erONIrnizgA3LYZjHMUb6RmtEVoiu1azEwHRv87q42R9pOeiKDQiBhnH
-Gb+jZpZREv9HI5PwAFfeg4z9OuPDwQ==
-=K9b0
------END PGP SIGNATURE-----
-
---8VWMi9X2XTocGtq+--
+Regards,
+Igor
