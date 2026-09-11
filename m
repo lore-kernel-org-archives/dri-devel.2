@@ -4,127 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BE04C88E4D
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 13:43:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E408C88E50
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 13:59:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5792310F5D1;
-	Fri, 11 Sep 2026 13:43:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B0D510E32D;
+	Fri, 11 Sep 2026 13:59:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="fS7c78qD";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="TfDfx0Ki";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B52C410E35B
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 13:43:31 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-499ac87c92bso11540425e9.1
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 06:43:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789134210; cv=none;
- d=google.com; s=arc-20260327;
- b=UD7E89KF7512iMltTKMsq5O5HEWbLKspvb/McOBA5gh5Quy4ZZeMPvzkKC7/fM2kvD
- 6mHjTJpfjZxkm95dCIAdR2FsrSOSM9a8SH91qhWRbV9Xi2lNpPe9ugBMwwjGQh4qybM3
- Pq1DWkoLBaNpILvM6amYjNQZ40KmSkDM/YKXlKs43tbQXuCklavfN6YgQE8sdZowe6tN
- jOdVQZZ3rYxLllkKWO9v3BPuegtgjKBHT1ZLa8C/DWVtR3XjrW6wOXvUvAZeGcfkPET0
- 5KLg4q5fLSYAiiNmcf0XVVL/XmwVqUEnJbzTmeWHVwVwku2+dKItCzuiTTn3hHmix4tb
- ho8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=qqONGiVmU3Y+JSEn4qygivSbxUuzyWx0IT02Btj63eI=;
- fh=AUySHYSl/cdDY2y6eBHYQ/5ZxiiG9Q0ziSQnJNxDsOk=;
- b=kP7E1JtDnuXx2LRdZ6dEOgxahmdDjs85zLK0RRH45Mw6hraOMZtKtkqhjVpKZV6olH
- kUVZksDWHym7xVetLGEVcbHY/hoC+AQBWVtQU1cfk6DGd90T8Qc1xtpZulQ7MXanRGz0
- t8MRF0khmrXNM9M8F/RbXhdjXGG9d60ZfYh2rv0NbTCui8xW56PMg2rCKIqpOSFsqdCk
- dIX9iIwMIAMWSaCxA84B7E741K1lhLh3hb4+JOVSjEw3s9BfnBJPZmhUvSFdZR/TNEXK
- 3ejVRv8VzK+VRClBOycnZ/uQuWmhDX3FL8VI+Pc1OWZmmNO7IBZVSBkxQBGlAvXE07Zx
- Gy0A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1789134210; x=1789739010;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=qqONGiVmU3Y+JSEn4qygivSbxUuzyWx0IT02Btj63eI=;
- b=fS7c78qD/1tkUjBcs89FZyNA8HIyn9tBhmy6n0EHy8i9FlR84OkFjOcpT1n9RRHjXo
- JmA+FQtuo66Mcb8+MWscnh6BpNHLja5mKcbre+l5RJyUE72XYBTeM9rGG3j8szRUd3Ih
- dWZQmgkgnf8Y1dm58zHYRW1qhkzZYSaYrKZXvvuXyjdunTQJwHiLmM47FmdWeLAljyuo
- AxJ1DDD4Yd5vc34hJs9t27Lx7nDakjTJmeZY5+9xABjt8q8Fi+VoqzmXR41w17Mi6Lui
- /M6EG4LxNQ595yU0Q2dArWs2fjYlGxYJ5v2udBM/Z1ATIs3BkLXNVhMsyHgGeXEBdKVT
- nV5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789134210; x=1789739010;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=qqONGiVmU3Y+JSEn4qygivSbxUuzyWx0IT02Btj63eI=;
- b=Zl6B+l58aY8I0HSZ/1Bu0Q2t3WhAGEJ4Rp2FO8Ukddps1S9WZxkf+70vkJzJ7R4l1M
- Md2VU99davQ7s1HDBwXl9G1nZEyQAZe7VMC5Vzec3zLkyCmzyZtg01pnVLZvmj65v5hY
- WpTqnWMWq54FVXoarTp4ajiMld0aJ25zM5v6Du/NbjLL6z7gW/KA++aFDzFBDj4sjTEm
- jID26tT/POmwLP6stya7tv+b/CJ7sHteGExcEhF07OUq9FR0cB3l5fAnyWwNI9MjTGJp
- 7tEJISSGWH+mkZugLwtiQZFUE/4xuUejpi08Pki/c6RVkQJfS/7m1Tb3CP3PATmCQCe+
- 7oDA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx4aP3mHDpYkCMhVesaqp2EMB1MKKF55dboIe5Kxkhu6LTq85FcL24VVENw1kcc/ACNnGelO4Ld5fE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n7RP5Gsq51dTVcVtR4SQxFKpl4/Sob5g48xmHZEx3O1FcMgIEV
- jTFn04Hm29dZb9yBfBSlXH3/SiT9I+DjYyHTumYqzF5eITYxK9aMCSZqn3xNnZv4EY1+S4byCNL
- 3cM05hLReekyBNzvDDSyS2iTKPcmT7wLdRjvj96wB
-X-Gm-Gg: AYBFou1wFRv0FN1MITMCsluRaNqi4LFma3BvBlDyQzz7Q7w6Ra0TfItLkwVhaMxssI1
- hhhm1BHPmEtZDx+w5yngMHqWkvPjJ+j4aMQKYVqeyI60Se501XTE2RmXoL98mgfmYX1wT3T1Wgu
- NyhNN9uKRW0q4oEfMk7PkpOFc8rbviwTGG4TUAyRKFoJc02PmKjWnPsAo9S1GfX60AOaVL6yshZ
- ebZHRiHXR18nZBOiGlJXCCk2dD7TbTg6SoHeiyM7c4UUxeEka2FpUzT7J+vky2DeBrcQ4Ho5wGt
- 0NZgb4wQvZW2IZOTevhVfqwP0YriU7YlneqqE7qmglXwFDQSNwzFm/Fqk8cwUKg+mV8PuuCVH3F
- Ri+cVhTaDWVBHDAFaoEStD6hwHWiBCGivD/rSdY98bTZAD2DJncPM
-X-Received: by 2002:a05:600d:8445:10b0:49c:cf18:494e with SMTP id
- 5b1f17b1804b1-49e6198a3b2mr36939915e9.12.1789134209249; Fri, 11 Sep 2026
- 06:43:29 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7779010E32D
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 13:58:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=NUjN4B4f7lGZ0KhNS6XMFk8J0whNkOXMOPXQ3kaf6lc=; b=TfDfx0KimNdWpbzcT+1nHoreWq
+ k2ETKfEy4meSWlDd9bnTuSRZxGViWyaTTh2bgtAIjk7pHynVaZjo3PZVwYKGz8rtteKmPkpx4KdeB
+ 8TV7drQ0eo79j5FAVnz//7Z4lSM76YWHVJwcFpm0/aXuy+SBOuHAoFskdfwPBzdZ2+oNIa8Yv7pm0
+ hSVp+0HPnT2Db4+an24NFZjt1mKaT00Q0vgWOuEM+Wf58w6gm+j360WSPCceabNu2IhhX662wU6SL
+ PuhzuZpiyRkr+AEgU6Zh1WUy7wpBtqN8UqC7EPJEGe3VwJYJuI2YCfXgvQ0YmTZ+l/5airPDkW7IR
+ jETV7bxw==;
+Received: from 113.red-79-144-92.dynamicip.rima-tde.net ([79.144.92.113]
+ helo=[192.168.1.210]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1x51m2-000hUv-IU; Fri, 11 Sep 2026 15:58:38 +0200
+Message-ID: <48a67b88-7ad8-4764-bab0-c226e9247dda@igalia.com>
+Date: Fri, 11 Sep 2026 15:58:36 +0200
 MIME-Version: 1.0
-References: <20260910-unique-ref-v21-0-e83257373062@kernel.org>
- <20260910-unique-ref-v21-7-e83257373062@kernel.org>
-In-Reply-To: <20260910-unique-ref-v21-7-e83257373062@kernel.org>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Fri, 11 Sep 2026 15:43:16 +0200
-X-Gm-Features: AcwNN1UlYe5vy_4Ph8n7W5xph6nzuuUOW4o-tvYKznIiNAx0UgbfO_rFNfVUhuY
-Message-ID: <CAH5fLghC2qRh8qNmMHMWQXiWW9FAPdd-O4z-O-17FFDB3hy=+A@mail.gmail.com>
-Subject: Re: [PATCH v21 7/9] rust: page: convert to `AlwaysRefCounted`
-To: Andreas Hindborg <a.hindborg@kernel.org>
-Cc: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>,
- Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Lyude Paul <lyude@redhat.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
- Carlos Llamas <cmllamas@google.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Igor Korotin <igor.korotin@linux.dev>, Viresh Kumar <vireshk@kernel.org>,
- Nishanth Menon <nm@ti.com>, 
- Stephen Boyd <sboyd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
- Michal Wilczynski <m.wilczynski@samsung.com>, 
- Ira Weiny <iweiny@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Philipp Stanner <phasta@kernel.org>, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, driver-core@lists.linux.dev, 
- linux-block@vger.kernel.org, linux-security-module@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-pci@vger.kernel.org, 
- linux-pwm@vger.kernel.org, linux-usb@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] drm: Fix drm_pending_vblank_event leak in error path
+ for out_fence_ptr
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, sashiko-bot@kernel.org
+References: <20260826-drm_pending_vblank_event_leak-v4-1-f8de8b996b9d@igalia.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <20260826-drm_pending_vblank_event_leak-v4-1-f8de8b996b9d@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,25 +62,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 10, 2026 at 11:01=E2=80=AFAM Andreas Hindborg <a.hindborg@kerne=
-l.org> wrote:
->
-> `struct page` is managed by a native reference count, and kernel C
-> code routinely takes its own references to pages, for example when a
-> page is inserted into a VMA with `vm_insert_page()`.
->
-> Thus, implement `RefCounted` for `Page`, backed by `get_page()` and
-> `put_page()`, mark it `AlwaysRefCounted`, and return `ARef<Page>` from
-> `Page::alloc_page()`. The page is freed when the last reference to it is
-> dropped; for the order-0 pages allocated here, this is equivalent to
-> `__free_pages()`.
->
-> This also allows `Page` references to be returned as borrowed
-> references without owning the `struct page`. Remove `BorrowedPage`
-> and update users to use `&Page` and `ARef<Page>`.
->
-> Assisted-by: LLM
-> Suggested-by: Alice Ryhl <aliceryhl@google.com>
-> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+
+On 26/08/2026 13:46, Thadeu Lima de Souza Cascardo wrote:
+> When an out_fence_ptr is provided but DRM_MODE_PAGE_FLIP_EVENT is not
+> set, a drm_pending_vblank_event will be allocated. If later, there is an
+> allocation failure or another failure at setup_out_fence(), that event
+> will not have base.fence set and it will not be released at
+> complete_signaling().
+>
+> Release the event and set crtc_state->event to NULL just like in the
+> DRM_MODE_PAGE_FLIP_EVENT case when there is a failure at
+> drm_event_reserve_init(). That is, prepare_signaling() releases the
+> event and there is nothing to be done at complete_signaling(). Use
+> drm_event_cancel_free() as that will also undo drm_event_reserve_init()
+> in case it has been called.
+
+LGTM. Thanks!
+
+Reviewed-by: Melissa Wen <mwen@igalia.com>
+
+>
+> Reported-by: sashiko-bot@kernel.org
+> Closes: https://sashiko.dev/#/patchset/20260727-drm_crtc_atomic_commit_leak-v1-1-23d9948a9d7c@igalia.com?part=1
+> Fixes: 92c715fca907 ("drm/atomic: Fix double free in drm_atomic_state_default_clear")
+> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> ---
+> Changes in v4:
+> - Rename label to err_free_event.
+> - Use crtc_state->event instead of a local variable e.
+> - Link to v3: https://patch.msgid.link/20260817-drm_pending_vblank_event_leak-v3-1-7582b24447d0@igalia.com
+>
+> Changes in v3:
+> - Use a label for the common exit pattern.
+> - Link to v2: https://patch.msgid.link/20260729-drm_pending_vblank_event_leak-v2-1-a5074aae07df@igalia.com
+>
+> Changes in v2:
+> - Fix UAF when DRM_MODE_PAGE_FLIP_EVENT is used.
+> - Link to v1: https://patch.msgid.link/20260728-drm_pending_vblank_event_leak-v1-1-08429b920b16@igalia.com
+> ---
+>   drivers/gpu/drm/drm_atomic_uapi.c | 13 ++++++++++---
+>   1 file changed, 10 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+> index ae7667d1072d..8c0eea2fed4a 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -1458,10 +1458,12 @@ static int prepare_signaling(struct drm_device *dev,
+>   			struct dma_fence *fence;
+>   			struct drm_out_fence_state *f;
+>   
+> +			ret = -ENOMEM;
+> +
+>   			f = krealloc(*fence_state, sizeof(**fence_state) *
+>   				     (*num_fences + 1), GFP_KERNEL);
+>   			if (!f)
+> -				return -ENOMEM;
+> +				goto err_free_event;
+>   
+>   			memset(&f[*num_fences], 0, sizeof(*f));
+>   
+> @@ -1470,12 +1472,12 @@ static int prepare_signaling(struct drm_device *dev,
+>   
+>   			fence = drm_crtc_create_fence(crtc);
+>   			if (!fence)
+> -				return -ENOMEM;
+> +				goto err_free_event;
+>   
+>   			ret = setup_out_fence(&f[(*num_fences)++], fence);
+>   			if (ret) {
+>   				dma_fence_put(fence);
+> -				return ret;
+> +				goto err_free_event;
+>   			}
+>   
+>   			crtc_state->event->base.fence = fence;
+> @@ -1531,6 +1533,11 @@ static int prepare_signaling(struct drm_device *dev,
+>   	}
+>   
+>   	return 0;
+> +
+> +err_free_event:
+> +	drm_event_cancel_free(dev, &crtc_state->event->base);
+> +	crtc_state->event = NULL;
+> +	return ret;
+>   }
+>   
+>   static void complete_signaling(struct drm_device *dev,
+>
+> ---
+> base-commit: 4d4be202165e832d74849b4a68e289a2a377039c
+> change-id: 20260728-drm_pending_vblank_event_leak-a36cedb296ba
+>
+> Best regards,
+> --
+> Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+>
+
