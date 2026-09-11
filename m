@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9855EC88E50
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 08:51:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEC2EC88E4C
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 08:51:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30E6410E8AB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5381A10EC04;
 	Fri, 11 Sep 2026 08:51:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jgx9aTYx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dQHYx2Q7";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06D9210E237;
- Fri, 11 Sep 2026 08:51:16 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 17BE9447DC;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DF2F10E235;
  Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CC14AC2BCB8;
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id E8F3B447BB;
+ Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id ABBE6C2BD04;
  Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1789116674;
- bh=6Om9mmFoyilZ7jFsN4qGp2OOoGqOwvUDJXp2zNRLp+k=;
+ bh=8RziPjmr86j58LZqVuPJpDkvRLhBLUgcBlPpa46vgoE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=Jgx9aTYxluCSss6dcTipeMEk/+ocQA1Zq0771VYQvCRm73K9nAs0Ps/PJIbYnqYPA
- mglS23depKXOCYFG+3BF01q9dsvXh3Pa9Px9qDDnhsLjrLddm4bWiM7CxR5dcCNAha
- R8W9ADEtAtAw5iUBIaCSQT9C8SGklEbElTi/AihGD2cBqyGwbvs0lS3k/M/ZPI7fa6
- e2F5jxt3KHRnOwsDLg5u7OSOZf5zk4W+OguddhjAJUh34vvr61G52W/4njH9xuhMd7
- rEj8Zj5AnjN7u3szNHU8AvBQP7WZmsdQozby4Qhj3rjUYIBuHdhuK5wA0nO83sN0qQ
- JFrPY1GixpzkA==
+ b=dQHYx2Q7FEXSskE3N+4PECi8e3dFPWmZtOf/+86Ag1CFzYqmXGYk0cJZdkLQP51LP
+ V/AnF0OitSqeniNgmleIMm1QouUkLJXvrZzhgjymmLK9jlLZAYa61OM7BA3JrVAUOh
+ /UQebmdKNvqcdybm9Wyf8W9wKl3K+heYYgNF1zPQv7CROkvTjomi3i17yYORRluZ6E
+ vW5n/Hc7uPg9yolV8yZuVrrQdp1VhAagcFmLFk1MBGoxc6F5YOWfOh+FikUJJhlPDk
+ Y47tXQ1cmb5WBFEZ936kE9NCK+VBjgi4JjOBgFBAhEZutYoq3vCe3rAUIc6RgpcO2g
+ jJfYOyzMc+Qog==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id B50F5C88E56;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 903E7C88E53;
  Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
 From: =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI_via_B4_Relay?=
  <devnull+kavakliyigitcan.gmail.com@kernel.org>
-Date: Fri, 11 Sep 2026 11:51:02 +0300
-Subject: [PATCH RFC 05/10] dt-bindings: input: touchscreen: add Novatek
- NT36672A SPI touchscreen
+Date: Fri, 11 Sep 2026 11:51:00 +0300
+Subject: [PATCH RFC 03/10] dt-bindings: display: panel: novatek,nt36672a:
+ add Tianma FHD+ video mode variant
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260911-ginkgo-submission-final-v1-5-0e68e63a18d4@gmail.com>
+Message-Id: <20260911-ginkgo-submission-final-v1-3-0e68e63a18d4@gmail.com>
 References: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
 In-Reply-To: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
@@ -70,11 +70,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI?= <kavakliyigitcan@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789116671; l=2624;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789116671; l=1337;
  i=kavakliyigitcan@gmail.com; s=20260911; h=from:subject:message-id;
- bh=sMolpDLxRIIdnSgm3TbA2Rk80AV3J5bHq36firTsw6w=;
- b=IdFFml977ayIZ6L6YdvcMn4Ol1XAEqjQLb7pnMby8TGCu+zLBKLhmg7UlQUs5xSnl1+k1kmsw
- r7mj8P4/nAhDtshh4wuZCFJWI/hbuWGi9O8ZA3vRaQCfKB7kgS2ehfe
+ bh=AtK+lXLPgtCAd0x0Q8ZmqlE6229e2DioZldnqFvwW6k=;
+ b=CuC7FXTtyIRRqdqKvBCGyMqURAjP2DqWfwpfHd4zVYPkbELnIFOwMkil8+A9jXa9BtQxWIuzD
+ 9CC7I9h8FMhBVz5GdwJnIyMxg1Hb2F2jwFbu1IbAx7X3jeL/90Hw5pO
 X-Developer-Key: i=kavakliyigitcan@gmail.com; a=ed25519;
  pk=W2GaxVotULs2vAjRMMLheaDtMMYs4037zO1LVVfFtPI=
 X-Endpoint-Received: by B4 Relay for kavakliyigitcan@gmail.com/20260911
@@ -99,90 +99,31 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
 
-Add devicetree binding documentation for the Novatek NT36672A SPI
-touchscreen controller.
+Add compatible string "tianma,fhd-video-ginkgo" for the 1080x2340 Tianma
+video mode panel found on the Xiaomi Redmi Note 8 (ginkgo / SM6125).
 
-The binding supports standard SPI peripheral properties, interrupt
-configuration, the optional 'panel' phandle for DRM panel follower
-synchronization, and an optional 'firmware-name' property.
+The downstream vendor DT identifies the panel as "nt36672a video mode
+dsi tianma panel" without documenting a glass model number. Following
+the established convention of "tianma,fhd-video" for Poco F1, this
+variant is added under the existing NT36672A binding schema.
 
 Signed-off-by: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
 ---
- .../input/touchscreen/novatek,nt36672a-spi.yaml    | 66 ++++++++++++++++++++++
- 1 file changed, 66 insertions(+)
+ Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/novatek,nt36672a-spi.yaml b/Documentation/devicetree/bindings/input/touchscreen/novatek,nt36672a-spi.yaml
-new file mode 100644
-index 0000000000000000000000000000000000000000..0d89d60f2a93d26e2f7903371ecc6eb9ed683b33
---- /dev/null
-+++ b/Documentation/devicetree/bindings/input/touchscreen/novatek,nt36672a-spi.yaml
-@@ -0,0 +1,66 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/input/touchscreen/novatek,nt36672a-spi.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Novatek NT36672A SPI Touchscreen Controller
-+
-+maintainers:
-+  - Dmitry Torokhov <dmitry.torokhov@gmail.com>
-+
-+description:
-+  The Novatek NT36672A TDDI controller is connected over SPI for touchscreen
-+  interaction, with host-downloaded firmware into controller SRAM. It integrates
-+  with the display panel lifecycle using the DRM panel follower API.
-+
-+allOf:
-+  - $ref: touchscreen.yaml#
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - novatek,nt36672a-spi
-+      - novatek,nt36672a-ts
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  spi-max-frequency: true
-+
-+  panel:
-+    description: phandle of the display panel that this touchscreen follows.
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+
-+  firmware-name:
-+    description: Name of the firmware file to load into controller SRAM.
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        touchscreen@0 {
-+            compatible = "novatek,nt36672a-spi";
-+            reg = <0>;
-+            spi-max-frequency = <4000000>;
-+            interrupts = <88 IRQ_TYPE_EDGE_RISING>;
-+            panel = <&panel>;
-+            touchscreen-size-x = <1080>;
-+            touchscreen-size-y = <2340>;
-+        };
-+    };
-+...
+diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
+index 5d16d85117254ce479cfe9b9b33df8eeafeed1e1..9f42b1ef07669a3b0e6d2285a39a961e2e04cec7 100644
+--- a/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
++++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
+@@ -23,6 +23,7 @@ properties:
+     items:
+       - enum:
+           - tianma,fhd-video
++          - tianma,fhd-video-ginkgo
+       - const: novatek,nt36672a
+     description: This indicates the panel manufacturer of the panel that is
+       in turn using the NT36672A panel driver. This compatible string
 
 -- 
 2.47.3
