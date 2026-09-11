@@ -4,59 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36F96C88E53
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 18:00:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE109C88E4D
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 18:05:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89CAC10E0BD;
-	Fri, 11 Sep 2026 18:00:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44EA110F6A7;
+	Fri, 11 Sep 2026 18:05:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="erOXO1fI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hhm6+Nn3";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3304D10F6A7
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 18:00:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E31910F6A7
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 18:05:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0A0486020C
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 18:00:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4B4D1F00893
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 18:00:44 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B63BB60008;
+ Fri, 11 Sep 2026 18:05:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40FDC1F000FF;
+ Fri, 11 Sep 2026 18:05:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789149644;
- bh=Ln4tV/9ltZBeYzidwNmaTydpreMcBH5u6aBCjr2S9kQ=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=erOXO1fI8BTv33vuqCDeLVZR1/xGGhk/9jvSxvg23iX7Bzjz3FblmZIU113LvIASc
- uo8/UAa3HeYZnYbC8lAqh0UbNAig3LwFPXwHjTtj9OdLOzipxe3i9Uu/Mw68iMb+Y5
- TpGFYQPL7TklzG6U8KA1DopN+B6srF49kzxoH7kNJoN4Byxksc9ZU7gymkNYoS4grk
- VDt1ONBvAkeobY30145XsYFcE+WZkOS2UZLfN/wsJQr+efeg8icOV5ZZcVFanqqJQd
- o78xXtjOtFREOCLxi31rrOG9APwq+ZsryCvm3Ytl31w3Wm7Jy775hJOxOWGxKS7nyb
- +oFu/wWkBLyEw==
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-5b6031cbc6bso1271017e87.1
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 11:00:44 -0700 (PDT)
-X-Gm-Message-State: AFuF++nUNWT9tFOD2n55jcC7snUy+rtZPxvu6HyVZigGph1u8wvJOU39
- Dt7hW9jfq1lT1hoXitG2kGk96XSsvpXvmkH5ukfz/KMuRBGcFfIMlzlIwhNcybb+oV+5B0Ad7VB
- GgP+lsVsAQGMgAibbJW8Px3IIgiF6X9A=
-X-Received: by 2002:a05:6512:10c4:b0:5b8:993e:6dcb with SMTP id
- 2adb3069b0e04-5b8a029ddb7mr1100799e87.20.1789149643414; Fri, 11 Sep 2026
- 11:00:43 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260825105427.686619-1-roshaen09@gmail.com>
- <20260910192526.137057-1-roshaen09@gmail.com>
-In-Reply-To: <20260910192526.137057-1-roshaen09@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 11 Sep 2026 20:00:30 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=fnA9qV9XpAScM5knc+aY4eHG3r9a5RrGnhvVqORwMhA@mail.gmail.com>
-X-Gm-Features: AcwNN1VNyS5JesON5oceppyiBvf6Kxyrr06Pf03uMf0r2u2yehdu3ym0fg0KUnw
-Message-ID: <CAD++jL=fnA9qV9XpAScM5knc+aY4eHG3r9a5RrGnhvVqORwMhA@mail.gmail.com>
-Subject: Re: [PATCH v3] drm/pl111: drop alpha formats the hardware cannot scan
- out
-To: Roshan Kumar <roshaen09@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, leandro.ribeiro@collabora.com, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
- airlied@gmail.com, simona@ffwll.ch, pimyn@google.com, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+ s=k20260515; t=1789149940;
+ bh=zjNaoSPib6i62jt/HKdCdFuhsr0N1fjthkWPVjtyHQQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=hhm6+Nn36hRsX2+NAuplozSj+SB4BSXAy21thYwwYjdeFbwXc12V0GNmDCfET/8j/
+ t1Ky0DsTRj4WAOshMgILAnKewhqAy3Ql3faO2/M9hIdGuwfhkpbNSLeCPcJJ5b5fkK
+ 3dttjDU/07MlNjRFxm23RqV0NVcW5XIKafwl1ZnLxmqpLLcGWXYoEAeXjFBQqyd4Wd
+ 9LBfzb6mFFag0KhC2lw26LOgtmEhwf6x9U207YHBWoHGx9aScYL0erWFH7UWySVIZ7
+ X2crqzGvZAR+RK99rORJK2FD+LZa9Pg/CPFP5Hii15mtHl8SodayU2/g+i0HnvcQwR
+ moJd9M+6UqlYA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/vmwgfx: Add blend mode property
+To: "Ian Forbes" <ian.forbes@broadcom.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260911175607.1127474-1-ian.forbes@broadcom.com>
+References: <20260911175607.1127474-1-ian.forbes@broadcom.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Fri, 11 Sep 2026 18:05:39 +0000
+Message-Id: <20260911180540.40FDC1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,39 +52,82 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 10, 2026 at 9:25=E2=80=AFPM Roshan Kumar <roshaen09@gmail.com> =
-wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-> The PL110/PL111 controller scans out a single framebuffer and never
-> blends its alpha channel with anything. In every pixel-format table
-> each alpha-carrying entry (ARGB/ABGR in 8888, 1555 and 4444) maps to
-> exactly the same register configuration as its XRGB/XBGR counterpart,
-> so the alpha byte was never used by the hardware.
->
-> Commit 860e748bddcc ("drm: ensure blend mode supported if pixel format
-> with alpha exposed") added validation that warns when a plane exposes
-> alpha formats without a pixel blend mode property, and PL111 does exactly
-> that. With panic_on_warn enabled the warning prevents the syzkaller
-> vexpress-a15 manager from booting.
->
-> Drivers should not report formats they do not support, so remove the
-> alpha formats from all variant tables: the generic PL110, PL111 and
-> Nomadik tables in pl111_drv.c and the board-specific Integrator, IM-PD1,
-> Versatile and RealView/Versatile-Express tables in pl111_versatile.c,
-> plus the now dead case labels in the display setup and the Versatile
-> syscon connector switch, instead of advertising a blend mode property.
-> Behavior is unchanged for userspace that picks an XRGB/XBGR/RGB format;
-> alpha-picking clients fall back to the identical X variant.
->
-> Link: https://github.com/google/syzkaller/issues/7805
-> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format wi=
-th alpha exposed")
-> Signed-off-by: Roshan Kumar <roshaen09@gmail.com>
+Pre-existing issues:
+- [High] Missing drm_plane_cleanup() on error paths in display unit initial=
+ization functions leads to list corruption and use-after-free.
+--
 
-Patch applied to drm-misc-next with Thomas' review tag.
+commit dea10d2954fcbf7f9f6713f8f44088d76a62295e
+Author: Ian Forbes <ian.forbes@broadcom.com>
 
-Yours,
-Linus Walleij
+drm/vmwgfx: Add blend mode property
+
+This commit adds blend mode properties to the primary and cursor planes to=
+=20
+stop log spamming. It initializes the properties in vmw_du_init() for both
+planes if they are present.
+
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx=
+/vmwgfx_kms.c
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
+[ ... ]
+>  void vmw_du_init(struct vmw_display_unit *du)
+>  {
+>  	vmw_vkms_crtc_init(&du->crtc);
+> +	drm_plane_create_blend_mode_property(&du->primary,
+> +					     BIT(DRM_MODE_BLEND_PIXEL_NONE));
+> +	// Check that the cursor plane was actually initialized
+> +	if (du->crtc.cursor =3D=3D &du->cursor.base)
+> +		drm_plane_create_blend_mode_property(&du->cursor.base,
+> +						     BIT(DRM_MODE_BLEND_PREMULTI));
+>  }
+
+[Severity: High]
+This isn't a bug introduced by this patch, but I noticed a pre-existing
+issue regarding the cleanup of these planes on error paths during display u=
+nit
+initialization.
+
+In functions like vmw_ldu_init(), vmw_sou_init(), and vmw_stdu_init(), the
+primary and cursor planes are initialized, which links them into the DRM
+core plane list. If a subsequent step like drm_connector_init() fails, the
+code jumps to an error label and frees the display unit structure without
+cleaning up the planes:
+
+drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c:vmw_ldu_init() {
+...
+	ret =3D drm_connector_init(dev, connector, &vmw_legacy_connector_funcs,
+				 DRM_MODE_CONNECTOR_VIRTUAL);
+	if (ret) {
+		DRM_ERROR("Failed to initialize connector\n");
+		goto err_free;
+	}
+...
+err_free:
+	kfree(ldu);
+	return ret;
+}
+
+Similar error paths exist in vmw_sou_init() for the sou structure, and
+vmw_stdu_init() for the stdu structure.
+
+Since the display unit structure containing the planes is freed with kfree()
+but drm_plane_cleanup() hasn't been called, could this leave dangling
+pointers in the DRM core plane list? If the list is later traversed during
+driver teardown in drm_mode_config_cleanup(), wouldn't this result in a
+use-after-free?=20
+
+Should these error paths be updated to call drm_plane_cleanup() or a similar
+teardown helper before freeing the memory?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911175607.1127=
+474-1-ian.forbes@broadcom.com?part=3D1
