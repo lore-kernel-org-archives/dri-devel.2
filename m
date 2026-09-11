@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08324C88E4C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4657C88E53
 	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 08:51:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CF6910E898;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CB5910F1D4;
 	Fri, 11 Sep 2026 08:51:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RYSSY0U3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="vIOQPc9o";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A51A10E237;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B74D710E237;
  Fri, 11 Sep 2026 08:51:16 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 476F8447FF;
+ by sea.source.kernel.org (Postfix) with ESMTP id 6F2DD44820;
  Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 05C54C32786;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 44BECC2BCF4;
  Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1789116675;
- bh=Ir2kLA2MThBgdITjF1uXNT5vEPUPjCB6BDKYUWJlkVw=;
+ bh=DY3nAZEw7IwIcK7ATvLcXz2X/NgGx+ZUSaAnsbH9oD0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=RYSSY0U3ZTgE0EmFs+R/EejwrlYRI+/TrMNhbNEX4oXfFnrGdk9pbOm4Je+CbXGef
- kWfdnuvbUiyLH/ntBecjS+nC4mRYGaVu+cZ15jcX+x99Mzs4IrvSeHYFdZyExXvSBw
- C4SP5mvaXwH+WI87t9FWeCD/0EDboQxyTJfW0rr5UADaTpeWVPu+AQ4qgvkOK8kAuh
- KAgqHzRl+ZgRJJIxc0RkR9upmWVjHtLIu8hpdMC9lH14aX5kb3begGcV2LVxb+Wia1
- jseVCk+3S3+K9rdH+7XVG6xwDjCdnYhQ+agpg/JKcxCz8ejk1gYa7QgGmlxOheWrP9
- vUu9WzQpEinwA==
+ b=vIOQPc9oHsAb5NAMCqQSY2ZC9ZWES3F1I+WL1UMX6w0fWakBt6wCJ8/BpvamaPKBA
+ GztFcpozC1ZOMwR/pHj4OXDiXjuaPoY/SPUe1BVCqlaY00PsilXrVmt4qqRjLG2to+
+ F2MNSekiB/ZaIfTcsueZR+hqhaQq65rIM8N+ExzP0mV1zg7kibl4/pTDICNwOcy1rp
+ ABb7U8WTkS+dcJoj68T5nK/LNcfOzCTSrE3U700Vp4WwzPo660EKT3JaMWOZ+iJoSE
+ KjknH85+1JDXx+v532KClu9oP+OQpplH3a+lvwqypOUY6QaI1QRaTlQQNtPgx8RvK2
+ 3HNXYLpAtT9rQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id E16AAC88E50;
- Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 2F9C3C88E53;
+ Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
 From: =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI_via_B4_Relay?=
  <devnull+kavakliyigitcan.gmail.com@kernel.org>
-Date: Fri, 11 Sep 2026 11:51:04 +0300
-Subject: [PATCH RFC 07/10] drm/msm/dpu: describe SM6125 programmable-fetch
- delayed-start quirk
+Date: Fri, 11 Sep 2026 11:51:07 +0300
+Subject: [PATCH RFC 10/10] arm64: dts: qcom: sm6125-xiaomi-ginkgo: enable
+ display, backlight and touchscreen
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260911-ginkgo-submission-final-v1-7-0e68e63a18d4@gmail.com>
+Message-Id: <20260911-ginkgo-submission-final-v1-10-0e68e63a18d4@gmail.com>
 References: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
 In-Reply-To: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
@@ -70,11 +70,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI?= <kavakliyigitcan@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789116671; l=4060;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789116671; l=3582;
  i=kavakliyigitcan@gmail.com; s=20260911; h=from:subject:message-id;
- bh=dCreEw0ry0ghroTxWJf7tgoAXBd+986oDcr+3tTl2VM=;
- b=KYl/lRrMDLhvHmU1okl6IBNSYl8H3UZgdc2FxvgWCppoBUwtEFIZVK5FOVUPt7/MCw61kGQkv
- KJLS3g1uVXIC9D2IU3cjGrSuCaC0umPhHpUeGM0zuoT1TWfIB4deo3w
+ bh=x7HUi8j9WM0O66VRg2zaqPmBSUKqKlYUrg3o+6fVUMA=;
+ b=0p7Sw0WODkPHyr6uYaCxqJhHD15HpgWvncYsEcFoTIdse3nMrsA429rybhBMBFN9lnbCG75i0
+ EoyAv2U5cNvCyIAm66vhUwtwyvhJf5el9hJ1LDQvAl6pw6l7r3yALhq
 X-Developer-Key: i=kavakliyigitcan@gmail.com; a=ed25519;
  pk=W2GaxVotULs2vAjRMMLheaDtMMYs4037zO1LVVfFtPI=
 X-Endpoint-Received: by B4 Relay for kavakliyigitcan@gmail.com/20260911
@@ -99,90 +99,149 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
 
-On Qualcomm SM6125 (Snapdragon 665 / Trinket DPU 5.4.0), calculating the
-programmable prefetch start counter strictly as:
+Enable the display subsystem (MDSS/MDP/DSI0), Kinetic KTD3136 backlight,
+and Novatek NT36672A SPI touchscreen on the Xiaomi Redmi Note 8 (ginkgo).
 
-    (vert_total - vfp_fetch_lines) * horiz_total + 1
-
-causes the fetch trigger to evaluate on the active-video to vertical
-front porch line boundary. In hardware, this triggers an internal line
-buffer FIFO conflict within the INTF timing generator, resulting in
-immediate DSI FIFO overflow and timeout errors (status=5) and complete
-loss of pixel output.
-
-Qualcomm downstream display drivers mitigate this erratum via
-delay_prg_fetch_start = true, delaying the fetch start by one scanline
-(+ horiz_total) into vertical front porch line 1.
-
-Introduce 'has_prg_fetch_delay' in struct dpu_caps, enable it for SM6125
-in its catalog entry, and throttle fetch start in programmable_fetch_config()
-when the capability is set.
+Hardware nodes added:
+- Fixed LCDB regulators (lcdb_lab and lcdb_ibb at +/- 5.5V)
+- MDSS and DSI0 with Tianma 1080x2340 FHD+ video panel
+- I2C1 backlight node at 0x36 with PMI632 GPIO 6 hardware enable
+- SPI2 touchscreen node at CS0 with GPIO 88 interrupt and panel follower
+  reference
+- Touchscreen active pinctrl definition on GPIO 88
 
 Signed-off-by: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h |  1 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   | 11 +++++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h         |  2 ++
- 3 files changed, 14 insertions(+)
+ .../boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi | 100 +++++++++++++++++++++
+ 1 file changed, 100 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h
-index 64be51e301591b7f17918475a957623c6fea23d4..ec0315284e0663f57a41a1fdf515d948c3d40d68 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h
-@@ -13,6 +13,7 @@ static const struct dpu_caps sm6125_dpu_caps = {
- 	.max_mixer_blendstages = 0x6,
- 	.has_dim_layer = true,
- 	.has_idle_pc = true,
-+	.has_prg_fetch_delay = true,
- 	.max_linewidth = 2160,
- 	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
- 	.max_hdeci_exp = MAX_HORZ_DECIMATION,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-index ba810f26ea3099106aac1783f7f6bf5e014e41a0..15445eaf9f3baf4661e22bee133cc2059a3cd2b1 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-@@ -237,10 +237,21 @@ static void programmable_fetch_config(struct dpu_encoder_phys *phys_enc,
+diff --git a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
+index 59042a5937535c4acda064fa0f865f4f5a52d01b..f4b9e2092a814e56cdc23218025cb4166dec110a 100644
+--- a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
+@@ -26,11 +26,30 @@ / {
+ 	chassis-type = "handset";
  
- 	vfp_fetch_lines = programmable_fetch_get_num_lines(phys_enc, timing);
- 	if (vfp_fetch_lines) {
-+		const struct dpu_mdss_cfg *catalog = phys_enc->dpu_kms->catalog;
+ 	qcom,msm-id = <QCOM_ID_SM6125 0x10000>;
++	qcom,board-id = <34 0>, <34 1>, <34 2>, <34 3>, <34 4>, <0 0>;
+ 
+ 	aliases {
+ 		serial0 = &uart4;
+ 	};
+ 
++	lcdb_lab: regulator-lcdb-lab {
++		compatible = "regulator-fixed";
++		regulator-name = "lcdb_lab";
++		regulator-min-microvolt = <5500000>;
++		regulator-max-microvolt = <5500000>;
++		regulator-boot-on;
++		regulator-always-on;
++	};
 +
- 		vert_total = get_vertical_total(timing);
- 		horiz_total = get_horizontal_total(timing);
- 		vfp_fetch_start_vsync_counter =
- 		    (vert_total - vfp_fetch_lines) * horiz_total + 1;
++	lcdb_ibb: regulator-lcdb-ibb {
++		compatible = "regulator-fixed";
++		regulator-name = "lcdb_ibb";
++		regulator-min-microvolt = <5500000>;
++		regulator-max-microvolt = <5500000>;
++		regulator-boot-on;
++		regulator-always-on;
++	};
 +
-+		/*
-+		 * SM6125 (DPU 5.4 / Trinket) quirk matching downstream
-+		 * delay_prg_fetch_start = true. Throttle fetch start
-+		 * to the second line after active video (VFP line 1).
-+		 */
-+		if (catalog && catalog->caps && catalog->caps->has_prg_fetch_delay)
-+			vfp_fetch_start_vsync_counter += horiz_total;
+ 	chosen {
+ 		#address-cells = <2>;
+ 		#size-cells = <2>;
+@@ -356,6 +375,13 @@ irled@1 {
+ 
+ &tlmm {
+ 	gpio-reserved-ranges = <0 4>, <30 4>;
 +
- 		f.enable = 1;
- 		f.fetch_start = vfp_fetch_start_vsync_counter;
- 	}
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index f45faf87333e89bbd463504ae3219609ef6209bd..db3cbf9fa04a13baf3ac40390757ed24120ccccd 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -273,6 +273,7 @@ struct dpu_rotation_cfg {
-  * @has_dim_layer      dim layer feature status
-  * @has_idle_pc        indicate if idle power collapse feature is supported
-  * @has_3d_merge       indicate if 3D merge is supported
-+ * @has_prg_fetch_delay indicate if programmable fetch start requires a 1-line delay
-  * @max_linewidth      max linewidth for sspp
-  * @pixel_ram_size     size of latency hiding and de-tiling buffer in bytes
-  * @max_hdeci_exp      max horizontal decimation supported (max is 2^value)
-@@ -285,6 +286,7 @@ struct dpu_caps {
- 	bool has_dim_layer;
- 	bool has_idle_pc;
- 	bool has_3d_merge;
-+	bool has_prg_fetch_delay;
- 	/* SSPP limits */
- 	u32 max_linewidth;
- 	u32 pixel_ram_size;
++	ts_int_active: ts-int-active-state {
++		pins = "gpio88";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-pull-up;
++	};
+ };
+ 
+ &uart4 {
+@@ -369,3 +395,77 @@ &usb3 {
+ &usb_dwc3_hs {
+ 	remote-endpoint = <&pmi632_hs_in>;
+ };
++
++&mdss {
++	status = "okay";
++};
++
++&mdss_mdp {
++	status = "okay";
++};
++
++&mdss_dsi0_phy {
++	vdds-supply = <&vreg_l7a>;
++	status = "okay";
++};
++
++&mdss_dsi0 {
++	vdda-supply = <&vreg_l18a>;
++	status = "okay";
++
++	panel: panel@0 {
++		compatible = "tianma,fhd-video-ginkgo", "novatek,nt36672a";
++		reg = <0>;
++
++		reset-gpios = <&tlmm 90 GPIO_ACTIVE_LOW>;
++		vddio-supply = <&vreg_l9a>;
++		vddpos-supply = <&lcdb_lab>;
++		vddneg-supply = <&lcdb_ibb>;
++		backlight = <&backlight>;
++
++		port {
++			panel_in: endpoint {
++				remote-endpoint = <&mdss_dsi0_out>;
++			};
++		};
++	};
++};
++
++&mdss_dsi0_out {
++	remote-endpoint = <&panel_in>;
++	data-lanes = <0 1 2 3>;
++};
++
++&qupv3_id_0 {
++	status = "okay";
++};
++
++&i2c1 {
++	clock-frequency = <400000>;
++	status = "okay";
++
++	backlight: backlight@36 {
++		compatible = "kinetic,ktd3136";
++		reg = <0x36>;
++		enable-gpios = <&pmi632_gpios 6 GPIO_ACTIVE_HIGH>;
++		default-brightness = <2047>;
++		max-brightness = <2047>;
++	};
++};
++
++&spi2 {
++	status = "okay";
++
++	touchscreen@0 {
++		compatible = "novatek,nt36672a-spi", "novatek,nt36672a-ts";
++		reg = <0>;
++		spi-max-frequency = <4000000>;
++		interrupt-parent = <&tlmm>;
++		interrupts = <88 IRQ_TYPE_EDGE_RISING>;
++		pinctrl-0 = <&ts_int_active>;
++		pinctrl-names = "default";
++		panel = <&panel>;
++		touchscreen-size-x = <1080>;
++		touchscreen-size-y = <2340>;
++	};
++};
 
 -- 
 2.47.3
