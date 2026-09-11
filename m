@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F0D1C88E59
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 15:05:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90E13C88E58
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 15:05:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5AA910F671;
-	Fri, 11 Sep 2026 15:05:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C34610F672;
+	Fri, 11 Sep 2026 15:05:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="WpduO3H1";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="KYNLcoI2";
 	dkim-atps=neutral
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
- [74.125.225.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F8D310F66E
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 15:05:15 +0000 (UTC)
-Received: by mail-wr2-f12.google.com with SMTP id
- ffacd0b85a97d-4843c2790ccso617854f8f.1
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 08:05:15 -0700 (PDT)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F53D10F667
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 15:05:12 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-486f282cad5so365775f8f.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 08:05:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1789139114; x=1789743914; darn=lists.freedesktop.org; 
+ d=suse.com; s=google; t=1789139111; x=1789743911; darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=XKohTBQhTvhy9wNz0LcPmFyXDw2Vls36EVI0PSYF1LE=;
- b=WpduO3H1Wtv8+ZWuxllw8s9tOINO2u61hRhYsZq97rFmW+FiFajcNY//Jw167s/EKb
- qEAacnX+NnKU1VXUTiNFJm825AmTej6SRWXL/H8cdSzXipIlGKaZOlwRWnkN19SfGdsk
- JpiwR0FICLoSECfNRR6Xlm0WdRMfMFMaUqrvevh+HR9np4u++KdjTuOkH/2C8zoFEO00
- L1o+bl4RGmy1vRHghG0eA2RTKJ9bzeHpMJXRIHYmphlwgRefQJRLMoxtHBhS1QLlLDsd
- 5R37EkemgipND/Oi5fW1phHaEI5Oxe7XSRIbEv6FPAmtD3OgajUuMRXk9AU6jEUMTOH2
- Y4JQ==
+ bh=glNc1H2atyKhB4WSC099onb1QIuZPymRMjgiGWekzpE=;
+ b=KYNLcoI2F/XfkIIkD3pEwNeHdMpDRESxYbOS4PKHPihoEEiZFaqxzXfp1Y13fiOiqB
+ 8xKuoEaCGLtC3PtFy4wXaLB/1gazsSw+6duh6a0wOOsgB9PL/jPQdtOvrRAY15DDecL2
+ ZtvxL/14OjXonhFuEWOnFybLcQhLd4rbJv5RKzBzpXhFUZIOwbzPWnOdS1HPcO56WYEC
+ /eBCoUcGDRL/sOBTka4MbI+gdQASsmg7c3gorizoFLpqJJ3IU5oeJRA8RrxX2u34bUiq
+ Rmsg0JGhYIdbem8ultL+9l0cSh3/5/+FTqoMuM2mEni1o8JNUlX46wRuf12gxWbxP3bH
+ mVOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789139114; x=1789743914;
+ d=1e100.net; s=20251104; t=1789139111; x=1789743911;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=XKohTBQhTvhy9wNz0LcPmFyXDw2Vls36EVI0PSYF1LE=;
- b=RlyBZ3z0WihO8PDS6F61cq/MIM3lzVTOnC8qFIrOaiDfuUNDCPgdEpmDV0Ogd0K9bw
- FdkI8cqksxkAaR3l/F5PDfEbor2+L2242QYCopnWSBWHA2wQXsQ0k220UYlxKxWTFCYQ
- rphUgOseOsilVqBpVquMgJ0Kez+o9a+G7alUgSlEteEWkiIrugt15rTXlXCwHpVx9SXa
- zsyN2GY019aIkqODsjB9/68cKfWaH20n1T0TmpXc3mYOgD8ZDAFw+l67Bq9d/7Qj2bY0
- 30G6AB6mRlXx/eX41zyHcx+lzQy2LweIwzExMml8xqZP7jGpT2L1/Gd7aSRmenIC0Yev
- 38pQ==
+ bh=glNc1H2atyKhB4WSC099onb1QIuZPymRMjgiGWekzpE=;
+ b=fTooCQQASK77DQznVg5abqZmCAhqqBUtup0eTiFYNp1H7aL3ydHiKdalMHt/ZrY+lA
+ QzNWvO80XQQCEwm8DBP13ybss+A9O4UUdaGvBtILtmi2aP4ae3oi79DCyu/p2FyRG91w
+ kpqGPw47jeUrOfXmFiroGZiXaF1W+WlIJrqUS8aGIRGljg5Y/pwBQ0XT4Z6IY1mAex2D
+ rblOD+T7kquLfLrvP58GgLjlvcmNgiFIGnE90K0/kqcQbkpufH9m/MGZxhYtDKtinp/u
+ p15RZJLE2V5IAdAHK0MlbenfteceBwxeYm/qi0xU9g5D3v8jonuLSvR7b8RoPBcyBAhF
+ HjFw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxN3UDBwBl41e4F+bK98w5xRcq3ly8BM/+ebJTEjPvoXt0zEO9fsrW2vo0eHopYBUEX90RW72VeaT0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mfjpeeefPdvuEcooW0/k6glDDB9V7niLUn197cnz0PUiZGaKe7
- 6C9Gx2ldJjqDtc/EGilHuuE9o4KTZcU9KYdAtfXERMjxl9P/w2a3yZ6467kpfWLelaI=
-X-Gm-Gg: AYBFou3kgWt4+KfPq2z2B++vzhPM79SHv9+GMCGfIGmRuzzLzU7iWDtsFPnZmfXl1ln
- FhuKTP3lUQ6LobA3whgyycnX2A87cov6xGiFzS2+ap6JKrhM1zy4jgHPpJIDwYhdcKBUQOGHHH5
- GmvOHuyK/2v1jyroj1J1K2ykiwsAMegc6gTB770xOTeU62nn0FnZtQjM4rCzzu8Y+8eclvtyoni
- JTYJFwzbnY5vq7xI31tkmahLnwTP14WzyeFd43JUHPI7l4XNII3VA2tAWlOmSgJlY73jHpcPZrp
- 8utzI/95OPYOfAkibNXrBvZirOwYVmqj+EY8SLPaNYUd9YoncUdFDaQiGcajpYeFDGVpoDEJLxt
- Ad2xmpD/iqhtfmgBmI8nnp+PBSMl2VZN7ZDyLFaLqlz/PdGerk7Zgrp80PxA1n4DVd7UHujN70g
- +kusSE/Fo3G4MGWIBdxnN3+mGUs7Fy4smuOr532c8R2ZmHeRmB2mFntWHuvAiRjY8qmCR28vMkV
- wjRmA==
-X-Received: by 2002:a05:600c:540e:b0:49e:6692:27fd with SMTP id
- 5b1f17b1804b1-49e66922810mr55050755e9.2.1789139113470; 
- Fri, 11 Sep 2026 08:05:13 -0700 (PDT)
+ AKwUvBxGEsF2U9RoEtIEl9bnTzh7hXdHXC/qdRbcEZbGH/nqqK6Omv+mtowSg/7mj0cUK3Ac9XxvksKffoc=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mSMx35OYwv3F9Wu3y0UyfrpXvkL1AyAegwsxnYKCNK4F5YH8RR
+ 0JaIxBItvSTchaFDWamj3JHWOkdxDUqe6ZyWeBRLEhwadwowWbr7OgmDsQ7TfnoroaQ=
+X-Gm-Gg: AYBFou34Y+Pbc7hFTt4zjczt9HWrCrOLA6eXxtcMHPwqXBbe2hGaceaGfrO7nNFSw2z
+ jRGhcimxpX2ChJVFN5JOCrLSjKKStoFE7S+CwtB88HFkiYuVBmOLrzOzcOFj1xl7cZ/dS7ONT2S
+ nRCjG7pYqMmjl16Tqt4moZe6/YIIRv5yRzfMlIHGYoiPnB6Hz4DG9SQOiGUmiKg1jiYrBoGrpe5
+ FxMHlMep0FExkLB0qMdcIHYP3vIx6+A8MFq3p2iPRYKoLSkFSiKWEMh2QgYb6cLhJ4YLnxFGVV5
+ KELYCgfoRO5aGfIIOc67tvNsFALG1vEJ/tGv/Shz/AFBBtLptvrLRzmz7PvKWyxKpvucgW2q6g8
+ u5DNdw2NLVeXanM8IYGz9DOfV00lXI1wQvO3e8SFMo8tJs6FvajgGX+QTii98Zj2NhAzkI7kfgY
+ QmQ+awgX7lmtQkuyScQ1ICICkFtzH1F7pwKmBaX+KnVuDTTjblcPBAwp7YRz12U5iaQkWzPwqIH
+ a6w/CO+l3Z4tLjw
+X-Received: by 2002:a05:6000:1acf:b0:485:8a46:b3b8 with SMTP id
+ ffacd0b85a97d-486eb32253bmr5503727f8f.32.1789139110499; 
+ Fri, 11 Sep 2026 08:05:10 -0700 (PDT)
 Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-486eb350686sm6853579f8f.27.2026.09.11.08.05.12
+ ffacd0b85a97d-486eb350686sm6853579f8f.27.2026.09.11.08.05.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Sep 2026 08:05:12 -0700 (PDT)
+ Fri, 11 Sep 2026 08:05:10 -0700 (PDT)
 From: Petr Pavlu <petr.pavlu@suse.com>
 To: Jens Axboe <axboe@kernel.dk>, Jakub Kicinski <kuba@kernel.org>,
  Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -86,10 +86,9 @@ Cc: Simon Horman <horms@kernel.org>, David Airlie <airlied@gmail.com>,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 4/6] drm/i915: Include error-injection.h for
- ALLOW_ERROR_INJECTION()
-Date: Fri, 11 Sep 2026 17:04:04 +0200
-Message-ID: <20260911-module-include-error_injection-v1-4-5da895d8c84d@suse.com>
+Subject: [PATCH 2/6] net: Include error-injection.h for ALLOW_ERROR_INJECTION()
+Date: Fri, 11 Sep 2026 17:04:02 +0200
+Message-ID: <20260911-module-include-error_injection-v1-2-5da895d8c84d@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
 References: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
@@ -111,150 +110,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Several drivers/gpu/drm/i915/*.c files use ALLOW_ERROR_INJECTION(), which
-is defined in asm-generic/error-injection.h. They currently rely on this
-header being included indirectly through linux/module.h ->
-linux/error-injection.h.
+drivers/net/netdevsim/tc.c and net/core/skb_fault_injection.c use
+ALLOW_ERROR_INJECTION(), which is defined in asm-generic/error-injection.h.
+They currently rely on this header being included indirectly through
+linux/module.h -> linux/error-injection.h.
 
-Add the missing includes in preparation for removing the
+Add the missing include in preparation for removing the
 linux/error-injection.h include from linux/module.h.
 
 Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
 ---
- drivers/gpu/drm/i915/display/intel_connector.c      | 1 +
- drivers/gpu/drm/i915/display/intel_display_driver.c | 1 +
- drivers/gpu/drm/i915/gt/intel_engine_cs.c           | 1 +
- drivers/gpu/drm/i915/gt/intel_gt.c                  | 2 ++
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c           | 1 +
- drivers/gpu/drm/i915/gt/uc/intel_uc.c               | 1 +
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c            | 1 +
- drivers/gpu/drm/i915/i915_driver.c                  | 1 +
- drivers/gpu/drm/i915/i915_pci.c                     | 2 ++
- drivers/gpu/drm/i915/intel_uncore.c                 | 1 +
- 10 files changed, 12 insertions(+)
+ drivers/net/netdevsim/tc.c     | 1 +
+ net/core/skb_fault_injection.c | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
-index 7ef9338d67ab..a287884c0045 100644
---- a/drivers/gpu/drm/i915/display/intel_connector.c
-+++ b/drivers/gpu/drm/i915/display/intel_connector.c
-@@ -23,6 +23,7 @@
-  * DEALINGS IN THE SOFTWARE.
-  */
+diff --git a/drivers/net/netdevsim/tc.c b/drivers/net/netdevsim/tc.c
+index a415e02a6df1..e2d7d3aba193 100644
+--- a/drivers/net/netdevsim/tc.c
++++ b/drivers/net/netdevsim/tc.c
+@@ -1,5 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0
  
 +#include <linux/error-injection.h>
- #include <linux/i2c.h>
- #include <linux/slab.h>
+ #include <linux/netdevice.h>
+ #include <net/pkt_sched.h>
+ #include <net/pkt_cls.h>
+diff --git a/net/core/skb_fault_injection.c b/net/core/skb_fault_injection.c
+index 4235db6bdfad..2c7f519bef80 100644
+--- a/net/core/skb_fault_injection.c
++++ b/net/core/skb_fault_injection.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-only
  
-diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-index 70d112fd4287..204810a11e46 100644
---- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-@@ -7,6 +7,7 @@
-  * details here.
-  */
- 
+ #include <linux/debugfs.h>
 +#include <linux/error-injection.h>
- #include <linux/vga_switcheroo.h>
- #include <acpi/video.h>
- #include <drm/display/drm_dp_mst_helper.h>
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index c0fd349a4600..2c3bc7b67c0d 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -3,6 +3,7 @@
-  * Copyright © 2016 Intel Corporation
-  */
- 
-+#include <linux/error-injection.h>
- #include <linux/string_helpers.h>
- 
- #include <drm/drm_print.h>
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 5c7f862f7100..2f0e1cb5578c 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -3,6 +3,8 @@
-  * Copyright © 2019 Intel Corporation
-  */
- 
-+#include <linux/error-injection.h>
-+
- #include <drm/drm_managed.h>
- #include <drm/intel/intel-gtt.h>
- #include <drm/intel/intel_gmd_interrupt_regs.h>
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 1c455d84bf9d..091aa33f624a 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -4,6 +4,7 @@
-  */
- 
- #include <linux/circ_buf.h>
-+#include <linux/error-injection.h>
- #include <linux/ktime.h>
- #include <linux/string_helpers.h>
- #include <linux/time64.h>
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index bd07c72a66fc..d367a897c86b 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -3,6 +3,7 @@
-  * Copyright © 2016-2019 Intel Corporation
-  */
- 
-+#include <linux/error-injection.h>
- #include <linux/string_helpers.h>
- 
- #include "gt/intel_gt.h"
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-index 7fac97fe30a6..d7c731fe972b 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-@@ -4,6 +4,7 @@
-  */
- 
- #include <linux/bitfield.h>
-+#include <linux/error-injection.h>
- #include <linux/firmware.h>
- #include <linux/highmem.h>
- 
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index ce6d20958320..aeb7b24c81c8 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -30,6 +30,7 @@
- #include <linux/aperture.h>
- #include <linux/acpi.h>
- #include <linux/device.h>
-+#include <linux/error-injection.h>
- #include <linux/module.h>
- #include <linux/oom.h>
- #include <linux/pci.h>
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 2f03f95945f1..84a7dc6ab5db 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -22,6 +22,8 @@
-  *
-  */
- 
-+#include <linux/error-injection.h>
-+
- #include <drm/drm_color_mgmt.h>
- #include <drm/drm_drv.h>
- #include <drm/intel/pci_config.h>
-diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
-index 170e83a8c9fc..e360e4f9d9a2 100644
---- a/drivers/gpu/drm/i915/intel_uncore.c
-+++ b/drivers/gpu/drm/i915/intel_uncore.c
-@@ -21,6 +21,7 @@
-  * IN THE SOFTWARE.
-  */
- 
-+#include <linux/error-injection.h>
- #include <linux/pm_runtime.h>
- 
- #include <drm/drm_managed.h>
+ #include <linux/fault-inject.h>
+ #include <linux/netdevice.h>
+ #include <linux/skbuff.h>
 
 -- 
 2.55.0
