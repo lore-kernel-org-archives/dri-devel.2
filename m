@@ -4,58 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6CE8C88E45
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 07:07:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CD24C88E45
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 07:25:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03E6E10E364;
-	Fri, 11 Sep 2026 07:07:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0ABFC89DA5;
+	Fri, 11 Sep 2026 07:25:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tOqrpcJ8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ANl9844t";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3342410E364
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 07:07:12 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 489A963C;
- Fri, 11 Sep 2026 09:05:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1789110333;
- bh=/r+7JOA1R6vkpZwZjiLfITCVpMqEL7ms+Lgs78wkPK8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=tOqrpcJ8PBOOuBIl5zseKneF37qtHkReKhqPNfjXPhAF0e7JFXjBd0KTXKhDo9dVx
- LzoTmcIX/O/WSdKITbBP/MT600p1PqMHGTmMLDt1U2CwoVhd8DvpqLjHPCU0Q4ezkP
- 83vaa96Laiby10Z05/DnnsiRvMeHTXpO7PIUkX0E=
-Message-ID: <2489cf57-65f1-4502-86ae-1e3673899b87@ideasonboard.com>
-Date: Fri, 11 Sep 2026 10:07:07 +0300
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 416CF89DA5
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 07:25:02 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id DAF0542A07;
+ Fri, 11 Sep 2026 07:25:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93D7E1F000FF;
+ Fri, 11 Sep 2026 07:25:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789111501;
+ bh=BH+kR55l7q2T4yQ9SIaFXw37h9ozVxD3HhYmGKf8G4g=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=ANl9844tOuE5AoQGY+DjaIFqCkPogFuzPNdfQWqulQ1ewcXnDBgt4NdOoaAxooGZH
+ otw3WqXN/dfJ1pNs0X0yevkODFTPh3pxA9BwxVVkBA1iktQgUJQewif5xVbMODOWQG
+ p/mWIch3ra5WH3jLHFaw3cWT0YrPLRjUedj8sYvbwLEFVFwspXynmHIaliKaD8MzHM
+ Xaf5Qs18Xas8eGIznU7yaUWvc+9ptKBerpjAHFGKEw0DHIqd0hSZcM1yyqzMhkH095
+ IUQbqVg1ph51dt/CUhqYAMrmXLp66EUw6RS72Jj/2UD9lzJLKJvRcTkZjvnML1Ja+L
+ dkfqQ0ihw0QKA==
+Date: Fri, 11 Sep 2026 09:24:57 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Pavel Machek <pavel@kernel.org>, 
+ Michael Hennerich <michael.hennerich@analog.com>,
+ Support Opensource <support.opensource@diasemi.com>, 
+ Sebastian Reichel <sre@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, 
+ patches@opensource.cirrus.com, linux-watchdog@vger.kernel.org,
+ linux-gpio@vger.kernel.org, 
+ linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-leds@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, 
+ linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ llvm@lists.linux.dev
+Subject: Re: [PATCH 01/14] mfd: remove unused 88pm80x driver
+Message-ID: <20260911-righteous-arboreal-angelfish-3bcbdf@quoll>
+References: <20260909132153.1596191-1-arnd@kernel.org>
+ <20260909132153.1596191-2-arnd@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/6] drm/rcar-du: Add support for DSI pipelines with DSC
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
-References: <20260907-rcar-du-dsc-v6-0-f8ef711a7494@ideasonboard.com>
-From: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <20260907-rcar-du-dsc-v6-0-f8ef711a7494@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260909132153.1596191-2-arnd@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,28 +82,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 07/09/2026 12:29, Tomi Valkeinen wrote:
-> Some DSI pipelines have DSC (Display Stream Compression) IP block
-> between the DU and the DSI. Even if DSC is not needed, the IP must be
-> enabled for the DSI output to work.
+On Wed, Sep 09, 2026 at 03:21:38PM +0200, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
 > 
-> This series adds a basic DSC driver, so that the DSC IP gets enabled in
-> bypass mode. This enables DisplayPort output on Sparrow Hawk board, as
-> the DP output comes from DSI and sn65dsi86 bridge, and also White Hawk
-> board's second mini-DP output.
+> This pair of drivers was originally added as companion chips for pxa/mmp
+> SoCs, but the corresponding platform code was never merged, so it has
+> been unused the entire time.
 > 
-> Original series from Marek.
-> 
-> Note: I see that not every run of kms++'s kmstest gives me a picture on
-> my monitor. Sometimes the monitor seems to be trying to repeatedly sync,
-> but fails, and the screen stays black. However, I see this same issue on
-> WhiteHawk, which uses DSI0 pipeline, without DSC, so I think that is a
-> separate issue.
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+>  .../devicetree/bindings/regulator/88pm800.txt |  38 --
 
-Pushed the first three patches to drm-misc-next. I'll leave the dts ones 
-to Geert.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-  Tomi
+Best regards,
+Krzysztof
 
