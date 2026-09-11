@@ -4,87 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65896C88E5C
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F14B2C88E69
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 789AB10E9C7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C678910E9CC;
 	Sun, 13 Sep 2026 20:53:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="if5scmlu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IhQaDmaj";
 	dkim-atps=neutral
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
- [74.125.225.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96CEA10E760
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 16:35:13 +0000 (UTC)
-Received: by mail-wr2-f12.google.com with SMTP id
- ffacd0b85a97d-4843f22dc83so417123f8f.1
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 09:35:13 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15CCC10E363
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 19:54:51 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4998b5a63e2so14452695e9.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 12:54:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789230912; x=1789835712; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=lyDyzwXLDdcuGlMTGZyNhCieQRVuG7gzmR1vCWknrTU=;
- b=if5scmluUvIoWXxWX1ZgfljOkh3HGBgdlw3lxcJCo912x9W6/FGmM4GXZ8cTb2gaOm
- EGkQD72xVR1jnf9c6PL9LM4+zPF4n9I0BAGVlGj98vsRxdhmQRgchD/0XxRAHMK9GEE8
- KikuLL4Re5j3uoKzlXjvowBqbeH/sg3Hyjm3zQi+pr8g415FSC8dl8koE6yxrgpgVm/R
- csHcfsugskVcwpUNIBzZhO13UrcPnS9L5zQNxNbcNxgpKpPdWBho56jTG605jljgBUxq
- lUSvA+ZRYMuNWYELR5FRXgqhMVB9XAMKCTRI8hRSdf4ly6b6m3zfyY2vE8todFkzTYej
- 7baw==
+ d=gmail.com; s=20251104; t=1789156489; x=1789761289; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=+i+YV2SDOJ/fUOjXL4JkdG0lXGyDg3CLUWfYcCyxsKs=;
+ b=IhQaDmajzxcvbe0o553f/3q7jpPfJvm6udVw8RWfHcoekJVX/xbojWZkQgI7tS8JvF
+ dTgpc3gpCr8F8bA7lXG+5XQR8Qrc/lr7PA7h0U/LHmZI3ZNDoCxEfsZOX1mxw0zXMiqI
+ D1vuGqKh3TohuZqUxUzu4dWJ2GlXKXWrqMxfFF1wfUxdfq0zdb0d7YIa2+1eIkVIFjy6
+ 9yWnDI5tlxtwJtA3KaO/oj2I0TgYk4BF79HAk3jbW8JKW5TgzbLiiUGD6PsZbP9dUWM3
+ yUz0HPSQvhyp8Hu892TMCaZy8ZiSMebonSYV7GqdPqImm2dvIwQQdfeeDpoFy6Cl+OXH
+ VIMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789230912; x=1789835712;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=lyDyzwXLDdcuGlMTGZyNhCieQRVuG7gzmR1vCWknrTU=;
- b=b2ML6E3bZ84oabExtMj34XUptAFQ4VO8ks1+a7XoZbW6A9hoakLOP9XxDVOV0nArPO
- KCWqfxxEiSvm8ODxpHl7uexO+bJQsVKZAAoxsH3L1Lkh1PVVeDko7IZejV3s83SoT3QS
- JtCRwgMdCsEFI+0GmZJTAUJaqPIBDPzH4/9DyGFH+Wt6hntqdO+Zg2lJimLSgq6ympZH
- fxZ+u8Lo7arVYJZHZAWqHkFVIcPpav0tlKQ+a9T96nVmhrHhho/sTglH9byendrAxgzj
- Wl95cjxM2iXhBU6VWJSVkpOaIUkW0BYy6iiBmAPraCttFQoEx8ITHqKMe3W2DwifNpwc
- jaew==
+ d=1e100.net; s=20251104; t=1789156489; x=1789761289;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=+i+YV2SDOJ/fUOjXL4JkdG0lXGyDg3CLUWfYcCyxsKs=;
+ b=hpe7lHw+c03RRe4UPBLIdQj/7P493SzIT2362+25+j2GoZlJ9+Nqld/W2UvZQWxNK5
+ CQL0cuwB9AXL0VN+g9aH1tL2HRN8PUv5W8sW9uBxwDFPe6Z4dfLB3sGX1qilNLUY2+S2
+ 8PmxyKmvmg2WZlDLMbuNIt75dywQn8NaejX+cbeImFgLshCH9iEDXgEMWFgJs3FcJO4I
+ /1Y0UIFFEEndO8YehnMmbkiVat8Xya62Cj1ZN0AWHnzMbm05z0J7ain5u7MtEMm1PGsZ
+ P6pEApdFCXnoIUGsLY9cqOaxpuchomkGLgq2M8fIu3fwhcSnjimIJtbpCvmBa3cbhNhO
+ q0Dw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxPN0bbhpjnjpzMv5vc0bLBQCu9NIu3VhjNRcLahQtqBRFwZM2UnAEiYuf7l7sfEAMTpfL4+XyBr4o=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lqSZarqdqdpOlJ1bINvWblJ468NbJIWd0NBryelexFU0+TQKwO
- KhVaRIJRc1wpCTkhWAw/j1P0qZX7BUp5KxJBoZAP38QaYg+ED8PbroP0
-X-Gm-Gg: AYBFou34F7wCj3MnNtviEmFaMqeqXjHnGXFrK37aHjYaYQQlFD9toautvEXQ2EWb0HW
- bdKgg2DuFoainuykdpINz3JjCpvnB82MGmb5tp/wRtdbJvCZ0/QFpPt1uWEiUll4BBd2Z2AOO8v
- Jfcd2zO9DUL1ir4JQNrM6JDfJGQsdkkR8HzawNdbsIPVavbeW2ADFxHGw1cgZdn1Z9jH5voEY1n
- UG4krt0reEdMJrAmeBFHZRy1FxkUKyr/H1ps07UDKVwHx4ZBRSmNw6OZ0QUW4bB4RBrXbOAigQm
- XC7GLSj4b8USPujw/P8EX9A7sKzqY5g1CobqtrUYhL1yGnVQbpqiqeqhEYc7Zw45Ac8Z1W3fz2Q
- WUn7NqiH6MgyFuQYGY+F5SU2u8dbfFqYZohbnxaTiRdYOcEfazvySlnD+QE4DkQJBNC1NW9nn3l
- A8eM2PuKkUhCU4Fsx++E7Rhpv9vhpIRMHL4GRcguv2free9GXEQl0PRBaR6jnzLT+tNl0igXB+9
- 0ZVQ7phE+7XO6tIe+tucuarQV1kngMHRAVbSKCadEXV216ELXN1Zy4ClYGo4Nw9r5G37+EbrGVm
- F9Bt74i333ajovH88k/24KtqdnWWKdTsnQEGScTMwbNO/Dqp1Dl8oPlz8pWXokiBQW6v08OIxYQ
- =
-X-Received: by 2002:a05:6000:384:b0:486:e708:2e57 with SMTP id
- ffacd0b85a97d-486f6d4b39amr3108656f8f.39.1789230911707; 
- Sat, 12 Sep 2026 09:35:11 -0700 (PDT)
-Received: from unknown748F3CBA5068
- (dynamic-2a02-3100-b260-f201-9983-e8c4-aff5-7a36.310.pool.telefonica.de.
- [2a02:3100:b260:f201:9983:e8c4:aff5:7a36])
+ AKwUvBxAfkM0UYTSXyaRZtQGcI4VEzScGNPgYQtPKuAYc1/cDx1sZq9MENYI3Go+UR/tMJGCnfRtBr7P2yY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lG9AoQdhQ441tTOPYGKTB6RLlun4NLFVhyo/UUCcLVPAQJ7Ga4
+ NMJTBtM2C8qbqFemGPUA1sgDnWSScy1yGc/oIT8Z8PgBWWPB2cq7SSb0
+X-Gm-Gg: AYBFou1HNDSUK8lrq0b9t6E8KyH6LYKsbn6ie+zVimnSKYIA2+ZsS5nVYMv8BG5kelX
+ 1ycU3F52gHbsFYrxd7eqVkTwacGFv0Lj9FKGLuI3oVfOmnIbb36P9RiW9Ti8N1bLZ9DpqUxuRgR
+ vdAsn6r577d0HoeBCY19PsdfR81TA+YFhfll1wmNh8SASTX4SXZZSsc8uaqoD/EZPXFvQJ1jiDq
+ 6K9/uyKqzpjcC5Tzy7wnJjLad0Hkmp8XJNle6/nRof7Zs99XIuyobFN9pcn0MMJFgPqtnu4JNQ1
+ Dfswmy0yDdxBUNE+w3Yfii5Ur7SQQca6XYhMWgTFRZ1GKpS+CDiD/Bl+XPsq+iA0kAbsS0w/0Lq
+ hG+RRz69P+yhxEfmOdlk1Wx7Dau8IufF8bDJXkrg2lCPLNFrKNUBG+avnAv/Z0XsQwLLeyqeJwo
+ MxXosk83y7KmsS05KPfPnN7APw7+kbhl84BY0tDKlwoB4QpdEX16EioNdb1a3mEm1Apw8OupjFb
+ ocUEkJondY8ugwYH4cZFdSp4PmQgpdNAEoVq5DlYvXLzR+Sv+XwmSTbsbqH350ieJLh0uU2fMJ7
+ FIu5b62i3WDJ/+KYAAtxlSeqSCGmp3AqYhpH
+X-Received: by 2002:a05:600d:6501:20b0:49e:69e3:8848 with SMTP id
+ 5b1f17b1804b1-49e69e3916emr21708305e9.30.1789156488932; 
+ Fri, 11 Sep 2026 12:54:48 -0700 (PDT)
+Received: from localhost.localdomain
+ (dynamic-095-114-033-154.95.114.pool.telefonica.de. [95.114.33.154])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-486eb34e74esm13986020f8f.25.2026.09.12.09.35.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 12 Sep 2026 09:35:11 -0700 (PDT)
-Date: Sat, 12 Sep 2026 18:35:09 +0200
+ 5b1f17b1804b1-49e6576122bsm92640705e9.2.2026.09.11.12.54.47
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Fri, 11 Sep 2026 12:54:48 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sam Ravnborg <sam@ravnborg.org>, 
- Danilo Krummrich <dakr@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/gem-dma: Correct GEM object wrapper documentation
-Message-ID: <aqV-2xxp3Zy5IWqL@gmail.com>
-References: <20260912063258.43169-1-kmehltretter@gmail.com>
- <20260912162516.GA1892234@killaraus.ideasonboard.com>
+To: Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Antonino Maniscalco <antomani103@gmail.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+Subject: [PATCH] drm/gpuvm: Fix names that do not exist in kernel-doc comments
+Date: Fri, 11 Sep 2026 21:53:28 +0200
+Message-Id: <20260911195328.78529-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260912162516.GA1892234@killaraus.ideasonboard.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,17 +102,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Sep 12, 2026 at 07:25:16PM +0100, Laurent Pinchart wrote:
-> > Fixes: e580ea25c08d ("drm/cma-helper: Pass GEM CMA object in public interfaces")
-> > Fixes: 05b1de51df07 ("drm/cma-helper: Export dedicated wrappers for GEM object functions")
-> > Assisted-by: LLM
-> 
-> Throwing LLMs at this kind of things is neither a good use of computing
-> resources nor a good use of maintainer time. Please refrain from doing
-> so in the future.
-> 
+The GPUVM documentation refers to drm_resv and
+drm_exec_prepare_object(), but the reservation object type is dma_resv
+and the locking helper is drm_exec_prepare_obj().
 
-I view it differently but respect your wish for drm.
+Use the existing names in the reservation object and map locking
+documentation.
 
-Thanks,
-Karl
+Fixes: bbe8458037e7 ("drm/gpuvm: add common dma-resv per struct drm_gpuvm")
+Fixes: 471920ce25d5 ("drm/gpuvm: Add locking helpers")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ drivers/gpu/drm/drm_gpuvm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
+index d1c80ad3deadb7f2e78abf7e50e61ad085391e3f..c43708be348c3659bc7888c1aad25b470ff2cee0 100644
+--- a/drivers/gpu/drm/drm_gpuvm.c
++++ b/drivers/gpu/drm/drm_gpuvm.c
+@@ -1051,7 +1051,7 @@ static const struct drm_gem_object_funcs drm_gpuvm_object_funcs = {
+  * @drm: the drivers &drm_device
+  *
+  * Allocates a dummy &drm_gem_object which can be passed to drm_gpuvm_init() in
+- * order to serve as root GEM object providing the &drm_resv shared across
++ * order to serve as root GEM object providing the &dma_resv shared across
+  * &drm_gem_objects local to a single GPUVM.
+  *
+  * Returns: the &drm_gem_object on success, NULL on failure
+@@ -2718,7 +2718,7 @@ static const struct drm_gpuvm_ops lock_ops = {
+  * @req: ptr to drm_gpuvm_map_req struct
+  *
+  * This function locks (drm_exec_lock_obj()) objects that will be unmapped/
+- * remapped, and locks+prepares (drm_exec_prepare_object()) objects that
++ * remapped, and locks+prepares (drm_exec_prepare_obj()) objects that
+  * will be newly mapped.
+  *
+  * The expected usage is::
