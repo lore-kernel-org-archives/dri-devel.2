@@ -4,91 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65ADAC88E53
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 17:56:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36F96C88E53
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 18:00:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B68EC10F6AB;
-	Fri, 11 Sep 2026 17:56:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89CAC10E0BD;
+	Fri, 11 Sep 2026 18:00:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="HC7y0BiC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="erOXO1fI";
 	dkim-atps=neutral
-Received: from mail-ua1-f100.google.com (mail-ua1-f100.google.com
- [209.85.222.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C12A10F6AB
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 17:56:22 +0000 (UTC)
-Received: by mail-ua1-f100.google.com with SMTP id
- a1e0cc1a2514c-97ca74bd6e0so607519241.1
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 10:56:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789149381; x=1789754181;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=tKmOUocrauyeK7OUmDQb9zXFbJNdZJDpnUAdZqB3sgE=;
- b=hwbNvqg+msgZWOD9x+WEyjV2BixP9Lh0z83KaSESi4rd+aTTg8FRFHRvc9xsM0xDSL
- YiVaGEr/Vn35ZrOtRlZ8xOwAW354FBJnBXIt1NEpKBoEeZBs8Fw9yvUEUIdk+sv3Rdz2
- ZbhMzL6r3E2cYf2fYRTtjQ4TLpFvCUyEuKJ9ZUTsQ6VDRQ9DMB8UFwc+LUJVSl4l8S7E
- URJT2D+ISTMDAs3d4kgCC0Ag2jlPo0dG2iilH2gyQr7HTykteXHlUUuz6a4c/9lqyw+v
- /O4lWs5Voi1mTczpa7hKuzpLklNjEOmFzzJ+UtDNZUFb23TQfNDBNsON7PlrrVnSD9cq
- FbLg==
-X-Gm-Message-State: AFuF++mQHhCFydjwcVNKw/81u3vNKv6+BFd4Hi4dwrqpdxGzrWYIIAuo
- R0XL9ym0ZY0+ReDEj5Vp9QPU+JL+YgCgOdA4nkjx/VdKWnHOz+lhplTcKe1LDKK+EuF34biuIpe
- VsB6I7YeZkInCPwwLK8xTizw2F9rgPwNsnFh0+kTasql9oC9QC3HsLCg3HpbMdyIp0tNstAzFje
- LuqQUQLkLz1Dvji19SaTFBWQe++yiFwubbcRhpexFRaC43I/e8ljTo9uQi09dvhrUtVbGK/Zkcd
- gLCg8CFVhM7ZX7n+5Y5
-X-Gm-Gg: AYBFou3RfWeUYK7h3vqfrJOH2/HS7p8yp5lqhTT5MvnFTfJFRw//xzjEc6AJi1HkzRk
- iFXiX/+DpYm4xzqJKiDu9qhox3aq5MQhI169848D2amhE8CT9E/dZ21yzb0f9/g/rJxSJ/u131X
- EioqZR7nOodotl9nHxsx70DMXXtri0G7egIpO2xkNfqYpUsywxIjSGmENFqobg52JbvCQ+J2Ml+
- P2SiIFZGTJmoaS7fVbFeG3xb6DGyXWU0qOHjVxBMM78L+JDtr9EQopI8/8uwWRFA83ou8VrdQvY
- /BzfvItk3n2v4dyAea2dlArj/SiqtGMmCCq+HGBqvs06Bt9swcU4fdsHV75c91LSGcOiMNV8HGH
- Xbhc1Qk62uv4l1tPOAfdFnAtdw+9A5YTqLEr88vlI8UO+YKD+8R8JOByy/sFmYrfVYuEVI0WMt1
- t5OlQf2nXhDwWgN4NTSKd4HEtFW5qeXwNT
-X-Received: by 2002:a05:6122:d82:b0:5bf:a179:b2be with SMTP id
- 71dfb90a1353d-5c846310516mr8633068e0c.7.1789149380679; 
- Fri, 11 Sep 2026 10:56:20 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-14.dlp.protect.broadcom.com. [144.49.247.14])
- by smtp-relay.gmail.com with ESMTPS id
- 71dfb90a1353d-5c8470ae879sm1306832e0c.4.2026.09.11.10.56.20
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 11 Sep 2026 10:56:20 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-530cfe43441so17549191cf.2
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 10:56:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1789149380; x=1789754180;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=tKmOUocrauyeK7OUmDQb9zXFbJNdZJDpnUAdZqB3sgE=;
- b=HC7y0BiCxwHlmjzSvJl5UkzemCNHsDi46JDR7sYIR6SVto480BOiWb40JvhZtLj0fn
- AXmSrvb7xXHeukwQ+gBETgN2GUkJqnRBLVnFJ+P/GrhGGvdI7wxt+BmWVwAwd0r0Vk47
- OPo/zDfQB4kLwZsEdlrx1Fm+8zNzi+AXYYfv4=
-X-Received: by 2002:a05:622a:386:b0:52f:c0b8:b619 with SMTP id
- d75a77b69052e-530c86a10f7mr76252341cf.29.1789149379930; 
- Fri, 11 Sep 2026 10:56:19 -0700 (PDT)
-X-Received: by 2002:a05:622a:386:b0:52f:c0b8:b619 with SMTP id
- d75a77b69052e-530c86a10f7mr76247401cf.29.1789149374481; 
- Fri, 11 Sep 2026 10:56:14 -0700 (PDT)
-Received: from plasma.dhcp.broadcom.net ([192.19.144.250])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-9120f4b3dcesm26160406d6.31.2026.09.11.10.56.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Sep 2026 10:56:14 -0700 (PDT)
-From: Ian Forbes <ian.forbes@broadcom.com>
-To: dri-devel@lists.freedesktop.org
-Cc: bcm-kernel-feedback-list@broadcom.com, zack.rusin@broadcom.com,
- maaz.mombasawala@broadcom.com, Ian Forbes <ian.forbes@broadcom.com>
-Subject: [PATCH] drm/vmwgfx: Add blend mode property
-Date: Fri, 11 Sep 2026 12:56:07 -0500
-Message-ID: <20260911175607.1127474-1-ian.forbes@broadcom.com>
-X-Mailer: git-send-email 2.55.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3304D10F6A7
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 18:00:46 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0A0486020C
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 18:00:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4B4D1F00893
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 18:00:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789149644;
+ bh=Ln4tV/9ltZBeYzidwNmaTydpreMcBH5u6aBCjr2S9kQ=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=erOXO1fI8BTv33vuqCDeLVZR1/xGGhk/9jvSxvg23iX7Bzjz3FblmZIU113LvIASc
+ uo8/UAa3HeYZnYbC8lAqh0UbNAig3LwFPXwHjTtj9OdLOzipxe3i9Uu/Mw68iMb+Y5
+ TpGFYQPL7TklzG6U8KA1DopN+B6srF49kzxoH7kNJoN4Byxksc9ZU7gymkNYoS4grk
+ VDt1ONBvAkeobY30145XsYFcE+WZkOS2UZLfN/wsJQr+efeg8icOV5ZZcVFanqqJQd
+ o78xXtjOtFREOCLxi31rrOG9APwq+ZsryCvm3Ytl31w3Wm7Jy775hJOxOWGxKS7nyb
+ +oFu/wWkBLyEw==
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-5b6031cbc6bso1271017e87.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 11:00:44 -0700 (PDT)
+X-Gm-Message-State: AFuF++nUNWT9tFOD2n55jcC7snUy+rtZPxvu6HyVZigGph1u8wvJOU39
+ Dt7hW9jfq1lT1hoXitG2kGk96XSsvpXvmkH5ukfz/KMuRBGcFfIMlzlIwhNcybb+oV+5B0Ad7VB
+ GgP+lsVsAQGMgAibbJW8Px3IIgiF6X9A=
+X-Received: by 2002:a05:6512:10c4:b0:5b8:993e:6dcb with SMTP id
+ 2adb3069b0e04-5b8a029ddb7mr1100799e87.20.1789149643414; Fri, 11 Sep 2026
+ 11:00:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+References: <20260825105427.686619-1-roshaen09@gmail.com>
+ <20260910192526.137057-1-roshaen09@gmail.com>
+In-Reply-To: <20260910192526.137057-1-roshaen09@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 11 Sep 2026 20:00:30 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=fnA9qV9XpAScM5knc+aY4eHG3r9a5RrGnhvVqORwMhA@mail.gmail.com>
+X-Gm-Features: AcwNN1VNyS5JesON5oceppyiBvf6Kxyrr06Pf03uMf0r2u2yehdu3ym0fg0KUnw
+Message-ID: <CAD++jL=fnA9qV9XpAScM5knc+aY4eHG3r9a5RrGnhvVqORwMhA@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/pl111: drop alpha formats the hardware cannot scan
+ out
+To: Roshan Kumar <roshaen09@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, leandro.ribeiro@collabora.com, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+ airlied@gmail.com, simona@ffwll.ch, pimyn@google.com, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,36 +72,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This stops the log spamming introduced by the referenced fixes commit.
+On Thu, Sep 10, 2026 at 9:25=E2=80=AFPM Roshan Kumar <roshaen09@gmail.com> =
+wrote:
 
-Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-Signed-off-by: Ian Forbes <ian.forbes@broadcom.com>
----
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+> The PL110/PL111 controller scans out a single framebuffer and never
+> blends its alpha channel with anything. In every pixel-format table
+> each alpha-carrying entry (ARGB/ABGR in 8888, 1555 and 4444) maps to
+> exactly the same register configuration as its XRGB/XBGR counterpart,
+> so the alpha byte was never used by the hardware.
+>
+> Commit 860e748bddcc ("drm: ensure blend mode supported if pixel format
+> with alpha exposed") added validation that warns when a plane exposes
+> alpha formats without a pixel blend mode property, and PL111 does exactly
+> that. With panic_on_warn enabled the warning prevents the syzkaller
+> vexpress-a15 manager from booting.
+>
+> Drivers should not report formats they do not support, so remove the
+> alpha formats from all variant tables: the generic PL110, PL111 and
+> Nomadik tables in pl111_drv.c and the board-specific Integrator, IM-PD1,
+> Versatile and RealView/Versatile-Express tables in pl111_versatile.c,
+> plus the now dead case labels in the display setup and the Versatile
+> syscon connector switch, instead of advertising a blend mode property.
+> Behavior is unchanged for userspace that picks an XRGB/XBGR/RGB format;
+> alpha-picking clients fall back to the identical X variant.
+>
+> Link: https://github.com/google/syzkaller/issues/7805
+> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format wi=
+th alpha exposed")
+> Signed-off-by: Roshan Kumar <roshaen09@gmail.com>
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-index 1b407b61f683..c06548960008 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-@@ -20,10 +20,17 @@
- #include <drm/drm_rect.h>
- #include <drm/drm_sysfs.h>
- #include <drm/drm_edid.h>
-+#include <drm/drm_blend.h>
- 
- void vmw_du_init(struct vmw_display_unit *du)
- {
- 	vmw_vkms_crtc_init(&du->crtc);
-+	drm_plane_create_blend_mode_property(&du->primary,
-+					     BIT(DRM_MODE_BLEND_PIXEL_NONE));
-+	// Check that the cursor plane was actually initialized
-+	if (du->crtc.cursor == &du->cursor.base)
-+		drm_plane_create_blend_mode_property(&du->cursor.base,
-+						     BIT(DRM_MODE_BLEND_PREMULTI));
- }
- 
- void vmw_du_cleanup(struct vmw_display_unit *du)
--- 
-2.55.0
+Patch applied to drm-misc-next with Thomas' review tag.
 
+Yours,
+Linus Walleij
