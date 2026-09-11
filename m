@@ -4,69 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CD24C88E45
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 07:25:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA998C88E45
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 07:29:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ABFC89DA5;
-	Fri, 11 Sep 2026 07:25:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC3B110E376;
+	Fri, 11 Sep 2026 07:29:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ANl9844t";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WzhafR5U";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 416CF89DA5
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 07:25:02 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2A9E10E376
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 07:29:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DAF0542A07;
- Fri, 11 Sep 2026 07:25:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93D7E1F000FF;
- Fri, 11 Sep 2026 07:25:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E8499601EF;
+ Fri, 11 Sep 2026 07:28:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C731B1F000FF;
+ Fri, 11 Sep 2026 07:28:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789111501;
- bh=BH+kR55l7q2T4yQ9SIaFXw37h9ozVxD3HhYmGKf8G4g=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=ANl9844tOuE5AoQGY+DjaIFqCkPogFuzPNdfQWqulQ1ewcXnDBgt4NdOoaAxooGZH
- otw3WqXN/dfJ1pNs0X0yevkODFTPh3pxA9BwxVVkBA1iktQgUJQewif5xVbMODOWQG
- p/mWIch3ra5WH3jLHFaw3cWT0YrPLRjUedj8sYvbwLEFVFwspXynmHIaliKaD8MzHM
- Xaf5Qs18Xas8eGIznU7yaUWvc+9ptKBerpjAHFGKEw0DHIqd0hSZcM1yyqzMhkH095
- IUQbqVg1ph51dt/CUhqYAMrmXLp66EUw6RS72Jj/2UD9lzJLKJvRcTkZjvnML1Ja+L
- dkfqQ0ihw0QKA==
-Date: Fri, 11 Sep 2026 09:24:57 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Guenter Roeck <linux@roeck-us.net>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Pavel Machek <pavel@kernel.org>, 
- Michael Hennerich <michael.hennerich@analog.com>,
- Support Opensource <support.opensource@diasemi.com>, 
- Sebastian Reichel <sre@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, 
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-hwmon@vger.kernel.org, 
- patches@opensource.cirrus.com, linux-watchdog@vger.kernel.org,
- linux-gpio@vger.kernel.org, 
- linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
- linux-leds@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
- linux-fbdev@vger.kernel.org, 
- linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- llvm@lists.linux.dev
-Subject: Re: [PATCH 01/14] mfd: remove unused 88pm80x driver
-Message-ID: <20260911-righteous-arboreal-angelfish-3bcbdf@quoll>
-References: <20260909132153.1596191-1-arnd@kernel.org>
- <20260909132153.1596191-2-arnd@kernel.org>
+ s=k20260515; t=1789111739;
+ bh=Siv/JOnOWpp5ACBj6LSRMBtmW7jmZUuRAjwYs4ybOoY=;
+ h=Date:From:Subject:To:Cc:References:In-Reply-To;
+ b=WzhafR5ULsnJTgfpYBr3Z2Xkbmpzl9/J80h7G+iGODawiT7LV0uMOEtudGclsMPf8
+ S2zjA6yvXpBYHyN9i1HdZj/WABbgEC2Hzdz9N9Qs/0Y1ZUl6oKJs4DI0/pJa0AQXir
+ RaUEr1bSLRlRMEQYImtica4NndOz7Lnj38SPE1tNXrnyAWbue02IZoPHaxPo3Eu55c
+ lcsRwBouKGOmiHanw2i6xoWdCi1BVEtfNzes2yfaKZ6En0DOqwYMCscSJ3WG20FmkZ
+ iuatFzd9w7inVznH50+c2WktrmoeE8GiakG5qS58Xxq7ZOTeEBGzfaTCzWLnD81dBp
+ 3BhV7CEZH2PaA==
+Message-ID: <3b2f5c66-f64f-469b-830d-0661bb8e5015@kernel.org>
+Date: Fri, 11 Sep 2026 09:28:56 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260909132153.1596191-2-arnd@kernel.org>
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [BUG] DP-CEC wake NACKs after S3 with UGREEN DP-to-HDMI adapter
+To: "jason.boukheir" <jason.boukheir@proton.me>,
+ "hverkuil@kernel.org" <hverkuil@kernel.org>
+Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+References: <TFctb54_X3tcJgjwjgYtyT0zWzSn5O7i9SiOF6Crr30KLAJD4n6qYghg2xEVKLYMFjfBi1I8pwYciNDpGyJspN7kI1vsaIxXIdFsffhIOnc=@proton.me>
+Content-Language: en-US, nl
+In-Reply-To: <TFctb54_X3tcJgjwjgYtyT0zWzSn5O7i9SiOF6Crr30KLAJD4n6qYghg2xEVKLYMFjfBi1I8pwYciNDpGyJspN7kI1vsaIxXIdFsffhIOnc=@proton.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,19 +60,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 09, 2026 at 03:21:38PM +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> This pair of drivers was originally added as companion chips for pxa/mmp
-> SoCs, but the corresponding platform code was never merged, so it has
-> been unused the entire time.
-> 
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  .../devicetree/bindings/regulator/88pm800.txt |  38 --
+Hi Jason,
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On 08/09/2026 17:59, jason.boukheir wrote:
+> Hi Hans,
+> 
+> I'm reporting a CEC resume problem on my desktop and would appreciate help identifying the right subsystem and next diagnostic steps.
+> 
+> AI disclosure: I used OpenAI Codex to inspect retained local logs and kernel source and prepare this report. The observations below come from those logs; the proposed cause is AI-assisted analysis,
+> not an independently confirmed diagnoses. The attached local patch is an experimental workaround without independent upstream review, not a merge-ready submission.
+> 
+> Hardware/setup:
+> - Sapphire Pulse Radeon RX 9070 XT (Navi 48), amdgpu.
+> - GPU DP-1 -> UGREEN 8K@60Hz Active DisplayPort to HDMI Unidirectional Adapter, 0.66FT -> Samsung QBQ90S TV, HDMI 2.
+> - Exact adapter SKU, chipset, and firmware are unknown.
+> - NixOS, locally customized CachyOS-derived kernels; deep / ACPI S3 sleep.
+> 
+> In a July 31 capture (CEC driver version 7.1.5), the TV replied to power status queries before suspend. After S3, the adapter still reported physical address 2.0.0.0 and Playback logical address 8,
+> but all 30 directed Image View On attempts to the TV returned "Not Acknowledged ... Max Retries". The kernel journal independently confirms S3 entry and exit.
+> 
+> A later setup with a local kernel patch plus separate cecd retry changes logged restored CEC tunneling state, TV wake ACKs, and an active-source announcement after resume. It did not receive a
+> confirmed TV power-status reply. This is not a controlled comparison: the kernel version and userspace both changed, and another CEC wake service ran during the baseline capture. I have not reproduced
+> this on current vanilla mainline.
+> 
+> The suspected mechanism is converter CEC state becoming lost or stale while Linux retains its enabled adapter state. The patch checks the tunneling-control and logical-address-mask registers during
+> unchanged adapter attachment and replays cached state if needed. However, we have no raw register capture proving state loss, and the normal EDID removal path should invalidate the physical address
+> and trigger reconfiguration.
+> 
+> Would you recommend investigating the common DP-CEC helper or the amdgpu resume/HPD lifecycle first? Which tracepoints or register captures would best distinguish these possibilities? No known-good
+> kernel has been established, so I'm not claiming a regression.
+> 
+> Attached are selected log excerpts, detailed investigation notes (including limitations), and the experimental patch for context.
 
-Best regards,
-Krzysztof
+After reading the long, rambling AI generated report I conclude that it boils down
+to the fact that after suspending, then resuming the video source, the CEC adapter
+no longer works because it has lost all state.
+
+I don't think I ever tested this scenario, although I'm not sure about that since it's
+a long time ago that I worked on this. Most likely, when suspended the 5V line of the
+HDMI output is pulled low, and the DP-to-HDMI adapter loses power.
+
+I will debug this, but it may take a few weeks before I get around to it. I'm not
+very familiar with how suspend/resume works in drm: after resume, does it assume
+the same display is still connected, or does it do a full 'discover what displays
+there are' process? It depends a bit on how it works to determine the right solution.
+Your patch may actually be on the right track.
+
+Regards,
+
+	Hans
+
+> 
+> Thanks,
+> Jason
 
