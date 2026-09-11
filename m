@@ -4,61 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE059C88E56
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 12:18:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75369C88E50
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 12:28:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4FCF10E3B9;
-	Fri, 11 Sep 2026 12:18:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EFFD10F58A;
+	Fri, 11 Sep 2026 12:28:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aAQ+hldR";
+	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="mBHXKstg";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="PI9cm4GT";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAD2110E3B9
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 12:18:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4EDB24060F;
- Fri, 11 Sep 2026 12:18:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2E6E1F000FF;
- Fri, 11 Sep 2026 12:18:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789129091;
- bh=jHKVUDAo0z6whhrbNJF6SbfebzVXyt+Gb9SGUTy+yyQ=;
- h=From:Date:Subject:To:Cc;
- b=aAQ+hldRYIpJ6p0ID74ri/6MY9oOOJ8vjpAHP+ZrrTZLv7SfQowrcHJlh3wDdz1a2
- 54aXH7q0KVSmzSdCkwanyJyTX2iLlYstI6vKa9u6pG8/SnxhFq6UTGsJfIryByNXNH
- 78vFSRtqG9f9dlTi66FjFrgNn5JUF0DqgD0gJmbzt/svJb2nVhXZUGjQwr1EuYuooK
- +zhSiGLj5WSmnfJADDSnS/gYBeSJUaixEwlzhylE1YJnuip3YI1XCReighjjEBapGk
- 3snE4TF89RgAyKlIS8nwufk6i80XVEXkDc9Nhr+MOPtP7gD2wPgwPF3psWnUAroxOI
- qkZBdg3ZYVELg==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 11 Sep 2026 14:18:04 +0200
-Subject: [PATCH v2] drm/ci: Add CI pipeline for drm-misc branches
+Received: from fout-b7-smtp.messagingengine.com
+ (fout-b7-smtp.messagingengine.com [202.12.124.150])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2826410F595
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 12:28:39 +0000 (UTC)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfout.stl.internal (Postfix) with ESMTP id 5C2341D000D4;
+ Fri, 11 Sep 2026 08:28:38 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-06.internal (MEProxy); Fri, 11 Sep 2026 08:28:38 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:content-type
+ :date:date:from:from:in-reply-to:in-reply-to:message-id
+ :mime-version:references:reply-to:subject:subject:to:to; s=fm2;
+ t=1789129718; x=1789216118; bh=AxIoCKz1yyOSLbMtsd8JqYfnrAUlEyRE
+ EcynxoQinI8=; b=mBHXKstgOIb+9zqZmdPcgW8QZPm+Seyc4JfIavD+XgGiPapr
+ +WOkKpJjqaPNRo1JmzcSLDTyEKJeV3n45CgY4AjIHQ4ReGb/557dEDHnf/1/nnV7
+ IEA4MUin8DiA5yN+PEb2W3mPsDESCWvOEHhGJ4Yp0biyP7osfRO7SaBbUPVELNIU
+ GCad5QeDUPJQ5xgqlNp94sa0ZwVIhbIYgrhpN5u1uV3x9PCwyiymIykF4XEPmPKv
+ TfWic/xYwgGNDf1BEsgGPPKb35B0DtEQNfgXJoSHwQhs3DO7VA+PmZoD0rkH2pXk
+ Ip0Ec21t7ooiQGaJrFWyhiPr0VCToRKoP5UoXg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789129718; x=
+ 1789216118; bh=AxIoCKz1yyOSLbMtsd8JqYfnrAUlEyREEcynxoQinI8=; b=P
+ I9cm4GT7H9gZOXsfmAmWHYj6tNwLL71dk6vRUh2++NJF6n/Hh+RVYmXQWwYnhLq0
+ +/E8HtB3/VYCJy0zPSvcn7olOGjWZFFFbZDF4gwhi0OCwsbqYKdkP0CfoWNuAFun
+ uqNLj47ORyuX6jTrSp/5sdS0FThLpzBx7glL+SYmuvD5exPrWDoCpxQcR0JQCRkY
+ AdpE0MjhPdSHDEYpNjFznOAPjEQGLUMVtHZYR37PNB1ihscXStLiRK4qY+NSzd2H
+ uwAUOhYSr2p+m5LWctClYukJA1XSL3HRXjbcRGnwUCit2mG0uKwNgUzRmz2RXQ2P
+ JNi+0p7KYkSIMsrkleuXA==
+X-ME-Sender: <xms:9fOjatP6ixP8qs3NDLmUvvpdv7iMfOAdfQa9EoNnsJFlns1hq2onow>
+ <xme:9fOjatEajX-efmgtR9-OzNw2baMiMah9wwPEaumcmUwz2GjR80xBmcCPnP5Qzrf2Y
+ FrNm-F6T0oj3vy1Ez9lP1TjaIiq-MhNvj9qPbmlFK2c_M-j9WLXfHAl>
+X-ME-Received: <xmr:9fOjarSK1A-dhFEPgNt-LAlfXrt-8Za1gxAd3n2vU7OcLwDwOZprug58s48nCWVG8BcW_fRAFA>
+X-ME-Proxy-Cause: dmFkZTEC7DY9vvYQjeiSkR25MRA1DOJZ3ovd8QcyXQQdSSrFDKPjvfnOr0rOFxEvcnz2AX
+ CDeub2noA69X+cISN1KvI0M3SDAZzQPTMr08OL5oiufzteTfHMPFycuW96aLnwnK0j7G7g
+ mhScvUblXhIENvh9mXFfECZpuytodTmEs9SJjhKWG/9dRq7QdYR/GQmKirMQRPNSTReuON
+ wPSKXxLB8CZnInNY+74Kl2R3HUxBC0cRXn8D5ZGRmzG7GJompv4OJmIffcK9WhJjq6+JAn
+ jlXT1woR9/J9ItM+WRyO6pDrrtp4dVXt1Nov8FtCwmYITPSj6TBtTeiKswl77PFcGhSfoV
+ M5Mo6LviwFO1+3qCSkFPqy+9IFlvTHhNK8Dziq2xcdH3AfQHh22bjetXq7wCGHPQf7lvjr
+ PKJfzBq5pTRuUpG9Tn+/dOVBSb4VsUBt8aqs6L+BP38D5M+JPNyuiBM/XDFB+Stm1Kz2al
+ lyVRxLPHvWnKHDM0dp85j3TXBxHmcQHa4r4/Z19//X2NcWsVGaxXXnSsyEnJYidSbHQQeH
+ Fkl5ttYHz2HQZaIz4zl2xitISQen9JPZJnUPz8PVPo2ut9oI0t4DrK6HF4+skoq2gE3sQV
+ 821rgf20ZA7twEQiJXUTaI9yrlio+020kvHZB6LhmOXv8nfHYQifsgL8Qfgg
+X-ME-Proxy: <xmx:9fOjaqsORv4yFg15fCdOkPsGcWuKZJ1p9zcbITSHox2VolsyyXpHZw>
+ <xmx:9fOjajIiF_xGPO69p0SHPgEw9SXZGvK4JY4EDDYwDJfMd-NIP0_N0A>
+ <xmx:9fOjavnVbUnfr32S_sPeW4lKFffeaQTn4bOL9ztP8R4EWrKQAbCOVw>
+ <xmx:9fOjasJAewU8cY3ntNL7jfdOVy25QzJQQBRjK47yqXvirh4Z4-wXOQ>
+ <xmx:9vOjanjDHmCaBKpNihM5Za0Mqfn3Tge7jydt-tm1fulrIJ3TLx6fypJV>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 11 Sep 2026 08:28:36 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: royalnet026@gmail.com
+Cc: tomeu@tomeuvizoso.net, linux-rockchip@lists.infradead.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v10 00/13] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Sat, 12 Sep 2026 00:28:32 +1200
+Message-ID: <20260911122832.1364839-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260831040804.24111-1-gahing@gahingwoo.com>
+References: <20260831040804.24111-1-gahing@gahingwoo.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-drm-drm-misc-ci-v2-1-1847f89585cb@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNwQ7CIBBEf6XZs2sosUQ8+R+mhwpru9GCWQzRN
- Py7yN3DHN5MZmaDRMKU4NRtIJQ5cQwV9K4Dt0xhJmRfGbTSRlml0cvatHJy6BjJGWfsoEyNoba
- eQjd+t8XLWHnh9IryaQe5/7n/t3KPPR6sVwNpfaTper6TBHrso8wwllK+UEnhjq8AAAA=
-X-Change-ID: 20260902-drm-drm-misc-ci-ec6c69506609
-To: Helen Koike <helen.fornazier@gmail.com>, 
- Vignesh Raman <vignesh.raman@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- llvm@lists.linux.dev, Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6653; i=mripard@kernel.org;
- h=from:subject:message-id; bh=NzzY7RUdWhKU2ZfFof5lCsnTC/UnuSb4itF8/l+oQfY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmLP9ZVSdxuWVafcuJbwOo58YpOL/9fDXl2Lp9Jecr/t
- 6btObIqHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAimZcZa6Xm/Jzdn3XT+IqV
- Rt1XKa2m+9XeEloqf3T2bn37p3TRxym5m1Inqaf7T2pav2O+7VS3RMaGbZ/Pden8u6+/QZgzq4G
- 5JiDmxq5lx36E/WpPsVsrlvj8wraHRhKdDOuv7ZNymDA71M4dAA==
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,198 +96,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The DRM CI infrastructure builds upon Mesa's CI to run IGT tests on
-hardware. Its focus is on functional testing on a selected number of
-targets.
+Hi Igor,
 
-The concern for drm-misc is different: it merges a large number of
-patches across many platforms, and build or unit test breakages happen
-on a regular basis. Adding build and unit testing for drm-misc has been
-on the back of our minds, and a first attempt was made last year. The
-feedback was to rely more on the existing infrastructure.
+A correction to what this cover said about your differential run, and to
+what I said to you about it on 27 August.
 
-Introduce a CI entry point that runs on pushes to drm-misc-next,
-drm-misc-fixes, and drm-misc-next-fixes. It reuses kunit.yml,
-check-devicetrees.yml, and the freedesktop ci-templates, while defining
-build templates inline to avoid pulling in the Mesa pipeline.
+The cover said a job had signalled completion with its output buffer
+never written, all 48 channels 0x80, and that across 102 induced resets
+in nine runs it appeared only on the arm without 1/13 and 2/13. None of
+that is what you reported.
 
-A single Debian container with LLVM handles cross-compilation to all
-three architectures. The pipeline compiles the kernel using defconfigs
-from the drm/tip rerere-cache branch, runs the DRM KUnit tests, and
-checks device tree bindings.
+Your table is 12 + 8 + 12 + 13 = 45 resets, two passes per kernel, and
+you wrote that the race did not manifest in the 45 on either kernel,
+with the oracle 48/48 on both arms. The 0x80 is ours: on RK3576 a fresh
+shmem BO is zeroed and teflon's readback adds 0x80, so an output buffer
+that was never written reads back as a uniform 128. I carried our own
+signature onto your RK3588 run, which never reported it.
 
-Link: https://lore.kernel.org/all/20250319-greedy-sturgeon-from-avalon-ac758f@houat/
-Acked-by: Vignesh Raman <vignesh.raman@collabora.com>
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
-Changes in v2:
-- Run dt_bindings_check
-- Run on push instead of MR after some discussions with Dave and Sima
-- Test run here: https://gitlab.freedesktop.org/mripard/kernel/-/pipelines/1744733
-- Link to v1: https://lore.kernel.org/r/20260902-drm-drm-misc-ci-v1-1-49d05e228eab@kernel.org
----
- drivers/gpu/drm/ci/drm-misc-ci.yml | 147 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 147 insertions(+)
+The patch text is the part that was right, and it is the only form of
+your result I will use: 45 induced resets across three cores, the domain
+dropping every time with no MMU message on either kernel, so this is not
+rocket-wide. You were careful to say your protocol could not settle
+whether a genuinely hung block behaves differently. I turned a bounding
+result into a reproduction.
 
-diff --git a/drivers/gpu/drm/ci/drm-misc-ci.yml b/drivers/gpu/drm/ci/drm-misc-ci.yml
-new file mode 100644
-index 000000000000..4ab87547794e
---- /dev/null
-+++ b/drivers/gpu/drm/ci/drm-misc-ci.yml
-@@ -0,0 +1,147 @@
-+# CI pipeline for drm-misc-next, drm-misc-fixes, and drm-misc-next-fixes.
-+#
-+# Runs on pushes to drm-misc-next, drm-misc-fixes, and
-+# drm-misc-next-fixes. Compiles the kernel for arm, arm64, and
-+# x86_64, runs the DRM KUnit tests, and checks device tree bindings.
-+#
-+# A single container image is built using freedesktop ci-templates with
-+# the packages needed for kernel compilation and LLVM for
-+# cross-compilation. QEMU is installed at runtime by the KUnit jobs.
-+#
-+# check-devicetrees.yml and kunit.yml are included directly. build.yml
-+# and the Mesa container/build pipelines are not:
-+# they pull in hundreds of Mesa-specific jobs and templates that would
-+# each need to be individually stubbed or disabled. The build templates
-+# (.build:arm32, .build:arm64, .build:x86_64) are defined inline.
-+
-+variables:
-+  CI_TEMPLATES_COMMIT: &ci-templates-commit aec7a6ce7bb38902c70641526f6611e27141784a
-+  # Project whose container registry stores the built images
-+  FDO_UPSTREAM_REPO: mripard/kernel
-+  KERNEL_BUILD_CONTAINER_TAG: "2026-09-11-01"
-+  LLVM_VERSION: "19"
-+
-+default:
-+  before_script: []
-+
-+include:
-+  - project: 'freedesktop/ci-templates'
-+    ref: *ci-templates-commit
-+    file:
-+      - '/templates/debian.yml'
-+  - local: drivers/gpu/drm/ci/check-devicetrees.yml
-+  - local: drivers/gpu/drm/ci/kunit.yml
-+
-+stages:
-+  - container
-+  - build
-+  - static-checks
-+  - kunit
-+
-+# --- Pipeline rules ---
-+workflow:
-+  rules:
-+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH =~ /^drm-misc-(next|fixes|next-fixes)$/
-+      when: always
-+
-+# kunit.yml's jobs inherit .build-rules through the .build:* chain.
-+# Pass everything through since the pipeline is already gated by
-+# workflow:rules.
-+.build-rules:
-+  rules:
-+    - when: on_success
-+
-+# --- Container build job ---
-+# Single container with all build tools. LLVM handles cross-compilation
-+# to arm and arm64, so no architecture-specific containers are needed.
-+debian/kernel-build:
-+  extends: .fdo.container-build@debian
-+  stage: container
-+  variables:
-+    FDO_DISTRIBUTION_VERSION: trixie
-+    FDO_DISTRIBUTION_TAG: "${KERNEL_BUILD_CONTAINER_TAG}"
-+    FDO_DISTRIBUTION_PACKAGES: >-
-+      bc bison ca-certificates cpio curl
-+      clang-${LLVM_VERSION} flex gcc gzip
-+      lld-${LLVM_VERSION} llvm-${LLVM_VERSION}
-+      libelf-dev libssl-dev
-+      make perl pkg-config
-+      python3 python3-dev python3-pip python3-venv
-+      swig xz-utils yamllint
-+
-+# --- Build templates ---
-+# Stubs for templates referenced by check-devicetrees.yml. The
-+# originals live in build.yml and container.yml which we do not
-+# include.
-+.build:
-+  extends: .build-rules
-+
-+.use-debian/x86_64_build:
-+  extends: .build-base
-+
-+.build-base:
-+  image: "${CI_REGISTRY}/${FDO_UPSTREAM_REPO}/debian/trixie:${KERNEL_BUILD_CONTAINER_TAG}"
-+  needs: ["debian/kernel-build"]
-+
-+.build:arm32:
-+  extends: .build-base
-+  variables:
-+    KERNEL_ARCH: "arm"
-+    DEFCONFIG_ARCH: "arm"
-+
-+.build:arm64:
-+  extends: .build-base
-+  variables:
-+    KERNEL_ARCH: "arm64"
-+    DEFCONFIG_ARCH: "arm64"
-+
-+.build:x86_64:
-+  extends: .build-base
-+  variables:
-+    KERNEL_ARCH: "x86_64"
-+    DEFCONFIG_ARCH: "x86"
-+
-+# --- Kernel-wide build jobs (LLVM) ---
-+.kernel-build:
-+  stage: build
-+  timeout: 45m
-+  variables:
-+    GIT_DEPTH: 1
-+    DEFCONFIG_URL: https://gitlab.freedesktop.org/drm/tip/-/raw/rerere-cache/drm-misc-${DEFCONFIG_ARCH}_defconfig
-+  artifacts: {}
-+  before_script:
-+    - drivers/gpu/drm/ci/setup-llvm-links.sh
-+    - curl -L --retry 4 -f --retry-all-errors --retry-delay 60 -o .config "${DEFCONFIG_URL}"
-+
-+kernel-build:arm32:
-+  extends: [.build:arm32, .kernel-build]
-+  script:
-+    - make ARCH=arm LLVM=1 olddefconfig
-+    - make ARCH=arm LLVM=1 -j$(nproc)
-+
-+kernel-build:arm64:
-+  extends: [.build:arm64, .kernel-build]
-+  script:
-+    - make ARCH=arm64 LLVM=1 olddefconfig
-+    - make ARCH=arm64 LLVM=1 -j$(nproc)
-+
-+kernel-build:x86_64:
-+  extends: [.build:x86_64, .kernel-build]
-+  script:
-+    - make ARCH=x86 LLVM=1 olddefconfig
-+    - make ARCH=x86 LLVM=1 -j$(nproc)
-+
-+# --- Disable dtbs-check jobs ---
-+# dtbs-check validates compiled DTBs which may produce warnings from
-+# code we are not responsible for. Keep dt-binding-check only.
-+dtbs-check:arm32:
-+  rules:
-+    - when: never
-+
-+dtbs-check:arm64:
-+  rules:
-+    - when: never
-+
-+# --- KUnit jobs ---
-+# kunit:arm32, kunit:arm64, and kunit:x86_64 are defined in kunit.yml
-+# and implicitly enabled here through the .build:* templates above.
-
----
-base-commit: 99c95ce1b07081d7944d637ba7d72d835c0d520a
-change-id: 20260902-drm-drm-misc-ci-ec6c69506609
-
-Best regards,
--- 
-Maxime Ripard <mripard@kernel.org>
-
+Jiaxing
