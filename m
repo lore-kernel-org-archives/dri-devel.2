@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB6FDC88E58
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 14:47:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1160C88E58
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 14:47:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F8E510F65E;
-	Fri, 11 Sep 2026 14:47:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BD9110F64F;
+	Fri, 11 Sep 2026 14:47:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="TuQyyCWl";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="UCR6Hz09";
 	dkim-atps=neutral
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75B3C10F667
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 14:47:04 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-482ea739de2so670380f8f.0
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 07:47:04 -0700 (PDT)
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
+ [74.125.225.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E06FC10F65E
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 14:47:06 +0000 (UTC)
+Received: by mail-wr2-f12.google.com with SMTP id
+ ffacd0b85a97d-485933b2522so781688f8f.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 07:47:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1789138023; x=1789742823; darn=lists.freedesktop.org; 
+ d=suse.com; s=google; t=1789138025; x=1789742825; darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=QuYE5JBWhvW9oHs2kdysh3HB71WxLYQMcei9gKN4bpc=;
- b=TuQyyCWl8mkIiTAKa9wOH9iJpiDm2lF4QUe/tCyY4UboGkCPbM0lQ+8mGFCQsfjh1e
- CaAqQcCKuPKaEAeL7z/wOlJL7emtxzHb3r7H9womPfopL/QhhF9MQQRHlwwD0ngwJTYd
- rdbVq8ym2qqDVR9yb8q9R87hmSNRsaTlG3WuTWnzk95lYFHnIVM2YhX7rfgBH/jDNVlx
- Av4NkImmbywZuPil0L9fLqhzLjgoKScnrZLwwfRm/Gtla1uMsMDmJPIylvejnZnEGhHb
- pCvCYXsc64cIy4sfqNDxKFxXGUZEznlGgm+u3xCBcdMxFHYflJmYmiDC14OQ4zX1x1nT
- L89w==
+ bh=sAWK/0nRwHnvVvMYnd/Ub3wFPGnd0x9DJjP7YOulvgY=;
+ b=UCR6Hz09tsV0basY0TnMbJciFd5MFG8O9dMvZlCtwREHGebWjc7FXMPgbbhET5RQzr
+ 4np+QJqx6hYJTRQkP6pO2KF8ZBgIpy57RxJvQxNrUUFDvC49fECjfDN5CfO3xnBQwRlS
+ zxgMLIE6ED2VyJA2l+NBC3EYSofLtuSZJi+vaiNdJQTLrrYD+IEyFcB015BBYy/KdNcg
+ LfesT4vErS9KFuuvq0V/bXVqBi431atGteRLuvwRYxIiAHZrObgQvYkj3ZJ/JwVEwS+u
+ Qq2zSXm3dmI0oeIoHxXVabEyUCHGABrqzJ3tvM9/GQ9gd5yIh+OVs2j7NfbaxN5VXmsP
+ 9OUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789138023; x=1789742823;
+ d=1e100.net; s=20251104; t=1789138025; x=1789742825;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=QuYE5JBWhvW9oHs2kdysh3HB71WxLYQMcei9gKN4bpc=;
- b=RyRZjtAEp/qVwTna5rFDJvZrIyrhOqtFFzbhQL2xNV1ahU7QZJaUyMoXugPtrlNf7U
- Haqszma7CPfOzSbIRS9g47zW1cE7wgDkm7OqmxTSAxhZ4TBQJDYmr1mkVkoSQEIn2uDX
- vaVacO827aifQ68YeWP8JF/M+8LbM4ttbPmBdMnyTK+v4sBzeLPShUmcPuV5zkfL+QVY
- 7kHaoXNe+7mtBPWaI0aw5I9e+FJrwoKgDJCIfOiy07lQYRGJBSMqpPzITVx3A8E2a1O3
- InFptVm9hOriObRU8vhVlzP6gXGsuz4NtwtR+IkBK+nmPevuqL6wCaNO5nI58nzkLEU7
- FGLA==
+ bh=sAWK/0nRwHnvVvMYnd/Ub3wFPGnd0x9DJjP7YOulvgY=;
+ b=EsBVF7PB49+7LtWh8cZ49TxRdvFZEwt5EER1ZxtXFdy9UpqsCNU6tC8+ufqX949pCh
+ 04jNJ76bppiwlSWsB/CW4kH1N57IOy3OlC0ITZaFO9jLm2cfjbpW8t5NybC59SA2r+Xu
+ GYeFjeuW/j437ISEiheeymIqrFPEigESlkLHnBIx/U3K/7EIorIUi/4WsMoZfRzaQKq/
+ 0qlTf0ZTYmZLGE4p62o5eRkxLApi9Rzd95zRV6ZG/RQxFXcpVwoaeCm3qQBblG4HKWPw
+ bB2G1DQV3lnNSXUM8oU35568Kofexkv0gscOcVVQ+oxso5/d+RYESq5oKf5i7yU+BbKO
+ xrSA==
 X-Forwarded-Encrypted: i=1;
- AKwUvByMDvHuFyC7zjs4d9fN605Y4dNrJ+1BLznAqNc1Zyk8kURPcvjV6MMduG5aU+KtUcCiPtSdVtkfVHU=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n9cWahCA1yCp2yo9zu0n5OHPd/6ruYbUvHpCmiRZ1qj+ZoQGzY
- y0H2yvteSyeKcgP+VsH25B8QbyR+nc7lOQP07Vwg9s6bkTFysVk/vyA0chW4ZWOh6iY=
-X-Gm-Gg: AYBFou1PP4I3W2TFLfxzXtSdVs9lYpjC9nfHeUBucZ88TjpQcL2JANm7/4hl7OGqn5M
- bkeTn6/m+t0fM9ByyYADcMU6RTmlqpfC9bW/Q/fThYOFLFcvX8uy30ZgBqWwE7gUK4IJOvfLsMX
- IyYdMpJWiffSAoMJ2dY5ur3EJGH5HgBxdVupRWpLkc9Agc3xU7jtLnB7xt5hFsT/4+JHlEueBHW
- tyBgffESx5byY9NDU7FhxpCVEe3WeInBvIHteyjCccmvVuFtoh93Hwqdb2dJCzUwyT5nTUj3Dvh
- dfDBV30t4NT2z6SU6zJpf/gvay1m4SK7ydRusybBov3b4YSoradTcYI/lnjWXyDr86fpjcGDAeb
- F587zXEmj9Avt9orVEPeXnsAgxdS37efswP7oNIexIm5Ohn1Ak9Mo7fz2TxH59JG3mS4eMnr3F4
- wlT2zK2DlyNWKa6Imh8w6MIhvZcb6fSBYTYbGr5NuHh1Fxc8tDbvLh5d9fuLHBrQ64hfpZq950x
- eInvw==
-X-Received: by 2002:a5d:5e08:0:b0:486:e81b:842a with SMTP id
- ffacd0b85a97d-486eb358ab6mr5259626f8f.48.1789138022582; 
- Fri, 11 Sep 2026 07:47:02 -0700 (PDT)
+ AKwUvBy7V9pqXN5KkjnuAQx618e9RpqXp+kT7nXXlVa5GaOkx1wROYXWKoc/uc5+8nEdrY6bHgb2vfZnoOU=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l6gQmNxJjOQ3PeaTgtwZLh5HPanj5zKJpZ0hUn7YU1tApjndym
+ Zgv6FxIXN53ICt4Md7O43Nm5wPp9Qs4mE9ItABaaV7+OCk+AxYVA/WNKRxcsqi4qhhU=
+X-Gm-Gg: AYBFou3RqZ2AW0pS2/Z6j8MG7R6hOtJkcaH7qkEpUKofHQUDcYYQnhiny4iVH5HwQjN
+ tpc+p3mbLqh+ijPsN0Q/yGzZ3NMcxeL9OGapNDOnUlqx51OdsFihr/XIkG57lBl8LrOif1rgb8j
+ kkXX6KjjPsm3N1Tzn2x44d7YCwI8+ioyHlMaaIiP8EFXze3O/H6bs7xx+d/zq7grkgCPCYpeB2G
+ 4KT6ylFUufGvONWLLt31dIJCb98CXjiv76RkN4sM8QDwa+rcE2iYLOEXKxqqViPZykN8EGWlR4X
+ I33v6oC2FIVk5iPp0fu6ukAPfI3YuNH4QLFvt9pv5TVQCijgmGm3b0wmjStCH+jYM2m8WAhQrQ3
+ gjsnWiYkffQljOwsgK7Yd1+cIUEFE0DcEr88aHzUO6llkKkVhSpreR89FZK9DtHGddTr9yhZSJU
+ +wA4PbexH0d/fOGqXgd1BCiyQmhujcVOguEGwinjd/jJj2WXuy9kMERYXHiF05HjLxN12WHDYEG
+ 8hKGQ==
+X-Received: by 2002:a05:6000:26cf:b0:482:f61c:7cdd with SMTP id
+ ffacd0b85a97d-486eb1d8541mr10746731f8f.4.1789138025130; 
+ Fri, 11 Sep 2026 07:47:05 -0700 (PDT)
 Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-486eb32e8d1sm6328068f8f.11.2026.09.11.07.47.00
+ ffacd0b85a97d-486eb32e8d1sm6328068f8f.11.2026.09.11.07.47.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Sep 2026 07:47:02 -0700 (PDT)
+ Fri, 11 Sep 2026 07:47:04 -0700 (PDT)
 From: Petr Pavlu <petr.pavlu@suse.com>
 To: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
  Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
@@ -112,10 +112,9 @@ Cc: linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-pm@vger.kernel.org, driver-core@lists.linux.dev,
  bridge@lists.linux.dev, netdev@vger.kernel.org, keyrings@vger.kernel.org,
  linux-security-module@vger.kernel.org
-Subject: [PATCH v3 2/3] time/jiffies: Include linux/sysctl.h for
- proc_int_u2k_conv_uop(), ...
-Date: Fri, 11 Sep 2026 14:46:15 +0000
-Message-ID: <20260911-module-include-kmod-v3-2-6ebccc3e0731@suse.com>
+Subject: [PATCH v3 3/3] module: Bring includes in linux/kmod.h up to date
+Date: Fri, 11 Sep 2026 14:46:16 +0000
+Message-ID: <20260911-module-include-kmod-v3-3-6ebccc3e0731@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260911-module-include-kmod-v3-0-6ebccc3e0731@suse.com>
 References: <20260911-module-include-kmod-v3-0-6ebccc3e0731@suse.com>
@@ -137,33 +136,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-jiffies.c uses proc_int_u2k_conv_uop(), proc_int_k2u_conv_kop(),
-proc_int_conv(), proc_dointvec_conv() and proc_doulongvec_minmax_conv(),
-which are declared in linux/sysctl.h. It currently gets that header
-indirectly through linux/module.h -> linux/kmod.h, but the latter no longer
-needs to include linux/sysctl.h.
+Including linux/kmod.h alone results in 1.5 MB of preprocessed output, even
+though it provides only a few functions and macros.
 
-Include linux/sysctl.h directly in jiffies.c ahead of removing the
-unnecessary include from linux/kmod.h.
+The header currently depends on:
+
+* __printf() -> linux/compiler_attributes.h,
+* ENOSYS -> linux/errno.h,
+* bool -> linux/types.h.
+
+Include only these files, reducing the preprocessed output to 10 kB.
 
 Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
-Acked-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Aaron Tomlin <atomlin@atomlin.com>
 ---
- kernel/time/jiffies.c | 1 +
- 1 file changed, 1 insertion(+)
+ include/linux/kmod.h | 12 ++----------
+ 1 file changed, 2 insertions(+), 10 deletions(-)
 
-diff --git a/kernel/time/jiffies.c b/kernel/time/jiffies.c
-index 213ae1d6a014..9231fea557ce 100644
---- a/kernel/time/jiffies.c
-+++ b/kernel/time/jiffies.c
-@@ -8,6 +8,7 @@
- #include <linux/jiffies.h>
- #include <linux/module.h>
- #include <linux/init.h>
-+#include <linux/sysctl.h>
+diff --git a/include/linux/kmod.h b/include/linux/kmod.h
+index 9a07c3215389..b9474a62a568 100644
+--- a/include/linux/kmod.h
++++ b/include/linux/kmod.h
+@@ -2,17 +2,9 @@
+ #ifndef __LINUX_KMOD_H__
+ #define __LINUX_KMOD_H__
  
- #include "timekeeping.h"
- #include "tick-internal.h"
+-/*
+- *	include/linux/kmod.h
+- */
+-
+-#include <linux/umh.h>
+-#include <linux/gfp.h>
+-#include <linux/stddef.h>
++#include <linux/compiler_attributes.h>
+ #include <linux/errno.h>
+-#include <linux/compiler.h>
+-#include <linux/workqueue.h>
+-#include <linux/sysctl.h>
++#include <linux/types.h>
+ 
+ #ifdef CONFIG_MODULES
+ /* modprobe exit status on success, -ve on error.  Return value
 
 -- 
 2.55.0
