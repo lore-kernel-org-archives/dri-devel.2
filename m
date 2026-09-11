@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58F10C88E53
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 08:51:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9855EC88E50
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 08:51:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F80610E8A4;
-	Fri, 11 Sep 2026 08:51:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30E6410E8AB;
+	Fri, 11 Sep 2026 08:51:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U8Xc+N/H";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jgx9aTYx";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8755410E62B;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06D9210E237;
  Fri, 11 Sep 2026 08:51:16 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 5640C40656;
+ by sea.source.kernel.org (Postfix) with ESMTP id 17BE9447DC;
  Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 268A2C4AF0D;
- Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CC14AC2BCB8;
+ Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1789116675;
- bh=FiLswTYIe/LqmY30AgSoR9eS3pvfA9pwqRy+7MrBhKs=;
+ s=k20201202; t=1789116674;
+ bh=6Om9mmFoyilZ7jFsN4qGp2OOoGqOwvUDJXp2zNRLp+k=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=U8Xc+N/HDBK9F8k6fWrFk8gB7GQY1knZVpL3PvOdaqEmVcIVNa+lShDZFGrK9p9yH
- EM/zbhWUN/tWZbK/7cKohX+2N1E25LyGSBzniboKR2FdbT1/C5mDOEAidvGMjA3rNG
- 7w9gvpvl4bvFexGkiKCq/RtqhUlDg+21CEgike7v1nqbngSvvMOE2dC5n6zif2jd+G
- 2+xwAgwejrmYDrpBHBjbibxIksJqapndROQ58jVx5RiPxFOLmlcv4Bs4Pi7Pj37ZTM
- 7P6CnUNW9+W3pIvHWKISx8+sz6xwC8zmmce5K+kqz/uPzuqZ0DLAAfLyibGBtpEu2q
- KV88LhKO9rUmA==
+ b=Jgx9aTYxluCSss6dcTipeMEk/+ocQA1Zq0771VYQvCRm73K9nAs0Ps/PJIbYnqYPA
+ mglS23depKXOCYFG+3BF01q9dsvXh3Pa9Px9qDDnhsLjrLddm4bWiM7CxR5dcCNAha
+ R8W9ADEtAtAw5iUBIaCSQT9C8SGklEbElTi/AihGD2cBqyGwbvs0lS3k/M/ZPI7fa6
+ e2F5jxt3KHRnOwsDLg5u7OSOZf5zk4W+OguddhjAJUh34vvr61G52W/4njH9xuhMd7
+ rEj8Zj5AnjN7u3szNHU8AvBQP7WZmsdQozby4Qhj3rjUYIBuHdhuK5wA0nO83sN0qQ
+ JFrPY1GixpzkA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 04238C88E56;
- Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id B50F5C88E56;
+ Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
 From: =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI_via_B4_Relay?=
  <devnull+kavakliyigitcan.gmail.com@kernel.org>
-Date: Fri, 11 Sep 2026 11:51:05 +0300
-Subject: [PATCH RFC 08/10] drm/msm/dsi: make command and video mode
- configuration mutually exclusive
+Date: Fri, 11 Sep 2026 11:51:02 +0300
+Subject: [PATCH RFC 05/10] dt-bindings: input: touchscreen: add Novatek
+ NT36672A SPI touchscreen
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260911-ginkgo-submission-final-v1-8-0e68e63a18d4@gmail.com>
+Message-Id: <20260911-ginkgo-submission-final-v1-5-0e68e63a18d4@gmail.com>
 References: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
 In-Reply-To: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
@@ -70,11 +70,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI?= <kavakliyigitcan@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789116671; l=1765;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789116671; l=2624;
  i=kavakliyigitcan@gmail.com; s=20260911; h=from:subject:message-id;
- bh=Us+uRTzRjQ6VYzVCqSZeacYfhPldhSoALLrWybl6TfU=;
- b=PJ3ocNCyABkNjnqrQLKKE8IN0UZxDZIuONeU9q+5JR84OpiNeg9UQcKEQhp7AhlsGlsLCFhGj
- M9VD6VXm4RMCG/mkfHl+ViesebYjNHZ+5t10GnPFPnMJ7wxPj4YC+yf
+ bh=sMolpDLxRIIdnSgm3TbA2Rk80AV3J5bHq36firTsw6w=;
+ b=IdFFml977ayIZ6L6YdvcMn4Ol1XAEqjQLb7pnMby8TGCu+zLBKLhmg7UlQUs5xSnl1+k1kmsw
+ r7mj8P4/nAhDtshh4wuZCFJWI/hbuWGi9O8ZA3vRaQCfKB7kgS2ehfe
 X-Developer-Key: i=kavakliyigitcan@gmail.com; a=ed25519;
  pk=W2GaxVotULs2vAjRMMLheaDtMMYs4037zO1LVVfFtPI=
 X-Endpoint-Received: by B4 Relay for kavakliyigitcan@gmail.com/20260911
@@ -99,44 +99,90 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
 
-In dsi_op_mode_config(), entering video mode sets DSI_CTRL_VID_MODE_EN
-without clearing DSI_CTRL_CMD_MODE_EN, and entering command mode sets
-DSI_CTRL_CMD_MODE_EN without clearing DSI_CTRL_VID_MODE_EN.
+Add devicetree binding documentation for the Novatek NT36672A SPI
+touchscreen controller.
 
-Ensure explicit mutual exclusion by clearing the opposing enable bit
-when switching operational modes to prevent hardware bus collisions.
+The binding supports standard SPI peripheral properties, interrupt
+configuration, the optional 'panel' phandle for DRM panel follower
+synchronization, and an optional 'firmware-name' property.
 
 Signed-off-by: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
 ---
- drivers/gpu/drm/msm/dsi/dsi_host.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ .../input/touchscreen/novatek,nt36672a-spi.yaml    | 66 ++++++++++++++++++++++
+ 1 file changed, 66 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 7e4e3718b536c92dc555de213042857379499447..b9e2867d435a3ad8b6db6b57c440bbd827180b6e 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1094,7 +1094,9 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- 		dsi_write(msm_host, REG_DSI_ACTIVE_HSYNC,
- 			DSI_ACTIVE_HSYNC_START(hs_start) |
- 			DSI_ACTIVE_HSYNC_END(hs_end));
--		dsi_write(msm_host, REG_DSI_ACTIVE_VSYNC_HPOS, 0);
-+		dsi_write(msm_host, REG_DSI_ACTIVE_VSYNC_HPOS,
-+			DSI_ACTIVE_VSYNC_HPOS_START(hs_start) |
-+			DSI_ACTIVE_VSYNC_HPOS_END(vs_end));
- 		dsi_write(msm_host, REG_DSI_ACTIVE_VSYNC_VPOS,
- 			DSI_ACTIVE_VSYNC_VPOS_START(vs_start) |
- 			DSI_ACTIVE_VSYNC_VPOS_END(vs_end));
-@@ -1168,8 +1170,10 @@ static void dsi_op_mode_config(struct msm_dsi_host *msm_host,
- 					DSI_IRQ_MASK_VIDEO_DONE, 0);
- 	} else {
- 		if (video_mode) {
-+			dsi_ctrl &= ~DSI_CTRL_CMD_MODE_EN;
- 			dsi_ctrl |= DSI_CTRL_VID_MODE_EN;
- 		} else {		/* command mode */
-+			dsi_ctrl &= ~DSI_CTRL_VID_MODE_EN;
- 			dsi_ctrl |= DSI_CTRL_CMD_MODE_EN;
- 			dsi_intr_ctrl(msm_host, DSI_IRQ_MASK_CMD_MDP_DONE, 1);
- 		}
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/novatek,nt36672a-spi.yaml b/Documentation/devicetree/bindings/input/touchscreen/novatek,nt36672a-spi.yaml
+new file mode 100644
+index 0000000000000000000000000000000000000000..0d89d60f2a93d26e2f7903371ecc6eb9ed683b33
+--- /dev/null
++++ b/Documentation/devicetree/bindings/input/touchscreen/novatek,nt36672a-spi.yaml
+@@ -0,0 +1,66 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/input/touchscreen/novatek,nt36672a-spi.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Novatek NT36672A SPI Touchscreen Controller
++
++maintainers:
++  - Dmitry Torokhov <dmitry.torokhov@gmail.com>
++
++description:
++  The Novatek NT36672A TDDI controller is connected over SPI for touchscreen
++  interaction, with host-downloaded firmware into controller SRAM. It integrates
++  with the display panel lifecycle using the DRM panel follower API.
++
++allOf:
++  - $ref: touchscreen.yaml#
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++
++properties:
++  compatible:
++    enum:
++      - novatek,nt36672a-spi
++      - novatek,nt36672a-ts
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  spi-max-frequency: true
++
++  panel:
++    description: phandle of the display panel that this touchscreen follows.
++    $ref: /schemas/types.yaml#/definitions/phandle
++
++  firmware-name:
++    description: Name of the firmware file to load into controller SRAM.
++
++required:
++  - compatible
++  - reg
++  - interrupts
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        touchscreen@0 {
++            compatible = "novatek,nt36672a-spi";
++            reg = <0>;
++            spi-max-frequency = <4000000>;
++            interrupts = <88 IRQ_TYPE_EDGE_RISING>;
++            panel = <&panel>;
++            touchscreen-size-x = <1080>;
++            touchscreen-size-y = <2340>;
++        };
++    };
++...
 
 -- 
 2.47.3
