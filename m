@@ -4,78 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFED7C88E65
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:54:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C6CBC88E69
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:54:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FBF110EA03;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9485510EA04;
 	Sun, 13 Sep 2026 20:54:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="tGq9kGzg";
+	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="IOHCtGCN";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="li5Mh+gd";
 	dkim-atps=neutral
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com
- [74.125.227.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 022E710E664
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 08:10:47 +0000 (UTC)
-Received: by mail-pj2-f13.google.com with SMTP id
- 98e67ed59e1d1-396ccd66bb4so303718a91.1
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 01:10:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789200646; x=1789805446; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=qekC0MqEXMTW5BJCD+Nqo9MkepvtatwwVDmZuLTl4rg=;
- b=tGq9kGzgeIes4bCLtNW6Om0861Ag5Y141DF5KOlInnGvyYiYmS9oc6Fdq7FPO4UQfC
- 7uMRkL/tfDNj5+qiEvIQD/LmpJS2lYqSdnqWlEETDKBdWvu74exgQveVyLd9xi8KaHa/
- EXYSXQcrDPhOdmp+qBa8fJ0plMitxTBvDSUQzSs1T6JygopDTqvMHVlKz8pZ4hcHn+MN
- IECCNBY5PN27ifynLQIa/W8zk74S92FHl5362dqsJ6vQWHiVpv1don/7fhQlDsO9hupM
- +w4+vEuw3uQV4prufyYVKQaIHXV54ENmKPn/svR49QYr+u3dTNNLoZz4qrLv//3s3i2G
- /03Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789200646; x=1789805446;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=qekC0MqEXMTW5BJCD+Nqo9MkepvtatwwVDmZuLTl4rg=;
- b=ZpicvVCFamgcPAMhmyqkzRf/EEJ9gRLQRbPlEH3pUs0RFgoW2U8+goHsC91KEcjWbZ
- PueDVvy1MX7CJnpb+vY7sLYQ3ngD+Nvid9cpvbDjCEWL4OpaUFNbU13Up0oYkhge+d9T
- xA0i3PuuqhDY+L7mB4AW6cSwVIl5+exZcXyNrZDjva+VAQEB60I9ImNjv39OpRyFTZae
- q8OI/pmNiakroFaL1azNVvokx3oLyE7/03r7GjUJNfO3gluymQvoQAjUtGAFnWHyCjPq
- OM8JWiWQmOi59lYRAuD9b8Hezm4V4719yiLtYd7sgIGbjnRaXaUR/PTJATsh57oWyTkI
- r8yg==
-X-Gm-Message-State: AFuF++m141E5SkTm1BaB1gfp+sK0EvqbSxTMr3zwgin/wbiurX6p+i8J
- QVONv9DNVImcKPaiFXYjC7d3mDmg/79HAfs3YaJPRb5kRSBoflq5pQiv
-X-Gm-Gg: AYBFou11nb4E3V5OgD6cwYvZbRC+wztlmsE41zTtlu+2FitfT4U2wJwMeBrf631RWbE
- aD21xheEp6pD7vchz9Jm0nkTuzi2+Jyd3LcQPyrWRCXHb/sk6HpsBXwyIsReQ5wHF2bFVGNIZ78
- gERHOcsF39Li7h/ATayJx631rFTAtVMtyHOw+8pLueXALZ0XJJp7VP8uwSRjJI7g2o4Tj26H3o9
- aOf0blcTLP9RtZlzx/0m9fXvIXnLsR/3TbY1VToT8P/zKjgx2y4PehUDLUYcKus121IXbTmdTDC
- s3yh7VrjRlh///GJJN0EiqBsxw6jxpyrZJnx9gZIcksvOv7jswtly9Mutl5/HivZmJSXexlJno6
- loz+vuoSaHNDmL0pt1DrSXLmhnDRrEGhE9JTopQCyUGi9Id3ncLl3nHYgwPjAboF+11xcpJ2wvZ
- Re+DCaVbtISMbBpSGLCAJ46qNTLdE6chpOjzhB//+oh8/W3ShdxcWkq6zULax7+t04TfFewROcF
- ME2Fw0ITBoLxds7xuEB/4udhFY1wD0zfOyxcpxUt96aEmjdGObtdhYVhxyo+lKKdJuE69d4k2Vs
- qFd6898Vu/7f88f+gYFTpUFaoR8SnNTJWhguho405WBr
-X-Received: by 2002:a17:90b:57c6:b0:381:a766:efc9 with SMTP id
- 98e67ed59e1d1-39dbbeb57a5mr3434433a91.7.1789200646524; 
- Sat, 12 Sep 2026 01:10:46 -0700 (PDT)
-Received: from 0xiviel.ip (122-63-135-80.mobile.spark.co.nz. [122.63.135.80])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39db7ae6d25sm982474a91.1.2026.09.12.01.10.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 12 Sep 2026 01:10:46 -0700 (PDT)
-From: Eva Crystal <0xiviel@gmail.com>
-To: Min Ma <mamin506@gmail.com>,
-	Lizhi Hou <lizhi.hou@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Eva Crystal <0xiviel@gmail.com>
-Subject: [PATCH 3/4] accel/amdxdna: release the chained command BO when vmap
- fails
-Date: Sat, 12 Sep 2026 20:10:11 +1200
-Message-ID: <20260912081012.2274075-4-0xiviel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260912081012.2274075-1-0xiviel@gmail.com>
-References: <20260912081012.2274075-1-0xiviel@gmail.com>
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E70610F2B4
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 15:38:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org;
+ c=relaxed/relaxed; 
+ h=To:Message-Id:Subject:Date:From; t=1789141092; bh=OATDRvWIhuV2v8n55fSDver
+ iCL2HGH/4EkvtPirdd0Y=; b=IOHCtGCN+KlJSb54os7YnP45u/Dp/cP5CWFnHX5aiYg70wYXHx
+ rP1Dpt7ubQQ+Zj0MG05OKJUV27knnd8/PDuQV6kD+9oghFQ/W9ZPvRkeVAsERDq0VmvIogZFpen
+ 2tJywxL3Fhi9cA0v11/2MtotWeajBzRsbqCoELROC/TEd7zvLzO+eNtQZvuxEWJHWYh+KyJpAPg
+ p2hN8NnJ/wkC4uGwjfkL7XzdvZW88FUZ6IK/30/yoF4g9mKiv+P5uHgD1Sd9LvJLjO8COarV8w3
+ ejekYajVH1byeO9oc0kb3gQbeIcyB9OmIroboQOnlriX8la87rvtik7aSvtrzjP37Ug==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org;
+ c=relaxed/relaxed; 
+ h=To:Message-Id:Subject:Date:From; t=1789141092; bh=OATDRvWIhuV2v8n55fSDver
+ iCL2HGH/4EkvtPirdd0Y=; b=li5Mh+gdWMlKtzKoU5EGysAl02u1UFlyw/0WzDUk2584Tl2Krc
+ ZValRyQbOejivMmuZfq+VY4VkV/GWDVG+yBw==;
+From: Nickolay Goppen <setotau@mainlining.org>
+Date: Fri, 11 Sep 2026 18:38:02 +0300
+Subject: [PATCH v2 3/3] MAINTAINERS: Add myself as a maintainer of NT51021
+ panel driver
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260911-qcom-novatek-nt51021-panels-v2-3-135e3190a7fb@mainlining.org>
+References: <20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org>
+In-Reply-To: <20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Nickolay Goppen <setotau@mainlining.org>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, ryanbrue.dev@gmail.com
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789141089; l=772;
+ i=setotau@mainlining.org; s=20250815; h=from:subject:message-id;
+ bh=zD9oZKRsCcU0BIHbOPpViTHvx1OPAy7to3vbd/4GBpA=;
+ b=8gI9KLvHBhtUk5K3U2ubweplEguh9EA5WUqcstLUkTLId5aiDDPOMMWY9cjsgOp9BMHhWrEWI
+ S0kIq39cIJkAGhw+sVowTm4MbYnBX4qbceiI8IQuMgZN4CjnfuZaK8y
+X-Developer-Key: i=setotau@mainlining.org; a=ed25519;
+ pk=Og7YO6LfW+M2QfcJfjaUaXc8oOr5zoK8+4AtX5ICr4o=
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,49 +73,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When amdxdna_cmd_set_error() follows a command chain it takes a
-reference on the BO named by the chain:
-
-	abo = amdxdna_gem_get_obj(client, cc->data[0], AMDXDNA_BO_SHARE);
-	if (!abo)
-		return -EINVAL;
-	cmd = amdxdna_gem_vmap(abo);
-	if (!cmd)
-		return -ENOMEM;
-
-and drops it at the end of the function under "if (cc)". The -ENOMEM
-path returns before reaching that, so the reference taken by
-amdxdna_gem_get_obj() is leaked and the GEM object is never freed.
-
-amdxdna_gem_vmap() fails only if drm_gem_vmap() fails, which needs
-memory pressure or an exporter that refuses the mapping, so this is a
-small leak on a rare path rather than something a caller can drive at
-will. It is still a leak, and the chain BO handle comes from a command
-buffer user space can write.
-
-Drop the reference before returning.
-
-Signed-off-by: Eva Crystal <0xiviel@gmail.com>
+Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
 ---
- drivers/accel/amdxdna/amdxdna_ctx.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ MAINTAINERS | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-index c24bf1c..7a61e83 100644
---- a/drivers/accel/amdxdna/amdxdna_ctx.c
-+++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-@@ -170,8 +170,10 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *abo,
- 		if (!abo)
- 			return -EINVAL;
- 		cmd = amdxdna_gem_vmap(abo);
--		if (!cmd)
-+		if (!cmd) {
-+			amdxdna_gem_put_obj(abo);
- 			return -ENOMEM;
-+		}
- 	}
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 7291238bc09f..3e2e6b94e6ed 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8354,6 +8354,12 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
+ F:	drivers/gpu/drm/panel/panel-novatek-nt37801.c
  
- 	if (abo->mem.size < sizeof(*cmd)) {
--- 
-2.53.0
++DRM DRIVER FOR NOVATEK NT51021 PANELS
++M:	Nickolay Goppen <setotau@mainlining.org>
++S:	Maintained
++F:	Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
++F:	drivers/gpu/drm/panel/panel-novatek-nt51021.c
++
+ DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS
+ M:	Lyude Paul <lyude@redhat.com>
+ M:	Danilo Krummrich <dakr@kernel.org>
 
+-- 
+2.55.0
