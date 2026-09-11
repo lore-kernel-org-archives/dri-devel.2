@@ -4,83 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37CAEC79FA1
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 07:50:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 447D3C79FA1
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 07:51:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAE2F10F536;
-	Fri, 11 Sep 2026 07:50:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A5FE10F538;
+	Fri, 11 Sep 2026 07:51:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Aboh/g+Q";
+	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="d+cUFSUo";
 	dkim-atps=neutral
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com
- [209.85.128.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FE6410E1D0
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 18:51:11 +0000 (UTC)
-Received: by mail-yw1-f171.google.com with SMTP id
- 00721157ae682-864cd11a932so4736107b3.0
- for <dri-devel@lists.freedesktop.org>; Thu, 10 Sep 2026 11:51:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789066270; x=1789671070; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=6m8h8p8x3swINqHznguOqnp4bmSBliy9kDD6omjjK2s=;
- b=Aboh/g+Q1I70y5ydBMvU3a4I9kS/5b/E3omSjdrMQrnJdJ4IviH+8pBHWoi4HhrvZB
- JSuwaWPBZQY8swwHTTgLX8q92UNgxtJxE2rSA8qlGS0zBLsxu6830Ruu7h1VGCKs+0f4
- cx1OwbcQdZjE8euvIBP1dlXkYrrItD6f58HuwbKVkFxaUSSPJujzARhM9eB2DJv++tRb
- JARvPfY/BwY/qsmr7GXbq6DPHz/bfhXEd4313oD9w7/rucOgNFew2WEBHbBS7EJ2E+Dy
- b8EcGQ7FfX+hJm4yPJnP7al8X88IIQou9qJv1oG0T3LXFkuO/JM3H/b0KT/D4IgTf0gA
- ehQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789066270; x=1789671070;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=6m8h8p8x3swINqHznguOqnp4bmSBliy9kDD6omjjK2s=;
- b=R/6PNzLL7nxJxLWoi8eaMZPVJo/IW8YltlD92mCSrody/o0IeTLngQz/iniudNHptT
- k5KFbt2ouK3KZgSnufGGoisFWHHMF63aF1OWEzRkLNiMGs60rixmU1LW+1OwgfeN6tt4
- 3esWG5Abf4XnyPDcUXjyeDUIYDf2eEym6VEsLKq9K1hwmhWJaxSte7fzTSLArCvGWeLr
- 5ioRD4pJjNGJOY91Myq+V7m0gJzba8FNNwjyEQ/s8nczR+9a8Jf/SH+fH+ymOXa12ejy
- 3yFSDQg7xMeQ8rjFXFwczhCrBb5tC3owEwA14YNRzn74Mk3ABMsz3PEJP+K1QIJfOtTE
- 0bcw==
-X-Gm-Message-State: AFuF++kg3mYLtPcRRte1nrdoa7sjKFpxtUMSTzFM1NUcKXqdpSpnmWcw
- lR3iBJgxfLyd0GoLdlktAqz8a41upTNLAzwWYH3pvStU33I2w1y8GlB32ApUX8N8
-X-Gm-Gg: AYBFou21pVFrz0mKaV7KM1Obqf/ZNwFmzxq1ApO1ShqNddWnHSAflHWKBTvn5Z/3Adx
- 25gSarUMlFMe4mrw7uXGBhBiqi00XuPfLWf0e68eb5foPy+nVlftaOJPDKg+2kcQxeLbRZuD5nP
- Z0Pp7UlI+hglKC6/WaI8u8E7e25GES6O9t3MoxP++JL3cM/a3IthFoRNRL0FBe5pUGLzl7EZHAi
- tKTfJi4G/wCGeB8cOmyfZ1nOYf+sqp7PerRayt87S4aseTNk2tWmapOSSH/0n9yZ1sd3gpPyHpb
- u1feotHIfh0x8smOR7kGewnRbKoar7yvr65/lot7rceDjndpktcmHeuQFVo3DgmVV5hB82x39Iz
- iycb2zvG3woEWberlcTzpwhXHQrI8iJltDTmFe7rp3D7W2b8IBwY3gHVRAjUgB8l239g2ZcVwc4
- nhf5wQsYfxy6iuAyGH+wJC4J962sfLhGMfyZDhEdTvYAcoY7BcvTdKbWLn10uwCH6ChFIr0dnN2
- hWs4WMZgw==
-X-Received: by 2002:a05:690c:9c04:b0:861:7cb6:5790 with SMTP id
- 00721157ae682-88200ebff7cmr20543767b3.4.1789066265217; 
- Thu, 10 Sep 2026 11:51:05 -0700 (PDT)
-Received: from DESKTOP-TLFH1MG ([76.255.203.42])
- by smtp.gmail.com with ESMTPSA id
- 00721157ae682-88486086a50sm3291707b3.17.2026.09.10.11.51.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Sep 2026 11:51:04 -0700 (PDT)
-From: Jonathan Frazin <frazinjonathan@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
- Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
- Alex Lanzano <lanzano.alex@gmail.com>, linux-kernel@vger.kernel.org,
- Jonathan Frazin <frazinjonathan@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-Subject: [PATCH v1 2/2] drm/tiny: allow a framebuffer larger than the panel on
- MIPI DBI drivers
-Date: Thu, 10 Sep 2026 13:48:57 -0500
-Message-ID: <20260910185030.870-3-frazinjonathan@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910185030.870-1-frazinjonathan@gmail.com>
-References: <20260910185030.870-1-frazinjonathan@gmail.com>
+X-Greylist: delayed 535 seconds by postgrey-1.36 at gabe;
+ Fri, 11 Sep 2026 07:50:11 UTC
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [194.59.206.189])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0268110F538
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 07:50:11 +0000 (UTC)
+Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
+ by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hh60H2xDQz4JJl;
+ Fri, 11 Sep 2026 09:40:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1789112431;
+ bh=xcYnE6/LSXVqirIZAi5Nb66u//g24+ZOxVZnvuRrp4E=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=d+cUFSUoEDGscwsJRbDG/SDze3szxjMC2mCF9S+hp8SACn98L2ihT9YLAU0Tm909N
+ OXMsk/cloZYipNDr3oBTUdbnVeYKU8bV/mWNjnVJDusc1tVxNYw2VTLf2dOvtH6l7l
+ A/gYeopK/Fe1xA6YhkWnYXqzUy9x3DzTFX+l69M4/Uv1qaYy2AWiNyreetrOZwFe9f
+ QV8NvR40aR4kWzGkAHdaNnM9ehcuXAbL87CMoOziEI13ZH2OrylYsZsugfUC2WqeK3
+ 80oa28zbO6VWypnfQOF7pc17vIbSi6peLQTdEco54cHE3LWU3NO52k5IMYybN3aQGN
+ D1k4OsIawKTSA==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+ by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hh5zR44d9z7ylk;
+ Fri, 11 Sep 2026 09:39:47 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hh5zP3wXWz8sbH;
+ Fri, 11 Sep 2026 09:39:45 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
+ [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id 68F7F5FA94;
+ Fri, 11 Sep 2026 09:39:37 +0200 (CEST)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
+ smtp.mailfrom=regressions@leemhuis.info
+ smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <ec0c2486-b127-4a47-a81c-499130f268d9@leemhuis.info>
+Date: Fri, 11 Sep 2026 09:39:35 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/vblank: Don't arm vblank timer with invalid frame
+ duration
+To: Thomas Zimmermann <tzimmermann@suse.de>, Roman Ilin <me@romanilin.is>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maxime Ripard <mripard@kernel.org>, Louis Chauvet
+ <louis.chauvet@bootlin.com>, Javier Martinez Canillas <javierm@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>, Peter Arnesen <peter.m.arnesen@gmail.com>,
+ Linux kernel regressions list <regressions@lists.linux.dev>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+References: <20260613224434.96501-1-me@romanilin.is>
+ <20260702181027.98526-1-me@romanilin.is>
+ <E697A2AE-5413-48AE-BFD6-3383819B388B@romanilin.is>
+ <3b192119-9709-4f21-841f-a4706cc85e4a@suse.de>
+ <0600a3f0-b2d2-4a07-ab21-f590c2979612@leemhuis.info>
+ <f0e4cc76-5cf3-4fdb-b42c-f405a09c0d2a@suse.de>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <f0e4cc76-5cf3-4fdb-b42c-f405a09c0d2a@suse.de>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 11 Sep 2026 07:50:02 +0000
+X-PPP-Message-ID: <178911237806.1098728.4475708475432056913@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 68F7F5FA94
+X-NC-CID: pAeiIysBZsQaVkzJajRrCRoQrYAtTwGF1+O9m4yh/GbgicGiOZo=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,162 +95,252 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Every drm/tiny MIPI DBI driver pins mode_config.max_width/max_height to
-the panel size, so KMS rejects any framebuffer that is not exactly
-panel-sized:
+Hi Thomas!
 
-    ili9341 spi0.0: bad framebuffer width 480, should be >= 240 && <= 240
+On 9/4/26 08:19, Thomas Zimmermann wrote:
+> Am 03.09.26 um 16:07 schrieb Thorsten Leemhuis:
+>> On 7/3/26 09:26, Thomas Zimmermann wrote:
+>>> Am 02.07.26 um 20:23 schrieb Roman Ilin:
+>>>> Apologies, I accidentally fired off send-email before saving my final
+>>>> changelog notes. Please ignore the changelog and notes in the original
+>>>> v3 email.
+>>> We want to know when this happens. And user space will only be able to
+>>> trigger this once, so there's no risk of spamming the kernel log.
+>>>> Hmmm, just wondering: what's the status here?
+>>
+>> Roman Ilin, did you loose interest? Or was this continued somewhere or
+>> maybe even resolved and I just missed that?
+>>
+>> Thomas: if Roman left this behind, could you maybe handle this, [...]
+>
+> AFAICT it was almost there except for the error messaging. The v4 then
+> never happened. I can finish the patch if Roman is no longer around.
 
-Raise the maximums to DRM_SHADOW_PLANE_MAX_WIDTH/HEIGHT (which its
-kerneldoc recommends for shadow-plane drivers) on the drivers that flush
-through the shared drm_mipi_dbi_plane_helper_atomic_update(), so a client
-can allocate a larger framebuffer and pick the displayed region through
-the plane source rectangle - a crop / pan with no scaling, now that
-drm_mipi_dbi honours the source offset (previous patch):
+No answer from Roman since then, so yes, that would be great! Tia!
 
-    ili9341, hx8357d, ili9486, mi0283qt, ili9163, panel-mipi-dbi
+Ciao, Thorsten
 
-The fixed mode, the minimums and the connector are unchanged. The plane
-check (drm_mipi_dbi_plane_helper_atomic_check) still forbids scaling and
-repositioning, and the transfer buffer is sized from the display mode,
-so the flushed rectangle stays bounded by the panel regardless of the
-framebuffer dimensions.
-
-ili9225 is left out: it has its own atomic_update / ili9225_fb_dirty()
-that addresses the panel from the damage rectangle without the source
-offset, so raising its limits would let a mispositioned buffer through.
-
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Signed-off-by: Jonathan Frazin <frazinjonathan@gmail.com>
----
- drivers/gpu/drm/tiny/hx8357d.c        | 8 ++++++--
- drivers/gpu/drm/tiny/ili9163.c        | 8 ++++++--
- drivers/gpu/drm/tiny/ili9341.c        | 8 ++++++--
- drivers/gpu/drm/tiny/ili9486.c        | 8 ++++++--
- drivers/gpu/drm/tiny/mi0283qt.c       | 8 ++++++--
- drivers/gpu/drm/tiny/panel-mipi-dbi.c | 8 ++++++--
- 6 files changed, 36 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/tiny/hx8357d.c b/drivers/gpu/drm/tiny/hx8357d.c
-index f942a8d09..0599b8ccf 100644
---- a/drivers/gpu/drm/tiny/hx8357d.c
-+++ b/drivers/gpu/drm/tiny/hx8357d.c
-@@ -320,9 +320,13 @@ static int hx8357d_probe(struct spi_device *spi)
- 		return ret;
- 
- 	drm->mode_config.min_width = dbidev->mode.hdisplay;
--	drm->mode_config.max_width = dbidev->mode.hdisplay;
-+	/*
-+	 * Allow a framebuffer larger than the panel so a sub-region can be
-+	 * displayed via the plane source rectangle (crop / pan, no scaling).
-+	 */
-+	drm->mode_config.max_width = DRM_SHADOW_PLANE_MAX_WIDTH;
- 	drm->mode_config.min_height = dbidev->mode.vdisplay;
--	drm->mode_config.max_height = dbidev->mode.vdisplay;
-+	drm->mode_config.max_height = DRM_SHADOW_PLANE_MAX_HEIGHT;
- 	drm->mode_config.funcs = &hx8357d_mode_config_funcs;
- 	drm->mode_config.preferred_depth = 16;
- 	drm->mode_config.helper_private = &hx8357d_mode_config_helper_funcs;
-diff --git a/drivers/gpu/drm/tiny/ili9163.c b/drivers/gpu/drm/tiny/ili9163.c
-index 884242450..fe6c13056 100644
---- a/drivers/gpu/drm/tiny/ili9163.c
-+++ b/drivers/gpu/drm/tiny/ili9163.c
-@@ -251,9 +251,13 @@ static int ili9163_probe(struct spi_device *spi)
- 		return ret;
- 
- 	drm->mode_config.min_width = dbidev->mode.hdisplay;
--	drm->mode_config.max_width = dbidev->mode.hdisplay;
-+	/*
-+	 * Allow a framebuffer larger than the panel so a sub-region can be
-+	 * displayed via the plane source rectangle (crop / pan, no scaling).
-+	 */
-+	drm->mode_config.max_width = DRM_SHADOW_PLANE_MAX_WIDTH;
- 	drm->mode_config.min_height = dbidev->mode.vdisplay;
--	drm->mode_config.max_height = dbidev->mode.vdisplay;
-+	drm->mode_config.max_height = DRM_SHADOW_PLANE_MAX_HEIGHT;
- 	drm->mode_config.funcs = &ili9163_mode_config_funcs;
- 	drm->mode_config.preferred_depth = 16;
- 	drm->mode_config.helper_private = &ili9163_mode_config_helper_funcs;
-diff --git a/drivers/gpu/drm/tiny/ili9341.c b/drivers/gpu/drm/tiny/ili9341.c
-index 003381aa2..1e4bb56e3 100644
---- a/drivers/gpu/drm/tiny/ili9341.c
-+++ b/drivers/gpu/drm/tiny/ili9341.c
-@@ -282,9 +282,13 @@ static int ili9341_probe(struct spi_device *spi)
- 		return ret;
- 
- 	drm->mode_config.min_width = dbidev->mode.hdisplay;
--	drm->mode_config.max_width = dbidev->mode.hdisplay;
-+	/*
-+	 * Allow a framebuffer larger than the panel so a sub-region can be
-+	 * displayed via the plane source rectangle (crop / pan, no scaling).
-+	 */
-+	drm->mode_config.max_width = DRM_SHADOW_PLANE_MAX_WIDTH;
- 	drm->mode_config.min_height = dbidev->mode.vdisplay;
--	drm->mode_config.max_height = dbidev->mode.vdisplay;
-+	drm->mode_config.max_height = DRM_SHADOW_PLANE_MAX_HEIGHT;
- 	drm->mode_config.funcs = &ili9341_mode_config_funcs;
- 	drm->mode_config.preferred_depth = 16;
- 	drm->mode_config.helper_private = &ili9341_mode_config_helper_funcs;
-diff --git a/drivers/gpu/drm/tiny/ili9486.c b/drivers/gpu/drm/tiny/ili9486.c
-index fab8bd7ce..de33d702a 100644
---- a/drivers/gpu/drm/tiny/ili9486.c
-+++ b/drivers/gpu/drm/tiny/ili9486.c
-@@ -309,9 +309,13 @@ static int ili9486_probe(struct spi_device *spi)
- 		return ret;
- 
- 	drm->mode_config.min_width = dbidev->mode.hdisplay;
--	drm->mode_config.max_width = dbidev->mode.hdisplay;
-+	/*
-+	 * Allow a framebuffer larger than the panel so a sub-region can be
-+	 * displayed via the plane source rectangle (crop / pan, no scaling).
-+	 */
-+	drm->mode_config.max_width = DRM_SHADOW_PLANE_MAX_WIDTH;
- 	drm->mode_config.min_height = dbidev->mode.vdisplay;
--	drm->mode_config.max_height = dbidev->mode.vdisplay;
-+	drm->mode_config.max_height = DRM_SHADOW_PLANE_MAX_HEIGHT;
- 	drm->mode_config.funcs = &ili9486_mode_config_funcs;
- 	drm->mode_config.preferred_depth = 16;
- 	drm->mode_config.helper_private = &ili9486_mode_config_helper_funcs;
-diff --git a/drivers/gpu/drm/tiny/mi0283qt.c b/drivers/gpu/drm/tiny/mi0283qt.c
-index b0121e89e..df3801914 100644
---- a/drivers/gpu/drm/tiny/mi0283qt.c
-+++ b/drivers/gpu/drm/tiny/mi0283qt.c
-@@ -290,9 +290,13 @@ static int mi0283qt_probe(struct spi_device *spi)
- 		return ret;
- 
- 	drm->mode_config.min_width = dbidev->mode.hdisplay;
--	drm->mode_config.max_width = dbidev->mode.hdisplay;
-+	/*
-+	 * Allow a framebuffer larger than the panel so a sub-region can be
-+	 * displayed via the plane source rectangle (crop / pan, no scaling).
-+	 */
-+	drm->mode_config.max_width = DRM_SHADOW_PLANE_MAX_WIDTH;
- 	drm->mode_config.min_height = dbidev->mode.vdisplay;
--	drm->mode_config.max_height = dbidev->mode.vdisplay;
-+	drm->mode_config.max_height = DRM_SHADOW_PLANE_MAX_HEIGHT;
- 	drm->mode_config.funcs = &mi0283qt_mode_config_funcs;
- 	drm->mode_config.preferred_depth = 16;
- 	drm->mode_config.helper_private = &mi0283qt_mode_config_helper_funcs;
-diff --git a/drivers/gpu/drm/tiny/panel-mipi-dbi.c b/drivers/gpu/drm/tiny/panel-mipi-dbi.c
-index 60cd65cae..a0a098b0d 100644
---- a/drivers/gpu/drm/tiny/panel-mipi-dbi.c
-+++ b/drivers/gpu/drm/tiny/panel-mipi-dbi.c
-@@ -448,9 +448,13 @@ static int panel_mipi_dbi_spi_probe(struct spi_device *spi)
- 		return ret;
- 
- 	drm->mode_config.min_width = dbidev->mode.hdisplay;
--	drm->mode_config.max_width = dbidev->mode.hdisplay;
-+	/*
-+	 * Allow a framebuffer larger than the panel so a sub-region can be
-+	 * displayed via the plane source rectangle (crop / pan, no scaling).
-+	 */
-+	drm->mode_config.max_width = DRM_SHADOW_PLANE_MAX_WIDTH;
- 	drm->mode_config.min_height = dbidev->mode.vdisplay;
--	drm->mode_config.max_height = dbidev->mode.vdisplay;
-+	drm->mode_config.max_height = DRM_SHADOW_PLANE_MAX_HEIGHT;
- 	drm->mode_config.funcs = &panel_mipi_dbi_mode_config_funcs;
- 	drm->mode_config.preferred_depth = bpp;
- 	drm->mode_config.helper_private = &panel_mipi_dbi_mode_config_helper_funcs;
--- 
-2.53.0
+>>> So this is not really a problem. drm_WARN_ON_ONCE was ok for that. You
+>>> can also use a regular DRM print macro. But instead of drm_dbg_kms()
+>>> should use drm_err_once(). But please also output linedur_ns and
+>>> framedur_ns in the error. We want to know which of them is incorrect.
+>>> You can also add more information to the error message. See [1] for the
+>>> mode-formating macros.
+>>>
+>>> [1] https://elixir.bootlin.com/linux/v7.1.2/source/include/drm/
+>>> drm_modes.h#L422
+>>>
+>>>
+>>>> - Updated drm_calc_timestamping_constants with the goto error fallback
+>>>>     to clear the stale state.
+>>>>
+>>>> Also, an automated review bot pointed out an AB-BA deadlock in
+>>>> drm_crtc_vblank_start_timer(). But I am leaving this out of the
+>>>> patch to
+>>>> keep the fixes orthogonal.
+>>>>
+>>>> Sorry for the noise.
+>>>>
+>>>>> On Jul 2, 2026, at 21:10, Roman Ilin <me@romanilin.is> wrote:
+>>>>>
+>>>>> When a CRTC's display mode carries a too small pixel clock,
+>>>>> drm_calc_timestamping_constants() computes a frame duration that
+>>>>> exceeds INT_MAX. drm_vblank_crtc.framedur_ns becomes negative.
+>>>>> drm_crtc_vblank_start_timer() then arms the vblank hrtimer with this
+>>>>> interval, after which vblank events are no longer delivered. Pending
+>>>>> page flips never complete and the display appears frozen.
+>>>>>
+>>>>> This could be triggered on virtio-gpu guests that have dynamic
+>>>>> resolution
+>>>>> enabled: when the SPICE agent or the X server resizes the output, it
+>>>>> submits a mode whose pixel clock is off by a factor of 1000, e.g.:
+>>>>>
+>>>>>      clock = 406 kHz, htotal = 3152, vtotal = 2148
+>>>>>
+>>>>>      framedur_ns = 3152 * 2148 * 1000000 / 406 = 16675852216 ns
+>>>>> (~16.7 s)
+>>>>>
+>>>>> 16675852216 does not fit into an int and wraps to roughly -504000000.
+>>>>> ns_to_ktime() then yields a negative interval and the timer stops
+>>>>> working.
+>>>>>
+>>>>> Found by bisection, which pointed at commit a036f5fceedb ("drm/
+>>>>> virtgpu:
+>>>>> Use vblank timer"). That commit merely made virtio-gpu use the vblank
+>>>>> timer and thereby exposed the pre-existing problem in the timer setup
+>>>>> added by commit 74afeb812850 ("drm/vblank: Add vblank timer").
+>>>>>
+>>>>> To fix this, modify drm_calc_timestamping_constants() to use u64 for
+>>>>> calculations, check for INT_MAX overflows, and return an error code.
+>>>>> drm_crtc_vblank_start_timer() will then propagate the error, enabling
+>>>>> the driver to fall back to immediate vblank events. Valid modes are
+>>>>> unaffected, and the timer self-heals on the next mode with a sane
+>>>>> clock.
+>>>>>
+>>>>> Fixes: 74afeb812850 ("drm/vblank: Add vblank timer")
+>>>>> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>>>> Signed-off-by: Roman Ilin <me@romanilin.is>
+>>>>> ---
+>>>>> Changes in v3:
+>>>>>
+>>>>> - Changed the WARN_ON_ONCE to drm_err_once
+>>>>>
+>>>>> Notes:
+>>>>>
+>>>>>
+>>>>>
+>>>>> drivers/gpu/drm/drm_vblank.c | 71 +++++++++++++++++++++++-------------
+>>>>> include/drm/drm_vblank.h     |  4 +-
+>>>>> 2 files changed, 48 insertions(+), 27 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/
+>>>>> drm_vblank.c
+>>>>> index f90fb2d13..629b9fcc7 100644
+>>>>> --- a/drivers/gpu/drm/drm_vblank.c
+>>>>> +++ b/drivers/gpu/drm/drm_vblank.c
+>>>>> @@ -631,42 +631,51 @@ EXPORT_SYMBOL(drm_crtc_vblank_waitqueue);
+>>>>>    * drm_crtc_vblank_helper_get_vblank_timestamp(). They are
+>>>>> derived from
+>>>>>    * CRTC's true scanout timing, so they take things like panel
+>>>>> scaling or
+>>>>>    * other adjustments into account.
+>>>>> + *
+>>>>> + * Returns:
+>>>>> + * 0 on success, or a negative errno code otherwise.
+>>>>>    */
+>>>>> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>>>> -     const struct drm_display_mode *mode)
+>>>>> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>>>> +    const struct drm_display_mode *mode)
+>>>>> {
+>>>>> struct drm_device *dev = crtc->dev;
+>>>>> unsigned int pipe = drm_crtc_index(crtc);
+>>>>> struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+>>>>> - int linedur_ns = 0, framedur_ns = 0;
+>>>>> + u64 linedur_ns, framedur_ns;
+>>>>> int dotclock = mode->crtc_clock;
+>>>>> + unsigned int frame_size;
+>>>>>
+>>>>> if (!drm_dev_has_vblank(dev))
+>>>>> - return;
+>>>>> + return 0;
+>>>>>
+>>>>> if (drm_WARN_ON(dev, pipe >= dev->num_crtcs))
+>>>>> - return;
+>>>>> + return -EINVAL;
+>>>>>
+>>>>> - /* Valid dotclock? */
+>>>>> - if (dotclock > 0) {
+>>>>> - int frame_size = mode->crtc_htotal * mode->crtc_vtotal;
+>>>>> + if (dotclock <= 0) {
+>>>>> + drm_err(dev, "crtc %u: Can't calculate constants, dotclock = %d!\n",
+>>> Please turn this into drm_err_once() because this call can actually be
+>>> triggered repeatedly from userspace.
+>>>
+>>> Best regards
+>>> Thomas
+>>>
+>>>
+>>>>> + crtc->base.id, dotclock);
+>>>>> + goto error;
+>>>>> + }
+>>>>>
+>>>>> - /*
+>>>>> - * Convert scanline length in pixels and video
+>>>>> - * dot clock to line duration and frame duration
+>>>>> - * in nanoseconds:
+>>>>> - */
+>>>>> - linedur_ns  = div_u64((u64) mode->crtc_htotal * 1000000, dotclock);
+>>>>> - framedur_ns = div_u64((u64) frame_size * 1000000, dotclock);
+>>>>> + frame_size = (unsigned int)mode->crtc_htotal * (unsigned int)mode-
+>>>>>> crtc_vtotal;
+>>>>> - /*
+>>>>> - * Fields of interlaced scanout modes are only half a frame duration.
+>>>>> - */
+>>>>> - if (mode->flags & DRM_MODE_FLAG_INTERLACE)
+>>>>> - framedur_ns /= 2;
+>>>>> - } else {
+>>>>> - drm_err(dev, "crtc %u: Can't calculate constants, dotclock = 0!\n",
+>>>>> - crtc->base.id);
+>>>>> + /*
+>>>>> + * Convert scanline length in pixels and video dot clock to line
+>>>>> duration
+>>>>> + * and frame duration in nanoseconds.
+>>>>> + */
+>>>>> + linedur_ns  = div_u64((u64)mode->crtc_htotal * 1000000, dotclock);
+>>>>> + framedur_ns = div_u64((u64)frame_size * 1000000, dotclock);
+>>>>> +
+>>>>> + /*
+>>>>> + * Fields of interlaced scanout modes are only half a frame duration.
+>>>>> + */
+>>>>> + if (mode->flags & DRM_MODE_FLAG_INTERLACE)
+>>>>> + framedur_ns /= 2;
+>>>>> +
+>>>>> + if (linedur_ns > INT_MAX || framedur_ns > INT_MAX) {
+>>>>> + drm_dbg_kms(dev, "crtc %u: Can't calculate constants, mode clock
+>>>>> too small!\n",
+>>>>> +    crtc->base.id);
+>>>>> + goto error;
+>>>>> }
+>>>>>
+>>>>> vblank->linedur_ns  = linedur_ns;
+>>>>> @@ -678,7 +687,16 @@ void drm_calc_timestamping_constants(struct
+>>>>> drm_crtc *crtc,
+>>>>>       crtc->base.id, mode->crtc_htotal,
+>>>>>       mode->crtc_vtotal, mode->crtc_vdisplay);
+>>>>> drm_dbg_core(dev, "crtc %u: clock %d kHz framedur %d linedur %d\n",
+>>>>> -     crtc->base.id, dotclock, framedur_ns, linedur_ns);
+>>>>> +     crtc->base.id, dotclock,
+>>>>> +     vblank->framedur_ns, vblank->linedur_ns);
+>>>>> +
+>>>>> + return 0;
+>>>>> +
+>>>>> +error:
+>>>>> + vblank->linedur_ns  = 0;
+>>>>> + vblank->framedur_ns = 0;
+>>>>> + drm_mode_copy(&vblank->hwmode, mode);
+>>>>> + return -EINVAL;
+>>>>> }
+>>>>> EXPORT_SYMBOL(drm_calc_timestamping_constants);
+>>>>>
+>>>>> @@ -2221,6 +2239,7 @@ int drm_crtc_vblank_start_timer(struct drm_crtc
+>>>>> *crtc)
+>>>>> struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+>>>>> struct drm_vblank_crtc_timer *vtimer = &vblank->vblank_timer;
+>>>>> unsigned long flags;
+>>>>> + int ret;
+>>>>>
+>>>>> if (!vtimer->crtc) {
+>>>>> /*
+>>>>> @@ -2239,7 +2258,9 @@ int drm_crtc_vblank_start_timer(struct drm_crtc
+>>>>> *crtc)
+>>>>> hrtimer_try_to_cancel(&vtimer->timer);
+>>>>> }
+>>>>>
+>>>>> - drm_calc_timestamping_constants(crtc, &crtc->mode);
+>>>>> + ret = drm_calc_timestamping_constants(crtc, &crtc->mode);
+>>>>> + if (ret)
+>>>>> + return ret;
+>>>>>
+>>>>> spin_lock_irqsave(&vtimer->interval_lock, flags);
+>>>>> vtimer->interval = ns_to_ktime(vblank->framedur_ns);
+>>>>> diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
+>>>>> index 2fcef9c0f..d99772dfa 100644
+>>>>> --- a/include/drm/drm_vblank.h
+>>>>> +++ b/include/drm/drm_vblank.h
+>>>>> @@ -311,8 +311,8 @@ void drm_crtc_vblank_on(struct drm_crtc *crtc);
+>>>>> u64 drm_crtc_accurate_vblank_count(struct drm_crtc *crtc);
+>>>>> void drm_crtc_vblank_restore(struct drm_crtc *crtc);
+>>>>>
+>>>>> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>>>> -     const struct drm_display_mode *mode);
+>>>>> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>>>> +    const struct drm_display_mode *mode);
+>>>>> wait_queue_head_t *drm_crtc_vblank_waitqueue(struct drm_crtc *crtc);
+>>>>> void drm_crtc_set_max_vblank_count(struct drm_crtc *crtc,
+>>>>>     u32 max_vblank_count);
+>>>>> -- 
+>>>>> 2.54.0
+>>>>>
+> 
 
