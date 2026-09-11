@@ -4,96 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 861E3C88E50
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 15:39:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B704DC88E50
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 15:39:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9CF910F689;
-	Fri, 11 Sep 2026 15:39:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4AAC10F68C;
+	Fri, 11 Sep 2026 15:39:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TMUrNJLG";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VqRBqSO1";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="H+EEQtfa";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y9D6DLwr";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29D7410F689
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 15:39:19 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF9DB10F57A
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 15:39:35 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68BFA6rn658277
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 15:39:18 GMT
+ 68BEm0GS269302
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 15:39:35 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- UnGddGWrJdF1zxB4VFc2RF/9fwOZjjhxSTnj+Nzo7/I=; b=TMUrNJLGo4CfY+H4
- wgrvvueXkD+Bu3I8ogPvOQXkz2Iu5I5U3QVc31Ty94A3eR8c6upfwrQy09SftJAS
- ltmCCdwbF5QZLBA2A2GTMem/ogime0uTbSFG1kN/wulxeDj8bsemN95Khe+g3gZr
- Ml1frnnXtYs5nxntFynfTJGSumZdfpkEoxfDlxqvP21vyL3UsOKUKKXSgzRZ4ULR
- 2DtVb/b1EKDM9I0MMVeapD2/Bu+QVacM25AGehap+/nX3ZzqOSUxSNZue57Lo+Od
- gbqDS4lhEBctFmoELwtZmy3zggF6cRdWfaJyAOMFMgJQEo3brMbvpY/pgBucwuwV
- bOon+g==
-Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com
- [209.85.160.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmm22r46u-1
+ gsOL6A/XqlNEcKVc6fhAS5j/vIAUWo9Ol5uSSyj0hsA=; b=H+EEQtfarwqUIvmS
+ Vy7Qi9Oeyq1ghH/qfUBnTvbZ/YgZiRSHfnyUNLpzAYuebisbueA2OTDIkfRfO7Wc
+ OYPv2BYVpt7SPEEYoxgCiQwHEHTDsGZ+dQb2f7ohn655GiKLfhWo9tByi8fLWvKp
+ fjBqFxvO1EexVxrYvW1BI3zUOzsf9I6ZQJyB81FLGj6sh9BncLCCUW4ZZWk/5En9
+ H/1QLCPjBUQB8hPHSIHwwYHB9pFveTyUIWzla1rBHL7gUTh+IqCzOVZQQSyx5nmB
+ 4cg+DJF5OLCJrFhW4WWmrpHl5Iy/jRSS7pIgx5Miuk68c/e172oJ0W2eXyw8W+vG
+ IPPEiQ==
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com
+ [209.85.160.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmbd52j11-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 15:39:17 +0000 (GMT)
-Received: by mail-oa1-f71.google.com with SMTP id
- 586e51a60fabf-46a12cfc288so1346004fac.2
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 08:39:17 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 15:39:35 +0000 (GMT)
+Received: by mail-oa1-f69.google.com with SMTP id
+ 586e51a60fabf-47d75bcf3ebso958402fac.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 08:39:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1789141157; x=1789745957;
+ d=oss.qualcomm.com; s=google; t=1789141168; x=1789745968;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=UnGddGWrJdF1zxB4VFc2RF/9fwOZjjhxSTnj+Nzo7/I=;
- b=VqRBqSO12Q0H8N9cd51/fV/3EUTKf+JWqAVxl5Cn7+sLnJQXD5qzegH8gDetNW3e9S
- 64TtT0sZVRiTGIBMmsjPdY5GsOqJC1eY3q61oLcOGvwZB0OMG4vOZ0J70GUJ+vhwvykb
- NN/1LpfPMG8hJCWDvD2jsTr5z4oSZWguPB7X6d4dPG78KLybcAlOJwLNh73V5G7YRt/r
- oxYU/+txE4I7HUF0vJ0l07/4og0lMs+7rpjsyISWCVv4njCYse0rRsSzKaWlBiXrqos2
- FNa9HST9lRqQOfs1B7lvobrD4NTNnnIVYYVdtL2sdvA08T0e3Oe1fjRdQoqLaSE8FMgJ
- unig==
+ bh=gsOL6A/XqlNEcKVc6fhAS5j/vIAUWo9Ol5uSSyj0hsA=;
+ b=Y9D6DLwrSF+H9jf9nWYw61YcnyUcS7XDfiDSWwv/N7Q0h4qoxeFV6o21DVfcs4VD0n
+ A/s+z7vurAwfyPu18Ha0V2GAAelFNpe1g6qrqCCSxbVz70r+OPVHgOjRKplleDMgqDuv
+ LXL3l5lJJ1sFW7pZ2n8eNeo08BW+UL1/q/f7AZDojWhO/qqrCEEPW3mhM2F5+ubexRbl
+ N1PDJQE/fqGugmlelyoxuGrYZCzRP35XPmeiI8Z4YEZj8UQvt/gEFFwvSLopJK8drA9W
+ v9m7fNtTHQPgxz9OQVWPPX5L8Vz0BWw4YLU3HmMYePMTUahCyU0N0Yg/tEjW6VjEYeCM
+ uJuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789141157; x=1789745957;
+ d=1e100.net; s=20251104; t=1789141168; x=1789745968;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=UnGddGWrJdF1zxB4VFc2RF/9fwOZjjhxSTnj+Nzo7/I=;
- b=GLcBzT2ZLLegEbucPVD/sVINoBZYIgCIeiKxeSn9iyWRWLZLxyze/vZ+6cXjoBWJgF
- NJZrcV0Q7/UQDorz5A60TjP0o8beHgyghfWYKwTi6suPpjbggpVMe8ltjjiLECEfkTbi
- tTep35/dc84EPbe6Rnbwou/1BvtLAgoBU2aijXNjtzK8PWk5DsAOIf0NsMfJamyL4xON
- k6KcshguR6bzVD7oZJJHK0mB5cXT7JyvFAqocxpA4rEVTlpGzSdBhJ1Lu9nHgg1cG1kJ
- OCazs44f5SL3vm0I8Xzow3dThX+6BX1ctOw0W/Wn7riHazIZstK4H+hCAyK6W1/GzkeE
- y3PA==
+ bh=gsOL6A/XqlNEcKVc6fhAS5j/vIAUWo9Ol5uSSyj0hsA=;
+ b=A78NhuHOr0nHkxS1QEbPU7EkcZuyh9L9z1s0gEEkl3fHXTQllUxDONkyEtUJq2kSz1
+ rnlDPumFcHClM4un3OJkoBlwdKu7NDnZszsmBboKfjSL65FbTt+i4okGfCMp249VEY3X
+ 7exKY8c2T+zLFhiNofgdOcmZym/wSRZGrNHF5kGMMbSihT6FJd/zjUYxJcDmL7q9I6VF
+ YDsQnTyAI4/6w8AwazUXmDAInFDuwAW5dlZlU6BEVHCeoUqQ3a4ONyql+blfBXNj7Knf
+ BgNhP9WQ/bZk3esE0emUy0BumU5O704blEIawW/K8dTWdbZ48yzZbRCYEc0m0nJqLW9z
+ PlsQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxTip/jikYoAXewubLDQPXXsEcvMzXkkzxqWfDLVd5x9frW8Eok9FKfsFwhtDCn97jMaZogWx+Yd70=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mDdD+0RggQMSOW2yj2mpjzRcQJl9dPPdTO+ASfw+lImyToc7ul
- n/IvzDd89R6pviGxNemTDjqymuMT5uNb1HrRJc3Wh5bTtPGKX9/1KgpymTn9NrR2HF++EZDs5iY
- bT/vQV0CXHeK4L6Wzkp0j5h/8gOPo9rUBP9gjW38UlKIyCNnh/rEhdj6opW22ZFvz15e7mDQ=
-X-Gm-Gg: AYBFou2mL7I1HS6g9qUAK7HSsqmEtPBK/Cp95wVr3g5y5i223IgOw2a7cq+eoLKtj4f
- EsDZZ2nY+ViC5OtcZ10m+iP8Pp8hM1cF6aF59dP3ARBxS9/Ld9cQXTec74UkSYt1fHsuI7f+l55
- fpG/2TXJW/n1mVniPjxamfCvsosKdT41FwcZ1EyUtfl0Dj21npO7fpuZeuYm+P4A54Qnskdr2Gq
- rvmA32Ri2XtGICGXiWJkbJDhIExHjKronVQyCUMNeuJWPffKYEd1MLtDPfLgcJvD1Y9aTEHzStC
- L6pLn9tmgk4EOzuflrhb5tB9CCCNHnNyawwmCc74y/e+FfIvf/Hv+PclTg/W/5FI1C001CfGUoS
- IFC9KGo4iZ0B+dBU/RxyQYC0fwkM=
-X-Received: by 2002:a05:6871:4527:b0:45e:4deb:92e7 with SMTP id
- 586e51a60fabf-47de9ea1f6cmr5600506fac.10.1789141157217; 
- Fri, 11 Sep 2026 08:39:17 -0700 (PDT)
-X-Received: by 2002:a05:6871:4527:b0:45e:4deb:92e7 with SMTP id
- 586e51a60fabf-47de9ea1f6cmr5600455fac.10.1789141156830; 
- Fri, 11 Sep 2026 08:39:16 -0700 (PDT)
+ AKwUvBw8/T/n+oibgbkrOd7PwXsIAn/xHzRPc/VmV3pRU6LxeJ36aOYi0eMIJzHD1OspuUOItp4MmOdZDkE=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mdHqoE7hgSezb/rZhEAoss26fQyK8AkCAOLfW74a+hL8TMZyoF
+ nQiJzwn2XkiiI8e0QDtHj6GM1o4ZwG/BuDQFGznEtS/uKkMPQozJeHpoJ1lvGtrAmtWYDxyYuIG
+ Au4zzoyBPYx4IojblZ3gAuSUrzPtjmpAqcfLwrLDjJ/cqF9Qejz3oqKL4R0478nA6ICkyW0E=
+X-Gm-Gg: AYBFou3aNL7nmzmyE/7f9klNMgYXwwbVl2ZXomoQqw5mEIOlwr/Aka1AH6tje3E0umD
+ kcaRvLswY6aBh8jeVJ9YUllzeM4OKAIi3HSTPUz4+OaNDg7q2JkBxxfq5iPJ4oK0hYQmpBuAqam
+ g+UM1q3bucT/HlAAgvRzgmIXTtEugJyNPKw58J++dy0k75siZRdFIStP/MFGesJzq1TR7eIIKbs
+ LdEI2mw+cagt175V25Yx5VFpXHNCJYyQ+nMDcNSJRFAK7Ywi8MljpqszgeD5dEf5mxwWzFexyUE
+ 958lFcqhSIuvcoNGiAGtrhh8SwaBWFse6AJ9dShybl0X+jP4gMf8dYra/p6ZUyLXcfGalGwhOmB
+ GXnwaAechO2lS5FM9W5XVgQ6ysLE=
+X-Received: by 2002:a05:6870:a788:b0:457:b657:b084 with SMTP id
+ 586e51a60fabf-47dea52533emr6576801fac.18.1789141167928; 
+ Fri, 11 Sep 2026 08:39:27 -0700 (PDT)
+X-Received: by 2002:a05:6870:a788:b0:457:b657:b084 with SMTP id
+ 586e51a60fabf-47dea52533emr6576494fac.18.1789141165861; 
+ Fri, 11 Sep 2026 08:39:25 -0700 (PDT)
 Received: from hu-naala-hyd.qualcomm.com ([202.46.22.19])
  by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-47df90ff148sm1882160fac.14.2026.09.11.08.39.07
+ 586e51a60fabf-47df90ff148sm1882160fac.14.2026.09.11.08.39.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Sep 2026 08:39:16 -0700 (PDT)
+ Fri, 11 Sep 2026 08:39:25 -0700 (PDT)
 From: Nabige Aala <nabige.aala@oss.qualcomm.com>
-Date: Fri, 11 Sep 2026 21:06:45 +0530
-Subject: [PATCH 14/17] phy: qcom: edp: Add Nord PLL configuration callback
+Date: Fri, 11 Sep 2026 21:06:46 +0530
+Subject: [PATCH 15/17] phy: qcom: edp: Add Nord LDO, TX lane and TX
+ resistor calibration callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-nord-drv-dt-v1-14-e25c073cf1b6@oss.qualcomm.com>
+Message-Id: <20260911-nord-drv-dt-v1-15-e25c073cf1b6@oss.qualcomm.com>
 References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
 In-Reply-To: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
 To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -117,38 +118,38 @@ Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
  Mahadevan P <mahadevan.p@oss.qualcomm.com>,
  Nabige Aala <nabige.aala@oss.qualcomm.com>
 X-Mailer: b4 0.16-dev-d5d98
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789141012; l=5018;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789141012; l=2541;
  i=nabige.aala@oss.qualcomm.com; s=20260520; h=from:subject:message-id;
- bh=z9E4EG9wSuZ5+j69xkzxnB+1Nroa+6lja69Qmbxvx1A=;
- b=6id+SyRX/F4n99lfnbRmoSJL5H686LP5GjLFNv025TolLH4cDG8X4GLI5HRPD/xCoO2AJe5E4
- ilic7KghrJ5BbCGAhfAEvuRO4nGuGvV0eaptA9ltOIaTgvhNfhqQtoC
+ bh=Xy/VEWguip0tUXARr40NV4wwp5carfCh+h9B3ClOARc=;
+ b=fCVipWrCI9H3CCZKDDD14z5Es5pRMhlle8YcU1NBrHBqtRPMssWUK43GOknyyVMcKJWene/D+
+ tVmDRWKwXQyB5+I7VXQ5EnFrpSRBAEc5kM069eafOWLHDQgUEcpXd5X
 X-Developer-Key: i=nabige.aala@oss.qualcomm.com; a=ed25519;
  pk=PYHJom8sPos1IGkrbCCsWiE7XTBQrQZd9jzAo051tgw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDIxOCBTYWx0ZWRfXyX+QaLt7gph4
- hbZmUenlEA3VR0LoJ7DNb5P+TTL+Qzlj+t9JJriL94ElQq1v7MKPfiSkBlr6Cl01wc0hhKETwf+
- m/7M46HvM6SqdMiBK+UfHpiYEh5zGRDu7O5oCFh42njzrOeM82Nb7NnAh60b++ptvcjLaKcBR8d
- ihtssCshv0IVngpjjW3UT53y1QDYKYV+JBhlYY/jH0oVR9Qi2K+UPSvrw4UOZLYyw3CpnhG5/DT
- FE1KtxjhOV/bcmisuAOqe3h9jXNNtOFKV2r3nTEL1t2VvUMqDi+EITXcCh3SCMW/lT053tVS2k6
- 1o/nwCqLII0lp+8Iyq5DXbzp1UdY0bkZamNQBxz9oTM/kQp03fKZeFibdHlo/T3olXYUiXAlgPY
- o5oHMvp+A3bGLulXaEfttBTC2T0tXyTRKBW0RZ5OcNryVnr3ZecjDIiE11JSb85rHox6ODwB7+E
- xcj77p8LTK5FBL0YLig==
-X-Authority-Analysis: v=2.4 cv=LPDz05W9 c=1 sm=1 tr=0 ts=6aa420a5 cx=c_pps
- a=CWtnpBpaoqyeOyNyJ5EW7Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-GUID: 7Eq5Ym5QJZAuBMpnhESDmAUnXaPRvXht
+X-Proofpoint-ORIG-GUID: 7Eq5Ym5QJZAuBMpnhESDmAUnXaPRvXht
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDIxOCBTYWx0ZWRfX+cQ+XGTFCHqI
+ OgDk55mDJ5BNmOHRNSnh2Jo1Su5Pg56Ucuoo06v/Gc2Ug1nMhEtZaJPlU9I+dx1yATD6P6Iy/Bz
+ Yfa4S7ra5tNrHPT70O4ORbn8QW03Itw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDIxOCBTYWx0ZWRfX7XMOUTXpWjMO
+ JGQ33p41DMsJaVO2Jah8WpgXPqTy6M1CPtddrHucuW/SbaVTou9q7wcWVCHqDqf/LbFcbAQWykk
+ SzE0jlPfnCykDzdayRg/9c1wb2Tzbr95okHOjSOP04YQQMqJmpu3+ySk6t6+cA0I7u0aaLSMCvu
+ 0HhXBsw98szrv56202o6r7EwM9S2i9hJdkxj9vNg7hj20DRfEy18mI24OyJmeUUEPaCiq655qJ5
+ VfGIuVtYOLTSYkHLNztuRHKHZZFUMoIMaOX/YdQciJZDPYo8bYiWjuNgtCQ+9qEn45pQit6YINW
+ xP37XEHjYXgFSVFQMx4xW5UaGx3qm81jlyHLS7wfn5uOvaj9+m140eSeIfQSUFref4W8eQVQKoh
+ DTWM99W1j3dFguZbEIcv9fryY1QiL8/U5vzlWYTMqKkc0daWMQy+JZ/gahFd9zQ9HpQX9RZ0kWx
+ K89QmpNs6WggijD7bcw==
+X-Authority-Analysis: v=2.4 cv=db0VTnXe c=1 sm=1 tr=0 ts=6aa420b7 cx=c_pps
+ a=zPxD6eHSjdtQ/OcAcrOFGw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=LM-BLXuauT-zrwgKAhAA:9 a=QEXdDO2ut3YA:10
- a=vh23qwtRXIYOdz9xvnmn:22
-X-Proofpoint-ORIG-GUID: ZucaOt44I434ittkLgzWfxMV_ctK6f0s
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDIxOCBTYWx0ZWRfX5N10pq4ImN9P
- YdlucdQ5phFq1Y9Z2eF9z094UvfZJV+ONIGvtB+zFde8GpUsYLhe7iDDVpyJs3dAzBUwFpG/X3H
- YB6xF70FIvNsNBrUUHiRLDCuR8e0/Es=
-X-Proofpoint-GUID: ZucaOt44I434ittkLgzWfxMV_ctK6f0s
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=Ap641EtHlGqqo4O5a_8A:9 a=QEXdDO2ut3YA:10
+ a=y8BKWJGFn5sdPF1Y92-H:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-11_05,2026-09-11_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0
- malwarescore=0 spamscore=0 suspectscore=0 priorityscore=1501 phishscore=0
+ malwarescore=0 suspectscore=0 adultscore=0 clxscore=1015 lowpriorityscore=0
+ spamscore=0 impostorscore=0 priorityscore=1501 bulkscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110218
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -168,133 +169,67 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
 
-Nord uses a 38.4 MHz CXO reference with a different QSERDES v8 COM
-register layout and PLL coefficients.  Add
-qcom_edp_com_configure_pll_nord() which programs all QSERDES COM PLL
-registers with link-rate-dependent values for RBR, HBR, HBR2 and
-HBR3, per HPG Table 2-1-d.
+Nord requires different LDO levels, TX lane control offsets and TX
+resistor calibration codes compared to existing SoCs.  Add
+qcom_edp_ldo_config_nord(), qcom_edp_phy_tx_lane_cfg_nord() and
+qcom_edp_phy_tx_res_cfg_nord() with values per HPG Table 2-1-d.
 
 Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
 Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
 ---
- drivers/phy/qualcomm/phy-qcom-edp.c | 112 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 112 insertions(+)
+ drivers/phy/qualcomm/phy-qcom-edp.c | 47 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
 diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/phy-qcom-edp.c
-index a0f4b12e561e..4d1b2c81d956 100644
+index 4d1b2c81d956..361f4e467351 100644
 --- a/drivers/phy/qualcomm/phy-qcom-edp.c
 +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
-@@ -1688,6 +1688,118 @@ static int qcom_edp_com_configure_ssc_nord(const struct qcom_edp *edp)
+@@ -1800,6 +1800,53 @@ static int qcom_edp_com_configure_pll_nord(const struct qcom_edp *edp)
  }
  
  
 +/*
-+ * Nord PLL configuration per HPG Table 2-1-d, CXO = 38.4 MHz.
-+ * Supported link rates: 1.62 Gbps (RBR), 2.7 Gbps (HBR),
-+ * 5.4 Gbps (HBR2), 8.1 Gbps (HBR3).
++ * nord LDO configuration.
++ * From HPG Table 2-1-d: LDO Configuration section.
++ * eDP mode: 0xD1 for rates <= 8.1 Gbps, 0x00 for UHBR (>8.1 Gbps).
++ * DP mode: always 0x00.
++ * Also programs EDP2_DP_PHY_LDO_CFG: 0x03 for eDP rates <= 8.1G, 0x00 otherwise.
 + */
-+static int qcom_edp_com_configure_pll_nord(const struct qcom_edp *edp)
++static int qcom_edp_ldo_config_nord(const struct qcom_edp *edp)
 +{
 +	const struct phy_configure_opts_dp *dp_opts = &edp->dp_opts;
-+	u32 div_frac_start1_mode0;
-+	u32 div_frac_start2_mode0;
-+	u32 div_frac_start3_mode0;
-+	u32 dec_start_mode0;
-+	u32 lock_cmp1_mode0;
-+	u32 lock_cmp2_mode0;
-+	u32 lock_cmp_en;
-+	u32 hsclk_sel;
-+	u32 code1_mode0;
-+	u32 code2_mode0;
-+	u32 core_clk_div_mode0 = 0x14;
++	u32 ldo_config;
++	u32 phy_ldo_cfg;
 +
-+	switch (dp_opts->link_rate) {
-+	case 1620:
-+		hsclk_sel		= 0x0c;
-+		dec_start_mode0		= 0x54;
-+		div_frac_start1_mode0	= 0x00;
-+		div_frac_start2_mode0	= 0x00;
-+		div_frac_start3_mode0	= 0x06;
-+		lock_cmp1_mode0		= 0x37;
-+		lock_cmp2_mode0		= 0x04;
-+		lock_cmp_en		= 0x04;
-+		code1_mode0		= 0x8d;
-+		code2_mode0		= 0x27;
-+		break;
++	ldo_config = 0xd0;
++	phy_ldo_cfg = 0x03;
 +
-+	case 2700:
-+		hsclk_sel		= 0x04;
-+		dec_start_mode0		= 0x46;
-+		div_frac_start1_mode0	= 0x00;
-+		div_frac_start2_mode0	= 0x00;
-+		div_frac_start3_mode0	= 0x05;
-+		lock_cmp1_mode0		= 0x07;
-+		lock_cmp2_mode0		= 0x07;
-+		lock_cmp_en		= 0x08;
-+		code1_mode0		= 0xf6;
-+		code2_mode0		= 0x20;
-+		break;
++	writel(ldo_config, edp->tx0 + TXn_LDO_CONFIG);
++	writel(dp_opts->lanes > 2 ? ldo_config : 0x00, edp->tx1 + TXn_LDO_CONFIG);
++	writel(phy_ldo_cfg, edp->edp + DP_PHY_LDO_CFG);
 +
-+	case 5400:
-+		hsclk_sel		= 0x01;
-+		dec_start_mode0		= 0x46;
-+		div_frac_start1_mode0	= 0x00;
-+		div_frac_start2_mode0	= 0x00;
-+		div_frac_start3_mode0	= 0x05;
-+		lock_cmp1_mode0		= 0x0f;
-+		lock_cmp2_mode0		= 0x0e;
-+		lock_cmp_en		= 0x08;
-+		code1_mode0		= 0xf6;
-+		code2_mode0		= 0x20;
-+		break;
++	return 0;
++}
 +
-+	case 8100:
-+		hsclk_sel		= 0x03;
-+		dec_start_mode0		= 0x4f;
-+		div_frac_start1_mode0	= 0x00;
-+		div_frac_start2_mode0	= 0xa0;
-+		div_frac_start3_mode0	= 0x01;
-+		lock_cmp1_mode0		= 0x17;
-+		lock_cmp2_mode0		= 0x15;
-+		lock_cmp_en		= 0x08;
-+		code1_mode0		= 0x14;
-+		code2_mode0		= 0x25;
-+		core_clk_div_mode0	= 0x0a;
-+		break;
++static int qcom_edp_phy_tx_lane_cfg_nord(const struct qcom_edp *edp)
++{
++	writel(0x05, edp->edp + DP_PHY_TX2_TX3_LANE_CTL_NORD);
++	writel(0x12, edp->edp + DP_PHY_TX_LN0_DRV_LVL_NORD);
++	writel(0x12, edp->edp + DP_PHY_TX_LN1_DRV_LVL_NORD);
++	writel(0x05, edp->tx0 + TXn_TX_BAND_NORD);
++	writel(0x05, edp->tx1 + TXn_TX_BAND_NORD);
 +
-+	default:
-+		return -EINVAL;
-+	}
++	return 0;
++}
 +
-+	writel(0x01, edp->pll + DP_QSERDES_V8_COM_SVS_MODE_CLK_SEL_NORD);
-+	writel(0x0b, edp->pll + DP_QSERDES_V8_COM_SYSCLK_EN_SEL);
-+	writel(0x02, edp->pll + DP_QSERDES_V8_COM_SYS_CLK_CTRL);
-+	writel(0x0c, edp->pll + DP_QSERDES_V8_COM_CLK_ENABLE1);
-+	writel(0x06, edp->pll + DP_QSERDES_V8_COM_SYSCLK_BUF_ENABLE);
-+	writel(0x30, edp->pll + DP_QSERDES_V8_COM_CLK_SELECT);
-+	writel(hsclk_sel, edp->pll + DP_QSERDES_V8_COM_HSCLK_SEL_1);
-+	writel(0x07, edp->pll + DP_QSERDES_V8_COM_PLL_IVCO);
-+	writel(lock_cmp_en, edp->pll + DP_QSERDES_V8_COM_LOCK_CMP_EN);
-+	writel(0x36, edp->pll + DP_QSERDES_V8_COM_PLL_CCTRL_MODE0);
-+	writel(0x16, edp->pll + DP_QSERDES_V8_COM_PLL_RCTRL_MODE0);
-+	writel(0x06, edp->pll + DP_QSERDES_V8_COM_CP_CTRL_MODE0);
-+	writel(dec_start_mode0, edp->pll + DP_QSERDES_V8_COM_DEC_START_MODE0);
-+	writel(div_frac_start1_mode0, edp->pll + DP_QSERDES_V8_COM_DIV_FRAC_START1_MODE0);
-+	writel(div_frac_start2_mode0, edp->pll + DP_QSERDES_V8_COM_DIV_FRAC_START2_MODE0);
-+	writel(div_frac_start3_mode0, edp->pll + DP_QSERDES_V8_COM_DIV_FRAC_START3_MODE0);
-+	writel(0x12, edp->pll + DP_QSERDES_V8_COM_CMN_CONFIG_1);
-+	writel(0x3f, edp->pll + DP_QSERDES_V8_COM_INTEGLOOP_GAIN0_MODE0);
-+	writel(0x00, edp->pll + DP_QSERDES_V8_COM_INTEGLOOP_GAIN1_MODE0);
-+	writel(0x00, edp->pll + DP_QSERDES_V8_COM_VCO_TUNE_MAP);
-+	writel(lock_cmp1_mode0, edp->pll + DP_QSERDES_V8_COM_LOCK_CMP1_MODE0);
-+	writel(lock_cmp2_mode0, edp->pll + DP_QSERDES_V8_COM_LOCK_CMP2_MODE0);
-+	writel(0x0a, edp->pll + DP_QSERDES_V8_COM_BG_TIMER);
-+	writel(core_clk_div_mode0, edp->pll + DP_QSERDES_V8_COM_CORECLK_DIV_MODE0);
-+	writel(0x00, edp->pll + DP_QSERDES_V8_COM_VCO_TUNE_CTRL);
-+	writel(0x1d, edp->pll + DP_QSERDES_V8_COM_BIAS_EN_CLKBUFLR_EN);
-+	writel(0x0f, edp->pll + DP_QSERDES_V8_COM_CORE_CLK_EN);
-+	writel(code1_mode0, edp->pll + DP_QSERDES_V8_COM_BIN_VCOCAL_CMP_CODE1_MODE0);
-+	writel(code2_mode0, edp->pll + DP_QSERDES_V8_COM_BIN_VCOCAL_CMP_CODE2_MODE0);
++static int qcom_edp_phy_tx_res_cfg_nord(const struct qcom_edp *edp)
++{
++	writel(0x06, edp->tx0 + TXn_RES_CODE_LANE_OFFSET_TX0);
++	writel(0x06, edp->tx0 + TXn_RES_CODE_LANE_OFFSET_TX1);
++	writel(0x06, edp->tx1 + TXn_RES_CODE_LANE_OFFSET_TX0);
++	writel(0x06, edp->tx1 + TXn_RES_CODE_LANE_OFFSET_TX1);
++	writel(0x06, edp->tx0 + TXn_TX_EMP_POST1_LVL);
++	writel(0x06, edp->tx1 + TXn_TX_EMP_POST1_LVL);
 +
 +	return 0;
 +}
