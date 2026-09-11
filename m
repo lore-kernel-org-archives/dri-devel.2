@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDB44C88E50
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 08:51:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C966CC88E50
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 08:51:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9E2110E10E;
-	Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EDC210E235;
+	Fri, 11 Sep 2026 08:51:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VF5ylQ+2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kZPeUGUW";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3160610E235;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 053DC10E10E;
  Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id CC4534402E;
+ by sea.source.kernel.org (Postfix) with ESMTP id A501543E00;
  Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 92810C2BCF5;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6C746C2BCF4;
  Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1789116674;
- bh=07d8wKscWXVq7RDJjHkW9XddOX815xGvrx1VHtKkGvs=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=VF5ylQ+2c/h0Bl+82CoyVZ2QgmKthihLuNpr9gwMdtAbDCuGWaVgpWEuLrmAYyh5f
- y9PaJRwNV9by3p9x8fFUfOcl4+y5PmZYaBD8129bZ68ekJ3G3Ev2aWTXxhi+kLNu41
- 8i9bS0sbHnJB9DuBetPM1iwV7w3SlA94CBS4H89x+B/GLWYSrWWx8pjAkK/Dx6o41B
- A3Qw925Xux6my/4yptEPZrfgkoKs4AVR4ePz47rVhLbSpIJG/G08Uy0HlAkbWpPfH3
- M+y3tTG1wwhtwR0TI61JLI85jAyFhqI0HGlzdStWHPrGrHxmFcw05lmWhF1FKIIDPj
- tld0n7NfQE68Q==
+ bh=tXGlROxpJEoJs8ys8hL2wCVQSvGrnJqMHuLMf6SWryw=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=kZPeUGUWNCs2NTVf6bK2OVKn22P1BmXXQioAPE1Pf18Szj2QVUn7E1Cy7pL4PbZIL
+ DOiYtC2NeVk6tWVGxZzDKcxDu4hDLgqHlsbd6UUvRoBdPkTj/H3Z7H/H7VYyW7NlRU
+ NwPBZh0ZWrfBiaYjJbtINt8aS9i5THdzW1fFu0rKygGSfC3fQxe8dynR5UwryDEIUj
+ JCMkdOEsNT5Ptifwri60qM121zx3KKMO+tsJbYwy8V8nxhP/lU1y1tUpbOAdZEHRbD
+ qUjsIniSL3P67C+RkmAAdAJpY422irSuV9PM22NRz6abwyQVf+relFfY566ecsGlf6
+ SIr8Yskxhj4/w==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 6BAC6C88E50;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 55398C88E4D;
  Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
 From: =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI_via_B4_Relay?=
  <devnull+kavakliyigitcan.gmail.com@kernel.org>
-Date: Fri, 11 Sep 2026 11:50:58 +0300
-Subject: [PATCH RFC 01/10] dt-bindings: backlight: add Kinetic KTD3136
+Subject: [PATCH RFC 00/10] arm64: qcom: sm6125-ginkgo: display, backlight,
+ and touch support
+Date: Fri, 11 Sep 2026 11:50:57 +0300
+Message-Id: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260911-ginkgo-submission-final-v1-1-0e68e63a18d4@gmail.com>
-References: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
-In-Reply-To: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAPHAo2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDS0ND3fTMvOz0fN3i0qTczGKQat20zLzEHF0zcwPjJAtjUwNjU3MloO6
+ CotS0zAqwydFKQW7OSrG1tQANxwocbgAAAA==
+X-Change-ID: 20260911-ginkgo-submission-final-6703b8350357
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
  Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -69,11 +72,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI?= <kavakliyigitcan@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789116671; l=2380;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789116671; l=6606;
  i=kavakliyigitcan@gmail.com; s=20260911; h=from:subject:message-id;
- bh=1qOWka2RqpGg1tbdhR9VbVnp2Dr9kAnrMfXquGM3d6U=;
- b=tPsC38NGiMj10cf2MHZTTpvh8GU5kjYbScAMNbDcYn3V2e+KSk4lCvwoX6GGsgBKF0/jvxY1j
- 92U/sQgU3zNC9FOygauFmLnU35Ax7LZfLjiF0lcSDwfW4mxZjFKgCHj
+ bh=tXGlROxpJEoJs8ys8hL2wCVQSvGrnJqMHuLMf6SWryw=;
+ b=F9sCtUdsZnrbTxUweRexehtvWmh7jODfw2hugXQy5LvdLtntAotU0HIT7olWxdAPKyTfFnW8p
+ +S2m6ZLHc5eBimxf9ju4MCs5vuc/fqeRi0c2q5huyTRgrX2W6cS/ehk
 X-Developer-Key: i=kavakliyigitcan@gmail.com; a=ed25519;
  pk=W2GaxVotULs2vAjRMMLheaDtMMYs4037zO1LVVfFtPI=
 X-Endpoint-Received: by B4 Relay for kavakliyigitcan@gmail.com/20260911
@@ -96,94 +99,121 @@ Reply-To: kavakliyigitcan@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
+This RFC series introduces full display, backlight, and touchscreen support
+for the Xiaomi Redmi Note 8 ("ginkgo"), based on the Qualcomm SM6125 platform.
 
-Add devicetree binding documentation for the Kinetic Technologies
-KTD3136 3-channel LED backlight driver using the official "kinetic"
-vendor prefix.
+Hardware architecture summary:
+1. Kinetic KTD3136 3-channel 11-bit I2C LED backlight driver.
+2. Novatek NT36672A TDDI controller driving a 1080x2340 FHD+ video-mode DSI panel.
+3. Novatek NT36672A SPI touchscreen interface (co-packaged within the TDDI
+   controller, sharing physical reset and power lines with the display panel).
+4. Qualcomm DPU 5.4 / DSI display subsystem on SM6125.
 
-The device is controlled over I2C and supports an optional hardware
-enable GPIO line (enable-gpios), supply regulators, and standard
-backlight brightness range properties.
+-------------------------------------------------------------------------------
+RFC / Open Review Questions
+-------------------------------------------------------------------------------
+
+1. Panel Compatible Naming:
+   - The compatible used in this series is `tianma,fhd-video-ginkgo`.
+   - THIS IS AN OPEN REVIEW QUESTION. An authoritative Tianma module part
+     number (e.g. TMxxxx) is not currently known or visible on accessible
+     hardware markings for this OEM display module.
+   - This compatible is NOT claimed as established upstream naming. We welcome
+     maintainer guidance on whether to retain `tianma,fhd-video-ginkgo`, standardize
+     on a board-specific or controller-specific fallback, or use an alternate convention.
+
+2. External Touchscreen Firmware:
+   - The Novatek NT36672A touchscreen controller requires SRAM firmware download.
+   - Firmware is dynamically requested via request_firmware() using the name
+     "novatek/nt36672a_tianma.bin" (118,784 bytes).
+   - This firmware is externally loaded from userspace filesystem and NOT
+     included in the kernel patches.
+
+3. SM6125 DPU Programmable Fetch Delay:
+   - On the tested SM6125 hardware, video mode output empirically requires the
+     programmable fetch start counter to be offset by one horizontal total line
+     (fetch_start += horiz_total).
+   - Without this offset, the hardware suffers immediate DSI FIFO/TIMEOUT status=5
+     errors and fails to display pixels.
+   - Patch 7 models this via a catalog quirk `has_prg_fetch_delay` for SM6125.
+     Reviewer feedback on whether this should be catalog-driven or handled in the
+     encoder layer is appreciated.
+
+4. MSM DSI Host Link vs Video Streaming Separation:
+   - Patch 9 separates host link enable (atomic_pre_enable) from video stream
+     enable (atomic_enable) to allow video-mode panels to accept DCS initialization
+     packets before active pixel transmission begins.
+   - Patch 8 enforces mutual exclusion between command and video modes.
+
+-------------------------------------------------------------------------------
+Physical Hardware Validation Summary
+-------------------------------------------------------------------------------
+
+Validation on physical Xiaomi Redmi Note 8 (SM6125) hardware:
+- Display / DRM: Console text and graphical output verified crisp and stable.
+- Backlight: Kinetic KTD3136 11-bit brightness scaling (0..2047) verified.
+- Touchscreen: Continuous 10-second user interaction confirmed smooth 60 Hz event
+  flow (985 hardware interrupts, 5034 EV_ABS events, 536 SYN_REPORT frames,
+  median interval 8.36 ms).
+- Lifecycle / Stress:
+  * 10 / 10 consecutive isolated display OFF -> ON cycles PASSED with active
+    touch verified responsive after wake on every cycle.
+  * Rapid power-button spam stress PASSED without wedging display or power daemon.
+  * Zero DSI FIFO errors, zero firmware load timeouts (-110, -5).
+
+-------------------------------------------------------------------------------
+Series Structure
+-------------------------------------------------------------------------------
+
+Patch 01: dt-bindings: backlight: add Kinetic KTD3136
+Patch 02: backlight: add Kinetic KTD3136 driver
+Patch 03: dt-bindings: display: panel: novatek,nt36672a: add Tianma FHD+ video mode variant
+Patch 04: drm/panel: novatek-nt36672a: add Tianma FHD+ video mode panel
+Patch 05: dt-bindings: input: touchscreen: add Novatek NT36672A SPI touchscreen
+Patch 06: Input: novatek-nt36672a-spi: add driver for Novatek NT36672A SPI touchscreen
+Patch 07: drm/msm/dpu: describe SM6125 programmable-fetch delayed-start quirk
+Patch 08: drm/msm/dsi: make command and video mode configuration mutually exclusive
+Patch 09: drm/msm/dsi: separate host link enable from video stream enable
+Patch 10: arm64: dts: qcom: sm6125-xiaomi-ginkgo: enable display, backlight and touchscreen
 
 Signed-off-by: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
 ---
- .../bindings/leds/backlight/kinetic,ktd3136.yaml   | 65 ++++++++++++++++++++++
- 1 file changed, 65 insertions(+)
+YİĞİTCAN KAVAKLI (10):
+      dt-bindings: backlight: add Kinetic KTD3136
+      backlight: add Kinetic KTD3136 driver
+      dt-bindings: display: panel: novatek,nt36672a: add Tianma FHD+ video mode variant
+      drm/panel: novatek-nt36672a: add Tianma FHD+ video mode panel
+      dt-bindings: input: touchscreen: add Novatek NT36672A SPI touchscreen
+      Input: novatek-nt36672a-spi: add driver for Novatek NT36672A SPI touchscreen
+      drm/msm/dpu: describe SM6125 programmable-fetch delayed-start quirk
+      drm/msm/dsi: make command and video mode configuration mutually exclusive
+      drm/msm/dsi: separate host link enable from video stream enable
+      arm64: dts: qcom: sm6125-xiaomi-ginkgo: enable display, backlight and touchscreen
 
-diff --git a/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3136.yaml b/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3136.yaml
-new file mode 100644
-index 0000000000000000000000000000000000000000..f85381c29964529a09989a1ff60d9c9fe4897bb7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3136.yaml
-@@ -0,0 +1,65 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/backlight/kinetic,ktd3136.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Kinetic Technologies KTD3136 3-Channel LED Backlight Driver
-+
-+maintainers:
-+  - Lee Jones <lee@kernel.org>
-+
-+description: |
-+  The Kinetic Technologies KTD3136 is a high efficiency, 3-channel LED
-+  backlight driver with 11-bit exponential or linear dimming control
-+  via I2C interface.
-+
-+allOf:
-+  - $ref: common.yaml#
-+
-+properties:
-+  compatible:
-+    const: kinetic,ktd3136
-+
-+  reg:
-+    maxItems: 1
-+
-+  enable-gpios:
-+    description: GPIO connected to the HWEN (Chip Enable) pin.
-+    maxItems: 1
-+
-+  vin-supply:
-+    description: Regulator providing power to the VIN pin.
-+
-+  default-brightness:
-+    minimum: 0
-+    maximum: 2047
-+    default: 2047
-+
-+  max-brightness:
-+    minimum: 0
-+    maximum: 2047
-+    default: 2047
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        backlight@36 {
-+            compatible = "kinetic,ktd3136";
-+            reg = <0x36>;
-+            enable-gpios = <&gpio 6 GPIO_ACTIVE_HIGH>;
-+            default-brightness = <2047>;
-+            max-brightness = <2047>;
-+        };
-+    };
+ .../bindings/display/panel/novatek,nt36672a.yaml   |   1 +
+ .../input/touchscreen/novatek,nt36672a-spi.yaml    |  66 ++
+ .../bindings/leds/backlight/kinetic,ktd3136.yaml   |  65 ++
+ .../boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi | 100 +++
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h |   1 +
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |  11 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   2 +
+ drivers/gpu/drm/msm/dsi/dsi.h                      |   1 +
+ drivers/gpu/drm/msm/dsi/dsi_host.c                 |  29 +-
+ drivers/gpu/drm/msm/dsi/dsi_manager.c              |  20 +
+ drivers/gpu/drm/panel/panel-novatek-nt36672a.c     | 141 ++++-
+ drivers/input/touchscreen/Kconfig                  |  11 +
+ drivers/input/touchscreen/Makefile                 |   1 +
+ drivers/input/touchscreen/novatek-nt36672a-spi.c   | 674 +++++++++++++++++++++
+ drivers/video/backlight/Kconfig                    |  12 +
+ drivers/video/backlight/Makefile                   |   1 +
+ drivers/video/backlight/ktd3136-backlight.c        | 262 ++++++++
+ 17 files changed, 1362 insertions(+), 36 deletions(-)
+---
+base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+change-id: 20260911-ginkgo-submission-final-6703b8350357
 
+Best regards,
 -- 
-2.47.3
+YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
 
 
