@@ -4,156 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6200AC88E56
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 12:30:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45625C88E4D
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 12:44:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A6C810F593;
-	Fri, 11 Sep 2026 12:30:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4355C10F589;
+	Fri, 11 Sep 2026 12:44:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="tKdiAz4m";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="NjK7fcb6";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LOpL01wo";
 	dkim-atps=neutral
-Received: from CWXP265CU010.outbound.protection.outlook.com
- (mail-ukwestazon11022103.outbound.protection.outlook.com [52.101.101.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27F8810F591
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 12:30:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dvIJI0/uljN/7NISqbqEDOCp79s+l29mZDOtAtzLgLdki7zSfFlLCDfIUVSM8BIYtAyPCTRGTzfTCM71pp0okVazRrQ16S1ub3BHfMQPzEbkqS2eyM2+0sAh43SjZl5xGVoxjuqr4Izj4HnDAMvFbGeKtlgLirr3Z/l9KXAwq+PSgWlAzuPeatlu9lI+ev8KBGs8gBxqxXMGq1OmU3m48eg/ggo1SXW4zw1qfzRH98bXur3tj5xTyvbz3YT6XZy1lO5Nv/q6Yls8GoSachnC0RWHDI+84XHn/QnSw9S5sEKj3q1oSC20gs7SijHIHMcPpzwjlPnaZyApEU74OuPjPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JKx55TsVGCAnYI4/46u4ZKV25DVYLk7MlbLMi/as7OU=;
- b=NbJ4G6p9WCmxaurUq8QL+hIpBrXS97mcwGDvddmXCfq+FlbRpqvtq54CsgVYla+BbrPsXW2tAqVFpqVdAThOCSqfYelqgO1KjxRJUbUxCbJ4nvjchpcav4n2XqgXYcbZE3eZPXNbff0CBLCj/apvFkX+f4t8D4rVLBjXrYFs2mfNd+AqWOYNT4xnwVd35TZPAR2rlFS8qlN7uANo2R2KXpoL7HZYPj6GPul5Bfb5mkQtlmIXPdOmp9TGkAae7K1KYRsyPtZP1wctMIDDxvK1jbizBbG0PCgdc/bINiLr80Rmwy9WNkrImYPR/hFfsMH1YRyt6UGCvb0K1q3arSviXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JKx55TsVGCAnYI4/46u4ZKV25DVYLk7MlbLMi/as7OU=;
- b=tKdiAz4mEfYh0P0zazu2tNZHtP3G3dk4Xrjf6Bf5qyFbKzgEnajrNtW27iT4q1kO614uJEtPjeRQOC4X0u2mcIojrmNjWngoN/FXueiUsmN38J5io5LD9Fj5dyxLz4LgbvnbvXsmLIyEv6GzfaREsFgat8Z+vGoGufjx0jksqnQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CWLP265MB7039.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1ff::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
- 2026 12:29:58 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 12:29:58 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 11 Sep 2026 13:29:57 +0100
-Message-Id: <DLCHKYBQ3WF1.B8YPUTAKNM7@garyguo.net>
-Subject: Re: [PATCH v21 4/9] rust: rename `AlwaysRefCounted` to `RefCounted`.
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alice Ryhl" <aliceryhl@google.com>, "Andreas Hindborg"
- <a.hindborg@kernel.org>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
- <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, "Lyude Paul" <lyude@redhat.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?=
- <arve@android.com>, "Todd Kjos" <tkjos@android.com>, "Christian Brauner"
- <brauner@kernel.org>, "Carlos Llamas" <cmllamas@google.com>, "Rafael J.
- Wysocki" <rafael@kernel.org>, "Dave Ertman" <david.m.ertman@intel.com>,
- "Leon Romanovsky" <leon@kernel.org>, "Paul Moore" <paul@paul-moore.com>,
- "Serge Hallyn" <sergeh@kernel.org>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Alexander Viro"
- <viro@zeniv.linux.org.uk>, "Jan Kara" <jack@suse.cz>, "Igor Korotin"
- <igor.korotin@linux.dev>, "Viresh Kumar" <vireshk@kernel.org>, "Nishanth
- Menon" <nm@ti.com>, "Stephen Boyd" <sboyd@kernel.org>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Pavel Tikhomirov" <ptikhomirov@virtuozzo.com>,
- "Michal Wilczynski" <m.wilczynski@samsung.com>, "Ira Weiny"
- <iweiny@kernel.org>, "Matthew Brost" <matthew.brost@intel.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- "Philipp Stanner" <phasta@kernel.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
- <driver-core@lists.linux.dev>, <linux-block@vger.kernel.org>,
- <linux-security-module@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-fsdevel@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-usb@vger.kernel.org>, "Oliver Mangold" <oliver.mangold@pm.me>,
- "Viresh Kumar" <viresh.kumar@linaro.org>
-X-Mailer: aerc 0.22.0
-References: <20260910-unique-ref-v21-0-e83257373062@kernel.org>
- <20260910-unique-ref-v21-4-e83257373062@kernel.org>
- <CAH5fLghUQW5urTfLCCDT4BhuqoFVoLUAG46TS-SxaS37bJcgWQ@mail.gmail.com>
-In-Reply-To: <CAH5fLghUQW5urTfLCCDT4BhuqoFVoLUAG46TS-SxaS37bJcgWQ@mail.gmail.com>
-X-ClientProxiedBy: LO6P265CA0001.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:339::9) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D57010F59B
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 12:44:16 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68BApuxl3433264
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 12:44:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=hs3C87rUc37Br7hDul2xSyhF
+ h9hB6GXOl4E84myixsI=; b=NjK7fcb6JPtbo5k6auGunh1/s6S8cSB7/2xfUCb0
+ geBR6XfxyIyAv/YgcP8Y+c9tuKr9gYAo3B6JafTG8Heot7v1jkoHq+1UeI5/8ix4
+ uIuXBf3NIewBEGLANgLEDH4Iv91nN3YQ4OrelX0svTbAYm0QAF7onmGlMv1xOTv2
+ pqTqXF1qOaUn2TSkn2Zx+Zy+UlzWsOMcW6qV/pxCY0hCDp6ut9jyKGe+oY6sv/Jx
+ mJYOXFPLWKjH6vg1XX2p8L37maNfpKt26iRisfXiPNpqJvnAdB1w7P207DHsAOw9
+ m9cW25yCDc132GIie1OvaXAGaotgkwZaoA4TdtHSVtUrIw==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
+ [209.85.210.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmfbbgp3s-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 12:44:15 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id
+ d2e1a72fcca58-84e4cf4f9f1so91094b3a.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 05:44:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1789130655; x=1789735455;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=hs3C87rUc37Br7hDul2xSyhFh9hB6GXOl4E84myixsI=;
+ b=LOpL01wo7DcAt2pgD9R4wu7S62oJU5Vf/AdE2FXCyXpMgzOY+vEIFvlBKMDzuBfgFi
+ UVs2F2CXh6HSM0/91WB+nIckedU9eW5ywWl5mPNKDKpCiGYqv6LmfDZEND9Ww8G71I9h
+ fhYqkUOs6evs8LNboKQ4T5VjrPAMzHU5cYxo28ms0O6mkXxnL+xCsr1Y20/Q6ik5aPuZ
+ 7CzO2jCPZ4z+M0onuN5tylY1amlcx7QRr5TAQN27I1XMmsrjvPjDYOfeReDt1Q4wm7UT
+ cDHVcgANwN1mLSCiS+shpycqjTaQSDLvhjs23zmYVo5mJW6nQbM8YaCdCjmrV0MFxSR2
+ ++gA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789130655; x=1789735455;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=hs3C87rUc37Br7hDul2xSyhFh9hB6GXOl4E84myixsI=;
+ b=oZ5k06x+pRBX7sexrfqQ8HTXofMSrC34KHJ7xjwaQV2tdkYSQ59RKvaR7CoMLEJ+mV
+ Hfx4qbvtD7GmDP4MUPatQC3X8rXrz+UiV9sXC3yI/wk9PNZUxWSxaoY2HIDOpdTO7sxT
+ OXUJJrPxb7JfXyHQYrs8+GJ8hxLUjcCav4Q5HA5JIsCJiEFLLPeNlYuwwLCn+zOgJxmW
+ URmLk6okl3HGBAeodmDS04+22OMFJeFB5QuRwCRYu1rfoQxuffzTLjbo7Omv3BH9BNnX
+ IWW0vSsWHmPR/9oLyxrM4cqkxoxooQSs7nXPwyIrWO4AkilBFtF0w5mDeYXH8AoHk7T1
+ jXlw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByKoAXmhQJHZDlv2f4+c0AScuqE929Mzc4TJVWkAEsHVUV95DZdxCuWikQqujXT7chGSh4Cg9bmWG4=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nx9S0Aqz4rvXoEWQdle36YBGpX6MD7KUfhNODfvgPK5ry5lyU5
+ P+eQURIZCC8wEr+5V9/dcKrOTSY35ZW2Vv5sOKVojItsA//uamo71F0vYT9N6tZ2wCEXMg4XSF3
+ MsnDWX8BGsAeKwcsdelZ6pKmMEyTwnA9qFNYX8/2E5NHBCNteADuu1qcVKBgGM6bmRmvoRFI=
+X-Gm-Gg: AYBFou3njiOIRox5OhmFlcE99Z3Xxl4mSMPSN57hBuHzCvb049yA2ZJJ+J/WcvnfjHA
+ SzyBXyKaV0ODFVj94QMJ1NLvfcr/8A7krUL3nH25ygtAjw4OZg49zI8OUfy3PSmwWMWRjuFoRdg
+ rVQR6VMqwh/IIbecOB/Twv5YUBij5HXtEihUL+h7ETuRassEwPbbG0et5z2HBM2u0BFcfHRyOd7
+ HCHVB0O3oFOjCryE0rsek0P4ep6LiXdDDtrDADlnpouu6c88oDoyQjwMvHjq36QM0GOXCbap9g3
+ ErLBy1eCR5kDBzlRa+dLnG9SAfEQyL2S5BIYW5z86LvyrqRqOIWRkBXhz5js418Y7pwJD01AOnU
+ rTtu6xoZmYMSmeQ9e4PVZ7qnA18H2vWFZ41UJtzj560naTEweGNz5gmfuE4ONPwcXV4vxXERdan
+ s5EYxxAdOw0b84/ZIJz41v
+X-Received: by 2002:a17:902:ce12:b0:2c9:ed4a:c3a4 with SMTP id
+ d9443c01a7336-2dd29e0eb11mr52067515ad.0.1789130654993; 
+ Fri, 11 Sep 2026 05:44:14 -0700 (PDT)
+X-Received: by 2002:a17:902:ce12:b0:2c9:ed4a:c3a4 with SMTP id
+ d9443c01a7336-2dd29e0eb11mr52067185ad.0.1789130654445; 
+ Fri, 11 Sep 2026 05:44:14 -0700 (PDT)
+Received: from hu-vishsain-blr.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2dd3f0faf19sm3636485ad.12.2026.09.11.05.44.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 11 Sep 2026 05:44:13 -0700 (PDT)
+Date: Fri, 11 Sep 2026 18:14:04 +0530
+From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Clark Williams <clrkwllms@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>,
+ Archit Taneja <architt@codeaurora.org>,
+ Jeykumar Sankaran <jsanka@codeaurora.org>,
+ Chandan Uddaraju <chandanu@codeaurora.org>,
+ Rajesh Yadav <ryadav@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ venkata.valluru@oss.qualcomm.com,
+ Naman S Thaker <namathak@qti.qualcomm.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/msm: split DPU core IRQ handler under
+ CONFIG_PREEMPT_RT
+Message-ID: <aqP3lDjzzsbFNly5@hu-vishsain-blr.qualcomm.com>
+References: <20260909-drm-mis-next-split-irq-v1-1-89bc9c512c53@oss.qualcomm.com>
+ <20260910064723.pbZP3vic@linutronix.de>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB7039:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1188c31b-b420-48f8-771c-08df100064a5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|7416014|56012099006|6133799003|4143699003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: RfhjpylTvaZ9jKzhImUGyjo2QOI8rxjN3Lwzcr92g6QuAgR5g1tsnqbPeRdU72yaWRPPP+pFHfjdYqlxWicJ4WiLePCzkUqaBN0sd0e7gC+1Yqug7ETQYnC3JfKqoTWHWFMsU/fJCDkr+tUmcQlFDvmZwDSqFMC54kYwFJ99LdSCglEg4urZqfgsXu9Thcim0UlTNpGE1FxUDNK6xZ/tuznMt9+ok9XJn1hdxvA2bhgD396KZKth8XvYrgVSwtm6YV17rYXg7S2ZdMM5Kf89ZauR6MGOYk2QLv6iuPqqWqL9XKebhCnkWXDisfUfootiwX2wTTxQepo4+QWLXlbutnxXAgAabhj0ZH+OLmMH1ArId/Y2pyDKmbmo0ZcaodacKgG9r+morrfh/ccIpexhTcsHZPEQj48cuRROXNB6rbx3lCee2SWB++BXgqV7jjbyN37SMKCf+dGFEhsQBBHGpF4zjkLjy9SxIoIce6rBiCRQbSMA6IkD+8GiJUhNaq6nInXkNCUm9BZ47geLDuXpGh4pG/afsxjiyQQjfqNRknBedCzAsUEKxA8NaQfew3ZNAmBRXUR84JWVaxYUl8tj8b9tjtEvEh8KFLnQKUosseVwdcVQR41AGLNGCY2BkVfiy43/BhbbxdVEUyxjGc7VrxZ7Lp8TkBJDBnAflwBk4gw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(56012099006)(6133799003)(4143699003)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TGc4SkdFMVdja2RuYVJkd1YxWm1FL0RCSjN1aEp1ODI1cG1Oc2lMWlhsVWxC?=
- =?utf-8?B?OVlvSFJ2QjZvRFE1TDlZWW9DSnhqbzBIWTZIQjRrMHc2RUExb0xwdHMxMGM4?=
- =?utf-8?B?eEo5ZjBzVld1VytkQW9mZnFHcXBEd1NwOVpCOXBxNm5EaWQ1Sm1BRVVDQXBD?=
- =?utf-8?B?WlBvMVhabUkybDhwS1U1bzBpQTliam41MHJEWnRvZHRNREtuZ2xnWXNLUWo1?=
- =?utf-8?B?ZWZGYzJUTFJndm9LRGFpNHlPTm9EVWVudWN4V0pHSXkybEZiODQrU0RWVWU3?=
- =?utf-8?B?TWlBbzV1SFF5ZUszZzMySEdadldmdlJsNjQ3L2I5NG9QYlVOdFFmZlNQRldD?=
- =?utf-8?B?R3IyRTE4RnRNa1VNOUZiTnhPNlN2biswQ1BwZ1NxdFM3dmZ1T3BiOWNoak9s?=
- =?utf-8?B?Y0Z6ajEzNVA3UWxFclZqTkFLM2RqcGgrTzZyMnZTQWZDTkVqZ3hFdHZNemZL?=
- =?utf-8?B?Q01La3VMajJUdDJnYWxSRWdscFFPaFJjRklMeVZtRGlGS1RXNWVqaDcrUjVW?=
- =?utf-8?B?TjBMdkJWMXdvTm1uaVVjcWF0OVllU05UVU9iWXJ6TUNzbHN4ekZXYklKakdj?=
- =?utf-8?B?MkFMK3gxRm01VzJTMWcxdUNSUjVnNWZDSHNoaUJiKzBhUzl6TXJhMHJHUzA2?=
- =?utf-8?B?UXJTSWQzcWk2VWJ6Rm9MQzQ1K3EwUTU2Q1MvNFRqb1ZYaEdJS2JLLzVkNDV2?=
- =?utf-8?B?Q2lqQjJTQXp4SDJBay84cHUyT3JjZ3hUWkFrMmZQcWNVS0ZRTnJRbDd6K00v?=
- =?utf-8?B?M1QxdjVOcTByaUJUaXpWTm9JeUJ2R28ydG1GVzA1ZTJMZzh0RStiaHpCMWNH?=
- =?utf-8?B?cHB0ZlVpZ08xSnJIY2Q5OFp1czNnRVBCaWxtYXcwTkhxZ0FiK3I2WHNsYTJm?=
- =?utf-8?B?am9ZQjA0czE3cnhtbzlDNlR3M0ZRL1JoY1lrUXl4bFF1cFZXcUNyWUNIQnJ6?=
- =?utf-8?B?WWNubVcwVkFtQytuRGpQMmFmV0drWGhsMmgwYm8zOGYzSUJMNEx4elpLVFho?=
- =?utf-8?B?R0p6aUZzSlRrQUtsdUhtVjUySXQ5aWxlZlFpYy9IUGcxcGY0L2ltZEVBaEpR?=
- =?utf-8?B?VUVLOW9NWHhKbW9kd3YvV0QxWUVZTEdQbE1YZTVDSktYRTZ3T1Vrd3EwTVRq?=
- =?utf-8?B?dlpOcGlSQ3VvZ0RaZStuMXBjYWxzVFZ4N1B5YTMzRm5xa0tKTmhxajBtL3hp?=
- =?utf-8?B?M2owMmdyRTdZcFFwa3dyY1ZPcEx5YmUySXYxaW05eEdYZjBHamJmeXJLd3dY?=
- =?utf-8?B?QytCWW5ndU9ocUEwNzF1SC9YMUF5WGpPTHFzR2RxUlBaMkQ1dTZtRDVKUXRK?=
- =?utf-8?B?bDE0OXpYcjlPTWVyL2tQUFdIMkxDeGQ5bnIyVmxIMXVYSlZJZ2pSMHE1VTBB?=
- =?utf-8?B?TkxSOVJNMzNtOE5UWkdPclh3alFHYzE1akFTS0VPREZ3QjI2dE5hTCtWM29U?=
- =?utf-8?B?TXpPMEphQ3JRY3JEWmZoazJQQVJtd1RzWWhKdXNmVWloYTd2Z0psd0lBWUJz?=
- =?utf-8?B?bkhpLzZ0MXBoRU5Hc2ppbnpwM2oxZ1dudDBjbXpNVkZYd01QYmJHN2RETHc4?=
- =?utf-8?B?anVIalRrcnE2a29lWm80cHlWVG54eVM4Z0xuWGx1M1pCK2M1S1VIOGFLRVNN?=
- =?utf-8?B?eXJWakw3MHVYbkJhWm1Ibi9mVFdvc0lid2xrV3I5dzVSL3RNNTJuVW9lR0FK?=
- =?utf-8?B?Nmg4VHhBcXg4OFBwaDRSZzkyeU1ZWnZPd3hLM3MwamsyNFI4bjZNQ05iM2dv?=
- =?utf-8?B?YnZWV3UwbktXZGZmNVh4NHVNV3U5ZW1DaVBKS3QyN2ZzWlpGTzNUUStrYTd3?=
- =?utf-8?B?c1E1ZGxUTDUwa3ZXWG81Z3FOSThjcEY1cXV2OTNyVDdna1ZaUVlNa2t1OVlr?=
- =?utf-8?B?M2lwakRkZ2VoTG1SV2tSUHo1b0tWWmlIQjU5UG1OTXRSS29PcjhMc205b2k2?=
- =?utf-8?B?YTNEcmV4dko3YkZTM0Qrb3NBN2dMZjFMODl1UUZ0OVNJOVllbTdTc2RpMzlG?=
- =?utf-8?B?Sm5VSnZMclo3clAxT1RyN1V3d05QaWRjZHQzZU1selNYT1dPbHpnckVlUWtX?=
- =?utf-8?B?MXpOVXFDS2RMbDBvcHZOT01HVkE2c1JsMjdHZW43QmNiMlBDZStaRU5wVjho?=
- =?utf-8?B?bXppcW9EVHdRYm5rZkZwaXJNWU9uc1N3NDA0MThkQmFTMGl2cW1KT1Z5Q2Nt?=
- =?utf-8?B?alM2M3JXNDRzU1FEVFVnQU82allBeGFDUVFFZEx5UmY5cUhCa3JMd0lNOFY5?=
- =?utf-8?B?dHpLK0hybWVPWVhjdDEwOFdKQXU2SzVyUHE4MEFMQjNxelFlTXpoczRvbkdK?=
- =?utf-8?Q?0gTlrZQZYHgChetszZ?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1188c31b-b420-48f8-771c-08df100064a5
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 12:29:58.6001 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b0okIR6rYLMN6MXvV3IS4z+JjDgMUB8UcnSGh3mvV8u5UaD7Bp+PnDn6RzQngw+nrTVLI+7+Ue58B+xXbcVT+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB7039
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910064723.pbZP3vic@linutronix.de>
+X-Proofpoint-GUID: vDiVX9azTzagkj--9Lwf3wwqu9npLQq5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDE3NyBTYWx0ZWRfX+e0fJwYrSBu5
+ y1pfPD8tHmWORAU+rJKn274kcMOD6rwmIzkOlYnSIqzKRRniw+JJHIrF7fw172ZqMWu/aOa8Scg
+ YpTE2sPbE2hQNk3GBBkTdjuleThOcn5bfDBOv0gMcP2Kd7CqgI5H+I1QxnS2ADeaaXDMWzNWYaU
+ vk9DvaRuEyPASb+xGMap/d+PwtjKu7iVwutLa6dPnrvo7st3L2ewYRfhmVK7mgdWs0XbCakCuUD
+ tvURCrcdlJnAQQWOuUH3AFuFRC2YNkVlEDb2GqWGgt0V7Z6yWjqlz8QT1Q2k405/DEB4FtvyqS7
+ WX0xvIyLt+BPJd2HAx/a92dy6yFOyg6BqKxI3X3M1+HIgk6lyqjzmvspgsvuJwUxkimUNAuv1Jg
+ JA2+Mo7xPqgHP3Hj0y5ZU3vMxtbK3eBub6cUcX35atAxmDdOEBroJnygjnU9il3gOfxNfhUS7v9
+ rcuVdhTKSB6M/NALdqg==
+X-Authority-Analysis: v=2.4 cv=X6jHu2Te c=1 sm=1 tr=0 ts=6aa3f79f cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=p8fm3qIaiwJ8G5vN5j0A:9 a=CjuIK1q_8ugA:10
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDE3NyBTYWx0ZWRfX7iYe5emExe35
+ mTY/CDyYIgg+XKJdThwuChijZV/upynkSQW+tvpL1lFbzNjLfkdOmltEhnVsVaGbFvTQRoOm+Li
+ esvIGi/3YyrPoskfP98TKVYdf2ecJkE=
+X-Proofpoint-ORIG-GUID: vDiVX9azTzagkj--9Lwf3wwqu9npLQq5
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_04,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 adultscore=0 malwarescore=0 clxscore=1015
+ suspectscore=0 priorityscore=1501 bulkscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110177
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,55 +160,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Sep 11, 2026 at 10:08 AM BST, Alice Ryhl wrote:
-> On Thu, Sep 10, 2026 at 11:01=E2=80=AFAM Andreas Hindborg <a.hindborg@ker=
-nel.org> wrote:
->>
->> From: Oliver Mangold <oliver.mangold@pm.me>
->>
->> There are types where it may both be reference counted in some cases and
->> owned in others. In such cases, obtaining `ARef<T>` from `&T` would be
->> unsound as it allows creation of `ARef<T>` copy from `&Owned<T>`.
->>
->> Therefore, we split `AlwaysRefCounted` into `RefCounted` (which `ARef<T>=
-`
->> would require) and a marker trait to indicate that the type is always
->> reference counted (and not `Ownable`) so the `&T` -> `ARef<T>` conversio=
-n
->> is possible.
->>
->> - Rename `AlwaysRefCounted` to `RefCounted`.
->> - Add a new unsafe trait `AlwaysRefCounted`.
->> - Implement the new trait `AlwaysRefCounted` for the newly renamed
->>   `RefCounted` implementations. This leaves functionality of existing
->>   implementers of `AlwaysRefCounted` intact.
->>
->> Suggested-by: Alice Ryhl <aliceryhl@google.com>
->> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
->> Signed-off-by: Oliver Mangold <oliver.mangold@pm.me>
->> [ Andreas: Updated commit message and rebase on rust-next (7.2) ]
->> Acked-by: Igor Korotin <igor.korotin.linux@gmail.com>
->> Acked-by: Danilo Krummrich <dakr@kernel.org>
->> Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
->> Reviewed-by: Gary Guo <gary@garyguo.net>
->> Assisted-by: LLM
->> Co-developed-by: Andreas Hindborg <a.hindborg@kernel.org>
->> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
->
-> This has a lot of safety comments of the form "This does not implement
-> Ownable, *therefore* it can implement AlwaysRefcounted". But I think
-> the safety comment should instead explain that it's okay to create an
-> ARef<_> from an &_ for this type. The fact that Ownable is not
-> implemented is not sufficient argument.
->
-> Alice
+On Thu, Sep 10, 2026 at 08:47:23AM +0200, Sebastian Andrzej Siewior wrote:
+> On 2026-09-09 14:22:16 [+0530], vishnu.saini@oss.qualcomm.com wrote:
+> > From: Naman S Thaker <namathak@qti.qualcomm.com>
+> > 
+> > On a PREEMPT_RT kernel, dpu_core_irq() runs as a true hardirq handler,
+> 
+> *why* is this the case. The code you replaces adds some ifdefs around
+> request_irq() with 0 as flags. This does not make it run has hardirq.
+You are right, the statement is incorrect, i will update the commit msg.
+On RT kernel, the dpu_core_irq() runs in threaded context by default.
+This behavior is changed in the commit by calling devm_request_threaded_irq with
+IRQ_ONESHOT flag only for RT kernel using the ifdefs.
 
-Yeah, I think for types that currently implement `AlwaysRefCounted` and doe=
-s not
-have a new `Ownable` form, it should keep saying that "this is always refer=
-ence
-counted".
+The irq is now split into two parts for RT,
+1: primary handler which does not use sleeping locks, and
+2: secondary threaded handler which can use sleepable locks.
+For normal kernels, the request_irq() with 0 flag is still used as-is.
 
-Best,
-Gary
+ 
+> > but it dispatches per-encoder callbacks that take sleepable locks
+> > (spinlock_t becomes an rt_mutex on RT, and some DRM-core locks reached
+> > through vblank/CRC/writeback handling are sleepable as well). Sleeping
+> > inside a hardirq handler is not allowed and eventually crashes the
+> > display, which is what happens after running GLMark2 for a while.
+> 
+> That is correct. That is the irq handler are threaded by default and
+> only non-threaded if explicitly requested.
+> 
+> I suggest to stick with non-threaded by default.
+> There is only one request_threaded_irq() as far as I can tell and this
+> msm_dp_display_request_irq():
+> 
+> |         rc = devm_request_threaded_irq(&pdev->dev, dp->irq,
+> |                                        msm_dp_display_irq_handler,
+> |                                        msm_dp_display_irq_thread,
+> |                                        IRQ_TYPE_LEVEL_HIGH,
+> |                                        "dp_display_isr", dp);
+> 
+> and its primary handler will be threaded on PREEMPT_RT, too. So you end
+> up with two threads here.
+You are correct about the primary handler in msm_dp_display_request_irq() being threaded.
+But the request_threaded_irq function in msm_dp_display_request_irq() is not modified in this commit.
+The issue fixed by the current commit relates to msm_mdss_irq crash stack below.
 
+[  152.108462] Call trace:
+[  152.108465]  show_stack+0x18/0x30 (C)
+[  152.108477]  dump_stack_lvl+0x60/0x80
+[  152.108484]  dump_stack+0x18/0x24
+[  152.108489]  __report_bad_irq+0x4c/0xec
+[  152.108496]  note_interrupt+0x340/0x394
+[  152.108502]  handle_irq_event+0x94/0xa0
+[  152.108508]  handle_level_irq+0xd8/0x16c
+[  152.108513]  handle_irq_desc+0x34/0x5c
+[  152.108518]  generic_handle_domain_irq+0x1c/0x28
+[  152.108522]  msm_mdss_irq+0x68/0x144 [msm]
+[  152.108654]  handle_irq_desc+0x34/0x5c
+[  152.108660]  generic_handle_domain_irq+0x1c/0x28
+[  152.108664]  gic_handle_irq+0x4c/0x140
+[  152.108669]  call_on_irq_stack+0x30/0x48
+[  152.108673]  do_interrupt_handler+0x80/0x84
+[  152.108678]  el1_interrupt+0x38/0x58
+[  152.108685]  el1h_64_irq_handler+0x18/0x24
+[  152.108690]  el1h_64_irq+0x70/0x74
+[  152.108694]  __schedule+0x6c/0xc9c (P)
+[  152.108701]  schedule_idle+0x20/0x40
+[  152.108705]  do_idle+0x17c/0x2c0
+[  152.108710]  cpu_startup_entry+0x38/0x40
+[  152.108714]  rest_init+0xd8/0xe0
+[  152.108719]  console_on_rootfs+0x0/0x6c
+[  152.108726]  __primary_switched+0x88/0x90
+[  152.108732] handlers:
+[  152.108734] [<000000000cabe59c>] irq_default_primary_handler threaded [<00000000779fd542>] msm_irq [msm]
+[  152.108859] Disabling IRQ #246
+
+> Sebastian
