@@ -4,49 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A968CC79FA1
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 07:05:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6CE8C88E45
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 07:07:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01CCD10E2A3;
-	Fri, 11 Sep 2026 07:05:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03E6E10E364;
+	Fri, 11 Sep 2026 07:07:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ZTxkZKrL";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tOqrpcJ8";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D26C910E2A3
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 07:05:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3342410E364
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 07:07:12 +0000 (UTC)
 Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1F59F63C;
- Fri, 11 Sep 2026 09:04:06 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 489A963C;
+ Fri, 11 Sep 2026 09:05:32 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1789110246;
- bh=SftwTWxj+gpQdjWhxqghxpZodyuHpBPKfyEPa2X7LW8=;
+ s=mail; t=1789110333;
+ bh=/r+7JOA1R6vkpZwZjiLfITCVpMqEL7ms+Lgs78wkPK8=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ZTxkZKrLlwBD9BDIXyRQoRox2ICMbQybz3mdJu+Iy44KZxS94zzxIX+jFoLHcz+rE
- j8IHNqh5ZI/lLs04+x5LF8qZ6AJSmwcETjfThiBqxmHT9xyO1XmiGEzAEu+lw/p5KE
- 0b8oNb38Kb6EtOHXDV4s4vZhOZKlwtQD3APLB25A=
-Message-ID: <05efdc35-a875-4c3d-a551-4dbce8db1e7b@ideasonboard.com>
-Date: Fri, 11 Sep 2026 10:05:40 +0300
+ b=tOqrpcJ8PBOOuBIl5zseKneF37qtHkReKhqPNfjXPhAF0e7JFXjBd0KTXKhDo9dVx
+ LzoTmcIX/O/WSdKITbBP/MT600p1PqMHGTmMLDt1U2CwoVhd8DvpqLjHPCU0Q4ezkP
+ 83vaa96Laiby10Z05/DnnsiRvMeHTXpO7PIUkX0E=
+Message-ID: <2489cf57-65f1-4502-86ae-1e3673899b87@ideasonboard.com>
+Date: Fri, 11 Sep 2026 10:07:07 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/rcar-du: dsi: Implement DSI command TX using AXI
- memory access
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>,
- dri-devel@lists.freedesktop.org
-Cc: David Airlie <airlied@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+Subject: Re: [PATCH v6 0/6] drm/rcar-du: Add support for DSI pipelines with DSC
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-References: <20260910182003.31612-1-marek.vasut+renesas@mailbox.org>
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+References: <20260907-rcar-du-dsc-v6-0-f8ef711a7494@ideasonboard.com>
 From: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 Content-Language: en-US
-In-Reply-To: <20260910182003.31612-1-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260907-rcar-du-dsc-v6-0-f8ef711a7494@ideasonboard.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -66,47 +73,26 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-On 10/09/2026 21:19, Marek Vasut wrote:
-> Currently, the driver supports register access mode for DSI command
-> transfer, which limits both TX and RX to only 16 Bytes long packets.
-> Implement support for DSI command TX using AXI memory access mode,
-> which extends the packet transfer length up to 128 Bytes long in LP
-> and 1024 Bytes long in HS. Support for DSI command RX using the AXI
-> access mode is not implemented due to missing test hardware.
+On 07/09/2026 12:29, Tomi Valkeinen wrote:
+> Some DSI pipelines have DSC (Display Stream Compression) IP block
+> between the DU and the DSI. Even if DSC is not needed, the IP must be
+> enabled for the DSI output to work.
 > 
-> The implementation allocates a DMAble 4k page. In case the command
-> transfer is longer than 16 Bytes, the payload is copied into the
-> page and sent out using the AXI access mode, otherwise the register
-> access mode is used.
+> This series adds a basic DSC driver, so that the DSC IP gets enabled in
+> bypass mode. This enables DisplayPort output on Sparrow Hawk board, as
+> the DP output comes from DSI and sn65dsi86 bridge, and also White Hawk
+> board's second mini-DP output.
 > 
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> ---
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-> Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Magnus Damm <magnus.damm@gmail.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
-> V2: - Use dma_set_mask_and_coherent() to set up global DMA mask and
->        drop GFP_DMA32 from dma_alloc_coherent() gfp flags.
->      - Fix DMA memory leak in missing fail path in rcar_mipi_dsi_probe()
->        and move dma_alloc_coherent() almost to the end of the probe
->        function, so as much as possible of the probe function is devm
->        managed.
->      - Unregister DSI host first, then free the DMA page
-> V3: - Limit transfer to 1024 Bytes
-> ---
->   .../gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c   | 50 ++++++++++++++++---
->   1 file changed, 42 insertions(+), 8 deletions(-)
-Thanks, pushed to drm-misc-next.
+> Original series from Marek.
+> 
+> Note: I see that not every run of kms++'s kmstest gives me a picture on
+> my monitor. Sometimes the monitor seems to be trying to repeatedly sync,
+> but fails, and the screen stays black. However, I see this same issue on
+> WhiteHawk, which uses DSI0 pipeline, without DSC, so I think that is a
+> separate issue.
+
+Pushed the first three patches to drm-misc-next. I'll leave the dts ones 
+to Geert.
 
   Tomi
 
