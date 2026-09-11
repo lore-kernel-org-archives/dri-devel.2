@@ -4,56 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93C82C88E4C
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 10:35:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0884C88E4C
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 10:43:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C53D610F011;
-	Fri, 11 Sep 2026 10:35:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB29C10E33A;
+	Fri, 11 Sep 2026 10:43:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="hiEerPN8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KPl0Bis5";
 	dkim-atps=neutral
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DBF510F011
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 10:35:01 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hh9sY0cKKzMlHB;
- Fri, 11 Sep 2026 12:34:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1789122897; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ZKEEiD16wKkBQjxmDmRAUzZxy57faOnn/iVbND/QIsk=;
- b=hiEerPN8mdqqrsx2qHOWOvFREe6NaSSh+iiKK1eFpYokR0Yc5WE2T3/iqQvKynpfQ9oVKr
- CNllmCrH8Rq0+opOAY9GD5vrGJJA9xm+MgZuDSUF1Je+L91J7aaW+4S9dbZycPfe5LmNZf
- 5lVdSXQXfEGvDxo7V9FSHSjrfuCm9dtHjOuru+m3s3d1aNSA+blUZd1lyaBhjNt4RapOsA
- eEviFPoTeDjDoMs9/0coIRurGj9ptRA7iGJpm3SXY7FpIikZNN4POCUqFT7bxLLjzbefT4
- Yz9DYfW3FyUYfMXzxhSos3hLAnz3+/KIvUM0s1amYi4ik7s8G4njrAbdi1zWQg==
-Message-ID: <54380f35297f069d7c3874c5239956125e923fca.camel@mailbox.org>
-Subject: Re: [PATCH v3 0/3] drm/sched: Introduce more locking to entity
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tursulin@ursulin.net>, Philipp Stanner
- <phasta@kernel.org>,  Danilo Krummrich	 <dakr@kernel.org>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <ckoenig.leichtzumerken@gmail.com>, Maarten
- Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin
- <tvrtko.ursulin@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Fri, 11 Sep 2026 12:34:51 +0200
-In-Reply-To: <23c88f50-1998-4de9-bbdb-3d15fd06d642@ursulin.net>
-References: <20260910075942.2000338-2-phasta@kernel.org>
- <23c88f50-1998-4de9-bbdb-3d15fd06d642@ursulin.net>
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67A1210E33A
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 10:43:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6A95B60239;
+ Fri, 11 Sep 2026 10:43:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5BF31F000FF;
+ Fri, 11 Sep 2026 10:43:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789123409;
+ bh=SsnRGeY9pfqs6951nwVjHW90rc1K98Ft785+FmFyK5U=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=KPl0Bis5Ne3pPURdzyvjt9RrRtvfo0+S/Gvt8Q3uqe0D5YCIwDUIm2UCoqzNTP4th
+ tTLFaaUdphYmRGnCU8OTiDPW4nVKKh9zKNj597Mdmx4zOTduU1aR/ah0b7vEJ8h5Fx
+ j6By/Kn3grFHM6Yko0p6TXcPKtXgq8hg1/S1tvtlfs43dmoE/fgqd7GzT7oj7c73cC
+ +YdJtmpx+BxAZNTATzUtphtacpmG6FMbmU9bYMhc/cRN+ZtxIlvhTNhxdo6eAZFwzD
+ spbKL1iIo+LNW7hple/4Vnr+kAW8e7xPc8NJ8ao4zd6VRBp133goXuEvyKCRIi+KPG
+ f77SOdkJun6XQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/7] drm/msm/hdmi_bridge: Correct poweroff/audio
+ cleanup order in post_disable
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260911-drm-msm-hdmi-fixes-before-eliza-v4-3-87bdb9f1987f@oss.qualcomm.com>
+References: <20260911-drm-msm-hdmi-fixes-before-eliza-v4-0-87bdb9f1987f@oss.qualcomm.com>
+ <20260911-drm-msm-hdmi-fixes-before-eliza-v4-3-87bdb9f1987f@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MBO-RS-META: tp1esos6apfrrw8kgkncr4ej4hi35bao
-X-MBO-RS-ID: 40327136b90c505ca58
+Date: Fri, 11 Sep 2026 10:43:28 +0000
+Message-Id: <20260911104328.C5BF31F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,23 +55,89 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 2026-09-11 at 09:19 +0100, Tvrtko Ursulin wrote:
-> FWIW if you could review=20
-> https://lore.kernel.org/dri-devel/20260907130527.52530-1-tvrtko.ursulin@i=
-galia.com/=C2=A0
-> you could drop the first two patches from your series. Extra benefit is=
-=20
-> that patch fixes a bug and has been tested by the user.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-See the other thread; I'm not super-hard opposed, but if we can agree
-on getting CFS to a non-experimental status by first improving
-spsc_queue, then it would be nicer from the diff / git log perspective
-to have these little patches as a preparational base-line for the spsc
-rework :)
+Pre-existing issues:
+- [High] Concurrent lockless calls to `msm_hdmi_audio_update()` from ALSA/A=
+SoC and DRM lead to unclocked MMIO accesses, hardware state corruption, and=
+ data races.
+--
 
-Greetings
-Philipp
+commit d1867d224f6fab10a2909a251c0566882d455741
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Date:   Fri Sep 11 10:29:36 2026 +0000
+
+    drm/msm/hdmi_bridge: Correct poweroff/audio cleanup order in post_disab=
+le
+
+This commit reorders power_off() and msm_hdmi_audio_update() in
+msm_hdmi_bridge_atomic_post_disable(). This ensures the HDMI block remains
+powered on when msm_hdmi_audio_update() accesses hardware registers.
+
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm=
+/hdmi/hdmi_bridge.c
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> @@ -339,10 +339,10 @@ static void msm_hdmi_bridge_atomic_post_disable(str=
+uct drm_bridge *bridge,
+>  	msm_hdmi_phy_powerdown(phy);
+> =20
+>  	if (hdmi->power_on) {
+> -		power_off(bridge);
+>  		hdmi->power_on =3D false;
+>  		if (hdmi->connector->display_info.is_hdmi)
+>  			msm_hdmi_audio_update(hdmi);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this fully resolve the
+unclocked MMIO accesses that can lead to hardware state corruption or bus
+hangs?
+
+While this correctly orders the power down sequence for the DRM bridge,
+concurrent lockless calls to msm_hdmi_audio_update() can still happen from
+ALSA/ASoC entry points while the display is powered off.
+
+For example, a local user running an ALSA client can trigger this via the
+prepare hook:
+
+drivers/gpu/drm/msm/hdmi/hdmi_audio.c:msm_hdmi_bridge_audio_prepare() {
+    ...
+    return msm_hdmi_audio_update(hdmi);
+}
+
+Or during shutdown:
+
+drivers/gpu/drm/msm/hdmi/hdmi_audio.c:msm_hdmi_bridge_audio_shutdown() {
+    ...
+    msm_hdmi_audio_update(hdmi);
+}
+
+Both of these ALSA hooks call msm_hdmi_audio_update() without acquiring
+state_mutex or checking pm_runtime_get_sync(). If power_off() has already
+disabled the clocks, the unclocked MMIO reads and writes in
+msm_hdmi_audio_update():
+
+drivers/gpu/drm/msm/hdmi/hdmi_audio.c:msm_hdmi_audio_update() {
+    ...
+    /* Read first before writing */
+    acr_pkt_ctrl =3D hdmi_read(hdmi, REG_HDMI_ACR_PKT_CTRL);
+    ...
+}
+
+can cause synchronous external aborts on ARM platforms resulting in a
+kernel panic. Should these audio hooks be synchronized with the bridge
+power state?
+
+> +		power_off(bridge);
+>  		msm_hdmi_phy_resource_disable(phy);
+>  	}
+>  	mutex_unlock(&hdmi->state_mutex);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-drm-msm-hd=
+mi-fixes-before-eliza-v4-0-87bdb9f1987f@oss.qualcomm.com?part=3D3
