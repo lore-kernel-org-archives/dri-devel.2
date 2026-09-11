@@ -4,62 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 274F8C88E4D
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 12:09:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE059C88E56
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 12:18:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8472210F584;
-	Fri, 11 Sep 2026 12:09:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4FCF10E3B9;
+	Fri, 11 Sep 2026 12:18:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hEYRq08u";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aAQ+hldR";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6994210F584
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 12:09:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789128552; x=1820664552;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=8xFWvWnbbxNtSScIWZyOyOwoPgT3OidLM+h8HVaJUFA=;
- b=hEYRq08uwQT1er9BbDpUD9GUhHdgIZU9Dxsuo7CQQTtxaTNk+2s8M1X3
- KGUKWR6+/UaeE1M25To+dsYsngl/Fuc+ZuGblXFyx7LMb3gdhwKIaQzsV
- AM6u0pQHT7/Io1RDtR4BCqnzsoN63v/HeMl0kiZ4EioDJt03uhardMxNH
- Z7JWIv8UoRg0yXT9A/JHUC4oITiB4pJXoEdyKga+vAHlVdiZbHdk8/sxA
- TMfvdK3y6SwsVbPKB8kFIUuGYvIqb6YwJ3FIsOMRontXB2qeX30V4Uv/M
- faV9JD/9FxqKczN9JS4Q1HglXPn8ucSLmmvS8CdPjWF/xv6x9wwVZlf1Y g==;
-X-CSE-ConnectionGUID: QsfanbpEQuSXatToq8eMBg==
-X-CSE-MsgGUID: 9QzeTXcjTdWw7wDD+ElNlQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="92099595"
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="92099595"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2026 05:09:11 -0700
-X-CSE-ConnectionGUID: ciNHh1x4S2qZz+hvQtA+VQ==
-X-CSE-MsgGUID: 3mOiteiKSlqRl4rKs8o73A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; d="scan'208";a="268226892"
-Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
- by fmviesa010.fm.intel.com with ESMTP; 11 Sep 2026 05:09:08 -0700
-Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1x503s-000000001VB-2MFa;
- Fri, 11 Sep 2026 12:09:00 +0000
-Date: Fri, 11 Sep 2026 20:08:19 +0800
-From: kernel test robot <lkp@intel.com>
-To: Ho Jie Feng <hjf3108@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, cyrozap@gmail.com,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/trigger5: Add MCT Trigger 5 USB display driver
-Message-ID: <202609111951.Hco6MgXH-lkp@intel.com>
-References: <20260910171709.396071-1-hjf3108@gmail.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAD2110E3B9
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 12:18:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4EDB24060F;
+ Fri, 11 Sep 2026 12:18:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2E6E1F000FF;
+ Fri, 11 Sep 2026 12:18:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789129091;
+ bh=jHKVUDAo0z6whhrbNJF6SbfebzVXyt+Gb9SGUTy+yyQ=;
+ h=From:Date:Subject:To:Cc;
+ b=aAQ+hldRYIpJ6p0ID74ri/6MY9oOOJ8vjpAHP+ZrrTZLv7SfQowrcHJlh3wDdz1a2
+ 54aXH7q0KVSmzSdCkwanyJyTX2iLlYstI6vKa9u6pG8/SnxhFq6UTGsJfIryByNXNH
+ 78vFSRtqG9f9dlTi66FjFrgNn5JUF0DqgD0gJmbzt/svJb2nVhXZUGjQwr1EuYuooK
+ +zhSiGLj5WSmnfJADDSnS/gYBeSJUaixEwlzhylE1YJnuip3YI1XCReighjjEBapGk
+ 3snE4TF89RgAyKlIS8nwufk6i80XVEXkDc9Nhr+MOPtP7gD2wPgwPF3psWnUAroxOI
+ qkZBdg3ZYVELg==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Fri, 11 Sep 2026 14:18:04 +0200
+Subject: [PATCH v2] drm/ci: Add CI pipeline for drm-misc branches
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910171709.396071-1-hjf3108@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260911-drm-drm-misc-ci-v2-1-1847f89585cb@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNwQ7CIBBEf6XZs2sosUQ8+R+mhwpru9GCWQzRN
+ Py7yN3DHN5MZmaDRMKU4NRtIJQ5cQwV9K4Dt0xhJmRfGbTSRlml0cvatHJy6BjJGWfsoEyNoba
+ eQjd+t8XLWHnh9IryaQe5/7n/t3KPPR6sVwNpfaTper6TBHrso8wwllK+UEnhjq8AAAA=
+X-Change-ID: 20260902-drm-drm-misc-ci-ec6c69506609
+To: Helen Koike <helen.fornazier@gmail.com>, 
+ Vignesh Raman <vignesh.raman@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ llvm@lists.linux.dev, Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6653; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=NzzY7RUdWhKU2ZfFof5lCsnTC/UnuSb4itF8/l+oQfY=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmLP9ZVSdxuWVafcuJbwOo58YpOL/9fDXl2Lp9Jecr/t
+ 6btObIqHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAimZcZa6Xm/Jzdn3XT+IqV
+ Rt1XKa2m+9XeEloqf3T2bn37p3TRxym5m1Inqaf7T2pav2O+7VS3RMaGbZ/Pden8u6+/QZgzq4G
+ 5JiDmxq5lx36E/WpPsVsrlvj8wraHRhKdDOuv7ZNymDA71M4dAA==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,75 +74,198 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Ho,
+The DRM CI infrastructure builds upon Mesa's CI to run IGT tests on
+hardware. Its focus is on functional testing on a selected number of
+targets.
 
-kernel test robot noticed the following build warnings:
+The concern for drm-misc is different: it merges a large number of
+patches across many platforms, and build or unit test breakages happen
+on a regular basis. Adding build and unit testing for drm-misc has been
+on the back of our minds, and a first attempt was made last year. The
+feedback was to rely more on the existing infrastructure.
 
-[auto build test WARNING on 3ab04dcce43cd4fdaed94f08f4e6289be4921ea4]
+Introduce a CI entry point that runs on pushes to drm-misc-next,
+drm-misc-fixes, and drm-misc-next-fixes. It reuses kunit.yml,
+check-devicetrees.yml, and the freedesktop ci-templates, while defining
+build templates inline to avoid pulling in the Mesa pipeline.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Ho-Jie-Feng/drm-trigger5-Add-MCT-Trigger-5-USB-display-driver/20260911-011705
-base:   3ab04dcce43cd4fdaed94f08f4e6289be4921ea4
-patch link:    https://lore.kernel.org/r/20260910171709.396071-1-hjf3108%40gmail.com
-patch subject: [PATCH] drm/trigger5: Add MCT Trigger 5 USB display driver
-config: sparc64-allmodconfig (https://download.01.org/0day-ci/archive/20260911/202609111951.Hco6MgXH-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260911/202609111951.Hco6MgXH-lkp@intel.com/reproduce)
+A single Debian container with LLVM handles cross-compilation to all
+three architectures. The pipeline compiles the kernel using defconfigs
+from the drm/tip rerere-cache branch, runs the DRM KUnit tests, and
+checks device tree bindings.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609111951.Hco6MgXH-lkp@intel.com/
+Link: https://lore.kernel.org/all/20250319-greedy-sturgeon-from-avalon-ac758f@houat/
+Acked-by: Vignesh Raman <vignesh.raman@collabora.com>
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v2:
+- Run dt_bindings_check
+- Run on push instead of MR after some discussions with Dave and Sima
+- Test run here: https://gitlab.freedesktop.org/mripard/kernel/-/pipelines/1744733
+- Link to v1: https://lore.kernel.org/r/20260902-drm-drm-misc-ci-v1-1-49d05e228eab@kernel.org
+---
+ drivers/gpu/drm/ci/drm-misc-ci.yml | 147 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 147 insertions(+)
 
-All warnings (new ones prefixed by >>):
+diff --git a/drivers/gpu/drm/ci/drm-misc-ci.yml b/drivers/gpu/drm/ci/drm-misc-ci.yml
+new file mode 100644
+index 000000000000..4ab87547794e
+--- /dev/null
++++ b/drivers/gpu/drm/ci/drm-misc-ci.yml
+@@ -0,0 +1,147 @@
++# CI pipeline for drm-misc-next, drm-misc-fixes, and drm-misc-next-fixes.
++#
++# Runs on pushes to drm-misc-next, drm-misc-fixes, and
++# drm-misc-next-fixes. Compiles the kernel for arm, arm64, and
++# x86_64, runs the DRM KUnit tests, and checks device tree bindings.
++#
++# A single container image is built using freedesktop ci-templates with
++# the packages needed for kernel compilation and LLVM for
++# cross-compilation. QEMU is installed at runtime by the KUnit jobs.
++#
++# check-devicetrees.yml and kunit.yml are included directly. build.yml
++# and the Mesa container/build pipelines are not:
++# they pull in hundreds of Mesa-specific jobs and templates that would
++# each need to be individually stubbed or disabled. The build templates
++# (.build:arm32, .build:arm64, .build:x86_64) are defined inline.
++
++variables:
++  CI_TEMPLATES_COMMIT: &ci-templates-commit aec7a6ce7bb38902c70641526f6611e27141784a
++  # Project whose container registry stores the built images
++  FDO_UPSTREAM_REPO: mripard/kernel
++  KERNEL_BUILD_CONTAINER_TAG: "2026-09-11-01"
++  LLVM_VERSION: "19"
++
++default:
++  before_script: []
++
++include:
++  - project: 'freedesktop/ci-templates'
++    ref: *ci-templates-commit
++    file:
++      - '/templates/debian.yml'
++  - local: drivers/gpu/drm/ci/check-devicetrees.yml
++  - local: drivers/gpu/drm/ci/kunit.yml
++
++stages:
++  - container
++  - build
++  - static-checks
++  - kunit
++
++# --- Pipeline rules ---
++workflow:
++  rules:
++    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH =~ /^drm-misc-(next|fixes|next-fixes)$/
++      when: always
++
++# kunit.yml's jobs inherit .build-rules through the .build:* chain.
++# Pass everything through since the pipeline is already gated by
++# workflow:rules.
++.build-rules:
++  rules:
++    - when: on_success
++
++# --- Container build job ---
++# Single container with all build tools. LLVM handles cross-compilation
++# to arm and arm64, so no architecture-specific containers are needed.
++debian/kernel-build:
++  extends: .fdo.container-build@debian
++  stage: container
++  variables:
++    FDO_DISTRIBUTION_VERSION: trixie
++    FDO_DISTRIBUTION_TAG: "${KERNEL_BUILD_CONTAINER_TAG}"
++    FDO_DISTRIBUTION_PACKAGES: >-
++      bc bison ca-certificates cpio curl
++      clang-${LLVM_VERSION} flex gcc gzip
++      lld-${LLVM_VERSION} llvm-${LLVM_VERSION}
++      libelf-dev libssl-dev
++      make perl pkg-config
++      python3 python3-dev python3-pip python3-venv
++      swig xz-utils yamllint
++
++# --- Build templates ---
++# Stubs for templates referenced by check-devicetrees.yml. The
++# originals live in build.yml and container.yml which we do not
++# include.
++.build:
++  extends: .build-rules
++
++.use-debian/x86_64_build:
++  extends: .build-base
++
++.build-base:
++  image: "${CI_REGISTRY}/${FDO_UPSTREAM_REPO}/debian/trixie:${KERNEL_BUILD_CONTAINER_TAG}"
++  needs: ["debian/kernel-build"]
++
++.build:arm32:
++  extends: .build-base
++  variables:
++    KERNEL_ARCH: "arm"
++    DEFCONFIG_ARCH: "arm"
++
++.build:arm64:
++  extends: .build-base
++  variables:
++    KERNEL_ARCH: "arm64"
++    DEFCONFIG_ARCH: "arm64"
++
++.build:x86_64:
++  extends: .build-base
++  variables:
++    KERNEL_ARCH: "x86_64"
++    DEFCONFIG_ARCH: "x86"
++
++# --- Kernel-wide build jobs (LLVM) ---
++.kernel-build:
++  stage: build
++  timeout: 45m
++  variables:
++    GIT_DEPTH: 1
++    DEFCONFIG_URL: https://gitlab.freedesktop.org/drm/tip/-/raw/rerere-cache/drm-misc-${DEFCONFIG_ARCH}_defconfig
++  artifacts: {}
++  before_script:
++    - drivers/gpu/drm/ci/setup-llvm-links.sh
++    - curl -L --retry 4 -f --retry-all-errors --retry-delay 60 -o .config "${DEFCONFIG_URL}"
++
++kernel-build:arm32:
++  extends: [.build:arm32, .kernel-build]
++  script:
++    - make ARCH=arm LLVM=1 olddefconfig
++    - make ARCH=arm LLVM=1 -j$(nproc)
++
++kernel-build:arm64:
++  extends: [.build:arm64, .kernel-build]
++  script:
++    - make ARCH=arm64 LLVM=1 olddefconfig
++    - make ARCH=arm64 LLVM=1 -j$(nproc)
++
++kernel-build:x86_64:
++  extends: [.build:x86_64, .kernel-build]
++  script:
++    - make ARCH=x86 LLVM=1 olddefconfig
++    - make ARCH=x86 LLVM=1 -j$(nproc)
++
++# --- Disable dtbs-check jobs ---
++# dtbs-check validates compiled DTBs which may produce warnings from
++# code we are not responsible for. Keep dt-binding-check only.
++dtbs-check:arm32:
++  rules:
++    - when: never
++
++dtbs-check:arm64:
++  rules:
++    - when: never
++
++# --- KUnit jobs ---
++# kunit:arm32, kunit:arm64, and kunit:x86_64 are defined in kunit.yml
++# and implicitly enabled here through the .build:* templates above.
 
->> drivers/gpu/drm/trigger5/trigger5_drv.c:435:19: warning: result of comparison of constant 65536 with expression of type 'const u16' (aka 'const unsigned short') is always false [-Wtautological-constant-out-of-range-compare]
-     435 |             mode->htotal > U16_MAX + 1)
-         |             ~~~~~~~~~~~~ ^ ~~~~~~~~~~~
-   drivers/gpu/drm/trigger5/trigger5_drv.c:440:19: warning: result of comparison of constant 65536 with expression of type 'const u16' (aka 'const unsigned short') is always false [-Wtautological-constant-out-of-range-compare]
-     440 |             mode->vtotal > U16_MAX + 1)
-         |             ~~~~~~~~~~~~ ^ ~~~~~~~~~~~
-   2 warnings generated.
+---
+base-commit: 99c95ce1b07081d7944d637ba7d72d835c0d520a
+change-id: 20260902-drm-drm-misc-ci-ec6c69506609
 
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
 
-vim +435 drivers/gpu/drm/trigger5/trigger5_drv.c
-
-   420	
-   421	static enum drm_mode_status
-   422	trigger5_crtc_mode_valid(struct drm_crtc *crtc,
-   423				 const struct drm_display_mode *mode)
-   424	{
-   425		struct trigger5_pll pll;
-   426		size_t frame_len, payload_len;
-   427		u64 err, ppm;
-   428	
-   429		/*
-   430		 * The protocol stores totals, sync pulses, and back porches minus one
-   431		 * in 16-bit fields.
-   432		 */
-   433		if (mode->hsync_end <= mode->hsync_start ||
-   434		    mode->htotal <= mode->hsync_end ||
- > 435		    mode->htotal > U16_MAX + 1)
-   436			return MODE_H_ILLEGAL;
-   437	
-   438		if (mode->vsync_end <= mode->vsync_start ||
-   439		    mode->vtotal <= mode->vsync_end ||
-   440		    mode->vtotal > U16_MAX + 1)
-   441			return MODE_V_ILLEGAL;
-   442	
-   443		payload_len = array3_size(mode->hdisplay, mode->vdisplay, 3);
-   444		frame_len = size_add(payload_len, sizeof(struct trigger5_bulk_header));
-   445		if (frame_len > SZ_16M)
-   446			return MODE_MEM;
-   447	
-   448		err = trigger5_calculate_pll(&pll, mode->clock);
-   449		ppm = div64_u64(err * 1000, mode->clock);
-   450		if (ppm > 10000)
-   451			return MODE_CLOCK_RANGE;
-   452	
-   453		return MODE_OK;
-   454	}
-   455	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
