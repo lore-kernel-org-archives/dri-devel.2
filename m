@@ -4,80 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D9D9C88E63
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C77B2C88E65
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A06F10E9C8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE81810E9CA;
 	Sun, 13 Sep 2026 20:53:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AlmsXHna";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bAW41siy";
 	dkim-atps=neutral
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D73810E0B9
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 18:37:56 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-2dd6665a10fso1460085ad.1
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 11:37:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789324676; x=1789929476; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=hLpXy9tNi5ms1dbYyVi6I1as/81y8YWcT2cY9iWq8NU=;
- b=AlmsXHnagZDFOwgJbnkYBU6lr2t82O5moA9hrLVhSnpuYQYWRMxYxgiDzi113qsPC8
- XvS/1Om9PtPr3zUdKiiaYi8UlCuHBfzQKHc54v1BdgRKXhkNF84a8PjRZETxu8FEsW+j
- klhfR7kDvbYaWdMDeoIql+Wqzs4ntH1er78hhaO26tSHlCnpuV6VIL1zcZhcYDDwFtev
- +QQXlLVg/DunfV/Ize7i5Jx5UDKxREHw/veD2PugW9vGTexoVD/1h+2/ppvDvnvpj5E8
- A0mV/fGmUEibyjrNUVi7cpLpjCL/I45b96VpJtPSsRj2JRTXRQn712JN9sRWA14tUsQk
- j1yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789324676; x=1789929476;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=hLpXy9tNi5ms1dbYyVi6I1as/81y8YWcT2cY9iWq8NU=;
- b=kU/AFEjSbZUqy2i9OAsGZv7ez9XzjH17T/RCfmad62VJzqTC2qcD5VYtfhFEvfbYjh
- i/fQy6q0I4dA2ejceZI5hDS/mtdU/op1WECEWCtjppw3MoAnqR95BGocFsAU464HWyhG
- QB32JItmfYoeCzmz79tK3Zd/eAHLtnFArblQVm2pKhaL/g2e5+K3yyNo4UAUSsACkAHt
- 6zSSEc6b3FQc0gSiuJhncVPtBYpHk8oHZC1Bmggyot2/uPAri2NHcEvh688MoWwUjvUJ
- pmcNaHh1U2t3AiEkAYFRVBO9Xee22avh9dn+0diciAEQzIkPEv5pR7/3GxYeGeOrqnW/
- Uk0g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwNsSm1FHe6cbThdGPKw+8EVLuZ6gRdHyYYtRt6x2x8alsJQppHRlNtgd9tzO81f0NFUDLwaCYzmns=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++luIUxYOl9FUtw0l2zvAlRo4H+OT+tUvXAH59rbksoxcqsclPt3
- ApawHa6tQZwdUMw8pHZJUnkhOlF15Gy+ggqQrJ0DJCshr+2R4drdoFrC
-X-Gm-Gg: AYBFou1zkkavJFUSEo0usFZmyQfX5slEjL1Gfq3H6AHSzSPRP2L2lZgf4tD2TfXNm0T
- xcbY98JgbiR3CH8dvUPDFPdyCiJ1QDR0mF7mKnTPawxazGpEFwypws6CJGoMyfG1CJr7VZVXQjR
- NHL1lHCNPOn5oQ0KYJTkNeB0YBVRFG/DchyLzt3zLRUU0wO9CAGIbkeDq3IZxmI5UnC7RImWcCT
- l0nYXYhO6lcQUd/9rT41jpOPzVjtDz/GvYBPbLeNw9m1RwUV8ZLhZq+XRGJEY5/NGCKVii3WhTH
- QkEXu1drcvwse96NlfsP2Y1+VJQDT5zFBp3Y7Fa6CLVXe3Ck3Vjr0mwFV8+kWI7ZUIc+aDFUKL8
- OESsSkm/yegTjUNuUToGsgU55tdr+LKaF76e6pNSh/nXeX1KzzC0vRd1KhraZuzegPO30PfcE12
- TYcbRFiE8AZrgzE4RsluvIy2Nx3tCD9BsNT2vziYls9mXBl/AXDFZamWtvXdI1PdLpmzsn//QQU
- pqmRQ==
-X-Received: by 2002:a17:90b:3812:b0:398:990e:1587 with SMTP id
- 98e67ed59e1d1-39d9beb8e80mr23558089a91.9.1789324675485; 
- Sun, 13 Sep 2026 11:37:55 -0700 (PDT)
-Received: from localhost ([95.190.112.239]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39d9b08165fsm4118447a91.1.2026.09.13.11.37.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Sep 2026 11:37:55 -0700 (PDT)
-From: Vladislav Zaharov <vladazaharova2018@gmail.com>
-To: dakr@kernel.org,
-	jhubbard@nvidia.com
-Cc: acourbot@nvidia.com, aliceryhl@google.com, ttabi@nvidia.com,
- gary@garyguo.net, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, Vladislav Zaharov <vladazaharova2018@gmail.com>
-Subject: [PATCH v4 1/3] gpu: nova-core: move the debugfs root into the module
- data
-Date: Mon, 14 Sep 2026 01:37:32 +0700
-Message-ID: <20260913183734.134307-2-vladazaharova2018@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260913183734.134307-1-vladazaharova2018@gmail.com>
-References: <20260913183734.134307-1-vladazaharova2018@gmail.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A35AE10E3AF
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 10:16:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6830341776;
+ Fri, 11 Sep 2026 10:16:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0B0E1F000FF;
+ Fri, 11 Sep 2026 10:16:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789121805;
+ bh=giLIDOVuGk3wU4sINvGbjDY5Co7tru0+JFiE0K9FPLI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=bAW41siy0jHTB1qfl3qn4gdNLwygOP92sxwRZ5j93bg2aVlvwhPZHWNQXCkbUnxC6
+ 9zk3b5mbI7ab2hw7oNcaGXVKHnNx1qFzqMm5NsCPo7iMQTWRRa4ga4/FYZMgemnHMR
+ LUWR9RDzd1jBIAPZg7P5yYAnVdcGzlswz7uYblSZrI8mgcWzefXPuZrclq/aRa18mg
+ UXHtcfHYeWzL2TMktPNfUxYpL9byrk5pz2SSOJ+Hi6IFxR8hMDvGKPZB2iRfKGLL8X
+ ZmrHB9kpMAfbsIpyQlYJu0jR9aIkQQcmQfumaGM+wf3Q1dTyf8WnZzhQjhpzxy2VYs
+ gbIALJ3tDM5qQ==
+Date: Fri, 11 Sep 2026 11:16:14 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Stephen Smalley <stephen.smalley.work@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, 
+ Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>,
+ Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
+ Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, 
+ Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, 
+ Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
+ linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev
+Subject: Re: [PATCH 11/39] selinux: reject writable opens of policy file,
+ drop mmap shared/write check
+Message-ID: <aqPUqU3eZeFrykj3@gremlin>
+References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+ <20260908-b4-mmap-prepare-vma-flag-sanify-v1-11-dacf19cce22b@kernel.org>
+ <CAEjxPJ7hXSi=oLtQPV+7GEvN+txfYwZ-u-v_EysNHM0gSGNrCw@mail.gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAEjxPJ7hXSi=oLtQPV+7GEvN+txfYwZ-u-v_EysNHM0gSGNrCw@mail.gmail.com>
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,168 +143,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The debugfs root lives in a static that init() fills in and a guard
-field of the module data clears again. That costs a `static mut`, an
-unsafe write on each side and a guard type whose only job is to undo
-the write.
+On Thu, Sep 10, 2026 at 02:11:18PM -0400, Stephen Smalley wrote:
+> On Tue, Sep 8, 2026 at 4:07 PM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+> >
+> > The policy file has no write method and is exposed read-only (S_IRUGO in
+> > selinux_files[]), yet sel_open_policy() performs no open mode check, so a
+> > CAP_DAC_OVERRIDE caller can open it O_RDWR. Reject FMODE_WRITE at open, as
+> > kernfs does.
+> >
+> > The file can then never be mapped with FMODE_WRITE, so do_mmap() always
+> > clears VM_MAYWRITE and VM_SHARED for MAP_SHARED mappings and the VM_SHARED
+> > check in sel_mmap_policy() cannot be reached. Remove it.
+> >
+> > This also stops sel_mmap_policy() clearing VM_MAYWRITE on a mapping that is
+> > neither a PFN map nor a mixed map, ahead of the core enforcing that only
+> > such mappings may do so.
+> >
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>
+> We should likely do something similar for the other sel_open_*() and
+> sel_mmap_*() functions too.
+> In particular, truncation of the status file can bring down systemd
+> since it is mapped by libselinux.
 
-It also leaks. try_pin_init! drops only the fields it has already
-built, and the guard is written after the Registration, so a
-registration that fails leaves the guard unbuilt and the static set.
-Statics are never dropped, and the module is unloaded right away, so
-the directory outlives everything that could remove it. The next load
-then finds the name taken: debugfs_create_dir() returns -EEXIST, which
-Entry keeps as it would any other pointer, and the driver comes up with
-no debugfs at all until the machine is rebooted.
+Yeah I think there's definitely more that can be done there.
 
-Have the module data own a DebugfsData instead, built before the
-registration and dropped after it, and keep only a pointer to it in the
-static, for devices that have no other way to reach the data of their
-module. What is left is one unsafe read for the users and one write on
-each side, with no guard type. A registration that fails now drops the
-data that was built before it, and the directory goes with it.
+Though I think obviously that kind of stuff is better as a follow up as this
+patch is focused on eliminating a case where VMA_MAYWRITE_BIT is cleared
+incorrectly.
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Vladislav Zaharov <vladazaharova2018@gmail.com>
----
- drivers/gpu/nova-core/gsp.rs       | 15 +++---
- drivers/gpu/nova-core/nova_core.rs | 82 +++++++++++++++++++++++-------
- 2 files changed, 69 insertions(+), 28 deletions(-)
+>
+> Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
 
-diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
-index 25ea43f1cbe9..f29e601e6753 100644
---- a/drivers/gpu/nova-core/gsp.rs
-+++ b/drivers/gpu/nova-core/gsp.rs
-@@ -196,15 +196,12 @@ pub(crate) fn new(pdev: &'gsp pci::Device<device::Bound>) -> impl PinInit<Self,
-                         logrm,
-                     };
- 
--                    #[allow(static_mut_refs)]
--                    // SAFETY: `DEBUGFS_ROOT` is created before driver registration and cleared
--                    // after driver unregistration, so no probe() can race with its modification.
--                    //
--                    // PANIC: `DEBUGFS_ROOT` cannot be `None` here.  It is set before driver
--                    // registration and cleared after driver unregistration, so it is always
--                    // `Some` for the entire lifetime that probe() can be called.
--                    let log_parent: &debugfs::Dir = unsafe { crate::DEBUGFS_ROOT.as_ref() }
--                        .expect("DEBUGFS_ROOT not initialized");
-+                    // PANIC: The module data cannot be gone here. It is published before the
-+                    // driver is registered and taken down after it is unregistered, so it is
-+                    // there for as long as probe() can be called.
-+                    let log_parent: &debugfs::Dir = crate::debugfs_data()
-+                        .expect("module data not initialized")
-+                        .root();
- 
-                     log_parent.scope(log_buffers, dev.name(), |logs, dir| {
-                         dir.read_binary_file(c"loginit", &logs.loginit.0);
-diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
-index 1133c6ce5c55..0f8501c26e05 100644
---- a/drivers/gpu/nova-core/nova_core.rs
-+++ b/drivers/gpu/nova-core/nova_core.rs
-@@ -30,40 +30,84 @@
- 
- pub(crate) const MODULE_NAME: &core::ffi::CStr = <LocalModule as kernel::ModuleMetadata>::NAME;
- 
--// TODO: Move this into per-module data once that exists.
--static mut DEBUGFS_ROOT: Option<debugfs::Dir> = None;
-+/// Pointer to the [`DebugfsData`] the module owns.
-+///
-+/// A device has no way to reach the data of its module, so probe() goes through here instead.
-+// TODO: Drop this once devices can reach the data of their module.
-+static mut DEBUGFS_DATA: *const DebugfsData = core::ptr::null();
- 
--/// Guard that clears `DEBUGFS_ROOT` when dropped.
--struct DebugfsRootGuard;
-+/// Data the module shares with every GPU it drives.
-+///
-+/// # Invariants
-+///
-+/// A non-null `DEBUGFS_DATA` points at a live, pinned instance of this type that outlives the
-+/// driver registration.
-+#[pin_data(PinnedDrop)]
-+pub(crate) struct DebugfsData {
-+    /// Root directory of the driver in debugfs.
-+    root: debugfs::Dir,
-+}
-+
-+impl DebugfsData {
-+    /// Creates the shared data and publishes it, so that [`debugfs_data()`] can hand it out.
-+    fn new() -> impl PinInit<Self> {
-+        pin_init!(&this in Self {
-+            root: debugfs::Dir::new(c"nova-core"),
-+            _: {
-+                // SAFETY: Module initialization runs once and before the driver is registered, so
-+                // nothing can be reading `DEBUGFS_DATA` while it is written here. `this` is where
-+                // the data is being built, and it stays there: the module data never moves.
-+                unsafe { DEBUGFS_DATA = this.as_ptr() };
-+            },
-+        })
-+    }
-+
-+    /// Returns the root directory of the driver in debugfs.
-+    pub(crate) fn root(&self) -> &debugfs::Dir {
-+        &self.root
-+    }
-+}
- 
--impl Drop for DebugfsRootGuard {
--    fn drop(&mut self) {
--        // SAFETY: This guard is dropped after `_driver` (due to field order),
--        // so the driver is unregistered and no probe() can be running.
--        unsafe { DEBUGFS_ROOT = None };
-+#[pinned_drop]
-+impl PinnedDrop for DebugfsData {
-+    fn drop(self: Pin<&mut Self>) {
-+        // SAFETY: This runs after the registration is dropped, as the fields of `NovaCoreModule`
-+        // are dropped in declaration order, so the driver is unregistered and neither a probe()
-+        // nor the teardown of a device can be reading `DEBUGFS_DATA`.
-+        unsafe { DEBUGFS_DATA = core::ptr::null() };
-     }
- }
- 
-+/// Returns the data the module shares with its devices, or [`None`] if there is none yet.
-+///
-+/// Only ever call this while the driver is registered, which is to say from probe() or from the
-+/// teardown of a device that is bound: the data is built before the registration and dropped
-+/// after it, and nothing else keeps what is returned here alive.
-+pub(crate) fn debugfs_data() -> Option<&'static DebugfsData> {
-+    // SAFETY: `DEBUGFS_DATA` is written while the module data is initialized, before the driver
-+    // is registered, and again when that data is dropped, after the driver is unregistered. Both
-+    // happen with no device bound, so a caller in probe() or in the teardown of a device cannot
-+    // race with either, and by the type invariant what it gets points at live data that outlives
-+    // the device it is used from.
-+    unsafe { DEBUGFS_DATA.as_ref() }
-+}
-+
- #[pin_data]
- struct NovaCoreModule {
--    // Fields are dropped in declaration order, so `_driver` is dropped first,
--    // then `_debugfs_guard` clears `DEBUGFS_ROOT`.
-+    // Fields are dropped in declaration order, so the registration goes first and no probe() can
-+    // still be running once the shared data is torn down. `init()` builds them the other way
-+    // round, as the data has to be there before the first probe() reaches for it.
-     #[pin]
-     _driver: Registration<pci::Adapter<driver::NovaCoreDriver>>,
--    _debugfs_guard: DebugfsRootGuard,
-+    #[pin]
-+    _debugfs: DebugfsData,
- }
- 
- impl InPlaceModule for NovaCoreModule {
-     fn init(module: &'static kernel::ThisModule) -> impl PinInit<Self, Error> {
--        let dir = debugfs::Dir::new(c"nova-core");
--
--        // SAFETY: We are the only driver code running during init, so there
--        // cannot be any concurrent access to `DEBUGFS_ROOT`.
--        unsafe { DEBUGFS_ROOT = Some(dir) };
--
-         try_pin_init!(Self {
-+            _debugfs <- DebugfsData::new(),
-             _driver <- Registration::new(MODULE_NAME, module),
--            _debugfs_guard: DebugfsRootGuard,
-         })
-     }
- }
--- 
-2.55.0
+Thanks!
+>
+> > ---
+> >  security/selinux/selinuxfs.c | 11 +++--------
+> >  1 file changed, 3 insertions(+), 8 deletions(-)
+> >
+> > diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
+> > index c7d91476971c..545a6f89f9e7 100644
+> > --- a/security/selinux/selinuxfs.c
+> > +++ b/security/selinux/selinuxfs.c
+> > @@ -340,6 +340,9 @@ static int sel_open_policy(struct inode *inode, struct file *filp)
+> >         struct policy_load_memory *plm = NULL;
+> >         int rc;
+> >
+> > +       if (filp->f_mode & FMODE_WRITE)
+> > +               return -EACCES;
+> > +
+> >         rc = avc_has_perm(current_sid(), SECINITSID_SECURITY,
+> >                           SECCLASS_SECURITY, SECURITY__READ_POLICY, NULL);
+> >         if (rc)
+> > @@ -424,14 +427,6 @@ static const struct vm_operations_struct sel_mmap_policy_ops = {
+> >
+> >  static int sel_mmap_policy(struct file *filp, struct vm_area_struct *vma)
+> >  {
+> > -       if (vma->vm_flags & VM_SHARED) {
+> > -               /* do not allow mprotect to make mapping writable */
+> > -               vm_flags_clear(vma, VM_MAYWRITE);
+> > -
+> > -               if (vma->vm_flags & VM_WRITE)
+> > -                       return -EACCES;
+> > -       }
+> > -
+> >         vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
+> >         vma->vm_ops = &sel_mmap_policy_ops;
+> >
+> >
+> > --
+> > 2.55.0
+> >
 
+--
+Cheers, Lorenzo
