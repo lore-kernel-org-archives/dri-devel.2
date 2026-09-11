@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25EF7C88E4D
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 23:47:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E401C88E45
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 23:47:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4854110E5E2;
-	Fri, 11 Sep 2026 23:47:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C3EF10E608;
+	Fri, 11 Sep 2026 23:47:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SrDQdGQY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aqBdmaUB";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC21810E5E2
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 23:47:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 797FE10E608
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 23:47:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AC82A40550;
- Fri, 11 Sep 2026 23:47:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65FF11F00898;
- Fri, 11 Sep 2026 23:47:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 627EB43B60;
+ Fri, 11 Sep 2026 23:47:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B65D1F000FF;
+ Fri, 11 Sep 2026 23:47:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789170429;
- bh=DifPt3te7RAE8CVqlbwO1y0t7m/r4VSdCXeMUHA1rn4=;
+ s=k20260515; t=1789170445;
+ bh=c3OpILTpbynm+Ut4UrnRy2wKvv8ELdDI3eXBMTvRTlc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SrDQdGQYjhazzn6eu7PLFpMblqedNup/EdwqdKO1jghYD9/Ib8/hTPaBZx90r9QPX
- bv3dGktjAnxWPVViSairCxFpa46d+O9N/ML2tUwDXvt+VVgMI1KGxzDzFD4BL+/1O+
- dRTGGEPXtrnJQhnc97SgFwdgsz08sP2yNFMtKag6aDCLWHHyTmWlbNQyio30Evcfjx
- de51QuM2mhinhQHAtlQT3H/4vY1ycpPyPtT4QyhEigoYTbbcn2kGtMk4RQ5STnDoSg
- w1lXvxR8uVrc/ILSpJ5kPkpThvUP7wpusTw0uDHSY5DwLjjJFZ1cJLj9D+WOXY7b0s
- 7gEeG4Y/wMaAQ==
+ b=aqBdmaUBR5sD/yyKDJ/ryTZzUheCVniU9y9hidAAmlqDPRrvgYheLnC3tomBceFJi
+ FuMWW6u59l/ipOHjkpYkzgriduDHKjQD4YSPHHbZJ+q8NG+zD8UJ46W98KxXzO3bW7
+ caX0yHFAWoivdigfPOhT72SbCcLdHJkz51WV1VGuIHp8Szmr5eDMo6h/ZdItJIh+ON
+ eDmArio6VcUy2PN6fl1g9tX1eJ4BvvAfZ+M2enhWOI88UoarkS1464eYYWgEzH0/L3
+ t570HpBRCWpSl1YyHCHHsenfAihu4faqu8bfYK2RaVdL93m88BtWuCeGsPd82JSIbe
+ MfCn8qWP47LTQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 14/16] drm/panfrost: Introduce a reset lock
+Subject: Re: [PATCH v9 15/16] drm/panfrost: Fix races between perfcnt and
+ reset sequence
 To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260912-claude-fixes-v9-14-e588feaa61ef@collabora.com>
+In-Reply-To: <20260912-claude-fixes-v9-15-e588feaa61ef@collabora.com>
 References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
- <20260912-claude-fixes-v9-14-e588feaa61ef@collabora.com>
+ <20260912-claude-fixes-v9-15-e588feaa61ef@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 23:47:09 +0000
-Message-Id: <20260911234709.65FF11F00898@smtp.kernel.org>
+Date: Fri, 11 Sep 2026 23:47:24 +0000
+Message-Id: <20260911234725.1B65D1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,82 +58,72 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Unprotected hardware register access in panfrost_gpu_get_latest_fl=
-ush_id() risks data corruption and bus errors during concurrent GPU resets.
-- [High] Power leak in panfrost_ioctl_query_timestamp() due to incorrect PM=
- runtime put API.
+- [Low] Mixing goto-based error handling with scoped_guard() cleanup in pan=
+frost_perfcnt_enable_locked() violates cleanup API semantics.
 --
 
-commit 8d0ec71108e67c1469d4f0da23df91f3320d12ae
+commit 6a11ea2bc38694e85eb36147ae0e357afc1cc799
 Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-drm/panfrost: Introduce a reset lock
+drm/panfrost: Fix races between perfcnt and reset sequence
 
-So as to avoid accessing HW register while a reset is ongoing, a read/write
-semaphore that envelopes the reset sequence will help driver entry points
-avoid racing with it. For now, the only such racy entry point is the ioctl
-that returns the current GPU timestmap.
+This commit addresses concurrency issues between the reset sequence and
+perfcnt session teardown by governing hardware access with the reset
+r/w semaphore. It also expands the uAPI to notify userspace if a reset
+has occurred during a perfcnt session.
 
-> For now, the only such racy entry point is the ioctl
-> that returns the current GPU timestmap.
-
-[Severity: High]
-This is a pre-existing issue, but does panfrost_ioctl_submit() in
-drivers/gpu/drm/panfrost/panfrost_drv.c also need to hold pfdev->reset.lock?
-
-It calls panfrost_gpu_get_latest_flush_id() in
-drivers/gpu/drm/panfrost/panfrost_gpu.c, which reads the
-GPU_LATEST_FLUSH_ID hardware register directly:
-
-panfrost_ioctl_submit()
-  job->flush_id =3D panfrost_gpu_get_latest_flush_id(pfdev);
-    flush_id =3D gpu_read(pfdev, GPU_LATEST_FLUSH_ID);
-
-If a user calls panfrost_ioctl_submit() concurrently with a job timeout
-triggering panfrost_reset(), reading the hardware register during a GPU soft
-reset could return garbage data or trigger a bus error. A corrupted flush ID
-could cause the GPU to skip necessary cache flushes.
-
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
+m/panfrost/panfrost_perfcnt.c
+> index b3f71d7fd82a9..9847657179a57 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
 [ ... ]
-
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_drv.c
-> index f77780c72a1ae..571a26b841269 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -41,9 +41,12 @@ static int panfrost_ioctl_query_timestamp(struct panfr=
-ost_device *pfdev,
+> @@ -122,54 +203,31 @@ static int panfrost_perfcnt_enable_locked(struct pa=
+nfrost_device *pfdev,
+>  	ret =3D drm_gem_vmap(&bo->base, &map);
 >  	if (ret)
->  		return ret;
+>  		goto err_put_mapping;
+> +
+>  	perfcnt->buf =3D map.vaddr;
+> +	perfcnt->counterset =3D counterset;
 > =20
-> -	panfrost_cycle_counter_get(pfdev);
-> -	*arg =3D panfrost_timestamp_read(pfdev);
-> -	panfrost_cycle_counter_put(pfdev);
-> +	/* We should not read timestamp register while the GPU  is being reset =
-*/
+>  	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
+> =20
+[ ... ]
 > +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-> +		panfrost_cycle_counter_get(pfdev);
-> +		*arg =3D panfrost_timestamp_read(pfdev);
-> +		panfrost_cycle_counter_put(pfdev);
+> +		/*
+> +		 * Clear the counters to start from a fresh state.
+> +		 */
+> +		gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
+> =20
+> -	gpu_write(pfdev, GPU_PERFCNT_CFG, cfg);
+> +		ret =3D panfrost_perfcnt_hw_enable(pfdev);
+> +		if (ret)
+> +			goto err_vunmap;
+
+[Severity: Low]
+Does this mix goto-based error handling with scope-based cleanup?
+
+The kernel cleanup API guidelines state that we should never mix goto
+labels and cleanup helpers (like scoped_guard) in the same function.
+Jumping out of a scoped_guard block to an error label creates confusing
+ownership semantics. For a given routine, the documentation recommends
+converting all resources that need a goto cleanup to scope-based cleanup,
+or converting none of them.
+
+> -	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
+> -		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
+> +		perfcnt->reset_happened =3D false;
+> +		perfcnt->owns_as_ref =3D true;
+> +		perfcnt->user =3D user;
 > +	}
 > =20
->  	pm_runtime_put(pfdev->base.dev);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does calling pm_runtime_put()
-in panfrost_ioctl_query_timestamp() cause the GPU power to remain on
-indefinitely?
-
-Since the driver uses autosuspend (dev->power.use_autosuspend is true), the=
- PM
-core's rpm_idle returns -EAGAIN and fails to schedule the suspend timer when
-pm_runtime_put() is called instead of pm_runtime_put_autosuspend(). Any
-unprivileged user calling the query IOCTL could trigger this.
+>  	/* The BO ref is retained by the mapping. */
+>  	drm_gem_object_put(&bo->base);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912-claude-fix=
-es-v9-0-e588feaa61ef@collabora.com?part=3D14
+es-v9-0-e588feaa61ef@collabora.com?part=3D15
