@@ -4,55 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37CAEC88E50
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 14:23:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8FD3C88E50
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 14:26:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8884110E3EF;
-	Fri, 11 Sep 2026 14:23:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18DB310E3C8;
+	Fri, 11 Sep 2026 14:26:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Z32wAgTM";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="QoPpUinG";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B3BF10E3EF
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 14:23:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1789136599;
- bh=7qErcdwlDroFhxjOYc7NmzR5Gu7OsLJ9/XniaMUdOc0=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Z32wAgTM/pdcaGUoYt0tZHrb97Bmg9aIBaMTEG3gDhADh4VNELoTxDvHMir/BM8ON
- ZjWKULk3lFX2dJoV5sSRKG72SkgVfJBcPhPPJcfn0UvYmZpIws64NTMm+gHVYQ/XCe
- 8Ft48aeK1gLTa7XW84pH2m82r5lqxdPJaA3OwpsrBsBod3KZjr1nYE7+36mOAtn829
- +F1a+3mJd6kJvXMED0cQveSdvGXh2QN89lCCi5Ktf+p88P5ZJhb7DVEc6J3ACkyBjk
- JW1Jjhvtwg7PRL8FKtvmq92KBzAFdDyGpBtiGQUoZ1HW9Du/EVAzgS3iLkA3qQoN/a
- cMESsWQM3wxpA==
-Received: from fedora-21.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 3918517E0803;
- Fri, 11 Sep 2026 16:23:19 +0200 (CEST)
-Date: Fri, 11 Sep 2026 16:23:14 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Ketil Johnsen <ketil.johnsen@arm.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Daniel Almeida
- <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Florent
- Tomasin <florent.tomasin@arm.com>
-Subject: Re: [PATCH v3 2/6] drm/panthor: Minor scheduler refactoring
-Message-ID: <20260911162314.0957730f@fedora-21.home>
-In-Reply-To: <20260911114014.79139-3-ketil.johnsen@arm.com>
-References: <20260911114014.79139-1-ketil.johnsen@arm.com>
- <20260911114014.79139-3-ketil.johnsen@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E05C10E3C8
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 14:26:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:Cc:To:From:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=SvkAWJr2shqvFu+Pn28Qal9b4u+qy3VAnSC7jq+8M1w=; b=QoPpUinG6rIW/W80tOxwmrBCO+
+ jJLt7wSFrEY0vqy89wUJiRq3VRP3aopt98LGfF4SiUZhgb7hH9Qkwl69uTkxXhmlxS6LrF4DP3Iym
+ jhzmn+WrBe9xhHbxYeP763eSuZ7yw7eVUqR99nF8fhCitmyflnsmfMJv3Pq0+FuFrrWUV3iLiEzFS
+ 1nKQeTEwkXhtLLg8SqrxOGAaJKxaMSi+kmiGIl4ViF64164hnpeuakyTm2hfPjZSU+uevmyeI8K1B
+ s78gYswNzWgxqe9qVP+EyXjTKCBcyxPJK9lSS6gzBHpamTO5s9xkNJgyKXJnaynfs5A7YrgEV6eVx
+ 9h3s2aUQ==;
+Received: from [31.4.134.247] (helo=[192.168.1.126])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1x52Cr-000iHB-72; Fri, 11 Sep 2026 16:26:21 +0200
+Message-ID: <baff8cb6-93d2-468c-a1f2-421a8700a942@igalia.com>
+Date: Fri, 11 Sep 2026 16:26:16 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] drm: Fix drm_pending_vblank_event leak in error path
+ for out_fence_ptr
+From: Melissa Wen <mwen@igalia.com>
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, sashiko-bot@kernel.org
+References: <20260826-drm_pending_vblank_event_leak-v4-1-f8de8b996b9d@igalia.com>
+ <48a67b88-7ad8-4764-bab0-c226e9247dda@igalia.com>
+Content-Language: en-US
+In-Reply-To: <48a67b88-7ad8-4764-bab0-c226e9247dda@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,209 +63,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 11 Sep 2026 13:40:10 +0200
-Ketil Johnsen <ketil.johnsen@arm.com> wrote:
 
-> From: Florent Tomasin <florent.tomasin@arm.com>
-> 
-> Refactor parts of the group scheduling logic into new helper functions.
-> This will simplify addition of the protected mode feature.
-> 
-> Remove redundant assignments of csg_slot.
-> 
-> Signed-off-by: Florent Tomasin <florent.tomasin@arm.com>
-> Co-developed-by: Ketil Johnsen <ketil.johnsen@arm.com>
-> Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+On 11/09/2026 15:58, Melissa Wen wrote:
+>
+>
+> On 26/08/2026 13:46, Thadeu Lima de Souza Cascardo wrote:
+>> When an out_fence_ptr is provided but DRM_MODE_PAGE_FLIP_EVENT is not
+>> set, a drm_pending_vblank_event will be allocated. If later, there is an
+>> allocation failure or another failure at setup_out_fence(), that event
+>> will not have base.fence set and it will not be released at
+>> complete_signaling().
+>>
+>> Release the event and set crtc_state->event to NULL just like in the
+>> DRM_MODE_PAGE_FLIP_EVENT case when there is a failure at
+>> drm_event_reserve_init(). That is, prepare_signaling() releases the
+>> event and there is nothing to be done at complete_signaling(). Use
+>> drm_event_cancel_free() as that will also undo drm_event_reserve_init()
+>> in case it has been called.
+>
+> LGTM. Thanks!
+>
+> Reviewed-by: Melissa Wen <mwen@igalia.com>
 
-> 
-> ---
-> 
-> v3:
-> - Use panthor_fw_csg_endpoint_req_update() (was rebase mistake)
-> - Function rename to tick_ctx_update_group_prio()
-> 
-> v2:
-> - Moved option to ding only the CSG doorbell to later patch
-> ---
->  drivers/gpu/drm/panthor/panthor_sched.c | 131 ++++++++++++++----------
->  1 file changed, 79 insertions(+), 52 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index 60b2417deb81b..1123cf36a7bca 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -2344,12 +2344,81 @@ tick_ctx_cleanup(struct panthor_scheduler *sched,
->  	}
->  }
->  
-> +static void
-> +tick_ctx_evict_group(struct panthor_scheduler *sched,
-> +		     struct panthor_csg_slots_upd_ctx *upd_ctx,
-> +		     struct panthor_group *group)
-> +{
-> +	struct panthor_device *ptdev = sched->ptdev;
-> +
-> +	if (drm_WARN_ON(&ptdev->base, group->csg_id < 0))
-> +		return;
-> +
-> +	csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, group->csg_id,
-> +				group_can_run(group) ?
-> +				CSG_STATE_SUSPEND : CSG_STATE_TERMINATE,
-> +				CSG_STATE_MASK);
-> +}
-> +
-> +static void
-> +tick_ctx_update_group_prio(struct panthor_scheduler *sched,
-> +			   struct panthor_csg_slots_upd_ctx *upd_ctx,
-> +			   struct panthor_group *group,
-> +			   int new_csg_prio)
-> +{
-> +	struct panthor_device *ptdev = sched->ptdev;
-> +	struct panthor_fw_csg_iface *csg_iface;
-> +	struct panthor_csg_slot *csg_slot;
-> +
-> +	if (group->csg_id < 0)
-> +		return;
-> +
-> +	csg_iface = panthor_fw_get_csg_iface(ptdev, group->csg_id);
-> +	csg_slot = &sched->csg_slots[group->csg_id];
-> +
-> +	if (csg_slot->priority != new_csg_prio) {
-> +		panthor_fw_csg_endpoint_req_update(ptdev, csg_iface,
-> +						   CSG_EP_REQ_PRIORITY(new_csg_prio),
-> +						   CSG_EP_REQ_PRIORITY_MASK);
-> +		csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, group->csg_id,
-> +					csg_iface->output->ack ^ CSG_ENDPOINT_CONFIG,
-> +					CSG_ENDPOINT_CONFIG);
-> +	}
-> +}
-> +
-> +static int
-> +tick_ctx_schedule_group(struct panthor_scheduler *sched,
-> +			struct panthor_csg_slots_upd_ctx *upd_ctx,
-> +			struct panthor_group *group,
-> +			int csg_id, int csg_prio)
-> +{
-> +	struct panthor_device *ptdev = sched->ptdev;
-> +	struct panthor_fw_csg_iface *csg_iface =
-> +		panthor_fw_get_csg_iface(ptdev, csg_id);
-> +	int ret;
-> +
-> +	ret = group_bind_locked(group, csg_id);
-> +	if (ret)
-> +		return ret;
-> +
-> +	csg_slot_prog_locked(ptdev, csg_id, csg_prio);
-> +
-> +	csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, csg_id,
-> +				group->state == PANTHOR_CS_GROUP_SUSPENDED ?
-> +					CSG_STATE_RESUME : CSG_STATE_START,
-> +				CSG_STATE_MASK);
-> +	csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, csg_id,
-> +				csg_iface->output->ack ^ CSG_ENDPOINT_CONFIG,
-> +				CSG_ENDPOINT_CONFIG);
-> +
-> +	return 0;
-> +}
-> +
->  static void
->  tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *ctx)
->  {
->  	struct panthor_group *group, *tmp;
->  	struct panthor_device *ptdev = sched->ptdev;
-> -	struct panthor_csg_slot *csg_slot;
->  	int prio, new_csg_prio = MAX_CSG_PRIO, i;
->  	u32 free_csg_slots = 0;
->  	struct panthor_csg_slots_upd_ctx upd_ctx;
-> @@ -2359,44 +2428,13 @@ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *c
->  
->  	for (prio = PANTHOR_CSG_PRIORITY_COUNT - 1; prio >= 0; prio--) {
->  		/* Suspend or terminate evicted groups. */
-> -		list_for_each_entry(group, &ctx->old_groups[prio], run_node) {
-> -			bool term = !group_can_run(group);
-> -			int csg_id = group->csg_id;
-> -
-> -			if (drm_WARN_ON(&ptdev->base, csg_id < 0))
-> -				continue;
-> -
-> -			csg_slot = &sched->csg_slots[csg_id];
-> -			csgs_upd_ctx_queue_reqs(ptdev, &upd_ctx, csg_id,
-> -						term ? CSG_STATE_TERMINATE : CSG_STATE_SUSPEND,
-> -						CSG_STATE_MASK);
-> -		}
-> +		list_for_each_entry(group, &ctx->old_groups[prio], run_node)
-> +			tick_ctx_evict_group(sched, &upd_ctx, group);
->  
->  		/* Update priorities on already running groups. */
-> -		list_for_each_entry(group, &ctx->groups[prio], run_node) {
-> -			struct panthor_fw_csg_iface *csg_iface;
-> -			int csg_id = group->csg_id;
-> -
-> -			if (csg_id < 0) {
-> -				new_csg_prio--;
-> -				continue;
-> -			}
-> -
-> -			csg_slot = &sched->csg_slots[csg_id];
-> -			csg_iface = panthor_fw_get_csg_iface(ptdev, csg_id);
-> -			if (csg_slot->priority == new_csg_prio) {
-> -				new_csg_prio--;
-> -				continue;
-> -			}
-> -
-> -			panthor_fw_csg_endpoint_req_update(ptdev, csg_iface,
-> -							   CSG_EP_REQ_PRIORITY(new_csg_prio),
-> -							   CSG_EP_REQ_PRIORITY_MASK);
-> -			csgs_upd_ctx_queue_reqs(ptdev, &upd_ctx, csg_id,
-> -						csg_iface->output->ack ^ CSG_ENDPOINT_CONFIG,
-> -						CSG_ENDPOINT_CONFIG);
-> -			new_csg_prio--;
-> -		}
-> +		list_for_each_entry(group, &ctx->groups[prio], run_node)
-> +			tick_ctx_update_group_prio(sched, &upd_ctx, group,
-> +						   new_csg_prio--);
->  	}
->  
->  	ret = csgs_upd_ctx_apply_locked(ptdev, &upd_ctx);
-> @@ -2424,34 +2462,23 @@ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *c
->  	for (prio = PANTHOR_CSG_PRIORITY_COUNT - 1; prio >= 0; prio--) {
->  		list_for_each_entry(group, &ctx->groups[prio], run_node) {
->  			int csg_id = group->csg_id;
-> -			struct panthor_fw_csg_iface *csg_iface;
-> +			int csg_prio = new_csg_prio--;
->  
-> -			if (csg_id >= 0) {
-> -				new_csg_prio--;
-> +			if (csg_id >= 0)
->  				continue;
-> -			}
->  
->  			csg_id = ffs(free_csg_slots) - 1;
->  			if (drm_WARN_ON(&ptdev->base, csg_id < 0))
->  				break;
->  
-> -			csg_iface = panthor_fw_get_csg_iface(ptdev, csg_id);
-> -			csg_slot = &sched->csg_slots[csg_id];
-> -			ret = group_bind_locked(group, csg_id);
-> +			ret = tick_ctx_schedule_group(sched, &upd_ctx, group,
-> +						      csg_id, csg_prio);
->  			if (ret) {
->  				panthor_device_schedule_reset(ptdev);
->  				ctx->csg_upd_failed_mask |= BIT(csg_id);
->  				return;
->  			}
->  
-> -			csg_slot_prog_locked(ptdev, csg_id, new_csg_prio--);
-> -			csgs_upd_ctx_queue_reqs(ptdev, &upd_ctx, csg_id,
-> -						group->state == PANTHOR_CS_GROUP_SUSPENDED ?
-> -						CSG_STATE_RESUME : CSG_STATE_START,
-> -						CSG_STATE_MASK);
-> -			csgs_upd_ctx_queue_reqs(ptdev, &upd_ctx, csg_id,
-> -						csg_iface->output->ack ^ CSG_ENDPOINT_CONFIG,
-> -						CSG_ENDPOINT_CONFIG);
->  			free_csg_slots &= ~BIT(csg_id);
->  		}
->  	}
+Applied to drm-misc-fixes:
+9eb1a393c89a ("drm: Fix drm_pending_vblank_event leak in error path for 
+out_fence_ptr")
+
+>
+>>
+>> Reported-by: sashiko-bot@kernel.org
+>> Closes: 
+>> https://sashiko.dev/#/patchset/20260727-drm_crtc_atomic_commit_leak-v1-1-23d9948a9d7c@igalia.com?part=1
+>> Fixes: 92c715fca907 ("drm/atomic: Fix double free in 
+>> drm_atomic_state_default_clear")
+>> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+>> ---
+>> Changes in v4:
+>> - Rename label to err_free_event.
+>> - Use crtc_state->event instead of a local variable e.
+>> - Link to v3: 
+>> https://patch.msgid.link/20260817-drm_pending_vblank_event_leak-v3-1-7582b24447d0@igalia.com
+>>
+>> Changes in v3:
+>> - Use a label for the common exit pattern.
+>> - Link to v2: 
+>> https://patch.msgid.link/20260729-drm_pending_vblank_event_leak-v2-1-a5074aae07df@igalia.com
+>>
+>> Changes in v2:
+>> - Fix UAF when DRM_MODE_PAGE_FLIP_EVENT is used.
+>> - Link to v1: 
+>> https://patch.msgid.link/20260728-drm_pending_vblank_event_leak-v1-1-08429b920b16@igalia.com
+>> ---
+>>   drivers/gpu/drm/drm_atomic_uapi.c | 13 ++++++++++---
+>>   1 file changed, 10 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c 
+>> b/drivers/gpu/drm/drm_atomic_uapi.c
+>> index ae7667d1072d..8c0eea2fed4a 100644
+>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+>> @@ -1458,10 +1458,12 @@ static int prepare_signaling(struct 
+>> drm_device *dev,
+>>               struct dma_fence *fence;
+>>               struct drm_out_fence_state *f;
+>>   +            ret = -ENOMEM;
+>> +
+>>               f = krealloc(*fence_state, sizeof(**fence_state) *
+>>                        (*num_fences + 1), GFP_KERNEL);
+>>               if (!f)
+>> -                return -ENOMEM;
+>> +                goto err_free_event;
+>>                 memset(&f[*num_fences], 0, sizeof(*f));
+>>   @@ -1470,12 +1472,12 @@ static int prepare_signaling(struct 
+>> drm_device *dev,
+>>                 fence = drm_crtc_create_fence(crtc);
+>>               if (!fence)
+>> -                return -ENOMEM;
+>> +                goto err_free_event;
+>>                 ret = setup_out_fence(&f[(*num_fences)++], fence);
+>>               if (ret) {
+>>                   dma_fence_put(fence);
+>> -                return ret;
+>> +                goto err_free_event;
+>>               }
+>>                 crtc_state->event->base.fence = fence;
+>> @@ -1531,6 +1533,11 @@ static int prepare_signaling(struct drm_device 
+>> *dev,
+>>       }
+>>         return 0;
+>> +
+>> +err_free_event:
+>> +    drm_event_cancel_free(dev, &crtc_state->event->base);
+>> +    crtc_state->event = NULL;
+>> +    return ret;
+>>   }
+>>     static void complete_signaling(struct drm_device *dev,
+>>
+>> ---
+>> base-commit: 4d4be202165e832d74849b4a68e289a2a377039c
+>> change-id: 20260728-drm_pending_vblank_event_leak-a36cedb296ba
+>>
+>> Best regards,
+>> -- 
+>> Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+>>
+>
 
