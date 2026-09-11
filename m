@@ -4,77 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A02F2C88E65
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:54:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DECF2C88E69
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:54:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75E1810E9E4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D555F10E9EE;
 	Sun, 13 Sep 2026 20:54:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IyRpGBMI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VXiIsYXG";
 	dkim-atps=neutral
-Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com
- [209.85.222.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6496810E40C
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 20:33:55 +0000 (UTC)
-Received: by mail-ua1-f47.google.com with SMTP id
- a1e0cc1a2514c-97ccaa61510so533547241.0
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 13:33:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789158834; x=1789763634; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=TNQAtUsfSHMHHKsvw6ndB+vrFH/q79ludt31IUIO6iA=;
- b=IyRpGBMIpz83b0gIExz6vrBFVEdLTjZjBh2tiGNnn9GI2xOs1voJuX1leYUoBwoP6T
- mCyJs9fc0mpTiU6N6oZeBGChnqhwbopak1fPfhPGk6oYLmkXLmYbTClE22pdD3TEWbOn
- P0LgqE7k8KupSuxhzzhrNyOiuWniAgIVdg25x21RSfJmHCKS/H4nxSIGhTkstF7xX9ep
- P7zT7Zi5geF77ez4mDJz3HTBmb7gKGG13tb3KjEr4mUD3WMSX6tkXeHHZfMFvjSG8GcL
- Ggfrd8sZm7FU/0x9Jl8ZQYDsuFUn4brpnHBV19GQCAShOtaXelfTJFWTiMjwfj5yy/z4
- 40eQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789158834; x=1789763634;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=TNQAtUsfSHMHHKsvw6ndB+vrFH/q79ludt31IUIO6iA=;
- b=MX1aWKK5wDRz4PLNKEvH/Pd2gPmfWAxsbvOrNFQDyjfrTJ20A0qOorLpkTgTEx7NYR
- klAglVjZCmrWhx6UsxcNhj5WbLZEtssQpFzD16fh0kskJuiKKNmofl17Tnz7gvKkJK92
- 8VMMcONVL/K/94OOHK+Ib/SaMP1rJIpQBRssLqWCXoKybDN5yMHIOCxPANgEixrGgLZr
- /hP/DslSxI2WzZ4t2hl6ELZhMN4NlqkKXi0PBgnPZjZ4U4+iLzfxnowHrB4AMW0ER8ra
- ehLaK/rYSMLVflFieU5CdqP/37OfjM0KCkvzCmesvAvfO/rEMQEUHMmJDM33ONKXehOj
- P9PA==
-X-Forwarded-Encrypted: i=1;
- AKwUvByNbYkeR0dnVo8mZbrcq4CVt4fXpkuJoysdBfPpOiKuVM99VPhT0rjcZsOTNnmYguby+4K0ujlgX4Y=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kqKftH9yq79zCSFLh95V78zcdGkashRVFiNjpEMW3uWlRCfUzo
- W2kCxKBoLB9e7V2DOW7owtHrjia9gBmZxRVqlZIPS0oZUTG7okF6zOHp
-X-Gm-Gg: AYBFou3cwn72Ft2udXxuhCXoOiqHTXfOjj5q0NxllvectPX+WTh7oNIEI0ZMEpsy3A2
- RgamzLwDhnFwIuYMaX2xGApbAvRnMMbOgpkxxW5QgzyfcQ2qzmJMI3kiiXzZhFYhVYMserJrTsr
- xNb2sxgi/XPfXxfUbifiZIcYTFtnMkLwiwa9h0q6n+/3inHcovHV7d5IvUl19iXSNfZYgFj99An
- S1zpK5v5OEg5g3fTk4OSt4b9x7rUe6vr/YYCTa19A/EcT3tDw6+ewguh6KRbxbnqi99xsJWs3b8
- uULTt+KkNe3aaaxWpAE82sC1HjDFwegEGdc1lqfoaaCFPhucrrICp27ofmPbV4jYkrp1WGl9V/z
- 6JNbm2DP1fg37CL9aYlpk/htCflmkyhDoOt/qxx6aVQXs2YogSSFsOGdtGbxoCIMD9vD4xACuKb
- RZTz9lDxDCfQqYM5DeLLg0XXfqmm5I0Or8MUp4lWkuPbdZXwx7so+Q3Tk7L6K4uTOZ
-X-Received: by 2002:a05:6122:6217:b0:5c8:46e3:ec57 with SMTP id
- 71dfb90a1353d-5c846e3ed98mr10169733e0c.1.1789158834008; 
- Fri, 11 Sep 2026 13:33:54 -0700 (PDT)
-Received: from frese.. ([189.60.169.129]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5c8470e7ef4sm4187018e0c.9.2026.09.11.13.33.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Sep 2026 13:33:53 -0700 (PDT)
-From: Enzo Frese <freseenzo@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- =?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Enzo Frese <freseenzo@gmail.com>
-Subject: [PATCH v2] dt-bindings: display: panel: mipi-dbi-spi: add sitronix,
- st7789v-tft28
-Date: Fri, 11 Sep 2026 17:33:42 -0300
-Message-ID: <20260911203342.76692-1-freseenzo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D939E10E3AF
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 10:13:46 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9E893432D5;
+ Fri, 11 Sep 2026 10:13:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88F4F1F000FF;
+ Fri, 11 Sep 2026 10:13:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789121626;
+ bh=AJ4osXGfnva+GsW9Xj6wSlPvmOYx8+Z4McGwoEWWU6k=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=VXiIsYXGW7V+CUC2hoUUxshBtk//170ahXby5qOmnHCTEG6nprU1IS50u25G/fRQk
+ sf9ytH2Ce2iGqonEAUfAmBNxEiX0H5gDZvz851NX8EhIuDaWSIQBlPZWYHnVma0aGj
+ blDmI4LY1KM28dzcRxXSp3rNd+ml+k1Jf5jXcr5BNdmFsP+f0lE+KyInKD5utrTv18
+ j0kWa0ZAaMlc3Pw4wRDO2h4SoWYRal6ZvW3YmHkVxX6gQf6/JqWhQp1QSVXE2Kca+2
+ BYYLTVktrg9Xqy9CLQ0dyOX4enXiqnPzEjwUfsC5vJviK7A/gYwNlJA1GGOz2i3bhy
+ SIFHvCnClRnig==
+Date: Fri, 11 Sep 2026 11:13:15 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Jann Horn <jannh@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Pedro Falcato <pfalcato@suse.de>, David Hildenbrand <david@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, 
+ Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>,
+ Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
+ Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, 
+ Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, 
+ Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
+ linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev
+Subject: Re: [PATCH 11/39] selinux: reject writable opens of policy file,
+ drop mmap shared/write check
+Message-ID: <aqPS_UHU3MotlchR@gremlin>
+References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+ <20260908-b4-mmap-prepare-vma-flag-sanify-v1-11-dacf19cce22b@kernel.org>
+ <CAG48ez3Ucb8HyhjC1-fijFiYJsnWcTLYHvJjzMyU710mgegxnA@mail.gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAG48ez3Ucb8HyhjC1-fijFiYJsnWcTLYHvJjzMyU710mgegxnA@mail.gmail.com>
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,55 +143,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is a generic 2.8" 240x320 RGB LCD panel with a MIPI DBI compatible
-SPI interface, based on the Sitronix ST7789V controller. It is commonly
-sold by various resellers without an identifiable original manufacturer
-name printed on the PCB.
+On Tue, Sep 08, 2026 at 10:22:20PM +0200, Jann Horn wrote:
+> On Tue, Sep 8, 2026 at 10:07 PM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+> > The policy file has no write method and is exposed read-only (S_IRUGO in
+> > selinux_files[]), yet sel_open_policy() performs no open mode check, so a
+> > CAP_DAC_OVERRIDE caller can open it O_RDWR. Reject FMODE_WRITE at open, as
+> > kernfs does.
+> >
+> > The file can then never be mapped with FMODE_WRITE, so do_mmap() always
+> > clears VM_MAYWRITE and VM_SHARED for MAP_SHARED mappings and the VM_SHARED
+> > check in sel_mmap_policy() cannot be reached. Remove it.
+>
+> You should also be able to remove the sel_mmap_policy_ops.page_mkwrite
+> handler, which is only for shared-writable faults, right?
 
-A basic mipi-dbi-cmd[1] script to get the display running looks like
-this:
+Yeah I think you're right, though I wonder if it's a bit out of scope for this
+change as it's focused on removing a VMA_MAYWRITE_BIT clearance for a
+non-kernel-owned VMA.
 
-$ cat sitronix,st7789v-tft28.txt
-command 0x11
-delay 120
-command 0x3a 0x55
-command 0xb2 0x05 0x05 0x00 0x33 0x33
-command 0xb7 0x75
-command 0xc2 0x01 0xff
-command 0xc3 0x13
-command 0xc4 0x20
-command 0xbb 0x22
-command 0xc5 0x20
-command 0xd0 0xa4 0xa1
-command 0xe0 0xd0 0x05 0x0a 0x09 0x08 0x05 0x2e 0x44 0x45 0x0f 0x17 0x16 0x2b 0x33
-command 0xe1 0xd0 0x05 0x0a 0x09 0x08 0x05 0x2e 0x43 0x45 0x0f 0x16 0x16 0x2b 0x33
-command 0x36 0x00
-command 0x29
-command 0x21
+So maybe one for a follow up?
 
-$ mipi-dbi-cmd sitronix,st7789v-tft28.bin sitronix,st7789v-tft28.txt
+>
+> > This also stops sel_mmap_policy() clearing VM_MAYWRITE on a mapping that is
+> > neither a PFN map nor a mixed map, ahead of the core enforcing that only
+> > such mappings may do so.
+> >
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>
+> Reviewed-by: Jann Horn <jannh@google.com>
 
-Tested on a Raspberry Pi 4B using the panel-mipi-dbi driver.
+Thanks!
 
-[1]: https://github.com/notro/panel-mipi-dbi
-
-Signed-off-by: Enzo Frese <freseenzo@gmail.com>
----
- .../devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml    | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml b/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
-index 6f0290c4e291..25c176b0098b 100644
---- a/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
-@@ -75,6 +75,7 @@ properties:
-           - saef,sftc154b
-           - sainsmart18
-           - shineworld,lh133k
-+          - sitronix,st7789v-tft28
-       - const: panel-mipi-dbi-spi
- 
-   reg:
--- 
-2.43.0
-
+--
+Cheers, Lorenzo
