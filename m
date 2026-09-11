@@ -4,55 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC34AC88E4C
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 09:54:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C087BC88E4C
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 09:55:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E90E10E61E;
-	Fri, 11 Sep 2026 09:54:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03D3610E62B;
+	Fri, 11 Sep 2026 09:55:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="aJL0a3De";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CXR9Nxet";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2972810E61E
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 09:54:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1789120452;
- bh=+bJcP3hgZKncl50ol86uNSzjg8GhtHkhKyT01/iVVxE=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=aJL0a3DeMKgi7ul0Z9H6t09PYjjGFDedS6yCc1pcRb1HWMKUZiK6olr4TnJ+toy43
- oD3nRc+6KHeV6J4tHmYrC8widsgFKJobzIi324Z23h3iH3/6Mh8MvsFdHmFb2JUm+Q
- gQ4Yl00CWCobnb4xN/Zc1+y16yfG3W7fnZOTNo1NOqfxCL2QgeY6RMYHMYyT60UxBx
- sNMY/qyd1ikLp2x/vmEKNd2jaiVeFvAOT8GKNXC5nXxQVnuvllFGnnl3hSxWsf2qWl
- RN50cXeTCtgeGJXfEIM5fkanbMqeuzVL9qcdnSPxNfCMe33Nehh9qg4r+4yZ7ZS1hX
- KTriq5oA7FBZg==
-Received: from fedora-21.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5434917E0785;
- Fri, 11 Sep 2026 11:54:12 +0200 (CEST)
-Date: Fri, 11 Sep 2026 11:54:06 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Adrian Larumbe <adrian.larumbe@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Chris Diamand <chris.diamand@arm.com>, Akash Goel <akash.goel@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 13/18] drm/panthor: Complain if the SOFT_RESET fails
-Message-ID: <20260911115406.1758b0eb@fedora-21.home>
-In-Reply-To: <aqNsLgZRLw_el4h4@sobremesa>
-References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
- <20260826-panthor-unplug-fixes-v4-13-982cc8f4234b@collabora.com>
- <aqNsLgZRLw_el4h4@sobremesa>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F4B010E62B
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 09:55:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 36C5160234;
+ Fri, 11 Sep 2026 09:55:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6B3F1F00893;
+ Fri, 11 Sep 2026 09:55:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789120545;
+ bh=WJykm7fkN6noDXw4FUIEEZu6P2sasK12frKVHjX4ink=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=CXR9Nxetxu+dcuOlIQt/6hNCuidypSSvf3eRWGvgFh5ymh2MLy4anxbzuROM4VxSR
+ kIzkMbyJSGh99xIBMKbcLkDC7x1q2wAV4sZ9+XwYxB2ulmQETFn2rj0tRpJrokMRb0
+ PpR1B6Cunk/0Leoy2f5zdVx3006aDoWN24crXEP5K+N7Tn1NJmNqUrtOWH++qv29LC
+ /XIBSSBj4BUxQcNhIR5cU9QWn7ktB0SUUL2Qn6vkHz25jkrJF3DDp8JuugPMPHSBo/
+ iHDfIyRhOwpc5FoJiw0yuk+Ta8YdrZbIoAAIIfoGfiy03GvgMqwnRtQH9Z5i3wqiDd
+ Ht6ij+GxakBHA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/5] vt: Add cursor-size helpers
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, linux-serial@vger.kernel.org
+In-Reply-To: <20260911094518.78093-2-tzimmermann@suse.de>
+References: <20260911094518.78093-1-tzimmermann@suse.de>
+ <20260911094518.78093-2-tzimmermann@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 11 Sep 2026 09:55:45 +0000
+Message-Id: <20260911095545.B6B3F1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,58 +53,137 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 11 Sep 2026 04:40:01 +0100
-Adrian Larumbe <adrian.larumbe@collabora.com> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Unprotected concurrent access to the `cur_default` module parame=
+ter creates a TOCTOU race that can lead to an infinite loop.
+- [Low] The kerneldoc comments inaccurately describe the fallback behavior =
+for unknown cursor types.
+--
 
-> On 26.08.2026 16:56, Boris Brezillon wrote:
-> > We rely on a functioning SOFT_RESET to avoid HW UAFs when the GPU was
-> > in a state where AS commands were no longer accepted. If we silently
-> > ignore RESET failures, we're just pretending to be safe while exposing
-> > ourselves to the very UAFs we were trying to avoid. On the other hand,
-> > there's basically nothing we can do if both the SOFT_RESET and the
-> > AS_COMMAND(UNMAPPED) fail, so do what we do best: complain loudly and
-> > taint the kernel with a WARN_ON().
-> > 
-> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> > ---
-> >  drivers/gpu/drm/panthor/panthor_hw.h | 12 ++++++++++--
-> >  1 file changed, 10 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/panthor/panthor_hw.h b/drivers/gpu/drm/panthor/panthor_hw.h
-> > index 4531c1239cb6..f13fd7b335c1 100644
-> > --- a/drivers/gpu/drm/panthor/panthor_hw.h
-> > +++ b/drivers/gpu/drm/panthor/panthor_hw.h
-> > @@ -41,9 +41,17 @@ int panthor_hw_init(struct panthor_device *ptdev);
-> >  int panthor_hw_power_status_register(void);
-> >  void panthor_hw_power_status_unregister(void);
-> >  
-> > -static inline int panthor_hw_soft_reset(struct panthor_device *ptdev)
-> > +static inline void
-> > +panthor_hw_soft_reset(struct panthor_device *ptdev)
-> >  {
-> > -	return ptdev->hw->ops.soft_reset(ptdev);
-> > +	/* We're relying on the SOFT_RESET to reset the MMU block if some AS
-> > +	 * were stuck for some reason. Failing to reset the MMU/L2 means we're
-> > +	 * exposing ourselves to HW UAFs. On the other hand, there's basically
-> > +	 * nothing we can do if both the SOFT_RESET and
-> > +	 * the AS_COMMAND(UNMAPPED) fail, so do what we do best: complain loudly
-> > +	 * and taint the kernel.
-> > +	 */
-> > +	drm_WARN_ON(&ptdev->base, ptdev->hw->ops.soft_reset(ptdev));  
-> 
-> I think you forgot to include drm/drm_print.h, although Sashiko probably picked up on this.
-> 
-> On top of that, I wonder if failure to soft reset should be carried up the call stack and
-> eventually lead to an early unplug, just like you do when panthor_fw_post_reset() fails.
+commit 79b9bf7bbf256d349ee59d8fded428600a818ace
+Author: Thomas Zimmermann <tzimmermann@suse.de>
 
-That's what I had in earlier versions of this patchset, and I decided
-to get rid of it after discussing it with Liviu and Steve: if a
-SOFT_RESET can fail and there's nothing above it to guarantee that the
-HW is off and can't do any access to the memory it knew about, we're
-just screwed, because then we have to leak resources at unplug time. I
-tried it, and it's nasty, so in v4 (or v3, I don't remember) I got back
-to something simpler, with the assumption that SOFT_RESET will never
-fail (which seems to be the case in practice by the way).
+vt: Add cursor-size helpers
+   =20
+Cursors in the VT subsystem are blocks within a character cell that are
+filled with the foreground color. The new helpers vc_font_cursor_start()
+and vc_font_cursor_end() return the scanlines in which the cursor block
+starts rsp. ends. This is compatible with VGA hardware
+
+> diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
+> index 8f467b22b799e..87c4bc2ef4950 100644
+> --- a/drivers/tty/vt/vt.c
+> +++ b/drivers/tty/vt/vt.c
+> @@ -264,6 +264,96 @@ unsigned int vc_font_size(const struct vc_font *font)
+>  }
+>  EXPORT_SYMBOL_GPL(vc_font_size);
+> =20
+> +static unsigned int vc_cursor_start(unsigned int height, unsigned int cu=
+rsor_size)
+> +{
+> +retry:
+> +	switch (cursor_size) {
+[ ... ]
+> +	default:
+> +		pr_warn_once("Unknown cursor %u\n", cursor_size);
+> +		if (cursor_size !=3D CUR_SIZE(cur_default))
+> +			cursor_size =3D CUR_SIZE(cur_default);
+> +		else
+> +			cursor_size =3D CUR_UNDERLINE;
+> +		goto retry;
+> +	}
+> +}
+
+[Severity: Medium]
+Is there a risk of an infinite loop here due to a data race on cur_default?
+
+Since cur_default is a module parameter that can be modified concurrently,
+reading it twice without READ_ONCE() inside vc_cursor_start() allows the
+compiler to emit multiple memory reads.
+
+If a concurrent thread modifies the parameter between unknown cursor sizes
+(for example, switching between 7 and 8) while this function executes,
+could this Time-Of-Check to Time-Of-Use race continuously trigger the goto
+retry and cause a soft lockup?
+
+> +/**
+> + * vc_font_cursor_start - Calculates the cursor's first scanline within =
+a glyph
+> + * @font: The VC font
+> + * @cursor_type: The type of cursor pattern
+> + *
+> + * The parameter @font is an initialized font. The argument in @cursor_t=
+ype
+> + * is one of the CUR_ constants, as stored in struct @vc_data.vc_cursor_=
+type. For
+> + * unknown values, the helper draws an underline dash.
+
+[Severity: Low]
+Does this kerneldoc accurately describe the fallback behavior?
+
+The documentation for vc_font_cursor_start() promises an unconditional
+fallback to an underline dash for unknown values, but the actual code
+implementation first falls back to cur_default.
+
+Should the documentation be updated to clarify that it first tries to use
+cur_default before falling back to an underline dash?
+
+> + *
+> + * Returns:
+> + * The index of the cursor's first scanline within the glyph
+> + */
+> +unsigned int vc_font_cursor_start(const struct vc_font *font, unsigned i=
+nt cursor_type)
+> +{
+[ ... ]
+> +static unsigned int vc_cursor_end(unsigned int height, unsigned int curs=
+or_size)
+> +{
+> +retry:
+> +	switch (cursor_size) {
+[ ... ]
+> +	default:
+> +		pr_warn_once("Unknown cursor %u\n", cursor_size);
+> +		if (cursor_size !=3D CUR_SIZE(cur_default))
+> +			cursor_size =3D CUR_SIZE(cur_default);
+> +		else
+> +			cursor_size =3D CUR_UNDERLINE;
+> +		goto retry;
+> +	}
+> +}
+
+[Severity: Medium]
+Can this identical fallback logic also result in a soft lockup?
+
+Just like in vc_cursor_start(), the unprotected concurrent access to
+cur_default in vc_cursor_end() could potentially trap a thread in an
+infinite goto retry loop if the module parameter is modified at the exact
+right time.
+
+> +/**
+> + * vc_font_cursor_end - Calculates the first scanline after the cursor w=
+ithin a glyph
+> + * @font: The VC font
+> + * @cursor_type: The type of cursor pattern
+> + *
+> + * The parameter @font is an initialized font. The argument in @cursor_t=
+ype
+> + * is one of the CUR_ constants, as stored in struct @vc_data.vc_cursor_=
+type. For
+> + * unknown values, the helper draws an underline dash.
+
+[Severity: Low]
+Is this comment also missing the cur_default fallback behavior?
+
+Similar to vc_font_cursor_start(), the comment for vc_font_cursor_end()
+states it draws an underline dash for unknown values, but the code first
+relies on cur_default.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911094518.7809=
+3-1-tzimmermann@suse.de?part=3D1
