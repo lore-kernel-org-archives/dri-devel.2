@@ -4,78 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45E47C88E4D
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 23:29:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB7D0C88E4D
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 23:30:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7833810F727;
-	Fri, 11 Sep 2026 23:29:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C39B410F729;
+	Fri, 11 Sep 2026 23:30:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Qil0NfRB";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="Th1kY6nD";
 	dkim-atps=neutral
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7749910F727
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 23:29:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1789169369; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=c1HJpCMxqj76FjX/BwQBnPxEuGAQVcRucYer2SXcpdkASPShtkWy2p3RgzFSpQA6BdUvpeLhz11XqadrrNeQnAgzgAg0r/SJ8oKVzfmbM2epojsmuNTYwBMrtwjUYH+F/ZopL1eargNVQgzkvHrvzQ2pYO53zXc+Gj2ugpkJjY8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1789169369;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=GiNAk1ddULmDOvtto/fkJvNwC9OGSrBfiGgPyvguuH0=; 
- b=NicFJskWlTminpbvN8maTefPtRCwalVqTi8temJfGs7KrI0yWoNyWmMIhj17fz8+GScaFLn5ByU4ybT9xnHaj3HsExyxSXkCjCWj9fNAvrz0vBjLBLPIYh1vjO6Q13W2oQcetEPO/ZMt7lT9mQfDEsqV0/SceQZvc/O37kAr8tg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789169369; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=GiNAk1ddULmDOvtto/fkJvNwC9OGSrBfiGgPyvguuH0=;
- b=Qil0NfRBPXCyLo01j3onMmh5QSOccHjd/AU802IBGaSU8t3YrUS4mgNEXLJDT438
- fhXxP/7RMjlBkfU/hTHwGAoByPLFbctZOIDWvohXswmT9Ly+S90+p6J4Y36El9WaSY6
- kuY9w7EkRgNzdcAvyfhzplVZ7zIatqS6K1YEHDJY=
-Received: by mx.zohomail.com with SMTPS id 1789169369754575.6360293970592;
- Fri, 11 Sep 2026 16:29:29 -0700 (PDT)
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Sat, 12 Sep 2026 00:28:17 +0100
-Subject: [PATCH v9 16/16] drm/panfrost: Bump driver minor to reflect new
- DUMP IOCTL req field
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
+ [74.125.225.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B053E10F728
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 23:30:02 +0000 (UTC)
+Received: by mail-wr2-f12.google.com with SMTP id
+ ffacd0b85a97d-482f6350f91so53658f8f.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 16:30:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1789169401; x=1789774201;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=maDR2aqOdsCxMDMhneCqVUg2ho2Vb3T2xTiPLWinbKI=;
+ b=Th1kY6nD8/zuTndNzfhk7CsKrwkvjaAT2rsrZlGZHGkqCU1OYeKDywFiMLr0ul2zEO
+ KzyhBdlWnsSp0xXWKKmxJTKrMHtw+csnOTx8ymgYpsUFDrolI/rIRx2xJBh/8L+d7huT
+ v5zOqwkHTi/IiWLbyk1KbmwBMctJHnSmpCLi9sbtZ9nTvvUYYkbMFQzuBQPFKhl3hJKC
+ Lq6IvcXp4XLJbwrnPzcrCnnVHpLennrL4zPd8N7Wu5TB/bS3Z40N4DohmGAq8ZEy7O/M
+ YUObgBuk6IVvVGtn0SRib11kg0rtdfq/578UUrhenHVXKNJ9pZx7UmyW293eWaoOkKOT
+ /MUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789169401; x=1789774201;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=maDR2aqOdsCxMDMhneCqVUg2ho2Vb3T2xTiPLWinbKI=;
+ b=ber9DbfPwrhmEEUdMQ5cl36mhmZ1a5tYCicN+gWMvVDmFCffW1dWjXc3pksZSRQf1z
+ rRxLAJ74TBNz9V5PBWXsD2t1RBaEFB6bhXi5xsYSI6d5hkOL8gyIJauM9PQgq3/PJFF4
+ Ydxzla9YMiILoe1tigWX5IOSf16iwuWqvVKAI/UVaEzRHUa0YMDQZstYidPSM1JQWXnZ
+ rnSCPUQXUzOX29KTBKNwZwUeJk47Ahvyp2NaJHCkliyDlumEih1+nEuU0rOQLEzeBQsM
+ BcuELdR3+uHz5xhyAaqC9PwYE9VcblH5KUJvvgJwZEY0997DKpYQoVhawIhU4c6x13ue
+ 34bQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwn9lM8fWOhMPktXRH59HhklrqiyynM0LcHofSdlVYdCFF9Pg0j6vRaJVoA01ZAvSInzYI/gD3oytc=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kNDfg1WbTVyR+JLL2Ojit9XlQlcBeTksZlodJZ5bbzqI+xOQfq
+ utIQii9812Akn1Zj6fY4/mO/pt6GxwkhHMLy8JxLnyohF4p7PCck4ur1oZE8tPAzDA==
+X-Gm-Gg: AYBFou0R9t1QNOkpq9Ht6SxcVU1cZfvvKJgNyrqMKSD/aYpJNuSpHp8nvf660kGojjE
+ w1evq5vJ5B1EMm6REq9IMqR9h38/LWklRhMrMoicFrFAr3iyNUkpog9zMPJzIktSSZRLgKIEF9v
+ Wq69NbYP567S6BGJhKtHjBi97J4xWNd/vUicUAu9qW3Td0jcKSq6poH1hf3xMK6jHCdbI9sGqGz
+ cLhNm/02Gp3b8YDWfg4OOSs+sn0Sy7RdVle7PghWvNahPHG6wyU0NhEnS9X3HiYLxXUIt36ITY7
+ cPPVT2xBsRKBIdZ+viwfd1F7mfRy78bc4SzGZQe3p6ZIBM2bSDuMWCOQpVdel1ZhH6lsoJqz1on
+ ytYigCkBtJhpQZ1gVGbRcgwitsUbybui1L/xq2FEISWBV50LCB1DmfoNtmFO67NvmKbkZhty5Bw
+ 4E4AFMmcI7TdIOb3Rw4p7vcZpgiL/AQ7238r0ilY2dMQFx2ZlBg4cXPMWGdWzPb+72OjDL7pqyc
+ NNNVdXOf5MJqvfp6GZbHQ8G3D4=
+X-Received: by 2002:a5d:5f91:0:b0:486:e6a2:2da2 with SMTP id
+ ffacd0b85a97d-486f6bf0cdfmr584543f8f.21.1789169400567; 
+ Fri, 11 Sep 2026 16:30:00 -0700 (PDT)
+Received: from quark ([2a01:4b00:d309:1c00:7807:3ba6:3446:4db2])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-486eb33ee5csm9136355f8f.20.2026.09.11.16.29.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 11 Sep 2026 16:29:59 -0700 (PDT)
+From: Mike Lothian <mike@fireburn.co.uk>
+To: amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
+ kevinyang.wang@amd.com, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org, Mike Lothian <mike@fireburn.co.uk>
+Subject: [PATCH v4] drm/amdgpu: hold a runtime PM reference for P2P dma-buf
+ attachments
+Date: Sat, 12 Sep 2026 00:29:08 +0100
+Message-ID: <20260911232908.1056738-1-mike@fireburn.co.uk>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260911183825.935140-1-mike@fireburn.co.uk>
+References: <20260911183825.935140-1-mike@fireburn.co.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260912-claude-fixes-v9-16-e588feaa61ef@collabora.com>
-References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
-In-Reply-To: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1175;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=fcINJblJRb432SfE3VmHwqT0pqshFhBkvIiNxSLnr6s=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqpI6ElqEcTErrviVL8e8PnP3zQaY4v+Vhjy/fq
- MZnkwI4UiuJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaqSOhAAKCRAOJn5M7lND
- PfbkC/9SVd6tEbdV4G9I/cPb3krQRlNh8o20q9/JntDuPloCVFJIRgVp7x6VYvproQtw21quSSa
- xVJbC4kz3m0vR5RqS+BZ85VknRRlnLprdDIjrGmjci5PrE/XJL2rfpGQLwzQ3QqbOCwVc2h0dux
- OInL5HcE3hCASsOdpgVllj1XzyFjS+1dfoVesT3po7kJ/5ZDEdMVnSgQX3mzO0wfv4Ces4doGSR
- dJV10Bs+u/LuyzzoleGc8YtmD2hQTv1Hrs9r4kM+njeUbAB8LmPR7yCAF3GHZD3kkDmtZ088T6h
- ycsh7svg0D7tSKs4hojgj0PwuSI9DCRnEiGxlLvfaJ4HZoD+1X9W4bTyuS0V+S1VppKGLruZKNw
- pkPvBcIW2Gxv9na3z2Enl79Rr3rhcM/lbVEWV+/rh6eIloBsA0zHsyYl6HBZV+MmZj5q7LXkmBK
- mb7wuQsikU92KZbjR0FMcyZHQMmr8YDmR1hICy+x76YD9AYT4UmeIFfgRu7oZgq4nwngc=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,35 +95,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Expose expanded PERFCNT_DUMP IOCTL interface to user mode.
+amdgpu_dma_buf_map() adds VRAM to the allowed domains for a peer2peer
+attachment.  GTT is only a fallback placement when VRAM is preferred, so
+ttm_bo_validate() migrates the buffer from GTT into VRAM.  While the
+exporting device is runtime suspended its SDMA rings are down and the
+move fails:
 
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+  amdgpu: Move buffer fallback to memcpy unavailable
+
+An importer on a second GPU reaches this holding no runtime PM
+reference on the exporter, e.g. a compositor on the APU submitting a
+frame that references a buffer exported by an idle dGPU:
+
+  amdgpu_cs_ioctl -> amdgpu_cs_parser_bos -> amdgpu_cs_bo_validate
+    -> ttm_bo_validate -> amdgpu_bo_move -> dma_buf_map_attachment
+      -> amdgpu_dma_buf_map -> ttm_bo_validate -> amdgpu_bo_move
+
+Pinning a dma-buf into VRAM has the same requirement, which
+commit 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference
+when we attach a buffer" v2") called out as the one case that would
+need the reference back.
+
+Take it in attach and drop it in detach.  pm_runtime_get_if_active()
+never resumes the device, so it cannot deadlock against the reservation
+taken during resume, which is why the old pm_runtime_get_sync() had to
+go.  If the device is not active, clear peer2peer instead: the buffer
+then stays in GTT, which remains accessible while the GPU is powered
+down.  If runtime PM is disabled, take a plain reference so the put in
+detach stays balanced.
+
+Fixes: 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference when we attach a buffer" v2")
+Cc: stable@vger.kernel.org
+Suggested-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
+Assisted-by: Claude:Opus-5 [Claude Code]
 ---
- drivers/gpu/drm/panfrost/panfrost_drv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 571a26b84126..de9b1c115181 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -808,6 +808,7 @@ static const struct file_operations panfrost_drm_driver_fops = {
-  * - 1.6 - adds PANFROST_BO_MAP_WB, PANFROST_IOCTL_SYNC_BO,
-  *	   PANFROST_IOCTL_QUERY_BO_INFO and
-  *	   DRM_PANFROST_PARAM_SELECTED_COHERENCY
-+ * - 1.7 - adds PERFCNT_DUMP req state field
-  */
- static const struct drm_driver panfrost_drm_driver = {
- 	.driver_features	= DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ,
-@@ -820,7 +821,7 @@ static const struct drm_driver panfrost_drm_driver = {
- 	.name			= "panfrost",
- 	.desc			= "panfrost DRM",
- 	.major			= 1,
--	.minor			= 6,
-+	.minor			= 7,
+v4: take a plain reference when runtime PM is disabled.
+    pm_runtime_get_if_active() returns -EINVAL then, and v3 left
+    peer2peer set without a reference, so detach dropped one it never
+    took.  Reported by Sashiko AI review.
+v3: take the reference in attach and drop it in detach, clearing
+    peer2peer when the device is not active, as suggested by Christian.
+    v2 only covered amdgpu_dma_buf_map() and left VRAM pinning exposed.
+v2: use pm_runtime_get_if_active() instead of testing
+    adev->mman.buffer_funcs_enabled, which was racy against a
+    concurrent suspend.  Reported by Sashiko AI review.
+
+Reproduced on a HawkPoint APU [1002:1900] driving the display with a
+Navi 48 [Radeon AI PRO R9700] [1002:7551] on oculink for render
+offload.  Without the patch kwin_wayland hits the call chain above
+within a minute of the dGPU autosuspending and the desktop stops
+repainting until it resumes.
+
+Tested with v3: Chromium rendering on the dGPU and composited by kwin
+6.7.5 for five minutes, then closed.  The dGPU stayed active while the
+window was on screen and suspended six seconds after Chromium exited,
+with no fallback errors or runtime PM usage count underflows.  After
+an hour of yuzu render offload the dGPU also suspended once yuzu
+exited.  v4 only changes the runtime PM disabled path, which this
+machine does not hit.
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 43 ++++++++++++++++++++-
+ 1 file changed, 42 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index b33c300e26e2..9adf3eed8822 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -43,6 +43,7 @@
+ #include <linux/dma-buf.h>
+ #include <linux/dma-fence-array.h>
+ #include <linux/pci-p2pdma.h>
++#include <linux/pm_runtime.h>
  
- 	.gem_create_object	= panfrost_gem_create_object,
- 	.gem_prime_import	= panfrost_gem_prime_import,
-
+ static const struct dma_buf_attach_ops amdgpu_dma_buf_attach_ops;
+ 
+@@ -100,15 +101,54 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmabuf,
+ 	    pci_p2pdma_distance(adev->pdev, attach->dev, false) < 0)
+ 		attach->peer2peer = false;
+ 
++	/*
++	 * Only allow P2P while the exporter is active, and keep it active
++	 * until detach.  With runtime PM disabled take a plain reference so
++	 * the put in detach stays balanced.
++	 */
++	if (attach->peer2peer) {
++		struct device *dev = adev_to_drm(adev)->dev;
++		int ret = pm_runtime_get_if_active(dev);
++
++		if (!ret)
++			attach->peer2peer = false;
++		else if (ret < 0)
++			pm_runtime_get_noresume(dev);
++	}
++
+ 	r = dma_resv_lock(bo->tbo.base.resv, NULL);
+ 	if (r)
+-		return r;
++		goto err_pm_put;
+ 
+ 	amdgpu_vm_bo_update_shared(bo);
+ 
+ 	dma_resv_unlock(bo->tbo.base.resv);
+ 
+ 	return 0;
++
++err_pm_put:
++	if (attach->peer2peer)
++		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
++	return r;
++}
++
++/**
++ * amdgpu_dma_buf_detach - &dma_buf_ops.detach implementation
++ *
++ * @dmabuf: DMA-buf where we remove the attachment from
++ * @attach: the attachment to remove
++ *
++ * Drop the runtime PM reference taken in amdgpu_dma_buf_attach().
++ */
++static void amdgpu_dma_buf_detach(struct dma_buf *dmabuf,
++				  struct dma_buf_attachment *attach)
++{
++	struct drm_gem_object *obj = dmabuf->priv;
++	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
++	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
++
++	if (attach->peer2peer)
++		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+ }
+ 
+ /**
+@@ -350,6 +390,7 @@ static void amdgpu_dma_buf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map
+ 
+ const struct dma_buf_ops amdgpu_dmabuf_ops = {
+ 	.attach = amdgpu_dma_buf_attach,
++	.detach = amdgpu_dma_buf_detach,
+ 	.pin = amdgpu_dma_buf_pin,
+ 	.unpin = amdgpu_dma_buf_unpin,
+ 	.map_dma_buf = amdgpu_dma_buf_map,
 -- 
 2.55.0
 
