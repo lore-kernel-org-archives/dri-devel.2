@@ -4,131 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CA03C88E53
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 20:51:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBFB0C88E4D
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 21:42:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02DFF10F6F2;
-	Fri, 11 Sep 2026 20:51:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEA1A10E1E5;
+	Fri, 11 Sep 2026 21:42:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="34sIGnmF";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="v3iWZWQB";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011048.outbound.protection.outlook.com [52.101.52.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5F3310E56B;
- Fri, 11 Sep 2026 20:51:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AS3uIz1JsrziVMRjPN2R8vJNcbOZEHzYyY6ehV37bSYPp10Xu9Ksact9ZsHAsQShS02YY21p/8CCZgouuJ9MAN82IxyhFE9PfAwi/7b6YHTrsUcaPz1XIefkMKrwaf2PvcCbUhQO3lBgzv/f/P6551fk2NNzxI730bjmcPqTcYqV+IeCy4O7/+BmFnpHaiykjYny9kIwZLfozbh24ogy2bRJjOlGMvCYBYJ7T9L7be9PegddCmGEMoPb3HDaNJGKUeEdxzHakTha1bUw+3cMe9qXKL+frQdTB8+j5MDzyVPnwADOPtU9qVMW9wtYPKKVvXds59YQK9VrHQrTpED2Eg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LXxqLR4c2ImOCgEMjntylrnwrMjq5DmOtvU+Z/gNuJM=;
- b=qqHAYTROROzaA3EpBJUU6VJ6wGnDMnpi9jPpI9gLTz52YcQqPev49eLA8qDdjT3JhiTolHatCv+FUJ97QnlZBN/ULnqZlai3mgYzQcDkpjXO+cJp3/ix1Gyrt4eFnr2omAj+zY4POLJwEHDJOpzgJpEIeaC2EZueQ82ptShU+NuHm6iNWRSydc6rQ9sIt918W5YeXv1tp8JWMIHaW3r/AxJPa5Vc9SXHJYMbpzk+4mjw6MaiYYdBgc+OsGlPC44ep3HzVMXanMXLBkiQpBgddANLJC73/V5cOxWDbjmNTIfWNUYGDbiFo/toCsT25FOxYSgtZbKpjAPrYC8oR1/dbw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LXxqLR4c2ImOCgEMjntylrnwrMjq5DmOtvU+Z/gNuJM=;
- b=34sIGnmFusMO6CgYna5PHAou6e0KqUydzGH+0j5h/wiBvhRlADUQQx0AskXk5mo0P5prJDviFui+R3lQv3pE7f6tM3BOMO+wME5jLVB2/EGOuOF237pgAg5l6vsR9P0kV+7YUxJISTtvjRsl+FELi+oXNdN2gt7NV7BlOyoFpNw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by SA3PR12MB208015.namprd12.prod.outlook.com (2603:10b6:806:517::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Fri, 11 Sep
- 2026 20:50:58 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%3]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 20:50:58 +0000
-Message-ID: <0819d227-083e-4ce1-b376-81e5941404f2@amd.com>
-Date: Fri, 11 Sep 2026 14:50:55 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] drm/amd/display: use kunit/visibility.h for test
- helpers
-To: Albert Esteve <aesteve@redhat.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>
-References: <20260907-visibility-unification-v1-0-6a962e5b3351@redhat.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20260907-visibility-unification-v1-0-6a962e5b3351@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR02CA0006.namprd02.prod.outlook.com
- (2603:10b6:303:16d::12) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8AD810E1E5
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 21:42:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1789162921;
+ bh=QuwLIzRAehYf76xWlDPh8mBvOF9JpERaXnMT/TZFFCE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=v3iWZWQBoIZ8KorqiEZb+3twWgBG4r0kxdLX03CUdVAMBTFAyYNvB/pc0fs1ipxzQ
+ sF0fZPopnwGldDcFOzGvdD016yFLtAN7Q73/toWei9iL+/EJtBtMlGlep54N4axP1p
+ 1cL2eKCHSW+llXdGu8RukGqEx/c86PJoFrJHN/bcrOvEjHFWc6YyvnQrx6HPMi6cwg
+ pGNPk2pitOqTt2caMkQi7nhnz3FLEUK64Z8nZZYoIu90HcahfBVPhNAtuTPzyO7Z2O
+ YH0O+IG9zD8lkPxoUvgkDEbq5pgWVfyuCdzkuUtkyZGfhRIsfd+iptT//y2gstKCOt
+ 61xT5AA62XfHA==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4hhSg92Vwpz4wSj;
+ Sat, 12 Sep 2026 07:41:56 +1000 (AEST)
+From: Matt Evans <matt@ozlabs.org>
+To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
+ Longfang Liu <liulongfang@huawei.com>
+Cc: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+Subject: [PATCH v6 0/9] vfio/pci: Add mmap() for DMABUFs
+Date: Fri, 11 Sep 2026 22:41:48 +0100
+Message-ID: <20260911214200.33793-1-matt@ozlabs.org>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|SA3PR12MB208015:EE_
-X-MS-Office365-Filtering-Correlation-Id: 618414cc-02a8-47aa-bccd-08df10466190
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|7416014|376014|23010399003|6133799003|18002099003|22082099003|56012099006|10067099003|921020|11063799006;
-X-Microsoft-Antispam-Message-Info: ICzMOX023LjSJ3WNIlp2gIHU52yRsrA9IyKS8X8xzcISxl+DjHLdrDQueYWR5tI4uskv42Z0PUGyPcHpH4B0CWaL+FTX3tESxaQQOTeyif8H/mTvvEgPn8t0IKItpBHgJH/PX/JSnXGckuM/xmkU0WGH7hlcgAudUGELiP7uHZ61rxBNWyWld2gUNOrlaHmXeOVGYK3mAOHkUnWJl+1MO51k1yx3BqKKTNotE+z8eIl4bIiaxgoOoDajTpx4gF1iaG8grZdN8DYsxYoMekr1WBqpgkBIAqhQ5W3L64cCVQC/L9VOKCv9Jxw0EQ9se7VmpAfTY+34ytuoufO9XIHfhAphGN2Ed7Fc8r4MKVLlV76OdPF3EOv5AZtRfsZjplPMijs90eYqRIYp8w5DLA+tf/PlaCXDJqXERzq7Rmlpe1FOffNY4H4tob+ZV1h9aAT/shQDLnHrUVa8b928MV1dO1rpsqaQZbi1edH80cDp7NJTziT1g07tJHsLpdpTz34gwBoYa6wcdMZ0nV9OJMznu7y8BhUO13wKe/zJlLR6BoEFsgJ32qCYw7K64LqDZDSf61Ql4SxVv7zKScyifezopfEXXh84oes0YfvrOo9LH/e4RcuGE9NhXUMrovRyUJCba+2rxL16DQq9MwQ2Xn4K8ef2vw4n6E4y8NIHOOjnTq+SsxZIg8hI5yXffRb2f/ek+SHbYlUlOi/RKfKWKvhORw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(6133799003)(18002099003)(22082099003)(56012099006)(10067099003)(921020)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VVJvamR3WjFmS2RCTWcrWXVSSkZvZnVTRXMvR1pyMm1KOStObnBhMGJqUzNW?=
- =?utf-8?B?MUMzOTFiV3BzSHFEN3Zhck80YndQZEVuaTA0U2dlZEdUZHM5UnZIL3JkL3pX?=
- =?utf-8?B?eTJuck84eklrbDJ4TE0xQWlNbm45TzVoSDdOdHc3OENQc3cvanhRU1E5b2tX?=
- =?utf-8?B?d3dHYXRmbW84ZmFzMmYyWXEzdnczaG1MRDFvVGFYWUFhc1BXTWNpOU9Td2xz?=
- =?utf-8?B?QUVZNlhiaE1JS0o3aDFOVmp1STJmTTdXWVBPM1JXL1psWTU2cnpGSkcvTUJQ?=
- =?utf-8?B?RzZZM2FYK1kwcnZaaUdQSzk5NlhyWGNOU2xRSkhIcU9yVmFTZzUyRGNPVEZy?=
- =?utf-8?B?YitnRVh2T2JLWmgwbnd5VmtjZTJvZjdtK2U5dW1tcWdWcWllUThnWmpYenlw?=
- =?utf-8?B?eThvK05rbFdSQi9SSnI1am5UQ2JjSG9jWWNZdlpEcjB5WGdWNU1Pc3I4QTh6?=
- =?utf-8?B?VlVHVHU5c2kxQmR2UUROWDZGNjRQRE5iTWIweUJkdzEzaWJIMm9ZS1RsV1Zj?=
- =?utf-8?B?TkdhVU9CZThUQnlNQVBHRTl3cFZnT2kzZE42TUp6bmxjY3g4ckFRdHlhUWhL?=
- =?utf-8?B?QWdoTmZMdkQ1N2llcERCZ1FqRDNsTytWU2Nma2hVQ0FIZmxLRVVhR3FUVDAz?=
- =?utf-8?B?MTJzTzlRWkxUZ1VoY1VCUzlHVXVQNm5ndTIwY1lrcVlwazJtK1Bid0hlRjFi?=
- =?utf-8?B?bVlKbUpKYmdpM0hBUUhtemhmTWhncEh2Y3ByeHFDMWVhS2NSMDB3WU41Nmt1?=
- =?utf-8?B?U2hnRHdtbC9XWWRDS2plR3dLZUM0WEVGU0VuZ1pnWFVUa1VMQlZtY2lKa2lk?=
- =?utf-8?B?OWRDWSt1UlVmV3FKZGtYVStraFAwc2xmbHhRb0diT1RLQ0szcExJbzQvNFc4?=
- =?utf-8?B?ekk3QUEvWjMyaFNnT2o0aEJuNnltZVVJTzNYd09hUnZGa2t3bE9BYlAzRThH?=
- =?utf-8?B?M0l3SFlhazg3dEJ5V3BUMy96WFF2YXEreHFSSXM5RVROcGtnOVZyY1p5WDBE?=
- =?utf-8?B?V2QzbHRYV2k2YmRsbVNTako1VTBsYXdRc1dudVJKYWMyd001Q2RUTCtPNHdm?=
- =?utf-8?B?aVl6N1RHZURQeHNUVzVzN2pTMFMreWVzeHJoZlFQUWNlTHJWc2lBUGxTUmZK?=
- =?utf-8?B?WkNybVlIMlF5cFhPbUtvQ25KdWRaN0hYMTlXZi9vNlR0SS9Mc2ZacUtSenhi?=
- =?utf-8?B?cnRmUzBHd000N2NFR1ovR0ZtWFZIQmhFVytBT2ljR2MxYktmWkxKOGMyZDNr?=
- =?utf-8?B?OWVndUFxaDlZZWpqbFNMNVkrM1RWZ1hjSjQyMWVUVmk0U2pzUGVVeEdOM25j?=
- =?utf-8?B?UnBaZ3RNVlovUUxSSzZCM3hSMHR2citoQURHUFpSNWl2WTRJWE8vWDBmL294?=
- =?utf-8?B?dUE1aEMrL1F3YVRlMzVGaDlJcndrc3hwcTZvTUlwUzA0Ui9TQ1Z4VWRIcVRJ?=
- =?utf-8?B?RGRNYUEvaUdTZ3VTTklIWWtEMDhTSE5CdllRZlF6dWNFQ3Z5clJLYUpUT1hM?=
- =?utf-8?B?dnQxTWNZdjVrVXlpd0RwcXE5TzFXU1JIWlhrMk9xbWhtb2tmbWZOc3RiR1pZ?=
- =?utf-8?B?SzhQMll1enZHbjlkZlgvZmJySjNOMDJPczZlUXBKNWJ0ejFRYzRXQnVPbm1C?=
- =?utf-8?B?MHUrNEI2QmMrT1lROFF5VG1DeHZrYllsOFlad3dOc0lZOVdmZmtIQzg4Nm9l?=
- =?utf-8?B?K0xiWHlDaFU0WVFsMi8yYnliZ0wxNkI4dCs0TjkwNllMd3RLTVhnKzFSdGNQ?=
- =?utf-8?B?WVNpNngwWkpNWE5xajFLVTgwMzZXODZxVVh2cUJzWXpYUFJWMTZ2YUw5eUYv?=
- =?utf-8?B?aUlpTXdkZ21TL2RaV1BGRDRBU01MTkQvMElxS1drZWFGQVM5UjBIOElhcEJx?=
- =?utf-8?B?QmJQcHV0QXlTVHpzcCtWUEFvL1hyTjJVdmpIcWpHN3c2eUk1Tyt0S0k5REpY?=
- =?utf-8?B?SjRLMk4yOHZhbGFNSzBNdGlMRlhCZEwvc3NqUUt0R2piOWN5WmRjRStraHhv?=
- =?utf-8?B?QmY1UjlOeWg2TjJXNnZYMTQzTnhMZ0R4eWE2ZzZoWGpNZjNjZHQ0cyt4UWtR?=
- =?utf-8?B?RUN2dFZybDZ0WHk5NmdDeUVwNEE2VS82em1rSGZwYUxmNzV6bXM1bUREYWkw?=
- =?utf-8?B?ejZUQk1GSlk0Q3hiMS9WV1lwdWlTMHdkUGxzUS8xMCtIaGpGUEowNHF6SnNv?=
- =?utf-8?B?SUpTYjlMcHhaWVd2NjZpUFd5c2NZK3ltRnRndWcrcnA3SzhWSkE3Y1VtUGFI?=
- =?utf-8?B?dGd4elAzelcreTlVajVzcXRka2pvMVJwNHNDaFlFaTVtNTJtUWxVaFZqRjlu?=
- =?utf-8?Q?OWZcVHhPR59Ntf6iGq?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 618414cc-02a8-47aa-bccd-08df10466190
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 20:50:58.2330 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OLTilAmBWDgpunm8tQfFrHQgQp+322fxdPfw1CtiMrZjBYh8wPsA9fXAXr04EQFR+3TMK2KMlGap7if8v8VayQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB208015
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,99 +67,484 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Looks good to me, and I will forward this to next week's test and update 
-the results.
+Hi all,
 
 
-On 9/7/26 07:28, Albert Esteve wrote:
-> [Some people who received this message don't often get email from aesteve@redhat.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> amdgpu_dm grew its own STATIC_IFN_KUNIT / EXPORT_IF_KUNIT /
-> INLINE_IFN_KUNIT macros instead of using kunit/visibility.h. This
-> series switches the KUnit helpers over to the common API.
-> 
-> VISIBLE_IF_KUNIT is gated on CONFIG_KUNIT rather than
-> CONFIG_DRM_AMD_DC_KUNIT_TEST, so the helpers are non-static whenever
-> KUnit is enabled. EXPORT_SYMBOL_IF_KUNIT places the symbols in the
-> EXPORTED_FOR_KUNIT_TESTING namespace; the AMD DC test files import
-> that namespace with MODULE_IMPORT_NS().
-> 
-> INLINE_IFN_KUNIT is dropped rather than generalized. It was only used
-> on amdgpu_dm_fixpt_from_s3132(), inverted the original static inline,
-> and is unnecessary for tests in another translation unit.
-> 
-> Tested with:
->    ./tools/testing/kunit/kunit.py run --arch=x86_64 \
->      --kunitconfig=drivers/gpu/drm/amd/display/amdgpu_dm/tests
-> 
-> (CONFIG_GCOV omitted; it is not available on x86_64.)
-> 
-> Suggested-by: Maxime Ripard <mripard@kernel.org>
-> 
-> Signed-off-by: Albert Esteve <aesteve@redhat.com>
-> ---
-> Albert Esteve (3):
->        drm/amd/display: replace STATIC_IFN_KUNIT with VISIBLE_IF_KUNIT
->        drm/amd/display: replace EXPORT_IF_KUNIT with EXPORT_SYMBOL_IF_KUNIT
->        drm/amd/display: drop INLINE_IFN_KUNIT
-> 
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  79 ++++-----
->   .../drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c    |  26 +--
->   .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  74 ++++----
->   .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c    | 133 +++++++--------
->   .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c  |  12 +-
->   .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 190 ++++++++++-----------
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c  |  38 ++---
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |  52 +++---
->   .../drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c   |  10 +-
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c |  30 ++--
->   .../drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c |  10 +-
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 105 ++++++------
->   .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 140 +++++++--------
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  | 146 ++++++++--------
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c  |  40 ++---
->   .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  60 +++----
->   .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 104 +++++------
->   .../drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c   | 116 ++++++-------
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c  |  22 +--
->   .../drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c   |   4 +-
->   .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |   9 +-
->   .../drm/amd/display/amdgpu_dm/amdgpu_dm_services.c |  10 +-
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   |  18 +-
->   .../display/amdgpu_dm/tests/amdgpu_dm_audio_test.c |   1 +
->   .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     |   1 +
->   .../display/amdgpu_dm/tests/amdgpu_dm_color_test.c |   1 +
->   .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c       |   1 +
->   .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     |   1 +
->   .../display/amdgpu_dm/tests/amdgpu_dm_crc_test.c   |   1 +
->   .../display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c  |   1 +
->   .../amdgpu_dm/tests/amdgpu_dm_cursor_test.c        |   1 +
->   .../display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c  |   1 +
->   .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c      |   1 +
->   .../display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c  |   1 +
->   .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c       |   1 +
->   .../display/amdgpu_dm/tests/amdgpu_dm_irq_test.c   |   1 +
->   .../display/amdgpu_dm/tests/amdgpu_dm_ism_test.c   |   1 +
->   .../amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c      |   1 +
->   .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     |   1 +
->   .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c |   1 +
->   .../amdgpu_dm/tests/amdgpu_dm_pp_smu_test.c        |   1 +
->   .../display/amdgpu_dm/tests/amdgpu_dm_psr_test.c   |   1 +
->   .../amdgpu_dm/tests/amdgpu_dm_quirks_test.c        |   1 +
->   .../amdgpu_dm/tests/amdgpu_dm_replay_test.c        |   1 +
->   .../amdgpu_dm/tests/amdgpu_dm_services_test.c      |   1 +
->   .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |   1 +
->   .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |   1 +
->   drivers/gpu/drm/amd/display/dc/core/dc_sink.c      |   6 +-
->   drivers/gpu/drm/amd/display/dc/core/dc_stream.c    |   2 +-
->   drivers/gpu/drm/amd/display/dc/dm_helpers.h        |  13 +-
->   tools/lib/python/kdoc/xforms_lists.py              |   3 +-
->   51 files changed, 748 insertions(+), 728 deletions(-)
-> ---
-> base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
-> change-id: 20260907-visibility-unification-fd358c580447
-> 
-> Best regards,
-> --
-> Albert Esteve <aesteve@redhat.com>
+The goal of this series is to enable userspace driver designs that use
+VFIO to export DMABUFs representing subsets of PCI device BARs, and
+"vend" those buffers from a primary process to other subordinate
+processes by fd.  These processes then mmap() the buffers and their
+access to the device is isolated to the exported ranges.  This is an
+improvement on sharing the VFIO device fd to subordinate processes,
+which would allow unfettered access.
+
+This is achieved by enabling mmap() of vfio-pci DMABUFs, passed by fd
+to subordinate processes.  Second, a new revocation mechanism is added
+to allow the primary process to forcibly revoke access to
+previously-shared BAR spans, even if the subordinate processes haven't
+cleanly exited.
+
+(The related topic of safe delegation of iommufd control to the
+subordinate processes is not addressed here, and is follow-up work.)
+
+The background/rationale is covered in more detail in the RFC cover
+letters.
+
+Reviews requested that we migrate the existing VFIO PCI BAR mmap() to
+be backed by a DMABUF too, resulting in a common vm_ops and fault
+handler for mmap()s of both the VFIO device and explicitly-exported
+DMABUFs.  This will help future iommufd emulation of VFIO Type1
+peer-to-peer, making it easier to get a DMABUF for a VFIO BAR as a DMA
+target.
+
+mmap() conversion to use DMABUF underneath has been done for vfio-pci,
+but not sub-drivers:
+
+  nvgrace-gpu's mmap() override path is unchanged; I kept this out of
+  scope for now not least because I don't have a thorough test setup
+  for this system.  I would prefer to help the nvgrace-gpu maintainers
+  enable BAR mmap() DMABUFs themselves.
+
+
+Notes on patches
+================
+
+ vfio/pci: Remove DMABUF export dependency on vdev->memory_lock
+
+   In v5 of this series [1] we discover that doing an export from the
+   VFIO mmap() path (fundamental!) adds a dependency between mmap_lock
+   and vdev->memory_lock(W) because export was using memory_lock(W) to
+   protect the vdev->dmabufs list and state within, and a deadlock
+   scenario leapt out to bite.  (Details in [1].)
+
+   The suggestion was to add a dedicated mutex/rwsem specifically for
+   the DMABUFs/list, which is cleaner than overloading memory_lock(W).
+
+   But whilst export could now downgrade to holding memory_lock just
+   for _read_ to test __vfio_pci_memory_enabled(), a very similar
+   deadlock can still arise due to a memory_lock(W) elsewhere
+   depending on a prior memory_lock(R) to be released, and attempting
+   to take memory_lock(R) will queue behind the (W) for fairness
+   (effectively an R->R dependency).  I'd overlooked that rwsem cannot
+   guarantee multiple readers.
+
+   To be able to export while holding mmap_lock, export cannot hold
+   memory_lock at all.  Instead of testing __vfio_pci_memory_enabled()
+   (which tracks PCI_COMMAND.MSE and PM state), this patch tracks
+   device-global DMABUF revocation state in a new vdev->bars_revoked
+   flag updated by vfio_pci_dma_buf_move().  If an mmap() is somehow
+   performed during a period when DMABUFs are all revoked, then the
+   DMABUF is created revoked.  Move() already bookends reset, PM
+   transitions etc., so subsequent revocation state changes work
+   as-is.  This flag is also protected by the dmabuf_lock and thus
+   memory_lock is not required to export.
+
+
+ vfio/pci: Un-revoke DMABUFs in LOW_POWER_ENTRY_WITH_WAKEUP resume
+
+   On LOW_POWER entry, DMABUFs have a move(revoke=true), but the
+   runtime resume path didn't un-revoke.  This adds a corresponding
+   move(revoke=false), which will later turn into
+   vfio_pci_unrevoke_bars().
+
+   NOTE: the unrevoke is reordered _before_ the eventfd_signal() in
+   vfio_pci_core_runtime_resume().  This removes a window in which a
+   waking waiter could have observed the DMABUF state as still revoked
+   (or pm_runtime_engaged = true).  (The UAPI docs state the event
+   means the resume's complete, so observing otherwise seemed
+   unintended.)
+
+   Also, when DMABUFs are later mmap()ed, a waiter waking and taking a
+   fault could have seen the unrevoked state and SIGBUS just before
+   taking the memory_lock.  (If the handler gets to acquire the lock,
+   though, the resume sequence is complete, and the handler observes
+   pm_runtime_engaged = false.)
+
+   This fix is in this series because the issue will impact CPU access
+   to the VMA as well (once they use DMABUFs), and so it's a strict
+   dependency of later commits.
+
+
+ dma-buf: Export dma_buf_set_name()
+
+   Makes dma_buf_set_name() available for use (by helper patch),
+   taking a kernel-allocated string.  The pre-existing local helper
+   becomes a wrapper copying a __user string for the set-name ioctl.
+
+
+ vfio/pci: Add a helper to look up PFNs for DMABUFs
+
+   Adds a DMABUF VMA fault handler helper to determine arbitrary-sized
+   PFNs from ranges in DMABUF.
+
+
+ vfio/pci: Add a helper to create a DMABUF for a BAR-map VMA
+
+   Refactors DMABUF export for use by the existing export feature, and
+   adds a helper that creates a DMABUF corresponding to a VFIO BAR
+   mmap() request.
+
+   There was a request for decent debug naming in /proc/<pid>/maps
+   etc.  comparable to the existing VFIO names: since the VMAs are
+   DMABUFs, they have a "dmabuf:" prefix and can't be 100% identical
+   to before.  This is a user-visible change, but this patch at least
+   now gives us extra info on the BDF & BAR being mmap()ed.  The name
+   is installed with the new dma_buf_set_name() above.  An alternative
+   would be to add a creation-time name field to struct
+   dma_buf_export_info, but a setter function is more useful: the name
+   can be changed at will after init.
+
+
+ vfio/pci: Convert BAR mmap() to use a DMABUF
+
+   The vfio-pci core mmap() creates a DMABUF with the helper above,
+   and the vm_ops fault handler uses the other helper to resolve the
+   fault.  Because this depends on DMABUF structs/code,
+   CONFIG_VFIO_PCI_CORE needs to depend on CONFIG_DMA_SHARED_BUFFER.
+   The CONFIG_VFIO_PCI_DMABUF still conditionally enables the export
+   support code.
+
+   NOTE: The user mmap()s a device fd, but the resulting VMA's vm_file
+   becomes that of the DMABUF.  The DMABUF takes ownership of the
+   device file and put()s it on release, which maintains the existing
+   behaviour of a VMA keeping the VFIO device open.
+
+   BAR zapping then happens via the existing vfio_pci_dma_buf_move()
+   path, which now needs to unmap PTEs in the DMABUF's address_space.
+
+   NOTE: As local LLM reviews did, Sashiko might falsely worry about
+   the DMABUF fd being obtained through /proc/pid/map_files and
+   remapped, but the file is an anon inode and doesn't support the
+   open op (-ENXIO) so AFAICT this is currently impossible.
+
+   NOTE: A side-effect of this is that is_mergeable_vma() will be
+   false between adjacent mappings of VFIO BARs; merging would require
+   rebuilding a larger DMABUF representing the union, not just
+   plugging the VMAs together.
+
+   The DMABUF backing the BAR is an implicit/internal export, even
+   when the CONFIG_VFIO_PCI_DMABUF feature is not included because
+   CONFIG_PCI_P2PDMA is not available.  Without P2PDMA, it's
+   acceptable for the DMABUF to not have a P2PDMA provider.  In this
+   configuration, the VFIO DMABUF .attach prohibits any import, which
+   avoids getting as far as a WARN in dma_buf_map_attachment(), which
+   would fail without P2PDMA anyway.
+
+
+ vfio/pci: Clean up BAR zap and revocation
+
+   In general (see NOTE!) the vfio_pci_zap_bars() is now obsolete,
+   since it unmaps PTEs in the VFIO device address_space which is now
+   unused.  This consolidates all calls (e.g. around reset) with the
+   neighbouring vfio_pci_dma_buf_move()s into new functions, to
+   revoke/unrevoke (making the steps clearer).
+
+   NOTE: Because drivers can use their own vm_ops and override .mmap,
+   the core must conservatively assume an overridden .mmap might still
+   add PTEs to the VFIO device address_space and therefore still does
+   the zap.  A new flag, zap_bars_on_revoke, enables the zap when
+   .mmap is overridden.  A driver that does not need the zap can clear
+   this to opt-out, e.g. if the driver calls down to the common mmap
+   (and so uses DMABUFs).  hisi-acc-vfio-pci does just this, and thus
+   sets the opt-out flag.
+
+
+ vfio/pci: Support mmap() of a VFIO DMABUF
+
+   Adds mmap() for a DMABUF fd exported from vfio-pci.
+
+   It was a goal to keep the VFIO device fd lifetime behaviour
+   unchanged with respect to the DMABUFs.  An application can close
+   all device fds, and this will revoke/clean up all DMABUFs; then, no
+   mappings or other access can be performed.  When enabling mmap() of
+   the DMABUFs, this means access through the VMA is also revoked.
+   This complicates the fault handler because whilst the DMABUF
+   exists, it has no guarantee that the corresponding VFIO device is
+   still alive.  Adds synchronisation ensuring the vdev is available
+   before the locks in vdev are touched; this holds the device
+   registration so that even if the buffer has been cleaned up, vdev
+   hasn't been freed and so the locks can be safely taken.
+
+
+ vfio/pci: Permanently revoke a DMABUF on request
+
+   This is mostly a rename of `revoked` to an enum, `status`, and
+   adding a third state for a buffer: usable, revoked temporary,
+   revoked permanent.  A new VFIO feature is added,
+   VFIO_DEVICE_FEATURE_DMA_BUF_REVOKE, which takes a DMABUF (exported
+   from the same device) and permanently revokes it.  Thus a userspace
+   driver can guarantee any downstream consumers of a shared fd are
+   prevented from accessing a BAR range, and that range can be reused.
+   NOTE: This might block userspace, waiting on importers to detach.
+
+   The code doing revocation in vfio_pci_dma_buf_move() is moved, to a
+   common function for use by ..._move() and this new feature.
+
+
+Testing
+=======
+
+(The [RFC ONLY] userspace test program, which drives a QEMU
+bochs-display function, can be found in the GitHub branch below.  It
+at least illustrates how the export, map, revoke, and close semantics
+interoperate.  WIP on a follow-up with a proper vfio-selftests style
+test based on this -- this won't be part of this series.)
+
+This code has been tested in mapping DMABUFs of single/multiple ranges
+from multiple BARs, aliasing mmap()s, aliasing ranges across DMABUFs,
+vm_pgoff > 0, revocation, shutdown/cleanup scenarios, and hugepage
+mappings.  No regressions observed on the VFIO selftests, or on our
+internal vfio-pci applications.  VFIO on i386 has been build-tested.
+Thanks to Alex Mastro for building a (WIP) testcase for the
+mmap_lock->memory_lock issue (which is now OK...).
+
+
+Dear Reviewers,
+===============
+
+There was a lot of finessing v5->v6, all patches had
+fixes/changes/cleanups/rewordings made, and so I have dropped previous
+R-B tags.
+
+Along the way several related issues came up that warrant more
+eyes, and I'd be grateful for your input:
+
+1. The mmap fault handler takes a bunch of locks non-interruptibly,
+   and potentially depends on a lot of DMABUF-related activities
+   completing.  I had a go at converting them to
+   interruptible/killable forms, but pulling on the thread revealed
+   there seems to be a wider issue if move/revoke doesn't complete in
+   a timely fashion (due to buggy importers).  Where I got to was that
+   just updating the fault handler won't fix the user experience of an
+   unkillable task, and move()/revocation will need thought too.  I
+   don't intend to fix this here but wanted to start discussion so we
+   can address it in a follow up.  There's now a dependency between
+   mmap_lock in the fault handler and the DMABUF resv (which might
+   take a while to resolve).
+
+2. vfio_basic_config_write() has an error path if
+   vfio_default_config_write() fails that releases memory_lock but
+   doesn't un-revoke BARs in the case of PCI_COMMAND.MSE being
+   cleared.  When can the write fail, in practice, perhaps surprise
+   removal?
+
+   The effect on this series would be: a write of MSE=0 revokes BARs,
+   vconfig[PCI_COMMAND]'s MSE becomes 0, but if the physical write
+   fails then the physical MSE remains 1 and BAR VMAs stay revoked.
+
+   This seemed a mess; fixing isn't as simple as un-revoking on the
+   error path since vfio_default_config_write() has already trampled
+   vconfig so that'd need unwinding.  It felt like a catastrophic
+   scenario where BARs staying revoked isn't a bad outcome, but want
+   to hear your experience of the likelihood of this issue.
+
+3. The exchange of a VFIO fd mmap()'s vma->vm_file with an implicitly
+   created DMABUF's file has implications on LSM.  For example, an
+   mmap will be checked against the policy for a VFIO fd, but a
+   subsequent mprotect() relates to the DMABUF file's policy (which is
+   anon/unique to the mapping).  This is pretty confusing.
+
+4. If VFIO fd is opened O_RDONLY, it currently can't be mmap()ed
+   (because PROT_WRITE is rejected in do_mmap(), and PROT_READ alone
+   drops the VM_SHARED so VFIO's mmap rejects it).  But it seems we
+   can export a DMABUF from it, and then pass the resulting fd around
+   for P2P writes.
+
+   I don't know if this is intentional, relied on, or a known
+   limitation so haven't included a change here, but:
+
+    a) We could reject export unless the device fd's f_mode has
+       O_RDWR, to reflect the abilities of P2P
+
+    b) Or, instead of just failing if !O_RDWR, we limit the
+       get_dma_buf.open_flags to the VFIO device fd's f_mode, such as:
+
+       VFIO device fd perms:    Export flags:           Result:
+       O_RDWR                   O_RDWR, O_RDONLY        OK
+       O_RDONLY                 O_RDONLY                OK
+       O_RDONLY                 O_RDWR                  -EPERM
+       O_WRONLY                 *                       -EPERM
+       *                        O_WRONLY                -EPERM
+
+      (Skipping WRONLY because a PROT_WRITE-only mmap() won't work,
+       though it probably should be included for P2P.)
+
+   If we can do at least (a) that seems good, because the knock-on
+   effect in this series is that we can export a DMABUF RW from an
+   O_RDONLY device fd and then succeed to mmap() the DMABUF with RW.
+   (That said, even if one has an O_RDONLY device fd, the device state
+   can still be changed/reset.  But it feels cleaner to least prevent
+   export for a O_RDONLY device fd, and match the device fd mmap()
+   behaviour.)
+
+   Maybe (b) is step 2: Allowing finer-grained RD/WR could be useful
+   if there's a future goal to tie DMABUF permissions to, say, iommufd
+   IOMMU_READ/IOMMU_WRITE permissions.  I don't htink this is in place
+   today, apologies if I'm missed something.
+
+
+END
+===
+
+This is based on v7.2.
+
+These commits are on GitHub for easier browsing, along with
+"[RFC ONLY] selftests: vfio: Add standalone vfio_dmabuf_mmap_test":
+
+https://github.com/metamev/linux/compare/v7.2...dev/mev/vfio-dmabuf-mmap-v6
+
+
+Thanks for reading [this astonishingly-long cover letter],
+
+
+Matt
+
+[1] https://lore.kernel.org/kvm/9a615f22-c0d4-46ae-9654-db11e94e5fec@ozlabs.org/
+
+
+================================================================================
+Changelog:
+
+v6:
+
+ - Dropped patches:
+  PCI/P2PDMA: Split pool-related cleanup out of pci_p2pdma_release()
+  PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
+
+ - New patch, "vfio/pci: Remove DMABUF export dependency on vdev->memory_lock":
+
+  memory_lock was overloaded to protect the vdev->dmabufs list, the
+  entries' revoked status, etc.  Towards the goal of not needing
+  memory_lock in export (so not creating a mmap_lock -> memory_lock
+  dependency due to exporting from mmap()), add a new
+  vdev->dmabuf_lock which protects the list and (writing) the
+  revocation status.  (See details in cover letter.)
+
+ - New patch, "vfio/pci: Un-revoke DMABUFs in LOW_POWER_ENTRY_WITH_WAKEUP resume":
+
+  Bugfix, as the resume path didn't un-revoke.  Previously affected
+  "only" P2P, but since DMABUFs-everywhere it would affect BAR mmap()s
+  too.
+
+ - New patch, "dma-buf: Export dma_buf_set_name()":
+
+  Change in dma-buf.c's dma_buf_set_name() to take a kernel-allocated
+  string.  The original IOCTL-related path wraps this to strdup the
+  user string first.
+
+ - "vfio/pci: Add a helper to look up PFNs for DMABUFs":
+
+  Commit message reworded explaining vma_pgoff_adjust, return -ERANGE
+  for (non-transient) pagesize failure instead of -EAGAIN.  Add
+  dmabuf_lock annotation and assert that the DMABUF isn't revoked
+  (else new -ENODEV error), using a new vdev parameter (caller is
+  expected to safely extract it from priv).
+
+  Significant bugfix in the case of a VMA offset exceeding the 1TB
+  stride between VFIO_PCI_OFFSET_MASK-sized regions, which would have
+  silently wrapped due to being masked to 1TB.  This is fixed by
+  including the VFIO region index in the high bits of vma_pgoff_adjust
+  for the traditional mmap() path, so the subtraction from
+  vma->vm_pgoff in ...find_pfn() removes the region index without
+  masking.  For the DMABUF mmap() path, vma_pgoff_adjust = 0 and
+  (thanks to no masking) large offsets can be used.
+
+ - "vfio/pci: Add a helper to create a DMABUF for a BAR-map VMA":
+
+  Now permits a NULL p2pdma provider to be installed in the
+  vfio_pci_dma_buf.  The regular BAR mmap() path doesn't need a
+  provider for CPU access; the DMABUF backing the VMA exists primarily
+  for the CPU, and removing this check decouples vfio-pci from
+  depending on CONFIG_PCI_P2PDMA (_without_ going through the previous
+  hoops of splitting up P2PDMA into a _CORE subset to provide the
+  provider).
+
+  Only DMABUF import/map needs a provider, which is available when
+  P2PDMA is available; the previous series' first two patches (to
+  always provide a provider) are now unnecessary and have been
+  dropped.
+
+  Squashed "vfio/pci: Provide a user-facing name for BAR mappings"
+  into this patch, because it's now just very small due to the new
+  dma_buf_set_name().  Comment that, because of careful construction
+  of the name length, the setting of the name can't fail; but in case
+  assumptions change, a check/kfree prevents it leaking.  (A new error
+  path doing full unwind of the DMABUF creation is overkill.)
+
+ - "vfio/pci: Convert BAR mmap() to use a DMABUF":
+
+  Instead of the previous dropped P2PDMA split commits, allows
+  pcim_p2pdma_provider() to return NULL if !CONFIG_VFIO_PCI_DMABUF
+  (meaning !CONFIG_PCI_P2PDMA).  The provider isn't used unless the
+  DMABUF is imported; prevent import to make this fail early (rather
+  than at map), by creating an always-fail vfio_pci_dma_buf_attach()
+  stub.  (Somewhat belt and braces, but makes clear you need P2PDMA to
+  import a BAR VMA's DMABUF!)
+
+ - "vfio/pci: Clean up BAR zap and revocation":
+
+  The zap_bars_on_revoke flag is moved back to the bitfield, and is
+  set from vfio_pci_core_init_dev() (instead of registration time).
+  Reworked the hisi driver change to update this earlier.
+
+ - "vfio/pci: Support mmap() of a VFIO DMABUF":
+
+  Previous versions introduced a build issue (which was fixed by the
+  next patch) due to a READ_ONCE of the priv->revoked bitfield member;
+  removed.  It is added by the next patch in the series
+  (s/revoked/status/).
+
+  Added an explicit rejection for mmap of a DMABUF with
+  vma_pgoff_adjust > 0.  Such buffers can only be created implicitly
+  by the VFIO BAR mmap path, and an fd can't currently be recreated
+  from a VMA (e.g. fished out of /proc/pid/map_files) because the anon
+  inode ops don't support open.  But check added if a future mechanism
+  arises and for clarity.  Rejecting an mmap of a DMABUF fd having
+  vma_pgoff_adjust > 0 means vfio_pci_dma_buf_find_pfn() doesn't need
+  to cope with the case of vma->vm_pgoff < priv->vma_pgoff_adjust and
+  underflow.
+
+ - "vfio/pci: Permanently revoke a DMABUF on request":
+
+  Clarified docs for returned error values; re-added
+  READ_ONCE(priv->status) for unlocked reads in both
+  vfio_pci_dma_buf_attach() and vfio_pci_dma_buf_mmap().
+
+
+v5:     https://lore.kernel.org/all/20260715174737.15287-1-matt@ozlabs.org/
+v4:     https://lore.kernel.org/all/20260701171245.90111-1-matt@ozlabs.org/
+v3:     https://lore.kernel.org/all/20260610154327.37758-1-matt@ozlabs.org/
+v2:     https://lore.kernel.org/all/20260527102319.100128-1-mattev@meta.com/
+v1:     https://lore.kernel.org/kvm/20260416131815.2729131-1-mattev@meta.com/
+RFCv2:  https://lore.kernel.org/kvm/20260312184613.3710705-1-mattev@meta.com/
+RFCv1:  https://lore.kernel.org/all/20260226202211.929005-1-mattev@meta.com/
+Tech topic: https://lore.kernel.org/linux-iommu/20250918214425.2677057-1-amastro@fb.com/
+
+
+Matt Evans (9):
+  vfio/pci: Remove DMABUF export dependency on vdev->memory_lock
+  vfio/pci: Un-revoke DMABUFs in LOW_POWER_ENTRY_WITH_WAKEUP resume
+  dma-buf: Export dma_buf_set_name()
+  vfio/pci: Add a helper to look up PFNs for DMABUFs
+  vfio/pci: Add a helper to create a DMABUF for a BAR-map VMA
+  vfio/pci: Convert BAR mmap() to use a DMABUF
+  vfio/pci: Clean up BAR zap and revocation
+  vfio/pci: Support mmap() of a VFIO DMABUF
+  vfio/pci: Permanently revoke a DMABUF on request
+
+ drivers/dma-buf/dma-buf.c                     |  58 +-
+ drivers/vfio/pci/Kconfig                      |   4 +-
+ drivers/vfio/pci/Makefile                     |   3 +-
+ .../vfio/pci/hisilicon/hisi_acc_vfio_pci.c    |  14 +-
+ drivers/vfio/pci/vfio_pci_config.c            |  30 +-
+ drivers/vfio/pci/vfio_pci_core.c              | 222 +++++--
+ drivers/vfio/pci/vfio_pci_dmabuf.c            | 607 +++++++++++++++---
+ drivers/vfio/pci/vfio_pci_priv.h              |  54 +-
+ include/linux/dma-buf.h                       |   2 +
+ include/linux/vfio_pci_core.h                 |   3 +
+ include/uapi/linux/vfio.h                     |  24 +
+ 11 files changed, 851 insertions(+), 170 deletions(-)
+
+-- 
+2.50.1 (Apple Git-155)
 
