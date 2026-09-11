@@ -4,115 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30E92C88E4C
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 09:38:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 052FFC88E4C
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 09:45:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9963C10E2FE;
-	Fri, 11 Sep 2026 09:38:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 684BB10E389;
+	Fri, 11 Sep 2026 09:45:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DM9yb6wk";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="V/A+Lw5u";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="09n1WuRv";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2980010E2FE
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 09:38:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789119488; x=1820655488;
- h=from:date:to:cc:subject:in-reply-to:message-id:
- references:mime-version:content-id;
- bh=sb6ClNqSQhPq2ZVhuU+8klKUwkLjODKU96QOOaqi6Cw=;
- b=DM9yb6wkIw6H/4OUaxjgfsWqnlyifFSzuJm4auThBBtBwc0mV354yWRx
- XtVaPKQt14wWQTHxwmAuXrNtLuI74H7+XGOopmobWMGCbssTFCTgK70GN
- xPc/0fvgWUsW06yKDHuGJmgGIjUvm1V7dS7+MPTBjbLpMhgWAOSeQFKK8
- CXvQwBVdRUh7PB3vVnm8I4Hbb6wYWM1MRgDUtsgLsesnWkjK2NOk6/5wg
- tMkfigA95OrdDDeQGjA0+DXpjVm+sYk7WNYD5sMczGNu5j/1W9HF8+vvK
- A11b1psKdcGb9tZV65ASr1A+m9roMLitbGJqHxiKH0mDnGtQeJfczTkfU w==;
-X-CSE-ConnectionGUID: a7PYnRwHTNKXkXndbfQfOA==
-X-CSE-MsgGUID: WoY3dXSuSX+5FdjYfq7eBg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="115120607"
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; d="scan'208";a="115120607"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2026 02:38:07 -0700
-X-CSE-ConnectionGUID: SRo+o97pTgCUDHnSfx1bsQ==
-X-CSE-MsgGUID: d5IlSxrWQfGb/hpk+vV9Sw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; d="scan'208";a="296857533"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.158])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2026 02:37:41 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 11 Sep 2026 12:37:38 +0300 (EEST)
-To: Juergen Gross <jgross@suse.com>
-cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org, 
- linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org, 
- kvm@vger.kernel.org, virtualization@lists.linux.dev, 
- linux-edac@vger.kernel.org, linux-pci@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-coco@lists.linux.dev, 
- linux-acpi@vger.kernel.org, linux-ide@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-crypto@vger.kernel.org, 
- linux-gpio@vger.kernel.org, linux-hwmon@vger.kernel.org, 
- linux-mtd@lists.infradead.org, platform-driver-x86@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, 
- "H. Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, 
- "K. Y. Srinivasan" <kys@microsoft.com>, 
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
- Sean Christopherson <seanjc@google.com>, 
- Paolo Bonzini <pbonzini@redhat.com>, Ajay Kaher <ajay.kaher@broadcom.com>, 
- Alexey Makhalov <alexey.makhalov@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Josh Poimboeuf <jpoimboe@kernel.org>, 
- Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Pu Wen <puwen@hygon.cn>, 
- Tony Luck <tony.luck@intel.com>, 
- Reinette Chatre <reinette.chatre@intel.com>, 
- Dave Martin <Dave.Martin@arm.com>, James Morse <james.morse@arm.com>, 
- Babu Moger <babu.moger@amd.com>, Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>, 
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Kiryl Shutsemau <kas@kernel.org>, 
- Rick Edgecombe <rick.p.edgecombe@intel.com>, 
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Len Brown <lenb@kernel.org>, 
- Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>, 
- David Airlie <airlied@redhat.com>, Olivia Mackall <olivia@selenic.com>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Huang Rui <ray.huang@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, 
- Perry Yuan <perry.yuan@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
- Yazen Ghannam <yazen.ghannam@amd.com>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
- Artem Bityutskiy <artem.bityutskiy@linux.intel.com>, 
- Artem Bityutskiy <dedekind1@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Ashok Raj <ashok.raj.linux@gmail.com>, Hans de Goede <hansg@kernel.org>, 
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>, 
- Xi Pardee <xi.pardee@linux.intel.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
- Helge Deller <deller@gmx.de>, xen-devel@lists.xenproject.org, 
- linux-geode@lists.infradead.org, Michael Kelley <mhklinux@outlook.com>
-Subject: Re: [PATCH v3 12/13] treewide: convert rdmsrq() from a macro to an
- inline function
-In-Reply-To: <20260911074530.3140830-13-jgross@suse.com>
-Message-ID: <b2baa471-0f6b-84e8-bda1-ae0964b72b04@linux.intel.com>
-References: <20260911074530.3140830-1-jgross@suse.com>
- <20260911074530.3140830-13-jgross@suse.com>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A64410E389
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 09:45:30 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CE2191FF22;
+ Fri, 11 Sep 2026 09:45:24 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1789119924; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=z4PHXPBpIJvXQSo3h4iaInbMFWtFG1t8JHS7+nZkGzM=;
+ b=V/A+Lw5uRCKJJJLsm0gdC3aU9JGD0kFc3whd0D0hqjY10MEgS8075KEt41VvSzIdW+xU4I
+ hdlOrJrigqWBnivy6CdGdeJpva6A0HLh29cS1V7Ib9GOSSH1rTbjxiVvVKfhn1NeZWTOUI
+ 8hA+Yod3aXZIJ8RujrUhLYtt3SyxEQY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1789119924;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=z4PHXPBpIJvXQSo3h4iaInbMFWtFG1t8JHS7+nZkGzM=;
+ b=09n1WuRv28LuvnqoW9lSIqZsWh53IqaC/3tlp2slcQ38JN7nYap8w9mwr/c7VtGuArQJQH
+ ipLvAmcY89d3qBAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 43555137CA;
+ Fri, 11 Sep 2026 09:45:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id OAoED7TNo2oFVgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 11 Sep 2026 09:45:24 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: deller@gmx.de, gregkh@linuxfoundation.org, jirislaby@kernel.org,
+ simona@ffwll.ch
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-serial@vger.kernel.org, sashiko-reviews@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 4/5] lib/fonts: Add font_glyph_cursor() helper
+Date: Fri, 11 Sep 2026 11:25:22 +0200
+Message-ID: <20260911094518.78093-5-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260911094518.78093-1-tzimmermann@suse.de>
+References: <20260911094518.78093-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323328-1162080221-1789119116=:1171"
-Content-ID: <b9134b99-a885-4c62-2abd-7195415a52e3@linux.intel.com>
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: CE2191FF22
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,45 +88,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+The new helper font_glyph_cursor() fills a glyph with a cursor pattern.
+As with the font_glyph_rotate_*() helpers, the caller has to provide the
+output memory.
 
---8323328-1162080221-1789119116=:1171
-Content-Type: text/plain; CHARSET=ISO-8859-15
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-Content-ID: <085b47bf-864b-9802-2915-a51186e45c40@linux.intel.com>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ include/linux/font.h    |  4 +++
+ lib/fonts/Makefile      |  3 ++-
+ lib/fonts/font_cursor.c | 56 +++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 62 insertions(+), 1 deletion(-)
+ create mode 100644 lib/fonts/font_cursor.c
 
-On Fri, 11 Sep 2026, Juergen Gross wrote:
+diff --git a/include/linux/font.h b/include/linux/font.h
+index 5e1cf9830084..be1a26ff8ae9 100644
+--- a/include/linux/font.h
++++ b/include/linux/font.h
+@@ -109,6 +109,10 @@ const unsigned char *font_data_glyph_buf(font_data_t *fd,
+ bool font_data_is_equal(font_data_t *lhs, font_data_t *rhs);
+ int font_data_export(font_data_t *fd, struct console_font *font, unsigned int vpitch);
+ 
++/* font_cursor.c */
++void font_glyph_cursor(unsigned int width, unsigned int height,
++		       unsigned int from, unsigned int to, unsigned char *out);
++
+ /* font_rotate.c */
+ void font_glyph_rotate_90(const unsigned char *glyph, unsigned int width, unsigned int height,
+ 			  unsigned char *out);
+diff --git a/lib/fonts/Makefile b/lib/fonts/Makefile
+index 7202a70a56ef..bc08bf8ea3f8 100644
+--- a/lib/fonts/Makefile
++++ b/lib/fonts/Makefile
+@@ -1,7 +1,8 @@
+ # SPDX-License-Identifier: GPL-2.0
+ # Font handling
+ 
+-font-y := fonts.o
++font-y := fonts.o \
++	  font_cursor.o
+ font-$(CONFIG_FRAMEBUFFER_CONSOLE_ROTATION) += font_rotate.o
+ 
+ # Built-in fonts; sorted by Family-Size in ascending order
+diff --git a/lib/fonts/font_cursor.c b/lib/fonts/font_cursor.c
+new file mode 100644
+index 000000000000..7f4d587669aa
+--- /dev/null
++++ b/lib/fonts/font_cursor.c
+@@ -0,0 +1,56 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++#include <linux/bug.h>
++#include <linux/export.h>
++#include <linux/string.h>
++
++#include "font.h"
++
++/**
++ * font_glyph_cursor - Create a cursor glyph
++ * @width: The glyph width in bits per scanline
++ * @height: The number of scanlines in the glyph
++ * @start: The first scanline of the cursor block
++ * @end: The first scanline after the cursor block
++ * @out: The cursor-glyph bitmap
++ *
++ * The parameters @width and @height refer to the glyph size. The caller
++ * has to provide the output buffer @out of sufficient size to hold the
++ * cursor glyph. The arguments in @start and @end describe the number of
++ * scanlines occupied by the cursor block; counting from the top of the
++ * glyph. The helper fills these scanlines with a pattern and clears the
++ * remaining scanlines.
++ */
++void font_glyph_cursor(unsigned int width, unsigned int height,
++		       unsigned int start, unsigned int end, unsigned char *out)
++{
++	unsigned int pitch = font_glyph_pitch(width);
++	const unsigned char *out_end = out + height * pitch;
++	unsigned int size;
++
++	if (WARN_ON_ONCE(start > height))
++		start = height;
++	if (WARN_ON_ONCE(end > height))
++		end = height;
++
++	if (end < start)
++		end = start;
++
++	/* clear scanlines before cursor block */
++	size = start * pitch;
++	memset(out, 0x00, size);
++	out += size;
++
++	/* set cursor block */
++	size = (end - start) * pitch;
++	memset(out, 0xff, size);
++	out += size;
++
++	/* clear scanlines below cursor block */
++	size = (height - end) * pitch;
++	memset(out, 0x00, size);
++	out += size;
++
++	WARN_ON_ONCE(out != out_end);
++}
++EXPORT_SYMBOL_GPL(font_glyph_cursor);
+-- 
+2.55.0
 
-> Today rdmsrq() is a macro using its second parameter as the target for
-> storing the read MSR value.
->=20
-> Convert rdmsrq() to an inline function returning the MSR value.
->=20
-> The users have been converted using the following semantic patch:
->=20
->   // Options: --include-headers
->=20
->   virtual patch
->   virtual report
->=20
->   @@
->   expression msr, val;
->   @@
->   (
->   - rdmsrq(msr,val)
->   + val =3D rdmsrq(msr)
->   )
->=20
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> Acked-by: Damien Le Moal <dlemoal@kernel.org>      # ATA
-
-Acked-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>=09=09# pdx86
-
-What is the plan for merging this?
-
-> Reviewed-by: Michael Kelley <mhklinux@outlook.com> # Hyper-V
-
---=20
- i.
---8323328-1162080221-1789119116=:1171--
