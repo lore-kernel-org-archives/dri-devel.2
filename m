@@ -4,44 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49F25C88E4D
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 11:57:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 274F8C88E4D
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 12:09:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DEA110F577;
-	Fri, 11 Sep 2026 11:57:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8472210F584;
+	Fri, 11 Sep 2026 12:09:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cTcOLGBp";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hEYRq08u";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EEC110F577
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 11:57:01 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D1D516025A;
- Fri, 11 Sep 2026 11:57:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59C8D1F00893;
- Fri, 11 Sep 2026 11:57:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789127820;
- bh=dapLyV/wy16E+IkudvQvA0jPFtOt9Ql3qPcG4vzgAV0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=cTcOLGBpK93fVb6QqMQF42Laz4L8H/SpdKbja883Y2xj8Tar8WEDT88IXqVJYEhnV
- wKND3Ch3j6zOujq1w1jUUW27XCxELlcEF24xN2Ue3AG4Ghy+dX7S7BOFEs2f0cQPHo
- 761sHnZuTBCBlYTiJzBSolS4Gv99QcwQweUAg4UEHO/X5YyuKB7lmAi+jFrNMJmqYC
- cxtorV6F8ANIOyR4e4eG2WHpH/NOjZmw1QMrsbOJ4jWADuwiwWiQR7Di9jN8/ACwzU
- DJ6OiML+9iHxDFz62SMXVS7LmlNQL7bzIpN+Q3kmZd+OlnsOjt1cfbmr5Pc9wMY+E4
- Um0Uj5lKbv70Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/6] drm/panthor: Add support for entering and
- exiting protected mode
-To: "Ketil Johnsen" <ketil.johnsen@arm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260911114014.79139-6-ketil.johnsen@arm.com>
-References: <20260911114014.79139-1-ketil.johnsen@arm.com>
- <20260911114014.79139-6-ketil.johnsen@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 11:56:59 +0000
-Message-Id: <20260911115700.59C8D1F00893@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6994210F584
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 12:09:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789128552; x=1820664552;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=8xFWvWnbbxNtSScIWZyOyOwoPgT3OidLM+h8HVaJUFA=;
+ b=hEYRq08uwQT1er9BbDpUD9GUhHdgIZU9Dxsuo7CQQTtxaTNk+2s8M1X3
+ KGUKWR6+/UaeE1M25To+dsYsngl/Fuc+ZuGblXFyx7LMb3gdhwKIaQzsV
+ AM6u0pQHT7/Io1RDtR4BCqnzsoN63v/HeMl0kiZ4EioDJt03uhardMxNH
+ Z7JWIv8UoRg0yXT9A/JHUC4oITiB4pJXoEdyKga+vAHlVdiZbHdk8/sxA
+ TMfvdK3y6SwsVbPKB8kFIUuGYvIqb6YwJ3FIsOMRontXB2qeX30V4Uv/M
+ faV9JD/9FxqKczN9JS4Q1HglXPn8ucSLmmvS8CdPjWF/xv6x9wwVZlf1Y g==;
+X-CSE-ConnectionGUID: QsfanbpEQuSXatToq8eMBg==
+X-CSE-MsgGUID: 9QzeTXcjTdWw7wDD+ElNlQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="92099595"
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="92099595"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Sep 2026 05:09:11 -0700
+X-CSE-ConnectionGUID: ciNHh1x4S2qZz+hvQtA+VQ==
+X-CSE-MsgGUID: 3mOiteiKSlqRl4rKs8o73A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; d="scan'208";a="268226892"
+Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
+ by fmviesa010.fm.intel.com with ESMTP; 11 Sep 2026 05:09:08 -0700
+Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1x503s-000000001VB-2MFa;
+ Fri, 11 Sep 2026 12:09:00 +0000
+Date: Fri, 11 Sep 2026 20:08:19 +0800
+From: kernel test robot <lkp@intel.com>
+To: Ho Jie Feng <hjf3108@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, cyrozap@gmail.com,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/trigger5: Add MCT Trigger 5 USB display driver
+Message-ID: <202609111951.Hco6MgXH-lkp@intel.com>
+References: <20260910171709.396071-1-hjf3108@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910171709.396071-1-hjf3108@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,155 +72,78 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Polling for protected mode entry using `wait_event_timeout` withou=
-t a wakeup source will unconditionally sleep for the full 500ms timeout.
-- [High] Acknowledging a pending protected mode event during a slot reset d=
-oes not clear the corresponding software state, causing a permanent malfunc=
-tion for the group.
-- [High] TOCTOU race in `panthor_gpu_protm_fault_pending` leads to missed f=
-aults and an infinite reset loop.
+Hi Ho,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on 3ab04dcce43cd4fdaed94f08f4e6289be4921ea4]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Ho-Jie-Feng/drm-trigger5-Add-MCT-Trigger-5-USB-display-driver/20260911-011705
+base:   3ab04dcce43cd4fdaed94f08f4e6289be4921ea4
+patch link:    https://lore.kernel.org/r/20260910171709.396071-1-hjf3108%40gmail.com
+patch subject: [PATCH] drm/trigger5: Add MCT Trigger 5 USB display driver
+config: sparc64-allmodconfig (https://download.01.org/0day-ci/archive/20260911/202609111951.Hco6MgXH-lkp@intel.com/config)
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260911/202609111951.Hco6MgXH-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609111951.Hco6MgXH-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/trigger5/trigger5_drv.c:435:19: warning: result of comparison of constant 65536 with expression of type 'const u16' (aka 'const unsigned short') is always false [-Wtautological-constant-out-of-range-compare]
+     435 |             mode->htotal > U16_MAX + 1)
+         |             ~~~~~~~~~~~~ ^ ~~~~~~~~~~~
+   drivers/gpu/drm/trigger5/trigger5_drv.c:440:19: warning: result of comparison of constant 65536 with expression of type 'const u16' (aka 'const unsigned short') is always false [-Wtautological-constant-out-of-range-compare]
+     440 |             mode->vtotal > U16_MAX + 1)
+         |             ~~~~~~~~~~~~ ^ ~~~~~~~~~~~
+   2 warnings generated.
+
+
+vim +435 drivers/gpu/drm/trigger5/trigger5_drv.c
+
+   420	
+   421	static enum drm_mode_status
+   422	trigger5_crtc_mode_valid(struct drm_crtc *crtc,
+   423				 const struct drm_display_mode *mode)
+   424	{
+   425		struct trigger5_pll pll;
+   426		size_t frame_len, payload_len;
+   427		u64 err, ppm;
+   428	
+   429		/*
+   430		 * The protocol stores totals, sync pulses, and back porches minus one
+   431		 * in 16-bit fields.
+   432		 */
+   433		if (mode->hsync_end <= mode->hsync_start ||
+   434		    mode->htotal <= mode->hsync_end ||
+ > 435		    mode->htotal > U16_MAX + 1)
+   436			return MODE_H_ILLEGAL;
+   437	
+   438		if (mode->vsync_end <= mode->vsync_start ||
+   439		    mode->vtotal <= mode->vsync_end ||
+   440		    mode->vtotal > U16_MAX + 1)
+   441			return MODE_V_ILLEGAL;
+   442	
+   443		payload_len = array3_size(mode->hdisplay, mode->vdisplay, 3);
+   444		frame_len = size_add(payload_len, sizeof(struct trigger5_bulk_header));
+   445		if (frame_len > SZ_16M)
+   446			return MODE_MEM;
+   447	
+   448		err = trigger5_calculate_pll(&pll, mode->clock);
+   449		ppm = div64_u64(err * 1000, mode->clock);
+   450		if (ppm > 10000)
+   451			return MODE_CLOCK_RANGE;
+   452	
+   453		return MODE_OK;
+   454	}
+   455	
+
 --
-
-commit 134f4af77e10adece5a3a20d7839a25e0c7a720d
-Author: Florent Tomasin <florent.tomasin@arm.com>
-
-drm/panthor: Add support for entering and exiting protected mode
-
-This commit modifies the Panthor driver to handle GPU hardware protected mo=
-de
-enter and exit operations. It introduces the mechanisms needed for entering
-and exiting protected mode, handling protected mode IRQs, scheduling
-modifications, and GPU fault handling during protected execution.
-
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panth=
-or/panthor_fw.c
-> index 5f9f7a92c56a8..96770ce34da84 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-[ ... ]
-> @@ -1476,6 +1481,91 @@ static void panthor_fw_ping_work(struct work_struc=
-t *work)
->  	}
->  }
-> =20
-> +static bool wait_protm_enter(struct panthor_device *ptdev,
-> +			     long long enter_count)
-> +{
-> +	return (panthor_gpu_status(ptdev) & GPU_STATUS_PROTM_ACTIVE) ||
-> +	       (atomic64_read(&ptdev->protm.protm_exit_count) >=3D enter_count);
-> +}
-> +
-> +int panthor_fw_protm_enter(struct panthor_device *ptdev)
-> +{
-[ ... ]
-> +	/* Poll for the entry of protected mode.
-> +	 * It is possible that GPU_STATUS_PROTM_ACTIVE is set and cleared
-> +	 * before we check it below, so we must also check for GLB_PROTM_EXIT.
-> +	 * GLB_PROTM_EXIT can not be checked directly, because this could also
-> +	 * be handled and clear before we check below. We count number of
-> +	 * protm enters and exits to safely handle that case.
-> +	 */
-> +	ret =3D wait_event_timeout(ptdev->fw->req_waitqueue,
-> +				 wait_protm_enter(ptdev, enter_count),
-> +				 msecs_to_jiffies(500));
-
-[Severity: High]
-Since GPU_STATUS_PROTM_ACTIVE is a hardware status bit and does not trigger=
- a=20
-new interrupt when it becomes true, wouldn't this wait queue never be woken=
-=20
-up? If the bit isn't set immediately on the first check in wait_protm_enter=
-(),=20
-it seems like this will unconditionally sleep for the full 500ms duration=20
-before returning success, causing a half-second delay every time the GPU=20
-enters protected mode.
-
-> +	if (!ret) {
-> +		drm_err(&ptdev->base,
-> +			"Wait for GPU protected mode enter timed out");
-> +		return -ETIMEDOUT;
-> +	}
-> +
-> +	return 0;
-> +}
-
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/pant=
-hor/panthor_gpu.c
-> index a383b04f101ed..27617f3a72394 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-[ ... ]
-> @@ -123,6 +152,13 @@ static irqreturn_t panthor_gpu_irq_threaded_handler(=
-int irq, void *data)
->  	return panthor_irq_default_threaded_handler(data, panthor_gpu_irq_handl=
-er);
->  }
-> =20
-> +bool panthor_gpu_protm_fault_pending(struct panthor_device *ptdev)
-> +{
-> +	return atomic_read(&ptdev->gpu->protm_fault) ||
-> +	       gpu_read(ptdev->gpu->irq.iomem, INT_RAWSTAT) &
-> +		       GPU_IRQ_PROTM_FAULT;
-> +}
-
-[Severity: High]
-Could there be a race condition here due to the short-circuit evaluation?
-
-If CPU 0 evaluates the left side and reads the software flag=20
-ptdev->gpu->protm_fault as 0, and is then preempted, CPU 1 could execute th=
-e=20
-interrupt handler, set the software flag to 1, and clear the hardware=20
-register.=20
-
-When CPU 0 resumes to evaluate the right side, it would read the hardware=20
-register as 0 and return false. This would cause the fault to be missed=20
-entirely (e.g., in sched_process_protm_exit_event_locked()), potentially=20
-allowing a faulty protected mode group to restart and trigger an infinite=20
-reset loop.
-
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/pa=
-nthor/panthor_sched.c
-> index 0c8ea07fc7b9d..1fe77e5c41995 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-[ ... ]
-> @@ -1149,12 +1170,14 @@ cs_slot_reset_locked(struct panthor_device *ptdev=
-, u32 csg_id, u32 cs_id)
->  	struct panthor_fw_cs_iface *cs_iface =3D panthor_fw_get_cs_iface(ptdev,=
- csg_id, cs_id);
->  	struct panthor_group *group =3D ptdev->scheduler->csg_slots[csg_id].gro=
-up;
->  	struct panthor_queue *queue =3D group->queues[cs_id];
-> +	u32 val, mask;
-> =20
->  	lockdep_assert_held(&ptdev->scheduler->lock);
-> =20
-> -	panthor_fw_update_reqs(cs_iface, req,
-> -			       CS_STATE_STOP,
-> -			       CS_STATE_MASK);
-> +	val =3D CS_STATE_STOP | (cs_iface->output->ack & CS_PROTM_PENDING);
-> +	mask =3D CS_STATE_MASK | CS_PROTM_PENDING;
-> +
-> +	panthor_fw_update_reqs(cs_iface, req, val, mask);
-
-[Severity: High]
-When acknowledging the pending CS_PROTM_PENDING hardware event here during =
-a=20
-slot reset, the software state group->protm_pending_queues is not cleared.
-
-Later, tick_ctx_handle_protm_group() only clears bits from=20
-group->protm_pending_queues if the hardware event is still pending via=20
-(ack ^ req) & CS_PROTM_PENDING. Since the hardware event was already cleare=
-d=20
-here, will the software bit remain permanently set, causing the group to=20
-perpetually request entry into protected mode?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911114014.7913=
-9-1-ketil.johnsen@arm.com?part=3D5
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
