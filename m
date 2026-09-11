@@ -4,52 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 427C5C88E41
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 01:53:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9F3EC88E41
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 03:10:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69F3010E067;
-	Fri, 11 Sep 2026 01:53:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8517910E03D;
+	Fri, 11 Sep 2026 03:10:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="a/hfhmb4";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="MK9wADO+";
 	dkim-atps=neutral
-Received: from mail-m1602365227.xmail.ntesmail.com
- (mail-m1602365227.xmail.ntesmail.com [160.236.52.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FBA810E067
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 01:53:26 +0000 (UTC)
-Received: from [127.0.0.1] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 4d5a509ec;
- Fri, 11 Sep 2026 09:53:23 +0800 (GMT+08:00)
-Message-ID: <382b0c3b-95a1-4089-b413-717f65b9e99d@rock-chips.com>
-Date: Fri, 11 Sep 2026 09:53:19 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/connector: Cache out-of-band hotplug events
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- Igor Paunovic <royalnet026@gmail.com>, Alexey Charkov <alchark@flipper.net>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- kernel@collabora.com, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Heiko Stuebner <heiko@sntech.de>, Dmitry Baryshkov <lumag@kernel.org>
-References: <20260821-drm-connector-oob-hotplug-cache-v1-1-e92e146fdc7b@collabora.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20260821-drm-connector-oob-hotplug-cache-v1-1-e92e146fdc7b@collabora.com>
+Received: from LO3P265CU004.outbound.protection.outlook.com
+ (mail-uksouthazon11020129.outbound.protection.outlook.com [52.101.196.129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7DBA10E03D
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 03:10:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fup0A+25q5sHiwihJ5zLUeDieSYOiIKAqTWAHWXn8PmisoGi6kE538jrdb/0F382V2BHl3wzRpih6GCzuf5JV39aARnw6yTUIX74dPPl17pZ8Cx0KPAR3BqcGkTWRoqOacxE8kyJWru0IaSUxi18SOlyJ9x/kvp/IDN5P/+u4OhBS6t7VHLOCN9/AhIyJhA3Ti7EN3f0vv3ZAqQ7YCbTzg7Qtbnb2RNN9GzCCp8KMXIk9g9Vy0i7llH3cEjR/KAxu7x7Pr0p78WdQ6M4Lv8Ba3ITF13eNQJy2VeJHfr60I5ZXbLaUYZP/O9jMwJxVVv2VZtU7pwTGpkXG2N7yHjEbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XVXUI3zawOoOtkOGoRUkNABK/ZoVc4ntJLtBykEYi8I=;
+ b=uaGdgGBUqI56uNx08CSB4sSc5/b+/KUxVi/pj+EQsV1bOVlBtrEyNd0rv7w3mfKDYpNblnZGw5UFGbd1GiDkfn/vmrs07UXGVOJkpNzMxNzFa57xfwmbm5YdtH7k8ieKjmYMjhacojGGEmLtdPaFv6JHFmOavOTdUxETf4nCdXFawzhK/nbxFY7Oq6ra2dwWuk/KjfBr6YBeOATGXJvHU1bSzXqyGFIiUvi76kt74lZkrqGPRx78U3VqOXAC3QDt20Usgv+j+0//p7VafcwwrO1+NrLhQy6afe4a3Mdehxkk3xfUzqNYrwl8u2wzbsGrjCqiXUCdgbwD/skZshCtVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XVXUI3zawOoOtkOGoRUkNABK/ZoVc4ntJLtBykEYi8I=;
+ b=MK9wADO+Tjdq0SY7RRpzwzBEXrCu+2clSknN+Ffdx1Dq7NUeUJuUHauWJy89r2ZBvuIB2L74+CNI3o4fObq9tQ/pDDML3r1tK7PqBQ8TFXZh/JzLYRfHi2HgSFaPEMp6z0Q5IQMH1uqwnMJ63LB1XoS2CEgCHadBabhuJJ5Znxs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CWXP265MB2408.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:75::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 03:10:01 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 03:10:01 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa08e2b621d03a7kunmb79f0cb776a9bd
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTBhDVhpDGhgYTR8dGR8fGlYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
- 9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=a/hfhmb4fB7OCWDgHaUK4+MQbkutytq38VOL95lIHib/1/ZerxmhVd5SD+TiJObqinbliTMgiu1Bslo6xfWhetKFUQ5B46s69KU0F6AFftPDIQa9YrQwAVHCPHQG/d311BoNbrHE0kqnDR7Vsjn2OE42oLY/kAUGZzONU3u+1cw=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=LUQgxyC9QeyHgi0GApq633kxPd9T2302b9i3nCPlxU8=;
- h=date:mime-version:subject:message-id:from;
+Date: Fri, 11 Sep 2026 04:10:00 +0100
+Message-Id: <DLC5O80MQGEI.2Y6VVE6C8WSKL@garyguo.net>
+Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <gary@garyguo.net>,
+ <laura.nao@collabora.com>
+Subject: Re: [PATCH] drm/tyr: use bitfield! for non-MMIO fields
+From: "Gary Guo" <gary@garyguo.net>
+To: "Deborah Brouwer" <deborah.brouwer@collabora.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "David Airlie" <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>
+X-Mailer: aerc 0.22.0
+References: <20260910-b4-use-bitfield-v1-1-fdddfccff73b@collabora.com>
+In-Reply-To: <20260910-b4-use-bitfield-v1-1-fdddfccff73b@collabora.com>
+X-ClientProxiedBy: LO4P302CA0017.GBRP302.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c1::8) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWXP265MB2408:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ce67632-9bd2-4a18-947d-08df0fb22b03
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|10070799003|7416014|1800799024|376014|22082099003|18002099003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: A7NPEelq+4vgGsXoDqJjjGUh8NOsMZPXYPupIlB4v3F+W/47Z+5iwsdbwTPdukIpPa1/pE+EAFt5nhNp5aDDrXvm2vfeFMSCaklnUQG9N1+2cQFyvjRYfOoyWZGupQGZmzH6T8PcVEavoETnaVz51zVpaJakAAwt3ZqKvzzh05sYgEs5zs4EvaOoli5fSod5ShME2WuZODqEKSwuIYIZRZTS41c6Ndhb6EaBUYMlpsrRTirf2HK35AmDc0SSprIE9hmALjGy5ff45MyxrNbMXEnfYz4tF6asbHnTr5UMycW5/V13hGv0muVzCTQIrm5pi+b8asDcFpphpHJ28Q6LuZBiMXQEuCUAc61RuDXjlt6DwkMClpzJGHE1JDMblcBoShzK/Z2TPdvIbGDyzl4DczyoPW1OqcgpzpAuKIUR30uYTPieaatgAudMuFQ/A6P3wvAkQ16mjOXPNHwCJmkOWQITu0BK2iu5bBWB6ccKDP8HiHWmBTEJBaXIbLFJGe0o8fhQEg91aL6kAV3OiJe9QtqvDSvJcXH74cnUEgjizrsXxl1kqRVzY3d3KR1UoztK34lyWbTn8PgkInHhFaN+i/hUavFVC77FDyzX7gAW0+Xl16RDB7Yljem9ud047/V8TvXH3MahGgazLMmScD7nXJeMvdYufzVnh24uFh0hrq8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(10070799003)(7416014)(1800799024)(376014)(22082099003)(18002099003)(56012099006)(10067099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RlRwU0tTRTlsMUFXWWIzeTJRUGRvVm5lbXNPS3dWNGlzeGxTdTlXZWoyQjZW?=
+ =?utf-8?B?TzNLMzJlQWNOdmd2Mk12QzZYZldYd0d0TGJ0Ylk2QVVvdUkvV3NzUDBrOHNu?=
+ =?utf-8?B?YUZRVWhWZGZkU251dzJDajRia1BzazU1NmFrZHdqaklhNnJYU3N6UVhiRVZ2?=
+ =?utf-8?B?eUlXcC8xdmY1QlNmdHVpUzZ6d2dKeHhnRWlQTHZOU2UyUCtQL0tIbytPNUpW?=
+ =?utf-8?B?RnZoeTNMdDJkWWVCTGVIT0owdXVkZSt3eE9nNVNQaVJvb0ZLU0lURTI5WmF4?=
+ =?utf-8?B?YkUwRi9aZS9TWDN0cDBnZ2pscExiNkpnOGNIZTc2S0pidTVyQS82VG5acW8r?=
+ =?utf-8?B?a0MvUkVtOUhTN1dzUHZIVXppaCtHVFFTYkJnOWJVMHN2cVVIOFRkbTRHZSt3?=
+ =?utf-8?B?Yys3c1paV2EzQzhFMHlzTWVRTEs3TDgxaFpTZU90d0lySUhZa3dDUVFzenY5?=
+ =?utf-8?B?dFFSTk1YMkNsT1FuWXZJWVY1TlBPNzF0UTBjQVE3WXQ2T1UwQ09HWmQyN0xk?=
+ =?utf-8?B?a09tNnRkbnJycVRWWUtpa2MvZGxtenBYUkR0UmpJYmlMVzN6bGlibFhOSkFE?=
+ =?utf-8?B?TXgvOFc0dkY2OWsyeTdaNFVGMS93VzZFTjhOY25OUXhhNG1FdDNCNXBvaDJV?=
+ =?utf-8?B?SXo3MStKcTMzditmSTBJVGtwMzE5T3h4aVFXaXdmekdqajhOZWlmVjRxMjVq?=
+ =?utf-8?B?Q1lLQUszUTRMVWpLZlRJVEhOL2plQk5zd05KUDN1S0pKZFBmZUx1ZmJtQWxM?=
+ =?utf-8?B?OWQ0SkxWanEvd3V2b0lRaHdLaEZTY0djV3IwZUE5N1crVFpkajdiSWdMUlBv?=
+ =?utf-8?B?Ui96U25tWXA4cnN5aVVsNE1mdVVGTjRjSkxIMTY4VXZqSCtQNVl6N1pXK3VN?=
+ =?utf-8?B?ejJJazJuUlR1QlE1dHYrc1djb2JxRHB3YlJJejhZNUR5YWMzKzhkNzgwUENo?=
+ =?utf-8?B?UzZJRVFlaXRmbnB2ZVBzblVaZkpCU1RtMzBvTy9hTHlnUFFibHcrM3JCRi9D?=
+ =?utf-8?B?Y2dIQkFMek1NSDdIZ0dFS3FVcjdTNnc2bTVBVnRDOEQ0YXJ4NlVhemplalBm?=
+ =?utf-8?B?R3dBREIxeGdLV1gvOHFvR3RibEtXbCtlRTQwYThmaXRjY2RsZnFTYk8zVVlh?=
+ =?utf-8?B?Qzg4WWptSVE1d01iNSswbmZsWVRvckVSaEtFZXIvRkdyUEVHYlBjbEl6UWxG?=
+ =?utf-8?B?Sms0TGxPS1pYWEE5a3M2RzFtV2hQb1dYc2xodzJhNmVtS2ZJOGlYWW05OXdy?=
+ =?utf-8?B?QWVRMFprQi9WQ2FOaWQ2a0R3dVpJWTQ1V01vRkMzUlZLY3pQVkxxMjhadHZz?=
+ =?utf-8?B?YU5HOTBWV3VqaHltQ0FTeUhwZGV5dWFwcHJjcW95ZGRHbTNqL0xydVVKV29l?=
+ =?utf-8?B?RG5wTUlLZkEzZ1BVYTdRUDd3b2RpblRpYkN5c1cxSnkxKzhnRGhWTE5zLzND?=
+ =?utf-8?B?eVFmcXlZZEFZTmVkUmZZd213M04rak9MSHBzVmhheFBBaFVYL2p1VzJyUEhq?=
+ =?utf-8?B?VHJFWGVudG9uYlp3MTZuNjZvM1JsakxiaE5DNVdyZ0hFbmlJS1pTUnRxSFRp?=
+ =?utf-8?B?dTIxQ1ZTTzN6RUVPWlN3ZERYZ2IvT2pRMXc3VXBuRUlVNy9xRzY1dzBjSnFk?=
+ =?utf-8?B?a3EzSGo4Wk9zLy9hZkhBWC96RnlZcittdVRXN2pINGNhemdDRmFmbWwxNEYv?=
+ =?utf-8?B?MHRWeEcvWnBWOC94NllvK1R1KzNsbFdpSnVmOTRPZ2ZMNkw4L0p5NWl1N2Rh?=
+ =?utf-8?B?R0RVc0d5elpFcW9STW11SVM2aHc4WkUvT0xPc0FDY2FiWEEwdW8yUVE4RU9x?=
+ =?utf-8?B?cXI2MFE1clltM1Z0WWpMVzdMbXRGU25ybHkxWk4xQ0prSENkRnkzcmE0NEJD?=
+ =?utf-8?B?WDJoSHExRDN2NmdlTjJkL0k4TTB5KzdqbTFyNG9zMldMVGsxdDFUODF0b3pt?=
+ =?utf-8?B?NjdGQ1ZxcmZ0U0MrTDBUWG9PaFBEbG1NVVBXWkZjYzYvTVlseURKWHA2ODhS?=
+ =?utf-8?B?V2V3K0Zic3hMc0FvbVk3dmltNi9sTDR4bitBSkZGZ05sdTd4TW9FV1ZLN1Qw?=
+ =?utf-8?B?YlI2eHNuYzVuazFqaC9mckp3SVRGSUZGUE81aUQzN2tFYTJmZmtyY1J3VXJT?=
+ =?utf-8?B?RHVueUZOekRpbDU5cm1KQjhtWlBKdC9JQnd0RStHS1FSdnQ2ekMwY1dqN2pa?=
+ =?utf-8?B?azNMdEJJSmRKUC9aRnpVeHh3Q3I0eVlsMlRqY0pSWDRFaEhHWHhoeTR0NUU3?=
+ =?utf-8?B?b3ZDYkJyZ3BkUmFrMXhBWVJoamdQQXNaMjg0eWVWQUlNUW1xZDhzdisybFo0?=
+ =?utf-8?B?b2p5RUZDaEhWSldtUDM5bkVLNlBoQmFyelJqRGJTTjI3c25wY0cwQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ce67632-9bd2-4a18-947d-08df0fb22b03
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 03:10:01.1182 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zDLkHg7ZzCNk67DyCQ5vhKQksmgUL/Ob1O3dBuotnlrZM4DwGhLs76F6psO8VgYij/KJhGxJpOM4KmuwUsXnoA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2408
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,256 +139,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Sebastian,
+On Fri Sep 11, 2026 at 1:06 AM BST, Deborah Brouwer wrote:
+> SectionFlags and MMU_MEMATTR_STAGE1 describe bitfields rather than
+> hardware registers. Use bitfield! instead of register! so they aren't
+> confused with actual registers.
+>
 
-On 8/21/2026 10:55 PM, Sebastian Reichel wrote:
-> When the USB-C state machine finished negotiating DP AltMode before the
-> DRM device has been probed, the out-of-band hotplug events fired to
-> early and are lost. Without replugging the display or reloading the
-> USB-C driver, the DRM driver assumes nothing is plugged.
-> 
-> Reproducing this race condition at boot time depends on kernel
-> configuration and exact USB-C equipment due to timing, but it can easily
-> be reproduced by reloading the DRM driver consuming the out-of-band
-> hotplug events without reloading the USB-C driver.
-> 
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+I've sent
+https://lore.kernel.org/dri-devel/20260910165734.80378-1-gary@kernel.org/
+already.
+
+Best,
+Gary
+
+> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 > ---
-> This has been tested together with the patch series adding USB-C DP
-> AltMode support for Rockchip RK3588/RK3576. This is mostly independent
-> and should also affect other platforms, so I'm sending it separately.
-> 
-> I ran into this during development via the module reload path, but it
-> seems Heiko [0] and Igor [1] managed to hit the race condition with a
-> normal boot.
-> 
-> [0] https://lore.kernel.org/dri-devel/20767137.geO5KgaWL5@diego/
-> [1] https://lore.kernel.org/dri-devel/20260811211534.8618-1-royalnet026@gmail.com/
+>  drivers/gpu/drm/tyr/fw.rs   | 11 ++++-------
+>  drivers/gpu/drm/tyr/regs.rs | 11 +++++------
+>  2 files changed, 9 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
+> index 7edb5eff1707..8d11f888a9b9 100644
+> --- a/drivers/gpu/drm/tyr/fw.rs
+> +++ b/drivers/gpu/drm/tyr/fw.rs
+> @@ -14,6 +14,7 @@
+>  //! [`Section`]: crate::fw::Section
+> =20
+>  use kernel::{
+> +    bitfield,
+>      device::{
+>          Bound,
+>          Device, //
+> @@ -27,7 +28,6 @@
+>      },
+>      num::Bounded,
+>      prelude::*,
+> -    register,
+>      str::CString,
+>      sync::{
+>          Arc,
+> @@ -39,8 +39,7 @@
+>  use crate::{
+>      driver::{
+>          IoMem,
+> -        TyrDrmDevice,
+> -        TyrRegisters, //
+> +        TyrDrmDevice, //
+>      },
+>      fw::parser::{
+>          FwParser,
+> @@ -101,11 +100,9 @@ fn from(value: CacheMode) -> Self {
+>      }
+>  }
+> =20
+> -register! {
+> -    base: TyrRegisters;
+> -
+> +bitfield! {
+>       #[allow(non_upper_case_globals)]
+> -    pub(super) SectionFlags(u32) @ 0x0 {
+> +    pub(super) struct SectionFlags(u32) {
+>          0:0 read =3D> bool;
+>          1:1 write =3D> bool;
+>          2:2 exec =3D> bool;
+> diff --git a/drivers/gpu/drm/tyr/regs.rs b/drivers/gpu/drm/tyr/regs.rs
+> index 0c419c4e1186..3377b8fc5029 100644
+> --- a/drivers/gpu/drm/tyr/regs.rs
+> +++ b/drivers/gpu/drm/tyr/regs.rs
+> @@ -986,6 +986,7 @@ pub(crate) mod mmu_control {
+>      /// This array contains 16 instances of the MMU_AS_CONTROL register =
+page.
+>      pub(crate) mod mmu_as_control {
+>          use kernel::{
+> +            bitfield,
+>              num::Bounded,
+>              prelude::*,
+>              register, //
+> @@ -1130,14 +1131,12 @@ fn from(val: MemoryType) -> Self {
+>              }
+>          }
+> =20
+> -        register! {
+> -            base: TyrRegisters;
+> -
+> +        bitfield! {
+>              /// Stage 1 memory attributes (8-bit bitfield).
+>              ///
+> -            /// This is not an actual register, but a bitfield definitio=
+n used by the MEMATTR
+> -            /// register. Each of the 8 bytes in MEMATTR follows this la=
+yout.
+> -            MMU_MEMATTR_STAGE1(u8) @ 0x0 {
+> +            /// This bitfield definition is used by the MEMATTR register=
+.
+> +            /// Each of the 8 bytes in MEMATTR follows this layout.
+> +            struct MMU_MEMATTR_STAGE1(u8) {
+>                  /// Inner cache write allocation policy.
+>                  0:0     alloc_w =3D> bool;
+>                  /// Inner cache read allocation policy.
+>
 > ---
->  drivers/gpu/drm/drm_connector.c     | 106 ++++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/drm_crtc_internal.h |   1 +
->  drivers/gpu/drm/drm_drv.c           |   1 +
->  3 files changed, 108 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index 8b4baed060f3..b69e3776b153 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -33,6 +33,7 @@
->  #include <drm/drm_sysfs.h>
->  #include <drm/drm_utils.h>
->  
-> +#include <linux/cleanup.h>
->  #include <linux/export.h>
->  #include <linux/platform_device.h>
->  #include <linux/property.h>
-> @@ -81,6 +82,22 @@
->  static DEFINE_MUTEX(connector_list_lock);
->  static LIST_HEAD(connector_list);
->  
-> +/*
-> + * List of connector fwnodes with their last out-of-band hotplug status
-> + * required to forward them to a connector on registration. This ensures
-> + * the connector sees a HPD event, if the event arrived before the DRM
-> + * driver was probed (either due to module reload, or because of bad
-> + * timing during bootup).
-> + */
-> +struct drm_oob_hotplug_state {
-> +	struct list_head head;
-> +	struct fwnode_handle *fwnode;
-> +	enum drm_connector_status status;
-> +};
-> +
-> +static DEFINE_MUTEX(oob_hotplug_list_lock);
-> +static LIST_HEAD(oob_hotplug_list);
-> +
->  struct drm_conn_prop_enum_list {
->  	int type;
->  	const char *name;
-> @@ -130,6 +147,19 @@ void drm_connector_ida_destroy(void)
->  		ida_destroy(&drm_connector_enum_list[i].ida);
->  }
->  
-> +void drm_connector_oob_hotplug_cleanup(void)
-> +{
-> +	struct drm_oob_hotplug_state *e, *tmp;
-> +
-> +	scoped_guard(mutex, &oob_hotplug_list_lock) {
-> +		list_for_each_entry_safe(e, tmp, &oob_hotplug_list, head) {
-> +			list_del(&e->head);
-> +			fwnode_handle_put(e->fwnode);
-> +			kfree(e);
-> +		}
-> +	}
-> +}
-> +
->  /**
->   * drm_get_connector_type_name - return a string for connector type
->   * @type: The connector type (DRM_MODE_CONNECTOR_*)
-> @@ -829,6 +859,36 @@ void drm_connector_cleanup(struct drm_connector *connector)
->  }
->  EXPORT_SYMBOL(drm_connector_cleanup);
->  
-> +/**
-> + * drm_connector_replay_oob_hotplug_event - send cached OOB HPD event
-> + * @connector: the connector that should receive the event
-> + *
-> + * Send the cached out-of-band hotplug as a new out-of-band hotplug event.
-> + */
-> +static void drm_connector_replay_oob_hotplug_event(struct drm_connector *connector)
-> +{
-> +	struct fwnode_handle *fwnode = connector->fwnode;
-> +	enum drm_connector_status status;
-> +	struct drm_oob_hotplug_state *e;
-> +	bool found = false;
-> +
-> +	if (!fwnode || !connector->funcs->oob_hotplug_event)
-> +		return;
-> +
-> +	scoped_guard(mutex, &oob_hotplug_list_lock) {
-> +		list_for_each_entry(e, &oob_hotplug_list, head) {
-> +			if (e->fwnode == fwnode || fwnode->secondary == e->fwnode) {
-> +				status = e->status;
-> +				found = true;
-> +				break;
-> +			}
-> +		}
-> +	}
-> +
-> +	if (found)
-> +		connector->funcs->oob_hotplug_event(connector, status);
-> +}
-> +
->  /**
->   * drm_connector_register - register a connector
->   * @connector: the connector to register
-> @@ -849,6 +909,7 @@ EXPORT_SYMBOL(drm_connector_cleanup);
->   */
->  int drm_connector_register(struct drm_connector *connector)
->  {
-> +	bool replay_oob_hotplug = false;
->  	int ret = 0;
->  
->  	if (!connector->dev->registered)
-> @@ -888,6 +949,7 @@ int drm_connector_register(struct drm_connector *connector)
->  	mutex_lock(&connector_list_lock);
->  	list_add_tail(&connector->global_connector_list_entry, &connector_list);
->  	mutex_unlock(&connector_list_lock);
-> +	replay_oob_hotplug = true;
->  	goto unlock;
->  
->  err_late_register:
-> @@ -898,6 +960,10 @@ int drm_connector_register(struct drm_connector *connector)
->  	drm_sysfs_connector_remove(connector);
->  unlock:
->  	mutex_unlock(&connector->mutex);
-> +
-> +	if (replay_oob_hotplug)
-> +		drm_connector_replay_oob_hotplug_event(connector);
-> +
->  	return ret;
->  }
->  EXPORT_SYMBOL(drm_connector_register);
-> @@ -3671,6 +3737,41 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
->  	return found;
->  }
->  
-> +/**
-> + * drm_connector_record_oob_hotplug_status - Cache OOB hotplug status
-> + * @fwnode - fwnode for the DRM connector
-> + * @status - out-of-band status info
-> + *
-> + * Cache the latest out-of-band hotplug status for a fwnode so it can be
-> + * (re)played from when the DRM device is (re)registered after this event
-> + * arrived.
-> + */
-> +static void drm_connector_record_oob_hotplug_status(struct fwnode_handle *fwnode,
-> +						    enum drm_connector_status status)
-> +{
-> +	struct drm_oob_hotplug_state *e;
-> +
-> +	if (!fwnode)
-> +		return;
-> +
-> +	guard(mutex)(&oob_hotplug_list_lock);
-> +
-> +	list_for_each_entry(e, &oob_hotplug_list, head) {
-> +		if (e->fwnode == fwnode) {
-> +			e->status = status;
-> +			return;
-> +		}
-> +	}
-> +
-> +	e = kzalloc(sizeof(*e), GFP_KERNEL);
-> +	if (!e)
-> +		return;
-> +
-> +	e->fwnode = fwnode_handle_get(fwnode);
-> +	e->status = status;
-> +	list_add_tail(&e->head, &oob_hotplug_list);
-> +}
-> +
->  /**
->   * drm_connector_oob_hotplug_event - Report out-of-band hotplug event to connector
->   * @connector_fwnode: fwnode_handle to report the event on
-> @@ -3683,12 +3784,17 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
->   *
->   * This function can be used to report these out-of-band events after obtaining
->   * a drm_connector reference through calling drm_connector_find_by_fwnode().
-> + *
-> + * The last status for each fwnode is cached and replayed when a matching DRM
-> + * connector device is (re)registered.
->   */
->  void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
->  				     enum drm_connector_status status)
->  {
->  	struct drm_connector *connector;
->  
-> +	drm_connector_record_oob_hotplug_status(connector_fwnode, status);
-> +
->  	connector = drm_connector_find_by_fwnode(connector_fwnode);
->  	if (IS_ERR(connector))
->  		return;
-
-
-Sorry for late reply.
-
-Should we call drm_connector_record_oob_hotplug_status() only when 
-drm_connector_find_by_fwnode() can't find the connector?
-
-> diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
-> index 83146ffef00c..c2714ea256a7 100644
-> --- a/drivers/gpu/drm/drm_crtc_internal.h
-> +++ b/drivers/gpu/drm/drm_crtc_internal.h
-> @@ -188,6 +188,7 @@ int drm_mode_getencoder(struct drm_device *dev,
->  /* drm_connector.c */
->  void drm_connector_ida_init(void);
->  void drm_connector_ida_destroy(void);
-> +void drm_connector_oob_hotplug_cleanup(void);
->  void drm_connector_unregister_all(struct drm_device *dev);
->  int drm_connector_register_all(struct drm_device *dev);
->  int drm_connector_set_obj_prop(struct drm_mode_object *obj,
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index 3c570f9393b9..c1aeab297ff9 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-> @@ -1239,6 +1239,7 @@ static void drm_core_exit(void)
->  	drm_sysfs_destroy();
->  	WARN_ON(!xa_empty(&drm_minors_xa));
->  	drm_connector_ida_destroy();
-> +	drm_connector_oob_hotplug_cleanup();
->  }
->  
->  static int __init drm_core_init(void)
-> 
-> ---
-> base-commit: d3d1e0c4343385fb343a552e4f3b6b97d5762fc2
-> change-id: 20260821-drm-connector-oob-hotplug-cache-13386679f852
-> 
+> base-commit: 73e5616f3d197c1af5a04a481fe0f13aa3913bd1
+> change-id: 20260910-b4-use-bitfield-512214360810
+>
 > Best regards,
-> --  
-> Sebastian Reichel <sebastian.reichel@collabora.com>
 
--- 
-Best, 
-Chaoyi
+
