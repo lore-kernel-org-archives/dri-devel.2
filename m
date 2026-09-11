@@ -4,57 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DBB7C88E4C
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 09:37:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30E92C88E4C
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 09:38:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5ACE10E05D;
-	Fri, 11 Sep 2026 09:37:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9963C10E2FE;
+	Fri, 11 Sep 2026 09:38:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="XJ5y7hZG";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DM9yb6wk";
 	dkim-atps=neutral
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0726C10E05D;
- Fri, 11 Sep 2026 09:37:04 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hh8Zj25xlzMlBb;
- Fri, 11 Sep 2026 11:37:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1789119421; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Z5wCoTIl+45aYG6hAm2vltCTS9lWXhbYWVLJFlcic3w=;
- b=XJ5y7hZGbQ+/SwIQVkS5g4zPN5ObhB1Uyk6wePQ2kRVakYNz9u0IO8xobpIEbxhM82jfZk
- Dfy/vyZyhONjoBNyuOhRN7zdHaTV949ed2AUjbukpm6HwvRl53RTcmL3T4l85Y9lnJ1wTV
- BiVOUaNvj45aFqEWmN6u1/PLfpPH5JpPVjcwRSAztHnEOPnsy/Q+uQEQMeL50QPOmIiLct
- kTAWKJtxZEz72uzsNu60KaVC9dKX260AWJuNixLl7N4lOb6VM/5SPX/QVF2TZele189HZm
- V7QGbjHikw0vgaz8Q8p67xfvIvSt/bbRRYuQJShe07BLzYCJqm7P9boUHj+pWw==
-Message-ID: <2958b5de0ab4ee1c46e2068eeb7448d6e2072ee6.camel@mailbox.org>
-Subject: Re: [PATCH] drm/sched: Do not restore unsaved virtual runtime
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Luke.Wildhardt@proton.me, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
- <dakr@kernel.org>, Pierre-Eric Pelloux-Prayer
- <pierre-eric.pelloux-prayer@amd.com>, Matthew Brost
- <matthew.brost@intel.com>, Vitaly Prosyak	 <vitaly.prosyak@amd.com>,
- stable@vger.kernel.org
-Date: Fri, 11 Sep 2026 11:36:54 +0200
-In-Reply-To: <35456574-5fc6-4270-85f9-940201998116@igalia.com>
-References: <20260907130527.52530-1-tvrtko.ursulin@igalia.com>
- <ad1382b98d5c6cb258658e8e85156a0ccd8dd7cf.camel@mailbox.org>
- <35456574-5fc6-4270-85f9-940201998116@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2980010E2FE
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 09:38:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789119488; x=1820655488;
+ h=from:date:to:cc:subject:in-reply-to:message-id:
+ references:mime-version:content-id;
+ bh=sb6ClNqSQhPq2ZVhuU+8klKUwkLjODKU96QOOaqi6Cw=;
+ b=DM9yb6wkIw6H/4OUaxjgfsWqnlyifFSzuJm4auThBBtBwc0mV354yWRx
+ XtVaPKQt14wWQTHxwmAuXrNtLuI74H7+XGOopmobWMGCbssTFCTgK70GN
+ xPc/0fvgWUsW06yKDHuGJmgGIjUvm1V7dS7+MPTBjbLpMhgWAOSeQFKK8
+ CXvQwBVdRUh7PB3vVnm8I4Hbb6wYWM1MRgDUtsgLsesnWkjK2NOk6/5wg
+ tMkfigA95OrdDDeQGjA0+DXpjVm+sYk7WNYD5sMczGNu5j/1W9HF8+vvK
+ A11b1psKdcGb9tZV65ASr1A+m9roMLitbGJqHxiKH0mDnGtQeJfczTkfU w==;
+X-CSE-ConnectionGUID: a7PYnRwHTNKXkXndbfQfOA==
+X-CSE-MsgGUID: WoY3dXSuSX+5FdjYfq7eBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="115120607"
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; d="scan'208";a="115120607"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Sep 2026 02:38:07 -0700
+X-CSE-ConnectionGUID: SRo+o97pTgCUDHnSfx1bsQ==
+X-CSE-MsgGUID: d5IlSxrWQfGb/hpk+vV9Sw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; d="scan'208";a="296857533"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.158])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Sep 2026 02:37:41 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 11 Sep 2026 12:37:38 +0300 (EEST)
+To: Juergen Gross <jgross@suse.com>
+cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org, 
+ kvm@vger.kernel.org, virtualization@lists.linux.dev, 
+ linux-edac@vger.kernel.org, linux-pci@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linux-coco@lists.linux.dev, 
+ linux-acpi@vger.kernel.org, linux-ide@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-crypto@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+ linux-mtd@lists.infradead.org, platform-driver-x86@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ "H. Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, 
+ "K. Y. Srinivasan" <kys@microsoft.com>, 
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
+ Sean Christopherson <seanjc@google.com>, 
+ Paolo Bonzini <pbonzini@redhat.com>, Ajay Kaher <ajay.kaher@broadcom.com>, 
+ Alexey Makhalov <alexey.makhalov@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Josh Poimboeuf <jpoimboe@kernel.org>, 
+ Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Pu Wen <puwen@hygon.cn>, 
+ Tony Luck <tony.luck@intel.com>, 
+ Reinette Chatre <reinette.chatre@intel.com>, 
+ Dave Martin <Dave.Martin@arm.com>, James Morse <james.morse@arm.com>, 
+ Babu Moger <babu.moger@amd.com>, Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>, 
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Kiryl Shutsemau <kas@kernel.org>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Len Brown <lenb@kernel.org>, 
+ Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>, 
+ David Airlie <airlied@redhat.com>, Olivia Mackall <olivia@selenic.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ Viresh Kumar <viresh.kumar@linaro.org>, Huang Rui <ray.huang@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ Perry Yuan <perry.yuan@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
+ Yazen Ghannam <yazen.ghannam@amd.com>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
+ Artem Bityutskiy <artem.bityutskiy@linux.intel.com>, 
+ Artem Bityutskiy <dedekind1@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Ashok Raj <ashok.raj.linux@gmail.com>, Hans de Goede <hansg@kernel.org>, 
+ Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>, 
+ Xi Pardee <xi.pardee@linux.intel.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
+ Helge Deller <deller@gmx.de>, xen-devel@lists.xenproject.org, 
+ linux-geode@lists.infradead.org, Michael Kelley <mhklinux@outlook.com>
+Subject: Re: [PATCH v3 12/13] treewide: convert rdmsrq() from a macro to an
+ inline function
+In-Reply-To: <20260911074530.3140830-13-jgross@suse.com>
+Message-ID: <b2baa471-0f6b-84e8-bda1-ae0964b72b04@linux.intel.com>
+References: <20260911074530.3140830-1-jgross@suse.com>
+ <20260911074530.3140830-13-jgross@suse.com>
 MIME-Version: 1.0
-X-MBO-RS-ID: ed1ce29a2fb0d5b105a
-X-MBO-RS-META: cgshyo631h45miui1osehgunie9bzxr1
+Content-Type: multipart/mixed; BOUNDARY="8323328-1162080221-1789119116=:1171"
+Content-ID: <b9134b99-a885-4c62-2abd-7195415a52e3@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,38 +125,48 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 2026-09-11 at 10:18 +0100, Tvrtko Ursulin wrote:
-> > So basically you move for locking the spsc-queue, the lockless queue
-> > which is usually used with the locks next to it anyways. That's cool
-> > stuff. I've suggested this for a while already
-> >=20
-> > https://docs.kernel.org/gpu/todo.html#replace-the-lockless-queue-with-a=
--locked-list
-> >=20
-> > So from a maintainability perspective, it would be far cooler if you go
-> > down this road one step further and kill the spsc_queue for good,
-> > replacing it with a fully locked list. AFAIR Christian and Danilo also
-> > have agreed to this.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323328-1162080221-1789119116=:1171
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <085b47bf-864b-9802-2915-a51186e45c40@linux.intel.com>
+
+On Fri, 11 Sep 2026, Juergen Gross wrote:
+
+> Today rdmsrq() is a macro using its second parameter as the target for
+> storing the read MSR value.
 >=20
-> I am happy to work on that just that a) I thought some time back you=20
-> said someone from RedHat will tackle it, and b) lets please not gate=20
-> this bugfix on that.
+> Convert rdmsrq() to an inline function returning the MSR value.
+>=20
+> The users have been converted using the following semantic patch:
+>=20
+>   // Options: --include-headers
+>=20
+>   virtual patch
+>   virtual report
+>=20
+>   @@
+>   expression msr, val;
+>   @@
+>   (
+>   - rdmsrq(msr,val)
+>   + val =3D rdmsrq(msr)
+>   )
+>=20
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> Acked-by: Damien Le Moal <dlemoal@kernel.org>      # ATA
 
-Someone from RH might or might not work on that, and perhaps that would
-take until 2027. I'm keeping an eye open for people to pick it up, but
-everyone's always busy.
+Acked-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>=09=09# pdx86
 
-Regarding the bugfix, this was reported as a performance issue on high
-load, that only seems to be reachable for CFS users, a brand-new policy
-that is marked as experimental and is not used by anyone in production
-yet. So IMO we can move on on drm-misc-next with spsc-queue, which will
-also make CFS usable then.
+What is the plan for merging this?
 
-Is there a plan btw as to how you would like to proceed with CFS?
+> Reviewed-by: Michael Kelley <mhklinux@outlook.com> # Hyper-V
 
-
-P.
+--=20
+ i.
+--8323328-1162080221-1789119116=:1171--
