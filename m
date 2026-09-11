@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CF39C88E50
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 08:51:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08324C88E4C
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 08:51:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF41A10F1B2;
-	Fri, 11 Sep 2026 08:51:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CF6910E898;
+	Fri, 11 Sep 2026 08:51:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uPYANlzL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RYSSY0U3";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFA4810E235;
- Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A51A10E237;
+ Fri, 11 Sep 2026 08:51:16 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 17BB9447DB;
+ by sea.source.kernel.org (Postfix) with ESMTP id 476F8447FF;
  Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BDD07C2BD05;
- Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 05C54C32786;
+ Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1789116674;
- bh=Hm5UgdxOKs4EzgGRfysTmdMaB7U/SfJ1G/Cdqf0HRuU=;
+ s=k20201202; t=1789116675;
+ bh=Ir2kLA2MThBgdITjF1uXNT5vEPUPjCB6BDKYUWJlkVw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=uPYANlzLwXDTYkWNJ76OqedN/OFG63d9oGEZsrsiNK7RHEZDEwSwktnrrlbfVRxCG
- QlunbUZ92xJW2cUtmP+eolcm1otlVdNpLZIthVL3txTg6qklHqniT7RH5sCe45CMhj
- tYjF/aZDi6KdkZK0MdJ/A8/XotikF4i7aNoyqLhf5q9mUxpwIUacH/5uXRkXjJ2Qz4
- UqFxgpcwMxPFDEM7P+JYQhKtVpe3oBpjLnyyGm3jwQfTXqNU9C03qvYoV1uz8sbGzr
- 2CqBIoMvlLkqIx1Rsf4DFG7hxWgkEMrQDBO8KxU3V7kSuwXBaqYkaS491cd/Rt+r55
- YSXrJ+SY7APwA==
+ b=RYSSY0U3ZTgE0EmFs+R/EejwrlYRI+/TrMNhbNEX4oXfFnrGdk9pbOm4Je+CbXGef
+ kWfdnuvbUiyLH/ntBecjS+nC4mRYGaVu+cZ15jcX+x99Mzs4IrvSeHYFdZyExXvSBw
+ C4SP5mvaXwH+WI87t9FWeCD/0EDboQxyTJfW0rr5UADaTpeWVPu+AQ4qgvkOK8kAuh
+ KAgqHzRl+ZgRJJIxc0RkR9upmWVjHtLIu8hpdMC9lH14aX5kb3begGcV2LVxb+Wia1
+ jseVCk+3S3+K9rdH+7XVG6xwDjCdnYhQ+agpg/JKcxCz8ejk1gYa7QgGmlxOheWrP9
+ vUu9WzQpEinwA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id A3050C88E57;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id E16AAC88E50;
  Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
 From: =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI_via_B4_Relay?=
  <devnull+kavakliyigitcan.gmail.com@kernel.org>
-Date: Fri, 11 Sep 2026 11:51:01 +0300
-Subject: [PATCH RFC 04/10] drm/panel: novatek-nt36672a: add Tianma FHD+
- video mode panel
+Date: Fri, 11 Sep 2026 11:51:04 +0300
+Subject: [PATCH RFC 07/10] drm/msm/dpu: describe SM6125 programmable-fetch
+ delayed-start quirk
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260911-ginkgo-submission-final-v1-4-0e68e63a18d4@gmail.com>
+Message-Id: <20260911-ginkgo-submission-final-v1-7-0e68e63a18d4@gmail.com>
 References: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
 In-Reply-To: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
@@ -70,11 +70,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI?= <kavakliyigitcan@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789116671; l=8274;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789116671; l=4060;
  i=kavakliyigitcan@gmail.com; s=20260911; h=from:subject:message-id;
- bh=hZNePY1tgLgGDhJlBHE8AhCXwjmbp4/rJdgWSLDow9Q=;
- b=C+ciPbyMZVAEuncYYE2u1di4xZ9AFgGKCptzeBvt0TRacT655SrBowEZXKQ98r9WOyP65qB4j
- AqhdovXIjwFAHQXfvn9XxDAykUtKO+IkdmNhFKTvW82eb5kIvOUbkow
+ bh=dCreEw0ry0ghroTxWJf7tgoAXBd+986oDcr+3tTl2VM=;
+ b=KYl/lRrMDLhvHmU1okl6IBNSYl8H3UZgdc2FxvgWCppoBUwtEFIZVK5FOVUPt7/MCw61kGQkv
+ KJLS3g1uVXIC9D2IU3cjGrSuCaC0umPhHpUeGM0zuoT1TWfIB4deo3w
 X-Developer-Key: i=kavakliyigitcan@gmail.com; a=ed25519;
  pk=W2GaxVotULs2vAjRMMLheaDtMMYs4037zO1LVVfFtPI=
 X-Endpoint-Received: by B4 Relay for kavakliyigitcan@gmail.com/20260911
@@ -99,235 +99,90 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
 
-Add support for the 1080x2340 Tianma video mode panel with Novatek
-NT36672A driver IC found in the Xiaomi Redmi Note 8 (ginkgo / SM6125).
+On Qualcomm SM6125 (Snapdragon 665 / Trinket DPU 5.4.0), calculating the
+programmable prefetch start counter strictly as:
 
-Changes:
-- Add 1080x2340 display mode timings (183.025 MHz pixel clock)
-- Add verified DCS initialization sequences for pages 0x25, 0x20, 0x24,
-  0x26, and user command page 0x10
-- Add standard DRM panel .enable and .disable callbacks to coordinate
-  display on/off commands with active DSI video stream
-- Set prepare_prev_first = true for host controller synchronization
-- Optimize power-on reset sequence to nominal 10ms timings
+    (vert_total - vfp_fetch_lines) * horiz_total + 1
+
+causes the fetch trigger to evaluate on the active-video to vertical
+front porch line boundary. In hardware, this triggers an internal line
+buffer FIFO conflict within the INTF timing generator, resulting in
+immediate DSI FIFO overflow and timeout errors (status=5) and complete
+loss of pixel output.
+
+Qualcomm downstream display drivers mitigate this erratum via
+delay_prg_fetch_start = true, delaying the fetch start by one scanline
+(+ horiz_total) into vertical front porch line 1.
+
+Introduce 'has_prg_fetch_delay' in struct dpu_caps, enable it for SM6125
+in its catalog entry, and throttle fetch start in programmable_fetch_config()
+when the capability is set.
 
 Signed-off-by: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
 ---
- drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 141 ++++++++++++++++++++-----
- 1 file changed, 117 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h |  1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   | 11 +++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h         |  2 ++
+ 3 files changed, 14 insertions(+)
 
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-index 464d9ce47d87dc857c3a565a63156ac79ddeb30c..b69213790441f204016895a391b58f676762b1aa 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-@@ -34,7 +34,7 @@ static const char * const nt36672a_regulator_names[] = {
- 	"vddneg",
- };
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h
+index 64be51e301591b7f17918475a957623c6fea23d4..ec0315284e0663f57a41a1fdf515d948c3d40d68 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h
+@@ -13,6 +13,7 @@ static const struct dpu_caps sm6125_dpu_caps = {
+ 	.max_mixer_blendstages = 0x6,
+ 	.has_dim_layer = true,
+ 	.has_idle_pc = true,
++	.has_prg_fetch_delay = true,
+ 	.max_linewidth = 2160,
+ 	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
+ 	.max_hdeci_exp = MAX_HORZ_DECIMATION,
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+index ba810f26ea3099106aac1783f7f6bf5e014e41a0..15445eaf9f3baf4661e22bee133cc2059a3cd2b1 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+@@ -237,10 +237,21 @@ static void programmable_fetch_config(struct dpu_encoder_phys *phys_enc,
  
--static unsigned long const nt36672a_regulator_enable_loads[] = {
-+static const unsigned long nt36672a_regulator_enable_loads[] = {
- 	62000,
- 	100000,
- 	100000
-@@ -92,18 +92,12 @@ static int nt36672a_panel_unprepare(struct drm_panel *panel)
- 	if (pinfo->desc->send_deinit_cmds)
- 		pinfo->desc->send_deinit_cmds(&dsi_ctx);
- 
--	/* Reset error to continue with display off even if send_cmds failed */
-+	/* Reset error to continue power-down even if send_cmds failed */
- 	dsi_ctx.accum_err = 0;
--	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
--	/* Reset error to continue power-down even if display off failed */
--	dsi_ctx.accum_err = 0;
--
--	/* 120ms delay required here as per DCS spec */
--	msleep(120);
- 
- 	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
- 
--	/* 0x3C = 60ms delay */
-+	/* 60ms delay as per DCS spec */
- 	msleep(60);
- 
- 	nt36672a_panel_power_off(panel);
-@@ -120,15 +114,14 @@ static int nt36672a_panel_power_on(struct nt36672a_panel *pinfo)
- 		return ret;
- 
- 	/*
--	 * As per downstream kernel, Reset sequence of Tianma FHD panel requires the panel to
--	 * be out of reset for 10ms, followed by being held in reset for 10ms. But for Android
--	 * AOSP, we needed to bump it upto 200ms otherwise we get white screen sometimes.
--	 * FIXME: Try to reduce this 200ms to a lesser value.
-+	 * Reset sequence: 10ms out of reset, 10ms held in reset, 10ms out of reset.
- 	 */
--	gpiod_set_value(pinfo->reset_gpio, 1);
--	msleep(200);
--	gpiod_set_value(pinfo->reset_gpio, 0);
--	msleep(200);
-+	gpiod_set_value_cansleep(pinfo->reset_gpio, 0);
-+	usleep_range(10000, 11000);
-+	gpiod_set_value_cansleep(pinfo->reset_gpio, 1);
-+	usleep_range(10000, 11000);
-+	gpiod_set_value_cansleep(pinfo->reset_gpio, 0);
-+	usleep_range(10000, 11000);
- 
- 	return 0;
- }
-@@ -146,19 +139,41 @@ static int nt36672a_panel_prepare(struct drm_panel *panel)
- 
- 	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
- 
--	/* 0x46 = 70 ms delay */
--	mipi_dsi_msleep(&dsi_ctx, 70);
--
--	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	/* 80 ms delay as per DCS spec / downstream timing */
-+	msleep(80);
- 
- 	/* Send rest of the init cmds */
- 	if (pinfo->desc->send_init_cmds_2)
- 		pinfo->desc->send_init_cmds_2(&dsi_ctx);
- 
--	mipi_dsi_msleep(&dsi_ctx, 120);
--
- 	if (dsi_ctx.accum_err < 0)
--		gpiod_set_value(pinfo->reset_gpio, 0);
-+		gpiod_set_value_cansleep(pinfo->reset_gpio, 0);
+ 	vfp_fetch_lines = programmable_fetch_get_num_lines(phys_enc, timing);
+ 	if (vfp_fetch_lines) {
++		const struct dpu_mdss_cfg *catalog = phys_enc->dpu_kms->catalog;
 +
-+	return dsi_ctx.accum_err;
-+}
+ 		vert_total = get_vertical_total(timing);
+ 		horiz_total = get_horizontal_total(timing);
+ 		vfp_fetch_start_vsync_counter =
+ 		    (vert_total - vfp_fetch_lines) * horiz_total + 1;
 +
-+static int nt36672a_panel_enable(struct drm_panel *panel)
-+{
-+	struct nt36672a_panel *pinfo = to_nt36672a_panel(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = pinfo->link };
++		/*
++		 * SM6125 (DPU 5.4 / Trinket) quirk matching downstream
++		 * delay_prg_fetch_start = true. Throttle fetch start
++		 * to the second line after active video (VFP line 1).
++		 */
++		if (catalog && catalog->caps && catalog->caps->has_prg_fetch_delay)
++			vfp_fetch_start_vsync_counter += horiz_total;
 +
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+
-+	/* Frame settling delay */
-+	msleep(20);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int nt36672a_panel_disable(struct drm_panel *panel)
-+{
-+	struct nt36672a_panel *pinfo = to_nt36672a_panel(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = pinfo->link };
-+
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+
-+	/* 120ms delay as per DCS spec */
-+	msleep(120);
- 
- 	return dsi_ctx.accum_err;
- }
-@@ -189,6 +204,8 @@ static int nt36672a_panel_get_modes(struct drm_panel *panel,
- static const struct drm_panel_funcs panel_funcs = {
- 	.unprepare = nt36672a_panel_unprepare,
- 	.prepare = nt36672a_panel_prepare,
-+	.enable = nt36672a_panel_enable,
-+	.disable = nt36672a_panel_disable,
- 	.get_modes = nt36672a_panel_get_modes,
- };
- 
-@@ -404,6 +421,79 @@ static const struct nt36672a_panel_desc tianma_fhd_video_panel_desc = {
- 	.send_deinit_cmds = tianma_fhd_video_send_deinit_cmds,
- };
- 
-+static void tianma_ginkgo_send_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
-+{
-+	/* Page 0x25 init */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x25);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x18, 0x96);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x05, 0x04);
-+
-+	/* Page 0x20 init */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x78, 0x01);
-+
-+	/* Page 0x24 init */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x24);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x82, 0x13);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x84, 0x31);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x88, 0x13);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8a, 0x31);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8e, 0xe4);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8f, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x90, 0x80);
-+
-+	/* Page 0x26 init */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x26);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa9, 0x12);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xaa, 0x10);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xae, 0x8a);
-+
-+	/* Page 0x10 (User command page) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
-+}
-+
-+static void tianma_ginkgo_send_post_on_cmds(struct mipi_dsi_multi_context *dsi_ctx)
-+{
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x35, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x68, 0x04, 0x03);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x51, 0xb8);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x2c);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x55, 0x00);
-+}
-+
-+static const struct drm_display_mode tianma_ginkgo_fhd_video_mode = {
-+	.clock		= 183025,
-+
-+	.hdisplay	= 1080,
-+	.hsync_start	= 1080 + 90,
-+	.hsync_end	= 1080 + 90 + 2,
-+	.htotal		= 1080 + 90 + 2 + 120,
-+
-+	.vdisplay	= 2340,
-+	.vsync_start	= 2340 + 10,
-+	.vsync_end	= 2340 + 10 + 3,
-+	.vtotal		= 2340 + 10 + 3 + 8,
-+
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
-+static const struct nt36672a_panel_desc tianma_ginkgo_fhd_video_panel_desc = {
-+	.display_mode = &tianma_ginkgo_fhd_video_mode,
-+	.panel_name = "tianma-ginkgo-fhd-video",
-+	.width_mm = 67,
-+	.height_mm = 145,
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM,
-+	.format = MIPI_DSI_FMT_RGB888,
-+	.lanes = 4,
-+	.send_init_cmds_1 = tianma_ginkgo_send_init_cmds,
-+	.send_init_cmds_2 = tianma_ginkgo_send_post_on_cmds,
-+};
-+
- static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
- {
- 	struct device *dev = &pinfo->link->dev;
-@@ -428,6 +518,8 @@ static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
- 
-+	pinfo->base.prepare_prev_first = true;
-+
- 	drm_panel_add(&pinfo->base);
- 
- 	return 0;
-@@ -481,6 +573,7 @@ static void nt36672a_panel_remove(struct mipi_dsi_device *dsi)
- 
- static const struct of_device_id tianma_fhd_video_of_match[] = {
- 	{ .compatible = "tianma,fhd-video", .data = &tianma_fhd_video_panel_desc },
-+	{ .compatible = "tianma,fhd-video-ginkgo", .data = &tianma_ginkgo_fhd_video_panel_desc },
- 	{ },
- };
- MODULE_DEVICE_TABLE(of, tianma_fhd_video_of_match);
+ 		f.enable = 1;
+ 		f.fetch_start = vfp_fetch_start_vsync_counter;
+ 	}
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+index f45faf87333e89bbd463504ae3219609ef6209bd..db3cbf9fa04a13baf3ac40390757ed24120ccccd 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+@@ -273,6 +273,7 @@ struct dpu_rotation_cfg {
+  * @has_dim_layer      dim layer feature status
+  * @has_idle_pc        indicate if idle power collapse feature is supported
+  * @has_3d_merge       indicate if 3D merge is supported
++ * @has_prg_fetch_delay indicate if programmable fetch start requires a 1-line delay
+  * @max_linewidth      max linewidth for sspp
+  * @pixel_ram_size     size of latency hiding and de-tiling buffer in bytes
+  * @max_hdeci_exp      max horizontal decimation supported (max is 2^value)
+@@ -285,6 +286,7 @@ struct dpu_caps {
+ 	bool has_dim_layer;
+ 	bool has_idle_pc;
+ 	bool has_3d_merge;
++	bool has_prg_fetch_delay;
+ 	/* SSPP limits */
+ 	u32 max_linewidth;
+ 	u32 pixel_ram_size;
 
 -- 
 2.47.3
