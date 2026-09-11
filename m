@@ -4,52 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97A54C88E63
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69FB7C88E5C
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1923310E9D1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97E2E10E9D4;
 	Sun, 13 Sep 2026 20:53:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="CDPcNiOK";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="9Bh6pzve";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jB4Yr0RH";
 	dkim-atps=neutral
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCECF10E436
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 12:05:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org;
- c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1789214702; bh=u8myC1jiNWPSND6jaTeBmI/
- 7+nYxV64Z9V+k1jO42CA=; b=CDPcNiOKxzam1w59NACzqglFRzHlZJHJpGtTUPCe6UEqyJdC8k
- RyNWSFZjyTl0mJl8gpuHiYQuNNiqElfdekfhPu69bYCa7vFz7H3dlIVUk4WgAh3S91TANUgZAYo
- rtm79YKx4fH0MM2CRe2ZNnE9gvOtmyxxO/7OwN1EEjU48mnSZgCaQrD5IKiOgkxV/Kfu9EMV+wS
- EqhuChLx8CYqUtxyPSzubOZd577Ey/3znCztPl8mVm56d2PpH/jCovZS+7nLRIyCNxmSFYFgfir
- aUulVXltXJsJQIItBHdTdqgBopTBysZ/7zVjpT9ftpXz5nwBAmv2yCeo63flo/kOfXg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org;
- c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1789214702; bh=u8myC1jiNWPSND6jaTeBmI/
- 7+nYxV64Z9V+k1jO42CA=; b=9Bh6pzveTujNlEp2+e6BsPCiNakHL77NBoD0zaKhBnPvNg9KQt
- CRubo/CUdZE57jEO8ZaOyh8okG5VT/BeffDg==;
-Message-ID: <6fc67e27-a36c-4974-96e4-1f68b85b3114@mainlining.org>
-Date: Sat, 12 Sep 2026 15:05:01 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] Novatek NT51021 DSI panel IC driver
-To: Ryan Brue <ryanbrue.dev@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A41010E412
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 20:02:14 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-49a97714f5dso11997885e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 13:02:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789156932; x=1789761732; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=WpWwiGaL36YcweuGSaJBrN203pu/dlOicI/VWEKjlnY=;
+ b=jB4Yr0RHvhnAQV/NgIpMAsjfti/wrso5mv1Pb2Aptx6lPPCxdtimMcI4K+MZvaUzUu
+ Eh2jKQHdF/L3NIdXEGx1ZFBMVVxxzc+PwY04lvQgyUy48VKRtDzJ+4BsZGcveQqmZkdK
+ D6wlKe07gcJIiRWOPKAWZDMYITCI7Z9I713avAEIEzAtzUasr1uIFRaPYLdTCbhWF9e1
+ RPE6mtFcpMKl4QUjPi2k18YVpc3ZzRyQh1qXI8171OAEqZjvfWJNH1DBYwmfAmAs6P0v
+ ZhfN3KSuG2mYG/Zst/HFvKpMukTgR4VHXYE433d0q/6K11BAwG8VKU+LGryfOPXsvbuN
+ k8vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789156932; x=1789761732;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=WpWwiGaL36YcweuGSaJBrN203pu/dlOicI/VWEKjlnY=;
+ b=g3EHiQwfS3yj/FKDqGbw58O9Qr235CDCq6szfVTZRLbPPA+YVetVZeYFRPJ61MZN3E
+ AIp5ZCmX+1tPS8QCVfxpMoaFDap8uwD/zjaLK5CicyDz6q/rTrCF7j789lDUb/FCYd0B
+ FWP53RBjH9gUwXkxYgKIrejO9t+03OP+q1K+cXWtLpuYPF0grq3P0mAKaZFvDEOV4MSK
+ XoOJbrGjcGKXR0u49vgSqYxAYEgUkdWxQeTx+6fWnNPpnBUpsGbqGqePSQL1z94kmxyU
+ 2s3/i7xSfbTpsm+0KWEzMBV+MAH1PPxj1lA0F94YP0nN67ah6siWQ9KX6TV7rtOVrryg
+ krHg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwCpwbQVmEWYQy3NYZNeb5jNEoVQkkzJqi0DZy4dIBNPt9Dc9qozeH23LIJ0A0D+zWR64xtONz4cC0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ndP7E0OuIbV/5yP6slOLJ/F74grHZ7DT3cc2nMIo1s6CRvLWuh
+ 3/F1+SPg4rYYEm8CD1PEDso/G+bM7D4KNYYc9VnHiIESZNHPLfH+zZvI
+X-Gm-Gg: AYBFou3vJoNvTdw2Yo6jWh+AU4Ffxlx7PurRCmEt4OQjhzRMEnKCPmTmYx1niMX2/ZF
+ 1vEh0IoPQRSwuiTeFAiR0khyFxmAJNDGT8eCAddATRO+gcXKkK2DC+TUMRuqcL9sAC7VvvQ5jOE
+ 9mOeXUh1qCkh6BpEyHt82aH1buKiY0E6FLVRg4cdXaENX90VzbaCQ68bLoK3XpxmhLwyc9WCayP
+ /auZtdrMvCVd22PYfVV8qyy5/q30xH9Ev7eraDvaN3omtOjSj7pZzIeKMI1D7zyrP6j1Ku9zMdE
+ AYJSAdj4KTARm8EtHcammK+Kbpc2mpPoIEbhB+yTD6+X/508CblhCshqy0duSJnpKYoNJBOixVc
+ O7LgyimdcCIqBRkqhm06OpzxyBeOlFke9Ta0GoznZqKYx5TEEtKQ+F7NDQmmebxZAIjZIYYDNOl
+ 2+mf2JACwHL5JsXeFbl4Rqk5/qDWincCB9/BLcH+PSct69lS7YDWffAIL3Znf6NJ4AQUdvvO2bQ
+ A5GIwKKkVyhEW3iEQ7Zx8TbaZuNGSGLTHfa1/iEKRv6kC3AENBNESqwD/plAW8ON0buk5u2CVWH
+ yd8KqcYlo5IAE+TUP41wBvXwtFeO7eb8HOGJ
+X-Received: by 2002:a05:600c:4691:b0:49c:fea1:f792 with SMTP id
+ 5b1f17b1804b1-49e6198f947mr76504605e9.12.1789156932186; 
+ Fri, 11 Sep 2026 13:02:12 -0700 (PDT)
+Received: from localhost.localdomain
+ (dynamic-095-114-033-154.95.114.pool.telefonica.de. [95.114.33.154])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49e69f02c92sm28156515e9.2.2026.09.11.13.02.10
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Fri, 11 Sep 2026 13:02:10 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>,
+ =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>
-References: <20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org>
- <56dcdf77-2a82-4efc-888b-736f512e63f5@gmail.com>
-Content-Language: ru-RU, en-US
-From: Nickolay Goppen <setotau@mainlining.org>
-In-Reply-To: <56dcdf77-2a82-4efc-888b-736f512e63f5@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/i915/audio: Fix names that do not exist in kernel-doc
+ comments
+Date: Fri, 11 Sep 2026 22:00:53 +0200
+Message-Id: <20260911200053.78731-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -67,76 +99,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+The audio component overview still refers to the former
+i915_audio_component_ops and i915_audio_component_audio_ops struct
+names. The generic audio component split renamed these types to
+drm_audio_component_ops and drm_audio_component_audio_ops.
 
-12.09.2026 05:58, Ryan Brue пишет:
->
-> On 9/11/26 10:37 AM, Nickolay Goppen wrote:
->> This series adds support for Novatek NT51021-based panels
->> for upcoming xiaomi-clover submission
->>
->> Although according to datasheet, the IС has three power rails
->> in the use case of xiaomi-clover, all of them are wired to one
->> fixed regulator
->>
->> Maybe I should create a dt option for enabling CABC for panel
->>
->> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
->> ---
->> Changes in v2:
->> - Use devm_functions and renamed structs and functions (Neil)
->> - Added delay before deasserting reset for stable initialization 
->> (Sashiko and Ryan)
->> - Fixed dt-bindings (Sashiko and Neil)
->> - Added a comment about set_display_on command
->> - Link to v1: 
->> https://patch.msgid.link/20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org
->>
->> To: Nickolay Goppen <setotau@mainlining.org>
->> To: Neil Armstrong <neil.armstrong@linaro.org>
->> To: Jessica Zhang <jesszhan0024@gmail.com>
->> To: David Airlie <airlied@gmail.com>
->> To: Simona Vetter <simona@ffwll.ch>
->> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->> To: Maxime Ripard <mripard@kernel.org>
->> To: Thomas Zimmermann <tzimmermann@suse.de>
->> To: Rob Herring <robh@kernel.org>
->> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
->> To: Conor Dooley <conor+dt@kernel.org>
->> Cc: dri-devel@lists.freedesktop.org
->> Cc: devicetree@vger.kernel.org
->> Cc: linux-kernel@vger.kernel.org
->> Cc: ryanbrue.dev@gmail.com
->>
->> ---
->> Nickolay Goppen (3):
->>        dt-bindings: display: panel: Add bindings for Novatek NT51021
->>        drivers: gpu: drm: panel: Add BOE NT51021 driver
->>        MAINTAINERS: Add myself as a maintainer of NT51021 panel driver
->>
->>   .../bindings/display/panel/novatek,nt51021.yaml    |  89 +++
->>   MAINTAINERS                                        |   6 +
->>   drivers/gpu/drm/panel/Kconfig                      |   9 +
->>   drivers/gpu/drm/panel/Makefile                     |   1 +
->>   drivers/gpu/drm/panel/panel-novatek-nt51021.c      | 791 
->> +++++++++++++++++++++
->>   5 files changed, 896 insertions(+)
->> ---
->> base-commit: 99cc957e3ef3cccd72d2119c8eacbab39af0d1d6
->> change-id: 20260829-qcom-novatek-nt51021-panels-e2f9db85a967
->>
->> Best regards,
->> -- 
->> Nickolay Goppen <setotau@mainlining.org>
-> Hi Nickolay,
-> I have patches ready on top of your v2 series for the Amazon Fire HD 
-> 10 (2017)'s panel; however, given that Sashiko has found an issue with 
-> this series, would it be best for me to wait for a v3, or would you 
-> like my patches now to incorporate into your next series?
->
-Maybe I can incorporate your panel to my driver.
-> Thank you,
-> Ryan
+Update both references to match the current types.
 
--- 
-Best regards,
-Nickolay
+Fixes: ae891abe7c2c ("drm/i915: Split audio component to a generic type")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_audio.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
+index eae76e9611055ea684dd98c34889be2413a89f80..c703da26914c1d957dff61a0220b70d3275255ce 100644
+--- a/drivers/gpu/drm/i915/display/intel_audio.c
++++ b/drivers/gpu/drm/i915/display/intel_audio.c
+@@ -63,9 +63,9 @@
+  * covered here.)
+  *
+  * The struct &i915_audio_component is used to interact between the graphics
+- * and audio drivers. The struct &i915_audio_component_ops @ops in it is
++ * and audio drivers. The struct &drm_audio_component_ops @ops in it is
+  * defined in graphics driver and called in audio driver. The
+- * struct &i915_audio_component_audio_ops @audio_ops is called from i915 driver.
++ * struct &drm_audio_component_audio_ops @audio_ops is called from i915 driver.
+  */
+ 
+ struct intel_audio_funcs {
