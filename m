@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFECCC88E58
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 15:53:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 657FAC88E53
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 15:56:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2499210E466;
-	Fri, 11 Sep 2026 15:53:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AE3410E3E6;
+	Fri, 11 Sep 2026 15:56:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U2aeZfbK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oiMCpa6U";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E4D110E3E4
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 15:53:54 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A9C110E3E4
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 15:56:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E354960202;
- Fri, 11 Sep 2026 15:53:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FE901F000FF;
- Fri, 11 Sep 2026 15:53:53 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D486843D73;
+ Fri, 11 Sep 2026 15:56:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4846E1F000FF;
+ Fri, 11 Sep 2026 15:56:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789142033;
- bh=WplX7OL6orMvmYV8PDzGFduiYKPQWLKUXjRdFEq/V34=;
+ s=k20260515; t=1789142201;
+ bh=73uTfeFMu9/xVvopMPeT6jjeQlBMO5pBA6IxMwBr8kk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=U2aeZfbKlysx2d8nsN+buKhmOlUNduBboJnswNHNXI4yqRDguIwFeB8Y+4azwyYlw
- 9zBgv1dat2m5zUGMNbiA3AkAN0bUgmQmDaICrR7voYOcQmddJgq+im2drY+jFp8x1k
- /HfWvD4Wm9ktvP+gPc75egPIL+uXh8ak1nJuDXLE6llEW40F7H91hbyo/FOAzC/EAW
- TXVyj91XHnyx4Y/VsjIPfpYuHvP8JjsCjqKdxkzEwaFLiVpnLn099R89jMfS9pokP4
- ba8Kz/jYkaZgvQ4j/5PbMMN+Y5kzYibcuIGAvb8UpqgQnGtXTwuI6cunnwkO4RQtbR
- JvnWCZ/+uEahw==
+ b=oiMCpa6UQcMSJLoOWiWHxrKf7TGKIK/43kvns1ERnqKq3kZDtHnl6Wvk83TVfI7eq
+ 8n+3LESB6Eo+/nvAanDjiSCfaiPpJnNugEy8iexuIZHjT64FUVEU3Z4YbKg1RQrRL6
+ 5UEpmNbfAVfy+L6eHuRpvSDR0kTbbdmmBoSPgTy86bxkPe9RwBgLkvIZi6atSqP8Q1
+ vf6WFcov9XOpeSHs66/K8wuZ5eXZzvuZuYRd8cE24/99WUMnKVGPYXWu0kKgO7Q4Mw
+ EJ/IBBD5PBVicXAjyPHJvAPNOE8igHCPZ5R/wK9/4j8LVscPb+2DzfcjcCehFz9G7p
+ Gl9tuvlu12oTg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 14/17] phy: qcom: edp: Add Nord PLL configuration callback
+Subject: Re: [PATCH 16/17] phy: qcom: edp: Introduce Nord phy_ver_ops and
+ phy_cfg descriptor
 To: "Nabige Aala" <nabige.aala@oss.qualcomm.com>
-Cc: olteanv@gmail.com, dri-devel@lists.freedesktop.org, robh@kernel.org,
- conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org
-In-Reply-To: <20260911-nord-drv-dt-v1-14-e25c073cf1b6@oss.qualcomm.com>
+Cc: neil.armstrong@linaro.org, olteanv@gmail.com, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, vkoul@kernel.org,
+ linux-phy@lists.infradead.org, robh@kernel.org
+In-Reply-To: <20260911-nord-drv-dt-v1-16-e25c073cf1b6@oss.qualcomm.com>
 References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
- <20260911-nord-drv-dt-v1-14-e25c073cf1b6@oss.qualcomm.com>
+ <20260911-nord-drv-dt-v1-16-e25c073cf1b6@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 15:53:52 +0000
-Message-Id: <20260911155353.0FE901F000FF@smtp.kernel.org>
+Date: Fri, 11 Sep 2026 15:56:40 +0000
+Message-Id: <20260911155641.4846E1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,62 +60,100 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The PLL configuration incorrectly writes 0x1d to DP_QSERDES_V8_COM=
-_BIAS_EN_CLKBUFLR_EN, silently overwriting the 0x1f value set during initia=
-lization.
+- [High] The common power-on flow unconditionally writes to the legacy TX_B=
+AND offset, which corrupts registers on the Nord platform.
+- [High] The Nord LDO configuration ignores DP mode and applies incorrect e=
+DP settings, contradicting the Hardware Programming Guide.
 --
 
-commit 16052638682492657891d8a92561073f1ca35358
+commit ff420262cd547c67f8bafbb24b3a2db77628fd60
 Author: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
 
-phy: qcom: edp: Add Nord PLL configuration callback
+phy: qcom: edp: Introduce Nord phy_ver_ops and phy_cfg descriptor
 
-Nord uses a 38.4 MHz CXO reference with a different QSERDES v8 COM register
-layout and PLL coefficients. This commit adds a configuration callback to
-program the QSERDES COM PLL registers with link-rate-dependent values.
+Add qcom_edp_phy_ops_nord wiring all eight Nord-specific callbacks and
+nord_edp_phy_cfg collecting the Nord AUX, VCO divider, swing/pre-emphasis
+tables and ver_ops.
 
 > diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/p=
 hy-qcom-edp.c
-> index a0f4b12e561e9..4d1b2c81d9563 100644
+> index 361f4e4673518..338f28cb404fb 100644
 > --- a/drivers/phy/qualcomm/phy-qcom-edp.c
 > +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
-[ ... ]
-> @@ -1688,6 +1688,118 @@ static int qcom_edp_com_configure_ssc_nord(const =
-struct qcom_edp *edp)
-[ ... ]
-> +static int qcom_edp_com_configure_pll_nord(const struct qcom_edp *edp)
-> +{
-[ ... ]
-> +	writel(0x0a, edp->pll + DP_QSERDES_V8_COM_BG_TIMER);
-> +	writel(core_clk_div_mode0, edp->pll + DP_QSERDES_V8_COM_CORECLK_DIV_MOD=
-E0);
-> +	writel(0x00, edp->pll + DP_QSERDES_V8_COM_VCO_TUNE_CTRL);
-> +	writel(0x1d, edp->pll + DP_QSERDES_V8_COM_BIAS_EN_CLKBUFLR_EN);
+> @@ -1847,6 +1847,29 @@ static int qcom_edp_phy_tx_res_cfg_nord(const stru=
+ct qcom_edp *edp)
+>  }
+> =20
+> =20
+> +static const struct phy_ver_ops qcom_edp_phy_ops_nord =3D {
+> +	.com_power_on		=3D qcom_edp_phy_power_on_nord,
+> +	.com_resetsm_cntrl	=3D qcom_edp_phy_com_resetsm_cntrl_nord,
+> +	.com_bias_en_clkbuflr	=3D qcom_edp_com_bias_en_clkbuflr_nord,
+> +	.com_configure_pll	=3D qcom_edp_com_configure_pll_nord,
+> +	.com_configure_ssc	=3D qcom_edp_com_configure_ssc_nord,
+> +	.com_ldo_config		=3D qcom_edp_ldo_config_nord,
 
 [Severity: High]
-Will this unconditional write of 0x1d silently overwrite the 0x1f bias enab=
-le
-value required and set during PHY initialization?
+Does this hardcode the incorrect LDO configuration for DP mode?
 
-It looks like qcom_edp_phy_init() calls com_bias_en_clkbuflr_nord() to set
-this register to 0x1f. Later, when qcom_edp_phy_power_on() calls
-com_configure_pll_nord(), this exact register is overwritten with 0x1d.
+The comments for qcom_edp_ldo_config_nord() document that DP mode must use
+0x00 and eDP mode must use 0xD1.
 
-Could clearing this bit (bit 1) prevent the PLL from locking or cause link
-training failures resulting in a blank display?
+However, the implementation seems to unconditionally hardcode 0xd0 and 0x03,
+ignoring edp->is_edp completely:
 
-> +	writel(0x0f, edp->pll + DP_QSERDES_V8_COM_CORE_CLK_EN);
-> +	writel(code1_mode0, edp->pll + DP_QSERDES_V8_COM_BIN_VCOCAL_CMP_CODE1_M=
-ODE0);
-> +	writel(code2_mode0, edp->pll + DP_QSERDES_V8_COM_BIN_VCOCAL_CMP_CODE2_M=
-ODE0);
+qcom_edp_ldo_config_nord()
+	ldo_config =3D 0xd0;
+	phy_ldo_cfg =3D 0x03;
+
+	writel(ldo_config, edp->tx0 + TXn_LDO_CONFIG);
+
+Could this cause instability or link failures when running in DP mode due to
+contradicting the hardware requirements?
+
+> +	.phy_tx_lane_cfg	=3D qcom_edp_phy_tx_lane_cfg_nord,
+
+[Severity: High]
+Can the common power-on flow corrupt registers on the Nord platform here?
+
+When qcom_edp_phy_power_on() runs, it calls this phy_tx_lane_cfg() callback
+which correctly programs the Nord-specific TX_BAND offset at 0x0024:
+
+qcom_edp_phy_power_on()
+	if (edp->cfg->ver_ops->phy_tx_lane_cfg) {
+		ret =3D edp->cfg->ver_ops->phy_tx_lane_cfg(edp);
+        ...
+
+But immediately afterward, the common flow unconditionally writes to the
+legacy TX_BAND offset:
+
+qcom_edp_phy_power_on()
+	/* TX-0 register configuration */
+    ...
+	writel(0x04, edp->tx0 + TXn_TX_BAND);
+
+Since TXn_TX_BAND moved to 0x0024 on Nord, writing to the legacy offset
+(0x0028) might clobber whatever unknown register resides there now.
+
+Would it be better to conditionally bypass the legacy TX_BAND write when the
+Nord specific callback is used?
+
+> +	.phy_tx_res_cfg		=3D qcom_edp_phy_tx_res_cfg_nord,
+> +};
 > +
-> +	return 0;
-> +}
-[ ... ]
+> +static const struct qcom_edp_phy_cfg nord_edp_phy_cfg =3D {
+> +	.is_edp			=3D false,
+> +	.aux_cfg		=3D edp_phy_aux_cfg_nord,
+> +	.vco_div_cfg		=3D edp_phy_vco_div_cfg_nord,
+> +	.dp_swing_pre_emph_cfg	=3D &nord_dp_swing_pre_emph_cfg,
+> +	.edp_swing_pre_emph_cfg	=3D &nord_edp_swing_pre_emph_cfg,
+> +	.ver_ops		=3D &qcom_edp_phy_ops_nord,
+> +	.phy_status_reg		=3D DP_PHY_STATUS_NORD,
+> +	.bias1_en_2lane		=3D 0x03,
+> +};
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-nord-drv-d=
-t-v1-0-e25c073cf1b6@oss.qualcomm.com?part=3D14
+t-v1-0-e25c073cf1b6@oss.qualcomm.com?part=3D16
