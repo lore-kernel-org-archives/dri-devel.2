@@ -4,82 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50B9CC88E69
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E652C88E63
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 147E110E9C5;
-	Sun, 13 Sep 2026 20:53:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBC0010E9BF;
+	Sun, 13 Sep 2026 20:53:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DR2HGogz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TP5d84dE";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76C5810E664
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 08:18:02 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-49d0da752ffso20673975e9.3
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 01:18:02 -0700 (PDT)
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com
+ [209.85.221.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E55410E09F
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 20:19:39 +0000 (UTC)
+Received: by mail-vk1-f171.google.com with SMTP id
+ 71dfb90a1353d-5c9649f1fcaso75836e0c.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 13:19:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789201081; x=1789805881; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1789157978; x=1789762778; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=RocYUdBBcIeZ/ASBsFYpzq2iQKAbEehKSNM8n1TlCEA=;
- b=DR2HGogzS+1zel3deHKG8agDNgFhAEvz/WDsJeGoGG235ZoOmHe3QP0czm36+qf5Ry
- uY5BwEAOJ20/3CsEGR5LnKI6r04MnrtY6AGd+LqAUwPK9MK3vDtKg/ukLJrT42Q82D4W
- ueRZzecuIhJKCdZpOkdiiQaHnKci43QgNVXsGfTcZ2Qc7QqLQPAJ2N9/TRJ/eIFCYU0p
- Cgt8a9FKenOw4Ya3Oy7g4C3z9vpBNXMCLfLNw30b6iWahYlmP1bMtSidoEHxCNyYsKGe
- zKDIUr0AhJpzLQ45N2/9gIAAYjk0c3C8KGZLlqFjoCdSNFRBTZu9gtH2yTHjO/i18cCo
- L9ow==
+ bh=g1w8AB8ju+xRNZIlH9cljncNnhc+gQt/Y6AH8/ZH7TA=;
+ b=TP5d84dEQKMQLIlqmR+my4OqfjBuBCiL8pXOd05Oqb0x70zIhDYUiRQwyVbFThk7Cs
+ Uw4WKvW/05wAxrBOi+GCi8yDSuoUQlufMP+Ps+6DW71GUYPoRRx2Gx9pTdFFVh+ILNBb
+ dO+FyDXBA7ABXlVCbKFK49Y7dKUZnLupsKpREfXLPJBGqBSHRpnmct8c9UzE3wfIC1Q7
+ e5R2mcDlTTEygjlJ3tPXeMPYh2rC9nkRdvA15Uh3lXcZkvhvmVQYHuPX6KI5h8P6B6QY
+ AzJvKQCk6QQgtKzzqw4317kHd57Di/I5NLdWkiDHeol6Ks0jDdrbEgEWOu5XGxGvINTW
+ kraw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789201081; x=1789805881;
+ d=1e100.net; s=20251104; t=1789157978; x=1789762778;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=RocYUdBBcIeZ/ASBsFYpzq2iQKAbEehKSNM8n1TlCEA=;
- b=Y2pTj6giievvm70CO7BFcTTyna4BbSXQLDk+pB6NvXxYvNjGdqmKKKb1USKkd3l/bU
- 5AYvUhjEyYJ3VuJU0J6rhoybJSQrykmvEUvf/7WBzAJNz11+1EJw/hlgWvm95ctrB3Yy
- lRDq8yZmopMHOXn4hIn23ytsj8oLTsD8meFFIf+TtSd1DMzYufEO+BTeC4yrAcdmLoP3
- 94mlS3u526sfV1Hcuq78mqyefSlWb4HpKY3nHVxv1UVnDj1UunR9ZVjyFc90bP1hVcus
- XWrwrQpJR63Qp+8a6D9293qzG/Kyuocn4aB9AJJFSskhZW1giyHbVZGnjMh7T29RwjFZ
- 2UGg==
+ bh=g1w8AB8ju+xRNZIlH9cljncNnhc+gQt/Y6AH8/ZH7TA=;
+ b=NmRW/5yEswJWcFujNrKIXspRmwl3qdaauvU7/0K6h8p6w/aE95ifLRIO3dFgB2WtHU
+ BGtJ8CvXowo0Q8fBCqhnxz2Wsu7OhxCBMzV4WpoHiyP4MWZ2bE1EMjpT7kUgd3LVf6aX
+ 2LfzuzBo5PUnQYLFQ/0uUw8r68FfVsXkhzTEub3rm2x0ueAKlwYkyd1HjHnK9Z7P72lY
+ gG3IFVSI9X0zuPNXX+8n8O7G/Fc05Ge+O0ycvrFu5HUgunuCCLTDYxA0klN/XhNXwv8F
+ WmsKBY06f+vLdVC0Q9TvojqJLBjqxqM+3y88TzKny05q+7TOqc/bJ+RlIfOuY9tWgoez
+ KwUA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwnHWN+25fOO+EsN/DWLDPqXiDNZdipCx4/XqVNd5p8usISzccto8ou6riyTE+ONyCkaUGIWP0qkiY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lm6nUytt+K24rv0MR25KyNNtmJj2HI/MoqTktx0TfFkf4k9Q+C
- wJs/W3y2sYF0gheKkU/wn8spT06Ph14EUvuHRn2BS0UaYOMS4P6w9HZE
-X-Gm-Gg: AYBFou1yCA5sf8fVrPoIHLhnsOXHZHSrJLKcC3bWxVQ3HvHEtRtYq8sFM6e7hfolRSm
- RZzv45Fgc7EOCmeWzBlzhQuFUVkGdPuTm+f1aZI9NQdnJ39zacC63ide2AcEXHNX2QlAGZ4qWgC
- SyLJxgXiX+DXwQsiDblkNXd4f74dR3fc6m+gyxbzeEjeIaTyL3oSpQZUc6wNW8vxlSKdqKyuo37
- vyE39yyMl2aHT0sxD76Th5OSOWMU2h5bbrOJDoc0t2FwH/sMbx7nhS4ZO6eua2oFhEwShoH2EfH
- 7XpaBUHbpXQl8v9ua3hhK4nKUYpIfAkGn8n6p+DrJMs1+9za/rBwAShLoCepmzydJQS++MxrhTM
- iSFXmNbLTdncl6hepiWNh0RbWFnJtREptaoExotlQnu0zVsZcWtweyIVjhgufduTjeqJhWTwRxe
- cDBHiEtV1CPYa08QZj272F4UUGj5WRDTb2tqtVBmmYcc/CFnkYweO1tmV3zJqHQvlIBERxzqWhO
- XvlUK/2xbX4dHNkfm/87ckzojtIbpI1+Xk3OwiAJ0uYRemvEcDBVTMf/+mh8SPmu6LmnOZrxici
- o3/52WS1sz/HOMrLxOVM5gLwjEGPa9InJZ8D4LXQEt6vqOLo18AS73Bwj4cb07b8/uaDnsFZxxq
- LYp/1C5jyI1NS
-X-Received: by 2002:a05:600d:8445:10b0:49c:cf18:494e with SMTP id
- 5b1f17b1804b1-49e6198a3b2mr62627265e9.12.1789201080628; 
- Sat, 12 Sep 2026 01:18:00 -0700 (PDT)
-Received: from localhost.localdomain
- (dynamic-2a02-3100-b260-f201-9983-e8c4-aff5-7a36.310.pool.telefonica.de.
- [2a02:3100:b260:f201:9983:e8c4:aff5:7a36])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49e6420de77sm57620925e9.3.2026.09.12.01.17.59
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sat, 12 Sep 2026 01:18:00 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/pagemap_util: Fix drm_pagemap_shrinker_create_devm()
- kernel-doc
-Date: Sat, 12 Sep 2026 10:17:55 +0200
-Message-Id: <20260912081755.60885-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+ AKwUvBxR4TgQiKwl2tXn4hYE0GjUAoufoKYNcje5FivP/z2lqr51oaSEwW6cI4Pr5HFGvcxSDh/rDPT9+HI=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mpIQJF9wBrBmySwWWSA1MP/tjIVvP4S/7DH072L1xvBvSl8EkJ
+ kcX39WIxWZ9w51FvEfp2Vb7ooWj1w0IKKpXmoU+qK9z75Ti3vOk+RlNQ
+X-Gm-Gg: AYBFou0T5tJu+crkEmVQwo8pJU13nbxiqx6bnY5MrlBSiYyztWE1X+5ZGS1lQXCiket
+ ZfmVwnXojBlY1I0NnKWEztN4rokb3lUSf2Xmbv0tQFCudxBKgnpEo/yYIXvEPudHevMiwqwW8AT
+ BcRN36ZIufwkxyCTcHL037+RS8qGR6KJKc/YGDzUXBWIpB35HrmIau0JxTCNJIiBxNbzBxPcDcC
+ mSQ6D9EgKhXZ5fV0b6ptDmFx3xReJY59bTYjEDGYWMGWDj+DpPPwVBE+1Nsd567vA5gT351CArV
+ I7Pu5H/XZKa2dE2zTfhEtuX8dsygPc/Dv2wXzTH8Ocs4UwAQ5/ZvDCHE4sANbAbpUigZ/c3eT/7
+ dyfKDwRtIpZlJV3Jg3ilmmLzYT/44VCFUMNPFs8MUxC7FD6IvYT0Mo7p4L3T+zxsiNbBBzOjCdS
+ K0wHLAv/XI8rv33LBCeqB4cXeZ3HKpZ3B4CnmTMoS9FaWV2Dh9gZc3rnrwTq0t1H8I
+X-Received: by 2002:a05:6122:c8f:b0:5c8:2852:36cc with SMTP id
+ 71dfb90a1353d-5c846277c7dmr8968833e0c.4.1789157977995; 
+ Fri, 11 Sep 2026 13:19:37 -0700 (PDT)
+Received: from frese.. ([189.60.169.129]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5c847153919sm4031544e0c.16.2026.09.11.13.19.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 11 Sep 2026 13:19:37 -0700 (PDT)
+From: Enzo Frese <freseenzo@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ =?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Enzo Frese <freseenzo@gmail.com>
+Subject: [PATCH] dt-bindings: display: panel: mipi-dbi-spi: add st7789v-tft28
+Date: Fri, 11 Sep 2026 17:19:20 -0300
+Message-ID: <20260911201920.72734-1-freseenzo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
@@ -98,30 +90,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_pagemap_shrinker_create_devm() returns the new struct
-drm_pagemap_shrinker, or an ERR_PTR() on failure, but its kernel-doc
-says "%0 on success", which was never true. Describe the pointer.
+This is a generic 2.8" 240x320 RGB LCD panel with a MIPI DBI compatible
+SPI interface, based on the Sitronix ST7789V controller. It is commonly
+sold by various resellers without an identifiable original manufacturer
+name printed on the PCB.
 
-Fixes: 77f14f2f2d73 ("drm/pagemap: Add a drm_pagemap cache and shrinker")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+A basic mipi-dbi-cmd[1] script to get the display running looks like
+this:
+
+$ cat st7789v-tft28.txt
+command 0x11
+delay 120
+command 0x3a 0x55
+command 0xb2 0x05 0x05 0x00 0x33 0x33
+command 0xb7 0x75
+command 0xc2 0x01 0xff
+command 0xc3 0x13
+command 0xc4 0x20
+command 0xbb 0x22
+command 0xc5 0x20
+command 0xd0 0xa4 0xa1
+command 0xe0 0xd0 0x05 0x0a 0x09 0x08 0x05 0x2e 0x44 0x45 0x0f 0x17 0x16 0x2b 0x33
+command 0xe1 0xd0 0x05 0x0a 0x09 0x08 0x05 0x2e 0x43 0x45 0x0f 0x16 0x16 0x2b 0x33
+command 0x36 0x00
+command 0x29
+command 0x21
+
+$ mipi-dbi-cmd st7789v-tft28.bin st7789v-tft28.txt
+
+Tested on a Raspberry Pi 4B using the panel-mipi-dbi driver.
+
+[1]: https://github.com/notro/panel-mipi-dbi
+
+Signed-off-by: Enzo Frese <freseenzo@gmail.com>
 ---
- drivers/gpu/drm/drm_pagemap_util.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml    | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/drm_pagemap_util.c b/drivers/gpu/drm/drm_pagemap_util.c
-index 6111d90a38e24586fbcb06f8182e9025339b26b0..c9077a84e3467a5c547d437baae9159bfcd9bea1 100644
---- a/drivers/gpu/drm/drm_pagemap_util.c
-+++ b/drivers/gpu/drm/drm_pagemap_util.c
-@@ -412,7 +412,7 @@ static void drm_pagemap_shrinker_fini(void *arg)
-  * The shrinker is drm_device managed and unregisters itself when
-  * the drm device is removed.
-  *
-- * Return: %0 on success, negative error code on failure.
-+ * Return: the new shrinker on success, an ERR_PTR() on failure.
-  */
- struct drm_pagemap_shrinker *drm_pagemap_shrinker_create_devm(struct drm_device *drm)
- {
+diff --git a/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml b/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
+index 6f0290c4e291..c28659bd05dc 100644
+--- a/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
++++ b/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
+@@ -75,6 +75,7 @@ properties:
+           - saef,sftc154b
+           - sainsmart18
+           - shineworld,lh133k
++          - st7789v-tft28
+       - const: panel-mipi-dbi-spi
+ 
+   reg:
 -- 
-2.39.5 (Apple Git-154)
+2.43.0
 
