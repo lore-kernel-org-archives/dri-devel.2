@@ -4,54 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B01CC88E58
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 12:45:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF9A3C88E50
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 12:46:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCF7910F59D;
-	Fri, 11 Sep 2026 12:45:53 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="0YT2oS46";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5noCCjOB";
-	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25A8310E3D1;
- Fri, 11 Sep 2026 12:45:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0396E10F5B5;
+	Fri, 11 Sep 2026 12:46:11 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46F1710F5B7;
+ Fri, 11 Sep 2026 12:46:10 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9908D1F79D;
- Fri, 11 Sep 2026 12:45:46 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2206F21D63;
+ Fri, 11 Sep 2026 12:45:52 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789130746; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=tzsC2VzdToDvjyu2bKo4kXLJkrMvANfsE4sUyvOrhy8=;
- b=0YT2oS467GDz5Jb+FNn42kMHKgOv8Os+MTeed95wwhwmprlCL0grm5Ze4oi4tGk3S5YutP
- 99+RwGo3JJq50EzEBXFD/XWuMrT6bHQU17q3r0LzJS9aHxDqP2mCQ01vts9po0Xb+WSYx7
- SjLLTtgANg5BUx+Iwb/4nLveg2RZJLw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789130746;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=tzsC2VzdToDvjyu2bKo4kXLJkrMvANfsE4sUyvOrhy8=;
- b=5noCCjOByuvOQLxXAMnWcFFwzL91l8msT3tuk55VUOqYc6+kVx9JFbAeIOK+xjspayPRMR
- bjuHvzX9/Pq6q0Dg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E8A6C136ED;
- Fri, 11 Sep 2026 12:45:45 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D481813867;
+ Fri, 11 Sep 2026 12:45:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 0F1yN/n3o2r8EQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 11 Sep 2026 12:45:45 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id uDCtMv33o2r8EQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 11 Sep 2026 12:45:49 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: jfalempe@redhat.com, javierm@redhat.com, airlied@gmail.com,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org,
@@ -62,17 +40,19 @@ Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
  intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
  linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
- sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>,
- stable@vger.kernel.org
-Subject: [PATCH v5 01/14] drm/panic: Do not use un-escaped URL as format string
-Date: Fri, 11 Sep 2026 14:43:54 +0200
-Message-ID: <20260911124540.279841-2-tzimmermann@suse.de>
+ sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v5 08/14] drm/panic: Retry in dispatch function if panic
+ output fails
+Date: Fri, 11 Sep 2026 14:44:01 +0200
+Message-ID: <20260911124540.279841-9-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260911124540.279841-1-tzimmermann@suse.de>
 References: <20260911124540.279841-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 9908D1F79D
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Queue-Id: 2206F21D63
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
 X-Rspamd-Action: no action
@@ -94,38 +74,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace the direct use of DRM_PANIC_SCREEN_QR_CODE_URL in snprintf()
-with a %s conversion specifier. Avoids a possible vulnerabilty from
-a crafted URL string.
+On failed output of QR codes and kmsg buffers, fall back to a user
+message. QR-code output already did this internally, but now formally
+support it in drm_panic_dispatch(). Streamlines the existing logic.
 
-As the attacker needs to control the kernel at the Kconfig level, the
-potential for an exploit is likely low.
+With the implicit fallback removed from QR-code support, the tests
+cases fail for thr smallest output size (300x200). This is because the
+QR code requires a minimal output size. Increase the size to 494x494,
+which is the minimum supported size for QR output.
+
+v3:
+- update outdated commit description (Sashiko)
+v2:
+- fix minimum test size (Sashiko)
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
-Fixes: cb5164ac43d0 ("drm/panic: Add a QR code panic screen")
-Cc: Javier Martinez Canillas <javierm@redhat.com>
-Cc: Jocelyn Falempe <jfalempe@redhat.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.12+
 ---
- drivers/gpu/drm/drm_panic.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_panic.c            | 24 ++++++++++++------------
+ drivers/gpu/drm/tests/drm_panic_test.c |  2 +-
+ 2 files changed, 13 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
-index e576c4791861..ba21df4be338 100644
+index b1cd5e5865a0..ce4606cac7e2 100644
 --- a/drivers/gpu/drm/drm_panic.c
 +++ b/drivers/gpu/drm/drm_panic.c
-@@ -658,7 +658,8 @@ static int drm_panic_get_qr_code_url(u8 **qr_image)
- 	char *kmsg;
- 	int max_qr_data_size, url_len;
+@@ -740,9 +740,9 @@ static int drm_panic_get_qr_code(u8 **qr_image, unsigned int qr_version)
+ /*
+  * Draw the panic message at the center of the screen, with a QR Code
+  */
+-static int _draw_panic_screen_qr_code(struct drm_scanout_buffer *sb,
+-				      u32 fg_color, u32 bg_color,
+-				      unsigned int qr_version)
++static int draw_panic_screen_qr_code(struct drm_scanout_buffer *sb,
++				     u32 fg_color, u32 bg_color,
++				     unsigned int qr_version)
+ {
+ 	const struct font_desc *font = get_default_font(sb->width, sb->height, NULL, NULL);
+ 	struct drm_rect r_screen, r_logo, r_msg, r_qr, r_qr_canvas;
+@@ -812,15 +812,6 @@ static int _draw_panic_screen_qr_code(struct drm_scanout_buffer *sb,
+ 	drm_panic_blit(sb, &r_qr, qr_image, qr_pitch, scale, fg_color);
+ 	return 0;
+ }
+-
+-static int draw_panic_screen_qr_code(struct drm_scanout_buffer *sb,
+-				     u32 fg_color, u32 bg_color,
+-				     unsigned int qr_version)
+-{
+-	if (_draw_panic_screen_qr_code(sb, fg_color, bg_color, qr_version))
+-		return draw_panic_screen_user(sb, fg_color, bg_color);
+-	return 0;
+-}
+ #else
+ static void drm_panic_qr_init(void) {};
+ static void drm_panic_qr_exit(void) {};
+@@ -895,13 +886,22 @@ static int draw_panic_dispatch(struct drm_scanout_buffer *sb, enum drm_panic_typ
+ {
+ 	int ret;
  
--	url_len = snprintf(url, sizeof(url), CONFIG_DRM_PANIC_SCREEN_QR_CODE_URL "?a=%s&v=%s&z=",
-+	url_len = snprintf(url, sizeof(url), "%s?a=%s&v=%s&z=",
-+			   CONFIG_DRM_PANIC_SCREEN_QR_CODE_URL,
- 			   utsname()->machine, utsname()->release);
- 
- 	max_qr_data_size = drm_panic_qr_max_data_size(panic_qr_version, url_len);
++retry:
+ 	switch (panic_type) {
+ 	case DRM_PANIC_TYPE_KMSG:
+ 		ret = draw_panic_screen_kmsg(sb, fg_color, bg_color);
++		if (ret) {
++			panic_type = DRM_PANIC_TYPE_USER;
++			goto retry;
++		}
+ 		break;
+ #if IS_ENABLED(CONFIG_DRM_PANIC_SCREEN_QR_CODE)
+ 	case DRM_PANIC_TYPE_QR:
+ 		ret = draw_panic_screen_qr_code(sb, fg_color, bg_color, qr_version);
++		if (ret) {
++			panic_type = DRM_PANIC_TYPE_USER;
++			goto retry;
++		}
+ 		break;
+ #endif
+ 	case DRM_PANIC_TYPE_USER:
+diff --git a/drivers/gpu/drm/tests/drm_panic_test.c b/drivers/gpu/drm/tests/drm_panic_test.c
+index 196496238d23..55d77bc203df 100644
+--- a/drivers/gpu/drm/tests/drm_panic_test.c
++++ b/drivers/gpu/drm/tests/drm_panic_test.c
+@@ -32,7 +32,7 @@ struct drm_test_mode {
+  */
+ #define DRM_TEST_MODE_LIST(func) \
+ 	DRM_PANIC_TEST_MODE(1024, 768, DRM_FORMAT_XRGB8888, func) \
+-	DRM_PANIC_TEST_MODE(300, 200, DRM_FORMAT_XRGB8888, func) \
++	DRM_PANIC_TEST_MODE(494, 494, DRM_FORMAT_XRGB8888, func) \
+ 	DRM_PANIC_TEST_MODE(1920, 1080, DRM_FORMAT_XRGB8888, func) \
+ 	DRM_PANIC_TEST_MODE(1024, 768, DRM_FORMAT_RGB565, func) \
+ 	DRM_PANIC_TEST_MODE(1024, 768, DRM_FORMAT_RGB888, func) \
 -- 
 2.55.0
 
