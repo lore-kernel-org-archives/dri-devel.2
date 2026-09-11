@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE424C88E4D
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 19:17:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B9FCC88E53
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 19:17:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A7A610F6E5;
-	Fri, 11 Sep 2026 19:17:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 504D010F6D0;
+	Fri, 11 Sep 2026 19:17:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="B3Fods4B";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Qt/7DDRa";
 	dkim-atps=neutral
 Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
  [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C17A310F6E2
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 19:17:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1789154233; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BF8710F6D0
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 19:17:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1789154253; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=Oo1xpzXRZBoW/ohEal9JzMxLBfyTeSmhlO/NtRI0IxaQkgd2fhgi/RTUSREiz702C11veNTPDPstYErsQqNaYkAmZlQ7Y4NBINCOEEmbousvO4+K2naZmVbwWx9n0zMDJTjDSSK3T9Nkq5olUDqoqiGoMNn/n3L7zj8JbP5P9ow=
+ b=XjooYV5kEFQGV08qpZQEhBipdgBbz/vEGnSRQZqowJMzP7SB4FyWxPn0jElB3nBk72epw5NwXrK3n3+YoWk0on93imdmjYlnLheCyAdWCfZjH7pfHpj+oclk9Cdj7vObuPfVgAgE7Pa2PLmGz67Acefzv5pxraBu5szCWAWbZUY=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1789154233;
+ s=zohoarc; t=1789154253;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=+v9ar8wPBD0xHuf/zTdqOyqjdltZ2NhVgxC47rIZ6iM=; 
- b=EPGxE9ChslyVa02BCZ2KiOrFxf2veW+fSAMFeznAyOkw6E0dVQRPHfgLXDxKNQgl8GAvcyof1ZCXeVBevYFa6yzucL01CWb3/La6swOb4cHDicrTmpFG00/PQ/Y9caT31yyPokDgieQVwBtk2zzaEK5NsGmw7kdlsTP/UMGuFmk=
+ bh=eUEZD4gf1dPTyyjb0g6E88Kf3E9DOxokbw0BzzvUr6k=; 
+ b=Dse7BrjV76DsFGxZO1Wv30tI6k0N2znV+R7tRVwcXc/3ZcTSFRzWUQNH5LtgUyJmw3uIs9CsjOQJW6tmIrsoZJ/ddnsmsczqg+kpUnbPSPgkyaVLS6j+oY4dtkCIoMS+ypHcWa6mJ2f859TOoJxBoMR6KsmJk/Gb8eUQw7a+qv0=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789154233; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789154253; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
- bh=+v9ar8wPBD0xHuf/zTdqOyqjdltZ2NhVgxC47rIZ6iM=;
- b=B3Fods4B7PIKs7oRpHmHsZWlC7Gn5nkjVWiwBJzYE8JPcs+ZADIEDjYotTPnRAkH
- vscd2d2DsQaupxRMv2R9Sbx4aWR7OUDkmrkaKxijunrg0vzAkkSaIHeLGdae5JXrtmB
- TnC/W1KgUw/nknpMSP4XcUTP9f9mwbfoRm8J0jBg=
-Received: by mx.zohomail.com with SMTPS id 1789154231098208.1192348446799;
- Fri, 11 Sep 2026 12:17:11 -0700 (PDT)
-Date: Fri, 11 Sep 2026 20:17:07 +0100
+ bh=eUEZD4gf1dPTyyjb0g6E88Kf3E9DOxokbw0BzzvUr6k=;
+ b=Qt/7DDRaaAFHS/2MXSvPtUt/zU8W5U57hAPzU4LYFa5E1H3pbGwQeYH4oUDWjZhh
+ PQbG434RMMNu1lSw9idMQSj4T2dHP4gGkz3CJk2gkWwJmb/yno/oWudNqoynZzuIYyD
+ g6c3ZetmzypJsQrW5Wfsf9utgK6jHKczW6PRffhg=
+Received: by mx.zohomail.com with SMTPS id 1789154251343908.8885510094409;
+ Fri, 11 Sep 2026 12:17:31 -0700 (PDT)
+Date: Fri, 11 Sep 2026 20:17:27 +0100
 From: Adrian Larumbe <adrian.larumbe@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>
 Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
@@ -47,15 +47,15 @@ Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 15/18] drm/panthor: Track user owned VMs
-Message-ID: <aqQTkeakkiMdTfcE@sobremesa>
+Subject: Re: [PATCH v4 16/18] drm/panthor: Track user owned groups
+Message-ID: <aqQLUfxvROh3soX_@sobremesa>
 References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
- <20260826-panthor-unplug-fixes-v4-15-982cc8f4234b@collabora.com>
+ <20260826-panthor-unplug-fixes-v4-16-982cc8f4234b@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260826-panthor-unplug-fixes-v4-15-982cc8f4234b@collabora.com>
+In-Reply-To: <20260826-panthor-unplug-fixes-v4-16-982cc8f4234b@collabora.com>
 X-Zoho-Virus-Status: 1
 X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.144.59
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,112 +76,142 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 Reviewed-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 
 On 26.08.2026 16:56, Boris Brezillon wrote:
-> We will soon need this to fix the unplug logic and make sure panthor_vm
-> objects are not left behind after an unplug.
+> A group can outlive its user handle because of internal refs. In order
+> to fix the unplug logic, we need to keep track of groups that have a
+> valid user handle so we can release the references that were owned by
+> the user processes in the unplug path.
+> 
+> This is the prep work to keep track of user owned groups. Note that
+> the destroyed attribute is dropped because it's equivalent to checking
+> whether the group is inserted in the user_owned list now.
 > 
 > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 > ---
->  drivers/gpu/drm/panthor/panthor_mmu.c | 31 +++++++++++++++++++++++++++----
->  1 file changed, 27 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/panthor/panthor_sched.c | 43 ++++++++++++++++++++++++---------
+>  1 file changed, 31 insertions(+), 12 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 47c57b39bd12..6368bf57b8f5 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -117,12 +117,15 @@ struct panthor_mmu {
->  
->  	/** @vm: VMs management fields */
->  	struct {
-> -		/** @vm.lock: Lock protecting access to list. */
-> +		/** @vm.lock: Lock protecting access to list and user_owned. */
->  		struct mutex lock;
->  
->  		/** @vm.list: List containing all VMs. */
->  		struct list_head list;
->  
-> +		/** @vm.list: List containing VMs with a valid handle. */
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index 4ea16b40d6b9..bd5dcf4cb580 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -235,6 +235,15 @@ struct panthor_scheduler {
+>  		 * This list is evaluated in the @sync_upd_work work.
+>  		 */
+>  		struct list_head waiting;
+> +
+> +		/**
+> +		 * @user_owned: List of groups that have a valid user handle.
+> +		 *
+> +		 * All groups are inserted in this list at creation time through their
+> +		 * panthor_group;:user_node, and evicted from this list when
+
+                  Nit: :: instead of ;:
+
+> +		 * panthor_group_destroy() is called.
+> +		 */
 > +		struct list_head user_owned;
-> +
->  		/** @vm.reset_in_progress: True if a reset is in progress. */
->  		bool reset_in_progress;
+>  	} groups;
 >  
-> @@ -447,6 +450,9 @@ struct panthor_vm {
->  	/** @node: Used to insert the VM in the panthor_mmu::vm::list. */
->  	struct list_head node;
+>  	/**
+> @@ -586,15 +595,6 @@ struct panthor_group {
+>  	 */
+>  	int csg_id;
 >  
-> +	/* @user_node: Used to insert the VM in the panthor_mmu::vm::user_owned list. */
-> +	struct list_head user_node;
-> +
->  	/** @for_mcu: True if this is the MCU VM. */
->  	bool for_mcu;
->  
-> @@ -1681,10 +1687,19 @@ int panthor_vm_pool_create_vm(struct panthor_device *ptdev,
->  	drm_gem_object_get(&pool->dummy->base);
->  	vm->dummy = pool->dummy;
->  
-> +	/* Insert in the list before xa_alloc() so we can't race with
-> +	 * panthor_vm_pool_destroy_vm() have the VM inserted in the
-> +	 * user_owned list after it's been destroyed.
-> +	 */
-> +	scoped_guard(mutex, &ptdev->mmu->vm.lock)
-> +		list_add_tail(&vm->user_node, &ptdev->mmu->vm.user_owned);
-> +
->  	ret = xa_alloc(&pool->xa, &id, vm,
->  		       XA_LIMIT(1, PANTHOR_MAX_VMS_PER_FILE), GFP_KERNEL);
->  
->  	if (ret) {
-> +		scoped_guard(mutex, &ptdev->mmu->vm.lock)
-> +			list_del_init(&vm->user_node);
->  		panthor_vm_put(vm);
->  		return ret;
->  	}
-> @@ -1739,13 +1754,19 @@ static void panthor_vm_destroy(struct panthor_vm *vm)
->   */
->  int panthor_vm_pool_destroy_vm(struct panthor_vm_pool *pool, u32 handle)
->  {
-> +	struct panthor_device *ptdev;
->  	struct panthor_vm *vm;
->  
->  	vm = xa_erase(&pool->xa, handle);
-> +	if (!vm)
-> +		return -EINVAL;
-> +
-> +	ptdev = container_of(vm->as->base.drm, struct panthor_device, base);
-> +	scoped_guard(mutex, &ptdev->mmu->vm.lock)
-> +		list_del_init(&vm->user_node);
->  
->  	panthor_vm_destroy(vm);
+> -	/**
+> -	 * @destroyed: True when the group has been destroyed.
+> -	 *
+> -	 * If a group is destroyed it becomes useless: no further jobs can be submitted
+> -	 * to its queues. We simply wait for all references to be dropped so we can
+> -	 * release the group object.
+> -	 */
+> -	bool destroyed;
 > -
-> -	return vm ? 0 : -EINVAL;
-> +	return 0;
+>  	/**
+>  	 * @timedout: True when a timeout occurred on any of the queues owned by
+>  	 * this group.
+> @@ -707,6 +707,17 @@ struct panthor_group {
+>  	 * panthor_group::groups::waiting list.
+>  	 */
+>  	struct list_head wait_node;
+> +
+> +	/**
+> +	 * @user_node: Used to insert the group in the panthor_scheduler::groups::user_owned list.
+> +	 *
+> +	 * When the group is created, it's inserted in panthor_scheduler::groups::user_owned,
+> +	 * and when panthor_group_destroy, the group is remove from this list.
+> +	 *
+> +	 * When the device is unplugged, all groups that remain in this list must have an extra
+> +	 * put_group() called on them to release the reference owned by the per-file group pool.
+> +	 */
+> +	struct list_head user_node;
+>  };
+>  
+>  struct panthor_job_profiling_data {
+> @@ -969,6 +980,7 @@ static void group_release(struct kref *kref)
+>  	struct panthor_device *ptdev = group->ptdev;
+>  
+>  	drm_WARN_ON(&ptdev->base, group->csg_id >= 0);
+> +	drm_WARN_ON(&ptdev->base, !list_empty(&group->user_node));
+>  	drm_WARN_ON(&ptdev->base, !list_empty(&group->run_node));
+>  	drm_WARN_ON(&ptdev->base, !list_empty(&group->wait_node));
+>  
+> @@ -1003,7 +1015,7 @@ group_can_run(struct panthor_group *group)
+>  {
+>  	return group->state != PANTHOR_CS_GROUP_TERMINATED &&
+>  	       group->state != PANTHOR_CS_GROUP_UNKNOWN_STATE &&
+> -	       !group->destroyed &&
+> +	       !list_empty(&group->user_node) &&
+>  	       !atomic_read(&group->fatal_queues) &&
+>  	       !atomic_read(&group->timedout);
 >  }
+> @@ -2472,7 +2484,7 @@ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *c
+>  			 * re-evaluate as soon as possible and get rid of
+>  			 * this dangling group.
+>  			 */
+> -			if (group->destroyed)
+> +			if (list_empty(&group->user_node))
+>  				ctx->immediate_tick = true;
+>  			group_put(group);
+>  		}
+> @@ -3667,6 +3679,7 @@ int panthor_group_create(struct panthor_file *pfile,
+>  	group->tiler_core_mask = group_args->tiler_core_mask;
+>  	group->priority = group_args->priority;
 >  
->  /**
-> @@ -1785,7 +1806,7 @@ void panthor_vm_pool_destroy(struct panthor_file *pfile)
->  		return;
+> +	INIT_LIST_HEAD(&group->user_node);
+>  	INIT_LIST_HEAD(&group->wait_node);
+>  	INIT_LIST_HEAD(&group->run_node);
+>  	INIT_WORK(&group->term_work, group_term_work);
+> @@ -3735,8 +3748,13 @@ int panthor_group_create(struct panthor_file *pfile,
+>  	mutex_lock(&sched->reset.lock);
+>  	if (atomic_read(&sched->reset.in_progress)) {
+>  		panthor_group_stop(group);
+> +
+> +		mutex_lock(&sched->lock);
+> +		list_add_tail(&group->user_node, &sched->groups.user_owned);
+> +		mutex_unlock(&sched->lock);
+>  	} else {
+>  		mutex_lock(&sched->lock);
+> +		list_add_tail(&group->user_node, &sched->groups.user_owned);
+>  		list_add_tail(&group->run_node,
+>  			      &sched->groups.idle[group->priority]);
+>  		mutex_unlock(&sched->lock);
+> @@ -3776,7 +3794,7 @@ int panthor_group_destroy(struct panthor_file *pfile, u32 group_handle)
 >  
->  	xa_for_each(&pfile->vms->xa, i, vm)
-> -		panthor_vm_destroy(vm);
-> +		panthor_vm_pool_destroy_vm(pfile->vms, i);
->  
->  	if (pfile->vms->dummy)
->  		drm_gem_object_put(&pfile->vms->dummy->base);
-> @@ -3182,6 +3203,7 @@ panthor_vm_create(struct panthor_device *ptdev, bool for_mcu,
->  		goto err_put_as;
+>  	mutex_lock(&sched->reset.lock);
+>  	mutex_lock(&sched->lock);
+> -	group->destroyed = true;
+> +	list_del_init(&group->user_node);
+>  	if (group->csg_id >= 0) {
+>  		sched_queue_delayed_work(sched, tick, 0);
+>  	} else if (!atomic_read(&sched->reset.in_progress)) {
+> @@ -4143,6 +4161,7 @@ int panthor_sched_init(struct panthor_device *ptdev)
+>  		INIT_LIST_HEAD(&sched->groups.idle[prio]);
 >  	}
+>  	INIT_LIST_HEAD(&sched->groups.waiting);
+> +	INIT_LIST_HEAD(&sched->groups.user_owned);
 >  
-> +	INIT_LIST_HEAD(&vm->user_node);
->  	vm->user_va_range = kernel_va_start;
->  	vm->as = as;
->  	mutex_init(&vm->heaps.lock);
-> @@ -3707,6 +3729,7 @@ int panthor_mmu_init(struct panthor_device *ptdev)
->  		return ret;
->  
->  	INIT_LIST_HEAD(&mmu->vm.list);
-> +	INIT_LIST_HEAD(&mmu->vm.user_owned);
->  	ret = drmm_mutex_init(&ptdev->base, &mmu->vm.lock);
+>  	ret = drmm_mutex_init(&ptdev->base, &sched->reset.lock);
 >  	if (ret)
->  		return ret;
 > 
 > -- 
 > 2.55.0
