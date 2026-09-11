@@ -4,51 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F83CC88E53
-	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 09:18:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DE58C88E50
+	for <dri-devel@archiver.kernel.org>; Fri, 11 Sep 2026 09:20:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9DCB10E2AD;
-	Fri, 11 Sep 2026 09:18:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFB7010E2B2;
+	Fri, 11 Sep 2026 09:20:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="YulDvYgT";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="UvDbJz+X";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0346910E1C8;
- Fri, 11 Sep 2026 09:18:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=Zly2zTIZMRgDdeHeFEYmS6HpsGyK48gMov9dQgVv400=; b=YulDvYgTXeVcRxyIC8WDXpMsTD
- T5cqsUQy5nXzCZXVUqFK7n7UFAKewUFwO3w2ZYn8eL+TApG2Daba8+Hod+oXLMKDOdzUooiMG4pTz
- qkrRBF/bLaektdIQT26rkPDPMDOC7Rn1rs1QhAzDH016vIioQwzBJIQZLE0PosoywQTBi8j2onNXN
- d2sUrurcV17UCLQ55adDfoZsaa9uaOL22OeHSuIlHnU7QPEFYVa0QfV8HukDRYoxbc6YAV1++fpPA
- NHOrdSqgrwGJRD8FMRNTn3fd8VUdNvInQuhIe9XFKaH7wXW34GFXHeK+fVwxwOUmMMhNNfoat44MZ
- x2LV+fxQ==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1x4xOw-000b31-AJ; Fri, 11 Sep 2026 11:18:30 +0200
-Message-ID: <35456574-5fc6-4270-85f9-940201998116@igalia.com>
-Date: Fri, 11 Sep 2026 10:18:29 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/sched: Do not restore unsaved virtual runtime
-To: phasta@kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Luke.Wildhardt@proton.me,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, stable@vger.kernel.org
-References: <20260907130527.52530-1-tvrtko.ursulin@igalia.com>
- <ad1382b98d5c6cb258658e8e85156a0ccd8dd7cf.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <ad1382b98d5c6cb258658e8e85156a0ccd8dd7cf.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 528E810E2B2
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 09:20:02 +0000 (UTC)
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-490a767b782so6132635e9.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 02:20:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1789118401; x=1789723201;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=NZtTwWLqkTlApSCCjwtFSfuFmwluELYL36xqCuH39yY=;
+ b=UvDbJz+X5sKSsGOfStLzixcrmtemE03/CYeiSiuidSn3lEwKwoMrKX9WgSb9FCI0wY
+ ssGXYgNeG8MvldfteAt7gvCE5T1r0Vr4txtn9fzYY5trlu07kQrhJ/30zg+2oLLw8man
+ cWK+CPQfqhwrQQkPlYxZj2rIDB7uMaHMdMNCJlxk2ghKE7F0+Lba1PSUx0a2fX/IBdQe
+ A7quojlKphNaWrhCh+hTZvgUHP2YokOY1jv8uuym4l46RmU+56cwaQzI+4wP4V5fdRwH
+ pFZAa9vBwjiC/FYezLgTtXGquojLZXVEt6YeDWWcwPKI/aC4JjQWRX0irpWpfdGmvVYw
+ zEdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789118401; x=1789723201;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=NZtTwWLqkTlApSCCjwtFSfuFmwluELYL36xqCuH39yY=;
+ b=OYWgI3eDOX77DMUMGP9/cHPuhTh8GH49g8QxJLjzb7ruusdgaJ1XiZKqYDlGHAogIk
+ I+GHucUP01XbNppzkzfoVheqzy1SfBVbTKHNF6MRYNsBx7FiiuoXFyxZJOPQhftBRDXS
+ 0q9Snqcif/aIaLbryvHXRXRp3nvyhMzNFoYYiiIZUBrCwbxj6xoWqzbGa4QVA/JofIFz
+ UhFXCUpBWuHptyF+RMGv1L2Yh6qTlFOerjM4Hiu1jPWDv81TXjX9kWBWWBxIwIZxVmcg
+ DytYG0tDYIK794pRheVhlJnsr8XJWFO4T3dmms7PddvFtatGTgn25gKJi1wz6Dp8PRxb
+ r8Og==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwNI43QOScc00KlrUaat4Ib5215ZDAxSIrVmIExBtSfwjhTTDl9DphCKce17RUcH3n1PO7FtI2jFOU=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++maniE7CJyQwf8v60JdVJoarFL8WqRFrAvaG3T9K1YisQ5Pb2qf
+ cTikgTXcenTnRyXn98V7CB9Tscnk137j8v9FCnBZxtYNlBa0ln5D6LQB8xFwYLcE3vUtRPPP9hk
+ JONJ014VFSQCmr4tWrA==
+X-Received: from wmga6.prod.google.com ([2002:a05:600c:2d46:b0:499:b8f0:3186])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600d:8490:20b0:49d:e0c:e560 with SMTP id
+ 5b1f17b1804b1-49e61983771mr27226365e9.4.1789118400242; 
+ Fri, 11 Sep 2026 02:20:00 -0700 (PDT)
+Date: Fri, 11 Sep 2026 09:19:58 +0000
+In-Reply-To: <20260910-unique-ref-v21-6-e83257373062@kernel.org>
+Mime-Version: 1.0
+References: <20260910-unique-ref-v21-0-e83257373062@kernel.org>
+ <20260910-unique-ref-v21-6-e83257373062@kernel.org>
+Message-ID: <aqPHvi1xFnMXvYLW@google.com>
+Subject: Re: [PATCH v21 6/9] rust: Add `OwnableRefCounted`
+From: Alice Ryhl <aliceryhl@google.com>
+To: Andreas Hindborg <a.hindborg@kernel.org>
+Cc: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>,
+ Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ "=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+ "Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, Lyude Paul <lyude@redhat.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Arve =?utf-8?B?SGrDuG5uZXbDpWc=?=" <arve@android.com>,
+ Todd Kjos <tkjos@android.com>, 
+ Christian Brauner <brauner@kernel.org>, Carlos Llamas <cmllamas@google.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Dave Ertman <david.m.ertman@intel.com>,
+ Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>,
+ Serge Hallyn <sergeh@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ Igor Korotin <igor.korotin@linux.dev>, Viresh Kumar <vireshk@kernel.org>,
+ Nishanth Menon <nm@ti.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ "Krzysztof =?utf-8?Q?Wilczy=C5=84ski?=" <kwilczynski@kernel.org>,
+ Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, 
+ Michal Wilczynski <m.wilczynski@samsung.com>, Ira Weiny <iweiny@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ "Thomas =?utf-8?Q?Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>,
+ Philipp Stanner <phasta@kernel.org>, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, driver-core@lists.linux.dev, linux-block@vger.kernel.org, 
+ linux-security-module@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-fsdevel@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-pci@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ linux-usb@vger.kernel.org, Oliver Mangold <oliver.mangold@pm.me>
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,61 +112,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu, Sep 10, 2026 at 11:00:10AM +0200, Andreas Hindborg wrote:
+> From: Oliver Mangold <oliver.mangold@pm.me>
+> 
+> Types implementing one of these traits can safely convert between an
+> `ARef<T>` and an `Owned<T>`.
+> 
+> This is useful for types which generally are accessed through an `ARef`
+> but have methods which can only safely be called when the reference is
+> unique, like e.g. `block::mq::Request::end_ok()`.
+> 
+> Signed-off-by: Oliver Mangold <oliver.mangold@pm.me>
+> [ Andreas: Fix formatting, update documentation, fix error handling in
+>   examples. ]
+> Assisted-by: LLM
+> Co-developed-by: Andreas Hindborg <a.hindborg@kernel.org>
+> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
 
-On 11/09/2026 09:56, Philipp Stanner wrote:
-> On Mon, 2026-09-07 at 14:05 +0100, Tvrtko Ursulin wrote:
->> Prevent pushing a new job to an entity seeing it being the first in the
->> queue, and hence entering the drm_sched_rq_add_entity() path, if the pop
->> side in drm_sched_entity_pop_job() has de-queued the job but not yet
->> updated the saved virtual time.
-> 
-> I think I don't fully get the bug from that message. The bug (is it
-> even one?) you address is the performance bottleneck for CFS under high
-> load, right?
+>  /// Types that specify their own way of performing allocation and destruction. Typically, this trait
+>  /// is implemented on types from the C side.
+>  ///
+> -/// Implementing this trait allows types to be referenced via the [`Owned<Self>`] pointer type. This
+> -/// is useful when it is desirable to tie the lifetime of the reference to an owned object, rather
+> -/// than pass around a bare reference. [`Ownable`] types can define custom drop logic that is
+> -/// executed when the owned reference [`Owned<Self>`] pointing to the object is dropped.
+> +/// Implementing this trait allows types to be referenced via the [`Owned<Self>`] pointer type.
+> +///  - This is useful when it is desirable to tie the lifetime of an object reference to an owned
+> +///    object, rather than pass around a bare reference.
+> +///  - [`Ownable`] types can define custom drop logic that is executed when the owned reference
+> +///    of type [`Owned<_>`] pointing to the object is dropped.
 
-Not high load but a race condition between the save and restore of 
-virtual time when entities enter/leave a run queue.
+This diff looks like it should be in the patch introducing Ownable.
 
-> Anyways, I think I got a better idea:
-> 
->>
->> We do this by pulling the locked sections out to encompass both the queue
->> push/pop and corresponding rbtree management.
-> 
-> So basically you move for locking the spsc-queue, the lockless queue
-> which is usually used with the locks next to it anyways. That's cool
-> stuff. I've suggested this for a while already
-> 
-> https://docs.kernel.org/gpu/todo.html#replace-the-lockless-queue-with-a-locked-list
-> 
-> So from a maintainability perspective, it would be far cooler if you go
-> down this road one step further and kill the spsc_queue for good,
-> replacing it with a fully locked list. AFAIR Christian and Danilo also
-> have agreed to this.
+> +/// # #![expect(clippy::disallowed_names)]
+> +/// # use core::ptr::NonNull;
+> +/// # use kernel::alloc::{flags, kbox::KBox, AllocError};
+> +/// # use kernel::sync::aref::{ARef, RefCounted};
+> +/// # use kernel::sync::atomic::Acquire;
+> +/// # use kernel::sync::Refcount;
+> +/// # use kernel::types::{Owned, Ownable, OwnableRefCounted};
+> +///
 
-I am happy to work on that just that a) I thought some time back you 
-said someone from RedHat will tackle it, and b) lets please not gate 
-this bugfix on that.
-> 
-> […]
-> 
->> @@ -343,16 +340,17 @@ drm_sched_rq_next_rr_ts(struct drm_sched_rq *rq,
->>    */
->>   void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
->>   {
->> +	struct drm_sched_rq *rq = entity->rq;
->>   	struct drm_sched_job *next_job;
->> -	struct drm_sched_rq *rq;
->> +
->> +	lockdep_assert_held(&entity->lock);
-> 
-> btw. I think it *reads* a bit safer if the rq initalization happens
-> below the lockdep assertion. Also might make the diff nicer.
+This newline will appear weirdly in generated docs because no content is
+shown above it. Consider not hiding the imports.
 
-It makes not practical difference but sure, I agree it reads better so I 
-can respin once you clarify if you are blocking the bugfix until the 
-spsc removal or what.
+> +pub trait OwnableRefCounted: RefCounted + Ownable + Sized {
+> +    /// Checks if the [`ARef`] is unique and converts it to an [`Owned`] if that is the case.
+> +    /// Otherwise it returns again an [`ARef`] to the same underlying object.
+> +    fn try_from_shared(this: ARef<Self>) -> Result<Owned<Self>, ARef<Self>>;
+> +
+> +    /// Converts the [`Owned`] into an [`ARef`].
+> +    fn into_shared(this: Owned<Self>) -> ARef<Self>;
+> +}
 
-Regards,
+This trait provides two methods that have very different conditions for
+existing, IMO.
 
-Tvrtko
+The into_shared() method is so likely to exist, that I would almost
+consider placing it on the Ownable trait.
+
+pub trait Ownable {
+    unsafe fn release(this: NonNull<Self>);
+
+    fn into_shared(this: Owned<Self>) -> ARef<Self>
+    where
+    	Self: Refcounted;
+}
+
+On the other hand, I think try_from_shared() is more likely to be a
+tricky operation you cannot necessarily implement, and as such it can be
+on its own separate trait like you have here.
+
+At the very least, I can easily imagine that some types can never become
+unique again after having been shared.
+
+Alice
