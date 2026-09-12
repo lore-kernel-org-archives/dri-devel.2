@@ -4,44 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49243C88E4D
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 08:14:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0499C88E53
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 08:39:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EF3810E432;
-	Sat, 12 Sep 2026 08:14:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0C0210E67B;
+	Sat, 12 Sep 2026 08:39:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JJmGWQbh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="atPW3fKM";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A47910E432
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 08:14:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1848242A0A;
- Sat, 12 Sep 2026 08:14:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C44891F000FF;
- Sat, 12 Sep 2026 08:14:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789200896;
- bh=cK61tf0ITAekm2pHZHiAgMpkoh+sGvnCq5X3PzwfkN0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JJmGWQbhdU0LCILvWytjxhtzuanjwCjKnHC4TeXJ7NVuBF2Fv3Hb7/I2zxW4uNVlR
- uyVbehal/VY6l9UCLho3Vp62akOtKIc6+qOaJTZqpqri1S/RGD3dWHY0q0iUmeJAdr
- 9VTH1acTzVN5UxnZaEBbn86cR5h09ASzLGvJBsPYIsJi2YElYw4BX+IChYnnT+Qcqm
- ooViUZX0fwi50+6UFhlZIqWmysWsNMdQ0CftIA6jvAR5hhwYFgbKZnNNtNDYdsVWTI
- gxSx1qw9XEjItKozLFaTFt0mt5lDIl6V584X8XVkO8UndPIb+V8n9rlaVRafQvGLgJ
- rm2vzNLKB0O3A==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2] arm64: allwinner: add TrimUI Smart Pro (A133)
- board support
-To: leow149 <leow149@lucidmail.xyz>
-Cc: dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20260912075706.86857-1-leow149@lucidmail.xyz>
-References: <20260912060249.80035-1-leow149@lucidmail.xyz>
- <20260912075706.86857-1-leow149@lucidmail.xyz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 08:14:55 +0000
-Message-Id: <20260912081455.C44891F000FF@smtp.kernel.org>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E52F10E47A;
+ Sat, 12 Sep 2026 08:39:18 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id F0AAD437FF;
+ Sat, 12 Sep 2026 08:39:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BD4DBC2BCB9;
+ Sat, 12 Sep 2026 08:39:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1789202357;
+ bh=zcsT2WsSUKfYvvv37MpEslHcCdvPIO3pvHcnegCE+qM=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=atPW3fKM9VYAf2l+tlU5AU/I7NIeBIOFH7kVvzOvYL8QGfqnQXTI7bil2gXBQpjE4
+ UUpQ5be6sQDj8JQg5Oq39AECwdiaaxe+BaV12TAXEArxSjKyFG0wc7DencJFp46OZB
+ 8jNXix3v54cKJL9uBWdouccxrbQ5SDDHxZgmRC1u+c6KxuQXndoryPlLgv8RIrRTBc
+ pyQkJMLshMUdsRL8P+n2FVsM9yL1LHRretB3R3eDRtTT9OiLS42mJ4/BA09NcVItNM
+ QPvHYN3kBaGdLYPZB+jU8Llqkz1HzCtL5dHBtOG+i0awmY9pqKF8XaDES3z3t4Rs0B
+ Z/vqj1VxqPvig==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 96197C79FB6;
+ Sat, 12 Sep 2026 08:39:17 +0000 (UTC)
+From: Muzaffer Kadir via B4 Relay
+ <devnull+muzafferkadir.mainlining.org@kernel.org>
+Subject: [PATCH RFC 00/20] Add Initial Support For MSM8952, Add General
+ Mobile Shamrock
+Date: Sat, 12 Sep 2026 11:39:09 +0300
+Message-Id: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSwNL3dziXAtLUyPdzLzMkszEHN3i0oKC/KISXTODRANTy2SjVEPTVCW
+ g7oKi1LTMCrDJ0UpBbs5KsbW1AD17XiRuAAAA
+X-Change-ID: 20260909-msm8952-initial-support-60a059c2e15e
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+ Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
+ Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>, 
+ phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
+ iommu@lists.linux.dev, mfd@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+ linux-pm@vger.kernel.org, linux-input@vger.kernel.org, 
+ Muzaffer Kadir <muzafferkadir@mainlining.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789202354; l=7018;
+ i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
+ bh=zcsT2WsSUKfYvvv37MpEslHcCdvPIO3pvHcnegCE+qM=;
+ b=0OftOSNYxVeMSqMsBbcp4XEEIolrL6nMaeLjXpSmhNJ46/YeqYJ9Se43dkv1r9wGOmkPcgGKq
+ aSr2AXql2uoBl+co1GskJCCoJ8w2LPTOepI5H0n7ZLNl7JrbLv0c/dL
+X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
+ pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
+X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
+ with auth_id=954
+X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,252 +102,144 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: muzafferkadir@mainlining.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] DPMS off/on cycles permanently disable the TCON VBLANK interrupt d=
-ue to unbalanced enable/disable logic.
-- [High] TRI_FINISH_ENABLE is explicitly disabled, making the hardware inca=
-pable of triggering subsequent frames without an interrupt storm.
-- [High] The driver relies on a 1000ms wall-clock timer to sequence the ini=
-tial DSI hardware trigger, creating a race condition against encoder initia=
-lization.
-- [High] Sleeping functions (msleep, mutex_lock, disable_irq) are called fr=
-om display driver atomic commit paths, violating subsystem rules.
---
+MSM8952 is a SoC with 8 core cpu and Adreno 405 gpu.
 
-commit 80c8d8e264d674c3f29098c9376ede5cd167b9ab
-Author: leow149 <leow149@lucidmail.xyz>
-arm64: allwinner: add TrimUI Smart Pro (A133) board support
+Ported without uart connection. ramoops and usb
+mainly used to debug.
+USB is not enabled in this series because it
+depends on the not yet upstreamed (and not developed by me)
+pmi8950_smbcharger.
 
-This commit adds board support for the TrimUI Smart Pro handheld based
-on the Allwinner A133 Plus SoC. It introduces a new device tree, a new
-DSI panel driver, a new PWM driver, and modifies sun4i_tcon and=20
-sun6i_mipi_dsi to support the CPU/8080-interface DSI path.
+General Mobile shamrock display panel driver
+is generated using MSM8916's mdss dsi panel
+driver generator and tested with it. I didn't
+include it.
 
-> diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.c b/drivers/gpu/drm/sun4i/s=
-un4i_tcon.c
-> --- a/drivers/gpu/drm/sun4i/sun4i_tcon.c
-> +++ b/drivers/gpu/drm/sun4i/sun4i_tcon.c
-[ ... ]
-> @@ -221,6 +221,23 @@ void sun4i_tcon_set_status(struct sun4i_tcon *tcon,
->  		sun4i_tcon_lvds_set_status(tcon, encoder, true);
-> =20
->  	sun4i_tcon_channel_set_status(tcon, channel, enabled);
-> +
-> +	/*
-> +	 * On disable, stop the DSI/CPU-mode retrigger timer before anything
-> +	 * downstream (clocks, D-PHY) gets gated off. Left running, it keeps
-> +	 * touching tcon->regs/dsi->regs every 2ms regardless of the CRTC's
-> +	 * state; hitting gated hardware from there is a real bus-abort risk,
-> +	 * not just wasted work. hrtimer_cancel() on an already-inactive timer
-> +	 * is a safe no-op, so this is fine to call unconditionally rather
-> +	 * than gating it on dsi_cpu_mode.
-> +	 */
-> +	if (!enabled) {
-> +		hrtimer_cancel(&tcon->dsi_retrigger_timer);
-> +		if (tcon->irq_enabled) {
-> +			disable_irq(tcon->irq);
-> +			tcon->irq_enabled =3D false;
+The GCC and DTS files are derived from existing
+Qualcomm source files. Original copyright notices
+are retained.
 
-[Severity: High]
-Is it safe to call disable_irq() here?
+GCC is based on msm8939's gcc file.
+SoC device tree is based on MSM8937 file.
 
-This function is reached from atomic disable paths like
-sun4i_crtc_atomic_disable. Since disable_irq() can sleep, calling it from
-atomic context violates display driver rules and could cause deadlocks or
-kernel warnings.
+in some downstreams MSM8952 GCC is merged with
+MSM8917 and MSM8937's. But upstreamed MSM8917 is
+based on different GCC and different pll structure.
+I have no way to verify MSM8952 pll so I am not sure
+about how correct pll structure is.
 
-[Severity: High]
-Does this disable path lead to permanently disabled VBLANK interrupts after
-DPMS off/on cycles?
+Pinctrl driver was submitted and merged here:
+https://lore.kernel.org/all/20260907-msm8952-pinctrl-v5-0-9a2d8d72ffdb@mainlining.org/
 
-Because the IRQ is explicitly disabled and tcon->irq_enabled cleared here,
-it needs to be re-enabled on resume. However, enable_irq() is only present
-in sun4i_tcon_mode_set().=20
+Storage itself works but something related to jbd2 journal commit fails later.
+Possibly related to this report:
+https://lore.kernel.org/linux-next/6a9c44cc.0a3344eb.391530.000c.GAE@google.com/
 
-During a simple DPMS ON cycle (which only changes active state, not the
-mode), DRM skips mode_set_nofb, bypassing sun4i_tcon_mode_set() entirely.
-Could this leave the IRQ and timer permanently stopped after the display is
-turned back on?
+It should be unrelated to this series. So I will ignore it for now.
+if someone wants to see the crash, here is the crash from ramoops:
 
-> +		}
-> +	}
->  }
-> =20
->  void sun4i_tcon_enable_vblank(struct sun4i_tcon *tcon, bool enable)
-> @@ -229,6 +246,18 @@ void sun4i_tcon_enable_vblank(struct sun4i_tcon *tco=
-n, bool enable)
-> =20
->  	DRM_DEBUG_DRIVER("%sabling VBLANK interrupt\n", enable ? "En" : "Dis");
-> =20
-> +	/*
-> +	 * The DSI/CPU-interface path never touches TCON0's own GINT0
-> +	 * enable bits: for this panel, the vendor implementation dispatches
-> +	 * IRQ enable/query entirely to DSI's own interrupt register instead
-> +	 * (confirmed against a live working reference system, where GINT0's
-> +	 * enable bits read zero). The real per-frame retrigger source is
-> +	 * SUN6I_DSI_INT_REG -- see sun6i_mipi_dsi.c and
-> +	 * sun4i_tcon_dsi_retrigger_timer_fn() below.
-> +	 */
-> +	if (tcon->dsi_cpu_mode)
-> +		return;
+[   31.437530] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+[   31.437572] Mem abort info:
+[   31.437580]   ESR = 0x0000000096000004
+[   31.437588]   EC = 0x25: DABT (current EL), IL = 32 bits
+[   31.437597]   SET = 0, FnV = 0
+[   31.437604]   EA = 0, S1PTW = 0
+[   31.437611]   FSC = 0x04: level 0 translation fault
+[   31.437619] Data abort info:
+[   31.437626]   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
+[   31.437634]   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
+[   31.437643]   GCS = 0, Overlay = 0, DirtyBit = 0
+[   31.437651] user pgtable: 4k pages, 48-bit VAs, pgdp=0000000026578000
+[   31.437660] [0000000000000000] pgd=0000000000000000, p4d=0000000000000000
+[   31.437679] Internal error: Oops: 0000000096000004 [#1]  SMP
+[   31.437691] Modules linked in: extcon_usbc_tusb320 typec goodix_ts evdev libcomposite
+[   31.437720] CPU: 6 UID: 0 PID: 582 Comm: jbd2/loop0p2-8 Not tainted 7.3.0-rc2-next-20260911+ #10 PREEMPT 
+[   31.437736] Hardware name: General Mobile GM 5 Plus (shamrock) (DT)
+[   31.437746] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[   31.437757] pc : __bh_submit+0xa8/0x1b8
+[   31.437775] lr : __bh_submit+0xa0/0x1b8
+[   31.437784] sp : ffff8000841bbc10
+[   31.437792] x29: ffff8000841bbc10 x28: 00000000ffffffff x27: ffff000023dfe8ac
+[   31.437808] x26: ffff000026b21400 x25: ffff0000230ca780 x24: 0000000000009801
+[   31.437823] x23: 0000000000000000 x22: ffff000025c15400 x21: ffff8000805a9704
+[   31.437839] x20: ffff0000230ca780 x19: 0000000000000000 x18: ffff80008377d028
+[   31.437855] x17: 0000000000001000 x16: 0000000026da3000 x15: 00000000268d6000
+[   31.437871] x14: 0000000026da2000 x13: ffff0000225b2280 x12: 0000000000000110
+[   31.437886] x11: 0000000000000000 x10: 0000000000000001 x9 : ffff800080661840
+[   31.437902] x8 : 0000000000000000 x7 : ffff000023dfe800 x6 : 0000000000000000
+[   31.437918] x5 : 0bf8e48cd3e9dd0e x4 : 00000000ffffffff x3 : 0000000000092800
+[   31.437933] x2 : ffff0000222a4480 x1 : ffff80008153f2d8 x0 : ffff000025c15400
+[   31.437950] Call trace:
+[   31.437959]  __bh_submit+0xa8/0x1b8 (P)
+[   31.437973]  bh_submit+0x24/0x30
+[   31.437984]  jbd2_journal_commit_transaction+0x7cc/0x1a44
+[   31.438000]  kjournald2+0xbc/0x218
+[   31.438017]  kthread+0x124/0x154
+[   31.438033]  ret_from_fork+0x10/0x20
+[   31.438057] Code: 2a180102 9405f6a3 f9400a88 aa0003f6 (f9400108) 
+[   31.438072] ---[ end trace 0000000000000000 ]---
 
-[Severity: High]
-Does bypassing this hardware enable prevent frames from triggering without a
-storm?
+Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+---
+Muzaffer Kadir (20):
+      dt-bindings: clock: qcom: Add MSM8952 global clock controller
+      clk: qcom: Add global clock controller driver for MSM8952
+      dt-bindings: nvmem: Add compatible for MSM8952
+      dt-bindings: power: rpmpd: Add MSM8952 power domains
+      dt-bindings: mmc: sdhci-msm: Add MSM8952 compatible
+      dt-bindings: vendor-prefixes: Add General Mobile
+      dt-bindings: arm: qcom: Document MSM8952 SoC binding
+      dt-bindings: iommu: qcom,iommu: Add MSM8952 IOMMU to SMMUv2 compatibles
+      dt-bindings: mfd: qcom,tcsr: Add compatible for MSM8952
+      dt-bindings: display/msm: qcom, mdp5: Add MSM8952 compatible
+      dt-bindings: firmware: qcom,scm: Document MSM8952 SCM
+      dt-bindings: clock: qcom,rpmcc: Add MSM8952 compatible
+      clk: qcom: smd-rpm: Add clocks for MSM8952
+      drm: msm: mdp5: Add MDP5 configuration for MSM8952
+      soc: qcom: ubwc: Add UBWC config for MSM8952
+      dt-bindings: thermal: tsens: Add MSM8952
+      thermal: qcom: tsens: Add support for MSM8952 tsens
+      arm64: dts: qcom: Add initial support for MSM8952
+      dt-bindings: input: touchscreen: goodix: Add binding for GT970
+      arm64: dts: qcom: generalmobile-shamrock: new device
 
-This early return prevents SUN4I_TCON_GINT0_TCON0_TRI_FINISH_ENABLE from be=
-ing
-set in SUN4I_TCON_GINT0_REG. However, the timer callback=20
-sun4i_tcon_dsi_retrigger_timer_fn() eventually stops itself when
-TRIGGER_START self-clears, delegating continuous retriggering to the IRQ
-handler.=20
+ Documentation/devicetree/bindings/arm/qcom.yaml    |    6 +
+ .../bindings/clock/qcom,gcc-msm8952.yaml           |   56 +
+ .../devicetree/bindings/clock/qcom,rpmcc.yaml      |    2 +
+ .../devicetree/bindings/display/msm/qcom,mdp5.yaml |    1 +
+ .../devicetree/bindings/firmware/qcom,scm.yaml     |    3 +
+ .../bindings/input/touchscreen/goodix.yaml         |   35 +-
+ .../devicetree/bindings/iommu/qcom,iommu.yaml      |    1 +
+ .../devicetree/bindings/mfd/qcom,tcsr.yaml         |    1 +
+ .../devicetree/bindings/mmc/qcom,sdhci-msm.yaml    |    1 +
+ .../devicetree/bindings/nvmem/qcom,qfprom.yaml     |    1 +
+ .../devicetree/bindings/power/qcom,rpmpd.yaml      |    1 +
+ .../devicetree/bindings/thermal/qcom-tsens.yaml    |    1 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |    2 +
+ arch/arm64/boot/dts/qcom/Makefile                  |    1 +
+ .../dts/qcom/msm8952-generalmobile-shamrock.dts    |  426 +++
+ arch/arm64/boot/dts/qcom/msm8952.dtsi              | 2257 ++++++++++++
+ drivers/clk/qcom/Kconfig                           |   10 +
+ drivers/clk/qcom/Makefile                          |    1 +
+ drivers/clk/qcom/clk-smd-rpm.c                     |   29 +
+ drivers/clk/qcom/gcc-msm8952.c                     | 3576 ++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c           |   81 +
+ drivers/soc/qcom/ubwc_config.c                     |    1 +
+ drivers/thermal/qcom/tsens-v1.c                    |   44 +
+ drivers/thermal/qcom/tsens.c                       |    3 +
+ drivers/thermal/qcom/tsens.h                       |    2 +-
+ include/dt-bindings/clock/qcom,gcc-msm8952.h       |  219 ++
+ 26 files changed, 6745 insertions(+), 16 deletions(-)
+---
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+change-id: 20260909-msm8952-initial-support-60a059c2e15e
 
-Since the hardware interrupt enable bit is skipped here, the TCON will never
-assert the interrupt line when a frame finishes. Could the retrigger loop
-only be functioning right now because of the unintended FSYNC_INT hardware
-storm keeping the IRQ line asserted?
+Best regards,
+-- 
+Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-> +
->  	mask =3D SUN4I_TCON_GINT0_VBLANK_ENABLE(0) |
->  		SUN4I_TCON_GINT0_VBLANK_ENABLE(1) |
->  		SUN4I_TCON_GINT0_TCON0_TRI_FINISH_ENABLE;
-[ ... ]
-> @@ -402,24 +556,61 @@ static void sun4i_tcon0_mode_set_cpu(struct sun4i_t=
-con *tcon,
->  	regmap_write(tcon->regs, SUN4I_TCON0_CPU_TRI1_REG,
->  		     SUN4I_TCON0_CPU_TRI1_BLOCK_NUM(mode->vdisplay));
-> =20
-[ ... ]
-> +	/*
-> +	 * This timer's first tick fires the real first TRIGGER_START, once
-> +	 * sun6i_dsi_encoder_enable() has actually finished rather than just
-> +	 * started -- its drm_panel_prepare() call alone (reset pulse + DCS
-> +	 * init) totals close to 300ms of msleep() for this panel. 1000ms
-> +	 * gives ample margin over that as a one-time cost at boot.
-> +	 */
-> +	tcon->dsi_retrigger_ticks =3D 0;
-> +	hrtimer_start(&tcon->dsi_retrigger_timer, ms_to_ktime(1000),
-> +		      HRTIMER_MODE_REL);
 
-[Severity: High]
-Could this wall-clock timer race against encoder initialization?
-
-sun4i_tcon0_mode_set_cpu() arms this timer to fire in 1000ms, while the
-encoder's atomic_enable hook (sun6i_dsi_encoder_enable) prepares the panel.
-If the process-context encoder initialization takes longer than 1000ms due
-to system load, scheduler delays, or slow panel interactions, this timer
-callback will fire in hardirq context concurrently.=20
-
-This would cause the timer to call sun6i_dsi_tri_start(), overwriting
-SUN6I_DSI_INST_JUMP_SEL_REG while the process context is actively writing
-to the same register during DCS transfers. Can this corrupt the DSI
-controller's instruction state machine?
-
-> +
-> +	/*
-> +	 * enable_irq(tcon->irq) is deliberately not called here:
-[ ... ]
-> diff --git a/drivers/gpu/drm/panel/panel-orisetech-otm1289a.c b/drivers/g=
-pu/drm/panel/panel-orisetech-otm1289a.c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-orisetech-otm1289a.c
-> @@ -0,0 +1,424 @@
-[ ... ]
-> +static int otm1289a_prepare(struct drm_panel *panel)
-> +{
-> +	struct otm1289a *ctx =3D panel_to_otm1289a(panel);
-> +	int ret;
-> +
-> +	ret =3D regulator_enable(ctx->supply);
-> +	if (ret < 0) {
-> +		dev_err(panel->dev, "failed to enable supply: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	if (ctx->reset_gpio) {
-> +		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +		msleep(20);
-> +		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +		msleep(100);
-
-[Severity: High]
-Are these sleeping delays safe to call from atomic context?
-
-Subsystem guidelines forbid sleeping in CRTC, plane, and encoder atomic
-callbacks during non-blocking commits. This panel driver's prepare() uses
-msleep() directly.=20
-
-It is invoked from sun6i_dsi_encoder_enable() via drm_panel_prepare(),
-which runs in atomic commit paths. Could this trigger kernel warnings or
-system instability by sleeping where it isn't allowed?
-
-> +	}
-> +
-> +	ret =3D otm1289a_init_sequence_send(ctx);
-> +	if (ret) {
-[ ... ]
-> diff --git a/drivers/pwm/pwm-sun50i-a133.c b/drivers/pwm/pwm-sun50i-a133.c
-> --- /dev/null
-> +++ b/drivers/pwm/pwm-sun50i-a133.c
-> @@ -0,0 +1,317 @@
-[ ... ]
-> +static int pwm_a133_apply(struct pwm_chip *chip, struct pwm_device *pwm,
-> +			  const struct pwm_state *state)
-> +{
-> +	struct pwm_a133 *pc =3D to_pwm_a133(chip);
-> +	unsigned int ch =3D pwm->hwpwm;
-> +	u32 entire_cycle, act_cycle, prescale_k, val;
-> +	u32 pccr_reg =3D (ch < 2) ? PWM_A133_PCCR01_REG : PWM_A133_PCCR23_REG;
-> +	int ret;
-> +
-> +	if (!state->enabled) {
-> +		mutex_lock(&pc->lock);
-> +		val =3D pwm_a133_readl(pc, PWM_A133_PER_REG);
-> +		val &=3D ~PWM_A133_PER_EN(ch);
-> +		pwm_a133_writel(pc, PWM_A133_PER_REG, val);
-> +		mutex_unlock(&pc->lock);
-> +		return 0;
-> +	}
-> +
-> +	ret =3D pwm_a133_calc(state->period, state->duty_cycle, &entire_cycle,
-> +			    &act_cycle, &prescale_k);
-> +	if (ret) {
-> +		dev_err(pwmchip_parent(chip), "period exceeds the maximum value\n");
-> +		return ret;
-> +	}
-> +
-> +	/*
-> +	 * PWM_A133_PCCR01_REG/PCCR23_REG (shared by a channel pair) and
-> +	 * PWM_A133_PCGR_REG/PWM_A133_PER_REG (shared by all 16 channels) are
-> +	 * each read-modify-written below; the PWM core doesn't serialize
-> +	 * .apply() calls across different channels on the same chip, so this
-> +	 * whole sequence needs its own lock against a concurrent apply() on
-> +	 * another channel racing on the same register.
-> +	 */
-> +	mutex_lock(&pc->lock);
-
-[Severity: High]
-Is it safe to acquire a mutex in this PWM apply callback?
-
-When used as a backlight, pwm_a133_apply() can be reached from the display
-driver's atomic commit tail: sun6i_dsi_encoder_enable() ->
-drm_panel_enable() -> backlight_enable().=20
-
-Because encoder atomic callbacks run in atomic context where sleeping is
-forbidden, taking a mutex here could lead to deadlocks or scheduling while
-atomic errors.
-
-> +
-> +	/* Clock source: OSC24M for the whole pair this channel belongs to. */
-> +	val =3D pwm_a133_readl(pc, pccr_reg);
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912075706.8685=
-7-1-leow149@lucidmail.xyz?part=3D1
