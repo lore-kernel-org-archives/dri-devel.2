@@ -4,62 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87ED1C88E5C
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50B9CC88E69
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBFA010E9C2;
-	Sun, 13 Sep 2026 20:53:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 147E110E9C5;
+	Sun, 13 Sep 2026 20:53:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="HCNqyT78";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="Wp8XaWvV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DR2HGogz";
 	dkim-atps=neutral
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A30910EDA1
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 15:38:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org;
- c=relaxed/relaxed; 
- h=To:Message-Id:Date:Subject:From; t=1789141090; bh=Vny6u5J0qUp2UCUr8DV3c9l
- qIzc0Lcsk+TpVOnKVth0=; b=HCNqyT78k5HNrqhhqCbB6W9/sIMHi8YLuiNygRk4azgLgrZKkH
- LgRKyvkStxgV4XTlZI3PsujoK2iyVj9C9oDLjvr/GZs2nniZVQip2k52+SwKOjV1HjGl0b7q/Tr
- 4ZdaslFKyVkrpmYk8UlozNZsY4N0VnZqQEhGPTGTJGNhRamgaIiSH/oFO6rDgyqEMNolKbLwcr4
- iFPzTf+heTmUdorUzdvBFA0f9+MrCPxntF3zENSCkTtIKvbioXdLEz+/xlU4uekpBAlsA+CI3LU
- zSOPr0b+bU/R2Ff6e3rtojNN/XObRqAVKSCMU7HYbWiIUR13BjI+wcHejzDVgcR82Cg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org;
- c=relaxed/relaxed; 
- h=To:Message-Id:Date:Subject:From; t=1789141090; bh=Vny6u5J0qUp2UCUr8DV3c9l
- qIzc0Lcsk+TpVOnKVth0=; b=Wp8XaWvVf/M4BMH//qIg4JDQjZ/5GLLAbZI3QjZ/CdIQ1sAd10
- SfssWucsBJrfKWpzHeVix+IaXrehhnzsF9Bw==;
-From: Nickolay Goppen <setotau@mainlining.org>
-Subject: [PATCH v2 0/3] Novatek NT51021 DSI panel IC driver
-Date: Fri, 11 Sep 2026 18:37:59 +0300
-Message-Id: <20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org>
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76C5810E664
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 08:18:02 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-49d0da752ffso20673975e9.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 01:18:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789201081; x=1789805881; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=RocYUdBBcIeZ/ASBsFYpzq2iQKAbEehKSNM8n1TlCEA=;
+ b=DR2HGogzS+1zel3deHKG8agDNgFhAEvz/WDsJeGoGG235ZoOmHe3QP0czm36+qf5Ry
+ uY5BwEAOJ20/3CsEGR5LnKI6r04MnrtY6AGd+LqAUwPK9MK3vDtKg/ukLJrT42Q82D4W
+ ueRZzecuIhJKCdZpOkdiiQaHnKci43QgNVXsGfTcZ2Qc7QqLQPAJ2N9/TRJ/eIFCYU0p
+ Cgt8a9FKenOw4Ya3Oy7g4C3z9vpBNXMCLfLNw30b6iWahYlmP1bMtSidoEHxCNyYsKGe
+ zKDIUr0AhJpzLQ45N2/9gIAAYjk0c3C8KGZLlqFjoCdSNFRBTZu9gtH2yTHjO/i18cCo
+ L9ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789201081; x=1789805881;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=RocYUdBBcIeZ/ASBsFYpzq2iQKAbEehKSNM8n1TlCEA=;
+ b=Y2pTj6giievvm70CO7BFcTTyna4BbSXQLDk+pB6NvXxYvNjGdqmKKKb1USKkd3l/bU
+ 5AYvUhjEyYJ3VuJU0J6rhoybJSQrykmvEUvf/7WBzAJNz11+1EJw/hlgWvm95ctrB3Yy
+ lRDq8yZmopMHOXn4hIn23ytsj8oLTsD8meFFIf+TtSd1DMzYufEO+BTeC4yrAcdmLoP3
+ 94mlS3u526sfV1Hcuq78mqyefSlWb4HpKY3nHVxv1UVnDj1UunR9ZVjyFc90bP1hVcus
+ XWrwrQpJR63Qp+8a6D9293qzG/Kyuocn4aB9AJJFSskhZW1giyHbVZGnjMh7T29RwjFZ
+ 2UGg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwnHWN+25fOO+EsN/DWLDPqXiDNZdipCx4/XqVNd5p8usISzccto8ou6riyTE+ONyCkaUGIWP0qkiY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lm6nUytt+K24rv0MR25KyNNtmJj2HI/MoqTktx0TfFkf4k9Q+C
+ wJs/W3y2sYF0gheKkU/wn8spT06Ph14EUvuHRn2BS0UaYOMS4P6w9HZE
+X-Gm-Gg: AYBFou1yCA5sf8fVrPoIHLhnsOXHZHSrJLKcC3bWxVQ3HvHEtRtYq8sFM6e7hfolRSm
+ RZzv45Fgc7EOCmeWzBlzhQuFUVkGdPuTm+f1aZI9NQdnJ39zacC63ide2AcEXHNX2QlAGZ4qWgC
+ SyLJxgXiX+DXwQsiDblkNXd4f74dR3fc6m+gyxbzeEjeIaTyL3oSpQZUc6wNW8vxlSKdqKyuo37
+ vyE39yyMl2aHT0sxD76Th5OSOWMU2h5bbrOJDoc0t2FwH/sMbx7nhS4ZO6eua2oFhEwShoH2EfH
+ 7XpaBUHbpXQl8v9ua3hhK4nKUYpIfAkGn8n6p+DrJMs1+9za/rBwAShLoCepmzydJQS++MxrhTM
+ iSFXmNbLTdncl6hepiWNh0RbWFnJtREptaoExotlQnu0zVsZcWtweyIVjhgufduTjeqJhWTwRxe
+ cDBHiEtV1CPYa08QZj272F4UUGj5WRDTb2tqtVBmmYcc/CFnkYweO1tmV3zJqHQvlIBERxzqWhO
+ XvlUK/2xbX4dHNkfm/87ckzojtIbpI1+Xk3OwiAJ0uYRemvEcDBVTMf/+mh8SPmu6LmnOZrxici
+ o3/52WS1sz/HOMrLxOVM5gLwjEGPa9InJZ8D4LXQEt6vqOLo18AS73Bwj4cb07b8/uaDnsFZxxq
+ LYp/1C5jyI1NS
+X-Received: by 2002:a05:600d:8445:10b0:49c:cf18:494e with SMTP id
+ 5b1f17b1804b1-49e6198a3b2mr62627265e9.12.1789201080628; 
+ Sat, 12 Sep 2026 01:18:00 -0700 (PDT)
+Received: from localhost.localdomain
+ (dynamic-2a02-3100-b260-f201-9983-e8c4-aff5-7a36.310.pool.telefonica.de.
+ [2a02:3100:b260:f201:9983:e8c4:aff5:7a36])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49e6420de77sm57620925e9.3.2026.09.12.01.17.59
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sat, 12 Sep 2026 01:18:00 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/pagemap_util: Fix drm_pagemap_shrinker_create_devm()
+ kernel-doc
+Date: Sat, 12 Sep 2026 10:17:55 +0200
+Message-Id: <20260912081755.60885-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NQQ6CMBAAv0J6dg1tQgVP/sNwKGWBVdxiWxsN4
- e8CfsDjJJOZWQT0hEGcs1l4TBTI8QrqkAk7GO4RqF1ZqFzpvFQVPK17ALtkIt6BYyFzJWEyjGM
- AVF3VNmVhKn0Sa2Hy2NF7r1/rH4dXc0Mbt+RmDBSi8599n+Tm/XdKEnKwVlqjZdMqLS8PQzwSE
- /dH53tRL8vyBWkAK6TdAAAA
-X-Change-ID: 20260829-qcom-novatek-nt51021-panels-e2f9db85a967
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Nickolay Goppen <setotau@mainlining.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, ryanbrue.dev@gmail.com, 
- Alexey Minnekhanov <alexeymin@minlexx.ru>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789141089; l=2128;
- i=setotau@mainlining.org; s=20250815; h=from:subject:message-id;
- bh=Xdk44i7RpTm9gFCaxm9FZ6o/PonWQTyi/28W1AbT/bo=;
- b=JJB0Pc1iutkc2NpPdflPhbCfhjttMi2UZe7nWYNOcRu/qBPKOTQpgKYjXnIA1zcfc6X3hDUxb
- 8lAZ7Iz/EMfA4EnP9DYtPF5/p+TUM45voqr93gCaSIkf9Vv9MTS8ShO
-X-Developer-Key: i=setotau@mainlining.org; a=ed25519;
- pk=Og7YO6LfW+M2QfcJfjaUaXc8oOr5zoK8+4AtX5ICr4o=
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,56 +98,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds support for Novatek NT51021-based panels 
-for upcoming xiaomi-clover submission
+drm_pagemap_shrinker_create_devm() returns the new struct
+drm_pagemap_shrinker, or an ERR_PTR() on failure, but its kernel-doc
+says "%0 on success", which was never true. Describe the pointer.
 
-Although according to datasheet, the IС has three power rails 
-in the use case of xiaomi-clover, all of them are wired to one 
-fixed regulator
-
-Maybe I should create a dt option for enabling CABC for panel
-
-Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+Fixes: 77f14f2f2d73 ("drm/pagemap: Add a drm_pagemap cache and shrinker")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
-Changes in v2:
-- Use devm_functions and renamed structs and functions (Neil)
-- Added delay before deasserting reset for stable initialization (Sashiko and Ryan)
-- Fixed dt-bindings (Sashiko and Neil)
-- Added a comment about set_display_on command
-- Link to v1: https://patch.msgid.link/20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org
+ drivers/gpu/drm/drm_pagemap_util.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-To: Nickolay Goppen <setotau@mainlining.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: ryanbrue.dev@gmail.com
+diff --git a/drivers/gpu/drm/drm_pagemap_util.c b/drivers/gpu/drm/drm_pagemap_util.c
+index 6111d90a38e24586fbcb06f8182e9025339b26b0..c9077a84e3467a5c547d437baae9159bfcd9bea1 100644
+--- a/drivers/gpu/drm/drm_pagemap_util.c
++++ b/drivers/gpu/drm/drm_pagemap_util.c
+@@ -412,7 +412,7 @@ static void drm_pagemap_shrinker_fini(void *arg)
+  * The shrinker is drm_device managed and unregisters itself when
+  * the drm device is removed.
+  *
+- * Return: %0 on success, negative error code on failure.
++ * Return: the new shrinker on success, an ERR_PTR() on failure.
+  */
+ struct drm_pagemap_shrinker *drm_pagemap_shrinker_create_devm(struct drm_device *drm)
+ {
+-- 
+2.39.5 (Apple Git-154)
 
----
-Nickolay Goppen (3):
-      dt-bindings: display: panel: Add bindings for Novatek NT51021
-      drivers: gpu: drm: panel: Add BOE NT51021 driver
-      MAINTAINERS: Add myself as a maintainer of NT51021 panel driver
-
- .../bindings/display/panel/novatek,nt51021.yaml    |  89 +++
- MAINTAINERS                                        |   6 +
- drivers/gpu/drm/panel/Kconfig                      |   9 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-novatek-nt51021.c      | 791 +++++++++++++++++++++
- 5 files changed, 896 insertions(+)
----
-base-commit: 99cc957e3ef3cccd72d2119c8eacbab39af0d1d6
-change-id: 20260829-qcom-novatek-nt51021-panels-e2f9db85a967
-
-Best regards,
---  
-Nickolay Goppen <setotau@mainlining.org>
