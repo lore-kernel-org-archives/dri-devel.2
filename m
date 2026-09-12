@@ -4,46 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5770AC88E65
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18D0EC88E5C
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C06F610E9C0;
-	Sun, 13 Sep 2026 20:53:16 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="q+/hXGEL";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="tKOl5tJv";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB78710E9CD;
+	Sun, 13 Sep 2026 20:53:17 +0000 (UTC)
 Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A50F810E2EB
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 15:48:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org;
- c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1789141714; bh=QMo9x+UVp6QFMjOyUeSIYDU
- RSjXGI7qKSJjYZZMw6bs=; b=q+/hXGELKbkCSjrWOmS2U9Qp9ieFNzBImzwmsbnpiAMKy0xD81
- VFXTg7NLhdERBCFAmTHhhee09f8eQUPQ4Y8o52ZZ8bCPa69WrUh9l3lJpOfhjeMyZmRnB9R3gK1
- piyui5wOfrg3L/cfL06otfsXBY198g4QakEyNSgzGpSUJJSlLcSx163FxzAXG+QoWuUaLIjiDt4
- fYKemAxRD6pSKtqRS5pgqOx9odD5emP7Hcl1DHJpeVuebepCN7KtRRHpLD6PlTOGbbCDLy9P3+W
- fCG+LRYCgRaZ63Gu8PkUnSqia2R5vis8cX9iKqhw12HhBFbsTakMObj28T6Fal131cQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org;
- c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1789141714; bh=QMo9x+UVp6QFMjOyUeSIYDU
- RSjXGI7qKSJjYZZMw6bs=; b=tKOl5tJvAyydy8E9nYGZWW3uHpyW0xzs+rQ6HqIJsbgtBkuOhi
- s90MeIJUu3CJSMNpA99A+FIEjS6nhg8bGlBA==;
-Message-ID: <d7e15309-8069-45ec-92a6-24ea113a537a@mainlining.org>
-Date: Fri, 11 Sep 2026 18:48:33 +0300
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3771510E517
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 17:43:20 +0000 (UTC)
+Message-ID: <506c188c-2518-4d2e-aff6-336a8dbbb65a@mainlining.org>
+Date: Sat, 12 Sep 2026 20:42:12 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] drivers: gpu: drm: panel: Add BOE NT51021 driver
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org
-References: <20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org>
- <20260911-qcom-novatek-nt51021-panels-v2-2-135e3190a7fb@mainlining.org>
- <20260911154433.BD65B1F00893@smtp.kernel.org>
-Content-Language: ru-RU, en-US
-From: Nickolay Goppen <setotau@mainlining.org>
-In-Reply-To: <20260911154433.BD65B1F00893@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH RFC 20/20] arm64: dts: qcom: generalmobile-shamrock: new
+ device
+To: David Heidelberg <david@ixit.cz>
+Cc: Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
+ Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>,
+ Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>,
+ Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
+ <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>, Dang Huynh <danct12@riseup.net>,
+ phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
+ iommu@lists.linux.dev, mfd@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ linux-pm@vger.kernel.org, linux-input@vger.kernel.org
+References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
+ <20260912-msm8952-initial-support-v1-20-0e742578b524@mainlining.org>
+ <9d2c5d44-206f-4ae9-b340-ba1994e234bf@ixit.cz>
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Content-Language: en-US
+In-Reply-To: <9d2c5d44-206f-4ae9-b340-ba1994e234bf@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -61,57 +72,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi David,
 
-11.09.2026 18:44, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] Ignored return values from `devm_drm_panel_add()` and `devm_mipi_dsi_attach()` leading to silent probe failures.
-> --
->
-> commit d977b7bfeacd8104619cc818002d70a48f32aad3
-> Author: Nickolay Goppen <setotau@mainlining.org>
->
->      drivers: gpu: drm: panel: Add BOE NT51021 driver
->      
->      Add driver for BOE NT51021-based 8-inch and 10-inch DSI video mode
->      panels used in Xiaomi Mi Pad 4 and Mi Pad 4 Plus (xiaomi-clover)
->      tablets.
->
->> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt51021.c b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
->> new file mode 100644
->> index 0000000000000..61dd283769a75
->> --- /dev/null
->> +++ b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
-> [ ... ]
->
->> +static int nt51021_novatek_probe(struct mipi_dsi_device *dsi)
->> +{
->> +	struct device *dev = &dsi->dev;
->> +	struct novatek_nt51021_desc *ctx;
->> +	int ret;
-> [ ... ]
->
->> +	ret = drm_panel_of_backlight(&ctx->panel);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Failed to get backlight\n");
->> +
->> +	devm_drm_panel_add(dev, &ctx->panel);
->> +
->> +	ret = devm_mipi_dsi_attach(dev, dsi);
->> +
->> +	return 0;
->> +}
-> [Severity: High]
-> Does this code silently ignore initialization failures?
->
-> In nt51021_novatek_probe(), the return value of devm_drm_panel_add() is
-> discarded. Additionally, the return value of devm_mipi_dsi_attach() is saved
-> to the ret variable, but then the function unconditionally returns 0.
->
-> If either devm_drm_panel_add() or devm_mipi_dsi_attach() fails, the probe
-> function will incorrectly report success. Should the code check these return
-> values and propagate any errors?
-Didn't notice that, thanks
+I will fix all of these in v2.
+Thanks a lot for review.
 
--- 
 Best regards,
-Nickolay
+Muzaffer Kadir
