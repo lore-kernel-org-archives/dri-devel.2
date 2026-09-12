@@ -4,129 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C77B2C88E65
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86CEDC88E5C
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE81810E9CA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E34FC10E9CE;
 	Sun, 13 Sep 2026 20:53:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bAW41siy";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gNewl2Xa";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A35AE10E3AF
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 10:16:45 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6830341776;
- Fri, 11 Sep 2026 10:16:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0B0E1F000FF;
- Fri, 11 Sep 2026 10:16:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789121805;
- bh=giLIDOVuGk3wU4sINvGbjDY5Co7tru0+JFiE0K9FPLI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=bAW41siy0jHTB1qfl3qn4gdNLwygOP92sxwRZ5j93bg2aVlvwhPZHWNQXCkbUnxC6
- 9zk3b5mbI7ab2hw7oNcaGXVKHnNx1qFzqMm5NsCPo7iMQTWRRa4ga4/FYZMgemnHMR
- LUWR9RDzd1jBIAPZg7P5yYAnVdcGzlswz7uYblSZrI8mgcWzefXPuZrclq/aRa18mg
- UXHtcfHYeWzL2TMktPNfUxYpL9byrk5pz2SSOJ+Hi6IFxR8hMDvGKPZB2iRfKGLL8X
- ZmrHB9kpMAfbsIpyQlYJu0jR9aIkQQcmQfumaGM+wf3Q1dTyf8WnZzhQjhpzxy2VYs
- gbIALJ3tDM5qQ==
-Date: Fri, 11 Sep 2026 11:16:14 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Stephen Smalley <stephen.smalley.work@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, 
- Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, 
- Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, 
- Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, 
- bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
- linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev
-Subject: Re: [PATCH 11/39] selinux: reject writable opens of policy file,
- drop mmap shared/write check
-Message-ID: <aqPUqU3eZeFrykj3@gremlin>
-References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
- <20260908-b4-mmap-prepare-vma-flag-sanify-v1-11-dacf19cce22b@kernel.org>
- <CAEjxPJ7hXSi=oLtQPV+7GEvN+txfYwZ-u-v_EysNHM0gSGNrCw@mail.gmail.com>
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
+ [74.125.228.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E02CA10E69D
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 09:00:08 +0000 (UTC)
+Received: by mail-ej2-f12.google.com with SMTP id
+ a640c23a62f3a-c254f9c60b9so50474866b.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 02:00:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789203607; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Z1icSX4N0bdFR65TC0WwCN5qvhIhEo7vdx39Csz0jabQoZH2/hGdNJ+cH/RT+Zkwnb
+ sPwTgN5p7uArc6xszKnhsKsa7vkuaJWd2mb3fIdxlgcV5cW47v2bPuVMMWxep5yZ50t/
+ xCt94o9Qd+f8Z5VUOE/9+V6bFkd92mCvlka7RUFAq7t2EurFpjEjmDVaQJe9GPoEvlya
+ ETm8l7i5fwgw5yhGrWWALz76++MCBl7zbswXWPTfVOZgqZP+AZTyzsDwym6ncfLkuCbd
+ jKErVjQVlKQm75JhLroJEaM4e8CSDyoSSHjCZWdEl1yRhyRNsmeb/Ukq4waxxyZyJIRa
+ 0EFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=WCT0+gv9JmQdBqllyCgHijfl0um7k0RWeP6aTzXVQp0=;
+ fh=Itai9nu6IrQXUrl4hOd0wJUtKmd2jlQVDntmy/Egwvk=;
+ b=AWEfJsFFYg5QwUO1SWEDUyHYt27DYNzBkUiPnxFGpF6GVqi9DBea8f5OJTpI7ZT5J8
+ s4fIJxGTEYBsxIiqZiuP0cQwQ9J0/FlaKCEADXloepYyma4liVsSP/ghBYgKV2irWC34
+ i9DDqSbJjn8rc1Cl34hulnXZSsaUbnd3xEetTiWlD3nQYQfs46FDLMBB2NH8JmjxdcI4
+ LOIe/AJDmvpbk+p3WtsVHTNplfM2wlt4e8WF936dev6cTidB2dWvOTD6k0/GRsGKTrbm
+ fafcxVJIeSAx5uVBf2CMfsOLpOjxPEyKdkLZ97qaX0SobmOfmQ+7h6zUlDZsbJt+GCiW
+ joUg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789203607; x=1789808407; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=WCT0+gv9JmQdBqllyCgHijfl0um7k0RWeP6aTzXVQp0=;
+ b=gNewl2Xae+d5lLP4h6l2fCqVGhUF9dz91Wqv/E/Ue7lQpTvwarDhnn46i0kHy7kKSD
+ RlCsAVeqjQhx0xmc5e5DLOPZ9ttrCOs8KC7fIb1sVRln6ZYYhTMhyKz0Yr/7KszBlYij
+ v9JcqFdBl1L6PbNTprpzBX9BBhsls5DsODnqxCGOcfpCx3u3BksMY69aq4h1te4ENELj
+ 94T0GsRJ5pR0jUvgCrXxa6lZj1FnXoxut2L5aV+fDrmHPnEQfAZvRL+kbQhLQFGaZVIG
+ UZjGpclfzOyPT2WVvhvqtg3vOjZUy8EVukRa0nZlenai6EDlH10vta96khSStA186ohK
+ lsZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789203607; x=1789808407;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=WCT0+gv9JmQdBqllyCgHijfl0um7k0RWeP6aTzXVQp0=;
+ b=OhBJKNql+KbjzQ+7hy0z9ariYbs2pOX0AYVRV+JWDJnldU5vFmKd6vPVOzBc1Kup0R
+ kURVKC7fik3nwv2LBYTdM7LKVc6EyQc3f/gQs8fwdgB99sonp2fD02goLSIDbLtH4PwL
+ dtqj9DnaDJ9p65bKvfb0zZJ2/GW28nqZjWG6vI122x8CkSANClpPTNvWtk3DFdIpGf1G
+ hPuerOYoKISpBopQm7xTCgUmppCgkP46JqaZBJfmttl8PGVRRj6OLEDF32GOkFiWL0Is
+ qnLAkaO2wELfbSlFFQIyeFiqpVgrUCaqJxjGib2k3ajnUHpBhabO2UfUuaSiFBzmc9Qt
+ KT3Q==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBx3ymrt40dUGLg5sEehESGCDFsYgFcRL6ihZLKdyTdSfZvlCtTx4uv3x7oxeUx81ooi1vVycjFVF/E=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mHDW2cOHYTmSBve1F7jTBh1mXuCEvkM2ntXCCFniWBfr5VRq8j
+ AYRi5qHceyfdAFAOlsFahsWikr2LUvx4Ic3Pxay1kxIjznmhAfvzqFnfEsc8ROF3gJNnSiY2IpV
+ us0YcZYl6cRu9cxg31f6oIRNJTYmhbR4=
+X-Gm-Gg: AYBFou1xPvM1p7encaTTvPOY0oaNjqXLyRTsot/TPtIPHFveJFN455jm6bneM7tX++z
+ cZqmqZ/5Q6ont2pS4FfABi94wIsf89U7xwxVIhnuAr16lcqM+xS5CXEZZR2CNGJaS8OLTotpgdi
+ TufoYXXGApsRhFsDa2ibsGLiYahEB2zL4Ti9n9d/Skrg7GNB14Nt1aju0loseXE5ncJAb66tLM+
+ KYFCtC6Lv+ZTYhLwLW5us9UMu0gpsHDl/zgc9UeZJYUEcEQdJusAoNQDE1npFlI0rG6WtfnBXKg
+ 0RsMScjSPgySGhOevbwBtUB1cTDsHDr8TvBRy27sYNXM1OJhKRbydA==
+X-Received: by 2002:a17:907:3f20:b0:c29:58ae:8327 with SMTP id
+ a640c23a62f3a-c2962c8a439mr511541966b.19.1789203606684; Sat, 12 Sep 2026
+ 02:00:06 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAEjxPJ7hXSi=oLtQPV+7GEvN+txfYwZ-u-v_EysNHM0gSGNrCw@mail.gmail.com>
+From: Theo Andersen Carton <andersen.theo@gmail.com>
+Date: Sat, 12 Sep 2026 10:59:55 +0200
+X-Gm-Features: AcwNN1XIwcl6bWbN5jv4kI4IsYuPAdJ2UAe5lOJ64SbegT19zk8Ge8XZXviCxbs
+Message-ID: <CANFnrspHiK7ii28XPdLkOMyhSZcJ9xz6CT-kNX+oiiF+8N-2Fg@mail.gmail.com>
+Subject: [PATCH] drm/i915/ddi: add DDI A force 4 lanes quirk for Apple
+ MacBookPro11, 5
+To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com
+Cc: joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com, 
+ simona@ffwll.ch, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,77 +104,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 10, 2026 at 02:11:18PM -0400, Stephen Smalley wrote:
-> On Tue, Sep 8, 2026 at 4:07 PM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
-> >
-> > The policy file has no write method and is exposed read-only (S_IRUGO in
-> > selinux_files[]), yet sel_open_policy() performs no open mode check, so a
-> > CAP_DAC_OVERRIDE caller can open it O_RDWR. Reject FMODE_WRITE at open, as
-> > kernfs does.
-> >
-> > The file can then never be mapped with FMODE_WRITE, so do_mmap() always
-> > clears VM_MAYWRITE and VM_SHARED for MAP_SHARED mappings and the VM_SHARED
-> > check in sel_mmap_policy() cannot be reached. Remove it.
-> >
-> > This also stops sel_mmap_policy() clearing VM_MAYWRITE on a mapping that is
-> > neither a PFN map nor a mixed map, ahead of the core enforcing that only
-> > such mappings may do so.
-> >
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
-> We should likely do something similar for the other sel_open_*() and
-> sel_mmap_*() functions too.
-> In particular, truncation of the status file can bring down systemd
-> since it is mapped by libselinux.
+On dual-GPU Retina MacBooks (mid 2015 fx) the internal panel is muxed
+to the discrete
+GPU at boot, so Apple's firmware never lights up eDP on the Intel side.
+As a result it never sets DDI_A_4_LANES, and intel_ddi_max_lanes() reads
+back a source maximum of two lanes for port A.
 
-Yeah I think there's definitely more that can be done there.
+intel_dp_max_common_lane_count() then takes min3(source_max = 2,
+sink_max = 4, ...) = 2, giving 2 x 2.7 Gbps x 8/10 = 4.32 Gbps of link
+bandwidth. The panel's native 2880x1800@60 8bpc mode needs 8.1 Gbps, so
+every mode is rejected with MODE_CLOCK_HIGH and the connector comes up
+with no usable modes at all -- the panel stays dark whenever i915 is
+made to drive it, which looks like a hardware limitation but is not.
 
-Though I think obviously that kind of stuff is better as a follow up as this
-patch is focused on eliminating a case where VMA_MAYWRITE_BIT is cleared
-incorrectly.
+The lanes are physically there. Reading the panel's DPCD from the AMD
+side, where amdgpu drives it correctly, reports MAX_LANE_COUNT = 0x84,
+i.e. 4 lanes, and amdgpu's own link_settings shows it running the panel
+at 4 lanes / HBR. macOS likewise drives this panel from the iGPU at its
+native resolution, so all four lanes are routed through the gmux to
+DDI A. Only the register bit is unset.
 
->
-> Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+intel_ddi_a_force_4_lanes() already exists for exactly this situation --
+its neighbouring comment notes that "Some BIOS might fail to set this
+bit on port A if eDP wasn't lit up at boot" -- but it only covers
+Broxton and Geminilake. Extend it with a DMI quirk so affected Macs get
+the correct lane count too.
 
-Thanks!
->
-> > ---
-> >  security/selinux/selinuxfs.c | 11 +++--------
-> >  1 file changed, 3 insertions(+), 8 deletions(-)
-> >
-> > diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
-> > index c7d91476971c..545a6f89f9e7 100644
-> > --- a/security/selinux/selinuxfs.c
-> > +++ b/security/selinux/selinuxfs.c
-> > @@ -340,6 +340,9 @@ static int sel_open_policy(struct inode *inode, struct file *filp)
-> >         struct policy_load_memory *plm = NULL;
-> >         int rc;
-> >
-> > +       if (filp->f_mode & FMODE_WRITE)
-> > +               return -EACCES;
-> > +
-> >         rc = avc_has_perm(current_sid(), SECINITSID_SECURITY,
-> >                           SECCLASS_SECURITY, SECURITY__READ_POLICY, NULL);
-> >         if (rc)
-> > @@ -424,14 +427,6 @@ static const struct vm_operations_struct sel_mmap_policy_ops = {
-> >
-> >  static int sel_mmap_policy(struct file *filp, struct vm_area_struct *vma)
-> >  {
-> > -       if (vma->vm_flags & VM_SHARED) {
-> > -               /* do not allow mprotect to make mapping writable */
-> > -               vm_flags_clear(vma, VM_MAYWRITE);
-> > -
-> > -               if (vma->vm_flags & VM_WRITE)
-> > -                       return -EACCES;
-> > -       }
-> > -
-> >         vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
-> >         vma->vm_ops = &sel_mmap_policy_ops;
-> >
-> >
-> > --
-> > 2.55.0
-> >
+The DMI match is deliberately narrow. Other dual-GPU models in the same
+family are very likely affected identically, but they are untested, so
+widen the match only as reports come in.
 
+Tested on a MacBookPro11,5 (Broadwell, Iris Pro + Radeon R9 M370X):
+with the quirk, DDI A comes up as 4 lanes, link training passes at
+link rate 270000 / lane count 4, and i915 drives the internal panel at
+its native 2880x1800.
+
+Signed-off-by: Theo Andersen Carton <andersen.theo@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_ddi.c    |  7 +++++
+ drivers/gpu/drm/i915/display/intel_quirks.c | 34 +++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
+ 3 files changed, 42 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c
+b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 02a53c9848e1..f746287830b3 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -4976,6 +4976,13 @@ static bool intel_ddi_a_force_4_lanes(struct
+intel_digital_port *dig_port)
+  if (display->platform.geminilake || display->platform.broxton)
+  return true;
+
++ /*
++ * Machines whose firmware leaves eDP dark on the Intel side never set
++ * the bit, so trust the quirk rather than the register.
++ */
++ if (intel_has_quirk(display, QUIRK_DDI_A_FORCE_4_LANES))
++ return true;
++
+  return false;
+ }
+
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c
+b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 33245f44c0d5..feb28956a013 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -100,6 +100,20 @@ static void quirk_disable_psr2(struct
+intel_display *display)
+  drm_info(display->drm, "PSR2 support not currently available for
+this setup, applying disable PSR2 quirk\n");
+ }
+
++/*
++ * Dual-GPU Macs boot with the internal panel muxed to the discrete GPU, so
++ * the firmware never lights up eDP on the Intel side and consequently never
++ * sets DDI_A_4_LANES -- even though all four lanes are wired through the gmux
++ * to DDI A. Without the bit, port A is capped at two lanes, which is not
++ * enough bandwidth for the panel's native mode, leaving the connector with no
++ * usable modes at all.
++ */
++static void quirk_ddi_a_force_4_lanes(struct intel_display *display)
++{
++ intel_set_quirk(display, QUIRK_DDI_A_FORCE_4_LANES);
++ drm_info(display->drm, "Applying DDI A force 4 lanes quirk\n");
++}
++
+ struct intel_quirk {
+  int device;
+  int subsystem_vendor;
+@@ -142,6 +156,13 @@ static int intel_dmi_no_pps_backlight(const
+struct dmi_system_id *id)
+  return 1;
+ }
+
++static int intel_dmi_ddi_a_force_4_lanes(const struct dmi_system_id *id)
++{
++ DRM_INFO("DDI A is 4 lanes despite firmware on %s\n", id->ident);
++
++ return 1;
++}
++
+ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+  {
+  .dmi_id_list = &(const struct dmi_system_id[]) {
+@@ -188,6 +209,19 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+  },
+  .hook = quirk_no_pps_backlight_power_hook,
+  },
++ {
++ .dmi_id_list = &(const struct dmi_system_id[]) {
++ {
++ .callback = intel_dmi_ddi_a_force_4_lanes,
++ .ident = "Apple MacBookPro11,5",
++ .matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
++    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro11,5"),
++ },
++ },
++ { }
++ },
++ .hook = quirk_ddi_a_force_4_lanes,
++ },
+ };
+
+ static struct intel_quirk intel_quirks[] = {
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h
+b/drivers/gpu/drm/i915/display/intel_quirks.h
+index 970a4fe52faf..d2b8e9183c62 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.h
++++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+@@ -23,6 +23,7 @@ enum intel_quirk_id {
+  QUIRK_EDP_LIMIT_RATE_HBR2,
+  QUIRK_DISABLE_EDP_PANEL_REPLAY,
+  QUIRK_DISABLE_PSR2,
++ QUIRK_DDI_A_FORCE_4_LANES,
+ };
+
+ void intel_init_quirks(struct intel_display *display);
 --
-Cheers, Lorenzo
+2.55.0
