@@ -4,65 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E453C88E65
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:54:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CF79C88E63
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:54:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BBCF10EA0B;
-	Sun, 13 Sep 2026 20:54:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDE2110EA09;
+	Sun, 13 Sep 2026 20:54:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="CiqL3eJp";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="ooKm5p0X";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L9/uwUy/";
 	dkim-atps=neutral
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 560C510E920
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 14:50:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org;
- c=relaxed/relaxed; 
- h=To:Message-Id:Date:Subject:From; t=1789311024; bh=8WaGMwqU8KwunPbjnR/t9uD
- fGmBUUzSYWU+v6BxzEpQ=; b=CiqL3eJpMDjisS3nqypMSWUlztUGRQ7LMFW5KTtTUHyA0DH5C1
- pd2tOspLIWEENc8VjbvlZ/mFvNS2QbszRLzgk/0YWUZVPl/iBt7vT5KdrZBgS7F8v97miUOLzXL
- h7OqliPTPcNKA+cEI3viiBlMA5c1FBCnzGac/vWmFJPgFKsnpzQblvjrwf7T3C+JrhLjdb8bgxk
- bOckZHahPgGs/9plSSq5dsheI+bLlmy2O8nePHOq76VXNiy4S81CsOjU/6tIa/76m4acRDuqmIt
- +My7O3qfmnlPRB/3knuO+kW55KwRNvPKFSj4EZYQmU2eoqkgs4a8dS/pH3LxF0NKkqA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org;
- c=relaxed/relaxed; 
- h=To:Message-Id:Date:Subject:From; t=1789311024; bh=8WaGMwqU8KwunPbjnR/t9uD
- fGmBUUzSYWU+v6BxzEpQ=; b=ooKm5p0XUB4ZDOena31p9atloEVeyXKuLinm2RwmCoPoOjQ8hr
- 1oJkQwfLxLIP1y16b8Ha4lghVhXX3Q8u7FAQ==;
-From: Nickolay Goppen <setotau@mainlining.org>
-Subject: [PATCH v3 0/3] Novatek NT51021 DSI panel IC driver
-Date: Sun, 13 Sep 2026 17:50:15 +0300
-Message-Id: <20260913-qcom-novatek-nt51021-panels-v3-0-266bc5d7e8c9@mainlining.org>
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com
+ [74.125.227.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BE3110E404
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 17:26:51 +0000 (UTC)
+Received: by mail-pj2-f13.google.com with SMTP id
+ 98e67ed59e1d1-39b2ad83dc6so863584a91.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 10:26:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789234010; x=1789838810; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=7izVhFPU5f2Mxv3Dnub39YzR+1KtOurbwyZEjfxW9ME=;
+ b=L9/uwUy/yenucfezIrYxo39q3q/2f2eF1rS1bFY9VNHgEVs7LD9ScC6GmCtlj+3/sw
+ 7Ug8iuf4R/OomXhIh8tfubHsalEwjGgEF3lvldBb6H0CHKP9UzFkzBs0bZhG4LTmuH+J
+ 9cis2JeWotawzKF1sbgbmEgqKakZaB8U+esT9wa/C9JoIv7+D41hvTlyFSqKRoxCcXJl
+ 996BQZpGEPrjGcs/5lZA8jfYkJT/jD0LTXZBJXQE8Up8ri3uk9TZlXvWdN7+iDLQItFF
+ uKzua2WGQ3vvwvxwaZPY0LhKIXZcHHYvwdXfOWEiLt96171g46NMU1nWO+J7L/L9aAi4
+ DjTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789234010; x=1789838810;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=7izVhFPU5f2Mxv3Dnub39YzR+1KtOurbwyZEjfxW9ME=;
+ b=QaF2SSuhMwVPxXpVH3N9WYCPG9uR6dHhRk96Cy8OVYQN28xiOenriNnRZcfICsFcOb
+ qKrEfskoeUFWOZwKMbkHMWPRBTplliomX7Z/iKMzjMbLhzEp9Y4zWaJWBBx0Oe8TS8/8
+ LtwcLxbayE85f2z9Wkl+QxawtOWFOLSiD7vQPkjgJSCFGV6JN6A7Dx7xO/LmHW6frPVT
+ xb0kJhXFpazr5Xwhj9wmXw2ObdDa8wjIJU94nVlVDalD6EVssvAVvO8+JNQds1wJ5Aka
+ 1JP3qpcYSFHlfLcIv/mqY3zqNK3JtA5auoLKTBebPrJRe5VJTuiZF5ZITp7iRAQz4QDZ
+ mJGg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw/qTL7Ts5uf8Z5V2O4TEa5LP9x2BB/YFt0+idO7V7LLbrGRyZVbedbNe0PoagLLex9qO0e32VJmhM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mXzYuipIYE1FWp1NSFrThRGYnDKf9qEVETUL6bflW/bHtRBEBx
+ 3i07+xh5CqZWCjhI6TqtPXw/zzob2M3Nw43QW0ZWpHPEmw+Iv1I/6jK2
+X-Gm-Gg: AYBFou1ovWORwAKBMU7czMT/0cHF9RCuj+qiJYoYex7fhCv4Zc/vdr9+LUOBQqNYzY3
+ zbU/7tmQ96iozYsdNUtLY4Nz/6QyvVh8EzqgSNqGj6J86oEhaVXrQprWcpdN+zIvOLVspsjmlt7
+ Vymc4ka15HgsGF1FmOxl0tp8I4vUxJKfuBYhq/P3l64+YPVOmmgLWHNHFNhKQia4DBOirdqS88j
+ WBRc9xspq/6AamirhbWG9Hylm0o7YLJ9Dzbieoq0MB6/DnNnSL5W+tjIqURcvXOzvWZ04PIqKBW
+ xCaRqT9CC/zBkssLc8vGMnTqx1s60pXoD+ZJOuXgDhCv+Cgzh5BRcwMW7hBq4cvRK/XMW1o5p8o
+ t768u0Bnv4wHP6K8j1N3nkzaRJW9mQiBbLlyJtM8G/GdOkp3sPhY2bvPRUAo7767L7PjHeyfxHb
+ yuj3QWb7wyHvtqROm71qXz6Nri5U1xY571y/JQrxqqGofZppGotpSw9uSrAudY9i9nCxfYsyWqx
+ H5bKQa4ku4=
+X-Received: by 2002:a17:90b:2741:b0:393:19a3:4f1 with SMTP id
+ 98e67ed59e1d1-39d9bdbb0e4mr16432141a91.6.1789234010571; 
+ Sat, 12 Sep 2026 10:26:50 -0700 (PDT)
+Received: from G15-5520 ([103.206.144.35]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-143659a9a06sm14279263c88.0.2026.09.12.10.26.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 12 Sep 2026 10:26:50 -0700 (PDT)
+From: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+Subject: [PATCH] drm/amdgpu: replace kmalloc_array with kmalloc_objs
+Date: Sat, 12 Sep 2026 17:25:52 +0000
+Message-ID: <20260912172552.70502-1-lalitshankarch@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43NSw6CMBSF4a2Yjq3pLQGsI/dhHJRygeujxRYbD
- WHvFhw4MDEO/+TkOyML6AkD261G5jFSIGdTZOsVM522LXKqUzMpZCG2UvGbcVduXdQDnrkdchA
- SeK8tXgJH2ai62uZaFSVLQu+xoceiH47vDvfqhGaYyXnRURicfy73Eebdf08RuODGgNEFVLUsY
- H/VZC9kybYb51s230X5ARXAb1AmELIcM1BCl031BU7T9AJm5tBRLgEAAA==
-X-Change-ID: 20260829-qcom-novatek-nt51021-panels-e2f9db85a967
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Nickolay Goppen <setotau@mainlining.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>, 
- Alexey Minnekhanov <alexeymin@minlexx.ru>, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789311023; l=2626;
- i=setotau@mainlining.org; s=20250815; h=from:subject:message-id;
- bh=+jGiurf1kEqr+HZOxFel+f+dvBj32YpLxsXDyEXYVRQ=;
- b=1GGuI/z4mvuU6ilS+RZyz7ZNreG747cGYcwIhBxknZ3kX+AGBbfiCaw/+f78iXaQ6FzLfemDG
- rbAB3qF/6ovDuYY5LPLNfBWpUGw162b8KtHaD0Supf8h9/m/d/NNaKg
-X-Developer-Key: i=setotau@mainlining.org; a=ed25519;
- pk=Og7YO6LfW+M2QfcJfjaUaXc8oOr5zoK8+4AtX5ICr4o=
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,67 +91,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds support for Novatek NT51021-based panels 
-for upcoming xiaomi-clover submission.
+Replace the remaining kmalloc_array instances with kmalloc_objs.
 
-Although according to datasheet, the IС has three power rails 
-in the use case of xiaomi-clover, all of them are wired to one 
-fixed regulator.
+No functional changes.
 
-Maybe I should create a dt option for enabling CABC for panel.
-
-Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
 ---
-Changes in v3:
-- Fixed bindings (Krzysztof)
-- Fixed probe function (Sashiko)
-- Added BOE-TV101WUM-NM0 support (Ryan)
-- Link to v2: https://patch.msgid.link/20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c     | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c         | 3 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 9 +++------
+ 3 files changed, 5 insertions(+), 9 deletions(-)
 
-Changes in v2:
-- Use devm_functions and renamed structs and functions (Neil)
-- Added delay before deasserting reset for stable initialization (Sashiko and Ryan)
-- Fixed dt-bindings (Sashiko and Neil)
-- Added a comment about set_display_on command
-- Link to v1: https://patch.msgid.link/20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 132d054900b5..f2427bf07905 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -986,7 +986,7 @@ static ssize_t amdgpu_debugfs_gca_config_read(struct file *f, char __user *buf,
+ 	if (size & 0x3 || *pos & 0x3)
+ 		return -EINVAL;
+ 
+-	config = kmalloc_array(256, sizeof(*config), GFP_KERNEL);
++	config = kmalloc_objs(*config, 256);
+ 	if (!config)
+ 		return -ENOMEM;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 242c48e85912..f67caa255327 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -900,8 +900,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		if (info->read_mmr_reg.count > 128)
+ 			return -EINVAL;
+ 
+-		regs = kmalloc_array(info->read_mmr_reg.count, sizeof(*regs),
+-				     GFP_KERNEL);
++		regs = kmalloc_objs(*regs, info->read_mmr_reg.count);
+ 		if (!regs)
+ 			return -ENOMEM;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+index 743b41db5b7c..cbdbd8196eb2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+@@ -486,8 +486,7 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+ 	if (IS_ERR(syncobj_handles))
+ 		return PTR_ERR(syncobj_handles);
+ 
+-	syncobj = kmalloc_array(num_syncobj_handles, sizeof(*syncobj),
+-				GFP_KERNEL);
++	syncobj = kmalloc_objs(*syncobj, num_syncobj_handles);
+ 	if (!syncobj) {
+ 		r = -ENOMEM;
+ 		goto free_syncobj_handles;
+@@ -726,13 +725,11 @@ amdgpu_userq_wait_return_fence_info(struct drm_device *dev, struct drm_file *fil
+ 	struct drm_exec exec;
+ 	int i, cnt, r;
+ 
+-	fence_info = kmalloc_array(wait_info->num_fences, sizeof(*fence_info),
+-				   GFP_KERNEL);
++	fence_info = kmalloc_objs(*fence_info, wait_info->num_fences);
+ 	if (!fence_info)
+ 		return -ENOMEM;
+ 
+-	fences = kmalloc_array(wait_info->num_fences, sizeof(*fences),
+-			       GFP_KERNEL);
++	fences = kmalloc_objs(*fences, wait_info->num_fences);
+ 	if (!fences) {
+ 		r = -ENOMEM;
+ 		goto free_fence_info;
+-- 
+2.53.0
 
-To: Nickolay Goppen <setotau@mainlining.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Matthias Brugger <matthias.bgg@gmail.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Ryan Brue <ryanbrue.dev@gmail.com>
-Cc: Alexey Minnekhanov <alexeymin@minlexx.ru>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-mediatek@lists.infradead.org
-
----
-Nickolay Goppen (3):
-      dt-bindings: display: panel: Add Novatek NT51021
-      drivers: gpu: drm: panel: Add BOE NT51021 driver
-      MAINTAINERS: Add myself and Ryan Brue as maintainers of NT51021 panel driver
-
- .../bindings/display/panel/novatek,nt51021.yaml    |  87 +++
- MAINTAINERS                                        |   7 +
- drivers/gpu/drm/panel/Kconfig                      |   9 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-novatek-nt51021.c      | 855 +++++++++++++++++++++
- 5 files changed, 959 insertions(+)
----
-base-commit: 99cc957e3ef3cccd72d2119c8eacbab39af0d1d6
-change-id: 20260829-qcom-novatek-nt51021-panels-e2f9db85a967
-
-Best regards,
---  
-Nickolay Goppen <setotau@mainlining.org>
