@@ -4,94 +4,187 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8D51C88E56
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 18:22:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94DF5C88E56
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 19:01:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E99E710E775;
-	Sat, 12 Sep 2026 18:22:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB83D10E004;
+	Sat, 12 Sep 2026 19:01:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="r5szQ3Rb";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="ls4+rWzN";
 	dkim-atps=neutral
-Received: from mail-oa2-f10.google.com (mail-oa2-f10.google.com
- [74.125.231.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07D4D10E775
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 18:22:39 +0000 (UTC)
-Received: by mail-oa2-f10.google.com with SMTP id
- 586e51a60fabf-4753ef5108aso643230fac.1
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 11:22:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789237358; x=1789842158; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=AN4nkmy715+ZC3aVioDzrXzTiXOhWqzQ+KZN4fFwxng=;
- b=r5szQ3Rb2KV/KS107EyW+yyYwe/wd5mh77T6xm/vGJ3SpNTpgWsIBnxNS1d1WA6bp9
- 7pd1/Wus5NdmtnDXiG+L2PTsIts+gVyKjb+mBUER+gc6ruytVD67t8QzDJMhEGoKZUz2
- GpoRmXrvIpEc8egZX13uaTFalUyoKGKmSYKBpYyB/YaxyVDiF88plWvu8YCNhN6s/Mfj
- xYAMwMGKXsUPVLJtNc0/6/atO0A1UiMlB7rYd0u1LbKb4oIeG7GhgRqUhyRablWs5oOp
- 8r455LlfCwP0M1Ei8EodFI5pMja1/aqyWzfr+eWBgul+ukqXkTv6hbFknMT3Z3hm+oWr
- 98ZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789237358; x=1789842158;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=AN4nkmy715+ZC3aVioDzrXzTiXOhWqzQ+KZN4fFwxng=;
- b=ESMRsOw1vkmA5ZdjE3ZE0TGEtt4MiEXNl1EOrMvbdZcFOfal9Qu1d1+VI7QZGXWePY
- pwGMr62JRMgELFjHA2xPLa1ki7QfgzhlZtDEhDF9KJuGWVdWVeRO44I+/qn41D0LSs37
- wOwxj2t36JMHICjk+Mq0LLOTtw/RPM0xPezTu/7kHR0az3EJO45yK/bBwV0TPNOOiMw2
- yUOJGljdPrFCWmzpp6cm+sxt5u4lndJims9ByA4KLwRNPQ+dEo+W00iojC71aHUNx4x1
- CWDPcSi/MFryhSbzAA27c82kfkZf6pWrf0nGyLb0dVZsAZeTlFM7+VsF+ePunKNaJ0cV
- 29zA==
-X-Gm-Message-State: AFuF++mIYhode/5Xjio+ufgMIrkcVWmxgHXwo1LIglKgMew0iz/16wVB
- MmX8tplN2FFWT5z8oqDE8KOqpqhRmopk45l/BYyGbuuqNvo9MHO4rVqo
-X-Gm-Gg: AYBFou0UARj7a6H2ULmH1iUYOCuCI61yVBeO6fyb2bKMXwiKCBXRmVdHnZF6FDyPeqP
- NdRRWHu7NreouY3hCm6kYeDmUk1Erpy278GOg2sxBzDlRdOVAxZVkG/XQCOyPxwJ9dulb8HpdJB
- 49Ied6WBPSxal5qsBJfWaXWvA7LJXyREH7KRVYFDNLDV2S2+lxXHlDiQo6rc60FgLCjjcMQfGtZ
- Fpmxx7Fn4WmUAsvtLR01RYUPHd65v1FAuxBAxFlDhYO0HX+4mBiKCMWTuko0j+kzrJylwgbEnY+
- cYjtnD9WWP/9sPwoj438lVMRpBe7KV3kcpy0t7SDA/5yAyrRnPoA9lDkSLcPh9T6JjPFniFAaDb
- bfUeqVy6cncbHISxY6fPGEk3jhE271Eodm8BJY6j1yjljiTBTnSTpeGRuaGkU+hGPU5bPX+R6bX
- 0IwAubrF7JBleYnOUO9CHGbJmP9VI/wYlDcJxITgHHvevlEFv+u9Y1U/5czWQxDV+aAtbTRdV1Y
- OyQeQ==
-X-Received: by 2002:a05:6871:708:b0:46a:239f:fc75 with SMTP id
- 586e51a60fabf-47de872ac02mr13363495fac.6.1789237358141; 
- Sat, 12 Sep 2026 11:22:38 -0700 (PDT)
-Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
- by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-47df64d89b9sm5413898fac.1.2026.09.12.11.22.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 12 Sep 2026 11:22:36 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Sat, 12 Sep 2026 13:22:23 -0500
-Subject: [PATCH 2/2] drm/panel: novatek-nt51021: add the BOE TV101WUM-NM0
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E3B410E004
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 19:01:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1789239676; x=1789844476; i=deller@gmx.de;
+ bh=/6Gtr1pFz+/wQvsCAm1SpGpbxSpPvyHyKvRXhn1mkYc=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=ls4+rWzN+D5qreHXuh6VFXwE5hPH7wFZR+qAXYEf326P8O44qKY6y25nBvR0tiS3
+ jea51cbR8MVKEmNP8qcVP1FIzW/Wkz50ty0fKNfGtJYFQmMGaefd3O8AJf+Jijgff
+ FWsePrZPzrYvsfiFCGcDJgX+iIagVaVh8ZL6OHZ0Zjk8ZDDb4FA56slkzn/MoWoOI
+ RnlefNUCkI93s0zmUlCJgMjUR7RlH1a+tF9jSKJZ/JqOyLA50YddPAe5xUqIGTs0m
+ HoN4OHr+1nsyDM3Btq5RjF6NBAZVz5e8LbSnDZmMXgE+zNY47UEHyYLJgtBmlTYoJ
+ ZPxowI/tMKvofeaI9w==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MGhuU-1x1bLS1PFq-00CXbO; Sat, 12
+ Sep 2026 21:01:16 +0200
+Message-ID: <31dfff58-f3c2-4265-b34f-e40bdc61e18c@gmx.de>
+Date: Sat, 12 Sep 2026 21:01:14 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-add-boe-tv101wum-nm0-v1-2-3057a08e8b80@gmail.com>
-References: <20260912-add-boe-tv101wum-nm0-v1-0-3057a08e8b80@gmail.com>
-In-Reply-To: <20260912-add-boe-tv101wum-nm0-v1-0-3057a08e8b80@gmail.com>
-To: Nickolay Goppen <setotau@mainlining.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789237347; l=8635;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=+ss2L+Ib4MBWxp1h1w+PuZmWHwVj9nyoMPZxLoTG0+8=;
- b=j1p228CnmIEzx9is8c0FeHCDh/btuOiRy02C9Vr5rG83/TfahazWxf2gXBWwsNoTKDnjiOb0/
- jstq0A03/EDAboCyB8HY+AhZZeJlh+vq/hctZv2L7SBp91JGOXdqRMa
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] vt: Add cursor-size helpers
+To: Thomas Zimmermann <tzimmermann@suse.de>, gregkh@linuxfoundation.org,
+ jirislaby@kernel.org, simona@ffwll.ch
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-serial@vger.kernel.org, sashiko-reviews@lists.linux.dev
+References: <20260911094518.78093-1-tzimmermann@suse.de>
+ <20260911094518.78093-2-tzimmermann@suse.de>
+Content-Language: en-US
+From: Helge Deller <deller@gmx.de>
+Autocrypt: addr=deller@gmx.de; keydata=
+ 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
+In-Reply-To: <20260911094518.78093-2-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:D1XXeHkcVaszmx/fGe7AdhataYq31L/qEgalTEoGiZwpXGyqK9F
+ wOh8KAlFmoLPhmnN8lnw/x/vVQ8aFMB4wvttVucfv+77C2eKHrxft+4z1wPz2kVdH3c8aGW
+ RDBfeFqhn2niKsdDSg4rp1f8WAow9glbFeFAano87mtz07QaZnzniIacQDXGkIHEzz9A9/2
+ IR/NklpyGCfPKEQr6kPuQ==
+UI-OutboundReport: notjunk:1;M01:P0:2fLDNSRRLiM=;Ufvdl+zg/y+cWt5HEhaHzgpDybN
+ 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
+ E=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,200 +200,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the BOE module fitted to the Amazon Fire HD 10 (2017), an MT8173
-tablet, as a third NT51021 variant. How the part was identified, since
-its label is not readable without removing the main board, is set out in
-the binding patch.
+On 9/11/26 11:25, Thomas Zimmermann wrote:
+> Cursors in the VT subsystem are blocks within a character cell that are
+> filled with the foreground color. The new helpers vc_font_cursor_start()
+> and vc_font_cursor_end() return the scanlines in which the cursor block
+> starts rsp. ends. This is compatible with VGA hardware
+>=20
+> In terms of cursor design, the new cursor-size helpers follow establishe=
+d
+> styles in fbcon. The only exception is in underline cursors for fonts wi=
+th
+> a size larger than 10. The underlining dash is now one pixel closer to
+> the font-glyph data, so that the cursor looks less detached. This follow=
+s
+> the style used by vgacon.
+>=20
+> Similar code in vgacon and fbcon ignores the cursor's default size store=
+d
+> in vt.cur_default. The consoles default to full-block cursors, while vt
+> defaults to underline cursors. The new helper fall back to cur_default a=
+nd
+> then underline cursors; in this order.
+>=20
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>   drivers/tty/vt/vt.c            | 90 ++++++++++++++++++++++++++++++++++
+>   include/linux/console_struct.h |  2 +
+>   2 files changed, 92 insertions(+)
+You may add
+Reviewed-by: Helge Deller <deller@gmx.de>
+to the whole series.
 
-The register sequence is the BOE branch of init_lcm_registers() in
-drivers/misc/mediatek/lcm/nt51021_wuxga_dsi_vdo/ in the Fire OS 3.18
-tree, command for command, with only a 120 ms wait after sleep-out added
-where the vendor waits its trailing 5 ms. The 0x8f 0xa5 and 0x8f 0x00
-that bracket it are the vendor's command interface selection, sent on
-every board that is not an early proto or HVT unit.
-
-It is much shorter than boe_tv101wum_nx0_init() because this module is
-left on its own factory trim. NT51021 R8CH selects whether V1/V14, gamma
-and HAOP come from the panel's OTP memory or from control registers, and
-the 0x8c 0x80 here leaves all three on OTP, where the NX0's 0x8e
-switches
-them to registers so that the three pages of gamma it then writes take
-effect. So the absent gamma is deliberate rather than an omission, and
-the differing 0x8c is its consequence. CABC is likewise untouched
-because
-the vendor drives it over I2C from the backlight path. What is left is
-0xc0 and 0xc8, which the public NT51021 specification does not describe;
-everything else this sequence touches carries the same value as the
-other
-two panels, including the terminal resistor, TP_SYNC, the MIPI Rx drive
-strength and all three test modes.
-
-The timings are the vendor's lcm_get_params(): hsync 1, hbp 32, hfp 110,
-vsync 1, vbp 14, vfp 11, so htotal 1343 and vtotal 1946. The pixel clock
-follows the vendor's PLL_CLOCK = 490, which after DDR is 980 Mbps per
-lane and over four lanes at 24bpp is 163.33 MHz, so 62.5 Hz. The
-bootloader leaves the MIPI TX PLL at that rate: read back before the
-kernel touches it, this board's PLL decodes to exactly 980 Mbps per
-lane, so the panel is already there when the kernel takes over.
-
-The front porch is the vendor's declared 110 rather than the smaller
-value its own DSI driver ends up running. That driver also sets
-clk_lp_per_line_enable, which makes ddp_dsi_config() overwrite HFP_WC
-after the declared timing is programmed, shrinking it to leave just
-enough room to take the clock lane to LP and back. That is a
-controller-side workaround rather than a panel property, and it
-contradicts the cont_clock = 1 set beside it, which disables the very LP
-transition it makes room for. Mainline mtk_dsi handles the clock lane
-itself, so the panel's declared timing is the right thing to carry here.
-
-The vendor asks for SYNC_EVENT_VDO_MODE with cont_clock = 1 rather than
-burst, so make mode_flags per variant instead of fixed in probe(). The
-two existing panels keep the flags they had. Burst was also tried on
-this hardware and worked, but the vendor configuration is the one the
-module is characterised for.
-
-The physical size is the datasheet active area, 216.576 x 135.36 mm,
-which measures 216 x 135 on the glass. The vendor's declared a
-physical_width = 136 and physical_height = 221, which appears to be an
-error. The size of the test unit was physically measured. 1200/136 and
-1920/221 disagree by 1.5%.
-
-The vendor's bootloader and kernel both carry a second register sequence
-for the Innolux module this board second-sources against, selected from
-two board ID straps. No Innolux unit was available, so that sequence is
-left out rather than carried untested; however, the Innolux part number
-was identified as "P101KDA-AB0", should someone with that glass need to
-upstream support in the future.
-
-Tested on the Amazon Fire HD 10 (2017) driven by mediatek-drm: 1200x1920
-at 62.5 Hz across a cold boot, display off and on cycles and a
-suspend/resume, with the MIPI TX PLL reading back at the intended rate
-every time.
-
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
- drivers/gpu/drm/panel/panel-novatek-nt51021.c | 66 ++++++++++++++++++++++++++-
- 1 file changed, 64 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt51021.c b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
-index 61dd283769a7..2a8fa181ac37 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt51021.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
-@@ -23,6 +23,7 @@ struct novatek_nt51021_variant {
- 	int (*init)(struct novatek_nt51021_desc *ctx);
- 
- 	const struct drm_display_mode *display_mode;
-+	unsigned long mode_flags;
- };
- 
- struct novatek_nt51021_desc {
-@@ -607,6 +608,39 @@ static int boe_tv101wum_nx0_init(struct novatek_nt51021_desc *ctx)
- 	return dsi_ctx.accum_err;
- }
- 
-+static int boe_tv101wum_nm0_init(struct novatek_nt51021_desc *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0xa5);
-+	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x01, 0x00);
-+	mipi_dsi_msleep(&dsi_ctx, 20);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0xa5);
-+	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x83, 0x00);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x84, 0x00);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8c, 0x80);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcd, 0x6c);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc0, 0x8b);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc8, 0xf0);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x97, 0x00);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8b, 0x10);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa9, 0x20);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x83, 0xaa);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x84, 0x11);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa9, 0x4b);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x85, 0x04);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x86, 0x08);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9c, 0x10);
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 120);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0x00);
-+	mipi_dsi_msleep(&dsi_ctx, 5);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
- static int nt51021_novatek_off(struct novatek_nt51021_desc *ctx)
- {
- 	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-@@ -713,8 +747,7 @@ static int nt51021_novatek_probe(struct mipi_dsi_device *dsi)
- 
- 	dsi->lanes = 4;
- 	dsi->format = MIPI_DSI_FMT_RGB888;
--	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
--			  MIPI_DSI_MODE_NO_EOT_PACKET | MIPI_DSI_MODE_LPM;
-+	dsi->mode_flags = ctx->variant->mode_flags;
- 
- 	ctx->panel.prepare_prev_first = true;
- 
-@@ -744,6 +777,21 @@ static const struct drm_display_mode boe_tv080wum_nx2_mode = {
- 	.type = DRM_MODE_TYPE_DRIVER,
- };
- 
-+static const struct drm_display_mode boe_tv101wum_nm0_mode = {
-+	.clock = 163333,
-+	.hdisplay = 1200,
-+	.hsync_start = 1200 + 110,
-+	.hsync_end = 1200 + 110 + 1,
-+	.htotal = 1200 + 110 + 1 + 32,
-+	.vdisplay = 1920,
-+	.vsync_start = 1920 + 11,
-+	.vsync_end = 1920 + 11 + 1,
-+	.vtotal = 1920 + 11 + 1 + 14,
-+	.width_mm = 135,
-+	.height_mm = 216,
-+	.type = DRM_MODE_TYPE_DRIVER,
-+};
-+
- static const struct drm_display_mode boe_tv101wum_nx0_mode = {
- 	.clock = (1200 + 172 + 4 + 32) * (1920 + 25 + 1 + 14) * 60 / 1000,
- 	.hdisplay = 1200,
-@@ -759,18 +807,32 @@ static const struct drm_display_mode boe_tv101wum_nx0_mode = {
- 	.type = DRM_MODE_TYPE_DRIVER,
- };
- 
-+#define NT51021_BURST_MODE_FLAGS	(MIPI_DSI_MODE_VIDEO | \
-+					 MIPI_DSI_MODE_VIDEO_BURST | \
-+					 MIPI_DSI_MODE_NO_EOT_PACKET | \
-+					 MIPI_DSI_MODE_LPM)
-+
- static const struct novatek_nt51021_variant boe_tv080wum_nx2_data = {
- 	.init = boe_tv080wum_nx2_init,
- 	.display_mode = &boe_tv080wum_nx2_mode,
-+	.mode_flags = NT51021_BURST_MODE_FLAGS,
-+};
-+
-+static const struct novatek_nt51021_variant boe_tv101wum_nm0_data = {
-+	.init = boe_tv101wum_nm0_init,
-+	.display_mode = &boe_tv101wum_nm0_mode,
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM,
- };
- 
- static const struct novatek_nt51021_variant boe_tv101wum_nx0_data = {
- 	.init = boe_tv101wum_nx0_init,
- 	.display_mode = &boe_tv101wum_nx0_mode,
-+	.mode_flags = NT51021_BURST_MODE_FLAGS,
- };
- 
- static const struct of_device_id nt51021_novatek_of_match[] = {
- 	{ .compatible = "boe,tv080wum-nx2", .data = &boe_tv080wum_nx2_data },
-+	{ .compatible = "boe,tv101wum-nm0", .data = &boe_tv101wum_nm0_data },
- 	{ .compatible = "boe,tv101wum-nx0", .data = &boe_tv101wum_nx0_data },
- 	{ /* sentinel */ }
- };
-
--- 
-2.55.0
-
+Thanks!
+Helge
