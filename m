@@ -4,44 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45124C88E53
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 11:58:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E785C88E53
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 12:21:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5546E10E4A3;
-	Sat, 12 Sep 2026 11:58:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A250410E40A;
+	Sat, 12 Sep 2026 12:21:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T87mua0D";
+	dkim=pass (2048-bit key; unprotected) header.d=aol.com header.i=@aol.com header.b="KomqJgKG";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCAEF10E4AA
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 11:58:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7CDBA40B28;
- Sat, 12 Sep 2026 11:58:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33EE21F00893;
- Sat, 12 Sep 2026 11:58:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789214300;
- bh=WHKlvMhfOWbH7E6kBGGRIvYxtXQ+6q9Q3GaejYZ3VF8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=T87mua0DAWWDbl88PoTrzykWaJUGHmcc/QwStzRCPlmLv6Empwq/23JjOCWzJeYSY
- t/3iAH+kV8kznK6/h9CXwKH9gagdH8/Z0BznY30DYSmH9WLpQ64sNABihOsI5YNUnu
- tFBq6fGE2HXdlFQeM3zEsp5CzuAcA21nMkttoq+yZka0J8awNNxf2ohfGka63eIGNn
- SXpQeQYvMUC/HvTk+KMmelFoN5I28JFLOSTJKgxppFa24W4XG0m19keec/qthEDU91
- 8BQ1+2hyGWChOBnSOYdJoVyqUWhSx/qZovmqzc0XT472An5qSqZCLv+xYU7vCqPG+Y
- wLtySsUYQAYXw==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v4] arm64: allwinner: add TrimUI Smart Pro (A133)
- board support
-To: leow149 <leow149@lucidmail.xyz>
-Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260912114331.92956-1-leow149@lucidmail.xyz>
-References: <20260912103139.90657-1-leow149@lucidmail.xyz>
- <20260912114331.92956-1-leow149@lucidmail.xyz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 11:58:19 +0000
-Message-Id: <20260912115820.33EE21F00893@smtp.kernel.org>
+Received: from sonic311-23.consmr.mail.gq1.yahoo.com
+ (sonic311-23.consmr.mail.gq1.yahoo.com [98.137.65.204])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6693210E40A
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 12:21:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048;
+ t=1789215708; bh=mg2Q9VGYNNS1T1ETSsx12afkhk81fjoCeS1dAy1Aa0c=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References:From:Subject:Reply-To;
+ b=KomqJgKGQrlUS3r0CAk1ikDlKiwW3d5SdI6ckoVtB+eJVJbXocm4vtMpGtYtdKFVL5cs3kXSzf9+saFF98nZm6gBT7L0cQaWBVuT1TO3bG3pcxZ7BTAvKFC6ijAUgmTXkVz4dKKaGgnU04XXnEkgOwopxYZt0Aliv89CXwlqtu/QLCwOwr7u1YsHKTLmJCjMUANq9QokfWSdoYROW/G8q9fDE2kh76os0zvcISHsDf6vOxRKZi3RXpmELQfnwHxvsj0ZVjnH4Jmx86f3gg2b2V3scKxlzJT15wpZyURoVP89vEDwvgZQVaddalX3P0wlBHl1Re7usXvB1z+1U3RjAA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1789215708; bh=3qnsB0kUgu2Fxz3xo+7oNYbAJVLBPnpm6TfEVFiP4rN=;
+ h=X-Sonic-MF:Subject:From:To:Date:From:Subject;
+ b=rXGTbfPBoRWjfoMLEGiaj9lAmqYlrRuQ+z6OMqRUUNknDTAP+aSjpI7ifUgIupAVMmt1VtlMBZRkRCjpouy80xKgitGW4YkhrytrkhnACq2dhqbOHZbnBzCvoKLe311dTkokSZWrJMAoZAoNfdA9Rv+Qt50Thx1aGIdF+BXo6zTktw3AlxaJDsgO8IpenAylZYTZl6xWvN8zBplaZ6U6Y0YEPdnQQy+hCtHX2NccGawgKm64W8to8M6Z872mtEBoCqP3gODsquWx6N3MoBKCBqNhNGSfdRal6Nk57vbWX4/bLFymvzUakP1umm5NAdI7Juu1dWXGsYPcmeZqnPoApg==
+X-YMail-OSG: AN2gwBMVM1l8x6S2jBHtUKNc3K64lc84afsy._nfiU9IH7ovA.LgvjYtT9K30wn
+ gVL2mDFoUhkvYkv4kh5QfZjnqHTh6VqAJ8zfHwbzGwPlNoJd6N60pUVwDmJEfE1DWEejC4c_4xss
+ vsPCUPj9xt8IBTnJOiAKb1R7u1df3v4Xtr.RZ622eHtTvWmd2RVyDl6cVI_2PpCxnFZKWaeHAy8S
+ BsnxRQZhSuznxSKpM5ywZm9xvpBJNRj9xFfG0S8MA8cE7wrEvMuPIrHzaSaQV2mU_a6AYF5nsaHU
+ NTUwFdooBjKNWLbg2FbVF.Y.Wx8Nn6zEjM.kNtzgquW0C_QvDiWSWeWsSo7apvIQSQnWFtmnVwe4
+ KyA6NRnO9pxGJQJNXOY1WMGZfR7m.e.6E6J94novdMERF_zm2SsFSRIob7jrQRyU74LzfxQRmfVR
+ lhwsvAyl0aUWmIkNM.Xg53SmSAYwfbEUCe.jzYi_cj3uV_q0a2GP8a52pHvGNF7I.J0pdrZMoC7q
+ Tjk8CAbkLF.fSPzRtmPc0O.rtq64eTDxSa3e6KuJAFVuiLuWcbuMD4LrbJsb7rIDwOA7GBjyB4Xn
+ sdc5PvHYeEbd26CArnwRUFiMZTbHh4RaTNj50.RChdbEkWBsC7kQtWSYytjwfUymJs7_NFofr2Hq
+ 12l3kO.uRON3YtK4Z3XJPB_VjdDNHrhSBRnrKXjX6Nr858zqRNe.v.LgkVigld5yQq7zGdpoFD0c
+ LtIPed20CjkHC0yP_eu1SoE8GxAQ23oyNzaEmnRITZGgEN39u1kP6IPEGBB11LaJmzM4EDMRJzHo
+ 6OOWQEkqvuHNgHgOibaj2VImZjYOwFnvd4onJk_yWtTVl9bDTK1pl.DsENAvg9FJXFbTQhWcuVZQ
+ f4ROljAMj9RbxBDHmNaq1q5UGF.0Ncp5lYHVIRdE2GdkIecUZSs.WPbio9_oeDMNDPM3jVTh2PvK
+ 84_R59jlO6jDOWIYGRseQbYkk3nj2TqHUGff4R6tbUAFrc0H4uuPwlAkvunWa5gUmjuOYIDKMWnd
+ 3pGW6vKY3kVh9dk2xW.8_mJSjbPxOX_xpcnZ36Kt1xZrmUcXmjRHHOSilFwPEt0izxOmAZ.twvRu
+ pD6UQ3xp6lQzDDm1AGVk2Gm9fcUz.d7v9UbiV6Kj7e6w..lWGFL3IuU3MhNIrFztQaqWlaqLwhZr
+ 8X.rHFSSV77_t4hoFf8HEWz.iGGXz3b0A7wDIPvzlh7cYCzpDzvQZASKvsgxP43JGQI.V1A3XF26
+ m9EdaGXZYfr5B6XaU6qCI_iArPP6sFixV6MfjqqLU8yiXImVXzzc18CXvcgU_TxyppFOwQZmFm23
+ OSuafwq3wFkgujBiYBUzZpoQ5N0unG.jlSkwPBicaHxCMlYStZBcW6w7brt20JxrPrfnC0grE_17
+ 82kemNmWpdodoWlHPRkwKaK9oIhxzRIO.rFdPPvTdevoSo2OidslO9jgOwYM_C5gquhUtUgjuKw6
+ mmDzFpAJCAxsVg581ysrI9OTi1t5IgCJBBEm0TCQ27v_0IRqUG4xzZLaux7765z9Tb9KnEFGkXtL
+ i.gFvreGHUa28eCyO8pbHi5DDax0SG4SnbrkoIUpkmlt3uxYWsI80k5Ymh4w2cwckhnKg7LXDK81
+ UzG.J.8S0RDM9zcISAfU0tUAzLBBB0ynSaA0PJYnEAn4pIjg0MCXxA..GyN9uoE9RhVoGqp45dAC
+ twPPLpBv9QsSrg.yuo1dYKYI6amb3uobCHggI2.g4Gzx0T981vHNTG0D9d6gwUPnJZhy8HG0lL2M
+ rWzZi_hkj0OFKx2KBBwXhbs8WLlggMfZuu8fIFdvzD3OVz4OuZVbUTXLB1F2dXApoPoVY29r5sHC
+ EJ1NdrS9Ty53VszixYnG4alBhcHsSv92m56YLSjctIvupC0D_rXifOBS8L6icfw6T5uL0tuXbtGV
+ qmQqyNDYzlJDwT9BoMrrN_sJX5rxj2PlNe_NGpnRnwZfrcbHIQHofLZI1L13orXaGVUViQLE4Bio
+ 7w0TdPaXL9WAF9xcBsaUy8Z09Nbv2PzO99JXANhBklOBKda5fCnfYMNnhUafLoQwIF5nyh_Iwf7Y
+ 93lkbAcJ45X_8_rpEObHBEcjqDrUG0nGlt7iBaM7wLLtEULFgJaWFNsJCDIPejct9Z.0HOQRmTN.
+ ugqL.1SJ19Wry53gNbA97Kwe6ZQkFqDKwD5GuyQWTJ_jxy8SwyXuTivRo1w11CbaDkpGUcEdb.d_
+ JUezZAKvxGg8B7zsOzd74te..IMfQsVjmJCo3oVxt16o_rSUB2IxE45lMRyfXsTZpgiA-
+X-Sonic-MF: <rubenru09@aol.com>
+X-Sonic-ID: afea841f-9bac-4d95-b009-7abad01194da
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic311.consmr.mail.gq1.yahoo.com with HTTP; Sat, 12 Sep 2026 12:21:48 +0000
+Received: by hermes--production-ir2-cddf86dcf-rk2hx (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID ad020d9ddc611d3e97ccf8da6953ec88; 
+ Sat, 12 Sep 2026 12:21:43 +0000 (UTC)
+Message-ID: <bd5c58d759ab5808d0729f01d590e63a8841765e.camel@aol.com>
+Subject: Re: [PATCH v2] drm/gud: Ignore damage clips in full update mode
+From: Ruben Wauters <rubenru09@aol.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, Sophie D <patches@scd31.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sat, 12 Sep 2026 13:21:38 +0100
+In-Reply-To: <987a45d3-2765-4583-b417-6aae5d350c45@suse.de>
+References: <20260907230849.31032-1-patches@scd31.com>
+ <20260910014910.8564-1-patches@scd31.com>
+ <987a45d3-2765-4583-b417-6aae5d350c45@suse.de>
+Autocrypt: addr=rubenru09@aol.com; prefer-encrypt=mutual;
+ keydata=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
+ eIvzsqg==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-Qe+c8yf0zQd8vC/Yhz74"
+User-Agent: Evolution 3.60.2 
+MIME-Version: 1.0
+X-Mailer: WebService/1.1.26525
+ mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,400 +126,79 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
 
-New issues:
-- [High] Unconditional application of the A133-specific manual DSI re-trigg=
-ering logic breaks all existing sun4i-drm DSI users.
-- [High] The DSI retrigger timer continues to poll DSI registers after the =
-DSI module's clocks are gated and its reset is asserted during display disa=
-ble, which will cause a fatal bus fault.
-- [Medium] Unconditional reordering of `DSI_START_HSC` before `drm_panel_pr=
-epare()` applies to all sun6i MIPI DSI panels and may break existing panels.
-- [Medium] Infinite IRQ storm due to unconditionally bypassing IRQ_NONE wit=
-hout clearing all potential interrupt bits.
+--=-Qe+c8yf0zQd8vC/Yhz74
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Pre-existing issues:
-- [High] Unbinding the `sun8i_tcon_top` driver via sysfs clears its `drvdat=
-a`, leading to a NULL pointer dereference in `sun8i_tcon_top_set_dsi_gate()=
-` and `sun8i_tcon_top_set_de0_port()` during subsequent DRM mode settings.
---
+On Thu, 2026-09-10 at 08:17 +0200, Thomas Zimmermann wrote:
+>=20
+> Am 10.09.26 um 03:49 schrieb Sophie D:
+> > When running in full update mode, previously small updates (such as
+> > moving the mouse across the screen) would cause many full frames to be
+> > generated. This would bog down the bus and lower the effective framerat=
+e
+> > significantly - I was seeing a drop from 60 FPS to 2 FPS.
+> >=20
+> > Set ignore_damage_clips in full update mode so the damage iterator
+> > yields a single full-plane rectangle instead of one per clip.
+> >=20
+> > Fixes: 73cfd166e045 ("drm/gud: Replace simple display pipe with DRM ato=
+mic helpers")
+> > Cc: <stable@vger.kernel.org> # 6.18.x
+> > Signed-off-by: Sophie D <patches@scd31.com>
+>=20
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Acked-by: Ruben Wauters <rubenru09@aol.com>
+>=20
+> Thanks for the fix.
+>=20
+> > ---
+> > v2: set ignore_damage_clips in atomic_check instead of merging clips in
+> >      atomic_update (Thomas Zimmermann)
+> >=20
+> >   drivers/gpu/drm/gud/gud_pipe.c | 3 +++
+> >   1 file changed, 3 insertions(+)
+> >=20
+> > diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_p=
+ipe.c
+> > index 5ef887d84..3388fdc8e 100644
+> > --- a/drivers/gpu/drm/gud/gud_pipe.c
+> > +++ b/drivers/gpu/drm/gud/gud_pipe.c
+> > @@ -482,6 +482,9 @@ int gud_plane_atomic_check(struct drm_plane *plane,
+> >   	if (!new_plane_state->visible)
+> >   		return 0;
+> >  =20
+> > +	if (gdrm->flags & GUD_DISPLAY_FLAG_FULL_UPDATE)
+> > +		new_plane_state->ignore_damage_clips =3D true;
+> > +
+> >   	if (old_plane_state->rotation !=3D new_plane_state->rotation)
+> >   		crtc_state->mode_changed =3D true;
+> >  =20
 
-commit 96d666dd56ce81b6cc9bf2aaa319e6ee6a48457c
-Author: leow149 <leow149@lucidmail.xyz>
-Subject: arm64: allwinner: add TrimUI Smart Pro (A133) board support
+--=-Qe+c8yf0zQd8vC/Yhz74
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-This commit introduces board support for the TrimUI Smart Pro handheld. It
-adds the required device tree, panel driver, and PWM driver, while adapting
-the sun4i display pipeline (TCON, DSI, mixer, TCON TOP) to support the A133
-Plus SoC's CPU/8080 DSI routing.
+-----BEGIN PGP SIGNATURE-----
 
-> diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.c b/drivers/gpu/drm/sun4i/s=
-un4i_tcon.c
-> index bf405a2aa3249..71000e7d700c6 100644
-> --- a/drivers/gpu/drm/sun4i/sun4i_tcon.c
-> +++ b/drivers/gpu/drm/sun4i/sun4i_tcon.c
-> @@ -221,6 +221,52 @@ void sun4i_tcon_set_status(struct sun4i_tcon *tcon,
->  		sun4i_tcon_lvds_set_status(tcon, encoder, true);
-> =20
->  	sun4i_tcon_channel_set_status(tcon, channel, enabled);
-> +
-> +	/*
-> +	 * On disable, stop the DSI/CPU-mode retrigger timer before anything
-> +	 * downstream (clocks, D-PHY) gets gated off. Left running, it keeps
-> +	 * touching tcon->regs/dsi->regs every 2ms regardless of the CRTC's
-> +	 * state; hitting gated hardware from there is a real bus-abort risk,
-> +	 * not just wasted work. hrtimer_cancel() on an already-inactive timer
-> +	 * is a safe no-op, so this is fine to call unconditionally rather
-> +	 * than gating it on dsi_cpu_mode.
-> +	 */
-> +	if (!enabled) {
-> +		hrtimer_cancel(&tcon->dsi_retrigger_timer);
+iQJPBAABCAA5FiEE3obNNdPQ9V5CQi2Y0n5QwFCuDOEFAmqlQ9IbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJENJ+UMBQrgzhct4QAJtGidtCxZfJ8nQ/bMTM
+lX7ySDGrPMq50AUQKmh8qJ+xK3hy7Xic7oWDGln485cS9PqWX+BK/jvJkfu2VK+y
+SfpNiyPqzZDLq94JnzJiniEOi/q0xGmX5EMqj1i+TY/A9uhPMm9jy83qXtGMpgr8
+WqsDl443A7vdsxlJXL/XXi1Ffx4npekqQM+KCtFi76H1N6ew0BZESnUyUl4eBdfC
+slVyKZOxG/vU+4fE1GJGoKAmKiWzAC7nh2cmd48pIp5y0TTqjlAiRMoL+DqFF5OY
+DC9+tXm525QZr6v5yUMoVjFFkIqZ5QOK5TNj/Wlh6Gqw4VaFu17j5yYQNGE2Cfh+
+10Kz49g0SuQtyrQdaFC9kfH7JwqtzgwgHSR8tcLffg+rg4yHkOoNh6UxoQn0vaO7
+aX8LVeS5jij6UBegsF6UnJ3DEC3LQVZHQLl0Ib36kC0yWTM+IZzmYdS9xHi8W7df
+Kr3hiJigoJlPmarL1rclDC6MY8iRi7S4d/6CrfeAv0Cb5GKc/Q5LpHbRJGN/ptq0
+KawRXG+EfLFKh0grPdfeSJ1heaULaZGvjKKBuhVaePi8/u4GlE0fC2j8uO9TQDGC
+ty5m6lXf/KebY1l9ypoPVZWKRKNse/e8U2K+WoAn9uuVOHpCqELh2FOCL1Rode4X
+MYX8725iVGE3Cs2LcKPx61oq
+=Zks8
+-----END PGP SIGNATURE-----
 
-[Severity: High]
-Does the DSI retrigger timer continue to poll DSI registers after the DSI
-module's clocks are gated?
-
-The DRM atomic commit sequence calls encoder->disable before crtc->disable.
-sun6i_dsi_encoder_disable() disables dsi->mod_clk and asserts dsi->reset,
-but the 2ms dsi_retrigger_timer is only cancelled here during the CRTC
-disable phase.
-
-If the timer fires in the window between encoder disable and CRTC disable
-(or runs continuously if TRIGGER_START never clears),
-sun4i_tcon_dsi_retrigger_timer_fn() will call sun6i_dsi_read_int_status()
-and attempt to read powered-down registers, causing a fatal bus fault.
-
-[ ... ]
-> @@ -229,6 +275,26 @@ void sun4i_tcon_enable_vblank(struct sun4i_tcon *tco=
-n, bool enable)
-> =20
->  	DRM_DEBUG_DRIVER("%sabling VBLANK interrupt\n", enable ? "En" : "Dis");
-> =20
-> +	/*
-> +	 * The DSI/CPU-interface path never touches TCON0's own GINT0
-> +	 * enable bits: for this panel, the vendor implementation dispatches
-> +	 * IRQ enable/query entirely to DSI's own interrupt register instead
-> +	 * (confirmed against a live working reference system, where GINT0's
-> +	 * enable bits read zero). The real per-frame retrigger source is
-> +	 * SUN6I_DSI_INT_REG -- see sun6i_mipi_dsi.c and
-> +	 * sun4i_tcon_dsi_retrigger_timer_fn() below.
-> +	 *
-> +	 * This also means SUN4I_TCON_GINT0_TCON0_TRI_FINISH_ENABLE is never
-> +	 * set, so it's fair to ask whether TRI_FINISH_INT's status bit can
-> +	 * assert at all without its own enable bit -- the same live vendor
-> +	 * dump answers this directly: TCON0_GINT0 read 0x00000a00 on that
-> +	 * reference system (TRI_FINISH_INT and FSYNC_INT both set) with every
-> +	 * enable bit at 0. Both status bits assert regardless of their own
-> +	 * enable, confirmed on real working hardware, not assumed.
-> +	 */
-> +	if (tcon->dsi_cpu_mode)
-> +		return;
-> +
-
-[Severity: High]
-Does this unconditional early return break VBLANK interrupts and page flips
-for all existing DSI boards?
-
-Because sun4i_tcon0_mode_set_cpu() now sets tcon->dsi_cpu_mode =3D true for
-all DRM_MODE_ENCODER_DSI encoders, this causes the hardware VBLANK interrupt
-to never be enabled for older TCONs.
-
-[ ... ]
-> @@ -375,6 +525,32 @@ static void sun4i_tcon0_mode_set_cpu(struct sun4i_tc=
-on *tcon,
->  			   SUN4I_TCON0_CTL_IF_MASK,
->  			   SUN4I_TCON0_CTL_IF_8080);
-> =20
-> +	/* Arm the per-frame TRIGGER_START re-assertion in the IRQ handler. */
-> +	tcon->dsi_cpu_mode =3D true;
-> +	tcon->dsi =3D encoder_to_sun6i_dsi(encoder);
-> +	/*
-> +	 * Back-reference so sun6i_dsi_encoder_enable() can arm the retrigger
-> +	 * timer itself once it actually finishes -- see the comment on
-> +	 * sun4i_tcon_dsi_start_retrigger() for why this replaced a wall-clock
-> +	 * guess made from here.
-> +	 */
-> +	tcon->dsi->tcon =3D tcon;
-
-[Severity: High]
-Can this unconditional application of the A133-specific manual DSI
-re-triggering logic override the normal free-running hardware state for
-other boards?
-
-This enables the manual DSI CPU mode unconditionally for all DSI interfaces
-without checking a quirk or SoC version, which introduces a regression for
-existing sun4i-drm DSI users (e.g., A64, A83T).
-
-[ ... ]
-> @@ -759,30 +1045,187 @@ static irqreturn_t sun4i_tcon_handler(int irq, vo=
-id *private)
->  	struct sun4i_crtc *scrtc =3D tcon->crtc;
->  	struct sunxi_engine *engine =3D scrtc->engine;
->  	unsigned int status;
-> +	bool handled;
-> =20
->  	regmap_read(tcon->regs, SUN4I_TCON_GINT0_REG, &status);
-> =20
-> -	if (!(status & (SUN4I_TCON_GINT0_VBLANK_INT(0) |
-> -			SUN4I_TCON_GINT0_VBLANK_INT(1) |
-> -			SUN4I_TCON_GINT0_TCON0_TRI_FINISH_INT)))
-> +	/*
-> +	 * FSYNC_INT (bit 9) reads unconditionally set on this board -- a
-> +	 * confirmed vendor register dump on a genuinely working reference
-> +	 * system shows the exact same bit persistently set too (stable
-> +	 * across 5 rapid samples), so this is real, expected hardware
-> +	 * behavior in DSI/CPU mode, not a bug. What IS a real, measured
-> +	 * problem: it toggles far faster than a single regmap_read() can
-> +	 * reliably catch (live testing shows genirq's "nobody cared"
-> +	 * unhandled-IRQ storm protection tripping and permanently disabling
-> +	 * this line within 60-100s, based on this exact read occasionally
-> +	 * landing between pulses and seeing status=3D0). Once disabled,
-> +	 * sun4i_tcon_handler()'s own TRI_FINISH-based backstop retrigger
-> +	 * (see below) is gone for the rest of the boot, for good.
-> +	 *
-> +	 * In DSI/CPU mode, this driver is the only thing wired to this GIC
-> +	 * line -- there is no other legitimate source that this interrupt
-> +	 * could be "not for us", unlike the general shared-IRQ case genirq's
-> +	 * heuristic is meant to protect against. So in that mode, treat
-> +	 * every firing as ours unconditionally rather than trusting a single
-> +	 * status snapshot; non-DSI boards sharing this same driver are
-> +	 * unaffected and keep the normal status-based check.
-> +	 *
-> +	 * This is a real trade-off, not a free fix: a line genuinely
-> +	 * re-firing this fast means real, ongoing CPU time spent servicing
-> +	 * it for as long as this board is in this state, since each call is
-> +	 * still a full IRQ entry/exit even though the work inside is cheap.
-> +	 * The alternative -- letting genirq disable the line -- is worse:
-> +	 * empirically confirmed to permanently kill this handler's own
-> +	 * TRI_FINISH-based backstop for the rest of the boot, not just this
-> +	 * one noisy source. Moving to DSI's own interrupt (GIC SPI 100,
-> +	 * currently unrequested by any driver -- see the comment on
-> +	 * SUN6I_DSI_INT_REG in sun6i_mipi_dsi.c) was considered, but there's
-> +	 * no evidence that line wouldn't exhibit the same behavior, and
-> +	 * requesting an interrupt no other mainline user has ever wired up
-> +	 * for this purpose is its own real risk. Left as-is.
-> +	 */
-> +	handled =3D tcon->dsi_cpu_mode ||
-> +		  (status & (SUN4I_TCON_GINT0_VBLANK_INT(0) |
-> +			     SUN4I_TCON_GINT0_VBLANK_INT(1) |
-> +			     SUN4I_TCON_GINT0_TCON0_TRI_FINISH_INT |
-> +			     SUN4I_TCON_GINT0_TCON0_FSYNC_INT));
-> +
-> +	if (!handled)
->  		return IRQ_NONE;
-
-[Severity: Medium]
-Will this lead to an infinite IRQ storm by unconditionally bypassing
-IRQ_NONE?
-
-This logic unconditionally accepts the interrupt as handled if
-dsi_cpu_mode is true, preventing the genirq subsystem from disabling
-the line on an unhandled storm.
-
-> =20
-> -	drm_crtc_handle_vblank(&scrtc->crtc);
-> -	sun4i_tcon_finish_page_flip(drm, scrtc);
-> +	/*
-> +	 * FSYNC_INT alone is not a real vblank/frame-complete event -- it's
-> +	 * being acked purely to keep the level interrupt from storming (see
-> +	 * the comment above). Firing drm_crtc_handle_vblank()/
-> +	 * finish_page_flip() on every FSYNC_INT pulse, unconditionally,
-> +	 * generates spurious vblank events and can complete page-flip fences
-> +	 * before the frame they're for has actually reached the screen.
-> +	 * Only a genuine VBLANK or TRI_FINISH source should do that.
-> +	 */
-> +	if (status & (SUN4I_TCON_GINT0_VBLANK_INT(0) |
-> +		      SUN4I_TCON_GINT0_VBLANK_INT(1) |
-> +		      SUN4I_TCON_GINT0_TCON0_TRI_FINISH_INT)) {
-> +		drm_crtc_handle_vblank(&scrtc->crtc);
-> +		sun4i_tcon_finish_page_flip(drm, scrtc);
-> +	}
-> =20
->  	/* Acknowledge the interrupt */
->  	regmap_update_bits(tcon->regs, SUN4I_TCON_GINT0_REG,
->  			   SUN4I_TCON_GINT0_VBLANK_INT(0) |
->  			   SUN4I_TCON_GINT0_VBLANK_INT(1) |
-> -			   SUN4I_TCON_GINT0_TCON0_TRI_FINISH_INT,
-> +			   SUN4I_TCON_GINT0_TCON0_TRI_FINISH_INT |
-> +			   SUN4I_TCON_GINT0_TCON0_FSYNC_INT,
->  			   0);
-
-[Severity: Medium]
-Could this result in an infinite loop if another bit is driving the IRQ lin=
-e?
-
-If an unhandled bit (e.g., TRI_COUNTER_INT) is set, it will not be cleared
-since this update only targets four specific bits.
-
-Because the handler unconditionally returns IRQ_HANDLED in dsi_cpu_mode,
-the GIC will immediately re-fire the level interrupt causing a kernel
-hard lockup.
-
-[ ... ]
-> diff --git a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c b/drivers/gpu/drm/sun=
-4i/sun6i_mipi_dsi.c
-> index d504ae5832949..20bcfa2ddba19 100644
-> --- a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
-> +++ b/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
-[ ... ]
-> @@ -769,29 +910,50 @@ static void sun6i_dsi_encoder_enable(struct drm_enc=
-oder *encoder)
->  	phy_configure(dsi->dphy, &opts);
->  	phy_power_on(dsi->dphy);
-> =20
-> -	if (dsi->panel)
-> -		drm_panel_prepare(dsi->panel);
-> -
->  	/*
-> -	 * FIXME: This should be moved after the switch to HS mode.
-> -	 *
-> -	 * Unfortunately, once in HS mode, it seems like we're not
-> -	 * able to send DCS commands anymore, which would prevent any
-> -	 * panel to send any DCS command as part as their enable
-> -	 * method, which is quite common.
-> -	 *
-> -	 * I haven't seen any artifact due to that sub-optimal
-> -	 * ordering on the panels I've tested it with, so I guess this
-> -	 * will do for now, until that IP is better understood.
-> +	 * The HS clock-enable step (DSI_START_HSC) runs before the panel's
-> +	 * DCS init sequence rather than after, unlike a previous revision of
-> +	 * this driver. Upstream's own comment on this ordering ("this should
-> +	 * be moved after the switch to HS mode... I haven't seen any artifact
-> +	 * due to that sub-optimal ordering on the panels I've tested it
-> +	 * with") already flagged it as suspect without resolving it. The
-> +	 * vendor panel driver for this board enables the HS clock as the
-> +	 * very first step of its panel-init routine, before sending any DCS
-> +	 * command. This doesn't conflict with DCS needing LP mode: HSC only
-> +	 * puts the clock lane into its continuous-HS state, and DCS commands
-> +	 * use the entirely separate LPTX/LPDT instruction tables.
->  	 *
-> -	 */
-> -	if (dsi->panel)
-> -		drm_panel_enable(dsi->panel);
-> -
->  	sun6i_dsi_start(dsi, DSI_START_HSC);
-> =20
->  	udelay(1000);
-> =20
-> +	if (dsi->panel)
-> +		drm_panel_prepare(dsi->panel);
-> +
-> +	if (dsi->panel)
-> +		drm_panel_enable(dsi->panel);
-
-[Severity: Medium]
-Could this unconditional reordering of DSI_START_HSC before
-drm_panel_prepare() break existing panels?
-
-Existing panels that expect the DSI clock lane to remain in Low Power (LP)
-mode during their DCS initialization may fail to configure correctly.
-
-The commit message acknowledges this is a global change and was not verified
-against other panels sharing the driver.
-
-[ ... ]
-> diff --git a/drivers/gpu/drm/sun4i/sun8i_tcon_top.c b/drivers/gpu/drm/sun=
-4i/sun8i_tcon_top.c
-> index 9cbd655518b20..45913d90d30c8 100644
-> --- a/drivers/gpu/drm/sun4i/sun8i_tcon_top.c
-> +++ b/drivers/gpu/drm/sun4i/sun8i_tcon_top.c
-> @@ -143,12 +143,86 @@ int sun8i_tcon_top_de_config(struct device *dev, in=
-t mixer, int tcon)
->  }
->  EXPORT_SYMBOL(sun8i_tcon_top_de_config);
-> =20
-> +/*
-> + * The vendor implementation's DSI configuration path unconditionally
-> + * enables this same bit (TCON_TOP_GATE_SRC_REG, TCON_TOP_TCON_DSI_GATE)
-> + * for TCON0. Mainline already registers it as a standard clk gate
-> + * (CLK_TCON_TOP_DSI, see sun8i_tcon_top_register_gate() above), but
-> + * nothing consumes it: wiring it as dsi0's "mod" clock creates a circul=
-ar
-> + * dependency between TCON TOP's .bind() and dsi0's .probe() (see the DTS
-> + * comment on the dsi0 node). This sets the bit directly instead, the sa=
-me
-> + * way sun8i_tcon_top_set_hdmi_src() and sun8i_tcon_top_de_config() above
-> + * already bypass the clk-consumer graph for their own TCON TOP writes.
-> + */
-> +int sun8i_tcon_top_set_dsi_gate(struct device *dev, bool enable)
-> +{
-> +	struct sun8i_tcon_top *tcon_top =3D dev_get_drvdata(dev);
-> +	unsigned long flags;
-> +	u32 val;
-> +
-> +	if (!sun8i_tcon_top_node_is_tcon_top(dev->of_node)) {
-> +		dev_err(dev, "Device is not TCON TOP!\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	spin_lock_irqsave(&tcon_top->reg_lock, flags);
-
-[Severity: High]
-This is a pre-existing issue, but is it possible for unbinding the
-sun8i_tcon_top driver via sysfs to clear its drvdata, leading to a NULL
-pointer dereference here?
-
-The sun8i_tcon_top_platform_driver lacks a remove function. If unbound via
-sysfs, the device core clears the device's drvdata to NULL.
-
-Because DRM is unaware the component is gone (no component_del is called),
-a subsequent modeset calling this function will retrieve a NULL tcon_top
-and crash on the spinlock access.
-
-> +
-> +	val =3D readl(tcon_top->regs + TCON_TOP_GATE_SRC_REG);
-> +	if (enable)
-> +		val |=3D BIT(TCON_TOP_TCON_DSI_GATE);
-> +	else
-> +		val &=3D ~BIT(TCON_TOP_TCON_DSI_GATE);
-> +	writel(val, tcon_top->regs + TCON_TOP_GATE_SRC_REG);
-> +
-> +	spin_unlock_irqrestore(&tcon_top->reg_lock, flags);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(sun8i_tcon_top_set_dsi_gate);
-> +
-> +/*
-> + * TCON_TOP_PORT_SEL_REG routes each DE's output to one of the 4 TCON
-> + * ports. The only existing caller of the read-modify-write helper for
-> + * this register (sun8i_tcon_top_de_config()) is wired up exclusively fr=
-om
-> + * sun8i_r40_tcon_tv_set_mux(), which only runs for TCON quirks tables
-> + * that provide a .set_mux callback -- ours doesn't, the same gap
-> + * sun8i_tcon_top_set_dsi_gate() above works around for the DSI clock ga=
-te
-> + * bit. DE0's live PORT_SEL field on a working reference system is 0
-> + * (port 0), matching this register's reset default -- written explicitly
-> + * here rather than relying on that default, since nothing in mainline
-> + * otherwise reaches this register for a .set_mux-less quirks table.
-> + */
-> +int sun8i_tcon_top_set_de0_port(struct device *dev, int port)
-> +{
-> +	struct sun8i_tcon_top *tcon_top =3D dev_get_drvdata(dev);
-> +	unsigned long flags;
-> +	u32 val;
-> +
-> +	if (!sun8i_tcon_top_node_is_tcon_top(dev->of_node)) {
-> +		dev_err(dev, "Device is not TCON TOP!\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	spin_lock_irqsave(&tcon_top->reg_lock, flags);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this share the exact
-same architectural vulnerability as sun8i_tcon_top_set_dsi_gate()?
-
-A sysfs unbind clearing drvdata will cause a NULL pointer dereference here
-when tcon_top is accessed.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912114331.9295=
-6-1-leow149@lucidmail.xyz?part=3D1
+--=-Qe+c8yf0zQd8vC/Yhz74--
