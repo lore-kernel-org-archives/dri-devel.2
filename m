@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EA48C79FB6
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 08:39:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E781AC88E56
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 08:39:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E69DD10E694;
-	Sat, 12 Sep 2026 08:39:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16FF110E692;
+	Sat, 12 Sep 2026 08:39:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FBALDT8k";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="q1+1Rmsu";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1C5710E679;
- Sat, 12 Sep 2026 08:39:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAFA110E685;
+ Sat, 12 Sep 2026 08:39:22 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id CCFB2447F3;
- Sat, 12 Sep 2026 08:39:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 305FCC4AF0C;
+ by sea.source.kernel.org (Postfix) with ESMTP id 7052B4487F;
+ Sat, 12 Sep 2026 08:39:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D8E28C2BCFB;
  Sat, 12 Sep 2026 08:39:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1789202358;
- bh=pYcFE5374oIVVn03ajNnY96fsnJeNt1jxuuyEUBwheE=;
+ s=k20201202; t=1789202359;
+ bh=yIsy9UjYKr48teuGGm616JWWSBmaNjaRJetlhs90SOI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=FBALDT8kAHRCsX0ehCbvyYrzBGput6puHmkm6sUqqBzQ4/w9zjjdzuAGUtOl6AneL
- AF4o1694FBZsh2nXG6HQKWXnQEwDjFmF7qlYqwTrhxmBiEwt5TwjhX44Mav6y5DqSx
- Yz+6j3F+dOzJiBwxmJaDHTZqNtVKQkj+jk6PUJVfra+5QMr6qkc6/STJ0FX9sf/ffU
- Dy6jL3Kp/++TvlaneU+sHb1OuiKF4zDEwyhPkirH0C2boqC3OCweXC0webtrhDK2H6
- WiAVR+iDTEw96XeZ+qto1xVgCwHNgszmuU/gNEI+4kF7ZtefFyTIT1ihxizQg2FyRp
- zrp7alRIuJaLg==
+ b=q1+1RmsuDZbhnjrTpTVmWQFvDQF8lBw994tG+B3WMMJRQjBcNZAJJjqzoOJ6pBvnb
+ Ub1EhgSECVEeMcNRzd+aF+jTuaZz9ro/J+vQUSK9nFNudzBm/zkbH0ZG9UxLtOMSc8
+ wU9uwkx/GqdBT2TJWZmbPt0/EjPLzkbE8oc42rXT9AJbp56O5AvLfqTKSwZOGu12ts
+ 4IVRn2tzjB8udRyEAsHeD8uR2XF+uokT8cmPHgPR3n6ENRSLNfZDsMU0Jr5lGrxh+i
+ hDX1inxnJrFOG25+5m7XYKgLJfCRpdiUwnFu20Cu0li8qg3OXhUpojX9CAkz8McTjY
+ 64McGwbhjvULw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 12536C88E5D;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id C0B44C88E56;
  Sat, 12 Sep 2026 08:39:18 +0000 (UTC)
 From: Muzaffer Kadir via B4 Relay
  <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Sat, 12 Sep 2026 11:39:14 +0300
-Subject: [PATCH RFC 05/20] dt-bindings: mmc: sdhci-msm: Add MSM8952 compatible
+Date: Sat, 12 Sep 2026 11:39:23 +0300
+Subject: [PATCH RFC 14/20] drm: msm: mdp5: Add MDP5 configuration for MSM8952
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-msm8952-initial-support-v1-5-0e742578b524@mainlining.org>
+Message-Id: <20260912-msm8952-initial-support-v1-14-0e742578b524@mainlining.org>
 References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
 In-Reply-To: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
 To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
@@ -77,11 +77,11 @@ Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
  linux-pm@vger.kernel.org, linux-input@vger.kernel.org, 
  Muzaffer Kadir <muzafferkadir@mainlining.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789202354; l=861;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789202354; l=2908;
  i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=i5JYnHiSTI2FsDfkaSc7QQm0T2uZHX+0vDTSQH293vs=;
- b=rjKT3vKCGe+tuI8MU/z1XGpbuQVv/ke+KNZMWn+sOLwz+aMBrDn6Valk9bYaifasRV15rtB6N
- dn/v6Dz6be2BZg1MvcsdUFgQyAMQa2giIzKk6qWaaWtpvS+mB8rBHZo
+ bh=tN86AwIVz+/4z2KwlUplPpbsNM+e16O69T3qlIbXC0E=;
+ b=D+Mx3bXoA7Gp2aJrzbakliBWsehboQQCDHUiAE6mtMMsP3Rz+XXR7XoC9JCqMmHP/BbvAqRJb
+ pM6YBmDSDrSC8nbOgefdBSyahFuqo9ikgTtGT80P59kglzet9qZyeZz
 X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
  pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
 X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
@@ -105,26 +105,112 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Document the compatible string for the SDHCI controller on the
-msm8952 platform.
+Add the mdp5_cfg_hw entry for MDP5 version v1.12 found on MSM8952.
 
 Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c | 81 ++++++++++++++++++++++++++++++++
+ 1 file changed, 81 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml b/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
-index 69bd44e65ad7..9d4409c958fa 100644
---- a/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
-+++ b/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
-@@ -26,6 +26,7 @@ properties:
-               - qcom,ipq4019-sdhci
-               - qcom,ipq8074-sdhci
-               - qcom,msm8226-sdhci
-+              - qcom,msm8952-sdhci
-               - qcom,msm8953-sdhci
-               - qcom,msm8974-sdhci
-               - qcom,msm8976-sdhci
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+index 7c91fc1915f3..d34c94d6f7e2 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+@@ -744,6 +744,86 @@ static const struct mdp5_cfg_hw msm8x76_config = {
+ 	.max_clk = 360000000,
+ };
+ 
++static const struct mdp5_cfg_hw msm8952_config = {
++	.name = "msm8952",
++	.mdp = {
++		.count = 1,
++		.base = { 0x0 },
++		.caps = MDP_CAP_SMP |
++			0,
++	},
++	.smp = {
++		.mmb_count = 8,
++		.mmb_size = 8192,
++		.clients = {
++			[SSPP_VIG0] = 1, [SSPP_DMA0] = 4,
++			[SSPP_RGB0] = 7, [SSPP_RGB1] = 8,
++		},
++	},
++	.ctl = {
++		.count = 3,
++		.base = { 0x01000, 0x01200, 0x01400 },
++		.flush_hw_mask = 0xffffffff,
++	},
++	.pipe_vig = {
++		.count = 1,
++		.base = { 0x04000 },
++		.caps = MDP_PIPE_CAP_HFLIP | MDP_PIPE_CAP_VFLIP |
++				MDP_PIPE_CAP_SCALE | MDP_PIPE_CAP_CSC |
++				MDP_PIPE_CAP_DECIMATION,
++	},
++	.pipe_rgb = {
++		.count = 2,
++		.base = { 0x14000, 0x16000 },
++		.caps = MDP_PIPE_CAP_HFLIP | MDP_PIPE_CAP_VFLIP |
++				MDP_PIPE_CAP_DECIMATION,
++	},
++	.pipe_dma = {
++		.count = 1,
++		.base = { 0x24000 },
++		.caps = MDP_PIPE_CAP_HFLIP | MDP_PIPE_CAP_VFLIP,
++	},
++	.pipe_cursor = {
++		.count = 1,
++		.base = { 0x440DC },
++		.caps = MDP_PIPE_CAP_HFLIP	|
++			MDP_PIPE_CAP_VFLIP	|
++			MDP_PIPE_CAP_SW_PIX_EXT	|
++			MDP_PIPE_CAP_CURSOR	|
++			0,
++	},
++	.lm = {
++		.count = 2,
++		.base = { 0x44000, 0x47000 },
++		.instances = {
++				{ .id = 0, .pp = 0, .dspp = 0,
++				  .caps = MDP_LM_CAP_DISPLAY, },
++				{ .id = 3, .pp = -1, .dspp = -1,
++				  .caps = MDP_LM_CAP_WB },
++			     },
++		.nb_stages = 8,
++		.max_width = 2048,
++		.max_height = 0xFFFF,
++	},
++	.dspp = {
++		.count = 1,
++		.base = { 0x54000 },
++
++	},
++	.pp = {
++		.count = 3,
++		.base = { 0x70000, 0x70800, 0x72000 },
++	},
++	.intf = {
++		.base = { 0x00000, 0x6a800 },
++		.connect = {
++			[0] = INTF_DISABLED,
++			[1] = INTF_DSI,
++		},
++	},
++	.max_clk = 320000000,
++};
++
+ static const struct mdp5_cfg_hw msm8x53_config = {
+ 	.name = "msm8x53",
+ 	.mdp = {
+@@ -1017,6 +1097,7 @@ static const struct mdp5_cfg_handler cfg_handlers_v1[] = {
+ 	{ .revision = 9, .config = { .hw = &msm8x94_config } },
+ 	{ .revision = 7, .config = { .hw = &msm8x96_config } },
+ 	{ .revision = 11, .config = { .hw = &msm8x76_config } },
++	{ .revision = 12, .config = { .hw = &msm8952_config } },
+ 	{ .revision = 14, .config = { .hw = &msm8937_config } },
+ 	{ .revision = 15, .config = { .hw = &msm8917_config } },
+ 	{ .revision = 16, .config = { .hw = &msm8x53_config } },
 
 -- 
 2.54.0
