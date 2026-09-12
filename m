@@ -4,53 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CC0CC88E59
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 14:34:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF854C88E53
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 14:59:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 936D510E00C;
-	Sat, 12 Sep 2026 14:34:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3C0410E6D0;
+	Sat, 12 Sep 2026 14:59:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZUw5Spy8";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YILSQAJj";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ViLhb/eT";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8D2E10E00C
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 14:34:23 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D8BC560233;
- Sat, 12 Sep 2026 14:34:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C5AB1F00893;
- Sat, 12 Sep 2026 14:34:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789223662;
- bh=50MDlKeHzZptqeNiSQueD/W5VPcD18X/x07MiohJnng=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=ZUw5Spy8wX111O0I03cVMQ7Hph35U/QYuuIwsIvra6Q1UojaG3tcaux0kSI94Upzs
- qPX9/Godts6I/WkxXRyMXmMtLSHFCuAL6N45gyVUCu1nkMu2UyhJ6nAhe0ELw18HdR
- z5d4EX6ivln7k7BdyzlarzbGANCxYIb4WKV1yJwpSvVFwy/GFtnwKrmZJGmPNTCKSn
- xiq5WhXaV0M9nfGWf7TmgTk3GuAMRz9ziqX6AGFQ2k8uIaFU1YP6i9lgxdFCQsd2oX
- YJSfLGCF8aQSqlkvx/yy0+Vfz5XvD/HCkQX1xc4IVSGn/LXL0GXPcXPUKIERvpvz1z
- TXl5OtpuQrL+w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] drm/ttm: Drop tt->restore after successful restore
-Date: Sat, 12 Sep 2026 10:34:18 -0400
-Message-ID: <20260912143418.2961430-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260912143418.2961430-1-sashal@kernel.org>
-References: <2026090936-stew-difficult-cba0@gregkh>
- <20260912143418.2961430-1-sashal@kernel.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5080D10E6D0
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 14:59:28 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68CEe6Co3149445
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 14:59:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=qdbegSn+POyj07QfBSr0FKovBmkNgYaXeVZ
+ djxMNseQ=; b=YILSQAJjhaRhnkh9oigecfm4D30TXO1xLJUmGjV5EM+L1dn38Ye
+ hGmsvHcD1E6UIpWUoG0LydleLJp2ZD+DWX1VmQREv/VHGOINu6CdPgtnlQP46Uhh
+ 140UeWYI6C4rsaLnDTmNkiI/YLLTlr6nYVkAWpy5im4cFeKu75kFE26Nr0u12DUm
+ 8vWRmbcZiI0NSMiNmUjrstPb8iHZcgg2WC+owQRmv53UzlmdW7VGLRU17h6iAlzA
+ eyrODTs9o6wb8BCYq2fKmuDvg9nzbv1KLpCRKVzOyRiUWliAkSXf2Aq4bBMBrGgc
+ rBlYiN3eB2BI4NIjqFuONSuHy2MUzXCsDEQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9d96nr-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 14:59:26 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-396b9ef3070so3337762a91.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 07:59:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1789225166; x=1789829966;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=qdbegSn+POyj07QfBSr0FKovBmkNgYaXeVZdjxMNseQ=;
+ b=ViLhb/eT5KaVF7v4XqM4/zLf8WGRzlNWUC0fzKke7gTL8icSQRV5sof5+18Ve/8Mmn
+ tQQ4VrtMRhmuhUA6EmX9gXQXz5xjMF0rQU3tpHX3TeQG7k2Rh+J3hlxjIbBBGijIU+cI
+ vqfqe2em2Ewi1yGH0rsZSB4ElSJgcZ2ID4+4+BTQE9E7EWz4I/lUhxbkp+z/zkC9JZpn
+ g7YYJWyqOZcLXighv2GQKNhDqKa1btNjaMQodm42y2Pfd2j+q1okKGPhztqEsymnY3fD
+ eaH7BRCIomvm8A6GcoSksJK2Igkn6sxmlUSZW74Sl1nfE7G9jhG7a0mGPrfd1cCnHRwi
+ Awcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789225166; x=1789829966;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=qdbegSn+POyj07QfBSr0FKovBmkNgYaXeVZdjxMNseQ=;
+ b=che4ZTymi/+4jVm9PUGHW75hM/Fkx9CHoMMMGjHIhOiK/XJlJDcNsSSiemXFmYJAsG
+ eFGft/itW8sJx1LhsOlUjxunR0+QqAHH59aGgG7ED6Z3KfeLCS/BU7nZm76TJTct0Iq8
+ hh0+VsY7XlLd5D34zITN7xEfWhKC4jjts7d3vENCpwhRbRyFtCCbV7k50pjY6P4rv76N
+ liD739b4nhLwRX9zAyASk3HATaEN3bbKMo/PrFPDMg6Yi5YtCA/KOBx30rMHMZOSb78e
+ IeGN/LMqLPIo9zsvn0YAKaYgeGvZdfjc1fRCbWt0kllWVGFaBzz2dDR8G5VC5mrffc2y
+ E3lg==
+X-Gm-Message-State: AFuF++mKcrK2ZCwSjb0qiOV3xMvc88i/CDfEMWYuOdjn9u93zGsAz3Ue
+ ERmh4Wabq8BTRk75DZHddA0gT6FUqfV572I+X7zBdmujeH1AZKav05RWBO/PLNOg87I2caPd9W+
+ lUingaes6GsRBGvuxXZWhAMq9dZH96wq1aebzg/V2s6vHP2CUjEVxifVAj06IQx0J5exnhEujbk
+ vAU1A=
+X-Gm-Gg: AYBFou3irGWOyT5uTbN8vHXtCEtoAjM/aXvQ04oJjs90DKdRUBOggtx5oVHeXhzGUrR
+ QvTznmVOI/rwmmgnSTlqzDC3NpNeQY2OT6GL/v5yPgysbGed3y/1nUw59BlQstARQiesPASnyUv
+ aP9Ug6qfkULhkGrU+l5DYOVSrLNlfsvitGQAd9m55JrbXGmsIZeWnoE3jmFQ/EnERFt6WeerILr
+ rkBUf6XbfowGQUlKzf3TLPhNELXB0q9nMUjadilLnXwdP2Hf5Nuqhfy7xKrRqc2ps9AhlgXlfnj
+ GMmIES+iEcdHqVPubHnz1uTYtse5k9V1dX6aQoDRzeSwEQ9l+G/tKWy0UlAGWfjW6JdxcV3Vaoq
+ HLzGRDVmITkpg+K0o0dRzZTSxGU9867YVkPj7D6YW2dRGzMQ=
+X-Received: by 2002:a17:90b:1a90:b0:398:b71e:60c1 with SMTP id
+ 98e67ed59e1d1-39d9c2346c6mr16000764a91.12.1789225165667; 
+ Sat, 12 Sep 2026 07:59:25 -0700 (PDT)
+X-Received: by 2002:a17:90b:1a90:b0:398:b71e:60c1 with SMTP id
+ 98e67ed59e1d1-39d9c2346c6mr16000726a91.12.1789225165245; 
+ Sat, 12 Sep 2026 07:59:25 -0700 (PDT)
+Received: from localhost (c-73-37-105-206.hsd1.or.comcast.net. [73.37.105.206])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39d95092c06sm11060515a91.4.2026.09.12.07.59.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 12 Sep 2026 07:59:24 -0700 (PDT)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2 1/2] drm/msm: Enable THP for GEM buffers
+Date: Sat, 12 Sep 2026 07:59:21 -0700
+Message-ID: <20260912145922.24115-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEyMDIxNyBTYWx0ZWRfX0L12YyL3JAUG
+ r2g1fLth/3FZ4f57iOdeIgFt+91ot/mtvZbiobcfa5cM18gddrPJcHBkn+QYOHXA/AnN70+QlRQ
+ RtAoGEW0Z1q4Cl2q1U23i8ljGFZB6foL97cvwkbDMS6rXUXN13+lQrC+YI1OmJjyTC5C8bf06mD
+ 4QwUwsZfF5oAi7RHozQibpMIVUrgOVnLWw8qxJUlmV8tiEib3Ka4Aekml2wRNyD0CvtsN26lPsw
+ JkbvCQCBsCXVfvjfmzIa/TTk2ksXXKv4z4QuVMq9Yev+T2EpuhMZ29MLa3c8p5WEJ6jIuWUG3K4
+ Cu+QEug3uDCy6/UZuDPDcV203Ox67V0MFU4sCKmQRlnqH1wJ3ROGJrdxV4HitE8cHeZxv/JCg34
+ 7oV8ahY1VWVwxceLubddZJfdGPEZ+3GL8PX/tmjly7zIZm9UTZceh+CAehrRW1ph5mag373bMCg
+ gGXu7fEbUo0LwAdhP7A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEyMDIxNyBTYWx0ZWRfX6kl/hEELfzys
+ Cz2N2Y7UU4JzeI/ktJP/FDJ7BYga/G7pQoQWkLqzibA9fL1gr1e1trcSNe79TiTdJb+cJC4pNY1
+ yia3oz+SN4DFwN2SDo6UP1nG8x9SIrQ=
+X-Proofpoint-GUID: t-leGnPpj5aphMn6A-awuKpOD7VPpFmK
+X-Authority-Analysis: v=2.4 cv=OeUNnRTY c=1 sm=1 tr=0 ts=6aa568ce cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=19Wyn7e3V/0aNffMjNCMQw==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
+ a=bo7bELecpVJEBXAwH0gA:9 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-ORIG-GUID: t-leGnPpj5aphMn6A-awuKpOD7VPpFmK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-12_05,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 malwarescore=0 phishscore=0 bulkscore=0 spamscore=0
+ priorityscore=1501 suspectscore=0 impostorscore=0 adultscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609120217
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,117 +140,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Matthew Brost <matthew.brost@intel.com>
+More than 2x speedup on darktable benchmark which was bottlenecked on
+page allocation/pinning.
 
-[ Upstream commit 941ac10529b3be5965a88d432a161ab459672ba8 ]
-
-ttm_pool_restore_and_alloc() can successfully complete the restore
-process via ttm_pool_restore_commit(), but tt->restore is not dropped
-afterward. As a result, subsequent backup/restore flows observe what
-appears to be a completed restore, while in reality shmem handles are
-still installed in tt->pages, leading to the stack trace below.
-
-Fix this by freeing and dropping tt->restore in
-ttm_pool_restore_and_alloc() upon successful completion of the restore.
-
-20545 [  309.784531] RIP: 0010:sg_alloc_append_table_from_pages+0x38c/0x490
-20547 [  309.809570] RSP: 0018:ffffc9000623b838 EFLAGS: 00010206
-20548 [  309.814827] RAX: 0000000000001000 RBX: ffff88816e42a160 RCX: 0000000000000000
-20549 [  309.821986] RDX: 0000000000002000 RSI: 0000000000000003 RDI: 0000000000001000
-20550 [  309.829147] RBP: ffff88816e42a168 R08: 0000000000000002 R09: 000000007ffff000
-20551 [  309.836310] R10: ffffc9000623b928 R11: 0000000000000000 R12: 000000007ffff000
-20552 [  309.843471] R13: ffff88815ba5a100 R14: 0000000000000000 R15: 0000000000000001
-20553 [  309.850634] FS:  00007f9ff305e700(0000) GS:ffff888276c94000(0000) knlGS:0000000000000000
-20554 [  309.858749] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-20555 [  309.864519] CR2: 00007f9fca701000 CR3: 00000001565e2005 CR4: 0000000008f70ef0
-20556 [  309.871678] PKRU: 55555558
-20557 [  309.874403] Call Trace:
-20558 [  309.876866]  <TASK>
-20559 [  309.878988]  sg_alloc_table_from_pages_segment+0x60/0x100
-20560 [  309.884415]  ? ttm_resource_manager_usage+0x36/0x60 [ttm]
-20561 [  309.889845]  ? xe_tt_map_sg+0x7d/0xd0 [xe]
-20562 [  309.894045]  xe_tt_map_sg+0x7d/0xd0 [xe]
-20563 [  309.898037]  xe_bo_move+0x927/0xaa0 [xe]
-20564 [  309.902029]  ttm_bo_handle_move_mem+0xba/0x170 [ttm]
-20565 [  309.907022]  ttm_bo_validate+0xbe/0x190 [ttm]
-20566 [  309.911405]  xe_bo_validate+0x9a/0x120 [xe]
-20567 [  309.915663]  xe_gpuvm_validate+0xd9/0x140 [xe]
-20568 [  309.920206]  drm_gpuvm_validate+0x2f0/0x5b0 [drm_gpuvm]
-20569 [  309.925459]  ? drm_exec_lock_obj+0x63/0x210 [drm_exec]
-20570 [  309.930627]  xe_vm_validate_rebind+0x46/0xb0 [xe]
-20571 [  309.935428]  xe_exec_fn+0x20/0x40 [xe]
-20572 [  309.939249]  drm_gpuvm_exec_lock+0x78/0xc0 [drm_gpuvm]
-20573 [  309.944410]  xe_validation_exec_lock+0x5a/0xa0 [xe]
-20574 [  309.949385]  xe_exec_ioctl+0x806/0xc30 [xe]
-20575 [  309.953639]  ? ttwu_queue_wakelist+0xd9/0xf0
-20576 [  309.957935]  ? __pfx_xe_exec_fn+0x10/0x10 [xe]
-20577 [  309.962449]  ? __wake_up_common+0x73/0xa0
-20578 [  309.966482]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
-20579 [  309.971263]  drm_ioctl_kernel+0xa3/0x100
-20580 [  309.975209]  drm_ioctl+0x213/0x440
-20581 [  309.978637]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
-20582 [  309.983415]  xe_drm_ioctl+0x67/0xd0 [xe]
-20583 [  309.987408]  __x64_sys_ioctl+0x7f/0xd0
-
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Link: https://patch.msgid.link/20260617015531.1164189-1-matthew.brost@intel.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/gpu/drm/ttm/ttm_pool.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+v2: Initialize THP earlier
+ drivers/gpu/drm/msm/msm_drv.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 1f52a1f59d7b7..dd5666eb4692b 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -838,6 +838,7 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 73d99bde26f1..581903ccd5e6 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -58,9 +58,31 @@ static bool separate_gpu_kms;
+ MODULE_PARM_DESC(separate_gpu_drm, "Use separate DRM device for the GPU (0=single DRM device for both GPU and display (default), 1=two DRM devices)");
+ module_param(separate_gpu_kms, bool, 0400);
+ 
++#ifdef CONFIG_TRANSPARENT_HUGEPAGE
++static bool transparent_hugepage = true;
++module_param(transparent_hugepage, bool, 0400);
++MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount point with Transparent Hugepage enabled (true = default)");
++#else
++#define transparent_hugepage false
++#endif
++
+ DECLARE_FAULT_ATTR(fail_gem_alloc);
+ DECLARE_FAULT_ATTR(fail_gem_iova);
+ 
++static void msm_gem_thp_init(struct drm_device *dev)
++{
++	int err;
++
++	if (!transparent_hugepage)
++		return;
++
++	err = drm_gem_huge_mnt_create(dev, "within_size");
++	if (drm_gem_get_huge_mnt(dev))
++		drm_info(dev, "Using Transparent Hugepage\n");
++	else if (err)
++		drm_warn(dev, "Can't use Transparent Hugepage (%d)\n", err);
++}
++
+ bool msm_gpu_no_components(void)
  {
- 	struct ttm_pool_tt_restore *restore = tt->restore;
- 	struct ttm_pool_alloc_state alloc;
-+	int ret;
+ 	return separate_gpu_kms;
+@@ -161,6 +183,8 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv,
+ 	if (ret)
+ 		goto err_msm_uninit;
  
- 	if (WARN_ON(!ttm_tt_is_backed_up(tt)))
- 		return -EINVAL;
-@@ -861,14 +862,22 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 	} else {
- 		alloc = restore->snapshot_alloc;
- 		if (ttm_pool_restore_valid(restore)) {
--			int ret = ttm_pool_restore_commit(restore, tt->backup,
--							  ctx, &alloc);
-+			ret = ttm_pool_restore_commit(restore, tt->backup,
-+						      ctx, &alloc);
- 
- 			if (ret)
- 				return ret;
- 		}
--		if (!alloc.remaining_pages)
-+		if (!alloc.remaining_pages) {
-+			ret = ttm_pool_apply_caching(&alloc);
-+			if (ret)
-+				return ret;
++	msm_gem_thp_init(ddev);
 +
-+			kfree(tt->restore);
-+			tt->restore = NULL;
-+
- 			return 0;
-+		}
- 	}
- 
- 	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
+ 	if (priv->kms_init) {
+ 		ret = msm_drm_kms_init(dev, drv);
+ 		if (ret)
 -- 
-2.53.0
+2.55.0
 
