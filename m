@@ -4,120 +4,185 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21D68C88E59
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 15:47:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E73CC88E59
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 16:09:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DB4210E4F8;
-	Sat, 12 Sep 2026 15:47:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C791A10E1C4;
+	Sat, 12 Sep 2026 16:09:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="cuPiBpHp";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="KjKv2GI+";
 	dkim-atps=neutral
-Received: from ixit.cz (ixit.cz [84.42.129.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0076F10E436
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 15:47:16 +0000 (UTC)
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown
- [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id DA2C35340134;
- Sat, 12 Sep 2026 17:47:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1789228032;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Em3f+na9kZ8GklQJBJybnG4k2BDFdfDVOkR3nGPC46c=;
- b=cuPiBpHpSHRW0AH0j0/osvF9MxUQImG7P8EVikR1et7G/WdsxunDQ19xZViwp/xlxyLtgv
- O7iz3pDC1+1beAZn1wi0sj7+LLGgBGWkQsXUsGWVbYjR6R/VwUZ/6FYj1wXIXxuJ8gGg6/
- aFASzP0BDkOKIbNbikeo7WaIJd21850=
-Message-ID: <9d2c5d44-206f-4ae9-b340-ba1994e234bf@ixit.cz>
-Date: Sat, 12 Sep 2026 17:47:11 +0200
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEBEA10E1C4
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 16:09:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1789229373; x=1789834173; i=deller@gmx.de;
+ bh=r49S77oIQ/C/megs27fXXTJ6gjS9N4V4q1Wx+eoHlsQ=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=KjKv2GI+bpzMls/M9Kgt4eEFS9kPqU2N06TZI9l+i/vtIpVm+/qrlN3hPVceXFgk
+ KHFZnI652enongqubiKkwPSjgkcWlS3s0vdlvagfAhQpOuAXybaH7t7A3wP16/kgU
+ Lt1s0wyYTAKebAc8AxDt2FZLDpyb+29NHD9sCbiSnEBXz1mowaTx0r+t1qHUA9jRK
+ f9i8mWIkSmprNwcFS+thl2Uwb5PipDW5DVmH2XAsqASX0RUdxAgjAQwdqxmNc47Gi
+ vGwMw7P9OmUQw0H+ZLNMqMzTinVRN6TXD5RcjiDDpJLgLfMrTFMYiO9dZrYnfARSO
+ /fp4FCJV33JEghhBDQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MWRRT-1xKy9v3hBz-00MiW3; Sat, 12
+ Sep 2026 18:09:32 +0200
+Message-ID: <6e0bea40-9c4d-4af8-89c5-c4850f9fae77@gmx.de>
+Date: Sat, 12 Sep 2026 18:09:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 20/20] arm64: dts: qcom: generalmobile-shamrock: new
- device
-To: muzafferkadir@mainlining.org, Bjorn Andersson <andersson@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>,
- Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Dang Huynh <danct12@riseup.net>, phone-devel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mmc@vger.kernel.org, iommu@lists.linux.dev, mfd@lists.linux.dev,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org,
- linux-input@vger.kernel.org
-References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
- <20260912-msm8952-initial-support-v1-20-0e742578b524@mainlining.org>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260912-msm8952-initial-support-v1-20-0e742578b524@mainlining.org>
+Subject: Re: [PATCH] fbdev: sstfb: use managed PCI device enable
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+References: <20260911000835.88909-1-mhun512@gmail.com>
+Content-Language: en-US
+From: Helge Deller <deller@gmx.de>
+Autocrypt: addr=deller@gmx.de; keydata=
+ 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
+In-Reply-To: <20260911000835.88909-1-mhun512@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:nogiiUgN5WOX28BaeGnVtxm+tib4Nvl4TJC7YcK6Rl5KIL1oWlV
+ lCuagd7gqsoqIFoDg/YyUT0t1vT4dGjmo7ygVIBiTuhVitCNMqVTWEKB0ZR5SXr3SvjVhaG
+ fXZ2Y6cPKinPH1HD7h+ln6ixLn5RI7KA9oh0UuneMsNVNWO+ZO8CpGiB16tFLqt6dDi3L0+
+ lZVqmwiSOgoJMyPOJOkFA==
+UI-OutboundReport: notjunk:1;M01:P0:TrCMc/lDpWg=;UZ/0Jsn8x6XpfapT5zFWbDag5ad
+ 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
+ c=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,480 +198,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 12/09/2026 10:39, Muzaffer Kadir via B4 Relay wrote:
-> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> 
-> Add General Mobile Shamrock (GM 5 Plus).
-> Shamrock is designed similar to L9300.
-> Downstream reference is [1].
-> 
-> [1] https://github.com/Asderdd/android_kernel_generalmobile_shamrock/blob/cm-14.1/arch/arm/boot/dts/qcom/msm8952-l9300.dtsi
-> 
-> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+On 9/11/26 02:08, Myeonghun Pak wrote:
+> sstfb_probe() enables the PCI device with pci_enable_device(), but
+> failure paths after that point return without disabling it. The successf=
+ul
+> probe path has the same imbalance because sstfb_remove() releases the
+> framebuffer, mappings and memory regions, but never calls
+> pci_disable_device().
+>=20
+> Use pcim_enable_device() so the PCI core disables the device automatical=
+ly
+> after probe failure or driver removal. The driver still releases its
+> framebuffer, mappings and memory regions explicitly.
+>=20
+> This issue was identified during our ongoing static-analysis research wh=
+ile
+> reviewing kernel code.
+>=20
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 > ---
->   arch/arm64/boot/dts/qcom/Makefile                  |   1 +
->   .../dts/qcom/msm8952-generalmobile-shamrock.dts    | 426 +++++++++++++++++++++
->   2 files changed, 427 insertions(+)
-> 
+>   drivers/video/fbdev/sstfb.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+applied.
 
-Happy to see this series! Amazing work!
-
-Few comments below:
-
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-> index d6547fb18edf..3cc2dfb09116 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -125,6 +125,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= msm8939-samsung-a7.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= msm8939-sony-xperia-kanuti-tulip.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= msm8939-wingtech-wt82918.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= msm8939-wingtech-wt82918hd.dtb
-> +dtb-$(CONFIG_ARCH_QCOM)	+= msm8952-generalmobile-shamrock.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-flipkart-rimob.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-motorola-potter.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-xiaomi-daisy.dtb
-> diff --git a/arch/arm64/boot/dts/qcom/msm8952-generalmobile-shamrock.dts b/arch/arm64/boot/dts/qcom/msm8952-generalmobile-shamrock.dts
-> new file mode 100644
-> index 000000000000..22723b62d3d6
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/msm8952-generalmobile-shamrock.dts
-> @@ -0,0 +1,426 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +
-> +/dts-v1/;
-> +
-> +#include "msm8952.dtsi"
-> +#include "pm8950.dtsi"
-> +#include "pmi8950.dtsi"
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/leds/common.h>
-> +
-> +/ {
-> +	model = "General Mobile GM 5 Plus (shamrock)";
-> +	compatible = "generalmobile,shamrock", "qcom,msm8952";
-> +	qcom,msm-id = <QCOM_ID_MSM8952 0x0>;
-> +	qcom,board-id = <QCOM_BOARD_ID_QRD 1>;
-> +	chassis-type = "handset";
-> +
-> +	aliases {
-> +		mmc0 = &sdhc_1; /* SDC1 eMMC slot */
-> +		mmc1 = &sdhc_2; /* SDC2 SD card slot */
-> +		serial0 = &blsp1_uart2;
-> +	};
-> +
-> +	chosen {
-> +		stdout-path = "serial0:115200n8";
-> +
-> +		framebuffer {
-> +			compatible = "simple-framebuffer";
-> +			memory-region = <&cont_splash_mem>;
-> +
-> +			width = <1080>;
-> +			height = <1920>;
-> +			stride = <(1080 * 3)>;
-> +			format = "r8g8b8";
-> +
-> +			power-domains = <&gcc MDSS_GDSC>;
-> +
-> +			clocks = <&gcc GCC_MDSS_AHB_CLK>,
-> +					 <&gcc GCC_MDSS_AXI_CLK>,
-> +					 <&gcc GCC_MDSS_VSYNC_CLK>,
-> +					 <&gcc GCC_MDSS_MDP_CLK>,
-> +					 <&gcc GCC_MDSS_BYTE0_CLK>,
-> +					 <&gcc GCC_MDSS_PCLK0_CLK>,
-> +					 <&gcc GCC_MDSS_ESC0_CLK>;
-> +		};
-> +	};
-> +
-> +	reserved-memory {
-> +		cont_splash_mem: cont-splash@83200000 {
-> +			reg = <0x0 0x83200000 0x0 (1080 * 1920 * 3)>;
-> +			no-map;
-> +		};
-> +	};
-> +
-> +	gpio-keys {
-> +		compatible = "gpio-keys";
-> +
-> +		pinctrl-0 = <&gpio_hall_sensor_default>, <&gpio_keys_default>;
-> +		pinctrl-names = "default";
-> +
-> +		event-hall-sensor {
-> +			label = "Hall Effect Sensor";
-> +			gpios = <&tlmm 46 GPIO_ACTIVE_LOW>;
-> +			linux,input-type = <EV_SW>;
-> +			linux,code = <SW_LID>;
-> +			linux,can-disable;
-> +			wakeup-source;
-> +		};
-> +
-> +		button-volume-up {
-> +			label = "Volume Up";
-> +			gpios = <&tlmm 85 GPIO_ACTIVE_LOW>;
-> +			linux,code = <KEY_VOLUMEUP>;
-> +			debounce-interval = <15>;
-> +			wakeup-source;
-> +		};
-> +	};
-> +
-> +	/* Front Flash */
-> +	flash-led-controller {
-> +		compatible = "sgmicro,sgm3140";
-> +
-> +		enable-gpios = <&tlmm 33 GPIO_ACTIVE_HIGH>;
-> +		flash-gpios = <&tlmm 128 GPIO_ACTIVE_HIGH>;
-> +
-> +		pinctrl-0 = <&front_flash_default>;
-> +		pinctrl-names = "default";
-> +
-> +		front_flash_led: led {
-> +			function = LED_FUNCTION_FLASH;
-> +			color = <LED_COLOR_ID_WHITE>;
-> +			flash-max-microamp = <1000000>;
-> +			led-max-microamp = <625000>;
-> +			flash-max-timeout-us = <1280000>;
-> +		};
-> +	};
-> +
-> +	battery: battery {
-> +		compatible = "simple-battery";
-> +
-> +		charge-term-current-microamp = <100000>;
-> +		charge-full-design-microamp-hours = <3100000>;
-> +		constant-charge-current-max-microamp = <3000000>;
-> +		constant-charge-voltage-max-microvolt = <4400000>;
-> +		voltage-min-design-microvolt = <3400000>;
-> +		voltage-max-design-microvolt = <4400000>;
-> +	};
-> +
-> +	vph_pwr: regulator-vph-pwr {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "vph-pwr";
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
-> +
-> +	multi-led {
-> +		compatible = "leds-group-multicolor";
-> +		color = <LED_COLOR_ID_RGB>;
-> +		function = LED_FUNCTION_INDICATOR;
-> +		leds = <&red_status>, <&green_status>, <&blue_status>;
-> +	};
-> +
-> +};
-> +
-> +&blsp2_i2c1 {
-> +	status = "okay";
-> +
-> +	/* FUSB301 @25 USB-C Controller */
-> +
-> +	tpa6130a2: tpa6130a2@60 {
-> +		compatible = "ti,tpa6130a2";
-> +		pinctrl-0 = <&tpa6130a2_default>;
-> +		pinctrl-names = "default";
-> +		reg = <0x60>;
-> +		power-gpios = <&tlmm 61 GPIO_ACTIVE_HIGH>;
-> +		Vdd-supply = <&pm8950_l22>;
-> +	};
-> +
-> +	tusb320: tusb320@67 {
-> +		compatible = "ti,tusb320";
-> +		reg = <0x67>;
-> +		interrupts-extended = <&tlmm 45 IRQ_TYPE_EDGE_RISING>;
-> +	};
-> +
-> +	led-controller@68 {
-> +		compatible = "si-en,sn3193";
-> +		reg = <0x68>;
-> +
-> +		shutdown-gpios = <&tlmm 68 GPIO_ACTIVE_HIGH>;
-> +
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		red_status: led@1 {
-> +			reg = <1>;
-> +			label = "red:status";
-> +			led-max-microamp = <17500>;
-> +		};
-> +
-> +		green_status: led@2 {
-> +			reg = <2>;
-> +			label = "green:status";
-> +			led-max-microamp = <17500>;
-> +		};
-> +
-> +		blue_status: led@3 {
-> +			reg = <3>;
-> +			label = "blue:status";
-> +			led-max-microamp = <17500>;
-> +		};
-> +	};
-> +};
-> +
-> +&blsp1_i2c2 {
-> +	status = "okay";
-> +	/* SMB1351 @1d charger */
-> +	/* wsa881x-i2c @e @44 @f @45 audio amplifier */
-> +};
-> +
-> +&blsp1_i2c3 {
-> +	status = "okay";
-> +
-> +	/* himax,852x@48 Touchscreen */
-> +
-> +	touchscreen@5d {
-> +		compatible = "goodix,gt970", "goodix,gt911";
-> +		reg = <0x5d>;
-> +		interrupts-extended = <&tlmm 65 IRQ_TYPE_EDGE_FALLING>;
-> +		irq-gpios = <&tlmm 65 GPIO_ACTIVE_HIGH>;
-> +		reset-gpios = <&tlmm 64 GPIO_ACTIVE_HIGH>;
-> +		AVDD28-supply = <&pm8950_l10>;
-> +		VDDIO-supply = <&pm8950_l6>;
-> +
-> +		pinctrl-0 = <&touchscreen_default>;
-> +		pinctrl-names = "default";
-> +
-> +		touchscreen-size-x = <1080>;
-> +		touchscreen-size-y = <1920>;
-> +	};
-> +};
-> +
-> +&pm8950_resin {
-> +	linux,code = <KEY_VOLUMEDOWN>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&sdhc_1 {
-> +	vmmc-supply = <&pm8950_l8>;
-> +	vqmmc-supply = <&pm8950_l5>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&sdhc_2 {
-> +	cd-gpios = <&tlmm 67 GPIO_ACTIVE_HIGH>;
-> +	vmmc-supply = <&pm8950_l11>;
-> +	vqmmc-supply = <&pm8950_l12>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&sdc2_cd_on {
-> +	/delete-property/ bias-pull-up;
-> +	bias-disable;
-> +};
-> +
-> +&pmi8950_wled {
-> +	qcom,enabled-strings = <0 1>;
-> +	qcom,current-limit-microamp = <30000>;
-> +	qcom,ovp-millivolt = <29500>;
-> +	qcom,external-pfet;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&ramoops_mem {
-> +	status = "okay";
-> +};
-> +
-> +&adsp {
-> +	status = "okay";
-> +};
-> +
-> +&lpass_mem {
-> +	status = "okay";
-> +};
-> +
-> +&pm8950_spmi_regulators {
-> +	// PM8950 S5 + S6 = VDD_APC supply
-/* */ format> +	pm8950_s5: s5 {
-> +		regulator-min-microvolt = <1050000>;
-> +		regulator-max-microvolt = <1350000>;
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
-> +};
-> +
-> +&rpm_requests {
-> +	pm8950_rpm_regulators: regulators {
-> +		compatible = "qcom,rpm-pm8950-regulators";
-> +		vdd_s1-supply = <&vph_pwr>;
-> +		vdd_s2-supply = <&vph_pwr>;
-> +		vdd_s3-supply = <&vph_pwr>;
-> +		vdd_s4-supply = <&vph_pwr>;
-> +		vdd_s6-supply = <&vph_pwr>;
-> +		vdd_l1_l19-supply = <&pm8950_s3>;
-> +		vdd_l2_l23-supply = <&pm8950_s3>;
-> +		vdd_l3-supply = <&pm8950_s3>;
-> +		vdd_l5_l6_l7_l16-supply = <&pm8950_s4>;
-> +		vdd_l8_l11_l12_l17_l22-supply = <&vph_pwr>;
-> +		vdd_l9_l10_l13_l14_l15_l18-supply = <&vph_pwr>;
-> +
-> +		pm8950_s1: s1 {
-> +			regulator-min-microvolt = <1000000>;
-> +			regulator-max-microvolt = <1225000>;
-> +		};
-> +
-> +		pm8950_s3: s3 {
-> +			regulator-min-microvolt = <1300000>;
-> +			regulator-max-microvolt = <1300000>;
-> +		};
-> +		pm8950_s4: s4 {
-> +			regulator-min-microvolt = <2050000>;
-> +			regulator-max-microvolt = <2050000>;
-> +		};
-> +
-> +		pm8950_l2: l2 {
-> +			regulator-min-microvolt = <1200000>;
-> +			regulator-max-microvolt = <1200000>;
-> +			regulator-always-on;
-> +			regulator-boot-on;
-> +		};
-> +
-> +		/* pm8950_l3 is managed by rpmpd (RPMPD_VDDMX) */
-> +
-> +		pm8950_l5: l5 {
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <1800000>;
-> +		};
-> +
-> +		pm8950_l6: l6 {
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <1800000>;
-> +		};
-> +
-> +		pm8950_l7: l7 {
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <1800000>;
-> +		};
-> +
-> +		pm8950_l8: l8 {
-> +			regulator-min-microvolt = <2850000>;
-> +			regulator-max-microvolt = <2900000>;
-> +		};
-> +
-> +		pm8950_l9: l9 {
-> +			regulator-min-microvolt = <3000000>;
-> +			regulator-max-microvolt = <3300000>;
-> +		};
-> +
-> +		pm8950_l10: l10 {
-> +			regulator-min-microvolt = <2800000>;
-> +			regulator-max-microvolt = <2800000>;
-> +		};
-> +
-> +		pm8950_l11: l11 {
-> +			regulator-min-microvolt = <2950000>;
-> +			regulator-max-microvolt = <2950000>;
-> +			regulator-allow-set-load;
-> +			regulator-system-load = <200000>;
-> +		};
-> +
-> +		pm8950_l12: l12 {
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <2950000>;
-> +		};
-> +
-> +		pm8950_l13: l13 {
-> +			regulator-min-microvolt = <3075000>;
-> +			regulator-max-microvolt = <3075000>;
-> +		};
-> +
-> +		pm8950_l14: l14 {
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <3300000>;
-> +		};
-> +
-> +		pm8950_l15: l15 {
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <3300000>;
-> +		};
-> +
-> +		pm8950_l16: l16 {
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <1800000>;
-> +		};
-> +
-> +		pm8950_l17: l17 {
-> +			regulator-min-microvolt = <2850000>;
-> +			regulator-max-microvolt = <2850000>;
-> +		};
-> +
-> +		pm8950_l19: l19 {
-> +			regulator-min-microvolt = <1225000>;
-> +			regulator-max-microvolt = <1350000>;
-> +		};
-> +
-> +		pm8950_l22: l22 {
-> +			regulator-min-microvolt = <2800000>;
-> +			regulator-max-microvolt = <2800000>;
-> +		};
-> +
-> +		pm8950_l23: l23 {
-> +			regulator-min-microvolt = <1200000>;
-> +			regulator-max-microvolt = <1200000>;
-> +		};
-> +	};
-> +};
-> +
-> +&tlmm {
-> +	gpio-reserved-ranges = <20 4>; // Downstream doesn't use 21,22,23. 24 is mdss_te
-
-No need to mention 24 here, but you should mention what's connected there. (and 
-comments /* */ )
-> +	gpio_hall_sensor_default: gpio-hall-sensor-default-state {
-> +		pins = "gpio46";
-
-Sort the entries by gpio numbers please
-
-> +		function = "gpio";
-> +		drive-strength = <6>;
-> +		bias-pull-up;
-> +	};
-> +
-> +	front_flash_default: front-flash-default-state {
-> +		pins = "gpio33", "gpio128";
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-pull-down;
-> +	};
-> +
-> +	gpio_keys_default: gpio-keys-default-state {
-> +		pins = "gpio85";
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-pull-up;
-> +	};
-> +
-> +	touchscreen_default: touchscreen-default-state {
-> +		pins = "gpio65", "gpio64";
-
-also pins should be sorted by number too, or each described by *-pins property 
-inside the state (if you have more information about the usage, e.g. reset/irq 
-function)
-
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-disable;
-> +	};
-> +
-> +	tpa6130a2_default: tpa6130a2-default-state {
-> +		pins = "gpio61";
-> +		function = "gpio";
-> +		drive-strength = <8>;
-> +		bias-pull-down;
-> +		output-low;
-> +	};
-> +};
-> +
-> +&sleep_clk {
-> +	clock-frequency = <32768>;
-> +};
-> +
-> +&xo_board {
-> +	clock-frequency = <19200000>;
-> +};
-> 
-
+Thanks!
+Helge
