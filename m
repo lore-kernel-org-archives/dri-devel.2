@@ -4,62 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3574C88E5C
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:55:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A340C88E65
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:55:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D086E10EA14;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E27F510EA15;
 	Sun, 13 Sep 2026 20:54:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="QgGKLoMG";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="mkTbQsNw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Xx4mQpDa";
 	dkim-atps=neutral
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3836F10E927
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 14:50:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org;
- c=relaxed/relaxed; 
- h=To:Message-Id:Subject:Date:From; t=1789311025; bh=vanJVYCX5tmAfvAO2xkAeWN
- mZni7Fj8bByNJHW2QcjA=; b=QgGKLoMGczKExBN7pK3JEP30WfOAN6/2Jg0Yt9/ckfIUbDTGNN
- DPPm1AM0ER4QFs6mMD4tr0m6jOBsKcMu84z2lrAyeMs+2jSeheOS4RxOOIgr01e/XoDRKsRL8BM
- QoAJluWg7MJTMjYV9aFMYCyllIMGdrPJEr9nEjGFNJ3s6rFyoosagWNBl0LVUCn1GXtcRfOykWS
- eDCvQLXYPuUWn1kvvPY9EvY2RJu4w/2jOidYGmJk1RnCtsD4OSdK5mOYvYlUyFdBIhHTc0rTidR
- j/NLEBbrovIp0KYC3iWHpVeM0uvdGGc56KRH2TP1gqPmvPdFYBMdpp/XjUJ/Qx6/7pg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org;
- c=relaxed/relaxed; 
- h=To:Message-Id:Subject:Date:From; t=1789311025; bh=vanJVYCX5tmAfvAO2xkAeWN
- mZni7Fj8bByNJHW2QcjA=; b=mkTbQsNwmq3fhrs1QfrLL/QlJBdLvbnSvAoTSN0bOTVCLYmdTV
- O5rvQrdTpZmSAAQsSh0TIju1qOWaxz3oYEDQ==;
-From: Nickolay Goppen <setotau@mainlining.org>
-Date: Sun, 13 Sep 2026 17:50:16 +0300
-Subject: [PATCH v3 1/3] dt-bindings: display: panel: Add Novatek NT51021
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
+ [74.125.227.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC5F210E664
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 08:10:42 +0000 (UTC)
+Received: by mail-pj2-f12.google.com with SMTP id
+ 98e67ed59e1d1-396ccafb74fso590071a91.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 01:10:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789200642; x=1789805442; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=eSYO98oHKaatdSJA86Zv/zyqDt8H9puU2z+h8TsbVQM=;
+ b=Xx4mQpDa3yPCu3Fud9DGI3kgVQ0S0Z2Du5WVdN2eWKLx5lJyqNQhJzGpziC8n7ex7V
+ ydz1e+/T7ec+wBaqxQm2EVdmVp69SB8eGb1tvBVWOtjxEtlQ1oYSzLwqmatH7Kz9k9og
+ EcS83jylefThNAHdYpcY0TAydGe8nVSlkvmanYPISu5wen953sQOcdrG1PEVoEo9EcsS
+ 5Kbo2HPCy9Fhi17+cm5Q9/bz4U6nje7C/ez4PVAOgBtakqKSFgP/79m6OZwk0rSwa3SM
+ NuGBy8VC1WdZN7lX1LtDViCf+eu9oBoMRxbcxFr7IYIYy6v+Ioj5ZZJKhJRIZw0iNcHR
+ PqtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789200642; x=1789805442;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=eSYO98oHKaatdSJA86Zv/zyqDt8H9puU2z+h8TsbVQM=;
+ b=DiA/5Wzc2aouQKVv/RB9T3js2rfjDyXiSCfXUaTDXhLm0F/HLJIB05mH/KMAEJIELk
+ iVBV8TwRDjCCkvTurTdCWePKqy1sKQqmSTg4iSYDQtKbXIND5qcFjjNCxVsh2A4OMEk3
+ dHg6b2199oEkFuUGPLS8w/mRRwDkApBblKnweReb6R+vLXhvyB6wYjHS/11H3YeiGXuR
+ 7AS4ZLNshY91WCICmIiSJNfw55DmIu4jS90JnDSZgMnhIe8mpfZu3haLomLSZ4EN/BUz
+ /6ORtYpwE8nggKa+9+J+lX3KOeIdw3qG4bwYFveDqMr/KB26VARJMPNlXm8Ql4nPDiOE
+ 4ttw==
+X-Gm-Message-State: AFuF++kx96i11mDE6XFthyRRzOs0QD98t6Xn/0niBWWJ2mBYJHu6k5BS
+ evaNLbIzovF7MQauWruIlvGUvNyzy/Zl4lSJXvKvwpMwjsCfcQYjFGNzNiPfmxqugEI=
+X-Gm-Gg: AYBFou04n0ARiqyqZrLpIzNy3+16zf/p0imahiqHgBJC5gwYMuI8Je63hEU44GZXuK4
+ OCYICEGxsePaK3AMEdb0Reh9sKbqPJryDEemrRx5FUC/fAjTBawhx9zbJzGbU/15qdIAkFUfpRa
+ CuLKFtLAtdxJSSJBHc/Fk8GrgboIlxec4FupL/BCsWDW3WUTIdKNl7RDH0RV3BoOiVd66xJDP3r
+ bD3GzWwmW9XIP1hcjAaKoiFbMpA4xebtNydgOPJqiTmIVpdlur0k3WPdg0yQbZ1g0JNk+W0p8b6
+ eD9IOR1rfqR8LY1gEmph+7A4jPp6kVdUKBSwsQ0TM8TdtIA9yUwJSPewo00NwcVFYJfyKWGDEDD
+ 0coP0dwwjR9sl2AepG6CfQtDYsbDNd+HM1Ue7qLsDNB//H8Zzn+tDEP2v6ET4YrynLMJ6spnDnD
+ 3fP7p/b0wYCA3NqS2OzSBVIr5AUjJkCMT/6PVGUN07Y8feqN2U8rP+JXJIRBnDyIVsMHoea+wsm
+ NQTMvNIt7l/ZzEggrVPDBAvkQ0Ubc4nRFqW2AVj5Hr+2r/KF8Bl3RnGlEAAE5d74cIaAD71GOCa
+ Xq0YbMi0PCiNicKrSztadMLJTmV63psRL+nBl/P1QQpx
+X-Received: by 2002:a17:90b:28cd:b0:38e:c7b0:84ad with SMTP id
+ 98e67ed59e1d1-39d9b983602mr13970959a91.0.1789200642156; 
+ Sat, 12 Sep 2026 01:10:42 -0700 (PDT)
+Received: from 0xiviel.ip (122-63-135-80.mobile.spark.co.nz. [122.63.135.80])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39db7ae6d25sm982474a91.1.2026.09.12.01.10.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 12 Sep 2026 01:10:41 -0700 (PDT)
+From: Eva Crystal <0xiviel@gmail.com>
+To: Min Ma <mamin506@gmail.com>,
+	Lizhi Hou <lizhi.hou@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Eva Crystal <0xiviel@gmail.com>
+Subject: [PATCH 2/4] accel/amdxdna: bound the command error payload length
+Date: Sat, 12 Sep 2026 20:10:10 +1200
+Message-ID: <20260912081012.2274075-3-0xiviel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260912081012.2274075-1-0xiviel@gmail.com>
+References: <20260912081012.2274075-1-0xiviel@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-qcom-novatek-nt51021-panels-v3-1-266bc5d7e8c9@mainlining.org>
-References: <20260913-qcom-novatek-nt51021-panels-v3-0-266bc5d7e8c9@mainlining.org>
-In-Reply-To: <20260913-qcom-novatek-nt51021-panels-v3-0-266bc5d7e8c9@mainlining.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Nickolay Goppen <setotau@mainlining.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>, 
- Alexey Minnekhanov <alexeymin@minlexx.ru>, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789311023; l=3462;
- i=setotau@mainlining.org; s=20250815; h=from:subject:message-id;
- bh=fIAzVXn4jZZ9w9eunmhJMQdtSVwjf25c05q0X0unbZ4=;
- b=hp8GWvWSaOHsLyZHiR5rZmPcw/g6lWGMwIs99+kkiIfLzIL4rPwUyG1zCbekkcipTQRwiHlZV
- 5n9umwQDFiRBBzLvBykbfnIsKVM8QYhmCvvuRGXtWXtoHhU3w4m8mjF
-X-Developer-Key: i=setotau@mainlining.org; a=ed25519;
- pk=Og7YO6LfW+M2QfcJfjaUaXc8oOr5zoK8+4AtX5ICr4o=
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,117 +91,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Novatek NT51021 is a display driver IC that can drive DSI panel. It
-is also present in the BOE TV101WUM-NX0 video mode panel, which is a WUXGA
-panel with a resolution of 1200x1920 and 10.1 inches size. It is found in
-Xiaomi Mi Pad 4 Plus. Also it's present in the BOE-TV080WUM-NX2 video mode
-panel, which also has a resolution of 1200x1920, but 8 inches size. It is
-found in Xiaomi Mi Pad 4. And also it's present in the BOE-TV101WUM-NM0.
-It's found in Amazon Fire HD 10 (2017).
+amdxdna_cmd_set_error() computes the length of the region it scribbles
+over from the BO size, without a floor:
 
-Add the bindings for display driver for the IC, with support added
-for this BOE TV101WUM-NX0 and TV080WUM-NX2 WUXGA video mode panels.
+	memset(cmd->data, 0xff, abo->mem.size - sizeof(*cmd));
+	if (err_data)
+		memcpy(cmd->data, err_data, min(size, abo->mem.size - sizeof(*cmd)));
 
-Co-developed-by: Ryan Brue <ryanbrue.dev@gmail.com>
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
-Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+abo->mem.size is a size_t and sizeof(struct amdxdna_cmd) is 4 - the
+struct is a u32 header followed by a flexible array. A BO smaller than
+four bytes therefore turns both lengths into a value near SIZE_MAX, and
+the min() in the memcpy offers no protection because the underflowed
+value is the larger operand.
+
+No such BO can reach this function today. Command BOs are created by
+drm_gem_shmem_create(), which PAGE_ALIGN()s the size, so mem.size is
+either 0 or at least PAGE_SIZE. Zero is reachable - PAGE_ALIGN() wraps
+for sizes above ULLONG_MAX - PAGE_SIZE + 1, and nothing rejects it on
+the share-BO path - but a zero-sized BO cannot be vmap()ed, because
+vmap() refuses a zero-page mapping, so amdxdna_gem_vmap() returns NULL
+and the !cmd test above rejects the BO before the subtraction. This is
+not a fix for a reachable bug.
+
+That leaves an unguarded size_t subtraction feeding a memset() length,
+whose safety depends on a property of a different allocator and on
+vmap()'s behaviour for a zero-page request. Compute the length once,
+reject a BO too small to hold the header, and use the result for both
+the memset() and the memcpy() bound.
+
+Signed-off-by: Eva Crystal <0xiviel@gmail.com>
 ---
- .../bindings/display/panel/novatek,nt51021.yaml    | 87 ++++++++++++++++++++++
- 1 file changed, 87 insertions(+)
+ drivers/accel/amdxdna/amdxdna_ctx.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
-new file mode 100644
-index 000000000000..e51ef40f9e7a
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
-@@ -0,0 +1,87 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/novatek,nt51021.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
+index 163b5fc..c24bf1c 100644
+--- a/drivers/accel/amdxdna/amdxdna_ctx.c
++++ b/drivers/accel/amdxdna/amdxdna_ctx.c
+@@ -152,6 +152,7 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *abo,
+ 	struct amdxdna_client *client = job->hwctx->client;
+ 	struct amdxdna_cmd *cmd = amdxdna_gem_vmap(abo);
+ 	struct amdxdna_cmd_chain *cc = NULL;
++	size_t data_size;
+ 
+ 	if (!cmd)
+ 		return -ENOMEM;
+@@ -173,9 +174,16 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *abo,
+ 			return -ENOMEM;
+ 	}
+ 
+-	memset(cmd->data, 0xff, abo->mem.size - sizeof(*cmd));
++	if (abo->mem.size < sizeof(*cmd)) {
++		if (cc)
++			amdxdna_gem_put_obj(abo);
++		return -EINVAL;
++	}
++	data_size = abo->mem.size - sizeof(*cmd);
 +
-+title: Novatek NT51021 based DSI display Panels
-+
-+maintainers:
-+  - Nickolay Goppen <setotau@mainlining.org>
-+
-+description:
-+  The NT51021 IC from Novatek is a generic DSI Panel IC used to drive dsi
-+  panels.
-+  Right now, support is added only for a BOE WUXGA LCD display panels with a
-+  resolution of 1200x1920. They are video mode DSI panels.
-+
-+allOf:
-+  - $ref: panel-common.yaml#
-+
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - boe,tv101wum-nm0
-+          - boe,tv101wum-nx0
-+          - boe,tv080wum-nx2
-+      - const: novatek,nt51021
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: phandle of gpio for reset line - This should be 8mA, gpio
-+      can be configured using mux, pinctrl, pinctrl-names (active low)
-+
-+  vdd-supply:
-+    description: phandle of the regulator that provides the supply voltage
-+      for digital circuits
-+
-+  avdd-supply:
-+    description: phandle of the regulator that provides the supply voltage
-+      for analog circuits
-+
-+  havdd-supply:
-+    description: phandle of the regulator that provides the supply voltage
-+      for analog circuits
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+  - avdd-supply
-+  - havdd-supply
-+  - reset-gpios
-+  - port
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |+
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        panel@0 {
-+            compatible = "boe,tv101wum-nx0", "novatek,nt51021";
-+            reg = <0>;
-+            vdd-supply = <&lcd_pwr>;
-+            avdd-supply = <&lcd_pwr>;
-+            havdd-supply = <&lcd_pwr>;
-+
-+            backlight = <&i2c_backlight>;
-+            reset-gpios = <&tlmm 62 GPIO_ACTIVE_LOW>;
-+
-+            port {
-+                panel_in: endpoint {
-+                    remote-endpoint = <&dsi0_out>;
-+                };
-+            };
-+        };
-+    };
-+
-+...
-
++	memset(cmd->data, 0xff, data_size);
+ 	if (err_data)
+-		memcpy(cmd->data, err_data, min(size, abo->mem.size - sizeof(*cmd)));
++		memcpy(cmd->data, err_data, min(size, data_size));
+ 
+ 	if (cc)
+ 		amdxdna_gem_put_obj(abo);
 -- 
-2.55.0
+2.53.0
+
