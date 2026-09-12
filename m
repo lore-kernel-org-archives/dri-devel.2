@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9564CC88E45
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 07:04:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23DECC79FB6
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 07:04:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0D5410E635;
-	Sat, 12 Sep 2026 07:04:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C7D810E639;
+	Sat, 12 Sep 2026 07:04:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NSvOkcrB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dXQ6ePMN";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9670E10E635
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 07:04:29 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B744310E639
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 07:04:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B7264600D4;
- Sat, 12 Sep 2026 07:04:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FC671F00898;
- Sat, 12 Sep 2026 07:04:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 755A943F72;
+ Sat, 12 Sep 2026 07:04:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 165821F00898;
+ Sat, 12 Sep 2026 07:04:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789196668;
- bh=4dv41HOpv0fan4sCVCNO2u51UEEvzvPSNfZ78nUngdo=;
+ s=k20260515; t=1789196689;
+ bh=dA6YXqCp+jlfyiXbLigRyBUy5tjmEO8uLy1Rs7ZBoBU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NSvOkcrBAAG5P015+DoiE9fkNOydNAoArz6dW2CC4D4GTj0W3CsP5wPPHgm4Ax5j7
- tB+8zb2fnsQ4xXqZP3S3lTPrNGPxm4W+KbVWC2MQYUMA3BGTsct4jI1b6INPpQR1px
- sumiQGyNV81wvGj7PptzsVULCFh09pA8uMikZFy3S4jnDVGB6gD1sC73/WoF2ZJKFp
- /4VXpVChwGIBpU3ZM6X5HO8DKvRr8sJ7lVMax3iV3YIV5AFUZ5+SSQCPebGu4kFV5q
- LHTYnNZ1hOVf7QRLG+BuUTHNdF+R1DqIRCI3ifUSQFTXsw6RkOjt5rXU8oxrAs7gJP
- HhR9h6PFG2mhw==
+ b=dXQ6ePMNQHxbHZfwGDvryBH2zvcy3XWkPBc1f6bGvgViLLofsa/LbmsPOaiBWFlsO
+ gnquMoxXWhT8y/MaukcRA0W3YlFmICRdqLOhP43fwORGnW0LGQSwTpBuSMP1lFYt4q
+ HynwI+rexnPg9fjrVvOgQ1xcIZRlQL8bTZP2JonDUUOVdqC6GIpw3tG2pKqJLhiFqV
+ dTHxOhgjQGe32XpBfV1AJqcU1+IrDriJuQN4WvMY3QqoRyIeQzz3fB+0DwWdf2YoTv
+ jcIcG4TriP6nkOeB+0A9lTe2OFHN62xj4LKBTHm5RO3p/Twz+D+BfXkxPLKSkaxN7B
+ ifRM7MRdvRbig==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 10/14] pmdomain: rockchip: cycle optional
- power-domain resets on power-on
+Subject: Re: [PATCH v12 04/14] accel/rocket: let the core suspend after a reset
 To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260912065053.1519165-11-gahing@gahingwoo.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260912065053.1519165-5-gahing@gahingwoo.com>
 References: <20260912065053.1519165-1-gahing@gahingwoo.com>
- <20260912065053.1519165-11-gahing@gahingwoo.com>
+ <20260912065053.1519165-5-gahing@gahingwoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 07:04:27 +0000
-Message-Id: <20260912070428.1FC671F00898@smtp.kernel.org>
+Date: Sat, 12 Sep 2026 07:04:48 +0000
+Message-Id: <20260912070449.165821F00898@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,88 +58,132 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
 
+New issues:
+- [High] Async vs Synchronous Runtime PM Put race condition violates hardwa=
+re power cycle constraints.
+
 Pre-existing issues:
-- [High] Massive Use-After-Free of genpd structures if probe fails and pm_g=
-enpd_remove() fails during error cleanup.
+- [High] Shared IRQ handler accesses hardware registers without verifying r=
+untime PM state, risking SError crashes.
+- [High] Runtime suspend callback disables clocks without calling synchroni=
+ze_irq().
+- [High] Reference count leak of IOMMU group in job completion path.
 --
 
-commit 82ba89727b40b24aa0ac406b6e9c71489c988d78
+commit 230b2e3fd33edbead6ba7eab402e2a3e06d6ef3a
 Author: Jiaxing Hu <gahing@gahingwoo.com>
+accel/rocket: let the core suspend after a reset
 
-    pmdomain: rockchip: cycle optional power-domain resets on power-on
-   =20
-    Some Rockchip domains come out of power-on with their bus interface in =
-an
-    undefined state. On the RK3576 NPU this shows up as a hang on the first
-    register access after the domain is switched on, and pulsing the domain=
-'s
-    resets at this point clears it.
+This commit changes the runtime PM put in rocket_reset() from noidle to
+autosuspend. This aims to allow the core to suspend and cycle its power
+domain after a reset, which is necessary on platforms like RK3576 to
+recover the IOMMU.
 
-> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
-ckchip/pm-domains.c
-> --- a/drivers/pmdomain/rockchip/pm-domains.c
-> +++ b/drivers/pmdomain/rockchip/pm-domains.c
+Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail.c=
+om/
+
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -421,12 +421,12 @@ rocket_reset(struct rocket_core *core, struct drm_s=
+ched_job *bad)
+> =20
+>  	/*
+>  	 * No handler is running now, but we might still have stuck jobs. Let's
+> -	 * make sure the PM counters stay balanced by manually calling
+> -	 * pm_runtime_put_noidle().
+> +	 * make sure the PM counters stay balanced by putting the reference the
+> +	 * job took, and request idle while doing it so the core can suspend.
+>  	 */
+>  	scoped_guard(mutex, &core->job_lock) {
+>  		if (core->in_flight_job)
+> -			pm_runtime_put_noidle(core->dev);
+> +			pm_runtime_put_autosuspend(core->dev);
+
+[Severity: High]
+Will this asynchronous suspend actually have time to trigger before the
+scheduler starts again?
+
+The RK3576 NPU requires a power domain cycle (suspend and resume) to reset
+its bus interface and recover the IOMMU after a job timeout. However,
+pm_runtime_put_autosuspend() queues an asynchronous suspend that may not
+fire immediately.
 
 [ ... ]
 
-> @@ -949,6 +975,7 @@ static void rockchip_pm_remove_one_domain(struct rock=
-chip_pm_domain *pd)
+>  		iommu_detach_group(NULL, core->iommu_group);
 > =20
->  	clk_bulk_unprepare(pd->num_clks, pd->clks);
->  	clk_bulk_put(pd->num_clks, pd->clks);
-> +	reset_control_put(pd->resets);
+>  		core->in_flight_job =3D NULL;
+>  	}
 > =20
->  	/* protect the zeroing of pm->num_clks */
->  	mutex_lock(&pd->pmu->mutex);
+>  	/* Proceed with reset now. */
+>  	rocket_core_reset(core);
+> =20
+>  	/* NPU has been reset, we can clear the reset pending bit. */
+>  	atomic_set(&core->reset.pending, 0);
+> =20
+>  	/* Restart the scheduler */
+>  	drm_sched_start(&core->sched, 0);
+>  }
 
 [Severity: High]
-This is a pre-existing issue, but does this error cleanup path leave a freed
-structure in the global gpd_list if probe fails?
+If there are multiple jobs queued, doesn't restarting the scheduler here
+immediately dequeue the next job?
 
-During error cleanup, rockchip_pm_domain_cleanup() iterates forward through
-the domains array:
+If the next job calls rocket_job_run() and invokes
+pm_runtime_resume_and_get(), this would cancel the pending autosuspend
+before the timer expires. Would it be safer to use a synchronous suspend
+(like pm_runtime_put_sync_suspend()) to enforce the hardware ordering
+constraint before restarting the scheduler?
 
-    for (i =3D 0; i < pmu->genpd_data.num_domains; i++) {
-        genpd =3D pmu->genpd_data.domains[i];
-        if (genpd) {
-            pd =3D to_rockchip_pd(genpd);
-            rockchip_pm_remove_one_domain(pd);
-        }
-    }
+[Severity: High]
+This isn't a bug introduced by this patch, but I noticed a potential
+issue with how the shared IRQ handler accesses hardware registers:
 
-Since parent domains typically appear before their children in the array, t=
-he
-parent is visited first.=20
+drivers/accel/rocket/rocket_job.c:rocket_job_irq_handler() {
+    u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
+    ...
+}
 
-When rockchip_pm_remove_one_domain() attempts to remove the parent domain,
-pm_genpd_remove() fails with -EBUSY because the child is still attached:
+Since the interrupt is shared (IRQF_SHARED) with the IOMMU, couldn't this
+handler be invoked unconditionally while the rocket_core is in an
+RPM_SUSPENDED state? Reading memory-mapped registers of a suspended device
+could cause an asynchronous SError and crash the system. Should this be
+guarded with pm_runtime_get_if_active()?
 
-    ret =3D pm_genpd_remove(&pd->genpd);
-    if (ret < 0)
-        dev_err(pd->pmu->dev, "failed to remove domain '%s' : %d...",
+[Severity: High]
+This is a pre-existing issue, but the runtime suspend callback disables
+clocks without synchronizing the shared IRQ:
 
-The domain is left in the global gpd_list and the function continues without
-retrying.
+drivers/accel/rocket/rocket_drv.c:rocket_device_runtime_suspend() {
+    ...
+    clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks),
+                               rdev->cores[core].clks);
+    ...
+}
 
-Because rockchip_pm_add_one_domain() allocates the domain structure with
-devm_kzalloc():
+Because the device uses a shared interrupt, is there a race condition where
+the interrupt handler might be actively executing on another CPU while the
+runtime suspend callback powers down the hardware? Should this callback use
+synchronize_irq() first?
 
-    pd =3D devm_kzalloc(pmu->dev, sizeof(*pd), GFP_KERNEL);
+[Severity: High]
+This isn't a bug introduced by this patch, but I noticed a potential
+reference count leak in the job completion path:
 
-When probe returns an error, such as -EPROBE_DEFER, devres automatically fr=
-ees
-the memory backing the parent domain.=20
+drivers/accel/rocket/rocket_job.c:rocket_job_handle_irq() {
+    ...
+    iommu_detach_group(NULL, iommu_group_get(core->dev));
+    ...
+}
 
-Can this leave a dangling pointer in the global gpd_list that could trigger=
- a
-use-after-free or kernel panic when the list is next traversed, such as
-during pm_genpd_poweroff_unused()? Should rockchip_pm_domain_cleanup() be
-updated to iterate backwards to ensure children are removed before their
-parents?
+Does iommu_detach_group() consume the reference returned by
+iommu_group_get()? If it doesn't, this seems to leak a reference on the
+IOMMU group every time a job is completed. Could this use the cached
+core->iommu_group or add a corresponding iommu_group_put()?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912065053.1519=
-165-1-gahing@gahingwoo.com?part=3D10
+165-1-gahing@gahingwoo.com?part=3D4
