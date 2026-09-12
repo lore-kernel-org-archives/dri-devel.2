@@ -4,153 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43680C88E45
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 01:55:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47A68C88E45
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 06:27:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B44D10E0FF;
-	Sat, 12 Sep 2026 01:55:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92BAF10E308;
+	Sat, 12 Sep 2026 06:27:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cAh9sZi9";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CU5OFTc9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Nz1M03I0";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62E4F10E5E5
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 01:55:00 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68C1HnQW1167594
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 01:54:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=dO9Rlve2Ra13poOIPSmbNHYnX+XzabrihEjpiFcx0qw=; b=cA
- h9sZi9GAnqA+3YVu06UOVxEImSlcqa//a75kClq/YGD1fx2SpjurUSVSAUyUFmFn
- UqhPUaRQV8u34y5XCbszsUORzKCufgNJctRaMUbzWElByDEHe5lzXqIgwKK+QkSF
- kjr97UuO7swDPLBSk/8lr0ueerR0o446llBkkP1uJg+axkPdmFUjOnp3kxvRXbTF
- GJqBfPB1Mm6N1ks/uHuOTFcyIcMCBZrW+2lXBKx74YgqBPhMe1BVPuWVwl97bPS6
- +A6Vett/Dl7YUW9jq06qiAp4nAUVkBrZX5sgTNNKUINKFNUh0oocHBymixxNMeb8
- HvqLN3bSO2JcZNNecppQ==
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
- [209.85.210.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmvwj02b4-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 01:54:59 +0000 (GMT)
-Received: by mail-ot1-f70.google.com with SMTP id
- 46e09a7af769-8052a85c504so556910a34.1
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 18:54:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789178099; cv=none;
- d=google.com; s=arc-20260327;
- b=IoR4qKxnlIw58otzn+w2ZZRCHbhQ9AMe/ybkCpUR1AHySYmrwPY/KHsYrTowXQN5IB
- A8WvgztRiOHqTzTiEHL54GnRZyNOCN/UweIVYdZMjpGHvTs+DBelNTwsPTWgOB28F2Lm
- PfCpIa86JvoN62tJJV2AgEgVUr8jj0otka/2SEgRiho+Xyy2ge8PnFT1uXnsfUSsSQzO
- w5yvI1oCFzfocjnAa8+nkywCWwaxvIQTUBLAu5+U3Ry7qYAIOHCNzKja0CyuS0Mmikd9
- jzBYtgH+8uTRPgS35zsVfzac1xF6uYt2XgLnpLPEEFFNV178qO5DW/OWkL4Pdadlp1PM
- 7tuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:dkim-signature;
- bh=dO9Rlve2Ra13poOIPSmbNHYnX+XzabrihEjpiFcx0qw=;
- fh=q95NBimmkwiqhYAI458+6aS8Wb1CdbTq0KDCy8e7sE8=;
- b=L4s12HXoVTYFKf/AIBKlEOQTivwqqJxSOMObVFypBEzGwM/o9EOfCOnrpSjUQFBYjD
- z+SJ/HUS/D2rx68ni9vntauwNk6LzFfjzIVba9p4y2oQcQMEpQq5pl8FblBvOXN9tWCq
- CtMAzsJY6IDP5toJDTm+PnnGzKzdU2DEHKu/Yf1A2gfRAwiOr6e3IZwQ+cwQGdmOCzcC
- gRTfhOD79hDTIhz7nYJ0akuLCO2MVuwtcPJWjJtuWrOD9FBP77vDuU2IQFKRz6dSkMIH
- OLlMZN+5PsSoKBI/T3k0GzCBsJBYGqZhsgq8U4h76AFXfuM69SjqaHv5fWyIEnzkg7pu
- npnA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1789178099; x=1789782899;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=dO9Rlve2Ra13poOIPSmbNHYnX+XzabrihEjpiFcx0qw=;
- b=CU5OFTc9c5R3Yl+XpT2Fs0c8ntgaS9sK3UuS4zn/w8EUV70i0L83Wlgi0W0umxumcf
- C8OweeNRHStwEKtxzdmkNrEegNsOJosMDczO9/sGA52o49BNYu2fR5BqdzlX+fjU+qjY
- SpvqWGTvT7HnoaBI8byBAzihaXreK05Wd2elmu6ynl7HBp8qXl8EXm+EEiJzYuRpqnRR
- p1qItpaRtriAMf8hC8d/lB6sf0f9kn67Rq9k+IFyTmzSYwR3dF83pCHuLzWkbqNQt1Tw
- yTgT5YbfGl5g8BOH3QPJZtYVfv8anK9aqqCJ/ME3YXKFsMpaIUpxcaBuGwCoKiVR+Vp1
- TxJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789178099; x=1789782899;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=dO9Rlve2Ra13poOIPSmbNHYnX+XzabrihEjpiFcx0qw=;
- b=KxUY99ZqkS1kVJ7ihI0Qwks1ujnap5+UdpNbRZh4KuWvyDRIwrZ/UjyF/+KyxMI+9o
- JQXJUnyxyp8FrGXClHELLO9EOp3eJXJ5AaMvS5gkixyX408FqqqMrxEYw/R4ZCH3zSBG
- yaPQdvdWFN2bHJm1lFxnADKw1LOCO/0XfgR/VXRXXVEMRHtlfbYvAUnp0nlAXBuHrsPE
- KhynjVubpJChHDIxPkDwFW+VmivK+R76axWQioXjBuLo+liiKQ63KAqtXs2NsRmvY8n9
- njkexypEutyyc+EmTTOyk4IcAERhloCzTfLSXb19GdcVZD4pjKoir+FZWH0CV9uzsVdG
- hnhQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzgZNwBSV21XqtK53/vS8SYl+7hxxFf1wvnBD9ZxjfOsDNZEg48Ao3qO/cYYUFrwBPHOuvAdKgAdnU=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lSy8rJTc3NiJ4oGjPIiL6FJlW1l1glOu3UZ6KGjCFIWxxiSX3B
- xZsp7OwqkezSrvb2nzyRviYhKZM2aKbul4q9F3iEuqEALhFJFXBCm7sgOUiKlyO6ZMMIeWFKa5w
- ecZFVmW4gqwC8EuSyfz+A3GTOIoZhQHSF49cJRLnEZEmOuDQBUsdqNpGpr3b9JuINfe1i8qiX7z
- 7qioOAGNlguH6ejMEPJ/KMZMmxysrzgpLaCG7IMfHqBPa6aQ==
-X-Gm-Gg: AYBFou2u8ZbuRukLgrOT7QYrQfdU9v5HDITCZTsctfKzq1s3Ac5thl8r0Tr+wbpqqMF
- S8utIA7eeO99zaj1ybJyK8C5u1GcwTVcPREvqMSt/fOnmIdxPhKo8A0ybYpUT3YBZbhJWoq7+Ay
- +f2RMfyh8i2ne7ONnkBCl/mDChAHY8HGvr7/IXX65HLaryqir5exitPx8q
-X-Received: by 2002:a05:6820:2221:b0:6b1:5735:b88e with SMTP id
- 006d021491bc7-6c24c6c8ce3mr771787eaf.6.1789178098712; 
- Fri, 11 Sep 2026 18:54:58 -0700 (PDT)
-X-Received: by 2002:a05:6820:2221:b0:6b1:5735:b88e with SMTP id
- 006d021491bc7-6c24c6c8ce3mr771774eaf.6.1789178098301; Fri, 11 Sep 2026
- 18:54:58 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260904125523.43813-1-roman.demidov.nn@gmail.com>
-In-Reply-To: <20260904125523.43813-1-roman.demidov.nn@gmail.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Fri, 11 Sep 2026 18:54:47 -0700
-X-Gm-Features: AcwNN1UgBK-qx_vC_r0dZSSzeObThSII9I-bgwOa6aSUrNw21aClLAt97iPASAo
-Message-ID: <CACSVV02h=c8KQoUT+18uXBoL4nkTzefu6AiTX=y6-W0rUrSSYA@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/a6xx: check pm_runtime_resume_and_get() during
- resume
-To: Roman Demidov <roman.demidov.nn@gmail.com>
-Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAC6510E308
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 06:27:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8E93E40085;
+ Sat, 12 Sep 2026 06:27:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55DF51F000FF;
+ Sat, 12 Sep 2026 06:27:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789194467;
+ bh=K9XotTqdYIG6hbxk3de9/pYldzfEm7W9+qnNcL/5dEo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Nz1M03I0JeYJY8yyxAmaRiHr948ZDGZktFQ3bOCGxxQLmschrY3ErQk9rPNyPZz2k
+ vVxsSO6ASsOCTdOu5PZKaH5TZLpYVrl3zo+hNA75M1IIzxQFb8ohjh3Y8Rwwc3sW8p
+ 7NY3CuhUXoZv6Pax8GEhM50rhk8oLD2Ex9xq0sUhAGZgzjS4XN/7l4gnCYmY9WJvOJ
+ 1+gSrvXyfzYOez+W8oyiUF7WRoTBcCuOWc7pjAd3rcUNLrLA7hw+z9v5XEyAG2XhYC
+ BxM9V8q+QoP31Wi8AHWLkz0K2f/D+oiN0zU/ghZI1l07forlVI0OtuaQUitIZQs2Kl
+ yYbFmN2z/d4RQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH] arm64: allwinner: add TrimUI Smart Pro (A133) board
+ support
+To: leow149 <leow149@lucidmail.xyz>
+Cc: dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev
+In-Reply-To: <20260912060249.80035-1-leow149@lucidmail.xyz>
+References: <20260912060249.80035-1-leow149@lucidmail.xyz>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=MZX5KJ/f c=1 sm=1 tr=0 ts=6aa4b0f3 cx=c_pps
- a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_K5XuSEh1TEqbUxoQ0s3:22 a=pGLkceISAAAA:8 a=HH5vDtPzAAAA:8
- a=E6Br8louk_51uBx8NIgA:9 a=QEXdDO2ut3YA:10 a=EXS-LbY8YePsIyqnH6vw:22
- a=QM_-zKB-Ew0MsOlNKMB5:22
-X-Proofpoint-ORIG-GUID: mgCaWgq8iF6lPrGKJ_1vLr-czy0IOqkZ
-X-Proofpoint-GUID: mgCaWgq8iF6lPrGKJ_1vLr-czy0IOqkZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEyMDAyMyBTYWx0ZWRfXxsG0sVfU7xuI
- 1UzaM7QDcKt9Utge2Z0vOCn2GjAaBzNgC74B7VIfSs5M/0hw7QSuVxYMz0QFHQkxkP94BTlCUm0
- tjjpWagX06aoGZv73KIdqzWNxEpMWt19j40lUQ04vdoaZS/o1nCofcrTGbHqwe+WMAilSA/P/ja
- i2s2kH3lSdZpfAokIHwWq9thxI25NC+rKs+S7pGAhIXmaBQsPW2/Ie2pK5wy05D/TabT7vWv2Q+
- Tluu9uffRj5ucpSDvs9zDRtdmnFi+rTLLynFtBbnuqK7c8TSS4BEMSKwsxCXqtkZ56R3dFjltIO
- 6teX1OTCgUl5SdtqGDv2wWKz/LRcbbWmAUAbV7rtTonLrTkReNC15EB0EkRv5i/3T8vEaeUeht1
- LJbyoIxG1I519zNoMQTUA5qQgpX9D4kyVRrT4erh4kGuMzpySIgxMzaDrbjTRa6FTQrg9TjEF6W
- oVHEvozmf/83J6sd4Rw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEyMDAyMyBTYWx0ZWRfX2wd4GujQOkxO
- WEL8sNKt/Kp7+NDtq5Aji6toCsw/FPc1JxHQTRv/OOos4Z+7/j4QgDPWiUGilJ2ELLmKwNSdEY3
- /t4R76FKDkqs7sdA81R42jCY0uyD94Y=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-12_01,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 adultscore=0 phishscore=0 priorityscore=1501
- impostorscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609120023
+Date: Sat, 12 Sep 2026 06:27:46 +0000
+Message-Id: <20260912062747.55DF51F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,113 +53,274 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Sep 4, 2026 at 5:58=E2=80=AFAM Roman Demidov <roman.demidov.nn@gmai=
-l.com> wrote:
->
-> The return values of pm_runtime_resume_and_get() calls in a6xx_pm_resume(=
-)
-> are not checked, which can lead to hardware access on suspended devices
-> and PM reference underflows.
->
-> Fix this by checking the return value of each pm_runtime_resume_and_get()
-> call and properly unwinding the previously acquired resources on failure.
->
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
->
-> Fixes: 5a903a44a984 ("drm/msm/a6xx: Introduce GMU wrapper support")
-> Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 38 +++++++++++++++------------
->  1 file changed, 21 insertions(+), 17 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
-adreno/a6xx_gpu.c
-> index f9de9329dee3..0cf205ea744b 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -2175,44 +2175,48 @@ static int a6xx_pm_resume(struct msm_gpu *gpu)
->         opp =3D dev_pm_opp_find_freq_ceil(&gpu->pdev->dev, &freq);
->         if (IS_ERR(opp)) {
->                 ret =3D PTR_ERR(opp);
-> -               goto err_set_opp;
-> +               goto err_unlock;
->         }
->         dev_pm_opp_put(opp);
->
->         /* Set the core clock and bus bw, having VDD scaling in mind */
->         dev_pm_opp_set_opp(&gpu->pdev->dev, opp);
->
-> -       pm_runtime_resume_and_get(gmu->dev);
-> -       pm_runtime_resume_and_get(gmu->gxpd);
-> +       ret =3D pm_runtime_resume_and_get(gmu->dev);
-> +       if (ret < 0)
-> +               goto err_opp_clear;
-> +       ret =3D pm_runtime_resume_and_get(gmu->gxpd);
-> +       if (ret < 0)
-> +               goto err_put_dev;
->
->         ret =3D clk_bulk_prepare_enable(gpu->nr_clocks, gpu->grp_clks);
->         if (ret)
-> -               goto err_bulk_clk;
-> +               goto err_put_gxpd;
->
->         ret =3D clk_bulk_prepare_enable(gmu->nr_clocks, gmu->clocks);
->         if (ret) {
->                 clk_bulk_disable_unprepare(gpu->nr_clocks, gpu->grp_clks)=
-;
-> -               goto err_bulk_clk;
-> +               goto err_put_gxpd;
->         }
->
->         if (adreno_is_a619_holi(adreno_gpu))
->                 a6xx_sptprac_enable(gmu);
->
-> -       /* If anything goes south, tear the GPU down piece by piece.. */
-> -       if (ret) {
-> -err_bulk_clk:
-> -               pm_runtime_put(gmu->gxpd);
-> -               pm_runtime_put(gmu->dev);
-> -               dev_pm_opp_set_opp(&gpu->pdev->dev, NULL);
-> -       }
-> -err_set_opp:
->         mutex_unlock(&a6xx_gpu->gmu.lock);
-> +       msm_devfreq_resume(gpu);
-> +       a6xx_llc_activate(a6xx_gpu);
->
-> -       if (!ret) {
-> -               msm_devfreq_resume(gpu);
-> -               a6xx_llc_activate(a6xx_gpu);
-> -       }
-> +       return 0;
->
-> +       /* If anything goes south, tear the GPU down piece by piece.. */
-> +err_put_gxpd:
-> +       pm_runtime_put(gmu->gxpd);
-> +err_put_dev:
-> +       pm_runtime_put(gmu->dev);
-> +err_opp_clear:
-> +       dev_pm_opp_set_opp(&gpu->pdev->dev, NULL);
-> +err_unlock:
-> +       mutex_unlock(&a6xx_gpu->gmu.lock);
+Thank you for your contribution! Sashiko AI review found 12 potential issue=
+(s) to consider:
 
-this does at least look a bit less terrifying than what came before...
-but maybe
+New issues:
+- [Critical] Missing timer cancellation on CRTC disable causes a fatal bus =
+hang.
+- [Critical] Vblank interrupts are permanently broken for all non-DSI panel=
+s because the TCON IRQ is never enabled.
+- [Critical] Moving the HS clock enable (DSI_START_HSC) before drm_panel_pr=
+epare() breaks DCS initialization for existing panels.
+- [High] Using regmap_update_bits() on a Write-1-to-Clear (W1C) register si=
+lently fails to clear status bits.
+- [High] Manually modifying the TCON TOP DSI gate bypasses the clock framew=
+ork, causing clk_disable_unused to wedge the display.
+- [High] Contradictory retriggering configuration creates dead code and gua=
+rantees a stalled transfer.
+- [High] Acknowledging FSYNC_INT in the interrupt handler inadvertently tri=
+ggers spurious vblank and page-flip events.
+- [Medium] Unbalanced IRQ Enable causes warning and stack dump on subsequen=
+t mode sets.
+- [Medium] Missing synchronization for read-modify-write on shared PWM regi=
+sters.
+- [Medium] Setting a 100% duty cycle on the PWM results in a 0% duty cycle =
+due to a 16-bit integer truncation.
+- [Low] The A133 TCON TOP compatible string lacks an if-then block in the D=
+T binding, causing schema validation to fail.
 
-   guard(mutex)(&a6xx_gpu->gmu.lock);
+Pre-existing issues:
+- [High] Division by zero occurs if the requested display mode pixel clock =
+is less than 1 MHz.
+--
 
-to simplify the locking part of this.  And I think at least some of
-the runpm stuff could also be handled w/ guard/cleanup stuff?
+commit 99fbb5d85e5546f268568ad90dca77472cfb738d
+Author: leow149 <leow149@lucidmail.xyz>
+Subject: arm64: allwinner: add TrimUI Smart Pro (A133) board support
 
-BR,
--R
+This commit introduces board support for the TrimUI Smart Pro handheld. It =
+adds
+a new device tree, a driver for the OTM1289A DSI panel, a new A133 PWM driv=
+er,
+and modifies sun4i DRM drivers to support the display pipeline. It also adds
+TCON TOP quirks and alters the DSI initialization sequence.
 
->         return ret;
->  }
->
-> --
-> 2.53.0
->
+> diff --git a/Documentation/devicetree/bindings/display/allwinner,sun8i-r4=
+0-tcon-top.yaml b/Documentation/devicetree/bindings/display/allwinner,sun8i=
+-r40-tcon-top.yaml
+> --- a/Documentation/devicetree/bindings/display/allwinner,sun8i-r40-tcon-=
+top.yaml
+> +++ b/Documentation/devicetree/bindings/display/allwinner,sun8i-r40-tcon-=
+top.yaml
+> @@ -43,6 +43,7 @@ properties:
+>        - allwinner,sun8i-r40-tcon-top
+>        - allwinner,sun20i-d1-tcon-top
+>        - allwinner,sun50i-h6-tcon-top
+> +      - allwinner,sun50i-a133-tcon-top
+
+[Severity: Low]
+Because the base schema unconditionally requires HDMI ports that the A133
+does not have, will this cause device tree schema validation to fail when
+dt_binding_check runs? The new A133 compatible string is missing from the
+allOf conditional blocks to relax these constraints.
+
+[ ... ]
+> diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.c b/drivers/gpu/drm/sun4i/s=
+un4i_tcon.c
+> --- a/drivers/gpu/drm/sun4i/sun4i_tcon.c
+> +++ b/drivers/gpu/drm/sun4i/sun4i_tcon.c
+> @@ -498,6 +498,11 @@ static void sun4i_tcon0_mode_set_cpu(struct sun4i_tc=
+on *tcon,
+>  	regmap_write(tcon->regs, SUN4I_TCON0_CPU_IF_REG,
+>  		     SUN4I_TCON0_CPU_IF_MODE_DSI |
+>  		     SUN4I_TCON0_CPU_IF_TRI_FIFO_FLUSH |
+>  		     SUN4I_TCON0_CPU_IF_TRI_FIFO_EN |
+>  		     SUN4I_TCON0_CPU_IF_TRI_EN);
+
+[Severity: High]
+With SUN4I_TCON0_CPU_IF_AUTO explicitly omitted here, does this make the
+fallback logic in the interrupt handler unreachable? sun4i_tcon_enable_vbla=
+nk()
+returns early for DSI CPU mode, meaning TRI_FINISH_ENABLE is never written.
+It seems this prevents any frames from being sent after the first kick.
+
+[ ... ]
+> @@ -547,6 +547,8 @@ static void sun4i_tcon0_mode_set_cpu(struct sun4i_tco=
+n *tcon,
+>  	 */
+>  	start_delay =3D (mode->crtc_vtotal - mode->crtc_vdisplay - 9);
+>  	start_delay =3D start_delay * mode->crtc_htotal * 300;
+>  	start_delay =3D start_delay / (mode->crtc_clock / 1000) / 8;
+
+[Severity: High]
+This is a pre-existing issue, but if userspace passes a custom mode with a
+pixel clock less than 1 MHz, mode->crtc_clock / 1000 evaluates to zero. Can
+this trigger a kernel panic due to division by zero?
+
+[ ... ]
+> @@ -572,6 +572,8 @@ static void sun4i_tcon0_mode_set_cpu(struct sun4i_tco=
+n *tcon,
+>  	 */
+>  	tcon->dsi_retrigger_ticks =3D 0;
+>  	hrtimer_start(&tcon->dsi_retrigger_timer, ms_to_ktime(1000),
+>  		      HRTIMER_MODE_REL);
+
+[Severity: Critical]
+Is this timer explicitly canceled via hrtimer_cancel() when the CRTC is
+disabled? If the display goes to sleep and the DSI clocks are gated off,
+the timer will eventually attempt to read the DSI interrupt register, which
+could cause a fatal synchronous external abort.
+
+[ ... ]
+> @@ -956,6 +956,11 @@ static irqreturn_t sun4i_tcon_handler(int irq, void =
+*private)
+>  	 * clearing it below) keeps the line alive.
+>  	 */
+>  	handled =3D status & (SUN4I_TCON_GINT0_VBLANK_INT(0) |
+>  			     SUN4I_TCON_GINT0_VBLANK_INT(1) |
+>  			     SUN4I_TCON_GINT0_TCON0_TRI_FINISH_INT |
+>  			     SUN4I_TCON_GINT0_TCON0_FSYNC_INT);
+> =20
+>  	if (!handled)
+>  		return IRQ_NONE;
+> =20
+>  	drm_crtc_handle_vblank(&scrtc->crtc);
+
+[Severity: High]
+If the interrupt fires solely due to FSYNC_INT, the handler will incorrectly
+proceed to call drm_crtc_handle_vblank() and sun4i_tcon_finish_page_flip().
+Given that FSYNC_INT is described as constantly asserted, won't this transl=
+ate
+into a storm of spurious vblank events that disrupts display timing and con=
+fuses
+userspace compositors?
+
+[ ... ]
+> @@ -1053,6 +1053,8 @@ static enum hrtimer_restart sun4i_tcon_dsi_retrigge=
+r_timer_fn(struct hrtimer *ti
+>  	 * atomic commit machinery.
+>  	 */
+>  	if (tick =3D=3D 0 && tcon->irq)
+>  		enable_irq(tcon->irq);
+
+[Severity: Medium]
+Is there a corresponding disable_irq() call when the CRTC is disabled or
+during teardown? If a user triggers a DPMS off/on cycle, the timer will
+run again and call enable_irq() a second time, which might decrement the
+IRQ depth below zero and trigger a core IRQ subsystem warning and stack dum=
+p.
+
+[ ... ]
+> @@ -1124,10 +1124,11 @@ static int sun4i_tcon_init_irq(struct device *dev,
+>  	irq =3D platform_get_irq(pdev, 0);
+>  	if (irq < 0)
+>  		return irq;
+> =20
+> -	ret =3D devm_request_irq(dev, irq, sun4i_tcon_handler, 0,
+> +	ret =3D devm_request_irq(dev, irq, sun4i_tcon_handler, IRQF_NO_AUTOEN,
+>  			       dev_name(dev), tcon);
+
+[Severity: Critical]
+Since enable_irq() is only called from the DSI-specific retrigger timer,
+won't requesting the interrupt with IRQF_NO_AUTOEN unconditionally for all
+TCON instances leave the vblank interrupt permanently disabled for all
+existing non-DSI panels (like LVDS, RGB, and HDMI), completely breaking
+page flips for those legacy boards?
+
+[ ... ]
+> diff --git a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c b/drivers/gpu/drm/sun=
+4i/sun6i_mipi_dsi.c
+> --- a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
+> +++ b/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
+> @@ -808,6 +808,10 @@ void sun6i_dsi_clear_int_status(struct sun6i_dsi *ds=
+i)
+>  {
+>  	unsigned int val =3D 0;
+> =20
+>  	regmap_read(dsi->regs, SUN6I_DSI_INT_REG, &val);
+>  	regmap_update_bits(dsi->regs, SUN6I_DSI_INT_REG,
+>  			   GENMASK(31, 16), val & GENMASK(31, 16));
+
+[Severity: High]
+Since SUN6I_DSI_INT_REG is a write-1-to-clear register, won't
+regmap_update_bits() skip the write if it detects that the cached value
+matches the new value? This optimization would cause the status bits to
+remain uncleared, breaking the edge detection logic in the retrigger timer.
+
+[ ... ]
+> @@ -898,12 +898,13 @@ static void sun6i_dsi_encoder_enable(struct drm_enc=
+oder *encoder)
+>  	 * puts the clock lane into its continuous-HS state, and DCS commands
+>  	 * use the entirely separate LPTX/LPDT instruction tables.
+>  	 */
+>  	sun6i_dsi_start(dsi, DSI_START_HSC);
+> =20
+>  	udelay(1000);
+> =20
+>  	if (dsi->panel)
+>  		drm_panel_prepare(dsi->panel);
+
+[Severity: Critical]
+For legacy panels that require sending DCS commands during their prepare ph=
+ase,
+won't moving DSI_START_HSC before drm_panel_prepare() cause initialization =
+to
+fail? The host controller cannot transmit LPTX commands once the clock lane
+is forced into continuous HS mode.
+
+[ ... ]
+> diff --git a/drivers/gpu/drm/sun4i/sun8i_tcon_top.c b/drivers/gpu/drm/sun=
+4i/sun8i_tcon_top.c
+> --- a/drivers/gpu/drm/sun4i/sun8i_tcon_top.c
+> +++ b/drivers/gpu/drm/sun4i/sun8i_tcon_top.c
+> @@ -166,6 +166,10 @@ int sun8i_tcon_top_set_dsi_gate(struct device *dev, =
+bool enable)
+> =20
+>  	val =3D readl(tcon_top->regs + TCON_TOP_GATE_SRC_REG);
+>  	if (enable)
+>  		val |=3D BIT(TCON_TOP_TCON_DSI_GATE);
+>  	else
+>  		val &=3D ~BIT(TCON_TOP_TCON_DSI_GATE);
+>  	writel(val, tcon_top->regs + TCON_TOP_GATE_SRC_REG);
+
+[Severity: High]
+Because this bit is also registered as a standard clock with the common clo=
+ck
+framework, won't the late-init clk_disable_unused() sweep see a reference
+count of zero and forcefully turn this gate off, wedging the display pipeli=
+ne
+shortly after boot?
+
+[ ... ]
+> diff --git a/drivers/pwm/pwm-sun50i-a133.c b/drivers/pwm/pwm-sun50i-a133.c
+> --- a/drivers/pwm/pwm-sun50i-a133.c
+> +++ b/drivers/pwm/pwm-sun50i-a133.c
+> @@ -148,6 +148,9 @@ static int pwm_a133_apply(struct pwm_chip *chip, stru=
+ct pwm_device *pwm,
+>  	pwm_a133_writel(pc, pccr_reg, val);
+> =20
+>  	/* Gate the channel clock off while changing prescale/period/duty. */
+>  	val =3D pwm_a133_readl(pc, PWM_A133_PCGR_REG);
+>  	val &=3D ~(PWM_A133_PCGR_GATING(ch) | PWM_A133_PCGR_BYPASS(ch));
+>  	pwm_a133_writel(pc, PWM_A133_PCGR_REG, val);
+
+[Severity: Medium]
+Since the PWM core only serializes updates per channel, could concurrent
+updates to different channels on the same chip race and corrupt the hardware
+state here, potentially disabling the wrong channel?
+
+[ ... ]
+> @@ -156,6 +156,9 @@ static int pwm_a133_apply(struct pwm_chip *chip, stru=
+ct pwm_device *pwm,
+>  		val |=3D PWM_A133_PCR_ACT_STA_HIGH;
+>  	pwm_a133_writel(pc, PWM_A133_PCR_REG(ch), val);
+> =20
+>  	val =3D (entire_cycle << PWM_A133_PPR_ENTIRE_CYCLE_SHIFT) & PWM_A133_PP=
+R_ENTIRE_CYCLE_MASK;
+>  	val |=3D act_cycle & PWM_A133_PPR_ACT_CYCLE_MASK;
+>  	pwm_a133_writel(pc, PWM_A133_PPR_REG(ch), val);
+
+[Severity: Medium]
+If a 100 percent duty cycle is requested, act_cycle evaluates to 65536.
+Won't this bitwise AND with PWM_A133_PPR_ACT_CYCLE_MASK (which is 0xFFFF)
+truncate the value to 0, causing the backlight to turn completely off when
+maximum brightness is requested?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912060249.8003=
+5-1-leow149@lucidmail.xyz?part=3D1
