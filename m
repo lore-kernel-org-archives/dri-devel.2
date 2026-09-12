@@ -4,67 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11FCDC88E53
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 22:21:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A40BCC88E53
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 22:39:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9E4C10E51E;
-	Sat, 12 Sep 2026 22:21:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A38DE10E6DC;
+	Sat, 12 Sep 2026 22:39:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BHhPvzDn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EO/qaLNE";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 670B810E51E
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 22:21:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAB4E10E6DC
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 22:39:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8BB6D60008;
- Sat, 12 Sep 2026 22:21:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 434821F000FF;
- Sat, 12 Sep 2026 22:20:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A9D5860008;
+ Sat, 12 Sep 2026 22:38:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3307E1F000FF;
+ Sat, 12 Sep 2026 22:38:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789251662;
- bh=A9T5TqugoZpwriYm80tITfJ7eL5e79XFR+RGRlWT3Yo=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=BHhPvzDnmzwpQttZFmPMZf/UutFNeY/Degy6vahXXbV7Z6hNGc9MkvFE+rdhQJ6MU
- VAw3b4RYQvofx2lNTbeX4zkZRnpelNzwDei0UTSd3ZGNIs/4odMQ67B9LiiARuySxb
- U6BER7d7wfXohAn2tXbzGwa2wiTRgp4c4+hrPC/Fg2mvopBtYwKpfuJcqo2gQktz/i
- UBA340zyHxS9IBLWpHZ7ZP/iBROp/81WLbTAUh34hL3mGOOjez8TZZyGHIC4Q8vD6X
- SvDJPAFOvk+SgEr6vR+aGc41krBbPQbYbAOql8ew7alD2jpnrmyuGLi/805cAMk+g3
- S6DFuxrkx8D2Q==
-Date: Sat, 12 Sep 2026 23:20:47 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Arnd Bergmann" <arnd@arndb.de>
-Cc: "Svyatoslav Ryhel" <clamor95@gmail.com>, "Arnd Bergmann"
- <arnd@kernel.org>, "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
- "Bartosz Golaszewski" <brgl@kernel.org>, "Mark Brown" <broonie@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Daniel Thompson"
- <danielt@kernel.org>, "Helge Deller" <deller@gmx.de>,
- devicetree@vger.kernel.org, "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
- dri-devel@lists.freedesktop.org, "Jingoo Han" <jingoohan1@gmail.com>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Lee Jones" <lee@kernel.org>,
- "Liam Girdwood" <lgirdwood@gmail.com>, "Linus Walleij" <linusw@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-fbdev@vger.kernel.org, "open list:GPIO SUBSYSTEM"
- <linux-gpio@vger.kernel.org>, linux-hwmon@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-rtc@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-watchdog@vger.kernel.org, "Guenter Roeck" <linux@roeck-us.net>,
- linuxppc-dev@lists.ozlabs.org, llvm@lists.linux.dev, "Mauro Carvalho
- Chehab" <mchehab@kernel.org>, mfd@lists.linux.dev, "Michael Hennerich"
- <michael.hennerich@analog.com>, patches@opensource.cirrus.com, "Pavel
- Machek" <pavel@kernel.org>, "Rob Herring" <robh@kernel.org>, "Sebastian
- Reichel" <sre@kernel.org>, "Support Opensource"
- <support.opensource@diasemi.com>
-Subject: Re: [PATCH 08/14] mfd: remove unused aat2870 driver
-Message-ID: <20260912232047.19c4cb10@jic23-hlaptop>
-In-Reply-To: <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
-References: <CAPVz0n0ryOns2sCJE_jFana9MVzwEj1QZuPEa8FNhGbHXnMB+A@mail.gmail.com>
- <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+ s=k20260515; t=1789252739;
+ bh=oDE0DhyHeZQzzJR26HWke5PaQC52gVOSjB1TqvZ1axE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=EO/qaLNETg9Zl9Sr5GpKRmrjjySh7VS4peS6J1BbjkdMh8Tdzyz1/G5+keLq8kiI+
+ DWuZJVnA5WTvAMWawi90hmoqQSEgZBHanS4zUekcfGBRBL5nYnivE/A8dRo2FxAodJ
+ XKD5oxRq97H3GJKUqh01OOHmTmIibqZ8fnaePMX4rTlatA97+rpaeFFVy95yu03yoU
+ 2LxlNDBsOXelEyc9hS53B1KWP0uU11O1DXfudtkzD5M0UYjgDZedwYTnimnf7pl83v
+ gdm8Zeyqi+cieLbxzHvyy1iV5voB3enIbbW5Vi5F5Wjg/mCDdc5+1cmGVUi3DMIDil
+ iAoFR6kHoWxpw==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH v6] arm64: allwinner: add TrimUI Smart Pro (A133)
+ board support
+To: leow149 <leow149@lucidmail.xyz>
+Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260912222429.107809-1-leow149@lucidmail.xyz>
+References: <20260912214317.106150-1-leow149@lucidmail.xyz>
+ <20260912222429.107809-1-leow149@lucidmail.xyz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 12 Sep 2026 22:38:58 +0000
+Message-Id: <20260912223859.3307E1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,97 +54,256 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 10 Sep 2026 20:14:15 +0200
-"Arnd Bergmann" <arnd@arndb.de> wrote:
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-> On Thu, Sep 10, 2026, at 18:40, Svyatoslav Ryhel wrote:
-> > __ 
-> > Hello Arnd! May you please spare AAT2870 from being removed? I have a 
-> > device which uses aat2870 (LG Optimus 2X P990 Tegra 2, not upstreamed 
-> > yet, but in process as well) and atm I am working on converting this 
-> > driver to use OF. Thank you!  
-> 
-> Sure, I have removed this patch from my series now.
-> 
-> > P. S. If you are planning to remove more old drivers, please CC me in 
-> > since I may be interested in some additional driver upgrades for 
-> > devices I own.  
-> 
-> Please have a look at
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=board-remove-7.3
-> 
-> I tried to be careful about figuring out exactly which drivers are
-> unused, but I'm sure there are still a few false positive and false
-> negative ones in there. I've added the current list of driver files below,
-> let me know if you see something that shouldn't be there.
-Hi Arnd
+New issues:
+- [High] Sleeping functions called from atomic context in DRM encoder callb=
+acks.
+- [High] State Confusion / Overlapping Transfers due to uncleared pending i=
+nterrupts on IRQ re-enable.
+- [High] Incorrect Horizontal Display Timings (Front and Back Porch Swap).
+- [Medium] CPU Hog: The DSI retrigger timer will never stop.
 
-For I2C and SPI at least, there doesn't need to be explicit
-device tree support as long as they have defaults when platform
-data isn't there. Those two buses will happily bind based on
-a dt-compatible and their i2c_device_id or spi_device_id tables
-for example.
+Pre-existing issues:
+- [High] TOCTOU Race Condition on Write-0-to-Clear Interrupt Acknowledge.
+--
 
-So unless they fail to probe (some might?) we don't have
-a clear signal on whether they are in use via DT or not.
+commit 2a1faaf3f9e395a5ec4a2a530f311f244c0a15e3
+Author: leow149 <leow149@lucidmail.xyz>
+Subject: arm64: allwinner: add TrimUI Smart Pro (A133) board support
 
-For vast majority of IIO drivers we don't have an upstream
-DTS as there is no clear motivation for anyone to upstream
-the dts for a random industrial control board or similar.
+This patch brings up board support for the TrimUI Smart Pro handheld.
+It introduces new DTS configuration, panel timings for OTM1289A, a
+new PWM driver, and modifies TCON/DSI files for CPU/8080 interface
+bring-up.
 
-> drivers/iio/adc/ad7266.c
-No to dropping this.
+> diff --git a/drivers/gpu/drm/panel/panel-orisetech-otm1289a.c b/drivers/g=
+pu/drm/panel/panel-orisetech-otm1289a.c
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-orisetech-otm1289a.c
+[ ... ]
+> +static const struct drm_display_mode otm1289a_mode =3D {
+> +	.clock =3D 69000,
+> +	.hdisplay =3D OTM1289A_HDISPLAY,
+> +	.hsync_start =3D OTM1289A_HDISPLAY + 88,
+> +	.hsync_end =3D OTM1289A_HDISPLAY + 88 + 4,
 
-Has fallbacks and should bind just fine  No one ever
-bothered adding an of_device_id table because it isn't
-needed. Fine to rip out the platform data support as nothing is
-using that.
+[Severity: High]
+Is it possible these horizontal porch values are swapped?
 
-This is a production part that is likely being used in new designs.
+The DRM front porch is calculated as htotal - hdisplay - hbp=20
+(880 - 720 - 88 =3D 72). However, in otm1289a_mode, hsync_start is set to=20
+OTM1289A_HDISPLAY + 88, which uses the vendor's back porch value instead of=
+=20
+the computed front porch offset of 72.
 
-> drivers/iio/adc/ad7791.c
-No to dropping this one.
+Could this cause incorrect display output shifting when the hardware is=20
+configured?
 
-I'm fine with ripping out the platform data but this again
-has defaults and may well be in use via DT. Antoniu from
-Analog was doing some cleanup on this recently so I'd guess
-they probably still at least somewhat care and some of the
-supported parts are still in production (e.g. the AD7788)
+[ ... ]
+> +static int otm1289a_prepare(struct drm_panel *panel)
+> +{
+[ ... ]
+> +	if (ctx->reset_gpio) {
+> +		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +		msleep(20);
+> +		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +		msleep(100);
+> +	}
 
-> drivers/iio/adc/ad7793.c
-Maybe. Analog devices ack needed.
+[Severity: High]
+Is it safe to call sleeping functions from this atomic context?
 
-Production part but this one indeed fails to probe.  Analog
-folk, do you want to fix this one up?
+The DRM subsystem architectural guidelines specify that encoder atomic enab=
+le=20
+and disable callbacks execute in an atomic context where sleeping is strict=
+ly=20
+forbidden.
 
-> drivers/iio/adc/ad7887.c
-No to dropping this.
+The panel's prepare and disable hooks (which are invoked from the encoder=20
+enable/disable paths) use msleep().
 
-Production part - should work fine with defaults in driver.
-Could like the others drop the platform data handling.
+Could this lead to kernel warnings, system instability, or deadlocks during=
+=20
+display modesets?
 
-> drivers/iio/adc/lp8788_adc.c
-Probably
+[ ... ]
+> diff --git a/drivers/pwm/pwm-sun50i-a133.c b/drivers/pwm/pwm-sun50i-a133.c
+> --- /dev/null
+> +++ b/drivers/pwm/pwm-sun50i-a133.c
+[ ... ]
+> +static int pwm_a133_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+> +			  const struct pwm_state *state)
+> +{
+[ ... ]
+> +	/*
+> +	 * PWM_A133_PCCR01_REG/PCCR23_REG (shared by a channel pair) and
+> +	 * PWM_A133_PCGR_REG/PWM_A133_PER_REG (shared by all 16 channels) are
+> +	 * each read-modify-written below; the PWM core doesn't serialize
+[ ... ]
+> +	mutex_lock(&pc->lock);
 
-Sub driver of an MFD.  I'm fine with that going if we know
-the mfd is no longer in use.
+[Severity: High]
+Does taking this mutex pose a sleep-in-atomic hazard?
 
-> drivers/iio/adc/lpc18xx_adc.c
-> drivers/iio/dac/lpc18xx_dac.c
-Probably
+This PWM apply hook is reachable from the panel enable hook via a backlight=
+=20
+update. Since the panel enable hook runs from the encoder atomic enable=20
+context where sleeping is prohibited, acquiring a sleeping mutex here viola=
+tes=20
+subsystem constraints.
 
-Likewise these two.
+[ ... ]
+> diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.c b/drivers/gpu/drm/sun4i/s=
+un4i_tcon.c
+> --- a/drivers/gpu/drm/sun4i/sun4i_tcon.c
+> +++ b/drivers/gpu/drm/sun4i/sun4i_tcon.c
+[ ... ]
+> +void sun4i_tcon_dsi_stop_retrigger(struct sun4i_tcon *tcon)
+> +{
+> +	hrtimer_cancel(&tcon->dsi_retrigger_timer);
+> +	/*
+> +	 * disable_irq() (which might_sleep()s internally) is safe here:
+> +	 * both call sites run in normal process/workqueue context, not a
+> +	 * genuinely atomic section -- see the comment on
+> +	 * sun4i_tcon_set_status()'s disable_irq() call for why (this
+> +	 * function is called from there too, unchanged reasoning).
+> +	 */
+> +	if (tcon->irq_enabled) {
+> +		disable_irq(tcon->irq);
+> +		tcon->irq_enabled =3D false;
+> +	}
+> +}
 
-> drivers/iio/frequency/ad9523.c
-Maybe. Analog Devices ack needed.
+[Severity: High]
+Does this disable_irq() call violate the DRM atomic context rules?
 
-Fails to probe without platform data and marked not recomended
-for new designs. If we get an Ack from Analog devices folk
-I'm fine with this one going away.
+The function is called directly by sun6i_dsi_encoder_disable(), which is an=
+=20
+encoder atomic callback. Although the comment states it runs in process=20
+context, the DRM guidelines classify encoder atomic callbacks as atomic=20
+contexts where sleeping functions are forbidden.
 
-Jonathan
+[ ... ]
+> @@ -1117,14 +1117,76 @@ static irqreturn_t sun4i_tcon_handler(int irq, vo=
+id *private)
+[ ... ]
+> +	/*
+> +	 * Acknowledge the interrupt. TRI_COUNTER_INT is included even though
+> +	 * nothing here acts on it: in DSI/CPU mode every firing is treated as
+> +	 * handled unconditionally (see the comment above), so if this bit
+> +	 * were ever the one actually driving the level line and went
+> +	 * unacknowledged, the GIC would keep re-presenting it forever with
+> +	 * nothing in this function able to break out -- a genuine hard
+> +	 * lockup, not just wasted CPU time. Never observed asserting in any
+> +	 * testing so far, but clearing it here is free and closes the gap.
+> +	 */
+> +	regmap_update_bits(tcon->regs, SUN4I_TCON_GINT0_REG,
+> +			   SUN4I_TCON_GINT0_VBLANK_INT(0) |
+> +			   SUN4I_TCON_GINT0_VBLANK_INT(1) |
+> +			   SUN4I_TCON_GINT0_TCON0_TRI_FINISH_INT |
+> +			   SUN4I_TCON_GINT0_TCON0_TRI_COUNTER_INT |
+> +			   SUN4I_TCON_GINT0_TCON0_FSYNC_INT,
+> +			   0);
 
+[Severity: High]
+This is a pre-existing issue, but could this write-0-to-clear sequence=20
+drop hardware interrupts?
+
+SUN4I_TCON_GINT0_REG is a write-0-to-clear register. The regmap_update_bits=
+()=20
+call reads the register and unconditionally writes 0 to the specified mask.
+
+If an interrupt such as TRI_FINISH_INT asserts after the initial regmap_rea=
+d()=20
+but before the regmap_update_bits() write, the unconditional 0-write clears=
+=20
+it. Since it was not in the original status snapshot, the handler will not=
+=20
+process it, resulting in a lost interrupt.
+
+With the high frequency of FSYNC_INT events described in the commit, could=
+=20
+this TOCTOU race window lead to a permanent display freeze when TRI_FINISH_=
+INT=20
+is lost?
+
+[ ... ]
+> +static enum hrtimer_restart sun4i_tcon_dsi_retrigger_timer_fn(struct hrt=
+imer *timer)
+> +{
+[ ... ]
+> +	regmap_read(tcon->regs, SUN4I_TCON0_CPU_IF_REG, &cpu_if_before);
+> +	busy =3D cpu_if_before & SUN4I_TCON0_CPU_IF_TRI_START;
+> +
+> +	if (tick && !busy) {
+> +		/* TRIGGER_START self-cleared; the IRQ path takes over from here. */
+> +		return HRTIMER_NORESTART;
+> +	}
+
+[Severity: Medium]
+Will this retrigger timer ever actually stop?
+
+The timer polls every 2ms and expects to stop when=20
+SUN4I_TCON0_CPU_IF_TRI_START is cleared (!busy).
+
+However, when the hardware clears TRI_START at the end of a frame, it=20
+immediately asserts TRI_FINISH_INT. The hardirq handler runs and immediatel=
+y=20
+re-asserts TRI_START to 1.=20
+
+Because the timer runs in a softirq context, it executes after the hardirq.=
+=20
+Thus, the timer will almost always sample TRI_START as 1, miss the window=20
+where it was 0, and continue running continuously as a permanent CPU hog.
+
+[ ... ]
+> +	if (tick =3D=3D 0 && tcon->irq && !tcon->irq_enabled) {
+> +		enable_irq(tcon->irq);
+> +		tcon->irq_enabled =3D true;
+> +	}
+> +
+> +	/*
+> +	 * The vendor per-frame retrigger is LINE-edge-triggered and
+> +	 * busy-gated, never blindly re-asserting TRIGGER_START -- matching
+> +	 * the documented precondition on this bit ("software must write 1
+> +	 * only when this flag is 0"). Only the initial kick is fired from
+> +	 * software here; TCON0's AUTO bit (set in mode_set_cpu()) is
+> +	 * expected to handle Vsync-driven retriggering afterward, the same
+> +	 * way mainline's other DSI/CPU-interface boards need no per-frame
+> +	 * software retrigger at all.
+> +	 */
+> +	if (tick =3D=3D 0 && !busy) {
+> +		sun6i_dsi_tri_start(tcon->dsi);
+> +		regmap_update_bits(tcon->regs, SUN4I_TCON0_CPU_IF_REG,
+> +				   SUN4I_TCON0_CPU_IF_TRI_START,
+> +				   SUN4I_TCON0_CPU_IF_TRI_START);
+> +	}
+
+[Severity: High]
+Could enabling the IRQ here without first clearing pending device-level=20
+interrupts cause overlapping transfers?
+
+When the display is re-enabled during a DPMS unblank cycle, this function=20
+calls enable_irq() at tick =3D=3D 0. If TRI_FINISH_INT or FSYNC_INT is pend=
+ing=20
+from a previous session, the hardirq handler will run immediately, preempti=
+ng=20
+the timer (or running concurrently), and issue a transfer via=20
+sun6i_dsi_tri_start().
+
+When enable_irq() returns, the timer proceeds, observes busy =3D=3D false, =
+and=20
+also issues a transfer. Could this result in two concurrent transfer comman=
+ds=20
+while a transfer is already in flight, confusing the DSI engine state?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912222429.1078=
+09-1-leow149@lucidmail.xyz?part=3D1
