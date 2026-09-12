@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71426C79FB6
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 09:19:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CA54C88E53
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 10:39:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9544E10E6AC;
-	Sat, 12 Sep 2026 09:19:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E3DD10E6E3;
+	Sat, 12 Sep 2026 10:39:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FgvxPJoM";
+	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="mSHmY8h9";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B83010E6AC
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 09:19:03 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1CE1C601EF;
- Sat, 12 Sep 2026 09:19:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A01C1F00893;
- Sat, 12 Sep 2026 09:19:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789204741;
- bh=lAsIpe806HlPTUSZ5kaRH5I/tDePjdmxr4OhX7PnnO8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FgvxPJoMZ2rV4b5CcrBvyYOtxy9O6Pm2TC7vFv5d+i3fL7sgTZCrkP3LPdt7wIDRX
- v+rHQvRBYBgYMEiOajkDbGCWBadIGhD3QbbPg2PA0VuNApThauf1JJ8ljESxJ8C2Yb
- F140PAXLMm1VoJJV2It8n92E8UNC1jRLTCqreUfUFk3FSijJgsnE9Yyps3+FfqxMCz
- XedMjP+Nph2LV52SYhane6WpDgTIxWwtaN1z53CXkNyyi/HXGetFv3XL+XQztK5sw6
- VWl382hMQaroIyITY8Hs6QQGXnEl6IXsNhJYLu7Cm0NSu4hmoU4Os+dhfWZeofBSPJ
- Vn4w3Il1oNDFQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 14/20] drm: msm: mdp5: Add MDP5 configuration for
- MSM8952
-To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
-Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-input@vger.kernel.org, robh@kernel.org, lee@kernel.org,
- dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, conor+dt@kernel.org,
- dmitry.torokhov@gmail.com
-In-Reply-To: <20260912-msm8952-initial-support-v1-14-0e742578b524@mainlining.org>
-References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
- <20260912-msm8952-initial-support-v1-14-0e742578b524@mainlining.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 09:19:00 +0000
-Message-Id: <20260912091901.4A01C1F00893@smtp.kernel.org>
+Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch
+ [79.135.106.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36FD310E6E3
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 10:39:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+ s=protonmail; t=1789209557; x=1789468757;
+ bh=B9i83SiDjSpKwhV2wxvRP5EbKHjuMpjaXeYGQMHf3n4=;
+ h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+ Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=mSHmY8h9Li4Ybz4qZEwkn91WDhI0o3R77ylYtanYzjfm8RwYZ0ARK8o5WeS7UQhIu
+ ExI0cKIJU00QvNw7WIWoy0mvSqh5ztdoKrukeQT9x/XdRXIcdH8UtWDu4iH4x3okXB
+ MW9VTyJ9zQBDQQYm/hXmEeoOE/3b73RN0d/McLgSjHL+NlrpiRC4ykOHgBCGv+Edx1
+ OULl0YapjTBldczdunh50LV0Eh5HKg0HCyBGTgtxCsKnh+gkqVaiTIIgnreLCZ6h54
+ ORqbJGLMJ6WoHYgCxhtJJ2xELPhiWX64z/4EcCZmP9hGeIAmTlsKAHE8is78hBjotf
+ AR1sCggaAMHjg==
+X-Pm-Submission-Id: 4hhnw23BYPz2SdJY
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Cc: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
+ airlied@gmail.com, simona@ffwll.ch, ojeda@kernel.org, boqun@kernel.org,
+ gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
+ a.hindborg@kernel.org, tmgross@umich.edu,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Subject: [PATCH v7 0/3] drm/tyr: GPU reset infrastructure
+Date: Sat, 12 Sep 2026 13:38:56 +0300
+Message-ID: <20260912-tyr-reset-impl-v7-0-077ce72084eb@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20260813-tyr-reset-impl-93e951f996b4
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,114 +56,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Critical] Missing designated initializers in the lm.base array maps the =
-LM3 base address to the wrong index, causing register corruption.
-- [Critical] Defining `.pipe_cursor` with a Layer Mixer offset (`0x440DC`) =
-causes the driver to incorrectly program LM cursor registers as if they wer=
-e a standard SSPP pipe, trashing the configuration.
-- [High] Inconsistent MDP_PIPE_CAP_SW_PIX_EXT capability between pipe_curso=
-r and main pipes.
---
+Add support for scheduling GPU resets on a dedicated workqueue. Track
+the reset state to avoid queueing another reset while one is already
+pending or in progress.
 
-commit fb5220e24e57b56379d9ec75eb6d29f391529a7b
-Author: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Use an SRCU based gate with mutex-protected reader admission to block
+hardware accesses while reset work runs and wait for current users
+before resetting.
 
-drm: msm: mdp5: Add MDP5 configuration for MSM8952
+Stop new reset requests during teardown and drain any queued or running
+reset work before releasing the device resources.
 
-Add the mdp5_cfg_hw entry for MDP5 version v1.12 found on MSM8952.
+This is the initial reset infrastructure only. It is not wired to a reset
+source yet as those will follow in separate work.
 
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/m=
-sm/disp/mdp5/mdp5_cfg.c
-> index 7c91fc1915f39..d34c94d6f7e2e 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-> @@ -744,6 +744,86 @@ static const struct mdp5_cfg_hw msm8x76_config =3D {
+Based on 'commit 53441a9cae3c ("drm/tyr: program CSF global interface")'
+from tyr-for-upstream with the following patch series on the ML:
+  - rust: add SRCU abstraction [1]
+  - rust: workqueue: add cancel_sync support [2]
 
-[ ... ]
+TODOs:
+  - On reset failure, we don't do anything for now. We should unplug
+    the GPU.
+  - In schedule(), similar to panthor_device_schedule_reset(), we should
+    have a PM check but similar to the note above, we don't have the
+    infrastructure for that yet.
 
-> +static const struct mdp5_cfg_hw msm8952_config =3D {
-> +	.name =3D "msm8952",
+Changes since v6:
+  - Acquire the hardware gate once per address-space operation and pass
+    the guarded iomem reference to helpers to avoid deadlocks.
+  - Clone the gate Arc before acquiring a guard so mutating address-space
+    helpers can retain their &mut self receivers as suggested by Daniel.
+  - Collect review and test tags.
 
-[ ... ]
+Link: https://lore.kernel.org/all/20260613065348.96750-1-work@onurozkan.dev [1]
+Link: https://lore.kernel.org/all/20260807165252.3849875-1-dakr@kernel.org [2]
+Link: https://lore.kernel.org/all/20260708114358.957305-1-work@onurozkan.dev
+Link: https://gitlab.freedesktop.org/panfrost/linux/-/issues/28
+Signed-off-by: Onur Özkan <work@onurozkan.dev>
+---
+Onur Özkan (3):
+      drm/tyr: clear stale IRQ state before soft reset
+      drm/tyr: add GPU reset infrastructure
+      drm/tyr: put iomem behind the hardware gate
 
-> +	.pipe_cursor =3D {
-> +		.count =3D 1,
-> +		.base =3D { 0x440DC },
+ drivers/gpu/drm/tyr/driver.rs            |  65 ++++-----
+ drivers/gpu/drm/tyr/fw.rs                |  16 +-
+ drivers/gpu/drm/tyr/mmu.rs               |   9 +-
+ drivers/gpu/drm/tyr/mmu/address_space.rs |  90 +++++++-----
+ drivers/gpu/drm/tyr/reset.rs             | 242 +++++++++++++++++++++++++++++++
+ drivers/gpu/drm/tyr/reset/hw_gate.rs     | 106 ++++++++++++++
+ drivers/gpu/drm/tyr/tyr.rs               |   1 +
+ 7 files changed, 436 insertions(+), 93 deletions(-)
+---
+base-commit: 53441a9cae3c4be552fa8aefa6e61b0f1bceb8a5
+change-id: 20260813-tyr-reset-impl-93e951f996b4
+prerequisite-message-id: <20260807165252.3849875-1-dakr@kernel.org>
+prerequisite-patch-id: 4275f7d6e3cf96d61221d47f2398ebfb896db0c7
+prerequisite-patch-id: f5e24f7b3717f2ab0445b5395c7f12b554861d78
+prerequisite-patch-id: 0bf6ae4abcef7090d0e48921d6ec627a59dc6a7a
+prerequisite-patch-id: 8dc24064e858240a6bb5411a261a987a7eae3fad
+prerequisite-patch-id: eefbd4a72ed6da0083e20811882738cc3b05604f
+prerequisite-patch-id: 7502236d334b13c547a8b47f0be9bf7171b5ca6b
+prerequisite-message-id: <20260613065348.96750-1-work@onurozkan.dev>
+prerequisite-patch-id: 9e1efee190d212ba1b01cd0acb5a4357e0b4da42
+prerequisite-patch-id: 26aba035f4d1e212fa6ea7078095febefff5c5ba
+prerequisite-patch-id: ffa25d5aadec4c04589af2bdd59a9c022f0fc9b0
+prerequisite-patch-id: c2e05a4ac9d665d331952b291a622df6be673e41
+prerequisite-patch-id: c14a4bd8a68b045356d61f7fa94690bd037ad08b
 
-[Severity: Critical]
-This isn't a bug introduced by this patch, but copying this configuration
-defines a Layer Mixer offset (0x440DC) for an SSPP pipe.
-
-Does this cause the driver to incorrectly program LM cursor registers as if
-they were a standard SSPP pipe?
-
-During cursor plane updates via mdp5_hwpipe_mode_set(), standard SSPP macros
-like REG_MDP5_PIPE_* will treat 0x440DC as the SSPP base.
-REG_MDP5_PIPE_OUT_XY (offset 0x10) will write to 0x440DC + 0x10 =3D 0x440EC
-(LM_CURSOR_FORMAT), and REG_MDP5_PIPE_SRC_SIZE (offset 0x0) overwrites
-LM_CURSOR_STRIDE. This misalignment destroys the LM cursor configurations
-and causes hardware faults.
-
-> +		.caps =3D MDP_PIPE_CAP_HFLIP	|
-> +			MDP_PIPE_CAP_VFLIP	|
-> +			MDP_PIPE_CAP_SW_PIX_EXT	|
-> +			MDP_PIPE_CAP_CURSOR	|
-> +			0,
-> +	},
-
-[Severity: High]
-This isn't a bug introduced by this patch, but copying this configuration
-leaves an inconsistent MDP_PIPE_CAP_SW_PIX_EXT capability between
-pipe_cursor and the main pipes.
-
-Are we exposing Software Pixel Extension capabilities on the cursor pipe
-while main pipes lack it?
-
-If the SoC does not support Software Pixel Extension,
-mdp5_plane_atomic_update() will call mdp5_write_pixel_ext() and write to
-non-existent SW_PIX_EXT registers when programming the cursor pipe,
-triggering a Synchronous External Abort. If it does support it, the main
-planes are underutilizing the hardware.
-
-> +	.lm =3D {
-> +		.count =3D 2,
-> +		.base =3D { 0x44000, 0x47000 },
-> +		.instances =3D {
-> +				{ .id =3D 0, .pp =3D 0, .dspp =3D 0,
-> +				  .caps =3D MDP_LM_CAP_DISPLAY, },
-> +				{ .id =3D 3, .pp =3D -1, .dspp =3D -1,
-> +				  .caps =3D MDP_LM_CAP_WB },
-> +			     },
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but copying this configuration
-leaves the lm.base array initialized sequentially without designated
-initializers.
-
-Will this map the LM3 base address to the wrong index and cause register
-corruption?
-
-Because lm.base is initialized sequentially as { 0x44000, 0x47000 },
-base[0] becomes 0x44000 and base[1] becomes 0x47000. The remaining indices,
-including base[3], are implicitly initialized to 0.
-
-When the driver creates a mixer for LM3 (since its .id is 3), atomic commits
-will cause REG_MDP5_LM_OUT_SIZE(3) to resolve to __offset_LM(3). This
-returns mdp5_cfg->lm.base[3], which evaluates to 0x0. Writes to LM3
-registers will thus write to SOC offset 0x0, corrupting the global MDP
-configuration registers.
-
-Should this use designated initializers for the base array to ensure base[3]
-is mapped correctly?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912-msm8952-in=
-itial-support-v1-0-0e742578b524@mainlining.org?part=3D14
+--  
