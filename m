@@ -4,43 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47A68C88E45
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 06:27:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06E4EC88E45
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 06:42:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92BAF10E308;
-	Sat, 12 Sep 2026 06:27:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 119E010E5BD;
+	Sat, 12 Sep 2026 06:42:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Nz1M03I0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TylfzQGZ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAC6510E308
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 06:27:47 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8E93E40085;
- Sat, 12 Sep 2026 06:27:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55DF51F000FF;
- Sat, 12 Sep 2026 06:27:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789194467;
- bh=K9XotTqdYIG6hbxk3de9/pYldzfEm7W9+qnNcL/5dEo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Nz1M03I0JeYJY8yyxAmaRiHr948ZDGZktFQ3bOCGxxQLmschrY3ErQk9rPNyPZz2k
- vVxsSO6ASsOCTdOu5PZKaH5TZLpYVrl3zo+hNA75M1IIzxQFb8ohjh3Y8Rwwc3sW8p
- 7NY3CuhUXoZv6Pax8GEhM50rhk8oLD2Ex9xq0sUhAGZgzjS4XN/7l4gnCYmY9WJvOJ
- 1+gSrvXyfzYOez+W8oyiUF7WRoTBcCuOWc7pjAd3rcUNLrLA7hw+z9v5XEyAG2XhYC
- BxM9V8q+QoP31Wi8AHWLkz0K2f/D+oiN0zU/ghZI1l07forlVI0OtuaQUitIZQs2Kl
- yYbFmN2z/d4RQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH] arm64: allwinner: add TrimUI Smart Pro (A133) board
- support
-To: leow149 <leow149@lucidmail.xyz>
-Cc: dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20260912060249.80035-1-leow149@lucidmail.xyz>
-References: <20260912060249.80035-1-leow149@lucidmail.xyz>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC2E810E5BD
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 06:42:41 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-2dd1dcdcf95so13561435ad.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 23:42:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789195361; cv=none;
+ d=google.com; s=arc-20260327;
+ b=clnEJmvBSQIEZC4WGCTAKE/PWFz01spsLAKJwGofYEIZPn0+Qh87MMkZFPxRj+NJSp
+ LhfX5j8qVzTUAPYTGEo29CbTYsAZjJpBiP1jqgQLx5HNdMo3qCErLY73LbmXrryNY+fv
+ 656Ks45kR/jUVwPF9J2mdSab8SutIpTb8KwgTz6mSYCfm5IShK4u8wSXwUiAYOAKa8HZ
+ i15fqPT6r0wQCpZihvSdEEb2moMOn51uxkBOzSNTFfM5niC/tGvAEqH94+N/DB7+UJKA
+ dzSaZCH2gEdvpujdzw0VYkHgIVJat357MWjCK2p3Pta6LZHCrwhMjnUF0Y2xHru/pTuY
+ yqog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=cIueFh+gkuoIg/zyR6m8UHNu9YPuEhQan6MTb8FOTWM=;
+ fh=tlnYRgWfXJigz9OIpgDPEAN3GyOJ6+7P333rtdOnXqo=;
+ b=cTQ4R6SjjHDDrlTJSRDn0gk73Axk7iuIsaBwuED39XLJjoJoQcTJjqaFx3qD8IMSJQ
+ oykG48boQ2mSgyoHnit3US4gX2tyS8PzCkFPFqzA7WO4P6KBqY3yU2vaxCi9r3P95jMc
+ OIyKKjQQCc6Y2cKKwqFWnFDZlb1ddvjNxNsa9tTdrEqhT8mPkZrZmNQ+Psb0ay/oNWpX
+ JtdIgH7XZFadNeFjYl++DUKREbm5pMRuvrfyKj2Z85nOPDXAvz00e+eY4yB/QyevkAQt
+ d946qgWM29DkCKpx1RtJebE9IFBEYqv7D9wBY35XmopOLDOCvQhaa+XT8Kmq9Rd7Fi/K
+ EETQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789195361; x=1789800161; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=cIueFh+gkuoIg/zyR6m8UHNu9YPuEhQan6MTb8FOTWM=;
+ b=TylfzQGZNWdQhJ/xpjTyf2urfLz30H9Lj/Y86At2aZm8hPw5rtybf1kHkBz5pew5ZF
+ zDZx9YF9en40dsk4cpjSGGOIWefgVE4SMF6t8FaKRDvgbswnGVrhTjqQzuYxii8bH8Zx
+ cW3060vxzIHEiRR0TK1DOKSZMBhBk7hktRK0cmhDdZTIlC5CLw5T6MovqEtL2hOoS+es
+ GZP8guEt2n3c5H32NDxiZD8Zuq5vDVt/0WBb9QcI47DwhBMJTnCLsajZEx/l/UYuY3O1
+ GKtpbgTvQZPY08OXcn47rvYBHL9jXOo16SX2cRFfONG/2ZoaI3Se7gFR+b2RhqFEo5Cv
+ v9Hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789195361; x=1789800161;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=cIueFh+gkuoIg/zyR6m8UHNu9YPuEhQan6MTb8FOTWM=;
+ b=npwyXxAMp+epFJALCsa72d9RZWiJWLocAFwnaC3yCFhPxBVEnXNKNTF3rdI2MNoSO3
+ +TsJdW3RuJCgZMuMLdQYQSPgp6qztsckkiM5rNvcCmyTKcVPIaNuY5N8NxmqntqnNoa2
+ nd0Lg3s7Wx7cB1xFDOmuTK/tY4VylsoN/JbCQgQ6/okFPC1Dj9viNHWYTHyRU1dhGXgj
+ cGvls7yRCBkczo9eP5pQ5Mn+M/coT1NB9+tCKmVr3d6k0kcHWr2hOz11+Uj5PNJY/RDH
+ THax7Cc3Cj5qdpEf5xIxuM980YRPMeQg943r9CWtLkEXwADTb0fyalFOpCPioIqcyti8
+ lwUw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwyWiIWJlQpPlCwg+7+IL48oJoFYvGzbTSr2qLDklK/FbQ3QxB5xlBy2bXTt/HYn8nFcl5qyP5TkDI=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kPqGzVA0iYM/dMa6oAIUg9+cKzWhT/FBgoT8QunA772uppA8DW
+ F7YyFCjDM9NI9JrngBAywTDVbLJ1mDnwbTMVFncON46CXwu1zgcHgZIppuSgG6hJtCalKkkSq7H
+ JD1Tau0c8Kg5RT317zjNb1q9fN+KgsVw=
+X-Gm-Gg: AYBFou1m491T45EhznwRVHGauAQKZSLlSyPB6O0MFbnQ+TXfTMUEaMxY2lSb/hoebxy
+ S4oQ8OUS7Bv33yhSoWO0VxrHtG+z5zv+rUiR3a+QH5vtKrgqgm+klSUn7/YalS5QZa+tM5/uL3v
+ bjnEZKzA381Jp1wTBgmoirnGNOEG85sAFzFbGdXGcKUaVNPusSwzT6JKwu9ngZy3nzLtUTht3n0
+ CnfSn5A495zR+UCItb5Jm/Rc/u31GvdP/WUiNRkDBPcSsSpVbxY0JORhpv1O6UI31FUqqSO1Kjo
+ BfdNCpMndtz0JrvfdCc1c8vH0CMLT3iVa6u6moPnTUro+ogBPEcCaRaamKVU8xYWRI7qUIRu1jq
+ Aeaeio7++y+rE
+X-Received: by 2002:a17:902:f092:b0:2dd:4438:4290 with SMTP id
+ d9443c01a7336-2dd443843aamr24758605ad.3.1789195361107; Fri, 11 Sep 2026
+ 23:42:41 -0700 (PDT)
+MIME-Version: 1.0
+References: <CAPVz0n0ryOns2sCJE_jFana9MVzwEj1QZuPEa8FNhGbHXnMB+A@mail.gmail.com>
+ <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
+In-Reply-To: <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Sat, 12 Sep 2026 09:42:29 +0300
+X-Gm-Features: AcwNN1UU9hydFOGImBeWBO5hjkcNCRQ2PnPzv9Tt-xAUH4b_sUlrCRdkTJ4wt_0
+Message-ID: <CAPVz0n0pBxP2J=5DN+k+ut0HRnTmsU64orXwxa19G0+WAxN-zg@mail.gmail.com>
+Subject: Re: [PATCH 08/14] mfd: remove unused aat2870 driver
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Arnd Bergmann <arnd@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Daniel Thompson <danielt@kernel.org>, Helge Deller <deller@gmx.de>,
+ devicetree@vger.kernel.org, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, dri-devel@lists.freedesktop.org, 
+ Jonathan Cameron <jic23@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, 
+ Linus Walleij <linusw@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+ linux-doc@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ linux-hwmon@vger.kernel.org, 
+ linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, 
+ linux-media@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-rtc@vger.kernel.org, linux-sound@vger.kernel.org, 
+ linux-watchdog@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>, 
+ linuxppc-dev@lists.ozlabs.org, llvm@lists.linux.dev, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, mfd@lists.linux.dev, 
+ Michael Hennerich <michael.hennerich@analog.com>, patches@opensource.cirrus.com,
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Sebastian Reichel <sre@kernel.org>, 
+ Support Opensource <support.opensource@diasemi.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 06:27:46 +0000
-Message-Id: <20260912062747.55DF51F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,274 +128,400 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 12 potential issue=
-(s) to consider:
+=D1=87=D1=82, 10 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 21:15 Arnd=
+ Bergmann <arnd@arndb.de> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Thu, Sep 10, 2026, at 18:40, Svyatoslav Ryhel wrote:
+> > __
+> > Hello Arnd! May you please spare AAT2870 from being removed? I have a
+> > device which uses aat2870 (LG Optimus 2X P990 Tegra 2, not upstreamed
+> > yet, but in process as well) and atm I am working on converting this
+> > driver to use OF. Thank you!
+>
+> Sure, I have removed this patch from my series now.
+>
 
-New issues:
-- [Critical] Missing timer cancellation on CRTC disable causes a fatal bus =
-hang.
-- [Critical] Vblank interrupts are permanently broken for all non-DSI panel=
-s because the TCON IRQ is never enabled.
-- [Critical] Moving the HS clock enable (DSI_START_HSC) before drm_panel_pr=
-epare() breaks DCS initialization for existing panels.
-- [High] Using regmap_update_bits() on a Write-1-to-Clear (W1C) register si=
-lently fails to clear status bits.
-- [High] Manually modifying the TCON TOP DSI gate bypasses the clock framew=
-ork, causing clk_disable_unused to wedge the display.
-- [High] Contradictory retriggering configuration creates dead code and gua=
-rantees a stalled transfer.
-- [High] Acknowledging FSYNC_INT in the interrupt handler inadvertently tri=
-ggers spurious vblank and page-flip events.
-- [Medium] Unbalanced IRQ Enable causes warning and stack dump on subsequen=
-t mode sets.
-- [Medium] Missing synchronization for read-modify-write on shared PWM regi=
-sters.
-- [Medium] Setting a 100% duty cycle on the PWM results in a 0% duty cycle =
-due to a 16-bit integer truncation.
-- [Low] The A133 TCON TOP compatible string lacks an if-then block in the D=
-T binding, causing schema validation to fail.
+Thank you!
 
-Pre-existing issues:
-- [High] Division by zero occurs if the requested display mode pixel clock =
-is less than 1 MHz.
---
+> > P. S. If you are planning to remove more old drivers, please CC me in
+> > since I may be interested in some additional driver upgrades for
+> > devices I own.
+>
+> Please have a look at
+>
+> https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=3Dboar=
+d-remove-7.3
+>
 
-commit 99fbb5d85e5546f268568ad90dca77472cfb738d
-Author: leow149 <leow149@lucidmail.xyz>
-Subject: arm64: allwinner: add TrimUI Smart Pro (A133) board support
+Thanks, I will keep my eye on this branch.
 
-This commit introduces board support for the TrimUI Smart Pro handheld. It =
-adds
-a new device tree, a driver for the OTM1289A DSI panel, a new A133 PWM driv=
-er,
-and modifies sun4i DRM drivers to support the display pipeline. It also adds
-TCON TOP quirks and alters the DSI initialization sequence.
+> I tried to be careful about figuring out exactly which drivers are
+> unused, but I'm sure there are still a few false positive and false
+> negative ones in there. I've added the current list of driver files below=
+,
+> let me know if you see something that shouldn't be there.
+>
+>      Arnd
+>
+> drivers/ata/pata_icside.c
+> drivers/ata/pata_pxa.c
+> drivers/char/ds1620.c
+> drivers/char/hw_random/mxc-rnga.c
+> drivers/char/nwbutton.c
+> drivers/char/nwbutton.h
+> drivers/char/nwflash.c
+> drivers/clk/clk-axm5516.c
+> drivers/clk/clk-stm32f4.c
+> drivers/clk/clk-stm32h7.c
+> drivers/clk/imx/clk-imx31.c
+> drivers/clk/imx/clk-imxrt1050.c
+> drivers/clk/nxp/clk-lpc18xx-ccu.c
+> drivers/clk/nxp/clk-lpc18xx-cgu.c
+> drivers/clk/nxp/clk-lpc18xx-creg.c
+> drivers/clk/ti/clk-2xxx.c
+> drivers/clocksource/armv7m_systick.c
+> drivers/clocksource/mps2-timer.c
+> drivers/cpufreq/sa1110-cpufreq.c
+> drivers/dma/lpc18xx-dmamux.c
+> drivers/dma/sa11x0-dma.c
+> drivers/gpio/gpio-adp5520.c
+> drivers/gpio/gpio-htc-egpio.c
+> drivers/gpio/gpio-lpc18xx.c
+> drivers/gpio/gpio-rc5t583.c
+> drivers/gpio/gpio-rdc321x.c
+> drivers/gpio/gpio-reg.c
+> drivers/gpio/gpio-sa1100.c
+> drivers/gpio/gpio-wm8350.c
+> drivers/hwmon/ds620.c
+> drivers/hwmon/f75375s.c
+> drivers/hwmon/max1111.c
+> drivers/hwmon/max197.c
+> drivers/hwmon/wm8350-hwmon.c
+> drivers/i2c/busses/i2c-acorn.c
+> drivers/i2c/busses/i2c-axxia.c
+> drivers/i2c/busses/i2c-lpc2k.c
+> drivers/i2c/busses/i2c-stm32f4.c
+> drivers/iio/adc/ad7266.c
+> drivers/iio/adc/ad7791.c
+> drivers/iio/adc/ad7793.c
+> drivers/iio/adc/ad7887.c
+> drivers/iio/adc/lp8788_adc.c
+> drivers/iio/adc/lpc18xx_adc.c
+> drivers/iio/dac/lpc18xx_dac.c
+> drivers/iio/frequency/ad9523.c
+> drivers/input/joystick/as5011.c
+> drivers/input/keyboard/adp5520-keys.c
+> drivers/input/keyboard/ipaq-micro-keys.c
+> drivers/input/keyboard/jornada720_kbd.c
+> drivers/input/keyboard/lm8323.c
+> drivers/input/keyboard/lm8333.c
+> drivers/input/keyboard/locomokbd.c
+> drivers/input/misc/88pm80x_onkey.c
+> drivers/input/misc/ad714x-i2c.c
+> drivers/input/misc/ad714x-spi.c
+> drivers/input/misc/ad714x.c
+> drivers/input/misc/ad714x.h
+> drivers/input/misc/adxl34x-i2c.c
+> drivers/input/misc/adxl34x-spi.c
+> drivers/input/misc/adxl34x.c
+> drivers/input/misc/adxl34x.h
+> drivers/input/misc/bma150.c
+> drivers/input/misc/cma3000_d0x.c
+> drivers/input/misc/cma3000_d0x.h
+> drivers/input/misc/cma3000_d0x_i2c.c
+> drivers/input/misc/kxtj9.c
+> drivers/input/misc/max8997_haptic.c
+> drivers/input/misc/mc13783-pwrbutton.c
+> drivers/input/mouse/rpcmouse.c
+> drivers/input/serio/rpckbd.c
+> drivers/input/serio/sa1111ps2.c
+> drivers/input/touchscreen/ad7877.c
+> drivers/input/touchscreen/da9034-ts.c
+> drivers/input/touchscreen/ipaq-micro-ts.c
+> drivers/input/touchscreen/jornada720_ts.c
+> drivers/input/touchscreen/mc13783_ts.c
+> drivers/input/touchscreen/tps6507x-ts.c
+> drivers/irqchip/irq-nvic.c
+> drivers/irqchip/irq-sa11x0.c
+> drivers/irqchip/irq-stm32-exti.c
+> drivers/leds/leds-adp5520.c
+> drivers/leds/leds-bd2802.c
+> drivers/leds/leds-da903x.c
+> drivers/leds/leds-ipaq-micro.c
+> drivers/leds/leds-lm3530.c
+> drivers/leds/leds-lm3532.c
 
-> diff --git a/Documentation/devicetree/bindings/display/allwinner,sun8i-r4=
-0-tcon-top.yaml b/Documentation/devicetree/bindings/display/allwinner,sun8i=
--r40-tcon-top.yaml
-> --- a/Documentation/devicetree/bindings/display/allwinner,sun8i-r40-tcon-=
-top.yaml
-> +++ b/Documentation/devicetree/bindings/display/allwinner,sun8i-r40-tcon-=
-top.yaml
-> @@ -43,6 +43,7 @@ properties:
->        - allwinner,sun8i-r40-tcon-top
->        - allwinner,sun20i-d1-tcon-top
->        - allwinner,sun50i-h6-tcon-top
-> +      - allwinner,sun50i-a133-tcon-top
+LM3532 has full OF support and is functional, it just does not have
+device tree users yet. I have a device using it - Motorola Atrix 4G
+(Tegra 2 based).
 
-[Severity: Low]
-Because the base schema unconditionally requires HDMI ports that the A133
-does not have, will this cause device tree schema validation to fail when
-dt_binding_check runs? The new A133 compatible string is missing from the
-allOf conditional blocks to relax these constraints.
+Here is commit removing LM3532
+https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/commit/?id=3D46=
+a6457870825d8b782d350fdc7e27c540734d41
+Here are my patches bringing up Motorola Atrix 4G support
+https://lore.kernel.org/lkml/20260721100245.444623-3-clamor95@gmail.com/
 
-[ ... ]
-> diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.c b/drivers/gpu/drm/sun4i/s=
-un4i_tcon.c
-> --- a/drivers/gpu/drm/sun4i/sun4i_tcon.c
-> +++ b/drivers/gpu/drm/sun4i/sun4i_tcon.c
-> @@ -498,6 +498,11 @@ static void sun4i_tcon0_mode_set_cpu(struct sun4i_tc=
-on *tcon,
->  	regmap_write(tcon->regs, SUN4I_TCON0_CPU_IF_REG,
->  		     SUN4I_TCON0_CPU_IF_MODE_DSI |
->  		     SUN4I_TCON0_CPU_IF_TRI_FIFO_FLUSH |
->  		     SUN4I_TCON0_CPU_IF_TRI_FIFO_EN |
->  		     SUN4I_TCON0_CPU_IF_TRI_EN);
+> drivers/leds/leds-lm355x.c
+> drivers/leds/leds-lm3642.c
+> drivers/leds/leds-locomo.c
+> drivers/leds/leds-lp3944.c
+> drivers/leds/leds-lp8788.c
+> drivers/leds/leds-wm8350.c
+> drivers/media/i2c/ths7303.c
+> drivers/media/platform/samsung/s3c-camif/Kconfig
+> drivers/media/platform/samsung/s3c-camif/Makefile
+> drivers/media/platform/samsung/s3c-camif/camif-capture.c
+> drivers/media/platform/samsung/s3c-camif/camif-core.c
+> drivers/media/platform/samsung/s3c-camif/camif-core.h
+> drivers/media/platform/samsung/s3c-camif/camif-regs.c
+> drivers/media/platform/samsung/s3c-camif/camif-regs.h
+> drivers/media/platform/st/stm32/dma2d/dma2d-hw.c
+> drivers/media/platform/st/stm32/dma2d/dma2d-regs.h
+> drivers/media/platform/st/stm32/dma2d/dma2d.c
+> drivers/media/platform/st/stm32/dma2d/dma2d.h
+> drivers/media/radio/radio-si476x.c
+> drivers/mfd/88pm800.c
+> drivers/mfd/88pm805.c
+> drivers/mfd/88pm80x.c
+> drivers/mfd/adp5520.c
+> drivers/mfd/da903x.c
+> drivers/mfd/ipaq-micro.c
+> drivers/mfd/lp8788-irq.c
+> drivers/mfd/lp8788.c
+> drivers/mfd/mcp-core.c
+> drivers/mfd/mcp-sa11x0.c
+> drivers/mfd/menelaus.c
+> drivers/mfd/rc5t583-irq.c
+> drivers/mfd/rc5t583.c
+> drivers/mfd/rdc321x-southbridge.c
+> drivers/mfd/si476x-cmd.c
+> drivers/mfd/si476x-i2c.c
+> drivers/mfd/si476x-prop.c
+> drivers/mfd/ucb1x00-assabet.c
+> drivers/mfd/ucb1x00-core.c
+> drivers/mfd/ucb1x00-ts.c
+> drivers/mfd/wm8350-core.c
+> drivers/mfd/wm8350-gpio.c
+> drivers/mfd/wm8350-i2c.c
+> drivers/mfd/wm8350-irq.c
+> drivers/mfd/wm8350-regmap.c
+> drivers/mfd/wm8400-core.c
+> drivers/misc/bh1770glc.c
+> drivers/mtd/maps/dc21285.c
+> drivers/mtd/maps/pxa2xx-flash.c
+> drivers/mtd/maps/sa1100-flash.c
+> drivers/mtd/nand/raw/sharpsl.c
+> drivers/mtd/parsers/sharpslpart.c
+> drivers/mtd/spi-nor/controllers/Kconfig
+> drivers/mtd/spi-nor/controllers/Makefile
+> drivers/mtd/spi-nor/controllers/hisi-sfc.c
+> drivers/mtd/spi-nor/controllers/nxp-spifi.c
+> drivers/net/can/bxcan.c
+> drivers/net/ethernet/8390/etherh.c
+> drivers/net/ethernet/i825xx/ether1.c
+> drivers/net/ethernet/i825xx/ether1.h
+> drivers/net/ethernet/lantiq_etop.c
+> drivers/net/ethernet/samsung/Kconfig
+> drivers/net/ethernet/samsung/Makefile
+> drivers/net/ethernet/samsung/sxgbe/Makefile
+> drivers/net/ethernet/samsung/sxgbe/sxgbe_common.h
+> drivers/net/ethernet/samsung/sxgbe/sxgbe_core.c
+> drivers/net/ethernet/samsung/sxgbe/sxgbe_desc.c
+> drivers/net/ethernet/samsung/sxgbe/sxgbe_desc.h
+> drivers/net/ethernet/samsung/sxgbe/sxgbe_dma.c
+> drivers/net/ethernet/samsung/sxgbe/sxgbe_dma.h
+> drivers/net/ethernet/samsung/sxgbe/sxgbe_ethtool.c
+> drivers/net/ethernet/samsung/sxgbe/sxgbe_main.c
+> drivers/net/ethernet/samsung/sxgbe/sxgbe_mdio.c
+> drivers/net/ethernet/samsung/sxgbe/sxgbe_mtl.c
+> drivers/net/ethernet/samsung/sxgbe/sxgbe_mtl.h
+> drivers/net/ethernet/samsung/sxgbe/sxgbe_platform.c
+> drivers/net/ethernet/samsung/sxgbe/sxgbe_reg.h
+> drivers/net/ethernet/seeq/ether3.c
+> drivers/net/ethernet/seeq/ether3.h
+> drivers/net/ethernet/stmicro/stmmac/dwmac-lpc18xx.c
+> drivers/net/wireless/marvell/libertas/if_spi.c
+> drivers/net/wireless/marvell/libertas/if_spi.h
+> drivers/net/wireless/st/Kconfig
+> drivers/net/wireless/st/Makefile
+> drivers/net/wireless/st/cw1200/Kconfig
+> drivers/net/wireless/st/cw1200/Makefile
+> drivers/net/wireless/st/cw1200/bh.c
+> drivers/net/wireless/st/cw1200/bh.h
+> drivers/net/wireless/st/cw1200/cw1200.h
+> drivers/net/wireless/st/cw1200/cw1200_sdio.c
+> drivers/net/wireless/st/cw1200/cw1200_spi.c
+> drivers/net/wireless/st/cw1200/debug.c
+> drivers/net/wireless/st/cw1200/debug.h
+> drivers/net/wireless/st/cw1200/fwio.c
+> drivers/net/wireless/st/cw1200/fwio.h
+> drivers/net/wireless/st/cw1200/hwbus.h
+> drivers/net/wireless/st/cw1200/hwio.c
+> drivers/net/wireless/st/cw1200/hwio.h
+> drivers/net/wireless/st/cw1200/main.c
+> drivers/net/wireless/st/cw1200/pm.c
+> drivers/net/wireless/st/cw1200/pm.h
+> drivers/net/wireless/st/cw1200/queue.c
+> drivers/net/wireless/st/cw1200/queue.h
+> drivers/net/wireless/st/cw1200/scan.c
+> drivers/net/wireless/st/cw1200/scan.h
+> drivers/net/wireless/st/cw1200/sta.c
+> drivers/net/wireless/st/cw1200/sta.h
+> drivers/net/wireless/st/cw1200/txrx.c
+> drivers/net/wireless/st/cw1200/txrx.h
+> drivers/net/wireless/st/cw1200/wsm.c
+> drivers/net/wireless/st/cw1200/wsm.h
+> drivers/nvmem/lpc18xx_eeprom.c
+> drivers/nvmem/lpc18xx_otp.c
+> drivers/pcmcia/max1600.c
+> drivers/pcmcia/max1600.h
+> drivers/pcmcia/pxa2xx_base.c
+> drivers/pcmcia/pxa2xx_base.h
+> drivers/pcmcia/pxa2xx_sharpsl.c
+> drivers/pcmcia/sa1100_generic.c
+> drivers/pcmcia/sa1100_generic.h
+> drivers/pcmcia/sa1100_h3600.c
+> drivers/pcmcia/sa1111_generic.c
+> drivers/pcmcia/sa1111_generic.h
+> drivers/pcmcia/sa1111_jornada720.c
+> drivers/pcmcia/sa1111_neponset.c
+> drivers/pcmcia/sa11xx_base.c
+> drivers/pcmcia/sa11xx_base.h
+> drivers/pcmcia/soc_common.c
+> drivers/pcmcia/soc_common.h
+> drivers/phy/phy-lpc18xx-usb-otg.c
+> drivers/pinctrl/freescale/pinctrl-imxrt1050.c
+> drivers/pinctrl/freescale/pinctrl-imxrt1170.c
+> drivers/pinctrl/pinctrl-lpc18xx.c
+> drivers/pinctrl/stm32/pinctrl-stm32f429.c
+> drivers/pinctrl/stm32/pinctrl-stm32f469.c
+> drivers/pinctrl/stm32/pinctrl-stm32f746.c
+> drivers/pinctrl/stm32/pinctrl-stm32f769.c
+> drivers/pinctrl/stm32/pinctrl-stm32h743.c
+> drivers/power/reset/axxia-reset.c
+> drivers/power/supply/collie_battery.c
+> drivers/power/supply/da9030_battery.c
+> drivers/power/supply/ipaq_micro_battery.c
+> drivers/power/supply/lp8788-charger.c
+> drivers/power/supply/twl4030_madc_battery.c
+> drivers/power/supply/wm8350_power.c
+> drivers/pwm/pwm-lpc18xx-sct.c
+> drivers/regulator/88pm800-regulator.c
+> drivers/regulator/da903x-regulator.c
+> drivers/regulator/lp3971.c
+> drivers/regulator/lp3972.c
+> drivers/regulator/lp8788-buck.c
+> drivers/regulator/lp8788-ldo.c
+> drivers/regulator/max8649.c
+> drivers/regulator/rc5t583-regulator.c
+> drivers/regulator/wm8350-regulator.c
+> drivers/regulator/wm8400-regulator.c
+> drivers/reset/reset-lpc18xx.c
+> drivers/rtc/rtc-88pm80x.c
+> drivers/rtc/rtc-lp8788.c
+> drivers/rtc/rtc-lpc24xx.c
+> drivers/rtc/rtc-rc5t583.c
+> drivers/rtc/rtc-wm8350.c
+> drivers/scsi/arm/Kconfig
+> drivers/scsi/arm/Makefile
+> drivers/scsi/arm/acornscsi-io.S
+> drivers/scsi/arm/acornscsi.c
+> drivers/scsi/arm/acornscsi.h
+> drivers/scsi/arm/arm_scsi.h
+> drivers/scsi/arm/arxescsi.c
+> drivers/scsi/arm/cumana_1.c
+> drivers/scsi/arm/cumana_2.c
+> drivers/scsi/arm/eesox.c
+> drivers/scsi/arm/fas216.c
+> drivers/scsi/arm/fas216.h
+> drivers/scsi/arm/msgqueue.c
+> drivers/scsi/arm/msgqueue.h
+> drivers/scsi/arm/oak.c
+> drivers/scsi/arm/powertec.c
+> drivers/scsi/arm/queue.c
+> drivers/scsi/arm/queue.h
+> drivers/spi/spi-tle62x0.c
+> drivers/tty/serial/21285.c
+> drivers/tty/serial/8250/8250_acorn.c
+> drivers/tty/serial/8250/8250_lpc18xx.c
+> drivers/tty/serial/mps2-uart.c
+> drivers/tty/serial/sa1100.c
+> drivers/usb/host/ohci-sa1111.c
+> drivers/usb/host/sl811-hcd.c
+> drivers/usb/host/sl811.h
+> drivers/usb/host/sl811_cs.c
+> drivers/usb/musb/tusb6010.c
+> drivers/usb/musb/tusb6010.h
+> drivers/usb/musb/tusb6010_omap.c
+> drivers/usb/phy/phy-mv-usb.h
+> drivers/video/backlight/adp5520_bl.c
+> drivers/video/backlight/adp8860_bl.c
+> drivers/video/backlight/adp8870_bl.c
+> drivers/video/backlight/ams369fg06.c
+> drivers/video/backlight/bd6107.c
+> drivers/video/backlight/corgi_lcd.c
+> drivers/video/backlight/da903x_bl.c
+> drivers/video/backlight/ep93xx_bl.c
+> drivers/video/backlight/ipaq_micro_bl.c
+> drivers/video/backlight/jornada720_bl.c
+> drivers/video/backlight/jornada720_lcd.c
+> drivers/video/backlight/lm3639_bl.c
+> drivers/video/backlight/lms501kf03.c
+> drivers/video/backlight/locomolcd.c
+> drivers/video/backlight/lp8788_bl.c
+> drivers/video/backlight/tdo24m.c
+> drivers/video/fbdev/acornfb.c
+> drivers/video/fbdev/acornfb.h
+> drivers/video/fbdev/arcfb.c
+> drivers/video/fbdev/broadsheetfb.c
+> drivers/video/fbdev/core/fb_notify.c
+> drivers/video/fbdev/ep93xx-fb.c
+> drivers/video/fbdev/hecubafb.c
+> drivers/video/fbdev/metronomefb.c
+> drivers/video/fbdev/mmp/Kconfig
+> drivers/video/fbdev/mmp/Makefile
+> drivers/video/fbdev/mmp/core.c
+> drivers/video/fbdev/mmp/fb/Kconfig
+> drivers/video/fbdev/mmp/fb/Makefile
+> drivers/video/fbdev/mmp/fb/mmpfb.c
+> drivers/video/fbdev/mmp/fb/mmpfb.h
+> drivers/video/fbdev/mmp/hw/Kconfig
+> drivers/video/fbdev/mmp/hw/Makefile
+> drivers/video/fbdev/mmp/hw/mmp_ctrl.c
+> drivers/video/fbdev/mmp/hw/mmp_ctrl.h
+> drivers/video/fbdev/mmp/hw/mmp_spi.c
+> drivers/video/fbdev/mmp/panel/Kconfig
+> drivers/video/fbdev/mmp/panel/Makefile
+> drivers/video/fbdev/mmp/panel/tpo_tj032md01bw.c
+> drivers/video/fbdev/n411.c
+> drivers/video/fbdev/pxa168fb.c
+> drivers/video/fbdev/pxa168fb.h
+> drivers/video/fbdev/s1d13xxxfb.c
+> drivers/video/fbdev/sa1100fb.c
+> drivers/video/fbdev/sa1100fb.h
+> drivers/watchdog/lpc18xx_wdt.c
+> drivers/watchdog/rdc321x_wdt.c
+> drivers/watchdog/wdt285.c
+> drivers/watchdog/wdt977.c
+> drivers/watchdog/wm8350_wdt.c
+> sound/soc/codecs/si476x.c
+> sound/soc/codecs/wm8350.c
+> sound/soc/codecs/wm8350.h
+> sound/soc/codecs/wm8400.c
+> sound/soc/codecs/wm8400.h
+> sound/soc/pxa/pxa2xx-i2s.c
+> sound/soc/pxa/pxa2xx-i2s.h
+> sound/soc/pxa/spitz.c
+> sound/soc/ti/n810.c
+> sound/spi/Kconfig
+> sound/spi/Makefile
+> sound/spi/at73c213.c
+> sound/spi/at73c213.h
 
-[Severity: High]
-With SUN4I_TCON0_CPU_IF_AUTO explicitly omitted here, does this make the
-fallback logic in the interrupt handler unreachable? sun4i_tcon_enable_vbla=
-nk()
-returns early for DSI CPU mode, meaning TRI_FINISH_ENABLE is never written.
-It seems this prevents any frames from being sent after the first kick.
+Other drivers from this list seem to not be used in any of my devices.
 
-[ ... ]
-> @@ -547,6 +547,8 @@ static void sun4i_tcon0_mode_set_cpu(struct sun4i_tco=
-n *tcon,
->  	 */
->  	start_delay =3D (mode->crtc_vtotal - mode->crtc_vdisplay - 9);
->  	start_delay =3D start_delay * mode->crtc_htotal * 300;
->  	start_delay =3D start_delay / (mode->crtc_clock / 1000) / 8;
-
-[Severity: High]
-This is a pre-existing issue, but if userspace passes a custom mode with a
-pixel clock less than 1 MHz, mode->crtc_clock / 1000 evaluates to zero. Can
-this trigger a kernel panic due to division by zero?
-
-[ ... ]
-> @@ -572,6 +572,8 @@ static void sun4i_tcon0_mode_set_cpu(struct sun4i_tco=
-n *tcon,
->  	 */
->  	tcon->dsi_retrigger_ticks =3D 0;
->  	hrtimer_start(&tcon->dsi_retrigger_timer, ms_to_ktime(1000),
->  		      HRTIMER_MODE_REL);
-
-[Severity: Critical]
-Is this timer explicitly canceled via hrtimer_cancel() when the CRTC is
-disabled? If the display goes to sleep and the DSI clocks are gated off,
-the timer will eventually attempt to read the DSI interrupt register, which
-could cause a fatal synchronous external abort.
-
-[ ... ]
-> @@ -956,6 +956,11 @@ static irqreturn_t sun4i_tcon_handler(int irq, void =
-*private)
->  	 * clearing it below) keeps the line alive.
->  	 */
->  	handled =3D status & (SUN4I_TCON_GINT0_VBLANK_INT(0) |
->  			     SUN4I_TCON_GINT0_VBLANK_INT(1) |
->  			     SUN4I_TCON_GINT0_TCON0_TRI_FINISH_INT |
->  			     SUN4I_TCON_GINT0_TCON0_FSYNC_INT);
-> =20
->  	if (!handled)
->  		return IRQ_NONE;
-> =20
->  	drm_crtc_handle_vblank(&scrtc->crtc);
-
-[Severity: High]
-If the interrupt fires solely due to FSYNC_INT, the handler will incorrectly
-proceed to call drm_crtc_handle_vblank() and sun4i_tcon_finish_page_flip().
-Given that FSYNC_INT is described as constantly asserted, won't this transl=
-ate
-into a storm of spurious vblank events that disrupts display timing and con=
-fuses
-userspace compositors?
-
-[ ... ]
-> @@ -1053,6 +1053,8 @@ static enum hrtimer_restart sun4i_tcon_dsi_retrigge=
-r_timer_fn(struct hrtimer *ti
->  	 * atomic commit machinery.
->  	 */
->  	if (tick =3D=3D 0 && tcon->irq)
->  		enable_irq(tcon->irq);
-
-[Severity: Medium]
-Is there a corresponding disable_irq() call when the CRTC is disabled or
-during teardown? If a user triggers a DPMS off/on cycle, the timer will
-run again and call enable_irq() a second time, which might decrement the
-IRQ depth below zero and trigger a core IRQ subsystem warning and stack dum=
-p.
-
-[ ... ]
-> @@ -1124,10 +1124,11 @@ static int sun4i_tcon_init_irq(struct device *dev,
->  	irq =3D platform_get_irq(pdev, 0);
->  	if (irq < 0)
->  		return irq;
-> =20
-> -	ret =3D devm_request_irq(dev, irq, sun4i_tcon_handler, 0,
-> +	ret =3D devm_request_irq(dev, irq, sun4i_tcon_handler, IRQF_NO_AUTOEN,
->  			       dev_name(dev), tcon);
-
-[Severity: Critical]
-Since enable_irq() is only called from the DSI-specific retrigger timer,
-won't requesting the interrupt with IRQF_NO_AUTOEN unconditionally for all
-TCON instances leave the vblank interrupt permanently disabled for all
-existing non-DSI panels (like LVDS, RGB, and HDMI), completely breaking
-page flips for those legacy boards?
-
-[ ... ]
-> diff --git a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c b/drivers/gpu/drm/sun=
-4i/sun6i_mipi_dsi.c
-> --- a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
-> +++ b/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
-> @@ -808,6 +808,10 @@ void sun6i_dsi_clear_int_status(struct sun6i_dsi *ds=
-i)
->  {
->  	unsigned int val =3D 0;
-> =20
->  	regmap_read(dsi->regs, SUN6I_DSI_INT_REG, &val);
->  	regmap_update_bits(dsi->regs, SUN6I_DSI_INT_REG,
->  			   GENMASK(31, 16), val & GENMASK(31, 16));
-
-[Severity: High]
-Since SUN6I_DSI_INT_REG is a write-1-to-clear register, won't
-regmap_update_bits() skip the write if it detects that the cached value
-matches the new value? This optimization would cause the status bits to
-remain uncleared, breaking the edge detection logic in the retrigger timer.
-
-[ ... ]
-> @@ -898,12 +898,13 @@ static void sun6i_dsi_encoder_enable(struct drm_enc=
-oder *encoder)
->  	 * puts the clock lane into its continuous-HS state, and DCS commands
->  	 * use the entirely separate LPTX/LPDT instruction tables.
->  	 */
->  	sun6i_dsi_start(dsi, DSI_START_HSC);
-> =20
->  	udelay(1000);
-> =20
->  	if (dsi->panel)
->  		drm_panel_prepare(dsi->panel);
-
-[Severity: Critical]
-For legacy panels that require sending DCS commands during their prepare ph=
-ase,
-won't moving DSI_START_HSC before drm_panel_prepare() cause initialization =
-to
-fail? The host controller cannot transmit LPTX commands once the clock lane
-is forced into continuous HS mode.
-
-[ ... ]
-> diff --git a/drivers/gpu/drm/sun4i/sun8i_tcon_top.c b/drivers/gpu/drm/sun=
-4i/sun8i_tcon_top.c
-> --- a/drivers/gpu/drm/sun4i/sun8i_tcon_top.c
-> +++ b/drivers/gpu/drm/sun4i/sun8i_tcon_top.c
-> @@ -166,6 +166,10 @@ int sun8i_tcon_top_set_dsi_gate(struct device *dev, =
-bool enable)
-> =20
->  	val =3D readl(tcon_top->regs + TCON_TOP_GATE_SRC_REG);
->  	if (enable)
->  		val |=3D BIT(TCON_TOP_TCON_DSI_GATE);
->  	else
->  		val &=3D ~BIT(TCON_TOP_TCON_DSI_GATE);
->  	writel(val, tcon_top->regs + TCON_TOP_GATE_SRC_REG);
-
-[Severity: High]
-Because this bit is also registered as a standard clock with the common clo=
-ck
-framework, won't the late-init clk_disable_unused() sweep see a reference
-count of zero and forcefully turn this gate off, wedging the display pipeli=
-ne
-shortly after boot?
-
-[ ... ]
-> diff --git a/drivers/pwm/pwm-sun50i-a133.c b/drivers/pwm/pwm-sun50i-a133.c
-> --- a/drivers/pwm/pwm-sun50i-a133.c
-> +++ b/drivers/pwm/pwm-sun50i-a133.c
-> @@ -148,6 +148,9 @@ static int pwm_a133_apply(struct pwm_chip *chip, stru=
-ct pwm_device *pwm,
->  	pwm_a133_writel(pc, pccr_reg, val);
-> =20
->  	/* Gate the channel clock off while changing prescale/period/duty. */
->  	val =3D pwm_a133_readl(pc, PWM_A133_PCGR_REG);
->  	val &=3D ~(PWM_A133_PCGR_GATING(ch) | PWM_A133_PCGR_BYPASS(ch));
->  	pwm_a133_writel(pc, PWM_A133_PCGR_REG, val);
-
-[Severity: Medium]
-Since the PWM core only serializes updates per channel, could concurrent
-updates to different channels on the same chip race and corrupt the hardware
-state here, potentially disabling the wrong channel?
-
-[ ... ]
-> @@ -156,6 +156,9 @@ static int pwm_a133_apply(struct pwm_chip *chip, stru=
-ct pwm_device *pwm,
->  		val |=3D PWM_A133_PCR_ACT_STA_HIGH;
->  	pwm_a133_writel(pc, PWM_A133_PCR_REG(ch), val);
-> =20
->  	val =3D (entire_cycle << PWM_A133_PPR_ENTIRE_CYCLE_SHIFT) & PWM_A133_PP=
-R_ENTIRE_CYCLE_MASK;
->  	val |=3D act_cycle & PWM_A133_PPR_ACT_CYCLE_MASK;
->  	pwm_a133_writel(pc, PWM_A133_PPR_REG(ch), val);
-
-[Severity: Medium]
-If a 100 percent duty cycle is requested, act_cycle evaluates to 65536.
-Won't this bitwise AND with PWM_A133_PPR_ACT_CYCLE_MASK (which is 0xFFFF)
-truncate the value to 0, causing the backlight to turn completely off when
-maximum brightness is requested?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912060249.8003=
-5-1-leow149@lucidmail.xyz?part=3D1
+Best regards,
+Svyatoslav R.
