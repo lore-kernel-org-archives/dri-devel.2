@@ -4,85 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7375AC88E53
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 15:03:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4874DC88E59
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 15:09:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6854E10E6F8;
-	Sat, 12 Sep 2026 15:03:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDC8E10E71F;
+	Sat, 12 Sep 2026 15:09:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A7NDYGL/";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TT0/FNeN";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d3P642k5";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99C9210E6F8
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 15:03:57 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-49b965570d7so23983275e9.0
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 08:03:57 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8660A10E71F
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 15:09:23 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68CEdijb3250011
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 15:09:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=Y86yJvxE2YzZDSDBzkxgu7LIWB5oUTdTWrV
+ QFoYNlZk=; b=TT0/FNeN1dsS79JksacI3EvHp0CovXEJEt6QGB7lEjvOWzxQqpl
+ Gl/8W1SzHH18cQ4ymfen7V/dJUesODf0zWAlg4elwA4xH6ZkijtfNeQ/eTQ3MRXD
+ soJNgh4mTEVbzY2WvZOLnAQmh02srKNypq9b7Hhdr6CWdPTc/jDO+2qV2Au0QINt
+ hXLlcH2/i6BozM/eFtfNkk7p3tu3NhMbxzt4BgMoGYvvbAknCgBIQ+6myYRP/Z1O
+ LjodWYLxbSpgr41gBaEFsYNfYAAdwofSWkkkZGReAzjHqCB8bwL6pBS078hAaXCh
+ BaRh1ASLbHaHaeZYZUGk5F1PC4kn03pwuCw==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9c174u-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 15:09:21 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id
+ 41be03b00d2f7-cc1b8088202so1645244a12.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 08:09:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789225436; x=1789830236; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=W/ljStNwe21EAHMT5pfp7bjQZDrUvNzZwLlTRaNK94Q=;
- b=A7NDYGL/lF4kSKv4AOTinCKoLUzUZjRuz12iYmf8eMNThnS7XIwFSIsCSQJpt9K5Q1
- F3sYPQJAAN3gtjn3XUWYG+OdGCUCpbCZf3mRtX5wfZ9vV71Lpj3gWbU4z9J5Un2IhXhM
- zpYaGinQ5HH2dG5ANaGetYObLJrp7Af/zTw94YkJYZ51j5pJWpAPW7y0cuSsQ5JvnaU4
- +oZ/DWiQUZ5E8opFmZ6zS3t37hLztHQbwA333sBLs9zxepwrOcn9FhFWNjJTb5PO6Q8h
- eJAXl/hQrSw4+oweDJ17R7cpFFsxVmPFZGIVMnhfCCwZV9fqR6EqRCI/D4gKSV2L9RgD
- /rbQ==
+ d=oss.qualcomm.com; s=google; t=1789225761; x=1789830561;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Y86yJvxE2YzZDSDBzkxgu7LIWB5oUTdTWrVQFoYNlZk=;
+ b=d3P642k5CVuI4Zsd4olyN/6vW/JK9wX3q6BMnYmV3br0ckO8Ssasm5F/JouM3Jptja
+ cuE4J1yQ84njGokSgudgHlJN4Ny6izyUrGyPmMUBG8vSqw3Cfbm3iN2pnEoTZgswYcZc
+ UaddTOdkuTmFGUij6bPYbzhcEwvZ8fi3KkJPJCex274fT1Neu7L1Wxii8KZbxAMmFgvx
+ SU0Jf50x4NQ02O2VuE0FkBgRebQ/ghyTh9IFLMeDxQd6OsY9tJR1oeGK2LLNHAlU3P6G
+ NknynHqnZXD090hG1p9bJhjsgDL5frTD0DfebzCWDlkUS0sxJITL7ek3k/kEghpV/4YN
+ 7Bcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789225436; x=1789830236;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=W/ljStNwe21EAHMT5pfp7bjQZDrUvNzZwLlTRaNK94Q=;
- b=VyHzbCXJoYeS/nCBb757Jo5DGiB9raiVEkU3oiaFFHmSTcr8x2acXxl71zQQ62P3yU
- mPG724AZFl0IYzXpXEAkjheTSEHrSpP7yA2A5CMqzKD6Y7iIhdVY6EmTI3d/n9e0pnyk
- qeHboEP2nmKhwdjbhMef9UkrpzefKfkfzpbMQ/BgzLRO/pKv3bVFLEPYHIaUhUVoXz8Z
- D9h34h5pU7sI59BGA+NFEZab1N8JOh5E2oy2thJwadx6dhCItsrRxdXtbd/Fn+exyLCi
- Ib/fjM5/CiNazGAEXaRCv4RHaJng1XcGXuchb7JanynVG8Yjnd+gw4YYsnN8H2jWfyRo
- Domw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx0W9mw24rtIjfnLUhtA4GyQE5Kt++Lkbs0iQGd+fQ1vVw1lrRTvhSGgyVjA14jGmBVv74a+bYCMx4=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kV1afPDCp1gSAc4sEdK8gSkxLEmtdthSoLCuma9WlL5idZj0tt
- 8aLS94mlgLswPUOKItElV9I3pM+3RoYWkCoHbcYOiL+2b7T65dWPdtx2
-X-Gm-Gg: AYBFou1Aa9wTAkCttPmBMuZ52DK5sLBts/zZGo7NrwBgZuHe2KkrHopo3S773CYvF2J
- 4yqIs3xc67HXm2XlsP8SddV6oIXmoddmvBtT76befh0de3dEiJMMXi/QRg4UmxltPP72gBHv+AD
- z/KMYdHqOzJihNzatOGzEiTPRNEftoMQ+SRDkkVgGwEoQh2UCArQDeH501mgUqUXVRNhEb638D4
- qtyMHdDWm19eStJ+GUdegTD20dfB3ZgSB9fYT9g++yjAmyipuImgorprilDMZPXQDyiAnE+I7Ao
- nm7tT+E8741DTKB3ZvBIKdbAcEshIrxgmo5J5rdXrEdxXPat9hLrsLFRvQaY/MsN1H37jaAQDh0
- lYXGuxbXtGbMSqab0uPSoubbCPtu2KFS0Si2d8gRk96xrvpG8YGBI9fODgdYOx1e+gLPiYalKsC
- HEAvnkE9w0LPnviejwrwq+a3rbAhasNRK36/kzSChACf2N4br9rZw7oY496B823IYVBa+s2RKvm
- MAstQ==
-X-Received: by 2002:a05:600c:3b8c:b0:49e:73d3:78ab with SMTP id
- 5b1f17b1804b1-49e73d379e4mr9568925e9.0.1789225435447; 
- Sat, 12 Sep 2026 08:03:55 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+ d=1e100.net; s=20251104; t=1789225761; x=1789830561;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Y86yJvxE2YzZDSDBzkxgu7LIWB5oUTdTWrVQFoYNlZk=;
+ b=j/BNX4CTzq/bNsE2G0yaow03GxIL+/dBY+cvlrJcf4Hkt5Az+Sxi36bjhYSv8pDal9
+ vUOvK/kKtwlVfxTKP+ueMY7ILUVSSfEF9evgUALnmwhNLFfLVqFAFfuR1WRMLUeils/5
+ te4sQKLWC0nK2Z/ctW3BtCDpwXbela5yTBa2UzRbxItjPIiX3HW3W5Lpf7c5GFE18Orw
+ CF8wqbUtXq8jcBSPlRhfDSrj5XoPN5fWrYnVGIXJ8c2oeSoQSPbuJ05eh6xwK6tQk+yO
+ tLcJ/VzSk61mevr6ptQo32I2QAd6jnwUiQDfIu+84Xx2YgLH9BFpm45oWoS5lBgSAouv
+ +rjw==
+X-Gm-Message-State: AFuF++mB0bz55YewY6Fd1o9vKiMRJItb8CRj6ZBDlC317Wsgn6ME8O3O
+ 3894/p7JMBV6nBSPMlvtJ44iLMeZu5tJqN52yVf+xyCgxJzMFgpBLBVoGISN9tijUwGivgLBC01
+ 4tGbzdyfD6yM1EXIZW3nbEINQ/Ep+FNy6X/f5rofMLAY+PeJ0ll4aRSuSeY4930GZ4gpNxdmVSW
+ X6Pek=
+X-Gm-Gg: AYBFou15s39KIsF5RDwOa0+moMp4y0tj2uqc1Lxx8KNhh1dopI1Ft9oQTIkEwqd3nPz
+ RxZoVvhTMj2k8w9m3XjUzvDU5jGORy7xb4k/nER8vGRPP0zXxZboEjaPJFZRGtcWds+A7nepU4e
+ I6FfoqegwsjVwlYrOpyAZhywiQTyNBjHkFJqXzFr1gDZp8zurHCNGUJO7WrBGBjxHtlCrYwYVkH
+ f/bra5cR25a5B0jzMosN2galziVxPSUzzup7npXu5bsz6ZnX/BRrAlw5oZkaAOqhi/17aRXZbPZ
+ kmknD6t4cUM1amTrVp2NzB5fhpxaPZcrDCCSeMORhCzuA4nCNUjv2EtOHLkXvl3cA8tddYVoGK/
+ 7aGfNxMpvVtu0C0YSWY6ZNn/OcnJceRbF4arg03m41NlO0BY=
+X-Received: by 2002:a05:6a21:6016:b0:3d1:39e9:b261 with SMTP id
+ adf61e73a8af0-3daecb013demr18650576637.0.1789225760840; 
+ Sat, 12 Sep 2026 08:09:20 -0700 (PDT)
+X-Received: by 2002:a05:6a21:6016:b0:3d1:39e9:b261 with SMTP id
+ adf61e73a8af0-3daecb013demr18650511637.0.1789225760410; 
+ Sat, 12 Sep 2026 08:09:20 -0700 (PDT)
+Received: from localhost (c-73-37-105-206.hsd1.or.comcast.net. [73.37.105.206])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49e6420de77sm69964935e9.3.2026.09.12.08.03.54
+ 41be03b00d2f7-cc4c6549d95sm2564095a12.12.2026.09.12.08.09.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 12 Sep 2026 08:03:54 -0700 (PDT)
-Date: Sat, 12 Sep 2026 18:03:51 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Asad Kamal <asad.kamal@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Sat, 12 Sep 2026 08:09:19 -0700 (PDT)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Greg Ociepka <greg@ferrisoft.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Hawking Zhang <Hawking.Zhang@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- Sonny Jiang <sonny.jiang@amd.com>,
- Gabriel Almeida <gabrielsousa230@gmail.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 1/1] drm/amdgpu: Remove redundant mode2 restore check
-Message-ID: <94ccd0e0f47be9ec1985cbc786093c01d7693aa5.1789224159.git.error27@gmail.com>
-References: <cover.1789224159.git.error27@gmail.com>
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] drm/msm/a6xx+: Increase GMU FW init timeout
+Date: Sat, 12 Sep 2026 08:09:14 -0700
+Message-ID: <20260912150915.28700-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1789224159.git.error27@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: yjPiPjw26rx2EQAf7ccTz6tDJBRCu7FU
+X-Proofpoint-GUID: yjPiPjw26rx2EQAf7ccTz6tDJBRCu7FU
+X-Authority-Analysis: v=2.4 cv=c5Y+0h9l c=1 sm=1 tr=0 ts=6aa56b21 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=19Wyn7e3V/0aNffMjNCMQw==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=8lTVeMJbxB4f0FvlbnAA:9 a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEyMDIyMCBTYWx0ZWRfX40FoICTO8b+M
+ NbBiVwxClAq0Zy2Qa1UjT8tRPfuPM2Juk1W0pW8eoOouJ3q1UN8jfqdhb0kliPAZhNxgNy9twY3
+ XQkfwEQHTktd3UzKOVCU6ah4c4HjcEGzRyh7+9hhbVzIC/YQWolQ5S/4k+QbKnY9egA7MIYVKnA
+ JJ7IocI3MW2rxoeFJD+mgsvnpNWPS2GiHKqsSNZ69Tt0X6Z+jb5RLiUpTP9W7TYUnI8uezDhTYe
+ K5fyKPy9r/MQR/hfxV0spl+9hUg08Rhg537Si4D5QJAcVYXC316cxFvXJ2JbSObwX86HrtW/jgr
+ I9o1DBj57N25A4xtXmlooHFDS+iCwnbEZL5+vIl1qFAnr2WBnloFlRP7jpn57T15WwjRLSor2/7
+ idcMO7OsRMuBokcqvrihorrBZ9Qz5Al3iOhTyLKVw7693Oi/DEd8ymBN2nE8OF5YJfiJX7LQ9kR
+ +sJUTjiGR+kYjpGJKKw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEyMDIyMCBTYWx0ZWRfX2Dzv7WaCfTda
+ pw0CTH83sEfoHhTc3oZEmAShd/LwEnXY0Vx3L45a1HHh3ADkEknszuHc5OPi3FgKxab/Oyw9iFD
+ Jwr4dijRO8wsHwLe2Asj/91fCf4YktY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-12_05,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609120220
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,52 +143,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The "r" variable is checked twice.  We already know it is zero/success
-at this point so there is no need to check again.  Delete the redundant
-check and pull the code in a tab.
+We were using 10ms, kgsl uses 100ms.  In practice it is usually takes
+less than 10ms, but very occasionally goes a bit above 10ms, leading to
+a "GMU firmware inialization timed out", from which point things go
+south.
 
-Fixes: 208e5d4b3f1e2 ("drm/amd/amdgpu: Add soc_v1_0 reset handler")
-Assisted-by: Codex:GPT-5
-Signed-off-by: Dan Carpenter <error27@gmail.com>
+There are probably some things that could be done to speed up init, like
+increasing GMU freq.  But to be safe, increase the timeout to match
+kgsl.
+
+Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
-In retrospect, I probably could have deleted these tabs without AI help.
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/gpu/drm/amd/amdgpu/soc_v1_0.c | 21 +++++++++------------
- 1 file changed, 9 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-index 757da0a30fdc..39a748e38e9c 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-@@ -729,19 +729,16 @@ soc_v1_0_mode2_restore_hwcontext(struct amdgpu_reset_control *reset_ctl,
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 2170bf7bb045..9290010c8cdd 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -320,7 +320,7 @@ static int a6xx_gmu_start(struct a6xx_gmu *gmu)
+ 	gmu_write(gmu, REG_A6XX_GMU_CM3_SYSRESET, 0);
  
- 		amdgpu_ras_resume(tmp_adev);
+ 	ret = gmu_poll_timeout(gmu, REG_A6XX_GMU_CM3_FW_INIT_RESULT, val,
+-		(val & mask) == reset_val, 100, 10000);
++		(val & mask) == reset_val, 100, 100000);
  
--		if (!r) {
--			amdgpu_set_init_level(tmp_adev,
--					      AMDGPU_INIT_LEVEL_DEFAULT);
--			amdgpu_irq_gpu_reset_resume_helper(tmp_adev);
-+		amdgpu_set_init_level(tmp_adev, AMDGPU_INIT_LEVEL_DEFAULT);
-+		amdgpu_irq_gpu_reset_resume_helper(tmp_adev);
- 
--			r = amdgpu_ib_ring_tests(tmp_adev);
--			if (r) {
--				dev_err(tmp_adev->dev,
--					"ib ring test failed (%d).\n", r);
--				r = -EAGAIN;
--				tmp_adev->asic_reset_res = r;
--				goto end;
--			}
-+		r = amdgpu_ib_ring_tests(tmp_adev);
-+		if (r) {
-+			dev_err(tmp_adev->dev,
-+				"ib ring test failed (%d).\n", r);
-+			r = -EAGAIN;
-+			tmp_adev->asic_reset_res = r;
-+			goto end;
- 		}
- 	}
- 
+ 	if (ret)
+ 		DRM_DEV_ERROR(gmu->dev, "GMU firmware initialization timed out\n");
 -- 
-2.53.0
+2.55.0
 
