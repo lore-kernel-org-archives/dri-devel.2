@@ -4,86 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB701C88E53
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 22:48:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA1C4C88E53
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 23:14:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09F5310E027;
-	Sat, 12 Sep 2026 22:48:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76D4210E00B;
+	Sat, 12 Sep 2026 23:14:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="agLK272u";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="eEsWtaBy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cl/naFjj";
 	dkim-atps=neutral
-Received: from flow-b7-smtp.messagingengine.com
- (flow-b7-smtp.messagingengine.com [202.12.124.142])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED79310E027
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 22:48:51 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailflow.stl.internal (Postfix) with ESMTP id 418E1130018E;
- Sat, 12 Sep 2026 18:48:51 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Sat, 12 Sep 2026 18:48:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:content-type
- :date:date:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:subject:subject:to:to; s=fm2;
- t=1789253331; x=1789260531; bh=u5dfeX5ow+93ybPmJekOrvP+a0/Wlwh9
- Ypost/1YCcY=; b=agLK272u15g39JFhQoLzVwxfh7hNTca2Jsf0SQH9DDi+2sDa
- A7GR1C9Yq7I5n5KcLQy+yeqVo7FLaqhZ+KWG/LTpCCKNJKPnqJ6HnO5HaVeguLBf
- fwXrtqp8HDRs2XkyAFWJczBwvQg6Cl286SLMJX2jNe5iEe0PNucby3nh+vQZQVfG
- 0lAyFzIcaXCpeI6Fa+g+W051dEJsSXjfRBUsJvk5GwtDLtszZsK8fiMxhcmLPnQB
- /caMUoxiORz4rpd9WgcdAaisd8NzDvg9/X4Dok0Gcph+TyBSPGnffNyVRdFUZRDd
- I1Cq44+H3nzyvmsbElotDXyALW6wLilcgFfhkg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789253331; x=
- 1789260531; bh=u5dfeX5ow+93ybPmJekOrvP+a0/Wlwh9Ypost/1YCcY=; b=e
- EsWtaBywYtxbrjQSmAaK342Gxyd0APPuo++9TusNa2J6cO0lw2CcTvdZLwc7v8AN
- mH0okdV5ZvSAUk0jZVxkHhbOg19DZiab5rieUs+dckNepRmLXIjWoIuVsgYFfSva
- QiQp8rAeSpxg4/LgiqJWZH/kc0/yNvbRXf/iSKaaDQbpocnu6nOnZaIw1GKFonll
- 5/NzyBwPfWXRa92e/4R4IsnPZscHtZoPSdq4L5F7tLhKPUywQ4E2TgXQFVD3K9bC
- XxU7BvEp/+NwPhCkohwJGSryanuyKtABZ+ut4kh9PvF2Mb+qlrW/ycyMobrFFuFI
- rRme0vLpL/cMspTCxWVaw==
-X-ME-Sender: <xms:0talas4y0SNrVZWO6-a2AhqnnfIBHmGTAO6yjdNtbhxwcmhaMtibNw>
- <xme:0talavbfQDMOexWChY0alrGFh3u6zL8KvWOT4vQLfyc5NI0EeAkGkpJt01C1aDlTR
- nLOGeZ-ul6d9b0JUYNOWo-E8GTpMg6IC7sOf6ln8Z9ooUbUC1rz8g>
-X-ME-Received: <xmr:0talargctBvFcM6LicM6Z6dBY9HlAG4u6Nd41eSqps7KGd1dB5kh0_cdvIvtw9uGS6PmXd8E2A>
-X-ME-Proxy-Cause: dmFkZTGuEQ4GiepUBMpmZorBsrDrsMVPOCGJwSy8sC1qnSMiQmiw/q1wofBw1CfKly1PBi
- 2GECeF44oC0yJEBJDzx1SeHpuKdA+L4Bf9sCHbBnMWN8EZ0SmTXFax4oDaau/Hg+1XsvA8
- rAmYQAG4FgvnvEjbQXvhKxV7fEV3M9rmo5xFybahW3pHuDWKlKXqDvpmpVxQmooTuh9i6k
- bCxU1Yaac5FMqrOPp/YZcT24w5CSoDOJ6gBcCHfZQxXtqj5bOcq+6CNWf5qmZxEkwWJF6f
- 2wc5M28m1/yr3OU5i457h9Of/Mn+WrkpsEYlTMd5Prc4RWBUNeE+gkExSX6SO7f++x8iUw
- zANZthUsISzCoDnwWbs516OX7VjgqrlDJ4GZ9qWo3zjslybfaD3g1h92bJQhX/ylrU3QKH
- nOH8IFLvfxee8/9a3xA5PQvQB9ehSEj8hUR3RAdfel5bBdoAteKAZY5d4BeZVU6u6p5F5X
- waHX7VsVlX1PiiTilAr/eMv7xgBfvnj+LFfJE0C1h2xouD1K/OMPq3R4Bd/BU80q1M1X2P
- 1hb6IfRHpPD60S2JSbQTMItQ2qN2oeLInOpCqmyHhhuULtM7Zav6Nyqe0YJRLGkVEQHcMe
- A97W3EVC0eb8hI6Bic1XV+RmnYtsQ5+N0Sb+JqRAD+DIqLJX4bWUAHZOt7ZA
-X-ME-Proxy: <xmx:0talag_kGavK7xtMwGnb-wWR9MiCWSgCBWyzr2OpPjlKc6Eegkzwjw>
- <xmx:0talamrc-LJjDCvuURq-GqEZtKiyoLLzEhiLPV_Nbmyrx5kYB_DqRg>
- <xmx:0talaoVWJt_4Cu9f2J_Rut7ACATIysoThhVVG2CpGew_2yeZ9Z2QKw>
- <xmx:0talalCvbdb0yERFPKesUSiOxZ5zUUFWnE2iEuMKvRLWgzkGp0N6vw>
- <xmx:09alaqRzQdFgGHNTnZVLGUsKEcF6NyfGz_wI-wbBZLgwTDwcBkg2ze42>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 12 Sep 2026 18:48:49 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: royalnet026@gmail.com
-Cc: tomeu@tomeuvizoso.net, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v12 03/14] accel/rocket: wait for a running IRQ handler
- before resetting a core
-Date: Sun, 13 Sep 2026 10:48:44 +1200
-Message-ID: <20260912224844.1614558-1-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260912113717.6819-1-royalnet026@gmail.com>
-References: <20260912065053.1519165-1-gahing@gahingwoo.com>
- <20260912065053.1519165-4-gahing@gahingwoo.com>
- <20260912113717.6819-1-royalnet026@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61B7310E00B
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 23:14:15 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6763B60008;
+ Sat, 12 Sep 2026 23:14:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E61621F000FF;
+ Sat, 12 Sep 2026 23:14:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789254854;
+ bh=WURPUXwfMyOk1tDqQ7jZG2/IAQ0pEIarCU7hJnY+sjU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=cl/naFjjBk8WFXHFmWZx457vM+WBXBslw26KNZeQJgdMMwp+E5Y06LnrxY1SUPzyv
+ VICtZ9JrdYTB2w7c8kH7BJhpwIYwJ3eojnAjORiO8xZBX3Hb0HIS4LaO0c1D5+1Sfd
+ t7DXpR2PjN4l4G3CafYtn7EQFW5IXAzoQ3hcrA5++aPrHtzx9w0H1j0eMpxfxITMMv
+ SG6tczCJNFlmiNZP1rJNNMDq+5Brj0RIG3Csu89S+mq02DMYZq1dRaCigk8cJoep9h
+ BmLC6qDDEMb3EGoh8l9qi18i2mMU1J4iktdZvw32VKlOUSa/Gei19QO4iulq/sEhKr
+ BRVoX+vYkxOQQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH v7] arm64: allwinner: add TrimUI Smart Pro (A133)
+ board support
+To: leow149 <leow149@lucidmail.xyz>
+Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260912230131.109229-1-leow149@lucidmail.xyz>
+References: <20260912222429.107809-1-leow149@lucidmail.xyz>
+ <20260912230131.109229-1-leow149@lucidmail.xyz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 12 Sep 2026 23:14:13 +0000
+Message-Id: <20260912231413.E61621F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,66 +54,137 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Igor,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] First frame kick is permanently lost if the hardware is busy at th=
+e first timer tick, deadlocking the display.
+- [Medium] TCON TOP DSI clock gate is leaked because it is never disabled.
+- [Low] DT schema validation bypass due to missing compatible strings in co=
+nditional blocks.
+--
 
-Taken. The two paragraphs go.
+commit 17cfa6c0fbcb618f9439977751e662fb57699cdd
+Author: leow149 <leow149@lucidmail.xyz>
 
-3/14 loses the one beginning "Igor also ran a differential on RK3588"
-and the one beginning "His own bound on it is the right one". Your
-summary replaces them, as you wrote it:
+arm64: allwinner: add TrimUI Smart Pro (A133) board support
 
-  45 induced resets on 19 August, 102 on 25 August and 74 today,
-  every reset recovered, no MMU faults, no lockdep report from rocket
-  or the scheduler in the runs where lockdep was still armed, and of
-  the 420 inferences scored, 384 matched the CPU reference within 1
-  on all 48 output channels while 36 returned the all-0x80 buffer of
-  a job the reset had cancelled.
+This commit adds board bring-up support for the TrimUI Smart Pro handheld
+device, implementing the display pipeline, panel driver, and PWM backlight.
+It introduces the A133 DE2 mixer configurations, TCON TOP quirks, and handl=
+es
+the CPU/8080-interface DSI output.
 
-You list "bounds and does not prove" among what stands, so I keep that
-one sentence out of the removed text. Say if you would rather it went
-with the rest.
+> diff --git a/Documentation/devicetree/bindings/display/allwinner,sun8i-a8=
+3t-de2-mixer.yaml b/Documentation/devicetree/bindings/display/allwinner,sun=
+8i-a83t-de2-mixer.yaml
+> index cbd18fd83e527..ce72c1ba71f15 100644
+> --- a/Documentation/devicetree/bindings/display/allwinner,sun8i-a83t-de2-=
+mixer.yaml
+> +++ b/Documentation/devicetree/bindings/display/allwinner,sun8i-a83t-de2-=
+mixer.yaml
+> @@ -23,6 +23,8 @@ properties:
+>        - allwinner,sun20i-d1-de2-mixer-1
+>        - allwinner,sun50i-a64-de2-mixer-0
+>        - allwinner,sun50i-a64-de2-mixer-1
+> +      - allwinner,sun50i-a133-de2-mixer-0
+> +      - allwinner,sun50i-a133-de2-mixer-1
 
-Both Link: lines stay, with your message as a third.
+[Severity: Low]
+Is this missing from the conditional if: properties: compatible: contains
+blocks further down in the schema?=20
 
-One thing in your text to settle before it goes in: "74 today" has no
-referent in a commit message. I would write the date, unless you would
-rather phrase it yourself.
+By adding these new compatible strings to the global enum without integrati=
+ng
+them into the generation-based if-then conditional blocks, device trees with
+invalid configurations for the A133 mixer may bypass variant-specific
+validation checks and silently pass.
 
-The tags:
+[ ... ]
 
-  2/14  # RK3588, three cores
-     -> # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
-  3/14  # RK3588, three cores, induced reset, differential base,
-        JOB_TIMEOUT_MS=2
-     -> # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
-  4/14  unchanged
+> diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.c b/drivers/gpu/drm/sun4i/s=
+un4i_tcon.c
+> index bf405a2aa3249..8b7dff89070dd 100644
+> --- a/drivers/gpu/drm/sun4i/sun4i_tcon.c
+> +++ b/drivers/gpu/drm/sun4i/sun4i_tcon.c
+[ ... ]
+> @@ -713,11 +1054,31 @@ void sun4i_tcon_mode_set(struct sun4i_tcon *tcon,
+[ ... ]
+>  	case DRM_MODE_ENCODER_DSI:
+[ ... ]
+>  		sun4i_tcon0_mode_set_cpu(tcon, encoder, mode);
+>  		sun4i_tcon_set_mux(tcon, 0, encoder);
+> +		sun4i_tcon0_set_dsi_gate(tcon, true);
+> +		sun4i_tcon0_set_de0_port(tcon);
+>  		break;
 
-All three then read the same, which is your point.
+[Severity: Medium]
+Does this code leak the TCON TOP DSI clock gate?
 
-None of this touches what 3/14 rests on. The argument is the code
-path: the wait is on desc->wait_for_threads rather than on a lock, so
-it would have hung with no lockdep report. Your runs bounded that;
-they never established it.
+The gate is explicitly enabled here via sun4i_tcon0_set_dsi_gate(tcon, true=
+),
+but it doesn't appear that sun4i_tcon0_set_dsi_gate(tcon, false) is ever
+called during DPMS OFF or teardown logic (e.g., in sun4i_tcon_set_status).
+This could leave the clock permanently enabled after the first modeset.
 
-The 0x80 signature holds on RK3576 too, for the reason you name. A
-fresh shmem BO is zeroed and teflon's readback adds 0x80, so an output
-buffer nobody wrote comes back a uniform 128 and cannot be told from a
-computed constant at the tflite level. That trap already cost us one
-retraction of our own. Your kprobe run is the part neither of us had
-before: two cancellations, two 0x80 files, matched to 2 ms against a
-280 ms round period.
+[ ... ]
+> +static enum hrtimer_restart sun4i_tcon_dsi_retrigger_timer_fn(struct hrt=
+imer *timer)
+> +{
+> +	struct sun4i_tcon *tcon =3D container_of(timer, struct sun4i_tcon,
+> +						dsi_retrigger_timer);
+> +	unsigned int cpu_if_before;
+> +	unsigned int tick =3D tcon->dsi_retrigger_ticks;
+> +	u32 dsi_int;
+> +	bool busy;
+> +
+> +	regmap_read(tcon->regs, SUN4I_TCON0_CPU_IF_REG, &cpu_if_before);
+> +	busy =3D cpu_if_before & SUN4I_TCON0_CPU_IF_TRI_START;
+> +
+> +	if (tick && (!busy || tcon->dsi_irq_retriggered)) {
+> +		/*
+> +		 * Either TRIGGER_START self-cleared, or (see the comment on
+> +		 * dsi_irq_retriggered in sun4i_tcon.h) sun4i_tcon_handler()
+> +		 * already re-triggered a frame on its own -- either way the
+> +		 * IRQ path has taken over from here.
+> +		 */
+> +		return HRTIMER_NORESTART;
+> +	}
+[ ... ]
+> +	if (tick =3D=3D 0 && !busy) {
+> +		sun6i_dsi_tri_start(tcon->dsi);
+> +		regmap_update_bits(tcon->regs, SUN4I_TCON0_CPU_IF_REG,
+> +				   SUN4I_TCON0_CPU_IF_TRI_START,
+> +				   SUN4I_TCON0_CPU_IF_TRI_START);
+> +	}
+> +
+> +	tcon->dsi_retrigger_ticks =3D tick + 1;
+> +	hrtimer_forward_now(timer, ms_to_ktime(2));
+> +	return HRTIMER_RESTART;
+> +}
 
-The uAPI question is Tomeu's. What I can say from here is that the
-blind spot is not yours. PREP_BO cannot tell a cancelled job from one
-that ran, so your protocol, mine and the mesa one all read the same
-buffer, and none of us can close it from userspace.
+[Severity: High]
+Can this deadlock the display if the hardware is busy at the first timer ti=
+ck?
 
-v13 with these changes, and nothing else to 2/14, 3/14 or 4/14.
+If a previous DPMS OFF interrupted an active frame transfer, the hardware m=
+ight
+transiently or permanently remain busy (SUN4I_TCON0_CPU_IF_TRI_START =3D=3D=
+ 1)
+at tick 0.
 
-Thanks for going back through twenty runs of your own data. It would
-have stood unchallenged in the commit message.
+Because the initial sun6i_dsi_tri_start kick is specifically guarded by
+if (tick =3D=3D 0 && !busy), being busy at tick 0 causes the kick to be dro=
+pped.
+On subsequent ticks (tick > 0), the timer bypasses the kick entirely and
+will continue returning HRTIMER_RESTART endlessly, waiting for the hardware
+to become not busy. However, if the DSI engine remains idle without the kic=
+k,
+busy evaluates to true forever, permanently losing the frame.
 
-Jiaxing
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912230131.1092=
+29-1-leow149@lucidmail.xyz?part=3D1
