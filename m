@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23DECC79FB6
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 07:04:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 514AAC88E45
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 07:05:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C7D810E639;
-	Sat, 12 Sep 2026 07:04:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73A5910E63B;
+	Sat, 12 Sep 2026 07:05:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dXQ6ePMN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FJwND/Br";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B744310E639
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 07:04:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC65B10E63B
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 07:05:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 755A943F72;
- Sat, 12 Sep 2026 07:04:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 165821F00898;
- Sat, 12 Sep 2026 07:04:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 56FB343D10;
+ Sat, 12 Sep 2026 07:05:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB7631F00893;
+ Sat, 12 Sep 2026 07:05:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789196689;
- bh=dA6YXqCp+jlfyiXbLigRyBUy5tjmEO8uLy1Rs7ZBoBU=;
+ s=k20260515; t=1789196715;
+ bh=euV8EyPB7oEuqUMslNyDl8KQ/LnYQX0Zjv0NXkH8weQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dXQ6ePMNQHxbHZfwGDvryBH2zvcy3XWkPBc1f6bGvgViLLofsa/LbmsPOaiBWFlsO
- gnquMoxXWhT8y/MaukcRA0W3YlFmICRdqLOhP43fwORGnW0LGQSwTpBuSMP1lFYt4q
- HynwI+rexnPg9fjrVvOgQ1xcIZRlQL8bTZP2JonDUUOVdqC6GIpw3tG2pKqJLhiFqV
- dTHxOhgjQGe32XpBfV1AJqcU1+IrDriJuQN4WvMY3QqoRyIeQzz3fB+0DwWdf2YoTv
- jcIcG4TriP6nkOeB+0A9lTe2OFHN62xj4LKBTHm5RO3p/Twz+D+BfXkxPLKSkaxN7B
- ifRM7MRdvRbig==
+ b=FJwND/BrYbmvnQX4NqgU/wkInpGTyMXYha5O6aFsn1CQjTYilMy1XKQC4xBw9cLxt
+ tpU5V68Ah3ubvrgZNFlB/jSy1qz4odEHw7FgBeE9meZLYaGkSuqsAS3q8xO0xvWtmQ
+ sLlP+AD+U4YPiiMakR91iFyUA0V7/M1l4vz3FluZ6QRYMPGD1KNVfsjrjUjN72nZRR
+ PGPUgQRJrDlEPMweL8pmNqMa7DTLvGCiUwwVUXcH8bU3gZmOWRmQXt9Fp7oAtI47Gs
+ oeql/1YP7XitTYTbEMittqaO2LPmKHAAnqkZ+laUgWLtlFmA/TUO2a79XJ7fOy/qGW
+ 29x3HSj1XKKYg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 04/14] accel/rocket: let the core suspend after a reset
+Subject: Re: [PATCH v12 05/14] accel/rocket: factor the completion tail out
+ of the IRQ handler
 To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260912065053.1519165-5-gahing@gahingwoo.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260912065053.1519165-6-gahing@gahingwoo.com>
 References: <20260912065053.1519165-1-gahing@gahingwoo.com>
- <20260912065053.1519165-5-gahing@gahingwoo.com>
+ <20260912065053.1519165-6-gahing@gahingwoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 07:04:48 +0000
-Message-Id: <20260912070449.165821F00898@smtp.kernel.org>
+Date: Sat, 12 Sep 2026 07:05:14 +0000
+Message-Id: <20260912070514.EB7631F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,132 +59,140 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Async vs Synchronous Runtime PM Put race condition violates hardwa=
-re power cycle constraints.
-
 Pre-existing issues:
-- [High] Shared IRQ handler accesses hardware registers without verifying r=
-untime PM state, risking SError crashes.
-- [High] Runtime suspend callback disables clocks without calling synchroni=
-ze_irq().
-- [High] Reference count leak of IOMMU group in job completion path.
+- [High] Leaking IOMMU group reference on job completion in rocket_job_next=
+_locked().
+- [High] Unconditional hardware access in shared IRQ handler while device m=
+ay be suspended.
+- [High] Missing synchronize_irq() in runtime suspend callback allows share=
+d IRQ to race with clock disable.
 --
 
-commit 230b2e3fd33edbead6ba7eab402e2a3e06d6ef3a
+commit d5e7944e1f53bee9ce55d9b7485126ab8b104207
 Author: Jiaxing Hu <gahing@gahingwoo.com>
-accel/rocket: let the core suspend after a reset
 
-This commit changes the runtime PM put in rocket_reset() from noidle to
-autosuspend. This aims to allow the core to suspend and cycle its power
-domain after a reset, which is necessary on platforms like RK3576 to
-recover the IOMMU.
+accel/rocket: factor the completion tail out of the IRQ handler
 
-Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail.c=
-om/
+rocket_job_handle_irq() stops the block and then either starts the job's
+next task or retires the job. The second half is a step of its own and
+reads better with a name, now that taking the register writes under
+job_lock has moved it a level deeper inside the scoped guard.
 
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index b588049aaa6ce..8cffe93f6c5ab 100644
 > --- a/drivers/accel/rocket/rocket_job.c
 > +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -421,12 +421,12 @@ rocket_reset(struct rocket_core *core, struct drm_s=
-ched_job *bad)
+> @@ -341,6 +341,25 @@ static struct dma_fence *rocket_job_run(struct drm_s=
+ched_job *sched_job)
+>  	return ERR_PTR(ret);
+>  }
 > =20
->  	/*
->  	 * No handler is running now, but we might still have stuck jobs. Let's
-> -	 * make sure the PM counters stay balanced by manually calling
-> -	 * pm_runtime_put_noidle().
-> +	 * make sure the PM counters stay balanced by putting the reference the
-> +	 * job took, and request idle while doing it so the core can suspend.
->  	 */
->  	scoped_guard(mutex, &core->job_lock) {
->  		if (core->in_flight_job)
-> -			pm_runtime_put_noidle(core->dev);
-> +			pm_runtime_put_autosuspend(core->dev);
+> +/* Start the job's next task, or retire it. Caller holds job_lock. */
+> +static void rocket_job_next_locked(struct rocket_core *core)
+> +{
+> +	lockdep_assert_held(&core->job_lock);
+> +
+> +	if (!core->in_flight_job)
+> +		return;
+> +
+> +	if (core->in_flight_job->next_task_idx < core->in_flight_job->task_coun=
+t) {
+> +		rocket_job_hw_submit(core, core->in_flight_job);
+> +		return;
+> +	}
+> +
+> +	iommu_detach_group(NULL, iommu_group_get(core->dev));
 
 [Severity: High]
-Will this asynchronous suspend actually have time to trigger before the
-scheduler starts again?
+This is a pre-existing issue, but does this code leak the iommu_group
+reference?
 
-The RK3576 NPU requires a power domain cycle (suspend and resume) to reset
-its bus interface and recover the IOMMU after a job timeout. However,
-pm_runtime_put_autosuspend() queues an asynchronous suspend that may not
-fire immediately.
+iommu_group_get() explicitly increments the reference count of the IOMMU gr=
+oup,
+but iommu_detach_group() only uses the pointer and doesn't take ownership.
+
+Since iommu_group_put() is never called here, the reference leaks on every
+job completion. This can eventually saturate the refcount and prevent relea=
+se
+during device teardown.
+
+Would it be better to use the already-cached core->iommu_group directly her=
+e?
+
+> +	dma_fence_signal(core->in_flight_job->done_fence);
+> +	pm_runtime_put_autosuspend(core->dev);
+> +	core->in_flight_job =3D NULL;
+> +}
+> +
+>  static void rocket_job_handle_irq(struct rocket_core *core)
+>  {
 
 [ ... ]
 
->  		iommu_detach_group(NULL, core->iommu_group);
-> =20
->  		core->in_flight_job =3D NULL;
->  	}
-> =20
->  	/* Proceed with reset now. */
->  	rocket_core_reset(core);
-> =20
->  	/* NPU has been reset, we can clear the reset pending bit. */
->  	atomic_set(&core->reset.pending, 0);
-> =20
->  	/* Restart the scheduler */
->  	drm_sched_start(&core->sched, 0);
->  }
-
 [Severity: High]
-If there are multiple jobs queued, doesn't restarting the scheduler here
-immediately dequeue the next job?
+This is another pre-existing issue, but can this unconditionally access
+hardware registers while the device is suspended?
 
-If the next job calls rocket_job_run() and invokes
-pm_runtime_resume_and_get(), this would cancel the pending autosuspend
-before the timer expires. Would it be safer to use a synchronous suspend
-(like pm_runtime_put_sync_suspend()) to enforce the hardware ordering
-constraint before restarting the scheduler?
+The IRQ is requested with IRQF_SHARED:
 
-[Severity: High]
-This isn't a bug introduced by this patch, but I noticed a potential
-issue with how the shared IRQ handler accesses hardware registers:
+rocket_job_init() {
+    ...
+    ret =3D devm_request_threaded_irq(core->dev, core->irq,
+                                    rocket_job_irq_handler,
+                                    ...
+                                    IRQF_SHARED, dev_name(core->dev),
+                                    core);
+    ...
+}
 
-drivers/accel/rocket/rocket_job.c:rocket_job_irq_handler() {
+However, the handler immediately reads hardware registers without checking =
+if
+the device is active:
+
+rocket_job_irq_handler() {
+    ...
     u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
     ...
 }
 
-Since the interrupt is shared (IRQF_SHARED) with the IOMMU, couldn't this
-handler be invoked unconditionally while the rocket_core is in an
-RPM_SUSPENDED state? Reading memory-mapped registers of a suspended device
-could cause an asynchronous SError and crash the system. Should this be
-guarded with pm_runtime_get_if_active()?
+If another device on the same shared line raises an interrupt while the Roc=
+ket
+device is suspended, reading the suspended device's registers can cause a b=
+us
+fault or return 0xffffffff.
+
+If it returns 0xffffffff, bitwise checks will falsely pass, leading to
+invalid writes to INTERRUPT_MASK and spuriously waking the threaded handler.
+
+Should this use pm_runtime_get_if_active() before accessing the registers?
+
 
 [Severity: High]
-This is a pre-existing issue, but the runtime suspend callback disables
-clocks without synchronizing the shared IRQ:
+This is a pre-existing issue, but can the shared IRQ handler race with
+clock disable during runtime suspend?
 
-drivers/accel/rocket/rocket_drv.c:rocket_device_runtime_suspend() {
+The runtime suspend callback disables clocks without first synchronizing the
+IRQ:
+
+rocket_device_runtime_suspend() {
     ...
     clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks),
                                rdev->cores[core].clks);
     ...
 }
 
-Because the device uses a shared interrupt, is there a race condition where
-the interrupt handler might be actively executing on another CPU while the
-runtime suspend callback powers down the hardware? Should this callback use
-synchronize_irq() first?
+If another device on the shared IRQ line triggers an interrupt concurrently,
+rocket_job_irq_handler() could execute on another CPU while the hardware cl=
+ocks
+are being disabled, potentially leading to a bus fault or system crash.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but I noticed a potential
-reference count leak in the job completion path:
-
-drivers/accel/rocket/rocket_job.c:rocket_job_handle_irq() {
-    ...
-    iommu_detach_group(NULL, iommu_group_get(core->dev));
-    ...
-}
-
-Does iommu_detach_group() consume the reference returned by
-iommu_group_get()? If it doesn't, this seems to leak a reference on the
-IOMMU group every time a job is completed. Could this use the cached
-core->iommu_group or add a corresponding iommu_group_put()?
+Does this need a call to synchronize_irq() before powering down the hardwar=
+e?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912065053.1519=
-165-1-gahing@gahingwoo.com?part=3D4
+165-1-gahing@gahingwoo.com?part=3D5
