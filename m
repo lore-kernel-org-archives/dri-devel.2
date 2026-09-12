@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE87FC79FB6
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 08:39:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA85EC88E53
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 08:39:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 841AA10E678;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF03710E67C;
 	Sat, 12 Sep 2026 08:39:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gVb8wGC/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SBS4LeRQ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4114510E689;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CCB410E68D;
  Sat, 12 Sep 2026 08:39:23 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7B4B04488E;
+ by sea.source.kernel.org (Postfix) with ESMTP id 7B00B4488C;
  Sat, 12 Sep 2026 08:39:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 09726C2BD00;
- Sat, 12 Sep 2026 08:39:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C4268C4FDE3;
+ Sat, 12 Sep 2026 08:39:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1789202359;
- bh=M03YYE4QzuecWse/3jF90R8u21tAuUCseoussBmT+ZI=;
+ bh=N4cJ+1neKZ1MgK8R9M1x2BOiA+d5mi3obLJN2Tvd7kU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=gVb8wGC/Or9QEo+wj8L2awv6GMSx7YRKiUKPUTcm/VlkFSbGiQwmEcUdEnmMJjOgC
- zn+ICdxatcjlBLp1kvI+OGEGqiGsB/wA9Ed+yNCqyf2tzitPbI4EjTXBZiFTMvh3Qq
- XKGbMpg8vA1OgolwEd4yIS1djwYopFL/YFVvzQxut74aIAbs7cQLY34h9aLWTngsLY
- PCJwtBppqYdv4A0leCT3hgY1lqWJxJ5wKV4kFZmZm8m+reI/2SrWuieLJWNuu/7x7f
- hJ58j8LC4jrdLQv+98h+lu0xXG0aXWG5uXs3AEu7kWLqQjGELzU+ur2gudvRv8P4OI
- Cql4S+9kxIy6g==
+ b=SBS4LeRQyiIZP20fYxgRSCWQEjiFg1yQ+GV0xRfmSsfQFEW3qyYQC+6nX33f8GLoU
+ wEmtWVUe8XLwaklIEWpECnUezw29d7jCjdu+xOriFeKd91LuFEc6qHdq/TbNvVcD4b
+ rfQwokkRN7p/GTE5EQfvQ9+NvDZzE8IoNQAyup37rzmRn+XULCpH1UegN8DyPPd0bp
+ aZSZY3to20RyUnRMqHh0qvOlBQCqeH8uNA1CY3xDYGo7cSRSfnBb9NwaTD9lR1Vfxn
+ eIFA+r6Z+kvRHJbqc5jZLMqW/sMQcDdjzWJBQHrJ7v6PMuYGcPi+PxySIbm3gjtOkW
+ zTsWBICkQYfCA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id E7F5DC88E5C;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id AD3B8C79FB6;
  Sat, 12 Sep 2026 08:39:18 +0000 (UTC)
 From: Muzaffer Kadir via B4 Relay
  <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Sat, 12 Sep 2026 11:39:25 +0300
-Subject: [PATCH RFC 16/20] dt-bindings: thermal: tsens: Add MSM8952
+Date: Sat, 12 Sep 2026 11:39:22 +0300
+Subject: [PATCH RFC 13/20] clk: qcom: smd-rpm: Add clocks for MSM8952
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-msm8952-initial-support-v1-16-0e742578b524@mainlining.org>
+Message-Id: <20260912-msm8952-initial-support-v1-13-0e742578b524@mainlining.org>
 References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
 In-Reply-To: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
 To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
@@ -77,11 +77,11 @@ Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
  linux-pm@vger.kernel.org, linux-input@vger.kernel.org, 
  Muzaffer Kadir <muzafferkadir@mainlining.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789202354; l=797;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789202354; l=2526;
  i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=SHQrlXrOKfClSSRN67nbliq/vzHPWzLada9e+lrsFjk=;
- b=6PA6NmEgUQ0+HVxnxKIS1Rps1nE6jluEZqKw0B9t6fZK/k8tUGG/aqh5ETyWK0HE8R1OS6mTS
- vmKKlI3zzAJAx5HjDMNyrJM829WeCzGX14kOv3rZ0gjr7eQCdkhmj/G
+ bh=+fbbxQznzh0EAsRYoXyBD9lf98TEt7urc9Q1WfJgNWo=;
+ b=QkA6CKY/iZxxVumpyHBKti6xBNNNjPEOZTgP8ktL+4FuOcB5mh12Wqar04/gVtSyc72YdRvRx
+ gSHRBLEIIbIA6XL7tN/dseny4/Qk+50P2Nv+Mii5/RLCKH790m8lR7Z
 X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
  pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
 X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
@@ -105,25 +105,60 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Add compatible string for tsens block found in MSM8952.
+MSM8952 has same clocks with MSM8976 and MSM8940.
 
 Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- Documentation/devicetree/bindings/thermal/qcom-tsens.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/clk/qcom/clk-smd-rpm.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml b/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
-index 5a8f7673e730..c78074fbcecf 100644
---- a/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
-+++ b/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
-@@ -46,6 +46,7 @@ properties:
-         items:
-           - enum:
-               - qcom,msm8937-tsens
-+              - qcom,msm8952-tsens
-               - qcom,msm8956-tsens
-               - qcom,msm8976-tsens
-               - qcom,qcs404-tsens
+diff --git a/drivers/clk/qcom/clk-smd-rpm.c b/drivers/clk/qcom/clk-smd-rpm.c
+index 487d715ed5d2..4ed08cbfa8a2 100644
+--- a/drivers/clk/qcom/clk-smd-rpm.c
++++ b/drivers/clk/qcom/clk-smd-rpm.c
+@@ -740,6 +740,34 @@ static const struct rpm_smd_clk_desc rpm_clk_msm8940 = {
+ 	.num_icc_clks = ARRAY_SIZE(bimc_pcnoc_snoc_smmnoc_icc_clks),
+ };
+ 
++static struct clk_smd_rpm *msm8952_clks[] = {
++	[RPM_SMD_XO_CLK_SRC] = &clk_smd_rpm_branch_bi_tcxo,
++	[RPM_SMD_XO_A_CLK_SRC] = &clk_smd_rpm_branch_bi_tcxo_a,
++	[RPM_SMD_QDSS_CLK] = &clk_smd_rpm_qdss_clk,
++	[RPM_SMD_QDSS_A_CLK] = &clk_smd_rpm_qdss_a_clk,
++	[RPM_SMD_BB_CLK1] = &clk_smd_rpm_bb_clk1,
++	[RPM_SMD_BB_CLK1_A] = &clk_smd_rpm_bb_clk1_a,
++	[RPM_SMD_BB_CLK2] = &clk_smd_rpm_bb_clk2,
++	[RPM_SMD_BB_CLK2_A] = &clk_smd_rpm_bb_clk2_a,
++	[RPM_SMD_RF_CLK2] = &clk_smd_rpm_rf_clk2,
++	[RPM_SMD_RF_CLK2_A] = &clk_smd_rpm_rf_clk2_a,
++	[RPM_SMD_BB_CLK1_PIN] = &clk_smd_rpm_bb_clk1_pin,
++	[RPM_SMD_BB_CLK1_A_PIN] = &clk_smd_rpm_bb_clk1_a_pin,
++	[RPM_SMD_BB_CLK2_PIN] = &clk_smd_rpm_bb_clk2_pin,
++	[RPM_SMD_BB_CLK2_A_PIN] = &clk_smd_rpm_bb_clk2_a_pin,
++	[RPM_SMD_DIV_CLK2] = &clk_smd_rpm_div_clk2,
++	[RPM_SMD_DIV_A_CLK2] = &clk_smd_rpm_div_clk2_a,
++	[RPM_SMD_IPA_CLK] = &clk_smd_rpm_ipa_clk,
++	[RPM_SMD_IPA_A_CLK] = &clk_smd_rpm_ipa_a_clk,
++};
++
++static const struct rpm_smd_clk_desc rpm_clk_msm8952 = {
++	.clks = msm8952_clks,
++	.num_clks = ARRAY_SIZE(msm8952_clks),
++	.icc_clks = bimc_pcnoc_snoc_smmnoc_icc_clks,
++	.num_icc_clks = ARRAY_SIZE(bimc_pcnoc_snoc_smmnoc_icc_clks),
++};
++
+ static struct clk_smd_rpm *msm8974_clks[] = {
+ 	[RPM_SMD_XO_CLK_SRC]		= &clk_smd_rpm_branch_bi_tcxo,
+ 	[RPM_SMD_XO_A_CLK_SRC]		= &clk_smd_rpm_branch_bi_tcxo_a,
+@@ -1292,6 +1320,7 @@ static const struct of_device_id rpm_smd_clk_match_table[] = {
+ 	{ .compatible = "qcom,rpmcc-msm8936", .data = &rpm_clk_msm8936 },
+ 	{ .compatible = "qcom,rpmcc-msm8937", .data = &rpm_clk_msm8937 },
+ 	{ .compatible = "qcom,rpmcc-msm8940", .data = &rpm_clk_msm8940 },
++	{ .compatible = "qcom,rpmcc-msm8952", .data = &rpm_clk_msm8952 },
+ 	{ .compatible = "qcom,rpmcc-msm8953", .data = &rpm_clk_msm8953 },
+ 	{ .compatible = "qcom,rpmcc-msm8974", .data = &rpm_clk_msm8974 },
+ 	{ .compatible = "qcom,rpmcc-msm8976", .data = &rpm_clk_msm8976 },
 
 -- 
 2.54.0
