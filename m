@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D480C79FB6
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 08:39:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64D47C88E5D
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 08:39:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5764410E67E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EE5E10E6A1;
 	Sat, 12 Sep 2026 08:39:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dwQ/BcLz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bT1sqa0h";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 737A110E47A;
- Sat, 12 Sep 2026 08:39:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7371110E68D;
+ Sat, 12 Sep 2026 08:39:24 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 2B92343E12;
- Sat, 12 Sep 2026 08:39:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CF9C8C2BCF4;
- Sat, 12 Sep 2026 08:39:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CEC77448EA;
+ Sat, 12 Sep 2026 08:39:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5AF8EC4E679;
+ Sat, 12 Sep 2026 08:39:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1789202357;
- bh=o2VSyHTxUfSGM5eyyNwP4XWCmgbVTwqPS8NmK4uo3Bc=;
+ s=k20201202; t=1789202359;
+ bh=nD48Rbf55h4sWLzi95Et5X6Uny5CPQdhvbqLqn3l11k=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=dwQ/BcLzXWFkdM15bclsJMKmhmWZ7gBJuPTMFjzL00PkHbQyFKxck5qE5s5MLBIZp
- ZYRj6SecHwRq9iyVozMuh/93BEPbxO/vQjEeNBBPWtVVqK/Dw5q7qEwk8ECSosyfdN
- 3R/8FIQdc3h+5PwKHcPaaZq06InIQEtrg6PN4A0sEKLI2CaGTJv+NUvW/b0NkjzZYl
- OVEhz83G1O05luAN+qsAALnLKiAnw5N6H7Z+gosO6wE4K2b71VngMkcA4FJRYZpUNM
- 2nV8Umv28rjgUXnNpgVLR5i1uydvKQysyzlNsTbb65JyXHXOij7D6c+HYzqLY4Rb/t
- 9P3IfZHGbpVYA==
+ b=bT1sqa0hSGWxijxsD54/aO6BDrpuRy+MxLRrG5tOfAD8q8EpAyYc33EA5brcRokHR
+ 7uFpyX80f99Sqe6aKg/E5khnG4etc1rXSCgxDMPRAt4OYse7WIW0zfrFnljLBglgDA
+ 0WDeGWVh6sttWTOCF24oKB0aqLNG+SHTuAYpo6effFXUabtI1FJ4lns7r5iE+XfSeW
+ VH98QwrLEccIaERW1NCaYFTP8WdgrWby0TTeD1puR6bYgIFxChC+xWxrNzAy0W2CxT
+ uEjqjAMkH+eXKreYbLpoNrjA2lElF6GXtaYfDdifAxFRQVbe5J8bqzLMr1QjFuDaq+
+ ZCp1pMm8+50fA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id AD128C88E53;
- Sat, 12 Sep 2026 08:39:17 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 4781AC88E56;
+ Sat, 12 Sep 2026 08:39:19 +0000 (UTC)
 From: Muzaffer Kadir via B4 Relay
  <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Sat, 12 Sep 2026 11:39:10 +0300
-Subject: [PATCH RFC 01/20] dt-bindings: clock: qcom: Add MSM8952 global
- clock controller
+Date: Sat, 12 Sep 2026 11:39:29 +0300
+Subject: [PATCH RFC 20/20] arm64: dts: qcom: generalmobile-shamrock: new device
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-msm8952-initial-support-v1-1-0e742578b524@mainlining.org>
+Message-Id: <20260912-msm8952-initial-support-v1-20-0e742578b524@mainlining.org>
 References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
 In-Reply-To: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
 To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
@@ -78,11 +77,11 @@ Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
  linux-pm@vger.kernel.org, linux-input@vger.kernel.org, 
  Muzaffer Kadir <muzafferkadir@mainlining.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789202354; l=9903;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789202354; l=11139;
  i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=QFdtS+4ir8qozpzsMSNO2DZzGZTmEOtu2UKFZZesD/A=;
- b=at0BTMV+Mfb/LXDsg/wLvnABIQbu0yGFesjX58+sXobrtx8rbp6hCarwipA5XkEmdRV/p+OmT
- 3riFANHlGYPCzBWsxZ2s9lF3S/GbxJ1MbgyI43AJtUSYOlbJnAc2JQO
+ bh=LCzevTgTqTbZMUx77r9xIrvOtg8agw+pOgdFFe2F8OI=;
+ b=Zt9U45CXeRUso7gHItINI29ZBZOM5SeFnBW3fRl0fEdvMHnCzOsLAFiDs/Z9UjEJN+i3gnO7N
+ 59fC6iGHvgLDg0IJ5VExg/sBHEA0CYPCjzIh29kQVHT7ldOlVDmeTqM
 X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
  pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
 X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
@@ -106,302 +105,462 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Add a device tree binding to describe clocks, resets and power domains
-provided by the global clock controller on MSM8952 SoC.
+Add General Mobile Shamrock (GM 5 Plus).
+Shamrock is designed similar to L9300.
+Downstream reference is [1].
+
+[1] https://github.com/Asderdd/android_kernel_generalmobile_shamrock/blob/cm-14.1/arch/arm/boot/dts/qcom/msm8952-l9300.dtsi
 
 Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- .../bindings/clock/qcom,gcc-msm8952.yaml           |  56 ++++++
- include/dt-bindings/clock/qcom,gcc-msm8952.h       | 219 +++++++++++++++++++++
- 2 files changed, 275 insertions(+)
+ arch/arm64/boot/dts/qcom/Makefile                  |   1 +
+ .../dts/qcom/msm8952-generalmobile-shamrock.dts    | 426 +++++++++++++++++++++
+ 2 files changed, 427 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc-msm8952.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc-msm8952.yaml
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index d6547fb18edf..3cc2dfb09116 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -125,6 +125,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= msm8939-samsung-a7.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8939-sony-xperia-kanuti-tulip.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8939-wingtech-wt82918.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8939-wingtech-wt82918hd.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= msm8952-generalmobile-shamrock.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-flipkart-rimob.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-motorola-potter.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-xiaomi-daisy.dtb
+diff --git a/arch/arm64/boot/dts/qcom/msm8952-generalmobile-shamrock.dts b/arch/arm64/boot/dts/qcom/msm8952-generalmobile-shamrock.dts
 new file mode 100644
-index 000000000000..274dde633e17
+index 000000000000..22723b62d3d6
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/qcom,gcc-msm8952.yaml
-@@ -0,0 +1,56 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/qcom,gcc-msm8952.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/arch/arm64/boot/dts/qcom/msm8952-generalmobile-shamrock.dts
+@@ -0,0 +1,426 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +
-+title: Qualcomm Global Clock & Reset Controller on MSM8952
++/dts-v1/;
 +
-+maintainers:
-+  - Muzaffer Kadir <muzafferkadir@mainlining.org>
++#include "msm8952.dtsi"
++#include "pm8950.dtsi"
++#include "pmi8950.dtsi"
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/leds/common.h>
 +
-+description: |
-+  Qualcomm global clock control module provides the clocks, resets and power
-+  domains on MSM8952.
++/ {
++	model = "General Mobile GM 5 Plus (shamrock)";
++	compatible = "generalmobile,shamrock", "qcom,msm8952";
++	qcom,msm-id = <QCOM_ID_MSM8952 0x0>;
++	qcom,board-id = <QCOM_BOARD_ID_QRD 1>;
++	chassis-type = "handset";
 +
-+  See also::
-+    include/dt-bindings/clock/qcom,gcc-msm8952.h
++	aliases {
++		mmc0 = &sdhc_1; /* SDC1 eMMC slot */
++		mmc1 = &sdhc_2; /* SDC2 SD card slot */
++		serial0 = &blsp1_uart2;
++	};
 +
-+properties:
-+  compatible:
-+    enum:
-+      - qcom,gcc-msm8952
++	chosen {
++		stdout-path = "serial0:115200n8";
 +
-+  clocks:
-+    items:
-+      - description: XO source
-+      - description: Always-on XO source
-+      - description: DSI phy instance 0 dsi clock
-+      - description: DSI phy instance 0 byte clock
++		framebuffer {
++			compatible = "simple-framebuffer";
++			memory-region = <&cont_splash_mem>;
 +
-+  clock-names:
-+    items:
-+      - const: xo
-+      - const: xo_a
-+      - const: dsi0pll
-+      - const: dsi0pllbyte
++			width = <1080>;
++			height = <1920>;
++			stride = <(1080 * 3)>;
++			format = "r8g8b8";
 +
-+required:
-+  - compatible
-+  - '#power-domain-cells'
++			power-domains = <&gcc MDSS_GDSC>;
 +
-+allOf:
-+  - $ref: qcom,gcc.yaml#
++			clocks = <&gcc GCC_MDSS_AHB_CLK>,
++					 <&gcc GCC_MDSS_AXI_CLK>,
++					 <&gcc GCC_MDSS_VSYNC_CLK>,
++					 <&gcc GCC_MDSS_MDP_CLK>,
++					 <&gcc GCC_MDSS_BYTE0_CLK>,
++					 <&gcc GCC_MDSS_PCLK0_CLK>,
++					 <&gcc GCC_MDSS_ESC0_CLK>;
++		};
++	};
 +
-+unevaluatedProperties: false
++	reserved-memory {
++		cont_splash_mem: cont-splash@83200000 {
++			reg = <0x0 0x83200000 0x0 (1080 * 1920 * 3)>;
++			no-map;
++		};
++	};
 +
-+examples:
-+  - |
-+    clock-controller@1800000 {
-+      compatible = "qcom,gcc-msm8952";
-+      #clock-cells = <1>;
-+      #reset-cells = <1>;
-+      #power-domain-cells = <1>;
-+      reg = <0x01800000 0x80000>;
-+    };
-+...
-diff --git a/include/dt-bindings/clock/qcom,gcc-msm8952.h b/include/dt-bindings/clock/qcom,gcc-msm8952.h
-new file mode 100644
-index 000000000000..1ae241614d3c
---- /dev/null
-+++ b/include/dt-bindings/clock/qcom,gcc-msm8952.h
-@@ -0,0 +1,219 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright 2020 Linaro Limited
-+ * Copyright 2026 Muzaffer Kadir <muzafferkadir@mainlining.org>
-+ */
++	gpio-keys {
++		compatible = "gpio-keys";
 +
-+#ifndef _DT_BINDINGS_CLK_MSM_GCC_8952_H
-+#define _DT_BINDINGS_CLK_MSM_GCC_8952_H
++		pinctrl-0 = <&gpio_hall_sensor_default>, <&gpio_keys_default>;
++		pinctrl-names = "default";
 +
-+#define GPLL0						0
-+#define GPLL0_VOTE					1
-+#define GPLL3						2
-+#define GPLL3_EARLY					3
-+#define GPLL4						4
-+#define GPLL4_VOTE					5
-+#define GPLL6						6
-+#define GPLL6_VOTE					7
-+#define CAMSS_TOP_AHB_CLK_SRC				8
-+#define APSS_AHB_CLK_SRC				9
-+#define CSI0_CLK_SRC					10
-+#define CSI1_CLK_SRC					11
-+#define GFX3D_CLK_SRC					12
-+#define VFE0_CLK_SRC					13
-+#define BLSP1_QUP1_I2C_APPS_CLK_SRC			14
-+#define BLSP1_QUP1_SPI_APPS_CLK_SRC			15
-+#define BLSP1_QUP2_I2C_APPS_CLK_SRC			16
-+#define BLSP1_QUP2_SPI_APPS_CLK_SRC			17
-+#define BLSP1_QUP3_I2C_APPS_CLK_SRC			18
-+#define BLSP1_QUP3_SPI_APPS_CLK_SRC			19
-+#define BLSP1_QUP4_I2C_APPS_CLK_SRC			20
-+#define BLSP1_QUP4_SPI_APPS_CLK_SRC			21
-+#define BLSP1_UART1_APPS_CLK_SRC			22
-+#define BLSP1_UART2_APPS_CLK_SRC			23
-+#define CCI_CLK_SRC					24
-+#define CAMSS_GP0_CLK_SRC				25
-+#define CAMSS_GP1_CLK_SRC				26
-+#define JPEG0_CLK_SRC					27
-+#define MCLK0_CLK_SRC					28
-+#define MCLK1_CLK_SRC					29
-+#define CSI0PHYTIMER_CLK_SRC				30
-+#define CSI1PHYTIMER_CLK_SRC				31
-+#define CPP_CLK_SRC					32
-+#define CRYPTO_CLK_SRC					33
-+#define GP1_CLK_SRC					34
-+#define GP2_CLK_SRC					35
-+#define GP3_CLK_SRC					36
-+#define BYTE0_CLK_SRC					37
-+#define ESC0_CLK_SRC					38
-+#define MDP_CLK_SRC					39
-+#define PCLK0_CLK_SRC					40
-+#define VSYNC_CLK_SRC					41
-+#define PDM2_CLK_SRC					42
-+#define SDCC1_APPS_CLK_SRC				43
-+#define SDCC2_APPS_CLK_SRC				44
-+#define USB_HS_SYSTEM_CLK_SRC				45
-+#define VCODEC0_CLK_SRC					46
-+#define GCC_BLSP1_AHB_CLK				47
-+#define GCC_BLSP1_QUP1_I2C_APPS_CLK			48
-+#define GCC_BLSP1_QUP1_SPI_APPS_CLK			49
-+#define GCC_BLSP1_QUP2_I2C_APPS_CLK			50
-+#define GCC_BLSP1_QUP2_SPI_APPS_CLK			51
-+#define GCC_BLSP1_QUP3_I2C_APPS_CLK			52
-+#define GCC_BLSP1_QUP3_SPI_APPS_CLK			53
-+#define GCC_BLSP1_QUP4_I2C_APPS_CLK			54
-+#define GCC_BLSP1_QUP4_SPI_APPS_CLK			55
-+#define GCC_BLSP1_UART1_APPS_CLK			56
-+#define GCC_BLSP1_UART2_APPS_CLK			57
-+#define GCC_BOOT_ROM_AHB_CLK				58
-+#define GCC_CAMSS_CCI_AHB_CLK				59
-+#define GCC_CAMSS_CCI_CLK				60
-+#define GCC_CAMSS_CSI0_AHB_CLK				61
-+#define GCC_CAMSS_CSI0_CLK				62
-+#define GCC_CAMSS_CSI0PHY_CLK				63
-+#define GCC_CAMSS_CSI0PIX_CLK				64
-+#define GCC_CAMSS_CSI0RDI_CLK				65
-+#define GCC_CAMSS_CSI1_AHB_CLK				66
-+#define GCC_CAMSS_CSI1_CLK				67
-+#define GCC_CAMSS_CSI1PHY_CLK				68
-+#define GCC_CAMSS_CSI1PIX_CLK				69
-+#define GCC_CAMSS_CSI1RDI_CLK				70
-+#define GCC_CAMSS_CSI_VFE0_CLK				71
-+#define GCC_CAMSS_GP0_CLK				72
-+#define GCC_CAMSS_GP1_CLK				73
-+#define GCC_CAMSS_ISPIF_AHB_CLK				74
-+#define GCC_CAMSS_JPEG0_CLK				75
-+#define GCC_CAMSS_JPEG_AHB_CLK				76
-+#define GCC_CAMSS_JPEG_AXI_CLK				77
-+#define GCC_CAMSS_MCLK0_CLK				78
-+#define GCC_CAMSS_MCLK1_CLK				79
-+#define GCC_CAMSS_MICRO_AHB_CLK				80
-+#define GCC_CAMSS_CSI0PHYTIMER_CLK			81
-+#define GCC_CAMSS_CSI1PHYTIMER_CLK			82
-+#define GCC_CAMSS_AHB_CLK				83
-+#define GCC_CAMSS_TOP_AHB_CLK				84
-+#define GCC_CAMSS_CPP_AHB_CLK				85
-+#define GCC_CAMSS_CPP_CLK				86
-+#define GCC_CAMSS_VFE0_CLK				87
-+#define GCC_CAMSS_VFE_AHB_CLK				88
-+#define GCC_CAMSS_VFE_AXI_CLK				89
-+#define GCC_CRYPTO_AHB_CLK				90
-+#define GCC_CRYPTO_AXI_CLK				91
-+#define GCC_CRYPTO_CLK					92
-+#define GCC_OXILI_GMEM_CLK				93
-+#define GCC_GP1_CLK					94
-+#define GCC_GP2_CLK					95
-+#define GCC_GP3_CLK					96
-+#define GCC_MDSS_AHB_CLK				97
-+#define GCC_MDSS_AXI_CLK				98
-+#define GCC_MDSS_BYTE0_CLK				99
-+#define GCC_MDSS_ESC0_CLK				100
-+#define GCC_MDSS_MDP_CLK				101
-+#define GCC_MDSS_PCLK0_CLK				102
-+#define GCC_MDSS_VSYNC_CLK				103
-+#define GCC_MSS_CFG_AHB_CLK				104
-+#define GCC_OXILI_AHB_CLK				105
-+#define GCC_OXILI_GFX3D_CLK				106
-+#define GCC_PDM2_CLK					107
-+#define GCC_PDM_AHB_CLK					108
-+#define GCC_PRNG_AHB_CLK				109
-+#define GCC_SDCC1_AHB_CLK				110
-+#define GCC_SDCC1_APPS_CLK				111
-+#define GCC_SDCC2_AHB_CLK				112
-+#define GCC_SDCC2_APPS_CLK				113
-+#define GCC_GTCU_AHB_CLK				114
-+#define GCC_JPEG_TBU_CLK				115
-+#define GCC_MDP_TBU_CLK					116
-+#define GCC_SMMU_CFG_CLK				117
-+#define GCC_VENUS_TBU_CLK				118
-+#define GCC_VFE_TBU_CLK					119
-+#define GCC_USB2A_PHY_SLEEP_CLK				120
-+#define GCC_USB_HS_AHB_CLK				121
-+#define GCC_USB_HS_SYSTEM_CLK				122
-+#define GCC_VENUS0_AHB_CLK				123
-+#define GCC_VENUS0_AXI_CLK				124
-+#define GCC_VENUS0_VCODEC0_CLK				125
-+#define GCC_APSS_TCU_CLK				126
-+#define GCC_GFX_TCU_CLK					127
-+#define GCC_BIMC_GFX_CLK				128
-+#define GCC_BIMC_GPU_CLK				129
-+#define GCC_MSS_Q6_BIMC_AXI_CLK				130
-+#define GCC_GFX_TBU_CLK					131
-+#define GCC_CPP_TBU_CLK					132
-+#define USB_FS_SYSTEM_CLK_SRC				133
-+#define USB_FS_IC_CLK_SRC				134
-+#define GCC_USB_FS_AHB_CLK				135
-+#define GCC_USB_FS_IC_CLK				136
-+#define GCC_USB_FS_SYSTEM_CLK				137
-+#define GCC_VENUS0_CORE0_VCODEC0_CLK			138
-+#define GCC_VENUS0_CORE1_VCODEC0_CLK			139
-+#define GCC_OXILI_TIMER_CLK				140
-+#define GCC_USB_HS_PHY_CFG_AHB_CLK			141
-+#define CSI2_CLK_SRC					142
-+#define GCC_CAMSS_CSI2_AHB_CLK				143
-+#define GCC_CAMSS_CSI2_CLK				144
-+#define GCC_CAMSS_CSI2PHY_CLK				145
-+#define GCC_CAMSS_CSI2PIX_CLK				146
-+#define GCC_CAMSS_CSI2RDI_CLK				147
-+#define SDCC1_ICE_CORE_CLK_SRC				148
-+#define GCC_SDCC1_ICE_CORE_CLK				149
-+#define BLSP2_QUP1_I2C_APPS_CLK_SRC			150
-+#define BLSP2_QUP1_SPI_APPS_CLK_SRC			151
-+#define BLSP2_QUP2_I2C_APPS_CLK_SRC			152
-+#define BLSP2_QUP2_SPI_APPS_CLK_SRC			153
-+#define BLSP2_QUP3_I2C_APPS_CLK_SRC			154
-+#define BLSP2_QUP3_SPI_APPS_CLK_SRC			155
-+#define BLSP2_QUP4_I2C_APPS_CLK_SRC			156
-+#define BLSP2_QUP4_SPI_APPS_CLK_SRC			157
-+#define BLSP2_UART1_APPS_CLK_SRC			158
-+#define BLSP2_UART2_APPS_CLK_SRC			159
-+#define GCC_BLSP2_AHB_CLK				160
-+#define GCC_BLSP2_QUP1_I2C_APPS_CLK			161
-+#define GCC_BLSP2_QUP1_SPI_APPS_CLK			162
-+#define GCC_BLSP2_QUP2_I2C_APPS_CLK			163
-+#define GCC_BLSP2_QUP2_SPI_APPS_CLK			164
-+#define GCC_BLSP2_QUP3_I2C_APPS_CLK			165
-+#define GCC_BLSP2_QUP3_SPI_APPS_CLK			166
-+#define GCC_BLSP2_QUP4_I2C_APPS_CLK			167
-+#define GCC_BLSP2_QUP4_SPI_APPS_CLK			168
-+#define GCC_BLSP2_UART1_APPS_CLK			169
-+#define GCC_BLSP2_UART2_APPS_CLK			170
-+#define VFE1_CLK_SRC					171
-+#define GCC_CAMSS_VFE1_CLK				172
-+#define GCC_CAMSS_VFE1_AHB_CLK				173
-+#define GCC_CAMSS_VFE1_AXI_CLK				174
-+#define GCC_CAMSS_CSI_VFE1_CLK				175
-+#define MCLK2_CLK_SRC					176
-+#define GCC_CAMSS_MCLK2_CLK				177
-+#define GCC_VFE1_TBU_CLK				178
-+#define GCC_IPA_TBU_CLK					179
-+#define GCC_CAMSS_CPP_AXI_CLK				180
-+#define GCC_CAMSS_VFE0_AHB_CLK				181
-+#define GCC_CAMSS_VFE0_AXI_CLK				182
++		event-hall-sensor {
++			label = "Hall Effect Sensor";
++			gpios = <&tlmm 46 GPIO_ACTIVE_LOW>;
++			linux,input-type = <EV_SW>;
++			linux,code = <SW_LID>;
++			linux,can-disable;
++			wakeup-source;
++		};
 +
-+/* Indexes for GDSCs */
-+#define VENUS_GDSC				0
-+#define MDSS_GDSC				1
-+#define JPEG_GDSC				2
-+#define VFE0_GDSC				3
-+#define VFE1_GDSC				4
-+#define OXILI_GX_GDSC				5
-+#define VENUS_CORE0_GDSC			6
-+#define VENUS_CORE1_GDSC			7
-+#define CPP_GDSC				8
++		button-volume-up {
++			label = "Volume Up";
++			gpios = <&tlmm 85 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_VOLUMEUP>;
++			debounce-interval = <15>;
++			wakeup-source;
++		};
++	};
 +
-+/* Indexes for Resets */
-+#define RST_CAMSS_MICRO_BCR			0
-+#define RST_USB_HS_BCR				1
-+#define RST_QUSB2_PHY_BCR			2
-+#define RST_USB2_HS_PHY_ONLY_BCR		3
-+#define RST_USB_HS_PHY_CFG_AHB_CBCR		4
-+#define RST_USB_FS_BCR				5
-+#define RST_CAMSS_CSI1PIX_CBCR			6
-+#define RST_CAMSS_CSI_VFE1_CBCR			7
-+#define RST_CAMSS_VFE1_CBCR			8
-+#define RST_CAMSS_CPP_CBCR			9
-+#define RST_MSS_BCR				10
-+#define RST_MDSS_BCR				11
++	/* Front Flash */
++	flash-led-controller {
++		compatible = "sgmicro,sgm3140";
 +
-+#endif
++		enable-gpios = <&tlmm 33 GPIO_ACTIVE_HIGH>;
++		flash-gpios = <&tlmm 128 GPIO_ACTIVE_HIGH>;
++
++		pinctrl-0 = <&front_flash_default>;
++		pinctrl-names = "default";
++
++		front_flash_led: led {
++			function = LED_FUNCTION_FLASH;
++			color = <LED_COLOR_ID_WHITE>;
++			flash-max-microamp = <1000000>;
++			led-max-microamp = <625000>;
++			flash-max-timeout-us = <1280000>;
++		};
++	};
++
++	battery: battery {
++		compatible = "simple-battery";
++
++		charge-term-current-microamp = <100000>;
++		charge-full-design-microamp-hours = <3100000>;
++		constant-charge-current-max-microamp = <3000000>;
++		constant-charge-voltage-max-microvolt = <4400000>;
++		voltage-min-design-microvolt = <3400000>;
++		voltage-max-design-microvolt = <4400000>;
++	};
++
++	vph_pwr: regulator-vph-pwr {
++		compatible = "regulator-fixed";
++		regulator-name = "vph-pwr";
++		regulator-always-on;
++		regulator-boot-on;
++	};
++
++	multi-led {
++		compatible = "leds-group-multicolor";
++		color = <LED_COLOR_ID_RGB>;
++		function = LED_FUNCTION_INDICATOR;
++		leds = <&red_status>, <&green_status>, <&blue_status>;
++	};
++
++};
++
++&blsp2_i2c1 {
++	status = "okay";
++
++	/* FUSB301 @25 USB-C Controller */
++
++	tpa6130a2: tpa6130a2@60 {
++		compatible = "ti,tpa6130a2";
++		pinctrl-0 = <&tpa6130a2_default>;
++		pinctrl-names = "default";
++		reg = <0x60>;
++		power-gpios = <&tlmm 61 GPIO_ACTIVE_HIGH>;
++		Vdd-supply = <&pm8950_l22>;
++	};
++
++	tusb320: tusb320@67 {
++		compatible = "ti,tusb320";
++		reg = <0x67>;
++		interrupts-extended = <&tlmm 45 IRQ_TYPE_EDGE_RISING>;
++	};
++
++	led-controller@68 {
++		compatible = "si-en,sn3193";
++		reg = <0x68>;
++
++		shutdown-gpios = <&tlmm 68 GPIO_ACTIVE_HIGH>;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		red_status: led@1 {
++			reg = <1>;
++			label = "red:status";
++			led-max-microamp = <17500>;
++		};
++
++		green_status: led@2 {
++			reg = <2>;
++			label = "green:status";
++			led-max-microamp = <17500>;
++		};
++
++		blue_status: led@3 {
++			reg = <3>;
++			label = "blue:status";
++			led-max-microamp = <17500>;
++		};
++	};
++};
++
++&blsp1_i2c2 {
++	status = "okay";
++	/* SMB1351 @1d charger */
++	/* wsa881x-i2c @e @44 @f @45 audio amplifier */
++};
++
++&blsp1_i2c3 {
++	status = "okay";
++
++	/* himax,852x@48 Touchscreen */
++
++	touchscreen@5d {
++		compatible = "goodix,gt970", "goodix,gt911";
++		reg = <0x5d>;
++		interrupts-extended = <&tlmm 65 IRQ_TYPE_EDGE_FALLING>;
++		irq-gpios = <&tlmm 65 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&tlmm 64 GPIO_ACTIVE_HIGH>;
++		AVDD28-supply = <&pm8950_l10>;
++		VDDIO-supply = <&pm8950_l6>;
++
++		pinctrl-0 = <&touchscreen_default>;
++		pinctrl-names = "default";
++
++		touchscreen-size-x = <1080>;
++		touchscreen-size-y = <1920>;
++	};
++};
++
++&pm8950_resin {
++	linux,code = <KEY_VOLUMEDOWN>;
++
++	status = "okay";
++};
++
++&sdhc_1 {
++	vmmc-supply = <&pm8950_l8>;
++	vqmmc-supply = <&pm8950_l5>;
++
++	status = "okay";
++};
++
++&sdhc_2 {
++	cd-gpios = <&tlmm 67 GPIO_ACTIVE_HIGH>;
++	vmmc-supply = <&pm8950_l11>;
++	vqmmc-supply = <&pm8950_l12>;
++
++	status = "okay";
++};
++
++&sdc2_cd_on {
++	/delete-property/ bias-pull-up;
++	bias-disable;
++};
++
++&pmi8950_wled {
++	qcom,enabled-strings = <0 1>;
++	qcom,current-limit-microamp = <30000>;
++	qcom,ovp-millivolt = <29500>;
++	qcom,external-pfet;
++
++	status = "okay";
++};
++
++&ramoops_mem {
++	status = "okay";
++};
++
++&adsp {
++	status = "okay";
++};
++
++&lpass_mem {
++	status = "okay";
++};
++
++&pm8950_spmi_regulators {
++	// PM8950 S5 + S6 = VDD_APC supply
++	pm8950_s5: s5 {
++		regulator-min-microvolt = <1050000>;
++		regulator-max-microvolt = <1350000>;
++		regulator-always-on;
++		regulator-boot-on;
++	};
++};
++
++&rpm_requests {
++	pm8950_rpm_regulators: regulators {
++		compatible = "qcom,rpm-pm8950-regulators";
++		vdd_s1-supply = <&vph_pwr>;
++		vdd_s2-supply = <&vph_pwr>;
++		vdd_s3-supply = <&vph_pwr>;
++		vdd_s4-supply = <&vph_pwr>;
++		vdd_s6-supply = <&vph_pwr>;
++		vdd_l1_l19-supply = <&pm8950_s3>;
++		vdd_l2_l23-supply = <&pm8950_s3>;
++		vdd_l3-supply = <&pm8950_s3>;
++		vdd_l5_l6_l7_l16-supply = <&pm8950_s4>;
++		vdd_l8_l11_l12_l17_l22-supply = <&vph_pwr>;
++		vdd_l9_l10_l13_l14_l15_l18-supply = <&vph_pwr>;
++
++		pm8950_s1: s1 {
++			regulator-min-microvolt = <1000000>;
++			regulator-max-microvolt = <1225000>;
++		};
++
++		pm8950_s3: s3 {
++			regulator-min-microvolt = <1300000>;
++			regulator-max-microvolt = <1300000>;
++		};
++		pm8950_s4: s4 {
++			regulator-min-microvolt = <2050000>;
++			regulator-max-microvolt = <2050000>;
++		};
++
++		pm8950_l2: l2 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-always-on;
++			regulator-boot-on;
++		};
++
++		/* pm8950_l3 is managed by rpmpd (RPMPD_VDDMX) */
++
++		pm8950_l5: l5 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8950_l6: l6 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8950_l7: l7 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8950_l8: l8 {
++			regulator-min-microvolt = <2850000>;
++			regulator-max-microvolt = <2900000>;
++		};
++
++		pm8950_l9: l9 {
++			regulator-min-microvolt = <3000000>;
++			regulator-max-microvolt = <3300000>;
++		};
++
++		pm8950_l10: l10 {
++			regulator-min-microvolt = <2800000>;
++			regulator-max-microvolt = <2800000>;
++		};
++
++		pm8950_l11: l11 {
++			regulator-min-microvolt = <2950000>;
++			regulator-max-microvolt = <2950000>;
++			regulator-allow-set-load;
++			regulator-system-load = <200000>;
++		};
++
++		pm8950_l12: l12 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2950000>;
++		};
++
++		pm8950_l13: l13 {
++			regulator-min-microvolt = <3075000>;
++			regulator-max-microvolt = <3075000>;
++		};
++
++		pm8950_l14: l14 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <3300000>;
++		};
++
++		pm8950_l15: l15 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <3300000>;
++		};
++
++		pm8950_l16: l16 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8950_l17: l17 {
++			regulator-min-microvolt = <2850000>;
++			regulator-max-microvolt = <2850000>;
++		};
++
++		pm8950_l19: l19 {
++			regulator-min-microvolt = <1225000>;
++			regulator-max-microvolt = <1350000>;
++		};
++
++		pm8950_l22: l22 {
++			regulator-min-microvolt = <2800000>;
++			regulator-max-microvolt = <2800000>;
++		};
++
++		pm8950_l23: l23 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++		};
++	};
++};
++
++&tlmm {
++	gpio-reserved-ranges = <20 4>; // Downstream doesn't use 21,22,23. 24 is mdss_te
++	gpio_hall_sensor_default: gpio-hall-sensor-default-state {
++		pins = "gpio46";
++		function = "gpio";
++		drive-strength = <6>;
++		bias-pull-up;
++	};
++
++	front_flash_default: front-flash-default-state {
++		pins = "gpio33", "gpio128";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	gpio_keys_default: gpio-keys-default-state {
++		pins = "gpio85";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-up;
++	};
++
++	touchscreen_default: touchscreen-default-state {
++		pins = "gpio65", "gpio64";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	tpa6130a2_default: tpa6130a2-default-state {
++		pins = "gpio61";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-pull-down;
++		output-low;
++	};
++};
++
++&sleep_clk {
++	clock-frequency = <32768>;
++};
++
++&xo_board {
++	clock-frequency = <19200000>;
++};
 
 -- 
 2.54.0
