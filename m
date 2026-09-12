@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1AC0C79FB6
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 08:39:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EA48C79FB6
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 08:39:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C26E410E687;
-	Sat, 12 Sep 2026 08:39:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E69DD10E694;
+	Sat, 12 Sep 2026 08:39:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KYFNi8rp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FBALDT8k";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61F2B10E47A;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1C5710E679;
  Sat, 12 Sep 2026 08:39:19 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 85CD1447D0;
+ by sea.source.kernel.org (Postfix) with ESMTP id CCFB2447F3;
  Sat, 12 Sep 2026 08:39:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 17514C4AF1D;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 305FCC4AF0C;
  Sat, 12 Sep 2026 08:39:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1789202358;
- bh=WqyeewKom7P7COh88TTOK1qoXNFMd40eFyYNGK/7f3M=;
+ bh=pYcFE5374oIVVn03ajNnY96fsnJeNt1jxuuyEUBwheE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=KYFNi8rpdaBuE5Rk5sEKltTtnr8LUL1b/rzSaOPU7xPGXavKGJUzb5ECBGhK4lf52
- R0TgDun12TYO5Nu7kCw3P4hkQqTZTitA6ELUbRhswrlRmORR4Hzkx4j31X13rI3vZw
- aqHZqIz/znpyXMHy1Kl9ql0f7nML936js4W+zvrOXNRdmQ2CWd1A1iB39puFOCq9FZ
- yx7NVWrSn+pVAXczEiLGfU+0M25rdQK6xrbiKZFmBb6xtB7vYaI9wQmSLa1s9ukgL2
- U16M4npOBW0FZuCMyYNZgqsnWjiWeFreD8bZXXiPh6RbT7zmL6t6dJRjYRU50h46lH
- 6KOimrKYSe0jQ==
+ b=FBALDT8kAHRCsX0ehCbvyYrzBGput6puHmkm6sUqqBzQ4/w9zjjdzuAGUtOl6AneL
+ AF4o1694FBZsh2nXG6HQKWXnQEwDjFmF7qlYqwTrhxmBiEwt5TwjhX44Mav6y5DqSx
+ Yz+6j3F+dOzJiBwxmJaDHTZqNtVKQkj+jk6PUJVfra+5QMr6qkc6/STJ0FX9sf/ffU
+ Dy6jL3Kp/++TvlaneU+sHb1OuiKF4zDEwyhPkirH0C2boqC3OCweXC0webtrhDK2H6
+ WiAVR+iDTEw96XeZ+qto1xVgCwHNgszmuU/gNEI+4kF7ZtefFyTIT1ihxizQg2FyRp
+ zrp7alRIuJaLg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id F235FC88E56;
- Sat, 12 Sep 2026 08:39:17 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 12536C88E5D;
+ Sat, 12 Sep 2026 08:39:18 +0000 (UTC)
 From: Muzaffer Kadir via B4 Relay
  <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Sat, 12 Sep 2026 11:39:13 +0300
-Subject: [PATCH RFC 04/20] dt-bindings: power: rpmpd: Add MSM8952 power domains
+Date: Sat, 12 Sep 2026 11:39:14 +0300
+Subject: [PATCH RFC 05/20] dt-bindings: mmc: sdhci-msm: Add MSM8952 compatible
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-msm8952-initial-support-v1-4-0e742578b524@mainlining.org>
+Message-Id: <20260912-msm8952-initial-support-v1-5-0e742578b524@mainlining.org>
 References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
 In-Reply-To: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
 To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
@@ -77,11 +77,11 @@ Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
  linux-pm@vger.kernel.org, linux-input@vger.kernel.org, 
  Muzaffer Kadir <muzafferkadir@mainlining.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789202354; l=754;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789202354; l=861;
  i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=6ZI51ceEaOIY/u/VVB+l7JnsBp7inUEcGIBHgiYAiBE=;
- b=dztDjXymTNo98gMcgzcAM1ZlmGVG6mQv95qqYW9EttJLlaVnbTxsMMBF33je4lABvOJ+nHxUo
- gFM1b8UvYs5BFp5RzBbSVzQruiYPNmdITMMrXf0e6F6EM7uMpa5ttXT
+ bh=i5JYnHiSTI2FsDfkaSc7QQm0T2uZHX+0vDTSQH293vs=;
+ b=rjKT3vKCGe+tuI8MU/z1XGpbuQVv/ke+KNZMWn+sOLwz+aMBrDn6Valk9bYaifasRV15rtB6N
+ dn/v6Dz6be2BZg1MvcsdUFgQyAMQa2giIzKk6qWaaWtpvS+mB8rBHZo
 X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
  pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
 X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
@@ -105,25 +105,26 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Document the compatible for the rpmpd found on MSM8952.
+Document the compatible string for the SDHCI controller on the
+msm8952 platform.
 
 Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- Documentation/devicetree/bindings/power/qcom,rpmpd.yaml | 1 +
+ Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
-index a70bfacbc5d1..8ee1c25a7c9d 100644
---- a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
-+++ b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
-@@ -76,6 +76,7 @@ properties:
-       - items:
-           - enum:
-               - qcom,msm8937-rpmpd
-+              - qcom,msm8952-rpmpd
-           - const: qcom,msm8917-rpmpd
-       - items:
-           - enum:
+diff --git a/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml b/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
+index 69bd44e65ad7..9d4409c958fa 100644
+--- a/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
++++ b/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
+@@ -26,6 +26,7 @@ properties:
+               - qcom,ipq4019-sdhci
+               - qcom,ipq8074-sdhci
+               - qcom,msm8226-sdhci
++              - qcom,msm8952-sdhci
+               - qcom,msm8953-sdhci
+               - qcom,msm8974-sdhci
+               - qcom,msm8976-sdhci
 
 -- 
 2.54.0
