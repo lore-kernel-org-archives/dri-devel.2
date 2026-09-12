@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CF98C79FB6
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 08:41:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ECF9C79FB6
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 08:42:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF22010E684;
-	Sat, 12 Sep 2026 08:41:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8168010E685;
+	Sat, 12 Sep 2026 08:42:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UkqtJRlt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LVUUaaqd";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E9AC10E684
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 08:41:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D345110E685
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 08:42:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 841BB43C88;
- Sat, 12 Sep 2026 08:41:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05B331F000FF;
- Sat, 12 Sep 2026 08:41:14 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A54CF418DE;
+ Sat, 12 Sep 2026 08:42:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0279B1F00893;
+ Sat, 12 Sep 2026 08:42:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789202475;
- bh=9GJSBK27NdknLZevfr534GsBFcHqjNITB+5Ar8rgZAc=;
+ s=k20260515; t=1789202536;
+ bh=EfFVvKa9lCxxEncl+3DaEHvYlcWwtW87kg9k12mJ3tk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UkqtJRltQg8lfB/pVB1KdiMDE5kzY2N4x9UqDCkci/W1vxrh/xgSBar2h649atsos
- GYH/ZdjY8wfXlBTlckRkblicAvUzZTgNoHRr/pGGmhCAa1iwiZqUEi2rPvE60X5EGI
- 5ciC+94L0jbge5C/ucDm3JxkMHOwfX0jTgPye0TLaZTjgzjbvsVkkqVqEc9x0C7unY
- JMGBR3aMysut+Vuhh28Xm/l/8f7riggzA1r+he/64rk0egEubJDSw3/hERhW+Dfbdv
- kHuxznwB7oihTy9LlKzPUep9CWVGEEhF/CCrp6kbPrFvO1q6e5bmAau7l1+Rgn13OQ
- 90/cEn6da78yQ==
+ b=LVUUaaqdtqEfmwhTcV1VpvzG+qZWuJnpA8fWDYs9NGqEuGR5m3Y4rS5XKzcAtzQJB
+ b7oJoRFqe9xPIPnWmAk2M+G7A+ENqYm3/F7CkjSpQ1N15fbjEzj/JQag1UW7Jr7mQV
+ U78RgQ2TMpw9IXOymCUFplD7tGGEdvE6CY84PYK74yb2xyoz14jBJV6ILf4Wemynz0
+ +EsuW7VWlbKjS4y5bq50DaZ3W0+MfAdQ1R+5EV5u/9J2cz7FG7GdVvvcNBjXSidVGP
+ hNRWoeOyw7R+0c0AfUCtWWASjUZntn64tSbiDlM9C4aiYm6/JspGyVP8oi4W+IdjWR
+ cHBrKjl2ztEKw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 06/20] dt-bindings: vendor-prefixes: Add General Mobile
+Subject: Re: [PATCH RFC 04/20] dt-bindings: power: rpmpd: Add MSM8952 power
+ domains
 To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
-Cc: robh@kernel.org, linux-input@vger.kernel.org,
- dri-devel@lists.freedesktop.org, lee@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, linux-clk@vger.kernel.org, mfd@lists.linux.dev,
- dmitry.torokhov@gmail.com
-In-Reply-To: <20260912-msm8952-initial-support-v1-6-0e742578b524@mainlining.org>
+Cc: lee@kernel.org, mfd@lists.linux.dev, dmitry.torokhov@gmail.com,
+ dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org, linux-input@vger.kernel.org,
+ robh@kernel.org
+In-Reply-To: <20260912-msm8952-initial-support-v1-4-0e742578b524@mainlining.org>
 References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
- <20260912-msm8952-initial-support-v1-6-0e742578b524@mainlining.org>
+ <20260912-msm8952-initial-support-v1-4-0e742578b524@mainlining.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 08:41:14 +0000
-Message-Id: <20260912084115.05B331F000FF@smtp.kernel.org>
+Date: Sat, 12 Sep 2026 08:42:15 +0000
+Message-Id: <20260912084216.0279B1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,8 +63,7 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 > From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 >=20
-> Add vendor prefix for General Mobile.
-> Link: https://www.generalmobile.com
+> Document the compatible for the rpmpd found on MSM8952.
 >=20
 > Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
@@ -71,5 +71,5 @@ Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912-msm8952-in=
-itial-support-v1-0-0e742578b524@mainlining.org?part=3D6
+itial-support-v1-0-0e742578b524@mainlining.org?part=3D4
 
