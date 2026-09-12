@@ -4,42 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FDCCC88E53
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 09:16:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71426C79FB6
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 09:19:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A90DF10E475;
-	Sat, 12 Sep 2026 09:16:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9544E10E6AC;
+	Sat, 12 Sep 2026 09:19:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NjXw/E/z";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FgvxPJoM";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D322310E475;
- Sat, 12 Sep 2026 09:16:45 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B83010E6AC
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 09:19:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A152743C5F;
- Sat, 12 Sep 2026 09:16:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E9ED1F00893;
- Sat, 12 Sep 2026 09:16:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1CE1C601EF;
+ Sat, 12 Sep 2026 09:19:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A01C1F00893;
+ Sat, 12 Sep 2026 09:19:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789204605;
- bh=QMxsZXNPdDP3OZk5rsIfOjPSh0zNAysLpZcCsrjSshM=;
+ s=k20260515; t=1789204741;
+ bh=lAsIpe806HlPTUSZ5kaRH5I/tDePjdmxr4OhX7PnnO8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NjXw/E/zcINWxWn6qbuKHE8G595yGzkvJBThkzA/Nsqgua6H9k2oEZ/K7mQjpqhLi
- 8colEJuf7ZnoniA4EqhW0c8junCx2Xb66vPkJ3K662K+bY4q0RSH80wgZzlyRXGojR
- ySp7/etqWA8cG2oQ2rpr4DzVTB0DOLabHv8F6fq89wuuHR5jw2JNhPw6tPIpvWiHmp
- m/wnfoUjHNfuA8BgwWar760QDgrwzvyvpLkcUgY9Z9UEtkMfq+UksrB8PHfVuIzUhC
- Buv1qlQG3pfDlqL8VJVWB0c6JgFc5YLAf3EuVwt+VrhuYqeigeaUx6s8HJg1UVnJHu
- c/zlG8tcZfAXQ==
+ b=FgvxPJoMZ2rV4b5CcrBvyYOtxy9O6Pm2TC7vFv5d+i3fL7sgTZCrkP3LPdt7wIDRX
+ v+rHQvRBYBgYMEiOajkDbGCWBadIGhD3QbbPg2PA0VuNApThauf1JJ8ljESxJ8C2Yb
+ F140PAXLMm1VoJJV2It8n92E8UNC1jRLTCqreUfUFk3FSijJgsnE9Yyps3+FfqxMCz
+ XedMjP+Nph2LV52SYhane6WpDgTIxWwtaN1z53CXkNyyi/HXGetFv3XL+XQztK5sw6
+ VWl382hMQaroIyITY8Hs6QQGXnEl6IXsNhJYLu7Cm0NSu4hmoU4Os+dhfWZeofBSPJ
+ Vn4w3Il1oNDFQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/xe/i2c: cancel the client work on remove
-To: "Fan Wu" <fanwu01@zju.edu.cn>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260912085932.101598-1-fanwu01@zju.edu.cn>
-References: <20260912085932.101598-1-fanwu01@zju.edu.cn>
+Subject: Re: [PATCH RFC 14/20] drm: msm: mdp5: Add MDP5 configuration for
+ MSM8952
+To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
+Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-input@vger.kernel.org, robh@kernel.org, lee@kernel.org,
+ dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, conor+dt@kernel.org,
+ dmitry.torokhov@gmail.com
+In-Reply-To: <20260912-msm8952-initial-support-v1-14-0e742578b524@mainlining.org>
+References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
+ <20260912-msm8952-initial-support-v1-14-0e742578b524@mainlining.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 09:16:44 +0000
-Message-Id: <20260912091645.4E9ED1F00893@smtp.kernel.org>
+Date: Sat, 12 Sep 2026 09:19:00 +0000
+Message-Id: <20260912091901.4A01C1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,110 +61,110 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Late work cancellation creates an unsynchronized data race and res=
-ource leak on the i2c->client array.
-
-Pre-existing issues:
-- [High] Dangling pointers in xe->i2c and i2c->amc cause a use-after-free w=
-hen handling I2C SMBus alert interrupts due to devm teardown order.
+- [Critical] Missing designated initializers in the lm.base array maps the =
+LM3 base address to the wrong index, causing register corruption.
+- [Critical] Defining `.pipe_cursor` with a Layer Mixer offset (`0x440DC`) =
+causes the driver to incorrectly program LM cursor registers as if they wer=
+e a standard SSPP pipe, trashing the configuration.
+- [High] Inconsistent MDP_PIPE_CAP_SW_PIX_EXT capability between pipe_curso=
+r and main pipes.
 --
 
-commit 6a096e96b5e0c4286797ea9eb48856f09bbb9287
-Author: Fan Wu <fanwu01@zju.edu.cn>
-Subject: drm/xe/i2c: cancel the client work on remove
+commit fb5220e24e57b56379d9ec75eb6d29f391529a7b
+Author: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-This commit aims to fix an issue in xe_i2c_remove() where i2c->work is not
-drained before unregistering the adapter. It adds a call to cancel_work_syn=
-c()
-after bus_unregister_notifier() to prevent a use-after-free if the work runs
-after the adapter is unregistered.
+drm: msm: mdp5: Add MDP5 configuration for MSM8952
 
-Link: https://lore.kernel.org/r/20260909052328.654682-1-fanwu01@zju.edu.cn
+Add the mdp5_cfg_hw entry for MDP5 version v1.12 found on MSM8952.
 
-> diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-> index d8fa68206f418..143ca7145e4f4 100644
-> --- a/drivers/gpu/drm/xe/xe_i2c.c
-> +++ b/drivers/gpu/drm/xe/xe_i2c.c
-> @@ -334,6 +334,7 @@ static void xe_i2c_remove(void *data)
->  	}
-> =20
->  	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
-> +	cancel_work_sync(&i2c->work);
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/m=
+sm/disp/mdp5/mdp5_cfg.c
+> index 7c91fc1915f39..d34c94d6f7e2e 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+> @@ -744,6 +744,86 @@ static const struct mdp5_cfg_hw msm8x76_config =3D {
+
+[ ... ]
+
+> +static const struct mdp5_cfg_hw msm8952_config =3D {
+> +	.name =3D "msm8952",
+
+[ ... ]
+
+> +	.pipe_cursor =3D {
+> +		.count =3D 1,
+> +		.base =3D { 0x440DC },
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but copying this configuration
+defines a Layer Mixer offset (0x440DC) for an SSPP pipe.
+
+Does this cause the driver to incorrectly program LM cursor registers as if
+they were a standard SSPP pipe?
+
+During cursor plane updates via mdp5_hwpipe_mode_set(), standard SSPP macros
+like REG_MDP5_PIPE_* will treat 0x440DC as the SSPP base.
+REG_MDP5_PIPE_OUT_XY (offset 0x10) will write to 0x440DC + 0x10 =3D 0x440EC
+(LM_CURSOR_FORMAT), and REG_MDP5_PIPE_SRC_SIZE (offset 0x0) overwrites
+LM_CURSOR_STRIDE. This misalignment destroys the LM cursor configurations
+and causes hardware faults.
+
+> +		.caps =3D MDP_PIPE_CAP_HFLIP	|
+> +			MDP_PIPE_CAP_VFLIP	|
+> +			MDP_PIPE_CAP_SW_PIX_EXT	|
+> +			MDP_PIPE_CAP_CURSOR	|
+> +			0,
+> +	},
 
 [Severity: High]
-Does placing the work cancellation here introduce a data race with the clie=
-nt
-unregistration loop?
+This isn't a bug introduced by this patch, but copying this configuration
+leaves an inconsistent MDP_PIPE_CAP_SW_PIX_EXT capability between
+pipe_cursor and the main pipes.
 
-Since cancel_work_sync() is executed after the loop that clears i2c->client
-in xe_i2c_remove(), xe_i2c_client_work() can run concurrently on another CP=
-U:
+Are we exposing Software Pixel Extension capabilities on the cursor pipe
+while main pipes lack it?
 
-CPU1 (in xe_i2c_remove)                 CPU2 (in xe_i2c_client_work)
-for (i =3D 0; i < XE_I2C_MAX_CLIENTS; i++) {
-    i2c_unregister_device(i2c->client[i]);
-    i2c->client[i] =3D NULL;
-}
-                                        i2c->client[XE_I2C_CLIENT_AMC] =3D
-                                            i2c_new_client_device(...);
-cancel_work_sync(&i2c->work);
+If the SoC does not support Software Pixel Extension,
+mdp5_plane_atomic_update() will call mdp5_write_pixel_ext() and write to
+non-existent SW_PIX_EXT registers when programming the cursor pipe,
+triggering a Synchronous External Abort. If it does support it, the main
+planes are underutilizing the hardware.
 
-If the worker writes to the array after the loop has passed the index or
-finished entirely, the newly created client device is leaked.
+> +	.lm =3D {
+> +		.count =3D 2,
+> +		.base =3D { 0x44000, 0x47000 },
+> +		.instances =3D {
+> +				{ .id =3D 0, .pp =3D 0, .dspp =3D 0,
+> +				  .caps =3D MDP_LM_CAP_DISPLAY, },
+> +				{ .id =3D 3, .pp =3D -1, .dspp =3D -1,
+> +				  .caps =3D MDP_LM_CAP_WB },
+> +			     },
 
-Could cancel_work_sync() and bus_unregister_notifier() be moved to the
-beginning of the removal function to prevent this?
+[Severity: Critical]
+This isn't a bug introduced by this patch, but copying this configuration
+leaves the lm.base array initialized sequentially without designated
+initializers.
 
+Will this map the LM3 base address to the wrong index and cause register
+corruption?
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this devres teardown pa=
-th
-leave dangling pointers that could cause a use-after-free during an SMBus
-alert interrupt?
+Because lm.base is initialized sequentially as { 0x44000, 0x47000 },
+base[0] becomes 0x44000 and base[1] becomes 0x47000. The remaining indices,
+including base[3], are implicitly initialized to 0.
 
-In xe_i2c_remove(), xe_amc_exit() is called before we reach this point, whi=
-ch
-frees i2c->amc:
+When the driver creates a mixer for LM3 (since its .id is 3), atomic commits
+will cause REG_MDP5_LM_OUT_SIZE(3) to resolve to __offset_LM(3). This
+returns mdp5_cfg->lm.base[3], which evaluates to 0x0. Writes to LM3
+registers will thus write to SOC offset 0x0, corrupting the global MDP
+configuration registers.
 
-drivers/gpu/drm/xe/xe_amc.c:xe_amc_exit() {
-    ...
-    cancel_work_sync(&i2c->amc->work);
-    kfree(i2c->amc);
-}
+Should this use designated initializers for the base array to ensure base[3]
+is mapped correctly?
 
-Since i2c->amc is not set to NULL, and hardware interrupts are not disabled=
- in
-xe_i2c_remove(), a concurrent or subsequent interrupt can trigger the alert
-handler:
-
-drivers/gpu/drm/xe/xe_i2c.c:xe_i2c_handle_smbus_alert() {
-    ...
-    if (stat & DW_IC_SMBUS_INTR_ALERT && i2c->amc)
-        xe_amc_handle_alert(i2c);
-}
-
-This calls into xe_amc_handle_alert() which dereferences the freed memory to
-queue the work item:
-
-drivers/gpu/drm/xe/xe_amc.c:xe_amc_handle_alert() {
-    ...
-    queue_work(system_long_wq, &i2c->amc->work);
-}
-
-Additionally, xe->i2c is not set to NULL before the devm subsystem frees the
-i2c structure, so the active interrupt handler xe_i2c_irq_present() can also
-dereference the dangling xe->i2c pointer.
-
-Should hardware interrupts be disabled and these pointers cleared in this
-removal function?
-
->  	xe_i2c_unregister_adapter(i2c);
->  }
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912085932.1015=
-98-1-fanwu01@zju.edu.cn?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912-msm8952-in=
+itial-support-v1-0-0e742578b524@mainlining.org?part=3D14
