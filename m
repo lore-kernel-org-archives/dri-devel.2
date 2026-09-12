@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E49CC88E53
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 12:59:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B2A5C79FB6
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 12:59:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F74A10E510;
-	Sat, 12 Sep 2026 12:59:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B1D610E647;
+	Sat, 12 Sep 2026 12:59:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i9Cuysr1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X4M2fonZ";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DF2210E510
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 12:59:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B152310E647
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 12:59:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4A15560236;
- Sat, 12 Sep 2026 12:59:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC68D1F000FF;
- Sat, 12 Sep 2026 12:59:34 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 35D4A60236;
+ Sat, 12 Sep 2026 12:59:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C26C61F00893;
+ Sat, 12 Sep 2026 12:59:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789217975;
- bh=NR7Deq9qoGWlzpLO+QPgSGpnOi4+gQ8ycpy2hmlg8vo=;
+ s=k20260515; t=1789217990;
+ bh=5JUutj+qZr6wPnOdhXJdMVyK1ZmwCQSwKKEYlFJzAKk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=i9Cuysr17RHWLK1I2yQAN7hkct4GiU5CQH+rwZkvbPG6pESVU7bUQfkh5bxdUxLRF
- fA0UEswlcrISyjlYoANxqvTzj9kDuLYDUCh4FdAtcPum3Ir2v48zfCgP/QhQcbOB8E
- /++jQ7Yg/fYVwpTjZmUL2kAbIF8FdsqmaGnMoA03VGaOgYB6YPML/EU/asluYtoV0J
- dVn22SrZZXRmfhc1dkFkpfXVhyVhSNKdzRSpbc0yDW8nd1QB1XrEw98GtmJ7jLkhsx
- OKIcxR/vnGUfx2xfACoew6mD/x6ax2Ihl/vueh7EOOAfdeMiWETl7m64TgxmAZ++Y/
- SNluXzA7h+qmA==
+ b=X4M2fonZ+qfbZ/ldUWkktJsa0i/xqyh+/88UJppJFoG5kl96PI8vYBoTH8i7kyqWy
+ KTJr9yO5xVOQudTV9j+po3hbODW2R8y3KaEqKCJPyyxAV+A0clh+PVum1e1XCPELQR
+ C+DcfJWFAP2VOni0pTRMDos89jBDayE7SUgv9IKv55WhDnglRwpszzmkQkU2F/5sdw
+ i0spGkC6XWjboBinND59s+cPGdyzyc1kQa8u/EAn/y39vmDryUQ3TGa1uhErLN9/NI
+ TRPPsByCc1U/HfyBpgDHcMB5dFNIJ7PZv5DtawkP5XQrXfCjdmIm2vaWwEqcnENJX1
+ zUjOkM04gHVaA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/8] drm/msm: release scanout framebuffers only after
- a vblank
+Subject: Re: [PATCH v3 6/8] drm/msm/dpu: clear the DSC blocks left by a
+ previous reservation
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260912-fd-kms-fix-smmu-v3-4-a7ddc6fe2032@oss.qualcomm.com>
+In-Reply-To: <20260912-fd-kms-fix-smmu-v3-6-a7ddc6fe2032@oss.qualcomm.com>
 References: <20260912-fd-kms-fix-smmu-v3-0-a7ddc6fe2032@oss.qualcomm.com>
- <20260912-fd-kms-fix-smmu-v3-4-a7ddc6fe2032@oss.qualcomm.com>
+ <20260912-fd-kms-fix-smmu-v3-6-a7ddc6fe2032@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 12:59:34 +0000
-Message-Id: <20260912125934.CC68D1F000FF@smtp.kernel.org>
+Date: Sat, 12 Sep 2026 12:59:50 +0000
+Message-Id: <20260912125950.C26C61F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,115 +58,109 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Concurrent execution of msm_crtc_queue_fb_unpin() and msm_crtc_vbl=
-ank_off() causes a use-after-free of the unpin work item.
+
+Pre-existing issues:
+- [High] Uninitialized stack memory dereference due to stale `hw_cwb` point=
+ers.
+- [High] Stale `hw_cdm` pointer leads to hardware state corruption.
 --
 
-commit d546c6b2b93655071c146a3c50f9a3cb4baa8f1b
+commit 21c6c86adbc8ec970742702720e70e53d2f08f5c
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: drm/msm: release scanout framebuffers only after a vblank
 
-This commit modifies the framebuffer cleanup process to defer unpinning
-until after a vblank by scheduling a drm_vblank_work item. It also
-provides a mechanism to release these works directly if the CRTC is
-switched off and no further vblanks will arrive.
+drm/msm/dpu: clear the DSC blocks left by a previous reservation
 
-> diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
-> index f3e39c3907a93..4582ba040f6ff 100644
-> --- a/drivers/gpu/drm/msm/msm_kms.c
-> +++ b/drivers/gpu/drm/msm/msm_kms.c
-[ ... ]
-> @@ -165,6 +167,119 @@ void msm_crtc_disable_vblank(struct drm_crtc *crtc)
->  	vblank_ctrl_queue_work(priv, crtc, false);
->  }
+This commit fixes an issue in dpu_encoder_virt_atomic_mode_set() where stale
+DSC blocks from previous reservations were not cleared by writing NULL to t=
+he
+remaining elements in the hw_dsc array.
+
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/dr=
+m/msm/disp/dpu1/dpu_encoder.c
+> index 1f20695f81e35..50c49259a23e9 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -1222,9 +1222,10 @@ static void dpu_encoder_virt_atomic_mode_set(struc=
+t drm_encoder *drm_enc,
+>  	num_dsc =3D dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+>  						drm_enc->crtc, DPU_HW_BLK_DSC,
+>  						hw_dsc, ARRAY_SIZE(hw_dsc));
+> -	for (i =3D 0; i < num_dsc; i++) {
+> -		dpu_enc->hw_dsc[i] =3D to_dpu_hw_dsc(hw_dsc[i]);
+> -		dsc_mask |=3D BIT(dpu_enc->hw_dsc[i]->idx - DSC_0);
+> +	for (i =3D 0; i < MAX_CHANNELS_PER_ENC; i++) {
+> +		dpu_enc->hw_dsc[i] =3D i < num_dsc ? to_dpu_hw_dsc(hw_dsc[i]) : NULL;
+> +		if (dpu_enc->hw_dsc[i])
+> +			dsc_mask |=3D BIT(dpu_enc->hw_dsc[i]->idx - DSC_0);
+>  	}
 > =20
-> +struct msm_fb_unpin_work {
-> +	struct drm_vblank_work base;
-> +	struct list_head node;
-> +	struct msm_kms_fb_unpin *pending;
-> +	struct drm_framebuffer *fb;
-> +};
-> +
-> +static void msm_kms_fb_unpin_release(struct msm_fb_unpin_work *unpin)
-> +{
-> +	msm_framebuffer_unpin(unpin->fb);
-> +	drm_framebuffer_put(unpin->fb);
-> +	kfree(unpin);
-> +}
-[ ... ]
-> +void msm_crtc_vblank_off(struct drm_crtc *crtc)
-> +{
-[ ... ]
-> +	for (;;) {
-> +		spin_lock(&pending->lock);
-> +		unpin =3D list_first_entry_or_null(&pending->fbs, typeof(*unpin),
-> +						 node);
-> +		if (unpin)
-> +			list_del_init(&unpin->node);
-> +		spin_unlock(&pending->lock);
-> +
-> +		if (!unpin)
-> +			break;
-> +
-> +		drm_vblank_work_cancel_sync(&unpin->base);
-> +		msm_kms_fb_unpin_release(unpin);
+>  	dpu_enc->dsc_mask =3D dsc_mask;
 
 [Severity: High]
-Is it possible for a concurrent msm_crtc_queue_fb_unpin() call to still be
-holding the unpin pointer when this releases it?
+This is a pre-existing issue, but does the hw_cwb array suffer from the same
+problem just above this block?
 
-If an atomic commit calls msm_crtc_queue_fb_unpin(), and a concurrent CRTC
-disable commit concurrently calls msm_crtc_vblank_off() here, could the new=
-ly
-added unpin object be popped and freed before it has been scheduled?
+In dpu_encoder_virt_atomic_mode_set(), hw_cwb is populated up to num_cwb:
 
-> +	}
-> +
-> +out:
-> +	drm_crtc_vblank_off(crtc);
-> +}
-> +
-> +bool msm_crtc_queue_fb_unpin(struct drm_crtc *crtc, struct drm_framebuff=
-er *fb)
-> +{
-[ ... ]
-> +	drm_vblank_work_init(&unpin->base, crtc, msm_kms_fb_unpin_work);
-> +
-> +	spin_lock(&pending->lock);
-> +	list_add_tail(&unpin->node, &pending->fbs);
-> +	spin_unlock(&pending->lock);
-> +
-> +	if (drm_vblank_work_schedule(&unpin->base,
-> +				     drm_crtc_vblank_count(crtc) + 1, true) !=3D 1) {
+	for (i =3D 0; i < num_cwb; i++) {
+		dpu_enc->hw_cwb[i] =3D to_dpu_hw_cwb(hw_cwb[i]);
+		...
+	}
+
+Elements beyond num_cwb are not cleared to NULL. Later, in
+dpu_encoder_helper_phys_setup_cwb(), it iterates over the entire
+MAX_CWB_PER_ENC array:
+
+	for (int i =3D 0; i < MAX_CWB_PER_ENC; i++) {
+		hw_cwb =3D dpu_enc->hw_cwb[i];
+		if (!hw_cwb)
+			continue;
+		...
+		if (enable) {
+			struct dpu_hw_pingpong *hw_pp =3D
+					to_dpu_hw_pingpong(rt_pp_list[i]);
+			cwb_cfg.pp_idx =3D hw_pp->idx;
+
+Could a stale hw_cwb pointer bypass the !hw_cwb check and access
+rt_pp_list[i]? If i >=3D num_pp, it seems this would lead to dereferencing
+uninitialized stack memory.
 
 [Severity: High]
-Can this sequence trigger a use-after-free or double-free?
+This isn't a bug introduced by this patch, but does hw_cdm have a similar
+lifecycle issue in the same function?
 
-Since the unpin object is published to pending->fbs before calling
-drm_vblank_work_schedule(), and the lock is dropped, a concurrent
-msm_crtc_vblank_off() could potentially grab the object from the list and
-free it.
+Just below the hw_dsc clearing, dpu_encoder_virt_atomic_mode_set() handles
+hw_cdm:
 
-If that happens, does this code then attempt to access the freed unpin->bas=
-e,
-and potentially double-free it with the kfree(unpin) below if scheduling
-fails?
+	if ((dpu_enc->disp_info.intf_type =3D=3D INTF_WB && conn_state->writeback_=
+job) ||
+	    dpu_enc->disp_info.intf_type =3D=3D INTF_DP) {
+		struct dpu_hw_blk *hw_cdm =3D NULL;
 
-> +		spin_lock(&pending->lock);
-> +		list_del_init(&unpin->node);
-> +		spin_unlock(&pending->lock);
-> +
-> +		drm_framebuffer_put(fb);
-> +		kfree(unpin);
-> +
-> +		return false;
-> +	}
-> +
-> +	return true;
-> +}
+		dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+					      drm_enc->crtc, DPU_HW_BLK_CDM,
+					      &hw_cdm, 1);
+		dpu_enc->cur_master->hw_cdm =3D hw_cdm ? to_dpu_hw_cdm(hw_cdm) : NULL;
+	}
+
+If a modeset drops the writeback_job, this block is skipped entirely, leavi=
+ng
+the old pointer in dpu_enc->cur_master->hw_cdm.
+
+Later, dpu_encoder_helper_phys_cleanup() unconditionally uses this pointer:
+
+	if (phys_enc->hw_cdm) {
+		if (phys_enc->hw_cdm->ops.bind_pingpong_blk && phys_enc->hw_pp)
+			phys_enc->hw_cdm->ops.bind_pingpong_blk(phys_enc->hw_cdm,
+								PINGPONG_NONE);
+		...
+	}
+
+Can this stale pointer cause the cleanup path to alter a hardware block that
+might now be owned by a different CRTC?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912-fd-kms-fix=
--smmu-v3-0-a7ddc6fe2032@oss.qualcomm.com?part=3D4
+-smmu-v3-0-a7ddc6fe2032@oss.qualcomm.com?part=3D6
