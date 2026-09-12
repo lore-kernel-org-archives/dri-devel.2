@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0D90C88E53
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 08:39:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C525FC79FB6
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 08:39:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FCC310E6AA;
-	Sat, 12 Sep 2026 08:39:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA9DF10E6A8;
+	Sat, 12 Sep 2026 08:39:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U8hCsUnb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bQP7qEAK";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 684F610E679;
- Sat, 12 Sep 2026 08:39:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 087B010E697;
+ Sat, 12 Sep 2026 08:39:24 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 5165144860;
+ by sea.source.kernel.org (Postfix) with ESMTP id B6A8E448C6;
  Sat, 12 Sep 2026 08:39:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B0897C2BCFF;
- Sat, 12 Sep 2026 08:39:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 499C9C4DE0E;
+ Sat, 12 Sep 2026 08:39:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1789202358;
- bh=wo5rvcgpiDR2tWdJaWVv8550ALi5urbFQa8p/WD73j4=;
+ s=k20201202; t=1789202359;
+ bh=gM8hG6xV7HvUkbqiaFbAzfVdHPBVSRS6JDUjLTZIt2A=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=U8hCsUnbIvPGTLUU8bGGhgo6CBWjcPgR9eqJP5gry7uURqui1lUs111uELS8rGjuN
- cgn66cB5s/ZWGdVg14m5ImqoQUeGEDJkRph9ps+RuqcwvckQqC6SQ7IRi9haz57eU4
- A9hT7u7N4DEEotmSIGI85W4SE1JbzbT8VPBqOG/D2VOG4dIXt5AZ63T6FpgGh0/QiP
- rlGDSfEB2a35Ou7TWoyx+pzzFIVAmWplWJXCTWwfhCnXoXfgU5LUizwVoMkOa5TpOk
- lJcpOWRaQXCTwfLeaQrWFOTzvS6vtvn/i0apg10CM8ZKFCmw1QPxdN7vUAz53U2xi4
- e9pDNsESTGlew==
+ b=bQP7qEAKHeRMUl1hH0MDC7J7a9cCAh8NKn/od9sIQW3Qqur7s9MIoLz49zM1K9lED
+ wk2WyoQsBEmExpBPmQSFL6zcMYW93eBNhgINqZnD+eO5keVyH0fZrs8mkPo0d+vbmR
+ hYmPmhDM+tSHIqPmOxxEaRB7T6+lnlcgBV1Eg1a9bspGZDBBcEllathXWgWBR1Tn7p
+ d9ZAr39TWKRa7tK32TmUJN0XVOAjxH5LhUacvjl91WrtCFV6r91kvX/nyj5XcomssG
+ k+/ybWKw7jotEbXa+l6k4pT6Mr7cjX43L3pvqeq+VkChPBvmRj5rvgdfuc1RrRva6T
+ bddc3dSaEMpgA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 9A68CC88E5D;
- Sat, 12 Sep 2026 08:39:18 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 32B5DC88E60;
+ Sat, 12 Sep 2026 08:39:19 +0000 (UTC)
 From: Muzaffer Kadir via B4 Relay
  <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Sat, 12 Sep 2026 11:39:21 +0300
-Subject: [PATCH RFC 12/20] dt-bindings: clock: qcom,rpmcc: Add MSM8952
- compatible
+Date: Sat, 12 Sep 2026 11:39:28 +0300
+Subject: [PATCH RFC 19/20] dt-bindings: input: touchscreen: goodix: Add
+ binding for GT970
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-msm8952-initial-support-v1-12-0e742578b524@mainlining.org>
+Message-Id: <20260912-msm8952-initial-support-v1-19-0e742578b524@mainlining.org>
 References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
 In-Reply-To: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
 To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
@@ -78,11 +78,11 @@ Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
  linux-pm@vger.kernel.org, linux-input@vger.kernel.org, 
  Muzaffer Kadir <muzafferkadir@mainlining.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789202354; l=1095;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789202354; l=1586;
  i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=RjoJbvQY6DTtuLDZ5TP0oZiQtiyl85vhqU0L6uvEo40=;
- b=pcRaa0ZTvYkfbl+BsShmjQWmwODB4ZJDeAyLKhVRHL0xmSF18K3ztVbIsuT78yBj0Vys2iYkw
- nyq7g0GOjpBBYcwa6YVmOnON71GKl7fv8Tyn0qvKac5nQklOJ6BfjCU
+ bh=Qoy33EJn3v6X56PtrYhm3G9p9Sahcex0RkQOCVhpJ3w=;
+ b=bdZyKcCT7IdWUsls580MpK+jGBXtthmOOQm6HNiFHMVSEF6gRr/EocPv5cO4TZRwkV2Y2986M
+ ppD+uWM839hCCUX+1HyoRAqVC0StePZL2tApZJf9FJXPIhcPKJU2fmt
 X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
  pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
 X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
@@ -106,33 +106,60 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Document the rpmcc found on MSM8952.
+GT970 works with GT911 driver, document it to be
+used with GT911 compatible.
 
 Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ .../bindings/input/touchscreen/goodix.yaml         | 35 ++++++++++++----------
+ 1 file changed, 20 insertions(+), 15 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml b/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml
-index 17332aa55886..4532d2b6c1fd 100644
---- a/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml
-+++ b/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml
-@@ -36,6 +36,7 @@ properties:
-               - qcom,rpmcc-msm8936
-               - qcom,rpmcc-msm8937
-               - qcom,rpmcc-msm8940
-+              - qcom,rpmcc-msm8952
-               - qcom,rpmcc-msm8953
-               - qcom,rpmcc-msm8974
-               - qcom,rpmcc-msm8976
-@@ -121,6 +122,7 @@ allOf:
-               - qcom,rpmcc-msm8936
-               - qcom,rpmcc-msm8937
-               - qcom,rpmcc-msm8940
-+              - qcom,rpmcc-msm8952
-               - qcom,rpmcc-msm8953
-               - qcom,rpmcc-msm8974
-               - qcom,rpmcc-msm8976
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
+index a26a54d63a1c..4be2c137abd7 100644
+--- a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
++++ b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
+@@ -14,21 +14,26 @@ allOf:
+ 
+ properties:
+   compatible:
+-    enum:
+-      - goodix,gt1151
+-      - goodix,gt1158
+-      - goodix,gt5663
+-      - goodix,gt5688
+-      - goodix,gt911
+-      - goodix,gt9110
+-      - goodix,gt912
+-      - goodix,gt9147
+-      - goodix,gt917s
+-      - goodix,gt927
+-      - goodix,gt9271
+-      - goodix,gt928
+-      - goodix,gt9286
+-      - goodix,gt967
++    oneOf:
++      - enum:
++          - goodix,gt1151
++          - goodix,gt1158
++          - goodix,gt5663
++          - goodix,gt5688
++          - goodix,gt911
++          - goodix,gt9110
++          - goodix,gt912
++          - goodix,gt9147
++          - goodix,gt917s
++          - goodix,gt927
++          - goodix,gt9271
++          - goodix,gt928
++          - goodix,gt9286
++          - goodix,gt967
++      - items:
++          - enum:
++              - goodix,gt970
++          - const: goodix,gt911
+ 
+   reg:
+     enum: [ 0x5d, 0x14 ]
 
 -- 
 2.54.0
