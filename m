@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CA54C88E53
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 10:39:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D544BC88E53
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 10:40:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E3DD10E6E3;
-	Sat, 12 Sep 2026 10:39:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C34AF10E6E7;
+	Sat, 12 Sep 2026 10:40:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="mSHmY8h9";
+	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="Ql0oOA2/";
 	dkim-atps=neutral
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch
- [79.135.106.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36FD310E6E3
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 10:39:20 +0000 (UTC)
+Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch
+ [79.135.106.113])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D71F10E6E7
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 10:40:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
- s=protonmail; t=1789209557; x=1789468757;
- bh=B9i83SiDjSpKwhV2wxvRP5EbKHjuMpjaXeYGQMHf3n4=;
+ s=protonmail; t=1789209613; x=1789468813;
+ bh=Vako4VkziNjtt4ByJRowjB5r64C2g/LbzNGVzHSPwC0=;
  h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
  Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=mSHmY8h9Li4Ybz4qZEwkn91WDhI0o3R77ylYtanYzjfm8RwYZ0ARK8o5WeS7UQhIu
- ExI0cKIJU00QvNw7WIWoy0mvSqh5ztdoKrukeQT9x/XdRXIcdH8UtWDu4iH4x3okXB
- MW9VTyJ9zQBDQQYm/hXmEeoOE/3b73RN0d/McLgSjHL+NlrpiRC4ykOHgBCGv+Edx1
- OULl0YapjTBldczdunh50LV0Eh5HKg0HCyBGTgtxCsKnh+gkqVaiTIIgnreLCZ6h54
- ORqbJGLMJ6WoHYgCxhtJJ2xELPhiWX64z/4EcCZmP9hGeIAmTlsKAHE8is78hBjotf
- AR1sCggaAMHjg==
-X-Pm-Submission-Id: 4hhnw23BYPz2SdJY
+ b=Ql0oOA2/tSpG8EpvpGEgPawnGHZGtyoXeG0Ex5CHukL1iyDjuB3DcFANP8TX3fhwj
+ dl6XiC+OFiIYF2YTS/7yqakpJW0VlWiGpjxDHE2Ngxm6tSjIE70BGd8Wzb/ahuZaNl
+ ogmAOndIIKyFqctftOfynHT3HasAPOXYHi+Vif9b7gGoXCNw6nnHRs/jrgrxlkSQgH
+ L/csl7TlNygUej/2RGD05lx3yWf7YAtOydNgS3nE0b/KcDHUMs6aZ2Sc5NogUP0xtd
+ UXxa2A3cRd6wLRHJkChaGUbmDeAZTY0xjIFrXaEKdwj4C6UPABYaeVNiu4fGPUBVNM
+ oTMSAO9H40F3A==
+X-Pm-Submission-Id: 4hhnx45SkPz1DFFN
 From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
 To: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
  dri-devel@lists.freedesktop.org
@@ -37,7 +37,7 @@ Cc: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
  a.hindborg@kernel.org, tmgross@umich.edu,
  =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
 Subject: [PATCH v7 0/3] drm/tyr: GPU reset infrastructure
-Date: Sat, 12 Sep 2026 13:38:56 +0300
+Date: Sat, 12 Sep 2026 13:39:53 +0300
 Message-ID: <20260912-tyr-reset-impl-v7-0-077ce72084eb@onurozkan.dev>
 X-Mailer: git-send-email 2.51.2
 MIME-Version: 1.0
@@ -58,6 +58,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Message-ID: <20260912103953.zkDzyY-s_e5oTJIM9h_1_LfpsWbjUeLB104TzWfoFp8@z>
 
 Add support for scheduling GPU resets on a dedicated workqueue. Track
 the reset state to avoid queueing another reset while one is already
@@ -90,7 +91,6 @@ Changes since v6:
     the guarded iomem reference to helpers to avoid deadlocks.
   - Clone the gate Arc before acquiring a guard so mutating address-space
     helpers can retain their &mut self receivers as suggested by Daniel.
-  - Collect review and test tags.
 
 Link: https://lore.kernel.org/all/20260613065348.96750-1-work@onurozkan.dev [1]
 Link: https://lore.kernel.org/all/20260807165252.3849875-1-dakr@kernel.org [2]
