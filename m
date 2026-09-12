@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA1C4C88E53
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 23:14:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF8B0C88E56
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 23:44:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76D4210E00B;
-	Sat, 12 Sep 2026 23:14:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A624C10E532;
+	Sat, 12 Sep 2026 23:44:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cl/naFjj";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="IOz2ESQ1";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61B7310E00B
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 23:14:15 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6763B60008;
- Sat, 12 Sep 2026 23:14:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E61621F000FF;
- Sat, 12 Sep 2026 23:14:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789254854;
- bh=WURPUXwfMyOk1tDqQ7jZG2/IAQ0pEIarCU7hJnY+sjU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=cl/naFjjBk8WFXHFmWZx457vM+WBXBslw26KNZeQJgdMMwp+E5Y06LnrxY1SUPzyv
- VICtZ9JrdYTB2w7c8kH7BJhpwIYwJ3eojnAjORiO8xZBX3Hb0HIS4LaO0c1D5+1Sfd
- t7DXpR2PjN4l4G3CafYtn7EQFW5IXAzoQ3hcrA5++aPrHtzx9w0H1j0eMpxfxITMMv
- SG6tczCJNFlmiNZP1rJNNMDq+5Brj0RIG3Csu89S+mq02DMYZq1dRaCigk8cJoep9h
- BmLC6qDDEMb3EGoh8l9qi18i2mMU1J4iktdZvw32VKlOUSa/Gei19QO4iulq/sEhKr
- BRVoX+vYkxOQQ==
-From: sashiko-bot@kernel.org
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 16F6210E532
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 23:44:45 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 608001682;
+ Sat, 12 Sep 2026 16:44:41 -0700 (PDT)
+Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6BE883F7D8;
+ Sat, 12 Sep 2026 16:44:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1789256684; bh=W69k13iWpQBYvt5U0bRgjjz2xuCB0uhzuDkimnsS7vo=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=IOz2ESQ1AHQfkT7kXZAQytgLnp68UioAbzlwg0NHvL3sF8szq1OlKplMpknO3yYKs
+ vDD9Ts8MyaVWIK1xSfUogve6Hvy4BPn7GEedkOzVzF1U40fsO6z9H2YFisTSvtGovH
+ XLf1vLQjylqgasXV8WCKq4ZSCr4TjqMDW2zG3Gz4=
+Date: Sun, 13 Sep 2026 01:39:55 +0200
+From: Andre Przywara <andre.przywara@arm.com>
+To: leow149 <leow149@lucidmail.xyz>
+Cc: dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org,
+ mripard@kernel.org, paulk@sys-base.io
 Subject: Re: [RFC PATCH v7] arm64: allwinner: add TrimUI Smart Pro (A133)
  board support
-To: leow149 <leow149@lucidmail.xyz>
-Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
+Message-ID: <20260913013955.0fbc4acd@ryzen.lan>
 In-Reply-To: <20260912230131.109229-1-leow149@lucidmail.xyz>
 References: <20260912222429.107809-1-leow149@lucidmail.xyz>
  <20260912230131.109229-1-leow149@lucidmail.xyz>
-Content-Type: text/plain; charset=utf-8
+Organization: Arm Ltd.
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 23:14:13 +0000
-Message-Id: <20260912231413.E61621F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,34 +56,232 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] First frame kick is permanently lost if the hardware is busy at th=
-e first timer tick, deadlocking the display.
-- [Medium] TCON TOP DSI clock gate is leaked because it is never disabled.
-- [Low] DT schema validation bypass due to missing compatible strings in co=
-nditional blocks.
---
+On Sun, 13 Sep 2026 01:01:30 +0200
+leow149 <leow149@lucidmail.xyz> wrote:
 
-commit 17cfa6c0fbcb618f9439977751e662fb57699cdd
-Author: leow149 <leow149@lucidmail.xyz>
+Hi,
 
-arm64: allwinner: add TrimUI Smart Pro (A133) board support
+first: please stop posting in such a quick succession, just because
+sashiko had something to say. This puts off real reviewers, because you
+change things too quickly. Normally I'd say you wait for a few days, to
+give everyone a chance to have a look.
 
-This commit adds board bring-up support for the TrimUI Smart Pro handheld
-device, implementing the display pipeline, panel driver, and PWM backlight.
-It introduces the A133 DE2 mixer configurations, TCON TOP quirks, and handl=
-es
-the CPU/8080-interface DSI output.
+second: this must not be a single patch, this is VERY wrong, even with
+an RFC tag. I guess people will just ignore it. You NEED to split this
+up into several patches, one patch per change, definitely split up by
+subsystem, with DT bindings separately, DT patches separately, driver
+changes separately. Please read the kernel documentation about this:
+https://docs.kernel.org/process/submitting-patches.html
 
+And by just glancing over this, I guess this overlaps with
+work-in-progress DE, HDMI, and PWM drivers for "nearby" SoCs.
+
+What you should focus on is to get the basic devicetree for the device
+upstream - with just the devices mentioned for which we have bindings
+for - so clocks, pinctrl, UART, MMC, PMIC, I guess. The rest of the
+features can the be worked on independently.
+
+Cheers,
+Andre
+
+> Board bring-up for the TrimUI Smart Pro handheld (Allwinner A133 Plus):
+>=20
+> - New board DTS (sun50i-a133-trimui-smartpro.dts): display pipeline
+>   (mixer/TCON/DSI/D-PHY), regulators, MMC, PWM backlight.
+> - New OTM1289A/ER68576 DSI panel driver (panel-orisetech-otm1289a.c),
+>   including real panel timings and DCS init sequence.
+> - New PWM driver for this SoC's newer-generation PWM IP
+>   (pwm-sun50i-a133.c), with binding doc.
+> - sun8i_mixer: A133 DE2 mixer0/mixer1 configs.
+> - sun8i_tcon_top: A133 quirks entry, plus two new helpers
+>   (sun8i_tcon_top_set_dsi_gate/set_de0_port) needed because this
+>   board's TCON quirks table has no .set_mux callback to reach them
+>   through the existing paths.
+> - sun4i_tcon: CPU/8080-interface DSI bring-up (sun4i_tcon0_mode_set_cpu
+>   register formulas, an hrtimer-driven TRIGGER_START retrigger, IRQ
+>   ordering/ack fixes) plus TCON-TOP wiring for this board's DSI clock
+>   gate and DE0 port routing. All of the CPU/8080-interface-specific
+>   additions are gated behind a new, more specific
+>   "allwinner,sun50i-a133-tcon-lcd" compatible string
+>   (dsi_cpu_needs_retrigger quirk field), so none of it affects
+>   Pinephone/Pinetab (A64), the one other real board sharing this
+>   driver's shared DSI/CPU-mode code path.
+> - sun6i_mipi_dsi: an additional DSI_START_TRI instruction-jump-table
+>   case for continuous per-frame retriggering (distinct from the
+>   existing one-shot HS-clock-enable case), a DRQ_SET formula fix, and
+>   reordering the HS-clock-enable step to run before the panel's DCS
+>   init sequence.
+> - ccu-sun50i-a100: CLK_SET_RATE_PARENT on the tcon-lcd0 clock so its
+>   rate request can actually explore parent PLL rates.
+>=20
+> Sending as RFC rather than waiting for the display to fully work:
+> posting the board/DTS foundation now so it's in front of people who
+> know this hardware, rather than sitting on it indefinitely.
+>=20
+> Known issue, and the actual reason for the RFC tag: the panel attaches
+> and the backlight lights, but no pixel data reaches it.
+> TCON0_CPU_IF_REG's TRIGGER_START bit (a documented self-clearing
+> one-shot) never self-clears, despite the rest of the pixel pipeline
+> matching a working vendor system register-for-register -- every
+> static register value, D-PHY lane state, control-flow/sequencing
+> cross-referenced against a symbol-resolved decompile of the vendor
+> kernel, and even measured real-time timing all confirmed matching.
+> Full writeup, including what's been ruled out and how:
+> https://github.com/leow149/trimui-a133-mainline-port/blob/main/COMMUNITY_=
+HELP_REQUEST.md
+>=20
+> If anyone recognizes this symptom on the CPU/8080-interface DSI path,
+> or can spot something the writeup missed, I would very much like to
+> hear about it.
+>=20
+> Cc: Chen-Yu Tsai <wens@kernel.org>
+> Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+> Cc: Samuel Holland <samuel@sholland.org>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Paul Kocialkowski <paulk@sys-base.io>
+> Signed-off-by: leow149 <leow149@lucidmail.xyz>
+> ---
+>=20
+> Changelog (kept below the cut, not in the commit message -- see the
+> automated-review replies on this thread for full per-finding detail):
+>=20
+> v1 -> v2: Fixed sun6i_dsi_clear_int_status() using regmap_update_bits()
+> on a write-1-to-clear register, which silently no-op'd the write and
+> broke the retrigger timer's edge detection. Also fixed a timer/IRQ not
+> being torn down on CRTC disable, an IRQF_NO_AUTOEN regression that
+> would have permanently disabled vblank for other boards sharing this
+> TCON code, a spurious-vblank issue from treating bare FSYNC_INT as a
+> frame event, a clock-gate write getting silently undone by "disable
+> unused clocks", a PWM register race across channels, a PWM 100%-duty
+> truncation bug, a divide-by-zero guard, and a DT schema gap. Did not
+> resolve the core TRIGGER_START bug.
+>=20
+> v2 -> v3: Fixed the retrigger timer racing sun6i_dsi_encoder_enable()
+> on a guessed 1000ms wall-clock delay instead of sequencing on real
+> completion (added a tcon back-reference so encoder_enable() arms the
+> timer itself once actually done). Fixed missing fast_io on two
+> regmaps (sun4i_tcon_handler() is a genuine hardirq handler; without
+> fast_io, regmap's default mutex-based locking is a sleep-in-hardirq
+> hazard), missing EXPORT_SYMBOL on three DSI helpers (a real modular
+> build failure, not just a modpost nag), and a non-DSI enable_irq()
+> call living in the wrong function (left vblank permanently disabled
+> after one DPMS cycle on other boards). Rejected two atomic-context
+> sleeping claims as false positives, checked directly against
+> drm_atomic_helper.c and the PWM core's own pwm_apply_might_sleep()
+> naming.
+>=20
+> v3 -> v4: Fixed a bus-fault race between sun6i_dsi_encoder_disable()
+> gating DSI clocks/reset and this driver's own retrigger
+> timer/IRQ teardown running later, by moving the teardown into
+> sun6i_dsi_encoder_disable() itself (closing the window at its actual
+> source). Fixed the GINT0 acknowledge write missing TRI_COUNTER_INT
+> (a potential hard lockup if it were ever the bit driving the level
+> line). Hardened (not fully fixed -- it's a narrower, pre-existing
+> TOCTOU shared with the pristine hdmi_src/de_config functions) the
+> sun8i_tcon_top raw of_find_device_by_node()/dev_get_drvdata() lookup
+> with a NULL guard. Found and fixed a real quirks-scoping gap: this
+> board's TCON0 DT node reused sun8i_a83t_lcd_quirks verbatim with real
+> A83T hardware, so several of this series' changes applied to every
+> DSI board sharing that struct (including Pinephone/Pinetab on A64).
+> Fixed via a new "allwinner,sun50i-a133-tcon-lcd" compatible string and
+> a new dsi_cpu_needs_retrigger quirk field gating every one of this
+> series' additions to sun4i_tcon0_mode_set_cpu(), verified against
+> drivers/of/base.c's actual DT compatible-matching algorithm. (TBS-A711
+> on A83T, cited earlier as another affected board, turned out to be
+> LVDS on checking its DTS, not DSI -- corrected.)
+>=20
+> v4 -> v5: Fixed a PWM clock-gate leak (pwm_a133_apply()'s disable path
+> cleared PER_EN but never PCGR_GATING, leaving a disabled channel's
+> clock running indefinitely) and a DT binding schema gap
+> (allwinner,sun8i-r40-tcon-top.yaml required port@4/port@5
+> unconditionally, which this board's HDMI-less tcon-top node can't
+> satisfy) -- restructured the schema so those ports are required
+> per-variant instead, verified with dt-validate against real compiled
+> DTBs (this board's own, and a real upstream H6 one). Rejected the same
+> atomic-context claims again, and a retrigger-timer TOCTOU claim (not
+> reachable: it requires TRI_FINISH_INT pending before TRIGGER_START has
+> ever been written even once).
+>=20
+> v5 -> v6: Fixed a real IRQ re-enable race: a DPMS off/on cycle's
+> sun4i_tcon_dsi_stop_retrigger() masks the IRQ but never acks GINT0, so
+> a stale TRI_FINISH_INT/FSYNC_INT left latched from before the disable
+> can fire the hardirq the instant sun4i_tcon_dsi_retrigger_timer_fn()
+> re-enables it, double-kicking TRIGGER_START against this same
+> function's own about-to-happen kick. Fixed by clearing GINT0 right
+> before that enable_irq() call. Fixed the retrigger timer's own stop
+> condition never triggering once the hardirq-driven backstop is fast
+> enough to always win the race and keep TRIGGER_START looking busy from
+> the timer's perspective -- it would otherwise poll forever as a
+> low-frequency CPU hog instead of handing off. Fixed by adding an
+> explicit dsi_irq_retriggered flag the hardirq handler sets once it
+> successfully retriggers a frame, which the timer checks instead of
+> relying on sampling a transient register bit. Narrowed (not
+> eliminated) a separate, pre-existing write-0-to-clear TOCTOU window on
+> the same GINT0 acknowledge, by moving the ack earlier in the handler,
+> before the slower vblank/page-flip work. Rejected a front/back-porch-
+> swap claim on the panel's drm_display_mode: independently verified
+> against sun6i_dsi_setup_burst()'s DRQ_SET formula and a live register
+> read that the current horizontal front-porch value (88, not the
+> naively-derived 72) is the one already proven correct against real
+> hardware -- 72 was tried previously and directly disproven this same
+> way. Also caught and fixed a stale comment on that same mode struct
+> that had drifted to claim 72 was the confirmed/in-use value when the
+> code already correctly used 88; the mismatch is almost certainly what
+> the automated reviewer's static analysis flagged, since it has no way
+> to see the DRQ_SET hardware verification. Rejected the same
+> atomic-context claims a third time.
+>=20
+>  .../display/allwinner,sun4i-a10-tcon.yaml     |   1 +
+>  .../allwinner,sun8i-a83t-de2-mixer.yaml       |   2 +
+>  .../display/allwinner,sun8i-r40-tcon-top.yaml |  58 +-
+>  .../pwm/allwinner,sun50i-a133-pwm.yaml        |  67 ++
+>  arch/arm64/boot/dts/allwinner/Makefile        |   1 +
+>  .../allwinner/sun50i-a133-trimui-smartpro.dts | 697 ++++++++++++++++++
+>  drivers/clk/sunxi-ng/ccu-sun50i-a100.c        |  16 +-
+>  drivers/gpu/drm/panel/Kconfig                 |   8 +
+>  drivers/gpu/drm/panel/Makefile                |   1 +
+>  .../gpu/drm/panel/panel-orisetech-otm1289a.c  | 435 +++++++++++
+>  drivers/gpu/drm/sun4i/sun4i_tcon.c            | 688 ++++++++++++++++-
+>  drivers/gpu/drm/sun4i/sun4i_tcon.h            | 122 +++
+>  drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c        | 227 +++++-
+>  drivers/gpu/drm/sun4i/sun6i_mipi_dsi.h        |  23 +
+>  drivers/gpu/drm/sun4i/sun8i_mixer.c           |  48 ++
+>  drivers/gpu/drm/sun4i/sun8i_tcon_top.c        | 152 +++-
+>  drivers/gpu/drm/sun4i/sun8i_tcon_top.h        |   2 +
+>  drivers/pwm/Kconfig                           |  14 +
+>  drivers/pwm/Makefile                          |   1 +
+>  drivers/pwm/pwm-sun50i-a133.c                 | 335 +++++++++
+>  20 files changed, 2849 insertions(+), 49 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/pwm/allwinner,sun50=
+i-a133-pwm.yaml
+>  create mode 100644 arch/arm64/boot/dts/allwinner/sun50i-a133-trimui-smar=
+tpro.dts
+>  create mode 100644 drivers/gpu/drm/panel/panel-orisetech-otm1289a.c
+>  create mode 100644 drivers/pwm/pwm-sun50i-a133.c
+>=20
+> diff --git a/Documentation/devicetree/bindings/display/allwinner,sun4i-a1=
+0-tcon.yaml b/Documentation/devicetree/bindings/display/allwinner,sun4i-a10=
+-tcon.yaml
+> index 724d93b91..c01a444cd 100644
+> --- a/Documentation/devicetree/bindings/display/allwinner,sun4i-a10-tcon.=
+yaml
+> +++ b/Documentation/devicetree/bindings/display/allwinner,sun4i-a10-tcon.=
+yaml
+> @@ -45,6 +45,7 @@ properties:
+>        - items:
+>            - enum:
+>                - allwinner,sun50i-a64-tcon-lcd
+> +              - allwinner,sun50i-a133-tcon-lcd
+>            - const: allwinner,sun8i-a83t-tcon-lcd
+> =20
+>        - items:
 > diff --git a/Documentation/devicetree/bindings/display/allwinner,sun8i-a8=
 3t-de2-mixer.yaml b/Documentation/devicetree/bindings/display/allwinner,sun=
 8i-a83t-de2-mixer.yaml
-> index cbd18fd83e527..ce72c1ba71f15 100644
+> index cbd18fd83..ce72c1ba7 100644
 > --- a/Documentation/devicetree/bindings/display/allwinner,sun8i-a83t-de2-=
 mixer.yaml
 > +++ b/Documentation/devicetree/bindings/display/allwinner,sun8i-a83t-de2-=
@@ -92,45 +292,2163 @@ mixer.yaml
 >        - allwinner,sun50i-a64-de2-mixer-1
 > +      - allwinner,sun50i-a133-de2-mixer-0
 > +      - allwinner,sun50i-a133-de2-mixer-1
-
-[Severity: Low]
-Is this missing from the conditional if: properties: compatible: contains
-blocks further down in the schema?=20
-
-By adding these new compatible strings to the global enum without integrati=
-ng
-them into the generation-based if-then conditional blocks, device trees with
-invalid configurations for the A133 mixer may bypass variant-specific
-validation checks and silently pass.
-
-[ ... ]
-
+>        - allwinner,sun50i-h6-de3-mixer-0
+>        - allwinner,sun50i-h616-de33-mixer-0
+> =20
+> diff --git a/Documentation/devicetree/bindings/display/allwinner,sun8i-r4=
+0-tcon-top.yaml b/Documentation/devicetree/bindings/display/allwinner,sun8i=
+-r40-tcon-top.yaml
+> index 7d849c409..533b06fbd 100644
+> --- a/Documentation/devicetree/bindings/display/allwinner,sun8i-r40-tcon-=
+top.yaml
+> +++ b/Documentation/devicetree/bindings/display/allwinner,sun8i-r40-tcon-=
+top.yaml
+> @@ -43,6 +43,7 @@ properties:
+>        - allwinner,sun8i-r40-tcon-top
+>        - allwinner,sun20i-d1-tcon-top
+>        - allwinner,sun50i-h6-tcon-top
+> +      - allwinner,sun50i-a133-tcon-top
+> =20
+>    reg:
+>      maxItems: 1
+> @@ -99,8 +100,6 @@ properties:
+>      required:
+>        - port@0
+>        - port@1
+> -      - port@4
+> -      - port@5
+> =20
+>  required:
+>    - "#clock-cells"
+> @@ -151,6 +150,8 @@ allOf:
+>            required:
+>              - port@2
+>              - port@3
+> +            - port@4
+> +            - port@5
+> =20
+>    - if:
+>        properties:
+> @@ -179,6 +180,13 @@ allOf:
+>              - description: TCON TV0 output clock name
+>              - description: DSI output clock name
+> =20
+> +        ports:
+> +          required:
+> +            - port@2
+> +            - port@3
+> +            - port@4
+> +            - port@5
+> +
+>    - if:
+>        properties:
+>          compatible:
+> @@ -201,6 +209,52 @@ allOf:
+>            items:
+>              - description: TCON TV0 output clock name
+> =20
+> +        ports:
+> +          required:
+> +            - port@4
+> +            - port@5
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: allwinner,sun50i-a133-tcon-top
+> +
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: The TCON TOP interface clock
+> +            - description: >
+> +                The TCON TOP TV0 clock. This SoC has no TCON-TV/HDMI out=
+put
+> +                at all, so this is an otherwise-unused filler clock, only
+> +                present because the driver unconditionally registers a T=
+V0
+> +                gate regardless of quirks.
+> +            - description: The TCON TOP MIPI DSI clock
+> +
+> +        clock-names:
+> +          items:
+> +            - const: bus
+> +            - const: tcon-tv0
+> +            - const: dsi
+> +
+> +        clock-output-names:
+> +          items:
+> +            - description: TCON TV0 output clock name (unused, see above)
+> +            - description: DSI output clock name
+> +
+> +    # This variant has no HDMI mux (no port@4/port@5) and, on the one
+> +    # board using it so far, only mixer0 (no port@2/port@3). The base
+> +    # schema's ports.required list only covers port@0/port@1, which every
+> +    # variant wires up; port@2/port@3 and port@4/port@5 are required
+> +    # per-variant above instead (R40 and D1 both use two mixers and an
+> +    # HDMI/TCON-TV mux, so both are added to their own if/then blocks;
+> +    # H6 has one mixer but still an HDMI mux, so only port@4/port@5 is
+> +    # added there) -- checked against each SoC's actual in-tree
+> +    # dtsi/dts (sun8i-r40.dtsi, sunxi-d1s-t113.dtsi, sun50i-h6.dtsi), not
+> +    # guessed at. This compatible needs no addition here since it has
+> +    # neither extra pair.
+> +
+>  examples:
+>    - |
+>      #include <dt-bindings/interrupt-controller/arm-gic.h>
+> diff --git a/Documentation/devicetree/bindings/pwm/allwinner,sun50i-a133-=
+pwm.yaml b/Documentation/devicetree/bindings/pwm/allwinner,sun50i-a133-pwm.=
+yaml
+> new file mode 100644
+> index 000000000..59e4fba3b
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pwm/allwinner,sun50i-a133-pwm.yaml
+> @@ -0,0 +1,67 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/pwm/allwinner,sun50i-a133-pwm.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Allwinner A133 PWM Controller
+> +
+> +description: |
+> +  No public register documentation for this IP has ever been reused
+> +  upstream: it's a newer, richer generation than the existing
+> +  allwinner,sun4i-a10-pwm family (16 channels grouped in pairs, per-pair
+> +  dead-zone/group-sync control) with no existing mainline driver, and no
+> +  A100/A133-specific binding either. Confirmed real from the public A133
+> +  User Manual (chapter 10.11, base 0x0300a000), which documents this
+> +  block down to bit level.
+> +
+> +maintainers:
+> +  - out-of-tree hobbyist port, not yet upstream
+> +
+> +properties:
+> +  compatible:
+> +    const: allwinner,sun50i-a133-pwm
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: Bus Clock (register access only =E2=80=94 the PWM o=
+utput
+> +          clock source itself is internal to this IP, selected between
+> +          OSC24M/APB1 per-pair in its own PCCR01/PCCR23 registers, not
+> +          exposed as a separate CCU clock)
+> +
+> +  clock-names:
+> +    items:
+> +      - const: bus
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  "#pwm-cells":
+> +    const: 3
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - "#pwm-cells"
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/sun50i-a100-ccu.h>
+> +    #include <dt-bindings/reset/sun50i-a100-ccu.h>
+> +
+> +    pwm: pwm@300a000 {
+> +        compatible =3D "allwinner,sun50i-a133-pwm";
+> +        reg =3D <0x0300a000 0x400>;
+> +        clocks =3D <&ccu CLK_BUS_PWM>;
+> +        clock-names =3D "bus";
+> +        resets =3D <&ccu RST_BUS_PWM>;
+> +        #pwm-cells =3D <3>;
+> +    };
+> diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts=
+/allwinner/Makefile
+> index aa21f58a4..6132fda32 100644
+> --- a/arch/arm64/boot/dts/allwinner/Makefile
+> +++ b/arch/arm64/boot/dts/allwinner/Makefile
+> @@ -26,6 +26,7 @@ dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h64-remix-mini-pc.=
+dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-a100-allwinner-perf1.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-a133-helperboard.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-a133-liontron-h-a133l.dtb
+> +dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-a133-trimui-smartpro.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h5-bananapi-m2-plus.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h5-bananapi-m2-plus-v1.2.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h5-emlid-neutis-n5-devboard.dtb
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a133-trimui-smartpro.dt=
+s b/arch/arm64/boot/dts/allwinner/sun50i-a133-trimui-smartpro.dts
+> new file mode 100644
+> index 000000000..91adc18ab
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-trimui-smartpro.dts
+> @@ -0,0 +1,697 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * Copyright (c) 2026 (out-of-tree hobbyist port, not yet upstream)
+> + *
+> + * Board: TrimUI Smart Pro (Allwinner A133 Plus / sun50iw10p1)
+> + *
+> + * Sourced from:
+> + *  - vendor DTB extracted from Knulli image (dtb_86065152.dts, offset
+> + *    86065152 in knulli-a133-trimui-smart-pro-scarab-20260511.img)
+> + *  - sun50i-a133-liontron-h-a133l.dts (mainline reference board, same S=
+oC)
+> + *  - sun50i-h700-anbernic-rg35xx-2024.dts (mainline handheld reference =
+for
+> + *    AXP717 regulator/battery wiring style)
+> + *  - LIVE data pulled directly off the running unit over UART (root she=
+ll +
+> + *    /sys/firmware/fdt, the kernel's own resolved device tree =E2=80=94=
+ not a guess):
+> + *    real regulator voltages (confirmed via U-Boot's PMIC init console =
+log),
+> + *    real DRAM timing table (see trimui-smartpro_defconfig), real panel
+> + *    timings (see the lcd0 comment block below).
+> + *
+> + * TODO markers below are places nothing above could resolve: buttons/
+> + * joystick are NOT GPIO at all (confirmed: read over a UART-attached
+> + * co-microcontroller, see BUTTON_PROBING_PLAN.md =E2=80=94 needs a from=
+-scratch
+> + * serdev driver, not a DT gpio-keys node), and the panel's DSI init
+> + * command sequence (register writes for the otm1289a controller) is
+> + * not yet captured.
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include "sun50i-a100.dtsi"
+> +#include "sun50i-a100-cpu-opp.dtsi"
+> +
+> +#include <dt-bindings/clock/sun8i-tcon-top.h>
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/input/linux-event-codes.h>
+> +#include <dt-bindings/leds/common.h>
+> +
+> +/ {
+> +	model =3D "TrimUI Smart Pro";
+> +	chassis-type =3D "handset";
+> +	/* "trimui" is not a registered vendor prefix in dt-bindings yet;
+> +	 * fine for an out-of-tree hobbyist build, would need registering
+> +	 * (vendor-prefixes.yaml) before any upstream submission. */
+> +	compatible =3D "trimui,smart-pro", "allwinner,sun50i-a100";
+> +
+> +	aliases {
+> +		serial0 =3D &uart0;
+> +	};
+> +
+> +	chosen {
+> +		/* confirmed from the vendor boot.img kernel cmdline */
+> +		stdout-path =3D "serial0:115200n8";
+> +	};
+> +
+> +	battery: battery {
+> +		compatible =3D "simple-battery";
+> +		/* vendor DTB: pmu_battery_rdc =3D 0x93, pmu_battery_cap =3D 0x1388 (5=
+000mAh) */
+> +		voltage-max-design-microvolt =3D <4200000>;
+> +	};
+> +
+> +	reg_vcc5v: regulator-vcc5v {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "vcc-5v";
+> +		regulator-min-microvolt =3D <5000000>;
+> +		regulator-max-microvolt =3D <5000000>;
+> +		regulator-always-on;
+> +	};
+> +
+> +	de: display-engine {
+> +		/*
+> +		 * The fallback compatible string matters: sun4i_drv.c's
+> +		 * of_match_table has no A133 entry, and matches here are what
+> +		 * probes the aggregate "sun4i-drm" platform driver that calls
+> +		 * component_bind_all() to wire the already-individually-probed
+> +		 * mixer/tcon/dsi devices together into one DRM device. Without
+> +		 * a match, this node binds no driver at all and the pipeline
+> +		 * sits in permanent -EPROBE_DEFER. sun4i_drv.c's probe function
+> +		 * isn't SoC-specific (it just walks the DT ports graph), so
+> +		 * reusing an existing entry here is safe -- same pattern used
+> +		 * on tcon_lcd0 below.
+> +		 */
+> +		compatible =3D "allwinner,sun50i-a133-display-engine",
+> +			     "allwinner,sun50i-a64-display-engine";
+> +		allwinner,pipelines =3D <&mixer0>;
+> +		status =3D "okay";
+> +	};
+> +
+> +	/*
+> +	 * Real values from the vendor live DTB's power_sply block:
+> +	 * lcd_pwm_used=3D1, lcd_pwm_ch=3D0 (PWM channel 0 =E2=80=94 wired abov=
+e),
+> +	 * lcd_pwm_freq=3D0xc350=3D50000Hz (period_ns =3D 1e9/50000 =3D 20000),
+> +	 * lcd_pwm_pol=3D0 (normal polarity), lcd_pwm_max_limit=3D0xc8=3D200.
+> +	 * NOT included: a real backlight-enable GPIO. The vendor DTB has
+> +	 * a separate lcd_bl_en packed property (bank=3D7/pin=3D18, decoding to
+> +	 * PH18 by cross-checking the pinctrl driver's own bank-numbering
+> +	 * against an already-confirmed-real pin elsewhere in this file) =E2=80=
+=94
+> +	 * tried driving it directly via a raw register poke on live
+> +	 * hardware (no kernel involved, just to test the hypothesis) and
+> +	 * it had no visible effect, so this pin guess is unconfirmed/likely
+> +	 * wrong (the vendor property has 8 packed fields where a plain
+> +	 * 6-cell gpio-spec would only have 7 =E2=80=94 there's a piece of that
+> +	 * encoding not accounted for). Left out entirely rather than wire
+> +	 * up a pin that's an unverified guess.
+> +	 */
+> +	backlight: backlight {
+> +		compatible =3D "pwm-backlight";
+> +		pwms =3D <&pwm 0 20000 0>;
+> +		default-brightness-level =3D <200>;
+> +		power-supply =3D <&reg_cldo4>;
+> +	};
+> +
+> +	/* TODO: face buttons (A/B/X/Y, D-pad, L1/L2/R1/R2, start/select,
+> +	 * joystick clicks). The vendor DTB has NO gpio-keys node and no
+> +	 * "trimui_keypad"-style driver string was found in the firmware =E2=80=
+=94
+> +	 * only a 3-key ADC "allwinner,keyboard_1350mv" node exists (that's
+> +	 * volume/fastboot-combo, not the face buttons). Real GPIO/ADC
+> +	 * assignments need to come from live probing on the actual unit
+> +	 * (pinctrl debugfs, evtest against the stock kernel, or a UART
+> +	 * dmesg capture during boot) =E2=80=94 not guessed from another device.
+> +	 */
+> +};
+> +
+> +&cpu0 {
+> +	/* TODO: verify against A133 PLUS-rated OPP ceiling, not just A100's */
+> +	cpu-supply =3D <&reg_dcdc1>;
+> +};
+> +
+> +&mmc0 {
+> +	/* SD card slot. cd-gpios still unconfirmed =E2=80=94 no hotplug detect=
+ion, but
+> +	 * that's fine for a card already inserted at boot (proven live: this is
+> +	 * literally how SPL/BROM read this same card to boot in the first
+> +	 * place). Pin/clock wiring already provided by sun50i-a100.dtsi.
+> +	 * vmmc-supply guessed as the same general IO rail as mmc2 =E2=80=94 un=
+confirmed,
+> +	 * first thing to revisit if this doesn't come up cleanly. */
+> +	bus-width =3D <4>;
+> +	vmmc-supply =3D <&reg_cldo3>;
+> +	status =3D "okay";
+> +};
+> +
+> +&mmc2 {
+> +	/* eMMC =E2=80=94 pin group/clocks/etc. already wired by sun50i-a100.dt=
+si, this
+> +	 * board file only needs the board-specific bits. bus mode confirmed
+> +	 * from the live boot log: negotiated DDR52, NOT HS200/HS400 =E2=80=94 =
+the
+> +	 * vendor kernel actively strips those capability flags at runtime
+> +	 * ("delete mmc-hs200-1_8v from dtb" / "delete mmc-hs400-1_8v from dtb"
+> +	 * in dmesg), so we don't claim them here either. vmmc-supply is a
+> +	 * reasonable inference (cldo3/vcc-io, the general 3.3V IO rail) but
+> +	 * NOT directly confirmed =E2=80=94 no capture explicitly tied cldo3 to=
+ mmc2.
+> +	 */
+> +	bus-width =3D <8>;
+> +	non-removable;
+> +	cap-mmc-hw-reset;
+> +	mmc-ddr-1_8v;
+> +	vmmc-supply =3D <&reg_cldo3>; /* inferred, not directly confirmed */
+> +	status =3D "okay";
+> +};
+> +
+> +&r_i2c0 {
+> +	status =3D "okay";
+> +
+> +	axp717: pmic@34 {
+> +		compatible =3D "x-powers,axp717";
+> +		reg =3D <0x34>;
+> +		interrupt-controller;
+> +		#interrupt-cells =3D <1>;
+> +		interrupt-parent =3D <&r_intc>;
+> +		interrupts =3D <0 IRQ_TYPE_LEVEL_LOW>;
+> +
+> +		vin1-supply =3D <&reg_vcc5v>;
+> +		vin2-supply =3D <&reg_vcc5v>;
+> +		vin3-supply =3D <&reg_vcc5v>;
+> +		vin4-supply =3D <&reg_vcc5v>;
+> +
+> +		axp_adc: adc {
+> +			compatible =3D "x-powers,axp717-adc";
+> +			#io-channel-cells =3D <1>;
+> +		};
+> +
+> +		battery_power: battery-power {
+> +			compatible =3D "x-powers,axp717-battery-power-supply";
+> +			monitored-battery =3D <&battery>;
+> +			x-powers,no-thermistor;
+> +		};
+> +
+> +		usb_power: usb-power {
+> +			compatible =3D "x-powers,axp717-usb-power-supply";
+> +		};
+> +
+> +		/*
+> +		 * Regulator names carried over from the vendor DTB's "axp2202-*"
+> +		 * node names (AXP2202 =3D=3D AXP717, confirmed: Allwinner's BSP driver
+> +		 * for "axp2202" has been shown driving a chip physically marked
+> +		 * AXP717). Voltages below are REAL, read directly from U-Boot's own
+> +		 * PMIC-init console log on the live unit (not decoded/guessed) =E2=80=
+=94
+> +		 * each line printed "<rail>_vol =3D <mV>, onoff=3D<0|1>" at boot. dcd=
+c2
+> +		 * (GPU/sys) wasn't printed at that boot stage (probably brought up
+> +		 * later by the kernel) =E2=80=94 left undocumented rather than guesse=
+d.
+> +		 * dcdc1 (vdd-cpu) was 940mV at that instant but is DVFS-scaled by
+> +		 * cpufreq, so it's intentionally NOT hardcoded to a fixed value here.
+> +		 */
+> +		regulators {
+> +			reg_dcdc1: dcdc1 {
+> +				/*
+> +				 * regulator-always-on, not regulator-boot-on:
+> +				 * drivers/regulator/core.c's regulator_late_cleanup()
+> +				 * (the late-boot "disable unused regulators" sweep)
+> +				 * checks constraints->always_on, not ->boot_on --
+> +				 * boot-on only means "was already on at boot," it
+> +				 * does nothing to stop this cleanup pass from
+> +				 * turning it back off. This board has no cpufreq/OPP
+> +				 * consumer wired up yet, so dcdc1 would otherwise
+> +				 * have zero regulator-API reference count despite
+> +				 * being the CPU's own supply -- disabling it hard
+> +				 * hangs the board.
+> +				 */
+> +				regulator-always-on;
+> +				regulator-name =3D "vdd-cpu";
+> +				/* boot-time value was 940mV; real range needs the OPP table, not ha=
+rdcoded here */
+> +			};
+> +			reg_dcdc2: dcdc2 {
+> +				/*
+> +				 * Same reasoning as dcdc1 above: no GPU driver
+> +				 * claims this rail yet, and nothing rules out
+> +				 * shared PLL/bias circuitry with the display
+> +				 * path, so it's kept on rather than left to the
+> +				 * late-boot unused-regulator cleanup.
+> +				 */
+> +				regulator-always-on;
+> +				regulator-name =3D "vdd-gpu-sys";
+> +			};
+> +			reg_dcdc3: dcdc3 {
+> +				/* confirmed real: matches boot0's "DRAM_VCC set to 1100 mv" exactly=
+ */
+> +				regulator-always-on;
+> +				regulator-min-microvolt =3D <1100000>;
+> +				regulator-max-microvolt =3D <1100000>;
+> +				regulator-name =3D "vdd-dram";
+> +			};
+> +			/*
+> +			 * aldo1/aldo2/aldo4/bldo2/bldo3/bldo4 all got
+> +			 * regulator-always-on added after real, reproducible
+> +			 * hard hangs: fixing vdd-cpu/vdd-gpu-sys (the first two
+> +			 * rails caught by the kernel's late-boot "disable
+> +			 * unused regulators" sweep) didn't stop the hang, it
+> +			 * just moved it =E2=80=94 the very next boot hung identically
+> +			 * but with "aldo4: disabling" this time. Whack-a-mole:
+> +			 * every rail the vendor bootloader left on (onoff=3D1 in
+> +			 * the real U-Boot PMIC log) that we don't have a
+> +			 * confirmed real consumer/purpose for is exactly this
+> +			 * same landmine, since nothing in our still-incomplete
+> +			 * DT claims them through the regulator API. Rather than
+> +			 * keep discovering these one hang at a time, all of
+> +			 * them get always-on now =E2=80=94 matches the vendor's own
+> +			 * actual default behavior anyway (leave them on).
+> +			 * bldo1 is the one confirmed exception: real U-Boot log
+> +			 * shows onoff=3D0 at boot (WiFi/BT driver switches it on
+> +			 * dynamically later), so it's deliberately left off here.
+> +			 */
+> +			reg_aldo1: aldo1 {
+> +				/* real: 1800mV, onoff=3D1 at boot */
+> +				regulator-always-on;
+> +			};
+> +			reg_aldo2: aldo2 {
+> +				/* real: 3300mV, onoff=3D1 */
+> +				regulator-always-on;
+> +			};
+> +			reg_aldo3: aldo3 {
+> +				/* confirmed: WiFi/BT IO rail (wlan_io_regulator), real: 3300mV */
+> +				regulator-always-on;
+> +				regulator-min-microvolt =3D <3300000>;
+> +				regulator-max-microvolt =3D <3300000>;
+> +				regulator-name =3D "vcc-wifi-io";
+> +			};
+> +			reg_aldo4: aldo4 {
+> +				/* real: 1800mV, onoff=3D1 */
+> +				regulator-always-on;
+> +			};
+> +			reg_bldo1: bldo1 {
+> +				/* confirmed: WiFi/BT power rail (wlan_power1), real: 3300mV.
+> +				 * NOT always-on: U-Boot log shows onoff=3D0 at boot =E2=80=94 the
+> +				 * wifi/bt driver switches it on dynamically at runtime. */
+> +				regulator-min-microvolt =3D <3300000>;
+> +				regulator-max-microvolt =3D <3300000>;
+> +				regulator-name =3D "vcc-wifi";
+> +			};
+> +			reg_bldo2: bldo2 {
+> +				/* real: 1800mV, onoff=3D1 */
+> +				regulator-always-on;
+> +			};
+> +			reg_bldo3: bldo3 {
+> +				/* real: 3300mV, onoff=3D1 */
+> +				regulator-always-on;
+> +			};
+> +			reg_bldo4: bldo4 {
+> +				/* real: 1800mV at boot, onoff=3D1 */
+> +				regulator-always-on;
+> +			};
+> +			reg_cldo1: cldo1 {
+> +				/* confirmed: LCD panel power0 (lcd_power0=3D"cldo1"), real: 1800mV =
+*/
+> +				regulator-always-on;
+> +				regulator-min-microvolt =3D <1800000>;
+> +				regulator-max-microvolt =3D <1800000>;
+> +				regulator-name =3D "vcc-lcd-1";
+> +			};
+> +			reg_cldo2: cldo2 { };
+> +			reg_cldo3: cldo3 {
+> +				/* real: 3300mV */
+> +				regulator-always-on;
+> +				regulator-min-microvolt =3D <3300000>;
+> +				regulator-max-microvolt =3D <3300000>;
+> +				regulator-name =3D "vcc-io";
+> +			};
+> +			reg_cldo4: cldo4 {
+> +				/* confirmed: LCD panel power1 (lcd_power1=3D"cldo4"), real: 3300mV =
+*/
+> +				regulator-always-on;
+> +				regulator-min-microvolt =3D <3300000>;
+> +				regulator-max-microvolt =3D <3300000>;
+> +				regulator-name =3D "vcc-lcd-2";
+> +			};
+> +			reg_cpusldo: cpusldo {
+> +				/* real: 900mV, onoff=3D1 */
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt =3D <900000>;
+> +				regulator-max-microvolt =3D <900000>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&uart0 {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&uart0_pb_pins>; /* only pin group this SoC's dtsi defin=
+es; matches vendor cmdline's ttyS0 */
+> +	status =3D "okay";
+> +};
+> +
+> +&{/soc} {
+> +	/*
+> +	 * A133 (sun50iw10) has no public DE/mixer register documentation
+> +	 * (A133 User Manual rev 1.1, chapter 4.1 "DE" is 2 pages of feature
+> +	 * bullets + a block diagram, no register list =E2=80=94 unlike every o=
+ther
+> +	 * chapter in that manual). Addresses/topology below are cross-
+> +	 * checked two ways instead: the manual's own top-level physical
+> +	 * memory map (DE0/DSI0/DPSS_TOP0/TCON_LCD0 base addresses + GIC IRQ
+> +	 * numbers, chapter 3) and Allwinner's own GPL disp2 driver source
+> +	 * for this exact SoC (lowlevel_v2x/sun50iw10 tree =E2=80=94 public on
+> +	 * GitHub from several vendor BSP forks, e.g. chainsx/kernel-sun50iw10,
+> +	 * engSinteck/A133_Image): de_feat.c gives the real channel/layer
+> +	 * topology (DISP0 =3D 2 VI + 2 UI channels, DISP1 =3D 1 VI + 2 UI, all
+> +	 * scaler-capable) that drives the sun8i_mixer.c cfg structs, and
+> +	 * de_rtmx_init()'s reg_base + 0x100000 / + 0x200000 offsets for
+> +	 * mixer0/mixer1 match the addresses used below (and match the
+> +	 * existing convention already used for every other DE2.0 SoC in
+> +	 * this driver =E2=80=94 A64, H3, R40).
+> +	 *
+> +	 * DPSS_TOP0 (0x06510000) is a real hardware crossbar between the
+> +	 * mixers and TCON_LCD0 -- CCU exposes its own bus clock/reset gate
+> +	 * (CLK_BUS_DPSS_TOP0/RST_BUS_DPSS_TOP0), and the vendor implementation
+> +	 * explicitly routes through it. Leaving it out of the ports graph
+> +	 * entirely is not survivable: mixer0/tcon_lcd0/dsi0 all probe and
+> +	 * bind fine without it, but every DRM atomic commit then times out
+> +	 * waiting for vblank -- the pixel path never physically reaches the
+> +	 * panel, because nothing keeps DPSS_TOP0's own bus clock enabled
+> +	 * once Linux's "disable unused clocks" cleanup runs. Modeled here by
+> +	 * reusing mainline's existing sun8i_tcon_top.c driver with an added
+> +	 * A133 compatible + quirks entry: the vendor's own register layout
+> +	 * for this block is bit-for-bit identical to what that driver
+> +	 * already assumes for R40/D1/H6 -- genuinely the same IP block, just
+> +	 * undocumented for this particular SoC.
+> +	 */
+> +	dpss_top0: dpss-top@6510000 {
+> +		compatible =3D "allwinner,sun50i-a133-tcon-top";
+> +		reg =3D <0x06510000 0x1000>;
+> +		/*
+> +		 * "tcon-tv0" is a required clock-name in sun8i_tcon_top_bind()
+> +		 * regardless of quirks (it unconditionally registers a TV0
+> +		 * gate clock) even though this board has no TCON_TV/HDMI
+> +		 * output at all. Pointing it at CLK_TCON_LCD is a harmless
+> +		 * filler =E2=80=94 that gate output is never consumed by anything in
+> +		 * this DT, it just needs to exist so probe doesn't fail
+> +		 * resolving the clock-name. "dsi" is real and load-bearing
+> +		 * though (has_dsi=3Dtrue pulls it in): CLK_MIPI_DSI from CCU is
+> +		 * the actual upstream parent feeding DSI's gated clock inside
+> +		 * this block. Missed this the first time around =E2=80=94 dpss_top0's
+> +		 * own probe failed outright without it (of_property_match_string
+> +		 * couldn't find "dsi" in clock-names), which cascaded into
+> +		 * dsi0's own "mod" clock lookup failing too, since it points
+> +		 * at dpss_top0's now-never-registered clock provider.
+> +		 */
+> +		clocks =3D <&ccu CLK_BUS_DPSS_TOP0>,
+> +			 <&ccu CLK_TCON_LCD>,
+> +			 <&ccu CLK_MIPI_DSI>;
+> +		clock-names =3D "bus", "tcon-tv0", "dsi";
+> +		clock-output-names =3D "tcon-top-tv0", "tcon-top-dsi";
+> +		resets =3D <&ccu RST_BUS_DPSS_TOP0>;
+> +		#clock-cells =3D <1>;
+> +
+> +		ports {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			dpss_top0_mixer0_in: port@0 {
+> +				reg =3D <0>;
+> +
+> +				dpss_top0_in_mixer0: endpoint {
+> +					remote-endpoint =3D <&mixer0_out_dpss_top0>;
+> +				};
+> +			};
+> +
+> +			dpss_top0_mixer0_out: port@1 {
+> +				reg =3D <1>;
+> +
+> +				dpss_top0_out_tcon_lcd0: endpoint {
+> +					remote-endpoint =3D <&tcon_lcd0_in_dpss_top0>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +
+> +	mixer0: mixer@6100000 {
+> +		compatible =3D "allwinner,sun50i-a133-de2-mixer-0";
+> +		reg =3D <0x06100000 0x100000>;
+> +		clocks =3D <&ccu CLK_BUS_DE>, <&ccu CLK_DE>;
+> +		clock-names =3D "bus", "mod";
+> +		resets =3D <&ccu RST_BUS_DE>;
+> +
+> +		ports {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			mixer0_out: port@1 {
+> +				reg =3D <1>;
+> +
+> +				mixer0_out_dpss_top0: endpoint {
+> +					remote-endpoint =3D <&dpss_top0_in_mixer0>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +
+> +	tcon_lcd0: lcd-controller@6511000 {
+> +		/*
+> +		 * allwinner,sun50i-a133-tcon-lcd is this series' own addition
+> +		 * (same physical IP block as A83T's TCON0, but this board's
+> +		 * DSI/CPU-mode panel needs the driver's dsi_cpu_needs_retrigger
+> +		 * quirk, which real A83T boards using the bare
+> +		 * "allwinner,sun8i-a83t-tcon-lcd" compatible do not opt into
+> +		 * -- see the comment on that quirks field in sun4i_tcon.h).
+> +		 * The a83t-tcon-lcd fallback is kept, matching the existing
+> +		 * sun50i-a64-tcon-lcd precedent in this binding, so this node
+> +		 * would still bind (without the new quirk) even against an
+> +		 * older driver that doesn't know the new compatible yet.
+> +		 */
+> +		compatible =3D "allwinner,sun50i-a133-tcon-lcd",
+> +			     "allwinner,sun8i-a83t-tcon-lcd";
+> +		reg =3D <0x06511000 0x1000>;
+> +		/*
+> +		 * Was GIC_SPI 101 (copied from a mismatched reference DTS) --
+> +		 * the interrupt handler was silently never firing. Confirmed
+> +		 * correct via the live vendor DT + /proc/interrupts: vendor's
+> +		 * combined disp@06000000 node's third interrupt cell is raw
+> +		 * SPI 0x44 =3D 68, and that is the ONLY display-related
+> +		 * interrupt actively counting (~60Hz) on real hardware --
+> +		 * cross-checked against dma0's SPI 0x2d=3D45, which matches
+> +		 * exactly between the vendor DT and its own /proc/interrupts
+> +		 * with no offset, confirming the raw-cell-value convention.
+> +		 */
+> +		interrupts =3D <GIC_SPI 68 IRQ_TYPE_LEVEL_HIGH>;
+> +		clocks =3D <&ccu CLK_BUS_TCON_LCD>, <&ccu CLK_TCON_LCD>;
+> +		clock-names =3D "ahb", "tcon-ch0";
+> +		clock-output-names =3D "tcon-pixel-clock";
+> +		resets =3D <&ccu RST_BUS_TCON_LCD>;
+> +		reset-names =3D "lcd";
+> +		#clock-cells =3D <0>;
+> +
+> +		ports {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			tcon_lcd0_in: port@0 {
+> +				reg =3D <0>;
+> +
+> +				tcon_lcd0_in_dpss_top0: endpoint {
+> +					remote-endpoint =3D <&dpss_top0_out_tcon_lcd0>;
+> +				};
+> +			};
+> +
+> +			tcon_lcd0_out: port@1 {
+> +				reg =3D <1>;
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <0>;
+> +
+> +				/*
+> +				 * reg =3D <1> here (not 0) is load-bearing, not
+> +				 * cosmetic: sun4i_drv.c's component-matching
+> +				 * walk (sun4i_drv_traverse_endpoints()) treats
+> +				 * a channel-0 TCON's port@1 endpoint 0 as "our
+> +				 * directly-connected panel" and deliberately
+> +				 * skips adding it to the component match list.
+> +				 * Confirmed live on real hardware: with this
+> +				 * endpoint unaddressed (defaulting to reg=3D0),
+> +				 * the DSI encoder got silently treated as a
+> +				 * bare panel and never added to the component
+> +				 * list, so component_bind_all() never bound
+> +				 * it, dsi->drm never got set, and the panel's
+> +				 * mipi_dsi_attach() spun in EPROBE_DEFER
+> +				 * forever =E2=80=94 screen stayed black even though
+> +				 * mixer0 probed fine standalone. Matches the
+> +				 * real D1 reference DTS's own convention:
+> +				 * sunxi-d1s-t113.dtsi's tcon_lcd0_out_dsi is
+> +				 * also "endpoint@1 { reg =3D <1>; ... }", same
+> +				 * as here, not endpoint 0 =E2=80=94 this was a real
+> +				 * detail I should have carried over the first
+> +				 * time instead of dropping it.
+> +				 */
+> +				tcon_lcd0_out_dsi0: endpoint@1 {
+> +					reg =3D <1>;
+> +					remote-endpoint =3D <&dsi0_in_tcon_lcd0>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +
+> +	dsi0: dsi@6504000 {
+> +		compatible =3D "allwinner,sun50i-a100-mipi-dsi";
+> +		reg =3D <0x06504000 0x1000>;
+> +		interrupts =3D <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>;
+> +		/*
+> +		 * REVERTED: tried sourcing "mod" from dpss_top0's gated DSI
+> +		 * output (matching the vendor's de_lcd.c, which gates
+> +		 * tcon_clk_gate.bits.dsi_clk_gate as part of enabling DSI, and
+> +		 * the real D1 reference DTS's identical convention) =E2=80=94 but this
+> +		 * creates a genuine circular dependency, not just an ordering
+> +		 * race: dpss_top0 only registers its clock-provider inside its
+> +		 * component .bind() callback, which only runs once every
+> +		 * matched component (including dsi0 itself) has *already*
+> +		 * succeeded its own individual .probe(). dsi0's probe() can't
+> +		 * succeed without this clock, so it can never reach
+> +		 * component_add(), so dpss_top0's bind() never fires, forever
+> +		 * =E2=80=94 confirmed live: "Couldn't get the DSI mod clock" repeated
+> +		 * on every deferred-probe retry with no path to resolution.
+> +		 * Back to sourcing directly from CCU, which is what actually
+> +		 * got the panel to attach successfully a few iterations ago.
+> +		 * dpss_top0 stays modeled in the ports graph regardless (for
+> +		 * its own bus-clock-keepalive purpose, now fully decoupled
+> +		 * from dsi0's clock lookup) =E2=80=94 whether A133 genuinely needs
+> +		 * this specific gate toggled for DSI to output correctly, as
+> +		 * opposed to just needing DPSS_TOP0 clocked/reset for its
+> +		 * routing mux to be live, is still an open question; CCU's
+> +		 * own CLK_MIPI_DSI already has its own independent gate bit,
+> +		 * so it's plausible this DPSS_TOP0 gate is a separate/optional
+> +		 * clock domain rather than something on the primary pixel path.
+> +		 */
+> +		clocks =3D <&ccu CLK_BUS_MIPI_DSI>, <&ccu CLK_MIPI_DSI>;
+> +		clock-names =3D "bus", "mod";
+> +		resets =3D <&ccu RST_BUS_MIPI_DSI>;
+> +		phys =3D <&dphy0>;
+> +		phy-names =3D "dphy";
+> +		status =3D "okay";
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +
+> +		port {
+> +			dsi0_in_tcon_lcd0: endpoint {
+> +				remote-endpoint =3D <&tcon_lcd0_out_dsi0>;
+> +			};
+> +		};
+> +
+> +		panel@0 {
+> +			/*
+> +			 * reset-gpios pin is a placeholder (PD0) =E2=80=94 the real
+> +			 * reset line hasn't been probed on hardware yet.
+> +			 * power-supply maps to the driver's
+> +			 * devm_regulator_get(dev, "power") lookup. backlight
+> +			 * maps to drm_panel_of_backlight()'s lookup, wired to
+> +			 * the pwm-backlight node above (real PWM channel 0 /
+> +			 * 50kHz values, but backlight-enable GPIO not included
+> +			 * =E2=80=94 see the comment on that node for why).
+> +			 *
+> +			 * No ports/endpoint graph needed here: sun6i_dsi_attach()
+> +			 * (drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c) finds the
+> +			 * panel via of_drm_find_panel() on this node directly,
+> +			 * not through of_graph =E2=80=94 the DSI parent/child
+> +			 * relationship (reg =3D virtual channel) is the only
+> +			 * link needed.
+> +			 */
+> +			compatible =3D "orisetech,otm1289a";
+> +			reg =3D <0>;
+> +			reset-gpios =3D <&pio 3 0 GPIO_ACTIVE_LOW>; /* TODO: unconfirmed pin,=
+ revisit on real hw */
+> +			power-supply =3D <&reg_cldo1>;
+> +			backlight =3D <&backlight>;
+> +		};
+> +	};
+> +
+> +	dphy0: phy@6505000 {
+> +		compatible =3D "allwinner,sun50i-a100-mipi-dphy";
+> +		reg =3D <0x06505000 0x1000>;
+> +		interrupts =3D <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>;
+> +		clocks =3D <&ccu CLK_BUS_MIPI_DSI>, <&ccu CLK_MIPI_DSI>;
+> +		clock-names =3D "bus", "mod";
+> +		resets =3D <&ccu RST_BUS_MIPI_DSI>;
+> +		#phy-cells =3D <0>;
+> +	};
+> +
+> +	/*
+> +	 * No mainline driver or A100/A133-specific binding exists upstream
+> +	 * for this IP (see drivers/pwm/pwm-sun50i-a133.c and its binding
+> +	 * doc) -- it's a newer, richer generation than allwinner,sun4i-a10-pwm.
+> +	 * Base address and register layout are from the A133 User Manual,
+> +	 * chapter 10.11 (fully documented down to bit level). Only
+> +	 * CLK_BUS_PWM (register-access gate) is needed -- the PWM output
+> +	 * clock source itself is internal to this IP, confirmed by
+> +	 * CLK_PWM's absence from the A100 CCU headers.
+> +	 */
+> +	pwm: pwm@300a000 {
+> +		compatible =3D "allwinner,sun50i-a133-pwm";
+> +		reg =3D <0x0300a000 0x400>;
+> +		clocks =3D <&ccu CLK_BUS_PWM>;
+> +		clock-names =3D "bus";
+> +		resets =3D <&ccu RST_BUS_PWM>;
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&pwm0_pins>;
+> +		#pwm-cells =3D <3>;
+> +	};
+> +};
+> +
+> +&pio {
+> +	/*
+> +	 * PD23/pwm0, muxsel 0x2 =E2=80=94 confirmed real from the vendor live =
+DTB's
+> +	 * lcd_pwm_ch =3D 0 (PWM channel 0 drives the panel backlight) cross-
+> +	 * checked against drivers/pinctrl/sunxi/pinctrl-sun50i-a100.c's own
+> +	 * SUNXI_PIN(D, 23) table, which already lists "pwm0" at the exact
+> +	 * same function value (0x2) the vendor DTB used =E2=80=94 mainline's
+> +	 * pinctrl driver already fully supports this pin/function, only
+> +	 * the PWM controller driving it needed writing.
+> +	 */
+> +	pwm0_pins: pwm0-pins {
+> +		pins =3D "PD23";
+> +		function =3D "pwm0";
+> +	};
+> +};
+> +
+> +/*
+> + * TODO: WiFi/BT (XR829 on SDIO bus 1 / &mmc1, confirmed from strings:
+> + * boot_xr829.bin, fw_xr829.bin, fw_xr829_bt.bin, sdd_xr829.bin =E2=80=
+=94 and
+> + * confirmed live via the running kernel's "XRADIO WIFI OPEN" driver log,
+> + * MAC dc:44:60:xx:xx:xx (redacted)). Power rails: bldo1 (3300mV, switch=
+ed on
+> + * dynamically, not always-on) + aldo3 (3300mV, always-on) =E2=80=94 bot=
+h wired
+> + * above. GPIO wiring is REAL, read directly off the live unit's
+> + * /sys/kernel/debug/gpio (not decoded from packed vendor fields):
+> + *   bt_rst         =3D r_pio 0 2  (PL2)  output, active low
+> + *   bt_hostwake    =3D r_pio 0 3  (PL3)  input
+> + *   bt_wake        =3D r_pio 0 4  (PL4)  output
+> + *   wlan_regon     =3D r_pio 0 5  (PL5)  output
+> + *   wlan_hostwake  =3D r_pio 0 6  (PL6)  input
+> + * Mainline equivalent is an mmc1 node + mmc-pwrseq-simple (using
+> + * wlan_regon as the reset-gpios line) + whatever XR829 driver ends up
+> + * used (no mainline driver exists yet =E2=80=94 see project notes for t=
+he
+> + * out-of-tree candidates). Not wired into an actual mmc1 node yet.
+> + */
+> +
+> +/*
+> + * Display: mixer0/tcon_lcd0/dsi0/dphy0/panel@0 are all wired above
+> + * (&soc block + dsi0's panel@0 child). Status:
+> + *  - Panel driver (panel-orisetech-otm1289a.c) written: real timings
+> + *    (720x1280, 69MHz dclk, ht=3D880/hbp=3D88/hspw=3D4, vt=3D1320/vbp=
+=3D9/vspw=3D4)
+> + *    plus a DSI init command sequence transcribed from a MediaTek LCM
+> + *    driver for the same panel controller IC found via GitHub code
+> + *    search (OrangePi4G-iot_kernel's otm1289a_hd720_dsi_vdo_auo.c) =E2=
+=80=94
+> + *    NOT from Allwinner's own disp2 tree, which was checked for this
+> + *    board's exact panel and doesn't have it (its bundled lcd/ panel
+> + *    library has ~90 entries but none named otm1289a; ours is probably
+> + *    a TrimUI-added file in a downstream fork that isn't public). The
+> + *    reference driver uses 3 DSI lanes; ours is set to the confirmed
+> + *    real 4-lane value, so timing-sensitive parts of the init sequence
+> + *    may need retuning once there's real hardware feedback.
+> + *  - Mixer (sun8i_mixer.c): A133 cfg added, ported from the same vendor
+> + *    tree's de_feat.c topology data (see &soc comment above the mixer0
+> + *    node for the full provenance/reasoning).
+> + *  - TCON_LCD0/DSI0/D-PHY: real register addresses from the A133 User
+> + *    Manual (chapter 6, which =E2=80=94 unlike the DE chapter =E2=80=94=
+ is fully
+> + *    documented down to bit level); DSI host + D-PHY already had
+> + *    mainline driver support for A100 before this port touched anything.
+> + * Backlight: working. The `backlight` pwm-backlight node above (PWM
+> + * channel 0, 50kHz) is wired via `backlight =3D <&backlight>` on the pa=
+nel
+> + * node and confirmed on real hardware.
+> + *
+> + * The remaining open item is display output itself: the panel attaches
+> + * and the backlight lights, but TCON0's CPU/8080-interface TRIGGER_START
+> + * bit never self-clears, so no pixel data reaches the panel -- see the
+> + * project's investigation log for the current status. reset-gpios is
+> + * still an unverified placeholder, and the DPSS_TOP0 routing-register
+> + * risk noted above the mixer0 node is still unconfirmed.
+> + */
+> +
+> +/*
+> + * TODO: GPU (img,gpu / PowerVR GE8300) =E2=80=94 no mainline binding to=
+ reference
+> + * yet.
+> + */
+> diff --git a/drivers/clk/sunxi-ng/ccu-sun50i-a100.c b/drivers/clk/sunxi-n=
+g/ccu-sun50i-a100.c
+> index 1f81c7ac4..9dee187ba 100644
+> --- a/drivers/clk/sunxi-ng/ccu-sun50i-a100.c
+> +++ b/drivers/clk/sunxi-ng/ccu-sun50i-a100.c
+> @@ -680,13 +680,27 @@ static const char * const tcon_lcd_parents[] =3D { =
+"pll-video0-4x",
+>  						  "pll-video2-4x",
+>  						  "pll-video3-4x",
+>  						  "pll-periph0-2x" };
+> +/*
+> + * No CLK_SET_RATE_PARENT here originally, unlike the other PLL_VIDEO
+> + * derivatives it can mux to (pll_video0_4x_clk etc, which do have it).
+> + * Confirmed via debugfs on real hardware: this left mainline's dclk
+> + * request landing on a 400MHz PLL_VIDEO0 parent, unable to explore other
+> + * PLL rates -- vendor's own live system has this same clock at exactly
+> + * 408MHz (=3D 24MHz x 17, a clean PLL multiple, the actual nearest
+> + * achievable rate to the ~414MHz our A133 board's CPU/8080 DSI panel
+> + * requests). Without this flag, ccu_mp_ops's own rate-rounding can't ask
+> + * its selected parent to change rate at all -- it can only divide down
+> + * from whatever that parent already happens to be at, which produced a
+> + * measurably worse (2%) result than vendor's real driver achieves for
+> + * this exact panel.
+> + */
+>  static SUNXI_CCU_MP_WITH_MUX_GATE(tcon_lcd_clk, "tcon-lcd0",
+>  				  tcon_lcd_parents, 0xb60,
+>  				  0, 4,		/* M */
+>  				  8, 2,		/* P */
+>  				  24, 3,	/* mux */
+>  				  BIT(31),	/* gate */
+> -				  0);
+> +				  CLK_SET_RATE_PARENT);
+> =20
+>  static SUNXI_CCU_GATE(bus_tcon_lcd_clk, "bus-tcon-lcd0", "ahb3",
+>  		      0xb7c, BIT(0), 0);
+> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+> index cbdf7b8f7..fab1ed5f4 100644
+> --- a/drivers/gpu/drm/panel/Kconfig
+> +++ b/drivers/gpu/drm/panel/Kconfig
+> @@ -758,6 +758,14 @@ config DRM_PANEL_ORISETECH_OTM8009A
+>  	  Say Y here if you want to enable support for Orise Technology
+>  	  otm8009a 480x800 dsi 2dl panel.
+> =20
+> +config DRM_PANEL_ORISETECH_OTM1289A
+> +	tristate "Orise Technology otm1289a 720x1280 dsi panel"
+> +	depends on OF
+> +	depends on DRM_MIPI_DSI
+> +	help
+> +	  Say Y here if you want to enable support for Orise Technology
+> +	  otm1289a 720x1280 dsi panel, as used on the TrimUI Smart Pro.
+> +
+>  config DRM_PANEL_OSD_OSD101T2587_53TS
+>  	tristate "OSD OSD101T2587-53TS DSI 1920x1200 video mode panel"
+>  	depends on OF
+> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makef=
+ile
+> index 3b523cf37..d824f0a9b 100644
+> --- a/drivers/gpu/drm/panel/Makefile
+> +++ b/drivers/gpu/drm/panel/Makefile
+> @@ -74,6 +74,7 @@ obj-$(CONFIG_DRM_PANEL_MANTIX_MLAF057WE51) +=3D panel-m=
+antix-mlaf057we51.o
+>  obj-$(CONFIG_DRM_PANEL_OLIMEX_LCD_OLINUXINO) +=3D panel-olimex-lcd-olinu=
+xino.o
+>  obj-$(CONFIG_DRM_PANEL_ORISETECH_OTA5601A) +=3D panel-orisetech-ota5601a=
+.o
+>  obj-$(CONFIG_DRM_PANEL_ORISETECH_OTM8009A) +=3D panel-orisetech-otm8009a=
+.o
+> +obj-$(CONFIG_DRM_PANEL_ORISETECH_OTM1289A) +=3D panel-orisetech-otm1289a=
+.o
+>  obj-$(CONFIG_DRM_PANEL_OSD_OSD101T2587_53TS) +=3D panel-osd-osd101t2587-=
+53ts.o
+>  obj-$(CONFIG_DRM_PANEL_PANASONIC_VVX10F034N00) +=3D panel-panasonic-vvx1=
+0f034n00.o
+>  obj-$(CONFIG_DRM_PANEL_RASPBERRYPI_TOUCHSCREEN) +=3D panel-raspberrypi-t=
+ouchscreen.o
+> diff --git a/drivers/gpu/drm/panel/panel-orisetech-otm1289a.c b/drivers/g=
+pu/drm/panel/panel-orisetech-otm1289a.c
+> new file mode 100644
+> index 000000000..86d42bdab
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-orisetech-otm1289a.c
+> @@ -0,0 +1,435 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * DRM driver for the Orise Tech OTM1289A MIPI-DSI panel, as used on the
+> + * TrimUI Smart Pro (Allwinner A133).
+> + *
+> + * Timings (dot clock, hsync/vsync, panel size) are real, measured values
+> + * pulled directly from the stock vendor firmware's live device tree on
+> + * actual hardware, not datasheet guesses.
+> + *
+> + * The DCS init command sequence below is reverse-engineered directly fr=
+om
+> + * this device's own real vendor kernel binary (vendor_kernel.bin, Linux
+> + * 4.9.191, extracted from part1_boot.img), not transcribed from an
+> + * unrelated reference driver. Converted the raw Image to a symbolized E=
+LF
+> + * via vmlinux-to-elf (recovers the embedded kallsyms table + a correct
+> + * load-base guess), then disassembled lcd_panel_init(): it does a
+> + * runtime strncmp() of this board's configured panel name against a
+> + * table of known driver names ("gc9702c", "otm1289a", ...), and on a
+> + * match stores a pointer to that driver's own DCS command table --
+> + * confirmed at VA 0xffffff8008b72190 for the "otm1289a" match on this
+> + * exact device. That table uses fixed 72-byte entries: byte at +0 is the
+> + * DCS command, byte at +4 is the data length (0xff =3D end-of-table
+> + * marker, 0xfe =3D delay marker with the ms value at +8), and the data
+> + * payload starts at +8 -- confirmed by reading lcd_panel_init()'s own
+> + * parsing loop, which calls sunxi_lcd_dsi_dcs_write(sel, entry[0],
+> + * &entry[8], entry[4]) for every non-marker entry. This is a real,
+> + * ground-truth match to this exact physical panel -- and differs in
+> + * concrete values (gamma curves, several power/timing registers) from
+> + * the earlier version of this table, which was transcribed from an
+> + * unrelated MediaTek-based reference driver chosen only because its
+> + * resolution happened to match. This board is wired for 4 DSI lanes
+> + * (confirmed from the vendor DTB) -- a host-side PHY configuration
+> + * independent of the panel's own init register values above.
+> + */
+> +
+> +#include <linux/backlight.h>
+> +#include <linux/delay.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/module.h>
+> +#include <linux/regulator/consumer.h>
+> +
+> +#include <video/mipi_display.h>
+> +
+> +#include <drm/drm_mipi_dsi.h>
+> +#include <drm/drm_modes.h>
+> +#include <drm/drm_panel.h>
+> +
+> +#define OTM1289A_HDISPLAY	720
+> +#define OTM1289A_VDISPLAY	1280
+> +
+> +struct otm1289a {
+> +	struct device *dev;
+> +	struct drm_panel panel;
+> +	struct gpio_desc *reset_gpio;
+> +	struct regulator *supply;
+> +	bool prepared;
+> +};
+> +
+> +/*
+> + * Real, measured timings from the live vendor device tree (lcd0 node):
+> + * dot clock 69MHz, ht=3D880/hbp=3D88/hspw=3D4, vt=3D1320/vbp=3D9/vspw=
+=3D4, 720x1280
+> + * native panel resolution (portrait; the vendor rotates 270 degrees in
+> + * software for landscape use -- left as portrait here, rotation is a
+> + * compositor/KMS-plane concern, not a panel-driver one).
+> + *
+> + * The vendor's lcd_hbp/lcd_vbp measure from the end of active video to
+> + * the start of sync (i.e. they already include the sync pulse width),
+> + * not from the end of sync to the next active region like DRM's
+> + * back_porch does. For vertical, the DRM front porch is therefore
+> + * vtotal-vdisplay-vbp =3D 31, confirmed against two independently
+> + * observable live registers (BASIC_SIZE0_REG.VBP and
+> + * BASIC_CTL1_REG.VIDEO_ST_DELAY).
+> + *
+> + * Horizontal does NOT follow the same formula, despite looking like it
+> + * should by the same reasoning -- htotal-hdisplay-hbp =3D 72 was tried
+> + * first, but is disproven by sun6i_dsi_setup_burst()'s DRQ_SET formula
+> + * ((htotal-hsync_start-20)*bpp/32): with hsync_start=3Dhdisplay+72 (=3D=
+792)
+> + * that computes 51, but a live DRQ_SET register read on a working
+> + * reference system reads 39, which this formula only reproduces with
+> + * hsync_start=3Dhdisplay+88 (=3D808) -- i.e. the horizontal front porch
+> + * here is 88, numerically the same as vendor's raw hbp, not the
+> + * derived 72. Do not "fix" this back to htotal-hdisplay-hbp without
+> + * re-deriving DRQ_SET and checking it still matches 39: this exact
+> + * value has already been tried and measured wrong once.
+> + *
+> + * .clock is the nominal 69MHz, matching the vendor DT's lcd_dclk_freq.
+> + * The CPU/8080 path this panel runs through scales the dclk request
+> + * (crtc_clock * bpp / lanes / SUN6I_DSI_TCON_DIV) rather than requesting
+> + * the pixel clock directly, landing at 69MHz * 6 / 4 =3D 103.5MHz -- a
+> + * different, achievable part of the divider range, matching the vendor's
+> + * own boot log ("clk real: dclk(102000000)" for a requested 69000000).
+> + */
+> +static const struct drm_display_mode otm1289a_mode =3D {
+> +	.clock =3D 69000,
+> +	.hdisplay =3D OTM1289A_HDISPLAY,
+> +	.hsync_start =3D OTM1289A_HDISPLAY + 88,
+> +	.hsync_end =3D OTM1289A_HDISPLAY + 88 + 4,
+> +	.htotal =3D 880,
+> +	.vdisplay =3D OTM1289A_VDISPLAY,
+> +	.vsync_start =3D OTM1289A_VDISPLAY + 31,
+> +	.vsync_end =3D OTM1289A_VDISPLAY + 31 + 4,
+> +	.vtotal =3D 1320,
+> +	.width_mm =3D 65,
+> +	.height_mm =3D 116,
+> +	.type =3D DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
+> +};
+> +
+> +struct otm1289a_init_cmd {
+> +	u8 cmd;
+> +	u8 len;
+> +	u8 data[16];
+> +};
+> +
+> +#define OTM1289A_CMD(_cmd, ...) \
+> +	{ .cmd =3D (_cmd), .len =3D sizeof((u8[]) { __VA_ARGS__ }), .data =3D {=
+ __VA_ARGS__ } }
+> +
+> +/* Extracted directly from vendor_kernel.bin's real compiled otm1289a DCS
+> + * command table for this exact device (VA 0xffffff8008b72190) =E2=80=94=
+ see the
+> + * file header for how this was located and parsed. Section comments bel=
+ow
+> + * mark the same logical groupings the vendor's own register documentati=
+on
+> + * implies (address-window-select + register write pairs), kept for
+> + * readability; the values themselves are the real, ground-truth bytes.
+> + */
+> +static const struct otm1289a_init_cmd otm1289a_init_sequence[] =3D {
+> +	OTM1289A_CMD(0x00, 0x00),
+> +	OTM1289A_CMD(0xff, 0x12, 0x89, 0x01),
+> +	OTM1289A_CMD(0x00, 0x80),
+> +	OTM1289A_CMD(0xff, 0x12, 0x89),
+> +	OTM1289A_CMD(0x00, 0x90),
+> +	OTM1289A_CMD(0xff, 0xb0),
+> +	/* panel setting */
+> +	OTM1289A_CMD(0x00, 0x80),
+> +	OTM1289A_CMD(0xc0, 0x4a, 0x00, 0x10, 0x10, 0x96, 0x01, 0x68, 0x40),
+> +	OTM1289A_CMD(0x00, 0x90),
+> +	OTM1289A_CMD(0xc0, 0x3b, 0x01, 0x09),
+> +	OTM1289A_CMD(0x00, 0x8c),
+> +	OTM1289A_CMD(0xc0, 0x00),
+> +	OTM1289A_CMD(0x00, 0x80),
+> +	OTM1289A_CMD(0xc1, 0x33),
+> +	/* power setting */
+> +	OTM1289A_CMD(0x00, 0x85),
+> +	OTM1289A_CMD(0xc5, 0x0a, 0x0a, 0x46),
+> +	OTM1289A_CMD(0x00, 0x00),
+> +	OTM1289A_CMD(0xd8, 0x27, 0x27),
+> +	OTM1289A_CMD(0x00, 0x01),
+> +	OTM1289A_CMD(0xd9, 0x77),
+> +	OTM1289A_CMD(0x00, 0x84),
+> +	OTM1289A_CMD(0xc4, 0x02),
+> +	OTM1289A_CMD(0x00, 0x93),
+> +	OTM1289A_CMD(0xc4, 0x04),
+> +	OTM1289A_CMD(0x00, 0x96),
+> +	OTM1289A_CMD(0xf5, 0xe7),
+> +	OTM1289A_CMD(0x00, 0xa0),
+> +	OTM1289A_CMD(0xf5, 0x4a),
+> +	OTM1289A_CMD(0x00, 0x8a),
+> +	OTM1289A_CMD(0xc0, 0x11),
+> +	OTM1289A_CMD(0x00, 0x83),
+> +	OTM1289A_CMD(0xf5, 0x81),
+> +	/* power IC */
+> +	OTM1289A_CMD(0x00, 0x90),
+> +	OTM1289A_CMD(0xc4, 0x96, 0x05),
+> +	/* panel timing state control */
+> +	OTM1289A_CMD(0x00, 0x80),
+> +	OTM1289A_CMD(0xcb, 0x14, 0x14, 0x14, 0x14, 0x14, 0x00, 0x00, 0x00, 0x00=
+, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00),
+> +	OTM1289A_CMD(0x00, 0x90),
+> +	OTM1289A_CMD(0xcb, 0xfc, 0xfc, 0xfc, 0x00, 0x14, 0x14, 0x14),
+> +	/* panel pad mapping control */
+> +	OTM1289A_CMD(0x00, 0x80),
+> +	OTM1289A_CMD(0xcc, 0x02, 0x0a, 0x0c, 0x0e, 0x10, 0x00, 0x00, 0x00, 0x00=
+, 0x00, 0x00, 0x00, 0x00, 0x00),
+> +	OTM1289A_CMD(0x00, 0x90),
+> +	OTM1289A_CMD(0xcc, 0x00, 0x00, 0x00, 0x00, 0x1e, 0x1d, 0x06, 0x01, 0x09=
+, 0x0b, 0x0d, 0x0f, 0x00, 0x00, 0x00),
+> +	OTM1289A_CMD(0x00, 0xa0),
+> +	OTM1289A_CMD(0xcc, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00=
+, 0x00, 0x1e, 0x1d, 0x05),
+> +	OTM1289A_CMD(0x00, 0xb0),
+> +	OTM1289A_CMD(0xcc, 0x05, 0x0f, 0x0d, 0x0b, 0x09, 0x00, 0x00, 0x00, 0x00=
+, 0x00, 0x00, 0x00, 0x00, 0x00),
+> +	OTM1289A_CMD(0x00, 0xc0),
+> +	OTM1289A_CMD(0xcc, 0x00, 0x00, 0x00, 0x00, 0x1d, 0x1e, 0x01, 0x06, 0x10=
+, 0x0e, 0x0c, 0x0a, 0x00, 0x00, 0x00),
+> +	OTM1289A_CMD(0x00, 0xd0),
+> +	OTM1289A_CMD(0xcc, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00=
+, 0x00, 0x1d, 0x1e, 0x02),
+> +	/* panel timing setting */
+> +	OTM1289A_CMD(0x00, 0x80),
+> +	OTM1289A_CMD(0xce, 0x87, 0x03, 0x10, 0x86, 0x00, 0x00),
+> +	OTM1289A_CMD(0x00, 0x90),
+> +	OTM1289A_CMD(0xce, 0x34, 0xff, 0x10, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00=
+),
+> +	OTM1289A_CMD(0x00, 0xa0),
+> +	OTM1289A_CMD(0xce, 0x30, 0x83, 0x88, 0x00, 0x20, 0x00, 0x82, 0x87, 0x00=
+, 0x81, 0x86, 0x00, 0x80, 0x85, 0x00),
+> +	OTM1289A_CMD(0x00, 0xb0),
+> +	OTM1289A_CMD(0xce, 0x30, 0x00, 0x84, 0x00, 0x20, 0x00, 0x01, 0x83, 0x00=
+, 0x02, 0x82, 0x00, 0x03, 0x81, 0x00),
+> +	OTM1289A_CMD(0x00, 0xe0),
+> +	OTM1289A_CMD(0xce, 0x0a, 0x04, 0xfc, 0x00, 0x00, 0x0a, 0x04, 0xfc),
+> +	OTM1289A_CMD(0x00, 0xf0),
+> +	OTM1289A_CMD(0xce, 0x01, 0x20, 0x01, 0x01, 0x00, 0x00),
+> +	/* gamma */
+> +	OTM1289A_CMD(0x00, 0x00),
+> +	OTM1289A_CMD(0xe1, 0x00, 0x16, 0x26, 0x37, 0x47, 0x65, 0x64, 0x7d, 0x76=
+, 0x62, 0x69, 0x50, 0x38, 0x21, 0x13, 0x00),
+> +	OTM1289A_CMD(0x00, 0x00),
+> +	OTM1289A_CMD(0xe2, 0x00, 0x16, 0x26, 0x37, 0x47, 0x65, 0x64, 0x7d, 0x76=
+, 0x62, 0x69, 0x50, 0x38, 0x21, 0x13, 0x00),
+> +	/* CMD2 disable */
+> +	OTM1289A_CMD(0x00, 0x00),
+> +	OTM1289A_CMD(0xff, 0xff, 0xff, 0xff),
+> +};
+> +
+> +static inline struct otm1289a *panel_to_otm1289a(struct drm_panel *panel)
+> +{
+> +	return container_of(panel, struct otm1289a, panel);
+> +}
+> +
+> +static int otm1289a_init_sequence_send(struct otm1289a *ctx)
+> +{
+> +	struct mipi_dsi_device *dsi =3D to_mipi_dsi_device(ctx->dev);
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(otm1289a_init_sequence); i++) {
+> +		const struct otm1289a_init_cmd *c =3D &otm1289a_init_sequence[i];
+> +
+> +		ret =3D mipi_dsi_dcs_write(dsi, c->cmd, c->data, c->len);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+> +
+> +	/*
+> +	 * Real vendor delays (from the same extracted command table as
+> +	 * above -- 0xfe-type entries immediately following exit_sleep_mode
+> +	 * and set_display_on in the real sequence): 50ms and 120ms.
+> +	 */
+> +	ret =3D mipi_dsi_dcs_exit_sleep_mode(dsi);
+> +	if (ret < 0)
+> +		return ret;
+> +	msleep(50);
+> +
+> +	ret =3D mipi_dsi_dcs_set_display_on(dsi);
+> +	if (ret < 0)
+> +		return ret;
+> +	msleep(120);
+> +
+> +	return 0;
+> +}
+> +
+> +static int otm1289a_disable(struct drm_panel *panel)
+> +{
+> +	struct otm1289a *ctx =3D panel_to_otm1289a(panel);
+> +	struct mipi_dsi_device *dsi =3D to_mipi_dsi_device(ctx->dev);
+> +	int ret;
+> +
+> +	ret =3D mipi_dsi_dcs_set_display_off(dsi);
+> +	if (ret < 0)
+> +		return ret;
+> +	msleep(40);
+> +
+> +	ret =3D mipi_dsi_dcs_enter_sleep_mode(dsi);
+> +	if (ret < 0)
+> +		return ret;
+> +	msleep(150);
+> +
+> +	return 0;
+> +}
+> +
+> +static int otm1289a_unprepare(struct drm_panel *panel)
+> +{
+> +	struct otm1289a *ctx =3D panel_to_otm1289a(panel);
+> +
+> +	if (ctx->reset_gpio) {
+> +		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +		msleep(20);
+> +	}
+> +
+> +	regulator_disable(ctx->supply);
+> +
+> +	ctx->prepared =3D false;
+> +
+> +	return 0;
+> +}
+> +
+> +static int otm1289a_prepare(struct drm_panel *panel)
+> +{
+> +	struct otm1289a *ctx =3D panel_to_otm1289a(panel);
+> +	int ret;
+> +
+> +	ret =3D regulator_enable(ctx->supply);
+> +	if (ret < 0) {
+> +		dev_err(panel->dev, "failed to enable supply: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	if (ctx->reset_gpio) {
+> +		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +		msleep(20);
+> +		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +		msleep(100);
+> +	}
+> +
+> +	ret =3D otm1289a_init_sequence_send(ctx);
+> +	if (ret) {
+> +		dev_err(panel->dev, "init sequence failed: %d\n", ret);
+> +		regulator_disable(ctx->supply);
+> +		return ret;
+> +	}
+> +
+> +	ctx->prepared =3D true;
+> +
+> +	return 0;
+> +}
+> +
+> +static int otm1289a_enable(struct drm_panel *panel)
+> +{
+> +	return 0;
+> +}
+> +
+> +static int otm1289a_get_modes(struct drm_panel *panel,
+> +			      struct drm_connector *connector)
+> +{
+> +	struct drm_display_mode *mode;
+> +
+> +	mode =3D drm_mode_duplicate(connector->dev, &otm1289a_mode);
+> +	if (!mode) {
+> +		dev_err(panel->dev, "failed to add mode %ux%u\n",
+> +			otm1289a_mode.hdisplay, otm1289a_mode.vdisplay);
+> +		return -ENOMEM;
+> +	}
+> +
+> +	drm_mode_set_name(mode);
+> +	drm_mode_probed_add(connector, mode);
+> +
+> +	connector->display_info.width_mm =3D mode->width_mm;
+> +	connector->display_info.height_mm =3D mode->height_mm;
+> +
+> +	return 1;
+> +}
+> +
+> +static const struct drm_panel_funcs otm1289a_drm_funcs =3D {
+> +	.disable   =3D otm1289a_disable,
+> +	.unprepare =3D otm1289a_unprepare,
+> +	.prepare   =3D otm1289a_prepare,
+> +	.enable    =3D otm1289a_enable,
+> +	.get_modes =3D otm1289a_get_modes,
+> +};
+> +
+> +static int otm1289a_probe(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev =3D &dsi->dev;
+> +	struct otm1289a *ctx;
+> +	int ret;
+> +
+> +	ctx =3D devm_drm_panel_alloc(dev, struct otm1289a, panel,
+> +				   &otm1289a_drm_funcs,
+> +				   DRM_MODE_CONNECTOR_DSI);
+> +	if (IS_ERR(ctx))
+> +		return PTR_ERR(ctx);
+> +
+> +	ctx->reset_gpio =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW=
+);
+> +	if (IS_ERR(ctx->reset_gpio)) {
+> +		dev_err(dev, "cannot get reset-gpio\n");
+> +		return PTR_ERR(ctx->reset_gpio);
+> +	}
+> +
+> +	ctx->supply =3D devm_regulator_get(dev, "power");
+> +	if (IS_ERR(ctx->supply)) {
+> +		ret =3D PTR_ERR(ctx->supply);
+> +		if (ret !=3D -EPROBE_DEFER)
+> +			dev_err(dev, "failed to request regulator: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	mipi_dsi_set_drvdata(dsi, ctx);
+> +	ctx->dev =3D dev;
+> +
+> +	/*
+> +	 * External PWM backlight (real hardware: PWM channel 0, 50kHz,
+> +	 * confirmed from the vendor DTB) =E2=80=94 not the panel controller's =
+own
+> +	 * DCS backlight registers, so drm_panel_of_backlight() is the
+> +	 * right helper here (finds the "backlight" DT property and wires
+> +	 * automatic enable/disable into the panel's own prepare/unprepare
+> +	 * cycle), not a custom backlight_device like some other panels in
+> +	 * this same driver family use for DCS-controlled backlights.
+> +	 */
+> +	ret =3D drm_panel_of_backlight(&ctx->panel);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Confirmed real from the vendor DTB: 4 lanes (the reference driver
+> +	 * this init sequence came from used 3 =E2=80=94 host-side PHY config, =
+not a
+> +	 * panel-controller register, so using our own confirmed real value
+> +	 * here is correct even though the source table used a different lane
+> +	 * count).
+> +	 */
+> +	dsi->lanes =3D 4;
+> +	dsi->format =3D MIPI_DSI_FMT_RGB888;
+> +	/*
+> +	 * Not MIPI_DSI_MODE_VIDEO_BURST: the real vendor DTB's lcd_dsi_if
+> +	 * property for this exact device is 0 (LCD_DSI_IF_VIDEO_MODE),
+> +	 * confirmed against upstream Allwinner BSP headers to be a distinct
+> +	 * value from LCD_DSI_IF_BURST_MODE (2) -- this panel runs in plain
+> +	 * non-burst video mode, not burst.
+> +	 */
+> +	dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM;
+> +
+> +	drm_panel_add(&ctx->panel);
+> +
+> +	ret =3D mipi_dsi_attach(dsi);
+> +	if (ret < 0) {
+> +		dev_err(dev, "mipi_dsi_attach failed. Is host ready?\n");
+> +		drm_panel_remove(&ctx->panel);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static void otm1289a_remove(struct mipi_dsi_device *dsi)
+> +{
+> +	struct otm1289a *ctx =3D mipi_dsi_get_drvdata(dsi);
+> +
+> +	mipi_dsi_detach(dsi);
+> +	drm_panel_remove(&ctx->panel);
+> +}
+> +
+> +static const struct of_device_id orisetech_otm1289a_of_match[] =3D {
+> +	{ .compatible =3D "orisetech,otm1289a" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, orisetech_otm1289a_of_match);
+> +
+> +static struct mipi_dsi_driver orisetech_otm1289a_driver =3D {
+> +	.probe  =3D otm1289a_probe,
+> +	.remove =3D otm1289a_remove,
+> +	.driver =3D {
+> +		.name =3D "panel-orisetech-otm1289a",
+> +		.of_match_table =3D orisetech_otm1289a_of_match,
+> +	},
+> +};
+> +module_mipi_dsi_driver(orisetech_otm1289a_driver);
+> +
+> +MODULE_DESCRIPTION("DRM driver for Orise Tech OTM1289A MIPI DSI panel (T=
+rimUI Smart Pro)");
+> +MODULE_LICENSE("GPL v2");
 > diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.c b/drivers/gpu/drm/sun4i/s=
 un4i_tcon.c
-> index bf405a2aa3249..8b7dff89070dd 100644
+> index bf405a2aa..8b7dff890 100644
 > --- a/drivers/gpu/drm/sun4i/sun4i_tcon.c
 > +++ b/drivers/gpu/drm/sun4i/sun4i_tcon.c
-[ ... ]
+> @@ -221,6 +221,35 @@ void sun4i_tcon_set_status(struct sun4i_tcon *tcon,
+>  		sun4i_tcon_lvds_set_status(tcon, encoder, true);
+> =20
+>  	sun4i_tcon_channel_set_status(tcon, channel, enabled);
+> +
+> +	/*
+> +	 * On disable, stop the DSI/CPU-mode retrigger timer/IRQ. This is a
+> +	 * backstop for boards where sun6i_dsi_encoder_disable() itself
+> +	 * already did this (see sun4i_tcon_dsi_stop_retrigger()'s comment
+> +	 * for why that earlier call site is the one that actually matters)
+> +	 * -- harmless and idempotent to also do it here.
+> +	 */
+> +	if (!enabled)
+> +		sun4i_tcon_dsi_stop_retrigger(tcon);
+> +	else if (!tcon->dsi_cpu_mode && tcon->irq && !tcon->irq_enabled) {
+> +		/*
+> +		 * Non-DSI boards: tcon->irq was requested IRQF_NO_AUTOEN for
+> +		 * every board using this driver (needed for the DSI/CPU-mode
+> +		 * path's delayed enable -- see the comment on
+> +		 * sun4i_tcon_init_irq()), so it needs an explicit enable_irq()
+> +		 * somewhere for boards that never take that path at all. This
+> +		 * runs on every CRTC enable -- both a real modeset (paired
+> +		 * with sun4i_tcon_mode_set() in the same commit) and a plain
+> +		 * DPMS off/on cycle, which does NOT call mode_set_nofb/
+> +		 * sun4i_tcon_mode_set() again. Putting this logic there
+> +		 * instead (an earlier version of this fix did exactly that)
+> +		 * left the IRQ permanently disabled after just one DPMS
+> +		 * off/on cycle, since only a real mode change would ever
+> +		 * reach it again.
+> +		 */
+> +		enable_irq(tcon->irq);
+> +		tcon->irq_enabled =3D true;
+> +	}
+>  }
+> =20
+>  void sun4i_tcon_enable_vblank(struct sun4i_tcon *tcon, bool enable)
+> @@ -229,6 +258,26 @@ void sun4i_tcon_enable_vblank(struct sun4i_tcon *tco=
+n, bool enable)
+> =20
+>  	DRM_DEBUG_DRIVER("%sabling VBLANK interrupt\n", enable ? "En" : "Dis");
+> =20
+> +	/*
+> +	 * The DSI/CPU-interface path never touches TCON0's own GINT0
+> +	 * enable bits: for this panel, the vendor implementation dispatches
+> +	 * IRQ enable/query entirely to DSI's own interrupt register instead
+> +	 * (confirmed against a live working reference system, where GINT0's
+> +	 * enable bits read zero). The real per-frame retrigger source is
+> +	 * SUN6I_DSI_INT_REG -- see sun6i_mipi_dsi.c and
+> +	 * sun4i_tcon_dsi_retrigger_timer_fn() below.
+> +	 *
+> +	 * This also means SUN4I_TCON_GINT0_TCON0_TRI_FINISH_ENABLE is never
+> +	 * set, so it's fair to ask whether TRI_FINISH_INT's status bit can
+> +	 * assert at all without its own enable bit -- the same live vendor
+> +	 * dump answers this directly: TCON0_GINT0 read 0x00000a00 on that
+> +	 * reference system (TRI_FINISH_INT and FSYNC_INT both set) with every
+> +	 * enable bit at 0. Both status bits assert regardless of their own
+> +	 * enable, confirmed on real working hardware, not assumed.
+> +	 */
+> +	if (tcon->dsi_cpu_mode)
+> +		return;
+> +
+>  	mask =3D SUN4I_TCON_GINT0_VBLANK_ENABLE(0) |
+>  		SUN4I_TCON_GINT0_VBLANK_ENABLE(1) |
+>  		SUN4I_TCON_GINT0_TCON0_TRI_FINISH_ENABLE;
+> @@ -273,6 +322,80 @@ static void sun4i_tcon_set_mux(struct sun4i_tcon *tc=
+on, int channel,
+>  			 encoder->name, encoder->crtc->name, ret);
+>  }
+> =20
+> +/*
+> + * See sun8i_tcon_top_set_dsi_gate()'s comment for what this bit is and =
+why
+> + * it can't be wired up as a normal clk consumer. Resolves TCON0's own
+> + * port-0 remote node the same way sun8i_r40_tcon_tv_set_mux() resolves
+> + * TCON_TOP for the TV path -- our board's tcon_lcd0 port@0 is connected
+> + * to dpss_top0 (TCON TOP) in the ports graph for engine-ID-matching
+> + * purposes already (sun4i_tcon_connected_to_tcon_top()); this reuses th=
+at
+> + * same connection to actually reach the TCON TOP device.
+> + */
+> +static void sun4i_tcon0_set_dsi_gate(struct sun4i_tcon *tcon, bool enabl=
+e)
+> +{
+> +	struct device_node *remote;
+> +	struct platform_device *pdev;
+> +
+> +	if (!IS_ENABLED(CONFIG_DRM_SUN8I_TCON_TOP))
+> +		return;
+> +
+> +	remote =3D of_graph_get_remote_node(tcon->dev->of_node, 0, -1);
+> +	if (!remote)
+> +		return;
+> +
+> +	if (!of_match_node(sun8i_tcon_top_of_table, remote)) {
+> +		of_node_put(remote);
+> +		return;
+> +	}
+> +
+> +	pdev =3D of_find_device_by_node(remote);
+> +	of_node_put(remote);
+> +	if (!pdev)
+> +		return;
+> +
+> +	sun8i_tcon_top_set_dsi_gate(&pdev->dev, enable);
+> +	put_device(&pdev->dev);
+> +}
+> +
+> +/*
+> + * See sun8i_tcon_top_set_de0_port()'s comment for what this register is=
+ and
+> + * why it can't be reached through the normal .set_mux quirks callback f=
+or
+> + * our board. Same TCON TOP resolution pattern as
+> + * sun4i_tcon0_set_dsi_gate() immediately above.
+> + */
+> +static void sun4i_tcon0_set_de0_port(struct sun4i_tcon *tcon)
+> +{
+> +	struct device_node *remote;
+> +	struct platform_device *pdev;
+> +
+> +	if (!IS_ENABLED(CONFIG_DRM_SUN8I_TCON_TOP))
+> +		return;
+> +
+> +	remote =3D of_graph_get_remote_node(tcon->dev->of_node, 0, -1);
+> +	if (!remote)
+> +		return;
+> +
+> +	if (!of_match_node(sun8i_tcon_top_of_table, remote)) {
+> +		of_node_put(remote);
+> +		return;
+> +	}
+> +
+> +	pdev =3D of_find_device_by_node(remote);
+> +	of_node_put(remote);
+> +	if (!pdev)
+> +		return;
+> +
+> +	/*
+> +	 * DE0 routes to TCON-TOP port 0, matching PORT_SEL's live value on a
+> +	 * working reference system (its DE0 field is 0, not the OF-graph
+> +	 * endpoint id 1 the port number might otherwise suggest -- the two
+> +	 * are unrelated). Written explicitly rather than relying on this
+> +	 * also being the register's post-reset default.
+> +	 */
+> +	sun8i_tcon_top_set_de0_port(&pdev->dev, 0);
+> +	put_device(&pdev->dev);
+> +}
+> +
+>  static int sun4i_tcon_get_clk_delay(const struct drm_display_mode *mode,
+>  				    int channel)
+>  {
+> @@ -354,14 +477,29 @@ static void sun4i_tcon0_mode_set_cpu(struct sun4i_t=
+con *tcon,
+>  	u8 lanes =3D device->lanes;
+>  	u32 block_space, start_delay;
+>  	u32 tcon_div;
+> +	u8 clk_delay;
+> =20
+>  	/*
+>  	 * dclk is required to run at 1/4 the DSI per-lane bit rate.
+>  	 */
+>  	tcon->dclk_min_div =3D SUN6I_DSI_TCON_DIV;
+>  	tcon->dclk_max_div =3D SUN6I_DSI_TCON_DIV;
+> -	clk_set_rate(tcon->dclk, mode->crtc_clock * 1000 * (bpp / lanes)
+> -						  / SUN6I_DSI_TCON_DIV);
+> +	clk_set_rate(tcon->dclk, mode->crtc_clock * 1000UL * (bpp / lanes)
+> +						   / SUN6I_DSI_TCON_DIV);
+> +
+> +	/*
+> +	 * Vendor's tcon_init() sets this unconditionally for every TCON
+> +	 * instance regardless of panel type (LVDS/RGB/DSI alike); the CPU/DSI
+> +	 * path here never did. Gated on dsi_cpu_needs_retrigger, same as
+> +	 * every other addition below that pristine mainline never wrote at
+> +	 * all for any DSI board -- see the comment further down on
+> +	 * dsi_cpu_mode for why this needs a real quirk rather than applying
+> +	 * unconditionally to every board reaching this function.
+> +	 */
+> +	if (tcon->quirks->dsi_cpu_needs_retrigger)
+> +		regmap_update_bits(tcon->regs, SUN4I_TCON_GCTL_REG,
+> +				   SUN4I_TCON_GCTL_IOMAP_MASK,
+> +				   SUN4I_TCON_GCTL_IOMAP_TCON0);
+> =20
+>  	/* Set the resolution */
+>  	regmap_write(tcon->regs, SUN4I_TCON0_BASIC0_REG,
+> @@ -375,6 +513,68 @@ static void sun4i_tcon0_mode_set_cpu(struct sun4i_tc=
+on *tcon,
+>  			   SUN4I_TCON0_CTL_IF_MASK,
+>  			   SUN4I_TCON0_CTL_IF_8080);
+> =20
+> +	/*
+> +	 * Arm the per-frame TRIGGER_START re-assertion in the IRQ handler --
+> +	 * but only for TCON generations that actually need it. This
+> +	 * function itself is not new: pristine mainline already
+> +	 * unconditionally routes every DRM_MODE_ENCODER_DSI board through
+> +	 * it, including at least one real existing user on another SoC --
+> +	 * Pinephone/Pinetab on A64, confirmed still reaching this exact
+> +	 * function via their video-mode DSI panel (drivers/gpu/drm/panel/
+> +	 * panel-sitronix-st7703.c) despite using MIPI_DSI_MODE_VIDEO rather
+> +	 * than this board's command-mode panel, since sun4i_tcon_mode_set()'s
+> +	 * DRM_MODE_ENCODER_DSI case routes every DSI protocol mode through
+> +	 * the TCON's CPU/8080 register interface alike (see the comment
+> +	 * there). This driver's own sun4i_tcon_handler() comment (added
+> +	 * earlier in this series, see the comment below on the
+> +	 * TRI_FINISH_INT branch) describes that TCON generation as
+> +	 * free-running continuously off a single TRI_EN write, needing no
+> +	 * per-frame software retrigger at all -- checked directly, not
+> +	 * assumed: A83T's own TBS-A711 board, previously cited here too, was
+> +	 * wrong to cite -- its DTS panel node is "panel-lvds", so it reaches
+> +	 * this driver's separate LVDS mode_set path instead and was never
+> +	 * actually exercising this function at all. No currently-shipping
+> +	 * A83T board in mainline has a real DSI panel. Gating dsi_cpu_mode
+> +	 * (which in turn gates sun4i_tcon_enable_vblank()'s early return,
+> +	 * the retrigger timer, and sun4i_tcon_handler()'s
+> +	 * unconditional-IRQ_HANDLED behavior) behind this quirk keeps all of
+> +	 * that scoped to boards that actually opt in -- see the comment on
+> +	 * dsi_cpu_needs_retrigger in sun4i_tcon.h for how a board opts in
+> +	 * (a real, driver-matched compatible string, not a DT-only flag),
+> +	 * and why quirks previously couldn't do this (this board's TCON0
+> +	 * used to share sun8i_a83t_lcd_quirks verbatim with real A83T
+> +	 * hardware via an identical compatible string).
+> +	 */
+> +	if (tcon->quirks->dsi_cpu_needs_retrigger) {
+> +		tcon->dsi_cpu_mode =3D true;
+> +		tcon->dsi =3D encoder_to_sun6i_dsi(encoder);
+> +		/*
+> +		 * Back-reference so sun6i_dsi_encoder_enable() can arm the
+> +		 * retrigger timer itself once it actually finishes -- see
+> +		 * the comment on sun4i_tcon_dsi_start_retrigger() for why
+> +		 * this replaced a wall-clock guess made from here.
+> +		 */
+> +		tcon->dsi->tcon =3D tcon;
+> +	}
+> +
+> +	/*
+> +	 * CLK_DELAY and DCLK_OUT_EN are both set by the vendor implementation
+> +	 * and present in a working reference system's live register values;
+> +	 * mainline never set either on the DSI path for any board. Gated,
+> +	 * same reasoning as GCTL_IOMAP above.
+> +	 */
+> +	if (tcon->quirks->dsi_cpu_needs_retrigger) {
+> +		clk_delay =3D sun4i_tcon_get_clk_delay(mode, 0);
+> +		regmap_update_bits(tcon->regs, SUN4I_TCON0_CTL_REG,
+> +				   SUN4I_TCON0_CTL_CLK_DELAY_MASK,
+> +				   SUN4I_TCON0_CTL_CLK_DELAY(clk_delay));
+> +
+> +		/* See the header comment on SUN4I_TCON0_DCLK_OUT_EN_MASK. */
+> +		regmap_update_bits(tcon->regs, SUN4I_TCON0_DCLK_REG,
+> +				   SUN4I_TCON0_DCLK_OUT_EN_MASK,
+> +				   SUN4I_TCON0_DCLK_OUT_EN_MASK);
+> +	}
+> +
+>  	regmap_write(tcon->regs, SUN4I_TCON_ECC_FIFO_REG,
+>  		     SUN4I_TCON_ECC_FIFO_EN);
+> =20
+> @@ -384,6 +584,19 @@ static void sun4i_tcon0_mode_set_cpu(struct sun4i_tc=
+on *tcon,
+>  		     SUN4I_TCON0_CPU_IF_TRI_FIFO_EN |
+>  		     SUN4I_TCON0_CPU_IF_TRI_EN);
+> =20
+> +	/*
+> +	 * TRIGGER_START itself (a write-1-to-start, self-clearing pulse bit;
+> +	 * TRI_EN above only arms trigger mode, it does not kick off a
+> +	 * transfer) is deliberately not asserted here. This function runs
+> +	 * from the CRTC's mode_set_nofb hook, well before the encoder chain's
+> +	 * .enable() has powered the D-PHY, enabled the DSI block, or set up
+> +	 * its instruction tables. Asserting TRIGGER_START before the DSI
+> +	 * engine exists wedges the transfer state machine permanently and no
+> +	 * amount of later retriggering recovers it. dsi_retrigger_timer's
+> +	 * first tick fires the real first trigger, safely after
+> +	 * encoder_enable() has run.
+> +	 */
+> +
+>  	/*
+>  	 * This looks suspicious, but it works...
+>  	 *
+> @@ -395,6 +608,18 @@ static void sun4i_tcon0_mode_set_cpu(struct sun4i_tc=
+on *tcon,
+>  	block_space =3D mode->htotal * bpp / (tcon_div * lanes);
+>  	block_space -=3D mode->hdisplay + 40;
+> =20
+> +	/*
+> +	 * This formula's result is consistently one lower than a working
+> +	 * reference system's live BLOCK_SPACE value; every other field in
+> +	 * the pixel pipeline matches vendor bit-for-bit, so the gap is
+> +	 * closed directly here rather than reverse-engineering which term
+> +	 * of vendor's own formula differs. Gated: this is a correction
+> +	 * specific to this panel/SoC's real hardware behavior, not
+> +	 * something to apply to every board reaching this shared formula.
+> +	 */
+> +	if (tcon->quirks->dsi_cpu_needs_retrigger)
+> +		block_space +=3D 1;
+> +
+>  	regmap_write(tcon->regs, SUN4I_TCON0_CPU_TRI0_REG,
+>  		     SUN4I_TCON0_CPU_TRI0_BLOCK_SPACE(block_space) |
+>  		     SUN4I_TCON0_CPU_TRI0_BLOCK_SIZE(mode->hdisplay));
+> @@ -402,25 +627,141 @@ static void sun4i_tcon0_mode_set_cpu(struct sun4i_=
+tcon *tcon,
+>  	regmap_write(tcon->regs, SUN4I_TCON0_CPU_TRI1_REG,
+>  		     SUN4I_TCON0_CPU_TRI1_BLOCK_NUM(mode->vdisplay));
+> =20
+> -	start_delay =3D (mode->crtc_vtotal - mode->crtc_vdisplay - 10 - 1);
+> -	start_delay =3D start_delay * mode->crtc_htotal * 149;
+> -	start_delay =3D start_delay / (mode->crtc_clock / 1000) / 8;
+> +	/*
+> +	 * ((vtotal - vdisplay - N) * htotal * de_clk_rate_mhz / pixel_clk_khz)=
+ >> 3.
+> +	 * Pristine mainline used N=3D9+1+1=3D11 and de_clk_rate_mhz=3D149,
+> +	 * unconditionally, for every board reaching this function. This
+> +	 * SoC's real display-engine clock rate is 300MHz, and N=3D9 --
+> +	 * confirmed against a live working reference system's TRI2 register
+> +	 * value for this exact panel -- so both terms are gated on
+> +	 * dsi_cpu_needs_retrigger, preserving the exact pristine formula
+> +	 * (and whatever DE clock rate is correct for it) for every other
+> +	 * board unchanged.
+> +	 *
+> +	 * mode->crtc_clock is in kHz; a sub-1MHz mode (pre-existing
+> +	 * possibility, not specific to this panel/board) would make the
+> +	 * "/ 1000" term truncate to 0 and divide-by-zero below. Clamped to a
+> +	 * minimum of 1 -- purely a crash guard, applied to both branches,
+> +	 * no real mode on this panel comes remotely close to that boundary.
+> +	 */
+> +	if (tcon->quirks->dsi_cpu_needs_retrigger) {
+> +		start_delay =3D (mode->crtc_vtotal - mode->crtc_vdisplay - 9);
+> +		start_delay =3D start_delay * mode->crtc_htotal * 300;
+> +	} else {
+> +		start_delay =3D (mode->crtc_vtotal - mode->crtc_vdisplay - 10 - 1);
+> +		start_delay =3D start_delay * mode->crtc_htotal * 149;
+> +	}
+> +	start_delay =3D start_delay / max(mode->crtc_clock / 1000, 1) / 8;
+>  	regmap_write(tcon->regs, SUN4I_TCON0_CPU_TRI2_REG,
+>  		     SUN4I_TCON0_CPU_TRI2_TRANS_START_SET(10) |
+>  		     SUN4I_TCON0_CPU_TRI2_START_DELAY(start_delay));
+> =20
+>  	/*
+> -	 * The Allwinner BSP has a comment that the period should be
+> -	 * the display clock * 15, but uses an hardcoded 3000...
+> +	 * The Allwinner BSP has a comment that the period should be the
+> +	 * display clock * 15, but hardcodes 3000 (pristine mainline's value,
+> +	 * unconditional for every board) -- which itself doesn't match this
+> +	 * panel: a working reference system's live SAFE_PERIOD_NUM value is
+> +	 * 1035. Gated, same reasoning as the writes above.
+>  	 */
+>  	regmap_write(tcon->regs, SUN4I_TCON_SAFE_PERIOD_REG,
+> -		     SUN4I_TCON_SAFE_PERIOD_NUM(3000) |
+> +		     SUN4I_TCON_SAFE_PERIOD_NUM(tcon->quirks->dsi_cpu_needs_retrigger ?
+> +						1035 : 3000) |
+>  		     SUN4I_TCON_SAFE_PERIOD_MODE(3));
+> =20
+> -	/* Enable the output on the pins */
+> +	/*
+> +	 * IO_TRI_REG's HSYNC/VSYNC/DATA_PINS_DISABLE bits are for the HV/RGB
+> +	 * and LVDS paths, not CPU/8080 -- a working reference system's live
+> +	 * value for this interface is 0x00000000. Pristine mainline's value
+> +	 * (0xe0000000, unconditional for every board) is preserved for any
+> +	 * board not opting into this quirk.
+> +	 */
+>  	regmap_write(tcon->regs, SUN4I_TCON0_IO_TRI_REG,
+> -		     0xe0000000);
+> +		     tcon->quirks->dsi_cpu_needs_retrigger ? 0x00000000 : 0xe0000000);
+> +
+> +	/*
+> +	 * The retrigger timer itself is armed from sun6i_dsi_encoder_enable()
+> +	 * once that function actually finishes, not from here -- see
+> +	 * sun4i_tcon_dsi_start_retrigger()'s comment for why a wall-clock
+> +	 * guess made at this point (mode_set_nofb time, well before
+> +	 * encoder_enable even starts) was replaced with sequencing on real
+> +	 * completion instead.
+> +	 */
+> +}
+> +
+> +/*
+> + * Called from sun6i_dsi_encoder_enable() once it has genuinely finished
+> + * (DSI_START_HSD already issued) rather than from mode_set_cpu() above =
+on a
+> + * guessed wall-clock delay. The previous 1000ms guess (sized for this p=
+anel's
+> + * drm_panel_prepare() sequence, ~300ms of msleep()) raced against
+> + * encoder_enable() under real scheduling delays: both this timer's call=
+back
+> + * (hrtimer, hardirq context) and encoder_enable() (process context) wri=
+te
+> + * SUN6I_DSI_INST_JUMP_SEL_REG via sun6i_dsi_start(), with no synchroniz=
+ation
+> + * between them if the timer fired before encoder_enable() actually fini=
+shed.
+> + * Sequencing on real completion instead of a timeout removes that race
+> + * entirely rather than just widening the margin.
+> + */
+> +void sun4i_tcon_dsi_start_retrigger(struct sun4i_tcon *tcon)
+> +{
+> +	tcon->dsi_retrigger_ticks =3D 0;
+> +	/*
+> +	 * A stale true left over from a previous DPMS off/on cycle would
+> +	 * make this new cycle's timer stop at tick=3D=3D1 without ever
+> +	 * confirming this cycle's own retrigger actually happened -- see
+> +	 * the comment on dsi_irq_retriggered in sun4i_tcon.h.
+> +	 */
+> +	tcon->dsi_irq_retriggered =3D false;
+> +	/*
+> +	 * Must match the _SOFT bit the timer was set up with (hrtimer_setup()
+> +	 * in sun4i_tcon_bind()) -- hrtimer_start_range_ns() WARN_ON_ONCE()s on
+> +	 * a HRTIMER_MODE_SOFT/timer->is_soft mismatch.
+> +	 */
+> +	hrtimer_start(&tcon->dsi_retrigger_timer, ms_to_ktime(2),
+> +		      HRTIMER_MODE_REL_SOFT);
+> +
+> +	/*
+> +	 * enable_irq(tcon->irq) is deliberately not called here:
+> +	 * hrtimer_start() only schedules the timer and returns immediately,
+> +	 * so calling it at this point would run at essentially the same
+> +	 * instant as probe-time did. It's enabled from the timer's own
+> +	 * tick=3D=3D0 callback instead, genuinely after DSI/D-PHY/panel are
+> +	 * configured -- see sun4i_tcon_dsi_retrigger_timer_fn() below.
+> +	 */
+> +}
+> +EXPORT_SYMBOL(sun4i_tcon_dsi_start_retrigger);
+> +
+> +/*
+> + * The real stop point for this timer/IRQ isn't sun4i_tcon_set_status()'s
+> + * disable path -- DRM's own atomic-commit ordering
+> + * (disable_outputs() in drm_atomic_helper.c: encoder/bridge disable, th=
+en
+> + * post-disable, then only *then* CRTC disable) calls
+> + * sun6i_dsi_encoder_disable() before sun4i_crtc_atomic_disable() ever r=
+uns.
+> + * sun6i_dsi_encoder_disable() gates dsi->mod_clk and asserts dsi->reset;
+> + * if this timer (or the TRI_FINISH-backstop branch in
+> + * sun4i_tcon_handler(), which also touches dsi->regs via
+> + * sun6i_dsi_tri_start()) fires in the window between that and this
+> + * function's own hrtimer_cancel()/disable_irq(), it hits now-gated DSI
+> + * hardware -- a real external-abort/bus-fault risk, not just wasted wor=
+k.
+> + * Called from sun6i_dsi_encoder_disable() itself, before its own
+> + * clk/reset teardown, to close that window; also called from
+> + * sun4i_tcon_set_status()'s disable path as a harmless, idempotent
+> + * backstop for completeness.
+> + */
+> +void sun4i_tcon_dsi_stop_retrigger(struct sun4i_tcon *tcon)
+> +{
+> +	hrtimer_cancel(&tcon->dsi_retrigger_timer);
+> +	/*
+> +	 * disable_irq() (which might_sleep()s internally) is safe here:
+> +	 * both call sites run in normal process/workqueue context, not a
+> +	 * genuinely atomic section -- see the comment on
+> +	 * sun4i_tcon_set_status()'s disable_irq() call for why (this
+> +	 * function is called from there too, unchanged reasoning).
+> +	 */
+> +	if (tcon->irq_enabled) {
+> +		disable_irq(tcon->irq);
+> +		tcon->irq_enabled =3D false;
+> +	}
+>  }
+> +EXPORT_SYMBOL(sun4i_tcon_dsi_stop_retrigger);
+> =20
+>  static void sun4i_tcon0_mode_set_lvds(struct sun4i_tcon *tcon,
+>  				      const struct drm_encoder *encoder,
 > @@ -713,11 +1054,31 @@ void sun4i_tcon_mode_set(struct sun4i_tcon *tcon,
-[ ... ]
+>  			 const struct drm_encoder *encoder,
+>  			 const struct drm_display_mode *mode)
+>  {
+> +	/*
+> +	 * Only the DSI/CPU-interface path below re-arms it; clear it here so a
+> +	 * TCON re-used for another encoder type does not keep poking
+> +	 * TRIGGER_START in the IRQ handler. Cancel the software retrigger timer
+> +	 * too -- sun4i_tcon0_mode_set_cpu() below restarts it if the DSI path
+> +	 * is taken again.
+> +	 */
+> +	tcon->dsi_cpu_mode =3D false;
+> +	hrtimer_cancel(&tcon->dsi_retrigger_timer);
+> +
+>  	switch (encoder->encoder_type) {
 >  	case DRM_MODE_ENCODER_DSI:
-[ ... ]
+> -		/* DSI is tied to special case of CPU interface */
+> +		/*
+> +		 * All DSI panels on this board go through the CPU/8080
+> +		 * interface, including video-mode ones -- the device tree's
+> +		 * "video mode" declaration and the panel's MIPI_DSI_MODE_VIDEO
+> +		 * flag describe the DSI protocol mode, not the TCON's
+> +		 * HV-vs-CPU register selection. A working reference system's
+> +		 * live LCD_CTL_REG confirms tcon0_if =3D 1 (IF_8080) for this
+> +		 * exact configuration.
+> +		 */
 >  		sun4i_tcon0_mode_set_cpu(tcon, encoder, mode);
 >  		sun4i_tcon_set_mux(tcon, 0, encoder);
 > +		sun4i_tcon0_set_dsi_gate(tcon, true);
 > +		sun4i_tcon0_set_de0_port(tcon);
 >  		break;
-
-[Severity: Medium]
-Does this code leak the TCON TOP DSI clock gate?
-
-The gate is explicitly enabled here via sun4i_tcon0_set_dsi_gate(tcon, true=
-),
-but it doesn't appear that sun4i_tcon0_set_dsi_gate(tcon, false) is ever
-called during DPMS OFF or teardown logic (e.g., in sun4i_tcon_set_status).
-This could leave the clock permanently enabled after the first modeset.
-
-[ ... ]
+>  	case DRM_MODE_ENCODER_LVDS:
+>  		sun4i_tcon0_mode_set_lvds(tcon, encoder, mode);
+> @@ -735,6 +1096,14 @@ void sun4i_tcon_mode_set(struct sun4i_tcon *tcon,
+>  	default:
+>  		DRM_DEBUG_DRIVER("Unknown encoder type, doing nothing...\n");
+>  	}
+> +
+> +	/*
+> +	 * The non-DSI IRQ re-enable used to live here, but that's skipped
+> +	 * during a plain DPMS off/on cycle (mode_set_nofb/this function isn't
+> +	 * called unless the mode itself changes) -- moved to
+> +	 * sun4i_tcon_set_status()'s enable=3Dtrue branch instead, which runs
+> +	 * on every CRTC enable, DPMS-only or not. See the comment there.
+> +	 */
+>  }
+>  EXPORT_SYMBOL(sun4i_tcon_mode_set);
+> =20
+> @@ -759,30 +1128,247 @@ static irqreturn_t sun4i_tcon_handler(int irq, vo=
+id *private)
+>  	struct sun4i_crtc *scrtc =3D tcon->crtc;
+>  	struct sunxi_engine *engine =3D scrtc->engine;
+>  	unsigned int status;
+> +	bool handled;
+> =20
+>  	regmap_read(tcon->regs, SUN4I_TCON_GINT0_REG, &status);
+> =20
+> -	if (!(status & (SUN4I_TCON_GINT0_VBLANK_INT(0) |
+> -			SUN4I_TCON_GINT0_VBLANK_INT(1) |
+> -			SUN4I_TCON_GINT0_TCON0_TRI_FINISH_INT)))
+> -		return IRQ_NONE;
+> +	/*
+> +	 * FSYNC_INT (bit 9) reads unconditionally set on this board -- a
+> +	 * confirmed vendor register dump on a genuinely working reference
+> +	 * system shows the exact same bit persistently set too (stable
+> +	 * across 5 rapid samples), so this is real, expected hardware
+> +	 * behavior in DSI/CPU mode, not a bug. What IS a real, measured
+> +	 * problem: it toggles far faster than a single regmap_read() can
+> +	 * reliably catch (live testing shows genirq's "nobody cared"
+> +	 * unhandled-IRQ storm protection tripping and permanently disabling
+> +	 * this line within 60-100s, based on this exact read occasionally
+> +	 * landing between pulses and seeing status=3D0). Once disabled,
+> +	 * sun4i_tcon_handler()'s own TRI_FINISH-based backstop retrigger
+> +	 * (see below) is gone for the rest of the boot, for good.
+> +	 *
+> +	 * In DSI/CPU mode, this driver is the only thing wired to this GIC
+> +	 * line -- there is no other legitimate source that this interrupt
+> +	 * could be "not for us", unlike the general shared-IRQ case genirq's
+> +	 * heuristic is meant to protect against. So in that mode, treat
+> +	 * every firing as ours unconditionally rather than trusting a single
+> +	 * status snapshot; non-DSI boards sharing this same driver are
+> +	 * unaffected and keep the normal status-based check.
+> +	 *
+> +	 * This is a real trade-off, not a free fix: a line genuinely
+> +	 * re-firing this fast means real, ongoing CPU time spent servicing
+> +	 * it for as long as this board is in this state, since each call is
+> +	 * still a full IRQ entry/exit even though the work inside is cheap.
+> +	 * The alternative -- letting genirq disable the line -- is worse:
+> +	 * empirically confirmed to permanently kill this handler's own
+> +	 * TRI_FINISH-based backstop for the rest of the boot, not just this
+> +	 * one noisy source. Moving to DSI's own interrupt (GIC SPI 100,
+> +	 * currently unrequested by any driver -- see the comment on
+> +	 * SUN6I_DSI_INT_REG in sun6i_mipi_dsi.c) was considered, but there's
+> +	 * no evidence that line wouldn't exhibit the same behavior, and
+> +	 * requesting an interrupt no other mainline user has ever wired up
+> +	 * for this purpose is its own real risk. Left as-is.
+> +	 */
+> +	handled =3D tcon->dsi_cpu_mode ||
+> +		  (status & (SUN4I_TCON_GINT0_VBLANK_INT(0) |
+> +			     SUN4I_TCON_GINT0_VBLANK_INT(1) |
+> +			     SUN4I_TCON_GINT0_TCON0_TRI_FINISH_INT |
+> +			     SUN4I_TCON_GINT0_TCON0_FSYNC_INT));
+> =20
+> -	drm_crtc_handle_vblank(&scrtc->crtc);
+> -	sun4i_tcon_finish_page_flip(drm, scrtc);
+> +	if (!handled)
+> +		return IRQ_NONE;
+> =20
+> -	/* Acknowledge the interrupt */
+> +	/*
+> +	 * Acknowledge the interrupt as early as possible, using the status
+> +	 * snapshot read above, before the slower work below (vblank/
+> +	 * page-flip handling, both of which can take a real DRM spinlock).
+> +	 * SUN4I_TCON_GINT0_REG is write-0-to-clear: this is still a
+> +	 * read-then-write, so a genuinely new status bit that latches in the
+> +	 * gap between the regmap_read() above and this write gets silently
+> +	 * cleared here too, unobserved by this pass -- a real, pre-existing
+> +	 * TOCTOU window, not fully closed by this reordering. What this
+> +	 * reordering does do is shrink that window from "however long
+> +	 * drm_crtc_handle_vblank()/finish_page_flip() take" down to a few
+> +	 * instructions, which meaningfully narrows it without redesigning
+> +	 * this driver's interrupt handling. TRI_COUNTER_INT is included even
+> +	 * though nothing here acts on it: in DSI/CPU mode every firing is
+> +	 * treated as handled unconditionally (see the comment above), so if
+> +	 * this bit were ever the one actually driving the level line and
+> +	 * went unacknowledged, the GIC would keep re-presenting it forever
+> +	 * with nothing in this function able to break out -- a genuine hard
+> +	 * lockup, not just wasted CPU time. Never observed asserting in any
+> +	 * testing so far, but clearing it here is free and closes the gap.
+> +	 */
+>  	regmap_update_bits(tcon->regs, SUN4I_TCON_GINT0_REG,
+>  			   SUN4I_TCON_GINT0_VBLANK_INT(0) |
+>  			   SUN4I_TCON_GINT0_VBLANK_INT(1) |
+> -			   SUN4I_TCON_GINT0_TCON0_TRI_FINISH_INT,
+> +			   SUN4I_TCON_GINT0_TCON0_TRI_FINISH_INT |
+> +			   SUN4I_TCON_GINT0_TCON0_TRI_COUNTER_INT |
+> +			   SUN4I_TCON_GINT0_TCON0_FSYNC_INT,
+>  			   0);
+> =20
+> +	/*
+> +	 * FSYNC_INT alone is not a real vblank/frame-complete event -- it's
+> +	 * acked above purely to keep the level interrupt from storming (see
+> +	 * the comment on FSYNC_INT further up). Firing
+> +	 * drm_crtc_handle_vblank()/finish_page_flip() on every FSYNC_INT
+> +	 * pulse, unconditionally, generates spurious vblank events and can
+> +	 * complete page-flip fences before the frame they're for has
+> +	 * actually reached the screen. Only a genuine VBLANK or TRI_FINISH
+> +	 * source should do that -- checked against the status snapshot read
+> +	 * at function entry, same as the ack above.
+> +	 */
+> +	if (status & (SUN4I_TCON_GINT0_VBLANK_INT(0) |
+> +		      SUN4I_TCON_GINT0_VBLANK_INT(1) |
+> +		      SUN4I_TCON_GINT0_TCON0_TRI_FINISH_INT)) {
+> +		drm_crtc_handle_vblank(&scrtc->crtc);
+> +		sun4i_tcon_finish_page_flip(drm, scrtc);
+> +	}
+> +
+> +	/*
+> +	 * Re-arm the CPU/8080-interface transfer for the next frame.
+> +	 *
+> +	 * TRIGGER_START is a self-clearing one-shot: it starts exactly one
+> +	 * frame's transfer and then clears itself. Without re-asserting it,
+> +	 * the panel receives a single frame at mode-set time and nothing
+> +	 * ever again. Pristine mainline's sun4i_tcon0_mode_set_cpu() writes
+> +	 * neither AUTO nor TRIGGER_START for any board; its confirmed
+> +	 * existing user on another SoC (Pinephone/Pinetab on A64 -- see the
+> +	 * comment further up on dsi_cpu_needs_retrigger for why A83T's own
+> +	 * TBS-A711, previously also cited here, does not actually apply:
+> +	 * it's an LVDS panel, never reaching this function at all) free-runs
+> +	 * continuously off a single TRI_EN write on that older TCON
+> +	 * hardware, needing no per-frame software trigger at all. This TCON
+> +	 * generation does.
+> +	 *
+> +	 * This mirrors the vendor implementation's own per-frame retrigger
+> +	 * shape -- a DSI-side kick followed by this TRIGGER_START write --
+> +	 * but not its trigger source: for this panel that's DSI's own
+> +	 * interrupt register, not TCON's GINT0 (see the comment on
+> +	 * SUN6I_DSI_INT_REG in sun6i_mipi_dsi.c). TRI_FINISH_INT is kept
+> +	 * here as a backstop in case TCON's own transfer-complete signal
+> +	 * ever does fire; it's just not the mechanism this panel relies on.
+> +	 * Without the DSI-side kick, the DSI engine never advances past the
+> +	 * first frame it was started into at encoder_enable() time, so
+> +	 * nothing downstream ever acknowledges TRIGGER_START and it never
+> +	 * self-clears.
+> +	 */
+> +	if ((status & SUN4I_TCON_GINT0_TCON0_TRI_FINISH_INT) &&
+> +	    tcon->dsi_cpu_mode) {
+> +		sun6i_dsi_tri_start(tcon->dsi);
+> +		regmap_update_bits(tcon->regs, SUN4I_TCON0_CPU_IF_REG,
+> +				   SUN4I_TCON0_CPU_IF_TRI_START,
+> +				   SUN4I_TCON0_CPU_IF_TRI_START);
+> +		/*
+> +		 * Tell dsi_retrigger_timer_fn() this path has taken over, so
+> +		 * it can stop even if it never itself catches TRIGGER_START
+> +		 * reading clear -- see the comment on dsi_irq_retriggered in
+> +		 * sun4i_tcon.h.
+> +		 */
+> +		tcon->dsi_irq_retriggered =3D true;
+> +	}
+> +
+>  	if (engine->ops->vblank_quirk)
+>  		engine->ops->vblank_quirk(engine);
+> =20
+>  	return IRQ_HANDLED;
+>  }
+> =20
+> +/*
+> + * Fires the initial TRIGGER_START/HSC kick once encoder-enable (includi=
+ng
+> + * the panel's own prepare() delays) has actually finished, then polls at
+> + * 2ms intervals -- clearing DSI_INT_REG's status bits each time doubles=
+ as
+> + * edge detection, since a subsequent read finding a status bit set again
+> + * can only mean it happened since the last clear. Stops itself once
+> + * TRIGGER_START is observed to have self-cleared, at which point
+> + * sun4i_tcon_handler() (armed on TRI_FINISH_INT) takes over the per-fra=
+me
+> + * retrigger job instead.
+> + */
+> +
 > +static enum hrtimer_restart sun4i_tcon_dsi_retrigger_timer_fn(struct hrt=
 imer *timer)
 > +{
@@ -153,7 +2471,58 @@ imer *timer)
 > +		 */
 > +		return HRTIMER_NORESTART;
 > +	}
-[ ... ]
+> +
+> +	dsi_int =3D sun6i_dsi_read_int_status(tcon->dsi);
+> +	if (dsi_int & GENMASK(31, 16))
+> +		sun6i_dsi_clear_int_status(tcon->dsi);
+> +
+> +	/*
+> +	 * enable_irq() is deferred to here, roughly 1s after mode_set_cpu(),
+> +	 * rather than at probe time -- TCON0/DSI/D-PHY aren't configured
+> +	 * until mode_set/encoder_enable time, which can be a second or more
+> +	 * after probe under DRM's atomic commit machinery. Guarded by
+> +	 * irq_enabled (shared with sun4i_tcon_mode_set()'s non-DSI path and
+> +	 * sun4i_tcon_set_status()'s disable path) so a second mode_set --
+> +	 * e.g. a DPMS off/on cycle re-arming this same timer -- can't call
+> +	 * enable_irq() on an already-enabled IRQ, which is a genirq
+> +	 * usage error (WARN + stack dump, enable/disable calls must balance).
+> +	 */
+> +	if (tick =3D=3D 0 && tcon->irq && !tcon->irq_enabled) {
+> +		/*
+> +		 * Clear whatever GINT0 status bits latched while this IRQ
+> +		 * was masked -- e.g. a leftover TRI_FINISH_INT or FSYNC_INT
+> +		 * from before a previous DPMS off/on cycle's
+> +		 * sun4i_tcon_dsi_stop_retrigger() disabled it, since that
+> +		 * function masks the IRQ but never acks GINT0. Without this,
+> +		 * enable_irq() below can let an already-latched, stale
+> +		 * condition fire the hardirq immediately: in dsi_cpu_mode
+> +		 * that hardirq (sun4i_tcon_handler()'s TRI_FINISH_INT branch)
+> +		 * re-asserts TRIGGER_START using the same hardware state this
+> +		 * function is *also* about to act on below (busy, sampled
+> +		 * before this enable_irq()), which can then double-kick
+> +		 * TRIGGER_START for the same frame.
+> +		 */
+> +		regmap_update_bits(tcon->regs, SUN4I_TCON_GINT0_REG,
+> +				   SUN4I_TCON_GINT0_VBLANK_INT(0) |
+> +				   SUN4I_TCON_GINT0_VBLANK_INT(1) |
+> +				   SUN4I_TCON_GINT0_TCON0_TRI_FINISH_INT |
+> +				   SUN4I_TCON_GINT0_TCON0_TRI_COUNTER_INT |
+> +				   SUN4I_TCON_GINT0_TCON0_FSYNC_INT,
+> +				   0);
+> +		enable_irq(tcon->irq);
+> +		tcon->irq_enabled =3D true;
+> +	}
+> +
+> +	/*
+> +	 * The vendor per-frame retrigger is LINE-edge-triggered and
+> +	 * busy-gated, never blindly re-asserting TRIGGER_START -- matching
+> +	 * the documented precondition on this bit ("software must write 1
+> +	 * only when this flag is 0"). Only the initial kick is fired from
+> +	 * software here; TCON0's AUTO bit (set in mode_set_cpu()) is
+> +	 * expected to handle Vsync-driven retriggering afterward, the same
+> +	 * way mainline's other DSI/CPU-interface boards need no per-frame
+> +	 * software retrigger at all.
+> +	 */
 > +	if (tick =3D=3D 0 && !busy) {
 > +		sun6i_dsi_tri_start(tcon->dsi);
 > +		regmap_update_bits(tcon->regs, SUN4I_TCON0_CPU_IF_REG,
@@ -165,26 +2534,1420 @@ imer *timer)
 > +	hrtimer_forward_now(timer, ms_to_ktime(2));
 > +	return HRTIMER_RESTART;
 > +}
-
-[Severity: High]
-Can this deadlock the display if the hardware is busy at the first timer ti=
-ck?
-
-If a previous DPMS OFF interrupted an active frame transfer, the hardware m=
+> +
+>  static int sun4i_tcon_init_clocks(struct device *dev,
+>  				  struct sun4i_tcon *tcon)
+>  {
+> @@ -811,6 +1397,16 @@ static int sun4i_tcon_init_clocks(struct device *de=
+v,
+>  	return 0;
+>  }
+> =20
+> +/*
+> + * This IRQ is requested disabled (IRQF_NO_AUTOEN) rather than auto-enab=
+led
+> + * at the GIC: TCON0/DSI/D-PHY aren't configured until mode_set/
+> + * encoder_enable time, commonly a second or more after probe under DRM's
+> + * atomic commit machinery, and an unmasked interrupt during that window
+> + * storms and gets permanently disabled by Linux's own protection before
+> + * anything is ready to handle it. enable_irq() is called later from
+> + * sun4i_tcon_dsi_retrigger_timer_fn(), once the hardware is actually
+> + * configured.
+> + */
+>  static int sun4i_tcon_init_irq(struct device *dev,
+>  			       struct sun4i_tcon *tcon)
+>  {
+> @@ -821,13 +1417,15 @@ static int sun4i_tcon_init_irq(struct device *dev,
+>  	if (irq < 0)
+>  		return irq;
+> =20
+> -	ret =3D devm_request_irq(dev, irq, sun4i_tcon_handler, 0,
+> +	ret =3D devm_request_irq(dev, irq, sun4i_tcon_handler, IRQF_NO_AUTOEN,
+>  			       dev_name(dev), tcon);
+>  	if (ret) {
+>  		dev_err(dev, "Couldn't request the IRQ\n");
+>  		return ret;
+>  	}
+> =20
+> +	tcon->irq =3D irq;
+> +
+>  	return 0;
+>  }
+> =20
+> @@ -836,6 +1434,20 @@ static const struct regmap_config sun4i_tcon_regmap=
+_config =3D {
+>  	.val_bits	=3D 32,
+>  	.reg_stride	=3D 4,
+>  	.max_register	=3D 0x800,
+> +	/*
+> +	 * Without this, regmap defaults to a plain mutex for locking (see
+> +	 * regmap_init() in drivers/base/regmap/regmap.c: mutex unless
+> +	 * fast_io), which is a sleeping primitive. sun4i_tcon_handler() is a
+> +	 * genuine non-threaded hard-irq handler that reads this same regmap,
+> +	 * and on DSI/CPU-mode boards sun4i_tcon_dsi_retrigger_timer_fn() (an
+> +	 * hrtimer callback, also hard-irq context by default) reads/writes
+> +	 * it concurrently on another CPU -- if that mutex is ever actually
+> +	 * contended between the two, the loser tries to sleep from hard-irq
+> +	 * context, which is illegal on any kernel, not just PREEMPT_RT.
+> +	 * fast_io switches regmap to a spinlock instead, which is safe from
+> +	 * hard-irq context regardless of contention.
+> +	 */
+> +	.fast_io	=3D true,
+>  };
+> =20
+>  static int sun4i_tcon_init_regmap(struct device *dev,
+> @@ -1136,6 +1748,20 @@ static int sun4i_tcon_bind(struct device *dev, str=
+uct device *master,
+>  	tcon->id =3D engine->id;
+>  	tcon->quirks =3D of_device_get_match_data(dev);
+> =20
+> +	/*
+> +	 * _SOFT: nothing in this callback needs genuine hard-irq-context
+> +	 * guarantees, and it runs frequently (every 2ms while active) --
+> +	 * softirq context keeps that work out of hard-irq context, which
+> +	 * matters more the longer/more often a callback runs. This also
+> +	 * means it runs in softirq context on PREEMPT_RT specifically
+> +	 * (plain HRTIMER_MODE_REL without _HARD is already demoted to
+> +	 * softirq there by default; _SOFT just makes that explicit and
+> +	 * applies it on non-RT kernels too, rather than relying on an
+> +	 * RT-only implicit demotion).
+> +	 */
+> +	hrtimer_setup(&tcon->dsi_retrigger_timer, sun4i_tcon_dsi_retrigger_time=
+r_fn,
+> +		      CLOCK_MONOTONIC, HRTIMER_MODE_REL_SOFT);
+> +
+>  	tcon->lcd_rst =3D devm_reset_control_get(dev, "lcd");
+>  	if (IS_ERR(tcon->lcd_rst)) {
+>  		dev_err(dev, "Couldn't get our reset line\n");
+> @@ -1304,6 +1930,7 @@ static void sun4i_tcon_unbind(struct device *dev, s=
+truct device *master,
+>  {
+>  	struct sun4i_tcon *tcon =3D dev_get_drvdata(dev);
+> =20
+> +	hrtimer_cancel(&tcon->dsi_retrigger_timer);
+>  	list_del(&tcon->list);
+>  	if (tcon->quirks->has_channel_0)
+>  		sun4i_dclk_free(tcon);
+> @@ -1514,6 +2141,26 @@ static const struct sun4i_tcon_quirks sun8i_a83t_l=
+cd_quirks =3D {
+>  	.setup_lvds_phy		=3D sun6i_tcon_setup_lvds_phy,
+>  };
+> =20
+> +/*
+> + * Same physical TCON0 IP block as sun8i_a83t_lcd_quirks -- this is a ne=
+w,
+> + * more-specific compatible string added by this series (see the comment=
+ on
+> + * this board's DTS tcon0 node), kept alongside the existing
+> + * "allwinner,sun8i-a83t-tcon-lcd" fallback so this board's node still b=
+inds
+> + * against an older driver that doesn't know the new string yet. It exis=
+ts
+> + * because this board's DSI/CPU-mode panel needs the per-frame software
+> + * TRIGGER_START retrigger that dsi_cpu_needs_retrigger gates, which real
+> + * A83T boards using the bare "allwinner,sun8i-a83t-tcon-lcd" compatible=
+ do
+> + * not opt into. See the comment on dsi_cpu_needs_retrigger in sun4i_tco=
+n.h
+> + * for what this actually changes.
+> + */
+> +static const struct sun4i_tcon_quirks sun50i_a133_tcon_lcd_quirks =3D {
+> +	.supports_lvds		=3D true,
+> +	.has_channel_0		=3D true,
+> +	.dclk_min_div		=3D 1,
+> +	.setup_lvds_phy		=3D sun6i_tcon_setup_lvds_phy,
+> +	.dsi_cpu_needs_retrigger =3D true,
+> +};
+> +
+>  static const struct sun4i_tcon_quirks sun8i_a83t_tv_quirks =3D {
+>  	.has_channel_1		=3D true,
+>  };
+> @@ -1558,6 +2205,7 @@ const struct of_device_id sun4i_tcon_of_table[] =3D=
+ {
+>  	{ .compatible =3D "allwinner,sun8i-a23-tcon", .data =3D &sun8i_a33_quir=
+ks },
+>  	{ .compatible =3D "allwinner,sun8i-a33-tcon", .data =3D &sun8i_a33_quir=
+ks },
+>  	{ .compatible =3D "allwinner,sun8i-a83t-tcon-lcd", .data =3D &sun8i_a83=
+t_lcd_quirks },
+> +	{ .compatible =3D "allwinner,sun50i-a133-tcon-lcd", .data =3D &sun50i_a=
+133_tcon_lcd_quirks },
+>  	{ .compatible =3D "allwinner,sun8i-a83t-tcon-tv", .data =3D &sun8i_a83t=
+_tv_quirks },
+>  	{ .compatible =3D "allwinner,sun8i-r40-tcon-tv", .data =3D &sun8i_r40_t=
+v_quirks },
+>  	{ .compatible =3D "allwinner,sun8i-v3s-tcon", .data =3D &sun8i_v3s_quir=
+ks },
+> diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.h b/drivers/gpu/drm/sun4i/s=
+un4i_tcon.h
+> index fa23aa23f..a768bdcf2 100644
+> --- a/drivers/gpu/drm/sun4i/sun4i_tcon.h
+> +++ b/drivers/gpu/drm/sun4i/sun4i_tcon.h
+> @@ -12,11 +12,14 @@
+> =20
+>  #include <drm/drm_crtc.h>
+> =20
+> +#include <linux/hrtimer.h>
+>  #include <linux/kernel.h>
+>  #include <linux/list.h>
+>  #include <linux/mod_devicetable.h>
+>  #include <linux/reset.h>
+> =20
+> +struct sun6i_dsi;
+> +
+>  #define SUN4I_TCON_GCTL_REG			0x0
+>  #define SUN4I_TCON_GCTL_TCON_ENABLE			BIT(31)
+>  #define SUN4I_TCON_GCTL_IOMAP_MASK			BIT(0)
+> @@ -27,9 +30,19 @@
+>  #define SUN4I_TCON_GINT0_VBLANK_ENABLE(pipe)		BIT(31 - (pipe))
+>  #define SUN4I_TCON_GINT0_TCON0_TRI_FINISH_ENABLE	BIT(27)
+>  #define SUN4I_TCON_GINT0_TCON0_TRI_COUNTER_ENABLE	BIT(26)
+> +/*
+> + * LCD_IRQ_FSYNC_INT: a real, named status bit this driver never enabled
+> + * or checked, found live and unconditionally set on this board. Left
+> + * unhandled it storms the IRQ line and gets it permanently disabled by
+> + * Linux's own unhandled-interrupt protection shortly after boot.
+> + * Enable-bit position follows the same status+16 pairing every other
+> + * GINT0 bit here uses.
+> + */
+> +#define SUN4I_TCON_GINT0_TCON0_FSYNC_ENABLE		BIT(25)
+>  #define SUN4I_TCON_GINT0_VBLANK_INT(pipe)		BIT(15 - (pipe))
+>  #define SUN4I_TCON_GINT0_TCON0_TRI_FINISH_INT		BIT(11)
+>  #define SUN4I_TCON_GINT0_TCON0_TRI_COUNTER_INT		BIT(10)
+> +#define SUN4I_TCON_GINT0_TCON0_FSYNC_INT		BIT(9)
+> =20
+>  #define SUN4I_TCON_GINT1_REG			0x8
+> =20
+> @@ -62,6 +75,15 @@
+>  #define SUN4I_TCON0_DCLK_GATE_BIT			(31)
+>  #define SUN4I_TCON0_DCLK_DIV_SHIFT			(0)
+>  #define SUN4I_TCON0_DCLK_DIV_WIDTH			(7)
+> +/*
+> + * The vendor implementation sets bits 30-28 together with the documented
+> + * GATE_BIT (31) for DSI output; mainline's existing dclk gate-only clock
+> + * framework handling only ever touches bit 31, leaving these three at
+> + * their power-on-reset value of 0. Mainline has no name for these bits;
+> + * setting them unconditionally alongside bit 31 is additive, not a
+> + * replacement for the existing clk_hw gate behavior.
+> + */
+> +#define SUN4I_TCON0_DCLK_OUT_EN_MASK			GENMASK(30, 28)
+> =20
+>  #define SUN4I_TCON0_BASIC0_REG			0x48
+>  #define SUN4I_TCON0_BASIC0_X(width)			((((width) - 1) & 0xfff) << 16)
+> @@ -84,8 +106,25 @@
+>  #define SUN4I_TCON0_CPU_IF_REG			0x60
+>  #define SUN4I_TCON0_CPU_IF_MODE_MASK			GENMASK(31, 28)
+>  #define SUN4I_TCON0_CPU_IF_MODE_DSI			(1 << 28)
+> +/*
+> + * Bit 17 "AUTO" ("if 1, all the valid data during this frame are written
+> + * to panel, sampled by Vsync") and bit 16 "FLUSH" ("pixel data keeps
+> + * being transferred unless the input FIFO is empty") are two alternate,
+> + * mutually-exclusive trigger modes, per the A133 User Manual. This board
+> + * matches a working reference system's live configuration (FLUSH,
+> + * AUTO clear) and drives transfers via an explicit per-frame
+> + * TRIGGER_START instead.
+> + */
+> +#define SUN4I_TCON0_CPU_IF_AUTO				BIT(17)
+>  #define SUN4I_TCON0_CPU_IF_TRI_FIFO_FLUSH		BIT(16)
+>  #define SUN4I_TCON0_CPU_IF_TRI_FIFO_EN			BIT(2)
+> +/*
+> + * "TRIGGER_START -- Write '1' to start a frame flush... This flag
+> + * indicates frame flush is running. Software must write '1' only when
+> + * this flag is '0'." TRI_EN below only arms trigger mode; it doesn't
+> + * kick off a transfer by itself.
+> + */
+> +#define SUN4I_TCON0_CPU_IF_TRI_START			BIT(1)
+>  #define SUN4I_TCON0_CPU_IF_TRI_EN			BIT(0)
+> =20
+>  #define SUN4I_TCON0_CPU_WR_REG			0x64
+> @@ -244,6 +283,18 @@ struct sun4i_tcon_quirks {
+>  	bool	supports_lvds;   /* Does the TCON support an LVDS output? */
+>  	bool	polarity_in_ch0; /* some tcon1 channels have polarity bits in tcon=
+0 pol register */
+>  	u8	dclk_min_div;	/* minimum divider for TCON0 DCLK */
+> +	/*
+> +	 * Some CPU/8080-interface DSI/CPU-mode TCON generations need
+> +	 * TRIGGER_START re-asserted per frame in software (see the comment
+> +	 * on sun4i_tcon_dsi_retrigger_timer_fn()); others free-run
+> +	 * continuously off a single TRI_EN write and would be actively
+> +	 * disrupted by that same machinery. Also gates a real
+> +	 * display-engine-clock-rate-derived constant in
+> +	 * sun4i_tcon0_mode_set_cpu()'s START_DELAY formula that differs
+> +	 * between TCON generations. False (the historical, pristine
+> +	 * behavior) unless a board's quirks entry opts in.
+> +	 */
+> +	bool	dsi_cpu_needs_retrigger;
+> =20
+>  	/* callback to handle tcon muxing options */
+>  	int	(*set_mux)(struct sun4i_tcon *, const struct drm_encoder *);
+> @@ -257,6 +308,22 @@ struct sun4i_tcon {
+>  	struct drm_device		*drm;
+>  	struct regmap			*regs;
+> =20
+> +	/*
+> +	 * Requested with IRQF_NO_AUTOEN at probe time and enabled only later,
+> +	 * once TCON0/DSI/D-PHY are actually configured -- see the comment on
+> +	 * sun4i_tcon_init_irq().
+> +	 */
+> +	int				irq;
+> +
+> +	/*
+> +	 * Tracks the enable_irq()/disable_irq() balance for the above: both
+> +	 * the DSI/CPU-mode retrigger timer and the non-DSI mode_set path can
+> +	 * each try to bring the IRQ up, and set_status(false) tears it back
+> +	 * down on disable -- this flag is the single source of truth so
+> +	 * neither path ever double-enables or double-disables it.
+> +	 */
+> +	bool				irq_enabled;
+> +
+>  	/* Main bus clock */
+>  	struct clk			*clk;
+> =20
+> @@ -279,6 +346,59 @@ struct sun4i_tcon {
+>  	/* Platform adjustments */
+>  	const struct sun4i_tcon_quirks	*quirks;
+> =20
+> +	/*
+> +	 * Set while TCON0 drives a DSI panel through the CPU/8080 interface
+> +	 * in explicit (non-AUTO) trigger mode. In that mode TRIGGER_START is
+> +	 * a self-clearing one-shot that has to be re-asserted once per frame
+> +	 * from the TRI_FINISH interrupt -- see sun4i_tcon_handler(). Gates
+> +	 * that re-trigger so RGB/LVDS/HDMI TCONs, where LCD_CPU_IF_REG is
+> +	 * meaningless, are left untouched.
+> +	 */
+> +	bool				dsi_cpu_mode;
+> +
+> +	/*
+> +	 * The DSI device driving this TCON, captured in sun4i_tcon_mode_set()
+> +	 * when dsi_cpu_mode is set. Needed so sun4i_tcon_handler() can also
+> +	 * re-issue the DSI-side HSC start sequence each frame -- see
+> +	 * sun6i_dsi_tri_start(). Only valid when dsi_cpu_mode is true.
+> +	 */
+> +	struct sun6i_dsi		*dsi;
+> +
+> +	/*
+> +	 * Delayed kick for the first TRIGGER_START/HSC assertion, started
+> +	 * (with a delay margin) at the end of sun4i_tcon0_mode_set_cpu() --
+> +	 * that function runs before sun6i_dsi_encoder_enable() in DRM's
+> +	 * atomic commit order, and the panel's own prepare() delays haven't
+> +	 * elapsed yet either, so TRIGGER_START can't be asserted synchronously
+> +	 * from mode_set.
+> +	 *
+> +	 * sun4i_tcon_dsi_retrigger_timer_fn() writes TRIGGER_START once, at
+> +	 * tick=3D=3D0, matching the vendor per-frame retrigger's own busy-gated
+> +	 * behavior (it never blindly re-asserts the bit either -- see that
+> +	 * function's comment in sun4i_tcon.c). Every tick after that just
+> +	 * re-arms itself every 2ms to poll and clear DSI_INT_REG's status,
+> +	 * until either TRI_START is observed to have self-cleared, or
+> +	 * dsi_irq_retriggered (below) shows sun4i_tcon_handler() already
+> +	 * took over -- at which point it stops (HRTIMER_NORESTART).
+> +	 */
+> +	struct hrtimer			dsi_retrigger_timer;
+> +
+> +	/* Tick counter for dsi_retrigger_timer, reset each time it (re)starts.=
+ */
+> +	unsigned int			dsi_retrigger_ticks;
+> +
+> +	/*
+> +	 * Set by sun4i_tcon_handler()'s TRI_FINISH_INT branch the first time
+> +	 * it successfully re-triggers a frame, so dsi_retrigger_timer_fn()
+> +	 * can stop even if it never itself samples TRI_START as clear.
+> +	 * Once the hardirq-driven retrigger is fast enough, TRIGGER_START is
+> +	 * re-armed again before the softirq-context timer next gets to read
+> +	 * it, so the timer would otherwise never observe the transient !busy
+> +	 * window it's polling for and would poll forever as a low-level CPU
+> +	 * hog instead of handing off. Reset to false each time the timer
+> +	 * (re)starts, in sun4i_tcon_dsi_start_retrigger().
+> +	 */
+> +	bool				dsi_irq_retriggered;
+> +
+>  	/* Associated crtc */
+>  	struct sun4i_crtc		*crtc;
+> =20
+> @@ -297,6 +417,8 @@ void sun4i_tcon_mode_set(struct sun4i_tcon *tcon,
+>  			 const struct drm_display_mode *mode);
+>  void sun4i_tcon_set_status(struct sun4i_tcon *crtc,
+>  			   const struct drm_encoder *encoder, bool enable);
+> +void sun4i_tcon_dsi_start_retrigger(struct sun4i_tcon *tcon);
+> +void sun4i_tcon_dsi_stop_retrigger(struct sun4i_tcon *tcon);
+> =20
+>  extern const struct of_device_id sun4i_tcon_of_table[];
+> =20
+> diff --git a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c b/drivers/gpu/drm/sun=
+4i/sun6i_mipi_dsi.c
+> index d504ae583..fae312e2e 100644
+> --- a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
+> +++ b/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
+> @@ -35,6 +35,33 @@
+>  #define SUN6I_DSI_CTL_REG		0x000
+>  #define SUN6I_DSI_CTL_EN			BIT(0)
+> =20
+> +/*
+> + * The real per-frame retrigger source for CPU/8080-interface DSI panels
+> + * turns out to be this register, not TCON's own GINT0. Allwinner's vend=
+or
+> + * kernel dispatches both its VBLK- and LINE-equivalent IRQ queries stra=
 ight
-transiently or permanently remain busy (SUN4I_TCON0_CPU_IF_TRI_START =3D=3D=
- 1)
-at tick 0.
+> + * to DSI_INT_REG for this panel type instead of touching TCON0's GINT0 =
+at
+> + * all, which is also why GINT0's enable bits read as zero on a working
+> + * reference system: they're genuinely unused for this panel.
+> + *
+> + * bit0 =3D INSTR_END, bit1 =3D INSTR_STEP, bit2 =3D VIDEO_VBLK, bit3 =
+=3D VIDEO_LINE
+> + * in the enable half (low 16 bits); the status half mirrors the same
+> + * layout at bit16-19. Status bits are write-1-to-clear, matching the
+> + * vendor implementation's own acknowledge behavior.
+> + *
+> + * Not wired to a GIC interrupt (no devm_request_irq() here) -- enabling
+> + * these bits only latches this block's internal status and its own IRQ
+> + * output pin, which the GIC never forwards unless something requests th=
+at
+> + * SPI. sun4i_tcon.c's retrigger timer polls and clears this register
+> + * directly instead of using an interrupt handler.
+> + */
+> +#define SUN6I_DSI_INT_REG		0x004
+> +#define SUN6I_DSI_INT_EN_VIDEO_VBLK		BIT(2)
+> +#define SUN6I_DSI_INT_EN_VIDEO_LINE		BIT(3)
+> +/*
+> + * SUN6I_DSI_INT_STA_VIDEO_VBLK / _LINE are declared in sun6i_mipi_dsi.h=
+ --
+> + * sun4i_tcon.c needs them too.
+> + */
+> +
+>  #define SUN6I_DSI_BASIC_CTL_REG		0x00c
+>  #define SUN6I_DSI_BASIC_CTL_TRAIL_INV(n)		(((n) & 0xf) << 4)
+>  #define SUN6I_DSI_BASIC_CTL_TRAIL_FILL		BIT(3)
+> @@ -165,6 +192,21 @@ enum sun6i_dsi_start_inst {
+>  	DSI_START_LPTX,
+>  	DSI_START_HSC,
+>  	DSI_START_HSD,
+> +	/*
+> +	 * Falls through to sun6i_dsi_start()'s default case (JUMP_SEL =3D END
+> +	 * only, i.e. idle/stop everything). Vendor's DSI bring-up routine
+> +	 * enables the block's IRQ bits and resets the instruction engine to
+> +	 * this same idle state before any mode-specific setup runs.
+> +	 */
+> +	DSI_START_IDLE,
+> +	/*
+> +	 * The real per-frame retrigger table, distinct from DSI_START_HSC:
+> +	 * DSI_START_HSC's JUMP_SEL table is the one-shot LP11->HSC->END used
+> +	 * for the one-time HS-clock-enable step, while this table is the
+> +	 * continuous streaming loop (LP11->HSC->NOP->HSD->DLY->loop) that
+> +	 * needs to be reissued every frame to keep pixel data flowing.
+> +	 */
+> +	DSI_START_TRI,
+>  };
+> =20
+>  enum sun6i_dsi_inst_id {
+> @@ -436,9 +478,16 @@ static void sun6i_dsi_setup_burst(struct sun6i_dsi *=
+dsi,
+>  			     SUN6I_DSI_BURST_LINE_SYNC_POINT(SUN6I_DSI_SYNC_POINT));
+> =20
+>  		val =3D SUN6I_DSI_TCON_DRQ_ENABLE_MODE;
+> -	} else if ((mode->hsync_start - mode->hdisplay) > 20) {
+> -		/* Maaaaaagic */
+> -		u16 drq =3D (mode->hsync_start - mode->hdisplay) - 20;
+> +	} else if ((mode->htotal - mode->hsync_start) > 20) {
+> +		/*
+> +		 * This is (back porch + hsync width), not the front porch a
+> +		 * previous version of this driver used here. Verified against
+> +		 * the vendor implementation's own DRQ lookup table and a
+> +		 * live-measured TCON_DRQ_REG value on a working reference
+> +		 * system: (htotal - hsync_start - 20) * bpp / 32 reproduces
+> +		 * it exactly for this panel's timings.
+> +		 */
+> +		u16 drq =3D (mode->htotal - mode->hsync_start) - 20;
+> =20
+>  		drq *=3D mipi_dsi_pixel_format_to_bpp(device->format);
+>  		drq /=3D 32;
+> @@ -696,6 +745,16 @@ static int sun6i_dsi_start(struct sun6i_dsi *dsi,
+>  			     DSI_INST_ID_NOP  << (4 * DSI_INST_ID_DLY) |
+>  			     DSI_INST_ID_END  << (4 * DSI_INST_ID_HSCEXIT));
+>  		break;
+> +	case DSI_START_TRI:
+> +		/* vendor dsi_start(id=3D2) -- see the DSI_START_TRI comment above */
+> +		regmap_write(dsi->regs, SUN6I_DSI_INST_JUMP_SEL_REG,
+> +			     DSI_INST_ID_HSC  << (4 * DSI_INST_ID_LP11) |
+> +			     DSI_INST_ID_NOP  << (4 * DSI_INST_ID_HSC) |
+> +			     DSI_INST_ID_HSD  << (4 * DSI_INST_ID_NOP) |
+> +			     DSI_INST_ID_DLY  << (4 * DSI_INST_ID_HSD) |
+> +			     DSI_INST_ID_NOP  << (4 * DSI_INST_ID_DLY) |
+> +			     DSI_INST_ID_END  << (4 * DSI_INST_ID_HSCEXIT));
+> +		break;
+>  	default:
+>  		regmap_write(dsi->regs, SUN6I_DSI_INST_JUMP_SEL_REG,
+>  			     DSI_INST_ID_END  << (4 * DSI_INST_ID_LP11));
+> @@ -713,6 +772,63 @@ static int sun6i_dsi_start(struct sun6i_dsi *dsi,
+>  	return 0;
+>  }
+> =20
+> +/*
+> + * Vendor's per-frame retrigger asserts two things together: the DSI-side
+> + * kick handled here, then the TCON-side TRIGGER_START bit (handled by t=
+he
+> + * caller). This DSI side previously reused DSI_START_HSC, which is the
+> + * one-shot HS-clock-enable table (LP11->HSC->END) rather than the
+> + * continuous streaming table DSI_START_TRI represents
+> + * (LP11->HSC->NOP->HSD->DLY->loop). Without reissuing the continuous ta=
+ble
+> + * every frame, the DSI engine never advances past the first frame it was
+> + * started into at encoder-enable time.
+> + */
+> +void sun6i_dsi_tri_start(struct sun6i_dsi *dsi)
+> +{
+> +	sun6i_dsi_start(dsi, DSI_START_TRI);
+> +}
+> +EXPORT_SYMBOL(sun6i_dsi_tri_start);
+> +
+> +/*
+> + * Read-only poll of DSI_INT_REG -- see the comment on SUN6I_DSI_INT_REG
+> + * near the top of this file. Called from sun4i_tcon.c's retrigger timer.
+> + */
+> +u32 sun6i_dsi_read_int_status(struct sun6i_dsi *dsi)
+> +{
+> +	unsigned int val =3D 0;
+> +
+> +	regmap_read(dsi->regs, SUN6I_DSI_INT_REG, &val);
+> +
+> +	return val;
+> +}
+> +EXPORT_SYMBOL(sun6i_dsi_read_int_status);
+> +
+> +/*
+> + * Write back whatever status bits (high 16) are currently set, which
+> + * write-1-to-clears exactly those bits; the enable half (low 16) is left
+> + * untouched by masking it out of the write.
+> + *
+> + * This has to be regmap_write_bits(), not regmap_update_bits(): the val=
+ue
+> + * being written here is, by construction, identical to what was just re=
+ad
+> + * (that's the write-1-to-clear pattern -- write back the bits you saw s=
+et).
+> + * regmap_update_bits() skips the actual bus write whenever its computed=
+ new
+> + * value equals the last-read value, which for every other register is a
+> + * harmless no-op elision but for a W1C register silently drops the clear
+> + * entirely: the acknowledge write never reaches hardware, the status bi=
+ts
+> + * never actually clear, and the edge-detection this function exists for
+> + * (see sun4i_tcon_dsi_retrigger_timer_fn()'s comment) never sees an edge
+> + * again after the first one. regmap_write_bits() forces the write
+> + * unconditionally, matching what a raw write-1-to-clear needs.
+> + */
+> +void sun6i_dsi_clear_int_status(struct sun6i_dsi *dsi)
+> +{
+> +	unsigned int val =3D 0;
+> +
+> +	regmap_read(dsi->regs, SUN6I_DSI_INT_REG, &val);
+> +	regmap_write_bits(dsi->regs, SUN6I_DSI_INT_REG,
+> +			  GENMASK(31, 16), val & GENMASK(31, 16));
+> +}
+> +EXPORT_SYMBOL(sun6i_dsi_clear_int_status);
+> +
+>  static void sun6i_dsi_encoder_enable(struct drm_encoder *encoder)
+>  {
+>  	struct drm_display_mode *mode =3D &encoder->crtc->state->adjusted_mode;
+> @@ -720,7 +836,6 @@ static void sun6i_dsi_encoder_enable(struct drm_encod=
+er *encoder)
+>  	struct mipi_dsi_device *device =3D dsi->device;
+>  	union phy_configure_opts opts =3D { };
+>  	struct phy_configure_opts_mipi_dphy *cfg =3D &opts.mipi_dphy;
+> -	u16 delay;
+>  	int err;
+> =20
+>  	DRM_DEBUG_DRIVER("Enabling DSI output\n");
+> @@ -737,6 +852,27 @@ static void sun6i_dsi_encoder_enable(struct drm_enco=
+der *encoder)
+>  	 */
+>  	regmap_write(dsi->regs, SUN6I_DSI_CTL_REG, SUN6I_DSI_CTL_EN);
+> =20
+> +	/*
+> +	 * See the comment on SUN6I_DSI_INT_REG above. VIDEO_VBLK only, not
+> +	 * VIDEO_LINE -- a live vendor register dump on a working reference
+> +	 * system (vendor-notes/live_reg_dump_20260823.md) shows DSI_INT_REG
+> +	 * at 0x00020004, i.e. only the VBLK enable bit set. VIDEO_LINE fires
+> +	 * once per horizontal line (tens of thousands of times a second at
+> +	 * this panel's timing) rather than once per frame; enabling it here
+> +	 * doesn't match vendor and is a plausible contributor to a real,
+> +	 * separately-observed TCON0 interrupt storm (genirq's "nobody cared"
+> +	 * unhandled-IRQ storm protection has been seen tripping on tcon0's
+> +	 * own GIC line during testing).
+> +	 */
+> +	regmap_write(dsi->regs, SUN6I_DSI_INT_REG, SUN6I_DSI_INT_EN_VIDEO_VBLK);
+> +
+> +	/*
+> +	 * Reset the instruction engine to a known idle state before any of
+> +	 * the mode-specific setup below, matching the vendor bring-up
+> +	 * sequence for this block.
+> +	 */
+> +	sun6i_dsi_start(dsi, DSI_START_IDLE);
+> +
+>  	regmap_write(dsi->regs, SUN6I_DSI_BASIC_CTL0_REG,
+>  		     SUN6I_DSI_BASIC_CTL0_ECC_EN | SUN6I_DSI_BASIC_CTL0_CRC_EN);
+> =20
+> @@ -747,9 +883,14 @@ static void sun6i_dsi_encoder_enable(struct drm_enco=
+der *encoder)
+> =20
+>  	regmap_write(dsi->regs, SUN6I_DSI_DEBUG_DATA_REG, 0xff);
+> =20
+> -	delay =3D sun6i_dsi_get_video_start_delay(dsi, mode);
+> +	/*
+> +	 * This panel's CPU/8080-interface TCON path still runs the DSI block
+> +	 * in video mode -- confirmed by a live register read from a working
+> +	 * reference system, where VIDEO_MODE, VIDEO_PRECISION and VIDEO_FILL
+> +	 * are all set with a matching VIDEO_ST_DELAY.
+> +	 */
+>  	regmap_write(dsi->regs, SUN6I_DSI_BASIC_CTL1_REG,
+> -		     SUN6I_DSI_BASIC_CTL1_VIDEO_ST_DELAY(delay) |
+> +		     SUN6I_DSI_BASIC_CTL1_VIDEO_ST_DELAY(sun6i_dsi_get_video_start_del=
+ay(dsi, mode)) |
+>  		     SUN6I_DSI_BASIC_CTL1_VIDEO_FILL |
+>  		     SUN6I_DSI_BASIC_CTL1_VIDEO_PRECISION |
+>  		     SUN6I_DSI_BASIC_CTL1_VIDEO_MODE);
+> @@ -769,29 +910,50 @@ static void sun6i_dsi_encoder_enable(struct drm_enc=
+oder *encoder)
+>  	phy_configure(dsi->dphy, &opts);
+>  	phy_power_on(dsi->dphy);
+> =20
+> -	if (dsi->panel)
+> -		drm_panel_prepare(dsi->panel);
+> -
+>  	/*
+> -	 * FIXME: This should be moved after the switch to HS mode.
+> -	 *
+> -	 * Unfortunately, once in HS mode, it seems like we're not
+> -	 * able to send DCS commands anymore, which would prevent any
+> -	 * panel to send any DCS command as part as their enable
+> -	 * method, which is quite common.
+> +	 * The HS clock-enable step (DSI_START_HSC) runs before the panel's
+> +	 * DCS init sequence rather than after, unlike a previous revision of
+> +	 * this driver. Upstream's own comment on this ordering ("this should
+> +	 * be moved after the switch to HS mode... I haven't seen any artifact
+> +	 * due to that sub-optimal ordering on the panels I've tested it
+> +	 * with") already flagged it as suspect without resolving it. The
+> +	 * vendor panel driver for this board enables the HS clock as the
+> +	 * very first step of its panel-init routine, before sending any DCS
+> +	 * command. This doesn't conflict with DCS needing LP mode: HSC only
+> +	 * puts the clock lane into its continuous-HS state, and DCS commands
+> +	 * use the entirely separate LPTX/LPDT instruction tables.
+>  	 *
+> -	 * I haven't seen any artifact due to that sub-optimal
+> -	 * ordering on the panels I've tested it with, so I guess this
+> -	 * will do for now, until that IP is better understood.
+> +	 * This ordering change is unconditional for every panel using this
+> +	 * shared encoder-enable path, not just this board's. It's verified
+> +	 * correct against this board's OTM1289A/ER68576 panel and its vendor
+> +	 * driver specifically; it has not been re-verified against every
+> +	 * other existing sun6i_mipi_dsi panel. If a panel's own prepare()
+> +	 * sequence has some other, non-DCS-related dependency on the clock
+> +	 * lane staying in LP mode until after prepare() -- which is exactly
+> +	 * what upstream's own prior comment here flagged as unresolved --
+> +	 * that panel would be the one to break. Flagging this explicitly for
+> +	 * reviewers/maintainers of other sun6i_mipi_dsi boards.
+>  	 */
+> -	if (dsi->panel)
+> -		drm_panel_enable(dsi->panel);
+> -
+>  	sun6i_dsi_start(dsi, DSI_START_HSC);
+> =20
+>  	udelay(1000);
+> =20
+> +	if (dsi->panel)
+> +		drm_panel_prepare(dsi->panel);
+> +
+> +	if (dsi->panel)
+> +		drm_panel_enable(dsi->panel);
+> +
+>  	sun6i_dsi_start(dsi, DSI_START_HSD);
+> +
+> +	/*
+> +	 * DSI/CPU-mode boards: arm the retrigger timer now that this function
+> +	 * is genuinely done, instead of guessing a wall-clock delay from
+> +	 * sun4i_tcon0_mode_set_cpu() (see sun4i_tcon_dsi_start_retrigger()'s
+> +	 * comment) -- NULL for any board not using that path.
+> +	 */
+> +	if (dsi->tcon)
+> +		sun4i_tcon_dsi_start_retrigger(dsi->tcon);
+>  }
+> =20
+>  static void sun6i_dsi_encoder_disable(struct drm_encoder *encoder)
+> @@ -800,6 +962,21 @@ static void sun6i_dsi_encoder_disable(struct drm_enc=
+oder *encoder)
+> =20
+>  	DRM_DEBUG_DRIVER("Disabling DSI output\n");
+> =20
+> +	/*
+> +	 * DSI/CPU-mode boards: stop the retrigger timer/IRQ before anything
+> +	 * below gates dsi->mod_clk or asserts dsi->reset. DRM's own atomic
+> +	 * commit ordering (disable_outputs() in drm_atomic_helper.c) calls
+> +	 * this encoder disable hook before the CRTC's own disable hook --
+> +	 * which is where sun4i_tcon_set_status() would otherwise stop this
+> +	 * same timer/IRQ -- so without this, there's a real window where the
+> +	 * timer (or the IRQ handler's own TRI_FINISH-backstop branch) can
+> +	 * fire against now-gated DSI hardware. See
+> +	 * sun4i_tcon_dsi_stop_retrigger()'s comment for the full reasoning.
+> +	 * NULL for any board not using the DSI/CPU-mode path.
+> +	 */
+> +	if (dsi->tcon)
+> +		sun4i_tcon_dsi_stop_retrigger(dsi->tcon);
+> +
+>  	if (dsi->panel) {
+>  		drm_panel_disable(dsi->panel);
+>  		drm_panel_unprepare(dsi->panel);
+> @@ -1053,6 +1230,14 @@ static const struct regmap_config sun6i_dsi_regmap=
+_config =3D {
+>  	.reg_stride	=3D 4,
+>  	.max_register	=3D SUN6I_DSI_CMD_TX_REG(255),
+>  	.name		=3D "mipi-dsi",
+> +	/*
+> +	 * See the comment on sun4i_tcon_regmap_config's fast_io in
+> +	 * sun4i_tcon.c: this regmap is read/written from
+> +	 * sun4i_tcon_dsi_retrigger_timer_fn() (an hrtimer callback, hard-irq
+> +	 * context by default) on DSI/CPU-mode boards, so it needs the same
+> +	 * spinlock-based locking rather than regmap's default mutex.
+> +	 */
+> +	.fast_io	=3D true,
+>  };
+> =20
+>  static int sun6i_dsi_bind(struct device *dev, struct device *master,
+> diff --git a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.h b/drivers/gpu/drm/sun=
+4i/sun6i_mipi_dsi.h
+> index f1ddefe0f..651acf3b4 100644
+> --- a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.h
+> +++ b/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.h
+> @@ -15,6 +15,16 @@
+> =20
+>  #define SUN6I_DSI_TCON_DIV	4
+> =20
+> +/*
+> + * Status half of SUN6I_DSI_INT_REG (see the comment on that register in
+> + * sun6i_mipi_dsi.c), exposed so sun4i_tcon.c's retrigger timer can
+> + * edge-detect against sun6i_dsi_read_int_status()'s return value.
+> + */
+> +#define SUN6I_DSI_INT_STA_VIDEO_VBLK	BIT(2 + 16)
+> +#define SUN6I_DSI_INT_STA_VIDEO_LINE	BIT(3 + 16)
+> +
+> +struct sun4i_tcon;
+> +
+>  struct sun6i_dsi_variant {
+>  	bool			has_mod_clk;
+>  	bool			set_mod_clk;
+> @@ -38,6 +48,15 @@ struct sun6i_dsi {
+>  	struct drm_panel	*panel;
+> =20
+>  	const struct sun6i_dsi_variant *variant;
+> +
+> +	/*
+> +	 * Set by sun4i_tcon0_mode_set_cpu() at the same time it sets its own
+> +	 * tcon->dsi, so sun6i_dsi_encoder_enable() can arm the DSI/CPU-mode
+> +	 * retrigger timer itself once it actually finishes -- see the
+> +	 * comment on sun4i_tcon_dsi_start_retrigger(). NULL for any board
+> +	 * not using that path.
+> +	 */
+> +	struct sun4i_tcon	*tcon;
+>  };
+> =20
+>  static inline struct sun6i_dsi *host_to_sun6i_dsi(struct mipi_dsi_host *=
+host)
+> @@ -55,4 +74,8 @@ static inline struct sun6i_dsi *encoder_to_sun6i_dsi(co=
+nst struct drm_encoder *e
+>  	return container_of(encoder, struct sun6i_dsi, encoder);
+>  };
+> =20
+> +void sun6i_dsi_tri_start(struct sun6i_dsi *dsi);
+> +u32 sun6i_dsi_read_int_status(struct sun6i_dsi *dsi);
+> +void sun6i_dsi_clear_int_status(struct sun6i_dsi *dsi);
+> +
+>  #endif /* _SUN6I_MIPI_DSI_H_ */
+> diff --git a/drivers/gpu/drm/sun4i/sun8i_mixer.c b/drivers/gpu/drm/sun4i/=
+sun8i_mixer.c
+> index b6cd7352e..b3419f6d3 100644
+> --- a/drivers/gpu/drm/sun4i/sun8i_mixer.c
+> +++ b/drivers/gpu/drm/sun4i/sun8i_mixer.c
+> @@ -853,6 +853,46 @@ static const struct sun8i_mixer_cfg sun50i_a64_mixer=
+1_cfg =3D {
+>  	.vi_num		=3D 1,
+>  };
+> =20
+> +/*
+> + * A133 (sun50iw10) has no public register documentation. This config
+> + * is derived from Allwinner's GPL disp2 driver (de_feat.c/de_rtmx.c,
+> + * lowlevel_v2x/sun50iw10 tree), which confirms it is a standard DE2.0
+> + * dual-pipe mixer: DISP0 has 4 channels (2 VI + 2 UI, all 4 scaler
+> + * capable), DISP1 has 3 channels (1 VI + 2 UI, all 3 scaler capable).
+> + * de_rtmx_init() places mixer1's register block at DE0 base + 0x200000
+> + * and mixer0's at DE0 base + 0x100000, matching the existing A64/H3/R40
+> + * DE2.0 layout convention already used below.
+> + */
+> +static const struct sun8i_mixer_cfg sun50i_a133_mixer0_cfg =3D {
+> +	.lay_cfg =3D {
+> +		.ccsc		=3D CCSC_MIXER0_LAYOUT,
+> +		.de_type	=3D SUN8I_MIXER_DE2,
+> +		.vi_scaler_num	=3D 2,
+> +		.scaler_mask	=3D 0xf,
+> +		.scanline_yuv	=3D 2560,
+> +		.de2_fcc_alpha	=3D 1,
+> +	},
+> +	.de_type	=3D SUN8I_MIXER_DE2,
+> +	.mod_rate	=3D 297000000,
+> +	.ui_num		=3D 2,
+> +	.vi_num		=3D 2,
+> +};
+> +
+> +static const struct sun8i_mixer_cfg sun50i_a133_mixer1_cfg =3D {
+> +	.lay_cfg =3D {
+> +		.ccsc		=3D CCSC_MIXER1_LAYOUT,
+> +		.de_type	=3D SUN8I_MIXER_DE2,
+> +		.vi_scaler_num	=3D 1,
+> +		.scaler_mask	=3D 0x7,
+> +		.scanline_yuv	=3D 2048,
+> +		.de2_fcc_alpha	=3D 1,
+> +	},
+> +	.de_type	=3D SUN8I_MIXER_DE2,
+> +	.mod_rate	=3D 297000000,
+> +	.ui_num		=3D 2,
+> +	.vi_num		=3D 1,
+> +};
+> +
+>  static const struct sun8i_mixer_cfg sun50i_h6_mixer0_cfg =3D {
+>  	.lay_cfg =3D {
+>  		.de_type	=3D SUN8I_MIXER_DE3,
+> @@ -920,6 +960,14 @@ static const struct of_device_id sun8i_mixer_of_tabl=
+e[] =3D {
+>  		.compatible =3D "allwinner,sun50i-a64-de2-mixer-1",
+>  		.data =3D &sun50i_a64_mixer1_cfg,
+>  	},
+> +	{
+> +		.compatible =3D "allwinner,sun50i-a133-de2-mixer-0",
+> +		.data =3D &sun50i_a133_mixer0_cfg,
+> +	},
+> +	{
+> +		.compatible =3D "allwinner,sun50i-a133-de2-mixer-1",
+> +		.data =3D &sun50i_a133_mixer1_cfg,
+> +	},
+>  	{
+>  		.compatible =3D "allwinner,sun50i-h6-de3-mixer-0",
+>  		.data =3D &sun50i_h6_mixer0_cfg,
+> diff --git a/drivers/gpu/drm/sun4i/sun8i_tcon_top.c b/drivers/gpu/drm/sun=
+4i/sun8i_tcon_top.c
+> index 9cbd65551..3f519df7d 100644
+> --- a/drivers/gpu/drm/sun4i/sun8i_tcon_top.c
+> +++ b/drivers/gpu/drm/sun4i/sun8i_tcon_top.c
+> @@ -143,12 +143,115 @@ int sun8i_tcon_top_de_config(struct device *dev, i=
+nt mixer, int tcon)
+>  }
+>  EXPORT_SYMBOL(sun8i_tcon_top_de_config);
+> =20
+> +/*
+> + * The vendor implementation's DSI configuration path unconditionally
+> + * enables this same bit (TCON_TOP_GATE_SRC_REG, TCON_TOP_TCON_DSI_GATE)
+> + * for TCON0. Mainline already registers it as a standard clk gate
+> + * (CLK_TCON_TOP_DSI, see sun8i_tcon_top_register_gate() above), but
+> + * nothing consumes it: wiring it as dsi0's "mod" clock creates a circul=
+ar
+> + * dependency between TCON TOP's .bind() and dsi0's .probe() (see the DTS
+> + * comment on the dsi0 node). This sets the bit directly instead, the sa=
+me
+> + * way sun8i_tcon_top_set_hdmi_src() and sun8i_tcon_top_de_config() above
+> + * already bypass the clk-consumer graph for their own TCON TOP writes.
+> + */
+> +int sun8i_tcon_top_set_dsi_gate(struct device *dev, bool enable)
+> +{
+> +	struct sun8i_tcon_top *tcon_top =3D dev_get_drvdata(dev);
+> +	unsigned long flags;
+> +	u32 val;
+> +
+> +	if (!sun8i_tcon_top_node_is_tcon_top(dev->of_node)) {
+> +		dev_err(dev, "Device is not TCON TOP!\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	/*
+> +	 * The caller (sun4i_tcon0_set_dsi_gate()) reaches this device via a
+> +	 * raw of_find_device_by_node() + dev_get_drvdata() lookup, the same
+> +	 * pre-existing pattern sun8i_r40_tcon_tv_set_mux() already uses for
+> +	 * the TV path (sun8i_tcon_top_set_hdmi_src()/de_config(), neither of
+> +	 * which NULL-checks either) -- entirely outside the component
+> +	 * framework's own bind/unbind synchronization. component_del() (this
+> +	 * driver's own .remove(), pristine mainline, unmodified here) does
+> +	 * correctly tear down the whole DRM aggregate before this device's
+> +	 * own unbind runs, via take_down_aggregate_device() in
+> +	 * drivers/base/component.c, so an orderly sysfs unbind of this
+> +	 * device is not itself the hazard. What isn't covered is an
+> +	 * in-flight atomic-commit worker calling in through that raw lookup
+> +	 * concurrently with this device's own unbind clearing drvdata -- a
+> +	 * narrow, pre-existing TOCTOU race in this shared driver's own
+> +	 * lifecycle handling, not something introduced here. This guard only
+> +	 * stops this specific caller from crashing on it; fixing the
+> +	 * underlying race would need real synchronization between the two
+> +	 * drivers (or moving this off the raw reach-around entirely) across
+> +	 * every board using this driver, not something to attempt blind in a
+> +	 * single board's support patch.
+> +	 */
+> +	if (!tcon_top)
+> +		return -ENODEV;
+> +
+> +	spin_lock_irqsave(&tcon_top->reg_lock, flags);
+> +
+> +	val =3D readl(tcon_top->regs + TCON_TOP_GATE_SRC_REG);
+> +	if (enable)
+> +		val |=3D BIT(TCON_TOP_TCON_DSI_GATE);
+> +	else
+> +		val &=3D ~BIT(TCON_TOP_TCON_DSI_GATE);
+> +	writel(val, tcon_top->regs + TCON_TOP_GATE_SRC_REG);
+> +
+> +	spin_unlock_irqrestore(&tcon_top->reg_lock, flags);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(sun8i_tcon_top_set_dsi_gate);
+> +
+> +/*
+> + * TCON_TOP_PORT_SEL_REG routes each DE's output to one of the 4 TCON
+> + * ports. The only existing caller of the read-modify-write helper for
+> + * this register (sun8i_tcon_top_de_config()) is wired up exclusively fr=
+om
+> + * sun8i_r40_tcon_tv_set_mux(), which only runs for TCON quirks tables
+> + * that provide a .set_mux callback -- ours doesn't, the same gap
+> + * sun8i_tcon_top_set_dsi_gate() above works around for the DSI clock ga=
+te
+> + * bit. DE0's live PORT_SEL field on a working reference system is 0
+> + * (port 0), matching this register's reset default -- written explicitly
+> + * here rather than relying on that default, since nothing in mainline
+> + * otherwise reaches this register for a .set_mux-less quirks table.
+> + */
+> +int sun8i_tcon_top_set_de0_port(struct device *dev, int port)
+> +{
+> +	struct sun8i_tcon_top *tcon_top =3D dev_get_drvdata(dev);
+> +	unsigned long flags;
+> +	u32 val;
+> +
+> +	if (!sun8i_tcon_top_node_is_tcon_top(dev->of_node)) {
+> +		dev_err(dev, "Device is not TCON TOP!\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	/* See the comment in sun8i_tcon_top_set_dsi_gate() above. */
+> +	if (!tcon_top)
+> +		return -ENODEV;
+> +
+> +	spin_lock_irqsave(&tcon_top->reg_lock, flags);
+> +
+> +	val =3D readl(tcon_top->regs + TCON_TOP_PORT_SEL_REG);
+> +	val &=3D ~TCON_TOP_PORT_DE0_MSK;
+> +	val |=3D FIELD_PREP(TCON_TOP_PORT_DE0_MSK, port);
+> +	writel(val, tcon_top->regs + TCON_TOP_PORT_SEL_REG);
+> +
+> +	spin_unlock_irqrestore(&tcon_top->reg_lock, flags);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(sun8i_tcon_top_set_de0_port);
+> +
+> =20
+>  static struct clk_hw *sun8i_tcon_top_register_gate(struct device *dev,
+>  						   const char *parent,
+>  						   void __iomem *regs,
+>  						   spinlock_t *lock,
+> -						   u8 bit, int name_index)
+> +						   u8 bit, int name_index,
+> +						   unsigned long extra_flags)
+>  {
+>  	const char *clk_name, *parent_name;
+>  	int ret, index;
+> @@ -166,7 +269,7 @@ static struct clk_hw *sun8i_tcon_top_register_gate(st=
+ruct device *dev,
+>  		return ERR_PTR(ret);
+> =20
+>  	return clk_hw_register_gate(dev, clk_name, parent_name,
+> -				    CLK_SET_RATE_PARENT,
+> +				    CLK_SET_RATE_PARENT | extra_flags,
+>  				    regs + TCON_TOP_GATE_SRC_REG,
+>  				    bit, 0, lock);
+>  };
+> @@ -241,19 +344,37 @@ static int sun8i_tcon_top_bind(struct device *dev, =
+struct device *master,
+>  	clk_data->hws[CLK_TCON_TOP_TV0] =3D
+>  		sun8i_tcon_top_register_gate(dev, "tcon-tv0", regs,
+>  					     &tcon_top->reg_lock,
+> -					     TCON_TOP_TCON_TV0_GATE, i++);
+> +					     TCON_TOP_TCON_TV0_GATE, i++, 0);
+> =20
+>  	if (quirks->has_tcon_tv1)
+>  		clk_data->hws[CLK_TCON_TOP_TV1] =3D
+>  			sun8i_tcon_top_register_gate(dev, "tcon-tv1", regs,
+>  						     &tcon_top->reg_lock,
+> -						     TCON_TOP_TCON_TV1_GATE, i++);
+> +						     TCON_TOP_TCON_TV1_GATE, i++, 0);
+> =20
+> +	/*
+> +	 * CLK_IGNORE_UNUSED, not CLK_IS_CRITICAL: this same bit is also
+> +	 * toggled directly by sun8i_tcon_top_set_dsi_gate() (see the comment
+> +	 * there for why it can't just be a normal clk consumer). Without
+> +	 * some flag here, the clk core's own "disable unused clocks"
+> +	 * late_initcall sweep sees this clk_hw's enable_count still at 0 --
+> +	 * nothing ever called clk_prepare_enable() on it, since nothing
+> +	 * consumes it that way -- and turns the bit back off shortly after
+> +	 * boot, silently undoing whatever sun8i_tcon_top_set_dsi_gate(true)
+> +	 * had just set. CLK_IGNORE_UNUSED exempts it from exactly that sweep
+> +	 * and nothing else. CLK_IS_CRITICAL would also do that, but it does
+> +	 * so by having the clk core itself call clk_prepare_enable() on this
+> +	 * clk (and transitively its parent, CLK_MIPI_DSI) at registration
+> +	 * time and keeping it permanently on -- a real, unnecessary power
+> +	 * regression for a bit this driver already manages entirely through
+> +	 * the raw enable/disable calls above.
+> +	 */
+>  	if (quirks->has_dsi)
+>  		clk_data->hws[CLK_TCON_TOP_DSI] =3D
+>  			sun8i_tcon_top_register_gate(dev, "dsi", regs,
+>  						     &tcon_top->reg_lock,
+> -						     TCON_TOP_TCON_DSI_GATE, i++);
+> +						     TCON_TOP_TCON_DSI_GATE, i++,
+> +						     CLK_IGNORE_UNUSED);
+> =20
+>  	for (i =3D 0; i < CLK_NUM; i++)
+>  		if (IS_ERR(clk_data->hws[i])) {
+> @@ -325,6 +446,23 @@ static const struct sun8i_tcon_top_quirks sun50i_h6_=
+tcon_top_quirks =3D {
+>  	/* Nothing special */
+>  };
+> =20
+> +/*
+> + * A133 has no public register documentation for its DPSS_TOP0 block, but
+> + * the vendor implementation's own register layout for it is bit-for-bit
+> + * identical to this driver's existing R40/D1/H6 assumptions -- same
+> + * PORT_SEL/DE0 field and GATE_SRC/DSI-TV0-TV1-HDMI gate bit positions.
+> + * This IP block is genuinely present and load-bearing on real hardware:
+> + * skipping it (wiring the mixer straight to tcon_lcd0) lets every
+> + * component probe and bind, but every DRM atomic commit then times out
+> + * waiting for vblank -- the pixel path never actually reaches the panel.
+> + * The vendor implementation explicitly gates its DSI clock as part of
+> + * enabling DSI output, matching this driver's has_dsi quirk. TV1/HDMI
+> + * aren't used by this board (single DSI-LCD output only).
+> + */
+> +static const struct sun8i_tcon_top_quirks sun50i_a133_tcon_top_quirks =
+=3D {
+> +	.has_dsi	=3D true,
+> +};
+> +
+>  /* sun4i_drv uses this list to check if a device node is a TCON TOP */
+>  const struct of_device_id sun8i_tcon_top_of_table[] =3D {
+>  	{
+> @@ -339,6 +477,10 @@ const struct of_device_id sun8i_tcon_top_of_table[] =
+=3D {
+>  		.compatible =3D "allwinner,sun50i-h6-tcon-top",
+>  		.data =3D &sun50i_h6_tcon_top_quirks
+>  	},
+> +	{
+> +		.compatible =3D "allwinner,sun50i-a133-tcon-top",
+> +		.data =3D &sun50i_a133_tcon_top_quirks
+> +	},
+>  	{ /* sentinel */ }
+>  };
+>  MODULE_DEVICE_TABLE(of, sun8i_tcon_top_of_table);
+> diff --git a/drivers/gpu/drm/sun4i/sun8i_tcon_top.h b/drivers/gpu/drm/sun=
+4i/sun8i_tcon_top.h
+> index 2b887470a..6956439c7 100644
+> --- a/drivers/gpu/drm/sun4i/sun8i_tcon_top.h
+> +++ b/drivers/gpu/drm/sun4i/sun8i_tcon_top.h
+> @@ -46,5 +46,7 @@ extern const struct of_device_id sun8i_tcon_top_of_tabl=
+e[];
+> =20
+>  int sun8i_tcon_top_set_hdmi_src(struct device *dev, int tcon);
+>  int sun8i_tcon_top_de_config(struct device *dev, int mixer, int tcon);
+> +int sun8i_tcon_top_set_dsi_gate(struct device *dev, bool enable);
+> +int sun8i_tcon_top_set_de0_port(struct device *dev, int port);
+> =20
+>  #endif /* _SUN8I_TCON_TOP_H_ */
+> diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
+> index 729776086..cead75470 100644
+> --- a/drivers/pwm/Kconfig
+> +++ b/drivers/pwm/Kconfig
+> @@ -748,6 +748,20 @@ config PWM_SUN4I
+>  	  To compile this driver as a module, choose M here: the module
+>  	  will be called pwm-sun4i.
+> =20
+> +config PWM_SUN50I_A133
+> +	tristate "Allwinner A133 PWM support"
+> +	depends on ARCH_SUNXI || COMPILE_TEST
+> +	depends on HAS_IOMEM
+> +	help
+> +	  PWM driver for the Allwinner A133 (sun50iw10) PWM controller =E2=80=
+=94 a
+> +	  newer, richer IP generation than what PWM_SUN4I models (16
+> +	  channels grouped in pairs, per-pair dead-zone/group-sync control),
+> +	  with no existing mainline driver. This driver only implements
+> +	  plain single-channel cycle-mode output, enough for backlight use.
+> +
+> +	  To compile this driver as a module, choose M here: the module
+> +	  will be called pwm-sun50i-a133.
+> +
+>  config PWM_SUNPLUS
+>  	tristate "Sunplus PWM support"
+>  	depends on ARCH_SUNPLUS || COMPILE_TEST
+> diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
+> index 5630a521a..9c906e5b0 100644
+> --- a/drivers/pwm/Makefile
+> +++ b/drivers/pwm/Makefile
+> @@ -68,6 +68,7 @@ obj-$(CONFIG_PWM_STM32)		+=3D pwm-stm32.o
+>  obj-$(CONFIG_PWM_STM32_LP)	+=3D pwm-stm32-lp.o
+>  obj-$(CONFIG_PWM_STMPE)		+=3D pwm-stmpe.o
+>  obj-$(CONFIG_PWM_SUN4I)		+=3D pwm-sun4i.o
+> +obj-$(CONFIG_PWM_SUN50I_A133)	+=3D pwm-sun50i-a133.o
+>  obj-$(CONFIG_PWM_SUNPLUS)	+=3D pwm-sunplus.o
+>  obj-$(CONFIG_PWM_TEGRA)		+=3D pwm-tegra.o
+>  obj-$(CONFIG_PWM_TH1520)	+=3D pwm_th1520.o
+> diff --git a/drivers/pwm/pwm-sun50i-a133.c b/drivers/pwm/pwm-sun50i-a133.c
+> new file mode 100644
+> index 000000000..1e36393d0
+> --- /dev/null
+> +++ b/drivers/pwm/pwm-sun50i-a133.c
+> @@ -0,0 +1,335 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Driver for Allwinner A133 (sun50iw10) PWM Controller
+> + *
+> + * No mainline driver exists for this IP: it's a newer, richer generation
+> + * than what drivers/pwm/pwm-sun4i.c models (16 channels grouped in pair=
+s,
+> + * per-pair dead-zone control, group-sync start, cache-loaded period/duty
+> + * registers) =E2=80=94 register layout confirmed from the real, public =
+A133 User
+> + * Manual (chapter 10.11, base 0x0300a000), which documents this block in
+> + * full down to bit level (unlike the Display Engine chapter elsewhere in
+> + * the same manual). This driver only implements plain single-channel PWM
+> + * output (cycle mode, no capture/dead-zone/group-sync) =E2=80=94 enough=
+ to drive
+> + * a backlight, not a full port of every feature this IP has.
+> + *
+> + * The clock source (OSC24M or APB1, selected per-pair in PCCR01/PCCR23)
+> + * is entirely internal to this IP block =E2=80=94 CCU only exposes a bu=
+s/register
+> + * access gate (CLK_BUS_PWM), no separate "mod" clock, confirmed by its
+> + * absence from include/dt-bindings/clock/sun50i-a100-ccu.h. This driver
+> + * hardcodes OSC24M (24MHz), matching the register field's own reset
+> + * default and the only clock source needed for typical backlight rates.
+> + */
+> +
+> +#include <linux/bitops.h>
+> +#include <linux/clk.h>
+> +#include <linux/io.h>
+> +#include <linux/math64.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pwm.h>
+> +#include <linux/reset.h>
+> +
+> +#define PWM_A133_OSC24M_RATE		24000000
+> +
+> +#define PWM_A133_PCCR01_REG		0x0020
+> +#define PWM_A133_PCCR23_REG		0x0024
+> +#define PWM_A133_PCCR_CLK_SRC_OSC24M	(0 << 7)
+> +#define PWM_A133_PCCR_CLK_SRC_MASK	GENMASK(8, 7)
+> +
+> +#define PWM_A133_PCGR_REG		0x0040
+> +#define PWM_A133_PCGR_BYPASS(ch)	BIT(16 + (ch))
+> +#define PWM_A133_PCGR_GATING(ch)	BIT(ch)
+> +
+> +#define PWM_A133_PER_REG		0x0080
+> +#define PWM_A133_PER_EN(ch)		BIT(ch)
+> +
+> +#define PWM_A133_CH_STRIDE		0x0020
+> +#define PWM_A133_PCR_REG(ch)		(0x0100 + PWM_A133_CH_STRIDE * (ch))
+> +#define PWM_A133_PPR_REG(ch)		(0x0104 + PWM_A133_CH_STRIDE * (ch))
+> +
+> +#define PWM_A133_PCR_MODE_CYCLE		(0 << 9)
+> +#define PWM_A133_PCR_ACT_STA_HIGH	BIT(8)
+> +#define PWM_A133_PCR_PRESCAL_K_MASK	GENMASK(7, 0)
+> +
+> +#define PWM_A133_PPR_ENTIRE_CYCLE_SHIFT	16
+> +#define PWM_A133_PPR_ENTIRE_CYCLE_MASK		GENMASK(31, 16)
+> +#define PWM_A133_PPR_ACT_CYCLE_MASK		GENMASK(15, 0)
+> +
+> +#define PWM_A133_PRESCALE_K_MAX	256
+> +#define PWM_A133_CYCLE_MAX	65536
+> +
+> +struct pwm_a133 {
+> +	void __iomem *base;
+> +	struct clk *bus_clk;
+> +	struct reset_control *rst;
+> +	/*
+> +	 * PWM_A133_PCGR_REG (channel clock gating) and PWM_A133_PER_REG
+> +	 * (channel enable) are each single shared registers covering every
+> +	 * channel on this chip, and PWM_A133_PCCR01_REG/PCCR23_REG are each
+> +	 * shared by a pair of channels. The PWM core only serializes calls
+> +	 * per pwm_device, not across different channels on the same chip, so
+> +	 * two channels' .apply() read-modify-write sequences on one of these
+> +	 * shared registers can race and silently drop one channel's update.
+> +	 * This lock serializes the whole apply() body across channels.
+> +	 */
+> +	struct mutex lock;
+> +};
+> +
+> +static struct pwm_a133 *to_pwm_a133(struct pwm_chip *chip)
+> +{
+> +	return pwmchip_get_drvdata(chip);
+> +}
+> +
+> +static u32 pwm_a133_readl(struct pwm_a133 *pc, u32 offset)
+> +{
+> +	return readl(pc->base + offset);
+> +}
+> +
+> +static void pwm_a133_writel(struct pwm_a133 *pc, u32 offset, u32 val)
+> +{
+> +	writel(val, pc->base + offset);
+> +}
+> +
+> +static int pwm_a133_calc(u64 period_ns, u64 duty_ns, u32 *entire_cycle,
+> +			 u32 *act_cycle, u32 *prescale_k)
+> +{
+> +	u64 period_cycles_total, prescale;
+> +	u64 period_cycles, duty_cycles;
+> +
+> +	period_cycles_total =3D mul_u64_u32_div(period_ns, PWM_A133_OSC24M_RATE,
+> +					      NSEC_PER_SEC);
+> +	if (period_cycles_total < 1)
+> +		period_cycles_total =3D 1;
+> +
+> +	prescale =3D DIV_ROUND_UP_ULL(period_cycles_total, PWM_A133_CYCLE_MAX);
+> +	if (prescale < 1)
+> +		prescale =3D 1;
+> +	if (prescale > PWM_A133_PRESCALE_K_MAX)
+> +		return -ERANGE;
+> +
+> +	period_cycles =3D DIV_ROUND_CLOSEST_ULL(period_cycles_total, prescale);
+> +	if (period_cycles < 1)
+> +		period_cycles =3D 1;
+> +	if (period_cycles > PWM_A133_CYCLE_MAX)
+> +		period_cycles =3D PWM_A133_CYCLE_MAX;
+> +
+> +	duty_cycles =3D DIV_ROUND_CLOSEST_ULL(period_cycles * duty_ns, period_n=
+s);
+> +	if (duty_cycles > period_cycles)
+> +		duty_cycles =3D period_cycles;
+> +
+> +	/*
+> +	 * act_cycle's hardware field is 16 bits wide (0-65535). period_cycles
+> +	 * can legitimately be PWM_A133_CYCLE_MAX (65536, representable in
+> +	 * entire_cycle as period_cycles - 1 =3D 65535), so a 100%-duty request
+> +	 * at that exact period would set duty_cycles =3D 65536 too -- which
+> +	 * masks down to 0 when written to the 16-bit field below, silently
+> +	 * turning 100% duty into 0%. Clamping to the field's real maximum
+> +	 * trades a negligible ~0.0015% duty error in that one edge case for
+> +	 * never emitting a fully wrong output.
+> +	 */
+> +	if (duty_cycles >=3D PWM_A133_CYCLE_MAX)
+> +		duty_cycles =3D PWM_A133_CYCLE_MAX - 1;
+> +
+> +	*prescale_k =3D prescale - 1;
+> +	*entire_cycle =3D period_cycles - 1;
+> +	*act_cycle =3D duty_cycles;
+> +
+> +	return 0;
+> +}
+> +
+> +static int pwm_a133_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+> +			  const struct pwm_state *state)
+> +{
+> +	struct pwm_a133 *pc =3D to_pwm_a133(chip);
+> +	unsigned int ch =3D pwm->hwpwm;
+> +	u32 entire_cycle, act_cycle, prescale_k, val;
+> +	u32 pccr_reg =3D (ch < 2) ? PWM_A133_PCCR01_REG : PWM_A133_PCCR23_REG;
+> +	int ret;
+> +
+> +	if (!state->enabled) {
+> +		mutex_lock(&pc->lock);
+> +		val =3D pwm_a133_readl(pc, PWM_A133_PER_REG);
+> +		val &=3D ~PWM_A133_PER_EN(ch);
+> +		pwm_a133_writel(pc, PWM_A133_PER_REG, val);
+> +
+> +		/*
+> +		 * Also gate the channel clock back off. The enable path
+> +		 * below always leaves this bit set on return (it's only
+> +		 * cleared transiently there, to reconfigure period/duty,
+> +		 * then set again before returning) -- without clearing it
+> +		 * here too, a disabled channel's clock keeps running
+> +		 * indefinitely instead of being gated off with the channel.
+> +		 */
+> +		val =3D pwm_a133_readl(pc, PWM_A133_PCGR_REG);
+> +		val &=3D ~PWM_A133_PCGR_GATING(ch);
+> +		pwm_a133_writel(pc, PWM_A133_PCGR_REG, val);
+> +
+> +		mutex_unlock(&pc->lock);
+> +		return 0;
+> +	}
+> +
+> +	ret =3D pwm_a133_calc(state->period, state->duty_cycle, &entire_cycle,
+> +			    &act_cycle, &prescale_k);
+> +	if (ret) {
+> +		dev_err(pwmchip_parent(chip), "period exceeds the maximum value\n");
+> +		return ret;
+> +	}
+> +
+> +	/*
+> +	 * PWM_A133_PCCR01_REG/PCCR23_REG (shared by a channel pair) and
+> +	 * PWM_A133_PCGR_REG/PWM_A133_PER_REG (shared by all 16 channels) are
+> +	 * each read-modify-written below; the PWM core doesn't serialize
+> +	 * .apply() calls across different channels on the same chip, so this
+> +	 * whole sequence needs its own lock against a concurrent apply() on
+> +	 * another channel racing on the same register. Sleeping here is
+> +	 * within contract: this op is named pwm_apply_might_sleep() in the
+> +	 * PWM core's own public API specifically because implementations are
+> +	 * expected to be able to sleep; only the separate pwm_apply_atomic()
+> +	 * path requires a non-sleeping implementation, which this chip
+> +	 * doesn't provide.
+> +	 */
+> +	mutex_lock(&pc->lock);
+> +
+> +	/* Clock source: OSC24M for the whole pair this channel belongs to. */
+> +	val =3D pwm_a133_readl(pc, pccr_reg);
+> +	val &=3D ~PWM_A133_PCCR_CLK_SRC_MASK;
+> +	val |=3D PWM_A133_PCCR_CLK_SRC_OSC24M;
+> +	pwm_a133_writel(pc, pccr_reg, val);
+> +
+> +	/* Gate the channel clock off while changing prescale/period/duty. */
+> +	val =3D pwm_a133_readl(pc, PWM_A133_PCGR_REG);
+> +	val &=3D ~(PWM_A133_PCGR_GATING(ch) | PWM_A133_PCGR_BYPASS(ch));
+> +	pwm_a133_writel(pc, PWM_A133_PCGR_REG, val);
+> +
+> +	val =3D PWM_A133_PCR_MODE_CYCLE | (prescale_k & PWM_A133_PCR_PRESCAL_K_=
+MASK);
+> +	if (state->polarity =3D=3D PWM_POLARITY_NORMAL)
+> +		val |=3D PWM_A133_PCR_ACT_STA_HIGH;
+> +	pwm_a133_writel(pc, PWM_A133_PCR_REG(ch), val);
+> +
+> +	val =3D (entire_cycle << PWM_A133_PPR_ENTIRE_CYCLE_SHIFT) & PWM_A133_PP=
+R_ENTIRE_CYCLE_MASK;
+> +	val |=3D act_cycle & PWM_A133_PPR_ACT_CYCLE_MASK;
+> +	pwm_a133_writel(pc, PWM_A133_PPR_REG(ch), val);
+> +
+> +	/* Re-enable the channel clock now that period/duty are set. */
+> +	val =3D pwm_a133_readl(pc, PWM_A133_PCGR_REG);
+> +	val |=3D PWM_A133_PCGR_GATING(ch);
+> +	pwm_a133_writel(pc, PWM_A133_PCGR_REG, val);
+> +
+> +	val =3D pwm_a133_readl(pc, PWM_A133_PER_REG);
+> +	val |=3D PWM_A133_PER_EN(ch);
+> +	pwm_a133_writel(pc, PWM_A133_PER_REG, val);
+> +
+> +	mutex_unlock(&pc->lock);
+> +
+> +	return 0;
+> +}
+> +
+> +static int pwm_a133_get_state(struct pwm_chip *chip, struct pwm_device *=
+pwm,
+> +			      struct pwm_state *state)
+> +{
+> +	struct pwm_a133 *pc =3D to_pwm_a133(chip);
+> +	unsigned int ch =3D pwm->hwpwm;
+> +	u32 per, pcr, ppr;
+> +	u32 entire_cycle, act_cycle, prescale;
+> +
+> +	per =3D pwm_a133_readl(pc, PWM_A133_PER_REG);
+> +	pcr =3D pwm_a133_readl(pc, PWM_A133_PCR_REG(ch));
+> +	ppr =3D pwm_a133_readl(pc, PWM_A133_PPR_REG(ch));
+> +
+> +	state->enabled =3D !!(per & PWM_A133_PER_EN(ch));
+> +	state->polarity =3D (pcr & PWM_A133_PCR_ACT_STA_HIGH) ?
+> +			   PWM_POLARITY_NORMAL : PWM_POLARITY_INVERSED;
+> +
+> +	prescale =3D (pcr & PWM_A133_PCR_PRESCAL_K_MASK) + 1;
+> +	entire_cycle =3D ((ppr & PWM_A133_PPR_ENTIRE_CYCLE_MASK) >>
+> +			PWM_A133_PPR_ENTIRE_CYCLE_SHIFT) + 1;
+> +	act_cycle =3D ppr & PWM_A133_PPR_ACT_CYCLE_MASK;
+> +
+> +	state->period =3D DIV_ROUND_CLOSEST_ULL((u64)entire_cycle * prescale * =
+NSEC_PER_SEC,
+> +					      PWM_A133_OSC24M_RATE);
+> +	state->duty_cycle =3D DIV_ROUND_CLOSEST_ULL((u64)act_cycle * prescale *=
+ NSEC_PER_SEC,
+> +						  PWM_A133_OSC24M_RATE);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct pwm_ops pwm_a133_ops =3D {
+> +	.apply =3D pwm_a133_apply,
+> +	.get_state =3D pwm_a133_get_state,
+> +};
+> +
+> +static const struct of_device_id pwm_a133_dt_ids[] =3D {
+> +	{ .compatible =3D "allwinner,sun50i-a133-pwm" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, pwm_a133_dt_ids);
+> +
+> +static int pwm_a133_probe(struct platform_device *pdev)
+> +{
+> +	struct pwm_chip *chip;
+> +	struct pwm_a133 *pc;
+> +	int ret;
+> +
+> +	chip =3D devm_pwmchip_alloc(&pdev->dev, 4, sizeof(*pc));
+> +	if (IS_ERR(chip))
+> +		return PTR_ERR(chip);
+> +	pc =3D to_pwm_a133(chip);
+> +
+> +	mutex_init(&pc->lock);
+> +
+> +	pc->base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(pc->base))
+> +		return PTR_ERR(pc->base);
+> +
+> +	pc->bus_clk =3D devm_clk_get_enabled(&pdev->dev, "bus");
+> +	if (IS_ERR(pc->bus_clk))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(pc->bus_clk),
+> +				     "get bus clock failed\n");
+> +
+> +	pc->rst =3D devm_reset_control_get_exclusive(&pdev->dev, NULL);
+> +	if (IS_ERR(pc->rst))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(pc->rst),
+> +				     "get reset failed\n");
+> +
+> +	ret =3D reset_control_deassert(pc->rst);
+> +	if (ret)
+> +		return dev_err_probe(&pdev->dev, ret,
+> +				     "cannot deassert reset control\n");
+> +
+> +	chip->ops =3D &pwm_a133_ops;
+> +
+> +	ret =3D pwmchip_add(chip);
+> +	if (ret < 0) {
+> +		dev_err(&pdev->dev, "failed to add PWM chip: %d\n", ret);
+> +		reset_control_assert(pc->rst);
+> +		return ret;
+> +	}
+> +
+> +	platform_set_drvdata(pdev, chip);
+> +
+> +	return 0;
+> +}
+> +
+> +static void pwm_a133_remove(struct platform_device *pdev)
+> +{
+> +	struct pwm_chip *chip =3D platform_get_drvdata(pdev);
+> +	struct pwm_a133 *pc =3D to_pwm_a133(chip);
+> +
+> +	pwmchip_remove(chip);
+> +	reset_control_assert(pc->rst);
+> +}
+> +
+> +static struct platform_driver pwm_a133_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "sun50i-a133-pwm",
+> +		.of_match_table =3D pwm_a133_dt_ids,
+> +	},
+> +	.probe =3D pwm_a133_probe,
+> +	.remove =3D pwm_a133_remove,
+> +};
+> +module_platform_driver(pwm_a133_driver);
+> +
+> +MODULE_DESCRIPTION("Allwinner A133 PWM driver");
+> +MODULE_LICENSE("GPL");
 
-Because the initial sun6i_dsi_tri_start kick is specifically guarded by
-if (tick =3D=3D 0 && !busy), being busy at tick 0 causes the kick to be dro=
-pped.
-On subsequent ticks (tick > 0), the timer bypasses the kick entirely and
-will continue returning HRTIMER_RESTART endlessly, waiting for the hardware
-to become not busy. However, if the DSI engine remains idle without the kic=
-k,
-busy evaluates to true forever, permanently losing the frame.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912230131.1092=
-29-1-leow149@lucidmail.xyz?part=3D1
