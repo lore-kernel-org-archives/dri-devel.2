@@ -4,44 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94D1AC88E53
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 22:01:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11FCDC88E53
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 22:21:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB52710E4E7;
-	Sat, 12 Sep 2026 22:01:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9E4C10E51E;
+	Sat, 12 Sep 2026 22:21:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X6geoXl3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BHhPvzDn";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A667910E4E7
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 22:01:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 670B810E51E
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 22:21:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 726EC60142;
- Sat, 12 Sep 2026 22:01:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BA7E1F000FF;
- Sat, 12 Sep 2026 22:01:04 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8BB6D60008;
+ Sat, 12 Sep 2026 22:21:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 434821F000FF;
+ Sat, 12 Sep 2026 22:20:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789250464;
- bh=EatkiM1A12Ll7lp9zCpPxIIn7SRWTf0oNDnWeqkLBpA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=X6geoXl39TUtv4I2dmfpHLuaGbUDwnS+eMDhs4Nw79CPeIg9q9AibOL37sGn/1VYc
- 1k+dAI1BWJLJf6+lgx9rdxQgET1RRadsn9cFQgMaLU++mbwtGnkFvObgyTrBY6OcZC
- D8pVsvNmZzjgTS7DbsR9NLTQmUdehRSeWCufkjpKK78UiHexlfQp2LFQrHR1M67WIZ
- 4ODgAr+NPXREVV7XQ3qQORIk/zQjRNzsFkinNGBUswkT/oIRSqnUX8rB2i81tYNEYV
- Lx2luxKyTNAIdFC89Kxc26hBKAtFnAGxLVKnLL69aTqIJCQ0X9j8IE+cGQFk/JDbVf
- WWfv7dMnxNw6Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v5] arm64: allwinner: add TrimUI Smart Pro (A133)
- board support
-To: leow149 <leow149@lucidmail.xyz>
-Cc: dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20260912214317.106150-1-leow149@lucidmail.xyz>
-References: <20260912114331.92956-1-leow149@lucidmail.xyz>
- <20260912214317.106150-1-leow149@lucidmail.xyz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 22:01:03 +0000
-Message-Id: <20260912220104.0BA7E1F000FF@smtp.kernel.org>
+ s=k20260515; t=1789251662;
+ bh=A9T5TqugoZpwriYm80tITfJ7eL5e79XFR+RGRlWT3Yo=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=BHhPvzDnmzwpQttZFmPMZf/UutFNeY/Degy6vahXXbV7Z6hNGc9MkvFE+rdhQJ6MU
+ VAw3b4RYQvofx2lNTbeX4zkZRnpelNzwDei0UTSd3ZGNIs/4odMQ67B9LiiARuySxb
+ U6BER7d7wfXohAn2tXbzGwa2wiTRgp4c4+hrPC/Fg2mvopBtYwKpfuJcqo2gQktz/i
+ UBA340zyHxS9IBLWpHZ7ZP/iBROp/81WLbTAUh34hL3mGOOjez8TZZyGHIC4Q8vD6X
+ SvDJPAFOvk+SgEr6vR+aGc41krBbPQbYbAOql8ew7alD2jpnrmyuGLi/805cAMk+g3
+ S6DFuxrkx8D2Q==
+Date: Sat, 12 Sep 2026 23:20:47 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Arnd Bergmann" <arnd@arndb.de>
+Cc: "Svyatoslav Ryhel" <clamor95@gmail.com>, "Arnd Bergmann"
+ <arnd@kernel.org>, "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+ "Bartosz Golaszewski" <brgl@kernel.org>, "Mark Brown" <broonie@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Daniel Thompson"
+ <danielt@kernel.org>, "Helge Deller" <deller@gmx.de>,
+ devicetree@vger.kernel.org, "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
+ dri-devel@lists.freedesktop.org, "Jingoo Han" <jingoohan1@gmail.com>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Lee Jones" <lee@kernel.org>,
+ "Liam Girdwood" <lgirdwood@gmail.com>, "Linus Walleij" <linusw@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, "open list:GPIO SUBSYSTEM"
+ <linux-gpio@vger.kernel.org>, linux-hwmon@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-rtc@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, "Guenter Roeck" <linux@roeck-us.net>,
+ linuxppc-dev@lists.ozlabs.org, llvm@lists.linux.dev, "Mauro Carvalho
+ Chehab" <mchehab@kernel.org>, mfd@lists.linux.dev, "Michael Hennerich"
+ <michael.hennerich@analog.com>, patches@opensource.cirrus.com, "Pavel
+ Machek" <pavel@kernel.org>, "Rob Herring" <robh@kernel.org>, "Sebastian
+ Reichel" <sre@kernel.org>, "Support Opensource"
+ <support.opensource@diasemi.com>
+Subject: Re: [PATCH 08/14] mfd: remove unused aat2870 driver
+Message-ID: <20260912232047.19c4cb10@jic23-hlaptop>
+In-Reply-To: <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
+References: <CAPVz0n0ryOns2sCJE_jFana9MVzwEj1QZuPEa8FNhGbHXnMB+A@mail.gmail.com>
+ <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,316 +77,97 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
+On Thu, 10 Sep 2026 20:14:15 +0200
+"Arnd Bergmann" <arnd@arndb.de> wrote:
 
-New issues:
-- [High] Sleeping functions called from atomic encoder callbacks, violating=
- display subsystem rules.
-- [High] TOCTOU race condition causing concurrent DSI retriggering during I=
-RQ re-enable.
-- [High] Integer underflow when computing `start_delay` with adversarial or=
- edge-case DRM display modes.
-- [Medium] Resource leak in PWM driver: channel clock gate left permanently=
- enabled on disable.
-- [Low] The 'allwinner,sun50i-a133-tcon-top' compatible string breaks devic=
-e tree binding schema validation.
+> On Thu, Sep 10, 2026, at 18:40, Svyatoslav Ryhel wrote:
+> > __ 
+> > Hello Arnd! May you please spare AAT2870 from being removed? I have a 
+> > device which uses aat2870 (LG Optimus 2X P990 Tegra 2, not upstreamed 
+> > yet, but in process as well) and atm I am working on converting this 
+> > driver to use OF. Thank you!  
+> 
+> Sure, I have removed this patch from my series now.
+> 
+> > P. S. If you are planning to remove more old drivers, please CC me in 
+> > since I may be interested in some additional driver upgrades for 
+> > devices I own.  
+> 
+> Please have a look at
+> 
+> https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=board-remove-7.3
+> 
+> I tried to be careful about figuring out exactly which drivers are
+> unused, but I'm sure there are still a few false positive and false
+> negative ones in there. I've added the current list of driver files below,
+> let me know if you see something that shouldn't be there.
+Hi Arnd
 
-Pre-existing issues:
-- [High] Use-After-Free (TOCTOU) in TCON TOP register access due to lack of=
- synchronization with device unbind.
-- [High] Division by zero if the hardware DCLK divider register reads as ze=
-ro.
---
+For I2C and SPI at least, there doesn't need to be explicit
+device tree support as long as they have defaults when platform
+data isn't there. Those two buses will happily bind based on
+a dt-compatible and their i2c_device_id or spi_device_id tables
+for example.
 
-commit 5601bade2c59d4b26ab64fee73a2b3036bf1fb38
-Author: leow149 <leow149@lucidmail.xyz>
+So unless they fail to probe (some might?) we don't have
+a clear signal on whether they are in use via DT or not.
 
-arm64: allwinner: add TrimUI Smart Pro (A133) board support
+For vast majority of IIO drivers we don't have an upstream
+DTS as there is no clear motivation for anyone to upstream
+the dts for a random industrial control board or similar.
 
-This commit adds board support for the TrimUI Smart Pro handheld. It
-introduces new DTS configurations, a panel driver for the OTM1289A/ER68576,
-a PWM driver, and modifies TCON/DSI code to support the A133 SoC's display
-and PWM pipelines.
+> drivers/iio/adc/ad7266.c
+No to dropping this.
 
-> diff --git a/Documentation/devicetree/bindings/display/allwinner,sun8i-r4=
-0-tcon-top.yaml b/Documentation/devicetree/bindings/display/allwinner,sun8i=
--r40-tcon-top.yaml
-> --- a/Documentation/devicetree/bindings/display/allwinner,sun8i-r40-tcon-=
-top.yaml
-> +++ b/Documentation/devicetree/bindings/display/allwinner,sun8i-r40-tcon-=
-top.yaml
-> @@ -43,6 +43,7 @@ properties:
->        - allwinner,sun8i-r40-tcon-top
->        - allwinner,sun20i-d1-tcon-top
->        - allwinner,sun50i-h6-tcon-top
-> +      - allwinner,sun50i-a133-tcon-top
+Has fallbacks and should bind just fine  No one ever
+bothered adding an of_device_id table because it isn't
+needed. Fine to rip out the platform data support as nothing is
+using that.
 
-[Severity: Low]
-Does adding the A133 compatible here break dtbs_check validation for valid
-device trees?
+This is a production part that is likely being used in new designs.
 
-The A133 hardware lacks an HDMI mux and only uses port@0 and port@1. Howeve=
-r,
-the base schema unconditionally requires port@4 and port@5 across all
-compatibles. This would cause a correct A133 device tree to be rejected
-as invalid.
+> drivers/iio/adc/ad7791.c
+No to dropping this one.
 
-> diff --git a/drivers/gpu/drm/panel/panel-orisetech-otm1289a.c b/drivers/g=
-pu/drm/panel/panel-orisetech-otm1289a.c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-orisetech-otm1289a.c
-> @@ -0,0 +1,424 @@
-[ ... ]
-> +static int otm1289a_prepare(struct drm_panel *panel)
-> +{
-> +	struct otm1289a *ctx =3D panel_to_otm1289a(panel);
-> +	int ret;
-> +
-> +	ret =3D regulator_enable(ctx->supply);
-> +	if (ret < 0) {
-> +		dev_err(panel->dev, "failed to enable supply: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	if (ctx->reset_gpio) {
-> +		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +		msleep(20);
-> +		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +		msleep(100);
-> +	}
+I'm fine with ripping out the platform data but this again
+has defaults and may well be in use via DT. Antoniu from
+Analog was doing some cleanup on this recently so I'd guess
+they probably still at least somewhat care and some of the
+supported parts are still in production (e.g. the AD7788)
 
-[Severity: High]
-Can these msleep() calls execute in an atomic context?
+> drivers/iio/adc/ad7793.c
+Maybe. Analog devices ack needed.
 
-If otm1289a_prepare() is invoked from an encoder's atomic enable callback
-path (such as sun6i_dsi_encoder_enable), explicit sleeps are forbidden
-and can cause deadlocks or kernel warnings.
+Production part but this one indeed fails to probe.  Analog
+folk, do you want to fix this one up?
 
-> diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.c b/drivers/gpu/drm/sun4i/s=
-un4i_tcon.c
-> --- a/drivers/gpu/drm/sun4i/sun4i_tcon.c
-> +++ b/drivers/gpu/drm/sun4i/sun4i_tcon.c
-> @@ -395,6 +608,18 @@ static void sun4i_tcon0_mode_set_cpu(struct sun4i_tc=
-on *tcon,
->  	regmap_read(tcon->regs, SUN4I_TCON0_DCLK_REG, &tcon_div);
->  	tcon_div &=3D GENMASK(6, 0);
->  	block_space =3D mode->htotal * bpp / (tcon_div * lanes);
+> drivers/iio/adc/ad7887.c
+No to dropping this.
 
-[Severity: High]
-This is a pre-existing issue, but can tcon_div evaluate to 0 and cause a
-division-by-zero panic here?
+Production part - should work fine with defaults in driver.
+Could like the others drop the platform data handling.
 
-If the clock framework fails to configure the rate in clk_set_rate() earlier
-in the function, SUN4I_TCON0_DCLK_REG might retain its reset value of 0.
-The subsequent calculation would then divide by zero.
+> drivers/iio/adc/lp8788_adc.c
+Probably
 
-[ ... ]
-> +	if (tcon->quirks->dsi_cpu_needs_retrigger) {
-> +		start_delay =3D (mode->crtc_vtotal - mode->crtc_vdisplay - 9);
-> +		start_delay =3D start_delay * mode->crtc_htotal * 300;
+Sub driver of an MFD.  I'm fine with that going if we know
+the mfd is no longer in use.
 
-[Severity: High]
-Is it possible for this subtraction to underflow if a custom DRM mode is
-supplied?
+> drivers/iio/adc/lpc18xx_adc.c
+> drivers/iio/dac/lpc18xx_dac.c
+Probably
 
-If userspace supplies an edge-case DRM mode where mode->crtc_vtotal is less
-than mode->crtc_vdisplay + 9, the subtraction evaluates to a negative numbe=
-r.
-When assigned to the unsigned start_delay variable, this wraps around to a
-massive positive value, which would corrupt SUN4I_TCON0_CPU_TRI2_REG and
-break display timings.
+Likewise these two.
 
-[ ... ]
-> +static enum hrtimer_restart sun4i_tcon_dsi_retrigger_timer_fn(struct hrt=
-imer *timer)
-> +{
-> +	struct sun4i_tcon *tcon =3D container_of(timer, struct sun4i_tcon,
-> +						dsi_retrigger_timer);
-> +	unsigned int cpu_if_before;
-> +	unsigned int tick =3D tcon->dsi_retrigger_ticks;
-> +	u32 dsi_int;
-> +	bool busy;
-> +
-> +	regmap_read(tcon->regs, SUN4I_TCON0_CPU_IF_REG, &cpu_if_before);
-> +	busy =3D cpu_if_before & SUN4I_TCON0_CPU_IF_TRI_START;
-> +
-> +	if (tick && !busy) {
-> +		/* TRIGGER_START self-cleared; the IRQ path takes over from here. */
-> +		return HRTIMER_NORESTART;
-> +	}
-> +
-> +	dsi_int =3D sun6i_dsi_read_int_status(tcon->dsi);
-> +	if (dsi_int & GENMASK(31, 16))
-> +		sun6i_dsi_clear_int_status(tcon->dsi);
-> +
-> +	if (tick =3D=3D 0 && tcon->irq && !tcon->irq_enabled) {
-> +		enable_irq(tcon->irq);
-> +		tcon->irq_enabled =3D true;
-> +	}
-> +
-> +	if (tick =3D=3D 0 && !busy) {
-> +		sun6i_dsi_tri_start(tcon->dsi);
-> +		regmap_update_bits(tcon->regs, SUN4I_TCON0_CPU_IF_REG,
-> +				   SUN4I_TCON0_CPU_IF_TRI_START,
-> +				   SUN4I_TCON0_CPU_IF_TRI_START);
-> +	}
+> drivers/iio/frequency/ad9523.c
+Maybe. Analog Devices ack needed.
 
-[Severity: High]
-Can a race condition occur here if the interrupt line is unmasked?
+Fails to probe without platform data and marked not recomended
+for new designs. If we get an Ack from Analog devices folk
+I'm fine with this one going away.
 
-The busy state is cached before calling enable_irq(tcon->irq). Because
-SUN4I_TCON_GINT0_REG retains pending interrupts, enable_irq() can unmask the
-line and cause the hardirq to fire immediately, preempting this softirq.
-The hardirq could kick the DSI transfer and set TRI_START.
+Jonathan
 
-When the softirq resumes, it uses the cached !busy value to kick the transf=
-er
-a second time, writing 1 to TRI_START when it is already 1. Does this
-violate the hardware state machine?
-
-> diff --git a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c b/drivers/gpu/drm/sun=
-4i/sun6i_mipi_dsi.c
-> --- a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
-> +++ b/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
-> @@ -720,7 +836,6 @@ static void sun6i_dsi_encoder_enable(struct drm_encod=
-er *encoder)
->  	struct mipi_dsi_device *device =3D dsi->device;
->  	union phy_configure_opts opts =3D { };
->  	struct phy_configure_opts_mipi_dphy *cfg =3D &opts.mipi_dphy;
-
-[Severity: High]
-Does executing this function in an atomic context violate DRM subsystem rul=
-es?
-
-The DRM subsystem defines encoder atomic enable and disable callbacks as
-atomic contexts where sleeping is forbidden. Functions like
-clk_prepare_enable() are used inside this path, which can sleep and lead to
-kernel warnings or potential deadlocks.
-
-[ ... ]
-> +static void sun6i_dsi_encoder_disable(struct drm_encoder *encoder)
->  {
-> +	struct sun6i_dsi *dsi =3D encoder_to_sun6i_dsi(encoder);
-> +
->  	DRM_DEBUG_DRIVER("Disabling DSI output\n");
-> =20
-> +	if (dsi->tcon)
-> +		sun4i_tcon_dsi_stop_retrigger(dsi->tcon);
-
-[Severity: High]
-Does calling sun4i_tcon_dsi_stop_retrigger() here trigger a sleep in an
-atomic context?
-
-This path eventually calls disable_irq(), which is a sleeping function. Sin=
-ce
-encoder disable callbacks run in atomic context during non-blocking commits,
-this could cause system instability or deadlocks.
-
-> diff --git a/drivers/gpu/drm/sun4i/sun8i_tcon_top.c b/drivers/gpu/drm/sun=
-4i/sun8i_tcon_top.c
-> --- a/drivers/gpu/drm/sun4i/sun8i_tcon_top.c
-> +++ b/drivers/gpu/drm/sun4i/sun8i_tcon_top.c
-> @@ -143,12 +143,115 @@ int sun8i_tcon_top_de_config(struct device *dev, i=
-nt mixer, int tcon)
->  }
->  EXPORT_SYMBOL(sun8i_tcon_top_de_config);
-> =20
-> +int sun8i_tcon_top_set_dsi_gate(struct device *dev, bool enable)
-> +{
-> +	struct sun8i_tcon_top *tcon_top =3D dev_get_drvdata(dev);
-> +	unsigned long flags;
-> +	u32 val;
-> +
-> +	if (!sun8i_tcon_top_node_is_tcon_top(dev->of_node)) {
-> +		dev_err(dev, "Device is not TCON TOP!\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (!tcon_top)
-> +		return -ENODEV;
-> +
-> +	spin_lock_irqsave(&tcon_top->reg_lock, flags);
-
-[Severity: High]
-This is a pre-existing issue, but does this pattern leave us vulnerable to a
-Use-After-Free?
-
-An atomic commit worker can retrieve tcon_top via dev_get_drvdata(dev).
-Concurrently, a sysfs unbind could finish its remove callback and free the
-memory backing tcon_top.
-
-Since the !tcon_top check occurs before the lock is acquired, the memory
-could be freed immediately after the check but before spin_lock_irqsave(),
-leading to a dereference of freed memory.
-
-[ ... ]
-> +int sun8i_tcon_top_set_de0_port(struct device *dev, int port)
-> +{
-> +	struct sun8i_tcon_top *tcon_top =3D dev_get_drvdata(dev);
-> +	unsigned long flags;
-> +	u32 val;
-> +
-> +	if (!sun8i_tcon_top_node_is_tcon_top(dev->of_node)) {
-> +		dev_err(dev, "Device is not TCON TOP!\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (!tcon_top)
-> +		return -ENODEV;
-> +
-> +	spin_lock_irqsave(&tcon_top->reg_lock, flags);
-
-[Severity: High]
-This is a pre-existing issue, but is this unprotected access pattern also
-susceptible to the same Use-After-Free race mentioned above?
-
-> diff --git a/drivers/pwm/pwm-sun50i-a133.c b/drivers/pwm/pwm-sun50i-a133.c
-> --- /dev/null
-> +++ b/drivers/pwm/pwm-sun50i-a133.c
-> @@ -0,0 +1,322 @@
-[ ... ]
-> +static int pwm_a133_apply(struct pwm_chip *chip, struct pwm_device *pwm,
-> +			  const struct pwm_state *state)
-> +{
-> +	struct pwm_a133 *pc =3D to_pwm_a133(chip);
-> +	unsigned int ch =3D pwm->hwpwm;
-> +	u32 entire_cycle, act_cycle, prescale_k, val;
-> +	u32 pccr_reg =3D (ch < 2) ? PWM_A133_PCCR01_REG : PWM_A133_PCCR23_REG;
-> +	int ret;
-> +
-> +	if (!state->enabled) {
-> +		mutex_lock(&pc->lock);
-> +		val =3D pwm_a133_readl(pc, PWM_A133_PER_REG);
-> +		val &=3D ~PWM_A133_PER_EN(ch);
-> +		pwm_a133_writel(pc, PWM_A133_PER_REG, val);
-> +		mutex_unlock(&pc->lock);
-> +		return 0;
-> +	}
-
-[Severity: Medium]
-Does returning early here leak the channel clock gate?
-
-By returning 0 immediately, the code skips the PWM_A133_PCGR_GATING clear at
-the end of the function, leaving the channel clock gate permanently enabled
-after the PWM channel is disabled.
-
-[ ... ]
-> +	mutex_lock(&pc->lock);
-
-[Severity: High]
-Does acquiring this mutex violate atomic context rules when called from the
-backlight driver?
-
-If the backlight update is triggered during the panel prepare phase from an
-encoder's atomic enable callback, calling mutex_lock() could sleep and lead
-to system instability.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912214317.1061=
-50-1-leow149@lucidmail.xyz?part=3D1
