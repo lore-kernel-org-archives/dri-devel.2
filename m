@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B2A5C79FB6
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 12:59:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02532C88E53
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 13:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B1D610E647;
-	Sat, 12 Sep 2026 12:59:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4530310E49A;
+	Sat, 12 Sep 2026 13:02:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X4M2fonZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VDhCwb8D";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B152310E647
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 12:59:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93C6710E49A
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 13:02:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 35D4A60236;
- Sat, 12 Sep 2026 12:59:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C26C61F00893;
- Sat, 12 Sep 2026 12:59:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id DA07E60236;
+ Sat, 12 Sep 2026 13:02:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D9AC1F000FF;
+ Sat, 12 Sep 2026 13:02:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789217990;
- bh=5JUutj+qZr6wPnOdhXJdMVyK1ZmwCQSwKKEYlFJzAKk=;
+ s=k20260515; t=1789218161;
+ bh=PizVomd7Z8/s2/d67SISiFuoutzM81MpYbQfMAFV8v4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=X4M2fonZ+qfbZ/ldUWkktJsa0i/xqyh+/88UJppJFoG5kl96PI8vYBoTH8i7kyqWy
- KTJr9yO5xVOQudTV9j+po3hbODW2R8y3KaEqKCJPyyxAV+A0clh+PVum1e1XCPELQR
- C+DcfJWFAP2VOni0pTRMDos89jBDayE7SUgv9IKv55WhDnglRwpszzmkQkU2F/5sdw
- i0spGkC6XWjboBinND59s+cPGdyzyc1kQa8u/EAn/y39vmDryUQ3TGa1uhErLN9/NI
- TRPPsByCc1U/HfyBpgDHcMB5dFNIJ7PZv5DtawkP5XQrXfCjdmIm2vaWwEqcnENJX1
- zUjOkM04gHVaA==
+ b=VDhCwb8DYfdeV3OwODgV582CYXIb3yBLxeS+SzVQyPdBK9DcWP2XoIhPT4Xok+Ibz
+ VPDIvfVvy0n5CE8ChuCCv14ncoy2Urclg7fPl7jPT12GtjVz22nA9dSAPHV4oyTzhr
+ sEnb//mKWJH1NlwdrmHs/XC0y1wT42lVHYkGEc0JpnEDNYxUHHqZ7mPW1TVELI4U9o
+ 4emegCsa6wds2tp11UgyCVBcNIdKCR3oQPx+Evw0L+PfhJDd64QD/r1WhRHGH9NoIP
+ UGLzG2OpYS/sjsDbDrkXC8Vq5PQIhP+mDrbXM9mfKccCAV58QF2bzZ3+PngiNuCtOx
+ FiMSTuk/WcV2A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 6/8] drm/msm/dpu: clear the DSC blocks left by a
- previous reservation
+Subject: Re: [PATCH v3 5/8] drm/msm/dpu: clear the DSPP pointer when no DSPP
+ is assigned
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260912-fd-kms-fix-smmu-v3-6-a7ddc6fe2032@oss.qualcomm.com>
+In-Reply-To: <20260912-fd-kms-fix-smmu-v3-5-a7ddc6fe2032@oss.qualcomm.com>
 References: <20260912-fd-kms-fix-smmu-v3-0-a7ddc6fe2032@oss.qualcomm.com>
- <20260912-fd-kms-fix-smmu-v3-6-a7ddc6fe2032@oss.qualcomm.com>
+ <20260912-fd-kms-fix-smmu-v3-5-a7ddc6fe2032@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 12:59:50 +0000
-Message-Id: <20260912125950.C26C61F00893@smtp.kernel.org>
+Date: Sat, 12 Sep 2026 13:02:41 +0000
+Message-Id: <20260912130241.7D9AC1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,78 +62,71 @@ Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Uninitialized stack memory dereference due to stale `hw_cwb` point=
-ers.
-- [High] Stale `hw_cdm` pointer leads to hardware state corruption.
+- [High] Stale pointers in dpu_enc->hw_cwb array causing uninitialized stac=
+k memory dereference
+- [High] Stale pointer in dpu_enc->cur_master->hw_cdm causing hardware stat=
+e corruption
 --
 
-commit 21c6c86adbc8ec970742702720e70e53d2f08f5c
+commit 50e668cb47f95334a8bcced939d0916fe0531def
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-drm/msm/dpu: clear the DSC blocks left by a previous reservation
+drm/msm/dpu: clear the DSPP pointer when no DSPP is assigned
 
-This commit fixes an issue in dpu_encoder_virt_atomic_mode_set() where stale
-DSC blocks from previous reservations were not cleared by writing NULL to t=
-he
-remaining elements in the hw_dsc array.
+dpu_crtc_assign_resources() only stores mixers[i].hw_dspp when the new
+topology has a DSPP for that mixer, and dpu_crtc_duplicate_state() copies
+the state with kmemdup(), so a crtc which once used a DSPP keeps a pointer
+to it for the rest of its life -- across reservations which no longer own
+that block.
 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/dr=
-m/msm/disp/dpu1/dpu_encoder.c
-> index 1f20695f81e35..50c49259a23e9 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -1222,9 +1222,10 @@ static void dpu_encoder_virt_atomic_mode_set(struc=
-t drm_encoder *drm_enc,
->  	num_dsc =3D dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
->  						drm_enc->crtc, DPU_HW_BLK_DSC,
->  						hw_dsc, ARRAY_SIZE(hw_dsc));
-> -	for (i =3D 0; i < num_dsc; i++) {
-> -		dpu_enc->hw_dsc[i] =3D to_dpu_hw_dsc(hw_dsc[i]);
-> -		dsc_mask |=3D BIT(dpu_enc->hw_dsc[i]->idx - DSC_0);
-> +	for (i =3D 0; i < MAX_CHANNELS_PER_ENC; i++) {
-> +		dpu_enc->hw_dsc[i] =3D i < num_dsc ? to_dpu_hw_dsc(hw_dsc[i]) : NULL;
-> +		if (dpu_enc->hw_dsc[i])
-> +			dsc_mask |=3D BIT(dpu_enc->hw_dsc[i]->idx - DSC_0);
->  	}
+Assign NULL when there is no DSPP for the mixer.
+
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/m=
+sm/disp/dpu1/dpu_crtc.c
+> index bf593020e8e45..5dc0c9aeaa5d7 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -1480,8 +1480,8 @@ static int dpu_crtc_assign_resources(struct drm_crt=
+c *crtc,
 > =20
->  	dpu_enc->dsc_mask =3D dsc_mask;
+>  		cstate->mixers[i].hw_lm =3D to_dpu_hw_mixer(hw_lm[i]);
+>  		cstate->mixers[i].lm_ctl =3D to_dpu_hw_ctl(hw_ctl[ctl_idx]);
+> -		if (i < num_dspp)
+> -			cstate->mixers[i].hw_dspp =3D to_dpu_hw_dspp(hw_dspp[i]);
+> +		cstate->mixers[i].hw_dspp =3D i < num_dspp ?
+> +			to_dpu_hw_dspp(hw_dspp[i]) : NULL;
 
 [Severity: High]
-This is a pre-existing issue, but does the hw_cwb array suffer from the same
-problem just above this block?
+This is a pre-existing issue, but does this same stale pointer problem exist
+for hw_cwb in dpu_encoder_virt_atomic_mode_set() when the number of CWB
+blocks decreases during a modeset?
 
-In dpu_encoder_virt_atomic_mode_set(), hw_cwb is populated up to num_cwb:
+If userspace submits a DRM commit that assigns fewer CWB blocks than the
+previous state, trailing elements in dpu_enc->hw_cwb are not cleared:
 
+drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:dpu_encoder_virt_atomic_mode_se=
+t() {
+    ...
 	for (i =3D 0; i < num_cwb; i++) {
 		dpu_enc->hw_cwb[i] =3D to_dpu_hw_cwb(hw_cwb[i]);
-		...
+		cwb_mask |=3D BIT(dpu_enc->hw_cwb[i]->idx - CWB_0);
 	}
+    ...
+}
 
-Elements beyond num_cwb are not cleared to NULL. Later, in
-dpu_encoder_helper_phys_setup_cwb(), it iterates over the entire
-MAX_CWB_PER_ENC array:
-
-	for (int i =3D 0; i < MAX_CWB_PER_ENC; i++) {
-		hw_cwb =3D dpu_enc->hw_cwb[i];
-		if (!hw_cwb)
-			continue;
-		...
-		if (enable) {
-			struct dpu_hw_pingpong *hw_pp =3D
-					to_dpu_hw_pingpong(rt_pp_list[i]);
-			cwb_cfg.pp_idx =3D hw_pp->idx;
-
-Could a stale hw_cwb pointer bypass the !hw_cwb check and access
-rt_pp_list[i]? If i >=3D num_pp, it seems this would lead to dereferencing
-uninitialized stack memory.
+Later, when dpu_encoder_helper_phys_setup_cwb() is called, it iterates over
+MAX_CWB_PER_ENC and processes any non-NULL pointer. Could this cause the
+driver to read from rt_pp_list[i] (an uninitialized stack array beyond
+num_pp), cast the garbage value to a pointer, and dereference it via
+hw_pp->idx, leading to a kernel crash?
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does hw_cdm have a similar
-lifecycle issue in the same function?
+This isn't a bug introduced by this patch, but there appears to be another
+stale pointer issue in dpu_encoder_virt_atomic_mode_set() with hw_cdm:
 
-Just below the hw_dsc clearing, dpu_encoder_virt_atomic_mode_set() handles
-hw_cdm:
-
+drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:dpu_encoder_virt_atomic_mode_se=
+t() {
+    ...
 	if ((dpu_enc->disp_info.intf_type =3D=3D INTF_WB && conn_state->writeback_=
 job) ||
 	    dpu_enc->disp_info.intf_type =3D=3D INTF_DP) {
@@ -144,23 +137,23 @@ job) ||
 					      &hw_cdm, 1);
 		dpu_enc->cur_master->hw_cdm =3D hw_cdm ? to_dpu_hw_cdm(hw_cdm) : NULL;
 	}
+    ...
+}
 
-If a modeset drops the writeback_job, this block is skipped entirely, leavi=
-ng
-the old pointer in dpu_enc->cur_master->hw_cdm.
+If a modeset occurs where the encoder had a CDM block (e.g., from an active
+writeback job), but the new state lacks a writeback job, the if-condition
+evaluates to false and the pointer remains uncleared.
 
-Later, dpu_encoder_helper_phys_cleanup() unconditionally uses this pointer:
+During dpu_encoder_helper_phys_cleanup(), the driver attempts to unbind the
+stale CDM block by calling bind_pingpong_blk(..., PINGPONG_NONE) and
+configures a flush. Can this corrupt the hardware state of a block that no
+longer belongs to this reservation and may now be assigned to another displ=
+ay?
 
-	if (phys_enc->hw_cdm) {
-		if (phys_enc->hw_cdm->ops.bind_pingpong_blk && phys_enc->hw_pp)
-			phys_enc->hw_cdm->ops.bind_pingpong_blk(phys_enc->hw_cdm,
-								PINGPONG_NONE);
-		...
-	}
-
-Can this stale pointer cause the cleanup path to alter a hardware block that
-might now be owned by a different CRTC?
+>  	}
+> =20
+>  	cstate->num_mixers =3D num_lm;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912-fd-kms-fix=
--smmu-v3-0-a7ddc6fe2032@oss.qualcomm.com?part=3D6
+-smmu-v3-0-a7ddc6fe2032@oss.qualcomm.com?part=3D5
