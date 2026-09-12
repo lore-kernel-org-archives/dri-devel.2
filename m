@@ -4,85 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97DB3C88E65
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65896C88E5C
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B05EF10E9C9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 789AB10E9C7;
 	Sun, 13 Sep 2026 20:53:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XuPQ676p";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="if5scmlu";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BECAD10F69C
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 15:45:46 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- d9443c01a7336-2d747ed9865so8514705ad.1
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 08:45:46 -0700 (PDT)
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
+ [74.125.225.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96CEA10E760
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 16:35:13 +0000 (UTC)
+Received: by mail-wr2-f12.google.com with SMTP id
+ ffacd0b85a97d-4843f22dc83so417123f8f.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 09:35:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789141546; x=1789746346; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=RmWPw9HQP1XagMM9TGKgOpF0w9bX79g0MmpHkabvFyc=;
- b=XuPQ676pix7oV2Hy/9910939MMmQvWDSPUmZVlGzOOHFeXqu6k1Sqdb1QVO+X+X9wU
- q6nToO5pDwtnvRhiBtpD+DnxZFmpkAwAGKwMolf0iLXvBBKFa65kAKuFyzO6rJWNZPp8
- IuWD2q9db6rvVVhG0OihCQN0MYtlRM5T237SyqGWp8ANYNzMdeAcquJnZs6sVi/KYJOE
- dFzqzCP7aGoY3k6egv9ttMCssdW6/cRB3g9AxhaKeZuk0gQBmKQ5b+Wb318/XwUgxPPR
- QJFM7ppgsX9tRBGETDkrRJT/ipblmSIIP7h8QuDgdRXdb7isyUYZR0HcUk14rIvFD4kI
- 7rMQ==
+ d=gmail.com; s=20251104; t=1789230912; x=1789835712; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=lyDyzwXLDdcuGlMTGZyNhCieQRVuG7gzmR1vCWknrTU=;
+ b=if5scmluUvIoWXxWX1ZgfljOkh3HGBgdlw3lxcJCo912x9W6/FGmM4GXZ8cTb2gaOm
+ EGkQD72xVR1jnf9c6PL9LM4+zPF4n9I0BAGVlGj98vsRxdhmQRgchD/0XxRAHMK9GEE8
+ KikuLL4Re5j3uoKzlXjvowBqbeH/sg3Hyjm3zQi+pr8g415FSC8dl8koE6yxrgpgVm/R
+ csHcfsugskVcwpUNIBzZhO13UrcPnS9L5zQNxNbcNxgpKpPdWBho56jTG605jljgBUxq
+ lUSvA+ZRYMuNWYELR5FRXgqhMVB9XAMKCTRI8hRSdf4ly6b6m3zfyY2vE8todFkzTYej
+ 7baw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789141546; x=1789746346;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=RmWPw9HQP1XagMM9TGKgOpF0w9bX79g0MmpHkabvFyc=;
- b=LjUdWnGm8i5m4RfpHpmGpj6pfvEOzG7hD9T2EoIQE6M4oMPhbQ1qeNddJjy/5oA1FJ
- RIT2iXa4gZiKgEpK5uacmLc60cX+QfJ0g61x6JB15ZNKoy7PN0HPzuzLbU/A+nkOE0Lk
- c8cbu0Zd5r3rAnSxVWkXNlIMvPaQJkFqFiagWYHiwjqLyAVARctclNPUgBw+w49ulo+a
- GdMIEr+BctT6mG4oaHem4JQuU3c+pBS97qsO/EucOU/Odo+ec0i/EO2zOxP1W0WVSkvX
- eoKrn6phAqLGgQsXopwf7J1tDZf8M+9tCXKNcX2jvLW8OsAql4j9AXWF/06fRtkwemN/
- RjOQ==
+ d=1e100.net; s=20251104; t=1789230912; x=1789835712;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=lyDyzwXLDdcuGlMTGZyNhCieQRVuG7gzmR1vCWknrTU=;
+ b=b2ML6E3bZ84oabExtMj34XUptAFQ4VO8ks1+a7XoZbW6A9hoakLOP9XxDVOV0nArPO
+ KCWqfxxEiSvm8ODxpHl7uexO+bJQsVKZAAoxsH3L1Lkh1PVVeDko7IZejV3s83SoT3QS
+ JtCRwgMdCsEFI+0GmZJTAUJaqPIBDPzH4/9DyGFH+Wt6hntqdO+Zg2lJimLSgq6ympZH
+ fxZ+u8Lo7arVYJZHZAWqHkFVIcPpav0tlKQ+a9T96nVmhrHhho/sTglH9byendrAxgzj
+ Wl95cjxM2iXhBU6VWJSVkpOaIUkW0BYy6iiBmAPraCttFQoEx8ITHqKMe3W2DwifNpwc
+ jaew==
 X-Forwarded-Encrypted: i=1;
- AKwUvByLklNUEXkfCWSHXQTyrWB4fKOxsx93Z44174uzVRWgSVKpTF1P3xvJk9bmpTjXaQwYa2MU13XZd4Y=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kbEC10nn2LjZDfVWKUHgTA030aSTtiItMfcmhmXr9zmyx+LRN/
- SMqZkjerlkM+u8dIkjWfYkqwcfH+un2Ls/9bxe+fb/FYihCoVoCedmhj
-X-Gm-Gg: AYBFou2XYTcWeydJSsw7Y8Hzusx3x5rVP/S8roFO5RCJVkBp1vbGeF9KNYA+w1pZO4m
- Ya1OtU0aqnKd+VV9UWdu+OM8GYqtFgoxIVkMr/DktLaNHixOYQqihS8kLArqT1Gbh86tM2UagDw
- e9CBld+Tmp+ogYbNqfbxhY6b7PUFtJ6S0cFKAVhnkV0me9uESj5ZTcZMAmswwYB/FfT89YiQ3TJ
- bpMuLVDbUBzXwqOJ1qn4WTV/ryzkaju2KzvL8/KUFX121POsAhf9mPsGe7H/KG8cAUuCfAB4jvg
- G3fqsqEMpwU9guQN2vRQeX69Dg+NDxyqHxGKOeE7TD+y8xBjF+pNWwAAQ6qZeS8Uxt6BfBvfN54
- JMbIYO0hWv8XrTMHK1GUx3LjJYTsCsnhYn3yeAfsiJmYy29+eishNFrZE2B5TLw68DqyyAKOroo
- U7L6zzRlpkhQ6BVl/gGx14vDkSYXCLsS1XGu+/y+Mn6HRKCbfi3w6Pe/EYFnl50oteHvOruuRWP
- 8gfykd5
-X-Received: by 2002:a17:902:f60d:b0:2db:5c0a:f184 with SMTP id
- d9443c01a7336-2dd2a34fd91mr100447505ad.17.1789141545988; 
- Fri, 11 Sep 2026 08:45:45 -0700 (PDT)
-Received: from arch.localdomain ([158.101.31.158])
+ AKwUvBxPN0bbhpjnjpzMv5vc0bLBQCu9NIu3VhjNRcLahQtqBRFwZM2UnAEiYuf7l7sfEAMTpfL4+XyBr4o=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lqSZarqdqdpOlJ1bINvWblJ468NbJIWd0NBryelexFU0+TQKwO
+ KhVaRIJRc1wpCTkhWAw/j1P0qZX7BUp5KxJBoZAP38QaYg+ED8PbroP0
+X-Gm-Gg: AYBFou34F7wCj3MnNtviEmFaMqeqXjHnGXFrK37aHjYaYQQlFD9toautvEXQ2EWb0HW
+ bdKgg2DuFoainuykdpINz3JjCpvnB82MGmb5tp/wRtdbJvCZ0/QFpPt1uWEiUll4BBd2Z2AOO8v
+ Jfcd2zO9DUL1ir4JQNrM6JDfJGQsdkkR8HzawNdbsIPVavbeW2ADFxHGw1cgZdn1Z9jH5voEY1n
+ UG4krt0reEdMJrAmeBFHZRy1FxkUKyr/H1ps07UDKVwHx4ZBRSmNw6OZ0QUW4bB4RBrXbOAigQm
+ XC7GLSj4b8USPujw/P8EX9A7sKzqY5g1CobqtrUYhL1yGnVQbpqiqeqhEYc7Zw45Ac8Z1W3fz2Q
+ WUn7NqiH6MgyFuQYGY+F5SU2u8dbfFqYZohbnxaTiRdYOcEfazvySlnD+QE4DkQJBNC1NW9nn3l
+ A8eM2PuKkUhCU4Fsx++E7Rhpv9vhpIRMHL4GRcguv2free9GXEQl0PRBaR6jnzLT+tNl0igXB+9
+ 0ZVQ7phE+7XO6tIe+tucuarQV1kngMHRAVbSKCadEXV216ELXN1Zy4ClYGo4Nw9r5G37+EbrGVm
+ F9Bt74i333ajovH88k/24KtqdnWWKdTsnQEGScTMwbNO/Dqp1Dl8oPlz8pWXokiBQW6v08OIxYQ
+ =
+X-Received: by 2002:a05:6000:384:b0:486:e708:2e57 with SMTP id
+ ffacd0b85a97d-486f6d4b39amr3108656f8f.39.1789230911707; 
+ Sat, 12 Sep 2026 09:35:11 -0700 (PDT)
+Received: from unknown748F3CBA5068
+ (dynamic-2a02-3100-b260-f201-9983-e8c4-aff5-7a36.310.pool.telefonica.de.
+ [2a02:3100:b260:f201:9983:e8c4:aff5:7a36])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2dd2cfc2d3bsm13628145ad.48.2026.09.11.08.45.39
+ ffacd0b85a97d-486eb34e74esm13986020f8f.25.2026.09.12.09.35.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Sep 2026 08:45:45 -0700 (PDT)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Heiko Stuebner <heiko@sntech.de>
-Cc: Jun Yan <jerrysteve1101@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-Subject: [PATCH] drm/bridge: analogix_dp: use devm_phy_optional_get() for the
- DP PHY
-Date: Fri, 11 Sep 2026 23:45:33 +0800
-Message-ID: <20260911154535.266121-1-jerrysteve1101@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ Sat, 12 Sep 2026 09:35:11 -0700 (PDT)
+Date: Sat, 12 Sep 2026 18:35:09 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sam Ravnborg <sam@ravnborg.org>, 
+ Danilo Krummrich <dakr@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/gem-dma: Correct GEM object wrapper documentation
+Message-ID: <aqV-2xxp3Zy5IWqL@gmail.com>
+References: <20260912063258.43169-1-kmehltretter@gmail.com>
+ <20260912162516.GA1892234@killaraus.ideasonboard.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:14 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912162516.GA1892234@killaraus.ideasonboard.com>
+X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,55 +101,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The DP PHY is optional: the Rockchip RK3399 eDP controller (used as the
-internal eDP port) has no separate PHY device and relies on its built-in
-PHY, which is programmed directly through the GRF registers, so its DT
-node carries no "phys"/"phy-names" property.
+On Sat, Sep 12, 2026 at 07:25:16PM +0100, Laurent Pinchart wrote:
+> > Fixes: e580ea25c08d ("drm/cma-helper: Pass GEM CMA object in public interfaces")
+> > Fixes: 05b1de51df07 ("drm/cma-helper: Export dedicated wrappers for GEM object functions")
+> > Assisted-by: LLM
+> 
+> Throwing LLMs at this kind of things is neither a good use of computing
+> resources nor a good use of maintainer time. Please refrain from doing
+> so in the future.
+> 
 
-Requesting the PHY with devm_phy_get() therefore returns -ENODEV (or
--ENOSYS when CONFIG_GENERIC_PHY is disabled) and the driver logs a
-misleading "no DP phy configured" error at probe time before falling back
-to a NULL phy.
+I view it differently but respect your wish for drm.
 
-Use devm_phy_optional_get() instead, which returns NULL when the PHY is
-absent and otherwise behaves identically, and drop the manual -ENODEV/
--ENOSYS handling. This also removes the spurious error message.
-
-Assisted-by: Claude:deepseek-v4-flash
-Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
----
- .../gpu/drm/bridge/analogix/analogix_dp_core.c | 18 +++---------------
- 1 file changed, 3 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 18e76d1e78e1..28eb668d3e3f 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -1427,21 +1427,9 @@ analogix_dp_probe(struct device *dev, struct analogix_dp_plat_data *plat_data)
- 	if (ret)
- 		return ERR_PTR(ret);
- 
--	dp->phy = devm_phy_get(dp->dev, "dp");
--	if (IS_ERR(dp->phy)) {
--		dev_err(dp->dev, "no DP phy configured\n");
--		ret = PTR_ERR(dp->phy);
--		if (ret) {
--			/*
--			 * phy itself is not enabled, so we can move forward
--			 * assigning NULL to phy pointer.
--			 */
--			if (ret == -ENOSYS || ret == -ENODEV)
--				dp->phy = NULL;
--			else
--				return ERR_PTR(ret);
--		}
--	}
-+	dp->phy = devm_phy_optional_get(dp->dev, "dp");
-+	if (IS_ERR(dp->phy))
-+		return ERR_CAST(dp->phy);
- 
- 	dp->clock = devm_clk_get(&pdev->dev, "dp");
- 	if (IS_ERR(dp->clock)) {
--- 
-2.55.0
-
+Thanks,
+Karl
