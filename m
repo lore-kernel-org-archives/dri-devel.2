@@ -4,44 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A40BCC88E53
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 22:39:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB701C88E53
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 22:48:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A38DE10E6DC;
-	Sat, 12 Sep 2026 22:39:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09F5310E027;
+	Sat, 12 Sep 2026 22:48:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EO/qaLNE";
+	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="agLK272u";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="eEsWtaBy";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAB4E10E6DC
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 22:39:00 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A9D5860008;
- Sat, 12 Sep 2026 22:38:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3307E1F000FF;
- Sat, 12 Sep 2026 22:38:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789252739;
- bh=oDE0DhyHeZQzzJR26HWke5PaQC52gVOSjB1TqvZ1axE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=EO/qaLNETg9Zl9Sr5GpKRmrjjySh7VS4peS6J1BbjkdMh8Tdzyz1/G5+keLq8kiI+
- DWuZJVnA5WTvAMWawi90hmoqQSEgZBHanS4zUekcfGBRBL5nYnivE/A8dRo2FxAodJ
- XKD5oxRq97H3GJKUqh01OOHmTmIibqZ8fnaePMX4rTlatA97+rpaeFFVy95yu03yoU
- 2LxlNDBsOXelEyc9hS53B1KWP0uU11O1DXfudtkzD5M0UYjgDZedwYTnimnf7pl83v
- gdm8Zeyqi+cieLbxzHvyy1iV5voB3enIbbW5Vi5F5Wjg/mCDdc5+1cmGVUi3DMIDil
- iAoFR6kHoWxpw==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v6] arm64: allwinner: add TrimUI Smart Pro (A133)
- board support
-To: leow149 <leow149@lucidmail.xyz>
-Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260912222429.107809-1-leow149@lucidmail.xyz>
-References: <20260912214317.106150-1-leow149@lucidmail.xyz>
- <20260912222429.107809-1-leow149@lucidmail.xyz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 22:38:58 +0000
-Message-Id: <20260912223859.3307E1F000FF@smtp.kernel.org>
+Received: from flow-b7-smtp.messagingengine.com
+ (flow-b7-smtp.messagingengine.com [202.12.124.142])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED79310E027
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 22:48:51 +0000 (UTC)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailflow.stl.internal (Postfix) with ESMTP id 418E1130018E;
+ Sat, 12 Sep 2026 18:48:51 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Sat, 12 Sep 2026 18:48:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:content-type
+ :date:date:from:from:in-reply-to:in-reply-to:message-id
+ :mime-version:references:reply-to:subject:subject:to:to; s=fm2;
+ t=1789253331; x=1789260531; bh=u5dfeX5ow+93ybPmJekOrvP+a0/Wlwh9
+ Ypost/1YCcY=; b=agLK272u15g39JFhQoLzVwxfh7hNTca2Jsf0SQH9DDi+2sDa
+ A7GR1C9Yq7I5n5KcLQy+yeqVo7FLaqhZ+KWG/LTpCCKNJKPnqJ6HnO5HaVeguLBf
+ fwXrtqp8HDRs2XkyAFWJczBwvQg6Cl286SLMJX2jNe5iEe0PNucby3nh+vQZQVfG
+ 0lAyFzIcaXCpeI6Fa+g+W051dEJsSXjfRBUsJvk5GwtDLtszZsK8fiMxhcmLPnQB
+ /caMUoxiORz4rpd9WgcdAaisd8NzDvg9/X4Dok0Gcph+TyBSPGnffNyVRdFUZRDd
+ I1Cq44+H3nzyvmsbElotDXyALW6wLilcgFfhkg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789253331; x=
+ 1789260531; bh=u5dfeX5ow+93ybPmJekOrvP+a0/Wlwh9Ypost/1YCcY=; b=e
+ EsWtaBywYtxbrjQSmAaK342Gxyd0APPuo++9TusNa2J6cO0lw2CcTvdZLwc7v8AN
+ mH0okdV5ZvSAUk0jZVxkHhbOg19DZiab5rieUs+dckNepRmLXIjWoIuVsgYFfSva
+ QiQp8rAeSpxg4/LgiqJWZH/kc0/yNvbRXf/iSKaaDQbpocnu6nOnZaIw1GKFonll
+ 5/NzyBwPfWXRa92e/4R4IsnPZscHtZoPSdq4L5F7tLhKPUywQ4E2TgXQFVD3K9bC
+ XxU7BvEp/+NwPhCkohwJGSryanuyKtABZ+ut4kh9PvF2Mb+qlrW/ycyMobrFFuFI
+ rRme0vLpL/cMspTCxWVaw==
+X-ME-Sender: <xms:0talas4y0SNrVZWO6-a2AhqnnfIBHmGTAO6yjdNtbhxwcmhaMtibNw>
+ <xme:0talavbfQDMOexWChY0alrGFh3u6zL8KvWOT4vQLfyc5NI0EeAkGkpJt01C1aDlTR
+ nLOGeZ-ul6d9b0JUYNOWo-E8GTpMg6IC7sOf6ln8Z9ooUbUC1rz8g>
+X-ME-Received: <xmr:0talargctBvFcM6LicM6Z6dBY9HlAG4u6Nd41eSqps7KGd1dB5kh0_cdvIvtw9uGS6PmXd8E2A>
+X-ME-Proxy-Cause: dmFkZTGuEQ4GiepUBMpmZorBsrDrsMVPOCGJwSy8sC1qnSMiQmiw/q1wofBw1CfKly1PBi
+ 2GECeF44oC0yJEBJDzx1SeHpuKdA+L4Bf9sCHbBnMWN8EZ0SmTXFax4oDaau/Hg+1XsvA8
+ rAmYQAG4FgvnvEjbQXvhKxV7fEV3M9rmo5xFybahW3pHuDWKlKXqDvpmpVxQmooTuh9i6k
+ bCxU1Yaac5FMqrOPp/YZcT24w5CSoDOJ6gBcCHfZQxXtqj5bOcq+6CNWf5qmZxEkwWJF6f
+ 2wc5M28m1/yr3OU5i457h9Of/Mn+WrkpsEYlTMd5Prc4RWBUNeE+gkExSX6SO7f++x8iUw
+ zANZthUsISzCoDnwWbs516OX7VjgqrlDJ4GZ9qWo3zjslybfaD3g1h92bJQhX/ylrU3QKH
+ nOH8IFLvfxee8/9a3xA5PQvQB9ehSEj8hUR3RAdfel5bBdoAteKAZY5d4BeZVU6u6p5F5X
+ waHX7VsVlX1PiiTilAr/eMv7xgBfvnj+LFfJE0C1h2xouD1K/OMPq3R4Bd/BU80q1M1X2P
+ 1hb6IfRHpPD60S2JSbQTMItQ2qN2oeLInOpCqmyHhhuULtM7Zav6Nyqe0YJRLGkVEQHcMe
+ A97W3EVC0eb8hI6Bic1XV+RmnYtsQ5+N0Sb+JqRAD+DIqLJX4bWUAHZOt7ZA
+X-ME-Proxy: <xmx:0talag_kGavK7xtMwGnb-wWR9MiCWSgCBWyzr2OpPjlKc6Eegkzwjw>
+ <xmx:0talamrc-LJjDCvuURq-GqEZtKiyoLLzEhiLPV_Nbmyrx5kYB_DqRg>
+ <xmx:0talaoVWJt_4Cu9f2J_Rut7ACATIysoThhVVG2CpGew_2yeZ9Z2QKw>
+ <xmx:0talalCvbdb0yERFPKesUSiOxZ5zUUFWnE2iEuMKvRLWgzkGp0N6vw>
+ <xmx:09alaqRzQdFgGHNTnZVLGUsKEcF6NyfGz_wI-wbBZLgwTDwcBkg2ze42>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 12 Sep 2026 18:48:49 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: royalnet026@gmail.com
+Cc: tomeu@tomeuvizoso.net, linux-rockchip@lists.infradead.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v12 03/14] accel/rocket: wait for a running IRQ handler
+ before resetting a core
+Date: Sun, 13 Sep 2026 10:48:44 +1200
+Message-ID: <20260912224844.1614558-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260912113717.6819-1-royalnet026@gmail.com>
+References: <20260912065053.1519165-1-gahing@gahingwoo.com>
+ <20260912065053.1519165-4-gahing@gahingwoo.com>
+ <20260912113717.6819-1-royalnet026@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,256 +96,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+Hi Igor,
 
-New issues:
-- [High] Sleeping functions called from atomic context in DRM encoder callb=
-acks.
-- [High] State Confusion / Overlapping Transfers due to uncleared pending i=
-nterrupts on IRQ re-enable.
-- [High] Incorrect Horizontal Display Timings (Front and Back Porch Swap).
-- [Medium] CPU Hog: The DSI retrigger timer will never stop.
+Taken. The two paragraphs go.
 
-Pre-existing issues:
-- [High] TOCTOU Race Condition on Write-0-to-Clear Interrupt Acknowledge.
---
+3/14 loses the one beginning "Igor also ran a differential on RK3588"
+and the one beginning "His own bound on it is the right one". Your
+summary replaces them, as you wrote it:
 
-commit 2a1faaf3f9e395a5ec4a2a530f311f244c0a15e3
-Author: leow149 <leow149@lucidmail.xyz>
-Subject: arm64: allwinner: add TrimUI Smart Pro (A133) board support
+  45 induced resets on 19 August, 102 on 25 August and 74 today,
+  every reset recovered, no MMU faults, no lockdep report from rocket
+  or the scheduler in the runs where lockdep was still armed, and of
+  the 420 inferences scored, 384 matched the CPU reference within 1
+  on all 48 output channels while 36 returned the all-0x80 buffer of
+  a job the reset had cancelled.
 
-This patch brings up board support for the TrimUI Smart Pro handheld.
-It introduces new DTS configuration, panel timings for OTM1289A, a
-new PWM driver, and modifies TCON/DSI files for CPU/8080 interface
-bring-up.
+You list "bounds and does not prove" among what stands, so I keep that
+one sentence out of the removed text. Say if you would rather it went
+with the rest.
 
-> diff --git a/drivers/gpu/drm/panel/panel-orisetech-otm1289a.c b/drivers/g=
-pu/drm/panel/panel-orisetech-otm1289a.c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-orisetech-otm1289a.c
-[ ... ]
-> +static const struct drm_display_mode otm1289a_mode =3D {
-> +	.clock =3D 69000,
-> +	.hdisplay =3D OTM1289A_HDISPLAY,
-> +	.hsync_start =3D OTM1289A_HDISPLAY + 88,
-> +	.hsync_end =3D OTM1289A_HDISPLAY + 88 + 4,
+Both Link: lines stay, with your message as a third.
 
-[Severity: High]
-Is it possible these horizontal porch values are swapped?
+One thing in your text to settle before it goes in: "74 today" has no
+referent in a commit message. I would write the date, unless you would
+rather phrase it yourself.
 
-The DRM front porch is calculated as htotal - hdisplay - hbp=20
-(880 - 720 - 88 =3D 72). However, in otm1289a_mode, hsync_start is set to=20
-OTM1289A_HDISPLAY + 88, which uses the vendor's back porch value instead of=
-=20
-the computed front porch offset of 72.
+The tags:
 
-Could this cause incorrect display output shifting when the hardware is=20
-configured?
+  2/14  # RK3588, three cores
+     -> # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
+  3/14  # RK3588, three cores, induced reset, differential base,
+        JOB_TIMEOUT_MS=2
+     -> # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
+  4/14  unchanged
 
-[ ... ]
-> +static int otm1289a_prepare(struct drm_panel *panel)
-> +{
-[ ... ]
-> +	if (ctx->reset_gpio) {
-> +		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +		msleep(20);
-> +		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +		msleep(100);
-> +	}
+All three then read the same, which is your point.
 
-[Severity: High]
-Is it safe to call sleeping functions from this atomic context?
+None of this touches what 3/14 rests on. The argument is the code
+path: the wait is on desc->wait_for_threads rather than on a lock, so
+it would have hung with no lockdep report. Your runs bounded that;
+they never established it.
 
-The DRM subsystem architectural guidelines specify that encoder atomic enab=
-le=20
-and disable callbacks execute in an atomic context where sleeping is strict=
-ly=20
-forbidden.
+The 0x80 signature holds on RK3576 too, for the reason you name. A
+fresh shmem BO is zeroed and teflon's readback adds 0x80, so an output
+buffer nobody wrote comes back a uniform 128 and cannot be told from a
+computed constant at the tflite level. That trap already cost us one
+retraction of our own. Your kprobe run is the part neither of us had
+before: two cancellations, two 0x80 files, matched to 2 ms against a
+280 ms round period.
 
-The panel's prepare and disable hooks (which are invoked from the encoder=20
-enable/disable paths) use msleep().
+The uAPI question is Tomeu's. What I can say from here is that the
+blind spot is not yours. PREP_BO cannot tell a cancelled job from one
+that ran, so your protocol, mine and the mesa one all read the same
+buffer, and none of us can close it from userspace.
 
-Could this lead to kernel warnings, system instability, or deadlocks during=
-=20
-display modesets?
+v13 with these changes, and nothing else to 2/14, 3/14 or 4/14.
 
-[ ... ]
-> diff --git a/drivers/pwm/pwm-sun50i-a133.c b/drivers/pwm/pwm-sun50i-a133.c
-> --- /dev/null
-> +++ b/drivers/pwm/pwm-sun50i-a133.c
-[ ... ]
-> +static int pwm_a133_apply(struct pwm_chip *chip, struct pwm_device *pwm,
-> +			  const struct pwm_state *state)
-> +{
-[ ... ]
-> +	/*
-> +	 * PWM_A133_PCCR01_REG/PCCR23_REG (shared by a channel pair) and
-> +	 * PWM_A133_PCGR_REG/PWM_A133_PER_REG (shared by all 16 channels) are
-> +	 * each read-modify-written below; the PWM core doesn't serialize
-[ ... ]
-> +	mutex_lock(&pc->lock);
+Thanks for going back through twenty runs of your own data. It would
+have stood unchallenged in the commit message.
 
-[Severity: High]
-Does taking this mutex pose a sleep-in-atomic hazard?
-
-This PWM apply hook is reachable from the panel enable hook via a backlight=
-=20
-update. Since the panel enable hook runs from the encoder atomic enable=20
-context where sleeping is prohibited, acquiring a sleeping mutex here viola=
-tes=20
-subsystem constraints.
-
-[ ... ]
-> diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.c b/drivers/gpu/drm/sun4i/s=
-un4i_tcon.c
-> --- a/drivers/gpu/drm/sun4i/sun4i_tcon.c
-> +++ b/drivers/gpu/drm/sun4i/sun4i_tcon.c
-[ ... ]
-> +void sun4i_tcon_dsi_stop_retrigger(struct sun4i_tcon *tcon)
-> +{
-> +	hrtimer_cancel(&tcon->dsi_retrigger_timer);
-> +	/*
-> +	 * disable_irq() (which might_sleep()s internally) is safe here:
-> +	 * both call sites run in normal process/workqueue context, not a
-> +	 * genuinely atomic section -- see the comment on
-> +	 * sun4i_tcon_set_status()'s disable_irq() call for why (this
-> +	 * function is called from there too, unchanged reasoning).
-> +	 */
-> +	if (tcon->irq_enabled) {
-> +		disable_irq(tcon->irq);
-> +		tcon->irq_enabled =3D false;
-> +	}
-> +}
-
-[Severity: High]
-Does this disable_irq() call violate the DRM atomic context rules?
-
-The function is called directly by sun6i_dsi_encoder_disable(), which is an=
-=20
-encoder atomic callback. Although the comment states it runs in process=20
-context, the DRM guidelines classify encoder atomic callbacks as atomic=20
-contexts where sleeping functions are forbidden.
-
-[ ... ]
-> @@ -1117,14 +1117,76 @@ static irqreturn_t sun4i_tcon_handler(int irq, vo=
-id *private)
-[ ... ]
-> +	/*
-> +	 * Acknowledge the interrupt. TRI_COUNTER_INT is included even though
-> +	 * nothing here acts on it: in DSI/CPU mode every firing is treated as
-> +	 * handled unconditionally (see the comment above), so if this bit
-> +	 * were ever the one actually driving the level line and went
-> +	 * unacknowledged, the GIC would keep re-presenting it forever with
-> +	 * nothing in this function able to break out -- a genuine hard
-> +	 * lockup, not just wasted CPU time. Never observed asserting in any
-> +	 * testing so far, but clearing it here is free and closes the gap.
-> +	 */
-> +	regmap_update_bits(tcon->regs, SUN4I_TCON_GINT0_REG,
-> +			   SUN4I_TCON_GINT0_VBLANK_INT(0) |
-> +			   SUN4I_TCON_GINT0_VBLANK_INT(1) |
-> +			   SUN4I_TCON_GINT0_TCON0_TRI_FINISH_INT |
-> +			   SUN4I_TCON_GINT0_TCON0_TRI_COUNTER_INT |
-> +			   SUN4I_TCON_GINT0_TCON0_FSYNC_INT,
-> +			   0);
-
-[Severity: High]
-This is a pre-existing issue, but could this write-0-to-clear sequence=20
-drop hardware interrupts?
-
-SUN4I_TCON_GINT0_REG is a write-0-to-clear register. The regmap_update_bits=
-()=20
-call reads the register and unconditionally writes 0 to the specified mask.
-
-If an interrupt such as TRI_FINISH_INT asserts after the initial regmap_rea=
-d()=20
-but before the regmap_update_bits() write, the unconditional 0-write clears=
-=20
-it. Since it was not in the original status snapshot, the handler will not=
-=20
-process it, resulting in a lost interrupt.
-
-With the high frequency of FSYNC_INT events described in the commit, could=
-=20
-this TOCTOU race window lead to a permanent display freeze when TRI_FINISH_=
-INT=20
-is lost?
-
-[ ... ]
-> +static enum hrtimer_restart sun4i_tcon_dsi_retrigger_timer_fn(struct hrt=
-imer *timer)
-> +{
-[ ... ]
-> +	regmap_read(tcon->regs, SUN4I_TCON0_CPU_IF_REG, &cpu_if_before);
-> +	busy =3D cpu_if_before & SUN4I_TCON0_CPU_IF_TRI_START;
-> +
-> +	if (tick && !busy) {
-> +		/* TRIGGER_START self-cleared; the IRQ path takes over from here. */
-> +		return HRTIMER_NORESTART;
-> +	}
-
-[Severity: Medium]
-Will this retrigger timer ever actually stop?
-
-The timer polls every 2ms and expects to stop when=20
-SUN4I_TCON0_CPU_IF_TRI_START is cleared (!busy).
-
-However, when the hardware clears TRI_START at the end of a frame, it=20
-immediately asserts TRI_FINISH_INT. The hardirq handler runs and immediatel=
-y=20
-re-asserts TRI_START to 1.=20
-
-Because the timer runs in a softirq context, it executes after the hardirq.=
-=20
-Thus, the timer will almost always sample TRI_START as 1, miss the window=20
-where it was 0, and continue running continuously as a permanent CPU hog.
-
-[ ... ]
-> +	if (tick =3D=3D 0 && tcon->irq && !tcon->irq_enabled) {
-> +		enable_irq(tcon->irq);
-> +		tcon->irq_enabled =3D true;
-> +	}
-> +
-> +	/*
-> +	 * The vendor per-frame retrigger is LINE-edge-triggered and
-> +	 * busy-gated, never blindly re-asserting TRIGGER_START -- matching
-> +	 * the documented precondition on this bit ("software must write 1
-> +	 * only when this flag is 0"). Only the initial kick is fired from
-> +	 * software here; TCON0's AUTO bit (set in mode_set_cpu()) is
-> +	 * expected to handle Vsync-driven retriggering afterward, the same
-> +	 * way mainline's other DSI/CPU-interface boards need no per-frame
-> +	 * software retrigger at all.
-> +	 */
-> +	if (tick =3D=3D 0 && !busy) {
-> +		sun6i_dsi_tri_start(tcon->dsi);
-> +		regmap_update_bits(tcon->regs, SUN4I_TCON0_CPU_IF_REG,
-> +				   SUN4I_TCON0_CPU_IF_TRI_START,
-> +				   SUN4I_TCON0_CPU_IF_TRI_START);
-> +	}
-
-[Severity: High]
-Could enabling the IRQ here without first clearing pending device-level=20
-interrupts cause overlapping transfers?
-
-When the display is re-enabled during a DPMS unblank cycle, this function=20
-calls enable_irq() at tick =3D=3D 0. If TRI_FINISH_INT or FSYNC_INT is pend=
-ing=20
-from a previous session, the hardirq handler will run immediately, preempti=
-ng=20
-the timer (or running concurrently), and issue a transfer via=20
-sun6i_dsi_tri_start().
-
-When enable_irq() returns, the timer proceeds, observes busy =3D=3D false, =
-and=20
-also issues a transfer. Could this result in two concurrent transfer comman=
-ds=20
-while a transfer is already in flight, confusing the DSI engine state?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912222429.1078=
-09-1-leow149@lucidmail.xyz?part=3D1
+Jiaxing
