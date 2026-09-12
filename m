@@ -4,100 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CA0EC79FB6
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 12:48:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CDC6C88E53
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 12:48:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF8B410E70B;
-	Sat, 12 Sep 2026 12:48:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BB6A10E437;
+	Sat, 12 Sep 2026 12:48:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Dhv5NRsY";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DkYnNSG5";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EGHgIF+y";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M0aWTobK";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D19F10E70E
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 12:48:35 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 687EA10E704
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 12:48:31 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68CBdUDj3757886
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 12:48:34 GMT
+ 68CBdZnc3457070
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 12:48:30 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- GiVDCLl0reXlySiT/FZha5lLtYbEsu35SLw+Ov/UGf0=; b=Dhv5NRsY4wS20N/+
- G520p0q0D+7z1Zi6UTyXQ3wLi/auon8Gby8viSy/8PcImT0VYXvXo8Hozr03Tus5
- ViuuLimyew8iNpCL7AXXFg1aAMRSP34GEfMQwSYsmrsovwYfDPxZAMZTS/E0+pd0
- QDl6rGRCl6DuOI6OAL0SRQlSzgWUe4vgUXHVZDYmAsZm71KGeXdCUv0lVgMYc4n7
- mMcPtCnR4wzizmPcOlAN2ZLguSFTGcaVBen5pjAeF7bjJY2aJGCcNaPZe8hJeNuL
- /1zjnmJ6fA+1RIA0aH1kGh/CeUGEd2Bo7pJ3yBJSJ97iZ7ouQ6DP2UXnKCEgezpU
- JeYI3A==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
- [209.85.217.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9c8ybt-1
+ ajJdRqrp/b4NGOrhwXdxyfHIWwR8F0qeHZQ4G6QppSc=; b=EGHgIF+yaDOOM4HY
+ V9CwnZMaXh9qdyvB1FGYy0cc47pM3gKJPw5y4GSpcE2DCaT1glY+TRo1VuDinUna
+ z7QYOD4/RcQwtJLRO8cFZlDVU0thar4r8OhHxn6iGZwn0SIsSjK22xEtRyQSk8Kk
+ 7HbVsH8Yzzg3ymCciiq0xTpl7g6ZKN2ay3l37czv/W3pZ0uLsGyxmjjJQykHPikj
+ EF2bpX9+hfZ89wCPKQThm4w72McFBKjnXQlL9ncZJSTB2qbKCeOuv41tXp8Ld1kh
+ zqOKvMhz9ZqoDSBbGiP/Oz4TOBnGTIHDpjhWDbi/JjmQhqNVRJ7qtv85JLNOihz+
+ 3aeJ6A==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com
+ [209.85.221.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9dgxun-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 12:48:34 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id
- ada2fe7eead31-78a686d205cso1380212137.0
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 05:48:34 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 12:48:29 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id
+ 71dfb90a1353d-5c6725e7891so865350e0c.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 05:48:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1789217313; x=1789822113;
+ d=oss.qualcomm.com; s=google; t=1789217309; x=1789822109;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=GiVDCLl0reXlySiT/FZha5lLtYbEsu35SLw+Ov/UGf0=;
- b=DkYnNSG5mrDUuxV52eNznDGbyeiPLxOC115UABVl+0nKIcbn20LpDdJqJvEtt4oKZU
- gBG4LI+OX/mFvxwTuqejQNKCQTTCxfmEvHfnvmc87jT3L7Qj2XQhAhd5D7Uw8zwyWbja
- yJ8RsdQInznRqb2GdNFhJwxtVhgd4mq5erDHVwTQbwZj/WJpsCjv8XPx1uPlZmbLCDMr
- criVjFtILKppqfjktlTwo6SHyhVwH3U3JIphsvV+vrPtxGnTkcSt5yRCzzhdeaAkLtgB
- QM/vYFGmazr93SNPUBv0zfmNjKC3EI2du6d4t6vKnOLuqWp9S5ZWy5wlL8EofHRAbJg7
- bong==
+ bh=ajJdRqrp/b4NGOrhwXdxyfHIWwR8F0qeHZQ4G6QppSc=;
+ b=M0aWTobKDBbsuLdN1QX5rSaGdKNbJ8R9NqWoPLXg+whzaHvD4PrzGiQdtF0O9rJgBK
+ iqpwwnQ4wkVA08f0zmjDilusC99vdzHxjQ8AC0sSNoWUPqm31dUqayqxP6MPfaan/4K+
+ 5YOwNnM7c7Wc7dKJPe1faI9wpv22Tak3XKqQmIOiALdm01Gjy25J5zJqmz3GFj0Aplyi
+ 9OMe7FgqwhDomclg9aOSpA2DThESvDPOUrq/5j32Yt9Akku8qgJGnm2g9jM78OBLZ3a9
+ b8w8NDSqMV2Aa/k9aG/o35q4+1Wjg/HLyMO9SqnOXIMXM1+XsuVAUMyrCZjTM81yKLbs
+ XstA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789217313; x=1789822113;
+ d=1e100.net; s=20251104; t=1789217309; x=1789822109;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=GiVDCLl0reXlySiT/FZha5lLtYbEsu35SLw+Ov/UGf0=;
- b=cy/aygPeVO14ueUmEI/JW+sEwImgv0NY35wAgXvIT3r82zucXzd9QmXGTS0GHRrYuw
- Fh58yVnNuzSpuXlIpYRNYsPKqrc/66q++ASkKrnjfDfbRxJ78WX26pKjzq9eKU9jIFck
- DoqZT8uA9CWaRKAtTHB48PZI5pSS1NO4lmU7NnA+3EG/H0BL0OiBgwpGH2b+mmG3/EP5
- M9h9XKLQx7fXBJhvi4Sz4DQuT9dc2M3NhFP0z8Al0XY9yWe0Xwmec3ub17xey5gS67UQ
- LEpbGIz9kMxqCYhw6KOk6N67oflDApJnBoCCH051SY0Yt+nbJO2rKNHVt8DbOOmAh7lq
- +1Qw==
+ bh=ajJdRqrp/b4NGOrhwXdxyfHIWwR8F0qeHZQ4G6QppSc=;
+ b=EvlJ1WnDYXQ9xRcgZIxnIlXsAevNvHDl77WcqYlt2YbK3+zcN/XPY7U2JjlLl87dhW
+ iOXI3cWCbSbIj4Odlg1HF1xgJ3HwtOE1m+Lr+iTwG8UCzEJcMvQ6wux3cA7axSkTFXXY
+ b2NruCPA5xN8IuaJhKHxEnI5Q6JqF3rBjyaCkDsO1zNN3AMMqVvf1NotP+eQiP0dR9UR
+ dKdp8Ept7okmS2FG2Z504eDxYmeIoIt3ymc1Ryk9k2qHGZ6uKLlo0e1qJEh8KvYE55K3
+ MvCHR66etWyXHPVJiNqpELnIefd6RmBbEQbRl6DhfJQ04O+Z9I876lawaPE+SW6eQvWm
+ VewA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBys2dy6qGYmxfA21FskqHDCZpOPDviTmmT75n0bysAf3NuLOOYF5O33pIS1raMrqFCu93l0CcKBo48=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lovk6TlpcKas9yFB//CVACqeg4af/NpwwOPNxCW9BO3k47D1ud
- SAQ/nKaWX0G7Mryoa124D36fx3YVctbV/Uh4eJP0x3Xsi51DVEQdh4uuJs7ur7FL+zxmgIWExUZ
- UlF/pFD2qN7cbAQjEGTmey4WTfKYBocdSwVkyaIfIKcSbx1z+Cd3ezDMgqmPzisg+VEPRuro=
-X-Gm-Gg: AYBFou1HqxuuFTrvfJqIB0U+nnXO5F/R9MyYqRY5LVC0LevI4vI6L0U4FQJtpdp+THS
- 7VdSx/fkMSvi3q42hc6GWJ6x1Oi4EALLn5Wde1bSRRO5f/lZ5TYkS1uUoRzzZJLdDJWViR9y58B
- VqnQODZgcz5duvnTI7r7tUWJHHtXvj7yz7zm0gV6E0o6swFEKYiV08HfYKSPj0iWiAYBI1VnMpW
- SqBGqDSuOggNxyxl9LhM4o6bqxfCG+Cbu+H2kkeQNyHe1KAFeLSbHUmcADPfecZie4CoHqza7l0
- eGJ6+P0XDFebH4P7IQwyS+jntbBo2n6g7Ex25h6x09ievG2r6fUfcKNTBt30AjTymBAOj2a8T11
- LQWXrLMDtXDkvqhWGD+OJ0Yll7zWc7ewWosGO51gs4jXaTTUe0/sncc0YNXdFEP1j8xiWNLaSMm
- 3DMFGIEcsis7/l
-X-Received: by 2002:a67:e701:0:b0:796:9525:ac4c with SMTP id
- ada2fe7eead31-7969525ad02mr849212137.8.1789217313392; 
- Sat, 12 Sep 2026 05:48:33 -0700 (PDT)
-X-Received: by 2002:a67:e701:0:b0:796:9525:ac4c with SMTP id
- ada2fe7eead31-7969525ad02mr849191137.8.1789217312910; 
- Sat, 12 Sep 2026 05:48:32 -0700 (PDT)
+ AKwUvBzUMKiYLhpspP4sNfOWmLEdqjWGv0h10ugTDh85uTFDk5FD//cMZCtElUlfgen8PFRWga5t2guh2Zs=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++moUf+y2I8+GwkegrNqJUSNSPSsDIszX8CbXj0tKtfhSxWFSS1b
+ D93mjRCYoQFXq1uywDmvakuN4YzQPuPDSNhbKlNoHPM705OHZilfxJPGLNUpid0YTFsB8uSBaMr
+ +1vfLFS+/8k8HsNdwcIySQpjmxfV4e3ZvgNO1z5sY7VgQJFX41iLJs2Z40S1mYLofSYsrMDI=
+X-Gm-Gg: AYBFou3p15kEsmNNwm7Hiny2rZGajiSI3FKFIZR2LlQwWg+wBkCyKpTSUbtPZcGo9+F
+ vhS8Gw0aU9SUIwv/2q8F3x1AOlyVWDA38BMHjV8ryr4d4LyeGmnGFZO5g7S3HpSX2dBM6cmCcv/
+ B6i0mB+ht22v8TXLJ6mMM2/ZLUSXaEwKpkqDKzFLg5+kN+QNwD/q9U1Yq0s18Ba0IbICPNfkPiA
+ HhlaTr2gqxYbLZeLHMTYoXY1KZPuxFX4mZFeyXY33bxUT40bRqAl2WMzxNtNNVb4XPDDC5zDjWP
+ 7UuYZ81VZBdRqSF9YysX4rvcky6ir1UMlgZZ4QZFVYmqbX7DyAIpmniWR3xWofRIGSU8AW1eAAe
+ F3OdtHpb7grLFrciLI8eaPJuxoFu32AaCQaFGgfgNEe034OZh7mSOJ54l/9OKJNJd7IDZILPRLT
+ b+OCgScozyYWFk
+X-Received: by 2002:a05:6102:94f:b0:791:40dc:a1f3 with SMTP id
+ ada2fe7eead31-795ab7ff924mr1518646137.11.1789217309249; 
+ Sat, 12 Sep 2026 05:48:29 -0700 (PDT)
+X-Received: by 2002:a05:6102:94f:b0:791:40dc:a1f3 with SMTP id
+ ada2fe7eead31-795ab7ff924mr1518626137.11.1789217308812; 
+ Sat, 12 Sep 2026 05:48:28 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a5af37a4eesm8825701fa.34.2026.09.12.05.48.31
+ 38308e7fff4ca-3a5af37a4eesm8825701fa.34.2026.09.12.05.48.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 12 Sep 2026 05:48:31 -0700 (PDT)
+ Sat, 12 Sep 2026 05:48:27 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Sat, 12 Sep 2026 15:48:24 +0300
-Subject: [PATCH v3 4/8] drm/msm: release scanout framebuffers only after a
- vblank
+Date: Sat, 12 Sep 2026 15:48:22 +0300
+Subject: [PATCH v3 2/8] drm/msm: fix framebuffer pin refcount leak on
+ prepare failure
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-fd-kms-fix-smmu-v3-4-a7ddc6fe2032@oss.qualcomm.com>
+Message-Id: <20260912-fd-kms-fix-smmu-v3-2-a7ddc6fe2032@oss.qualcomm.com>
 References: <20260912-fd-kms-fix-smmu-v3-0-a7ddc6fe2032@oss.qualcomm.com>
 In-Reply-To: <20260912-fd-kms-fix-smmu-v3-0-a7ddc6fe2032@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -116,42 +116,42 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13833;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1982;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=/hawr8iz5q5bAzG8GdPBkIKEhcAghMeRAWIQTsyIGrA=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqpUoXIlUgpAVIvf7MpAsis0bo9n+vSuNGfYg6v
- F81lrH6GqaJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaqVKFwAKCRCLPIo+Aiko
- 1WaMB/9BzjvVSg78NYDCp/XBO6qraRrq/blkiuff90NRMpHt0PIHP61WJosK8XtceX2aKxVitE8
- PQqAOj8yjQOiTOlCICSU3zkjG7oTH3Q1jrG5QYHT6oru7hvkiZEa2WJbyIky2WEPY0Hc7705dH5
- PssPGsJj7s57nNAI0ubb3mVzFWHJvVaot3L8rdEZJJappwP6HaY8VSOdMe5ZldCOeKw2b/oUOHM
- 8qSmq2CrJrBrTw5GhYDDPqzgCanleAY4f1Jba/89GZRwjaQQo2J/b2lIrUXYCm52ckekN0KtjZc
- I3fn5kQeLNtE64UA+KkbvK1R8yB8oeVqn8jmKrqfOrRKUlx+
+ bh=QY9ysFxhmb2CtXGWZoEbLvZr15d49FXuEMy/zVQSVA0=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqpUoWuEQvk88wTjsRw2D/AVDzN2lbBytzilskT
+ 5NdOBZAIBWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaqVKFgAKCRCLPIo+Aiko
+ 1eXqCACCrqtXMD33umlggPg3i7lcdVLQG61UoaTPUeXoqbI48UaWmLOy87sJQPm+jTsx+/RPxTk
+ I6007iHQP9gHbzHMDO/pWTtZMmFK3+9fdC83MsdQcNKnNacWTdrCA2DymBREkO5K+gAeIUejAqh
+ FifPvmeGlN67zyVnyPwD6DedZS4QahCEzLLs6WBIDvesfGFu71tFxAQ3v5iQyxzkDuNa+GL4LHL
+ r+1UUVcpFVwlyfW1/5Z6as3IpFYMipUE3ud3WdKTpsBhpKTfe8gK5npHvVmyS0Sv02IIjPk4Zdj
+ vaAhBbVgVt8IF9dF75jzf8s5RX+kXidh2OVg3h8hVZz4ABKQ
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEyMDE4NCBTYWx0ZWRfXyzTF39pUeL2P
- 6KfPNcp9mGfQ38XEMLtfpPHAhVvHjniOOEiC4RYgVCLyTUwwp6x7qQryZWVrGHVhYWUKzapOBHI
- 1CwGflv2e9x52tM9UQQJy87/f/5fJ14=
-X-Proofpoint-GUID: eiJg0d1UwgiQhRUSFhe3tNfi481Pha6h
-X-Authority-Analysis: v=2.4 cv=BdZNQbt2 c=1 sm=1 tr=0 ts=6aa54a22 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-GUID: olW9KYsjcGsJLQ3r2dYOtNcLZKdDYzzQ
+X-Proofpoint-ORIG-GUID: olW9KYsjcGsJLQ3r2dYOtNcLZKdDYzzQ
+X-Authority-Analysis: v=2.4 cv=NelzRGD4 c=1 sm=1 tr=0 ts=6aa54a1d cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=jA6VukbCxrIAGvfWCOIA:9 a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-ORIG-GUID: eiJg0d1UwgiQhRUSFhe3tNfi481Pha6h
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEyMDE4NCBTYWx0ZWRfXyuxhNPJ5xxXm
- FNmV0XkTKyjepN+kbRHe5AwuASsPSbqiSDe1ocPYHfDe8w9fuj3uK0RQ0CM41df1PiScISmN/3j
- QoiJaHar+DqtKcAXuitkcam+ZODVfDWLXfnHlh4lRDCC6P9UYbgOAtMayVJ/fbyEWKhNw/3Yi33
- axeGSNK0IEYQiI/5/i+yjwfkmzcdXePA3uqtSY6o3nJhNmrEdo2L6TDoDb0Q337t5/2Uz6qzNl3
- KsWkpq+FBjalI3Y1wk+Xj2nTl07migZcXDKCEmlu/r5pOnIRuNz2SrjseP6k24U6Ekl9x8PR4+J
- JayDYLV4DFOSQ+SXV+xy8Ti5nvMzqI5Szy1iflaWSPZxnhpHY8Uy1n3i3YLUhwc1XyQedLAWSHi
- BXiAi2OIPiZYmxhrl3xVs0WZH9HAF3asezRPdyEMrHdpBJ+AHSCDI5fAkn5vwB5LkuLtBaC6Xhd
- JG3z0DD24q5M0fdAfXw==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=tvlXP28v7VYLJ75qtzUA:9 a=QEXdDO2ut3YA:10 a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEyMDE4NCBTYWx0ZWRfX8FWM62Th3eze
+ oXnqxW5qvvGHHylaWB6RvTDHNv1rERx9vx6YpeEn+D4NSSbfXGscoWKlfxPntyH3GB5Y2NP8nuZ
+ AI925+bT+CkLlPNs1x1xR1KkWhNaYU4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEyMDE4NCBTYWx0ZWRfXzxOeZlZHuQNU
+ ohzinvyNZkm13530MQeJaYjvmlZ48bdETUMuy/piysnpU/kZey8G7V2/5zlBG2iNztoX6yDGjEU
+ JjjpNjvi44v6ZHGltWzCTPv6c15WWDUVKX+SOLw7sgplJXwgeQeWEBCzjc32jXYhnYXGSdg0GXD
+ VQUti1kMx8EMdqVPoLJegdOUhNE0Asu4T82AvhFEZGdXzbiHac0DhVNmiex/6Vy+LfrN9Rb2hKX
+ FosLc0UBbNx7/UEWBRg+XfsOC0dRe05oSiJ0mIUeKcTzzGb8WUIhg1X0Zdu8g3smh+yNzUgpAiA
+ YReQcWc+3WYSqjO0HRspsShAK/uT5lHR3vQ2fJ9WVQLEdBgfhLJGWqvs0futb8oLwASSkIRxVi8
+ Pzqgh6T1JWvgastNGnPc7y9yKFTmiBu8KaSFfC9A/9fCfpIIjVe7BRcV8rVVrBARxYZnwwYo24C
+ n2xpmO0wVDUS8goDI2A==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-12_04,2026-09-11_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 adultscore=0 malwarescore=0 clxscore=1015
- spamscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0 impostorscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501 clxscore=1015
+ spamscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609120184
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -169,383 +169,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-msm_framebuffer_cleanup() releases a framebuffer as soon as
-drm_atomic_helper_cleanup_planes() runs.  msm_atomic_commit_tail() waits
-only for ->wait_flush() before that, which for video mode waits for
-CTL_FLUSH to read back zero, ie. for the new configuration to be latched;
-the frame in flight with the old one is still being fetched.  Since
-commit 111fdd2198e6 ("drm/msm: drm_gpuvm conversion") the unpin also
-detaches the vma, so the display is left reading unmapped memory:
+msm_framebuffer_prepare() bumps prepare_count before pinning, but returns
+straight out of the pin loop on error, leaking the count, the
+msm_gem_vma_get() reference and any planes already pinned.
+drm_atomic_helper_prepare_planes() does not call cleanup_fb() for the
+plane whose prepare_fb() failed, so nothing ever drops it.
+
+Since commit 8ac37c88f991 ("drm/msm: Refcount framebuffer pins") a
+prepare which finds the count already non-zero returns early, assuming
+iova[] is populated.  With the count stuck, every later prepare of that
+framebuffer reports success while iova[] is still zero, and DPU scans out
+from a NULL base address:
 
   arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402,
-      iova=0x007eb100, fsynr=0x3f0023, cbfrsynra=0xc20, cb=27
+      iova=0x00000100, fsynr=0x3e0023, cbfrsynra=0x1c00, cb=11
 
-Hand the retired framebuffer to the crtc instead and drop the pin and the
-vma reference from a drm_vblank_work, as i915 does for its cursor
-framebuffers.  The work holds a reference on the framebuffer, and
-drm_vblank_work_schedule() holds a vblank reference until it runs.
+Unwind properly on failure instead.
 
-The pin count is dropped by the deferred work rather than by
-->cleanup_fb(), so a framebuffer scanned out by several crtcs stays pinned
-until the last of them has passed a vblank, not until the last one has
-retired it.  Deferring here also covers the async plane update path, which
-has no commit tail at all: drm_atomic_helper_async_commit() programs the
-hardware and drm_atomic_helper_unprepare_planes() releases the old
-framebuffer straight away.
-
-An inactive crtc is not fetching and has no vblank to defer to, and
-drm_crtc_vblank_off() sets vblank->inmodeset so drm_vblank_work_schedule()
-does not fail there, so key that off the crtc state and release directly.
-A crtc which is being switched off stops fetching as well, and its
-interface has already been disabled by the time the helpers get to it, so
-no further vblank arrives to run the pending works: keep them on a list
-per crtc and release them there by hand rather than waiting.
-
-Fixes: 111fdd2198e6 ("drm/msm: drm_gpuvm conversion")
+Fixes: 8ac37c88f991 ("drm/msm: Refcount framebuffer pins")
 Assisted-by: LLM
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |   2 +-
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    |   2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          |   3 +-
- drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c          |   2 +-
- drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c         |   2 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c          |   2 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c         |   2 +-
- drivers/gpu/drm/msm/msm_drv.h                      |   4 +-
- drivers/gpu/drm/msm/msm_fb.c                       |  19 +++-
- drivers/gpu/drm/msm/msm_kms.c                      | 115 +++++++++++++++++++++
- drivers/gpu/drm/msm/msm_kms.h                      |  16 +++
- 11 files changed, 157 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/msm/msm_fb.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 42d0a529b4d5..bf593020e8e4 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1213,7 +1213,7 @@ static void dpu_crtc_disable(struct drm_crtc *crtc,
- 	}
- 
- 	/* Disable/save vblank irq handling */
--	drm_crtc_vblank_off(crtc);
-+	msm_crtc_vblank_off(crtc);
- 
- 	drm_for_each_encoder_mask(encoder, crtc->dev,
- 				  old_crtc_state->encoder_mask) {
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-index 22433bfbea1e..5db33e49c345 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-@@ -615,7 +615,7 @@ static void dpu_encoder_phys_wb_cleanup_wb_job(struct dpu_encoder_phys *phys_enc
- 	if (!job->fb)
- 		return;
- 
--	msm_framebuffer_cleanup(job->fb, false);
-+	msm_framebuffer_cleanup(job->fb, NULL, false);
- 	wb_enc->wb_job = NULL;
- 	wb_enc->wb_conn = NULL;
- }
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 7b92082d35a6..0e986b533bf0 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -684,7 +684,8 @@ static void dpu_plane_cleanup_fb(struct drm_plane *plane,
- 
- 	DPU_DEBUG_PLANE(pdpu, "FB[%u]\n", old_state->fb->base.id);
- 
--	msm_framebuffer_cleanup(old_state->fb, old_pstate->needs_dirtyfb);
-+	msm_framebuffer_cleanup(old_state->fb, old_state->crtc,
-+				old_pstate->needs_dirtyfb);
- }
- 
- static int dpu_plane_check_inline_rotation(struct dpu_plane *pdpu,
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
-index 57dfce58450b..195ee6b4a0c6 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
-@@ -267,7 +267,7 @@ static void mdp4_crtc_atomic_disable(struct drm_crtc *crtc,
- 		return;
- 
- 	/* Disable/save vblank irq handling before power is disabled */
--	drm_crtc_vblank_off(crtc);
-+	msm_crtc_vblank_off(crtc);
- 
- 	mdp_irq_unregister(&mdp4_kms->base, &mdp4_crtc->err);
- 	mdp4_disable(mdp4_kms);
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c
-index 9459f70ce0ba..5f669a02d798 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c
-@@ -97,7 +97,7 @@ static void mdp4_plane_cleanup_fb(struct drm_plane *plane,
- 		return;
- 
- 	DBG("%s: cleanup: FB[%u]", mdp4_plane->name, fb->base.id);
--	msm_framebuffer_cleanup(fb, false);
-+	msm_framebuffer_cleanup(fb, old_state->crtc, false);
- }
- 
- 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
-index 4c4a897fc1ee..547f6fdb83d5 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
-@@ -499,7 +499,7 @@ static void mdp5_crtc_atomic_disable(struct drm_crtc *crtc,
- 		return;
- 
- 	/* Disable/save vblank irq handling before power is disabled */
--	drm_crtc_vblank_off(crtc);
-+	msm_crtc_vblank_off(crtc);
- 
- 	if (mdp5_cstate->cmd_mode)
- 		mdp_irq_unregister(&mdp5_kms->base, &mdp5_crtc->pp_done);
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-index 841f444a8d68..dacb387d9bb6 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-@@ -155,7 +155,7 @@ static void mdp5_plane_cleanup_fb(struct drm_plane *plane,
- 		return;
- 
- 	DBG("%s: cleanup: FB[%u]", plane->name, fb->base.id);
--	msm_framebuffer_cleanup(fb, needed_dirtyfb);
-+	msm_framebuffer_cleanup(fb, old_state->crtc, needed_dirtyfb);
- }
- 
- static int mdp5_plane_atomic_check_with_state(struct drm_crtc_state *crtc_state,
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index eb4bbae8557b..dc279a99e257 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -254,7 +254,9 @@ int msm_gem_prime_pin(struct drm_gem_object *obj);
- void msm_gem_prime_unpin(struct drm_gem_object *obj);
- 
- int msm_framebuffer_prepare(struct drm_framebuffer *fb, bool needs_dirtyfb);
--void msm_framebuffer_cleanup(struct drm_framebuffer *fb, bool needed_dirtyfb);
-+void msm_framebuffer_cleanup(struct drm_framebuffer *fb, struct drm_crtc *crtc,
-+			     bool needed_dirtyfb);
-+void msm_framebuffer_unpin(struct drm_framebuffer *fb);
- uint32_t msm_framebuffer_iova(struct drm_framebuffer *fb, int plane);
- struct drm_gem_object *msm_framebuffer_bo(struct drm_framebuffer *fb, int plane);
- const struct msm_format *msm_framebuffer_format(struct drm_framebuffer *fb);
 diff --git a/drivers/gpu/drm/msm/msm_fb.c b/drivers/gpu/drm/msm/msm_fb.c
-index 552ca5cf0745..5ae8ce3bc370 100644
+index 77415302e6d8..552ca5cf0745 100644
 --- a/drivers/gpu/drm/msm/msm_fb.c
 +++ b/drivers/gpu/drm/msm/msm_fb.c
-@@ -127,16 +127,13 @@ int msm_framebuffer_prepare(struct drm_framebuffer *fb, bool needs_dirtyfb)
+@@ -102,13 +102,28 @@ int msm_framebuffer_prepare(struct drm_framebuffer *fb, bool needs_dirtyfb)
+ 		ret = msm_gem_get_and_pin_iova(fb->obj[i], vm, &msm_fb->iova[i]);
+ 		drm_dbg_state(fb->dev, "FB[%u]: iova[%d]: %08llx (%d)\n",
+ 			      fb->base.id, i, msm_fb->iova[i], ret);
+-		if (ret)
++		if (ret) {
++			msm_gem_vma_put(fb->obj[i]);
+ 			break;
++		}
++	}
++
++	if (ret) {
++		while (i--) {
++			msm_gem_unpin_iova(fb->obj[i], vm);
++			msm_gem_vma_put(fb->obj[i]);
++		}
++
++		memset(msm_fb->iova, 0, sizeof(msm_fb->iova));
++		msm_fb->prepare_count--;
+ 	}
+ 
+ out:
+ 	mutex_unlock(&msm_fb->lock);
+ 
++	if (ret && needs_dirtyfb)
++		refcount_dec(&msm_fb->dirtyfb);
++
  	return ret;
  }
  
--void msm_framebuffer_cleanup(struct drm_framebuffer *fb, bool needed_dirtyfb)
-+void msm_framebuffer_unpin(struct drm_framebuffer *fb)
- {
- 	struct msm_drm_private *priv = fb->dev->dev_private;
- 	struct drm_gpuvm *vm = priv->kms->vm;
- 	struct msm_framebuffer *msm_fb = to_msm_framebuffer(fb);
- 	int i, n = fb->format->num_planes;
- 
--	if (needed_dirtyfb)
--		refcount_dec(&msm_fb->dirtyfb);
--
- 	mutex_lock(&msm_fb->lock);
- 
- 	if (--msm_fb->prepare_count)
-@@ -153,6 +150,20 @@ void msm_framebuffer_cleanup(struct drm_framebuffer *fb, bool needed_dirtyfb)
- 	mutex_unlock(&msm_fb->lock);
- }
- 
-+void msm_framebuffer_cleanup(struct drm_framebuffer *fb, struct drm_crtc *crtc,
-+			     bool needed_dirtyfb)
-+{
-+	struct msm_framebuffer *msm_fb = to_msm_framebuffer(fb);
-+
-+	if (needed_dirtyfb)
-+		refcount_dec(&msm_fb->dirtyfb);
-+
-+	if (crtc && msm_crtc_queue_fb_unpin(crtc, fb))
-+		return;
-+
-+	msm_framebuffer_unpin(fb);
-+}
-+
- uint32_t msm_framebuffer_iova(struct drm_framebuffer *fb, int plane)
- {
- 	struct msm_framebuffer *msm_fb = to_msm_framebuffer(fb);
-diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
-index f3e39c3907a9..4582ba040f6f 100644
---- a/drivers/gpu/drm/msm/msm_kms.c
-+++ b/drivers/gpu/drm/msm/msm_kms.c
-@@ -11,8 +11,10 @@
- #include <uapi/linux/sched/types.h>
- 
- #include <drm/drm_drv.h>
-+#include <drm/drm_framebuffer.h>
- #include <drm/drm_mode_config.h>
- #include <drm/drm_vblank.h>
-+#include <drm/drm_vblank_work.h>
- #include <drm/clients/drm_client_setup.h>
- 
- #include "disp/msm_disp_snapshot.h"
-@@ -165,6 +167,119 @@ void msm_crtc_disable_vblank(struct drm_crtc *crtc)
- 	vblank_ctrl_queue_work(priv, crtc, false);
- }
- 
-+struct msm_fb_unpin_work {
-+	struct drm_vblank_work base;
-+	struct list_head node;
-+	struct msm_kms_fb_unpin *pending;
-+	struct drm_framebuffer *fb;
-+};
-+
-+static void msm_kms_fb_unpin_release(struct msm_fb_unpin_work *unpin)
-+{
-+	msm_framebuffer_unpin(unpin->fb);
-+	drm_framebuffer_put(unpin->fb);
-+	kfree(unpin);
-+}
-+
-+static void msm_kms_fb_unpin_work(struct kthread_work *work)
-+{
-+	struct msm_fb_unpin_work *unpin =
-+		container_of(to_drm_vblank_work(work), struct msm_fb_unpin_work,
-+			     base);
-+	struct msm_kms_fb_unpin *pending = unpin->pending;
-+
-+	spin_lock(&pending->lock);
-+	if (list_empty(&unpin->node)) {
-+		spin_unlock(&pending->lock);
-+		return;
-+	}
-+	list_del_init(&unpin->node);
-+	spin_unlock(&pending->lock);
-+
-+	msm_kms_fb_unpin_release(unpin);
-+}
-+
-+void msm_crtc_vblank_off(struct drm_crtc *crtc)
-+{
-+	struct msm_drm_private *priv = crtc->dev->dev_private;
-+	struct msm_kms *kms = priv->kms;
-+	unsigned int idx = drm_crtc_index(crtc);
-+	struct msm_kms_fb_unpin *pending;
-+	struct msm_fb_unpin_work *unpin;
-+
-+	if (!kms || idx >= ARRAY_SIZE(kms->fb_unpin))
-+		goto out;
-+
-+	pending = &kms->fb_unpin[idx];
-+
-+	/*
-+	 * The crtc stops fetching here, and with it the vblanks the pending
-+	 * works are waiting for, so release the framebuffers directly.
-+	 */
-+	for (;;) {
-+		spin_lock(&pending->lock);
-+		unpin = list_first_entry_or_null(&pending->fbs, typeof(*unpin),
-+						 node);
-+		if (unpin)
-+			list_del_init(&unpin->node);
-+		spin_unlock(&pending->lock);
-+
-+		if (!unpin)
-+			break;
-+
-+		drm_vblank_work_cancel_sync(&unpin->base);
-+		msm_kms_fb_unpin_release(unpin);
-+	}
-+
-+out:
-+	drm_crtc_vblank_off(crtc);
-+}
-+
-+bool msm_crtc_queue_fb_unpin(struct drm_crtc *crtc, struct drm_framebuffer *fb)
-+{
-+	struct msm_drm_private *priv = crtc->dev->dev_private;
-+	struct msm_kms *kms = priv->kms;
-+	unsigned int idx = drm_crtc_index(crtc);
-+	struct msm_kms_fb_unpin *pending;
-+	struct msm_fb_unpin_work *unpin;
-+
-+	if (!kms || idx >= ARRAY_SIZE(kms->fb_unpin))
-+		return false;
-+
-+	if (!crtc->state->active)
-+		return false;
-+
-+	pending = &kms->fb_unpin[idx];
-+
-+	unpin = kzalloc_obj(*unpin);
-+	if (!unpin)
-+		return false;
-+
-+	unpin->fb = fb;
-+	unpin->pending = pending;
-+	drm_framebuffer_get(fb);
-+
-+	drm_vblank_work_init(&unpin->base, crtc, msm_kms_fb_unpin_work);
-+
-+	spin_lock(&pending->lock);
-+	list_add_tail(&unpin->node, &pending->fbs);
-+	spin_unlock(&pending->lock);
-+
-+	if (drm_vblank_work_schedule(&unpin->base,
-+				     drm_crtc_vblank_count(crtc) + 1, true) != 1) {
-+		spin_lock(&pending->lock);
-+		list_del_init(&unpin->node);
-+		spin_unlock(&pending->lock);
-+
-+		drm_framebuffer_put(fb);
-+		kfree(unpin);
-+
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
- static int msm_kms_fault_handler(void *arg, unsigned long iova, int flags, void *data)
- {
- 	struct msm_kms *kms = arg;
-diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
-index f25b31e502d2..6f305b4409ea 100644
---- a/drivers/gpu/drm/msm/msm_kms.h
-+++ b/drivers/gpu/drm/msm/msm_kms.h
-@@ -135,6 +135,12 @@ struct msm_drm_thread {
- 	struct kthread_worker *worker;
- };
- 
-+struct msm_kms_fb_unpin {
-+	/* protects the list of framebuffers waiting for a vblank: */
-+	spinlock_t lock;
-+	struct list_head fbs;
-+};
-+
- struct msm_kms {
- 	const struct msm_kms_funcs *funcs;
- 	struct drm_device *dev;
-@@ -170,8 +176,13 @@ struct msm_kms {
- 
- 	struct workqueue_struct *wq;
- 	struct msm_drm_thread event_thread[MAX_CRTCS];
-+
-+	struct msm_kms_fb_unpin fb_unpin[MAX_CRTCS];
- };
- 
-+bool msm_crtc_queue_fb_unpin(struct drm_crtc *crtc, struct drm_framebuffer *fb);
-+void msm_crtc_vblank_off(struct drm_crtc *crtc);
-+
- static inline int msm_kms_init(struct msm_kms *kms,
- 		const struct msm_kms_funcs *funcs)
- {
-@@ -180,6 +191,11 @@ static inline int msm_kms_init(struct msm_kms *kms,
- 	for (i = 0; i < ARRAY_SIZE(kms->commit_lock); i++)
- 		mutex_init(&kms->commit_lock[i]);
- 
-+	for (i = 0; i < ARRAY_SIZE(kms->fb_unpin); i++) {
-+		spin_lock_init(&kms->fb_unpin[i].lock);
-+		INIT_LIST_HEAD(&kms->fb_unpin[i].fbs);
-+	}
-+
- 	kms->funcs = funcs;
- 
- 	kms->wq = alloc_ordered_workqueue("msm", 0);
 
 -- 
 2.47.3
