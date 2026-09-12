@@ -4,73 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88EA7C88E5C
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:54:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F8FEC88E65
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:54:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E09910EA06;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAED110EA0A;
 	Sun, 13 Sep 2026 20:54:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c7nnbJyl";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="newOX2Qt";
 	dkim-atps=neutral
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com
- [74.125.229.204])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D14BA10E93F
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 20:13:07 +0000 (UTC)
-Received: by mail-lf2-f12.google.com with SMTP id
- 2adb3069b0e04-5b5e4f1744fso1779198e87.2
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 13:13:07 -0700 (PDT)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F7A010E668
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 07:29:50 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-49e6deb520eso3511665e9.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 00:29:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789330386; x=1789935186; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1789198188; x=1789802988; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Pa8OFY4TTfkGf1f2ba0w2jmPlViOEeXI2aNAgx40u2c=;
- b=c7nnbJyl65ZllrxYXqtn3LAv7f3ID0ibIfE0JoHMm5BaGuJTDoOYobM4g+8nCed+f5
- D7HTf1Kq7f/GRlDZcnm1FNxisHtYc3kUSAbir1ibKhZbrRp4i3QoF0eUF/VZ3oWqqDEi
- PYq8I7g+4tcJGcO/nMEsnJ7ZXJfj9tKhm0110bZ7cnavZdMf6w2q3PFddd9JLKgiVPKw
- BxDJmRT4KLu2PVGUgnQJBOCXfFu761UeSV9ioTelCQU+G7+sYT1bR7ZHq5a885iE+dUJ
- h4LjbmHvbatkmMbYVU0xG6IrUbjAD2Bl4qQ5iAtFokOB9X7RRBxlzpzYa5omHo/9mWNv
- 8ObA==
+ bh=PXc+4SKfKNKk/rs+2uET25nPCHn0nrmdn1gdEMSeqW8=;
+ b=newOX2Qt0GWvn8kt16iHhxAAJ22kU2F9R+Ylfpy5KIsh15j6pFtejwS4R3BRaco+T3
+ ZpLZ46OOWruGH9tfxoMKl4DfZBaQrAP/UgHng8LOcfK57DGiMDlUFtwe9EI6OQvBeWvZ
+ wgFUqcDFQP4dK1115YUgy+dDYbheEbJwxPPJem+bKNbCHdTIQoopIGXwCBU65K8grkKn
+ WC7tuGQgZl5X8WnkY3YW53qRXc68ff49skKwqGkuAwxZXGPKiQDV0O1vYAyTjIwnon5/
+ A7RySWmwAovKus2zuqMVOb513NhUYl/ZmNSog98o21sL4GKhJrev49ZdT6N3zOR0vrpz
+ FZcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789330386; x=1789935186;
+ d=1e100.net; s=20251104; t=1789198188; x=1789802988;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Pa8OFY4TTfkGf1f2ba0w2jmPlViOEeXI2aNAgx40u2c=;
- b=SdnNtfyJtitbwgBl+fY18P+ri6HZuV6vNKASaZ3b4XCbNAhrrYaTa3DibYCFJ86MX6
- mE8+Jdl/H1cNzsQcahsIaIPv2zgZ0rvtobb5ocA3+V+PGC1fq2yWGGmJ5psTU4zJ36M+
- NETqunhoBtwKLnyyAROguQT5+1c6m7SckunRHsyCwLEHBpEhkkn4vh5/6H8JhN69djnR
- sW3FHuq058D7LiX9AW9YdQWskJFiolL+JxQR2r7HEdd3RfVwFrAifW1rphChhSl1yNet
- swXr/4YRbpHshs2dnMlFKVzXLUJNkrhRYL1lwBCM0smP2Ftk3iicsB7onAEEv0HYuyGI
- r0vQ==
+ bh=PXc+4SKfKNKk/rs+2uET25nPCHn0nrmdn1gdEMSeqW8=;
+ b=j93kH2tq8Q8Prx0SQCDVPu4/AK4PLiQBKmbRSSVrmy1ItM4Jcr0iFAbWYAhLcLlBXv
+ qGBVm+Ply6+SIkvwAthqauJA5f0wOErA5cMo/BDWoujjgfjqZXE9mVDmh+tcUCjBrus/
+ HQNxXcEzGwdoM7LfRK0ZmnSO8BhIIrOEqcMzMh127uxkBntDpNi7I9DCQPdYT7d4CnUN
+ 5lhEffnGbUu6aHZp7TtqSfxjjvRYXJQ021HdDWlybFDhCqVHKGDkYLcN/VsdRt7TO051
+ 5xTNXKG57O0Qy90ehBzdB4lLuEo4fk1emE8CllbPwAlo616hOcZ6pnNjxjiTlY98/m9W
+ RR9w==
 X-Forwarded-Encrypted: i=1;
- AKwUvBywbNfHXShn7KsbFC2PxfsHWPDjTySxbnR+tCddhtbhR4J5jfkN0EcVruYlFD7eF1TYPxm4hnouojY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m9/1laQraQgxJeCio5WhmslgDB9811dFq4IzeNU/8oR8Kk0H+c
- H/KzCMXmiL9jhJBu4YNYlUEJlfMjZFCUtxFpExOE34HzXI5RHuibkKv8
-X-Gm-Gg: AYBFou18U4FK6wkcJmVmc7seWoWISzhp1H8wfDacmKbeKRwUG2rfmYXDcLAaKfDkj5U
- SaE2eKEL1gFMQy9llp2oPuEUrRNkgHU4u85E/+52iA/xw96mHuNsJ4upOUcM9ql3+pyLFCp3/gn
- ueRjWj09Gh1wlFQscpCkoq8zxC0g/hhvfBZRZS8G3tLN3vnG2NMtgwU4ni4e5eifjNEv2GftPFS
- 6IeI2MIeGj/LkdoTYSzl9hAqkrXgv5+8ZVt7YA4trR6Vr8ztaY5azNZhlkxjiteqsGJP6LBJaVQ
- Yib3yNyVZc3aGA/Pb0xWMAFLHU/924u56bSkpk9iok7e7WkE4RIJWydLrA4pqMyllj/DW+tgIU5
- lJSLbFPyuX+O+nZWNRiiNFfANGQXPQDz+sOCMVIOUHQwx3SMJRgirZXCDskTYOCzPj5zHV6lVkA
- t2wBqeFSEdtVTPyjOSFsNntzaiOawCvAanyqix6fX8cvhZwlTi06gnXeugqqvGgPkmcPgn5sMEq
- 8SuEyboK9hs6G6dqE/UIB3JiXdaevy0wEKPvKodgX7A
-X-Received: by 2002:a05:6512:3e15:b0:5b6:183c:5ca2 with SMTP id
- 2adb3069b0e04-5b8a8f0064bmr1551667e87.64.1789330385733; 
- Sun, 13 Sep 2026 13:13:05 -0700 (PDT)
-Received: from tallipc.shacknet.nu (91-157-240-22.elisa-laajakaista.fi.
- [91.157.240.22]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b8a03a85cesm2003345e87.1.2026.09.13.13.13.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Sep 2026 13:13:05 -0700 (PDT)
-From: Risto Pajula <or.pajula@gmail.com>
-To: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Risto Pajula <or.pajula@gmail.com>
-Subject: [PATCH 0/2] drm/nouveau: fix GK107 VDPAU regressions
-Date: Sun, 13 Sep 2026 23:12:23 +0300
-Message-ID: <20260913201225.5975-1-or.pajula@gmail.com>
-X-Mailer: git-send-email 2.47.3
+ AKwUvBywDaOPyT0IY9D7HNuzjfM0TRr2KgRXCUjkqVVB5MP2OAG7w2RRZJQ+AzqmnNJgU5lWdVB4GR3j9lY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m7yL4I4MUPsSYhqlLYesUXS8gpl7ALEL5Rf75DCECY2E611UHR
+ IH39dN0gHv3Nv+arYtXUXy7LJw1m+wduyMq6jRozFr/kJzE8LdmZIFow
+X-Gm-Gg: AYBFou0YxsbmYru2JRkiozsVaxwWqEh1gIT1uLMEFYrOMkv5nRuOMLmdgUZKGJpCEZ6
+ KLaIqV/iRe8eaun/Kppx4U0Vg5hyTK4ZOuID90JjQw5k/QheSJJwoxklFlZZ1+CdO2IjprFdlyE
+ k2DzbMwXpqm5sxxlMfaTA/LgdYDNCbJiHyY9EVqNNn0jYDqZd2psaPv2wjfrpPYcSGPADaeqfmD
+ wXH2deJhx4SF1L0B8RnNvJ06NL7VU0ccwjppVScQeSxPlmkg4Y2N/YS78PT1swuxMDJEUAUpyW6
+ RPXssWc9NKyn+slcQdENhJptSTx0R8FlzjXi0oZoZnh6D07R0WgeunrJZ4NN8+zr3n3rW6D89bC
+ FiBkb0s35bmr76ztKjoISWD2QmDWPvlvPYfEqPuZzIwTYOC+GMWJXofmKg0Fc1mRbxybrCCbcX+
+ +eMu9sbcIMNLo97WlQWKvgokZM0V1V0rrKpxztLFNyf+RsJdUQ/xRLi7BcmwxZJec4yg6YBaC9w
+ kRBGU0EcVvVMkOY0MPjlP8PVgmaDzBpEN9Tv/sH25IKpc8oWhlgx+Us7jMlzsYr6ENZXrRbJSEP
+ 5PmVZqF4KEZAfs66qxwZbaF7u+LPtngtQYgG+ofbGolmoCgMIMG30qcJIoLqGmvSqXRGxuHifLc
+ +z6ka2wE=
+X-Received: by 2002:a05:600c:4714:b0:499:79b9:e220 with SMTP id
+ 5b1f17b1804b1-49e61988b9emr84737275e9.10.1789198188447; 
+ Sat, 12 Sep 2026 00:29:48 -0700 (PDT)
+Received: from localhost.localdomain
+ (dynamic-2a02-3100-b260-f201-9983-e8c4-aff5-7a36.310.pool.telefonica.de.
+ [2a02:3100:b260:f201:9983:e8c4:aff5:7a36])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49e6499d57bsm171373105e9.3.2026.09.12.00.29.47
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sat, 12 Sep 2026 00:29:48 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+ Suraj Kandpal <suraj.kandpal@intel.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/i915/display: Fix DPLL reserve and release references in
+ kernel-doc
+Date: Sat, 12 Sep 2026 09:29:46 +0200
+Message-Id: <20260912072946.50769-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
@@ -89,49 +99,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+The intel_dpll_state documentation still uses the former reservation and
+release helper names. Update the references to intel_dpll_reserve() and
+intel_dpll_release().
 
-This series fixes two independent Nouveau regressions affecting VDPAU
-hardware video decoding on NVIDIA GK107 (Kepler).
+Fixes: 2b3b9a8faf56 ("drm/i915/dpll: Move away from using shared dpll")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Patch 1 fixes engine context mappings for the legacy MSVLD, MSPDEC and
-MSPPP video engines. Since commit 8ab849d6dd4c
-("drm/nouveau/fifo: add new engine context handling"), privileged engine
-context mappings cause FIFO PRIV_VIOLATION faults and kill the channel
-during VDPAU decoding on GK107.
-
-Patch 2 fixes a fence/progress hang introduced by commit 55e1a5996085
-("drm/nouveau/fifo/ga100-: add per-runlist nonstall intr handling").
-Legacy FIFO implementations use a single global nonstall event at
-index 0, while channel event registration was changed to use runl->id
-unconditionally. This can leave fence completion waiting for an event
-that is never signalled.
-
-
-Tested on NVIDIA GK107 with a Linux 7.3-rc2 based drm-misc tree,
-Mesa 25.0.7 and mpv using VDPAU_DRIVER=nouveau and vdpau-copy.
-
-With both patches applied:
-
-  H.264 1920x1080:        PASS
-  MPEG-2 1920x1080:      PASS
-  VC-1 Advanced Profile: PASS
-
-All three tests completed using VDPAU hardware decoding. No Nouveau
-faults were reported in dmesg.
-
-
-Thanks,
-Risto
-
-Risto Pajula (2):
-  drm/nouveau/fifo/gk104: fix legacy video engine context mappings
-  drm/nouveau/fifo: use global nonstall event on legacy FIFO
-
- drivers/gpu/drm/nouveau/nvkm/engine/fifo/gk104.c | 14 ++++++++++++++
- drivers/gpu/drm/nouveau/nvkm/engine/fifo/uchan.c |  3 ++-
- 2 files changed, 16 insertions(+), 1 deletion(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
+index d408ccf6f9025667177e411e5c2cef72cc30aae9..cec6208fa7535ba77c203999bc75b3c077a94a5d 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
+@@ -302,7 +302,7 @@ struct intel_dpll_hw_state {
+  * future state which would be applied by an atomic mode set (stored in
+  * a struct &intel_atomic_state).
+  *
+- * See also intel_reserve_shared_dplls() and intel_release_shared_dplls().
++ * See also intel_dpll_reserve() and intel_dpll_release().
+  */
+ struct intel_dpll_state {
+ 	/**
 -- 
-2.47.3
+2.39.5 (Apple Git-154)
 
