@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FB90C79FB6
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 07:06:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38735C88E56
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 07:09:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADFCF10E45C;
-	Sat, 12 Sep 2026 07:06:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D74010E469;
+	Sat, 12 Sep 2026 07:09:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iFIoIjmA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ILtnHbDb";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 614FC10E45C
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 07:06:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C85B10E469
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 07:09:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3241641A80;
- Sat, 12 Sep 2026 07:06:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C58491F000FF;
- Sat, 12 Sep 2026 07:06:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 289EA40896;
+ Sat, 12 Sep 2026 07:09:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B179B1F000FF;
+ Sat, 12 Sep 2026 07:09:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789196801;
- bh=vDB8t+SSzlD/WKelBuoHf+xaLYhj1gpYQMTiRUasn2U=;
+ s=k20260515; t=1789196952;
+ bh=zl0iqCS8nhqYlcJGKx7KMg90qGu1Mxf6CtfB0KoaZmA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=iFIoIjmA3DpKVkHfPr2ZNXOM4efltgfANpHehGeBL6SnGpdxv028+Dsc5Ix7jvo/Q
- C9ERGDlAfu8rWTT+t1gzHSuTyuEhVhLoM81j14O6fOHQObIF+wgchMV0gjJLIf1aVm
- xuM0ac3OIH32bDNT93cUfjBYjZSdB80/vYe7dMAr82Er4jZSQIDbPeZAynVFJkxYOi
- A2xqkK0sVZ13xHD9znWmWoo3ldJpzIIfBPMwgg1ORbwgBBXug8LvTEJHNCnl8inY26
- c9m5hK/TSSFn6gR+l2CXIPpa3WjdyshNaOlWg737ldFuxykObE60e4rRI6OsX0rl2L
- JGpt4U3Uek+bQ==
+ b=ILtnHbDbJ8asMo1iz9muGlMAnvZe4kMb57LWjMBfJVZ5WodAXQLbnVhRuKr72M4J+
+ nRSNdAqffNnb6vz7lk1or2wc4wh+FEalb0WjDGyxKQ7SaexV9b75mKGGqSbu+b9Smq
+ S7W54Cob35b91Rq36zEaMjggSLGbvDjxtw2Utyc6yKq47gIWJMSTRpN/vdCH9oLFOx
+ 4XB0UlqRny3BnFFcx1hCpkoPsDMM9bB7z4i37hPRKubgFgAe7LCv2ljQLhDaxkYDAP
+ XaVwB6WBN4+msFcsVWS2U6XxcHRFAdFJLibg5N/e2EMEp2CN/Gw5ib+7Y/sxtRvkSI
+ IqZyhQ7SqfBpg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 11/14] accel/rocket: select the per-core clock and
- reset counts from match data
+Subject: Re: [PATCH v12 03/14] accel/rocket: wait for a running IRQ handler
+ before resetting a core
 To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org,
+Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org
-In-Reply-To: <20260912065053.1519165-12-gahing@gahingwoo.com>
+In-Reply-To: <20260912065053.1519165-4-gahing@gahingwoo.com>
 References: <20260912065053.1519165-1-gahing@gahingwoo.com>
- <20260912065053.1519165-12-gahing@gahingwoo.com>
+ <20260912065053.1519165-4-gahing@gahingwoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 07:06:40 +0000
-Message-Id: <20260912070640.C58491F000FF@smtp.kernel.org>
+Date: Sat, 12 Sep 2026 07:09:11 +0000
+Message-Id: <20260912070911.B179B1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,190 +59,129 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Failure to clear the global `rdev` pointer on an error path leads =
-to an error pointer dereference on subsequent probe attempts.
-- [High] Removing and re-probing cores out of order will corrupt the state =
-of active cores and leak resources due to flawed `rdev->num_cores` indexing.
-- [High] Resources allocated using `devm_*` APIs on the global dummy `drm_d=
-ev` are permanently leaked when cores are unbound or when initialization fa=
-ils.
-- [High] The global `rdev` pointer and `rdev->num_cores` state are accessed=
- and modified without synchronization during concurrent probes.
-- [High] The DRM device is exposed to userspace before core initialization =
-completes, leading to a NULL pointer dereference on early open().
-- [High] Asynchronous tasks and IRQs are not canceled/disabled before destr=
-oying the DRM scheduler.
+- [High] Hardirq handler reads hardware registers on a potentially suspende=
+d device without checking if it is active.
+- [High] Missing `synchronize_irq()` in runtime suspend callback allows pow=
+ering down hardware while an IRQ handler is mid-flight.
+- [High] The threaded IRQ handler accesses hardware registers without verif=
+ying the device is awake.
+- [High] Leaking an `iommu_group` reference upon job completion.
+- [High] Calling `drm_sched_fini()` on the error path of a failed `drm_sche=
+d_init()` causes a NULL pointer dereference.
 --
 
-commit 699632a47b8954e3644c77059cfdba18cb1c898b
+commit f451c258aa3279d254b112c34e76371c476fb507
 Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-accel/rocket: select the per-core clock and reset counts from match data
+accel/rocket: wait for a running IRQ handler before resetting a core
 
-This patch updates the RKNN block driver to read clock and reset counts from
-per-SoC match data instead of using compile-time constants. This accommodat=
-es
-SoCs like the RK3576 which have different hardware requirements than the RK=
-3588.
-The arrays sizing logic is also updated to use the dynamically provided cou=
-nts.
+rocket_reset() calls drm_sched_stop(), which stops the scheduler and
+returns. It does not wait for a threaded handler that is already running,
+so the comment that follows, "Remaining interrupts have been handled",
+states an assumption rather than something the code arranges.
 
-> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
-ket_drv.c
-> index 8bbbce594883e..7ed64c131e9cb 100644
-> --- a/drivers/accel/rocket/rocket_drv.c
-> +++ b/drivers/accel/rocket/rocket_drv.c
-> @@ -159,8 +159,22 @@ static const struct drm_driver rocket_drm_driver =3D=
- {
-> =20
->  static int rocket_probe(struct platform_device *pdev)
->  {
-> +	const struct rocket_soc_data *soc =3D of_device_get_match_data(&pdev->d=
-ev);
->  	int ret;
-> =20
-> +	/*
-> +	 * soc is dereferenced without a check by every one of its users, and
-> +	 * rocket_core_init() below is the first of them. A device that bound
-> +	 * by name rather than by compatible has no match data, so fail before
-> +	 * anything is allocated rather than at the first dereference: the
-> +	 * number of cores comes from a walk of matching DT nodes, and a device
-> +	 * with no of_node was never counted by it.
-> +	 */
-> +	if (!soc) {
-> +		dev_err(&pdev->dev, "no match data for this device\n");
-> +		return -ENODEV;
-> +	}
-> +
->  	if (rdev =3D=3D NULL) {
->  		/* First core probing, initialize DRM device. */
->  		rdev =3D rocket_device_init(drm_dev, &rocket_drm_driver);
+Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail.c=
+om/
+Link: https://lore.kernel.org/all/CAEWPSH5mxTbUkNouxm6yecMZYvDowquhvYvhaXQ8=
+HoMtHD5U1g@mail.gmail.com/
 
-[Severity: High]
-This isn't a bug introduced by this patch, but if rocket_device_init() fails
-during the first core's probe, it returns an error pointer which is assigned
-to the global rdev pointer:
-
-drivers/accel/rocket/rocket_drv.c:rocket_probe() {
-  ...
-  if (IS_ERR(rdev)) {
-    dev_err(&pdev->dev, "failed to initialize rocket device\n");
-    return PTR_ERR(rdev);
-  }
-  ...
-}
-
-Could a subsequent probe attempt bypass the rdev =3D=3D NULL check and dere=
-ference
-the error pointer when accessing rdev->num_cores?
-
-[Severity: High]
-This is a pre-existing issue, but do devm_* resources allocated on the glob=
-al
-dummy drm_dev leak when cores are unbound?
-
-drivers/accel/rocket/rocket_device.c:rocket_device_init() {
-  ...
-  rdev =3D devm_drm_dev_alloc(dev, rocket_drm_driver, struct rocket_device,
-                            ddev);
-  ...
-}
-
-When all cores are unbound, rocket_device_fini() unregisters the DRM device
-and sets the global rdev to NULL. Since the global drm_dev is never destroy=
-ed,
-does this permanently leak the struct rocket_device, core arrays, and mutex=
-es?
-
-[Severity: High]
-This is a pre-existing issue, but are the global rdev pointer and
-rdev->num_cores state protected against concurrent probes?
-
-If multiple RKNN cores are probed concurrently via sysfs bind, could multip=
-le
-threads observe rdev =3D=3D NULL simultaneously, leading to multiple
-initializations of the DRM device and races when modifying the cores array?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is the DRM device exposed to
-userspace before core initialization completes?
-
-rocket_device_init() registers the DRM device via drm_dev_register(), making
-it visible to userspace. If userspace opens the device immediately:
-
-drivers/accel/rocket/rocket_drv.c:rocket_open() {
-  ...
-  rocket_priv->domain =3D rocket_iommu_domain_create(rdev->cores[0].dev);
-  ...
-}
-
-Could this lead to a NULL pointer dereference in iommu_paging_domain_alloc()
-since rocket_probe() hasn't populated rdev->cores[0].dev yet?
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index 575945015ca3b..0be8db391989b 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
 
 [ ... ]
 
-> @@ -176,6 +190,7 @@ static int rocket_probe(struct platform_device *pdev)
-> =20
->  	rdev->cores[core].rdev =3D rdev;
->  	rdev->cores[core].dev =3D &pdev->dev;
-> +	rdev->cores[core].soc =3D soc;
->  	rdev->cores[core].index =3D core;
-> =20
->  	rdev->num_cores++;
+drivers/accel/rocket/rocket_job.c:rocket_job_irq_handler() {
+	struct rocket_core *core =3D data;
+	u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
 
 [Severity: High]
-This is a pre-existing issue, but does using rdev->num_cores as an array
-index corrupt the state of active cores when devices are removed and
-re-probed out of order?
+This is a pre-existing issue, but does this unconditional register read
+crash the system if the device is suspended when the shared interrupt fires?
 
-If core 0 is unbound via sysfs, rocket_remove() decrements rdev->num_cores
-without shifting the rdev->cores[] array:
+The driver registers its hardware IRQ with IRQF_SHARED (shared with the
+IOMMU). If the shared interrupt fires while the rocket device is
+runtime-suspended, rocket_job_irq_handler() immediately executes
+rocket_pc_readl() without checking if it is active. Accessing registers
+while the device's clocks are disabled triggers an SError kernel panic.
 
-drivers/accel/rocket/rocket_drv.c:rocket_remove() {
-  ...
-  rdev->num_cores--;
-  ...
+drivers/accel/rocket/rocket_drv.c:rocket_device_runtime_suspend() {
+	...
+	clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks),
+				   rdev->cores[core].clks);
+
+	return 0;
 }
-
-A subsequent unbind of core 1 would fail because find_core_for_dev() shrinks
-its search bounds to the new num_cores. If a new core is then probed, it us=
-es
-the decremented num_cores as the index:
-
-drivers/accel/rocket/rocket_drv.c:rocket_probe() {
-  ...
-  unsigned int core =3D rdev->num_cores;
-  ...
-  rdev->cores[core].rdev =3D rdev;
-  ...
-}
-
-Would this overwrite the active state of core 1?
 
 [Severity: High]
-This is a pre-existing issue, but are asynchronous tasks and IRQs canceled
-before destroying the DRM scheduler?
+This is a pre-existing issue, but does missing synchronize_irq() allow
+powering down hardware while an IRQ handler is mid-flight?
 
-In rocket_job_fini(), drm_sched_fini() is called to tear down the DRM
-scheduler before canceling the background work:
+The rocket_device_runtime_suspend() callback disables clocks via
+clk_bulk_disable_unprepare() without prior synchronization of the shared IRQ
+line. If an interrupt fires just before this callback, the handler may run
+concurrently with the suspend sequence, disabling hardware clocks while the
+IRQ handler is still executing, leading to SError kernel panics.
 
-drivers/accel/rocket/rocket_job.c:rocket_job_fini() {
-  ...
-  drm_sched_fini(&core->sched);
-   =20
-  cancel_work_sync(&core->reset.work);
-  destroy_workqueue(core->reset.wq);
-  ...
+drivers/accel/rocket/rocket_job.c:rocket_job_handle_irq() {
+	pm_runtime_mark_last_busy(core->dev);
+
+	scoped_guard(mutex, &core->job_lock) {
+		/*
+		 * Stopping the block belongs under the lock. hw_submit() writes
+		 * OPERATION_ENABLE too, and outside the lock this zero can land
+		 * after that one and stop a task that has only just started.
+		 */
+		rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
+		rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
+
+[Severity: High]
+This is a pre-existing issue, but does the threaded IRQ handler access
+hardware registers without verifying the device is awake?
+
+If the threaded handler is awakened (e.g., if the hardirq reads 0xffffffff
+from powered-off hardware, which evaluates as true for DPU interrupt bits),
+it unconditionally writes to OPERATION_ENABLE and INTERRUPT_CLEAR. Since it
+does not call pm_runtime_get_if_active(), these writes will cause an SError
+if the device is suspended.
+
+drivers/accel/rocket/rocket_job.c:rocket_job_handle_irq() {
+			...
+			iommu_detach_group(NULL, iommu_group_get(core->dev));
+
+[Severity: High]
+This is a pre-existing issue, but does this leak an iommu_group reference
+upon job completion?
+
+iommu_group_get() increments the reference count of the group, but
+iommu_detach_group() does not consume it. Since there is no corresponding
+iommu_group_put() called, this causes a persistent kobject refcount leak
+that eventually overflows.
+
+drivers/accel/rocket/rocket_job.c:rocket_job_init() {
+	...
+err_sched:
+	drm_sched_fini(&core->sched);
+
+	destroy_workqueue(core->reset.wq);
+	return ret;
 }
 
-If the background reset.work executes concurrently, it calls
-rocket_reset_work() which issues drm_sched_start() on a scheduler that is
-already destroyed. Could this lead to a use-after-free or list corruption?
+[Severity: High]
+This is a pre-existing issue, but does calling drm_sched_fini() on the error
+path of a failed drm_sched_init() cause a NULL pointer dereference?
+
+If drm_sched_init() fails, it cleans up internally, leaving sched->sched_rq
+as NULL but sched->num_rqs > 0. The driver's err_sched path unconditionally
+calls drm_sched_fini(), which iterates up to num_rqs and attempts to kfree
+sched->sched_rq[i], dereferencing the NULL sched_rq pointer array.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912065053.1519=
-165-1-gahing@gahingwoo.com?part=3D11
+165-1-gahing@gahingwoo.com?part=3D3
