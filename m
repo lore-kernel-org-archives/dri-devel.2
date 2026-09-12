@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA538C79FB6
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 07:04:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9564CC88E45
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 07:04:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FD5B10E430;
-	Sat, 12 Sep 2026 07:04:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0D5410E635;
+	Sat, 12 Sep 2026 07:04:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ug3q2qJi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NSvOkcrB";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8DA210E430
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 07:04:12 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9670E10E635
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 07:04:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AEBF640B0F;
- Sat, 12 Sep 2026 07:04:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44CE11F000FF;
- Sat, 12 Sep 2026 07:04:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B7264600D4;
+ Sat, 12 Sep 2026 07:04:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FC671F00898;
+ Sat, 12 Sep 2026 07:04:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789196652;
- bh=WGTEOOmjMhhqUxUPp/CNVoqJhWrkiEwPPBA+ZB9u8kw=;
+ s=k20260515; t=1789196668;
+ bh=4dv41HOpv0fan4sCVCNO2u51UEEvzvPSNfZ78nUngdo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Ug3q2qJiGNL6sLhqlyMbasXfLN5ZatmeLRGZrbdWF74M1+o1KRMYWWL4d5V/rppLi
- 5FBAa2Fy19jV8u9PMCXSEtUuUGPbj89tz0XbVp/61z2r6IsOG0K6zaqGwHNOcyQA01
- Jm+q/Jh8klaiLYK08un5G9dRCK5hLkOstgmEs8dlA+jKcZ6FaRS0U4atpmhWUIBm2V
- ihAnahjT1nnL5zHY7ja9ALbsme2QLBTKoTm3eGYpBvKiFZ2kaPnN5OWtJdGRAd9E96
- sHz6OzzEaNuxVDZ7kop4ebooUiIFfPHFKD2VBHZQ95XcMuAs3wJwZSggE6mJAZokmA
- Q0eE18p3ar8gQ==
+ b=NSvOkcrBAAG5P015+DoiE9fkNOydNAoArz6dW2CC4D4GTj0W3CsP5wPPHgm4Ax5j7
+ tB+8zb2fnsQ4xXqZP3S3lTPrNGPxm4W+KbVWC2MQYUMA3BGTsct4jI1b6INPpQR1px
+ sumiQGyNV81wvGj7PptzsVULCFh09pA8uMikZFy3S4jnDVGB6gD1sC73/WoF2ZJKFp
+ /4VXpVChwGIBpU3ZM6X5HO8DKvRr8sJ7lVMax3iV3YIV5AFUZ5+SSQCPebGu4kFV5q
+ LHTYnNZ1hOVf7QRLG+BuUTHNdF+R1DqIRCI3ifUSQFTXsw6RkOjt5rXU8oxrAs7gJP
+ HhR9h6PFG2mhw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 02/14] accel/rocket: take the completion register
- writes under job_lock
+Subject: Re: [PATCH v12 10/14] pmdomain: rockchip: cycle optional
+ power-domain resets on power-on
 To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org
-In-Reply-To: <20260912065053.1519165-3-gahing@gahingwoo.com>
+In-Reply-To: <20260912065053.1519165-11-gahing@gahingwoo.com>
 References: <20260912065053.1519165-1-gahing@gahingwoo.com>
- <20260912065053.1519165-3-gahing@gahingwoo.com>
+ <20260912065053.1519165-11-gahing@gahingwoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 07:04:11 +0000
-Message-Id: <20260912070412.44CE11F000FF@smtp.kernel.org>
+Date: Sat, 12 Sep 2026 07:04:27 +0000
+Message-Id: <20260912070428.1FC671F00898@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,164 +59,88 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The shared hardirq handler accesses hardware registers without che=
-cking if the device is active via pm_runtime_get_if_active(), causing spuri=
-ous interrupts and potential bus faults when suspended.
-- [High] The runtime suspend callback disables hardware clocks without firs=
-t calling `synchronize_irq()`, leading to potential race conditions and har=
-dware lockups with the shared IRQ handler.
-- [Medium] Leak of IOMMU group kobject reference in `rocket_job_handle_irq(=
-)`.
-- [Medium] The module removal path calls `pm_runtime_disable()` which can c=
-ancel a pending asynchronous autosuspend, leaving the hardware clocks perma=
-nently enabled.
+- [High] Massive Use-After-Free of genpd structures if probe fails and pm_g=
+enpd_remove() fails during error cleanup.
 --
 
-commit 628f481e9ee69f13147956ea2124dd232b5d1c38
+commit 82ba89727b40b24aa0ac406b6e9c71489c988d78
 Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-accel/rocket: take the completion register writes under job_lock
+    pmdomain: rockchip: cycle optional power-domain resets on power-on
+   =20
+    Some Rockchip domains come out of power-on with their bus interface in =
+an
+    undefined state. On the RK3576 NPU this shows up as a hang on the first
+    register access after the domain is switched on, and pulsing the domain=
+'s
+    resets at this point clears it.
 
-This patch fixes a race condition by moving the OPERATION_ENABLE and
-INTERRUPT_CLEAR register writes inside the job_lock scoped_guard. This ensu=
-res
-that stopping the block and deciding what to start next are performed as a
-single atomic step.
-
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index f404355058185..575945015ca3b 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -345,10 +345,15 @@ static void rocket_job_handle_irq(struct rocket_cor=
-e *core)
->  {
->  	pm_runtime_mark_last_busy(core->dev);
-> =20
-> -	rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
-> -	rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
-> +	scoped_guard(mutex, &core->job_lock) {
-> +		/*
-> +		 * Stopping the block belongs under the lock. hw_submit() writes
-> +		 * OPERATION_ENABLE too, and outside the lock this zero can land
-> +		 * after that one and stop a task that has only just started.
-> +		 */
-> +		rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
-> +		rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
-> =20
-> -	scoped_guard(mutex, &core->job_lock)
->  		if (core->in_flight_job) {
->  			if (core->in_flight_job->next_task_idx < core->in_flight_job->task_co=
-unt) {
->  				rocket_job_hw_submit(core, core->in_flight_job);
-
-[Severity: Medium]
-This is a pre-existing issue, but does this code leak a kobject
-reference every time a job completes?
-
-Just below this hunk in rocket_job_handle_irq(), the completion path has:
-
-			iommu_detach_group(NULL, iommu_group_get(core->dev));
-
-Calling iommu_group_get(core->dev) retrieves the group and increments its
-reference count.
-
-However, iommu_detach_group() does not consume this reference, and there is
-no matching iommu_group_put() in this path.
-
-Could this be fixed by using the pre-cached core->iommu_group instead?
+> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
+ckchip/pm-domains.c
+> --- a/drivers/pmdomain/rockchip/pm-domains.c
+> +++ b/drivers/pmdomain/rockchip/pm-domains.c
 
 [ ... ]
 
+> @@ -949,6 +975,7 @@ static void rockchip_pm_remove_one_domain(struct rock=
+chip_pm_domain *pd)
+> =20
+>  	clk_bulk_unprepare(pd->num_clks, pd->clks);
+>  	clk_bulk_put(pd->num_clks, pd->clks);
+> +	reset_control_put(pd->resets);
+> =20
+>  	/* protect the zeroing of pm->num_clks */
+>  	mutex_lock(&pd->pmu->mutex);
 
 [Severity: High]
-This is a pre-existing issue, but can the shared IRQ handler cause an
-asynchronous bus fault or spurious handling when the device is suspended?
+This is a pre-existing issue, but does this error cleanup path leave a freed
+structure in the global gpd_list if probe fails?
 
-The interrupt is registered as IRQF_SHARED in rocket_job_init():
+During error cleanup, rockchip_pm_domain_cleanup() iterates forward through
+the domains array:
 
-drivers/accel/rocket/rocket_job.c:rocket_job_init() {
-    ...
-	ret =3D devm_request_threaded_irq(core->dev, core->irq,
-					rocket_job_irq_handler,
-					rocket_job_irq_handler_thread,
-					IRQF_SHARED, dev_name(core->dev), core);
-    ...
-}
+    for (i =3D 0; i < pmu->genpd_data.num_domains; i++) {
+        genpd =3D pmu->genpd_data.domains[i];
+        if (genpd) {
+            pd =3D to_rockchip_pd(genpd);
+            rockchip_pm_remove_one_domain(pd);
+        }
+    }
 
-If another device on the same shared line triggers an interrupt while the
-rocket device is runtime-suspended, the handler blindly reads from the hard=
-ware:
+Since parent domains typically appear before their children in the array, t=
+he
+parent is visited first.=20
 
-drivers/accel/rocket/rocket_job.c:rocket_job_irq_handler() {
-	struct rocket_core *core =3D data;
-	u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
-    ...
-}
+When rockchip_pm_remove_one_domain() attempts to remove the parent domain,
+pm_genpd_remove() fails with -EBUSY because the child is still attached:
 
-This unprotected read will typically return 0xffffffff when clocks are
-disabled, which satisfies the bitmask checks and causes the handler to wake
-the IRQ thread. The thread then executes on powered-off hardware.
+    ret =3D pm_genpd_remove(&pd->genpd);
+    if (ret < 0)
+        dev_err(pd->pmu->dev, "failed to remove domain '%s' : %d...",
 
-Per subsystem guidelines, should we check if the device is active using
-pm_runtime_get_if_active() before accessing registers here?
+The domain is left in the global gpd_list and the function continues without
+retrying.
 
+Because rockchip_pm_add_one_domain() allocates the domain structure with
+devm_kzalloc():
 
-[Severity: High]
-This is a pre-existing issue, but does the runtime suspend callback disable
-clocks while the shared IRQ handler might still be executing?
+    pd =3D devm_kzalloc(pmu->dev, sizeof(*pd), GFP_KERNEL);
 
-drivers/accel/rocket/rocket_drv.c:rocket_device_runtime_suspend() {
-	...
-	clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks),
-				   rdev->cores[core].clks);
+When probe returns an error, such as -EPROBE_DEFER, devres automatically fr=
+ees
+the memory backing the parent domain.=20
 
-	return 0;
-}
-
-Since the interrupt is registered as IRQF_SHARED, the handler could be runn=
-ing
-concurrently on another CPU.
-
-If clocks are disabled exactly while the in-flight handler attempts to acce=
-ss
-hardware registers, it will cause a hardware lockup.
-
-Per subsystem guidelines, drivers using IRQF_SHARED must call
-synchronize_irq() in their runtime suspend callback before powering down.
-
-Should a synchronize_irq() call be added here?
-
-
-[Severity: Medium]
-This is a pre-existing issue, but can unloading the module leave the hardwa=
-re
-powered on permanently?
-
-At the end of rocket_core_init() and during job completions, an autosuspend
-is scheduled using pm_runtime_put_autosuspend(). However, the removal path
-calls pm_runtime_disable() directly:
-
-drivers/accel/rocket/rocket_core.c:rocket_core_fini() {
-	pm_runtime_dont_use_autosuspend(core->dev);
-	pm_runtime_disable(core->dev);
-	iommu_group_put(core->iommu_group);
-    ...
-}
-
-Calling pm_runtime_disable() cancels any pending asynchronous autosuspend w=
-ork.
-
-If the module is removed while an autosuspend is pending, the device is left
-powered on with clocks enabled.
-
-Should we ensure the device is fully suspended (e.g., using
-pm_runtime_put_sync()) before disabling runtime PM?
+Can this leave a dangling pointer in the global gpd_list that could trigger=
+ a
+use-after-free or kernel panic when the list is next traversed, such as
+during pm_genpd_poweroff_unused()? Should rockchip_pm_domain_cleanup() be
+updated to iterate backwards to ensure children are removed before their
+parents?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912065053.1519=
-165-1-gahing@gahingwoo.com?part=3D2
+165-1-gahing@gahingwoo.com?part=3D10
