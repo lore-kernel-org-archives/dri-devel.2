@@ -4,47 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2DF2C79FB6
-	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 10:40:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01FA7C79FB6
+	for <dri-devel@archiver.kernel.org>; Sat, 12 Sep 2026 10:44:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9229910E6ED;
-	Sat, 12 Sep 2026 10:40:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BB9F10E6D7;
+	Sat, 12 Sep 2026 10:44:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="pVYbAaqW";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="m7en1+ye";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OcBaRB8X";
 	dkim-atps=neutral
-Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch
- [185.70.43.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA00610E6E8
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 10:40:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
- s=protonmail; t=1789209620; x=1789468820;
- bh=6Ar6Jhjj5kYLP1tFA34S6pCD0PCQQeu7sg/1ilo3J4g=;
- h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=pVYbAaqWWFl8NwTOFjrnPPKCJ9Wcheh+nHuy+pO6c8p2Xwy9GliJcBYLzFG/LGazW
- xwiC/nW7cQU4cMYePmByFi+b2+8+KuoldtOE/aRs+1uDuoJSej+HSXkOf7SL3SladL
- mB4XrNbyDe3ndQhvz781oqz4n12dAzvNBflqHUmYy/gUCAObCUyhiXeGalUWl0XTXx
- kghvfZ3WGQhXPCce9MTUxMCWD25HhlBuO56TnG/7a9CmGZ2apg0x/nsUDWTRrLyjFg
- Am9K5dn9cUiF1pJ/KCG17narScnnf1uUKLAPX4A9lLGfwyrbikiN4oxdmckGI0a13e
- cggXzTNjDoWLA==
-X-Pm-Submission-Id: 4hhnxC5fWGz1DFFJ
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-Cc: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
- airlied@gmail.com, simona@ffwll.ch, ojeda@kernel.org, boqun@kernel.org,
- gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
- a.hindborg@kernel.org, tmgross@umich.edu,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Subject: [PATCH v7 2/3] drm/tyr: add GPU reset infrastructure
-Date: Sat, 12 Sep 2026 13:39:55 +0300
-Message-ID: <20260912-tyr-reset-impl-v7-2-077ce72084eb@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <20260912-tyr-reset-impl-v7-0-077ce72084eb@onurozkan.dev>
-References: <20260912-tyr-reset-impl-v7-0-077ce72084eb@onurozkan.dev>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABB7010E6D7
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 10:44:47 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68C85Ijb2664845
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 10:44:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=fKV0GTN6613u1fd+fPAiYoVn
+ MV+bi3fMryJz6bPT2XI=; b=m7en1+yeuxqFPavKn0xOhSqdfoDS1mO8tbRjpENT
+ jqzBkelJ/7n+mp97lKCjsu8NFjdMFwLpOBHWsbDDmz6nbsv0Q69js2r7NI8tjBJB
+ wOUfhMcnvQQ5tSgRSyG777cG+KHxKHlkuQlcF/pdU2X+XUaruE52M06WvFCAWhY8
+ SVsdG6nndsOmBf6hFgDRFk/AbO5PQqucLvYCFbclwvT/gnCkGU93VXT+yx8LAhYC
+ //kJRX4uYgz5J2YG3KgKoEyWbTm7jRpnPPY3jDZBe9sL1g4c99tyfyNJJ9er21vK
+ vCsnTytkOx/uPU1I4aq9ZqQqy7IhYBQBpj6emP88snwDEA==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9c8re0-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 10:44:46 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-38ec0f510a9so3437714a91.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 03:44:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1789209885; x=1789814685;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:from:cc:content-language:references:to:subject
+ :user-agent:mime-version:date:message-id:content-type:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=fKV0GTN6613u1fd+fPAiYoVnMV+bi3fMryJz6bPT2XI=;
+ b=OcBaRB8XjQzHMXACaNxc+3gJ58hlZoqj6Hd8Z0uwR0awwKdehIWsXBe52wCR7BkbI6
+ ToIJl85r38peR8N8sPdzh97jTes8pwaBxsk5eK3xBlSbiAFtunJG9cOGvrU9J9SPSOI7
+ tUyALXZ/4Hqytd1gJX9RLO2zXz85ODTy/OmnnffrD/Ymi0/SsoYc1e4cy6QNlbBFJI2Q
+ mU8YGweFlZWAUsPXnJ4q8knDCFL4xT+NCKxpHY308hCC8b1gWikfw9tTsgTmvqVnloX4
+ eN2WvvEeZLRyEdRBlHyzuRJaLMP63k+zOctRR+SKaGYTDO877R8AnCGeFV/8/Ttq6AFb
+ cEMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789209885; x=1789814685;
+ h=in-reply-to:from:cc:content-language:references:to:subject
+ :user-agent:mime-version:date:message-id:content-type:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=fKV0GTN6613u1fd+fPAiYoVnMV+bi3fMryJz6bPT2XI=;
+ b=Te4EuiIDA9ALyg+bu/qaRSH2Yk+8CTdKkh2zYzI+ZFzIIqFK6TewQEyuHKOHcNxFvI
+ MARlEU7OLmGBjF/n3TS7DnoH/ALIqd8EqDrCrlZxcviiOVG8O5In4GUyXHIe4jn1sXhZ
+ CFP5oj3UQuBpyC0/GDMnfen3OyRLBdu82HjWim4CCsebKGeLewFdCm/NuuBJLFRqWbMK
+ H282u3fXH/mGWTeIsiMQlcS1/p1n95rhN6eLO2KxnFd/xEGwItV8KroyTKrG4iIBgdN5
+ DGw01mBtTKPDPCnJm3W8ry7M7gmxlRDYDkoXGaOH45hDNPGnUWgqGaGoeu/1LPo0zs/G
+ 5CZg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByKqFeJPooIfDN4rGIWICOJIU+5Jq4xkcuDpgCy82iV7cfM5fT1XYLYz12r25I8ifY4eKaLe6xzSd8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l90JWdU88fYAdYNBnQ0NBlVgka2aJiY6Le+IOa2+CyTiuwf/HI
+ ABPO6E0gJTjWLMJA9xDx1lNE63KPgU8mi6WOhCHNVfEvXTac7mgSxJ+FNG1DhzBRZQylqHdiKxg
+ TuHQRQiNi/vTvatRT4MyEnrM9jtP6Tpysj47YQwAz6DL4j+J5TxCLTOJwOA766l94zrTunzg=
+X-Gm-Gg: AYBFou2ijspiWde84vnulSnzMk305k0iKMUICnNqmqpzlI0P5E0hgpp1z+oo2Wt8i1r
+ QMLqKuQS4s9GVh/06y5Yvw+5/iNXcO72N75Q4PUacqRgk309wQ8/O6RWxa5UPkErnAmfuvVInt+
+ 0Or/SuCF8uOhbugGliPXLe/Oyy23UtZnFQij0+G/LWzk8jBL3jp/2dYXShw49pQ1e/ieZkVxQvy
+ eTkUaTTQYdbIwCl1eb6aWGwODq2iYrlBbXsw+CI5w3Nrbe9rNV8gJE7nULdaAH7trjvivty7Xn2
+ ewVMQ/17mDGNIWJ7Mgi4++1+nWXlgRc9Df1Sw0oiHYuTRu3wfklY+25QtGHVxJhu4unS9gODnB4
+ mFtNdWbIXLoPc5Xnuw7qar6OH9kj3EtrKlQ7bWloWfSnT5Uktd/ox5sRrYQnhxNpKPb17nro=
+X-Received: by 2002:a17:90b:3c0b:b0:398:b1eb:136c with SMTP id
+ 98e67ed59e1d1-39d9bd5e49emr13876754a91.9.1789209885009; 
+ Sat, 12 Sep 2026 03:44:45 -0700 (PDT)
+X-Received: by 2002:a17:90b:3c0b:b0:398:b1eb:136c with SMTP id
+ 98e67ed59e1d1-39d9bd5e49emr13876714a91.9.1789209884570; 
+ Sat, 12 Sep 2026 03:44:44 -0700 (PDT)
+Received: from [10.133.33.219] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39db113a3d0sm5351157a91.14.2026.09.12.03.44.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 12 Sep 2026 03:44:44 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------NPpJn54gfU0GXWMMVsumK9hy"
+Message-ID: <00715b36-7621-4a17-9998-9003473bff77@oss.qualcomm.com>
+Date: Sat, 12 Sep 2026 18:44:17 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] misc: fastrpc: avoid duplicate DMA mappings in
+ fastrpc_create_maps()
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>
+References: <20260805060940.41414-1-jianping.li@oss.qualcomm.com>
+ <b10cb8de-638f-48bc-9880-edecf35e4659@oss.qualcomm.com>
+Content-Language: en-US
+Cc: arnd@arndb.de, Greg KH <gregkh@linuxfoundation.org>,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, quic_lxu5@quicinc.com,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, quic_chennak@quicinc.com
+From: Jianping Li <jianping.li@oss.qualcomm.com>
+In-Reply-To: <b10cb8de-638f-48bc-9880-edecf35e4659@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=e+mT2qp/ c=1 sm=1 tr=0 ts=6aa52d1e cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=r77TgQKjGQsHNAKrUKIA:9
+ a=jKsoHjBsZuWLGqAzdFcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=EUspDBNiAAAA:8
+ a=VJ8hSp9LWsRA7Wmw0-0A:9 a=Pcn56v9LyNFJUGKV:21 a=_W_S_7VecoQA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEyMDE1NCBTYWx0ZWRfX2f/w2LqV5Q5a
+ K++bAsE1yzozeI+38tVhEHGJNZwSWfIMt31r1fcCTe4jTsA48d04GliGbPvDW2O1sL8CqRSW5Fr
+ MdODUHrTKhrqwo7dZqlyo2KSpU+ixi4=
+X-Proofpoint-ORIG-GUID: Zw0gD9pydP7YZCYdHN_YdvlP6tangQ28
+X-Proofpoint-GUID: Zw0gD9pydP7YZCYdHN_YdvlP6tangQ28
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEyMDE1NCBTYWx0ZWRfX6aK0UYl69BNH
+ iKiQqKkZOPms69YhOQcs8O8PrpyndS/J+LU9XWqUviJOKIrAq+A/zBlOAKNFNXb0QryvJn0tSdJ
+ RGt3rN8gw3NO/sWuMBs32IMjioK5pzxAD65+t48x/U4w4AlVZj//HUUjMFGrYXnmltdBW0zcj4K
+ GxkOPp0lzneuSBOyq3eTQGOdVvMEhYrIes2WzCBGAkTYCYamOo18v22j3ZIdxGPmYaP+qd+AEmp
+ ApwHjbyXnd/rLukpxQPaEdOyYkNqZkirUt6mHf4/1jra7mShZCb7rs1szAFQZjG0uE3+31cRq/2
+ IFKCs86rQFKB7W+XSwLuL08jBkOJXY+RZ/S8YPMrNzW0C16Tgz0oMiWXZG4XrkilemG7aaE8wDG
+ u0oD3AHz/j1SsH0dwY+l3YRgRQ2HXtjx0C82NKBQKQNhjILrCVPM3uEm6oBC+SWMw2WUGP9ATj8
+ juPOg+IhyE4BO9aFS0A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-12_03,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 phishscore=0 impostorscore=0 spamscore=0
+ suspectscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609120154
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,489 +150,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for scheduling GPU resets on a dedicated workqueue. Track
-the reset state to avoid queueing another reset while one is already
-pending or in progress.
+This is a multi-part message in MIME format.
+--------------NPpJn54gfU0GXWMMVsumK9hy
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Use an SRCU based gate with mutex-protected reader admission to block
-hardware accesses while reset work runs and wait for current users
-before resetting.
 
-Stop new reset requests during teardown and drain any queued or running
-reset work before releasing the device resources.
+On 9/11/2026 7:41 PM, Ekansh Gupta wrote:
+>> +	/* Map the DMA handle in the invoke call for backward compatibility */
+>> +	FASTRPC_MAP_DMA_HANDLE = 0x20000,
+> was having a looks again at this, user is never passing this flag,
+> should we have this in uapi? I think you can move this in kernel as it
+> is set and used by kernel.>  	FASTRPC_MAP_MAX,
 
-This is the initial reset infrastructure only. It is not wired to a reset
-source yet as those will follow in separate work.
+Agreed, thanks for catching this. FASTRPC_MAP_DMA_HANDLE is only ever
+set and consumed internally by the driver to tag DMA handle maps — userspace
+never passes it as an input flag — so it doesn't belong in the uapi. I'll move
+it to a kernel-internal definition (not exposed via uapi) in the next version,
+and drop it from the header.
 
-Link: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/28
-Signed-off-by: Onur Özkan <work@onurozkan.dev>
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-Tested-by: Daniel Almeida <daniel.almeida@collabora.com>
----
- drivers/gpu/drm/tyr/driver.rs        |  41 ++----
- drivers/gpu/drm/tyr/reset.rs         | 249 +++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/tyr/reset/hw_gate.rs |  80 +++++++++++
- drivers/gpu/drm/tyr/tyr.rs           |   1 +
- 4 files changed, 343 insertions(+), 28 deletions(-)
+>>   };
+--------------NPpJn54gfU0GXWMMVsumK9hy
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index 90d6cd988cd2..52b1f16fa405 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -8,7 +8,6 @@
-     device::{
-         Bound,
-         Core,
--        Device,
-         DeviceContext, //
-     },
-     dma::{
-@@ -17,13 +16,9 @@
-     },
-     drm,
-     drm::ioctl,
--    io::{
--        poll,
--        Io, //
--    },
-     new_mutex,
-     of,
--    platform,
-+    platform, //
-     prelude::*,
-     regulator,
-     regulator::Regulator,
-@@ -33,7 +28,6 @@
-         Arc,
-         Mutex, //
-     },
--    time,
-     types::ForLt, //
- };
- 
-@@ -41,10 +35,10 @@
-     file::TyrDrmFileData,
-     fw::Firmware,
-     gem::BoData,
--    gpu,
-     gpu::GpuInfo,
-     mmu::Mmu,
--    regs::gpu_control::*, //
-+    regs::gpu_control::*,
-+    reset, //
- };
- 
- pub(crate) type IoMem<'a> = kernel::io::mem::IoMem<'a, SZ_2M>;
-@@ -67,6 +61,12 @@ pub(crate) struct TyrDrmRegistrationData<'bound> {
-     /// Parent platform device.
-     pub(crate) pdev: &'bound platform::Device<Bound>,
- 
-+    // `ResetHandle::drop()` drains queued/running works and this must happen
-+    // before clocks/regulators are dropped. So keep this field before them to
-+    // ensure the correct drop order.
-+    #[pin]
-+    pub(crate) reset: reset::ResetHandle<'bound>,
-+
-     /// Firmware sections.
-     pub(crate) fw: Arc<Firmware<'bound>>,
- 
-@@ -85,23 +85,6 @@ pub(crate) struct TyrDrmRegistrationData<'bound> {
-     pub(crate) gpu_info: GpuInfo,
- }
- 
--fn issue_soft_reset(dev: &Device, iomem: &IoMem<'_>) -> Result {
--    // Clear any stale reset IRQ state before issuing a new soft reset.
--    iomem.write_reg(GPU_IRQ_CLEAR::zeroed().with_reset_completed(true));
--
--    iomem.write_reg(GPU_COMMAND::reset(ResetMode::SoftReset));
--
--    poll::read_poll_timeout(
--        || Ok(iomem.read(GPU_IRQ_RAWSTAT)),
--        |status| status.reset_completed(),
--        time::Delta::from_millis(1),
--        time::Delta::from_millis(100),
--    )
--    .inspect_err(|_| dev_err!(dev, "GPU reset failed."))?;
--
--    Ok(())
--}
--
- kernel::of_device_table!(
-     OF_TABLE,
-     MODULE_OF_TABLE,
-@@ -136,8 +119,7 @@ fn probe<'bound>(
- 
-         let iomem = Arc::new(request.iomap_sized::<SZ_2M>()?, GFP_KERNEL)?;
- 
--        issue_soft_reset(pdev.as_ref(), &iomem)?;
--        gpu::l2_power_on(pdev.as_ref(), &iomem)?;
-+        reset::run_reset(pdev.as_ref(), &iomem)?;
- 
-         let gpu_info = GpuInfo::new(&iomem);
-         gpu_info.log(pdev.as_ref());
-@@ -167,6 +149,9 @@ fn probe<'bound>(
- 
-         let reg_data = try_pin_init!(TyrDrmRegistrationData {
-                 pdev,
-+                // SAFETY: `Registration` is stored in the platform driver data and
-+                // not leaked, so `ResetHandle` is dropped before borrowed data expires.
-+                reset <- unsafe { reset::ResetHandle::new(pdev, iomem.as_arc_borrow())? },
-                 fw: firmware,
-                 clks <- new_mutex!(Clocks {
-                     core: core_clk,
-diff --git a/drivers/gpu/drm/tyr/reset.rs b/drivers/gpu/drm/tyr/reset.rs
-new file mode 100644
-index 000000000000..a41158c7ea21
---- /dev/null
-+++ b/drivers/gpu/drm/tyr/reset.rs
-@@ -0,0 +1,249 @@
-+// SPDX-License-Identifier: GPL-2.0 or MIT
-+
-+//! Provides asynchronous reset handling for the Tyr DRM driver via [`ResetHandle`].
-+//!
-+//! [`ResetHandle::schedule`] runs reset work on a dedicated ordered
-+//! [`ScopedQueue`] and avoids duplicate pending reset requests.
-+//!
-+//! # High-level Execution Flow
-+//!
-+//! ```text
-+//! +------+  schedule()  +---------+  reset_work()  +------------+
-+//! | Idle |------------->| Pending |--------------->| InProgress |
-+//! +------+              +---------+                +------------+
-+//!    ^                                             |
-+//!    |               work complete                 |
-+//!    +---------------------------------------------+
-+//!
-+//! Teardown transitions any state to ShuttingDown, then drains pending and
-+//! running work.
-+//! ```
-+
-+mod hw_gate;
-+
-+use hw_gate::HwGate;
-+
-+use kernel::{
-+    device::{
-+        Bound,
-+        Device, //
-+    },
-+    io::{
-+        poll,
-+        Io, //
-+    },
-+    platform,
-+    prelude::*,
-+    sync::{
-+        atomic::{
-+            Atomic,
-+            AtomicType,
-+            Full,
-+            Release, //
-+        },
-+        Arc,
-+        ArcBorrow, //
-+    },
-+    time,
-+    workqueue::{
-+        ScopedQueue,
-+        ScopedWork,
-+        ScopedWorkItem,
-+        ScopedWorkRef, //
-+    },
-+};
-+
-+use crate::{
-+    driver::IoMem,
-+    gpu,
-+    regs::gpu_control::*, //
-+};
-+
-+/// Lifecycle state of the reset worker.
-+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-+#[repr(i32)]
-+enum ResetState {
-+    /// Hardware is available and no reset request exists.
-+    Idle = 0,
-+    /// Reset work item is queued and waiting to be claimed by the worker.
-+    Pending = 1,
-+    /// Worker has claimed the request and is resetting hardware.
-+    InProgress = 2,
-+    /// Teardown has started and no new reset request may start.
-+    ShuttingDown = 3,
-+}
-+
-+// SAFETY: `ResetState` and `i32` have the same size and alignment, and are
-+// round-trip transmutable.
-+unsafe impl AtomicType for ResetState {
-+    type Repr = i32;
-+}
-+
-+/// Internal reset orchestrator that owns the state, [`HwGate`], and work item.
-+#[pin_data]
-+struct Controller<'ctrl> {
-+    /// Parent platform device.
-+    pdev: &'ctrl platform::Device<Bound>,
-+    /// Mapped register space needed for reset operations.
-+    iomem: Arc<IoMem<'ctrl>>,
-+    /// State shared by reset schedulers and the worker.
-+    state: Atomic<ResetState>,
-+    /// Drains reset-sensitive hardware accesses before a reset.
-+    #[pin]
-+    hw: HwGate,
-+}
-+
-+impl<'ctrl> ScopedWorkItem for Controller<'ctrl> {
-+    fn run(work: &ScopedWorkRef<Self>) {
-+        work.reset_work();
-+    }
-+}
-+
-+impl<'ctrl> Controller<'ctrl> {
-+    /// Creates a reset controller.
-+    fn new(
-+        pdev: &'ctrl platform::Device<Bound>,
-+        iomem: Arc<IoMem<'ctrl>>,
-+    ) -> impl PinInit<Self, Error> {
-+        try_pin_init!(Self {
-+            pdev,
-+            iomem,
-+            state: Atomic::new(ResetState::Idle),
-+            hw <- HwGate::new(),
-+        })
-+    }
-+
-+    /// Attempts to transition the reset state from `from` to `to`.
-+    #[inline]
-+    fn try_transition(&self, from: ResetState, to: ResetState) -> bool {
-+        self.state.cmpxchg(from, to, Full).is_ok()
-+    }
-+
-+    /// Processes one scheduled reset request.
-+    ///
-+    /// If the pending reset cannot be claimed, the worker returns immediately.
-+    ///
-+    /// It first claims [`ResetState::Pending`], then waits for earlier hardware
-+    /// accesses to complete before issuing the reset and returning the worker
-+    /// state to [`ResetState::Idle`].
-+    ///
-+    /// Panthor reference:
-+    /// - drivers/gpu/drm/panthor/panthor_device.c::panthor_device_reset_work()
-+    fn reset_work(&self) {
-+        if !self.try_transition(ResetState::Pending, ResetState::InProgress) {
-+            return;
-+        }
-+
-+        dev_dbg!(self.pdev, "Starting GPU reset.\n");
-+
-+        // Wait for current hardware accesses to finish before resetting.
-+        let reset_guard = self.hw.close();
-+        let reset_result = run_reset(self.pdev.as_ref(), &self.iomem);
-+        drop(reset_guard);
-+
-+        if let Err(e) = reset_result {
-+            dev_err!(self.pdev, "GPU reset failed: {:?}\n", e);
-+
-+            // TODO: Unplug the GPU.
-+            // There is no API for unplugging the GPU and this is unreachable
-+            // for now since there are no hardware users for reset API.
-+        } else {
-+            dev_dbg!(self.pdev, "GPU reset completed.\n");
-+        }
-+
-+        let _ = self.try_transition(ResetState::InProgress, ResetState::Idle);
-+    }
-+}
-+
-+/// User-facing handle for scheduling resets.
-+///
-+/// Dropping the handle drains any queued or in-flight reset work before the
-+/// [`ScopedQueue`] and the clock and regulator resources are released.
-+#[pin_data(PinnedDrop)]
-+pub(crate) struct ResetHandle<'reset> {
-+    #[pin]
-+    controller: ScopedWork<Controller<'reset>>,
-+    wq: ScopedQueue<'reset>,
-+}
-+
-+impl<'reset> ResetHandle<'reset> {
-+    /// Creates [`ResetHandle`].
-+    ///
-+    /// # Safety
-+    ///
-+    /// The returned handle must not be leaked or otherwise prevented from
-+    /// running [`Drop`], since it owns work that may borrow from `'reset`.
-+    pub(crate) unsafe fn new(
-+        pdev: &'reset platform::Device<Bound>,
-+        iomem: ArcBorrow<'_, IoMem<'reset>>,
-+    ) -> Result<impl PinInit<Self, Error>> {
-+        let iomem = iomem.into();
-+
-+        Ok(try_pin_init!(Self {
-+            controller <- kernel::new_scoped_work!("tyr::reset", Controller::new(pdev, iomem)),
-+            // SAFETY: The caller guarantees the handle is dropped.
-+            wq: unsafe { ScopedQueue::new(c"tyr-reset-wq")? },
-+        }))
-+    }
-+
-+    /// Schedules a GPU reset on the dedicated workqueue.
-+    ///
-+    /// If a reset is already pending or in progress the call is a no-op.
-+    #[expect(dead_code)]
-+    pub(crate) fn schedule(&'reset self) {
-+        // TODO: Similar to `panthor_device_schedule_reset()` in Panthor, add a
-+        // power management check once Tyr supports it.
-+
-+        if self
-+            .controller
-+            .try_transition(ResetState::Idle, ResetState::Pending)
-+        {
-+            let _ = self.wq.enqueue(&self.controller);
-+        }
-+    }
-+}
-+
-+#[pinned_drop]
-+impl<'reset> PinnedDrop for ResetHandle<'reset> {
-+    fn drop(self: Pin<&mut Self>) {
-+        // Stop new reset requests before draining queued/running work.
-+        self.controller
-+            .state
-+            .store(ResetState::ShuttingDown, Release);
-+    }
-+}
-+
-+/// Issues a soft reset command and waits for reset-complete IRQ status.
-+fn issue_soft_reset(dev: &Device<Bound>, io: &IoMem<'_>) -> Result {
-+    // Clear any stale reset-complete IRQ state before issuing a new soft reset.
-+    io.write_reg(GPU_IRQ_CLEAR::zeroed().with_reset_completed(true));
-+
-+    io.write_reg(GPU_COMMAND::reset(ResetMode::SoftReset));
-+
-+    poll::read_poll_timeout(
-+        || Ok(io.read(GPU_IRQ_RAWSTAT)),
-+        |status| status.reset_completed(),
-+        time::Delta::from_millis(1),
-+        time::Delta::from_millis(100),
-+    )
-+    .inspect_err(|_| dev_err!(dev, "GPU reset timed out."))?;
-+
-+    Ok(())
-+}
-+
-+/// Runs one synchronous GPU reset pass.
-+///
-+/// Its visibility is `pub(super)` only so the probe path can run an
-+/// initial reset; it is not part of this module's public API.
-+///
-+/// On success, the GPU is left in a state suitable for reinitialization.
-+///
-+/// The sequence is as follows:
-+///   - Trigger a GPU soft reset.
-+///   - Wait for the reset-complete IRQ status.
-+///   - Power L2 back on.
-+pub(super) fn run_reset(dev: &Device<Bound>, iomem: &IoMem<'_>) -> Result {
-+    issue_soft_reset(dev, iomem)?;
-+    gpu::l2_power_on(dev, iomem)?;
-+    Ok(())
-+}
-diff --git a/drivers/gpu/drm/tyr/reset/hw_gate.rs b/drivers/gpu/drm/tyr/reset/hw_gate.rs
-new file mode 100644
-index 000000000000..54754f9fc05f
---- /dev/null
-+++ b/drivers/gpu/drm/tyr/reset/hw_gate.rs
-@@ -0,0 +1,80 @@
-+// SPDX-License-Identifier: GPL-2.0 or MIT
-+
-+//! Hardware-access gate for the GPU reset cycle.
-+//!
-+//! [`HwGate`] uses a mutex and [`Srcu`] to coordinate reset-sensitive hardware
-+//! access with reset. Readers hold the mutex while entering SRCU, then release
-+//! it before accessing hardware. The reset worker holds the mutex while waiting
-+//! for admitted readers and resetting hardware.
-+
-+use kernel::{
-+    prelude::*,
-+    sync::{
-+        new_mutex,
-+        srcu,
-+        Mutex,
-+        MutexGuard,
-+        Srcu, //
-+    },
-+};
-+
-+/// Synchronizes GPU hardware access with reset.
-+#[pin_data]
-+pub(super) struct HwGate {
-+    /// Admits readers and is held exclusively while the reset worker owns the
-+    /// hardware.
-+    #[pin]
-+    gate_lock: Mutex<()>,
-+    /// Drains readers that entered before the reset worker acquired `gate_lock`.
-+    #[pin]
-+    srcu: Srcu,
-+}
-+
-+impl HwGate {
-+    /// Creates an open hardware-access gate.
-+    pub(super) fn new() -> impl PinInit<Self, Error> {
-+        try_pin_init!(Self {
-+            gate_lock <- new_mutex!(()),
-+            srcu <- kernel::new_srcu!(),
-+        })
-+    }
-+
-+    /// Enters a reset-sensitive hardware-access section.
-+    #[expect(dead_code)]
-+    fn access(&self) -> HwAccessGuard<'_> {
-+        let gate_lock = self.gate_lock.lock();
-+        let srcu = self.srcu.read_lock();
-+        drop(gate_lock);
-+
-+        HwAccessGuard { _srcu: srcu }
-+    }
-+
-+    /// Stops new readers and drains admitted readers for the reset worker.
-+    ///
-+    /// Callers must serialize write-side access. The reset controller's state
-+    /// machine provides that serialization.
-+    pub(super) fn close(&self) -> HwClosedGuard<'_> {
-+        let gate_lock = self.gate_lock.lock();
-+
-+        // Holding `gate_lock` prevents new readers from entering SRCU. Readers
-+        // admitted before us are enrolled, so wait for their read-side work.
-+        self.srcu.synchronize();
-+
-+        HwClosedGuard {
-+            _gate_lock: gate_lock,
-+        }
-+    }
-+}
-+
-+/// Shared hardware access that blocks reset until dropped.
-+#[must_use = "the gate is released when the guard is dropped"]
-+struct HwAccessGuard<'a> {
-+    _srcu: srcu::Guard<'a>,
-+}
-+
-+/// Exclusive hardware access for the reset worker that blocks new hardware
-+/// accesses until dropped.
-+#[must_use = "the gate stays closed until the guard is dropped"]
-+pub(super) struct HwClosedGuard<'a> {
-+    _gate_lock: MutexGuard<'a, ()>,
-+}
-diff --git a/drivers/gpu/drm/tyr/tyr.rs b/drivers/gpu/drm/tyr/tyr.rs
-index 3f6fe5fbeb0f..63873628c843 100644
---- a/drivers/gpu/drm/tyr/tyr.rs
-+++ b/drivers/gpu/drm/tyr/tyr.rs
-@@ -14,6 +14,7 @@
- mod gpu;
- mod mmu;
- mod regs;
-+mod reset;
- mod slot;
- mod vm;
- mod wait;
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 9/11/2026 7:41 PM, Ekansh Gupta
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:b10cb8de-638f-48bc-9880-edecf35e4659@oss.qualcomm.com">
+      <pre class="moz-quote-pre" wrap=""><blockquote type="cite"
+      style="color: #007cff;"><pre wrap="" class="moz-quote-pre">+	/* Map the DMA handle in the invoke call for backward compatibility */
++	FASTRPC_MAP_DMA_HANDLE = 0x20000,
+</pre></blockquote><pre wrap="" class="moz-quote-pre">was having a looks again at this, user is never passing this flag,
+should we have this in uapi? I think you can move this in kernel as it
+is set and used by kernel.&gt;  	FASTRPC_MAP_MAX,</pre></pre>
+    </blockquote>
+    <pre wrap="" class="moz-quote-pre" style="white-space: pre-wrap;">Agreed, thanks for catching this. FASTRPC_MAP_DMA_HANDLE is only ever
+set and consumed internally by the driver to tag DMA handle maps — userspace
+never passes it as an input flag — so it doesn't belong in the uapi. I'll move
+it to a kernel-internal definition (not exposed via uapi) in the next version,
+and drop it from the header.</pre>
+    <blockquote type="cite"
+      cite="mid:b10cb8de-638f-48bc-9880-edecf35e4659@oss.qualcomm.com">
+      <pre class="moz-quote-pre" wrap=""><pre wrap=""
+      class="moz-quote-pre">
+</pre><blockquote type="cite" style="color: #007cff;"><pre wrap=""
+      class="moz-quote-pre"> };</pre></blockquote></pre>
+    </blockquote>
+  </body>
+</html>
 
--- 
-2.54.0
+--------------NPpJn54gfU0GXWMMVsumK9hy--
