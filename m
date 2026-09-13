@@ -4,54 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D56E3C88E56
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 09:02:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8B3EC88E40
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 09:02:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E483710E05B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F146110E0B8;
 	Sun, 13 Sep 2026 09:02:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SqGlnhW5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gfaztbGI";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A34B10E0B8
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 09:02:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A602F10E05B
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 09:02:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8861460DBB;
- Sun, 13 Sep 2026 09:02:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989E31F00893;
+ by tor.source.kernel.org (Postfix) with ESMTP id ACF3960DB4;
+ Sun, 13 Sep 2026 09:02:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3713E1F000FF;
  Sun, 13 Sep 2026 09:02:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789290137;
- bh=+QgNccPks/y5EiUIaW30j5t0+tXeWFsnPvbGtZbENV8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=SqGlnhW5et2E74vIhmPM8wAsQ3mBbGzl12yVa0lpWYSM03XO26ERPdeYvcg4C6u51
- DBzPjVne51Rj21eL3qrVxlGUSVakh9ozHXr2ndeW3jhglB5g/4QihRIlJc9zAf+Ioe
- RynUuR9tn9INyJgpv4khUwMb+1IjaT9ZImnnJn5vmlUK2QFvuN+hyx3XxMgQwZKjOg
- YQD1VyQmey39ZN3r3yGQGRr9eC/JQt2boly6YoAgai1OpGyGifuOmS3SLwgzPFr6KT
- IWKwqnulOD99EgD1jbF4FO20ZJlDTUqF/5CbXuYi9A91zoKoPg8VJLzWjBTQ8aCutb
- Nfw6IPfTUF8HQ==
-Date: Sun, 13 Sep 2026 11:02:14 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Paul Sajna <sajattack@postmarketos.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH] Revert "dt-bindings: display: panel: panel-simple: Add
- lg,sw49410 compatible"
-Message-ID: <20260913-succinct-spiffy-chimera-32b06b@quoll>
-References: <20260911-topic-lg_sw49410_revert-v1-1-c9385a9e1926@oss.qualcomm.com>
-MIME-Version: 1.0
+ s=k20260515; t=1789290136;
+ bh=ruWc/Di7ip0lJAZuHEAAJbuGnZQP7A3y6OS5dX4GqQ4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=gfaztbGIdIh//2BTdYeYfyXdtVM2fyIFrZK+e2nKQMOdL1NmMCmXk//TYpDslzF8c
+ dXpqx0QC2k+bePKazZ75CDqiwGghgSQhAIw5uthXVG4uZfWtYrUuBIZVBlUF40Q2IL
+ 5NE+5W7g1viDuakuQe1ih2Z4NRy2K8WJBpu3JV5SP9IBJT5np8/LfXNZkBiBJR15u/
+ 9gmuakMjt9qLmYt0Glbk5oVfzZ1YPlab4RIpQXKRYOTDB3w9n3Hlzp9Oczpyr94bJF
+ zXSLwOnptS1MsuTYsjS8OLJJaS7ZzRyufohhOEnoTUc9l/petQovbu4a2erklUJfk7
+ n3W1Lx2SDSGTA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] drm_buddy: fix power-of-2 rounding errs
+To: "David Gow" <david@davidgow.net>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260913084907.520877-2-david@davidgow.net>
+References: <20260913084907.520877-2-david@davidgow.net>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260911-topic-lg_sw49410_revert-v1-1-c9385a9e1926@oss.qualcomm.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 13 Sep 2026 09:02:15 +0000
+Message-Id: <20260913090216.3713E1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,42 +52,94 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Sep 11, 2026 at 09:36:48AM +0200, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> This patch had been applied before the review has concluded. The panel
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-"Commit foo bar had been applied..."
+Pre-existing issues:
+- [High] The `is_power_of_2()` macro truncates 64-bit sizes on 32-bit platf=
+orms, undermining the patch's fix.
+- [High] `__alloc_contig_try_harder()` breaks list contracts, leaking local=
+ allocations and freeing caller-owned blocks.
+--
 
-> needs more specific handling than the one provided by panel-simple and
-> the intended compatible was supposed to contain both the display panel
-> name and the driver IC model number.
+commit 2e4e9330a58d876de4c3883a4c7315a7270524e2
+Author: David Gow <david@davidgow.net>
 
-You miss subject prefixes. It is "dt-bindings: dispaly: panel-simple:
-Revert something".
+drm_buddy: fix power-of-2 rounding errs
 
-> 
-> Moreover, the other compatible that didn't make it in the end landed in
-> the Qualcomm tree some time ago, instead of the one this revert
-> removes, so it's not even used.
-> 
-> See the link for reference.
-> 
-> This reverts commit a74c2e55ab66519ffa2069ac9ae83cd937bff4c4.
-> 
-> Link: https://lore.kernel.org/all/20260614-judyln-panel-v3-2-07f4134441bd@postmarketos.org/
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> ---
-> Paul, please resubmit your bindings patch with the proper compatible
-> and let's get it merged.
+This commit replaces roundup_pow_of_two and rounddown_pow_of_two macros
+with 64-bit safe ilog2 equivalents in the buddy allocator to fix
+truncation of 64-bit values on 32-bit architectures.
 
-lg,sw49410 is already used, so instead new binding should be posted
-moving this one from panel-simple.  Revert does not solve anything -
-changes one warning into other one.
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index 26e7a48b55f33..964a5ae78f1be 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
 
-Best regards,
-Krzysztof
+[ ... ]
 
+> @@ -1435,7 +1435,7 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+> =20
+>  	/* Roundup the size to power of 2 */
+>  	if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) {
+> -		size =3D roundup_pow_of_two(size);
+> +		size =3D 1ULL << (ilog2(size - 1) + 1);
+>  		min_block_size =3D size;
+>  		/*
+>  		 * Normalize the requested size to min_block_size for regular allocati=
+ons.
+
+[Severity: High]
+This is a pre-existing issue, but does the is_power_of_2() macro still
+silently truncate 64-bit sizes on 32-bit platforms, undermining this fix?
+
+Earlier in gpu_buddy_alloc_blocks() there is a validation check:
+
+    if (!is_power_of_2(min_block_size))
+        return -EINVAL;
+
+If min_block_size is a 64-bit value > 4GB, the unsigned long argument
+silently truncates the upper 32 bits on 32-bit architectures. For example,
+0x100000000 (4GB) truncates to 0 (failing the check), and 0x100001000
+(4GB + 4KB) truncates to 4KB (falsely passing the check).
+
+Similarly, gpu_buddy_can_offset_align() does this:
+
+    return size < min_block_size && is_power_of_2(size);
+
+Can this lead to allocation failures or memory corruption because buddy
+alignment constraints are bypassed?
+
+[Severity: High]
+This is a pre-existing issue, but does __alloc_contig_try_harder() break li=
+st
+contracts and cause a memory leak when used as a fallback here?
+
+Later in gpu_buddy_alloc_blocks() during a fragmented allocation loop:
+
+    if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION &&
+        !(flags & GPU_BUDDY_RANGE_ALLOCATION))
+            return __alloc_contig_try_harder(mm,
+                                             original_size,
+                                             original_min_size,
+                                             blocks);
+
+If the loop partially succeeded before falling back, the blocks in the local
+allocated list are never freed or spliced, causing a permanent memory leak.
+
+Additionally, the fallback function is passed the caller's blocks list
+directly instead of the local list. If it fails internally, it calls:
+
+    gpu_buddy_free_list_internal(mm, blocks);
+
+Doesn't this unconditionally empty the caller's entire list, destroying
+any pre-existing blocks the caller might have had before calling
+gpu_buddy_alloc_blocks()?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913084907.5208=
+77-2-david@davidgow.net?part=3D1
