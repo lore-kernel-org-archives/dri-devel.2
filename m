@@ -4,52 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C82DC88E40
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 06:31:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8251C88E56
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 06:31:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1271D10E830;
-	Sun, 13 Sep 2026 06:31:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 256B410E833;
+	Sun, 13 Sep 2026 06:31:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=minlexx.ru header.i=@minlexx.ru header.b="hor6mrqL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WnX6kLpE";
 	dkim-atps=neutral
-Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9035410E830
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 06:31:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru; 
- s=dkim;
- h=Cc:To:In-Reply-To:References:Message-Id:Content-Transfer-Encoding:
- Content-Type:MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=oZUBFJ8W3GLiJA6VWdpiMxHT4YD7XQYQBRfZWELdMIQ=; b=hor6mrqLAwcCVqHHEsBHNHX0dI
- kUUaiJcqOP7Y4TNNgkjnvauuMj2E4sa/HhnS4F0ac3HEAPxoVMDs4gECNofwIxm68T91p3DsAkfGH
- SsarMuq2+8b8nAyNKVVkj6PdAa0ePmpIVBA7dAtfGs5xBz8E5768OP7RuXMWpdptZdAM=;
-Received: by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls
- TLS_AES_256_GCM_SHA384 (envelope-from <alexeymin@minlexx.ru>)
- id 1x5cuN-0000000Dxg1-0eRe; Sun, 13 Sep 2026 08:37:44 +0300
-From: Alexey Minnekhanov <alexeymin@minlexx.ru>
-Date: Sun, 13 Sep 2026 08:36:41 +0300
-Subject: [PATCH 9/9] MAINTAINERS: Add Alexey Minnekhanov as maintainer for
- NT36672A panel
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-nt36672a-panels-v1-9-ce097402c6ea@minlexx.ru>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EED410E832
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 06:31:03 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9EC1560AB1;
+ Sun, 13 Sep 2026 06:31:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BEC71F000FF;
+ Sun, 13 Sep 2026 06:31:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789281062;
+ bh=7i/oFh4h/tpmmXPumfzT59n1pQpIo8OisQguARBrfVM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=WnX6kLpEAQWdFIGcT8WzhS+U0kg2n9t+cue28m3Vym9rs7badvu0BC1KI3ln4uWCH
+ nHjt7p4zkYnmqAADzcsHJgcm7BYYqfLrksREboiy0SR8Rhcj7xCUM4E0Bub0RlMQKN
+ xw1RqdIYlHlOBTJayjhAnaa6829TIZ4UBTH/aKj9gG8fCes5x7Texzeu2qqzbo5aTs
+ wLwBEJcFlpznaa8LYb4QlgA671W6bU2OjX7QgQpDLLo2985vfQMu/RgztBjrd2EDLn
+ x/cDc8JaLv/Hb0nF1St+1GWhJZFtFG0GlM1lhaclKA6BdXbimuh7ZT80TX9ngIHzYL
+ 9wIwLq43RWolQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 7/9] drm/panel: novatek-nt36672a: Add Tianma panel for
+ Xiaomi Mi A2
+To: "Alexey Minnekhanov" <alexeymin@minlexx.ru>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260913-nt36672a-panels-v1-7-ce097402c6ea@minlexx.ru>
 References: <20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru>
-In-Reply-To: <20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>, 
- Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- phone-devel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>
-X-Mailer: b4 0.16.0
+ <20260913-nt36672a-panels-v1-7-ce097402c6ea@minlexx.ru>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 13 Sep 2026 06:31:01 +0000
+Message-Id: <20260913063102.0BEC71F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,30 +55,54 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-List myself as maintainer of Novatek NT36672A panels driver
-to keep a close eye on it.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Direct use of `usleep_range` instead of `mipi_dsi_usleep_range` byp=
+asses multi-context error tracking.
+--
 
-Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
----
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+commit 883b76cff93d823c9430acc0b7cfca0a77f61ed2
+Author: Alexey Minnekhanov <alexeymin@minlexx.ru>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 207a6e2db70c8..8a91d04447405 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8400,6 +8400,7 @@ F:	drivers/gpu/drm/panel/panel-novatek-nt36532.c
- 
- DRM DRIVER FOR NOVATEK NT36672A PANELS
- M:	Sumit Semwal <sumit.semwal@linaro.org>
-+M:	Alexey Minnekhanov <alexeymin@minlexx.ru>
- S:	Maintained
- T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
+drm/panel: novatek-nt36672a: Add Tianma panel for Xiaomi Mi A2
 
--- 
-2.55.0
+Add support for Tianma TL060FVXS16-00 video mode panel based on
+Novatek NT36672A, used in Xiaomi Mi A2 smartphone (xiaomi-jasmine).
+It shares some code with already supported panel in this driver
+for xiaomi-lavender, so we can reuse the same panel deinit function.
 
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu=
+/drm/panel/panel-novatek-nt36672a.c
+> index e6971ba6ef464..1bfa808365874 100644
+> --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> @@ -445,6 +445,29 @@ static void lavender_tulip_deinit_cmds(struct mipi_d=
+si_multi_context *dsi_ctx)
+>  	mipi_dsi_msleep(dsi_ctx, 120);
+>  }
+> =20
+> +static void tianma_jasmine_init_cmds(struct mipi_dsi_multi_context *dsi_=
+ctx)
+> +{
+[ ... ]
+> +	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
+> +	usleep_range(5000, 6000);
+
+[Severity: Low]
+Is it intentional to use usleep_range() here instead of mipi_dsi_usleep_ran=
+ge()?
+
+Using usleep_range() directly bypasses the multi-context error tracking in
+tianma_jasmine_init_cmds(). This causes the unconditional 5-6ms sleep to
+execute even if previous DSI commands have failed and set dsi_ctx->accum_er=
+r.
+
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913-nt36672a-p=
+anels-v1-0-ce097402c6ea@minlexx.ru?part=3D7
