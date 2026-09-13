@@ -4,82 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53FBFC88E56
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 08:58:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D56E3C88E56
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 09:02:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D4BF10E0B5;
-	Sun, 13 Sep 2026 08:58:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E483710E05B;
+	Sun, 13 Sep 2026 09:02:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="guLF2s8U";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SqGlnhW5";
 	dkim-atps=neutral
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com
- [74.125.227.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8321C10E0B5
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 08:58:27 +0000 (UTC)
-Received: by mail-pj2-f13.google.com with SMTP id
- d9443c01a7336-2d747ed9866so13322595ad.2
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 01:58:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789289907; x=1789894707; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=g12Q/omnE3PC2Amf1XAPg7bzaI1F+/7aB6gxdSUP4b8=;
- b=guLF2s8UD51XQJllZPgzeT2j6mUXOwoKUo6UZsDhAz7DjeqUql5qKd8J34S7SrqAPM
- m5tAR2xvNf7HIoYShLfyrSblkl4rRnYTii7qMo3Tbexx72v7mEKDCXmd4ArcYXy1N5nE
- mmgiL2es7822HyBkua/vhVKear0em0RqOzB2bS9GJhwX08d/4spFV/cN+LempijSFXS4
- 5uMnVLsk0hrXmKB4NoMuZs63qjQvSJPYGbAVuE94v/4eTBuRpk1VuOaAQQhITphx/+oX
- jMaeq9ZeTDyxPq/wAPpKXUGqArdqtluTnKdmm8ogor9NyUhBqYbDPRQ0c+QpDtpDl+ga
- T9Ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789289907; x=1789894707;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=g12Q/omnE3PC2Amf1XAPg7bzaI1F+/7aB6gxdSUP4b8=;
- b=ZqXecUv97wdkXAFi6MLs6dT9qjpo4vvUqdrXohIhtlGhQ1s+nI901DcGpwfUGlICt+
- AwVlfe1GjUwXwaqdEEghbQutrSnW5cE/a/6WDc0Dv63C9bgL4WwgkMuhbnknhPFGOSh/
- 2qaKRnFAkxrWOamL5I1OF0lCanORcT79lWLLPF6B03baSmWXIT8/rbJgvN1q5KPOVAYB
- 4o/86udYgeUUbbElWbpjnbe2dIMRkpkBNwo76Xx/SxbL9QrecCdNNxvpLa6n4RuZAbNJ
- 4lXim08A8k2A5WaWvjHc7j8USN6UXAfMUrTCVxgwdrQ56Oz+GMwLo6BOVcKlc/kycuBa
- XfFQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwnSGodE0DOi7+1VxOkYahc1p8As1hAzjr/4Z3Cvsr+1BYXgzXmy+TDWWqYTWm3Mozob0YeVI28KaM=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mhoz3EdPDiPlF0jMPivc4dGCqF72ice3UirSa1QxmfhgntBNa/
- QAPahNamPWpju88GCG3Pdq1B5vCHtviDhp3B71bkElhaxsRemKxyVxbz
-X-Gm-Gg: AYBFou2HLKZ/yS+zbsX1/tKiW03KMjtI6Pnbf9W/bOx6OCRXNIe8u5aa9apqgmXvMW7
- on0cwTaEDNhoYML9FSTyglTNWS+W+h1HUtKP7luQQdpOp0pxOIdtC7ZVHeCRABeuyVgjAH/lgqj
- Pvc1JFsUH3XevTKRBM6wnIy8q+9DATmwMjJA1tCZOuZ6a6Bbqz1TdGM7HNHSY6FXWau0Z7/riZq
- 2SGBH37beOaO/Z4jbS1Of/GKn6qTFSE5L2wBdN/DsGhzqau8YEO4frZQGHeoJgVaAO5y5deuFTU
- WHYJQOIGPzr957PBlcZIq4TB53crZPczPfwApcwICxnpJyP6eHh7ubFA+0rwMY0fAv+Q0PkPCNp
- xAMa7y05d6OaHimIk66nSS6HHbMloYkmpB121wCJQynfJxTX/pTkriJA7ZWnUFf0rvvxbdgfLXd
- 8EZ9MBCK6zTBzwuMLNIzWuqV1B707DgSffq0IR9U6tvcWN8Pb9yvUDC3lO4KqGF+OU
-X-Received: by 2002:a17:902:db0e:b0:2da:dcd8:713d with SMTP id
- d9443c01a7336-2dd2a34f6e6mr211164165ad.15.1789289907022; 
- Sun, 13 Sep 2026 01:58:27 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2dd48ae3cacsm17494875ad.26.2026.09.13.01.58.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Sep 2026 01:58:26 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Guangshuo Li <lgs201920130244@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Archit Taneja <architt@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] drm/msm/hdmi_phy: fix runtime PM cleanup on probe failure
-Date: Sun, 13 Sep 2026 16:58:14 +0800
-Message-ID: <20260913085814.1509352-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A34B10E0B8
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 09:02:18 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8861460DBB;
+ Sun, 13 Sep 2026 09:02:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989E31F00893;
+ Sun, 13 Sep 2026 09:02:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789290137;
+ bh=+QgNccPks/y5EiUIaW30j5t0+tXeWFsnPvbGtZbENV8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=SqGlnhW5et2E74vIhmPM8wAsQ3mBbGzl12yVa0lpWYSM03XO26ERPdeYvcg4C6u51
+ DBzPjVne51Rj21eL3qrVxlGUSVakh9ozHXr2ndeW3jhglB5g/4QihRIlJc9zAf+Ioe
+ RynUuR9tn9INyJgpv4khUwMb+1IjaT9ZImnnJn5vmlUK2QFvuN+hyx3XxMgQwZKjOg
+ YQD1VyQmey39ZN3r3yGQGRr9eC/JQt2boly6YoAgai1OpGyGifuOmS3SLwgzPFr6KT
+ IWKwqnulOD99EgD1jbF4FO20ZJlDTUqF/5CbXuYi9A91zoKoPg8VJLzWjBTQ8aCutb
+ Nfw6IPfTUF8HQ==
+Date: Sun, 13 Sep 2026 11:02:14 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Paul Sajna <sajattack@postmarketos.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
+ dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH] Revert "dt-bindings: display: panel: panel-simple: Add
+ lg,sw49410 compatible"
+Message-ID: <20260913-succinct-spiffy-chimera-32b06b@quoll>
+References: <20260911-topic-lg_sw49410_revert-v1-1-c9385a9e1926@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260911-topic-lg_sw49410_revert-v1-1-c9385a9e1926@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,57 +67,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-msm_hdmi_phy_probe() enables runtime PM before enabling the PHY
-resources and initializing the PLL, but failures from either operation
-return without calling the matching pm_runtime_disable().
+On Fri, Sep 11, 2026 at 09:36:48AM +0200, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> This patch had been applied before the review has concluded. The panel
 
-The remove path disables runtime PM, but it is not called when probe
-fails. As a result, runtime PM remains enabled after an unsuccessful
-probe.
+"Commit foo bar had been applied..."
 
-Route failures after pm_runtime_enable() through a common error path
-and disable runtime PM before returning.
+> needs more specific handling than the one provided by panel-simple and
+> the intended compatible was supposed to contain both the display panel
+> name and the driver IC model number.
 
-This issue was found by manual code inspection.
+You miss subject prefixes. It is "dt-bindings: dispaly: panel-simple:
+Revert something".
 
-Fixes: 15b4a4523859 ("drm/msm/hdmi: Create a separate HDMI PHY driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/gpu/drm/msm/hdmi/hdmi_phy.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+> 
+> Moreover, the other compatible that didn't make it in the end landed in
+> the Qualcomm tree some time ago, instead of the one this revert
+> removes, so it's not even used.
+> 
+> See the link for reference.
+> 
+> This reverts commit a74c2e55ab66519ffa2069ac9ae83cd937bff4c4.
+> 
+> Link: https://lore.kernel.org/all/20260614-judyln-panel-v3-2-07f4134441bd@postmarketos.org/
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+> Paul, please resubmit your bindings patch with the proper compatible
+> and let's get it merged.
 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-index eb1088755cb3..77dce35cd45e 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-@@ -168,13 +168,13 @@ static int msm_hdmi_phy_probe(struct platform_device *pdev)
- 
- 	ret = msm_hdmi_phy_resource_enable(phy);
- 	if (ret)
--		return ret;
-+		goto err_pm_disable;
- 
- 	ret = msm_hdmi_phy_pll_init(pdev, phy->cfg->type);
- 	if (ret) {
- 		DRM_DEV_ERROR(dev, "couldn't init PLL\n");
- 		msm_hdmi_phy_resource_disable(phy);
--		return ret;
-+		goto err_pm_disable;
- 	}
- 
- 	msm_hdmi_phy_resource_disable(phy);
-@@ -182,6 +182,10 @@ static int msm_hdmi_phy_probe(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, phy);
- 
- 	return 0;
-+
-+err_pm_disable:
-+	pm_runtime_disable(dev);
-+	return ret;
- }
- 
- static void msm_hdmi_phy_remove(struct platform_device *pdev)
--- 
-2.43.0
+lg,sw49410 is already used, so instead new binding should be posted
+moving this one from panel-simple.  Revert does not solve anything -
+changes one warning into other one.
+
+Best regards,
+Krzysztof
 
