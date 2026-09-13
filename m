@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7DF1C88E64
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 12:47:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D88D7C88E66
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 12:52:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23F4A10E0E9;
-	Sun, 13 Sep 2026 12:47:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4201810E0A4;
+	Sun, 13 Sep 2026 12:52:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="LTOkUEev";
+	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="R+j+ZiDC";
 	dkim-atps=neutral
 Received: from ixit.cz (ixit.cz [84.42.129.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35CBD10E0E9
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 12:47:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC86B10E0A4
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 12:52:32 +0000 (UTC)
 Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown
  [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id EACF9534020C;
- Sun, 13 Sep 2026 14:47:23 +0200 (CEST)
+ key-exchange x25519) (No client certificate requested)
+ by ixit.cz (Postfix) with ESMTPSA id BF1495340279;
+ Sun, 13 Sep 2026 14:52:30 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1789303644;
+ t=1789303950;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=4O4ttVM3pEusyMizBao1PUVjU9/8vfUkTOlWV89M7EI=;
- b=LTOkUEevuyRA0BsJpSAj8qnCX6905DkILnX4dx/4BmMuSW//v8aP6fPj6qjEfxWGvyiFCJ
- sjA+581jPlSrDJfbdYxC+YcxDNE7XBsKDbjh3cANek87yuP2wVDZ0tA3OqILhbvssbX+4s
- zL8dCV0zshRo0a2+rxoLsQvNi0hyW7I=
-Message-ID: <757d826a-739c-42f5-9671-9348a1480951@ixit.cz>
-Date: Sun, 13 Sep 2026 14:47:23 +0200
+ bh=RFO/qO8DMU5sWYee6PLwf++zga6gDrDBoQRd392f1k8=;
+ b=R+j+ZiDCd20E9PC3XVHDe9TzQAyaWAOqntP50dZEyMWfV5mHsUsGET6AKKC3GxMUyopP7t
+ S7gIpCERFUIpcnQ3oeYfqWc2mWYhy020zo1cmTkkwB4Irthhu9cA/WMVzUSZXtnlyg52xT
+ JiR2VtQuJYeO/OC7swS3dVmGO8KWQgk=
+Message-ID: <9ace4ebe-7955-4735-8814-4323c1fc89cc@ixit.cz>
+Date: Sun, 13 Sep 2026 14:52:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 8/9] drm/panel: novatek-nt36672a: Add panel for Asus
- Zenfone Max Pro M1
+Subject: Re: [PATCH 4/9] drm/panel: novatek-nt36672a: Set driver name to
+ novatek for consistency
 To: Alexey Minnekhanov <alexeymin@minlexx.ru>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
  <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
@@ -49,9 +48,9 @@ To: Alexey Minnekhanov <alexeymin@minlexx.ru>, Rob Herring <robh@kernel.org>,
 Cc: Joel Selvaraj <foss@joelselvaraj.com>,
  Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- phone-devel@vger.kernel.org, iAboothahir <aboothahirpkd@gmail.com>
+ phone-devel@vger.kernel.org
 References: <20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru>
- <20260913-nt36672a-panels-v1-8-ce097402c6ea@minlexx.ru>
+ <20260913-nt36672a-panels-v1-4-ce097402c6ea@minlexx.ru>
 Content-Language: en-US, cs-CZ
 From: David Heidelberg <david@ixit.cz>
 Autocrypt: addr=david@ixit.cz; keydata=
@@ -97,7 +96,7 @@ Autocrypt: addr=david@ixit.cz; keydata=
  zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
  fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
  ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
-In-Reply-To: <20260913-nt36672a-panels-v1-8-ce097402c6ea@minlexx.ru>
+In-Reply-To: <20260913-nt36672a-panels-v1-4-ce097402c6ea@minlexx.ru>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -116,37 +115,18 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 13/09/2026 07:36, Alexey Minnekhanov wrote:
-> Add support for TXD TXDI600YANPA-43V3 video mode panel based on
-> Novatek NT36672A, used in Asus Zenfone Max Pro M1 smartphone
-> (asus-x00td).
+> Since this driver should represent not only devices manufactured by
+> Tianma Micro-electronics, but also from other companies, it makes more
+> sense to name it according to what driver file name already is: novatek.
 > 
-> Co-developed-by: iAboothahir<aboothahirpkd@gmail.com>
-> Signed-off-by: iAboothahir<aboothahirpkd@gmail.com>
-> Signed-off-by: Alexey Minnekhanov<alexeymin@minlexx.ru>
+> This does not change neither module file name nor Kconfig symbol, only
+> driver identification in dmesg. This makes it possible to e.g. grep
+> dmesg for "novatek" and get messages from both nt36672a-based panel and
+> Novatek touchscreen.
+> 
+> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
 > ---
->   drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 281 +++++++++++++++++++++++++
->   1 file changed, 281 insertions(+)
+>   drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-> index 1bfa808365874..954ab24c9d00a 100644
-> --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-> @@ -468,6 +468,252 @@ static void tianma_jasmine_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
->   	usleep_range(5000, 6000);
->   }
->   
-> +static void txd_x00td_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
-> +{
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x20);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-
-Just for a start,
-
-0xff -> CMD2_P0, datasheet page 6
-
-0xfb -> Set non-reload MTP commad, page 12
-
-This driver has amazing datasheet, so the driver could look like a real driver 
-instead of dump of the register sequence :)
-
-David
+Reviewed-by: David Heidelberg <david@ixit.cz>
