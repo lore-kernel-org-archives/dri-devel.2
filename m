@@ -4,72 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AF9CC88E5C
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 23:34:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1304C88E5C
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 23:38:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45F4810EA61;
-	Sun, 13 Sep 2026 23:34:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6BAA10E343;
+	Sun, 13 Sep 2026 23:38:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DIuwo+91";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H9jOcCnB";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BF7210EA61
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 23:34:00 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5547C10E343
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 23:38:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1373B61028
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 23:33:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81F431F0089F
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 23:33:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 00D9A43972;
+ Sun, 13 Sep 2026 23:38:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7C2C1F000FF;
+ Sun, 13 Sep 2026 23:38:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789342438;
- bh=zng3/lheQcHYHRf6apSQbhsdybFIgxHykd4cCeRSALs=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=DIuwo+91E9j6P8gcffxeTWibtVYK84E/K0zWh6s/Yed5HdTiBGh4yJD4g8Yy7YMzp
- Zmb9UrM8SFiukhfEjKlqn74cChv71bxCDBhiCj/l/UQfge2Dm3qkgzsFbSGyqVSqpp
- Udm+lm2P+eabpV3YMbxtjsRr06pb7oVPf73ngoGqP6jy/KVGDLhpFrdPO/yuSXNhqF
- P/mNOKNoJ2KD2X8EoD31TZAHK6RsTWpDJuSUh375d6tPe7PrV/jmdpTbTzJGdzxjb1
- iEp1c93xdl5nZIFDK9qu4pTXYFgqdfiS/ApZ0qsmVcVZZzCDaVwmiBwLQzxdIQXZR+
- f0lsIW/5EvTVw==
-Received: by mail-lf2-f12.google.com with SMTP id
- 2adb3069b0e04-5b7be8dbabfso1018361e87.2
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 16:33:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBzFHNmQ9rQnkD5/3pyAirPd4kKq3LicUSJzYshrbgdj3vfko1BrlfYw6dtdbbde9fG0O0ybAS0s9/4=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kuDULOTAg9b/vvcXMZeRjoMCfVfwfJfG3ITNv6rc2+grecxwI8
- xtXtwmbCiolb+tZSRnd4iAeyhy74tIs/cn4bNsWOHIwOsP0tNmoKLUhaotgCJBSQPhRJPwabsw5
- ysMu50puXygX+ij+AsvSNMObvnVJrqIc=
-X-Received: by 2002:a05:6512:2204:b0:5b8:9a2d:38d with SMTP id
- 2adb3069b0e04-5b8ae8a73aemr7507e87.56.1789342437102; Sun, 13 Sep 2026
- 16:33:57 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260727-drm-simple-kms-removal-v3-0-cd5dc89858c6@oss.qualcomm.com>
- <20260727-drm-simple-kms-removal-v3-4-cd5dc89858c6@oss.qualcomm.com>
-In-Reply-To: <20260727-drm-simple-kms-removal-v3-4-cd5dc89858c6@oss.qualcomm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 14 Sep 2026 01:33:45 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnN-dhwxWwgmWYVD7COhvVsTxbiexHwoFkzgv8ucGhxqw@mail.gmail.com>
-X-Gm-Features: AcwNN1XTt4ClabPMabRSeCfNHr3d8Y53WJSzGM-8HBGT1SAK6TVjQKD-jMPJbKA
-Message-ID: <CAD++jLnN-dhwxWwgmWYVD7COhvVsTxbiexHwoFkzgv8ucGhxqw@mail.gmail.com>
-Subject: Re: [PATCH v3 4/8] drm/pl111: replace struct drm_simple_display_pipe
- with regular atomic helpers
-To: Ze Huang <ze.huang@oss.qualcomm.com>
-Cc: Alexey Brodkin <abrodkin@synopsys.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, Alex Lanzano <lanzano.alex@gmail.com>, 
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-aspeed@lists.ozlabs.org, 
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
- xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
+ s=k20260515; t=1789342723;
+ bh=Z9ofMVE+Mb6inv/8TcNJc3FIs/P7U2fWQrD7C4n/uNI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=H9jOcCnBM+XFHc5xMz+52LLNSzU1ty/KJ9EX3iJ7t6ZgXOUJhxisF+VtdTVfWI/bO
+ 43MLCQwGYxXfzkW/WP3IaPm9Rkob8bUJpPrrIVfKzXFgJCcr1KhT1rx0/57GcmRe5r
+ Yu561m0xLDv5e7dhU1IpxEUQb4L6UOG6M4nRk7aVg7gNzidsoNbBYw17z+bNfMWc/2
+ /7CfxMprpzYvQOafcQhoWXTxVkQbucQ5XSLMLAAMbymrAJMsWPtAF3fntseI4gdnfz
+ uBwU6KTjortpupalBq03e4+S/73NlHzEiVupOJBAk96YME1zG2XeuKIGmY2HGMsBqa
+ uNQLXLATzZ3yA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/msm/mdp5: drop cursor pipe for msm8x76
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260914-mdp5-fix-cursor-v1-1-9fba3ace6cb9@oss.qualcomm.com>
+References: <20260914-mdp5-fix-cursor-v1-1-9fba3ace6cb9@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Sun, 13 Sep 2026 23:38:43 +0000
+Message-Id: <20260913233843.B7C2C1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,24 +52,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Jul 26, 2026 at 9:46=E2=80=AFPM Ze Huang <ze.huang@oss.qualcomm.com=
-> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Missing `flush_hw_mask` update when converting to legacy LM cursor=
+ breaks cursor updates.
+--
 
-> Replace the PL111 simple display pipe with explicit plane, CRTC and
-> encoder objects.
->
-> Move the existing timing, format and pitch validation into explicit
-> atomic check paths. Use commit-local plane state in the CRTC enable path
-> when reading framebuffer format state.
->
-> Move page-flip event handling to the CRTC commit path.
->
-> Signed-off-by: Ze Huang <ze.huang@oss.qualcomm.com>
+commit e1dbf3d7b78aa6bf44fff588ff9b069eceea7f6b
+Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-This patch 4/8 applied for next.
+drm/msm/mdp5: drop cursor pipe for msm8x76
 
-Yours,
-Linus Walleij
+This commit removes the separate cursor plane configuration for MSM8976/56
+platforms. It drops the erroneously added pipe configuration to let the LM
+block provide a legacy cursor instead.
+
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/m=
+sm/disp/mdp5/mdp5_cfg.c
+> index 7c91fc1915f39..389d74ff75163 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+> @@ -698,15 +698,6 @@ static const struct mdp5_cfg_hw msm8x76_config =3D {
+>  			MDP_PIPE_CAP_SW_PIX_EXT	|
+>  			0,
+>  	},
+> -	.pipe_cursor =3D {
+> -		.count =3D 1,
+> -		.base =3D { 0x440DC },
+> -		.caps =3D MDP_PIPE_CAP_HFLIP	|
+> -			MDP_PIPE_CAP_VFLIP	|
+> -			MDP_PIPE_CAP_SW_PIX_EXT	|
+> -			MDP_PIPE_CAP_CURSOR	|
+> -			0,
+> -	},
+
+[Severity: High]
+Since this drops the cursor pipe to rely on the legacy LM cursor, does the
+ctl.flush_hw_mask in msm8x76_config also need to be updated?
+
+Currently, flush_hw_mask is set to 0xffffffff for this platform. When
+standalone cursor updates use MDP5_CTL_FLUSH_CURSOR_0, fix_sw_flush() in
+mdp5_ctl.c translates this to an LM flush for legacy cursors. However, this
+fallback is only triggered if BIT_NEEDS_SW_FIX() determines the cursor flush
+bit is excluded from the platform's flush_hw_mask.
+
+Because the cursor bit is still included in the 0xffffffff mask, the
+software fix evaluates to false. This prevents the LM from being flushed
+and sends a hardware flush for a non-existent cursor block, which can
+cause the cursor to lag or freeze during standalone updates.
+
+Should flush_hw_mask be updated to exclude the cursor flush bits (for
+example, 0xffffffff & ~MDP5_CTL_FLUSH_CURSOR_0)?
+
+>  	.lm =3D {
+>  		.count =3D 2,
+>  		.base =3D { 0x44000, 0x45000 },
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-mdp5-fix-c=
+ursor-v1-1-9fba3ace6cb9@oss.qualcomm.com?part=3D1
