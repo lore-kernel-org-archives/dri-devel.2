@@ -4,101 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D88D7C88E66
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 12:52:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17FA2C88E65
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 13:05:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4201810E0A4;
-	Sun, 13 Sep 2026 12:52:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D508B10E0C6;
+	Sun, 13 Sep 2026 13:05:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="R+j+ZiDC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CsziB+oH";
 	dkim-atps=neutral
-Received: from ixit.cz (ixit.cz [84.42.129.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC86B10E0A4
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 12:52:32 +0000 (UTC)
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown
- [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519) (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id BF1495340279;
- Sun, 13 Sep 2026 14:52:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1789303950;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=RFO/qO8DMU5sWYee6PLwf++zga6gDrDBoQRd392f1k8=;
- b=R+j+ZiDCd20E9PC3XVHDe9TzQAyaWAOqntP50dZEyMWfV5mHsUsGET6AKKC3GxMUyopP7t
- S7gIpCERFUIpcnQ3oeYfqWc2mWYhy020zo1cmTkkwB4Irthhu9cA/WMVzUSZXtnlyg52xT
- JiR2VtQuJYeO/OC7swS3dVmGO8KWQgk=
-Message-ID: <9ace4ebe-7955-4735-8814-4323c1fc89cc@ixit.cz>
-Date: Sun, 13 Sep 2026 14:52:30 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/9] drm/panel: novatek-nt36672a: Set driver name to
- novatek for consistency
-To: Alexey Minnekhanov <alexeymin@minlexx.ru>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Joel Selvaraj <foss@joelselvaraj.com>,
- Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- phone-devel@vger.kernel.org
-References: <20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru>
- <20260913-nt36672a-panels-v1-4-ce097402c6ea@minlexx.ru>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260913-nt36672a-panels-v1-4-ce097402c6ea@minlexx.ru>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C303F10E0C6
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 13:04:59 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id A17E260E10;
+ Sun, 13 Sep 2026 13:04:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 392841F000FF;
+ Sun, 13 Sep 2026 13:04:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789304698;
+ bh=BTDGLo/tFp2qEImBl70MTVA6q2y9+dEH/9A/NQ/bDG8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=CsziB+oHTERTUEghml1dNOs7G+sB8nq0a3wChCqSZZp0kBfmRzstTfpGRdoXObsd8
+ BiinQdnWRaFYChz1s6pDt5usnSyRtyuaO0hDUYYww9ufAtUOVrD3Ghj6DRKDy2VFlM
+ uHenl+430Z/9442Vljv649Pu2QYRr+ll7YMADTPzuR6/TSonybvtovdLdSnQBmxOo3
+ 6QKwH9kjo/UDK7GpjeTR99aa1nrdsWQydjdmsCCd4TsFZ5OjaO6lzBl0004kggsFcP
+ MUsn8k1xnv/q01OUj+li//m3FUnin/p407lUcxawgHC2rtL8duCqxYHI8h5eMmKsdk
+ Cae6ZnDVdpNcQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] gpu: host1x: skip trace payloads after mapping failure
+To: "Slavin Liu" <bolin.liu@seu.edu.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260913125128.109827-1-bolin.liu@seu.edu.cn>
+References: <20260913125128.109827-1-bolin.liu@seu.edu.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 13 Sep 2026 13:04:57 +0000
+Message-Id: <20260913130458.392841F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,22 +52,122 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 13/09/2026 07:36, Alexey Minnekhanov wrote:
-> Since this driver should represent not only devices manufactured by
-> Tianma Micro-electronics, but also from other companies, it makes more
-> sense to name it according to what driver file name already is: novatek.
-> 
-> This does not change neither module file name nor Kconfig symbol, only
-> driver identification in dmesg. This makes it possible to e.g. grep
-> dmesg for "novatek" and get messages from both nt36672a-based panel and
-> Novatek touchscreen.
-> 
-> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
-> ---
->   drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-Reviewed-by: David Heidelberg <david@ixit.cz>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+
+Pre-existing issues:
+- [High] In `trace_write_gather()`, the `offset` variable incorrectly accum=
+ulates quadratically on each loop iteration, leading to an out-of-bounds re=
+ad when tracing gathers larger than `TRACE_MAX_LENGTH`.
+- [High] The patch fixes an ERR_PTR dereference for `host1x_bo_mmap()` in `=
+trace_write_gather()`, but fails to fix identical vulnerabilities in three =
+other call sites within the host1x subsystem.
+--
+
+commit 670e4c9b37822e7d842f4b22310017b4bf9a72f2
+Author: Slavin Liu <bolin.liu@seu.edu.cn>
+
+gpu: host1x: skip trace payloads after mapping failure
+
+This patch updates the return check of host1x_bo_mmap() in trace_write_gath=
+er()
+to use IS_ERR_OR_NULL instead of a simple NULL check. It avoids dereferenci=
+ng
+an ERR_PTR mapping when the original buffer mapping fails. While reviewing =
+this
+fix, I noticed some pre-existing issues in the same function and in other
+callers of host1x_bo_mmap().
+
+> diff --git a/drivers/gpu/host1x/hw/channel_hw.c b/drivers/gpu/host1x/hw/c=
+hannel_hw.c
+> index d44b8de890be0..e00f257710bdd 100644
+> --- a/drivers/gpu/host1x/hw/channel_hw.c
+> +++ b/drivers/gpu/host1x/hw/channel_hw.c
+> @@ -27,7 +27,7 @@ static void trace_write_gather(struct host1x_cdma *cdma=
+, struct host1x_bo *bo,
+>  	if (host1x_debug_trace_cmdbuf)
+>  		mem =3D host1x_bo_mmap(bo);
+> =20
+> -	if (mem) {
+> +	if (!IS_ERR_OR_NULL(mem)) {
+>  		u32 i;
+>  		/*
+>  		 * Write in batches of 128 as there seems to be a limit
+
+[Severity: High]
+This is a pre-existing issue, but does the loop inside this block incorrect=
+ly
+accumulate the running loop index into the base offset?
+
+In trace_write_gather():
+
+		for (i =3D 0; i < words; i +=3D TRACE_MAX_LENGTH) {
+			u32 num_words =3D min(words - i, TRACE_MAX_LENGTH);
+
+			offset +=3D i * sizeof(u32);
+
+Because i increases linearly on each iteration (0, 128, 256...), adding it
+directly to offset in-place causes the offset to grow quadratically. If
+words exceeds TRACE_MAX_LENGTH (128 words), could this overshoot the bounds
+of the mapped buffer mem and lead to an out-of-bounds read in the ftrace
+callback?
+
+While this patch fixes the ERR_PTR dereference for host1x_bo_mmap() in
+trace_write_gather(), it looks like there are similar pre-existing
+vulnerabilities in three other call sites within the host1x subsystem.
+
+In drivers/gpu/host1x/job.c:do_relocs():
+
+		if (!cmdbuf_addr) {
+			cmdbuf_addr =3D host1x_bo_mmap(cmdbuf);
+
+			if (unlikely(!cmdbuf_addr)) {
+				pr_err("Could not map cmdbuf for relocation\n");
+				return -ENOMEM;
+			}
+		}
+
+		target =3D cmdbuf_addr + reloc->cmdbuf.offset;
+
+[Severity: High]
+This is a pre-existing issue, but since host1x_bo_mmap() can return an ERR_=
+PTR
+on failure, will this NULL check allow an ERR_PTR to bypass the check and be
+used as the base pointer for a relocation write?
+
+In drivers/gpu/host1x/job.c:copy_gathers():
+
+		/* Copy the gather */
+		gather =3D host1x_bo_mmap(g->bo);
+		memcpy(job->gather_copy_mapped + offset, gather + g->offset,
+		       g->words * sizeof(u32));
+
+[Severity: High]
+This is a pre-existing issue, but could the lack of error checking here cau=
+se
+memcpy() to directly dereference an ERR_PTR if the mapping fails?
+
+In drivers/gpu/host1x/hw/debug_hw.c:show_channel_gathers():
+
+			if (job->gather_copy_mapped)
+				mapped =3D (u32 *)job->gather_copy_mapped;
+			else
+				mapped =3D host1x_bo_mmap(g->bo);
+
+			if (!mapped) {
+				host1x_debug_output(o, "[could not mmap]\n");
+				continue;
+			}
+
+[Severity: High]
+This is a pre-existing issue, but might this NULL check fail to catch an
+ERR_PTR, resulting in an out-of-bounds read when show_gather() dereferences
+the mapped pointer?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913125128.1098=
+27-1-bolin.liu@seu.edu.cn?part=3D1
