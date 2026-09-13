@@ -4,83 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F8FEC88E65
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:54:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABE09C88E5C
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:54:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAED110EA0A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF55A10EA07;
 	Sun, 13 Sep 2026 20:54:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="newOX2Qt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IbAK6XQV";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F7A010E668
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 07:29:50 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-49e6deb520eso3511665e9.0
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 00:29:50 -0700 (PDT)
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
+ [74.125.227.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3271D10E0B9
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 18:38:11 +0000 (UTC)
+Received: by mail-pj2-f12.google.com with SMTP id
+ 98e67ed59e1d1-398beb616f5so487014a91.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 11:38:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789198188; x=1789802988; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=PXc+4SKfKNKk/rs+2uET25nPCHn0nrmdn1gdEMSeqW8=;
- b=newOX2Qt0GWvn8kt16iHhxAAJ22kU2F9R+Ylfpy5KIsh15j6pFtejwS4R3BRaco+T3
- ZpLZ46OOWruGH9tfxoMKl4DfZBaQrAP/UgHng8LOcfK57DGiMDlUFtwe9EI6OQvBeWvZ
- wgFUqcDFQP4dK1115YUgy+dDYbheEbJwxPPJem+bKNbCHdTIQoopIGXwCBU65K8grkKn
- WC7tuGQgZl5X8WnkY3YW53qRXc68ff49skKwqGkuAwxZXGPKiQDV0O1vYAyTjIwnon5/
- A7RySWmwAovKus2zuqMVOb513NhUYl/ZmNSog98o21sL4GKhJrev49ZdT6N3zOR0vrpz
- FZcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789198188; x=1789802988;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1789324691; x=1789929491; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=PXc+4SKfKNKk/rs+2uET25nPCHn0nrmdn1gdEMSeqW8=;
- b=j93kH2tq8Q8Prx0SQCDVPu4/AK4PLiQBKmbRSSVrmy1ItM4Jcr0iFAbWYAhLcLlBXv
- qGBVm+Ply6+SIkvwAthqauJA5f0wOErA5cMo/BDWoujjgfjqZXE9mVDmh+tcUCjBrus/
- HQNxXcEzGwdoM7LfRK0ZmnSO8BhIIrOEqcMzMh127uxkBntDpNi7I9DCQPdYT7d4CnUN
- 5lhEffnGbUu6aHZp7TtqSfxjjvRYXJQ021HdDWlybFDhCqVHKGDkYLcN/VsdRt7TO051
- 5xTNXKG57O0Qy90ehBzdB4lLuEo4fk1emE8CllbPwAlo616hOcZ6pnNjxjiTlY98/m9W
- RR9w==
+ bh=f8egR4dMbs0feNIgyGf2N4bg3BFUD4E92PNKo+p8ClY=;
+ b=IbAK6XQVf6NoXwHF1P7CCh7FogQrYRTTHF+1LBIBJjWcPakgVlwieCs7gm23G9urKB
+ P0s5gpYyu24SPoWUIVK5Uf3p4ZC+UZGPWbOa+U4GXJpjzVMAcq5HLINv+XodHfySU6Hw
+ vc/jB2cxyIwbt/yAujahNiUjxZL/+Mh0X9p9Nl/M2ZbAUPgFUU5fqtgqs+aIB/sF632j
+ CwyYQDIaYfl3R5mfjgWYCiaxAJTo3Rz+LEHUyhohOSCmz6fltZtE3XYWKazrft5Jk6Gt
+ H2XOIOfxS2fGoCtH/PwQT4RZVozP298kJXoj6XfQPA4gjI1rS+N+lH71XJR/x6kRoXr/
+ CXCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789324691; x=1789929491;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=f8egR4dMbs0feNIgyGf2N4bg3BFUD4E92PNKo+p8ClY=;
+ b=S7x6Xo3MHvI9cUBKtJBu3/dResx9MhmXnscNo3QtU8TFxD1jykhT8OJJ236wG07b8t
+ 0tfcAX/C/4+1pszxE5l/DFG8WbpDer6oI2t7UlMzAn7JHgJWNw1ulmBKQZPxFC42IaDl
+ /P8shKWSTN3dFwqdHfG9IUCRfsvUwmIQ52qYtwDKjUxWYTRmCWN88unMLQV78hf3jHXZ
+ bkpk7nqIjN3NBlfFFp2LS+R6CaGpATTcWICYxHpAQ9fzUEzZCUJVI5ot4sLKUQc+zron
+ eCNjrzdYXxUMJux5S5K7XSdY2tWKSThaj/6HYJ8qhwDiVj4VqbbESSfgeHpI4dkpbho5
+ QdwQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBywDaOPyT0IY9D7HNuzjfM0TRr2KgRXCUjkqVVB5MP2OAG7w2RRZJQ+AzqmnNJgU5lWdVB4GR3j9lY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m7yL4I4MUPsSYhqlLYesUXS8gpl7ALEL5Rf75DCECY2E611UHR
- IH39dN0gHv3Nv+arYtXUXy7LJw1m+wduyMq6jRozFr/kJzE8LdmZIFow
-X-Gm-Gg: AYBFou0YxsbmYru2JRkiozsVaxwWqEh1gIT1uLMEFYrOMkv5nRuOMLmdgUZKGJpCEZ6
- KLaIqV/iRe8eaun/Kppx4U0Vg5hyTK4ZOuID90JjQw5k/QheSJJwoxklFlZZ1+CdO2IjprFdlyE
- k2DzbMwXpqm5sxxlMfaTA/LgdYDNCbJiHyY9EVqNNn0jYDqZd2psaPv2wjfrpPYcSGPADaeqfmD
- wXH2deJhx4SF1L0B8RnNvJ06NL7VU0ccwjppVScQeSxPlmkg4Y2N/YS78PT1swuxMDJEUAUpyW6
- RPXssWc9NKyn+slcQdENhJptSTx0R8FlzjXi0oZoZnh6D07R0WgeunrJZ4NN8+zr3n3rW6D89bC
- FiBkb0s35bmr76ztKjoISWD2QmDWPvlvPYfEqPuZzIwTYOC+GMWJXofmKg0Fc1mRbxybrCCbcX+
- +eMu9sbcIMNLo97WlQWKvgokZM0V1V0rrKpxztLFNyf+RsJdUQ/xRLi7BcmwxZJec4yg6YBaC9w
- kRBGU0EcVvVMkOY0MPjlP8PVgmaDzBpEN9Tv/sH25IKpc8oWhlgx+Us7jMlzsYr6ENZXrRbJSEP
- 5PmVZqF4KEZAfs66qxwZbaF7u+LPtngtQYgG+ofbGolmoCgMIMG30qcJIoLqGmvSqXRGxuHifLc
- +z6ka2wE=
-X-Received: by 2002:a05:600c:4714:b0:499:79b9:e220 with SMTP id
- 5b1f17b1804b1-49e61988b9emr84737275e9.10.1789198188447; 
- Sat, 12 Sep 2026 00:29:48 -0700 (PDT)
-Received: from localhost.localdomain
- (dynamic-2a02-3100-b260-f201-9983-e8c4-aff5-7a36.310.pool.telefonica.de.
- [2a02:3100:b260:f201:9983:e8c4:aff5:7a36])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49e6499d57bsm171373105e9.3.2026.09.12.00.29.47
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sat, 12 Sep 2026 00:29:48 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
- Suraj Kandpal <suraj.kandpal@intel.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/i915/display: Fix DPLL reserve and release references in
- kernel-doc
-Date: Sat, 12 Sep 2026 09:29:46 +0200
-Message-Id: <20260912072946.50769-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+ AKwUvByQR/g5WsRh825FHv7l0y62/8Fl9xL9phzwe4lvfcUhszmVCEQ1iO6ZOudNEGgcZNNmRRTuN+2NSNU=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m72XXs448pMdf5V9Wo9bFP6qrlqZp4mCaI2nWrje0TCLdT8gWP
+ 6UJqfXXOFnZat6FWxsxlUY7jBxvJxpqCaxwac9jV0So4QaOvQM1fnxHT
+X-Gm-Gg: AYBFou0BrTtt0H42684RIhc4VdFt0oybI8HTRI4V0lJtuxP+W/+bSO0ECfd/6NU5omh
+ d09P63ZbvaEKR0ih3XlUUArC5UaCZjMzehAeN9lE/Q5aLr9nkMbyrWr/4fF9fPy8yzACwHN2jXt
+ s/Ur9mVoCSLpF2Pbwik7Dk5t2cJIZ2371qhauPJtT/iPOsxTEHeiJCQi/pJIe5Q4fNYPtCnZyji
+ OtQVca3Eh1YxbrNxAXB7EtjLfO0NXWlWda0pqkoh8lYmnJX8MQ655PZbT6z6dYWwXMJpRtAyh3u
+ VL8xc2tbW0FodhWnzzp9TbS5iUfrCMRIjZZ01OG4KxDmKzoDNAMkzl+xgtJAv6fQTI3EWDCfRRC
+ Aq/Ns28SQE8qfirWo7PlnGsgS6Z/zd8v+pmAfudoLtQa5QE72Pwx/L577J8BfAqgFTSzpstYb7X
+ C/+d4Oc6R/xP1YAdp/5WRkJzRFtpLu43mktZaAoh0JSy2t0YJk2guboVeDsY7Ln9U+b2NCYRner
+ osMU5P+maJ6Ai8gQw==
+X-Received: by 2002:a17:90b:50cf:b0:38e:c232:9d2c with SMTP id
+ 98e67ed59e1d1-39dd54d7dd3mr3783446a91.2.1789324690644; 
+ Sun, 13 Sep 2026 11:38:10 -0700 (PDT)
+Received: from localhost ([95.190.112.239]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39d9b08165fsm4118447a91.1.2026.09.13.11.38.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 13 Sep 2026 11:38:10 -0700 (PDT)
+From: Vladislav Zaharov <vladazaharova2018@gmail.com>
+To: dakr@kernel.org,
+	jhubbard@nvidia.com
+Cc: acourbot@nvidia.com, aliceryhl@google.com, ttabi@nvidia.com,
+ gary@garyguo.net, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Vladislav Zaharov <vladazaharova2018@gmail.com>
+Subject: [PATCH v4 3/3] Documentation: nova: remove completed GSP log buffer
+ task
+Date: Mon, 14 Sep 2026 01:37:34 +0700
+Message-ID: <20260913183734.134307-4-vladazaharova2018@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260913183734.134307-1-vladazaharova2018@gmail.com>
+References: <20260913183734.134307-1-vladazaharova2018@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
@@ -99,30 +94,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The intel_dpll_state documentation still uses the former reservation and
-release helper names. Update the references to intel_dpll_reserve() and
-intel_dpll_release().
+Exposing the GSP-RM log buffers through debugfs is implemented, and with
+the gsp_keep_logs module parameter they now also survive a failed probe,
+which was the part of the task that was still missing.
 
-Fixes: 2b3b9a8faf56 ("drm/i915/dpll: Move away from using shared dpll")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Vladislav Zaharov <vladazaharova2018@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_dpll_mgr.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Documentation/gpu/nova/core/todo.rst | 12 ------------
+ 1 file changed, 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-index d408ccf6f9025667177e411e5c2cef72cc30aae9..cec6208fa7535ba77c203999bc75b3c077a94a5d 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-@@ -302,7 +302,7 @@ struct intel_dpll_hw_state {
-  * future state which would be applied by an atomic mode set (stored in
-  * a struct &intel_atomic_state).
-  *
-- * See also intel_reserve_shared_dplls() and intel_release_shared_dplls().
-+ * See also intel_dpll_reserve() and intel_dpll_release().
-  */
- struct intel_dpll_state {
- 	/**
+diff --git a/Documentation/gpu/nova/core/todo.rst b/Documentation/gpu/nova/core/todo.rst
+index a01c362b1be0..28fc7329d56b 100644
+--- a/Documentation/gpu/nova/core/todo.rst
++++ b/Documentation/gpu/nova/core/todo.rst
+@@ -141,18 +141,6 @@ Implement support for instmem (bar2) used to store page tables.
+ GPU System Processor (GSP)
+ ==========================
+ 
+-Export GSP log buffers
+-----------------------
+-
+-Recent patches from Timur Tabi [1] added support to expose GSP-RM log buffers
+-(even after failure to probe the driver) through debugfs.
+-
+-This is also an interesting feature for nova-core, especially in the early days.
+-
+-| Link: https://lore.kernel.org/nouveau/20241030202952.694055-2-ttabi@nvidia.com/ [1]
+-| Reference: Debugfs abstractions
+-| Complexity: Intermediate
+-
+ GSP firmware abstraction
+ ------------------------
+ 
 -- 
-2.39.5 (Apple Git-154)
+2.55.0
 
