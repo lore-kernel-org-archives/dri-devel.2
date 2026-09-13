@@ -4,42 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AC96C88E65
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 13:07:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D8DEC88E65
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 13:11:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A57C10E8B6;
-	Sun, 13 Sep 2026 13:07:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D477710E8DC;
+	Sun, 13 Sep 2026 13:11:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hLFP0QtY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kPC9A+9U";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AFB910E8B6
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 13:07:46 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6CAE043C22;
- Sun, 13 Sep 2026 13:07:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2514C1F000FF;
- Sun, 13 Sep 2026 13:07:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789304866;
- bh=KSFMfzEjnS7uyWWF5+oOauNh+DoNeogU3RtPXv45nS8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hLFP0QtYIvb87IX4zxJcapKqGdN33S3/sXLqCiw4P60wOKz6bvTnhanowJAG1gpc2
- JxWBavlnQt2WJTu5WZCYt5zYTKgq2Oq3caCZitvyFXbTidqDQvGMJBAL16qcUsDA1T
- Wlf5Pw7IoR7NiU3T3Ky0kisCaVY31EZVqkmd6ocm4z2LwxaUgqxPzTk+ainwD+6VlU
- 1dIIXlS40qHZgBsNrCWZqPkkGufz/oI7xYi2qgeU6DY6oN0PVHuLtiUJRhePcF4sh8
- lqKV8uJy9uZNcOgstszAK8VNpn3FsOUvcELNauxF+TWuqQN4mDEF1XB59mOPcPv/5J
- iLoEwbzRxRgkg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/nouveau: validate required NET_img regions
-To: "Slavin Liu" <bolin.liu@seu.edu.cn>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260913125228.110071-1-bolin.liu@seu.edu.cn>
-References: <20260913125228.110071-1-bolin.liu@seu.edu.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 13 Sep 2026 13:07:45 +0000
-Message-Id: <20260913130746.2514C1F000FF@smtp.kernel.org>
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com
+ [74.125.228.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB65510E8DC
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 13:11:26 +0000 (UTC)
+Received: by mail-pz2-f12.google.com with SMTP id
+ d2e1a72fcca58-8693af0d7c4so1713332b3a.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 06:11:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789305086; x=1789909886; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=OvV6HGYmGnPtM6s9K0ynk2MdK/BwOFAfbX5o4RmVGAg=;
+ b=kPC9A+9UHQSAEnbCtBIursJwDfiNZd8yZJ/yBJDHSHIKgGXrLa9Ka6siCiObMcv8oF
+ gevpKAbPTSFH+I8hOtC3fPvEATJb2b8c7iS/CL2KHp+mi2Uc/8wE8MgjhBSLg4OMdOKA
+ +cu3fXTDm8YOdbEC+xbeDca2j4ruSeWENWm3Rsr2Yjjil5z3xjA9K8eltNn8BTqT018E
+ YJIb3NjmVxql0ca5wz0tPCpWHNMJr6B+Z7ktrlVjhAbwnyYRKltfnf/fzPq+WDiZbw2X
+ 3By6NtjXWSUZ4WNNQ4FcxZciI/8sQp3PHRBDCaefYjvtszVUARSSxN+5A7HL+UKgPhRJ
+ hChA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789305086; x=1789909886;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=OvV6HGYmGnPtM6s9K0ynk2MdK/BwOFAfbX5o4RmVGAg=;
+ b=Df71F9zo+8mul70w+M6u+7Rt3CGHa4DQFTsnck1Jovl9SAIJxcWFGxW5wUINYu/TZA
+ 8lYD3Sjn031EipiN8xyjO0cAUW9Z2ISau02jOIcljjXHNp1UMixXK/yI3yxiYYv2MXJM
+ jdRKtpIFHsvYwldwJfXST4Ue/3Sw/8NsAbBXD6esS/TbxazqvG5ixhZBffE/XcxwcNuP
+ N6l/GlAaHgZpjXjxmxB/QkQdidmX3625UnQjqSlFnfG/8mA4h+WfRjYX0SaNJJl5ceNa
+ oe9k33HwironHQfZQ/NzT6jVY0uu4YEzW2mxOAgarAI1a1pAi6DWUIhUlYVntzgAPoOz
+ zE3A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxyLVGcal3S6k+Z/+vK2V0VAdOzCGBWv4+AazJvX8NL6pyRuTOyOm4lbrX57aGGQWtJ5mZmIbRKJU0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++k7V7LsgWhkUzwzqw27LnMYGhvsmb6xurApEgo+UcXF4c1F2fYd
+ P9sA2jy3GgPWKzQKRZ3hKwORIzsZ98ElHiqAJ5kJw4nd6qFQN7GFLIz0
+X-Gm-Gg: AYBFou2AGV+vrKZfLe/ND9vL8OIKeZElgNSp1FKXh4vAwdRJ78RKJKGXvbxxtPzp8qD
+ +5XCTjSHp4zzJC6kNZ1WlmpDZDSzQImbVyMyzajzv7fnrPoZKGJ7SKlhvl3jQOshXFqngP440Bl
+ 7D+ddsja0lg8NDnNO9yK0Qa8QiS0zOkoy6eJvQ6jD5jlaX04knu7SDr2Ifr+gs6xWiDX9get+cQ
+ Ixi5AzUqdHfOYE1BjnDISyQ50pHK47vRfPWLmo3U27UDBKHptnuHtqIEh1HKd+cgAUnir8XtPC2
+ WND5PZY0nyJT3Ll5d16ds+I56FMKCXT+vtmZW4sV4E+SRqg+msAesml23SGz9PVeh6K6nq4Dk5W
+ 86bq/47NPtZQmMCaDb7OWHc2ZfEQ2yXN9A6Q6xC7ZTZG2N1erKjc9WlQaW18yR5CF5MaeVQBShz
+ BuOBxLo0jwKv94mvh1smxtoBCuvJvbS+6pOoKUmnw5OKTnI4cs+KsT33nlGhpEAx9Y
+X-Received: by 2002:a05:6a00:a254:b0:86a:9ddc:7ee5 with SMTP id
+ d2e1a72fcca58-86b30413307mr23451242b3a.2.1789305086376; 
+ Sun, 13 Sep 2026 06:11:26 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-86c7b4922b2sm1891882b3a.2.2026.09.13.06.11.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 13 Sep 2026 06:11:25 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] gpu: ipu-v3: prg: fix clock cleanup on remove
+Date: Sun, 13 Sep 2026 21:11:17 +0800
+Message-ID: <20260913131117.1561280-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,101 +85,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+ipu_prg_probe() enables the IPG and AXI clocks before enabling runtime
+PM. The clocks are subsequently controlled by the runtime suspend and
+resume callbacks.
 
-Pre-existing issues:
-- [High] Missing bounds validation on firmware region counts, offsets, and =
-dimensions allows out-of-bounds memory accesses and integer overflows if th=
-e firmware file is malformed or truncated.
---
+However, ipu_prg_remove() only removes the PRG from the global list and
+does not disable runtime PM or shut down the clocks when the device is
+still runtime active. As a result, removing the driver while the device
+is active leaves both clocks enabled.
 
-commit 8eea807eacef8758484282158b451c9cf174e015
-Author: Slavin Liu <bolin.liu@seu.edu.cn>
+Disable runtime PM during removal so that pending runtime PM operations
+are completed and no new runtime PM callbacks can change the device
+state. If the device is still runtime active afterwards, disable the
+AXI and IPG clocks explicitly.
 
-drm/nouveau: validate required NET_img regions
+Check the runtime PM state before disabling the clocks because the
+runtime suspend callback may already have disabled them. This avoids
+unbalancing the clock enable counts when removing an already suspended
+device.
 
-The NET_img parser can finish without all FECS and GPCCS regions.
-Reject missing required regions before computing their data addresses,
-and release the firmware on both validation and ACR loading failures.
+This issue was found by manual code inspection.
 
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/gr/ga102.c b/drivers/gpu=
-/drm/nouveau/nvkm/engine/gr/ga102.c
-> index 2b51f1d0c281f..bfd1e00537b89 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/gr/ga102.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/gr/ga102.c
-> @@ -317,6 +317,11 @@ ga102_gr_load(struct gf100_gr *gr, int ver, const st=
-ruct gf100_gr_fwif *fwif)
->  		}
->  	}
-> =20
-> +	if (!fecs_inst || !fecs_data || !gpccs_inst || !gpccs_data) {
-> +		ret =3D -EINVAL;
-> +		goto out_firmware;
-> +	}
-> +
->  	ret =3D nvkm_acr_lsfw_load_bl_sig_net(subdev, &gr->fecs.falcon, NVKM_AC=
-R_LSF_FECS,
->  					    "gr/fecs_", ver, fwif->fecs,
->  					    fw->data + fecs_inst->data_offset,
->  						       fecs_inst->data_size,
->  					    fw->data + fecs_data->data_offset,
->  						       fecs_data->data_size);
+Fixes: ea9c260514c1 ("gpu: ipu-v3: add driver for Prefetch Resolve Gasket")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/gpu/ipu-v3/ipu-prg.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-[Severity: High]
-This is a pre-existing issue, but while validating that the required regions
-are present, does the code lack bounds checking for the firmware file itsel=
-f?
+diff --git a/drivers/gpu/ipu-v3/ipu-prg.c b/drivers/gpu/ipu-v3/ipu-prg.c
+index d38d3ba54d72..93033e847d0e 100644
+--- a/drivers/gpu/ipu-v3/ipu-prg.c
++++ b/drivers/gpu/ipu-v3/ipu-prg.c
+@@ -426,6 +426,13 @@ static void ipu_prg_remove(struct platform_device *pdev)
+ 	mutex_lock(&ipu_prg_list_mutex);
+ 	list_del(&prg->list);
+ 	mutex_unlock(&ipu_prg_list_mutex);
++
++	pm_runtime_disable(&pdev->dev);
++
++	if (!pm_runtime_status_suspended(&pdev->dev)) {
++		clk_disable_unprepare(prg->clk_axi);
++		clk_disable_unprepare(prg->clk_ipg);
++	}
+ }
+ 
+ #ifdef CONFIG_PM
+-- 
+2.43.0
 
-If the user-provided firmware is malformed or truncated, the earlier loop in
-ga102_gr_load() could read out of bounds because net->header.regions and
-fw->size are never validated:
-
-	for (i =3D 0; i < net->header.regions; i++) {
-		const struct netlist_region *reg =3D &net->regions[i];
-		struct nvkm_blob blob =3D {
-			.data =3D (void *)fw->data + reg->data_offset,
-			.size =3D reg->data_size,
-		};
-
-Additionally, can this lead to integer truncation when the unvalidated
-fecs_inst->data_size is passed to nvkm_acr_lsfw_load_bl_sig_net() here?
-
-drivers/gpu/drm/nouveau/nvkm/subdev/acr/lsfw.c:nvkm_acr_lsfw_load_bl_sig_ne=
-t() {
-    ...
-    lsfw->app_resident_code_size =3D ALIGN(inst->size, 256);
-    ...
-    if (!(lsfw->img.data =3D kzalloc(lsfw->img.size, GFP_KERNEL))) {
-    ...
-    memcpy(lsfw->img.data + ..., inst->data, inst->size);
-    ...
-}
-
-Could an overflow during the ALIGN() or size calculation cause an undersized
-allocation followed by a heap buffer overflow during the memcpy?
-
-Similarly, would this unvalidated blob->size cause an integer overflow in t=
-he
-allocation size and a subsequent out-of-bounds write loop in
-gk20a_gr_av_to_init_()?
-
-drivers/gpu/drm/nouveau/nvkm/engine/gr/gk20a.c:gk20a_gr_av_to_init_() {
-    ...
-	nent =3D (blob->size / sizeof(struct gk20a_fw_av));
-	pack =3D vzalloc((sizeof(*pack) * 2) + (sizeof(*init) * (nent + 1)));
-    ...
-	for (i =3D 0; i < nent; i++) {
-		struct gf100_gr_init *ent =3D &init[i];
-    ...
-}
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913125228.1100=
-71-1-bolin.liu@seu.edu.cn?part=3D1
