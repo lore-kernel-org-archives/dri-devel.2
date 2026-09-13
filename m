@@ -4,82 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 352C8C88E66
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 22:30:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A106C88E5C
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 22:30:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3FE610EA43;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBF0C10EA45;
 	Sun, 13 Sep 2026 22:30:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QVrM/bCs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IRFvO4IS";
 	dkim-atps=neutral
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com
- [74.125.230.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABD4910EA43
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 22:30:27 +0000 (UTC)
-Received: by mail-qv2-f12.google.com with SMTP id
- 6a1803df08f44-90ce6d5271dso10216366d6.1
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 15:30:27 -0700 (PDT)
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
+ [74.125.228.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8391C10EA42
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 22:30:29 +0000 (UTC)
+Received: by mail-ej2-f12.google.com with SMTP id
+ a640c23a62f3a-c254f70553dso262433766b.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 15:30:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789338626; x=1789943426; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=0bAI9mmXm3rd1fs6JBz3Pfb/OV3Rxah7vPEmWuwzOx0=;
- b=QVrM/bCsYyNUB6nhjcr3G67Qxt0Z197lesHQ6hjiR94+MZBRUMd0WtKeH0J1RTy0Lz
- vdiQtEHljcW6LPLsnHUDQhxSmCIhuJsufRelupHlBwYDM9S/Qz5QUS/ujF0xf5xIjgNx
- Ihv5jNtRVd3wr/RMn5q0FzgacjACD1xEe5IIe7fL3/b6mmkMl8M+ip9Q47azSUulfACd
- ZhBKBH4aE1f/eiWSbFd5cARZxwL144DrutXF0vhLcMiLiHrqNyY6/kYfP3K8vZLpev4/
- t6C+ogsq79Lin8SmazAPHqHQF0RtgNGv96mfrqEg27hWku6j1eJdQkawJtWxNorC2FF2
- LQ6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789338626; x=1789943426;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1789338628; x=1789943428; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=0bAI9mmXm3rd1fs6JBz3Pfb/OV3Rxah7vPEmWuwzOx0=;
- b=gSuz+/Pb/YCpCC6PwDFxaKdeJCrCc5hyLScm4D2T3a0VqYa5u0ri0fhafa0gZlYbDp
- bM6G/mUh4HPIljHWLXfpHJhd+ZbY9ljg4N2HMWXWcKw6d93QIYQb8ciYhpdRRlvf+DU4
- McGCqq+QLU/w/NhDE9HCQfwKXDWWOls3oitpIxKsChDKMAzmxLprSJmF4o+jyo8i76+T
- yISovorCqmxOaKiV9peabcxC8mAMPawuaD3NrLxko6A9fVmUYu1fwstq/2gGPrzkIvxd
- Vr9nvsuoGJHMJC+dcOssKf6ej8ZUPBV4oR6vLdQgqFdEg56uN2UW99qfyvk43Mf8Bgdb
- 97+w==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxawMLN6MBmVvtZXj792vGa5SiuFxH+Y9NMPyq1KDQDZEcrel67RGbwh3doW3iJJT9VW4oiL/QlLNM=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kbQqCMvzfyfmE+qpF9jtnMmy/Rw4gAreZcfVcwUnYL1G3EaMaP
- Ih0lq+9zT78IEL802LHRShvlcYVMRRip52vfli3O6binsXT/042tZXU=
-X-Gm-Gg: AYBFou195Hu2C0mkPMz0VcBew+kPG5SrbwVE2SFeNH1p52UG4/iJu1OEnzDjT9e0I7B
- bul2ER6AcEG3SHkGvrmiSMriBcj+HmJiDdDaSWlMy/85+DCk42DKXE28n8ccNl0cgXSCUTGfk3L
- WjEd3m2hHQV4X875AcPZSzKhjr+g4bKBS1m6cB7i5EhwxpWfBDPFHC+RMsrBIRFwyLwahJyH9eY
- 1pw5bwS4MKqdHa7vqQtXnvDwmRj6r2upUoRgs5Kq+kDMDsHbQBy1JIPD19HGR1+B1paDSnGKcsQ
- 9RUte21KURUGbnrI6UszZmVnV+gwiDGb+jGkJAGAiJFXrVTMoN2GXNKiQpje9Yo6hOzJHDGyAbz
- iDw6QBAQ3RM44qXM5MDgpby5Y8icfKqZiRoIPRIoxZyfvItezS5W5cXfaMK7rsWPpkV8krhAczJ
- 2viHbpuxLNsE871q0Ez7ghaz/tWF0Jk7CUCps4k7cxTiCCMWtrinc+VBwNb1jmLvboQZk9RyXEG
- /wCYowEyDjLi96B1f9vfJ3RGPu27c4FvfLh0gd64Sr5NWC6WWyLSOkuLLe89xVaCpHWzUMgfRey
- B+E6Yh61Xr2sfCFDGEXT5/yOT+uKSOx1Z37xav0lTDdd
-X-Received: by 2002:ad4:4ea4:0:b0:911:2a7e:abbb with SMTP id
- 6a1803df08f44-91226b71087mr49832196d6.14.1789338626502; 
- Sun, 13 Sep 2026 15:30:26 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-9120ef650a6sm80587576d6.0.2026.09.13.15.30.24
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sun, 13 Sep 2026 15:30:25 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Ryan Chen <ryan_chen@aspeedtech.com>,
- Billy Tsai <billy_tsai@aspeedtech.com>, Sam Ravnborg <sam@ravnborg.org>,
- =?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>,
- linux-aspeed@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] drm/aspeed: Balance the display clock enable on teardown
-Date: Sun, 13 Sep 2026 18:30:19 -0400
-Message-ID: <20260913223019.89651-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+ bh=nuWBi8AkRdSYh4XWJN0FA1URQDZsOkE/8z/h99tbMSo=;
+ b=IRFvO4ISyyX/Y2tTN3GZBEgW32ejhLqpZqia3s99NlvPEafEgbNUlcO/KdNa32kITG
+ 6WwLW7eFvdq5Xlne4AFXt094i+HglSL7rRpDvKhERDGuIj5U8+FEbheNosNRPb/lcyOc
+ TWLKzhfqeMs947yQw/4pIiXIDya9QWlk7ov2OdX7du5GJXn8Dh+e/oJtTBtkorXyBjGx
+ f0A6b3RgXpAgCoGMW/xr4MMcfU/A+GN74OoyGRfOthozz6mobxt7W+BOtZAqJ6yh2ACJ
+ ryKsva83Vq4A1WnvG6mbMI7Ql6TCP4F+eJCKvICUThyGMcGI/Tz//MubjRMdvyPW0rpJ
+ Rwlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789338628; x=1789943428;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=nuWBi8AkRdSYh4XWJN0FA1URQDZsOkE/8z/h99tbMSo=;
+ b=Ep4qWL5B2LGrDWA6ma22auUJl4TgokUbOPbCpYmM/EwfEDH2CBjDLGR2t97K3095fa
+ TVqkEErgl5oqaLoAWlrjrmDj00spccW1kCNDdpZYlovdXBECjhCu5D6ssU44x4McUDBp
+ r1goc7LCRnUaDaSSTftD0+dCsU011j9yyUotxgkP5NAxoUGIV6KqpHn4xHgBmabjvyZB
+ VJIv/6wE+rdveXW/Ert4biG37YZw/DvW3xQ0i1zFjqafbqL4qvhJz2S2A7oSCKFqn4fk
+ OmEreLKXrrY4o2QLB+77gG6H5bsIMrsB8d56FBpjz3Z8IyP2iLYm1eEJ6TyFD41LskYH
+ klCw==
+X-Gm-Message-State: AFuF++lrQzBi9fuwGy1jS27/Zh4ZD1dyeQhIaL+k5eSLKNdme4H9sG5f
+ bcrsccXawm7kVd1SziG++Hyfwn17FmUpcW/QI2qcRwASqhAp1WEEd8Ba
+X-Gm-Gg: AYBFou3jz66GcsdxMaBhvaiVm64Q6kzPYIdphHNtkEAHOKGCIEfb/eFjuX9PGC2p4Az
+ Ty+tl20yUTcqCqlAaHaKtl5E6taC5eSo7NVJ5LovDDBIA0uQZRJKPRkPud8asGo8O5Br6EoMwhv
+ VOY7z6gRlvA6YW3N1ruR5IXh4sNzxyB/jnchaPLasWWzj19zGKd7KZ7lAWjO1H/d0oeZJiseh7g
+ JkpVczRJ4EstWXVcwucfAHHoQAE+k342irkIfNx9feZioCYeeGvZ8jgYwSPjiggSsca4LmqoY2N
+ xTd7mjYlXFHDSmoEh7mAZ0YbkCB+lCSGAgEetk7v9I1iqeJOUy0+guMWiId6VbHDIvMkCREqUnO
+ kgC4LI81dajmAUyn1JFF7qMDpQJAYJ+kVMBAcsMwBZ2Ul7aO3QfRW+QwsCAKNBtydKZ7UKqIt7J
+ +ZF+gStP9eDZBFLYsceiMvaoc36QmvfzNPZmVslb7wNYBtQDK1m/v/BVNuMMB9CmsN
+X-Received: by 2002:a17:907:18c4:b0:c26:1648:a06e with SMTP id
+ a640c23a62f3a-c29b87725e0mr3301666b.41.1789338627747; 
+ Sun, 13 Sep 2026 15:30:27 -0700 (PDT)
+Received: from beelink.. ([186.247.78.13]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c29ad3e033asm48063066b.47.2026.09.13.15.30.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 13 Sep 2026 15:30:27 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: airlied@redhat.com,
+	kraxel@redhat.com
+Cc: dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
+ Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: [PATCH v2 3/4] drm/qxl: reject relocations whose writes cross a page
+ boundary
+Date: Sun, 13 Sep 2026 19:29:59 -0300
+Message-ID: <20260913223000.695299-4-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260913223000.695299-1-qwe.aldo@gmail.com>
+References: <20260913223000.695299-1-qwe.aldo@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -97,45 +88,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-aspeed_gfx_load() enables the display clock without checking the return
-value and never disables it on probe failure or removal. devm_clk_get()
-only releases the clock reference, leaving the enable unbalanced.
+apply_reloc() and apply_surf_reloc() map a single page via
+qxl_bo_kmap_atomic_page() and then write 8 or 4 bytes at the
+page-relative offset (dst_offset & ~PAGE_MASK).  When the offset is
+near the end of the page the write extends past the mapped region into
+adjacent kernel virtual address space.
 
-Use devm_clk_get_enabled() to handle enable failures and automatically
-disable and unprepare the clock on probe failure or removal.
+For example, a BO relocation at page offset 4092 writes bytes 4092-4099,
+crossing the 4096-byte page boundary.  The fixmap slot only covers one
+page, so bytes 4096-4099 corrupt whatever virtual page follows in the
+kernel's fixmap area.
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+Reject any relocation whose page-relative offset plus write width
+exceeds PAGE_SIZE.
 
-Fixes: 4f2a8f5898ec ("drm: Add ASPEED GFX driver")
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Assisted-by: OpenAI:GPT-5.6
+Fixes: f64122c1f6ad ("drm: add qxl driver.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
-Validated with an ARM64 W=1 object build and strict checkpatch.
-No hardware runtime, clock-failure injection or unbind testing was done.
+ drivers/gpu/drm/qxl/qxl_ioctl.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
- drivers/gpu/drm/aspeed/aspeed_gfx_drv.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+diff --git a/drivers/gpu/drm/qxl/qxl_ioctl.c b/drivers/gpu/drm/qxl/qxl_ioctl.c
+index e727a35c9..9fba6e26d 100644
+--- a/drivers/gpu/drm/qxl/qxl_ioctl.c
++++ b/drivers/gpu/drm/qxl/qxl_ioctl.c
+@@ -247,6 +247,12 @@ static int qxl_process_single_command(struct qxl_device *qdev,
+ 			goto out_free_bos;
+ 		}
+ 
++		if ((reloc_info[i].dst_offset & ~PAGE_MASK) + write_size >
++		    PAGE_SIZE) {
++			ret = -EINVAL;
++			goto out_free_bos;
++		}
++
+ 		/* reserve and validate the reloc dst bo */
+ 		if (reloc.reloc_type == QXL_RELOC_TYPE_BO || reloc.src_handle) {
+ 			ret = qxlhw_handle_to_bo(file_priv, reloc.src_handle, release,
+-- 
+2.43.0
 
-diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-index d4577663a..aa36b79d0 100644
---- a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-+++ b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-@@ -189,13 +189,12 @@ static int aspeed_gfx_load(struct drm_device *drm)
- 	}
- 	reset_control_deassert(priv->rst);
- 
--	priv->clk = devm_clk_get(drm->dev, NULL);
-+	priv->clk = devm_clk_get_enabled(drm->dev, NULL);
- 	if (IS_ERR(priv->clk)) {
- 		dev_err(&pdev->dev,
--			"missing or invalid clk device tree entry");
-+			"failed to get and enable clock\n");
- 		return PTR_ERR(priv->clk);
- 	}
--	clk_prepare_enable(priv->clk);
- 
- 	/* Sanitize control registers */
- 	writel(0, priv->base + CRT_CTRL1);
