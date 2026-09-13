@@ -4,78 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27D5FC88E6C
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 130CAC88E65
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59E5310E9E7;
-	Sun, 13 Sep 2026 20:53:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE0DF10E9E1;
+	Sun, 13 Sep 2026 20:53:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nH9hQWTU";
+	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="aej3VOP8";
 	dkim-atps=neutral
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com
- [74.125.229.204])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3A0410E9A1
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 20:13:18 +0000 (UTC)
-Received: by mail-lf2-f12.google.com with SMTP id
- 2adb3069b0e04-5b5e4f1e023so636651e87.0
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 13:13:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789330397; x=1789935197; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=tvQTHWXId30lHl89cQONJGQBaXvDgk+KicdEmbWVsGQ=;
- b=nH9hQWTU3pD/h0ZmLPu9s9V3lZnqzXulVyto88qcDb/NTy97RI87HQkXBWDQ94IdYV
- 4IVEjB7w8knMLebM16z4l/gD3WkgR4hgWI50AZU4qrpJSsxQNhZjufiQK3ow8HhOvlJq
- o5DFh6Ybcze+JjS+BMB9qrDPwj79SqDQ7lERoBFXUOFlDXXg0HRYLD5OyAhkPy1mDZ8j
- ksArBaCrY0mafAgnCbCMA/nnBl2jH+fpDfJ4sT9pyczPYIqwzYeSr36+xy4RI54Xp6if
- 1gcFHgNISYtrl2SBckk6aJgQARLHSnjqtXhpHL2DmQYm2h+iT7BnY48wOU/4OrgfCmhz
- TKbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789330397; x=1789935197;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=tvQTHWXId30lHl89cQONJGQBaXvDgk+KicdEmbWVsGQ=;
- b=TQefaY2SFYDu8B7xRcbFFRPrY6lQhNLhb0kZCkbBrxzpDZcU3IiqsOyEEp7BA6FU+R
- Yj1Y5281Q83enM7/J4T7sTAW5rHRMPlnjb5M/1jUNd+MtoJfODnJPaGX83h3KRIBsCT9
- KzxnO8wu9JOJOc+4VteupeQFu7eStdFom/mRW0SVS+NhsmGu2L4WDF0SU2I2e1NrcjQo
- k1F6NJ1mcIIwDFTnPvE5XPrPut5EZTXTmjujDCogoT7QScZJbdXoPsA2OwqcNvfWyEzU
- VkzG1yYSyiO9tqqZDhSlAOT5cjpAn9sxrPKhyYBwQhVS7+p41sUO2tWTPgmC+PAiHfPp
- BIUQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBySy5PGLtDa6X8MchqYtALUGdgIcKm1PnBm0O04TkMsKRScGYf2hdSV5xXFObpFEiL3/OhoukJ/mZw=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kS4JJIUY28zHgmlIIHThhmhm4xpVUQgm3/MIcznWg5WaGbZqjz
- CZZDFa8LuWDhYJslK9Aql5v2+Dziv9ATpYribfc0Za2J4v7ELeZK6Ch5
-X-Gm-Gg: AYBFou1PkJCD1d6BYz45AxSj6+LpaQtx/X6z22UjT83FXoA1ckOLdFm09uuQlFlAQyZ
- b7i3pxToe1tdh/YsOMkYIZnKAEIkbY4Kz/kPXjoj530I6LmlKsD4nOgx9L5VAdP8rF71zkmfuqO
- J3eUrOFHioINkePdDPnUmERJ/j/hX9hg8dxldFtexPq3Xt7CHHAlNvbjKkNXfg9pjcM88Oq+e0h
- EU/XXOvY/WpeKLUE5Q25c8oqJeaDGJE4z3+KjO+lGhYqDXGiQKhaaw8ohEViiZuCoLpMh9v1lf7
- FmNK23cCvWBiefLwokYeJeiKH0Xbg/D1eI2R2KUmjbkwh4ngbVVbaCo+YMu1r7IMfHIrCI02N23
- TgbYcMnzujd5iTQR15wLv3uHwwMU+B41nQjnhkStJmToN69GXVEVi3ElCw3wZ7Nn1oCN3uqPzO2
- kKTBI5QUPHc09hY98StcweZQgKtSJT1/LlguFrM+zWrasOhWWYcK/4bwhpRVjNB0aKFe3EIdR54
- da11sY7QnlIyLncMUyHq0p99On9dKrm20/uME9T887a
-X-Received: by 2002:a05:6512:159b:b0:5b7:f0b4:de57 with SMTP id
- 2adb3069b0e04-5b8abae311amr551289e87.6.1789330396785; 
- Sun, 13 Sep 2026 13:13:16 -0700 (PDT)
-Received: from tallipc.shacknet.nu (91-157-240-22.elisa-laajakaista.fi.
- [91.157.240.22]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b8a03a85cesm2003345e87.1.2026.09.13.13.13.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Sep 2026 13:13:16 -0700 (PDT)
-From: Risto Pajula <or.pajula@gmail.com>
-To: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Risto Pajula <or.pajula@gmail.com>
-Subject: [PATCH 2/2] drm/nouveau/fifo: use global nonstall event on legacy FIFO
-Date: Sun, 13 Sep 2026 23:12:25 +0300
-Message-ID: <20260913201225.5975-3-or.pajula@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260913201225.5975-1-or.pajula@gmail.com>
-References: <20260913201225.5975-1-or.pajula@gmail.com>
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com
+ [45.254.49.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C5F610E8D8
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 12:52:35 +0000 (UTC)
+Received: from seu.edu.cn (unknown [58.241.16.34])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4d907a3fa;
+ Sun, 13 Sep 2026 20:52:30 +0800 (GMT+08:00)
+From: Slavin Liu <bolin.liu@seu.edu.cn>
+To: lyude@redhat.com, dakr@kernel.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, bolin.liu@seu.edu.cn
+Subject: [PATCH] drm/nouveau: validate required NET_img regions
+Date: Sun, 13 Sep 2026 20:52:28 +0800
+Message-Id: <20260913125228.110071-1-bolin.liu@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa09ad38ab103a1kunmc644730d251211
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSkxMVh1PS0lITx4fQ0gYHlYeHw
+ 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSUhOQ0
+ NVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=aej3VOP82w76HOV1Pkn2hex74ttZ+/C75EM87dAw9JSzuK7yPnMNrcX5VcxDN2q1zCo19dyjbUHZjZbix53PIEdra2lyw8zUu4V1a72Gd229VX6AKlxgVZj/d+hgc1tuN9+MuBXJ/bhAi8Pj1gPdY+3ZonT4hVM3rRrfothnK4A=;
+ c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
+ bh=QNpEoAYO5tPIJrxr6Q1S8k9pTa9ZIFsxZipyEXigaYY=;
+ h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,41 +57,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The per-runlist nonstall interrupt handling change made channel
-nonstall event registration use the runlist ID instead of the global
-event index 0.
+The NET_img parser can finish without all FECS and GPCCS regions.
+Reject missing required regions before computing their data addresses,
+and release the firmware on both validation and ACR loading failures.
 
-Legacy FIFO implementations do not provide a nonstall constructor.
-They have a single global nonstall event, and their interrupt handlers
-signal event index 0. Registering channel events using runl->id can
-therefore leave fence completion waiting for an event that is never
-signalled.
+Detected by static analysis and reviewed with AI-assisted source auditing.
 
-Use the runlist ID when per-runlist nonstall interrupts have been
-constructed, and keep using event index 0 for legacy FIFO
-implementations.
-
-Fixes: 55e1a5996085 ("drm/nouveau/fifo/ga100-: add per-runlist nonstall intr handling")
+Fixes: c4bdac754ca0 ("drm/nouveau/gr/ga102: initial support")
 Assisted-by: LLM
-Signed-off-by: Risto Pajula <or.pajula@gmail.com>
+Signed-off-by: Slavin Liu <bolin.liu@seu.edu.cn>
 ---
- drivers/gpu/drm/nouveau/nvkm/engine/fifo/uchan.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/nouveau/nvkm/engine/gr/ga102.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/uchan.c b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/uchan.c
-index d6a87cec2..b96e84192 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/uchan.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/uchan.c
-@@ -52,7 +52,8 @@ nvkm_uchan_uevent(struct nvkm_object *object, void *argv, u32 argc, struct nvkm_
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/gr/ga102.c b/drivers/gpu/drm/nouveau/nvkm/engine/gr/ga102.c
+index 2b51f1d0c281..bfd1e00537b8 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/gr/ga102.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/gr/ga102.c
+@@ -317,6 +317,11 @@ ga102_gr_load(struct gf100_gr *gr, int ver, const struct gf100_gr_fwif *fwif)
+ 		}
+ 	}
  
- 	switch (args->v0.type) {
- 	case NVIF_CHAN_EVENT_V0_NON_STALL_INTR:
--		return nvkm_uevent_add(uevent, &runl->fifo->nonstall.event, runl->id,
-+		return nvkm_uevent_add(uevent, &runl->fifo->nonstall.event,
-+				runl->fifo->func->nonstall_ctor ? runl->id : 0,
- 				       NVKM_FIFO_NONSTALL_EVENT, NULL);
- 	case NVIF_CHAN_EVENT_V0_KILLED:
- 		return nvkm_uevent_add(uevent, &runl->chid->event, chan->id,
--- 
-2.47.3
-
++	if (!fecs_inst || !fecs_data || !gpccs_inst || !gpccs_data) {
++		ret = -EINVAL;
++		goto out_firmware;
++	}
++
+ 	ret = nvkm_acr_lsfw_load_bl_sig_net(subdev, &gr->fecs.falcon, NVKM_ACR_LSF_FECS,
+ 					    "gr/fecs_", ver, fwif->fecs,
+ 					    fw->data + fecs_inst->data_offset,
+@@ -324,7 +329,7 @@ ga102_gr_load(struct gf100_gr *gr, int ver, const struct gf100_gr_fwif *fwif)
+ 					    fw->data + fecs_data->data_offset,
+ 						       fecs_data->data_size);
+ 	if (ret)
+-		return ret;
++		goto out_firmware;
+ 
+ 	ret = nvkm_acr_lsfw_load_bl_sig_net(subdev, &gr->gpccs.falcon, NVKM_ACR_LSF_GPCCS,
+ 					    "gr/gpccs_", ver, fwif->gpccs,
+@@ -333,12 +338,13 @@ ga102_gr_load(struct gf100_gr *gr, int ver, const struct gf100_gr_fwif *fwif)
+ 					    fw->data + gpccs_data->data_offset,
+ 						       gpccs_data->data_size);
+ 	if (ret)
+-		return ret;
++		goto out_firmware;
+ 
+ 	gr->firmware = true;
+ 
++ out_firmware:
+ 	nvkm_firmware_put(fw);
+-	return 0;
++	return ret;
+ }
+ 
+ static const struct gf100_gr_fwif
