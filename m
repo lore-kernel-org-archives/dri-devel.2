@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAAB3C88E67
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 14:57:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F586C88E63
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 15:48:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C84BD10E927;
-	Sun, 13 Sep 2026 14:57:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BE3B89349;
+	Sun, 13 Sep 2026 15:48:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d7FfBa1n";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YN0MKBiN";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 559CB10E7BE
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 14:56:59 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C38D089349
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 15:48:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5D2B860E50;
- Sun, 13 Sep 2026 14:56:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9EB71F000FF;
- Sun, 13 Sep 2026 14:56:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CDAB743F7C;
+ Sun, 13 Sep 2026 15:48:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DD701F000FF;
+ Sun, 13 Sep 2026 15:48:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789311418;
- bh=qwT6SRGrWU5ixZrRtK9qFiINLnWC1+kF+GUOsHUyW3s=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=d7FfBa1nDgoFFRzBucfNuX0dXjf7XCoNg/ZwnoOpuN/AqmJ+ioHfPF4bWqGKqFDjU
- Uwj2Gmc74kkdpsEPGKzVlogYtoqqbAZuJ+48c4Z65oMcVH11StVG9Vz2YchCVEOCmU
- EIRjkYYwuKqrHNXjgcmGbHb8VFMMmLKNjjzo/m6UtLTgf6zD6LKYuW21DR/ur6O2AJ
- 6G6ywaVPzPR+VNVnXaIvScuoc6d4vClgwwe0Hndgms18Mw0aYDlW+ZgnydS74y7bTV
- o/5MoGVErgJRCfUI05E/UboWnyEd8fCEKYTz1R1X3yGtm6OX/XAgMJFrjVTzZslEti
- LLaCoMyXPQ2Sw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] drivers: gpu: drm: panel: Add BOE NT51021 driver
-To: "Nickolay Goppen" <setotau@mainlining.org>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260913-qcom-novatek-nt51021-panels-v3-2-266bc5d7e8c9@mainlining.org>
-References: <20260913-qcom-novatek-nt51021-panels-v3-0-266bc5d7e8c9@mainlining.org>
- <20260913-qcom-novatek-nt51021-panels-v3-2-266bc5d7e8c9@mainlining.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 13 Sep 2026 14:56:57 +0000
-Message-Id: <20260913145657.B9EB71F000FF@smtp.kernel.org>
+ s=k20260515; t=1789314491;
+ bh=CAGATFrGjpOdjdzUWpav8LQXEkXQtN7HhfR1h1EQFfQ=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=YN0MKBiN+C7HzmSBLfKYjsR26sJjS8t4zc4Bu3LioLMPeP5xNJknXDpllqCIT/5bl
+ keReoClozwAGEAr6PDecz6gZCSv5JU9kFYSNKpfVK51MciopDToVO/0jsZD34ovmtF
+ cg/VZuqQUPIFN9MWwPx9NqoxO9QiBPq6xhXOU0xwqIY/+GSE9dAM11fa1dt4Mqvw+w
+ 8OfIx9TECTA4vSIqfyXxeQjsE+XSOmmQcVM3O4ILGlHdhMZz505XRNeaRZwiAMVIp+
+ /D6MKxdmESSARpbccb5HpRi9J2ljsmtDftlS409MK+SdQXkz6b2LcVXDbvwN54LunY
+ MU+R+qrmBia4A==
+Date: Sun, 13 Sep 2026 05:48:10 -1000
+Message-ID: <9d772dcc9c7331c239c8cb513331b399@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>,
+ Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, mkoutny@suse.com
+Cc: cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] cgroup/dmem: Fix eviction helper reference in
+ dmem_cgroup_try_charge()
+In-Reply-To: <20260911220833.6958-1-kmehltretter@gmail.com>
+References: <20260911220833.6958-1-kmehltretter@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,70 +55,13 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Unconditional execution of CABC off sequence overwrites untouche=
-d state for boe_tv101wum_nm0 variant.
---
+Hello,
 
-commit 80218d28f8a5f485ff9423dca654f2257664a78b
-Author: Nickolay Goppen <setotau@mainlining.org>
+Applied to cgroup/for-7.4 with the comment rewrapped.
 
-drivers: gpu: drm: panel: Add BOE NT51021 driver
-
-Add driver for BOE NT51021-based 8-inch and 10-inch DSI video mode
-panels used in Xiaomi Mi Pad 4, Mi Pad 4 Plus and Amazon Fire HD 10 tablets.
-
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt51021.c b/drivers/gpu/=
-drm/panel/panel-novatek-nt51021.c
-> new file mode 100644
-> index 0000000000000..fc99908917868
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
-
-[ ... ]
-
-> +static int nt51021_novatek_off(struct novatek_nt51021_desc *ctx)
-> +{
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-> +
-> +	nt51021_cabc_off(&dsi_ctx);
-
-[Severity: Medium]
-The commit message mentions that for the boe_tv101wum_nm0 variant, CABC is
-untouched because the vendor drives it over I2C from the backlight path. Wh=
-ile
-the initialization sequence for the nm0 variant correctly omits turning CABC
-on, this teardown sequence appears to unconditionally call nt51021_cabc_off=
-()
-for all variants.
-
-When nt51021_cabc_off() is called, it executes:
-
-    mipi_dsi_generic_write_seq_multi(dsi_ctx, 0x90, 0xc0);
-
-Could this unconditional write cause unexpected hardware states or DSI/I2C
-collisions during the display teardown for the nm0 variant, since the regis=
-ter
-was intended to be left alone?
-
-> +
-> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0xa5);
-> +	mipi_dsi_msleep(&dsi_ctx, 20);
-> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 130);
-> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 70);
-> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0x00);
-> +	mipi_dsi_usleep_range(&dsi_ctx, 4000, 5000);
-> +
-> +	return dsi_ctx.accum_err;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913-qcom-novat=
-ek-nt51021-panels-v3-0-266bc5d7e8c9@mainlining.org?part=3D2
+Thanks.
+-- 
+tejun
