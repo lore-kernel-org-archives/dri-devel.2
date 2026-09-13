@@ -4,77 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 618EAC88E56
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 12:02:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B164C88E5A
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 12:18:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5900D10E0C3;
-	Sun, 13 Sep 2026 12:02:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69D1E10E0E2;
+	Sun, 13 Sep 2026 12:18:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="azogx67p";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZLDDq0m8";
 	dkim-atps=neutral
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com
- [74.125.227.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CFF610E0C3
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 12:02:39 +0000 (UTC)
-Received: by mail-pj2-f13.google.com with SMTP id
- d9443c01a7336-2db18fe459dso4345545ad.3
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 05:02:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789300959; x=1789905759; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=dZ5JOsCZ04J11iAGe8msFZoGQpgRKm5XQ0vjKi0ufM8=;
- b=azogx67ps9fM4Po1Du5rqdv0nmF/5CeEpsbak1QLhFQKqfimWDt+S0UJgSEIYWvp3z
- UWwmG6L9Jr5+nOEjkqNWc+jLVvi2VSvgtBRnR9fY+yh8XBxEGOnhqZJNodkPP9l4w+oU
- QY96iDBRRZqw/53PgE/DyDk82j53uMY1xNE2jjcjFMOUtKRTGFq0m9s2mCM57rBHkeRk
- 9wdeBdMGMXr1jLTCGhlzQoKheCE4oNTNKoWW+4GsPKodXGoz6ikd8gpZ0HmPzQKueTYT
- dNTD4mQpXq4CiiBr+qqWIMaEiDenvc01HhdP0JdCsukSzX30BLGrcXzU20E8zLfonuWf
- GR/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789300959; x=1789905759;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=dZ5JOsCZ04J11iAGe8msFZoGQpgRKm5XQ0vjKi0ufM8=;
- b=lvupgta+2z8g7T7tSm7dqJ3z1YzJy4NmDIoBn44qf7wSopczZxZg7YK+b3dBsdR5Gq
- Q+SMB2Euqz8FviFmPWrwITKTeMCpTwbBLqP/8+MEIjjrqRqDbP9Iy+S+Z2sh6cZaIA2c
- jCz7mHihSvdHHdAtaNNQ37Kx+1Hxd8Ip6AzzAih0BOiif9W5tNGwNBYcSESTYWptrSQp
- ZA4R7EaEuGoLJ2ymY+tYA0IwDmulip+WhRR9DoHKGtHy4mEWZHopzZaD0d5KK7WhR2oE
- Qy+VXOpGGo2ikyUNBQIQbCrzfnXOLR4qpF1HysCaP90yAB+2FumLfFr3Cpcm+h637/4y
- XgPg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwctJEdYAZ4eJwZNp+3bi8nNKHe167jAjfdtOCZYpqA/TKD8IyA45sRKC2+sO//NQjhw14cJKkkMls=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++ljJhFKbAnzxsDHz3V/bsDw4phmqEwHF3wEqLR2x54HboEYG4Xq
- aKi1zUc8nCxhGpLXI2Rg2MFVMQHGhb0BMPlDpBkAttflp2z2JPbu6gaW
-X-Gm-Gg: AYBFou1ekPxMp5/pysIPq833qaMaxuhz5FQZoW8Fy4RwVGTw8ZZrUOVmZWxrTx9AJiv
- Z+41sWw88zPRNLLfEv0mGBLF9cAl8u7zDMttpYJIWzmuSEOm3JLhyqdwauoEJn4rd/v2ZF38Brn
- A5UMDhxGdojLvpGPoelec/dWyLVu4aRXiH+6HR5MVHii/b7cHBk3B0F1MzKO+MgF5Ryavtd2DZs
- Xz9xabtaDb4XVuJs0+tv1z6bk65u1tKuk19Is6CwSqYIUQsroWGVA4f9kPTBxisxdAXwSdHGal5
- ZOH4sM9jXF/gKSTzZM/N5l2EDkEUxdNfY+6mbCcb02n/lRuWR+NtAfxkcj0y7qymL/FUX5EPt5Y
- HNSjKIUpIhFJh5Cnev/GXpBlIoKzLNPvZIgNzOnll78c436D7+Fu3BpBamGimIjkkrXDtuPeYqX
- pzqv5kcSC+y2YaFShy+cFpk0lkdt74gdl0yftX3bBIAqcyx7YqDKeYydk=
-X-Received: by 2002:a17:90b:52cd:b0:398:b426:ca4b with SMTP id
- 98e67ed59e1d1-39dbc6ef551mr12049002a91.22.1789300959024; 
- Sun, 13 Sep 2026 05:02:39 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2dd3e2dabc4sm27365725ad.19.2026.09.13.05.02.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Sep 2026 05:02:37 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Dmitry Osipenko <digetx@gmail.com>,
- Ulf Hansson <ulfh@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] gpu: host1x: fix runtime PM reference leak on remove
-Date: Sun, 13 Sep 2026 20:02:27 +0800
-Message-ID: <20260913120227.1559129-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 042D110E0E2
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 12:18:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id F1C1D60E01;
+ Sun, 13 Sep 2026 12:18:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93EAC1F000FF;
+ Sun, 13 Sep 2026 12:18:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789301889;
+ bh=om6l/+Hhi+bIf8N89Gucw2aVPv+5PoGR5HQkRFg4B94=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ZLDDq0m8zAF0nnln9paiur5z1HqF2I2aGefFX0BErV909ZwkmuUFgbz/M5+CY+Biq
+ +pf/nzq/+QrU+wbi0gZl/c0NkeyrAB9o2BeJBHwWgdb4f0ZhNoVQJZaj3a0F2gs6N8
+ 9Pg91pDhgRybJmzhCcwiUIoQqalReWD4/UyUxpxB6ll7IO64I2kz5oQSxTXHfppjDz
+ cJewmWcrdnLKs17XZ1CWkUcK4JICfJLt1atMTKv5AgUTsRloxgKcIalKPG1Qin2/sv
+ oD6zqnzxZQLCPKFFGATZwqjcOletQ+H/+bFaGvSoZkXHqGPyw+lvBNVYkSpNmDEbYh
+ K9diW3X0h55Ag==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] gpu: host1x: fix runtime PM reference leak on remove
+To: "Guangshuo Li" <lgs201920130244@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260913120227.1559129-1-lgs201920130244@gmail.com>
+References: <20260913120227.1559129-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 13 Sep 2026 12:18:09 +0000
+Message-Id: <20260913121809.93EAC1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,48 +52,139 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-host1x_probe() calls pm_runtime_resume_and_get() and intentionally keeps
-the runtime PM usage reference for the lifetime of the driver because
-host1x is not yet ready for dynamic runtime PM.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-The probe error path drops this reference with
-pm_runtime_put_sync_suspend(), but the remove path only calls
-pm_runtime_force_suspend().
+Pre-existing issues:
+- [High] Shared IRQ handler accesses hardware registers without PM checks, =
+and runtime suspend powers down hardware without `synchronize_irq()`, riski=
+ng system crashes.
+- [High] `host1x_remove()` leaves the device in an invalid PM state (RPM_AC=
+TIVE with hardware off) if children exist, causing bus hangs on driver rebi=
+nd.
+- [High] Resource leak (clocks left permanently on) in `host1x_probe` error=
+ path if child devices exist.
+- [High] Use-After-Free risk due to allocating `struct device` objects as a=
+n array and freeing them synchronously in `host1x_memory_context_list_free`.
+- [High] Use-After-Free risk due to missing `cancel_work_sync()` for `cdma-=
+>update_work` during CDMA de-initialization.
+--
 
-pm_runtime_force_suspend() disables runtime PM and invokes the runtime
-suspend callback when necessary, but it does not decrement the runtime
-PM usage counter. As a result, the reference acquired by
-pm_runtime_resume_and_get() remains held after the driver is unbound.
-Repeated bind and unbind cycles can therefore leave the runtime PM
-usage counter increasingly unbalanced.
+commit ee98077bd8be81a3568fe9ef94599ff2844511f0
+Author: Guangshuo Li <lgs201920130244@gmail.com>
 
-Drop the usage reference with pm_runtime_put_sync_suspend() before
-forcing the device into suspend during removal.
+gpu: host1x: fix runtime PM reference leak on remove
 
-This issue was found by manual code inspection.
+The commit fixes a runtime PM reference leak in host1x_remove() by calling
+pm_runtime_put_sync_suspend() before forcing the device into suspend. This
+balances the reference acquired during host1x_probe().
 
-Fixes: 6b6776e2ab8a ("gpu: host1x: Add initial runtime PM and OPP support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/gpu/host1x/dev.c | 1 +
- 1 file changed, 1 insertion(+)
+> diff --git a/drivers/gpu/host1x/dev.c b/drivers/gpu/host1x/dev.c
+> index d2c64728f8043..bb6a1647e4db9 100644
+> --- a/drivers/gpu/host1x/dev.c
+> +++ b/drivers/gpu/host1x/dev.c
+> @@ -729,6 +729,7 @@ static void host1x_remove(struct platform_device *pde=
+v)
+>  	host1x_unregister(host);
+>  	host1x_debug_deinit(host);
+> =20
+> +	pm_runtime_put_sync_suspend(&pdev->dev);
+>  	pm_runtime_force_suspend(&pdev->dev);
 
-diff --git a/drivers/gpu/host1x/dev.c b/drivers/gpu/host1x/dev.c
-index d2c64728f804..bb6a1647e4db 100644
---- a/drivers/gpu/host1x/dev.c
-+++ b/drivers/gpu/host1x/dev.c
-@@ -729,6 +729,7 @@ static void host1x_remove(struct platform_device *pdev)
- 	host1x_unregister(host);
- 	host1x_debug_deinit(host);
- 
-+	pm_runtime_put_sync_suspend(&pdev->dev);
- 	pm_runtime_force_suspend(&pdev->dev);
- 
- 	host1x_intr_deinit(host);
--- 
-2.43.0
+[Severity: High]
+This isn't a bug introduced by this patch, but does this leave the device in
+an invalid PM state (RPM_ACTIVE with hardware off) if children exist?
 
+In host1x_remove(), pm_runtime_put_sync_suspend() drops the usage counter
+but fails to suspend because devm-managed children might exist
+(child_count > 0). pm_runtime_force_suspend() is then called, which powers
+down the hardware.=20
+
+However, because child_count > 0, pm_runtime_need_not_resume() returns fals=
+e,
+causing pm_runtime_force_suspend() to leave the runtime state as RPM_ACTIVE.
+
+When the driver is unbound and rebound, host1x_probe() calls
+pm_runtime_resume_and_get(), which sees RPM_ACTIVE, skips the resume
+callback, and accesses the powered-off hardware. Can this cause bus hangs on
+driver rebind?
+
+While reviewing the PM changes, I noticed a few other pre-existing issues in
+the driver:
+
+[Severity: High]
+In drivers/gpu/host1x/dev.c:host1x_probe(), is there a resource leak in the
+error path if child devices exist?
+
+pm_put:
+	pm_runtime_put_sync_suspend(&pdev->dev);
+pm_disable:
+	pm_runtime_disable(&pdev->dev);
+
+This is a pre-existing issue, but if an error occurs in host1x_probe() after
+devm_of_platform_populate() adds children, pm_runtime_put_sync_suspend()
+fails to suspend with -EBUSY due to child_count > 0.=20
+
+The driver exits probe, and devm cleans up the children, but the device is
+left in RPM_ACTIVE with PM disabled, leaving hardware clocks permanently
+enabled.
+
+[Severity: High]
+In drivers/gpu/host1x/intr.c:host1x_intr_init(), the interrupt handler is
+registered as a shared interrupt:
+
+	err =3D devm_request_irq(host->dev, host->syncpt_irqs[i],
+			       host->intr_op->isr, IRQF_SHARED,
+			       "host1x_syncpt", &irq_data[i]);
+
+This isn't a bug introduced by this patch, but doesn't this risk system
+crashes?
+
+If the device is runtime suspended and another device sharing the same IRQ
+line triggers an interrupt, syncpt_thresh_isr() will execute and access
+host1x registers without checking PM status:
+
+	reg =3D host1x_sync_readl(host,
+		HOST1X_SYNC_SYNCPT_THRESH_CPU0_INT_STATUS(i));
+
+Additionally, host1x_runtime_suspend() powers down the hardware without
+waiting for mid-flight IRQs via synchronize_irq().
+
+[Severity: High]
+This is a pre-existing issue, but does host1x_memory_context_list_free() in
+drivers/gpu/host1x/context.c have a use-after-free risk?
+
+	for (i =3D 0; i < cdl->len; i++)
+		device_unregister(&cdl->devs[i].dev);
+
+	kfree(cdl->devs);
+
+The device array is synchronously freed immediately after device_unregister=
+().
+
+If userspace holds a reference (e.g., via an open sysfs file), the memory is
+freed while in use, and when the final reference is dropped, the driver core
+will operate on freed memory.
+
+[Severity: High]
+This is a pre-existing issue, but does host1x_cdma_deinit() in
+drivers/gpu/host1x/cdma.c risk a use-after-free by missing a work cleanup?
+
+	host1x_pushbuffer_destroy(pb);
+	host1x_hw_cdma_timeout_destroy(host1x, cdma);
+
+	return 0;
+
+The function destroys CDMA resources and the channel memory is freed, but it
+omits calling cancel_work_sync(&cdma->update_work).=20
+
+If the work executes after the resources are freed, cdma_update_work() will
+dereference freed memory.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913120227.1559=
+129-1-lgs201920130244@gmail.com?part=3D1
