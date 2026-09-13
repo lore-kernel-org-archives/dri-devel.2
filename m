@@ -4,78 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1CF2C88E5C
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:05:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52E7EC88E63
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:18:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCFB410E173;
-	Sun, 13 Sep 2026 20:05:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1E3610E450;
+	Sun, 13 Sep 2026 20:18:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jHHK9Aiv";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LHfBJyxj";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iMWpMrVF";
 	dkim-atps=neutral
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
- [209.85.215.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBB8810E173
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 20:05:20 +0000 (UTC)
-Received: by mail-pg1-f173.google.com with SMTP id
- 41be03b00d2f7-cbee846deecso3663168a12.1
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 13:05:20 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 534D010E17B
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 20:18:49 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68DK03iB3217873
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 20:18:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=1QPVushJ6JeDYkDdFRtdAlcR9wpX8yx6bam
+ U+HGQUsw=; b=LHfBJyxj7lCJ3xfHc9Y5znKfFxLG/iTbIh6TpbKJQZv0NFIcBo0
+ La4SmCrHMksiBwImlJO5ZjnBsaAQom0JcVsWThYEUEWHb6Ojt+aXIHVDFmLNkyUU
+ 93CpoQa56PuCMyqcu1eMimvU87YtYGrPROt0/wb+JtXlnKafJ48wPURF2ikWh8bL
+ lHKmG89cp8yHOLII8SNoJiiN/pqaOWtoB9EjQs3A7eHRmNKwEzDo0+p+GRrOz4lp
+ iNAnBxnVwxIt1e3bWMlVbTfu8Lqi/LSnW9eA37at5bXtzN+mv6KTXoGWdeM67Wqf
+ lCXXz/8US7dW832vMsUkg4JCLqoxh/GkBkg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9dm2wg-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 20:18:47 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-93a0b66ecd9so140596085a.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 13:18:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789329920; x=1789934720; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=vsxyHcXIO8kCg+BbasfKONF82xj3AL3NR/R2G4eOqwY=;
- b=jHHK9Aivazb2aiSiRKSoZLMKfeLcMIotWZhi8rzBU9UJ+JwtgPo3oSE2dnELd+3pSv
- yVCbncg9ZT6yEFCZdJJ57DKAsHw5y706xd8z3h4zkAwiAjnI+mKwpARMCZZ3IwhFw1oi
- KAgP3HiYLd+1NIR++LPkAnZxs7zF9z5u2ySX4foO9IAZYTgybCTxKGUe4UU+/Gppcn3x
- OXf4x4PEZhOyG5xO35tpYuY2jvGoBAprawA88EXcMn9JZGCakhJ8APgRqUnO5gdj10Jg
- NlKxxecUrha6Qkme3Y6kWlIT+ZyMtntJL16PD2gg6qS1ohxizpUBEGUC1iBrdUjNmIj/
- NFUg==
+ d=oss.qualcomm.com; s=google; t=1789330727; x=1789935527;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=1QPVushJ6JeDYkDdFRtdAlcR9wpX8yx6bamU+HGQUsw=;
+ b=iMWpMrVFdHWx0JckVbmowpr2cqscM+hjNyIr8yIYVjL4dq6tufqhF+31V2jwqV6/Bm
+ g5uuoa7pB5ZySmYfSGbS9nP6QcoRHWEHxYfo0sLCLmesk8/9Pd5qBa0gBMZTIMuGD+KA
+ r8RWFokoE3t/UTnL6Vy5QhUYfQao7PTiaCHYY0S9yxQm5eKLijUKC5EEm4G8BLarfqzh
+ tGfVpTdfcouaHHeyHCO0nE04pySRBSLWi0SSkrbonxduIDUSn7rZRq+zo+R4TQXOOlkL
+ k4dFtXF7fQekeZf3Drs8mP1e0MvEVmK/Bb0dPyLl54Lq8PNPtm6m0QKfzOTq1iz6AxT9
+ 1Xhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789329920; x=1789934720;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=vsxyHcXIO8kCg+BbasfKONF82xj3AL3NR/R2G4eOqwY=;
- b=k7uOjxg8Q+37KH18n/VPhF56DibNyDYAIhb9iXlnxVeK21uLiBi6xtjQnUb7GrHJCl
- dGQKtD6hjt76LtjN1bpan8Dwj6zGYjeONwUI/t3nq3tnh3XzqHYat3O7uQnUer7JSJS+
- Dj2/PZdOESklOIvt86l5lmzHrHxChMlDr5P0Q+g+LzjFgMQrJs1lqjvyA4WXG+Sb2GEJ
- fhIxn2C2UnQC+Aof3ngQYoHHl8INUM1s3aZFHI02KC0Ng+1u1RxE/B4lI+J9ISwS65hy
- lM+ChRtNTWe+ZJzNSgb+oJWjqzOsqW/iPDb2KdxHFYFFJySnra8k9V6hpTi1lEjBhzFf
- fXig==
-X-Gm-Message-State: AFuF++lMbFou1/ceJPpUFGavr52gRxzk9Wp/HpOaGtjQpA8oRbyOsW9R
- hwAPkUGJYly51k95lmu1yOO1M+XFxRrbeL+RLHeW2eGrFIB2I0Jy803pRvfV+ADyT1U=
-X-Gm-Gg: AYBFou1FZD+3lzjhgyiLaWoAmqLiirDg/WetVGMnS4ZR1bWcsLyExXK/2IctRyEajXF
- qtfDe+/dxn216Yq2sd1fxtQmOOYrdrQv4KliMr5LKV7bte5++5h0IOciQK8Dz7+M0Eu33Anc/GG
- z7h3nrQfdqm3eYNS9hjtJeeDTQ5mO6X9Ca32mhOvllcpS8S0pXMqrJMIpNYo+osyMuMuBZljH7j
- 2M5u8giEzeC3IFfR5ex4/SdO2Er57CiNjFnqodu2VhYAew0nsHRhva2MYSQHcDAVMSxpsqvdxlh
- JZB9OYWypp4r9EtpaHMo9AIbsueTcAXeWEPpTS3WmdzNYMJqvJfqzE7iaLHcDM+tn+CjCTdBj7T
- juElafB3s/vD8Va2Sj7X9GQAOqRgc/GH5udAknLZqprdXB4w/fn51v3xIeepUNjK6vYSlRP5g6c
- 0OCA6LJRV6D6KGGsDwcjwshLJYtaPTmcOOg/vx8Zo7CGGwuNdQPj2hJWIt9x2gpKRQdKkCOdew7
- KQfb8WsLSGqmTVik8fdCv++UeApHjRg3tMoUe8HunSyl9+AEjl9my6Yg+jB9ZD5+SJ85Di9HRJI
- qMiFvAXApWsVNGiZldL0obzLZq9YTqAFOvs8ZC55sKqi
-X-Received: by 2002:a17:90b:5823:b0:398:bdb0:adb7 with SMTP id
- 98e67ed59e1d1-39d9c0aad8dmr27136272a91.16.1789329920331; 
- Sun, 13 Sep 2026 13:05:20 -0700 (PDT)
-Received: from 0xiviel.ip (122-63-135-80.mobile.spark.co.nz. [122.63.135.80])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39da64d4bdfsm3676635a91.0.2026.09.13.13.05.08
+ d=1e100.net; s=20251104; t=1789330727; x=1789935527;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=1QPVushJ6JeDYkDdFRtdAlcR9wpX8yx6bamU+HGQUsw=;
+ b=iQ5JKswT+Ak4u9JZ8/3bgohoyGbmd8o01KTM8JyiwcAiNZry860MKb2z+MuEgff+2I
+ MF61muJUo+aiCHq6AcA1iPHEgMpPFqjgJfiJ3QI+/+HJksw6EGNLTyzl2rnKvinmUNCQ
+ PENddGoPoKfxQKKGKh2Hzr7mwMRRyPrw2We3/DQAnlhumX0zi4CWMDqXZOufni5DEg7r
+ Yq/jh2cBrrUhso8+w0yVmHByL8jo34MwTPn0NIt7XbTRa8Hlj8OohcW5TjxneN5jCda0
+ PKlfecEigNqroWp2Nyz3mYiuW/O5VJSTkJ89rc0pJ8r6AkcRaqJqHWCn1qy6YM5CbYws
+ CUIQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByjToZVvuD/PSyNZf15AURsbEWuamyZtDItsOpcenfxM1GjJv35TXr8TTYX1JFqi8EnfwSlEfMDR8c=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kXSXzo/KeK8hjmafqzBliPcEp0+6ekJ2KP1rT2OM5UjrsaBRo7
+ me5dSAxozIERRKGEfF43ZulQadHWS7NrtRRa5edUfAgibMH5yTzRbPUeqYBh4YDHfP4P/BQWAch
+ 5GQqrWaCpp2QfXC5DOYjZNooWvLKMeu336b+diQ2UZ8ERv4YTE90Zw1C0qY7rcjuLh2f7CvI=
+X-Gm-Gg: AYBFou1nlGgCq31crdDroGtg1CzBxBkOoQR9m/OMthSNsbj4gzmVJwQc58pB6rHL57X
+ 20PkYlSLgh2kQZK/3lw8Vgcgpc+K8vEWUzh4tl6PSrP2PGxK6XREiE0qsc4mbEtOLpmUZAdYSf5
+ APHM8EFjtkleEuDhk4YE0Ra//sypRW8qaNDMWdnuLoo3V+Bb4pqsnDMxOESbi1Kloim4ZrnFmMC
+ iftcgxfxvjvowXxW8LgCJe//s1I8L//4i1Y3MX0+kv24+4qSb2EXgwLVW50AixkJUSZTV1k5b84
+ N1PSpzP+7HJJu1EYpTJJCoOy7YoWfZiAfJdk3ASVEx3Cpv7Qr4QwpMeR+z1bc0kcWsrQlZA0CAC
+ y8yArwDvJuTFrtQ==
+X-Received: by 2002:a05:620a:472b:b0:92e:745c:6c5a with SMTP id
+ af79cd13be357-939ea09214amr2042406285a.14.1789330727177; 
+ Sun, 13 Sep 2026 13:18:47 -0700 (PDT)
+X-Received: by 2002:a05:620a:472b:b0:92e:745c:6c5a with SMTP id
+ af79cd13be357-939ea09214amr2042400685a.14.1789330726641; 
+ Sun, 13 Sep 2026 13:18:46 -0700 (PDT)
+Received: from debian ([5.133.47.210]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-486eb32d3c7sm20143821f8f.10.2026.09.13.13.18.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Sep 2026 13:05:19 -0700 (PDT)
-From: Eva Crystal <0xiviel@gmail.com>
-To: Min Ma <mamin506@gmail.com>,
-	Lizhi Hou <lizhi.hou@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Eva Crystal <0xiviel@gmail.com>
-Subject: [PATCH 1/1] accel/amdxdna: bound the firmware-supplied mailbox
- register offsets
-Date: Mon, 14 Sep 2026 08:02:12 +1200
-Message-ID: <20260913200212.133126-2-0xiviel@gmail.com>
+ Sun, 13 Sep 2026 13:18:45 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ mpearson-lenovo@squebb.ca, abel.vesa@oss.qualcomm.com,
+ sibi.sankar@oss.qualcomm.com,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Subject: [PATCH 0/4] arm64: dts: qcom: Add Lenovo ThinkPad T14s Gen 7
+Date: Sun, 13 Sep 2026 21:18:31 +0100
+Message-ID: <20260913201835.250085-1-srinivas.kandagatla@oss.qualcomm.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260913200212.133126-1-0xiviel@gmail.com>
-References: <20260913200212.133126-1-0xiviel@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: ocAiSCgH2Hkrh-0Mh53Ie9Rgb7z5VIsA
+X-Proofpoint-ORIG-GUID: ocAiSCgH2Hkrh-0Mh53Ie9Rgb7z5VIsA
+X-Authority-Analysis: v=2.4 cv=NelzRGD4 c=1 sm=1 tr=0 ts=6aa70527 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=NEAV23lmAAAA:8
+ a=8k6WQxmsAAAA:8 a=AzqT7FCsPe08lIGMPrUA:9 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDI4OCBTYWx0ZWRfX5KfX27L5UOnV
+ 1BXGDXR5JtNiY80BTWAPfG9PVzGqonAIyO0iRE9iWQwd0Apig3AURs7FSDhvcmYf1bVrsQ+TKHi
+ 2VP6jCXRX+o1JP1LG5VJrgH7UZhw2Xs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDI4OCBTYWx0ZWRfX8ywr+cYcPfzE
+ UWEGfJkNoP3jYpobgQsbnJi4xvE9J0+4vpuQfisnlCsXbOQ/e8QRWH5GeMaE/ii/jmcT7l2HtBO
+ 00sOI+C5oEN3Y6bPDJ3CLkO+jRdXPINk9j/74fX5wxuKPq9A88SOaAl8e+zNTcjY/qCM1Khc8y9
+ RVnpTWGaB+AAh4+gmrIGtT9XTVNS7L6wD097v641pbmscjM1w1oimbPpoM3Q/W+Tr0illI9L1/R
+ dp72L9csJWya9jDwhQz8T+CB6pQ7mRR8fyVDQkAvFfUYWkOt0Z3rnyBXuIsHvgaGG7GIWOgWKa1
+ Zgz1JoAt7VwT6n7bA+NBnC0bYhS1vOZMin0IKzV1gUDI2NOw1P1gFkOv0HebUfEFAyTkXiekLNE
+ etK/mS7mrbz5/E5ZFIivOUZ89Ng/JoiF7lQIojDJBJMQwMbEjB2EuOh/3JUVFyO45TOnB0YGzVo
+ DkaqyOvi1FQf+I5TAaA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-13_07,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501 clxscore=1015
+ spamscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609130288
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,109 +147,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Firmware chooses where a mailbox channel's head and tail registers live
-and reports them to the driver as device addresses: in the management
-mailbox block it writes into the SRAM BAR, read by
-aie2_get_mgmt_chann_info(), and in the CREATE_CONTEXT response, read by
-aie2_create_context() for every hardware context. AIE2_MBOX_OFF() turns
-each one into a raw byte offset into the mailbox mapping, and both
-aie2_hw_start() and aie2_create_context() derive the mailbox interrupt
-register from one of them by adding 4. On AIE4, aie4_mailbox_start()
-takes the same four offsets straight out of the mailbox_info block.
+Add device tree support for the Lenovo ThinkPad T14s Gen 7 [1], a Mahua
+(Snapdragon X2 Elite) laptop, together with the drm/panel-edp entry
+for its internal panel and a QSEECOM allowlist entry.
 
-None of them is checked. mailbox_reg_read() and mailbox_reg_write() add
-the offset to xdna_mailbox_res::mbox_base and hand the result to
-readl()/writel(), so an offset past the end of that mapping is an MMIO
-access outside it, at a kernel virtual address the driver has no claim
-to. AIE2_MBOX_OFF() is an unsigned 32-bit subtraction: a reported
-address below the aperture base does not yield an obviously invalid
-small offset but wraps to a very large one, and the + 4 for the
-interrupt register can wrap independently of the value it derives from.
+Tested on the platform:
+  - Display (internal eDP and external DP on both USB-C ports)
+  - USB-C data + charging on both ports
+  - Wi-Fi (WCN7850) and Bluetooth
+  - NVMe on PCIe5
+  - HID-I2C touchpad, keyboard, TrackPoint, lid switch
+  - Audio playback (2x WSA8845 speakers) and capture (DMICs)
+  - ADSP / CDSP / SoCCP
 
-The bound is already there. xdna_mailbox_res::mbox_size is the exact
-length of the mapping pcim_iomap() produced - the device's mailbox
-window size, or the BAR length when the device does not override it -
-and it sits in the same struct as mbox_base. The driver stores it and
-never reads it.
+Not tested / out of scope:
+  - WWAN (wiring included but no SKU with the modem to test)
+  - GPU / GMU (kept out of scope for this bring-up)
 
-Check the four register offsets and the interrupt register against
-mbox_size in xdna_mailbox_start_channel(). Every mailbox register
-access reads mb_chann->res[] or mb_chann->iohub_int_addr, and that
-function is the only writer of either, so it is the one point every
-firmware-supplied offset passes through, for the management channel,
-for a hardware context and for AIE4 alike. It is also where the derived
-interrupt register arrives, as a parameter, which a check at the
-producing sites would not cover. A zero interrupt register keeps its
-existing meaning of "this platform has no such register".
+my working tree is: https://github.com/Srinivas-Kandagatla/linux/tree/upstream/t14s-Gen7
+alsa ucm is in : https://github.com/Srinivas-Kandagatla/alsa-ucm-conf/tree/t14s-gen7
 
-Failing there rejects the channel before any offset reaches readl() or
-writel(). aie2_hw_start() and aie4_mailbox_start() unwind and fail the
-probe or resume; aie2_create_context() frees the channel and destroys
-the firmware context, so AMDXDNA_CREATE_HWCTX returns an error to
-userspace instead of leaving a channel that accesses outside its
-mapping.
+I plan to enable DP audio and other things in parallel.
 
-This is the firmware-to-driver trust boundary. Whether the part can
-report a register outside the mailbox aperture is not established and
-there is no reproducer. The offsets are simply the one firmware-supplied
-value this driver leaves unbounded, against a limit it already computes
-and stores.
+--srini
 
-Signed-off-by: Eva Crystal <0xiviel@gmail.com>
----
- drivers/accel/amdxdna/amdxdna_mailbox.c | 32 +++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+Depends on Bjorn's:
+  - phy: qcom: edp: split power-on sequencing by PHY version
+  - phy: qcom: edp: update v8 power-on programming sequence
 
-diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
-index cc8865f4e79c..0c4cb8beb26e 100644
---- a/drivers/accel/amdxdna/amdxdna_mailbox.c
-+++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
-@@ -112,6 +112,28 @@ static u32 mailbox_reg_read(struct mailbox_channel *mb_chann, u32 mbox_reg)
- 	return readl(ringbuf_addr);
- }
- 
-+/*
-+ * Firmware describes where a channel's head and tail registers live, as raw
-+ * offsets into the mailbox mapping: in the management mailbox block it writes
-+ * into SRAM for the management channel, and in the CREATE_CONTEXT response for
-+ * a hardware context. Both helpers above add such an offset straight to
-+ * mbox_base, so bound it against the size of that mapping first.
-+ */
-+static bool mailbox_reg_in_range(struct mailbox_channel *mb_chann, u32 mbox_reg)
-+{
-+	struct xdna_mailbox_res *mb_res = &mb_chann->mb->res;
-+
-+	/* Every access through the two helpers above is 32 bits wide. */
-+	return (u64)mbox_reg + sizeof(u32) <= mb_res->mbox_size;
-+}
-+
-+static bool mailbox_chann_res_in_range(struct mailbox_channel *mb_chann,
-+				       const struct xdna_mailbox_chann_res *res)
-+{
-+	return mailbox_reg_in_range(mb_chann, res->mb_head_ptr_reg) &&
-+	       mailbox_reg_in_range(mb_chann, res->mb_tail_ptr_reg);
-+}
-+
- static inline void mailbox_irq_acknowledge(struct mailbox_channel *mb_chann)
- {
- 	if (mb_chann->iohub_int_addr)
-@@ -518,6 +540,16 @@ xdna_mailbox_start_channel(struct mailbox_channel *mb_chann,
- 		return -EINVAL;
- 	}
- 
-+	/* A zero iohub_int_addr means the platform has no such register. */
-+	if (!mailbox_chann_res_in_range(mb_chann, x2i) ||
-+	    !mailbox_chann_res_in_range(mb_chann, i2x) ||
-+	    (iohub_int_addr && !mailbox_reg_in_range(mb_chann, iohub_int_addr))) {
-+		dev_err(mb_chann->mb->dev,
-+			"Mailbox register offset outside the %zu byte mailbox mapping\n",
-+			mb_chann->mb->res.mbox_size);
-+		return -EINVAL;
-+	}
-+
- 	mb_chann->msix_irq = mb_irq;
- 	mb_chann->iohub_int_addr = iohub_int_addr;
- 	memcpy(&mb_chann->res[CHAN_RES_X2I], x2i, sizeof(*x2i));
--- 
+
+[1]: https://psref.lenovo.com/syspool/Sys/PDF/ThinkPad/ThinkPad_T14s_Gen_7_Snapdragon/ThinkPad_T14s_Gen_7_Snapdragon_Spec.pdf
+Srinivas Kandagatla (4):
+  dt-bindings: arm: qcom: add Lenovo ThinkPad T14s Gen 7 (Mahua)
+  drm/panel-edp: add CSOT MNE007QB1-1 entry
+  arm64: dts: qcom: Add Lenovo ThinkPad T14s Gen 7
+  firmware: qcom: scm: Allow QSEECOM on ThinkPad T14s Gen 7
+
+ .../devicetree/bindings/arm/qcom.yaml         |    1 +
+ arch/arm64/boot/dts/qcom/Makefile             |    1 +
+ .../qcom/mahua-lenovo-thinkpad-t14s-gen7.dts  | 1184 +++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c              |    1 +
+ drivers/gpu/drm/panel/panel-edp.c             |    1 +
+ 5 files changed, 1188 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7.dts
+
+--
 2.53.0
 
