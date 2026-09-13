@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35328C88E5C
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 22:30:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14102C88E5C
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 22:30:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 323DD10E8B5;
-	Sun, 13 Sep 2026 22:30:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AC8F10EA42;
+	Sun, 13 Sep 2026 22:30:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="j6e70v+l";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="deWXobRF";
 	dkim-atps=neutral
 Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
  [74.125.228.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F6FC10E8B5
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 22:30:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5BE110EA42
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 22:30:26 +0000 (UTC)
 Received: by mail-ej2-f12.google.com with SMTP id
- a640c23a62f3a-c254f705536so356316466b.1
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 15:30:23 -0700 (PDT)
+ a640c23a62f3a-c254f55efe7so188270466b.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 15:30:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789338622; x=1789943422; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1789338625; x=1789943425; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Vt5o0BxKweowhjdX5zbCd6SyPluSfyfpCfycMWtAzT4=;
- b=j6e70v+laPFpROo2V6BeV1Um9NXI/rd11CP6bPhHysrOmjvErU9isRN0Pw34aPeC9Z
- VAbW4wHAcOaJ7C0Nf66pEjJmwAAw1V97nTUkkCYsayCz1XvKT+3vw7Vmt47rXiVNCsAx
- f2ajrnOE9grMsRF6T7jo3C3t+1XYtM7AEz3uLkMjagSLla4sJwjQK9Q97AXM7TtDY1sI
- iGR+LSNvyT/j0aO+Pe+ihqcMNpOxXnqt02Zg/y8iebXJSkEOcL9bkRKcScankLgImJ4u
- PuhNViXZQz76hRW3h8E1RcmRa1Pf2JF4nCP0Yfsc97LwnvfStrP4qWEN2kKn+POrivLV
- 0Bdw==
+ bh=NsiZnkuoCTKPflfGB5QjfHDZOp+0VHmNtyOlMcgcc9s=;
+ b=deWXobRFkeXeI0xVYe6IQfdERaubEclCJB0mkOonE+zr9sZJBEi9nZdMXrgWSzPKdC
+ hK3aT+1WIW8pDAuB4/PyxXkyK/VD9PwmXoZhVAFqBY3LM/CVQPoq0lY/f+NYrijEipbi
+ AECqVRW++VG0heAcA71JMZ187ZjZcPjjTUAj6wb9zHjBPEX71pNy8qaSMhxikAw4LIGS
+ hVLsqvnu81M7olIFuKYYoerbWOO//a+6B9rU01bF8auJEXA+qlu+V3OQNP1/K9iHXSHn
+ /fmxJjphfDRDlRA6O3INmLrijmOlwQpJNii/tqoetxkwTH31fbUBKrnQzaSawns8MK2x
+ xm+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789338622; x=1789943422;
+ d=1e100.net; s=20251104; t=1789338625; x=1789943425;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Vt5o0BxKweowhjdX5zbCd6SyPluSfyfpCfycMWtAzT4=;
- b=c+zwZhC9fWcqxWGoXupgWVEBpeJqj7SP1g3AcrBvCIn/s6O3M6VtmZ5HvbFf5ND9K7
- 9aoPiPB7hd9LR7TLbnPStjBYPrXdoniZAEz5nbMT1IOCUSwvRs2pgzTtvb2fdqdiCZ3e
- HNDaafR9pDPmfIQHOaVTEc5I2OcbixzIzvxagzrA6kiQ3YI8iTJRHHhNAoFdukh4FBAp
- q7LKsF2SNdrAqDmh6lzb4w4mqi7av6/YKzBqjNHxUy/znkQ/qgfegKWiZ9Cr7hrgcaYy
- Sa3Ng/7Qc6FbMB95EISTVTRtlF9OG71RJZkwpLymRzxDcdT2dJborRk2Pmed9vg8lubJ
- w8sQ==
-X-Gm-Message-State: AFuF++mcJt3cvuak7nYdBq7lURKqqBPUJNGgNj4FoFCcsBkpQMzhmQS+
- sDXsu1kQM+9+00eHHEPg2dTcf/HW+wnFDspwKz1+1IMkSq8pqaR+8B8P
-X-Gm-Gg: AYBFou2pUp2yUQ5QLq1XNWcR4ZsTwdo0ORLMBGdQmYCXQAX/3t0w++g8VDgxTY8Da8M
- w0OgEXZNeEAqn/kmQYcytcAHyqK6sjnVvTxzUgrIYvb5eEZIaDy/nbuCmxRvR7Ph4D4VZfEBcv1
- zL2YJTxxv9rcka5liPKpIBncO/F4PRwbnrxez3hX2WJBDNyiodn3sgUvu65Anx96+twJBSATQqW
- ADHeyz/A71W+cxhYfARXglhl7B+ocCxgdz9nCVdjzjYQvZySqIasUoPQaJDqQ8+2ZbMKsdV6Vae
- 4PwP3JK2za3C3PaXtUYuU93N5mT9VR8W5qu2ml/XqZtb2VrsGI/ex7jdIpe7Wqm7yeUWwJbPo7p
- ZQBqB2JTlevg0P4EkNWX5CmHC8ATJ3iVull+HyYofU1qCtX36tayhObnd5dJANtOPWAkft+XERR
- 8Y8gkbBJ14zQMfd761r0rPNkHGlOxwI6LB1GjGUrR2eON1T2vXcAPzUqHdra+IL3LA
-X-Received: by 2002:a17:907:7215:b0:c25:5a7:87f with SMTP id
- a640c23a62f3a-c29b804baffmr6802966b.0.1789338621865; 
- Sun, 13 Sep 2026 15:30:21 -0700 (PDT)
+ bh=NsiZnkuoCTKPflfGB5QjfHDZOp+0VHmNtyOlMcgcc9s=;
+ b=SLNu+l7+qwi6EuQ6BdaAf9MrSzOxJbo6+NGx4G+6RtgEWkFoOpov0km30Tmb/88vPy
+ m4CfrDb+/701kFighEVWCwx0N3cNf7dWOGeo6CV/n+u2amC/kUcFawO0O5/wn9MZh68b
+ YGDQIHTAJEfMScwFPfew2lnv3/e4n+lP3dG+w+zwR5/+uKBhC83MNecQdMUVhX7yqLUL
+ Mss4LQ6WDSzeyMsjqglpb1mg7WYAgu3ciyuio3Z0PW57OnN1+7Cq+/MAhN5HCNJ4FnAb
+ SNjuTtBjbdax/39t399JjSwlFTV558HPnL7YqVgDkIqJosKf+jlIt/BnJlIP51BKp+gf
+ lsmw==
+X-Gm-Message-State: AFuF++kn5TpzEM8IDzgti0oHaT9cQQTXIqaBCcuBQF9e0b9i4vvKvPCz
+ CPx/5ULt+VeZ8jsg+4DGcck/twUsHs/MpRZvI3/cfvQyTFLmPurCvYtV
+X-Gm-Gg: AYBFou1gLi/rOCxJ7QwCUtQlWxoN4pJKtd8SaPLwSo/VcqWnl429/GDxhWI37AVn4Eb
+ Pd8Fgxkcterz4L+Hzr4I+UAHrXR68pJP228GQ0N91S4NvtXkZ4NqiBWvd62EvqMk3rNOqj24XYB
+ Cu8PdnIps7izaO+e1erV48jTTvy3ZhRQhhQNaYI2AeF3keClV9e65GZD9dUdi1QzZvO2ydzqPca
+ FAUi6y8ecqah+7q7WyQi7lTc4Wl/EM8erDjQU5xgXNnyJFnB+8YglswWKjzjVK0q6tGqtyxP6y8
+ CmVmzraTPf33pdqAqjgDAKeUgGnatiPf5OVqApH99ZHDvBo9aLedzowUg79v95750zQohmSoMlW
+ hR5cQCmWaopPA/LcTps7URMRVLH+k1BbknfczsXGaHlczTKZBkvZ5hCYyhZxzuFUiIjkK5oTAqQ
+ A1M3VbO66qg8qz4j35yNPaTooH7Cjj5WeuSZ6UxeckJPw2g7VC/Ok9oYxa9rHHDxFI
+X-Received: by 2002:a17:907:dab:b0:c26:1dc7:bc42 with SMTP id
+ a640c23a62f3a-c29b863aa91mr4607066b.22.1789338625165; 
+ Sun, 13 Sep 2026 15:30:25 -0700 (PDT)
 Received: from beelink.. ([186.247.78.13]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c29ad3e033asm48063066b.47.2026.09.13.15.30.19
+ a640c23a62f3a-c29ad3e033asm48063066b.47.2026.09.13.15.30.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Sep 2026 15:30:21 -0700 (PDT)
+ Sun, 13 Sep 2026 15:30:24 -0700 (PDT)
 From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 To: airlied@redhat.com,
 	kraxel@redhat.com
 Cc: dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
  Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v2 1/4] drm/qxl: validate relocation dst_offset against
- destination BO
-Date: Sun, 13 Sep 2026 19:29:57 -0300
-Message-ID: <20260913223000.695299-2-qwe.aldo@gmail.com>
+Subject: [PATCH v2 2/4] drm/qxl: reject command sizes that exceed the release
+ slot
+Date: Sun, 13 Sep 2026 19:29:58 -0300
+Message-ID: <20260913223000.695299-3-qwe.aldo@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260913223000.695299-1-qwe.aldo@gmail.com>
 References: <20260913223000.695299-1-qwe.aldo@gmail.com>
@@ -88,85 +88,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-qxl_process_single_command() copies relocation entries from userspace and
-passes them to apply_reloc() / apply_surf_reloc() without checking
-whether dst_offset falls within the destination buffer object.
+qxl_alloc_release_reserved() receives a requested size from its callers
+but never validates it against the actual sub-allocation slot size.
+Drawable releases use 256-byte slots (RELEASE_SIZE), yet
+qxl_process_single_command() allows command_size up to
+PAGE_SIZE - sizeof(union qxl_release_info), approximately 4088 bytes.
 
-apply_reloc() writes 8 bytes and apply_surf_reloc() writes 4 bytes at
-the byte offset named by the relocation.  A userspace-chosen offset that
-exceeds the BO's allocation leads to an out-of-bounds write into
-adjacent slab memory.
+The command payload is then copied from userspace via
+copy_from_user_inatomic_nontemporal() into the 256-byte slot, causing a
+heap buffer overflow that corrupts adjacent release slots in the same
+page and can overwrite the neighbouring release_info headers.
 
-When the destination is the command/release BO itself (dst_handle == 0),
-the write lands relative to the release's own release_info header.  An
-offset of zero overwrites the release_info.id, which the garbage
-collector later uses as a release index, leading to a use-after-free of
-a release chosen by userspace.  Both paths are reachable from any render
-client (DRM_AUTH).
-
-Add two bounds checks:
-
-  - When writing into the release's own BO (dst_handle == 0), require
-    that dst_offset points past the release_info header and that the
-    final byte (offset + write width) stays within the command data area.
-
-  - For every relocation, require that the final byte offset plus the
-    write width does not exceed the destination BO size.  Cast to u64
-    before the addition so the check cannot be bypassed by a 32-bit
-    integer overflow on ILP32 platforms.
+Add a check in qxl_alloc_release_reserved() to reject allocations where
+the requested size exceeds the slot size for the given release type.
 
 Fixes: f64122c1f6ad ("drm: add qxl driver.")
 Cc: stable@vger.kernel.org
 Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
- drivers/gpu/drm/qxl/qxl_ioctl.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ drivers/gpu/drm/qxl/qxl_release.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/qxl/qxl_ioctl.c b/drivers/gpu/drm/qxl/qxl_ioctl.c
-index 591b026ce..e727a35c9 100644
---- a/drivers/gpu/drm/qxl/qxl_ioctl.c
-+++ b/drivers/gpu/drm/qxl/qxl_ioctl.c
-@@ -204,6 +204,7 @@ static int qxl_process_single_command(struct qxl_device *qdev,
- 	for (i = 0; i < cmd->relocs_num; ++i) {
- 		struct drm_qxl_reloc reloc;
- 		struct drm_qxl_reloc __user *u = u64_to_user_ptr(cmd->relocs);
-+		size_t write_size;
+diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
+index 06979d0e8..049ad167f 100644
+--- a/drivers/gpu/drm/qxl/qxl_release.c
++++ b/drivers/gpu/drm/qxl/qxl_release.c
+@@ -312,6 +312,9 @@ int qxl_alloc_release_reserved(struct qxl_device *qdev, unsigned long size,
+ 		return -EINVAL;
+ 	}
  
- 		if (copy_from_user(&reloc, u + i, sizeof(reloc))) {
- 			ret = -EFAULT;
-@@ -220,6 +221,9 @@ static int qxl_process_single_command(struct qxl_device *qdev,
- 		}
- 		reloc_info[i].type = reloc.reloc_type;
- 
-+		write_size = reloc.reloc_type == QXL_RELOC_TYPE_BO ?
-+			     sizeof(uint64_t) : sizeof(uint32_t);
++	if (size > release_size_per_bo[cur_idx])
++		return -EINVAL;
 +
- 		if (reloc.dst_handle) {
- 			ret = qxlhw_handle_to_bo(file_priv, reloc.dst_handle, release,
- 						 &reloc_info[i].dst_bo);
-@@ -227,10 +231,22 @@ static int qxl_process_single_command(struct qxl_device *qdev,
- 				goto out_free_bos;
- 			reloc_info[i].dst_offset = reloc.dst_offset;
- 		} else {
-+			if (reloc.dst_offset < sizeof(union qxl_release_info) ||
-+			    reloc.dst_offset + write_size >
-+			    sizeof(union qxl_release_info) + cmd->command_size) {
-+				ret = -EINVAL;
-+				goto out_free_bos;
-+			}
- 			reloc_info[i].dst_bo = cmd_bo;
- 			reloc_info[i].dst_offset = reloc.dst_offset + release->release_offset;
- 		}
- 
-+		if ((u64)reloc_info[i].dst_offset + write_size >
-+		    reloc_info[i].dst_bo->tbo.base.size) {
-+			ret = -EINVAL;
-+			goto out_free_bos;
-+		}
-+
- 		/* reserve and validate the reloc dst bo */
- 		if (reloc.reloc_type == QXL_RELOC_TYPE_BO || reloc.src_handle) {
- 			ret = qxlhw_handle_to_bo(file_priv, reloc.src_handle, release,
+ 	idr_ret = qxl_release_alloc(qdev, type, release);
+ 	if (idr_ret < 0) {
+ 		if (rbo)
 -- 
 2.43.0
 
