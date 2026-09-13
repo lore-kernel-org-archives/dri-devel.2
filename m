@@ -4,129 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DECF2C88E69
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:54:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 859AEC88E65
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:54:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D555F10E9EE;
-	Sun, 13 Sep 2026 20:54:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2820C10E9F3;
+	Sun, 13 Sep 2026 20:54:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VXiIsYXG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="emZ62vl4";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D939E10E3AF
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 10:13:46 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9E893432D5;
- Fri, 11 Sep 2026 10:13:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88F4F1F000FF;
- Fri, 11 Sep 2026 10:13:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789121626;
- bh=AJ4osXGfnva+GsW9Xj6wSlPvmOYx8+Z4McGwoEWWU6k=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=VXiIsYXGW7V+CUC2hoUUxshBtk//170ahXby5qOmnHCTEG6nprU1IS50u25G/fRQk
- sf9ytH2Ce2iGqonEAUfAmBNxEiX0H5gDZvz851NX8EhIuDaWSIQBlPZWYHnVma0aGj
- blDmI4LY1KM28dzcRxXSp3rNd+ml+k1Jf5jXcr5BNdmFsP+f0lE+KyInKD5utrTv18
- j0kWa0ZAaMlc3Pw4wRDO2h4SoWYRal6ZvW3YmHkVxX6gQf6/JqWhQp1QSVXE2Kca+2
- BYYLTVktrg9Xqy9CLQ0dyOX4enXiqnPzEjwUfsC5vJviK7A/gYwNlJA1GGOz2i3bhy
- SIFHvCnClRnig==
-Date: Fri, 11 Sep 2026 11:13:15 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Jann Horn <jannh@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Pedro Falcato <pfalcato@suse.de>, David Hildenbrand <david@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, 
- Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, 
- Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, 
- Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, 
- bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
- linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev
-Subject: Re: [PATCH 11/39] selinux: reject writable opens of policy file,
- drop mmap shared/write check
-Message-ID: <aqPS_UHU3MotlchR@gremlin>
-References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
- <20260908-b4-mmap-prepare-vma-flag-sanify-v1-11-dacf19cce22b@kernel.org>
- <CAG48ez3Ucb8HyhjC1-fijFiYJsnWcTLYHvJjzMyU710mgegxnA@mail.gmail.com>
+Received: from mail-pz2-f32.google.com (mail-pz2-f32.google.com
+ [74.125.228.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 643B310E0B9
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 18:37:48 +0000 (UTC)
+Received: by mail-pz2-f32.google.com with SMTP id
+ 41be03b00d2f7-cc4d04d73b8so1003408a12.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 11:37:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789324668; x=1789929468; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=d+o4MSkuQ8bnuoNbaiZq6FM4PPIv2ZxLKihE5535AIA=;
+ b=emZ62vl44wFeNzXmIfgQO9cxWhBEr6pXM6hPruDvBrZ18YB+gF4b27qUfdkKmN2WDx
+ yRpF3/DHeBUNWJaeaNxsDB6CvynS3hsG7T07LU7DcD44KF/1sOfRp6s+F8aJpV0zmUdr
+ D8ghOdc39gTOZXCXulMX6yCq7hca4zytJfUrYvzOsKsL8jF93pgyR7oI5AkTHoNSwu4z
+ ZabU6J3Wu1y/WJLCuyHrjGmvvbkSnDMsIvc9/x8wMNV1IBYeqPbMLctcePY1WwyNvvuA
+ pGiJTiiWgD6wRYjM36M6DwzicTy2tZJ9tV/JnOd/eHKABj7aZZLZ7ODS9LHsKeHh+76L
+ LRrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789324668; x=1789929468;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=d+o4MSkuQ8bnuoNbaiZq6FM4PPIv2ZxLKihE5535AIA=;
+ b=TN6NCuju2KIVYks6VCM/43FitWbeHciZwTOFTdZB/YbHZ6hPUYIw7ZakNmyNcZkcxX
+ s9wbp4Tdrn7nk0CF8Dwx2eZzwvkauKqtw5t497K9Lv3JAe6Sceh2dM4yLDODEVo6/JJG
+ dQdHGkcBbfAA+ZtI9gU113fY/Y6jgJgIKbK77Fu8cLqaodT8NMahKPGppxBnz0xA1meC
+ ajsV0dOnCaxALfTh9+Gv4X0xiXI3UugTiPJqHeiHufkw7PWa+H1cgREIO9Ym+iRkPRZY
+ 4rtk/LQtVCLZGL4qJw8ssdiOiFHw7cbL2qTIJe55t4sgntXmR8MTxzxvQSNgLyL7FpcE
+ FU0w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwRxJOD26fsLKleRmeGzcFqJOH2GGpZejOF/KnJCw6oq3KD9XQXzAhGqQvC5+EUO3OAV7yUbVM5KrQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kaAe0ct+DcDZhqWUqvrB+d9Jmthb35SW80X9wRXX1B+FC1VXMJ
+ bGB7u2vZx/sPomUfPEVnODXhsdJlqalM4+NgVil9Zw6z04V5OVHYxE4z
+X-Gm-Gg: AYBFou02sIfr0JMLam9bGO6LTNwwv7Wi/XcAV1ZqSRdvRsvmitbx+Uspql47OL1gI57
+ 5Crb7lrHhstWU5VUrd6p/EfClSznIdcZnHVeQqhlyecLvugvrXCNATRP6Ead97qh8U314Oe9ucW
+ kj9P2nPUPOs6fzmOWbfjl0foz6omXlq5T0yfAWs/6aNrbBEJWHxwleErEL47AjkRDl8a8haYpRp
+ t5dkdggEQfdC4fp88nIEFZGp8PVzRAJMBtXP68gGOFHoF4WMI4vx9TjJxpNkKe6PgCs9V9QI47s
+ orUFIxJ7Bz/7+UQHTwlbBfxJbYaEiccUow+wAEM0THxaE303JaO4/dddxRNjW04t2a1Vw5df5BW
+ l/8cNV1SMCl/b4WFDjt6uNrUEYhFEfpdr/QcZBP7PyClWSn7+7AhuNUQWpDQXpfrH0K8oileKSB
+ p3k/PHIIpWVE6WpB4HfDBJkcT8FNW2fvmWeqCxIrW835RzZkGw0oPdqGcqvbWoFrq2TcbZj9tU5
+ K51Fw==
+X-Received: by 2002:a17:90b:4990:b0:38f:de97:b06 with SMTP id
+ 98e67ed59e1d1-39dbbe8b896mr14518295a91.5.1789324667744; 
+ Sun, 13 Sep 2026 11:37:47 -0700 (PDT)
+Received: from localhost ([95.190.112.239]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39d9b08165fsm4118447a91.1.2026.09.13.11.37.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 13 Sep 2026 11:37:47 -0700 (PDT)
+From: Vladislav Zaharov <vladazaharova2018@gmail.com>
+To: dakr@kernel.org,
+	jhubbard@nvidia.com
+Cc: acourbot@nvidia.com, aliceryhl@google.com, ttabi@nvidia.com,
+ gary@garyguo.net, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Vladislav Zaharov <vladazaharova2018@gmail.com>
+Subject: [PATCH v4 0/3] gpu: nova-core: retain the GSP-RM log buffers
+Date: Mon, 14 Sep 2026 01:37:31 +0700
+Message-ID: <20260913183734.134307-1-vladazaharova2018@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAG48ez3Ucb8HyhjC1-fijFiYJsnWcTLYHvJjzMyU710mgegxnA@mail.gmail.com>
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,36 +90,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 08, 2026 at 10:22:20PM +0200, Jann Horn wrote:
-> On Tue, Sep 8, 2026 at 10:07 PM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
-> > The policy file has no write method and is exposed read-only (S_IRUGO in
-> > selinux_files[]), yet sel_open_policy() performs no open mode check, so a
-> > CAP_DAC_OVERRIDE caller can open it O_RDWR. Reject FMODE_WRITE at open, as
-> > kernfs does.
-> >
-> > The file can then never be mapped with FMODE_WRITE, so do_mmap() always
-> > clears VM_MAYWRITE and VM_SHARED for MAP_SHARED mappings and the VM_SHARED
-> > check in sel_mmap_policy() cannot be reached. Remove it.
->
-> You should also be able to remove the sel_mmap_policy_ops.page_mkwrite
-> handler, which is only for shared-writable faults, right?
+The GSP-RM log buffers are exposed through debugfs, but the entries are
+owned by the Gpu that probe() builds, and the buffers themselves are DMA
+allocations that cannot outlive the device. They are therefore gone as
+soon as the GPU is unbound, and in particular as soon as probe() fails -
+which is the case todo.rst singled out, and the one where a GSP log is
+worth having.
 
-Yeah I think you're right, though I wonder if it's a bit out of scope for this
-change as it's focused on removing a VMA_MAYWRITE_BIT clearance for a
-non-kernel-owned VMA.
+Patch 1 gives the module data a DebugfsData that owns the debugfs root,
+replacing the static that held it. Patch 2 adds a gsp_keep_logs module
+parameter: when it is set, whatever the GSP wrote is copied into that
+same DebugfsData and exposed under a "retained" directory until the
+module is unloaded. Patch 3 drops the now completed task from todo.rst.
 
-So maybe one for a follow up?
+Changes since v3:
+ - keep the copies in the module data rather than in a second global.
+   The debugfs root moves there too, so one pointer now replaces both
+   statics, and the global lock and its unsafe initialization are gone
+   (Gary Guo)
+ - with that, the module data owns the root and is dropped after the
+   registration, so a module init that fails can no longer leave the
+   directory behind. v3 fixed that by ordering the fields of the module
+   data; it now follows from where the root lives, and the guard type
+   is gone
+ - keep a copy of the device name with the retained copies rather than
+   a reference to the device, so that a GPU that is gone does not stay
+   allocated until the module is unloaded
+ - drop a re-check of the retained directory that could not fire
 
->
-> > This also stops sel_mmap_policy() clearing VM_MAYWRITE on a mapping that is
-> > neither a PFN map nor a mixed map, ahead of the core enforcing that only
-> > such mappings may do so.
-> >
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
-> Reviewed-by: Jann Horn <jannh@google.com>
+The pointer is published from inside the initializer of DebugfsData,
+through the `&this in` form, and it is a raw pointer rather than a
+reference: pin-init does not allow references to fields to be created
+inside an initializer. Readers turn it back into a reference in one
+place.
 
-Thanks!
+Testing was done on top of drm-rust-next with the TLV firmware images
+installed. On a GB203:
 
---
-Cheers, Lorenzo
+  - with gsp_keep_logs unset, no "retained" directory is created and the
+    entries disappear on unbind, as before;
+  - with gsp_keep_logs=1, retained/<BDF>/{loginit,logintr,logrm} hold
+    the contents the live entries had, all 64 KiB of each readable;
+  - binding the GPU again recreates the live entries without disturbing
+    the copies, and unbinding it a second time replaces them, leaving
+    exactly one set behind;
+  - with a failure injected after the GSP has booted, probe() fails with
+    -EINVAL, the driver stays unbound, and the logs of that attempt are
+    still readable;
+  - with a failure injected into the Registration instead, the module
+    fails to load, leaves no debugfs directory behind, and the next load
+    comes up with its directory intact;
+  - the copies are released on module unload, and three load/unload
+    cycles leave nothing behind.
+
+The parameter does need a value: the Rust bool param ops do not set
+KERNEL_PARAM_OPS_FL_NOARG, so a bare gsp_keep_logs is refused, where the
+C bool would have taken it.
+
+No warnings, oopses or refcount complaints in dmesg throughout. Built and
+checked with CLIPPY=1 and rustfmtcheck. checkpatch --strict is clean
+apart from the MAINTAINERS note for the new file, which is already
+covered by the existing "F: drivers/gpu/nova-core/" pattern.
+
+John Hubbard's r000 series adds three more log buffers in gsp.rs.
+Whichever of the two lands second needs a small rebase; the retained
+copies extend to the new buffers by adding them to RetainedLogBuffers.
+
+v3: https://lore.kernel.org/nova-gpu/20260912071842.622696-1-vladazaharova2018@gmail.com/
+v2: https://lore.kernel.org/nova-gpu/20260815050826.306717-1-vladazaharova2018@gmail.com/
+
+Vladislav Zaharov (3):
+  gpu: nova-core: move the debugfs root into the module data
+  gpu: nova-core: gsp: retain the GSP-RM log buffers after unbind
+  Documentation: nova: remove completed GSP log buffer task
+
+ Documentation/gpu/nova/core/todo.rst   |  12 --
+ drivers/gpu/nova-core/gsp.rs           | 100 ++--------
+ drivers/gpu/nova-core/gsp/logbuffer.rs | 253 +++++++++++++++++++++++++
+ drivers/gpu/nova-core/nova_core.rs     | 109 +++++++++--
+ 4 files changed, 362 insertions(+), 112 deletions(-)
+ create mode 100644 drivers/gpu/nova-core/gsp/logbuffer.rs
+
+
+base-commit: 66a2c223b620d844fe26c6bd4844d2a6a8c9dffc
+-- 
+2.55.0
+
