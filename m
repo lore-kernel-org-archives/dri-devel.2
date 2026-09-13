@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3D05C88E5C
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 19:47:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63333C88E63
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 19:47:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A55A010E355;
-	Sun, 13 Sep 2026 19:47:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB95510E99C;
+	Sun, 13 Sep 2026 19:47:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FYT7KFHp";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="d3e7jnhs";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05EEA10E355
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09C8510E998
  for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 19:47:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1789328823; x=1820864823;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=L9ptgWMKdF9clEGjm+eLWytpT08sJO4eJ+AHkhKinV4=;
- b=FYT7KFHpRGZ+3h4gZ5SLh9TemBehpZdAchEwTBj3XNOC29gggmkAoiOT
- 2iOpT26KOvcM9lhmGIiOC1gyOwH2rzpBO8IvOvOB0GyN+8UqRCcGTMmju
- 3o3lZYPy/kIIC73BOzrdaN9LsjJ63C2udyYC5Pb/tLaaQIeTJi+32RMRa
- TDRY7jP/J2VINfDP6vT01vZTYrV2WCvNAMivuLvlar2QUbYcXvMSpTSOC
- kGSsuh2SEOCafjBNorod8NMIZWKkqLd1hjO1QQRce/uoY5Sx6CpjEMMyj
- g9sYX2AvnbUSORXYVXjyQytpJtg5wE5DjDf7QeKf6jxDHALwR0/4EcS7o w==;
-X-CSE-ConnectionGUID: g3BWsdYZTASchOdzBF7u3g==
-X-CSE-MsgGUID: 1ILgFI/gSNK1Hvr0W7fqeg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="93394380"
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; d="scan'208";a="93394380"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ bh=izrSfcSyLZ17qqk49jxHMCdN9N8POUPieQ93sAyIQJI=;
+ b=d3e7jnhsNSYv/KcH15sXMOUlcxz6g3FgEOHhHVZ9lBbCi8jarjLPFhNY
+ 712aNoEDXhU0/UuNSsNSTw2klS5I4cykOKPAZ3qFjJuMroPLRlCKHmhfk
+ j579AY2u0ErYsbHkD3wF/N46nDxLPTIqFXtzHq1maeU8mjiXEnhThyoO4
+ Uya1KYHOxnl84tuhgQTF2rboDA45Ks6JIrzwxsbgAm5tiPjjufkaWaXXX
+ kQmJ4ij+TLXp5gqH5g7rBA0m4diBYT+xmLskf2Rf38fLmM1IitPiOBkVA
+ OIUrez0btPVb2ENBrexFl6+aQ99wFMpd/C0Jo9DhFsiKj6sCki2JQuFOb w==;
+X-CSE-ConnectionGUID: sh/HpBUuTCaB/5OZt5SlJA==
+X-CSE-MsgGUID: Xv+H8FcZS62PNe80yOPHCQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89631550"
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; d="scan'208";a="89631550"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  13 Sep 2026 12:47:02 -0700
-X-CSE-ConnectionGUID: IuxGWnPnRMesp44EnmZauA==
-X-CSE-MsgGUID: qz51yXVzRleYGI+WAU+5DQ==
+X-CSE-ConnectionGUID: tfwz/l4FTxyRE+IssMkOaw==
+X-CSE-MsgGUID: HgEr8MiaTuqiFbT1OCdF1g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; d="scan'208";a="270660574"
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; d="scan'208";a="271041011"
 Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
- by orviesa006.jf.intel.com with ESMTP; 13 Sep 2026 12:46:59 -0700
+ by orviesa010.jf.intel.com with ESMTP; 13 Sep 2026 12:46:59 -0700
 Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1x5qAC-000000001Gj-1fzV;
+ (envelope-from <lkp@intel.com>) id 1x5qAC-000000001Gh-1LWL;
  Sun, 13 Sep 2026 19:46:56 +0000
-Date: Mon, 14 Sep 2026 03:46:17 +0800
+Date: Mon, 14 Sep 2026 03:46:16 +0800
 From: kernel test robot <lkp@intel.com>
 To: Guangshuo Li <lgs201920130244@gmail.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
@@ -54,11 +54,11 @@ To: Guangshuo Li <lgs201920130244@gmail.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Linus Walleij <linusw@kernel.org>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, Guangshuo Li <lgs201920130244@gmail.com>,
- stable@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ Guangshuo Li <lgs201920130244@gmail.com>, stable@vger.kernel.org
 Subject: Re: [PATCH] drm/panel: ilitek-ili9881c: fix panel cleanup on attach
  failure
-Message-ID: <202609140335.bubtlivW-lkp@intel.com>
+Message-ID: <202609140343.MDs2yjJe-lkp@intel.com>
 References: <20260913102608.1526916-1-lgs201920130244@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -94,25 +94,39 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Guangshuo-Li/drm-panel-il
 base:   linus/master
 patch link:    https://lore.kernel.org/r/20260913102608.1526916-1-lgs201920130244%40gmail.com
 patch subject: [PATCH] drm/panel: ilitek-ili9881c: fix panel cleanup on attach failure
-config: parisc-randconfig-002-20260914 (https://download.01.org/0day-ci/archive/20260914/202609140335.bubtlivW-lkp@intel.com/config)
-compiler: hppa-linux-gcc (GCC) 14.3.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260914/202609140335.bubtlivW-lkp@intel.com/reproduce)
+config: riscv-randconfig-001-20260914 (https://download.01.org/0day-ci/archive/20260914/202609140343.MDs2yjJe-lkp@intel.com/config)
+compiler: clang version 18.1.8 (https://github.com/llvm/llvm-project 3b5b5c1ec4a3095ab096dd780e84d7ab81f3d7ff)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260914/202609140343.MDs2yjJe-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609140335.bubtlivW-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609140343.MDs2yjJe-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
-   drivers/gpu/drm/panel/panel-ilitek-ili9881c.c: In function 'ili9881c_dsi_probe':
->> drivers/gpu/drm/panel/panel-ilitek-ili9881c.c:2599:78: error: expected ';' before 'dsi'
+   In file included from drivers/gpu/drm/panel/panel-ilitek-ili9881c.c:15:
+   In file included from include/linux/regulator/consumer.h:35:
+   In file included from include/linux/suspend.h:5:
+   In file included from include/linux/swap.h:9:
+   In file included from include/linux/memcontrol.h:13:
+   In file included from include/linux/cgroup.h:27:
+   In file included from include/linux/kernel_stat.h:8:
+   In file included from include/linux/interrupt.h:11:
+   In file included from include/linux/hardirq.h:11:
+   In file included from ./arch/riscv/include/generated/asm/hardirq.h:1:
+   In file included from include/asm-generic/hardirq.h:17:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:12:
+   In file included from arch/riscv/include/asm/io.h:148:
+   include/asm-generic/io.h:1209:55: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+    1209 |         return (port > MMIO_UPPER_LIMIT) ? NULL : PCI_IOBASE + port;
+         |                                                   ~~~~~~~~~~ ^
+>> drivers/gpu/drm/panel/panel-ilitek-ili9881c.c:2599:64: error: expected ';' after return statement
     2599 |                 return dev_err_probe(&dsi->dev, ret, "Failed to add panel\n")
          |                                                                              ^
          |                                                                              ;
-    2600 | 
-    2601 |         dsi->mode_flags = ctx->desc->mode_flags;
-         |         ~~~                                                                   
+   1 warning and 1 error generated.
 
 
 vim +2599 drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
