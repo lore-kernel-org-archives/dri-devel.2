@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 217C3C88E56
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 09:37:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C35FC88E40
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 09:49:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4099510E0AA;
-	Sun, 13 Sep 2026 09:37:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AABBD10E12B;
+	Sun, 13 Sep 2026 09:49:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZXq3ebKy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PfBvxpKE";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 317EF10E0AA
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 09:37:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96C0610E12B
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 09:49:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 370D360AAB;
- Sun, 13 Sep 2026 09:37:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46B941F000FF;
- Sun, 13 Sep 2026 09:36:59 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EB11242AC6;
+ Sun, 13 Sep 2026 09:49:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1DC51F000FF;
+ Sun, 13 Sep 2026 09:49:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789292229;
- bh=TeKLAo2lyBFX9D/j+t1NddJvYANiKwcO6O8pNn5tCYg=;
+ s=k20260515; t=1789292967;
+ bh=Tg5IU0+H9KMkSOpIVEYusfjm6bIb4fQEllwynyz0EVc=;
  h=From:To:Cc:Subject:In-Reply-To:References:Date;
- b=ZXq3ebKyzE91YMdk8KbwizzTYuRfKiJOjlC7hKcGtHQQZJ5nCJUfiu07FF3uqPR7f
- o6PqZ16b+Hzz787iWq7uAC2vR9/5i/IcYkPHKcuLhWMNuP85R6uSJM7F8FyrlWBS1Q
- KGIHV9T/yk+v10sUF/WNyxF8c8Po1Eo24e9YNLKt1UalWmzbnS3U12EvMGLOio9tEM
- ODMte60um3jwtWBD0ubXBYEB7KUwVDXh6qnHC7TqbJBMW531TTW44iAHQTQrd9L9Ll
- YCzgkk7cH0cJu67QwfwU4dQxrTMaBkv9vzAy6OxG6D2amnqezq/M6SGoPo0FCl+y/h
- jcgRapmP3RlUQ==
+ b=PfBvxpKEvpJ5VLvXhFNDyHaYXB+ow/oOmmQUHohuPRTQ5OidCuKr72NVna21Lhj74
+ r5JNth+EicGcrCC7nWRPU3KP7VvVO3pSw3SMgGmOSz4IhFnNf6O4Pe/2yjIehooC1j
+ V5gfQBN3V7CSTiFObippk57pdzCBTAaYjhpBs8h86PcRmrAVE5mHCe8CBXR8sdZ9lI
+ hOiIl8GhtQRUZJhWmq4v0gpGo2yCDfi4JJ5+JCDbKJMzUMLQpHEY7eL23wcPEXXOYK
+ YUZArZv4sXfKDhvHqKab4q5jTSS5LAjaBXREtzk2jtVz45lYaQ3li0P61UqlG1ww9i
+ AGBthjzkxuVUQ==
 From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Matthew Wilcox <willy@infradead.org>
+To: Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>
 Cc: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
  Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett"
  <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda
  <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
  <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno
- Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Trevor
  Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>,
  Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
  <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>,
@@ -47,34 +46,38 @@ Cc: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
  =?utf-8?B?SGrDuG5uZXbDpWc=?= <arve@android.com>, Todd Kjos
  <tkjos@android.com>, Christian
  Brauner <brauner@kernel.org>, Carlos Llamas <cmllamas@google.com>, "Rafael
- J. Wysocki" <rafael@kernel.org>, Dave Ertman <david.m.ertman@intel.com>,
- Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, Serge
+ J.
+ Wysocki" <rafael@kernel.org>, Dave Ertman <david.m.ertman@intel.com>, Leon
+ Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, Serge
  Hallyn <sergeh@kernel.org>, David Airlie <airlied@gmail.com>, Simona
  Vetter <simona@ffwll.ch>, Alexander Viro <viro@zeniv.linux.org.uk>, Jan
  Kara <jack@suse.cz>, Igor Korotin <igor.korotin@linux.dev>, Viresh Kumar
- <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>, Stephen Boyd
- <sboyd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Krzysztof
- =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Pavel Tikhomirov
- <ptikhomirov@virtuozzo.com>, Michal Wilczynski <m.wilczynski@samsung.com>,
- Ira Weiny <iweiny@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Philipp Stanner <phasta@kernel.org>, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- driver-core@lists.linux.dev, linux-block@vger.kernel.org,
- linux-security-module@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-fsdevel@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-usb@vger.kernel.org
-Subject: Re: [PATCH v21 9/9] rust: page: add `ExclusivePage` for race-free
- page access
-In-Reply-To: <aqYUWzRSade_Ww67@casper.infradead.org>
+ <vireshk@kernel.org>, Nishanth
+ Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>, Bjorn Helgaas
+ <bhelgaas@google.com>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>,
+ Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, Michal Wilczynski
+ <m.wilczynski@samsung.com>, Ira Weiny <iweiny@kernel.org>, Matthew Brost
+ <matthew.brost@intel.com>, Thomas =?utf-8?Q?Hellstr=C3=B6m?=
+ <thomas.hellstrom@linux.intel.com>, Philipp Stanner <phasta@kernel.org>,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, driver-core@lists.linux.dev,
+ linux-block@vger.kernel.org, linux-security-module@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-pwm@vger.kernel.org, linux-usb@vger.kernel.org, Oliver Mangold
+ <oliver.mangold@pm.me>, Viresh Kumar <viresh.kumar@linaro.org>
+Subject: Re: [PATCH v21 4/9] rust: rename `AlwaysRefCounted` to `RefCounted`.
+In-Reply-To: <DLCHKYBQ3WF1.B8YPUTAKNM7@garyguo.net>
 References: <20260910-unique-ref-v21-0-e83257373062@kernel.org>
- <20260910-unique-ref-v21-9-e83257373062@kernel.org>
- <aqYUWzRSade_Ww67@casper.infradead.org>
-Date: Sun, 13 Sep 2026 11:36:53 +0200
-Message-ID: <878q55v6fe.fsf@kernel.org>
+ <20260910-unique-ref-v21-4-e83257373062@kernel.org>
+ <CAH5fLghUQW5urTfLCCDT4BhuqoFVoLUAG46TS-SxaS37bJcgWQ@mail.gmail.com>
+ <DLCHKYBQ3WF1.B8YPUTAKNM7@garyguo.net>
+Date: Sun, 13 Sep 2026 11:49:12 +0200
+Message-ID: <875x09v5uv.fsf@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,58 +93,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Matthew Wilcox <willy@infradead.org> writes:
+"Gary Guo" <gary@garyguo.net> writes:
 
-> On Thu, Sep 10, 2026 at 11:00:13AM +0200, Andreas Hindborg wrote:
->> `ExclusivePage` wraps a regular page but adds an invariant that the
->> page data area does not incur data races. This means `ExclusivePage`
->> cannot be mapped to user space or shared with devices, and it
->> becomes simpler to directly reference the contents of the page.
->> 
->> Since `Page` implements `AlwaysRefCounted`, handing out a `&Page`
->> from an `ExclusivePage` would allow safe code to obtain an
->> `ARef<Page>` to the page and break the aliasing invariant of
->> `ExclusivePage`. Thus, do not implement `Deref<Target = Page>` for
->> `ExclusivePage`.
+> On Fri Sep 11, 2026 at 10:08 AM BST, Alice Ryhl wrote:
+>> On Thu, Sep 10, 2026 at 11:01=E2=80=AFAM Andreas Hindborg <a.hindborg@ke=
+rnel.org> wrote:
+>>>
+>>> From: Oliver Mangold <oliver.mangold@pm.me>
+>>>
+>>> There are types where it may both be reference counted in some cases and
+>>> owned in others. In such cases, obtaining `ARef<T>` from `&T` would be
+>>> unsound as it allows creation of `ARef<T>` copy from `&Owned<T>`.
+>>>
+>>> Therefore, we split `AlwaysRefCounted` into `RefCounted` (which `ARef<T=
+>`
+>>> would require) and a marker trait to indicate that the type is always
+>>> reference counted (and not `Ownable`) so the `&T` -> `ARef<T>` conversi=
+on
+>>> is possible.
+>>>
+>>> - Rename `AlwaysRefCounted` to `RefCounted`.
+>>> - Add a new unsafe trait `AlwaysRefCounted`.
+>>> - Implement the new trait `AlwaysRefCounted` for the newly renamed
+>>>   `RefCounted` implementations. This leaves functionality of existing
+>>>   implementers of `AlwaysRefCounted` intact.
+>>>
+>>> Suggested-by: Alice Ryhl <aliceryhl@google.com>
+>>> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+>>> Signed-off-by: Oliver Mangold <oliver.mangold@pm.me>
+>>> [ Andreas: Updated commit message and rebase on rust-next (7.2) ]
+>>> Acked-by: Igor Korotin <igor.korotin.linux@gmail.com>
+>>> Acked-by: Danilo Krummrich <dakr@kernel.org>
+>>> Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
+>>> Reviewed-by: Gary Guo <gary@garyguo.net>
+>>> Assisted-by: LLM
+>>> Co-developed-by: Andreas Hindborg <a.hindborg@kernel.org>
+>>> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+>>
+>> This has a lot of safety comments of the form "This does not implement
+>> Ownable, *therefore* it can implement AlwaysRefcounted". But I think
+>> the safety comment should instead explain that it's okay to create an
+>> ARef<_> from an &_ for this type. The fact that Ownable is not
+>> implemented is not sufficient argument.
+>>
+>> Alice
 >
-> Given this description, I wonder if this shouldn't be implemented by
-> alloc_frozen_pages() / free_frozen_pages().  We'ree certainly trying
-> to move the C parts of the kernel away from thinking that pages have a
-> refcount (folios have a refcount; otheer memdescs may or may not have
-> a refcount).  Do your intended users of this actually have a need for a
-> refcount?
+> Yeah, I think for types that currently implement `AlwaysRefCounted` and d=
+oes not
+> have a new `Ownable` form, it should keep saying that "this is always ref=
+erence
+> counted".
 
-I'm not familiar with that API, but I will take a look. The
-`ExclusivePage` would not need a refcount. The reference is intended to
-be exclusive, giving mutable access to the page contents.
-
-I could imagine a situation where someone might want to transition a
-page reference from exclusive to shared, but I do not have a user for
-that at the moment.
-
->
->> +++ b/rust/kernel/page.rs
->> @@ -17,7 +17,11 @@
->>          AlwaysRefCounted,
->>          RefCounted, //
->>      },
->> -    types::Opaque,
->> +    types::{
->> +        Opaque,
->> +        Ownable,
->> +        Owned, //
->> +    },
->
-> While I'm asking stupid questions, what's the significance of the //
-> after Owned?  I see it after RefCounted too.
-
-It is a hack to get rustfmt to format the import statements in a Linus
-compatible manner [1]. As far as I know, it will go away once rustfmt
-learns to do this by itself.
+Makes sense, I will fix them.
 
 Best regards,
 Andreas Hindborg
 
 
-[1] https://docs.kernel.org/rust/coding-guidelines.html#imports
 
