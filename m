@@ -4,42 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91B1AC88E56
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 09:31:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAF96C88E56
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 09:31:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64D1610E044;
-	Sun, 13 Sep 2026 09:31:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5BBE10E4F1;
+	Sun, 13 Sep 2026 09:31:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F27rxL/L";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f18M25m1";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7962110E044
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 09:31:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F7CE10E4F1
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 09:31:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3270240465;
- Sun, 13 Sep 2026 09:31:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E83751F000FF;
- Sun, 13 Sep 2026 09:31:20 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5745740465;
+ Sun, 13 Sep 2026 09:31:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96CA31F000FF;
+ Sun, 13 Sep 2026 09:31:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789291881;
- bh=0jdsxkV7oLgLaZm8q6X7xgiRT58XrJHylLTGyvhBxTw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=F27rxL/Lc1S9CHLiOk60MAiY4DQwWzPPLYSHXCFulqV3YUW9k7U0X9sOvUIXIae9X
- U63nz+En22WrrSXv8XanQtQCa4+lUnVOPX5Jv1yRGJOi+RvcYCheXSTpq/IPlDtBLw
- 8+BGmdvf5muSMWQJGbsqCo4n5yUDtjoNihSQZ80r14rYoSRCWRc7VV29OR2vETfXST
- aStX/tb+VhG//EPY9ewqJ4McZqY+ljAq72AoQ7M67yfvRzbAOs+NFZ36i4Ch8q8k8F
- VlCcHoTKbf8ZZIdNOIDldaKKq8e9UDSkJoAGeguPLJYbM9zq4mBcKK/LpQuK29aWq8
- fVenRDB3NohqA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/omap: dmm_tiler: fix invalid cleanup on probe failure
-To: "Guangshuo Li" <lgs201920130244@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260913091644.1510151-1-lgs201920130244@gmail.com>
-References: <20260913091644.1510151-1-lgs201920130244@gmail.com>
+ s=k20260515; t=1789291884;
+ bh=NoI29qaUrBCrJ0UkngJFgdYXXciOF2qxoCQ5axDHzew=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=f18M25m1UE+mSGxC0FC2S/zGAVqpWLM0UCXkD/aytZ4FMn2/cWbwLJy3HfYlSkvW8
+ hgj+xt8axoK2I8tcV86Sd3AVCYlCQ9TUyhQ9jxYGOvwEfmE/fR7BdxezPB/xHkAKg3
+ /aON78c5tK/KLj453p9eTE3fYCMovFw9xNsyGTJgvVNZskjYrmeBxqa1RFsINlyzLj
+ pDAe4vy0Jn/lIPJLIY40RMQB7Lsk5Iv21NJ2RXO3qNEzd4gKRm1sh2Yq5wNiXlEmDK
+ 7xOPh5z2zuWBiTStWepnOYjJ/zywSDYKqeaSQ9CVP1m8Jd5e11FzUkF63ZG2hyrNsf
+ DZ3ocqIDkz18g==
+Date: Sun, 13 Sep 2026 11:31:21 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nickolay Goppen <setotau@mainlining.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, ryanbrue.dev@gmail.com
+Subject: Re: [PATCH v2 1/3] dt-bindings: display: panel: Add bindings for
+ Novatek NT51021
+Message-ID: <20260913-fearless-bloodhound-of-poetry-1c8ffe@quoll>
+References: <20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org>
+ <20260911-qcom-novatek-nt51021-panels-v2-1-135e3190a7fb@mainlining.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 13 Sep 2026 09:31:20 +0000
-Message-Id: <20260913093120.E83751F000FF@smtp.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20260911-qcom-novatek-nt51021-panels-v2-1-135e3190a7fb@mainlining.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,149 +63,119 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+On Fri, Sep 11, 2026 at 06:38:00PM +0300, Nickolay Goppen wrote:
+> Novatek NT51021 is a display driver IC that can drive DSI panel. It
+> is also present in the BOE TV101WUM-NX0 video mode panel, which is a WUXGA
+> panel with a resolution of 1200x1920 and 10.1 inches size. It is found in
+> Xiaomi Mi Pad 4 Plus. Also it's present in the BOE-TV080WUM-NX2 video mode
+> panel, which also has a resolution of 1200x1920, but 8 inches size. It is
+> found in Xiaomi Mi Pad 4.
 
-New issues:
-- [Medium] The commit message describes an approach to fixing the IRQ bug t=
-hat does not match the actual code, leaving a dead write.
+A nit, subject: drop second/last, redundant "bindings for". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
 
-Pre-existing issues:
-- [High] The global `containers` array retains dangling pointers to freed T=
-CM structures after `omap_dmm_remove()` is called.
-- [High] Array out-of-bounds access and potential NULL/garbage pointer dere=
-ference if DMM hardware registers return 0.
-- [High] `omap_dmm_remove()` does not wait for pending DMM engines to finis=
-h before freeing the DMA refill buffer.
-- [High] The global `omap_dmm` pointer is exposed to the rest of the system=
- before the device is fully initialized.
---
+> 
+> This patch adds the bindings for display driver for the IC, with support
 
-commit 466b29166253ee657c1c421252c56612ce024b71
-Author: Guangshuo Li <lgs201920130244@gmail.com>
+Please do not use "This commit/patch/change", but imperative mood. See
+longer explanation here:
+https://elixir.bootlin.com/linux/v6.16/source/Documentation/process/submitting-patches.rst#L94
 
-drm/omap: dmm_tiler: fix invalid cleanup on probe failure
-
-This commit fixes probe cleanup paths in the OMAP DMM tiler driver to
-avoid unmapping uninitialized MMIO bases or freeing unrequested IRQs.
-It replaces a single omap_dmm_remove() call on error with granular
-teardown labels.
-
-Link: stable@vger.kernel.org
-
-> Initialize the stored IRQ to -1 and keep the IRQ number local until
-> request_irq() succeeds.
-
-[Severity: Medium]
-The commit message describes keeping the IRQ number local until
-request_irq() succeeds, but the patch actually stores the result of
-platform_get_irq() directly into omap_dmm->irq.=20
-
-Could the commit message be updated to match the implemented approach?
-
-> diff --git a/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c b/drivers/gpu/drm/o=
-mapdrm/omap_dmm_tiler.c
-> --- a/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c
-> +++ b/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c
-[ ... ]
-> @@ -769,14 +769,14 @@ static void omap_dmm_remove(struct platform_device =
-*dev)
-> =20
->  static int omap_dmm_probe(struct platform_device *dev)
->  {
-[ ... ]
->  	struct resource *mem;
-> =20
->  	omap_dmm =3D kzalloc_obj(*omap_dmm);
->  	if (!omap_dmm)
-> -		goto fail;
-> +		return -ENOMEM;
-
-[Severity: High]
-This is a pre-existing issue, but does this expose the global omap_dmm
-pointer before any of its fields are configured?=20
-
-If a concurrent GEM ioctl or async probe checks dmm_is_available() (which
-only verifies omap_dmm is non-NULL), could it immediately invoke
-tiler_reserve_2d() and attempt to use the uninitialized global containers
-array, leading to a NULL pointer dereference?
-
-[ ... ]
-> @@ -958,7 +962,7 @@ static int omap_dmm_probe(struct platform_device *dev)
->  		dev_err(&dev->dev, "couldn't register IRQ %d, error %d\n",
->  			omap_dmm->irq, ret);
->  		omap_dmm->irq =3D -1;
-> -		goto fail;
-> +		goto err_free_tcm;
-
-[Severity: Medium]
-Because err_free_tcm eventually frees the omap_dmm structure, is this
-assignment to -1 now a dead store?
-
-[ ... ]
-> -fail:
-> -	omap_dmm_remove(dev);
-
-[Severity: High]
-This is a pre-existing issue, but when omap_dmm_remove() is called (for
-example, during sysfs unbind), it frees the omap_dmm->tcm structures but
-doesn't clear the global containers array.
-
-Could this leave dangling pointers in the global containers array?=20
-
-Since priv->has_dmm is cached during DRM initialization, could a subsequent
-GEM ioctl like DRM_IOCTL_OMAP_GEM_NEW bypass dmm_is_available(), call
-tiler_reserve_2d(), and dereference the freed pointers?
-
-[Severity: High]
-This is also a pre-existing issue, but does omap_dmm_remove() safely handle
-active hardware engines?
-
-In omap_dmm_remove(), the DMA buffer is freed directly:
-
-	if (omap_dmm->refill_va)
-		dma_free_wc(omap_dmm->dev,
-			    REFILL_BUFFER_SIZE * omap_dmm->num_engines,
-			    omap_dmm->refill_va, omap_dmm->refill_pa);
-
-If a hardware engine is actively processing a transaction during driver
-unbind, could it continue performing DMA into the freed memory and cause
-corruption or IOMMU faults?
-
-[Severity: High]
-This is another pre-existing issue in omap_dmm_probe() that isn't directly
-in this diff, but can an out-of-bounds access happen if the DMM hardware is
-inaccessible and registers return 0?
-
-If DMM_PAT_HWINFO and DMM_PAT_GEOMETRY read as 0, omap_dmm->num_lut and
-omap_dmm->lut_height will be 0.=20
-
-Since omap_dmm->lut_height (0) !=3D omap_dmm->container_height (128), num_l=
-ut
-increments to 1, causing the omap_dmm->tcm array to be allocated with a size
-of 1.
-
-Later in omap_dmm_probe():
-
-	containers[TILFMT_PAGE] =3D omap_dmm->tcm[1];
-	omap_dmm->tcm[1]->y_offset =3D OMAP5_LUT_OFFSET;
-
-Would this code overflow the omap_dmm->tcm array when accessing tcm[1] and
-cause memory corruption or a kernel panic?
-
-> +err_free_tcm:
-> +	for (i =3D 0; i < ARRAY_SIZE(containers); i++)
-> +		containers[i] =3D NULL;
+> added for this BOE TV101WUM-NX0 and TV080WUM-NX2 WUXGA video mode panels.
+> 
+> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+> ---
+>  .../bindings/display/panel/novatek,nt51021.yaml    | 89 ++++++++++++++++++++++
+>  1 file changed, 89 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
+> new file mode 100644
+> index 000000000000..550aefaead46
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
+> @@ -0,0 +1,89 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/panel/novatek,nt51021.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	for (i =3D 0; i < omap_dmm->num_lut; i++)
-> +		if (omap_dmm->tcm[i])
-> +			omap_dmm->tcm[i]->deinit(omap_dmm->tcm[i]);
-> +	kfree(omap_dmm->tcm);
+> +title: Novatek NT51021 based DSI display Panels
+> +
+> +maintainers:
+> +  - Nickolay Goppen <setotau@mainlining.org>
+> +
+> +description: |
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913091644.1510=
-151-1-lgs201920130244@gmail.com?part=3D1
+Do not need '|' unless you need to preserve formatting.
+
+> +  The NT51021 IC from Novatek is a generic DSI Panel IC used to drive dsi
+> +  panels.
+> +  Right now, support is added only for a BOE WUXGA LCD display panels with a
+> +  resolution of 1200x1920. They are video mode DSI panels.
+> +
+> +allOf:
+> +  - $ref: panel-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - boe,tv101wum-nx0
+> +          - boe,tv080wum-nx2
+> +      - const: novatek,nt51021
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description: phandle of gpio for reset line - This should be 8mA, gpio
+> +      can be configured using mux, pinctrl, pinctrl-names (active low)
+> +
+> +  vdd-supply:
+> +    description: phandle of the regulator that provides the supply voltage
+> +      for digital circuits
+> +
+> +  avdd-supply:
+> +    description: phandle of the regulator that provides the supply voltage
+> +      for analog circuits
+> +
+> +  havdd-supply:
+> +    description: phandle of the regulator that provides the supply voltage
+> +      for analog circuits
+> +
+> +  port: true
+> +  backlight: true
+
+You can drop these two
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - vdd-supply
+> +  - avdd-supply
+> +  - havdd-supply
+> +  - reset-gpios
+> +  - port
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |+
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    dsi0 {
+
+dsi
+
+
+Best regards,
+Krzysztof
+
