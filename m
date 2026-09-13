@@ -4,92 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7D10C88E65
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:54:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3574C88E5C
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:55:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB9E310EA0F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D086E10EA14;
 	Sun, 13 Sep 2026 20:54:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nDnVStjn";
+	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="QgGKLoMG";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="mkTbQsNw";
 	dkim-atps=neutral
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com
- [74.125.230.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE3D510F73C
- for <dri-devel@lists.freedesktop.org>; Sat, 12 Sep 2026 02:30:40 +0000 (UTC)
-Received: by mail-lr2-f12.google.com with SMTP id
- 38308e7fff4ca-3a49a10ee5aso1217131fa.3
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 19:30:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789180238; cv=none;
- d=google.com; s=arc-20260327;
- b=hPWnc4ikDcBV1rvNtT8rtGUM4NwnSTk3NZyA9Z2XO99Q+JbcqQGT21otgCdKNFxx5h
- zb1OjVBJCllc2bb5wjS1sYxchoyHPcU2p+W46BRhRLBlK/AG6WQ57LklO5qhsW/O1V8y
- VH7lxN3J7voAt7QR24KMTWfb20g/fyLJpbJn877AHzogwASbsANwfS7oLrh7LVA5Wulv
- tYRYxqnOCXF0z5Y58zE5Sxm8dL+n7ZctqaNjWKkZlS4sh/Wt10RPIIJoYho6/5ggNieG
- fNJL64Qtx1NWZ8GXvjvgxdW+Ki4355mE/JFrQo33OsQIIy3vfWdOMWS+4vbvjFVLuFin
- 5iFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=LhlEYDWQpemuIMnWvpMSCy+QwKP38TCR3oYFVMnKb9A=;
- fh=b60aZ9xCaXKydTNF7kk7DCFd8YRFSlYgMAWiuApPLtY=;
- b=c0tb7VP0RyEs3vG6rgIwrrOPyUjgbd/3vvIqaxaOtfgP12oJF4MGrGFtk8qrjyS1r+
- dqs3bXrepvKSX/fBJhC9zg/PBYjSPfTOMb3mQrdRB5QE+/BNqGj9H6Jpfwm4JmhhnT2G
- JuMmGQErUcLhNIaE13HHS+kxXDKuuKGF6phhjoGYjWhEuX0MsUGH1Giyxxti139xZqOu
- cG1bsYr7apnpfWpY36pJJ7jkgsU3RQKMtLs4d9AczOL/M90qISL71+7/LqnMD2+bfyGE
- OPle2DvuutCxfvRuKKNt5yCaJ3RdjwJNX9FWWIfMSsDoLS12ElGJnVjrRa+M+1M80CuZ
- kN0A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789180238; x=1789785038; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=LhlEYDWQpemuIMnWvpMSCy+QwKP38TCR3oYFVMnKb9A=;
- b=nDnVStjng/rUn32PabZkEJhl5ZypfdBZXAeb2uTUvZWP6cxIXMQictZwtQTFST0uFn
- lDN9UnPHr/nT6xaHOZ0Nu7rxcUF8t+PAcD7IqKgT/c4RKIsH1GBH7Fib9q6P9/4P3CAY
- aHBbrTrbAZg0WxsN9UavFWDbwfhHb/+tA9Ga8Y5OxQijtMadohlRFknt6buvIHI+noqP
- OphznEND91DANZ9JAxrb+DWtdXEkwpDORPLuUprVXJnBL8wncn77eT9iHvH/XD9xASup
- XKvadfUOS4yIqZD832o45lDwcPYWkWJdMV3NXOGwlECWTJU31eqekQbC5+4ChihfUdH1
- ur/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789180238; x=1789785038;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=LhlEYDWQpemuIMnWvpMSCy+QwKP38TCR3oYFVMnKb9A=;
- b=VyPYCqps7fjvt2ZhdJjX6Vhrl4x39XYvrztOQR7F09Pf4+BCZpzYo4uAeW55mfqr1F
- +NZ6UTjJjkv7gpGtqm4gvHf3dbDtmiGhcYkEpq+s8CNSmu6om8oBeGipO0npnmqbitfP
- brehYWnNZC0JJ6ijFIXVgvEgiETfg3qKQgpXYLn+At1ztdpI5z0L+Rn7+RQrAf3J+oAi
- TeZ9FSQ+SfVwMHSFREvXUxUqnXPXZnMXXN4/ucvhiYGe20UOLMlWA8gdwDBZ5Hs6RD9n
- vp7Jce0pfBLN6llD+6jecOImWbGrQCb9uguJzkJPQLqqDENbnpO2yZy1Gh4OX/ohTfXX
- fl2w==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxCLzZ56viVk68LXbNdtGewp2s5nLiz10jggGS/Hp69vPk0Sns2GpuYOxv6IhV2ra8vp+7Y0dHpJkw=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nKcKHr9QfcIZUvEHY/IGu8urBNsez3EDA6+40Pk9JWeMQO1Ee+
- 3GeMCdjapQ/6UccHuwqrPPpDhtV+/ESclo8Xzy5jtROngMtjTAX3RcOqvasPzY/2f0hrmmFGOE9
- oNwKuo0GtIZLJBZF/+wOn6b9AO3oJv4Q=
-X-Gm-Gg: AYBFou3yvni+b/KI49kltl51/RWJLAGzdD4D3CL69SBcNwmgtJy9PWqA14xzMrXaOof
- wGnogFf6OCmKbVfztnReon+9zfbkaej435K5yMKFAOASP4tw1FwqvjJXhf/URTJdsbH/BSP4+VW
- i8ItQqmvaf35TK4lpQKBsRRllMKltAYyZg5Tux7yohMHaGLSvbLQb1Ol9oXhzniodxsm5TSG5kc
- PFA1o8qKq0mgL2dVXMVxAu8CqomEC5pd+YOWLZ7j+mVrhZxr+yH3rtrIync9MjQKF81/EMNHEW8
- 4sqF5N60Ku5M3WsdDX0RNO4k1xjmNbkdSlLZ3+w1XHH9b4DfTyTx7ak=
-X-Received: by 2002:a05:651c:b25:b0:3a3:7681:6d67 with SMTP id
- 38308e7fff4ca-3a5b37ef2f7mr1209821fa.16.1789180238192; Fri, 11 Sep 2026
- 19:30:38 -0700 (PDT)
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3836F10E927
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 14:50:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org;
+ c=relaxed/relaxed; 
+ h=To:Message-Id:Subject:Date:From; t=1789311025; bh=vanJVYCX5tmAfvAO2xkAeWN
+ mZni7Fj8bByNJHW2QcjA=; b=QgGKLoMGczKExBN7pK3JEP30WfOAN6/2Jg0Yt9/ckfIUbDTGNN
+ DPPm1AM0ER4QFs6mMD4tr0m6jOBsKcMu84z2lrAyeMs+2jSeheOS4RxOOIgr01e/XoDRKsRL8BM
+ QoAJluWg7MJTMjYV9aFMYCyllIMGdrPJEr9nEjGFNJ3s6rFyoosagWNBl0LVUCn1GXtcRfOykWS
+ eDCvQLXYPuUWn1kvvPY9EvY2RJu4w/2jOidYGmJk1RnCtsD4OSdK5mOYvYlUyFdBIhHTc0rTidR
+ j/NLEBbrovIp0KYC3iWHpVeM0uvdGGc56KRH2TP1gqPmvPdFYBMdpp/XjUJ/Qx6/7pg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org;
+ c=relaxed/relaxed; 
+ h=To:Message-Id:Subject:Date:From; t=1789311025; bh=vanJVYCX5tmAfvAO2xkAeWN
+ mZni7Fj8bByNJHW2QcjA=; b=mkTbQsNwmq3fhrs1QfrLL/QlJBdLvbnSvAoTSN0bOTVCLYmdTV
+ O5rvQrdTpZmSAAQsSh0TIju1qOWaxz3oYEDQ==;
+From: Nickolay Goppen <setotau@mainlining.org>
+Date: Sun, 13 Sep 2026 17:50:16 +0300
+Subject: [PATCH v3 1/3] dt-bindings: display: panel: Add Novatek NT51021
 MIME-Version: 1.0
-From: Dan Himebauch <danielhimebauch@gmail.com>
-Date: Fri, 11 Sep 2026 22:30:26 -0400
-X-Gm-Features: AcwNN1V963IeDUd-QUldO-pjWGCQZiXzrgoLRjiqt0-JerrHpoXg4IvNra2ffgs
-Message-ID: <CAJxfpZ+AzJnBCw-jP5_E8FH_+cpCE68FCtf_tsi9pt7q=P2Dsw@mail.gmail.com>
-Subject: [PATCH] drm/amd/display: invalidate DP CEC state on s3 suspend
-To: amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, 
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, alex.hung@amd.com, bhawanpreet.lakha@amd.com, 
- wayne.lin@amd.com, george.zhang@amd.com, jerry.zuo@amd.com, 
- chen-yu.chen@amd.com, ivan.lipski@amd.com, evg28bur@yandex.ru, 
- Kun.Liu2@amd.com, mario.limonciello@amd.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260913-qcom-novatek-nt51021-panels-v3-1-266bc5d7e8c9@mainlining.org>
+References: <20260913-qcom-novatek-nt51021-panels-v3-0-266bc5d7e8c9@mainlining.org>
+In-Reply-To: <20260913-qcom-novatek-nt51021-panels-v3-0-266bc5d7e8c9@mainlining.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Nickolay Goppen <setotau@mainlining.org>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>, 
+ Alexey Minnekhanov <alexeymin@minlexx.ru>, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789311023; l=3462;
+ i=setotau@mainlining.org; s=20250815; h=from:subject:message-id;
+ bh=fIAzVXn4jZZ9w9eunmhJMQdtSVwjf25c05q0X0unbZ4=;
+ b=hp8GWvWSaOHsLyZHiR5rZmPcw/g6lWGMwIs99+kkiIfLzIL4rPwUyG1zCbekkcipTQRwiHlZV
+ 5n9umwQDFiRBBzLvBykbfnIsKVM8QYhmCvvuRGXtWXtoHhU3w4m8mjF
+X-Developer-Key: i=setotau@mainlining.org; a=ed25519;
+ pk=Og7YO6LfW+M2QfcJfjaUaXc8oOr5zoK8+4AtX5ICr4o=
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -106,52 +76,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-HTPC setups on Linux with discrete GPUs can opt to use an active DP to
-HDMI adaptor in order to carry CEC over DP AUX, as most GPUs do not
-wire up CEC pin 13.
+Novatek NT51021 is a display driver IC that can drive DSI panel. It
+is also present in the BOE TV101WUM-NX0 video mode panel, which is a WUXGA
+panel with a resolution of 1200x1920 and 10.1 inches size. It is found in
+Xiaomi Mi Pad 4 Plus. Also it's present in the BOE-TV080WUM-NX2 video mode
+panel, which also has a resolution of 1200x1920, but 8 inches size. It is
+found in Xiaomi Mi Pad 4. And also it's present in the BOE-TV101WUM-NM0.
+It's found in Amazon Fire HD 10 (2017).
 
-Currently under s3 suspend, amdgpu invalidates native HDMI CEC state
-but leaves DP AUX CEC physical address valid, which can leave these
-adapter's CEC states stale across suspend and make wake transmissions
-to fail before adapter is reconfigured.
+Add the bindings for display driver for the IC, with support added
+for this BOE TV101WUM-NX0 and TV080WUM-NX2 WUXGA video mode panels.
 
-This patch allows invalidating the DP AUX CEC physical address during
-suspend for AUX mode connectors. Normal connector detection reattaches
-adaptor using the physical address from EDID.
-
-Tested on a 9070xt HTPC on steamOS and UGREEN DP to HDMI adapter on
-amd-staging-drm-next at d8ab7636160e20bf6a2ad69cd975f4d63319f1d4 where
-unmodified tree reproduced resume NACK, with this patch, multiple
-cycles succeeded with ImageViewOn and ActiveSource transmission, and
-intended behavior on wake was observed with cecd.
-
-Assisted-by: LLM
-Signed-off-by: xXJSONDeruloXx <danielhimebauch@gmail.com>
+Co-developed-by: Ryan Brue <ryanbrue.dev@gmail.com>
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ .../bindings/display/panel/novatek,nt51021.yaml    | 87 ++++++++++++++++++++++
+ 1 file changed, 87 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index 0b446133edd8..919394778a25 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -372,10 +372,13 @@ void amdgpu_dm_s3_handle_hdmi_cec(struct
-drm_device *ddev, bool suspend)
-  continue;
+diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
+new file mode 100644
+index 000000000000..e51ef40f9e7a
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
+@@ -0,0 +1,87 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/novatek,nt51021.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Novatek NT51021 based DSI display Panels
++
++maintainers:
++  - Nickolay Goppen <setotau@mainlining.org>
++
++description:
++  The NT51021 IC from Novatek is a generic DSI Panel IC used to drive dsi
++  panels.
++  Right now, support is added only for a BOE WUXGA LCD display panels with a
++  resolution of 1200x1920. They are video mode DSI panels.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - boe,tv101wum-nm0
++          - boe,tv101wum-nx0
++          - boe,tv080wum-nx2
++      - const: novatek,nt51021
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++    description: phandle of gpio for reset line - This should be 8mA, gpio
++      can be configured using mux, pinctrl, pinctrl-names (active low)
++
++  vdd-supply:
++    description: phandle of the regulator that provides the supply voltage
++      for digital circuits
++
++  avdd-supply:
++    description: phandle of the regulator that provides the supply voltage
++      for analog circuits
++
++  havdd-supply:
++    description: phandle of the regulator that provides the supply voltage
++      for analog circuits
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++  - avdd-supply
++  - havdd-supply
++  - reset-gpios
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |+
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "boe,tv101wum-nx0", "novatek,nt51021";
++            reg = <0>;
++            vdd-supply = <&lcd_pwr>;
++            avdd-supply = <&lcd_pwr>;
++            havdd-supply = <&lcd_pwr>;
++
++            backlight = <&i2c_backlight>;
++            reset-gpios = <&tlmm 62 GPIO_ACTIVE_LOW>;
++
++            port {
++                panel_in: endpoint {
++                    remote-endpoint = <&dsi0_out>;
++                };
++            };
++        };
++    };
++
++...
 
-  aconnector = to_amdgpu_dm_connector(connector);
-- if (suspend)
-+ if (suspend) {
-  hdmi_cec_unset_edid(aconnector);
-- else
-+ if (aconnector->dc_link && aconnector->dc_link->aux_mode)
-+ drm_dp_cec_unset_edid(&aconnector->dm_dp_aux.aux);
-+ } else {
-  amdgpu_dm_hdmi_cec_set_edid(aconnector);
-+ }
-  }
-  drm_connector_list_iter_end(&conn_iter);
- }
 -- 
-2.50.1 (Apple Git-155)
+2.55.0
