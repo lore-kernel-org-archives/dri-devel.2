@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CACA9C88E56
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 06:26:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C82DC88E40
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 06:31:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A1AA10E828;
-	Sun, 13 Sep 2026 06:26:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1271D10E830;
+	Sun, 13 Sep 2026 06:31:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=minlexx.ru header.i=@minlexx.ru header.b="iCmu0pjM";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=minlexx.ru header.i=@minlexx.ru header.b="hor6mrqL";
 	dkim-atps=neutral
 Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40F5210E829
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 06:26:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9035410E830
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 06:31:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru; 
  s=dkim;
  h=Cc:To:In-Reply-To:References:Message-Id:Content-Transfer-Encoding:
@@ -22,20 +22,20 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=b3p0QEWuHBXAXgvSKtH/feowvJNCBzLhkqHHOOl3Ieg=; b=iCmu0pjMcg9maWbQHefYgjMwii
- 9Wd/abzMg/hIxdJ/zvaTu43Pxk12sho1rXLdOsobiWyCwP1izfUMMnl/e0mWTDtP4jXdu53RyXN+T
- FZbNd06KTdnySvFNXA2NEj4eL+bjfD3A+u0JFTG9BV5T9QSlxC4OvTgBnvDPbhBuABRo=;
+ bh=oZUBFJ8W3GLiJA6VWdpiMxHT4YD7XQYQBRfZWELdMIQ=; b=hor6mrqLAwcCVqHHEsBHNHX0dI
+ kUUaiJcqOP7Y4TNNgkjnvauuMj2E4sa/HhnS4F0ac3HEAPxoVMDs4gECNofwIxm68T91p3DsAkfGH
+ SsarMuq2+8b8nAyNKVVkj6PdAa0ePmpIVBA7dAtfGs5xBz8E5768OP7RuXMWpdptZdAM=;
 Received: by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls
  TLS_AES_256_GCM_SHA384 (envelope-from <alexeymin@minlexx.ru>)
- id 1x5cuF-0000000Dxg1-1rP9; Sun, 13 Sep 2026 08:37:36 +0300
+ id 1x5cuN-0000000Dxg1-0eRe; Sun, 13 Sep 2026 08:37:44 +0300
 From: Alexey Minnekhanov <alexeymin@minlexx.ru>
-Date: Sun, 13 Sep 2026 08:36:36 +0300
-Subject: [PATCH 4/9] drm/panel: novatek-nt36672a: Set driver name to
- novatek for consistency
+Date: Sun, 13 Sep 2026 08:36:41 +0300
+Subject: [PATCH 9/9] MAINTAINERS: Add Alexey Minnekhanov as maintainer for
+ NT36672A panel
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-nt36672a-panels-v1-4-ce097402c6ea@minlexx.ru>
+Message-Id: <20260913-nt36672a-panels-v1-9-ce097402c6ea@minlexx.ru>
 References: <20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru>
 In-Reply-To: <20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -65,45 +65,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since this driver should represent not only devices manufactured by
-Tianma Micro-electronics, but also from other companies, it makes more
-sense to name it according to what driver file name already is: novatek.
-
-This does not change neither module file name nor Kconfig symbol, only
-driver identification in dmesg. This makes it possible to e.g. grep
-dmesg for "novatek" and get messages from both nt36672a-based panel and
-Novatek touchscreen.
+List myself as maintainer of Novatek NT36672A panels driver
+to keep a close eye on it.
 
 Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
 ---
- drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ MAINTAINERS | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-index 464d9ce47d87d..73bec4f47ec60 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-@@ -479,16 +479,16 @@ static void nt36672a_panel_remove(struct mipi_dsi_device *dsi)
- 	drm_panel_remove(&pinfo->base);
- }
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 207a6e2db70c8..8a91d04447405 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8400,6 +8400,7 @@ F:	drivers/gpu/drm/panel/panel-novatek-nt36532.c
  
--static const struct of_device_id tianma_fhd_video_of_match[] = {
-+static const struct of_device_id panel_nt36672a_match[] = {
- 	{ .compatible = "tianma,fhd-video", .data = &tianma_fhd_video_panel_desc },
- 	{ },
- };
--MODULE_DEVICE_TABLE(of, tianma_fhd_video_of_match);
-+MODULE_DEVICE_TABLE(of, panel_nt36672a_match);
- 
- static struct mipi_dsi_driver nt36672a_panel_driver = {
- 	.driver = {
--		.name = "panel-tianma-nt36672a",
--		.of_match_table = tianma_fhd_video_of_match,
-+		.name = "panel-novatek-nt36672a",
-+		.of_match_table = panel_nt36672a_match,
- 	},
- 	.probe = nt36672a_panel_probe,
- 	.remove = nt36672a_panel_remove,
+ DRM DRIVER FOR NOVATEK NT36672A PANELS
+ M:	Sumit Semwal <sumit.semwal@linaro.org>
++M:	Alexey Minnekhanov <alexeymin@minlexx.ru>
+ S:	Maintained
+ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+ F:	Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
 
 -- 
 2.55.0
