@@ -4,44 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD9DAC88E5C
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 21:03:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0E69C88E5C
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 21:06:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2192D89A72;
-	Sun, 13 Sep 2026 21:03:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0625910E9AC;
+	Sun, 13 Sep 2026 21:06:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jqu7aIFu";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IUJA4TFa";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DDTUlLg0";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A26E789A72
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 21:03:46 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 639A441244;
- Sun, 13 Sep 2026 21:03:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01E811F000FF;
- Sun, 13 Sep 2026 21:03:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789333426;
- bh=Ir7rkjOuWgcSse8tdIzu3c3qaH5zji3o2q/UfqRcDj0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jqu7aIFu0I3r0cpnPqoUv9mthvux6deHWGy3FlTou7J8cP8zkKwz+zUel0j1aKAxm
- D7iqt4c2Ea2Ue/sVtmBr+qayYp0KVy3862CuBnziuTXxaXeIJr725iiYaWO4dD+dBf
- F8McesQSNHlWE1DTcbd+54l9GZT0Km0nrawZ9wiF7I2G2gZxX0AOS/ExR0M3c5yI30
- zNApcQxipjAECMd14kc1sIGRyTVwMAAoNtXZskOtp2vcXmr6BdwUJfek+Yj8rzVnmw
- W0LRbKyDNViqgGNg72Yj6nbpZD9rq7WD7r2afiqXvYro0IGd+BIdD0CEps1dVtdIfy
- 1O4uVp0BSaZ8Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] drm/glanda: Add initial DRM driver for GlandaGPU
-To: "Leander Kieweg" <kieweg.leander@gmail.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260913205007.118552-3-kieweg.leander@gmail.com>
-References: <20260913205007.118552-1-kieweg.leander@gmail.com>
- <20260913205007.118552-3-kieweg.leander@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 13 Sep 2026 21:03:45 +0000
-Message-Id: <20260913210346.01E811F000FF@smtp.kernel.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D574D10E9AC
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 21:06:52 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68DJxYni2631351
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 21:06:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=CuOZZ+1bOWWW+56MFTScBnnN
+ 4DrpUl8zDP2tJWpYYOw=; b=IUJA4TFabIVCWVLJ1k/WNtI+t+aNF4Qx/N+NuPlV
+ 68/LKjTRHsxloRbPMOP9GROn1MsxIvCQ1y5nvma6lCKtf7fzdgWpv1Um4mzXF6Lp
+ vDgBaJX6lMidWRDmOdD6xYM6Y1KG+tVTu6Vm6+PiG4nApUNcMMpJx0Qw3+/o7vE9
+ AZf9HERE6fg7jIDNVYOS1KXlGSHugVq+a5dAI5+iEOj+fMrdiIomtb2LELvBXz9B
+ r7UUwg90f2kNKp3gYNVEVDoGykOu6t/W414oHG13WMIlXeu9x+aPUdulM7Dz7GCo
+ K9zOfaNb6rwR9aWEwP1uPuaPwvkFjyzg2IENHs/MkcctOg==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com
+ [209.85.217.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9c458m-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 21:06:51 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id
+ ada2fe7eead31-78f4d6af128so484913137.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 14:06:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1789333611; x=1789938411;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=CuOZZ+1bOWWW+56MFTScBnnN4DrpUl8zDP2tJWpYYOw=;
+ b=DDTUlLg0uVL9fOnFZ4Dd8sWmYvT2dY7wR1U7w62jkPqaFHJwWw8pMXjKLYZwM2EA/o
+ Q9SmSEMCNmB74FBOjG7+PmPPaL5skqjHXQLoKSXF2+bqIYM+7XL6oCMmmWVHmA6h52TX
+ RFdupFr3yf7+oU5SMYbc3KT+GD2gg77I90DDIkUPYqegZBoTDCystZjNRvI2VytPdWwT
+ /PXSrW8N2hTALXLdCZjeaOC6DDXhdDJkGGhQPbp+GF12Srq590yGoao+KfVBssZ9qwRl
+ pQ5Xq7AGQBHdyB3VDkFxN9OscWWKMHyu4Qe15JCKkPn/BUc5biF1S5BMc0cjiZw+lTYq
+ YmSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789333611; x=1789938411;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=CuOZZ+1bOWWW+56MFTScBnnN4DrpUl8zDP2tJWpYYOw=;
+ b=F2xlmvf1SRuonoSFFYMBpvnL416uOtt0HCiDyU0XYr0rjmnlWZ7sh4ZUWShd2cb70K
+ 3+dt+Vg8gy0SgFNrWFlpYAyRYJlmEugFDv4FJgaAoYa96uW7HqEarOM30RHn5v0dyzKf
+ gn/NKRbD6SGvPfgkA462JajP1Jsy479D0s57BfLBDe8zyBIFgECxRJaBSX/XXVAhi/Za
+ bVUhxRnBPOV0lzL2c9rwU7Mc+oheAiaoBqNAS9Ro19rZ65Ma4MncIU63oC0QF6oBzp9C
+ 6NbsLpU+VoS02p3+qrQGCXOw/8Ms46U3BniE0U2YdFiZskcd8FlCCrgF8cFzoIfjidYv
+ 6DOQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz6ZcrRLeZljx6xK+Qas0eRbfzGhUd8QO6LVxH9tz4IuriFYnA/i5s9CH4rsPtGhXkjC7c/JhodFH8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kA8G/TDyI8dcgQfa0mncvFzERhlrp/MY6BGJ2tk6vZcc9f26PU
+ niq06innDRhLj43P899RfDOeDqbOsHUK1B68uq6EPO5F6ibBnqK76mgzmMhCk+S+BzfPghmfZ9d
+ OKZfSh+EDGhKuFn7Q59LmWdWzeQvFuLB6Cz3cu02TydkGS3THO8WyBs/r2835tAxP3HZfmaY=
+X-Gm-Gg: AYBFou2BmNm0KT0lCxe8gNHZ49BJZRtX/Ye8FT65dp1gwNDEKY4ICPD4QMMOUmH5gJP
+ t8WCgJhfh5rD/b1vQFtHJCcZkeRp4+qLvk5MRGdkEY4vrib8C94TkRAkik8m1wcnn27FuTm75sk
+ o8HN/twpS6X6SqyltjjOBdyp6sLWDa4escfVT0oNz7qXfksjFVvRRtEMyNwik5gExltNknWFgpA
+ LpUuZ1+jYKbKh+1Io6Xu3sfjVbPYGsDzZi7TBuF7Tt60AanEqaUU/dMDCujw5PzhgbjCq2LLzhF
+ P62ZVJHSvq5Dfzi4Rj3DJWk6yPKaMoWyjvRPTq1Kag2KID2tSwzKfZIURBhxZoESIxzzFbn5v7N
+ iiLBTbyF50P1Y93wLQNVhBZMguD+PY6deVdK2NxRKOZa0dlHtzrYFGc+/ZTlnMm1u979AKNHzI/
+ EJrRzWctcWAmBt
+X-Received: by 2002:a05:6102:8607:10b0:78f:5bab:4761 with SMTP id
+ ada2fe7eead31-792a93b4e87mr2736735137.8.1789333610775; 
+ Sun, 13 Sep 2026 14:06:50 -0700 (PDT)
+X-Received: by 2002:a05:6102:8607:10b0:78f:5bab:4761 with SMTP id
+ ada2fe7eead31-792a93b4e87mr2736729137.8.1789333610333; 
+ Sun, 13 Sep 2026 14:06:50 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5b8a045f6f3sm1914073e87.35.2026.09.13.14.06.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 13 Sep 2026 14:06:49 -0700 (PDT)
+Date: Mon, 14 Sep 2026 00:06:47 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/adreno: fix autosuspend cleanup during teardown
+Message-ID: <vwnlgp3ysnoimdxlx6gowktonakwpita2ted7tcdfd3a6vyjy2@p3slguu75r6d>
+References: <20260808131624.2854412-1-lgs201920130244@gmail.com>
+ <e5964398-cc23-440c-8c69-01353b5a5ecc@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e5964398-cc23-440c-8c69-01353b5a5ecc@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: iLGgVLl1S0YK0-_CMVb3h6UWp-5GjzSZ
+X-Proofpoint-GUID: iLGgVLl1S0YK0-_CMVb3h6UWp-5GjzSZ
+X-Authority-Analysis: v=2.4 cv=c5Y+0h9l c=1 sm=1 tr=0 ts=6aa7106b cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=owhB9EOPmpqNCIfoPYQA:9 a=CjuIK1q_8ugA:10
+ a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDMwMSBTYWx0ZWRfX0o45lNVu9DMB
+ QrBYC5r6ET41lxlTiWrSgknwiLCOItboeZjgJSsaTNgtD8ClwtlOeKnulszMoRz8Xw8rZvxiEQL
+ Gu7OFzyPIBCdrVlyEGdH+kcxrvXOEE5J7022PjgfU2KssH1l61zYD1dW9AWfWgY4N7J9jq3qZMG
+ QKnYoB9rwHHHhLXuF/K+huUqkktIX0u+MfXdTj8cdG3j9WQ0AnEAVwaE6/1eL+RqSAisS+lXLAX
+ W5do/nXnfEQ47ixTo/tYSihVRB76v1Gt6sGROJPdUhZIE8XMSRfLj2wkILQm1eCu4RLirOXFfOw
+ eodlLN1A0rW7Ka/+ee6SEio5lltRl2CqSxVOYbL8btK86VoUQCcAvz5YD+mFGsJpmNKxJRFt31o
+ s98U2XjFqNpuvOVUsizAj9ilve4luKqStruoZLO3oosT2mv89rrQ5daMkXm3crqTnaG2SXNy12/
+ OhgC4zbp8ENHH9CkWkA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDMwMSBTYWx0ZWRfXz+b7exuaYj7z
+ 2FXu9vTUuXD+xHZWNNj19GEcuJ4ye5XBJtbypeJnXaAirz4Qmca2rDrNz+tqZXzY59oNDzehwpT
+ HC0tCrQWfr+HILyaoS5bi6BvflmCMaQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-13_07,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609130301
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,221 +151,45 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Calling a sleeping function in an atomic context (plane atomic upd=
-ate callback).
-- [High] Missing drm_atomic_helper_shutdown() in driver removal and missing=
- .shutdown hooks.
-- [High] Infinite interrupt storm leading to a CPU hard lockup upon PCI dev=
-ice removal (missing 0xFFFFFFFF check).
-- [High] Kernel panic via unaligned memory access in `glanda_blit_rect` due=
- to unvalidated framebuffer pitch.
---
+On Tue, Aug 18, 2026 at 12:40:27PM +0200, Konrad Dybcio wrote:
+> On 8/8/26 3:16 PM, Guangshuo Li wrote:
+> > adreno_gpu_init() calls pm_runtime_use_autosuspend(), but
+> > adreno_gpu_cleanup() does not call the matching
+> > pm_runtime_dont_use_autosuspend() during teardown.
+> > 
+> > If the autosuspend delay is set to a negative value while autosuspend
+> > is enabled, the runtime PM core increments usage_count to prevent
+> > runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+> > during teardown, this reference is not dropped and usage_count remains
+> > unbalanced.
+> > 
+> > The documentation for pm_runtime_use_autosuspend() also notes that it
+> > is important to undo it with pm_runtime_dont_use_autosuspend() at
+> > driver exit time, unless runtime PM was initially enabled with
+> > devm_pm_runtime_enable().
+> > 
+> > Add the missing pm_runtime_dont_use_autosuspend() call to
+> > adreno_gpu_cleanup().
+> > 
+> > This issue was found by manual code inspection.
+> > 
+> > Fixes: eeb754746b14 ("drm/msm/gpu: use pm-runtime")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > ---
+> 
+> I think we can use devm_pm_runtime_enable() instead, which will take
+> care of cleaning up both the autosuspend and runpm halves
 
-commit 17ab32ed9422ea6f511ee3ba92be0492625b8e06
-Author: Leander Kieweg <kieweg.leander@gmail.com>
+Not really, beacause the driver's group device is DPU / MDP4 / MDP5
+(in case of a merged display+GPU), so the patch seems to be correct.
 
-    drm/glanda: Add initial DRM driver for GlandaGPU
-   =20
-    Introduce the core DRM/KMS driver for GlandaGPU. This driver
-    supports basic modesetting, atomic updates via shadow plane helpers,
-    and optional QEMU PCI probing alongside the platform driver.
 
-> diff --git a/drivers/gpu/drm/tiny/glandagpu.c b/drivers/gpu/drm/tiny/glan=
-dagpu.c
-> new file mode 100644
-> index 0000000000000..bc954eb6d4412
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tiny/glandagpu.c
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-[ ... ]
-
-> @@ -107,17 +107,17 @@ static void glanda_blit_rect(struct glanda_device *=
-gdev,
-> +		u32 __iomem *dst =3D (u32 __iomem *)gdev->vram_base +
-> +				   (size_t)dst_y * GLANDA_WIDTH + dst_clip->x1;
-> +		size_t src_off =3D (size_t)src_y * src_pitch +
-> +				 (size_t)(dst_clip->x1 - dst_off_x) * sizeof(u32);
-> +
-> +		for (x =3D 0; x < width; x++) {
-> +			u32 pixel =3D iosys_map_rd(src, src_off + x * sizeof(u32), u32);
-
-[Severity: High]
-Does this code risk an unaligned memory access and a kernel panic?
-
-Userspace can specify an arbitrary framebuffer pitch via the
-DRM_IOCTL_MODE_ADDFB2 ioctl, and the DRM core does not enforce byte alignme=
-nt
-on fb->pitches[0].
-
-If src_pitch is not a multiple of 4, src_off could be an unaligned byte
-offset. Because the iosys_map_rd() macro casts directly to a 32-bit pointer
-and dereferences it, this could cause an Alignment Fault and kernel panic on
-architectures with strict alignment requirements.
-
-[ ... ]
-
-> @@ -136,10 +136,10 @@ static void glanda_plane_atomic_update(struct drm_p=
-lane *plane,
-> +	struct drm_atomic_helper_damage_iter iter;
-> +	struct drm_rect damage;
-> +	int dst_off_x, dst_off_y;
-> +	int ret, idx;
-> +
-> +	ret =3D drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE);
-> +	if (ret)
-> +		return;
-
-[Severity: High]
-Could this result in calling a sleeping function from an atomic context?
-
-The glanda_plane_atomic_update() function executes in an atomic context
-during non-blocking commits where sleeping is strictly forbidden.
-
-Because drm_gem_fb_begin_cpu_access() waits on DMA fences and acquires
-mutexes, it can sleep. This could lead to might_sleep() warnings, system
-instability, or deadlocks. Should CPU access be prepared beforehand in
-a begin_fb_access or prepare_fb hook instead?
-
-[ ... ]
-
-> @@ -162,6 +162,6 @@ static void glanda_plane_atomic_update(struct drm_pla=
-ne *plane,
-> +
-> +	drm_dev_exit(idx);
-> +out_drm_gem_fb_end_cpu_access:
-> +	drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
-> +}
-
-[Severity: High]
-Can this end_cpu_access call also sleep in the atomic update callback?
-
-[ ... ]
-
-> @@ -282,10 +282,10 @@ static const struct drm_connector_funcs glanda_conn=
-ector_funcs =3D {
-> +	.atomic_duplicate_state =3D drm_atomic_helper_connector_duplicate_state,
-> +	.atomic_destroy_state =3D drm_atomic_helper_connector_destroy_state,
-> +};
-> +
-> +static const struct drm_mode_config_funcs glanda_mode_config_funcs =3D {
-> +	.fb_create =3D drm_gem_fb_create_with_dirty,
-> +	.atomic_check =3D drm_atomic_helper_check,
-> +	.atomic_commit =3D drm_atomic_helper_commit,
-> +};
-
-[Severity: High]
-Does the lack of a custom validation wrapper here allow the unaligned pitch
-issue in glanda_blit_rect() to occur?
-
-Hooking fb_create directly to drm_gem_fb_create_with_dirty() without a
-custom wrapper means the driver does not enforce pitch alignment during
-framebuffer creation.
-
-[ ... ]
-
-> @@ -306,10 +306,10 @@ static irqreturn_t glanda_irq_handler(int irq, void=
- *dev_id)
-> +	struct glanda_device *gdev =3D dev_id;
-> +	u32 isr, ier;
-> +
-> +	if (!gdev || !gdev->mmio_base)
-> +		return IRQ_NONE;
-> +
-> +	isr =3D readl(gdev->mmio_base + REG_ISR);
-> +	ier =3D readl(gdev->mmio_base + REG_IER);
-> +
-> +	if (!(isr & ier))
-> +		return IRQ_NONE;
-
-[Severity: High]
-Could this cause an infinite interrupt storm and a CPU hard lockup if the P=
-CI
-device is removed?
-
-When a PCI device is removed (e.g. hot-unplug), MMIO reads return all 1s
-(0xFFFFFFFF). Since !(0xFFFFFFFF & 0xFFFFFFFF) evaluates to false, this
-handler would not return IRQ_NONE.
-
-Instead, it would process a fake VSYNC, write 0xFFFFFFFF back, and return
-IRQ_HANDLED. If the IRQ line is shared and asserted by another device, the
-kernel's spurious interrupt detector will not disable the broken line,
-potentially causing a hard lockup.
-
-[ ... ]
-
-> @@ -522,10 +522,10 @@ static int glanda_drm_init(struct glanda_device *gd=
-ev, int irq)
-> +	return 0;
-> +}
-> +
-> +/* Shared teardown, mirrors glanda_drm_init() */
-> +static void glanda_drm_fini(struct glanda_device *gdev)
-> +{
-> +	drm_dev_unplug(&gdev->drm);
-> +}
-
-[Severity: High]
-Is a call to drm_atomic_helper_shutdown() missing here?
-
-Unregistering the DRM device without shutting down the atomic helpers means
-the display pipeline is not turned off. The active drm_crtc_state and
-drm_plane_state would not transition to a disabled state, leaving
-framebuffers pinned and resulting in memory leaks.
-
-[ ... ]
-
-> @@ -575,10 +575,10 @@ static const struct of_device_id glanda_of_match[] =
-=3D {
-> +	{ }
-> +};
-> +
-> +MODULE_DEVICE_TABLE(of, glanda_of_match);
-> +
-> +static struct platform_driver glandagpu_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "glandagpu",
-> +		.of_match_table =3D glanda_of_match,
-> +	},
-> +	.probe =3D glandagpu_probe,
-> +	.remove =3D glandagpu_remove,
-> +};
-
-[Severity: High]
-Does this platform driver need a .shutdown callback?
-
-Without a .shutdown callback, the display hardware remains active during
-system halt or reboot, which can cause the device to continue scanning out
-VRAM inappropriately across reboots or kexecs.
-
-[ ... ]
-
-> @@ -613,10 +613,10 @@ static const struct pci_device_id glanda_pci_ids[] =
-=3D {
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_REDHAT_QUMRANET, PCI_DEVICE_ID_GLANDA_GPU) },
-> +	{ }
-> +};
-> +
-> +MODULE_DEVICE_TABLE(pci, glanda_pci_ids);
-> +
-> +static struct pci_driver glandagpu_pci_driver =3D {
-> +	.name =3D "glandagpu-pci",
-> +	.id_table =3D glanda_pci_ids,
-> +	.probe =3D glandagpu_pci_probe,
-> +	.remove =3D glandagpu_pci_remove,
-> +};
-
-[Severity: High]
-Is the .shutdown callback also missing from the PCI driver?
-
-Similar to the platform driver, omitting this callback prevents the display
-from being gracefully disabled on shutdown.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913205007.1185=
-52-1-kieweg.leander@gmail.com?part=3D2
+-- 
+With best wishes
+Dmitry
