@@ -4,86 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F14B2C88E69
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D9D9C88E63
 	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C678910E9CC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A06F10E9C8;
 	Sun, 13 Sep 2026 20:53:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IhQaDmaj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AlmsXHna";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15CCC10E363
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 19:54:51 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4998b5a63e2so14452695e9.1
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 12:54:51 -0700 (PDT)
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D73810E0B9
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 18:37:56 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-2dd6665a10fso1460085ad.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 11:37:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789156489; x=1789761289; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=+i+YV2SDOJ/fUOjXL4JkdG0lXGyDg3CLUWfYcCyxsKs=;
- b=IhQaDmajzxcvbe0o553f/3q7jpPfJvm6udVw8RWfHcoekJVX/xbojWZkQgI7tS8JvF
- dTgpc3gpCr8F8bA7lXG+5XQR8Qrc/lr7PA7h0U/LHmZI3ZNDoCxEfsZOX1mxw0zXMiqI
- D1vuGqKh3TohuZqUxUzu4dWJ2GlXKXWrqMxfFF1wfUxdfq0zdb0d7YIa2+1eIkVIFjy6
- 9yWnDI5tlxtwJtA3KaO/oj2I0TgYk4BF79HAk3jbW8JKW5TgzbLiiUGD6PsZbP9dUWM3
- yUz0HPSQvhyp8Hu892TMCaZy8ZiSMebonSYV7GqdPqImm2dvIwQQdfeeDpoFy6Cl+OXH
- VIMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789156489; x=1789761289;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1789324676; x=1789929476; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=+i+YV2SDOJ/fUOjXL4JkdG0lXGyDg3CLUWfYcCyxsKs=;
- b=hpe7lHw+c03RRe4UPBLIdQj/7P493SzIT2362+25+j2GoZlJ9+Nqld/W2UvZQWxNK5
- CQL0cuwB9AXL0VN+g9aH1tL2HRN8PUv5W8sW9uBxwDFPe6Z4dfLB3sGX1qilNLUY2+S2
- 8PmxyKmvmg2WZlDLMbuNIt75dywQn8NaejX+cbeImFgLshCH9iEDXgEMWFgJs3FcJO4I
- /1Y0UIFFEEndO8YehnMmbkiVat8Xya62Cj1ZN0AWHnzMbm05z0J7ain5u7MtEMm1PGsZ
- P6pEApdFCXnoIUGsLY9cqOaxpuchomkGLgq2M8fIu3fwhcSnjimIJtbpCvmBa3cbhNhO
- q0Dw==
+ bh=hLpXy9tNi5ms1dbYyVi6I1as/81y8YWcT2cY9iWq8NU=;
+ b=AlmsXHnagZDFOwgJbnkYBU6lr2t82O5moA9hrLVhSnpuYQYWRMxYxgiDzi113qsPC8
+ XvS/1Om9PtPr3zUdKiiaYi8UlCuHBfzQKHc54v1BdgRKXhkNF84a8PjRZETxu8FEsW+j
+ klhfR7kDvbYaWdMDeoIql+Wqzs4ntH1er78hhaO26tSHlCnpuV6VIL1zcZhcYDDwFtev
+ +QQXlLVg/DunfV/Ize7i5Jx5UDKxREHw/veD2PugW9vGTexoVD/1h+2/ppvDvnvpj5E8
+ A0mV/fGmUEibyjrNUVi7cpLpjCL/I45b96VpJtPSsRj2JRTXRQn712JN9sRWA14tUsQk
+ j1yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789324676; x=1789929476;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=hLpXy9tNi5ms1dbYyVi6I1as/81y8YWcT2cY9iWq8NU=;
+ b=kU/AFEjSbZUqy2i9OAsGZv7ez9XzjH17T/RCfmad62VJzqTC2qcD5VYtfhFEvfbYjh
+ i/fQy6q0I4dA2ejceZI5hDS/mtdU/op1WECEWCtjppw3MoAnqR95BGocFsAU464HWyhG
+ QB32JItmfYoeCzmz79tK3Zd/eAHLtnFArblQVm2pKhaL/g2e5+K3yyNo4UAUSsACkAHt
+ 6zSSEc6b3FQc0gSiuJhncVPtBYpHk8oHZC1Bmggyot2/uPAri2NHcEvh688MoWwUjvUJ
+ pmcNaHh1U2t3AiEkAYFRVBO9Xee22avh9dn+0diciAEQzIkPEv5pR7/3GxYeGeOrqnW/
+ Uk0g==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxAfkM0UYTSXyaRZtQGcI4VEzScGNPgYQtPKuAYc1/cDx1sZq9MENYI3Go+UR/tMJGCnfRtBr7P2yY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lG9AoQdhQ441tTOPYGKTB6RLlun4NLFVhyo/UUCcLVPAQJ7Ga4
- NMJTBtM2C8qbqFemGPUA1sgDnWSScy1yGc/oIT8Z8PgBWWPB2cq7SSb0
-X-Gm-Gg: AYBFou1HNDSUK8lrq0b9t6E8KyH6LYKsbn6ie+zVimnSKYIA2+ZsS5nVYMv8BG5kelX
- 1ycU3F52gHbsFYrxd7eqVkTwacGFv0Lj9FKGLuI3oVfOmnIbb36P9RiW9Ti8N1bLZ9DpqUxuRgR
- vdAsn6r577d0HoeBCY19PsdfR81TA+YFhfll1wmNh8SASTX4SXZZSsc8uaqoD/EZPXFvQJ1jiDq
- 6K9/uyKqzpjcC5Tzy7wnJjLad0Hkmp8XJNle6/nRof7Zs99XIuyobFN9pcn0MMJFgPqtnu4JNQ1
- Dfswmy0yDdxBUNE+w3Yfii5Ur7SQQca6XYhMWgTFRZ1GKpS+CDiD/Bl+XPsq+iA0kAbsS0w/0Lq
- hG+RRz69P+yhxEfmOdlk1Wx7Dau8IufF8bDJXkrg2lCPLNFrKNUBG+avnAv/Z0XsQwLLeyqeJwo
- MxXosk83y7KmsS05KPfPnN7APw7+kbhl84BY0tDKlwoB4QpdEX16EioNdb1a3mEm1Apw8OupjFb
- ocUEkJondY8ugwYH4cZFdSp4PmQgpdNAEoVq5DlYvXLzR+Sv+XwmSTbsbqH350ieJLh0uU2fMJ7
- FIu5b62i3WDJ/+KYAAtxlSeqSCGmp3AqYhpH
-X-Received: by 2002:a05:600d:6501:20b0:49e:69e3:8848 with SMTP id
- 5b1f17b1804b1-49e69e3916emr21708305e9.30.1789156488932; 
- Fri, 11 Sep 2026 12:54:48 -0700 (PDT)
-Received: from localhost.localdomain
- (dynamic-095-114-033-154.95.114.pool.telefonica.de. [95.114.33.154])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49e6576122bsm92640705e9.2.2026.09.11.12.54.47
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Fri, 11 Sep 2026 12:54:48 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Alice Ryhl <aliceryhl@google.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Antonino Maniscalco <antomani103@gmail.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-Subject: [PATCH] drm/gpuvm: Fix names that do not exist in kernel-doc comments
-Date: Fri, 11 Sep 2026 21:53:28 +0200
-Message-Id: <20260911195328.78529-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+ AKwUvBwNsSm1FHe6cbThdGPKw+8EVLuZ6gRdHyYYtRt6x2x8alsJQppHRlNtgd9tzO81f0NFUDLwaCYzmns=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++luIUxYOl9FUtw0l2zvAlRo4H+OT+tUvXAH59rbksoxcqsclPt3
+ ApawHa6tQZwdUMw8pHZJUnkhOlF15Gy+ggqQrJ0DJCshr+2R4drdoFrC
+X-Gm-Gg: AYBFou1zkkavJFUSEo0usFZmyQfX5slEjL1Gfq3H6AHSzSPRP2L2lZgf4tD2TfXNm0T
+ xcbY98JgbiR3CH8dvUPDFPdyCiJ1QDR0mF7mKnTPawxazGpEFwypws6CJGoMyfG1CJr7VZVXQjR
+ NHL1lHCNPOn5oQ0KYJTkNeB0YBVRFG/DchyLzt3zLRUU0wO9CAGIbkeDq3IZxmI5UnC7RImWcCT
+ l0nYXYhO6lcQUd/9rT41jpOPzVjtDz/GvYBPbLeNw9m1RwUV8ZLhZq+XRGJEY5/NGCKVii3WhTH
+ QkEXu1drcvwse96NlfsP2Y1+VJQDT5zFBp3Y7Fa6CLVXe3Ck3Vjr0mwFV8+kWI7ZUIc+aDFUKL8
+ OESsSkm/yegTjUNuUToGsgU55tdr+LKaF76e6pNSh/nXeX1KzzC0vRd1KhraZuzegPO30PfcE12
+ TYcbRFiE8AZrgzE4RsluvIy2Nx3tCD9BsNT2vziYls9mXBl/AXDFZamWtvXdI1PdLpmzsn//QQU
+ pqmRQ==
+X-Received: by 2002:a17:90b:3812:b0:398:990e:1587 with SMTP id
+ 98e67ed59e1d1-39d9beb8e80mr23558089a91.9.1789324675485; 
+ Sun, 13 Sep 2026 11:37:55 -0700 (PDT)
+Received: from localhost ([95.190.112.239]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39d9b08165fsm4118447a91.1.2026.09.13.11.37.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 13 Sep 2026 11:37:55 -0700 (PDT)
+From: Vladislav Zaharov <vladazaharova2018@gmail.com>
+To: dakr@kernel.org,
+	jhubbard@nvidia.com
+Cc: acourbot@nvidia.com, aliceryhl@google.com, ttabi@nvidia.com,
+ gary@garyguo.net, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Vladislav Zaharov <vladazaharova2018@gmail.com>
+Subject: [PATCH v4 1/3] gpu: nova-core: move the debugfs root into the module
+ data
+Date: Mon, 14 Sep 2026 01:37:32 +0700
+Message-ID: <20260913183734.134307-2-vladazaharova2018@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260913183734.134307-1-vladazaharova2018@gmail.com>
+References: <20260913183734.134307-1-vladazaharova2018@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
@@ -102,40 +94,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The GPUVM documentation refers to drm_resv and
-drm_exec_prepare_object(), but the reservation object type is dma_resv
-and the locking helper is drm_exec_prepare_obj().
+The debugfs root lives in a static that init() fills in and a guard
+field of the module data clears again. That costs a `static mut`, an
+unsafe write on each side and a guard type whose only job is to undo
+the write.
 
-Use the existing names in the reservation object and map locking
-documentation.
+It also leaks. try_pin_init! drops only the fields it has already
+built, and the guard is written after the Registration, so a
+registration that fails leaves the guard unbuilt and the static set.
+Statics are never dropped, and the module is unloaded right away, so
+the directory outlives everything that could remove it. The next load
+then finds the name taken: debugfs_create_dir() returns -EEXIST, which
+Entry keeps as it would any other pointer, and the driver comes up with
+no debugfs at all until the machine is rebooted.
 
-Fixes: bbe8458037e7 ("drm/gpuvm: add common dma-resv per struct drm_gpuvm")
-Fixes: 471920ce25d5 ("drm/gpuvm: Add locking helpers")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Have the module data own a DebugfsData instead, built before the
+registration and dropped after it, and keep only a pointer to it in the
+static, for devices that have no other way to reach the data of their
+module. What is left is one unsafe read for the users and one write on
+each side, with no guard type. A registration that fails now drops the
+data that was built before it, and the directory goes with it.
+
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Vladislav Zaharov <vladazaharova2018@gmail.com>
 ---
- drivers/gpu/drm/drm_gpuvm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/nova-core/gsp.rs       | 15 +++---
+ drivers/gpu/nova-core/nova_core.rs | 82 +++++++++++++++++++++++-------
+ 2 files changed, 69 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
-index d1c80ad3deadb7f2e78abf7e50e61ad085391e3f..c43708be348c3659bc7888c1aad25b470ff2cee0 100644
---- a/drivers/gpu/drm/drm_gpuvm.c
-+++ b/drivers/gpu/drm/drm_gpuvm.c
-@@ -1051,7 +1051,7 @@ static const struct drm_gem_object_funcs drm_gpuvm_object_funcs = {
-  * @drm: the drivers &drm_device
-  *
-  * Allocates a dummy &drm_gem_object which can be passed to drm_gpuvm_init() in
-- * order to serve as root GEM object providing the &drm_resv shared across
-+ * order to serve as root GEM object providing the &dma_resv shared across
-  * &drm_gem_objects local to a single GPUVM.
-  *
-  * Returns: the &drm_gem_object on success, NULL on failure
-@@ -2718,7 +2718,7 @@ static const struct drm_gpuvm_ops lock_ops = {
-  * @req: ptr to drm_gpuvm_map_req struct
-  *
-  * This function locks (drm_exec_lock_obj()) objects that will be unmapped/
-- * remapped, and locks+prepares (drm_exec_prepare_object()) objects that
-+ * remapped, and locks+prepares (drm_exec_prepare_obj()) objects that
-  * will be newly mapped.
-  *
-  * The expected usage is::
+diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
+index 25ea43f1cbe9..f29e601e6753 100644
+--- a/drivers/gpu/nova-core/gsp.rs
++++ b/drivers/gpu/nova-core/gsp.rs
+@@ -196,15 +196,12 @@ pub(crate) fn new(pdev: &'gsp pci::Device<device::Bound>) -> impl PinInit<Self,
+                         logrm,
+                     };
+ 
+-                    #[allow(static_mut_refs)]
+-                    // SAFETY: `DEBUGFS_ROOT` is created before driver registration and cleared
+-                    // after driver unregistration, so no probe() can race with its modification.
+-                    //
+-                    // PANIC: `DEBUGFS_ROOT` cannot be `None` here.  It is set before driver
+-                    // registration and cleared after driver unregistration, so it is always
+-                    // `Some` for the entire lifetime that probe() can be called.
+-                    let log_parent: &debugfs::Dir = unsafe { crate::DEBUGFS_ROOT.as_ref() }
+-                        .expect("DEBUGFS_ROOT not initialized");
++                    // PANIC: The module data cannot be gone here. It is published before the
++                    // driver is registered and taken down after it is unregistered, so it is
++                    // there for as long as probe() can be called.
++                    let log_parent: &debugfs::Dir = crate::debugfs_data()
++                        .expect("module data not initialized")
++                        .root();
+ 
+                     log_parent.scope(log_buffers, dev.name(), |logs, dir| {
+                         dir.read_binary_file(c"loginit", &logs.loginit.0);
+diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
+index 1133c6ce5c55..0f8501c26e05 100644
+--- a/drivers/gpu/nova-core/nova_core.rs
++++ b/drivers/gpu/nova-core/nova_core.rs
+@@ -30,40 +30,84 @@
+ 
+ pub(crate) const MODULE_NAME: &core::ffi::CStr = <LocalModule as kernel::ModuleMetadata>::NAME;
+ 
+-// TODO: Move this into per-module data once that exists.
+-static mut DEBUGFS_ROOT: Option<debugfs::Dir> = None;
++/// Pointer to the [`DebugfsData`] the module owns.
++///
++/// A device has no way to reach the data of its module, so probe() goes through here instead.
++// TODO: Drop this once devices can reach the data of their module.
++static mut DEBUGFS_DATA: *const DebugfsData = core::ptr::null();
+ 
+-/// Guard that clears `DEBUGFS_ROOT` when dropped.
+-struct DebugfsRootGuard;
++/// Data the module shares with every GPU it drives.
++///
++/// # Invariants
++///
++/// A non-null `DEBUGFS_DATA` points at a live, pinned instance of this type that outlives the
++/// driver registration.
++#[pin_data(PinnedDrop)]
++pub(crate) struct DebugfsData {
++    /// Root directory of the driver in debugfs.
++    root: debugfs::Dir,
++}
++
++impl DebugfsData {
++    /// Creates the shared data and publishes it, so that [`debugfs_data()`] can hand it out.
++    fn new() -> impl PinInit<Self> {
++        pin_init!(&this in Self {
++            root: debugfs::Dir::new(c"nova-core"),
++            _: {
++                // SAFETY: Module initialization runs once and before the driver is registered, so
++                // nothing can be reading `DEBUGFS_DATA` while it is written here. `this` is where
++                // the data is being built, and it stays there: the module data never moves.
++                unsafe { DEBUGFS_DATA = this.as_ptr() };
++            },
++        })
++    }
++
++    /// Returns the root directory of the driver in debugfs.
++    pub(crate) fn root(&self) -> &debugfs::Dir {
++        &self.root
++    }
++}
+ 
+-impl Drop for DebugfsRootGuard {
+-    fn drop(&mut self) {
+-        // SAFETY: This guard is dropped after `_driver` (due to field order),
+-        // so the driver is unregistered and no probe() can be running.
+-        unsafe { DEBUGFS_ROOT = None };
++#[pinned_drop]
++impl PinnedDrop for DebugfsData {
++    fn drop(self: Pin<&mut Self>) {
++        // SAFETY: This runs after the registration is dropped, as the fields of `NovaCoreModule`
++        // are dropped in declaration order, so the driver is unregistered and neither a probe()
++        // nor the teardown of a device can be reading `DEBUGFS_DATA`.
++        unsafe { DEBUGFS_DATA = core::ptr::null() };
+     }
+ }
+ 
++/// Returns the data the module shares with its devices, or [`None`] if there is none yet.
++///
++/// Only ever call this while the driver is registered, which is to say from probe() or from the
++/// teardown of a device that is bound: the data is built before the registration and dropped
++/// after it, and nothing else keeps what is returned here alive.
++pub(crate) fn debugfs_data() -> Option<&'static DebugfsData> {
++    // SAFETY: `DEBUGFS_DATA` is written while the module data is initialized, before the driver
++    // is registered, and again when that data is dropped, after the driver is unregistered. Both
++    // happen with no device bound, so a caller in probe() or in the teardown of a device cannot
++    // race with either, and by the type invariant what it gets points at live data that outlives
++    // the device it is used from.
++    unsafe { DEBUGFS_DATA.as_ref() }
++}
++
+ #[pin_data]
+ struct NovaCoreModule {
+-    // Fields are dropped in declaration order, so `_driver` is dropped first,
+-    // then `_debugfs_guard` clears `DEBUGFS_ROOT`.
++    // Fields are dropped in declaration order, so the registration goes first and no probe() can
++    // still be running once the shared data is torn down. `init()` builds them the other way
++    // round, as the data has to be there before the first probe() reaches for it.
+     #[pin]
+     _driver: Registration<pci::Adapter<driver::NovaCoreDriver>>,
+-    _debugfs_guard: DebugfsRootGuard,
++    #[pin]
++    _debugfs: DebugfsData,
+ }
+ 
+ impl InPlaceModule for NovaCoreModule {
+     fn init(module: &'static kernel::ThisModule) -> impl PinInit<Self, Error> {
+-        let dir = debugfs::Dir::new(c"nova-core");
+-
+-        // SAFETY: We are the only driver code running during init, so there
+-        // cannot be any concurrent access to `DEBUGFS_ROOT`.
+-        unsafe { DEBUGFS_ROOT = Some(dir) };
+-
+         try_pin_init!(Self {
++            _debugfs <- DebugfsData::new(),
+             _driver <- Registration::new(MODULE_NAME, module),
+-            _debugfs_guard: DebugfsRootGuard,
+         })
+     }
+ }
+-- 
+2.55.0
+
