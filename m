@@ -4,41 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23972C88E56
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 08:41:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26F6FC88E40
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 08:48:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25A5F10E85F;
-	Sun, 13 Sep 2026 08:41:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20EDC10E876;
+	Sun, 13 Sep 2026 08:48:58 +0000 (UTC)
 Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2FCF10E85F
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 08:41:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7A2010E876
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 08:48:56 +0000 (UTC)
 Received: by sphereful.davidgow.net (Postfix, from userid 119)
- id 7C8901EAB34; Sun, 13 Sep 2026 16:41:41 +0800 (AWST)
-Received: from [IPV6:2001:8003:8802:7000::41b] (unknown
- [IPv6:2001:8003:8802:7000::41b])
- by sphereful.davidgow.net (Postfix) with ESMTPSA id D4C351EAB2B;
- Sun, 13 Sep 2026 16:41:37 +0800 (AWST)
-Message-ID: <264b81f5-d975-45d3-9bbb-d5759971cf6d@davidgow.net>
-Date: Sun, 13 Sep 2026 16:41:35 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] linux/log2.h: Add 64-bit safe variants of
- power-of-two functions
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Jim Cromie <jim.cromie@gmail.com>, "Maciej W . Rozycki"
- <macro@orcam.me.uk>, Andrew Morton <akpm@linux-foundation.org>,
- Matthew Auld <matthew.auld@intel.com>,
- Arun Pravin <arunpravin.paneerselvam@amd.com>,
- Joel Fernandes <joelagnelf@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Chris Mason <mason@kernel.org>,
- David Sterba <dsterba@suse.com>, dri-devel@lists.freedesktop.org,
- linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260830103321.2042968-1-david@davidgow.net>
- <20260830124334.105b84b1@pumpkin>
-Content-Language: en-US
+ id C0E151EAB31; Sun, 13 Sep 2026 16:48:54 +0800 (AWST)
+Received: from shelley.lan (unknown [IPv6:2001:8003:8802:7000::41b])
+ by sphereful.davidgow.net (Postfix) with ESMTPSA id 0CEB01EA3A1;
+ Sun, 13 Sep 2026 16:48:53 +0800 (AWST)
 From: David Gow <david@davidgow.net>
-In-Reply-To: <20260830124334.105b84b1@pumpkin>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: David Gow <david@davidgow.net>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, kunit-dev@googlegroups.com
+Subject: [PATCH] drm/sched: Increase drm_mock_sched_job_wait_finished timeout
+ when CONFIG_HZ=100
+Date: Sun, 13 Sep 2026 16:41:53 +0800
+Message-ID: <20260913084155.520015-2-david@davidgow.net>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,71 +49,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+The drm_sched_scheduler_overhead_tests tests hardcode a timeout of 5x
+total_us, and fail if it's exceeded. However, on systems with
+CONFIG_HZ < 250, this tends to fail.
 
+As it's possible to configure many architectures to use 100 Hz (and some,
+such as UML, hardcode CONFIG_HZ=100), increase the timeout so that the test
+doesn't fail on these configurations.
 
-Le 30/08/2026 à 19:43, David Laight a écrit :
-> On Sun, 30 Aug 2026 18:33:15 +0800
-> David Gow <david@davidgow.net> wrote:
-> 
->> The existing roundup_pow_of_two() and rounddown_pow_of_two() functions work
->> on values of type unsigned long, which is 32-bit on 32-bit systems.
->> Equally, is_power_of_2() operates on an unsigned long.
->>
->> There are several instances where 64-bit safe versions of these (which
->> operate on a 64-bit value regardless of sizeof(long)) are required. Most
->> particularly, some hardware (especially GPUs) have 64-bit address spaces,
->> and some formats (such as filesystems) use 64-bit offsets. Some of these
->> (such as i915 and btrfs) have already implemented their own 64-bit
->> is_power_of_2() helpers.
->>
->> Add a version of these which always operate on a 64-bit value. These have
->> the (unimaginative) names:
->> - is_power_of_2_u64()
->> - roundup_pow_of_two_u64(), and
->> - rounddown_pow_of_two_u64()
->> and otherwise work identically to their unsigned long counterparts.
-> 
-> Why not just change the definitions (back?) to #defines.
-> Then they can be size neutral and you don't have to guess the correct one.
-> 
-> You may need to use __builtin_constant_p(x <= ~0u) to select between 32 and
-> 64 bit versions.
-
-I've given this a go, and (with some ugly typeof() casting) something 
-like this works:
-
----
-#define rounddown_pow_of_two(n)				\
-	__builtin_constant_p(n) ? (			\
-		((typeof(n)1UL << ilog2(n)) :		\
-		(sizeof(n) <= 4) ?			\
-			1UL << (fls(n) - 1) :		\
-			(typeof(n))1UL << (fls64(n) - 1)\
-)
+Fixes: 97ef806a5314 ("drm/sched: Add some scheduling quality unit tests")
+Signed-off-by: David Gow <david@davidgow.net>
 ---
 
-Unfortunately, there are enough random places where the function 
-__round{up,down}_pow_of_two() is called directly that it's turning this 
-into a more involved series than I'd want to push through for a simple fix.
+This failure showed up on UML when testing the addition of CONFIG_DRM to
+the KUnit 'alltests' config[1]. Ideally, I'd like to see this test fixed
+(or at least skipped/disabled) on these broken configurations so that the
+alltests run is clean. (I don't actually run any CONFIG_HZ=100 configs
+other than UML, but fixing them all is ideal if we can manage it.)
 
-I'll re-send patch 2 in it's original form (without the helper changes) 
-so we can at least fix the buddy allocator breakage, and then put 
-together a more complete version of this series with all of the various 
-callsite fixes, and a KUnit test to verify it works properly across both 
-32-bit and 64-bit values.
+If you'd rather a different implementation / magic number, let me know.
+I picked 15 here as it gave me plenty of leeway: 10 worked most, but not
+all, of the time under i386 qemu w/ CONFIG_HZ_100, and was fine with UML
+on this machine.
 
-> 
-> It is also worth checking what gcc/clang generate for the 64bit versions
-> on 32bit when passed a 32bit variable.
-> It might be that they optimise the code and avoid all the 64bit maths.
-My quick look suggested that gcc and clang were not doing anything 
-excessively stupid here. The only really dubious case was for the 
-roundup variant, which does end up doing the 64-bit subtraction. That 
-being said, I wasn't able to come up with anything significantly better 
-(particularly given that we're already pretty register constrained).
-
-Regardless, I'll take another look at this before sending the full series.
-
-Cheers,
+Thanks,
 -- David
+
+[1]: https://lore.kernel.org/all/20260911-kunit-drm-v1-1-c5c0f18fc7b0@kernel.org/
+---
+ drivers/gpu/drm/scheduler/tests/tests_scheduler.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+index 285546a2218f..02c83b5c2189 100644
+--- a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
++++ b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+@@ -13,6 +13,13 @@
+  * logic.
+  */
+ 
++/* We need a more generous timeout when CONFIG_HZ=100. */
++#if CONFIG_HZ < 250
++#define TIMEOUT_MULTIPLIER 15
++#else
++#define TIMEOUT_MULTIPLIER 5
++#endif
++
+ static int drm_sched_scheduler_init(struct kunit *test)
+ {
+ 	struct drm_mock_scheduler *sched;
+@@ -88,7 +95,7 @@ static void drm_sched_scheduler_queue_overhead(struct kunit *test)
+ 
+ 	/* Wait with a safe margin to avoid every failing. */
+ 	done = drm_mock_sched_job_wait_finished(job,
+-						usecs_to_jiffies(total_us) * 5);
++						usecs_to_jiffies(total_us) * TIMEOUT_MULTIPLIER);
+ 	end = ktime_get();
+ 	KUNIT_ASSERT_TRUE(test, done);
+ 
+@@ -149,7 +156,7 @@ static void drm_sched_scheduler_ping_pong(struct kunit *test)
+ 
+ 	/* Wait with a safe margin to avoid every failing. */
+ 	done = drm_mock_sched_job_wait_finished(job,
+-						usecs_to_jiffies(total_us) * 5);
++						usecs_to_jiffies(total_us) * TIMEOUT_MULTIPLIER);
+ 	end = ktime_get();
+ 	KUNIT_ASSERT_TRUE(test, done);
+ 
+-- 
+2.55.0
 
