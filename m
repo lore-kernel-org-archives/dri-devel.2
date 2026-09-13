@@ -4,80 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C35FC88E40
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 09:49:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60E1DC88E40
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 09:54:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AABBD10E12B;
-	Sun, 13 Sep 2026 09:49:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 746A110E0E5;
+	Sun, 13 Sep 2026 09:54:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PfBvxpKE";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=minlexx.ru header.i=@minlexx.ru header.b="YI4avdcQ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96C0610E12B
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 09:49:28 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EB11242AC6;
- Sun, 13 Sep 2026 09:49:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1DC51F000FF;
- Sun, 13 Sep 2026 09:49:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789292967;
- bh=Tg5IU0+H9KMkSOpIVEYusfjm6bIb4fQEllwynyz0EVc=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date;
- b=PfBvxpKEvpJ5VLvXhFNDyHaYXB+ow/oOmmQUHohuPRTQ5OidCuKr72NVna21Lhj74
- r5JNth+EicGcrCC7nWRPU3KP7VvVO3pSw3SMgGmOSz4IhFnNf6O4Pe/2yjIehooC1j
- V5gfQBN3V7CSTiFObippk57pdzCBTAaYjhpBs8h86PcRmrAVE5mHCe8CBXR8sdZ9lI
- hOiIl8GhtQRUZJhWmq4v0gpGo2yCDfi4JJ5+JCDbKJMzUMLQpHEY7eL23wcPEXXOYK
- YUZArZv4sXfKDhvHqKab4q5jTSS5LAjaBXREtzk2jtVz45lYaQ3li0P61UqlG1ww9i
- AGBthjzkxuVUQ==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda
- <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Trevor
- Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>,
- Lyude Paul
- <lyude@redhat.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arve
- =?utf-8?B?SGrDuG5uZXbDpWc=?= <arve@android.com>, Todd Kjos
- <tkjos@android.com>, Christian
- Brauner <brauner@kernel.org>, Carlos Llamas <cmllamas@google.com>, "Rafael
- J.
- Wysocki" <rafael@kernel.org>, Dave Ertman <david.m.ertman@intel.com>, Leon
- Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, Serge
- Hallyn <sergeh@kernel.org>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Alexander Viro <viro@zeniv.linux.org.uk>, Jan
- Kara <jack@suse.cz>, Igor Korotin <igor.korotin@linux.dev>, Viresh Kumar
- <vireshk@kernel.org>, Nishanth
- Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>, Bjorn Helgaas
- <bhelgaas@google.com>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>,
- Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, Michal Wilczynski
- <m.wilczynski@samsung.com>, Ira Weiny <iweiny@kernel.org>, Matthew Brost
- <matthew.brost@intel.com>, Thomas =?utf-8?Q?Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, Philipp Stanner <phasta@kernel.org>,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, driver-core@lists.linux.dev,
- linux-block@vger.kernel.org, linux-security-module@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-usb@vger.kernel.org, Oliver Mangold
- <oliver.mangold@pm.me>, Viresh Kumar <viresh.kumar@linaro.org>
-Subject: Re: [PATCH v21 4/9] rust: rename `AlwaysRefCounted` to `RefCounted`.
-In-Reply-To: <DLCHKYBQ3WF1.B8YPUTAKNM7@garyguo.net>
-References: <20260910-unique-ref-v21-0-e83257373062@kernel.org>
- <20260910-unique-ref-v21-4-e83257373062@kernel.org>
- <CAH5fLghUQW5urTfLCCDT4BhuqoFVoLUAG46TS-SxaS37bJcgWQ@mail.gmail.com>
- <DLCHKYBQ3WF1.B8YPUTAKNM7@garyguo.net>
-Date: Sun, 13 Sep 2026 11:49:12 +0200
-Message-ID: <875x09v5uv.fsf@kernel.org>
+Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B001010E0E5
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 09:54:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru; 
+ s=dkim;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:
+ Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=1kSaukhH+aq/s3s0///qjM3E4iFd6eKQKLQRVCZexAM=; b=YI4avdcQ3bpefrDNPXxoYGAuZ9
+ +SVYeimN8SOvPLapzEXpWP5XcmzruB4l0r9ZukeSPa/rwiag/YevcW9b2tgh6yx1VZdrb1BJZpZ+y
+ gVWh2VPuOnjhdNSsenZmnS5qqzVe2hshIKi2C2UUSq7jIsIOBYFYXXvtuef0OuUDIccs=;
+Received: by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls
+ TLS_AES_128_GCM_SHA256 (envelope-from <alexeymin@minlexx.ru>)
+ id 1x5guq-0000000Fei3-1Qpc; Sun, 13 Sep 2026 12:54:29 +0300
+Message-ID: <ad3c2af3-f92d-4818-9c58-00ac04373503@minlexx.ru>
+Date: Sun, 13 Sep 2026 12:54:26 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/3] Add driver for Novatek NT35596S panel
+To: David Heidelberg <david@ixit.cz>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Alexey Minnekhanov <alexeymin@postmarketos.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Molly Sophia <mollysophia379@gmail.com>,
+ Arnaud Ferraris <arnaud.ferraris@collabora.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+References: <20250913-nt35596s-v6-0-b5deb05e04af@ixit.cz>
+ <477ff72a-fe0b-4c23-8448-a0ec87c7e039@oss.qualcomm.com>
+ <2e2cdb59-1b0e-435e-917a-0490fad29879@ixit.cz>
+Content-Language: en-US
+From: Alexey Minnekhanov <alexeymin@minlexx.ru>
+In-Reply-To: <2e2cdb59-1b0e-435e-917a-0490fad29879@ixit.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,61 +71,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-"Gary Guo" <gary@garyguo.net> writes:
+On 11.09.2026 23:10, David Heidelberg wrote:
+> 
+> X> Ok, I found out in the meantime that Alexey is working on refactoring
+> X> nt36672a, so we’ll coordinate. I’ll likely need to rebase this 
+> changeset on
+> X> top of the refactored nt36672a, or possibly move it into a separate 
+> driver.
+> X>
+> X> See https://github.com/sdm660-mainline/linux/pull/114/commits
+> 
+> I think it fits even more after refactoring. I hope Alexey will post the
+> refactorings soon.
+> 
+> I'm afraid Alexey didn't :) (+Cc)
+> 
+> David
+> 
+> P.S. I don't have the hardware so I don't want to do a risky changes.
+> 
 
-> On Fri Sep 11, 2026 at 10:08 AM BST, Alice Ryhl wrote:
->> On Thu, Sep 10, 2026 at 11:01=E2=80=AFAM Andreas Hindborg <a.hindborg@ke=
-rnel.org> wrote:
->>>
->>> From: Oliver Mangold <oliver.mangold@pm.me>
->>>
->>> There are types where it may both be reference counted in some cases and
->>> owned in others. In such cases, obtaining `ARef<T>` from `&T` would be
->>> unsound as it allows creation of `ARef<T>` copy from `&Owned<T>`.
->>>
->>> Therefore, we split `AlwaysRefCounted` into `RefCounted` (which `ARef<T=
->`
->>> would require) and a marker trait to indicate that the type is always
->>> reference counted (and not `Ownable`) so the `&T` -> `ARef<T>` conversi=
-on
->>> is possible.
->>>
->>> - Rename `AlwaysRefCounted` to `RefCounted`.
->>> - Add a new unsafe trait `AlwaysRefCounted`.
->>> - Implement the new trait `AlwaysRefCounted` for the newly renamed
->>>   `RefCounted` implementations. This leaves functionality of existing
->>>   implementers of `AlwaysRefCounted` intact.
->>>
->>> Suggested-by: Alice Ryhl <aliceryhl@google.com>
->>> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
->>> Signed-off-by: Oliver Mangold <oliver.mangold@pm.me>
->>> [ Andreas: Updated commit message and rebase on rust-next (7.2) ]
->>> Acked-by: Igor Korotin <igor.korotin.linux@gmail.com>
->>> Acked-by: Danilo Krummrich <dakr@kernel.org>
->>> Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
->>> Reviewed-by: Gary Guo <gary@garyguo.net>
->>> Assisted-by: LLM
->>> Co-developed-by: Andreas Hindborg <a.hindborg@kernel.org>
->>> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
->>
->> This has a lot of safety comments of the form "This does not implement
->> Ownable, *therefore* it can implement AlwaysRefcounted". But I think
->> the safety comment should instead explain that it's okay to create an
->> ARef<_> from an &_ for this type. The fact that Ownable is not
->> implemented is not sufficient argument.
->>
->> Alice
->
-> Yeah, I think for types that currently implement `AlwaysRefCounted` and d=
-oes not
-> have a new `Ownable` form, it should keep saying that "this is always ref=
-erence
-> counted".
+The rework: https://patchwork.kernel.org/series/1163701/
 
-Makes sense, I will fix them.
+But there will be at least v2, I'm feeling it..
 
-Best regards,
-Andreas Hindborg
-
-
-
+--
+Regards,
+Alexey Minnekhanov
