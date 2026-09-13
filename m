@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECA0FC88E5C
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 22:45:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B63C3C88E64
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 22:46:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18D6810EA54;
-	Sun, 13 Sep 2026 22:45:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5AA310EA56;
+	Sun, 13 Sep 2026 22:46:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LvOTFiKn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DBtL1rGt";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 528D910EA54
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 22:45:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6F7710EA56
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 22:46:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 32FF1429D0;
- Sun, 13 Sep 2026 22:45:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E09AF1F000FF;
- Sun, 13 Sep 2026 22:45:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BBA5B40ABF;
+ Sun, 13 Sep 2026 22:46:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B1611F000FF;
+ Sun, 13 Sep 2026 22:46:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789339537;
- bh=uOKD626mzhyVQKJC+pAUQ7WbNQ/JTER5SD41exTfuIc=;
+ s=k20260515; t=1789339582;
+ bh=opLmj+jLjNYDusJ422KDOZLzzZ9h3FSBrRqOoC8jm3U=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=LvOTFiKnf9gEe+csSIrsMvMnR9v0lKLX2PfsLMVEVoOODOp/SIBmBeqkquqK18lQP
- hyGs+HvYYIFr8KQthEfO5rPqXcKYNDn7lhIcMQhjug5T/AoMr0EgckdCBsiSYaplHN
- GWLg2T2P3KRJtzUjgr6SFvZLd/jn0T4h9pvsEN7/4oSzPHn8h/ucWBUanj2rrLMvOH
- WX43Z6VwREhn5X9G08txETdrjWhbR/lxZ/z8Xre+VQRQLetqAGyirSOccXft64q/eZ
- UKLdhsU7WkwF8H8q/v4dgXfX0FPyrkqkih5TOIdv6N8RmWAFsdVAZrqB5oh2y32X5K
- /40wypoBmzIfA==
+ b=DBtL1rGt1kLOAzuihBoK0gOahSYB5RwFdO+tuAJdfrDtkIowfZtA/BluTwqcQH5dH
+ 2rk6nWe+yKWv0KFW+NMzYPklZbQNu70sQVKarz/EdC2UQu6zZXcxsYP/2oMat3j0YS
+ WcZVBgXM0jS6Rtf0LUGE+E9q29bxULke4vhWDKVCbD5AN4G2HlqbzusSJ8V9RluiaO
+ eTLGmiuH+V5FVxuLHXLtOjSqOdwj+dpKGhr/qFl+ThcxNnxONdBzy/4ScfSuxhRy5E
+ f7hV7yXik5Fw0WjpN8pL4Ve9KFE71SLX/3OW8INbJrq4UQ9Ggxc/nLgz4ldikNW1mL
+ RBNzsXRIE60vg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/4] drm/qxl: reject relocations whose writes cross a
- page boundary
+Subject: Re: [PATCH v2 4/4] drm/qxl: validate relocation src_offset and fix
+ type truncation
 To: "Aldo Ariel Panzardo" <qwe.aldo@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260913223000.695299-4-qwe.aldo@gmail.com>
+In-Reply-To: <20260913223000.695299-5-qwe.aldo@gmail.com>
 References: <20260913223000.695299-1-qwe.aldo@gmail.com>
- <20260913223000.695299-4-qwe.aldo@gmail.com>
+ <20260913223000.695299-5-qwe.aldo@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 13 Sep 2026 22:45:36 +0000
-Message-Id: <20260913224536.E09AF1F000FF@smtp.kernel.org>
+Date: Sun, 13 Sep 2026 22:46:22 +0000
+Message-Id: <20260913224622.8B1611F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,110 +58,74 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] An integer overflow in `reloc.dst_offset + write_size` bypasse=
-s bounds checks, leading to out-of-bounds writes within the shared command =
-buffer.
-- [Critical] The fallback path in `qxl_bo_kmap_atomic_page` improperly mult=
-iplies an already byte-scaled offset by `PAGE_SIZE`, leading to massive out=
--of-bounds kernel memory corruption.
-- [High] Type truncation of `dst_offset` and passing an unsigned value to a=
- signed `int` causes negative memory mapping before the VRAM buffer.
-- [High] `qxl_bo_kmap_atomic_page` fails to increment `map_count` in the fa=
-llback path when `bo->kptr` is already set, causing a reference count under=
-flow when unmapped.
+- [Critical] Arbitrary kernel memory corruption due to incorrect byte-to-pa=
+ge arithmetic in CPU-domain fallback path.
+- [High] Incomplete mitigation for VRAM out-of-bounds access due to lack of=
+ command extent validation.
+- [High] Unaligned memory accesses to Write-Combining (WC) I/O memory via u=
+ser-controlled `dst_offset`.
 --
 
-commit 9e6139abca50852ee6ddcc5adb21b30da6e7a5ae
+commit dafc93fc8afc46baa3769cdc18eb27a22986da61
 Author: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 
-drm/qxl: reject relocations whose writes cross a page boundary
+drm/qxl: validate relocation src_offset and fix type truncation
 
-This commit adds a check to reject relocations in the qxl driver where the
-write would cross a page boundary, preventing out-of-bounds writes into the
-kernel's fixmap area.
+The UAPI struct drm_qxl_reloc declares src_offset as __u64, but the
+internal struct qxl_reloc_info stores it as a signed int.  The
+assignment silently truncates the 64-bit value without any bounds check.
+A negative or very large truncated offset is then passed to
+qxl_bo_physical_address(), generating a physical address that points outside
+the source BO.
 
 > diff --git a/drivers/gpu/drm/qxl/qxl_ioctl.c b/drivers/gpu/drm/qxl/qxl_io=
 ctl.c
-> index e727a35c94136..9fba6e26d048b 100644
+> index 9fba6e26d048b..6559ba7d86f90 100644
 > --- a/drivers/gpu/drm/qxl/qxl_ioctl.c
 > +++ b/drivers/gpu/drm/qxl/qxl_ioctl.c
+
 [ ... ]
-> @@ -247,6 +247,12 @@ static int qxl_process_single_command(struct qxl_dev=
+
+> @@ -259,6 +259,10 @@ static int qxl_process_single_command(struct qxl_dev=
 ice *qdev,
-[ ... ]
->  		if (reloc.dst_handle) {
->  			ret =3D qxlhw_handle_to_bo(file_priv, reloc.dst_handle, release,
->  						 &reloc_info[i].dst_bo);
+>  						 &reloc_info[i].src_bo);
 >  			if (ret)
 >  				goto out_free_bos;
->  			reloc_info[i].dst_offset =3D reloc.dst_offset;
->  		} else {
->  			if (reloc.dst_offset < sizeof(union qxl_release_info) ||
->  			    reloc.dst_offset + write_size >
->  			    sizeof(union qxl_release_info) + cmd->command_size) {
-                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but does the addition
-reloc.dst_offset + write_size overflow?
-
-If a user sets reloc.dst_offset to a value like 0xFFFFFFFFFFFFFFF8 (-8),
-the addition of write_size (8) would wrap around to 0. Since the first check
-(0xFFFFFFFFFFFFFFF8 < 40) is false, and the second check (0 > 40 +
-cmd->command_size) is also false, the bounds checks are bypassed.
-
-This could allow out-of-bounds writes into the shared cmd_bo ring buffer.
-
->  				ret =3D -EINVAL;
->  				goto out_free_bos;
->  			}
->  			reloc_info[i].dst_bo =3D cmd_bo;
->  			reloc_info[i].dst_offset =3D reloc.dst_offset + release->release_offs=
-et;
->  		}
->=20
->  		if ((u64)reloc_info[i].dst_offset + write_size >
->  		    reloc_info[i].dst_bo->tbo.base.size) {
->  			ret =3D -EINVAL;
->  			goto out_free_bos;
->  		}
->=20
-> +		if ((reloc_info[i].dst_offset & ~PAGE_MASK) + write_size >
-> +		    PAGE_SIZE) {
-> +			ret =3D -EINVAL;
-> +			goto out_free_bos;
-> +		}
-> +
->  		/* reserve and validate the reloc dst bo */
-
-
-While reviewing the relocation bounds checks, I noticed a few pre-existing
-issues in the page mapping code called during relocations:
-
-drivers/gpu/drm/qxl/qxl_object.c:qxl_bo_kmap_atomic_page() {
-    ...
-	offset =3D bo->tbo.resource->start << PAGE_SHIFT;
-	return io_mapping_map_atomic_wc(map, offset + page_offset);
-}
+> +			if (reloc.src_offset >=3D reloc_info[i].src_bo->tbo.base.size) {
 
 [Severity: High]
-This isn't a bug introduced by this patch, but is it safe to pass page_offs=
-et
-as a signed int?
+This is a pre-existing issue, but does this check fully mitigate the
+out-of-bounds access?
 
-The callers pass dst_offset & PAGE_MASK to qxl_bo_kmap_atomic_page(). If a
-user provides a large offset like 0x80000000 for a large buffer, it will be
-interpreted as a negative integer (-2147483648) and sign-extended in
-io_mapping_map_atomic_wc(), mapping memory before the intended physical VRAM
-buffer.
+If a user submits a DRAW command and sets reloc.src_offset to a valid offset
+near the end of the BO (e.g. bo->size - 1), this check passes.  However,
+doesn't the hypervisor then read the full extent dictated by the DRAW
+command payload, crossing the BO boundary into adjacent VRAM?
 
+Would it be safer to also validate that the size of the access requested by
+the QXL command fits within the source BO?
+
+> +				ret =3D -EINVAL;
+> +				goto out_free_bos;
+> +			}
+>  			reloc_info[i].src_offset =3D reloc.src_offset;
+>  		} else {
+>  			reloc_info[i].src_bo =3D NULL;
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but can this code cause an
+arbitrary out-of-bounds kernel memory write?
+
+In the CPU-domain fallback path for mapping a BO:
 
 drivers/gpu/drm/qxl/qxl_object.c:qxl_bo_kmap_atomic_page() {
-    ...
+...
+	offset =3D bo->tbo.resource->start << PAGE_SHIFT;
+	return io_mapping_map_atomic_wc(map, offset + page_offset);
 fallback:
 	if (bo->kptr) {
 		rptr =3D bo->kptr + (page_offset * PAGE_SIZE);
@@ -171,53 +135,49 @@ fallback:
 	ret =3D qxl_bo_vmap_locked(bo, &bo_map);
 	if (ret)
 		return NULL;
-	rptr =3D bo_map.vaddr;
+	rptr =3D bo_map.vaddr; /* TODO: Use mapping abstraction properly */
 
 	rptr +=3D page_offset * PAGE_SIZE;
 	return rptr;
 }
 
-[Severity: Critical]
-This isn't a bug introduced by this patch, but is page_offset incorrectly
-multiplied by PAGE_SIZE here?
-
-The callers already pass a byte-scaled offset (e.g., info->dst_offset &
-PAGE_MASK) as the page_offset argument. If the fallback path is taken
-(e.g. for a buffer in TTM_PL_SYSTEM), multiplying this byte offset by
-PAGE_SIZE again causes a massive out-of-bounds kernel pointer calculation.
-
+The page_offset parameter is passed as a byte offset (e.g., from
+dst_offset & PAGE_MASK in apply_reloc()).  If a user creates a CPU-domain
+dumb buffer and provides a large dst_offset, doesn't multiplying page_offset
+by PAGE_SIZE here generate a massively out-of-bounds pointer?
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does the fallback path fail
-to update the map count when bo->kptr is already set?
+This is a pre-existing issue, but can these unaligned assignments cause a
+kernel panic (alignment fault) on strict-alignment architectures like ARM64?
 
-drivers/gpu/drm/qxl/qxl_object.c:qxl_bo_kmap_atomic_page() {
-    ...
-fallback:
-	if (bo->kptr) {
-		rptr =3D bo->kptr + (page_offset * PAGE_SIZE);
-		return rptr;
-	}
-    ...
+When a user submits an execbuffer command with a dst_offset that is not
+aligned to an 8-byte boundary:
+
+drivers/gpu/drm/qxl/qxl_ioctl.c:apply_reloc() {
+...
+	reloc_page =3D qxl_bo_kmap_atomic_page(qdev, info->dst_bo, info->dst_offse=
+t & PAGE_MASK);
+	*(uint64_t *)(reloc_page + (info->dst_offset & ~PAGE_MASK)) =3D qxl_bo_phy=
+sical_address(qdev,
+											      info->src_bo,
+											      info->src_offset);
+	qxl_bo_kunmap_atomic_page(qdev, info->dst_bo, reloc_page);
 }
 
-If a buffer is already mapped via the fallback path (for instance, exported
-via PRIME and vmapped by another driver), returning bo->kptr without
-incrementing map_count creates a mismatch.
+and
 
-When it is later unmapped:
-
-drivers/gpu/drm/qxl/qxl_object.c:qxl_bo_kunmap_atomic_page() {
-    ...
- fallback:
-	qxl_bo_vunmap_locked(bo);
+drivers/gpu/drm/qxl/qxl_ioctl.c:apply_surf_reloc() {
+...
+	reloc_page =3D qxl_bo_kmap_atomic_page(qdev, info->dst_bo, info->dst_offse=
+t & PAGE_MASK);
+	*(uint32_t *)(reloc_page + (info->dst_offset & ~PAGE_MASK)) =3D id;
+	qxl_bo_kunmap_atomic_page(qdev, info->dst_bo, reloc_page);
 }
 
-The qxl_bo_vunmap_locked() function unconditionally decrements map_count to=
- 0,
-prematurely unmapping the buffer while the original map user is still activ=
-e.
+Since reloc_page is mapped as Write-Combining (WC) I/O memory via
+io_mapping_map_atomic_wc(), doesn't performing an unaligned 64-bit or 32-bit
+direct memory write trigger a fatal Data Abort?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913223000.6952=
-99-1-qwe.aldo@gmail.com?part=3D3
+99-1-qwe.aldo@gmail.com?part=3D4
