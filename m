@@ -4,85 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69FB7C88E5C
-	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24672C88E63
+	for <dri-devel@archiver.kernel.org>; Sun, 13 Sep 2026 20:53:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97E2E10E9D4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA03510E9D6;
 	Sun, 13 Sep 2026 20:53:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jB4Yr0RH";
+	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="PAC/7A5R";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A41010E412
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 20:02:14 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-49a97714f5dso11997885e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 11 Sep 2026 13:02:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789156932; x=1789761732; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=WpWwiGaL36YcweuGSaJBrN203pu/dlOicI/VWEKjlnY=;
- b=jB4Yr0RHvhnAQV/NgIpMAsjfti/wrso5mv1Pb2Aptx6lPPCxdtimMcI4K+MZvaUzUu
- Eh2jKQHdF/L3NIdXEGx1ZFBMVVxxzc+PwY04lvQgyUy48VKRtDzJ+4BsZGcveQqmZkdK
- D6wlKe07gcJIiRWOPKAWZDMYITCI7Z9I713avAEIEzAtzUasr1uIFRaPYLdTCbhWF9e1
- RPE6mtFcpMKl4QUjPi2k18YVpc3ZzRyQh1qXI8171OAEqZjvfWJNH1DBYwmfAmAs6P0v
- ZhfN3KSuG2mYG/Zst/HFvKpMukTgR4VHXYE433d0q/6K11BAwG8VKU+LGryfOPXsvbuN
- k8vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789156932; x=1789761732;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=WpWwiGaL36YcweuGSaJBrN203pu/dlOicI/VWEKjlnY=;
- b=g3EHiQwfS3yj/FKDqGbw58O9Qr235CDCq6szfVTZRLbPPA+YVetVZeYFRPJ61MZN3E
- AIp5ZCmX+1tPS8QCVfxpMoaFDap8uwD/zjaLK5CicyDz6q/rTrCF7j789lDUb/FCYd0B
- FWP53RBjH9gUwXkxYgKIrejO9t+03OP+q1K+cXWtLpuYPF0grq3P0mAKaZFvDEOV4MSK
- XoOJbrGjcGKXR0u49vgSqYxAYEgUkdWxQeTx+6fWnNPpnBUpsGbqGqePSQL1z94kmxyU
- 2s3/i7xSfbTpsm+0KWEzMBV+MAH1PPxj1lA0F94YP0nN67ah6siWQ9KX6TV7rtOVrryg
- krHg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwCpwbQVmEWYQy3NYZNeb5jNEoVQkkzJqi0DZy4dIBNPt9Dc9qozeH23LIJ0A0D+zWR64xtONz4cC0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++ndP7E0OuIbV/5yP6slOLJ/F74grHZ7DT3cc2nMIo1s6CRvLWuh
- 3/F1+SPg4rYYEm8CD1PEDso/G+bM7D4KNYYc9VnHiIESZNHPLfH+zZvI
-X-Gm-Gg: AYBFou3vJoNvTdw2Yo6jWh+AU4Ffxlx7PurRCmEt4OQjhzRMEnKCPmTmYx1niMX2/ZF
- 1vEh0IoPQRSwuiTeFAiR0khyFxmAJNDGT8eCAddATRO+gcXKkK2DC+TUMRuqcL9sAC7VvvQ5jOE
- 9mOeXUh1qCkh6BpEyHt82aH1buKiY0E6FLVRg4cdXaENX90VzbaCQ68bLoK3XpxmhLwyc9WCayP
- /auZtdrMvCVd22PYfVV8qyy5/q30xH9Ev7eraDvaN3omtOjSj7pZzIeKMI1D7zyrP6j1Ku9zMdE
- AYJSAdj4KTARm8EtHcammK+Kbpc2mpPoIEbhB+yTD6+X/508CblhCshqy0duSJnpKYoNJBOixVc
- O7LgyimdcCIqBRkqhm06OpzxyBeOlFke9Ta0GoznZqKYx5TEEtKQ+F7NDQmmebxZAIjZIYYDNOl
- 2+mf2JACwHL5JsXeFbl4Rqk5/qDWincCB9/BLcH+PSct69lS7YDWffAIL3Znf6NJ4AQUdvvO2bQ
- A5GIwKKkVyhEW3iEQ7Zx8TbaZuNGSGLTHfa1/iEKRv6kC3AENBNESqwD/plAW8ON0buk5u2CVWH
- yd8KqcYlo5IAE+TUP41wBvXwtFeO7eb8HOGJ
-X-Received: by 2002:a05:600c:4691:b0:49c:fea1:f792 with SMTP id
- 5b1f17b1804b1-49e6198f947mr76504605e9.12.1789156932186; 
- Fri, 11 Sep 2026 13:02:12 -0700 (PDT)
-Received: from localhost.localdomain
- (dynamic-095-114-033-154.95.114.pool.telefonica.de. [95.114.33.154])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49e69f02c92sm28156515e9.2.2026.09.11.13.02.10
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Fri, 11 Sep 2026 13:02:10 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/i915/audio: Fix names that do not exist in kernel-doc
- comments
-Date: Fri, 11 Sep 2026 22:00:53 +0200
-Message-Id: <20260911200053.78731-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com
+ [45.254.49.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE21010E0A4
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 12:52:08 +0000 (UTC)
+Received: from seu.edu.cn (unknown [58.241.16.34])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4d907a3eb;
+ Sun, 13 Sep 2026 20:52:03 +0800 (GMT+08:00)
+From: Slavin Liu <bolin.liu@seu.edu.cn>
+To: jeff.hugo@oss.qualcomm.com,
+	ogabbay@kernel.org
+Cc: carl.vanderlip@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ bolin.liu@seu.edu.cn
+Subject: [PATCH] accel/qaic: tolerate absent crashdump state during cleanup
+Date: Sun, 13 Sep 2026 20:52:01 +0800
+Message-Id: <20260913125201.109964-1-bolin.liu@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa09ad3229603a1kunm4732dfae2511b8
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHx5LVk5CSh5OQh5LHRoaSVYeHw
+ 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSUhOQ0
+ NVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=PAC/7A5RqifP9Fv2Cv7IoZhQprGO769BWgl/oyOqc+Y0BYNB4/fji2Ngs9QYVz9LmyhfS8pTGOeOVnZYeEEIW9UYrbRs4WVVs8cp90ncloorySyfYJ1y2XNNn2iqDDoIHloPCSEvWgD5hh7f/Lci3OuiKeQ5j5s/lMv1Kqv+Flc=;
+ c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
+ bh=PO8y2509JB5N7S49pOyCwIPjvSnjKVxeZ9e5YXPBqIc=;
+ h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Sun, 13 Sep 2026 20:53:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,33 +58,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The audio component overview still refers to the former
-i915_audio_component_ops and i915_audio_component_audio_ops struct
-names. The generic audio component split renamed these types to
-drm_audio_component_ops and drm_audio_component_audio_ops.
+A negative response can be sent before crashdump state is assigned.
+If queuing that response fails, cleanup receives NULL. Treat that as
+no owned crashdump resources instead of dereferencing it.
 
-Update both references to match the current types.
+Detected by static analysis and reviewed with AI-assisted source auditing.
 
-Fixes: ae891abe7c2c ("drm/i915: Split audio component to a generic type")
+Fixes: 6bc1fe6c748c ("accel/qaic: Collect crashdump from SSR channel")
 Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Slavin Liu <bolin.liu@seu.edu.cn>
 ---
- drivers/gpu/drm/i915/display/intel_audio.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/accel/qaic/qaic_ssr.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
-index eae76e9611055ea684dd98c34889be2413a89f80..c703da26914c1d957dff61a0220b70d3275255ce 100644
---- a/drivers/gpu/drm/i915/display/intel_audio.c
-+++ b/drivers/gpu/drm/i915/display/intel_audio.c
-@@ -63,9 +63,9 @@
-  * covered here.)
-  *
-  * The struct &i915_audio_component is used to interact between the graphics
-- * and audio drivers. The struct &i915_audio_component_ops @ops in it is
-+ * and audio drivers. The struct &drm_audio_component_ops @ops in it is
-  * defined in graphics driver and called in audio driver. The
-- * struct &i915_audio_component_audio_ops @audio_ops is called from i915 driver.
-+ * struct &drm_audio_component_audio_ops @audio_ops is called from i915 driver.
-  */
+diff --git a/drivers/accel/qaic/qaic_ssr.c b/drivers/accel/qaic/qaic_ssr.c
+index a98928654959..d9ba1d333cdb 100644
+--- a/drivers/accel/qaic/qaic_ssr.c
++++ b/drivers/accel/qaic/qaic_ssr.c
+@@ -194,7 +194,11 @@ struct dump_file_meta {
  
- struct intel_audio_funcs {
+ static void free_ssr_dump_info(struct ssr_crashdump *ssr_crash)
+ {
+-	struct ssr_dump_info *dump_info = ssr_crash->dump_info;
++	struct ssr_dump_info *dump_info;
++
++	if (!ssr_crash)
++		return;
++	dump_info = ssr_crash->dump_info;
+ 
+ 	ssr_crash->dump_info = NULL;
+ 	if (!dump_info)
