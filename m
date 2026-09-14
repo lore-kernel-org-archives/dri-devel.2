@@ -4,122 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4334CC88E65
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 10:53:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93664C88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 10:54:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A556610ED45;
-	Mon, 14 Sep 2026 10:53:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECD2D10ED2C;
+	Mon, 14 Sep 2026 10:54:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KKdD906b";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IbVLXxdW";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010066.outbound.protection.outlook.com [52.101.85.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D3C910ED40;
- Mon, 14 Sep 2026 10:53:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZoQWx/S0wuF5qUOL2q2Ez+Hn0Um6tDRXLRuUhZTgllUA0QQH6RcTCSgIQGPsUfv4Kb9AtRsEtQdrsCL8xdPjLMUJQTBdEdqVS6Xm/P32zPlNAvn5i8XT/X1Gm6oZ0Jp9TZIJk0BfolKtY9EOe1OJprA6gPZpFp/MNj0aeeW/Wd2XsVBnmE977sN0HWnxFwxKToqMeBqoF9AmTKZAtaRvl5gkxRpUkY5gj5VMC/qwZDqvfjfajAaVZXWVZ6dAoHQBzobThymxKbn3+xeCB2DZUGWfQjqyg83ZP/yQIanBxssGCbyYdjqGlEZfnVxNCSrZZuSybmTn6ttHsPrsQ/Efxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X93ax+vWmlV1beP5dKOTorWuANHrFv3wwm7d92XH+4c=;
- b=ap5+ZigHTvebDgW2NMvhCKbdP+YG3hGc47uCsbWbFExHH2W+nCnBWvaFwhgRgI2aPOgf6l1aErswJpeRDkQKDHb3sIMkCdrDnlUyMdoHCj/FblNpH28Byh+noftgc3jJaPhk/YT8EhaE7muP2+A6qIDqmsIvtQebnO/nk2mRaO2TMQ/4iU9YJMdIKepTsajrnB51rrFUCZdPx2wyDdnhIn3oK3CAQIp3T+EVMowaF43x4mYTmIXgVApRo9eN9X/KskbSMW++9/Zt9Kabgs+17PQDgfECp9J+gaSuXCVsq3ycAvpuwDTeBfuYWb1DptojW4QTofUYNQ556EdMQ7VXAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X93ax+vWmlV1beP5dKOTorWuANHrFv3wwm7d92XH+4c=;
- b=KKdD906bbN+YPEaep75Tf3McVrDOkNqUkHrc+XM5Z74VY/1OqtKOWy+aYtEMentDtPFJYYYVE6yHe5mVf8jZ7Fx/QATlhQt3uZwJ1r9td7gtcUDjH0NBnMr/wTzsr7yWP3cx7svFttW5qT9ycvy1K99s+mNFF2kB5CXKPhkzRlA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY1PR12MB9625.namprd12.prod.outlook.com (2603:10b6:930:106::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 10:53:23 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Mon, 14 Sep 2026
- 10:53:23 +0000
-Message-ID: <eaa458e4-47be-45d9-ac65-19c8451c277e@amd.com>
-Date: Mon, 14 Sep 2026 12:53:20 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: update git tree for radeon, amdgpu, amdkfd
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: felix.kuehling@amd.com
-References: <20260911191316.1705352-1-alexander.deucher@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260911191316.1705352-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: IA4P221CA0010.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:208:559::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY1PR12MB9625:EE_
-X-MS-Office365-Filtering-Correlation-Id: a9ad366b-12b5-4198-0fb2-08df124e65bf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|1800799024|13003099007|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: r0rDFOiusgNSQrriL2fct2uZ67+lcMKc7nk38+0f+r7zXZD8tEe24nJuK0xv+qbIRviFseyOfWieY3O92biMEZD3iVlDEHOu1tF5NSWa0Htap8gS5dpvu/HtTPQqZa+Xgx/aJ3MRGh7U3Q8p2QCASBolLjjQM/6Bj1SLH8WTsYwpeb+FfmTG0yf9WCgpKcp0XpaAFfOhvZrZJZnEqqsa0iTzHKoaIPA7t5z74J4bsH6wmdoXDRY+buZVOVFDkOXSw6RI/COgywRBdxwQH+/qlTsvXug2TOqmY9UoHMswnHIijLeM4FRNDz/kr25R9rF8Cu2tD+osX749dzskBXQyiG8PWJqZ+mnoH/io25keW+ssp1xgI6yaHLMk343PyPes5GoDMOIpDlNP/m4reLmlBULDQG2w9zDtMtacmjGTDors3fMG2XKzonbXUKDh7c/1+HhcwtQj+haRXiNKJhHSjTsJc03Dh5+Mt4bTxLTfZZzMq0kg58Uncrg5wBy/Y5t9CoBC/HS9jLVL7nf/+9DYiEAjoJ4QApjlNBop+EtLeQF28JbZOlzztMPdGDjcZA5SB6Fqe1GLZCxiIFywGzqR1Lz+tzqH6kS8XjqOjWL7ZrQjvTydDCXfJ/9rbYfbycz4
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(13003099007)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QU1TTlEwWnZoWXdYcXlzcEdvL0cyL3NqWml1U2tvdUl5aTI3Qy9pN1VwQUI1?=
- =?utf-8?B?ZzkxZmVwd2phdTVwS2N5d3h3Nk1UcnJGeExrQ2RtcU5VZlNXcDBZRW1YaU43?=
- =?utf-8?B?MUNML3BXSWJqNVFWeTlXL2FDYkNONUZYZjEvc0gyQTFwUUFTN1FTY1locHlB?=
- =?utf-8?B?ajR3dlVsSzFWYTB5QlZTMzd3SVBmM3Z0VXNPRmdRM0V5L093b2VhTlVuMHhL?=
- =?utf-8?B?N3duV2o2YlFBVU1vYXpqRHlGalB0T0xSS3dnQU1vM3Y3VFMzRU5LKzZaSE5U?=
- =?utf-8?B?REU5SEREczBKeTRKRzkwVUpsdkl2d3NqOW5PNnZhaGNtakN0YTZjK296WEVB?=
- =?utf-8?B?cWxOalk2YXJYdHgyOFNKL25HWnJsTEdXRzBxaXpXa3FNVkJPZ21NQUV5Wklk?=
- =?utf-8?B?OWRPTzAxMHZ0Ti9ya2EyVHd5aTJ3MG85QzNtRkxhaU1PZE5kSTNYcnNRQ0lF?=
- =?utf-8?B?S0FDaG5rK1dGbEtXdnlyQXZuNVBoSXBCNFJmdnRER0hWNWRQUkxsanpRS3hN?=
- =?utf-8?B?NjhrVG5TVDFHeVJhcytqWGJyZS80SCtza202aC9SNzcwZjF2bXN0L2g3RHpn?=
- =?utf-8?B?MHhvZ1BLK09GTUoxTFRoK3U2RmlDU0pKa0JDSG9YTjVLQ2Z2cFNiK2ZUN2lu?=
- =?utf-8?B?ZEVRY0c5ME96VnFOMmx0USswRlp3OVQvY3ZhcDlhUXZrbVRqMDQ4NnlObEVp?=
- =?utf-8?B?eENvUFVFQmhLdXJ2aHUrdDBXMDgyRU9IV0dJK05nYzVDRTdrM05IWU1IdmV6?=
- =?utf-8?B?WnQ2L1cxVHdPNkZIUUNQdm56d2ZheXFJa2duZDFRbDhWbU1WOGxCa3pNTzNU?=
- =?utf-8?B?Q24wMXJoaFU0am15R25YcVZRMkQ4ejJXUG8rNzg0ckxiQVNHaVpGSGVjM0du?=
- =?utf-8?B?UnZLTlpPUmluZ3NvM3RYL01xOHh4V2hic2VnUUxxekFHdVFpVUpjN3hKRmFC?=
- =?utf-8?B?UGtST2orTHFpQlVFSlQxRis2YlM2NC9qcXhybDlCZHpkd2VKZ0FMaUkyYktz?=
- =?utf-8?B?SlIxSXlkVnhuUENXLzBPZEc5bC9DcTViMCtwQWJkR3A2c29Ja1c5aFdkWDA3?=
- =?utf-8?B?TGFrRXYxSHhpZGpSZEx3Nm9oRzVyZDRJVkpGMWpXbUNsY3p6M0NGYmhzYVEx?=
- =?utf-8?B?emNFOVE0VWl6VzcxU2JBWHM2YUdaWkR6UUtpV250eFR3MEc2dFdqTURTbE9z?=
- =?utf-8?B?TUhCWmJqbC9zWndldmMxMElHN3dpNEJNMEdHSE5jcXluOHJRS3VZMlRYbVVl?=
- =?utf-8?B?K1c5bTVWYW1XcStCcm82SnVSV3l1WTN5Unk1b3JSS1BpcEd2U200NjhINWsw?=
- =?utf-8?B?NnJyazczemc1WDV2cVR2SnRPZW8xM1I4ZzFUZ0orNlp5d1JCb0twZUlraDNT?=
- =?utf-8?B?VzV2eVlSUDFhSzlzU2RKQWZRUGc5ODU2bVhOSEdFc2d4YnIzZWg5aFJzcDFE?=
- =?utf-8?B?cVdIdmlaVFNhU0dDM2d1RExKeHZaeG5YUmJUWDd0YjJzUDVmdFIvZmRyNWFK?=
- =?utf-8?B?cy9taVUwUHRuM2EzNEhpTzlWZFE0UWw2U3NVMDBMYzZFZndiSU83SzU1VkRC?=
- =?utf-8?B?c3pWMlB1S1lTVjczTm9pQ3RwSzNjQXdsVnBUMlNZZm41RG9BOStoR1ZxdGxP?=
- =?utf-8?B?RVNxYmlGZ2s0UmV1OUNqYW9HTVVOMW1uOTY0Y2JST2V6YkF1QXF3TUFIS0lH?=
- =?utf-8?B?STNDSUYwZzZBcDE3QjJnZEg2WE9hWGdkMktoWll6REJONnFJYkVYNmIyM1hm?=
- =?utf-8?B?UjAvaHlrdXJEbTdSMkg0MG52d2pWVlpjRnl4Vk1YNmUyTFh5Mzl6aklQbkRi?=
- =?utf-8?B?YU1DZUp3c0pYb2Z2WnFyMWppcFZXYncxbThySEJ0MVQxQ0RaL0QyL2xJMExv?=
- =?utf-8?B?Qk5vRThtbWtSY1h3ZGRWMUpFa1Z2S2pEQlVaaG9BY2swOFdpbXRiR2xrRm5r?=
- =?utf-8?B?aUtiVWxZSEhqaGZtYllTSGRmemY0U3lNVndCQUN4eWRwUWh0c3lyMUxzWUg2?=
- =?utf-8?B?bWt6eHRDbFNWb1RmdzZLbENDQ0VqTzE3dmdJOEd6UUZySTBvOE8xYXNnZllY?=
- =?utf-8?B?ZzU0czQ3VjhWdWhMWWUrcW5Wam5XUEJoZ2oxQ2JOMG42ZTFCeXZ3QnQxVFAv?=
- =?utf-8?B?MkRPOEFaRmVQWU5ySm1ETkt5blNPUk1kSlNDaytjNU1lN1ZoMUUzblFjd29u?=
- =?utf-8?B?SmlOdEpIV2M3Wnd3U01ZamNKYlFzZ25SNGNqcEZwVS9td0NQL1VVV3dhekQ1?=
- =?utf-8?B?MFZuYjJlck5qVHJvdGtsbzdVczFaNTZ1QVFXOEdOaXJvV01pb0xhZU9tUDJI?=
- =?utf-8?Q?E2lIV7kbY83n2AGKSD?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9ad366b-12b5-4198-0fb2-08df124e65bf
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 10:53:23.5645 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Wm37Gx/Ll40KdOO/1ZIi/PhxDXVmUexITsqBh6OdOru5lKhKbnRxb+8ehF3NM2al
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9625
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE5ED10ED2C
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 10:54:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id AEA4E60142;
+ Mon, 14 Sep 2026 10:54:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 421411F000FF;
+ Mon, 14 Sep 2026 10:54:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789383289;
+ bh=sibqfHzIcfBi0e3rcZ5ZvwIO3Q/1Xwy88FBdtNrKLew=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=IbVLXxdWV0Q758Ln8wN66bS/CyGfZUs+Hd62+vBF0tSkFXQGLv2ZAJN/ssspl3ctE
+ qfUt8V+pvS/L4d/xrxkwvsg6Mam1QNiH7UuhEfWDXxVrk1WYBcoMIeU5zoRSwqNSxp
+ rv/5VzOF+MqC+CYLcmIqU0qW5hUIsByaEAbGIUges77HHPaGBfRJbxdNq7Ym2/Vi4J
+ 7IvpNTEkbqN28W3cQZLrCLzRWtfWHKk5LxFmeQYYNCtY9KWvfW+bti6gw8nrGNZa52
+ D35PIW50z3WZ81N8pavQROtGxjUWwvGMXAqyjqrgzKYByh2fklGyAAmyBsld5Z1rc5
+ 9pla9QaIPHF6g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] misc: fastrpc: avoid duplicate DMA mappings in
+ fastrpc_create_maps()
+To: "Jianping Li" <jianping.li@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
+In-Reply-To: <20260914104019.492-1-jianping.li@oss.qualcomm.com>
+References: <20260914104019.492-1-jianping.li@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 10:54:48 +0000
+Message-Id: <20260914105449.421411F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,42 +53,175 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/11/26 21:13, Alex Deucher wrote:
-> Point to the new repo on gitlab.
-> 
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: christian.koenig@amd.com
-> Cc: felix.kuehling@amd.com
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Acked-by: Christian König <christian.koenig@amd.com>
+New issues:
+- [Critical] Time-of-Check to Time-of-Use (TOCTOU) Use-After-Free and prema=
+ture SMMU unmapping due to missing reference counting for DMA handles.
+- [Critical] Data Race in `fastrpc_put_args()` leading to a Double Free of =
+`fastrpc_map` objects.
 
-> ---
->  MAINTAINERS | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index cc2d3e4275654..4c5ad2d7f3f88 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -1188,7 +1188,7 @@ AMD KFD
->  M:	Felix Kuehling <Felix.Kuehling@amd.com>
->  L:	amd-gfx@lists.freedesktop.org
->  S:	Supported
-> -T:	git https://gitlab.freedesktop.org/agd5f/linux.git
-> +T:	git https://gitlab.freedesktop.org/drm/amdgpu/kernel.git
->  F:	drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd*.[ch]
->  F:	drivers/gpu/drm/amd/amdkfd/
->  F:	drivers/gpu/drm/amd/include/cik_structs.h
-> @@ -22193,7 +22193,7 @@ L:	amd-gfx@lists.freedesktop.org
->  S:	Supported
->  B:	https://gitlab.freedesktop.org/drm/amd/-/issues
->  C:	irc://irc.oftc.net/radeon
-> -T:	git https://gitlab.freedesktop.org/agd5f/linux.git
-> +T:	git https://gitlab.freedesktop.org/drm/amdgpu/kernel.git
->  F:	Documentation/gpu/amdgpu/
->  F:	drivers/gpu/drm/amd/
->  F:	drivers/gpu/drm/ci/xfails/amd*
+Pre-existing issues:
+- [High] Permanent Memory and IOMMU Leak of DMA handle maps on invocation e=
+rror paths.
+--
 
+commit de606379cd29bd912e7ec93a58384eaa07c8ecd6
+Author: Jianping Li <jianping.li@oss.qualcomm.com>
+
+misc: fastrpc: avoid duplicate DMA mappings in fastrpc_create_maps()
+
+This patch attempts to fix duplicate DMA mappings by not taking an extra
+reference for DMA handle arguments (take_ref =3D false). It tags them with
+FASTRPC_MAP_DMA_HANDLE, re-validates the map in fastrpc_get_args() before
+use, and relies on fastrpc_put_args() to release these tagged maps when
+the DSP returns the fd.
+
+Link: https://lore.kernel.org/all/20260805060940.41414-1-jianping.li@oss.qu=
+alcomm.com/
+
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index d4fac2caca867..58f27e2713172 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+
+[ ... ]
+
+> @@ -1047,23 +1052,25 @@ static int fastrpc_create_maps(struct fastrpc_inv=
+oke_ctx *ctx)
+>  	int i, err;
+> =20
+>  	for (i =3D 0; i < ctx->nscalars; ++i) {
+> +		bool take_ref =3D i < ctx->nbufs;
+> +		int mflags =3D 0;
+> =20
+>  		if (ctx->args[i].fd =3D=3D 0 || ctx->args[i].fd =3D=3D -1 ||
+>  		    ctx->args[i].length =3D=3D 0)
+>  			continue;
+> =20
+> -		if (i < ctx->nbufs)
+> -			err =3D fastrpc_map_create(ctx->fl, ctx->args[i].fd,
+> -				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
+> -		else
+> -			err =3D fastrpc_map_attach(ctx->fl, ctx->args[i].fd,
+> -				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
+> +		/* Set the DMA handle mapping flag for DMA handles */
+> +		if (i >=3D ctx->nbufs)
+> +			mflags =3D FASTRPC_MAP_DMA_HANDLE;
+> +
+> +		err =3D fastrpc_map_create(ctx->fl, ctx->args[i].fd, ctx->args[i].leng=
+th,
+> +					 ctx->args[i].attr, &ctx->maps[i], take_ref, mflags);
+
+[Severity: High]
+This is a pre-existing issue, but does fastrpc_create_maps() leak the DMA
+handle maps on error paths?
+
+If this function successfully creates a DMA handle map (where i >=3D
+ctx->nbufs), but a subsequent step in fastrpc_internal_invoke() fails, the
+cleanup path in fastrpc_context_free() is triggered.
+
+fastrpc_context_free() only iterates up to nbufs:
+
+    for (i =3D 0; i < ctx->nbufs; i++)
+        fastrpc_map_put(ctx->maps[i]);
+
+Since the cleanup loop ignores indices >=3D nbufs, and the invoke never
+reaches the DSP to trigger fastrpc_put_args(), do these maps and their
+SMMU mappings leak permanently?
+
+>  		if (err) {
+>  			dev_err(dev, "Error Creating map %d\n", err);
+>  			return -EINVAL;
+>  		}
+> -
+>  	}
+> +
+>  	return 0;
+>  }
+
+[ ... ]
+
+> @@ -1195,6 +1202,16 @@ static int fastrpc_get_args(u32 kernel, struct fas=
+trpc_invoke_ctx *ctx)
+>  		list[i].num =3D ctx->args[i].length ? 1 : 0;
+>  		list[i].pgidx =3D i;
+>  		if (ctx->maps[i]) {
+> +			/* It is possible that map is created with
+> +			 * mflags FASTRPC_MAP_DMA_HANDLE and take_ref
+> +			 * is false. Check if map still exists or is
+> +			 * being freed as take_ref is false
+> +			 */
+> +			if (fastrpc_map_lookup(ctx->fl, ctx->args[i].fd,
+> +					       &ctx->maps[i], false)) {
+> +				ctx->maps[i] =3D NULL;
+> +				return -EINVAL;
+> +			}
+>  			pages[i].addr =3D ctx->maps[i]->dma_addr;
+
+[Severity: Critical]
+Can this lockless dereference lead to a use-after-free regression?
+
+Since fastrpc_create_maps() maps the DMA handle with take_ref =3D false,
+the shared map's refcount remains 1. If a concurrent invocation completes
+and executes fastrpc_put_args() exactly after fastrpc_map_lookup() drops
+the lock but before ctx->maps[i]->dma_addr is evaluated, it will clear the
+flag and free the map.
+
+Would this result in a host kernel use-after-free and premature SMMU
+unmapping when the unreferenced pointer is accessed?
+
+>  			pages[i].size =3D ctx->maps[i]->size;
+>  		}
+
+[ ... ]
+
+> @@ -1244,8 +1261,17 @@ static int fastrpc_put_args(struct fastrpc_invoke_=
+ctx *ctx,
+>  	for (i =3D 0; i < FASTRPC_MAX_FDLIST; i++) {
+>  		if (!fdlist[i])
+>  			break;
+> -		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false))
+> +		/*
+> +		 * DMA handle maps are released when the DSP returns the corresponding=
+ fd in
+> +		 * fdlist. The DSP is expected to return a specific fd only once in fd=
+list,
+> +		 * so no two fastrpc_put_args() paths should clear the DMA_HANDLE flag=
+ for
+> +		 * the same map concurrently.
+> +		 */
+> +		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false) &&
+> +		    mmap->flags =3D=3D FASTRPC_MAP_DMA_HANDLE) {
+> +			mmap->flags =3D 0;
+>  			fastrpc_map_put(mmap);
+> +		}
+
+[Severity: Critical]
+Does clearing mmap->flags outside a lock introduce a race condition leading
+to a double free regression?
+
+If userspace submits two concurrent invocations sharing the same fd, and
+the DSP returns the fd in the fdlist of both, two threads executing
+fastrpc_put_args() could look up the shared map locklessly.
+
+Thread 1: evaluates mmap->flags =3D=3D FASTRPC_MAP_DMA_HANDLE as true
+Thread 2: evaluates mmap->flags =3D=3D FASTRPC_MAP_DMA_HANDLE as true
+Thread 1: clears flags and calls fastrpc_map_put() freeing the map
+Thread 2: clears flags and calls fastrpc_map_put() on a freed pointer
+
+Can this lead to host kernel heap corruption if triggered by concurrent
+invokes?
+
+>  	}
+> =20
+>  	return ret;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914104019.492-=
+1-jianping.li@oss.qualcomm.com?part=3D1
