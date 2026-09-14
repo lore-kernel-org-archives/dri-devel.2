@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05975C88E64
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 10:07:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B615AC88E50
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 10:07:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 338C410E43C;
-	Mon, 14 Sep 2026 10:07:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9CBC10E530;
+	Mon, 14 Sep 2026 10:07:22 +0000 (UTC)
 Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3464010E43C
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 10:07:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EE6A10E530
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 10:07:21 +0000 (UTC)
 Received: by sphereful.davidgow.net (Postfix, from userid 119)
- id BA26A1EAB50; Mon, 14 Sep 2026 18:07:01 +0800 (AWST)
+ id E02FA1EAB56; Mon, 14 Sep 2026 18:07:19 +0800 (AWST)
 Received: from [IPV6:2001:8003:8802:7000::9c4] (unknown
  [IPv6:2001:8003:8802:7000::9c4])
- by sphereful.davidgow.net (Postfix) with ESMTPSA id 3F9291EAB50;
- Mon, 14 Sep 2026 18:06:58 +0800 (AWST)
-Message-ID: <0ce1883f-7de3-4a16-82f0-c8950459163e@davidgow.net>
-Date: Mon, 14 Sep 2026 18:06:56 +0800
+ by sphereful.davidgow.net (Postfix) with ESMTPSA id A3E3B1EAB52;
+ Mon, 14 Sep 2026 18:07:18 +0800 (AWST)
+Message-ID: <a03d4e21-71df-432f-b707-3c7e16a37578@davidgow.net>
+Date: Mon, 14 Sep 2026 18:07:16 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] drm/sched: Increase drm_mock_sched_job_wait_finished
  timeout when CONFIG_HZ=100
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: phasta@kernel.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>,
  Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, kunit-dev@googlegroups.com
+ kernel-dev@igalia.com, kunit-dev@googlegroups.com,
+ Marco Pagani <marpagan@redhat.com>
 References: <20260913084155.520015-2-david@davidgow.net>
- <b4f017cc-3dbf-416c-b456-0c19d2f0647a@igalia.com>
+ <4357c0bd2a78e88b49b7375bc18d1116df3275b6.camel@mailbox.org>
 From: David Gow <david@davidgow.net>
 Content-Language: fr
-In-Reply-To: <b4f017cc-3dbf-416c-b456-0c19d2f0647a@igalia.com>
+In-Reply-To: <4357c0bd2a78e88b49b7375bc18d1116df3275b6.camel@mailbox.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -53,53 +53,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Le 14/09/2026 à 4:49 PM, Tvrtko Ursulin a écrit :
+Le 14/09/2026 à 5:03 PM, Philipp Stanner a écrit :
+> +Cc Marco
 > 
-> On 13/09/2026 09:41, David Gow wrote:
+> On Sun, 2026-09-13 at 16:41 +0800, David Gow wrote:
 >> The drm_sched_scheduler_overhead_tests tests hardcode a timeout of 5x
 >> total_us, and fail if it's exceeded. However, on systems with
 >> CONFIG_HZ < 250, this tends to fail.
-> 
-> Systems plural or just UML? I suppose if no hrtimer support and low HZ
-> it is plausible since executing the tests needs 1000 x 1ms hrtimer
-> callbacks to fire.
-
-UML is the most important of the ones I tested (as it doesn't have a way
-to increase HZ, though it did pass if I manually forced CONFIG_HZ=1000),
-but even x86/x86_64 will trigger this if CONFIG_HZ_100=y.
-
-For example, I can reproduce it with:
-./tools/testing/kunit/kunit.py run --arch x86_64 --kconfig_add CONFIG_DRM=y --kconfig_add CONFIG_HZ_100=y drm_sched_scheduler_overhead_tests
-
-> 
-> Anyway, increasing the tolerance is okay-ish, with the -ish part being
-> that it would be even better to skip if test could know before hand on a
-> particular system it would be uselessly slow. Hence I am curious whether
-> it is just UML or you could point me to other specific platforms/kconfig
-> combinations where you saw it fail. In which case maybe we can come up
-> with a skip criteria.
-
-I saw it passing relatively consistently on x86 (under qemu) with
-CONFIG_HZ=250, and failing consistently on everything with
-CONFIG_HZ=100.
-I don't think it'd be a problem to either have the test depend
-on CONFIG_HZ >= 250 or use that as criteria to skip the test
-altogether.
-
-I'm happy to send out a v2 of this patch which just uses the same
-criteria (CONFIG_HZ < 250) to just skip the test if you'd prefer.
-
-Cheers,
--- David
-
-> 
-> Regards,
-> 
-> Tvrtko
-> 
+>>
 >> As it's possible to configure many architectures to use 100 Hz (and some,
->> such as UML, hardcode CONFIG_HZ=100), increase the timeout so that the
->> test
+>> such as UML, hardcode CONFIG_HZ=100), increase the timeout so that the test
 >> doesn't fail on these configurations.
 >>
 >> Fixes: 97ef806a5314 ("drm/sched: Add some scheduling quality unit tests")
@@ -119,49 +82,106 @@ Cheers,
 >>
 >> Thanks,
 >> -- David
+> 
+> Thx for the patch. Where are you running the tests and what for, is it
+> a CI or other test system?
+> 
+
+Yeah, this is generally for KUnit in CI (and, in my case, to make sure
+changes to KUnit itself don't regress other tests). But KUnit tests are
+also run in several different CI systems, and now on linux-next as well.
+
+In particular, this has been caught up whilst testing adding
+CONFIG_DRM=y to the KUnit 'alltests' config, which is used to get a
+config which includes as many tests as possible. This is finding some
+real issues, so I think it is worthwhile in general.
+
+> 
+> So one thing about the unit tests is that they were originally not so
+> much intended for being run on all sorts of CIs, but as a development
+> tool for the drm_sched devs to have something to move forward with.
+> That's in part why they contain "scheduling quality tests".
+> 
+> That caused some raised eyebrows already because people run these
+> lengthy tests in CIs.
+
+Yeah, finding the distinction between KUnit as a useful tool/framework
+for writing tests and KUnit as a suite of tests that should be run
+automatically is a bit tricky.
+
+Ultimately, it's a judgement call if the benefit of having the test run
+more widely (potentially uncovering real issues, or discovering issues
+earlier in, e.g, linux-next merges) is worth the effort of making the
+test suitably robust against all of the different environments it runs in.
+
+> Maybe what we actually should have is a split of the test suite into
+> two parts, where one part covers basic sanity, and the other measures
+> scheduling behavior. The former could then be run by CI folks, the
+> latter explicitly be discouraged from being run by anyone who is not a
+> drm_sched-developer.
+> 
+
+That definitely can be done. As-is, the way this is currently handled is
+though CONFIG_KUNIT_ALL_TESTS, and through .kunitconfig files.
+
+If you don't want tests to be caught up in automatic systems (other, I
+guess, than your own), then removing the 'default KUNIT_ALL_TESTS' (and
+'if !KUNIT_ALL_TESTS' from the DRM_SCHED_KUNIT_TEST Kconfig entry is the
+simplest way to do it. You could then set CONFIG_DRM_SCHED_KUNIT_TEST=y
+(either via a .kunitconfig file or some other means) to run them whilst
+doing drm scheduler development in particular.
+
+And, of course, splitting suites up or skipping tests if certain
+prerequisites aren't met are both options for keeping tests in the more
+general CI pool if you'd like.
+
+Cheers,
+-- David
+
+> 
+> P.
+> 
 >>
->> [1]: https://lore.kernel.org/all/20260911-kunit-drm-v1-1-
->> c5c0f18fc7b0@kernel.org/
+>> [1]: https://lore.kernel.org/all/20260911-kunit-drm-v1-1-c5c0f18fc7b0@kernel.org/
 >> ---
->>   drivers/gpu/drm/scheduler/tests/tests_scheduler.c | 11 +++++++++--
->>   1 file changed, 9 insertions(+), 2 deletions(-)
+>>  drivers/gpu/drm/scheduler/tests/tests_scheduler.c | 11 +++++++++--
+>>  1 file changed, 9 insertions(+), 2 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c b/
->> drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+>> diff --git a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
 >> index 285546a2218f..02c83b5c2189 100644
 >> --- a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
 >> +++ b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
 >> @@ -13,6 +13,13 @@
->>    * logic.
->>    */
->>   +/* We need a more generous timeout when CONFIG_HZ=100. */
+>>   * logic.
+>>   */
+>>  
+>> +/* We need a more generous timeout when CONFIG_HZ=100. */
 >> +#if CONFIG_HZ < 250
 >> +#define TIMEOUT_MULTIPLIER 15
 >> +#else
 >> +#define TIMEOUT_MULTIPLIER 5
 >> +#endif
 >> +
->>   static int drm_sched_scheduler_init(struct kunit *test)
->>   {
->>       struct drm_mock_scheduler *sched;
->> @@ -88,7 +95,7 @@ static void
->> drm_sched_scheduler_queue_overhead(struct kunit *test)
->>         /* Wait with a safe margin to avoid every failing. */
->>       done = drm_mock_sched_job_wait_finished(job,
->> -                        usecs_to_jiffies(total_us) * 5);
->> +                        usecs_to_jiffies(total_us) *
->> TIMEOUT_MULTIPLIER);
->>       end = ktime_get();
->>       KUNIT_ASSERT_TRUE(test, done);
->>   @@ -149,7 +156,7 @@ static void drm_sched_scheduler_ping_pong(struct
->> kunit *test)
->>         /* Wait with a safe margin to avoid every failing. */
->>       done = drm_mock_sched_job_wait_finished(job,
->> -                        usecs_to_jiffies(total_us) * 5);
->> +                        usecs_to_jiffies(total_us) *
->> TIMEOUT_MULTIPLIER);
->>       end = ktime_get();
->>       KUNIT_ASSERT_TRUE(test, done);
->>   
-> 
+>>  static int drm_sched_scheduler_init(struct kunit *test)
+>>  {
+>>  	struct drm_mock_scheduler *sched;
+>> @@ -88,7 +95,7 @@ static void drm_sched_scheduler_queue_overhead(struct kunit *test)
+>>  
+>>  	/* Wait with a safe margin to avoid every failing. */
+>>  	done = drm_mock_sched_job_wait_finished(job,
+>> -						usecs_to_jiffies(total_us) * 5);
+>> +						usecs_to_jiffies(total_us) * TIMEOUT_MULTIPLIER);
+>>  	end = ktime_get();
+>>  	KUNIT_ASSERT_TRUE(test, done);
+>>  
+>> @@ -149,7 +156,7 @@ static void drm_sched_scheduler_ping_pong(struct kunit *test)
+>>  
+>>  	/* Wait with a safe margin to avoid every failing. */
+>>  	done = drm_mock_sched_job_wait_finished(job,
+>> -						usecs_to_jiffies(total_us) * 5);
+>> +						usecs_to_jiffies(total_us) * TIMEOUT_MULTIPLIER);
+>>  	end = ktime_get();
+>>  	KUNIT_ASSERT_TRUE(test, done);
+>>  
+> 		
 
