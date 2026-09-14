@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53FC6C88E53
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EDF3C88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B837A10FA0C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0C1E10FA0D;
 	Tue, 15 Sep 2026 07:28:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HmeQTLrg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bHAoBXnC";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1386310E164
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:07:46 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1157810EF5B
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:05:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7D2B4601FB;
- Mon, 14 Sep 2026 15:07:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30CD21F000FF;
- Mon, 14 Sep 2026 15:07:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DD46B414EF;
+ Mon, 14 Sep 2026 15:04:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B873C1F00893;
+ Mon, 14 Sep 2026 15:04:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789398465;
- bh=zqpk9MXgaX25nS5Ys5rO6UCVR/iTsHvR4Kg11ITNpTs=;
+ s=k20260515; t=1789398299;
+ bh=iKPZ8QoZldXfuRlSWzMd6mSbaJJK7t2kmdRsGSTOMEc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=HmeQTLrgoimbYzYyF1rT1WkQ6aVpTWU4qFFntK6aiUaKPZLAxsSLWNJ4yY7LD7lbI
- ZseHju5axoEj1lvyD+W6HgGWBGNzwmVxzDAb9lzGUVPlJbhk1RGmrqj+I5PjXuorcI
- 5ptV/vMor4Wykd7PBQ+fO5LSx8/pskNH+oZgN53eAveKFqk9QEkbPkWujm1io5dZiv
- P3TkjeyaWcecyrBNYLy6oibGBT5fPJGeKbWVBD7HKivHa+6othTPwyXbYJZB958Ief
- skQOSisyvVnwpjZKFfWee1UUWLZmK1jFOBTNh2iKT/aO1o84xoyMFpf9/i5/OkOe34
- sEilfyVorcz+g==
+ b=bHAoBXnCjLMOWtgubRwbqEhW8/63qJmiFnf7viZOnUKC23VvlKKwMTzUtqC7d9KfM
+ shm/X3XkTr93YE4qKtOI38Pj8YcYVg7D9aPJoBatHQXy1SdYfK9QUtFlLO8wU8Jqnz
+ PR1uM4imIjm6GSZi7j3gsVAePylt+/5gsKdL67nNlqrRxHE5U5MotjGMzG4vWiV8Lc
+ RahJJumhPqsjra9A4bTa/uh71Z09NULtNMwLwo46z90MgsmRyr0lSZRH0Ef0tzxuv0
+ AWZ0NY0un9zBKCh/5yTaC6kePa5QaTNYTdPVv6mznb6EuY90bUgNSoO3pN4jEeuUZp
+ XGK7PzMQlmPlQ==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 14 Sep 2026 15:57:38 +0100
-Subject: [PATCH v2 18/40] scsi: sg: convert mmap hook to mmap_prepare and
- rework
+Date: Mon, 14 Sep 2026 15:57:32 +0100
+Subject: [PATCH v2 12/40] selinux: reject writable opens of policy file,
+ drop mmap shared/write check
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-18-7d9781ed5361@kernel.org>
+Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-12-7d9781ed5361@kernel.org>
 References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
 In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -121,12 +121,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5937; i=ljs@kernel.org;
- h=from:subject:message-id; bh=HTYbod2OP3AjRPEv6Ph886TsUDFUWldGDo6PKBX7Wqs=;
- b=kA0DAAoWz53NioHifxQByyZiAGqoC7CifAo2LYHs93Csrg+FAX/PITR+MsmaU7ihJZemgKNxJ
- Ih1BAAWCgAdFiEE5/QXv1IUVp6J0E9Gz53NioHifxQFAmqoC7AACgkQz53NioHifxSgXQD/YHmd
- +7NVyi7o2SOOfYbqXyUEIdYXlh9OoJdt4BbzpFkA/05DF7kkq2mIvCKe8SkscJWlGPSdAqoROH6
- pVT6HQ3MO
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1880; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=aNFeiTnbUkQbxAr7iS7c1JWEd9CfcPtAZlIAhlnNHxY=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcK/P/j95F9+ty7p/527K+tW0JfG+DEf4P32mmh+dv
+ 6vUHwd+7ihlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBELpoxMkzsPHubz6Sm1YvB
+ RI91mn2IAIPb5HWT9rbvD6zmt58vpsnwm4Wl10N5h3NGzfr/023uJ+zx2VNjEXE2/8at8MbXvpf
+ zWQA=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Tue, 15 Sep 2026 07:27:57 +0000
@@ -145,188 +145,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Move from the deprecated mmap hook to the new mmap_prepare hook.
+The policy file has no write method and is exposed read-only (S_IRUGO in
+selinux_files[]), yet sel_open_policy() performs no open mode check, so a
+CAP_DAC_OVERRIDE caller can open it O_RDWR. Reject FMODE_WRITE at open, as
+kernfs does.
 
-We are mapping kernel pages here, so use the discontiguous kernel mapping
-mmap action to do so.
+The file can then never be mapped with FMODE_WRITE, so do_mmap() always
+clears VM_MAYWRITE and VM_SHARED for MAP_SHARED mappings and the VM_SHARED
+check in sel_mmap_policy() cannot be reached. Remove it.
 
-Unwind the rather confusing loop and instead map as many pages as we can at
-one time.
+This also stops sel_mmap_policy() clearing VM_MAYWRITE on a mapping that is
+neither a PFN map nor a mixed map, ahead of the core enforcing that only
+such mappings may do so.
 
-Note that we do not need to pay attention to rsv_schp->k_use_sg here, as
-the pages are populated for the length of the buffer at
-rsv_schp->page_order granularity as compound pages.
-
-The discontiguous kernel page mapping logic handles the compound pages for
-us.
-
-sfp->mmap_called keeps the buffer stable for us. As before it is never
-cleared, so a failed mmap also leaves it set.
-
-We also remove some useless vma, vma->vm_file NULL checks - these will
-always be non-NULL if you reached the mmap hook logic.
-
-We retain log output for consistency, but change what's output on page
-mapping to indicate that sg_discontig_get() does the work now.
-
-Note that we drop the VMA_IO_BIT flag for the VMA here. It was never
-necessary as we invoke alloc_pages() which gives us refcounted folios that
-are fine for GUP to access (VMA_IO_BIT would prevent that).
-
+Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+Reviewed-by: Jann Horn <jannh@google.com>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/scsi/sg.c | 115 ++++++++++++++++++++++++------------------------------
- 1 file changed, 51 insertions(+), 64 deletions(-)
+ security/selinux/selinuxfs.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/scsi/sg.c b/drivers/scsi/sg.c
-index 5408f002e6c0..3f9e08725602 100644
---- a/drivers/scsi/sg.c
-+++ b/drivers/scsi/sg.c
-@@ -1212,85 +1212,72 @@ sg_fasync(int fd, struct file *filp, int mode)
- 	return fasync_helper(fd, filp, mode, &sfp->async_qp);
- }
+diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
+index c7d91476971c..545a6f89f9e7 100644
+--- a/security/selinux/selinuxfs.c
++++ b/security/selinux/selinuxfs.c
+@@ -340,6 +340,9 @@ static int sel_open_policy(struct inode *inode, struct file *filp)
+ 	struct policy_load_memory *plm = NULL;
+ 	int rc;
  
--static vm_fault_t
--sg_vma_fault(struct vm_fault *vmf)
-+static int sg_discontig_init(void *vm_private_data, void **private)
++	if (filp->f_mode & FMODE_WRITE)
++		return -EACCES;
++
+ 	rc = avc_has_perm(current_sid(), SECINITSID_SECURITY,
+ 			  SECCLASS_SECURITY, SECURITY__READ_POLICY, NULL);
+ 	if (rc)
+@@ -424,14 +427,6 @@ static const struct vm_operations_struct sel_mmap_policy_ops = {
+ 
+ static int sel_mmap_policy(struct file *filp, struct vm_area_struct *vma)
  {
--	struct vm_area_struct *vma = vmf->vma;
--	Sg_fd *sfp;
--	unsigned long offset, len, sa;
--	Sg_scatter_hold *rsv_schp;
--	int k, length;
+-	if (vma->vm_flags & VM_SHARED) {
+-		/* do not allow mprotect to make mapping writable */
+-		vm_flags_clear(vma, VM_MAYWRITE);
 -
--	if ((NULL == vma) || (!(sfp = (Sg_fd *) vma->vm_private_data)))
--		return VM_FAULT_SIGBUS;
--	rsv_schp = &sfp->reserve;
--	offset = vmf->pgoff << PAGE_SHIFT;
--	if (offset >= rsv_schp->bufflen)
--		return VM_FAULT_SIGBUS;
--	SCSI_LOG_TIMEOUT(3, sg_printk(KERN_INFO, sfp->parentdp,
--				      "sg_vma_fault: offset=%lu, scatg=%d\n",
--				      offset, rsv_schp->k_use_sg));
--	sa = vma->vm_start;
--	length = 1 << (PAGE_SHIFT + rsv_schp->page_order);
--	for (k = 0; k < rsv_schp->k_use_sg && sa < vma->vm_end; k++) {
--		len = vma->vm_end - sa;
--		len = (len < length) ? len : length;
--		if (offset < len) {
--			struct page *page = rsv_schp->pages[k] + (offset >> PAGE_SHIFT);
--			get_page(page);	/* increment page count */
--			vmf->page = page;
--			return 0; /* success */
--		}
--		sa += len;
--		offset -= len;
-+	const unsigned long req_sz = (unsigned long)*private;
-+	Sg_fd *sfp = vm_private_data;
-+	Sg_scatter_hold *rsv_schp = &sfp->reserve;
-+	int err = 0;
-+
-+	mutex_lock(&sfp->f_mutex);
-+	if (req_sz > rsv_schp->bufflen) {
-+		err = -ENOMEM;	/* cannot map more than reserved buffer */
-+		goto out;
-+	}
-+	sfp->mmap_called = 1; /* Prevents changes to buffer size. */
-+out:
-+	mutex_unlock(&sfp->f_mutex);
-+	return err;
-+}
-+
-+static int
-+sg_discontig_get(struct discontig_kernel_page_state *state)
-+{
-+	Sg_fd *sfp = state->vm_private_data;
-+	Sg_scatter_hold *rsv_schp = &sfp->reserve;
-+	const unsigned int order = rsv_schp->page_order;
-+	const pgoff_t nr_pages = state->nr_pages_mapped;
-+
-+	if (nr_pages >= (rsv_schp->bufflen >> PAGE_SHIFT)) {
-+		discontig_kernel_map_abort(state);
-+		return 0;
- 	}
- 
--	return VM_FAULT_SIGBUS;
-+	SCSI_LOG_TIMEOUT(3, sg_printk(KERN_INFO, sfp->parentdp,
-+				      "%s: offset=%lu, scatg=%d\n", __func__,
-+				      nr_pages << PAGE_SHIFT, rsv_schp->k_use_sg));
-+
-+	discontig_kernel_map_page(state, rsv_schp->pages[nr_pages >> order]);
-+	return 0;
- }
- 
--static const struct vm_operations_struct sg_mmap_vm_ops = {
--	.fault = sg_vma_fault,
-+static const struct discontig_kernel_page_ops sg_discontig_ops = {
-+	.init = sg_discontig_init,
-+	.get = sg_discontig_get,
- };
- 
- static int
--sg_mmap(struct file *filp, struct vm_area_struct *vma)
-+sg_mmap_prepare(struct vm_area_desc *desc)
- {
--	Sg_fd *sfp;
--	unsigned long req_sz, len, sa;
--	Sg_scatter_hold *rsv_schp;
--	int k, length;
--	int ret = 0;
-+	Sg_fd *sfp = desc->file->private_data;
-+	const unsigned long req_sz = vma_desc_size(desc);
- 
--	if ((!filp) || (!vma) || (!(sfp = (Sg_fd *) filp->private_data)))
-+	if (!sfp)
- 		return -ENXIO;
--	req_sz = vma->vm_end - vma->vm_start;
-+
- 	SCSI_LOG_TIMEOUT(3, sg_printk(KERN_INFO, sfp->parentdp,
- 				      "sg_mmap starting, vm_start=%p, len=%d\n",
--				      (void *) vma->vm_start, (int) req_sz));
--	if (vma->vm_pgoff)
-+				      (void *) desc->start, (int) req_sz));
-+
-+	if (desc->pgoff)
- 		return -EINVAL;	/* want no offset */
--	rsv_schp = &sfp->reserve;
--	mutex_lock(&sfp->f_mutex);
--	if (req_sz > rsv_schp->bufflen) {
--		ret = -ENOMEM;	/* cannot map more than reserved buffer */
--		goto out;
+-		if (vma->vm_flags & VM_WRITE)
+-			return -EACCES;
 -	}
+-
+ 	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
+ 	vma->vm_ops = &sel_mmap_policy_ops;
  
--	sa = vma->vm_start;
--	length = 1 << (PAGE_SHIFT + rsv_schp->page_order);
--	for (k = 0; k < rsv_schp->k_use_sg && sa < vma->vm_end; k++) {
--		len = vma->vm_end - sa;
--		len = (len < length) ? len : length;
--		sa += len;
--	}
-+	vma_desc_set_flags(desc, VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT);
-+	desc->private_data = sfp;
- 
--	sfp->mmap_called = 1;
--	vm_flags_set(vma, VM_IO | VM_DONTEXPAND | VM_DONTDUMP);
--	vma->vm_private_data = sfp;
--	vma->vm_ops = &sg_mmap_vm_ops;
--out:
--	mutex_unlock(&sfp->f_mutex);
--	return ret;
-+	mmap_action_map_discontig_kernel_pages(desc, (void *)req_sz,
-+					       &sg_discontig_ops);
-+	return 0;
- }
- 
- static void
-@@ -1415,7 +1402,7 @@ static const struct file_operations sg_fops = {
- 	.unlocked_ioctl = sg_ioctl,
- 	.compat_ioctl = compat_ptr_ioctl,
- 	.open = sg_open,
--	.mmap = sg_mmap,
-+	.mmap_prepare = sg_mmap_prepare,
- 	.release = sg_release,
- 	.fasync = sg_fasync,
- };
 
 -- 
 2.55.0
