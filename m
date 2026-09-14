@@ -4,139 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97801C88E50
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 07:34:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AF8FC88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 07:39:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B850B10EBA7;
-	Mon, 14 Sep 2026 07:34:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7152810EBC8;
+	Mon, 14 Sep 2026 07:39:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PA2vsX75";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BYTjbQ0Z";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jfTN+u7S";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dB6epCX3";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BB7910EBA7
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 07:34:16 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DCF710EBC6
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 07:39:08 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68E5jQTn3842847
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 07:34:15 GMT
+ 68E7SDlW3351935
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 07:39:08 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=bJ0LnXcfs2eCKZrtoDG+orKK
- jrb0m3XGM63JVNK8OTI=; b=PA2vsX75z1gcXpghMbiHotqxgTQDNnDbIsHtHarI
- T7SqbpFbUFX8pXO81QdcRCdey2Ab/gzWuCCBSPDoE07/1yUzVasxgAA+inrPNizL
- trZQCMAIpAomS50ABkai0L8lVVlPq7T3GKTLute9cmz+TrPTlixL1TgjDcMIYDZH
- ejuaCoFEUWLxZsnDES9mlg/qtdsha/m2D9gzlG9NaDDyNFXKHEGPAl9y75nYmn0D
- 2cMBHE7XzGOzPVyMufcSGX2OmP4tk1ie84AQPzzfCMM7qy2FZoewgsOysasLj/ez
- BrUXzuRj5x9w1NY6C1yaXZvIJcpBY3ezZpeYVlxGKm8WUw==
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ IXK1/kL2U0HScIthPTsqaR/1KhHLZK14qm7gOn1yzQo=; b=jfTN+u7S6s8Kygfv
+ 0tQlYEdwyKq8ulo4jCKxzfpCIEIokRYe67J1CXZq2zfbGPmL8hsEUcBco582PNp8
+ 1zYSZfZNhKI97emj/ts84LZXDvpvzHX/6rJUppL0yKTC5J3wGOgimLHKeRsthC51
+ PzDrO6MAF7kEk+5xCOjqW8WLB6s0hW7itvI8yROr4s5vy1q7gZYtpw9ptSDp0ASM
+ dPAjafj/jl/zCsj/qMZ6aAB+j8Hg/JFfMxZiYvJd9yb9GZ9QeP0x6DcTZ1FtZJpX
+ CDY2HucOfa4tuFIkz1OmtBCbNSBdEuG3yU1L6ZIRljjWUpewpggZrUQQRzZ30+Ma
+ f8MYPw==
 Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
  [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9c5j4q-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpcjg01b4-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 07:34:15 +0000 (GMT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 07:39:08 +0000 (GMT)
 Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-93a08ff8451so257888585a.2
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 00:34:15 -0700 (PDT)
+ af79cd13be357-93821883e26so80476285a.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 00:39:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1789371255; x=1789976055;
+ d=oss.qualcomm.com; s=google; t=1789371547; x=1789976347;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=bJ0LnXcfs2eCKZrtoDG+orKKjrb0m3XGM63JVNK8OTI=;
- b=BYTjbQ0ZOSRXdMTSfBx09iqa6dtpoR9SDgN3cCu5U4p9b4rZ4pFLN25TeqInci57PY
- 04M/Y+9S3TRw5JXHx6VkZpy56fg7yssiR3FwryOGz3nahEi1vOOwltkPuhej+CzARR+K
- MeT5Gw8fKiXu9ci7XVNIsFgmMeCYmLPGm8ykgCZmaFDtgT9seobMA1nAqZ6dDxkd0Nnr
- 3a5LBfohgpZDWaFrAWUXerxeDEupiZ1wfX3hVwGFNqf9zin8+ZaxbLHpDXxvCOSl8Jq2
- 9AVA8GqsJOIQylyRBR3S4X9OcbiDnPobrFeF+B82UckRJL0CfqUX3SVdUTZEsKQ+BcRK
- ohHA==
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=IXK1/kL2U0HScIthPTsqaR/1KhHLZK14qm7gOn1yzQo=;
+ b=dB6epCX3MyswL34rG5Cu8eToInaewGI2BsAPrPBxaPQ1nrbZwu0f+EjQ6ffk0eH2s+
+ Pbex0Y7rRbdPHhRMtV/RUk15N2tFktM58vhvt0tFDawZwYH2QfRviGtoi2VFOFk93vbK
+ lPRiGTbun9p7b37pIlZfJAoQRMoqWJfNm9sbyc+bxrBBnUfKLrbmXjaVgRVdAvkqPhjt
+ E1ehI1W7CunK3K7Tljes4Y5XG01dTvH4ZD4sbk9Z1ytBZFgSaVAT/tAzL5gjrluMxlWk
+ 40uMVmT3rO6Awy1HT7iX3Rmb8uYR/ndp5RVC9H6OPjKL7gu1sn2lqlGtCZWgSK1S6p1H
+ N0Ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789371255; x=1789976055;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=bJ0LnXcfs2eCKZrtoDG+orKKjrb0m3XGM63JVNK8OTI=;
- b=inQ/iRP5sxqbfC1aTfiJIpd/Bpq71svL1jdvQBgpmKWX7Urt/PWcbIdcHOS2pZHk32
- YDAE3ODnyLDmoc9tLejFLnfZLd5lm9v/lYTIIOGLf11OHZAyrwOeKpV2wdnRmISPUII4
- 97U+xtGiJShmieafVrd/DUoCkA2w2uULLlCuQ9ZayVB/E/UDX68U0XPRYJRV2tXpq4/g
- UVZu4UNm/IOq7+kwJ2b0Lx2dMtfSmNbF5GmHDX4in7XNWe7vibaeNppZ5WYJyJyCflYW
- QdGgeO7xId6Vr6+Qvwqco2hHs9/PFPdKtoSQvx4dPShUKeiZ92sqY3vcEhr6RK3V5Nil
- tAkQ==
+ d=1e100.net; s=20251104; t=1789371547; x=1789976347;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=IXK1/kL2U0HScIthPTsqaR/1KhHLZK14qm7gOn1yzQo=;
+ b=ZG8SoHg0lculg8A6b08u/SIHz3XapJ9NB2KIMUpXRImoybbocKeQSRg90yeuuHxqm2
+ D1bCtJaqvkQmU/adcJZon2sbQ15mkdJYH6zZ94y6bQFCj4XyipfNeT5dTVFbHZYF8Brb
+ +LOtsbP5Y1E6l5o8VhY4WLgHSQGzWs5XWRFDo3tL1ez6xCjsS2oJBISy1lru1sZ35uYm
+ wHXnNr1wQu3fDUiSNo/YTH4Zoh7/AdA4Ri52/cecZWQJYWKdO0udJ0VSc/cNmVhJ6MQ2
+ ZWgd70lS2QtdX+eksytx9HGu+ESUhvr+yGWrLigfkKHreSNvHh1IWqe2AcsopXk1O3QD
+ 8Fpw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw9Ituc7hrwjDEpxCRYkGgWJ+1unGkeqpg6ht/P/ObaHA8iS9t5pVCZInAI9rpbGqCscorB2WOyU7Y=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n89BlZO79Ekasw08AaNU+Uv6mLLUjJSTrXcDsEuU6WPnI+o0Gf
- 0DzS8CndozcjnIE1ZsUw/ib+3nkpneiKE6+2Deobh7DUUeVoZFJEZ5uNk9x9sdebmHPrb+myUey
- xTXh5XTSrmi8u0A4uwmZxFZkvLJK+m7hTvJK5/iTZ4OEpRUos27eSUXEPQGGvZfy/Ht5UuZGQyI
- ta+Rs=
-X-Gm-Gg: AYBFou3kw/OAeELGnO43oquxF1O8o4c3TGIX7CWB5SXmfLhJLVKFCxMf8Iv7d7Jpmj3
- W/JIEXzpjmkN3pygxvV9azOvUAEWAT6qOVBUXdrMrWIxKjK8RY0F3ZEjuxQ2eYG6B/DA20Lotc5
- +Safs8gv34umraiRVPdiFZQbgrHsx9vTEtNCpgPWepUnLBpq52mOYEO/gnU2mA9eXYlGlfcb0at
- CdmvnVUhDZ3VWKL6eJq5Z2a+l+HRx7+3BkayLrBJfT+bmlaEaJ5t8+3oUc0EnepNOaxP4XclYB3
- ZXNp08R8snNQOFZAk+31+pRMVYlgzga2ZVeopLHXFBR+YSADEObMCOxxkthOJvl14liTP2+zE2J
- zHe5HoX72CgQneQ==
-X-Received: by 2002:a05:620a:1788:b0:939:f27c:7433 with SMTP id
- af79cd13be357-93a29c132f5mr158407685a.50.1789371255023; 
- Mon, 14 Sep 2026 00:34:15 -0700 (PDT)
-X-Received: by 2002:a05:620a:1788:b0:939:f27c:7433 with SMTP id
- af79cd13be357-93a29c132f5mr158403485a.50.1789371254520; 
- Mon, 14 Sep 2026 00:34:14 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
+ AKwUvBzqz1PkAQicUq1xxuV7GH2KazhxXKGJqaYOiAmZGu6nIefHV/4SLM26/EWd6XImbw/+896EGptzIKY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++k+u8roUoaBhbk3iyscMKRMec2M0bLVqOWr5420re+wlYD3X8eE
+ FNjhNIjgD1fnKPm3tKNNeOtR+RKWxFvaJKS3ArR/1QJ0+cqsY+GoEkRZtkV522hSuve67U75Lae
+ onWgif7hq5Uko+ev1Msv96UZbxYiBNKgUP+/gWTQ26cyGSDzEdfpjg37OZpDBoVGUT7fG3rg=
+X-Gm-Gg: AYBFou0OBCrlqFCzz6u/CLly6DRhF1aZVnt0G18nKzIVmPp2ILkkqt2L3inWWS7r7LK
+ vAUhkJ6HWO2IWB3UdIKYAuvaK6J4zTgsbhW0/jqHBXtNJls5ne/XfnpVFWS+Z/uAY0i5Zd/+jfP
+ JOTi6bU38AwAPfsPiVaK5w/mwKEyFtRdTNAQAKCWliRtVrImrrKtCTsaPUNeG8EB0PVhBhTuTrO
+ lGOQcQuO6uFa8Tz0WdmSq+SB1VjJ6OCYvokGNIvvCNgKTfZ1zo1Y8Q0gJMLsO+lDoDY1+TArwuX
+ tgIX6VphYxtJ8YQVOSW0p3qnGf0OPjdBk5LzBLxfHRyd2x9m+txptf4tOQLkTObjhNW6AfyOuzw
+ RoWjipSQwXF0/bz/5PSYDVA==
+X-Received: by 2002:a05:620a:4707:b0:939:de49:6c78 with SMTP id
+ af79cd13be357-93a297cbe3bmr160272585a.2.1789371546950; 
+ Mon, 14 Sep 2026 00:39:06 -0700 (PDT)
+X-Received: by 2002:a05:620a:4707:b0:939:de49:6c78 with SMTP id
+ af79cd13be357-93a297cbe3bmr160270385a.2.1789371546524; 
+ Mon, 14 Sep 2026 00:39:06 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-486eb35f3d9sm24084717f8f.35.2026.09.14.00.34.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Sep 2026 00:34:13 -0700 (PDT)
-Date: Mon, 14 Sep 2026 10:34:11 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Douglas Anderson <dianders@chromium.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- mpearson-lenovo@squebb.ca, sibi.sankar@oss.qualcomm.com
-Subject: Re: [PATCH 2/4] drm/panel-edp: add CSOT MNE007QB1-1 entry
-Message-ID: <biywo5isdeagqu323ozaleeakngl4sngps4v7ngwqo23ju2sw7@jn53hxxuccff>
-References: <20260913201835.250085-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260913201835.250085-3-srinivas.kandagatla@oss.qualcomm.com>
+ 4fb4d7f45d1cf-6a9d0ef7228sm2170656a12.9.2026.09.14.00.39.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 14 Sep 2026 00:39:05 -0700 (PDT)
+Message-ID: <31fa4256-f285-40a9-bb8a-0b5495badf69@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 09:39:03 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913201835.250085-3-srinivas.kandagatla@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: YFS62QjSEdAjrdR1cY--fa8F-_ii73oN
-X-Proofpoint-GUID: YFS62QjSEdAjrdR1cY--fa8F-_ii73oN
-X-Authority-Analysis: v=2.4 cv=c5Y+0h9l c=1 sm=1 tr=0 ts=6aa7a377 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=PY3c6-KAFs37oqjDjR4A:9 a=CjuIK1q_8ugA:10
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/a6xx+: Increase GMU FW init timeout
+To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Greg Ociepka <greg@ferrisoft.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20260912150915.28700-1-robin.clark@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260912150915.28700-1-robin.clark@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=CKa/zhrD c=1 sm=1 tr=0 ts=6aa7a49c cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=9tEP0OE30YQ_IqY-BwIA:9 a=QEXdDO2ut3YA:10
  a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEwNiBTYWx0ZWRfXzWbOXLJE7A0y
- 7Q/K42ZJvxgTI5946aMKrsExOp//p0VvVpKDC7jAY6V+tdMtlFTg4u17DRmd+0i/yqH42L5XTtx
- pefgMPD1qzG7l5tDWbSPGQR3BLgmZd+8wQJZriqzo6k6UFzWL5ydCwDigPaotz7MD4N9kiAIjdL
- T1hD5RK/BXspTHN2cafJ0z2LdMSw4Pv2Yuh2pjn0/LBrOFaWcE2SKvQxCpBrGXtHZ3mBJsZ59ek
- 8QBfWJ0Ua8eU0Qa+Y/Wxm2Da8eyVtJQD8q3n8nArWfWsmZDulm21c/qDS+RSIRN0Y//xkPimokP
- ov4dnkisQn2Gd3ctxqQruqjiADlPWrrVJhvgMdx4nwiHPA2N1uaB/KkBrjXBxFx4L9uM9qsAArD
- CZTB08Zq+ql5QENxI/ejjMA3NNA/Zx35KLlFgHkHra5+VxfgMhAv5OqZ+cuerCG1U9MNrDrqZti
- Xv9tVmG58jvuNjNQ5xg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEwNiBTYWx0ZWRfX/JE7wIr9Z7qu
- t8DgHYzI6D/Yr4HjW9Z1qV7iKTNsgHPPA8PYUhbmu58buW2tv82YlARE95bdUVpdyurSeCiUhQR
- Bh97LwJRflOnq5WTUQUajP/HS/eXQuQ=
+X-Proofpoint-ORIG-GUID: WLZkA-GfYKthifNu2Dx_vmjO_LoVK3os
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEwNiBTYWx0ZWRfXydiw2B0rDsmf
+ Nr81KrlLgZFWArigHm9KS/tIxFyE+6GxHSanH+l6tvItjfh2r6yLRZ9XMbw7sDq/D5iEM6X8l/v
+ Byi7+KET48Yj4mgVDqnp9wN49GjCGGw=
+X-Proofpoint-GUID: WLZkA-GfYKthifNu2Dx_vmjO_LoVK3os
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEwNiBTYWx0ZWRfX8Db+TO7oQnuK
+ 6+Uz1otIeZqCDI/Mru24gw8CR0Hn41p3qq876vxLVn2HBb7AE2ypTLp8MoHG9RTWVBanDmcQ51S
+ ZIAPPak2Ijg+WpUKVIsT7PGbtKsSSIRmM5vpSjCm0Jt+unNceQTTFJtzMbYz8A6VS4+au9qsM96
+ bWb1LSZ+6hDtJXWNTmGRSpzB6eN1d4s2yV+ZHFcMwqQTRlGzQYFmpvUB54RycqbAQT/e3fsDttK
+ CEOytEPT75MQqhiOXDPLYHL9qJHaavL/oLT1N938U1I9cAjACeKelKyYtGno9o36Qxogq41Eteg
+ m4HuKjRWu8p0y5bU/qo4C2FWCCMG31ykg8WYoIzErv3RXgWLIjPjPlTr/EgPgnSiZcJVQD4QiFq
+ ZlN8HARELah9m1V+kLHIaW6GXjIz+gUYytmQdwIlZwIoajpzb8HQ7vVD4DkjXry+qcXPMlgftJl
+ w52iLVuoiCvq2r3yqlw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
- impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0 spamscore=0
+ adultscore=0 malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ spamscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140106
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -154,16 +150,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 26-09-13 21:18:33, Srinivas Kandagatla wrote:
-> 14" 1920x1200 IPS panel used on Lenovo ThinkPad T14s Gen 7 (Mahua).
-> Panel identifies as CSW 0x1465 over eDP AUX; uses conservative
-> delay_200_500_e50 preset in line with sibling MNE007QB/QS panels.
+On 9/12/26 5:09 PM, Rob Clark wrote:
+> We were using 10ms, kgsl uses 100ms.  In practice it is usually takes
+> less than 10ms, but very occasionally goes a bit above 10ms, leading to
+> a "GMU firmware inialization timed out", from which point things go
+> south.
 > 
-> Assisted-by: Claude:claude-opus-4-7
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> There are probably some things that could be done to speed up init, like
+> increasing GMU freq.  But to be safe, increase the timeout to match
+> kgsl.
+> 
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> ---
 
-I think Doug starting asking for EDID dump in the commit message.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-The rest looks good to me, so:
-
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Konrad
