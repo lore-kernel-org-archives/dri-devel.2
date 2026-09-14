@@ -4,43 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69C0AC88E64
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 13:18:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF7BDC88E50
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 13:18:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8812110E551;
-	Mon, 14 Sep 2026 13:18:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31FD810EE56;
+	Mon, 14 Sep 2026 13:18:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KqIETNqT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="X+TEiLro";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8330610E551
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 13:18:36 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B36BB60120;
- Mon, 14 Sep 2026 13:18:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 406A41F000FF;
- Mon, 14 Sep 2026 13:18:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789391915;
- bh=HCh6oYdcmoCnweTYNX6rYQ8unITEjVEsPqFCzAG2YmE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KqIETNqT/7svTdT6eqttzDRexsP2V3nIvaJgeNQW39I7GjFi1e7RiNkQk6hPw04o1
- z1ggunUnjm6cHhxaeX+NKaQBcpPHcY1+uOhDNm5pEKjLG0yTgc+n0Lwc8bJmkGI3S6
- KIOIC1ghbg2Ya4OPOJrce04YidNccK6i85b6p51sqskyf5f22AszJgfJqyAEpYvvaS
- 1j5yN5VMdK7ewGyNlx+1pvJScE6+JJFJoQtIC6/mD8kg7g+V5ISY67n+Wh62JSYqWD
- +xvr0eroWmceXXRKbP8jbXxeXs28k1NgC3JjPFlpH1nAVeWzhOO9ZeHQE/FVdqHYVq
- +io7dDPvbTXjA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] firmware: qcom: scm: drop the __scm global
-To: "Albert Esteve" <aesteve@redhat.com>
-Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260914-scm-device-api-v1-3-3573e2596c51@redhat.com>
-References: <20260914-scm-device-api-v1-0-3573e2596c51@redhat.com>
- <20260914-scm-device-api-v1-3-3573e2596c51@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 13:18:34 +0000
-Message-Id: <20260914131835.406A41F000FF@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F4AF10EE56;
+ Mon, 14 Sep 2026 13:18:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789391919; x=1820927919;
+ h=from:date:subject:mime-version:content-transfer-encoding:
+ message-id:to:cc;
+ bh=li3QXltipxKEHiQpkDyZl5H8yuTNVO70BZpcI0h4e1Y=;
+ b=X+TEiLroxg6TFn/BfKe8+6ryeSN1rIBIUQRIYLo6q+PHIBKlP9ec9JZH
+ HIXmZ0n4dC9SymU+e/KJId5qWRQyY5PXWNcYZcZuXn35tDpuLBYSpNtIX
+ 2jUZtnXUWqYyMLmy3qlMrdVqXFMcncvvLUrSesZTv6eQY3UWNfm2YqQOA
+ S/Lo+pN3TMjOwIDkTb+Mt9SHPZ2GfTJxyuTeASyKPojKIU4bOHlh1eLI9
+ 3BWLm33qVFR3wps5QR1d6OWtpJ2s81pNXq8K9px2mYOaPkxc+osmR9A0P
+ jSstyI09hi+e3G3exp99ZF1eM4Uo/k/swE8ItH/KH6fIe0lOI/ci/PEPZ w==;
+X-CSE-ConnectionGUID: scbm7J8wQ8urI0Xt+t77TA==
+X-CSE-MsgGUID: DndOP7ukSOCgR2W9gLf6YA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89768228"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; d="scan'208";a="89768228"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2026 06:18:38 -0700
+X-CSE-ConnectionGUID: gLmUT0d9SWGeZhp5c2DZ4g==
+X-CSE-MsgGUID: xBWAYN1BQ6uYAsUSlwfxbQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; d="scan'208";a="276171115"
+Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
+ by ORVIESA003-auth.jf.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 06:18:36 -0700
+From: Alexander Usyskin <alexander.usyskin@intel.com>
+Date: Mon, 14 Sep 2026 16:18:02 +0300
+Subject: [PATCH] drm/xe/nvm: add system controller region
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-nvm_add_sysctl_region-v1-1-75d710daf5d0@intel.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3M0QpAMBSA4VfRubaaxRqvIq2xg1OMdiSSd7dc/
+ hff/wBjJGRosgcinsS0hRRFnsEwuzChIJ8alFRa1kUpwrla573lm4djsRGnJISujHKmN1pLBcn
+ uEUe6/m/bve8Hruo4IGcAAAA=
+X-Change-ID: 20260914-nvm_add_sysctl_region-6582a8b86602
+To: Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, 
+ Alexander Usyskin <alexander.usyskin@intel.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789391915; l=884;
+ i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
+ bh=li3QXltipxKEHiQpkDyZl5H8yuTNVO70BZpcI0h4e1Y=;
+ b=TMrp+TtcG+Wocd0zT0UJHADOd9VE0Lf3JgUDiOSUmxfoTFR2hYr7CjRrAaPLu9mNFbItcAWL2
+ Na2NEGXtfMvA2mugLPvwwcu6iVBR29aF2P4uN+h7NGIuL54T+YaAxtW
+X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
+ pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,122 +79,35 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Add region 5 (System Controller) to the list of regions
+available on device.
 
-New issues:
-- [High] Module parameter updates can silently fail to reach the hardware d=
-uring driver probe due to the behavior of driver_find_next_device().
+Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+---
+ drivers/gpu/drm/xe/xe_nvm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Pre-existing issues:
-- [High] Potential Use-After-Free in qcom_scm_get() and its callers due to =
-unprotected devres pointers.
---
+diff --git a/drivers/gpu/drm/xe/xe_nvm.c b/drivers/gpu/drm/xe/xe_nvm.c
+index 1ea67eaeae24..51a1a431ad85 100644
+--- a/drivers/gpu/drm/xe/xe_nvm.c
++++ b/drivers/gpu/drm/xe/xe_nvm.c
+@@ -28,6 +28,7 @@
+ static const struct intel_dg_nvm_region regions[INTEL_DG_NVM_REGIONS] = {
+ 	[0] = { .name = "DESCRIPTOR", },
+ 	[2] = { .name = "GSC", },
++	[5] = { .name = "SYSCTL", },
+ 	[9] = { .name = "PADDING", },
+ 	[11] = { .name = "OptionROM", },
+ 	[12] = { .name = "DAM", },
 
-commit 03814e83233282a25e37723ed4eb68479514c4e0
-Author: Albert Esteve <aesteve@redhat.com>
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260914-nvm_add_sysctl_region-6582a8b86602
 
-firmware: qcom: scm: drop the __scm global
-   =20
-Stop publishing a driver-wide singleton. Mark the instance
-ready with scm->available, look it up from the platform driver
-for module-parameter stores, and use platform_get_drvdata() on
-shutdown.
+Best regards,
+-- 
+Alexander Usyskin <alexander.usyskin@intel.com>
 
-> diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qco=
-m_scm.c
-> index 73e9752e3cca1..68cd8dc622c6f 100644
-> --- a/drivers/firmware/qcom/qcom_scm.c
-> +++ b/drivers/firmware/qcom/qcom_scm.c
-
-[ ... ]
-
-> @@ -2657,7 +2658,7 @@ static void qcom_scm_qtee_init(struct qcom_scm *scm)
->  bool qcom_scm_is_available(struct qcom_scm *scm)
->  {
->  	/* Paired with smp_store_release() in qcom_scm_probe */
-> -	return scm && scm =3D=3D smp_load_acquire(&__scm);
-> +	return scm && smp_load_acquire(&scm->available);
-
-[Severity: High]
-This is a pre-existing issue, but does this introduce a new use-after-free
-dereference site?
-
-Looking at qcom_scm_get(), it acquires a device reference, retrieves the
-devres-managed scm pointer, and immediately drops the reference:
-
-struct qcom_scm *qcom_scm_get(void)
-{
-	...
-	scm =3D dev_get_drvdata(dev);
-	put_device(dev);
-
-	if (!qcom_scm_is_available(scm))
-		return NULL;
-	...
-}
-
-If the device is concurrently unbound (e.g., via dynamic DT overlay removal=
-),
-device_unbind_cleanup() will synchronously free all devres allocations,
-including the scm pointer.
-
-Right after this in qcom_scm_get(), calling qcom_scm_is_available(scm)
-will now dereference scm->available on the freed pointer. Can the pointer
-be safeguarded before dereferencing it here?
-
->  }
->  EXPORT_SYMBOL_GPL(qcom_scm_is_available);
-> =20
-> @@ -2817,7 +2818,7 @@ static int set_download_mode(const char *val, const=
- struct kernel_param *kp)
-> =20
->  	download_mode =3D ret;
->  	/* Pairs with smp_store_release() in qcom_scm_probe(). */
-> -	scm =3D smp_load_acquire(&__scm);
-> +	scm =3D qcom_scm_get();
-
-[Severity: High]
-Could this cause module parameter updates to silently fail during driver pr=
-obe?
-
-If a user or script updates the download_mode module parameter via sysfs wh=
-ile
-qcom_scm_probe() is executing, set_download_mode() will call qcom_scm_get().
-
-Because qcom_scm_get() uses driver_find_next_device(), which relies on
-klist_devices, it will return NULL until driver_bound() adds the device
-to the list after probe completes.
-
-Since this skips the hardware update when qcom_scm_get() returns NULL, would
-the global download_mode variable become permanently desynchronized from the
-hardware state?
-
->  	if (scm)
->  		qcom_scm_set_download_mode(scm, download_mode);
-> =20
-> @@ -2858,7 +2859,7 @@ static int set_minidump_dest(const char *val, const=
- struct kernel_param *kp)
->  	minidump_dest =3D minidump_dest_map[i].val;
-> =20
->  	/* Pairs with smp_store_release() in qcom_scm_probe(). */
-> -	scm =3D smp_load_acquire(&__scm);
-> +	scm =3D qcom_scm_get();
-
-[Severity: High]
-Similarly to the download_mode parameter, could writing to minidump_dest via
-sysfs during probe fail to reach the hardware?
-
-Since qcom_scm_get() will return NULL before driver_bound() finishes, it
-appears the minidump_sram write could be completely missed.
-
->  	if (scm && scm->minidump_sram && (download_mode & QCOM_DLOAD_MINIDUMP))
->  		writel_relaxed(minidump_dest, scm->minidump_sram);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-scm-device=
--api-v1-0-3573e2596c51@redhat.com?part=3D3
