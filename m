@@ -4,54 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13404C88E50
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 12:17:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDF99C88E50
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 12:20:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7708710E18D;
-	Mon, 14 Sep 2026 12:17:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1225610E19B;
+	Mon, 14 Sep 2026 12:20:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="ntSiCFzF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kqL6Z2Wo";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 96DE410E18D
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 12:17:44 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7DE821576;
- Mon, 14 Sep 2026 05:17:40 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 452523F86F;
- Mon, 14 Sep 2026 05:17:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1789388264; bh=c0CFsUaosLdBaAY1WVZXpEpvXD8k8XfgcUQrkA6InPM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ntSiCFzFkuEdj3K33SmO+PzjbPECbuW1/EaQ1yQvrkgJeIHb8P1qXEcBjuw4L3n/a
- 5feEXdS3bbHFTDLKA/lTSqqgfUdDt3PfSSPiCEpcXVf6A3/3eJtvrHG14tCb2NKu62
- oqcozB1jlR3R9fus2DDr7VYmt1u52rQT3C1hWedc=
-Message-ID: <ea8caba1-eb78-40cd-b025-e8c02009f2d7@arm.com>
-Date: Mon, 14 Sep 2026 13:17:40 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum segment
- size
-To: Gary Guo <gary@garyguo.net>, Danilo Krummrich <dakr@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>
-Cc: Matteo Kloiber <kernel@matt3o12.de>, aliceryhl@google.com,
- ojeda@kernel.org, airlied@gmail.com, simona@ffwll.ch,
- abdiel.janulgue@gmail.com, daniel.almeida@collabora.com,
- a.hindborg@kernel.org, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, driver-core@lists.linux.dev,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260831233215.287881-1-kernel@matt3o12.de>
- <20260831233215.287881-3-kernel@matt3o12.de>
- <DL8QLYLQJEL1.3F653J67DYZ47@nvidia.com>
- <20260913210806.125589-1-kernel@matt3o12.de>
- <DLEMH1X0KQA1.D1PYVJD0E6SR@nvidia.com> <DLEY8AHWZFCQ.QUHP2NHJW1QX@kernel.org>
- <DLEYQNUGTQYU.34AISCMMZXG8B@garyguo.net>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <DLEYQNUGTQYU.34AISCMMZXG8B@garyguo.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20B4410E19B
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 12:20:40 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4BC62601DB;
+ Mon, 14 Sep 2026 12:20:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA61C1F00898;
+ Mon, 14 Sep 2026 12:20:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789388439;
+ bh=Fma9rGpR3kYSf6wqhkSVql+tZr4Z1DqBDtJJrSnRMHA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=kqL6Z2WoW+fwSIZ3MQh48r0gXKPIO/NRvfPleSh2gRLebWojoD49abUbRCH/5JMRB
+ A1EBLFn7nMsOAHMWEVjeFaet4Hxj8BhTuJqzaCTl2nHuJeg00aJ3/hs9dTOfQaJI8a
+ EeS9y9Wi45+akCkTEKD4ULqgTJISg3sqzdMmzwsY1PpqhxBSUALRKyqQmjKwHAsr95
+ YCk0FJY/7QIKqvBuIsygP5JZfCzVbiT/aXMC94ZCOs/59dbMb9tuactA3XlYERzgvz
+ DJ7Uq9PldvmVvjlLq68AlL5tGpjKoWM5oC91lMhcn6FT7uMh0m1galANMPBU5csrLT
+ FbLg2QlCTYI+A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 08/13] drm/mediatek: mtk_dsi: Add support for MT8189
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260914115812.22751-9-angelogioacchino.delregno@collabora.com>
+References: <20260914115812.22751-1-angelogioacchino.delregno@collabora.com>
+ <20260914115812.22751-9-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 12:20:38 +0000
+Message-Id: <20260914122038.AA61C1F00898@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,58 +54,88 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 14/09/2026 11:22 am, Gary Guo wrote:
-> On Mon Sep 14, 2026 at 10:58 AM BST, Danilo Krummrich wrote:
->> On Mon Sep 14, 2026 at 2:45 AM CEST, Alexandre Courbot wrote:
->>> On Mon Sep 14, 2026 at 6:08 AM JST, Matteo Kloiber wrote:
->>>> On Mon Sep 7, 2026 at 11:43 AM JST, Alexandre Courbot wrote:
->>>>> It also means that without patch 1, nova-core would split the firmware
->>>>> into hundreds of 64KB SG entries, which is not breaking but still
->>>>> something we want to avoid. The correct fix is to make sure that
->>>>> `dma_set_max_seg_size` is called by the driver, and while we are at it
->>>>> we also want every driver to call `dma_set_mask_and_coherent`. Ideally
->>>>> we would use the type system to make sure that both functions are called
->>>>> before any DMA operation can take place (using a safe interface), but
->>>>> I'm not quite sure yet how we can do this.
->>>>
->>>> This sounds sensible indeed. Should I open a thread regarding that on Zulip?
->>>
->>> Probably not necessary, the mailing-list has a larger audience and is
->>> the right place for this. I expect people will jump in here with their
->>> thoughts.
->>
->> The problem with those is not that they must strictly be called before
->> allocating DMA memory, but they must not be called concurrently with other DMA
->> operations, such as allocating DMA memory, as it would technically be a data
->> race.
-> 
-> Do they really have to be called *before* allocating DMA memory, not do they
-> just need not be called *concurrent* to DMA memory allocation?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Similar to DMA masks, the segment parameters should be set appropriately 
-before any dma_map_sg() operation. Plus since they likely influence 
-scatterlist geometry, that means typically they're also going to need to 
-be set before building the scatterlist to be mapped in the first place.
+Pre-existing issues:
+- [High] Out-of-bounds MMIO write in mtk_dsi_cmdq() due to unchecked msg->t=
+x_len.
+- [High] Register access with disabled clocks after mtk_dsi_poweron() fails=
+ causes kernel panic.
+--
 
-I don't think there's any expectation that they would ever change 
-*between* different mappings - especially given the underlying hardware 
-properties they represent - so while that might technically be possible 
-in the C API if the caller can enforce sufficient ordering, it should be 
-fine to rule it out in the Rust abstraction if that makes things easier 
-to reason about.
+commit f15ebc6147af7232db3b125277a76b1726ee2a6a
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Thanks,
-Robin.
+drm/mediatek: mtk_dsi: Add support for MT8189
 
-> If it's the former, we can require these to require mutable reference instead,
-> so the probe takes `Pin<&'bound mut Device<Core<'_>>>` which still derefs to
-> `&'bound Device<Bound>`, but Rust will require the shared reference to not
-> co-exist with the mutable reference.
-> 
-> Best,
-> Gary
-> 
+This commit adds support for the DSI IP found in the MT8189 SoC. It updates
+the device tree match table to map the new compatible string to the DSI
+driver.
 
+> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/med=
+iatek/mtk_drm_drv.c
+> index bd2d17017bd2f..08f6be311dd14 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+[ ... ]
+> @@ -826,6 +826,8 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[=
+] =3D {
+>  	{ .compatible =3D "mediatek,mt8188-dsi",
+>  	  .data =3D (void *)MTK_DSI },
+> +	{ .compatible =3D "mediatek,mt8189-dsi",
+> +	  .data =3D (void *)MTK_DSI },
+
+[Severity: High]
+This isn't a bug introduced by this patch, but adding a new DSI user exposes
+a pre-existing issue in mtk_dsi_cmdq().
+
+Does this code overflow the MMIO boundaries if msg->tx_len is large?
+
+In drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_cmdq():
+
+	for (i =3D 0; i < msg->tx_len; i++)
+		mtk_dsi_mask(dsi, (data->reg_adv[DSI_CMDQ] + cmdq_off + i) & (~0x3U),
+			     (0xffUL << (((i + cmdq_off) & 3U) * 8U)),
+			     tx_buf[i] << (((i + cmdq_off) & 3U) * 8U));
+
+Because msg->tx_len isn't validated against the hardware command queue size,
+a large payload could write past the queue's boundary and corrupt adjacent
+hardware registers.
+
+
+[Severity: High]
+This is a pre-existing issue, but registering a new DSI device also inherits
+this error handling regression.
+
+Can this sequence cause a panic if mtk_dsi_poweron() fails?
+
+In drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_bridge_atomic_pre_enable():
+
+	ret =3D mtk_dsi_poweron(dsi);
+	if (ret < 0)
+		drm_err(drm, "failed to power on dsi\n");
+
+	mtk_dsi_lane_ready(dsi);
+	mtk_dsi_clk_hs_mode(dsi, 1);
+
+If power-on fails, the error path within mtk_dsi_poweron() disables the
+clocks.
+
+However, this function ignores the failure, logs an error, and
+unconditionally proceeds to call mtk_dsi_lane_ready(dsi) and
+mtk_dsi_clk_hs_mode(dsi, 1).
+
+These subsequent calls write to hardware registers while the device clocks
+are gated, which typically triggers a synchronous external abort.
+
+>  	{ }
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914115812.2275=
+1-1-angelogioacchino.delregno@collabora.com?part=3D8
