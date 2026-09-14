@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72D65C88E7D
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D1B7C88E53
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73E3D10F8A5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 448A910F878;
 	Tue, 15 Sep 2026 07:27:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L+fBPznE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FbtUOEcR";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 448DC10E164
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:06:51 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDBA010E132
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:02:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6360C6025B;
- Mon, 14 Sep 2026 15:06:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A4BF1F000FF;
- Mon, 14 Sep 2026 15:06:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B428341455;
+ Mon, 14 Sep 2026 15:02:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E3AE1F00893;
+ Mon, 14 Sep 2026 15:01:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789398410;
- bh=L84E+VBIjXtbMM9gLwilDTXz4m90Kix4dW4wQgsIOqc=;
+ s=k20260515; t=1789398134;
+ bh=6fTmcmc+a4IUNwae9Nxcfez5sumoqebDO82GfLQBZkY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=L+fBPznEuntQN4DfHWQNuqeXQnnRid1csrks699iiOe6tqiIP1Y8KTkcD69AvMQei
- 9jtR/cCkqp/gaZt3A1+sMNxPdS/CVAyctqp/YrV6Hv6W78u7G4eW5+jqLXNQ5TIywr
- 6hRkceqaVaMnaAtb56K9+hanSTvhQHTTg5yCI4eocOSGFPYk/WVSeclcQJMQUC3VDt
- OlPV5OqeL6j7xR9BLdCnNTGTdxwSo72OgvrUpOchz+ha3jC3OHEdIHOUM3fa4ffMaG
- 7smKzoy7srZm4qfhsfrKY/ov1CXCUWWDGG1jXRYbRe9oqb8Gal+jWDs/VXtXmuNAFI
- gZAgSSdzNSRAA==
+ b=FbtUOEcRtZhns+Zw5yDfZqYhCI9CoETgI/1XfZ9DKiPZsjMzAh+cNfYgAHHBh5Ze2
+ UJCWSzDSUrpDDioCW/uL/8TzzzHYOmlUyDKnjG7KAw9Hmdf+8JXoV637sifD5wOGXA
+ XslPofXx4VNhS1MijPFO6ayUd9qNWgPpYBakikTOKGGOLNMo09ft26O9TA/7cY3WLP
+ zfR0ZJHRxRYb05Ub2a4s0/yoqCtwb/jfek5lrNzBxvsCj7aQ/qpc1WvNqTz0Ugn2ww
+ Bx7L/tBNLBhxSd9KD1w1dJcxqZ+ZD4kcHBAWWQ5gzQPj36qivS4A+qkoEGLBOX8UIf
+ LiCbaNkrc9lFQ==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 14 Sep 2026 15:57:36 +0100
-Subject: [PATCH v2 16/40] mm/vma: only allow mmap to clear VMA_MAYWRITE_BIT
- if kernel-owned
+Date: Mon, 14 Sep 2026 15:57:26 +0100
+Subject: [PATCH v2 06/40] mm: make map_kernel_pages_[prepare,complete]
+ internal and unexported
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-16-7d9781ed5361@kernel.org>
+Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-6-7d9781ed5361@kernel.org>
 References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
 In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -121,12 +121,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2245; i=ljs@kernel.org;
- h=from:subject:message-id; bh=VBJ5n0AzlLNSnyXutKBzqVELhsd1soVPc5lqklQgPTI=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcG/omrjXccJEyb0TfbbptCkvLPzj4G75bEaixMn/G
- 3OqZFludZSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiIYoM/2xSji3htFhzhp9B
- 9l3a1uSpD7xP3JHol/u9c5Kk5CyxxF0M/0w91VW4xfc9KuMsTZHclZn8MIPNMnunxI4v15MmyIt
- VsgMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2508; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=qfAyj0ybwJ4DJXdH6Vmm7/5PNAiQvM8UyRor9dsN0CI=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcK+r5PCoDJPNUgphWKkfuuoH/9JZFr1nKwtUDSP3z
+ Cn7oqndUcrCIMbFICumyPL8i/j+IJGweZ0X/N1g5rAygQxh4OIUgInwyzIyNF9mWVXYPW1vb7ZM
+ 66s/zkcn7tkx+5WDrPIbuwuVNj2Rmxj+RxzIutOxsltC5Kf/lBLGusmzUz9u109jY071Df1+RmI
+ 3BwA=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Tue, 15 Sep 2026 07:27:57 +0000
@@ -145,67 +145,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For ordinary files the only way the VMA_MAYWRITE_BIT flag is cleared is if
-the underlying file is itself read-only.
+There's no reason to export the symbols for these functions which are only
+called from internal mm logic, additionally there's no reason for them to
+be declared in mm.h.
 
-This means that mprotect() cannot mark a shared mapping of a read-only file
-as read/write, as doing so would violate the read only attribute, and
-permit writes.
+This patch therefore removes the exports and moves the declarations to
+mm/internal.h.
 
-In general, we do not want file systems to be able to do this for
-read/write files.
-
-Doing so would violate fundamental user expectation of file attributes and
-likely break userspace.
-
-However, drivers pose a tricky problem here - the /dev/xxx file may be
-read/write but provide access to a resource which is fundamentally
-read-only.
-
-Therefore we must allow drivers to be able to clear VMA_MAYWRITE_BIT.
-
-To achieve both of these things, restrict this ability to kernel-owned
-mappings as identified by vma_flags_is_kernel_owned().
-
-This constrains this ability to drivers which own the mapping's contents,
-whether memory-mapped I/O, kernel-allocated pages, or ordinary pages they
-map themselves, and so define its semantics.
-
-Every in-tree mmap hook which clears VMA_MAYWRITE_BIT, some twenty sites
-across drivers, filesystems and bpf, establishes a kernel-owned mapping,
-with usbmon and the ALSA PCM status page converted earlier in this series
-to do so.
-
-Note that drivers may, if they do not gate on VMA_SHARED_BIT, be able to
-disable MAP_PRIVATE-file-backed mapping CoW semantics.
-
-This is perhaps not always intended, but we retain this capacity to
-maintain existing behaviour.
-
-As all drivers which clear VMA_MAYWRITE_BIT establish kernel-owned
-mappings, no functional change is intended.
+No functional change intended.
 
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/vma.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ include/linux/mm.h | 3 ---
+ mm/internal.h      | 3 +++
+ mm/memory.c        | 2 --
+ 3 files changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/mm/vma.c b/mm/vma.c
-index 2648fb0e1995..d71ec51255b1 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -2795,6 +2795,11 @@ static int mmap_validate(unsigned long prev_start,
- 	if (WARN_ON_ONCE(!was_maywrite && is_maywrite))
- 		return -EINVAL;
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 68250ece4219..0c17f0932b76 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -4768,9 +4768,6 @@ int remap_pfn_range(struct vm_area_struct *vma, unsigned long addr,
+ int vm_insert_page(struct vm_area_struct *, unsigned long addr, struct page *);
+ int vm_insert_pages(struct vm_area_struct *vma, unsigned long addr,
+ 			struct page **pages, unsigned long *num);
+-int map_kernel_pages_prepare(struct vm_area_desc *desc);
+-int map_kernel_pages_complete(struct vm_area_struct *vma,
+-			      struct mmap_action *action);
+ int vm_map_pages(struct vm_area_struct *vma, struct page **pages,
+ 				unsigned long num);
+ int vm_map_pages_zero(struct vm_area_struct *vma, struct page **pages,
+diff --git a/mm/internal.h b/mm/internal.h
+index 1ed11eaf276a..0cd26277a4c8 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -1511,6 +1511,9 @@ int remap_pfn_range_prepare(struct vm_area_desc *desc);
+ int remap_pfn_range_complete(struct vm_area_struct *vma,
+ 			     struct mmap_action *action);
+ int simple_ioremap_prepare(struct vm_area_desc *desc);
++int map_kernel_pages_prepare(struct vm_area_desc *desc);
++int map_kernel_pages_complete(struct vm_area_struct *vma,
++			      struct mmap_action *action);
  
-+	/* Only kernel-owned mappings may clear VMA_MAYWRITE_BIT. */
-+	if (!vma_flags_is_kernel_owned(curr_flags) &&
-+	    WARN_ON_ONCE(was_maywrite && !is_maywrite))
-+		return -EINVAL;
-+
- 	return mmap_validate_vma_flags(curr_flags);
+ static inline int io_remap_pfn_range_prepare(struct vm_area_desc *desc)
+ {
+diff --git a/mm/memory.c b/mm/memory.c
+index 926276d41920..448342883e9d 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2628,7 +2628,6 @@ int map_kernel_pages_prepare(struct vm_area_desc *desc)
+ 
+ 	return 0;
  }
+-EXPORT_SYMBOL(map_kernel_pages_prepare);
  
+ int map_kernel_pages_complete(struct vm_area_struct *vma,
+ 			      struct mmap_action *action)
+@@ -2640,7 +2639,6 @@ int map_kernel_pages_complete(struct vm_area_struct *vma,
+ 			    action->map_kernel.pages,
+ 			    &nr_pages, vma->vm_page_prot);
+ }
+-EXPORT_SYMBOL(map_kernel_pages_complete);
+ 
+ /**
+  * vm_insert_page - insert single page into user vma
 
 -- 
 2.55.0
