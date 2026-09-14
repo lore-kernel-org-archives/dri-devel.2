@@ -4,56 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76F11C88E64
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 08:48:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 041D0C88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 08:48:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97E4E10EB4F;
-	Mon, 14 Sep 2026 08:48:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C5C610EC17;
+	Mon, 14 Sep 2026 08:48:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FkmWgj8j";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LOzNGon8";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4ACD410EC17
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:48:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789375694; x=1820911694;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=dDQvwX1Yk4KPC8JisioUBU8IYLAQB271OI8RUTkztfI=;
- b=FkmWgj8j/YigyejkChGSoAbJDnsYfY6gBOrAdHyMIdkOYyAHD7EC6F8E
- IOB9MFWCf71vSMml3Z7kuMmYd8c5Y29t5im4zF29FU+UgFKgEnbqnxJRC
- ynCXYlzo6vxKSaEJ6i4n72VzXfznNjFZ/Ihix+TgLE0u3rJeQbVQQynzd
- hmJ4m51sPYGERdoBjH/TDWqN4s3jIt31p4DZEwVLlLDqZKo6bWr82wixe
- lkXdBX9TwTPJvsAmfDmGHxzTNhOIK0ePqzRhAm/FqQyDa+g//LAT6zE3J
- hgda10iery6GOBSsSf7nyDAHfP0/Sc0T3zfi1ACGjzeIU71twp1DQWoVy Q==;
-X-CSE-ConnectionGUID: utRa1H15TqeTl8INpUFjTw==
-X-CSE-MsgGUID: 3Trst0sjSji6CsxLwu//QA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="231645"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="231645"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2026 01:45:09 -0700
-X-CSE-ConnectionGUID: bqChILoiQBGhod7fsAEOTQ==
-X-CSE-MsgGUID: jlsvpp0bT12N4kbHcvL3KQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; d="scan'208";a="269955006"
-Received: from pl-npu-pc-kwachow.igk.intel.com ([10.91.220.239])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2026 01:45:07 -0700
-From: Karol Wachowski <karol.wachowski@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
- andrzej.kacprowski@linux.intel.com, dawid.osuchowski@linux.intel.com,
- Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>,
- Karol Wachowski <karol.wachowski@linux.intel.com>
-Subject: [PATCH v2] accel/ivpu: Move register poll timeouts to vdev->timeout
-Date: Mon, 14 Sep 2026 10:45:03 +0200
-Message-ID: <20260914084503.895042-1-karol.wachowski@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEA5910EC17
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:48:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E479960142;
+ Mon, 14 Sep 2026 08:48:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 706A01F00893;
+ Mon, 14 Sep 2026 08:48:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789375729;
+ bh=jZUIFmbwxbzCEEkgCiDNyixcvcXixfsRcRUjvZ4XL+w=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=LOzNGon8pFlQ6RLB5X+awVAUI8lwhy5q2EhXX9/u5xtYkzuR+PQhCJqrdMbN2P+Gj
+ 6AoiizMVlJX5K3eoBT6+zrtTRzVk52F4tw80pZtXBi9ra5Efnpma0rMQ8OfDJbMTdL
+ liQvPtt6H1jcK8ECj5uHP4qgb3CvanmrYD0zZAr/N8zNFUis2uphspfysx2WdNfkw+
+ j5rBURLQ7sd7sADnYDnRmkKAlStkWiwrV2PvL6gurCpKKof6PNqpeIikQ5zM23V84w
+ MeQ7to8KK6oWGQH6y86ZqQ325VPyRIjRdaaN5+wH1kAszP1g3FA31aaif9xF7mEXaH
+ x0mBIXyNUsqog==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] accel/ivpu: Abort pending jobs on file close
+To: "Karol Wachowski" <karol.wachowski@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260914082929.892437-1-karol.wachowski@linux.intel.com>
+References: <20260914082929.892437-1-karol.wachowski@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 08:48:48 +0000
+Message-Id: <20260914084849.706A01F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,179 +52,71 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Context and job cleanup is skipped when CONFIG_PM is disabled, def=
+eating the purpose of the patch.
+--
 
-Use the vdev->timeout structure for register poll timeouts. This allows
-adjusting those timeouts depending on the platform type.
-For FPGA set MMU timeouts to 10x.
+commit e999c7cb2698f3a8d3e0b1deb6b6b334895bbf3e
+Author: Karol Wachowski <karol.wachowski@linux.intel.com>
 
-Signed-off-by: Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
-Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
----
-Changes in v2:
- - Add Singed-off-by: Karol Wachowski
- - Link to v1: https://lore.kernel.org/dri-devel/20260914082649.891871-1-karol.wachowski@linux.intel.com/T/#u
----
- drivers/accel/ivpu/ivpu_drv.h   |  3 +++
- drivers/accel/ivpu/ivpu_hw.c    | 20 ++++++++++++++++++++
- drivers/accel/ivpu/ivpu_hw_ip.c |  6 ++----
- drivers/accel/ivpu/ivpu_mmu.c   | 12 ++++--------
- 4 files changed, 29 insertions(+), 12 deletions(-)
+accel/ivpu: Abort pending jobs on file close
 
-diff --git a/drivers/accel/ivpu/ivpu_drv.h b/drivers/accel/ivpu/ivpu_drv.h
-index 37d5a6ac55f8..8762b8969d96 100644
---- a/drivers/accel/ivpu/ivpu_drv.h
-+++ b/drivers/accel/ivpu/ivpu_drv.h
-@@ -186,6 +186,9 @@ struct ivpu_device {
- 		int autosuspend;
- 		int d0i3_entry_msg;
- 		int state_dump_msg;
-+		int mmu_reg;
-+		int mmu_queue;
-+		int pwr_island_status;
- 	} timeout;
- };
- 
-diff --git a/drivers/accel/ivpu/ivpu_hw.c b/drivers/accel/ivpu/ivpu_hw.c
-index 647dc045c231..613bcdbc364c 100644
---- a/drivers/accel/ivpu/ivpu_hw.c
-+++ b/drivers/accel/ivpu/ivpu_hw.c
-@@ -99,13 +99,19 @@ static void wa_init(struct ivpu_device *vdev)
- static void timeouts_init(struct ivpu_device *vdev)
- {
- 	if (ivpu_test_mode & IVPU_TEST_MODE_DISABLE_TIMEOUTS) {
-+		/* in milliseconds */
- 		vdev->timeout.boot = -1;
- 		vdev->timeout.jsm = -1;
- 		vdev->timeout.tdr = -1;
- 		vdev->timeout.inference = -1;
- 		vdev->timeout.autosuspend = -1;
- 		vdev->timeout.d0i3_entry_msg = -1;
-+		/* in microseconds */
-+		vdev->timeout.mmu_reg = -1;
-+		vdev->timeout.mmu_queue = -1;
-+		vdev->timeout.pwr_island_status = -1;
- 	} else if (ivpu_is_fpga(vdev)) {
-+		/* in milliseconds */
- 		vdev->timeout.boot = 50;
- 		vdev->timeout.jsm = 15000;
- 		vdev->timeout.tdr = 30000;
-@@ -113,7 +119,12 @@ static void timeouts_init(struct ivpu_device *vdev)
- 		vdev->timeout.autosuspend = -1;
- 		vdev->timeout.d0i3_entry_msg = 500;
- 		vdev->timeout.state_dump_msg = 10000;
-+		/* in microseconds */
-+		vdev->timeout.mmu_reg = 100 * USEC_PER_MSEC;
-+		vdev->timeout.mmu_queue = 1000 * USEC_PER_MSEC;
-+		vdev->timeout.pwr_island_status = 5 * USEC_PER_MSEC;
- 	} else if (ivpu_is_simics(vdev)) {
-+		/* in milliseconds */
- 		vdev->timeout.boot = 50;
- 		vdev->timeout.jsm = 500;
- 		vdev->timeout.tdr = 10000;
-@@ -121,7 +132,12 @@ static void timeouts_init(struct ivpu_device *vdev)
- 		vdev->timeout.autosuspend = 100;
- 		vdev->timeout.d0i3_entry_msg = 100;
- 		vdev->timeout.state_dump_msg = 10;
-+		/* in microseconds */
-+		vdev->timeout.mmu_reg = 10 * USEC_PER_MSEC;
-+		vdev->timeout.mmu_queue = 100 * USEC_PER_MSEC;
-+		vdev->timeout.pwr_island_status = 5 * USEC_PER_MSEC;
- 	} else {
-+		/* in milliseconds */
- 		vdev->timeout.boot = 1000;
- 		vdev->timeout.jsm = 500;
- 		vdev->timeout.tdr = 2000;
-@@ -132,6 +148,10 @@ static void timeouts_init(struct ivpu_device *vdev)
- 			vdev->timeout.autosuspend = 100;
- 		vdev->timeout.d0i3_entry_msg = 5;
- 		vdev->timeout.state_dump_msg = 100;
-+		/* in microseconds */
-+		vdev->timeout.mmu_reg = 10 * USEC_PER_MSEC;
-+		vdev->timeout.mmu_queue = 100 * USEC_PER_MSEC;
-+		vdev->timeout.pwr_island_status = 5 * USEC_PER_MSEC;
- 	}
- }
- 
-diff --git a/drivers/accel/ivpu/ivpu_hw_ip.c b/drivers/accel/ivpu/ivpu_hw_ip.c
-index 81f0b1f8f5a6..46661fbf9d05 100644
---- a/drivers/accel/ivpu/ivpu_hw_ip.c
-+++ b/drivers/accel/ivpu/ivpu_hw_ip.c
-@@ -15,8 +15,6 @@
- #include "ivpu_mmu.h"
- #include "ivpu_pm.h"
- 
--#define PWR_ISLAND_STATUS_TIMEOUT_US        (5 * USEC_PER_MSEC)
--
- #define TIM_SAFE_ENABLE		            0xf1d0dead
- #define TIM_WATCHDOG_RESET_VALUE            0xffffffff
- 
-@@ -350,10 +348,10 @@ static int wait_for_pwr_island_status(struct ivpu_device *vdev, u32 exp_val)
- 
- 	if (ivpu_hw_ip_gen(vdev) == IVPU_HW_IP_37XX)
- 		return REGV_POLL_FLD(VPU_37XX_HOST_SS_AON_PWR_ISLAND_STATUS0, MSS_CPU, exp_val,
--				     PWR_ISLAND_STATUS_TIMEOUT_US);
-+				     vdev->timeout.pwr_island_status);
- 	else
- 		return REGV_POLL_FLD(VPU_40XX_HOST_SS_AON_PWR_ISLAND_STATUS0, CSS_CPU, exp_val,
--				     PWR_ISLAND_STATUS_TIMEOUT_US);
-+				     vdev->timeout.pwr_island_status);
- }
- 
- static void pwr_island_isolation_drive_37xx(struct ivpu_device *vdev, bool enable)
-diff --git a/drivers/accel/ivpu/ivpu_mmu.c b/drivers/accel/ivpu/ivpu_mmu.c
-index b2025274f91d..c846499d96ce 100644
---- a/drivers/accel/ivpu/ivpu_mmu.c
-+++ b/drivers/accel/ivpu/ivpu_mmu.c
-@@ -220,9 +220,6 @@
- #define IVPU_MMU_STE_1_S1DSS		GENMASK_ULL(1, 0)
- #define IVPU_MMU_STE_1_S1DSS_TERMINATE	0x0
- 
--#define IVPU_MMU_REG_TIMEOUT_US		(10 * USEC_PER_MSEC)
--#define IVPU_MMU_QUEUE_TIMEOUT_US	(100 * USEC_PER_MSEC)
--
- #define IVPU_MMU_GERROR_ERR_MASK ((REG_FLD(IVPU_MMU_REG_GERROR, CMDQ)) | \
- 				  (REG_FLD(IVPU_MMU_REG_GERROR, EVTQ_ABT)) | \
- 				  (REG_FLD(IVPU_MMU_REG_GERROR, PRIQ_ABT)) | \
-@@ -438,14 +435,14 @@ static int ivpu_mmu_reg_write_cr0(struct ivpu_device *vdev, u32 val)
- {
- 	REGV_WR32(IVPU_MMU_REG_CR0, val);
- 
--	return REGV_POLL_FLD(IVPU_MMU_REG_CR0ACK, VAL, val, IVPU_MMU_REG_TIMEOUT_US);
-+	return REGV_POLL_FLD(IVPU_MMU_REG_CR0ACK, VAL, val, vdev->timeout.mmu_reg);
- }
- 
- static int ivpu_mmu_reg_write_irq_ctrl(struct ivpu_device *vdev, u32 val)
- {
- 	REGV_WR32(IVPU_MMU_REG_IRQ_CTRL, val);
- 
--	return REGV_POLL_FLD(IVPU_MMU_REG_IRQ_CTRLACK, VAL, val, IVPU_MMU_REG_TIMEOUT_US);
-+	return REGV_POLL_FLD(IVPU_MMU_REG_IRQ_CTRLACK, VAL, val, vdev->timeout.mmu_reg);
- }
- 
- static int ivpu_mmu_irqs_setup(struct ivpu_device *vdev)
-@@ -465,8 +462,7 @@ static int ivpu_mmu_cmdq_wait_for_cons(struct ivpu_device *vdev)
- 	struct ivpu_mmu_queue *cmdq = &vdev->mmu->cmdq;
- 	int ret;
- 
--	ret = REGV_POLL_FLD(IVPU_MMU_REG_CMDQ_CONS, VAL, cmdq->prod,
--			    IVPU_MMU_QUEUE_TIMEOUT_US);
-+	ret = REGV_POLL_FLD(IVPU_MMU_REG_CMDQ_CONS, VAL, cmdq->prod, vdev->timeout.mmu_queue);
- 	if (ret)
- 		return ret;
- 
-@@ -880,7 +876,7 @@ static int ivpu_mmu_evtq_set(struct ivpu_device *vdev, bool enable)
- 		val = REG_CLR_FLD(IVPU_MMU_REG_CR0, EVTQEN, val);
- 	REGV_WR32(IVPU_MMU_REG_CR0, val);
- 
--	return REGV_POLL_FLD(IVPU_MMU_REG_CR0ACK, VAL, val, IVPU_MMU_REG_TIMEOUT_US);
-+	return REGV_POLL_FLD(IVPU_MMU_REG_CR0ACK, VAL, val, vdev->timeout.mmu_reg);
- }
- 
- static int ivpu_mmu_evtq_enable(struct ivpu_device *vdev)
--- 
-2.43.0
+This commit modifies ivpu_postclose() to explicitly abort a context's comma=
+nd
+queues and signal all pending jobs. This ensures that any in-flight jobs do
+not keep running in the background after the owning process exits.
 
+> diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
+> index 0f215392d42de..4c73dc8b3aafe 100644
+> --- a/drivers/accel/ivpu/ivpu_drv.c
+> +++ b/drivers/accel/ivpu/ivpu_drv.c
+> @@ -393,6 +393,17 @@ static void ivpu_postclose(struct drm_device *dev, s=
+truct drm_file *file)
+>  	ivpu_dbg(vdev, FILE, "file_priv close: ctx %u process %s pid %d\n",
+>  		 file_priv->ctx.id, current->comm, task_pid_nr(current));
+> =20
+> +	if (pm_runtime_get_if_active(vdev->drm.dev) > 0) {
+
+[Severity: High]
+Does this skip the newly added job abort logic entirely when the kernel is
+built without CONFIG_PM?
+
+When CONFIG_PM is disabled, pm_runtime_get_if_active() returns -EINVAL.
+This causes the condition to evaluate to false, completely bypassing the
+context abort and job cleanup steps.
+
+If an application submits jobs and closes the DRM file descriptor on a syst=
+em
+with CONFIG_PM=3Dn, the driver silently skips this cleanup. This appears to
+defeat the purpose of the patch on those systems, as in-flight jobs will
+continue running in the background.
+
+Could this be exploited by untrusted or unprivileged userspace to launch
+long-running jobs and detach from them, causing resource exhaustion on the
+NPU?
+
+> +		mutex_lock(&file_priv->lock);
+> +		if (file_priv->bound && !file_priv->aborted)
+> +			ivpu_context_abort_locked(file_priv);
+> +		mutex_unlock(&file_priv->lock);
+> +
+> +		ivpu_context_abort_all_jobs(vdev, file_priv->ctx.id);
+> +
+> +		ivpu_rpm_put(vdev);
+> +	}
+> +
+>  	ivpu_ms_cleanup(file_priv);
+>  	ivpu_file_priv_put(&file_priv);
+>  }
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914082929.8924=
+37-1-karol.wachowski@linux.intel.com?part=3D1
