@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87D95C88E70
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 13:37:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58FBAC88E70
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 13:55:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FFC710E1A4;
-	Mon, 14 Sep 2026 13:37:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 819B110EEAB;
+	Mon, 14 Sep 2026 13:55:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gcuwOU+h";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i3bYdQjn";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B71CD10E1A4
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 13:37:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7ABD010EEAB
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 13:55:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D82FA601FF;
- Mon, 14 Sep 2026 13:37:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70CA41F000FF;
- Mon, 14 Sep 2026 13:37:49 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6171B60120;
+ Mon, 14 Sep 2026 13:55:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED6C91F000FF;
+ Mon, 14 Sep 2026 13:55:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789393069;
- bh=2Z+GoOGLdrjjH1/mFtuP+6w7Xa3JV6s61/HvHEeLBAY=;
+ s=k20260515; t=1789394103;
+ bh=cFHRW6Mkpe8zxs9hq8A+O/vVbKtmJOneTtXHl771nM0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gcuwOU+hcyF/pWrR6u/FrE2cTyPOn/2R9jSQrs9m4TcAlQRAAkCXSba81l1suKavk
- TW0Jb3CI+E4WFe9ZUuamlgD3fDV9Cgc4ynwwZbNCwRtsMyn79IjtKihwbH3yQjB2BY
- /KZBBQjs8RXTIwk6SGKSIZWnT5ImRRiXQsAG+nr4EO660NkZugCMFtEDmX89zuhTm1
- xhTXJoMvzpbd5TI8MZSpDOSofMf/D6yUuEinSUGKQzoLajfk0sfgl/faEe44XvaSzl
- ltwYvR/c6GTxjfzp08DPM0pxa2JbSJSvHOcYxISl+kYhUp4JNIeO5A7/UZZGEZCDfz
- kSZ4G48SI/jAg==
+ b=i3bYdQjnCruL2C/KC+wZvMI1fIW3UOfIHmLvoJoIf26zCXGPE54z27rOi9jFmzrwm
+ uaGiK0kQaOlrUjIeeUw6Z6bifFuKLOSHANxZ8IVsB6wWEBrzEdg9gj1VSZUFekUHLG
+ UgDCMqO4ymXqw/wp2VelmVlCnn8iY8y9xt8WMlWTJbWKOAipKiSN3rCPm7FhHLnIUJ
+ yjpAznTNYNAj+9JnXJSZtp8EiVmn5kZoj2EgcNjUXaIn5mWp+KA/XHi2XS0mejAULh
+ TjNTS36PODNPQaD+PE+Vh+Yi7qBR6vfguQ345c+DAp47K5T7fM52/XUVabJtv5kJtW
+ 6a91FcYymDCRA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/trigger5: Add MCT Trigger 5 USB display driver
-To: "Ho Jie Feng" <hjf3108@gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: bound SCLK FCW range entries to the table size
+To: "Hari Mishal" <harimishal1@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260914131924.196251-1-hjf3108@gmail.com>
-References: <20260910171709.396071-1-hjf3108@gmail.com>
- <20260914131924.196251-1-hjf3108@gmail.com>
+In-Reply-To: <20260914132920.10127-1-harimishal1@gmail.com>
+References: <20260914132920.10127-1-harimishal1@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 13:37:48 +0000
-Message-Id: <20260914133749.70CA41F000FF@smtp.kernel.org>
+Date: Mon, 14 Sep 2026 13:55:02 +0000
+Message-Id: <20260914135502.ED6C91F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,204 +58,142 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] Sleeping functions and blocking memory allocations are called with=
-in DRM atomic commit callbacks, which are strictly defined as atomic contex=
-t paths by subsystem guidelines.
-- [High] trigger5_crtc_create_state() returns ERR_PTR(-ENOMEM) instead of N=
-ULL on allocation failure, causing a crash in the DRM core.
-- [High] Missing cache flush for the vmalloc DMA buffer before initiating U=
-SB transfer.
-- [Medium] The USB bulk header's horizontal and vertical offsets are popula=
-ted with raw framebuffer coordinates instead of screen coordinates.
+
+Pre-existing issues:
+- [High] Unvalidated VBIOS array sizes and offsets cause out-of-bounds memo=
+ry reads in atomctrl_get_leakage_vddc_base_on_leakage().
+- [High] Missing VBIOS table size check in `atomctrl_get_avfs_information` =
+allows out-of-bounds memory reads.
+- [Medium] Fallback path uses uninitialized `smu_data->range_table` if the =
+VBIOS table was successfully loaded.
+- [Medium] The function `get_edc_leakage_table` correctly calculates the of=
+fset but incorrectly returns a pointer to the base table.
 --
 
-commit e87cbb95a349285fc94e00546c2aa86f1ff4d509
-Author: Ho Jie Feng <hjf3108@gmail.com>
+commit 79900a4165725430ba1e1ef41665d1982912cab7
+Author: Hari Mishal <harimishal1@gmail.com>
 
-drm/trigger5: Add MCT Trigger 5 USB display driver
+drm/amd/pm: bound SCLK FCW range entries to the table size
 
-Add a DRM driver for MCT Trigger 5 USB display adapters. The driver
-implements modesetting and USB framebuffer updates, connector detection,
-and EDID retrieval.
+This patch limits the number of entries read from the VBIOS SMU_Info table
+into pp_atom_ctrl_sclk_range_table to MAX_SCLK_RANGE. It prevents a stack
+buffer overflow caused by an unchecked ucSclkEntryNum count from the VBIOS.
 
-> diff --git a/drivers/gpu/drm/trigger5/trigger5_drv.c b/drivers/gpu/drm/tr=
-igger5/trigger5_drv.c
-> --- a/drivers/gpu/drm/trigger5/trigger5_drv.c
-> +++ b/drivers/gpu/drm/trigger5/trigger5_drv.c
-> @@ -248,8 +248,9 @@ static void trigger5_atomic_commit_tail(struct drm_at=
-omic_commit *state)
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c b/driver=
+s/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
+> index 4b796d60b03d4..3217ad3c1d17e 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
+> @@ -1025,6 +1025,9 @@ int atomctrl_get_smc_sclk_range_table(struct pp_hwm=
+gr *hwmgr, struct pp_atom_ctr
+>  	if (!psmu_info)
+>  		return -EINVAL;
 > =20
->  	if (!drm_dev_enter(state->dev, &idx))
->  		goto commit;
-> =20
->  	trigger5_stop_io(trigger5);
+> +	if (psmu_info->ucSclkEntryNum > MAX_SCLK_RANGE)
+> +		return -EINVAL;
+> +
+>  	for (i =3D 0; i < psmu_info->ucSclkEntryNum; i++) {
+>  		table->entry[i].ucVco_setting =3D psmu_info->asSclkFcwRangeEntry[i].uc=
+Vco_setting;
+>  		table->entry[i].ucPostdiv =3D psmu_info->asSclkFcwRangeEntry[i].ucPost=
+div;
 
 [Severity: High]
-Is it safe to block in this atomic commit tail callback? The DRM subsystem
-guidelines explicitly designate drm_atomic_helper_commit_tail() as an atomic
-context path where sleeping or blocking operations (like flushing workqueues
-inside trigger5_stop_io()) are strictly forbidden, which could lead to
-deadlocks or kernel warnings.
+This isn't a bug introduced by this patch, but while reviewing VBIOS bounds
+checking in ppatomctrl.c, I noticed another potential out-of-bounds read in
+atomctrl_get_avfs_information():
 
-[ ... ]
+drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c:atomctrl_get_avfs_infor=
+mation() {
+	profile =3D (ATOM_ASIC_PROFILING_INFO_V3_6 *)
+			smu_atom_get_data_table(hwmgr->adev,
+					GetIndexIntoMasterTable(DATA, ASIC_ProfilingInfo),
+					NULL, NULL, NULL);
+	if (!profile)
+		return -1;
 
-> @@ -282,10 +282,10 @@ static int trigger5_alloc_bulk_buffer(struct trigge=
-r5_transfer_buf *buf,
-> =20
->  	/* Large transfer buffer requires vmalloc and a scatterlist. */
->  	data =3D vmalloc_32(len);
->  	if (!data)
->  		return -ENOMEM;
-> =20
->  	num_pages =3D DIV_ROUND_UP(len, PAGE_SIZE);
->  	pages =3D kmalloc_array(num_pages, sizeof(struct page *), GFP_KERNEL);
->  	if (!pages) {
->  		ret =3D -ENOMEM;
->  		goto err_vfree;
->  	}
->  	for (i =3D 0, ptr =3D data; i < num_pages; i++, ptr +=3D PAGE_SIZE)
->  		pages[i] =3D vmalloc_to_page(ptr);
->  	ret =3D sg_alloc_table_from_pages(&buf->sgt, pages,
->  					num_pages, 0, len, GFP_KERNEL);
+	param->ulAVFS_meanNsigma_Acontant0 =3D le32_to_cpu(profile->ulAVFS_meanNsi=
+gma_Acontant0);
+	...
+}
+
+Does this code fail to validate the size of the ASIC_ProfilingInfo table?
+
+If a corrupted or older VBIOS provides a smaller table, could this lead to
+reading past the end of the table mapping since the size parameter passed
+to smu_atom_get_data_table() is NULL?
 
 [Severity: High]
-Since this DMA buffer is allocated with vmalloc_32() and mapped to an SG
-table, will the CPU cache for the vmalloc alias need to be explicitly flush=
-ed
-after writes?
+This is a pre-existing issue, but I found another unvalidated VBIOS array s=
+ize
+used in atomctrl_get_leakage_vddc_base_on_leakage():
 
-[ ... ]
+drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c:atomctrl_get_leakage_vd=
+dc_base_on_leakage() {
+	...
+			for (i =3D 0; i < profile->ucElbVDDC_Num; i++) {
+				if (vddc_id_buf[i] =3D=3D virtual_voltage_id) {
+	...
+							*vddc =3D vddc_buf[j * profile->ucElbVDDC_Num + i];
+	...
+}
 
-> @@ -324,10 +324,10 @@ static struct drm_crtc_state *
->  trigger5_crtc_create_state(struct drm_crtc *crtc)
->  {
->  	struct trigger5_crtc_state *tstate =3D kzalloc_obj(*tstate);
-> =20
->  	if (!tstate)
->  		return ERR_PTR(-ENOMEM);
+Can this loop iterate out-of-bounds if a malicious or corrupted VBIOS provi=
+des
+an excessively large ucElbVDDC_Num?
 
-[Severity: High]
-Could this cause a crash in the DRM core? The DRM API contract requires
-atomic_create_state callbacks to return NULL on memory allocation failure.
-Returning ERR_PTR(-ENOMEM) creates a non-NULL pointer that could evade
-existing checks, leading to a dereference of the error pointer.
-
-[ ... ]
-
-> @@ -377,10 +377,10 @@ static void trigger5_crtc_atomic_enable(struct drm_=
-crtc *crtc,
->  	trigger5_stop_io(trigger5);
-> =20
->  	/* Sequence recovered from USB captures. */
->  	ret =3D usb_control_msg_recv(udev, 0,
->  				   TRIGGER5_REQUEST_FIRMWARE_RESET,
->  				   USB_DIR_IN | USB_TYPE_VENDOR |
->  					   USB_RECIP_DEVICE,
->  				   0x0000, 0x0000, data, 1,
->  				   USB_CTRL_GET_TIMEOUT, GFP_KERNEL);
-
-[Severity: High]
-Could calling synchronous USB control message APIs with GFP_KERNEL here cau=
-se
-system instability? The CRTC atomic enable callback runs in an atomic conte=
-xt
-path where sleeping is strictly forbidden.
-
-[ ... ]
-
-> @@ -456,10 +456,10 @@ static void trigger5_crtc_atomic_disable(struct drm=
-_crtc *crtc,
->  	trigger5_stop_io(trigger5);
-> =20
->  	ret =3D usb_control_msg_recv(udev, 0,
->  				   TRIGGER5_REQUEST_FIRMWARE_RESET,
->  				   USB_DIR_IN | USB_TYPE_VENDOR |
->  					   USB_RECIP_DEVICE,
->  				   0x0001, 0x0000, &data, 1,
->  				   USB_CTRL_GET_TIMEOUT, GFP_KERNEL);
-
-[Severity: High]
-Could this sleep in atomic context? Similar to the enable callback, this
-disable callback runs in a path where sleeping is forbidden.
-
-[ ... ]
-
-> @@ -635,10 +635,10 @@ static void trigger5_plane_atomic_update(struct drm=
-_plane *plane,
->  	/*
->  	 * This should almost never wait because we have should have a
->  	 * pending transfer ready to be de-queued above in case the transfer
->  	 * hasn't finished, but do a bounded wait just in case it gets stuck
->  	 */
->  	if (!wait_for_completion_timeout(&current_transfer->frame_complete,
->  					 msecs_to_jiffies(20)))
->  		goto exit_save_pending;
-
-[Severity: High]
-Is it safe to wait on a completion here? wait_for_completion_timeout() can
-sleep, but plane atomic update callbacks run in an atomic context.
-
->  	current_transfer->transfer_rect =3D current_rect;
-> =20
->  	current_transfer->frame_len =3D frame_len;
->  	header =3D current_transfer->buf.data;
->  	header->magic =3D 0xfb;
->  	header->length =3D 0x14;
->  	/* flags 0: uncompressed 24-bit RGB888. */
->  	header->counter =3D
->  		cpu_to_le16((trigger5->frame_counter++) & 0xfff);
->  	header->horizontal_offset =3D cpu_to_le16(current_rect.x1);
->  	header->vertical_offset =3D cpu_to_le16(current_rect.y1);
+The count and unvalidated offsets might lead to out-of-bounds memory reads.
 
 [Severity: Medium]
-Does this correctly populate the USB bulk header coordinates?=20
+This isn't a bug introduced by this patch, but get_edc_leakage_table() seems
+to return the wrong pointer:
 
-If the display is panned (i.e. has a non-zero source offset via state->src_x
-or state->src_y), the hardware typically needs to receive screen coordinate=
-s=20
-rather than raw framebuffer coordinates. Since current_rect.x1 and
-current_rect.y1 are in the coordinate space of the framebuffer, could this
-result in visual corruption when panning?
+drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c:get_edc_leakage_table()=
+ {
+	...
+	temp =3D (char *)table_address;
+	table_address +=3D offset;
 
->  	header->width =3D cpu_to_le16(width);
->  	header->height =3D cpu_to_le16(height);
->  	header->payload_length =3D cpu_to_le32((u32)payload_len);
->  	header->flags =3D 0x1;
->  	header->unknown1 =3D 0;
->  	header->unknown2 =3D 0;
->  	header->checksum =3D trigger5_bulk_header_checksum(header);
-> =20
->  	iosys_map_set_vaddr(&data_map,
->  			    current_transfer->buf.data + sizeof(*header));
-> =20
->  	ret =3D drm_gem_fb_begin_cpu_access(state->fb, DMA_FROM_DEVICE);
+	return (AtomCtrl_EDCLeakgeTable *)temp;
+}
 
-[Severity: High]
-Could drm_gem_fb_begin_cpu_access() sleep here? This is also called in the
-atomic context path.
+Is this returning a pointer to the base table instead of the calculated off=
+set?
 
->  	if (ret < 0) {
->  		complete(&current_transfer->frame_complete);
->  		goto exit_save_pending;
->  	}
-> =20
->  	drm_fb_xrgb8888_to_rgb888(&data_map, NULL,
->  				  &shadow_plane_state->data[0],
->  				  state->fb, &current_rect,
->  				  &shadow_plane_state->fmtcnv_state);
-> =20
->  	drm_gem_fb_end_cpu_access(state->fb, DMA_FROM_DEVICE);
-> =20
->  	queue_work(trigger5->transfer_wq, &current_transfer->transfer_work);
+Since table_address is incremented but temp is returned, might this cause
+callers to read incorrect data from the beginning of the GFX_Info table rat=
+her
+than the intended offset?
 
-[Severity: High]
-Does the vmap cache need to be flushed before queueing the transfer work?
+[Severity: Medium]
+This is a pre-existing issue, but there seems to be an uninitialized memory
+issue in the fallback path after loading the range table:
 
-The DMA API manages cache coherency for the direct physical map, but not the
-vmalloc alias used when the CPU writes the pixel data. Should
-flush_kernel_vmap_range() be called here to avoid silent data corruption on
-architectures with non-coherent DMA and virtually indexed caches?
+drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c:polaris10_get_sc=
+lk_range_table() {
+	...
+		}
+		return;
+	}
+	...
+}
+
+drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c:polaris10_calcul=
+ate_sclk_params() {
+	...
+		if (clock > smu_data->range_table[i].trans_lower_frequency
+		&& clock <=3D smu_data->range_table[i].trans_upper_frequency) {
+	...
+}
+
+If atomctrl_get_smc_sclk_range_table() succeeds,
+polaris10_get_sclk_range_table() returns without initializing
+smu_data->range_table.
+
+If a subsequent divider calculation fails, could
+polaris10_calculate_sclk_params() use this uninitialized range_table in its
+fallback loop?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914131924.1962=
-51-1-hjf3108@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914132920.1012=
+7-1-harimishal1@gmail.com?part=3D1
