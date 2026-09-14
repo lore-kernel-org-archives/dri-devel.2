@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AA25C88E64
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 08:29:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5C87C88E50
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 08:30:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 329BA10EBF2;
-	Mon, 14 Sep 2026 08:29:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EBA210EC05;
+	Mon, 14 Sep 2026 08:30:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gAzImDQW";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="d+qLVvmA";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E53010EBF2
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:29:36 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C729F10EC05
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:30:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789374576; x=1820910576;
+ t=1789374612; x=1820910612;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=hKg4PCGNk2wNrs9Knlb1B//IiEEyN66Ryxo2nxVNhkE=;
- b=gAzImDQWnjeKPVrYiQvFjVweGbTjZ0M16fV1Xk9MwPDxrFe9fHOzF5C/
- 9AHZjmUubJQSkW3HztIoO4Y15tRdmARRA25Nbz5patnOnku49+laLlifb
- i9bLZKYdh7i6DoHjd//DbuhY2W7Hlj1gE6dzcFe8PVlH+qW4qy4XnavOi
- aAsqjpPmsvihgV0+KhVvcIxLSeZeO6oKBzEneew2AtnLt2DkbyAb4o+gE
- edXWRp9sNAroorX8aqlFTkqfYESD2J8vAxdnGG2ba18fs9j9+nRciPbsb
- 8VURVoUcqHTaUviazsQEaZE+57VA1QWdXwDiaQnkLwW4FDFcH4wmuVqUy A==;
-X-CSE-ConnectionGUID: JwQ8RiMTTbO24JmePR1Kag==
-X-CSE-MsgGUID: dbWxe2aLRfyY69iQAmk9Kg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89486791"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; d="scan'208";a="89486791"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2026 01:29:36 -0700
-X-CSE-ConnectionGUID: w9d8rWPYRPmcjLYh6BRrRg==
-X-CSE-MsgGUID: 1Er2Mk6FT+allFu7gZYrJA==
+ bh=7htPmJ+8L6Q33vIftc7WP97VIExvIeWJtVPZnYwNlWE=;
+ b=d+qLVvmAnQ9JuCz4rm58rrphgLBk9l6ajLJMlyqBFEZFLWst6dyI1f0t
+ 0rAMKw2GWtwm5fyl1D5XpEqFzlKLEBVtDrmYz271w9A+n+cQHxjPJekgQ
+ ug8xEhi2ScPDLywjwGduFImloYn9Jj7LTaRiRPBvvCVH6uN6sm2CzHXfe
+ ogfMVTxKXSVPTMHVlDZsvzZUcyTM66ImddQE0PybowCZQ009FI8G11Lud
+ UPPrYZ3RouPtjNyScn1XYNOQhCeZtT4I4pJxkP5YVOFAnp0SYObRk+DZn
+ ZOWRJelilKoh14pv7DYDHy0aCH1+LLH8lqvjkGUgFdlh0+SdwCxui8dB3 A==;
+X-CSE-ConnectionGUID: 90O5AbXuREekAl9w5PMqdw==
+X-CSE-MsgGUID: cFnmkBqSQui61oNgrwtaWg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="112493965"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; d="scan'208";a="112493965"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2026 01:30:12 -0700
+X-CSE-ConnectionGUID: UU8bHpnlTk2Ky78GiQ8BZw==
+X-CSE-MsgGUID: lpIw28vdSIaHFx6i1Jtbow==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; d="scan'208";a="296074011"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; d="scan'208";a="276736370"
 Received: from pl-npu-pc-kwachow.igk.intel.com ([10.91.220.239])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2026 01:29:34 -0700
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2026 01:30:10 -0700
 From: Karol Wachowski <karol.wachowski@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
 Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
  andrzej.kacprowski@linux.intel.com, dawid.osuchowski@linux.intel.com,
+ Jozef Wludzik <jozef.wludzik@intel.com>,
  Karol Wachowski <karol.wachowski@linux.intel.com>
-Subject: [PATCH] accel/ivpu: Abort pending jobs on file close
-Date: Mon, 14 Sep 2026 10:29:29 +0200
-Message-ID: <20260914082929.892437-1-karol.wachowski@linux.intel.com>
+Subject: [PATCH] accel/ivpu: Synchronize context abort work with device reset
+Date: Mon, 14 Sep 2026 10:30:06 +0200
+Message-ID: <20260914083006.892645-1-karol.wachowski@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -67,79 +68,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Closing a file only dropped ivpu_postclose()'s own reference on
-file_priv; the context and command queue teardown happened later in
-file_priv_release(), once every in-flight job completed and dropped
-its own reference. Since nothing explicitly canceled a context's
-command queues or jobs on close, any job still in flight kept running
-in the background after its owning process exited, until it completed
-on its own or the device's own TDR intervened. Make ivpu_postclose()
-explicitly abort the context's command queues and signal and destroy
-all of its pending jobs via the new ivpu_context_abort_all_jobs().
+From: Jozef Wludzik <jozef.wludzik@intel.com>
 
+Acquire pm->reset_lock in ivpu_context_abort_work_fn() to prevent it
+from running concurrently with a device reset. If the lock cannot be
+acquired immediately, skip the abort work to avoid racing with reset.
+The device power management is disabled during reset.
+
+Signed-off-by: Jozef Wludzik <jozef.wludzik@intel.com>
 Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
 ---
- drivers/accel/ivpu/ivpu_drv.c | 11 +++++++++++
- drivers/accel/ivpu/ivpu_job.c | 11 +++++++++++
- drivers/accel/ivpu/ivpu_job.h |  1 +
- 3 files changed, 23 insertions(+)
+ drivers/accel/ivpu/ivpu_job.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
-index 647684219e9d..d7faabe0f676 100644
---- a/drivers/accel/ivpu/ivpu_drv.c
-+++ b/drivers/accel/ivpu/ivpu_drv.c
-@@ -393,6 +393,17 @@ static void ivpu_postclose(struct drm_device *dev, struct drm_file *file)
- 	ivpu_dbg(vdev, FILE, "file_priv close: ctx %u process %s pid %d\n",
- 		 file_priv->ctx.id, current->comm, task_pid_nr(current));
- 
-+	if (pm_runtime_get_if_active(vdev->drm.dev) > 0) {
-+		mutex_lock(&file_priv->lock);
-+		if (file_priv->bound && !file_priv->aborted)
-+			ivpu_context_abort_locked(file_priv);
-+		mutex_unlock(&file_priv->lock);
-+
-+		ivpu_context_abort_all_jobs(vdev, file_priv->ctx.id);
-+
-+		ivpu_rpm_put(vdev);
-+	}
-+
- 	ivpu_ms_cleanup(file_priv);
- 	ivpu_file_priv_put(&file_priv);
- }
 diff --git a/drivers/accel/ivpu/ivpu_job.c b/drivers/accel/ivpu/ivpu_job.c
-index 084d825f744d..fa04f79e8f7b 100644
+index fa04f79e8f7b..245512bab523 100644
 --- a/drivers/accel/ivpu/ivpu_job.c
 +++ b/drivers/accel/ivpu/ivpu_job.c
-@@ -725,6 +725,17 @@ void ivpu_cmdq_abort_all_jobs(struct ivpu_device *vdev, u32 ctx_id, u32 cmdq_id)
- 	mutex_unlock(&vdev->submitted_jobs_lock);
+@@ -1311,9 +1311,12 @@ void ivpu_context_abort_work_fn(struct work_struct *work)
+ 	unsigned long ctx_id;
+ 	unsigned long id;
+ 
+-	if (drm_WARN_ON(&vdev->drm, pm_runtime_get_if_active(vdev->drm.dev) <= 0))
++	if (!down_read_trylock(&vdev->pm->reset_lock))
+ 		return;
+ 
++	if (drm_WARN_ON(&vdev->drm, pm_runtime_get_if_active(vdev->drm.dev) <= 0))
++		goto unlock;
++
+ 	if (vdev->fw->sched_mode == VPU_SCHEDULING_MODE_HW)
+ 		if (reset_engine_and_mark_faulty_contexts(vdev))
+ 			goto runtime_put;
+@@ -1354,4 +1357,6 @@ void ivpu_context_abort_work_fn(struct work_struct *work)
+ 
+ runtime_put:
+ 	pm_runtime_put_autosuspend(vdev->drm.dev);
++unlock:
++	up_read(&vdev->pm->reset_lock);
  }
- 
-+void ivpu_context_abort_all_jobs(struct ivpu_device *vdev, u32 ctx_id)
-+{
-+	struct ivpu_job *job;
-+	unsigned long id;
-+
-+	guard(mutex)(&vdev->submitted_jobs_lock);
-+	xa_for_each(&vdev->submitted_jobs_xa, id, job)
-+		if (job->file_priv->ctx.id == ctx_id)
-+			ivpu_job_signal_and_destroy(vdev, id, DRM_IVPU_JOB_STATUS_ABORTED);
-+}
-+
- static int ivpu_job_submit(struct ivpu_job *job, u8 priority, u32 cmdq_id)
- {
- 	struct ivpu_file_priv *file_priv = job->file_priv;
-diff --git a/drivers/accel/ivpu/ivpu_job.h b/drivers/accel/ivpu/ivpu_job.h
-index 6e32fea1eb62..f8b27e9a803f 100644
---- a/drivers/accel/ivpu/ivpu_job.h
-+++ b/drivers/accel/ivpu/ivpu_job.h
-@@ -89,6 +89,7 @@ void ivpu_context_abort_locked(struct ivpu_file_priv *file_priv);
- void ivpu_cmdq_release_all_locked(struct ivpu_file_priv *file_priv);
- void ivpu_cmdq_reset_all_contexts(struct ivpu_device *vdev);
- void ivpu_cmdq_abort_all_jobs(struct ivpu_device *vdev, u32 ctx_id, u32 cmdq_id);
-+void ivpu_context_abort_all_jobs(struct ivpu_device *vdev, u32 ctx_id);
- 
- void ivpu_job_done_consumer_init(struct ivpu_device *vdev);
- void ivpu_job_done_consumer_fini(struct ivpu_device *vdev);
 -- 
 2.43.0
 
