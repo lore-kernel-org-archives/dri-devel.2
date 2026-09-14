@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A72E9C88E5C
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 02:29:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B8F8C88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 02:34:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F73010E4BC;
-	Mon, 14 Sep 2026 02:29:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 735B010EAF6;
+	Mon, 14 Sep 2026 02:34:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YEiVw+tC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vvz6QRrZ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A730C10EAE4
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 02:29:29 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F188510EAF6
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 02:34:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E4CFE61099;
- Mon, 14 Sep 2026 02:29:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F3FC1F000FF;
- Mon, 14 Sep 2026 02:29:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B52EF43216;
+ Mon, 14 Sep 2026 02:34:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DD581F000FF;
+ Mon, 14 Sep 2026 02:34:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789352968;
- bh=32F/YfLl4zc/aHD8vkSjJFRBdlZ4Q/uvj1sS/QdmmCw=;
+ s=k20260515; t=1789353267;
+ bh=qnrDFO7ha3ce4eIf1IynrJ8kO11XHJs+Twz3WIO8reA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=YEiVw+tCWkTILrThO2pHucujMPkGduPFDXAxUEkAc6z1VyUdYpsHAKM1QbgiyNSAE
- Ei2JFuDrI13bpbGIYCKyBATvl7XXWMursjzS62dO1xn/XwImSgd3JM0k6LlwwOLoLs
- klkEDH58IVOVsK5vCTYf4m8X9vt19SWizCW0bvwVtyz95lUV6jSLff1SrMOIdMGGpc
- vhlSRy+ufHR8S24fpdjuyI53c0ruter+nU7EiO1DyuHGeVamRZL9AbFci3N+nRIViJ
- HxQ8WCLiYyS2dcRXqahawQWzgtauWcKX9A/GIr6SpOPaQdOyi4q7Eymt4YfK3v7y7a
- SYg40pstJMjAA==
+ b=Vvz6QRrZLQdyyhXJIuvuAqvwAYIAZqSiYWcazOSftSwhLmAgyMVIvTmvdu0HKuM+Q
+ UwVMVHTXDo80nRxllCc+5aEjvVOlOIAkRRriROhX84e1d7DpU0PURJFlH70jOya36N
+ caFdySOOJh0VX9odJP1fClwlDNTF1SYY8S5y1gZcwMJhspGqznbJ2s+r1Ov+/677MM
+ zDoOnE3qQy2+dsYOqylyLgZB6EMvCQ3w3ckpVptjNOEDk55JV+lJkwUTpyu+paiOf6
+ tMKyOckbmaZ0GNHShSeWydE+RXmbJ8MxMisaKID+Il7Nx34ISZ9hcfVVsWPSYkwGJ6
+ RXQ+ghgdIeeEw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/4] drm/imagination: don't gate the runtime PM
- callbacks on drm_dev_enter()
+Subject: Re: [PATCH v3 3/4] drm/imagination: stop the watchdog before
+ tearing the device down
 To: "Ryan Brue" <ryanbrue.dev@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-1-674b907d0652@gmail.com>
+In-Reply-To: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-3-674b907d0652@gmail.com>
 References: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-0-674b907d0652@gmail.com>
- <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-1-674b907d0652@gmail.com>
+ <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-3-674b907d0652@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 02:29:27 +0000
-Message-Id: <20260914022928.6F3FC1F000FF@smtp.kernel.org>
+Date: Mon, 14 Sep 2026 02:34:26 +0000
+Message-Id: <20260914023427.6DD581F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,82 +58,156 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
 
+New issues:
+- [High] Moving pvr_watchdog_fini() before drm_dev_unplug() creates a race =
+where concurrent IOCTLs can trigger a PM resume and re-queue the watchdog w=
+ork after it has been cancelled.
+
 Pre-existing issues:
-- [High] AB-BA Deadlock between soft reset in IRQ handler and watchdog work=
-er
-- [High] Watchdog worker is left permanently cancelled if firmware disable =
-fails during suspend
+- [Critical] pvr_remove() ignores the return value of pm_runtime_suspend() =
+and frees firmware memory while the GPU hardware may still be running.
+- [Critical] Inverted teardown order in pvr_remove() destroys the scheduler=
+ workqueue after firmware structures are freed, causing pending jobs to exe=
+cute against freed memory.
+- [High] Use-after-free of pvr_dev and sched_wq when a dma_fence outlives t=
+he DRM device.
+- [High] Concurrent calls to drm_dev_unplug() due to TOCTOU race on the non=
+-atomic pvr_dev->lost flag.
 --
 
-commit 492c71c98e6c2dced455b7063ec9414f76434f9f
+commit 34ac43451671ac25507b846dc7e38412b5318f2e
 Author: Ryan Brue <ryanbrue.dev@gmail.com>
-drm/imagination: don't gate the runtime PM callbacks on drm_dev_enter()
+drm/imagination: stop the watchdog before tearing the device down
 
-This commit removes drm_dev_enter() and drm_dev_exit() gating from the=20
-system sleep and runtime PM suspend/resume callbacks. Instead, it relies
-on checking pvr_dev->lost to prevent a deadlock between the watchdog=20
-worker and the system sleep paths.
+This commit moves the watchdog finalization to the beginning of device
+removal, aiming to prevent the worker from reading freed memory if it
+fires during teardown.
 
-> diff --git a/drivers/gpu/drm/imagination/pvr_power.c b/drivers/gpu/drm/im=
-agination/pvr_power.c
-> index eb4b6ecdf4f4d..8d82b9a79daf8 100644
-> --- a/drivers/gpu/drm/imagination/pvr_power.c
-> +++ b/drivers/gpu/drm/imagination/pvr_power.c
-> @@ -97,6 +97,10 @@ pvr_power_fw_disable(struct pvr_device *pvr_dev, bool =
-hard_reset, bool rpm_suspe
->  	if (!hard_reset) {
->  		cancel_delayed_work_sync(&pvr_dev->watchdog.work);
+Cc: stable@vger.kernel.org
+
+> diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imag=
+ination/pvr_drv.c
+> index fc92a82a72084..20b27a468327b 100644
+> --- a/drivers/gpu/drm/imagination/pvr_drv.c
+> +++ b/drivers/gpu/drm/imagination/pvr_drv.c
+> @@ -1469,6 +1469,9 @@ static void pvr_remove(struct platform_device *plat=
+_dev)
+>  	struct drm_device *drm_dev =3D platform_get_drvdata(plat_dev);
+>  	struct pvr_device *pvr_dev =3D to_pvr_device(drm_dev);
+> =20
+> +	/* Stop the watchdog before anything it reads is freed. */
+> +	pvr_watchdog_fini(pvr_dev);
+> +
 
 [Severity: High]
-This isn't a bug introduced by this patch, but is there an AB-BA deadlock
-between the soft reset in the IRQ handler and the watchdog worker here?
+Can a concurrent ioctl re-arm the watchdog right after it is cancelled?
 
-If the firmware requests a soft reset in process_fwccb_command
-(ROGUE_FWIF_FWCCB_CMD_REQUEST_GPU_RESTART), the IRQ handler calls
-pvr_power_reset() and acquires the reset semaphore:
+Since drm_dev_unplug() has not blocked ioctls yet, an incoming job
+submission could call pm_runtime_resume_and_get(), triggering
+pvr_power_fw_enable().
 
-pvr_power_reset()
-    down_write(&pvr_dev->reset_sem);
-    ...
-    pvr_power_fw_disable();
+Looking at drivers/gpu/drm/imagination/pvr_power.c:pvr_power_fw_enable():
 
-Then pvr_power_fw_disable() blocks here waiting for the watchdog worker to
-finish via cancel_delayed_work_sync().
+    queue_delayed_work(pvr_dev->sched_wq, &pvr_dev->watchdog.work,
+                       msecs_to_jiffies(WATCHDOG_TIME_MS));
 
-If the watchdog worker (pvr_watchdog_worker) detects a stall concurrently,
-it calls pvr_power_reset(), which blocks trying to acquire the same
-reset_sem, causing both the kernel workqueue thread and the GPU IRQ thread
-to hang permanently.
+If this occurs, the work is re-queued. Later in pvr_remove(), if
+pm_runtime_suspend() fails (returning -EAGAIN) due to the elevated usage
+count, the watchdog is never cancelled again and could fire after
+pvr_device_fini() frees the firmware memory.
+
+>  	/*
+>  	 * Unplug before freeing anything, so no ioctl is still inside
+>  	 * drm_dev_enter(). pvr_device_lost() may already have done it, and
+>  	 * drm_dev_unplug() is not idempotent.
+>  	 */
+>  	if (!pvr_dev->lost)
+>  		drm_dev_unplug(drm_dev);
+
+[Severity: High]
+This is a pre-existing issue, but does checking this non-atomic flag
+without locking create a race condition with pvr_device_lost()?
+
+If a hardware timeout (e.g., from an MMU cache flush via
+pvr_mmu_flush_exec) concurrently triggers pvr_device_lost() in pvr_power.c,
+both threads might check !pvr_dev->lost at the exact same time, evaluate it
+as true, and both call drm_dev_unplug().
+
+Since drm_dev_unplug() is not idempotent, couldn't this result in a double
+unregister kernel panic?
 
 > =20
-> +		/* The worker just cancelled may have lost the device. */
-> +		if (pvr_dev->lost)
-> +			return -EIO;
-> +
->  		err =3D pvr_power_request_idle(pvr_dev);
->  		if (err)
->  			return err;
+>  	WARN_ON(!xa_empty(&pvr_dev->job_ids));
+>  	WARN_ON(!xa_empty(&pvr_dev->free_list_ids));
+> =20
+>  	pm_runtime_suspend(drm_dev->dev);
+
+[Severity: Critical]
+This is a pre-existing issue, but what happens if the runtime PM usage
+count is elevated (e.g., due to an active job or a prior sysfs write to
+power/control)?
+
+If the usage count is elevated, pm_runtime_suspend() will return -EAGAIN
+and skip the suspend callback. The hardware will remain physically powered
+on and the firmware will continue to run.
+
+Because pvr_remove() ignores this return value, it will proceed to unmap
+MMIO and free firmware OS data unconditionally in pvr_device_fini(), which
+might lead to IOMMU faults or memory corruption when the actively running
+firmware accesses those freed structures.
+
+> =20
+>  	xa_destroy(&pvr_dev->job_ids);
+>  	xa_destroy(&pvr_dev->free_list_ids);
+> =20
+>  	pvr_device_fini(pvr_dev);
+> -	pvr_watchdog_fini(pvr_dev);
+>  	pvr_queue_device_fini(pvr_dev);
+
+[Severity: Critical]
+This is a pre-existing issue, but does this teardown order cause pending
+jobs to execute against freed memory?
+
+pvr_device_fini() unmaps and frees firmware memory. Right after it,
+pvr_queue_device_fini() destroys the scheduler workqueue:
+
+drivers/gpu/drm/imagination/pvr_queue.c:pvr_queue_device_fini() {
+    destroy_workqueue(pvr_dev->sched_wq);
+}
+
+Calling destroy_workqueue() flushes and drains the workqueue, which would
+force pending DRM scheduler jobs to execute synchronously via
+pvr_queue_run_job().
+
+Since the firmware memory was already freed by pvr_device_fini(), won't
+these executed jobs access freed memory?
 
 [Severity: High]
-This is also a pre-existing issue, but does this leave the watchdog worker
-permanently cancelled if the firmware disable fails during suspend?
+This is a pre-existing issue, but is it possible for a dma_fence to outlive
+the DRM device if it is exported to userspace as a sync_file FD?
 
-When pvr_power_device_suspend() calls pvr_power_fw_disable(), the watchdog
-worker is cancelled synchronously above. We then send a forced idle request
-here in pvr_power_request_idle().
+If a sync_file FD outlives device unbind, closing it later triggers the
+fence release callback. In drivers/gpu/drm/imagination/pvr_queue.c:
 
-If the firmware is stalled, this KCCB command times out and returns an
-error. We then return that error immediately, which aborts the suspend.
-The PM core leaves the device in the RPM_ACTIVE state, but the watchdog
-worker is never restarted on this error path. Because the firmware is
-stalled and the watchdog is disabled, it seems the GPU will never recover.
+pvr_queue_fence_release() {
+    queue_work(pvr_dev->sched_wq, &fence->release_work);
+}
 
-[ ... ]
+Since pvr_remove() destroys pvr_dev->sched_wq, calling queue_work() on the
+destroyed workqueue (and accessing potentially freed pvr_dev) would cause a
+crash.
+
+Does pvr_queue_fence_init() need to take a reference to the drm_device
+instead of just the pvr_context?
+
+>  	pvr_context_device_fini(pvr_dev);
+>  	pvr_power_domains_fini(pvr_dev);
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913-rbrue-suez=
 -upstreaming-pvr-suspend-gpu-system-sleep-v3-0-674b907d0652@gmail.com?part=
-=3D1
+=3D3
