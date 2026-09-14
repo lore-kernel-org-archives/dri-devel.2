@@ -4,163 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFFC7C88E67
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 07:51:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B0A6C88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 07:53:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 130E1891D9;
-	Mon, 14 Sep 2026 07:51:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 543B510EBC6;
+	Mon, 14 Sep 2026 07:53:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TcI1E4d2";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="C2B+m65U";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B35910E131;
- Mon, 14 Sep 2026 07:51:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789372287; x=1820908287;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=umjxXrVgP8ZDeKZA6SrBVRGggOLggyt3BGgNyGpKsaI=;
- b=TcI1E4d2Evx2R07mOv0WMoCRH7edBrQNkaLmpnURqS5U909ejJp8gsYu
- wpvD36HZe0hQ6UXm6S2fq6Tm4upZr/AlQbCCsI7WwqOWdnHtCFZiF49Hn
- KixpqN6y90Cj4TDbK9j1atghzc7fsr7IFBKQMU0N5VxJeyJ+sXg5uftb/
- fJgH3rmhN5QOtbPJUcA/vrUIu3595AMMOyK4lBaP6HVMXLDwbVtsAhbSj
- zMKvaHqJpyGD7MfXI8Ck9NlKD4k1cl/+Ja57ByJBQHZGZ510bpq0VtQaT
- 9NZKIhYYXfyre/q1Wd11pQ7rzjgPWXq5fxLCEclOwMVT0oUb2/Jcs4ddZ g==;
-X-CSE-ConnectionGUID: qkVYoyd9RMerbSG7ZAHCVw==
-X-CSE-MsgGUID: OVyK/cDfQxOFzmrEm6vwUQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="93416320"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; d="scan'208";a="93416320"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2026 00:51:26 -0700
-X-CSE-ConnectionGUID: k9QaNNqbQdmRCtS9vsEMDg==
-X-CSE-MsgGUID: /eELFkq6QYKvULJn+VaKeg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; d="scan'208";a="269941834"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2026 00:51:25 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 14 Sep 2026 00:51:25 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Mon, 14 Sep 2026 00:51:25 -0700
-Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.54) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 14 Sep 2026 00:51:23 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f89gNkIDXV7SaDkKoWfV6Ideyg/mgVbm3A7M1T+qeZ99APW/wgV+unJiLvUEpWODePjh6D0oHABgwUqM45cbRYIjbVgIcLGTc2G1aNiYQHTLhKAqrgrgpo9xGQcN8BbLdTVFigv37yk7Qse+2uhBayW55EpllB28JIF9ZXjexfXrXSQRUIyyMjbsQsCi1koh3tdXNU5CVbNhfA6ntWFGBOyrDjkSz1O2AiZG6Qy7KNp9/HNOmSd10iNs1LLr5JqOAamo9yyjoiPaPS3LsVeSdmCztnzS7QykBeRD1E0XUXAY4rL31ws8VoVROrzieyP6fFpUvVjMwlm+jGaiCKvoEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ad2Xp6R4omUZs6ZM59Dnrd+AJGKd3NKYfEoRubel7xQ=;
- b=RsHtvL9xUkldJbNlkJ/nGOAclwcDPjW2yptAHYLoGZQMZKK0MT5HRHaOQAgHZWPrD3wt+l+WIp6wtzRQHvYupqFfgDYZyxx6puEG2AxnKwPJ5OsWopRwmQTEfA3o5WmEhrmufONCKsZ5xMNca8PhJbbfd5cVr/6+bACqwPqnVOZS5sgGEleU0AEHzcuchLthbmmUybHu9f4AQ78iqhD4XJhQTLd769RbDWQkRdvKf9y6RlyqpdGchjZN8ThSPtQ3BS/CKX0nSrg+tzTqDmU9bMCCc+M/Rf9j5BSwhYP8VlhyfzFiiT33SG42CaRW+NMcNsgTXjZBkXgUuHeeh9qqag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH8PR11MB9534.namprd11.prod.outlook.com (2603:10b6:510:39f::22)
- by DM6PR11MB4737.namprd11.prod.outlook.com (2603:10b6:5:2a2::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 07:51:20 +0000
-Received: from PH8PR11MB9534.namprd11.prod.outlook.com
- ([fe80::16ca:6958:c9e9:a266]) by PH8PR11MB9534.namprd11.prod.outlook.com
- ([fe80::16ca:6958:c9e9:a266%5]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 07:51:20 +0000
-Date: Mon, 14 Sep 2026 09:51:12 +0200
-From: Francois Dugast <francois.dugast@intel.com>
-To: Petr Pavlu <petr.pavlu@suse.com>
-CC: Jens Axboe <axboe@kernel.dk>, Jakub Kicinski <kuba@kernel.org>, "Andrew
- Lunn" <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Jani Nikula
- <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, "Joonas
- Lahtinen" <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Matthew Brost <matthew.brost@intel.com>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, Simon Horman
- <horms@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez
- <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin
- <atomlin@atomlin.com>, <linux-block@vger.kernel.org>,
- <netdev@vger.kernel.org>, <linux-api@vger.kernel.org>,
- <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-modules@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 4/6] drm/i915: Include error-injection.h for
- ALLOW_ERROR_INJECTION()
-Message-ID: <aqencKrPMiB-GWY5@fdugast-desk>
-References: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
- <20260911-module-include-error_injection-v1-4-5da895d8c84d@suse.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260911-module-include-error_injection-v1-4-5da895d8c84d@suse.com>
-Organization: Intel Corporation
-X-ClientProxiedBy: DU7PR01CA0011.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:50f::14) To PH8PR11MB9534.namprd11.prod.outlook.com
- (2603:10b6:510:39f::22)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7976D10EBC6
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 07:53:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1789372386;
+ bh=EVjb24lAVYiF77qqXys6L35Z/ttsHp63jp+8emA2q8U=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=C2B+m65UZHRg/2mGO3axwU7GbMkzmJGnWHnLSRgP+ebnVkxuMqOyl6pf6tJ9nFNnE
+ NwUnIg0x9G7AdvgSHPqZLw+uAFLMUvVjF9VsA5H4/eaZMako2zoZcDdhsNnP3mdRm4
+ Rb9ZiOWyrLkUmpNGtxTpcc0+iwQdBq26C6EKcEiHpBuRjaGwHuV/UTm191mg2NvIF0
+ MzvC6FG3+jq+VZvLACBdyo/aRmR3OQ9V4aiJvmNEQoJw1DpsG4wwaAldNofAO1uV61
+ 90e/Djiee9ei+ofwT2CIYi1ufj3qsTLRjvR4C2R1jTknWu1PV2Xqatg+xcrX5Ck9nB
+ sZhuzGWWFDycw==
+Received: from fedora-21.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 6FC8317E0700;
+ Mon, 14 Sep 2026 09:53:06 +0200 (CEST)
+Date: Mon, 14 Sep 2026 09:53:00 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Adrian Larumbe <adrian.larumbe@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Chris Diamand <chris.diamand@arm.com>, Akash Goel <akash.goel@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 17/18] drm/panthor: Fix the unplug logic
+Message-ID: <20260914095300.21633554@fedora-21.home>
+In-Reply-To: <aqRXJMCsiu3DC0_S@sobremesa>
+References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
+ <20260826-panthor-unplug-fixes-v4-17-982cc8f4234b@collabora.com>
+ <aqRXJMCsiu3DC0_S@sobremesa>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR11MB9534:EE_|DM6PR11MB4737:EE_
-X-MS-Office365-Filtering-Correlation-Id: 91491f05-ba36-490f-0359-08df1234f748
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|7416014|376014|11063799006|4143699003|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: H6jJcgF0/r2ntKmle8LBQsb0KO+TxyCu6d8c3bPLFPGuK4E59l7QPxL/L/1COzpQLiScEVc9xNG9+3qEK2Bi/23faJ3nGgYMSEiA0/rvFGx8C5j68Ed1e+zdCFTvsY4oyCOnQWk7vVB9eMrcPSg8URfhfAtcZwX5V8k7FV+HewDXnCN9PuIGgNjMQA1ZJAESxm8uip0nK0IXive0VZX7FnN5nSDga8znVfXGjoUCnRbfyDgaTr6/Ap831j8fAMcl7qCkzRYzxswGPVaYdCcbABOYeygKxKt83pbKSVKy57Uje2jmKkPq+f150yEkB5S8OeXw/aB83+p03VrUYY+RxHLgyPyo3nE4rihczdJUXKB65OJ+d83gbuO5k59+uVLS6sS5Vm5j9snrHitKjO1rBJVOq/BKhbBFdLBlMh5IXejpS4cPanNJhRI3O3R7fR+encXkXk7b7aJViZ2hWDXB1iUDg3EnwDcUqizKqoNqiRRfq/Oup4behSCCmmd7jXM/UCn0/o2jWXe7swXvhrccuPXvy1Lo3Hbw2HxdMYAQJ9ZMAUGldb+xeD56ZqUzgUizPv3S8Ly/koxgdmFsU5Bb3M2CvhWPiXeQESYbxqvoA7AHbdMw47CQYFbz5n6lrqLGy7PYGEpmOuvY8Y1RxGvm194rr+rb2GHbCkoA4UGvcx4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR11MB9534.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(11063799006)(4143699003)(56012099006)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?6VxlagFGdMBeLMtuAHKHfSlHM7DaZ9aIrTzrc3sQI6fZKqtT1f29HJ9ADI?=
- =?iso-8859-1?Q?gAPT0IbRw87iibIw35yiW1RaB3TjZQsKBffY4oSC48nCr1GRWiZqsEp1xQ?=
- =?iso-8859-1?Q?QABFJGcrXXMalHINux/UboUxaJw6euXvv1gDAqLh8uHSV4IelJz24BlpTZ?=
- =?iso-8859-1?Q?lyb2yYM0l+nu3ZI/vrwLdsGManDUkN2Az5SgdLh/CtcXMKPJ35JCmU3hPj?=
- =?iso-8859-1?Q?GfAUzX/VbLO3x7aw3sOl4fm/2pEnJ8QtzT+DTS8OYAccZhuROE3G431flX?=
- =?iso-8859-1?Q?nR8MhR+o8VKAMjNTuy+Fub3l7Wws00NJ+LBuILQK5MTymEUbmzAsFECMRl?=
- =?iso-8859-1?Q?VNyonTxD9MvUTyGvEYveFjkVsXgP1UaGBPuXJ1C7DMr7MRuyHLBbuTSKoq?=
- =?iso-8859-1?Q?7kqjwx38TV+mPEKY0HNXu0OH8jD5CnOkLtKhymFw/upZHJEW2wJcWoMWVD?=
- =?iso-8859-1?Q?OdiEbwuNNKolsxJdCB403sdhx7b9fKiAqcViwNxHbtd9yivYFcQgE13O0W?=
- =?iso-8859-1?Q?2mBBCCA4MWaOJTzcx8PorCEKkGs7dxyBmy6FnvOGw1bInkFlfveAVkn4gZ?=
- =?iso-8859-1?Q?H0MytB/pJbtBqO5iwy9RDk5ACIxj1BhMaqUn7e5vB3IDWKdkSpUj3zn+MS?=
- =?iso-8859-1?Q?AoEuilAFILrq0jOHXPSG99BUtx8zRiYsgt6UWszLAi2zLMiph2aFcpBc78?=
- =?iso-8859-1?Q?4OtMZkqxnVaqMiK6ZIcCfjkTZV7lmZOXUIn4FnToop35rFZGDERbevAFJ1?=
- =?iso-8859-1?Q?xaDPZfjH4QaVxVHApvGeMCDiGJZ30VipoqOGvSFNNADAKr3NejpCbpNH5w?=
- =?iso-8859-1?Q?sNet86qUkuehv0wIUMMFp3BpeBhy0h0raj27mellBY3Jgpru3IW66UAOli?=
- =?iso-8859-1?Q?qqzSnJFlqab3WZR7CFodPtuY0L7C8hKHhEoz1v09N+xBu3L3q5MhwotsPE?=
- =?iso-8859-1?Q?caHEEhVTBW4jYlX3p/FdhLhnVg9j+8fD6u9Zz1Mss5c2usRtAAG9As7ep3?=
- =?iso-8859-1?Q?HV/c8sm5uDCVm8Ny3imqWyz+N58skfP3xpfJGlPZhVU6/524S6YxNzo5G0?=
- =?iso-8859-1?Q?DCKBQJQPHRQmf0Y1tg8qtkxXFdV2ypWkO6D9gC/FnjhPA9GuKmIgaDKOlH?=
- =?iso-8859-1?Q?3oap0Yv6eVLodBcOQfIvEvKDuiy2bQPP8jvvTW6PsAsGiUOTLAHB4RKz61?=
- =?iso-8859-1?Q?4MWBFfMloFu6f7fZXEY0SLU02b6VVucAsW4rXQd3LLjfxnIT/LZ03XGnDY?=
- =?iso-8859-1?Q?pZuvFiFOT5S5hzmSDsYp5MEGquWXn/VuQX/stxMPNl/aiOw1Tq5F2HGb9b?=
- =?iso-8859-1?Q?/smJW9FUS7kRMMFf1qcIhQ/k03FpSOTp5OR6B0vmS726C8BfyLFg5hm9oB?=
- =?iso-8859-1?Q?83YhgPc+o9Pdt55Q/TwHUPm/N3vyDP9LQHY7uEL5UthVEeN67ny5rQBYOw?=
- =?iso-8859-1?Q?IIye4JDqWsJfs07h5aN8FuSsMH4iQR6RpnBg2Kz5tNTXBZQfh77CKxjWAJ?=
- =?iso-8859-1?Q?StwL41S07dL8K9Ht5rWGNxzpHEY2DmhOi4RvwGQuVGoB/fJEVWwzr1FNkm?=
- =?iso-8859-1?Q?qYq8s2yuFMFk6AiYnfsSWz5MM4kuVSiVAIUxgLyWPDAIXOEGjuVpHmexJR?=
- =?iso-8859-1?Q?RG0dqQeeaD1UKWHsEDJzZyhHuaIUoW3UWh0yNyI58ZgIieV7FemtChd01b?=
- =?iso-8859-1?Q?UXpnzcxgSUYmsY5LPlO1iEdUrom13M45opoyRtHR+gKrCw4KXWLr18lqbi?=
- =?iso-8859-1?Q?NFjwKGsHXzGsbIh4eKxV1rVsNqykhThIaWPHL9IjhWNqh7gY6bd/Cj5ZSM?=
- =?iso-8859-1?Q?WsJQvylEuQF42S2Hue9iSZfEtM59AII=3D?=
-X-Exchange-RoutingPolicyChecked: kdX9bGrVdunRYIf25UBLo0w+ZzYBt/+7uZ0RYrL8x6UiEKT8+JxAHcyIms4j1eLG6Kyn7hL4aHuPQQXc8Hes2O1hBTl/+84j4W99SPXhhTp6Kh0vun0REFXpR1BCqdpOQRdfPsGYQNQ+248w+KfvXeSD0nca7qcTSpg3n/GADFxk55CvNB+cOc1Fq1fV5cGbrTj68CWNwFGpOFX2EqU/CVEEExAettRhYgQEdv5LcrzIio9xyQo1FU9vqCivRA+wLEvqhLE0qKaAa2sfR9FYlOnTHFJiBNakmT98Q/FBIyBMU8+8OTuimLbfkrOwyvilk0zlYN4Q1Fcz9ali+GEVpQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 91491f05-ba36-490f-0359-08df1234f748
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB9534.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 07:51:20.7215 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QbZvFSPQAv9JwHCz4soVLr2ImZPV1p+2qWGJKRO3Q2M/7qcRmf35v9Cwurw6x/ctkQO37480LDVXYSkSltLgAfIMQw+7buUk3dkGRAER9zE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4737
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -176,154 +68,240 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Sep 11, 2026 at 05:04:04PM +0200, Petr Pavlu wrote:
-> Several drivers/gpu/drm/i915/*.c files use ALLOW_ERROR_INJECTION(), which
-> is defined in asm-generic/error-injection.h. They currently rely on this
-> header being included indirectly through linux/module.h ->
-> linux/error-injection.h.
-> 
-> Add the missing includes in preparation for removing the
-> linux/error-injection.h include from linux/module.h.
-> 
-> Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
+On Fri, 11 Sep 2026 23:44:55 +0100
+Adrian Larumbe <adrian.larumbe@collabora.com> wrote:
 
-Reviewed-by: Francois Dugast <francois.dugast@intel.com>
+> On 26.08.2026 16:56, Boris Brezillon wrote:
+> > The current unplug logic is broken in multiple subtle ways:
+> > 
+> > 1. it assumes that the HW is still accessible in multiple places,
+> >    which goes against the very concept of hot-unplug
+> > 2. it doesn't take into account the fact the stop is a failible  
+> 
+> On a related note, this made me wonder whether it's the same in Panfrost.
+> It seems panfrost_gpu_power_off() can fail, leaving the GPU running after
+> the driver has been removed.
 
-> ---
->  drivers/gpu/drm/i915/display/intel_connector.c      | 1 +
->  drivers/gpu/drm/i915/display/intel_display_driver.c | 1 +
->  drivers/gpu/drm/i915/gt/intel_engine_cs.c           | 1 +
->  drivers/gpu/drm/i915/gt/intel_gt.c                  | 2 ++
->  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c           | 1 +
->  drivers/gpu/drm/i915/gt/uc/intel_uc.c               | 1 +
->  drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c            | 1 +
->  drivers/gpu/drm/i915/i915_driver.c                  | 1 +
->  drivers/gpu/drm/i915/i915_pci.c                     | 2 ++
->  drivers/gpu/drm/i915/intel_uncore.c                 | 1 +
->  10 files changed, 12 insertions(+)
+Actually, by stop I meant SOFT_RESET, which shutdowns the power rails
+automatically. This makes me realize this commit message is
+out-of-date, because we now rely on the fact SOFT_RESET is considered
+non-fallible to keep things simple.
+
 > 
-> diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
-> index 7ef9338d67ab..a287884c0045 100644
-> --- a/drivers/gpu/drm/i915/display/intel_connector.c
-> +++ b/drivers/gpu/drm/i915/display/intel_connector.c
-> @@ -23,6 +23,7 @@
->   * DEALINGS IN THE SOFTWARE.
->   */
->  
-> +#include <linux/error-injection.h>
->  #include <linux/i2c.h>
->  #include <linux/slab.h>
->  
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-> index 70d112fd4287..204810a11e46 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-> @@ -7,6 +7,7 @@
->   * details here.
->   */
->  
-> +#include <linux/error-injection.h>
->  #include <linux/vga_switcheroo.h>
->  #include <acpi/video.h>
->  #include <drm/display/drm_dp_mst_helper.h>
-> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-> index c0fd349a4600..2c3bc7b67c0d 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-> @@ -3,6 +3,7 @@
->   * Copyright © 2016 Intel Corporation
->   */
->  
-> +#include <linux/error-injection.h>
->  #include <linux/string_helpers.h>
->  
->  #include <drm/drm_print.h>
-> diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-> index 5c7f862f7100..2f0e1cb5578c 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_gt.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-> @@ -3,6 +3,8 @@
->   * Copyright © 2019 Intel Corporation
->   */
->  
-> +#include <linux/error-injection.h>
-> +
->  #include <drm/drm_managed.h>
->  #include <drm/intel/intel-gtt.h>
->  #include <drm/intel/intel_gmd_interrupt_regs.h>
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> index 1c455d84bf9d..091aa33f624a 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> @@ -4,6 +4,7 @@
->   */
->  
->  #include <linux/circ_buf.h>
-> +#include <linux/error-injection.h>
->  #include <linux/ktime.h>
->  #include <linux/string_helpers.h>
->  #include <linux/time64.h>
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-> index bd07c72a66fc..d367a897c86b 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-> @@ -3,6 +3,7 @@
->   * Copyright © 2016-2019 Intel Corporation
->   */
->  
-> +#include <linux/error-injection.h>
->  #include <linux/string_helpers.h>
->  
->  #include "gt/intel_gt.h"
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-> index 7fac97fe30a6..d7c731fe972b 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-> @@ -4,6 +4,7 @@
->   */
->  
->  #include <linux/bitfield.h>
-> +#include <linux/error-injection.h>
->  #include <linux/firmware.h>
->  #include <linux/highmem.h>
->  
-> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-> index ce6d20958320..aeb7b24c81c8 100644
-> --- a/drivers/gpu/drm/i915/i915_driver.c
-> +++ b/drivers/gpu/drm/i915/i915_driver.c
-> @@ -30,6 +30,7 @@
->  #include <linux/aperture.h>
->  #include <linux/acpi.h>
->  #include <linux/device.h>
-> +#include <linux/error-injection.h>
->  #include <linux/module.h>
->  #include <linux/oom.h>
->  #include <linux/pci.h>
-> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-> index 2f03f95945f1..84a7dc6ab5db 100644
-> --- a/drivers/gpu/drm/i915/i915_pci.c
-> +++ b/drivers/gpu/drm/i915/i915_pci.c
-> @@ -22,6 +22,8 @@
->   *
->   */
->  
-> +#include <linux/error-injection.h>
-> +
->  #include <drm/drm_color_mgmt.h>
->  #include <drm/drm_drv.h>
->  #include <drm/intel/pci_config.h>
-> diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
-> index 170e83a8c9fc..e360e4f9d9a2 100644
-> --- a/drivers/gpu/drm/i915/intel_uncore.c
-> +++ b/drivers/gpu/drm/i915/intel_uncore.c
-> @@ -21,6 +21,7 @@
->   * IN THE SOFTWARE.
->   */
->  
-> +#include <linux/error-injection.h>
->  #include <linux/pm_runtime.h>
->  
->  #include <drm/drm_managed.h>
+> >    operation, and that we theoretically have no guarantee that the HW
+> >    is actually stopped after we've released the resources
+> > 
+> > Those issues are hard to reason about because Mali GPUs are on a
+> > platform bus, which is not hot-pluggable, so they are in practice
+> > always accessible as long as we can enable their dependencies (clocks,
+> > power-domain, ...). The problem is, if the GPU is in such a bad state
+> > it can't properly reset/resume, there are various operations that can't
+> > be done properly, and the unplug logic is clearly not ready for that.
+> > And more importantly, if we can't guarantee the reset was effective,
+> > we have to assume the HW still has access to the resource we passed to
+> > it, meaning we can't return these resources to the system without
+> > risking a UAF.
+> > 
+> > This patch does several things:
+> > 
+> > - it resets the GPU before calling the <component>_unplug() functions
+> > - it drops the pm_get/put that around the sub-component unplug calls  
+>                            Nit: remove 'that'?                                
 > 
-> -- 
-> 2.55.0
+> >   (no longer needed if we assume the HW is gone and can't be accessed
+> >   anymore)
+> > - it changes the _unplug() implementations to not touch the HW anymore
+> > - it let's each component know whether it should leak resources the HW  
+>       Nit: lets
+> >   might have its hands on at the time the unplug happens
+> > - it releases all resources at unplug time even if open FDs exist. This
+> >   is needed otherwise we could have deferred cleanup work accessing
+> >   objects that have been freed
+> > 
+> > Unfortunately, I couldn't find a way to break things into multiple
+> > commits while preserving bisectability.
+> > 
+> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> > ---
+> >  drivers/gpu/drm/panthor/panthor_device.c |  50 +++++++++----
+> >  drivers/gpu/drm/panthor/panthor_drv.c    | 122 ++++++++++++++++++++++++-------
+> >  drivers/gpu/drm/panthor/panthor_fw.c     |   9 +--
+> >  drivers/gpu/drm/panthor/panthor_gpu.c    |   2 +-
+> >  drivers/gpu/drm/panthor/panthor_mmu.c    |  72 +++++++++++-------
+> >  drivers/gpu/drm/panthor/panthor_pwr.c    |   2 +-
+> >  drivers/gpu/drm/panthor/panthor_sched.c  |  90 +++++++++++++++++++++--
+> >  7 files changed, 267 insertions(+), 80 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+> > index 817312f598f3..328e601d80e8 100644
+> > --- a/drivers/gpu/drm/panthor/panthor_device.c
+> > +++ b/drivers/gpu/drm/panthor/panthor_device.c
+> > @@ -83,13 +83,28 @@ void panthor_device_unplug(struct panthor_device *ptdev)
+> >  	/* Make sure we're not interrupted by resets while we're unplugging. */
+> >  	disable_work_sync(&ptdev->reset.work);
+> >  
+> > -	drm_WARN_ON(&ptdev->base, pm_runtime_get_sync(ptdev->base.dev) < 0);
+> > +	/* Disable RPM callbacks early, so we're sure external RPM calls won't
+> > +	 * interfere with our unplug logic.
+> > +	 */
+> > +	pm_runtime_dont_use_autosuspend(ptdev->base.dev);
+> > +	pm_runtime_disable(ptdev->base.dev);  
+> 
+> If a sysfs or debugfs knob was executing at the time device_unplug() kicks in, and they had
+> taken a PM reference, wouldn't the previous statement mean when they try to release that
+> reference they wouldn't be able to? And maybe leave the RPM reference count unbalanced.
+
+PM refs can always still be released with pm_runtime_put[_sync()] after
+that point. All pm_runtime_disable() does is skip the call to the RPM
+hooks, which is exactly what we want, because we're going to suspend
+things manually.
+
+
+> > @@ -2243,6 +2253,11 @@ static bool vm_prep_for_cleanup(struct panthor_vm *vm)
+> >  	}
+> >  
+> >  	if (!drm_dev_enter(&ptdev->base, &cookie)) {
+> > +		/* Device is gone, take the unplug lock to make sure
+> > +		 * panthor_device_stop_before_unplug() has run and
+> > +		 * ::leak_active_resources is valid.
+> > +		 */  
+> 
+> This looks like a holdover from a previous revision.
+
+Oops, indeed.
+
+
+> > @@ -3658,6 +3676,8 @@ void panthor_mmu_unplug(struct panthor_device *ptdev)
+> >  	 */
+> >  	flush_work(&ptdev->mmu->vm.cleanup_work);
+> >  	drm_WARN_ON(&ptdev->base, !list_empty(&ptdev->mmu->as.cleanup_list));
+> > +	drm_WARN_ON(&ptdev->base, !list_empty(&ptdev->mmu->vm.list));
+> > +	drm_WARN_ON(&ptdev->base, !list_empty(&ptdev->mmu->vm.user_owned));  
+> 
+> Here I understand that vm.user_owned must be empty by now, but vm's are only taken off
+> the vm.list at VM release time, either in vm_prep_for_cleanup() or when disabling its
+> HW AS fails and release is delayed until the next reset. So this assumes that for every
+> user facing VM that we destroy at the beginning of this function, its refcount was 1.
+> But I'm not sure when we've made it this far we're certain no more vmbind jobs are
+> targetting those VM's, all of which take VM reference.
+
+Hm, that's a valid point. We probably need to stop the VM_BIND
+queue in vm_destroy() instead of vm_cleanup().
+
+> > diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> > index bd5dcf4cb580..7d2815b4db0f 100644
+> > --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> > +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> > @@ -2548,7 +2548,7 @@ static void tick_work(struct work_struct *work)
+> >  		return;
+> >  
+> >  	ret = panthor_device_resume_and_get(ptdev);
+> > -	if (drm_WARN_ON(&ptdev->base, ret))
+> > +	if (ret)  
+> 
+> Why have we dropped the warning here?
+
+Because this can be executed during an unplug, and the
+pm_runtime_disable() we added in panthor_device_unplug() makes it
+so panthor_device_resume_and_get() can now return an error that's
+expected. If we really wanted to keep that WARN_ON() we'd need to
+distinguish error-because-its-disabled vs
+error-returned-by-the-resume-hook, and I thought it wasn't worth it.
+But I can find a solution to make that work if you think it's important.
+
+> 
+> >  		goto out_dev_exit;
+> >  
+> >  	/* If the tick is stopped, calculate when the next tick would be */
+> > @@ -3100,12 +3100,17 @@ void panthor_sched_post_reset(struct panthor_device *ptdev, bool reset_failed)
+> >  void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile)
+> >  {
+> >  	struct panthor_group_pool *gpool = pfile->groups;
+> > +	struct panthor_device *ptdev = pfile->ptdev;
+> >  	struct panthor_group *group;
+> >  	unsigned long i;
+> > +	int cookie;
+> >  
+> >  	if (IS_ERR_OR_NULL(gpool))
+> >  		return;
+> >  
+> > +	if (!drm_dev_enter(&ptdev->base, &cookie))
+> > +		return;
+> > +
+> >  	xa_lock(&gpool->xa);
+> >  	xa_for_each_marked(&gpool->xa, i, group, GROUP_REGISTERED) {
+> >  		guard(spinlock)(&group->fdinfo.lock);
+> > @@ -3115,6 +3120,8 @@ void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile)
+> >  		group->fdinfo.data.time = 0;
+> >  	}
+> >  	xa_unlock(&gpool->xa);
+> > +
+> > +	drm_dev_exit(cookie);
+> >  }
+> >  
+> >  struct panthor_job_ringbuf_instrs {
+> > @@ -3320,7 +3327,7 @@ queue_run_job(struct drm_sched_job *sched_job)
+> >  	}
+> >  
+> >  	ret = panthor_device_resume_and_get(ptdev);
+> > -	if (drm_WARN_ON(&ptdev->base, ret))
+> > +	if (ret)
+> >  		return ERR_PTR(ret);
+> >  
+> >  	mutex_lock(&sched->lock);
+> > @@ -3873,14 +3880,23 @@ int panthor_group_pool_create(struct panthor_file *pfile)
+> >  void panthor_group_pool_destroy(struct panthor_file *pfile)
+> >  {
+> >  	struct panthor_group_pool *gpool = pfile->groups;
+> > +	struct panthor_device *ptdev = pfile->ptdev;
+> >  	struct panthor_group *group;
+> >  	unsigned long i;
+> > +	int cookie;
+> >  
+> >  	if (IS_ERR_OR_NULL(gpool))
+> >  		return;
+> >  
+> > -	xa_for_each(&gpool->xa, i, group)
+> > -		panthor_group_destroy(pfile, i);
+> > +	/* If device is gone groups have been destroyed already, and the XArray
+> > +	 * contains pointers to objects that have been freed.
+> > +	 */  
+> 
+> I find this a bit confusing, but probably because I don't fully understand how groups are made
+> to go away at unplug time. All I can see in panthor_sched_unplug() is that group references are
+> put, for bound groups, idle ones and then those owned by the user. However, do we know by this time
+> that there are no more group references taken by extant scheduler jobs at queue entities?
+
+It's the group_term_work that's supposed to stop the queues and cancel
+all remaining jobs, and we queue this work for all bound, idle and
+runnable groups that remain at unplug time. We also make sure those are
+executed with a flush_workqueue(sched->wq). So, unlike the VM_BIND
+queue which is really lacking this vm_term_work step to cancel jobs and
+finish the drm_sched objects, I think the group side of things is sound.
+
+> 
+> > +	if (drm_dev_enter(&ptdev->base, &cookie)) {
+> > +		xa_for_each(&gpool->xa, i, group)
+> > +			panthor_group_destroy(pfile, i);
+> > +
+> > +		drm_dev_exit(cookie);
+> > +	}
+> >  
+> >  	xa_destroy(&gpool->xa);
+> >  	kfree(gpool);
+> > @@ -3899,11 +3915,16 @@ panthor_fdinfo_gather_group_mem_info(struct panthor_file *pfile,
+> >  				     struct drm_memory_stats *stats)
+> >  {
+> >  	struct panthor_group_pool *gpool = pfile->groups;
+> > +	struct panthor_device *ptdev = pfile->ptdev;
+> >  	struct panthor_group *group;
+> >  	unsigned long i;
+> > +	int cookie;
+> > +
+> > +	if (!drm_dev_enter(&ptdev->base, &cookie))
+> > +		return;  
+> 
+> Do we need drm_dev_enter() here when it's already been checked in the calling function?
+
+Probably not, I'll drop it.
+
