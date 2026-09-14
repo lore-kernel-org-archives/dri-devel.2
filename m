@@ -4,44 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A1E4C88E72
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 17:58:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C603AC88E72
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 18:05:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FBE910F0CD;
-	Mon, 14 Sep 2026 17:58:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6882D10F0E1;
+	Mon, 14 Sep 2026 18:05:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gUpA9lHN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rJ5ouBSI";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E12B410F0CD
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 17:58:38 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 57E326022A;
- Mon, 14 Sep 2026 17:58:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D97171F000FF;
- Mon, 14 Sep 2026 17:58:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789408718;
- bh=kUgXRpcx5JNck7JzgKsbchBk4Ok0dijWYWXlPMtauW4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gUpA9lHNNQnTiGlDNxSFtPuhuzsftLEJzLZgb1YuLrEUzlIQWpwdNAPY4oHGDJnrT
- P59o/r7wDBgAjl+bA/wXScQDepKzLuZr6pBbsZZ/O2S6znXuUrDZo5+dv1lWH1L/rg
- DWwTr82ENFZAkWKc6983OX6C13rZOZfVoMaF5cqrRd5BdDZbh5vJUUsrfZMlGg4jeI
- jVsAyyekASvfyG9YLBwRhGqMzB92brRO9ypGt/xjLQBoDrzxeii+tQ68OfMIfFuSZz
- mNlAfNe/5HXPkscqEaOJdWP/50aChO1KblI6Zv8Lc0peWMdSqYFt53aX+KPK0R2QJH
- faYX0qRY5ccbQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] backlight: qcom-wled: Fix unbalanced OVP IRQ
- enable at probe
-To: "David Heidelberg" <david@ixit.cz>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260914-qcom-wled-backlight-v2-2-a908d9233e93@ixit.cz>
-References: <20260914-qcom-wled-backlight-v2-0-a908d9233e93@ixit.cz>
- <20260914-qcom-wled-backlight-v2-2-a908d9233e93@ixit.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 17:58:37 +0000
-Message-Id: <20260914175837.D97171F000FF@smtp.kernel.org>
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013012.outbound.protection.outlook.com
+ [40.107.201.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 579F610F0DB;
+ Mon, 14 Sep 2026 18:05:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uChoOnJOxwO3gjnPjl3uOJPDnS8HAZGDzFAum5Y4gvaFH7vm1z1DdT7sfZwENuwbC+Gwzxs0kSgFOdig2ntdWUmirvZdK5hjQKVD3su5snqO14aaiqVRUeBglfi6Dcp4zMxjsHDUALRV/rzbF3VtBHtXjZmiYLVHWqZLY5OjcBuOS8ajDg4XqvGWFMFTZDm7U1nLtp6Kty/hmwXj1/EQWNEi1WHRSxsdbu/sfd7ZZ27ABJL5oKTo8jJyLQYRi9PLUNfk63kwkYuFEAicEZq9Hl4IawisxN0pb7BsFHmFDhiZOsSSZxFPtW9iotlsBaFj03S9NC/Wqyb7/w//TtM5SA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=d4h7rafOmRPUxLqkjodLRK20qDKV8ULQrrO+q7GrKEk=;
+ b=Ro6fR59D6e86lKyqRBQ4Gm24KtuBf4uGvekKPjqnPy4wralol6NgOvawpJSqf5XI18SrTS3KoSuHsN4y5ynS/IRVMcAnXkCsa0cDp6eSRnyZUX6+EI/YCccs7rurC2JT5k6IdS5rTi9yMAlW609fskpy/BhDiPEbaPpKGk6BUSJb0PL6a5gzsZxn139ixxGCx0C1yqjWgFuNgKfd+Ocd6VRE4o0zg42+uIEHjRWVUW7W7WLE1wPNQb4s4hPJ1eU32ItahSVU8t+lURWjJkvX1h+TP7Nua/6Mdn1XqmkBWjy8WVg7yQr3pc4GzIkan0OVfbffUA9NJCm5zb/bcWJYlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=d4h7rafOmRPUxLqkjodLRK20qDKV8ULQrrO+q7GrKEk=;
+ b=rJ5ouBSIc6xOMTAWqCC0edT2Nx9KyUGm5e5m+zQiZoGt2AFPxlelEscvevqhvGtZmbPrSbL9tUMZY+p0awKVJhOe6JUHwFlRP36wmoS8+zOH0Ng55X7woHlN1whodp7kQWYQurIMNwsVQp1///Q/4nc+HCNe/maL4JjX9tP4oVI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ0PR12MB7036.namprd12.prod.outlook.com (2603:10b6:a03:483::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Mon, 14 Sep
+ 2026 18:04:52 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Mon, 14 Sep 2026
+ 18:04:51 +0000
+Message-ID: <47b7f1e6-0c14-42c1-8224-d5d86cc08159@amd.com>
+Date: Mon, 14 Sep 2026 20:04:46 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] drm/amdgpu: keep freed VM mappings on clear failure
+To: oushinnyo <oushinnyo@163.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ Harish.Kasiviswanathan@amd.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260905023151.90699-1-oushinnyo@163.com>
+ <c0f0b76b-fc3d-4473-83d7-ad820efcbbbc@amd.com>
+ <3efdfbf9.7999.1a09efb9469.Coremail.oushinnyo@163.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <3efdfbf9.7999.1a09efb9469.Coremail.oushinnyo@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0158.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ba::15) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB7036:EE_
+X-MS-Office365-Filtering-Correlation-Id: 04bf739b-9365-4b9b-6c5c-08df128aac62
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|23010399003|366016|18002099003|10067099003|11063799006|22082099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: lMi3iX93LAaJ4ydQCO5iiEQbrxoumDCljeNcXjhv++p1zMHj9+d18MZ7HNGq+hopROpV7Skkbrtvv03b6fau5tOuKjPsvGyD98S6FGlFGuFdTGrRdcUz8DT1yIqxd76hIw/sd9l0yj53ws9WcdKiUrF2BhhbHgEj6qXp8t78DcY2rz+/UBWgoFM4ho2AOyCPoA/GXX9X8sRwvW+gylAmuZne06+k8rW0hn2nae1Nv2PSsw+xfPUbaX3jgVOnH47DWLB+5oEkdycrOMmiqJs5IEjW6CAJuGa1fDdNdWsICowCoufyLddcTHoT77t2imdRQDHLHibqof3k3PMktJMFmUHwlPzegogBZzfO804CXKFjBDmDMBcKAW9k+14xO/thOSQnRWCZY2bMtYYxCQ3lnJweIvyGjcu0eHI1v6Q+itReRT+NKMhe9QC0f2qogvKs459BS3Jacm4AXNJKxuOkdrh5KWmDWIE65a5/mYyG7bXDyS3caxMpYUxKO9hrx2WjzLjY/Tkz1GPaW4PQVlPJoB3nxKUcHdJeaaXFmZ4deZ6p1VmqXZT9+qPkoP0ak71/5Z2AeR5JfhYSBNsKRb8oPL225SBcGTTFSe3Zb5xpG59jFEdB6dSdClHVP4ZIWj/WDscrMdUXA6sGXNSAJ49xYS7Pi4T24qplfAn3ARvjcpI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(18002099003)(10067099003)(11063799006)(22082099003)(4143699003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TE1ZK1FKdzQyWWNHcGl0U0Y2akZkM1ZKbXI3ZHNrSVZINEpDODRVTTdMemVk?=
+ =?utf-8?B?YkJhTm1LOFRIMUViRlBDY2NSY0tsWmZpSmx4VjJBK3NxUGh2NkpWb1pJUUMv?=
+ =?utf-8?B?eDdORE0vNmlpWFI1VkpacmRrZGVLZGE1TCtFRUI1WGpWNjFZY2FQcXg0SkFY?=
+ =?utf-8?B?VWVBRHh5dzFDNzRMcjZlaDlkWDc1MG1HbHFyRDFUTFlJZWtzUGs5MklCQkgw?=
+ =?utf-8?B?Uzg5VkdoUDhOa0hOUG9CWUQ3OTBhZEo4eVhXMzlHK0dDYVlWVXdIaXRBckFN?=
+ =?utf-8?B?dHFiZTdUd1BVbXJwY29CdktsZGxBMG1EVHV6NTgwQlFKSG5NUElBV0p1MkM2?=
+ =?utf-8?B?YmFCaUsxSVo5emo0TDdUM1BpR1o5ODhjUWZobzNJYzdMNk1yZ1lMcGpnUUkz?=
+ =?utf-8?B?YmZjRnU1azRPelpHcGJTd04xWnBDa284MUR1RW0vNVJiR2xQeWZ5eTNRR2lt?=
+ =?utf-8?B?akQ2TlBUSDM5TjI2UlpEaUhVVWU1Q2lteng0cUtsRmJkMkJabkNDdzhBYThw?=
+ =?utf-8?B?WFM0M21SbTVxK0wrWXpiN0Y0bXU2eldFK1VaaEZxRlJjbmtKSmFJaWRIalBS?=
+ =?utf-8?B?Y0VIOWlQTUZpeElBREZGOUJQK25mY2RETnNSZGlFM3J0NzBVOG5pZ1VCcmRT?=
+ =?utf-8?B?NlJ5UUtxYlR3VENxczduK3RLYUtGaHNYS0tZWWx0azBzbG4vaEpMWmlsU1pO?=
+ =?utf-8?B?anZNenVFdXVNa3VNUzBIUnFFM3hQUE9wV1g3NlVSTzh3akloLzNQSEZnUjIv?=
+ =?utf-8?B?QTY5R2JXVmJ0dlc2K1JCb1J2ZDVDamQvcjdjbzdheERyK29XNTgvaUhsdzlP?=
+ =?utf-8?B?WC8vaHFQQjk1NjN0ZEVPZ1JJRXNTcWU0bk13dTZ6OXdIY3lzNkNSR0txMHlW?=
+ =?utf-8?B?a1FqYlJhaTZCdHZPTEJLMTBpY2xKZjdLcm5UbzJFcGhXU1AwVTdYb25GaU1N?=
+ =?utf-8?B?d3BCN3k2d1V5UU9uVGYrWVRGMEdMMWlHdlhnSjRIUzNhMCttWi9abFBvQ2JN?=
+ =?utf-8?B?aWJFMURpMVV1VXVjS2NhVEVLWjdscVd1SFZzZnJiWTRyZmUwaEhzVjdZOE10?=
+ =?utf-8?B?K3gwejBRTUFlTEt2by95MzVEZ0JqTGpkWkR5dnNTL3F4cnE3dWJwTW8wUjE3?=
+ =?utf-8?B?WW5wNzRMUUx4MDI2SWJucGk1eFI2b2tiRG5qRDVkMkpKYW9sN0ZJYU13UFNu?=
+ =?utf-8?B?bThWYzhqa2pkTjE5bG9hNitzYXRKVXpveFVVTHpaRnAvRkFYaXlWWjh1NlJE?=
+ =?utf-8?B?TWZJUXRwMXlNbGE5aFB4RXNPOUhQdnVieW9tN29ZU2VEV3JXUlZibHdkeDMr?=
+ =?utf-8?B?d3B1azJHM2QvWHI2aDd0ZXZVZ09YK0h2UHY1eDJYT05NNFVwNTJBS2tDczUx?=
+ =?utf-8?B?ZHc5Zy95eHVDYU52dXVsamFObzVqMzJzM0UzOW9ZVXRwWThXQnpGKzlLc05n?=
+ =?utf-8?B?Nk1Dc09mRmh3N2RXKzV1VGxxQXNlM0FVUi9oSThxdzhON2RDMUlTS0FCZW1M?=
+ =?utf-8?B?RndXUmZMcjcvSHl6VmtMcWVOWURyUlU3TDBKSDQyUEJ3c0JzNmRpb01WdUpk?=
+ =?utf-8?B?ZkY2cDVQYjNmUGVvczl1NzUyNiszSkZBNGxjZzhGZDlOdzhxbGR5eCtqZFJ5?=
+ =?utf-8?B?eWYyTVJLV0tQdlhWSS9FLzdhWHlpWTNpMjRyN3dlTWVyN21oeXVyZUZHbmg5?=
+ =?utf-8?B?aFFaS1Z2dlVnK01XejJwMVNZNlZnNXhqWk9MT0lrcnVzVzIvblFOWFVYQkpk?=
+ =?utf-8?B?Wjk5YW1vTVVkWXp1Y25hc3JybXYwSHFBeHcxUDUxOU5MQjRiYmROTnJOSjhU?=
+ =?utf-8?B?RGJDTHVVMzlpM0R3V1BxY1Q0ODZsOERPZlp3a3V4dGFZL2dmbENkR2xvVHFU?=
+ =?utf-8?B?cE5MTDd4dDRMOHZvb3J6WU1ybmIwenVjN2thY0R4a0NvbXp4dDBkTXI1Wm5F?=
+ =?utf-8?B?dDB2WXc1dW0rdDlMVEtDOVgyNUlRRnB4S0ZkR0NMNkplKzdUWGlPYmpLa1Q1?=
+ =?utf-8?B?TnRnRUNjb3poVFQwYVlnenQ0alZpN0J2dEdWeU9RSVdRQlI1R3p5MksrUzd5?=
+ =?utf-8?B?N0R2SVA5TGV5Q2dsL0tWU3dsMTRLSVdNZ0M0cy9iZlU3djQ2RS8vYmhuRllx?=
+ =?utf-8?B?VWc2SWNIa0YxcGFMRlBoRE96RTd4SmUwUzN2VmQzZXI2K1VoNDF1UktzSjNl?=
+ =?utf-8?B?SWcrdklSYTJDY0NjTU9WZVlGaXNzVXpVVGNnRzd3c3NrZTJRK0lmeGNMalpS?=
+ =?utf-8?B?OVk4a0VJZVJYc3A3RHJnZXZLdFVCYWc0NmFWcVZ4bXZRNVptUzFzRm10Qita?=
+ =?utf-8?Q?sdTfKs1nz3sDj2dfXH?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04bf739b-9365-4b9b-6c5c-08df128aac62
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 18:04:51.8619 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IHcPMxMyCB7UDDIa9LQSJ45BwwZGjS+oC9n15XXvnjP5/ZV1v91RUzyL5V7Zgb/G
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7036
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,174 +136,99 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+Hi oushinnyo,
 
-Pre-existing issues:
-- [Critical] Missing platform_set_drvdata() in wled_probe() leads to a guar=
-anteed NULL pointer dereference in wled_remove().
-- [High] Incorrect teardown order in wled_remove() causes mutex use-after-d=
-estroy and use-after-free via re-armed delayed work.
-- [High] A race condition between wled_short_irq_handler() and wled_update_=
-status() can leave the hardware module incorrectly enabled when requested o=
-ff.
-- [High] Missing cancel_delayed_work_sync() on the probe error path leads t=
-o Use-After-Free if the short IRQ fires during probe.
-- [High] wled_remove() unconditionally calls disable_irq() on short_irq and=
- ovp_irq, which may be unallocated or negative.
---
+On 9/14/26 17:00, oushinnyo wrote:
+>   Hi Christian,
+> 
+>   thanks for the review. I understand that re-adding the mapping to
+>   vm->freed is not a valid approach, so I will drop this patch.
 
-commit 43030df8f21835cdbc934e6ed48a2467d72a8a08
-Author: David Heidelberg <david@ixit.cz>
+Keeping the freed mappings on the list is actually ok when the updated fails.
 
-backlight: qcom-wled: Fix unbalanced OVP IRQ enable at probe
+The problem is that we then need to revert all other changes to housekeeping structures as well to still have a consistent picture and I don't think that this would be easily possible.
 
-wled_configure_ovp_irq() derives the initial state of the OVP interrupt
-from the hardware but wled->brightness is left at zero. This patch moves
-the MOD_EN readback into wled_probe() and seeds wled->brightness to fix
-the unbalanced IRQ enable.
+> 
+>   The failure path I had in mind was the interruptible CPU update wait in
+>   amdgpu_vm_cpu_prepare():
+> 
+>     amdgpu_sync_wait(sync, true)
+>       -> dma_fence_wait(fence, true)
 
-> diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backligh=
-t/qcom-wled.c
-> index 22c35da72dce3..43e9f6f755582 100644
-> --- a/drivers/video/backlight/qcom-wled.c
-> +++ b/drivers/video/backlight/qcom-wled.c
-> @@ -1627,7 +1627,6 @@ static int wled_configure_ovp_irq(struct wled *wled,
->  				  struct platform_device *pdev)
->  {
->  	int rc;
-> -	u32 val;
-> =20
->  	wled->ovp_irq =3D platform_get_irq_byname(pdev, "ovp");
->  	if (wled->ovp_irq < 0) {
+Mhm that wait should probably not be interruptible, but it is extremely unlikely that this actually matters. The wait is there just in case.
 
-[Severity: High]
-This isn't a regression introduced by this patch, but if
-platform_get_irq_byname() fails, wled->ovp_irq retains the negative error
-code, and wled_configure_ovp_irq() returns 0.
+The only thing which can potentially go wrong is that the device was hot plugged and in that case it doesn't matter any more what we do with the page tables.
 
-Later, during unbind:
+Regards,
+Christian.
 
-drivers/video/backlight/qcom-wled.c:wled_remove() {
-    ...
-    disable_irq(wled->short_irq);
-    disable_irq(wled->ovp_irq);
-    ...
-}
+> 
+>   I do not have a minimal reproducer yet. I will investigate the actual
+>   call path further before proposing another change.
+> 
+>   Regards,
+>   oushinnyo
+> 
+> At 2026-09-07 20:04:16, "Christian König" <christian.koenig@amd.com> wrote:
+>>On 9/5/26 04:31, oushinnyo wrote:
+>>> amdgpu_vm_clear_freed() removes a mapping from vm->freed before
+>>> clearing its page table entries. If amdgpu_vm_update_range() fails,
+>>> the mapping is currently freed even though the PTE update might not
+>>> have completed.
+>>>
+>>> This is particularly problematic with CPU VM updates. Waiting for an
+>>> earlier submission is interruptible, so a signal can abort the wait
+>>> before any PTE is cleared. The old mapping then exists neither in the
+>>> VA tree nor on the freed list, allowing a later VM update to reuse the
+>>> virtual address while an earlier submission still references it.
+>>
+>>That would be indeed problematic, where exactly do you see that? Do you have a test case for this?
+>>> Put the mapping back on vm->freed on every update error. This keeps the
+>>> pending clear operation alive and makes later VM updates retry it before
+>>> installing new PTEs. It also covers partial CPU or SDMA updates
+>>> conservatively.
+>>
+>>Clear NAK to that approach.
+>>
+>>Freed up areas of the page tables must be cleared when that function is called or otherwise we run into tons of problems reverting previous changes to the housekeeping structures.
+>>
+>>The only valid reason this function can fail is because the device is hot removed and in that case it doesn't matter any more what we do here.
+>>
+>>Regards,
+>>Christian.
+>>
+>>> 
+>>> Fixes: b4d42511b7f2 ("drm/amdgpu: Support page table update via CPU")
+>>> Cc: stable@vger.kernel.org
+>>> Assisted-by: Codex:gpt-5
+>>> Signed-off-by: oushinnyo <oushinnyo@163.com>
+>>> ---
+>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 3 ++-
+>>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>>> 
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> index 47cde5459469..e20905d2d90c 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> @@ -1606,11 +1606,12 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+>>>                 r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
+>>>                                            &sync, mapping->start, mapping->last,
+>>>                                            0, 0, 0, NULL, NULL, &f);
+>>> -               amdgpu_vm_free_mapping(adev, vm, mapping, f);
+>>>                 if (r) {
+>>> +                       list_add(&mapping->list, &vm->freed);
+>>>                         dma_fence_put(f);
+>>>                         goto error_free;
+>>>                 }
+>>> +               amdgpu_vm_free_mapping(adev, vm, mapping, f);
+>>>         }
+>>> 
+>>>         if (fence && f) {
+>>> --
+>>> 2.25.1
+>>> 
+> 
 
-Does this unconditional disable_irq() risk passing an unallocated negative
-value (or 0, if the threaded IRQ request fails and sets it to 0),
-potentially crippling system IRQ 0?
-
-[ ... ]
-> @@ -1742,9 +1755,6 @@ static int wled_probe(struct platform_device *pdev)
->  	if (rc < 0)
->  		return rc;
-> =20
-> -	val =3D WLED_DEFAULT_BRIGHTNESS;
-> -	of_property_read_u32(pdev->dev.of_node, "default-brightness", &val);
-> -
->  	memset(&props, 0, sizeof(struct backlight_properties));
->  	props.type =3D BACKLIGHT_RAW;
->  	props.brightness =3D val;
-
-[Severity: Critical]
-This is a pre-existing regression, but I noticed wled_probe() successfully
-registers the backlight device and returns:
-
-drivers/video/backlight/qcom-wled.c:wled_probe() {
-    ...
-    bl =3D devm_backlight_device_register(&pdev->dev, wled->name,
-                                        &pdev->dev, wled,
-                                        &wled_ops, &props);
-    return PTR_ERR_OR_ZERO(bl);
-}
-
-Since platform_set_drvdata() is never called in the probe path, won't
-platform_get_drvdata(pdev) return NULL in wled_remove()?
-
-drivers/video/backlight/qcom-wled.c:wled_remove() {
-    struct wled *wled =3D platform_get_drvdata(pdev);
-   =20
-    mutex_destroy(&wled->lock);
-    ...
-}
-
-Could this lead to a guaranteed NULL pointer dereference when the device
-is unbound?
-
-[Severity: High]
-This is another pre-existing regression, but looking at the error paths at
-the end of wled_probe():
-
-If wled_configure_short_irq() succeeds, it registers and enables the
-short IRQ immediately. If a subsequent step like wled_configure_ovp_irq() or
-devm_backlight_device_register() fails, wled_probe() returns an error code:
-
-drivers/video/backlight/qcom-wled.c:wled_probe() {
-    ...
-    rc =3D wled_configure_ovp_irq(wled, pdev);
-    if (rc < 0)
-        return rc;
-    ...
-}
-
-If the hardware asserts the short IRQ concurrently during this failure,
-wled_short_irq_handler() will run and schedule the delayed work:
-
-drivers/video/backlight/qcom-wled.c:wled_short_irq_handler() {
-    ...
-    rc =3D wled_module_enable(wled, true);
-    ...
-}
-
-Since there is no cancel_delayed_work_sync() on the probe error path,
-will this result in a use-after-free when devres cleans up and frees the
-wled struct while the delayed work is still queued?
-
-[Severity: High]
-This isn't a regression introduced by this patch, but looking at the
-teardown sequence in wled_remove():
-
-drivers/video/backlight/qcom-wled.c:wled_remove() {
-    struct wled *wled =3D platform_get_drvdata(pdev);
-
-    mutex_destroy(&wled->lock);
-    cancel_delayed_work_sync(&wled->ovp_work);
-    disable_irq(wled->short_irq);
-    ...
-}
-
-If the short IRQ fires concurrently before disable_irq() is called, could
-the IRQ handler attempt to acquire the destroyed mutex?
-
-Additionally, since wled_short_irq_handler() unconditionally re-enables the
-module, could it asynchronously re-arm wled->ovp_work after the cancellation
-has already finished, leading to a use-after-free when the struct is freed?
-
-[Severity: High]
-This is also a pre-existing regression, but I noticed
-wled_short_irq_handler() doesn't seem to check if the backlight was
-intentionally disabled:
-
-drivers/video/backlight/qcom-wled.c:wled_short_irq_handler() {
-    ...
-    msleep(WLED_SHORT_DLY_MS);
-    rc =3D wled_module_enable(wled, true);
-    ...
-}
-
-If userspace intentionally disables the backlight via wled_update_status()
-by setting brightness to 0, and a short circuit IRQ fires concurrently or
-shortly after, wouldn't the handler force the hardware back on?
-
-Does this leave the hardware enabled indefinitely while the software state
-considers it off, ignoring further requests to set brightness to 0?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-qcom-wled-=
-backlight-v2-0-a908d9233e93@ixit.cz?part=3D2
