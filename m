@@ -4,86 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44B1AC88E6F
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 19:38:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F819C88E7B
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 19:44:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FA8510F1B0;
-	Mon, 14 Sep 2026 19:38:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C3DB10F1B7;
+	Mon, 14 Sep 2026 19:44:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="WTY8xEi6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Aa9RX4NE";
 	dkim-atps=neutral
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97FC910F1B0
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 19:38:44 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260914193842euoutp01953e61d38ec40643bc4d7157964f6df4~VRzWra7uK0314903149euoutp01E;
- Mon, 14 Sep 2026 19:38:42 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20260914193842euoutp01953e61d38ec40643bc4d7157964f6df4~VRzWra7uK0314903149euoutp01E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1789414722;
- bh=l4wDoWVeNywfcIR5L4rg3J/vDfSoW2zWF07vjDkO78A=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=WTY8xEi6jJOa1gLnOSUBPvlQpMk4v2dS5Nlb2zkZtStSIF1Pr3VZihsDFbmaj+Y4h
- 48ffokqJfJoWOeBrkZRq1liliRT+IYnxf1/b09yAMsjlsgBoE69rhThGKgRG7auZzS
- XuVmAtFsH2iSO/zueW7kE3R3lnmCSs0qp5222L1M=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20260914193842eucas1p27f2871f925584e946f2bb24c04b38b90~VRzWUs-Iu3205232052eucas1p2N;
- Mon, 14 Sep 2026 19:38:42 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260914193840eusmtip1c6e3388713b55ee3f14ee6a855ba8b6e~VRzUiiOIx1812818128eusmtip1N;
- Mon, 14 Sep 2026 19:38:40 +0000 (GMT)
-Message-ID: <fcfdd9da-8425-4cf9-94ba-23b06cd06185@samsung.com>
-Date: Mon, 14 Sep 2026 21:38:40 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 18/19] riscv: dts: starfive: jh7110: Update DT for
- display subsystem
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
- Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, Philipp
- Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Hal
- Feng <hal.feng@starfivetech.com>, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
- <bmasney@redhat.com>, Heiko Stuebner <heiko@sntech.de>, Conor Dooley
- <conor@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
- <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, Brian Masney
- <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- mfd@lists.linux.dev, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, Marek
- Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
- <maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
- Zheng <zhengxingda@iscas.ac.cn>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <20260910-determined-fantastic-seriema-3ff701@quoll>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260914193842eucas1p27f2871f925584e946f2bb24c04b38b90
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260904132743eucas1p1e02218d3fb38af95c3dd4bfa24904cab
-X-EPHeader: CA
-X-CMS-RootMailID: 20260904132743eucas1p1e02218d3fb38af95c3dd4bfa24904cab
-References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
- <CGME20260904132743eucas1p1e02218d3fb38af95c3dd4bfa24904cab@eucas1p1.samsung.com>
- <20260904-jh7110-clean-send-v3-18-484f9ae72715@samsung.com>
- <20260910-determined-fantastic-seriema-3ff701@quoll>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7399510F1B7
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 19:44:37 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B330C60142;
+ Mon, 14 Sep 2026 19:44:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 960DB1F000FF;
+ Mon, 14 Sep 2026 19:44:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789415076;
+ bh=dAIamB9o96xWXDBcRkq+/H0si90404IoSC8KyMPldZw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Aa9RX4NETC9n15P4OBlFDQsPzC9XjIuOtUHcYgFRMSR9QFgm0bbVVhxKu0M8wRgDj
+ U2jklQLyh4IzZ0H+3MHP8kcHulROBBL5SZwu8TEoW3jsW8g12yWV9RV1BKlMNnWggX
+ 61WpUC3uZnkGyZO1jxhozUWpbMBwFodtfctbTbrphUE8/csJArkmbq2JQKLEZb/2nX
+ OkARX43MWFEQV5bfl7ZQvpJl6JuaYXuD8O9OU6yXFnODyYK4vZ67Z/GCIHsn+IqLmO
+ zF3LTrI9XHu+t2Df2uG5iq6n8dsxpNLvl/UPexqRY1SUgB4XV91cnHLp4Jaf/QLLWV
+ /BU+iQDoVNOQg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 19/40] fbdev: defio: assert FBINFO_VIRTFB, drop
+ VM_IO, add VM_MIXEDMAP
+To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
+Cc: linux-perf-users@vger.kernel.org, "Marc Zyngier" <maz@kernel.org>,
+ dri-devel@lists.freedesktop.org, "Oliver
+ Upton" <oupton@kernel.org>, kvm@vger.kernel.org, selinux@vger.kernel.org,
+ "Vasily Gorbik" <gor@linux.ibm.com>, kvmarm@lists.linux.dev,
+ "Heiko Carstens" <hca@linux.ibm.com>, bpf@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, "Alexander
+ Gordeev" <agordeev@linux.ibm.com>, linux-scsi@vger.kernel.org, "Christian
+ Borntraeger" <borntraeger@linux.ibm.com>
+In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-19-7d9781ed5361@kernel.org>
+References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
+ <20260914-b4-mmap-prepare-vma-flag-sanify-v2-19-7d9781ed5361@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 19:44:35 +0000
+Message-Id: <20260914194435.960DB1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,49 +62,123 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+
+Pre-existing issues:
+- [Critical] The driver passes a virtual address to __free_pages(), causing=
+ an out-of-bounds pointer dereference and kernel panic.
+- [High] Ignored return value of fb_deferred_io_init() leads to NULL pointe=
+r dereferences in mmap, open, and cleanup error paths.
+- [High] Missing .driver_data initialization in i2c_device_id array leads t=
+o NULL pointer dereference on sysfs instantiation.
+--
+
+commit d46565518c57c096a66d45b42bbe529fae5740d7
+Author: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+fbdev: defio: assert FBINFO_VIRTFB, drop VM_IO, add VM_MIXEDMAP
+
+Currently all drivers which use defio allocate system memory. All of them
+also set FBINFO_VIRTFB, other than ssd1307fb, however this driver allocates
+system RAM, so simply failed to set this flag when it ought to.
+
+> diff --git a/drivers/video/fbdev/ssd1307fb.c b/drivers/video/fbdev/ssd130=
+7fb.c
+> index c4fdecafd8560..958514a354338 100644
+> --- a/drivers/video/fbdev/ssd1307fb.c
+> +++ b/drivers/video/fbdev/ssd1307fb.c
+> @@ -763,6 +763,8 @@ static int ssd1307fb_probe(struct i2c_client *client)
+>  	info->fix.smem_start =3D __pa(vmem);
+>  	info->fix.smem_len =3D vmem_size;
+> =20
+> +	info->flags =3D FBINFO_VIRTFB;
+> +
+>  	fb_deferred_io_init(info);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but if memory allocation fails
+in fb_deferred_io_init(), it returns -ENOMEM but ssd1307fb_probe() ignores
+it, leaving info->fbdefio_state as NULL and info->deferred_work
+uninitialized.
+
+Subsequent probe failure or device removal calls fb_deferred_io_cleanup(),
+which can unconditionally call flush_delayed_work() on the uninitialized
+workqueue and then dereference the NULL fbdefio_state:
+
+drivers/video/fbdev/core/fb_defio.c:fb_deferred_io_cleanup() {
+	...
+	mutex_lock(&fbdefio_state->lock);
+	...
+}
+
+Additionally, userspace calling open() or mmap() could trigger NULL pointer
+dereferences in fb_deferred_io_open() and fb_deferred_io_mmap().
+
+Does the ignored return value of fb_deferred_io_init() lead to NULL pointer
+dereferences in mmap, open, and cleanup error paths?
+
+> =20
+>  	i2c_set_clientdata(client, info);
+
+[Severity: Critical]
+This is a pre-existing issue, but the driver allocates video memory using
+__get_free_pages(), which returns a virtual address (void *).
+
+During probe failure, it passes this virtual address directly to
+__free_pages():
+
+drivers/video/fbdev/ssd1307fb.c:ssd1307fb_probe() {
+	...
+fb_defio_error:
+	__free_pages(vmem, get_order(vmem_size));
+	...
+}
+
+And during module unload, it does the same:
+
+drivers/video/fbdev/ssd1307fb.c:ssd1307fb_remove() {
+	...
+	__free_pages(__va(info->fix.smem_start), get_order(info->fix.smem_len));
+	...
+}
+
+Because C implicitly casts void * to struct page *, the kernel could treat
+the zeroed video memory as a page struct, reading garbage PFNs, corrupting
+the buddy allocator state, and crashing.
+
+Does passing a virtual address to __free_pages() in these paths cause an
+out-of-bounds pointer dereference and kernel panic? Should this be using
+free_pages() instead?
 
 
-On 9/10/26 10:37, Krzysztof Kozlowski wrote:
-> On Fri, Sep 04, 2026 at 03:27:19PM +0200, Michal Wilczynski wrote:
->> diff --git a/arch/riscv/boot/dts/starfive/jh7110.dtsi b/arch/riscv/boot/dts/starfive/jh7110.dtsi
->> index 9c3e4598747eb5541effe697044484715569a285..0f981f4c89586269b987be8591037c9461e04703 100644
->> --- a/arch/riscv/boot/dts/starfive/jh7110.dtsi
->> +++ b/arch/riscv/boot/dts/starfive/jh7110.dtsi
->> @@ -290,12 +290,6 @@ gmac1_rmii_refin: gmac1-rmii-refin-clock {
->>  		#clock-cells = <0>;
->>  	};
->>  
->> -	hdmitx0_pixelclk: hdmitx0-pixel-clock {
->> -		compatible = "fixed-clock";
->> -		clock-output-names = "hdmitx0_pixelclk";
->> -		#clock-cells = <0>;
->> -	};
->> -
->>  	i2srx_bclk_ext: i2srx-bclk-ext-clock {
->>  		compatible = "fixed-clock";
->>  		clock-output-names = "i2srx_bclk_ext";
->> @@ -352,6 +346,13 @@ tdm_ext: tdm-ext-clock {
->>  		#clock-cells = <0>;
->>  	};
->>  
->> +	xin24m: xin24m {
-> 
-> Other clocks are called foo-clock, so follow this as well (even though
-> it does not follow recommended practice of clock-foo, but at least some
-> consistency).
+[Severity: High]
+This isn't a bug introduced by this patch, but if the driver is instantiated
+via the legacy I2C sysfs interface, device_get_match_data() falls back to
+matching against ssd1307fb_i2c_id:
 
-will rename to to xin24m-clock
+drivers/video/fbdev/ssd1307fb.c:ssd1307fb_i2c_id[] =3D {
+	{ .name =3D "ssd1305fb" },
+	...
+};
 
-> 
-> Best regards,
-> Krzysztof
-> 
-> 
+Because entries in this array omit the .driver_data field, it defaults to
+NULL. The probe function then unconditionally dereferences this NULL pointe=
+r:
 
-Best regards,
--- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+drivers/video/fbdev/ssd1307fb.c:ssd1307fb_probe() {
+	...
+	par->vcomh =3D par->device_info->default_vcomh;
+	...
+}
 
+Does the missing .driver_data initialization in the i2c_device_id array
+lead to a NULL pointer dereference on sysfs instantiation?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-b4-mmap-pr=
+epare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org?part=3D19
