@@ -4,91 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B659C88E64
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 13:10:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7B3FC88E50
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 13:11:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A612210EE32;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F236A10EE33;
 	Mon, 14 Sep 2026 13:10:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YtwJzP5K";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YHJGXwf8";
 	dkim-atps=neutral
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com
- [74.125.228.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 307EA10E492
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 10:45:13 +0000 (UTC)
-Received: by mail-pz2-f43.google.com with SMTP id
- d2e1a72fcca58-868cfc5c244so1031363b3a.3
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 03:45:13 -0700 (PDT)
+Received: from mail-lr2-f11.google.com (mail-lr2-f11.google.com
+ [74.125.230.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3433A10EBFF
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:16:55 +0000 (UTC)
+Received: by mail-lr2-f11.google.com with SMTP id
+ 38308e7fff4ca-3a5b0adf48fso12395761fa.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 01:16:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789382712; x=1789987512; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1789373813; x=1789978613; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=3m3SP6e9NrbIRaMkWtj1uZEt6uHgAf5jXfUplg45r+k=;
- b=YtwJzP5KFQCNTHmwkONV/e62S132ARQUgN7h2slSQDwkML/2Zf2m3OmEQA3zjDdb5v
- 0/skvy/mbdiFqNRrxORlY4xighQfO5+dSKpK2YX53iHDYf4ROm+EPYz+XZnGDsZAWNdT
- 1ePp9VXJSUwxutgF6SoRUPGxsuTV/sVnr2CK955M6XPKtGkJOT+Q3PGmGVjNWGyyxKap
- 6x6yTjkEHspno3V5OD7YG40xbnsZPvCyRghYnNDaMJWMvZxJXQGf+q2JD6YGjnQimgrm
- kCTKH9arzy7gdo3bQCx9Ct3LC8xOtFBkOjD7oz8ImKG2RI5GsQR/0z21IP8rmWpNksBb
- MW0g==
+ bh=aUYPK83osLZqDNXLlGB7lbQYloWd+rguo+bEtxrEyi4=;
+ b=YHJGXwf8r1Mr9pPaqn0tlAlgrSSw2KxmjjeE+RYA1USZjO1QveAJKcsYQfA4FTW6pL
+ dSE9qv+DGWv+6LNKLFLFvOS/3w9moha7Bm3eb0zWxZ7ehMaYV/tjP9R93EDnAxbDoe+y
+ ZP43OS/zgOEtNHC6nFDx551qVhq22NE4z2lkqWNyp7VJphuRTOqnqQYIvgqdESZmzrJv
+ W8pbVUrvOKVUb3Pjma5j5au+V2RrMI3GZv+DpAIgYtNPT9tzgnLHk/dTOKsM/KXabr7d
+ k/l/+7Bcc2L550ITncfIWJtiE1P7YcEZYM25IWsY0Z+YWhIcZbQCVEh9XYAfE9x95jtb
+ NGPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789382712; x=1789987512;
+ d=1e100.net; s=20251104; t=1789373813; x=1789978613;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=3m3SP6e9NrbIRaMkWtj1uZEt6uHgAf5jXfUplg45r+k=;
- b=h7uIougIet90L+ikS3fYx/BAzEm8iDZd6EmXtm1QAK9hGXsbqyzlL8+CjdRueWCGDf
- DeA+jLHPkT5bXPanBKcta2qmFOxmVIA+t5Lj38rwVJXiuFdiiM55WAQ1VptIEVwQTVp9
- /egniIQOjSC2WVnnLxFMPjml+WSmjWYM40n1+vMVXS0EgKCRasAqDAe5IwSFHQBbTP+k
- DA+Qz7Bh8jxuWA0gLB30Tk0OqrmE66ZAXN1IZeRXaRrFp2c2FiTsfN8fepG1CDliTMfT
- DwWohqyv3tngdFEaISKqN8N0Ot2TUu8AbNV0D1pYX53L3JhtzC+f17DEQwCLaUYhxtbk
- FZeA==
+ bh=aUYPK83osLZqDNXLlGB7lbQYloWd+rguo+bEtxrEyi4=;
+ b=BucM8/e/WljQ3l51m0/QQYBcn+uSe9LgT4OnLQ904FLa8jnq3ArguF8mgIhEjoieL/
+ Q5VzNrTtYPnU01OOIElwyvMwxHHg0J9jLiMFiIsQjp1+Wy3AIx+c7wMeKvZFbR3bWB73
+ BLDUvQ88y3/3TVEy0O+Elbz1/XAYuB13yw6OBGDejuIdMkRscUY6WAAYo3LRpJFxgpK2
+ 3mP/mcuOPlLtLQ/4Sefh9eRLEzq+RFc0Z/pEeta3e1fNDJNww3JbyFQuzBBb321m2jk1
+ 81usP7zEpN1UQH66hAyqqrnIrILSUpkSpEl9X83Agxp7KNPeXMR/MpWcNGDY4HB4lwmT
+ yWIg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBy3c67jsNB5ugkUU1Oay7nXW0y4TuMOiuN6ipzJb+EZmdbTE61cI0aUDM29/7DSwnVt8/M1D8vDq4E=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nqqgFqzD/eatEkp7/89sr8micDjRkwVziz9ukMuGX26Y95dOQh
- gzjJ+Hc69KC3iThP0sguVvA/T58cBsPIKx2r85RE5tV5n7W6N9dAEfcZ
-X-Gm-Gg: AYBFou00zEt7jCV1WqOzalmn0BBe8YcFVj/OiOCpdzf2eKy7CV2UGN0oChEdRNGgNLr
- WdHPogs0l14Qk9+pDDEYUZD2SCBUwIOwPwUQ3BBsz3BpKcnuAvJX57M5mDFyEwDRihLs5ZdQEyJ
- mBvdECM98RbgADPcaTEur4wiJvcmzHK4cC0aPOJWk/c/TD1J9yHlCbGzhi+BH+KZFOlnlaO+QxE
- NATg3NMCQZfmcAbbyPjwC16x2w8C7QMdFI9Mb6w7PXtqgChS44y3ctyVTAgcP61HDaQuHPud9TR
- wAKp6hCeEHwSSazWsgY01kFB/zkwUb6lS35AZ5c/4nqLAWpXmC0ye+FLjekbu7tGC2ePigiy/gS
- cznL0USHyONKu4/oPTc0EGDgZAmW0VBIC1Je4LCJbDeYpVxYQKIrR4fJ2E49UC3rUcKGwu5Slgi
- ZkaP0gJmf4vXnaxtkFJasjUknXaiJ0ENltjk65eAt/uHhVqSEJMMjjvImyr4HbxezSGhC8d57SM
- SFjFsvLu5hXQOsDLIUXCnmQkZlSLHQPNSVpwI2doLeIQG2oQZbqLsfRE3RIEPUvOitkHXbmiwNI
- rBIjWlWYtmvmOSCSsC3L+ehHvF322u1epyfg5JfpEmjuvrWAkFF8PkSsHKXSCx0=
-X-Received: by 2002:a05:6a00:21c2:b0:857:7384:b5fd with SMTP id
- d2e1a72fcca58-86f8737ced2mr3809414b3a.25.1789382712304; 
- Mon, 14 Sep 2026 03:45:12 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.252.203.158])
+ AKwUvBxxjX0n5y9+23MjlGk8PRloZ8cDPYI9HsqFU3N4WBBr5KsnTMht2VxmQZCOKPJ+ZGVqFAAQv0aUJgQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++n0rClsmDjrnRK9LGtZPOa83j+3HczXp7vWO7Bjc9GVXtEw8svj
+ 5S+4LA6Vh5ivtM5TsdizcV/FNJKUxOWsTE/jGXLWwKeEvsHPlm66BrG8
+X-Gm-Gg: AYBFou3QE4lZjmqzgOABJsiZ8fxgsKAgxZetBYHhOCo6iBrq7AwTOTMA6mVh7qanwpU
+ lkkKWHwQhXOgj6izLeHzct7X26ZPBG5yhNuBuxjKqrpxaPpUEAYWu0jNmr9FCMLdEp8M7+c5mcr
+ pxN6YC5F/cLDwVA0dCQT1hqMtEG1S0e6mmLKZmi51QaTRAeeRQRht8EUc/3s6Vrkgk84/HrN7p7
+ wjTiHXANIdT7xKis9t2q4UPtIWz2hLRQAYnqyUSm3yaSUu9srCqbVZH2/dhrQHd0LUzk2WqC4FJ
+ BkpV+9uYBoz6OV7uYzo7++iPjGorr/GvYzGV4ZxdR2HlIwpmascIoFMC/KN8n/xFFYk4I/O3Yg1
+ tuHCZfrhg0B3sdPG/jsDqplBBte2hijK40kllJjz0Re44DInNbzpZMGufioJWuaHOCiq1egptDC
+ Lzs6/9D1ajzBiBa/1M5PQ80BAUZIAkfDbOZPcBkrOrikFTp5GU+f9Ccube5WSYPPyZW76kTtFHk
+ z/ykD86jEt55v+4ZQ==
+X-Received: by 2002:a05:6512:3052:b0:5b6:1a7c:fd94 with SMTP id
+ 2adb3069b0e04-5b8ae6a92b4mr321128e87.58.1789373813016; 
+ Mon, 14 Sep 2026 01:16:53 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-86b28fd0e0dsm4234386b3a.26.2026.09.14.03.45.04
+ 2adb3069b0e04-5b8a047ab97sm2326043e87.76.2026.09.14.01.16.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Sep 2026 03:45:11 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Matthias Goergens <matthias.goergens@gmail.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
- Michal Hocko <mhocko@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>,
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Yosry Ahmed <yosry@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
- linux-api@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
- linux-man@vger.kernel.org, Karel Zak <kzak@redhat.com>,
- util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, "Rafael J . Wysocki" <rafael@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org
-Subject: [RFC PATCH 0/3] mm/swap: reserve swap areas for deliberate offload
-Date: Mon, 14 Sep 2026 18:44:58 +0800
-Message-ID: <20260914104501.3960616-1-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ Mon, 14 Sep 2026 01:16:52 -0700 (PDT)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sasha Levin <sashal@kernel.org>,
+ Wayne Lin <Wayne.Lin@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ Mario Limonciello <Mario.Limonciello@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Melissa Wen <mwen@igalia.com>,
+ Alex Hung <alex.hung@amd.com>,
+ "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Sunil Khatri <sunil.khatri@amd.com>,
+ Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, WenTao Liang <vulab@iscas.ac.cn>,
+ George Zhang <george.zhang@amd.com>
+Subject: [PATCH 5.10/6.1] drm/amd/display: set new_stream to NULL after release
+Date: Mon, 14 Sep 2026 11:16:35 +0300
+Message-ID: <20260914081639.12512-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 14 Sep 2026 13:10:56 +0000
@@ -107,130 +109,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Some swap backends are useful for deliberate cold-page offload but are poor
-dependencies for ordinary reclaim under acute memory pressure. Swap on ZFS
-zvols is an existing example, with documented deadlocks under memory
-pressure [3]. Compressed swap is another attractive target: accepting a
-write may require memory for compression or storage even when logical swap
-slots remain free.
+From: WenTao Liang <vulab@iscas.ac.cn>
 
-This series adds an offload-only swap-area policy for such deployments,
-alongside a conventional swap reserve for pressure reclaim.
+commit 9fa26b9eed6195bf840f39ac183b9a6237548755 upstream.
 
-Proactive offloading is already established by TMO/Senpai [4], which uses
-pressure feedback to offload cold pages to compressed memory or SSDs.
-DAMON_RECLAIM [5] also uses free-memory watermarks to suspend proactive
-reclaim under severe pressure. These control when reclaim runs; this RFC
-restricts which swap areas ordinary reclaim may write, including through
-retained swap entries. The existing memory.zswap.writeback control [6]
-restricts backing-swap writes per cgroup, rather than reserving individual
-swap areas for explicitly admitted offload.
+In dm_update_crtc_state(), the skip_modeset path releases new_stream
+via dc_stream_release() but does not set the pointer to NULL.
 
-The minimum contract is that ordinary reclaim must not initiate a new,
-non-zero backend write to an offload-only area. Reads, swapoff, zero-page
-metadata, architecture preparation, and I/O that was already admitted remain
-valid. If no eligible swap remains, existing reclaim and OOM behaviour applies.
-This RFC does not promise a performance result or define a new workload policy.
+If a later error (e.g., color management failure) triggers the fail
+label, the error path calls dc_stream_release() again on the same
+dangling pointer, causing a double release and potential use-after-free.
 
-Cgroup v2 memory.reclaim and per-node reclaim establish admission. Manual
-MGLRU eviction currently does too, but its debugfs interface is not stable
-ABI. Ordinary direct reclaim, kswapd, MADV_PAGEOUT and DAMON reclaim do not
-gain access. This is an explicit operator policy; the kernel does not measure
-physical headroom or automatically classify backends.
+Fix this by setting new_stream to NULL after the initial release.
 
-The three patches are based on mm-new as refreshed on 11 September, at
-995829088503:
+Fixes: 9b690ef3c704 ("drm/amd/display: Avoid full modeset when not required")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+Reviewed-by: George Zhang <george.zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+---
+Backport fix for CVE-2026-68236
 
-1. The complete swap-area policy, including eligible-capacity accounting and
-   recovery of eligible cache entries.
-2. zram03/zram04 coverage for reclaim routing, zswap bypass, discard policy
-   and file workingset activation.
-3. zram05 coverage for retained swap entries, including ordinary-write
-   refusal, proactive recovery, data integrity and checked teardown.
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-The implementation is intended to make these questions reviewable:
-
-1. Should pressure eligibility be a durable property activated with the
-   physical swap area, or should it be selected late during backend migration?
-2. Do provenance, allocation filtering, eligible capacity, and retained-entry
-   refusal provide a useful minimum contract for userspace and controllers?
-3. Is redirtying or activating a retained dirty folio, with possible churn or
-   OOM, acceptable, or is backend migration a prerequisite?
-4. How should persistent activation fail closed and remain auditable when
-   /proc/swaps and swapon --show do not expose the policy?
-5. Should an ineligible fast-path cluster be invalidated immediately, and
-   should an offload-only area recover its own cache entries based on eligible
-   fullness rather than global swap fullness?
-6. Should the workingset activation heuristic continue to count offload-only
-   capacity when pressure reclaim cannot allocate from it?
-
-Build checks passed on x86 with i915 built-in or modular, and with swap or
-memory cgroups disabled. The affected arm64 MTE objects also compiled.
-
-The routing and workingset tests passed in x86 QEMU guests. In the
-retained-entry test, ordinary reclaim wrote nothing to offload-only swap;
-proactive reclaim then wrote the dirty folio, and all data verified
-correctly. With the write guard removed, the same test failed because
-ordinary reclaim wrote to the offload-only area.
-
-Persistent fstab encoding remains unsettled. When hibernation is about to
-save an image, an active offload-only area named by resume= is rejected as
-the image target with -ENODEV. Virtual Swap Space v4 [1] separates swap
-entries from their physical backing, while swap tiers v10 [2] proposes
-per-cgroup backend selection. These raise the question of whether offload
-eligibility belongs to physical swap areas or a later placement decision;
-this RFC does not assume those interfaces are settled.
-
-An explicit-only util-linux companion implementing swapon --offload-only
-is prepared for separate submission.
-
-Feedback on the eligibility contract, its placement in the swap stack,
-and the unresolved ABI and reclaim-policy questions would be welcome.
-
-[1] https://patchew.org/linux/20260825153238.2695446-1-nphamcs@gmail.com/
-[2] https://patchew.org/linux/20260713025644.170839-1-youngjun.park@lge.com/
-[3] https://openzfs.github.io/openzfs-docs/Project%20and%20Community/FAQ.html#using-a-zvol-for-a-swap-device-on-linux
-[4] https://engineering.fb.com/2022/06/20/data-infrastructure/transparent-memory-offloading-more-memory-at-a-fraction-of-the-cost-and-power/
-[5] https://www.kernel.org/doc/html/latest/admin-guide/mm/damon/reclaim.html
-[6] https://www.kernel.org/doc/html/latest/admin-guide/mm/zswap.html
-
-Matthias Goergens (3):
-  mm: restrict offload-only swap to proactive reclaim
-  selftests: zram: cover offload-only swap policy
-  selftests: zram: cover retained offload-only entries
-
- Documentation/mm/swap.rst                     |  87 ++++
- drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |   2 +-
- .../gpu/drm/i915/gem/selftests/huge_pages.c   |   6 +-
- drivers/gpu/drm/msm/msm_gem_shrinker.c        |   2 +-
- drivers/gpu/drm/panthor/panthor_gem.c         |   2 +-
- drivers/gpu/drm/ttm/ttm_backup.c              |   2 +-
- drivers/gpu/drm/xe/tests/xe_bo.c              |   2 +-
- include/linux/swap.h                          |  29 +-
- include/linux/vm_event_item.h                 |   1 +
- mm/memcontrol.c                               |  20 +-
- mm/page_io.c                                  |  24 +-
- mm/swapfile.c                                 | 126 +++++-
- mm/vmscan.c                                   |  31 +-
- mm/vmstat.c                                   |   1 +
- tools/testing/selftests/zram/.gitignore       |   2 +
- tools/testing/selftests/zram/Makefile         |   4 +-
- tools/testing/selftests/zram/config           |  10 +-
- tools/testing/selftests/zram/swap_offload.c   | 402 ++++++++++++++++++
- .../selftests/zram/workingset_offload.c       | 206 +++++++++
- tools/testing/selftests/zram/zram03.sh        | 166 ++++++++
- tools/testing/selftests/zram/zram04.sh        | 149 +++++++
- tools/testing/selftests/zram/zram05.sh        | 360 ++++++++++++++++
- tools/testing/selftests/zram/zram_lib.sh      |  28 ++
- 23 files changed, 1620 insertions(+), 42 deletions(-)
- create mode 100644 tools/testing/selftests/zram/swap_offload.c
- create mode 100644 tools/testing/selftests/zram/workingset_offload.c
- create mode 100755 tools/testing/selftests/zram/zram03.sh
- create mode 100755 tools/testing/selftests/zram/zram04.sh
- create mode 100755 tools/testing/selftests/zram/zram05.sh
-
-
-base-commit: 9958290885035431e2494159f555e332c3c14906
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index bb5e3a6086f2..deaf98957cb7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9293,6 +9293,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ 	/* Release extra reference */
+ 	if (new_stream)
+ 		 dc_stream_release(new_stream);
++	new_stream = NULL;
+ 
+ 	/*
+ 	 * We want to do dc stream updates that do not require a
 -- 
-2.55.0
+2.53.0
 
