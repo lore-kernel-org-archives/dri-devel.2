@@ -4,72 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA358C88E6F
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 17:35:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72AFCC88E72
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 17:38:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01ED910E08C;
-	Mon, 14 Sep 2026 17:35:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7870910EFBF;
+	Mon, 14 Sep 2026 17:38:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="sY3vF3wP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tQTU5BZu";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93DA510E08C
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 17:35:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=qDVSXqIm/ZZ7NqZ7O46ll556+WfE6c0OGZaZTBmNtws=; b=sY3vF3wPMfV24E7Dcni58ZXMe3
- ibRgguOwwLQcKEQ9HKgwLdG1ruIx/1aKEdVd8inZyLeSRuR7x3TuLWHJ8DRgJcZI4Nj/fZgvcq54q
- 9iKpAyphvZsmC/48vIGUoVX5yBZrOfwsP6VD8wZseeqKt08rHwEzDZPTRy4xrWDvBURku0FBVCjVg
- 7dQkU6P+t2WBudH700oWI7gb9iI8lxXDcMp6Voa52PeMMmcus6Iu63I6H/kHw0id++gY9cE1AdfHe
- 5BCRkTk1MbfSj/W+j7m1LQeDmDyu+11lB+sf029bSaUWOFVtp7F3YhVSi8bZgI10O4+UlRcW9iDj/
- fqigvzsw==;
-Received: from [179.105.94.163] (helo=[192.168.0.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1x6AZt-00214e-Ga; Mon, 14 Sep 2026 19:34:49 +0200
-Message-ID: <c1388b5f-9077-4161-8fd8-3b8ebf24fbde@igalia.com>
-Date: Mon, 14 Sep 2026 14:34:41 -0300
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010054.outbound.protection.outlook.com [52.101.56.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A3E210EFBF
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 17:38:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=o1NuuHfLkOHwR1+QkIYXTcbcx/iReQ1n8rk2hbk0775ULEKf52wggYS0fZz9+sLDS/xVbwa07qXnle2+hsP1P8LheO31QqainF6NtS+jMSe151PsSy41Z/pomgfBVoVxomxDZwD9UHeh4rMOsn0whVtZv9BfI6X2Ro1FNn2YfPvlw1ySxYKidXnS52LjiWepwG6le/1FB5phnE4QwT5UtrteLJOHTroMY7tbnW+w+sk6HgWisuALj3owAsYEMsmHlJpweRPq4+zw5BnY2dLGLqQOTg9U6S0lfnttvfc03SekQ6TD1Aktx4ECLu0MLxlfuZXxJu6kBEGg6YY5SlWR4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s1bLN71/p7mwFZxEkhokLgVAvzZ9nWmh3yo5FMI+b7U=;
+ b=Q1dOOx4SRbCtXMhjyHzCyE1cM671bHpJSAYfTDGhpio7vLT6732W3KVJx2Db2H2Q7cfjDp7zrXVublYTi7Hs+7jKkzHWGPrenFYMtt0/uiD2C7NuXeUM6yAs9UnjDZG01jLNgaj6+t2dl1vrTwRgj2NhoSwiB1I+pRm582z4KQkeyEwriHhoJLTdgDYDiyB6+sYg66MTzbMWb9qXoaxS0L6VCZ3WumtfG5E3D7uHv3jB8inSsHxTpCkXFqT8TWzh3i29+qKk2EKbUPSHqNv79PlgvDN9XF7JUUlqqruwfP7+sbzbgaRYOYhj8mCd3Z92Q8fNQuQrXwq88ahOD9neig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s1bLN71/p7mwFZxEkhokLgVAvzZ9nWmh3yo5FMI+b7U=;
+ b=tQTU5BZuDA4ngwXUZreuZRRq0fULGMFzWe+LwFz46LeUnrkZVelTwZKsLPWFs5kJcxp14vhSEs3y+guXq0LdqTJmoWCMKhv2NFALvGm4JPlhGv+TIhtgjGtvxUsa8gnhvf4zza6Oe/L/VRFNTC1VFWrgDSw8RYMMVmrH1xxiNUA=
+Received: from BL1PR13CA0386.namprd13.prod.outlook.com (2603:10b6:208:2c0::31)
+ by SN7PR12MB7785.namprd12.prod.outlook.com (2603:10b6:806:346::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 17:37:58 +0000
+Received: from BN2PEPF0000A893.namprd04.prod.outlook.com
+ (2603:10b6:208:2c0:cafe::ab) by BL1PR13CA0386.outlook.office365.com
+ (2603:10b6:208:2c0::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.7 via Frontend Transport; Mon, 14
+ Sep 2026 17:37:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF0000A893.mail.protection.outlook.com (10.167.248.185) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 17:37:57 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 14 Sep
+ 2026 12:37:57 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 14 Sep
+ 2026 12:37:57 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Mon, 14 Sep 2026 12:37:56 -0500
+Message-ID: <02d63343-acaa-38fd-e007-33256bb5f409@amd.com>
+Date: Mon, 14 Sep 2026 10:37:51 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/vc4: Hold a GEM reference while purging userspace BOs
-To: Kazuki Hanai <hnkz.64@gmail.com>, mripard@kernel.org,
- dave.stevenson@raspberrypi.com
-Cc: kernel-list@raspberrypi.com, maarten.lankhorst@linux.intel.com,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, eric@anholt.net,
- bbrezillon@kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260830130700.680041-1-hnkz.64@gmail.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 3/4] accel/amdxdna: release the chained command BO when
+ vmap fails
 Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20260830130700.680041-1-hnkz.64@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+To: Eva Crystal <0xiviel@gmail.com>, Min Ma <mamin506@gmail.com>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20260912081012.2274075-1-0xiviel@gmail.com>
+ <20260912081012.2274075-4-0xiviel@gmail.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260912081012.2274075-4-0xiviel@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A893:EE_|SN7PR12MB7785:EE_
+X-MS-Office365-Filtering-Correlation-Id: 42523df0-3c4e-449d-5c8a-08df1286ea7d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700016|23010399003|1800799024|82310400026|13003099007|10067099003|4143699003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: pmDCgyQww/j8p8v8tieUznxsyTSFf2S4uSJSoeAwcLwY8e2tUMAA8NR547BeBgAud548eRJg8uWP+zA2W4fqtJ/5asLp8VvtPEtENkyVuXrCX5T2OmA7KEZ7JCDcGMF7/yFw90X4+/C5Wzqz1+GbJ7uUuL+tp0DIzAQk3xCZUeYKeak8+1jyKCYCiQV5SMegMRRhqAA4oyyx6WbNFmv1SWns7KoH5Q1YhaSWIdRDTdYLY92bpPHv0u//OItzWYOQsKyK9UcwtnBxEYFnQkJM292qG6tC8bCC4DEh/lZtCSP+BW2wbT2QfX9ZiBN0MeRldLmqUErDOrvodv+fNuWxMyBJ50YigtxhOmC678X/Ht9O/NmnLL9wsT39L7tE/HO0txuyLFTxm6rWlqH9iV6fa1qNI8WVcC+uphcJkiR8kTJuKbdZHLeBIP7fkZs624s+p2SQqX4ElVpD7hzZXDW8cgv2LYiYPZ6JHP6uXZp+6Mvayjz1UWoGHRcr7YXsxS2cOJhnnsudI3w9vIcncTR+Yoc3abHU57NZ4Q0xV1rmBySmWxgRvucXue1S/slDtmoHdYnZj8mRUYg/Ei4k3j3TCF11QG+K3LecNsvOV+MovwTthS6ZTrNLFWsc65ic7ubk1PYo9q4OL8o48+gsT01KMwjCpQAoFQ20yWh7S4uEKOLzUGGGcW4Msqsf3P/BlIOjT8TqyPYAw8F9m9KJF2E7Lw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(23010399003)(1800799024)(82310400026)(13003099007)(10067099003)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: BXrAGU3ewRpgQFZO/8P7grANjoqpqG/spRZ2UN6bNXRNcu8mqBuPa+cZos7fbvnGljadYGp9g2g1MjJ+t5SBgWiursWQbLPyNk97d54pGj4Fd1MdBgklHpQZOBjebK0LQctAy5YYqC6Zjmt1IWiIsLGLUk9WKyaF4tcwjcyTJlaxvZhuInHjZKWjP9+25JcZz6GL7VfkbE52ydz9sXz67r2Cy/Sc/Uyii2DtV8mXMILc3YBT9uAx0uNnqzA0/jssVULs51jE3tBW3ykipWXCd9b8ME0KXEHJu4b9YxfqD0MQ9svBaNcOxufg53hDWBosGolu6/I4v6jqcVCPG/Xfg7P/S9hvTJpB/N/lw07gqsNtecZ2oe305928I+W/Jk5c7DJuAhVnyCTjaMZSkcJGVbjfQB0Du2G/UsmtvbkI7vvs/k7mNffWekHWohWc1jZZ
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 17:37:57.8468 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42523df0-3c4e-449d-5c8a-08df1286ea7d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000A893.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7785
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,73 +118,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Kazuki,
 
-On 30/08/26 10:07, Kazuki Hanai wrote:
-> vc4_bo_userspace_cache_purge() removes a BO from the purgeable list and
-> then drops the list lock before taking the BO madvise lock. A concurrent
-> final GEM put can therefore release the BO while the purge path still
-> holds only a raw pointer.
-> 
-> Acquire a non-zero GEM reference while the purgeable list lock still
-> protects the lookup. If final release has already started, drop the list
-> lock so the release path can remove the entry and retry. Put the temporary
-> reference after dropping the madvise lock to avoid recursing into final
-> release while that lock is held.
-> 
-> Fixes: b9f19259b84d ("drm/vc4: Add the DRM_IOCTL_VC4_GEM_MADVISE ioctl")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
+On 9/12/26 01:10, Eva Crystal wrote:
+> When amdxdna_cmd_set_error() follows a command chain it takes a
+> reference on the BO named by the chain:
+>
+> 	abo = amdxdna_gem_get_obj(client, cc->data[0], AMDXDNA_BO_SHARE);
+> 	if (!abo)
+> 		return -EINVAL;
+> 	cmd = amdxdna_gem_vmap(abo);
+> 	if (!cmd)
+> 		return -ENOMEM;
+>
+> and drops it at the end of the function under "if (cc)". The -ENOMEM
+> path returns before reaching that, so the reference taken by
+> amdxdna_gem_get_obj() is leaked and the GEM object is never freed.
+>
+> amdxdna_gem_vmap() fails only if drm_gem_vmap() fails, which needs
+> memory pressure or an exporter that refuses the mapping, so this is a
+> small leak on a rare path rather than something a caller can drive at
+> will. It is still a leak, and the chain BO handle comes from a command
+> buffer user space can write.
+>
+> Drop the reference before returning.
+>
+> Signed-off-by: Eva Crystal <0xiviel@gmail.com>
 > ---
->   drivers/gpu/drm/vc4/vc4_bo.c | 14 ++++++++++++++
->   1 file changed, 14 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/vc4/vc4_bo.c b/drivers/gpu/drm/vc4/vc4_bo.c
-> index 49ea2ed0996b4..5289e69f3345f 100644
-> --- a/drivers/gpu/drm/vc4/vc4_bo.c
-> +++ b/drivers/gpu/drm/vc4/vc4_bo.c
-> @@ -319,6 +319,19 @@ static void vc4_bo_userspace_cache_purge(struct drm_device *dev)
->   		struct drm_gem_object *obj = &bo->base.base;
->   		size_t purged_size = 0;
->   
-> +		/*
-> +		 * The last GEM reference can be dropped concurrently. Its free
-> +		 * callback removes the BO from this list before releasing it, so
-> +		 * the list lock makes an unless-zero get safe. Never carry only a
-> +		 * raw list pointer across the lock drop below.
-> +		 */
-> +		if (!kref_get_unless_zero(&obj->refcount)) {
-> +			mutex_unlock(&vc4->purgeable.lock);
-> +			cond_resched();
-> +			mutex_lock(&vc4->purgeable.lock);
-> +			continue;
+>   drivers/accel/amdxdna/amdxdna_ctx.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
+> index c24bf1c..7a61e83 100644
+> --- a/drivers/accel/amdxdna/amdxdna_ctx.c
+> +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
+> @@ -170,8 +170,10 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *abo,
+>   		if (!abo)
+>   			return -EINVAL;
+>   		cmd = amdxdna_gem_vmap(abo);
+> -		if (!cmd)
+> +		if (!cmd) {
+> +			amdxdna_gem_put_obj(abo);
+>   			return -ENOMEM;
 > +		}
 
-Hum, your fix doesn't look correct to me. First, I don't understand why
-you are using something like cond_resched() here. Next, with this
-approach, the BO with refcount=0 will never be removed from the list.
+Thanks for providing the patch. This has been fixed by:
 
-> +
->   		vc4_bo_remove_from_purgeable_pool_locked(bo);
+https://lore.kernel.org/all/20260819230852.287751-1-taimuraz@kaitmazov.com/
 
-What you could do instead is calling:
 
-if (!kref_get_unless_zero(&obj->refcount))
-       continue;
+Lizhi
 
-here.
-
-Best regards,
-- Maíra
-
+>   	}
 >   
->   		/* Release the purgeable lock while we're purging the BO so
-> @@ -345,6 +358,7 @@ static void vc4_bo_userspace_cache_purge(struct drm_device *dev)
->   			vc4_bo_purge(obj);
->   		}
->   		mutex_unlock(&bo->madv_lock);
-> +		drm_gem_object_put(obj);
->   		mutex_lock(&vc4->purgeable.lock);
->   
->   		if (purged_size) {
-
+>   	if (abo->mem.size < sizeof(*cmd)) {
