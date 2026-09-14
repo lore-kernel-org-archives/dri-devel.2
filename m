@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD1FAC88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 713F1C88E53
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DB0810F879;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E5BE10F88A;
 	Tue, 15 Sep 2026 07:27:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bwmD/Jom";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VpSMzAnS";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC8F510EF65
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:10:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D3BE10EF66
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:16:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 763D3439A5;
- Mon, 14 Sep 2026 15:10:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E29411F00899;
- Mon, 14 Sep 2026 15:09:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B7C8C438F0;
+ Mon, 14 Sep 2026 15:16:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 932411F00893;
+ Mon, 14 Sep 2026 15:16:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789398603;
- bh=uq2xWQ1p6mPiNzp++s6Aro3m2E6wKT5sSjQYvI7TYg4=;
+ s=k20260515; t=1789398989;
+ bh=XL6LKrd6M/PBNjkU6hF8z6KNQ8un+D3E9f5GrhJIaKA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=bwmD/JombA0FO9sHhGiNJeS+ZvfheSA2psdLNu15mTk14rHrqYQ/IPA/3U9osrT+E
- xe39lsxBQOZZqjwvEM+rcTzfDj1ai5jy7AY57BD5ejit2mVRCobgEvn/nFrGpVDf7m
- f25BnyZENCEruuQWi5TZK3sg0ODagQlo3M5aesNNtGvWo+Ztie81hj9SDBnfrCIwMV
- EEX5U6G0fLVmKsHUFtz0/YenMyf5kLX/LNx9mXftV1CQ0Ths8Z4US4czSQIb09tO4F
- ENszegDt2bEYLVaYQ6UCvJtW+bGYP4XAoE9BZaiCaSrIBY+HcYyoIIIFJaFKtJQnnb
- kIUwHj7LB/SNQ==
+ b=VpSMzAnS+A0EUvVcscKjUFm7YaTugBaGsQpZqkD7dfIWRrVXvOUf4AZg5eiUIkgYb
+ vNr1ifzun1Cr2XzqBIyUGEJhCva51xAQ/uSRdxXaFIXps05ytE72SCrNMODy3PtBv5
+ CA6bD3grq8paI2j/M8rV5qTJT2PHki3kbR5ws0Co3vm1sOHIU7aZxJ8Dw27RLLoHsS
+ 4igGaxrRkN5Kmre20YkQB1uTXCp6EeIOc2bi0OwRERk6TRlrmZ5eY2g7o0Y33slxPM
+ k7XUBmGGCptiE2ctMFAtHiaIzfV7jvIPd5XRMFRgs3P0fwHdmKde2x8Geb9KvZgkR1
+ eT2vUY5lEQ/dQ==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 14 Sep 2026 15:57:43 +0100
-Subject: [PATCH v2 23/40] mm/mlock: clear VMA_LOCKED_MASK over mmap
- callback
+Date: Mon, 14 Sep 2026 15:57:57 +0100
+Subject: [PATCH v2 37/40] mm: eliminate VM_SPECIAL, VMA_SPECIAL_FLAGS
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-23-7d9781ed5361@kernel.org>
+Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-37-7d9781ed5361@kernel.org>
 References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
 In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -121,12 +120,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2686; i=ljs@kernel.org;
- h=from:subject:message-id; bh=BsZqCDBeNZFMnLDuCh83Km3v/CdnahcHMG4JtnCdsfU=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcG90KEmdmv3sU+TkKlvftOYi640HdivPDj6SPf/Fm
- ZOLrprv6ihlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEgvQY/ucXzf+Qv212a3LE
- dr/5c/q9Xj86bZW+8d7W2Ehl6QCPXV8Z/go0LK9fn1Z0oJd/34KkKzan/O9d2nrvxZ0XgROrvp7
- 5Y8AFAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2135; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=lzK+2c/tEosn3RgAl/J0FNyvUX6YrR1d8AVyW8bOJGU=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcG9Zt9pOavsKvgW8ORm3rs6//269i3P5myfBKT/+L
+ Kqoy+au7ChlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEpr5j+F97cZlqw7eHRulX
+ U/mjZ3F33bsre1BCPMy66nSTTuOTXD9GhmtsRzQO7H4V8+7B7FbvW8EfFq20ns4Q1OA3v0B2+8F
+ nTTwA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Tue, 15 Sep 2026 07:27:57 +0000
@@ -145,83 +144,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently there's a confusing mess around VMA_LOCKED_BIT and
-VMA_LOCKONFAULT_BIT.
+Every user of the VM_SPECIAL or VMA_SPECIAL_FLAGS has now been converted to
+predicates which explicitly express what is actually being checked for
+rather than the nebulous concept of possessing 'special' VMA flags.
 
-It is permitted for drivers to set any flags they like, with the VMA
-already possessing lock flags.
+In any case 'special' is not so special a term of art in mm - it includes
+VDSO/VVAR mappings, special in the sense of vm_normal_folio() and probably
+other cases too.
 
-This results in the absurd situation of a VMA possessing both
-VMA_SPECIAL_FLAGS and VMA_LOCKED_MASK flags, which is not permitted.
+Therefore make things less special by eliminating these now unused flags.
 
-This has resulted in mlock_vma_folio() having a very silly check for this
-scenario to work around it.
-
-There is no need for this - just clear the flags before invoking the hook
-and reinstate them afterwards if they are required.
-
-Nothing relies upon this being set during the mmap operation.
-
-mmap_prepare is unaffected by this so requires no fix.
+No functional change intended.
 
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/internal.h |  9 +--------
- mm/vma.c      | 14 ++++++++++++++
- 2 files changed, 15 insertions(+), 8 deletions(-)
+ include/linux/mm.h              | 8 --------
+ tools/testing/vma/include/dup.h | 8 --------
+ 2 files changed, 16 deletions(-)
 
-diff --git a/mm/internal.h b/mm/internal.h
-index 3a395e8c224c..9108b2b2cd03 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -969,14 +969,7 @@ void mlock_folio(struct folio *folio);
- static inline void mlock_vma_folio(struct folio *folio,
- 				struct vm_area_struct *vma)
- {
--	/*
--	 * The VM_SPECIAL check here serves two purposes.
--	 * 1) VM_IO check prevents migration from double-counting during mlock.
--	 * 2) Although mmap_region() and mlock_fixup() take care that VM_LOCKED
--	 *    is never left set on a VM_SPECIAL vma, there is an interval while
--	 *    file->f_op->mmap() is using vm_insert_page(s), when VM_LOCKED may
--	 *    still be set while VM_SPECIAL bits are added: so ignore it then.
--	 */
-+	/* The VM_IO check prevents migration from double-counting during mlock. */
- 	if (unlikely((vma->vm_flags & (VM_LOCKED|VM_SPECIAL)) == VM_LOCKED))
- 		mlock_folio(folio);
- }
-diff --git a/mm/vma.c b/mm/vma.c
-index d71ec51255b1..c6ed04d27351 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -2607,6 +2607,11 @@ static int __mmap_new_file_vma(struct mmap_state *map,
- 	if (!map->vm_file->f_op->mmap)
- 		return 0;
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 0579e6afb19f..5860a3b4dba9 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -576,14 +576,6 @@ enum {
+ #define VM_ACCESS_FLAGS (VM_READ | VM_WRITE | VM_EXEC)
+ #define VMA_ACCESS_FLAGS mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT, VMA_EXEC_BIT)
  
-+	/*
-+	 * Driver-specified flags may make the lock flags invalid, so clear
-+	 * VMA_LOCKED_MASK and reinstate it afterwards if appropriate.
-+	 */
-+	vma_clear_flags_mask(vma, VMA_LOCKED_MASK);
- 	error = mmap_file(vma->vm_file, vma);
- 	map->vm_file = vma->vm_file;
+-/*
+- * Special vmas that are non-mergable, non-mlock()able.
+- */
+-
+-#define VMA_SPECIAL_FLAGS mk_vma_flags(VMA_IO_BIT, VMA_DONTEXPAND_BIT, \
+-				       VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT)
+-#define VM_SPECIAL vma_flags_to_legacy(VMA_SPECIAL_FLAGS)
+-
+ /*
+  * Physically remapped pages are special. Tell the
+  * rest of the world about it:
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index de429ed4d60c..dc24f43a9394 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -352,14 +352,6 @@ enum {
+ #define VM_ACCESS_FLAGS (VM_READ | VM_WRITE | VM_EXEC)
+ #define VMA_ACCESS_FLAGS mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT, VMA_EXEC_BIT)
  
-@@ -2623,6 +2628,15 @@ static int __mmap_new_file_vma(struct mmap_state *map,
- 		return error;
- 	}
+-/*
+- * Special vmas that are non-mergable, non-mlock()able.
+- */
+-#define VM_SPECIAL (VM_IO | VM_DONTEXPAND | VM_PFNMAP | VM_MIXEDMAP)
+-
+-#define VMA_SPECIAL_FLAGS mk_vma_flags(VMA_IO_BIT, VMA_DONTEXPAND_BIT, \
+-				       VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT)
+-
+ #define VMA_REMAP_FLAGS mk_vma_flags(VMA_IO_BIT, VMA_PFNMAP_BIT,	\
+ 				     VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT)
  
-+	/* If VMA flags still valid for locked mask, reinstate. */
-+	if (vma_supports_mlock(vma)) {
-+		const vma_flags_t mask =
-+			vma_flags_and_mask(&map->vma_flags,
-+					   VMA_LOCKED_MASK);
-+
-+		vma_set_flags_mask(vma, mask);
-+	}
-+
- 	map->vma_flags = vma->flags;
- 
- 	return 0;
 
 -- 
 2.55.0
