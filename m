@@ -4,84 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C246CC88E72
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 15:50:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02230C88E6E
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 15:50:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AB3810EF37;
-	Mon, 14 Sep 2026 15:50:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 496FA10EF5F;
+	Mon, 14 Sep 2026 15:50:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="B0aPZ9sm";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="f2NdKtfO";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V5AYV3iK";
 	dkim-atps=neutral
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D93F10EF37
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:50:07 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260914155005euoutp024857e7c81b11d5fa43dd19719ba10c24~VOrvnkiwZ2332323323euoutp02q;
- Mon, 14 Sep 2026 15:50:05 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20260914155005euoutp024857e7c81b11d5fa43dd19719ba10c24~VOrvnkiwZ2332323323euoutp02q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1789401005;
- bh=PG34NheEGUUklmbyGFWYH3mof2VB5KJYIWGOux9Ay9A=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=B0aPZ9smvU/W3vvxmV5yAM2Ch3FcHIHY/3mfNFpS9oQ99QhxWXbYADiggA+iaBKMX
- fwhPEzKL7GeEg9ncES+hJrw4lapRIImw5Q7M1TBAKBr+qQfLiMhaaBMFYW5Q3887Ok
- Gu6F9PZ9ipRUXQfKhJM8CbHNPb8Wb0Ut3yRW0p/A=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20260914155004eucas1p298df2ff60a38fa5dc11e23802962b7f3~VOru0bBrZ2376623766eucas1p29;
- Mon, 14 Sep 2026 15:50:04 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260914155002eusmtip115f5f2e6e07eb44713898bdf244ca8e7~VOrsrfT6w0990109901eusmtip1F;
- Mon, 14 Sep 2026 15:50:02 +0000 (GMT)
-Message-ID: <4ba79aa9-6a21-41f6-a088-98207d32a098@samsung.com>
-Date: Mon, 14 Sep 2026 17:50:02 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78E1210EF5F
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:50:32 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68ED0Pp91514371
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:50:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ YjWmSI9LLOuF7sYbpE+FB6ICXzIryi3249bljTKVuPY=; b=f2NdKtfOUYGVlnBz
+ sKa5mCo4BlYuw5G9NPaKCRUph6mcjLxlgTV/yUZ63Zgjtse65IARtI1F/svI66CL
+ /ghW6/jH4lFsw48ok1ZU9vHkqRKz0iujyibu9wfQI0s/E+04+1g0Jtw8wpb4ESYg
+ qZM+AWEVG/qXdkrQ3n6YcLND9CgTiyCKK7LfyvudS9Ts5uFdj/wbWkG2kiedNwNM
+ Z+rr9MaORAdx+i+X9v6bwaiAYk9q0zslcRum3IxbvFjcuOmJebg3QDDxEjDXGDOY
+ Q+4RQ9bsdsi8cJP0BB9dJjqBVw1lpYVU06HnV+BLG5RUG0ImxqUkItD/UmfJ1DD5
+ bz574A==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com
+ [209.85.222.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gp3k0bc4k-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:50:31 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id
+ a1e0cc1a2514c-9806756ea40so2932795241.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:50:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1789401031; x=1790005831;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=YjWmSI9LLOuF7sYbpE+FB6ICXzIryi3249bljTKVuPY=;
+ b=V5AYV3iKkhcpxBxPSyRQ7p71BniHyTe5DvSWvGV//tLATM8+aF5A7MeJJfKwICQ8uV
+ tajS5j1M1tpDgMuFrDFZhpebfHys0EZBx0RrUPTfpKK6/WipibXM+bs9PvDcQ/b0QlDJ
+ XZEiLn0Vta3NCC42dlfSZJa6iSQSZJfDQrj8c1zknSG4QuSdyV86vi22exg9lmJJmdy9
+ iCKj9uIbxU0jB1CUk3+bTfi4JSWfJtalEpaDYqanliJuooxKO0rvOlifnI2x6IRorY/z
+ H3bJCAWzA/3R+Wr/4Kia+ZKHjr82GHGv5FNdqRiEJMfadheOGpMTYJrTOvhtzxFmhskB
+ kTNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789401031; x=1790005831;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=YjWmSI9LLOuF7sYbpE+FB6ICXzIryi3249bljTKVuPY=;
+ b=S7n5SWoU1I3CkueZQK7Ox0gw+DyKWfFpsl8IVYQwljbBUHid5/KvEUtTG8jlQNnaf2
+ hXZ6yVG6PzeBxcGnAi1sgi7dqbFSUk0DJOn9p4NyczJ9feIyukDJID411JAJEerlhfy4
+ 9AT7e37GWi2YpT45UevVPGAbvw6bDF0rFAAowlFn9ayJLCruvUo5+Rnlj7yipTOpBbTu
+ G4RHocwA/hOLrAe+daeeGJHJqBs2FA2fEa781mGgfIQEXYwqV6rgiOzxNBVW5DNrFCWC
+ z3q1+QtzZzZms/wbbGyz8wRXifz93nD9H9afBcBIt2XWiaTaX2v0Pw9TpkOc1OzPslHE
+ EkbA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwy4kGesy2V3E9cMT8bdr9pb3eT94DMi5IcbZO+nrRAcW0BV+KhrKVx0saw7NVDUHtCzuU/p3feupw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ljsi0UaWvB4Lx5oVhogVhI/8N/sN6pnyK5RJw9F2P1tDfSE/EH
+ CcOiVicVgfdp7BDvW73nNDpLay64L8rLfZCL2Db9ryfMVa8rmW4AN0+bw1FAJefblZaKYBmYI5g
+ LgfL12PVLQmTUWFsuX4baiXh2TVvAV4PAO4yWNVIITP7twW+dslWXJfY7T7QM6+gLuDJhiMs=
+X-Gm-Gg: AYBFou3u5yCkOx3Vf4OD5/upXnAJ7Lzc22Mgln6iJBbeOw1DBTn2mAjyA7gYrzJqf5u
+ IkDBP0HfUdiCezmvFCPcJK5HY2aKytTBzSmx/Ll5wKHlRkEPAGl8hqaWdKVeui18meqHwijZNqI
+ NovHIMsru384VGKcQPyg7UTYw+asQGl+3EapmkFBv2mJioDB1cgEBzzxo7B/wiwCx5K6SJ0txf9
+ Fp6dlOKapOSXVn6QUuABoSphXdrPgoqP19c0J/VLvzZvsjrJGMrj22W+Bsxw0GMDsMPsyNvmfZ7
+ ixXwHdUhmqtoo4SGSHOtGrY7WayUTmTa+l3WgkHAK8zwedLGEXwsuJxhX7+lmUoGrHy10o/0veL
+ ONtv2snTa0VxSFWfBiwTiBpTP2+IR
+X-Received: by 2002:a05:6102:160b:b0:781:1ac:8232 with SMTP id
+ ada2fe7eead31-79b58393a7amr2922909137.5.1789401030266; 
+ Mon, 14 Sep 2026 08:50:30 -0700 (PDT)
+X-Received: by 2002:a05:6102:160b:b0:781:1ac:8232 with SMTP id
+ ada2fe7eead31-79b58393a7amr2922808137.5.1789401029651; 
+ Mon, 14 Sep 2026 08:50:29 -0700 (PDT)
+Received: from [192.168.1.110] ([178.197.219.214])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49e7d6a9d1dsm717375e9.10.2026.09.14.08.50.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 14 Sep 2026 08:50:28 -0700 (PDT)
+Message-ID: <c4eb78c2-ec82-4246-9050-74c59acf0615@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 17:50:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/19] drm: starfive: jh7110: Enable display subsystem
-To: Dominique Belhachemi <domibel@debian.org>, Maud Spierings
- <maud_spierings@murena.io>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
- Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, Philipp
- Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Hal
- Feng <hal.feng@starfivetech.com>, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
- <bmasney@redhat.com>, Heiko Stuebner <heiko@sntech.de>, Conor Dooley
- <conor@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
- <alex@ghiti.fr>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
- <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Andy
- Yan <andyshrk@163.com>, Marek Szyprowski <m.szyprowski@samsung.com>, Graham
- Markall <hello@big-grey.co.uk>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Subject: Re: [PATCH net-next] dt-bindings: net: Use consistent indentation in
+ the example
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, wsa+renesas@sang-engineering.com,
+ dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org
+References: <20260913122910.99457-3-krzysztof.kozlowski@oss.qualcomm.com>
+ <20260914123106.44CC81F000FF@smtp.kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <CAAvaLCzU_-JdPHSSQS2HxGnrkRk+u_QOZ91SmxcC+nouubCtXA@mail.gmail.com>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260914155004eucas1p298df2ff60a38fa5dc11e23802962b7f3
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260904132708eucas1p1adfa26ef0fe5109eca63a3aeadf74915
-X-EPHeader: CA
-X-CMS-RootMailID: 20260904132708eucas1p1adfa26ef0fe5109eca63a3aeadf74915
-References: <CGME20260904132708eucas1p1adfa26ef0fe5109eca63a3aeadf74915@eucas1p1.samsung.com>
- <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
- <ea529e06-2eab-4e3b-92af-ba17de44091c@murena.io>
- <CAAvaLCzU_-JdPHSSQS2HxGnrkRk+u_QOZ91SmxcC+nouubCtXA@mail.gmail.com>
+In-Reply-To: <20260914123106.44CC81F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDIyNiBTYWx0ZWRfX5cjscbj530PM
+ YhZgP5Z11a38QbeGof882vGttN2CM7UEOOU+LLqBf860SbTmXu/kXms1/PT5FzxZCSvmj2xTyUu
+ f4PYDQM/PXemKixWNF9zkbv6Xv/U+lE=
+X-Proofpoint-GUID: JKKjjAJELFVAA_Z6_9jDMUljBrNV4F7G
+X-Proofpoint-ORIG-GUID: JKKjjAJELFVAA_Z6_9jDMUljBrNV4F7G
+X-Authority-Analysis: v=2.4 cv=BtAIUoX5 c=1 sm=1 tr=0 ts=6aa817c7 cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=NWQlD2WTGmgqaikU65gA:9 a=QEXdDO2ut3YA:10
+ a=TOPH6uDL9cOC6tEoww4z:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDIyNiBTYWx0ZWRfX1q8zyOPFd2fI
+ UOWvCua6t5lAM4fS26s/zn9ayYoh3N7txhjrv51SurH8lgLsrhyRI9YiGUoRzzwZ8iXaftBcrmh
+ wXh8WS+3cCrnvRYUSwGRsxpTPS1YdDIdzNIA4F1NP+COtkPCCBsxN6a7OWE5xP9qWm925h7Ln9y
+ GfelVz/Nvjd1Gw0cp9zH33u/WBlebCT+eWh/B9XNIuwQeuc38KqlKWqTs8OSXS4HdiFqvI/30tI
+ OKFfThS8FIx+Oa9U2A3yV+F1kcpE7RZhRyBfURu4f9fjiKExiubaZWgeM8RyYI84ieIb/TdOnhl
+ zYJ3sbEEX2stxjPTEYYZhLNzEvThomPHWy/DCwh483mLoYKabCagexGiE0dl9xHVCbbcKRfXVYc
+ yeV0EX+mPFsAcqYuFb/7tuvmKZmkK6mz0UsHwVt4NQ5QNQDnlUOfx3nIHI5bOv0NyJI2Z55n+f0
+ u+si3V97me5s0s2i5rQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 phishscore=0 impostorscore=0 suspectscore=0
+ bulkscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140226
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,64 +146,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 14/09/2026 14:31, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] The `mdio0` block containing the `phy0` and `phy1` node definitions was accidentally deleted during indentation cleanup, resulting in unresolved phandle references.
+> --
+> 
+> commit 3067fd6538b78515dc2a63a2028de505854e6496
+> Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> dt-bindings: net: Use consistent indentation in the example
+> 
+> This patch corrects the indentation in various device tree binding examples
+> to conform to a consistent 2- or 4-space indent style. It aims to resolve
+> dt-check-style warnings across multiple net and wireless bindings files.
 
+That was intentional, just forgot to write in the commit msg.
 
-On 9/6/26 05:55, Dominique Belhachemi wrote:
-> On Sat, Sep 5, 2026 at 1:21 AM Maud Spierings <maud_spierings@murena.io>
-> wrote:
-> 
->> Hello Michal,
->>
->> This new version added some more issues on my fml13v01 board, this time
->> 2 registers in the VOUT_CRG are misconfigured that were correct in v2,
->> namely:
->>
->> 0x295c0004 was 0x00000004 on the previous version but is now 0x00000006
->> 0x295c001c was 0x81000000 on the previous version but is now 0x80000000
->>
->> xx04 sets a slightly different clock divider, but it doesn't seem to
->> matter, display also works with this changed value.
->>
->> xx1c seems to select the wrong clock mux?
->>
->> After correcting 0x295c001c (and the ones that I mentioned before in the
->> hdmitx block), the display comes to life again.
->>
->> Not sure why these are changed.
->>
->> Same here on a VisionFive 2. The dc8200_pix0 mux register (0x295c001c)
-> comes up 0x80000000 instead of 0x81000000 (which selects hdmitx0_pixelclk
-> from the PHY).
-> 
-> v3 added CLK_SET_RATE_NO_REPARENT to stop clk_set_rate() from silently
-> switching which clock feeds the display, but nothing then assigns the
-> parent,
-> so it is left on whatever the bootloader selected.
-> 
-> You could pin the two pixel-clock muxes to the HDMI PHY, is that acceptable?
-> 
-> dc8200: display@29400000 {
->   +                             assigned-clocks = <&voutcrg
-> JH7110_VOUTCLK_DC8200_PIX0>,
->   +                                               <&voutcrg
-> JH7110_VOUTCLK_DC8200_PIX1>;
->   +                             assigned-clock-parents = <&hdmi_phy>,
-> <&hdmi_phy>;
-> };
-> 
-> I tested this on the vf2.
-
-Thank you Maud and Dominique,
-
-
-I've tested this as well and it does seem like a good fix, will include
-this in a v4.
-
-> 
-> Best
-> -Dominique
-> 
 
 Best regards,
--- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+Krzysztof
