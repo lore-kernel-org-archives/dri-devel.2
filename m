@@ -4,84 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2503EC88E64
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA56CC88E50
 	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 13:11:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4134510EE41;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE1ED10EE42;
 	Mon, 14 Sep 2026 13:11:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZJM+t/54";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dRHX1F8l";
 	dkim-atps=neutral
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
- [209.85.210.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BC0110ED4B
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 10:56:12 +0000 (UTC)
-Received: by mail-pf1-f172.google.com with SMTP id
- d2e1a72fcca58-8692be1cda4so2496016b3a.1
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 03:56:12 -0700 (PDT)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBB1410EBFA
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:15:44 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-2d715f4a587so42647565ad.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 01:15:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789383372; x=1789988172; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Gj8h2lt98zX4NzJl96Knw548gSSkkGwsjExtVdozT0A=;
- b=ZJM+t/54UkS88PI+ugp+p4grc1x/wunR07RivP38z03zBSEmSug3m4qR0NJWknLB5b
- 3O3lc1BIgn5TD3OZwwgjQxS/7+4SEw34LMfF6nFrwxfynbYD2nwYEYUZ3bR7Zvnugddp
- lg7HZfxjqpPOpvw03CjtotuUfcfSDJhel6jUVV8zSUOihSg8OVe1xelGBRyGT/+SM9tx
- 1JJ992VX+Ul9fnsGwItivDlvopyaJtBEe0LpxdRt3bncH561IEkwCjRf8KXEmJ3sH5id
- BOD8ACBlulxqsZ7QBiWlg+/RPJogIRyNCbuXZpMBiqgkZUzoZKL7xTUX5lA0OSh2gz4P
- pikA==
+ d=gmail.com; s=20251104; t=1789373744; x=1789978544; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=a+mbYj9gFoY+dF3f91W1Xx4566ofLNjeGKmQ/I7aiac=;
+ b=dRHX1F8l1Ts77m8fOkLmFfZh0HndIwXbvrkBwLIi5UniKBjfOgPT0JXRm1wTupIofi
+ E8n4t5wtXaDYF04gt4OEI373PZDBB1cW4gwNmoKyExY5PNSJwGGU7iZXvBcfTTAV/DWV
+ ni1SSvB/i8itKUB0jihWndU6enMhkIi8FrCL+G/cwmX3iR+PtA2K1zJ53oaoOAwJE10E
+ 8jhjkBod4jgE9u/FrWMtQqVypRYVtkfa85gQilEkCkdSK1hR+sA0U9L+lx7+QYiyIbbh
+ Tm7aRd+CtYoKvfEV3tNV4uAcRgLOTU7LGidJc1DSMfmy9ZY4BEVtw/8OrBadnhEekG52
+ DQzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789383372; x=1789988172;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1789373744; x=1789978544;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Gj8h2lt98zX4NzJl96Knw548gSSkkGwsjExtVdozT0A=;
- b=MLNAzIjXuLz0RK0KF3F04LITrHOQXlyTIpvMErO5MtqMLC104H06g6ltcj1qtg5G6U
- jsLNtaxxvHSaj1kTccMQhzC7LobJcDosd4LktmcfcKvz37idgcOzTPSVWVoyLxdc5p/a
- 4pqYy2pqBuERocrGuN03DuFmiVqJ9VI7ljVqUa3sdu3pmdJRHNu0sSid27IBKi39JnYV
- vf3yRr7iKEXTzDnlTtAPibtYmFFSDxC3wqqaAMp3NQNuyFzLnwUDJc+6O5YZLJl3OJtR
- ujtvhmq5FvRWHAw1j3zljq/ozgpCR3ft8eWIBSS+sATlrpFR+koZCDX9QERvnqiOhxKM
- Zbzw==
+ bh=a+mbYj9gFoY+dF3f91W1Xx4566ofLNjeGKmQ/I7aiac=;
+ b=A3SYB4ssNLyrK9evf4BUzAoD/psVKQ7hGwEPCcWsr0qfHjTj5xGHL/pM0cOkByvt/U
+ psuM5W0wEo3ZyU0MAxJcdOOwLNKdVJPWxuyXK1ZNCGOlcRlJc7yxXjyAxzxqyzTfzVzr
+ UsW1463m1SPLj0i3znbkTwuG5v23TW+MZum7og/SqqCpqX6L20qJzqQd3XViSkWf7UAB
+ zW/+smF2X7jJ9nW8PBBTjIUoGVFu6ZA1coy5IlVkiGAC4llQaQfekmehSqTmD1KjF2II
+ fPcM/IadGqLqleoTqV3T+/jq2/6TrOc3T/UU6snmzKtgADy+ejRMnDaaJtvIgz3cI0ND
+ /CoA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwOuMZOZZV2MsM3AkndEgpX5Vi8VTT2FMYOeIfqO2N55OaUdcqoto/CxHkNrTOM/g2nCQfuvocjsW0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nqjDxhwoBOdX2Pt8bUtoQEkhdsXPYa70DibHPezrvM2eZW9Elw
- K4nZkigxs3m1sV1ZQwLrGd5g6TzDMNhkwU2/EyMiEXBPznLOZ7Ku73pJ
-X-Gm-Gg: AYBFou2/+puwfVu9R06JyqUYno8dgqyyICFnOGQFoyMpTy6d6nlFXrE/QhVSFPGNZ4e
- c4N1Ocf0TigqR36eur3+v5QczW9TvjtV6qzm2NVnDG1ajxLf/ABtV91t4+cYTiJreSyxCgInbqM
- WfDmw2s8PF55AEAbgnZON0zU5Ojec42eQRIyTYExlYMhucA4Z98RPjB4SIX9kDt6fdCJ4lIImmg
- C80p4MtvzINBPLdy1TBU7ZeuiCZVbgJHOME97eIJ+FtByMC6eH61fIkOTX4WkfCVriEsonii53Q
- ZPT2GMoGkvPZev38+bW6LCv11tQQacyiVdvRtY16HGOkIH3gpvw15b5Ge+QDjX4/H8cJHJzhpPM
- lRF+zOkRzvkw76lm0UcKiWkIOEj7wGqPjLRyt4bnpQE/KI7bym5FBpZVXMP1/qeuon0ktx4w1mw
- 0uXrNYWv3iIZav6D9VGwuOqW8iTd9hb4BdwOp3EAmVDB4V8AeN+uQH0wHcAYNt1k/VrTDvDySR6
- 7BZuzzzEgtzEW6c3r00lZYA9xnBu/uZejKjlfblDr4EDOF14SRl6k9jwefBUp00tx6mF47r9jI6
- kcZZ1aKJN8SSWUgD4oqsxIk0ZPMJMIOlqa47AlzXX58aT1/DhtNbDL76kPjgU0c=
-X-Received: by 2002:a05:6a00:438d:b0:86a:9be:6bf9 with SMTP id
- d2e1a72fcca58-86f85108442mr4695374b3a.12.1789383371846; 
- Mon, 14 Sep 2026 03:56:11 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.252.203.158])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-86b287c481asm4589354b3a.11.2026.09.14.03.56.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Sep 2026 03:56:11 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Matthias Goergens <matthias.goergens@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Christian Brauner <brauner@kernel.org>,
- Matthew Wilcox <willy@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH] drm/i915: unlock shmem folios after skipped writeback
-Date: Mon, 14 Sep 2026 18:56:06 +0800
-Message-ID: <20260914105606.3997649-1-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ AKwUvBxzlgQxb+3gAvyQGHNkzQahMcJmLOSjf7M3Z1qzmtv3mdFrhH3TpiRicbfzg2EAN8EALAcTsBBTwag=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lfJlc5Ufyd+vBStpiyf4mTzLxWEIMoaYWn9+CsT+qoGeunyb7j
+ MCEbXCMS3xmhRErKyjH/127LW6U5qk2yjshE1X/iuSBc/8K1LuSUihvr
+X-Gm-Gg: AYBFou2ndlbiDhgv+ExBBxDlJDSeoTfWgXLoe2Eb9FLVJLyT7CjmgqJbgYPd/gEQH5b
+ KbtOcG9LRRodHznzs5x1oxHJ50TjaHCPEZN1NfFO29eEXAsbokwuMau+NEZF7DKEXbXrXWn88ua
+ +BLgPQSNnsZd3pxzXIT8L97OYKmzCZA20WMKIk3UIiNx/mg3LTV02IVv8P+2V18bJ260q/T+4eK
+ bce0AWcpsZ7BYwDoUFFVN73RTgDH8Zlc9O/7IbiLeiLnKINj3v7Zf2kAOTVACIlfxmUdccvrvZB
+ CLvl+2RvWWA/Vrq+hmISUk504d6XUJfAHUPcyWtETivOvYnh3f/+oCQ/ZPjxw0qtSMyLKUkEm7i
+ 5kUZE12i7y53yw+c+V1QVKMhQrTjBQOu4vwZik+N99hBTLKKtMJq89eu2ruwcI1T80zkKbLn80k
+ XzF7QLVITN00JXN3K49zXLf+Agjm3NXjAZaf/8VEQDTq5zzRRdKLPqPg11H4L4KJzUBH52Pt2l2
+ JiUg0NT/v4e6SMcihYr8y4SpIpvVvzx3S3UvRa9kuhWdhWE1iOXiibRWYQPuilKpQ==
+X-Received: by 2002:a17:902:e744:b0:2bf:dd0:c8b1 with SMTP id
+ d9443c01a7336-2dd6c4835d0mr31756845ad.0.1789373744241; 
+ Mon, 14 Sep 2026 01:15:44 -0700 (PDT)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net.
+ [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2dd2cec8483sm44238255ad.44.2026.09.14.01.15.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 14 Sep 2026 01:15:42 -0700 (PDT)
+Message-ID: <2fd1f320-05a8-4782-8134-157c50024adb@gmail.com>
+Date: Mon, 14 Sep 2026 16:15:37 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/6] dt-bindings: display: verisilicon, dc: add support
+ for nuvoton,ma35d1-dcu
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260908092840.225220-1-a0987203069@gmail.com>
+ <20260908092840.225220-2-a0987203069@gmail.com>
+ <f74168b54fe8f070b7cfe79dc2fc83a63c2e8842.camel@iscas.ac.cn>
+ <9d697240-3632-401f-aeba-c1fa5c2a29d4@gmail.com>
+ <14f7fdf36a25b9669145b766becc6f32ef205320.camel@iscas.ac.cn>
+Content-Language: en-US
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <14f7fdf36a25b9669145b766becc6f32ef205320.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 14 Sep 2026 13:10:56 +0000
+X-Mailman-Approved-At: Mon, 14 Sep 2026 13:11:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,51 +103,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-writeback_iter() returns a locked folio.  The mapped-folio path redirties
-the folio without unlocking it, so shrinking can leave the folio locked
-indefinitely.
 
-shmem_write_folio() can also return AOP_WRITEPAGE_ACTIVATE with the folio
-locked.  Passing that positive control value back to writeback_iter()
-triggers its warning, stops asynchronous writeback, and leaves the folio
-locked.  This can occur when zswap rejects a folio while memcg zswap
-writeback is disabled.
-
-Unlock folios on both paths and consume AOP_WRITEPAGE_ACTIVATE so the
-best-effort writeback scan can continue.
-
-Fixes: 776a853a43c9 ("i915: Use writeback_iter()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index ef9440166295..e7b18f7f9644 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -322,10 +322,16 @@ void __shmem_writeback(size_t size, struct address_space *mapping)
- 	 * as normal.
- 	 */
- 	while ((folio = writeback_iter(mapping, &wbc, folio, &error))) {
--		if (folio_mapped(folio))
-+		if (folio_mapped(folio)) {
- 			folio_redirty_for_writepage(&wbc, folio);
--		else
-+			folio_unlock(folio);
-+		} else {
- 			error = shmem_write_folio(folio);
-+			if (error == AOP_WRITEPAGE_ACTIVATE) {
-+				folio_unlock(folio);
-+				error = 0;
-+			}
-+		}
- 	}
- }
- 
-
-base-commit: cbd3dafc2003db679ccd2f6c6a2551db79657049
--- 
-2.55.0
-
+Icenowy Zheng 於 2026/9/10 下午 03:08 寫道:
+> 在 2026-09-10四的 09:52 +0800，Joey Lu写道：
+>> Icenowy Zheng 於 2026/9/9 下午 01:44 寫道:
+>>> 在 2026-09-08二的 17:28 +0800，Joey Lu写道：
+>>>> Add the Nuvoton MA35D1 DCUltraLite (nuvoton,ma35d1-dcu) to the
+>>>> binding.
+>>>> The DCUltraLite uses only four clocks (core, axi, ahb, pix0) and
+>>>> one
+>>>> reset (core), with a single output port.
+>>>>
+>>>> The MA35D1 clock controller gates the core, AXI and AHB clocks
+>>>> with a
+>>>> single bit, but each remains a distinct clock line feeding the IP
+>>>> with
+>>>> its own rate constraints, so all four must still be listed
+>>>> individually
+>>>> in the devicetree; core, axi and ahb happen to share the same
+>>>> clock
+>>>> phandle.
+>>> This is weird, but I must admit that we're limited by the Common
+>>> Clock
+>>> Framework here, so I cannot give a better solution either.
+>>>
+>>> Anyway let's settle with the current result.
+>>>
+>>>> Move the clocks/clock-names minItems to 4 and resets/reset-names
+>>>> minItems to 1 at the top level, since that is the lowest count
+>>>> any
+>>>> supported variant needs.  Add an allOf/if block that tightens the
+>>>> constraint back up to the fixed 5-clock/3-reset topology required
+>>>> by
+>>>> the existing thead,th1520-dc8200 compatible, and another one that
+>>>> caps
+>>>> the new nuvoton,ma35d1-dcu compatible at the 4-clock/1-reset
+>>>> count it
+>>>> actually wires up.
+>>>>
+>>>> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+>>>> ---
+>>>>    .../bindings/display/verisilicon,dc.yaml      | 44
+>>>> +++++++++++++++++++
+>>>>    1 file changed, 44 insertions(+)
+>>>>
+>>>> diff --git
+>>>> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>>>> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>>>> index 919a900122012..773966677d0f4 100644
+>>>> ---
+>>>> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>>>> +++
+>>>> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>>>> @@ -17,6 +17,7 @@ properties:
+>>>>        items:
+>>>>          - enum:
+>>>>              - thead,th1520-dc8200
+>>>> +          - nuvoton,ma35d1-dcu
+>>>>          - const: verisilicon,dc # DC IPs have discoverable
+>>>> ID/revision
+>>>> registers
+>>>>    
+>>>>      reg:
+>>>> @@ -26,6 +27,7 @@ properties:
+>>>>        maxItems: 1
+>>>>    
+>>>>      clocks:
+>>>> +    minItems: 4
+>>>>        items:
+>>>>          - description: DC Core clock
+>>>>          - description: DMA AXI bus clock
+>>>> @@ -34,6 +36,7 @@ properties:
+>>>>          - description: Pixel clock of output 1
+>>>>    
+>>>>      clock-names:
+>>>> +    minItems: 4
+>>>>        items:
+>>>>          - const: core
+>>>>          - const: axi
+>>>> @@ -42,12 +45,14 @@ properties:
+>>>>          - const: pix1
+>>>>    
+>>>>      resets:
+>>>> +    minItems: 1
+>>>>        items:
+>>>>          - description: DC Core reset
+>>>>          - description: DMA AXI bus reset
+>>>>          - description: Configuration AHB bus reset
+>>>>    
+>>>>      reset-names:
+>>>> +    minItems: 1
+>>>>        items:
+>>>>          - const: core
+>>>>          - const: axi
+>>>> @@ -79,6 +84,45 @@ required:
+>>>>      - reset-names
+>>>>      - ports
+>>>>    
+>>>> +allOf:
+>>>> +  - if:
+>>>> +      properties:
+>>>> +        compatible:
+>>>> +          contains:
+>>>> +            const: thead,th1520-dc8200
+>>>> +    then:
+>>>> +      properties:
+>>>> +        clocks:
+>>>> +          minItems: 5
+>>>> +
+>>>> +        clock-names:
+>>>> +          minItems: 5
+>>>> +
+>>>> +        resets:
+>>>> +          minItems: 3
+>>>> +
+>>>> +        reset-names:
+>>>> +          minItems: 3
+>>>> +
+>>>> +  - if:
+>>>> +      properties:
+>>>> +        compatible:
+>>>> +          contains:
+>>>> +            const: nuvoton,ma35d1-dcu
+>>>> +    then:
+>>>> +      properties:
+>>>> +        clocks:
+>>>> +          maxItems: 4
+>>>> +
+>>>> +        clock-names:
+>>>> +          maxItems: 4
+>>>> +
+>>>> +        resets:
+>>>> +          maxItems: 1
+>>>> +
+>>>> +        reset-names:
+>>>> +          maxItems: 1
+>>> Maybe it's reasonable to restrict max port count to 1 for MA35D1?
+>>> Although I am not sure about how to do this...
+>>>
+>>> Thanks,
+>>> Icenowy
+>>    I found the same kind of per-compatible port restriction already
+>> used
+>> upstream in renesas,du.yaml, e.g.:
+>>
+>>           ports:
+>>             properties:
+>>               port@2: false
+>>               port@3: false
+>>             required:
+>>               - port@0
+>>               - port@1
+>>
+>> Applied to our binding, that would look like:
+>>
+>>           ports:
+>>             properties:
+>>               port@1: false
+>>             required:
+>>               - port@0
+>>
+>> in the existing nuvoton,ma35d1-dcu allOf/if/then block, so schema
+>> checks
+>> would reject a port@1 node on this compatible instead of silently
+>> accepting it.
+>>
+>> Happy to add it if you'd like the schema to enforce this, but wanted
+>> to
+>> check whether you consider it worth the extra lines given it doesn't
+>> reflect an actual bug in any DT today. Let me know which way you'd
+>> prefer and I'll fold it into the next version.
+> Personally I think this is good, but maybe adding it as an additional
+> patch after merging isn't a big problem, because this just plays as
+> kind of a safety guard.
+>
+> Well this depends on how DT binding maintainers think, but as Conor has
+> dropped his Ack, this shouldn't be a big issue.
+>
+> Thanks,
+> Icenowy
+I'll send the port@1: false restriction as a follow-up patch once this 
+series lands.
+Thanks!
+>> Thanks.
+>>>> +
+>>>>    additionalProperties: false
+>>>>    
+>>>>    examples:
