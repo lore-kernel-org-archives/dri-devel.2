@@ -4,42 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A62FC88E50
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 08:00:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C87AFC88E50
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 08:02:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1669810EBDF;
-	Mon, 14 Sep 2026 08:00:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1AE010EA35;
+	Mon, 14 Sep 2026 08:02:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hvGYjPpZ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AVApbdzl";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JD6EC8NB";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79F0B10EBDF
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:00:31 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2E5DB4348B;
- Mon, 14 Sep 2026 08:00:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBE0E1F000FF;
- Mon, 14 Sep 2026 08:00:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789372831;
- bh=FVdx79R3tQ/5guHZC+i3wpAzVPiw07WrBMmsEZT+hHE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hvGYjPpZf/qBjY10PPghWVNZntJ7yyfQNsVhJ1lJbSLNh/39WWtql/Z8B5AOcVkVz
- yCurRLEUY86Owc0b0R3mc3HBr+T8UW/xHpEH7z10HrGafexOztvWWok9Iwk2vxNMbk
- RTNR5KcdOiuZrzV8/ivec23kYpwnlmzulgrZu0OM7eWa8eQaBsAUvaXjfnSVqJ4w1z
- VGAJBs9WO8glYP1rt9lOxrcyNWI7VqOAxKn8A5l1gAsrMOAQNRWgKrpLqpVpwid9EV
- mhDTFMYxFvcoedPFRcm+C5dhTsMB070bdulw2WVuRNqkrFxywR9oEl4ShofkZ6BwVk
- Yc7G52coM8J5g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5.10] drm/amdgpu: Fix integer overflow in amdgpu_cs_pass1
-To: "Roman Demidov" <roman.demidov.nn@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260914074050.10384-1-roman.demidov.nn@gmail.com>
-References: <20260914074050.10384-1-roman.demidov.nn@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 08:00:30 +0000
-Message-Id: <20260914080030.DBE0E1F000FF@smtp.kernel.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 601CF10EA35
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:02:20 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68E5j4gT063677
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:02:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ ZlPx26cvgwY4RaZSyFHFEKKvtBm4/D1xS48mPtkzlJ8=; b=AVApbdzltLnnN0Wy
+ u3jNUX1l3kfggAHIqezUC8yG4nSmm5tPshXvKDJQMrZy0ewsUzTV9rjA9MurKmVJ
+ XMVyE1NDUcfrbqHhOUmBy9WYFMwEjkAjzHPoHhmVxNeQC/GuvKt4Xq/9rlwM7bNr
+ VhMGL/ogibuYw4dj6fTv2cKZzzhGgxoGoQAqbXLko2e7+B7K7jDbMm1eWTFLTyFu
+ JS+45hNXIJewwnlkPP0CPPK30DRYtpcgTevRaRyieMKZP3LS5hq9qorS2uOa0xiU
+ /TN1zK+KnvFC9X9UWEs/Uvaxr2sj+x/Ex0t5+wbyo91paEKpSFQNWQtBghqlb9KR
+ NdI2eQ==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
+ [209.85.217.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9dnphf-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:02:19 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id
+ ada2fe7eead31-791265014f7so53074137.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 01:02:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1789372938; x=1789977738;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=ZlPx26cvgwY4RaZSyFHFEKKvtBm4/D1xS48mPtkzlJ8=;
+ b=JD6EC8NB+XYifl1VFiM/sNdwtNyYSv4IZscmD3DabD7zVJsiAZNDrZyhPDADa3nyPO
+ tivVGsiKOp3ME+fx/FSbGsnhNQo4B5mRoXw3GD2RbLWkXi002/DbHRvce1LoCqi4QoZC
+ xWuo8S/EMXFL+LuFKhPI1CLNzJwjE3LM54OcxIuEsoDqhbDHPnmgR1Y8DYO8r6EtT8vn
+ DXvssR1m0cR1xnydexc9ixN9F2WggEOe75YmBABt1AaAoiuqu12nQzbiuOzzKh8162NR
+ lt+OCeHEZk8FF8hUeV3tK5u4MreENCFm4oqtY4eqVedtG4fqhR+IjnSMFUGz88yqlqcy
+ CsXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789372938; x=1789977738;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ZlPx26cvgwY4RaZSyFHFEKKvtBm4/D1xS48mPtkzlJ8=;
+ b=qe/p5KntWkP84P/2LFzlesPls3g2XztzBfGKGtfBTeOFEvdcIUkUWWfSyRExwFqtcG
+ hkmxcpkkxyouxl2zAuDPCHoCelD8So8vDXI5ifaMcuQoAdxJgzSYhh5wviOuJpnhAWJZ
+ lLIefL92WRXk3Nx8MDZ2nLVdpYVsCehegihOvAChEnqhdTqSUmfz9osWLEaC1Mhyu36N
+ yeQuLz6VR+Uw2+wLIaoBVk5q0dK1dXWwKHqabqciqCuLQBoWTvChT7FsCwcbvGjcf8nw
+ 9p0ocqdtWidzOEOfHB/RCKJJ/WGOjdsIBdzHYUzX3mW2mkyOYgJE3toUKhnFj4HE1bja
+ g4Cg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByOuy3a9hqnlTN71c9uSfgUzPuPe4ufqfzcrzuafTmIUn17WZBwT8PtQfqudXItjcMHDnQtI5louPw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l7NHThwS+oVFPfCcatjbE7i9QnmC5CjjUBL8XCTLAw6N6dc9TS
+ nrST5bR79D2okhwdC4hGFE1DdA/WZzbFiGU6X3Sv5jsXamY2KGLXZjO8VchUT7SbQOHQJzspE+1
+ WXnU5e2aV5OosAekBtyL/odfyiM6WErpQo0vR8poG7wL+EqyPfIG1l+2rFAEarCoryGrFXe8=
+X-Gm-Gg: AYBFou2PvaRQ0yH704F4TavEZf0fYhoRR43AclWMznDwfhK7HfwnWNhDy7Y+S0JbeuG
+ DQfotAP53MCd5lxUy94HO5pzQF815cMnEVa+YphImZxSgOU1S6pcul+0G6DvoBMpuyq0oN2WUBL
+ SNyp7FHPKK3lpcp/MmHvdBseOmaDRvHtJsIDXsdcDWiiR855KDt+KXWFYY4aMCooGtZ29F5Qp2Q
+ 54+f5IjsuW1sCykBK8JasSd14tcAYg8Boq5D8D2F7+wQp7iP2LqmhQUku4YvwzBZWx82fOlyQ2j
+ ivkXXK0560dWoPlJTHVDUyHlWt0ebSOzzxe/ACN2Li0gzNi/zxZ3S+dRXDxrtYUz7duw+vTd/Ca
+ 4wcfMpvu4hqXzbh4D29b3gg==
+X-Received: by 2002:a05:6102:160b:b0:78f:c6f5:27c9 with SMTP id
+ ada2fe7eead31-79b509df7c8mr192601137.0.1789372938395; 
+ Mon, 14 Sep 2026 01:02:18 -0700 (PDT)
+X-Received: by 2002:a05:6102:160b:b0:78f:c6f5:27c9 with SMTP id
+ ada2fe7eead31-79b509df7c8mr192593137.0.1789372937939; 
+ Mon, 14 Sep 2026 01:02:17 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c29660b29a7sm387483066b.43.2026.09.14.01.02.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 14 Sep 2026 01:02:17 -0700 (PDT)
+Message-ID: <dae821cf-3869-4414-b590-d93197d6a322@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 10:02:15 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/mdp5: drop cursor pipe for msm8x76
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ AngeloGioacchino Del Regno <kholk11@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260914-mdp5-fix-cursor-v1-1-9fba3ace6cb9@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260914-mdp5-fix-cursor-v1-1-9fba3ace6cb9@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDExMyBTYWx0ZWRfX0TNr31ep5Nwb
+ TFW5R9g7DZxtOmNPgpeCdLugXPQ8BhkB+SGuWb6jJMcWZt5OTc4Hq/d1Y5htcSIMzL+QP+v3myj
+ 0oE093f2n7zfDX0AzySAVNwMUX2Uu2YjcwgF6A/apIOHWBGiNBDhnv+so7qUO3TbdNfAwrA4X2h
+ jOUpcyTud3MMqWLLBPlwAWg28vuI8n5f0yliuyzGtQ39P4bOwesnfYG5jC8qQEWYj/yc3mSJqW0
+ QGdlR9v1nlrDsS9lQ9aVjvN2q4ZTPqUQfXRcazb6bkoAUil9CcQG2IcUGiSLMaExzTR3ZJ2NlOQ
+ dWoNF7yd86Q4DKvWwJhp01ZjZua+eD8xcLomH1sfaZVufHw78EhOkm2xPQUJv/zeYS4BFguysJ7
+ 6CZNHsQmOHoRjvHmSJ4250p2C09LZOIzKH6e7EE5UjdxlPXFihjd1JY/UEgaxNtsGxyNQvhSrj9
+ P1CmV0Wywgzvi6lYM+Q==
+X-Proofpoint-ORIG-GUID: o7c4yHV8H-t9Ws6LWKOtm_rp8OTwctDg
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDExMyBTYWx0ZWRfX5CnP1XY7fy4U
+ AOscNnIm1/0mG9Ot/LHnNwXqsXLblws1Pz0Rho6k2KHWTxuSMBfnjrYPHW5Bqd9g3RoY3nbnyxk
+ pFmDQA/l5vcB3o44Y+YPCsoobNOs5q4=
+X-Authority-Analysis: v=2.4 cv=Y6htIReN c=1 sm=1 tr=0 ts=6aa7aa0b cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=UIDDT-_cQcoNCxQDPBkA:9 a=QEXdDO2ut3YA:10
+ a=ODZdjJIeia2B_SHc_B0f:22
+X-Proofpoint-GUID: o7c4yHV8H-t9Ws6LWKOtm_rp8OTwctDg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 impostorscore=0
+ bulkscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140113
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,205 +146,19 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
+On 9/14/26 1:24 AM, Dmitry Baryshkov wrote:
+> The MSM8976/56 family of platforms doe't have a separate cursor plane.
+> Instead the cursor is a part of the LM block. Drop the erroneously added
+> pipe configuration, letting LM to provide a legacy cursor instead.
+> 
+> Fixes: 1860f2a8b8b1 ("drm/msm/mdp5: Add configuration for msm8x76")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
-Pre-existing issues:
-- [Critical] Returning success (0) for an empty chunk list leaves parser fi=
-elds uninitialized, causing a NULL pointer dereference.
-- [Critical] Missing bounds validation for AMDGPU_CHUNK_ID_IB chunks leads =
-to out-of-bounds reads and NULL pointer dereference.
-- [Critical] Double free and use-after-free of user fence BO when amdgpu_cs=
-_user_fence_chunk() fails.
-- [Critical] NULL pointer dereference in amdgpu_cs_parser_fini if chunk arr=
-ay allocation fails.
-- [High] Integer overflow in amdgpu_bo_create_list_entry_array when calcula=
-ting bytes for copy_from_user and memset leaves kernel heap memory uninitia=
-lized.
-- [High] Memory leak of user fence BO when multiple FENCE chunks are provid=
-ed.
---
+The HPG agrees, the SWI disagrees.. possibly just a leftover register
+though?
 
-commit 9efe72932540079a0dc0c2bc02c23c524aa5971d
-Author: hackyzh002 <hackyzh002@gmail.com>
-
-drm/amdgpu: Fix integer overflow in amdgpu_cs_pass1
-
-This commit fixes an integer overflow where size *=3D sizeof(uint32_t)
-could overflow the unsigned int type if size is 0x40000000. It updates
-size to a size_t to prevent uninitialized memory from being referenced.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_cs.c
-> index 12598a4b5c788..6c18054e045dc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -110,7 +110,8 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_par=
-ser *p, union drm_amdgpu_cs
->  	struct amdgpu_vm *vm =3D &fpriv->vm;
->  	uint64_t *chunk_array_user;
->  	uint64_t *chunk_array;
-> -	unsigned size, num_ibs =3D 0;
-> +	size_t size;
-> +	unsigned int num_ibs =3D 0;
->  	uint32_t uf_offset =3D 0;
->  	int i;
->  	int ret;
-
-[Severity: High]
-This is a pre-existing issue, but does this code overflow the bytes variabl=
-e?
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c:amdgpu_bo_create_list_entry_arr=
-ay() {
-    ...
-		unsigned long bytes =3D in->bo_number *
-			in->bo_info_size;
-    ...
-		memset(info, 0, in->bo_number * info_size);
-    ...
-}
-
-Since both in->bo_number and in->bo_info_size are uint32_t from the BO list
-ioctl, could multiplying them cause a 32-bit integer overflow?
-
-For example, if bo_number is 0x20000002 and bo_info_size is 8, the result
-overflows to 0. Would copy_from_user then copy only 16 bytes while
-kvmalloc_array allocates a 4 GB array, leaving gigabytes of kernel heap
-memory uninitialized and later used as BO handles?
-
-[Severity: Critical]
-This is a pre-existing issue, but does returning 0 for an empty chunk list
-leave parser fields uninitialized?
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c:amdgpu_cs_parser_init() {
-    ...
-	if (cs->in.num_chunks =3D=3D 0)
-		return 0;
-    ...
-}
-
-If userspace calls amdgpu_cs_ioctl with num_chunks =3D 0, this returns early
-and skips parser setup, leaving parser->entity as NULL.
-
-Will this cause a NULL pointer dereference later in amdgpu_cs_ib_fill()
-when it unconditionally dereferences parser->entity?
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c:amdgpu_cs_ib_fill() {
-    ...
-	ring =3D to_amdgpu_ring(parser->entity->rq->sched);
-    ...
-}
-
-[Severity: Critical]
-This is a pre-existing issue, but is there a missing length check for
-AMDGPU_CHUNK_ID_IB chunks?
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c:amdgpu_cs_parser_init() {
-    ...
-		case AMDGPU_CHUNK_ID_IB:
-			++num_ibs;
-			break;
-    ...
-}
-
-If userspace passes an IB chunk with length_dw =3D 0, kvmalloc_array could
-return ZERO_SIZE_PTR (0x10).
-
-Could this unvalidated pointer then be dereferenced in amdgpu_cs_ib_fill(),
-causing a page fault or out-of-bounds heap read?
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c:amdgpu_cs_ib_fill() {
-    ...
-		chunk_ib =3D (struct drm_amdgpu_cs_chunk_ib *)chunk->kdata;
-
-		if (chunk->chunk_id !=3D AMDGPU_CHUNK_ID_IB)
-			continue;
-
-		if (chunk_ib->ip_type =3D=3D AMDGPU_HW_IP_GFX &&
-    ...
-}
-
-[Severity: Critical]
-This is a pre-existing issue, but does this error path lead to a double-free
-and use-after-free of the user fence BO?
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c:amdgpu_cs_user_fence_chunk() {
-    ...
-error_unref:
-	amdgpu_bo_unref(&bo);
-	return r;
-}
-
-If this error path is taken, the BO is unreferenced, but the dangling point=
-er
-remains in p->uf_entry.tv.bo.
-
-Will the parser cleanup path then blindly unreference the same BO a second =
-time?
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c:amdgpu_cs_parser_fini() {
-    ...
-	if (parser->uf_entry.tv.bo) {
-		struct amdgpu_bo *uf =3D ttm_to_amdgpu_bo(parser->uf_entry.tv.bo);
-
-		amdgpu_bo_unref(&uf);
-	}
-    ...
-}
-
-[Severity: Critical]
-This is a pre-existing issue, but does setting p->nchunks before checking
-if the chunk array allocation succeeded cause a NULL pointer dereference?
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c:amdgpu_cs_parser_init() {
-    ...
-	p->nchunks =3D cs->in.num_chunks;
-	p->chunks =3D kmalloc_array(p->nchunks, sizeof(struct amdgpu_cs_chunk),
-			    GFP_KERNEL);
-	if (!p->chunks) {
-		ret =3D -ENOMEM;
-		goto free_chunk;
-	}
-    ...
-}
-
-If the allocation fails and we branch to free_chunk, p->nchunks is not clea=
-red.
-
-Does this cause the cleanup loop in amdgpu_cs_parser_fini() to iterate over
-and dereference the NULL parser->chunks array?
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c:amdgpu_cs_parser_fini() {
-    ...
-	for (i =3D 0; i < parser->nchunks; i++)
-		kvfree(parser->chunks[i].kdata);
-    ...
-}
-
-[Severity: High]
-This is a pre-existing issue, but does this code leak the previous user
-fence BO if multiple FENCE chunks are provided?
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c:amdgpu_cs_user_fence_chunk() {
-    ...
-	bo =3D amdgpu_bo_ref(gem_to_amdgpu_bo(gobj));
-	p->uf_entry.priority =3D 0;
-	p->uf_entry.tv.bo =3D &bo->tbo;
-    ...
-}
-
-If userspace submits multiple AMDGPU_CHUNK_ID_FENCE chunks in a single CS
-ioctl, this blindly overwrites p->uf_entry.tv.bo with a new BO reference.
-
-Does this permanently leak the previous GEM buffer objects, potentially
-leading to system memory exhaustion since amdgpu_cs_parser_fini() only
-unreferences the final BO?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914074050.1038=
-4-1-roman.demidov.nn@gmail.com?part=3D1
+Konrad
