@@ -4,59 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BCDFC88E64
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 09:37:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD46BC88E50
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 09:39:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BF5210E537;
-	Mon, 14 Sep 2026 09:37:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC5C610E651;
+	Mon, 14 Sep 2026 09:39:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="vVc7P9q7";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="EhywDeIO";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E32A10E651;
- Mon, 14 Sep 2026 09:37:32 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91A5E10E651
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 09:39:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1789378793;
+ bh=wIVliDo+Smhz04onwGqrzYPtfV9rtmgh95lVsw2Hu4Y=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=EhywDeIODqslEDLoDwMVItaKeUbZGEQO491Yk8sprkPoWya9a6lJJXZ7a/juHVCSK
+ 9d4PGfpNSa24Boiri2r+fxlA38JTTU16btsB5rkJmk4315f71wrg7kXoR/hp/FK8cQ
+ TmAt8dEOFpSA6HkfIvrF0MC38ejFWtj+QefkjlEnYn56R5PWxc68ubjxgH20Q/83vC
+ 0BHYL4P8lrGZ4xtOO1QCiN4eAsQE2CtVEwGU2UJY8tI9534Gpe0JixmjlwMumFOfBh
+ Y7KfhzUkEIiVU75mAljkQJQK2n+SLjfgcVBOoL0y+DMGYFtIDkk2tSsQ/6nrLpHM3/
+ 0PGVO63rUnqtQ==
+Received: from fedora-21.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hk0Rr4XqmzKn9V;
- Mon, 14 Sep 2026 11:37:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1789378648; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=J+9MH70WKjCvhfQjzDnccEGPpWHdgQX9VggZtRW1gCU=;
- b=vVc7P9q755gp/4U/gJIwsTiL0yb14ppcJy3JyoZuYrgTInpV4aYeD/x8T0CXvxsZSpaNLh
- ++Ue1mZ1ivQuxUb2rDEr55qLKpBW/uuH7nY0dWCgxWmY9SbLTxYxXJqutO73Ar3YegxN8v
- JmwOWF0eBQSzAFq9krF74J3qerR4tqZ+YI8J6GoPZByIfWs890U14wpdzPnKp4lAaJumzR
- k9WIL3fL1U4xKrR6FYL9sn5YKYHJ7M3EVZXS0nz1298hiahLkM5J/lWnVRGGHPXlQ7ES3p
- FfcEAMDncHoLcZXfcxQMGR7bUAadSkMkvaGpWNcJJz5n3EDA2sZ6Ca4Q5ehGWg==
-Message-ID: <28a236dcae3e2cac75b4f5afc091136db04134e7.camel@mailbox.org>
-Subject: Re: [PATCH] drm/sched: Do not restore unsaved virtual runtime
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Luke.Wildhardt@proton.me, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
- <dakr@kernel.org>, Pierre-Eric Pelloux-Prayer
- <pierre-eric.pelloux-prayer@amd.com>, Matthew Brost
- <matthew.brost@intel.com>, Vitaly Prosyak	 <vitaly.prosyak@amd.com>,
- stable@vger.kernel.org, Michel Daenzer	 <mdaenzer@redhat.com>
-Date: Mon, 14 Sep 2026 11:37:19 +0200
-In-Reply-To: <acfea48c-dd63-4352-917e-a97a10a8b810@igalia.com>
-References: <20260907130527.52530-1-tvrtko.ursulin@igalia.com>
- <ad1382b98d5c6cb258658e8e85156a0ccd8dd7cf.camel@mailbox.org>
- <35456574-5fc6-4270-85f9-940201998116@igalia.com>
- <2958b5de0ab4ee1c46e2068eeb7448d6e2072ee6.camel@mailbox.org>
- <acfea48c-dd63-4352-917e-a97a10a8b810@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 4CF2517E0894;
+ Mon, 14 Sep 2026 11:39:52 +0200 (CEST)
+Date: Mon, 14 Sep 2026 11:39:46 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v9 10/16] drm/panfrost: Add debugfs knob for manually
+ triggering a GPU reset
+Message-ID: <20260914113946.69936104@fedora-21.home>
+In-Reply-To: <20260912-claude-fixes-v9-10-e588feaa61ef@collabora.com>
+References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
+ <20260912-claude-fixes-v9-10-e588feaa61ef@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MBO-RS-ID: 386b0864b5bf0618924
-X-MBO-RS-META: n9irhpodoxuj7m7t6yfpe8tg5zciq3sd
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,65 +70,96 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-+Cc Michel (for the sched policy removal plan)
+On Sat, 12 Sep 2026 00:28:11 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-On Mon, 2026-09-14 at 09:59 +0100, Tvrtko Ursulin wrote:
-> On 11/09/2026 10:36, Philipp Stanner wrote:
-> > Someone from RH might or might not work on that, and perhaps that would
-> > take until 2027. I'm keeping an eye open for people to pick it up, but
-> > everyone's always busy.
+> This will be of great help when testing potential races between the GPU
+> reset sequence and other parts of the code accessing HW registers.
 >=20
-> Again, I am happy to work on that as long as it is clear there is no=20
-> duplication of effort.
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-I asked and made sure no one is working on it, so from our POV you have
-green light.
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
+One comment below.
+
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_device.c | 37 ++++++++++++++++++++++++=
+++++++
+>  1 file changed, 37 insertions(+)
 >=20
-> > Regarding the bugfix, this was reported as a performance issue on high
-> > load, that only seems to be reachable for CFS users, a brand-new policy
-> > that is marked as experimental and is not used by anyone in production
-> > yet. So IMO we can move on on drm-misc-next with spsc-queue, which will
-> > also make CFS usable then.
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
+/panfrost/panfrost_device.c
+> index d75566a45392..0aee1d87a7ab 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> @@ -2,6 +2,7 @@
+>  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
+>  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
+> =20
+> +#include <linux/debugfs.h>
+>  #include <linux/clk.h>
+>  #include <linux/reset.h>
+>  #include <linux/platform_device.h>
+> @@ -583,9 +584,45 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) =3D {
+>  };
+> =20
+>  #ifdef CONFIG_DEBUG_FS
+> +static int reset_get(void *data, u64 *val)
+> +{
+> +	struct panfrost_device *pfdev =3D
+> +		container_of(data, struct panfrost_device, base);
+> +
+> +	*val =3D atomic_read(&pfdev->reset.pending);
+> +	return 0;
+> +}
+> +
+> +static int reset_set(void *data, u64 val)
+> +{
+> +	struct panfrost_device *pfdev =3D
+> +		container_of(data, struct panfrost_device, base);
+> +	int ret =3D pm_runtime_get_if_active(pfdev->base.dev);
+> +
+> +	if (ret) {
+> +		panfrost_device_schedule_reset(pfdev);
+
+It feels weird to schedule a reset if the device is suspended, because
+a suspend/resume cycle already acts as a reset. Any particular reason
+you'd want to do that? If not, I'd suggest going for:
+
+	if (ret <=3D 0)
+		return ret;
+
+	panfrost_device_schedule_reset(pfdev);
+	pm_runtime_put(pfdev->base.dev);
+	return 0;
+
+> +		flush_work(&pfdev->reset.work);
+> +		if (ret > 0)
+> +			pm_runtime_put(pfdev->base.dev);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +DEFINE_DEBUGFS_ATTRIBUTE(panfrost_reset_debugfs_fops,
+> +			 reset_get, reset_set,
+> +			 "0x%08llx\n");
+> +
+> +static void panfrost_reset_debugfs_init(struct drm_minor *minor)
+> +{
+> +	debugfs_create_file("reset", 0600, minor->debugfs_root,
+> +			    minor->dev, &panfrost_reset_debugfs_fops);
+> +}
+> +
+>  void panfrost_device_debugfs_init(struct drm_minor *minor)
+>  {
+>  	panfrost_gem_debugfs_init(minor);
+>  	panfrost_sched_debugfs_init(minor);
+> +	panfrost_reset_debugfs_init(minor);
+>  }
+>  #endif // CONFIG_DEBUG_FS
 >=20
-> I think more logical order is to first fix it with a small backportable=
-=20
-> fix even if experimental. That way people using 7.2 can actually test it=
-=20
-> and contribute valuable feedback.
-
-I took another look and I think my only issue is basically just that
-the patch addresses something which we should have done regardless of
-the bug at hands. So I'd be already happy if the commit just had a
-different title and slightly extended commit message, like:
-
-"drm/sched: Fix vruntime race by extending locking"
-
-plus sth like
-
-"this simultaneously serves as a preparational step to replace the
-spsc_queue as a whole".
-
->=20
-> > Is there a plan btw as to how you would like to proceed with CFS?
->=20
-> So for me the most typical and useful plan, and in the context of the
-> desired spsc removal, is:
->=20
-> =C2=A0 - Merge this fix so it gets into 7.2
-> =C2=A0 - Spsc removal RFC for some upcoming release N.
-> =C2=A0 - Remove experimental status from fair policy for kernel release >=
-=3D N.
-> =C2=A0 - Switch fair to default at >=3D N+1.
-
-Couldn't it be enabled first for dedicated users? AFAIK it was
-developed with Steam's gaming platforms in mind. Can their OS devs be
-asked to switch it on or test it downstream?
-
-> =C2=A0 - Remove FIFO and RR and simplify to single embedded run queue at =
->=3D N+2.
 
