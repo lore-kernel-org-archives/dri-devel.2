@@ -4,80 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A49E0C88E7F
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BD1EC88E7D
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF7B610F993;
-	Tue, 15 Sep 2026 07:28:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 256DE10F9C5;
+	Tue, 15 Sep 2026 07:28:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CXRIKr0/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MwuPzG5j";
 	dkim-atps=neutral
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
- [74.125.228.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F83E10F7F7
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 00:54:34 +0000 (UTC)
-Received: by mail-ej2-f12.google.com with SMTP id
- a640c23a62f3a-c25085f2426so47224666b.3
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 17:54:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789433673; x=1790038473; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=hWZ4Y4zJql57aJqzMLFBZaa2Td+FuNKRPfVlv/bP7Sk=;
- b=CXRIKr0/ZmMDrS73QRqW4KiweIpOB79NuQakt8Xw2/Mc1qoym3pK1rd1W61GFrN4LV
- JHk0eA2GLD8O4KmVCHA1Nw9o5Xmatsr6lMODE+P9kjbILQDKcECPZ9bX/bQFnTRXQIYb
- e/3hB+90wZ0D99D81uVpXwjrsNfvuYb7JD6GsDuJeeud/h3l7YnSrhfaQ2hDW9TocA/A
- JfZwQNvQX922M76nyqM02hwHL2WRsgTugiWBUbfjfHtPj75hzo1N8XHMqK+W0ra99giw
- cUUTdVPchPLxh3aiJj89cO5n6H/Q2B1bMmrJCiYV6NjJKKxYoIp/krSE1TMsnr7jjhKs
- WYBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789433673; x=1790038473;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=hWZ4Y4zJql57aJqzMLFBZaa2Td+FuNKRPfVlv/bP7Sk=;
- b=zL3IOQ27Oie70FuOOyIGDMOnSDFzn1dsvl1szVzUjaq0VvI0dw3Inm4hutBfFNmKn8
- OG+gTonKTb/dFjrbBvUoLrfmEGuVe1zuSe76r+OyiBnkST9rm1xtNKLDMAMimZD0ft54
- 575AnksVHLQA4w4+vE3xc7iCRS6HxgXEVXXD0flt0sfIebfrkn5+ZLmOMcUMXQ8MBW/Y
- v6mXXma++ymxZExKEe9HiJQIZaIKUTPZC492Y0+rJI9arQkF3ceWL5T3NUNIBFEf8WOF
- 1N61UoJ5B/O1Ky7BqPfZJzAE7nyAVg5gP7k/zrLOsQlp2Ce1YBOVvfGnPCj/bYr7A+H3
- Qc5w==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx7OPJnqma1qEa87z+NJrQf2volWXDC/7p7DpDZv8U3Ocjyqz/rRuZfRjLpHRIcgxmlHVrUdLN6Me8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++k5EU/ytp1MmYQmI2mWvTq20Q/WufbZYjBXC/bZGq8D6B7v1koo
- AFhUvNMCLjtC5IaJ3BCVaqnP4+VJBvSAr14ooFWN0r4+GffzY5irPOJf
-X-Gm-Gg: AYBFou1mFGf9xPUtq7hZogxduvgjgT65JK0cN7Sm6o4i4ed1WNt9Tl3WyNS65sFxdzb
- 4Gd5009L7TpKsIztYr7c0Zc9MPUEc1L+LNn85GQuHe5eFKGaFurIjo07T8p0brDiuSf/2hasifw
- 7eaDAozCpFHbhaYLC2cC7uBLaemGeDIN9AQHSNSzkp5yLBmwwdtRuCtRz4sMGusLHGivDgkERSM
- shY2nqGG4yDm9NnNFRAvz/pw8rJ9I+3Sn004b3cufmKBCtt1Cch1rEOL40onz5Npqd90rS8F9oY
- 7QZuV5xu1Oo6URwGBOxV1PzwAnQd5e0a0i8sLBs8E5g2tdmWg8CqELPbKnFfKFmx8StqVlA6rOV
- mMLKwkJyu1Y8nSC8tMfcKJaLMtADeVSSDOy809ckoQg6m1ifej6/LQPz3FB1rMgqeYYmCRCzYOv
- Ae//CKThWBbrEpGRvsJTrOFntSG0KqRPQzZwFVCDxIQmluoX0lGrXCBMzCE8RwOhCLrf5aNlhm4
- mVQk7AGSTGISrHwHao=
-X-Received: by 2002:a17:907:9491:b0:c20:c5f4:e19f with SMTP id
- a640c23a62f3a-c29b881e271mr346326166b.4.1789433672479; 
- Mon, 14 Sep 2026 17:54:32 -0700 (PDT)
-Received: from Nuel20.localdomain ([105.113.65.85])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c29660ead67sm501097966b.51.2026.09.14.17.54.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Sep 2026 17:54:32 -0700 (PDT)
-From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, alex.hung@amd.com, bhawanpreet.lakha@amd.com,
- Wayne.Lin@amd.com, ivan.lipski@amd.com, matthew.schwartz@linux.dev,
- Jerry.Zuo@amd.com, chiahsuan.chung@amd.com, emmaonana18@gmail.com,
- chen-yu.chen@amd.com, skhan@linuxfoundation.org, me@brighamcampbell.com
-Subject: [PATCH] drm/amd/display: fix kernel-doc warnings for
- amdgpu_display_manager
-Date: Tue, 15 Sep 2026 01:54:21 +0100
-Message-ID: <20260915005421.20570-1-emmaonana18@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0F4710EF42
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:16:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 68FA76022A;
+ Mon, 14 Sep 2026 15:16:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BF121F00899;
+ Mon, 14 Sep 2026 15:16:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789399017;
+ bh=XwIdZujBqtKUK3euRg5palCjbTo4zKXqAqucXZZYP/8=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=MwuPzG5jc3XwBALazXoyoSf1F6W4Vk7TesRzHZph5bz4NWE+Qhr0xkYShhSOby6xW
+ rRsLSYW3lpaGbKz0UXKHDcy1hFN5oGFQXmC+oSCrSL+pIeqFLtxgAjuvobkHPVYNpC
+ bkw7r5YyO1+m3N/f/mOUQMW6E0zhuAO1Muy5SnYYjo41hU7HOLSyZaprwPDum0aDW+
+ wY3qEN//rE/RHoA1UXWcDfe8rjaygMowoJ61xJUWjNPQl+8BmChkoCDSstjxCMY0fm
+ L/aqiJBKN2tyqNX8Yb42btZmcizmbyVEnyAAzIsBJ/Qsc7aM3cqFZK65jbBu1VCD+4
+ 9Lp4vmuSs/C7A==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Mon, 14 Sep 2026 15:57:58 +0100
+Subject: [PATCH v2 38/40] fuse: dax: do not set VM_MIXEDMAP
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-38-7d9781ed5361@kernel.org>
+References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
+In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1455; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=RCEYQjEW6MHyrFoJLHJtSFluFNRdmgFFgjkTdNXkXXM=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcG/xX35bukAu27hQIH+1WMW/qMk++y7Ofd371uhb0
+ JTAm/+yO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRLWUM/8sX1k1K+tX76MWr
+ Jati2PIMvrhc2pl0PVXde9Ks8tM9q9oZGY5rdBodjisqvT1BQLD41PdpW049vdzYd+PhCc68+JL
+ lVxkA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Tue, 15 Sep 2026 07:27:57 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,66 +144,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-scripts/kernel-doc reports missing and excess member descriptions
-for struct amdgpu_display_manager:
+Commit e1fb4a086495 ("dax: remove VM_MIXEDMAP for fsdax and device dax")
+prevented fsdax and device-dax from setting VM_MIXEDMAP, as DAX no longer
+relies on it to direct core mm paths.
 
-  struct member 'power_module' not described
-  struct member 'hdmi_frl_status_polling_wq' not described
-  struct member 'hdmi_frl_status_polling_delay_ms' not described
-  struct member 'boot_time_crc_info' not described
-  Excess struct member 'dm_boot_time_crc_info' description
+The fuse DAX implementation, added later, copied the old pattern and still
+sets it.
 
-Add @power_module to the main struct doc, document
-hdmi_frl_status_polling_wq/work/delay_ms with separate inline
-comments, and rename @dm_boot_time_crc_info to @boot_time_crc_info
-to match the actual member name.
+Fuse DAX maps pages the same way fsdax does, via dax_iomap_fault() and
+ultimately vmf_insert_page_mkwrite() and vmf_insert_folio_pmd(), which
+insert ordinary refcounted pages and so do not require VM_MIXEDMAP.
 
-Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+Setting it only serves to mark the mapping as kernel-owned, making fuse DAX
+the sole DAX implementation whose mappings are unmergeable, cannot be
+mlock()'d, eagerly copy page tables on fork and reject MADV_DOFORK and
+MADV_DODUMP.
+
+It also requires vma_is_special_huge() in mm/huge_memory.c to carve DAX out
+of its kernel-owned check explicitly.
+
+There is no reason for fuse DAX to keep on using this flag so drop it.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ fs/fuse/dax.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 3524931451c8..61756c089fcc 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -330,6 +330,7 @@ struct hpd_rx_irq_offload_work {
-  * @backlight_link: Link on which to control backlight
-  * @backlight_caps: Capabilities of the backlight device
-  * @freesync_module: Module handling freesync calculations
-+ * @power_module: Module handling power calculations
-  * @hdcp_workqueue: AMDGPU content protection queue
-  * @fw_dmcu: Reference to DMCU firmware
-  * @dmcu_fw_version: Version of the DMCU firmware
-@@ -716,16 +717,26 @@ struct amdgpu_display_manager {
- 		char reply_data[0x40];  // Cannot include dmub_cmd here
- 	} fused_io[8];
- 	/**
--	 * @hdmi_frl_status_polling_work:
-+	 * @hdmi_frl_status_polling_wq:
- 	 *
- 	 * workqueue for 200ms frl status polling
- 	 */
- 	struct workqueue_struct *hdmi_frl_status_polling_wq;
-+	/**
-+	 * @hdmi_frl_status_polling_work:
-+	 *
-+	 * Delayed work for 200ms HDMI FRL status polling.
-+	 */
- 	struct delayed_work hdmi_frl_status_polling_work;
-+	/**
-+	 * @hdmi_frl_status_polling_delay_ms:
-+	 *
-+	 * Delay, in milliseconds, between HDMI FRL status polls.
-+	 */
- 	unsigned int hdmi_frl_status_polling_delay_ms;
+diff --git a/fs/fuse/dax.c b/fs/fuse/dax.c
+index 85cdf0199bc0..a5994f1c637d 100644
+--- a/fs/fuse/dax.c
++++ b/fs/fuse/dax.c
+@@ -826,7 +826,7 @@ int fuse_dax_mmap(struct file *file, struct vm_area_struct *vma)
+ {
+ 	file_accessed(file);
+ 	vma->vm_ops = &fuse_dax_vm_ops;
+-	vm_flags_set(vma, VM_MIXEDMAP | VM_HUGEPAGE);
++	vma_set_flags(vma, VMA_HUGEPAGE_BIT);
+ 	return 0;
+ }
  
- 	/**
--	 * @dm_boot_time_crc_info:
-+	 * @boot_time_crc_info:
- 	 *
- 	 * Buffer info for the boot time crc.
- 	 */
+
 -- 
-2.43.0
+2.55.0
 
