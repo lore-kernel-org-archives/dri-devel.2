@@ -4,53 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B9ABC88E71
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 11:55:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99678C88E70
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 11:55:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8155D10EDB0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02FB310EDAD;
 	Mon, 14 Sep 2026 11:55:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P/qe+7Tq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M7wNU7Iw";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACE6310EDAA
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 11:54:58 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41A6B10EDAD
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 11:54:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3192960142;
+ by sea.source.kernel.org (Postfix) with ESMTP id 2918143B8E;
+ Mon, 14 Sep 2026 11:54:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 773C61F00898;
  Mon, 14 Sep 2026 11:54:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ECDB1F00893;
- Mon, 14 Sep 2026 11:54:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789386897;
- bh=5PXwVT3mCA+YpecjXQdVelOjDLl8aO5/fm2KL71yj98=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=P/qe+7Tq2Hg4z53wJUgNPPO9MrD+DLgbMFeAgEttz/tgjQwLtxoIE9zggyjrMrTWC
- oG7682yvcChjBk/+45vxhaDqIcjtClRMvawrxXQfIfkywgd1ys///PKH9IWL7iC5kY
- V2NMvOYmD/Ykri6bT7a5M2+SbszcgEwQDEbHhPJronq/iGWWznOYnSYNqLb4AgRjJQ
- 9UGG8QXc+3G45kk969wD7hnxoXaxL+4m2212ulAvDR2GtBTkMe0wNC1OjU8s2fkrcp
- ude/XidK5ZqKV46r4EpCxCUc4vKYEu5Is7CQdTYxJVlBLhRJ2pF0G37G9AY8hiUgGQ
- DF1LIVH2wcL/A==
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 14 Sep 2026 13:54:33 +0200
-Subject: [PATCH v2 05/20] dt-bindings: display: ste,mcde: Allow power domains
+ s=k20260515; t=1789386899;
+ bh=mzslbS9s57kHQk5KhGmaTOWstnEBnslT4LYp80HR5nQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=M7wNU7Iw1O/OBF9URQRc/i9iZNutJqNfPaElMBTKqIKZPckpJAmhf7f0gLTCu1HMt
+ tMF7nnZqUHw7m4Q6qqhICroNBaY486sD0k/9xXK+kQZKWIf03oC5NPZb6udvbFfXAx
+ uH9dQsLagA9St5ZWmgflKNogNNb7bUoyJMV2Na1k3ecddBe1ghAx8IqK9DNNEyT59z
+ vBhTwYPX12IMLAPO4zDprisBauaJ/Yl8+H2rZ+89XAnU99qBmV8unZn7HZ+ufwajJQ
+ YvybuH36cRfFJdBuDgjwQMkMRrTa3ZlgAOlnxPSTxnWtid0iAU8HJx9IoK7U2P4fUQ
+ S3w2vJ3Nt0ulA==
+Date: Mon, 14 Sep 2026 14:54:56 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Matt Evans <matt@ozlabs.org>, Alex Williamson <alex@shazbot.org>,
+ Alex Mastro <amastro@fb.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
+ Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>,
+ =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v6 9/9] vfio/pci: Permanently revoke a DMABUF on request
+Message-ID: <20260914115456.GY13683@unreal>
+References: <20260911214200.33793-1-matt@ozlabs.org>
+ <20260911214200.33793-10-matt@ozlabs.org>
+ <20260913165244.GW13683@unreal>
+ <20260914113647.GL3968357@nvidia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-ux500-power-domains-v7-1-v2-5-9d0c17e1f816@kernel.org>
-References: <20260914-ux500-power-domains-v7-1-v2-0-9d0c17e1f816@kernel.org>
-In-Reply-To: <20260914-ux500-power-domains-v7-1-v2-0-9d0c17e1f816@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
- Mark Brown <broonie@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Lee Jones <lee@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- dmaengine@vger.kernel.org, Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914113647.GL3968357@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,47 +72,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Document the MCDE power domain.
+On Mon, Sep 14, 2026 at 08:36:47AM -0300, Jason Gunthorpe wrote:
+> On Sun, Sep 13, 2026 at 07:52:44PM +0300, Leon Romanovsky wrote:
+> > On Fri, Sep 11, 2026 at 10:41:57PM +0100, Matt Evans wrote:
+> > > Expand the VFIO DMABUF revocation state to three states:
+> > > Not revoked, temporarily revoked, and permanently revoked.
+> > 
+> > The thing is that "temporarily revoked" is actually the standard
+> > invalidate_mappings/move_notify mechanism of DMABUF, which wasn't good
+> > for VFIO.
+> 
+> I think temporarily revokes here means it is revoked from a dmabuf
+> perspective
 
-Keep the legacy EPOD regulator binding unchanged for now.
+My guess is that this is more of a "change owner" operation than a
+revoke operation.
 
-Assisted-by: LLM
-Signed-off-by: Linus Walleij <linusw@kernel.org>
----
- Documentation/devicetree/bindings/display/ste,mcde.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
+The main issue here is that we have to guess the semantics instead of
+having a properly named and documented operation. As Christian pointed
+out, the patches describe what they are doing well, but they do not
+explain why they are doing it.
 
-diff --git a/Documentation/devicetree/bindings/display/ste,mcde.yaml b/Documentation/devicetree/bindings/display/ste,mcde.yaml
-index 7a12d0b817e6..05e7e4ebc882 100644
---- a/Documentation/devicetree/bindings/display/ste,mcde.yaml
-+++ b/Documentation/devicetree/bindings/display/ste,mcde.yaml
-@@ -35,6 +35,9 @@ properties:
-   resets:
-     maxItems: 1
- 
-+  power-domains:
-+    maxItems: 1
-+
-   epod-supply:
-     description: a phandle to the EPOD regulator
- 
-@@ -109,6 +112,7 @@ examples:
-   - |
-     #include <dt-bindings/interrupt-controller/irq.h>
-     #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/arm/ux500_pm_domains.h>
-     #include <dt-bindings/mfd/dbx500-prcmu.h>
-     #include <dt-bindings/gpio/gpio.h>
- 
-@@ -116,6 +120,7 @@ examples:
-       compatible = "ste,mcde";
-       reg = <0xa0350000 0x1000>;
-       interrupts = <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
-+      power-domains = <&pm_domains DOMAIN_B2R2_MCDE>;
-       epod-supply = <&db8500_b2r2_mcde_reg>;
-       vana-supply = <&ab8500_ldo_ana_reg>;
-       clocks = <&prcmu_clk PRCMU_MCDECLK>,
+> 
+> Just that VFIO can make it's internal dmabuf work again, there won't
+> be a notification to any importer or an expectation that something
+> like iommufd will re-establish mapping automatically.
+> 
+> This is principally a kernel self protection mechanism where the
+> userspace was expected to have removed the dmabuf before issuing a
+> reset/etc. If they didn't then the kernel plonks it and userspace gets
+> a mess to clean up.
 
--- 
-2.55.0
+Revoke/invalidate means that the importer should stop accessing the
+buffer provided by the exporter. It does not specify what the exporter
+should do afterwards.
 
+So I still think that "temporarily revoked" is closer to
+invalidate_mappings, with some additional dma-buf documentation to lose
+the expectation that the buffer will become available again.
+
+Thanks
+
+> 
+> Jason
