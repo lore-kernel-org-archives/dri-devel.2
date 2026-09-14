@@ -4,75 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43C36C88E72
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 17:43:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66C7EC88E6F
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 17:49:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2319710F0A8;
-	Mon, 14 Sep 2026 17:43:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B62110E1EB;
+	Mon, 14 Sep 2026 17:49:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="p7QV1LlY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EfCnxAfl";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D064D10E212
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 17:42:54 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 59DB043E5A;
- Mon, 14 Sep 2026 17:42:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 33884C2BD01;
- Mon, 14 Sep 2026 17:42:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1789407774;
- bh=zFCCflJzBkLB8TTIRRwY32MAvwb2r+r2H1q5D3KrMj0=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=p7QV1LlYtfONCi0TqgZEKHYlhuEtOX6cLQ+FBxXK4qiPQwjbBkmjnD8Tse2cgd617
- e4mXGHWfpMYPL0JinM6IthfudtFlWRizKweOur3lnNbBbLkMu0T4nLUOK2Ja1o10Vv
- 5eAzYQS47npyx/9G0pzpuOx3aNw5ETrt3/tyqXHVSUNiw0ZCBT/6N2Qv2iFOK6xjbN
- FUPyP5e50R1FFghQDB5kcx2a7YBC/GdXUVC9BJrJiFfA/8Cxw97iOJvs3UQuTHZ4Xm
- C8oNTgeHQ5gLeMnl6WfSRKfRwnFqJAlfmcfO6JEQvP4PgID1AZK+G8aaQ0jUtzlOVm
- cXR00woKWT8uQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 1DA95C88E79;
- Mon, 14 Sep 2026 17:42:54 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Mon, 14 Sep 2026 19:42:49 +0200
-Subject: [PATCH v2 3/3] backlight: qcom-wled: Read back the programmed
- brightness at probe
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010062.outbound.protection.outlook.com
+ [40.93.198.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FD8C10E1EB;
+ Mon, 14 Sep 2026 17:49:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fZLGEM7VhH5RBWhT8oAPDwWWUiyWHlk6nNntxgQrAK0MDGIKGrYdv9jhXXvxiAI+sFKKMVGhcCJ9mDQCANnDPNJi0i9nz5zDMYfIfjEHxTaLhieY0ODZ9mX9KT7Qwz68gpuQ8HRsRckEDhO+Ho3ezHDu5qSuJjTgZV6qtOEQvepM6hMSgCQ66DZrIW2mZ6rPJh+o9A5vBAVOjHx2EOda53gK8DOOIny4LAp73Na0mIQZgrVgWJPdhg4vV+8grFkl4oGx2Vonj0ZNkyOOEvRSbugivC6ltllB9EgENtSPt/SlWupewvEHskv5FbtChBHbtyVpcNy5VfqSN6kj18Xb0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5rdB5sl+hWMWlLhEXroZ3nLSphAol+CoLrX+tiU7/ws=;
+ b=qa2VX+71n8yoyrV02+CLMrf0gWTL9d7KpNtlbvZbhkT4Hk2r11wSnf2Q0wHPFsh4UNmT9aZOXkC3aDv6Vw0O+KIvErwPVrBxEdzf6fZDruyEi4gyIu1GxGcswoLlVpGLc0lNG7LeKStQ/vY4+mHHOjBjUm6zZJ9xiT/KAYa8lqH8WpcolShbZIKxCAwbd3470n21Zlq9by9puiPn4iNIadOMhy+iIIkc+fBS94PdGRE7uAcupYhMigpibhMABF97a8UtLr9CcFBXBGaKH3JOytaZT6s38Pi4djjX5MyZUtEj/5aAcL7Uer5ftrQsEbmLjbDCgpqKCVVX1znATDIO4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5rdB5sl+hWMWlLhEXroZ3nLSphAol+CoLrX+tiU7/ws=;
+ b=EfCnxAfly3zVgpq8RX9rP1uH7Ie2caC+QeuuNC6WGrCzkiiSPjX+7pwipE86HG5tpTrFkeLBUheXB/NbvRPIC7V1uJ3Kwft327dHAS1RfWC2gtO5xD5mB6uxDQ4/0II3+Z4VBwWLL05dGxmy8+YsewDsHUOX4PyqNqXFSjrGIfg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by LV8PR12MB9156.namprd12.prod.outlook.com (2603:10b6:408:181::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 17:48:47 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Mon, 14 Sep 2026
+ 17:48:47 +0000
+Message-ID: <41428e7e-22e3-44d5-afdf-8a72165883f5@amd.com>
+Date: Mon, 14 Sep 2026 19:48:41 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: zero reg_state buffer before filling it
+To: "Lazar, Lijo" <lijo.lazar@amd.com>,
+ Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>,
+ Alexander Deucher <alexander.deucher@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, Samuel Zhang <guoqing.zhang@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
+References: <20260914135650.87591-1-Dmitry.Chumachenko@cyberprotect.ru>
+ <bc9cf07a-ef97-490a-b98a-a05bc9f5b186@amd.com>
+ <05b669e6-1c66-4789-9916-b8030e232385@amd.com>
+ <aeeff331-8b2e-41d8-acf8-d5d758935d38@amd.com>
+ <c4f2f082-8956-4f20-af92-119b873c3759@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <c4f2f082-8956-4f20-af92-119b873c3759@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0019.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c9::16) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-qcom-wled-backlight-v2-3-a908d9233e93@ixit.cz>
-References: <20260914-qcom-wled-backlight-v2-0-a908d9233e93@ixit.cz>
-In-Reply-To: <20260914-qcom-wled-backlight-v2-0-a908d9233e93@ixit.cz>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, 
- Kiran Gunda <quic_kgunda@quicinc.com>, 
- Marco Mattiolo <marco.mattiolo@hotmail.it>, 
- =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Joel Selvaraj <foss@joelselvaraj.com>, David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6134; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=69u6B8ssKSJBzJa/pOZvYchs0e6Ck19EMGhL/GRYftg=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqqDIcPYFb+ZX7Hi/an/rgVuWiGCmNQKNVIJIEE
- DiyE+yKBdSJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqgyHAAKCRBgAj/E00kg
- cj8GEACDEp91oc+HGXB1DFZiXfHp/MxUIjMEyapFvq4bpJHypMEZBxkdVPYJ688U803VmyAOZKs
- XuN74P00jdvhi/UAaw+n3WFAq+HAZAjlEjJNYcZKIBRdxkgT58JzeNwHfjRemLCIhdUiuw8i365
- daPfQz8TH+/veiT3NYjosTEdob+3oXo9vg2YanXZ5aMPOWpUwBh17/1eEA+w1fP6Wc2hDnbUGaj
- 4p1Wve0eM5tLGVm2xvy4s2wgTvBFxPzMwGXXhNTSXl3Pm0u4mOPTgnu904/RHtPiU4rQOVV0t8N
- VGTpqAqNbYSk5rfzmzuW04fCUUd4BHbA6kOiayzW7O7qiMuuyyi2yAvqlhmNowZz7R5REUfJvP/
- rn8nC8DAFmzvGb5gt1eNxFMX8ImCn+DaSgnAjwIgHgmgP7QgSo/aH7qWv2vCN1AJp7qrtXFGtl4
- yzqmqdwPYeQMdndzHCdmMLs4xm6o9UfILT78NhOLtHDcBhq9pW//+K16NcWXEmPh+uOP6qeJUAZ
- 7bUEfKuQVmFHJ+gX8cmGzIpXhb/aymQubQA69lkpH3jJSBijSXiaSl7OiUwEyxI/ZxLBIH1A8Qv
- degEyZvvSQj+Qlm16ztr28NGXngXUK5iKeIaZD0vcmC7LpGDncKhBW6Jg/Alc/EE9rvfCMFz7Gs
- DqWH94QtdcMvY8Q==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV8PR12MB9156:EE_
+X-MS-Office365-Filtering-Correlation-Id: 177feef7-2739-4303-0894-08df12886d63
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|23010399003|376014|10067099003|4143699003|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: RcWGEMcxgORxcfDO6XBQr2qMCp0aK5AV8cHaeQdFKhN9+cUVPGhRU4g94EmcbZU2GhsV7jTDJ7DwzmZGJuXuv0g8EW5H/qFFG7fJdHMKQrLfr6tQw1Tr1sia9vhwocd8bJNivH1Kkh0Ww43SySEiUSJHGnM/B7YndBPwzioJa20tqmSoZq0u00MqyQWApgqctSzfw8WRAdF2rscw7Ic6waUuxLPfBKPcjX4HTMxTuS3ZVd/kCX3saI8Y1+uZaK1zZ4hmetvrsGTV2n7vI0dTkjAY3/uZYgN+SnvuNYFejJ6x7Q2sEFNWGA0oEhIYI4kQz3Xds3i8VMoo8MY036CDg198Pr9L1X28ZGSjvXsnY1rQd+D5BKO0oskQ+yelQf5DyiyGdauw2Xyyio88wUPCpS5sKfQjlvyFvjjJZY/2QTqUEJBncvv2SqpNScGmNjdDU5CcItSXyvIRX1P0TkgLQdtKonoj++ii5aZ5t4nZKTfA8bqJDqkDVheqRdyW1N+6h0w7dznw1ofW34b75y8iVl8JlWCHtfexT6eB4csGE48=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(10067099003)(4143699003)(18002099003)(22082099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TVdjeVg0T1Y5cjN0UisrV1Rod3ZMRHNCQVNOVVQxUmFGSFp6RWF5ZkJySW1X?=
+ =?utf-8?B?Z254NEJXWDkrME9PTUg3L1dIRXVWQWtRN3B0LzhzUHFocFBCeHVreW5jYlAw?=
+ =?utf-8?B?aUFXS0hzTkpFZWtPTDJURVczM0V4WHRxc09uN0FkZno0V2NrSXIyK3dTeGhp?=
+ =?utf-8?B?eUZSSlAwM1F3TkNzVnh3eEZQa1gvblB1MHEwZ1NRTnhzK3J4ek4rbFF0MjMw?=
+ =?utf-8?B?elBnUjFiQjdUMElIc3B4Y25YQllOY3lidkQ5NTFCeFFyZytKOEtBVk5MckJw?=
+ =?utf-8?B?OGtwTmsxdzF1alROU25Vb0NTU3IxK3ZXSEJkV0xMUTQ5YTJEcXNaM0VnQyta?=
+ =?utf-8?B?Ym5HaFM4U3JobTBIZExScHhvLzFUM1ZIZlduU0cyTHBqUCt6dzd2Q3N2ckVz?=
+ =?utf-8?B?NWpJZHRrblZDUk9QakVLRWcyVXg4RExONitYNVJVWmJPcGZPczVnUk16emxz?=
+ =?utf-8?B?M251RzMybnFBMHhoR2IwWjNtU00ydXdodmI1Qmh4bHhNR0dwbjBnNEVXcDRC?=
+ =?utf-8?B?cnY4SllLMHhEamRVZjVEL0lrMFBwMUxPMGVIYlQzYlBEZ0JlMXNqRUZRNXBS?=
+ =?utf-8?B?VzNta0NZZFlmd01zWENjTjVTRGgrYWVhYmxqbElpUFNndm9iUVFIWnpYRWFn?=
+ =?utf-8?B?a256TXorRWgwRWNTQUhCOVJKWmNCbWZXWXE0WHoycWh2RVFGZGxHMWI1QmU3?=
+ =?utf-8?B?aFhEV3dkVm5VVk5uNTBWc0F0Q1lwRW9HdThRaFRjV0JIMzY5UE9KQWVXbnFi?=
+ =?utf-8?B?S0NZbTNBYXUvSmcycnRPRXFnSGVaSjV0cDZvazh5cTU2Z0cvQlZZR3lhd0l3?=
+ =?utf-8?B?dkJJb2dzWTJDWlROaEJSVGJXOG9yZGJyZllSTlgzL0ZGSk9nRW9UaElpU2Uy?=
+ =?utf-8?B?bkRYVlplU2FqdGlvR3ZML2RHcmVKbHlzLzhkdDlZTnhlKzlDbmRsZ3hnWVhM?=
+ =?utf-8?B?OUFZMEVYOXNMZlB6TUUxdkNITTNMT2k2MnlrN1IvYWpZak51Z1JNSTNnMzNa?=
+ =?utf-8?B?YzlKOU80NnZZcldwK3dYaDBoRHJNSTZYa2hEWGQwaHdHcWxQbEJoaWp3cTBx?=
+ =?utf-8?B?OVpzcm1RUGRnTmdWUittbkhXWmVUMSt0MDFhNFIyUElOR28vQ1h6T3UybTdp?=
+ =?utf-8?B?MnA5cTkxdjdWQ0p4bXA2SjRpQkxOSWZRcXZqaTl6dkVsZERKWStYUzRlejVw?=
+ =?utf-8?B?cHloS1FVOE1ucXJNWHBmY2k4aDZVa293QXhWMForTHRhZjZNdzZLdEhheEtt?=
+ =?utf-8?B?NStmdGwrUjZTM09LQnU3aHFKTTZoUVo0S3NJenRZNFp4TUtRNFh2aDhTYzdm?=
+ =?utf-8?B?WEloOW5VUDM2SlBDcG5kaFZLOTFVUGNFYTYwZmNvTkJiVE43OTlIWEtCMEpJ?=
+ =?utf-8?B?R29sbWh6aHF5ZXBiUENtcXZaNkYwNkM2LzMyWmh1TDhpOHBFN3I2WUg0c1ZN?=
+ =?utf-8?B?MGhsNEtZWTRSc3ZIR3hqemZHTmZuL3BpOXQ4ajF2WDdEUnJ3YXhJeUJMOU5R?=
+ =?utf-8?B?cW1BM2FlRzRCU0xIWE52allWTkM1MXN2N1AvZjZwVUVHcUFQMXNxbFdncVQx?=
+ =?utf-8?B?bTNrVWRHeVp6eDJQTWFya3ZaRW9nRndHRXM5S3Y4a3FjY0xkbmRSMU8vTlJ2?=
+ =?utf-8?B?SHF5QW1lTWpHQmxMSjJpRGZqclZvNEc4cElQTGR5SjV6NjZOQzFoQXlUMGoz?=
+ =?utf-8?B?T1ZXN0E4ZUJvRmFRWUVPVkUzVUd4ano3Szh4K0QyaXlONjBjMEU4NEp5WkRj?=
+ =?utf-8?B?ckFvL3dLRTNpdGxRNm05aWI0a28rWGxUWlFjbmY2czVWQ2lDU0tnNVdVRFZn?=
+ =?utf-8?B?Qmt2NTJoN0RjNlZuOG1wR2dBZWxUVy9zM0NmQkdENUtjRHk2NUJWTDc4aXUz?=
+ =?utf-8?B?MDlKYnZET3FWbEJUNEJ3VVBUZldvektZeTF2QU9OSlhkS0laeVhFNysvb0NU?=
+ =?utf-8?B?eHllWWJsQytZcU0xdmZzWVl6eFE4a2pVZ1lSZmZBU1JYL1VuZXZTT1hpeGkr?=
+ =?utf-8?B?emNueHd4OG03dkVzb256SWlsSnZtYlJjWjhtY0h3YS9OYzBtd0JNSTdKOTUy?=
+ =?utf-8?B?WC9tOE5Cb0l3Mzh6cFF5UlNkcmlWQTZ2ODF6QzZqb1BET1NVK1ZtT29NTjJ3?=
+ =?utf-8?B?bzJFY1AvTFhiYnUveFgwL2VRSHVqVkt6TUx0WHprWk80Yi9ZRHdhVnlsNVJm?=
+ =?utf-8?B?Y09Rcnl0NXZTZDI3aS9iV1BvRVpiWTE4Zm9aWElCeitMMVAwRG1aRTJzY1dq?=
+ =?utf-8?B?K0NseDRPZjBYVVBMWUZMVlJlYTBpWkJzaEg1YlJPTFl6ZXZQV0xTWngzMEpH?=
+ =?utf-8?Q?WaHDvuyDOifuov6diq?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 177feef7-2739-4303-0894-08df12886d63
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 17:48:47.2142 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Jt9d/CPyicV1Q82kPfKzROA/TSSiS6vQdkcf19+cvMqcsxGwdLaiVF1qxT9/uq+O
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9156
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,210 +141,122 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: david@ixit.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: David Heidelberg <david@ixit.cz>
+On 9/14/26 17:25, Lazar, Lijo wrote:
+> On 14-Sep-26 8:24 PM, Christian König wrote:
+>> On 9/14/26 16:45, Lazar, Lijo wrote:
+>>>
+>>>
+>>> On 14-Sep-26 7:30 PM, Christian König wrote:
+>>>> On 9/14/26 15:56, Dmitriy Chumachenko wrote:
+>>>>> The reg_state readouts return szbuf bytes but never write the pad members
+>>>>> of the headers and of amdgpu_smn_reg_data (and, for pcie, the fields
+>>>>> skipped when the upstream port or AER capability is absent). The sysfs
+>>>>> buffer is a plain kmalloc(), so those bytes leak stale slab data to any
+>>>>> local user through the 0444 reg_state attribute.
+>>>>>
+>>>>> Zero the buffer once the size is known.
+>>>>>
+>>>>> Found by Linux Verification Center (linuxtesting.org) with SVACE.
+>>>>>
+>>>>> Fixes: 081a6eda2b25 ("drm/amdgpu: Read aquavanjaram PCIE register state")
+>>>>> Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
+>>>>
+>>>> Good catch, but stuff like that should be handled by using kzalloc() instead of calling memset it manually.
+>>>>
+>>>
+>>> It's the default sysfs buffer allocation which may not be used entirely by all drivers.
+>>>
+>>> The concern in this case is that driver is telling it has written x bytes whereas it could have left some fields unfilled in the buffer. I think the fix is fine.
+>>
+>> Wait a second, is that because of messed up padding in sysfs structures? That is usually a really big NO-GO for upstreaming.
+>>
+>> Structures returned to userspace must be padding free, see the tool pahole for how to double check that on different architectures.
+>>
+> 
+> It's an explicit padding like below for alignment. Those fields also could go unfilled.
+> 
+> struct amdgpu_reg_state_header {
+>         uint16_t                structure_size;
+>         uint8_t                 format_revision;
+>         uint8_t                 content_revision;
+>         uint8_t                 state_type;
+>         uint8_t                 num_instances;
+>         uint16_t                pad;
+> };
 
-Since the previous change wled_probe() seeds wled->brightness from
-MOD_EN, but with default-brightness rather than the level the hardware
-is actually driving, so a backlight left lit by the bootloader still
-visibly steps on the first update, and actual_brightness reports the
-last value written rather than what the panel shows.
+Ok, got it. Yeah that approach is perfectly fine.
 
-Add wled_read_brightness(), which returns 0 when MOD_EN is clear and
-otherwise reads the brightness register the matching
-wledN_set_brightness() writes: the first enabled string on WLED3 and
-WLED4, the selected modulator on WLED5. Use it to seed both
-wled->brightness and the initial backlight property, and expose it as
-backlight_ops.get_brightness so that actual_brightness reflects the
-hardware too.
+But we should still us kzalloc() or at least do the memset at the IOCTL level and not in the backend.
 
-A module that is enabled with the brightness registers at zero, which
-wled4_setup() and wled_auto_string_detection() can leave behind on a
-cold boot, now reads back as off. The OVP interrupt is then armed by the
-first brightness update rather than from probe, which is what happens
-on every other board where the module starts out disabled.
+Regards,
+Christian.
 
-Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Assisted-by: LLM
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- drivers/video/backlight/qcom-wled.c | 74 +++++++++++++++++++++++++++++++------
- 1 file changed, 63 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
-index 43e9f6f755582..1acb3ee86878f 100644
---- a/drivers/video/backlight/qcom-wled.c
-+++ b/drivers/video/backlight/qcom-wled.c
-@@ -285,16 +285,60 @@ static int wled5_set_brightness(struct wled *wled, u16 brightness)
- 		  WLED5_SINK_REG_MOD_A_BRIGHTNESS_LSB :
- 		  WLED5_SINK_REG_MOD_B_BRIGHTNESS_LSB;
- 
- 	rc = regmap_bulk_write(wled->regmap, wled->sink_addr + offset,
- 			       &v, sizeof(v));
- 	return rc;
- }
- 
-+static int wled_read_brightness(struct wled *wled)
-+{
-+	u16 addr, mask;
-+	__le16 v;
-+	u32 val;
-+	int rc;
-+
-+	rc = regmap_read(wled->regmap, wled->ctrl_addr + WLED3_CTRL_REG_MOD_EN,
-+			 &val);
-+	if (rc < 0)
-+		return rc;
-+
-+	if (!(val & WLED3_CTRL_REG_MOD_EN_MASK))
-+		return 0;
-+
-+	switch (wled->version) {
-+	case 3:
-+		addr = wled->sink_addr +
-+		       WLED3_SINK_REG_BRIGHT(wled->cfg.enabled_strings[0]);
-+		mask = WLED3_SINK_REG_BRIGHT_MAX;
-+		break;
-+	case 4:
-+		addr = wled->sink_addr +
-+		       WLED4_SINK_REG_BRIGHT(wled->cfg.enabled_strings[0]);
-+		mask = WLED3_SINK_REG_BRIGHT_MAX;
-+		break;
-+	case 5:
-+		addr = wled->sink_addr + (wled->cfg.mod_sel == MOD_A ?
-+					  WLED5_SINK_REG_MOD_A_BRIGHTNESS_LSB :
-+					  WLED5_SINK_REG_MOD_B_BRIGHTNESS_LSB);
-+		mask = WLED5_SINK_REG_BRIGHT_MAX_15B;
-+		break;
-+	default:
-+		dev_err(wled->dev, "Invalid WLED version\n");
-+		return -EINVAL;
-+	}
-+
-+	rc = regmap_bulk_read(wled->regmap, addr, &v, sizeof(v));
-+	if (rc < 0)
-+		return rc;
-+
-+	return min_t(u32, le16_to_cpu(v) & mask, wled->max_brightness);
-+}
-+
- static void wled_ovp_work(struct work_struct *work)
- {
- 	struct wled *wled = container_of(work,
- 					 struct wled, ovp_work.work);
- 	enable_irq(wled->ovp_irq);
- }
- 
- static int wled_module_enable(struct wled *wled, int val)
-@@ -475,16 +519,28 @@ static int wled_update_status(struct backlight_device *bl)
- 	wled->brightness = brightness;
- 
- unlock_mutex:
- 	mutex_unlock(&wled->lock);
- 
- 	return rc;
- }
- 
-+static int wled_get_brightness(struct backlight_device *bl)
-+{
-+	struct wled *wled = bl_get_data(bl);
-+	int rc;
-+
-+	mutex_lock(&wled->lock);
-+	rc = wled_read_brightness(wled);
-+	mutex_unlock(&wled->lock);
-+
-+	return rc;
-+}
-+
- static int wled4_cabc_config(struct wled *wled, bool enable)
- {
- 	int i, j, rc;
- 	u8 val;
- 
- 	for (i = 0; i < wled->cfg.num_strings; i++) {
- 		j = wled->cfg.enabled_strings[i];
- 
-@@ -1646,25 +1702,25 @@ static int wled_configure_ovp_irq(struct wled *wled,
- 	if (!wled->brightness)
- 		disable_irq(wled->ovp_irq);
- 
- 	return 0;
- }
- 
- static const struct backlight_ops wled_ops = {
- 	.update_status = wled_update_status,
-+	.get_brightness = wled_get_brightness,
- };
- 
- static int wled_probe(struct platform_device *pdev)
- {
- 	struct backlight_properties props;
- 	struct backlight_device *bl;
- 	struct wled *wled;
- 	struct regmap *regmap;
--	u32 mod_en;
- 	u32 val;
- 	int rc;
- 
- 	regmap = dev_get_regmap(pdev->dev.parent, NULL);
- 	if (!regmap) {
- 		dev_err(&pdev->dev, "Unable to get regmap\n");
- 		return -EINVAL;
- 	}
-@@ -1728,41 +1784,37 @@ static int wled_probe(struct platform_device *pdev)
- 	}
- 
- 	INIT_DELAYED_WORK(&wled->ovp_work, wled_ovp_work);
- 
- 	val = WLED_DEFAULT_BRIGHTNESS;
- 	of_property_read_u32(pdev->dev.of_node, "default-brightness", &val);
- 
- 	/*
--	 * The module may already be enabled, either by a bootloader that left
--	 * the backlight lit or by the setup above. Record that, so that the
--	 * first brightness update does not enable an already enabled module,
--	 * and so that the OVP irq is armed from probe rather than from that
--	 * first update.
-+	 * The module may already be lit, either by the bootloader or by the
-+	 * setup above. Start from what the hardware is driving, so that the
-+	 * first brightness update does not step the brightness.
- 	 */
--	rc = regmap_read(wled->regmap, wled->ctrl_addr + WLED3_CTRL_REG_MOD_EN,
--			 &mod_en);
-+	rc = wled_read_brightness(wled);
- 	if (rc < 0)
- 		return rc;
- 
--	if (mod_en & WLED3_CTRL_REG_MOD_EN_MASK)
--		wled->brightness = val;
-+	wled->brightness = rc;
- 
- 	rc = wled_configure_short_irq(wled, pdev);
- 	if (rc < 0)
- 		return rc;
- 
- 	rc = wled_configure_ovp_irq(wled, pdev);
- 	if (rc < 0)
- 		return rc;
- 
- 	memset(&props, 0, sizeof(struct backlight_properties));
- 	props.type = BACKLIGHT_RAW;
--	props.brightness = val;
-+	props.brightness = wled->brightness ?: val;
- 	props.max_brightness = wled->max_brightness;
- 	bl = devm_backlight_device_register(&pdev->dev, wled->name,
- 					    &pdev->dev, wled,
- 					    &wled_ops, &props);
- 	return PTR_ERR_OR_ZERO(bl);
- };
- 
- static void wled_remove(struct platform_device *pdev)
-
--- 
-2.55.0
-
+> 
+> Thanks,
+> Lijo
+> 
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> Thanks,
+>>> Lijo
+>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>> ---
+>>>>>    drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 8 ++++++++
+>>>>>    1 file changed, 8 insertions(+)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+>>>>> index 72ea37dbfea8..0086de0f685d 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+>>>>> @@ -610,6 +610,8 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
+>>>>>           if (max_size < szbuf)
+>>>>>                   return -EOVERFLOW;
+>>>>>
+>>>>> +       memset(buf, 0, szbuf);
+>>>>> +
+>>>>>           pcie_regs = (struct amdgpu_regs_pcie_v1_0 *)((uint8_t *)buf +
+>>>>>                                                        sizeof(*pcie_reg_state));
+>>>>>           pcie_regs->inst_header.instance = 0;
+>>>>> @@ -702,6 +704,8 @@ static ssize_t aqua_vanjaram_read_xgmi_state(struct amdgpu_device *adev,
+>>>>>           if (max_size < szbuf)
+>>>>>                   return -EOVERFLOW;
+>>>>>
+>>>>> +       memset(buf, 0, szbuf);
+>>>>> +
+>>>>>           p = &xgmi_reg_state->xgmi_state_regs[0];
+>>>>>           for_each_inst(i, adev->aid_mask) {
+>>>>>                   for (j = 0; j < xgmi_inst; ++j) {
+>>>>> @@ -776,6 +780,8 @@ static ssize_t aqua_vanjaram_read_wafl_state(struct amdgpu_device *adev,
+>>>>>           if (max_size < szbuf)
+>>>>>                   return -EOVERFLOW;
+>>>>>
+>>>>> +       memset(buf, 0, szbuf);
+>>>>> +
+>>>>>           p = &wafl_reg_state->wafl_state_regs[0];
+>>>>>           for_each_inst(i, adev->aid_mask) {
+>>>>>                   for (j = 0; j < wafl_inst; ++j) {
+>>>>> @@ -902,6 +908,8 @@ static ssize_t aqua_vanjaram_read_usr_state(struct amdgpu_device *adev,
+>>>>>           if (max_size < szbuf)
+>>>>>                   return -EOVERFLOW;
+>>>>>
+>>>>> +       memset(buf, 0, szbuf);
+>>>>> +
+>>>>>           p = &usr_reg_state->usr_state_regs[0];
+>>>>>           for_each_inst(i, adev->aid_mask) {
+>>>>>                   usr_regs = (struct amdgpu_regs_usr_v1_0 *)p;
+>>>>> -- 
+>>>>> 2.49.0
+>>>>>
+>>>>
+>>>
+>>
+> 
 
