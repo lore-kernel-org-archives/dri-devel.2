@@ -4,83 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB0E6C88E6F
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 18:11:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 914BFC88E72
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 18:14:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF16810F09E;
-	Mon, 14 Sep 2026 18:11:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C052910F0F7;
+	Mon, 14 Sep 2026 18:14:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pIVHT2Ep";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T84nfDpt";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02E4A10F09E
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 18:11:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=V26hn6RdtcapGyB1Q9qAVqrG5Fqfq9J1gaqGxp+1q+w=; b=pIVHT2Ep+LpSFgehssJGFbwPQx
- n5ugHjm2ebEQeYkuYKkV6gfrpW0KaNopeDqn7eEWZtS+o4Inos+9TM/Ew3wQG6ZyGeARc3AE+LGbJ
- 5tR/0hWBRiH3lpc2gCcj0o8jkrMn6bHcn5Y9lV/21AMw/zVCDuDlIddvtfoEFD7WfGf7Uh0RmUZFM
- qhBPGHeNTcQvEAGCXLlVPKnkDd0iwgjLphnMhPiCyIeG1vyWN9L4glPaB30V1Hb9EsKbL6juV5AV0
- r/R3Ard185iCCuqvMmEIhy333bMogejlqBu5l7AqApq+WHOqH9GbpIqqOS3OfaC29aCb/VJjxoK+t
- 20NfaQqg==;
-Received: from [179.105.94.163] (helo=[192.168.0.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1x6B9F-0021te-1b; Mon, 14 Sep 2026 20:11:21 +0200
-Message-ID: <ff452f18-7f4f-4274-ad95-9937af972353@igalia.com>
-Date: Mon, 14 Sep 2026 15:11:14 -0300
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BA3A10F0F7
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 18:14:18 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id E9E28419DB;
+ Mon, 14 Sep 2026 18:14:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C0C76C2BCB8;
+ Mon, 14 Sep 2026 18:14:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1789409657;
+ bh=BzNNDlBWbA+colU9cHYIGrzDI7xXs6eglG9+G3j4eW4=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=T84nfDpteI/SB1TA8C6x86hSF+uY2w9WHg+wOh6EAiPunh5vaWWn0awIiipKshEVt
+ 5pwQ5COn69TJ7KvbGR9YN1IVb192pPdmFquhahKjQumZJydfo4/qf9y9jFj6XrAgTZ
+ 54QJSajGrgZ5q0VyB5tdPvpQ3qXRnafxm9hUOqkgCUd5e0D70D4+eHW6ajKJLNZpSw
+ 2wKVtvJyXthIgptDKaXjz6fr2ZciE+7noQZ+uZWwpXm55eprY2dgtFR3c0/52kUyQa
+ xtaMbOoOSZxj4Z/TV8fMsZB5oguMN9MBxORmDD9MOBLqtobk/uDDSgbeu+8lLQRjZv
+ 1hd0Y6Gc4fcnA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 9A46DC88E73;
+ Mon, 14 Sep 2026 18:14:17 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH v3 0/4] backlight: qcom-wled: Fix OVP IRQ imbalance and
+ start from the hardware state
+Date: Mon, 14 Sep 2026 20:14:13 +0200
+Message-Id: <20260914-qcom-wled-backlight-v3-0-d69fe9843841@ixit.cz>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] dt-bindings: display: bcm2835-v3d: Add an optional
- reset line
-To: Florian Fainelli <florian.fainelli@broadcom.com>,
- Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Stefan Wahren <wahrenst@gmx.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, kernel-dev@igalia.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-References: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
- <20260816-vc4-reset-control-v1-2-896444373716@igalia.com>
- <20260818-idealistic-chivalrous-sawfish-08ddae@quoll>
- <3ab273be-e811-45e4-adf1-75532c840bc8@igalia.com>
- <1f4a0df1-97e0-48e7-bd08-6b31c8dcd0e9@broadcom.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <1f4a0df1-97e0-48e7-bd08-6b31c8dcd0e9@broadcom.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NzQ6CMBAE4FchPbumtCDiyfcwHkq7wPoD2mJFC
+ e8uxYMejMdJZr4ZmENL6NgmGphFT47aZgpyETFdq6ZCIDNlJrhY8Zyv4arbM9xPaKBQ+niiqu6
+ gNHmaJVxkMpVsWl4sltTP6m7/zu5WHFB3gQqNmlzX2sd86+PQ+//gY4hBJ8YkqAqjeLalnrqlf
+ rLge/ElxMlvQQAHNfkmF1JiLj/COI4vyqMPAggBAAA=
+X-Change-ID: 20260908-qcom-wled-backlight-fd9574027353
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, 
+ Kiran Gunda <quic_kgunda@quicinc.com>, 
+ Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Joel Selvaraj <foss@joelselvaraj.com>, David Heidelberg <david@ixit.cz>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2302; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=BzNNDlBWbA+colU9cHYIGrzDI7xXs6eglG9+G3j4eW4=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqqDl3L6sHmxx3RbQizlaqI6YKplobnHS/DSIcg
+ sW1D/KZTICJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqg5dwAKCRBgAj/E00kg
+ cszcD/9ERKvMkRVLn6ngBc7mKvxrcqi+6gNqjRnFXkQTvrusr1C6zjnAciQn5ey1ogPlr/9ANTo
+ 3+Weom2qtAdXqQ2mwOwCCJYdqu4Cu6X42RLUAqQFxlPhUxWd5Et2HBg5Lf68jWpVgl8hpnh4a/g
+ P6hOzUD00MsvtBaYSRDTCyUwfqpEAFYnoxY2H9coTIQ9CKdv4hZv0Rir7cf6ojCjLL+qQ+kHoHE
+ aKrjirirj02PKlFWCxFE3/MP7cDGLXAVq8pgbCNP361Fq4P74AGhopO1xUuOnTp4tlHtv77W7A0
+ DbteXpyqVu7LSc7cJ3MeHnEVNSvdX8EUGgBC3hsOEQ/JUV2HyrKQDaRW1+NFU5AAY8DSXaTYiLL
+ 3AgM8U3BRxYziL16TvcRPbB/fb2gkWOcVExtcLDH7G2tscmf1f86n9J8wMUWgcCyWs0aLtTNBhE
+ m57XpkLfwQKtqPrDDRF7Y9hqJ7PIexwWxS6ri+9JbQG+g0cL7cNJeEpciKyEamrO2If5me/e88f
+ ugo0kX0++PpaPsOA1DnhzfOp+8pbzZC7C7X62a5b6tqqYbCEXeZYdK3L9mCy3pIik91ZzVeAsjn
+ M+y+QBikj2EA7mw8gnvHx/x57bqJIGOfHYc74HLyOQ7vERR7yC7ndMIVwYF48S5zwWqBzN+3nu+
+ OExcb3qi1qwy3mg==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,47 +89,59 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: david@ixit.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 03/09/26 16:38, Florian Fainelli wrote:
-> On 8/18/26 03:35, Maíra Canal wrote:
->> Hi Krzysztof,
->>
->> On 18/08/26 06:05, Krzysztof Kozlowski wrote:
->>> On Sun, Aug 16, 2026 at 11:05:41AM -0300, Maíra Canal wrote:
->>>> The BCM2835 PM block has exposed a reset line for the V3D block since
->>>> commit 670c672608a1 ("soc: bcm: bcm2835-pm: Add support for power 
->>>> domains
->>>
->>> This is a reset provider driver, so not really relevant here. Driver
->>> commit would be relevant if it was about consumer who implemented
->>> undocumented ABI. I suggest to drop reference to driver and instead
->>> describe the hardware.
->>
->> Ack.
->>
->>>
->>>> under a new binding."), which allows the GPU to be reset without
->>>> power-cycling its domain. Document it so that the vc4 driver can use 
->>>> it to
->>>> recover from a GPU hang.
->>>
->>> Does every device have it? Cygnus as well?
->>
->> I'm not familiar to the Cygnus hardware, only Raspberry Pi, so I'd
->> appreciate if one of the folks from Broadcom could help us with this
->> information.
->>
->> However, just like the power domain, I added this property as optional
->> to accommodate the fact that the current Cygnus DT doesn't expose any
->> power domain or reset controller.
-> 
-> I really don't know and have no visibility into these older chips, let's 
-> assume they don't.
+The qcom-wled OVP interrupt is enabled at probe whenever the module is
+already on, but the driver still believes the backlight is off, so the
+first brightness update re-enables the interrupt and trips "Unbalanced
+enable for IRQ". sdm845-mainline has carried a workaround for years and
+Joel posted a flag-based version last October [1], which Konrad and
+Daniel asked to be replaced by something that does not track the IRQ
+state by hand.
 
-Considering Florian's feedback, what would you suggest, Krzysztof?
-Should I document that not all devices have a reset line?
+The first patch is unrelated and fell out of writing the readback: the
+WLED3 brightness register stride has been one byte instead of two since
+the 2019 restructuring, so multi-string pm8941 boards only program one
+string correctly. Untested, I have no WLED3 board; it restores what
+pm8941-wled.c did and matches the downstream leds-qpnp.c layout.
+
+[1] https://lore.kernel.org/all/20251021-qcom-wled-fix-unbalanced-ovp-irq-enable-v2-1-7ff115b4ffe7@joelselvaraj.com/
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes in v3:
+- Fix typo 0x10 != 0b10. (Sashiko)
+- Added fix for a unrelated issue, but since reported as critical, let's
+  squeeze it:
+  Missing platform_set_drvdata() in wled_probe() leads to a guaranteed NULL pointer dereference in wled_remove().
+  (Sashiko)
+- Link to v2: https://patch.msgid.link/20260914-qcom-wled-backlight-v2-0-a908d9233e93@ixit.cz
+
+Changes in v2:
+- Add a fix for the WLED3 brightness register stride.
+- Add patch reading the programmed brightness back via
+  backlight_ops.get_brightness. (Konrad)
+- Note the brightness readback is done in the follow-up to the first
+  patch.
+- Link to v1: https://patch.msgid.link/20260908-qcom-wled-backlight-v1-1-c4dd4eabda07@ixit.cz
+
+---
+David Heidelberg (4):
+      backlight: qcom-wled: Fix NULL pointer dereference in PM callbacks
+      backlight: qcom-wled: Fix WLED3 brightness register stride
+      backlight: qcom-wled: Fix unbalanced OVP IRQ enable at probe
+      backlight: qcom-wled: Read back the programmed brightness at probe
+
+ drivers/video/backlight/qcom-wled.c | 89 +++++++++++++++++++++++++++++++------
+ 1 file changed, 76 insertions(+), 13 deletions(-)
+---
+base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
+change-id: 20260908-qcom-wled-backlight-fd9574027353
 
 Best regards,
-- Maíra
+--  
+David Heidelberg <david@ixit.cz>
+
+
