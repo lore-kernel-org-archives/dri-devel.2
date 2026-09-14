@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10EF0C88E50
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 11:23:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E713C88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 11:24:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6998810EDAC;
-	Mon, 14 Sep 2026 11:23:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE35D10ED8D;
+	Mon, 14 Sep 2026 11:24:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KW4cfkBu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JYI+FvP3";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8710110ED94
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 11:23:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4806A10ED7E
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 11:23:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0B3C860142;
- Mon, 14 Sep 2026 11:23:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DE5D1F00898;
- Mon, 14 Sep 2026 11:23:40 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C0B9260142;
+ Mon, 14 Sep 2026 11:23:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8E031F00893;
+ Mon, 14 Sep 2026 11:23:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789385020;
- bh=ezjTrl262v9AlY/XGNLFM9lj31ECNwVLoicbe3EAPpQ=;
+ s=k20260515; t=1789385029;
+ bh=YtIACyToojkPPw7wMDUQ/Ckhd+O2kfDRIKTR1tO2oXk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=KW4cfkBug9896NwFObqRKb4wGoXfmp+A2rpEZCHJ1JtQQokeD/wJys41jS8AGl1rU
- h2QGi8Rs4GylwMdx2IxwdKLRBQDKDCmPa/QF2KN0Ze0H90oisf77iVSIqBOpQ+R1yE
- YE/FsJmWFbdDtHnarHAYV/a6s4E/yYd4iwE7La2BdxhB+FK6ZpRXGomPOta2b8/hug
- d7NYfEGTzTU6qghn9OU+pbAaYjztKgQchLkjqHKfk3qdNF6txgr7ZhAYS9UTDFEov8
- Owme21USh1xZhclOjdP2AWim7hraGOvZ+IyDWXDtOt9XOFwjFHYnHeW2UozlNVcM9I
- w7nH9rN0pZX1w==
+ b=JYI+FvP30YddKzsKXFEkFHc1ePvUyq/iYxSOGKSdqlJVyiDez1W95ECZQI+G6pIiv
+ vEVwty9vH1OjAPUN0xmkrgTI3i8JAz4aI5rM+A/TtRFyE7bSozbDcUtmwjnTzEP6Mq
+ K5KLqgOnCq4SRb2DxtXoVKY/F0U/KT0RK3KgQSEAT3n4SXk0Pr/8MdG1nFZvxw09AI
+ VEaTdsOOMcy5nUT13udy3uO3TxYuznibdwkPN/dNS1AC/Cvubp4jqublt/5js9Fbsk
+ cRkcdptXJ0bUrsmdQAy7k9Q5x1gWXqp2hyDt6dZeqLZbxpZ/yLN4fOp8OrZj0uAKBZ
+ 6SG2Gf0ZBfQVg==
 From: Leon Romanovsky <leon@kernel.org>
 To: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
  Chaitanya Kulkarni <kch@nvidia.com>,
@@ -47,9 +47,10 @@ Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
  Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
  linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-Subject: [PATCH v6 15/18] PCI: Add KUnit coverage for ACS isolation checks
-Date: Mon, 14 Sep 2026 14:22:48 +0300
-Message-ID: <20260914-fix-p2p-acs-v4-0-v6-15-5ef07ec9ef06@nvidia.com>
+Subject: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a direct
+ peer-to-peer route
+Date: Mon, 14 Sep 2026 14:22:51 +0300
+Message-ID: <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
 References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
@@ -74,210 +75,128 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Leon Romanovsky <leonro@nvidia.com>
 
-Direct Translated P2P does not weaken IOMMU isolation because a Translated
-Request carries an address supplied by the IOMMU. Config-space read
-failures, however, leave ACS state unknown and must not report isolation.
+mlx5_umem_needs_ats() enables ATS for any dma-buf whose caller asked for
+Relaxed Ordering, on the assumption that a switch in the path has CR, RR
+and DT all set. It also enables it for a buffer already mapped with the
+peer's bus addresses, which are not translatable at all.
 
-Exercise both cases with fake config-space operations. Also cover missing
-and unrequested controls and a missing ACS capability.
+P2PDMA has read the ACS controls, so ask it through
+dma_buf_p2pdma_map_type(): enable ATS only where the path is not routed
+directly as it stands, but would be for a Translated Request whose
+Completions carry Relaxed Ordering. Exporters that name no provider keep
+the old assumption, since their ACS settings remain hidden.
 
 Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- drivers/pci/pci.c          |   4 +-
- drivers/pci/pci.h          |   1 +
- drivers/pci/pci_acs_test.c | 138 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 142 insertions(+), 1 deletion(-)
+ drivers/infiniband/hw/mlx5/mlx5_ib.h | 36 ++------------------------------
+ drivers/infiniband/hw/mlx5/mr.c      | 40 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 42 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index f7d94ecf9157..4a9ab3882aac 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -3578,7 +3578,8 @@ void pci_configure_ari(struct pci_dev *dev)
- 	}
+diff --git a/drivers/infiniband/hw/mlx5/mlx5_ib.h b/drivers/infiniband/hw/mlx5/mlx5_ib.h
+index e9ddf2e97a76..ab32742b2180 100644
+--- a/drivers/infiniband/hw/mlx5/mlx5_ib.h
++++ b/drivers/infiniband/hw/mlx5/mlx5_ib.h
+@@ -1646,40 +1646,8 @@ static inline bool rt_supported(int ts_cap)
+ 	       ts_cap == MLX5_TIMESTAMP_FORMAT_CAP_FREE_RUNNING_AND_REAL_TIME;
  }
  
--static bool pci_acs_flags_enabled(struct pci_dev *pdev, u16 acs_flags)
-+VISIBLE_IF_KUNIT
-+bool pci_acs_flags_enabled(struct pci_dev *pdev, u16 acs_flags)
+-/*
+- * PCI Peer to Peer is a trainwreck. If no switch is present then things
+- * sometimes work, depending on the pci_distance_p2p logic for excluding broken
+- * root complexes. However if a switch is present in the path, then things get
+- * really ugly depending on how the switch is setup. This table assumes that the
+- * root complex is strict and is validating that all req/reps are matches
+- * perfectly - so any scenario where it sees only half the transaction is a
+- * failure.
+- *
+- * CR/RR/DT  ATS RO P2P
+- * 00X       X   X  OK
+- * 010       X   X  fails (request is routed to root but root never sees comp)
+- * 011       0   X  fails (request is routed to root but root never sees comp)
+- * 011       1   X  OK
+- * 10X       X   1  OK
+- * 101       X   0  fails (completion is routed to root but root didn't see req)
+- * 110       X   0  SLOW
+- * 111       0   0  SLOW
+- * 111       1   0  fails (completion is routed to root but root didn't see req)
+- * 111       1   1  OK
+- *
+- * Unfortunately we cannot reliably know if a switch is present or what the
+- * CR/RR/DT ACS settings are, as in a VM that is all hidden. Assume that
+- * CR/RR/DT is 111 if the ATS cap is enabled and follow the last three rows.
+- *
+- * For now assume if the umem is a dma_buf then it is P2P.
+- */
+-static inline bool mlx5_umem_needs_ats(struct mlx5_ib_dev *dev,
+-				       struct ib_umem *umem, int access_flags)
+-{
+-	if (!MLX5_CAP_GEN(dev->mdev, ats) || !umem->is_dmabuf)
+-		return false;
+-	return access_flags & IB_ACCESS_RELAXED_ORDERING;
+-}
++bool mlx5_umem_needs_ats(struct mlx5_ib_dev *dev, struct ib_umem *umem,
++			 int access_flags);
+ 
+ int set_roce_addr(struct mlx5_ib_dev *dev, u32 port_num,
+ 		  unsigned int index, const union ib_gid *gid,
+diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5/mr.c
+index 00e13028762a..286f372e5b0c 100644
+--- a/drivers/infiniband/hw/mlx5/mr.c
++++ b/drivers/infiniband/hw/mlx5/mr.c
+@@ -38,6 +38,7 @@
+ #include <linux/export.h>
+ #include <linux/delay.h>
+ #include <linux/dma-buf.h>
++#include <linux/dma-buf-mapping.h>
+ #include <linux/dma-resv.h>
+ #include <rdma/frmr_pools.h>
+ #include <rdma/ib_umem_odp.h>
+@@ -47,6 +48,45 @@
+ #include "data_direct.h"
+ #include "dmah.h"
+ 
++MODULE_IMPORT_NS("DMA_BUF");
++
++bool mlx5_umem_needs_ats(struct mlx5_ib_dev *dev, struct ib_umem *umem,
++			 int access_flags)
++{
++	struct dma_buf_attachment *attach;
++
++	if (!MLX5_CAP_GEN(dev->mdev, ats) || !umem->is_dmabuf)
++		return false;
++
++	/*
++	 * The Completer decides whether its Completions carry Relaxed
++	 * Ordering, and only a Request that asked for it can expect them to.
++	 */
++	if (!(access_flags & IB_ACCESS_RELAXED_ORDERING))
++		return false;
++
++	attach = to_ib_umem_dmabuf(umem)->attach;
++	switch (dma_buf_p2pdma_map_type(attach, 0)) {
++	case PCI_P2PDMA_MAP_NONE:
++		/* Nothing is known about the route, so fall back to the bet. */
++		return true;
++	case PCI_P2PDMA_MAP_BUS_ADDR:
++		/*
++		 * The path is routed directly already and is programmed with
++		 * the peer's bus addresses. Those are not translatable, so
++		 * ATS would be wrong as well as pointless.
++		 */
++		return false;
++	default:
++		break;
++	}
++
++	return dma_buf_p2pdma_map_type(attach,
++				       PCI_P2PDMA_TLP_TRANSLATED |
++					       PCI_P2PDMA_TLP_RELAXED_CPL) ==
++	       PCI_P2PDMA_MAP_BUS_ADDR;
++}
++
+ static int mkey_max_umr_order(struct mlx5_ib_dev *dev)
  {
- 	int pos;
- 	u16 ctrl;
-@@ -3598,6 +3599,7 @@ static bool pci_acs_flags_enabled(struct pci_dev *pdev, u16 acs_flags)
- 		return false;
- 	return (ctrl & acs_flags) == acs_flags;
- }
-+EXPORT_SYMBOL_IF_KUNIT(pci_acs_flags_enabled);
- 
- /**
-  * pci_acs_enabled - test ACS against required flags for a given device
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index 56f821e40637..5bc703ff0c86 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -1104,6 +1104,7 @@ enum pci_acs_p2pdma_state {
- };
- 
- #if IS_ENABLED(CONFIG_KUNIT)
-+bool pci_acs_flags_enabled(struct pci_dev *pdev, u16 acs_flags);
- enum pci_acs_p2pdma_state pci_acs_p2pdma_request(u16 ctrl,
- 						unsigned int tlp_flags);
- enum pci_acs_p2pdma_state pci_acs_p2pdma_completion(u16 ctrl,
-diff --git a/drivers/pci/pci_acs_test.c b/drivers/pci/pci_acs_test.c
-index 28eced6dd672..880fc810080a 100644
---- a/drivers/pci/pci_acs_test.c
-+++ b/drivers/pci/pci_acs_test.c
-@@ -102,6 +102,140 @@ static void pci_acs_p2pdma_completion_test(struct kunit *test)
- 			c->expect);
- }
- 
-+/* Flags an IOMMU asks for; see REQ_ACS_FLAGS in drivers/iommu/iommu.c. */
-+#define ACS_REQ_FLAGS	(PCI_ACS_SV | PCI_ACS_RR | PCI_ACS_CR | PCI_ACS_UF)
-+#define ACS_ALL_CAPS	(PCI_ACS_SV | PCI_ACS_TB | PCI_ACS_RR | PCI_ACS_CR | \
-+			 PCI_ACS_UF | PCI_ACS_DT)
-+#define ACS_TEST_CAP	0x100
-+
-+struct acs_ctrl_cfg {
-+	unsigned int devfn;
-+	u16 cap;	/* Offset where the ACS capability responds */
-+	u16 ctrl;
-+	bool fail_read;
-+};
-+
-+static int acs_ctrl_read(struct pci_bus *bus, unsigned int devfn,
-+			 int where, int size, u32 *val)
-+{
-+	struct acs_ctrl_cfg *cfg = bus->sysdata;
-+
-+	*val = 0;
-+	if (cfg->fail_read)
-+		return PCIBIOS_DEVICE_NOT_FOUND;
-+
-+	if (devfn == cfg->devfn && size == 2 &&
-+	    where == cfg->cap + PCI_ACS_CTRL)
-+		*val = cfg->ctrl;
-+	return PCIBIOS_SUCCESSFUL;
-+}
-+
-+static int acs_ctrl_write(struct pci_bus *bus, unsigned int devfn,
-+			  int where, int size, u32 val)
-+{
-+	return PCIBIOS_SUCCESSFUL;
-+}
-+
-+static struct pci_ops acs_ctrl_ops = {
-+	.read	= acs_ctrl_read,
-+	.write	= acs_ctrl_write,
-+};
-+
-+struct acs_isolation_case {
-+	const char *desc;
-+	u16 ctrl;
-+	u16 req;
-+	bool expect;
-+};
-+
-+static const struct acs_isolation_case acs_isolation_cases[] = {
-+	{ "all_enabled", ACS_REQ_FLAGS, ACS_REQ_FLAGS, true },
-+	/* Translated Requests remain isolated by their IOMMU translation. */
-+	{ "dt", ACS_REQ_FLAGS | PCI_ACS_DT, ACS_REQ_FLAGS, true },
-+	{ "rr_not_enabled", PCI_ACS_SV | PCI_ACS_CR | PCI_ACS_UF,
-+	  ACS_REQ_FLAGS, false },
-+	{ "rr_not_required", PCI_ACS_SV | PCI_ACS_CR | PCI_ACS_UF,
-+	  PCI_ACS_SV | PCI_ACS_CR | PCI_ACS_UF, true },
-+};
-+
-+static void acs_isolation_desc(const struct acs_isolation_case *c, char *desc)
-+{
-+	strscpy(desc, c->desc, KUNIT_PARAM_DESC_SIZE);
-+}
-+
-+KUNIT_ARRAY_PARAM(acs_isolation, acs_isolation_cases, acs_isolation_desc);
-+
-+static void pci_acs_flags_enabled_test(struct kunit *test)
-+{
-+	const struct acs_isolation_case *c = test->param_value;
-+	struct acs_ctrl_cfg cfg = {
-+		.devfn = PCI_DEVFN(0, 0),
-+		.cap = ACS_TEST_CAP,
-+		.ctrl = c->ctrl,
-+	};
-+	struct pci_bus *bus = kunit_kzalloc(test, sizeof(*bus), GFP_KERNEL);
-+	struct pci_dev *pdev = kunit_kzalloc(test, sizeof(*pdev), GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_NULL(test, bus);
-+	KUNIT_ASSERT_NOT_NULL(test, pdev);
-+
-+	bus->ops = &acs_ctrl_ops;
-+	bus->sysdata = &cfg;
-+
-+	pdev->bus = bus;
-+	pdev->devfn = cfg.devfn;
-+	pdev->acs_cap = ACS_TEST_CAP;
-+	pdev->acs_capabilities = ACS_ALL_CAPS;
-+
-+	KUNIT_EXPECT_EQ(test, pci_acs_flags_enabled(pdev, c->req), c->expect);
-+}
-+
-+static bool acs_isolated(struct kunit *test, struct acs_ctrl_cfg *cfg,
-+			 u16 acs_cap, u16 acs_flags)
-+{
-+	struct pci_bus *bus = kunit_kzalloc(test, sizeof(*bus), GFP_KERNEL);
-+	struct pci_dev *pdev = kunit_kzalloc(test, sizeof(*pdev), GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_NULL(test, bus);
-+	KUNIT_ASSERT_NOT_NULL(test, pdev);
-+
-+	bus->ops = &acs_ctrl_ops;
-+	bus->sysdata = cfg;
-+
-+	pdev->bus = bus;
-+	pdev->devfn = cfg->devfn;
-+	pdev->acs_cap = acs_cap;
-+	pdev->acs_capabilities = ACS_ALL_CAPS;
-+
-+	return pci_acs_flags_enabled(pdev, acs_flags);
-+}
-+
-+static void pci_acs_flags_no_cap_test(struct kunit *test)
-+{
-+	struct acs_ctrl_cfg cfg = {
-+		.devfn = PCI_DEVFN(0, 0),
-+		.cap = 0,
-+		.ctrl = ACS_REQ_FLAGS,
-+	};
-+
-+	KUNIT_EXPECT_FALSE(test, acs_isolated(test, &cfg, 0, ACS_REQ_FLAGS));
-+}
-+
-+static void pci_acs_flags_read_fails_test(struct kunit *test)
-+{
-+	u16 no_rr = ACS_REQ_FLAGS & ~PCI_ACS_RR;
-+	struct acs_ctrl_cfg cfg = {
-+		.devfn = PCI_DEVFN(0, 0),
-+		.cap = ACS_TEST_CAP,
-+		.ctrl = ACS_REQ_FLAGS,
-+	};
-+
-+	KUNIT_EXPECT_TRUE(test, acs_isolated(test, &cfg, ACS_TEST_CAP, no_rr));
-+
-+	cfg.fail_read = true;
-+	KUNIT_EXPECT_FALSE(test, acs_isolated(test, &cfg, ACS_TEST_CAP, no_rr));
-+}
-+
- /*
-  * Drive calc_map_type_and_dist() over a fabricated PCIe fabric matching the
-  * canonical topology of two devices below one switch:
-@@ -445,6 +579,10 @@ static struct kunit_case pci_acs_test_cases[] = {
- 			 acs_request_gen_params),
- 	KUNIT_CASE_PARAM(pci_acs_p2pdma_completion_test,
- 			 acs_completion_gen_params),
-+	KUNIT_CASE_PARAM(pci_acs_flags_enabled_test,
-+			 acs_isolation_gen_params),
-+	KUNIT_CASE(pci_acs_flags_no_cap_test),
-+	KUNIT_CASE(pci_acs_flags_read_fails_test),
- 	KUNIT_CASE(acs_walk_bus_addr_test),
- 	KUNIT_CASE(acs_walk_request_redirect_test),
- 	KUNIT_CASE(acs_walk_completion_redirect_test),
+ 	if (MLX5_CAP_GEN(dev->mdev, umr_extended_translation_offset))
 
 -- 
 2.55.0
