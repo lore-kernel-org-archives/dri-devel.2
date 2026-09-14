@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E782C88E7D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00294C88E7F
 	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C42910F9A6;
-	Tue, 15 Sep 2026 07:28:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39CE510F99C;
+	Tue, 15 Sep 2026 07:28:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UziRXkB8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FdCD3xxt";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9331510EF60
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:08:40 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9693E10EF65
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:10:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6DFC542E38;
- Mon, 14 Sep 2026 15:08:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E7DC1F000FF;
- Mon, 14 Sep 2026 15:08:13 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id ADA33601FB;
+ Mon, 14 Sep 2026 15:10:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 598031F00893;
+ Mon, 14 Sep 2026 15:10:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789398520;
- bh=FhSwIhda5SwYvYTkOqlzzzYcm2yovY5S5sJ87DUE+qE=;
+ s=k20260515; t=1789398658;
+ bh=a/cry2esgQFXzUQwTlztFBc0G/64MzNaSwhtVxa/cNQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=UziRXkB8qeSmqlpvH0/NIIVjVlvQFMtZLRcgdF/oXLW1jALG9rz68famtPGxfLLRs
- ji+y6RHPJeqximzqtvzaSgpAc4uXtBs/AMiDNlmrLZ47tNoBw3/ehPBq1GU+cLbJs4
- PtV0usZP8WfROMhRCoKLEls1iPIULSzemQVda7uTFDM5Zth9eIIe+IOt5/gcqWaics
- +A/fYodcbCpRBT8PQwbnjmpnErJp/wDNYP0A5jHhXz0HpAeGt1EUKsfw2qVCWjvnMu
- tvLS7QNxc97ZPr5o+qhHhw0Avm/Rxv7LXwKdr3G/PyVf9ypPArUlzvdv7RdyeZfcoP
- 7xyKOl+2eOqxQ==
+ b=FdCD3xxtPtlTwHiQQZj8z58HOi9MkFw/LOjVgiOeQFJKApMbOI0qQknZWVW7JXSyg
+ Y6RanDJ6eM8vUgNBhoZunb3NfFiAb59g+tgGk6TaCH4zOyk4ibxTl9xCTU+/hLJd0E
+ C/wbD2IDRA8Lvd3J1H5ArrZUxT8hzAa+X03t2VlMg/PzDUUyE1XQ8G95pvKUn8stXe
+ 5JafdDmyfGUOBkYvNJ1Shfx6uvfEsHhRqIyGn/RpP44hW38FVrHaMKQP1hXWsOs04N
+ 0vo0S19ueYlfUjq6lqvUydfqN6RnhYccRmlVYJOgbUa3Quq5ILEZmZvkbkiamSm4fU
+ E7RwPVDE5T7zw==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 14 Sep 2026 15:57:40 +0100
-Subject: [PATCH v2 20/40] HSI: cmt_speech: convert mmap hook to
- mmap_prepare, refactor
+Date: Mon, 14 Sep 2026 15:57:45 +0100
+Subject: [PATCH v2 25/40] mm/vma: enforce that only kernel-owned mappings
+ may set VMA_IO_BIT
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-20-7d9781ed5361@kernel.org>
+Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-25-7d9781ed5361@kernel.org>
 References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
 In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -121,12 +121,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2632; i=ljs@kernel.org;
- h=from:subject:message-id; bh=GNn4/WHo/gNb5sHnp4BEq122HpiBRxK72Bb5u1n+58g=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcG8s77svu6u5dsuErBTja8a37zyVSJt9796Z3YtK6
- 7f33TQM6ShlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBE3LIZGU5fWS/bJcm2O/Xy
- 19eHU4M1av5JSFhFFIbqtl6SL6jXfcnwP/iD4rvg+8YGP2rkw57pN8j0rTiv4WXNP6/xgxPXg6j
- PrAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=988; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=2Jr9TGQDZkUd8fLzavPdA/40vMj/7KYd7/4/rEIq1dg=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcG+UVm7geFp/Nd4nyCOl4uJts+L3JptYjA76JEss4
+ endw/q2o5SFQYyLQVZMkeX5F/H9QSJh8zov+LvBzGFlAhnCwMUpABNpYGf475Q9If+v6fdCTSel
+ /PnVn2ZuTjXccO52NZvg5ofeGZGPmBkZZgu/u8Ji1euQ96dtlu2yY0uvytZrCh/M0yyz2q675ow
+ 9EwA=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Tue, 15 Sep 2026 07:27:57 +0000
@@ -145,85 +145,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use the mmap_prepare in favour of the deprecated mmap hook as part of the
-work to convert one to another.
+It makes no sense for a mapping whose contents the kernel does not own to
+specify that the range is MMIO.
 
-Since this is simply a refcounted kernel page that has been allocated, it
-should not be marked VM_IO and should be inserted using the kernel page
-insertion mechanism, so convert it to do this instead.
+Prior to this patch, all in-tree drivers which did so have been updated
+such that they are marked as kernel-owned. The check WARNs and fails the
+mmap for any out-of-tree driver that still sets VMA_IO_BIT without a kernel
+mapping.
 
-Use the VMA descriptor's private data field as a scratch buffer to store
-the page in - this stays valid throughout the kernel page mapping
-operation.
+No functional change intended for in-tree code.
 
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/hsi/clients/cmt_speech.c | 33 +++++++++------------------------
- 1 file changed, 9 insertions(+), 24 deletions(-)
+ mm/vma.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/hsi/clients/cmt_speech.c b/drivers/hsi/clients/cmt_speech.c
-index 7226677ebde7..801697b74d4f 100644
---- a/drivers/hsi/clients/cmt_speech.c
-+++ b/drivers/hsi/clients/cmt_speech.c
-@@ -1084,22 +1084,6 @@ static void cs_hsi_stop(struct cs_hsi_iface *hi)
- 	kfree(hi);
- }
- 
--static vm_fault_t cs_char_vma_fault(struct vm_fault *vmf)
--{
--	struct cs_char *csdata = vmf->vma->vm_private_data;
--	struct page *page;
--
--	page = virt_to_page((void *)csdata->mmap_base);
--	get_page(page);
--	vmf->page = page;
--
--	return 0;
--}
--
--static const struct vm_operations_struct cs_char_vm_ops = {
--	.fault	= cs_char_vma_fault,
--};
--
- static int cs_char_fasync(int fd, struct file *file, int on)
- {
- 	struct cs_char *csdata = file->private_data;
-@@ -1256,18 +1240,19 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
- 	return r;
- }
- 
--static int cs_char_mmap(struct file *file, struct vm_area_struct *vma)
-+static int cs_char_mmap_prepare(struct vm_area_desc *desc)
- {
--	if (vma->vm_end < vma->vm_start)
--		return -EINVAL;
-+	struct file *file = desc->file;
-+	struct cs_char *csdata = file->private_data;
-+	struct page **pages = (struct page **)&desc->private_data;
- 
--	if (vma_pages(vma) != 1)
-+	if (vma_desc_pages(desc) != 1)
+diff --git a/mm/vma.c b/mm/vma.c
+index c6ed04d27351..fa429771bea8 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2787,6 +2787,12 @@ static int mmap_validate_vma_flags(const vma_flags_t *flags)
  		return -EINVAL;
+ #endif
  
--	vm_flags_set(vma, VM_IO | VM_DONTDUMP | VM_DONTEXPAND);
--	vma->vm_ops = &cs_char_vm_ops;
--	vma->vm_private_data = file->private_data;
-+	vma_desc_set_flags(desc, VMA_DONTDUMP_BIT, VMA_DONTEXPAND_BIT);
- 
-+	*pages = virt_to_page((void *)csdata->mmap_base);
-+	mmap_action_map_kernel_pages_full(desc, pages);
++	if (!vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT)) {
++		/* Only kernel-owned mappings may set VMA_IO_BIT. */
++		if (WARN_ON_ONCE(vma_flags_test(flags, VMA_IO_BIT)))
++			return -EINVAL;
++	}
++
  	return 0;
  }
  
-@@ -1353,7 +1338,7 @@ static const struct file_operations cs_char_fops = {
- 	.write		= cs_char_write,
- 	.poll		= cs_char_poll,
- 	.unlocked_ioctl	= cs_char_ioctl,
--	.mmap		= cs_char_mmap,
-+	.mmap_prepare	= cs_char_mmap_prepare,
- 	.open		= cs_char_open,
- 	.release	= cs_char_release,
- 	.fasync		= cs_char_fasync,
 
 -- 
 2.55.0
