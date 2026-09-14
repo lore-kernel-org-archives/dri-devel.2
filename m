@@ -4,72 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95FE0C88E50
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 12:24:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FB69C88E50
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 12:30:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDE9210EDCD;
-	Mon, 14 Sep 2026 12:24:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F04BB10EE1B;
+	Mon, 14 Sep 2026 12:30:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MhleVIJH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IEZatLOx";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2753010EE17
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 12:24:03 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3793410EDFC
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 12:30:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 111D440877
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 12:24:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED5161F008BD
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 12:24:02 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8A85E60120;
+ Mon, 14 Sep 2026 12:30:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E92E31F000FF;
+ Mon, 14 Sep 2026 12:30:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789388643;
- bh=9Kcpzbv4sy+y+lMrRNRsGoPP7pYgrKWSQtK1/OqMCU0=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=MhleVIJHAcw2NCXPM0XoeqBl+JBMthKD4iYxCREkA8Wcs5jFsAXAj7a2ZIxdU5d9L
- wLcTbGwTxep2enKMsvgIcAP/lZQX5Z5Eror/SEujMcvh0o60WCs/NaCPKruJ32yuyU
- fzKcmqfI7XOhuP1tXg+MjGLCWg9JrZtl+1gP8BCZPS0s5M9BioLLIGfSUHQ8sDXvlX
- YtKPkSLSKZRLLX6VGME52Vyz/aZe2JHqtyd0+y0PEMYO2mSZiPlyO1cr+CssAyy1ur
- A43CGTixRrB4xC97gZW9lmM3rrD/aLH1N0R8gzg5LkjlEwb3kEg/c9kPFTm6Dg9ZYb
- XLepmjnMBHcJg==
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-5b4ae0b3308so2295849e87.3
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 05:24:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvByM6eGzT4X6ZUE4fDbH7b2NkCH3RskLXi7xa137Bn8XJdxrAVc+wFotjOC9TBuFhMrcohwcdkbdVXI=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l1mY6x4sabn5CvZYzxSdhwlDac0VCcIVpB2pGB4t+dP05ipmwe
- QoTSzemH6ML2oigDdgvQxvUI14FWevve+Fc9O17LALEeGneQkdUXgiM6g52qGX9qh21fryq2h5D
- XCQDquBTeRfDWTRhEDMt/xIYivmEO0Xk=
-X-Received: by 2002:a05:6512:3049:b0:5b6:1a7c:aa24 with SMTP id
- 2adb3069b0e04-5b8ae6bcb2cmr617315e87.60.1789388640984; Mon, 14 Sep 2026
- 05:24:00 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
- <20260903-drm-bridge-every-panel-v2-18-2ab8ee24538e@bootlin.com>
-In-Reply-To: <20260903-drm-bridge-every-panel-v2-18-2ab8ee24538e@bootlin.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 14 Sep 2026 14:23:48 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=4RkvV32h_h0LEnrxVGMJVDnhcfZGr1fFEfmtpeKZ1ag@mail.gmail.com>
-X-Gm-Features: AcwNN1UcodghRtt57PT2sAfDkq57FKogQIfybizYVujvwIEMI2XIW2BAiCJLK1I
-Message-ID: <CAD++jL=4RkvV32h_h0LEnrxVGMJVDnhcfZGr1fFEfmtpeKZ1ag@mail.gmail.com>
-Subject: Re: [PATCH RFC v2 18/19] drm/tve200: don't create a panel_bridge
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
- Jagan Teki <jagan@amarulasolutions.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Albert Esteve <aesteve@redhat.com>, Anusha Srivatsa <asrivats@redhat.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+ s=k20260515; t=1789389035;
+ bh=rwfAmLd7boBvEkFrQt90upTAJ9GPxD3nZrCwq2t5CUA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=IEZatLOxijxhmmEtfQRDM+AKhyfy4nMdctaxOFaC7J5fjHrryzTDn/DKa62E0MHBl
+ 3K4kK7yCrW8mcIwQWymJTMUgdabh1nw9E+WBvCLdYrflaEc+d8SYX0UWfH2CDQjw58
+ AC09jviATfasu232rTgG8gGzGSUSIbiPYo9eSApvONSRusSkPLKP8s81WADTd2dYsv
+ kNcxp4wNgrU+bej52d50btrJQdWBEahVbVncAtXTEAz8Drhf3wO8/ebJ5wi6SI/bKo
+ 1Vf74g5DZM6lHPrMdnolS2auAHoUDKqOgiWib5FfLNZ1Y3T1PS4vSunWBWhOY8XGF1
+ 6/B3PCUbigS1w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 12/13] dt-bindings: display: mediatek: wdma: Add
+ compatibles for more SoCs
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org,
+ dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+In-Reply-To: <20260914115812.22751-13-angelogioacchino.delregno@collabora.com>
+References: <20260914115812.22751-1-angelogioacchino.delregno@collabora.com>
+ <20260914115812.22751-13-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 12:30:34 +0000
+Message-Id: <20260914123034.E92E31F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,25 +55,74 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 3, 2026 at 10:14=E2=80=AFAM Luca Ceresoli <luca.ceresoli@bootli=
-n.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The compatible strings for MT8186, MT8192, and MT8195 incorrectly =
+fall back to `mediatek,mt8173-disp-wdma`, forcing 32-bit DMA limitations on=
+ 34-bit capable hardware and causing DMA address truncation.
+--
 
-> Now a panel_bridge is automatically created for every drm_panel, so this
-> code (similar to an open-coded variant of drm_of_find_panel_or_bridge())
-> would lead to creating a second bridge for the same panel.
->
-> Update and simplify the code by just getting a reference to the
-> already-existing bridge.
->
-> And since of_drm_find_and_get_bridge() returns a refcounted bridge, take
-> care of putting the bridge reference.
->
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+commit 7d14f8135e7ea9f9404cdd835d6b860fc5b97644
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs
 
-Yours,
-Linus Walleij
+This commit adds compatible strings for the Write DMA hardware in several
+MediaTek SoCs. It specifically notes that MT6893 is not compatible with
+MT8173 because it supports destination addresses larger than 32 bits.
+
+> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,=
+wdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdm=
+a.yaml
+> index 97d052b0fb614..c3ed867d058d9 100644
+> --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.ya=
+ml
+> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.ya=
+ml
+> @@ -22,11 +22,16 @@ properties:
+>    compatible:
+>      oneOf:
+>        - enum:
+> +          - mediatek,mt6893-disp-wdma
+>            - mediatek,mt8173-disp-wdma
+>        - items:
+>            - enum:
+>                - mediatek,mt6795-disp-wdma
+>                - mediatek,mt8167-disp-wdma
+> +              - mediatek,mt8183-disp-wdma
+> +              - mediatek,mt8186-disp-wdma
+> +              - mediatek,mt8192-disp-wdma
+> +              - mediatek,mt8195-disp-wdma
+>            - const: mediatek,mt8173-disp-wdma
+
+[Severity: High]
+Does declaring MT8186, MT8192, and MT8195 as compatible with MT8173 cause D=
+MA
+address truncation on these SoCs?
+
+The commit message notes that MT6893 is not compatible with MT8173 because =
+it
+has support for destination addresses larger than 32 bits. However, the IOM=
+MU
+driver for MT8186, MT8192, and MT8195 enables IOVA_34_EN for their multimed=
+ia
+domains, which sets the DMA mask to 34 bits.
+
+By declaring a fallback to mediatek,mt8173-disp-wdma in the device tree, the
+OS binds the device using mt8173_wdma_driver_data, which initializes
+reg_wdma_dst_addr0_msb to 0.
+
+This causes mtk_wdma_ddp_write_dst_addr() to silently truncate the 34-bit I=
+OVA
+by dropping the upper 32 bits, leading to the WDMA hardware writing to the
+wrong memory address when buffers are mapped above the 4GB boundary.
+
+Should these SoCs be grouped without the mediatek,mt8173-disp-wdma fallback?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914115812.2275=
+1-1-angelogioacchino.delregno@collabora.com?part=3D12
