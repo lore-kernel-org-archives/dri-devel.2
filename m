@@ -4,51 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA5A6C88E6E
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 16:18:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D842C88E6E
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 16:27:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2816F10EFDD;
-	Mon, 14 Sep 2026 16:18:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61DCB10EBA8;
+	Mon, 14 Sep 2026 16:27:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AzSMaKiH";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TOOo4VER";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W+eonTD8";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69CF810EFF7
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 16:18:07 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 20F2943D4F;
- Mon, 14 Sep 2026 16:18:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2594A1F000FF;
- Mon, 14 Sep 2026 16:18:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789402687;
- bh=9od9Up32sF6E9LMweXBSOobe1mrdOP2km13EpNw1aaI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=AzSMaKiHvPImX3wB6bWcLxw3ylXaQMX+dybvo62fPF2shgf6NhQAs+k1WCQ5tWo4y
- ONhgtm+5rmM0ilTwVlkaNoTbsJvo5yP4RJn2/z8P5hkM/4DAeHIExQ/1JSKYrvmm6Q
- XYW5fxIlIN2hgjWVe/QrjDI9nqIiII5bWdGLuX/+k8yvSRJHKCAfRaFA4CiLx00cf8
- 4i8jzLBhNhfME7yLhgRhoA2/gkFtw0DBRG7skQT3AHrhXN9wK1CQRnIUZWSgQ7mmEj
- gR94eX8m1v/RyPdglBpSBLb4F03AMeO4z1TfGlGll4K0bBmes6V8p7s6cSvnlKQm6s
- ZhttbbKt88/Pg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 04/40] mm: consistently validate VMA state after
- mmap[_prepare] hooks
-To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
-Cc: linux-scsi@vger.kernel.org, "Vasily Gorbik" <gor@linux.ibm.com>,
- dri-devel@lists.freedesktop.org, "Heiko
- Carstens" <hca@linux.ibm.com>, selinux@vger.kernel.org, kvmarm@lists.linux.dev,
- linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
- linux-perf-users@vger.kernel.org, kvm@vger.kernel.org, "Oliver
- Upton" <oupton@kernel.org>, "Christian Borntraeger" <borntraeger@linux.ibm.com>,
- "Marc Zyngier" <maz@kernel.org>, linux-rdma@vger.kernel.org,
- "Alexander Gordeev" <agordeev@linux.ibm.com>, linux-s390@vger.kernel.org
-In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-4-7d9781ed5361@kernel.org>
-References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
- <20260914-b4-mmap-prepare-vma-flag-sanify-v2-4-7d9781ed5361@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 16:18:05 +0000
-Message-Id: <20260914161806.2594A1F000FF@smtp.kernel.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D187C10E1E0
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 16:27:12 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68ED0QV2674431
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 16:27:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ hyTPgK92z//XO4ewrPGEMLjpligNbIo4paEWK12IK5g=; b=TOOo4VERQOQtZy5n
+ /n8GhNyA3QJlNNbaRErJ/v4xKeWDT3KDvFUurEOKTSqo8bbCOBwVM+QifMR+GwHq
+ dpDFCNhzFwVR4hq/j7vfsHwia7HrWzTtyaGEYfpmmbH5mE5pjDXOuDENlHSWfREk
+ Tl8XIQnNd1SSIaaB96uOWvupMVPO7hMyWNi+edre5hHoDCGuRbKmtZPMQNaB91o4
+ n2Q06MNvj7L37bGtfndisK2WvUDOKglExgLKG8SE2GcmBBV2G6Tuq8m0MKBNEO9Z
+ CJI4o7iAmE4kpgPo+71ZwSWNH8/3ErvtqGhQPG5eijKzA/BcjGuBaK5qGwnClc5e
+ 1V2hLw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpecs9ppk-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 16:27:12 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-93a082c014aso573985a.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 09:27:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1789403231; x=1790008031;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=hyTPgK92z//XO4ewrPGEMLjpligNbIo4paEWK12IK5g=;
+ b=W+eonTD8v5BMLwRICUFVnj63cK6XZUxeNS0KD9d/5Xl/mCv7OvoF3dh8q5vs2+YBJB
+ 5CvAFCO5aVJfnu+TYlyw7QaGxrJ9YX70Oibp/sxsD+ooxINOzJ6qIV6LjgNCYc1NNWKt
+ 4fq+8VDRJk9kBgMe6mZ+/IJ/8ym+O+ZEZ3dRMmB0I0jex3ZUSAO4aS/X7tNiIuCv+J5r
+ qbkh88v1mpZs66sZbk8i9p/kjflQrMpDTkOdpddMpHwsZLKE3iDn0Fw8hkAf+v7SVbtA
+ NIxUIAVSZnFs/lYXJsy4Ppwy2y61ntQIndO4baaxAj/cWQSv1bqQGBtFo6hW2Gn+E+Ze
+ mHVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789403231; x=1790008031;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=hyTPgK92z//XO4ewrPGEMLjpligNbIo4paEWK12IK5g=;
+ b=Xj/69KTlKG88w0ah3GmaFVibPD6X1aw/TH0wmbknD5IxDhc0m3N5OJ9PHFNj4JfZpC
+ S9v5vo+YArz2WH3keizXuFJakmJR85BNvyWNSjoiB2jG2yi9bHKN/q6/bZREa1zUSiz2
+ R+vspgPz5+srDatRXjEEanYBxV9tHM6YvjZXan0sOllXX8cdv+h72KefcGahPM+HloeC
+ neMQ6sQBKUVCLuq0tH6ZvV92amHtZuaTZI4OU6nR6908dfpghwg4IREICoAD8AqREm92
+ 33sKgqmRAFbYiVM60BMCjEeSU+jlHEg1X9XMYz6xN1wuVuOR2mrWdGRGs1JGE5mFDEH4
+ fHLg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByGkAHB7Gh1RMt1bKwVKvX5AqjmO5yz15j5s8YgVBhPQGSwIpt+MjWYVKC/WyzpUMlIhQZzQBazZh8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nNXu587XiQ2AbEJrEFexHaFg2+yCUMPi2lCLgUeuG0x2xoVMzr
+ mym0rTSm42HkkFo+b/Lynv/OUxISwX2376i/9/Jg6sXAD68UiPl1L4RrREJJpJbTczioBBy38t1
+ zacYypqQGDKoQj4MpkorWclnjGMILYo+WTHKE+GKdIOONvHWwDPHzVhQ8d/n4hJT7K4o6YR4=
+X-Gm-Gg: AYBFou1aoRG1k5aaer9GpUDyyfuGkFz6IfggO4Q2lX40eIB1IyD/GtGHUR92uukBb0S
+ /fJ8z2GILxt7Fddat1v5E5hbFvVtqdQLKyMTfrP66MIApBrVL6TO5ElwoHNAP474hlkG7PGw+ZC
+ s5oYt1IHN7Yiti9NDro/IcZjfCCibfwBEkoxgsrx5BhcmLVajRPEEJ1kMxQKZfKxoYwl/FsQdgO
+ Ln5Xyi8/YERMiLfAzo5dgGbWBEg09k+ZK/yng8PY1klOS4+8BvbQZLoSF3KUuGSbtA0V6etH+LK
+ LQgkQznNhrCdAdUy2GtSiXL0nWD7OnAUkENPAa5jrHvwMJU9EzRt9YPuYaVGRXOwC/Fc8wBwvJp
+ FmmPpLtxQUJyOEn7SOZ7qtvE+z3M=
+X-Received: by 2002:a05:620a:7018:b0:939:fe55:402a with SMTP id
+ af79cd13be357-93a346fa60emr19926685a.31.1789403231194; 
+ Mon, 14 Sep 2026 09:27:11 -0700 (PDT)
+X-Received: by 2002:a05:620a:7018:b0:939:fe55:402a with SMTP id
+ af79cd13be357-93a346fa60emr19920385a.31.1789403230649; 
+ Mon, 14 Sep 2026 09:27:10 -0700 (PDT)
+Received: from [192.168.68.120] ([5.133.47.210])
+ by smtp.googlemail.com with ESMTPSA id
+ 5b1f17b1804b1-49e7d67de8asm4247995e9.12.2026.09.14.09.27.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 14 Sep 2026 09:27:09 -0700 (PDT)
+Message-ID: <f22c7346-d597-4e4f-b498-d8a46bee400b@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 17:27:08 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] drm/panel-edp: add CSOT MNE007QB1-1 entry
+To: Doug Anderson <dianders@chromium.org>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ mpearson-lenovo@squebb.ca, sibi.sankar@oss.qualcomm.com
+References: <20260913201835.250085-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260913201835.250085-3-srinivas.kandagatla@oss.qualcomm.com>
+ <biywo5isdeagqu323ozaleeakngl4sngps4v7ngwqo23ju2sw7@jn53hxxuccff>
+ <CAD=FV=X-Te1fieogNaMuyFAa2q33RKUCVXAUFcce_r7csXAwVg@mail.gmail.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <CAD=FV=X-Te1fieogNaMuyFAa2q33RKUCVXAUFcce_r7csXAwVg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDIzNSBTYWx0ZWRfX8ez8teRzU5Jg
+ c8dowYPdH8F6F/Qqbz++VG/Ot2xXCRYqZB94o+1Z0BzrmcQALZPkVyoZ4Mr/jWwt8M9csSCPTv1
+ +rdTPSqVqXSrSadXLrMbeJbVJrevfLM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDIzNSBTYWx0ZWRfX80XmCNqzoXkQ
+ kGU6J1QfNcFsEOCFG6lhuOL0kulx0ZjRFTuEbwQYCliuVWaRzIgkqlWJEdWZiSiJDR/A0G4i6U2
+ VnQe5JbRjpgFtAW4PogbFif+Vu2cploOAhcAJtnUmKn+kD4mXpnBVNOzdB0gDWrisJzwOOGhRwc
+ +K3eqM1BbAjXYxnlH5IIxAQbGVX+D306RBwntMEVkFeMAYULhZiFB/q7rOOos/sGlI9X5cptPZ4
+ 6/ESAH0SJH9dKb1Z5uzjsab4fPNjerL6H53ieLxxGFBKafdWWCENpcgNQJIzjabIpt85kz77KMw
+ dTJ+mAERzhqM2PKJNDq4X58fb6a5gR67u30oaIHCPhW6xBsMGNMFdqcx+ksIOzxKqBiOlTEcqpN
+ OMOE6qWalshhio/LuMPfFWe3LE12myj2+uYZryqoPPzIoxWatGloBlXmJAy26gQyW3l2w+u8/UJ
+ /jO5eHVqhZyAo0FsKxQ==
+X-Proofpoint-GUID: 3g2UVV3esQG5UA_U6iBrc5rFtW-7ZaVe
+X-Authority-Analysis: v=2.4 cv=b/cncdGx c=1 sm=1 tr=0 ts=6aa82060 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=-qWaGmECaF3vQ689P4QA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: 3g2UVV3esQG5UA_U6iBrc5rFtW-7ZaVe
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 adultscore=0 priorityscore=1501 phishscore=0
+ clxscore=1015 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140235
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,159 +155,36 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On 9/14/26 4:13 PM, Doug Anderson wrote:
+> Hi,
+> 
+> On Mon, Sep 14, 2026 at 12:34 AM Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
+>>
+>> On 26-09-13 21:18:33, Srinivas Kandagatla wrote:
+>>> 14" 1920x1200 IPS panel used on Lenovo ThinkPad T14s Gen 7 (Mahua).
+>>> Panel identifies as CSW 0x1465 over eDP AUX; uses conservative
+>>> delay_200_500_e50 preset in line with sibling MNE007QB/QS panels.
+>>>
+>>> Assisted-by: Claude:claude-opus-4-7
+>>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+>>
+>> I think Doug starting asking for EDID dump in the commit message.
+> 
+> Yup, please send a v2 with the EDID in the commit message. See all
+> recent commits to this file for examples.
+> 
+> It also looks like you are adding the panel without having access to
+> the datasheet. That's an OK thing to do if you truly can't get access
+> to it, but I'll at least ask if you could get the datasheet to confirm
+> the timings...
+Unfortunately I do not have access to the datasheet. I will look for it,
+but if i dont find it, I will send out the EDID dump in v2.
 
-New issues:
-- [High] Premature execution of vma_close() before unmap_region() during va=
-lidation failure creates a Use-After-Free race window.
-- [High] Restoring vma->vm_start before calling unmap_region() on the valid=
-ation error path leaves orphaned PTEs, causing permanent UAF.
+--srini
 
-Pre-existing issues:
-- [High] mmap_validate() fails to check if a driver erroneously sets VMA_WR=
-ITE_BIT on a mapping without VMA_MAYWRITE_BIT, allowing read-only files to =
-be mapped writable.
-- [High] mmap_validate() fails to check if a driver alters vma->vm_end, whi=
-ch silently corrupts the maple tree.
---
+> 
+> -Doug
 
-commit d07b85544000595b057fc1ff43289af0359a7b6c
-Author: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-mm: consistently validate VMA state after mmap[_prepare] hooks
-
-This patch generalizes VMA state validation checks for both mmap_prepare
-and legacy mmap hooks. It aims to ensure that drivers do not violate
-invariants, such as altering the VMA start address or creating writable
-mappings on read-only files, and adds validations for insert_vm_struct().
-
-> diff --git a/mm/internal.h b/mm/internal.h
-> index fe576d468af45..1ed11eaf276a7 100644
-> --- a/mm/internal.h
-> +++ b/mm/internal.h
-[ ... ]
-> @@ -239,26 +260,16 @@ static inline int mmap_file(struct file *file, stru=
-ct vm_area_struct *vma)
->  	 */
->  	if (unlikely(err || !vma->vm_ops))
->  		vma->vm_ops =3D &vma_dummy_vm_ops;
-> +	if (unlikely(err))
-> +		return err;
-> =20
-> -	return err;
-> -}
-> -
-> -/*
-> - * If the VMA has a close hook then close it, and since closing it might=
- leave
-> - * it in an inconsistent state which makes the use of any hooks suspect,=
- clear
-> - * them down by installing dummy empty hooks.
-> - */
-> -static inline void vma_close(struct vm_area_struct *vma)
-> -{
-> -	if (vma->vm_ops && vma->vm_ops->close) {
-> -		vma->vm_ops->close(vma);
-> -
-> -		/*
-> -		 * The mapping is in an inconsistent state, and no further hooks
-> -		 * may be invoked upon it.
-> -		 */
-> -		vma->vm_ops =3D &vma_dummy_vm_ops;
-> +	err =3D mmap_hook_validate(prev_start, &prev_flags, vma);
-> +	if (unlikely(err)) {
-> +		vma->vm_start =3D prev_start;
-
-[Severity: High]
-If a driver's legacy mmap hook erroneously decreases vma->vm_start (expandi=
-ng
-the VMA downwards) and populates PTEs in that expanded range,
-mmap_hook_validate() catches the violation. By forcing vma->vm_start back to
-prev_start here before __mmap_new_file_vma() invokes unmap_region(), doesn't
-that initialize the unmap operation with the smaller, restored address rang=
-e?
-This would cause unmap_region() to skip the expanded PTEs, leaving them
-orphaned and causing a permanent use-after-free since the backing memory ge=
-ts
-freed. Should the unmap occur before restoring the start address?
-
-> +		vma_close(vma);
-
-[Severity: High]
-Is it safe to invoke vma_close() here immediately on validation failure?
-If a driver successfully populates page tables (for example, via
-remap_pfn_range) but fails the mmap_hook_validate() checks, calling
-vma_close() frees driver memory prematurely. Since unmap_region() is not
-called until mmap_file() returns to __mmap_new_file_vma(), hardware PTEs
-remain populated while the backing resources are freed, creating a
-use-after-free race window.
-
->  	}
-> +
-> +	return err;
->  }
-> =20
->  /* unmap_vmas is in mm/memory.c */
-> diff --git a/mm/vma.c b/mm/vma.c
-> index dc74b3d721cc5..626a18c08a269 100644
-> --- a/mm/vma.c
-> +++ b/mm/vma.c
-[ ... ]
-> @@ -2777,6 +2762,76 @@ static void __mmap_complete(struct mmap_state *map=
-, struct vm_area_struct *vma)
->  	vma_set_page_prot(vma);
->  }
-> =20
-> +/* Check to ensure that the VMA flags of a newly mapped VMA are sane. */
-> +static int mmap_validate_vma_flags(const vma_flags_t *flags)
-> +{
-[ ... ]
-> +/* Check to ensure a driver hasn't done something crazy. */
-> +static int mmap_validate(unsigned long prev_start,
-> +			 unsigned long curr_start,
-> +			 const vma_flags_t *prev_flags,
-> +			 const vma_flags_t *curr_flags)
-> +{
-> +	bool was_maywrite, is_maywrite;
-> +
-> +	/* Drivers cannot alter the address of the VMA. */
-> +	if (WARN_ON_ONCE(prev_start !=3D curr_start))
-> +		return -EINVAL;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since the patch aims to
-implement comprehensive VMA state validation after mmap hooks, shouldn't it
-also verify that the end address (vma->vm_end) remains unmodified? If a
-buggy driver alters vm_end, the VMA object's bounds will mismatch the maple
-tree node's pre-allocated bounds. This structural inconsistency corrupts
-the maple tree and can lead to kernel panics later.
-
-> +
-> +	was_maywrite =3D vma_flags_test(prev_flags, VMA_MAYWRITE_BIT);
-> +	is_maywrite =3D vma_flags_test(curr_flags, VMA_MAYWRITE_BIT);
-> +
-> +	/* A driver may not make a previously unwritable mapping writable. */
-> +	if (WARN_ON_ONCE(!was_maywrite && is_maywrite))
-> +		return -EINVAL;
-
-[Severity: High]
-This is a pre-existing issue, but this check appears to bypass a critical
-condition. It only evaluates VMA_MAYWRITE_BIT. If a malicious or buggy
-driver bitwise-ORs VMA_WRITE_BIT into vma->flags in its mmap hook without
-setting VMA_MAYWRITE_BIT, wouldn't it bypass this check completely? This
-could allow a read-only file mapping to be committed with VM_WRITE set,
-granting hardware write permissions and allowing an unprivileged user to
-overwrite read-only files.
-
-> +
-> +	return mmap_validate_vma_flags(curr_flags);
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-b4-mmap-pr=
-epare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org?part=3D4
