@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F819C88E7B
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 19:44:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4B19C88E6F
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 20:15:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C3DB10F1B7;
-	Mon, 14 Sep 2026 19:44:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAD1410F200;
+	Mon, 14 Sep 2026 20:15:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Aa9RX4NE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D+kYXrIn";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7399510F1B7
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 19:44:37 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2896210F200
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 20:15:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B330C60142;
- Mon, 14 Sep 2026 19:44:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 960DB1F000FF;
- Mon, 14 Sep 2026 19:44:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D05BC4397E;
+ Mon, 14 Sep 2026 20:15:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 278071F000FF;
+ Mon, 14 Sep 2026 20:15:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789415076;
- bh=dAIamB9o96xWXDBcRkq+/H0si90404IoSC8KyMPldZw=;
+ s=k20260515; t=1789416910;
+ bh=iPU/cUTReClwZBpDhIeEHk/VkpfdLJRH0AkOL0ttLYA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Aa9RX4NETC9n15P4OBlFDQsPzC9XjIuOtUHcYgFRMSR9QFgm0bbVVhxKu0M8wRgDj
- U2jklQLyh4IzZ0H+3MHP8kcHulROBBL5SZwu8TEoW3jsW8g12yWV9RV1BKlMNnWggX
- 61WpUC3uZnkGyZO1jxhozUWpbMBwFodtfctbTbrphUE8/csJArkmbq2JQKLEZb/2nX
- OkARX43MWFEQV5bfl7ZQvpJl6JuaYXuD8O9OU6yXFnODyYK4vZ67Z/GCIHsn+IqLmO
- zF3LTrI9XHu+t2Df2uG5iq6n8dsxpNLvl/UPexqRY1SUgB4XV91cnHLp4Jaf/QLLWV
- /BU+iQDoVNOQg==
+ b=D+kYXrInK5NUw9BZT7ztkUsQGVhQZ+PlOib+lYW/VIcFu9lRIK3W4hXKoslPRuKNe
+ GaJs4FCU4V8iRgVQnKEgrEJLlmFN3zKxIe8H/cSUtTZB3JL8oT3RZq1i7WQ66uJD0F
+ 9Gm/+XB6hykSt/6jtsVWaLuYMEx62xduyBlZeueT06cfCYFjIckmA3fLmfyEuFXfqr
+ v9l/HRBv/3p5qQG+1LK73HlvDCrycWiw0RuFKkEzDuoQJ5f3Ao+gnHVzt4/y+tY1l8
+ K8QX89UDZg/eQxwoxEwofQr/8LWIMOtGIvOJ7v9ia8PWGiITOwJW4XJQx6t2X3Ch4F
+ uGN/cfcfDwQ6g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 19/40] fbdev: defio: assert FBINFO_VIRTFB, drop
- VM_IO, add VM_MIXEDMAP
+Subject: Re: [PATCH v2 20/40] HSI: cmt_speech: convert mmap hook to
+ mmap_prepare, refactor
 To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
-Cc: linux-perf-users@vger.kernel.org, "Marc Zyngier" <maz@kernel.org>,
- dri-devel@lists.freedesktop.org, "Oliver
- Upton" <oupton@kernel.org>, kvm@vger.kernel.org, selinux@vger.kernel.org,
- "Vasily Gorbik" <gor@linux.ibm.com>, kvmarm@lists.linux.dev,
+Cc: "Alexander Gordeev" <agordeev@linux.ibm.com>,
  "Heiko Carstens" <hca@linux.ibm.com>, bpf@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, "Alexander
- Gordeev" <agordeev@linux.ibm.com>, linux-scsi@vger.kernel.org, "Christian
+ linux-s390@vger.kernel.org, kvm@vger.kernel.org, "Vasily
+ Gorbik" <gor@linux.ibm.com>, "Marc Zyngier" <maz@kernel.org>,
+ kvmarm@lists.linux.dev, "Oliver
+ Upton" <oupton@kernel.org>, linux-perf-users@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
+ selinux@vger.kernel.org, linux-rdma@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, "Christian
  Borntraeger" <borntraeger@linux.ibm.com>
-In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-19-7d9781ed5361@kernel.org>
+In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-20-7d9781ed5361@kernel.org>
 References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
- <20260914-b4-mmap-prepare-vma-flag-sanify-v2-19-7d9781ed5361@kernel.org>
+ <20260914-b4-mmap-prepare-vma-flag-sanify-v2-20-7d9781ed5361@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 19:44:35 +0000
-Message-Id: <20260914194435.960DB1F000FF@smtp.kernel.org>
+Date: Mon, 14 Sep 2026 20:15:09 +0000
+Message-Id: <20260914201510.278071F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,119 +67,22 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+> Use the mmap_prepare in favour of the deprecated mmap hook as part of the
+> work to convert one to another.
+>=20
+> Since this is simply a refcounted kernel page that has been allocated, it
+> should not be marked VM_IO and should be inserted using the kernel page
+> insertion mechanism, so convert it to do this instead.
+>=20
+> Use the VMA descriptor's private data field as a scratch buffer to store
+> the page in - this stays valid throughout the kernel page mapping
+> operation.
+>=20
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Pre-existing issues:
-- [Critical] The driver passes a virtual address to __free_pages(), causing=
- an out-of-bounds pointer dereference and kernel panic.
-- [High] Ignored return value of fb_deferred_io_init() leads to NULL pointe=
-r dereferences in mmap, open, and cleanup error paths.
-- [High] Missing .driver_data initialization in i2c_device_id array leads t=
-o NULL pointer dereference on sysfs instantiation.
---
-
-commit d46565518c57c096a66d45b42bbe529fae5740d7
-Author: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-fbdev: defio: assert FBINFO_VIRTFB, drop VM_IO, add VM_MIXEDMAP
-
-Currently all drivers which use defio allocate system memory. All of them
-also set FBINFO_VIRTFB, other than ssd1307fb, however this driver allocates
-system RAM, so simply failed to set this flag when it ought to.
-
-> diff --git a/drivers/video/fbdev/ssd1307fb.c b/drivers/video/fbdev/ssd130=
-7fb.c
-> index c4fdecafd8560..958514a354338 100644
-> --- a/drivers/video/fbdev/ssd1307fb.c
-> +++ b/drivers/video/fbdev/ssd1307fb.c
-> @@ -763,6 +763,8 @@ static int ssd1307fb_probe(struct i2c_client *client)
->  	info->fix.smem_start =3D __pa(vmem);
->  	info->fix.smem_len =3D vmem_size;
-> =20
-> +	info->flags =3D FBINFO_VIRTFB;
-> +
->  	fb_deferred_io_init(info);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but if memory allocation fails
-in fb_deferred_io_init(), it returns -ENOMEM but ssd1307fb_probe() ignores
-it, leaving info->fbdefio_state as NULL and info->deferred_work
-uninitialized.
-
-Subsequent probe failure or device removal calls fb_deferred_io_cleanup(),
-which can unconditionally call flush_delayed_work() on the uninitialized
-workqueue and then dereference the NULL fbdefio_state:
-
-drivers/video/fbdev/core/fb_defio.c:fb_deferred_io_cleanup() {
-	...
-	mutex_lock(&fbdefio_state->lock);
-	...
-}
-
-Additionally, userspace calling open() or mmap() could trigger NULL pointer
-dereferences in fb_deferred_io_open() and fb_deferred_io_mmap().
-
-Does the ignored return value of fb_deferred_io_init() lead to NULL pointer
-dereferences in mmap, open, and cleanup error paths?
-
-> =20
->  	i2c_set_clientdata(client, info);
-
-[Severity: Critical]
-This is a pre-existing issue, but the driver allocates video memory using
-__get_free_pages(), which returns a virtual address (void *).
-
-During probe failure, it passes this virtual address directly to
-__free_pages():
-
-drivers/video/fbdev/ssd1307fb.c:ssd1307fb_probe() {
-	...
-fb_defio_error:
-	__free_pages(vmem, get_order(vmem_size));
-	...
-}
-
-And during module unload, it does the same:
-
-drivers/video/fbdev/ssd1307fb.c:ssd1307fb_remove() {
-	...
-	__free_pages(__va(info->fix.smem_start), get_order(info->fix.smem_len));
-	...
-}
-
-Because C implicitly casts void * to struct page *, the kernel could treat
-the zeroed video memory as a page struct, reading garbage PFNs, corrupting
-the buddy allocator state, and crashing.
-
-Does passing a virtual address to __free_pages() in these paths cause an
-out-of-bounds pointer dereference and kernel panic? Should this be using
-free_pages() instead?
-
-
-[Severity: High]
-This isn't a bug introduced by this patch, but if the driver is instantiated
-via the legacy I2C sysfs interface, device_get_match_data() falls back to
-matching against ssd1307fb_i2c_id:
-
-drivers/video/fbdev/ssd1307fb.c:ssd1307fb_i2c_id[] =3D {
-	{ .name =3D "ssd1305fb" },
-	...
-};
-
-Because entries in this array omit the .driver_data field, it defaults to
-NULL. The probe function then unconditionally dereferences this NULL pointe=
-r:
-
-drivers/video/fbdev/ssd1307fb.c:ssd1307fb_probe() {
-	...
-	par->vcomh =3D par->device_info->default_vcomh;
-	...
-}
-
-Does the missing .driver_data initialization in the i2c_device_id array
-lead to a NULL pointer dereference on sysfs instantiation?
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-b4-mmap-pr=
-epare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org?part=3D19
+epare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org?part=3D20
+
