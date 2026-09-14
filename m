@@ -4,59 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A215BC88E50
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 08:18:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BB9EC88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 08:19:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCAA010EBFD;
-	Mon, 14 Sep 2026 08:18:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB89910EC02;
+	Mon, 14 Sep 2026 08:19:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="I25XpAC0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UyPCHc67";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4833C10EBFD
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:18:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1789373902;
- bh=DWggKVY8dMTtllAFA52TbFspZ6he1PLAFTJ0dJKkSDk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=I25XpAC06/I3GfHLgZt/v9IewDM52y/atTzc4iP6NsBkhEcubS81cw/KOMU9IzYZD
- TdzCWfEYrcLUNsM9x0IMC3EvudaVv9uQ7SsvVtaE+Bi1H8Xg+jCkuzV6bpb3G6M3PA
- cC5+Wr3zzOixAPGFCzH50qNxdIsS7uUxGVvm/BSN8fF/VesB3rD39ERE/YexmxsfIC
- MEby6kGFk+MdwrsaJ4PDtqqGYd4fMT88WQLGkozyvX9/CUnVmH6XdM9iP4Nd7or5h6
- 0rUaA3jwfphEhZxr3gbtDE09jzGxMmO1+ZunKkHYyABuLAJTnq7PY5khliM1lo6IRD
- 0Yvv0wu3jhV+g==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519) (No client certificate requested)
- (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id F311717E020C;
- Mon, 14 Sep 2026 10:18:21 +0200 (CEST)
-Message-ID: <e28acd6b-aac6-4e2e-8d0b-b9ed22820d73@collabora.com>
-Date: Mon, 14 Sep 2026 10:18:21 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7970C10EC05
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:19:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 188A44375E
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:19:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F10521F000FF
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:19:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789373953;
+ bh=BKRDGeu9OvCqTSJJOcDI+h2SnvOE0ecpgpKwpnOvYSM=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=UyPCHc67Us3q2zR+NJDKxDm67/vws1dIt1hKN5y7waD38ni2VcdByXvMd9h32BS1+
+ wWXgDrKdAEgXuRGiR5+TgwtgE3Qqd+Heb9u6cvpLQorkhtQGvdiCa7yV0011YeIJMy
+ C7hTVSvVpsQN5Hz0Uw0o7NQDpvOfSBQ1lmg1oIFt2Xoxu/RIagBiHWZqFMPKh4wn+u
+ LIZ/4+IxoKkSSUcQNLweDZiLiFpCCKNKsNbh1QDsUGh5zZpF6OtJmNbFuzdFBAtGHn
+ yDdY2nuC5GXdmk1pyOwlnH5Od2c7ktiRA8RRWKFn69TmR9qjKqkw665M+mvEdlK6Dy
+ fvrxZJdp599og==
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-5b4afc8465eso4186083e87.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 01:19:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzjgoNrNw7P1b0qlM4YpaYD+w5+9WK/+NFqD/QhpSJ+Lmu3+9zq3r4Q3NHO/hALxlKc1xe1kTv9dT0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m5ntVnO7SjbWeOc3qXl1VldxjCD+DaWhuOD7bUZwDpNnhHX8m0
+ 7iyIFFy2rDNvNtJzH905WlTRP0/ZZuKsXALA8ygY0bodLaV9ABr+yQG0gL2oYk7ooTTnGWTguG0
+ uzn052CXdlYa+DDfYJGoNsOLgyMYHvn0=
+X-Received: by 2002:a05:6512:b83:b0:5b6:1a7c:fd81 with SMTP id
+ 2adb3069b0e04-5b8ae69e682mr379688e87.39.1789373951557; Mon, 14 Sep 2026
+ 01:19:11 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] phy: phy-mtk-dp: Fix pdata array members initialized as
- pointers
-To: Sasha Levin <sashal@kernel.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>,
- Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Nathan Chancellor <nathan@kernel.org>,
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-References: <20260913172930.1150324-1-sashal@kernel.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260913172930.1150324-1-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260814-drm-bridge-every-panel-v1-0-19cd5277cc8d@bootlin.com>
+ <20260814-drm-bridge-every-panel-v1-8-19cd5277cc8d@bootlin.com>
+In-Reply-To: <20260814-drm-bridge-every-panel-v1-8-19cd5277cc8d@bootlin.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 14 Sep 2026 10:18:57 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkqFPm99r4L_3whHG1N0k1aCCJj0sDjMRTZN-7mgBaAeg@mail.gmail.com>
+X-Gm-Features: AcwNN1XU1jSnsxnc26IQx4SlPy6FXnURlodugh4j4_jBv3FHCcqi7b14XgKpGIo
+Message-ID: <CAD++jLkqFPm99r4L_3whHG1N0k1aCCJj0sDjMRTZN-7mgBaAeg@mail.gmail.com>
+Subject: Re: [PATCH 08/11] drm/mcde: dsi: simplify device_node management
+ using scoped for_each variant
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,47 +85,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/13/26 19:29, Sasha Levin wrote:
-> Building arm/arm64/i386 allmodconfig with clang fails:
-> 
->    drivers/phy/mediatek/phy-mtk-dp.c:761:18: error: incompatible pointer
->    to integer conversion initializing 'u16' (aka 'unsigned short') with
->    an expression of type 'const u16[4]' [-Wint-conversion]
->    drivers/phy/mediatek/phy-mtk-dp.c:761:18: error: initializer element
->    is not a compile-time constant
->    drivers/phy/mediatek/phy-mtk-dp.c:761:18: error: suggest braces around
->    initialization of subobject [-Werror,-Wmissing-braces]
-> 
-> 14 errors in total, one set per offending member.
-> 
-> off_ana_lane, off_dig_lane and driving_params are declared as arrays in
-> struct mtk_dp_phy_pdata:
-> 
-> 	u16 off_ana_lane[MTK_DP_PHY_MAX_LANES];
-> 	u16 off_dig_lane[MTK_DP_PHY_MAX_LANES];
-> 	u32 driving_params[PHYD_DIG_NUM_DRV_PARA_REGS];
-> 
-> but the SoC data instances initialize them with compound literals. A
-> compound literal is an object, not an initializer list, so this is not
-> an array initializer: the member is initialized element-wise from a
-> scalar, the first element gets the address of the literal truncated to
-> u16/u32, and the remaining elements are zeroed. Hence the three
-> diagnostics above - the pointer-to-integer conversion, the address not
-> being a compile-time constant, and the missing braces.
-> 
-> Arrays are the right type here, since both members are indexed per lane
-> and driving_params is sized with ARRAY_SIZE(), so drop the casts and use
-> plain braced initializers.
-> 
-> Found by KernelCI builds of the linus-next tree.
-> 
-> Fixes: ae859204b519 ("phy: phy-mtk-dp: Migrate register offsets to SoC specific pdata")
-> Fixes: 7cf38eb0ab59 ("phy: phy-mtk-dp: Add support for digital and analog calibration")
-> Fixes: 6fe4d5beac72 ("phy: phy-mtk-dp: Add support for MT8196 eDP PHY")
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+On Fri, Aug 14, 2026 at 4:07=E2=80=AFPM Luca Ceresoli <luca.ceresoli@bootli=
+n.com> wrote:
 
-Whoops, sorry.
+> Before further modifying this function, simpify the struct device_node
+> management using the scoped variat of for_each_available_child_of_node().
+>
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+I applied this patch (8/11) to drm-misc-next.
 
+Yours,
+Linus Walleij
