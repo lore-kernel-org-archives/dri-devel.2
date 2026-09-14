@@ -4,53 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8712FC88E6F
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 17:39:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09032C88E72
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 17:42:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76F5A10F09B;
-	Mon, 14 Sep 2026 17:39:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31DC610E212;
+	Mon, 14 Sep 2026 17:42:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Fq7P+Vba";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K9GMkzQ4";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76CFF10F09B
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 17:39:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AEA7160142;
- Mon, 14 Sep 2026 17:39:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55DB21F000FF;
- Mon, 14 Sep 2026 17:39:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789407589;
- bh=kGvsKbS+uUAsgVL9R+R9s8xtSlNDiXgGCZNSCC3UYxQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Fq7P+Vbaq+FUxkcYSDw+Br/lIyPdPsmBCkByCCCRnhL/a3rq2mASd5EWlFUDGvd4Q
- i4AxVMWt0Z9ROq260lRmw+9rttdDcGvg/9ktBTkIkX7tcu6/V6HXVOzYv3LsM9zV9c
- wMUcuABISg5aJZCsKF4T274WDnCg5coFpxq4D5pLD3hZ7WmDsVHQQ1EuTWfvzhCEdh
- hQyK8WhJ85Ryfxfa4VEJF3BDALbmafxqo2PLBzz+iyVXlgDbqhbwUr5fRA4AGfG5Iv
- b+/yhQXU1P8SQzW2s7gQ3BBJ7yNqApeASQPBgJWUs4pg8DhjgBdAJdxweGeXmvjUCZ
- vydiavCxwVxgQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 11/40] infiniband: update hfi1 to use
- remap_vmalloc_range()
-To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
-Cc: "Vasily Gorbik" <gor@linux.ibm.com>, dri-devel@lists.freedesktop.org,
- "Oliver
- Upton" <oupton@kernel.org>, "Heiko Carstens" <hca@linux.ibm.com>, "Marc
- Zyngier" <maz@kernel.org>, linux-s390@vger.kernel.org, kvm@vger.kernel.org,
- bpf@vger.kernel.org, "Christian
- Borntraeger" <borntraeger@linux.ibm.com>, linux-rdma@vger.kernel.org,
- selinux@vger.kernel.org, kvmarm@lists.linux.dev,
- linux-trace-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-perf-users@vger.kernel.org, "Alexander
- Gordeev" <agordeev@linux.ibm.com>
-In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-11-7d9781ed5361@kernel.org>
-References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
- <20260914-b4-mmap-prepare-vma-flag-sanify-v2-11-7d9781ed5361@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 17:39:47 +0000
-Message-Id: <20260914173948.55DB21F000FF@smtp.kernel.org>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E8AC10E221
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 17:42:54 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2960743E51;
+ Mon, 14 Sep 2026 17:42:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 016E0C2BCB8;
+ Mon, 14 Sep 2026 17:42:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1789407774;
+ bh=PUvlkcnmJaXZt5p8As0KvIuk3AZONRe1vja4HE+7gb4=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=K9GMkzQ4tXQnYcuZuo4qsEOXG8WXJfw6ehXpaMRK/ECEQ0qVPjdMj4jnVma2fyXe3
+ JcyHHoDM5nG/FnjgrOs6iOJQ8V8OljpIcYqZKkqa1cIkONgUGsQ/cOkm0ZB3Q3sKU3
+ K8y6SR1nPGhJ0rCjaJ9Lao8bNuI1ObfHycKP60LhZ7GDYX3w21L2ijbCN35LVYUWdm
+ 6KOwVAq5RsA4s0BtH9sTKZrf/+eJduzrP9vOuv8Ib9mZj2eISzAZ0ghvTDWNfk2pKo
+ mwl+rCoha+9hhdR6ZdMuxd6/aWc5Nffcf3yf71ww49BzpopC3VU5cxRw/1OqyFxPbw
+ i9YbeJ2D1qF2A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id C352EC88E73;
+ Mon, 14 Sep 2026 17:42:53 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH v2 0/3] backlight: qcom-wled: Fix OVP IRQ imbalance and
+ start from the hardware state
+Date: Mon, 14 Sep 2026 19:42:46 +0200
+Message-Id: <20260914-qcom-wled-backlight-v2-0-a908d9233e93@ixit.cz>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NSxKCMBAFr0LN2rFCABFX3sNiEZIBRvloEhGlu
+ LuAe5dd1a/fBI4sk4NTMIGlgR333QJyF4CuVVcRslkYpJAHkYkjPnTf4qshg4XSt4ar2mNpsiS
+ NhUyjJIJlebdU8rhVL/mP3bO4kvZrajVqdr637+12CFfv/8MQYog6NiYmVRgl0jOP7Pf6A/k8z
+ 1+qgE5jxgAAAA==
+X-Change-ID: 20260908-qcom-wled-backlight-fd9574027353
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, 
+ Kiran Gunda <quic_kgunda@quicinc.com>, 
+ Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Joel Selvaraj <foss@joelselvaraj.com>, David Heidelberg <david@ixit.cz>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1862; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=PUvlkcnmJaXZt5p8As0KvIuk3AZONRe1vja4HE+7gb4=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqqDIcJVfrVXuYj/bpDoKLOG0YCDlIZtHrntKuG
+ wxZR0f1JvmJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqgyHAAKCRBgAj/E00kg
+ chiGD/0RSVqrVoapWgon9AH1/YrrdXUVhs7NeYk97yKba4FByYxmYxUxhEyFzw3Vs3/3n37ezd5
+ k2EB62/9RJUxQLTsJmiOheaSwYwBMC9NBAHUOP5FJponINw0xDfpigHOE0im7qnkzeBU0BAORH2
+ EpWkzpwX6fitA8wVyeaAvN3X8XLAiht+U9aDQSlhjIhwTG6vWWdftMwPfS9OoN/7sDMhHrMysIV
+ o16MmdHmD5v+gDUMtQC/UIZllBlXXWXcdb4Dt5E5znCnXQTKa+TVZhuo/ZnGB+W0erezMwl69qE
+ RGMBW6W+mEzz2w5ZPO/2kjud/WYYfUFJeqBuVO13c06VK17YOa2oTWunhbAEW8rHgaGouxdCzQa
+ r8gs2Q53wye/wJQKy+Nh+mfMhGo3SUiU7s3nBD8sB9Wuf+hUwhay2Hdf8FfC2A6KcK46utsg6Dm
+ l/9H1iVQhgmiixrAZdJpDnrdn30GAvpS/dGdUiFZfrjom77pmuUnitnaaHXDM0oLxcn3A31RGSw
+ eur/3WTXv3hhTjn3Sc8R0XocFa96rLXn/86Zxc0pC5XJ22mJVy6EBHmBQOrP9f0zm61IlH/VNCO
+ 2aJZ1OqRbuEAb4Zgo2/vek+YjIk73WC92wo4t5rI4Fj3KE1BM3qGSzEx5/jSThRKd0qnDHmkYJl
+ ZZaJZK/5nolyKnQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,89 +89,50 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: david@ixit.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The patch breaks mmap for the EVENTS region for all dynamic contex=
-ts because remap_vmalloc_range() strictly requires the base address of the =
-vmalloc allocation, but the patch passes a pointer with an offset.
---
+The qcom-wled OVP interrupt is enabled at probe whenever the module is
+already on, but the driver still believes the backlight is off, so the
+first brightness update re-enables the interrupt and trips "Unbalanced
+enable for IRQ". sdm845-mainline has carried a workaround for years and
+Joel posted a flag-based version last October [1], which Konrad and
+Daniel asked to be replaced by something that does not track the IRQ
+state by hand.
 
-commit b52cc1703a348bc2ace5ff6752750d7fd8d2282e
-Author: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+The first patch is unrelated and fell out of writing the readback: the
+WLED3 brightness register stride has been one byte instead of two since
+the 2019 restructuring, so multi-string pm8941 boards only program one
+string correctly. Untested, I have no WLED3 board; it restores what
+pm8941-wled.c did and matches the downstream leds-qpnp.c layout.
 
-infiniband: update hfi1 to use remap_vmalloc_range()
+[1] https://lore.kernel.org/all/20251021-qcom-wled-fix-unbalanced-ovp-irq-enable-v2-1-7ff115b4ffe7@joelselvaraj.com/
 
-This commit updates the hfi1 infiniband driver to use remap_vmalloc_range()
-for mapping chip memory from vmalloc'd ranges instead of using a custom
-fault handler. It aims to prevent exposing kernel virtual addresses and
-cleans up VM flags.
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes in v2:
+- Add a fix for the WLED3 brightness register stride.
+- Add patch reading the programmed brightness back via
+  backlight_ops.get_brightness. (Konrad)
+- Note the brightness readback is done in the follow-up to the first
+  patch.
+- Link to v1: https://patch.msgid.link/20260908-qcom-wled-backlight-v1-1-c4dd4eabda07@ixit.cz
 
-> diff --git a/drivers/infiniband/hw/hfi1/file_ops.c b/drivers/infiniband/h=
-w/hfi1/file_ops.c
-> --- a/drivers/infiniband/hw/hfi1/file_ops.c
-> +++ b/drivers/infiniband/hw/hfi1/file_ops.c
-> @@ -476,15 +472,10 @@ static int hfi1_file_mmap(struct file *fp, struct v=
-m_area_struct *vma)
->  		 * Use the page where this context's flags are. User level
->  		 * knows where it's own bitmap is within the page.
->  		 */
-> -		memaddr =3D (unsigned long)
-> -			(dd->events + uctxt_offset(uctxt)) & PAGE_MASK;
-> +		memvirt =3D dd->events + uctxt_offset(uctxt);
-> +		memvirt =3D (void *)(((uintptr_t)memvirt) & PAGE_MASK);
->  		memlen =3D PAGE_SIZE;
-> -		/*
-> -		 * v3.7 removes VM_RESERVED but the effect is kept by
-> -		 * using VM_IO.
-> -		 */
-> -		flags |=3D VM_IO | VM_DONTEXPAND;
-> -		vmf =3D 1;
-> +		is_vmalloc =3D 1;
->  		break;
->  	case STATUS:
+---
+David Heidelberg (3):
+      backlight: qcom-wled: Fix WLED3 brightness register stride
+      backlight: qcom-wled: Fix unbalanced OVP IRQ enable at probe
+      backlight: qcom-wled: Read back the programmed brightness at probe
 
-[ ... ]
+ drivers/video/backlight/qcom-wled.c | 88 +++++++++++++++++++++++++++++++------
+ 1 file changed, 75 insertions(+), 13 deletions(-)
+---
+base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
+change-id: 20260908-qcom-wled-backlight-fd9574027353
 
-> @@ -559,12 +546,10 @@ static int hfi1_file_mmap(struct file *fp, struct v=
-m_area_struct *vma)
->  	}
-> =20
->  	vm_flags_reset(vma, flags);
-> -	mmap_cdbg(ctxt, subctxt, type, mapio, vmf, memaddr, memvirt, memdma,=20
-> +	mmap_cdbg(ctxt, subctxt, type, mapio, is_vmalloc, memaddr, memvirt, mem=
-dma,
->  		  memlen, vma);
-> -	if (vmf) {
-> -		vma->vm_pgoff =3D PFN_DOWN(memaddr);
-> -		vma->vm_ops =3D &vm_ops;
-> -		ret =3D 0;
-> +	if (is_vmalloc) {
-> +		ret =3D remap_vmalloc_range(vma, memvirt, 0);
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
-[Severity: High]
-Will this fail for secondary contexts where uctxt_offset(uctxt) > 0?
 
-When mapping the EVENTS region for any context > 0, memvirt is calculated as
-an offset from the vmalloc base address (dd->events). However,
-remap_vmalloc_range() strictly requires the exact base address of the
-vmalloc allocation.=20
-
-Because remap_vmalloc_range() expects the provided address to exactly match
-the area base address, won't it unconditionally return -EINVAL when passed
-this interior pointer?=20
-
-If so, does this mean userspace applications attempting to mmap the EVENTS
-page for any dynamic context will receive an unexpected -EINVAL error,
-breaking core functionality for secondary contexts?
-
->  	} else if (memdma) {
->  		ret =3D dma_mmap_coherent(&dd->pcidev->dev, vma,
->  					memvirt, memdma, memlen);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-b4-mmap-pr=
-epare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org?part=3D11
