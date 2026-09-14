@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3277C88E7D
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52D5EC88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D340E10F9F6;
-	Tue, 15 Sep 2026 07:28:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50FB610F9F9;
+	Tue, 15 Sep 2026 07:28:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hrvl0D0j";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O4g8Eomu";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A915F10EF64
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:09:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F7C610EF66
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:15:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B54FD60252;
- Mon, 14 Sep 2026 15:09:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A7561F000FF;
- Mon, 14 Sep 2026 15:09:08 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6E42260252;
+ Mon, 14 Sep 2026 15:15:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D25111F00899;
+ Mon, 14 Sep 2026 15:14:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789398575;
- bh=GfRJzELhUA3zmjv637fDp+tblD+oWrGBxslIXX4F7cw=;
+ s=k20260515; t=1789398907;
+ bh=1/40s6lyT9bZpyR+Yy0EbDmmnq6isDZhtDSiJykjXkI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=hrvl0D0jcUyh6uvN3XebCBKsuFl+Mh+LBuw54wmgiYZ5pJic6J+FDi7a7/oYIZbrN
- WQowmRaCgo8p7AykmaIoxZo/pJ2dHmUB9gbcFhmWl45G2Mhh4yFuopGrBcctiaM3El
- 68DDeLDxRrJU/lwaOEljlbe9r0ocz39Hh4x2JFFkZNeVrvdYx+9pruOj7yeOkUdJdz
- 9ayyQuXCEa9/XjgJ7X8EW3xxS5gu5Ksv+bqTx+v392geCiZRa/zUWP9Lprrt22EWHe
- i8V2yIXKCyWHgu7EKnmmt0Nm7KISk8cPtnmCihwyqZVRlPc2i1GMkwKxnVo8S8rDqM
- XfgZBeADzZr8g==
+ b=O4g8EomuSoGBr7JylEOBMDOs3EdIDMAHiNHZiNGz+WkNkHzqvkLnkveyns92XmSaK
+ wAzE3bORHhTGKcAQe5Hf8hb/+VQbrptzz+7CpdpSbhSF6Ak9fW+WiMgHW7pdBriEZb
+ x1qYzxdun1eTBlP+f0tcdbxD/mcC8XDF9QvwLAItTu+ZCl8rGQ1ivKpjUoQLjAVuve
+ TQkUIu+X2Hd82kd+orGw8xK7SiE5bY3VPKvliUth4R5/IbejZhi62XqkkKwt+1y25p
+ 0sHJHkcCeG+Ri3Wx73Wf7lYpasYmVxZfDSV/Zm9zNWhuwtzQWZm1Wt5g7T4j79mhUw
+ wlQ58L1roQOOg==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 14 Sep 2026 15:57:42 +0100
-Subject: [PATCH v2 22/40] uprobes: remove VM_IO, set VM_MIXEDMAP for mapped
- kernel pages
+Date: Mon, 14 Sep 2026 15:57:54 +0100
+Subject: [PATCH v2 34/40] mm: eliminate VMA_SPECIAL_FLAGS usage when
+ hugetlb explicitly tested
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-22-7d9781ed5361@kernel.org>
+Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-34-7d9781ed5361@kernel.org>
 References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
 In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -121,12 +121,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2070; i=ljs@kernel.org;
- h=from:subject:message-id; bh=joQXUjvjM3OjL+Ta6QEJ1w5g7Vsv4M79ot1AULAZKpk=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcG+UmWFxrd5rX01VbImjwcymWUd7HFT3MX92PMF2e
- /PkB5K3OkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRu38Z/pcr1KWXq5Uo9Rn8
- OHKxm9XRopRX32vrvYe8rb0uOxv4+Rn+l6+M/c59213zYUxKnlCarmzPTE253GMTvmzNPZN/b94
- bJgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2543; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=eDLmjh2bzHIv4YAPniXBvBcmDHaqL2K0F9inIsPpqyE=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcG822Cv1Qqjn/738q/w2imubyv2Yroc8Xc7CMn2BK
+ M+FzX1/O0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRmd8YGY4+iF7kaBlja2M/
+ has0996Dzf52ZxQyGKu113QtjUpWUWZkaM0/pbGovvL7i22q23s3Cwn6htf/l/mc5GKntH3nROa
+ L3AA=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Tue, 15 Sep 2026 07:27:57 +0000
@@ -145,62 +145,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-These are not MMIO pages so VMA_IO_BIT is an inappropriate flag to set.
+It is now an invariant that VMA_IO_BIT is not set except by kernel-owned
+mappings, so each existing VMA_SPECIAL_FLAGS test need only test for
+VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT and VMA_MIXEDMAP_BIT.
 
-Instead, set them VMA_MIXEDMAP_BIT as they are kernel mappings and this is
-the appropriate flag to set for those.
+This is precisely a test for a kernel-owned or fixed mapping.
 
-This provides the semantics required - no VMA merging is permitted, but
-does not prevent GUP.
+Update a number of callsites which already explicitly handle hugetlb
+mappings.
 
-However this has no meaningful impact as these are refcounted and thus can
-be GUPed.
+vma_supports_mlock() and ksm_compatible() also explicitly bail on droppable
+mappings - detecting kernel-owned, fixed or droppable mappings is handled
+by vma_is_persistent(), so in these cases use this predicate.
 
-A previous commit already prevented __mm_populate() from being invoked on
-XOL areas, which VMA_IO_BIT was previously relied upon to do, so that is no
-longer required.
+should_skip_vma() tests for locked, kernel-owned or fixed memory (having
+already excluded hugetlb mappings) so simply test for those there.
 
-Both VMAs set a VMA name, so always_dump_vma() returns true before
-vma_dump_size() reaches its VMA_IO_BIT check, and thus there is no change
-in core dump behaviour.
-
-Change this for both the core xol_add_vma() function and the x86-specific
-get_uprobe_trampoline() function.
+No functional change intended.
 
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- arch/x86/kernel/uprobes.c | 2 +-
- kernel/events/uprobes.c   | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ mm/internal.h | 4 +---
+ mm/ksm.c      | 4 +---
+ mm/vmscan.c   | 3 ++-
+ 3 files changed, 4 insertions(+), 7 deletions(-)
 
-diff --git a/arch/x86/kernel/uprobes.c b/arch/x86/kernel/uprobes.c
-index 65a2de82ecd2..0f60c0d076b6 100644
---- a/arch/x86/kernel/uprobes.c
-+++ b/arch/x86/kernel/uprobes.c
-@@ -715,7 +715,7 @@ static struct vm_area_struct *get_uprobe_trampoline(struct mm_struct *mm, unsign
+diff --git a/mm/internal.h b/mm/internal.h
+index 1b6153013061..83a4ba52aaeb 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -1111,9 +1111,7 @@ static inline struct file *maybe_unlock_mmap_for_io(struct vm_fault *vmf,
  
- 	*new_mapping = true;
- 	return _install_special_mapping(mm, vaddr, PAGE_SIZE,
--				VM_READ|VM_EXEC|VM_MAYEXEC|VM_MAYREAD|VM_IO,
-+				VM_READ|VM_EXEC|VM_MAYEXEC|VM_MAYREAD|VM_MIXEDMAP,
- 				&tramp_mapping);
- }
+ static inline bool vma_supports_mlock(const struct vm_area_struct *vma)
+ {
+-	if (vma_test_any_mask(vma, VMA_SPECIAL_FLAGS))
+-		return false;
+-	if (vma_test_single_mask(vma, VMA_DROPPABLE))
++	if (!vma_is_persistent(vma))
+ 		return false;
+ 	if (vma_is_dax(vma) || vma_is_hugetlb(vma))
+ 		return false;
+diff --git a/mm/ksm.c b/mm/ksm.c
+index 624f37975e12..f80372bfd4b2 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -747,9 +747,7 @@ static bool ksm_compatible(const struct file *file, vma_flags_t vma_flags)
+ 	if (vma_flags_test_any(&vma_flags, VMA_SHARED_BIT, VMA_MAYSHARE_BIT,
+ 			       VMA_HUGETLB_BIT))
+ 		return false;
+-	if (vma_flags_test_single_mask(&vma_flags, VMA_DROPPABLE))
+-		return false;
+-	if (vma_flags_test_any_mask(&vma_flags, VMA_SPECIAL_FLAGS))
++	if (!vma_flags_is_persistent(&vma_flags))
+ 		return false;
+ 	if (file_is_dax(file))
+ 		return false;
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 12ed3388ee41..09ff20c3df5b 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -3477,7 +3477,8 @@ static int should_skip_vma(unsigned long start, unsigned long end, struct mm_wal
+ 	if (!vma_has_recency(vma))
+ 		return true;
  
-diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
-index 7709ea882477..b89cc5cee002 100644
---- a/kernel/events/uprobes.c
-+++ b/kernel/events/uprobes.c
-@@ -1726,8 +1726,8 @@ static int xol_add_vma(struct mm_struct *mm, struct xol_area *area)
- 	}
+-	if (vma->vm_flags & (VM_LOCKED | VM_SPECIAL))
++	if (vma_test(vma, VMA_LOCKED_BIT) || vma_is_kernel_owned(vma) ||
++	    vma_is_fixed_mapping(vma))
+ 		return true;
  
- 	vma = _install_special_mapping(mm, area->vaddr, PAGE_SIZE,
--				VM_EXEC|VM_MAYEXEC|VM_DONTCOPY|VM_IO|
--				VM_SEALED_SYSMAP,
-+				VM_EXEC|VM_MAYEXEC|VM_DONTCOPY|
-+				VM_MIXEDMAP|VM_SEALED_SYSMAP,
- 				&xol_mapping);
- 	if (IS_ERR(vma)) {
- 		ret = PTR_ERR(vma);
+ 	if (vma == get_gate_vma(vma->vm_mm))
 
 -- 
 2.55.0
