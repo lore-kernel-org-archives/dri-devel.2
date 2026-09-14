@@ -4,59 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35BCFC88E66
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 12:14:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72C49C88E66
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 12:14:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3DD910EE12;
-	Mon, 14 Sep 2026 12:14:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5AD010EE13;
+	Mon, 14 Sep 2026 12:14:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="HvuVKhwL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PLAq8gat";
 	dkim-atps=neutral
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AA3210EE12
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 12:14:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1789388026;
- bh=+Z+8q8Y7PKeF8cylK/vBWxaeMrcPKioUqaIkfs3jFUI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=HvuVKhwLt4XaqqjwXFMayGAETLjfAb0T6qgAsd5l5uEC3/JqEtlr0aAz4ivLNFa1Q
- wN4+/9SSD79HoN4yRs7FCMbuuSiwFqdH4pID3QJLrsKxWaCKsTY+RqwN5RkdHhyq8E
- OicCblvD2Wqp94izGrep+3isQFnBaj3srrSlFyTi+Jc/tdKV6zXSiZPmgVNgaJnThy
- izhURc9OKgEWeGg+gE94ntmeKIgZhzOTeTGvvQHpyHMDS1kqe7PTTU8KxEMSwV5riN
- Giu6X14a6b6Yy65cd7Meu40vCGmNDBbGgl1DGktAloM2QwFO65216KWYY/mySrSirz
- JqVYXxt1c1C0g==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4hk3w060kMz4wKF;
- Mon, 14 Sep 2026 22:13:36 +1000 (AEST)
-Message-ID: <f21c409d-5675-4c87-8b16-850bcb9474df@ozlabs.org>
-Date: Mon, 14 Sep 2026 13:13:36 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 9/9] vfio/pci: Permanently revoke a DMABUF on request
-To: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>
-Cc: Alex Williamson <alex@shazbot.org>, Alex Mastro <amastro@fb.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
- Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260911214200.33793-1-matt@ozlabs.org>
- <20260911214200.33793-10-matt@ozlabs.org> <20260913165244.GW13683@unreal>
- <20260914113647.GL3968357@nvidia.com> <20260914115456.GY13683@unreal>
-Content-Language: en-GB
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <20260914115456.GY13683@unreal>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DD3A10EE13
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 12:14:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 86DB460120;
+ Mon, 14 Sep 2026 12:14:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE1DC1F000FF;
+ Mon, 14 Sep 2026 12:14:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789388063;
+ bh=ODSVSyx06mM0EpsCLHsJi4P7JRyrA2Wu6m19U/nSj+A=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=PLAq8gateE8gOSUbIkmBeMOL3zmczMs8ZDq4J/9JIiy8ojVIPWyyMacqxo7SBAfnB
+ jHwQyWXspVi4D71ZAzy2tQ8Zhh52UlzV2OMPyP1juEOBEPgu47/q56p1M76e4Y6WUR
+ Gh8SwWxggHEtgfCNk0UsDe3Z/4KbXjo44Ajf4HmQovHsvG+yhjkvSHiK63jHliRx/E
+ 7/oqPoZVs3AVLgDYgGM9yPIh5OBs/9h6/Ez0zZmaUNB44SBXOJp5YC2n56FmxVrqAx
+ +m9hrMfSs9+qUgYWbVKhP2zS9g6MWvw7K5na4ouBlZ/Cd+6pfNQKuBnGH06VReBu2X
+ TpKDA+re3+CxA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 02/13] drm/mediatek: Implement Display Stream
+ Compression support
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260914115812.22751-3-angelogioacchino.delregno@collabora.com>
+References: <20260914115812.22751-1-angelogioacchino.delregno@collabora.com>
+ <20260914115812.22751-3-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 12:14:22 +0000
+Message-Id: <20260914121422.EE1DC1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,106 +55,195 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Leon,
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] DSI and DSC component detection loop misses the terminal component=
+ of the display pipeline, preventing DSC configuration.
+- [High] Incorrect execution order for DSC setup and missing state reset ca=
+uses DSC hardware corruption on subsequent modesets or resume.
+- [High] DSI link data rate, horizontal blanking timings, and clock lane wo=
+rd counts do not adjust for DSC compression, breaking timing synchronizatio=
+n.
+- [High] The pixel stream word count incorrectly hardcodes an assumption of=
+ exactly 2 DSC slices per line.
+- [High] DSI power-on accesses uninitialized DSC parameters by invoking `mt=
+k_dsi_ps_control` before computing them.
+- [Medium] The `dsi->dsc` pointer is set to NULL during panel unbind withou=
+t serialization, leading to a Use-After-Free or NULL pointer dereference du=
+ring modeset.
+--
 
-On 14/09/2026 12:54, Leon Romanovsky wrote:
-> On Mon, Sep 14, 2026 at 08:36:47AM -0300, Jason Gunthorpe wrote:
->> On Sun, Sep 13, 2026 at 07:52:44PM +0300, Leon Romanovsky wrote:
->>> On Fri, Sep 11, 2026 at 10:41:57PM +0100, Matt Evans wrote:
->>>> Expand the VFIO DMABUF revocation state to three states:
->>>> Not revoked, temporarily revoked, and permanently revoked.
->>>
->>> The thing is that "temporarily revoked" is actually the standard
->>> invalidate_mappings/move_notify mechanism of DMABUF, which wasn't good
->>> for VFIO.
->>
->> I think temporarily revokes here means it is revoked from a dmabuf
->> perspective
-> 
-> My guess is that this is more of a "change owner" operation than a
-> revoke operation.
-> 
-> The main issue here is that we have to guess the semantics instead of
-> having a properly named and documented operation. 
+commit d2929d85efc73eb974427b3e2c2a0afbfbe66701
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: drm/mediatek: Implement Display Stream Compression support
 
-Apologies if the cover letter for the series and patch commit message 
-(which cover this) are unclear about the motivations and semantics.  On 
-the commit message, can you suggest clarifications:
+This commit adds Display Stream Compression (DSC) support for the MediaTek
+DRM driver. It introduces a new standalone mtk_disp_dsc driver and modifies
+the existing CRTC and DSI drivers to configure and integrate DSC.
 
-"This is useful for lifecycle management, to reclaim VFIO PCI BAR
-ranges previously delegated to a subordinate client process: by
-revoking, the driver process can ensure that the loaned resources are
-made inaccessible when the client is deemed "done".  The original
-DMABUF is defunct, and BAR resources can then be safely re-exported
-for use by new clients."
+> diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediat=
+ek/mtk_crtc.c
+> index 97e3ff412e6ee..c0a53c153b8d5 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_crtc.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
+> @@ -398,6 +401,17 @@ static int mtk_crtc_ddp_hw_init(struct mtk_crtc *mtk=
+_crtc)
+>  		if (!mtk_ddp_comp_add(mtk_crtc->ddp_comp[i], mtk_crtc->mutex))
+>  			mtk_mutex_add_comp(mtk_crtc->mutex,
+>  					   mtk_crtc->ddp_comp[i]->id);
+> +
+> +		/* For now, only single DSI is supported */
+> +		if (mtk_crtc->ddp_comp[i]->id >=3D DDP_COMPONENT_DSI0 &&
+> +		    mtk_crtc->ddp_comp[i]->id <=3D DDP_COMPONENT_DSI3)
+> +			if (!comp_dsi)
+> +				comp_dsi =3D mtk_crtc->ddp_comp[i];
+> +
+> +		if (mtk_crtc->ddp_comp[i]->id =3D=3D DDP_COMPONENT_DSC0 ||
+> +		    mtk_crtc->ddp_comp[i]->id =3D=3D DDP_COMPONENT_DSC1)
+> +			if (!comp_dsc)
+> +				comp_dsc =3D mtk_crtc->ddp_comp[i];
+>  	}
 
-Given what I'll explain below, do give suggestions please.  There is 
-more context in the cover letter (the volume of which I didn't think 
-appropriate for the commit message).
+[Severity: High]
+Will this loop successfully find the DSI component?=20
 
-> As Christian pointed
-> out, the patches describe what they are doing well, but they do not
-> explain why they are doing it.
+The loop condition in mtk_crtc_ddp_hw_init iterates until
+mtk_crtc->ddp_comp_nr - 1. Because the DSI encoder is always the terminal
+component of the display pipeline at ddp_comp_nr - 1, the loop appears to
+terminate before inspecting it.
 
-His comment may be warranted on the other, new, patch for DMABUF name, 
-but I don't think this applies here.
+Could this leave comp_dsi as NULL and skip the DSC configuration entirely?
 
->> Just that VFIO can make it's internal dmabuf work again, there won't
->> be a notification to any importer or an expectation that something
->> like iommufd will re-establish mapping automatically.
->>
->> This is principally a kernel self protection mechanism where the
->> userspace was expected to have removed the dmabuf before issuing a
->> reset/etc. If they didn't then the kernel plonks it and userspace gets
->> a mess to clean up.
-> 
-> Revoke/invalidate means that the importer should stop accessing the
-> buffer provided by the exporter. It does not specify what the exporter
-> should do afterwards.
-> 
-> So I still think that "temporarily revoked" is closer to
-> invalidate_mappings, with some additional dma-buf documentation to lose
-> the expectation that the buffer will become available again.
+> @@ -413,6 +427,13 @@ static int mtk_crtc_ddp_hw_init(struct mtk_crtc *mtk=
+_crtc)
+>  		mtk_ddp_comp_start(comp);
+>  	}
+> =20
+> +	/* Setup the DSC if present, with the config coming from DSI */
+> +	if (comp_dsc && comp_dsi) {
+> +		dsc_cfg =3D mtk_dsi_get_dsc_config(comp_dsi->dev);
+> +		if (dsc_cfg)
+> +			mtk_ddp_comp_dsc_setup(comp_dsc, dsc_cfg);
+> +	}
 
-You are right in indicating in your previous email that the "temporarily 
-revoked" state is the old "revoked" state.
+[Severity: High]
+Is the hardware started before it is fully configured?=20
 
- From the DMABUF importer interactions, there's _still_ only "revoked or 
-not revoked" state.  No changes there.
+The preceding loop calls mtk_ddp_comp_start on all components, which will
+invoke mtk_dsc_start and write the DSC_EN bit to the control register.
 
- From this VFIO exporter's perspective, the change is to add a "sticky" 
-revoked state.
+If mtk_ddp_comp_dsc_setup is executed afterwards, could the hardware enter
+an invalid state by being enabled before its parameters are applied?
 
-The thing (as per UAPI docs, again I hope there's no guessing needed) 
-that the new third state gives is that a) userspace can explicitly 
-request it via the new ioctl/feature, and b) it is guaranteed not to be 
-spuriously or intentionally undone by anyone else.
+> diff --git a/drivers/gpu/drm/mediatek/mtk_disp_dsc.c b/drivers/gpu/drm/me=
+diatek/mtk_disp_dsc.c
+[ ... ]
+> +void mtk_dsc_stop(struct device *dev)
+> +{
+> +	struct mtk_dsc *disp_dsc =3D dev_get_drvdata(dev);
+> +
+> +	writel(0, disp_dsc->reg + DISP_REG_DSC_CON);
+> +}
 
-E.g. reset:  temporarily revoke, then un-revoke.   New ioctl: 
-permanently revoke, such that something like a subsequent reset isn't 
-going to undo it and make the DMABUF usable again.
+[Severity: High]
+Should dsc_config_done be reset to false when stopping the hardware?
 
-The usage scenario is:
+If mtk_dsc_stop writes 0 to the register but leaves dsc_config_done as
+true, a subsequent resume or modeset might cause mtk_dsc_start to see
+dsc_config_done =3D=3D true.=20
 
-1. Process A exports DMABUF from VFIO device.  (Proc A is the 
-"orchestrator" here.)
-2. Process A sends fd to process B.
-3. Process B maps it, or hands it on, etc.
-4. Process A eventually decides the buffer is finished with/lifecycle 
-done/wants to reuse that BAR range for something else.  It permanently 
-revokes the DMABUF.
-5. Hopefully this isn't a surprise to B (some cooperation has given it 
-up first) but either way, B now cannot access the BAR range anymore. 
-This does not _need_ cooperation, so if B becomes malicious, or crashes, 
-etc. A can still revoke it.
-6. That BAR range is reused for something unrelated.
+Would this skip the bypass mode fallback and write DSC_EN over a zeroed
+configuration register, potentially hanging the display pipeline?
 
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
+k/mtk_dsi.c
+> index f82506e10fd59..97b8a91874f5b 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+[ ... ]
+> +static void mtk_dsi_ps_control_dsc(struct mtk_dsi *dsi, bool config_vact)
+> +{
+> +	const struct mtk_dsi_driver_data *data =3D dsi->driver_data;
+> +	const u16 *reg_main =3D dsi->driver_data->reg_main;
+> +	const short dsi_buf_bpp =3D 3;
+> +	u32 ps_wc;
+> +
+> +	/* Word count */
+> +	ps_wc =3D FIELD_PREP(DSI_PS_WC, 2 * dsi->dsc->slice_chunk_size);
 
-HTH,
+[Severity: High]
+Can this hardcoded multiplier cause incorrect word counts on different pane=
+ls?
 
+Using 2 here assumes there are always exactly 2 DSC slices per line.
 
-Matt
+Should this use dsi->dsc->slice_count to ensure the payload bytes are
+calculated correctly for displays with other slice layouts?
 
+> +	if (config_vact) {
+> +		writel(FIELD_PREP(VACT_NL, dsi->vm.vactive),
+> +		       dsi->regs + reg_main[DSI_VACT_NL]);
+> +		writel(ps_wc, dsi->regs + reg_main[DSI_HSTX_CKL_WC]);
+> +	}
+
+[Severity: High]
+Does this blindly overwrite the clock lane word count register?
+
+In mtk_dsi_config_vdo_timing_per_frame_lp, hstx_cklp_wc is carefully
+calculated based on front porch, back porch, and trailing lengths, and then
+written to DSI_HSTX_CKL_WC. When mtk_dsi_ps_control_dsc is subsequently
+called, it overwrites that same register with ps_wc (the raw compressed
+payload size).=20
+
+Additionally, the calculations for dsi->data_rate in mtk_dsi_poweron and
+horizontal blanking timings use uncompressed pixel bit depths rather than
+adjusting for DSC compression.
+
+Will these issues combined break clock lane timing synchronization?
+
+> @@ -741,10 +828,17 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
+> =20
+>  	mtk_dsi_ps_control(dsi, true);
+>  	mtk_dsi_set_vm_cmd(dsi);
+> -	mtk_dsi_config_vdo_timing(dsi);
+> +	ret =3D mtk_dsi_config_vdo_timing(dsi);
+
+[Severity: High]
+Could this sequence write uninitialized values to the hardware?
+
+mtk_dsi_poweron calls mtk_dsi_ps_control, which reads
+dsi->dsc->slice_chunk_size to program the DSI payload size registers.
+
+However, dsi->dsc->slice_chunk_size is only populated when
+mtk_dsi_config_vdo_timing eventually calls drm_dsc_compute_rc_parameters.
+
+Does this imply the payload size registers are initially programmed with
+zeros or uninitialized memory?
+
+> @@ -1030,6 +1157,8 @@ static int mtk_dsi_host_detach(struct mipi_dsi_host=
+ *host,
+> =20
+>  	component_del(host->dev, &mtk_dsi_component_ops);
+>  	drm_bridge_remove(&dsi->bridge);
+> +	dsi->dsc =3D NULL;
+> +
+>  	return 0;
+>  }
+
+[Severity: Medium]
+Is it safe to clear dsi->dsc without modeset synchronization?
+
+If a user unbinds the panel concurrently while a display modeset is active
+(for example, while executing mtk_dsi_config_vdo_timing), could the pointer
+become NULL immediately after the check for dsi->dsc?=20
+
+Could this lead to a NULL pointer dereference or use-after-free in
+mtk_dsi_set_dsc_params?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914115812.2275=
+1-1-angelogioacchino.delregno@collabora.com?part=3D2
