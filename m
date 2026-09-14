@@ -4,45 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FFFAC88E6A
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 09:14:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78432C88E6A
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 09:16:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 200ED10E172;
-	Mon, 14 Sep 2026 09:14:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 800B210E189;
+	Mon, 14 Sep 2026 09:16:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GNHRYfUJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YtmLlm7G";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7B0410E189
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 09:14:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6795510E189
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 09:16:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5782343923;
- Mon, 14 Sep 2026 09:14:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 023141F000FF;
- Mon, 14 Sep 2026 09:14:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 35F9243734;
+ Mon, 14 Sep 2026 09:16:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E25171F00893;
+ Mon, 14 Sep 2026 09:16:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789377283;
- bh=LrutReZ5R9lj/02OwAOFdnsGfMcThHjIY3yuMYn4ORw=;
+ s=k20260515; t=1789377365;
+ bh=OQ+t5MfXJMdKCqvcbYdcd57vS8CW/SpMIJbuFEd7BBs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GNHRYfUJUdoVjjWXzh++r4dV8YS5TozSqVqmo2Uv65sWYEd8pz20DEP8NFaPz/4mI
- kR/pe1ucZ5IlMoIV6bzklQn2rttLaZX/Oia3ZFz4660+7wlAgM0M/9JHU6yoVcqYWB
- nZ1HqJlZPUOSD7wwOWMoybF7EREtzRIivnGieuvRy9tyvfUHU0SyQwhyZd10kCJ7tW
- ehxUQyK1pY+Lsx36+jadIAFrY5xOK6Bs0H5JPllPWnsU2UUOwZMyOfkT/6nrtdloqZ
- RHfFyVi6cA2Mv5nxIw+VnyBeeSuAMW9cokP9Uyg0uaYZq+0/qaLaRLLgJ3ylGPkBR3
- CWH3gLY+zUZDQ==
+ b=YtmLlm7GinyFBceukm5sVNdwF/uGxhYt+TamEqlDVp0aV07+bRYKXty1mmA5t+rIW
+ mExZBITiw73xeg5oDo+UppM7kucu6P0k4js9kExoCFgWy0rfDDmFT15tcuqRdzPbap
+ HI2DM392TI3PTHSHt5ZmFoHFdFgbGjAbp4I0u8fkpcQ3sTkJS2DE3ZquCge69oojdw
+ mOORtERgMztCRxVnQEDGAXX7U+DSaF9nG59aebckY4mzbT9UXZVY1M2AHuli3af9iI
+ L8M2vkORc3Hp9xL8NOP8tLJz8MYKpEmQoRdDF0vD07IKTwxARoeAeWfTGCkcAu4U1l
+ n+t0VGZl5e9UQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/6] drm/ssd130x: Change SSD133X color format to
- RGB565 from RGB332
-To: "Amit Barzilai" <amit.barzilai22@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260914085931.66857-3-amit.barzilai22@gmail.com>
-References: <20260914085931.66857-1-amit.barzilai22@gmail.com>
- <20260914085931.66857-3-amit.barzilai22@gmail.com>
+Subject: Re: [PATCH] staging: fbtft: replace number with sizeof()
+To: "Manuel Ebner" <manuelebnerli@mailbox.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260914090858.9939-2-manuelebnerli@mailbox.org>
+References: <20260914090858.9939-2-manuelebnerli@mailbox.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 09:14:42 +0000
-Message-Id: <20260914091443.023141F000FF@smtp.kernel.org>
+Date: Mon, 14 Sep 2026 09:16:04 +0000
+Message-Id: <20260914091604.E25171F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,88 +56,77 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [Medium] Replacing the literal buffer size of 8 with `sizeof(u64)` for a =
+`u8` array obfuscates the code and fails to achieve its stated goal of prev=
+enting truncation.
+
 Pre-existing issues:
-- [High] Missing `fmtcnv_state` buffer reservation in `ssd133x_primary_plan=
-e_atomic_check` causes a `GFP_KERNEL` allocation in atomic context.
+- [High] Using stack-allocated variables for SPI transfer buffers violates =
+DMA rules and can cause memory corruption or kernel panics.
 --
 
-commit 58733b43936278b0113cbbd363c279ece2464617
-Author: Amit Barzilai <amit.barzilai22@gmail.com>
+commit fbd50c90250b51626379149887d48d7f5eeb3c1e
+Author: Manuel Ebner <manuelebnerli@mailbox.org>
 
-drm/ssd130x: Change SSD133X color format to RGB565 from RGB332
+staging: fbtft: replace number with sizeof()
 
-SSD133X screens were driven at 8bpp RGB332 despite supporting 16bpp RGB565.
-Switch the SSD133X data path to RGB565.
+This commit attempts to replace a literal integer with sizeof() to prevent
+future truncation bugs in read_devicecode().
 
-> diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/=
-ssd130x.c
-> index feec4933e3e6b..cbf77a74c4fa0 100644
-> --- a/drivers/gpu/drm/solomon/ssd130x.c
-> +++ b/drivers/gpu/drm/solomon/ssd130x.c
-[ ... ]
-> @@ -978,17 +990,18 @@ static int ssd133x_fb_blit_rect(struct drm_framebuf=
-fer *fb,
->  				struct drm_format_conv_state *fmtcnv_state)
+> diff --git a/drivers/staging/fbtft/fb_ili9320.c b/drivers/staging/fbtft/f=
+b_ili9320.c
+> index 050fc2367c122..41a3ae2f39571 100644
+> --- a/drivers/staging/fbtft/fb_ili9320.c
+> +++ b/drivers/staging/fbtft/fb_ili9320.c
+> @@ -21,7 +21,7 @@
+> =20
+>  static unsigned int read_devicecode(struct fbtft_par *par)
 >  {
->  	struct ssd130x_device *ssd130x =3D drm_to_ssd130x(fb->dev);
-> -	const struct drm_format_info *fi =3D drm_format_info(DRM_FORMAT_RGB332);
-> +	const struct drm_format_info *fi;
->  	unsigned int dst_pitch;
->  	struct iosys_map dst;
-> =20
-> +	fi =3D drm_format_info(DRM_FORMAT_RGB565);
->  	if (!fi)
->  		return -EINVAL;
-> =20
->  	dst_pitch =3D drm_format_info_min_pitch(fi, 0, drm_rect_width(rect));
-> =20
->  	iosys_map_set_vaddr(&dst, data_array);
-> -	drm_fb_xrgb8888_to_rgb332(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_stat=
-e);
-> +	drm_fb_xrgb8888_to_rgb565be(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_st=
-ate);
+> -	u8 rxbuf[8] =3D {0, };
+> +	u8 rxbuf[sizeof(u64)] =3D {0, };
 
 [Severity: High]
-This is a pre-existing issue, but does this code cause a GFP_KERNEL allocat=
-ion
-in atomic context?
+This is a pre-existing issue, but rxbuf is allocated on the stack and passed
+down to the SPI subsystem for DMA via par->fbtftops.read(). This leads to
+fbtft_read_spi() which also allocates txbuf on the stack:
 
-When the screen is updated, ssd133x_primary_plane_atomic_update() (which ru=
-ns
-in atomic context) calls ssd133x_fb_blit_rect() which in turn calls
-drm_fb_xrgb8888_to_rgb565be().
-
-This internally calls __drm_fb_xfrm(), which attempts a GFP_KERNEL allocati=
-on
-if the conversion buffer was not previously reserved:
-
-drivers/gpu/drm/drm_format_helper.c:__drm_fb_xfrm() {
-	if (!vaddr_cached_hint) {
-		stmp =3D drm_format_conv_state_reserve(state, sbuf_len, GFP_KERNEL);
-		if (!stmp)
-			return -ENOMEM;
-	}
+drivers/staging/fbtft/fbtft-io.c:fbtft_read_spi() {
+    ...
+    u8 txbuf[32] =3D { 0, };
+    ...
+    ret =3D spi_sync(par->spi, &m);
+    ...
 }
 
-Because ssd133x_primary_plane_atomic_check() omits the
-drm_format_conv_state_reserve() call (unlike its ssd130x and ssd132x varian=
-ts):
+Calling spi_sync() with stack-backed SPI transfers violates DMA mapping rul=
+es
+and can cause memory corruption or kernel panics, especially with
+CONFIG_VMAP_STACK enabled.
 
-drivers/gpu/drm/solomon/ssd130x.c:ssd133x_primary_plane_atomic_check() {
-	...
-	else if (!plane_state->visible)
-		return 0;
+[Severity: Medium]
+Also, does sizing a u8 array using sizeof(u64) obfuscate the code? This see=
+ms
+semantically incorrect and fails to achieve the stated goal of preventing
+truncation.
 
-	return 0;
-}
+> =20
+>  	write_reg(par, 0x0000);
+>  	par->fbtftops.read(par, rxbuf, 4);
 
-Will this cause the allocation to be unconditionally executed in atomic con=
-text
-on the first frame update?
+[Severity: Medium]
+Does this read operation still use a hardcoded length of 4 instead of deriv=
+ing
+it dynamically from the buffer size (e.g., via ARRAY_SIZE())? Since the len=
+gth
+is hardcoded, it appears no truncation protection was actually added.
+
+>  	return (rxbuf[2] << 8) | rxbuf[3];
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914085931.6685=
-7-1-amit.barzilai22@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914090858.9939=
+-2-manuelebnerli@mailbox.org?part=3D1
