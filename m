@@ -4,43 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 559ABC88E7D
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 22:16:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F0D1C88E72
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 22:18:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F8B310E216;
-	Mon, 14 Sep 2026 22:16:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA7D110E213;
+	Mon, 14 Sep 2026 22:18:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="S+ZlKkG1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Gw/HuIB2";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 818A710E213;
- Mon, 14 Sep 2026 22:16:44 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AA7F10E213
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 22:18:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B39E560252;
- Mon, 14 Sep 2026 22:16:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 379F81F000FF;
- Mon, 14 Sep 2026 22:16:43 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 101BA41A9B;
+ Mon, 14 Sep 2026 22:18:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D10C1F000FF;
+ Mon, 14 Sep 2026 22:18:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789424203;
- bh=pdiy6rs9PjUTu1hfHq+0xrXD/PkX+hVLybBjnb+mpR0=;
+ s=k20260515; t=1789424289;
+ bh=PBWZLje+EORDwYwarmdW9X/dW/jhJnmDYRf+A9Aw42o=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=S+ZlKkG1LtB6j04Xs3gs0Hf3BsPlwjvY7ClyoD3L5q7EhHDdgY2lGadjOSOfLWx1R
- gHtnkjqy6aq5T+1YQMGDjLaBUfRq+H3HyQlRlrHmYtdAwrsKR5S6N7pvznggAukBg9
- sMjgKRQ6EmznuhTV8F1B1i/PlaqeTQoeoH4tbdOy0JZ1T2OS2ziL13GnDyQASTe1oa
- K95VxH8Scy63vu0DQDJgW3yFIWYtRPsWmnSIRrTH5GhCEObTB5onVcpbU9NNtVA4UQ
- HX91XlLiDCepY/GKy2MGHba4c3U8ZTPZ0qXwcZJhx5fzYsW6AYkwGFN5nOULsKQQFk
- gz4c9rrCn0iPQ==
+ b=Gw/HuIB2124mJePNmCxr6OmGBWn8lOVcq8aYG+E3PBPBjy6+FZbkDn1Cw4N5AvD9c
+ mNxvsww/0ZKIqPFy8/+I/HORpU5TB483GBv1INMk0g2ei3VsLnWPMYlPxrgDLR7NGg
+ EP+qUP4mn00J9dPxrebqDONQxmsJKtPwKlJp1VhM40uol3Yj/K7Q92obZ/HRCyUyGz
+ uqEz+yVYeKq4uUS6m2QoC+8khl2zgs1SiiGdA40PniclG1Ch8KucucPjFZ5tJHpij6
+ jooW57260512gOftkN2mMgVPaA4v7JoSnA+HY+7OlQd+OUXY783QMqmSa51TddGHgt
+ hlO/8kEPaoxpg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/xe/mmio: Fix xe_mmio_wait32() to honor delay/sleep
- maximums
-To: "Alan Previn" <alan.previn.teres.alexis@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260914215746.272721-2-alan.previn.teres.alexis@intel.com>
-References: <20260914215746.272721-2-alan.previn.teres.alexis@intel.com>
+Subject: Re: [PATCH v2 33/40] mm/madvise: use predicates for madvise(...,
+ MADV_DOFORK)
+To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
+Cc: linux-trace-kernel@vger.kernel.org,
+ "Christian Borntraeger" <borntraeger@linux.ibm.com>, selinux@vger.kernel.org,
+ linux-s390@vger.kernel.org, "Marc
+ Zyngier" <maz@kernel.org>, kvmarm@lists.linux.dev,
+ "Oliver Upton" <oupton@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, "Vasily
+ Gorbik" <gor@linux.ibm.com>, "Alexander Gordeev" <agordeev@linux.ibm.com>,
+ bpf@vger.kernel.org, linux-scsi@vger.kernel.org, kvm@vger.kernel.org, "Heiko
+ Carstens" <hca@linux.ibm.com>, linux-perf-users@vger.kernel.org
+In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-33-7d9781ed5361@kernel.org>
+References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
+ <20260914-b4-mmap-prepare-vma-flag-sanify-v2-33-7d9781ed5361@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 22:16:42 +0000
-Message-Id: <20260914221643.379F81F000FF@smtp.kernel.org>
+Date: Mon, 14 Sep 2026 22:18:08 +0000
+Message-Id: <20260914221809.1D10C1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,106 +66,31 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] mmio: fixed 10us delay in long waits causes hrtimer/context switch=
- storms
---
+> Make it clear what we're blocking in MADV_DOFORK. Previously we simply
+> disallowed VM_SPECIAL i.e. kernel-owned mappings, fixed mappings and
+> VMA_IO_BIT.
+>=20
+> Now the invariant is established that only kernel-owned mappings can set
+> VMA_IO_BIT, the VMA_IO_BIT check is redundant.
+>=20
+> The rest is equivalent to testing for a kernel-owned or fixed mapping,
+> i.e. exactly the same check as whether the VMA is permitted to be merged.
+>=20
+> This was established by commit 0b2758f48f22 ("Require (reasonably) normal
+> mappings for MADV_DOFORK") containing my hands-down favourite call out of
+> all time.
+>=20
+> Express the same thing differently - if we wouldn't be allowed to merge i=
+t,
+> then we aren't allowed to manipulate CoW behaviour on fork.
+>=20
+> No functional change intended.
+>=20
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-commit c92012bfe0677557677a0dcb08c9a338f44452fd
-Author: Alan Previn <alan.previn.teres.alexis@intel.com>
-Subject: drm/xe/mmio: Fix xe_mmio_wait32() to honor delay/sleep maximums
-
-This commit replaces the custom wait implementation in the driver with the
-standard poll_timeout_us and poll_timeout_us_atomic macros. It drops the
-atomic flag from xe_mmio_wait32 parameters, updating callers and adding
-explicit _atomic variants where needed.
-
-> diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
-> --- a/drivers/gpu/drm/xe/xe_guc.c
-> +++ b/drivers/gpu/drm/xe/xe_guc.c
-[ ... ]
-> @@ -1574,7 +1574,7 @@ int xe_guc_mmio_send_recv(struct xe_guc *guc, const=
- u32 *request,
->  		BUILD_BUG_ON((GUC_HXG_TYPE_RESPONSE_SUCCESS ^ GUC_HXG_TYPE_RESPONSE_FA=
-ILURE) !=3D 1);
-> =20
->  		ret =3D xe_mmio_wait32(mmio, reply_reg, resp_mask, resp_mask,
-> -				     2000000, &header, false);
-> +					     2000000, &header);
-
-[Severity: High]
-Does this change cause an excessive number of hrtimers or context switches
-for long waits?
-
-For example, in xe_guc_mmio_send_recv(), the 2,000,000us timeout here could
-result in ~200,000 sleep/wake cycles if the hardware is slow or hits the
-timeout. The previous custom wait implementation used an exponential backof=
-f to
-handle these long wait periods without flooding the system.
-
-[ ... ]
-> diff --git a/drivers/gpu/drm/xe/xe_mmio.c b/drivers/gpu/drm/xe/xe_mmio.c
-> --- a/drivers/gpu/drm/xe/xe_mmio.c
-> +++ b/drivers/gpu/drm/xe/xe_mmio.c
-[ ... ]
->  int xe_mmio_wait32(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u3=
-2 val, u32 timeout_us,
-> -		   u32 *out_val, bool atomic)
-> +		   u32 *out_val)
->  {
-> -	return __xe_mmio_wait32(mmio, reg, mask, val, timeout_us, out_val, atom=
-ic, true);
-> +	u32 read;
-> +	int ret;
-> +
-> +	ret =3D poll_timeout_us(read =3D xe_mmio_read32(mmio, reg), (read & mas=
-k) =3D=3D val,
-> +			      10, timeout_us, false);
-
-[Severity: High]
-Will hardcoding a 10us sleep interval here cause context switch storms and
-PCIe bus flooding during long operations?
-
-Certain callers like __xe_driver_flr() wait up to 3 seconds, and
-xe_gsc_wait_for_proxy_init_done() waits up to 1 second. Using a fixed 10us
-interval means those paths might invoke usleep_range() tens of thousands of
-times if the full timeout is reached.
-
-Could this degrade system performance, and does it warrant re-introducing
-an exponential backoff scaling for longer wait periods instead of a fixed
-interval?
-
-> +	if (out_val)
-> +		*out_val =3D read;
-> +
-> +	return ret;
->  }
-[ ... ]
->  int xe_mmio_wait32_not(struct xe_mmio *mmio, struct xe_reg reg, u32 mask=
-, u32 val, u32 timeout_us,
-> -		       u32 *out_val, bool atomic)
-> +		       u32 *out_val)
->  {
-> -	return __xe_mmio_wait32(mmio, reg, mask, val, timeout_us, out_val, atom=
-ic, false);
-> +	u32 read;
-> +	int ret;
-> +
-> +	ret =3D poll_timeout_us(read =3D xe_mmio_read32(mmio, reg), (read & mas=
-k) !=3D val,
-> +			      10, timeout_us, false);
-
-[Severity: High]
-Similar to xe_mmio_wait32() above, does applying a fixed 10us sleep interval
-in xe_mmio_wait32_not() risk hrtimer storms for callers with large timeouts?
-
-> +	if (out_val)
-> +		*out_val =3D read;
-> +
-> +	return ret;
->  }
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914215746.2727=
-21-2-alan.previn.teres.alexis@intel.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-b4-mmap-pr=
+epare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org?part=3D33
+
