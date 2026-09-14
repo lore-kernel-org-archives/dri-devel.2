@@ -4,68 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0172C88E6F
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 17:22:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA358C88E6F
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 17:35:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB4A610E1E4;
-	Mon, 14 Sep 2026 17:22:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01ED910E08C;
+	Mon, 14 Sep 2026 17:35:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b="H7/bhH0t";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="sY3vF3wP";
 	dkim-atps=neutral
-X-Greylist: delayed 901 seconds by postgrey-1.36 at gabe;
- Mon, 14 Sep 2026 17:22:36 UTC
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB1BE10E1E4
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 17:22:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1789405646; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Edlam33l1X0WI1OrB7u2Oi2y4BDkKlma8QjA02JvSoaDxpCa92P/CCtUkM16iKiJx9M7DYtg86KhuipKWOJQvzDTNeyeodYwJhhFXDRbUhUWpbd9TFoh4LjLMzVIsU+H36ZMvSktV3SfeKTEBeAqOFeMeK25RGsuUeQW986dtkc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1789405646;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=+angtaWnDipQewgGz9mUegs+98WHwzGZawVa6NY7uGc=; 
- b=LPNxssC28lKjfWdU8WDWwBoYFepkrqhrMfFW6eWiD6kKWjmgHtgd2y6Vjg684Y1IVpBsZm/f1chPLwaOy3Cdp/0/0uTGBPStOAsED0ZPugdJZ0Hg9BlmCmHPdariz5scbgT4HLcoCUGDcfdiOD+Ah13Tr/pg2Lg3vQ+nyUB85Zs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=detlev.casanova@collabora.com;
- dmarc=pass header.from=<detlev.casanova@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789405646; 
- s=zohomail; d=collabora.com; i=detlev.casanova@collabora.com; 
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=+angtaWnDipQewgGz9mUegs+98WHwzGZawVa6NY7uGc=;
- b=H7/bhH0tH3/76qPygUPmL4xEqjOXzbIP20K2eJgFNDrskKak1+9ZMBsWZQOHjc1e
- hVrFKHf6f7ksMGiPzhmSf2DbgcQj+Qq4TEx7qteiSFn/FLKpd90IAS9twFhPRPJP5XR
- rFjBmWErxwCGnP1kCJCvGDfNJ8By2okwkPx7U8RY=
-Received: by mx.zohomail.com with SMTPS id 1789405645288547.3965894530555;
- Mon, 14 Sep 2026 10:07:25 -0700 (PDT)
-From: Detlev Casanova <detlev.casanova@collabora.com>
-To: Igor Paunovic <royalnet026@gmail.com>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Maud Spierings <maud_spierings@hotmail.com>,
- Diederik de Haas <diederik@cknow-tech.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Frank Zhang <rmxpzlb@gmail.com>, kernel@collabora.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/bridge: dw-hdmi-qp: Return -EOPNOTSUPP in HDMI audio
- functions
-Date: Mon, 14 Sep 2026 13:07:22 -0400
-Message-ID: <5kr9i6ZJT46mREykuuT_Jw@collabora.com>
-In-Reply-To: <20260907153000.hdmiqp-audio-2-royalnet026@gmail.com>
-References: <20260519-fix-hdmi-audio-warnings-v1-1-9608966c993f@collabora.com>
- <20260907153000.hdmiqp-audio-2-royalnet026@gmail.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93DA510E08C
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 17:35:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=qDVSXqIm/ZZ7NqZ7O46ll556+WfE6c0OGZaZTBmNtws=; b=sY3vF3wPMfV24E7Dcni58ZXMe3
+ ibRgguOwwLQcKEQ9HKgwLdG1ruIx/1aKEdVd8inZyLeSRuR7x3TuLWHJ8DRgJcZI4Nj/fZgvcq54q
+ 9iKpAyphvZsmC/48vIGUoVX5yBZrOfwsP6VD8wZseeqKt08rHwEzDZPTRy4xrWDvBURku0FBVCjVg
+ 7dQkU6P+t2WBudH700oWI7gb9iI8lxXDcMp6Voa52PeMMmcus6Iu63I6H/kHw0id++gY9cE1AdfHe
+ 5BCRkTk1MbfSj/W+j7m1LQeDmDyu+11lB+sf029bSaUWOFVtp7F3YhVSi8bZgI10O4+UlRcW9iDj/
+ fqigvzsw==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1x6AZt-00214e-Ga; Mon, 14 Sep 2026 19:34:49 +0200
+Message-ID: <c1388b5f-9077-4161-8fd8-3b8ebf24fbde@igalia.com>
+Date: Mon, 14 Sep 2026 14:34:41 -0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/vc4: Hold a GEM reference while purging userspace BOs
+To: Kazuki Hanai <hnkz.64@gmail.com>, mripard@kernel.org,
+ dave.stevenson@raspberrypi.com
+Cc: kernel-list@raspberrypi.com, maarten.lankhorst@linux.intel.com,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, eric@anholt.net,
+ bbrezillon@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260830130700.680041-1-hnkz.64@gmail.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260830130700.680041-1-hnkz.64@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,38 +85,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Igor,
+Hi Kazuki,
 
-Thank you for testing !
-
-On Monday, 7 September 2026 09:01:30 EDT Igor Paunovic wrote:
-> Hi Detlev,
+On 30/08/26 10:07, Kazuki Hanai wrote:
+> vc4_bo_userspace_cache_purge() removes a BO from the purgeable list and
+> then drops the list lock before taking the BO madvise lock. A concurrent
+> final GEM put can therefore release the BO while the purge path still
+> holds only a raw pointer.
 > 
-[...]
+> Acquire a non-zero GEM reference while the purgeable list lock still
+> protects the lookup. If final release has already started, drop the list
+> lock so the release path can remove the entry and retry. Put the temporary
+> reference after dropping the madvise lock to avoid recursing into final
+> release while that lock is held.
 > 
-> One more reason I think this and Frank Zhang's patch [1] belong together:
-> since the startup now fails, ASoC never marks the DAI as started, so for
-> a PCM opened on a dead link the close never reaches hdmi_codec_shutdown()
-> -> dw_hdmi_qp_audio_disable() -> clear_audio_infoframe(). That is the
-> same class of bug as the SError we hit here on 02.09 (PCM closed after a
-> failed prepare, register access with the PHY down -> SError, panic; full
-> trace in [2]). I can't be certain this patch alone would have prevented
-> that particular crash - a PCM that is already open when the output goes
-> down still walks that path, which is what Frank's guard is for - so both
-> still look needed to me. (I saw Cristian's question on v4 about
-> open-coding the clear; either shape works for the crash I hit.)
+> Fixes: b9f19259b84d ("drm/vc4: Add the DRM_IOCTL_VC4_GEM_MADVISE ioctl")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
+> ---
+>   drivers/gpu/drm/vc4/vc4_bo.c | 14 ++++++++++++++
+>   1 file changed, 14 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/vc4/vc4_bo.c b/drivers/gpu/drm/vc4/vc4_bo.c
+> index 49ea2ed0996b4..5289e69f3345f 100644
+> --- a/drivers/gpu/drm/vc4/vc4_bo.c
+> +++ b/drivers/gpu/drm/vc4/vc4_bo.c
+> @@ -319,6 +319,19 @@ static void vc4_bo_userspace_cache_purge(struct drm_device *dev)
+>   		struct drm_gem_object *obj = &bo->base.base;
+>   		size_t purged_size = 0;
+>   
+> +		/*
+> +		 * The last GEM reference can be dropped concurrently. Its free
+> +		 * callback removes the BO from this list before releasing it, so
+> +		 * the list lock makes an unless-zero get safe. Never carry only a
+> +		 * raw list pointer across the lock drop below.
+> +		 */
+> +		if (!kref_get_unless_zero(&obj->refcount)) {
+> +			mutex_unlock(&vc4->purgeable.lock);
+> +			cond_resched();
+> +			mutex_lock(&vc4->purgeable.lock);
+> +			continue;
+> +		}
 
-Yes, Frank's patch is still needed, this is not fixing the SError, only giving 
-asoc and userspace the right error code.
+Hum, your fix doesn't look correct to me. First, I don't understand why
+you are using something like cond_resched() here. Next, with this
+approach, the BO with refcount=0 will never be removed from the list.
 
-The situation you describe on opened PCM that goes down can indeed still 
-happen (This patch may just decrease the probability of seeing an SError)
+> +
+>   		vc4_bo_remove_from_purgeable_pool_locked(bo);
 
-> [1] https://lore.kernel.org/all/20260512103153.8861-1-rmxpzlb@gmail.com/
-> [2]
-> https://lore.kernel.org/all/20260907153000.hdmiqp-audio-1-royalnet026@gmail
-> .com/
+What you could do instead is calling:
 
-Detlev.
+if (!kref_get_unless_zero(&obj->refcount))
+       continue;
 
+here.
+
+Best regards,
+- Maíra
+
+>   
+>   		/* Release the purgeable lock while we're purging the BO so
+> @@ -345,6 +358,7 @@ static void vc4_bo_userspace_cache_purge(struct drm_device *dev)
+>   			vc4_bo_purge(obj);
+>   		}
+>   		mutex_unlock(&bo->madv_lock);
+> +		drm_gem_object_put(obj);
+>   		mutex_lock(&vc4->purgeable.lock);
+>   
+>   		if (purged_size) {
 
