@@ -4,134 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E620BC88E64
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 10:22:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C61CC88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 10:40:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 160CB10E395;
-	Mon, 14 Sep 2026 10:22:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFCA110ECA8;
+	Mon, 14 Sep 2026 10:40:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="Z2a5XJ04";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XBeLfT4r";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="T2Kek1Z5";
 	dkim-atps=neutral
-Received: from LO2P265CU024.outbound.protection.outlook.com
- (mail-uksouthazon11021105.outbound.protection.outlook.com [52.101.95.105])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B36FF10E395
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 10:22:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cXDV9CdS2vklAjgZ7NgwrcvGDYjaq4dxgVShTnCYf+3QH1oIoa/WI+am36FHfcs2Vx9gmZ5711F0GFDVeUPBqDlO60BrdCag0MLy7Yi5OS6KMEpY6LOOYwG6uDkK5uTPg7+UoIgzbqabM6RR4vzpmz0bMoQZeLE24ZJGoB1KSyL1EWpO0iNPWH89dpHiOTPkNMs6gaKnt4sTACf8RX5kVP/c8hsf5dgKd+cj1xjdvNZJVVjKy0YSS9zti168owmJDEbsvozpwpjlxkcdiitPlu9QA2YTDcomOZSKE6+d3TuNzud9NZimwVmKb2rRyn+VO9sKFU1o9TOuynyebGZkIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gYRtcGDYkkRviq5o15+S8PLSQ0aqsRdZm3yvBYfB+bE=;
- b=iju7NcaTifPVKl2OZP941gkBjKzBmnEoEfAz3WCjWgA52d3b4F8nWGFQvXsAsWb2D6pzZ3kBmQdJxGEYMSUPkR0kTKm/G+sfwuB9vIGJIYos5fbAJ1uZK8cEdMkPil2kRpEeX+/x5/qwaOd3uz97Cwo3SaExGTGmfCwWbeT0KQ0d7FQXc6qJyl3D/4sTcLbGZKIW/K7KDuv5yvEc96ONIi5KK/GWF41yNcgn6fzEoawZRGdmqcSHQq62kwy16TV4OWO5s3jsuIP2GgYAYqEBGJlpurLenv9y9A5cleKAzCp9A/P/vqZ88Xd/M6fYpSNaeaV0L99v04gNkzI+2Dp0Tw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gYRtcGDYkkRviq5o15+S8PLSQ0aqsRdZm3yvBYfB+bE=;
- b=Z2a5XJ049lZNTdrNk9RmVvz0YvZE0YGkZbLjLOPKamy/dvLTEZF+GwPF/Omd9H1tE9fgjfh8hhUg7TwlB/CvIZ/m/UodkA7uW8jHTVgn59zbZA9PEcOCcieyLzGPFRZcmzN5MTW5jZm7tBkDlsqmflqHI07z7bUmRSUb/Hzbo6o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CWXP265MB2294.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:7e::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Mon, 14 Sep
- 2026 10:22:05 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 10:22:05 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 14 Sep 2026 11:22:03 +0100
-Message-Id: <DLEYQNUGTQYU.34AISCMMZXG8B@garyguo.net>
-Cc: "Matteo Kloiber" <kernel@matt3o12.de>, <aliceryhl@google.com>,
- <ojeda@kernel.org>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <abdiel.janulgue@gmail.com>, <daniel.almeida@collabora.com>,
- <robin.murphy@arm.com>, <a.hindborg@kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum
- segment size
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Alexandre Courbot"
- <acourbot@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20260831233215.287881-1-kernel@matt3o12.de>
- <20260831233215.287881-3-kernel@matt3o12.de>
- <DL8QLYLQJEL1.3F653J67DYZ47@nvidia.com>
- <20260913210806.125589-1-kernel@matt3o12.de>
- <DLEMH1X0KQA1.D1PYVJD0E6SR@nvidia.com>
- <DLEY8AHWZFCQ.QUHP2NHJW1QX@kernel.org>
-In-Reply-To: <DLEY8AHWZFCQ.QUHP2NHJW1QX@kernel.org>
-X-ClientProxiedBy: ZR0P278CA0089.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:22::22) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87A0F10ECA2
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 10:40:30 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68E9nQu6773139
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 10:40:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=kmGKNQS/caVsWFVS0K6md8Yq/Ng3yDqp2+7
+ Su9CofKM=; b=XBeLfT4rdS5reL1zeWXMvc21OQKiUY64erkAmejdbqsJki3FCbp
+ wEcWilUOPLrSfDc5m3XeYd30WDmpgSyPD8S1rV7Ciip5ONNwlmPxlJ5nHWqY8ZoY
+ QR4cQXpLq9rVwWYpSqTpJtCDRwvC0o6JS3spf2JmnCRdPOlgnnbaJUF0gTUYJmxl
+ JN1DNuE8rLK/UxpRAa+HyNFHFYloO8lZS7x1b5irbSEv9g6aWWPRZ9AS9GCUAc+q
+ EvCuaD+SEcGB5mKaWrlkQkJyIi31/MjQfRTIpsJp90C/26+8XlwtSwGIlCPPn+uj
+ gXDtZjsdgDANlJgWHLh5Ix68IjrWinsHAQg==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpdevrdtb-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 10:40:29 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-395543dc382so4254047a91.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 03:40:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1789382428; x=1789987228;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=kmGKNQS/caVsWFVS0K6md8Yq/Ng3yDqp2+7Su9CofKM=;
+ b=T2Kek1Z5rvSHeD+XRW7gocNQR9thoexi4zgu4Y/z/9ogXV+GYPLvKX1cfaO6CcsDQR
+ ln3/3l8mk/9ViDN1h602IO8R6VvPFy6cQjrtPZ81cvnJSHECoCcIZJRB/2Z6UNIN0/Jm
+ AZc27RSvxbwkcM9CN/2fnTtlsiuj9DKJy9PpEHTMa3QrUG0jRss81qPwJvl6vWdHSxWi
+ 7th7tx2AunMfLglzVQipEkLuiXn0AUjRO61qAP/nucJ0r0YEcqE9cBtFEVRKjosfYWZ5
+ jTmZ46ra+r3BVEbwtCZqICZX2es4el/KreIBfxfbirwcWw4On0PV9IAGWhJu/deYtP1B
+ WjXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789382428; x=1789987228;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=kmGKNQS/caVsWFVS0K6md8Yq/Ng3yDqp2+7Su9CofKM=;
+ b=PGX4KcpwWE/g8ovX5bJmd2FXB2nzL4qAul/udfmwAQJqTar7aNhF8orZS5UY1pZZP8
+ Ci1S6eft/xJAondJK+pB0otX9TtM5GoRJywyZGV4cZYepGBWyaYpQGfnxkKY1OEszz70
+ soK+I1ViRvv6Jhib46k1waVlAMeSQ0syxQpFX9zdWOYASA2ZPCk2gHKleuH8E2+KFkTx
+ EvaFNzt+tmzDR74Tdn93SQ30n+mhY5//gAvOuQp7L40xXHTtEmsWcRsPXVs5aKs72diQ
+ Mw+lC9oy0B0DIpLOO8hO2yOVpB7b+UF3MJBr964IykhoWFtbETf5RKEuRFmv3FtE9fVp
+ 748A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwB4cpqArIQRg52w5ZSfxTR+SGFYrduRLBsgH9meGUQUuWmDmMhuoXT8WbtffaZ5Sqa4F9WO4Af4fo=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kNqEjxJUPKHd7kfWqXTVar09N6cM5zesfyNfPnHbBm1+IwalTY
+ Mqc68fN6xNZ+PhkYwNpWKPQvdJSWkMNrqAzv9IPQ4dgIN5ivccV9s1jglmXKWxSb7GfK/+sJTXP
+ Dl2OttyyaMQo9AxJhzrxRypVHaFx4sD8iKE6x7/QhzJRAlKEN4KqERJpPIn2/qr8SNX6SIPo=
+X-Gm-Gg: AYBFou2KvqnsdYAAlfBDPzFZdFqyLCpbxmtgyrRMqkNFxfIAoWgepUSFwSsqy8BIJjw
+ pxzt8xijYen/98g/Jn9rxwhDyBqxIInwXgXLoLPSTVolBcE4YX4psCHUWxFuCIjMj2jBXqhIK9x
+ bv3sN7rsxvJsvagvzD5BlB15pzJzAO9eAYkdL9guG9er7WIuPkwFW7fwy4XM0iALbgv9gz4+7D8
+ akUefDrJsJCX+xeohgK1Yeck4+rGSG3yGWncZ7pYTXWP5CkWo9UABfDTgBYnqebi/Y9hYIXUUEM
+ bkfxRjQUbrDXjrwJzYhQzhw+oPtyJ11lUqiSTv3Z9r4DR2lfVpX9cJZ8uOVIMRl8Us//3sOmbA9
+ FGuEfJQClv2F0QXKfbFtP5lo/RIEDL13QSWtOS/OU5iF9CZn8QyHisqW9iP1QjG/FAnsLwoWj
+X-Received: by 2002:a17:90b:590b:b0:39d:f720:c5a5 with SMTP id
+ 98e67ed59e1d1-39df720d07bmr1003613a91.15.1789382428029; 
+ Mon, 14 Sep 2026 03:40:28 -0700 (PDT)
+X-Received: by 2002:a17:90b:590b:b0:39d:f720:c5a5 with SMTP id
+ 98e67ed59e1d1-39df720d07bmr1003519a91.15.1789382427491; 
+ Mon, 14 Sep 2026 03:40:27 -0700 (PDT)
+Received: from QCOM-SocCW5bzXR.qualcomm.com
+ (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39db996bde4sm14328042a91.7.2026.09.14.03.40.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 14 Sep 2026 03:40:27 -0700 (PDT)
+From: Jianping Li <jianping.li@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: Jianping Li <jianping.li@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Ling Xu <quic_lxu5@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, quic_chennak@quicinc.com, stable@kernel.org
+Subject: [PATCH v4] misc: fastrpc: avoid duplicate DMA mappings in
+ fastrpc_create_maps()
+Date: Mon, 14 Sep 2026 18:40:19 +0800
+Message-Id: <20260914104019.492-1-jianping.li@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWXP265MB2294:EE_
-X-MS-Office365-Filtering-Correlation-Id: efcbb828-5013-4fb9-0567-08df124a067d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|10070799003|366016|7416014|376014|1800799024|10067099003|6133799003|56012099006|22082099003|18002099003|4143699003;
-X-Microsoft-Antispam-Message-Info: yOcqdK/eu3nuawZ43IYtw3QptthGRaaTmqK0sidpTGaZtrAlcK1S4hSSY1TAVDvsxshmZzLD0wUkITiMoa8lsUp0QRu0DpGApSf9fA27NL+YMmJF2NPlACYIZZxLMnsK6zkx0ZMIuaQPsKaKccObbjux7X6L9ajM2xeuwJWTmhYzGwIV2mphLW05X7W8sa2Dk3kIUILvZ6rLKoQjItUNzpBc+S6n3eJrvvYn1FxjUB6mb9hHEgN5iYhsYXxbKQxTLn8xIC1486wvj1oVtzY8atRiMlrKIuXGRne5nPir9OOK22Vw1pDmMka5DcJq59DkdhYAZ9CQkEkfc7WNLYrNbic0xqCEKS8pu1dOn31kGPQ8obtNtFzCoWrlWIdxNr0clmLGYcVEoYO0c9QGm4AmSQ+1v70z9RWc9HOSqAqgcLt0ilmMxrvKJ2rphREy4PF8807z96BiFRKm1k4okzagdJnCKJd5cbiDYpchEl++1cE0nXeml6J24UFH+a6cuG8WvlmUtKLqOq9P5j71Koym4SPLpdKv/9CHA6MvgVmX891+Nm01BU3KmZkAs7WLeFudlWmffix3R/wvPWdhtUc0PNGqPD62q9M3q37mUN0V6DMKmqEFkGT2j3bzjnvNy6NKu6YDDddv51MCFdTW9/DpoTdm0zLLG065hVYJ99m8juA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(10070799003)(366016)(7416014)(376014)(1800799024)(10067099003)(6133799003)(56012099006)(22082099003)(18002099003)(4143699003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MGorc3ZSNEdkRlVldnVySnB5YzRTanBWbVRxQzB1RVVQdmcrUkovaDhHb3ZU?=
- =?utf-8?B?dmsrV3NGR203bXNmYkJKT1JEOXIrenE1RzFoNVBaejZzZmd6VlJyV2xtTzNB?=
- =?utf-8?B?SWd2NnlCWk5tR2dmQmNqZ3VtbjVCcUh2NUNvTnUyNnk0Njh2Q3JTbFd0MzRI?=
- =?utf-8?B?NVdYeEF4QnRpTmJWZk5Hd3ZsUzhsTDNLQzhIUXRzV2YwUEp6Y0lQTUR0OHlm?=
- =?utf-8?B?cUl5MzRQbC9iYnNwSGtyRlYzL1g2UGlxOG5Ib1oycHBKdWdDRURqMmRMeHFv?=
- =?utf-8?B?YTYvUHYwb1RVU1JZWVNIL2VVT21WbFhMeGhSb2kza2NDMTZuS3dtdWE5MXlK?=
- =?utf-8?B?U2NDYU1sQVBIZGVzQkFIdUZJQXNxZjBEWWRBN3RGeGlKSTZYR1V4RFdOQTd3?=
- =?utf-8?B?VHZKcFQ4QTlQSGdxQjhRMll6NXNnUGZ6QmREVkFCMUl2VmZCTGdpTGI0Q3ls?=
- =?utf-8?B?SXBRTDU5OVViQUQ4UWE1U1A4UG9weVhIdnRQckpuUFpjbkpJa3B5MHJkN0pQ?=
- =?utf-8?B?UyszMm9tRlBjalVQNHFVd2xzQXNKZmp5VmdLcU0wVklQN2wwL2NFbVYyMVE0?=
- =?utf-8?B?a0VsM2N6ZE5sRXJFUHZYZFE3SzNqem5JenlKQkp2MytxemNMN1hUYTllaExt?=
- =?utf-8?B?UlpsSmtNWnBzQUprcVlnZHR3VHUvVStNZy9SOCtoVURhREcyRjRIK0lJN1lD?=
- =?utf-8?B?NjVtWTNPVHhWbDhyV2J0ZVBzeUl3aE9YcVV2U0xKWmdWbytPSlJudFVsbUcr?=
- =?utf-8?B?SGlyWTEzSFhrNzR6VW44MGczUjhRZUYzNHlac0dKemt2L3g0TEhiK2ZzYkhG?=
- =?utf-8?B?UERscXFJWElpTVNZWU9FdU1uWGdHZWpCaUt4VFM0cnFKVlFWanhncU54TUZW?=
- =?utf-8?B?bVRyTllGZjFQdXlHOWlvMG9wSFRYcnViekpMZzFQaHJlQ0NtS0x3dzY2K0s2?=
- =?utf-8?B?dkVyOHg2VzVXWXQ5dWJkUFBIMkg3Kytqemo0b1M3cEVzKzNPVFFPN0VhTG0y?=
- =?utf-8?B?bjZpeHpGb016Zm1VR25TaHVvU2p1K3BZM2V3aFcyWjRTQzNNMzFpM3F0eDVU?=
- =?utf-8?B?MkFHTVRHRDhZYjVkL040a3czdmNoWDJFcEZxTjkvMmNuMTRPNklJcm1rOUFr?=
- =?utf-8?B?RC9jT2pGUEg4ODRxNEx1Nk5kQnNvb3pvYnk3QTh4amIxcEtESlJOeFpBVjVy?=
- =?utf-8?B?TjdVTk9xOTZrUkdYcEpLVjlGa0JMTW94WW1NcUsxWGRFMm55c3Y0T1NoaFJT?=
- =?utf-8?B?WEljUXZERmc2MFFaTmFrekJhdURjc09LcGFlWHhlTjM4WE5Yb3RaSHFhMUdq?=
- =?utf-8?B?bC9hWXVJUXYrVXArcXZqUUFRU2dINmQ3eXhLSDkvblppVjlEZi9LRjd6cWlp?=
- =?utf-8?B?bzFpWlhOZmlKeUlmQUVOZkNGZUYvaXBaekQ3VkpyM1A3U0E2QWtKckk4OGEw?=
- =?utf-8?B?QXVIeGp5d0FsL2FNbWxkd2VYY3lRN29SdERPazZLb01SK2VSODdiTXh5enZs?=
- =?utf-8?B?UFNWc2ZWRkpseGpLL0k2aTc0a3Z5c3Q5MDE4emwvaUhBeXUvUE1memk0WS9l?=
- =?utf-8?B?K2xIbVJrQnFrZTZSMFFRaWZMM3ZMMnRsN1hXRGd6dWNjSEtuYjI1TXRZZHcr?=
- =?utf-8?B?b0tNekF5TjlCK3IxbHk0Z0xiSGkwZVN1dFVJN2xsRjhsbFpXREJ4aTZBV0VR?=
- =?utf-8?B?Y0ZHckgzZlBNRDduTGZUU1hnSVgzV3ZLYllwTHlEaWJUYU5hWVFybWtXcVlG?=
- =?utf-8?B?OHZWN2czbE5DTDJrdVRsOUlnZE1YVXlrcHVhd0xlVjQ0WW5YVHR1YVhObUg5?=
- =?utf-8?B?MERhT3F4Ni9CQmlTUTd1MTFzaFNZRUVQajV1bzNzLzFjZ1ZrMEV0a1V3VFRV?=
- =?utf-8?B?YktBNG4wR3o3dkpIc01QY2pLTWxHc0Z4MVZSa0F5MzF1Z2VGaWp1Vm5idHUv?=
- =?utf-8?B?NGREOHVhd0Q4c3dkQjJMTGxiSHZBaWF1NWhPSDJVVGNIODVLR244bnJDeGtO?=
- =?utf-8?B?L2lnaVJBcXVQS2pKaEU2Tm9EN0RXRjdoOTNOQnl3NS9OTjFrOVRNOHdTUk50?=
- =?utf-8?B?cTlKZVRzanJrQzdyeC9vU2lJaG9YeWNIUnFIRmxPSmhsWjJiSS9qVUxUWXZR?=
- =?utf-8?B?c2RMYlQ3aU1SK3VPb1dGTHhST2QyQ0VFWXJQSGJ4U252SVBDS1QwamN5WlV5?=
- =?utf-8?B?b2lmQmQyYVFKVTcraW9RT3Y2d0Fhd05mUW9kQ1AwZEJCNUU4Z0NFdHVSSWZ2?=
- =?utf-8?B?Wk1NbXMxaGpTMEJrc2U2ZkhJTkhIaEM5TFdvZFU2ZDA2T01zb0UzQUY0Zjd0?=
- =?utf-8?B?OWptRzZDM3NIcTFoNFBpUllzb2hqT3lueEhNWHhVUlBCYkg4QzhpZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: efcbb828-5013-4fb9-0567-08df124a067d
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 10:22:05.6534 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lG4giFXkxdAKmF+AO97HPKS0ra49m1/FtrI0MlpckY/D4BvpCcxxGSMss5OHL9qInAVh1VbBjFf323AhWlObIA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2294
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: YkpaY09ZuzBasr866KoamuaoDbgcIzsF
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE1MiBTYWx0ZWRfX0fh6tpvm3kQg
+ vnIt9xKaFo4m4i18W37skD8Ee3v6tfMs7O+0l/vK35Q7oKTjU3gOYaQOSjoJSUwcaMRYtKSATZL
+ FgIoWCcO7ogVKUUUEj0xJ8g5K2Jeeqc=
+X-Proofpoint-GUID: YkpaY09ZuzBasr866KoamuaoDbgcIzsF
+X-Authority-Analysis: v=2.4 cv=ftpJ914f c=1 sm=1 tr=0 ts=6aa7cf1d cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=jcsToSEUEPbHcpESBJIA:9 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE1MiBTYWx0ZWRfXyZnZJ4yBnGDy
+ EISr+OeeQAJ1oCkCqjt17poTeZrSx4ySafdVsLVi9MKIDzjzsM9P2Z4Jn0mxOrFAsmRiUAmA2z/
+ gCqlaqbFb3i8rSNhkV26p/TsYxiXDCAke6Q6tmgEjIO+83dFwTGpArPoOJNMqHVDptjqT2LKnsa
+ WpVY1mHsTv47DupdsCSVkf2EpUbtV3j0dI9IUVaImNKEbizWM5wkVPlLwGG8c6wcuFYJvjWVtuq
+ xXZd5Mm9N1xFV62B+SCRmg7Rbz9kzP/dD7PdQc8vne/vpCZ+xu62xkQ7h5HLs4VMk0ENH09WJbR
+ 8GHOo3N7kieB+/GC8ZZZbqBuJ3K3ssMmwnLmMPLJWNgFcicVVsLjJs26l34+VcyTpE5YIBg2UEl
+ GqzjH6KtDOoTm4A5oQj4jmfCqAe9BBLM8Y2E/xqGDe2csfDM2m7xcu3Gyom3eoB3zKLFMfSm8hV
+ QKWhcF7w/n6Xz8ATJwA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 phishscore=0 adultscore=0 impostorscore=0
+ priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140152
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,45 +146,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Sep 14, 2026 at 10:58 AM BST, Danilo Krummrich wrote:
-> On Mon Sep 14, 2026 at 2:45 AM CEST, Alexandre Courbot wrote:
->> On Mon Sep 14, 2026 at 6:08 AM JST, Matteo Kloiber wrote:
->>> On Mon Sep 7, 2026 at 11:43 AM JST, Alexandre Courbot wrote:
->>>> It also means that without patch 1, nova-core would split the firmware
->>>> into hundreds of 64KB SG entries, which is not breaking but still
->>>> something we want to avoid. The correct fix is to make sure that
->>>> `dma_set_max_seg_size` is called by the driver, and while we are at it
->>>> we also want every driver to call `dma_set_mask_and_coherent`. Ideally
->>>> we would use the type system to make sure that both functions are call=
-ed
->>>> before any DMA operation can take place (using a safe interface), but
->>>> I'm not quite sure yet how we can do this.
->>>
->>> This sounds sensible indeed. Should I open a thread regarding that on Z=
-ulip?
->>
->> Probably not necessary, the mailing-list has a larger audience and is
->> the right place for this. I expect people will jump in here with their
->> thoughts.
->
-> The problem with those is not that they must strictly be called before
-> allocating DMA memory, but they must not be called concurrently with othe=
-r DMA
-> operations, such as allocating DMA memory, as it would technically be a d=
-ata
-> race.
+DMA handles passed as invoke arguments (scalars beyond nbufs) may refer
+to the same dma_buf fd as an input/output buffer argument. Taking an
+extra reference for such DMA handle maps leads to duplicate mappings and
+an unbalanced reference count, since DMA handle maps are released
+separately when the DSP returns the fd through the fdlist.
 
-Do they really have to be called *before* allocating DMA memory, not do the=
-y
-just need not be called *concurrent* to DMA memory allocation?
+Fix this by not taking an extra reference for DMA handle arguments
+(take_ref = false) and tagging them with FASTRPC_MAP_DMA_HANDLE. As
+these maps are borrowed references, fastrpc_get_args() re-validates the
+map via fastrpc_map_lookup() before dereferencing it, so it is not used
+after being freed. fastrpc_put_args() only releases maps flagged as
+FASTRPC_MAP_DMA_HANDLE and clears the flag to guarantee the map is freed
+exactly once.
 
-If it's the former, we can require these to require mutable reference inste=
-ad,
-so the probe takes `Pin<&'bound mut Device<Core<'_>>>` which still derefs t=
-o
-`&'bound Device<Bound>`, but Rust will require the shared reference to not
-co-exist with the mutable reference.
+Fixes: 10df039834f84 ("misc: fastrpc: Skip reference for DMA handles")
+Cc: stable@kernel.org
+Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+---
+Patch [v3]: https://lore.kernel.org/all/20260805060940.41414-1-jianping.li@oss.qualcomm.com/
 
-Best,
-Gary
+Changes in v4:
+- Do not expose FASTRPC_MAP_DMA_HANDLE through the uapi header. The flag
+  is only set and consumed by the driver, userspace never passes it as an
+  input flag, so define it privately in fastrpc.c instead. This also keeps
+  FASTRPC_MAP_MAX as the real upper bound of the uapi flags.
+- Drop the FASTRPC_MAP_DMA_HANDLE rejection in fastrpc_req_mem_map(): with
+  the flag no longer in the uapi, userspace cannot pass this value through
+  the MEM_MAP path, so the check is dead code. The commit message paragraph
+  describing it is removed as well.
+
+Changes in v3:
+- No functional changes.
+- fastrpc_put_args(): document that clearing map->flags without a lock
+  is safe because the DSP reports a given fd in the fdlist only once,
+  so no concurrent fastrpc_put_args() can race on the same map's flags.
+
+Changes in v2:
+- Rework the commit message to describe the DMA handle reference and
+  lifetime problem more precisely.
+- Introduce a new FASTRPC_MAP_DMA_HANDLE uapi flag and a 'flags' field
+  in struct fastrpc_map to explicitly tag DMA handle maps, instead of
+  relying only on the nbufs boundary / take_ref.
+- Plumb an mflags argument through fastrpc_map_create() and
+  fastrpc_map_attach() so DMA handle maps are tagged at creation time.
+- Re-validate the borrowed map in fastrpc_get_args() via
+  fastrpc_map_lookup() before dereferencing it, to avoid a
+  use-after-free when the map was created with take_ref = false.
+- In fastrpc_put_args(), only release maps tagged FASTRPC_MAP_DMA_HANDLE
+  and clear the flag afterwards, so such maps are freed exactly once.
+- Reject FASTRPC_MAP_DMA_HANDLE in fastrpc_req_mem_map(), since these
+  handles are already mapped implicitly during the remote invoke and
+  must not be mapped again through the explicit MEM_MAP path.
+---
+ drivers/misc/fastrpc.c | 56 +++++++++++++++++++++++++++++++-----------
+ 1 file changed, 41 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index d4fac2caca86..58f27e271317 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -52,6 +52,9 @@
+ #define FASTRPC_CTXID_SEQ_SHIFT	16
+ #define FASTRPC_CTXID_SEQ_MASK	GENMASK_ULL(63, 16)
+ 
++/* Map the DMA handle in the invoke call for backward compatibility */
++#define FASTRPC_MAP_DMA_HANDLE  0x20000
++
+ /*
+  * Newer DSP firmware implements a PD (Protection Domain) notification
+  * framework that sends PD state notifications upon request. The PD exit
+@@ -253,6 +256,7 @@ struct fastrpc_map {
+ 	u64 len;
+ 	u64 raddr;
+ 	u32 attr;
++	u32 flags;
+ 	struct kref refcount;
+ };
+ 
+@@ -879,7 +883,7 @@ static dma_addr_t fastrpc_compute_dma_addr(struct fastrpc_user *fl, dma_addr_t s
+ }
+ 
+ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+-			      u64 len, u32 attr, struct fastrpc_map **ppmap)
++			      u64 len, u32 attr, struct fastrpc_map **ppmap, int mflags)
+ {
+ 	struct fastrpc_session_ctx *sess = fl->sctx;
+ 	struct fastrpc_map *map = NULL;
+@@ -896,6 +900,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+ 
+ 	map->fl = fl;
+ 	map->fd = fd;
++	map->flags = mflags;
+ 	map->buf = dma_buf_get(fd);
+ 	if (IS_ERR(map->buf)) {
+ 		err = PTR_ERR(map->buf);
+@@ -970,13 +975,13 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+ 	return err;
+ }
+ 
+-static int fastrpc_map_create(struct fastrpc_user *fl, int fd,
+-			      u64 len, u32 attr, struct fastrpc_map **ppmap)
++static int fastrpc_map_create(struct fastrpc_user *fl, int fd, u64 len, u32 attr,
++			      struct fastrpc_map **ppmap, bool take_ref, int mflags)
+ {
+-	if (!fastrpc_map_lookup(fl, fd, ppmap, true))
++	if (!fastrpc_map_lookup(fl, fd, ppmap, take_ref))
+ 		return 0;
+ 
+-	return fastrpc_map_attach(fl, fd, len, attr, ppmap);
++	return fastrpc_map_attach(fl, fd, len, attr, ppmap, mflags);
+ }
+ 
+ /*
+@@ -1047,23 +1052,25 @@ static int fastrpc_create_maps(struct fastrpc_invoke_ctx *ctx)
+ 	int i, err;
+ 
+ 	for (i = 0; i < ctx->nscalars; ++i) {
++		bool take_ref = i < ctx->nbufs;
++		int mflags = 0;
+ 
+ 		if (ctx->args[i].fd == 0 || ctx->args[i].fd == -1 ||
+ 		    ctx->args[i].length == 0)
+ 			continue;
+ 
+-		if (i < ctx->nbufs)
+-			err = fastrpc_map_create(ctx->fl, ctx->args[i].fd,
+-				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
+-		else
+-			err = fastrpc_map_attach(ctx->fl, ctx->args[i].fd,
+-				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
++		/* Set the DMA handle mapping flag for DMA handles */
++		if (i >= ctx->nbufs)
++			mflags = FASTRPC_MAP_DMA_HANDLE;
++
++		err = fastrpc_map_create(ctx->fl, ctx->args[i].fd, ctx->args[i].length,
++					 ctx->args[i].attr, &ctx->maps[i], take_ref, mflags);
+ 		if (err) {
+ 			dev_err(dev, "Error Creating map %d\n", err);
+ 			return -EINVAL;
+ 		}
+-
+ 	}
++
+ 	return 0;
+ }
+ 
+@@ -1195,6 +1202,16 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
+ 		list[i].num = ctx->args[i].length ? 1 : 0;
+ 		list[i].pgidx = i;
+ 		if (ctx->maps[i]) {
++			/* It is possible that map is created with
++			 * mflags FASTRPC_MAP_DMA_HANDLE and take_ref
++			 * is false. Check if map still exists or is
++			 * being freed as take_ref is false
++			 */
++			if (fastrpc_map_lookup(ctx->fl, ctx->args[i].fd,
++					       &ctx->maps[i], false)) {
++				ctx->maps[i] = NULL;
++				return -EINVAL;
++			}
+ 			pages[i].addr = ctx->maps[i]->dma_addr;
+ 			pages[i].size = ctx->maps[i]->size;
+ 		}
+@@ -1244,8 +1261,17 @@ static int fastrpc_put_args(struct fastrpc_invoke_ctx *ctx,
+ 	for (i = 0; i < FASTRPC_MAX_FDLIST; i++) {
+ 		if (!fdlist[i])
+ 			break;
+-		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false))
++		/*
++		 * DMA handle maps are released when the DSP returns the corresponding fd in
++		 * fdlist. The DSP is expected to return a specific fd only once in fdlist,
++		 * so no two fastrpc_put_args() paths should clear the DMA_HANDLE flag for
++		 * the same map concurrently.
++		 */
++		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false) &&
++		    mmap->flags == FASTRPC_MAP_DMA_HANDLE) {
++			mmap->flags = 0;
+ 			fastrpc_map_put(mmap);
++		}
+ 	}
+ 
+ 	return ret;
+@@ -1621,7 +1647,7 @@ static int fastrpc_init_create_process(struct fastrpc_user *fl,
+ 	fl->pd = USER_PD;
+ 
+ 	if (init.filelen && init.filefd) {
+-		err = fastrpc_map_create(fl, init.filefd, init.filelen, 0, &map);
++		err = fastrpc_map_create(fl, init.filefd, init.filelen, 0, &map, true, 0);
+ 		if (err)
+ 			goto err;
+ 	}
+@@ -2244,7 +2270,7 @@ static int fastrpc_req_mem_map(struct fastrpc_user *fl, char __user *argp)
+ 		return -EFAULT;
+ 
+ 	/* create SMMU mapping */
+-	err = fastrpc_map_create(fl, req.fd, req.length, 0, &map);
++	err = fastrpc_map_create(fl, req.fd, req.length, 0, &map, true, 0);
+ 	if (err) {
+ 		dev_err(dev, "failed to map buffer, fd = %d\n", req.fd);
+ 		return err;
+-- 
+2.43.0
 
