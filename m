@@ -4,143 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC9B0C88E50
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 07:16:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62C3FC88E50
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 07:33:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EE9989D39;
-	Mon, 14 Sep 2026 07:16:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A859F10EB9F;
+	Mon, 14 Sep 2026 07:33:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="NkAOHbxh";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Tlpx0cy4";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Kj9ll0q/";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012001.outbound.protection.outlook.com
- [40.93.195.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D958F89D39;
- Mon, 14 Sep 2026 07:16:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TLpuHYVSPK0q45gUwqDtXHON5O8MA/cAIClKl5CbbRImqC/oJ1/H2bQ2O09xdPpEODvzTa0x95uIYr0MkWQfHpSItCX+20fyM4OArmQnBjxehsZXOuiX+1aIkJ1I41VENC0suKeOs6hV+z7eIKmyZyh7o/6MMmtMRB/kQG/t0A1HIyOdvTjONZxC4LXec7tfa8y46gFrlLD1jXJILXzINIOSS+s9HwiYEMY8JGUAyVC+yUZEVtWRwRd9UYzynK0qwU00LU99j/Z8DHz0HCnIeKBJj+R95j+yIu/n6RxL1oLp5C+wUV99wtTj4DioTb0NBHvuu+YmcNTFYladqJh44g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3a0BwSPxivy3jFGs2kCTXh/7p6GYOTmkbMRkZ1Bdjto=;
- b=YfT7oHZsiL1GVyiOmimj8Tj9ZhqZIiSdOYC8tuMmpRf0P23Rsz4MYEcpz1XqR+1sNJfIHEXcMVNBzJFfQh4JoxFfuxRyHoZW7f4MBqNYIjxLajMAhl6Zr8ZQdWpokwDmtauoCMU8oPXFbMWM0uS7wKI6OZtYACMKWaOH8RYvxmpwm/wJsl/VRTP4Zw5aokaqD5B2LXFmYFKnxvb2zl/KnQbhw3QKetB7r9r+TOk0I+htcpYuNQ9Eqy6D2afj8Erh/K4MHq6107eT6SPuKXM+0XFMH/TbClGgtUPfVEhS8yVaxG/tFt7kC06V6zXQrQeRLZNFiSkBDCa3aSXJwoW2pg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3a0BwSPxivy3jFGs2kCTXh/7p6GYOTmkbMRkZ1Bdjto=;
- b=NkAOHbxhneuPrQ2GAwZuXdE9kC+pbzrFiR4Naugh1nnpBCTbPAGiyMFmtk3EoXS3Mx0HMTzrKlZ6giRX42cjb5MPIUY63vHFGj3Ct5375mi/Cyj3cdHNMS2fOUaphv5iQ/5N2rK/rWPkSHxl5Dux7uJFM20hv2wpc2N6H6sOsdAY8LgWo5rZIdD4OxOQfHlnJAAaTAFbG+j4OTpfditVpSdicKxknbH89E/UKzoDKYt7ym0a4Aa/OeO1HodrRgk4ObFKCGFxFQKbgQ6n5Wq9Ouv1dAX3Td03Mi0MYzJHE+cDVEnIze747uxZYc95rZT1ipuDuvZff6oIqbUGozPJXQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- PH7PR12MB5596.namprd12.prod.outlook.com (2603:10b6:510:136::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 07:16:37 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 07:16:37 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 14 Sep 2026 16:16:34 +0900
-Message-Id: <DLEUSN5KTTFU.1OWYCOS7KC3NJ@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
- <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v2 7/8] gpu: nova-core: add NVKV typed decoding
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
- <20260827-b4-nvkv-v2-7-0de9d5c8658c@nvidia.com>
- <DLEQBIQ50C39.23F0YZK9D7VUD@nvidia.com>
- <DLEUCB80B7ZP.BW7O43IISMQR@nvidia.com>
- <61f1f28f-d76d-4231-b99e-4dd4a18b4fbb@nvidia.com>
-In-Reply-To: <61f1f28f-d76d-4231-b99e-4dd4a18b4fbb@nvidia.com>
-X-ClientProxiedBy: TY6PR01CA0023.jpnprd01.prod.outlook.com
- (2603:1096:405:3bb::6) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8916510EB9F
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 07:33:18 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68E5iwgD543112
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 07:33:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=PPVHmgYi7mIm8HbRO3S2SjE7
+ s1NeTOAcrc3esYObcpQ=; b=Tlpx0cy4xC/PJbyXS/+6IME4cTRft8805PiR1jjE
+ 871i3Ntx9bL1FEDluPZPNCYzjCkRCpgVn/iUknQBnQ7TfVg7qel4lX+p0Z2ST8aS
+ LVDjP4d3MZKmyZ//KhRX6EnEKeVWPgJgE3EZ9biavcGFACtn/cclAeCops025BF7
+ DRkP1yT7CS4+YhI5GjQUzBk0QjsrsLRCbMiuQFE7gqkqK8kV9ypRT+ZEa4cFQvk3
+ EiWT2d9C4hqYtSjpnSj2/8Ix3b36ATzkC0ehYKENwIVYY7Fc6qVilGyQVqFwoaEq
+ Hxvt1thilrpMjDb67zokaMQZ7qaAd8cDuEsbeiIINo5Q6w==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gp3k09c8f-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 07:33:17 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-93a01d1d1b6so307926685a.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 00:33:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1789371197; x=1789975997;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=PPVHmgYi7mIm8HbRO3S2SjE7s1NeTOAcrc3esYObcpQ=;
+ b=Kj9ll0q/N82f2LgIBBZpHPQBasXcKYEDk+X4kUNRBss08mMsA5/tIISdirVQ8fasUP
+ m+XL4WkZZXIPQ8l1St24PDKRObSwrDvPYV1AF/0n4gx+kKVaemZDLeRQ581ej+IF1s1v
+ 03XbVbpisjkpCakN+SbSbrjLsVYrbvTOJ0ynev6yU9Uq0A2Oh+nBBTDmZOExKkmKLf6k
+ QrjHtULyuVRr0IXeOxFBLdyUuT/adjYAWwFh3YWGBZZkLRT7FerMkNFI5go0snIVWAnA
+ fscNphKc67XzT+2ADxB3Kx5nPtl1dE0dZ/Z334t9ac6vNrpylh+zb6zDSzu4OBmjGPQ/
+ mGeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789371197; x=1789975997;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=PPVHmgYi7mIm8HbRO3S2SjE7s1NeTOAcrc3esYObcpQ=;
+ b=pSF76dyVZfuKpiQoaYjgN6odvuuG0O6llYTZZeK1GitqghRXk8spMX5/N40Rjqivb4
+ UnDa2mG4B4iiEJ+8TdmiFTVy109qhzPJUZhhiLx8bU4uGobWmP62UtDzYYRNUO1h+LJ+
+ Y7AKkeoWDosCbLnsXuAJuYebBcTtb0ShWGm5O+xHayCYVzptkPNY6y6ljJ5Okugl5/Dd
+ vAnO8bC1B4xrx9yYp9LNR1LXPS1aqTbx//Bo/07o6wsvKb3f5J+ST011h30v7xsCtxf9
+ gw6eBKx5tatgjSzshc923vm7ZLk+hXOwz6WkVTtyeQg0/50UUNS1unMFZVFIMcvsVFPJ
+ moPQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwhxgiH7XDZsP7EU5IhLeJap8S778EojTyDjmMt3zORtIdOTzq0hRkj3D1MBaEDZE/ytPS1XYc4wqo=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lUYrmyBI2SYpr7dJQX2Cox5PU4VZoqFnXmrjA9V4G1t1PZUwam
+ lM4E+9Rql+Fm26K6quLCkbnsd2BFvLukA9IF8ODWse+Xc/uiFa3hzbb5MZUodh3ZUQIncqZ2izp
+ UHq3EQIk5kRxgqhMzcToNFUK+Ng86pp0b7us+Do43wPWha7NRnAecEmNI7u9KcnAHZZoilbg=
+X-Gm-Gg: AYBFou3SBh+f4S70BIMOFoEN/6VYkuRv0xnoVUHsAp2OBHRreA/oIG44wjyn7m4ClzS
+ SxedJroNzwREKx8iVBmmzd+7Q1dpDwx17+RKtBCVNoKj9DRBXVpi36O1PvsXjFvxHoYRoXw8y9b
+ EIfIhWq8ut+hkPpnNJ6KyYA4t4FBknByH3etJBnY37TvA1nwJO/W5sj9VWBjWyO2K4pyHM5pnrD
+ VDZO3V8hYJptfLmcGp6GrAlwzu1DN6B17ULhHVbAyjsrCMISPzEvl8h5PNUJQbEl4JtpbKdIrY0
+ ydCABScZQFPjrB9Yg8C7WNWaX9E3FNHmXNvIoWPzzLl/NeQ0KRG5rS+R5lcZz9WVxOxS0K7/c9J
+ 1/SuiUp4mvBEP9cU=
+X-Received: by 2002:a05:620a:684a:b0:939:36f3:fea8 with SMTP id
+ af79cd13be357-93a299fbf40mr181203085a.25.1789371196775; 
+ Mon, 14 Sep 2026 00:33:16 -0700 (PDT)
+X-Received: by 2002:a05:620a:684a:b0:939:36f3:fea8 with SMTP id
+ af79cd13be357-93a299fbf40mr181199385a.25.1789371196308; 
+ Mon, 14 Sep 2026 00:33:16 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49e6cc11607sm194517025e9.12.2026.09.14.00.33.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 14 Sep 2026 00:33:15 -0700 (PDT)
+Date: Mon, 14 Sep 2026 10:33:12 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ mpearson-lenovo@squebb.ca, sibi.sankar@oss.qualcomm.com
+Subject: Re: [PATCH 3/4] arm64: dts: qcom: Add Lenovo ThinkPad T14s Gen 7
+Message-ID: <654pl65hnq5hrdebqsj7iyse6uea2ltrnahac2fsszj77lodun@56yozp6x44bn>
+References: <20260913201835.250085-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260913201835.250085-4-srinivas.kandagatla@oss.qualcomm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|PH7PR12MB5596:EE_
-X-MS-Office365-Filtering-Correlation-Id: cb12f7dc-7b8e-439d-03e7-08df12301da2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|366016|10070799003|23010399003|10063799003|22082099003|18002099003|3023799007|11063799006|4143699003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: flJkZbDmgaF7pq8lOnDYbD8ntt0/7TBDWVzdWkGqt+AYRlNNLO5+fY+TCwFY6E3SFfQ1jWVQYj9wxNDiCAJJiMeTY9nRs3TIQeDZn9lFfy04TMXUuO1rtdI8FqT5L9QApCVWd9cjaadyyc3Wstro+MVlhWJNeEs/KhGwaoirWdkoeJgIvNJzH96zYFDjcDvAzl3Az3vL9VycehwX1u7L2SCTzSLnr96CPBYfWsEey7yOfWAjuGR/Ih06pMRXMV0KBaURU2ZEolbba+sdi5v6+PYEb5Tg2c4gd8nIbJIiTjS6WDt1l0YpHP8o3iG+mLUH90LiIdP9VmhMGxoa3xedFwSgs55YF6KGdf3A9cf4zSa/QRYvKkadifW++vF7LvnPIIsbC/itFIeSHMvMpfMgy2HHgYEdV88poAsfQODXlUQRIzjvWXB0PHPKck8u8l+14JPvJ70UrcC1ZZx2LuiXv3NYAqsZ6oKQjYJzdaR2qyaXbPDCfR9jgkBYhCC6skaKA/wUWjXBngA393bMk+em6ozoD8+D1oafiYjQD6aHOzIeiPUaZ5q//rHyN7pbuXtbVgKu7q0Ah1i0JT/lFJqEQzQ5Yu+SsIj2ueH5LQr1i4KaLN7G+ehP/vaSQTUAcljKYJ4nPWt60gxFA6UGYZ0Q2IICAS26wzf/7V9xcKBmSps=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016)(10070799003)(23010399003)(10063799003)(22082099003)(18002099003)(3023799007)(11063799006)(4143699003)(10067099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SFdNaWxXUkRYTTVLWEhoUnlySWRaNHdtSnFWMGhzSjdJMmtCUXAzUEF3NEt4?=
- =?utf-8?B?UHBXUk1WZjJ5bzRNU1FUeC9qRU9oNUtnMU9qWm1mdytWMVV6LzQ3aDN5NE5T?=
- =?utf-8?B?KzdYTjRkMmxuaHltblVlc1FJK25mR25KWUE1RURUOHZkNXYxUHlXbEtHQTBB?=
- =?utf-8?B?ZVdXTWJqRjVSQVFqbWZESXovR3ZBTDhiZDJZRStaMUVVZ3hPbzZjb05ZYzZP?=
- =?utf-8?B?OGJLUUpkb1V1aG85RVp0NTJZcnB3Z1lJZUpLUkRqZVNwOXF2RmpyRlRxbWdN?=
- =?utf-8?B?ZzJyNndWL2JJRUViSGhpYUtybHA0QTZBWG5TYzV0KzVRUFF2ckFNL2p4MHBM?=
- =?utf-8?B?MFNvcXpvQWRpNGdwZmpmSHR4TkpMUDdIZFBFdzFFVFpmMVNsNDRMMUFPNlhS?=
- =?utf-8?B?VjRRSHdRSjN6djl5Vkpqd3pxVkVQVy9jYnBlck80SDJGT1JUZkkwZS9EMmFF?=
- =?utf-8?B?TGtoNmkvekFNWERSOWU3cEp4aUNLa1NGWVo1WkJxRFdFN2tVRENFNHRUbEt0?=
- =?utf-8?B?UENKaWszSzZOdDdER1JNUkVmcjBuSUJsTXRkMHFIV1k0d1E4UkM5Y3ZXWFBS?=
- =?utf-8?B?MzEvWkZIZzdoanpRdmh3NHVxTnhyL04wcE5IYys1eFhHamdvVExuejVnbHJY?=
- =?utf-8?B?bGt3RXNIQjVXTXlpMVJCbm9lZHQ0bjg4S1dRclZyYk1aTkhGVEJuNGw0Y1ln?=
- =?utf-8?B?MXBITFY1Ymdya0pTZkNnZTZsMnp4dXVuV0FkNzRveXdndEdLREJ5QldLOUFW?=
- =?utf-8?B?dHFvcmNyY0xmUkxLbXFobE5hZFphaXpDcm9iMDN3cDJrQTFuTUl0RDZXaFJz?=
- =?utf-8?B?bFRkK2VwWVZpQ1Q2TWVtVlZTZDU5ZVlIbDBURlBJWkpSQUdBWUhyNFNBTHhD?=
- =?utf-8?B?WEJ5RG1VNnQvbjcrUVZ0YnRtbmxiRjVxWGFtdWlucG9qVWNvMkFUL25vM1Vj?=
- =?utf-8?B?bWhwenJ1Z0IxZ2hZQ2N4WE1EcHFkOXFaRm5ZeWRzM0s5OVllRm9MVHBRMHJN?=
- =?utf-8?B?QlFicnIzYkh6YUovTi9zT1djUnVsTlFiWHlDNXRVL09rd2lSb2cxRFlrbEdV?=
- =?utf-8?B?emlaekZJeThlNjl2VDFBYjdZQjlWUXZvSVJweGxlOW1iOThkbGFvcFg3d3Bh?=
- =?utf-8?B?V1lBQnFDQTRURUc5VEJ6dHVyU1BYejFhQWdSRzFDWFpzMmFDbGN6ZHpkUUc3?=
- =?utf-8?B?N2R0aU1PRG0rUFRVZlp5VGZmZXVrRGRMQ3RJSVZNVVhRbzNJM0R0c1lBK1RI?=
- =?utf-8?B?aG1BUWJLTGxWNnltaEp3YzVkbGZ3MjJzRVdzcVhIVjJYYXBnZzB1c21LM1Y2?=
- =?utf-8?B?ZzJMMTRLb3RMSU14Q1FheVdiZDdGMUxaMHBoQXNVTk82Vm41cTRPWnFZcE44?=
- =?utf-8?B?VlllbGprVW5PSTJxek1pYU02NEJWRTQyT29jL1ZvSWVHV2VjTSswamJpYzJK?=
- =?utf-8?B?Z2VyV082eU4vOXlZbzRDdlJYc2c1VHJabHZPV3FRbHdtWDZBK0sxN2dFSndO?=
- =?utf-8?B?azhBSmkvTFJkL3kvbXpwVW5yMDZRM3FRVlp2RzMrQUMrVTA1VTN0dVpZQjJw?=
- =?utf-8?B?VjBZVkhXWmxCZE42aUNib1BVUXZjMTFFdzJoK1N5MVQrZkoyd2JYTTdpV3hj?=
- =?utf-8?B?RGNxMDZsaHFTMkxzTHo3ejN5eHM0cnJVSVltRG45bWdOeHlkRmVjY1RhK3Vn?=
- =?utf-8?B?QlB4cGVtaGhjYTBIR1Ridkh4akxkTFYzditpZzBHZHE5aDYyTk5FQ1lBYjU2?=
- =?utf-8?B?R1BTbVhJL040OXN5Q3FldEVKc1NkTmhDS2dtRzRzamtQMHU1VTM5VU5mMmg4?=
- =?utf-8?B?c3dyRHhDRzRTK0cyRnlTNHNKZVdTdlRzT3ZrRTA3QzN5dUN2TDlmWTIrbUJD?=
- =?utf-8?B?VjVQMEZCUXl5bU5kZTlNWnFiNFk3Z0hsWnQxTWZYdmNuVnFlTWFsdldoSlVq?=
- =?utf-8?B?QWZJNWJGc3hMeEhjc1RxZmgxMVVRWlROWm52SStMYUNBckJQcUFYdmNnazhZ?=
- =?utf-8?B?MmJDcE5vQithNmtlcm50aGxQVXBaeVFSTXpvaGJtYzBtSjBTbG9OeFNwK0FF?=
- =?utf-8?B?NHh6bGtsTUFJQWExMXB3d25ZSVpSWFRCN2o4dmQxcWNGSUcrUWpYN3AxUVlj?=
- =?utf-8?B?TFVhZlpTYUtWTVJYMEo4bkdiajRoa1ZXNmJIOWI4WVFXbVdRQ2NHLzl1eENC?=
- =?utf-8?B?UUxTbmk3RjFVSVcxYWVMNHdaM1ZaSmZXVFpUYkkrTi9CY1IvcVJvM3dxNFhj?=
- =?utf-8?B?N2UyWFJLSStSWGpXY2I0cTgzSkV6R29xZWVQZERUcjBqbFZZOEVTUGlsTHI1?=
- =?utf-8?B?V25UL2k4L3BnMWF1b01oR0NzbXhSMU1NMlk2aVJIR1Y2eGd1M0pVbnU0R0Vn?=
- =?utf-8?Q?4LJPWuzxI68Id6AiV9g5CWjHmsNJS1OrswfG9TYjod0xO?=
-X-MS-Exchange-AntiSpam-MessageData-1: +AdrGg+3xsA2+w==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb12f7dc-7b8e-439d-03e7-08df12301da2
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 07:16:37.5782 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gfvjIB2OIFQOGMMJBjqousodmmIgiHh8Ho3jX92HO8MevHncqY9x0NlDTL53ziNKoCz1tn0ZZ0P+BUOKJ5gIhQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5596
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913201835.250085-4-srinivas.kandagatla@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEwNSBTYWx0ZWRfX2UV08jIWaXSD
+ exDN8QK5w8DcOpBPT8V0dwQ2Bbku0IqiwmhkBHlLC3wec6rsgC83gjQ4Vfmy0qVIX7LqiKyKeIc
+ F+iVu3fwT5ZaBgvJNLeC0PmjYoLwvF4=
+X-Proofpoint-GUID: ea5BGUNZ_tf0OxRzO2yi68YsCkS9bssc
+X-Proofpoint-ORIG-GUID: ea5BGUNZ_tf0OxRzO2yi68YsCkS9bssc
+X-Authority-Analysis: v=2.4 cv=BtAIUoX5 c=1 sm=1 tr=0 ts=6aa7a33d cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=akxgaDyAjk3E6sMMxtYA:9 a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEwNSBTYWx0ZWRfXw5EvC7z9NjG9
+ 7bHc9LqHuz5KFOU5wZbXEv/mx0bfC6xvWXzDlkmCraqaaHrDQcntRIHgS6YU2kZleiAx9MPyjv+
+ IhVCVddEpe1Jygg0+0UrRAiNN/qQ+pKR8kpdYy/csnwLKaU31Dv1HefwbU0/pAQLYwGu8cqfDGR
+ Oav6Eg6mdRTNutk0Bu4T94EeMiwugoiGYxLj6DUap395T/UwejfIVtS/oVHb1adyPfYrXyjEDMr
+ mjIZtXmfEDTObEYvxpAeXmcJB+ovM2T/MkCMTUg4+orO1YwNJdWya6FRaQvLgjFDXgpc9i7TPh0
+ CMChVSWpGHFCR119Ap+ouMF3QaibhjkBftB+OgoTtxD0vlqARtTIVvV9WFzf6Jb1R3D0lkEY+8Y
+ Hk/svFgdp0OOf1iicZ0VxZGbGzwZauNH4qYup5XqdXoiW4AHANnfwLYCoRe5WKpaERqQF35b9bf
+ bgXxvLmKTmYeZ+goRXg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 phishscore=0 impostorscore=0 suspectscore=0
+ bulkscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140105
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,61 +153,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Sep 14, 2026 at 4:04 PM JST, John Hubbard wrote:
-> On 9/13/26 11:55 PM, Eliot Courtney wrote:
->> On Mon Sep 14, 2026 at 12:46 PM JST, Alexandre Courbot wrote:
->>> On Thu Aug 27, 2026 at 11:12 PM JST, Eliot Courtney wrote:
-> ...
->>>> +            fn visit(
->>>> +                &mut self,
->>>> +                key: $crate::gsp::nvkv::KeyId,
->>>> +                index: $crate::gsp::nvkv::Index,
->>>> +                value: $crate::gsp::nvkv::DecoderValue<'_>,
->>>> +            ) -> ::kernel::error::Result<bool> {
->>>> +                Ok(false
->>>> +                    $( || $crate::gsp::nvkv::Schema::visit(&mut self.=
-$field, key, index, value)? )*)
->>>
->>> Mmm looks like this is going to be `O(n)` with `n` being the number of
->>> fields?
->>>
->>> This is ok for a first implementation but eventually I hope we can
->>> switch to a more efficient dispatch.
->>=20
->> I thought quite a bit about this while writing this code, since we need
->> the escape hatch to imperative decode (custom Schema impl basically). To
->> be able to get it down to a match on the key, we need to know ahead of
->> time which keys a Schema will consume. That duplicates the info from the
->> visit() implementation.
->>=20
->> I thought up a few methods but it's unclear to me which one is best, so
->> I just left it for now. Please LMK if you think this is urgent, I can
->> try in a follow up to improve this. Here are my ideas (when I say O(1)
->> lookup I mean modulo how the compiler decides to do it with the set of
->> key IDs it gets):
->>=20
->> 1. current code - just visit()
->> pros: key source of truth not duplicates
->> cons: O(field) visit as you say
->>=20
->
-> Something about the visit pattern has always concerned me, and I think
-> it has to do with the fact that people have been told to use it in
-> all kinds of situations. But it's really only ideal for a few situations,
-> such as updated a bunch of objects on a display, for example.
->
-> It's not a good fit here IMHO.
->
-> Is it hard to do one of the other choices, up front? If it's easy,
-> it would be nice to skip this visit entirely. :)
->
-> thanks,
+On 26-09-13 21:18:34, Srinivas Kandagatla wrote:
+> Introduce a device tree for the Mahua-based Lenovo ThinkPad T14s Gen 7,
+> a Snapdragon X2 Elite laptop.  It follows the Qualcomm Glymur reference
+> design used by mahua-crd.
+> 
+> Currently working:
+> - Display (internal eDP panel)
+> - Audio playback and capture (2x WSA8845 speakers on swr0, DMICs via
+>   the VA macro)
+> - USB-C (host + charging on both ports)
+> - Wi-Fi (WCN7850 on PCIe4), Bluetooth (over uart14)
+> - NVMe on PCIe5
+> - HID-over-I2C touchpad, keyboard and TrackPoint on i2c0
+> - Lid switch
+> - WWAN wiring is included but remains untested due to lack of access
+>   to such a SKU.
+> 
+> Assisted-by: Claude:claude-opus-4-7
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
-It's not too hard to do one of #2-4 now, it's just a bit of extra
-complication which is why I left it out. The performance gain is kinda
-minimal since this doesn't happen in a hot path.
+One minor nit below. Anyway, LGTM so:
 
-That said, all the options I mention here still use `visit`. #2-4 are
-all about adding extra info to help avoid having to call `visit` as much
-+ let the compiler have more info so it can generate a jump table etc.
-That said, if you have an alternate approach, happy to hear it.
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+
+> ---
+>  arch/arm64/boot/dts/qcom/Makefile             |    1 +
+>  .../qcom/mahua-lenovo-thinkpad-t14s-gen7.dts  | 1184 +++++++++++++++++
+>  2 files changed, 1185 insertions(+)
+>  create mode 100644 arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7.dts
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+> index 6c2ac11133ca..c71d536fc3e7 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -59,6 +59,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-el2.dtb
+>  lemans-evk-ifp-mezzanine-dtbs	:= lemans-evk.dtb lemans-evk-ifp-mezzanine.dtbo
+>  dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-ifp-mezzanine.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= mahua-crd.dtb
+> +dtb-$(CONFIG_ARCH_QCOM)	+= mahua-lenovo-thinkpad-t14s-gen7.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= milos-fairphone-fp6.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= milos-nothing-asteroids.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= monaco-arduino-monza.dtb
+> diff --git a/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7.dts b/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7.dts
+> new file mode 100644
+> index 000000000000..be5f12bfe56a
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7.dts
+> @@ -0,0 +1,1184 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +/dts-v1/;
+> +
+> +#include "mahua.dtsi"
+> +
+
+[...]
+
+> +
+> +	reserved-memory {
+> +		linux,cma {
+> +			compatible = "shared-dma-pool";
+> +			size = <0x0 0x10000000>;
+> +			reusable;
+> +			linux,cma-default;
+> +		};
+> +	};
+> +
+> +
+
+Nit: Drop this extra line.
+
+> +	sound {
+> +		compatible = "qcom,glymur-sndcard";
+> +		model = "Lenovo-ThinkPad-T14s-Gen-7";
+> +		audio-routing = "SpkrLeft IN", "WSA WSA_SPK1 OUT",
+> +				"SpkrRight IN", "WSA WSA_SPK2 OUT",
+> +				"VA DMIC0", "vdd-micb",
+> +				"VA DMIC1", "vdd-micb";
+> +
+> +		wsa-dai-link {
+> +			link-name = "WSA Playback";
+> +
+> +			cpu {
+> +				sound-dai = <&q6apmbedai WSA_CODEC_DMA_RX_0>;
+> +			};
+> +
+> +			codec {
+> +				sound-dai = <&left_spk>, <&right_spk>,
+> +					    <&swr0 0>, <&lpass_wsamacro 0>;
+> +			};
+> +
+> +			platform {
+> +				sound-dai = <&q6apm>;
+> +			};
+> +		};
+> +
+> +		va-dai-link {
+> +			link-name = "VA Capture";
+> +
+> +			cpu {
+> +				sound-dai = <&q6apmbedai VA_CODEC_DMA_TX_0>;
+> +			};
+> +
+> +			codec {
+> +				sound-dai = <&lpass_vamacro 0>;
+> +			};
+> +
+> +			platform {
+> +				sound-dai = <&q6apm>;
+> +			};
+> +		};
+> +	};
+> +
+
