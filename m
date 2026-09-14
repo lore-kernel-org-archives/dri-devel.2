@@ -4,44 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64F0DC88E72
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 18:32:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FC9AC88E6F
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 18:34:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A80C510E1EA;
-	Mon, 14 Sep 2026 18:32:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8BC310F136;
+	Mon, 14 Sep 2026 18:34:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="n8P8hDcz";
+	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="etFSTt+8";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C407910E1EA
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 18:32:52 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 171AB60142;
- Mon, 14 Sep 2026 18:32:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A31261F000FF;
- Mon, 14 Sep 2026 18:32:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789410771;
- bh=V+/3EQ15SLOhMk+WaACJbIhbmlsxDBMGK9m3yji9CFM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=n8P8hDczUV6ya8WVMcDktmJAdjH7R33QZkc5aZo//4WZnwGJp7bmVP+2jped6+fFz
- 2t/IoIb/PNq2Al21TvB94tYAIIUZGgDvZ+/+wyONoGrr97jN7ZKz8sPNRvRWyO8LGJ
- 0ZFs+02QS9tEs9k59PgG60ZnicuLbvnNEH7spapCbhmbHRvZDJm7c72bt6Nojwotwo
- 6BQHCh5h/zgdzYolD1nJUrGyPJbSwUCwVnIwNsyQd5sh4l2oxOSVW3W92471CQFJ6e
- QNCHbpFNW6J1RZggTKDj8CEmZLZLUb4SxI9rgzx2I7CKg9rI7yA2BnSRpcwxXHKkB7
- dkOAJlczH0wxA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/4] backlight: qcom-wled: Fix unbalanced OVP IRQ
- enable at probe
-To: "David Heidelberg" <david@ixit.cz>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260914-qcom-wled-backlight-v3-3-d69fe9843841@ixit.cz>
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AECF010F136
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 18:34:51 +0000 (UTC)
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown
+ [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by ixit.cz (Postfix) with ESMTPSA id D55435340313;
+ Mon, 14 Sep 2026 20:34:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+ t=1789410889;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=eSQ1KHTYxMqP644PbBgyA/dOPDLer74IQYxGcMnJfUA=;
+ b=etFSTt+8ptYo4K+cR2gJYnXD8B4G3ZuMtll5cEaDNDktWBL3s5VSOPK2USP1SW3NFlkRWq
+ SF/FUFcs4EyVMUigZfyLJ1iyNm0M85UDjLpXIruQrRTF9sWi15FhMLZI7Mqp4MpiV43bjC
+ 1/l/pb1SDjvbRLD0KisEGP34f4Lu50M=
+Message-ID: <9ada2cc5-1f2e-48fa-a170-052fe33dff29@ixit.cz>
+Date: Mon, 14 Sep 2026 20:34:48 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/4] backlight: qcom-wled: Fix NULL pointer dereference
+ in PM callbacks
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
+ Kiran Gunda <quic_kgunda@quicinc.com>,
+ Marco Mattiolo <marco.mattiolo@hotmail.it>,
+ =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Joel Selvaraj <foss@joelselvaraj.com>, stable@vger.kernel.org
 References: <20260914-qcom-wled-backlight-v3-0-d69fe9843841@ixit.cz>
- <20260914-qcom-wled-backlight-v3-3-d69fe9843841@ixit.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 18:32:51 +0000
-Message-Id: <20260914183251.A31261F000FF@smtp.kernel.org>
+ <20260914-qcom-wled-backlight-v3-1-d69fe9843841@ixit.cz>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260914-qcom-wled-backlight-v3-1-d69fe9843841@ixit.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,251 +109,27 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
+On 14/09/2026 20:14, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
+> 
+> wled_probe() doesn't set the driver data for the platform device.
+> As a result, dev_get_drvdata() in wled_remove() will return NULL,
+> leading to a NULL pointer dereference afterward.
+> 
+> Set the platform device driver data in wled_probe().
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: feeab87b3072 ("backlight: qcom-wled: Add support for short circuit handling")
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+>   drivers/video/backlight/qcom-wled.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+Please ignore this [1/4] patch, so at least the rest get fixed.
+In next series, I'll omit this one (I thought it's easy drop in fix for 
+critical, but seems not).
 
-New issues:
-- [High] Hardware over-voltage protection (OVP) interrupt is incorrectly di=
-sabled if the module is active but software evaluates brightness as 0, leav=
-ing the hardware unprotected.
-
-Pre-existing issues:
-- [Critical] Type mismatch in driver data leads to memory corruption and ke=
-rnel panic in wled_remove().
-- [High] AB-BA Deadlock between `wled_update_status` and `wled_ovp_irq_hand=
-ler` via `disable_irq()`.
-- [High] Unsafe `disable_irq()` calls in `wled_remove()` with potentially i=
-nvalid or uninitialized IRQ numbers.
-- [High] Destroying the driver mutex and cancelling work before unregisteri=
-ng the backlight device creates a use-after-destroy race condition via sysf=
-s.
-- [High] Delayed work `wled->ovp_work` can be scheduled during device probe=
- but is not cancelled on probe error paths, causing a Use-After-Free.
---
-
-commit fc9aa7b480cc714e361a97ee0c2edec0701360bf
-Author: David Heidelberg <david@ixit.cz>
-
-backlight: qcom-wled: Fix unbalanced OVP IRQ enable at probe
-
-This commit fixes an issue where the OVP interrupt is disabled during probe
-even if the backlight is already enabled by the bootloader. It does this by
-checking the hardware MOD_EN register during probe and seeding
-wled->brightness appropriately.
-
-> diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backligh=
-t/qcom-wled.c
-> index e1962c2d90ed4..eb742a6598173 100644
-> --- a/drivers/video/backlight/qcom-wled.c
-> +++ b/drivers/video/backlight/qcom-wled.c
-> @@ -1643,13 +1642,8 @@ static int wled_configure_ovp_irq(struct wled *wle=
-d,
->  		return 0;
->  	}
-> =20
-> -	rc =3D regmap_read(wled->regmap, wled->ctrl_addr +
-> -			 WLED3_CTRL_REG_MOD_EN, &val);
-> -	if (rc < 0)
-> -		return rc;
-> -
-> -	/* Keep OVP irq disabled until module is enabled */
-> -	if (!(val & WLED3_CTRL_REG_MOD_EN_MASK))
-> +	/* Keep the OVP irq disabled until the module is enabled */
-> +	if (!wled->brightness)
->  		disable_irq(wled->ovp_irq);
-
-[Severity: High]
-Does this leave the hardware unprotected if the module is active but softwa=
-re
-evaluates brightness as 0?
-
-If wled4_setup() explicitly sets MOD_EN to 1, and the initial brightness
-evaluates to 0 (either via default-brightness or wled_read_brightness),
-wled->brightness becomes 0. Could this cause disable_irq() to strip
-protection from the active module?
-
-Furthermore, if userspace later writes 0 to turn off the screen, could
-wled_update_status() check (0 !=3D 0), skip wled_module_enable(0), and
-leave the unprotected hardware permanently on?
-
-[ ... ]
-
-> @@ -1734,6 +1729,24 @@ static int wled_probe(struct platform_device *pdev)
-> =20
->  	INIT_DELAYED_WORK(&wled->ovp_work, wled_ovp_work);
-> =20
-> +	val =3D WLED_DEFAULT_BRIGHTNESS;
-> +	of_property_read_u32(pdev->dev.of_node, "default-brightness", &val);
-> +
-> +	/*
-> +	 * The module may already be enabled, either by a bootloader that left
-> +	 * the backlight lit or by the setup above. Record that, so that the
-> +	 * first brightness update does not enable an already enabled module,
-> +	 * and so that the OVP irq is armed from probe rather than from that
-> +	 * first update.
-> +	 */
-> +	rc =3D regmap_read(wled->regmap, wled->ctrl_addr + WLED3_CTRL_REG_MOD_E=
-N,
-> +			 &mod_en);
-> +	if (rc < 0)
-> +		return rc;
-> +
-> +	if (mod_en & WLED3_CTRL_REG_MOD_EN_MASK)
-> +		wled->brightness =3D val;
-                 ^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: High]
-If default-brightness evaluates to 0, will wled->brightness become 0 here
-despite MOD_EN being active?
-
-[Severity: Critical]
-This is a pre-existing issue, but does a type mismatch in the driver data l=
-ead
-to memory corruption in wled_remove()?
-
-wled_probe() incorrectly sets the platform drvdata to the backlight device:
-
-drivers/video/backlight/qcom-wled.c:wled_probe() {
-	...
-	bl =3D devm_backlight_device_register(...);
-	platform_set_drvdata(pdev, bl);
-	return PTR_ERR_OR_ZERO(bl);
-}
-
-wled_remove() retrieves this pointer and incorrectly casts it to a
-struct wled *:
-
-drivers/video/backlight/qcom-wled.c:wled_remove() {
-	struct wled *wled =3D platform_get_drvdata(pdev);
-
-	mutex_destroy(&wled->lock);
-	...
-}
-
-Since struct backlight_device has a completely different memory layout than
-struct wled, does this type confusion corrupt arbitrary memory when unbindi=
-ng?
-
-[Severity: High]
-This is a pre-existing issue, but does destroying the mutex and cancelling
-work before unregistering the backlight device create a use-after-destroy
-race condition?
-
-The backlight device is registered using devm_backlight_device_register(),
-which defers unregistration until after wled_remove() completes.
-
-However, wled_remove() manually performs cleanup while the backlight device
-is still active and its sysfs interface is exposed:
-
-drivers/video/backlight/qcom-wled.c:wled_remove() {
-	...
-	mutex_destroy(&wled->lock);
-	cancel_delayed_work_sync(&wled->ovp_work);
-	...
-}
-
-Could a concurrent sysfs write to the brightness attribute invoke
-wled_update_status() and attempt to acquire the already-destroyed mutex?
-
-drivers/video/backlight/qcom-wled.c:wled_update_status() {
-	...
-	mutex_lock(&wled->lock);
-	...
-}
-
-[Severity: High]
-This is a pre-existing issue, but could a delayed work use-after-free occur
-if probe fails?
-
-If the hardware asserts a short circuit condition early, the threaded short
-IRQ handler can execute and schedule wled->ovp_work:
-
-drivers/video/backlight/qcom-wled.c:wled_module_enable() {
-	...
-	schedule_delayed_work(&wled->ovp_work, HZ / 100);
-	...
-}
-
-If probe subsequently fails during backlight device registration:
-
-drivers/video/backlight/qcom-wled.c:wled_probe() {
-	...
-	bl =3D devm_backlight_device_register(...);
-	platform_set_drvdata(pdev, bl);
-	return PTR_ERR_OR_ZERO(bl);
-}
-
-Will devres silently free the wled structure without canceling the scheduled
-delayed work, causing a crash when the workqueue later executes?
-
-[Severity: High]
-This is a pre-existing issue, but can this sequence lead to an AB-BA deadlo=
-ck?
-
-wled_update_status() acquires the mutex before attempting to disable
-the module:
-
-drivers/video/backlight/qcom-wled.c:wled_update_status() {
-	...
-	mutex_lock(&wled->lock);
-	...
-	rc =3D wled_module_enable(wled, !!brightness);
-	...
-}
-
-wled_module_enable() spin-waits for any currently executing OVP interrupt
-handlers to finish while holding the mutex:
-
-drivers/video/backlight/qcom-wled.c:wled_module_enable() {
-	...
-	disable_irq(wled->ovp_irq);
-	...
-}
-
-Concurrently, if the OVP interrupt fires on another CPU, the handler begins
-executing and blocks attempting to acquire the same mutex:
-
-drivers/video/backlight/qcom-wled.c:wled_ovp_irq_handler() {
-	...
-	mutex_lock(&wled->lock);
-	...
-}
-
-Would CPU 1 hold the lock and wait for the IRQ handler, while CPU 2 runs the
-handler and waits for the lock?
-
-[Severity: High]
-This is a pre-existing issue, but does wled_remove() unconditionally disable
-potentially invalid IRQs?
-
-If devm_request_threaded_irq() fails, wled_configure_ovp_irq() explicitly
-sets ovp_irq to 0:
-
-drivers/video/backlight/qcom-wled.c:wled_configure_ovp_irq() {
-	...
-	if (rc < 0) {
-		wled->ovp_irq =3D 0;
-		return 0;
-	...
-}
-
-Additionally, platform_get_irq_byname() can return negative error codes.
-However, wled_remove() appears to disable both IRQs without validation:
-
-drivers/video/backlight/qcom-wled.c:wled_remove() {
-	...
-	disable_irq(wled->short_irq);
-	disable_irq(wled->ovp_irq);
-	...
-}
-
-Could passing a negative value cause out-of-bounds descriptor lookups, and
-could passing 0 disable an essential system interrupt like the timer IRQ?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-qcom-wled-=
-backlight-v3-0-d69fe9843841@ixit.cz?part=3D3
+David
