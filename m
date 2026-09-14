@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77C2FC88E7F
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5316AC88E7D
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A89A710F947;
-	Tue, 15 Sep 2026 07:28:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A7E810FA09;
+	Tue, 15 Sep 2026 07:28:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SJBEb+Gi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WuslGyfN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80F8610EF42
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:17:52 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9091D10E175
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:11:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 58C6C40A70;
- Mon, 14 Sep 2026 15:17:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FFF01F00893;
- Mon, 14 Sep 2026 15:17:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 074E360142;
+ Mon, 14 Sep 2026 15:11:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE8341F00893;
+ Mon, 14 Sep 2026 15:11:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789399072;
- bh=fJh5Pnd5DL/qwxE+WalsUTaJGJt6FooGZcWLpPNnk7E=;
+ s=k20260515; t=1789398713;
+ bh=vq7fcgcALBJ39CPNP6uq81Zf3R+8jGkfxEjZiI8t2so=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=SJBEb+GiYUKwq78ymyy9xZi5YxHSsl3+R12Wq1y0Nsf2/hsIt5f6VR12jG9FLsmoK
- IEzLRYU4gHRuR3B6UrSWiBzVaqEaDWCvCvmqwrdKIuMYP29tsdN9RjYMUy4sBEBwEO
- Qwmm0RQ5msDwyuLQ8+6UzfG1pCgJHdctl691Lrfe7MYxV0tWZUErIIggyXeia5YmMK
- h6wnFZurT6Z7hw2RrQcbTH/vH7UDNmre0Tsy8MF/iVuJWyzO05woCfsOn57z0QCf6a
- f3RqU+jD2hnz3/Do3nZKKt1jW7hJNKGt/eLLxEZU7UV2k/yAbKikokP9YsJLwlWHCM
- dm/lMP+3dWi7A==
+ b=WuslGyfNUlT1CCQAP2ixewiYe3QGwPMAcscEwGinA101zl+Wz7ee1DE+pKMnpLwgD
+ vZvTlOxuh1doZ+AdIStIdfdv6tz6PPCiJ7MG9oS5toTfGC9QeHj9IchxR9NUFcYaFy
+ K7fPSHm2yxQKoGoDbvzf+kVD8Ip6hB10Z7Vl257YUf2F+KpuTcIo2IiaWKFEJoqh/l
+ Ngx0XepAuVzjE2BB8m6CizrhpH4qwgO5Rs0Ndy2v+Y7UoyzkKxv0JNHW/S5PqZ6KRQ
+ UFtN9pzAlfOfayOHqD4O1uXyohbiH4mfpRdYovOoAXIZWceJGIZN9OKFxcHvLlblfZ
+ 8kF7YyeW4jsng==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 14 Sep 2026 15:58:00 +0100
-Subject: [PATCH v2 40/40] mm/vma: introduce and use vma[_flags]_can_gup()
+Date: Mon, 14 Sep 2026 15:57:47 +0100
+Subject: [PATCH v2 27/40] mm: remove hugetlb_inline.h
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-40-7d9781ed5361@kernel.org>
+Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-27-7d9781ed5361@kernel.org>
 References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
 In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -120,12 +120,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6501; i=ljs@kernel.org;
- h=from:subject:message-id; bh=3AnqccC2jTUlmIOHAi2JESa1NkBfZlWIxg9a+l0jjPI=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcG/RLrydJciw/BS79IsveW9n+2r99rmurBlodmpS+
- RRx76h1HaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZhIkjvDP93oPv7KUwVZyzmP
- /Y5JN7v5L+H3keK5W5RUpgfrJzE0uzMynHype2puUKfCJhPhXQtYMu7XXi1Km15XEbP4QomOrJw
- oLwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5564; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=7idMlWzMjKkLqO4T4MHFG35a8uf1UQ6cLeMTF/3U+1Q=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcG/KWpt0QPvi3IYXLlE37UUfP9AMyGKVD2n686iYa
+ 5P+/a7/HaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZjI+20Mf7i9euUSTRm9tm4N
+ 6Aj75/d3+twJaQXX9i+8l2fPOa0yWpDhD5/Fmt2/eae3ffjtlnMlzHKSQcmfF4rxht73L+83197
+ UxQMA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Tue, 15 Sep 2026 07:27:57 +0000
@@ -144,187 +144,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-GUP cannot be used for VMAs which set VMA_IO_BIT - because memory-mapped
-I/O must not be accessed on the user's behalf - or VMA_PFNMAP_BIT - because
-PFN maps have no folios which the kernel is permitted to access.
+This header really makes little sense - every place it is included mm.h is
+also included, and the header itself includes mm.h, so it does nothing to
+reduce header size.
 
-Rather than keeping these checks open-coded, abstract them to
-vma_flags_can_gup() and its VMA wrapper vma_can_gup().
+It also oddly does an #ifdef around checking VMA_HUGETLB_BIT, however
+VMA_HUGETLB_BIT is unconditionally available, and will never be set if
+hugetlb is not enabled.
 
-A number of other places make the same check to decide whether a mapping
-can be populated or accessed as GUP would, so update those too.
+Simply remove the header, eliminate the odd ifdeffery and place the
+predicates in mm.h.
 
-While here, drop a reference to 'special' and replace a use of the
-deprecated VMA flags API in vma_dump_size().
+The naming of these predicates is odd, but to keep changes separate, we
+will address this in a separate patch.
+
+The file was never put into MAINTAINERS so there's no change required
+there.
 
 No functional change intended.
 
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- fs/coredump.c      |  4 ++--
- include/linux/mm.h | 29 +++++++++++++++++++++++++++++
- mm/gup.c           |  7 +++----
- mm/hmm.c           |  3 +--
- mm/memory.c        | 14 ++++++++------
- mm/mempolicy.c     |  3 ++-
- 6 files changed, 45 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/drm_gpusvm.c   |  2 +-
+ include/asm-generic/tlb.h      |  2 +-
+ include/linux/hugetlb.h        |  1 -
+ include/linux/hugetlb_inline.h | 28 ----------------------------
+ include/linux/mm.h             | 11 +++++++++++
+ include/linux/pagemap.h        |  1 -
+ include/linux/userfaultfd_k.h  |  1 -
+ kernel/sched/fair.c            |  1 -
+ mm/vma_internal.h              |  1 -
+ 9 files changed, 13 insertions(+), 35 deletions(-)
 
-diff --git a/fs/coredump.c b/fs/coredump.c
-index fb21fb6703dd..9f729c594c47 100644
---- a/fs/coredump.c
-+++ b/fs/coredump.c
-@@ -1616,8 +1616,8 @@ static unsigned long vma_dump_size(struct vm_area_struct *vma,
- 		return 0;
- 	}
+diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+index a93eee7ddb9e..793dacec2100 100644
+--- a/drivers/gpu/drm/drm_gpusvm.c
++++ b/drivers/gpu/drm/drm_gpusvm.c
+@@ -9,9 +9,9 @@
+ #include <linux/dma-mapping.h>
+ #include <linux/export.h>
+ #include <linux/hmm.h>
+-#include <linux/hugetlb_inline.h>
+ #include <linux/memremap.h>
+ #include <linux/mm_types.h>
++#include <linux/mm.h>
+ #include <linux/slab.h>
  
--	/* Do not dump I/O mapped devices or special mappings */
--	if (vma->vm_flags & VM_IO)
-+	/* Do not dump memory-mapped I/O, which may have side effects on read. */
-+	if (vma_test(vma, VMA_IO_BIT))
- 		return 0;
+ #include <drm/drm_device.h>
+diff --git a/include/asm-generic/tlb.h b/include/asm-generic/tlb.h
+index 044dabc1fe9c..8b8123e5b7d7 100644
+--- a/include/asm-generic/tlb.h
++++ b/include/asm-generic/tlb.h
+@@ -11,9 +11,9 @@
+ #ifndef _ASM_GENERIC__TLB_H
+ #define _ASM_GENERIC__TLB_H
  
- 	/* By default, dump shared memory if mapped from an anonymous file. */
++#include <linux/mm.h>
+ #include <linux/mmu_notifier.h>
+ #include <linux/swap.h>
+-#include <linux/hugetlb_inline.h>
+ #include <asm/tlbflush.h>
+ #include <asm/cacheflush.h>
+ 
+diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+index 80a5a03e9cee..d7e6563cef75 100644
+--- a/include/linux/hugetlb.h
++++ b/include/linux/hugetlb.h
+@@ -7,7 +7,6 @@
+ #include <linux/mm_types.h>
+ #include <linux/mmdebug.h>
+ #include <linux/fs.h>
+-#include <linux/hugetlb_inline.h>
+ #include <linux/cgroup.h>
+ #include <linux/page_ref.h>
+ #include <linux/list.h>
+diff --git a/include/linux/hugetlb_inline.h b/include/linux/hugetlb_inline.h
+deleted file mode 100644
+index 5c29cd3223a1..000000000000
+--- a/include/linux/hugetlb_inline.h
++++ /dev/null
+@@ -1,28 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-#ifndef _LINUX_HUGETLB_INLINE_H
+-#define _LINUX_HUGETLB_INLINE_H
+-
+-#include <linux/mm.h>
+-
+-#ifdef CONFIG_HUGETLB_PAGE
+-
+-static inline bool is_vma_hugetlb_flags(const vma_flags_t *flags)
+-{
+-	return vma_flags_test(flags, VMA_HUGETLB_BIT);
+-}
+-
+-#else
+-
+-static inline bool is_vma_hugetlb_flags(const vma_flags_t *flags)
+-{
+-	return false;
+-}
+-
+-#endif
+-
+-static inline bool is_vm_hugetlb_page(const struct vm_area_struct *vma)
+-{
+-	return is_vma_hugetlb_flags(&vma->flags);
+-}
+-
+-#endif
 diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 5860a3b4dba9..1249e04d7b98 100644
+index 4b6aa0b47b00..726c2fee35fb 100644
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
-@@ -1777,6 +1777,35 @@ static inline bool vma_is_persistent(const struct vm_area_struct *vma)
- 	return vma_flags_is_persistent(&vma->flags);
+@@ -1609,6 +1609,17 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
+ 	return is_shared_maywrite(&vma->flags);
  }
  
-+/**
-+ * vma_flags_can_gup() - Do the specified VMA flags permit GUP to access the
-+ * mapping's pages?
-+ * @flags: The VMA flags to test.
-+ *
-+ * GUP cannot obtain pages from a PFN map (VMA_PFNMAP_BIT), which may have no
-+ * struct pages behind it, and must not provide access to memory-mapped I/O
-+ * (VMA_IO_BIT).
-+ *
-+ * Returns: true if GUP may access pages from the mapping, otherwise false.
-+ */
-+static inline bool vma_flags_can_gup(const vma_flags_t *flags)
++static inline bool is_vma_hugetlb_flags(const vma_flags_t *flags)
 +{
-+	return !vma_flags_test_any(flags, VMA_IO_BIT, VMA_PFNMAP_BIT);
++	return IS_ENABLED(CONFIG_HUGETLB_PAGE) &&
++	       vma_flags_test(flags, VMA_HUGETLB_BIT);
 +}
 +
-+/**
-+ * vma_can_gup() - May GUP obtain pages from @vma?
-+ * @vma: The VMA to test.
-+ *
-+ * See vma_flags_can_gup() for details.
-+ *
-+ * Returns: true if GUP may access pages from the mapping, otherwise false.
-+ */
-+static inline bool vma_can_gup(const struct vm_area_struct *vma)
++static inline bool is_vm_hugetlb_page(const struct vm_area_struct *vma)
 +{
-+	return vma_flags_can_gup(&vma->flags);
++	return is_vma_hugetlb_flags(&vma->flags);
 +}
 +
  /**
-  * vma_kernel_pagesize - Default page size granularity for this VMA.
-  * @vma: The user mapping.
-diff --git a/mm/gup.c b/mm/gup.c
-index f166acf794e3..8e9ef5ee7498 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -1204,7 +1204,7 @@ static int check_vma_flags(struct vm_area_struct *vma, unsigned long gup_flags)
- 	int foreign = (gup_flags & FOLL_REMOTE);
- 	bool vma_anon = vma_is_anonymous(vma);
+  * vma_flags_is_kernel_owned() - Do the specified VMA flags indicate that the
+  * contents of the VMA are owned by the kernel rather than the core mm?
+diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
+index 939f3a5e973f..d7d8b312466c 100644
+--- a/include/linux/pagemap.h
++++ b/include/linux/pagemap.h
+@@ -14,7 +14,6 @@
+ #include <linux/gfp.h>
+ #include <linux/bitops.h>
+ #include <linux/hardirq.h> /* for in_interrupt() */
+-#include <linux/hugetlb_inline.h>
  
--	if (vm_flags & (VM_IO | VM_PFNMAP))
-+	if (!vma_can_gup(vma))
- 		return -EFAULT;
+ struct folio_batch;
  
- 	if ((gup_flags & FOLL_ANON) && !vma_anon)
-@@ -1955,7 +1955,7 @@ int __mm_populate(unsigned long start, unsigned long len, int ignore_errors)
- 		 * range with the first VMA. Also, skip undesirable VMA types.
- 		 */
- 		nend = min(end, vma->vm_end);
--		if (vma->vm_flags & (VM_IO | VM_PFNMAP))
-+		if (!vma_can_gup(vma))
- 			continue;
- 		if (nstart < vma->vm_start)
- 			nstart = vma->vm_start;
-@@ -2017,8 +2017,7 @@ static long __get_user_pages_locked(struct mm_struct *mm, unsigned long start,
- 			break;
+diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
+index a4351cffc60c..a14b8a9ffb7b 100644
+--- a/include/linux/userfaultfd_k.h
++++ b/include/linux/userfaultfd_k.h
+@@ -18,7 +18,6 @@
+ #include <linux/swap.h>
+ #include <linux/leafops.h>
+ #include <asm-generic/pgtable_uffd.h>
+-#include <linux/hugetlb_inline.h>
  
- 		/* protect what we can, including chardevs */
--		if ((vma->vm_flags & (VM_IO | VM_PFNMAP)) ||
--		    !(vm_flags & vma->vm_flags))
-+		if (!vma_can_gup(vma) || !(vm_flags & vma->vm_flags))
- 			break;
- 
- 		if (pages) {
-diff --git a/mm/hmm.c b/mm/hmm.c
-index 2f1e98c6b644..e9569b82a1f0 100644
---- a/mm/hmm.c
-+++ b/mm/hmm.c
-@@ -595,8 +595,7 @@ static int hmm_vma_walk_test(unsigned long start, unsigned long end,
- 	struct hmm_range *range = hmm_vma_walk->range;
- 	struct vm_area_struct *vma = walk->vma;
- 
--	if (!(vma->vm_flags & (VM_IO | VM_PFNMAP)) &&
--	    vma->vm_flags & VM_READ)
-+	if (vma_can_gup(vma) && vma_test(vma, VMA_READ_BIT))
- 		return 0;
- 
- 	/*
-diff --git a/mm/memory.c b/mm/memory.c
-index 02e9d5d2e279..9e4a70421a6b 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -2417,11 +2417,11 @@ static bool vm_mixed_zeropage_allowed(struct vm_area_struct *vma)
- 	 * be problematic as soon as the zeropage gets replaced by a different
- 	 * page due to vma->vm_ops->pfn_mkwrite, because what's mapped would
- 	 * now differ to what GUP looked up. FSDAX is incompatible to
--	 * FOLL_LONGTERM and VM_IO is incompatible to GUP completely (see
--	 * check_vma_flags).
-+	 * FOLL_LONGTERM and memory-mapped I/O is incompatible to GUP completely
-+	 * (see vma_can_gup()).
- 	 */
- 	return vma->vm_ops && vma->vm_ops->pfn_mkwrite &&
--	       (vma_is_fsdax(vma) || vma->vm_flags & VM_IO);
-+	       (vma_is_fsdax(vma) || vma_test(vma, VMA_IO_BIT));
- }
- 
- static int validate_page_before_insert(struct vm_area_struct *vma,
-@@ -7116,7 +7116,8 @@ int follow_pfnmap_start(struct follow_pfnmap_args *args)
- 	if (unlikely(address < vma->vm_start || address >= vma->vm_end))
- 		goto out;
- 
--	if (!(vma->vm_flags & (VM_IO | VM_PFNMAP)))
-+	/* Only mappings GUP cannot handle are followed here. */
-+	if (vma_can_gup(vma))
- 		goto out;
- retry:
- 	pgdp = pgd_offset(mm, address);
-@@ -7316,8 +7317,9 @@ static int __access_remote_vm(struct mm_struct *mm, unsigned long addr,
- 			}
- 
- 			/*
--			 * Check if this is a VM_IO | VM_PFNMAP VMA, which
--			 * we can access using slightly different code.
-+			 * GUP failed, perhaps because this is a mapping it
-+			 * cannot handle (see vma_can_gup()) - such mappings may
-+			 * provide access via vm_ops->access() instead.
- 			 */
- 			bytes = 0;
- #ifdef CONFIG_HAVE_IOREMAP_PROT
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 044ffb4f4128..2fd759e348ca 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -2013,7 +2013,8 @@ SYSCALL_DEFINE5(get_mempolicy, int __user *, policy,
- 
- bool vma_migratable(struct vm_area_struct *vma)
- {
--	if (vma->vm_flags & (VM_IO | VM_PFNMAP))
-+	/* Pages which GUP cannot obtain cannot be migrated either. */
-+	if (!vma_can_gup(vma))
- 		return false;
- 
- 	/*
+ /* The set of all possible UFFD-related VM flags. */
+ #define __VM_UFFD_FLAGS (VM_UFFD_MISSING | VM_UFFD_MINOR | \
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index a71f0ab79bcd..c75b5c50af30 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -22,7 +22,6 @@
+  */
+ #include <linux/energy_model.h>
+ #include <linux/mmap_lock.h>
+-#include <linux/hugetlb_inline.h>
+ #include <linux/jiffies.h>
+ #include <linux/mm_api.h>
+ #include <linux/highmem.h>
+diff --git a/mm/vma_internal.h b/mm/vma_internal.h
+index 4d300e7bbaf4..4f73f0a4db79 100644
+--- a/mm/vma_internal.h
++++ b/mm/vma_internal.h
+@@ -18,7 +18,6 @@
+ #include <linux/fs.h>
+ #include <linux/huge_mm.h>
+ #include <linux/hugetlb.h>
+-#include <linux/hugetlb_inline.h>
+ #include <linux/kernel.h>
+ #include <linux/ksm.h>
+ #include <linux/khugepaged.h>
 
 -- 
 2.55.0
