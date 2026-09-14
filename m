@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA79AC88E7F
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A12B8C88E7D
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABC9410F9F4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CF8510F9F1;
 	Tue, 15 Sep 2026 07:28:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L7mvUocc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dg2Fe5DA";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D24210EF64
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:09:08 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D00310EF52
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:00:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0285541A14;
- Mon, 14 Sep 2026 15:09:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5A3C1F00893;
- Mon, 14 Sep 2026 15:08:40 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B30966025A;
+ Mon, 14 Sep 2026 15:00:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 751251F00893;
+ Mon, 14 Sep 2026 14:59:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789398547;
- bh=rtYEyCC7VKqkqWelOuwt2okny02CJhbQpnc+ekNFEso=;
+ s=k20260515; t=1789398024;
+ bh=r1G+xFXCQNVBF8wxMQxvWMHZYPsF0so/uZjMXa7bsyg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=L7mvUocc07dvv4gNRBD8FIWMRw7VSN7mZvf6vuvnYrejYxLoZ3JQAGznHWhHn3hPA
- 2PiUTFskJ2XtBWABty1VWW1V7Pb/ZwQ3hwijjQiJTWJxu3PbQMoWTLTHJG3w3UxY2t
- q4tvQVRUmvdYzcG7cEjBUqL/GgjULYotnn0bklOa8SqIVfHw/4Oe7cGpeqcOk/f56H
- kZnbdU2P3VZTSfuidrq48vWeO3Vqfjywr3cgsJsfQNdp6Kmq8KDDFsgJTxKTYrCSsx
- KY/d5zQgTuZMRlHJAEFa2kS77Esqf2EVcl4XRAYg+l/+glQcIQjHPAWR0icTcJgUE+
- RI/ZcB7u1K4ag==
+ b=dg2Fe5DAsf6cgSnFAtqKyclWLIYcQDBRezlkLWBcpnByHIDcZeYX1ozgrOmMphJP/
+ VIYfYlEL34LjVlmE0u9d55V0O+Mprf3eoWuZJRt8M1uKntD6yXAmC7zM3P6IqpE3xx
+ 2Ov9QmoID5RyN3+5U5MaSJV2Nn867bU50b2moHPwXMaGK1k1CE+ZSHBRrc1xUY6bj0
+ qLwdNI3DP2/EjP/nsa9rxNfzOvxVTH4iaP37WYXwkICznAVOxz1wsvoq3Hk6aRF/Mn
+ N9xg2+rHHkWqvIyhlFPeawYni8ydfuf7wItDpyMV5A3ltZ9Wgnp+NId197Rc10bBAD
+ KH3DZtVDniryQ==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 14 Sep 2026 15:57:41 +0100
-Subject: [PATCH v2 21/40] mm/gup: error out early on !VMA_MAYREAD_BIT VMAs
+Date: Mon, 14 Sep 2026 15:57:22 +0100
+Subject: [PATCH v2 02/40] mm/vma: predicate setting mmap_prepare VMA fields
+ on new vma alloc
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-21-7d9781ed5361@kernel.org>
+Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-2-7d9781ed5361@kernel.org>
 References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
 In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -120,12 +121,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1289; i=ljs@kernel.org;
- h=from:subject:message-id; bh=NwkWQQ7fmwzL5QGJDJ/xCgQWUhs8DQGRd4wM7Vj8ofA=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcG/k+RBscrhhwTaTCRnnfC5YPbGVstvt9UpAnv1zz
- /41fH6zO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjARRT1Ghjv+HGs7lZ2Cn/31
- 1J75MPmTf3vV879Pb9ybfkn6N2PP3csM/10eP7h+eX/5fBV+hikawu4sc27YW+zalf3t6WHvwqN
- x7zkB
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1712; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=UFrVRLvfvmL7sB7G5odMQ/5YgrxZlazK/5+N6FdQKJI=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcK89H34+9rDukTPlXlUr9mobCb2evH31Oq6GVWeuK
+ SfJfrj5u6OUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQAT0TrHyDBDbMXH3D098s27
+ zgjc7/XoKWxPfnGaXUNR+5lwt6iF3FNGhie1c54s+xB6nWfStIkPbh83S7ihqrxvBf+zyefq36X
+ lrWUCAA==
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Tue, 15 Sep 2026 07:27:57 +0000
@@ -144,44 +145,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When populating a VMA range via the aptly named populate_vma_page_range()
-an unreadable VMA will always eventually fail with -EFAULT.
+It only makes sense to manipulate VMA fields if we allocated a new VMA,
+rather than merged it.
 
-That a VMA is accessible is always checked, however VMA_MAYREAD_BIT is not.
+VMA merging does not compare vm_ops or vm_private_data, so a merged VMA
+keeps its own, which is also what the legacy f_op->mmap path does since it
+never touches an existing VMA. Previously set_vma_user_defined_fields()
+overwrote the merged VMA's fields with those set for the new mapping. In
+practice these are the same values, with rare exceptions such as shmem
+selecting vm_ops based on whether the file has been unlinked, so no
+user-visible change is expected.
 
-All user mappings always have VMA_MAYREAD_BIT set, so this check only
-impacts kernel mappings.
-
-It is implemented specifically to disallow population of uprobes XOL
-mappings which are exec-only.
-
-A nasty interaction with these mappings may occur if they are mlocked, so
-actively disallow this early.
-
-This allows a subsequent commit to remove the VM_IO check in
-__mm_populate() which otherwise requires non-MMIO mappings to be wrongly
-flagged simply as a workaround.
+Make this dependency explicit, and additionally constify have_mmap_prepare
+while we're here.
 
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/gup.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ mm/vma.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/mm/gup.c b/mm/gup.c
-index c2dfcb4744bc..e6310a7cc05b 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -1836,6 +1836,10 @@ long populate_vma_page_range(struct vm_area_struct *vma,
- 	if (!vma_is_accessible(vma))
- 		return -EFAULT;
+diff --git a/mm/vma.c b/mm/vma.c
+index a319a9fc2f29..cd9e2113f66e 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2892,7 +2892,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
+ {
+ 	struct mm_struct *mm = current->mm;
+ 	struct vm_area_struct *vma = NULL;
+-	bool have_mmap_prepare = file && file->f_op->mmap_prepare;
++	const bool have_mmap_prepare = file && file->f_op->mmap_prepare;
+ 	VMA_ITERATOR(vmi, mm, addr);
+ 	const pgoff_t anon_pgoff = addr >> PAGE_SHIFT;
+ 	MMAP_STATE(map, mm, &vmi, addr, len, pgoff, anon_pgoff, vma_flags, file);
+@@ -2935,7 +2935,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
+ 		allocated_new = true;
+ 	}
  
-+	/* Unreadable VMAs also cannot be faulted in. */
-+	if (!vma_test(vma, VMA_MAYREAD_BIT))
-+		return -EFAULT;
-+
- 	gup_flags = FOLL_TOUCH;
- 	/*
- 	 * We want to touch writable mappings with a write fault in order
+-	if (have_mmap_prepare && !map_is_anon(&map))
++	if (have_mmap_prepare && allocated_new && !map_is_anon(&map))
+ 		set_vma_user_defined_fields(vma, &map);
+ 
+ 	__mmap_complete(&map, vma);
 
 -- 
 2.55.0
