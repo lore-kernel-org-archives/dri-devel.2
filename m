@@ -4,43 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFC49C88E72
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 18:48:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C549C88E6F
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 18:50:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27EBA10E206;
-	Mon, 14 Sep 2026 18:48:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 621D610F152;
+	Mon, 14 Sep 2026 18:50:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ldla0HdC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eVzMcghq";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 829E010E206
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 18:48:47 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A976A10F152
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 18:50:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BC3C16025F;
- Mon, 14 Sep 2026 18:48:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ADC41F000FF;
- Mon, 14 Sep 2026 18:48:46 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4631F43E9A;
+ Mon, 14 Sep 2026 18:50:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 429BD1F000FF;
+ Mon, 14 Sep 2026 18:50:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789411726;
- bh=2L7trCGdcQK1LEJmd5fWxZy8yWE/ibPz2cP0tQg6sZk=;
+ s=k20260515; t=1789411853;
+ bh=I9//0LB5K81ZQWzHLCCE2klREXKnr+J5NzqH0/mcr5A=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Ldla0HdCIrzzpPvGSS46fteXRMLShuc26ZI/Sd09vp5qjAklNg3+gQc9VkWKtFRlD
- 4kMmRQA7kHFMpAlxOIJClo59KdePaq5V8Iyu2eaCi66qf21nfJQ1fQbsS0teV1tEgE
- S+C1QmVryfwFyLMadigL6oJKI5Bre19/sw9MNshoG2+URFPFL0IoWSt4kTlf/Wwale
- 9xQ1MJlLQEeYCTCSu+DxMRw1zUMKIfjhVoIZQB/xaQpPJzAKdAFaj9xLwCsaJhRi/p
- HutkG1qcep2Azfl+Ht/pMBmjPGVjsmMU1XFxX1t3J+KP3m8M2F234Yes0EAQUGj3yj
- eShyCLyStMpww==
+ b=eVzMcghq8e9ClZddoNA5Ip+E/BeoV7jDyaXIiVIcm28dczlreWJBO0H/ZqBViXGSL
+ VKrBwP1QJSkyTapOrXr185pObMtrnMYSaHCJDRtCaCzR/sJAdKSsY66JZWh2TrOPx1
+ jSPK5VXb4zdSANAwx/k6unl94prcRA0xmuhxHPKSXL9zoKYTh9qbhRi7vjpmkAHqzJ
+ INsGPqEs2g+pQC2r0/8eGfUWf0ZeCtvOoGAAEqFY2RJ8nbi9GZhV2HilH6RzG1BfOL
+ hPEXkJ6OpSrb9dJ0i57w8zCXGDqat4ORk2ewMXGa13pvgeceW10O2ANJDEYMSqAffe
+ uXYeOA8FCPKJQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/sched: document the RCU dependency
-To: =?utf-8?b?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260914182740.1587-2-christian.koenig@amd.com>
-References: <20260914182740.1587-1-christian.koenig@amd.com>
- <20260914182740.1587-2-christian.koenig@amd.com>
+Subject: Re: [PATCH v2 15/40] mm/vma: add vma[_flags]_is_kernel_owned()
+ predicates
+To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
+Cc: linux-s390@vger.kernel.org, "Heiko Carstens" <hca@linux.ibm.com>,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org, "Marc
+ Zyngier" <maz@kernel.org>, "Alexander Gordeev" <agordeev@linux.ibm.com>,
+ dri-devel@lists.freedesktop.org, "Vasily
+ Gorbik" <gor@linux.ibm.com>, bpf@vger.kernel.org,
+ "Christian Borntraeger" <borntraeger@linux.ibm.com>,
+ linux-perf-users@vger.kernel.org, selinux@vger.kernel.org,
+ linux-scsi@vger.kernel.org, kvmarm@lists.linux.dev, "Oliver
+ Upton" <oupton@kernel.org>, linux-trace-kernel@vger.kernel.org
+In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-15-7d9781ed5361@kernel.org>
+References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
+ <20260914-b4-mmap-prepare-vma-flag-sanify-v2-15-7d9781ed5361@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 18:48:45 +0000
-Message-Id: <20260914184846.4ADC41F000FF@smtp.kernel.org>
+Date: Mon, 14 Sep 2026 18:50:51 +0000
+Message-Id: <20260914185052.429BD1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,87 +66,38 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+> Rather than referring to VMA flags with uncertain meaning, add a new
+> predicate that explicitly describes what possession of the VMA_PFNMAP_BIT
+> or VMA_MIXEDMAP_BIT flags mean, and then refer to that function for
+> determining VMA mergeability.
+>=20
+> Either flag means the contents of the mapping are owned by the kernel,
+> usually a driver, rather than by the core mm: the memory may be MMIO,
+> kernel-allocated pages or even ordinary pages the driver maps itself, but
+> the core must not populate, reclaim, migrate, copy-on-write or merge the
+> range on its own initiative.
+>=20
+> We initially also include VMA_IO_BIT here, as by implication, these must =
+be
+> kernel-owned. (mlock() also sets VMA_IO_BIT transiently on ordinary VMAs
+> while locking them, which is addressed later in this series.)
+>=20
+> However the intent is to in future remove this, as no mapping should be
+> marked as an I/O mapping without also being marked with VMA_PFNMAP_BIT.
+>=20
+> This forms the basis of further work intended to improve how we express V=
+MA
+> properties such as this.
+>=20
+> Also update the VMA userland tests to reflect the change.
+>=20
+> No functional change intended.
+>=20
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Pre-existing issues:
-- [High] The documented RCU grace period requirement for scheduler teardown=
- is insufficient to prevent Use-After-Free, and the underlying UAF remains =
-reachable from userspace.
---
-
-commit 5a72d906ede5cec7818892f2331889b7b0dd6420
-Author: Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com>
-
-drm/sched: document the RCU dependency
-
-This commit documents the requirement to wait for an RCU grace period
-between signaling the last hardware fence and tearing down the scheduler.
-
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/sch=
-eduler/sched_main.c
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -1203,6 +1203,11 @@ static void drm_sched_cancel_remaining_jobs(struct=
- drm_gpu_scheduler *sched)
->   * is implemented, all jobs will be canceled through it and afterwards c=
-leaned
->   * up through &struct drm_sched_backend_ops.free_job. If cancel_job is n=
-ot
->   * implemented, memory could leak.
-> + *
-> + * The user must wait one RCU grace period between signaling the last ha=
-rdware-
-> + * fence and calling this function because the timeline name returned by
-> + * scheduler fences must stay valid until all readers have exited their =
-RCU read
-> + * side critical section.
->   */
->  void drm_sched_fini(struct drm_gpu_scheduler *sched)
-
-[Severity: High]
-This is a pre-existing issue, but is waiting a single RCU grace period befo=
-re
-calling drm_sched_fini() actually sufficient to prevent a use-after-free he=
-re?
-
-If a user submits a job to obtain a sync_file fd for the scheduler fence, a=
-nd
-then the GPU queue or context is destroyed while jobs are pending (leaving
-fences unsignaled), drivers like xe will tear down the scheduler and often
-free the embedding structure without waiting for an RCU grace period:
-
-drivers/gpu/drm/xe/xe_execlist.c:execlist_exec_queue_fini() {
-    ...
-    drm_sched_fini(&exl->sched);
-    ...
-    kfree(exl);
-}
-
-Since the fence doesn't detach from the scheduler, a subsequent userspace
-query via SYNC_IOC_FILE_INFO will enter a new RCU read-side critical section
-and access the timeline name on a fence that has outlived its scheduler:
-
-drivers/dma-buf/sync_file.c:sync_fill_fence_info() {
-    ...
-    rcu_read_lock();
-    ...
-    timeline =3D dma_fence_timeline_name(fence);
-    ...
-}
-
-Which then blindly dereferences the freed scheduler pointer:
-
-drivers/gpu/drm/scheduler/sched_fence.c:drm_sched_fence_get_timeline_name()=
- {
-    ...
-    return (const char *)fence->sched->name;
-}
-
-Even if the driver waited for an RCU grace period before calling
-drm_sched_fini(), couldn't new RCU readers still start querying the
-unsignaled fence through sync_file long after the scheduler is freed?
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914182740.1587=
--1-christian.koenig@amd.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-b4-mmap-pr=
+epare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org?part=3D15
+
