@@ -4,60 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1AC5C88E50
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 09:41:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE0A2C88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 09:55:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC09910E7D2;
-	Mon, 14 Sep 2026 09:41:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE05110E4BA;
+	Mon, 14 Sep 2026 09:55:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Zo7KQj/y";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="COgkSIU4";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5234C10E7D2
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 09:41:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1789378881;
- bh=Nb0MCwv9G8Ou4s2f90KiUjU5XAXR3XUiibGuWP+USzw=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Zo7KQj/yyTcW6cTMkoOLLmCFl973SjxCNsUY/Lzo+oRhce+xOSRD4VtuLVzdrbsxr
- ovgKKkFt8XgPncWB7DeX5JdE1cOr+p1x7bWx6hG0Somb7KEfJR/46fskrqidnVJOGT
- zezn3kYLJVNtp1CaRcI5MGpCZSFvmVgMQclVKR4kpJoX078WUamHioroUoXKT321x1
- Oa57d//Ze+WHbSMZL646Rd3rpW75WMJHbOvIMmAYx6vv2bMeBzANG0atP3PRZ+MC1i
- kdiiZh5FAbCRiMwHE2Z50kKzIJXahdzP2jzgzqNLpHUf1an7+l4XMFeGbbPIh1De28
- +dYyEwNVGBa0g==
-Received: from fedora-21.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5324E17E0894;
- Mon, 14 Sep 2026 11:41:20 +0200 (CEST)
-Date: Mon, 14 Sep 2026 11:41:16 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v9 12/16] drm/panfrost: Skip cache flush/invalidate when
- enabling perfcnt
-Message-ID: <20260914114116.47bed578@fedora-21.home>
-In-Reply-To: <20260912-claude-fixes-v9-12-e588feaa61ef@collabora.com>
-References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
- <20260912-claude-fixes-v9-12-e588feaa61ef@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFE3710E122;
+ Mon, 14 Sep 2026 09:55:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789379740; x=1820915740;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=woFzfX/5eT3ItbU3nrwbkymcKwk3T+wmraBseHKL7Eg=;
+ b=COgkSIU4OYKAksf5s+7n2qx+HMjm/OFm58J+AdNaoYqlEiqy8jyTapOc
+ 9gToLZqAFNZWstEbF/l0HOCGQNQSBsplwKBToOLOi+04LJ0qg0rudiD1O
+ hEebOsSNyLp0kdtul9A+ZT5QCSFVlqlPrMUc9eJIlyT49cWVOpa20QT8K
+ Su1Ydc+NI8l/PdyRQJ3zGeUua4AyS0h4KUYDLoUK1I16m5wgHOEkFZhTN
+ 2R1ViEZkPiyy+PHB4G0aNVaybZYDwynpfhIYwG6kD20e0msukYNonPdfp
+ kE+ekaE8OOn3Q78qcT4twR2URm/T188tDeZuwXEdGu2bb8URR7i4XLzjT A==;
+X-CSE-ConnectionGUID: hx3ltTQlQmWUFV65puUicA==
+X-CSE-MsgGUID: uzTX8mDNSVaQXTEUkIJA6Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89492817"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; d="scan'208";a="89492817"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2026 02:55:39 -0700
+X-CSE-ConnectionGUID: 9awhVaBsQXC3kEiDdfbAkA==
+X-CSE-MsgGUID: vtXZ8eXgQ2uUjN01JUN2gQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; d="scan'208";a="268918908"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.96])
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2026 02:55:36 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: CJ <firefly0158@163.com>, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [BUG] drm/i915: general protection fault in i915_pci_probe on
+ forced bind
+In-Reply-To: <3c467f81.7d23.1a09f0874aa.Coremail.firefly0158@163.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <3c467f81.7d23.1a09f0874aa.Coremail.firefly0158@163.com>
+Date: Mon, 14 Sep 2026 12:55:34 +0300
+Message-ID: <c830d55e4e1ed88571b15fbedee63de1c6f1ccd3@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,51 +72,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, 12 Sep 2026 00:28:13 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+On Mon, 14 Sep 2026, CJ <firefly0158@163.com> wrote:
+> I am reporting a general protection fault in the i915 PCI probe path, triggered
+> by a syzkaller reproducer.  The issue is reproducible with HEAD commit
+> cee9395acd8043be0644b25c34bfa86623f2b935 (v7.3-rc1, Linux 7.3.0-rc1).
 
-> The GPU cache flush/invalidate operation is unnecessary. First off, the
-> GPU doesn't read off the perfcnt sample buffer, only writes into it, so
-> an invalidate doesn't make a difference. Then flushing GPU caches after
-> each sample has been written is enough for the CPU to see updated values.
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+Try v7.3-rc2.
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> The reproducer mounts sysfs, writes "i915" to the driver_override attribute of
+> PCI device 0000:00:01.0, and then writes the device name to the i915 driver's
+> bind attribute.  This binds the i915 driver to a PCI device it was never meant
+> to drive.
 
-> ---
->  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 15 ++-------------
->  1 file changed, 2 insertions(+), 13 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
-m/panfrost/panfrost_perfcnt.c
-> index f71534e741b6..ffc77121070e 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> @@ -124,21 +124,10 @@ static int panfrost_perfcnt_enable_locked(struct pa=
-nfrost_device *pfdev,
->  	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
-> =20
->  	/*
-> -	 * Invalidate the cache and clear the counters to start from a fresh
-> -	 * state.
-> +	 * Clear the counters to start from a fresh state.
->  	 */
-> -	reinit_completion(&pfdev->perfcnt->dump_comp);
-> -	gpu_write(pfdev, GPU_INT_CLEAR,
-> -		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
-> -		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
-> +	gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
->  	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
-> -	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_INV_CACHES);
-> -	ret =3D wait_for_completion_timeout(&pfdev->perfcnt->dump_comp,
-> -					  msecs_to_jiffies(1000));
-> -	if (!ret) {
-> -		ret =3D -ETIMEDOUT;
-> -		goto err_vunmap;
-> -	}
-> =20
->  	ret =3D panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
->  	if (ret < 0)
->=20
+Is that a sane use case, though?
 
+
+BR,
+Jani.
+
+-- 
+Jani Nikula, Intel
