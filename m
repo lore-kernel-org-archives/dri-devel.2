@@ -4,90 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEF0FC88E64
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 02:10:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 323B2C88E66
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 02:25:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 077BA10EAE3;
-	Mon, 14 Sep 2026 02:10:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E02910EAEE;
+	Mon, 14 Sep 2026 02:25:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d4PySIiR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q1go0mfx";
 	dkim-atps=neutral
-Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16DC210EAE3
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 02:10:20 +0000 (UTC)
-Received: by mail-oa2-f1.google.com with SMTP id
- 586e51a60fabf-456b57c99e2so458472fac.0
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 19:10:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789351819; x=1789956619; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=LwLjeaGopLfJY+d0f6yY+haKMKBWMqU5CkDwCqQQGFw=;
- b=d4PySIiRswKSMfXvrWP/Ae0orwFw03qkWPGbWPDlgnfK0BTZl7XIh+3K96MY4WjQcG
- oC1rQ1WxkaBSWPpfiK2c0rDaxDEsrT2As4D2Q6+Ya0jv8FknJFTudOcmrDS7tX21+SGP
- VcKxUtNLnqVZDONrHMQHCEmDdkSDqtPNeXOe6iYl3/n+Tu5IMLEadQN+LpJ8ag7VCP1V
- iPK+llaAcGg9ZS97da8oGHJCSO+d7iPrw0dQreNqNkDNzJ4wcQZm1sy44qcg40x/VAmy
- s3soQ6mdjAZZmRT8eYCwbzxCtXt6tzyDtFtoQ5KjLGhQfYuHRaMx+SyJGR0tBdGrrxDO
- hBvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789351819; x=1789956619;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=LwLjeaGopLfJY+d0f6yY+haKMKBWMqU5CkDwCqQQGFw=;
- b=DYGkSmKQyJ5xxFL80R/MUROXc6iXxkx89YBOAJQThEwG7vZCR2Prq38nonHVjTrr6Y
- Xjs6aFi+Jo9sBSHO41E4qVjVnGb3wIbXpsxyUwD0njfCx2ISGZIsGYSZgtXYxMV5Hz+N
- Vt5eMyfcIhla0ABbnxdEbRszTc9F/LDZ7zI/T+zJn0T5egGc9MxF2PpkZvt0pupym6VU
- 8O0DeM0XNqyktrgGrbIvZDhR77PGQQkJ67FM5p/TyIz/vC4C3OQwKQR7h2j5StdJI0s8
- ndhHOJcmQkfYEXrPMx0VaXn1nV4+E79yLDZTVKyTAC1bN1Q00X1eahlRhffgy0g0NVVY
- Jm8Q==
-X-Forwarded-Encrypted: i=1;
- AKwUvByME3B/9jUqR0/XfFFJvW2b31UwiETmYsMbKzTDz5mdysozYG+n65JlBcCIs3Az04Dyy1R41pRsTSE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lKOwG+WM87zlAxRnrr2bK/8dVi17n8c3lVb4v8wmY1H04H1afs
- PgU2dX5bFCQ4pYgR+BoQH91X2mZftmxBpy7heGimteBTYzg1Ir/dQEP2
-X-Gm-Gg: AYBFou3ej/pzn9pyz1wFy0k68nOmptAwR/l5c2Wgbam+wb/GLRibfQBDWEmFkBKniiu
- ZBdThL/e4W8J3oXIunww7NB2dEX0B2/jkYLd6tAAvlE99KwHnvV/OdC96JVC70VCl7SXzroP+J8
- FdvRPhy/MTONeFc+QOG0CUFdwgiyeFM0xwN6oQoxTewiFo+HLGasI6h+rV/moDmwYmKpTxC0sN3
- lwwYoa37MkP2fVZkRgHqPGVYnUPjaRk5JrFYQaGihJjkjWfdX8kA+II1vpMO2SgV4Gspaxxm2Sc
- YCKXzN2T3j5e9akYwaEFxa4FSZiJBw5KU5CGr963EAJikQMBX4S5HrpfxxIi/tAhgiWqInXwwE/
- HfbviQL83LQIKXF3IPuaW8W1R4Z6lYTKARLLx32UsNXkNAf1a5+SBOiJ4QjA0EdhPEJdtZ0UjhS
- G9SOAwZ+fVZl0sdIdPD657vCCzWfxisOT9XAWlO6Xtlv9Y47CITL3GuHPaVQfYUbH1v8k=
-X-Received: by 2002:a05:6830:6f81:b0:7dc:e78b:158 with SMTP id
- 46e09a7af769-808846c49d6mr223406a34.4.1789351819296; 
- Sun, 13 Sep 2026 19:10:19 -0700 (PDT)
-Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
- by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-803f5ffd82bsm9788713a34.11.2026.09.13.19.10.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Sep 2026 19:10:18 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Sun, 13 Sep 2026 21:09:55 -0500
-Subject: [PATCH v3 4/4] drm/imagination: suspend the GPU for system sleep,
- not just runtime PM
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-4-674b907d0652@gmail.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90A5A10EAEE
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 02:25:36 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 78A576108A;
+ Mon, 14 Sep 2026 02:25:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B8CD1F000FF;
+ Mon, 14 Sep 2026 02:25:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789352735;
+ bh=F8sPPTYhKZsR7xeNAT5McBX0yzNLgwzGoouGd1Hiwc4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Q1go0mfxynyShUq7oNy882Rf4YLwrDI3QrG62J7pFflSRIDl08ZN7E1EyVM1ghSgO
+ In/hQzH6tjIOiESTpmrmZKoI61+wCXW4nt1ZmcusPfXjZB0OWHiPgJOV6CgKc/x/Mx
+ XvR8EtAU9xWWBImylNfHqSbVWq0DtvRIwTmTCXUulVg5oKG6yaDt2qu8IBjDIig4R6
+ 4W4ECSD0HBtEtdSDu3T915W8/bZ8leqg8BrqqchWHEzG6nWSBS0zkycUtvVVdPCOyJ
+ 7+f2qpit6KyVv6RFHT1ETYYNwy/X58WY2a4uYXgz7DB+F/oZkDH/KVxZN3KyW4VERR
+ CjWVmiWAHazzg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/4] drm/imagination: suspend the GPU for system
+ sleep, not just runtime PM
+To: "Ryan Brue" <ryanbrue.dev@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-4-674b907d0652@gmail.com>
 References: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-0-674b907d0652@gmail.com>
-In-Reply-To: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-0-674b907d0652@gmail.com>
-To: Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789351801; l=2092;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=bPg7ibmMjA3YZEMkxh8P9EgsDt2Ehcjuozj55lALu8k=;
- b=sogxAc49G5Crj4suR69BUpnafPaK3iEZJ21gP+/t5/X1rHiNPL/wGtJylh4kP0QilF0ofUwbs
- zFmkUpjGYCjBpyiOvH7tdGZx1THU442gXZOr+oZFMppu9B+n33ZMqen
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+ <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-4-674b907d0652@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 02:25:34 +0000
+Message-Id: <20260914022535.1B8CD1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,53 +54,113 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-pvr_pm_ops has only RUNTIME_PM_OPS, so the GPU gets no callback for
-system suspend. That works only while it happens to be runtime-suspended
-when the system goes down. If it is runtime-active, genpd counts it as
-suspended anyway and turns the power domain off. After resume the driver
-still believes its firmware is running, the first firmware operation
-times out, and pvr_power_reset() is entered from inside an ioctl's
-drm_dev_enter() section, where its drm_dev_unplug() waits for that very
-section: the caller is left in an unkillable D state and the GPU is dead
-until reboot. On mt8173 it is deterministic:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-  echo on > /sys/devices/platform/soc/13000000.gpu/power/control
-  echo mem > /sys/power/state          # wakes on an RTC alarm
-  vulkaninfo --summary                 # hangs in D state, every time
+Pre-existing issues:
+- [High] IRQ handler reads hardware registers without checking if the devic=
+e is active, and the suspend path improperly uses `disable_irq()` on a shar=
+ed interrupt line.
+- [High] Missing restart of watchdog delayed work on error paths in device =
+suspend leaves the GPU unmonitored.
+- [High] Deadlock in `pvr_power_reset()` via `drm_dev_unplug()` waiting for=
+ `drm_dev_enter()` SRCU read lock.
+--
 
-With the default 50ms autosuspend delay the same bug is intermittent in
-ordinary use, depending only on whether the GPU was idle at the instant
-of suspend.
+commit dd73407528e8930d154962b48e871046b334e51f
+Author: Ryan Brue <ryanbrue.dev@gmail.com>
 
-pvr_power_device_suspend() already disables the firmware and powers the
-GPU off and pvr_power_device_resume() is its inverse, so drive both for
-system sleep with the force helpers. The reset-path deadlock is a
-separate bug; this only stops the system-sleep path from reaching it.
+drm/imagination: suspend the GPU for system sleep, not just runtime PM
 
-Fixes: 727538a4bbff ("drm/imagination: Implement power management")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
- drivers/gpu/drm/imagination/pvr_drv.c | 1 +
- 1 file changed, 1 insertion(+)
+This commit adds SYSTEM_SLEEP_PM_OPS to pvr_pm_ops to ensure the GPU gets
+callbacks for system suspend and resume. Previously, only RUNTIME_PM_OPS
+were defined, which left the driver in an inconsistent state on system
+resume if the GPU was active during suspend, leading to timeouts and
+deadlocks. By forcing runtime suspend/resume during system sleep, this
+patch avoids that inconsistent state.
 
-diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
-index 20b27a468327..b7931f75832f 100644
---- a/drivers/gpu/drm/imagination/pvr_drv.c
-+++ b/drivers/gpu/drm/imagination/pvr_drv.c
-@@ -1527,6 +1527,7 @@ MODULE_DEVICE_TABLE(of, dt_match);
- 
- static const struct dev_pm_ops pvr_pm_ops = {
- 	RUNTIME_PM_OPS(pvr_power_device_suspend, pvr_power_device_resume, pvr_power_device_idle)
-+	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
- };
- 
- static struct platform_driver pvr_driver = {
+> diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imag=
+ination/pvr_drv.c
+> index 20b27a468327b..b7931f75832fc 100644
+> --- a/drivers/gpu/drm/imagination/pvr_drv.c
+> +++ b/drivers/gpu/drm/imagination/pvr_drv.c
+> @@ -1527,6 +1527,7 @@ MODULE_DEVICE_TABLE(of, dt_match);
+> =20
+>  static const struct dev_pm_ops pvr_pm_ops =3D {
+>  	RUNTIME_PM_OPS(pvr_power_device_suspend, pvr_power_device_resume, pvr_p=
+ower_device_idle)
+> +	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
 
--- 
-2.55.0
+[Severity: High]
+This isn't a bug introduced by this patch, but does invoking these suspend
+and resume paths reveal an issue with shared interrupts?
 
+When pvr_device_irq_init() registers the interrupt, it uses the IRQF_SHARED
+flag. However, during the suspend sequence, pvr_power_fw_disable() executes:
+
+    disable_irq(pvr_dev->irq);
+
+Will calling disable_irq() on a shared interrupt line improperly mask it
+for all other devices sharing that line, rendering them unusable?
+
+Additionally, if the shared interrupt fires from another device while the G=
+PU
+is suspended, pvr_device_irq_handler() will execute and unconditionally
+access hardware registers:
+
+    if (pvr_dev->has_safety_events)
+        safety_irq_pending =3D pvr_device_safety_irq_pending(pvr_dev);
+
+Since there is no pm_runtime_get_if_active() check before this read, could
+this result in a bus error crash when attempting to access a powered-down
+device?
+
+[Severity: High]
+This is a pre-existing issue, but does pvr_power_fw_disable() fail to
+restart the watchdog on error paths?
+
+The suspend path synchronously cancels the watchdog delayed work:
+
+    cancel_delayed_work_sync(&pvr_dev->watchdog.work);
+
+If an early error occurs, such as a timeout in pvr_power_request_idle(),
+the function bails out:
+
+    err =3D pvr_power_request_idle(pvr_dev);
+    if (err)
+        return err;
+
+Because the function returns early without requeuing the watchdog work, the
+suspend operation aborts but leaves the watchdog permanently stopped. Might
+this leave the GPU unmonitored and unable to recover from future hardware
+hangs?
+
+[Severity: High]
+This is a pre-existing issue noted in the commit message as a separate bug,
+but could a failure in the reset path lead to an SRCU deadlock?
+
+When pvr_mmu_flush_exec() attempts to flush the MMU, it first enters the
+SRCU read-side critical section:
+
+    if (!drm_dev_enter(from_pvr_device(pvr_dev), &idx))
+
+If the operation times out and the subsequent hardware reset attempt in
+pvr_power_reset() fails, the driver initiates the device lost flow:
+
+    pvr_device_lost(pvr_dev);
+
+This function eventually calls drm_dev_unplug(). Since drm_dev_unplug()
+blocks in synchronize_srcu() waiting for all drm_dev_enter() sections to
+complete, won't this deadlock against the current thread which is still
+holding the SRCU read lock?
+
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913-rbrue-suez=
+-upstreaming-pvr-suspend-gpu-system-sleep-v3-0-674b907d0652@gmail.com?part=
+=3D4
