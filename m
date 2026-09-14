@@ -4,43 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93664C88E64
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 10:54:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4B9BC88E65
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 10:58:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECD2D10ED2C;
-	Mon, 14 Sep 2026 10:54:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D974010E0F1;
+	Mon, 14 Sep 2026 10:58:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IbVLXxdW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="tHOqE33V";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE5ED10ED2C
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 10:54:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AEA4E60142;
- Mon, 14 Sep 2026 10:54:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 421411F000FF;
- Mon, 14 Sep 2026 10:54:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789383289;
- bh=sibqfHzIcfBi0e3rcZ5ZvwIO3Q/1Xwy88FBdtNrKLew=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IbVLXxdWV0Q758Ln8wN66bS/CyGfZUs+Hd62+vBF0tSkFXQGLv2ZAJN/ssspl3ctE
- qfUt8V+pvS/L4d/xrxkwvsg6Mam1QNiH7UuhEfWDXxVrk1WYBcoMIeU5zoRSwqNSxp
- rv/5VzOF+MqC+CYLcmIqU0qW5hUIsByaEAbGIUges77HHPaGBfRJbxdNq7Ym2/Vi4J
- 7IvpNTEkbqN28W3cQZLrCLzRWtfWHKk5LxFmeQYYNCtY9KWvfW+bti6gw8nrGNZa52
- D35PIW50z3WZ81N8pavQROtGxjUWwvGMXAqyjqrgzKYByh2fklGyAAmyBsld5Z1rc5
- 9pla9QaIPHF6g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4] misc: fastrpc: avoid duplicate DMA mappings in
- fastrpc_create_maps()
-To: "Jianping Li" <jianping.li@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20260914104019.492-1-jianping.li@oss.qualcomm.com>
-References: <20260914104019.492-1-jianping.li@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A511610E0F1
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 10:58:08 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-c1670dad7a8so555636766b.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 03:58:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789383487; cv=none;
+ d=google.com; s=arc-20260327;
+ b=RrqNe6AmztfslLAPQCHAoMHoaD0x4Dtbbb5YYtWuZ5ifxnHzT+0wCvGQEL9eNII+rk
+ uEKXMrbqjBZvusyvBkRwwAihxYigdgckSdBButPDJ1dRJthQZrvE/00egKVbhc4trpuy
+ AcCtH9IX+jYZqv991giKPQccpw0Zo7pUuTVPKUjWBAOAcDj8hNBCtqv16k4q1L6uL7xf
+ G8CYc3zsqcmhB+4gx/Tr89IjVApQviXPpYboVMMu7G9gfPBCf5ExsEf8YH3UnP4dKbCs
+ b3j+21sWIqlNxrXely1mB5CpvZ0QgqD3ptgzUaBAvkwie69peDAa29y8mViL3XK3fDqC
+ D53Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=7HbvJ559effrX1oZMhom9NMAuGQzZm3TFV5OOXNcnto=;
+ fh=6vpoglXxPwCVlPaAmhXSFuxtcoSyVmvtsfJJCY/wCm0=;
+ b=Ajc4sWo9128aE+8C7YRhV1hlGfJSlFf/jMW36USrydHHJ3rMP9NbxbV+DdFH5t44+E
+ YH12b36cU+26k6dqE0OdGo8LLh7C5m6jssBbaNMCqEKTIOSXgOw+xxC0qW2m2edLdVi5
+ 8YWtWILRDQMDmENj1NOo9wwxJLVD+ffNLHjMhh/Pzh9g0ATOtZ5u0r/NG82g8yHAhctn
+ 67j4XXFCnzQ/BuNBPf7ztZ2sTvwMbC1V0Vy+lmlCAzdn1TCnAQTLY1AdNFXN4zANXBNZ
+ 646nKqkIqTVAYxFDMPP5jwXewcT1/+Haj9yLXYKmrWTV0ELtdEUByfQTgt5G5jHU8D5M
+ 0SZw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789383487; x=1789988287; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=7HbvJ559effrX1oZMhom9NMAuGQzZm3TFV5OOXNcnto=;
+ b=tHOqE33V1n97yNhbwKDP7vZQfWvZG7V89RtjkkrIkIsG01RIdSYBgpwIHzJKRYXIka
+ ISZlM6+K8PHLIy33126jbuPJ4lxZ18WqC1yLPg5oYdnWL/UHCcSyPQn0sHwrcG0CRAd0
+ wqDY7WFMC6bTDmkP9KTKqXRtkOdSDGBBLkP4jwgjE2YSZ98xwxAqw+peksdy3/s3mXJU
+ RBYqPoSSjD783mixUwX74qKA1yVECHG0w3puqMaEgSPcw5yD9QqInBPAajr2CQW6/+F0
+ m4ZJXIKRHserL6n2XQ9ZH8OPL/4Jjm0Baxl85o+DkDB63BQrUYN+rRsbvr7zy6ao4oqG
+ 1tfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789383487; x=1789988287;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=7HbvJ559effrX1oZMhom9NMAuGQzZm3TFV5OOXNcnto=;
+ b=JlyhKd3lxuyoChq5vnUJEblbjyBP7A3GjHfj9Ud8Mrdwa0ISHxps8QamvQlPMHE1I2
+ VQ1osa//P2TaQLdw7nSP1+1Dx9XHgGaJXWUsknuSNNfytbS5jDzkep/UFRjqcT6a7DLz
+ HbX+Ff514pBEm16FlBdFHaPfno4errWitR1FtvPm9YvQKjamDKvtN/ZrUWDENstzlZ1X
+ 9ua2Sc+YGWKSnx41r8wb6bjSyCGTqSSys4bf3duLB2iiMnJm7kpTD1061xR6Ds8IfCHY
+ ViuHRExF7cW6NQDMGS3BOxuZuPfiiPWkBCe6jot53quTWXGQh+H1aqb7CzoQrspTgyck
+ xsZw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxa1pHdIAYHfINcqUFOlX/PxSqhtCRRJCkPuG3kV1Nu13+jf8kJUNl6F6Sraev2HWYFELhr5LZ3cuQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lABeAvYOWRabMLebRVjScd4mvG+qZNIZ7pnAcF2rhzUYyyLLgj
+ s/LEPAArm7+PwkFp/TslWUlYD74kOqXvBDl77Y48SRD47CApw+TQ3Kc63zFZQRG/5Bo3bBY4Xds
+ jKNOziE9/8qRkkEvpgDHjXe03l4GcJLw=
+X-Gm-Gg: AYBFou1peFUd2N4L9fgIAgbNo5jIfXQGQXQ8+ovS6HtLr8cCPE9979AwYjRmCjIOXr6
+ 9+99D8IYGMQtpvUER+AYAoI5qFeppmfVAjdF9JgmPXq9fQf5BNwPzk1xiFOKBhIU2ZBDOHOta8+
+ GwEg19CnGlg7SHqAfFcCJ+qES2AreffbrxZNeQq1Q/Jf/H8g9eghIl7eONcGa6wPASoMMlZACBE
+ WMzfmtOfRcHArH5xK6Jh25q2R80KU/yLT1YnarUB/5clH4c2hYFTyyNsSFCexl6rKMdSx8wxQiZ
+ /HYhD9x9EOE/ZDKYSkjju+kgPoQ8Vb9IDC7BNs3kaw3wGURd8RrETlv69BM3j68/Aj6zPQo2rqa
+ RAy24c0OsjAcAoSKUIJIyjh1tpwNvv3rz4QAf94JnsH0Ov/vO7HRAyilJZMjdk6m4HkkHd17nkW
+ 5y9nP2E2BdqX+7IyQNMUvdpIzEZjMiDfylGwFZNIWtRfTt+91M5/E=
+X-Received: by 2002:a17:907:980c:b0:c29:45ad:7af7 with SMTP id
+ a640c23a62f3a-c29b86ee829mr131881566b.30.1789383486731; Mon, 14 Sep 2026
+ 03:58:06 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260914090858.9939-2-manuelebnerli@mailbox.org>
+In-Reply-To: <20260914090858.9939-2-manuelebnerli@mailbox.org>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Mon, 14 Sep 2026 13:57:30 +0300
+X-Gm-Features: AcwNN1UCS4c0mLENuPHDYDtqcMcsoOZID1y92p_Z79HcLzYNNZxrCUfwyzX99MA
+Message-ID: <CAHp75VfApqZk6jz0TzQpm8H7qE08uqpJ44_dWdGLOcq8r+y-xQ@mail.gmail.com>
+Subject: Re: [PATCH] staging: fbtft: replace number with sizeof()
+To: Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: Andy Shevchenko <andy@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 10:54:48 +0000
-Message-Id: <20260914105449.421411F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,175 +107,39 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Mon, Sep 14, 2026 at 12:09=E2=80=AFPM Manuel Ebner <manuelebnerli@mailbo=
+x.org> wrote:
+>
+> Replace integer number with sizeof with the goal of prevent future trunca=
+tion bugs.
 
-New issues:
-- [Critical] Time-of-Check to Time-of-Use (TOCTOU) Use-After-Free and prema=
-ture SMMU unmapping due to missing reference counting for DMA handles.
-- [Critical] Data Race in `fastrpc_put_args()` leading to a Double Free of =
-`fastrpc_map` objects.
+preventing
 
-Pre-existing issues:
-- [High] Permanent Memory and IOMMU Leak of DMA handle maps on invocation e=
-rror paths.
---
+>
+> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
 
-commit de606379cd29bd912e7ec93a58384eaa07c8ecd6
-Author: Jianping Li <jianping.li@oss.qualcomm.com>
+So far I see only a single patch, what are the "future truncation
+bugs" you are talking about?
 
-misc: fastrpc: avoid duplicate DMA mappings in fastrpc_create_maps()
+...
 
-This patch attempts to fix duplicate DMA mappings by not taking an extra
-reference for DMA handle arguments (take_ref =3D false). It tags them with
-FASTRPC_MAP_DMA_HANDLE, re-validates the map in fastrpc_get_args() before
-use, and relies on fastrpc_put_args() to release these tagged maps when
-the DSP returns the fd.
+>  static unsigned int read_devicecode(struct fbtft_par *par)
+>  {
+> -       u8 rxbuf[8] =3D {0, };
+> +       u8 rxbuf[sizeof(u64)] =3D {0, };
 
-Link: https://lore.kernel.org/all/20260805060940.41414-1-jianping.li@oss.qu=
-alcomm.com/
+This is an unclear change. Where did u64 come from? Why do we even
+need a 8-byte buffer when we only do 4-byte operations?
 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index d4fac2caca867..58f27e2713172 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
+>         write_reg(par, 0x0000);
+>         par->fbtftops.read(par, rxbuf, 4);
 
-[ ... ]
-
-> @@ -1047,23 +1052,25 @@ static int fastrpc_create_maps(struct fastrpc_inv=
-oke_ctx *ctx)
->  	int i, err;
-> =20
->  	for (i =3D 0; i < ctx->nscalars; ++i) {
-> +		bool take_ref =3D i < ctx->nbufs;
-> +		int mflags =3D 0;
-> =20
->  		if (ctx->args[i].fd =3D=3D 0 || ctx->args[i].fd =3D=3D -1 ||
->  		    ctx->args[i].length =3D=3D 0)
->  			continue;
-> =20
-> -		if (i < ctx->nbufs)
-> -			err =3D fastrpc_map_create(ctx->fl, ctx->args[i].fd,
-> -				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
-> -		else
-> -			err =3D fastrpc_map_attach(ctx->fl, ctx->args[i].fd,
-> -				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
-> +		/* Set the DMA handle mapping flag for DMA handles */
-> +		if (i >=3D ctx->nbufs)
-> +			mflags =3D FASTRPC_MAP_DMA_HANDLE;
-> +
-> +		err =3D fastrpc_map_create(ctx->fl, ctx->args[i].fd, ctx->args[i].leng=
-th,
-> +					 ctx->args[i].attr, &ctx->maps[i], take_ref, mflags);
-
-[Severity: High]
-This is a pre-existing issue, but does fastrpc_create_maps() leak the DMA
-handle maps on error paths?
-
-If this function successfully creates a DMA handle map (where i >=3D
-ctx->nbufs), but a subsequent step in fastrpc_internal_invoke() fails, the
-cleanup path in fastrpc_context_free() is triggered.
-
-fastrpc_context_free() only iterates up to nbufs:
-
-    for (i =3D 0; i < ctx->nbufs; i++)
-        fastrpc_map_put(ctx->maps[i]);
-
-Since the cleanup loop ignores indices >=3D nbufs, and the invoke never
-reaches the DSP to trigger fastrpc_put_args(), do these maps and their
-SMMU mappings leak permanently?
-
->  		if (err) {
->  			dev_err(dev, "Error Creating map %d\n", err);
->  			return -EINVAL;
->  		}
-> -
->  	}
-> +
->  	return 0;
->  }
-
-[ ... ]
-
-> @@ -1195,6 +1202,16 @@ static int fastrpc_get_args(u32 kernel, struct fas=
-trpc_invoke_ctx *ctx)
->  		list[i].num =3D ctx->args[i].length ? 1 : 0;
->  		list[i].pgidx =3D i;
->  		if (ctx->maps[i]) {
-> +			/* It is possible that map is created with
-> +			 * mflags FASTRPC_MAP_DMA_HANDLE and take_ref
-> +			 * is false. Check if map still exists or is
-> +			 * being freed as take_ref is false
-> +			 */
-> +			if (fastrpc_map_lookup(ctx->fl, ctx->args[i].fd,
-> +					       &ctx->maps[i], false)) {
-> +				ctx->maps[i] =3D NULL;
-> +				return -EINVAL;
-> +			}
->  			pages[i].addr =3D ctx->maps[i]->dma_addr;
-
-[Severity: Critical]
-Can this lockless dereference lead to a use-after-free regression?
-
-Since fastrpc_create_maps() maps the DMA handle with take_ref =3D false,
-the shared map's refcount remains 1. If a concurrent invocation completes
-and executes fastrpc_put_args() exactly after fastrpc_map_lookup() drops
-the lock but before ctx->maps[i]->dma_addr is evaluated, it will clear the
-flag and free the map.
-
-Would this result in a host kernel use-after-free and premature SMMU
-unmapping when the unreferenced pointer is accessed?
-
->  			pages[i].size =3D ctx->maps[i]->size;
->  		}
-
-[ ... ]
-
-> @@ -1244,8 +1261,17 @@ static int fastrpc_put_args(struct fastrpc_invoke_=
-ctx *ctx,
->  	for (i =3D 0; i < FASTRPC_MAX_FDLIST; i++) {
->  		if (!fdlist[i])
->  			break;
-> -		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false))
-> +		/*
-> +		 * DMA handle maps are released when the DSP returns the corresponding=
- fd in
-> +		 * fdlist. The DSP is expected to return a specific fd only once in fd=
-list,
-> +		 * so no two fastrpc_put_args() paths should clear the DMA_HANDLE flag=
- for
-> +		 * the same map concurrently.
-> +		 */
-> +		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false) &&
-> +		    mmap->flags =3D=3D FASTRPC_MAP_DMA_HANDLE) {
-> +			mmap->flags =3D 0;
->  			fastrpc_map_put(mmap);
-> +		}
-
-[Severity: Critical]
-Does clearing mmap->flags outside a lock introduce a race condition leading
-to a double free regression?
-
-If userspace submits two concurrent invocations sharing the same fd, and
-the DSP returns the fd in the fdlist of both, two threads executing
-fastrpc_put_args() could look up the shared map locklessly.
-
-Thread 1: evaluates mmap->flags =3D=3D FASTRPC_MAP_DMA_HANDLE as true
-Thread 2: evaluates mmap->flags =3D=3D FASTRPC_MAP_DMA_HANDLE as true
-Thread 1: clears flags and calls fastrpc_map_put() freeing the map
-Thread 2: clears flags and calls fastrpc_map_put() on a freed pointer
-
-Can this lead to host kernel heap corruption if triggered by concurrent
-invokes?
-
->  	}
-> =20
->  	return ret;
+Perhaps you need to read a datasheet for this panel and come up with a
+better understanding?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914104019.492-=
-1-jianping.li@oss.qualcomm.com?part=3D1
+With Best Regards,
+Andy Shevchenko
