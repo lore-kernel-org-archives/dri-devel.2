@@ -4,98 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FFF9C88E64
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 06:33:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ED07C88E50
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 06:36:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C99410E11B;
-	Mon, 14 Sep 2026 06:33:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B32B310EB90;
+	Mon, 14 Sep 2026 06:36:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="b16Odrj6";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="h6IyQ2X3";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ov/teEO7";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MuewFzNW";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="yDBaDnhg";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="A0HizsZT";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VkVZPGiQ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hMQfAJCw";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA02210E11B
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 06:33:38 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B086D10EB90
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 06:36:55 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id AF4E51F388;
- Mon, 14 Sep 2026 06:33:28 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B7E5321B4A;
+ Mon, 14 Sep 2026 06:36:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789367612; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1789367809; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ovBBaSgMLmlbSMqeNsjr5N8eDdz6l1RmmoDSShj29wE=;
- b=b16Odrj6bv0wp8OuyHaqBtpbaOjGnP9oDUkPm+RnEC2D3gQBz58ZPlxWU/CttnYcihdRLB
- W9ckoJDdVx6dO7vo2kVy82bj6PNrKQfv3GtcQ+ydcHEYIk1aK+5a1aeKXOtO+U3RRPmCCK
- c75mgcfRyGTh09JACGkenPbWXqI+yOM=
+ bh=eBV9sVYkX97cii9bufiY17gwdSa5R5reDq3cOLDIPk8=;
+ b=yDBaDnhgprnaW4rkDv+AI7y7wGT0034Df4Ms79Vq0XzxbzKtfhqHG5pwHLTaOKJxL7hQIr
+ kHRxcjAWcSOAXGigdQH5js4WX3kgslteueq0JFmACerAIrXO+Jf+pCQrhDt4UcnaUB0h2C
+ QVVzVA5UsU5lt7qol2ZMRYMCJgVAFaM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789367612;
+ s=susede2_ed25519; t=1789367809;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ovBBaSgMLmlbSMqeNsjr5N8eDdz6l1RmmoDSShj29wE=;
- b=h6IyQ2X3/hGfWruBjt45Bpjm6R/rVrgm2ZI/TWGL/4k6lMvTM7+LcT+bkGZQQ9FfVt1/XJ
- hDct8kTxT4gIkEAw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="ov/teEO7";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=MuewFzNW
+ bh=eBV9sVYkX97cii9bufiY17gwdSa5R5reDq3cOLDIPk8=;
+ b=A0HizsZTctUKBT/l3RA5u6IfGe9UxR6fX3ZB+vmXgTSXC9PeBOpf7s9UZGvOfySkBkQB15
+ RkZZAcVQV8U2xrBQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789367608; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1789367805; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ovBBaSgMLmlbSMqeNsjr5N8eDdz6l1RmmoDSShj29wE=;
- b=ov/teEO7U6AxQHEQtbeVuit6+Esb59jvvHc1wnp8vKLnWpfaXRnJSRiSJXNbrsxGrERqD3
- D0mM3mmD8XaIRjaEIHsJFOtRxdYqrJ3+DwrfaTqRiF+FmnHQR8cXA+Y7NE6h66cztla/pU
- 0BQtBNTOLhrKHZrOmvapY0G9AWkuTy8=
+ bh=eBV9sVYkX97cii9bufiY17gwdSa5R5reDq3cOLDIPk8=;
+ b=VkVZPGiQxewzpoWGUIXHjOkK7wqwAJRVIgAk7B2BwTG43tBxx/oiYD3sgJqeoBGIV6t7/U
+ y1miQdtpJ+hnt8vilSUQRYId/iY50q8goQVnlYTdv2dRWlSG5B8zI7JOwd5X+C4MGApIOj
+ PKz7ZnFXRxQtLAG+rqCI7wVDoPE9gQ8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789367608;
+ s=susede2_ed25519; t=1789367805;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ovBBaSgMLmlbSMqeNsjr5N8eDdz6l1RmmoDSShj29wE=;
- b=MuewFzNWGNAVPk7ko9iJTbOoyxG+Ut0iz5lpJBigNxT3SjHYUKwlRHFh24JiMS5BoVGv5Q
- 1gdeuU5ohpB39OAQ==
+ bh=eBV9sVYkX97cii9bufiY17gwdSa5R5reDq3cOLDIPk8=;
+ b=hMQfAJCwSNyGRxzaShD6//oY2wEOMhR/PkWLXYKwCDaBxNj0fNOsQgMldPdeOt5kBf3yuF
+ 6RP3jdS/FXrrHmBw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 08DF813693;
- Mon, 14 Sep 2026 06:33:27 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2832F13515;
+ Mon, 14 Sep 2026 06:36:44 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id OLQQMjeVp2qFEgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 14 Sep 2026 06:33:27 +0000
-Message-ID: <bf9f900c-39d4-4571-ae4b-3896c5ce8610@suse.de>
-Date: Mon, 14 Sep 2026 08:33:27 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id sZ/NOPyVp2qAFgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 14 Sep 2026 06:36:44 +0000
+Message-ID: <b2f48121-30c3-4530-9687-3e8757172816@suse.de>
+Date: Mon, 14 Sep 2026 08:36:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/8] drm/pl111: replace struct drm_simple_display_pipe
- with regular atomic helpers
-To: Linus Walleij <linusw@kernel.org>, Ze Huang <ze.huang@oss.qualcomm.com>
-Cc: Alexey Brodkin <abrodkin@synopsys.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Subject: Re: [PATCH] drm/aspeed: Balance the display clock enable on teardown
+To: Myeonghun Pak <mhun512@gmail.com>, Joel Stanley <joel@jms.id.au>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Hans de Goede <hansg@kernel.org>,
- Alex Lanzano <lanzano.alex@gmail.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- imx@lists.linux.dev, xen-devel@lists.xenproject.org
-References: <20260727-drm-simple-kms-removal-v3-0-cd5dc89858c6@oss.qualcomm.com>
- <20260727-drm-simple-kms-removal-v3-4-cd5dc89858c6@oss.qualcomm.com>
- <CAD++jLnN-dhwxWwgmWYVD7COhvVsTxbiexHwoFkzgv8ucGhxqw@mail.gmail.com>
+ Simona Vetter <simona@ffwll.ch>, Andrew Jeffery
+ <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>,
+ Billy Tsai <billy_tsai@aspeedtech.com>, Sam Ravnborg <sam@ravnborg.org>,
+ =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>,
+ linux-aspeed@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Ijae Kim <ae878000@gmail.com>
+References: <20260913223019.89651-1-mhun512@gmail.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -122,28 +113,23 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CAD++jLnN-dhwxWwgmWYVD7COhvVsTxbiexHwoFkzgv8ucGhxqw@mail.gmail.com>
+In-Reply-To: <20260913223019.89651-1-mhun512@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: AF4E51F388
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCVD_TLS_ALL(0.00)[]; TAGGED_RCPT(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[22];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[16];
+ FREEMAIL_TO(0.00)[gmail.com,jms.id.au]; ARC_NA(0.00)[];
  MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[synopsys.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,jms.id.au,codeconstruct.com.au,nxp.com,pengutronix.de,epam.com,lists.freedesktop.org,vger.kernel.org,lists.ozlabs.org,lists.infradead.org,lists.linux.dev,lists.xenproject.org];
- TO_DN_SOME(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,suse.com:url,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DKIM_TRACE(0.00)[suse.de:+]
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,codeconstruct.com.au,aspeedtech.com,ravnborg.org,tronnes.org,lists.ozlabs.org,lists.freedesktop.org,lists.infradead.org,vger.kernel.org];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:mid, suse.com:url,
+ imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,28 +145,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
 
-Am 14.09.26 um 01:33 schrieb Linus Walleij:
-> On Sun, Jul 26, 2026 at 9:46 PM Ze Huang <ze.huang@oss.qualcomm.com> wrote:
+
+Am 14.09.26 um 00:30 schrieb Myeonghun Pak:
+> aspeed_gfx_load() enables the display clock without checking the return
+> value and never disables it on probe failure or removal. devm_clk_get()
+> only releases the clock reference, leaving the enable unbalanced.
 >
->> Replace the PL111 simple display pipe with explicit plane, CRTC and
->> encoder objects.
->>
->> Move the existing timing, format and pitch validation into explicit
->> atomic check paths. Use commit-local plane state in the CRTC enable path
->> when reading framebuffer format state.
->>
->> Move page-flip event handling to the CRTC commit path.
->>
->> Signed-off-by: Ze Huang <ze.huang@oss.qualcomm.com>
-> This patch 4/8 applied for next.
-
-Great, thanks a lot!
-
+> Use devm_clk_get_enabled() to handle enable failures and automatically
+> disable and unprepare the clock on probe failure or removal.
 >
-> Yours,
-> Linus Walleij
+> This issue was identified during our ongoing static-analysis research
+> while reviewing kernel code.
+>
+> Fixes: 4f2a8f5898ec ("drm: Add ASPEED GFX driver")
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> Assisted-by: OpenAI:GPT-5.6
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+> ---
+> Validated with an ARM64 W=1 object build and strict checkpatch.
+> No hardware runtime, clock-failure injection or unbind testing was done.
+>
+>   drivers/gpu/drm/aspeed/aspeed_gfx_drv.c | 5 ++---
+>   1 file changed, 2 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
+> index d4577663a..aa36b79d0 100644
+> --- a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
+> +++ b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
+> @@ -189,13 +189,12 @@ static int aspeed_gfx_load(struct drm_device *drm)
+>   	}
+>   	reset_control_deassert(priv->rst);
+>   
+> -	priv->clk = devm_clk_get(drm->dev, NULL);
+> +	priv->clk = devm_clk_get_enabled(drm->dev, NULL);
+>   	if (IS_ERR(priv->clk)) {
+>   		dev_err(&pdev->dev,
+> -			"missing or invalid clk device tree entry");
+> +			"failed to get and enable clock\n");
+>   		return PTR_ERR(priv->clk);
+>   	}
+> -	clk_prepare_enable(priv->clk);
+>   
+>   	/* Sanitize control registers */
+>   	writel(0, priv->base + CRT_CTRL1);
 
 -- 
 --
