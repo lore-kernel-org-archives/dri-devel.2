@@ -4,44 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C2F1C88E50
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 13:05:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B659C88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 13:10:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E78A10E82C;
-	Mon, 14 Sep 2026 13:05:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A612210EE32;
+	Mon, 14 Sep 2026 13:10:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VnzI4iHe";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YtwJzP5K";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFD3210E82C
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 13:05:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9EB7E43360;
- Mon, 14 Sep 2026 13:05:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AEE91F00893;
- Mon, 14 Sep 2026 13:05:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789391151;
- bh=UhPEOJqTs67Eeq+UZJa/bD+StAhuLkJTTyYWTn19uuA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VnzI4iHeUgg0N3Zlpp8CcIfKABJP5hZrrr2Yr8tbSini3wPSABfTADmzwrA+aAGki
- +u1B/DnCjVfKfDaZOHwrTyuaG13LnVsa2nCVmquUiIelzXcyplMRw9Bkbiu1AnVANf
- gIxxJ0p5TsZHMsY93qfITigK5nculRkySUl1l0RlolkGytnE7f+t7HcrhDU7kn015g
- WuxKTNGie/2G+zyhqbml+6aZx9TgfgDnd6e5y2n/4D4ETBzI9HJAVOx50eobvrQGuj
- IUvEpXbDtA71dXav9SAin3+u3WCDvVefFVabjsPIaoZwNauyjyaMCNcD+56q6+n4Mo
- RToqzRWQvPrZQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] firmware: qcom: scm: pass qcom_scm through the
- exported API
-To: "Albert Esteve" <aesteve@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20260914-scm-device-api-v1-2-3573e2596c51@redhat.com>
-References: <20260914-scm-device-api-v1-0-3573e2596c51@redhat.com>
- <20260914-scm-device-api-v1-2-3573e2596c51@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 13:05:50 +0000
-Message-Id: <20260914130551.4AEE91F00893@smtp.kernel.org>
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com
+ [74.125.228.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 307EA10E492
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 10:45:13 +0000 (UTC)
+Received: by mail-pz2-f43.google.com with SMTP id
+ d2e1a72fcca58-868cfc5c244so1031363b3a.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 03:45:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789382712; x=1789987512; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=3m3SP6e9NrbIRaMkWtj1uZEt6uHgAf5jXfUplg45r+k=;
+ b=YtwJzP5KFQCNTHmwkONV/e62S132ARQUgN7h2slSQDwkML/2Zf2m3OmEQA3zjDdb5v
+ 0/skvy/mbdiFqNRrxORlY4xighQfO5+dSKpK2YX53iHDYf4ROm+EPYz+XZnGDsZAWNdT
+ 1ePp9VXJSUwxutgF6SoRUPGxsuTV/sVnr2CK955M6XPKtGkJOT+Q3PGmGVjNWGyyxKap
+ 6x6yTjkEHspno3V5OD7YG40xbnsZPvCyRghYnNDaMJWMvZxJXQGf+q2JD6YGjnQimgrm
+ kCTKH9arzy7gdo3bQCx9Ct3LC8xOtFBkOjD7oz8ImKG2RI5GsQR/0z21IP8rmWpNksBb
+ MW0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789382712; x=1789987512;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=3m3SP6e9NrbIRaMkWtj1uZEt6uHgAf5jXfUplg45r+k=;
+ b=h7uIougIet90L+ikS3fYx/BAzEm8iDZd6EmXtm1QAK9hGXsbqyzlL8+CjdRueWCGDf
+ DeA+jLHPkT5bXPanBKcta2qmFOxmVIA+t5Lj38rwVJXiuFdiiM55WAQ1VptIEVwQTVp9
+ /egniIQOjSC2WVnnLxFMPjml+WSmjWYM40n1+vMVXS0EgKCRasAqDAe5IwSFHQBbTP+k
+ DA+Qz7Bh8jxuWA0gLB30Tk0OqrmE66ZAXN1IZeRXaRrFp2c2FiTsfN8fepG1CDliTMfT
+ DwWohqyv3tngdFEaISKqN8N0Ot2TUu8AbNV0D1pYX53L3JhtzC+f17DEQwCLaUYhxtbk
+ FZeA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy3c67jsNB5ugkUU1Oay7nXW0y4TuMOiuN6ipzJb+EZmdbTE61cI0aUDM29/7DSwnVt8/M1D8vDq4E=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nqqgFqzD/eatEkp7/89sr8micDjRkwVziz9ukMuGX26Y95dOQh
+ gzjJ+Hc69KC3iThP0sguVvA/T58cBsPIKx2r85RE5tV5n7W6N9dAEfcZ
+X-Gm-Gg: AYBFou00zEt7jCV1WqOzalmn0BBe8YcFVj/OiOCpdzf2eKy7CV2UGN0oChEdRNGgNLr
+ WdHPogs0l14Qk9+pDDEYUZD2SCBUwIOwPwUQ3BBsz3BpKcnuAvJX57M5mDFyEwDRihLs5ZdQEyJ
+ mBvdECM98RbgADPcaTEur4wiJvcmzHK4cC0aPOJWk/c/TD1J9yHlCbGzhi+BH+KZFOlnlaO+QxE
+ NATg3NMCQZfmcAbbyPjwC16x2w8C7QMdFI9Mb6w7PXtqgChS44y3ctyVTAgcP61HDaQuHPud9TR
+ wAKp6hCeEHwSSazWsgY01kFB/zkwUb6lS35AZ5c/4nqLAWpXmC0ye+FLjekbu7tGC2ePigiy/gS
+ cznL0USHyONKu4/oPTc0EGDgZAmW0VBIC1Je4LCJbDeYpVxYQKIrR4fJ2E49UC3rUcKGwu5Slgi
+ ZkaP0gJmf4vXnaxtkFJasjUknXaiJ0ENltjk65eAt/uHhVqSEJMMjjvImyr4HbxezSGhC8d57SM
+ SFjFsvLu5hXQOsDLIUXCnmQkZlSLHQPNSVpwI2doLeIQG2oQZbqLsfRE3RIEPUvOitkHXbmiwNI
+ rBIjWlWYtmvmOSCSsC3L+ehHvF322u1epyfg5JfpEmjuvrWAkFF8PkSsHKXSCx0=
+X-Received: by 2002:a05:6a00:21c2:b0:857:7384:b5fd with SMTP id
+ d2e1a72fcca58-86f8737ced2mr3809414b3a.25.1789382712304; 
+ Mon, 14 Sep 2026 03:45:12 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.252.203.158])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-86b28fd0e0dsm4234386b3a.26.2026.09.14.03.45.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 14 Sep 2026 03:45:11 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Matthias Goergens <matthias.goergens@gmail.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
+ Michal Hocko <mhocko@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Yosry Ahmed <yosry@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
+ linux-api@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
+ linux-man@vger.kernel.org, Karel Zak <kzak@redhat.com>,
+ util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>,
+ linux-kselftest@vger.kernel.org
+Subject: [RFC PATCH 0/3] mm/swap: reserve swap areas for deliberate offload
+Date: Mon, 14 Sep 2026 18:44:58 +0800
+Message-ID: <20260914104501.3960616-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 14 Sep 2026 13:10:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,149 +104,133 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] NULL pointer dereference in fastrpc_rpmsg_probe() when allocating =
-memory for SDSP_DOMAIN_ID on systems without the qcom,vmids property.
-- [High] SMP initialization is unconditionally disabled on Qualcomm ARM32 p=
-latforms.
-- [Low] Unupdated caller of `qcom_scm_io_writel()` in the USB EUD driver.
-- [Low] Unupdated caller of `qcom_scm_mem_protect_video_var()` in the Iris =
-media driver.
---
+Some swap backends are useful for deliberate cold-page offload but are poor
+dependencies for ordinary reclaim under acute memory pressure. Swap on ZFS
+zvols is an existing example, with documented deadlocks under memory
+pressure [3]. Compressed swap is another attractive target: accepting a
+write may require memory for compression or storage even when logical swap
+slots remain free.
 
-commit 9df6c4c915fd9c1b7019af817a1a3e4285555806
-Author: Albert Esteve <aesteve@redhat.com>
+This series adds an offload-only swap-area policy for such deployments,
+alongside a conventional swap reserve for pressure reclaim.
 
-firmware: qcom: scm: pass qcom_scm through the exported API
+Proactive offloading is already established by TMO/Senpai [4], which uses
+pressure feedback to offload cold pages to compressed memory or SSDs.
+DAMON_RECLAIM [5] also uses free-memory watermarks to suspend proactive
+reclaim under severe pressure. These control when reclaim runs; this RFC
+restricts which swap areas ordinary reclaim may write, including through
+retained swap entries. The existing memory.zswap.writeback control [6]
+restricts backing-swap writes per cgroup, rather than reserving individual
+swap areas for explicitly admitted offload.
 
-This commit modifies the exported SCM calls to take an explicit struct qcom=
-_scm
-handle instead of using a global singleton. Subsystems and device drivers a=
-re
-updated to recover the instance via dev_get_drvdata() or qcom_scm_get() bef=
-ore
-calling SCM APIs.
+The minimum contract is that ordinary reclaim must not initiate a new,
+non-zero backend write to an offload-only area. Reads, swapoff, zero-page
+metadata, architecture preparation, and I/O that was already admitted remain
+valid. If no eligible swap remains, existing reclaim and OOM behaviour applies.
+This RFC does not promise a performance result or define a new workload policy.
 
-> diff --git a/arch/arm/mach-qcom/platsmp.c b/arch/arm/mach-qcom/platsmp.c
-> index eca2fe0f4314b..c4e7aab77bc99 100644
-> --- a/arch/arm/mach-qcom/platsmp.c
-> +++ b/arch/arm/mach-qcom/platsmp.c
-> @@ -355,9 +355,10 @@ static int kpssv2_boot_secondary(unsigned int cpu, s=
-truct task_struct *idle)
-> =20
->  static void __init qcom_smp_prepare_cpus(unsigned int max_cpus)
->  {
-> +	struct qcom_scm *scm =3D qcom_scm_get();
->  	int cpu;
-> =20
-> -	if (qcom_scm_set_cold_boot_addr(secondary_startup_arm)) {
-> +	if (!scm || qcom_scm_set_cold_boot_addr(scm, secondary_startup_arm)) {
+Cgroup v2 memory.reclaim and per-node reclaim establish admission. Manual
+MGLRU eviction currently does too, but its debugfs interface is not stable
+ABI. Ordinary direct reclaim, kswapd, MADV_PAGEOUT and DAMON reclaim do not
+gain access. This is an explicit operator policy; the kernel does not measure
+physical headroom or automatically classify backends.
 
-[Severity: High]
-Does this code unintentionally disable SMP on all Qualcomm ARM32 devices?
+The three patches are based on mm-new as refreshed on 11 September, at
+995829088503:
 
-Because qcom_smp_prepare_cpus() is called early in the boot process (from=20
-smp_prepare_cpus()), before do_initcalls() probes the qcom_scm platform dri=
-ver,
-qcom_scm_get() will unconditionally return NULL here.
+1. The complete swap-area policy, including eligible-capacity accounting and
+   recovery of eligible cache entries.
+2. zram03/zram04 coverage for reclaim routing, zswap bypass, discard policy
+   and file workingset activation.
+3. zram05 coverage for retained swap entries, including ordinary-write
+   refusal, proactive recovery, data integrity and checked teardown.
 
-This causes the (!scm) condition to short-circuit to true, skipping the SCM
-call and executing the error path which clears the cpu_present mask for all
-secondary CPUs.
+The implementation is intended to make these questions reviewable:
 
-[ ... ]
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index 90fd669636ec1..e8ff9d4b03957 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-[ ... ]
-> @@ -2569,13 +2574,17 @@ static int fastrpc_rpmsg_probe(struct rpmsg_devic=
-e *rpdev)
->  				"qcom,vmids", &vmids[0], 0, FASTRPC_MAX_VMIDS);
->  	if (vmcount < 0)
->  		vmcount =3D 0;
-> -	else if (!qcom_scm_is_available())
-> -		return -EPROBE_DEFER;
-> +	else {
-> +		scm =3D qcom_scm_get();
-> +		if (!scm)
-> +			return -EPROBE_DEFER;
-> +	}
-> =20
->  	data =3D kzalloc_obj(*data);
->  	if (!data)
->  		return -ENOMEM;
-> =20
-> +	data->scm =3D scm;
->  	if (vmcount) {
->  		data->vmcount =3D vmcount;
->  		for (i =3D 0; i < data->vmcount; i++) {
-> @@ -2592,7 +2601,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device =
-*rpdev)
->  		if (!err) {
->  			src_perms =3D BIT(QCOM_SCM_VMID_HLOS);
-> =20
-> -			err =3D qcom_scm_assign_mem(res.start, resource_size(&res), &src_perm=
-s,
-> +			err =3D qcom_scm_assign_mem(scm, res.start, resource_size(&res), &src=
-_perms,
+1. Should pressure eligibility be a durable property activated with the
+   physical swap area, or should it be selected late during backend migration?
+2. Do provenance, allocation filtering, eligible capacity, and retained-entry
+   refusal provide a useful minimum contract for userspace and controllers?
+3. Is redirtying or activating a retained dirty folio, with possible churn or
+   OOM, acceptable, or is backend migration a prerequisite?
+4. How should persistent activation fail closed and remain auditable when
+   /proc/swaps and swapon --show do not expose the policy?
+5. Should an ineligible fast-path cluster be invalidated immediately, and
+   should an offload-only area recover its own cache entries based on eligible
+   fullness rather than global swap fullness?
+6. Should the workingset activation heuristic continue to count offload-only
+   capacity when pressure reclaim cannot allocate from it?
 
-[Severity: High]
-Can this result in a NULL pointer dereference in qcom_scm_assign_mem() when
-allocating TZ memory?
+Build checks passed on x86 with i915 built-in or modular, and with swap or
+memory cgroups disabled. The affected arm64 MTE objects also compiled.
 
-If the "qcom,vmids" DT property is missing, vmcount defaults to 0 and the
-"else" block above is skipped, leaving the scm pointer as NULL. Later in
-fastrpc_rpmsg_probe(), for the SDSP_DOMAIN_ID domain with a reserved memory
-region, this code unconditionally passes the NULL scm pointer to
-qcom_scm_assign_mem().
+The routing and workingset tests passed in x86 QEMU guests. In the
+retained-entry test, ordinary reclaim wrote nothing to offload-only swap;
+proactive reclaim then wrote the dirty folio, and all data verified
+correctly. With the write guard removed, the same test failed because
+ordinary reclaim wrote to the offload-only area.
 
-Inside qcom_scm_assign_mem(), the NULL pointer is immediately dereferenced
-during the memory allocation call:=20
-qcom_tzmem_alloc(scm->mempool, ...)
+Persistent fstab encoding remains unsettled. When hibernation is about to
+save an image, an active offload-only area named by resume= is rejected as
+the image target with -ENODEV. Virtual Swap Space v4 [1] separates swap
+entries from their physical backing, while swap tiers v10 [2] proposes
+per-cgroup backend selection. These raise the question of whether offload
+eligibility belongs to physical swap areas or a later placement decision;
+this RFC does not assume those interfaces are settled.
 
-[ ... ]
-> diff --git a/include/linux/firmware/qcom/qcom_scm.h b/include/linux/firmw=
-are/qcom/qcom_scm.h
-> index 5747bd191bf15..9c513fe6f0ea9 100644
-> --- a/include/linux/firmware/qcom/qcom_scm.h
-> +++ b/include/linux/firmware/qcom/qcom_scm.h
-[ ... ]
-> -int qcom_scm_io_readl(phys_addr_t addr, unsigned int *val);
-> -int qcom_scm_io_writel(phys_addr_t addr, unsigned int val);
-> +int qcom_scm_io_readl(struct qcom_scm *scm, phys_addr_t addr, unsigned i=
-nt *val);
-> +int qcom_scm_io_writel(struct qcom_scm *scm, phys_addr_t addr, unsigned =
-int val);
+An explicit-only util-linux companion implementing swapon --offload-only
+is prepared for separate submission.
 
-[Severity: Low]
-Are there unupdated callers of qcom_scm_io_writel() that will cause a build
-failure?
+Feedback on the eligibility contract, its placement in the swap stack,
+and the unresolved ABI and reclaim-policy questions would be welcome.
 
-The enable_eud() and disable_eud() functions in drivers/usb/misc/qcom_eud.c
-appear to call qcom_scm_io_writel() without the newly required struct qcom_=
-scm
-pointer as the first argument.
+[1] https://patchew.org/linux/20260825153238.2695446-1-nphamcs@gmail.com/
+[2] https://patchew.org/linux/20260713025644.170839-1-youngjun.park@lge.com/
+[3] https://openzfs.github.io/openzfs-docs/Project%20and%20Community/FAQ.html#using-a-zvol-for-a-swap-device-on-linux
+[4] https://engineering.fb.com/2022/06/20/data-infrastructure/transparent-memory-offloading-more-memory-at-a-fraction-of-the-cost-and-power/
+[5] https://www.kernel.org/doc/html/latest/admin-guide/mm/damon/reclaim.html
+[6] https://www.kernel.org/doc/html/latest/admin-guide/mm/zswap.html
 
-[ ... ]
-> -int qcom_scm_mem_protect_video_var(u32 cp_start, u32 cp_size,
-> +int qcom_scm_mem_protect_video_var(struct qcom_scm *scm, u32 cp_start, u=
-32 cp_size,
->  				   u32 cp_nonpixel_start, u32 cp_nonpixel_size);
+Matthias Goergens (3):
+  mm: restrict offload-only swap to proactive reclaim
+  selftests: zram: cover offload-only swap policy
+  selftests: zram: cover retained offload-only entries
 
-[Severity: Low]
-Could this signature change also cause a build failure?
+ Documentation/mm/swap.rst                     |  87 ++++
+ drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |   2 +-
+ .../gpu/drm/i915/gem/selftests/huge_pages.c   |   6 +-
+ drivers/gpu/drm/msm/msm_gem_shrinker.c        |   2 +-
+ drivers/gpu/drm/panthor/panthor_gem.c         |   2 +-
+ drivers/gpu/drm/ttm/ttm_backup.c              |   2 +-
+ drivers/gpu/drm/xe/tests/xe_bo.c              |   2 +-
+ include/linux/swap.h                          |  29 +-
+ include/linux/vm_event_item.h                 |   1 +
+ mm/memcontrol.c                               |  20 +-
+ mm/page_io.c                                  |  24 +-
+ mm/swapfile.c                                 | 126 +++++-
+ mm/vmscan.c                                   |  31 +-
+ mm/vmstat.c                                   |   1 +
+ tools/testing/selftests/zram/.gitignore       |   2 +
+ tools/testing/selftests/zram/Makefile         |   4 +-
+ tools/testing/selftests/zram/config           |  10 +-
+ tools/testing/selftests/zram/swap_offload.c   | 402 ++++++++++++++++++
+ .../selftests/zram/workingset_offload.c       | 206 +++++++++
+ tools/testing/selftests/zram/zram03.sh        | 166 ++++++++
+ tools/testing/selftests/zram/zram04.sh        | 149 +++++++
+ tools/testing/selftests/zram/zram05.sh        | 360 ++++++++++++++++
+ tools/testing/selftests/zram/zram_lib.sh      |  28 ++
+ 23 files changed, 1620 insertions(+), 42 deletions(-)
+ create mode 100644 tools/testing/selftests/zram/swap_offload.c
+ create mode 100644 tools/testing/selftests/zram/workingset_offload.c
+ create mode 100755 tools/testing/selftests/zram/zram03.sh
+ create mode 100755 tools/testing/selftests/zram/zram04.sh
+ create mode 100755 tools/testing/selftests/zram/zram05.sh
 
-The iris_set_cp_prot() function in drivers/media/platform/qcom/iris/iris_fi=
-rmware.c
-appears to still call qcom_scm_mem_protect_video_var() without the newly
-required struct qcom_scm pointer.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-scm-device=
--api-v1-0-3573e2596c51@redhat.com?part=3D2
+base-commit: 9958290885035431e2494159f555e332c3c14906
+-- 
+2.55.0
+
