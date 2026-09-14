@@ -4,57 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13821C88E50
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 08:07:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11EC4C88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 08:07:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2904410E1A3;
-	Mon, 14 Sep 2026 08:07:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA4610E541;
+	Mon, 14 Sep 2026 08:07:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SBZsREzV";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="aslbRqxm";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 825FD10E1A3
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:07:24 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 02201400FF;
- Mon, 14 Sep 2026 08:07:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D8601F000FF;
- Mon, 14 Sep 2026 08:07:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789373243;
- bh=e4MDPnk0sVi6M/ZwVTwBYhAjHK5Lznz8GI867hQNhLo=;
- h=From:Subject:Date:To:Cc;
- b=SBZsREzVD5PbeSyJiFSNramm0bMw6+ATY8CHNACOpPnhhOEZptV/wPpDGFT0lMTaO
- Zp+geWUBm871wAPMgjrc/TwEgzjtRPOo2gjVircSDe9/OCR+DJrEzxQrhsFqesbv7R
- lW9C+YMVU4fNsCvi49aE28NGGvXO/DynmZBWtIfKOXlcXtsMz/QoLvh2AtWI1hVDtX
- KpxM6vw61RM4Nlaa4jYCuhjHRcs24+cACFBbwQr9NBtFhKLvs5OGZC5bu4WQrfXFj4
- nI9YI4Vcor7crMZ3HPXFPJLcPvLzdlu6NZyBqgXM7kg/3xAuxOUSR2YVrf1BV9oKlp
- HrBonrTvUeSlw==
-From: Linus Walleij <linusw@kernel.org>
-Subject: [PATCH v2 00/20] pmdomain: st: ux500: Implement ux500 power
- domains
-Date: Mon, 14 Sep 2026 10:06:51 +0200
-Message-Id: <20260914-ux500-power-domains-v7-1-v2-0-256967abde51@kernel.org>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7852C10E541
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:07:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1789373248;
+ bh=2AfN/zuzcXz2rERtX+l5Z4PCLd8URiu4rtP3kdK3Dq4=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=aslbRqxm/Te+ffUi3iG85l42oEtBYSXQpUzr46vCz8jPU4oK4qbQWv+a59K9KaeZQ
+ Jlvap2UO+3D1AJrCfA+C/Z0wXHV/+6lAvHJLif0GDLdCL1NHe1wVj8NYiYeVzIABel
+ 7s9qWae9DuG8ZcQgrAYce7Ucx82Yo5rqfE67C1Ln9T6rsHXsscSlEbk9jpN5Msa7ts
+ KVusV93w/6W+GpsCgBTjlpjA7VdeK39MWn7NHw6xdhtAjK+GiCC0J611We5HaIfMon
+ Rqnic60btLZglX4nbw9cUo8nW1g2Zw7oXCrKgbotASkpgX/rL5dfiV1kTVdOKkfqMH
+ DgRpQ3dr+ZemA==
+Received: from fedora-21.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 4F7BD17E005A;
+ Mon, 14 Sep 2026 10:07:28 +0200 (CEST)
+Date: Mon, 14 Sep 2026 10:07:22 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Adrian Larumbe <adrian.larumbe@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Chris Diamand <chris.diamand@arm.com>, Akash Goel <akash.goel@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 18/18] drm/panthor: Add debugfs knobs to simulate
+ reset failures
+Message-ID: <20260914100722.279b6532@fedora-21.home>
+In-Reply-To: <aqWmIbT_46Enz8VH@sobremesa>
+References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
+ <20260826-panthor-unplug-fixes-v4-18-982cc8f4234b@collabora.com>
+ <aqWmIbT_46Enz8VH@sobremesa>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAByrp2oC/42NTQ6CMBBGr0K6dsy0plhceQ/Dgp8RJmpLploxh
- LtbOYHL95LvfYuKJExRnYpFCSWOHHwGsytUNzZ+IOA+szJoSiy1g9dsEWEKbxLow6NhHyEdQcO
- hq3qsrDOuMyrPJ6Erz1v6UmceOT6DfLanpH/2j2jSgECtJYutbqxz5xuJp/s+yKDqdV2/51lS3
- MEAAAA=
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
- Mark Brown <broonie@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Lee Jones <lee@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- dmaengine@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, Frank Li <Frank.li@oss.nxp.com>
-X-Mailer: b4 0.13.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,148 +69,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series pays off technical debt from the beginning of the device
-tree for ARM initiative in the early 2010s.
+On Sat, 12 Sep 2026 20:27:28 +0100
+Adrian Larumbe <adrian.larumbe@collabora.com> wrote:
 
-Today the Ux500 SoC specifically DB8500 is using what is called "EPOD
-regulators" (EPOD = Electric POwer Domain) to control its power domains.
-This was done like this because at the time, power domains did not exist
-as a concept in the Linux kernel.
+> I've tried poking the knob that fakes an error in the reset path and got two different kinds of oputput:
+> 
+> Either
+> ```
+> [ 1950.080236] panthor fb000000.gpu: [drm] *ERROR* Failed to boot MCU after reset, making device unusable.
+> [ 1951.167384] panthor fb000000.gpu: [drm] Timed out waiting for MCU to halt
+> [ 1951.167543] panthor fb000000.gpu: [drm] Failed to cleanly suspend MCU
 
-This patch series completes the ambitious work started in commit
-cd931dcfda5e ("ARM: ux500: Initial support for PM domains") which added
-a dummy domain driver for Ux500 in the following steps:
+Hm, I guess that happens when the unplug work has been queued but not
+executed yet, and something tries to interact with the FW after that. I
+suspect it's some autosuspend request kicking in after that, and asking
+the FW to suspend, which it can't do because it's not even booted.
+What's weird is the 1sec between those two events (I don't expect
+unplug to take that long to execute).
 
-- Convert the old Ux500 power domain text DT bindings to YAML schema.
-
-- Extend the bindings with all the 16 power domains actually existing in
-  the hardware.
-
-- Add these domains to the existing ux500 power domain driver (still as
-  dummy domains).
-
-- Add the power domains to the DB8500 SoC DTSI file.
-
-- Move code over from the EPOD regulators to the actual power domain
-  driver. Since the two drivers now control the same hardware, make the
-  drivers mutually exclusive.
-
-- Modify the MCDE display driver to use the power domain instead of the
-  EPOD regulators.
-
-- Modify the DMA40 DMA controller to use the power domain instead of the
-  EPOD regulators.
-
-- Delete the old EPOD regulators.
-
-- Delete the references to the unused EPOD regulators from the device
-  tree.
-
-The series is ordered so binding updates and compatibility glue precede
-the DTS and driver changes that depend on them.
-
-MERGE STRATEGY:
-
-1. Device tree bindings need review, before that the series is a
-   no-go.
-
-2. For simplicity, the series can be merged in separate paths and
-   subsystems as there are no build-time dependencies, as long as the
-   result ends up in kernel v7.4.
-
-   Once the concept and patches are ACKed by the power domain folks, I
-   will send the patches that can be split out individually to each
-   maintainer and it can all be merged in parallel. I will send a
-   pull request to the SoC tree with bindings and DTS changes.
-
-Signed-off-by: Linus Walleij <linusw@kernel.org>
----
-Changes in v3:
-- Went on a detour clean-up job relating to buck regulators.
-  Rebased on kernel v7.3-rc1 and the regulator re-works in this
-  mail thread:
-  https://lore.kernel.org/mfd/20260901-ux500-dts-snowball-regulator-v2-0-fe88b01829bf@kernel.org/
-- Drop the PM domain "regulators" entirely, the external components
-  now use their actual buck regulators.
-- Fix the DB8500 pin controller power domain to use VAPE.
-- Allow power-domain references in the l2c2x0, arm,pmu,
-  stericsson,u8500-clks, arm,twd-timer, arm,twd-wdt and ste,mcde
-  schemas used by the DB8500 DTS additions.
-- Treat only negative pm_runtime_put_sync_suspend() returns as errors.
-- Fix the MCDE probe error path to disable the main clock after reset.
-- Fix Ux500 PM-domain probe error cleanup for domains and provider data.
-- Drop the unused Ux500 power-state activity counter.
-- Describe Ux500 subdomains in DT and use OF child ID helpers.
-- Move DMA40 LCLA power-domain get out of atomic transfer paths.
-- Enable runtime PM in the generic SRAM driver so SRAM power domains
-  are managed by their owner before DMA40 takes LCLA references.
-- Add a DMA40 device link so system PM orders the LCLA SRAM supplier.
-
-Changes in v2:
-- Merge the dbx500 PRCMU header into the DB8500 PRCMU header.
-- Add binding fixes for the DB8500 PRCMU regulator child nodes.
-- Add an MCDE binding update for the new power-domain reference.
-- Fix up the DB8500 DTS changes for the remaining VAPE and VSMPS2
-  compatibility regulators.
-- Link to v1: https://lore.kernel.org/r/20260618-ux500-power-domains-v7-1-v1-0-eb5e50b1a588@kernel.org
-
----
-Linus Walleij (20):
-      dt-bindings: power: Convert Ux500 PM domains to schema
-      dt-bindings: arm: ux500: Drop NR_DOMAINS
-      dt-bindings: arm: Add the actual power domains on U8500
-      dt-bindings: mfd: db8500-prcmu: Relax EPOD regulators
-      dt-bindings: display: ste,mcde: Allow power domains
-      pmdomain: st: ux500: Implement more power domains
-      ARM: dts: ux500: Rename power domains node
-      dt-bindings: cache: l2c2x0: Document power domain
-      dt-bindings: arm: pmu: Allow power domains
-      dt-bindings: clock: stericsson,u8500-clks: Allow power domains
-      dt-bindings: timer: arm,twd-timer: Allow power domains
-      dt-bindings: watchdog: arm,twd-wdt: Allow power domains
-      ARM: dts: ux500: Add power domains
-      pmdomain: st: ux500: Control DB8500 EPODs
-      drm/mcde: Use power domain for display power
-      misc: sram: Enable runtime PM
-      dmaengine: ste_dma40: Use power domain for LCLA SRAM
-      mfd/regulator: db8500-prcmu: Remove EPOD regulators
-      dt-bindings: display: ste,mcde: Deprecate EPOD supply
-      ARM: dts: ux500: Remove DB8500 EPOD regulators
-
- Documentation/devicetree/bindings/arm/pmu.yaml     |   3 +
- .../devicetree/bindings/arm/ux500/power_domain.txt |  35 --
- .../devicetree/bindings/cache/l2c2x0.yaml          |   2 +
- .../bindings/clock/stericsson,u8500-clks.yaml      |   3 +
- .../devicetree/bindings/display/ste,mcde.yaml      |  10 +-
- .../bindings/mfd/stericsson,db8500-prcmu.yaml      |  24 +-
- .../power/stericsson,ux500-pm-domains.yaml         |  46 ++
- .../devicetree/bindings/timer/arm,twd-timer.yaml   |   3 +
- .../devicetree/bindings/watchdog/arm,twd-wdt.yaml  |   3 +
- MAINTAINERS                                        |   1 +
- arch/arm/boot/dts/st/ste-dbx5x0.dtsi               | 144 +++---
- arch/arm/mach-ux500/Kconfig                        |   2 +-
- drivers/dma/ste_dma40.c                            | 130 ++++--
- drivers/gpu/drm/mcde/mcde_clk_div.c                |   4 +-
- drivers/gpu/drm/mcde/mcde_display.c                |  11 +-
- drivers/gpu/drm/mcde/mcde_drm.h                    |   2 -
- drivers/gpu/drm/mcde/mcde_drv.c                    |  68 +--
- drivers/gpu/drm/mcde/mcde_dsi.c                    |   1 -
- drivers/mfd/db8500-prcmu.c                         | 239 ----------
- drivers/misc/sram.c                                |   5 +
- drivers/pmdomain/st/ste-ux500-pm-domain.c          | 330 ++++++++++++--
- drivers/regulator/Kconfig                          |  11 -
- drivers/regulator/Makefile                         |   2 -
- drivers/regulator/db8500-prcmu.c                   | 501 ---------------------
- drivers/regulator/dbx500-prcmu.c                   | 155 -------
- drivers/regulator/dbx500-prcmu.h                   |  55 ---
- include/dt-bindings/arm/ux500_pm_domains.h         |  17 +-
- include/linux/regulator/db8500-prcmu.h             |  38 --
- 28 files changed, 566 insertions(+), 1279 deletions(-)
----
-base-commit: 67aa45aae7efe0162f198f26714f668b759468c4
-change-id: 20260618-ux500-power-domains-v7-1-3c9d095828c2
-
-Best regards,
--- 
-Linus Walleij <linusw@kernel.org>
-
+As for the race, I'd say that's not a big deal if the final outcome
+still is that the device is unplug. This being said, the more I look at
+this, the more I think triggering an unplug on a FW boot failure is not
+the right thing to do, but that's another can of worms I don't want to
+open now.
