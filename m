@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED7E0C88E5C
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 02:10:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07689C88E5C
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 02:10:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09D3C10EADF;
-	Mon, 14 Sep 2026 02:10:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FB1610EAE5;
+	Mon, 14 Sep 2026 02:10:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="k7ZR5eww";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="onXTHaz+";
 	dkim-atps=neutral
-Received: from mail-oi2-f4.google.com (mail-oi2-f4.google.com [74.125.231.196])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 348BE10EADD
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 02:10:10 +0000 (UTC)
-Received: by mail-oi2-f4.google.com with SMTP id
- 5614622812f47-4b388697b03so377288b6e.0
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 19:10:10 -0700 (PDT)
+Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F9BA10EADD
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 02:10:13 +0000 (UTC)
+Received: by mail-oa2-f1.google.com with SMTP id
+ 586e51a60fabf-448a12ddfb4so1329900fac.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 19:10:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789351809; x=1789956609; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1789351812; x=1789956612; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=dXWWEPWR1eTf24c4piCmTsBKFKIOYSQEhaTgS6fa4xg=;
- b=k7ZR5eww1nKIxF3Al1zINVWioCR4VMbxqHDX9xfxFkXLbTdY4CuEZhRiufIb+QWw7x
- gDLBD6IsFbTisKsjZ0qjF/Sg6Fsyu3TTzJbVY1JoeGF65Id2Ae2ypPNoVO3mRj8/KShp
- zrj1iCGc12qHqaAB6hmbbGiS5AD/JhLJilEiOgRQ/wq7A6ilAw1L8R0HlTgitNKO+XQS
- 88dEyp93Jkrued8Hq+8UQ1gKZEdQ64GWTZxKofUvu3cyck+c/pxI/zIAOQpXCrSaSdLT
- RZTX1kyg311lHL8CVP9x52D18a0aR7s1JNqoO1jy2Za+bKD4rbW0MBKkL0CiPgtv8Hbq
- ck6w==
+ bh=2bdJBddmQdN/xHd2xrtzk7IHIBI7EewXCRJ+IEzWoR4=;
+ b=onXTHaz+Fw4Jgr5zju8A4H4g1E09fHeGi6Cq15XkkQsJAB0IZMkBC50p97u7N14vSb
+ iByrK4qGsjCQ0E1JjVZDgIiQW0qWnTE14Jlnxynf2MwTQwhSuHobIB20RdJKlDLB3qVl
+ Ur6vCuK723Z9VosnDvzPbU8j8/ifw0d1O0yVn0Dl8vEBZDcxwvfSnTlVHxy+T0jrUKQZ
+ NH9zBDG8zoQNlV/CoeLuQKMvW8kRul+Tueo3QliEFqjMHt93lXJC7tAjdoYH0gVplZRh
+ 3J9yXWxFHWmma/Wu93GdG8AjglJNdLpLmmg+xJeIrptVqgD285f+ENY4HwQrVPpWeGNi
+ n7KA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789351809; x=1789956609;
+ d=1e100.net; s=20251104; t=1789351812; x=1789956612;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=dXWWEPWR1eTf24c4piCmTsBKFKIOYSQEhaTgS6fa4xg=;
- b=fugUr9F+rIOA6L26BvcK3YDJiPEyq81VEm90QZut8TwsbO0Lx3HuuUyLH7lg5uSWum
- 3UqfV2gtkfNFyU0tewWvNQzGbEfQnWxh3UarogPgGbMxs3uCrK0izHVRYconnwU94jLB
- Ks/VjbCtd9kxszEsCe8GurEEIhpab2BS5gWrOhmIS+3uShEW8muCp2Iubjgh4pkcCAH1
- vieES77kmZPg/XVb0tyvbuuGZxO1jWFSfZGBgcMOQEhgsBRFXkuQOx+dUi0D5q1hM3L5
- 19tH7cEZ5qVDRKq0o0EZ20ZMXstsIkVcuGjdhbghPePsuWPcR25jtqA8VZOGragQG1ZV
- GDoQ==
+ bh=2bdJBddmQdN/xHd2xrtzk7IHIBI7EewXCRJ+IEzWoR4=;
+ b=FMXeknJQtZPvhFeWsl7VV32iLK/a7FoPveEGUCuDx0UxzCcKarc6WhaV9jh6UHxRj0
+ Nwx3Uv44eCZkv+rkyDarBqz5MPojCXaf9fjo1xc1CTf4tRl9HjeGPkcZi7b70BrXaHP+
+ Wn99xyFxMVqqbeUlcUTT/bC7Vbqaaz1efIwsnKWs6NoFHHyQx6Yyy0Q1mttwdhRf1UYY
+ ldkcb+JI1yJeDCHKjexHdYqy+zNyzPsJiKpmo+dHsXHBRAc7CT2B/gl23PykcRQBHtes
+ cxDaMZ8e8lhESErhLyJRJBPB+S8HHzNV5edxCvPlgsYY0jQzjT8bYIXYdGhsk4oC1LZB
+ UwVg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxUyqXRiBtg+32cbMOOyavfacnVZ2ZtnD3uR4F0r92EGMuk+lbo75UNX2TJkOGkZKJaC88Uu/7D1xo=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++k/+KxmQNM08eksiVoImobvns5Re7A8EPJy8aljdpLTkFdqzngC
- of0LkY7jqJQ0JvuHvlE8ldVtFVX+nDYIvRwsHqvB2AbutYSEpm48kARX
-X-Gm-Gg: AYBFou20ckpdwQMLAwZSZrlUUVo3uhkgS/Krm7udKJEcdHPLHWcUQYPwm+bQ8gQKAh0
- r6XRziMc5dtn/VsJRJYnVdlntec5Bj1d01D0rbz/MKkQHNuw4Tzirb4luN7Jc/ZKvs1JQ0zsEs1
- V1Tzed+glEVnjJbSl0X8f1Ii7E2FNJp9EI2QfSh8xSHXs6IzEWVW6zhXqb0eQ6AWwdUMcgwQ56w
- zayCO5ORImgwvpils6OlqmvSN8v6E48fECT0hjTMzx/AmUTbL9E3yOyyfcreP5O+ewb09MIlznu
- FsXab7Yuc9zSJl/zdLxYSWC6ubxNmDL4K3XVnjNHNVBCuenSAULv80hKm3DzF7Adk09qB4vPUEz
- RSOYNmmGrtW2LmqnCo4cRG97QbXMoaI/UVFGXQqpz21ZKiAE4Fq5CfcfwEEniPdNTsZtwRf9vvQ
- gh5UMwquQRJXf0wPFziMORtyC4QiCHbUgKIXggzEqISgOeSnFIQMNnZV3hHhjfKvzkNBY=
-X-Received: by 2002:a05:6830:6a95:b0:805:6a93:d9ba with SMTP id
- 46e09a7af769-80899266f27mr185481a34.15.1789351809265; 
- Sun, 13 Sep 2026 19:10:09 -0700 (PDT)
+ AKwUvByzHjENn8k813UBaWFmv8FkK67+Zru1m/eICMI4R0tp61wUILGqDiiFY/82Dki0HKXiEYG5Li79q84=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lF8sgKyj0BaJ/ynf/UX4KPUdPJAfsm5WmN4FUY1ZX/1mB6m9z3
+ Dwy5nbY/8U5MBC6QmsvsZL0iN5ZjjgHHEHZRKyUovlEub7PtauiQvVFI
+X-Gm-Gg: AYBFou2FYai0RW0GuF8r+2bdyjGTlH3GNtKeT1fi4Y5pGbH/nv1xes0WuBxO8nJ+Qq2
+ DqumqSA9K7GCE2EWu+Rxvb7E9SgxO1EYmvxFnvRF/GLVcwqyEsoKbSNA8YkgxQ7criIT52H8uv4
+ TSaLQNNJZQqGxWiC3SbuAyO0PWCl5JQR4gPlJK01UC8fv1cQT8DWjmJl0XJ8Rg03REgGCMrogA8
+ KWSrOLVPDk+Pwt+76nPRfmsv8vlnYTTgBL3MjUFoK0zqzrqW1//JBzChTlG8CEC+EtuzKbDCq7D
+ T176Oieo7IAhWCuJ1OQF7Ha14cKxHV+kLqOKw02s9pv1tiEeOoHvRqMAaxAZkxlBmHVM3gQuyS5
+ FkiBa+TuBD2spJIpQqopTtamyVh8bplyFDsMrKg5i4EISsY5bLDzmGvzv0Bz9wXUzUzVAI+sHBi
+ Irc9utY/c1tIyRdOHKnDIW4kxNa9uXmclU+4ikFLkN2I8btmIV1TUfCVCvp1c4zPx/XW8=
+X-Received: by 2002:a05:6830:82d2:b0:806:fca6:f3d with SMTP id
+ 46e09a7af769-80899c5ce25mr398715a34.15.1789351812288; 
+ Sun, 13 Sep 2026 19:10:12 -0700 (PDT)
 Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
  by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-803f5ffd82bsm9788713a34.11.2026.09.13.19.10.05
+ 46e09a7af769-803f5ffd82bsm9788713a34.11.2026.09.13.19.10.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Sep 2026 19:10:07 -0700 (PDT)
+ Sun, 13 Sep 2026 19:10:10 -0700 (PDT)
 From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Sun, 13 Sep 2026 21:09:52 -0500
-Subject: [PATCH v3 1/4] drm/imagination: don't gate the runtime PM
- callbacks on drm_dev_enter()
+Date: Sun, 13 Sep 2026 21:09:53 -0500
+Subject: [PATCH v3 2/4] drm/imagination: unplug the device before tearing
+ it down in pvr_remove()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-1-674b907d0652@gmail.com>
+Message-Id: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-2-674b907d0652@gmail.com>
 References: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-0-674b907d0652@gmail.com>
 In-Reply-To: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-0-674b907d0652@gmail.com>
 To: Alessio Belle <alessio.belle@imgtec.com>, 
@@ -81,11 +81,11 @@ Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789351801; l=4009;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789351801; l=2461;
  i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=B0FAHrSWVXGHaqZILibkK+o++O0wPS8q+cwkcADrHJk=;
- b=m0nuDmmhwVrLfYPrLL6ql7pVKv9N25E76iOoE06iKNPUoksHHY7cDxzgdfxNiEHBncqvkJPZO
- omdWCiOyDUoAX3gisn8eY+hxz2rX+Vqz3A726TzxwQSuwuOn3F1GHuS
+ bh=ZZoHyJJSUtcmG47bFptDvaygfZrn5NqsAxuHZkhft04=;
+ b=ZTV8BCDF9afG8SPH8QIz/AAfq1jv9qP3OiHDYb8FI//s7x0Reg8Ej14pcfX2MNfYVOuUMH8ic
+ KIpi1YWdHnOCoempRnPbcHdJciKlLmnJraoXqE3+v/SfuEL6GuFVBgB
 X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
  pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -103,124 +103,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-pvr_power_device_suspend() and pvr_power_device_resume() take
-drm_dev_enter() for their whole body and return -EIO once the device is
-unplugged. The section protects nothing: the callbacks run on the
-platform device, which stays bound until pvr_remove() returns. It is
-being used as a "device lost" test, and pvr_dev->lost already is one.
+pvr_remove() destroys the job and free list xarrays, powers the GPU
+down and runs pvr_device_fini() before calling drm_dev_unplug(), so an
+ioctl that entered its drm_dev_enter() section before the unbind can
+still be walking structures that have already been freed.
 
-Used that way it causes two problems. The suspend callback waits for
-the watchdog worker in pvr_power_fw_disable() while holding the section,
-and a worker losing the device calls drm_dev_unplug(), which waits in
-synchronize_srcu() for that section: neither finishes. Runtime PM never
-lets the two overlap because the worker holds a usage-count reference,
-but pm_runtime_force_suspend() ignores the count, so a system-sleep
-implementation on top of these callbacks deadlocks. Reproduced on
-mt8173 with the worker delayed between taking its reference and losing
-the device: system suspend froze until the hardware watchdog fired. And
-once the device is lost the callbacks fail forever, which leaves runtime
-PM in runtime_error and would abort every system suspend.
+Call drm_dev_unplug() first. It makes every later drm_dev_enter() fail
+and waits for the sections already in flight. The runtime suspend that
+follows works on an unplugged device now that the callbacks no longer
+gate on drm_dev_enter().
 
-Test pvr_dev->lost instead and hold no section; a lost device is a
-no-op for both callbacks. Re-test the flag after the cancel in
-pvr_power_fw_disable(), since the worker just waited for may be the one
-that lost the device.
+Skip the unplug if pvr_device_lost() has already done it: drm_dev_unplug()
+is not idempotent, and the second call oopses in
+drm_client_sysrq_unregister() on a node the first one removed. Unbinding
+a GPU that a failed reset marked lost hits that deterministically.
 
+Holding an ioctl in its section for 4s on mt8173 while unbinding shows
+the change: before, pvr_device_fini() completed 3.1s before the ioctl
+left its section; after, drm_dev_unplug() blocks for those 3.1s and the
+teardown follows.
+
+Fixes: 1f88f017e649 ("drm/imagination: Get GPU resources")
 Fixes: 727538a4bbff ("drm/imagination: Implement power management")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
- drivers/gpu/drm/imagination/pvr_power.c | 44 +++++++++++++--------------------
- 1 file changed, 17 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/imagination/pvr_drv.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_power.c b/drivers/gpu/drm/imagination/pvr_power.c
-index eb4b6ecdf4f4..8d82b9a79daf 100644
---- a/drivers/gpu/drm/imagination/pvr_power.c
-+++ b/drivers/gpu/drm/imagination/pvr_power.c
-@@ -97,6 +97,10 @@ pvr_power_fw_disable(struct pvr_device *pvr_dev, bool hard_reset, bool rpm_suspe
- 	if (!hard_reset) {
- 		cancel_delayed_work_sync(&pvr_dev->watchdog.work);
+diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
+index 5c965ef0274f..fc92a82a7208 100644
+--- a/drivers/gpu/drm/imagination/pvr_drv.c
++++ b/drivers/gpu/drm/imagination/pvr_drv.c
+@@ -1469,15 +1469,23 @@ static void pvr_remove(struct platform_device *plat_dev)
+ 	struct drm_device *drm_dev = platform_get_drvdata(plat_dev);
+ 	struct pvr_device *pvr_dev = to_pvr_device(drm_dev);
  
-+		/* The worker just cancelled may have lost the device. */
-+		if (pvr_dev->lost)
-+			return -EIO;
++	/*
++	 * Unplug before freeing anything, so no ioctl is still inside
++	 * drm_dev_enter(). pvr_device_lost() may already have done it, and
++	 * drm_dev_unplug() is not idempotent.
++	 */
++	if (!pvr_dev->lost)
++		drm_dev_unplug(drm_dev);
 +
- 		err = pvr_power_request_idle(pvr_dev);
- 		if (err)
- 			return err;
-@@ -372,24 +376,19 @@ pvr_power_device_suspend(struct device *dev)
- 	struct platform_device *plat_dev = to_platform_device(dev);
- 	struct drm_device *drm_dev = platform_get_drvdata(plat_dev);
- 	struct pvr_device *pvr_dev = to_pvr_device(drm_dev);
--	int err = 0;
--	int idx;
-+	int err;
+ 	WARN_ON(!xa_empty(&pvr_dev->job_ids));
+ 	WARN_ON(!xa_empty(&pvr_dev->free_list_ids));
  
--	if (!drm_dev_enter(drm_dev, &idx))
--		return -EIO;
-+	/* A lost device is left as the failed reset left it. */
-+	if (pvr_dev->lost)
-+		return 0;
++	pm_runtime_suspend(drm_dev->dev);
++
+ 	xa_destroy(&pvr_dev->job_ids);
+ 	xa_destroy(&pvr_dev->free_list_ids);
  
- 	if (READ_ONCE(pvr_dev->fw_dev.initialised)) {
- 		err = pvr_power_fw_disable(pvr_dev, false, true);
- 		if (err)
--			goto err_drm_dev_exit;
-+			return pvr_dev->lost ? 0 : err;
- 	}
- 
--	err = pvr_dev->device_data->pwr_ops->power_off(pvr_dev);
--
--err_drm_dev_exit:
--	drm_dev_exit(idx);
--
--	return err;
-+	return pvr_dev->device_data->pwr_ops->power_off(pvr_dev);
- }
- 
- int
-@@ -398,33 +397,24 @@ pvr_power_device_resume(struct device *dev)
- 	struct platform_device *plat_dev = to_platform_device(dev);
- 	struct drm_device *drm_dev = platform_get_drvdata(plat_dev);
- 	struct pvr_device *pvr_dev = to_pvr_device(drm_dev);
--	int idx;
- 	int err;
- 
--	if (!drm_dev_enter(drm_dev, &idx))
--		return -EIO;
-+	if (pvr_dev->lost)
-+		return 0;
- 
- 	err = pvr_dev->device_data->pwr_ops->power_on(pvr_dev);
- 	if (err)
--		goto err_drm_dev_exit;
-+		return err;
- 
- 	if (READ_ONCE(pvr_dev->fw_dev.initialised)) {
- 		err = pvr_power_fw_enable(pvr_dev, true);
--		if (err)
--			goto err_power_off;
-+		if (err) {
-+			pvr_dev->device_data->pwr_ops->power_off(pvr_dev);
-+			return err;
-+		}
- 	}
- 
--	drm_dev_exit(idx);
--
- 	return 0;
--
--err_power_off:
--	pvr_dev->device_data->pwr_ops->power_off(pvr_dev);
--
--err_drm_dev_exit:
--	drm_dev_exit(idx);
--
--	return err;
- }
- 
- int
+-	pm_runtime_suspend(drm_dev->dev);
+ 	pvr_device_fini(pvr_dev);
+-	drm_dev_unplug(drm_dev);
+ 	pvr_watchdog_fini(pvr_dev);
+ 	pvr_queue_device_fini(pvr_dev);
+ 	pvr_context_device_fini(pvr_dev);
 
 -- 
 2.55.0
