@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDD1FC88E70
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 11:23:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 452DFC88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 11:23:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF2A510ED7E;
-	Mon, 14 Sep 2026 11:23:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EBE310ED94;
+	Mon, 14 Sep 2026 11:23:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a26S/jc9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JlT0ZyR3";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66D0010ED83
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 11:23:47 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 947A710ED88
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 11:23:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DE233601EF;
- Mon, 14 Sep 2026 11:23:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12DB61F000FF;
- Mon, 14 Sep 2026 11:23:46 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7B76E40C18;
+ Mon, 14 Sep 2026 11:23:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDAD81F00893;
+ Mon, 14 Sep 2026 11:23:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789385026;
- bh=MokxU+jbZ05FjPz9z/JZ/TnUqRIqBMJqRRb9uIlLdik=;
+ s=k20260515; t=1789385032;
+ bh=xO95Pk5XRLE0oFtxojC3cgHS1ScHTkbYcAUHrZA8bgM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=a26S/jc9xervkXoxclAywYyGHUutmvHhPsfl1nIMjFXvP9MDwTJdtFcm+8QujaWfX
- T2i5/rM3wu5hGfwYM8rKDcZ5kk9kiUThmxP1/zdt4CNFb5Aq5ieahZbkzfLH0MR+Ga
- JHkhtSGjxbBkq+V0xMku0f/FhFaYuo65vlvczCsGQF9l0CL24tV/7o4iR4IXHRCDMF
- 5IQW0iDmd7s1QVkQQzVia5rNgTGbjxuaYEmROzVDNK2Ac4Iit2FOak+phDXyZQrAVV
- VXLp20DI/8Ua1iWdfATyd45FIieqNc/wL9Ec5XRKAQ+S/74uRDCrzK0l5KnGx1Wmtt
- U8qbQeLzpw9Mw==
+ b=JlT0ZyR3T4YxaoWD2Gy/8ilH9ZdzDvp8yYkAbLDw18vxgb0xs1z25SKd5SCk/v6Xb
+ 2W6J1OORi84LXIaIP6FyM//CxgpOYApjVFD6j/Zf+RxxYBUuWtoMvnPfo7+OHSVTFU
+ 5rHbOKZL3uC2Nr/g+/lKqHiZJrBnBqAJyMEeuTwwpRP0CgmDgGH/aLtxa+y+l7rj/T
+ jT8i2UzjTcdKjYthKu1N1fIJ0TDVUEjkvkB/RXgLy7euriCuVma+JaP9Mdfv+4Ppzs
+ mP6z+qXFlhNXNHrisQ2Tl4TIvap0oYRBbnTNZ4v2OPHopn3pAqXgO+7ofmTBH7c8b3
+ 7SflxJ9eN1n6Q==
 From: Leon Romanovsky <leon@kernel.org>
 To: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
  Chaitanya Kulkarni <kch@nvidia.com>,
@@ -47,10 +47,9 @@ Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
  Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
  linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-Subject: [PATCH v6 17/18] dma-buf: Let importers ask how peer-to-peer traffic
- is routed
-Date: Mon, 14 Sep 2026 14:22:50 +0300
-Message-ID: <20260914-fix-p2p-acs-v4-0-v6-17-5ef07ec9ef06@nvidia.com>
+Subject: [PATCH v6 16/18] PCI/P2PDMA: Document TLP-class routing
+Date: Mon, 14 Sep 2026 14:22:49 +0300
+Message-ID: <20260914-fix-p2p-acs-v4-0-v6-16-5ef07ec9ef06@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
 References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
@@ -75,168 +74,91 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Leon Romanovsky <leonro@nvidia.com>
 
-Exporters keep the &struct p2pdma_provider backing a buffer in their own
-private data. An importer cannot reach it, so it has no way to learn how
-its own peer-to-peer traffic would be routed before it programs its
-hardware.
+The P2PDMA documentation stated that the mapping result is not defined for
+Relaxed Ordering or ATS-translated Requests. It now is.
 
-Add an optional @p2pdma_provider callback for an exporter to hand that
-provider out, and dma_buf_p2pdma_map_type() for an importer to ask by TLP
-class. Exporters keep the provider where it already lives, so this adds an
-operation rather than changing any existing signature or structure.
+Replace that paragraph with what the three TLP-sensitive ACS controls do,
+the table of outcomes per class, and the interface a client uses to name
+its traffic. Record that a caller claiming Relaxed Ordering Completions is
+asserting provider behaviour the PCIe specification leaves optional.
 
 Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- drivers/dma-buf/dma-buf-mapping.c                 | 32 +++++++++++++++++++++++
- drivers/infiniband/core/uverbs_std_types_dmabuf.c | 12 +++++++++
- drivers/vfio/pci/vfio_pci_dmabuf.c                | 12 +++++++++
- include/linux/dma-buf-mapping.h                   |  3 +++
- include/linux/dma-buf.h                           | 17 ++++++++++++
- 5 files changed, 76 insertions(+)
+ Documentation/driver-api/pci/p2pdma.rst | 61 +++++++++++++++++++++++++++++----
+ 1 file changed, 55 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-index 794acff2546a..fb03a698b381 100644
---- a/drivers/dma-buf/dma-buf-mapping.c
-+++ b/drivers/dma-buf/dma-buf-mapping.c
-@@ -6,6 +6,38 @@
- #include <linux/dma-buf-mapping.h>
- #include <linux/dma-resv.h>
+diff --git a/Documentation/driver-api/pci/p2pdma.rst b/Documentation/driver-api/pci/p2pdma.rst
+index 42b18610bf7d..96a4c1d1b0fb 100644
+--- a/Documentation/driver-api/pci/p2pdma.rst
++++ b/Documentation/driver-api/pci/p2pdma.rst
+@@ -28,12 +28,61 @@ through the host bridge when either applicable port redirects. If an ACS
+ Control register cannot be read, P2P DMA is rejected because the kernel cannot
+ establish a usable route.
  
-+/**
-+ * dma_buf_p2pdma_map_type - How peer-to-peer traffic to a buffer is routed
-+ * @attach:	attachment of the importer that will issue the traffic
-+ * @tlp_flags:	&enum pci_p2pdma_tlp_flags describing the TLPs it will issue
-+ *
-+ * Reports how the PCIe fabric routes @tlp_flags traffic between the buffer
-+ * behind @attach and the importer attached to it, so that an importer can
-+ * choose the TLP attributes that earn it a direct route before it programs
-+ * its hardware.
-+ *
-+ * Return: the mapping type for @tlp_flags traffic, or PCI_P2PDMA_MAP_NONE
-+ * when the exporter names no &struct p2pdma_provider and nothing is known
-+ * about the route.
-+ */
-+enum pci_p2pdma_map_type
-+dma_buf_p2pdma_map_type(struct dma_buf_attachment *attach,
-+			unsigned int tlp_flags)
-+{
-+	struct dma_buf *dmabuf = attach->dmabuf;
-+	struct p2pdma_provider *provider;
+-This evaluation assumes clients issue strictly ordered Requests carrying an
+-Untranslated address. Its result is not defined when clients use Relaxed
+-Ordering or issue ATS-translated Requests because those TLP attributes can
+-select different routes through the fabric. Unless ACS Translation Blocking
+-is enabled, a Port with ACS Direct Translated P2P enabled routes a
+-Translated Request directly to the peer regardless of the redirect controls.
++Three of those controls act on TLP attributes that the client chooses rather
++than on the topology, so the same path routes differently for different
++traffic. ACS Translation Blocking rejects any Request whose Address Type is
++not Untranslated, and takes precedence over every other P2P control. ACS
++Direct Translated P2P routes a Translated Request to the peer regardless of
++Request Redirect and Egress Control. ACS Completion Redirect leaves alone
++Completions that carry the Relaxed Ordering attribute.
 +
-+	if (!dmabuf->ops->p2pdma_provider)
-+		return PCI_P2PDMA_MAP_NONE;
++A client therefore describes its traffic with ``enum pci_p2pdma_tlp_flags``
++and asks ``pci_p2pdma_map_type_tlp()``. ``pci_p2pdma_map_type()`` answers for
++the default: strictly ordered Requests carrying an Untranslated address.
 +
-+	provider = dmabuf->ops->p2pdma_provider(dmabuf);
-+	if (!provider)
-+		return PCI_P2PDMA_MAP_NONE;
++The two directions are decided independently. Translation Blocking (TB),
++Direct Translated P2P (DT), Request Redirect (RR) and Egress Control (EC) on
++the client-side port decide the Request:
 +
-+	return pci_p2pdma_map_type_tlp(provider, attach->dev, tlp_flags);
-+}
-+EXPORT_SYMBOL_NS_GPL(dma_buf_p2pdma_map_type, "DMA_BUF");
++=====  =====  =======  ============  ==========
++TB     DT     RR/EC    TLP class     Request
++=====  =====  =======  ============  ==========
++set    x      x        translated    blocked
++clear  set    x        translated    direct
++clear  clear  clear    translated    direct
++clear  clear  set      translated    redirected
++x      x      clear    untranslated  direct
++x      x      set      untranslated  redirected
++=====  =====  =======  ============  ==========
 +
- static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
- 					 dma_addr_t addr)
- {
-diff --git a/drivers/infiniband/core/uverbs_std_types_dmabuf.c b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-index 2411ebee69e2..5a6a1ee430a7 100644
---- a/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-+++ b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-@@ -76,6 +76,17 @@ static void uverbs_dmabuf_release(struct dma_buf *dmabuf)
- 	uverbs_uobject_release(&priv->uobj);
- }
++Completion Redirect (CR) on the provider-side port decides the Completions:
++
++=====  =========  ==========
++CR     TLP class  Completion
++=====  =========  ==========
++x      relaxed    direct
++clear  strict     direct
++set    strict     redirected
++=====  =========  ==========
++
++A path is bus addressable only where both directions route directly, so with
++nothing enabled every class is. A blocked Request is not supported, because
++Translation Blocking rejects the Address Type wherever the Request is
++addressed. Anything else goes through the host bridge.
++
++Note that DT only matters where RR or EC would otherwise redirect: it
++overrides them for a Translated address rather than granting a direct route
++that was not already there.
++
++Translation Blocking is not a routing control, so it is evaluated on every
++client-side port rather than at the divergence alone. A Request it rejects
++has no host bridge fallback, because the Address Type is rejected wherever
++the Request is addressed.
++
++The Completer chooses whether a Completion carries Relaxed Ordering, and the
++PCIe specification does not require it to copy that attribute from the
++Request. A caller passing ``PCI_P2PDMA_TLP_RELAXED_CPL`` is asserting that
++its provider does.
  
-+static struct p2pdma_provider *
-+uverbs_dmabuf_provider(struct dma_buf *dmabuf)
-+{
-+	struct ib_uverbs_dmabuf_file *priv = dmabuf->priv;
-+
-+	if (priv->revoked)
-+		return NULL;
-+
-+	return priv->provider;
-+}
-+
- static const struct dma_buf_ops uverbs_dmabuf_ops = {
- 	.attach = uverbs_dmabuf_attach,
- 	.map_dma_buf = uverbs_dmabuf_map,
-@@ -83,6 +94,7 @@ static const struct dma_buf_ops uverbs_dmabuf_ops = {
- 	.pin = uverbs_dmabuf_pin,
- 	.unpin = uverbs_dmabuf_unpin,
- 	.release = uverbs_dmabuf_release,
-+	.p2pdma_provider = uverbs_dmabuf_provider,
- };
- 
- static int UVERBS_HANDLER(UVERBS_METHOD_DMABUF_ALLOC)(
-diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-index c16f460c01d6..fcf392cfc3c5 100644
---- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-+++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-@@ -99,11 +99,23 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
- 	kfree(priv);
- }
- 
-+static struct p2pdma_provider *
-+vfio_pci_dma_buf_provider(struct dma_buf *dmabuf)
-+{
-+	struct vfio_pci_dma_buf *priv = dmabuf->priv;
-+
-+	if (priv->revoked)
-+		return NULL;
-+
-+	return priv->provider;
-+}
-+
- static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
- 	.attach = vfio_pci_dma_buf_attach,
- 	.map_dma_buf = vfio_pci_dma_buf_map,
- 	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
- 	.release = vfio_pci_dma_buf_release,
-+	.p2pdma_provider = vfio_pci_dma_buf_provider,
- };
- 
- /*
-diff --git a/include/linux/dma-buf-mapping.h b/include/linux/dma-buf-mapping.h
-index 09bde3f748e4..37b3da10b17a 100644
---- a/include/linux/dma-buf-mapping.h
-+++ b/include/linux/dma-buf-mapping.h
-@@ -7,6 +7,9 @@
- #define __DMA_BUF_MAPPING_H__
- #include <linux/dma-buf.h>
- 
-+enum pci_p2pdma_map_type
-+dma_buf_p2pdma_map_type(struct dma_buf_attachment *attach,
-+			unsigned int tlp_flags);
- struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
- 					 struct p2pdma_provider *provider,
- 					 struct phys_vec *phys_vec,
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index d1203da56fc5..cff1ee0838f0 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -186,6 +186,23 @@ struct dma_buf_ops {
- 	 * if the call would block.
- 	 */
- 
-+	/**
-+	 * @p2pdma_provider:
-+	 *
-+	 * Returns the &struct p2pdma_provider backing this buffer, so that an
-+	 * importer can ask how its peer-to-peer traffic would be routed before
-+	 * it programs its hardware. Importers reach this through
-+	 * dma_buf_p2pdma_map_type() rather than calling it directly.
-+	 *
-+	 * Exporters of MMIO memory that is reachable peer-to-peer should
-+	 * implement this. This callback is optional.
-+	 *
-+	 * Returns:
-+	 *
-+	 * The provider backing the buffer.
-+	 */
-+	struct p2pdma_provider *(*p2pdma_provider)(struct dma_buf *dmabuf);
-+
- 	/**
- 	 * @release:
- 	 *
+ However, if the P2P transaction reaches the host bridge then it might have to
+ hairpin back out the same root port, be routed inside the CPU SOC to another
 
 -- 
 2.55.0
