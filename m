@@ -4,77 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62ECEC88E67
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 04:57:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 546D8C88E67
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 05:08:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C12F510E14F;
-	Mon, 14 Sep 2026 04:57:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACFAD10E085;
+	Mon, 14 Sep 2026 05:08:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mT3vByJo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c9WwvuQw";
 	dkim-atps=neutral
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FBBA10E14F
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 04:57:12 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-398e9698a70so2968213a91.0
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 21:57:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789361832; x=1789966632; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=uCp8m2ue1HIu47SujiP2rZsKqNx/UJ3BDFl1VHtBYXI=;
- b=mT3vByJow/x/bw1uC/pOrbW4vk9twTLY+lmIODJOSH6YCiJnhVYCUOWGO1jYxuWIgb
- gw8KCbP4TkzXZNIOQEtzZjkRYWonBWgCXnhMT/5clgDn7yBAgZ9dSHBUFiOJ3WR6k/tr
- +oUBgCOAVdbMN/mn2wJH90XvpX1xDZeVZXRUO8QAWSN/kSUp6UkUCyF8hVOEpMB/oQQb
- NQRevhin7aZdZW7RJwDxYBliWb3JuvYK/0i0Shfh2+bMcpHjHq/005IhIooQQ2FH5YR1
- hXRtT3Si6g3OTwppWYhXGMZjhchhUsBSAmSg/GML9VnJOpmCe3p9f3KQZPo4bGV6Ebui
- qyOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789361832; x=1789966632;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=uCp8m2ue1HIu47SujiP2rZsKqNx/UJ3BDFl1VHtBYXI=;
- b=L6/NzYD2EYE8uxEZyqndCFzVYBsW4XpB/9II1QN7bor+uRCGzGzyKR9CiHP1mAAm/7
- X4vWsnTsK+vpx/XAN5SKMdG1BbjK/lxZysd+s25IqseQyYdiINFjHpD/jIsLxVWUlma9
- N+xuz4kDWnq0jm/aFAv5y3dL4y0WWyIv2rG+ZsfjE62vS4lanDbwCIWepK7iCj1SHklL
- BRJ9L4uCe6OmJAWxU6+ya+g+Acn0f2Nax56qfdL9Q/ZFCjM2mogECVxtFDPEZnhdjzS/
- yvs+5abdCdu4Uup0tyZQIHF1HDLxUZNMbaDn6k6Y10QTxdSbtGwPbI8xO0dlYDkU4Zm1
- eb8w==
-X-Gm-Message-State: AFuF++nYBjJSEOmh1IlbPm/yLU9ExH05UMhwu33mBz3yunu+mZxjLv2u
- EdC/YWMBl3SzjgcS7j7L+n52dunHQbzqNvCUXXWcDVQYb6szvwRYUok=
-X-Gm-Gg: AYBFou1ahzH+Z0r8LG7Ufmnzvj2f2WARe/iQn1wAC4hDckOS2X9z30FIRnt4YjP8k7h
- 16JVF7AHKUQkXu65NdTjWhfvDAYNWwiNs191yUfK/cUR8Ff7FDZ3Ph5zL6EixynAlZJb8Lzrl+d
- QUaNdp/OqBguso6RdLmwtJwKHZQR9xmRUx4xIDAFLs8sCPSUfnWTbX08++UoWK2w8uEV3WQ+7T0
- cJPMwxDJ6L9E770qHWU06lwOHfhFDe83898VZVQEJz09OoVl7zFe1yNcjBaWx7btY4QnHgd63ut
- 4na3Iak1NuwurXoUXciOyYScTfpVs20k6t0lYTwFp45sXrsQfJeiwzHJmQL+KAPwqHFIeKssDzM
- s7bhvdcgu+LmDJ5SOccCNiP1+ZghMnQKlH8R28nwK+BJhjyb+8cq8g12W2WCjBxkriZIsDqCwzr
- dlTMDHxWTwH/oYoQnAHpEs1GJLFYwlTHIMnsCpM7m8UNxvcLcBBUzA7/oeSCua92TipNoGfK4Qg
- wuj545VNzsVkw==
-X-Received: by 2002:a17:90b:1d05:b0:398:9bd1:3210 with SMTP id
- 98e67ed59e1d1-39dec0bdc55mr2456899a91.17.1789361831544; 
- Sun, 13 Sep 2026 21:57:11 -0700 (PDT)
-Received: from DL2XHKPB4.dl.net ([103.63.104.162])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39d994872e0sm18824792a91.8.2026.09.13.21.57.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Sep 2026 21:57:11 -0700 (PDT)
-From: Triet Hoang <triet.hoang.dev@gmail.com>
-To: sidong.yang@furiosa.ai,
-	royalnet026@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- ogabbay@kernel.org, tomeu@tomeuvizoso.net, triet.hoang.dev@gmail.com
-Subject: [PATCH v6 2/2] drm/rocket: Keep scheduler allocation in
- rocket_file_priv
-Date: Mon, 14 Sep 2026 11:56:05 +0700
-Message-ID: <20260914045605.381933-3-triet.hoang.dev@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260914045605.381933-1-triet.hoang.dev@gmail.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DA8D10E085
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 05:08:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 5CBE761394;
+ Mon, 14 Sep 2026 05:08:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFFF91F000FF;
+ Mon, 14 Sep 2026 05:08:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789362500;
+ bh=50oI7sxIajIy5kpZQKb7uNhghQZ0TLUZa9bOmGps64s=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=c9WwvuQw67KhyqtmO8tjCAryuByl0YkBPrd1OzaSFQDb9I64FrbZdzhXpFhW2TEXl
+ MwFm8h5q+PedIXUxAXBIyN658IweAkpbh24/1AgodVHsxzpJqpctVYXhaL5mwashJh
+ 0UWv9kwQ6IZ3+GcCQoNR0qFqvH2UYMzzPa6O2CwS3uCyYCRh7gh46XRicHFc9MhYTL
+ 2SpnddM/I4/EdeaFzZx9sHOLZU+EcnhjAcveOKkTBD73bez4ya3Ysn3gyaP9D5CBBn
+ PrEZKmA7PNXzfZJEphYqg3mI2kicqw4w0m9k2O5sLEM9Mi7tYSsCyQBbdRhydsCOI+
+ 0KSKzRxY2lePA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 1/2] accel/rocket: Check allocations before use
+To: "Triet Hoang" <triet.hoang.dev@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260914045605.381933-2-triet.hoang.dev@gmail.com>
 References: <20260914045605.381933-1-triet.hoang.dev@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20260914045605.381933-2-triet.hoang.dev@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 05:08:19 +0000
+Message-Id: <20260914050819.BFFF91F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,81 +53,99 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The scheduler array passed to drm_sched_entity_init() is retained by the
-entity when the device has multiple cores. drm_sched_entity_init() stores 
-the list conditionally:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
+Pre-existing issues:
+- [High] Silent failure when submitting multiple jobs due to ignored return=
+ value.
+- [High] Violation of DRM scheduler contract by calling drm_sched_job_clean=
+up() on an armed job.
+--
 
-With one scheduler, it keeps only entity->rq and drops the array pointer
-while rocket_job_open() allows its local copy to go out of scope. So
-for num_cores == 1 the kfree() in rocket_job_close() is a kfree(NULL)
-and the array leaks unreachably. For num_cores > 1 there is no leak,
-which is why this is invisible in normal use on RK3588.
+commit e8a7bda4ea0e8bc90689dd01aad3165b7c5004b2
+Author: Triet Hoang <triet.hoang.dev@gmail.com>
 
-Keep the allocation in rocket_file_priv so rocket_job_close() can destroy
-the entity before freeing the array. Free the array directly if entity
-initialization fails, since rocket_job_open() does not call
-rocket_job_close() on that error path.
+accel/rocket: Check allocations before use
 
-Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+Check the result of kmalloc_objs() in rocket_job_open() before using the
+allocated buffers. It also updates the error handling when
+drm_sched_entity_init() fails by replacing WARN_ON(ret) with a plain if.
 
-Suggested-by: Igor Paunovic <royalnet026@gmail.com>
-Link: https://lore.kernel.org/all/20260817093009.22359-1-royalnet026@gmail.com/
-Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
-Tested-by: Igor Paunovic <royalnet026@gmail.com>
-Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
----
-Changes in v5:
-- Free rocket_priv->scheds instead of entity->sched_list in rocket_job_close().
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index f404355058185..ffa0f8db5da65 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -516,6 +516,9 @@ int rocket_job_open(struct rocket_file_priv *rocket_p=
+riv)
+>  	unsigned int core;
+>  	int ret;
+> =20
+> +	if (!scheds)
+> +		return -ENOMEM;
+> +
 
-Changes in v6:
-- Add Tested-by and Fixes tags.
-- Move kfree() below the drm_sched_entity_destroy() call in rocket_job_close().
-- Update commit message to explain why the scheduler array must outlive the scheduler entity.
----
- drivers/accel/rocket/rocket_drv.h | 1 +
- drivers/accel/rocket/rocket_job.c | 4 +++-
- 2 files changed, 4 insertions(+), 1 deletion(-)
+[ ... ]
 
-diff --git a/drivers/accel/rocket/rocket_drv.h b/drivers/accel/rocket/rocket_drv.h
-index 2c673bb99ccc..9421e48ec5d8 100644
---- a/drivers/accel/rocket/rocket_drv.h
-+++ b/drivers/accel/rocket/rocket_drv.h
-@@ -23,6 +23,7 @@ struct rocket_file_priv {
- 	struct drm_mm mm;
- 	struct mutex mm_lock;
- 
-+	struct drm_gpu_scheduler **scheds;
- 	struct drm_sched_entity sched_entity;
- };
- 
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index 704a15513179..f27e6264f91d 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -528,6 +528,8 @@ int rocket_job_open(struct rocket_file_priv *rocket_priv)
- 				    rdev->num_cores, NULL);
- 	if (ret)
- 		kfree(scheds);
-+	else
-+		rocket_priv->scheds = scheds;
- 
- 	return ret;
- }
-@@ -536,8 +538,8 @@ void rocket_job_close(struct rocket_file_priv *rocket_priv)
- {
- 	struct drm_sched_entity *entity = &rocket_priv->sched_entity;
- 
--	kfree(entity->sched_list);
- 	drm_sched_entity_destroy(entity);
-+	kfree(rocket_priv->scheds);
- }
- 
- int rocket_job_is_idle(struct rocket_core *core)
--- 
-2.53.0
+While reviewing this code, I noticed a couple of pre-existing issues in this
+file.
 
+[Severity: High]
+This is a pre-existing issue, but does calling drm_sched_job_arm() before
+rocket_acquire_object_fences() violate the DRM scheduler contract if
+resource acquisition fails?
+
+In rocket_job_push():
+
+	scoped_guard(mutex, &rdev->sched_lock) {
+		drm_sched_job_arm(&job->base);
+
+		job->inference_done_fence =3D
+			dma_fence_get(&job->base.s_fence->finished);
+
+		ret =3D rocket_acquire_object_fences(job->in_bos,
+						   job->in_bo_count,
+						   &job->base, false);
+		if (ret)
+			goto err_unlock;
+
+If rocket_acquire_object_fences() returns an error (e.g., due to -ENOMEM in
+dma_resv_reserve_fences), the error path aborts the armed job by calling
+drm_sched_job_cleanup() back in rocket_ioctl_submit_job().
+
+Since drm_sched_job_arm() initializes fences and assigns a sequence number,
+aborting it afterward leaks the assigned sequence number and can corrupt the
+scheduler's fence ordering, leading to hangs or crashes in the DRM scheduler
+core.
+
+
+[Severity: High]
+This is a pre-existing issue, but is it intentional that the return value of
+rocket_ioctl_submit_job() is ignored?
+
+In rocket_ioctl_submit():
+
+	for (i =3D 0; i < args->job_count; i++)
+		rocket_ioctl_submit_job(dev, file, &jobs[i]);
+
+exit:
+	kvfree(jobs);
+
+	return ret;
+
+If rocket_ioctl_submit_job() fails (e.g., due to an invalid BO handle or
+-ENOMEM), the failure is silently swallowed and not propagated.
+
+The ioctl will return success even when jobs were not queued, which can cau=
+se
+userspace clients waiting on implicit fences for these jobs to hang
+indefinitely.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914045605.3819=
+33-1-triet.hoang.dev@gmail.com?part=3D1
