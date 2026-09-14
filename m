@@ -4,124 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F31CC88E64
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 12:05:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F04BCC88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 12:05:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD8B510EDF1;
-	Mon, 14 Sep 2026 12:05:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A99410EDF0;
+	Mon, 14 Sep 2026 12:05:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="xUNsbCkl";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=minlexx.ru header.i=@minlexx.ru header.b="a959j0Tq";
 	dkim-atps=neutral
-Received: from ixit.cz (ixit.cz [84.42.129.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4B3010EDED;
- Mon, 14 Sep 2026 12:05:19 +0000 (UTC)
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown
- [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id EA1945341063;
- Mon, 14 Sep 2026 14:05:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1789387518;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=2fr3EoOIiIhQYIp0RlRy+4O9t1XNQ0pEoMB84iuMT0E=;
- b=xUNsbCklwwjyvKtMuuXEvuSTWz4FGWiOVUSmy+8jvoksW8A53Ff75P3hBS8x9ej4+0qtCs
- BGvDnFf+9LgXSRcZh/3F4t1/Ji8EzifTuSn/c8OcMsNTm+XXpUTfgJid+bqskis1XG8ycH
- 9CFD/ezURu2k4XCN1+t4j8MAp7ARRPo=
-Message-ID: <158555ee-315b-45c5-a2a7-c98ea104d540@ixit.cz>
-Date: Mon, 14 Sep 2026 14:05:17 +0200
+Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D07810EDF0
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 12:05:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru; 
+ s=dkim;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:
+ Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=j2v9bbLb7RJD05oFKbLtgt12x6whs/0vHXG4WLk2P0o=; b=a959j0Tq2VZmYWtkXDbNMHGztp
+ ONfjEal4d1WhuWz0yPmwmB8bZFs6LzWc3UJnhn3e6olEzn6b8OYKZYD3EuFyTE4M8tH8oYIsdeARF
+ DisUGM/JTlamyl5PngLf6RNtU+vuyYNRYYcgQIbTBvRkGLwRPVjcYgRy7Dx7LWtRlsKs=;
+Received: by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls
+ TLS_AES_128_GCM_SHA256 (envelope-from <alexeymin@minlexx.ru>)
+ id 1x65R1-0000000A0jp-115B; Mon, 14 Sep 2026 15:05:20 +0300
+Message-ID: <c2162090-c88d-4c2c-a5e8-8b45aa63451c@minlexx.ru>
+Date: Mon, 14 Sep 2026 15:05:19 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 20/20] arm64: dts: qcom: generalmobile-shamrock: new
- device
-From: David Heidelberg <david@ixit.cz>
-To: Muzaffer Kadir <muzafferkadir@mainlining.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>,
- Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Dang Huynh <danct12@riseup.net>, phone-devel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mmc@vger.kernel.org, iommu@lists.linux.dev, mfd@lists.linux.dev,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org,
- linux-input@vger.kernel.org
-References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
- <20260912-msm8952-initial-support-v1-20-0e742578b524@mainlining.org>
- <d0d7e3d0-15bf-4850-99ec-44d429c6bae1@oss.qualcomm.com>
- <42ef03e8-112a-4689-aedd-eeb7ec9b4f58@mainlining.org>
- <be018c1c-88f3-41fc-9293-d5090a79b3a7@ixit.cz>
-Content-Language: en-US, cs-CZ
-Autocrypt: addr=david@ixit.cz; keydata=
- xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
- 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
- lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
- 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
- dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
- F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
- NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
- 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
- AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
- k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
- ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
- AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
- AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
- afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
- loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
- jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
- ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
- VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
- W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
- zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
- QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
- UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
- zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
- 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
- IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
- jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
- FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
- aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
- NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
- AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
- hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
- rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
- qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
- 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
- 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
- 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
- NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
- GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
- yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
- zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
- fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
- ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
-In-Reply-To: <be018c1c-88f3-41fc-9293-d5090a79b3a7@ixit.cz>
+Subject: Re: [PATCH 2/9] dt-bindings: vendor-prefixes: Add Shenzhen Zhuohong
+ Electronic
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+ dri-devel@lists.freedesktop.org
+References: <20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru>
+ <20260913-nt36672a-panels-v1-2-ce097402c6ea@minlexx.ru>
+ <20260913063107.D83681F00893@smtp.kernel.org>
+Content-Language: en-US
+From: Alexey Minnekhanov <alexeymin@minlexx.ru>
+In-Reply-To: <20260913063107.D83681F00893@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,92 +60,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 14/09/2026 14:03, David Heidelberg wrote:
-> On 14/09/2026 13:58, Muzaffer Kadir wrote:
->> Hi Konrad,
->>
->> On Mon, 14 Sep 2026 13:22:52 +0200, Konrad Dybcio wrote:
->>> On 9/12/26 10:39 AM, Muzaffer Kadir via B4 Relay wrote:
->>>> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
->>>>
->>>> Add General Mobile Shamrock (GM 5 Plus).
->>>> Shamrock is designed similar to L9300.
->>>> Downstream reference is [1].
->>>
->>> Please feel free to
->>> wrap your messages at 72
->>> characters, otherwise they are
->>> a bit hard to read! :D
->>
->> I am sorry to hear that. vim shows
->> it less than 72 and I can't see which
->> line is bigger than 72.
+On 13.09.2026 09:31, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] Vendor prefix mismatch: 'shenchao' mapped to 'Shenzhen Zhuohong Electronic Technology Co., Ltd.'
+> --
 > 
-> Hehe, yeah, had the same issue.
+> commit 73f96d396aaa9d9d8dc1a660e32b98910c8690b8
+> Author: Alexey Minnekhanov <alexeymin@minlexx.ru>
 > 
-> require('lualine').setup {
->    options = {
->      icons_enabled = true,
->      theme = 'auto',
->      component_separators = { left = '', right = '|'},
->      section_separators = { left = '', right = ''},
->      disabled_filetypes = {
->        statusline = {},
->        winbar = {},
->      },
->      ignore_focus = {},
->      always_divide_middle = true,
->      globalstatus = false,
->      refresh = {
->        statusline = 1000,
->        tabline = 1000,
->        winbar = 1000,
->      }
->    },
->    sections = {
->      lualine_a = {'mode'},
->      lualine_b = {'branch', 'diff', 'diagnostics'},
->      lualine_c = {'filename'},
->      lualine_x = {'filetype'},
->      lualine_y = {'progress'},
->      lualine_z = {
->        { '%3l:%-2.(%c%V%)', type = 'stl' },
->      },
->    },
->    inactive_sections = {
->      lualine_a = {},
->      lualine_b = {},
->      lualine_c = {'filename'},
->      lualine_x = {'location'},
->      lualine_y = {},
->      lualine_z = {}
->    },
->    tabline = {},
->    winbar = {},
+> dt-bindings: vendor-prefixes: Add Shenzhen Zhuohong Electronic
 > 
->    inactive_winbar = {},
+> This commit adds a new vendor prefix to the device tree bindings. It aims
+> to register Shenzhen Zhuohong Electronic Technology Co., Ltd., a
+> manufacturer of LCD/IPS displays.
 > 
->    extensions = {}
+>> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+>> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+>> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+>> @@ -1507,6 +1507,8 @@ patternProperties:
+>>       description: SGX Sensortech
+>>     "^sharp,.*":
+>>       description: Sharp Corporation
+>> +  "^shenchao,.*":
+>> +    description: Shenzhen Zhuohong Electronic Technology Co., Ltd.
 > 
-> }
+> [Severity: Low]
+> Is this vendor prefix mapped to the correct company description?
 > 
-> see a lualine_z for the way how to let neovim show length INCLUDING tabs :)
-
-...aaaand the comment was about opposite problem then the one I tried to address.
-
-Sorry for the noise.
-
+> The patch introduces the 'shenchao' prefix, but maps it to Shenzhen Zhuohong
+> Electronic Technology Co., Ltd. Since 'shenchao' typically refers to a
+> Shenchao panel (as seen in a subsequent commit introducing the
+> 'shenchao,fhdplus-video' panel), mapping it to Zhuohong, a different panel
+> manufacturer, could cause confusion for device tree authors.
 > 
-> David
-> 
->> Only one I can see is url itself.
->> Should I move url to Link trailer?
->>
->> For other parts of review,
->> I will fix them in v2.
->> Thanks a lot for review.
->>
->> Best regards,
->> Muzaffer Kadir
+> Should this prefix be named something like '^zhuohong,.*' instead to match
+> the manufacturer, or should the description be updated to reflect the actual
+> Shenchao company name?
 > 
 
+It is very hard to find anything about this manufacturer. All we know:
+in vendor kernel they use shenchao prefix and they produce LCDs.
+But I think I've found some information, so this will be fixed in v2.
+
+--
+Regards,
+Alexey Minnekhanov
