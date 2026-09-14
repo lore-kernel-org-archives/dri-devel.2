@@ -4,139 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC50FC88E65
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 11:01:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6025EC88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 11:07:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFD4010ED51;
-	Mon, 14 Sep 2026 11:01:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C559210EBF8;
+	Mon, 14 Sep 2026 11:07:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="dz7YqRON";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="s5eapEsb";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vur6BRTx";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kPpGuVxn";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="R49o3Mss";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0534810ED51
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 11:01:00 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2C6CB1F391;
- Mon, 14 Sep 2026 11:00:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789383654; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=/1m16V3C3rCfBnEu0S0eVQZBZIAHWULlSOSF3CbO4zA=;
- b=dz7YqRONJghsmwEed/JAkbN9jwdrxu7YjT/DWb06txZZ20NROX/1EoLjH0oaUJF4aksF6P
- c8i3GfoxM7Fpv+6LFltm1FPd1Yj2ymlg9u/wC5Gt45fB6l5iklZiIfUsyHF4A3vYOx/949
- 2EsAHYt5PbAxmIY6S7yd+tpxZ9mnRdI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789383654;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=/1m16V3C3rCfBnEu0S0eVQZBZIAHWULlSOSF3CbO4zA=;
- b=s5eapEsbcyRtt4kiqExKyYAYNuGAUayZveL8Bh6sWziL4hXzg++VbfYc3WNNRP4wWfcv9P
- A38gCVGmxNxc10DQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789383650; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=/1m16V3C3rCfBnEu0S0eVQZBZIAHWULlSOSF3CbO4zA=;
- b=vur6BRTxWJbuuvI46hCY1rLinRnSbEjZ/IMFEm+nL8Jcjd45XjuU4W9f2Vzs6+1hTbNqQ3
- C3fOeXjz9qq7sBHhELYoziTQsKSwbFVMyAj8zz6Jf44gTmAWAmhuoC6WNGJ5MJUtc2Bawz
- ySPJ4s5ebhF8/u+NBhD72RG50MUz8FI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789383650;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=/1m16V3C3rCfBnEu0S0eVQZBZIAHWULlSOSF3CbO4zA=;
- b=kPpGuVxn09Vfs1TDPe3uqudWiTPH7Nh6KFmhMkvLBPNzTr0BoXKS95pnTodSEzzuJAL9cH
- NIFGBZ1iWwZnpDBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A34F113693;
- Mon, 14 Sep 2026 11:00:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id VLj4GuHTp2p5PQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 14 Sep 2026 11:00:49 +0000
-Message-ID: <d106ad8a-78d4-45be-95da-0222c44107c5@suse.de>
-Date: Mon, 14 Sep 2026 13:00:48 +0200
-MIME-Version: 1.0
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013038.outbound.protection.outlook.com
+ [40.107.201.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B359410EBF8
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 11:07:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EjwgULxb6leY/AF3GgGLXehPLDRb4+Pk9gnV4cshnG8O/2RAYUVMxWw1mnWoLt8hzrrfsy5gA3pOATZmN8eKviW6PvNP9EZEEQKS1wC1A1tqfQUV8148Y7C+CaUmryXmZRrsXbqpG+kaGakuIHXkT6qglgZ0teWS26b38v5eXJD3OqmBramUQgfzlxPGJfgASNHO1RFT0yQg7RskKOPsdXMoPGEwDyxGldu5sbnvi9QQnMhngZbfCyyPLgHeu+VNRcINPICy/lrYrjc2DA+Oon7Lq6IjBqpLdV2QeMe+80063sTqYxPk3WO1nZRd9rDnFcFTyNoESnkb9MTqXeWsHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=btkACDYqI4dY+U7aXfamIKC+T7l96iCh0T7XtRj8Ehc=;
+ b=jwR5CDITpqX62rRKtSJx6l1WdGmmW3xm1VIQyj1/C5qFqOdkmyvKIpL+jmIVZdS3ZVc34NBQp4sGxM4H6ew2Da5OAAr8zub5d+ETelaug9Ziqa69qmMLPpApFRMpJ062FyIgWfXmEFDx5j4yNonB4pnQaYRUt0twUTHRoqTXr2Wurv0Hdvbezt8+njJmZ5fbjnTdIGt9p/gteQV+jJrGSSH26Nd9PDBRibx9pVAFJqsvTjd2hzVlhhy8KQuyxShHjmFEraOFR/eVKD73Q4QT8RHBMSgFaa7HjxlbfuolO8d/8gSkHb0aUlkx2eOFGg6ho5QgRwf7YXltCaPFHlEXUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=btkACDYqI4dY+U7aXfamIKC+T7l96iCh0T7XtRj8Ehc=;
+ b=R49o3Mss/k4XQuMAYSvHgPqhy4Vn9cHSdIssT52ZU4VN5VJuNji5naL95/IKQgHPbyst3R4S9v6YH31+cCreaetNZm2YuKZ3MINHmdrRw+KKkfbPV0/H6KRmxRIIZ8K0Qmaw8N0sIdv05eogW8anrRdKqBF7oRKFfW9+v/s2m7s=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH0PR12MB7983.namprd12.prod.outlook.com (2603:10b6:510:28e::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Mon, 14 Sep
+ 2026 11:07:01 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Mon, 14 Sep 2026
+ 11:07:01 +0000
+Message-ID: <38195919-cdf3-49d4-bf2a-10f6cbab454a@amd.com>
+Date: Mon, 14 Sep 2026 13:06:54 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/vblank: Don't arm vblank timer with invalid frame
- duration
-To: Thorsten Leemhuis <regressions@leemhuis.info>, Roman Ilin <me@romanilin.is>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maxime Ripard <mripard@kernel.org>, Louis Chauvet
- <louis.chauvet@bootlin.com>, Javier Martinez Canillas <javierm@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>, Peter Arnesen <peter.m.arnesen@gmail.com>,
- Linux kernel regressions list <regressions@lists.linux.dev>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-References: <20260613224434.96501-1-me@romanilin.is>
- <20260702181027.98526-1-me@romanilin.is>
- <E697A2AE-5413-48AE-BFD6-3383819B388B@romanilin.is>
- <3b192119-9709-4f21-841f-a4706cc85e4a@suse.de>
- <0600a3f0-b2d2-4a07-ab21-f590c2979612@leemhuis.info>
- <f0e4cc76-5cf3-4fdb-b42c-f405a09c0d2a@suse.de>
- <ec0c2486-b127-4a47-a81c-499130f268d9@leemhuis.info>
+Subject: Re: [PATCH v6 3/9] dma-buf: Export dma_buf_set_name()
+To: Matt Evans <matt@ozlabs.org>, Alex Williamson <alex@shazbot.org>,
+ Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>, Longfang Liu <liulongfang@huawei.com>
+Cc: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260911214200.33793-1-matt@ozlabs.org>
+ <20260911214200.33793-4-matt@ozlabs.org>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <ec0c2486-b127-4a47-a81c-499130f268d9@leemhuis.info>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- RCVD_TLS_ALL(0.00)[]; TAGGED_RCPT(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[15];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,kernel.org,bootlin.com,redhat.com,collabora.com,lists.freedesktop.org,lists.linux.dev,vger.kernel.org,linux.intel.com];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:email, suse.com:url,
- romanilin.is:email, bootlin.com:url, imap1.dmz-prg2.suse.org:helo]
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260911214200.33793-4-matt@ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL1PR13CA0255.namprd13.prod.outlook.com
+ (2603:10b6:208:2ba::20) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH0PR12MB7983:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86aa5c77-2e80-476a-a411-08df12504d20
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|1800799024|7416014|376014|10067099003|4143699003|22082099003|18002099003|56012099006|11063799006|921020;
+X-Microsoft-Antispam-Message-Info: mhGs9b/6NcQjlBdg9iPLp4cNjJgufI2ZkPpx7IfEs1cHNinTWndjAg6yCaLQnGonsim3zQTsxQNO3Eq/TCL6oTcVlpSght8v1T0+qYjC/vY8mszn69j/oZ0kxT4SlxAwnIUnIjVW7h4393lcLlqIekMV54dAhkoh2d8g3c5qKs2qqsvEhBcU0LL1CE8AnU2juqlxtLkXVV4CfUIUUjf74ud6M0pxnuq4o0Ym5brv7GvzuJgXMLguAUo21cxQ1Q1pqFvpOldJ+Wra5ohssKsgnWhfLvKN8naS37A4l5T7kd8/t+NFMS6ZYsvm6JF3O4Qak9NpgmsA7SKUxaZyDbocaXAbNUkAPyL6jO9JKHYjhgRVhuP/ct5/+B5CYy55F09D6CODYH2mQY28Z+I4EcZw9s3wdR0JbpjlNsJXqRfPrv2OrF10Je31OPD4xfW8AR6fxZwoArB/cJixrzsFd1+lhg5I7YCTnPX8VHmvnrNZUOE5xswd5y8A2mQJOTbMeW0gnksi/9atQHyqIw2JZARSdAQvfOG8mhFGbpYrL8qJ7UuoYz5ovQds/k42tNQkYFxwKJls+1a+ljRhg1LDHQgJVsa4YpVdQpf/vh76lnTBjZ7zg+8elNY7MHWoiPphKvoyrY++EY00mMtRp6+H7jmBMm2MpNh+hFnEM9DGyYVITxFiXAwDEfa/xa54FUInqWEbYHaQQuqrBoAhPn/Jt1ZNsA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(10067099003)(4143699003)(22082099003)(18002099003)(56012099006)(11063799006)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c1pCTmZOSTE5OHVtL1NsSTRtNnUyUjJRV2pHUG42cTgvMFB2RklTSEsyRXBP?=
+ =?utf-8?B?eFhCOUJ3VlloY1BhMlluWmkwbkllR3EwdW1RSUxYKzRKaGQxVm9GWFByTDhu?=
+ =?utf-8?B?bmtWakVtUUtHRm02Vm55NE5va09kakRGT1MrQTkxK014M0RlclVtSmNRT1lu?=
+ =?utf-8?B?VXJ5UkZNeEViWnV4YzhDeGJ0aFdTaW4zQk1yTVM3V01ZdzFmaHVWeVY4aU1Y?=
+ =?utf-8?B?OUZDbUJjNkdISlgvejZLWkZEczdpV0R5VVdrakFVZG1YUHo0TWJZejdDd1dv?=
+ =?utf-8?B?Mkc2NWN2SEY0blZBeWN3cWdwN0dKQys0OWtDd0orUExsUjdPSHllNHl6QkVC?=
+ =?utf-8?B?V0kxaUZmYlNDcVVYZmsvR01RUHQwdTlGMHVPb3NPUm9iSkNMbnhvaUdkUFdn?=
+ =?utf-8?B?bGlJNzRyWkNlUTZHeDZ2VHN5TEVFRXJ1Z2dqV0ZpWElaenRCaTk1NFZ2Q0Zo?=
+ =?utf-8?B?aG1qOFNtWTlCRnRGcnE4UzE2RDEwdGp5RktnSnl0QTByN3VaZDJLOGtMVE5X?=
+ =?utf-8?B?cjdoaTdQeloyU1pJaWNkWG83WUU0OG5DZk4rUnZHclNoc1RDUkd5QVJ2MmZ3?=
+ =?utf-8?B?UHR0UHlPTUg1cTE5Mis3Q3d1UG5jeDJKWUMySExpZjhKTU85MEdXellyS2ha?=
+ =?utf-8?B?SEwyMFdiVTBtT3FidUoyMzBlMkg2dmthK0ZReGJkUFdpQkUwVDEvNmM4bWFS?=
+ =?utf-8?B?eTltTlRXWGtuaEVjWll0SThDeGNBOU1XRnRka25NRzZ2WDJrdEtmdkgrQVBw?=
+ =?utf-8?B?eHZZaUZtQWwvSEdSLzNjSFJ0T3F1WTJuRUR0bzNGeWNMM2ZPVlF0Z3lybGtx?=
+ =?utf-8?B?Rk4wZWV3dUlZOE1qTjR0Q0JZeFh5NytsdTdXN0tmclA5NTlHcVhxc094anpT?=
+ =?utf-8?B?M2JpUllvWGVXNlFHSXRHVVEwQnlvOUozeGxvUGUvUkw1UUEwM0t0cE9NdWIv?=
+ =?utf-8?B?N0hudWE4aWJZdEhGUFdVOHpRRnV4MGpHU1FHRjdyUDdxd2JYelFDb3d3WU9x?=
+ =?utf-8?B?SUxmdE10Tm02Z252TGhOakc4OUxJWHNyN1JhbEsvM0tMeGIzRTUwTktrTUNQ?=
+ =?utf-8?B?b04rangxMU1XbklYeWJTcnRrNzBsbGREamtvT21qZzJxTEFLejY4NHZONHh1?=
+ =?utf-8?B?V1F2eVV6WVBTUHd2OWZxN050Z1lIdjZLZHMxcWNGQlVHRVptL3J5eEN2VDd1?=
+ =?utf-8?B?a3FiSG5XN2FFQXMzcGtISGZyNU5Vamt1OGNFQ0FmRTU4cHFWMFhhTEZldDJB?=
+ =?utf-8?B?WU1HTnpqcUtyVWRFNHNXbm5zSlZTYjZjbml3WG01MkxBTXZ1SnVkamV0bnFx?=
+ =?utf-8?B?cUxLR2xXVkFsLytpclE0NWN0R2hHWmtpYXFieFh4T0tqTTNrdW13M2ZGSVlD?=
+ =?utf-8?B?alhyZlVWdXNlZ2VvcDhwMno4Tm5QVE1GT3lwMG9SejFWcVdQRDkzSzhFellC?=
+ =?utf-8?B?YXJKck9TcENwWCtYcGszUWRETGwzUWkxbTJlQnQrWGZyWXFIcm9YczB1S1Nm?=
+ =?utf-8?B?bk9IRnV6dTFVY2dMVjU0ckFoL3loTFVIUGVJYjdmQ21PalU5MUpCN2tydUdn?=
+ =?utf-8?B?QVd4TzBod0RXSGhTM2ZUUUVoaUZjeXNFNjlkS3lmeEpyQ3VDQlJUUEE5SEVX?=
+ =?utf-8?B?bG15Yno1dXNXUVpsNm9FUWZxZ0JUQXFHVTVnbk0wM2w4K0hkL3owTGtJaUNS?=
+ =?utf-8?B?bzlNeGFlT1l4UHh2UzJ6MmFaMVhIc0FwWjlodFpVYVo2a1F5K012bmJDV2NL?=
+ =?utf-8?B?dUM4YVNPeE02TVdVUDdMT0pnaTBiSFFSZHRBYzR5YXNhaFlvZXI4OWlmYXRm?=
+ =?utf-8?B?cXIwZ2srdEUyNDNrQzdPWVk2YmlWTC9IVUJ4OUVDZTNVczd0Szg5Vmo2MGZ5?=
+ =?utf-8?B?NW9JL3I5L3FqSGZJdWc3dDVETHUrUnEyLzZjNHprNkkvOWdBbjZDVDVLUUlh?=
+ =?utf-8?B?Nm5YOFQxUzZBTDc3Tm9zc1U1ZkN1VFJLQjV1RTkzM1FVM2xLcFl0ZDVLcmJE?=
+ =?utf-8?B?TldpVEhIK0JwVGFoeitGc1c1WEdlN0ZkMlRQLzVSUWh0VG04c3RHckVvUEZn?=
+ =?utf-8?B?Z242UCtTb3hEb0ttVlZ1U2JMMHloa2tmMmp6S2xxdm5rdkV4Uk5pNy8wdGNK?=
+ =?utf-8?B?VUFFYkh6YkJsL1piMXgwVVlnMlZaQXRFcFdrUzNaVjhHbmo1NWh3UGhvaVJv?=
+ =?utf-8?B?QnZYRVR6SGVLbzJYMnR4ZkNhQnUvaU55M3E5NitCcWxIVW1VcUlXamlnbEMr?=
+ =?utf-8?B?eUdFR2xlNkpXOGs1clM1TkdwNFFHY2NpTGtPQjhEeVBPTjJzNXVlVXlhbUVM?=
+ =?utf-8?Q?6cgsd9F8kPntqCHSdz?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86aa5c77-2e80-476a-a411-08df12504d20
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 11:07:01.2156 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nGxcEKF/ijJv9EGHUUi/Vtd19LUGEALXf0u5N7YJTOq3aWe6q//7/xHh6feqaXXV
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7983
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,267 +147,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+On 9/11/26 23:41, Matt Evans wrote:
+> dma_buf_set_name() originally took a __user string to duplicate for
+> the buffer name.  Make this function a generic set-name helper, taking
+> a kernel-allocated string.
+> 
+> Wrap this by a new dma_buf_set_name_user() to support the existing
+> ioctl path for a user-provided string.
 
-Am 11.09.26 um 09:39 schrieb Thorsten Leemhuis:
-> Hi Thomas!
->
-> On 9/4/26 08:19, Thomas Zimmermann wrote:
->> Am 03.09.26 um 16:07 schrieb Thorsten Leemhuis:
->>> On 7/3/26 09:26, Thomas Zimmermann wrote:
->>>> Am 02.07.26 um 20:23 schrieb Roman Ilin:
->>>>> Apologies, I accidentally fired off send-email before saving my final
->>>>> changelog notes. Please ignore the changelog and notes in the original
->>>>> v3 email.
->>>> We want to know when this happens. And user space will only be able to
->>>> trigger this once, so there's no risk of spamming the kernel log.
->>>>> Hmmm, just wondering: what's the status here?
->>> Roman Ilin, did you loose interest? Or was this continued somewhere or
->>> maybe even resolved and I just missed that?
->>>
->>> Thomas: if Roman left this behind, could you maybe handle this, [...]
->> AFAICT it was almost there except for the error messaging. The v4 then
->> never happened. I can finish the patch if Roman is no longer around.
-> No answer from Roman since then, so yes, that would be great! Tia!
+That just describes what the patch does and not why, in other words this needs a bit more justification for the change.
 
-I've now sent out an update with minor changes.
+For example something like "Allow exporters/importers to set the name of buffers from pre-existing information".
 
-Best regards
-Thomas
+It is also important to describe which role should set a name (exporter, importer or both). When an exporter gives a standard name for it's buffers that is most likely harmless, but when an importer bluntly overwrites a name previously set by an exporter or userspace then we really need a good reason for that.
 
+> 
+> Signed-off-by: Matt Evans <matt@ozlabs.org>
+> ---
+>  drivers/dma-buf/dma-buf.c | 58 ++++++++++++++++++++++++++++++---------
+>  include/linux/dma-buf.h   |  2 ++
+>  2 files changed, 47 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index d504c636dc29..8129ea11ff58 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -405,31 +405,29 @@ static __poll_t dma_buf_poll(struct file *file, poll_table *poll)
+>  }
+>  
+>  /**
+> - * dma_buf_set_name - Set a name to a specific dma_buf to track the usage.
+> - * It could support changing the name of the dma-buf if the same
+> - * piece of memory is used for multiple purpose between different devices.
+> + * dma_buf_set_name_user - Set a dma_buf's name from a user string
+> + *
+> + * The string is up to DMA_BUF_NAME_LEN long, including the terminator.
+>   *
+>   * @dmabuf: [in]     dmabuf buffer that will be renamed.
+>   * @buf:    [in]     A piece of userspace memory that contains the name of
+>   *                   the dma-buf.
+>   *
+> - * Returns 0 on success. If the dma-buf buffer is already attached to
+> - * devices, return -EBUSY.
+> - *
+> + * Returns 0 on success, and any previously-set name is freed.
+>   */
 
->
-> Ciao, Thorsten
->
->>>> So this is not really a problem. drm_WARN_ON_ONCE was ok for that. You
->>>> can also use a regular DRM print macro. But instead of drm_dbg_kms()
->>>> should use drm_err_once(). But please also output linedur_ns and
->>>> framedur_ns in the error. We want to know which of them is incorrect.
->>>> You can also add more information to the error message. See [1] for the
->>>> mode-formating macros.
->>>>
->>>> [1] https://elixir.bootlin.com/linux/v7.1.2/source/include/drm/
->>>> drm_modes.h#L422
->>>>
->>>>
->>>>> - Updated drm_calc_timestamping_constants with the goto error fallback
->>>>>      to clear the stale state.
->>>>>
->>>>> Also, an automated review bot pointed out an AB-BA deadlock in
->>>>> drm_crtc_vblank_start_timer(). But I am leaving this out of the
->>>>> patch to
->>>>> keep the fixes orthogonal.
->>>>>
->>>>> Sorry for the noise.
->>>>>
->>>>>> On Jul 2, 2026, at 21:10, Roman Ilin <me@romanilin.is> wrote:
->>>>>>
->>>>>> When a CRTC's display mode carries a too small pixel clock,
->>>>>> drm_calc_timestamping_constants() computes a frame duration that
->>>>>> exceeds INT_MAX. drm_vblank_crtc.framedur_ns becomes negative.
->>>>>> drm_crtc_vblank_start_timer() then arms the vblank hrtimer with this
->>>>>> interval, after which vblank events are no longer delivered. Pending
->>>>>> page flips never complete and the display appears frozen.
->>>>>>
->>>>>> This could be triggered on virtio-gpu guests that have dynamic
->>>>>> resolution
->>>>>> enabled: when the SPICE agent or the X server resizes the output, it
->>>>>> submits a mode whose pixel clock is off by a factor of 1000, e.g.:
->>>>>>
->>>>>>       clock = 406 kHz, htotal = 3152, vtotal = 2148
->>>>>>
->>>>>>       framedur_ns = 3152 * 2148 * 1000000 / 406 = 16675852216 ns
->>>>>> (~16.7 s)
->>>>>>
->>>>>> 16675852216 does not fit into an int and wraps to roughly -504000000.
->>>>>> ns_to_ktime() then yields a negative interval and the timer stops
->>>>>> working.
->>>>>>
->>>>>> Found by bisection, which pointed at commit a036f5fceedb ("drm/
->>>>>> virtgpu:
->>>>>> Use vblank timer"). That commit merely made virtio-gpu use the vblank
->>>>>> timer and thereby exposed the pre-existing problem in the timer setup
->>>>>> added by commit 74afeb812850 ("drm/vblank: Add vblank timer").
->>>>>>
->>>>>> To fix this, modify drm_calc_timestamping_constants() to use u64 for
->>>>>> calculations, check for INT_MAX overflows, and return an error code.
->>>>>> drm_crtc_vblank_start_timer() will then propagate the error, enabling
->>>>>> the driver to fall back to immediate vblank events. Valid modes are
->>>>>> unaffected, and the timer self-heals on the next mode with a sane
->>>>>> clock.
->>>>>>
->>>>>> Fixes: 74afeb812850 ("drm/vblank: Add vblank timer")
->>>>>> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
->>>>>> Signed-off-by: Roman Ilin <me@romanilin.is>
->>>>>> ---
->>>>>> Changes in v3:
->>>>>>
->>>>>> - Changed the WARN_ON_ONCE to drm_err_once
->>>>>>
->>>>>> Notes:
->>>>>>
->>>>>>
->>>>>>
->>>>>> drivers/gpu/drm/drm_vblank.c | 71 +++++++++++++++++++++++-------------
->>>>>> include/drm/drm_vblank.h     |  4 +-
->>>>>> 2 files changed, 48 insertions(+), 27 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/
->>>>>> drm_vblank.c
->>>>>> index f90fb2d13..629b9fcc7 100644
->>>>>> --- a/drivers/gpu/drm/drm_vblank.c
->>>>>> +++ b/drivers/gpu/drm/drm_vblank.c
->>>>>> @@ -631,42 +631,51 @@ EXPORT_SYMBOL(drm_crtc_vblank_waitqueue);
->>>>>>     * drm_crtc_vblank_helper_get_vblank_timestamp(). They are
->>>>>> derived from
->>>>>>     * CRTC's true scanout timing, so they take things like panel
->>>>>> scaling or
->>>>>>     * other adjustments into account.
->>>>>> + *
->>>>>> + * Returns:
->>>>>> + * 0 on success, or a negative errno code otherwise.
->>>>>>     */
->>>>>> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
->>>>>> -     const struct drm_display_mode *mode)
->>>>>> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
->>>>>> +    const struct drm_display_mode *mode)
->>>>>> {
->>>>>> struct drm_device *dev = crtc->dev;
->>>>>> unsigned int pipe = drm_crtc_index(crtc);
->>>>>> struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
->>>>>> - int linedur_ns = 0, framedur_ns = 0;
->>>>>> + u64 linedur_ns, framedur_ns;
->>>>>> int dotclock = mode->crtc_clock;
->>>>>> + unsigned int frame_size;
->>>>>>
->>>>>> if (!drm_dev_has_vblank(dev))
->>>>>> - return;
->>>>>> + return 0;
->>>>>>
->>>>>> if (drm_WARN_ON(dev, pipe >= dev->num_crtcs))
->>>>>> - return;
->>>>>> + return -EINVAL;
->>>>>>
->>>>>> - /* Valid dotclock? */
->>>>>> - if (dotclock > 0) {
->>>>>> - int frame_size = mode->crtc_htotal * mode->crtc_vtotal;
->>>>>> + if (dotclock <= 0) {
->>>>>> + drm_err(dev, "crtc %u: Can't calculate constants, dotclock = %d!\n",
->>>> Please turn this into drm_err_once() because this call can actually be
->>>> triggered repeatedly from userspace.
->>>>
->>>> Best regards
->>>> Thomas
->>>>
->>>>
->>>>>> + crtc->base.id, dotclock);
->>>>>> + goto error;
->>>>>> + }
->>>>>>
->>>>>> - /*
->>>>>> - * Convert scanline length in pixels and video
->>>>>> - * dot clock to line duration and frame duration
->>>>>> - * in nanoseconds:
->>>>>> - */
->>>>>> - linedur_ns  = div_u64((u64) mode->crtc_htotal * 1000000, dotclock);
->>>>>> - framedur_ns = div_u64((u64) frame_size * 1000000, dotclock);
->>>>>> + frame_size = (unsigned int)mode->crtc_htotal * (unsigned int)mode-
->>>>>>> crtc_vtotal;
->>>>>> - /*
->>>>>> - * Fields of interlaced scanout modes are only half a frame duration.
->>>>>> - */
->>>>>> - if (mode->flags & DRM_MODE_FLAG_INTERLACE)
->>>>>> - framedur_ns /= 2;
->>>>>> - } else {
->>>>>> - drm_err(dev, "crtc %u: Can't calculate constants, dotclock = 0!\n",
->>>>>> - crtc->base.id);
->>>>>> + /*
->>>>>> + * Convert scanline length in pixels and video dot clock to line
->>>>>> duration
->>>>>> + * and frame duration in nanoseconds.
->>>>>> + */
->>>>>> + linedur_ns  = div_u64((u64)mode->crtc_htotal * 1000000, dotclock);
->>>>>> + framedur_ns = div_u64((u64)frame_size * 1000000, dotclock);
->>>>>> +
->>>>>> + /*
->>>>>> + * Fields of interlaced scanout modes are only half a frame duration.
->>>>>> + */
->>>>>> + if (mode->flags & DRM_MODE_FLAG_INTERLACE)
->>>>>> + framedur_ns /= 2;
->>>>>> +
->>>>>> + if (linedur_ns > INT_MAX || framedur_ns > INT_MAX) {
->>>>>> + drm_dbg_kms(dev, "crtc %u: Can't calculate constants, mode clock
->>>>>> too small!\n",
->>>>>> +    crtc->base.id);
->>>>>> + goto error;
->>>>>> }
->>>>>>
->>>>>> vblank->linedur_ns  = linedur_ns;
->>>>>> @@ -678,7 +687,16 @@ void drm_calc_timestamping_constants(struct
->>>>>> drm_crtc *crtc,
->>>>>>        crtc->base.id, mode->crtc_htotal,
->>>>>>        mode->crtc_vtotal, mode->crtc_vdisplay);
->>>>>> drm_dbg_core(dev, "crtc %u: clock %d kHz framedur %d linedur %d\n",
->>>>>> -     crtc->base.id, dotclock, framedur_ns, linedur_ns);
->>>>>> +     crtc->base.id, dotclock,
->>>>>> +     vblank->framedur_ns, vblank->linedur_ns);
->>>>>> +
->>>>>> + return 0;
->>>>>> +
->>>>>> +error:
->>>>>> + vblank->linedur_ns  = 0;
->>>>>> + vblank->framedur_ns = 0;
->>>>>> + drm_mode_copy(&vblank->hwmode, mode);
->>>>>> + return -EINVAL;
->>>>>> }
->>>>>> EXPORT_SYMBOL(drm_calc_timestamping_constants);
->>>>>>
->>>>>> @@ -2221,6 +2239,7 @@ int drm_crtc_vblank_start_timer(struct drm_crtc
->>>>>> *crtc)
->>>>>> struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
->>>>>> struct drm_vblank_crtc_timer *vtimer = &vblank->vblank_timer;
->>>>>> unsigned long flags;
->>>>>> + int ret;
->>>>>>
->>>>>> if (!vtimer->crtc) {
->>>>>> /*
->>>>>> @@ -2239,7 +2258,9 @@ int drm_crtc_vblank_start_timer(struct drm_crtc
->>>>>> *crtc)
->>>>>> hrtimer_try_to_cancel(&vtimer->timer);
->>>>>> }
->>>>>>
->>>>>> - drm_calc_timestamping_constants(crtc, &crtc->mode);
->>>>>> + ret = drm_calc_timestamping_constants(crtc, &crtc->mode);
->>>>>> + if (ret)
->>>>>> + return ret;
->>>>>>
->>>>>> spin_lock_irqsave(&vtimer->interval_lock, flags);
->>>>>> vtimer->interval = ns_to_ktime(vblank->framedur_ns);
->>>>>> diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
->>>>>> index 2fcef9c0f..d99772dfa 100644
->>>>>> --- a/include/drm/drm_vblank.h
->>>>>> +++ b/include/drm/drm_vblank.h
->>>>>> @@ -311,8 +311,8 @@ void drm_crtc_vblank_on(struct drm_crtc *crtc);
->>>>>> u64 drm_crtc_accurate_vblank_count(struct drm_crtc *crtc);
->>>>>> void drm_crtc_vblank_restore(struct drm_crtc *crtc);
->>>>>>
->>>>>> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
->>>>>> -     const struct drm_display_mode *mode);
->>>>>> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
->>>>>> +    const struct drm_display_mode *mode);
->>>>>> wait_queue_head_t *drm_crtc_vblank_waitqueue(struct drm_crtc *crtc);
->>>>>> void drm_crtc_set_max_vblank_count(struct drm_crtc *crtc,
->>>>>>      u32 max_vblank_count);
->>>>>> -- 
->>>>>> 2.54.0
->>>>>>
+Kerneldoc for a static function is usually overkill.
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+And since this is used only once and very complicated I would completely merge the logic into dma_buf_ioctl().
 
+Regards,
+Christian.
+
+> -static long dma_buf_set_name(struct dma_buf *dmabuf, const char __user *buf)
+> +static long dma_buf_set_name_user(struct dma_buf *dmabuf, const char __user *buf)
+>  {
+>  	char *name = strndup_user(buf, DMA_BUF_NAME_LEN);
+> +	int ret;
+>  
+>  	if (IS_ERR(name))
+>  		return PTR_ERR(name);
+>  
+> -	spin_lock(&dmabuf->name_lock);
+> -	kfree(dmabuf->name);
+> -	dmabuf->name = name;
+> -	spin_unlock(&dmabuf->name_lock);
+> +	ret = dma_buf_set_name(dmabuf, name);
+> +	if (ret)
+> +		kfree(name);
+>  
+> -	return 0;
+> +	return ret;
+>  }
+>  
+>  #if IS_ENABLED(CONFIG_SYNC_FILE)
+> @@ -578,7 +576,7 @@ static long dma_buf_ioctl(struct file *file,
+>  
+>  	case DMA_BUF_SET_NAME_A:
+>  	case DMA_BUF_SET_NAME_B:
+> -		return dma_buf_set_name(dmabuf, (const char __user *)arg);
+> +		return dma_buf_set_name_user(dmabuf, (const char __user *)arg);
+>  
+>  #if IS_ENABLED(CONFIG_SYNC_FILE)
+>  	case DMA_BUF_IOCTL_EXPORT_SYNC_FILE:
+> @@ -854,6 +852,40 @@ void dma_buf_put(struct dma_buf *dmabuf)
+>  }
+>  EXPORT_SYMBOL_NS_GPL(dma_buf_put, "DMA_BUF");
+>  
+> +/**
+> + * dma_buf_set_name - Set a dma_buf's name
+> + * It could support changing the name of the dma-buf if the same piece
+> + * of memory is used for multiple purpose between different devices.
+> + *
+> + * @dmabuf: [in]     dmabuf buffer that will be renamed.
+> + * @name:   [in]     The name of the dma-buf, allocated with kmalloc() or
+> + *                   similar.  This takes ownership of the allocation
+> + *                   on success, which will be kfree()d when the
+> + *                   dmabuf is released or a new name assigned.
+> + *
+> + * Returns 0 on success, -EINVAL if the name is NULL, or -E2BIG if the
+> + * name exceeds DMA_BUF_NAME_LEN.
+> + */
+> +int dma_buf_set_name(struct dma_buf *dmabuf, char *name)
+> +{
+> +	if (!name)
+> +		return -EINVAL;
+> +
+> +	/* dmabuffs_dname() won't use the string if the length
+> +	 * (including terminator) exceeds DMA_BUF_NAME_LEN:
+> +	 */
+> +	if (strlen(name) >= DMA_BUF_NAME_LEN)
+> +		return -E2BIG;
+> +
+> +	spin_lock(&dmabuf->name_lock);
+> +	kfree(dmabuf->name);
+> +	dmabuf->name = name;
+> +	spin_unlock(&dmabuf->name_lock);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(dma_buf_set_name, "DMA_BUF");
+> +
+>  static int dma_buf_wrap_sg_table(struct sg_table **sg_table)
+>  {
+>  	struct scatterlist *to_sg, *from_sg;
+> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+> index d1203da56fc5..14d3950b63c8 100644
+> --- a/include/linux/dma-buf.h
+> +++ b/include/linux/dma-buf.h
+> @@ -570,6 +570,8 @@ int dma_buf_fd(struct dma_buf *dmabuf, int flags);
+>  struct dma_buf *dma_buf_get(int fd);
+>  void dma_buf_put(struct dma_buf *dmabuf);
+>  
+> +int dma_buf_set_name(struct dma_buf *dmabuf, char *name);
+> +
+>  struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *,
+>  					enum dma_data_direction);
+>  void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
 
