@@ -4,138 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8483C88E75
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 23:08:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B372C88E75
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 23:24:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5A3210F76E;
-	Mon, 14 Sep 2026 23:08:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 331C710E762;
+	Mon, 14 Sep 2026 23:24:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CWYERCwE";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EaD0QPyn";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="cUJlYs0S";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F96510F770
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 23:08:46 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68EN05WC2827288
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 23:08:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=EOf9jLDathiKO1GdPmBUWCGG
- kUylbrTzUgoCUbTBCZE=; b=CWYERCwErA9YwhYo+x2NFwrUzqRRohzsoxsqdi1a
- 95MeXnHD1MH/ik6G9oONeC1tThhdKaRMj1ngfDplCwnOWI226dqbLP4lFEeDg/fG
- 6Cvz3pFB85SdkdccAYBTibDxN05WnUe/QbLbJf9MJWz0Nx20vIsi16L/n9mhwjL2
- s0ZQeRgNJHf2ahzIVZQjuU8sQsJ2Y3bD+6fH0Imm2kZQ6z2DXiiJr1oT7qjYE6Cv
- 7u+1iP5g84Sg3fhmr7a76kJKDQNvqPv/ZOtiNXqVIAkwrc+PGn/4j6NtqFbczyvD
- UAZ0jCXrn62A285mppAxpCuoFQjQweEA4LxxXHMvTKgPQQ==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
- [209.85.217.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpn41s57s-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 23:08:45 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id
- ada2fe7eead31-6751db2792dso899932137.3
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 16:08:45 -0700 (PDT)
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A91210E762
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 23:23:58 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-49cda5e048fso9325e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 16:23:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789428236; cv=none;
+ d=google.com; s=arc-20260327;
+ b=fjAUFZZTjjqCl5IrI8aRwOcXMBl6zMgVOTNTK/eByqgqmNXmIezEK+Bg5gwcQyye3u
+ Fc8gBP8rLL9ecZVJP9j8LiDjgce1iT06NGeUJZ/mrt+I+WqmyXS78XRSiUlG93XAvfcM
+ EjpVSGJyUwrYEnk0opeCmAya3qAmey3VDUOREhLDv7YcoB/uzy2/E9c24Y37ZPt7Z9sa
+ XdyxvWUe9oPJb1xwHJnRFRJ45Qt2Cnz5zBJHs4M4W4nO3JmF8q7VLCY5wcboYlpN+bTJ
+ xoLLIx6vtlM1cqgtrxOQhQrArwc6p8xb61pYnBaQX6yl2tbT6WzUqRNIKgqk/0sR7+G/
+ Cwow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=7bCiBaA1KLPmBbIRbTd/usVfbjDAGvg/fHxPmUuwfOk=;
+ fh=OwDJCfa9PdTVLUjQaizLlPx/i9YkKgA6AVTRNsr9jvE=;
+ b=Q3/ZzU4XFDv38tump1Maxyl5MRFd0BeP9pxGT1l5wFMmq4sFtJk5JPgYqAW01xwdeV
+ LPyN0lAKRnn7O8XjLBu999qQBYYOY5zUyzFE/o/og8IE1RwGMOiBdMggfP/BJELjGY12
+ uw3PQXMPpjyeIxQ/Qap97qn2GOBwCSgRyZ5VdKhU1y9ur1oXtSDVREL5cjBBERHC6tJN
+ 1SZthT32DrYI950Y+6amRZIO0OCQ2FmXL2nSSSFVCDEhpWUiw8ItIA39G3mWxWmU/Ke3
+ j5rL9TWVmqrYb5cSfdBNyM5tXD5I4wJZpd9HMctTLb6CqvBPTLddLoXMvYWyzosSKAyQ
+ uuiA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1789427324; x=1790032124;
+ d=google.com; s=20251104; t=1789428236; x=1790033036;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=EOf9jLDathiKO1GdPmBUWCGGkUylbrTzUgoCUbTBCZE=;
- b=EaD0QPynGJ4NWLHrDlvVprt+iszM0Dds03pTkwpAKs4sgXjUX0AS8TnMEacc5jqy1O
- eXNXCjvRIGjDbOk7EmRUq5bJiOzPsJ92+1q0TwTOw77AG+lZOcPUUpwWy2137I4VPFei
- C1sXuaAxmFDr2hKAAJoDkMze4Fuw7qNiklxjo5BOUYyim1eInkhQ+EWO313k4rAG4KnE
- wukvSkr7cl4vChvFf1WjAIP4yuU3dJjuBJYlrqF6bxsOZE+fby5fPe6GP8xQJSjQGb+a
- 3/4tRSkjrmX6RxpVg8WsmdosyOkXFYhoYXVF4hQ82Ak1AnMbKL06RAOERKtRLWlgrBfy
- WRrQ==
+ bh=7bCiBaA1KLPmBbIRbTd/usVfbjDAGvg/fHxPmUuwfOk=;
+ b=cUJlYs0Sji5fY7gpw+Slw4sToM24KQS0YE52s0RpqaUsqisr+BYCRLHfJbS0ZoR9nY
+ ROxbZ/CAdncCpyqw3/lwnLF/ALPVl6meIv1XNtj1PVzeA7bRT/Kl2PFw6jNTU+eXptvP
+ z5q5q9ge0gFiATn5zkL+FiW2fburEbnpMK4AWOQLziJu0VXV2w80hl1/nNuAnD2zoJW+
+ JbC6fzlt2M5mg8naSZHBPH5hEDgAw4KnxeVCuB/JxerAvQdfrXGFv+vCpSPXksOA+EBY
+ rVEFzIlbVgR1HRmcgDbHeky28Lxw+qVRAfNoCEENojr5opW5YvX2KV1bHYU+sP4l5bZe
+ yDew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789427324; x=1790032124;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
+ d=1e100.net; s=20260707; t=1789428236; x=1790033036;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=EOf9jLDathiKO1GdPmBUWCGGkUylbrTzUgoCUbTBCZE=;
- b=UAPeocA/DYWSdcF/ZLnv0lzgzGW7vfwyR5FZh/iNZDY8mz1pTF/fh6AdtF6G6wryIK
- EFdkhgx2FRmwufb9AkkI5Ua7uUE4WcVhq/ps0gZMWVGRK079LZbx8V+zM8nQhdqk4rnc
- e0lIFNY+eFFkUff8/6bkXsKM7GWvSViYpV1a+0O8lUYswol7TUoGKNYOLOYD6xxczeeN
- ejMCUFJhMb2mJUXjEP9bpN6icUmyomYEi3Pz1UND6HKIO7PUKzFs5sV/KYfn9lbYvdV4
- EJYmq/8ijNBuAYMxHxDE+NyxJWFQjp4KdGUeXgD9TetnxgBSqG4tR0WgymtIhtgtU/G8
- 4CJw==
+ bh=7bCiBaA1KLPmBbIRbTd/usVfbjDAGvg/fHxPmUuwfOk=;
+ b=stXpX490dRMxPpOYxTVhEjZEvyiObI84WsTN9xRb2wTKGad0u47qPNM4uvg2lAedt+
+ h0qF2p37AdJlidQYexYgkoY4vPWMyBnQB5KweJsew4KBuv0bDryy4faV4rvq2e/nlLq1
+ UDhJgDoyB0TcGqgmIoeRQum2SOgVR2ocnOROsprjeRAwVdY6GrFEMmgCbW37BDzpWfzO
+ pwwmBVxhiijVbkWSnaJsv1bmvC/KMtWnMsry33ie8q+011WHKMbR40m+tEwv/04k/Sny
+ Mc9i98dKZBj5OTN3Fgab0HpygVCi4LQ1ZHA9zSkniwOFTcwUpbgQVK48NMHRjmZaMv09
+ t/hw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwB+EJ/yC/RbZmYaY0FpnJShxPF3ISVHQLK5kDiMykoUFMGuJ9AHTL/IfH7YS5neIfhyzzV/0C7SzA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l9rX39Z4NivwHqSUbt0C7k0beEujgXHfVIhvbz3h7MAz0VaXKO
- PQ2yH+cOngLTEeeWKLkQm8nPXURbgdc+3mXp/W5R+UgBTVyi94SCztDw0AG+XZGy9H/OUZF14yI
- NUq9AmsnA2C5aAF2WZDOu2yjl1Bb6lwDv5Wr+9xtZqmJsUH1TLLJZs3CRukbl6OEUh1q82qY=
-X-Gm-Gg: AYBFou3nX5KIr3gzgnnGx+s3JD9lc5/ht9DS2BDUGFFbkf1NpVfYP0euu0sK7Xqhbix
- SAja4BOYABMHd0I4ALiFDvIcH+rBCUnSnQOBJUQvZ47eaVVNqEm4cfpJGieDBb2baIwsnHNey9S
- Zxo0oTzn+ncVRYlBZYf3U32BlObL979X+q6P1MrT4IqR6WWIV3+TNwxxZ1/W8OK37ZSO9VckGfY
- 50lJrmS2jw5Jds5wdYsfu2rzr/pPAvx4hlYKC8FlSivDBRIajfYR9x5W7BFjqpNpjzHFyGsvuZN
- v6T67p4z+DqjKAcOkLXKBqP6T1FPrMMZUzJV4pDG73yfuGEKlXY9i8GESH68WmwuLPxzGNX6PQC
- HCcPdoWxoQOE0ojVbW9PnAM26C6XbRilViQ6ZHDseT4K9E2Xda0Un0f1S2grFbtd0wnZ5csyPg/
- 86bdF2PIytehD7
-X-Received: by 2002:a05:6102:160b:b0:785:e069:6c5 with SMTP id
- ada2fe7eead31-79b5adb091dmr5457422137.8.1789427324377; 
- Mon, 14 Sep 2026 16:08:44 -0700 (PDT)
-X-Received: by 2002:a05:6102:160b:b0:785:e069:6c5 with SMTP id
- ada2fe7eead31-79b5adb091dmr5457408137.8.1789427323825; 
- Mon, 14 Sep 2026 16:08:43 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a5b433b5a6sm22229601fa.4.2026.09.14.16.08.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Sep 2026 16:08:41 -0700 (PDT)
-Date: Tue, 15 Sep 2026 02:08:39 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Saim Shujah <saimzst@gmail.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dpu: clear pending flush state before physical
- cleanup
-Message-ID: <3mhqndcw4defdpdo7t5wgb4ysh5cai6b7rq4sargypesxr67bj@6ibdnfmgyrol>
-References: <20260826182459.1506522-1-saimzst@gmail.com>
- <wyoltftfpoxowxs4g4uwa2vi2pnspubn4vw4l2y52bwrhcjvew@xh3og5yp7uaq>
+ AKwUvBzjvYBBJ4prd6WOOKS437BU4MyUKQdS+Iqt/16MDm538W3X63gp1UqXMWn7cDSbXrtmQRJu07aN+ZY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++krO/XSSE4JLaRYUWrYgGxwWrIJYUuhGmE5AG5VRrtyhHrvl4Ze
+ UtxITmpzI9DjmGdys971A3Oic/1PEKJUneTAKKzrRuwph23hMK5rSx4V7Od7GU+q6vXCjVJ4HP0
+ Lo5W51zGFnXjJAxHTNipeCspQKNqay0kkPYvZLuqV
+X-Gm-Gg: AYBFou2qpnW/0f3ZjHqpgl+tLHwqBdYMv2N5qvr1Q0+DIAy5bzLjiQbBTfu/Fxj/cJN
+ uueKE8pvGpX8yqloxBVMfUvZEmhU9WoeYK0Ah0zCOChQQjtgUKf9f+90Ef+u5ZItb9xVppnp+y+
+ iIxsZVXu7lrimltMJio0BEeISz4154E+FBjQP+FmCJ3hvI+ETvnoA5WK4Af1YaOL1IUqeFZuUZ1
+ dcdlg9tm4O/DIvMZENycMolQwPPez4qvTV1XpDYBBZ5UvV2nuYoURPp+TnvjpAf8aNuzQIu+bzK
+ a+MbhIZJ61oTRqitJZdiKPhMtZVhudGBHHUA1qoSdntvX2fuAy+FaYKxzdeRRy9dbxHAu0eiDLz
+ Lf2IzJD4jQA==
+X-Received: by 2002:a05:600c:28d:b0:49e:7981:4294 with SMTP id
+ 5b1f17b1804b1-49e7f0a75f7mr109195e9.5.1789428235941; Mon, 14 Sep 2026
+ 16:23:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <wyoltftfpoxowxs4g4uwa2vi2pnspubn4vw4l2y52bwrhcjvew@xh3og5yp7uaq>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDMzMSBTYWx0ZWRfX7BJdOxpbqckz
- vm8RPchanGSKajDsMDsAi47bXDkzbdcK8bNDNxjL3pE9aEDieLNhgKmvVPKfy7xxBHoDMPb7D7o
- kS8m5I0oP4mB5nvsTPhcOuGUTpTPpyPGScP9jkWdujGbTcF37XKGU0zxL/A+0KqIUjDdvmZF2pc
- W6P/j/2zEO0rANhdwGOWVNg5Y/HjhCfw9za0kMr1hvcjCxGKne3EopOD7kq+6+p3ALBehuOHrcU
- qJx0SVTPyzDfXbrtG7eL/5nFhumNf17Uroi10xWUFf5PbHuE2o8eEBGsY4O+6ZpqnCDHRSmvMWC
- rYG+oAjfPNDBnUj/wdMnVsQEd7YMIfyruLrrhdVWlcBAEe4V/4MTqVQ/Qp5mbFPbbQTm4oUtizT
- sfgu+KXWI2CLdHHZHs4ddknsM8+53hO1argCoBlFaNF94YTMX8YNCXmNw4Ys1c2XmsCpoGzHlLU
- 524E6GB+4FQA1PWhHnQ==
-X-Proofpoint-GUID: QF5IhZfMFb8nAoJbhZ9OR--b-pdHPM32
-X-Authority-Analysis: v=2.4 cv=cqQOAF4i c=1 sm=1 tr=0 ts=6aa87e7d cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=pG1nA-xtObB0exEfb0QA:9 a=CjuIK1q_8ugA:10
- a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-ORIG-GUID: QF5IhZfMFb8nAoJbhZ9OR--b-pdHPM32
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDMzMSBTYWx0ZWRfX4inYmVS16ZWo
- bTVEjmpBEi28qkhyKpgPo5MyJEQmYDU5N1d1oMD7U3KO0GenyVRFq6vQvxOGaWTFVadcwdFQ52z
- JDd7NnYeVRddHXk5kQ7MqG6Xo1nB60I=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_05,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 phishscore=0 priorityscore=1501 malwarescore=0
- suspectscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140331
+References: <20260914212258.2657788-1-dave@stgolabs.net>
+ <20260914212258.2657788-2-dave@stgolabs.net>
+In-Reply-To: <20260914212258.2657788-2-dave@stgolabs.net>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Mon, 14 Sep 2026 16:23:44 -0700
+X-Gm-Features: AcwNN1WtjBrQlHaHMrN5leZ63LaTP-D5FEN0Ol0qz2UAQhJrFSDnK-hyD_rAvN4
+Message-ID: <CABdmKX3Oum+wJPy2JUZKoke85L-E5VJKu1VJs-sy+LLbhe2LMA@mail.gmail.com>
+Subject: Re: [PATCH 1/3] dma-buf: system_heap: add a 2MB allocation order for
+ IOMMU superpages
+To: Davidlohr Bueso <dave@stgolabs.net>
+Cc: sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org, 
+ benjamin.gaignard@collabora.com, jstultz@google.com, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,36 +111,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Sep 14, 2026 at 12:59:30AM +0300, Dmitry Baryshkov wrote:
-> On Wed, Aug 26, 2026 at 11:24:59PM +0500, Saim Shujah wrote:
-> > Hardware can consume an active-frame CTL flush while the cached software
-> > pending-flush mask retains the submitted bits. Video-mode disable stops the
-> > timing engine before physical cleanup, which then adds teardown bits to the
-> > stale cached mask.
-> > 
-> > The teardown trigger can replay source-pipe bits after timing
-> > stops, leaving one pending and preventing the first commit after re-enable.
-> > 
-> > Clear the cached pending-flush bookkeeping before constructing the teardown
-> > state. clear_pending_flush() updates software bookkeeping only; it does not
-> > write the hardware CTL_FLUSH register.
-> > 
-> > Fixes: 22cb02bc96ff ("drm/msm/disp/dpu: reset the datapath after timing engine disable")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Saim Shujah <saimzst@gmail.com>
-> > ---
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+On Mon, Sep 14, 2026 at 2:23=E2=80=AFPM Davidlohr Bueso <dave@stgolabs.net>=
+ wrote:
+>
+> With 4KB base pages, the system heap allocates buffers in 1MB, 64KB
+> and 4KB chunks. The conventional Intel VT-d second-stage and AMD-Vi v2
+> page-table formats, and Arm SMMU's 64-bit long-descriptor format with
+> a 4KB translation granule, define 4KB pages and 2MB/1GB large-page
+> mappings, but no 1MB leaf. A 1MB chunk therefore requires 256 4KB leaf
+> entries unless it can be combined with adjacent chunks into a
+> suitably aligned larger mapping.
+>
+> Adding a 2MB allocation order provides naturally aligned, physically
+> contiguous chunks matching the 2MB leaf size, without relying on this
+> being accidental for separate smaller allocations. The new cost
+> is one failed order-9 attempt (keeping current large allocation semantics=
+)
+> per buffer when 2MB pages are exhausted.
+>
+> Two benchmarks, measured on an AMD EPYC 7313P.
+>
+> (i) Mapping, into an idle NVMe function's translated DMA-FQ domain,
+> measuring map/unmap: with the v1 page table restricted to 4K/2M/1G
+> (amd_iommu=3Dv2_pgsizes_only), a 1GB buffer goes from 1024 1MB chunks,
+> only one of whose 2MB windows was superpage-mappable in that run, to
+> 512 2MB chunks with all 512 mappable. dma_buf_map_attachment() costs
+> decrease by ~16x on average with ~32x for the worst cases. Unmapping
+> that buffer drops from ~500 us to 1.25 us.
+>
+> (ii) A microbench that measures the cost of DMA_HEAP_IOCTL_ALLOC+close
+> across various thread counts decreases by factors of ~3-7x alleviating
+> allocator's zone->lock contention by being PMD order and therefore is
+> pcpu list eligible. Once the buffer size is large enough then the cost
+> of the zeroing takes over.
+>
+> Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
+> ---
+>  drivers/dma-buf/heaps/system_heap.c | 13 +++++++------
+>  1 file changed, 7 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/=
+system_heap.c
+> index c8959eadc71d..621cf238ef97 100644
+> --- a/drivers/dma-buf/heaps/system_heap.c
+> +++ b/drivers/dma-buf/heaps/system_heap.c
+> @@ -55,14 +55,15 @@ struct dma_heap_attachment {
+>  #define HIGH_ORDER_GFP  (((GFP_HIGHUSER | __GFP_ZERO | __GFP_NOWARN \
+>                                 | __GFP_NORETRY) & ~__GFP_RECLAIM) \
+>                                 | __GFP_COMP)
+> -static gfp_t order_flags[] =3D {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_ORDE=
+R_GFP};
+> +static gfp_t order_flags[] =3D {HIGH_ORDER_GFP, HIGH_ORDER_GFP,
+> +                             HIGH_ORDER_GFP, LOW_ORDER_GFP};
+>  /*
+> - * The selection of the orders used for allocation (1MB, 64K, 4K) is des=
+igned
+> - * to match with the sizes often found in IOMMUs. Using order 4 pages in=
+stead
+> - * of order 0 pages can significantly improve the performance of many IO=
+MMUs
+> - * by reducing TLB pressure and time spent updating page tables.
+> + * The selection of the orders used for allocation (2MB, 1MB, 64K, 4K) i=
+s
+> + * designed to match with the sizes often found in IOMMUs.
 
-Unfortunately this patch breaks several IGT tests on sc7180:
+and now also PMD order for allocation / page table efficiency in
+addition to sizes IOMMUs can coalesce
 
-kms_plane_alpha_blend@constant-alpha-max
-kms_plane_alpha_blend@constant-alpha-mid
-kms_rotation_crc@cursor-rotation-180
-kms_rotation_crc@primary-rotation-180
+>  Using larger order
+> + * pages instead of order 0 pages can significantly improve the performa=
+nce of
+> + * many IOMMUs by reducing TLB pressure and time spent updating page tab=
+les.
+>   */
+> -static const unsigned int orders[] =3D {8, 4, 0};
+> +static const unsigned int orders[] =3D {9, 8, 4, 0};
+>  #define NUM_ORDERS ARRAY_SIZE(orders)
+>
+>  static int system_heap_set_page_decrypted(struct page *page)
+> --
+> 2.39.5
+>
 
--- 
-With best wishes
-Dmitry
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
+
+The origin of these orders is:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/d=
+rivers/staging/android/ion/ion_system_heap.c?id=3Dbd5d6bdae118c49d194869ef7=
+57fd650dcabd33e
+with not a lot of justification in the commit message.
+
+Downstream we attempt order 9 instead of 8 on heaps that we actually
+ship on our devices to match the 2MB PMD size, and many other vendor
+heap implementations do as well. Not that it's always likely we'll get
+pages that big due to fragmentation.
