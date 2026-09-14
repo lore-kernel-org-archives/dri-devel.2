@@ -4,118 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E928C88E64
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 09:24:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F573C88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 09:28:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6276310E54C;
-	Mon, 14 Sep 2026 09:24:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4900C10E146;
+	Mon, 14 Sep 2026 09:28:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="BF+/n0ic";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GhrfIwCx";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E0A610E54C
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 09:24:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1789377840;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Tb/KsUxM9jxkMjSRJHpE7KiQY8ZPLkB6sQ8Hi6kwrEk=;
- b=BF+/n0icy0NlsGO8AsKL9U36iiZxwd3DNEFzhxipypD0oJ6LmWBd9RDpQDFhgw7EWYtIA+
- 7Z3ISjxoqbmyP6iQq/klGZ+pOx64+lHU0gmQAIO88i/SoFCZHZ0Ez+/NzRw+U+g2YKDZ8A
- fS43SMkAsyZHUK/JJiLvskVrLToBf2g=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-676-l-r99kkBP2GvEsBB1nMGRw-1; Mon, 14 Sep 2026 05:23:56 -0400
-X-MC-Unique: l-r99kkBP2GvEsBB1nMGRw-1
-X-Mimecast-MFC-AGG-ID: l-r99kkBP2GvEsBB1nMGRw_1789377835
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-490a767c7dcso24912895e9.2
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 02:23:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789377835; x=1789982635;
- h=content-type:mime-version:message-id:date:references:in-reply-to
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Tb/KsUxM9jxkMjSRJHpE7KiQY8ZPLkB6sQ8Hi6kwrEk=;
- b=gN6T9ABd6tPQfZ9jfUKFUjxPEetE6T/fNvMsmCSjATfe8+naM3JKh2z0uf8xX13Csg
- S5ayFJIh0ZW+pKIu+i9krBIFUFmGKe/DmHWib+Cbj2Kd0dZpBibjaXPEHRCNz0IAfpnN
- iqX9MmXLkqY2Ju4u+6X6/vegG9Vwr5vOVZ5ssQC/3XyUB8A3Q6Dha0M07K4v7gB7n8mH
- 2wN06g+6ROMphoaTvQG7QChIShMh/gPC7S5gQPKf3rm3h6/YF5aFL1rYSm5nUKjdVZc6
- vGmB+0Sk1sKJ2zY7E7v19AIffbIRNAFT/uImLDRsph428tmq9AfVc+wYt7vitGxEWE6O
- K94Q==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwhAigd4DN3rIOZjsu1dZBBVE+LMT474Hf+ZttuMzbv0ytoWo7hQQRR5rGy/8bz0wCAOv7+O1Kle4c=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mm7X9tLgBRG6C14pxNfA3vb55M7B3Jxqjp4dzowokjNo/DBSeC
- hefElW9bvUqXFkxfQ+8XkRTsPK7NdeMzPfEim1UmBZxuQICfv9v401CqXVZLJZlIrocb5sDyLsU
- OISfGlnhPPbmSVtAa98NguRnE1ZLUeXg1HH9QL4YOQ05kOQYXyOA8DrQ4KiU2skuJBx1n3Q==
-X-Gm-Gg: AYBFou0GhDLQXOa3KllwtYD4jQ/kp2iZlm/Nb2QdKnjp47BjGWezXz24iNxrZKsVIVX
- R/oA4dJDoWpQ1tWLEMOIAX3+kiY+e1J2tOf4ddJwnBkH2gqQ2732uL6yI0Po2ReLBmuOdQYUI3Y
- 3p9Naax6HnskbIzkxJvHIWfvb7Dc7nghGMpKn44YU/Vl2Q0JF9MWoBjqg5irrKRVlEBNPsNiBg4
- Arm955mvuVPD6cjAscrbPn5ISx1Fa5dXFR8G4qoEBm12YvJcOqV9Naqhqpt+T8vF4PSGmrgzbbP
- z3uXulrq2kiQlY2Js8LKvsniiBJjFY25m+48ldHYMfcV2wEKb/ACUUFFxOke8cHkBcxkDZt+oqy
- K5hTx3CBHW/ILMMkAdkeYIEjmB4thA3ybkUvPTHZ5C3kXx/bi6XUwq5OCqQ==
-X-Received: by 2002:a05:600c:628f:b0:49d:1df6:2592 with SMTP id
- 5b1f17b1804b1-49e7a66ae3dmr16857795e9.21.1789377835276; 
- Mon, 14 Sep 2026 02:23:55 -0700 (PDT)
-X-Received: by 2002:a05:600c:628f:b0:49d:1df6:2592 with SMTP id
- 5b1f17b1804b1-49e7a66ae3dmr16857405e9.21.1789377834915; 
- Mon, 14 Sep 2026 02:23:54 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49e6576122bsm399519375e9.2.2026.09.14.02.23.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Sep 2026 02:23:54 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Chen-Yu Tsai
- <wens@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
- <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Liu Ying
- <victor.liu@nxp.com>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
- Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Luca Ceresoli <luca.ceresoli@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
- Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
- Francesco Dolcini <francesco@dolcini.it>, Philipp Zabel
- <p.zabel@pengutronix.de>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, Rob
- Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
- <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, Marcus Folkesson
- <marcus.folkesson@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Yannick Fertre
- <yannick.fertre@foss.st.com>, Raphael Gallais-Pou
- <raphael.gallais-pou@foss.st.com>, Philippe Cornu
- <philippe.cornu@foss.st.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Adrien Grassein <adrien.grassein@gmail.com>, Russell King
- <linux@armlinux.org.uk>, Simha BN <simhavcs@gmail.com>, CK Hu
- <ck.hu@mediatek.com>, Jitao shi <jitao.shi@mediatek.com>, Yongxing Mou
- <yongxing.mou@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>, Chris
- Morgan <macromorgan@hotmail.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev, linux-mediatek@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH 1/2] dt-bindings: display: Use consistent indentation in
- the example
-In-Reply-To: <20260913123331.100293-3-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260913123331.100293-3-krzysztof.kozlowski@oss.qualcomm.com>
-Date: Mon, 14 Sep 2026 11:23:52 +0200
-Message-ID: <87pkyg1907.fsf@ocarina.mail-host-address-is-not-set>
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: sxZVD4XjbAIyKWA2GeVeHSMxK4OLRWp4p_IRpcbBu38_1789377835
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CF1510E146
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 09:28:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 98CFD60008;
+ Mon, 14 Sep 2026 09:27:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22BFE1F000FF;
+ Mon, 14 Sep 2026 09:27:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789378079;
+ bh=KYESfg63gjpRbgWZixWJGeMAWRHYqoxx1w+21M9gsSg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=GhrfIwCxcnz+b0rZj4XFT31QmrAofJU7QbAyXIrCvQcC/DEnVXoG/2KQyBM35wqq8
+ lSACGAWGhtf+N14K8uvTNWealacWL7sTsqqYAffTFs1PItby2F+FKmFoa3CRMPvC0W
+ Fb6gqiO9NsDRMMNptz7VGcFz+mvwycNYMP0M5gz3BZ+LK8nCWYmAGDlvuPMdrV1XQT
+ 0aVdCO0hA0Cvb0gp0qaUD+MVMqspNE7SizakrX2uWN+rdFha5KFfYT+17xuGjnMGlY
+ VzUY6RA7DfDzVGt3NC0SmN5sUvENL5d084fT1E7y6vr+toYXI1OTL4+GF0TM4aR1t4
+ gFRBfoVc9STZQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 6/6] drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
+To: "Amit Barzilai" <amit.barzilai22@gmail.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260914085931.66857-7-amit.barzilai22@gmail.com>
+References: <20260914085931.66857-1-amit.barzilai22@gmail.com>
+ <20260914085931.66857-7-amit.barzilai22@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 09:27:58 +0000
+Message-Id: <20260914092759.22BFE1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,25 +54,181 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com> writes:
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-> Correct indentation in the examples to consistent 2- or 4-spaces
-> indentation to fix dt-check-style warnings ("example 0
-> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
-> re-indenting entire example just for that is too much churn.
->
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
+New issues:
+- [High] Lack of locking between backlight sysfs updates and DRM plane upda=
+tes causes non-atomic display command sequences and hardware state corrupti=
+on.
+- [High] Plane atomic update callback calls sleeping functions (DMA-buf acc=
+ess and regmap I2C/SPI transfers) in atomic context.
+- [Medium] Plane atomic_disable callback uses new plane state to fetch CRTC=
+, failing to clear screen when the plane is unassigned.
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Pre-existing issues:
+- [High] Missing format conversion buffer preallocation leads to a GFP_KERN=
+EL allocation inside the atomic_update callback.
+--
 
--- 
-Best regards,
+commit ab4ccb74bbc041abd3279239df7704ec6c09b2b7
+Author: Amit Barzilai <amit.barzilai22@gmail.com>
+Subject: drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
 
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+Adds support for the Solomon SSD1351 128x128 RGB OLED controller as a new
+SSD135X_FAMILY. Reuses the ssd130x plane, CRTC, and encoder infrastructure
+but introduces custom primary plane update, disable, initialization, and
+backlight callbacks to accommodate differences in command protocols.
 
+> diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/=
+ssd130x.c
+> index fd13250ef56a9..324467ae9309f 100644
+> --- a/drivers/gpu/drm/solomon/ssd130x.c
+> +++ b/drivers/gpu/drm/solomon/ssd130x.c
+[ ... ]
+> @@ -271,6 +310,18 @@ static int ssd130x_write_cmds(struct ssd130x_device =
+*ssd130x, const u8 *cmd,
+>  	unsigned int i;
+>  	int ret;
+> =20
+> +	if (!len)
+> +		return 0;
+> +
+> +	if (ssd130x->device_info->cmd_params_are_data) {
+> +		ret =3D regmap_write(ssd130x->regmap, SSD13XX_COMMAND, cmd[0]);
+> +		/* A command with no parameters is complete after its opcode. */
+> +		if (ret || len =3D=3D 1)
+> +			return ret;
+> +
+> +		return ssd130x_write_data(ssd130x, cmd + 1, len - 1);
+> +	}
+> +
+
+[Severity: High]
+Is it possible for a concurrent sysfs backlight update to interleave its
+commands here?
+
+Since the regmap API drops its internal lock between the regmap_write call
+for the opcode and the ssd130x_write_data call for the parameters, a
+concurrent ssd135x_update_bl call (which lacks driver-level locks) could
+inject its own opcode into the hardware.
+
+This interleaving could cause the hardware to misinterpret the backlight
+opcode as a parameter, potentially corrupting the state machine and causing
+display artifacts or permanent link failure until device reset. Does this
+sequence require a driver-level lock to remain atomic?
+
+[ ... ]
+> @@ -1247,6 +1432,45 @@ static void ssd133x_primary_plane_atomic_update(st=
+ruct drm_plane *plane,
+>  	drm_dev_exit(idx);
+>  }
+> =20
+> +static void ssd135x_primary_plane_atomic_update(struct drm_plane *plane,
+> +						struct drm_atomic_commit *state)
+> +{
+> +	struct drm_plane_state *plane_state =3D drm_atomic_get_new_plane_state(=
+state, plane);
+> +	struct drm_plane_state *old_plane_state =3D drm_atomic_get_old_plane_st=
+ate(state, plane);
+> +	struct drm_shadow_plane_state *shadow_plane_state =3D to_drm_shadow_pla=
+ne_state(plane_state);
+> +	struct drm_crtc_state *crtc_state =3D drm_atomic_get_new_crtc_state(sta=
+te, plane_state->crtc);
+> +	struct ssd130x_crtc_state *ssd130x_crtc_state =3D  to_ssd130x_crtc_stat=
+e(crtc_state);
+> +	struct drm_framebuffer *fb =3D plane_state->fb;
+> +	struct drm_atomic_helper_damage_iter iter;
+> +	struct drm_device *drm =3D plane->dev;
+> +	struct drm_rect dst_clip;
+> +	struct drm_rect damage;
+> +	int idx;
+> +
+> +	if (!drm_dev_enter(drm, &idx))
+> +		return;
+> +
+> +	if (drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE))
+> +		goto out_drm_dev_exit;
+
+[Severity: High]
+Does this function run in atomic context during non-blocking commits?
+
+Calling drm_gem_fb_begin_cpu_access here might block on dma-buf
+reservations or fences. Since DRM guidelines specify that plane atomic
+updates must not sleep, this could lead to system instability or deadlocks.
+
+> +
+> +	drm_atomic_helper_damage_iter_init(&iter, old_plane_state, plane_state);
+> +	drm_atomic_for_each_plane_damage(&iter, &damage) {
+> +		dst_clip =3D plane_state->dst;
+> +
+> +		if (!drm_rect_intersect(&dst_clip, &damage))
+> +			continue;
+> +
+> +		ssd135x_fb_blit_rect(fb, &shadow_plane_state->data[0], &dst_clip,
+> +				     ssd130x_crtc_state->data_array,
+> +				     &shadow_plane_state->fmtcnv_state);
+
+[Severity: High]
+This is a pre-existing issue, but does this path trigger a sleeping
+allocation in atomic context?
+
+The ssd133x_primary_plane_atomic_check function (reused by this family)
+can return without calling drm_format_conv_state_reserve. During the
+subsequent non-blocking commit, this blit call ultimately invokes
+drm_fb_xfrm, which will dynamically allocate the conversion buffer using
+krealloc with GFP_KERNEL if it wasn't preallocated.
+
+[Severity: High]
+Does this blit operation also trigger sleeping hardware writes?
+
+The ssd135x_fb_blit_rect function sends data using regmap bulk writes over
+an SPI or I2C bus. Since bus transfers are typically sleeping operations,
+calling them from an atomic update callback might crash the system or
+cause a deadlock.
+
+> +	}
+> +
+> +	drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
+> +
+> +out_drm_dev_exit:
+> +	drm_dev_exit(idx);
+> +}
+> +
+[ ... ]
+> @@ -1319,6 +1543,31 @@ static void ssd133x_primary_plane_atomic_disable(s=
+truct drm_plane *plane,
+>  	drm_dev_exit(idx);
+>  }
+> =20
+> +static void ssd135x_primary_plane_atomic_disable(struct drm_plane *plane,
+> +						 struct drm_atomic_commit *state)
+> +{
+> +	struct drm_device *drm =3D plane->dev;
+> +	struct ssd130x_device *ssd130x =3D drm_to_ssd130x(drm);
+> +	struct drm_plane_state *plane_state;
+> +	struct drm_crtc_state *crtc_state;
+> +	struct ssd130x_crtc_state *ssd130x_crtc_state;
+> +	int idx;
+> +
+> +	plane_state =3D drm_atomic_get_new_plane_state(state, plane);
+> +	if (!plane_state->crtc)
+> +		return;
+
+[Severity: Medium]
+Will this skip clearing the screen when a plane is disabled?
+
+When a plane is detached from a CRTC during a mode set or plane disable
+operation, the DRM core sets the new plane state crtc field to NULL.
+
+Checking the new plane state for a valid crtc here will cause an early
+return, leaving stale pixel data frozen on the screen indefinitely. Should
+this function check the old plane state crtc field instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914085931.6685=
+7-1-amit.barzilai22@gmail.com?part=3D6
