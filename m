@@ -4,134 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6025EC88E64
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 11:07:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46769C88E65
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 11:11:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C559210EBF8;
-	Mon, 14 Sep 2026 11:07:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B13B510ED69;
+	Mon, 14 Sep 2026 11:11:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="R49o3Mss";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="egNb/13C";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013038.outbound.protection.outlook.com
- [40.107.201.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B359410EBF8
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 11:07:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EjwgULxb6leY/AF3GgGLXehPLDRb4+Pk9gnV4cshnG8O/2RAYUVMxWw1mnWoLt8hzrrfsy5gA3pOATZmN8eKviW6PvNP9EZEEQKS1wC1A1tqfQUV8148Y7C+CaUmryXmZRrsXbqpG+kaGakuIHXkT6qglgZ0teWS26b38v5eXJD3OqmBramUQgfzlxPGJfgASNHO1RFT0yQg7RskKOPsdXMoPGEwDyxGldu5sbnvi9QQnMhngZbfCyyPLgHeu+VNRcINPICy/lrYrjc2DA+Oon7Lq6IjBqpLdV2QeMe+80063sTqYxPk3WO1nZRd9rDnFcFTyNoESnkb9MTqXeWsHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=btkACDYqI4dY+U7aXfamIKC+T7l96iCh0T7XtRj8Ehc=;
- b=jwR5CDITpqX62rRKtSJx6l1WdGmmW3xm1VIQyj1/C5qFqOdkmyvKIpL+jmIVZdS3ZVc34NBQp4sGxM4H6ew2Da5OAAr8zub5d+ETelaug9Ziqa69qmMLPpApFRMpJ062FyIgWfXmEFDx5j4yNonB4pnQaYRUt0twUTHRoqTXr2Wurv0Hdvbezt8+njJmZ5fbjnTdIGt9p/gteQV+jJrGSSH26Nd9PDBRibx9pVAFJqsvTjd2hzVlhhy8KQuyxShHjmFEraOFR/eVKD73Q4QT8RHBMSgFaa7HjxlbfuolO8d/8gSkHb0aUlkx2eOFGg6ho5QgRwf7YXltCaPFHlEXUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=btkACDYqI4dY+U7aXfamIKC+T7l96iCh0T7XtRj8Ehc=;
- b=R49o3Mss/k4XQuMAYSvHgPqhy4Vn9cHSdIssT52ZU4VN5VJuNji5naL95/IKQgHPbyst3R4S9v6YH31+cCreaetNZm2YuKZ3MINHmdrRw+KKkfbPV0/H6KRmxRIIZ8K0Qmaw8N0sIdv05eogW8anrRdKqBF7oRKFfW9+v/s2m7s=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH0PR12MB7983.namprd12.prod.outlook.com (2603:10b6:510:28e::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Mon, 14 Sep
- 2026 11:07:01 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Mon, 14 Sep 2026
- 11:07:01 +0000
-Message-ID: <38195919-cdf3-49d4-bf2a-10f6cbab454a@amd.com>
-Date: Mon, 14 Sep 2026 13:06:54 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/9] dma-buf: Export dma_buf_set_name()
-To: Matt Evans <matt@ozlabs.org>, Alex Williamson <alex@shazbot.org>,
- Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Longfang Liu <liulongfang@huawei.com>
-Cc: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260911214200.33793-1-matt@ozlabs.org>
- <20260911214200.33793-4-matt@ozlabs.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260911214200.33793-4-matt@ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1PR13CA0255.namprd13.prod.outlook.com
- (2603:10b6:208:2ba::20) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH0PR12MB7983:EE_
-X-MS-Office365-Filtering-Correlation-Id: 86aa5c77-2e80-476a-a411-08df12504d20
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|7416014|376014|10067099003|4143699003|22082099003|18002099003|56012099006|11063799006|921020;
-X-Microsoft-Antispam-Message-Info: mhGs9b/6NcQjlBdg9iPLp4cNjJgufI2ZkPpx7IfEs1cHNinTWndjAg6yCaLQnGonsim3zQTsxQNO3Eq/TCL6oTcVlpSght8v1T0+qYjC/vY8mszn69j/oZ0kxT4SlxAwnIUnIjVW7h4393lcLlqIekMV54dAhkoh2d8g3c5qKs2qqsvEhBcU0LL1CE8AnU2juqlxtLkXVV4CfUIUUjf74ud6M0pxnuq4o0Ym5brv7GvzuJgXMLguAUo21cxQ1Q1pqFvpOldJ+Wra5ohssKsgnWhfLvKN8naS37A4l5T7kd8/t+NFMS6ZYsvm6JF3O4Qak9NpgmsA7SKUxaZyDbocaXAbNUkAPyL6jO9JKHYjhgRVhuP/ct5/+B5CYy55F09D6CODYH2mQY28Z+I4EcZw9s3wdR0JbpjlNsJXqRfPrv2OrF10Je31OPD4xfW8AR6fxZwoArB/cJixrzsFd1+lhg5I7YCTnPX8VHmvnrNZUOE5xswd5y8A2mQJOTbMeW0gnksi/9atQHyqIw2JZARSdAQvfOG8mhFGbpYrL8qJ7UuoYz5ovQds/k42tNQkYFxwKJls+1a+ljRhg1LDHQgJVsa4YpVdQpf/vh76lnTBjZ7zg+8elNY7MHWoiPphKvoyrY++EY00mMtRp6+H7jmBMm2MpNh+hFnEM9DGyYVITxFiXAwDEfa/xa54FUInqWEbYHaQQuqrBoAhPn/Jt1ZNsA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(10067099003)(4143699003)(22082099003)(18002099003)(56012099006)(11063799006)(921020);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c1pCTmZOSTE5OHVtL1NsSTRtNnUyUjJRV2pHUG42cTgvMFB2RklTSEsyRXBP?=
- =?utf-8?B?eFhCOUJ3VlloY1BhMlluWmkwbkllR3EwdW1RSUxYKzRKaGQxVm9GWFByTDhu?=
- =?utf-8?B?bmtWakVtUUtHRm02Vm55NE5va09kakRGT1MrQTkxK014M0RlclVtSmNRT1lu?=
- =?utf-8?B?VXJ5UkZNeEViWnV4YzhDeGJ0aFdTaW4zQk1yTVM3V01ZdzFmaHVWeVY4aU1Y?=
- =?utf-8?B?OUZDbUJjNkdISlgvejZLWkZEczdpV0R5VVdrakFVZG1YUHo0TWJZejdDd1dv?=
- =?utf-8?B?Mkc2NWN2SEY0blZBeWN3cWdwN0dKQys0OWtDd0orUExsUjdPSHllNHl6QkVC?=
- =?utf-8?B?V0kxaUZmYlNDcVVYZmsvR01RUHQwdTlGMHVPb3NPUm9iSkNMbnhvaUdkUFdn?=
- =?utf-8?B?bGlJNzRyWkNlUTZHeDZ2VHN5TEVFRXJ1Z2dqV0ZpWElaenRCaTk1NFZ2Q0Zo?=
- =?utf-8?B?aG1qOFNtWTlCRnRGcnE4UzE2RDEwdGp5RktnSnl0QTByN3VaZDJLOGtMVE5X?=
- =?utf-8?B?cjdoaTdQeloyU1pJaWNkWG83WUU0OG5DZk4rUnZHclNoc1RDUkd5QVJ2MmZ3?=
- =?utf-8?B?UHR0UHlPTUg1cTE5Mis3Q3d1UG5jeDJKWUMySExpZjhKTU85MEdXellyS2ha?=
- =?utf-8?B?SEwyMFdiVTBtT3FidUoyMzBlMkg2dmthK0ZReGJkUFdpQkUwVDEvNmM4bWFS?=
- =?utf-8?B?eTltTlRXWGtuaEVjWll0SThDeGNBOU1XRnRka25NRzZ2WDJrdEtmdkgrQVBw?=
- =?utf-8?B?eHZZaUZtQWwvSEdSLzNjSFJ0T3F1WTJuRUR0bzNGeWNMM2ZPVlF0Z3lybGtx?=
- =?utf-8?B?Rk4wZWV3dUlZOE1qTjR0Q0JZeFh5NytsdTdXN0tmclA5NTlHcVhxc094anpT?=
- =?utf-8?B?M2JpUllvWGVXNlFHSXRHVVEwQnlvOUozeGxvUGUvUkw1UUEwM0t0cE9NdWIv?=
- =?utf-8?B?N0hudWE4aWJZdEhGUFdVOHpRRnV4MGpHU1FHRjdyUDdxd2JYelFDb3d3WU9x?=
- =?utf-8?B?SUxmdE10Tm02Z252TGhOakc4OUxJWHNyN1JhbEsvM0tMeGIzRTUwTktrTUNQ?=
- =?utf-8?B?b04rangxMU1XbklYeWJTcnRrNzBsbGREamtvT21qZzJxTEFLejY4NHZONHh1?=
- =?utf-8?B?V1F2eVV6WVBTUHd2OWZxN050Z1lIdjZLZHMxcWNGQlVHRVptL3J5eEN2VDd1?=
- =?utf-8?B?a3FiSG5XN2FFQXMzcGtISGZyNU5Vamt1OGNFQ0FmRTU4cHFWMFhhTEZldDJB?=
- =?utf-8?B?WU1HTnpqcUtyVWRFNHNXbm5zSlZTYjZjbml3WG01MkxBTXZ1SnVkamV0bnFx?=
- =?utf-8?B?cUxLR2xXVkFsLytpclE0NWN0R2hHWmtpYXFieFh4T0tqTTNrdW13M2ZGSVlD?=
- =?utf-8?B?alhyZlVWdXNlZ2VvcDhwMno4Tm5QVE1GT3lwMG9SejFWcVdQRDkzSzhFellC?=
- =?utf-8?B?YXJKck9TcENwWCtYcGszUWRETGwzUWkxbTJlQnQrWGZyWXFIcm9YczB1S1Nm?=
- =?utf-8?B?bk9IRnV6dTFVY2dMVjU0ckFoL3loTFVIUGVJYjdmQ21PalU5MUpCN2tydUdn?=
- =?utf-8?B?QVd4TzBod0RXSGhTM2ZUUUVoaUZjeXNFNjlkS3lmeEpyQ3VDQlJUUEE5SEVX?=
- =?utf-8?B?bG15Yno1dXNXUVpsNm9FUWZxZ0JUQXFHVTVnbk0wM2w4K0hkL3owTGtJaUNS?=
- =?utf-8?B?bzlNeGFlT1l4UHh2UzJ6MmFaMVhIc0FwWjlodFpVYVo2a1F5K012bmJDV2NL?=
- =?utf-8?B?dUM4YVNPeE02TVdVUDdMT0pnaTBiSFFSZHRBYzR5YXNhaFlvZXI4OWlmYXRm?=
- =?utf-8?B?cXIwZ2srdEUyNDNrQzdPWVk2YmlWTC9IVUJ4OUVDZTNVczd0Szg5Vmo2MGZ5?=
- =?utf-8?B?NW9JL3I5L3FqSGZJdWc3dDVETHUrUnEyLzZjNHprNkkvOWdBbjZDVDVLUUlh?=
- =?utf-8?B?Nm5YOFQxUzZBTDc3Tm9zc1U1ZkN1VFJLQjV1RTkzM1FVM2xLcFl0ZDVLcmJE?=
- =?utf-8?B?TldpVEhIK0JwVGFoeitGc1c1WEdlN0ZkMlRQLzVSUWh0VG04c3RHckVvUEZn?=
- =?utf-8?B?Z242UCtTb3hEb0ttVlZ1U2JMMHloa2tmMmp6S2xxdm5rdkV4Uk5pNy8wdGNK?=
- =?utf-8?B?VUFFYkh6YkJsL1piMXgwVVlnMlZaQXRFcFdrUzNaVjhHbmo1NWh3UGhvaVJv?=
- =?utf-8?B?QnZYRVR6SGVLbzJYMnR4ZkNhQnUvaU55M3E5NitCcWxIVW1VcUlXamlnbEMr?=
- =?utf-8?B?eUdFR2xlNkpXOGs1clM1TkdwNFFHY2NpTGtPQjhEeVBPTjJzNXVlVXlhbUVM?=
- =?utf-8?Q?6cgsd9F8kPntqCHSdz?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 86aa5c77-2e80-476a-a411-08df12504d20
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 11:07:01.2156 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nGxcEKF/ijJv9EGHUUi/Vtd19LUGEALXf0u5N7YJTOq3aWe6q//7/xHh6feqaXXV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7983
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F93E10ED69
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 11:11:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C43F0601DB;
+ Mon, 14 Sep 2026 11:11:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 300691F00898;
+ Mon, 14 Sep 2026 11:11:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789384289;
+ bh=DX4P1yDSx3Jinn4cf7zxkYLcnN/yGIhblsLbJ9RBrz4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=egNb/13C9boVskP8CndonHGB59H/I/TxNln3HKNPRprOPnjy11SW/hn1HR51tx/XK
+ 6WXYxy6CnH9lb9FK1hG5ptmYPLJS+XAaIC0hPsztiZhTGAdTMQB9HNHkqtZ1N3Y3AA
+ UR5OVyTDE7I3UYA3TvnEipLm0gYtUYVw92aaL9BE7jriSE8bytd2KeG6BRvIWsv1gN
+ Hiy/j9qOKwZdvsIOn7ASRA9aqxunvqJcW7moOj8ms7eED9C3Z42sCGP2vJVONPHsYz
+ QfsUPi4SogXAoyTCl0pm+XbcWgRf6hBgbw3E+b8aWNw+4WLeU/VCl+h97hu7imUKv8
+ iUMzgbGL4CgUA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] drm/vblank: Don't arm vblank timer with invalid
+ frame duration
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: virtualization@lists.linux.dev, "Michael S. Tsirkin" <mst@redhat.com>,
+ dri-devel@lists.freedesktop.org, "Eugenio Perez" <eperezma@redhat.com>
+In-Reply-To: <20260914110004.211027-1-tzimmermann@suse.de>
+References: <20260914110004.211027-1-tzimmermann@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 11:11:28 +0000
+Message-Id: <20260914111129.300691F00898@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,145 +54,89 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/11/26 23:41, Matt Evans wrote:
-> dma_buf_set_name() originally took a __user string to duplicate for
-> the buffer name.  Make this function a generic set-name helper, taking
-> a kernel-allocated string.
-> 
-> Wrap this by a new dma_buf_set_name_user() to support the existing
-> ioctl path for a user-provided string.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-That just describes what the patch does and not why, in other words this needs a bit more justification for the change.
+Pre-existing issues:
+- [High] AB-BA deadlock between synchronous hrtimer cancellation in drm_crt=
+c_vblank_start_timer() and drm_handle_vblank() taking vblank_time_lock.
+--
 
-For example something like "Allow exporters/importers to set the name of buffers from pre-existing information".
+commit de00db596b26306bffcd319a867015e9f4b1faa6
+Author: Roman Ilin <me@romanilin.is>
 
-It is also important to describe which role should set a name (exporter, importer or both). When an exporter gives a standard name for it's buffers that is most likely harmless, but when an importer bluntly overwrites a name previously set by an exporter or userspace then we really need a good reason for that.
+drm/vblank: Don't arm vblank timer with invalid frame duration
 
-> 
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
-> ---
->  drivers/dma-buf/dma-buf.c | 58 ++++++++++++++++++++++++++++++---------
->  include/linux/dma-buf.h   |  2 ++
->  2 files changed, 47 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index d504c636dc29..8129ea11ff58 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -405,31 +405,29 @@ static __poll_t dma_buf_poll(struct file *file, poll_table *poll)
->  }
->  
->  /**
-> - * dma_buf_set_name - Set a name to a specific dma_buf to track the usage.
-> - * It could support changing the name of the dma-buf if the same
-> - * piece of memory is used for multiple purpose between different devices.
-> + * dma_buf_set_name_user - Set a dma_buf's name from a user string
-> + *
-> + * The string is up to DMA_BUF_NAME_LEN long, including the terminator.
->   *
->   * @dmabuf: [in]     dmabuf buffer that will be renamed.
->   * @buf:    [in]     A piece of userspace memory that contains the name of
->   *                   the dma-buf.
->   *
-> - * Returns 0 on success. If the dma-buf buffer is already attached to
-> - * devices, return -EBUSY.
-> - *
-> + * Returns 0 on success, and any previously-set name is freed.
->   */
+This commit modifies drm_calc_timestamping_constants() to check for INT_MAX
+overflows and returns an error instead of proceeding with invalid frame
+durations. It also updates drm_crtc_vblank_start_timer() to propagate this
+error, allowing the driver to fall back to immediate vblank events.
 
-Kerneldoc for a static function is usually overkill.
+> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+> index f90fb2d13e423..72b543bca9e31 100644
+> --- a/drivers/gpu/drm/drm_vblank.c
+> +++ b/drivers/gpu/drm/drm_vblank.c
 
-And since this is used only once and very complicated I would completely merge the logic into dma_buf_ioctl().
+[ ... ]
 
-Regards,
-Christian.
-
-> -static long dma_buf_set_name(struct dma_buf *dmabuf, const char __user *buf)
-> +static long dma_buf_set_name_user(struct dma_buf *dmabuf, const char __user *buf)
->  {
->  	char *name = strndup_user(buf, DMA_BUF_NAME_LEN);
+> @@ -2221,6 +2239,7 @@ int drm_crtc_vblank_start_timer(struct drm_crtc *cr=
+tc)
+>  	struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
+>  	struct drm_vblank_crtc_timer *vtimer =3D &vblank->vblank_timer;
+>  	unsigned long flags;
 > +	int ret;
->  
->  	if (IS_ERR(name))
->  		return PTR_ERR(name);
->  
-> -	spin_lock(&dmabuf->name_lock);
-> -	kfree(dmabuf->name);
-> -	dmabuf->name = name;
-> -	spin_unlock(&dmabuf->name_lock);
-> +	ret = dma_buf_set_name(dmabuf, name);
-> +	if (ret)
-> +		kfree(name);
->  
-> -	return 0;
-> +	return ret;
->  }
->  
->  #if IS_ENABLED(CONFIG_SYNC_FILE)
-> @@ -578,7 +576,7 @@ static long dma_buf_ioctl(struct file *file,
->  
->  	case DMA_BUF_SET_NAME_A:
->  	case DMA_BUF_SET_NAME_B:
-> -		return dma_buf_set_name(dmabuf, (const char __user *)arg);
-> +		return dma_buf_set_name_user(dmabuf, (const char __user *)arg);
->  
->  #if IS_ENABLED(CONFIG_SYNC_FILE)
->  	case DMA_BUF_IOCTL_EXPORT_SYNC_FILE:
-> @@ -854,6 +852,40 @@ void dma_buf_put(struct dma_buf *dmabuf)
->  }
->  EXPORT_SYMBOL_NS_GPL(dma_buf_put, "DMA_BUF");
->  
-> +/**
-> + * dma_buf_set_name - Set a dma_buf's name
-> + * It could support changing the name of the dma-buf if the same piece
-> + * of memory is used for multiple purpose between different devices.
-> + *
-> + * @dmabuf: [in]     dmabuf buffer that will be renamed.
-> + * @name:   [in]     The name of the dma-buf, allocated with kmalloc() or
-> + *                   similar.  This takes ownership of the allocation
-> + *                   on success, which will be kfree()d when the
-> + *                   dmabuf is released or a new name assigned.
-> + *
-> + * Returns 0 on success, -EINVAL if the name is NULL, or -E2BIG if the
-> + * name exceeds DMA_BUF_NAME_LEN.
-> + */
-> +int dma_buf_set_name(struct dma_buf *dmabuf, char *name)
-> +{
-> +	if (!name)
-> +		return -EINVAL;
-> +
-> +	/* dmabuffs_dname() won't use the string if the length
-> +	 * (including terminator) exceeds DMA_BUF_NAME_LEN:
-> +	 */
-> +	if (strlen(name) >= DMA_BUF_NAME_LEN)
-> +		return -E2BIG;
-> +
-> +	spin_lock(&dmabuf->name_lock);
-> +	kfree(dmabuf->name);
-> +	dmabuf->name = name;
-> +	spin_unlock(&dmabuf->name_lock);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_NS_GPL(dma_buf_set_name, "DMA_BUF");
-> +
->  static int dma_buf_wrap_sg_table(struct sg_table **sg_table)
->  {
->  	struct scatterlist *to_sg, *from_sg;
-> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> index d1203da56fc5..14d3950b63c8 100644
-> --- a/include/linux/dma-buf.h
-> +++ b/include/linux/dma-buf.h
-> @@ -570,6 +570,8 @@ int dma_buf_fd(struct dma_buf *dmabuf, int flags);
->  struct dma_buf *dma_buf_get(int fd);
->  void dma_buf_put(struct dma_buf *dmabuf);
->  
-> +int dma_buf_set_name(struct dma_buf *dmabuf, char *name);
-> +
->  struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *,
->  					enum dma_data_direction);
->  void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
+> =20
+>  	if (!vtimer->crtc) {
+>  		/*
+> @@ -2239,7 +2258,9 @@ int drm_crtc_vblank_start_timer(struct drm_crtc *cr=
+tc)
+>  			hrtimer_try_to_cancel(&vtimer->timer);
 
+[Severity: High]
+This is a pre-existing issue, but can this busy-wait loop cause a hard
+deadlock?
+
+When CPU 1 enables vblanks, it holds the vblank_time_lock while executing t=
+his
+synchronous cancellation loop:
+
+CPU 1:
+drm_vblank_enable() {
+    spin_lock(&dev->vblank_time_lock);
+    __enable_vblank(dev, pipe);
+    ...
+    drm_crtc_vblank_start_timer(crtc);
+    while (hrtimer_active(&vtimer->timer))
+        hrtimer_try_to_cancel(&vtimer->timer);
+
+If the timer has just fired concurrently, CPU 2 executes the callback which
+attempts to acquire the same lock:
+
+CPU 2:
+drm_vblank_timer_function() {
+    ...
+    drm_handle_vblank(dev, pipe);
+    spin_lock(&dev->vblank_time_lock);
+
+This creates an AB-BA deadlock where CPU 1 spins forever waiting for the
+callback to finish on CPU 2, while CPU 2 spins forever waiting for CPU 1
+to release vblank_time_lock. Is it safe to synchronously cancel the timer
+here while holding a lock that the timer's callback also takes?
+
+>  	}
+> =20
+> -	drm_calc_timestamping_constants(crtc, &crtc->mode);
+> +	ret =3D drm_calc_timestamping_constants(crtc, &crtc->mode);
+> +	if (ret)
+> +		return ret;
+> =20
+>  	spin_lock_irqsave(&vtimer->interval_lock, flags);
+>  	vtimer->interval =3D ns_to_ktime(vblank->framedur_ns);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914110004.2110=
+27-1-tzimmermann@suse.de?part=3D1
