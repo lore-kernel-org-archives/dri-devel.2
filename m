@@ -4,137 +4,163 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AF8FC88E64
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 07:39:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43423C88E6A
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 07:42:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7152810EBC8;
-	Mon, 14 Sep 2026 07:39:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B05710E95D;
+	Mon, 14 Sep 2026 07:42:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jfTN+u7S";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dB6epCX3";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gnIZiwgw";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DCF710EBC6
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 07:39:08 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68E7SDlW3351935
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 07:39:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- IXK1/kL2U0HScIthPTsqaR/1KhHLZK14qm7gOn1yzQo=; b=jfTN+u7S6s8Kygfv
- 0tQlYEdwyKq8ulo4jCKxzfpCIEIokRYe67J1CXZq2zfbGPmL8hsEUcBco582PNp8
- 1zYSZfZNhKI97emj/ts84LZXDvpvzHX/6rJUppL0yKTC5J3wGOgimLHKeRsthC51
- PzDrO6MAF7kEk+5xCOjqW8WLB6s0hW7itvI8yROr4s5vy1q7gZYtpw9ptSDp0ASM
- dPAjafj/jl/zCsj/qMZ6aAB+j8Hg/JFfMxZiYvJd9yb9GZ9QeP0x6DcTZ1FtZJpX
- CDY2HucOfa4tuFIkz1OmtBCbNSBdEuG3yU1L6ZIRljjWUpewpggZrUQQRzZ30+Ma
- f8MYPw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpcjg01b4-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 07:39:08 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-93821883e26so80476285a.2
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 00:39:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1789371547; x=1789976347;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=IXK1/kL2U0HScIthPTsqaR/1KhHLZK14qm7gOn1yzQo=;
- b=dB6epCX3MyswL34rG5Cu8eToInaewGI2BsAPrPBxaPQ1nrbZwu0f+EjQ6ffk0eH2s+
- Pbex0Y7rRbdPHhRMtV/RUk15N2tFktM58vhvt0tFDawZwYH2QfRviGtoi2VFOFk93vbK
- lPRiGTbun9p7b37pIlZfJAoQRMoqWJfNm9sbyc+bxrBBnUfKLrbmXjaVgRVdAvkqPhjt
- E1ehI1W7CunK3K7Tljes4Y5XG01dTvH4ZD4sbk9Z1ytBZFgSaVAT/tAzL5gjrluMxlWk
- 40uMVmT3rO6Awy1HT7iX3Rmb8uYR/ndp5RVC9H6OPjKL7gu1sn2lqlGtCZWgSK1S6p1H
- N0Ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789371547; x=1789976347;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=IXK1/kL2U0HScIthPTsqaR/1KhHLZK14qm7gOn1yzQo=;
- b=ZG8SoHg0lculg8A6b08u/SIHz3XapJ9NB2KIMUpXRImoybbocKeQSRg90yeuuHxqm2
- D1bCtJaqvkQmU/adcJZon2sbQ15mkdJYH6zZ94y6bQFCj4XyipfNeT5dTVFbHZYF8Brb
- +LOtsbP5Y1E6l5o8VhY4WLgHSQGzWs5XWRFDo3tL1ez6xCjsS2oJBISy1lru1sZ35uYm
- wHXnNr1wQu3fDUiSNo/YTH4Zoh7/AdA4Ri52/cecZWQJYWKdO0udJ0VSc/cNmVhJ6MQ2
- ZWgd70lS2QtdX+eksytx9HGu+ESUhvr+yGWrLigfkKHreSNvHh1IWqe2AcsopXk1O3QD
- 8Fpw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzqz1PkAQicUq1xxuV7GH2KazhxXKGJqaYOiAmZGu6nIefHV/4SLM26/EWd6XImbw/+896EGptzIKY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++k+u8roUoaBhbk3iyscMKRMec2M0bLVqOWr5420re+wlYD3X8eE
- FNjhNIjgD1fnKPm3tKNNeOtR+RKWxFvaJKS3ArR/1QJ0+cqsY+GoEkRZtkV522hSuve67U75Lae
- onWgif7hq5Uko+ev1Msv96UZbxYiBNKgUP+/gWTQ26cyGSDzEdfpjg37OZpDBoVGUT7fG3rg=
-X-Gm-Gg: AYBFou0OBCrlqFCzz6u/CLly6DRhF1aZVnt0G18nKzIVmPp2ILkkqt2L3inWWS7r7LK
- vAUhkJ6HWO2IWB3UdIKYAuvaK6J4zTgsbhW0/jqHBXtNJls5ne/XfnpVFWS+Z/uAY0i5Zd/+jfP
- JOTi6bU38AwAPfsPiVaK5w/mwKEyFtRdTNAQAKCWliRtVrImrrKtCTsaPUNeG8EB0PVhBhTuTrO
- lGOQcQuO6uFa8Tz0WdmSq+SB1VjJ6OCYvokGNIvvCNgKTfZ1zo1Y8Q0gJMLsO+lDoDY1+TArwuX
- tgIX6VphYxtJ8YQVOSW0p3qnGf0OPjdBk5LzBLxfHRyd2x9m+txptf4tOQLkTObjhNW6AfyOuzw
- RoWjipSQwXF0/bz/5PSYDVA==
-X-Received: by 2002:a05:620a:4707:b0:939:de49:6c78 with SMTP id
- af79cd13be357-93a297cbe3bmr160272585a.2.1789371546950; 
- Mon, 14 Sep 2026 00:39:06 -0700 (PDT)
-X-Received: by 2002:a05:620a:4707:b0:939:de49:6c78 with SMTP id
- af79cd13be357-93a297cbe3bmr160270385a.2.1789371546524; 
- Mon, 14 Sep 2026 00:39:06 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6a9d0ef7228sm2170656a12.9.2026.09.14.00.39.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Sep 2026 00:39:05 -0700 (PDT)
-Message-ID: <31fa4256-f285-40a9-bb8a-0b5495badf69@oss.qualcomm.com>
-Date: Mon, 14 Sep 2026 09:39:03 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35FAB10E112;
+ Mon, 14 Sep 2026 07:42:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789371726; x=1820907726;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=DLw9cRRh9kzSXQT19FBHPYfhtB9zxteXctEixjWtuwY=;
+ b=gnIZiwgwqNO7g/OPFQQY8yTO4EmEkmszzSwcD9MCdy+pAK6yLcRNBfGD
+ h4/qNh+KcJK52rkqAK5TgQAVopHSb50EWvWMF/epjxmw4ejGfsSz/ae/S
+ KWfDD+TFgQo/OMO9NXvc6SVjqPkREbEJHADQBaEzSMcq2auf4kPWlxURS
+ QHjg0LZzZCWQhN0RMz00YzyBYOTVD5sESrJ9FWl49UQ539L+MBj3lak36
+ y7WrCgkBQEf29gmKu6VHyI8Pitmgw3Jd/RbUIjICryEcmCfWo9YTYUPxn
+ f4aAjwXpHnhE1z3dhR+OyUZJc6K0qaL7osjSWmifVeOMo8PY54P+1rtGP A==;
+X-CSE-ConnectionGUID: bXWsRiw/Q2y7nj9YtKWOYA==
+X-CSE-MsgGUID: qFPJFEfhSAqSCaH8KkPoXg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="101239904"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; d="scan'208";a="101239904"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2026 00:42:02 -0700
+X-CSE-ConnectionGUID: XHsuzrnQQWO6byIvw3nW9g==
+X-CSE-MsgGUID: 6FCyopO6TByrime0vq1gaw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; d="scan'208";a="269939932"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2026 00:42:01 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 14 Sep 2026 00:42:00 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Mon, 14 Sep 2026 00:42:00 -0700
+Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.39) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 14 Sep 2026 00:41:59 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AG+QGIelK3lRNhbSq6V0RxZxinGchbPkQa0HxWQ/rM0r1fFwZ50YVanKVNIEEhnsLft3gSpgES38uWdCu0agX46WmpEvq99CluOBDjwUcShgu8hTHhvAijRvO75mPq0JkbANKfSNv8YKYr7pJtOlPWhcTfcT6pSeM71eWJ4T2HvqwavaiQT7y9oKc+fA7lsBy9kV3Nf+7JY00TSJnG4PLh7NDMIwowx229ZLZrISnj/mTmGoCkQ+A2R7z37/NnZRXXtF1pzsamLL3r6myuEgbRV67N6iDPYYr4gtQBfmqU9UfuSO7BPalJ7Xw9U2VzX2arhWFQLihrCFy2y4LwjIkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=njGDq+9pnkdiw7yBtdbOMS89JuhOhEUWuV31CkYMm/o=;
+ b=aShQT1frpnx76AWOb1qkFImx08vs1gkAAXKyfdwUWEsX20ghep1egdEa1MmJVjnwKQOgPdHb4xZcMJFaFnPHMI1eYol9gzacrqB8T9Zz3jVZdMKg87xWCYp2vaYeWXmeZP38+0Sf3VVE3TFG/HdBxDSIzh1c5qbWAMPnZyg39ltzZs8PUEsdVowGtYzukGS6GQBtRVV7yCPKGGGqI9Al11gM4IjiVCsYanEbiS/gmR96H6vIoYiTgSarwJIUX5qWMcyHFLoToJILE3ENAhJdxcrOfXupaUb0Gg/V0+4sfSPNJh97M12GTRvITjrAVkb/auFYPR4+gHpi+fAjsYE7uA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH8PR11MB9534.namprd11.prod.outlook.com (2603:10b6:510:39f::22)
+ by CH3PR11MB8341.namprd11.prod.outlook.com (2603:10b6:610:178::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 07:41:57 +0000
+Received: from PH8PR11MB9534.namprd11.prod.outlook.com
+ ([fe80::16ca:6958:c9e9:a266]) by PH8PR11MB9534.namprd11.prod.outlook.com
+ ([fe80::16ca:6958:c9e9:a266%5]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 07:41:57 +0000
+Date: Mon, 14 Sep 2026 09:41:46 +0200
+From: Francois Dugast <francois.dugast@intel.com>
+To: Petr Pavlu <petr.pavlu@suse.com>
+CC: Jens Axboe <axboe@kernel.dk>, Jakub Kicinski <kuba@kernel.org>, "Andrew
+ Lunn" <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, "Joonas
+ Lahtinen" <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Matthew Brost <matthew.brost@intel.com>, Thomas
+ =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, Simon Horman
+ <horms@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez
+ <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin
+ <atomlin@atomlin.com>, <linux-block@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-api@vger.kernel.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-modules@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 5/6] drm/xe: Include error-injection.h for
+ ALLOW_ERROR_INJECTION()
+Message-ID: <aqelOvgLfacnxcJt@fdugast-desk>
+References: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
+ <20260911-module-include-error_injection-v1-5-5da895d8c84d@suse.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260911-module-include-error_injection-v1-5-5da895d8c84d@suse.com>
+Organization: Intel Corporation
+X-ClientProxiedBy: DU2PR04CA0025.eurprd04.prod.outlook.com
+ (2603:10a6:10:3b::30) To PH8PR11MB9534.namprd11.prod.outlook.com
+ (2603:10b6:510:39f::22)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/a6xx+: Increase GMU FW init timeout
-To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Greg Ociepka <greg@ferrisoft.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-References: <20260912150915.28700-1-robin.clark@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260912150915.28700-1-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=CKa/zhrD c=1 sm=1 tr=0 ts=6aa7a49c cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=9tEP0OE30YQ_IqY-BwIA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: WLZkA-GfYKthifNu2Dx_vmjO_LoVK3os
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEwNiBTYWx0ZWRfXydiw2B0rDsmf
- Nr81KrlLgZFWArigHm9KS/tIxFyE+6GxHSanH+l6tvItjfh2r6yLRZ9XMbw7sDq/D5iEM6X8l/v
- Byi7+KET48Yj4mgVDqnp9wN49GjCGGw=
-X-Proofpoint-GUID: WLZkA-GfYKthifNu2Dx_vmjO_LoVK3os
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEwNiBTYWx0ZWRfX8Db+TO7oQnuK
- 6+Uz1otIeZqCDI/Mru24gw8CR0Hn41p3qq876vxLVn2HBb7AE2ypTLp8MoHG9RTWVBanDmcQ51S
- ZIAPPak2Ijg+WpUKVIsT7PGbtKsSSIRmM5vpSjCm0Jt+unNceQTTFJtzMbYz8A6VS4+au9qsM96
- bWb1LSZ+6hDtJXWNTmGRSpzB6eN1d4s2yV+ZHFcMwqQTRlGzQYFmpvUB54RycqbAQT/e3fsDttK
- CEOytEPT75MQqhiOXDPLYHL9qJHaavL/oLT1N938U1I9cAjACeKelKyYtGno9o36Qxogq41Eteg
- m4HuKjRWu8p0y5bU/qo4C2FWCCMG31ykg8WYoIzErv3RXgWLIjPjPlTr/EgPgnSiZcJVQD4QiFq
- ZlN8HARELah9m1V+kLHIaW6GXjIz+gUYytmQdwIlZwIoajpzb8HQ7vVD4DkjXry+qcXPMlgftJl
- w52iLVuoiCvq2r3yqlw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0
- spamscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140106
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR11MB9534:EE_|CH3PR11MB8341:EE_
+X-MS-Office365-Filtering-Correlation-Id: b522ed08-f1f7-4790-3b51-08df1233a75a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|7416014|366016|376014|1800799024|6133799003|22082099003|18002099003|4143699003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: 8eIbjHC8RbudcTd8ChyVP/dvUawde82NRzN800E4t24TVnPdhRzNx6oeiW8NSNBoNOEf/bsjYpC6tAtCC1Qf7fi1CiR2ea3a0Opz45Wrvp25MO2MN6jwbzG2orqFgESreeXHx0+IkIyey/muZTsUNR3h8/nypOXoRmzceV77hql7AHbe9esim7myhoEUtScKj2kajHT4wlym8vZCD0Z9DdcG8H8AuhAdsgRNVJSGZxp6S9LGS0ebd78pHGGb3mb89q+uKpWLw7SDlgjinLw8b9oux4VhL1pV5qYi5GUTe3+ISbUuIvaQep8FpHcR4L3kBBrP7DXt7vDaCC5MqGP2BVnr/YMfEvjqF7OT8zRpN4JxTnhVTpdwHNuDNe5GdbaWPoRxt3TgduEbvc2gtaBN+xbB2E2Viu5ODuaDqDq8nr307j/jdhV2/3JU+NU3ChWxOdEKt8CpSjSFNrZckRO5TfvkBEuegwCr0+kuvYntTP3rx58PxyQHh4MEdvNtYNMGQMBE+4g5YsAPPH9c4pS1g54BPecd5aiSTC/6SjMxjcuJm5lmoPDhbSL1Fvu2PJWv2SE4It1y38Uh7bVTwAr2LL405xPS7gWI9VffyMK+vbKRuqGArle/WzDePhU4MD+cdA0KTbm/mdKGnlJo10TstJhRKJjKwD6VQs58uJY2Po8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR11MB9534.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(7416014)(366016)(376014)(1800799024)(6133799003)(22082099003)(18002099003)(4143699003)(10067099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?vVNUhI/9PMjOqYvmiRO+djQ00RYgXi+iByU5mp+rr9MYgGRStAwSa7sP9T?=
+ =?iso-8859-1?Q?KDCv+a8RofL99IjthyqB+rjiujg9jAW/ss65dJ6zLTrI5VjpshV4ekdACX?=
+ =?iso-8859-1?Q?+uw76CqV+cL1jLtgXywGQsiLqrrWFqg0QvXm6QkGrSVGU4Y5orJTcZxo4Q?=
+ =?iso-8859-1?Q?HvlwsObGbIhJQ5NRlksxsy2auZLqBb0D0eWgro3OXVPcfD1tHaZJ1i5NYB?=
+ =?iso-8859-1?Q?GydvjMVzhp8vRRe/6zR6nBex/IYKwFIGl/elNkykYPRmBvs57dM7CiP3/j?=
+ =?iso-8859-1?Q?bqYH9TnEQEYOYn/+W9wszTy8+ut5PcjI4vM0Ud/yh44YHHnaZJ//Ot0svd?=
+ =?iso-8859-1?Q?Z6teDz7Qo6MYgc2bgCVyvYPVjvXhscPvaqnd1wTr7RkLuFYIy9k2KfejGc?=
+ =?iso-8859-1?Q?tnpbo1UTy5JXK1e7MoMpQbKJQeXpUAc6GyJo5OmtSXbAw+Slnsi1gXiVa1?=
+ =?iso-8859-1?Q?cBnDpxbRNZgcHanVUVsz1jg2fYYSkstae7RYtp++hj/0JitY4A9ZshCp78?=
+ =?iso-8859-1?Q?b2LM/8Qlcs2dP2noZjtj+dE10kBfRHqcf0jSfL3p+RPLcvp2fADh+FBVNc?=
+ =?iso-8859-1?Q?g/PbJaeqt68dhtVzukrkNrdfVqKGAV+oDKOnkH5msucNcogG6gZbtHk7aM?=
+ =?iso-8859-1?Q?ksdbo8oprHV1hNYqA0Ui+8eA6pARBLMVXObmyfSfDHtjlEHKIeCn98XlMm?=
+ =?iso-8859-1?Q?FOqvT5o1HzqteYGtgbMqJRRPBVRwdL5jz/5lhm0YoLi1hz/5LSyDlqKxYI?=
+ =?iso-8859-1?Q?1jZkkgbuuWT+i4cVs5LQ/JuFmjs2jZAuytnmZbzzWtAYJLcSuNUdEP0C3n?=
+ =?iso-8859-1?Q?3zaT5UPIzAqOavT7JvXVC8+jof4k+t5ecjhOlUVyRAWoHVpVwK4rF6lkya?=
+ =?iso-8859-1?Q?Lu9HT/euU6k2ry1VKd4P9J5k8l+vw/+5OdPQ/sa5cGvXdoN6+xtpnhzkRj?=
+ =?iso-8859-1?Q?/KVyuKIOvKjPHFS78zWFaXq6n1w9nGHwov2yKjnJVnOk5j42EvDfQWFK1e?=
+ =?iso-8859-1?Q?L9E+2N9L9lAPafQfbsMim5Le27dWn9m8Qbn3XEkL2C77CJf6kQgyTZJ16I?=
+ =?iso-8859-1?Q?OP0SmHVg/5xuR/pdTyQZBX3WP+3xlK9tVNEb735JemSfsfwqKxEIgwPFwq?=
+ =?iso-8859-1?Q?/RXZt57Uzu7l/cG0V4ciIRrgAhNiB0hHsB0ziq/Uiasa/xsMShHsSsdtZp?=
+ =?iso-8859-1?Q?17WwuK121tpKw7QXSlsIVd27WUmZTGkNeRFaiBVd36BBLk2w1ULWAOyy/1?=
+ =?iso-8859-1?Q?Bx9Gmkgd8bixV1RTR1hrW3M2/ufY4RwAXaw2/rqKfFExFhNFd5qee8gztB?=
+ =?iso-8859-1?Q?FtUERb0vgxT6IMrRYeQw7/L4bO7iqjkuMR4LZUumhmM0tu9gE0K1UmN9G3?=
+ =?iso-8859-1?Q?nbW4L4Fc6anwo2N7Qh/8vrpL4fFtQpV9pPuEirYg0eJZ5BjzfNymKuxRRr?=
+ =?iso-8859-1?Q?lyC3BZufDcjayWkDlMNE0XYYkOeChamMQhruJgdusp97dkWZNwn33OQWJ0?=
+ =?iso-8859-1?Q?u050cwZueNIIW3C0irWVKBzeqA6pcVF3r6Xad90EicCOUsoeeK3yBy7Okt?=
+ =?iso-8859-1?Q?xZi9gNIUdhq0YwkFY9CyJ5dLRPdoJB3J2LaLVOlGAX/MFWUZ9A7uGzoGNj?=
+ =?iso-8859-1?Q?sYY7eu8fSbIkuuMY4Dwfp9ND9RLpjSkHehezWDtvXLlVS8Pv5/XByx5EtM?=
+ =?iso-8859-1?Q?ZxigROMF9lrZ4z2PsaZAGcBtnHPGf33LeoTDK2/TeVsAsrfbsV1l4C2wtE?=
+ =?iso-8859-1?Q?/zAbYrudTljVQdwqEvPZmy6pYuYD0Gy3MYV9TJynwWXzSSLbo62Y8Jk4Zc?=
+ =?iso-8859-1?Q?rLh2IwlWo/WkX2OKaR1p7a32j3FMtCg=3D?=
+X-Exchange-RoutingPolicyChecked: j7xRhe0QUGIPZcUGVrXHoTcDJaXXHZaUI7WvhQrh8axLo0KoSaCZtO68TTCegEe6F9PNLYaJoHCC8RHHSszWih+hD3eSPSZef3kFxXcf82+iEs9kbbOPg2bwjOpX4kmmUl1nnzXa3w5ZgOaZ2pKDnA9XbgK9IuKf4MT/aU33Flsrm0povSfei1m9h7v9iPw7b852BPAjwyqVFX0EyponhvBN+RQLITLU+I5MUzRhNUbweMqEQpA2GzPEvIqT3a2oh5XTUNQ5Lwcz5XUctmYbTYpMKrfiPoj8KwNzttvr7RFAOu7jM+KjkRoGBA2fkDHQ9g7Tgerj+STQscgI2nL67w==
+X-MS-Exchange-CrossTenant-Network-Message-Id: b522ed08-f1f7-4790-3b51-08df1233a75a
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB9534.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 07:41:57.1268 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2bpPlXB9hGPWX0cGo9tJT1BRXb1sdlZPH3XAjp5sEtB5BVZNmmLfPhPoqG5RW4Mo/yz86VsifSNbn9H1NGCdU1sJbrixMswxLOJ2Q0Y2H14=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB8341
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,19 +176,341 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/12/26 5:09 PM, Rob Clark wrote:
-> We were using 10ms, kgsl uses 100ms.  In practice it is usually takes
-> less than 10ms, but very occasionally goes a bit above 10ms, leading to
-> a "GMU firmware inialization timed out", from which point things go
-> south.
+On Fri, Sep 11, 2026 at 05:04:05PM +0200, Petr Pavlu wrote:
+> Several drivers/gpu/drm/xe/*.c files use ALLOW_ERROR_INJECTION(), which is
+> defined in asm-generic/error-injection.h. They currently rely on this
+> header being included indirectly through linux/module.h ->
+> linux/error-injection.h.
 > 
-> There are probably some things that could be done to speed up init, like
-> increasing GMU freq.  But to be safe, increase the timeout to match
-> kgsl.
+> Add the missing includes in preparation for removing the
+> linux/error-injection.h include from linux/module.h.
 > 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> Remove also the linux/fault-injection.h include, which commit 91b2c42c214f
+> ("drm/xe: Use fault injection infrastructure to find issues at probe time")
+> mistakenly used to provide the definition of ALLOW_ERROR_INJECTION().
+> 
+> Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
+
+Reviewed-by: Francois Dugast <francois.dugast@intel.com>
+
 > ---
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
+>  drivers/gpu/drm/xe/xe_device.c                | 2 +-
+>  drivers/gpu/drm/xe/xe_exec_queue.c            | 1 +
+>  drivers/gpu/drm/xe/xe_ggtt.c                  | 2 +-
+>  drivers/gpu/drm/xe/xe_guc.c                   | 1 +
+>  drivers/gpu/drm/xe/xe_guc_ads.c               | 2 +-
+>  drivers/gpu/drm/xe/xe_guc_ct.c                | 2 +-
+>  drivers/gpu/drm/xe/xe_guc_log.c               | 2 +-
+>  drivers/gpu/drm/xe/xe_guc_relay.c             | 2 +-
+>  drivers/gpu/drm/xe/xe_hw_engine_class_sysfs.c | 1 +
+>  drivers/gpu/drm/xe/xe_hw_engine_group.c       | 2 ++
+>  drivers/gpu/drm/xe/xe_mmio.c                  | 1 +
+>  drivers/gpu/drm/xe/xe_oa.c                    | 1 +
+>  drivers/gpu/drm/xe/xe_pm.c                    | 2 +-
+>  drivers/gpu/drm/xe/xe_pt.c                    | 2 ++
+>  drivers/gpu/drm/xe/xe_pxp.c                   | 2 ++
+>  drivers/gpu/drm/xe/xe_sriov.c                 | 2 +-
+>  drivers/gpu/drm/xe/xe_sync.c                  | 1 +
+>  drivers/gpu/drm/xe/xe_tile.c                  | 2 +-
+>  drivers/gpu/drm/xe/xe_tuning.c                | 2 ++
+>  drivers/gpu/drm/xe/xe_uc_fw.c                 | 2 +-
+>  drivers/gpu/drm/xe/xe_vm.c                    | 1 +
+>  drivers/gpu/drm/xe/xe_wa.c                    | 2 +-
+>  drivers/gpu/drm/xe/xe_wopcm.c                 | 2 +-
+>  23 files changed, 27 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+> index ee732e5495f7..fcef8d5fc7ca 100644
+> --- a/drivers/gpu/drm/xe/xe_device.c
+> +++ b/drivers/gpu/drm/xe/xe_device.c
+> @@ -7,7 +7,7 @@
+>  
+>  #include <linux/aperture.h>
+>  #include <linux/delay.h>
+> -#include <linux/fault-inject.h>
+> +#include <linux/error-injection.h>
+>  #include <linux/units.h>
+>  
+>  #include <drm/drm_client.h>
+> diff --git a/drivers/gpu/drm/xe/xe_exec_queue.c b/drivers/gpu/drm/xe/xe_exec_queue.c
+> index cd053de3c6b5..3e46c14584c4 100644
+> --- a/drivers/gpu/drm/xe/xe_exec_queue.c
+> +++ b/drivers/gpu/drm/xe/xe_exec_queue.c
+> @@ -5,6 +5,7 @@
+>  
+>  #include "xe_exec_queue.h"
+>  
+> +#include <linux/error-injection.h>
+>  #include <linux/nospec.h>
+>  
+>  #include <drm/drm_device.h>
+> diff --git a/drivers/gpu/drm/xe/xe_ggtt.c b/drivers/gpu/drm/xe/xe_ggtt.c
+> index 8ec23862477f..e05582ad098a 100644
+> --- a/drivers/gpu/drm/xe/xe_ggtt.c
+> +++ b/drivers/gpu/drm/xe/xe_ggtt.c
+> @@ -6,7 +6,7 @@
+>  #include "xe_ggtt.h"
+>  
+>  #include <kunit/visibility.h>
+> -#include <linux/fault-inject.h>
+> +#include <linux/error-injection.h>
+>  #include <linux/io-64-nonatomic-lo-hi.h>
+>  #include <linux/sizes.h>
+>  
+> diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
+> index 4286bd05c686..34e21a70d5ad 100644
+> --- a/drivers/gpu/drm/xe/xe_guc.c
+> +++ b/drivers/gpu/drm/xe/xe_guc.c
+> @@ -5,6 +5,7 @@
+>  
+>  #include "xe_guc.h"
+>  
+> +#include <linux/error-injection.h>
+>  #include <linux/iopoll.h>
+>  #include <drm/drm_managed.h>
+>  
+> diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
+> index ff8eee3831aa..41a2b8c807d6 100644
+> --- a/drivers/gpu/drm/xe/xe_guc_ads.c
+> +++ b/drivers/gpu/drm/xe/xe_guc_ads.c
+> @@ -5,7 +5,7 @@
+>  
+>  #include "xe_guc_ads.h"
+>  
+> -#include <linux/fault-inject.h>
+> +#include <linux/error-injection.h>
+>  
+>  #include <drm/drm_managed.h>
+>  
+> diff --git a/drivers/gpu/drm/xe/xe_guc_ct.c b/drivers/gpu/drm/xe/xe_guc_ct.c
+> index fe70c0fd85c5..ac6cbbaa6cc0 100644
+> --- a/drivers/gpu/drm/xe/xe_guc_ct.c
+> +++ b/drivers/gpu/drm/xe/xe_guc_ct.c
+> @@ -8,7 +8,7 @@
+>  #include <linux/bitfield.h>
+>  #include <linux/circ_buf.h>
+>  #include <linux/delay.h>
+> -#include <linux/fault-inject.h>
+> +#include <linux/error-injection.h>
+>  
+>  #include <kunit/static_stub.h>
+>  
+> diff --git a/drivers/gpu/drm/xe/xe_guc_log.c b/drivers/gpu/drm/xe/xe_guc_log.c
+> index 538d4df0f7aa..6f0739204d9e 100644
+> --- a/drivers/gpu/drm/xe/xe_guc_log.c
+> +++ b/drivers/gpu/drm/xe/xe_guc_log.c
+> @@ -5,7 +5,7 @@
+>  
+>  #include "xe_guc_log.h"
+>  
+> -#include <linux/fault-inject.h>
+> +#include <linux/error-injection.h>
+>  
+>  #include <linux/utsname.h>
+>  #include <drm/drm_managed.h>
+> diff --git a/drivers/gpu/drm/xe/xe_guc_relay.c b/drivers/gpu/drm/xe/xe_guc_relay.c
+> index eed0a750d2eb..e528d95ba7fe 100644
+> --- a/drivers/gpu/drm/xe/xe_guc_relay.c
+> +++ b/drivers/gpu/drm/xe/xe_guc_relay.c
+> @@ -5,7 +5,7 @@
+>  
+>  #include <linux/bitfield.h>
+>  #include <linux/delay.h>
+> -#include <linux/fault-inject.h>
+> +#include <linux/error-injection.h>
+>  
+>  #include <drm/drm_managed.h>
+>  
+> diff --git a/drivers/gpu/drm/xe/xe_hw_engine_class_sysfs.c b/drivers/gpu/drm/xe/xe_hw_engine_class_sysfs.c
+> index d42e263e0611..ac81f382e7dc 100644
+> --- a/drivers/gpu/drm/xe/xe_hw_engine_class_sysfs.c
+> +++ b/drivers/gpu/drm/xe/xe_hw_engine_class_sysfs.c
+> @@ -4,6 +4,7 @@
+>   */
+>  
+>  #include <drm/drm_managed.h>
+> +#include <linux/error-injection.h>
+>  #include <linux/kobject.h>
+>  #include <linux/sysfs.h>
+>  
+> diff --git a/drivers/gpu/drm/xe/xe_hw_engine_group.c b/drivers/gpu/drm/xe/xe_hw_engine_group.c
+> index 0804b426b6f9..418ff427ae30 100644
+> --- a/drivers/gpu/drm/xe/xe_hw_engine_group.c
+> +++ b/drivers/gpu/drm/xe/xe_hw_engine_group.c
+> @@ -3,6 +3,8 @@
+>   * Copyright © 2024 Intel Corporation
+>   */
+>  
+> +#include <linux/error-injection.h>
+> +
+>  #include <drm/drm_managed.h>
+>  
+>  #include "xe_assert.h"
+> diff --git a/drivers/gpu/drm/xe/xe_mmio.c b/drivers/gpu/drm/xe/xe_mmio.c
+> index 7fa18dfcb5a2..d8f8a2453bb6 100644
+> --- a/drivers/gpu/drm/xe/xe_mmio.c
+> +++ b/drivers/gpu/drm/xe/xe_mmio.c
+> @@ -6,6 +6,7 @@
+>  #include "xe_mmio.h"
+>  
+>  #include <linux/delay.h>
+> +#include <linux/error-injection.h>
+>  #include <linux/io-64-nonatomic-lo-hi.h>
+>  #include <linux/minmax.h>
+>  #include <linux/pci.h>
+> diff --git a/drivers/gpu/drm/xe/xe_oa.c b/drivers/gpu/drm/xe/xe_oa.c
+> index ab09dcff5860..b15c96e35fab 100644
+> --- a/drivers/gpu/drm/xe/xe_oa.c
+> +++ b/drivers/gpu/drm/xe/xe_oa.c
+> @@ -5,6 +5,7 @@
+>  
+>  #include <linux/anon_inodes.h>
+>  #include <linux/delay.h>
+> +#include <linux/error-injection.h>
+>  #include <linux/nospec.h>
+>  #include <linux/poll.h>
+>  
+> diff --git a/drivers/gpu/drm/xe/xe_pm.c b/drivers/gpu/drm/xe/xe_pm.c
+> index a5289a9df8d2..c0489a8d8a62 100644
+> --- a/drivers/gpu/drm/xe/xe_pm.c
+> +++ b/drivers/gpu/drm/xe/xe_pm.c
+> @@ -5,7 +5,7 @@
+>  
+>  #include "xe_pm.h"
+>  
+> -#include <linux/fault-inject.h>
+> +#include <linux/error-injection.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/suspend.h>
+>  #include <linux/dmi.h>
+> diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
+> index a07316a45d79..6c6d9be2717e 100644
+> --- a/drivers/gpu/drm/xe/xe_pt.c
+> +++ b/drivers/gpu/drm/xe/xe_pt.c
+> @@ -5,6 +5,8 @@
+>  
+>  #include "xe_pt.h"
+>  
+> +#include <linux/error-injection.h>
+> +
+>  #include "regs/xe_gtt_defs.h"
+>  #include "xe_bo.h"
+>  #include "xe_device.h"
+> diff --git a/drivers/gpu/drm/xe/xe_pxp.c b/drivers/gpu/drm/xe/xe_pxp.c
+> index 2fef274a585e..2f3632ac201a 100644
+> --- a/drivers/gpu/drm/xe/xe_pxp.c
+> +++ b/drivers/gpu/drm/xe/xe_pxp.c
+> @@ -5,6 +5,8 @@
+>  
+>  #include "xe_pxp.h"
+>  
+> +#include <linux/error-injection.h>
+> +
+>  #include <drm/drm_managed.h>
+>  #include <uapi/drm/xe_drm.h>
+>  
+> diff --git a/drivers/gpu/drm/xe/xe_sriov.c b/drivers/gpu/drm/xe/xe_sriov.c
+> index f3835867fce5..ec254b950daf 100644
+> --- a/drivers/gpu/drm/xe/xe_sriov.c
+> +++ b/drivers/gpu/drm/xe/xe_sriov.c
+> @@ -3,7 +3,7 @@
+>   * Copyright © 2023 Intel Corporation
+>   */
+>  
+> -#include <linux/fault-inject.h>
+> +#include <linux/error-injection.h>
+>  
+>  #include <drm/drm_managed.h>
+>  
+> diff --git a/drivers/gpu/drm/xe/xe_sync.c b/drivers/gpu/drm/xe/xe_sync.c
+> index 37866768d64c..711de22f4986 100644
+> --- a/drivers/gpu/drm/xe/xe_sync.c
+> +++ b/drivers/gpu/drm/xe/xe_sync.c
+> @@ -6,6 +6,7 @@
+>  #include "xe_sync.h"
+>  
+>  #include <linux/dma-fence-array.h>
+> +#include <linux/error-injection.h>
+>  #include <linux/kthread.h>
+>  #include <linux/sched/mm.h>
+>  #include <linux/uaccess.h>
+> diff --git a/drivers/gpu/drm/xe/xe_tile.c b/drivers/gpu/drm/xe/xe_tile.c
+> index 74d925a337b7..810dfd98d830 100644
+> --- a/drivers/gpu/drm/xe/xe_tile.c
+> +++ b/drivers/gpu/drm/xe/xe_tile.c
+> @@ -3,7 +3,7 @@
+>   * Copyright © 2023 Intel Corporation
+>   */
+>  
+> -#include <linux/fault-inject.h>
+> +#include <linux/error-injection.h>
+>  
+>  #include <drm/drm_managed.h>
+>  #include <drm/drm_pagemap_util.h>
+> diff --git a/drivers/gpu/drm/xe/xe_tuning.c b/drivers/gpu/drm/xe/xe_tuning.c
+> index bcec40ca2d35..d3d38b4380be 100644
+> --- a/drivers/gpu/drm/xe/xe_tuning.c
+> +++ b/drivers/gpu/drm/xe/xe_tuning.c
+> @@ -5,6 +5,8 @@
+>  
+>  #include "xe_tuning.h"
+>  
+> +#include <linux/error-injection.h>
+> +
+>  #include <kunit/visibility.h>
+>  
+>  #include <drm/drm_managed.h>
+> diff --git a/drivers/gpu/drm/xe/xe_uc_fw.c b/drivers/gpu/drm/xe/xe_uc_fw.c
+> index a8e6f18cc9b4..f17925ad53f5 100644
+> --- a/drivers/gpu/drm/xe/xe_uc_fw.c
+> +++ b/drivers/gpu/drm/xe/xe_uc_fw.c
+> @@ -4,7 +4,7 @@
+>   */
+>  
+>  #include <linux/bitfield.h>
+> -#include <linux/fault-inject.h>
+> +#include <linux/error-injection.h>
+>  #include <linux/firmware.h>
+>  
+>  #include <drm/drm_managed.h>
+> diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+> index 23952ad8951e..f000564f1e59 100644
+> --- a/drivers/gpu/drm/xe/xe_vm.c
+> +++ b/drivers/gpu/drm/xe/xe_vm.c
+> @@ -6,6 +6,7 @@
+>  #include "xe_vm.h"
+>  
+>  #include <linux/dma-fence-array.h>
+> +#include <linux/error-injection.h>
+>  #include <linux/nospec.h>
+>  
+>  #include <drm/drm_drv.h>
+> diff --git a/drivers/gpu/drm/xe/xe_wa.c b/drivers/gpu/drm/xe/xe_wa.c
+> index 139434946f8f..98d2fdd3ba6f 100644
+> --- a/drivers/gpu/drm/xe/xe_wa.c
+> +++ b/drivers/gpu/drm/xe/xe_wa.c
+> @@ -8,7 +8,7 @@
+>  #include <drm/drm_managed.h>
+>  #include <kunit/visibility.h>
+>  #include <linux/compiler_types.h>
+> -#include <linux/fault-inject.h>
+> +#include <linux/error-injection.h>
+>  
+>  #include <generated/xe_device_wa_oob.h>
+>  #include <generated/xe_wa_oob.h>
+> diff --git a/drivers/gpu/drm/xe/xe_wopcm.c b/drivers/gpu/drm/xe/xe_wopcm.c
+> index fe65ed246775..7da1e3ebc839 100644
+> --- a/drivers/gpu/drm/xe/xe_wopcm.c
+> +++ b/drivers/gpu/drm/xe/xe_wopcm.c
+> @@ -5,7 +5,7 @@
+>  
+>  #include "xe_wopcm.h"
+>  
+> -#include <linux/fault-inject.h>
+> +#include <linux/error-injection.h>
+>  
+>  #include "regs/xe_guc_regs.h"
+>  #include "xe_device.h"
+> 
+> -- 
+> 2.55.0
