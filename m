@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27D0AC88E7F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3277C88E7D
 	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9D6210F9F7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D340E10F9F6;
 	Tue, 15 Sep 2026 07:28:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XONMabZx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hrvl0D0j";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C40ED10EF58
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:06:22 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A915F10EF64
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:09:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A7DA1437FE;
- Mon, 14 Sep 2026 15:06:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F73D1F00893;
- Mon, 14 Sep 2026 15:05:55 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B54FD60252;
+ Mon, 14 Sep 2026 15:09:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A7561F000FF;
+ Mon, 14 Sep 2026 15:09:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789398382;
- bh=960UTemXLlYbejvF++nDfw4hlZnQCzP1Mhoxnlt8Uqc=;
+ s=k20260515; t=1789398575;
+ bh=GfRJzELhUA3zmjv637fDp+tblD+oWrGBxslIXX4F7cw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=XONMabZx9a2tMH4C2B8NLveFpQiwpsb9v/absrNfv7MTntkbuo8zaX269YxgARiRW
- Px/otvDFyxGLFNwGAiVTkFUVvE8SDw8kNQGm+XBLXkJuYHnRNCCMxneuB6eXBil2W1
- CcWuu3UAsYQci0UW1VkyyLKK5Mie8vOwgoDrbKDZHI+tMSxDYzimAYyuEpV4/84ad7
- vk2Ao2o/VGO5U5fQH+AK2T60rxC/fvRLY9K2gTjsnb75/nU2WpKtiDwUnkvN5TSth/
- TY5FQ5xVgK7Hj3X1cfNFd+sL/ccxjs54mQO0NS/b9l5BtrdTD+GlTStU5ozTn7/DkO
- Ia9bHhdQfYdlQ==
+ b=hrvl0D0jcUyh6uvN3XebCBKsuFl+Mh+LBuw54wmgiYZ5pJic6J+FDi7a7/oYIZbrN
+ WQowmRaCgo8p7AykmaIoxZo/pJ2dHmUB9gbcFhmWl45G2Mhh4yFuopGrBcctiaM3El
+ 68DDeLDxRrJU/lwaOEljlbe9r0ocz39Hh4x2JFFkZNeVrvdYx+9pruOj7yeOkUdJdz
+ 9ayyQuXCEa9/XjgJ7X8EW3xxS5gu5Ksv+bqTx+v392geCiZRa/zUWP9Lprrt22EWHe
+ i8V2yIXKCyWHgu7EKnmmt0Nm7KISk8cPtnmCihwyqZVRlPc2i1GMkwKxnVo8S8rDqM
+ XfgZBeADzZr8g==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 14 Sep 2026 15:57:35 +0100
-Subject: [PATCH v2 15/40] mm/vma: add vma[_flags]_is_kernel_owned() predicates
+Date: Mon, 14 Sep 2026 15:57:42 +0100
+Subject: [PATCH v2 22/40] uprobes: remove VM_IO, set VM_MIXEDMAP for mapped
+ kernel pages
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-15-7d9781ed5361@kernel.org>
+Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-22-7d9781ed5361@kernel.org>
 References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
 In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -120,12 +121,12 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5411; i=ljs@kernel.org;
- h=from:subject:message-id; bh=YkBI9YfuiRUNJqQZzdNQ3yvqq1XQeKFLWKyJwcARZII=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcG+wsVOSY4w5+8xmjzjHFyWZEPfZ9ns1W+frPlA9N
- 104y+1PRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACayUo2R4e6dd/UV352+6G3Y
- EHeyNXL5p2U1Nqf2FW/4ep1xzjyBc3cY/gc48Ng8v6G85LnDN9XwxJST1VaLq0WL5/098tvlC6f
- wVDYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2070; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=joQXUjvjM3OjL+Ta6QEJ1w5g7Vsv4M79ot1AULAZKpk=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcG+UmWFxrd5rX01VbImjwcymWUd7HFT3MX92PMF2e
+ /PkB5K3OkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRu38Z/pcr1KWXq5Uo9Rn8
+ OHKxm9XRopRX32vrvYe8rb0uOxv4+Rn+l6+M/c59213zYUxKnlCarmzPTE253GMTvmzNPZN/b94
+ bJgA=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Tue, 15 Sep 2026 07:27:57 +0000
@@ -144,151 +145,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Rather than referring to VMA flags with uncertain meaning, add a new
-predicate that explicitly describes what possession of the VMA_PFNMAP_BIT
-or VMA_MIXEDMAP_BIT flags mean, and then refer to that function for
-determining VMA mergeability.
+These are not MMIO pages so VMA_IO_BIT is an inappropriate flag to set.
 
-Either flag means the contents of the mapping are owned by the kernel,
-usually a driver, rather than by the core mm: the memory may be MMIO,
-kernel-allocated pages or even ordinary pages the driver maps itself, but
-the core must not populate, reclaim, migrate, copy-on-write or merge the
-range on its own initiative.
+Instead, set them VMA_MIXEDMAP_BIT as they are kernel mappings and this is
+the appropriate flag to set for those.
 
-We initially also include VMA_IO_BIT here, as by implication, these must be
-kernel-owned. (mlock() also sets VMA_IO_BIT transiently on ordinary VMAs
-while locking them, which is addressed later in this series.)
+This provides the semantics required - no VMA merging is permitted, but
+does not prevent GUP.
 
-However the intent is to in future remove this, as no mapping should be
-marked as an I/O mapping without also being marked with VMA_PFNMAP_BIT.
+However this has no meaningful impact as these are refcounted and thus can
+be GUPed.
 
-This forms the basis of further work intended to improve how we express VMA
-properties such as this.
+A previous commit already prevented __mm_populate() from being invoked on
+XOL areas, which VMA_IO_BIT was previously relied upon to do, so that is no
+longer required.
 
-Also update the VMA userland tests to reflect the change.
+Both VMAs set a VMA name, so always_dump_vma() returns true before
+vma_dump_size() reaches its VMA_IO_BIT check, and thus there is no change
+in core dump behaviour.
 
-No functional change intended.
+Change this for both the core xol_add_vma() function and the x86-specific
+get_uprobe_trampoline() function.
 
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- include/linux/mm.h              | 56 ++++++++++++++++++++++++++++++++++++++++-
- tools/testing/vma/include/dup.h | 29 ++++++++++++++++++++-
- 2 files changed, 83 insertions(+), 2 deletions(-)
+ arch/x86/kernel/uprobes.c | 2 +-
+ kernel/events/uprobes.c   | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 2a92193ac6a5..cab29d6e15c1 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -1612,6 +1612,44 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
- 	return is_shared_maywrite(&vma->flags);
+diff --git a/arch/x86/kernel/uprobes.c b/arch/x86/kernel/uprobes.c
+index 65a2de82ecd2..0f60c0d076b6 100644
+--- a/arch/x86/kernel/uprobes.c
++++ b/arch/x86/kernel/uprobes.c
+@@ -715,7 +715,7 @@ static struct vm_area_struct *get_uprobe_trampoline(struct mm_struct *mm, unsign
+ 
+ 	*new_mapping = true;
+ 	return _install_special_mapping(mm, vaddr, PAGE_SIZE,
+-				VM_READ|VM_EXEC|VM_MAYEXEC|VM_MAYREAD|VM_IO,
++				VM_READ|VM_EXEC|VM_MAYEXEC|VM_MAYREAD|VM_MIXEDMAP,
+ 				&tramp_mapping);
  }
  
-+/**
-+ * vma_flags_is_kernel_owned() - Do the specified VMA flags indicate that the
-+ * contents of the VMA are owned by the kernel rather than the core mm?
-+ * @flags: The VMA flags to test.
-+ *
-+ * A kernel-owned mapping is one whose contents are established and controlled
-+ * by the kernel, typically a driver, rather than by the core mm's fault and
-+ * rmap machinery.
-+ *
-+ * The mapping may be memory-mapped I/O, kernel-allocated pages or ordinary
-+ * pages the owner has chosen to map itself (shmem via a PFN map, for instance).
-+ *
-+ * In all cases the core mm must not populate, reclaim, migrate, copy-on-write
-+ * or merge it of its own accord.
-+ *
-+ * Pages mapped this way are not necessarily reference counted or map counted.
-+ *
-+ * Returns: true if the flags indicate a kernel-owned mapping.
-+ */
-+static inline bool vma_flags_is_kernel_owned(const vma_flags_t *flags)
-+{
-+	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT,
-+				  VMA_IO_BIT);
-+}
-+
-+/**
-+ * vma_is_kernel_owned() - Are the contents of @vma owned by the kernel?
-+ * @vma: The VMA to test.
-+ *
-+ * See vma_flags_is_kernel_owned() for a description of this property.
-+ *
-+ * Returns: true if the VMA is kernel-owned.
-+ */
-+static inline bool vma_is_kernel_owned(const struct vm_area_struct *vma)
-+{
-+	return vma_flags_is_kernel_owned(&vma->flags);
-+}
-+
- /**
-  * vma_flags_can_merge() - Do the specified VMA flags permit the VMA to be
-  * merged with another?
-@@ -1620,7 +1658,23 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
-  */
- static inline bool vma_flags_can_merge(const vma_flags_t *flags)
- {
--	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
-+	/*
-+	 * VMA merging assumes that a VMA's flags and fields completely describe
-+	 * its state.
-+	 *
-+	 * However, kernel-owned mappings may have established state upon mapping
-+	 * not embodied in any attribute of the VMA.
-+	 *
-+	 * Additionally, private (CoW) PFN maps encode the source PFN of the
-+	 * range in vma->vm_pgoff, which may otherwise cause spurious merges.
-+	 */
-+	if (vma_flags_is_kernel_owned(flags))
-+		return false;
-+	/* VMA explicitly marked as being unmergeable. */
-+	if (vma_flags_test(flags, VMA_DONTEXPAND_BIT))
-+		return false;
-+
-+	return true;
- }
+diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
+index 7709ea882477..b89cc5cee002 100644
+--- a/kernel/events/uprobes.c
++++ b/kernel/events/uprobes.c
+@@ -1726,8 +1726,8 @@ static int xol_add_vma(struct mm_struct *mm, struct xol_area *area)
+ 	}
  
- /**
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 1d5f6b3cbd21..9205ebf31ce7 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -1665,7 +1665,34 @@ static inline bool file_is_dev_zero(const struct file *file)
- 	return file && file->f_op == &zero_fops;
- }
- 
-+static inline bool vma_flags_is_kernel_owned(const vma_flags_t *flags)
-+{
-+	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT,
-+				  VMA_IO_BIT);
-+}
-+
-+static inline bool vma_is_kernel_owned(const struct vm_area_struct *vma)
-+{
-+	return vma_flags_is_kernel_owned(&vma->flags);
-+}
-+
- static inline bool vma_flags_can_merge(const vma_flags_t *flags)
- {
--	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
-+	/*
-+	 * VMA merging assumes that the properties of a VMA completely describe
-+	 * the properties of that VMA.
-+	 *
-+	 * However, kernel-owned mappings may have established state upon mapping
-+	 * not embodied in any attribute of the VMA.
-+	 *
-+	 * Additionally, PFN maps encode the source PFN of the range in
-+	 * vma->vm_pgoff, which may otherwise cause spurious merges.
-+	 */
-+	if (vma_flags_is_kernel_owned(flags))
-+		return false;
-+	/* VMA explicitly marked as being unmergeable. */
-+	if (vma_flags_test(flags, VMA_DONTEXPAND_BIT))
-+		return false;
-+
-+	return true;
- }
+ 	vma = _install_special_mapping(mm, area->vaddr, PAGE_SIZE,
+-				VM_EXEC|VM_MAYEXEC|VM_DONTCOPY|VM_IO|
+-				VM_SEALED_SYSMAP,
++				VM_EXEC|VM_MAYEXEC|VM_DONTCOPY|
++				VM_MIXEDMAP|VM_SEALED_SYSMAP,
+ 				&xol_mapping);
+ 	if (IS_ERR(vma)) {
+ 		ret = PTR_ERR(vma);
 
 -- 
 2.55.0
