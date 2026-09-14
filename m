@@ -4,60 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 079E6C88E70
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 11:23:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 131BCC88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 11:23:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F01510ED22;
-	Mon, 14 Sep 2026 11:23:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D5F110ED2A;
+	Mon, 14 Sep 2026 11:23:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nyP3Uczl";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="V6eXEJqa";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UTdX5Pzz";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49E3E10ED22
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 11:23:05 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3198143979;
- Mon, 14 Sep 2026 11:23:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D1271F000FF;
- Mon, 14 Sep 2026 11:23:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789384985;
- bh=OwvFFwMONbtdqqV/gBRe9/xM6CrDdlgyRpvDVfwgLec=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=nyP3UczlpjWlb8XXJPjUOCEqIecoJwHRpUZd0GdLNJiAuxJWKrq5s7+kCiSG2DRZ+
- dL3woXMDUGmeK8ROOYM/x4gVQT6UdqPwv36mSm5IHerVd4uZ/dp3UpKhYfRm92FaW9
- dHrrKUJeoXRMt5y/CaJSHU8LgHiE1ZlfT/4RXNTEbrqoKZEdYu3Xy0aaG+RX5ZeeaL
- qrnSDF3FO/D/bV0L+70ojM4vQrqWYfa5wzmGbyNQYrlbd7J36Wjw9x6Xm1zpUmv7Lj
- e0BaIsQ69DlKrMSrpyOMlgid4b5AVcS78p+EtyRDb3xskfxVj3l4iRqOGzhtXzBdE8
- VwulKDy0mx4ZA==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Leon Romanovsky <leon@kernel.org>, Ankit Agrawal <ankita@nvidia.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-Subject: [PATCH v6 03/18] PCI/P2PDMA: Derive routing from directional ACS
- controls
-Date: Mon, 14 Sep 2026 14:22:36 +0300
-Message-ID: <20260914-fix-p2p-acs-v4-0-v6-3-5ef07ec9ef06@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
-References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E237910E492
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 11:22:59 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68EAm1TE727675
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 11:22:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ htoucfNJ1NBOznj2ucEtPoE5fys137bATrwbrwYNEEg=; b=V6eXEJqaW52sruVW
+ KmAWqHedQKN92ge5YENWkiPjd+G4FUiYoi+rXuXHOXCHct/s2ruBO47fL403iyAH
+ 2SylfxfndayU9tuNs74mBf0Xj12d3kC5/2MhrMELYG8moOkZhHp5DR7YyqO0kNHs
+ 0Lw7qkc35AhQS+AgFCbu3IoOaFGpMQF7HP0nvezpOH9EjkcQG7/eI1EGSaOHqhHE
+ tAFRbnOZo/0zdY6LMW69aKrcmdFxfdNVAuR98oQs9x/NZr3V+VuTPtOnn+xGBeb6
+ 5M5JFDIf2VvoFSBwfEjJixhhuEPdxOYVn7knVSt6iSa8pTvUSJQzCq5yrtQwVTO8
+ 3nO8Vw==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpdb5rnqb-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 11:22:58 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-912213ef433so4391206d6.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 04:22:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1789384978; x=1789989778;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=htoucfNJ1NBOznj2ucEtPoE5fys137bATrwbrwYNEEg=;
+ b=UTdX5PzzRu4xSPOs+7AHu6AL1ogPtOz06TSwNvtxt3ZBJkvsI3QtPfaLRMObLj8XRG
+ tjCQsDpWhN52oPnk02y//os9zs73bQP3TRvgRdAhNyxKLxqVHyUP5Le0TSJ0z1t6O1LH
+ ti01bvUfsrlBK2KttI6tgx+k6CJwvAhbQEoWU+TK4hh9FRPRwAupOhO2ae8x3xjWkDBW
+ O2LP7Lsu+t0h13HQSkZQOYR1OGtRuTUDlVq+H+EY70M4NPpmPUA0LLVtpu7E9Ya60W2E
+ fFh8ZfD1zxXq+9RQv/T1RRRu1Ra24rUrmurKjEtZSsk2waxvCTg7LYVYY92dYp36jHWd
+ 8Idg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789384978; x=1789989778;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=htoucfNJ1NBOznj2ucEtPoE5fys137bATrwbrwYNEEg=;
+ b=FcWDWxQ1DKnmQvTJkwD2359ahg/LiGsxTLbSkntT9xm2DyK71+i05H1CxdJNxiN2Zg
+ lzdcoNb24WAI+pe+RdRY4AlNwjmykedZZtZrJAXrodYDdGtjV2oSywiHTzv0x45WYQu8
+ JZj1Lasl41LYcey4vRpx4C/dg6j996IrG1lds9YYKPH/wQJJ+yBDFfwcyD5tL3LIFM+w
+ nXNTz1fWkwDl8d/Gvlt/tjsA7hMhnhdmmJsnPfvfnWCYsbojs+x5wglQBkqUxo3F+jA/
+ /1KeZdVCGIVcSh7eC8MhFcYjRCZW/qeqVqQED4TObxtWAGxznTL5q9w3oN5OgxXF9RHs
+ OA9g==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByc1K7ZoacWqqgtQT8kXuPmaK4YGsgADOPs64PbhYjpleQLctyj85QKuruJ2GwL0EE+hrdd5L3Rrnk=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kMCjB191tWbFeajQcpp9SnCbrjDM/ZnMcp0MvFLGfN4yuaGS0K
+ d60FeZX39iowp1NABpn3pS2O/B0a/oEL+ZFlOMyXXRtV8IJYSYwZTlRbMPqrZvWCJxKUYvjf4P6
+ wqEkBsWF57A44VKGos6BY/kshL6HThoj6lAHecUptA4N0LnNpyyit+cH+gC6kH0Do/17RVNo=
+X-Gm-Gg: AYBFou2s/dQ5FMVqeVTJ7k8y4DNoxsYsXAUsh4MCH3sxkmphThTC4D081pfXn6485Tt
+ +Z7v+y+x45dHqz08QAWSNEDJfbcaneATZ5yWSyqHk9nDLA8xWUA88IFqEMacyTQpE3+zxiRgoq2
+ sAhNXHzlF/DWY122tP53EPaPKIOupbIXObrJmaeJfdZnpH2R+CTJjjt9a1wLTx08yFw3ObYuj+L
+ vSy7nneb0c0OQN8fI2Yn7cWjlzzo1ZeGBONRquIBx/kiRMhvUtqwvi3/p1oLazbmXiCXbU9FYvk
+ qQyeZqXOeLLcnHOPfZ5zVfs1SlzSz531/c8qgLPXG6f6g62UzxPar0fqSPQYQbF9u+Rpaz0fsjX
+ Sn+xrVhdhIsjg5F+nucQnDw==
+X-Received: by 2002:a05:6214:4883:b0:912:1f0f:b204 with SMTP id
+ 6a1803df08f44-9122e4ccd58mr27340486d6.1.1789384978170; 
+ Mon, 14 Sep 2026 04:22:58 -0700 (PDT)
+X-Received: by 2002:a05:6214:4883:b0:912:1f0f:b204 with SMTP id
+ 6a1803df08f44-9122e4ccd58mr27339976d6.1.1789384977653; 
+ Mon, 14 Sep 2026 04:22:57 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6a9b594f0fasm4216719a12.25.2026.09.14.04.22.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 14 Sep 2026 04:22:56 -0700 (PDT)
+Message-ID: <d0d7e3d0-15bf-4850-99ec-44d429c6bae1@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 13:22:52 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 20/20] arm64: dts: qcom: generalmobile-shamrock: new
+ device
+To: muzafferkadir@mainlining.org, Bjorn Andersson <andersson@kernel.org>,
+ Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,
+ Srinivas Kandagatla <srini@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>,
+ Amit Kucheria <amitk@kernel.org>,
+ Thara Gopinath <thara.gopinath@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+ Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
+ phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
+ iommu@lists.linux.dev, mfd@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org,
+ linux-input@vger.kernel.org
+References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
+ <20260912-msm8952-initial-support-v1-20-0e742578b524@mainlining.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260912-msm8952-initial-support-v1-20-0e742578b524@mainlining.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE2MSBTYWx0ZWRfX625NodyJiFkD
+ jzZmsd3IaAkoOjrQqHlLFS8YSR5Fzyivda48i4QZAxhRhur4GxAyGEICkHa82YTyDywWSscHDOV
+ Ni7kwVjPfCmTl9r1TfWsnVaWiIu/Eks=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE2MSBTYWx0ZWRfX9v9vy0wX3eRz
+ Pmbu+NNrgS3gWh6lcH9RCtasFRYmcl9Z/DKT13sHfFM9HosGn5s+AaXxqdGuknW2Tj7St/n3w4P
+ I4GteOz+5/HYo4qRFImJny3rNGczw2C6AY4f3MoCRYcZ8PgORTKoHv9+PYrGxbum32rN1SQfBkT
+ 2gRhN1DKm1x/EhAhbQ/bHu4FkUsYozHVJ6UJkqZozx6fkftHM84HVeYNLLOpQeX+/Qxp+XZYKew
+ COEMjvl9WElc6zCqqKKgZYYHsLqbv9eknyhkQgg1Kt6PEKQo9JHmLZKvdlfciV4yN3Hhu7HURtZ
+ Y6JDmA+ms2itpu/pr8Ynkfv7+JVTuXKxFR9yittF5XX82mO0j+J3REQAsHQcs3e2g8uqbmkxbky
+ VUK20Haq6FM7ZOaQIRxm/a3AuLDNhoQxUYPD9EtgmMrjm+NVwoGyjeQ6cK+SXi8dMKeWj2ygpuv
+ zp6DymXryR6Z+E9YNmg==
+X-Proofpoint-GUID: 8aIreF3Q0q1wfLV52KE3GT_KD3ga8T0R
+X-Authority-Analysis: v=2.4 cv=Ie4Symqa c=1 sm=1 tr=0 ts=6aa7d912 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=OuZLqq7tAAAA:8 a=orgwjQpZXFS75ENpSOkA:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22 a=AKGiAy9iJ-JzxKVHQNES:22
+X-Proofpoint-ORIG-GUID: 8aIreF3Q0q1wfLV52KE3GT_KD3ga8T0R
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 impostorscore=0 phishscore=0 adultscore=0
+ malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140161
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,160 +178,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Leon Romanovsky <leonro@nvidia.com>
+On 9/12/26 10:39 AM, Muzaffer Kadir via B4 Relay wrote:
+> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+> 
+> Add General Mobile Shamrock (GM 5 Plus).
+> Shamrock is designed similar to L9300.
+> Downstream reference is [1].
 
-pci_bridge_has_acs_redir() treats Request and Completion Redirect as
-interchangeable. On asymmetric fabrics, a control for only the reverse TLP
-direction can unnecessarily force P2PDMA through the host bridge.
+Please feel free to
+wrap your messages at 72
+characters, otherwise they are
+a bit hard to read! :D
 
-Evaluate Request Redirect for client Requests and Completion Redirect for
-provider read Completions. Continue treating enabled Egress Control
-conservatively as a Request redirect.
+[...]
 
-Fixes: 52916982af48 ("PCI/P2PDMA: Support peer-to-peer memory")
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
----
- drivers/pci/p2pdma.c | 75 ++++++++++++++++++++++++++++++++++++++++------------
- 1 file changed, 58 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index d8c9d605b828..6da68ec99601 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -21,6 +21,8 @@
- #include <linux/seq_buf.h>
- #include <linux/xarray.h>
- 
-+#include "pci.h"
-+
- /*
-  * Lifetime and RCU usage
-  *
-@@ -513,26 +515,56 @@ static struct pci_dev *find_parent_pci_dev(struct device *dev)
- 	return NULL;
- }
- 
-+enum pci_acs_p2pdma_state {
-+	PCI_ACS_P2PDMA_DIRECT,
-+	PCI_ACS_P2PDMA_REDIRECT,
-+};
-+
- /*
-- * Check if a PCI bridge has its ACS redirection bits set to redirect P2P
-- * TLPs upstream via ACS. Returns 1 if the packets will be redirected
-- * upstream, 0 otherwise.
-+ * Decide how a peer-to-peer Request at an ACS-capable ingress port routes,
-+ * from that port's ACS Control register.
-+ *
-+ * Linux does not read the Egress Control Vector, so Egress Control is treated
-+ * conservatively as a redirect. Per PCIe r7.0 Table 6-11 the outcomes it
-+ * selects are a direct route and an ACS Violation, and neither one lets peer
-+ * bus addressing be assumed.
-  */
--static int pci_bridge_has_acs_redir(struct pci_dev *pdev)
-+static enum pci_acs_p2pdma_state
-+pci_acs_p2pdma_request(u16 ctrl)
- {
--	int pos;
--	u16 ctrl;
-+	return ctrl & (PCI_ACS_RR | PCI_ACS_EC) ?
-+		PCI_ACS_P2PDMA_REDIRECT : PCI_ACS_P2PDMA_DIRECT;
-+}
- 
--	pos = pdev->acs_cap;
--	if (!pos)
--		return 0;
-+/*
-+ * Decide how a peer-to-peer Completion at an ACS-capable ingress port routes.
-+ * PCIe r7.0 sec 6.12.1.1: no ACS control other than P2P Completion Redirect
-+ * affects a Completion.
-+ */
-+static enum pci_acs_p2pdma_state
-+pci_acs_p2pdma_completion(u16 ctrl)
-+{
-+	return ctrl & PCI_ACS_CR ? PCI_ACS_P2PDMA_REDIRECT :
-+				   PCI_ACS_P2PDMA_DIRECT;
-+}
- 
--	pci_read_config_word(pdev, pos + PCI_ACS_CTRL, &ctrl);
-+/*
-+ * Read @pdev's ACS Control register. A device without an ACS capability has
-+ * no peer-to-peer controls at all, which routes the same as having them all
-+ * clear. Returns false when the register is present but cannot be read; @ctrl
-+ * is then meaningless.
-+ */
-+static bool pci_acs_p2pdma_ctrl(struct pci_dev *pdev, u16 *ctrl)
-+{
-+	int pos;
- 
--	if (ctrl & (PCI_ACS_RR | PCI_ACS_CR | PCI_ACS_EC))
--		return 1;
-+	pos = pdev->acs_cap;
-+	if (!pos) {
-+		*ctrl = 0;
-+		return true;
-+	}
- 
--	return 0;
-+	return !pci_read_config_word(pdev, pos + PCI_ACS_CTRL, ctrl);
- }
- 
- static void seq_buf_print_bus_devfn(struct seq_buf *buf, struct pci_dev *pdev)
-@@ -721,6 +753,10 @@ static unsigned long map_types_idx(struct pci_dev *client)
-  * then to Device B. The mapping type returned depends on the ACS
-  * redirection setting of the ports along the path.
-  *
-+ * The client initiates Requests to provider memory. Check Request Redirect
-+ * on the client path and Completion Redirect for read Completions on the
-+ * provider path.
-+ *
-  * If ACS redirect is set on any port in the path, traffic between the
-  * devices will go through the host bridge, so return
-  * PCI_P2PDMA_MAP_THRU_HOST_BRIDGE; otherwise return
-@@ -744,6 +780,7 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- 	int dist_a = 0;
- 	int dist_b = 0;
- 	char buf[128];
-+	u16 ctrl;
- 
- 	seq_buf_init(&acs_list, buf, sizeof(buf));
- 
-@@ -755,7 +792,9 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- 	while (a) {
- 		dist_b = 0;
- 
--		if (pci_bridge_has_acs_redir(a)) {
-+		if (!pci_acs_p2pdma_ctrl(a, &ctrl) ||
-+		    pci_acs_p2pdma_completion(ctrl) ==
-+			    PCI_ACS_P2PDMA_REDIRECT) {
- 			seq_buf_print_bus_devfn(&acs_list, a);
- 			acs_cnt++;
- 		}
-@@ -784,7 +823,9 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- 		if (a == bb)
- 			break;
- 
--		if (pci_bridge_has_acs_redir(bb)) {
-+		if (!pci_acs_p2pdma_ctrl(bb, &ctrl) ||
-+		    pci_acs_p2pdma_request(ctrl) ==
-+			    PCI_ACS_P2PDMA_REDIRECT) {
- 			seq_buf_print_bus_devfn(&acs_list, bb);
- 			acs_cnt++;
- 		}
-@@ -1132,10 +1173,10 @@ EXPORT_SYMBOL_GPL(pci_p2pmem_publish);
- /**
-  * pci_p2pdma_map_type - Determine the mapping type for P2PDMA transfers
-  * @provider: P2PDMA provider structure
-- * @dev: Target device for the transfer
-+ * @dev: Client device that initiates the transfer
-  *
-  * Determines how peer-to-peer DMA transfers should be mapped between
-- * the provider and the target device. The mapping type indicates whether
-+ * the provider and the client device. The mapping type indicates whether
-  * the transfer can be done directly through PCI switches or must go
-  * through the host bridge.
-  */
+> +/ {
+> +	model = "General Mobile GM 5 Plus (shamrock)";
 
--- 
-2.55.0
+It's not any "policy", but other DTs tend to only put the "pretty
+name" here, without the codename
 
+
+[...]
+
+> +		framebuffer {
+> +			compatible = "simple-framebuffer";
+> +			memory-region = <&cont_splash_mem>;
+> +
+> +			width = <1080>;
+> +			height = <1920>;
+> +			stride = <(1080 * 3)>;
+> +			format = "r8g8b8";
+> +
+> +			power-domains = <&gcc MDSS_GDSC>;
+> +
+> +			clocks = <&gcc GCC_MDSS_AHB_CLK>,
+> +					 <&gcc GCC_MDSS_AXI_CLK>,
+> +					 <&gcc GCC_MDSS_VSYNC_CLK>,
+> +					 <&gcc GCC_MDSS_MDP_CLK>,
+> +					 <&gcc GCC_MDSS_BYTE0_CLK>,
+> +					 <&gcc GCC_MDSS_PCLK0_CLK>,
+> +					 <&gcc GCC_MDSS_ESC0_CLK>;
+
+Please align the '<'s, make sure your tab width is set to 8
+
+[...]
+
+> +	multi-led {
+> +		compatible = "leds-group-multicolor";
+> +		color = <LED_COLOR_ID_RGB>;
+> +		function = LED_FUNCTION_INDICATOR;
+> +		leds = <&red_status>, <&green_status>, <&blue_status>;
+> +	};
+> +
+> +};
+
+Stray \n above
+
+[...]
+
+> +&ramoops_mem {
+> +	status = "okay";
+> +};
+> +
+> +&adsp {
+> +	status = "okay";
+> +};
+> +
+> +&lpass_mem {
+> +	status = "okay";
+> +};
+
+Please sort the label references alphabetically
+
+> +
+> +&pm8950_spmi_regulators {
+> +	// PM8950 S5 + S6 = VDD_APC supply
+
+Let's use /* C-style comments */
+
+[...]
+
+> +&tlmm {
+> +	gpio-reserved-ranges = <20 4>; // Downstream doesn't use 21,22,23. 24 is mdss_te
+
+Let's keep a \n between the last property and the following subnode
+
+[...]
+
+> +	tpa6130a2_default: tpa6130a2-default-state {
+> +		pins = "gpio61";
+> +		function = "gpio";
+> +		drive-strength = <8>;
+> +		bias-pull-down;
+> +		output-low;
+
+Drop this property, the driver will take care of it 
+
+Konrad
