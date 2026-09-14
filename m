@@ -4,60 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8649C88E50
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 08:45:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76F11C88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 08:48:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28A2F10EC31;
-	Mon, 14 Sep 2026 08:45:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97E4E10EB4F;
+	Mon, 14 Sep 2026 08:48:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="An/ke5PO";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FkmWgj8j";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D1E710EC0D
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:45:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1789375506;
- bh=5t35/AD2DIV9TZyDKY+TCxkdh48h02qUWokLl3mkgzI=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=An/ke5POqqfzDoq3Y3bRXllc9/2dKU4cpNMKg89B20Xm0rd6CBnKIpFjIKecEVNoe
- u1hj3fQY+SziIjtFyO8cx/Dj+VICwe9bFyq97cWuXLHGloV84IjXkexU9DyFypgWO3
- 3ewudQUVUfJgzt7c3MX46FYNcndsonm6P5spbm0tpULeOR6LktP8W0o8amnDuH1kj3
- W0R/3Cvv/aj6FCITzc+C0JdsggwS9SlbaIlgxSKEKPiS3+KvUGM8Vo/zFJ96az0OoO
- Di3xAa6TnlF0EMnJkTWFPKFWrPC0cvjrZcaqE9wp07MtOvDTwSWv3wx29FrkOi4kKO
- KSpqfnOBc7nyg==
-Received: from fedora-21.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1C0B117E020C;
- Mon, 14 Sep 2026 10:45:06 +0200 (CEST)
-Date: Mon, 14 Sep 2026 10:45:00 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v9 05/16] drm/panfrost: Consolidate device clock
- management and reset
-Message-ID: <20260914104500.6e32c6cd@fedora-21.home>
-In-Reply-To: <20260912-claude-fixes-v9-5-e588feaa61ef@collabora.com>
-References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
- <20260912-claude-fixes-v9-5-e588feaa61ef@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ACD410EC17
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:48:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789375694; x=1820911694;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=dDQvwX1Yk4KPC8JisioUBU8IYLAQB271OI8RUTkztfI=;
+ b=FkmWgj8j/YigyejkChGSoAbJDnsYfY6gBOrAdHyMIdkOYyAHD7EC6F8E
+ IOB9MFWCf71vSMml3Z7kuMmYd8c5Y29t5im4zF29FU+UgFKgEnbqnxJRC
+ ynCXYlzo6vxKSaEJ6i4n72VzXfznNjFZ/Ihix+TgLE0u3rJeQbVQQynzd
+ hmJ4m51sPYGERdoBjH/TDWqN4s3jIt31p4DZEwVLlLDqZKo6bWr82wixe
+ lkXdBX9TwTPJvsAmfDmGHxzTNhOIK0ePqzRhAm/FqQyDa+g//LAT6zE3J
+ hgda10iery6GOBSsSf7nyDAHfP0/Sc0T3zfi1ACGjzeIU71twp1DQWoVy Q==;
+X-CSE-ConnectionGUID: utRa1H15TqeTl8INpUFjTw==
+X-CSE-MsgGUID: 3Trst0sjSji6CsxLwu//QA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="231645"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="231645"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2026 01:45:09 -0700
+X-CSE-ConnectionGUID: bqChILoiQBGhod7fsAEOTQ==
+X-CSE-MsgGUID: jlsvpp0bT12N4kbHcvL3KQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; d="scan'208";a="269955006"
+Received: from pl-npu-pc-kwachow.igk.intel.com ([10.91.220.239])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2026 01:45:07 -0700
+From: Karol Wachowski <karol.wachowski@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
+ andrzej.kacprowski@linux.intel.com, dawid.osuchowski@linux.intel.com,
+ Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>,
+ Karol Wachowski <karol.wachowski@linux.intel.com>
+Subject: [PATCH v2] accel/ivpu: Move register poll timeouts to vdev->timeout
+Date: Mon, 14 Sep 2026 10:45:03 +0200
+Message-ID: <20260914084503.895042-1-karol.wachowski@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,77 +69,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, 12 Sep 2026 00:28:06 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+From: Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
 
-> Gather all clock enables and disables into a single function to avoid
-> repetitions between driver init/fini and device resume/suspend, since
-> these clocks are always handled in bulk.
->=20
-> Also do clk (un)prepares and dis/enables at the same time, since the
-> clk_prepare_* family of functions can simply increase the refcnt of
-> an already prepared clock.
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+Use the vdev->timeout structure for register poll timeouts. This allows
+adjusting those timeouts depending on the platform type.
+For FPGA set MMU timeouts to 10x.
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Signed-off-by: Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
+Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+---
+Changes in v2:
+ - Add Singed-off-by: Karol Wachowski
+ - Link to v1: https://lore.kernel.org/dri-devel/20260914082649.891871-1-karol.wachowski@linux.intel.com/T/#u
+---
+ drivers/accel/ivpu/ivpu_drv.h   |  3 +++
+ drivers/accel/ivpu/ivpu_hw.c    | 20 ++++++++++++++++++++
+ drivers/accel/ivpu/ivpu_hw_ip.c |  6 ++----
+ drivers/accel/ivpu/ivpu_mmu.c   | 12 ++++--------
+ 4 files changed, 29 insertions(+), 12 deletions(-)
 
-Two nits below.
-
-> ---
->  drivers/gpu/drm/panfrost/panfrost_device.c | 118 +++++++++++++----------=
-------
->  1 file changed, 52 insertions(+), 66 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index b3a53504bd01..2fcbd223204c 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -34,10 +34,46 @@ static void panfrost_reset_fini(struct panfrost_devic=
-e *pfdev)
->  	reset_control_assert(pfdev->rstc);
->  }
-> =20
-> -static int panfrost_clk_init(struct panfrost_device *pfdev)
-> +static int panfrost_clk_enable(struct panfrost_device *pfdev, bool enabl=
-e_ace_clock)
-
-I don't want to have a flag added for each new clock we decide to keep
-enabled on RPM suspend, so how about s/enable_ace_clock/on_resume/?
-Also, since it's enabling more than one clk, I'd go
-s/panfrost_clk_enable/panfrost_clks_enable/.
-
->  {
->  	int err;
-> +
-> +	err =3D clk_prepare_enable(pfdev->clock);
-> +	if (err)
-> +		return err;
-> +
-> +	err =3D clk_prepare_enable(pfdev->bus_clock);
-> +	if (err)
-> +		goto disable_clock;
-> +
-> +	if (enable_ace_clock) {
-> +		err =3D clk_prepare_enable(pfdev->bus_ace_clock);
-> +		if (err)
-> +			goto disable_bus_clock;
-> +	}
-> +
-> +	return 0;
-> +
-> +disable_bus_clock:
-> +	clk_disable_unprepare(pfdev->bus_clock);
-> +disable_clock:
-> +	clk_disable_unprepare(pfdev->clock);
-> +
-> +	return err;
-> +}
-> +
-> +static void panfrost_clk_disable(struct panfrost_device *pfdev, bool dis=
-able_ace_clock)
-
-Similarly, I'd go s/disable_ace_clock/on_suspend/ and
-s/panfrost_clk_disable/panfrost_clks_disable/.
+diff --git a/drivers/accel/ivpu/ivpu_drv.h b/drivers/accel/ivpu/ivpu_drv.h
+index 37d5a6ac55f8..8762b8969d96 100644
+--- a/drivers/accel/ivpu/ivpu_drv.h
++++ b/drivers/accel/ivpu/ivpu_drv.h
+@@ -186,6 +186,9 @@ struct ivpu_device {
+ 		int autosuspend;
+ 		int d0i3_entry_msg;
+ 		int state_dump_msg;
++		int mmu_reg;
++		int mmu_queue;
++		int pwr_island_status;
+ 	} timeout;
+ };
+ 
+diff --git a/drivers/accel/ivpu/ivpu_hw.c b/drivers/accel/ivpu/ivpu_hw.c
+index 647dc045c231..613bcdbc364c 100644
+--- a/drivers/accel/ivpu/ivpu_hw.c
++++ b/drivers/accel/ivpu/ivpu_hw.c
+@@ -99,13 +99,19 @@ static void wa_init(struct ivpu_device *vdev)
+ static void timeouts_init(struct ivpu_device *vdev)
+ {
+ 	if (ivpu_test_mode & IVPU_TEST_MODE_DISABLE_TIMEOUTS) {
++		/* in milliseconds */
+ 		vdev->timeout.boot = -1;
+ 		vdev->timeout.jsm = -1;
+ 		vdev->timeout.tdr = -1;
+ 		vdev->timeout.inference = -1;
+ 		vdev->timeout.autosuspend = -1;
+ 		vdev->timeout.d0i3_entry_msg = -1;
++		/* in microseconds */
++		vdev->timeout.mmu_reg = -1;
++		vdev->timeout.mmu_queue = -1;
++		vdev->timeout.pwr_island_status = -1;
+ 	} else if (ivpu_is_fpga(vdev)) {
++		/* in milliseconds */
+ 		vdev->timeout.boot = 50;
+ 		vdev->timeout.jsm = 15000;
+ 		vdev->timeout.tdr = 30000;
+@@ -113,7 +119,12 @@ static void timeouts_init(struct ivpu_device *vdev)
+ 		vdev->timeout.autosuspend = -1;
+ 		vdev->timeout.d0i3_entry_msg = 500;
+ 		vdev->timeout.state_dump_msg = 10000;
++		/* in microseconds */
++		vdev->timeout.mmu_reg = 100 * USEC_PER_MSEC;
++		vdev->timeout.mmu_queue = 1000 * USEC_PER_MSEC;
++		vdev->timeout.pwr_island_status = 5 * USEC_PER_MSEC;
+ 	} else if (ivpu_is_simics(vdev)) {
++		/* in milliseconds */
+ 		vdev->timeout.boot = 50;
+ 		vdev->timeout.jsm = 500;
+ 		vdev->timeout.tdr = 10000;
+@@ -121,7 +132,12 @@ static void timeouts_init(struct ivpu_device *vdev)
+ 		vdev->timeout.autosuspend = 100;
+ 		vdev->timeout.d0i3_entry_msg = 100;
+ 		vdev->timeout.state_dump_msg = 10;
++		/* in microseconds */
++		vdev->timeout.mmu_reg = 10 * USEC_PER_MSEC;
++		vdev->timeout.mmu_queue = 100 * USEC_PER_MSEC;
++		vdev->timeout.pwr_island_status = 5 * USEC_PER_MSEC;
+ 	} else {
++		/* in milliseconds */
+ 		vdev->timeout.boot = 1000;
+ 		vdev->timeout.jsm = 500;
+ 		vdev->timeout.tdr = 2000;
+@@ -132,6 +148,10 @@ static void timeouts_init(struct ivpu_device *vdev)
+ 			vdev->timeout.autosuspend = 100;
+ 		vdev->timeout.d0i3_entry_msg = 5;
+ 		vdev->timeout.state_dump_msg = 100;
++		/* in microseconds */
++		vdev->timeout.mmu_reg = 10 * USEC_PER_MSEC;
++		vdev->timeout.mmu_queue = 100 * USEC_PER_MSEC;
++		vdev->timeout.pwr_island_status = 5 * USEC_PER_MSEC;
+ 	}
+ }
+ 
+diff --git a/drivers/accel/ivpu/ivpu_hw_ip.c b/drivers/accel/ivpu/ivpu_hw_ip.c
+index 81f0b1f8f5a6..46661fbf9d05 100644
+--- a/drivers/accel/ivpu/ivpu_hw_ip.c
++++ b/drivers/accel/ivpu/ivpu_hw_ip.c
+@@ -15,8 +15,6 @@
+ #include "ivpu_mmu.h"
+ #include "ivpu_pm.h"
+ 
+-#define PWR_ISLAND_STATUS_TIMEOUT_US        (5 * USEC_PER_MSEC)
+-
+ #define TIM_SAFE_ENABLE		            0xf1d0dead
+ #define TIM_WATCHDOG_RESET_VALUE            0xffffffff
+ 
+@@ -350,10 +348,10 @@ static int wait_for_pwr_island_status(struct ivpu_device *vdev, u32 exp_val)
+ 
+ 	if (ivpu_hw_ip_gen(vdev) == IVPU_HW_IP_37XX)
+ 		return REGV_POLL_FLD(VPU_37XX_HOST_SS_AON_PWR_ISLAND_STATUS0, MSS_CPU, exp_val,
+-				     PWR_ISLAND_STATUS_TIMEOUT_US);
++				     vdev->timeout.pwr_island_status);
+ 	else
+ 		return REGV_POLL_FLD(VPU_40XX_HOST_SS_AON_PWR_ISLAND_STATUS0, CSS_CPU, exp_val,
+-				     PWR_ISLAND_STATUS_TIMEOUT_US);
++				     vdev->timeout.pwr_island_status);
+ }
+ 
+ static void pwr_island_isolation_drive_37xx(struct ivpu_device *vdev, bool enable)
+diff --git a/drivers/accel/ivpu/ivpu_mmu.c b/drivers/accel/ivpu/ivpu_mmu.c
+index b2025274f91d..c846499d96ce 100644
+--- a/drivers/accel/ivpu/ivpu_mmu.c
++++ b/drivers/accel/ivpu/ivpu_mmu.c
+@@ -220,9 +220,6 @@
+ #define IVPU_MMU_STE_1_S1DSS		GENMASK_ULL(1, 0)
+ #define IVPU_MMU_STE_1_S1DSS_TERMINATE	0x0
+ 
+-#define IVPU_MMU_REG_TIMEOUT_US		(10 * USEC_PER_MSEC)
+-#define IVPU_MMU_QUEUE_TIMEOUT_US	(100 * USEC_PER_MSEC)
+-
+ #define IVPU_MMU_GERROR_ERR_MASK ((REG_FLD(IVPU_MMU_REG_GERROR, CMDQ)) | \
+ 				  (REG_FLD(IVPU_MMU_REG_GERROR, EVTQ_ABT)) | \
+ 				  (REG_FLD(IVPU_MMU_REG_GERROR, PRIQ_ABT)) | \
+@@ -438,14 +435,14 @@ static int ivpu_mmu_reg_write_cr0(struct ivpu_device *vdev, u32 val)
+ {
+ 	REGV_WR32(IVPU_MMU_REG_CR0, val);
+ 
+-	return REGV_POLL_FLD(IVPU_MMU_REG_CR0ACK, VAL, val, IVPU_MMU_REG_TIMEOUT_US);
++	return REGV_POLL_FLD(IVPU_MMU_REG_CR0ACK, VAL, val, vdev->timeout.mmu_reg);
+ }
+ 
+ static int ivpu_mmu_reg_write_irq_ctrl(struct ivpu_device *vdev, u32 val)
+ {
+ 	REGV_WR32(IVPU_MMU_REG_IRQ_CTRL, val);
+ 
+-	return REGV_POLL_FLD(IVPU_MMU_REG_IRQ_CTRLACK, VAL, val, IVPU_MMU_REG_TIMEOUT_US);
++	return REGV_POLL_FLD(IVPU_MMU_REG_IRQ_CTRLACK, VAL, val, vdev->timeout.mmu_reg);
+ }
+ 
+ static int ivpu_mmu_irqs_setup(struct ivpu_device *vdev)
+@@ -465,8 +462,7 @@ static int ivpu_mmu_cmdq_wait_for_cons(struct ivpu_device *vdev)
+ 	struct ivpu_mmu_queue *cmdq = &vdev->mmu->cmdq;
+ 	int ret;
+ 
+-	ret = REGV_POLL_FLD(IVPU_MMU_REG_CMDQ_CONS, VAL, cmdq->prod,
+-			    IVPU_MMU_QUEUE_TIMEOUT_US);
++	ret = REGV_POLL_FLD(IVPU_MMU_REG_CMDQ_CONS, VAL, cmdq->prod, vdev->timeout.mmu_queue);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -880,7 +876,7 @@ static int ivpu_mmu_evtq_set(struct ivpu_device *vdev, bool enable)
+ 		val = REG_CLR_FLD(IVPU_MMU_REG_CR0, EVTQEN, val);
+ 	REGV_WR32(IVPU_MMU_REG_CR0, val);
+ 
+-	return REGV_POLL_FLD(IVPU_MMU_REG_CR0ACK, VAL, val, IVPU_MMU_REG_TIMEOUT_US);
++	return REGV_POLL_FLD(IVPU_MMU_REG_CR0ACK, VAL, val, vdev->timeout.mmu_reg);
+ }
+ 
+ static int ivpu_mmu_evtq_enable(struct ivpu_device *vdev)
+-- 
+2.43.0
 
