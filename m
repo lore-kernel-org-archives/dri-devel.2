@@ -4,44 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDF99C88E50
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 12:20:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C0A3C88E50
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 12:22:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1225610E19B;
-	Mon, 14 Sep 2026 12:20:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7CF410EE0F;
+	Mon, 14 Sep 2026 12:22:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kqL6Z2Wo";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="Yh0EST8W";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20B4410E19B
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 12:20:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4BC62601DB;
- Mon, 14 Sep 2026 12:20:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA61C1F00898;
- Mon, 14 Sep 2026 12:20:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789388439;
- bh=Fma9rGpR3kYSf6wqhkSVql+tZr4Z1DqBDtJJrSnRMHA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kqL6Z2WoW+fwSIZ3MQh48r0gXKPIO/NRvfPleSh2gRLebWojoD49abUbRCH/5JMRB
- A1EBLFn7nMsOAHMWEVjeFaet4Hxj8BhTuJqzaCTl2nHuJeg00aJ3/hs9dTOfQaJI8a
- EeS9y9Wi45+akCkTEKD4ULqgTJISg3sqzdMmzwsY1PpqhxBSUALRKyqQmjKwHAsr95
- YCk0FJY/7QIKqvBuIsygP5JZfCzVbiT/aXMC94ZCOs/59dbMb9tuactA3XlYERzgvz
- DJ7Uq9PldvmVvjlLq68AlL5tGpjKoWM5oC91lMhcn6FT7uMh0m1galANMPBU5csrLT
- FbLg2QlCTYI+A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 08/13] drm/mediatek: mtk_dsi: Add support for MT8189
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260914115812.22751-9-angelogioacchino.delregno@collabora.com>
-References: <20260914115812.22751-1-angelogioacchino.delregno@collabora.com>
- <20260914115812.22751-9-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 12:20:38 +0000
-Message-Id: <20260914122038.AA61C1F00898@smtp.kernel.org>
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
+ [185.132.180.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56B0510EE06;
+ Mon, 14 Sep 2026 12:22:19 +0000 (UTC)
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+ by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68E9nSLP3968925; Mon, 14 Sep 2026 13:22:03 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=dk201812; bh=Lx3zuy+iPKuZEM7t1bg0Q0f
+ zhR5rofzlUOKm2HoWC/c=; b=Yh0EST8WJnEL/8KQbR3GzkSBnq2gvREWhfIMDnU
+ ZSmK33BorpAfXLINdhA3x+Ph7DFn5tZi2oU/1uj0D6WOOynS5+sgM3L3bgXd7wdy
+ HewfInTrkOc3Ros9/IAsCwyJ2j6BxqHpRA1eDRn09sVVek5r+nj1oXy4wlQraBuC
+ 3BuxX2Gz9zTKp9+WscF821mfUSfsUPx60lsuqS7z/opkJNrrlP+BcJmFG4SyJ7D4
+ sjdqRDj+b6aVq/qawoGCHUQ5omLmeb6RU7oj0HB/FWUBo0TbZWP0LXGjhnshm6lS
+ ikLO8xbdUDUqcrcQ6svsTx09J47A7lAmoIMBcDzkCdNmATQ==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4gmxtuhky2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 14 Sep 2026 13:22:03 +0100 (BST)
+Received: from [127.0.1.1] (172.25.10.25) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 14 Sep
+ 2026 13:22:01 +0100
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Date: Mon, 14 Sep 2026 15:21:37 +0300
+Subject: [PATCH v2] drm/imagination: Explicitly set CACHED flag on META FW
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260914-b4-cached-flag-on-meta-fw-v2-1-160b0e4e160f@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIANDmp2oC/42NTQ6CMBBGr2Jm7Zj+oKIr72FYtMMUJhFqWoIaw
+ t2tnMDle8n3vgUyJ+EM190CiWfJEscCZr8D6t3YMUpbGIwyJ1WrCn2F5KjnFsPDdRhHHHhyGF7
+ oVfDmWF+8Oxso+2fiIO+tfW8K95KnmD7b1ax/9p/qrFGjtdYTBa1a624ydBPTgeIAzbquXzjmd
+ WnDAAAA
+X-Change-ID: 20260804-b4-cached-flag-on-meta-fw-b0fb2589ba72
+To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
+ <luigi.santivetti@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Alexandru Dadu <alexandru.dadu@imgtec.com>,
+ Matt Coster <opensource@mtcoster.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789388521; l=2098;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=pk5CzGMv6wfqQ27YN+s2fZ93xkhlABGu0wmEGpqqng4=;
+ b=YCUBszvHoH9rvt5rQxm5yV8fgEnnuftaBr+bE5nMp2UvsJR452loPbjq9kGGRJFGM0uyrudc0
+ THlU8uSQF+ABZgRPIVbiBgjIgbgUs+e+tWiCqAtLGN+xIYmTzXJSwW7
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Originating-IP: [172.25.10.25]
+X-Authority-Analysis: v=2.4 cv=Se9i5fRu c=1 sm=1 tr=0 ts=6aa7e6eb cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=1spURiKJc90A:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=VwQbUJbxAAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8 a=pGLkceISAAAA:8
+ a=e5mUnYsNAAAA:8 a=XEBLIeaGfW8ddilKDEYA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-ORIG-GUID: L0lO9eqNwbGKGxgxk4DV_X_cIGVOwybi
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE3NSBTYWx0ZWRfX53bLV9r1B00h
+ UzP+w79pDcYZxiCDP+yVmtUDT/ede9V7mfwGrICl/jhWDeyOirgOFHGcKZLUqMTZ8fsJi+6fz68
+ qL8Be7Vwhn2uBLeZe1fEazkGrPme32QJLmiuqQy+jNTnTxvlyWfhlvGBMVuwGYNdR3TEmjxwDdH
+ RbdKI4pwgbX/KFwEh2XX2xYw6C3cOU9J89SFY7UqozYdIuay19hZ7RnnCKpbwYGkHgb7Z7nVsXa
+ L01s2b/ruUZiu+E81FHiQLJNNgZzM2yaIHyIL9qT3RTL5721v89LXp8oXHqTRmPQ3w1eFW02MzJ
+ AAD6wd/blz1O05HK/hl5NH9kwm4Q41F/iHMMaYGkf0zuGgDpO1EPsVIjE9GxuLJDY+6LtIz7/x/
+ 3sQ9RBfOReGnyDZpOY7a8am/s3YWGBbtIyBHSn0NPuGHlHlK7R/WpP7mEJlC6WgBSeceZ4tghp2
+ W+xK8qEbl6INSv1PbdQ==
+X-Proofpoint-GUID: L0lO9eqNwbGKGxgxk4DV_X_cIGVOwybi
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE3NSBTYWx0ZWRfXzXn/rSYNxh5/
+ C6o4pmdzsVlbzKTLhYsOvLhBf1iyi8t3AMKeLfEuGAxcm4rrpSYVsRd/kxGzq6DmMF7BDAwAnqA
+ DPxZBBXsmcjIfB9lMyZQos+i3O6FbLA=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,88 +98,62 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+From: Matt Coster <matt.coster@imgtec.com>
 
-Pre-existing issues:
-- [High] Out-of-bounds MMIO write in mtk_dsi_cmdq() due to unchecked msg->t=
-x_len.
-- [High] Register access with disabled clocks after mtk_dsi_poweron() fails=
- causes kernel panic.
---
+For completeness, OR in the CACHED flags when we're not ORing in the
+UNCACHED counterparts. One of these is probably zero, but (a) it isn't
+evident just by reading these lines, and (b) the compiler will make it
+disappear in that case.
 
-commit f15ebc6147af7232db3b125277a76b1726ee2a6a
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Signed-off-by: Matt Coster <matt.coster@imgtec.com>
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+---
+Changes in v2:
+- Update the author field to the correct value.
+- Link to v1: https://lore.kernel.org/r/20260804-b4-cached-flag-on-meta-fw-v1-1-333bccf10d3a@imgtec.com
 
-drm/mediatek: mtk_dsi: Add support for MT8189
+To: Alessio Belle <alessio.belle@imgtec.com>
+To: Luigi Santivetti <luigi.santivetti@imgtec.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: imagination@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/gpu/drm/imagination/pvr_fw_meta.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-This commit adds support for the DSI IP found in the MT8189 SoC. It updates
-the device tree match table to map the new compatible string to the DSI
-driver.
+diff --git a/drivers/gpu/drm/imagination/pvr_fw_meta.c b/drivers/gpu/drm/imagination/pvr_fw_meta.c
+index 9ff03bc60a08..b5837ba56e33 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw_meta.c
++++ b/drivers/gpu/drm/imagination/pvr_fw_meta.c
+@@ -509,9 +509,13 @@ pvr_meta_get_fw_addr_with_offset(struct pvr_fw_object *fw_obj, u32 offset)
+ 	u32 fw_addr = fw_obj->fw_addr_offset + offset + ROGUE_FW_SEGMMU_DATA_BASE_ADDRESS;
+ 
+ 	/* META cacheability is determined by address. */
+-	if (fw_obj->gem->flags & PVR_BO_FW_FLAGS_DEVICE_UNCACHED)
++	if (fw_obj->gem->flags & PVR_BO_FW_FLAGS_DEVICE_UNCACHED) {
+ 		fw_addr |= ROGUE_FW_SEGMMU_DATA_META_UNCACHED |
+ 			   ROGUE_FW_SEGMMU_DATA_VIVT_SLC_UNCACHED;
++	} else {
++		fw_addr |= ROGUE_FW_SEGMMU_DATA_META_CACHED |
++			   ROGUE_FW_SEGMMU_DATA_VIVT_SLC_CACHED;
++	}
+ 
+ 	return fw_addr;
+ }
 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/med=
-iatek/mtk_drm_drv.c
-> index bd2d17017bd2f..08f6be311dd14 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-[ ... ]
-> @@ -826,6 +826,8 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[=
-] =3D {
->  	{ .compatible =3D "mediatek,mt8188-dsi",
->  	  .data =3D (void *)MTK_DSI },
-> +	{ .compatible =3D "mediatek,mt8189-dsi",
-> +	  .data =3D (void *)MTK_DSI },
+---
+base-commit: e55fead22ff9ee047ab9f1903860c4b43043514e
+change-id: 20260804-b4-cached-flag-on-meta-fw-b0fb2589ba72
 
-[Severity: High]
-This isn't a bug introduced by this patch, but adding a new DSI user exposes
-a pre-existing issue in mtk_dsi_cmdq().
+Best regards,
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
 
-Does this code overflow the MMIO boundaries if msg->tx_len is large?
-
-In drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_cmdq():
-
-	for (i =3D 0; i < msg->tx_len; i++)
-		mtk_dsi_mask(dsi, (data->reg_adv[DSI_CMDQ] + cmdq_off + i) & (~0x3U),
-			     (0xffUL << (((i + cmdq_off) & 3U) * 8U)),
-			     tx_buf[i] << (((i + cmdq_off) & 3U) * 8U));
-
-Because msg->tx_len isn't validated against the hardware command queue size,
-a large payload could write past the queue's boundary and corrupt adjacent
-hardware registers.
-
-
-[Severity: High]
-This is a pre-existing issue, but registering a new DSI device also inherits
-this error handling regression.
-
-Can this sequence cause a panic if mtk_dsi_poweron() fails?
-
-In drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_bridge_atomic_pre_enable():
-
-	ret =3D mtk_dsi_poweron(dsi);
-	if (ret < 0)
-		drm_err(drm, "failed to power on dsi\n");
-
-	mtk_dsi_lane_ready(dsi);
-	mtk_dsi_clk_hs_mode(dsi, 1);
-
-If power-on fails, the error path within mtk_dsi_poweron() disables the
-clocks.
-
-However, this function ignores the failure, logs an error, and
-unconditionally proceeds to call mtk_dsi_lane_ready(dsi) and
-mtk_dsi_clk_hs_mode(dsi, 1).
-
-These subsequent calls write to hardware registers while the device clocks
-are gated, which typically triggers a synchronous external abort.
-
->  	{ }
->  };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914115812.2275=
-1-1-angelogioacchino.delregno@collabora.com?part=3D8
