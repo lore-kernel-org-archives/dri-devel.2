@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53CC6C88E73
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 20:42:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD2D1C88E73
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 20:43:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 857CB10E1DB;
-	Mon, 14 Sep 2026 20:42:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21C7610E796;
+	Mon, 14 Sep 2026 20:43:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E3vBpWfR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ItfaR8vN";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B03D610E1DB
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 20:42:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D464710E796
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 20:43:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D13D66025B;
- Mon, 14 Sep 2026 20:42:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F60F1F00893;
- Mon, 14 Sep 2026 20:42:40 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 268BD60252;
+ Mon, 14 Sep 2026 20:43:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7F911F000FF;
+ Mon, 14 Sep 2026 20:43:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789418560;
- bh=cNRR9dxrn5pZCZaIL4+tiB6pmJcgg4BFlPX1HcUHDok=;
+ s=k20260515; t=1789418621;
+ bh=uArpvazUkuD0Y0Ad7kfXhIvleSaSpGuWjJ03nJl6w2A=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=E3vBpWfRovlG0ECFjpHXsfGbuudyOW/W8aYT2rQM8co5T1szTQtEFJUf9lP8gEcpT
- 1R4Nhwl4kIr1l8i0lxr0Ix/tC8NCb4sHPjJnZXEJI/HgNRBNMV1rKiiPoEp9YMZm/m
- twxVfKtBm13XSh3AS804II1d9v55HbO9PubA31e7Ktsn6MEsavh2UIMcN5N7lg44CH
- vMewwxSvZHdhUfKo0hwNLxG3wifkL+42CH6u53YeDEAvtF4Y1lwd35Z4mo1Mnl9ZIF
- 5G7eLGUWQvRluwPzLOA6T2tPzMUU71ZKWWAmA8V7gfpgdW/pdth1X3qCxfMnTZECYA
- pLUl7eMSWpSHQ==
+ b=ItfaR8vN79hg8lkOrOWv110HW+CbY/TcKcpelbKlyDxWsXkjchzQycgVNe+JHBGVP
+ /4/Mllmto11j/6NwzbnC9Yihwy1RZuy7DJE1VJEZT7VmBeH9H1e8J/Ikfvp3XgARVR
+ 4HlKoPuszx8Lkfz/EySXDiTiTX0lgi2Yv+xl/t3Nny6FXxqAKQJR/eVpULukzXGEr5
+ 78Hqp4R5PXeZIO0Bvb1cHokg5XBgYD7WSBkFwcGCY/dW5H8hrTruD/izUze7dcvrfR
+ VUy/bp1llMTsxJ5i209VlV4GEuxu/i7Z4m3qRif3KpbtbO0zhh6/yKpiW7MRjPxLM1
+ /BY9FkTYZ38QQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] drm/amdgpu: commit pending work when
- amdgpu_vm_ptes_update fails
+Subject: Re: [PATCH 3/4] drm/amdgpu: don't free mapping when
+ amdgpu_vm_update_range fails
 To: "Thadeu Lima de Souza Cascardo" <cascardo@igalia.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260914-amdgpu_vm_fixes-v1-4-d6d835591e0f@igalia.com>
+In-Reply-To: <20260914-amdgpu_vm_fixes-v1-3-d6d835591e0f@igalia.com>
 References: <20260914-amdgpu_vm_fixes-v1-0-d6d835591e0f@igalia.com>
- <20260914-amdgpu_vm_fixes-v1-4-d6d835591e0f@igalia.com>
+ <20260914-amdgpu_vm_fixes-v1-3-d6d835591e0f@igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 20:42:39 +0000
-Message-Id: <20260914204240.5F60F1F00893@smtp.kernel.org>
+Date: Mon, 14 Sep 2026 20:43:41 +0000
+Message-Id: <20260914204341.A7F911F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,83 +58,88 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] Ignored return value of update_funcs->update leads to NULL poi=
-nter dereference or silent GPU page faults.
-- [High] Dangling pointer / Use-After-Free in amdgpu_vm_pt_alloc when amdgp=
-u_vm_pt_clear fails.
+- [Critical] amdgpu_vm_clear_freed errors are ignored in KFD BO unmap and G=
+EM close paths, leaving active PTEs mapped to freed memory. A running user-=
+mode queue shader can continue to access the memory after it has been reall=
+ocated.
 --
 
-commit 7a14ea1f8dd61c2e4083bcbdd9192e590552290f
+commit 16b841a63bb4a2522f39993f74bd498158fed54e
 Author: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 
-drm/amdgpu: commit pending work when amdgpu_vm_ptes_update fails
+drm/amdgpu: don't free mapping when amdgpu_vm_update_range fails
 
-This commit changes the error path when amdgpu_vm_ptes_update() fails to
-break the loop and commit pending work instead of jumping to error_free.
-This fixes an SDMA job memory leak and ensures TLB entries are flushed
-and local stack waitlists are cleared properly.
+This commit modifies amdgpu_vm_clear_freed to avoid freeing a mapping and
+removing it from the freed list if amdgpu_vm_update_range fails. It assumes
+that leaving the mapping in the freed list will allow a subsequent
+amdgpu_cs_ioctl to retry clearing it, preventing invalid access.
 
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
 /amdgpu/amdgpu_vm.c
-> index 5bde36754607f..1495adaaacd89 100644
+> index 09037df76400d..5bde36754607f 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1235,7 +1235,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *ad=
-ev, struct amdgpu_vm *vm,
->  		tmp =3D start + num_entries;
->  		r =3D amdgpu_vm_ptes_update(&params, start, tmp, addr, flags);
->  		if (r)
-> -			goto error_free;
-> +			break;
-
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential use-after-free in t=
-he
-page table allocation path called from amdgpu_vm_ptes_update():
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c:amdgpu_vm_pt_alloc() {
-    ...
-    error_free_pt:
-        amdgpu_bo_unref(&pt_bo);
-        return r;
-}
-
-If amdgpu_vm_pt_clear() fails (e.g., due to memory allocation failure or
-fence wait timeout), it jumps to error_free_pt and frees the newly
-allocated pt_bo. However, this BO has already been assigned to entry->bo
-and added to VM tracking lists by the preceding call to
-amdgpu_vm_bo_base_init(). Is it possible that freeing pt_bo here leaves
-entry->bo pointing to the freed memory?
+> @@ -1594,16 +1594,16 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *a=
+dev,
+>  	while (!list_empty(&vm->freed)) {
+>  		mapping =3D list_first_entry(&vm->freed,
+>  			struct amdgpu_bo_va_mapping, list);
+> -		list_del(&mapping->list);
+> =20
+>  		r =3D amdgpu_vm_update_range(adev, vm, false, false, true, false,
+>  					   &sync, mapping->start, mapping->last,
+>  					   0, 0, 0, NULL, NULL, &f);
+> -		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+>  		if (r) {
+>  			dma_fence_put(f);
+>  			goto error_free;
+>  		}
 
 [Severity: Critical]
-This is a pre-existing issue, but there appears to be an unhandled error
-path during PTE updates called from amdgpu_vm_ptes_update():
+This is a pre-existing issue, but does leaving the mapping in the freed list
+actually guarantee it will be cleared later?
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c:amdgpu_vm_pte_update_flags() {
-    ...
-    params->vm->update_funcs->update(params, pt, pe, addr, count, incr,
-                                     flags);
-}
+The commit message assumes that a later amdgpu_cs_ioctl will retry the
+clearing. However, are there paths that bypass the CS ioctl where this error
+is ignored?
 
-The update function's return value is completely ignored. If the update
-fails (for example, if amdgpu_vm_sdma_update() fails to allocate a job due
-to ENOMEM), the job pointer (p->job) is set to NULL. Since the error is
-dropped, amdgpu_vm_ptes_update() continues iterating and calls
-amdgpu_vm_pte_update_flags() again.
+For instance, in KFD unmap_bo_from_gpuvm in
+drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c, the error from
+amdgpu_vm_clear_freed is explicitly ignored:
 
-Will this cause amdgpu_vm_sdma_update() to dereference the NULL p->job on
-the next iteration, leading to a kernel panic? Or if it's a CPU update,
-will ignoring the failure lead to invalid GPU page tables and subsequent
-GPU page faults?
+	(void)amdgpu_vm_clear_freed(adev, vm, &bo_va->last_pt_update);
 
+This marks the BO as unmapped in software, allowing it to be subsequently
+freed via amdgpu_amdkfd_gpuvm_free_memory_of_gpu without waiting for the
+PTEs to be cleared. Because KFD uses hardware user-mode queues, the clearing
+is never retried by a CS ioctl. A running user-mode queue shader could
+continue to access the freed memory.
+
+Similarly, in amdgpu_gem_object_close in
+drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c, the error is ignored and it bails
+out without attaching a fence:
+
+	r =3D amdgpu_vm_clear_freed(adev, vm, &fence);
+	if (unlikely(r < 0) && !drm_dev_is_unplugged(adev_to_drm(adev)))
+		dev_err(adev->dev, "failed to clear page "
+			"tables on GEM object close (%ld)\n", r);
+	if (r || !fence)
+		goto out_unlock;
+
+Could this leave active PTEs mapped to freed memory, leading to a potential
+information leak or memory corruption if amdgpu_vm_update_range fails
+(e.g., due to an early -ENOMEM)?
+
+> +		list_del(&mapping->list);
+> +		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+>  	}
 > =20
->  		amdgpu_res_next(&cursor, num_entries * AMDGPU_GPU_PAGE_SIZE);
->  		start =3D tmp;
+>  	if (fence && f) {
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-amdgpu_vm_=
-fixes-v1-0-d6d835591e0f@igalia.com?part=3D4
+fixes-v1-0-d6d835591e0f@igalia.com?part=3D3
