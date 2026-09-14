@@ -4,44 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD2D1C88E73
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 20:43:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9961C88E6F
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 20:47:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21C7610E796;
-	Mon, 14 Sep 2026 20:43:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCCA010F09D;
+	Mon, 14 Sep 2026 20:47:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ItfaR8vN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gipMHZ3x";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D464710E796
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 20:43:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A43DD10F09D
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 20:47:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 268BD60252;
- Mon, 14 Sep 2026 20:43:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7F911F000FF;
- Mon, 14 Sep 2026 20:43:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D9A00602C3;
+ Mon, 14 Sep 2026 20:47:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BABB11F00893;
+ Mon, 14 Sep 2026 20:47:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789418621;
- bh=uArpvazUkuD0Y0Ad7kfXhIvleSaSpGuWjJ03nJl6w2A=;
+ s=k20260515; t=1789418823;
+ bh=2IJq4xY/bBDFltvhIr2WF5Z6kFLO4/i0wExoi6+Tl+Q=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ItfaR8vN79hg8lkOrOWv110HW+CbY/TcKcpelbKlyDxWsXkjchzQycgVNe+JHBGVP
- /4/Mllmto11j/6NwzbnC9Yihwy1RZuy7DJE1VJEZT7VmBeH9H1e8J/Ikfvp3XgARVR
- 4HlKoPuszx8Lkfz/EySXDiTiTX0lgi2Yv+xl/t3Nny6FXxqAKQJR/eVpULukzXGEr5
- 78Hqp4R5PXeZIO0Bvb1cHokg5XBgYD7WSBkFwcGCY/dW5H8hrTruD/izUze7dcvrfR
- VUy/bp1llMTsxJ5i209VlV4GEuxu/i7Z4m3qRif3KpbtbO0zhh6/yKpiW7MRjPxLM1
- /BY9FkTYZ38QQ==
+ b=gipMHZ3x/T2w9lkfIH4SEGPOxEDLobWgDTqcmNNuJlAAUwkdI1I0Rq4OBuNzmtu2F
+ qA5JW2bSgphbh+ClexEfMPopcLNGbC9H3ULxn59XKtrbVnxIIJFufxVhwjOnN0qXdm
+ 6EPxtBvRkBc/MXq/zZtLjNBlOhIvY2PraueKA3s6zwSG1XPgVmblgUYz2qZEC+s9dc
+ b0SCSdCaYNgSmF6uZjlBL0yM3rLSRRxBmNl+1rp7vq97hkcCxGaNXLzEi02zeG3khl
+ MOjsNcYuQ1u119M6Pn/Y2mhisIbnZidMNRRZQuXhmrXZJRx/hxSTXsJa+bCWqKWyst
+ Lxir5AOacPbgA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] drm/amdgpu: don't free mapping when
- amdgpu_vm_update_range fails
-To: "Thadeu Lima de Souza Cascardo" <cascardo@igalia.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260914-amdgpu_vm_fixes-v1-3-d6d835591e0f@igalia.com>
-References: <20260914-amdgpu_vm_fixes-v1-0-d6d835591e0f@igalia.com>
- <20260914-amdgpu_vm_fixes-v1-3-d6d835591e0f@igalia.com>
+Subject: Re: [PATCH v2 22/40] uprobes: remove VM_IO, set VM_MIXEDMAP for
+ mapped kernel pages
+To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
+Cc: "Christian Borntraeger" <borntraeger@linux.ibm.com>, kvm@vger.kernel.org,
+ "Oliver Upton" <oupton@kernel.org>, linux-rdma@vger.kernel.org,
+ "Alexander Gordeev" <agordeev@linux.ibm.com>, "Heiko
+ Carstens" <hca@linux.ibm.com>, linux-scsi@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, "Vasily
+ Gorbik" <gor@linux.ibm.com>, bpf@vger.kernel.org, selinux@vger.kernel.org,
+ linux-s390@vger.kernel.org, "Marc
+ Zyngier" <maz@kernel.org>, linux-trace-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, kvmarm@lists.linux.dev
+In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-22-7d9781ed5361@kernel.org>
+References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
+ <20260914-b4-mmap-prepare-vma-flag-sanify-v2-22-7d9781ed5361@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 20:43:41 +0000
-Message-Id: <20260914204341.A7F911F000FF@smtp.kernel.org>
+Date: Mon, 14 Sep 2026 20:47:02 +0000
+Message-Id: <20260914204702.BABB11F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,88 +66,34 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+> These are not MMIO pages so VMA_IO_BIT is an inappropriate flag to set.
+>=20
+> Instead, set them VMA_MIXEDMAP_BIT as they are kernel mappings and this is
+> the appropriate flag to set for those.
+>=20
+> This provides the semantics required - no VMA merging is permitted, but
+> does not prevent GUP.
+>=20
+> However this has no meaningful impact as these are refcounted and thus can
+> be GUPed.
+>=20
+> A previous commit already prevented __mm_populate() from being invoked on
+> XOL areas, which VMA_IO_BIT was previously relied upon to do, so that is =
+no
+> longer required.
+>=20
+> Both VMAs set a VMA name, so always_dump_vma() returns true before
+> vma_dump_size() reaches its VMA_IO_BIT check, and thus there is no change
+> in core dump behaviour.
+>=20
+> Change this for both the core xol_add_vma() function and the x86-specific
+> get_uprobe_trampoline() function.
+>=20
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Pre-existing issues:
-- [Critical] amdgpu_vm_clear_freed errors are ignored in KFD BO unmap and G=
-EM close paths, leaving active PTEs mapped to freed memory. A running user-=
-mode queue shader can continue to access the memory after it has been reall=
-ocated.
---
-
-commit 16b841a63bb4a2522f39993f74bd498158fed54e
-Author: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-
-drm/amdgpu: don't free mapping when amdgpu_vm_update_range fails
-
-This commit modifies amdgpu_vm_clear_freed to avoid freeing a mapping and
-removing it from the freed list if amdgpu_vm_update_range fails. It assumes
-that leaving the mapping in the freed list will allow a subsequent
-amdgpu_cs_ioctl to retry clearing it, preventing invalid access.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.c
-> index 09037df76400d..5bde36754607f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1594,16 +1594,16 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *a=
-dev,
->  	while (!list_empty(&vm->freed)) {
->  		mapping =3D list_first_entry(&vm->freed,
->  			struct amdgpu_bo_va_mapping, list);
-> -		list_del(&mapping->list);
-> =20
->  		r =3D amdgpu_vm_update_range(adev, vm, false, false, true, false,
->  					   &sync, mapping->start, mapping->last,
->  					   0, 0, 0, NULL, NULL, &f);
-> -		amdgpu_vm_free_mapping(adev, vm, mapping, f);
->  		if (r) {
->  			dma_fence_put(f);
->  			goto error_free;
->  		}
-
-[Severity: Critical]
-This is a pre-existing issue, but does leaving the mapping in the freed list
-actually guarantee it will be cleared later?
-
-The commit message assumes that a later amdgpu_cs_ioctl will retry the
-clearing. However, are there paths that bypass the CS ioctl where this error
-is ignored?
-
-For instance, in KFD unmap_bo_from_gpuvm in
-drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c, the error from
-amdgpu_vm_clear_freed is explicitly ignored:
-
-	(void)amdgpu_vm_clear_freed(adev, vm, &bo_va->last_pt_update);
-
-This marks the BO as unmapped in software, allowing it to be subsequently
-freed via amdgpu_amdkfd_gpuvm_free_memory_of_gpu without waiting for the
-PTEs to be cleared. Because KFD uses hardware user-mode queues, the clearing
-is never retried by a CS ioctl. A running user-mode queue shader could
-continue to access the freed memory.
-
-Similarly, in amdgpu_gem_object_close in
-drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c, the error is ignored and it bails
-out without attaching a fence:
-
-	r =3D amdgpu_vm_clear_freed(adev, vm, &fence);
-	if (unlikely(r < 0) && !drm_dev_is_unplugged(adev_to_drm(adev)))
-		dev_err(adev->dev, "failed to clear page "
-			"tables on GEM object close (%ld)\n", r);
-	if (r || !fence)
-		goto out_unlock;
-
-Could this leave active PTEs mapped to freed memory, leading to a potential
-information leak or memory corruption if amdgpu_vm_update_range fails
-(e.g., due to an early -ENOMEM)?
-
-> +		list_del(&mapping->list);
-> +		amdgpu_vm_free_mapping(adev, vm, mapping, f);
->  	}
-> =20
->  	if (fence && f) {
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-amdgpu_vm_=
-fixes-v1-0-d6d835591e0f@igalia.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-b4-mmap-pr=
+epare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org?part=3D22
+
