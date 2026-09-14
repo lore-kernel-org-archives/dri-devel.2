@@ -4,127 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51CD1C88E50
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 10:15:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 879A5C88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 10:17:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7784810EB07;
-	Mon, 14 Sep 2026 10:15:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8FB110E04E;
+	Mon, 14 Sep 2026 10:17:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="jIZ7wzXB";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="FFrYIo95";
 	dkim-atps=neutral
-Received: from LO2P265CU024.outbound.protection.outlook.com
- (mail-uksouthazon11021073.outbound.protection.outlook.com [52.101.95.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6AE110EB07
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 10:15:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nx9ItE6GZV4nCJFJpPbaKLWq236NxDItvbcG4KCNt4em4JW6P68gzksdiAgVe+fgsZ52JKbLG7lDltlumffUS1KOcaqLn3v7jhX4yjoV0Hm13vfGa1wKfNKZpLR9aKs4P0uhx7+/XN4Evx2q2paJzJKa3AAQXh7ZYzNUDNiLEVzrxJXoJL7NFxAsj+WKRpew85kqmExb4CZ5o/w86B3h7RDr4BPxD0EYiuE78IovXUwdLDwYd0xwircA9ZPOkkaT90XXVE3HlOTQAsRe4XHxAvhUjqkzJlSz7wAYVw9Mpdwcobymsa0F+RKCC1qgSiS1US3RuLxQYuxd1a7q0TJRjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F9VLJp97/b4QW+Q1vQ/tpgXjKD2GiMQHvMiK4f75BpQ=;
- b=gRvyFnXd0BQZtcNfu3QSeyy3PXkQvTlQpknOh15vmUXSeU2+xMGQ/OTQVShRWOff6XQ0k2IAEnVNAq8jdl3/1SbbYtOto2Wxu3Dh8kX4vNFVGThcaP9h/tQRCS3Rmr2prMlIzgl4NXEgX5zK4q9DZSBQOKd0cHgyxBpSfo4+geupvz9guTzkEAH+fKYEaBI/hUH8hy3enOxpAsbPKP2w2yPPyrh15akjP0mNv49xvEAWC4OfJ+h4pnRsSRD3lYMCqXHxjL85JrZ7D+KLA4RCOCWFIU3DWUE9iGHin1gkpwpgfostQcnU9LwV8f23t2ZLsnfB6ES6m8FOEwft1to73g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F9VLJp97/b4QW+Q1vQ/tpgXjKD2GiMQHvMiK4f75BpQ=;
- b=jIZ7wzXB8EXDc5r3EW9kAoppQh/zji/d1Dj6ZzImiEYhywTMSxdcln+u+eR+VyrdBI2hJJFU50cUXJvEFGxApc0WokcFFP2SP59i+rqvHwbt5CD4EKdZKR1SKP+6lyrIZALNvxWeyWYzARYH4YBY/CPWQR5YifP+zVXOPU3uDCQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO0P265MB2777.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:13e::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 10:15:31 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 10:15:31 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 14 Sep 2026 11:15:30 +0100
-Message-Id: <DLEYLN2TR8J3.36YPC0TEBVSAJ@garyguo.net>
-Cc: <acourbot@nvidia.com>, <aliceryhl@google.com>, <ttabi@nvidia.com>,
- <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH v4 1/3] gpu: nova-core: move the debugfs root into the
- module data
-From: "Gary Guo" <gary@garyguo.net>
-To: "Vladislav Zaharov" <vladazaharova2018@gmail.com>, <dakr@kernel.org>,
- <jhubbard@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20260913183734.134307-1-vladazaharova2018@gmail.com>
- <20260913183734.134307-2-vladazaharova2018@gmail.com>
-In-Reply-To: <20260913183734.134307-2-vladazaharova2018@gmail.com>
-X-ClientProxiedBy: DUZPR01CA0085.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:46a::17) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED70610E04E
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 10:17:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1789381023;
+ bh=IjILyR/6pp2CMI4f8n/7R4sQdcPlICiJR2ESd2YF9AM=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=FFrYIo95+Fp/V8qXSi1v/BTlJXKDo5jd91GMgnwbKK6t24baLhXR/YXQs5/TFJIP2
+ 3zzodkap9o6Ftxzv6B6Lu7IpG85/OuHJlALT7ZVeni0kc8GD9qCu6GSAIIj2yORNj9
+ JQVnZg5MErwvK9Rw2/yP7xWdq70GVctUdlxhpLoRvDVpZrCUAyDMBTMFDHqMN06Q3R
+ NyFyxuJl88l01mRFhyYqgdnmTk5mf3+iMSIPcXOJex3jC+WeZvvKxDGh9DxxvFJ7YS
+ 6+LQXgDzdz2uMBTtHY2zgDZ3X1q/bEj7IrF+1r5BR9BXDKkPfOcswnW385W+Ub757I
+ vk18n7lmLGWew==
+Received: from fedora-21.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E471117E031C;
+ Mon, 14 Sep 2026 12:17:02 +0200 (CEST)
+Date: Mon, 14 Sep 2026 12:16:57 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v9 15/16] drm/panfrost: Fix races between perfcnt and
+ reset sequence
+Message-ID: <20260914121657.2e9925c9@fedora-21.home>
+In-Reply-To: <20260912-claude-fixes-v9-15-e588feaa61ef@collabora.com>
+References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
+ <20260912-claude-fixes-v9-15-e588feaa61ef@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO0P265MB2777:EE_
-X-MS-Office365-Filtering-Correlation-Id: b8d5f10f-65f7-435b-8d2d-08df12491b54
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|366016|7416014|376014|23010399003|1800799024|5023799004|56012099006|4143699003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: vFaoqn9nfsyd79qqX3G/xQ1w/QY8WFEvfX1NykIb1PrTWbyZWZppLygs6GPOy4EC+9EowbDbYsvQUQDqibCM7drywL3HdYhcYVTkNBWmL+3mn1ef31BGdFecs4BdGHBilVUk06GdvVMUkWhCQK6nT8SEqFhHU+W7O4dUkV4a7SDaea/Z9Lb355k94BKEchI1op92WQXSIxeRRomF0YlGXQHXa4mKukfCvtQSt8k0z5KYF8b0cbXudds18i+YWYCGOOef9WFDf8UHjW0H4jGy2+dAcP9lmRvcj4MKlu27LO6+9WOVFIBxJ0XfyyV3MTgLwpgnDafAO1Ex1DGT9mg/rxTFZwRifaKI3/MGVajnScpEfFsPz7IkLTje5vrd+5yuGMuYwv5KLVLvBUoGWQJD+bEV2CSZzeDdVjxLmekgw8NJXDUUxVdIESXhMdWehqndXX5ntMwXEyKwqW4BEQeQkdKPETA09tGk7gI/6IST/wKgSynj2JMQMz0TqkZbiJyyTWL7GM/qfuS5yQN6q76v8Myk2tkDI8DR8HNd9gEPEaDvO23qFSvfxJ0UMwq5XznugBRtld+YX7IfhYQYhvAu9BDmOTmvC9CRkwHiKHXQJBk8bPrnM2En4RuWCaytQiYfPhZAu9x0187w/f8blyWx9w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(366016)(7416014)(376014)(23010399003)(1800799024)(5023799004)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003)(6133799003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N2V0WGdncmhuamJyWW85akU1MXAzQUV5cC80ak5rM0U3UlczNC82TmR3V0M5?=
- =?utf-8?B?cDk1RFFvTThiMXJmME42KzFNS2Yzano1blNzMTBMSDlmOXFiYm1sOXEzaTZo?=
- =?utf-8?B?cDFSb1VRZ2Z5U2lxYko3dEtEUHUyUlhqdkhyVEVqWk1jMTdLWWdvZEUwOWZH?=
- =?utf-8?B?TmJsdHRLZFd0RnNHcFpFbmZoYVlpMm9sNHZrc21aMmNPZEVnb2RpTUpLaWFh?=
- =?utf-8?B?UHRxUFk2UzVOQXlTdWtFMVJnOXh4L3IxWENrNEQyOWwwekpLa3pVVGNBTndO?=
- =?utf-8?B?anh3YnB2Q3NiZFhuQnZBTG9GdWE3eHNZbTRFUm96VmtCNmR1UU9UZXFuTytk?=
- =?utf-8?B?dkZ5aUYydXMyZ1lCVmU5NVBDcWtPaldIZFQ3eUNaV1VUU2JpeURVTWljTEtN?=
- =?utf-8?B?bmUyYUthOXlqYmdJY1kzQmZiK242QVBpVjRsdGZDZ2pMbjB6U1Z4M2oyMVNY?=
- =?utf-8?B?bnJucEh5OENaMFhMdTVLU2haUy9tMHlvVUtYNWlBTm11cjU0UVBjM2dRUVlx?=
- =?utf-8?B?cHdHZjFSMFJocUJaTVRVb0hwSENKTVVVbUNWYlUrRUpvdmphd0NiQ3NGSHhC?=
- =?utf-8?B?TU5aMHVxeUh1RWlnRDhnTFREcUdtcWxNSkVpV1FlN0svMGtBQ0dnbko1UXBF?=
- =?utf-8?B?TmJpU3hxSk95K25teTEwbFdHbERZeUs5UnZsU1VxZ1h1aW53TjFzSWpFMHkz?=
- =?utf-8?B?L211TStKZ0pDQkRlK1FwcldOY3c2NWtPUzc2REo1Q0NhS0ppRXRpM0lBT1BJ?=
- =?utf-8?B?ZnNCc1N6Y2tNSjY0aVZlS1FLUGdrMUFXZkFyQ3gwcWwxb2R4bStoTUNzWmJp?=
- =?utf-8?B?ZXIrdXFuWjhhVTI3NGZ1R3VTa0ZZZWhwSitHemdpaHpYY2wwTnBRRCtrZEs4?=
- =?utf-8?B?Vmp0RmY1UFNsZHB0VTlqM2o2T3kyZCtmaUhYbWl2SFZod0JSNXFWUURIdlk5?=
- =?utf-8?B?dHU5QlJ1S1JEYkQvak13NE9INFFRdkhVTk90bXFXLzVvZ1RTczM3TUlPeFhr?=
- =?utf-8?B?elo3dG1CdGM3ei9tdExjUUN4Y0I3T1kyTlFhYXhBMVBFY2plQkIzd2RRQThC?=
- =?utf-8?B?bUIvQjRtVjdyN3hwU0tHVm84c0c0NXU0b0p1a2RqSDNFbHljcnJZOStqTXps?=
- =?utf-8?B?Y1hUaHB0dE81MEJBU1lXU2JJc2dqbjZhTzJBQUdiRys5UUFHVTBUN0Z4dUJZ?=
- =?utf-8?B?NUhoS21JckhQNjZJZnI1eFZZelMrUG1seW05ZUYya2s3dXdDNVllamZML2lq?=
- =?utf-8?B?QlViOFJGd2NHU2N2cExQZmRGYXdTN3ZjVnEwV2RqeEUyVjU0MnZ6clpBWWE2?=
- =?utf-8?B?clo3eThOMjRPRzRBMVJwelBNWFZTY1JoQW95SVpnQ1lPbmZGbXpBSUM3Y1di?=
- =?utf-8?B?S0RHci9QOTlhSHNlbGdnVUR5alB5TXJHY0g0WFo5VjFLYXJjRitnZnAwaXZu?=
- =?utf-8?B?R1h2NHJ6dkVlemZhM3doYzhxNlI1QkN4eWhFWHdOVksvWjRjbWdITmxtejlF?=
- =?utf-8?B?SHV4YVpQVjFab1dGYW8zTlV2Q2pnRlJBRTVKdzI0a2JoTzk2cStCYkZhUDRy?=
- =?utf-8?B?NG9GbldKcnZFbkRxcm1pY1lnL0NWWjJVRHppdlVTNVdTTVFYeERvT1prU3ds?=
- =?utf-8?B?R1k5RW1GcFpCeDBYYzg4WVBEUjR2Q3pKRmhXTXlQbVJZYUd3RHJJS3JZQi94?=
- =?utf-8?B?cDduRk5NZ2xaTmhhRjVNRUE4T1hYTEFUcnhCVmNoeUxWS2xGUk5nTGlHcnhj?=
- =?utf-8?B?YkROOGMxdFpmZmVPRUJyVkx4TnFQdmFkc09wZkZJdnFhRjBmZ01Jc0F4VDE5?=
- =?utf-8?B?RUZGd0ZXbDJaZktPNUhKSTA5M2creC80dFJWUEtLYVM5M2h3UVlTbERhOXE5?=
- =?utf-8?B?cWpSR1JKVmJlNk0wVDAvK2RIN3U2N01CcTdUaG44TjAzWE80cm8vK3p5SHF1?=
- =?utf-8?B?M240ZnBuWFE1ZEd5T0EzQlRRMXlIMVNzL0twVWErZng2Q001Q1IxMUxaaDl1?=
- =?utf-8?B?ejlKbHBFSjJPWno3Nm5qZFpYRFZneXlNSnFTMjM1V1pmWlpLcTJhc2IwOTdM?=
- =?utf-8?B?THYrU2kxUUdxbitMY2E4WGVFanhCeTV1VFNWVnF6Smtkd3pNUmt0bHNGOWF3?=
- =?utf-8?B?YithQkN3YzFxaEdhOW03NmN6ZkFMRVp6ZHR5T2drQW56dGE5WW9XTUlTYU5t?=
- =?utf-8?B?ZG52UHlZQm02L1NnazBzQXNXVjB4dHFWR1ZiTnZ0QURWSTJCMEd6TkswN1dw?=
- =?utf-8?B?cVEzNkRVSzI5TVNRcEhDVDRQcE44WjRCWlNyRnBlZ21ZRENnQWROSWlodnZL?=
- =?utf-8?B?VGU3MHNuTkt3NE15dDBGaHpOYmU0cmloRUdRcldJWUZCR1NOTUN1QT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8d5f10f-65f7-435b-8d2d-08df12491b54
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 10:15:31.1744 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xixYY9jNf3ZsR3N3ZxQ3ybwb/H9v7NVh0dRFIE2fdJkiCrj1SBCYwYCxbyMeBIJ9VW6CKbXUf8lOlxMAZ/Un/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB2777
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,170 +73,460 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun Sep 13, 2026 at 7:37 PM BST, Vladislav Zaharov wrote:
-> The debugfs root lives in a static that init() fills in and a guard
-> field of the module data clears again. That costs a `static mut`, an
-> unsafe write on each side and a guard type whose only job is to undo
-> the write.
->
-> It also leaks. try_pin_init! drops only the fields it has already
-> built, and the guard is written after the Registration, so a
-> registration that fails leaves the guard unbuilt and the static set.
-> Statics are never dropped, and the module is unloaded right away, so
-> the directory outlives everything that could remove it. The next load
-> then finds the name taken: debugfs_create_dir() returns -EEXIST, which
-> Entry keeps as it would any other pointer, and the driver comes up with
-> no debugfs at all until the machine is rebooted.
->
-> Have the module data own a DebugfsData instead, built before the
-> registration and dropped after it, and keep only a pointer to it in the
-> static, for devices that have no other way to reach the data of their
-> module. What is left is one unsafe read for the users and one write on
-> each side, with no guard type. A registration that fails now drops the
-> data that was built before it, and the directory goes with it.
->
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Vladislav Zaharov <vladazaharova2018@gmail.com>
+On Sat, 12 Sep 2026 00:28:16 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+
+> Formerly, the reset sequence would race with panfrost_mmu_as_put()
+> when tearing down a perfcnt session. On top of that, poking GPU
+> registers to program a perfcnt session or obtaining a dump might lead to
+> undefined behaviour when done at the same time a reset was ongoing.
+>=20
+> Use the reset r/w semaphore to govern access to the hardware at reset
+> time. On top of that, expand the DRM uAPI for the perfcnt DUMP operation
+> so that userspace can be made aware of a reset having happened, because
+> that means counters will go back to 0 and can no longer be accumulated
+> to values previously kept in user space.
+
+In GPU_PERFCNT_CFG_MODE_MANUAL mode (which is the one we use), internal
+counters are always cleared after each DUMP request. So, it's not so
+much that counters can't be accumulated after a RESET, it's more that
+we've lost data in the process, making this very sample inaccurate
+(counters lower than they should be).
+
+>=20
+> The new perfcnt-aware reset sequence also takes care to reestablish
+> perfcnt to its original configuration if there was an enabled session,
+> or else flags the current session as dead if that failed.
+>=20
+> Fixes: 73e467f60acd ("drm/panfrost: Consolidate reset handling")
+> Fixes: 7786fd108777 ("drm/panfrost: Expose performance counters through u=
+nstable ioctls")
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 > ---
->  drivers/gpu/nova-core/gsp.rs       | 15 +++---
->  drivers/gpu/nova-core/nova_core.rs | 82 +++++++++++++++++++++++-------
->  2 files changed, 69 insertions(+), 28 deletions(-)
->
-> diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/n=
-ova_core.rs
-> index 1133c6ce5c55..0f8501c26e05 100644
-> --- a/drivers/gpu/nova-core/nova_core.rs
-> +++ b/drivers/gpu/nova-core/nova_core.rs
-> @@ -30,40 +30,84 @@
-> =20
->  pub(crate) const MODULE_NAME: &core::ffi::CStr =3D <LocalModule as kerne=
-l::ModuleMetadata>::NAME;
-> =20
-> -// TODO: Move this into per-module data once that exists.
-> -static mut DEBUGFS_ROOT: Option<debugfs::Dir> =3D None;
-> +/// Pointer to the [`DebugfsData`] the module owns.
-> +///
-> +/// A device has no way to reach the data of its module, so probe() goes=
- through here instead.
-> +// TODO: Drop this once devices can reach the data of their module.
-> +static mut DEBUGFS_DATA: *const DebugfsData =3D core::ptr::null();
->
-> [snip]
->
-> -impl Drop for DebugfsRootGuard {
-> -    fn drop(&mut self) {
-> -        // SAFETY: This guard is dropped after `_driver` (due to field o=
-rder),
-> -        // so the driver is unregistered and no probe() can be running.
-> -        unsafe { DEBUGFS_ROOT =3D None };
-> +#[pinned_drop]
-> +impl PinnedDrop for DebugfsData {
-> +    fn drop(self: Pin<&mut Self>) {
-> +        // SAFETY: This runs after the registration is dropped, as the f=
-ields of `NovaCoreModule`
-> +        // are dropped in declaration order, so the driver is unregister=
-ed and neither a probe()
-> +        // nor the teardown of a device can be reading `DEBUGFS_DATA`.
-> +        unsafe { DEBUGFS_DATA =3D core::ptr::null() };
-
-I think we can drop this. If we're still accessing it after registration is
-dropped and just before module unload, we have a bigger problem.
-
-Dropping this would allow this pointer to be completely uncoupled of the st=
-ruct
-itself (it really is a module-level mechanism and not coupled to this type)=
-.
-
->      }
+>  drivers/gpu/drm/panfrost/panfrost_device.c  |   2 +
+>  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 201 +++++++++++++++++++---=
+------
+>  drivers/gpu/drm/panfrost/panfrost_perfcnt.h |   1 +
+>  include/uapi/drm/panfrost_drm.h             |   8 +-
+>  4 files changed, 151 insertions(+), 61 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
+/panfrost/panfrost_device.c
+> index 6c65feae63aa..e774f61c642b 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> @@ -479,6 +479,8 @@ void panfrost_device_reset(struct panfrost_device *pf=
+dev, bool enable_job_int)
+>  	panfrost_jm_reset_interrupts(pfdev);
+>  	if (enable_job_int)
+>  		panfrost_jm_enable_interrupts(pfdev);
+> +
+> +	panfrost_perfcnt_reset(pfdev);
 >  }
 > =20
-> +/// Returns the data the module shares with its devices, or [`None`] if =
-there is none yet.
-> +///
-> +/// Only ever call this while the driver is registered, which is to say =
-from probe() or from the
-> +/// teardown of a device that is bound: the data is built before the reg=
-istration and dropped
-> +/// after it, and nothing else keeps what is returned here alive.
-> +pub(crate) fn debugfs_data() -> Option<&'static DebugfsData> {
-> +    // SAFETY: `DEBUGFS_DATA` is written while the module data is initia=
-lized, before the driver
-> +    // is registered, and again when that data is dropped, after the dri=
-ver is unregistered. Both
-> +    // happen with no device bound, so a caller in probe() or in the tea=
-rdown of a device cannot
-> +    // race with either, and by the type invariant what it gets points a=
-t live data that outlives
-> +    // the device it is used from.
-> +    unsafe { DEBUGFS_DATA.as_ref() }
+>  static int panfrost_device_runtime_resume(struct device *dev)
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
+m/panfrost/panfrost_perfcnt.c
+> index b3f71d7fd82a..9847657179a5 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> @@ -11,6 +11,7 @@
+>  #include <drm/drm_file.h>
+>  #include <drm/drm_gem_shmem_helper.h>
+>  #include <drm/panfrost_drm.h>
+> +#include <drm/drm_print.h>
+> =20
+>  #include "panfrost_device.h"
+>  #include "panfrost_features.h"
+> @@ -28,11 +29,15 @@
+> =20
+>  struct panfrost_perfcnt {
+>  	struct panfrost_gem_mapping *mapping;
+> +	unsigned int counterset;
+>  	size_t bosize;
+>  	void *buf;
+>  	struct panfrost_file_priv *user;
+>  	struct mutex lock;
+>  	struct completion dump_comp;
+> +	bool reset_happened;
+> +	bool dump_finished;
+
+Why not store the state flags directly instead of these
+dump_finished/reset_happened booleans?
+
+> +	bool owns_as_ref;
+>  };
+> =20
+>  static void panfrost_perfcnt_hw_disable(struct panfrost_device *pfdev)
+> @@ -47,36 +52,113 @@ static void panfrost_perfcnt_hw_disable(struct panfr=
+ost_device *pfdev)
+> =20
+>  void panfrost_perfcnt_clean_cache_done(struct panfrost_device *pfdev)
+>  {
+> +	pfdev->perfcnt->dump_finished =3D true;
+>  	complete(&pfdev->perfcnt->dump_comp);
+>  }
+> =20
+>  void panfrost_perfcnt_sample_done(struct panfrost_device *pfdev)
+>  {
+> -	if (pfdev->features.selected_coherency !=3D COHERENCY_ACE)
+> +	if (pfdev->features.selected_coherency !=3D COHERENCY_ACE) {
+>  		gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
+> -	else
+> +	} else {
+> +		pfdev->perfcnt->dump_finished =3D true;
+>  		complete(&pfdev->perfcnt->dump_comp);
+> +	}
 > +}
+> +
+> +static int panfrost_perfcnt_hw_enable(struct panfrost_device *pfdev)
+> +{
+> +	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
+> +	u32 cfg, as;
+> +	int ret;
+> +
+> +	ret =3D panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	as =3D ret;
+> +	cfg =3D GPU_PERFCNT_CFG_AS(as) |
+> +	      GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_MANUAL);
+> +
+> +	/*
+> +	 * Bifrost GPUs have 2 set of counters, but we're only interested by
+> +	 * the first one for now.
+> +	 */
+> +	if (panfrost_model_is_bifrost(pfdev))
+> +		cfg |=3D GPU_PERFCNT_CFG_SETSEL(perfcnt->counterset);
+> +
+> +	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0xffffffff);
+> +	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0xffffffff);
+> +	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0xffffffff);
+> +
+> +	/*
+> +	 * Due to PRLAM-8186 we need to disable the Tiler before we enable HW
+> +	 * counters.
+> +	 */
+> +	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
+> +		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+> +	else
+> +		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
+> +
+> +	gpu_write(pfdev, GPU_PERFCNT_CFG, cfg);
+> +
+> +	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
+> +		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
+> +
+> +	return 0;
+>  }
+> =20
+> -static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
+> +static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev, u=
+32 *state)
+>  {
+> -	u64 gpuva;
+> +	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
+> +	u64 gpuva =3D perfcnt->mapping->mmnode.start << PAGE_SHIFT;
+>  	int ret;
+> =20
+> -	reinit_completion(&pfdev->perfcnt->dump_comp);
+> -	gpuva =3D pfdev->perfcnt->mapping->mmnode.start << PAGE_SHIFT;
+> -	gpu_write(pfdev, GPU_PERFCNT_BASE_LO, lower_32_bits(gpuva));
+> -	gpu_write(pfdev, GPU_PERFCNT_BASE_HI, upper_32_bits(gpuva));
+> -	gpu_write(pfdev, GPU_INT_CLEAR,
+> -		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
+> -		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> -	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_SAMPLE);
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		perfcnt->dump_finished =3D false;
+> +		*state =3D 0;
+> +
+> +		if (!perfcnt->owns_as_ref) {
+> +			*state =3D PANFROST_PERFCNT_SESSION_DEAD;
+> +			return -EIO;
+> +		}
+> +
+> +		if (perfcnt->reset_happened) {
+> +			*state =3D PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET;
+> +			perfcnt->reset_happened =3D false;
+> +		}
 
-The `'static` signature would be lying here. And also it is not ideal that =
-this
-returns a `Option`; the user would be always unwrapping it.
+		*state =3D perfcnt->state;
+		if (perfcnt->state & PANFROST_PERFCNT_SESSION_DEAD)
+			return -EIO;
 
-Instead, you can do this:
-
-    pub(crate) fn debugfs_data<'a>(dev: &'a Device<Bound>) -> &'a DebugfsDa=
-ta {
-        // SAFETY: `_debugfs` field of module data is dropped after
-        // registration. So it must be alive while a device is bound.
-        unsafe { &*DEBUGFS_DATA }
-    }
-
-See? This way the `=3D null()` becomes truly redundant because we use lifet=
-ime to
-restrict how long that data can be accessed.
+		perfcnt->state =3D 0;
 
 > +
->  #[pin_data]
->  struct NovaCoreModule {
-> -    // Fields are dropped in declaration order, so `_driver` is dropped =
-first,
-> -    // then `_debugfs_guard` clears `DEBUGFS_ROOT`.
-> +    // Fields are dropped in declaration order, so the registration goes=
- first and no probe() can
-> +    // still be running once the shared data is torn down. `init()` buil=
-ds them the other way
-> +    // round, as the data has to be there before the first probe() reach=
-es for it.
->      #[pin]
->      _driver: Registration<pci::Adapter<driver::NovaCoreDriver>>,
-> -    _debugfs_guard: DebugfsRootGuard,
-> +    #[pin]
-> +    _debugfs: DebugfsData,
->  }
+> +		reinit_completion(&pfdev->perfcnt->dump_comp);
+> +
+> +		gpu_write(pfdev, GPU_PERFCNT_BASE_LO, lower_32_bits(gpuva));
+> +		gpu_write(pfdev, GPU_PERFCNT_BASE_HI, upper_32_bits(gpuva));
+> +		gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_CLEAN_CACHES_COMPLETED |
+> +						GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_SAMPLE);
+> +	}
+> +
+> +	/*
+> +	 * Here we release the reset semaphore because perfcnt should not get i=
+n the way
+> +	 * of a HW reset. Besides, a legitimate reset might be issued during th=
+e wait.
+> +	 */
+>  	ret =3D wait_for_completion_interruptible_timeout(&pfdev->perfcnt->dump=
+_comp,
+>  							msecs_to_jiffies(1000));
+> -	if (!ret)
+> -		ret =3D -ETIMEDOUT;
+> -	else if (ret > 0)
+> -		ret =3D 0;
+> +
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		/* Either sample finished or reset happened */
+> +		if (ret > 0) {
+> +			ret =3D perfcnt->dump_finished ? 0 :
+> +			      perfcnt->owns_as_ref ? -EAGAIN : -EIO;
+> +
+> +		} else if (!ret) {
+> +			ret =3D -ETIMEDOUT;
+> +		}
+> +
+> +		if (perfcnt->reset_happened)
+> +			*state |=3D PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET;
+> +		if (!perfcnt->owns_as_ref)
+> +			*state |=3D PANFROST_PERFCNT_SESSION_DEAD;
+> +	}
+
+	if (!ret)
+		return -ETIMEDOUT;
+
+	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+		u32 new_state =3D perfcnt->state;
+
+		*state |=3D new_state;
+		if (new_state & PANFROST_PERFCNT_SESSION_DEAD)
+			return -EIO;
+
+		perfcnt->state =3D 0;
+
+		/* If we faced a reset during our SAMPLE, the user needs to try again. */
+		if (perfcnt->state & PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET)
+			return -EAGAIN;
+	}
+
+	return 0;
+
 > =20
->  impl InPlaceModule for NovaCoreModule {
->      fn init(module: &'static kernel::ThisModule) -> impl PinInit<Self, E=
-rror> {
-> -        let dir =3D debugfs::Dir::new(c"nova-core");
-> -
-> -        // SAFETY: We are the only driver code running during init, so t=
-here
-> -        // cannot be any concurrent access to `DEBUGFS_ROOT`.
-> -        unsafe { DEBUGFS_ROOT =3D Some(dir) };
-> -
->          try_pin_init!(Self {
-> +            _debugfs <- DebugfsData::new(),
-
-The pointer should be set here instead, not part of `DebugfsData`. `pin-ini=
-t`
-gives you initialized pointer of `_debugfs`. So something like (untested):
-
-    _: {
-        unsafe { DEBUGFS_DATA =3D _debugfs.get_ref(); }
-    },
-
-should work.
-
-Best,
-Gary
-
->              _driver <- Registration::new(MODULE_NAME, module),
-> -            _debugfs_guard: DebugfsRootGuard,
->          })
->      }
+>  	return ret;
 >  }
+> @@ -87,9 +169,8 @@ static int panfrost_perfcnt_enable_locked(struct panfr=
+ost_device *pfdev,
+>  {
+>  	struct panfrost_file_priv *user =3D file_priv->driver_priv;
+>  	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
+> -	struct iosys_map map;
+>  	struct drm_gem_shmem_object *bo;
+> -	u32 cfg, as;
+> +	struct iosys_map map;
+>  	int ret;
+> =20
+>  	if (user =3D=3D perfcnt->user)
+> @@ -122,54 +203,31 @@ static int panfrost_perfcnt_enable_locked(struct pa=
+nfrost_device *pfdev,
+>  	ret =3D drm_gem_vmap(&bo->base, &map);
+>  	if (ret)
+>  		goto err_put_mapping;
+> +
+>  	perfcnt->buf =3D map.vaddr;
+> +	perfcnt->counterset =3D counterset;
+> =20
+>  	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
+> =20
+> -	/*
+> -	 * Clear the counters to start from a fresh state.
+> -	 */
+> -	gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> -	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
+> -
+> -	ret =3D panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
+> -	if (ret < 0)
+> -		goto err_vunmap;
+> -
+> -	as =3D ret;
+> -	cfg =3D GPU_PERFCNT_CFG_AS(as) |
+> -	      GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_MANUAL);
+> -
+> -	/*
+> -	 * Bifrost GPUs have 2 set of counters, but we're only interested by
+> -	 * the first one for now.
+> -	 */
+> -	if (panfrost_model_is_bifrost(pfdev))
+> -		cfg |=3D GPU_PERFCNT_CFG_SETSEL(counterset);
+> -
+> -	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0xffffffff);
+> -	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0xffffffff);
+> -	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0xffffffff);
+> -
+> -	/*
+> -	 * Due to PRLAM-8186 we need to disable the Tiler before we enable HW
+> -	 * counters.
+> -	 */
+> -	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
+> -		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+> -	else
+> -		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		/*
+> +		 * Clear the counters to start from a fresh state.
+> +		 */
+> +		gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
+> =20
+> -	gpu_write(pfdev, GPU_PERFCNT_CFG, cfg);
+> +		ret =3D panfrost_perfcnt_hw_enable(pfdev);
+> +		if (ret)
+> +			goto err_vunmap;
+> =20
+> -	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
+> -		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
+> +		perfcnt->reset_happened =3D false;
+> +		perfcnt->owns_as_ref =3D true;
 
+This should probably be set in panfrost_perfcnt_hw_enable(), just after the=
+=20
+panfrost_mmu_as_get() call.
+
+> +		perfcnt->user =3D user;
+> +	}
+> =20
+>  	/* The BO ref is retained by the mapping. */
+>  	drm_gem_object_put(&bo->base);
+> =20
+> -	perfcnt->user =3D user;
+> -
+>  	return 0;
+> =20
+>  err_vunmap:
+> @@ -195,13 +253,16 @@ static int panfrost_perfcnt_disable_locked(struct p=
+anfrost_device *pfdev,
+>  	if (user !=3D perfcnt->user)
+>  		return -EINVAL;
+> =20
+> -	panfrost_perfcnt_hw_disable(pfdev);
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		panfrost_perfcnt_hw_disable(pfdev);
+> +		if (perfcnt->owns_as_ref)
+> +			panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
+
+Similarly, I think it'd be preferable to have this as_put() inside
+perfcnt_hw_disable().
+
+> +		perfcnt->user =3D NULL;
+> +	}
+> =20
+> -	perfcnt->user =3D NULL;
+>  	drm_gem_vunmap(&perfcnt->mapping->obj->base.base, &map);
+>  	perfcnt->buf =3D NULL;
+>  	panfrost_gem_close(&perfcnt->mapping->obj->base.base, file_priv);
+> -	panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
+>  	panfrost_gem_mapping_put(perfcnt->mapping);
+>  	perfcnt->mapping =3D NULL;
+>  	pm_runtime_put_autosuspend(pfdev->base.dev);
+> @@ -249,13 +310,16 @@ int panfrost_ioctl_perfcnt_dump(struct drm_device *=
+dev, void *data,
+>  	if (ret)
+>  		return ret;
+> =20
+> +	if (req->pad)
+> +		return -EINVAL;
+> +
+>  	mutex_lock(&perfcnt->lock);
+>  	if (perfcnt->user !=3D file_priv->driver_priv) {
+>  		ret =3D -EINVAL;
+>  		goto out;
+>  	}
+> =20
+> -	ret =3D panfrost_perfcnt_dump_locked(pfdev);
+> +	ret =3D panfrost_perfcnt_dump_locked(pfdev, &req->state);
+>  	if (ret)
+>  		goto out;
+> =20
+> @@ -338,3 +402,20 @@ void panfrost_perfcnt_fini(struct panfrost_device *p=
+fdev)
+>  	/* Disable everything before leaving. */
+>  	panfrost_perfcnt_hw_disable(pfdev);
+>  }
+> +
+> +void panfrost_perfcnt_reset(struct panfrost_device *pfdev)
+> +{
+> +	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
+> +
+> +	if (drm_WARN_ON(&pfdev->base, !perfcnt))
+> +		return;
+> +
+> +	lockdep_assert_held(&pfdev->reset.lock);
+> +
+> +	if (!perfcnt->user)
+> +		return;
+> +
+> +	perfcnt->owns_as_ref =3D !panfrost_perfcnt_hw_enable(pfdev);
+> +	perfcnt->reset_happened =3D true;
+> +	complete(&perfcnt->dump_comp);
+
+	/* All active AS are released during the MMU post_reset. */
+	perfcnt->owns_as_ref =3D false;
+	perfcnt->state |=3D PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET;
+	if (panfrost_perfcnt_hw_enable(pfdev))
+		perfcnt->state |=3D PANFROST_PERFCNT_SESSION_DEAD;
+
+	/* Unblock pending sample requests. */
+	complete(&perfcnt->dump_comp);
+> +}
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.h b/drivers/gpu/dr=
+m/panfrost/panfrost_perfcnt.h
+> index 8bbcf5f5fb33..8b9bc704b634 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.h
+> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.h
+> @@ -14,5 +14,6 @@ int panfrost_ioctl_perfcnt_enable(struct drm_device *de=
+v, void *data,
+>  				  struct drm_file *file_priv);
+>  int panfrost_ioctl_perfcnt_dump(struct drm_device *dev, void *data,
+>  				struct drm_file *file_priv);
+> +void panfrost_perfcnt_reset(struct panfrost_device *pfdev);
+> =20
+>  #endif
+> diff --git a/include/uapi/drm/panfrost_drm.h b/include/uapi/drm/panfrost_=
+drm.h
+> index 50d5337f35ef..97e001040543 100644
+> --- a/include/uapi/drm/panfrost_drm.h
+> +++ b/include/uapi/drm/panfrost_drm.h
+> @@ -47,7 +47,7 @@ extern "C" {
+>   * them for anything but debugging purpose.
+>   */
+>  #define DRM_IOCTL_PANFROST_PERFCNT_ENABLE	DRM_IOW(DRM_COMMAND_BASE + DRM=
+_PANFROST_PERFCNT_ENABLE, struct drm_panfrost_perfcnt_enable)
+> -#define DRM_IOCTL_PANFROST_PERFCNT_DUMP		DRM_IOW(DRM_COMMAND_BASE + DRM_=
+PANFROST_PERFCNT_DUMP, struct drm_panfrost_perfcnt_dump)
+> +#define DRM_IOCTL_PANFROST_PERFCNT_DUMP		DRM_IOWR(DRM_COMMAND_BASE + DRM=
+_PANFROST_PERFCNT_DUMP, struct drm_panfrost_perfcnt_dump)
+> =20
+>  #define PANFROST_JD_REQ_FS (1 << 0)
+>  #define PANFROST_JD_REQ_CYCLE_COUNT (1 << 1)
+> @@ -270,8 +270,14 @@ struct drm_panfrost_perfcnt_enable {
+>  	__u32 counterset;
+>  };
+> =20
+> +/* Perfcnt dump state as influenced by a HW reset */
+> +#define PANFROST_PERFCNT_SESSION_DEAD                 (1 << 0)
+> +#define PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET (1 << 1)
+> +
+>  struct drm_panfrost_perfcnt_dump {
+>  	__u64 buf_ptr;
+> +	__u32 state;
+> +	__u32 pad;		/* MBZ */
+>  };
+> =20
+>  /* madvise provides a way to tell the kernel in case a buffers contents
+>=20
 
