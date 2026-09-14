@@ -4,122 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 043CBC88E64
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 13:36:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87D95C88E70
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 13:37:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E060010EE79;
-	Mon, 14 Sep 2026 13:36:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FFC710E1A4;
+	Mon, 14 Sep 2026 13:37:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="xxMKqHB+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gcuwOU+h";
 	dkim-atps=neutral
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazon11011065.outbound.protection.outlook.com [52.101.65.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5E3510EE7B
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 13:36:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jaxbQYNS8Cr22tJ1hNc6pXxqywvhsGIOPtnPew0E+OupLNJPMm7G11lsHMVCnJYdq7Yn8e4KEeXVZnLoJwSYnifqoRoaRF9bMZ5pLbY9B/wXK+nX27xjJLtERud06VP4RixhRbVb6HTE6X1RKVliSRygITwdMOyGOF0pBm6hTgiQX31lGyRZsJxr+VhFbsT6OvH1QHyVBZ43C0A4h2ZpDInUVx0k2PUGey4VUbgIQHftlYoZ8dOcv9oFWQY7VGiuU3IpsvDfLFxTY8ImZlpLb3BawRuQ6zx/xAjOmK+LIAXoyfE9QFgQUQ4WIizOJdT72tksXcwJl+ofon2LtOI2Xg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2h7ZY1zg9xGXVt6w5prHoUecfWf/gFfAhPGVDKJK2r4=;
- b=SteeztA8Ux3jWyxNJnHaubhufLL5awU4HndS1Vs6ObjYtbozKgA/6VsBagbto35b4nT1JcN0U5h7u8h78ESQyPA4KEdV6/Y+DbYRK/3slj3iXL4RcUjzj8x6HFWoUpQy2oy/22Ql35Lo5wrhsC9uW1Aq3m6tnPIQ4f1qT4u5wh720X4BI/IXwwZUE9wH8s/PgEDG9jNoO8oQHdNUkSGvCj+fCS1mAR571kYtvbwNd4y+1lNMu9zH7I6/vX5wetn1HSqJVO34hq7JV6s9Vhih8swH8ZsYBdGDdoZuxy+OmiNrASiZc6cfjfWjPTRYDUnC7chzQjOZyhSz09yxaK9Rng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2h7ZY1zg9xGXVt6w5prHoUecfWf/gFfAhPGVDKJK2r4=;
- b=xxMKqHB+XP3d3MAsnabK7pn0NNeXeVE9RFjcVEaMyzuuro9r+nYNCBRQUPAsUbQHAPN+3AzvZSL7KEMmALxHzLaMXX1/ychyU6GfM91I6/fGORsPGDBoAVDRWEEmgspVhkOC7KikOs/t/aXLLXXnNrjxpEYkaQxEjVGzF75ip82XxJQeZjPtpPnd/kxsgKMDcc0tB039+1tvsPFuoBuj6HGdiq8STIiUhTQ+IS4xmIhqxrPoU9PERcEOBKK5EC7B8sF7EMOLoL/3HUlFMDm1S+KKaTIR3D9XRD1NFfG4sdbWMVDLUEkOlI+g0bSXjUXyWrwy+Bnts09XXVxx6a1jOw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DUZPR04MB10014.eurprd04.prod.outlook.com (2603:10a6:10:4db::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 13:36:04 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 13:36:03 +0000
-Date: Mon, 14 Sep 2026 08:35:52 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
- Mark Brown <broonie@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
- Lee Jones <lee@kernel.org>, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, dmaengine@vger.kernel.org
-Subject: Re: [PATCH v2 16/20] misc: sram: Enable runtime PM
-Message-ID: <aqf4OEVpCX8XNQW1@SMW015318>
-References: <20260914-ux500-power-domains-v7-1-v2-0-9d0c17e1f816@kernel.org>
- <20260914-ux500-power-domains-v7-1-v2-16-9d0c17e1f816@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914-ux500-power-domains-v7-1-v2-16-9d0c17e1f816@kernel.org>
-X-ClientProxiedBy: PH8PR22CA0002.namprd22.prod.outlook.com
- (2603:10b6:510:2d1::26) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DUZPR04MB10014:EE_
-X-MS-Office365-Filtering-Correlation-Id: afe2c339-6a89-46a8-0e0d-08df12651f34
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|7416014|376014|19092799006|1800799024|366016|22082099003|18002099003|4143699003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: yfdYkpxbMe8JzEm2ETdhPpGcaTQnYcPCSVDCKFoBIV9TBDTMgs+XI3Gl8mPpZtzs2VHYuu0etIfQxGRt+hIL3V8Fou/HX3tUYQFj411CcEOT8qkX6wys/TLdk0UCAvdVBaeZ3iyfog7mU6diyN/beCgSSktGwRI+PMGqt4hyhgqn+KW/8ZLJN/fLHjQBCDgA0vX9GMltuGAnNOCDlZ8mlOHBnPo9By1xXB3/c/IF7ZH8MkvtjH/2/2GLysUWf/e0gHmYXx80tm9HYVaV59Kwu/OGDFkOjZle54WLYsWW+4ZWvD1ShdH40k23zDV/VFHFig1Ik4+1h3hYJUAZdcvnSYWTiwI0avUEuBNE+aOQiDIAjNZU+I54quBssLg+gknAkNn6qnxhQhDdYh34ZyH0XeSve7eJmhLpb3SAhrNTwxOQFraovYYWBeXJi0+Bo2Nbz27ZTyoPnlyU3R9qgHhT/6GMoS3h7/P/bpFi0YSHbJQUHIcpVk2uMw0qm0wnyy6uwYmLLnItpWYV4+QQLmfnsQxzXGj3edqFi7ms8jUXClIFI+3cpuXxaVQU6nyV2WmtGyqZDlqhluQ2CCNFZBbHKpOLm3cNJTapIAI5mnls1I7XTizWHhTEzwehksqSa7523PJq+oLyWOME6+XSK9ANwrsr3TVWjZ6DvEYNEmZYvNw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB11799.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(376014)(19092799006)(1800799024)(366016)(22082099003)(18002099003)(4143699003)(10067099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?cuk05Acun4MONovCOO2keRTOl+6RvJmAJbg/Sqg5p7LExX3IlvanH+qZa6hA?=
- =?us-ascii?Q?dbtqN8Nl7scyFneM8DUnHMboYSzBfhlzxXH0Md+ZD5w8WTE80zZcxayiBm0C?=
- =?us-ascii?Q?Ty+qMj0iklotpZabcpnRHP+37tOrfgz44a45ViUm1nCmNMkjk7LB3AUCfxE9?=
- =?us-ascii?Q?zXts+pvkRpQII6k13/S/jtS0dY+mo4BbTx+h2PGYPab2e4Ch/4okmQ7HZYeq?=
- =?us-ascii?Q?7zYobclfFY+qtIMsOH62DKsgJ9QAhBK/yxBmpagzsheKJG+5bT9e4CXiROTi?=
- =?us-ascii?Q?sfcxYiE16R1Fu8WLLCqxQ8Qb4i6sA7EfM+84WNhVNUbviLnJ+rtXMAOIcW6Y?=
- =?us-ascii?Q?Fg9S//5FlUdm+OcRhGo58yXu4Ykw158B990CxkaM5Vd+XH5Cpayove4ikP5H?=
- =?us-ascii?Q?zre+WU3ixox0YYq/S1btAYvSL3FgGRB3UEY17jqSuTa6WD1N6bd3Qz+ku7ZC?=
- =?us-ascii?Q?MH3luFUGat7EIYLaiLmFlHhaL8k0Cf5MkHTTtzktdqkVSlfJKSaNv37kstiD?=
- =?us-ascii?Q?XoM0CzCp+7wOzu/YqUJEz0vm3446ljqAjxIGcBtke6fbUg9K6R7JtNLxluey?=
- =?us-ascii?Q?7JGriGawqkczECZjn4jnNl3SPkKabOHu7/L0JYQwbP8Vp/v9bkhS4kX2vJSY?=
- =?us-ascii?Q?F99SBkh+LF3eAyZFTX3SlIe0/8kVxXmgjgimVOpwg2Pjwl+RnRRZQ2ShdzO2?=
- =?us-ascii?Q?SI9UI7nNIbvHtx/cTl4Qxmn35QLU7BqtPdK91Bh4UlPsNw+OJa1s+P2O3nI9?=
- =?us-ascii?Q?c6Oe9AloJXKDjYjyAOvCRAQV/0YWCTUhhU0GKJEb4fUHY8DolA9SRi6AmASb?=
- =?us-ascii?Q?AOxmrlqdZVk2EfCO3xJ03nHFceNVvrHrXBGiXcVmtITVSioiWFimmob3hcBS?=
- =?us-ascii?Q?dlGEcj2GayZRNKPZOnBh0JDGFak8L3560bs3ERFHKB4q90ilzqeDULOuavzi?=
- =?us-ascii?Q?L03rB94qCv3JnnbNzNLXc8ZhKW61FpzEX7nyrOk38zwT/3tvlfdkTUXq8ATb?=
- =?us-ascii?Q?FaiKB3bNwuSxxwMqwCb7YeXsQ3U2qkTjhlfj93IOkhFczbFIJkCIVvs7cEdG?=
- =?us-ascii?Q?q6I/unYxKAM+crxVJJGK2uDMtJ3cjqy1Hn+pcMny7xFZ17Miaxx+pQ+qr4c+?=
- =?us-ascii?Q?7n03g8+hHGa/NIFw812S+TLAk3wEZNXRGNbrenbZBbuIHtZ5CCYJXZkpEf1Y?=
- =?us-ascii?Q?ooPsvV3pwFnj7QEdD21LPdJT1IE49E8toAVnPHBo5v1sk5f8Z+pk72tu41VM?=
- =?us-ascii?Q?hdU2UjSt77jINjBxZRkYznxaHOM+GIHT0asCBK5NWpuR4YoOYDCj1s7RmnCI?=
- =?us-ascii?Q?YP8klMv2+ACdFjeB357zYQG5rSSAq8F+RjXTMzwrEwSgXG7gTfWy6yli/fmK?=
- =?us-ascii?Q?ifcBnwk8f7hFSyre8ZBkNg6BJmbxfPd1YzT8RvJLu6G3jOwNkJROBn38998X?=
- =?us-ascii?Q?/7SoHFJoWvzHEFKZAD90E8Z3SCUtW/LuMYHY6HOILqmbpzaFjj68TW8fZZ1R?=
- =?us-ascii?Q?J5tSEdqxa4DetyBJBFVNQei6xUTVlTA0LhNgjqjx3B3/sHbpD7iucQAgIMKR?=
- =?us-ascii?Q?md41Kv6VbqYXFWGgHyVe2Zr2vreF2TzCnzy8Fpqc1JPzmwx+LpUVgdkvqKtH?=
- =?us-ascii?Q?OE83vaFNI8wFJsb8F0CmcfsPl+ki0WTe6Vzw0DxtaiqQ7UH+2UIdAnkcOOHa?=
- =?us-ascii?Q?F2tov/eUA/qefs9Phq49l1anFEMkSf0uQfrD6WJdJFLYxQWJ+eCPjEUMbNEU?=
- =?us-ascii?Q?EyRHHXHa7MlMy+wloZ7BQ7t3LW5w48xCnn3WNXOc7IeDSsHm5uLm?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: afe2c339-6a89-46a8-0e0d-08df12651f34
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 13:36:03.7491 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4LuXGAk70EQ0heZy2wgUFKzwT5BSWSi2hUY4n00w1i6CRANLBjbKYtHp5icuepWx/cAgzpyV+CtWVkw9W2HGvT6M4yorAedfQGl610NWca3+a9Ug133lFeZE28epOA5v
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB10014
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B71CD10E1A4
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 13:37:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id D82FA601FF;
+ Mon, 14 Sep 2026 13:37:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70CA41F000FF;
+ Mon, 14 Sep 2026 13:37:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789393069;
+ bh=2Z+GoOGLdrjjH1/mFtuP+6w7Xa3JV6s61/HvHEeLBAY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=gcuwOU+hcyF/pWrR6u/FrE2cTyPOn/2R9jSQrs9m4TcAlQRAAkCXSba81l1suKavk
+ TW0Jb3CI+E4WFe9ZUuamlgD3fDV9Cgc4ynwwZbNCwRtsMyn79IjtKihwbH3yQjB2BY
+ /KZBBQjs8RXTIwk6SGKSIZWnT5ImRRiXQsAG+nr4EO660NkZugCMFtEDmX89zuhTm1
+ xhTXJoMvzpbd5TI8MZSpDOSofMf/D6yUuEinSUGKQzoLajfk0sfgl/faEe44XvaSzl
+ ltwYvR/c6GTxjfzp08DPM0pxa2JbSJSvHOcYxISl+kYhUp4JNIeO5A7/UZZGEZCDfz
+ kSZ4G48SI/jAg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/trigger5: Add MCT Trigger 5 USB display driver
+To: "Ho Jie Feng" <hjf3108@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260914131924.196251-1-hjf3108@gmail.com>
+References: <20260910171709.396071-1-hjf3108@gmail.com>
+ <20260914131924.196251-1-hjf3108@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 13:37:48 +0000
+Message-Id: <20260914133749.70CA41F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,49 +53,210 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Sep 14, 2026 at 01:54:44PM +0200, Linus Walleij wrote:
-> Enable runtime PM for generic SRAM devices after probe has initialized
-> the SRAM mappings and partitions.
->
-> This lets SRAM devices with attached power domains be managed through
-> runtime PM references from their consumers.
->
-> Assisted-by: LLM
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Sleeping functions and blocking memory allocations are called with=
+in DRM atomic commit callbacks, which are strictly defined as atomic contex=
+t paths by subsystem guidelines.
+- [High] trigger5_crtc_create_state() returns ERR_PTR(-ENOMEM) instead of N=
+ULL on allocation failure, causing a crash in the DRM core.
+- [High] Missing cache flush for the vmalloc DMA buffer before initiating U=
+SB transfer.
+- [Medium] The USB bulk header's horizontal and vertical offsets are popula=
+ted with raw framebuffer coordinates instead of screen coordinates.
+--
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+commit e87cbb95a349285fc94e00546c2aa86f1ff4d509
+Author: Ho Jie Feng <hjf3108@gmail.com>
 
->  drivers/misc/sram.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/misc/sram.c b/drivers/misc/sram.c
-> index c8990e83a65a..7f19dca7b818 100644
-> --- a/drivers/misc/sram.c
-> +++ b/drivers/misc/sram.c
-> @@ -13,6 +13,7 @@
->  #include <linux/of.h>
->  #include <linux/of_address.h>
->  #include <linux/platform_device.h>
-> +#include <linux/pm_runtime.h>
->  #include <linux/regmap.h>
->  #include <linux/slab.h>
->  #include <linux/mfd/syscon.h>
-> @@ -425,6 +426,10 @@ static int sram_probe(struct platform_device *pdev)
->  			goto err_free_partitions;
+drm/trigger5: Add MCT Trigger 5 USB display driver
+
+Add a DRM driver for MCT Trigger 5 USB display adapters. The driver
+implements modesetting and USB framebuffer updates, connector detection,
+and EDID retrieval.
+
+> diff --git a/drivers/gpu/drm/trigger5/trigger5_drv.c b/drivers/gpu/drm/tr=
+igger5/trigger5_drv.c
+> --- a/drivers/gpu/drm/trigger5/trigger5_drv.c
+> +++ b/drivers/gpu/drm/trigger5/trigger5_drv.c
+> @@ -248,8 +248,9 @@ static void trigger5_atomic_commit_tail(struct drm_at=
+omic_commit *state)
+> =20
+>  	if (!drm_dev_enter(state->dev, &idx))
+>  		goto commit;
+> =20
+>  	trigger5_stop_io(trigger5);
+
+[Severity: High]
+Is it safe to block in this atomic commit tail callback? The DRM subsystem
+guidelines explicitly designate drm_atomic_helper_commit_tail() as an atomic
+context path where sleeping or blocking operations (like flushing workqueues
+inside trigger5_stop_io()) are strictly forbidden, which could lead to
+deadlocks or kernel warnings.
+
+[ ... ]
+
+> @@ -282,10 +282,10 @@ static int trigger5_alloc_bulk_buffer(struct trigge=
+r5_transfer_buf *buf,
+> =20
+>  	/* Large transfer buffer requires vmalloc and a scatterlist. */
+>  	data =3D vmalloc_32(len);
+>  	if (!data)
+>  		return -ENOMEM;
+> =20
+>  	num_pages =3D DIV_ROUND_UP(len, PAGE_SIZE);
+>  	pages =3D kmalloc_array(num_pages, sizeof(struct page *), GFP_KERNEL);
+>  	if (!pages) {
+>  		ret =3D -ENOMEM;
+>  		goto err_vfree;
 >  	}
->
-> +	ret = devm_pm_runtime_set_active_enabled(&pdev->dev);
-> +	if (ret)
-> +		goto err_free_partitions;
-> +
->  	if (sram->pool)
->  		dev_dbg(sram->dev, "SRAM pool: %zu KiB @ 0x%p\n",
->  			gen_pool_size(sram->pool) / 1024, sram->virt_base);
->
-> --
-> 2.55.0
->
+>  	for (i =3D 0, ptr =3D data; i < num_pages; i++, ptr +=3D PAGE_SIZE)
+>  		pages[i] =3D vmalloc_to_page(ptr);
+>  	ret =3D sg_alloc_table_from_pages(&buf->sgt, pages,
+>  					num_pages, 0, len, GFP_KERNEL);
+
+[Severity: High]
+Since this DMA buffer is allocated with vmalloc_32() and mapped to an SG
+table, will the CPU cache for the vmalloc alias need to be explicitly flush=
+ed
+after writes?
+
+[ ... ]
+
+> @@ -324,10 +324,10 @@ static struct drm_crtc_state *
+>  trigger5_crtc_create_state(struct drm_crtc *crtc)
+>  {
+>  	struct trigger5_crtc_state *tstate =3D kzalloc_obj(*tstate);
+> =20
+>  	if (!tstate)
+>  		return ERR_PTR(-ENOMEM);
+
+[Severity: High]
+Could this cause a crash in the DRM core? The DRM API contract requires
+atomic_create_state callbacks to return NULL on memory allocation failure.
+Returning ERR_PTR(-ENOMEM) creates a non-NULL pointer that could evade
+existing checks, leading to a dereference of the error pointer.
+
+[ ... ]
+
+> @@ -377,10 +377,10 @@ static void trigger5_crtc_atomic_enable(struct drm_=
+crtc *crtc,
+>  	trigger5_stop_io(trigger5);
+> =20
+>  	/* Sequence recovered from USB captures. */
+>  	ret =3D usb_control_msg_recv(udev, 0,
+>  				   TRIGGER5_REQUEST_FIRMWARE_RESET,
+>  				   USB_DIR_IN | USB_TYPE_VENDOR |
+>  					   USB_RECIP_DEVICE,
+>  				   0x0000, 0x0000, data, 1,
+>  				   USB_CTRL_GET_TIMEOUT, GFP_KERNEL);
+
+[Severity: High]
+Could calling synchronous USB control message APIs with GFP_KERNEL here cau=
+se
+system instability? The CRTC atomic enable callback runs in an atomic conte=
+xt
+path where sleeping is strictly forbidden.
+
+[ ... ]
+
+> @@ -456,10 +456,10 @@ static void trigger5_crtc_atomic_disable(struct drm=
+_crtc *crtc,
+>  	trigger5_stop_io(trigger5);
+> =20
+>  	ret =3D usb_control_msg_recv(udev, 0,
+>  				   TRIGGER5_REQUEST_FIRMWARE_RESET,
+>  				   USB_DIR_IN | USB_TYPE_VENDOR |
+>  					   USB_RECIP_DEVICE,
+>  				   0x0001, 0x0000, &data, 1,
+>  				   USB_CTRL_GET_TIMEOUT, GFP_KERNEL);
+
+[Severity: High]
+Could this sleep in atomic context? Similar to the enable callback, this
+disable callback runs in a path where sleeping is forbidden.
+
+[ ... ]
+
+> @@ -635,10 +635,10 @@ static void trigger5_plane_atomic_update(struct drm=
+_plane *plane,
+>  	/*
+>  	 * This should almost never wait because we have should have a
+>  	 * pending transfer ready to be de-queued above in case the transfer
+>  	 * hasn't finished, but do a bounded wait just in case it gets stuck
+>  	 */
+>  	if (!wait_for_completion_timeout(&current_transfer->frame_complete,
+>  					 msecs_to_jiffies(20)))
+>  		goto exit_save_pending;
+
+[Severity: High]
+Is it safe to wait on a completion here? wait_for_completion_timeout() can
+sleep, but plane atomic update callbacks run in an atomic context.
+
+>  	current_transfer->transfer_rect =3D current_rect;
+> =20
+>  	current_transfer->frame_len =3D frame_len;
+>  	header =3D current_transfer->buf.data;
+>  	header->magic =3D 0xfb;
+>  	header->length =3D 0x14;
+>  	/* flags 0: uncompressed 24-bit RGB888. */
+>  	header->counter =3D
+>  		cpu_to_le16((trigger5->frame_counter++) & 0xfff);
+>  	header->horizontal_offset =3D cpu_to_le16(current_rect.x1);
+>  	header->vertical_offset =3D cpu_to_le16(current_rect.y1);
+
+[Severity: Medium]
+Does this correctly populate the USB bulk header coordinates?=20
+
+If the display is panned (i.e. has a non-zero source offset via state->src_x
+or state->src_y), the hardware typically needs to receive screen coordinate=
+s=20
+rather than raw framebuffer coordinates. Since current_rect.x1 and
+current_rect.y1 are in the coordinate space of the framebuffer, could this
+result in visual corruption when panning?
+
+>  	header->width =3D cpu_to_le16(width);
+>  	header->height =3D cpu_to_le16(height);
+>  	header->payload_length =3D cpu_to_le32((u32)payload_len);
+>  	header->flags =3D 0x1;
+>  	header->unknown1 =3D 0;
+>  	header->unknown2 =3D 0;
+>  	header->checksum =3D trigger5_bulk_header_checksum(header);
+> =20
+>  	iosys_map_set_vaddr(&data_map,
+>  			    current_transfer->buf.data + sizeof(*header));
+> =20
+>  	ret =3D drm_gem_fb_begin_cpu_access(state->fb, DMA_FROM_DEVICE);
+
+[Severity: High]
+Could drm_gem_fb_begin_cpu_access() sleep here? This is also called in the
+atomic context path.
+
+>  	if (ret < 0) {
+>  		complete(&current_transfer->frame_complete);
+>  		goto exit_save_pending;
+>  	}
+> =20
+>  	drm_fb_xrgb8888_to_rgb888(&data_map, NULL,
+>  				  &shadow_plane_state->data[0],
+>  				  state->fb, &current_rect,
+>  				  &shadow_plane_state->fmtcnv_state);
+> =20
+>  	drm_gem_fb_end_cpu_access(state->fb, DMA_FROM_DEVICE);
+> =20
+>  	queue_work(trigger5->transfer_wq, &current_transfer->transfer_work);
+
+[Severity: High]
+Does the vmap cache need to be flushed before queueing the transfer work?
+
+The DMA API manages cache coherency for the direct physical map, but not the
+vmalloc alias used when the CPU writes the pixel data. Should
+flush_kernel_vmap_range() be called here to avoid silent data corruption on
+architectures with non-coherent DMA and virtually indexed caches?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914131924.1962=
+51-1-hjf3108@gmail.com?part=3D1
