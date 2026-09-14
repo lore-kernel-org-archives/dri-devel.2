@@ -4,50 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F784C88E6E
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 15:40:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98AD3C88E6E
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 15:40:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB61E10E1BD;
-	Mon, 14 Sep 2026 15:40:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D85E310E1D6;
+	Mon, 14 Sep 2026 15:40:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="n9j0lotr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HfT6yU8H";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7114210E1BD
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:40:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=8hXe3SkzqcPJWQukn5jm9yUWHrV+E+E9FU39iO7bl3k=; b=n9j0lotriRCVxgHWmd9GTGm1ml
- 3cti/gYdajFYf9ZH3s+tv2v5OlpNUgep8ZFC5+DMdUA8slq/WJzlDVeFXVze/vX/vM/Mm/63OVRzT
- M2pXLV6CqApOgmCQrh3WsDMx287jU0N1qoWTwHcr9x6a04qs7bymSU6CRVqEdPHh9xQOWTXYLCkbe
- SmCwxmNlcmf2R1J8FLfWdpzcEk1jf205VTx+mvGiQUI6B8z/Orfek8AOIGdaGteEQcCT7anZ/yWJ2
- RAkAiuNuf2UQVxV6Zb+HXHlkX37RTMgkjiHS+AyO014ojylTjN6FQZvFH85WJYbGEuBppHyLXIfis
- Fyn7mFxw==;
-Received: from [179.105.94.163] (helo=prince)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x68mW-001yGz-4G; Mon, 14 Sep 2026 17:39:44 +0200
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-To: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Karl Mehltretter <kmehltretter@gmail.com>
-Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Eric Anholt <eric@anholt.net>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/vc4: Use managed KMS polling to fix UAF on unbind
-Date: Mon, 14 Sep 2026 12:39:14 -0300
-Message-ID: <178940035097.202301.12245360803631380253.b4-ty@igalia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260822143110.68594-1-kmehltretter@gmail.com>
-References: <20260822143110.68594-1-kmehltretter@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9482D10E1D6
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:40:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 97EF06025A;
+ Mon, 14 Sep 2026 15:40:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AAAD1F000FF;
+ Mon, 14 Sep 2026 15:40:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789400422;
+ bh=mBF6+D5851OP0+RBXASeBH5sGFKcTHTWtmvG0ev37TI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=HfT6yU8HaojhFMvk9XASK5imu2bqOTKnurQmiy6//QQT9JnJ7A2OWp3WVyisKXRPv
+ IHWD6mzbSvvf+AZtpY1n/Ir2562C0cezM64uGVgOAPtNBERHDGaZAwIenkhxf9Lp8n
+ Ia3qK0dObEeCJSlRyG6Wq9BCJ96GbY1TSwp7JqDL5pCFwFcw2r1xRHU9R7J3iLDydA
+ 5G3b/iDTN6aXJTbk1/tGhU4ZOH4IF6Glt83ooxLVwQwuyOOlFUZLs2gliARgvgUw1Z
+ 4lTGTf8aXMaClZgcw6dPg08zoHhS8l29ysC7+MTm0m/utmYsbdoL1MynkbAJYB5XLt
+ +T/mXIrITmMhg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 01/40] mm/vma: fix mmap_prepare file handling, remove
+ file_doesnt_need_get
+To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
+Cc: "Christian Borntraeger" <borntraeger@linux.ibm.com>,
+ linux-scsi@vger.kernel.org, "Heiko
+ Carstens" <hca@linux.ibm.com>, linux-rdma@vger.kernel.org,
+ "Marc Zyngier" <maz@kernel.org>, linux-s390@vger.kernel.org,
+ selinux@vger.kernel.org, bpf@vger.kernel.org, "Oliver
+ Upton" <oupton@kernel.org>, "Vasily Gorbik" <gor@linux.ibm.com>,
+ linux-perf-users@vger.kernel.org, kvm@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ "Alexander Gordeev" <agordeev@linux.ibm.com>, kvmarm@lists.linux.dev
+In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-1-7d9781ed5361@kernel.org>
+References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
+ <20260914-b4-mmap-prepare-vma-flag-sanify-v2-1-7d9781ed5361@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 15:40:21 +0000
+Message-Id: <20260914154021.7AAAD1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,28 +62,38 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+> The map->file_doesnt_need_get flag is confusing and the existing
+> implementation has holes.
+>=20
+> Drivers are permitted to change the owning file of a mapping. If they do
+> so, they are required to take a reference on that file.
+>=20
+> The mmap() operation which ultimately invokes __mmap_region() is guarante=
+ed
+> to drop the refcount for the original file the mapping was made under, but
+> this is not true for the replaced file.
+>=20
+> This has been addressed so far by tracking map->file_doesnt_need_get, whi=
+ch
+> is rather poorly named and unfortunately fails to correctly track whether
+> or not an additional put were needed in a number of cases.
+>=20
+> Make life easier by removing this flag, and instead drop the reference for
+> [ ... ]
+> No in-tree driver is impacted by the incorrect implementation of this
+> currently (no driver that does this is mergeable for one), so this does n=
+ot
+> need to be a fix.
+>=20
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-On Sat, 22 Aug 2026 16:31:10 +0200, Karl Mehltretter wrote:
-> vc4_kms_load() calls drm_kms_helper_poll_init() but the driver provides
-> no matching drm_kms_helper_poll_fini(). The output poll work stays
-> scheduled after unbind and runs on the freed drm_device:
-> 
->   # modprobe vc4; rmmod vc4; sleep 10
->   BUG: KASAN: slab-use-after-free in delayed_work_timer_fn
->   BUG: KASAN: slab-use-after-free in drm_client_dev_hotplug [drm]
->   Workqueue: events output_poll_execute [drm_kms_helper]
->   Allocated by task 171: __devm_drm_dev_alloc
->   Freed by task 262 (rmmod): drm_dev_put / component_del
-> 
-> [...]
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Applied, thanks!
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-b4-mmap-pr=
+epare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org?part=3D1
 
-[1/1] drm/vc4: Use managed KMS polling to fix UAF on unbind
-      commit: 073a30d75f309812ed61af134f24ffef4107b13a
-
-Best regards,
-- Maíra
