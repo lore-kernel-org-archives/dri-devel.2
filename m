@@ -4,42 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 041D0C88E64
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 08:48:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D481EC88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 08:49:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C5C610EC17;
-	Mon, 14 Sep 2026 08:48:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13A1410EC1D;
+	Mon, 14 Sep 2026 08:49:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LOzNGon8";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="eRW76e9t";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEA5910EC17
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:48:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E479960142;
- Mon, 14 Sep 2026 08:48:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 706A01F00893;
- Mon, 14 Sep 2026 08:48:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789375729;
- bh=jZUIFmbwxbzCEEkgCiDNyixcvcXixfsRcRUjvZ4XL+w=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=LOzNGon8pFlQ6RLB5X+awVAUI8lwhy5q2EhXX9/u5xtYkzuR+PQhCJqrdMbN2P+Gj
- 6AoiizMVlJX5K3eoBT6+zrtTRzVk52F4tw80pZtXBi9ra5Efnpma0rMQ8OfDJbMTdL
- liQvPtt6H1jcK8ECj5uHP4qgb3CvanmrYD0zZAr/N8zNFUis2uphspfysx2WdNfkw+
- j5rBURLQ7sd7sADnYDnRmkKAlStkWiwrV2PvL6gurCpKKof6PNqpeIikQ5zM23V84w
- MeQ7to8KK6oWGQH6y86ZqQ325VPyRIjRdaaN5+wH1kAszP1g3FA31aaif9xF7mEXaH
- x0mBIXyNUsqog==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] accel/ivpu: Abort pending jobs on file close
-To: "Karol Wachowski" <karol.wachowski@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260914082929.892437-1-karol.wachowski@linux.intel.com>
-References: <20260914082929.892437-1-karol.wachowski@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 08:48:48 +0000
-Message-Id: <20260914084849.706A01F00893@smtp.kernel.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A54510EC1D
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:49:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=yo1GY2MmHk7QkRRi3OS89hQv0DuDbZf77cOD7Bv/K5Y=; b=eRW76e9t/pKTx1me4kK1FgrslX
+ FcOydG2QkjPDCEl3kafNg4I7hgGm0N3GKptacHZxPUYXZkpd3o/CXrGlg9WeS6re2TIbRkzT4HgHz
+ aPNYo/EVl2lhq9SiK3W4+WeFrDx9fRyAD4ImuQRB2FEaB5aSffL5b/dLTFy8vlNuhZg62oIPGuzoB
+ SLhrBxXdmKtuAwWYiIT81QpsXke97GE40qeODzAwT85KHUqo6VaTTerzZFp0vhdb3518+XJpxXzEU
+ EzSvQKOyfJfBkjp5BZZKKc4aH7t73ptr6o87zl5NTBtLTsyvhyaf6UcG7ndPdgaapLHjpL2HbyMmw
+ PM3xk9Jg==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1x62NY-001mqE-SS; Mon, 14 Sep 2026 10:49:32 +0200
+Message-ID: <b4f017cc-3dbf-416c-b456-0c19d2f0647a@igalia.com>
+Date: Mon, 14 Sep 2026 09:49:31 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/sched: Increase drm_mock_sched_job_wait_finished
+ timeout when CONFIG_HZ=100
+To: David Gow <david@davidgow.net>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, kunit-dev@googlegroups.com
+References: <20260913084155.520015-2-david@davidgow.net>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260913084155.520015-2-david@davidgow.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,71 +60,91 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Context and job cleanup is skipped when CONFIG_PM is disabled, def=
-eating the purpose of the patch.
---
 
-commit e999c7cb2698f3a8d3e0b1deb6b6b334895bbf3e
-Author: Karol Wachowski <karol.wachowski@linux.intel.com>
+On 13/09/2026 09:41, David Gow wrote:
+> The drm_sched_scheduler_overhead_tests tests hardcode a timeout of 5x
+> total_us, and fail if it's exceeded. However, on systems with
+> CONFIG_HZ < 250, this tends to fail.
 
-accel/ivpu: Abort pending jobs on file close
+Systems plural or just UML? I suppose if no hrtimer support and low HZ 
+it is plausible since executing the tests needs 1000 x 1ms hrtimer 
+callbacks to fire.
 
-This commit modifies ivpu_postclose() to explicitly abort a context's comma=
-nd
-queues and signal all pending jobs. This ensures that any in-flight jobs do
-not keep running in the background after the owning process exits.
+Anyway, increasing the tolerance is okay-ish, with the -ish part being 
+that it would be even better to skip if test could know before hand on a 
+particular system it would be uselessly slow. Hence I am curious whether 
+it is just UML or you could point me to other specific platforms/kconfig 
+combinations where you saw it fail. In which case maybe we can come up 
+with a skip criteria.
 
-> diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
-> index 0f215392d42de..4c73dc8b3aafe 100644
-> --- a/drivers/accel/ivpu/ivpu_drv.c
-> +++ b/drivers/accel/ivpu/ivpu_drv.c
-> @@ -393,6 +393,17 @@ static void ivpu_postclose(struct drm_device *dev, s=
-truct drm_file *file)
->  	ivpu_dbg(vdev, FILE, "file_priv close: ctx %u process %s pid %d\n",
->  		 file_priv->ctx.id, current->comm, task_pid_nr(current));
-> =20
-> +	if (pm_runtime_get_if_active(vdev->drm.dev) > 0) {
+Regards,
 
-[Severity: High]
-Does this skip the newly added job abort logic entirely when the kernel is
-built without CONFIG_PM?
+Tvrtko
 
-When CONFIG_PM is disabled, pm_runtime_get_if_active() returns -EINVAL.
-This causes the condition to evaluate to false, completely bypassing the
-context abort and job cleanup steps.
-
-If an application submits jobs and closes the DRM file descriptor on a syst=
-em
-with CONFIG_PM=3Dn, the driver silently skips this cleanup. This appears to
-defeat the purpose of the patch on those systems, as in-flight jobs will
-continue running in the background.
-
-Could this be exploited by untrusted or unprivileged userspace to launch
-long-running jobs and detach from them, causing resource exhaustion on the
-NPU?
-
-> +		mutex_lock(&file_priv->lock);
-> +		if (file_priv->bound && !file_priv->aborted)
-> +			ivpu_context_abort_locked(file_priv);
-> +		mutex_unlock(&file_priv->lock);
+> As it's possible to configure many architectures to use 100 Hz (and some,
+> such as UML, hardcode CONFIG_HZ=100), increase the timeout so that the test
+> doesn't fail on these configurations.
+> 
+> Fixes: 97ef806a5314 ("drm/sched: Add some scheduling quality unit tests")
+> Signed-off-by: David Gow <david@davidgow.net>
+> ---
+> 
+> This failure showed up on UML when testing the addition of CONFIG_DRM to
+> the KUnit 'alltests' config[1]. Ideally, I'd like to see this test fixed
+> (or at least skipped/disabled) on these broken configurations so that the
+> alltests run is clean. (I don't actually run any CONFIG_HZ=100 configs
+> other than UML, but fixing them all is ideal if we can manage it.)
+> 
+> If you'd rather a different implementation / magic number, let me know.
+> I picked 15 here as it gave me plenty of leeway: 10 worked most, but not
+> all, of the time under i386 qemu w/ CONFIG_HZ_100, and was fine with UML
+> on this machine.
+> 
+> Thanks,
+> -- David
+> 
+> [1]: https://lore.kernel.org/all/20260911-kunit-drm-v1-1-c5c0f18fc7b0@kernel.org/
+> ---
+>   drivers/gpu/drm/scheduler/tests/tests_scheduler.c | 11 +++++++++--
+>   1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+> index 285546a2218f..02c83b5c2189 100644
+> --- a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+> +++ b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+> @@ -13,6 +13,13 @@
+>    * logic.
+>    */
+>   
+> +/* We need a more generous timeout when CONFIG_HZ=100. */
+> +#if CONFIG_HZ < 250
+> +#define TIMEOUT_MULTIPLIER 15
+> +#else
+> +#define TIMEOUT_MULTIPLIER 5
+> +#endif
 > +
-> +		ivpu_context_abort_all_jobs(vdev, file_priv->ctx.id);
-> +
-> +		ivpu_rpm_put(vdev);
-> +	}
-> +
->  	ivpu_ms_cleanup(file_priv);
->  	ivpu_file_priv_put(&file_priv);
->  }
+>   static int drm_sched_scheduler_init(struct kunit *test)
+>   {
+>   	struct drm_mock_scheduler *sched;
+> @@ -88,7 +95,7 @@ static void drm_sched_scheduler_queue_overhead(struct kunit *test)
+>   
+>   	/* Wait with a safe margin to avoid every failing. */
+>   	done = drm_mock_sched_job_wait_finished(job,
+> -						usecs_to_jiffies(total_us) * 5);
+> +						usecs_to_jiffies(total_us) * TIMEOUT_MULTIPLIER);
+>   	end = ktime_get();
+>   	KUNIT_ASSERT_TRUE(test, done);
+>   
+> @@ -149,7 +156,7 @@ static void drm_sched_scheduler_ping_pong(struct kunit *test)
+>   
+>   	/* Wait with a safe margin to avoid every failing. */
+>   	done = drm_mock_sched_job_wait_finished(job,
+> -						usecs_to_jiffies(total_us) * 5);
+> +						usecs_to_jiffies(total_us) * TIMEOUT_MULTIPLIER);
+>   	end = ktime_get();
+>   	KUNIT_ASSERT_TRUE(test, done);
+>   
 
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914082929.8924=
-37-1-karol.wachowski@linux.intel.com?part=3D1
