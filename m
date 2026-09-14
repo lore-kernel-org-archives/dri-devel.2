@@ -4,92 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D77DC88E5C
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 00:07:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF772C88E5C
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 00:12:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72B5B10EA78;
-	Mon, 14 Sep 2026 00:07:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F37A10EA89;
+	Mon, 14 Sep 2026 00:12:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="WAAbncT5";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IlWww+uv";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="epHc4tgs";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TdxrikXI";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 001BF10EA78
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 00:07:53 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 639DB10EA87
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 00:12:06 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68E06brT3131960
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 00:07:52 GMT
+ 68E063D44020763
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 00:12:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=J9bwiN3dUdd9aP+bWdeapn0I
- UEMXk3IGQ9B6+59SCMk=; b=WAAbncT5aYE4iVuA26PKrx/TkOqCQuGMD3P8i0SW
- zXs3f58QXjx8entbqCuWonjnQjafY+bXDHP9pYslQlL3RNMAl+Hs6LWAEinbidpA
- Dw1Ga0pyEMbNlFtvj2sIm/GFcmXaQpWG2hHRg1RE0WbBmSNS9i9Q1iuP0Q0XgRic
- B3pTDW+w2to7Tyc4T2c2wzsm5D04r01/whGNtEd4hDEZlqOB4gaUsNBcerHZ+ztC
- 7kZt74zdus8/sPk8aEH/yQRp2R1jZaPbC781Cde85xrcvhKGi0eAQ4nyk8vixDhl
- Zx503zZXrH6aayjKmCXUOA/zsDMxfukQuCFWp0H0zYQ6KA==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com
- [209.85.222.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9c4dss-1
+ :references:subject:to; s=qcppdkim1; bh=e8pSLRGNT3rSCZcyNbWseqo/
+ tYmMZllBzMLqwr0LFTg=; b=epHc4tgsZj5yGCT4hjzftMjZh0Jl+bg1warXRRhn
+ 6M3YznL2a/eTFZN9w5gnyszvVXCAcnZIKpe6He0Ua5fIQ1aHjwv3G1UP8BIposuc
+ bZh50lMr2ntc0QLLoXuNPEewAPBbHhXPC2CvK22qeHF+zhDpGsXOWAxw9T1r/cLs
+ S2tfuPpJ17jCV7IMJXXk06itpT5nhqE2jfkUsw96Y5DghRrie5B/+ehtXEs8yX4z
+ 9aqLsMguKT1MmWM9OO2FikDp3hGdcE9YxjZv7H0c5uGsdKR4n/lPfBLQokTUzcOd
+ 7h8/xjhrPZdHu5LdPYJlcmtohFaJQm5KflRQz3yEPxehow==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
+ [209.85.222.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gp3k0885q-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 00:07:52 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id
- a1e0cc1a2514c-97cc09260a3so3224811241.0
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 17:07:52 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 00:12:05 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id
+ a1e0cc1a2514c-980a896f53eso2259553241.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 17:12:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1789344472; x=1789949272;
+ d=oss.qualcomm.com; s=google; t=1789344724; x=1789949524;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=J9bwiN3dUdd9aP+bWdeapn0IUEMXk3IGQ9B6+59SCMk=;
- b=IlWww+uvQrn13fTZIM0PWr4CycFumucdiMe/gM2ANF1BVH+Gs9hfbZjovayv7r3rWp
- ntMCfUJP4bxSBT99pGBRMHutJijCZ52lHlugXnjHfqn0oUlCK4oLqxk6Ydw1omVN1J8g
- 87BOhaEtdnZlVYnuIGwlH45tJT3IgEBvkbgmBi6i6Ufz6A0qeBJMHv+1fcPS5C3vkfm7
- v/lI1k0fq1fC7Yb4MIW9lzk7iN95yGbiRUrjHiXkPaF1bREVIqrBfkUvk4I+qC2T5cAn
- eo8Jq6BSg+jGoyRk9qOd4Q33ctoGEHIlrrC21fvYjeU6muv664AMlNPdp0/yQAgfUG+O
- RK/Q==
+ bh=e8pSLRGNT3rSCZcyNbWseqo/tYmMZllBzMLqwr0LFTg=;
+ b=TdxrikXILdGixClC+GjlsVzWXe68ALWe+jASF6GNKWMthfPVCBT7e7ufhhSCH43Df7
+ Cjr6xEWa7jRfk4lpkV07DAs+p17nhQIM2LPBGCFQawllSc+3Ic2KmWpyTisFO+lu9GiC
+ aNQH/hIioPnR2D1T9xKIeYZvAjg+Xc1v5Qo17yk28NiLVRkNm2sGu9WB3LqNdOpI/Q1o
+ g1nHTd+6YGTaWQ7QxvPhPf+OD4+PmdLFcS9VHk76H2d2fTVSZ7BWMzQSDYJU+I5X82rO
+ BV3KRb7E3X/q4Psuv6fddzN5mEi7V8qmacJRJ2fhckDrwfnuI5IqPgAnAkPONI7GTJ2e
+ 40VQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789344472; x=1789949272;
+ d=1e100.net; s=20251104; t=1789344724; x=1789949524;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=J9bwiN3dUdd9aP+bWdeapn0IUEMXk3IGQ9B6+59SCMk=;
- b=lFemOMtRaYlwibqy9ClX/P/uTjJD5VWGIBK/SX4waqA1l1tbW7wY7JvmsgTo/JzfGZ
- kwU6R20XWgK8Akk1d8dN23BTFth/D6suI0llhbXu2TgDLIxINRH6d2cv8N5STYQzg4xx
- mQIyfqG5Ns+0aXCBOQUH/Yc0SjGAAfA4usHkHs8mMghV8PVRsW45Ct2uTd9t6LVjqi6h
- y8TfkB/FIG/x1JgnfwbBZki409AVXSgoeMQKOqWICSthKzoFCl7pR7syIsyE/o0ZBVuI
- h1PvS/UeyY0tvPvB2AVs2DSUlE8NHAr+GhkCRAZXzp5wWsfnL+OGV6qMfByNjRW/zH3y
- NTHQ==
+ bh=e8pSLRGNT3rSCZcyNbWseqo/tYmMZllBzMLqwr0LFTg=;
+ b=VxEyCHLU3A3rUC7PKiJGgke5XlRH/W/HnQtItnTWdUpE3b8eiABzpfq89R2Z7eDfwr
+ pU/1fGVebQjGn0twdAR75zWeaRs+8ZxWTjGM8Fr0G2iauhd4otjuK8SNyxQBe4fWRiEd
+ pn/msyfOF2lopzzzMAk0DFklhdSshRC26eb4AjMxI0AFZcxpus4zSXLNFmfwGxgqo2NZ
+ c57MA0uVg/n5BuytbavMXIoDdy8knAqzfZYyxX3wts8tDTWNLU6cgo+jgMPfm4SQWkSp
+ MsRWYCpTFZY2CFtyHU2cEvNTUlLHDGPZJV8s4IBq4x4CO04zI4ok2ukwsXGJIodK+OSe
+ JBFg==
 X-Forwarded-Encrypted: i=1;
- AKwUvByuNodUAaT9HmuoK+PWW9GXCYL3SzDL0vp4AGMTY4C2rNE2ounjqpOSNu28PJI5AKgf8LJ7ZsIwaPI=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mpI5cc4mhBIE00dUITJYnpSMrk4qm/+uuROMZ6GPqIl4Egu65i
- R6XQPz3dOX+yIcZ8dFN3lgAYnWM7rJUNjpaiBvfBGWrxIg87UXqi8AZp1dxZVi26n1IAe4D/tJf
- gbaVdHbZJRrdzXzc/buz48MJfCCZzh4RnR2F2ASWOd0xlFIlsnUhkUM1vXL99DH4soqFcPsA=
-X-Gm-Gg: AYBFou2Yrjmz9rpBOhX6RACk6yxFTSsOxOEb5RSj5Iq69btRPZhE4Hapmw07uh4+a3K
- YcxXQvIBmtPCqOu2+T72TftvNnrukjHS11cj+RLwHlem75cp2IQ7M5Ot4oZoc/+piCmr4XzzxAr
- glQ9bSBGB4mhfM9abrwSBvvC9aKKOm9PEDc+Rolis9NbSvTwa/c1ieiFJ3xD59FnPQ8Mh37+pBH
- EHWKfxIL9/XnLN0ire3cEbsGJhOWBwgvLXuX6UjQk0THFzaMmMhxrTLPBDFBzybNqEXkQ5zhYqM
- idgw+rNGJnnefP2p8hbCGYKjYJNHvjGKPEvddI6pe5MAQKMg1DNcc+PMLLUDwGaIzM2k/AUngMt
- E7f5abzE2S4Q6Oh01gYfGDK9JWiNsbbOZVUYzdXoo2VapLcfjMt3X5Sh0Zl06DX9QH7t5I89yqA
- HCLTTBr/Rnmdyi
-X-Received: by 2002:a05:6102:638a:10b0:780:c9c:bfcd with SMTP id
- ada2fe7eead31-79894637907mr735051137.17.1789344472099; 
- Sun, 13 Sep 2026 17:07:52 -0700 (PDT)
-X-Received: by 2002:a05:6102:638a:10b0:780:c9c:bfcd with SMTP id
- ada2fe7eead31-79894637907mr735027137.17.1789344471682; 
- Sun, 13 Sep 2026 17:07:51 -0700 (PDT)
+ AKwUvByJgZkUfsCHSwIHxbZopkIM4QgOobniu1qWg2/k6ReTtJC0GosQbReWf1dJQcP9J/ERWKWcI70uBAc=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nDxMd/jimvom7hQMgR0FXsshHn3HGfWqQkpg8sA2E/Zu4LPCrC
+ Anpjig1Wi8OIMwIoBU8SLBBkrffaY1oT3WcXs5mmyGB6BYGFyOob+J7yNDMz6LRgqpYYIxpPLLh
+ n3zAlLVVF1KaOCgl9qTg/g/2XuCUe61WRjHujO/sQVrmcodk9shzlfaZMo48yzALudl0uzH0=
+X-Gm-Gg: AYBFou2Q7vI9aMj8X6FUPs5KEUwehDrKpzxfBTAi0uGk/0Ir2l/lB4IDfo938kaewhm
+ /kHWzOiTQcFxru9helI6iTRivdk3q0iZchR/NFHNhIc3+Qg4tpGxQh2V0IsovnOjTMrUB3lGlq7
+ SJzdLL7ytwZlr4rDKjl5ToNfmPXP10dKUA1/IKOPTFn7TLdeHPdMA+8Nu52LLXqkw6PkEGBKUPV
+ PSk2aMR12ewbhb6U5jgpRRKzRPBeuAKzMBuTqlLXPYr51dY98fpiRjwL3JwPRcYj0dlKuHU6qh+
+ vt/jHoYmpx1hHTJFMYiDRjmnQlIflrNAbAp3+IIx8aPChEZUTdtcz0ER8GD3OlO5wXDXx3MTKvv
+ ZJEQejYw3Trhq8exfDMpo3rJh/rcY/wmHb5BBnklKalX5HCe6dTM6b5I/txBwXCXIXpXiEZW943
+ YfRtYSIUH9NhPW
+X-Received: by 2002:a05:6102:4492:b0:779:c38e:de53 with SMTP id
+ ada2fe7eead31-79b5b28fe7cmr67038137.10.1789344724391; 
+ Sun, 13 Sep 2026 17:12:04 -0700 (PDT)
+X-Received: by 2002:a05:6102:4492:b0:779:c38e:de53 with SMTP id
+ ada2fe7eead31-79b5b28fe7cmr67008137.10.1789344723990; 
+ Sun, 13 Sep 2026 17:12:03 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b8a0461a05sm2019561e87.37.2026.09.13.17.07.48
+ 2adb3069b0e04-5b8a0456bbesm1989247e87.22.2026.09.13.17.12.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Sep 2026 17:07:50 -0700 (PDT)
-Date: Mon, 14 Sep 2026 03:07:47 +0300
+ Sun, 13 Sep 2026 17:12:02 -0700 (PDT)
+Date: Mon, 14 Sep 2026 03:12:00 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Nabige Aala <nabige.aala@oss.qualcomm.com>
 Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -111,42 +111,40 @@ Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
  freedreno@lists.freedesktop.org,
  Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
  Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Subject: Re: [PATCH 12/17] phy: qcom: edp: Add Nord bias and clock buffer
- enable callback
-Message-ID: <4z2wtovf7uzmomgoqkjfgcuu7jg6l5rsojiwtg2f5t4tmdqynd@szbd7qtdb5er>
+Subject: Re: [PATCH 14/17] phy: qcom: edp: Add Nord PLL configuration callback
+Message-ID: <nv5ij423d4rbwpnhexj6yv2qgasrb7k3wzoo7o6vx5kg3vc3n7@6u4rln5ltbsv>
 References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
- <20260911-nord-drv-dt-v1-12-e25c073cf1b6@oss.qualcomm.com>
+ <20260911-nord-drv-dt-v1-14-e25c073cf1b6@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260911-nord-drv-dt-v1-12-e25c073cf1b6@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: GxjexrVHZmzP-hGXa_4KGYEb1Uvl7ymX
-X-Proofpoint-GUID: GxjexrVHZmzP-hGXa_4KGYEb1Uvl7ymX
-X-Authority-Analysis: v=2.4 cv=c5Y+0h9l c=1 sm=1 tr=0 ts=6aa73ad8 cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20260911-nord-drv-dt-v1-14-e25c073cf1b6@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDAwMSBTYWx0ZWRfX4jpI2tHm4t06
+ 0VRUHIJTfVmUq0WjQovPbBZqPf9jQOxPpZURf2f0O8comxTiNPNFCJME8SWDex9RiCO2+8Gi10E
+ WEJIXo/CJCXrlvIfhEf4swZd0Tjt2+0=
+X-Proofpoint-GUID: caoDrrawiZ2JKu_HOxK_LhIO_dNzRuEu
+X-Proofpoint-ORIG-GUID: caoDrrawiZ2JKu_HOxK_LhIO_dNzRuEu
+X-Authority-Analysis: v=2.4 cv=BtAIUoX5 c=1 sm=1 tr=0 ts=6aa73bd5 cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=JfrnYn6hAAAA:8
- a=EUspDBNiAAAA:8 a=rJC6BC1qXBLC2pyjZnYA:9 a=CjuIK1q_8ugA:10
- a=1WsBpfsz9X-RYQiigVTh:22 a=1CNFftbPRP8L7MoqJWF3:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDAwMCBTYWx0ZWRfX96tAQFzngfmE
- CzdVfTr138ZikEWvjvcykL19eUT/NTC9dIhaMgqbfzLt76mKWq5o3oZnPWkveYcOZcAeDiJSSYu
- bI/Kt6jKWY2uGVuUbQKNETOfhRSiPv1bVgppOPHQZYkY7nG5Wg2DHZIV7CTXvfah5h8Ad8s9VM+
- Lct5anbhLinD/W/AbM3QHQgbk7pzYdWfRn9QTyWePTI/6N1ic1mWG5qRQQ+cZmKu6xZl7tteRkx
- aF4HueEfCp9bB0eMW9A1YPvpLrStpDW5IZ6o/Lp+YaV7RQxZ3k6sby4k3T8VKX03qLez3G1ec0q
- ncOLgQsDPCwuyyrZwZxVc4WVOShGikB5pZFxjFv1jhvorQIO3jgtqYKIShQZ6aRI/8w62dA0LVJ
- oxIV0J2ycnMjuTNlebzYcWuRxwY6LS8JIdBVSqhlqont4cG7P75yHQAvXDohSM6ZTByfsE1mbx/
- wTVf4cJtJJ5iiCAvbTw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDAwMCBTYWx0ZWRfX4Do9RZANuaYV
- IGMWDEYBUMIOt/hc+5Butof+JQTVqIjVpuRHqb+mkql1+uY2L0ijZFzYc5ms61RwZuPN81xfvmS
- 3UhCafSdvLGHZbVOsrPA7UBtNOpzxVE=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=G5yU_OXk3sxSGaYP5ugA:9 a=CjuIK1q_8ugA:10 a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDAwMSBTYWx0ZWRfX/wolDR/elKIw
+ YDNJBw/EEk1yyo06gqq1hYSSbFgYpLxWswydA8cp+YkQ4Og52+GLNqQa+FzmD2oir4rdQrNc/vQ
+ ru0Ku5WJwQFbhmfy1QkWaBsaCGkutY5sHj4E83ccm/qwDNa7iMPVmgJ76whs6vc4gQ8Rky2X6UA
+ trrRgp2FRAtiZNbQUPsSk6r+KhqWLNLKAr26ILHOM3PEbgDTyKF/pRhCkKGesjybV9difjpu0pc
+ 3X0e5xlWkGQUgPVQM22jrZt14trA5Vl7hMVLGqE3owJKUjfIPKCySyelYYv5U68gBlhKX6umLqV
+ uLkhavQLarSAqZfYp7iZvnqkBNQ9+yRwRWGJJX1A3jOkfwr6cobPqcp8loimbIjdOfXHxR7Sfg1
+ MGT7K7fO5+edTq92n1qDq34Y0BTs1useXDgDUr8VdvMh98W1mWD+EA40JnaGOVjI2NutUDf3tme
+ msEd6aaW+SRNxfYjDMw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-13_08,2026-09-13_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
- impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0 spamscore=0
+ clxscore=1015 spamscore=0 phishscore=0 impostorscore=0 suspectscore=0
+ bulkscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140000
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140001
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,37 +160,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Sep 11, 2026 at 09:06:43PM +0530, Nabige Aala wrote:
+On Fri, Sep 11, 2026 at 09:06:45PM +0530, Nabige Aala wrote:
 > From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
 > 
-> Nord requires BIAS_EN_CLKBUFLR_EN to be set to 0x1f to enable the
-> internal bias generator and clock buffer, which differs from the value
-> used on existing SoCs.  Add qcom_edp_com_bias_en_clkbuflr_nord() per
-> HPG Table 2-1-d.
+> Nord uses a 38.4 MHz CXO reference with a different QSERDES v8 COM
+> register layout and PLL coefficients.  Add
+> qcom_edp_com_configure_pll_nord() which programs all QSERDES COM PLL
+> registers with link-rate-dependent values for RBR, HBR, HBR2 and
+> HBR3, per HPG Table 2-1-d.
 > 
 > Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
 > Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
 > ---
->  drivers/phy/qualcomm/phy-qcom-edp.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>  drivers/phy/qualcomm/phy-qcom-edp.c | 112 ++++++++++++++++++++++++++++++++++++
+>  1 file changed, 112 insertions(+)
 > 
 > diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/phy-qcom-edp.c
-> index 6cac4b55b66f..ec4220cffe69 100644
+> index a0f4b12e561e..4d1b2c81d956 100644
 > --- a/drivers/phy/qualcomm/phy-qcom-edp.c
 > +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
-> @@ -1637,6 +1637,14 @@ static int qcom_edp_phy_com_resetsm_cntrl_nord(const struct qcom_edp *edp)
+> @@ -1688,6 +1688,118 @@ static int qcom_edp_com_configure_ssc_nord(const struct qcom_edp *edp)
 >  }
 >  
 >  
-> +static int qcom_edp_com_bias_en_clkbuflr_nord(const struct qcom_edp *edp)
+> +/*
+> + * Nord PLL configuration per HPG Table 2-1-d, CXO = 38.4 MHz.
+> + * Supported link rates: 1.62 Gbps (RBR), 2.7 Gbps (HBR),
+> + * 5.4 Gbps (HBR2), 8.1 Gbps (HBR3).
+> + */
+> +static int qcom_edp_com_configure_pll_nord(const struct qcom_edp *edp)
 > +{
-> +	writel(0x1f, edp->pll + DP_QSERDES_V8_COM_BIAS_EN_CLKBUFLR_EN);
+> +	const struct phy_configure_opts_dp *dp_opts = &edp->dp_opts;
+> +	u32 div_frac_start1_mode0;
+> +	u32 div_frac_start2_mode0;
+> +	u32 div_frac_start3_mode0;
+> +	u32 dec_start_mode0;
+> +	u32 lock_cmp1_mode0;
+> +	u32 lock_cmp2_mode0;
+> +	u32 lock_cmp_en;
+> +	u32 hsclk_sel;
+> +	u32 code1_mode0;
+> +	u32 code2_mode0;
+> +	u32 core_clk_div_mode0 = 0x14;
+> +
+> +	switch (dp_opts->link_rate) {
+> +	case 1620:
+> +		hsclk_sel		= 0x0c;
+> +		dec_start_mode0		= 0x54;
+> +		div_frac_start1_mode0	= 0x00;
+> +		div_frac_start2_mode0	= 0x00;
+> +		div_frac_start3_mode0	= 0x06;
+> +		lock_cmp1_mode0		= 0x37;
+> +		lock_cmp2_mode0		= 0x04;
+> +		lock_cmp_en		= 0x04;
+> +		code1_mode0		= 0x8d;
+> +		code2_mode0		= 0x27;
+
+No extra alignment, please.
+
+> +		break;
+> +
+> +	case 2700:
+> +		hsclk_sel		= 0x04;
+> +		dec_start_mode0		= 0x46;
+> +		div_frac_start1_mode0	= 0x00;
+> +		div_frac_start2_mode0	= 0x00;
+> +		div_frac_start3_mode0	= 0x05;
+> +		lock_cmp1_mode0		= 0x07;
+> +		lock_cmp2_mode0		= 0x07;
+> +		lock_cmp_en		= 0x08;
+> +		code1_mode0		= 0xf6;
+> +		code2_mode0		= 0x20;
+> +		break;
+> +
+> +	case 5400:
+> +		hsclk_sel		= 0x01;
+> +		dec_start_mode0		= 0x46;
+> +		div_frac_start1_mode0	= 0x00;
+> +		div_frac_start2_mode0	= 0x00;
+> +		div_frac_start3_mode0	= 0x05;
+> +		lock_cmp1_mode0		= 0x0f;
+> +		lock_cmp2_mode0		= 0x0e;
+> +		lock_cmp_en		= 0x08;
+> +		code1_mode0		= 0xf6;
+> +		code2_mode0		= 0x20;
+> +		break;
+> +
+> +	case 8100:
+> +		hsclk_sel		= 0x03;
+> +		dec_start_mode0		= 0x4f;
+> +		div_frac_start1_mode0	= 0x00;
+> +		div_frac_start2_mode0	= 0xa0;
+> +		div_frac_start3_mode0	= 0x01;
+> +		lock_cmp1_mode0		= 0x17;
+> +		lock_cmp2_mode0		= 0x15;
+> +		lock_cmp_en		= 0x08;
+> +		code1_mode0		= 0x14;
+> +		code2_mode0		= 0x25;
+> +		core_clk_div_mode0	= 0x0a;
+> +		break;
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	writel(0x01, edp->pll + DP_QSERDES_V8_COM_SVS_MODE_CLK_SEL_NORD);
+> +	writel(0x0b, edp->pll + DP_QSERDES_V8_COM_SYSCLK_EN_SEL);
+> +	writel(0x02, edp->pll + DP_QSERDES_V8_COM_SYS_CLK_CTRL);
+> +	writel(0x0c, edp->pll + DP_QSERDES_V8_COM_CLK_ENABLE1);
+> +	writel(0x06, edp->pll + DP_QSERDES_V8_COM_SYSCLK_BUF_ENABLE);
+> +	writel(0x30, edp->pll + DP_QSERDES_V8_COM_CLK_SELECT);
+> +	writel(hsclk_sel, edp->pll + DP_QSERDES_V8_COM_HSCLK_SEL_1);
+> +	writel(0x07, edp->pll + DP_QSERDES_V8_COM_PLL_IVCO);
+> +	writel(lock_cmp_en, edp->pll + DP_QSERDES_V8_COM_LOCK_CMP_EN);
+> +	writel(0x36, edp->pll + DP_QSERDES_V8_COM_PLL_CCTRL_MODE0);
+> +	writel(0x16, edp->pll + DP_QSERDES_V8_COM_PLL_RCTRL_MODE0);
+> +	writel(0x06, edp->pll + DP_QSERDES_V8_COM_CP_CTRL_MODE0);
+> +	writel(dec_start_mode0, edp->pll + DP_QSERDES_V8_COM_DEC_START_MODE0);
+> +	writel(div_frac_start1_mode0, edp->pll + DP_QSERDES_V8_COM_DIV_FRAC_START1_MODE0);
+
+Always 0x00
+
+> +	writel(div_frac_start2_mode0, edp->pll + DP_QSERDES_V8_COM_DIV_FRAC_START2_MODE0);
+> +	writel(div_frac_start3_mode0, edp->pll + DP_QSERDES_V8_COM_DIV_FRAC_START3_MODE0);
+> +	writel(0x12, edp->pll + DP_QSERDES_V8_COM_CMN_CONFIG_1);
+> +	writel(0x3f, edp->pll + DP_QSERDES_V8_COM_INTEGLOOP_GAIN0_MODE0);
+> +	writel(0x00, edp->pll + DP_QSERDES_V8_COM_INTEGLOOP_GAIN1_MODE0);
+> +	writel(0x00, edp->pll + DP_QSERDES_V8_COM_VCO_TUNE_MAP);
+> +	writel(lock_cmp1_mode0, edp->pll + DP_QSERDES_V8_COM_LOCK_CMP1_MODE0);
+> +	writel(lock_cmp2_mode0, edp->pll + DP_QSERDES_V8_COM_LOCK_CMP2_MODE0);
+> +	writel(0x0a, edp->pll + DP_QSERDES_V8_COM_BG_TIMER);
+> +	writel(core_clk_div_mode0, edp->pll + DP_QSERDES_V8_COM_CORECLK_DIV_MODE0);
+> +	writel(0x00, edp->pll + DP_QSERDES_V8_COM_VCO_TUNE_CTRL);
+> +	writel(0x1d, edp->pll + DP_QSERDES_V8_COM_BIAS_EN_CLKBUFLR_EN);
+
+Not 0x1f?
+
+> +	writel(0x0f, edp->pll + DP_QSERDES_V8_COM_CORE_CLK_EN);
+
+No DP_QSERDES_V8_COM_VCO_TUNE1_MODE0 /
+DP_QSERDES_V8_COM_VCO_TUNE2_MODE0?
+
+> +	writel(code1_mode0, edp->pll + DP_QSERDES_V8_COM_BIN_VCOCAL_CMP_CODE1_MODE0);
+> +	writel(code2_mode0, edp->pll + DP_QSERDES_V8_COM_BIN_VCOCAL_CMP_CODE2_MODE0);
 > +
 > +	return 0;
 > +}
-
-qcom_edp_com_bias_en_clkbuflr_v8()?
-
 > +
 > +
 >  static const struct of_device_id qcom_edp_phy_match_table[] = {
@@ -202,11 +315,6 @@ qcom_edp_com_bias_en_clkbuflr_v8()?
 > -- 
 > 2.34.1
 > 
-> 
-> -- 
-> linux-phy mailing list
-> linux-phy@lists.infradead.org
-> https://lists.infradead.org/mailman/listinfo/linux-phy
 
 -- 
 With best wishes
