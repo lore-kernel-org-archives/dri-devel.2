@@ -4,84 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB7E4C88E72
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 21:02:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCFAFC88E72
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 21:02:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB26810F247;
-	Mon, 14 Sep 2026 21:02:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E06B610F258;
+	Mon, 14 Sep 2026 21:02:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="rUuWsUYY";
+	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="u6+XCfWK";
 	dkim-atps=neutral
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 418A610F247
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 21:02:25 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260914210223euoutp0232f0813c7657236ff92e65a4f265b42c~VS8afgsQQ2818028180euoutp02V;
- Mon, 14 Sep 2026 21:02:23 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20260914210223euoutp0232f0813c7657236ff92e65a4f265b42c~VS8afgsQQ2818028180euoutp02V
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1789419743;
- bh=JH7rxlQZ0+nRwrQxylBU7gkca4+zlyVrnpLiQJx/SLY=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=rUuWsUYYKAojChsYja+6EWNcL3qZVqZ74VO/OCeiK0hiMLACAh/M0UmD0XSAxCoHG
- vSk4ivL+UidbpjFeDgdzT/RJTrutLygyep0taUKbTv7kkeL/mZ4tQaw3nSg72hvI4X
- b5HtClGVkvgjAGxjh4kyW31zAJs+/N2OOGl4BUZc=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20260914210222eucas1p278d9f9996cf56dd8c531811edd3c5c82~VS8aCtH-63167031670eucas1p2k;
- Mon, 14 Sep 2026 21:02:22 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20260914210220eusmtip22564f1bf2f1e653328b6ed505c100cc9~VS8YOBrF41559115591eusmtip2b;
- Mon, 14 Sep 2026 21:02:20 +0000 (GMT)
-Message-ID: <071901ef-57f3-456f-af5b-a8c99a0a7dd3@samsung.com>
-Date: Mon, 14 Sep 2026 23:02:20 +0200
+Received: from AM0PR83CU005.outbound.protection.outlook.com
+ (mail-westeuropeazon11010054.outbound.protection.outlook.com [52.101.69.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6E7810F258
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 21:02:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BZ9BhjBhWcueYc15VeoIC6UVODl8sWc8IcJfBHtBMWcueZ1Y4D+Bnz/CnDvutYiJqS4u3mQu407a4vQNNbU26i8Gn+iGM83DTXMnVen9WzXuo0Mn/VHatQBpo0S1/e898sHaa918Llvv7VFlhTw3m0iC8Sh/vrsvyWC0C9iEVZniTr3Kwg4KosOuCR8oWromzg/HAhIIx9GbRCWauGBWhXOeTUFhhkdab9qXyCYP6ZrrDZdzS4RPZMmOMgyaIIj33btoUCWQBWJG6KAPlJRh+2SpZf343kxT/ue1VTn+LDY4WJl7tfag336iYPNO4cgxbv/Oym8JpaSMhvwe92UOsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jF5vJ9+QKycAXvJ8dQOcJaitM/JO5tBOrJw+qdtsRbU=;
+ b=PUITthib+WF40BfGPpqd8AAcJeXrJ6Css8azdpXxk0H2KvcN/E5oQ5Mh4rAKQONRlqGNencx8gSuWNQIpQTZ49SSkekPL+sQcvVo8UJBxp9PN5o2oCVA0D7eYabyFZHFAVpBTIjLL30/TgcyN8VlXt66t1rMhENY9mqkPDyyp9PuD9Vp24s6Ra5a2+UJvniGj2ilIqws4N9aVHF4w3VJ0Fh7Dmxr7aWeBDyA/WiZXqAiee712k/nrQmG9b8EQDdtJ2Ye8ai4lIGmOJg43dIj2EFXbE1pSWh6HF3UUuCDhg7OIGEqhujfCfbtdocHQNYRtnJHtkonM0MVsJIuQXStjA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jF5vJ9+QKycAXvJ8dQOcJaitM/JO5tBOrJw+qdtsRbU=;
+ b=u6+XCfWKT20su1NuKwkpqShOC4p5Yx6Z/sOJJBT7Pcb0FlU2B+nWRX4//ZnXUsuRU3BmCir+8I+T66MisEV2Tqc/j362CvK6GIUGkb31x+E8M/Ihwt1ir0m5u2ZL5SAKL2hRTVEIHb/4/BC/nOkmX7kX1WZumGeYHNLiIlL/0VY0EoXUZXXRDAnKHTbWkMwKdH3tciDoq3rZRq6mW7Np80wLy8G2Ssy/GU0V1QAIqENrhPQlkDRaMJHcJN8gnu/6YY4FY68cUTSIKEog34nRh2c82LVqW5B4MbjaePWpPfQJh+dNQcXAoIv8cMW252/iLCE1VAs30Jc/M8hkE4wICQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by MRWPR04MB12046.eurprd04.prod.outlook.com (2603:10a6:501:94::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 21:02:51 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 21:02:51 +0000
+Date: Mon, 14 Sep 2026 17:02:41 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+ Mark Brown <broonie@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+ Lee Jones <lee@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, dmaengine@vger.kernel.org
+Subject: Re: [PATCH v2 17/20] dmaengine: ste_dma40: Use power domain for LCLA
+ SRAM
+Message-ID: <aqhg8fCuVBqDvRrh@lizhi-Precision-Tower-5810>
+References: <20260914-ux500-power-domains-v7-1-v2-0-9d0c17e1f816@kernel.org>
+ <20260914-ux500-power-domains-v7-1-v2-17-9d0c17e1f816@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914-ux500-power-domains-v7-1-v2-17-9d0c17e1f816@kernel.org>
+X-ClientProxiedBy: PH8PR02CA0023.namprd02.prod.outlook.com
+ (2603:10b6:510:2d0::15) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/19] drm: starfive: jh7110: Enable display subsystem
-To: Joshua Peisach <jpeisach@ubuntu.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss
- <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
- Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
- Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Heiko Stuebner
- <heiko@sntech.de>, Conor Dooley <conor@kernel.org>, Paul Walmsley
- <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
- Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
- Brunet <jbrunet+clk@baylibre.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- mfd@lists.linux.dev, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, Marek
- Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
- <maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
- Zheng <zhengxingda@iscas.ac.cn>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <DL6MO1P17KSW.1DKQ6HW2U2ZCK@ubuntu.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260914210222eucas1p278d9f9996cf56dd8c531811edd3c5c82
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260904132708eucas1p1adfa26ef0fe5109eca63a3aeadf74915
-X-EPHeader: CA
-X-CMS-RootMailID: 20260904132708eucas1p1adfa26ef0fe5109eca63a3aeadf74915
-References: <CGME20260904132708eucas1p1adfa26ef0fe5109eca63a3aeadf74915@eucas1p1.samsung.com>
- <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
- <DL6MO1P17KSW.1DKQ6HW2U2ZCK@ubuntu.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MRWPR04MB12046:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9907364c-0473-427f-6116-08df12a3899d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|19092799006|7416014|1800799024|10067099003|6133799003|4143699003|22082099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: wCROq+n84vJlfeOVzxSJ+Oonz8MqVKnQGeEdGdlwx38gy5OKbjjRUO+9ZkeRRT9abjmLoTHiYdMzG5JswotXy/i5EY1m4fduik75Aks848WaVv8yRC9nykvYXVs9XSDIx+NeuRMgKz6OGBKKeq8JWTtd5x/g8DNMYyVXb9yWezS6VnUNJ+u0aYD5j87u5CAgLwLDmAOWEvcuSzXrNyBWhwgA7COJrSP5wKS5JMnyzzGKz5Ogc4qtZ7Olgq0nwDoFNsRnLyJ9jwn7pkncsk+pism7cgbuinlL8bZybsJwslwnnYvFa9l0FJWOJz5dxvqyF3ACQRCG8LemliykALPT3GVA+hedYItg8TidFIfn6oVlLGM2ejpXYpLpFCeMNZVt/rZa7XWT0yf+nzq3K9mYyPjUG3W5I3UqmAbtIMtFkcb557Mr8HPatp3Y9tzU7RQu9GNpKS65HPSh9lqRXl+D9BrWUn8z+3II0piLCLhkNeSsuxt9z1n58bWXbN+bWZLUdawuAQHQ1sKicSQLAuRTxys8tWgF0tRYnEgMeSvl3eqTsqsEDGyhwel+EpI1r6gxbc0nJtOAGnkZx5PxvR7fzxnxwajbRAb0p/ps6f0rc5Pp8ih1kgWKlA+iuPYLc/WcisTD+dAskzdDvtLpdfsuPlP6c4L2D4HMQRK1OYoTLLc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:GV2PR04MB11799.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(19092799006)(7416014)(1800799024)(10067099003)(6133799003)(4143699003)(22082099003)(18002099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?AqcKb+93McpODweTz6zJ7HukT1tjjOndohRe1hpOH8B+0o4H/u+5ynJkW8t0?=
+ =?us-ascii?Q?EZgo0ZuhatbRuFmar8rcs9YlgQokIGv3ntiYrBrui+Mbzj7nQ/2pLMqVGm3S?=
+ =?us-ascii?Q?OKk+g/ZdH53CHRFkSqN+hHuCqs1Re/ZsKLJ/WpxxCO9SCBo5WL09AbT7aXuw?=
+ =?us-ascii?Q?YdpGdIkGB2DBptDcOSJ2+Js99ho/CVPuuQH+FLrQx7L8Vvssa6TBPDRAwLdv?=
+ =?us-ascii?Q?hPUp7AaPml7vzDTrDILldfWid2JBmo10bTDEFBfOB2W5z64XuuSQOQ9x+3z4?=
+ =?us-ascii?Q?2IjbO3KW6XcFE7StizJ/76YUdkO6sKVj5jddyceLsEj/jE5+0ocxlWv3VoRz?=
+ =?us-ascii?Q?auuRK3zMQje3ooCO1e9rcXeFdwOllU9OuiFxbVa2jzeldnU4BkjqEcTgQbrK?=
+ =?us-ascii?Q?v58oHs1mY3JujbuHHO+hbA9K8tRttJ+Gyt5LO7/8ti8zVJ4o8uXR8w3WXlpM?=
+ =?us-ascii?Q?n5fy5ep+8VauSfX3LrxA10Y5voo8Jhv8PxfgzASEa6NMsZRh5LNSOwROSfpr?=
+ =?us-ascii?Q?dPKq2b4d5erjsGTkluIJnG4Xqc/6POSvZWzuJVbsdMpBeDLbyjw/wv6l6+1c?=
+ =?us-ascii?Q?eLYdzgZOWYJwblu+VfkWQvkiT01NpeG1BagjfFjPExbKxPFgNhhGtofrTkFl?=
+ =?us-ascii?Q?p63yExAMz6cuJTG6XgRKn2I4HU6HfAda7aaPR72mUqEnkcI9PkRFDFt2OdQ3?=
+ =?us-ascii?Q?PPht/LOQPfkGjcMRFS7FU99GHmM1praFgV21gSx3chbbdELa4KMdYBaznRDu?=
+ =?us-ascii?Q?mMdmVSbclJf4whlxL4e6UL0XYBWuGyI2MVmB+TLG1yLTmJoRUjYTqIV3DfTe?=
+ =?us-ascii?Q?EH7YNQcL50jlKiOcXxWViDL7qzcj9L/mErDABWwzjrjRLk9ETimsW3mB50rh?=
+ =?us-ascii?Q?YIXiJRwmokAa5LHSIPEzXVwfnobMXMWa10bFnfMLPfBJ3jUpv9Z5P9s5G4UI?=
+ =?us-ascii?Q?0FaODswj8Lh0wscWVz9mFooy219Z0aMCGYjcPSxb63TWoupQGMs110bYBoAu?=
+ =?us-ascii?Q?bZ/g2iosazHlyqVePd6Qy+QLasXaWfaZUjE91J+bisrrc/19MX9fnup6dG0E?=
+ =?us-ascii?Q?0YTmFWDViynYQEVkwBRznr51cJ4acf1opVNmQmaO8IwmyOvE4Yl2HXPjP6ue?=
+ =?us-ascii?Q?WDYA89Xr8L9C2Nef22P7jPmQIuSLSH/tHKMyvZJi+CTV6SHRSF92QRyFL+yA?=
+ =?us-ascii?Q?9pxroX42QJwdvn9PgKluAvfnQ3Zf0dTxXdtIPeLCKZhp2qI06ZBs6tWFMXr9?=
+ =?us-ascii?Q?e1yLpnJkw7PWS1n+FUkTa44Uek9kX9pZVCW29yJaHo3kXil/kVW/DaoZ2vr4?=
+ =?us-ascii?Q?ixbPip07BZ952mnkywvYHOMPoUHVtTfGwIDHXRQt4SLLsJ0FY3vkjH8qeK6h?=
+ =?us-ascii?Q?qmVWyUS+iDbL+vRI+ovRAuM9p+to/8Z/OJVlfoaUirPeJCqG4ISZb7U+3xzw?=
+ =?us-ascii?Q?F99e2UAg7167B4pj9JYgMvfIrPhqSe7flSeJhYmwZ8WZ6AjB/Beblwl5ZPqK?=
+ =?us-ascii?Q?r59aWy0/cSRCYShY2MY5F2loJYZ3Zfj+swFaqgwCd+NoIgQRGwjdnd/M37jU?=
+ =?us-ascii?Q?j5ZcBsv1DCJH43UOT4Pw+dECGQQ0WygTG+/BGqWcqge64IJjE7F2OB4K0Hwl?=
+ =?us-ascii?Q?iHq8G7rMKRSN0kfiFD2WTuMjkGuq2XMFu3eayBw6Og2MjoLAvrNZ64E9RHDD?=
+ =?us-ascii?Q?NhSmekUmrdp7QZhip8nL5zy1Hhvlqjp/9zMBmfJ26nCOZnn2DzayD/J1u3v+?=
+ =?us-ascii?Q?NjxzbRCy0rU5vTqDUnvfF/XERED55C9mxD3O/BuXMcfmKUpI9JfP?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9907364c-0473-427f-6116-08df12a3899d
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 21:02:50.9949 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: F/dULcMPOqMM8VlTLRMIexeIfRADIbtgp/p6uYJKK7VE9k/msABFlVBzfZSl5P30Vpk3p/Qw/S/sBYRVK8hIrL/O7crepJ4UwQqLLbCjTQ0ez6ZmwSBfoxanntefJXaU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MRWPR04MB12046
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,262 +136,328 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Mon, Sep 14, 2026 at 01:54:45PM +0200, Linus Walleij wrote:
+> Replace the LCLA ESRAM regulator with runtime PM.
+>
+> Use the SRAM device that owns the ESRAM34 power domain.
+>
+> Hold that domain while DMA transfers are active. The DMA controller is
+> runtime PM IRQ-safe, so keep taking explicit LCLA runtime PM references
+> from the descriptor preparation path instead of relying on a runtime PM
+> device link from the atomic transfer path.
+>
+> Add a stateless device link so system PM keeps the DMA controller ordered
+> after the LCLA SRAM supplier.
+>
+> Suggested-by: Frank Li <Frank.li@oss.nxp.com>
+> Assisted-by: LLM
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+>  drivers/dma/ste_dma40.c | 130 ++++++++++++++++++++++++++++++++----------------
+>  1 file changed, 88 insertions(+), 42 deletions(-)
+>
+> diff --git a/drivers/dma/ste_dma40.c b/drivers/dma/ste_dma40.c
+> index eda3f91741ed..2841af5b160b 100644
+> --- a/drivers/dma/ste_dma40.c
+> +++ b/drivers/dma/ste_dma40.c
+> @@ -21,8 +21,8 @@
+>  #include <linux/of.h>
+>  #include <linux/of_address.h>
+>  #include <linux/of_dma.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/amba/bus.h>
+> -#include <linux/regulator/consumer.h>
+>
+>  #include "dmaengine.h"
+>  #include "ste_dma40.h"
+> @@ -383,6 +383,7 @@ struct d40_lli_pool {
+>   * @node: List entry.
+>   * @is_in_client_list: true if the client owns this descriptor.
+>   * @cyclic: true if this is a cyclic job
+> + * @lcla_pm_active: LCLA SRAM power domain is held for this descriptor.
+>   *
+>   * This descriptor is used for both logical and physical transfers.
+>   */
+> @@ -402,6 +403,7 @@ struct d40_desc {
+>
+>  	bool				 is_in_client_list;
+>  	bool				 cyclic;
+> +	bool				 lcla_pm_active;
+>  };
+>
+>  /**
+> @@ -571,7 +573,8 @@ struct d40_gen_dmac {
+>   * to phy_chans entries.
+>   * @plat_data: Pointer to provided platform_data which is the driver
+>   * configuration.
+> - * @lcpa_regulator: Pointer to hold the regulator for the esram bank for lcla.
+> + * @lcla_dev: SRAM device for the ESRAM bank used by LCLA.
+> + * @lcla_link: Device link to keep system PM ordered against LCLA.
+>   * @phy_res: Vector containing all physical channels.
+>   * @lcla_pool: lcla pool settings and data.
+>   * @lcpa_base: The virtual mapped address of LCPA.
+> @@ -606,7 +609,8 @@ struct d40_base {
+>  	struct d40_chan			**lookup_log_chans;
+>  	struct d40_chan			**lookup_phy_chans;
+>  	struct stedma40_platform_data	 *plat_data;
+> -	struct regulator		 *lcpa_regulator;
+> +	struct device			 *lcla_dev;
+> +	struct device_link		 *lcla_link;
+>  	/* Physical half channels */
+>  	struct d40_phy_res		 *phy_res;
+>  	struct d40_lcla_pool		  lcla_pool;
+> @@ -628,6 +632,36 @@ static struct device *chan2dev(struct d40_chan *d40c)
+>  	return &d40c->chan.dev->device;
+>  }
+>
+> +static void d40_transfer_runtime_get(struct d40_base *base)
+> +{
+> +	pm_runtime_get_sync(base->dev);
+> +}
+> +
+> +static int d40_lcla_runtime_get(struct d40_base *base)
+> +{
+> +	if (!base->lcla_dev)
+> +		return 0;
+> +
+> +	return pm_runtime_resume_and_get(base->lcla_dev);
+> +}
+> +
+> +static void d40_desc_lcla_runtime_put(struct d40_chan *d40c,
+> +				      struct d40_desc *d40d)
+> +{
+> +	struct d40_base *base = d40c->base;
+> +
+> +	if (!d40d->lcla_pm_active)
+> +		return;
+> +
+> +	d40d->lcla_pm_active = false;
+> +	pm_runtime_put(base->lcla_dev);
+> +}
+> +
+> +static void d40_transfer_runtime_put(struct d40_base *base)
+> +{
+> +	pm_runtime_put_autosuspend(base->dev);
+> +}
+> +
+>  static bool chan_is_physical(struct d40_chan *chan)
+>  {
+>  	return chan->log_num == D40_PHY_CHAN;
+> @@ -818,6 +852,7 @@ static void d40_desc_free(struct d40_chan *d40c, struct d40_desc *d40d)
+>
+>  	d40_pool_lli_free(d40c, d40d);
+>  	d40_lcla_free_all(d40c, d40d);
+> +	d40_desc_lcla_runtime_put(d40c, d40d);
+>  	kmem_cache_free(d40c->base->desc_slab, d40d);
+>  }
+>
+> @@ -1516,7 +1551,7 @@ static struct d40_desc *d40_queue_start(struct d40_chan *d40c)
+>  	if (d40d != NULL) {
+>  		if (!d40c->busy) {
+>  			d40c->busy = true;
+> -			pm_runtime_get_sync(d40c->base->dev);
+> +			d40_transfer_runtime_get(d40c->base);
+>  		}
+>
+>  		/* Remove from queue */
+> @@ -1535,6 +1570,7 @@ static struct d40_desc *d40_queue_start(struct d40_chan *d40c)
+>  			d40_desc_remove(d40d);
+>  			d40_desc_free(d40c, d40d);
+>  			d40c->busy = false;
+> +			d40_transfer_runtime_put(d40c->base);
+>  			return ERR_PTR(err);
+>  		}
+>  	}
+> @@ -1583,7 +1619,7 @@ static void dma_tc_handle(struct d40_chan *d40c)
+>  		if (d40_queue_start(d40c) == NULL) {
+>  			d40c->busy = false;
+>
+> -			pm_runtime_put_autosuspend(d40c->base->dev);
+> +			d40_transfer_runtime_put(d40c->base);
+>  		}
+>
+>  		d40_desc_remove(d40d);
+> @@ -1637,6 +1673,7 @@ static void dma_tasklet(struct tasklet_struct *t)
+>  		} else if (!d40d->is_in_client_list) {
+>  			d40_desc_remove(d40d);
+>  			d40_lcla_free_all(d40c, d40d);
+> +			d40_desc_lcla_runtime_put(d40c, d40d);
+>  			list_add_tail(&d40d->node, &d40c->client);
+>  			d40d->is_in_client_list = true;
+>  		}
+> @@ -2067,7 +2104,7 @@ static int d40_free_dma(struct d40_chan *d40c)
+>  		d40c->base->lookup_phy_chans[phy->num] = NULL;
+>
+>  	if (d40c->busy)
+> -		pm_runtime_put_autosuspend(d40c->base->dev);
+> +		d40_transfer_runtime_put(d40c->base);
+>
+>  	d40c->busy = false;
+>  	d40c->phy_chan = NULL;
+> @@ -2246,6 +2283,7 @@ d40_prep_sg(struct dma_chan *dchan, struct scatterlist *sg_src,
+>  	dma_addr_t dst_dev_addr;
+>  	struct d40_desc *desc;
+>  	unsigned long flags;
+> +	bool got_lcla_pm = false;
+>  	int ret;
+>
+>  	if (!chan->phy_chan) {
+> @@ -2255,11 +2293,20 @@ d40_prep_sg(struct dma_chan *dchan, struct scatterlist *sg_src,
+>
+>  	d40_set_runtime_config_write(dchan, &chan->slave_config, direction);
+>
+> +	ret = d40_lcla_runtime_get(chan->base);
+> +	if (ret) {
+> +		chan_err(chan, "Failed to enable LCLA power domain\n");
+> +		return NULL;
+> +	}
+> +	got_lcla_pm = !!chan->base->lcla_dev;
+> +
+>  	spin_lock_irqsave(&chan->lock, flags);
+>
+>  	desc = d40_prep_desc(chan, sg_src, sg_len, dma_flags);
+>  	if (desc == NULL)
+>  		goto unlock;
+> +	desc->lcla_pm_active = got_lcla_pm;
+> +	got_lcla_pm = false;
+>
+>  	if (sg_next(&sg_src[sg_len - 1]) == sg_src)
+>  		desc->cyclic = true;
+> @@ -2297,6 +2344,8 @@ d40_prep_sg(struct dma_chan *dchan, struct scatterlist *sg_src,
+>  	d40_desc_free(chan, desc);
+>   unlock:
+>  	spin_unlock_irqrestore(&chan->lock, flags);
+> +	if (got_lcla_pm)
+> +		pm_runtime_put(chan->base->lcla_dev);
+>  	return NULL;
+>  }
+>
+> @@ -2628,7 +2677,7 @@ static int d40_terminate_all(struct dma_chan *chan)
+>  	d40_term_all(d40c);
+>  	pm_runtime_put_autosuspend(d40c->base->dev);
+>  	if (d40c->busy)
+> -		pm_runtime_put_autosuspend(d40c->base->dev);
+> +		d40_transfer_runtime_put(d40c->base);
+>  	d40c->busy = false;
+>
+>  	spin_unlock_irqrestore(&d40c->lock, flags);
+> @@ -2931,29 +2980,11 @@ static int __init d40_dmaengine_init(struct d40_base *base,
+>  #ifdef CONFIG_PM_SLEEP
+>  static int dma40_suspend(struct device *dev)
+>  {
+> -	struct d40_base *base = dev_get_drvdata(dev);
+> -	int ret;
+> -
+> -	ret = pm_runtime_force_suspend(dev);
+> -	if (ret)
+> -		return ret;
+> -
+> -	if (base->lcpa_regulator)
+> -		ret = regulator_disable(base->lcpa_regulator);
+> -	return ret;
+> +	return pm_runtime_force_suspend(dev);
+>  }
+>
+>  static int dma40_resume(struct device *dev)
+>  {
+> -	struct d40_base *base = dev_get_drvdata(dev);
+> -	int ret = 0;
+> -
+> -	if (base->lcpa_regulator) {
+> -		ret = regulator_enable(base->lcpa_regulator);
+> -		if (ret)
+> -			return ret;
+> -	}
+> -
+>  	return pm_runtime_force_resume(dev);
+>  }
+>  #endif
+> @@ -3509,7 +3540,10 @@ static int __init d40_probe(struct platform_device *pdev)
+>  	struct device *dev = &pdev->dev;
+>  	struct device_node *np = pdev->dev.of_node;
+>  	struct device_node *np_lcpa;
+> +	struct device_node *np_lcla;
+> +	struct device_node *np_lcla_parent;
+>  	struct d40_base *base;
+> +	struct platform_device *lcla_pdev;
+>  	struct resource *res;
+>  	struct resource res_lcpa;
+>  	int num_reserved_chans;
+> @@ -3610,21 +3644,32 @@ static int __init d40_probe(struct platform_device *pdev)
+>  	irq_requested = true;
+>
+>  	if (base->plat_data->use_esram_lcla) {
+> +		np_lcla = of_parse_phandle(np, "sram", 1);
+> +		if (!np_lcla) {
+> +			dev_err(dev, "no LCLA SRAM node\n");
+> +			ret = -EINVAL;
+> +			goto destroy_cache;
+> +		}
 
+sram is used at many place, is it good to put into
+drivers/of/property.c DEFINE_SIMPLE_PROP to avoid set up device link by
+each driver?
 
-On 9/4/26 17:13, Joshua Peisach wrote:
-> On Fri Sep 4, 2026 at 9:27 AM EDT, Michal Wilczynski wrote:
->> This series enables the display subsystem on the StarFive JH7110.
->>
->> The dom_vout block holds the display controller (dc8200), the clock
->> generator (voutcrg) and the HDMI IP, all inside PD_VOUT. The HDMI IP is
->> a single register block containing both the controller and the PHY, and
->> it has a circular clock dependency with voutcrg:
->>
->>   - the HDMI controller needs pclk/mclk/bclk from voutcrg
->>   - voutcrg needs the pixel clock for its dc8200 pixel MUXes, and that
->>     clock is generated by the HDMI PHY
->>
->> The loop only exists if the HDMI block is treated as one device. The
->> PHY's reference clock is xin24m, not a voutcrg output, so splitting the
->> node into a parent plus phy and controller children gives deferred probe
->> a linear order: hdmi-phy, then voutcrg, then hdmi-controller.
->>
->> The parent maps the register block and owns the regmap its two children
->> share. Everything in the region sits behind one NoC port whose clock and
->> reset gate access to it, inside PD_VOUT, so the vout subsystem node from
->> the RFC is back and owns those for as long as any child exists.
->>
->> Patch 10 adds a .mode_valid platform op to inno-hdmi.
->> inno_hdmi_bridge_mode_valid() checks the pixel clock against
->> hdmi->refclk, but that clock only exists where a "ref" clock is
->> described. The JH7110 gets its pixel clock from the PHY, so refclk is
->> NULL and the check was skipped: unsupported modes were advertised, the
->> modeset then "succeeded" because the atomic enable path cannot fail, and
->> the display stayed blank.
->>
->> Patches 15-17 drop the PHY duplication from the RFC. The JH7110 has the
->> same Innosilicon PHY as the RK3328, offset by 0x100 because it sits
->> behind the controller in the shared register block. Patch 15 factors out
->> the pre-PLL config format, table lookup, determine_rate, recalc_rate and
->> the pre-PLL programming; patch 16 moves Rockchip onto it; patch 17 adds
->> the JH7110 driver. Pixel clock tables, post-PLL and analog config stay
->> SoC specific.
->>
->> Patch 16 should be a no-op for Rockchip - same writes, same order, same
->> values - and RK3228, whose pre-PLL is at different addresses, keeps its
->> own register code and shares only the lookup. I have no Rockchip
->> hardware, so it is build tested only (arm and riscv). A Tested-by would
->> help.
->>
->> The dc8200 driver, th1520 reset controller and inno-hdmi bridge that the
->> RFC listed as prerequisites are all upstream now, so there are no
->> out-of-tree dependencies.
->>
->> Testing
->> =======
->>
->> Tested on a VisionFive 2 v1.3B using modetest.
->>
->> All 42 modes the sink advertises work, with nothing in dmesg. Pixel
->> clocks run from 25.175 MHz (640x480@59.94) up to 297 MHz
->> (4096x2160@30), including 3840x2160 and the full 1920x1080 and 1280x720
->> rate families.
->>
->> The four modes the RFC reported as broken work now too: 2560x1440@59.95,
->> 2048x1080@60.00, 2048x1080@24.00 and 720x400@70.08.
->>
->> Before patch 10, four of the advertised modes failed: 1680x1050@59.95
->> (146.250 MHz), 1400x1050@59.98 (121.750), 1152x864@59.97 (81.768) and
->> 1280x768@60.35 (80.140). Those pixel clocks are not in the PHY pre-PLL
->> table, so clk_set_rate() returned -EINVAL and the screen stayed black
->> while userspace saw a successful modeset. They are rejected in
->> .mode_valid now; the other refresh rates of those resolutions still work.
->>
->> Every commit builds for riscv, and the Rockchip PHY also for arm.
->>
->> Notes
->> =====
->>
->> The JH7110 has no central MAINTAINERS entry and maintainership is
->> fragmented, so patch 19 adds one for the display subsystem and I am
->> happy to help maintain it. The new PHY library lives under drivers/phy/,
->> already covered by the generic PHY framework entry.
->>
->> checkpatch warns "does MAINTAINERS need updating?" on the patches adding
->> files, because that entry comes in patch 19.
->>
->> Thanks to Icenowy Zheng for the dc8200 driver and for explaining how the
->> SoC and the display pipeline fit together.
->>
->> Thanks also to Dominique Belhachemi, who got rid of the vout-subsystem
->> wrapper and helped with the testing, to Maud Spierings for testing on a
->> Framework 13 panel, and to Graham Markall for testing
->> the JH7110 display patches independently and writing up the results:
->> https://protect2.fireeye.com/v1/url?k=a5921a01-fa0e332b-a593914e-000babe598f7-ab8e6a05d613c342&q=1&e=c355ba5a-20ba-4b45-870e-7415c4405787&u=https%3A%2F%2Fbig-grey.co.uk%2F2026%2F01%2F26%2Ftesting-starfive-jh7110-display-controller-patches%2F
->>
->> Link to v1: https://lore.kernel.org/all/20251108-jh7110-clean-send-v1-0-06bf43bb76b1@samsung.com/
->>
->> ---
->> Changes in v3:
->> - Brought back the vout subsystem node and driver, now owning the NoC
->>   bus clock, its reset and PD_VOUT for the whole region, with dc8200,
->>   the HDMI block, the syscon and voutcrg as its children (Icenowy Zheng).
->> - Fixed a hard hang when the bridge is built as a module: the PHY's
->>   .is_prepared read a register in the window gated by the controller's
->>   system clock, so clk_disable_unused() wedged the CPU before the
->>   controller had bound. The op is gone; the framework uses the software
->>   prepare count instead. (Marek Szyprowski)
->> - The HDMI controller now programs the display mux in dom_vout_syscon
->>   from the port graph rather than inheriting whatever the bootloader
->>   left, with a phandle to the syscon (Icenowy Zheng).
->> - The register access clock is named "pclk" to match the existing
->>   inno-hdmi binding, so the generic driver no longer picks up the pixel
->>   clock. Previously it held the pre-PLL powered from probe and sized the
->>   DDC divider from the wrong rate.
->> - Dropped the clk suffixes and the single-entry -names properties from
->>   the bindings (Conor Dooley). mclk and bclk keep their names: per TRM
->>   5.3 they are the HDMI audio clocks, not module and bus clocks, so the
->>   descriptions say that instead.
->> - Replaced patternProperties with plain properties in the hdmi-subsystem
->>   binding (Conor Dooley).
->> - dc8200 gets an SoC specific compatible, and inherits dma-noncoherent
->>   from the subsystem bus node, so it validates against verisilicon,dc.
->> - Added the pre-PLL entry for the Framework 13 panel and fixed two
->>   devicetree whitespace nits (Maud Spierings).
->> - select REGMAP_MMIO, CLK_SET_RATE_NO_REPARENT on the dc8200 pixel MUXes
->>   so clk_set_rate() cannot reroute them, and inno-hdmi register reads
->>   return 0 instead of stack garbage when regmap_read() fails.
->> - phy: rockchip: dropped the local pre-PLL lookup wrapper and the 28 now
->>   unused RK3328 pre-PLL macros, and restored the VCO debug output, this
->>   time in the shared helper so both drivers get it (Jonas Karlman).
->> - Rebased onto v7.3-rc1.
->> - Link to v2: https://lore.kernel.org/r/20260828-jh7110-clean-send-v2-0-331680c8b9d1@samsung.com
->>
->> Changes since the RFC:
->> - Dropped the vout-subsystem wrapper driver and its binding, along with
->>   the patch relaxing the voutcrg binding; genpd handles PD_VOUT per
->>   node.
->> - Renamed the compatible to starfive,jh7110-hdmi-subsystem, dropping
->>   "mfd" as a Linux term (Conor Dooley).
->> - Absolute $refs in the bindings, unused example labels dropped, and the
->>   examples deduplicated between parent and children (Conor Dooley).
->> - Added the .mode_valid platform operation (patch 7).
->> - Split the inno-hdmi rework into a mechanical probe/bind split (patch
->>   4)
->>   and the regmap-from-parent change (patch 5). struct inno_hdmi is no
->>   longer exported; no platform glue dereferences it.
->> - Replaced the duplicated PHY driver with a shared Innosilicon library
->>   and moved Rockchip onto it (patches 11-13).
->> - Fixed pre-PLL lock detection, which masked the status read with the
->>   register address instead of the lock bit.
->> - Fixed a pixel clock refcount underflow: enable returns early on
->>   failure while disable tore down unconditionally.
->> - voutcrg patch reduced to adding CLK_SET_RATE_PARENT to the two dc8200
->>   pixel MUXes.
->> - Rebased onto v7.2.
->>
->> ---
->> Michal Wilczynski (19):
->>       dt-bindings: phy: Add starfive,jh7110-inno-hdmi-phy
->>       dt-bindings: display: bridge: Add starfive,jh7110-inno-hdmi-controller
->>       dt-bindings: mfd: Add starfive,jh7110-hdmi-subsystem
->>       dt-bindings: soc: starfive: Add starfive,jh7110-vout-syscon
->>       dt-bindings: soc: starfive: Add starfive,jh7110-vout-subsystem
->>       dt-bindings: display: verisilicon: Add starfive,jh7110-dc8200
->>       drm/bridge: inno-hdmi: Split probe out of bind
->>       drm/bridge: inno-hdmi: Allow the register map to come from a parent
->>       drm/bridge: inno-hdmi: Add .disable platform operation
->>       drm/bridge: inno-hdmi: Add .mode_valid platform operation
->>       soc: starfive: Add jh7110-hdmi-subsystem driver
->>       soc: starfive: Add jh7110-vout-subsystem driver
->>       clk: starfive: jh7110-vout: Allow pixel clock rate propagation
->>       drm/bridge: starfive: Add JH7110 HDMI controller driver
->>       phy: Add common Innosilicon HDMI PHY helpers
->>       phy: rockchip: inno-hdmi: Use the common Innosilicon PHY helpers
->>       phy: starfive: Add jh7110-inno-hdmi-phy driver
->>       riscv: dts: starfive: jh7110: Update DT for display subsystem
->>       MAINTAINERS: Add StarFive JH7110 display subsystem entry
->>
->>  .../starfive,jh7110-inno-hdmi-controller.yaml      | 121 +++++
->>  .../bindings/display/verisilicon,dc.yaml           |   1 +
->>  .../mfd/starfive,jh7110-hdmi-subsystem.yaml        |  95 ++++
->>  .../phy/starfive,jh7110-inno-hdmi-phy.yaml         |  49 ++
->>  .../soc/starfive/starfive,jh7110-syscon.yaml       |   6 +
->>  .../starfive/starfive,jh7110-vout-subsystem.yaml   | 100 ++++
->>  MAINTAINERS                                        |  13 +
->>  arch/riscv/boot/dts/starfive/jh7110-common.dtsi    | 121 ++++-
->>  arch/riscv/boot/dts/starfive/jh7110.dtsi           | 102 +++-
->>  drivers/clk/starfive/clk-starfive-jh7110-vout.c    |   6 +-
->>  drivers/gpu/drm/bridge/Kconfig                     |  11 +
->>  drivers/gpu/drm/bridge/Makefile                    |   1 +
->>  drivers/gpu/drm/bridge/inno-hdmi.c                 |  84 ++-
->>  drivers/gpu/drm/bridge/jh7110-inno-hdmi.c          | 318 +++++++++++
->>  drivers/phy/Kconfig                                |   8 +
->>  drivers/phy/Makefile                               |   1 +
->>  drivers/phy/phy-inno-hdmi.c                        | 298 +++++++++++
->>  drivers/phy/rockchip/Kconfig                       |   1 +
->>  drivers/phy/rockchip/phy-rockchip-inno-hdmi.c      | 165 +-----
->>  drivers/phy/starfive/Kconfig                       |  20 +
->>  drivers/phy/starfive/Makefile                      |   1 +
->>  drivers/phy/starfive/phy-jh7110-inno-hdmi.c        | 579 +++++++++++++++++++++
->>  drivers/soc/Kconfig                                |   1 +
->>  drivers/soc/Makefile                               |   1 +
->>  drivers/soc/starfive/Kconfig                       |  43 ++
->>  drivers/soc/starfive/Makefile                      |   3 +
->>  drivers/soc/starfive/jh7110-hdmi-subsystem.c       |  74 +++
->>  drivers/soc/starfive/jh7110-vout-subsystem.c       |  83 +++
->>  include/drm/bridge/inno_hdmi.h                     |  10 +-
->>  include/linux/phy/inno-hdmi-phy.h                  |  85 +++
->>  30 files changed, 2227 insertions(+), 174 deletions(-)
->> ---
->> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
->> change-id: 20251031-jh7110-clean-send-7d2242118026
->>
->> Best regards,
-> 
-> So as a kernel newbie, and someone who happens to have this device,
-> it's nice to see it here.
-> 
-> It looks good to me, just a few questions:
-> 
-> - One patch mentioned in a comment "the docs" - is there documentation
-> for the device?
+Frank
 
-TRM describing the hardware. It's available online [1].
-
-[1] - https://doc-en.rvspace.org/JH7110/TRM/
-
-> 
-> - There are multiple pieces, like the hdmi and vout subsystem, and also
-> the inno helpers. Should those be separate patches? I honestly don't
-> have enough experience (or authority) to suggest doing so.
-
-They already are: the hdmi subsystem is patch 11, the vout subsystem
-patch 12 and the Innosilicon helpers patch 15. They go out as one
-series because they depend on each other - the DT in patch 18 needs all
-three drivers - and the tree has to build at every commit, so they
-cannot land separately.
-
-
-> 
-> 
-> I thought this would be great as a possible driver I could do to learn
-> kernel dev.. looks like I was very wrong. Great work, and hopefully
-> in the future I get my hands on some device that needs a driver to be
-> written for it.
-> 
-> I'm at university, once my board gets mailed from home I'll be able to
-> test. For now,
-
-Thanks for the review, I have picked up your Reviewed-by on the patches
-that did not change in v4. A Tested-by once your board arrives would be
-very welcome.
-
-
-> 
-> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
-> 
-
-Best regards,
--- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+>
+> -		base->lcpa_regulator = regulator_get(base->dev, "lcla_esram");
+> -		if (IS_ERR(base->lcpa_regulator)) {
+> -			d40_err(dev, "Failed to get lcpa_regulator\n");
+> -			ret = PTR_ERR(base->lcpa_regulator);
+> -			base->lcpa_regulator = NULL;
+> +		np_lcla_parent = of_get_parent(np_lcla);
+> +		of_node_put(np_lcla);
+> +		if (!np_lcla_parent) {
+> +			dev_err(dev, "no LCLA SRAM parent node\n");
+> +			ret = -EINVAL;
+>  			goto destroy_cache;
+>  		}
+>
+> -		ret = regulator_enable(base->lcpa_regulator);
+> -		if (ret) {
+> -			d40_err(dev,
+> -				"Failed to enable lcpa_regulator\n");
+> -			regulator_put(base->lcpa_regulator);
+> -			base->lcpa_regulator = NULL;
+> +		lcla_pdev = of_find_device_by_node(np_lcla_parent);
+> +		of_node_put(np_lcla_parent);
+> +		if (!lcla_pdev) {
+> +			ret = -EPROBE_DEFER;
+> +			goto destroy_cache;
+> +		}
+> +		base->lcla_dev = &lcla_pdev->dev;
+> +		base->lcla_link = device_link_add(dev, base->lcla_dev,
+> +						  DL_FLAG_STATELESS);
+> +		if (!base->lcla_link) {
+> +			ret = -ENODEV;
+>  			goto destroy_cache;
+>  		}
+>  	}
+> @@ -3663,16 +3708,17 @@ static int __init d40_probe(struct platform_device *pdev)
+>  				 SZ_1K * base->num_phy_chans,
+>  				 DMA_TO_DEVICE);
+>
+> -	if (!base->lcla_pool.base_unaligned && base->lcla_pool.base)
+> +	if (!base->lcla_pool.base_unaligned && base->lcla_pool.base &&
+> +	    base->lcla_pool.pages)
+>  		free_pages((unsigned long)base->lcla_pool.base,
+>  			   base->lcla_pool.pages);
+>
+>  	kfree(base->lcla_pool.base_unaligned);
+>
+> -	if (base->lcpa_regulator) {
+> -		regulator_disable(base->lcpa_regulator);
+> -		regulator_put(base->lcpa_regulator);
+> -	}
+> +	if (base->lcla_link)
+> +		device_link_del(base->lcla_link);
+> +	if (base->lcla_dev)
+> +		put_device(base->lcla_dev);
+>  	if (irq_requested)
+>  		free_irq(base->irq, base);
+>  	if (runtime_pm_enabled)
+>
+> --
+> 2.55.0
+>
