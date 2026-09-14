@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1BC9C88E6E
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 08:27:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D6D0C88E50
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 08:28:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16CD610E13B;
-	Mon, 14 Sep 2026 08:27:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C77A010EB81;
+	Mon, 14 Sep 2026 08:28:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Qe0zco4V";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UiuLgg/x";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66B1C89190
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:26:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCF5310EB81
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:28:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789374419; x=1820910419;
+ t=1789374488; x=1820910488;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=F0seJX/gdXPPqaOK4ZLnfKkXx4glAvLd1xYuegNK24c=;
- b=Qe0zco4VD7N3gydCdwfUArKKKAR76Ham4IAXqghthfyN7oBuudvgrZtk
- cdYZCM2tRw4z42YI4+OH7Wj92Ftm6/noP7+JmPMgep78ZLl/k6/soYM7j
- 0/ODG5nvFlskXOroPrRLvw6izeZx32mUj7GBKUwbGGlUb+DAaj7mQebmN
- GsFLytugdG+TJCOZnU/AYzfzKxQd6j4A33GFagi+/mOjkb21NlX5oChuk
- eZiXJLITGYSeYPjQnPiLeH2g8bQFuSu5adO5HibIBHFAZkp2U0KiybZSE
- 1NpOYiZGVr1og+GNpXno3AdAmp/xJYax9sfE87GLM4N1RbFbB3ZoMD5mP A==;
-X-CSE-ConnectionGUID: GtmFHsQ7TceW6LAIQZ8IPw==
-X-CSE-MsgGUID: CG9Ph8+lRO+O+n7R5wKEgw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="112493801"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; d="scan'208";a="112493801"
+ bh=8yxKCWk9d2MDahKXgw9apC7jsdUqfmmhWUSyR+31iTs=;
+ b=UiuLgg/xjWegMHi1RnehjFHkcE5TBIQKBauk9MtPVS6GgbpfqhuF3KdZ
+ s9RBit47tKLqPU5tjHTyLmXAxu5SqioMwGRP8nCi6eVTWiEEMeGhzOz+C
+ Cto7TzEpCtywaMxwXETxxep3FFzIkE6rMp1QyMXq1CNsthl7/+GqGyHoN
+ QLRCgbfXVed4EvQdM93qedZbosWYfmo8kypl/N4Uqw5lt7ViicwRy096u
+ eg5X9AKVwGgyXgRDqCtnOgfSzzFxegeiK7IBPciRCwbEqiTuoSYhE7cQy
+ 22mxxToGrvtOXTrWvVVtMTyfvFNYN+dja0itHogkgJVO08CKeA+NWtIOP g==;
+X-CSE-ConnectionGUID: /zPtq3cmTWK9/GHRU+nN/w==
+X-CSE-MsgGUID: Wa7ENYbRRie6g8pQz0tjtw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="112493862"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; d="scan'208";a="112493862"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2026 01:26:58 -0700
-X-CSE-ConnectionGUID: wEWtduZUR/CF509s54mOuQ==
-X-CSE-MsgGUID: WAHS+3xhTQS5uENCmG1LQw==
+ 14 Sep 2026 01:28:08 -0700
+X-CSE-ConnectionGUID: 6wcVqqj1RU2cUrhZ3Ld1hg==
+X-CSE-MsgGUID: T6lmT7C2RLuig6y7kes2Zw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; d="scan'208";a="276735402"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; d="scan'208";a="276735669"
 Received: from pl-npu-pc-kwachow.igk.intel.com ([10.91.220.239])
  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2026 01:26:57 -0700
+ 14 Sep 2026 01:28:06 -0700
 From: Karol Wachowski <karol.wachowski@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
 Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
  andrzej.kacprowski@linux.intel.com, dawid.osuchowski@linux.intel.com,
- Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
-Subject: [PATCH] accel/ivpu: Move register poll timeouts to vdev->timeout
-Date: Mon, 14 Sep 2026 10:26:49 +0200
-Message-ID: <20260914082649.891871-1-karol.wachowski@linux.intel.com>
+ Jakub Pawlak <jakub.pawlak@intel.com>,
+ Karol Wachowski <karol.wachowski@linux.intel.com>
+Subject: [PATCH] accel/ivpu: Use separate flag for job timeout
+Date: Mon, 14 Sep 2026 10:28:00 +0200
+Message-ID: <20260914082800.892044-1-karol.wachowski@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -67,171 +68,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
+From: Jakub Pawlak <jakub.pawlak@intel.com>
 
-Use the vdev->timeout structure for register poll timeouts. This allows
-adjusting those timeouts depending on the platform type.
-For FPGA set MMU timeouts to 10x.
+Use separate flag to mark a job timeout as a reason
+of starting context_abort_work. This allows to distinguish
+engine reset reason and clearly adjust reset procedure flow.
 
-Signed-off-by: Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
+The flag is cleared in ivpu_prepare_for_reset(), which every
+recovery and suspend path already funnels through, so that the
+state is clean after recovery.
+
+Fixes: ade00a6c903f ("accel/ivpu: Perform engine reset instead of device recovery on TDR")
+Signed-off-by: Jakub Pawlak <jakub.pawlak@intel.com>
+Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
 ---
- drivers/accel/ivpu/ivpu_drv.h   |  3 +++
- drivers/accel/ivpu/ivpu_hw.c    | 20 ++++++++++++++++++++
- drivers/accel/ivpu/ivpu_hw_ip.c |  6 ++----
- drivers/accel/ivpu/ivpu_mmu.c   | 12 ++++--------
- 4 files changed, 29 insertions(+), 12 deletions(-)
+ drivers/accel/ivpu/ivpu_drv.c | 3 ++-
+ drivers/accel/ivpu/ivpu_drv.h | 2 +-
+ drivers/accel/ivpu/ivpu_job.c | 7 +++----
+ drivers/accel/ivpu/ivpu_mmu.c | 1 -
+ drivers/accel/ivpu/ivpu_pm.c  | 1 +
+ 5 files changed, 7 insertions(+), 7 deletions(-)
 
+diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
+index 0f215392d42d..647684219e9d 100644
+--- a/drivers/accel/ivpu/ivpu_drv.c
++++ b/drivers/accel/ivpu/ivpu_drv.c
+@@ -528,6 +528,7 @@ void ivpu_prepare_for_reset(struct ivpu_device *vdev)
+ {
+ 	ivpu_hw_irq_disable(vdev);
+ 	disable_irq(vdev->irq);
++	atomic_set(&vdev->job_timeout_detected, 0);
+ 	flush_work(&vdev->irq_dct_work);
+ 	flush_work(&vdev->context_abort_work);
+ 	flush_work(&vdev->job_destroy_work);
+@@ -723,7 +724,7 @@ static int ivpu_dev_init(struct ivpu_device *vdev)
+ 	vdev->context_xa_limit.max = IVPU_USER_CONTEXT_MAX_SSID;
+ 	atomic64_set(&vdev->unique_id_counter, 0);
+ 	atomic_set(&vdev->job_timeout_counter, 0);
+-	atomic_set(&vdev->faults_detected, 0);
++	atomic_set(&vdev->job_timeout_detected, 0);
+ 	xa_init_flags(&vdev->context_xa, XA_FLAGS_ALLOC | XA_FLAGS_LOCK_IRQ);
+ 	xa_init_flags(&vdev->submitted_jobs_xa, XA_FLAGS_ALLOC1);
+ 	xa_init_flags(&vdev->db_xa, XA_FLAGS_ALLOC1);
 diff --git a/drivers/accel/ivpu/ivpu_drv.h b/drivers/accel/ivpu/ivpu_drv.h
-index 8f29f1dc52b9..3b26a64ed04f 100644
+index 8f29f1dc52b9..37d5a6ac55f8 100644
 --- a/drivers/accel/ivpu/ivpu_drv.h
 +++ b/drivers/accel/ivpu/ivpu_drv.h
-@@ -186,6 +186,9 @@ struct ivpu_device {
- 		int autosuspend;
- 		int d0i3_entry_msg;
- 		int state_dump_msg;
-+		int mmu_reg;
-+		int mmu_queue;
-+		int pwr_island_status;
- 	} timeout;
- };
+@@ -171,7 +171,7 @@ struct ivpu_device {
+ 	struct xarray submitted_jobs_xa;
+ 	struct ivpu_ipc_consumer job_done_consumer;
+ 	atomic_t job_timeout_counter;
+-	atomic_t faults_detected;
++	atomic_t job_timeout_detected;
  
-diff --git a/drivers/accel/ivpu/ivpu_hw.c b/drivers/accel/ivpu/ivpu_hw.c
-index 647dc045c231..613bcdbc364c 100644
---- a/drivers/accel/ivpu/ivpu_hw.c
-+++ b/drivers/accel/ivpu/ivpu_hw.c
-@@ -99,13 +99,19 @@ static void wa_init(struct ivpu_device *vdev)
- static void timeouts_init(struct ivpu_device *vdev)
- {
- 	if (ivpu_test_mode & IVPU_TEST_MODE_DISABLE_TIMEOUTS) {
-+		/* in milliseconds */
- 		vdev->timeout.boot = -1;
- 		vdev->timeout.jsm = -1;
- 		vdev->timeout.tdr = -1;
- 		vdev->timeout.inference = -1;
- 		vdev->timeout.autosuspend = -1;
- 		vdev->timeout.d0i3_entry_msg = -1;
-+		/* in microseconds */
-+		vdev->timeout.mmu_reg = -1;
-+		vdev->timeout.mmu_queue = -1;
-+		vdev->timeout.pwr_island_status = -1;
- 	} else if (ivpu_is_fpga(vdev)) {
-+		/* in milliseconds */
- 		vdev->timeout.boot = 50;
- 		vdev->timeout.jsm = 15000;
- 		vdev->timeout.tdr = 30000;
-@@ -113,7 +119,12 @@ static void timeouts_init(struct ivpu_device *vdev)
- 		vdev->timeout.autosuspend = -1;
- 		vdev->timeout.d0i3_entry_msg = 500;
- 		vdev->timeout.state_dump_msg = 10000;
-+		/* in microseconds */
-+		vdev->timeout.mmu_reg = 100 * USEC_PER_MSEC;
-+		vdev->timeout.mmu_queue = 1000 * USEC_PER_MSEC;
-+		vdev->timeout.pwr_island_status = 5 * USEC_PER_MSEC;
- 	} else if (ivpu_is_simics(vdev)) {
-+		/* in milliseconds */
- 		vdev->timeout.boot = 50;
- 		vdev->timeout.jsm = 500;
- 		vdev->timeout.tdr = 10000;
-@@ -121,7 +132,12 @@ static void timeouts_init(struct ivpu_device *vdev)
- 		vdev->timeout.autosuspend = 100;
- 		vdev->timeout.d0i3_entry_msg = 100;
- 		vdev->timeout.state_dump_msg = 10;
-+		/* in microseconds */
-+		vdev->timeout.mmu_reg = 10 * USEC_PER_MSEC;
-+		vdev->timeout.mmu_queue = 100 * USEC_PER_MSEC;
-+		vdev->timeout.pwr_island_status = 5 * USEC_PER_MSEC;
- 	} else {
-+		/* in milliseconds */
- 		vdev->timeout.boot = 1000;
- 		vdev->timeout.jsm = 500;
- 		vdev->timeout.tdr = 2000;
-@@ -132,6 +148,10 @@ static void timeouts_init(struct ivpu_device *vdev)
- 			vdev->timeout.autosuspend = 100;
- 		vdev->timeout.d0i3_entry_msg = 5;
- 		vdev->timeout.state_dump_msg = 100;
-+		/* in microseconds */
-+		vdev->timeout.mmu_reg = 10 * USEC_PER_MSEC;
-+		vdev->timeout.mmu_queue = 100 * USEC_PER_MSEC;
-+		vdev->timeout.pwr_island_status = 5 * USEC_PER_MSEC;
+ 	atomic64_t unique_id_counter;
+ 
+diff --git a/drivers/accel/ivpu/ivpu_job.c b/drivers/accel/ivpu/ivpu_job.c
+index b3de5dd29d1e..084d825f744d 100644
+--- a/drivers/accel/ivpu/ivpu_job.c
++++ b/drivers/accel/ivpu/ivpu_job.c
+@@ -626,7 +626,6 @@ bool ivpu_job_handle_engine_error(struct ivpu_device *vdev, u32 job_id, u32 job_
+ 		 * status and ensure both are handled in the same way
+ 		 */
+ 		job->file_priv->has_mmu_faults = true;
+-		atomic_set(&vdev->faults_detected, 1);
+ 		queue_work(system_percpu_wq, &vdev->context_abort_work);
+ 		return true;
  	}
- }
- 
-diff --git a/drivers/accel/ivpu/ivpu_hw_ip.c b/drivers/accel/ivpu/ivpu_hw_ip.c
-index 81f0b1f8f5a6..46661fbf9d05 100644
---- a/drivers/accel/ivpu/ivpu_hw_ip.c
-+++ b/drivers/accel/ivpu/ivpu_hw_ip.c
-@@ -15,8 +15,6 @@
- #include "ivpu_mmu.h"
- #include "ivpu_pm.h"
- 
--#define PWR_ISLAND_STATUS_TIMEOUT_US        (5 * USEC_PER_MSEC)
--
- #define TIM_SAFE_ENABLE		            0xf1d0dead
- #define TIM_WATCHDOG_RESET_VALUE            0xffffffff
- 
-@@ -350,10 +348,10 @@ static int wait_for_pwr_island_status(struct ivpu_device *vdev, u32 exp_val)
- 
- 	if (ivpu_hw_ip_gen(vdev) == IVPU_HW_IP_37XX)
- 		return REGV_POLL_FLD(VPU_37XX_HOST_SS_AON_PWR_ISLAND_STATUS0, MSS_CPU, exp_val,
--				     PWR_ISLAND_STATUS_TIMEOUT_US);
-+				     vdev->timeout.pwr_island_status);
- 	else
- 		return REGV_POLL_FLD(VPU_40XX_HOST_SS_AON_PWR_ISLAND_STATUS0, CSS_CPU, exp_val,
--				     PWR_ISLAND_STATUS_TIMEOUT_US);
-+				     vdev->timeout.pwr_island_status);
- }
- 
- static void pwr_island_isolation_drive_37xx(struct ivpu_device *vdev, bool enable)
-diff --git a/drivers/accel/ivpu/ivpu_mmu.c b/drivers/accel/ivpu/ivpu_mmu.c
-index 41efd8985fa6..1908375ff128 100644
---- a/drivers/accel/ivpu/ivpu_mmu.c
-+++ b/drivers/accel/ivpu/ivpu_mmu.c
-@@ -220,9 +220,6 @@
- #define IVPU_MMU_STE_1_S1DSS		GENMASK_ULL(1, 0)
- #define IVPU_MMU_STE_1_S1DSS_TERMINATE	0x0
- 
--#define IVPU_MMU_REG_TIMEOUT_US		(10 * USEC_PER_MSEC)
--#define IVPU_MMU_QUEUE_TIMEOUT_US	(100 * USEC_PER_MSEC)
--
- #define IVPU_MMU_GERROR_ERR_MASK ((REG_FLD(IVPU_MMU_REG_GERROR, CMDQ)) | \
- 				  (REG_FLD(IVPU_MMU_REG_GERROR, EVTQ_ABT)) | \
- 				  (REG_FLD(IVPU_MMU_REG_GERROR, PRIQ_ABT)) | \
-@@ -438,14 +435,14 @@ static int ivpu_mmu_reg_write_cr0(struct ivpu_device *vdev, u32 val)
- {
- 	REGV_WR32(IVPU_MMU_REG_CR0, val);
- 
--	return REGV_POLL_FLD(IVPU_MMU_REG_CR0ACK, VAL, val, IVPU_MMU_REG_TIMEOUT_US);
-+	return REGV_POLL_FLD(IVPU_MMU_REG_CR0ACK, VAL, val, vdev->timeout.mmu_reg);
- }
- 
- static int ivpu_mmu_reg_write_irq_ctrl(struct ivpu_device *vdev, u32 val)
- {
- 	REGV_WR32(IVPU_MMU_REG_IRQ_CTRL, val);
- 
--	return REGV_POLL_FLD(IVPU_MMU_REG_IRQ_CTRLACK, VAL, val, IVPU_MMU_REG_TIMEOUT_US);
-+	return REGV_POLL_FLD(IVPU_MMU_REG_IRQ_CTRLACK, VAL, val, vdev->timeout.mmu_reg);
- }
- 
- static int ivpu_mmu_irqs_setup(struct ivpu_device *vdev)
-@@ -465,8 +462,7 @@ static int ivpu_mmu_cmdq_wait_for_cons(struct ivpu_device *vdev)
- 	struct ivpu_mmu_queue *cmdq = &vdev->mmu->cmdq;
- 	int ret;
- 
--	ret = REGV_POLL_FLD(IVPU_MMU_REG_CMDQ_CONS, VAL, cmdq->prod,
--			    IVPU_MMU_QUEUE_TIMEOUT_US);
-+	ret = REGV_POLL_FLD(IVPU_MMU_REG_CMDQ_CONS, VAL, cmdq->prod, vdev->timeout.mmu_queue);
- 	if (ret)
+@@ -1260,10 +1259,10 @@ static int reset_engine_and_mark_faulty_contexts(struct ivpu_device *vdev)
  		return ret;
  
-@@ -880,7 +876,7 @@ static int ivpu_mmu_evtq_set(struct ivpu_device *vdev, bool enable)
- 		val = REG_CLR_FLD(IVPU_MMU_REG_CR0, EVTQEN, val);
- 	REGV_WR32(IVPU_MMU_REG_CR0, val);
+ 	/*
+-	 * If faults are detected, ignore guilty contexts from engine reset as NPU may not be stuck
+-	 * and could return currently running good context and faulty contexts are already marked
++	 * If job timeout is detected, read guilty context from engine reset, for other reasons
++	 * faulty context is already known
+ 	 */
+-	if (atomic_cmpxchg(&vdev->faults_detected, 1, 0) == 1)
++	if (atomic_cmpxchg(&vdev->job_timeout_detected, 1, 0) == 0)
+ 		return 0;
  
--	return REGV_POLL_FLD(IVPU_MMU_REG_CR0ACK, VAL, val, IVPU_MMU_REG_TIMEOUT_US);
-+	return REGV_POLL_FLD(IVPU_MMU_REG_CR0ACK, VAL, val, vdev->timeout.mmu_reg);
+ 	num_impacted_contexts = resp.payload.engine_reset_done.num_impacted_contexts;
+diff --git a/drivers/accel/ivpu/ivpu_mmu.c b/drivers/accel/ivpu/ivpu_mmu.c
+index 41efd8985fa6..b2025274f91d 100644
+--- a/drivers/accel/ivpu/ivpu_mmu.c
++++ b/drivers/accel/ivpu/ivpu_mmu.c
+@@ -964,7 +964,6 @@ void ivpu_mmu_irq_evtq_handler(struct ivpu_device *vdev)
+ 		file_priv = xa_load(&vdev->context_xa, ssid);
+ 		if (file_priv) {
+ 			if (!READ_ONCE(file_priv->has_mmu_faults)) {
+-				atomic_set(&vdev->faults_detected, 1);
+ 				ivpu_mmu_dump_event(vdev, event);
+ 				WRITE_ONCE(file_priv->has_mmu_faults, true);
+ 			}
+diff --git a/drivers/accel/ivpu/ivpu_pm.c b/drivers/accel/ivpu/ivpu_pm.c
+index c1ce8329790e..de0becbfdffb 100644
+--- a/drivers/accel/ivpu/ivpu_pm.c
++++ b/drivers/accel/ivpu/ivpu_pm.c
+@@ -229,6 +229,7 @@ static void ivpu_job_timeout_work(struct work_struct *work)
+ 
+ 	ivpu_jsm_state_dump(vdev);
+ 	ivpu_dev_coredump(vdev);
++	atomic_set(&vdev->job_timeout_detected, 1);
+ 	queue_work(system_percpu_wq, &vdev->context_abort_work);
  }
  
- static int ivpu_mmu_evtq_enable(struct ivpu_device *vdev)
 -- 
 2.43.0
 
