@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA392C88E72
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 16:47:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D097C88E72
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 16:50:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A16210E1CA;
-	Mon, 14 Sep 2026 16:47:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5467810F03C;
+	Mon, 14 Sep 2026 16:50:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RYdl79ze";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MbEpcLci";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70B3F10E1CA
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 16:47:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D205A10F03C
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 16:50:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9496860142;
- Mon, 14 Sep 2026 16:47:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74DF31F000FF;
- Mon, 14 Sep 2026 16:47:44 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D549B60142;
+ Mon, 14 Sep 2026 16:50:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01E641F000FF;
+ Mon, 14 Sep 2026 16:50:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789404465;
- bh=YCW6FK4aAAXisU4xzaLCp+w+MBA5h3keA3icwQAIT/E=;
+ s=k20260515; t=1789404641;
+ bh=fMHfm7FZeGf7wenZpfJYeYn6PjNgUU2eSII5RVcR2D4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=RYdl79zePhxkAy3dLA7+gt9Ntl/6uVUcUoTlXGCFVR1oGCz2WdUq0kz8WG4ITAxlC
- TOTJyFFSv/Fnv9RtdISy6ZJdAVICni9epBNsOFqc9XcFZT9rM9Y2vtRjjy8IR18TOh
- t8FymO3DImuc5jH7yw+fS0LJuK4I+yGzTyTeG1fgVUrEDGGeBpZcb1W4qk7OM0XEYU
- ha8zRWueOX9ERQQHGZew5VqY2vMnGdHFgRFBTzJa2YtKp/FPRMuFzIJfg+bxb12DkO
- HDznohZIRx6BSST3z5t5Zwfy81O0F/65fcmMF/aLMx+ZUYnwXKNi0TueplvXRt+2cN
- cLmF4Or01dIww==
+ b=MbEpcLcidWqFKrf9SNVAq8W2H0C9dzhHr/GINcnFsMH73oPTM4hbKmq98bj+S/5hY
+ QOi2Y9BIuK2+E0/dPXJVdQ7+WAhl/0oWPwH5+V1rUakRIjkPp3BcBqqaXW6QppFGlR
+ Em89N7BMuwlk6fvhD9XC4ol9sI6UZrzEEn6qNb1KHMTs7W2T5izJ8hWMZb+0e6Kd53
+ CLspDFzi5SGtxXNIGYxNV+0kjjgcue/t1EoLVaC5+RW/BaL7XNUHD+cKDWjAOEfSCK
+ kALJb4S7b9n/kUTKFaLgFRtYcIoGpKAjyqgTvgJ3CdxOB9YIihbYhPlcV4acKqcaAs
+ EyL/QhL8VkbFA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 06/40] mm: make map_kernel_pages_[prepare,complete]
- internal and unexported
+Subject: Re: [PATCH v2 07/40] mm/vma: tidy up map kernel pages enum values
 To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
-Cc: selinux@vger.kernel.org, "Vasily Gorbik" <gor@linux.ibm.com>,
- kvm@vger.kernel.org, "Heiko
- Carstens" <hca@linux.ibm.com>, dri-devel@lists.freedesktop.org, "Alexander
- Gordeev" <agordeev@linux.ibm.com>, "Marc Zyngier" <maz@kernel.org>, "Christian
- Borntraeger" <borntraeger@linux.ibm.com>, linux-s390@vger.kernel.org,
- kvmarm@lists.linux.dev, linux-scsi@vger.kernel.org, bpf@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-trace-kernel@vger.kernel.org, "Oliver
- Upton" <oupton@kernel.org>, linux-perf-users@vger.kernel.org
-In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-6-7d9781ed5361@kernel.org>
+Cc: "Vasily Gorbik" <gor@linux.ibm.com>, dri-devel@lists.freedesktop.org,
+ bpf@vger.kernel.org, "Christian
+ Borntraeger" <borntraeger@linux.ibm.com>, kvm@vger.kernel.org,
+ linux-s390@vger.kernel.org, "Marc
+ Zyngier" <maz@kernel.org>, "Heiko Carstens" <hca@linux.ibm.com>,
+ linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ kvmarm@lists.linux.dev, "Alexander
+ Gordeev" <agordeev@linux.ibm.com>, "Oliver Upton" <oupton@kernel.org>,
+ linux-scsi@vger.kernel.org, selinux@vger.kernel.org,
+ linux-rdma@vger.kernel.org
+In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-7-7d9781ed5361@kernel.org>
 References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
- <20260914-b4-mmap-prepare-vma-flag-sanify-v2-6-7d9781ed5361@kernel.org>
+ <20260914-b4-mmap-prepare-vma-flag-sanify-v2-7-7d9781ed5361@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 16:47:43 +0000
-Message-Id: <20260914164744.74DF31F000FF@smtp.kernel.org>
+Date: Mon, 14 Sep 2026 16:50:40 +0000
+Message-Id: <20260914165041.01E641F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,12 +66,13 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> There's no reason to export the symbols for these functions which are only
-> called from internal mm logic, additionally there's no reason for them to
-> be declared in mm.h.
+> MMAP_MAP_KERNEL_PAGES is a mouthful, discard the MAP_ as that's implied by
+> MMAP.
 >=20
-> This patch therefore removes the exports and moves the declarations to
-> mm/internal.h.
+> Also while we're here delete useless comments for mmap actions whose names
+> clearly indicate what they are for.
+>=20
+> Also update the userland VMA tests to reflect this change.
 >=20
 > No functional change intended.
 >=20
@@ -80,5 +82,5 @@ Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-b4-mmap-pr=
-epare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org?part=3D6
+epare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org?part=3D7
 
