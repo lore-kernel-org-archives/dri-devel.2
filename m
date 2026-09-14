@@ -4,44 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16BBEC88E72
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 17:50:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2D8BC88E72
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 17:52:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53DE210F0B5;
-	Mon, 14 Sep 2026 17:50:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A76D310F0C6;
+	Mon, 14 Sep 2026 17:52:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fr6ndC5h";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="jzDmawAY";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D9A610F0B5
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 17:50:42 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 98604602A8;
- Mon, 14 Sep 2026 17:50:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25D701F000FF;
- Mon, 14 Sep 2026 17:50:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789408241;
- bh=xMtGSZ9GCYGfMAl4B0AAky5+obOwCakTK3amOkLiNKs=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fr6ndC5h8Bpvedb7EX2dHaYrGIMgCwWpt0gvC5JzHJDRleU146fcWr0ArtTsUoHF3
- Plzyjk/TI5nWxcEtWebQX9B/T80BmSgIxSM5g+UpFH1c55bqYOE751Inh8nGw3oN6A
- t0S9KUUtuD/praJdckYv6Ab9I2lFy83o51ZZKWVspR/XSe4vbJDGge85ceHrrPXDQ7
- Edg0xUVhN+h5xNVDze/TGqU5GTnJ1sOutchoGG1gZQo56/AAemRQiY9Dob1LkPWZsH
- A0H6gYve4t9Z/5ennnqsUvr5Y79JmuV5+H1DRm43sKMVQE2eFpgmeHxGGXFtppy4TR
- AzLG+3ZXM2BUw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/3] backlight: qcom-wled: Fix WLED3 brightness
- register stride
-To: "David Heidelberg" <david@ixit.cz>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260914-qcom-wled-backlight-v2-1-a908d9233e93@ixit.cz>
-References: <20260914-qcom-wled-backlight-v2-0-a908d9233e93@ixit.cz>
- <20260914-qcom-wled-backlight-v2-1-a908d9233e93@ixit.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 17:50:40 +0000
-Message-Id: <20260914175041.25D701F000FF@smtp.kernel.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C80D10F0C5
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 17:52:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=R10hLRJV2usgexCzt27YZIdBumqvqsGh1RvG2sVwRR0=; b=jzDmawAYsN8mzxGnJepLG0vZJ3
+ +UyEBewVq7wgQBY7gwIbWS/DBITpIm7O3gfDYQPn9iJJ5ii24Jl0zafskVj0/ta58HSUS32hk3Owl
+ EWRM7pJZksJrj6TSGEak97OX9veG13EAvACQKp/lYQJdOneHaQjxGyhtSHcSOXQE+0u3TlnSC8Y88
+ mp11V1+dMtZPFUX72tldyUiwCbAjymuYK3lvUPh8BOUTOcPpZJAJIUZBsnOQK3agt48WuSLZNYS+y
+ To4v22lwl8zNQ5kmkH/6lUmRiQr5oSxMgo3sNe99A1QHrcH4oqppBxZ5oTe/lo2LI653lilT0p19o
+ yjoeISYA==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1x6Aqb-0021Rz-Sy; Mon, 14 Sep 2026 19:52:05 +0200
+Message-ID: <b8239f0d-e5cb-459e-8ef9-d7691bfc2441@igalia.com>
+Date: Mon, 14 Sep 2026 14:51:58 -0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/vc4: drain the hangcheck timer and works on V3D unbind
+To: Fan Wu <fanwu01@zju.edu.cn>, mripard@kernel.org
+Cc: dave.stevenson@raspberrypi.com, kernel-list@raspberrypi.com,
+ maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, eric@anholt.net, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260909053509.657074-1-fanwu01@zju.edu.cn>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260909053509.657074-1-fanwu01@zju.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,70 +81,84 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The patch incorrectly implements a 16-byte stride for WLED3 bright=
-ness registers instead of the intended 2-byte stride, causing register coll=
-ision and corruption.
---
+Hi Fan Wu,
 
-commit f7a2ef410d595586ca0ef2c87637e54f23dec1e2
-Author: David Heidelberg <david@ixit.cz>
-Subject: backlight: qcom-wled: Fix WLED3 brightness register stride
+On 09/09/26 02:35, Fan Wu wrote:
+> The hangcheck timer, which every submitted job arms and which queues
+> reset_work once a job stops making progress, and the job_done_work,
+> which the render-done interrupt queues to release completed jobs, are
+> never drained at teardown: vc4_irq_disable() cancels only
+> overflow_mem_work, and vc4_gem_destroy() runs from the drm-managed
+> release, after vc4_v3d_unbind() has already uninstalled the V3D
+> interrupt and cleared vc4->v3d.
+> 
+> A timer still armed by then reads V3D registers through the NULL
+> vc4->v3d pointer, and late callbacks run on the vc4_dev embedding
+> them after it has been freed.
+> 
+> Drain them in vc4_v3d_unbind(): shut the hangcheck timer down and
+> cancel reset_work before the interrupt is taken down, because
+> vc4_irq_reset() in a straggler reset re-enables it, then cancel
+> job_done_work once no source is left, before vc4->v3d is cleared.
+> 
+> This issue was found by an in-house static analysis tool.
+> 
+> Fixes: d5b1a78a772f ("drm/vc4: Add support for drawing 3D frames.")
+> Cc: stable@vger.kernel.org # 6.13+: vc4->gen does not exist on older trees
+> Assisted-by: Codex:gpt-5.6
+> Co-developed-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> ---
+>   drivers/gpu/drm/vc4/vc4_v3d.c | 11 +++++++++++
+>   1 file changed, 11 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
+> index f32410420d3e..11d4df3164b4 100644
+> --- a/drivers/gpu/drm/vc4/vc4_v3d.c
+> +++ b/drivers/gpu/drm/vc4/vc4_v3d.c
+> @@ -9,6 +9,7 @@
+>   #include <linux/component.h>
+>   #include <linux/platform_device.h>
+>   #include <linux/pm_runtime.h>
+> +#include <linux/timer.h>
+>   
+>   #include <drm/drm_print.h>
+>   
+> @@ -497,8 +498,18 @@ static void vc4_v3d_unbind(struct device *dev, struct device *master,
+>   	struct drm_device *drm = data;
+>   	struct vc4_dev *vc4 = to_vc4_dev(drm);
+>   
+> +	/* Kill the timer, then reset_work: vc4_irq_reset() re-enables it. */
 
-This commit aims to fix an overlapping brightness register write issue in t=
-he
-WLED3 driver. It modifies the WLED3_SINK_REG_BRIGHT macro to update the
-register stride for consecutive strings. The commit message states the inte=
-nt
-is to use a 2-byte stride.
+This comment provides no insight about the code, it's just describing
+it.
 
-> diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backligh=
-t/qcom-wled.c
-> index 650dd95f06ef5..22c35da72dce3 100644
-> --- a/drivers/video/backlight/qcom-wled.c
-> +++ b/drivers/video/backlight/qcom-wled.c
-> @@ -59,7 +59,7 @@
->  #define  WLED3_SINK_REG_CURR_SINK_SHFT			5
-> =20
->  /* WLED3 specific per-'string' registers below */
-> -#define WLED3_SINK_REG_BRIGHT(n)			(0x40 + n)
-> +#define WLED3_SINK_REG_BRIGHT(n)			(0x40 + (n * 0x10))
+> +	if (vc4->gen == VC4_GEN_4) {
 
-[Severity: High]
-Does this code incorrectly implement a 16-byte stride instead of the intend=
-ed
-2-byte stride?
+No need for this guards, as this function only runs on VC4_GEN_4.
 
-The commit message states "Use the 2 byte stride.", but the macro evaluates=
- to
-a 16-byte stride (n * 0x10) instead of a mathematically sound 2-byte stride
-(n * 2).
+> +		timer_shutdown_sync(&vc4->hangcheck.timer);
+> +		cancel_work_sync(&vc4->hangcheck.reset_work);
+> +	}
+> +
+>   	vc4_irq_uninstall(drm);
+>   
+> +	/* Nothing can queue job_done_work any more; drain it. */
+> +	if (vc4->gen == VC4_GEN_4)
+> +		cancel_work_sync(&vc4->job_done_work);
 
-When wled3_set_brightness() evaluates this macro and passes it to
-regmap_bulk_write():
+Check Sashiko's feedback about this.
 
-drivers/video/backlight/qcom-wled.c:wled3_set_brightness() {
-    ...
-		rc =3D regmap_bulk_write(wled->regmap, wled->ctrl_addr +
-				       WLED3_SINK_REG_BRIGHT(wled->cfg.enabled_strings[i]),
-				       &v, sizeof(v));
-    ...
-}
+Best regards,
+- Maíra
 
-Writing 2 bytes to WLED3_SINK_REG_BRIGHT(2) calculates the address as
-0x40 + 0x20 =3D 0x60. This will overwrite the adjacent control register
-WLED3_SINK_REG_STR_MOD_EN(0) (which is also defined as 0x60 + 0x00), causing
-hardware control register corruption.
+> +
+>   	/* Disable the binner's overflow memory address, so the next
+>   	 * driver probe (if any) doesn't try to reuse our old
+>   	 * allocation.
+> 
 
-> =20
->  #define WLED3_SINK_REG_STR_MOD_EN(n)			(0x60 + (n * 0x10))
->  #define  WLED3_SINK_REG_STR_MOD_MASK			BIT(7)
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-qcom-wled-=
-backlight-v2-0-a908d9233e93@ixit.cz?part=3D1
