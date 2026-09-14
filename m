@@ -4,148 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B4FCC88E64
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 08:08:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 394BBC88E50
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 08:11:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 243F810EBEB;
-	Mon, 14 Sep 2026 08:08:16 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="imN5fpI9";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VqxMGo8p";
-	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DE6510EBE9
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:08:14 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68E5j5bs063767
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:08:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- LrqX32EnO3d4Uq7N4G8r4oWD6xf4vvdnOcV1PMGcjmU=; b=imN5fpI9OinQuYhs
- Zm681p87GeCmBBbnNrsmV+rIMI3TIs9DAG63YrWCk4+cv0xplTeOssEsSTDfC3gf
- FCNFkRpVuiiMue+2+16QSY29pGduwe4c/flZYQiz319NL316w0em1y4KIKl06OL/
- u2MXHvKc5c56927lq1UFY9JfkW6h+5Y+Z0U3tTjODp0iBg3MFfp6HGTpyanRduDA
- i3eyhMEZ8GiqvjdxD6f8NIqJOlbILvDpmPHlps9/YS8PZiZtAVCBD+s+XXO1GUHs
- xh3zfbtYP708s+YalzI0KsFeFwZirB9r+Hw/RW+tNtajftA+MONIeBeMqbQgbWRN
- B6AEvA==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9dnq6x-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:08:13 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-90ce451128fso6979126d6.0
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 01:08:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1789373293; x=1789978093;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=LrqX32EnO3d4Uq7N4G8r4oWD6xf4vvdnOcV1PMGcjmU=;
- b=VqxMGo8p5aGr2V2F0WeJKE35WouaU3alDCA1Kc0UZ1lQzJlBRcsaw5FH8h0dprmvsW
- H7Xi8XjbgnHooVLfkte4YanS0XTrV4dvAWF7O0nkecuWMGi7IjMAop5C4pPLI+9PZlv1
- QTwtTbITyyXzx2psKStCdBjb7N7ON+SMXXDCJ0SlckXuas/4TmB7X02Mx89+dmj8gT4J
- x6BhO0/CkwPBgSWRHaq05F8VPZv6eFtx5m4swwRkSzCZmbZ1x4vit945HuRXPvLH2kBb
- yA9zngDn4r4DYT5v5AmgHxFpBbS+ztwWAyIvLm7zWjs3xT2ykfncVncdhovk87DS6e0f
- 53PQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F2BB10EBED;
+	Mon, 14 Sep 2026 08:11:23 +0000 (UTC)
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
+ [209.85.210.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF7F610EBED
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 08:11:22 +0000 (UTC)
+Received: by mail-ot1-f43.google.com with SMTP id
+ 46e09a7af769-8073433285dso596445a34.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 01:11:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789373293; x=1789978093;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=LrqX32EnO3d4Uq7N4G8r4oWD6xf4vvdnOcV1PMGcjmU=;
- b=sdZ8EbrKa7HT0n0qT14o7RuZWUITAQIfrz0xUZmZaRG9WjKY/3MTUUAZ2DSTLwzE93
- hVe4iGs1qoa45Fhy2nZ2uSSXNc9JXaKwmsxQUmEjePauCXOsI9rYWUQEF91whZtYiXLV
- GUlN/1NdWRriBw6mdsSFhuh3x3viDw9fS6YsF51NEpfMnCE4sBOcJ4vygKryKb1Qv5Aj
- jnC20tvhAsTu+8uh6drH99dfPzqjJV8P1uenUHCSY/4DoMqJWRSekrzvsSM0ekyFhnsE
- YwfTRR3FiY0lcJ2OFmzzvKICfW5dQS9tqqOdqs9zA9lTMkb3MrWE3Q+v9CIwJ7Sd9f0t
- M3KQ==
+ d=1e100.net; s=20251104; t=1789373482; x=1789978282;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=G2JcK4+UnTdYFj4YxjDgOg657J6kp6BHITWmwnB32W8=;
+ b=I2PqQ/RbGuTV9OWpEjSGV2Uudln/7LjiCHTtpTSN4ExtcaCw4jWiSX5008r6ll1O7v
+ XljerDczbkSMB0mUERT3LXDROGvHdKXg0LByM6lON4+sgP42lGVUw6olC8PN+R3V0mRA
+ biF35Lk5i+bbovusfs4m+/8UUBu34Fvd+grb2O25n/bUbL/fVaqYlOQTzIyfhtNeK52n
+ 1LVkjFUJ54ruM80bGpFOKxX8TFVKF4oZzsqP280OC19M63F6DqdncEfI3m40CsEevNu5
+ GA6SHy6KrCyx8TRB1PcTVCCmGnYrH/Abirl6QFU8oGEsZ2liKUV06wM1TA5fi+TtxMbQ
+ G9tw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBytlKV0l8Ft819Hnc8viJNMNB4tEIloFA4GEej3m4V5bo0hVFQj1w/0L4BjIEmcFjj4qppPqtHynFA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nKO1Kektoyr2sLmvSx5DMywtDw9QX8+DX/yVklklRgt1CLLjVC
- KFPpQXoLutYlpPQYVqnv5ToG1pAG0XMIVuqMEifGk+J+3RSmsSX0XhlqewFc2xot4JTjtBET5k7
- 6P0AEpvmryJp0wSUjX0942t0oqgAGdcnQ7I4cilZjQjZC1Zx6YhVyRdtPkw4B+UBul1IUsWc=
-X-Gm-Gg: AYBFou3rp4zUHHxZjJ9zuRzFXISphZ3pGt8D2ElIl1BalTyZvygtgX5YV0PjNyyncuF
- lbp7ngn6vLBQpfGOs5cHySNURP9NJqHI+kn8sZfcxYiLAJ9B7ocCrvUpGKLekzBPzybzxroi54o
- RUVsvDgpN9xbyIWIeDzTp87N0uyeqa+2Iek5lalOFI5XC99El7yiqJ83LN9S305pu4KCLNjAo8I
- TshiSu77FArUUOkuRHwk+cNpFKu5UO2PYvFs7xYvn4Ymqajoc0LPw5Km2jdBsPLHwb+QaFh8Dp4
- oAmS1LKRs1ETWqRTnGPVzdlBoSvia2f4gaaLJP2E0zL0fbOBWZH81uKDZnfdK8bZId+hgWMBCsQ
- 87Mn6eG7tigOGJ6PafushOQ==
-X-Received: by 2002:a05:6214:410b:b0:90e:9616:d7ac with SMTP id
- 6a1803df08f44-9122e67e91dmr18605756d6.4.1789373292982; 
- Mon, 14 Sep 2026 01:08:12 -0700 (PDT)
-X-Received: by 2002:a05:6214:410b:b0:90e:9616:d7ac with SMTP id
- 6a1803df08f44-9122e67e91dmr18605436d6.4.1789373292507; 
- Mon, 14 Sep 2026 01:08:12 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c2966067345sm391067666b.32.2026.09.14.01.08.08
+ AKwUvBxgeQnfuaTEHlhMBemji/TqZCsp2ZqduyRB4495I5rk7JFJ5YVF48b0ujLry3NvpzhQ20KiNy3kk3M=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++n9Ltirwb+ABoc7dapRtnUERPOksjNFJchCUFxtxcZ1OQPczUZg
+ 3pXULvKjIxEgPWmW7AH4gyAXFJqLLN5reiAv5noOKziO3CAol4V3OFOILTDIbG+v
+X-Gm-Gg: AYBFou3DLPmKPXdOsbbkaJX5Qg5msyWUm/azHs3cTfBCDGQ/8KnCOrkeQWM+HIcmIou
+ k8tazKNi9+i5Sho9ShRqNcLQWmyPrE+W1OEZQXRd3uvwuo5ARceLUzc/RY75Zp39Zzi1BUn3PBT
+ QXifpPP6Dy1wcduHk5DhsBWyGcRHeOt/GDdStoWbPHnvQUGYT9ulno/+PWt9KbcDzQXC5iRqhl6
+ gCUweR//VhlofN52XsNSejyDDFTd9DldVDdGQ9DcFEynkwx1f6NklAAIRgU3P1mE4JA8m4q0Q8/
+ Zp65G04Ji1+e8/koibSSxkBjCwc5QgDb3wmwOohv7DnaII0ANQj27VlAM94Ez6mc9erRyuf5Ve3
+ wW32sWf9rGrD0/Zc0IMesgREmtJ/KtOVoAd1SeZKq/0aMZMDuJaGHl552KT13t4TeMKjrujeClD
+ ThaD5Z/BGDCXOlQtHZvwzH9nBXolYQdWeoVKheugaTvNOHYc5VYwoY5T1NkeqHbUUfodJg9N40A
+ boB1uwJxFu/ODMRKg4jHzKDrEIzYFOoCsPV
+X-Received: by 2002:a05:6830:6d23:b0:7e6:dc7a:f459 with SMTP id
+ 46e09a7af769-80897894ef2mr810731a34.11.1789373481548; 
+ Mon, 14 Sep 2026 01:11:21 -0700 (PDT)
+Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com.
+ [209.85.161.51]) by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-805cb5ba734sm6066877a34.0.2026.09.14.01.11.20
+ for <dri-devel@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Sep 2026 01:08:11 -0700 (PDT)
-Message-ID: <d9671bb6-9924-4b37-bd7c-de9e343e6f4e@oss.qualcomm.com>
-Date: Mon, 14 Sep 2026 10:08:07 +0200
+ Mon, 14 Sep 2026 01:11:21 -0700 (PDT)
+Received: by mail-oo1-f51.google.com with SMTP id
+ 006d021491bc7-6b1afdf98dfso1919241eaf.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 01:11:20 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzpo1xXAp9i8CdpirsWsJ3O0eeNXtc5quh0RFG/qBkW3pUryEbRbUcFoDc0Y7dEx/8eEGi3ZoVT558=@lists.freedesktop.org
+X-Received: by 2002:a05:6122:4905:b0:5bd:cb34:1b70 with SMTP id
+ 71dfb90a1353d-5c981a7ddc0mr603320e0c.1.1789373084860; Mon, 14 Sep 2026
+ 01:04:44 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/17] phy: qcom: edp: Add Nord PHY power-on and reset
- state-machine callbacks
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+References: <20260907-rcar-du-dsc-v6-0-f8ef711a7494@ideasonboard.com>
+ <2489cf57-65f1-4502-86ae-1e3673899b87@ideasonboard.com>
+In-Reply-To: <2489cf57-65f1-4502-86ae-1e3673899b87@ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 14 Sep 2026 10:04:33 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWfmVHsJBtnn0sB1f6YwnVpQOY5coP0pu6qOsknc-XfaA@mail.gmail.com>
+X-Gm-Features: AcwNN1UjvEXLwhrFNF_ZKWONSXtVIhmEHRxBRtfYrWrrOz2Bml4dSuA03jjsOBQ
+Message-ID: <CAMuHMdWfmVHsJBtnn0sB1f6YwnVpQOY5coP0pu6qOsknc-XfaA@mail.gmail.com>
+Subject: Re: [PATCH v6 0/6] drm/rcar-du: Add support for DSI pipelines with DSC
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
- Mahadevan P <mahadevan.p@oss.qualcomm.com>
-References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
- <20260911-nord-drv-dt-v1-11-e25c073cf1b6@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260911-nord-drv-dt-v1-11-e25c073cf1b6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDExNCBTYWx0ZWRfX3Scy8r2bZVvl
- QsZ+43sEP9Ot4Y4U0ac+GFJyaIRNII51odkYg0miW5pzbkOZ1Lq8u67Q9Smk9/sQHYM+kGeNo3v
- aKxqzAWrOLsQ72Vh1ivJYiBqQsrVkFcK2EitWgOn7HqdbGJRcvi/uUfsqaHJHTY/RqXtG9lBQ5B
- HEzHVApamjULd3fxNNLOUe+uDjqe3XdxKRvFa1U5EtXIsb/t00NI+psC+g0FzbTIx1b6oSYBv6O
- h6iRcZUVbx+aefFhn9z24ZMl6ymFp3r7gP+HsWMG2vkDI0wCQATj5oqw5hH1CnjgiEcIabpC60k
- csCZpqa6wvbxvgq6OKofNdcR9AanIFlhA2/7B9G7R3UjwWYwGywrcJJ2PVrxeD3x1O98tS34PoM
- vUnillqtS8aLcDYXQbMu0KPPrRybxMHiIWKciuOT8unzM15YdkFRGxIsdWdJxkjrPyc03Omb9Xv
- 1KaF1p/JpIMKsKDig+w==
-X-Proofpoint-ORIG-GUID: Uh79QqRbLVHStWvGuRJ1GjX3J2Kcwr3b
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDExNCBTYWx0ZWRfX+8LgAxKNwNJw
- ByeMhHhRMx2+qK7SNHFdmb/igGJCfvz06vpqjpjGk1Z7d8qZ6rcq47BxI+5jI6Y+nsS4gCrww1y
- 15PKz+7SG6zk0EGdQ1OpEDkj7SZE1iA=
-X-Authority-Analysis: v=2.4 cv=Y6htIReN c=1 sm=1 tr=0 ts=6aa7ab6d cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=vbpSL41SLP_TpwptBaYA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-GUID: Uh79QqRbLVHStWvGuRJ1GjX3J2Kcwr3b
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 impostorscore=0
- bulkscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140114
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,57 +103,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/11/26 5:36 PM, Nabige Aala wrote:
-> From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
-> 
-> Nord relocates the QSERDES COM CMN_STATUS and C_READY_STATUS registers
-> so the generic sequences cannot be reused.  Add
-> qcom_edp_phy_power_on_nord() which powers down all lanes and polls
-> CMN_STATUS_NORD (0x1d0), and qcom_edp_phy_com_resetsm_cntrl_nord()
-> which triggers the reset SM and polls C_READY_STATUS_NORD (0x1f8).
-> 
-> Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
-> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
-> ---
->  drivers/phy/qualcomm/phy-qcom-edp.c | 25 +++++++++++++++++++++++++
->  1 file changed, 25 insertions(+)
-> 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/phy-qcom-edp.c
-> index 64878398f43c..6cac4b55b66f 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-edp.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
-> @@ -1612,6 +1612,31 @@ static const struct qcom_edp_swing_pre_emph_cfg nord_dp_swing_pre_emph_cfg = {
->  };
->  
->  
-> +static int qcom_edp_phy_power_on_nord(const struct qcom_edp *edp)
+Hi Tomi,
 
-This commit introduces compile warnings (-Wunused-function)
-> +{
-> +	u32 val;
-> +
-> +	writel(DP_PHY_PD_CTL_PWRDN | DP_PHY_PD_CTL_AUX_PWRDN |
-> +	       DP_PHY_PD_CTL_LANE_0_1_PWRDN | DP_PHY_PD_CTL_LANE_2_3_PWRDN |
-> +	       DP_PHY_PD_CTL_PLL_PWRDN | DP_PHY_PD_CTL_DP_CLAMP_EN,
-> +	       edp->edp + DP_PHY_PD_CTL);
-> +	writel(0xfc, edp->edp + DP_PHY_MODE);
-> +
-> +	return readl_poll_timeout(edp->pll + DP_QSERDES_V8_COM_CMN_STATUS_NORD,
-> +				 val, val & BIT(7), 5, 200);
-> +}
-> +
-> +static int qcom_edp_phy_com_resetsm_cntrl_nord(const struct qcom_edp *edp)
-> +{
-> +	u32 val;
-> +
-> +	writel(0x20, edp->pll + DP_QSERDES_V8_COM_RESETSM_CNTRL);
-> +
-> +	return readl_poll_timeout(edp->pll + DP_QSERDES_V8_COM_C_READY_STATUS_NORD,
-> +				 val, val & BIT(0), 500, 10000);
-> +}
-> +
-> +
+On Fri, 11 Sept 2026 at 09:07, Tomi Valkeinen
+<tomi.valkeinen+renesas@ideasonboard.com> wrote:
+> On 07/09/2026 12:29, Tomi Valkeinen wrote:
+> > Some DSI pipelines have DSC (Display Stream Compression) IP block
+> > between the DU and the DSI. Even if DSC is not needed, the IP must be
+> > enabled for the DSI output to work.
+> >
+> > This series adds a basic DSC driver, so that the DSC IP gets enabled in
+> > bypass mode. This enables DisplayPort output on Sparrow Hawk board, as
+> > the DP output comes from DSI and sn65dsi86 bridge, and also White Hawk
+> > board's second mini-DP output.
+> >
+> > Original series from Marek.
+> >
+> > Note: I see that not every run of kms++'s kmstest gives me a picture on
+> > my monitor. Sometimes the monitor seems to be trying to repeatedly sync,
+> > but fails, and the screen stays black. However, I see this same issue on
+> > WhiteHawk, which uses DSI0 pipeline, without DSC, so I think that is a
+> > separate issue.
+>
+> Pushed the first three patches to drm-misc-next. I'll leave the dts ones
+> to Geert.
 
-Double \n
+Thanks, will queue in renesas-devel for v7.4.
 
-Konrad
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
