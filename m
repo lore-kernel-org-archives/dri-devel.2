@@ -4,131 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00294C88E7F
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE849C88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39CE510F99C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AF8D10F9B7;
 	Tue, 15 Sep 2026 07:28:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FdCD3xxt";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="nsVPWhqD";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9693E10EF65
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:10:59 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id ADA33601FB;
- Mon, 14 Sep 2026 15:10:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 598031F00893;
- Mon, 14 Sep 2026 15:10:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789398658;
- bh=a/cry2esgQFXzUQwTlztFBc0G/64MzNaSwhtVxa/cNQ=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=FdCD3xxtPtlTwHiQQZj8z58HOi9MkFw/LOjVgiOeQFJKApMbOI0qQknZWVW7JXSyg
- Y6RanDJ6eM8vUgNBhoZunb3NfFiAb59g+tgGk6TaCH4zOyk4ibxTl9xCTU+/hLJd0E
- C/wbD2IDRA8Lvd3J1H5ArrZUxT8hzAa+X03t2VlMg/PzDUUyE1XQ8G95pvKUn8stXe
- 5JafdDmyfGUOBkYvNJ1Shfx6uvfEsHhRqIyGn/RpP44hW38FVrHaMKQP1hXWsOs04N
- 0vo0S19ueYlfUjq6lqvUydfqN6RnhYccRmlVYJOgbUa3Quq5ILEZmZvkbkiamSm4fU
- E7RwPVDE5T7zw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 14 Sep 2026 15:57:45 +0100
-Subject: [PATCH v2 25/40] mm/vma: enforce that only kernel-owned mappings
- may set VMA_IO_BIT
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22CEE10E164;
+ Mon, 14 Sep 2026 15:06:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+ Message-ID; bh=5Z4howC/uRpUc29d84yFvYfM7hmpJAEuKi5Mgrdj2m0=; b=n
+ sVPWhqD+wjxu+w6M1oFNGlyBT9L/OwEU9isAvR6G6yBNBVQt3mxk6oo+FsY+Qy/2
+ HO8jwPtmFkTH5mjl79Tgt9AB7dsjndhmcpTsmTH8yHueYjuQKNKOvr4elkYUHhGf
+ uzeVXKJSS6s9H1RiwCQOtfct1D5ec74CCPZR5e85is=
+Received: from localhost (unknown [::1])
+ by gzsmtp6 (Coremail) with SMTP id TSWEB_0013CC05000021B66AA80BF0;
+ Mon, 14 Sep 2026 23:00:00 +0800 (CST)
+Received: from oushinnyo$163.com ( [240e:804:1720:b6ad:7d17:545b:f6d7:1f06]
+ ) by ajax-webmail-wmsvr-40-101 (Coremail) ; Mon, 14 Sep 2026 16:14:42 +0800
+ (CST)
+X-Originating-IP: [240e:804:1720:b6ad:7d17:545b:f6d7:1f06]
+Date: Mon, 14 Sep 2026 23:00:00 +0800 (CST)
+From: oushinnyo  <oushinnyo@163.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ Harish.Kasiviswanathan@amd.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re:Re: [PATCH v1] drm/amdgpu: keep freed VM mappings on clear failure
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <c0f0b76b-fc3d-4473-83d7-ad820efcbbbc@amd.com>
+References: <20260905023151.90699-1-oushinnyo@163.com>
+ <c0f0b76b-fc3d-4473-83d7-ad820efcbbbc@amd.com>
+X-NTES-SC: AL_Qu2TC/+cvE4j5CeQZ+kdnksRge0+XsOyuv8k2YRXc+oEogrpyhEgdHpAOkXO3siLKjqNjwemSxpT8vx9cKZD3aAXwedbuu6TBw8nUSTgow==
+Content-Type: multipart/alternative; 
+ boundary="----=_Part_116899_1558594582.1789373682792"
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-25-7d9781ed5361@kernel.org>
-References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
-In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=988; i=ljs@kernel.org;
- h=from:subject:message-id; bh=2Jr9TGQDZkUd8fLzavPdA/40vMj/7KYd7/4/rEIq1dg=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcG+UVm7geFp/Nd4nyCOl4uJts+L3JptYjA76JEss4
- endw/q2o5SFQYyLQVZMkeX5F/H9QSJh8zov+LvBzGFlAhnCwMUpABNpYGf475Q9If+v6fdCTSel
- /PnVn2ZuTjXccO52NZvg5ofeGZGPmBkZZgu/u8Ji1euQ96dtlu2yY0uvytZrCh/M0yyz2q675ow
- 9EwA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Message-ID: <3efdfbf9.7999.1a09efb9469.Coremail.oushinnyo@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: QSgvCgBHtczyC6hqQuweAA--.57498W
+X-CM-SenderInfo: xrxvxxpqq10qqrwthudrp/xtbC5BLrOWqnrPI-HgAA3W
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-Mailman-Approved-At: Tue, 15 Sep 2026 07:27:57 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -145,39 +66,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-It makes no sense for a mapping whose contents the kernel does not own to
-specify that the range is MMIO.
 
-Prior to this patch, all in-tree drivers which did so have been updated
-such that they are marked as kernel-owned. The check WARNs and fails the
-mmap for any out-of-tree driver that still sets VMA_IO_BIT without a kernel
-mapping.
+------=_Part_116899_1558594582.1789373682792
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
 
-No functional change intended for in-tree code.
+ICBIaSBDaHJpc3RpYW4sCgoKICB0aGFua3MgZm9yIHRoZSByZXZpZXcuIEkgdW5kZXJzdGFuZCB0
+aGF0IHJlLWFkZGluZyB0aGUgbWFwcGluZyB0bwogIHZtLT5mcmVlZCBpcyBub3QgYSB2YWxpZCBh
+cHByb2FjaCwgc28gSSB3aWxsIGRyb3AgdGhpcyBwYXRjaC4KCgogIFRoZSBmYWlsdXJlIHBhdGgg
+SSBoYWQgaW4gbWluZCB3YXMgdGhlIGludGVycnVwdGlibGUgQ1BVIHVwZGF0ZSB3YWl0IGluCiAg
+YW1kZ3B1X3ZtX2NwdV9wcmVwYXJlKCk6CgoKICAgIGFtZGdwdV9zeW5jX3dhaXQoc3luYywgdHJ1
+ZSkKICAgICAgLT4gZG1hX2ZlbmNlX3dhaXQoZmVuY2UsIHRydWUpCgoKICBJIGRvIG5vdCBoYXZl
+IGEgbWluaW1hbCByZXByb2R1Y2VyIHlldC4gSSB3aWxsIGludmVzdGlnYXRlIHRoZSBhY3R1YWwK
+ICBjYWxsIHBhdGggZnVydGhlciBiZWZvcmUgcHJvcG9zaW5nIGFub3RoZXIgY2hhbmdlLgoKCiAg
+UmVnYXJkcywKICBvdXNoaW5ueW8KCgpBdCAyMDI2LTA5LTA3IDIwOjA0OjE2LCAiQ2hyaXN0aWFu
+IEvDtm5pZyIgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4gd3JvdGU6Cj5PbiA5LzUvMjYgMDQ6
+MzEsIG91c2hpbm55byB3cm90ZToKPj4gYW1kZ3B1X3ZtX2NsZWFyX2ZyZWVkKCkgcmVtb3ZlcyBh
+IG1hcHBpbmcgZnJvbSB2bS0+ZnJlZWQgYmVmb3JlCj4+IGNsZWFyaW5nIGl0cyBwYWdlIHRhYmxl
+IGVudHJpZXMuIElmIGFtZGdwdV92bV91cGRhdGVfcmFuZ2UoKSBmYWlscywKPj4gdGhlIG1hcHBp
+bmcgaXMgY3VycmVudGx5IGZyZWVkIGV2ZW4gdGhvdWdoIHRoZSBQVEUgdXBkYXRlIG1pZ2h0IG5v
+dAo+PiBoYXZlIGNvbXBsZXRlZC4KPj4KPj4gVGhpcyBpcyBwYXJ0aWN1bGFybHkgcHJvYmxlbWF0
+aWMgd2l0aCBDUFUgVk0gdXBkYXRlcy4gV2FpdGluZyBmb3IgYW4KPj4gZWFybGllciBzdWJtaXNz
+aW9uIGlzIGludGVycnVwdGlibGUsIHNvIGEgc2lnbmFsIGNhbiBhYm9ydCB0aGUgd2FpdAo+PiBi
+ZWZvcmUgYW55IFBURSBpcyBjbGVhcmVkLiBUaGUgb2xkIG1hcHBpbmcgdGhlbiBleGlzdHMgbmVp
+dGhlciBpbiB0aGUKPj4gVkEgdHJlZSBub3Igb24gdGhlIGZyZWVkIGxpc3QsIGFsbG93aW5nIGEg
+bGF0ZXIgVk0gdXBkYXRlIHRvIHJldXNlIHRoZQo+PiB2aXJ0dWFsIGFkZHJlc3Mgd2hpbGUgYW4g
+ZWFybGllciBzdWJtaXNzaW9uIHN0aWxsIHJlZmVyZW5jZXMgaXQuCj4KPlRoYXQgd291bGQgYmUg
+aW5kZWVkIHByb2JsZW1hdGljLCB3aGVyZSBleGFjdGx5IGRvIHlvdSBzZWUgdGhhdD8gRG8geW91
+IGhhdmUgYSB0ZXN0IGNhc2UgZm9yIHRoaXM/Cj4+IFB1dCB0aGUgbWFwcGluZyBiYWNrIG9uIHZt
+LT5mcmVlZCBvbiBldmVyeSB1cGRhdGUgZXJyb3IuIFRoaXMga2VlcHMgdGhlCj4+IHBlbmRpbmcg
+Y2xlYXIgb3BlcmF0aW9uIGFsaXZlIGFuZCBtYWtlcyBsYXRlciBWTSB1cGRhdGVzIHJldHJ5IGl0
+IGJlZm9yZQo+PiBpbnN0YWxsaW5nIG5ldyBQVEVzLiBJdCBhbHNvIGNvdmVycyBwYXJ0aWFsIENQ
+VSBvciBTRE1BIHVwZGF0ZXMKPj4gY29uc2VydmF0aXZlbHkuCj4KPkNsZWFyIE5BSyB0byB0aGF0
+IGFwcHJvYWNoLgo+Cj5GcmVlZCB1cCBhcmVhcyBvZiB0aGUgcGFnZSB0YWJsZXMgbXVzdCBiZSBj
+bGVhcmVkIHdoZW4gdGhhdCBmdW5jdGlvbiBpcyBjYWxsZWQgb3Igb3RoZXJ3aXNlIHdlIHJ1biBp
+bnRvIHRvbnMgb2YgcHJvYmxlbXMgcmV2ZXJ0aW5nIHByZXZpb3VzIGNoYW5nZXMgdG8gdGhlIGhv
+dXNla2VlcGluZyBzdHJ1Y3R1cmVzLgo+Cj5UaGUgb25seSB2YWxpZCByZWFzb24gdGhpcyBmdW5j
+dGlvbiBjYW4gZmFpbCBpcyBiZWNhdXNlIHRoZSBkZXZpY2UgaXMgaG90IHJlbW92ZWQgYW5kIGlu
+IHRoYXQgY2FzZSBpdCBkb2Vzbid0IG1hdHRlciBhbnkgbW9yZSB3aGF0IHdlIGRvIGhlcmUuCj4K
+PlJlZ2FyZHMsCj5DaHJpc3RpYW4uCj4KPj4gCj4+IEZpeGVzOiBiNGQ0MjUxMWI3ZjIgKCJkcm0v
+YW1kZ3B1OiBTdXBwb3J0IHBhZ2UgdGFibGUgdXBkYXRlIHZpYSBDUFUiKQo+PiBDYzogc3RhYmxl
+QHZnZXIua2VybmVsLm9yZwo+PiBBc3Npc3RlZC1ieTogQ29kZXg6Z3B0LTUKPj4gU2lnbmVkLW9m
+Zi1ieTogb3VzaGlubnlvIDxvdXNoaW5ueW9AMTYzLmNvbT4KPj4gLS0tCj4+ICBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyB8IDMgKystCj4+ICAxIGZpbGUgY2hhbmdlZCwg
+MiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4+IAo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdm0uYwo+PiBpbmRleCA0N2NkZTU0NTk0NjkuLmUyMDkwNWQyZDkwYyAxMDA2
+NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4gQEAgLTE2MDYsMTEg
+KzE2MDYsMTIgQEAgaW50IGFtZGdwdV92bV9jbGVhcl9mcmVlZChzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldiwKPj4gICAgICAgICAgICAgICAgIHIgPSBhbWRncHVfdm1fdXBkYXRlX3JhbmdlKGFk
+ZXYsIHZtLCBmYWxzZSwgZmFsc2UsIHRydWUsIGZhbHNlLAo+PiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgJnN5bmMsIG1hcHBpbmctPnN0YXJ0LCBtYXBwaW5nLT5s
+YXN0LAo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMCwgMCwg
+MCwgTlVMTCwgTlVMTCwgJmYpOwo+PiAtICAgICAgICAgICAgICAgYW1kZ3B1X3ZtX2ZyZWVfbWFw
+cGluZyhhZGV2LCB2bSwgbWFwcGluZywgZik7Cj4+ICAgICAgICAgICAgICAgICBpZiAocikgewo+
+PiArICAgICAgICAgICAgICAgICAgICAgICBsaXN0X2FkZCgmbWFwcGluZy0+bGlzdCwgJnZtLT5m
+cmVlZCk7Cj4+ICAgICAgICAgICAgICAgICAgICAgICAgIGRtYV9mZW5jZV9wdXQoZik7Cj4+ICAg
+ICAgICAgICAgICAgICAgICAgICAgIGdvdG8gZXJyb3JfZnJlZTsKPj4gICAgICAgICAgICAgICAg
+IH0KPj4gKyAgICAgICAgICAgICAgIGFtZGdwdV92bV9mcmVlX21hcHBpbmcoYWRldiwgdm0sIG1h
+cHBpbmcsIGYpOwo+PiAgICAgICAgIH0KPj4gCj4+ICAgICAgICAgaWYgKGZlbmNlICYmIGYpIHsK
+Pj4gLS0KPj4gMi4yNS4xCj4+IAo=
+------=_Part_116899_1558594582.1789373682792
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: base64
 
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- mm/vma.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/mm/vma.c b/mm/vma.c
-index c6ed04d27351..fa429771bea8 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -2787,6 +2787,12 @@ static int mmap_validate_vma_flags(const vma_flags_t *flags)
- 		return -EINVAL;
- #endif
- 
-+	if (!vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT)) {
-+		/* Only kernel-owned mappings may set VMA_IO_BIT. */
-+		if (WARN_ON_ONCE(vma_flags_test(flags, VMA_IO_BIT)))
-+			return -EINVAL;
-+	}
-+
- 	return 0;
- }
- 
-
--- 
-2.55.0
+PGRpdiBkYXRhLW50ZXM9Im50ZXNfbWFpbF9ib2R5X3Jvb3QiIHN0eWxlPSJsaW5lLWhlaWdodDox
+Ljc7Y29sb3I6IzAwMDAwMDtmb250LXNpemU6MTRweDtmb250LWZhbWlseTpBcmlhbCI+PGRpdiBp
+ZD0ic3BuRWRpdG9yQ29udGVudCI+PGRpdiBzdHlsZT0ibWFyZ2luOiAwOyI+Jm5ic3A7IEhpIENo
+cmlzdGlhbiw8L2Rpdj48ZGl2IHN0eWxlPSJtYXJnaW46IDA7Ij48YnI+PC9kaXY+PGRpdiBzdHls
+ZT0ibWFyZ2luOiAwOyI+Jm5ic3A7IHRoYW5rcyBmb3IgdGhlIHJldmlldy4gSSB1bmRlcnN0YW5k
+IHRoYXQgcmUtYWRkaW5nIHRoZSBtYXBwaW5nIHRvPC9kaXY+PGRpdiBzdHlsZT0ibWFyZ2luOiAw
+OyI+Jm5ic3A7IHZtLSZndDtmcmVlZCBpcyBub3QgYSB2YWxpZCBhcHByb2FjaCwgc28gSSB3aWxs
+IGRyb3AgdGhpcyBwYXRjaC48L2Rpdj48ZGl2IHN0eWxlPSJtYXJnaW46IDA7Ij48YnI+PC9kaXY+
+PGRpdiBzdHlsZT0ibWFyZ2luOiAwOyI+Jm5ic3A7IFRoZSBmYWlsdXJlIHBhdGggSSBoYWQgaW4g
+bWluZCB3YXMgdGhlIGludGVycnVwdGlibGUgQ1BVIHVwZGF0ZSB3YWl0IGluPC9kaXY+PGRpdiBz
+dHlsZT0ibWFyZ2luOiAwOyI+Jm5ic3A7IGFtZGdwdV92bV9jcHVfcHJlcGFyZSgpOjwvZGl2Pjxk
+aXYgc3R5bGU9Im1hcmdpbjogMDsiPjxicj48L2Rpdj48ZGl2IHN0eWxlPSJtYXJnaW46IDA7Ij4m
+bmJzcDsgJm5ic3A7IGFtZGdwdV9zeW5jX3dhaXQoc3luYywgdHJ1ZSk8L2Rpdj48ZGl2IHN0eWxl
+PSJtYXJnaW46IDA7Ij4mbmJzcDsgJm5ic3A7ICZuYnNwOyAtJmd0OyBkbWFfZmVuY2Vfd2FpdChm
+ZW5jZSwgdHJ1ZSk8L2Rpdj48ZGl2IHN0eWxlPSJtYXJnaW46IDA7Ij48YnI+PC9kaXY+PGRpdiBz
+dHlsZT0ibWFyZ2luOiAwOyI+Jm5ic3A7IEkgZG8gbm90IGhhdmUgYSBtaW5pbWFsIHJlcHJvZHVj
+ZXIgeWV0LiBJIHdpbGwgaW52ZXN0aWdhdGUgdGhlIGFjdHVhbDwvZGl2PjxkaXYgc3R5bGU9Im1h
+cmdpbjogMDsiPiZuYnNwOyBjYWxsIHBhdGggZnVydGhlciBiZWZvcmUgcHJvcG9zaW5nIGFub3Ro
+ZXIgY2hhbmdlLjwvZGl2PjxkaXYgc3R5bGU9Im1hcmdpbjogMDsiPjxicj48L2Rpdj48ZGl2IHN0
+eWxlPSJtYXJnaW46IDA7Ij4mbmJzcDsgUmVnYXJkcyw8L2Rpdj48ZGl2IHN0eWxlPSJtYXJnaW46
+IDA7Ij4mbmJzcDsgb3VzaGlubnlvPC9kaXY+PGRpdiBzdHlsZT0ibWFyZ2luOiAwOyI+PGJyPjwv
+ZGl2PjwvZGl2PjxwcmU+QXQgMjAyNi0wOS0wNyAyMDowNDoxNiwgIkNocmlzdGlhbiBLw7ZuaWci
+ICZsdDtjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20mZ3Q7IHdyb3RlOgomZ3Q7T24gOS81LzI2IDA0
+OjMxLCBvdXNoaW5ueW8gd3JvdGU6CiZndDsmZ3Q7IGFtZGdwdV92bV9jbGVhcl9mcmVlZCgpIHJl
+bW92ZXMgYSBtYXBwaW5nIGZyb20gdm0tJmd0O2ZyZWVkIGJlZm9yZQomZ3Q7Jmd0OyBjbGVhcmlu
+ZyBpdHMgcGFnZSB0YWJsZSBlbnRyaWVzLiBJZiBhbWRncHVfdm1fdXBkYXRlX3JhbmdlKCkgZmFp
+bHMsCiZndDsmZ3Q7IHRoZSBtYXBwaW5nIGlzIGN1cnJlbnRseSBmcmVlZCBldmVuIHRob3VnaCB0
+aGUgUFRFIHVwZGF0ZSBtaWdodCBub3QKJmd0OyZndDsgaGF2ZSBjb21wbGV0ZWQuCiZndDsmZ3Q7
+CiZndDsmZ3Q7IFRoaXMgaXMgcGFydGljdWxhcmx5IHByb2JsZW1hdGljIHdpdGggQ1BVIFZNIHVw
+ZGF0ZXMuIFdhaXRpbmcgZm9yIGFuCiZndDsmZ3Q7IGVhcmxpZXIgc3VibWlzc2lvbiBpcyBpbnRl
+cnJ1cHRpYmxlLCBzbyBhIHNpZ25hbCBjYW4gYWJvcnQgdGhlIHdhaXQKJmd0OyZndDsgYmVmb3Jl
+IGFueSBQVEUgaXMgY2xlYXJlZC4gVGhlIG9sZCBtYXBwaW5nIHRoZW4gZXhpc3RzIG5laXRoZXIg
+aW4gdGhlCiZndDsmZ3Q7IFZBIHRyZWUgbm9yIG9uIHRoZSBmcmVlZCBsaXN0LCBhbGxvd2luZyBh
+IGxhdGVyIFZNIHVwZGF0ZSB0byByZXVzZSB0aGUKJmd0OyZndDsgdmlydHVhbCBhZGRyZXNzIHdo
+aWxlIGFuIGVhcmxpZXIgc3VibWlzc2lvbiBzdGlsbCByZWZlcmVuY2VzIGl0LgomZ3Q7CiZndDtU
+aGF0IHdvdWxkIGJlIGluZGVlZCBwcm9ibGVtYXRpYywgd2hlcmUgZXhhY3RseSBkbyB5b3Ugc2Vl
+IHRoYXQ/IERvIHlvdSBoYXZlIGEgdGVzdCBjYXNlIGZvciB0aGlzPwomZ3Q7Jmd0OyBQdXQgdGhl
+IG1hcHBpbmcgYmFjayBvbiB2bS0mZ3Q7ZnJlZWQgb24gZXZlcnkgdXBkYXRlIGVycm9yLiBUaGlz
+IGtlZXBzIHRoZQomZ3Q7Jmd0OyBwZW5kaW5nIGNsZWFyIG9wZXJhdGlvbiBhbGl2ZSBhbmQgbWFr
+ZXMgbGF0ZXIgVk0gdXBkYXRlcyByZXRyeSBpdCBiZWZvcmUKJmd0OyZndDsgaW5zdGFsbGluZyBu
+ZXcgUFRFcy4gSXQgYWxzbyBjb3ZlcnMgcGFydGlhbCBDUFUgb3IgU0RNQSB1cGRhdGVzCiZndDsm
+Z3Q7IGNvbnNlcnZhdGl2ZWx5LgomZ3Q7CiZndDtDbGVhciBOQUsgdG8gdGhhdCBhcHByb2FjaC4K
+Jmd0OwomZ3Q7RnJlZWQgdXAgYXJlYXMgb2YgdGhlIHBhZ2UgdGFibGVzIG11c3QgYmUgY2xlYXJl
+ZCB3aGVuIHRoYXQgZnVuY3Rpb24gaXMgY2FsbGVkIG9yIG90aGVyd2lzZSB3ZSBydW4gaW50byB0
+b25zIG9mIHByb2JsZW1zIHJldmVydGluZyBwcmV2aW91cyBjaGFuZ2VzIHRvIHRoZSBob3VzZWtl
+ZXBpbmcgc3RydWN0dXJlcy4KJmd0OwomZ3Q7VGhlIG9ubHkgdmFsaWQgcmVhc29uIHRoaXMgZnVu
+Y3Rpb24gY2FuIGZhaWwgaXMgYmVjYXVzZSB0aGUgZGV2aWNlIGlzIGhvdCByZW1vdmVkIGFuZCBp
+biB0aGF0IGNhc2UgaXQgZG9lc24ndCBtYXR0ZXIgYW55IG1vcmUgd2hhdCB3ZSBkbyBoZXJlLgom
+Z3Q7CiZndDtSZWdhcmRzLAomZ3Q7Q2hyaXN0aWFuLgomZ3Q7CiZndDsmZ3Q7IAomZ3Q7Jmd0OyBG
+aXhlczogYjRkNDI1MTFiN2YyICgiZHJtL2FtZGdwdTogU3VwcG9ydCBwYWdlIHRhYmxlIHVwZGF0
+ZSB2aWEgQ1BVIikKJmd0OyZndDsgQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKJmd0OyZndDsg
+QXNzaXN0ZWQtYnk6IENvZGV4OmdwdC01CiZndDsmZ3Q7IFNpZ25lZC1vZmYtYnk6IG91c2hpbm55
+byAmbHQ7b3VzaGlubnlvQDE2My5jb20mZ3Q7CiZndDsmZ3Q7IC0tLQomZ3Q7Jmd0OyAgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgfCAzICsrLQomZ3Q7Jmd0OyAgMSBmaWxl
+IGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQomZ3Q7Jmd0OyAKJmd0OyZn
+dDsgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKJmd0OyZndDsgaW5kZXggNDdj
+ZGU1NDU5NDY5Li5lMjA5MDVkMmQ5MGMgMTAwNjQ0CiZndDsmZ3Q7IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCiZndDsmZ3Q7ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCiZndDsmZ3Q7IEBAIC0xNjA2LDExICsxNjA2LDEyIEBA
+IGludCBhbWRncHVfdm1fY2xlYXJfZnJlZWQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiZn
+dDsmZ3Q7ICAgICAgICAgICAgICAgICByID0gYW1kZ3B1X3ZtX3VwZGF0ZV9yYW5nZShhZGV2LCB2
+bSwgZmFsc2UsIGZhbHNlLCB0cnVlLCBmYWxzZSwKJmd0OyZndDsgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICZhbXA7c3luYywgbWFwcGluZy0mZ3Q7c3RhcnQsIG1h
+cHBpbmctJmd0O2xhc3QsCiZndDsmZ3Q7ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAwLCAwLCAwLCBOVUxMLCBOVUxMLCAmYW1wO2YpOwomZ3Q7Jmd0OyAtICAgICAg
+ICAgICAgICAgYW1kZ3B1X3ZtX2ZyZWVfbWFwcGluZyhhZGV2LCB2bSwgbWFwcGluZywgZik7CiZn
+dDsmZ3Q7ICAgICAgICAgICAgICAgICBpZiAocikgewomZ3Q7Jmd0OyArICAgICAgICAgICAgICAg
+ICAgICAgICBsaXN0X2FkZCgmYW1wO21hcHBpbmctJmd0O2xpc3QsICZhbXA7dm0tJmd0O2ZyZWVk
+KTsKJmd0OyZndDsgICAgICAgICAgICAgICAgICAgICAgICAgZG1hX2ZlbmNlX3B1dChmKTsKJmd0
+OyZndDsgICAgICAgICAgICAgICAgICAgICAgICAgZ290byBlcnJvcl9mcmVlOwomZ3Q7Jmd0OyAg
+ICAgICAgICAgICAgICAgfQomZ3Q7Jmd0OyArICAgICAgICAgICAgICAgYW1kZ3B1X3ZtX2ZyZWVf
+bWFwcGluZyhhZGV2LCB2bSwgbWFwcGluZywgZik7CiZndDsmZ3Q7ICAgICAgICAgfQomZ3Q7Jmd0
+OyAKJmd0OyZndDsgICAgICAgICBpZiAoZmVuY2UgJmFtcDsmYW1wOyBmKSB7CiZndDsmZ3Q7IC0t
+CiZndDsmZ3Q7IDIuMjUuMQomZ3Q7Jmd0OyAKPC9wcmU+PC9kaXY+
+------=_Part_116899_1558594582.1789373682792--
 
