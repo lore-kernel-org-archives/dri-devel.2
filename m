@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F008EC88E7D
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFD31C982C1
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 259D410F9F8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71AD010F9FB;
 	Tue, 15 Sep 2026 07:28:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b="IAV6QyNQ";
-	dkim=permerror (0-bit key) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b="ySXOaoe0";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b="jQgUtWJm";
+	dkim=permerror (0-bit key) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b="iH+0PQWr";
 	dkim-atps=neutral
-X-Greylist: delayed 2172 seconds by postgrey-1.36 at gabe;
- Mon, 14 Sep 2026 14:33:26 UTC
 Received: from mx2.cyberprotect.ru (mx2.cyberprotect.ru [176.10.93.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A334210E2D1;
- Mon, 14 Sep 2026 14:33:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CD6310EF66;
+ Mon, 14 Sep 2026 15:16:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=cyberprotect.ru; s=dkim-r; h=MIME-Version:Date:From:Sender:Reply-To;
- bh=G7k+5ltUYjwES1HZ+tIrvRED7WHcVnAbVMsryiyMzYI=; b=IAV6QyNQXJUIg8acSVFC6THTCw
- WBHaUHAPEEMCe/djnyt516IwdSuKhD4bzNXH6J7prLpCeT0LJ6EATfTgW/2wVX4tjzeRA6Uf4jB1D
- Qf3fJfGkqhThFGfeMhdpzSb7ohUuICHI2NUQLutuxM5XvPFHLaYhF+gX/DWp6ofXVdoCjRJNL7rE4
- MGRmceJXYPRSzRg0Xsnjy/yk4E1siAoK+X7YI+MfYmhkFVusE0mPHSAEfTsgbHTmFmxwWHVHn4Nlq
- Eo6Pem+TONK6/x8WZXSPl0S7B7rmUMUyIBYaMyHSTCSGTqkDNee0aig5/3mxy9Z070t4ebVaSoCdL
- fozrA4eg==;
+ bh=RdvBOVnEKQdDMFBx5aH72LXneDiwa7iML9qml3N/n84=; b=jQgUtWJmwNKw1hsXIaa+KnSSfo
+ fZGI8a9YpV01Tor+l0gK6kmC5kSEiZL4xsR6a0+FWXhcela7Cx7abQISYIrNiVgCAzUppfOyskxd9
+ ZOJDz7QfoQB6dvhPhoEu0jBwJjXx+loDO6o49dbk8l15nuJJF0XfqbUvvUpLzA6N+oUN+BIROlYmF
+ 5mRS07PG62zUh8YNKOuT2ARVjmJ/8Fng+eeeoaGIpTEjA5eBAbJY8KwwoFr/m3T5NgA/qcyAZYAp+
+ RKLrdAskaorCHc722Iimdr/FQXaDsq7MU77PA0f6LOHLkgx0zvrIVE2RdkxUhiIPODESF2Z7ndneJ
+ 5TkY2/RQ==;
 DKIM-Signature: v=1; a=ed25519-sha256; q=dns/txt; c=relaxed/relaxed;
  d=cyberprotect.ru; s=dkim; h=MIME-Version:Date:From:Sender:Reply-To;
- bh=G7k+5ltUYjwES1HZ+tIrvRED7WHcVnAbVMsryiyMzYI=; b=ySXOaoe0A71bsidyk23w2to3m8
- TRsAEjiBzayhV2sFsHMPC/03gAgfyQS+K+3EK1oQf9szHwJZcS8XFVwit/Dg==;
+ bh=RdvBOVnEKQdDMFBx5aH72LXneDiwa7iML9qml3N/n84=; b=iH+0PQWr4FzqmqQctLMfFKUiaq
+ G+UVxyqir2zVBRTA5K0Q5xjWLJiAlGG0/zpjxhckkuCfNiOZn9GTdsZYh4Cw==;
 From: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
-To: Alexander Deucher <alexander.deucher@amd.com>
-CC: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David
- Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Hawking Zhang
- <Hawking.Zhang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+To: Austin Zheng <austin.zheng@amd.com>
+CC: Jun Lei <jun.lei@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li
+ <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, Alex Deucher
+ <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Dillon Varone <dillon.varone@amd.com>, Nicholas Carbones
+ <Nicholas.Carbones@amd.com>, Wayne Lin <wayne.lin@amd.com>, Ray Wu
+ <ray.wu@amd.com>, Gaghik Khachatrian <gaghik.khachatrian@amd.com>,
  <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  <linux-kernel@vger.kernel.org>, <lvc-project@linuxtesting.org>, Dmitriy
  Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
-Subject: [PATCH] drm/amdgpu: check ras and obj before dereference
-Date: Mon, 14 Sep 2026 17:33:03 +0300
-Message-ID: <20260914143303.90614-1-Dmitry.Chumachenko@cyberprotect.ru>
+Subject: [PATCH] drm/amd/display: guard NULL secondary pipe in
+ dcn_validate_bandwidth()
+Date: Mon, 14 Sep 2026 18:14:46 +0300
+Message-ID: <20260914151446.94380-1-Dmitry.Chumachenko@cyberprotect.ru>
 X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -64,39 +67,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-nbio_v7_9_handle_ras_controller_intr_no_bifring() dereferences ras and obj
-without checking either for NULL. Both amdgpu_ras_get_context() and 
-amdgpu_ras_find_obj() can return NULL, e.g. during the window between 
-adev->nbio.ras being set (early in amdgpu_ras_init(), by design, to 
-enable the fatal-error interrupt as soon as possible) and the PCIE_BIF 
-ras object actually being created in RAS late_init. Any interrupt in that 
-window crashes in hard-IRQ context.
+resource_find_free_secondary_pipe_legacy() returns NULL when no free
+pipe is available, but the result is only passed to ASSERT() (a
+WARN_ON_ONCE() that does not stop execution) and then dereferenced in
+split_stream_across_pipes() and dcn_bw_calc_rq_dlg_ttu().
 
-This is analogous to commit d190b459b2a4 ("drm/amdgpu: the warning
-dereferencing obj for nbio_v7_4"), which fixed the same issue in the
-nbio_v7_4 handler.
+The sibling resource callers (dcn10/dcn20/dcn201) already NULL-check
+this function's result. Do the same here and skip the split when no
+free pipe is available.
 
 Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-Fixes: 7692e1ee2446 ("drm/amdgpu: add RAS fatal error handler for NBIO v7.9")
+Fixes: 74c49c7ac14f ("drm/amdgpu/display: Add calcs code for DCN")
 Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
 ---
- drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-index 8e401f8b2a05..2b3a1b9f8efc 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-@@ -518,7 +518,7 @@ static void nbio_v7_9_handle_ras_controller_intr_no_bifring(struct amdgpu_device
- 						RAS_CNTLR_INTERRUPT_CLEAR, 1);
- 		WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL, bif_doorbell_intr_cntl);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
+index 61553e24d53e..de54807ade43 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
+@@ -1261,10 +1261,12 @@ bool dcn_validate_bandwidth(
+ 						/* pipe not split previously needs split */
+ 						hsplit_pipe = resource_find_free_secondary_pipe_legacy(&context->res_ctx, pool, pipe);
+ 						ASSERT(hsplit_pipe);
+-						split_stream_across_pipes(&context->res_ctx, pool, pipe, hsplit_pipe);
++						if (hsplit_pipe)
++							split_stream_across_pipes(&context->res_ctx, pool, pipe, hsplit_pipe);
+ 					}
  
--		if (!ras->disable_ras_err_cnt_harvest) {
-+		if (ras && !ras->disable_ras_err_cnt_harvest && obj) {
- 			/*
- 			 * clear error status after ras_controller_intr
- 			 * according to hw team and count ue number
+-					dcn_bw_calc_rq_dlg_ttu(dc, v, hsplit_pipe, input_idx);
++					if (hsplit_pipe)
++						dcn_bw_calc_rq_dlg_ttu(dc, v, hsplit_pipe, input_idx);
+ 				} else if (hsplit_pipe && hsplit_pipe->plane_state == pipe->plane_state) {
+ 					/* merge previously split pipe */
+ 					pipe->bottom_pipe = hsplit_pipe->bottom_pipe;
 -- 
 2.49.0
 
