@@ -4,80 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92A6DC88E50
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 05:47:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F460C88E50
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 05:59:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B84AA10EB44;
-	Mon, 14 Sep 2026 05:47:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2895C10E36D;
+	Mon, 14 Sep 2026 05:59:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LLZto3IQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Rgslhp5g";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9490810EB44
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 05:47:27 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-486fa798933so950874f8f.0
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 22:47:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789364846; x=1789969646; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=rjb+OYWz+/bKaY6AiNvmi3TeWvwlpKbGSDH/yB8xs0k=;
- b=LLZto3IQ0QFExUHxE6dboM1CfajU5828xlFT2KMrMA1iucaBQTqBAk2KxVy6vpuP1V
- FavuUyIO/uaVJ0/54xYPwi/Pl/zUHuFo5h3lS/CWYfaBTr3FTXHwqrDvewCTY+PczxSg
- uew8P+8acy04E8C6dwehx2S4NH9x22IUMifusDdiZBC59hWkNLgoziQVWOFwdMP5DulV
- YSvs+zmYFyaElIOg7S407YGD8MGwfqD3KoSdVzj/roJo7BTdLuFoihNNVEv/5hK1o8jR
- z6AKdh+ynkf+s8DJn1vKvA9lS1Y9DtzDjeza9hJoDLuOBgm3emHN5rHX2gTamamNkart
- 9v0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789364846; x=1789969646;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=rjb+OYWz+/bKaY6AiNvmi3TeWvwlpKbGSDH/yB8xs0k=;
- b=BxQ5eCnuWba96oU4es7NeUEJBauHYjPZXOXfNQ9HjZWKHkSVbNUB+A06mqpfn20xlZ
- YdTN535GoT+x0g/qbzSHGV0P0uTZtmxqsbW9TWV4iYqYGGD0xJCGcW6V241IRu32HAGT
- 7XAF4P46CEbehbR5AP4cd5YDMDhw4ZDCsWFHhKG9ecn4uu83QQotLhBtjclaWNpxFSHQ
- viXUml+WyN5oEWImHZ5eJ7ePTpiy1GSSRP1Ew+TkaoQR9yFkVWudyRsumGqCxGl4cIok
- Gw+Dmz8IKGNOVidM65byndOIP8mzGNcl4lnCP2qZqirsvORSaWBunsAeNvknVv7mw/9E
- klLA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzfgv9iMCFuziySA9bdqtMwcOHu23WNnGiVL+F1+++q1yBOzWjvq0RRBTbd86H6sSrxCwp5GgTBUJc=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m8y41X9n3uk1eWfGQugbZRHgVV/q7PMSk2PBW+LLHNl3DId3JD
- swxFDBxbtxjoBYao+1GOrVbXqPgvqWZG5ZfzFnbcYMYSyhAM4qkcPCmu
-X-Gm-Gg: AYBFou1MTdK7Qdl8jJhkkkRvVI+lD7ONbWawE12ms+nm3g9otAST5XPhg4wiDyBACuf
- Xh8lOmaESsxV7SsSgMYjjd0TtspHjhvre1LksNmxMEjhSwUhrtaLQREhz913j9JMeiVvJeCWI8y
- VkwSy4JHDPtLn6RfWmGPbiq0uSDnrtm6uaONKeLlhuR+zSVQhpJfRipwYJD7AuzQ8UqENlpWpLv
- 9Pn4hfoFgaLpwU9dlXf2X5T+E4g5/VFNH6Pl5JYgXr33prulWyxtSgNAHy7RANWJyRg/vsW1S6+
- Yad10ybEdi28BGI4geGpH9wMrX9Vm/epX6vySMsshcbtZJ6IiH64SGDWmTp/2MMvYl4/fCtmTxd
- zPcRX5ZowvDbgZYFZY2bDYeIwUmKIlb1FMliT4QjLlrjs2VTV1Alt4tzto0PSKck7pQBw/G9oH1
- rMUUThqkRsLzbow2rTNtmN02tqXqStIzTaUS0wDllWmmlnvZuBsH0PCSQDJ8AVBq/71KBBBSamO
- cc/kRmGOv9A8l1EGOVDz8o9j9ZKhyrLiIg7EfdCEbA1VNVxHrOdu2/wVc+DQ3xgD5r+1dzccpoJ
- Fc1nPoaaK0Jacj6kIjThVwfX5lVR9ds=
-X-Received: by 2002:a05:6000:288e:b0:485:8c16:5efc with SMTP id
- ffacd0b85a97d-48702b31ab6mr934116f8f.54.1789364845667; 
- Sun, 13 Sep 2026 22:47:25 -0700 (PDT)
-Received: from localhost.localdomain
- (dynamic-077-007-122-014.77.7.pool.telefonica.de. [77.7.122.14])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-486eb32d3c7sm22609515f8f.10.2026.09.13.22.47.24
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sun, 13 Sep 2026 22:47:25 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Mukul Joshi <mukul.joshi@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH next] drm/amdgpu: Initialize UALink handle uniqueness state
-Date: Mon, 14 Sep 2026 07:46:04 +0200
-Message-Id: <20260914054604.12850-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7340610E36D
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 05:59:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 057AE43474;
+ Mon, 14 Sep 2026 05:59:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C885E1F000FF;
+ Mon, 14 Sep 2026 05:59:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789365592;
+ bh=1BXuloBroCCKBaG85VPPRFgCCxFuJDmf+/b9Lh3bEEg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Rgslhp5gxwTfTLuNwiZjXcWwBpuNycSgMb8vKCN25puiC9O9BB73bEi4URblm7vER
+ famzNqJqtVlT+nAHYnTfc9dzqbAS0B1IF8jpzFGibRh2dSpgoaqsqE+zi9qFLlTvis
+ 5mYn/mX/c9ePSjnyDEXkchnxGyT32yibBFwJJMp61hQRMWKMSjTpDGfEtRHD+8vjGH
+ 6lXhF0ALYnPpRQvUStvnjDBzQlWROCuFPYcf/6jKAe58HKupWy+4jdFmVv5TqhVwV1
+ lOO6zBgBVPCeBTIkxXmfFL0qGZMrNRqAivb5G4j4PLBF1lkcJqarZbBSpS0le47nTX
+ GY7VWMH9VrOTg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH next] drm/amdgpu: Initialize UALink handle uniqueness state
+To: "Karl Mehltretter" <kmehltretter@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260914054604.12850-1-kmehltretter@gmail.com>
+References: <20260914054604.12850-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 05:59:52 +0000
+Message-Id: <20260914055952.C885E1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,44 +52,146 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+
+Pre-existing issues:
+- [Critical] Unchecked dereference of `adev->ualink.info` in `amdgpu_gem_ua=
+link_handle_ioctl` when UALink is unsupported.
+- [High] Lockless read and write of `robj->ualink_handle_lo` allows a TOCTO=
+U race condition that permanently leaks BO references and XArray nodes.
+- [High] Missing `amdgpu_bo_unref()` on error path in `amdgpu_ualink_export=
+_handle()` leads to GPU memory leak.
+--
+
+commit ca49d768520fb1865985555b2647fee616d8460f
+Author: Karl Mehltretter <kmehltretter@gmail.com>
+
+drm/amdgpu: Initialize UALink handle uniqueness state
+   =20
 amdgpu_generate_ualink_handle() continues when handle_lo is zero. For
 accelerator ID 0, the random value can become zero after the low 10 bits
 are cleared. This path reaches while (!unique) without assigning unique.
 
-Clang's -Wconditional-uninitialized reports the read. A reduced
-MemorySanitizer test reports use-of-uninitialized-value at the loop
-condition.
-
-If the uninitialized value ends the loop, handle 0 is inserted into
-exp_xa while robj->ualink_handle_lo still says that the BO has no handle.
-A later export can create another entry for the same BO.
+[ ... ]
 
 Initialize unique to false so the zero-handle path repeats the loop.
-
+   =20
 Fixes: c67cb19811ec ("drm/amdgpu: Implement UALink handle export")
 Assisted-by: LLM
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index ab56420..c6b7122 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -1819,7 +1819,7 @@ static void amdgpu_ualink_npa_mm_fini(struct amdgpu_device *adev)
- static void amdgpu_generate_ualink_handle(struct amdgpu_device *adev,
- 				   struct amdgpu_ualink_handle *handle)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_ualink.c
+> index ab564202f550a..c6b7122301f92 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> @@ -1819,7 +1819,7 @@ static void amdgpu_ualink_npa_mm_fini(struct amdgpu=
+_device *adev)
+>  static void amdgpu_generate_ualink_handle(struct amdgpu_device *adev,
+>  				   struct amdgpu_ualink_handle *handle)
+>  {
+> -	bool unique;
+> +	bool unique =3D false;
+> =20
+>  	do {
+>  		handle->handle_lo =3D get_random_u64();
+
+While reviewing this patch, I noticed a few pre-existing issues in the same
+file:
+
+[Severity: Critical]
+This is a pre-existing issue, but does amdgpu_gem_ualink_handle_ioctl() pan=
+ic
+on GPUs lacking UALink support?
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c:amdgpu_gem_ualink_handle_ioctl()=
  {
--	bool unique;
-+	bool unique = false;
- 
- 	do {
- 		handle->handle_lo = get_random_u64();
-base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
--- 
-2.53.0
+	...
+	if (adev->ualink.info->accel_state !=3D
+	    AMDGPU_UALINK_ACCEL_STATE_ACTIVE) {
+		dev_err(adev->dev,
+			"ualink device is not in active state in vpod\n");
+		return -EOPNOTSUPP;
+	}
+	...
+}
 
+adev->ualink.info is only allocated if the GPU supports UALink. Since the
+DRM_IOCTL_AMDGPU_UALINK_HANDLE ioctl is registered unconditionally for the
+whole driver, can unprivileged userspace trigger an immediate kernel crash
+(NULL pointer dereference) by calling this ioctl on an unsupported GPU?
+
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does
+amdgpu_ualink_export_handle() leak a BO and an exp_xa_node?
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c:amdgpu_ualink_export_handle() {
+	...
+	if (!robj->ualink_handle_lo) {
+		...
+		amdgpu_bo_ref(robj);
+		...
+		xa_lock(&adev->ualink.exp_xa);
+		amdgpu_generate_ualink_handle(adev, &handle);
+		exp_xa_node->handle =3D handle;
+		r =3D __xa_insert(&adev->ualink.exp_xa, handle.handle_lo,
+				exp_xa_node, GFP_KERNEL);
+		xa_unlock(&adev->ualink.exp_xa);
+		...
+		robj->ualink_handle_lo =3D handle.handle_lo;
+		...
+	}
+	...
+}
+
+Because robj->ualink_handle_lo is checked and overwritten locklessly (witho=
+ut
+holding a lock like the BO's reservation lock), could a TOCTOU race occur if
+two threads from the same process concurrently call the export ioctl for the
+same GEM handle?
+
+It seems both threads would observe robj->ualink_handle_lo =3D=3D 0, alloca=
+te an
+exp_xa_node, call amdgpu_bo_ref(robj), insert their node into the exp_xa
+array, and locklessly overwrite robj->ualink_handle_lo. Since cleanup only
+removes the handle stored in ualink_handle_lo, one node remains permanently
+in the XArray and its BO reference is never released, leaking VRAM.
+
+
+[Severity: High]
+This is a pre-existing issue, but does amdgpu_ualink_export_handle() leak
+the BO reference on the DMABuf error path?
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c:amdgpu_ualink_export_handle() {
+	...
+		amdgpu_bo_ref(robj);
+		...
+		exp_xa_node->dmabuf =3D drm_gem_prime_handle_to_dmabuf(&adev->ddev, filp,
+						gem_handle, DRM_CLOEXEC | DRM_RDWR);
+		if (IS_ERR(exp_xa_node->dmabuf)) {
+			r =3D PTR_ERR(exp_xa_node->dmabuf);
+			dev_err(adev->dev, "Failed to generate DMABuf for the BO\n");
+			kfree(exp_xa_node);
+			goto out;
+		}
+	...
+out:
+	drm_gem_object_put(gobj);
+	return r;
+}
+
+The out label drops the GEM object reference via drm_gem_object_put(), but
+fails to balance the explicit amdgpu_bo_ref(robj) taken earlier. If
+drm_gem_prime_handle_to_dmabuf() fails (for example, due to file descriptor
+exhaustion resulting in -EMFILE), won't this permanently leak the BO
+reference?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914054604.1285=
+0-1-kmehltretter@gmail.com?part=3D1
