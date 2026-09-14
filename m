@@ -4,92 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A67DEC88E64
-	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 00:26:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC34CC88E64
+	for <dri-devel@archiver.kernel.org>; Mon, 14 Sep 2026 00:43:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF8A110E6CB;
-	Mon, 14 Sep 2026 00:26:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FD8410EA9A;
+	Mon, 14 Sep 2026 00:43:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AEH7RHt3";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WVJvGlJE";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="bgQfIVCC";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jftz9pRp";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9586510E4BE
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 00:26:50 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF48410E19C
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 00:43:26 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68E06lMj1922361
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 00:26:50 GMT
+ 68E06dXH3348995
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 00:43:25 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=fhHkV5ZH2IWbRWw4FpuzKYxl
- rQHT67Pv+hyugolUmOE=; b=AEH7RHt392v0JFqubQvGMbrb+Bdmsxhn89rvkWl0
- jV1+rcG9FMUUK8myYDDs19gnBQTjqNkkfjy47SYrGHSagk1R0CWqYaxZUHMXQroN
- qRQ7VdIVuVtZBKbVVkXfQwAr031KTzjdMr8oqF7oFRUt2gRCQl8CuHnKG2tf7/jT
- lf/CHAp89RGIyZ2EvXf4BPUqF8uKqVRBW0GlR9FXwEEuQx60nUdEVX9j7Eut3aOT
- IVSyWzCjHOy8JZLJbIo22hcOKTtHzZOUBJ7fBQfwSjATyv1K3FPsil+UP7oAumaS
- pSVeP23W+iMraoWttGxSSn7gHUGXao0LDZWGtsuvVI4z9A==
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com
- [209.85.221.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmywh49jj-1
+ :references:subject:to; s=qcppdkim1; bh=Lj9pFcVapk0XSSP7vk2Ibgx2
+ B2uTAyJseO6HX7OHZTQ=; b=bgQfIVCCMV3iD6UZqTIHicnGFEy/PC9xmmStr4hW
+ iyC32DhH9LgnCniqdkSEuCp+18iX2NujkqzB1cYtn95L8LVUk38FeprgNUjoEObo
+ F1txYgUXb12oxATaUNxoV7SsKqhQbgyAqLs1qnT1eg2kzJEIYOFCvXccLkNm/YRd
+ aC3vPCNpJiZbmz1REOfDqdv6wJ42UIKuVkkfm7QFOBiWNYEJThgAh3RD3xHMQdzC
+ 6Bbuf/rwqlQTj5DOZn+sS4Bt1FFCprFi7kiLdLEx0DvAjUEGldr9FSevg0hvgOpa
+ ceQrTpifSKXCoMijz+EzO9JZOtJZtsFbE/l5hG2JPdZYmw==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com
+ [209.85.222.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gp3hsr9jr-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 00:26:50 +0000 (GMT)
-Received: by mail-vk1-f197.google.com with SMTP id
- 71dfb90a1353d-5c79915791eso904682e0c.0
- for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 17:26:49 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 00:43:25 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id
+ a1e0cc1a2514c-97cb32961e3so2001820241.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 13 Sep 2026 17:43:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1789345609; x=1789950409;
+ d=oss.qualcomm.com; s=google; t=1789346605; x=1789951405;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=fhHkV5ZH2IWbRWw4FpuzKYxlrQHT67Pv+hyugolUmOE=;
- b=WVJvGlJEe7ZlF2Zhpqirf7CA3sZ6XDY07ayzBbUUMEOyqsmutKPZS7LvAkNOKLPL2M
- GgsE2K8S9aKEVWKjsbTY2koGm0EsBoZKtJnsgsMWix7+LQHrXpo4Dg6BtCagP/vEgbgg
- cAYgnVmV8soDMMay+BwXWymSIVUd7HTK2G+SHfQ+zdremb/u0IOk7M+9JlqnQ5bjuPwy
- XqkB+jv/P/NVaWr88zxclR8Z0hdZ7PcwcpDFr1HLq9/N/Wufvl98pVHR3CFLcCPQovDh
- UWoPc2cN+XDzgQfhsHgil79zN1WqcXemcViv1naaGL3mtRtmFHPz9/xVnJKdWyQNr2Zh
- we6g==
+ bh=Lj9pFcVapk0XSSP7vk2Ibgx2B2uTAyJseO6HX7OHZTQ=;
+ b=jftz9pRpUFzquejEoR+yqpZQuUBHHNdBkUGpwf7RMEVR0RCJW33QF7BT+vfgusJyI5
+ Ubw7arM9a1nDOWWSHbMxQJNfhRexfUBd6A7fAj4pFTUEswZu9CcDlpdrb0Pv4PciOf0/
+ Coza2rEUEXR/CpLaJZOXzsej6b+apaV8bMg7AmplLnl/yt0X/PToSFwTL2QxapMA42tJ
+ pi1WO5UwJvF38pEn745tm+dit/Gut8pQUWygDS8a16hQKMpzty7GFHwHDhzImRwFEL+L
+ vg8KyUjM2GKmYHUust2NiHL55yUNFCpsWlK5NJxTXuAM67uTbpJVIlL+UDkeh9/QtZkZ
+ pIJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789345609; x=1789950409;
+ d=1e100.net; s=20251104; t=1789346605; x=1789951405;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=fhHkV5ZH2IWbRWw4FpuzKYxlrQHT67Pv+hyugolUmOE=;
- b=lIPWRa9HV5zmT974rmKQULni7PJlB2dp9PxEGIH317r8QsF6kqowgWbTyTBNRqWISS
- a/Tt39zy3ODQjQScfG2/cxKNcZbIrGBacSYdzcGSOlq77OKs5jDovCRA/UJblHfcQhty
- aCKWe9JMPePuwgZSOn7K8Rck1ICq+xjAcQzju32HvLyX5RHAYIpssK8hnN66B2AC0zwN
- +1I48IsvGViDEZ8ErUEX5cMezaylwZl6KkEabyqxTcp5ah2LGRa+MgG3xNPaoro9SLHX
- vsksltUb06ZZZHDowfeOPxpy/0wVq5fGDxKqxHeIaYpmOhNLvtkrgV2vVEjrK1G33RPy
- 4btQ==
+ bh=Lj9pFcVapk0XSSP7vk2Ibgx2B2uTAyJseO6HX7OHZTQ=;
+ b=rFAp17CsKWYuxIxkFo9YqwDj75+wvH6STV8Gvb5aH33PJB4IxGOx9uxsMSiRmpWL3v
+ DR+p9mqjJ9W9OumguOkajXMaNuGVYS4zk5sXqeC99IRRg5edxSom0E9Mgwr6BmDuaejZ
+ aNdd+eV22IAYt6oX/GZBNjE3GHa5/ZURRZc8PEzyZVj2j3y8uNyLXT46t4H7kE2+WMoL
+ PTKQFh1n4FZ31/t0o3Hx+trUZB+KdrNO+R8gYrYyhA0Z4k18l5AVmdGGSqZzZxGivZnu
+ Z8MkyGCdL9Be1aBJWrYlIKJEhsxO5X2gvnDMyga4ySeFJDoBDT0cV/4MpPf3qhcDgVN7
+ eKWA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBx00NJ0xJniyKK+a1bOy86ihu4EbcBcSE8h1lKllntjkSC7Q/J/1tPZ4dAh97Ivr/iAlGO4MtmzvSk=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++loPWoRlhQOjWY4qRUQ2FNheAdu5wY1OFekBnGuH2xoepgPed4A
- TMMKjPkATIV1Vp8RvQZTYYS3DMfGSxy64SOd5fXpuYeRkupqqq6eV5hNlwI6dgI6TiYFuxsCMk3
- MMMhR5wKs8jU67xCGki4sQJ+WvlxD++yhqtdN2tlC/3IjYNnk1W/S4IuHnUl1hgh5O42K6MM=
-X-Gm-Gg: AYBFou2ky3Mh29hdWt/AX7zQhCAkrT/g3XgnX+JNh/llV6qZK7Jl6VTYDG3cKZ+3i7k
- /2+/ZlaF21OFj7UQ/jtk3jBVWxJ3882jw+Q2Ft36/zJbi9Xdwf8Z4yQxotS+nl9ax3988ZOczRX
- RKkFWm0z/cTW3mz1EOiAUUBMUp06iJHoFzCEGbuaHcdxp4BsvtcLTYZ4aq/DlvrvTYMrWut2V6g
- yiCEfQn7kNWwkUc1+bB33YLm64IZ1aJp51KtKm5TN+EZdwhQraAFzftwB7MMs96SK//Ijm+xZUj
- C6lGDGsB8xTsGd7CMuQM6F7gk17AzzVyWGsTjyScZx6C1TtWzhflLU0ItVla6g4wYjsfKbjIFIV
- G77jILeWLz/wk1FiFBSNYc1oSnJJDxEvUsRbRYKOHBuvmJdYl097YmrjgXyF+pah7CVBknRx6Lo
- jBrY5MnFDkQuyS
-X-Received: by 2002:a05:6102:b0f:b0:785:c39b:6a1 with SMTP id
- ada2fe7eead31-79b5d8a21afmr86439137.6.1789345608909; 
- Sun, 13 Sep 2026 17:26:48 -0700 (PDT)
-X-Received: by 2002:a05:6102:b0f:b0:785:c39b:6a1 with SMTP id
- ada2fe7eead31-79b5d8a21afmr86411137.6.1789345608432; 
- Sun, 13 Sep 2026 17:26:48 -0700 (PDT)
+ AKwUvBycGhiszo6W9hNJnz3ZTb5p8g874zf7aH0sswSLIVFR3ZiLjEY3RoC08hbue+NTVWlGdQzbrBkJZxE=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mlqlqfM83ySzX5jmrmqk6s6OgXhRKyHrmqKEvAVkinBtycPrND
+ ai0ogYty2l3GiaWXUDrUbK82ItCCsQvwWYJ6Q4Ycf8d6l7aqCOkoBnJYLGuwBeHaVncRn5Rex+v
+ Kr9fOZm45j+FJ9EzHtPnw7KmzEyiDsXRPjHED6dyNlwFhwuDVftPTQelG8RZ/0MUo1vgqPak=
+X-Gm-Gg: AYBFou3k8NRzCxTZBDD2b22vYX2GpO4xNnV0Jg/IjaAut6WYwYnl52a2xHLr9PFGm2A
+ mYik7z0URaPo3yFtDqWmwgtm3NHau/3VcxH9OmuaLAuxUV5VPYjKixAgmnetC+JpXgLNPEkMDxN
+ KGcyYoEefOH4EfmPQe5Qx96hK7HMR5LRJeuweml4j950XKWdmjDAdYN0UDqfLBCqhD7LJ0D6mhY
+ 7TVfRk6DcxlPsldPUdy0/hB0YneWIR1POVkiZEs0NyazNyZWnKNSYKoCLbtvPFbClAmv4zv1TBI
+ VQMVNEzCq1YVt5flqADUYzhZ2yqREHQFYdF6gFJUmshSzQ+TsAVOIMwW3h9MCiVY1QF/jf87Bse
+ shhw7OWeGkBhEHt8/sQUEEWPikjtSEs9/k+TTbVOoO4g4vvLIaqCpJxFdUgevTZt4FZUIaJqEQx
+ g/AqA2gn181Jbs
+X-Received: by 2002:a05:6102:a48:b0:79a:1d27:a8ac with SMTP id
+ ada2fe7eead31-79b5878ad50mr144552137.5.1789346604721; 
+ Sun, 13 Sep 2026 17:43:24 -0700 (PDT)
+X-Received: by 2002:a05:6102:a48:b0:79a:1d27:a8ac with SMTP id
+ ada2fe7eead31-79b5878ad50mr144521137.5.1789346604268; 
+ Sun, 13 Sep 2026 17:43:24 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b8a0456644sm2091675e87.18.2026.09.13.17.26.45
+ 38308e7fff4ca-3a5a3303fc9sm23868501fa.6.2026.09.13.17.43.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Sep 2026 17:26:45 -0700 (PDT)
-Date: Mon, 14 Sep 2026 03:26:43 +0300
+ Sun, 13 Sep 2026 17:43:23 -0700 (PDT)
+Date: Mon, 14 Sep 2026 03:43:21 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -107,42 +107,42 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  stable@vger.kernel.org
-Subject: Re: [PATCH v4 1/7] drm/msm/hdmi_phy: Cleanup after
- msm_hdmi_phy_resource_enable() failure
-Message-ID: <zfytnhu7vipotsoztncetoffnlzkw62vz2scuoogieol6et7ro@io7nslu5sdho>
+Subject: Re: [PATCH v4 2/7] drm/msm/hdmi: Handle msm_hdmi_power_on() errors
+ during .atomic_pre_enable()
+Message-ID: <udst66v6mxlbugyqehsrluvf3nvuw34plt7fzj75wwzrwgev6m@wzyiuexzeu4o>
 References: <20260911-drm-msm-hdmi-fixes-before-eliza-v4-0-87bdb9f1987f@oss.qualcomm.com>
- <20260911-drm-msm-hdmi-fixes-before-eliza-v4-1-87bdb9f1987f@oss.qualcomm.com>
+ <20260911-drm-msm-hdmi-fixes-before-eliza-v4-2-87bdb9f1987f@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260911-drm-msm-hdmi-fixes-before-eliza-v4-1-87bdb9f1987f@oss.qualcomm.com>
-X-Proofpoint-GUID: IOzAVjg58-WxlizoRRW19EzYEGKDg5CH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDAwNSBTYWx0ZWRfXwzBHS2DxXCwG
- 9P7ohe5sDw5LUWDMm5OXTXVaVVydim/dc3yKnX6GAd9l6/MroazeTeLTV5g6sOr9lye5k9lp37C
- SgaOAfOfXnf8UTfmJ4qcyJaEqb9jabm7q1aTXEuIqr5dFpFrtqQ/Ki4OtVZtsOVgn4ofodEd3a2
- 4ejQ1k3txlgmmR5SZYzXlowJ9amP+RC2Z4orpYWx2x8JaO9ps8ZIQHE9d2zqqCd+Krk+jGeCPGj
- X5JeaaTXeKMZ7DZCgm7wLLkmktVhf2Yh2FzyNQM0/TYUg9W+zS9eCce0P3q5LF3NQdUizlcLqyv
- wASLykSDmDtys6wzdXXyf0Crbh9sZtFwzHdLh1kXzaEliSWGqTg92w6LhaftwPjGevNdsGP8gTc
- EcMQhzg4oQCvSQO7rfc9QazIJHUIfSQwU+qTiwO+pFVJo3l7INu+h2eZmUXBFlwF7bEC3gjVOHS
- aC/668y9ipe4Iq9jIfw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDAwNSBTYWx0ZWRfX5XC4gtgVf+3J
- lE6419Q+n5mJ2KLuj8J2UJ3qBv/ZW2kXjAc7qJdYrn1fXjNqO4tXmyyBLbugrzjsapPbx/xq0nx
- xd9pGlFK9DOlZbtYBfXD5Nu8VT6bw2g=
-X-Proofpoint-ORIG-GUID: IOzAVjg58-WxlizoRRW19EzYEGKDg5CH
-X-Authority-Analysis: v=2.4 cv=PsUG/AM3 c=1 sm=1 tr=0 ts=6aa73f4a cx=c_pps
- a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20260911-drm-msm-hdmi-fixes-before-eliza-v4-2-87bdb9f1987f@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDAwNiBTYWx0ZWRfXx0SaCU/2V3qk
+ PP60Bmzht5QgTmww0rRxAC1ml7BG2vit8k0W5bOFWmxNKvueXik/LNOzmgbEoAnpRktGeZzKKod
+ PsJysX0IJeRlr6jd9659KJkSO7gGj6IlBoTpc2FxFWKGK/LHpWyNqZGYed5ZZFWRFii96+5jbub
+ n1aQuu3ZxiwVaAoauOK8HSvSccFPTO8zlpMTIeDXWInF478wZ8k3+2u2HEU9hSFqvIHlRsRPSbB
+ ClZVet5EF5cuE/jxtBgY8AbWKDukWrB9KxTouzmZmfHgTteAAzZK6jvbkXlsbFU+nLX8PO3ERO4
+ hJ91oqEedQnwDvpYxdz5yeqcRS+SImYxzrEnG2JQN0n++r1XQua5boRx73q4sdxwaJQJSBb7KVd
+ WXbwO+6ApcvOIMEGaO6cuE5Q0pYYZlq7cT0WHhjIX07qkmWRUDSNksD6iD51VEYIKoOQzFQth3E
+ 6KOCM0reKL4GA1fBc2A==
+X-Authority-Analysis: v=2.4 cv=IZwSymqa c=1 sm=1 tr=0 ts=6aa7432d cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=dCp4QOuT8fr3gmi_UlEA:9 a=CjuIK1q_8ugA:10
- a=tNoRWFLymzeba-QzToBc:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=yaZh0le1K7A__2Wy8xAA:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
+ a=o1xkdb1NAhiiM49bd1HK:22
+X-Proofpoint-GUID: bNDRXv16Op-fpBJVL3jrpUIpjRhg7HmW
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDAwNiBTYWx0ZWRfX2fccBZh7k4N7
+ FG+piGDB2LSbGhNfqC6vyLbblhrJNUagx9cFOM6I4OEJ8B0ZSm2ZxuFvPytrtFK6utNmPrYXBrl
+ YxW8nw2Cjhe8aYphIOS5QOsJgxXWW8I=
+X-Proofpoint-ORIG-GUID: bNDRXv16Op-fpBJVL3jrpUIpjRhg7HmW
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-13_08,2026-09-13_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0
- malwarescore=0 lowpriorityscore=0 phishscore=0 adultscore=0 clxscore=1015
+ suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0 phishscore=0
+ clxscore=1015 bulkscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140005
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140006
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,63 +158,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Sep 11, 2026 at 12:29:34PM +0200, Krzysztof Kozlowski wrote:
-> If msm_hdmi_phy_resource_enable() fails, e.g. when enabling regulators,
-> it should reverse the state of things already changed.
-> msm_hdmi_phy_resource_enable() is used also in probe path, thus such
-> failure, which could be simple deferred probe, would leave these
-
-There can be no -EPROBE_DEFER in the middle of the
-msm_hdmi_phy_resource_enable().
-
-> resources permanently enabled for the rest of the runtime.
+On Fri, Sep 11, 2026 at 12:29:35PM +0200, Krzysztof Kozlowski wrote:
+> Properly handle power up failures during .atomic_pre_enable() by
+> aborting the .atomic_pre_enable() to avoid accessing registers why
+> blocks did not bring up.  Otherwise this could lead to imprecise aborts
+> when accessing MMIO while entire power domain is off.
 > 
 > Cc: <stable@vger.kernel.org>
-> Fixes: 15b4a4523859 ("drm/msm/hdmi: Create a separate HDMI PHY driver")
+> Fixes: ba3d7bf3a7ab ("drm/msm/hdmi: Convert PHY files according to new design")
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > ---
->  drivers/gpu/drm/msm/hdmi/hdmi_phy.c | 16 ++++++++++++++--
->  1 file changed, 14 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 30 +++++++++++++++++++++---------
+>  1 file changed, 21 insertions(+), 9 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-> index eb1088755cb3..15e37596bdb1 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-> @@ -67,16 +67,28 @@ int msm_hdmi_phy_resource_enable(struct hdmi_phy *phy)
->  	ret = regulator_bulk_enable(cfg->num_regs, phy->regs);
->  	if (ret) {
->  		DRM_DEV_ERROR(dev, "failed to enable regulators: (%d)\n", ret);
-> -		return ret;
-> +		goto err_pm_put;
->  	}
->  
->  	for (i = 0; i < cfg->num_clks; i++) {
->  		ret = clk_prepare_enable(phy->clks[i]);
-> -		if (ret)
-> +		if (ret) {
->  			DRM_DEV_ERROR(dev, "failed to enable clock: %s (%d)\n",
->  				cfg->clk_names[i], ret);
-> +			goto err_clk_unprepare;
-> +		}
->  	}
->  
-> +	return 0;
-> +
-> +err_clk_unprepare:
-> +	for (; i > 0; i--)
-> +		clk_disable_unprepare(phy->clks[i - 1]);
-> +	regulator_bulk_disable(cfg->num_regs, phy->regs);
-> +
-> +err_pm_put:
-> +	pm_runtime_put_sync(dev);
-> +
->  	return ret;
->  }
->  
-> 
-> -- 
-> 2.53.0
-> 
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
 
 -- 
 With best wishes
