@@ -4,63 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 592A6C88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 08:50:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D213CC88E73
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 08:52:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B74C10E272;
-	Tue, 15 Sep 2026 08:50:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E10D10FB22;
+	Tue, 15 Sep 2026 08:52:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SrHRlKWG";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="dtilhep5";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1728B10E272;
- Tue, 15 Sep 2026 08:50:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789462203; x=1820998203;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=N2zvLQpBZ9QW2yzznfyQyhlkjtAwJxjhh69AgxrJRW8=;
- b=SrHRlKWGaJDEo9k2cIrL4SN3GPs+phyU71khVXmfROmf8tG/DHIAvwU6
- CQAXbuNMHbjMQzSTWTPYgZ/gzZ0H3MxUKudX+VOKm+WmVJh9Hvv6sU5iT
- 4T603hFIlLk3IWtkceo3DUT7YrNBxRzDiMfyD4ASOtj2bman0mdHnDrwv
- kWLN8FbtrboBZbJ/iFoXhJWjthxLTpx59J42/i9DfArpfCyf6t3OFjI7u
- olzJDCcV9ffdjZ1yKJDGkFjNouzB9VQ3ACAbJHmDPcCPbGL+r9lVwYO7v
- cCwMapr0u0dz89mzQzqBpG2OgYltXPmLhuG4JdYoLEtKp+VQD707IsDzx g==;
-X-CSE-ConnectionGUID: qM6pvO5bRAqsWmWc4B2Fhg==
-X-CSE-MsgGUID: T+vdbQ9sRSGUTrMCy9xvCg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="88759124"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="88759124"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2026 01:50:03 -0700
-X-CSE-ConnectionGUID: eL1pHOc6Sh+nDc3DDNp6qw==
-X-CSE-MsgGUID: VDpa7OMQR3qCvxj66Fahrg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="269219563"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO [10.245.244.5])
- ([10.245.244.5])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2026 01:50:01 -0700
-Message-ID: <ab752d82-47b0-4837-8b0c-030a028aa13f@intel.com>
-Date: Tue, 15 Sep 2026 09:49:58 +0100
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
+ [91.207.212.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6704D10FB21;
+ Tue, 15 Sep 2026 08:52:02 +0000 (UTC)
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+ by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68F6a4k93169952; Tue, 15 Sep 2026 09:51:50 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=dk201812; bh=o
+ jqrzLSQgvNwbyxhFPqHN9G4s8nhgGD330YVtFpo9CU=; b=dtilhep51XDMRzmsE
+ siRStnlZM5DR22OLBav3JljqLp7Lk1PG9hupQBWSVb/KbPt9f+iPOKUVV7yUThS/
+ NPjA5DWdeDRyuAYiF5ZBdrEmaPAWFxd557Fyac03Uv0/rp0xEXW8T8aHg+1obc5K
+ YizvCxUUSvlwynIGyYcbCbEf8hbazY9s58+tFDMLSj+n3j0g3cZlWP6FCMc0tzdT
+ 0qXY5cWEaDNKr8sGfBldOiMnzLXkDgHPgoHi+rvc17qKt+sKDMoaeYhp1An4ZMGs
+ QORitH+yGAl6aROK6cfuEvro7C4L7mLjFgAY51GF1hSrFTiWxoEXUsiAlXvlCJay
+ 4u+Jw==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gmw0q257e-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 15 Sep 2026 09:51:50 +0100 (BST)
+Received: from np-m-daniel1.kl.imgtec.org (172.25.4.227) by
+ HHMAIL01.hh.imgtec.org (10.100.10.19) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 15 Sep 2026 09:51:49 +0100
+Message-ID: <16d56cee0036a41f411df0efab03bbcc8e964da2.camel@imgtec.com>
+Subject: Re: [PATCH] drm/imagination: Fix PowerVR UAPI constant references
+ in kernel-doc
+From: Luigi Santivetti <luigi.santivetti@imgtec.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>, Alessio Belle
+ <alessio.belle@imgtec.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+CC: Faith Ekstrand <faith.ekstrand@collabora.com>, Frank Binns
+ <frank.binns@imgtec.com>,
+ <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+Date: Tue, 15 Sep 2026 09:51:48 +0100
+In-Reply-To: <20260912063021.43076-1-kmehltretter@gmail.com>
+References: <20260912063021.43076-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] drm/i915/dmabuf: avoid global wbinvd on dma-buf import
-To: "Prabhakaran, Krishna" <krishna.prabhakaran@intel.com>,
- intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
-References: <20260820205031.344338-1-krishna.prabhakaran@intel.com>
- <20260902193147.3835028-1-krishna.prabhakaran@intel.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20260902193147.3835028-1-krishna.prabhakaran@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Originating-IP: [172.25.4.227]
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEyNiBTYWx0ZWRfX9N6Fen+3ce7X
+ RFml4NAsjhx+VltZpTgO08rtl7Oboo7hdjN39Lk3b721RhLKf63SERWDmg6zaMXc+nplABZvIlP
+ EkY+eOZ4EpdOqx1gOXmDfk8ryZq8sU2Ph3mi750pm4sDIUtNM6WFBQyxhKC5g7c5SP95w7T40G4
+ +D7lTIninAIXSoqbyrMX/BOjZXMrdtnyaBcQpfSBjGMzAR9hTxGySC7IgS8xUWjstUvRIERqpsE
+ tiVWqoHguDK9Q63XVyASlPsKiWYiHwmrI7vLd2T2w0gfp18JHpzzu34jSlr/P0rh4Jhc84webKs
+ 8MiWtMKmgjWZ73qQ53O3TZbl+Yd4EH3ajRHEYjgMK/UlGCd9oScmNs4turqGfvtEPKxhSoiwi48
+ SCYFomrKKgXzkTEwPFdCPry2Qd0PwPh/dv+a5P4fSNEBp6Lp1zZzNeLuwwzMzUmTobpm1Is1Mr+
+ GvzU4QEKOQEf7VBSBBw==
+X-Authority-Analysis: v=2.4 cv=c8M+0h9l c=1 sm=1 tr=0 ts=6aa90726 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=eoBRZU4O7WcA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=pGLkceISAAAA:8 a=r_1tXGB3AAAA:8 a=W3PY7I6eilas62gTvYoA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-ORIG-GUID: aATtVwXbJCY8xcvjb2LEViVeloasbcKV
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEyNiBTYWx0ZWRfX9bpcl2S5W2cj
+ 3bXliQ+guvR/ZYgm99iws2tq6y/V02F6wpkeT2ulEN9Ww4+H49pJ8uZn2Lr4zQ5kCoDQE99mrxt
+ 42YTnEJU6BqfiaEQ045lB8dfciZmjNk=
+X-Proofpoint-GUID: aATtVwXbJCY8xcvjb2LEViVeloasbcKV
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,145 +92,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 02/09/2026 20:31, Prabhakaran, Krishna wrote:
-> From: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
-> 
-> When i915 needs to make an imported dma-buf coherent for GPU access on
-> non-LLC platforms, or for objects that bypass LLC, it currently calls
-> wbinvd_on_all_cpus(). get_pages() runs whenever an imported buffer is
-> pinned, so this triggers a whole-cache write-back and invalidate,
-> broadcast by IPI to every CPU, on every execbuf submission involving an
-> imported dma-buf. That stalls the entire machine for milliseconds and
-> starves latency-sensitive work on unrelated cores (e.g. USB isochronous
-> audio serviced on the VMM's main thread).
-> 
-> Flush only the pages that actually need it instead:
-> 
->   - If we imported one of our own dma-bufs, the backing object is
->     normally struct-page backed once migrated to SMEM, so flush it
->     directly with drm_clflush_sg(), exactly as we flush our other
->     objects. This also avoids re-entering the exporter through
->     dma_buf_vmap(), which would recurse into i915_gem_object_pin_map()
->     on the source object we already hold locked (and fails the
->     igt_dmabuf_import_same_driver selftest with -EBUSY). SMEM does not
->     guarantee the struct-page flag though: phys objects clear it and it
->     is dropped transiently during TTM moves, and drm_clflush_sg() walks
->     the sgt with sg_page(), so guard the direct flush with
->     i915_gem_object_has_struct_page() and fall back to wbinvd when it is
->     not set.
-> 
->   - For a foreign dma-buf the sg_table is not guaranteed to be backed by
->     struct pages, and the importer has no way to tell, so drm_clflush_sg()
->     cannot be used. vmap the buffer and flush that virtual range with
->     drm_clflush_virt_range() instead: x86 uses PIPT caches, so flushing
->     one virtual alias evicts the cache lines for every alias of the same
->     physical pages. The dma_resv lock required by dma_buf_vmap() is
->     already held here via the imported object.
-> 
-> Fall back to wbinvd only when the buffer cannot be vmapped or is backed
-> by I/O memory, where there is no CPU-side range to clflush.
-> 
-> Fixes: a035154da45d ("drm/i915/dmabuf: add paranoid flush-on-acquire")
-> Signed-off-by: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
+On Sat, 2026-09-12 at 08:30 +0200, Karl Mehltretter wrote:
+> The PowerVR UAPI comments contain misspellings of the enhancement query
+> selector, two buffer object flags, and the job submission ioctl. The
+> correct names were already present in the UAPI definitions when these
+> comments were introduced.
+>=20
+> Use DRM_PVR_DEV_QUERY_ENHANCEMENTS_GET, DRM_PVR_BO_PM_FW_PROTECT,
+> DRM_PVR_BO_ALLOW_CPU_USERSPACE_ACCESS, and DRM_IOCTL_PVR_SUBMIT_JOBS in
+> the corresponding comments.
+>=20
+> Fixes: 1088d89e5515 ("drm/imagination/uapi: Add PowerVR driver UAPI")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Reviewed-by: Luigi Santivetti <luigi.santivetti@imgtec.com>
 
-> ---
-> v4: Guard the own-dma-buf direct drm_clflush_sg() with
->      i915_gem_object_has_struct_page() and fall back to wbinvd when the
->      SMEM object is not struct-page backed (phys objects, transient TTM
->      moves); sg_page() would otherwise walk bogus pages. (review feedback)
-> v3: Drop the wbinvd fallback inside the own-dma-buf branch; the exporter is
->      migrated to SMEM on attach, so flushing device memory made no sense.
->      (Matthew Auld)
-> v2: Special-case our own dma-bufs with drm_clflush_sg() instead of
->      dma_buf_vmap(), which recursed into i915_gem_object_pin_map() on the
->      already-locked source object and failed igt_dmabuf_import_same_driver
->      with -EBUSY; foreign dma-bufs use vmap + drm_clflush_virt_range().
-> v1: https://patchwork.freedesktop.org/series/171760/
->   drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c | 62 +++++++++++++++++++---
->   1 file changed, 54 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-> index b43d34c7d641..d1695171019c 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-> @@ -10,6 +10,8 @@
->   
->   #include <asm/smp.h>
->   
-> +#include <drm/drm_cache.h>
-> +
->   #include "gem/i915_gem_dmabuf.h"
->   #include "i915_drv.h"
->   #include "i915_gem_object.h"
-> @@ -249,16 +251,60 @@ static int i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
->   	 * DG1 is special here since it still snoops transactions even with
->   	 * CACHE_NONE. This is not the case with other HAS_SNOOP platforms. We
->   	 * might need to revisit this as we add new discrete platforms.
-> -	 *
-> -	 * XXX: Consider doing a vmap flush or something, where possible.
-> -	 * Currently we just do a heavy handed wbinvd_on_all_cpus() here since
-> -	 * the underlying sg_table might not even point to struct pages, so we
-> -	 * can't just call drm_clflush_sg or similar, like we do elsewhere in
-> -	 * the driver.
->   	 */
->   	if (i915_gem_object_can_bypass_llc(obj) ||
-> -	    (!HAS_LLC(i915) && !IS_DG1(i915)))
-> -		wbinvd_on_all_cpus();
-> +	    (!HAS_LLC(i915) && !IS_DG1(i915))) {
-> +		struct dma_buf *dma_buf = obj->base.import_attach->dmabuf;
-> +
-> +		if (dma_buf->ops == &i915_dmabuf_ops) {
-> +			struct drm_i915_gem_object *dma_obj =
-> +				dma_buf_to_obj(dma_buf);
-> +
-> +			/*
-> +			 * We imported one of our own dma-bufs. The exporter is
-> +			 * migrated to SMEM on attach, so it is normally struct-page
-> +			 * backed and we can flush it directly, the same way we
-> +			 * flush our other objects. This also avoids re-entering
-> +			 * the exporter through dma_buf_vmap(), which would
-> +			 * recurse into i915_gem_object_pin_map() on the source
-> +			 * object we already hold locked.
-> +			 *
-> +			 * SMEM does not guarantee the STRUCT_PAGE flag though: phys
-> +			 * objects clear it and it is dropped transiently during TTM
-> +			 * moves. drm_clflush_sg() walks the sgt with sg_page(), so
-> +			 * without struct pages those pointers are bogus; fall back to
-> +			 * wbinvd in that case (not the vmap path, which would recurse
-> +			 * on the already-locked source object).
-> +			 */
-> +			if (i915_gem_object_has_struct_page(dma_obj))
-> +				drm_clflush_sg(dma_obj->mm.pages);
-> +			else
-> +				wbinvd_on_all_cpus();
-> +		} else {
-> +			struct iosys_map map;
-> +
-> +			/*
-> +			 * A foreign sg_table is not guaranteed to be backed by
-> +			 * struct pages, so we cannot use drm_clflush_sg(). vmap
-> +			 * the buffer and flush the virtual range instead; x86
-> +			 * uses PIPT caches, so flushing one alias evicts the
-> +			 * lines for every alias of the same physical pages.
-> +			 *
-> +			 * We already hold the dma_resv lock via the imported
-> +			 * obj, so use the locked dma_buf_vmap() variant.
-> +			 */
-> +			if (!dma_buf_vmap(dma_buf, &map)) {
-> +				if (!map.is_iomem)
-> +					drm_clflush_virt_range(map.vaddr,
-> +							       obj->base.size);
-> +				else
-> +					wbinvd_on_all_cpus();
-> +				dma_buf_vunmap(dma_buf, &map);
-> +			} else {
-> +				wbinvd_on_all_cpus();
-> +			}
-> +		}
-> +	}
->   
->   	__i915_gem_object_set_pages(obj, sgt);
->   
+Thank you!
+Luigi
+
+---
+> =C2=A0include/uapi/drm/pvr_drm.h | 8 ++++----
+> =C2=A01 file changed, 4 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/include/uapi/drm/pvr_drm.h b/include/uapi/drm/pvr_drm.h
+> index
+> ccf6c2112468f3f53b093bc298dac2bbbfd35e6e..d97a69b83cc59338b7aae306e4dfa13=
+20f07
+> 1a2d 100644
+> --- a/include/uapi/drm/pvr_drm.h
+> +++ b/include/uapi/drm/pvr_drm.h
+> @@ -231,7 +231,7 @@ struct drm_pvr_dev_query_quirks {
+> =C2=A0 * the user mode driver.
+> =C2=A0 *
+> =C2=A0 * When fetching this type &struct drm_pvr_ioctl_dev_query_args.typ=
+e must be
+> set
+> - * to %DRM_PVR_DEV_ENHANCEMENTS_GET.
+> + * to %DRM_PVR_DEV_QUERY_ENHANCEMENTS_GET.
+> =C2=A0 */
+> =C2=A0struct drm_pvr_dev_query_enhancements {
+> =C2=A0	/**
+> @@ -848,8 +848,8 @@ struct drm_pvr_ioctl_create_free_list_args {
+> =C2=A0	 * @max_num_pages * ``sizeof(__u32)``.
+> =C2=A0	 *
+> =C2=A0	 * The buffer object must have been created with
+> -	 * %DRM_PVR_BO_DEVICE_PM_FW_PROTECT set and
+> -	 * %DRM_PVR_BO_CPU_ALLOW_USERSPACE_ACCESS not set.
+> +	 * %DRM_PVR_BO_PM_FW_PROTECT set and
+> +	 * %DRM_PVR_BO_ALLOW_CPU_USERSPACE_ACCESS not set.
+> =C2=A0	 */
+> =C2=A0	__u64 free_list_gpu_addr;
+> =C2=A0
+> @@ -1277,7 +1277,7 @@ struct drm_pvr_job {
+> =C2=A0};
+> =C2=A0
+> =C2=A0/**
+> - * struct drm_pvr_ioctl_submit_jobs_args - Arguments for
+> %DRM_IOCTL_PVR_SUBMIT_JOB
+> + * struct drm_pvr_ioctl_submit_jobs_args - Arguments for
+> %DRM_IOCTL_PVR_SUBMIT_JOBS
+> =C2=A0 *
+> =C2=A0 * If the syscall returns an error it is important to check the val=
+ue of
+> =C2=A0 * @jobs.count. This indicates the index into @jobs.array where the
 
