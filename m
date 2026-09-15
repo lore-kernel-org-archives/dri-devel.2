@@ -4,81 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D33C7C88E53
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 06:42:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3944CC88E53
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 06:43:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3889110E1D4;
-	Tue, 15 Sep 2026 06:42:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 892B710E254;
+	Tue, 15 Sep 2026 06:43:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V1LNalmi";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="VDbw7Kpg";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEC2210E5AA
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 06:42:30 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-381b831d535so7380978a91.0
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 23:42:30 -0700 (PDT)
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com
+ [74.125.228.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B94210E254
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 06:43:08 +0000 (UTC)
+Received: by mail-pz2-f42.google.com with SMTP id
+ d2e1a72fcca58-86dd69a1b15so691647b3a.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 23:43:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789454550; x=1790059350; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=chromium.org; s=google; t=1789454588; x=1790059388;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:mime-version:date:message-id
+ :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=wCSTuPUQ/GLR9/B7uIQrcZbxwMxzx1bd+YZe2GK5X6k=;
- b=V1LNalmipf2mXOoGVzaVUKYT0QltEBi+vXUsK0XY/FoqfLZh6YP7oNLn3p6mwj2/mn
- lOaixee+XP6qMImSQIWSEdwNegB44iQAuIJY7AjEvJhXS1RgpuDPjdNifHL4/H3ElKgA
- EpdRydNpzzyox4rzOSc0BrcMCSb5nIkDwhFL2Q8O7a3nroBrbvfyk6ABb1ONPGNrAloH
- +e1ujlHSTvUwM3P6Kh2KilwLX5BemPTtf2VOlr7Eb17yASFIbVDwcifjuWzJadKXfck0
- LWPsO9zJeSdszeawI8w+oVmccriQSoJYLOczmwkUchVV19rdKv/v3wEmqv6ZMOgLeh8a
- 9NJQ==
+ bh=tKUg9BLWff5kiPeotNdE9F6L4UtNLkRCJ8RzVJJbCgI=;
+ b=VDbw7KpgtCnKhq64mumcagbPU28DBqmR1Z22euv606jOyn93YNXqRsbkCXbF1KZHUK
+ P5CwIt7bDOefL0XTNUrM1nmNicW7aBrfB/DbQWXfBclLa9fQ5spOK1yWQ8f5SDsYC0NV
+ Kwuv080eocO10oD/W38Vc7jt23dzso1b1qMZ4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789454550; x=1790059350;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=wCSTuPUQ/GLR9/B7uIQrcZbxwMxzx1bd+YZe2GK5X6k=;
- b=bW7g6JGcuWqT8NuIeJtxqb7KjSoizc/P8sm+f6R11gQEvWdyrM4g1yZgIMwFttLIsD
- ilpQyqkiYwN91dWTtvQ4WeF9Fr2GgcXeX6QGgprUH4iXEikTTUf3C9mPZH205CZM7VCS
- BuQquAAA/OFPNHcFhfi+uGqN4IZxD6lQk4SF4P7c/iS8m8QKkkOicOc4A2HDuK9vkxHM
- iCmkDAtPc/Jkel2YkVeECFs4XMo4PNIQgaMdlRxLcxQML7gz3UDNrVebFaT6m0i8U22y
- gvyeoV7AyE6OeLm1cY3yKwv6RqeNzRYdfQPUFIxAKid2AUHbpsB8lKe0rAL5A6gHWA1z
- kH+A==
+ d=1e100.net; s=20260707; t=1789454588; x=1790059388;
+ h=content-transfer-encoding:content-type:mime-version:date:message-id
+ :subject:references:in-reply-to:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=tKUg9BLWff5kiPeotNdE9F6L4UtNLkRCJ8RzVJJbCgI=;
+ b=Pw2w68gtrd2PNnT/0ZwRToAgRLmCXFtFsM5/cSw8NOG0p6bezMTRWFaLkFIekIKD3C
+ 1BxwBnkhP/5Zl6b0Bo9pQse+b1KwY+EVuzAqF1ryXK9Edv/t8ZKOCJbg76T+O8OT7avE
+ 1tMwinh9pnLW3Tleb4QfiLgf3MF5LIHkNTtJuNALAnf7Bgr3We/l1u9lYqVoJ7Ad6L9l
+ Lj5JHiaXy8zjoT/tD3MVCvJ8cAn04lOTYJjjik0dEmEUOiGXYC+RbN0Uoi/txwx20/vq
+ MCuhMBzArr1oCTL/LKWJJ4MGcAMcYCtOTPVp68ZYDam5MJ59wcwaGn0am8M12ln2Z5TS
+ pXFQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwumBuXKArNpUCKphXhfOuwmZ9+YwXCZip6MRQbT9wVdyk3u78XUh3DBeKK3DnPr5FGoNGO1SVUM/E=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nMNnftKl5ak9JnDVhjN6jorKzsEgT3htqCJf2doAQMmOe/mjGu
- MJykXFYge4Nma3yhQBObGa2NjLxoXID8DBw4CD0g91ctu+KMQNecL8xy
-X-Gm-Gg: AYBFou1GDt8GC5irmehP0IKbAEgDrlVQZgOvIeDuSulzY42C93U3xDwoqYCMk3/BgzW
- KCXMPSnGVnZTxF7xHCQerVC58F3/LV/pMb5jluUlPXHaUUiR1g4wrZ7Ek1U4igtc1GVjIY1Uu3Z
- jLlwiJge0mdNrVE4uvmbHThPcdR1DYK3Z1WQ3/9T2ceseb1KQ8NWGRiA8YtlIdnJ737OtwrmMYn
- MHiJVtv0jREv/+gF7FrQYTyL/TOumjUO4F7E4Cry2vVYOk7CSXmh/T/UaR9HY/BCX1x/lsKF4xK
- rp44i7lRgOrHVFWb0ObLeg7tZrE998/iD+y399p/BV7ZhkYE6LVa3W+xd0yGE6WfY43MdoU/+7x
- Tf1nS4LRgDiz9kOz3Vdxgf0a8Ifv0a533wUYjIE8lA+JRZo1L4ckZZR3xJsRvjMLoodZ2SZbmoa
- CZpk5opSjiUic78KoFQAWoDIosF4ZsuZsD5XclPxbX73dqYGxqwjHEf7dgVDkpqHdoXueeAUx7x
- Jr2+THBFOx3nfaqgVUlZjOxMLpoyglYhQlaeJYbvOi19gmIJiOP
-X-Received: by 2002:a17:90b:568b:b0:39e:d2a:e2dc with SMTP id
- 98e67ed59e1d1-39e0d2aeeb9mr114032a91.12.1789454550214; 
- Mon, 14 Sep 2026 23:42:30 -0700 (PDT)
-Received: from alpine.my.domain ([218.188.146.2])
+ AKwUvBz65Jku0kbUntBp2xC1IyOA4CiQBcE+WY2yhy6mRNA2xv34n5AAx8Iw0cJ50dLTYloNAe3a4Ueb1HQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ldgJnVQQGZP4awxkaq/J3zOKAw9ZbjG3QH4SUSb0+/JY5eTF2u
+ F9EB8pVydBbxlgo4emC7BkrsdsBp7LhdnHseQL4/ZInCskcCRypzH8MURxyD8+zcow==
+X-Gm-Gg: AYBFou3StY0jc1qJlnNWUrmMjPXHl6+rHvIBki+ClhUMLQanYRoYO3JQAgUiGcHO6KE
+ KQOK7e/rpgB/9YIvEqUU2sPEPTr31hC7VgwJvopyTaz7MvbyAMlUmqRU6dE5c+hp4OHXKKAqiI6
+ M+P91f4yOm+6ECRrzmlOjoCFyve5/Nq1Ql+toWjpAPyJ7fc5E+3r/RZG19MSRzJvbkzrrJhNQMe
+ e8WR0Wglc4iXP0RgF3imD8UwJsrul7lanv+Okry1obkQA0K10pjW5SQ1gkMYRnJn3KnHWQ5N3Ab
+ 4dEVt9d03FRP4bNmmsP6wVyQ1sjpR1JFDRDJ79AkP8t6NOTA8SYy+4N/sLKJEEhMsOuy88XEuqo
+ HXWLqTt2pjcK7QQ+Vpx25SBtHWrHe08+mdXZm2MI05ji+aBDAobvhkeeKGWNJvAS8Wqula+pDKW
+ im0c9u2Tt/+PyrZMiZxmsbSvzfta8AjB/4eo/b/Hs05aMCxSuH1wskAo4jvmmYFfhGo2PGTz4YR
+ +ZjmYG2WPadg5Jf09cZSY5eSy8njz58UQTBWMc0PqkIhjY0N7/4NlV/rQ==
+X-Received: by 2002:a05:6a00:3996:b0:867:bb96:52b2 with SMTP id
+ d2e1a72fcca58-8708abcaaa7mr3435307b3a.5.1789454587912; 
+ Mon, 14 Sep 2026 23:43:07 -0700 (PDT)
+Received: from wenst-7875.tpe.corp.google.com
+ ([2a00:79e0:203d:7:fb1f:30c0:2c68:79bd])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39dfdcb54d8sm3240016a91.6.2026.09.14.23.42.27
+ d2e1a72fcca58-86b29cbb760sm5618262b3a.46.2026.09.14.23.43.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Sep 2026 23:42:29 -0700 (PDT)
-From: Andrew Zhou <zhoulol888@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Andrew Zhou <zhoulol888@gmail.com>
-Subject: [PATCH v2] drm/xe/display: Remove invalid initial plane PTE check for
- iGPU
-Date: Tue, 15 Sep 2026 06:42:00 +0000
-Message-ID: <20260915064200.23171-1-zhoulol888@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260905142500.17666-1-zhoulol888@gmail.com>
-References: <20260905142500.17666-1-zhoulol888@gmail.com>
+ Mon, 14 Sep 2026 23:43:07 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Chen-Yu Tsai <wenst@chromium.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260903084823.4156065-1-wenst@chromium.org>
+References: <20260903084823.4156065-1-wenst@chromium.org>
+Subject: Re: [PATCH v2] drm/sysfb: Use iosys_map_memset() to clear buffer
+Message-Id: <178945458608.1777136.8682538603402448473.b4-ty@chromium.org>
+Date: Tue, 15 Sep 2026 14:43:06 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,78 +92,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Pantherlake integrated graphics can have the XE_GGTT_PTEDM bit set in
-the BIOS-initialised framebuffer PTE. The validation rejects this and
-fails to create the initial framebuffer, resulting in static.
+On Thu, 03 Sep 2026 16:48:22 +0800, Chen-Yu Tsai wrote:
+> The atomic disable in drm/sysfb currently clears the buffer using
+> memset_io(). Since the mapping is provided in a |struct iosys_map|,
+> it is better to use the related API instead of extracting the vaddr.
+> This is mentioned as a TODO item.
+> 
+> Switch to iosys_map_memset(), which takes the mapping as well as an
+> offset into the mapping.
+> 
+> [...]
 
-Remove the too-strict validation. Since this was the only caller of
-need_pte_local() outside the DGFX path, the helper is now
-unconditionally true there; fold the check and drop the dead
-need_pte_local() and has_lmembar() helpers.
+Applied to drm-misc-next in drm-misc, thanks!
 
-Signed-off-by: Andrew Zhou <zhoulol888@gmail.com>
-Tested-by: Andrew Zhou <zhoulol888@gmail.com>
-Tested-on: Intel Core Ultra X7 358H, integrated graphics, B0 stepping
----
-v1 -> v2:
-- Drop need_pte_local() and has_lmembar(), now dead after removing the
-  iGPU validation (sashiko)
----
- drivers/gpu/drm/xe/display/xe_initial_plane.c | 20 +------------------
- 1 file changed, 1 insertion(+), 19 deletions(-)
+[1/1] drm/sysfb: Use iosys_map_memset() to clear buffer
+      commit: b57c9b345d18d67902625355c45caf322e2ab794
 
-diff --git a/drivers/gpu/drm/xe/display/xe_initial_plane.c b/drivers/gpu/drm/xe/display/xe_initial_plane.c
-index 0f86b7303..3484b3033 100644
---- a/drivers/gpu/drm/xe/display/xe_initial_plane.c
-+++ b/drivers/gpu/drm/xe/display/xe_initial_plane.c
-@@ -27,16 +27,6 @@ static bool is_pte_local(u64 pte)
- 	return pte & XE_GGTT_PTE_DM;
- }
- 
--static bool has_lmembar(struct xe_device *xe)
--{
--	return GRAPHICS_VERx100(xe) >= 1270;
--}
--
--static bool need_pte_local(struct xe_device *xe)
--{
--	return IS_DGFX(xe) || has_lmembar(xe);
--}
--
- static struct xe_bo *
- initial_plane_bo(struct xe_device *xe,
- 		 struct intel_initial_plane_config *plane_config)
-@@ -60,7 +50,7 @@ initial_plane_bo(struct xe_device *xe,
- 	if (IS_DGFX(xe)) {
- 		u64 pte = xe_ggtt_read_pte(tile0->mem.ggtt, base);
- 
--		if (is_pte_local(pte) != need_pte_local(xe)) {
-+		if (!is_pte_local(pte)) {
- 			drm_err(&xe->drm, "Initial plane PTE has bad local memory bit\n");
- 			return NULL;
- 		}
-@@ -85,7 +75,6 @@ initial_plane_bo(struct xe_device *xe,
- 			    &phys_base);
- 	} else {
- 		struct ttm_resource_manager *stolen;
--		u64 pte;
- 
- 		stolen = ttm_manager_type(&xe->ttm, XE_PL_STOLEN);
- 		if (!stolen) {
-@@ -93,13 +82,6 @@ initial_plane_bo(struct xe_device *xe,
- 			return NULL;
- 		}
- 
--		pte = xe_ggtt_read_pte(tile0->mem.ggtt, base);
--
--		if (is_pte_local(pte) != need_pte_local(xe)) {
--			drm_err(&xe->drm, "Initial plane PTE has bad local memory bit\n");
--			return NULL;
--		}
--
- 		phys_base = base;
- 		flags |= XE_BO_FLAG_STOLEN;
- 
+Best regards,
 -- 
-2.54.0
+Chen-Yu Tsai <wenst@chromium.org>
 
