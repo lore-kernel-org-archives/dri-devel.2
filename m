@@ -4,58 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 717CFC88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:34:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1508C88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:34:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FD8910FA5C;
-	Tue, 15 Sep 2026 07:34:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE03710FA5E;
+	Tue, 15 Sep 2026 07:34:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ite.com.tw header.i=@ite.com.tw header.b="fpPYsWDs";
+	dkim=pass (2048-bit key; unprotected) header.d=ite.com.tw header.i=@ite.com.tw header.b="CDXaa4Te";
 	dkim-atps=neutral
-X-Greylist: delayed 431 seconds by postgrey-1.36 at gabe;
- Tue, 15 Sep 2026 07:34:18 UTC
 Received: from ironport.ite.com.tw (219-87-157-213.static.tfn.net.tw
  [219.87.157.213])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A910410FA5B
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 07:34:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5989A10FA5B
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 07:34:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ite.com.tw; s=dkim;
- h=from:subject:date:message-id:mime-version:
- content-transfer-encoding:in-reply-to:references:to:cc;
- bh=QrAgWkImRd7ho2JuXHNUm0qpLVkPKY3YCQcWe9zC/hg=;
- b=fpPYsWDsCrOQoow+ZbS9wjl6mhDE+Li0pXhwWMpsQ/9bgotgGmmpmcpK
- 1mGug7lqOBbqEUFJEX11KRMlNWDwaXxXnqLMDlmueb7bVO/7amR402lzA
- AkgBFjk8bVKBiYpXQN6tKj0ZOD3bNt4Lk1hL8EengHuC1ncfxkbhTz1qR
- EnycwyistuU0muOC9D3KZKh6j5dpo+xiisVubbJbQkHy4B3paPtYK/MkZ
- YoWeXvv82q9+nVNzsI5yiLQHfItZiC01r+xYWX/k8/wXOGqHbRUqNy4pO
- wwHfupXsph5TPf43DNeqsPvZliZfSsgoksZjEFMscku7gi0G4SQsN5MPw Q==;
-X-CSE-ConnectionGUID: b7M7O5qkRwGJPew7eezEgg==
-X-CSE-MsgGUID: Ubrx7M2EQ3SreZavDRfeLg==
+ h=from:date:subject:mime-version:content-transfer-encoding:
+ message-id:references:in-reply-to:to:cc;
+ bh=GQ9YeXRa4WWj/wsBKGBE09UgrakwJXt/X2rYlPAZ+HM=;
+ b=CDXaa4TeCbMVD37O7YNS4dMCAWhzuwPCw1QP+SNACDPUij13gBxHws8I
+ OoImRs/eDfAP3u36dxbpwpJDjrM+rtkgaGIvJCiApTaRlLaIzsDTue56b
+ dOlXTCOwgxQui9aQHRJte4EwJqTDfOaNhzpCpQF5VDv4SYhtns14/c6p5
+ Sv+QXX7usbkMj6QFMGPRBe1u5zKfkJdk6Fgc83ZnvRjGf+w20LkUZces2
+ dcrDvwuw7FZ/k/D3dEjw4ayKuMPjYorL5gWnqVXDCwOLZqznoMi79qa2y
+ azs828Dl2jgvB6t7CjzqIwL43MZaBoO0KwzIFVa/DJGGNTfcKwsaNd4D/ A==;
+X-CSE-ConnectionGUID: drOUuPmPS6KoVKM7nN5WLQ==
+X-CSE-MsgGUID: KDlHxUYaQmi2+DONMIAbhg==
 Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
- by ironport.ite.com.tw with ESMTP; 15 Sep 2026 15:27:04 +0800
+ by ironport.ite.com.tw with ESMTP; 15 Sep 2026 15:27:05 +0800
 Received: from CSBMAIL1.internal.ite.com.tw (CSBMAIL1.internal.ite.com.tw
- [192.168.65.58]) by mse.ite.com.tw with ESMTP id 68F7QxjR029913;
- Tue, 15 Sep 2026 15:26:59 +0800 (+08)
+ [192.168.65.58]) by mse.ite.com.tw with ESMTP id 68F7R0eV029946;
+ Tue, 15 Sep 2026 15:27:00 +0800 (+08)
  (envelope-from Pet.Weng@ite.com.tw)
 Received: from [127.0.1.1] (192.168.72.40) by CSBMAIL1.internal.ite.com.tw
  (192.168.65.58) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 15 Sep
  2026 15:26:59 +0800
 From: Pet Weng <pet.weng@ite.com.tw>
-Subject: [PATCH v10 0/2] Add ITE IT61620 MIPI DSI to HDMI bridge driver
-Date: Tue, 15 Sep 2026 15:26:28 +0800
-Message-ID: <20260915-it61620-0714-v10-0-738e2a662c06@ite.com.tw>
+Date: Tue, 15 Sep 2026 15:26:30 +0800
+Subject: [PATCH v10 2/2] drm/bridge: Add ITE IT61620 MIPI DSI to HDMI
+ bridge driver
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACTzqGoC/3XQz04DIRAG8FdpOLvNzAADePI9jAeWP5aDrdndr
- Jqm7y7bRFshJnP5Jvl9TDiLOU0lzeJxdxZTWstcTscaEB52Ihz88TUNJdaFICANBtVQFkYmGK7
- Bj6pOSDmTE5W8TymXz2vf80vNhzIvp+nrWr/itv2naMUBBmkYkVWE0dmnsqR9OL3tlw+xNa100
- 5Zso6lqbTlrJ1XUudfyVyOAa7TcdGRLEcgqhZ1WN03IjVZVu0g5eWOV8anT+k4TNVpX7fPIyjg
- fZfCd5h/NgBIazVUb8NmzdiRH3Wlz0xJlo8325+yRYwDJkTtt7zS1b9uqIRkggyFr7zrt7rVpt
- Nu0JCdtGF20fy+/XC7fH9Pn2ZoCAAA=
-X-Change-ID: 20250714-it61620-0714-ab4ab4ceff29
-In-Reply-To: <20260327-it61620-0714-v9-0-032938cb9d85@ite.com.tw>
-References: <20260327-it61620-0714-v9-0-032938cb9d85@ite.com.tw>
+Message-ID: <20260915-it61620-0714-v10-2-738e2a662c06@ite.com.tw>
+References: <20260915-it61620-0714-v10-0-738e2a662c06@ite.com.tw>
+In-Reply-To: <20260915-it61620-0714-v10-0-738e2a662c06@ite.com.tw>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
  <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
@@ -71,21 +63,20 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
 CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
  <linux-kernel@vger.kernel.org>, Hermes Wu <hermes.Wu@ite.com.tw>, Kenneth
  Hung <kenneth.Hung@ite.com.tw>, Pet Weng <pet.weng@ite.com.tw>, Jau-chih
- Tseng <jau-chih.tseng@ite.com.tw>, Pin-yen Lin <treapking@google.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ Tseng <jau-chih.tseng@ite.com.tw>, Pin-yen Lin <treapking@google.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789457257; l=9375;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789457258; l=89442;
  i=pet.weng@ite.com.tw; s=20250702; h=from:subject:message-id;
- bh=s3NdJpBL2H3T34Cjcf3/iU7S/YWt1F7gDytj+EPvTfY=;
- b=YRRrJmXe09U6sh/E5peJnV366UAjl6jFEM2YrYIwVXwbs5xGI24C8In0qoEgwMUXRvtd1Z0Pl
- fLjkxVFHOLWAdV3H2lnvlnX67p91Ycs4aN5mxcM5NTHZ+53tcyH2i9j
+ bh=RLSuu3H1ZNCGYdlOp+ARPlTUWPsIR5O74b6adCuKToE=;
+ b=wXVynHBVi1bgh9QE3F+Uff4NZ18GO9wwlDKV7kFDVqOGvON1xigYwzuX6S/2KcNMqdb0hwJJK
+ i0JgZFlGLZ0CBPie9pEV0XOZkP0JNZogcVtE98lmCiAqbj2t6Yhh+cR
 X-Developer-Key: i=pet.weng@ite.com.tw; a=ed25519;
  pk=wd08uBtTLb93x2ixbKVNsxiZPdMh1Ov4z5klodh2bqo=
 X-Originating-IP: [192.168.72.40]
 X-ClientProxiedBy: CSBMAIL1.internal.ite.com.tw (192.168.65.58) To
  CSBMAIL1.internal.ite.com.tw (192.168.65.58)
-X-TM-SNTS-SMTP: 732AF0DB9A6B5B4AC802CD8F91F77CA42CF57B4039588DBC229065194A3180D02002:8
-X-MAIL: mse.ite.com.tw 68F7QxjR029913
+X-TM-SNTS-SMTP: F8990EFD9A272E9493151C71AD8D43401F658EF9B1D7107AAEC9DB8E7779DC832002:8
+X-MAIL: mse.ite.com.tw 68F7R0eV029946
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,191 +92,2867 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch series adds support for the ITE IT61620 MIPI DSI to HDMI 
-bridge chip.
+This adds support for the ITE IT61620 bridge chip which converts
+MIPI DSI input to HDMI output. The driver implements the basic
+bridge functions and integrates with the DRM bridge and connector
+frameworks.
 
-The IT61620 is an I2C-controlled bridge that receives MIPI DSI input 
-and outputs HDMI signals. A single-port MIPI DSI input is converted to 
-an HDMI 1.4 output. This series introduces:
-- A device tree binding YAML file describing the hardware
-- A new DRM bridge driver implementing the basic functionality
+Supported features include:
+MIPI DSI input handling
+HDMI output setup
+Basic mode configuration
+I2C-based control and initialization
+HDCP 1.4 handling
 
-Hotplug may be provided by the next bridge (typically hdmi-connector
-with hpd-gpios). If that bridge already implements OP_HPD / OP_DETECT,
-this driver leaves those ops to it and only receives hpd_notify().
-Otherwise it owns connector status from the chip HPD pin. That pin also
-carries HDCP Ri pulses, so chip HPD IRQs are debounced before
-drm_bridge_hpd_notify().
+HPD handling:
+If the next bridge already implements OP_HPD / OP_DETECT (typically
+hdmi-connector with hpd-gpios), leave those ops to it; this driver
+only receives hpd_notify(). Otherwise this driver owns connector
+status from the chip HPD pin. That pin also carries HDCP Ri pulses,
+so chip HPD IRQs are debounced before drm_bridge_hpd_notify().
+
+This driver will be used on platforms embedding the IT61620 for
+video output via HDMI from SoCs with MIPI DSI output.
+
+Add a MAINTAINERS entry for the IT61620 bridge driver.
 
 Signed-off-by: Pet Weng <pet.weng@ite.com.tw>
 ---
-Changes in v10:
-- dt-bindings: no change since v9; keep Reviewed-by from Krzysztof
-- drm/bridge: dropped Reviewed-by from Dmitry due to functional changes
-  1. HDMI IRQ: test int_status1 bits, not the TX_REG_INT1 address
-  2. Use pm_runtime_get_if_in_use() in the threaded IRQ to avoid
-     deadlocking with disable_irq() in runtime suspend
-  3. Update HDCP content-protection from work that takes
-     connection_mutex (do not call the helper from IRQ / hdcp_work)
-  4. Serialize DDC abort on HDCP auth fail with ddc_lock
-  5. Clamp KSV FIFO reads; treat an empty FIFO as an error
-  6. Include the 8 M0 bytes in the HDCP SHA-1 input length
-  7. Write AVI infoframe after clearing the AVI packet, not VSIF
-  8. Write A0 pattern-generator registers through tx_regmap
-  9. Parse MIPI endpoint data-lanes / lane-polarities; attach DSI with
-     the parsed lane count instead of a hard-coded 4
- 10. Implement OP_DETECT / OP_HPD when the next bridge does not:
-     detect() and edid_read() resume the chip; hpd_enable() holds
-     runtime PM; HPD IRQs are debounced; power-on W1Cs latched HPD_CHG
-     before enable_irq()
- 11. hpd_notify() does not touch runtime PM when this driver owns OP_HPD
- 12. Use devm_pm_runtime_enable(); cancel HDCP/HPD work on remove and
-     let devres unwind DSI, bridge and PM (no early mutex_destroy)
- 13. Switch to drm_atomic_commit / atomic_create_state
- 14. Use abs_diff() for the MIPI htotal delay; drop redundant
-     pm_runtime_mark_last_busy(); log pre_enable resume failures
-- Link to v9: https://lore.kernel.org/r/20260327-it61620-0714-v9-0-032938cb9d85@ite.com.tw
+ MAINTAINERS                          |    7 +
+ drivers/gpu/drm/bridge/Kconfig       |   18 ++
+ drivers/gpu/drm/bridge/Makefile      |    1 +
+ drivers/gpu/drm/bridge/ite-it61620.c | 2763 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 2789 insertions(+)
 
-Changes in v9:
-- Fix commit message wrapping to follow kernel style
-- Run checkpatch.pl and address reported issues
-- Restore Reviewed-by from Krzysztof as the change is non-functional
-- Link to v8: https://lore.kernel.org/r/20260320-it61620-0714-v8-0-0e70271cf5a9@ite.com.tw
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 5b5a4e4b35cf44415eaf8079ac0b8b998658ac2b..ce93a66991c0c27d0720cf182befae9db9623b8a 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -13953,6 +13953,13 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+ F:	Documentation/devicetree/bindings/display/bridge/ite,it6263.yaml
+ F:	drivers/gpu/drm/bridge/ite-it6263.c
+ 
++ITE IT61620 MIPI DSI TO HDMI BRIDGE DRIVER
++M:	Pet Weng <pet.weng@ite.com.tw>
++L:	dri-devel@lists.freedesktop.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/display/bridge/ite,it61620.yaml
++F:	drivers/gpu/drm/bridge/ite-it61620.c
++
+ ITE IT66121 HDMI BRIDGE DRIVER
+ M:	Phong LE <ple@baylibre.com>
+ M:	Neil Armstrong <neil.armstrong@linaro.org>
+diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+index 837db36cdf48e4050a2423535470e1da6001614b..b4f9ce8db66706326b10b4201ac1d7794d7ce6b1 100644
+--- a/drivers/gpu/drm/bridge/Kconfig
++++ b/drivers/gpu/drm/bridge/Kconfig
+@@ -118,6 +118,24 @@ config DRM_ITE_IT6263
+ 	help
+ 	  ITE IT6263 LVDS to HDMI bridge chip driver.
+ 
++config DRM_ITE_IT61620
++	tristate "ITE IT61620 DSI/HDMI bridge"
++	depends on OF
++	select DRM_DISPLAY_CONNECTOR
++	select DRM_DISPLAY_HDMI_HELPER
++	select DRM_DISPLAY_HDCP_HELPER
++	select DRM_DISPLAY_HELPER
++	select DRM_MIPI_DSI
++	select DRM_KMS_HELPER
++	select DRM_HDMI_HELPER
++	select CRYPTO_LIB_SHA1
++	help
++	  Driver for ITE IT61620 MIPI DSI to HDMI bridge
++	  chip driver.
++
++	  It enables display output through HDMI when connected to a MIPI
++	  DSI source. The bridge translates the video signals for HDMI monitors.
++
+ config DRM_ITE_IT6505
+ 	tristate "ITE IT6505 DisplayPort bridge"
+ 	depends on OF
+diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
+index 15cc821d85b7ea6f3cdc313f3e521b028de567d7..8ae10cda622216bb2b1d2798d4fb9056acbe3bfc 100644
+--- a/drivers/gpu/drm/bridge/Makefile
++++ b/drivers/gpu/drm/bridge/Makefile
+@@ -12,6 +12,7 @@ obj-$(CONFIG_DRM_I2C_NXP_TDA998X) += tda998x.o
+ 
+ obj-$(CONFIG_DRM_INNO_HDMI) += inno-hdmi.o
+ obj-$(CONFIG_DRM_ITE_IT6263) += ite-it6263.o
++obj-$(CONFIG_DRM_ITE_IT61620) += ite-it61620.o
+ obj-$(CONFIG_DRM_ITE_IT6505) += ite-it6505.o
+ obj-$(CONFIG_DRM_LONTIUM_LT8912B) += lontium-lt8912b.o
+ obj-$(CONFIG_DRM_LONTIUM_LT9211) += lontium-lt9211.o
+diff --git a/drivers/gpu/drm/bridge/ite-it61620.c b/drivers/gpu/drm/bridge/ite-it61620.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..6a3fcf3a545efa5416d62136588739f6351d6a6e
+--- /dev/null
++++ b/drivers/gpu/drm/bridge/ite-it61620.c
+@@ -0,0 +1,2763 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2025 ITE Tech. Inc.
++ */
++
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/minmax.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_irq.h>
++#include <linux/of_graph.h>
++#include <linux/regmap.h>
++#include <linux/pm_runtime.h>
++#include <drm/drm_drv.h>
++#include <drm/drm_atomic.h>
++#include <drm/drm_atomic_helper.h>
++#include <drm/drm_atomic_state_helper.h>
++#include <drm/drm_bridge.h>
++#include <drm/drm_modeset_lock.h>
++#include <drm/drm_probe_helper.h>
++#include <drm/drm_edid.h>
++#include <drm/drm_mipi_dsi.h>
++#include <drm/drm_print.h>
++#include <drm/drm_of.h>
++#include <drm/display/drm_hdcp_helper.h>
++#include <drm/display/drm_hdmi_helper.h>
++#include <drm/display/drm_hdmi_state_helper.h>
++#include <video/videomode.h>
++#include <sound/hdmi-codec.h>
++#include <crypto/sha1.h>
++
++#define EDID_R_BURST_NUM 16
++#define DDC_FIFO_DEPTH 32
++
++#define MIPIRX_I2C_ADDRESS (0x78 >> 1)
++#define TX_I2C_ADDRESS (0xC0 >> 1)
++
++#define REG_CTRL_PW 0xFF
++
++#define REG_VENDER_ID_L 0x00
++#define REG_VENDER_ID_H 0x01
++#define REG_DEVICE_ID_L 0x02
++#define REG_DEVICE_ID_H 0x03
++#define REG_DEV_VERSION 0x04
++#define DEV_VERSION_A0 0xA0
++#define DEV_VERSION_C0 0xC0
++
++#define RX_REG_BANK 0x0F
++#define M_MIPIRX_BANK 0x01
++
++#define RX_REG_RESET_CTRL 0x05
++#define B_REF_CLOCK_RESET BIT(3)
++#define RX_REG_CLK_CTRL 0x10
++#define B_MIPI_INT_STATUS BIT(7)
++#define RX_REG_D_RST 0x1A
++#define B_D_RST BIT(0)
++#define RX_REG_INT_STATUS_01 0x0A
++#define B_INI_V_CHG BIT(0)
++#define RX_REG_INT_POL 0x11
++#define RX_REG_INT_MASK 0x114
++#define B_V_CHG BIT(0)
++#define RX_REG_INT_STATUS_02 0x22
++#define B_INI_V_STB BIT(5)
++#define RX_REG_MPPCLKI 0x12
++
++#define RX_REG_HFP_L 0x30
++#define RX_REG_HFP_H 0x31
++#define RX_REG_HSW_L 0x32
++#define RX_REG_HSW_H 0x33
++#define RX_REG_HBP_L 0x34
++#define RX_REG_HBP_H 0x35
++#define RX_REG_HDEW_L 0x36
++#define RX_REG_HDEW_H 0x37
++#define RX_REG_HTOTAL_L 0x48
++#define RX_REG_HTOTAL_H 0x49
++
++#define RX_REG_SELDCLK 0x24
++#define RX_REG_VFP_L 0x3A
++#define RX_REG_VFP_H 0x3B
++#define RX_REG_VSW_L 0x3C
++#define RX_REG_VSW_H 0x3D
++#define RX_REG_VBP_L 0x3E
++#define RX_REG_VBP_H 0x3F
++#define RX_REG_VDEW_L 0x40
++#define RX_REG_VDEW_H 0x41
++#define RX_REG_POL 0x4E
++#define B_MIPI_H_POL BIT(0)
++#define B_MIPI_V_POL BIT(1)
++
++#define RX_REG_DSCCTRL 0x25
++#define RX_REG_SYNC_NUM 0x4D
++#define RX_REG_BSP_SEL 0x1F
++#define RX_REG_PWD_CTRL 0xE0
++#define RX_REG_ENVRR 0x1AC
++#define RX_REG_ENVBLK 0x1AD
++
++#define RX_REG_D2P_RESET 0xA0
++#define RX_REG_D2P_CTRL 0xA1
++#define RX_REG_AUTO_D2P_RESET 0xA2
++#define RX_REG_TUNEOPT 0xA9
++#define RX_REG_TUNETHRE 0xAA
++#define RX_REG_DSC_RESET 0xAB
++#define RX_REG_DSC_VFRD 0xAC
++
++#define RX_REG_MIPI_CONFIG 0x112
++#define B_MIPI_LANE_NUM 0x03
++#define B_MIPI_PN_SWAP BIT(2)
++#define B_MIPI_LANE_SWAP BIT(3)
++#define RX_REG_HS_CTRL 0x118
++#define RX_REG_LP_CTRL 0x119
++#define RX_REG_MIPI_CTRL01 0x44
++#define RX_REG_AUTO_SYNC 0x144
++#define RX_REG_MV_MAX 0x146
++#define RX_REG_FORCE_M 0x147
++#define B_FORCE_MHT_STB BIT(0)
++#define B_FORCE_MVT_STB BIT(3)
++#define RX_REG_MIPI_CTRL02 0x14E
++#define B_FIFO_RST BIT(5)
++
++#define TX_REG_STATUS01 0x07
++#define B_INT_STATUS BIT(0)
++#define B_HPD_STATUS BIT(1)
++#define B_VIDEO_STB BIT(2)
++
++#define TX_REG_HDMITX_BANK 0x0F
++#define M_HDMITX_BANK 0x03
++#define B_INT_EVENT_HDMI BIT(4)
++#define TX_REG_RESET_1_CTRL 0x05
++#define B_REFERENCE_CLOCK_RESET BIT(0)
++#define B_VIDEO_RESET BIT(1)
++#define B_AUDIO_RESET BIT(2)
++#define B_AUX_RESET BIT(3)
++#define B_IPCLK_RESET BIT(4)
++#define B_SDM_RESET BIT(5)
++#define B_TCLK_RESET BIT(6)
++
++#define TX_REG_RESET_2_CTRL 0x06
++
++#define TX_REG_V_STS 0x09
++#define B_RXSEN BIT(1)
++#define B_V_STABLE BIT(2)
++#define B_TMDS_STABLE BIT(3)
++
++#define TX_REG_SYS_CONFIG 0x0C
++#define B_EN_HDMI BIT(6)
++#define B_INT_POL BIT(0)
++#define B_INT_MODE BIT(1)
++#define B_INT_OUT_STATUS BIT(2)
++#define B_INT_OUTPUT BIT(3)
++
++#define BIT_OFFSET(x) ((x) * BITS_PER_BYTE)
++
++#define TX_REG_INT1 0x10
++#define TX_REG_INT_MASK1 0x18
++#define INT_HPD_CHG 0
++#define B_HPD_CHG BIT(INT_HPD_CHG)
++#define BIT_HPD_CHG (BIT_OFFSET(0) + INT_HPD_CHG)
++#define INT_RXSEN_CHANGE 2
++#define B_RXSEN_CHANGE BIT(INT_RXSEN_CHANGE)
++#define BIT_RXSEN_CHANGE (BIT_OFFSET(0) + INT_RXSEN_CHANGE)
++#define INT_AUTH_F 3
++#define B_INT_AUTH_F BIT(INT_AUTH_F)
++#define BIT_INT_AUTH_F (BIT_OFFSET(0) + INT_AUTH_F)
++#define INT_AUTH_D 4
++#define B_INT_AUTH_D BIT(INT_AUTH_D)
++#define BIT_INT_AUTH_D (BIT_OFFSET(0) + INT_AUTH_D)
++
++#define TX_REG_INT2 0x11
++#define TX_REG_INT_MASK2 0x19
++#define INT_KSV_CHECK 1
++#define B_KSV_CHECK BIT(INT_KSV_CHECK)
++#define BIT_KSV_CHECK  (BIT_OFFSET(1) + INT_KSV_CHECK)
++
++#define TX_REG_INT3 0x16
++#define TX_REG_INT_MASK3 0x1E
++#define INT_TMDS_STB_CHG 6
++#define B_TMDS_STB_CHG BIT(INT_TMDS_STB_CHG)
++#define BIT_TMDS_STB_CHG (BIT_OFFSET(2) + INT_TMDS_STB_CHG)
++
++#define REG_TX_INT_CTRL 0x21
++#define B_DIS_INT_OUTPUT BIT(5)
++#define TX_REG_CLOCK_PWD_CTRL 0x2B
++
++#define TX_REG_AFE0E 0x0E
++#define TX_REG_AFE30 0x30
++#define TX_REG_AFE33 0x33
++#define TX_REG_AFE34 0x34
++#define TX_REG_AFE35 0x35
++#define TX_REG_AFEE9 0xE9
++#define TX_REG_AFE_XP 0x219
++#define TX_REG_AFE_XLC1 0x220
++#define TX_REG_AFE_XLC2 0x223
++#define TX_REG_AFE_XLC3 0x226
++#define TX_REG_AFE_DRV 0x23B
++
++#define TX_REG_CR_1_CTRL 0x3A
++#define TX_REG_CR_2_CTRL 0x3F
++
++#define TX_REG_R0TM 0x5A
++#define TX_REG_SHA_SEL 0x5D
++
++#define TX_REG_HDCP_CTRL1 0x60
++#define B_CPDESIRED BIT(0)
++#define TX_REG_HDCP_PRO 0x61
++#define B_AUTH_FIRE BIT(0)
++#define B_LIST_CHK_DONE BIT(4)
++#define B_LIST_CHK_FAIL BIT(5)
++#define TX_REG_HDCP_CTRL2 0x62
++#define TX_REG_AUTOMUTE 0x65
++#define B_AN_SEL BIT(0)
++#define B_EN_AN_GEN BIT(1)
++#define B_EN_M0_RD BIT(5)
++#define TX_REG_HDCP_AUTH_CS 0x66
++#define M_AUTH_CH 0x7F
++#define CS_AUTH_DONE 0x4E
++#define CS_AUTH_FAIL 0x02
++#define CS_KSVLIST_CHK 0x19
++#define TX_REG_HDCP_CTRL3 0x1BA
++#define B_ENC_DIS BIT(6)
++#define B_PAUSE BIT(7)
++
++#define TX_REG_VD_CTRL1 0xA8
++#define TX_REG_VD_CTRL2 0xA4
++#define B_VIDEO_FIFO_REST BIT(0)
++#define TX_REG_VD_CTRL3 0xB7
++
++#define TX_REG_AUD_SPDIF 0x23
++#define TX_REG_AUD_CTRL 0xB8
++#define TX_REG_AUD_FMT 0xBA
++#define TX_REG_EN_AUDIO 0xBB
++#define TX_REG_AUD_FIFO1 0xBC
++#define TX_REG_AUD_FIFO2 0xBD
++#define TX_REG_AUD_CTS 0x1BC
++#define TX_REG_AUD_STS1 0x1F0
++#define B_EN_AUD_NLPCM BIT(1)
++#define TX_REG_AUD_STS2 0x1F3
++#define TX_REG_AUD_STS3 0x1F4
++
++#define TX_REG_LINK_CTRL0 0xD3
++#define B_EN_AUDIO_MUTE BIT(5)
++
++#define TX_REG_V_QUEUE 0xE7
++#define TX_REG_V_TU 0xEB
++
++#define TX_REG_HPD_CONFIG 0xF6
++
++#define TX_REG_CEC_CONFIG 0xFA
++#define B_EN_CEC BIT(0)
++
++#define TX_REG_DDC_CTRL1 0x1A0
++#define TX_REG_DDC_ADDR 0x1A1
++#define DDC_HDCP_ADDR (DRM_HDCP_DDC_ADDR << 1)
++#define DDC_EDID_ADDR (DDC_ADDR << 1)
++#define TX_REG_DDC_OFFSET 0x1A2
++#define TX_REG_DDC_NUM_L 0x1A3
++#define TX_REG_DDC_NUM_H 0x1A4
++#define TX_REG_DDC_SEGMENT 0x1A5
++#define TX_REG_DDC_COMMAND 0x1A6
++#define DDC_COMMAND_BURST_R 0X00
++#define DDC_COMMAND_BURST_W 0X01
++#define DDC_COMMAND_EDID_RD 0X03
++#define DDC_COMMAND_FIFO_CLR 0X09
++#define DDC_COMMAND_ABORT 0X0F
++#define TX_REG_DDC_CTRL2 0x1AD
++#define B_DDC_REST BIT(4)
++#define TX_REG_DDC_STATUS 0x1A7
++#define B_DDC_TX_DONE BIT(7)
++#define B_DDC_NOACK BIT(5)
++#define B_DDC_FULL BIT(2)
++#define TX_REG_DDC_FIFO 0x1A8
++#define TX_REG_DDC_FIFO_STS 0x1AE
++#define M_DDC_STAGE_NUM	0x3F
++
++#define TX_REG_HDMI_CTRL1 0x1B8
++#define B_EN_HDMI_MODE BIT(0)
++#define TX_REG_HDMI_CTRL2 0x1B9
++#define B_EN_AVMUTE BIT(0)
++#define TX_REG_EN_PKT1 0x1BF
++#define B_EN_AVI BIT(0)
++#define B_AVI_RP BIT(1)
++#define B_EN_AUD BIT(2)
++#define B_EN_AUD_RP BIT(3)
++#define B_EN_VSIF BIT(6)
++#define B_EN_VSIF_RP BIT(7)
++#define TX_REG_EN_PKT2 0x1C0
++#define B_EN_NULL BIT(0)
++#define B_EN_NULL_RP BIT(1)
++#define B_EN_GEN BIT(4)
++#define B_GEN_RP BIT(5)
++
++#define TX_REG_VH_TIME 0x165
++#define TX_REG_PG_HFP_L 0x150
++#define TX_REG_PG_HFP_H 0x151
++#define TX_REG_PG_HSW_L 0x152
++#define TX_REG_PG_HSW_H 0x153
++#define TX_REG_PG_HBP_L 0x154
++#define TX_REG_PG_HBP_H 0x155
++#define TX_REG_PG_DEW_L 0x156
++#define TX_REG_PG_DEW_H 0x157
++#define TX_REG_PG_HVR2_L 0x158
++#define TX_REG_PG_HVR2_H 0x159
++#define TX_REG_PG_VFP_L 0x15A
++#define TX_REG_PG_VFP_H 0x15B
++#define TX_REG_PG_VSW_L 0x15C
++#define TX_REG_PG_VSW_H 0x15D
++#define TX_REG_PG_VBP_L 0x15E
++#define TX_REG_PG_VBP_H 0x15F
++#define TX_REG_PG_VDEW_L 0x160
++#define TX_REG_PG_HDEW_H 0x161
++#define TX_REG_PG_VFP2_L 0x162
++#define TX_REG_PG_VFP2_H 0x163
++#define TX_REG_PG_POL 0x164
++
++#define TX_REG_AVIINFO_DB00 0x1D0
++#define TX_REG_AVIINFO_DB01 0x1D1
++#define TX_REG_AVIINFO_DB02 0x1D2
++#define TX_REG_AVIINFO_DB03 0x1D3
++#define TX_REG_AVIINFO_DB04 0x1D4
++#define TX_REG_AVIINFO_DB05 0x1D5
++#define TX_REG_AVIINFO_DB06 0x1D6
++#define TX_REG_AVIINFO_DB07 0x1D7
++#define TX_REG_AVIINFO_DB08 0x1D8
++#define TX_REG_AVIINFO_DB09 0x1D9
++#define TX_REG_AVIINFO_DB10 0x1DA
++#define TX_REG_AVIINFO_DB11 0x1DB
++#define TX_REG_AVIINFO_DB12 0x1DC
++#define TX_REG_AVIINFO_DB13 0x1DD
++#define TX_REG_AVIINFO_DB14 0x1DE
++
++#define TX_REG_AUDINFO_DB01 0x1E0
++#define TX_REG_AUDINFO_DB02 0x1E1
++#define TX_REG_AUDINFO_DB03 0x1E2
++#define TX_REG_AUDINFO_DB04 0x1E3
++#define TX_REG_AUDINFO_DB05 0x1E4
++#define TX_REG_AUDINFO_DB06 0x1E5
++#define TX_REG_AUDINFO_DB07 0x1E6
++#define TX_REG_AUDINFO_DB08 0x1E7
++#define TX_REG_AUDINFO_DB09 0x1E8
++#define TX_REG_AUDINFO_DB10 0x1E9
++
++#define TX_REG_NULLPKT_HB00 0x310
++#define TX_REG_NULLPKT_HB01 0x311
++#define TX_REG_NULLPKT_HB02 0x312
++#define TX_REG_NULLPKT_PB00 0x314
++#define TX_REG_NULLPKT_PB27 0x32F
++
++#define TX_REG_VSIFPKT_HB02 0x37E
++#define TX_REG_VSIFPKT_PB00 0x380
++#define TX_REG_VSIFPKT_PB01 0x381
++
++#define TX_REG_SSC_PD 0x211
++
++#define TX_REG_TXPLL_CTRL 0x218
++#define TX_REG_XLC_7_CTRL 0x227
++
++#define TX_REG_TXDRV_PD_CTRL 0x23D
++#define TX_REG_TXDRV_CTRL 0x240
++#define TX_REG_AUX_CTRL 0x244
++#define TX_REG_IPLL_CTRL 0x248
++#define TX_REG_RDROM_TRG 0x271
++
++#define TX_REG_HDCP_ARI_L 0x63
++#define TX_REG_HDCP_ARI_H 0x64
++
++#define TX_REG_HDCP_AUTH_STS 0x67
++
++#define TX_REG_HDCP_BKSV1 0x68
++#define TX_REG_HDCP_BKSV2 0x69
++#define TX_REG_HDCP_BKSV3 0x6A
++#define TX_REG_HDCP_BKSV4 0x6B
++#define TX_REG_HDCP_BKSV5 0x6C
++
++#define TX_REG_HDCP_BRI_L 0x6D
++#define TX_REG_HDCP_BRI_H 0x6E
++
++#define TX_REG_HDCP_AKSV1 0x6F
++#define TX_REG_HDCP_AKSV2 0x70
++#define TX_REG_HDCP_AKSV3 0x71
++#define TX_REG_HDCP_AKSV4 0x72
++#define TX_REG_HDCP_AKSV5 0x73
++
++#define TX_REG_ANM0V1 0x74
++#define TX_REG_ANM0V2 0x75
++#define TX_REG_ANM0V3 0x76
++#define TX_REG_HDCP_AN_M0_V4 0x77
++#define TX_REG_HDCP_AN_M05 0x78
++#define TX_REG_HDCP_AN_M06 0x79
++#define TX_REG_HDCP_AN_M07 0x7A
++#define TX_REG_HDCP_AN_M08 0x7B
++
++#define TX_REG_HDCP_BCAPS 0x7C
++#define B_KSV_READY BIT(5)
++#define TX_REG_HDCP_BSTS_L 0x7D
++#define TX_REG_HDCP_BSTS_H 0x7E
++
++#define TX_REG_AUDPKT_CTS_0 0x3A8
++#define TX_REG_AUDPKT_CTS_1 0x3A9
++#define TX_REG_AUDPKT_CTS_2 0x3AA
++
++#define TX_REG_AUDPKT_N_0 0x3AB
++#define TX_REG_AUDPKT_N_1 0x3AC
++#define TX_REG_AUDPKT_N_2 0x3AD
++
++#define SOFT_DDC_TIMEOUT_MS 100
++#define HDCP_KSV_LIST_TIMEOUT_MS 5000
++#define IT61620_HPD_DEBOUNCE_MS 200
++
++#define MAX_HDCP_DOWN_STREAM_COUNT 127
++#define HDCP_SHA1_FIFO_LEN (MAX_HDCP_DOWN_STREAM_COUNT * DRM_HDCP_KSV_LEN + 10)
++
++#define HI_BYTE(x) (((x) >> 8) & 0xFF)
++#define LO_BYTE(x) ((x) & 0xFF)
++
++enum video_state {
++	it61620_VIDEO_OFF = 0x00,
++	it61620_VIDEO_WAIT,
++	it61620_VIDEO_ON,
++};
++
++enum hdcp_state {
++	CP_NONE = 0x00,
++	CP_GOING = 0x01,
++};
++
++enum it61620_audio_select {
++	I2S = 0,
++	SPDIF,
++};
++
++enum it61620_audio_word_length {
++	WORD_LENGTH_16BIT = 0x0,
++	WORD_LENGTH_20BIT = 0x2,
++	WORD_LENGTH_24BIT = 0x3,
++};
++
++enum it61620_audio_sample_rate {
++	SAMPLE_RATE_32K = 0x3,
++	SAMPLE_RATE_48K = 0x2,
++	SAMPLE_RATE_64K = 0xb,
++	SAMPLE_RATE_96K = 0xa,
++	SAMPLE_RATE_192K = 0xe,
++	SAMPLE_RATE_44_1K = 0x0,
++	SAMPLE_RATE_88_2K = 0x8,
++	SAMPLE_RATE_176_4K = 0xc,
++};
++
++enum it61620_audio_type {
++	LPCM = 0,
++	NLPCM,
++};
++
++enum it61620_audio_i2s_input_format {
++	I2S_INPUT_FORMAT_STANDARD = 0,
++	I2S_INPUT_FORMAT_32BIT = 1,
++};
++
++struct it6162_chip_info {
++	u16 vid;
++	u16 pid;
++};
++
++struct it61620_mipirx {
++	u8 lane_num;
++	u8 pn_swap;
++	u8 lane_swap;
++};
++
++struct it61620_hdmi_afe_setting {
++	unsigned int clock;
++	unsigned int h2on_pll;
++	unsigned int hs;
++	unsigned int afe_val[24];
++};
++
++struct it61620 {
++	struct drm_bridge bridge;
++	struct drm_connector *connector;
++	struct device *dev;
++	enum drm_connector_status connector_status;
++	struct drm_device *drm;
++	struct drm_bridge *next_bridge;
++
++	struct i2c_client *it61620_i2c;
++	struct i2c_client *mipirx_i2c;
++	struct i2c_client *tx_i2c;
++	struct regmap *it61620_regmap;
++	struct regmap *mipirx_regmap;
++	struct regmap *tx_regmap;
++
++	struct delayed_work hdcp_work;
++	struct delayed_work hpd_work;
++	struct work_struct hdcp_cp_work;
++	struct wait_queue_head wq;
++
++	struct regulator *ovdd1833;
++	struct regulator *ivdd;
++	struct regulator *ovdd33;
++	struct gpio_desc *gpiod_reset;
++
++	bool powered;
++	bool is_hdmi;
++	bool en_audio;
++	bool hpd;
++	u8 dev_ver;
++
++	/* operations can only be served one at the time */
++	struct mutex ddc_lock;
++
++	enum video_state video_state;
++	enum it61620_audio_i2s_input_format i2s_input_format;
++
++	/* it61620 DSI RX related params */
++	struct mipi_dsi_device *dsi;
++
++	struct it61620_mipirx mipirx_config;
++
++	unsigned long tmds_char_rate;
++
++	enum hdcp_state hdcp_state;
++	int hdcp_cp;
++	u8 sha1_input[HDCP_SHA1_FIFO_LEN];
++	const struct it6162_chip_info *chip_info;
++};
++
++static inline struct it61620 *bridge_to_it61620(struct drm_bridge *bridge)
++{
++	return container_of(bridge, struct it61620, bridge);
++}
++
++static bool it61620_own_hpd(const struct it61620 *it61620)
++{
++	return it61620->bridge.ops & DRM_BRIDGE_OP_HPD;
++}
++
++static const struct regmap_config it61620_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = 0xff,
++	.cache_type = REGCACHE_NONE,
++};
++
++static const struct regmap_range it61620_tx_volatile_ranges[] = {
++	{ .range_min = 0, .range_max = 0x3ff},
++};
++
++static const struct regmap_access_table it61620_tx_volatile_table = {
++	.yes_ranges = it61620_tx_volatile_ranges,
++	.n_yes_ranges = ARRAY_SIZE(it61620_tx_volatile_ranges),
++};
++
++static const struct regmap_range_cfg it61620_tx_regmap_ranges[] = {
++	{
++		.range_min = 0,
++		.range_max = 0x3ff,
++		.selector_reg = TX_REG_HDMITX_BANK,
++		.selector_mask = M_HDMITX_BANK,
++		.selector_shift = 0,
++		.window_start = 0x00,
++		.window_len = 0x100,
++	},
++};
++
++static const struct regmap_config it61620_tx_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.volatile_table = &it61620_tx_volatile_table,
++	.ranges = it61620_tx_regmap_ranges,
++	.num_ranges = ARRAY_SIZE(it61620_tx_regmap_ranges),
++	.max_register = 0x3ff,
++	.cache_type = REGCACHE_NONE,
++};
++
++static const struct regmap_range it61620_mipirx_volatile_ranges[] = {
++	{ .range_min = 0, .range_max = 0x1ff },
++};
++
++static const struct regmap_access_table it61620_mipirx_volatile_table = {
++	.yes_ranges = it61620_mipirx_volatile_ranges,
++	.n_yes_ranges = ARRAY_SIZE(it61620_mipirx_volatile_ranges),
++};
++
++static const struct regmap_range_cfg it61620_mipirx_regmap_ranges[] = {
++	{
++		.range_min = 0,
++		.range_max = 0x1ff,
++		.selector_reg = RX_REG_BANK,
++		.selector_mask = M_MIPIRX_BANK,
++		.selector_shift = 0,
++		.window_start = 0x00,
++		.window_len = 0x100,
++	},
++};
++
++static const struct regmap_config it61620_mipi_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.volatile_table = &it61620_mipirx_volatile_table,
++	.ranges = it61620_mipirx_regmap_ranges,
++	.num_ranges = ARRAY_SIZE(it61620_mipirx_regmap_ranges),
++	.max_register = 0x1ff,
++	.cache_type = REGCACHE_NONE,
++};
++
++static void it61620_mipi_reset_video(struct it61620 *it61620)
++{
++	regmap_write(it61620->mipirx_regmap, RX_REG_DSC_RESET, 0x38);
++	usleep_range(100, 200);
++	regmap_update_bits(it61620->mipirx_regmap, RX_REG_D2P_RESET, 0x70, 0x70);
++	regmap_write(it61620->mipirx_regmap, RX_REG_DSC_RESET, 0x00);
++
++	regmap_update_bits(it61620->mipirx_regmap, RX_REG_RESET_CTRL, 0x57, 0x00);
++	usleep_range(1000, 2000);
++}
++
++static void it61620_mipi_m2p_reset(struct it61620 *it61620)
++{
++	if (it61620->dev_ver != DEV_VERSION_A0)
++		return;
++	regmap_update_bits(it61620->mipirx_regmap, RX_REG_MIPI_CTRL02, B_FIFO_RST,
++			   B_FIFO_RST);
++	usleep_range(1000, 2000);
++	regmap_update_bits(it61620->mipirx_regmap, RX_REG_MIPI_CTRL02, B_FIFO_RST,
++			   0x00);
++}
++
++static void it61620_mipi_d2p_reset_fifo(struct it61620 *it61620)
++{
++	regmap_update_bits(it61620->mipirx_regmap, RX_REG_D2P_RESET, 0x70, 0x70);
++	usleep_range(1000, 2000);
++	regmap_update_bits(it61620->mipirx_regmap, RX_REG_D2P_RESET, 0x70, 0x50);
++	usleep_range(100, 200);
++	regmap_update_bits(it61620->mipirx_regmap, RX_REG_D2P_RESET, 0x70, 0x10);
++	usleep_range(100, 200);
++	regmap_update_bits(it61620->mipirx_regmap, RX_REG_D2P_RESET, 0x70, 0x00);
++}
++
++static void it61620_mipi_d2p_reset(struct it61620 *it61620)
++{
++	it61620_mipi_m2p_reset(it61620);
++	regmap_update_bits(it61620->mipirx_regmap, RX_REG_D_RST, B_D_RST, B_D_RST);
++	usleep_range(1000, 2000);
++	regmap_update_bits(it61620->mipirx_regmap, RX_REG_D_RST, B_D_RST, 0x00);
++	it61620_mipi_d2p_reset_fifo(it61620);
++}
++
++static void it61620_mipi_reset(struct it61620 *it61620)
++{
++	unsigned int val;
++	u8 dev_ver = it61620->dev_ver;
++	struct it61620_mipirx *mipirx = &it61620->mipirx_config;
++
++	regmap_update_bits(it61620->mipirx_regmap, RX_REG_RESET_CTRL, B_REF_CLOCK_RESET,
++			   B_REF_CLOCK_RESET);
++	usleep_range(1000, 2000);
++	regmap_update_bits(it61620->mipirx_regmap, RX_REG_RESET_CTRL, B_REF_CLOCK_RESET,
++			   0x00);
++	usleep_range(1000, 2000);
++
++	it61620_mipi_d2p_reset(it61620);
++
++	regmap_write(it61620->mipirx_regmap, RX_REG_HS_CTRL, 0x93);
++	regmap_write(it61620->mipirx_regmap, RX_REG_LP_CTRL, 0x0c);
++	regmap_write(it61620->mipirx_regmap, RX_REG_AUTO_SYNC, 0x01);
++	regmap_write(it61620->mipirx_regmap, RX_REG_MV_MAX, 0x0f);
++	regmap_write(it61620->mipirx_regmap, RX_REG_FORCE_M, B_FORCE_MHT_STB);
++
++	regmap_write(it61620->mipirx_regmap, RX_REG_MIPI_CTRL01, 0x2c);
++	regmap_write(it61620->mipirx_regmap, RX_REG_AUTO_D2P_RESET, 0x13);
++	regmap_write(it61620->mipirx_regmap, RX_REG_D2P_CTRL, 0x28);
++	regmap_write(it61620->mipirx_regmap, RX_REG_TUNEOPT, 0x9c);
++
++	regmap_update_bits(it61620->mipirx_regmap, RX_REG_CLK_CTRL, 0x30, 0x20);
++
++	if (dev_ver != DEV_VERSION_A0) {
++		regmap_write(it61620->mipirx_regmap, RX_REG_TUNETHRE, 0x02);
++		regmap_write(it61620->mipirx_regmap, RX_REG_AUTO_D2P_RESET, 0x83);
++		regmap_update_bits(it61620->mipirx_regmap, RX_REG_FORCE_M, B_FORCE_MVT_STB,
++				   B_FORCE_MVT_STB);
++		regmap_update_bits(it61620->mipirx_regmap, RX_REG_SYNC_NUM, 0xf7, 0x44);
++		regmap_update_bits(it61620->mipirx_regmap, RX_REG_BSP_SEL, 0x03, 0x02);
++		regmap_update_bits(it61620->mipirx_regmap, RX_REG_PWD_CTRL, 0x24, 0x24);
++		regmap_update_bits(it61620->mipirx_regmap, RX_REG_ENVRR, 0x01, 0x00);
++		regmap_write(it61620->mipirx_regmap, RX_REG_ENVBLK, 0x00);
++		regmap_update_bits(it61620->mipirx_regmap, RX_REG_DSCCTRL, 0x40, 0x00);
++	}
++	val = (mipirx->lane_num - 1) |
++	      (mipirx->pn_swap ? B_MIPI_PN_SWAP : 0x00) |
++	      (mipirx->lane_swap ? B_MIPI_LANE_SWAP : 0x00);
++
++	regmap_update_bits(it61620->mipirx_regmap, RX_REG_MIPI_CONFIG, 0x0f, val);
++
++	it61620_mipi_reset_video(it61620);
++}
++
++static void it61620_mipi_video_change_irq(struct it61620 *it61620)
++{
++	unsigned int reg22;
++	unsigned int video_stable;
++
++	regmap_read(it61620->mipirx_regmap, RX_REG_INT_STATUS_02, &reg22);
++	video_stable = reg22 & B_INI_V_STB;
++
++	if (video_stable) {
++		it61620_mipi_m2p_reset(it61620);
++		it61620_mipi_d2p_reset_fifo(it61620);
++	} else {
++		regmap_update_bits(it61620->mipirx_regmap, RX_REG_D_RST, 0x01, 0x01);
++		usleep_range(1000, 2000);
++		regmap_update_bits(it61620->mipirx_regmap, RX_REG_D_RST, 0x01, 0x00);
++		regmap_update_bits(it61620->mipirx_regmap, RX_REG_D2P_RESET, 0x70, 0x70);
++	}
++}
++
++static void it61620_mipi_irq_handler(struct it61620 *it61620)
++{
++	unsigned int reg0a, reg_val;
++
++	regmap_read(it61620->mipirx_regmap, RX_REG_CLK_CTRL, &reg_val);
++	reg_val &= B_MIPI_INT_STATUS;
++	if (reg_val == 0)
++		return;
++
++	regmap_read(it61620->mipirx_regmap, RX_REG_INT_STATUS_01, &reg0a);
++	regmap_write(it61620->mipirx_regmap, RX_REG_INT_STATUS_01, reg0a);
++	if (reg0a & B_INI_V_CHG)
++		it61620_mipi_video_change_irq(it61620);
++}
++
++static void it61620_show_drm_video_mode(struct it61620 *it61620,
++					const struct drm_display_mode *mode)
++{
++	struct drm_device *drm = it61620->drm;
++
++	drm_dbg_kms(drm, "HActive = %u\n", mode->hdisplay);
++	drm_dbg_kms(drm, "VActive = %u\n", mode->vdisplay);
++	drm_dbg_kms(drm, "HTotal =  %u\n", mode->htotal);
++	drm_dbg_kms(drm, "VTotal =  %u\n", mode->vtotal);
++	drm_dbg_kms(drm, "PCLK = %u khz\n", mode->clock);
++	drm_dbg_kms(drm, "HFP = %u\n", mode->hsync_start - mode->hdisplay);
++	drm_dbg_kms(drm, "HSW = %u\n", mode->hsync_end - mode->hsync_start);
++	drm_dbg_kms(drm, "HBP = %u\n", mode->htotal - mode->hsync_end);
++	drm_dbg_kms(drm, "VFP = %u\n", mode->vsync_start - mode->vdisplay);
++	drm_dbg_kms(drm, "VSW = %u\n", mode->vsync_end - mode->vsync_start);
++	drm_dbg_kms(drm, "VBP = %u\n", mode->vtotal - mode->vsync_end);
++	if (mode->flags & DRM_MODE_FLAG_PHSYNC)
++		drm_dbg_kms(drm, "HPOL +\n");
++	else
++		drm_dbg_kms(drm, "HPOL -\n");
++
++	if (mode->flags & DRM_MODE_FLAG_PVSYNC)
++		drm_dbg_kms(drm, "VPOL +\n");
++	else
++		drm_dbg_kms(drm, "VPOL -\n");
++
++	if (mode->flags & DRM_MODE_FLAG_INTERLACE)
++		drm_dbg_kms(drm, "Interlaced\n");
++	else
++		drm_dbg_kms(drm, "Progressive\n");
++}
++
++static inline void it61620_write16(struct regmap *map,
++				   unsigned int reg, u16 val)
++{
++	u8 data[2] = {val & 0xff, val >> 8};
++
++	regmap_bulk_write(map, reg, data, 2);
++}
++
++static void it61620_mipi_set_d2v_video_timing(struct it61620 *it61620,
++					      struct drm_display_mode *mode)
++{
++	u8 d2vffrd_adr_dly;
++	u32 htotal, hfp, hsw, hbp, hdew;
++	u32 vfp, vsw, vbp, vdew;
++	u32 clock;
++	bool hpol_high = 0, vpol_high = 0;
++
++	it61620_show_drm_video_mode(it61620, mode);
++
++	if (mode->flags & DRM_MODE_FLAG_PHSYNC)
++		hpol_high = true;
++
++	if (mode->flags & DRM_MODE_FLAG_PVSYNC)
++		vpol_high = true;
++
++	clock = mode->clock;
++	hdew = mode->hdisplay;
++
++	hfp = mode->hsync_start - mode->hdisplay;
++	hsw = mode->hsync_end - mode->hsync_start;
++	hbp = mode->htotal - mode->hsync_end;
++	htotal = mode->htotal;
++
++	vdew = mode->vdisplay;
++	vfp = mode->vsync_start - mode->vdisplay;
++	vsw = mode->vsync_end - mode->vsync_start;
++	vbp = mode->vtotal - mode->vsync_end;
++
++	if (it61620->dev_ver != DEV_VERSION_A0)
++		regmap_update_bits(it61620->mipirx_regmap, RX_REG_SELDCLK, 0x1c, 0x04);
++
++	if (hdew > 1920) {
++		if (htotal < 4272) {
++			d2vffrd_adr_dly = abs_diff(htotal, 2880u) / 24;
++			regmap_write(it61620->mipirx_regmap, RX_REG_DSC_VFRD,
++				     d2vffrd_adr_dly);
++		} else {
++			regmap_write(it61620->mipirx_regmap, RX_REG_DSC_VFRD, 0x50);
++		}
++	} else {
++		regmap_write(it61620->mipirx_regmap, RX_REG_DSC_VFRD, hdew / 36);
++	}
++
++	it61620_write16(it61620->mipirx_regmap, RX_REG_HFP_L, hfp);
++	it61620_write16(it61620->mipirx_regmap, RX_REG_HSW_L, hsw);
++	it61620_write16(it61620->mipirx_regmap, RX_REG_HBP_L, hbp);
++	it61620_write16(it61620->mipirx_regmap, RX_REG_HDEW_L, hdew);
++	it61620_write16(it61620->mipirx_regmap, RX_REG_HTOTAL_L, htotal);
++	it61620_write16(it61620->mipirx_regmap, RX_REG_VFP_L, vfp);
++	it61620_write16(it61620->mipirx_regmap, RX_REG_VSW_L, vsw);
++	it61620_write16(it61620->mipirx_regmap, RX_REG_VBP_L, vbp);
++	it61620_write16(it61620->mipirx_regmap, RX_REG_VDEW_L, vdew);
++
++	regmap_update_bits(it61620->mipirx_regmap, RX_REG_POL, 0x03,
++			   ((!vpol_high) << 1) | (!hpol_high));
++
++	if (it61620->dev_ver == DEV_VERSION_A0 &&
++	    ((hdew == 2560 && vdew == 1440 && clock == 241500) ||
++	     (hdew == 720 && vdew == 400 && clock == 28320) ||
++	     (hdew == 720 && vdew == 576 && clock == 27000))) {
++		dev_dbg(it61620->dev, "device A0 %dx%d %d Khz",
++			hdew, vdew, clock);
++		regmap_update_bits(it61620->mipirx_regmap, RX_REG_MPPCLKI, 0x80, 0x80);
++		regmap_update_bits(it61620->tx_regmap, TX_REG_VH_TIME, 0x48, 0x48);
++
++		it61620_write16(it61620->tx_regmap, TX_REG_PG_HFP_L, hfp);
++		it61620_write16(it61620->tx_regmap, TX_REG_PG_HSW_L, hsw);
++		it61620_write16(it61620->tx_regmap, TX_REG_PG_HBP_L, hbp);
++		it61620_write16(it61620->tx_regmap, TX_REG_PG_DEW_L, hdew);
++		it61620_write16(it61620->tx_regmap, TX_REG_PG_HVR2_L, 0x0fff);
++		it61620_write16(it61620->tx_regmap, TX_REG_PG_VFP_L, vfp);
++		it61620_write16(it61620->tx_regmap, TX_REG_PG_VSW_L, vsw);
++		it61620_write16(it61620->tx_regmap, TX_REG_PG_VBP_L, vbp);
++		it61620_write16(it61620->tx_regmap, TX_REG_PG_VDEW_L, vdew);
++		it61620_write16(it61620->tx_regmap, TX_REG_PG_VFP2_L, 0x0fff);
++
++		regmap_update_bits(it61620->tx_regmap, TX_REG_PG_POL, 0x07,
++				   ((vpol_high) << 1) | (hpol_high));
++
++	} else {
++		regmap_update_bits(it61620->mipirx_regmap, RX_REG_MPPCLKI, 0x80, 0x00);
++		regmap_update_bits(it61620->tx_regmap, TX_REG_VH_TIME, 0x48, 0x00);
++	}
++
++	it61620_mipi_d2p_reset(it61620);
++}
++
++static void it61620_hdmi_reset(struct it61620 *it61620)
++{
++	regmap_update_bits(it61620->tx_regmap, TX_REG_RESET_1_CTRL, 0x7e, 0x7e);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_RESET_2_CTRL, 0x36, 0x36);
++	usleep_range(1000, 2000);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_RESET_1_CTRL, 0x1f, 0x00);
++	usleep_range(1000, 2000);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_RESET_1_CTRL, 0x40, 0x00);
++
++	regmap_write(it61620->tx_regmap, TX_REG_RDROM_TRG, 0x04);
++	usleep_range(1000, 2000);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_SYS_CONFIG, B_EN_HDMI, B_EN_HDMI);
++
++	/* Reset AFE */
++	regmap_update_bits(it61620->tx_regmap, TX_REG_XLC_7_CTRL, 0x04, 0x00);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_IPLL_CTRL, 0x02, 0x00);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_TXPLL_CTRL, 0x04, 0x00);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_TXDRV_CTRL, 0x01, 0x00);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_XLC_7_CTRL, 0x04, 0x04);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_IPLL_CTRL, 0x02, 0x02);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_TXPLL_CTRL, 0x04, 0x04);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_TXDRV_CTRL, 0x01, 0x01);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_TXDRV_CTRL, 0x08, 0x08);
++
++	regmap_write(it61620->tx_regmap, TX_REG_V_QUEUE, 0x08);
++	regmap_write(it61620->tx_regmap, TX_REG_V_TU, 0x07);
++
++	regmap_write(it61620->tx_regmap, TX_REG_CR_1_CTRL, 0x09);
++
++	regmap_write(it61620->tx_regmap, TX_REG_CR_2_CTRL, 0x16);
++
++	regmap_write(it61620->tx_regmap, TX_REG_VD_CTRL1, 0x04);
++
++	regmap_write(it61620->tx_regmap, TX_REG_HDCP_CTRL2, 0x04);
++
++	regmap_write(it61620->tx_regmap, TX_REG_VD_CTRL3, 0x84);
++	regmap_write(it61620->tx_regmap, TX_REG_HPD_CONFIG, 0x06);
++	usleep_range(1000, 2000);
++
++	regmap_write(it61620->tx_regmap, TX_REG_VD_CTRL2, 0x2e);
++	regmap_write(it61620->tx_regmap, TX_REG_HDMI_CTRL1, 0x30);
++
++	regmap_write(it61620->tx_regmap, TX_REG_HDMI_CTRL2, 0x04);
++}
++
++static void it61620_hdmi_poweron(struct it61620 *it61620)
++{
++	regmap_update_bits(it61620->tx_regmap, TX_REG_TXDRV_PD_CTRL, 0x70, 0x00);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_XLC_7_CTRL, 0x07, 0x06);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_IPLL_CTRL, 0x12, 0x12);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_TXPLL_CTRL, 0xc6, 0x84);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_SSC_PD, 0x03, 0x03);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_CLOCK_PWD_CTRL, 0x0f, 0x00);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_VD_CTRL2, B_VIDEO_FIFO_REST,
++			   B_VIDEO_FIFO_REST);
++	usleep_range(1000, 2000);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_VD_CTRL2, B_VIDEO_FIFO_REST,
++			   0x00);
++}
++
++static void it61620_hdmi_powerdown(struct it61620 *it61620)
++{
++	regmap_update_bits(it61620->tx_regmap, TX_REG_TXDRV_PD_CTRL, 0x70, 0x70);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_SSC_PD, 0x03, 0x00);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_IPLL_CTRL, 0x12, 0x00);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_TXPLL_CTRL, 0xc6, 0xc2);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_XLC_7_CTRL, 0x07, 0x01);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_TXDRV_CTRL, 0xf9, 0x00);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_AUX_CTRL, 0x90, 0x00);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_CLOCK_PWD_CTRL, 0x0f, 0x0a);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_CEC_CONFIG, B_EN_CEC, 0x00);
++}
++
++static bool it61620_hdmi_get_hpd_status(struct it61620 *it61620)
++{
++	unsigned int val;
++
++	regmap_read(it61620->tx_regmap, TX_REG_STATUS01, &val);
++	return !!(val & B_HPD_STATUS);
++}
++
++static void it61620_hdmi_ddc_abort(struct it61620 *it61620)
++{
++	struct drm_device *drm = it61620->drm;
++	unsigned int val;
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_DDC_CTRL2, B_DDC_REST, B_DDC_REST);
++	usleep_range(1000, 2000);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_DDC_CTRL2, B_DDC_REST, 0x00);
++	regmap_write(it61620->tx_regmap, TX_REG_DDC_COMMAND, DDC_COMMAND_ABORT);
++	usleep_range(1000, 2000);
++	regmap_read(it61620->tx_regmap, TX_REG_DDC_STATUS, &val);
++	drm_dbg(drm, "tx ddc status %02X\n", val);
++}
++
++static unsigned int it61620_hdmi_read_ddc_status(struct it61620 *it61620)
++{
++	unsigned int val;
++
++	regmap_read(it61620->tx_regmap, TX_REG_DDC_STATUS, &val);
++	return val;
++}
++
++static int it61620_hdmi_ddc_wait(struct it61620 *it61620)
++{
++	struct drm_device *drm = it61620->drm;
++	unsigned int ddc_status;
++	int ret = 0;
++
++	ret = readx_poll_timeout(it61620_hdmi_read_ddc_status,
++				 it61620, ddc_status,
++				 (ddc_status &
++				 (B_DDC_NOACK | B_DDC_TX_DONE | B_DDC_FULL)),
++				 2000,
++				 1000 * SOFT_DDC_TIMEOUT_MS);
++
++	if (ret < 0) {
++		drm_dbg(drm, "DDC SOFT timeout %x\n", ddc_status);
++	} else {
++		if (ddc_status & B_DDC_NOACK) {
++			drm_dbg(drm, "DDC no ack");
++			ret = -EIO;
++		}
++
++		if (ddc_status & B_DDC_FULL)
++			drm_dbg(drm, "DDC FULL");
++	}
++	return ret;
++}
++
++static int it61620_hdmi_get_ddc_fifo(struct it61620 *it61620, u8 *buf,
++				     size_t len)
++{
++	int err;
++	struct device *dev = it61620->dev;
++
++	if (!it61620->powered)
++		return -ENODEV;
++
++	err = regmap_bulk_read(it61620->tx_regmap, TX_REG_DDC_FIFO, buf, len);
++	if (err < 0) {
++		dev_err(dev, "read ddc fifo failed tx reg[0x%x] err = %d",
++			TX_REG_DDC_FIFO, err);
++		return err;
++	}
++
++	return 0;
++}
++
++static const struct it61620_hdmi_afe_setting hdmi_afe[4] = {
++	{375000, 0x01, 0x02,
++		{0x03, 0x53, 0x1A, 0x03, 0x00, 0x04,
++		0x03, 0x53, 0x1A, 0x03, 0x00, 0x04,
++		0x03, 0x53, 0x1A, 0x03, 0x00, 0x04,
++		0x01, 0x4B, 0x0F, 0x00, 0x07, 0x04}},
++	{340000, 0x01, 0x02,
++		{0x03, 0x53, 0x1A, 0x03, 0x00, 0x04,
++		0x03, 0x53, 0x1A, 0x03, 0x00, 0x04,
++		0x03, 0x53, 0x1A, 0x03, 0x00, 0x04,
++		0x01, 0x4B, 0x0F, 0x00, 0x07, 0x04}},
++	{150000, 0x00, 0x00,
++		{0x03, 0x43, 0x18, 0x03, 0x00, 0x04,
++		0x03, 0x43, 0x18, 0x03, 0x00, 0x04,
++		0x03, 0x43, 0x18, 0x03, 0x00, 0x04,
++		0x03, 0x43, 0x18, 0x03, 0x00, 0x04}},
++	{0, 0x00, 0x00,
++		{0x03, 0x43, 0x18, 0x03, 0x00, 0x04,
++		0x03, 0x43, 0x18, 0x03, 0x00, 0x04,
++		0x03, 0x43, 0x18, 0x03, 0x00, 0x04,
++		0x03, 0x43, 0x18, 0x03, 0x00, 0x04}}
++};
++
++static void it61620_hdmi_setup_afe(struct it61620 *it61620, int clock)
++{
++	int i;
++	unsigned int reg_ofset;
++	const struct it61620_hdmi_afe_setting *afe;
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_AFE30, 0x1f, 0x07);
++	regmap_write(it61620->tx_regmap, TX_REG_AFEE9, 0x10);
++	regmap_write(it61620->tx_regmap, TX_REG_AFE33, 0x00);
++	regmap_write(it61620->tx_regmap, TX_REG_AFE34, 0xe4);
++
++	regmap_write(it61620->tx_regmap, TX_REG_AFE35, 0x00);
++	regmap_write(it61620->tx_regmap, TX_REG_AFEE9, 0x10);
++
++	for (i = 0; i < ARRAY_SIZE(hdmi_afe); i++) {
++		if (clock > hdmi_afe[i].clock || hdmi_afe[i].clock == 0)
++			break;
++	}
++
++	afe = &hdmi_afe[i];
++
++	regmap_write(it61620->tx_regmap, TX_REG_AFE0E, 0xf0);
++
++	if (clock > 100000)
++		regmap_update_bits(it61620->tx_regmap, TX_REG_TXPLL_CTRL, 0x19, 0x08);
++	else
++		regmap_update_bits(it61620->tx_regmap, TX_REG_TXPLL_CTRL, 0x19, 0x11);
++
++	if (afe->h2on_pll) {
++		regmap_write(it61620->tx_regmap, TX_REG_AFE_XP, 0x48);
++		regmap_update_bits(it61620->tx_regmap, TX_REG_AFE_XLC1, 0x87, 0x81);
++		regmap_update_bits(it61620->tx_regmap, TX_REG_AFE_XLC2, 0x40, 0x00);
++		regmap_write(it61620->tx_regmap, TX_REG_AFE_XLC3, 0x32);
++		regmap_update_bits(it61620->tx_regmap, TX_REG_XLC_7_CTRL, 0xff, 0xb6);
++	} else {
++		regmap_write(it61620->tx_regmap, TX_REG_AFE_XP, 0x00);
++	}
++
++	regmap_write(it61620->tx_regmap, TX_REG_AFE_DRV, 0x00);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_TXDRV_CTRL, 0x02, afe->hs);
++
++	for (i = 0, reg_ofset = 0x280; reg_ofset <= 0x297; reg_ofset++)
++		regmap_write(it61620->tx_regmap, reg_ofset, afe->afe_val[i++]);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_INT_MASK3, B_TMDS_STB_CHG,
++			   B_TMDS_STB_CHG);
++}
++
++static inline void it61620_hdmi_fire_afe(struct it61620 *it61620)
++{
++	regmap_update_bits(it61620->tx_regmap, TX_REG_TXDRV_CTRL, 0xf1, 0xf1);
++}
++
++static inline void it61620_hdmi_disable_afe(struct it61620 *it61620)
++{
++	regmap_update_bits(it61620->tx_regmap, TX_REG_TXDRV_CTRL, 0xf1, 0x00);
++}
++
++static int it61620_hdmi_hdcprd(struct it61620 *it61620, int offset, int bytenum)
++{
++	int ret = 0;
++
++	guard(mutex)(&it61620->ddc_lock);
++
++	regmap_write(it61620->tx_regmap, TX_REG_DDC_COMMAND, DDC_COMMAND_FIFO_CLR);
++	usleep_range(1000, 2000);
++	regmap_write(it61620->tx_regmap, TX_REG_DDC_ADDR, DDC_HDCP_ADDR);
++	regmap_write(it61620->tx_regmap, TX_REG_DDC_OFFSET, offset);
++	regmap_write(it61620->tx_regmap, TX_REG_DDC_NUM_L, bytenum);
++	regmap_write(it61620->tx_regmap, TX_REG_DDC_NUM_H, (bytenum & 0x300) >> 8);
++	regmap_write(it61620->tx_regmap, TX_REG_DDC_COMMAND, DDC_COMMAND_BURST_R);
++
++	if (it61620_hdmi_ddc_wait(it61620) < 0) {
++		it61620_hdmi_ddc_abort(it61620);
++		ret = -EIO;
++		dev_dbg(it61620->dev, "ddc fail");
++	}
++	return ret;
++}
++
++static int it61620_hdmi_hdcp_ksvlist_rd(struct it61620 *it61620,
++					unsigned int bytenum, u8 *out)
++{
++	int ret = 0;
++	unsigned int i;
++	unsigned int count;
++
++	guard(mutex)(&it61620->ddc_lock);
++
++	regmap_write(it61620->tx_regmap, TX_REG_DDC_COMMAND, DDC_COMMAND_FIFO_CLR);
++	usleep_range(1000, 2000);
++	regmap_write(it61620->tx_regmap, TX_REG_DDC_ADDR, DDC_HDCP_ADDR);
++	regmap_write(it61620->tx_regmap, TX_REG_DDC_OFFSET, 0x43);
++	regmap_write(it61620->tx_regmap, TX_REG_DDC_NUM_L, bytenum);
++	regmap_write(it61620->tx_regmap, TX_REG_DDC_NUM_H, (bytenum & 0x300) >> 8);
++	regmap_write(it61620->tx_regmap, TX_REG_DDC_COMMAND, DDC_COMMAND_BURST_R);
++
++	for (i = 0; i < bytenum;) {
++		if (it61620_hdmi_ddc_wait(it61620) < 0) {
++			it61620_hdmi_ddc_abort(it61620);
++			ret = -EIO;
++			dev_dbg(it61620->dev, "ddc fail");
++			break;
++		}
++
++		regmap_read(it61620->tx_regmap, TX_REG_DDC_FIFO_STS, &count);
++		count &= M_DDC_STAGE_NUM;
++		if (!count) {
++			it61620_hdmi_ddc_abort(it61620);
++			ret = -EIO;
++			dev_dbg(it61620->dev, "ddc fifo empty");
++			break;
++		}
++		count = min(count, bytenum - i);
++		it61620_hdmi_get_ddc_fifo(it61620, (out + i), count);
++		i += count;
++	}
++
++	return ret;
++}
++
++static int it61620_hdmi_setup_sha1_input(struct it61620 *it61620, u8 *input)
++{
++	struct drm_device *drm = it61620->drm;
++	u8 bstatus[2];
++	int down_stream_count, count = 0;
++
++	it61620_hdmi_hdcprd(it61620, DRM_HDCP_DDC_BSTATUS, DRM_HDCP_BSTATUS_LEN);
++	regmap_bulk_read(it61620->tx_regmap, TX_REG_HDCP_BSTS_L, bstatus, 2);
++
++	down_stream_count = DRM_HDCP_NUM_DOWNSTREAM(bstatus[0]);
++	if (DRM_HDCP_MAX_DEVICE_EXCEEDED(bstatus[0]) ||
++	    DRM_HDCP_MAX_CASCADE_EXCEEDED(bstatus[1])) {
++		regmap_update_bits(it61620->tx_regmap, TX_REG_HDCP_CTRL3,
++				   (B_PAUSE | B_ENC_DIS), B_PAUSE);
++		return 0;
++	}
++
++	if (!down_stream_count ||
++	    down_stream_count > MAX_HDCP_DOWN_STREAM_COUNT) {
++		drm_dbg(drm, "HDCP down stream count Error %d",
++			down_stream_count);
++		return 0;
++	}
++	drm_dbg(drm, "down stream count %d\n", down_stream_count);
++
++	count = down_stream_count * DRM_HDCP_KSV_LEN;
++	it61620_hdmi_hdcp_ksvlist_rd(it61620, count, input);
++	if (drm_hdcp_check_ksvs_revoked(drm, input, down_stream_count) > 0)
++		return 0;
++
++	input[count++] = bstatus[0];
++	input[count++] = bstatus[1];
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_SHA_SEL, 0x70, 0x70);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_HDCP_CTRL2, B_EN_M0_RD, B_EN_M0_RD);
++	regmap_bulk_read(it61620->tx_regmap, TX_REG_ANM0V1, &input[count], 8);
++	count += 8;
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_HDCP_CTRL2, B_EN_M0_RD, 0x00);
++
++	return count;
++}
++
++static bool it61620_hdmi_hdcp_part2_ksvlist_check(struct it61620 *it61620)
++{
++	struct drm_device *drm = it61620->drm;
++	u8 av[5][4], bv[5][4];
++	int i;
++
++	i = it61620_hdmi_setup_sha1_input(it61620, it61620->sha1_input);
++	if (i <= 0)
++		return false;
++
++	sha1(it61620->sha1_input, i, (u8 *)av);
++
++	for (i = 0; i < DRM_HDCP_V_PRIME_NUM_PARTS; i++) {
++		it61620_hdmi_hdcprd(it61620, DRM_HDCP_DDC_V_PRIME(i),
++				    DRM_HDCP_V_PRIME_PART_LEN);
++		regmap_update_bits(it61620->tx_regmap, TX_REG_HDCP_CTRL2,
++				   B_EN_M0_RD, B_EN_M0_RD);
++		regmap_update_bits(it61620->tx_regmap, TX_REG_SHA_SEL, 0x70, (i << 4));
++
++		regmap_bulk_read(it61620->tx_regmap, TX_REG_ANM0V1, bv[i],
++				 DRM_HDCP_V_PRIME_PART_LEN);
++	}
++
++	for (i = 0; i < DRM_HDCP_V_PRIME_NUM_PARTS; i++)
++		if (bv[i][3] != av[i][0] || bv[i][2] != av[i][1] ||
++		    bv[i][1] != av[i][2] || bv[i][0] != av[i][3])
++			break;
++
++	if (i == DRM_HDCP_V_PRIME_NUM_PARTS)
++		return true;
++
++	drm_dbg(drm, "V' Not match!!");
++	return false;
++}
++
++static unsigned int it61620_hdmi_hdcp_read_bcaps(struct it61620 *it61620)
++{
++	unsigned int val;
++
++	it61620_hdmi_hdcprd(it61620, DRM_HDCP_DDC_BCAPS, 1);
++	regmap_read(it61620->tx_regmap, TX_REG_HDCP_BCAPS, &val);
++	return val;
++}
++
++static void it61620_hdmi_hdcp_wait_ksv_list(struct it61620 *it61620)
++{
++	unsigned int bcaps = 0;
++
++	readx_poll_timeout(it61620_hdmi_hdcp_read_bcaps,
++			   it61620, bcaps,
++			   ((bcaps & B_KSV_READY) |
++			    (it61620->hdcp_state != CP_GOING)),
++			   2000,
++			   1000 * HDCP_KSV_LIST_TIMEOUT_MS);
++
++	if ((bcaps & B_KSV_READY) &&
++	    it61620_hdmi_hdcp_part2_ksvlist_check(it61620)) {
++		regmap_write(it61620->tx_regmap, TX_REG_HDCP_PRO, B_LIST_CHK_DONE);
++		return;
++	}
++	regmap_write(it61620->tx_regmap, TX_REG_HDCP_PRO,
++		     B_LIST_CHK_DONE | B_LIST_CHK_FAIL);
++}
++
++static inline void it61620_hdmi_enable_avmute(struct it61620 *it61620,
++					      bool enable)
++{
++	regmap_update_bits(it61620->tx_regmap, TX_REG_HDMI_CTRL2, B_EN_AVMUTE, enable);
++}
++
++/* drm_hdcp_update_content_protection() requires connection_mutex. */
++static void it61620_hdcp_cp_work(struct work_struct *work)
++{
++	struct it61620 *it61620 = container_of(work, struct it61620, hdcp_cp_work);
++	struct drm_device *drm = it61620->drm;
++	struct drm_connector *connector = it61620->connector;
++
++	if (!drm || !connector)
++		return;
++
++	drm_modeset_lock(&drm->mode_config.connection_mutex, NULL);
++	if (it61620->hdcp_cp != DRM_MODE_CONTENT_PROTECTION_UNDESIRED)
++		drm_hdcp_update_content_protection(connector, it61620->hdcp_cp);
++	drm_modeset_unlock(&drm->mode_config.connection_mutex);
++}
++
++static void it61620_update_content_protection(struct it61620 *it61620, u64 cp)
++{
++	it61620->hdcp_cp = cp;
++	if (cp == DRM_MODE_CONTENT_PROTECTION_UNDESIRED)
++		return;
++	schedule_work(&it61620->hdcp_cp_work);
++}
++
++static bool it61620_hdmi_enable_hdcp(struct it61620 *it61620)
++{
++	struct drm_device *drm = it61620->drm;
++	unsigned int sts, auth_cs;
++
++	regmap_read(it61620->tx_regmap, TX_REG_V_STS, &sts);
++	if ((sts & B_TMDS_STABLE) != B_TMDS_STABLE) {
++		drm_dbg(drm, "TMDS not stable, stop hdcp %x", sts);
++		return false;
++	}
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_HDCP_CTRL3, B_ENC_DIS, B_ENC_DIS);
++	usleep_range(1000, 2000);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_RESET_2_CTRL, 0x10, 0x10);
++	usleep_range(1000, 2000);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_RESET_2_CTRL, 0x10, 0x00);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_R0TM, 0xc0, 0x40);
++	regmap_write(it61620->tx_regmap, TX_REG_SHA_SEL, 0x00);
++
++	regmap_write(it61620->tx_regmap, TX_REG_AUTOMUTE, 0x00);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_HDCP_CTRL2, B_AN_SEL, B_AN_SEL);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_HDCP_CTRL2, B_EN_AN_GEN,
++			   B_EN_AN_GEN);
++	usleep_range(1000, 2000);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_HDCP_CTRL2, B_EN_AN_GEN, 0x00);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_HDCP_CTRL1, B_CPDESIRED,
++			   B_CPDESIRED);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_HDCP_CTRL3, (B_PAUSE | B_ENC_DIS),
++			   0x00);
++
++	regmap_write(it61620->tx_regmap, TX_REG_HDCP_PRO, B_AUTH_FIRE);
++
++	/*
++	 * HDCP start requires 100ms for the first part of the authentication
++	 * protocol,20ms is used to wait for 61620 HW completion.
++	 */
++	if (wait_event_timeout(it61620->wq, !it61620->hpd, msecs_to_jiffies(120)))
++		return false;
++
++	regmap_read(it61620->tx_regmap, TX_REG_HDCP_AUTH_CS, &auth_cs);
++	auth_cs &= M_AUTH_CH;
++	if (auth_cs == CS_KSVLIST_CHK) {
++		it61620_hdmi_hdcp_wait_ksv_list(it61620);
++		usleep_range(1000, 2000);
++		regmap_read(it61620->tx_regmap, TX_REG_HDCP_AUTH_CS, &auth_cs);
++		auth_cs &= M_AUTH_CH;
++	}
++
++	if (auth_cs == CS_AUTH_DONE) {
++		it61620_hdmi_enable_avmute(it61620, false);
++		regmap_update_bits(it61620->tx_regmap, TX_REG_INT1, B_INT_AUTH_F,
++				   B_INT_AUTH_F);
++		regmap_update_bits(it61620->tx_regmap, TX_REG_INT_MASK1, B_INT_AUTH_F,
++				   B_INT_AUTH_F);
++		drm_dbg(drm, "auth done");
++		it61620_update_content_protection(it61620,
++						  DRM_MODE_CONTENT_PROTECTION_ENABLED);
++		return true;
++	}
++
++	drm_dbg(drm, "auth fail");
++	it61620_hdmi_enable_avmute(it61620, true);
++	scoped_guard(mutex, &it61620->ddc_lock)
++		it61620_hdmi_ddc_abort(it61620);
++	return false;
++}
++
++static void it61620_hdmi_reset_hdcp(struct it61620 *it61620)
++{
++	regmap_update_bits(it61620->tx_regmap, TX_REG_INT_MASK1,
++			   (B_INT_AUTH_D | B_INT_AUTH_F), 0x00);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_INT_MASK2, B_KSV_CHECK, 0x00);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_HDCP_CTRL3, B_ENC_DIS, B_ENC_DIS);
++	usleep_range(1000, 2000);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_RESET_2_CTRL, 0x18, 0x18);
++	usleep_range(1000, 2000);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_RESET_2_CTRL, 0x18, 0x00);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_HDCP_CTRL1, B_CPDESIRED,
++			   B_CPDESIRED);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_HDCP_CTRL3,
++			   (B_PAUSE | B_ENC_DIS), B_PAUSE);
++	regmap_write(it61620->tx_regmap, TX_REG_AUTOMUTE, 0x00);
++}
++
++static bool it61620_hdmi_hdcp_is_ksv_valid(u8 *ksv)
++{
++	int i, ones = 0;
++
++	if ((ksv[4] == 0x93 && ksv[3] == 0x43 && ksv[2] == 0x5c &&
++	     ksv[1] == 0xde && ksv[0] == 0x23) ||
++	    (ksv[4] == 0x7d && ksv[3] == 0xb4 && ksv[2] == 0x21 &&
++	     ksv[1] == 0x37 && ksv[0] == 0x0b))
++		return false;
++
++	/* KSV has 20 1's and 20 0's */
++	for (i = 0; i < 5; i++)
++		ones += hweight8(ksv[i]);
++
++	return ones == 20;
++}
++
++static void it61620_hdmi_disable_hdcp(struct it61620 *it61620)
++{
++	it61620_hdmi_reset_hdcp(it61620);
++}
++
++static bool it61620_hdmi_start_hdcp(struct it61620 *it61620)
++{
++	struct drm_device *drm = it61620->drm;
++	unsigned int rx_hdmi_mode;
++	u8 bksv[DRM_HDCP_KSV_LEN];
++	bool retcheck;
++
++	if (it61620_hdmi_hdcprd(it61620, DRM_HDCP_DDC_BSTATUS,
++				DRM_HDCP_BSTATUS_LEN) < 0) {
++		drm_dbg(drm, "read bstatus fail!\n");
++		return false;
++	}
++
++	regmap_read(it61620->tx_regmap, 0x7e, &rx_hdmi_mode);
++	rx_hdmi_mode = (rx_hdmi_mode & 0x10) >> 4;
++	if (it61620->is_hdmi != rx_hdmi_mode)
++		return false;
++
++	it61620_hdmi_hdcprd(it61620, DRM_HDCP_DDC_BKSV, DRM_HDCP_KSV_LEN);
++	regmap_bulk_read(it61620->tx_regmap, TX_REG_HDCP_BKSV1, bksv, 5);
++	retcheck = it61620_hdmi_hdcp_is_ksv_valid(bksv);
++	if (!retcheck) {
++		drm_dbg(drm, "ksv invalid!\n");
++		return false;
++	}
++
++	if (drm_hdcp_check_ksvs_revoked(drm, bksv, 1) > 0)
++		return false;
++
++	return it61620_hdmi_enable_hdcp(it61620);
++}
++
++static void it61620_start_hdcp_work(struct it61620 *it61620)
++{
++	if (it61620->hdcp_cp == DRM_MODE_CONTENT_PROTECTION_UNDESIRED)
++		return;
++
++	it61620->hdcp_state = CP_GOING;
++	queue_delayed_work(system_wq, &it61620->hdcp_work,
++			   msecs_to_jiffies(2400));
++}
++
++static void it61620_stop_hdcp_work(struct it61620 *it61620)
++{
++	it61620->hdcp_state = CP_NONE;
++	cancel_delayed_work_sync(&it61620->hdcp_work);
++	it61620_hdmi_disable_hdcp(it61620);
++}
++
++static void it61620_hdmi_irq_hdcp_auth_fail(struct it61620 *it61620)
++{
++	struct drm_device *drm = it61620->drm;
++
++	if (it61620->hdcp_state == CP_GOING) {
++		it61620_hdmi_enable_avmute(it61620, true);
++		drm_dbg(drm, "auth fail after done, set avmute");
++		it61620_update_content_protection(it61620,
++						  DRM_MODE_CONTENT_PROTECTION_DESIRED);
++		it61620_start_hdcp_work(it61620);
++	}
++}
++
++static void it61620_hpd_work(struct work_struct *work)
++{
++	struct it61620 *it61620 = container_of(work, struct it61620,
++					       hpd_work.work);
++	enum drm_connector_status status;
++
++	if (!it61620->powered)
++		status = connector_status_disconnected;
++	else
++		status = it61620_hdmi_get_hpd_status(it61620) ?
++			 connector_status_connected :
++			 connector_status_disconnected;
++
++	if (it61620->connector_status == status)
++		return;
++
++	drm_bridge_hpd_notify(&it61620->bridge, status);
++}
++
++static void it61620_hdmi_irq_hpd(struct it61620 *it61620)
++{
++	it61620->hpd = it61620_hdmi_get_hpd_status(it61620);
++
++	if (!it61620->hpd) {
++		wake_up(&it61620->wq);
++		it61620_stop_hdcp_work(it61620);
++		it61620_hdmi_disable_afe(it61620);
++	} else if (it61620->video_state == it61620_VIDEO_ON) {
++		it61620_hdmi_fire_afe(it61620);
++		it61620_start_hdcp_work(it61620);
++	}
++
++	if (it61620_own_hpd(it61620))
++		mod_delayed_work(system_wq, &it61620->hpd_work,
++				 msecs_to_jiffies(IT61620_HPD_DEBOUNCE_MS));
++}
++
++static void it61620_hdmi_irq_rxsen_chg(struct it61620 *it61620)
++{
++	unsigned int rxsen;
++
++	if (!it61620_hdmi_get_hpd_status(it61620))
++		return;
++
++	regmap_read(it61620->tx_regmap, TX_REG_V_STS, &rxsen);
++	rxsen &= B_RXSEN;
++	if (it61620->video_state == it61620_VIDEO_ON) {
++		if (rxsen) {
++			it61620_hdmi_fire_afe(it61620);
++			it61620_start_hdcp_work(it61620);
++		} else {
++			it61620_stop_hdcp_work(it61620);
++			it61620_hdmi_disable_afe(it61620);
++		}
++	}
++}
++
++static void it61620_hdmi_irq_tmds_stb_change(struct it61620 *it61620)
++{
++	unsigned int video_status;
++
++	regmap_read(it61620->tx_regmap, TX_REG_V_STS, &video_status);
++
++	if (video_status & B_TMDS_STABLE)
++		it61620_start_hdcp_work(it61620);
++}
++
++static void it61620_hdmi_interrupt_handler(struct it61620 *it61620)
++{
++	unsigned int int_status1, int_status2, int_status3;
++
++	regmap_read(it61620->tx_regmap, TX_REG_INT1, &int_status1);
++	regmap_read(it61620->tx_regmap, TX_REG_INT2, &int_status2);
++	regmap_read(it61620->tx_regmap, TX_REG_INT3, &int_status3);
++
++	regmap_write(it61620->tx_regmap, TX_REG_INT1, int_status1);
++	regmap_write(it61620->tx_regmap, TX_REG_INT2, int_status2);
++	regmap_write(it61620->tx_regmap, TX_REG_INT3, int_status3);
++
++	if (int_status1 & B_HPD_CHG)
++		it61620_hdmi_irq_hpd(it61620);
++
++	if (int_status1 & B_RXSEN_CHANGE)
++		it61620_hdmi_irq_rxsen_chg(it61620);
++
++	if (int_status1 & B_INT_AUTH_F)
++		it61620_hdmi_irq_hdcp_auth_fail(it61620);
++
++	if (int_status3 & B_TMDS_STB_CHG)
++		it61620_hdmi_irq_tmds_stb_change(it61620);
++}
++
++static void it61620_hdmi_irq(struct it61620 *it61620)
++{
++	unsigned int reg_val;
++
++	regmap_read(it61620->tx_regmap, TX_REG_HDMITX_BANK, &reg_val);
++	if (reg_val & B_INT_EVENT_HDMI)
++		it61620_hdmi_interrupt_handler(it61620);
++}
++
++static void it61620_hdmi_audio_set_ncts(struct it61620 *it61620,
++					unsigned int sample_rate)
++{
++	unsigned int n, cts;
++
++	drm_hdmi_acr_get_n_cts(it61620->tmds_char_rate, sample_rate,
++			       &n, &cts);
++
++	regmap_write(it61620->tx_regmap, TX_REG_AUDPKT_N_0, n & 0xff);
++	regmap_write(it61620->tx_regmap, TX_REG_AUDPKT_N_1, (n >> 8) & 0xff);
++	regmap_write(it61620->tx_regmap, TX_REG_AUDPKT_N_2, (n >> 16) & 0x0f);
++
++	regmap_write(it61620->tx_regmap, TX_REG_AUDPKT_CTS_0, cts & 0xff);
++	regmap_write(it61620->tx_regmap, TX_REG_AUDPKT_CTS_1, (cts >> 8) & 0xff);
++	regmap_write(it61620->tx_regmap, TX_REG_AUDPKT_CTS_2, (cts >> 16) & 0x0f);
++}
++
++static void it61620_hdmi_avi_infoframe_set(struct it61620 *it61620,
++					   const u8 *buffer, size_t len)
++{
++	struct drm_device *drm = it61620->drm;
++	const u8 *ptr;
++	u8 i;
++
++	drm_dbg(drm, "avi info set\n");
++
++	/* fill PB */
++	ptr = buffer + HDMI_INFOFRAME_HEADER_SIZE;
++	for (i = 0; i < len - HDMI_INFOFRAME_HEADER_SIZE; i++)
++		regmap_write(it61620->tx_regmap, TX_REG_AVIINFO_DB01 + i, ptr[i]);
++	/* checksum */
++	regmap_write(it61620->tx_regmap, TX_REG_AVIINFO_DB14, buffer[3]);
++
++	/* Enable */
++	regmap_update_bits(it61620->tx_regmap, TX_REG_EN_PKT1, (B_EN_AVI | B_AVI_RP),
++			   (B_EN_AVI | B_AVI_RP));
++}
++
++static void it61620_hdmi_spd_infoframe_set(struct it61620 *it61620,
++					   const u8 *buffer, size_t len)
++{
++	struct drm_device *drm = it61620->drm;
++	u8 i;
++	const u8 *ptr;
++
++	drm_dbg(drm, "spd info set\n");
++	regmap_update_bits(it61620->tx_regmap, TX_REG_EN_PKT2,
++			   (B_EN_NULL | B_EN_NULL_RP), 0x00);
++
++	for (i = 0; i < 3; i++)
++		regmap_write(it61620->tx_regmap, TX_REG_NULLPKT_HB00 + i, buffer[i]);
++	ptr = buffer + 3;
++	for (i = 0; i < len - 3; i++)
++		regmap_write(it61620->tx_regmap, TX_REG_NULLPKT_PB00 + i, ptr[i]);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_EN_PKT2,
++			   (B_EN_NULL | B_EN_NULL_RP),
++			   (B_EN_NULL | B_EN_NULL_RP));
++}
++
++static void it61620_hdmi_vendor_infoframe_set(struct it61620 *it61620,
++					      const u8 *buffer, size_t len)
++{
++	struct drm_device *drm = it61620->drm;
++	u8 i;
++	const u8 *ptr;
++
++	drm_dbg(drm, "VSIF set\n");
++	regmap_update_bits(it61620->tx_regmap, TX_REG_EN_PKT1,
++			   (B_EN_VSIF | B_EN_VSIF_RP), 0x00);
++
++	regmap_write(it61620->tx_regmap, TX_REG_VSIFPKT_HB02, buffer[2]);
++	ptr = buffer + 3;
++	for (i = 0; i < len - 3; i++)
++		regmap_write(it61620->tx_regmap, TX_REG_VSIFPKT_PB00 + i, ptr[i]);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_EN_PKT1,
++			   (B_EN_VSIF | B_EN_VSIF_RP),
++			   (B_EN_VSIF | B_EN_VSIF_RP));
++}
++
++static void it61620_hdmi_config_output(struct it61620 *it61620)
++{
++	struct drm_device *drm = it61620->drm;
++
++	it61620_hdmi_reset(it61620);
++	it61620_hdmi_poweron(it61620);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_HDMI_CTRL2, 0x70, 0x00);
++	if (it61620->is_hdmi) {
++		drm_dbg(drm, "HDMI\n");
++		regmap_update_bits(it61620->tx_regmap, TX_REG_HDMI_CTRL1,
++				   B_EN_HDMI_MODE, B_EN_HDMI_MODE);
++		regmap_update_bits(it61620->tx_regmap, TX_REG_EN_PKT2,
++				   (B_EN_GEN | B_GEN_RP),
++				   (B_EN_GEN | B_GEN_RP));
++	} else {
++		drm_dbg(drm, "DVI\n");
++		regmap_update_bits(it61620->tx_regmap, TX_REG_HDMI_CTRL1,
++				   B_EN_HDMI_MODE, 0x00);
++		regmap_write(it61620->tx_regmap, TX_REG_EN_PKT2, 0x00);
++		regmap_write(it61620->tx_regmap, TX_REG_EN_PKT1, 0x00);
++	}
++
++	it61620_hdmi_enable_avmute(it61620, false);
++	it61620_hdmi_setup_afe(it61620, it61620->tmds_char_rate / 1000);
++	it61620_hdmi_fire_afe(it61620);
++	it61620->video_state = it61620_VIDEO_ON;
++}
++
++static int it61620_hdmi_audio_infoframe_set(struct it61620 *it61620,
++					    const u8 *buffer, size_t len)
++{
++	u8 i;
++	const u8 *ptr;
++
++	/* fill PB */
++	ptr = buffer + HDMI_INFOFRAME_HEADER_SIZE;
++	for (i = 0; i < len - HDMI_INFOFRAME_HEADER_SIZE; i++)
++		regmap_write(it61620->tx_regmap, TX_REG_AUDINFO_DB01 + i, ptr[i]);
++
++	regmap_write(it61620->tx_regmap, TX_REG_AUDINFO_DB06, buffer[3]);
++	regmap_write(it61620->tx_regmap, TX_REG_AUDINFO_DB07, 0x00);
++	regmap_write(it61620->tx_regmap, TX_REG_AUDINFO_DB08, 0x00);
++	regmap_write(it61620->tx_regmap, TX_REG_AUDINFO_DB09, 0x00);
++	regmap_write(it61620->tx_regmap, TX_REG_AUDINFO_DB10, 0x00);
++
++	/* Enable */
++	regmap_update_bits(it61620->tx_regmap, TX_REG_EN_PKT1, (B_EN_AUD | B_EN_AUD_RP),
++			   (B_EN_AUD | B_EN_AUD_RP));
++	return 0;
++}
++
++static void it61620_hw_reset(struct it61620 *it61620)
++{
++	if (!it61620->gpiod_reset)
++		return;
++
++	gpiod_set_value_cansleep(it61620->gpiod_reset, 1);
++
++	usleep_range(10000, 20000);
++	gpiod_set_value_cansleep(it61620->gpiod_reset, 0);
++	usleep_range(10000, 20000);
++}
++
++static int it61620_enable_devices(struct it61620 *it61620)
++{
++	struct device *dev = &it61620->it61620_i2c->dev;
++	unsigned int device_id[5];
++	unsigned int i, vid, pid;
++
++	regmap_write(it61620->it61620_regmap, REG_CTRL_PW, 0x55);
++	regmap_write(it61620->it61620_regmap, REG_CTRL_PW, 0xaa);
++	regmap_write(it61620->it61620_regmap, REG_CTRL_PW, 0xc3);
++	regmap_write(it61620->it61620_regmap, REG_CTRL_PW, 0xa5);
++	usleep_range(1000, 2000);
++
++	for (i = 0; i < 5; i++)
++		regmap_read(it61620->mipirx_regmap, REG_VENDER_ID_L + i, &device_id[i]);
++
++	dev_dbg(dev, "IT61620 ver %02X", device_id[4]);
++
++	vid = (device_id[1] << 8) | device_id[0];
++	pid = (device_id[3] << 8) | device_id[2];
++
++	if (vid != it61620->chip_info->vid ||
++	    pid != it61620->chip_info->pid) {
++		dev_err(dev, "vid %X != %X",
++			vid, it61620->chip_info->vid);
++		dev_err(dev, "pid %X != %X",
++			pid, it61620->chip_info->pid);
++
++		return -ENODEV;
++	}
++
++	it61620->dev_ver = device_id[4];
++	return 0;
++}
++
++static void it61620_int_setup(struct it61620 *it61620)
++{
++	/* SET INT# to Active Low open-drain */
++	regmap_update_bits(it61620->mipirx_regmap, RX_REG_INT_POL, 0x08, 0x08);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_SYS_CONFIG, 0x0f, B_INT_MODE);
++	regmap_update_bits(it61620->tx_regmap, REG_TX_INT_CTRL, B_DIS_INT_OUTPUT, 0x00);
++}
++
++static void it61620_int_enable(struct it61620 *it61620)
++{
++	regmap_update_bits(it61620->tx_regmap, TX_REG_INT_MASK1, B_HPD_CHG, B_HPD_CHG);
++}
++
++static int it61620_reset_init(struct it61620 *it61620)
++{
++	it61620_hw_reset(it61620);
++
++	if (it61620_enable_devices(it61620) < 0)
++		return -ENODEV;
++
++	it61620_mipi_reset(it61620);
++	it61620_hdmi_reset(it61620);
++	it61620_int_setup(it61620);
++	it61620_int_enable(it61620);
++	it61620_hdmi_powerdown(it61620);
++
++	return 0;
++}
++
++static int it61620_poweron(struct it61620 *it61620)
++{
++	struct drm_device *drm = it61620->drm;
++	struct device *dev = it61620->dev;
++	int err;
++
++	if (it61620->powered) {
++		drm_dbg(drm, "Already powered on");
++		return 0;
++	}
++
++	err = regulator_enable(it61620->ivdd);
++	if (err) {
++		dev_err(dev, "Failed to enable IVDD: %d", err);
++		goto poweron_exit;
++	}
++
++	err = regulator_enable(it61620->ovdd1833);
++	if (err) {
++		dev_err(dev, "Failed to enable OVDD1833: %d", err);
++		goto disable_ivdd;
++	}
++
++	err = regulator_enable(it61620->ovdd33);
++	if (err) {
++		dev_err(dev, "Failed to enable OVDD33: %d", err);
++		goto disable_ovdd1833;
++	}
++
++	gpiod_set_value_cansleep(it61620->gpiod_reset, 1);
++	usleep_range(10000, 20000);
++	gpiod_set_value_cansleep(it61620->gpiod_reset, 0);
++	usleep_range(10000, 20000);
++
++	err = it61620_reset_init(it61620);
++	if (err < 0)
++		goto disable_ovdd33;
++
++	it61620->powered = true;
++	it61620->hpd = it61620_hdmi_get_hpd_status(it61620);
++	if (it61620->it61620_i2c->irq) {
++		/*
++		 * HPD_CHG may latch during reset/init while the IRQ is still
++		 * masked (IRQF_NO_AUTOEN). The pin level is already sampled
++		 * above; W1C the status bit so INT# can release before unmask.
++		 */
++		regmap_write(it61620->tx_regmap, TX_REG_INT1, B_HPD_CHG);
++		enable_irq(it61620->it61620_i2c->irq);
++		drm_dbg(drm, "enable irq %d\n",
++			it61620->it61620_i2c->irq);
++	}
++	drm_dbg(drm, "it61620 poweron end\n");
++	return 0;
++
++disable_ovdd33:
++	regulator_disable(it61620->ovdd33);
++disable_ovdd1833:
++	regulator_disable(it61620->ovdd1833);
++disable_ivdd:
++	regulator_disable(it61620->ivdd);
++poweron_exit:
++	return err;
++}
++
++static int it61620_poweroff(struct it61620 *it61620)
++{
++	struct drm_device *drm = it61620->drm;
++	struct device *dev = it61620->dev;
++	int err;
++
++	if (!it61620->powered) {
++		drm_dbg(drm, "Already powered off");
++		return 0;
++	}
++
++	if (it61620->it61620_i2c->irq) {
++		disable_irq(it61620->it61620_i2c->irq);
++		drm_dbg(drm, "disable irq %d\n",
++			it61620->it61620_i2c->irq);
++	}
++
++	gpiod_set_value_cansleep(it61620->gpiod_reset, 1);
++
++	err = regulator_disable(it61620->ovdd33);
++	if (err)
++		dev_err(dev, "Failed to disable ovdd33: %d", err);
++
++	err = regulator_disable(it61620->ivdd);
++	if (err)
++		dev_err(dev, "Failed to disable IVDD: %d", err);
++
++	usleep_range(2000, 3000);
++
++	err = regulator_disable(it61620->ovdd1833);
++	if (err)
++		dev_err(dev, "Failed to disable ovdd1833: %d", err);
++
++	it61620->powered = false;
++	it61620->hpd = false;
++	it61620->connector_status = connector_status_disconnected;
++	drm_dbg(drm, "it61620 poweroff\n");
++
++	return 0;
++}
++
++static void it61620_config_default(struct it61620 *it61620)
++{
++	struct it61620_mipirx *mipirx = &it61620->mipirx_config;
++
++	mipirx->lane_num = 4;
++	mipirx->pn_swap = 0;
++	mipirx->lane_swap = 0;
++	it61620->connector_status = connector_status_disconnected;
++	it61620->hdcp_cp = DRM_MODE_CONTENT_PROTECTION_UNDESIRED;
++	it61620->i2s_input_format = I2S_INPUT_FORMAT_STANDARD;
++}
++
++static int it61620_get_edid_block(void *data, u8 *buf, unsigned int block,
++				  size_t len)
++{
++	struct it61620 *it61620 = data;
++	unsigned int edid_offset;
++	unsigned int cnt;
++	unsigned int i;
++	int ret = 0;
++
++	if (len > EDID_LENGTH)
++		return -EINVAL;
++
++	guard(mutex)(&it61620->ddc_lock);
++
++	regmap_write(it61620->tx_regmap, TX_REG_DDC_COMMAND, DDC_COMMAND_FIFO_CLR);
++
++	regmap_write(it61620->tx_regmap, TX_REG_DDC_ADDR, DDC_EDID_ADDR);
++	regmap_write(it61620->tx_regmap, TX_REG_DDC_SEGMENT, block / 2);
++
++	cnt = 0;
++	edid_offset = block * 128;
++
++	for (i = 0; i < EDID_LENGTH; i += EDID_R_BURST_NUM,
++	     edid_offset += EDID_R_BURST_NUM,
++	     cnt += EDID_R_BURST_NUM) {
++		regmap_write(it61620->tx_regmap, TX_REG_DDC_OFFSET, edid_offset);
++		regmap_write(it61620->tx_regmap, TX_REG_DDC_SEGMENT, block >> 1);
++		regmap_write(it61620->tx_regmap, TX_REG_DDC_NUM_L, EDID_R_BURST_NUM);
++		regmap_write(it61620->tx_regmap, TX_REG_DDC_NUM_H,
++			     (EDID_R_BURST_NUM >> 8));
++		regmap_write(it61620->tx_regmap, TX_REG_DDC_COMMAND,
++			     DDC_COMMAND_EDID_RD);
++
++		if (it61620_hdmi_ddc_wait(it61620) < 0) {
++			it61620_hdmi_ddc_abort(it61620);
++			ret = -EIO;
++			break;
++		}
++
++		it61620_hdmi_get_ddc_fifo(it61620, &buf[cnt], EDID_R_BURST_NUM);
++	}
++
++	return ret;
++}
++
++static void it61620_enable_audio(struct it61620 *it61620)
++{
++	regmap_update_bits(it61620->tx_regmap, TX_REG_RESET_2_CTRL, 0x01, 0x00);
++}
++
++static void it61620_disable_audio(struct it61620 *it61620)
++{
++	regmap_update_bits(it61620->tx_regmap, TX_REG_RESET_2_CTRL, 0x01, 0x01);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_LINK_CTRL0,
++			   B_EN_AUDIO_MUTE, B_EN_AUDIO_MUTE);
++}
++
++static irqreturn_t it61620_int_threaded_handler(int unused, void *data)
++{
++	struct it61620 *it61620 = data;
++	struct device *dev = it61620->dev;
++
++	if (pm_runtime_get_if_in_use(dev) <= 0)
++		return IRQ_NONE;
++
++	it61620_mipi_irq_handler(it61620);
++	it61620_hdmi_irq(it61620);
++
++	pm_runtime_put_autosuspend(dev);
++
++	return IRQ_HANDLED;
++}
++
++static void it61620_audio_update_hw_params(struct it61620 *it61620,
++					   struct hdmi_codec_daifmt *fmt,
++					   struct hdmi_codec_params *hparms)
++{
++	struct drm_device *drm = it61620->drm;
++	u8 audsrc, sample_rate_val, sample_width;
++	bool is_lpcm;
++
++	switch (hparms->sample_rate) {
++	case 32000:
++		sample_rate_val = SAMPLE_RATE_32K;
++		break;
++	case 44100:
++		sample_rate_val = SAMPLE_RATE_44_1K;
++		break;
++	case 48000:
++		sample_rate_val = SAMPLE_RATE_48K;
++		break;
++	case 88200:
++		sample_rate_val = SAMPLE_RATE_88_2K;
++		break;
++	case 96000:
++		sample_rate_val = SAMPLE_RATE_96K;
++		break;
++	case 176400:
++		sample_rate_val = SAMPLE_RATE_176_4K;
++		break;
++	case 192000:
++		sample_rate_val = SAMPLE_RATE_192K;
++		break;
++	}
++
++	switch (hparms->sample_width) {
++	case 16:
++		sample_width = WORD_LENGTH_16BIT;
++		break;
++	case 20:
++		sample_width = WORD_LENGTH_20BIT;
++		break;
++	case 24:
++		sample_width = WORD_LENGTH_24BIT;
++		break;
++	}
++
++	switch (fmt->fmt) {
++	case HDMI_I2S:
++	case HDMI_SPDIF:
++		break;
++	default:
++		return;
++	}
++
++	is_lpcm = !(hparms->iec.status[0] & IEC958_AES0_NONAUDIO);
++	it61620_hdmi_audio_set_ncts(it61620, hparms->sample_rate);
++
++	drm_dbg(drm, "sample rate %d", sample_rate_val);
++	drm_dbg(drm, "sample width %d", sample_width);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_AUD_FMT, 0x7f,
++			   (sample_width << 5) | it61620->i2s_input_format);
++	if (fmt->fmt == HDMI_SPDIF) {
++		drm_dbg(drm, "SPDIF");
++		regmap_write(it61620->tx_regmap, TX_REG_AUD_FIFO1, 0x00);
++		regmap_write(it61620->tx_regmap, TX_REG_AUD_FIFO2, 0x00);
++		regmap_update_bits(it61620->tx_regmap, TX_REG_AUD_SPDIF, 0x0f, 0x02);
++		regmap_write(it61620->tx_regmap, TX_REG_AUD_CTRL, 0X01);
++	} else {
++		drm_dbg(drm, "I2S");
++		regmap_write(it61620->tx_regmap, TX_REG_AUD_FIFO1, 0x10);
++		regmap_write(it61620->tx_regmap, TX_REG_AUD_FIFO2, 0x32);
++		regmap_write(it61620->tx_regmap, TX_REG_AUD_CTRL, 0X00);
++	}
++
++	if (is_lpcm)
++		regmap_write(it61620->tx_regmap, TX_REG_AUD_STS1, 0x00);
++	else
++		regmap_write(it61620->tx_regmap, TX_REG_AUD_STS1, B_EN_AUD_NLPCM);
++	regmap_write(it61620->tx_regmap, TX_REG_AUD_STS2, sample_rate_val);
++	regmap_write(it61620->tx_regmap, TX_REG_AUD_STS3,
++		     ((~(sample_rate_val << 4)) & 0xf0) + 0x0B);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_AUD_CTS, 0x08, 0x08);
++
++	switch (hparms->channels) {
++	case 1:
++	case 2:
++		audsrc = 0x01;
++		break;
++	case 3:
++	case 4:
++		audsrc = 0x03;
++		break;
++	case 5:
++	case 6:
++		audsrc = 0x07;
++		break;
++	case 7:
++	case 8:
++		audsrc = 0x0f;
++		break;
++	}
++
++	regmap_write(it61620->tx_regmap, TX_REG_EN_AUDIO, audsrc);
++
++	regmap_update_bits(it61620->tx_regmap, TX_REG_LINK_CTRL0, B_EN_AUDIO_MUTE, 0x00);
++	regmap_update_bits(it61620->tx_regmap, TX_REG_RESET_2_CTRL, 0x01, 0x00);
++}
++
++static void it61620_hdcp_work(struct work_struct *work)
++{
++	struct it61620 *it61620 = container_of(work, struct it61620,
++					       hdcp_work.work);
++	it61620_hdmi_reset_hdcp(it61620);
++	if (!it61620_hdmi_start_hdcp(it61620) &&
++	    it61620->hdcp_state == CP_GOING) {
++		it61620_hdmi_disable_hdcp(it61620);
++		it61620_start_hdcp_work(it61620);
++	}
++}
++
++static int it61620_i2c_and_regmap_init(struct i2c_client *client,
++				       struct it61620 *it61620)
++{
++	struct device *dev = it61620->dev;
++
++	it61620->it61620_i2c = client;
++
++	it61620->tx_i2c = devm_i2c_new_dummy_device(dev,
++						    client->adapter,
++						    TX_I2C_ADDRESS);
++	if (IS_ERR(it61620->tx_i2c))
++		return dev_err_probe(dev, PTR_ERR(it61620->tx_i2c),
++				     "failed to create TX dummy i2c device at 0x%02x\n",
++				     TX_I2C_ADDRESS);
++
++	it61620->mipirx_i2c = devm_i2c_new_dummy_device(dev,
++							client->adapter,
++							MIPIRX_I2C_ADDRESS);
++	if (IS_ERR(it61620->mipirx_i2c))
++		return dev_err_probe(dev, PTR_ERR(it61620->mipirx_i2c),
++				     "failed to create MIPI dummy i2c device at 0x%02x\n",
++				     MIPIRX_I2C_ADDRESS);
++
++	it61620->it61620_regmap = devm_regmap_init_i2c(it61620->it61620_i2c,
++						       &it61620_regmap_config);
++	if (IS_ERR(it61620->it61620_regmap))
++		return dev_err_probe(dev, PTR_ERR(it61620->it61620_regmap),
++				     "failed to init I2C regmap for it61620\n");
++
++	it61620->tx_regmap = devm_regmap_init_i2c(it61620->tx_i2c,
++						  &it61620_tx_regmap_config);
++	if (IS_ERR(it61620->tx_regmap))
++		return dev_err_probe(dev, PTR_ERR(it61620->tx_regmap),
++				     "failed to init I2C regmap for TX\n");
++
++	it61620->mipirx_regmap = devm_regmap_init_i2c(it61620->mipirx_i2c,
++						      &it61620_mipi_regmap_config);
++	if (IS_ERR(it61620->mipirx_regmap))
++		return dev_err_probe(dev, PTR_ERR(it61620->mipirx_regmap),
++				     "failed to init I2C regmap for MIPI\n");
++	return 0;
++}
++
++static int it61620_load_mipi_pars_from_port(struct it61620 *it61620,
++					    unsigned int port)
++{
++	struct it61620_mipirx *mipicfg = &it61620->mipirx_config;
++	struct device_node *endpoint;
++	u32 data_lanes[4] = { 1 };
++	u32 lane_polarities[5] = { 0 };
++	int dsi_lanes;
++
++	endpoint = of_graph_get_endpoint_by_regs(it61620->dev->of_node,
++						 port, -1);
++	if (!endpoint)
++		return -ENODEV;
++
++	dsi_lanes = drm_of_get_data_lanes_count(endpoint, 1, 4);
++	if (dsi_lanes < 0) {
++		of_node_put(endpoint);
++		return dsi_lanes;
++	}
++
++	mipicfg->lane_num = dsi_lanes;
++
++	of_property_read_u32_array(endpoint, "data-lanes", data_lanes,
++				   dsi_lanes);
++	/* only supports full reversal of all lanes, not arbitrary remapping */
++	if (data_lanes[0] == 3)
++		mipicfg->lane_swap = true;
++
++	of_property_read_u32_array(endpoint, "lane-polarities",
++				   lane_polarities, dsi_lanes + 1);
++	/* applies Dp/Dn swap globally; mixing polarities across lanes is invalid */
++	if (lane_polarities[0] != 0)
++		mipicfg->pn_swap = true;
++
++	of_node_put(endpoint);
++
++	return 0;
++}
++
++static int it61620_attach_dsi(struct it61620 *it61620,
++			      struct mipi_dsi_host *host)
++{
++	struct device *dev = it61620->dev;
++	struct mipi_dsi_device *dsi;
++	const struct mipi_dsi_device_info info = {"it61620",
++						  0,
++						  dev->of_node};
++
++	dsi = devm_mipi_dsi_device_register_full(dev, host, &info);
++	if (IS_ERR(dsi))
++		return dev_err_probe(dev, PTR_ERR(dsi), "failed to create dsi device\n");
++
++	it61620->dsi = dsi;
++	dsi->lanes = it61620->mipirx_config.lane_num;
++	dsi->format = MIPI_DSI_FMT_RGB888;
++	dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
++			  MIPI_DSI_MODE_VIDEO_SYNC_PULSE;
++
++	return devm_mipi_dsi_attach(dev, dsi);
++}
++
++static int it61620_parse_dt(struct it61620 *it61620)
++{
++	struct device *dev = it61620->dev;
++	struct device_node *np = it61620->dev->of_node;
++	int ret;
++
++	if (!dev->of_node)
++		return -EINVAL;
++
++	ret = it61620_load_mipi_pars_from_port(it61620, 0);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "failed to parse MIPI endpoint\n");
++
++	it61620->next_bridge = devm_drm_of_get_bridge(dev, np, 1, -1);
++	if (IS_ERR(it61620->next_bridge))
++		return dev_err_probe(dev, PTR_ERR(it61620->next_bridge),
++				     "failed to get next bridge\n");
++
++	return 0;
++}
++
++static int it61620_init_power(struct it61620 *it61620)
++{
++	struct device *dev = it61620->dev;
++
++	it61620->gpiod_reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
++	if (IS_ERR(it61620->gpiod_reset))
++		return dev_err_probe(dev, PTR_ERR(it61620->gpiod_reset),
++				     "gpiod_reset not found\n");
++
++	it61620->ivdd = devm_regulator_get(dev, "ivdd");
++	if (IS_ERR(it61620->ivdd))
++		return dev_err_probe(dev, PTR_ERR(it61620->ivdd),
++				     "ivdd regulator not found\n");
++
++	it61620->ovdd1833 = devm_regulator_get(dev, "ovdd1833");
++	if (IS_ERR(it61620->ovdd1833))
++		return dev_err_probe(dev, PTR_ERR(it61620->ovdd1833),
++				     "ovdd1833 regulator not found\n");
++
++	it61620->ovdd33 = devm_regulator_get(dev, "ovdd");
++	if (IS_ERR(it61620->ovdd33))
++		return dev_err_probe(dev, PTR_ERR(it61620->ovdd33),
++				     "ovdd33 regulator not found\n");
++
++	return 0;
++}
++
++static inline int __maybe_unused it61620_pm_bridge_suspend(struct device *dev)
++{
++	struct it61620 *it61620 = dev_get_drvdata(dev);
++
++	it61620_poweroff(it61620);
++
++	return 0;
++}
++
++static inline int __maybe_unused it61620_pm_bridge_resume(struct device *dev)
++{
++	struct it61620 *it61620 = dev_get_drvdata(dev);
++
++	return it61620_poweron(it61620);
++}
++
++static DEFINE_RUNTIME_DEV_PM_OPS(it61620_bridge_pm_ops,
++				 it61620_pm_bridge_suspend,
++				 it61620_pm_bridge_resume, NULL);
++
++static int it61620_bridge_attach(struct drm_bridge *bridge,
++				 struct drm_encoder *encoder,
++				 enum drm_bridge_attach_flags flags)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++	struct drm_device *drm = bridge->dev;
++
++	it61620->drm = drm;
++
++	if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)) {
++		drm_dbg(drm,
++			"DRM_BRIDGE_ATTACH_NO_CONNECTOR must be supplied");
++		return -EINVAL;
++	}
++
++	return drm_bridge_attach(bridge->encoder, it61620->next_bridge,
++				 bridge, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
++}
++
++static enum drm_mode_status
++it61620_bridge_hdmi_tmds_char_rate_valid(const struct drm_bridge *bridge,
++					 const struct drm_display_mode *mode,
++					 unsigned long long tmds_rate)
++{
++	/* 297 MHz for 4k@30 8-bit */
++	if (tmds_rate > 297000000)
++		return MODE_CLOCK_HIGH;
++
++	return MODE_OK;
++}
++
++static enum drm_connector_status
++it61620_bridge_detect(struct drm_bridge *bridge,
++		      struct drm_connector *connector)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++	struct device *dev = it61620->dev;
++	enum drm_connector_status status;
++	int ret;
++
++	ret = pm_runtime_resume_and_get(dev);
++	if (ret < 0)
++		return connector_status_disconnected;
++
++	status = it61620_hdmi_get_hpd_status(it61620) ?
++		 connector_status_connected : connector_status_disconnected;
++
++	pm_runtime_put_autosuspend(dev);
++
++	return status;
++}
++
++static void it61620_bridge_hpd_enable(struct drm_bridge *bridge)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++	struct device *dev = it61620->dev;
++	int ret;
++
++	ret = pm_runtime_get_sync(dev);
++	if (ret < 0)
++		dev_err(dev, "failed to power on for HPD: %d\n", ret);
++}
++
++static void it61620_bridge_hpd_disable(struct drm_bridge *bridge)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++
++	cancel_delayed_work_sync(&it61620->hpd_work);
++	pm_runtime_put_autosuspend(it61620->dev);
++}
++
++static void it61620_bridge_hpd_notify(struct drm_bridge *bridge,
++				      struct drm_connector *connector,
++				      enum drm_connector_status status)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++	struct drm_device *drm = it61620->drm;
++	struct device *dev = it61620->dev;
++	int hpd, ret;
++
++	hpd = (status == connector_status_connected) ? 1 : 0;
++
++	if (it61620->connector_status == status) {
++		drm_dbg(drm, "GPIO hpd status NO change %d", hpd);
++		return;
++	}
++
++	drm_dbg(drm, "GPIO hpd status change %d->%d",
++		!hpd, hpd);
++
++	it61620->connector_status = status;
++	if (it61620_own_hpd(it61620))
++		return;
++
++	if (hpd) {
++		drm_dbg(drm, "HPD_GPIO get to wake up");
++		ret = pm_runtime_get_sync(dev);
++		if (ret < 0)
++			dev_err(dev,
++				"pm_runtime_get_sync error %d", ret);
++	} else {
++		drm_dbg(drm, "HPD_GPIO put to sleep");
++		pm_runtime_put_autosuspend(dev);
++	}
++}
++
++static void it61620_bridge_atomic_pre_enable(struct drm_bridge *bridge,
++					     struct drm_atomic_commit *state)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++	struct device *dev = it61620->dev;
++	int ret;
++
++	ret = pm_runtime_get_sync(dev);
++	if (ret < 0)
++		dev_err(dev, "failed to resume before enable: %d\n", ret);
++}
++
++static void it61620_bridge_atomic_enable(struct drm_bridge *bridge,
++					 struct drm_atomic_commit *state)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++	struct drm_crtc_state *crtc_state;
++	struct drm_connector_state *conn_state;
++	struct drm_display_mode *adj_mode;
++	struct drm_connector *connector;
++
++	connector = drm_atomic_get_new_connector_for_encoder(state,
++							     bridge->encoder);
++
++	if (!connector)
++		return;
++	it61620->connector = connector;
++
++	conn_state = drm_atomic_get_new_connector_state(state, connector);
++	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
++
++	it61620->hdcp_cp = conn_state->content_protection;
++	adj_mode = &crtc_state->adjusted_mode;
++
++	/*
++	 * Keep the video pixel clock for later N/CTS calculation and
++	 * HDMI AFE configuration
++	 */
++	it61620->tmds_char_rate = conn_state->hdmi.tmds_char_rate;
++	it61620->is_hdmi = connector->display_info.is_hdmi;
++	it61620->en_audio = connector->display_info.has_audio;
++	drm_dbg(it61620->drm, "%s mode, monitor %s support audio",
++		it61620->is_hdmi ? "HDMI" : "DVI",
++		it61620->en_audio ? "" : "not ");
++
++	drm_atomic_helper_connector_hdmi_update_infoframes(connector, state);
++	it61620_mipi_set_d2v_video_timing(it61620, adj_mode);
++	it61620_hdmi_config_output(it61620);
++}
++
++static void it61620_bridge_atomic_disable(struct drm_bridge *bridge,
++					  struct drm_atomic_commit *state)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++
++	if (!it61620->powered)
++		return;
++
++	it61620_hdmi_enable_avmute(it61620, true);
++	/* wait at least one frame for AVMute to take effect*/
++	msleep(45);
++	it61620_stop_hdcp_work(it61620);
++	if (it61620->hdcp_cp == DRM_MODE_CONTENT_PROTECTION_ENABLED) {
++		drm_hdcp_update_content_protection(it61620->connector,
++						   DRM_MODE_CONTENT_PROTECTION_DESIRED);
++		it61620->hdcp_cp = DRM_MODE_CONTENT_PROTECTION_UNDESIRED;
++	}
++	it61620_hdmi_disable_afe(it61620);
++	it61620_hdmi_powerdown(it61620);
++	it61620->video_state = it61620_VIDEO_OFF;
++}
++
++static void it61620_bridge_atomic_post_disable(struct drm_bridge *bridge,
++					       struct drm_atomic_commit *state)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++	struct device *dev = it61620->dev;
++
++	pm_runtime_put_autosuspend(dev);
++}
++
++static const struct drm_edid *it61620_bridge_edid_read(struct drm_bridge *bridge,
++						       struct drm_connector *connector)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++	struct device *dev = it61620->dev;
++	const struct drm_edid *edid;
++	bool own_hpd = it61620_own_hpd(it61620);
++	int ret;
++
++	if (own_hpd) {
++		ret = pm_runtime_resume_and_get(dev);
++		if (ret < 0)
++			return NULL;
++	}
++
++	edid = drm_edid_read_custom(connector, it61620_get_edid_block, it61620);
++
++	if (!edid)
++		dev_dbg(dev, "failed to get edid!");
++
++	if (own_hpd)
++		pm_runtime_put_autosuspend(dev);
++
++	return edid;
++}
++
++static int it61620_bridge_hdmi_clear_avi_infoframe(struct drm_bridge *bridge)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++
++	return regmap_update_bits(it61620->tx_regmap, TX_REG_EN_PKT1,
++				  (B_EN_AVI | B_AVI_RP), 0x00);
++}
++
++static int it61620_bridge_hdmi_clear_spd_infoframe(struct drm_bridge *bridge)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++
++	return regmap_update_bits(it61620->tx_regmap, TX_REG_EN_PKT2,
++				  (B_EN_NULL | B_EN_NULL_RP), 0x00);
++}
++
++static int it61620_bridge_hdmi_clear_hdmi_infoframe(struct drm_bridge *bridge)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++
++	return regmap_update_bits(it61620->tx_regmap, TX_REG_EN_PKT1,
++				  (B_EN_VSIF | B_EN_VSIF_RP), 0x00);
++}
++
++static int it61620_bridge_hdmi_clear_audio_infoframe(struct drm_bridge *bridge)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++
++	return regmap_update_bits(it61620->tx_regmap, TX_REG_EN_PKT1,
++				  (B_EN_AUD | B_EN_AUD_RP), 0x00);
++}
++
++static int it61620_bridge_hdmi_write_avi_infoframe(struct drm_bridge *bridge,
++						   const u8 *buffer, size_t len)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++
++	it61620_bridge_hdmi_clear_avi_infoframe(bridge);
++	it61620_hdmi_avi_infoframe_set(it61620, buffer, len);
++
++	return 0;
++}
++
++static int it61620_bridge_hdmi_write_spd_infoframe(struct drm_bridge *bridge,
++						   const u8 *buffer, size_t len)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++
++	it61620_hdmi_spd_infoframe_set(it61620, buffer, len);
++
++	return 0;
++}
++
++static int it61620_bridge_hdmi_write_hdmi_infoframe(struct drm_bridge *bridge,
++						    const u8 *buffer, size_t len)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++
++	it61620_hdmi_vendor_infoframe_set(it61620, buffer, len);
++
++	return 0;
++}
++
++static int it61620_bridge_hdmi_write_audio_infoframe(struct drm_bridge *bridge,
++						     const u8 *buffer, size_t len)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++
++	it61620_bridge_hdmi_clear_audio_infoframe(bridge);
++	it61620_hdmi_audio_infoframe_set(it61620, buffer, len);
++
++	return 0;
++}
++
++static int it61620_bridge_hdmi_audio_startup(struct drm_bridge *bridge,
++					     struct drm_connector *connector)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++
++	it61620_enable_audio(it61620);
++	return 0;
++}
++
++static int it61620_bridge_hdmi_audio_prepare(struct drm_bridge *bridge,
++					     struct drm_connector *connector,
++					     struct hdmi_codec_daifmt *fmt,
++					     struct hdmi_codec_params *hparms)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++
++	it61620_audio_update_hw_params(it61620, fmt, hparms);
++
++	return drm_atomic_helper_connector_hdmi_update_audio_infoframe(connector,
++								       &hparms->cea);
++}
++
++static void it61620_bridge_hdmi_audio_shutdown(struct drm_bridge *bridge,
++					       struct drm_connector *connector)
++{
++	struct it61620 *it61620 = bridge_to_it61620(bridge);
++
++	drm_atomic_helper_connector_hdmi_clear_audio_infoframe(connector);
++
++	it61620_disable_audio(it61620);
++}
++
++static const struct drm_bridge_funcs it61620_bridge_funcs = {
++	.attach = it61620_bridge_attach,
++	.detect = it61620_bridge_detect,
++	.hpd_enable = it61620_bridge_hpd_enable,
++	.hpd_disable = it61620_bridge_hpd_disable,
++	.hpd_notify = it61620_bridge_hpd_notify,
++
++	.atomic_pre_enable = it61620_bridge_atomic_pre_enable,
++	.atomic_enable = it61620_bridge_atomic_enable,
++	.atomic_disable = it61620_bridge_atomic_disable,
++	.atomic_post_disable = it61620_bridge_atomic_post_disable,
++	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
++	.atomic_create_state = drm_atomic_helper_bridge_create_state,
++
++	.edid_read = it61620_bridge_edid_read,
++	.hdmi_tmds_char_rate_valid = it61620_bridge_hdmi_tmds_char_rate_valid,
++
++	.hdmi_clear_audio_infoframe = it61620_bridge_hdmi_clear_audio_infoframe,
++	.hdmi_write_audio_infoframe = it61620_bridge_hdmi_write_audio_infoframe,
++	.hdmi_clear_avi_infoframe = it61620_bridge_hdmi_clear_avi_infoframe,
++	.hdmi_write_avi_infoframe = it61620_bridge_hdmi_write_avi_infoframe,
++	.hdmi_clear_spd_infoframe = it61620_bridge_hdmi_clear_spd_infoframe,
++	.hdmi_write_spd_infoframe = it61620_bridge_hdmi_write_spd_infoframe,
++	.hdmi_clear_hdmi_infoframe = it61620_bridge_hdmi_clear_hdmi_infoframe,
++	.hdmi_write_hdmi_infoframe = it61620_bridge_hdmi_write_hdmi_infoframe,
++
++	.hdmi_audio_startup = it61620_bridge_hdmi_audio_startup,
++	.hdmi_audio_prepare = it61620_bridge_hdmi_audio_prepare,
++	.hdmi_audio_shutdown = it61620_bridge_hdmi_audio_shutdown,
++};
++
++static int it61620_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct device_node *np = dev->of_node;
++	struct mipi_dsi_host *host;
++	struct it61620 *it61620;
++	int ret = 0;
++
++	it61620 = devm_drm_bridge_alloc(dev, struct it61620, bridge,
++					&it61620_bridge_funcs);
++	if (IS_ERR(it61620))
++		return PTR_ERR(it61620);
++
++	it61620->dev = dev;
++	it61620->chip_info = of_device_get_match_data(dev);
++
++	host = drm_of_get_dsi_bus(dev);
++	if (IS_ERR(host))
++		return dev_err_probe(dev, PTR_ERR(host),
++				     "failed to find dsi host\n");
++
++	ret = it61620_i2c_and_regmap_init(client, it61620);
++	if (ret < 0)
++		return ret;
++
++	i2c_set_clientdata(client, it61620);
++
++	ret = it61620_init_power(it61620);
++	if (ret < 0)
++		return ret;
++
++	it61620_config_default(it61620);
++
++	ret = it61620_parse_dt(it61620);
++	if (ret < 0)
++		return ret;
++
++	if (!client->irq)
++		return dev_err_probe(dev, -ENODEV,
++				     "Failed to get INTP IRQ\n");
++
++	ret = devm_request_threaded_irq(&client->dev, client->irq, NULL,
++					it61620_int_threaded_handler,
++					IRQF_TRIGGER_LOW | IRQF_ONESHOT |
++					IRQF_NO_AUTOEN,
++					"it61620-intp", it61620);
++	if (ret < 0)
++		return dev_err_probe(dev, ret,
++				     "failed to request INTP threaded IRQ\n");
++
++	INIT_DELAYED_WORK(&it61620->hdcp_work, it61620_hdcp_work);
++	INIT_DELAYED_WORK(&it61620->hpd_work, it61620_hpd_work);
++	INIT_WORK(&it61620->hdcp_cp_work, it61620_hdcp_cp_work);
++	init_waitqueue_head(&it61620->wq);
++
++	mutex_init(&it61620->ddc_lock);
++
++	pm_runtime_set_autosuspend_delay(dev, 1000);
++	pm_runtime_use_autosuspend(dev);
++	ret = devm_pm_runtime_enable(dev);
++	if (ret)
++		return ret;
++
++	it61620->bridge.of_node = np;
++	/*
++	 * If the next bridge already provides DETECT/HPD (typically
++	 * hdmi-connector with hpd-gpios), leave those ops to it. The chip HPD
++	 * pin still reports HDCP short pulses for the IRQ handler.
++	 *
++	 * If the next bridge has no HPD GPIO (or no IRQ), this driver owns
++	 * connector status using the chip HPD pin.
++	 */
++	it61620->bridge.ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_HDMI |
++			      DRM_BRIDGE_OP_HDMI_AUDIO;
++	if (!(it61620->next_bridge->ops & DRM_BRIDGE_OP_DETECT))
++		it61620->bridge.ops |= DRM_BRIDGE_OP_DETECT;
++	if (!(it61620->next_bridge->ops & DRM_BRIDGE_OP_HPD))
++		it61620->bridge.ops |= DRM_BRIDGE_OP_HPD;
++	it61620->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
++	it61620->bridge.support_hdcp = true;
++	it61620->bridge.vendor = "ITE";
++	it61620->bridge.product = "IT61620";
++	it61620->bridge.hdmi_audio_dev = dev;
++	it61620->bridge.hdmi_audio_max_i2s_playback_channels = 8;
++	it61620->bridge.hdmi_audio_spdif_playback = false;
++	it61620->bridge.hdmi_audio_dai_port = 2;
++
++	ret = devm_drm_bridge_add(dev, &it61620->bridge);
++	if (ret < 0)
++		return dev_err_probe(dev, ret,
++				     "failed to add drm bridge\n");
++
++	ret = it61620_attach_dsi(it61620, host);
++	if (ret < 0)
++		return dev_err_probe(dev, ret,
++				     "failed to attach to DSI host\n");
++
++	return 0;
++}
++
++static void it61620_remove(struct i2c_client *client)
++{
++	struct it61620 *it61620 = i2c_get_clientdata(client);
++
++	disable_irq(client->irq);
++	cancel_delayed_work_sync(&it61620->hpd_work);
++	cancel_delayed_work_sync(&it61620->hdcp_work);
++	cancel_work_sync(&it61620->hdcp_cp_work);
++	/*
++	 * Runtime PM teardown, DSI detach and bridge removal are handled by
++	 * devres, which runs after this callback. ddc_lock must stay valid
++	 * until then, so do not destroy it here.
++	 */
++}
++
++static const struct it6162_chip_info it61620_chip_info = {
++	.vid = 0x4954,
++	.pid = 0x6152,
++};
++
++static const struct of_device_id it61620_dt_ids[] = {
++	{ .compatible = "ite,it61620", .data = &it61620_chip_info},
++	{ }
++};
++MODULE_DEVICE_TABLE(of, it61620_dt_ids);
++
++static const struct i2c_device_id it61620_i2c_ids[] = {
++	{ "it61620", 0 },
++	{ },
++};
++MODULE_DEVICE_TABLE(i2c, it61620_i2c_ids);
++
++static struct i2c_driver it61620_driver = {
++	.driver = {
++		.name = "it61620",
++		.of_match_table = it61620_dt_ids,
++		.pm = &it61620_bridge_pm_ops,
++	},
++	.probe = it61620_probe,
++	.remove = it61620_remove,
++	.id_table = it61620_i2c_ids,
++};
++
++module_i2c_driver(it61620_driver);
++
++MODULE_AUTHOR("Pet Weng <pet.weng@ite.com.tw>");
++MODULE_AUTHOR("Hermes Wu <Hermes.Wu@ite.com.tw>");
++MODULE_DESCRIPTION("it61620 MIPI to HDMI driver");
++MODULE_LICENSE("GPL");
 
-Changes in v8:
-- dt-binding:
- 1. Clarify the hardware differences between IT6162 and IT61620 in the
-    description (IT61620 is single-port and lacks an internal MCU). 	[Krzysztof]
- 2. Dropped Reviewed-by from Krzysztof due to description changes.
-- Call drm_atomic_helper_connector_hdmi_clear_audio_infoframe() in audio
-  shutdown path								[Dmitry]
-- Link to v7: https://lore.kernel.org/r/20260313-it61620-0714-v7-0-36a16dc036d6@ite.com.tw
-
-Changes in v7:
-- The dt-bindings were previously reviewed by Krzysztof Kozlowski.
-- drm/bridge:								[Dmitry]
- 1. drop redundant register access wrappers and use regmap APIs directly
- 2. use drm_dbg_kms() instead of drm_dbg() when printing display timing information
- 3. use drm_display_mode directly for video timing
- 4. add helper for writing 16-bit timing registers
- 5. simplify HDMI interrupt handling
- 6. add mono audio support
- 7. program audio parameters directly
- 8. inline audio infoframe disable logic
-- MAINTAINERS: squash to driver patch					[Dmitry]
-- Link to v6: https://lore.kernel.org/r/20260130-it61620-0714-v6-0-70afa65923b5@ite.com.tw
-
-Changes in v6:
-- In patch 1								[Luca] 
- 1. Fix a typo in the commit message.
- 2. Remove redundant assignment of bridge.funcs, which is already set by 
-    devm_drm_bridge_alloc().
-- Link to v5: https://lore.kernel.org/r/20251222-it61620-0714-v5-0-afb6479ad3ca@ite.com.tw
-
-Changes in v5:
-- Fix dt_binding_check errors by adding missing unevaluatedProperties constraints
-  for port and endpoint nodes in the device tree binding.		[Rob]
-- Link to v4: https://lore.kernel.org/r/20251216-it61620-0714-v4-0-9d2fea7847ae@ite.com.tw
-
-Changes in v4:
-- In patch 1								[Krzysztof]
- 1. Remove redundant "description" fields from interrupts and regulators
- 2. Drop pinctrl-names and pinctrl-0; driver does not require them
- 3. Remove port/endpoint properties already covered by video interfaces schema
- 4. Fix example indentation to 4 spaces for readability
-- In patch 2								[Jani]
- 1. Use connector->display_info from DRM helper instead of parsing EDID manually
-- In patch 2								[Dmitry]
- 1. Remove redundant powered check in reg access
- 2. Use TMDS character rate instead of pixel clock for N/CTS
- 3. Use consistent lowercase naming for tmds.
- 4. Use test_bit() instead of custom bit-test helper
- 5. Use tmds_char_rate_valid instead of custom mode_valid
- 6. Use custom EDID read instead of DDC bus for segment handling
- 7. Drop redundant atomic feature check
- 8. Pass flags directly to drm_bridge_attach()
- 9. Check DRM_BRIDGE_ATTACH_NO_CONNECTOR flag before drm_bridge_attach()
- 10. Short-circuit HPD update if connector status unchanged
- 11. Remove unnecessary NULL check for connector state
- 12. Rename cached_edid to edid since it's no longer cached
- 13. Remove redundant sample rate checks; rely on hdmi-codec validation
- 14. Remove unsupported 18-bit audio sample size; rely on hdmi-codec
- 15. Remove unnecessary fmt switch; rely on hdmi-codec defaults
- 16. Check and propagate errors from it61620_audio_update_hw_params instead of
-     ignoring them
-- In patch 3								[Krzysztof]
- 1. Remove unnecessary T: field pointing to git; subsystem already defines it
-- Link to v3: https://lore.kernel.org/r/20251009-it61620-0714-v3-0-5d682d028441@ite.com.tw
-
-Changes in v3:
-- Wrapped description lines to comply with 80-character line length limit
-  in patch 1.								[Rob]
-- Renamed node from "it61620@58" to "bridge@58" in patch 1.		[Rob]
-- Add port@2 for I2S audio input in patch 1.				[Dmitry]
-- Updated the Kconfig dependency from CRYPTO and CRYPTO_HASH to 
-  CRYPTO_LIB_SHA1 in patch 2.						[Eric]
-- In patch 2								[Dmitry]
- 1. Audio and InfoFrame
-   - Rename audfmt to i2s_input_format for clarity.
-   - Remove unused infoframe[HDMI_INFOFRAME_SIZE(AUDIO)].
- 2. Platform data and structure
-   - Drop platform data usage; migrate members into struct it61620
- 3. Code organization
-   - Reorder functions to avoid the need for forward declarations.
-   - Add static inline to small helper functions
-     (e.g. bridge_to_it61620()).
- 4. HDCP handling
-   - Make HDCP enable/disable conditional on conn_state->content_protection.
-   - Report authentication result using drm_hdcp_update_content_protection().
- 5. Error handling
-   - Replace manual error path with dev_err_probe().
- 6. Power management
-   - Inline suspend/resume callbacks.
-   - Use DEFINE_RUNTIME_DEV_PM_OPS() instead of explicit struct definition.
- 7. Bridge callbacks
-   - Drop empty bridge_detach().
-   - Inline it61620_bridge_mode_valid().
- 8. EDID handling
-   - Remove unnecessary cached EDID duplication.
- 9. Mode set and pixel clock
-   - Move mode handling to atomic_enable().
-   - Keep only pixelclock for future N/CTS audio calculations.
- 10. Logging
-    - Replace noisy drm_err() calls with drm_dbg().
- 11. InfoFrame support
-    - Add support for SPD and Vendor InfoFrames.
-- Link to v2: https://lore.kernel.org/r/20250828-it61620-0714-v2-0-586f5934d5f8@ite.com.tw
-
-Changes in v2:
-- Call the sha1() library function instead of using the crypto_shash
-  "sha1" in patch 2.
-- Rewrite it61620_hdmi_ddc_wait() with readx_poll_timeout() in patch 2.	[Pin-yen]
-- Rewrite it61620_hdmi_hdcp_wait_ksv_list() with readx_poll_timeout() in
-  patch 2.
-- Replace interrupts-extended with interrupts in patch 1.		[Rob]
-- Replace dsi-lanes with the standard property data-lanes from the graph
-  binding.								[Rob]
-- Replace "#/$defs/port-base" with "#/properties/port" in patch 1.	[Rob]
-- Drop unused labels and "hdmi" for the node name.			[Rob]
-- Drop status in patch 1.						[Rob]
-- Link to v1: https://lore.kernel.org/r/20250714-it61620-0714-v1-0-3761164d0b98@ite.com.tw
-
----
-Pet Weng (2):
-      dt-bindings: display: Add ITE IT61620 MIPI DSI to HDMI bridge
-      drm/bridge: Add ITE IT61620 MIPI DSI to HDMI bridge driver
-
- Documentation/devicetree/bindings/display/bridge/ite,it61620.yaml |  152 ++++++++
- MAINTAINERS                                                       |    7 +
- drivers/gpu/drm/bridge/Kconfig                                    |   18 +
- drivers/gpu/drm/bridge/Makefile                                   |    1 +
- drivers/gpu/drm/bridge/ite-it61620.c                              | 2763 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 2941 insertions(+)
----
-base-commit: 7d66a68c6f216b78ea22ce8a4c7f8d456c76e8ba
-change-id: 20250714-it61620-0714-ab4ab4ceff29
-
-Best regards,
 -- 
-Pet Weng <pet.weng@ite.com.tw>
+2.34.1
 
