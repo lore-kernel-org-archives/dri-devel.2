@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 050C8C982C5
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 15:32:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 021F8C982C1
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 15:32:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B50A210F4BE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AC8110F254;
 	Tue, 15 Sep 2026 15:32:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="TbL4tjHB";
+	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="jc/ZUlIg";
 	dkim-atps=neutral
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA6CE10EC77
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 15:32:52 +0000 (UTC)
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D720F10EB25
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 15:32:33 +0000 (UTC)
 Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260915153251euoutp02084125f938320b2f7a85111b008d57c9~ViF_sja9S0483104831euoutp02V;
- Tue, 15 Sep 2026 15:32:51 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20260915153251euoutp02084125f938320b2f7a85111b008d57c9~ViF_sja9S0483104831euoutp02V
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20260915153232euoutp01f4930296186b2645e39fd5e3e859c991~ViFtEyF8V0794407944euoutp01S;
+ Tue, 15 Sep 2026 15:32:32 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20260915153232euoutp01f4930296186b2645e39fd5e3e859c991~ViFtEyF8V0794407944euoutp01S
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1789486371;
- bh=5VJr9vBmbACanL0MeXx4ma5BlMfN70MxN8Z8af1jAN8=;
+ s=mail20170921; t=1789486352;
+ bh=nXZgelnNzGUrF2EXNePQXIahF9E5vFNeqohz/w8zOho=;
  h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
- b=TbL4tjHB3FlMrYe92qC+NybVosVgaDcvWJfq2ZNFthYqUgBvSrdrWpSttXsWTIAiN
- jj9qXzq5SaDUQy/UITupzA5ZlwmNWj9+fHFBeoSIer90sZgh2kCWvy2Da3l93Wi3wT
- 7gI0Zkmzo2ogOIboFW6nnJiI7BIfKnAdBQ/CpQsQ=
+ b=jc/ZUlIg4HTF2p8JCNN3vddFqrI0tBuJoufFr4vD6lhTOFOURDZR3RhjdAZCyzxCp
+ pl2zrFZRwCiDMvoTkuysiEI8YsiLiHR2J7KpgknDqQEAByfogc3TulJH7g7eteqBcN
+ BI+H+kQH3CzVW01Lxx1OtaJEL9iT0cWUjc7uT79I=
 Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20260915153250eucas1p2132ca4040b3c35a3aed471cb816b7857~ViF9fvU4I1454914549eucas1p2X;
- Tue, 15 Sep 2026 15:32:50 +0000 (GMT)
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260915153231eucas1p1e106fee2d6f7db2aa8bb93d18d0f5dc1~ViFr7_A351220612206eucas1p1O;
+ Tue, 15 Sep 2026 15:32:31 +0000 (GMT)
 Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
  [106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260915153248eusmtip1ff29e81b00d983d86a6897dddbc876f8~ViF74X4zS0616306163eusmtip1e;
- Tue, 15 Sep 2026 15:32:48 +0000 (GMT)
+ 20260915153229eusmtip195a81a7500ab28abebd77ec7de0ee7a6~ViFqXgBIs0604306043eusmtip1j;
+ Tue, 15 Sep 2026 15:32:29 +0000 (GMT)
 From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Tue, 15 Sep 2026 17:32:28 +0200
-Subject: [PATCH v4 20/20] MAINTAINERS: Add StarFive JH7110 display subsystem
- entry
+Date: Tue, 15 Sep 2026 17:32:18 +0200
+Subject: [PATCH v4 10/20] drm/bridge: inno-hdmi: Add .mode_valid platform
+ operation
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-jh7110-clean-send-v4-20-f0e4fd6f2cc8@samsung.com>
+Message-Id: <20260915-jh7110-clean-send-v4-10-f0e4fd6f2cc8@samsung.com>
 In-Reply-To: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
 To: Vinod Koul <vkoul@kernel.org>,  Neil Armstrong
  <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,  Krzysztof
@@ -74,14 +74,14 @@ Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
  <u.kleine-koenig@baylibre.com>,  Michal Wilczynski
  <m.wilczynski@samsung.com>
 X-Mailer: b4 0.15-dev
-X-CMS-MailID: 20260915153250eucas1p2132ca4040b3c35a3aed471cb816b7857
+X-CMS-MailID: 20260915153231eucas1p1e106fee2d6f7db2aa8bb93d18d0f5dc1
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260915153250eucas1p2132ca4040b3c35a3aed471cb816b7857
+X-RootMTR: 20260915153231eucas1p1e106fee2d6f7db2aa8bb93d18d0f5dc1
 X-EPHeader: CA
-X-CMS-RootMailID: 20260915153250eucas1p2132ca4040b3c35a3aed471cb816b7857
+X-CMS-RootMailID: 20260915153231eucas1p1e106fee2d6f7db2aa8bb93d18d0f5dc1
 References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
- <CGME20260915153250eucas1p2132ca4040b3c35a3aed471cb816b7857@eucas1p2.samsung.com>
+ <CGME20260915153231eucas1p1e106fee2d6f7db2aa8bb93d18d0f5dc1@eucas1p1.samsung.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,41 +97,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The JH7110 display subsystem spans a PHY driver, a DRM bridge driver,
-a parent device and their bindings, and has no existing maintainer entry.
+inno_hdmi_bridge_mode_valid() validates the pixel clock against
+hdmi->refclk, but that clock is optional and is only present on
+platforms that describe a "ref" clock. Platforms where the pixel clock
+is produced by a separate device - such as the StarFive JH7110, whose
+PHY is both the clock and the PHY provider - have no "ref" clock, so
+the check is skipped entirely and every mode is reported as valid.
 
-Add an entry covering them so patches reach someone who can review them.
+A mode the platform cannot generate is then advertised to userspace.
+The subsequent modeset appears to succeed, since the atomic enable path
+cannot fail, and the display silently stays blank.
+
+Add a .mode_valid platform operation so platforms can reject modes they
+are unable to drive. Platforms that do not implement it are unaffected.
 
 Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
 Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 ---
- MAINTAINERS | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/gpu/drm/bridge/inno-hdmi.c | 9 +++++++++
+ include/drm/bridge/inno_hdmi.h     | 5 ++++-
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c2414447892c24d58595059ca27b18775919ac12..3706b5787a25de7acba023bc4049f0fcdd078672 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -26072,6 +26072,19 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
- F:	drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
+index 06917e83c5e530d158a06ae2a877e78e22ed842d..00450250336adb9530894af767034572d775a8df 100644
+--- a/drivers/gpu/drm/bridge/inno-hdmi.c
++++ b/drivers/gpu/drm/bridge/inno-hdmi.c
+@@ -823,6 +823,7 @@ static enum drm_mode_status inno_hdmi_bridge_mode_valid(struct drm_bridge *bridg
+ 							const struct drm_display_mode *mode)
+ {
+ 	struct inno_hdmi *hdmi = bridge_to_inno_hdmi(bridge);
++	const struct inno_hdmi_plat_ops *plat_ops = hdmi->plat_data->ops;
+ 	unsigned long mpixelclk, max_tolerance;
+ 	long rounded_refclk;
  
-+STARFIVE JH7110 DISPLAY SUBSYSTEM
-+M:	Michal Wilczynski <m.wilczynski@samsung.com>
-+R:	Icenowy Zheng <zhengxingda@iscas.ac.cn>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/display/bridge/starfive,jh7110-inno-hdmi-controller.yaml
-+F:	Documentation/devicetree/bindings/mfd/starfive,jh7110-hdmi-subsystem.yaml
-+F:	Documentation/devicetree/bindings/phy/starfive,jh7110-inno-hdmi-phy.yaml
-+F:	Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-vout-subsystem.yaml
-+F:	drivers/gpu/drm/bridge/jh7110-inno-hdmi.c
-+F:	drivers/phy/starfive/phy-jh7110-inno-hdmi.c
-+F:	drivers/soc/starfive/jh7110-hdmi-subsystem.c
-+F:	drivers/soc/starfive/jh7110-vout-subsystem.c
+@@ -838,6 +839,14 @@ static enum drm_mode_status inno_hdmi_bridge_mode_valid(struct drm_bridge *bridg
+ 	if (inno_hdmi_find_phy_config(hdmi, mpixelclk) < 0)
+ 		return MODE_CLOCK_HIGH;
+ 
++	if (plat_ops && plat_ops->mode_valid) {
++		enum drm_mode_status status;
 +
- STARFIVE JH7110 DPHY RX DRIVER
- M:	Jack Zhu <jack.zhu@starfivetech.com>
- M:	Changhuang Liang <changhuang.liang@starfivetech.com>
++		status = plat_ops->mode_valid(hdmi->dev, mode);
++		if (status != MODE_OK)
++			return status;
++	}
++
+ 	if (hdmi->refclk) {
+ 		rounded_refclk = clk_round_rate(hdmi->refclk, mpixelclk);
+ 		if (rounded_refclk < 0)
+diff --git a/include/drm/bridge/inno_hdmi.h b/include/drm/bridge/inno_hdmi.h
+index 5fca651c56b056d814124aa9c7e91aa7fd7ed1cd..1e9974401c39e3773bb339eaec0b45ff1dd9c975 100644
+--- a/include/drm/bridge/inno_hdmi.h
++++ b/include/drm/bridge/inno_hdmi.h
+@@ -8,15 +8,18 @@
+ 
+ #include <linux/types.h>
+ 
++#include <drm/drm_modes.h>
++
+ struct device;
+ struct drm_encoder;
+-struct drm_display_mode;
+ struct inno_hdmi;
+ struct platform_device;
+ 
+ struct inno_hdmi_plat_ops {
+ 	void (*enable)(struct device *pdev, struct drm_display_mode *mode);
+ 	void (*disable)(struct device *pdev);
++	enum drm_mode_status (*mode_valid)(struct device *pdev,
++					   const struct drm_display_mode *mode);
+ };
+ 
+ struct inno_hdmi_phy_config {
 
 -- 
 2.34.1
