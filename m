@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEE83C88E73
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 08:58:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58E53C88E73
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 08:59:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D31E310E174;
-	Tue, 15 Sep 2026 08:58:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A48E10E5B2;
+	Tue, 15 Sep 2026 08:59:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GdykA5u3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nQZOrNSF";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 001A410E174
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:58:08 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3A1310E264
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:59:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D41EC43678;
- Tue, 15 Sep 2026 08:58:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EC9A1F000FF;
- Tue, 15 Sep 2026 08:58:08 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 26FF16025F;
+ Tue, 15 Sep 2026 08:59:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A29D71F00899;
+ Tue, 15 Sep 2026 08:59:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789462688;
- bh=q6pD0RjPeWeZhQuJEeDuQW6XqaK9bKRU0RTGo1P1IMA=;
+ s=k20260515; t=1789462756;
+ bh=P/lfWRLpEYaDoKcRNDs/8/gTNhBzaNJFpBJRYvuLsb8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GdykA5u3Oq3D/vdcYn1b5A0krD/f77F+iLyeyPS64NqRYt3kJJ4edz/zrUokqKuIa
- tuaynH1fkSp0XeSoluSFN0RmrIwd/9fB+nF2VvWiQWSCJwiscrw1lL5hXewlEdXNxL
- 2JIKeMYM+013vVY95uXM49iZVg/WxDUf9N1IQpsS5y5kPi9xsGC3PrESgljljCzu8c
- xCfiYHqLOJJVT6p8oEAjZ4uy6HUSOT2anCSOP35Wl+gHK3lgf+kz1AWWWnwF/a0qGM
- Buve6zev8PRWTt8BfWeaTvt8a5/D7X8urLuyQZApiy+zuZGKSN7WMhQAmRWxlfEJ/G
- QOKf3sGT+Li2A==
+ b=nQZOrNSFM1mftyOfyt8cyVx+BjLx05MFyImMapEvNrHNsmxrl0WDxNm9d674Rjxpi
+ D9XQiPtetsJfF4zuDNkqOrUXLJNCUfRC6qkD4q95lVHom7MnR/qxveJzz/dbfEM4PZ
+ 1q4ETI2wQped1kD6iYDUBP16lPzl350DYvyEhUJ4BN8ZQE6zMXKLAV3cOlaIZngNjd
+ iIl0CbAY1PamflfkWbCGg5A4zLwPi0Ms+By1x23HHhNQEbjiAjvFEqRinH7Ph/uvgB
+ 9auqF3d862udmyOCc7LHLMckMq1BJDCgUH81wTmnWRYkeM7x2t58Y90GIHseWjp5vf
+ YCFWBqpSaR8ag==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 02/13] drm/mediatek: Implement Display Stream
- Compression support
+Subject: Re: [PATCH v8 13/13] drm/mediatek: Add Write DMA (WDMA) Engine for
+ Writeback support
 To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260915084148.11385-3-angelogioacchino.delregno@collabora.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260915084148.11385-14-angelogioacchino.delregno@collabora.com>
 References: <20260915084148.11385-1-angelogioacchino.delregno@collabora.com>
- <20260915084148.11385-3-angelogioacchino.delregno@collabora.com>
+ <20260915084148.11385-14-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 08:58:07 +0000
-Message-Id: <20260915085808.4EC9A1F000FF@smtp.kernel.org>
+Date: Tue, 15 Sep 2026 08:59:16 +0000
+Message-Id: <20260915085916.A29D71F00899@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,207 +61,214 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 7 potential issue(=
 s) to consider:
-- [High] mtk_crtc: DSC hardware enabled before being configured
-- [High] drm/mediatek: Hardcoded DSC slice geometry breaks configurable top=
-ology
-- [High] mtk_crtc: Component loop excludes terminal DSI component, skipping=
- DSC init
-- [High] mtk_dsi: Hardware state updated using uninitialized slice_chunk_si=
-ze
-- [High] mtk_dsi: Data rate and mode validation ignore DSC compression bene=
-fits
-- [Medium] mtk_disp_dsc: State flag dsc_config_done not cleared on hardware=
- stop
-- [Low] mtk_dsi: Reversed string formatting arguments in debug messages
+- [Critical] drm/mediatek: WDMA layer_config overwrites source buffer and c=
+auses NULL pointer dereference
+- [High] pm: resource leak on pm_runtime_get_sync() failure
+- [High] drm/mediatek: lockless wb_pending access causes lost completions a=
+nd WARN_ON
+- [High] drm/mediatek: TOCTOU race in vblank callback execution
+- [Medium] drm/mediatek: direct CPU MMIO writes to WDMA bypass CMDQ synchro=
+nization
+- [Medium] drm/mediatek: incorrect color transform matrix for YUV writeback
+- [Medium] drm/mediatek: mtk_wdma_stop incorrectly signals success for abor=
+ted writeback job
 --
 
-commit 842ba0cd3cf93b49cd15a2061c815f58c2c063f1
+commit 5040ee161768b3e9eb8d9ed33a9148cd22b10b67
 Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-drm/mediatek: Implement Display Stream Compression support
+drm/mediatek: Add Write DMA (WDMA) Engine for Writeback support
 
-This commit adds a new driver for the Display Stream Compression (DSC)
-Display Controller IP, implementing support for DSC v1.1. It introduces DSC
-handling in the mtk_dsi driver and removes basic bypass setup from
-mtk_ddp_comp, migrating it to the new mtk_disp_dsc driver.
+This commit adds a basic driver for the Write DMA Engine for the MediaTek
+MT8173 and Dimensity 1200 MT6893 platforms. It wires the component into
+mtk_ddp_comp and mtk_drm_drv to enable userspace writeback features.
 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediat=
-ek/mtk_crtc.c
-> --- a/drivers/gpu/drm/mediatek/mtk_crtc.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
-> @@ -396,6 +399,17 @@ static int mtk_crtc_ddp_hw_init(struct mtk_crtc *mtk=
-_crtc)
->  		if (!mtk_ddp_comp_add(mtk_crtc->ddp_comp[i], mtk_crtc->mutex))
->  			mtk_mutex_add_comp(mtk_crtc->mutex,
->  					   mtk_crtc->ddp_comp[i]->id);
-> +
-> +		/* For now, only single DSI is supported */
-> +		if (mtk_crtc->ddp_comp[i]->id >=3D DDP_COMPONENT_DSI0 &&
-> +		    mtk_crtc->ddp_comp[i]->id <=3D DDP_COMPONENT_DSI3)
-> +			if (!comp_dsi)
-> +				comp_dsi =3D mtk_crtc->ddp_comp[i];
-
-[Severity: High]
-Is the terminal DSI component missed by the bounds condition in this loop?
-
-This logic is evaluated inside a loop defined as for (i =3D 0; i <
-mtk_crtc->ddp_comp_nr - 1; i++). If the DSI component is the last element in
-the display pipeline, it is never evaluated by the loop because of the bound
-check. As a result, comp_dsi would remain NULL, and DSC initialization would
-be silently skipped entirely.
-
-[ ... ]
-> @@ -411,6 +425,13 @@ static int mtk_crtc_ddp_hw_init(struct mtk_crtc *mtk=
-_crtc)
->  		mtk_ddp_comp_start(comp);
->  	}
-> =20
-> +	/* Setup the DSC if present, with the config coming from DSI */
-> +	if (comp_dsc && comp_dsi) {
-> +		dsc_cfg =3D mtk_dsi_get_dsc_config(comp_dsi->dev);
-> +		if (dsc_cfg)
-> +			mtk_ddp_comp_dsc_setup(comp_dsc, dsc_cfg);
-> +	}
-
-[Severity: High]
-Could this execution order lead to pipeline synchronization glitches or data
-corruption?
-
-The pipeline starts transmitting data when the loop above calls
-mtk_ddp_comp_start() for all components. The DSC block is not configured
-until mtk_ddp_comp_dsc_setup() runs after the loop completes. This momentary
-transmission in an unconfigured or bypass state, followed by programming and
-re-enabling on the fly, might lock up the hardware FIFOs.
-
-> diff --git a/drivers/gpu/drm/mediatek/mtk_disp_dsc.c b/drivers/gpu/drm/me=
-diatek/mtk_disp_dsc.c
+> diff --git a/drivers/gpu/drm/mediatek/mtk_disp_wdma.c b/drivers/gpu/drm/m=
+ediatek/mtk_disp_wdma.c
+> new file mode 100644
+> index 0000000000000..0575fade92c6b
 > --- /dev/null
-> +++ b/drivers/gpu/drm/mediatek/mtk_disp_dsc.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_disp_wdma.c
 [ ... ]
-> +void mtk_dsc_setup(struct device *dev, struct drm_dsc_config *dsc_cfg)
+> +static irqreturn_t mtk_disp_wdma_irq_handler(int irq, void *dev_id)
 > +{
-> +	struct mtk_dsc *disp_dsc =3D dev_get_drvdata(dev);
-[ ... ]
-> +	pic_height_ext_num =3D dsc_cfg->pic_height + dsc_cfg->slice_height - 1;
-> +	pic_group_width =3D (dsc_cfg->slice_width * 4) / 3;
+> +	struct mtk_disp_wdma *wdma =3D dev_id;
+> +
+> +	/* Clear frame completion interrupt */
+> +	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_STATUS);
+> +
+> +	if (wdma->vblank_cb)
+> +		wdma->vblank_cb(wdma->vblank_cb_data);
 
 [Severity: High]
-Is the picture group width hardcoded to exactly 4 slices per line here?
+Could this race with mtk_wdma_unregister_vblank_cb() if it is called
+concurrently from process context? If unregistration clears wdma->vblank_cb
+exactly between this check and the call, it looks like it could result in a
+NULL pointer dereference.
 
-This seems to mathematically conflict with the word count calculation in
-mtk_dsi_ps_control_dsc() which assumes 2 slices per line. Hardcoded,
-conflicting slice geometry assumptions rather than utilizing the slice_count
-from the configuration might guarantee data corruption on panels that do not
-match these exact assumptions.
-
-[ ... ]
-> +void mtk_dsc_start(struct device *dev)
-> +{
-> +	struct mtk_dsc *disp_dsc =3D dev_get_drvdata(dev);
-> +	u32 val;
 > +
-> +	val =3D readl(disp_dsc->reg + DISP_REG_DSC_CON);
-> +
-> +	/* If no DSC or config not done, stop the HW temporarily and set bypass=
- mode */
-> +	if (!disp_dsc->dsc_config_done) {
-> +		val &=3D ~DSC_EN;
-> +		val |=3D DSC_BYPASS | DSC_UFOE_SEL | DSC_DUAL_INOUT;
-> +		writel(val, disp_dsc->reg + DISP_REG_DSC_CON);
+> +	/* TODO: Move completion signaling to CMDQ interrupt callback */
+> +	if (wdma->wb_pending) {
+> +		drm_writeback_signal_completion(&wdma->wb_connector, 0);
+> +		wdma->wb_pending =3D false;
 > +	}
-[ ... ]
-> +void mtk_dsc_stop(struct device *dev)
-> +{
-> +	struct mtk_dsc *disp_dsc =3D dev_get_drvdata(dev);
+
+[Severity: High]
+Is it safe to check and clear wdma->wb_pending locklessly here? If this
+interrupt fires right after the flag is set to true in
+mtk_wdma_wb_connector_atomic_commit() but before the job is queued, it
+appears it would signal an empty queue (triggering a WARN_ON(!job)) and the
+job would never be signaled once actually queued.
+
 > +
-> +	writel(0, disp_dsc->reg + DISP_REG_DSC_CON);
+> +	return IRQ_HANDLED;
+> +}
+[ ... ]
+> +void mtk_wdma_stop(struct device *dev)
+> +{
+> +	struct mtk_disp_wdma *wdma =3D dev_get_drvdata(dev);
+> +
+> +	if (wdma->wb_pending) {
+> +		drm_writeback_signal_completion(&wdma->wb_connector, 0);
+> +		wdma->wb_pending =3D false;
+> +	}
+
+[Severity: Medium]
+Since stopping the engine aborts any pending writeback job leaving the buff=
+er
+incomplete, shouldn't this signal an error status (such as -ECANCELED) rath=
+er
+than 0 (success)? Userspace might consume a corrupted or partial buffer
+otherwise.
+
+> +
+> +	wdma_update_bits(dev, DISP_REG_WDMA_EN, WDMA_ENGINE_EN, 0);
+> +}
+> +
+> +void mtk_wdma_config(struct device *dev, unsigned int width,
+> +		     unsigned int height, unsigned int vrefresh,
+> +		     unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
+> +{
+> +	struct mtk_disp_wdma *wdma =3D dev_get_drvdata(dev);
+> +
+> +	writel(WDMA_FORCE_COMMIT | WDMA_BYPASS_SHADOW,
+> +	       wdma->regs + DISP_REG_WDMA_SHADOW_CTRL);
 > +}
 
 [Severity: Medium]
-Does the config flag remain true on subsequent modesets after being stopped?
+Does this direct CPU MMIO write bypass the CMDQ synchronization? Since this
+is forced outside of the VBLANK synchronized CMDQ execution sequence, it
+might cause tearing or memory corruption if the hardware is actively writin=
+g.
 
-Since mtk_dsc_stop() resets the hardware register but doesn't clear the
-disp_dsc->dsc_config_done flag, a subsequent modeset enable might see this
-flag as true. This would skip the bypass mode logic and instead re-enable
-the IP with zeroed configuration bits, momentarily corrupting the stream
-until setup executes.
-
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
-k/mtk_dsi.c
-> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
 [ ... ]
-> +static void mtk_dsi_ps_control_dsc(struct mtk_dsi *dsi, bool config_vact)
+> +static void mtk_wdma_format_config(struct mtk_disp_wdma *wdma,
+> +				   struct mtk_plane_pending_state *pending,
+> +				   const struct drm_format_info *fmt_info,
+> +				   struct cmdq_pkt *cmdq_pkt)
 > +{
-> +	const struct mtk_dsi_driver_data *data =3D dsi->driver_data;
-> +	const u16 *reg_main =3D dsi->driver_data->reg_main;
-> +	const short dsi_buf_bpp =3D 3;
-> +	u32 ps_wc;
+[ ... ]
+> +	/* Color transform coefficient selection */
+> +	val =3D FIELD_PREP_CONST(WDMA_INT_MTX_SEL, WDMA_CT_COEF_JPEG_TO_RGB);
+> +	mtk_ddp_write_mask(cmdq_pkt, val, &wdma->cmdq_reg, wdma->regs,
+> +			   DISP_REG_WDMA_CFG, WDMA_INT_MTX_SEL);
+
+[Severity: Medium]
+Are we programming the correct color transform matrix for a writeback pipel=
+ine?
+WDMA_CT_COEF_JPEG_TO_RGB converts YUV to RGB, but converting the internal R=
+GB
+pipeline output to a YUV writeback format requires RGB to YUV.
+
+[ ... ]
+> +void mtk_wdma_layer_config(struct device *dev, unsigned int idx,
+> +			   struct mtk_plane_state *state,
+> +			   struct cmdq_pkt *cmdq_pkt)
+> +{
+> +	struct mtk_disp_wdma *wdma =3D dev_get_drvdata(dev);
+> +	struct mtk_plane_pending_state *pending =3D &state->pending;
+[ ... ]
+> +	mtk_wdma_format_config(wdma, pending, fmt_info, cmdq_pkt);
+
+[Severity: Critical]
+Is the writeback engine incorrectly programmed to overwrite the source plan=
+e's
+buffer? WDMA is an output component, but exposing layer_config makes the CR=
+TC
+treat it as a source plane. Passing pending into mtk_wdma_format_config()
+sets the WDMA destination address to the source plane's address
+(pending->addr), which would actively corrupt the framebuffer being scanned
+out.
+
 > +
-> +	/* Word count */
-> +	ps_wc =3D FIELD_PREP(DSI_PS_WC, 2 * dsi->dsc->slice_chunk_size);
+> +	drm_writeback_queue_job(&wdma->wb_connector, wdma->wb_connector.base.st=
+ate);
+> +}
 
-[Severity: High]
-Does this hardcode the DSI payload word count to exactly 2 slices per line?
-
-This conflicts with the 4 slice assumption in mtk_dsc_setup() and breaks
-configurable topologies that rely on dsi->dsc->slice_count.
-
-[ ... ]
-> @@ -741,10 +828,17 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
-[ ... ]
->  	mtk_dsi_ps_control(dsi, true);
->  	mtk_dsi_set_vm_cmd(dsi);
-> -	mtk_dsi_config_vdo_timing(dsi);
-> +	ret =3D mtk_dsi_config_vdo_timing(dsi);
-
-[Severity: High]
-Is it possible for this hardware state to be updated using an uninitialized
-slice_chunk_size?
-
-The mtk_dsi_ps_control() call consumes dsi->dsc->slice_chunk_size to program
-active DSI hardware, but this variable is not calculated until
-mtk_dsi_config_vdo_timing() runs on the subsequent line. This could write
-uninitialized memory into critical hardware registers.
+[Severity: Critical]
+Will this unconditionally dereference a NULL job pointer? By passing
+wdma->wb_connector.base.state to drm_writeback_queue_job(), it uses a
+connector state where the writeback_job might have already been consumed
+(or is NULL), which will cause a kernel panic during list_add_tail().
 
 [ ... ]
-> @@ -884,6 +978,28 @@ mtk_dsi_bridge_mode_valid(struct drm_bridge *bridge,
->  	if (mode->clock * bpp / dsi->lanes > 1500000)
->  		return MODE_CLOCK_HIGH;
-> =20
-> +	if (dsi->dsc) {
-
-[Severity: High]
-Are we validating the mode and calculating the data rate using the
-uncompressed BPP?
-
-In mtk_dsi_bridge_mode_valid() (and similarly in mtk_dsi_poweron()), the bpp
-is retrieved using mipi_dsi_pixel_format_to_bpp() before checking if DSC is
-enabled. Applying the uncompressed BPP to clock limits and data rate
-calculations ignores DSC bandwidth savings. This forces the DSI PHY to be
-clocked much faster than necessary and artificially rejects valid
-high-bandwidth modes.
-
-> +		if (dsi->dsc->slice_width =3D=3D 0 || dsi->dsc->slice_height =3D=3D 0)=
- {
-> +			dev_err(dsi->host.dev,
-> +				"DSC: Slice width %u height %u not valid!\n",
-> +				dsi->dsc->slice_width, dsi->dsc->slice_height);
-> +			return MODE_BAD;
-> +		}
+> +static void mtk_wdma_wb_connector_atomic_commit(struct drm_connector *co=
+nnector,
+> +						struct drm_atomic_commit *state)
+> +{
+[ ... ]
+> +	/* Store writeback pending state before queuing the job */
+> +	wdma->wb_pending =3D true;
 > +
-> +		if (mode->hdisplay % dsi->dsc->slice_width) {
-> +			dev_dbg(dsi->host.dev,
-> +				"DSC: hdisplay %u is not a multiple of slice width %u\n",
-> +				dsi->dsc->slice_width, mode->hdisplay);
+> +	mtk_wdma_ddp_write_dst_addr(NULL, addr, 0, wdma);
 
-[Severity: Low]
-Have the string formatting arguments been reversed here?
+[Severity: Medium]
+As with the WDMA_SHADOW_CTRL write, does this direct unsynchronized CPU MMIO
+write for the destination address bypass CMDQ? Changing the destination
+address asynchronously to VBLANK risks memory corruption in the writeback
+buffer.
 
-The slice_width variable is passed to the first format specifier which
-expects hdisplay, and mode->hdisplay is passed to the second which expects
-the slice width.
+> +	drm_writeback_queue_job(&wdma->wb_connector, conn_state);
+> +}
+[ ... ]
+> +static int mtk_disp_wdma_bind(struct device *dev, struct device *master,
+> +			      void *data)
+> +{
+[ ... ]
+> +	ret =3D pm_runtime_get_sync(dev);
+> +	if (ret)
+> +		dev_warn(dev, "Could not get PM Runtime!\n");
+
+[Severity: High]
+Does this incorrectly treat a return value of 1 as an error?
+pm_runtime_get_sync() returns 1 if the device was already active, which is a
+success case, not a failure.
+
+> +
+> +	/*
+> +	 * Disable and clear pending interrupts - write unconditionally as no
+> +	 * crash (SError, etc) will happen as if unpowered/unclocked this is
+> +	 * simply going to be ignored (and the registers will be 0 at reset).
+> +	 */
+> +	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_ENABLE);
+> +	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_STATUS);
+> +
+> +	/* Put RPM only if refcount was incremented before to avoid unbalancing=
+ */
+> +	if (ret >=3D 0)
+> +		pm_runtime_put(dev);
+
+[Severity: High]
+Can this leak the runtime PM usage counter on failure? pm_runtime_get_sync()
+increments the usage counter even when returning a negative error code.
+By skipping pm_runtime_put(dev) when ret < 0, the usage counter is
+permanently leaked.
+
+> +
+> +	enable_irq(wdma->irq);
+> +	return 0;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915084148.1138=
-5-1-angelogioacchino.delregno@collabora.com?part=3D2
+5-1-angelogioacchino.delregno@collabora.com?part=3D13
