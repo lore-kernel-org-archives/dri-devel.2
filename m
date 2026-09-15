@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A92DC88E7D
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 18:53:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7B87C88E77
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 18:55:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3073D10EB0D;
-	Tue, 15 Sep 2026 18:53:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 380BE10F0EC;
+	Tue, 15 Sep 2026 18:55:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fCS0zLm5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PjaNEID8";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E61210E4D7;
- Tue, 15 Sep 2026 18:53:54 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4068A10EC8A;
+ Tue, 15 Sep 2026 18:55:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4EC3941877;
- Tue, 15 Sep 2026 18:53:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03A601F00893;
- Tue, 15 Sep 2026 18:53:53 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5448D602C2;
+ Tue, 15 Sep 2026 18:55:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D69E1F00893;
+ Tue, 15 Sep 2026 18:55:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789498434;
- bh=0RvZTwaFlsnqErVlhdUZ2rvmiqrMxTlZg0/hakrG2vU=;
+ s=k20260515; t=1789498551;
+ bh=GOGfWr/zqnuUp0aaWod35kDSLDrI+impl0Kuz2pt1NU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fCS0zLm50I8m+9tOjYKkUyw3+w4MLR57QcPFqPg0fgRal/vn2wYXZAhYBLho4/Hud
- Ov4CaFXVBHrfgwdEPBeHmW2DRFGFJVo12ekXnqXw6tSsm3HnAcAE3JrG3anjZKybUj
- /jnJST0Ms6qpBDMQzeMdIl5/3MuIQPnI6yNNk880xjVaLw3z4n9AbS8nkPaiKOXUEs
- 9o2E45rnJIa7aI6yu6+8NBU7sarTyu83Uf99U6x8KGkmgVO9ldrXR6IUSVFSeHMmLP
- o51+yjRuSR/yGashlvVrCJWnuJBCkiqnic6beYQEQ2bRQlCXRAMA2FpbEsec0BTEpX
- EZvCBjZDq8UhA==
+ b=PjaNEID8olaOBH+kPn/uMMJ8oytc2WAV/cgjCsRGh/ukzp4IAMuA3gzkXv6J6Ajin
+ ANdHcbR4/+yWfqHxj/Ebd5lk6kB1VnDsEzQkuC/EQHH5B3uBgQycsFAkBR+wuiVv07
+ Lv96reFTkjbcSdOm0mPNg6Q43aVl6cJStzRKwKuwm/Tpw8rD+wC+seRj/MbnZD5731
+ 1ed04jAMaPlHsOKXYQGfP5PUQuNU7y5yt3lxSh06BS++R+NG6nR6XPtxcfqgxidQPK
+ +Cm0vhmn2d30n3V5WN/oE0UlKA3XLPWJHq0LuGAUBlGMrETTdABiU3kxRViwS5jcKT
+ 9NLtDqlPi0udg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 09/18] drm/i915/alpm: Half LFPS cycle calculation
+Subject: Re: [PATCH v6 16/18] drm/i915/alpm: Compute and program switch to
+ active latency
 To: "Animesh Manna" <animesh.manna@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260915180449.277933-10-animesh.manna@intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20260915180449.277933-17-animesh.manna@intel.com>
 References: <20260915180449.277933-1-animesh.manna@intel.com>
- <20260915180449.277933-10-animesh.manna@intel.com>
+ <20260915180449.277933-17-animesh.manna@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 18:53:53 +0000
-Message-Id: <20260915185354.03A601F00893@smtp.kernel.org>
+Date: Tue, 15 Sep 2026 18:55:49 +0000
+Message-Id: <20260915185550.2D69E1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,73 +59,126 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] display/alpm: uninitialized stack variables used for ALPM hardware=
- programming
+- [High] drm/i915/alpm: ALPM_CTL2_SWITCH_TO_ACTIVE_LATENCY bounds check mis=
+sing
+- [High] drm/i915/alpm: switch_to_active math error inflates latency 32x
 --
 
-commit b718ea1f4bfa5d8848c313251d36c92815933b23
+commit 6e4638c7fe4ea7d79d2000aac2b17f2fc3edc381
 Author: Animesh Manna <animesh.manna@intel.com>
+Subject: drm/i915/alpm: Compute and program switch to active latency
 
-drm/i915/alpm: Half LFPS cycle calculation
-
-This commit adds support for half LFPS cycle calculation for DP2.1 ALPM
-as dependent parameters got changed.
+This commit programs the ALPM switch to active latency into ALPM_CTL2. For
+UHBR link rates, the latency is derived from the link symbol clock and
+converted to scanlines, while for non-UHBR rates it is set to zero.
 
 > diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/=
 i915/display/intel_alpm.c
-> index cb24bba801a19..14ecb27095b29 100644
+> index 236341aa3c8d8..84777c8d31bb4 100644
 > --- a/drivers/gpu/drm/i915/display/intel_alpm.c
 > +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
 [ ... ]
-> +static void lnl_get_lfps_period_min_max_time(const struct intel_crtc_sta=
-te *crtc_state,
-> +					     int *min, int *max)
-> +{
-> +	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP)) {
-> +		if (crtc_state->port_clock < 540000) {
-> +			*min =3D 65 * LFPS_CYCLE_COUNT;
-> +			*max =3D 75 * LFPS_CYCLE_COUNT;
-> +		} else {
-> +			*min =3D 140;
-> +			*max =3D 800;
-> +		}
-> +	}
-> +}
-
-[Severity: High]
-Does this function leave min and max completely uninitialized for
-non-eDP configurations?
-
-For instance, when connecting an external DisplayPort sink on LunarLake
-with ALPM capabilities, intel_crtc_has_type(..., INTEL_OUTPUT_EDP) would
-be false, and the function returns without setting these parameters.
-
-[ ... ]
->  static int get_lfps_cycle_time(const struct intel_crtc_state *crtc_state)
->  {
->  	int tlfps_cycle_min, tlfps_cycle_max;
-> =20
-> -	get_lfps_cycle_min_max_time(crtc_state, &tlfps_cycle_min,
-> -				    &tlfps_cycle_max);
-> +	get_lfps_period_min_max_time(crtc_state, &tlfps_cycle_min,
-> +				     &tlfps_cycle_max);
-> =20
->  	return tlfps_cycle_min +  (tlfps_cycle_max - tlfps_cycle_min) / 2;
+> @@ -301,6 +301,31 @@ static int get_establishment_period(struct intel_dp =
+*intel_dp,
+>  	return establishment_period;
 >  }
+> =20
+> +static int get_switch_to_active(const struct intel_crtc_state *crtc_stat=
+e)
+> +{
+> +	int port_clock =3D crtc_state->port_clock;
+> +	int switch_to_active;
+> +
+> +	if (intel_dp_is_uhbr(crtc_state)) {
+> +		/* symbol_clock (fLink) in MHz */
+> +		int symbol_clock =3D port_clock / intel_dp_link_symbol_size(port_clock=
+) / 100;
+> +
+> +		/*
+> +		 * tSwitch to Active =3D 32 * (ML_PHY_LOCK Length + 3 + 64) / fLink
+> +		 *
+> +		 * The "+ 3" term is the trailing zero padding after the
+> +		 * POST_LT_SCRAMBLER_RESET, the "+ 64" term represents the MTP
+> +		 * time slots. The result is in microseconds.
+> +		 */
+> +		switch_to_active =3D get_dp_link_symbol_size(crtc_state) *
+> +				   (ML_PHY_LOCK_LEN_UHBR + 3 + 64) / symbol_clock;
 
 [Severity: High]
-Can these stack variables be consumed while still uninitialized?
+Does this logic incorrectly substitute the symbol rate for the bit rate,
+inflating the latency by 32x?
 
-Because lnl_get_lfps_period_min_max_time() lacks a non-eDP fallback, it
-appears tlfps_cycle_min and tlfps_cycle_max could retain their uninitialized
-stack values here when called for a standard DisplayPort setup.
+In the DP spec formula, fLink is the link rate in Mbps, and multiplying the
+symbol count by 32 correctly calculates bits divided by bit-rate. However,
+symbol_clock is calculated here as port_clock / 32, meaning the denominator=
+ is
+32x smaller than intended.
 
-These garbage values would then be used in the arithmetic calculation and
-subsequently programmed into hardware ALPM registers. Could this potentially
-cause display link corruption, link training failures, or hardware timeouts?
+This math error calculates a latency of ~47.4us instead of 1.48us, causing
+excessively long ALPM wake sequences. Additionally, standard integer divisi=
+on
+here drops fractional microseconds, so if corrected, the wait time might be
+shorter than the physical hardware minimum on high-clock displays.
+
+> +	} else {
+> +		switch_to_active =3D 0;
+> +	}
+> +
+> +	return switch_to_active;
+> +}
+> +
+[ ... ]
+> @@ -360,7 +385,8 @@ _lnl_compute_aux_less_alpm_params(struct intel_dp *in=
+tel_dp,
+>  	crtc_state->alpm_state.aux_less_wake_lines =3D aux_less_wake_lines;
+>  	crtc_state->alpm_state.silence_period_sym_clocks =3D silence_period;
+>  	crtc_state->alpm_state.lfps_half_cycle_num_of_syms =3D lfps_half_cycle;
+> -
+> +	crtc_state->alpm_state.switch_to_active =3D intel_usecs_to_scanlines(&c=
+rtc_state->hw.adjusted_mode,
+> +									   get_switch_to_active(crtc_state));
+
+[Severity: High]
+Can the computed scanline count overflow the 5-bit register field it is
+later written to?
+
+Unlike the other parameters configured in _lnl_compute_aux_less_alpm_params=
+(),
+there is no bounds check here against the maximum allowed value before
+assigning it to switch_to_active.
+
+With the 32x inflation bug above, on high-refresh-rate displays (like 4K @
+360Hz), ~47us translates to > 31 scanlines.
+
+>  	return true;
+>  }
+> =20
+[ ... ]
+> @@ -772,6 +798,7 @@ static void lnl_alpm_configure(struct intel_dp *intel=
+_dp,
+>  	lttpr_count =3D drm_dp_lttpr_count(intel_dp->lttpr_common_caps);
+> =20
+>  	alpm_ctl2 =3D ALPM_CTL2_NUMBER_OF_LTTPR(lttpr_count);
+> +	alpm_ctl2 |=3D ALPM_CTL2_SWITCH_TO_ACTIVE_LATENCY(crtc_state->alpm_stat=
+e.switch_to_active);
+
+[Severity: High]
+Does this silently mask and truncate the unbounded scanline count?
+
+ALPM_CTL2_SWITCH_TO_ACTIVE_LATENCY uses REG_FIELD_PREP with a 5-bit mask.
+Any value > 31 is silently truncated. For example, 32 scanlines truncates
+to 0, completely removing the required wake latency. This causes the hardwa=
+re
+to exit ALPM before the PHY has locked, leading to link training failures or
+display corruption.
+
+> =20
+>  	intel_de_write(display, ALPM_CTL2(display, cpu_transcoder), alpm_ctl2);
+>  	intel_de_write(display, ALPM_CTL(display, cpu_transcoder), alpm_ctl);
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915180449.2779=
-33-1-animesh.manna@intel.com?part=3D9
+33-1-animesh.manna@intel.com?part=3D16
