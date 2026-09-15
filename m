@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E47FDC982C1
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:37:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45927C88E5C
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:37:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1DE810E7C8;
-	Wed, 16 Sep 2026 07:37:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62F1D10E7D8;
+	Wed, 16 Sep 2026 07:37:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="DpAJBPLo";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="U8/5ugVP";
 	dkim-atps=neutral
 Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
  [209.85.214.199])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08BA910FAF3
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:20:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3EBE10FAF3
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:20:11 +0000 (UTC)
 Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2dc92350888so72282125ad.3
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 01:20:12 -0700 (PDT)
+ d9443c01a7336-2dd7d0751efso4687735ad.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 01:20:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=google.com; s=20251104; t=1789460411; x=1790065211;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:from:subject
  :message-id:references:mime-version:in-reply-to:date:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=tzVl62qjzRm92BALDDypl3TnCOJSNAaLaOJ/zmWRh10=;
- b=DpAJBPLoDcNIV8gze/2hIRz7ZSFVHegI8iB3UO1Fxv95msuWJumNjCOFW5/tbM9QU7
- yWDMWdyql1NGKqLZWIPN4dXMoLBPQ/GbILEaqXCwC/9bUHDl95qwLw1HRKLXLI72JGTK
- BK8IKh/BXeFlwHqL2XBtR+EMN2Ivv7gdu7f2PxPKk40D1HErQgG1kb3aWB+2jWrai7Z3
- FcenBcgjmPxoitEE9p4z6jlF0hY5H/R+pf6svNwRwuNbGFq8KjBnf115DU1aFr56X2EQ
- w/iNMaucvqyFJ2nSDiV3tHJJfOXZxCFe8BNfzDDSl0eMqKfuhpHZaSkSACteMghpilc+
- whcA==
+ bh=TmKdBXO38kbe6W228p+vBZ76A7D+nQJddOBfd0uRZ54=;
+ b=U8/5ugVPW4aw6SVa8Ne+eFgFHlUDt3dWBS8iNIgEmBkuYIl7VQ1Lh/tLPzsqHp2ejt
+ xzusW+BaxaELqG+DsFcs+r+WqSMMbZuB7bTveMnxUUsFAiAMT7Ik2it+Lw9pfqpeROYT
+ qBivLcsX9sLM//wGu/bgRremDslWqVco/TSLVAN/jU3LgYarYtVC1j1ejAWfJakuERe7
+ mnsKj0VsGG+wqKc/VJEFdptk9yhPb2IHw73DJjbExeE3zRgFmxHZxYDd4vpoGtJA4Up4
+ 1vV+6ZDxzFuS2QZpaUt3ycfqZy2Fxjc5/XSmaNslAX+7tLbm19kBrmefwLtjQ2fa5/EF
+ ajrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20260707; t=1789460411; x=1790065211;
  h=content-transfer-encoding:content-type:cc:to:from:subject
  :message-id:references:mime-version:in-reply-to:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=tzVl62qjzRm92BALDDypl3TnCOJSNAaLaOJ/zmWRh10=;
- b=Airb5fAvxQJQ8aHpqUvT+A8Ww9h5tahpCjqsTqkRZgvIxYQxixYNnic0JiizkmR9dK
- KpVTYHwXIyzAg0ZlGkaGCpSzUvlDC7V16RMCc6l8GFg1CzYnOnFzmOOgXGfrxt0SPSor
- w97zpao2iJvT6S1dOGqPuH3pz6IcesdUHS9OLwHW7E+2gvYmwjNYaAIc/v85l35in6Pe
- N6QJD+J+lafHg7wa8rRkLZvhWFD4kkgHJ43jxWFombfEcAZS0C7el08vxw7qwcwt9CMS
- NkLAbN69uVnIc6BnZPbTl9KMd81Q8H0T5TdTUl4A2ackaqmZdkZ8rjw71AgExU0Cpu6W
- +row==
+ bh=TmKdBXO38kbe6W228p+vBZ76A7D+nQJddOBfd0uRZ54=;
+ b=Zdnu97iTwj5bccEYkUxuu4Bnn7ravWqIvu8GQRAqqpn7a9p7xPRNq5rF0lT2gGujTp
+ HCO3IzVUkP65C7pGROL/OWNnuji6KyLmTLGpfNucPbYT99KR3B0wYAgD5FREygwZPa+W
+ KZWKiNmo8GZOuiR7fj8aNDAFCfCfi6hmLCDAAQecBQ67J7wYV94agFuAlhQwO8LVjapC
+ MrX8Y0/+tcjNf4jPW1JRf7TyHdxHTHVDJtzs4EQpf4MQuFTQjvimST01cIdBWLg47WEa
+ 2MbOOTFbC89lHeZOJcuuq9fmBY5aF8pnb7a8ocJDEdBxyanWGxSUssZVSuUl2/ZOQfZi
+ 19jg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwDONjRCbV3b64eGag6/xzQ2hu+Smeth1C5hxV98cbOipvQRWmg9IBeca4sfUdeiZ73Q7TtpidMk/s=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n90eFR5M5uV0acXV8/S/7UWLrb06Bco+2XjkMTNSwkK403jak5
- kzgyT/RHPYwY0gn7CKhhKL1tQpQoLDxiO9U5HErHZpnoC//5+GRwd0Y8NJxjbxPPgkwmH2YI8H2
- R
-X-Received: from plbjx4.prod.google.com ([2002:a17:903:1384:b0:2dd:1457:fac8])
+ AKwUvByFB45eCyxvZrW9IwF8sYva1gahQrmgpQQCxaPMx+lqyvbO4ZyehYRyiLH+fIfc5u/JN/VWjdEpnV4=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nK7aoxtYqWQ3n67w7L8N+K8DwNdDj3eyKtPDiGM7uHhmdMUZQu
+ X7EAZzyGJ3vfASb0sK9NQVTQpVKhXZ/YWKDBvj+ASeN2bXKObg56xDI0TNAbuFRyBUnQmkkcAl5
+ x
+X-Received: from plw16.prod.google.com ([2002:a17:903:45d0:b0:2dd:203e:7d7f])
  (user=morbo job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:190d:b0:2dd:4168:7bd3
- with SMTP id d9443c01a7336-2dd6c6c0cb1mr140747065ad.12.1789460411041; Tue, 15
- Sep 2026 01:20:11 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:18:36 +0000
+ 2002:a17:902:e544:b0:2d8:d4cf:fe49
+ with SMTP id d9443c01a7336-2dd7654538dmr37587935ad.15.1789460410166; Tue, 15
+ Sep 2026 01:20:10 -0700 (PDT)
+Date: Tue, 15 Sep 2026 08:18:35 +0000
 In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
 Mime-Version: 1.0
 References: <20260915081910.4142719-1-morbo@google.com>
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260915081910.4142719-20-morbo@google.com>
-Subject: [PATCH 19/28] x86/setup: Use snprintf() to concatenate builtin and
- boot command lines
+Message-ID: <20260915081910.4142719-19-morbo@google.com>
+Subject: [PATCH 18/28] LoongArch: Refactor bootcmdline_init() to use seq_buf
+ instead of strlcat()
 From: Bill Wendling <morbo@google.com>
 To: linux-kernel@vger.kernel.org
 Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
@@ -156,20 +156,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When CONFIG_CMDLINE_BOOL is enabled without CONFIG_CMDLINE_OVERRIDE,
-setup_arch() appends boot_command_line to builtin_cmdline using two
-strlcat() calls before copying the result back to boot_command_line.
+bootcmdline_init() uses multiple strlcat() calls to append
+init_command_line or CONFIG_CMDLINE to boot_command_line.
 
-In preparation for removing the deprecated strlcat() API[1], format the
-combined command line into a temporary buffer using a single snprintf()
-call and copy the result to both builtin_cmdline and boot_command_line.
-Using a temporary buffer avoids undefined behavior from passing overlapping
-source and destination buffers to snprintf().
+In preparation for removing the deprecated strlcat() API[1], initialize a
+struct seq_buf with the existing contents of boot_command_line and use
+seq_buf_puts() to append the command line fragments.
 
 Link: https://github.com/KSPP/linux/issues/370 [1]
 Cc: codemender-patching+linux@google.com
-Assisted-by: Developer:Gemini_2.5_Pro [editor_update_file, make_kernel_buil=
-d_single_file, checkpatch_run]
+Assisted-by: CoPilot:1.0 [shell_command_run, editor_update_file, make_kerne=
+l_build_single_file]
 Signed-off-by: Bill Wendling <morbo@google.com>
 ---
 Cc: Russell King <linux@armlinux.org.uk>
@@ -283,29 +280,77 @@ Cc: devel@lists.orangefs.org
 Cc: linux-hardening@vger.kernel.org
 Cc: linux-sound@vger.kernel.org
 ---
- arch/x86/kernel/setup.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ arch/loongarch/kernel/setup.c | 22 +++++++++++++++-------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
 
-diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-index cda6adb9f69c..c40e0edd7c13 100644
---- a/arch/x86/kernel/setup.c
-+++ b/arch/x86/kernel/setup.c
-@@ -916,9 +916,11 @@ void __init setup_arch(char **cmdline_p)
- #else
- 	if (builtin_cmdline[0]) {
- 		/* append boot loader cmdline to builtin */
--		strlcat(builtin_cmdline, " ", COMMAND_LINE_SIZE);
--		strlcat(builtin_cmdline, boot_command_line, COMMAND_LINE_SIZE);
--		strscpy(boot_command_line, builtin_cmdline, COMMAND_LINE_SIZE);
-+		char tmp[COMMAND_LINE_SIZE];
+diff --git a/arch/loongarch/kernel/setup.c b/arch/loongarch/kernel/setup.c
+index 6fa4a22a58fd..826396f141b9 100644
+--- a/arch/loongarch/kernel/setup.c
++++ b/arch/loongarch/kernel/setup.c
+@@ -33,6 +33,7 @@
+ #include <linux/of_address.h>
+ #include <linux/suspend.h>
+ #include <linux/swiotlb.h>
++#include <linux/seq_buf.h>
+=20
+ #include <asm/addrspace.h>
+ #include <asm/alternative.h>
+@@ -305,6 +306,8 @@ static void __init fdt_setup(void)
+=20
+ static void __init bootcmdline_init(char **cmdline_p)
+ {
++	struct seq_buf s;
 +
-+		snprintf(tmp, COMMAND_LINE_SIZE, "%s %s", builtin_cmdline, boot_command_=
-line);
-+		strscpy(builtin_cmdline, tmp, COMMAND_LINE_SIZE);
-+		strscpy(boot_command_line, tmp, COMMAND_LINE_SIZE);
+ 	/*
+ 	 * If CONFIG_CMDLINE_FORCE is enabled then initializing the command line
+ 	 * is trivial - we simply use the built-in command line unconditionally &
+@@ -315,6 +318,11 @@ static void __init bootcmdline_init(char **cmdline_p)
+ 		goto out;
  	}
- #endif
- 	builtin_cmdline_added =3D true;
+=20
++	/* Initialize seq_buf pointing to boot_command_line */
++	s.buffer =3D boot_command_line;
++	s.size =3D COMMAND_LINE_SIZE;
++	s.len =3D strlen(boot_command_line);
++
+ #ifdef CONFIG_OF_FLATTREE
+ 	/*
+ 	 * If CONFIG_CMDLINE_BOOTLOADER is enabled and we are in FDT-based system=
+,
+@@ -323,11 +331,11 @@ static void __init bootcmdline_init(char **cmdline_p)
+ 	 * to boot_command_line.
+ 	 */
+ 	if (initial_boot_params) {
+-		if (boot_command_line[0])
+-			strlcat(boot_command_line, " ", COMMAND_LINE_SIZE);
++		if (s.len)
++			seq_buf_puts(&s, " ");
+=20
+-		if (!strstr(boot_command_line, init_command_line))
+-			strlcat(boot_command_line, init_command_line, COMMAND_LINE_SIZE);
++		if (!strstr(s.buffer, init_command_line))
++			seq_buf_puts(&s, init_command_line);
+=20
+ 		goto out;
+ 	}
+@@ -338,14 +346,14 @@ static void __init bootcmdline_init(char **cmdline_p)
+ 	 * CONFIG_CMDLINE_EXTEND is enabled.
+ 	 */
+ 	if (IS_ENABLED(CONFIG_CMDLINE_EXTEND) && CONFIG_CMDLINE[0]) {
+-		strlcat(boot_command_line, " ", COMMAND_LINE_SIZE);
+-		strlcat(boot_command_line, CONFIG_CMDLINE, COMMAND_LINE_SIZE);
++		seq_buf_puts(&s, " ");
++		seq_buf_puts(&s, CONFIG_CMDLINE);
+ 	}
+=20
+ 	/*
+ 	 * Use built-in command line if the bootloader command line is empty.
+ 	 */
+-	if (IS_ENABLED(CONFIG_CMDLINE_BOOTLOADER) && !boot_command_line[0])
++	if (IS_ENABLED(CONFIG_CMDLINE_BOOTLOADER) && !s.len)
+ 		strscpy(boot_command_line, CONFIG_CMDLINE, COMMAND_LINE_SIZE);
+=20
+ out:
 --=20
 2.55.0.1032.g73a4cd73de-goog
 
