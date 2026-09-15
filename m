@@ -4,79 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46CBAC88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 23:20:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73C56C88E7F
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 23:34:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FDE710E209;
-	Tue, 15 Sep 2026 23:20:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C06710E1A7;
+	Tue, 15 Sep 2026 23:34:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="szAHdEIL";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="P7LdrCN5";
 	dkim-atps=neutral
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com
- [74.125.228.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 020F210E26E
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 23:20:51 +0000 (UTC)
-Received: by mail-pz2-f12.google.com with SMTP id
- d2e1a72fcca58-85469e25400so224577b3a.0
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 16:20:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789514451; x=1790119251; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=IGMnqDW895Je/mS7NKJPFeoFTm2jsczP2vXK225eeOg=;
- b=szAHdEILMY/SW5Fwk1l3I4tx0NWcGYwbY3VooazTPYZl++1X5NuZiv5tlP7ZglutCI
- WRUFyfxUvhQaSFiYxpfx9IQcsmRPtjp3S/IOJ0FYdhOTmC7RAEenr7NcB8bxmTV0PaV2
- a95EBdg4TEjfP5sx4zEJICKf4Xilnw6tJitD8LRdd5as+GhHjOoWiFbB+AldLPggqa30
- EYsXxZsv5T8sZ6z5lQtYbsxTGTte5jWEI5+2j+6m+iEImcP6QTlCsjukIVzJRijDU/L/
- Gvc4RqJMtQF4mfEI7KFdZ4RVTbLyXkyi3zmM7Z7k9OSkf5+mHOSHKy48mGsfgkMgeQRt
- 5esw==
+X-Greylist: delayed 372 seconds by postgrey-1.36 at gabe;
+ Tue, 15 Sep 2026 23:34:00 UTC
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9E7D10E1A7
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 23:34:00 +0000 (UTC)
+Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
+ by m0001303.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68FMP3xV459343
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 16:27:47 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=
+ pps82601-s2048-2026-q3; bh=puTYzaznhw4+fIfX1uaMmGMJC1CZW9OyuJIqa
+ VoOjFA=; b=P7LdrCN5RlHrQAwR3lh1Sw42HEUBPv6LyCl+r8hwB62t5uwriMQbD
+ rm3NHwvD0PaefgR6OLHyroy5wHF4NVm+G4W63yP3NyZYHZWKoV3mbJ6JwD/WzgDa
+ RCeXKORnF3xngXyoH0nHuBfJCW8zHXhDCn33h+JKiHawytHEapppS8dI22J6V2E6
+ w+wP3sWCpYGwv46N0moEuenEzZJXV3cz3DJ4nWBpzrkR/rAXp/InbRpHQnm4a4Mq
+ Krw1zm+PNYoHvCoper3L8ztW3x3PaHAyJrFmTd5OAYW7ZeVhs4ef8tPXRuwdBjYQ
+ kousKyfTwk1c3s9n+5u7EB3H7XOriOxrw==
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
+ [209.85.210.71])
+ by m0001303.ppops.net (PPS) with ESMTPS id 4gq0vdefmy-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 16:27:47 -0700 (PDT)
+Received: by mail-ot1-f71.google.com with SMTP id
+ 46e09a7af769-8056a93e0e3so6885781a34.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 16:27:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789514866; cv=none;
+ d=google.com; s=arc-20260327;
+ b=K73SG4FhyTYubD4y+mVYnbWyvD0ArrqzkKYzrJt8VVgrdFIC58uZs7L8Yb37D2uD7T
+ rLq0wwADIV+HwAkwB9t1zVL0k817TU9cmi2O6UYQUmVcBNN8YkJbnpvgpYtFiz8286Pw
+ bNfGON1fJgEW2Ee5iH6y1tSOXLfrEba0+ktsg65Kz+P6ZyZ5YHkLopBU03ESEI3EdL7B
+ ip/drq41t/qFTJ1XZRU0JhI+uZnnPcebB0sZgjQHv9KAIEZPlb4jD8lnJS7GwxTNd9vO
+ GAtcDy7E2BhlenWaSZ6yP3K4bwE7DOvdKFEQue3INMqgy3MLv0KD+Ppvcj5gBdXpVekk
+ 14Rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version;
+ bh=SJKC0cK2PwsxosA12SybEYsbNkrOGaDMLHL+9hzWLps=;
+ fh=HVwLeXW1FFxWxqRGonrgBQl6or4ZAER/cPtvf6K2QLE=;
+ b=Tiz463Fsl0LDQwBd1ZRDINxDVq6zTp/dx/+n4hdD24E/dMytZzuCYDI29vXtxgCtUZ
+ WIaiHMdXtGOpUYdQzv6PE96uM661XLNKb7amwO8ukRmoEVE0UMRvRpboIll3X4Oq3OED
+ n3qMbUIHptCzwjzAyLU4PmbaQbVP9Dk25zCzMpJ+055Y/sm796tflg5DSrd9+hdQwMAY
+ k1DHER2MpKY9tlGlzBsJnTzKtKOv1iPrtf3EnlprusrepBZhPyrIxA3spfNQKmQQ2zbn
+ keWzreEE36XC1zPWWryMeiXt2eSQBTMYlXwqjWQsAfghsuCcJqN6C8g+8dMHkzqyP+0R
+ b6cA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789514451; x=1790119251;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=IGMnqDW895Je/mS7NKJPFeoFTm2jsczP2vXK225eeOg=;
- b=fKZWHuImkuy5cg4whkaEZy//8qB/IJfH9V87Ld3uM8XkchI+GrTPAbsZy1QwZ83t2l
- 4B1S3nfqHkdxWZRQ2gV85r7yTH3pxm2/uR0wHTwTxsJQbC5Unbyed2hFdWJUzYmvdHHn
- pKm0Xfd0NDjWR+d7d5lu1ll0RwfwDKwevK/xF74gEWtmLN73LlcGlf/vnFnT3PCubfa+
- eiCrNxZv9t4WKX1T2c2/Wfl8/+e4zGW+l+ea2xzUaDZFPXB/9mbgLhxCBBCaMSs484et
- O6fXMrKes5R3VbPNlXBFE/EAmgdSfaUgUxFgIOG6RxsYMJPRTSs6Lsf2hwe5JlDtwx2v
- TLhw==
+ d=1e100.net; s=20260707; t=1789514866; x=1790119666;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=SJKC0cK2PwsxosA12SybEYsbNkrOGaDMLHL+9hzWLps=;
+ b=I4F5ShWdIa3yFa824nx3ZAz9CSvPPioG9i91bn1CcC6nn56coPLLvhGX5ndqkYptkT
+ Tyn45wE0/WMk5S/3z8PMNMfFa4AOAV/f4uruh4I7QnqX4SF6rsuv27HZ1NaAE5HetcGF
+ gb5+qTIdV0Gin2najwILDgWu4z9W3XspBJ40yDGJu//r7UkQkPEyiaAcLYVlvO70S8GN
+ moSURU+DRzmMgmzHm1qkvpeyXrR68/XK4MZGuBGcQvVG1Fu+oxfI+ojCKMSNzMlwiCIT
+ QaokEFvV6aI+Qch6y5yPshqfQgKvScty6WYHYWI8hYifjcobOrq1jRg+mO6PR1iynZAV
+ 3vwQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvByoWe2rC4eQxoVv34bg+GX+0OrJGiz8s8a/u4sKR8ZcywaJFfd3imF88vDTiF1rKdb9ro7on1VELus=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++ntMmxMMz5dRkmUq68Bpb/qEjqNJODW9Wrh6GKkU/DjHfGiWmi0
- jcQ7EI7wt7bq92MF7ql9mj3qq+cLwrYn866Ui8rl6stLH8cyAIkTzFI=
-X-Gm-Gg: AYBFou1fdHwjJsQue0uJcB+tBF+/n2qH67ZoJyAaS04Y544cBvjZ0wf9XxPY6VsQy5u
- 8TvIUYCQ8JNAlH8M8N6h7sXHIGotlK36UYsTxp5RVVBFQKKGGdUlZk/mcrDm1WYE2zisP25D3AP
- BboBrK3vnicNRiAKKyMZhPtC867J/LEjWFvQ3YV2s6cnMjE6M3JEOQpckwxLAQgC8qtVNR/R9rM
- zBKf0INUx9nSb3PtMNDZfzp5coF1+U3uE3oJqJiwqtLPImsGJttKarTlSnp6Qk5ce+RQuwOIHlF
- sU1DRenTb7wT4knL8jeZ2a3EleKma+Q8JUprT5H3krYOuE1umxj4Yg14tjIRrChwrtyqAO/I39H
- abNhKwQsMfPnW+6JaegbLDpbPCp/ZNutFYoLQr7HPT4p4w18TMJFq2324BKqjvk9l0Tgg0ipiET
- 5w16hCCqOMS62sD/l5P62Ige/Pa/u2bHh9xcR1nGvHpaa7a8VQPGfDiMRqf5BRuBZKNSA25J2CA
- AnOEE3ermQe4xAzAubMR3sKG4DVdQ==
-X-Received: by 2002:a05:6a21:9090:b0:3d0:e034:a26f with SMTP id
- adf61e73a8af0-3dd5f5d8672mr1159394637.17.1789514451428; 
- Tue, 15 Sep 2026 16:20:51 -0700 (PDT)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([27.59.94.4])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-33bf5a6a166sm2341985eec.10.2026.09.15.16.20.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Sep 2026 16:20:50 -0700 (PDT)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: alexdeucher@gmail.com
-Cc: 062bel313@gmail.com, Alexander.Deucher@amd.com, Christian.Koenig@amd.com,
- Kenneth.Feng@amd.com, airlied@gmail.com, amd-gfx@lists.freedesktop.org,
- atharvatiwarilinuxdev@gmail.com, dri-devel@lists.freedesktop.org,
- ed@aicharmers.com, linux-kernel@vger.kernel.org, simona@ffwll.ch
-Subject: Re: [PATCH v2] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 14
-Date: Tue, 15 Sep 2026 19:20:43 -0400
-Message-ID: <20260915232043.1222-1-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CADnq5_NyBdPbavmiPVdsHkP_Oi1w7ngX0kPSNce+BWN-YkuAFQ@mail.gmail.com>
-References: <CADnq5_NyBdPbavmiPVdsHkP_Oi1w7ngX0kPSNce+BWN-YkuAFQ@mail.gmail.com>
+ AKwUvBzF6xufY/0CRmNA0eqhp/F36Jykl7lFd1Nojkw4rk3mvR5veFyn8SZqYDeW9ef/Yd5lCn0SMpY7vVI=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nKN19iagw5IwiNWULSbOcQZeoKtMZcLYizNv9KN+fpilmowDWd
+ HUqHsYRNQAapRVkAAqVChEDZHyPmZDurvI6TRZlC5v98hYkxAf3X/9VHdoQ18FA5t2jRp6ymSO3
+ b7+RKYz3O897cPvf2WLXsDa2hPgYz7bF/dJsevH/2qcnwwTACt1svZCDWlgQaq1vkHKbTBM3T/G
+ HxyT+DrmUyUkMtYWmRixFaoHrg5bk+2S9PztxM3QwMnCw=
+X-Gm-Gg: AYBFou1ARLmbULB3W/UlGo1Mp4ecxZ1DvpBqLjQeWDgtc1n8/+kCBoyjHmB50MGrQcn
+ zFz+Qk3vYUDhawdlO424a3R//J3RC81zIx7uf9dRGh7WSHqq9ss8B5S0kOW+SUWO+3p4V5oYAp6
+ wVY/jTVo6fs2Apafjd60ZQdm+ma1+6O1h+Qi9xO09wqKslHrq4M+lIqinbnomLjbVKjvKgoONu
+X-Received: by 2002:a05:6830:6602:b0:806:75db:bb32 with SMTP id
+ 46e09a7af769-80b2df3d962mr1439117a34.9.1789514866361; 
+ Tue, 15 Sep 2026 16:27:46 -0700 (PDT)
+X-Received: by 2002:a05:6830:6602:b0:806:75db:bb32 with SMTP id
+ 46e09a7af769-80b2df3d962mr1439055a34.9.1789514865867; Tue, 15 Sep 2026
+ 16:27:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260731211601.3033906-3-zhipingz@meta.com>
+ <20260915222303.GA877199@bhelgaas>
+In-Reply-To: <20260915222303.GA877199@bhelgaas>
+From: Zhiping Zhang <zhipingz@meta.com>
+Date: Tue, 15 Sep 2026 16:27:34 -0700
+X-Gm-Features: AcwNN1Ur2HGTwLfzS3v5GCfBM43O6loZu_h11eJ9ffO6Ol-LlJuiRokJ9Mq3XW4
+Message-ID: <CAH3zFs1hpotRvvTziNhSSNR1fLiFekSAMCA7oKsNJbobgeckRw@mail.gmail.com>
+Subject: Re: [PATCH v13 2/5] PCI/TPH: Add requester/completer type helpers
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Michael Guralnik <michaelgur@nvidia.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian Konig <christian.koenig@amd.com>,
+ Alex Williamson <alex@shazbot.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, kvm@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDM0MyBTYWx0ZWRfX9rE/IqQS2IdX
+ 7L7UbbTtYOfNGR7m1ymVjwfin0HvwQOr1jVCZxsdBFhWbveHxrHt7FeQ4hvVQP9Ya4F4kjwz+Ao
+ /JUtce3FqA+Xwt9O8XYskxLY1NF1quX5b+nYKg7F7rgO0Rk7+8x928GHSu1OFoyogQbP8YfsraM
+ duIO8ZYwyz3f7/GFL4EAa8ioPFPfpurh6W/Z3R8gStwQETN03BbtKacelHDJlUB5yHMDE5AVROa
+ 8NpoHoyzXXINFjuD3IWPtkAXgn/Bhl0mxEzAkjuDEiPLz5Q4fbjkxgxLQGbfXhYL1rQ6YAkduc6
+ fFyBRGylKgg5bLUYO/3Wodd8FyOcPZA+5OWduot9Aqd6FMhgJZHlCXp+kwCND9PxEySc+T8z2qv
+ 9w7B5NnJsh21cKloKKS4y5HYBTWiPo/zHchk3ftZDzRfSYyGaeAsenWcKdVjqS3sLAYI+S9JhUu
+ kptHmJuYS3xJX3X9dgg==
+X-Proofpoint-GUID: m17s47TkzcmIeOohIeEtounTMIU3nYp9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDM0MyBTYWx0ZWRfX/QQ9in444xQr
+ ff7tsRd3muWiTxiBQfLW/v5F2WkUB7OUl97J7DwZc3TFxo4fh/yFOKOFRofzzTFgnET5cX0Xser
+ b/EE0Xn5HzAq/yH65v6aMu/DhKy2TJc=
+X-Authority-Analysis: v=2.4 cv=FviQbGrq c=1 sm=1 tr=0 ts=6aa9d473 cx=c_pps
+ a=OI0sxtj7PyCX9F1bxD/puw==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=_78whYxrdx1mplLwxq1U:22
+ a=VwQbUJbxAAAA:8 a=VabnemYjAAAA:8 a=1XWaLZrsAAAA:8 a=B6l6obb3YNMg1WPjzLYA:9
+ a=QEXdDO2ut3YA:10 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-ORIG-GUID: m17s47TkzcmIeOohIeEtounTMIU3nYp9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,23 +144,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> I can drop the patch if you feel strongly, although it is pretty
-> similar your original patch, it just keeps all of the logic within
-> navi10_ppt.c which is cleaner in my opinion rather than pulling navi1x
-> specific logic into the core pm code.
-> 
-> Alex
+On Tue, Sep 15, 2026 at 3:23=E2=80=AFPM Bjorn Helgaas <helgaas@kernel.org> =
+wrote:
+>
+> >
+> On Fri, Jul 31, 2026 at 02:15:49PM -0700, Zhiping Zhang wrote:
+> > Add pcie_tph_enabled_req_type() so drivers can query the enabled TPH
+> > requester mode without reaching into pci_dev internals.
+> >
+> > Add pcie_tph_completer_type() so drivers that publish TPH metadata for a
+> > device acting as a completer can gate on the "TPH Completer Supported"
+> > field of Device Capabilities 2 (bits 13:12, PCI_EXP_DEVCAP2_TPH_COMP_MA=
+SK)
+> > rather than reusing requester-side state. It applies the same reserved-
+> > encoding fold as get_rp_completer_type(), inlined, so the reserved 0b10
+> > value never reaches callers.
+> >
+> > This keeps pci_dev::tph_req_type and the completer-capability decode
+> > inside the PCI/TPH code and provides !CONFIG_PCIE_TPH stubs for callers.
+> >
+> > Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+>
+> Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+>
+> > ---
+> >  drivers/pci/tph.c       | 44 +++++++++++++++++++++++++++++++++++++++++
+> >  include/linux/pci-tph.h |  8 ++++++++
+> >  2 files changed, 52 insertions(+)
+> >
+> > diff --git a/drivers/pci/tph.c b/drivers/pci/tph.c
+> > index 5cbb381e2a02..d0202ff7a1b2 100644
+> > --- a/drivers/pci/tph.c
+> > +++ b/drivers/pci/tph.c
+> > @@ -223,6 +223,50 @@ static u8 get_rp_completer_type(struct pci_dev *pd=
+ev)
+> >       return PCI_EXP_DEVCAP2_TPH_COMP_NONE;
+> >  }
+> >
+> > +/**
+> > + * pcie_tph_enabled_req_type - Return the device's enabled TPH request=
+er type
+> > + * @pdev: PCI device to query
+> > + *
+> > + * Return: PCI_TPH_REQ_DISABLE, PCI_TPH_REQ_TPH_ONLY or PCI_TPH_REQ_EX=
+T_TPH.
+> > + */
+> > +u8 pcie_tph_enabled_req_type(struct pci_dev *pdev)
+> > +{
+> > +     return pdev->tph_req_type;
+> > +}
+> > +EXPORT_SYMBOL(pcie_tph_enabled_req_type);
+> > +
+> > +/**
+> > + * pcie_tph_completer_type - Return the device's TPH Completer support
+> > + * @pdev: PCI device to query
+> > + *
+> > + * Reads the "TPH Completer Supported" field (bits 13:12) of Device
+>
+> s/Reads/Read/ to match other doc ("Return ... type" above, "Write tag" be=
+low)
+>
+> > + * Capabilities 2. The reserved 0b10 encoding is folded into
+> > + * "not supported" so callers only need to compare against the three
+> > + * defined values.
+>
+> s/The reserved 0b10 encoding is folded/Fold reserved 0b10 encoding/
+>
 
-I dont have problem with the code, the problem is that, this is not the
-solution to this problem, as i said in the previous, the solution lies
-in the DC not the SMU (i tested by removing dce_v10_0_early_init and adding
-that function to dce_v10_sw_init), it is also confirmed via the testing using
-Opencore Lecacy patcher, which makes the display 5K, and make the display not
-use compatibility mode (4K), and it also fixes the SMU problem.
+Thanks Bjorn for the ack. I'll incorporate both wording fixes in v14.
+The kernel-doc becomes:
 
-(https://gitlab.freedesktop.org/drm/amd/-/work_items/4455)
+/**
+ * pcie_tph_completer_type - Return the device's TPH Completer support
+ * @pdev: PCI device to query
+ *
+ * Read the "TPH Completer Supported" field (bits 13:12) of Device
+ * Capabilities 2. Fold reserved 0b10 encoding into "not supported" so
+ * callers only need to compare against the three defined values.
+ *
+ * Return: one of %PCI_EXP_DEVCAP2_TPH_COMP_NONE,
+ *         %PCI_EXP_DEVCAP2_TPH_COMP_TPH_ONLY or
+ *         %PCI_EXP_DEVCAP2_TPH_COMP_EXT_TPH.
+ */
 
-You can choose to upstream this, i dont necessarily have a problem with this
-patch as long as i am the patch author (eg using From: )
-
-Thanks
+  Thanks,
+  Zhiping
