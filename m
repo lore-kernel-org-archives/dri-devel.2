@@ -4,51 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 885F2C88E53
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 04:14:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 412A5C88E7F
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 04:17:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3BE810F2EE;
-	Tue, 15 Sep 2026 04:14:38 +0000 (UTC)
-X-Greylist: delayed 358 seconds by postgrey-1.36 at gabe;
- Tue, 15 Sep 2026 04:14:37 UTC
+	by gabe.freedesktop.org (Postfix) with ESMTP id D412410ECCA;
+	Tue, 15 Sep 2026 04:17:39 +0000 (UTC)
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 063E910F924
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 04:14:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11F8D10ECCA
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 04:17:37 +0000 (UTC)
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-01 (Coremail) with SMTP id qwCowAB3TvLExKhqehYICA--.49463S2;
- Tue, 15 Sep 2026 12:08:37 +0800 (CST)
+ by APP-01 (Coremail) with SMTP id qwCowAD3y+9kxahquy0ICA--.49844S2;
+ Tue, 15 Sep 2026 12:11:16 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
 To: dri-devel@lists.freedesktop.org
-Cc: farah.kassabri@intel.com, koby.elbaz@intel.com,
- konstantin.sinyuk@intel.com, linux-kernel@vger.kernel.org,
- ogabbay@kernel.org, lkml@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: [PATCH 1/4] accel/habanalabs: fix ctx refcount leak in hl_direct_io()
- on vzalloc failure
-Date: Tue, 15 Sep 2026 04:08:08 +0000
-Message-Id: <20260915040808.1724806-1-vulab@iscas.ac.cn>
+Cc: jeff.hugo@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+ ogabbay@kernel.org, tomeu@tomeuvizoso.net, lkml@vger.kernel.org,
+ Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
+Subject: [PATCH 2/4] accel/rocket: fix runtime PM refcount leak in
+ rocket_job_run()
+Date: Tue, 15 Sep 2026 04:10:47 +0000
+Message-Id: <20260915041047.1724928-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowAB3TvLExKhqehYICA--.49463S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zw4DWFyfAry3Zw18Jw4DXFb_yoW8Gw4DpF
- WDKFySyr9xG342ga4jvF1kuFyFkanxKry3GF129w45ur1rX34xZFy5u3Wqqrn8CrZ5C3Wq
- vF1kGryru3WUArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID: qwCowAD3y+9kxahquy0ICA--.49844S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ZF47tryUWr1UtrWDWF18Grg_yoW8Ar13pF
+ WSgFW7tr9Ig3yFgrWvvr4YqFyrK3savry8Wry8Xa45ZFs3Ga4rta1rtryaqF10yFZ7GF45
+ trnrKa13ZFyayFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUkC14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
  rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
- 6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
- 0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
- 6r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
- AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
- c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
- AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
- Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU1go2U
- UUUUU==
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+ JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+ AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
+ rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
+ v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8
+ JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUFOzVUU
+ UUU
 X-Originating-IP: [36.110.52.2]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwELA2qowpAKpgAAsy
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwMLA2qowpAK0wABsE
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,40 +61,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-hl_direct_io() takes a reference on the context through
-hl_dio_get_iopath() before allocating the bio vector.  If vzalloc()
-fails, the function returns -ENOMEM directly instead of going through
-the cleanup label, so the context reference taken by
-hl_dio_get_iopath() is never released by hl_dio_put_iopath() (and the
-inflight IO counter is left incremented).
+rocket_job_run() powers the NPU core up with pm_runtime_get_sync(),
+which increments the runtime PM usage counter even when it fails, and
+then returns the fence without dropping the reference on both the
+pm_runtime_get_sync() and the iommu_attach_group() failure paths.
 
-Jump to the cleanup label so the iopath reference is dropped and the
-counter balanced on the failure path too.
+At that point core->in_flight_job is still unset, so neither
+rocket_job_handle_irq() nor rocket_reset() will balance the counter
+later, and the core can never runtime suspend again.
 
-Fixes: 8cbacc9a2703 ("accel/habanalabs: add NVMe Direct I/O (HLDIO) infrastructure")
+Use pm_runtime_resume_and_get() instead, which does not bump the usage
+counter on failure, and drop the reference with
+pm_runtime_put_autosuspend() if iommu_attach_group() fails.
+
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/accel/habanalabs/common/hldio.c | 6 ++++--
+ drivers/accel/rocket/rocket_job.c | 6 ++++--
  1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/accel/habanalabs/common/hldio.c b/drivers/accel/habanalabs/common/hldio.c
-index c33c817a962a..0577dd8ec59d 100644
---- a/drivers/accel/habanalabs/common/hldio.c
-+++ b/drivers/accel/habanalabs/common/hldio.c
-@@ -248,8 +248,10 @@ static ssize_t hl_direct_io(struct hl_device *hdev, struct hl_direct_io *io)
- 	 * closest one.
- 	 */
- 	io->bv = vzalloc(npages * sizeof(struct bio_vec));
--	if (!io->bv)
--		return -ENOMEM;
-+	if (!io->bv) {
-+		rc = -ENOMEM;
-+		goto cleanup;
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index ac51bff39833..ce7acf728367 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -310,13 +310,15 @@ static struct dma_fence *rocket_job_run(struct drm_sched_job *sched_job)
+ 		dma_fence_put(job->done_fence);
+ 	job->done_fence = dma_fence_get(fence);
+ 
+-	ret = pm_runtime_get_sync(core->dev);
++	ret = pm_runtime_resume_and_get(core->dev);
+ 	if (ret < 0)
+ 		return fence;
+ 
+ 	ret = iommu_attach_group(job->domain->domain, core->iommu_group);
+-	if (ret < 0)
++	if (ret < 0) {
++		pm_runtime_put_autosuspend(core->dev);
+ 		return fence;
 +	}
  
- 	for (i = 0, device_va = io->device_va; i < npages ; ++i, device_va += PAGE_SIZE) {
- 		io->bv[i].bv_page = hl_dio_va2page(hdev, io->f.ctx, device_va);
+ 	scoped_guard(mutex, &core->job_lock) {
+ 		core->in_flight_job = job;
 -- 
 2.34.1
 
