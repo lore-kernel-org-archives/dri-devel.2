@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23BCAC88E7D
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 18:57:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29A7FC982C1
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 18:58:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2781A10E292;
-	Tue, 15 Sep 2026 18:57:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 127CD10EF26;
+	Tue, 15 Sep 2026 18:58:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f6t5Y1CO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HXIKGTPx";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08E0F10E28C;
- Tue, 15 Sep 2026 18:57:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6EBF10E884;
+ Tue, 15 Sep 2026 18:58:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E459A43616;
- Tue, 15 Sep 2026 18:57:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDD061F00893;
- Tue, 15 Sep 2026 18:57:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5D3E8418B0;
+ Tue, 15 Sep 2026 18:58:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9684D1F00893;
+ Tue, 15 Sep 2026 18:58:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789498624;
- bh=eSb0eDaEDYPgjzl7eRqRrnQQKmrtt8kbpYF42zOmOCs=;
+ s=k20260515; t=1789498681;
+ bh=IQbb0F7YkfTZArpY6cOHWblguSe1t6f3l8mHFxFtMb8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=f6t5Y1COxfIl4J6EVf2lsJatX0/Im9SN4hqKWRc5RdTz6nZDMg1B8XbYqP1Ehgg+M
- 9KoZhMONLCzTrKJfn+z9vq06QRYYkMXOQfceUz3/ZHl6W4eRCtVgzcE+W3sdlHyzaB
- MZ1ewG9vVM/NR5vZC59aOj+7OAzhRcktFU+4iUk5tDm//FxCMkTwXNfgvPUZr/F22i
- FvK9PrE6nysV4zlZn4ea+f5cB0PmR26QTVUUro9B5D8OZE7uWA+MV52jQ91QlphMRc
- pdZgNrm6qhUhQpnHkhTsU3zcxRFR0wHrOWwmgB61O8H9cDojQYFPivzW88AM6QpWNQ
- f3F/G0vNirOmA==
+ b=HXIKGTPx/a0eF303wbGwNj4E6iyNJS7cqkJcod3JHvQ829XAi4V2wpjy0b4/xWabi
+ +irBm/46EGTkAjnFlOeIPVEusqAPOR2z7MghW2sEuwLdINRQuzM8VvvpEUE2QPhHTR
+ Y9Xijey6F1tbDAHXOfCOck1KYUZlrPXvDCkB1C7NeqEtAfa1iW+oHl2LxJzgfXwAEM
+ LpsTc0s9qz9KcLlZn5pacnD+n61ZhgqS7ZMEpHhm2paB6XTqH5aTrY7BGLKPvtelP5
+ nl5i3IDQaivDnOkOwlyw+wr+NVNEDRgMOYqRE3YtVoPtxZPr5AXuJh8p0AZ7gP2/ct
+ qu8y/QXWe20tQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 14/18] drm/i915/alpm: Replace is_edp() with
- alpm_is_possible()
+Subject: Re: [PATCH v6 03/18] drm/i915/alpm: alpm_init() for DP2.1
 To: "Animesh Manna" <animesh.manna@intel.com>
 Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-In-Reply-To: <20260915180449.277933-15-animesh.manna@intel.com>
+In-Reply-To: <20260915180449.277933-4-animesh.manna@intel.com>
 References: <20260915180449.277933-1-animesh.manna@intel.com>
- <20260915180449.277933-15-animesh.manna@intel.com>
+ <20260915180449.277933-4-animesh.manna@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 18:57:02 +0000
-Message-Id: <20260915185703.DDD061F00893@smtp.kernel.org>
+Date: Tue, 15 Sep 2026 18:57:58 +0000
+Message-Id: <20260915185800.9684D1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,80 +58,48 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/i915/alpm: invalid DPCD capability checks in intel_alpm_is_pos=
-sible()
-- [High] drm/i915/alpm: ALPM_CTL left enabled on hot-unplug due to dynamic =
-capability checks
+- [Medium] drm/i915/alpm: hardware state leak on hot-unplug due to prematur=
+e capability reset
 --
 
-commit f95070b21da14e9f299aa7eaa97682597723ecc9
+commit b6800420511819216ede410fb998491c8d931411
 Author: Animesh Manna <animesh.manna@intel.com>
-Subject: drm/i915/alpm: Replace is_edp() with alpm_is_possible()
 
-This commit introduces a separate intel_alpm_is_possible() function to
-check for ALPM capability from DPCD information, replacing earlier checks
-that relied solely on the panel being eDP.
+drm/i915/alpm: alpm_init() for DP2.1
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/=
-i915/display/intel_alpm.c
-> index 06c1a59aa2c51..29a93a252fe9b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_alpm.c
-> +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+This commit initializes ALPM for DP2.1 and separates out ALPM mutex-init
+from alpm-init.
 
-[ ... ]
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> index 650c8b39270be..b4742bd33cb42 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -6354,6 +6354,7 @@ intel_dp_detect(struct drm_connector *_connector,
+>  		connector->dp.panel_replay_caps.su_support =3D false;
+>  		connector->dp.panel_replay_caps.dsc_support =3D
+>  			INTEL_DP_PANEL_REPLAY_DSC_NOT_SUPPORTED;
+> +		intel_dp->alpm_dpcd =3D 0;
 
-> @@ -69,6 +69,13 @@ void intel_alpm_init(struct intel_dp *intel_dp)
->  	mutex_init(&intel_dp->alpm.lock);
->  }
-> =20
-> +bool intel_alpm_is_possible(struct intel_dp *intel_dp)
-> +{
-> +	return (intel_dp->alpm_dpcd ||
-> +		intel_dp->lttpr_common_caps[DP_LTTPR_ALPM_CAPABILITIES -
-> +					    DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV]);
-> +}
+[Severity: Medium]
+Does clearing this capability flag during the detect callback cause a=20
+hardware state leak on hot-unplug?
 
-[Severity: High]
-Does this logic correctly enforce DP requirements for ALPM?
+When an active display is hot-unplugged, intel_dp_detect() runs and zeroes=
+=20
+intel_dp->alpm_dpcd here. However, userspace will subsequently issue an=20
+atomic commit to disable the CRTC.=20
 
-It looks like this uses a logical OR instead of requiring both the sink and
-LTTPR to support ALPM. Additionally, this seems to access the raw capability
-byte without masking the specific ALPM capability bit, which could mean
-reserved bits will be evaluated as true.=20
-
-Can this break standard DP link training invariants when connecting a displ=
-ay
-with LTTPRs that support ALPM while the sink does not, or when a sink has
-reserved bits set but no ALPM support?
-
-[ ... ]
-
-> @@ -832,7 +839,7 @@ void intel_alpm_lobf_disable(const struct intel_crtc_=
-state *new_crtc_state)
-> =20
->  		intel_dp =3D enc_to_intel_dp(encoder);
-> =20
-> -		if (!intel_dp_is_edp(intel_dp))
-> +		if (!intel_alpm_is_possible(intel_dp))
->  			continue;
-> =20
->  		mutex_lock(&intel_dp->alpm.lock);
-
-[Severity: High]
-Could this dynamic capability check cause ALPM_CTL to be left enabled during
-a hot-unplug event?
-
-During a hot-unplug event, the cached DPCD capabilities like alpm_dpcd can
-be cleared before the teardown hooks execute. Because this teardown function
-checks these dynamic capabilities via intel_alpm_is_possible() instead of
-the old hardware state, it might return early and fail to clear the ALPM_CTL
-hardware register.
-
-Would this leave the transcoder with ALPM enabled when it is supposed to be
-disabled, potentially causing state mismatches on subsequent modesets?
+During that disable sequence, intel_alpm_disable() in intel_alpm.c checks=20
+intel_dp->alpm_dpcd to see if it should proceed. Since the capability was=20
+already cleared, the check evaluates to false and the function exits early.=
+=20
+This skips the register cleanup, leaving the transcoder's ALPM_CTL hardware=
+=20
+registers enabled.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915180449.2779=
-33-1-animesh.manna@intel.com?part=3D14
+33-1-animesh.manna@intel.com?part=3D3
