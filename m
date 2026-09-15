@@ -4,56 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AB6FC88E53
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 14:31:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7806C88E7F
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 14:33:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9BB810E1D1;
-	Tue, 15 Sep 2026 14:31:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 406BE10E3F9;
+	Tue, 15 Sep 2026 14:33:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="IsESMY0A";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EWlxHE6o";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="btmHeH63";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5F6210E1D1;
- Tue, 15 Sep 2026 14:31:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Subject:Cc:To:From:Date:From:Reply-To;
- bh=jDxGL39hdq4oIWIAk8fQr6RLwjroKa4P0qb6KCe/vUY=; b=IsESMY0AJjQW8M+HWqf/PpS00z
- LwvbqyIKgPfgwrd9pznhKUNE8i55KvPwS/WVxhsKLCjWB5WvW/cQDzHZim/TPIqREskxfJdvkv+Et
- tXj9JIgg4wFVkl8afmb2luONnSrydqJ5BatrjDu8mZiwNdO7ETPpJPb4nRLgr+l/SjkPZPMAMJblh
- 4qAXh2WYLFcnOQAYBu5Tas2nkMa1v2Kdc2GfVtKdhrdzZhxxoLcwsrMFhMBuxv70H0XfLLzWp0ES2
- EXJOur/J77fFVRhXiTLu31HCZZSpppvEVHRdXh+ZXEyctHVrduhRBrqxoZtbjp8oPM+567sLmGmTt
- wLJOUV/w==;
-Received: from 179-125-70-185-dinamico.pombonet.net.br ([179.125.70.185]
- helo=quatroqueijos.cascardo.eti.br)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x6UCO-002UDb-86; Tue, 15 Sep 2026 16:31:52 +0200
-Date: Tue, 15 Sep 2026 11:31:45 -0300
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: igt-dev@lists.freedesktop.org, siqueira@igalia.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org,
- Christian Koenig <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>,
- Natalie Vock <natalie.vock@gmx.de>, kernel-dev@igalia.com
-Subject: Re: [PATCH i-g-t v6 8/9] tests/cgroup_dmem: add dmem cgroup eviction
- test
-Message-ID: <aqlW0Sk_OUS4s3SH@quatroqueijos.cascardo.eti.br>
-References: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
- <20260903-dmem_max-v6-8-61dc62970fae@igalia.com>
- <715172ab-e2c1-495b-a1a1-d95ef2563ee6@igalia.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 296DF10E3F9
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 14:33:30 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68FD0Yqp3756847
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 14:33:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=If8WzIzCj6FHW4yPt0p5a8Pe
+ wiklLs1ePVK8V2FeYF4=; b=EWlxHE6oZza4mxhEoziyf2ukQBFOoCLk7PWGfJ2+
+ vLrYo8D1Z/lPwqjw4tVyBGdi5xj5GXgqv3mjPzU+GwmA74N5RSf3WnzkQPmtPOLs
+ Afwks/PWGEibT/Gs9HE85NOI5XtPnUGJhFQXJwqiC/0R+v3imDlUpP29+RhsKl4N
+ L/+jeqQ3OtCpsx+9Y/8ljqqMQEzXJNYwIMCGNf+j28o1QJZYEmp0am/j1/JHDZk/
+ GEXclQ9utwXbr+BBpft+znME2At7txu5DLKE+laUWF2RpH+RymlcFsZUYJLdWPUv
+ 2F62taLANFIIJWdbg1eZcpiNfoU+4bfM6Jtf/qFMvADUpw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq38e1d5r-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 14:33:28 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-381250979d5so5170764a91.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 07:33:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1789482807; x=1790087607;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=If8WzIzCj6FHW4yPt0p5a8PewiklLs1ePVK8V2FeYF4=;
+ b=btmHeH63zZ+e4dYTB3SkIZvNaBGWeOEoJ+FF4Ig68mX3X2wCPKpXJdixJaFbGqQJg/
+ b8U+JxIUjHON4Y/2uAfjLLmzXhZfIuw110UgwceWl2YR9LgSZCSEO7ZFfA5PGszdBjV1
+ WAymvSHQ/Ow3Fer+sEJlPhNV04pDDPDeD2UrxCWSBKffU9OLRhlOo3wcJMJf7FoGd00m
+ +wDWeaCaQ67dPgUm29lG0Anvm9qsFfbR4JefxCP9leOlGgZeIAsIfd+VZxnijcxQe8gb
+ B6swZSo0xK+1IdEePzPddSLgS7JF5dLsOwHvEWoyn1vsUnI1higw6I3Q9xF5lATuZe42
+ y/lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789482807; x=1790087607;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=If8WzIzCj6FHW4yPt0p5a8PewiklLs1ePVK8V2FeYF4=;
+ b=idoMX4obuLnqhztipeDScAywPkNSx+b5QRmNrgz3zAg4v+d5RjX6+CXoa76T7vKnPU
+ A12WgcZ/ZJOzL0noMItFfRbHSkixUlMMC83qVcr7nL4g70QkYKJNdhEZRa7unEfa99bl
+ 6N6QVr7Y3sUy2YOEqGiTurtW7lg5xkCq77zgY37z6uj7GWKNVRNO9oEnPg2yXCAmFwGF
+ LQmGwFFlYp98GbwOoPZ5LulkfdU+9Webypr8iOWA1qT3L+94/nTDyanhjVoqINg7Ibhe
+ ZmWZJmbqbLI8yoSF4/PEF6J9NNRczwo+DT7gGwGVFYHpEvgh5bllnxQhvFHSwYdnKTp3
+ 5Hxg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzid30UdeEWYgXfCzVSAsl04iNuN10+U9HS8J02FOksoF5Ba5JjamZzBTkf4n8mgLrzVIG4W7L+w64=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mt4mPZAi3XkpH986zXUAW30O6y5u9qGOZrS1ckvkB18sM8zo64
+ IfEz0cenvTOpcV7m4dXNmcro87F+ZCVbVk5vHKeoZ2PlKr20lAWQYuCwH0sNBWSH6wnny8ilLXX
+ ettX4UnrVRn5icx92ejFgut6BBE535pSsFMiABU0Ee9ZhcgwD4Yc3MjdbReF30swsZRhv44w=
+X-Gm-Gg: AYBFou1FICA8WRMfNaSh/JNpuWHigYRJ7ojY9efqANWECpTMTRErb86+UgWdX0SulXv
+ 9EjKKWYPnzUzxiIqHYsc3LNECfeQRMy7dakhhTRIeVfSaepSycHrHl+GuAYa+Cp7vupxK0f/run
+ z81HUfnyz/I8VVAr1Wzxhxr2Bja7FiDiNnce6y76p+OpSjsSVHDokqRU5tn4E6hGLNGXtneUsP8
+ 4N03D0OQlz8fi2ktegMBMb3jpRJAM6W84m3+ghaO845dlQXssGwRuh7x+SL/SBh4IupO4BUajkC
+ kD0ljehR9/7XNKZkeFNHMQ2sglmcLpw1ASIBt/JvvI0tfnjFM3riW1Z7ebI4Cn9CivTW+h1vl1/
+ pQow332Pmrh4CS/M2x7d5r3AtBA==
+X-Received: by 2002:a17:90b:1811:b0:39d:8794:5564 with SMTP id
+ 98e67ed59e1d1-39e10fbaf78mr2137386a91.12.1789482807462; 
+ Tue, 15 Sep 2026 07:33:27 -0700 (PDT)
+X-Received: by 2002:a17:90b:1811:b0:39d:8794:5564 with SMTP id
+ 98e67ed59e1d1-39e10fbaf78mr2137316a91.12.1789482806918; 
+ Tue, 15 Sep 2026 07:33:26 -0700 (PDT)
+Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39dfdb3045bsm6690697a91.17.2026.09.15.07.33.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Sep 2026 07:33:26 -0700 (PDT)
+Date: Tue, 15 Sep 2026 20:03:16 +0530
+From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Sunyun Yang <syyang@lontium.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v15 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
+ to HDMI driver
+Message-ID: <aqlXLJt5GGbRg8xk@hu-mdsor-hyd.qualcomm.com>
+References: <20260915-lt9611c-v7-v15-0-88f9e9387eab@oss.qualcomm.com>
+ <20260915-lt9611c-v7-v15-2-88f9e9387eab@oss.qualcomm.com>
+ <DLFWR377PSNH.3253TRHVTTGMQ@bootlin.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <715172ab-e2c1-495b-a1a1-d95ef2563ee6@igalia.com>
+In-Reply-To: <DLFWR377PSNH.3253TRHVTTGMQ@bootlin.com>
+X-Proofpoint-GUID: buXFGWXQQnymtdzSvag4A1xKfI009Ysq
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDIxMSBTYWx0ZWRfX2rEasu9ssRyx
+ 1shSutujwZo1Pd2udu0lz4RpDvGJtQk4xWetUUWwLgjPmMdqXEqS99CDdVRAnn6axN+3vtDxC+O
+ VZTISMHSYkmKX3JMo9/84FRkDq2Kwd0=
+X-Proofpoint-ORIG-GUID: buXFGWXQQnymtdzSvag4A1xKfI009Ysq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDIxMSBTYWx0ZWRfX6RsSwq+Oye7i
+ DaQdecxFwklaSYw3UnkXTgRQybzt6KzhAUm2vsXXtHRNLrV3yll3kRcojs6N6cJ7nkYGnyHBy1L
+ prdzJQpg7YpUWhnsqLWupknDlLYA9uWC61LIBSMgs5spfYCBN3VyQmmXZkajZ0onTLCg4H4ZxhQ
+ Y9NjIlvo6l/QbcMSzMVokF2JiiwC9F+4JeBxeUbWckIz75F6P33bmjJdtB0/X/DEqTobIJy2XGH
+ ExgTFLVMUfnXIEcw+oNxlGrgeKH6QpCZyJ62qlG204FQiBxAgXFtAhumb2Y/AWkLRW/Ovkktytj
+ Nga6ZcaWwS07//kOIG1SkhAZF1AMc/uN+IrgBl/j3VagbqiMcZFBuEiULG7p9lyKzTbvPKtSRfO
+ bG62qz5kWDCftDtd71TtEJMfKZ9l8cwo930fh6Hu8FCdgaU8fKic8LJb6gpCqVsKCdtDs2pCpv9
+ nPlwnXm0jxKB2kbGaPA==
+X-Authority-Analysis: v=2.4 cv=BswIUoX5 c=1 sm=1 tr=0 ts=6aa95738 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=P-IC7800AAAA:8 a=Kz8-B0t5AAAA:8 a=EUspDBNiAAAA:8 a=Tr7HC1OQeac_aXw3zzUA:9
+ a=CjuIK1q_8ugA:10 a=uKXjsCUrEbL0IQVhDsJ9:22 a=d3PnA9EDa4IxuAV0gXij:22
+ a=RuZk68QooNbwfxovefhk:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_04,2026-09-14_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 malwarescore=0 clxscore=1015 spamscore=0
+ impostorscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150211
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,249 +155,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Sep 04, 2026 at 03:48:46PM +0100, Tvrtko Ursulin wrote:
+On Tue, Sep 15, 2026 at 03:01:14PM +0200, Luca Ceresoli wrote:
+> Hello Mohit,
 > 
-> On 03/09/2026 23:00, Thadeu Lima de Souza Cascardo wrote:
-> > From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> > 
-> > The write_eviction subtest:
-> >   - Creates a sub-cgroup and moves the test process into it.
-> >   - Sets a dmem.max limit on the first VRAM region (up to 4 GiB, or
-> >     the full capacity if smaller).
-> > - Fills VRAM by repeatedly creating BOs placed in VRAM, depending on card
-> >    support.
-> >   - Verifies that cgroup current usage is within the expected range when
-> >     the limit is hit.
-> >   - Lowers dmem.max in 128 MiB steps, waiting for usage to follow each
-> >     reduction.
-> > 
-> > The write_eviction_interruptible subtest runs the same test with
-> > SIGCONT signals injected via igt_fork_signal_helper() and reports the
-> > number of signals received.  When a signal interrupts kernel-side
-> > eviction, a small BO allocation is used to re-trigger it.
-> > 
-> > Assisted-by: GitHub Copilot:claude-sonnet-4.6
-> > Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> > Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-> > ---
-> >   tests/cgroup_dmem.c | 149 ++++++++++++++++++++++++++++++++++++++++++++++++++++
-> >   1 file changed, 149 insertions(+)
-> > 
-> > diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
-> > index ba5e6a2e3deb..0d3b415acd54 100644
-> > --- a/tests/cgroup_dmem.c
-> > +++ b/tests/cgroup_dmem.c
-> > @@ -36,9 +36,12 @@
-> >   #define BO_SIZE			SZ_64M
-> >   #define MAX_LIMIT		((uint64_t)4 * SZ_1G)
-> > +#define EVICT_STEP		SZ_128M
-> >   #define USAGE_POLL_MS		10
-> >   #define USAGE_DROP_TIMEOUT_MS	1000
-> > +#define TEST_INTERRUPTIBLE	(1 << 0)
-> > +
-> >   /**
-> >    * SUBTEST: simple
-> >    * DESCRIPTION:
-> > @@ -61,6 +64,62 @@
-> >    * REQUIREMENTS: xe or amdgpu device with at least one VRAM region
-> >    */
-> > +/**
-> > + * SUBTEST: write_eviction
-> > + * DESCRIPTION:
-> > + *   Create a dmem cgroup, move the current process into it and set the max
-> > + *   device memory limit for the first VRAM region to 4 GiB.  Then fill VRAM
-> > + *   by creating BOs with %DRM_XE_GEM_CREATE_FLAG_DEFER_BACKING (so that the
-> > + *   physical allocation is deferred until VM_BIND) and binding them into an
-> > + *   LR VM until the cgroup limit is hit.  Verify that the reported cgroup
-> > + *   current usage is within the expected range when the error occurs.
-> > + *   Finally lower the max limit in 256 MiB steps and verify that the cgroup
-> > + *   usage follows.
-> > + * REQUIREMENTS: must run as root; xe device with at least one VRAM region
+> On Tue Sep 15, 2026 at 2:33 PM CEST, mohit.dsor wrote:
+> > From: Sunyun Yang <syyang@lontium.com>
+> >
+> > LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
+> > mipi dsi and output hdmi, differences in hardware features:
+> >
+> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > 
-> It feels that adding an explicit igt_require(DRIVER_XE) to the test would be
-> a good move.
-> 
-
-Ah, the REQUIREMENTS are the same for the current test, so this is outdated
-and amdgpu is another acceptable driver/device too.
-
-> > + */
-> > +
-> > +/**
-> > + * SUBTEST: write_eviction_interruptible
-> > + * DESCRIPTION:
-> > + *   Same as write_eviction but with SIGCONT signals injected throughout via
-> > + *   igt_fork_signal_helper() to verify that the dmem.max write path handles
-> > + *   signal interruption correctly.  A signal handler counts received signals
-> > + *   and the count is reported as debug output at the end of the test.
-> > + *   A signal interrupts the set-time eviction, and further eviction can be
-> > + *   triggered by an explicit allocation.
-> > + * REQUIREMENTS: must run as root; xe device with at least one VRAM region
-> > + */
-> > +
-> > +static atomic_int signal_count;
-> > +static struct sigaction sigcont_oldact;
-> > +
-> > +static void sigcont_handler(int sig)
-> > +{
-> > +	atomic_fetch_add(&signal_count, 1);
-> > +
-> > +	/* Chain to the previous handler (IGT's dummy sig_handler) */
-> > +	if (sigcont_oldact.sa_handler &&
-> > +	    sigcont_oldact.sa_handler != SIG_IGN &&
-> > +	    sigcont_oldact.sa_handler != SIG_DFL)
-> > +		sigcont_oldact.sa_handler(sig);
-> > +}
-> > +
-> > +static void install_sigcont_counter(void)
-> > +{
-> > +	struct sigaction sa;
-> > +
-> > +	atomic_store(&signal_count, 0);
-> > +	igt_fork_signal_helper();
-> > +	/*
-> > +	 * Install the counter after igt_fork_signal_helper() so our handler
-> > +	 * is not overwritten.  Save the old handler so we can chain to it.
-> > +	 */
-> > +	memset(&sa, 0, sizeof(sa));
-> > +	sa.sa_handler = sigcont_handler;
-> > +	sigemptyset(&sa.sa_mask);
-> > +	sigaction(SIGCONT, &sa, &sigcont_oldact);
-> > +}
-> > +
-> >   static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const char *region,
-> >   				    uint64_t limit)
-> >   {
-> > @@ -213,12 +272,102 @@ static void test_current(int fd, char *cg_region, unsigned int flags, const stru
-> >   	igt_cgroup_free(cg);
-> >   }
-> > +static void test_write_eviction(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx)
-> > +{
-> > +	struct igt_cgroup *cg;
-> > +	void **handles;
-> > +	int max_bo;
-> > +	uint64_t current, capacity, cg_max, limit, after;
-> > +	int err;
-> > +
-> > +	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
-> > +	igt_require_f(capacity >= 4 * BO_SIZE,
-> > +		      "VRAM capacity (%"PRIu64" MiB) too small to test\n",
-> > +		      capacity / SZ_1M);
-> > +
-> > +	/*
-> > +	 * Use up to 4 GiB, or the full capacity if the device has less.
-> > +	 * Leave one BO_SIZE worth of headroom so the device isn't completely
-> > +	 * exhausted before the cgroup limit is hit.
-> > +	 */
-> > +	cg_max = min(MAX_LIMIT, capacity - BO_SIZE);
-> > +	cg_max = ALIGN_DOWN(cg_max, EVICT_STEP);
-> > +
-> > +	if (flags & TEST_INTERRUPTIBLE)
-> > +		install_sigcont_counter();
-> 
-> I stumbled upon IGT docs recommending igt_while_interruptible as a gentler
-> alternative. Would that still work here and be simpler?
-> 
-
-I will look into it.
-
-Thomas, any comment about this?
-
-> > +
-> > +	/* Create cgroup and move into it */
-> > +	cg = igt_cgroup_new("igt_cgroups_test");
-> > +	igt_cgroup_move_current(cg);
-> > +	igt_cgroup_dmem_set_max(cg, cg_region, cg_max, false);
-> > +
-> > +	max_bo = (cg_max / BO_SIZE) + 8; /* headroom for overcommit */
-> > +
-> > +	handles = calloc(max_bo, sizeof(handles[0]));
-> > +	igt_assert_f(handles, "failed to allocate handles array");
-> > +
-> > +	allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
-> > +
-> > +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-> > +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-> > +		  "max = %"PRIu64" MiB\n",
-> > +		  current / SZ_1M, cg_max / SZ_1M);
-> > +
-> > +	igt_assert_f(current <= cg_max,
-> > +		     "Usage %"PRIu64" MiB exceeds max %"PRIu64" MiB + slack\n",
-> > +		     current / SZ_1M, cg_max / SZ_1M);
-> > +
-> > +	/* Phase 2: lower max in 256 MiB steps, verify usage follows */
-> > +	limit = cg_max;
-> > +	while (limit >= EVICT_STEP) {
-> > +
-> > +		limit -= EVICT_STEP;
-> > +		igt_cgroup_dmem_set_max(cg, cg_region, limit, false);
-> > +
-> > +		igt_cgroup_dmem_get_current(cg, cg_region, &after);
-> > +		igt_debug("Lowered max to %"PRIu64" MiB: usage = %"PRIu64" MiB\n",
-> > +			  limit / SZ_1M, after / SZ_1M);
-> > +
-> > +		if (limit > EVICT_STEP) {
-> > +			if ((flags & TEST_INTERRUPTIBLE) && after > limit) {
-> > +				/* Let a new bo creation trigger eviction. */
-> > +				void *handle;
-> > +				err = drv->allocate_vram(ctx, BO_SIZE / 8, &handle);
-> > +				igt_assert_f(err == 0,
-> > +					"Error trying to allocate more VRAM to trigger eviction.");
-> > +				drv->free_vram(ctx, handle);
-> > +
-> > +				igt_cgroup_dmem_get_current(cg, cg_region, &after);
-> > +				igt_debug("Forced eviction max is %"PRIu64
-> > +					  " MiB: usage = %"PRIu64" MiB\n",
-> > +					  limit / SZ_1M, after / SZ_1M);
-> > +			}
-> > +
-> > +			igt_assert_f(after <= limit,
-> > +				     "Usage %"PRIu64" MiB did not follow max %"PRIu64" MiB\n",
-> > +				     after / SZ_1M, limit / SZ_1M);
-> 
-> I was quite confused by what is the interrupt by signal business about. My
-> best guess is the point is not to interrupt the write to the sysfs on the
-> superficial level, but to interrupt the actual eviction process which
-> happens during the write? Is that a cgroup requirement that the new limit
-> has to become effective (or attempted at least) during the write itself? And
-> once interrupted it will not re-try it until new "activity" in the dmem
-> cgroup happens (the dummy allocation above)?
-> 
-
-The NONBLOCK write will trigger eviction and can be interrupted. Then, when
-we try to allocate again, it will trigger such eviction and dmem.max should
-be respected.
-
+> You are carrying this Reviewed-by Dmitry since v11, but the patch has
+> changed a lot since then. You should drop that R-by line, unless you got an
+> explicit consent to keeping it for specific agreed changes.
+Ok I will drop it and send next version. Can you please review it.
 Thanks.
-Cascardo.
 
-> Regards,
+> Luca
 > 
-> Tvrtko
-> 
-> > +		}
-> > +	}
-> > +
-> > +	if (flags & TEST_INTERRUPTIBLE) {
-> > +		igt_stop_signal_helper();
-> > +		igt_info("Signals received during test: %d\n",
-> > +			 atomic_load(&signal_count));
-> > +	}
-> > +
-> > +	/* Cleanup */
-> > +	igt_cgroup_dmem_set_max(cg, cg_region, IGT_CGROUP_DMEM_MAX, false);
-> > +	igt_cgroup_free(cg);
-> > +}
-> > +
-> >   static const struct {
-> >   	const char *name;
-> >   	void (*test_fn)(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx);
-> >   	unsigned int flags;
-> >   } subtests[] = {
-> >   	{ "current", test_current, 0 },
-> > +	{ "write_eviction", test_write_eviction, 0 },
-> > +	{ "write_eviction_interruptible", test_write_eviction, TEST_INTERRUPTIBLE },
-> >   	{ }
-> >   };
-> > 
-> 
+> --
+> Luca Ceresoli, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
