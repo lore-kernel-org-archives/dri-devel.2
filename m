@@ -4,62 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DBF1C88E53
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 14:17:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1507EC88E53
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 14:22:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03DB710E040;
-	Tue, 15 Sep 2026 14:17:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7642810E182;
+	Tue, 15 Sep 2026 14:22:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="ZdWWWKWA";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="J/EKm1ot";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A29610E040;
- Tue, 15 Sep 2026 14:17:22 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A61910E182
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 14:22:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1789482131;
+ bh=JcYucMj7YIbG7YaZWu+7otPfMtUjjyXpiltn2C04Tx0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=J/EKm1otMfFKpLh1PMEA5saa7JQdSg4AJVshyxdLAEnaGKCexNlkLev4zNTxsg8Sb
+ JPwQWgSRB41i2QlSjocGmOuLYbG3D4Ii0QeNP9g3bk0MpyHRHUoHlP8orPF2g35Nsj
+ gfCsz8XV3vEZrmklDGVJR2fRf32OWFCFZPcQZnCQkWVkSKGOp7DRGUzzG7AnpbW+dZ
+ D3KvumOsoVAH1lbqKLeTbZLvrMV9u23RY0yA4z6H/n8Y9yuCSNvwQFSXUrs4OXmU09
+ hRpdmORwQMFPhDENDw33JvIOiXCNqNyFDnqaiNq2rYl527WkycAv5bk2nJGLoSOrvT
+ b3ugaKI7D85tA==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hkkcH3C1VzKmJ9;
- Tue, 15 Sep 2026 16:17:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1789481839; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=qoUybKolGpMVSrpKPnSxjyM3WuM7fg6PJ5WlGQw4DUk=;
- b=ZdWWWKWAwwVvTwg3DG9y6HRFrPQvVvFCflhZlxEBY3eZcoJ9HlEgt0YwmRkVUknQf4/TxT
- ifYLmn5xLUaPa+x1w7S/o8FJieMJX9IR2f1QFJWJajOumis6bnKHM+wzANxWZkzFF5brkg
- kBxSKSl88p/kDmKZqsUAuEZJFkq93Dhk8GrsM+ZUBoj0u6rscuNXf0jq3xv6p7HAcMUQ/3
- RNr93oJzqr1v8oGRbTtGMlC0Hp0jinJIHbYVvo0AoARIvGL8GW7pDzmOEUU6OeUTDe2f+T
- Veb8rw3ztsxW6QiyP70YlScK+UYDGQnW5qi3nIIOmsvCk+QQkjLq27yMpWyjvA==
-Message-ID: <aa8db13d6133855cee5a76cb8b77b05c3eec9807.camel@mailbox.org>
-Subject: Re: [PATCH] drm/sched: Do not restore unsaved virtual runtime
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Luke.Wildhardt@proton.me, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
- <dakr@kernel.org>, Pierre-Eric Pelloux-Prayer
- <pierre-eric.pelloux-prayer@amd.com>, Matthew Brost
- <matthew.brost@intel.com>, Vitaly Prosyak	 <vitaly.prosyak@amd.com>,
- stable@vger.kernel.org, Michel Daenzer	 <mdaenzer@redhat.com>
-Date: Tue, 15 Sep 2026 16:17:11 +0200
-In-Reply-To: <0766f89f-380f-49ef-a55b-dda1d3bedeac@igalia.com>
-References: <20260907130527.52530-1-tvrtko.ursulin@igalia.com>
- <ad1382b98d5c6cb258658e8e85156a0ccd8dd7cf.camel@mailbox.org>
- <35456574-5fc6-4270-85f9-940201998116@igalia.com>
- <2958b5de0ab4ee1c46e2068eeb7448d6e2072ee6.camel@mailbox.org>
- <acfea48c-dd63-4352-917e-a97a10a8b810@igalia.com>
- <28a236dcae3e2cac75b4f5afc091136db04134e7.camel@mailbox.org>
- <0766f89f-380f-49ef-a55b-dda1d3bedeac@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4hkkjl53dyz4wV0;
+ Wed, 16 Sep 2026 00:22:03 +1000 (AEST)
+Message-ID: <db61e755-73ce-4dd8-94fc-e7287db963d3@ozlabs.org>
+Date: Tue, 15 Sep 2026 15:22:16 +0100
 MIME-Version: 1.0
-X-MBO-RS-META: p43c91dk7ogw8pydrfzy6i1m848dauj1
-X-MBO-RS-ID: 3d384f5940539f8fe9c
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 9/9] vfio/pci: Permanently revoke a DMABUF on request
+Content-Language: en-GB
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Leon Romanovsky <leon@kernel.org>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, Alex Williamson <alex@shazbot.org>,
+ Alex Mastro <amastro@fb.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>, Longfang Liu
+ <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260911214200.33793-1-matt@ozlabs.org>
+ <20260911214200.33793-10-matt@ozlabs.org> <20260913165244.GW13683@unreal>
+ <20260914113647.GL3968357@nvidia.com> <20260914115456.GY13683@unreal>
+ <f21c409d-5675-4c87-8b16-850bcb9474df@ozlabs.org>
+ <20260915072002.GD13683@unreal>
+ <cebfef6a-88c6-4753-a0a4-87445a72f885@amd.com>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <cebfef6a-88c6-4753-a0a4-87445a72f885@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,70 +73,114 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-09-14 at 13:31 +0100, Tvrtko Ursulin wrote:
-> On 14/09/2026 10:37, Philipp Stanner wrote:
+Hi Christian,
 
-[=E2=80=A6]
+On 15/09/2026 12:13, Christian König wrote:
+> On 9/15/26 09:20, Leon Romanovsky wrote:
+>> On Mon, Sep 14, 2026 at 01:13:36PM +0100, Matt Evans wrote:
+>>> Hi Leon,
+>>>
+>>> On 14/09/2026 12:54, Leon Romanovsky wrote:
+>>>> On Mon, Sep 14, 2026 at 08:36:47AM -0300, Jason Gunthorpe wrote:
+>>>>> On Sun, Sep 13, 2026 at 07:52:44PM +0300, Leon Romanovsky wrote:
+>>>>>> On Fri, Sep 11, 2026 at 10:41:57PM +0100, Matt Evans wrote:
+>>>>>>> Expand the VFIO DMABUF revocation state to three states:
+>>>>>>> Not revoked, temporarily revoked, and permanently revoked.
+>>>>>>
+>>>>>> The thing is that "temporarily revoked" is actually the standard
+>>>>>> invalidate_mappings/move_notify mechanism of DMABUF, which wasn't good
+>>>>>> for VFIO.
+>>>>>
+>>>>> I think temporarily revokes here means it is revoked from a dmabuf
+>>>>> perspective
+>>>>
+>>>> My guess is that this is more of a "change owner" operation than a
+>>>> revoke operation.
+>>>>
+>>>> The main issue here is that we have to guess the semantics instead of
+>>>> having a properly named and documented operation.
+>>>
+>>> Apologies if the cover letter for the series and patch commit message (which
+>>> cover this) are unclear about the motivations and semantics.  On the commit
+>>> message, can you suggest clarifications:
+>>>
+>>> "This is useful for lifecycle management, to reclaim VFIO PCI BAR
+>>> ranges previously delegated to a subordinate client process: by
+>>> revoking, the driver process can ensure that the loaned resources are
+>>> made inaccessible when the client is deemed "done".  The original
+>>> DMABUF is defunct, and BAR resources can then be safely re-exported
+>>> for use by new clients."
+>>>
+>>> Given what I'll explain below, do give suggestions please.  There is more
+>>> context in the cover letter (the volume of which I didn't think appropriate
+>>> for the commit message).
+>>
+>> 1. Do not mix "driver" and "client" in the same description. For a
+>> non-native English speaker, "driver" has a very specific meaning in the
+>> context of the Linux kernel.
+> 
+> In the context of DMA-buf it has also proven vital to clearly use the terms importer and exporter to describe the different roles a driver can have.
+> 
+> I can't count how often there was confusion because people (me included) just used "driver" and it wasn't clear which role was meant.
 
-> > I took another look and I think my only issue is basically just that
-> > the patch addresses something which we should have done regardless of
-> > the bug at hands. So I'd be already happy if the commit just had a
-> > different title and slightly extended commit message, like:
-> >=20
-> > "drm/sched: Fix vruntime race by extending locking"
-> >=20
-> > plus sth like
-> >=20
-> > "this simultaneously serves as a preparational step to replace the
-> > spsc_queue as a whole".
->=20
-> As I think it is fine as is I would prefer not to spend time on a respin=
-=20
-> unless you insist.
+:)  I see where the quote can be clearer.  FWIW the "driver process" was
+referring to a userspace driver (which is a legitimate use of the D-word
+with VFIO, but still).  I'll clarify that, and will indicate this
+mechanism is used by userspace to influence the VFIO _exporter_ behaviour.
 
-As I see it every patch that fixes something by moving or adding a lock
-solves a race condition. So we should call the child by the name. By
-calling it that we also publicly agree on our desire to extend locking
-and document in the log that drm_sched is moving towards that goal.
+>> 2. Explain the lifecycle in the commit message, and why "revoke", which
+>> is effectively what the importer does, is not sufficient.
+>>
+>> 3. The more you put in the cover letter, the less likely people are to
+>> read it.
+>>
+>> 4. Commit messages should describe the patches themselves, since they
+>> are what remains visible in the git log, unlike the cover letter.
+>>
+>> 5. I would call what you describe as "temporarily revoke" is actually "reclaim".
+> 
+> +1
 
-If the effort bothers you too much, I could also apply it and thereby
-rephrase a bit.
+I don't follow here, sorry.  Would you please elaborate?
 
-We can then request backmerge into misc-next and base the followup-
-cleanups on it.
+Currently VFIO uses the priv->revoked flag to track whether
+it-the-exporter had previously done dma_buf_invalidate_mappings() on a
+buffer and is now causing all .attach requests to fail.  Do you mean
+that (even without this series) you want to call that concept
+priv->reclaimed instead?
 
->=20
-> > > > Is there a plan btw as to how you would like to proceed with CFS?
-> > >=20
-> > > So for me the most typical and useful plan, and in the context of the
-> > > desired spsc removal, is:
-> > >=20
-> > > =C2=A0=C2=A0 - Merge this fix so it gets into 7.2
-> > > =C2=A0=C2=A0 - Spsc removal RFC for some upcoming release N.
-> > > =C2=A0=C2=A0 - Remove experimental status from fair policy for kernel=
- release >=3D N.
-> > > =C2=A0=C2=A0 - Switch fair to default at >=3D N+1.
-> >=20
-> > Couldn't it be enabled first for dedicated users? AFAIK it was
-> > developed with Steam's gaming platforms in mind. Can their OS devs be
-> > asked to switch it on or test it downstream?
->=20
-> It wasn't quite developed for single game use cases, but with the wider=
-=20
-> goal of improving the code base and DRM landscape in general.
->=20
-> Also, I think it could give us false confidence since the matrix of=20
-> hardware + kernel setups is quite small. Even this bug wasn't caught on=
-=20
-> an official platform, neither could I repro it on a Steam Deck. So I=20
-> would say a release or two after it is set as default is quite safe=20
-> since it can be easily reverted with a one line change.
+Or do you mean that you don't like the words "temporary"/"permanent" and
+are looking for another name for a temporarily unavailable buffer?  (If
+so, I find "not revoked", "reclaimed", "revoked" much less clear than
+not/temp/perm revoked, as such names give no hint as to what to expect.
+But I may have misunderstood what you're getting at.)
 
-OK.
+From the importer side, there is no change from this patch: they might
+observe an invalidate_mappings() and find attach() of a given buffer now
+fails, same as before this patch.  This is only about guaranteeing the
+impossibility of an importer ever being able to re-attach in future.
 
 
-P.
+Thanks,
+
+
+Matt
+
+
+PS:  A hypothetical alternative way of doing what this patch is doing is
+instead to have:
+
+ - existing priv->revoked
+ - new 	    priv->revoked_flag_is_immutable
+
+Then, the ioctl triggers an invalidate_mappings() for a targeted DMABUF,
+sets revoked = true, and revoked_flag_is_immutable = true.  The new flag
+prevents a future vfio_pci_dma_buf_move(false) from clearing revoked.
+For example, a reset doing `move(true); reset; move(false);` can make
+all DMABUFs available to attach again, except for those marked
+immutably-revoked.  (That is equivalent to this new "permanent" state.)
+
+
