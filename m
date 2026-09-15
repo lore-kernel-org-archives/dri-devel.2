@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C86EC88E7B
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 10:58:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD470C88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 10:58:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7884710F40C;
-	Tue, 15 Sep 2026 10:58:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57E4510F411;
+	Tue, 15 Sep 2026 10:58:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="cz92qA6f";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="WxtgckeJ";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68DE010F404
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 10:58:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E5A810F400
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 10:58:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1789469927;
- bh=i5QrzP7qWJtfWpMzW5QTjus8a7SO6QHzqaznka26J44=;
+ s=mail; t=1789469923;
+ bh=dY0q2inShOf1iFynSL7QntpUqtr/LiL5XlMbuV1S8Mo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=cz92qA6fioPlVzTUYW3uf7smPF6DkbP3bnynZUSsXNQVikeMOv+zUchkxOfOr7C9w
- ERVyhLnCtjLeHUlcx/WIkb4SEcL9YjacUUOyUyzjrqUn//0+jZ+d5Hyx3mOQO5B10G
- vBhxUtP+SaQt0V0ij2IuG8g2/aE0h8xs5Q6FEZy1uOuSAKpEEViFmnuSVpckaHtwUH
- 5kafXN0kWw9vxPb9jpiTYEAt+KMJdXIC4Mw6WwK6LG+Y017/Q3feS3ugqFTX+FRsyk
- sKkfiXMO5ruHOSRK1B99c9/OaeYmuD3ZmO8eybCF8hw+phyuofLKMrmzOzEoKqzDyr
- TlAgP9A6D3hhw==
+ b=WxtgckeJhvCgXFGvJfSYT3jGdEnLSYaMoIrkJ5L2WBeZlBA+c+eAVMcbSxWNdB6MJ
+ sbdKcx6bBOAuPLzaux0qSbUsPwJ1ILU68WcqLbk+IdTZ50oI30JNMQh+3vybSFp1Oe
+ tMLs/OjPhfMg4FABc2v4xs2ta8MzN54obg6Ly9dvLvruEtgSkazWNmeNP7b8MAucBj
+ gN0EFCdncviE0OKTdNGXUD4EATyJLt8UK5s4KXF01zEoeF/hmWMITezoqpgi3ozNWD
+ Ep3EGhq/Db+iaTdK3LZ9XL0vVA4lt/J8WLP1wWa5bIu1DuovxNzWllhqcBEBOnD6AP
+ nc4mC376zLbRg==
 Received: from laura.lan (unknown [100.64.0.215])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: laura.nao)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 4191917E0D49;
- Tue, 15 Sep 2026 12:58:46 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E5B0917E09B5;
+ Tue, 15 Sep 2026 12:58:42 +0200 (CEST)
 From: Laura Nao <laura.nao@collabora.com>
-Date: Tue, 15 Sep 2026 12:57:38 +0200
-Subject: [PATCH 5/9] drm/tyr: drop unused KernelBo::bo() function
+Date: Tue, 15 Sep 2026 12:57:35 +0200
+Subject: [PATCH 2/9] rust: io: drop the CONFIG_64BIT restriction on system
+ memory u64 access
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-tyr-interfaces-v1-5-5d28f1f75aca@collabora.com>
+Message-Id: <20260915-tyr-interfaces-v1-2-5d28f1f75aca@collabora.com>
 References: <20260915-tyr-interfaces-v1-0-5d28f1f75aca@collabora.com>
 In-Reply-To: <20260915-tyr-interfaces-v1-0-5d28f1f75aca@collabora.com>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -75,26 +76,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+SysMemBackend's IoCapable<u64> impl is currently gated on CONFIG_64BIT,
+copying the MMIO backend's restriction. MMIO needs that gate because
+readq() is not available on 32bit. System memory has no such dependency:
+a u64 volatile load/store compiles on any architecture, it's just not
+single-copy atomic on 32bit.
+
+Drop the gate so u64-backed types, such as bitfields, work on 32bit too.
+Document the non-atomicity at the impl instead of enforcing it at build
+time.
+
+Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
 Signed-off-by: Laura Nao <laura.nao@collabora.com>
 ---
- drivers/gpu/drm/tyr/gem.rs | 4 ----
- 1 file changed, 4 deletions(-)
+ rust/kernel/io.rs | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
-index 6ae4e71d3cbf..9a75344acc3b 100644
---- a/drivers/gpu/drm/tyr/gem.rs
-+++ b/drivers/gpu/drm/tyr/gem.rs
-@@ -142,10 +142,6 @@ pub(crate) fn new(
-         })
-     }
+diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+index de8ef8e2aec4..a85ddd07cb7f 100644
+--- a/rust/kernel/io.rs
++++ b/rust/kernel/io.rs
+@@ -1428,7 +1428,9 @@ fn io_write(view: SysMem<'_, $ty>, value: $ty) {
+ impl_sysmem_io_capable!(u8);
+ impl_sysmem_io_capable!(u16);
+ impl_sysmem_io_capable!(u32);
+-#[cfg(CONFIG_64BIT)]
++// Unlike MMIO, that needs `readq` which is not available on 32-bit, a
++// system-memory `u64` access compiles on any target. It is just not
++// single-copy atomic on 32-bit.
+ impl_sysmem_io_capable!(u64);
  
--    pub(crate) fn bo(&self) -> &Bo {
--        &self.bo
--    }
--
-     /// Returns the GPU virtual address range occupied by this buffer.
-     pub(crate) fn va_range(&self) -> Range<u64> {
-         self.va_range.clone()
+ impl IoCopyable for SysMemBackend {
 
 -- 
 2.39.5
