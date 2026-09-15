@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75EEEC982C1
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:36:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6D92C88E77
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:37:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F77810E75D;
-	Wed, 16 Sep 2026 07:35:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E158810E5B5;
+	Wed, 16 Sep 2026 07:37:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j0iSBaet";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k7PBojoR";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D6E610F0DA;
- Tue, 15 Sep 2026 19:00:20 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CF9D10E1D5;
+ Tue, 15 Sep 2026 20:00:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9D122602C3;
- Tue, 15 Sep 2026 19:00:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C7C11F00899;
- Tue, 15 Sep 2026 19:00:19 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2077F43B37;
+ Tue, 15 Sep 2026 20:00:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 069581F000FF;
+ Tue, 15 Sep 2026 20:00:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789498819;
- bh=bH9D6fx46WAVM8PGx4wEKkSYBjKGmw5AvziupNUvWGk=;
+ s=k20260515; t=1789502402;
+ bh=060FvzlSY1s+NjIuTsRc9Ny+zBNXkBYeefHqKI9hLNs=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=j0iSBaetC/3YCi18xNuSeB+n+7VnOF+QOgAvJx7ktLSNyWzdoyXHzZ/YPBs5rtm+n
- WA6gaCeYDOM7G68qSWfRsHvbbAN1voKYHzwbAYckQsRPEBWlfdZePBmdFPmQ1OMU/N
- sUCxn5+r/cR7FN5oCIcXoHFsLztawdQ7lZ2pVlHqL5qvTKh/9Qqc0Ta8A275Irt74k
- zf/eAGrgknulaZr5ylmpMNiuL5cL1xjelXuos4e0Xj/d9MPGQhh5E4WSCnRmy8X7rs
- HaD3mC4eIWM8qko0PgiUDZhDxobQu7+Yi4Weeos/5iSyNoUm6TMJqr9E5mfS6sKjxo
- y4BshIH81fNpw==
-Date: Tue, 15 Sep 2026 12:00:19 -0700
+ b=k7PBojoRGnlYP+7hm1RNQd5WiXBzFE9G/TC6RDJLFlkIfILpDtK/GBadjjEtwmvkI
+ VltqHkns7rFQJUs7zOmt6Aou56t41/k1s3vtqxmfTJXB2iTYaoQOZMoaAQLEbiBATM
+ QliN/deaZlJIoWJkLmj+D4VvTn5Jx146y3TPh/vvsa/DnZhr9eIjruGktKRmZd1F8W
+ d/n8s23s+ioe/dcLrN5uPZzQxe+1Zt37jah6tmmp47xTq2Q8c6opmO/Bh9z6yBVHOy
+ 7ebwggwCD440EEMlDbbPNOt17kbvHZ9ZDz+ruV708XKWcQk5yesfJHNbhyUtEGTA1U
+ d3OVGyDuwb7RA==
+Date: Tue, 15 Sep 2026 13:00:00 -0700
 From: Kees Cook <kees@kernel.org>
 To: Bill Wendling <morbo@google.com>
 Cc: linux-kernel@vger.kernel.org, codemender-patching+linux@google.com,
@@ -108,15 +108,14 @@ Cc: linux-kernel@vger.kernel.org, codemender-patching+linux@google.com,
  linux-gpio@vger.kernel.org, linux-scsi@vger.kernel.org,
  linux-nfs@vger.kernel.org, devel@lists.orangefs.org,
  linux-hardening@vger.kernel.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH 03/28] ARM: atags: Replace strlcat() with snprintf() for
- cmdline extend
-Message-ID: <202609151155.CC22827@keescook>
+Subject: Re: [PATCH 25/28] EDAC/thunderx: Replace strlcat() with seq_buf
+Message-ID: <202609151258.5FC01072@keescook>
 References: <20260915081910.4142719-1-morbo@google.com>
- <20260915081910.4142719-4-morbo@google.com>
+ <20260915081910.4142719-26-morbo@google.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260915081910.4142719-4-morbo@google.com>
+In-Reply-To: <20260915081910.4142719-26-morbo@google.com>
 X-Mailman-Approved-At: Wed, 16 Sep 2026 07:35:16 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -133,42 +132,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 15, 2026 at 08:18:20AM +0000, Bill Wendling wrote:
-> --- a/arch/arm/kernel/atags_parse.c
-> +++ b/arch/arm/kernel/atags_parse.c
-> @@ -121,9 +121,10 @@ __tagtable(ATAG_REVISION, parse_tag_revision);
->  static int __init parse_tag_cmdline(const struct tag *tag)
+On Tue, Sep 15, 2026 at 08:18:42AM +0000, Bill Wendling wrote:
+> index e7c335ca0c36..4e3781815b6d 100644
+> --- a/drivers/edac/thunderx_edac.c
+> +++ b/drivers/edac/thunderx_edac.c
+> @@ -20,6 +20,7 @@
+>  #include <linux/atomic.h>
+>  #include <linux/bitfield.h>
+>  #include <linux/circ_buf.h>
+> +#include <linux/seq_buf.h>
+>  
+>  #include <asm/page.h>
+>  
+> @@ -47,12 +48,17 @@ static void decode_register(char *str, size_t size,
 >  {
->  #if defined(CONFIG_CMDLINE_EXTEND)
-> -	strlcat(default_command_line, " ", COMMAND_LINE_SIZE);
-> -	strlcat(default_command_line, tag->u.cmdline.cmdline,
-> -		COMMAND_LINE_SIZE);
-> +	size_t len = strlen(default_command_line);
+>  	int ret = 0;
+>  
+> +	if (size > 0)
+> +		str[0] = '\0';
 > +
-> +	snprintf(default_command_line + len, COMMAND_LINE_SIZE - len,
-> +		 " %s", tag->u.cmdline.cmdline);
->  #elif defined(CONFIG_CMDLINE_FORCE)
->  	pr_warn("Ignoring tag cmdline (using the default kernel command line)\n");
->  #else
+>  	while (descr->type && descr->mask && descr->descr) {
+>  		if (reg & descr->mask) {
+>  			ret = snprintf(str, size, "\n\t%s, %s",
+>  				       descr->type == ERR_CORRECTED ?
+>  					 "Corrected" : "Uncorrected",
+>  				       descr->descr);
+> +			if (ret < 0 || ret >= size)
+> +				break;
+>  			str += ret;
+>  			size -= ret;
+>  		}
 
-It's pretty clear we have a pattern of "simple append" that is needed,
-and while strlcat() does that, it's horrible. I feel like we need an
-appending scnprintf(), and it needs to return like strscpy() does (i.e.
--E2BIG on truncation).
+Seems like seq_buf would be better her? But yes, at the very least, this
+needs to be scnprintf, not snprintf (or add the checks as you have
+here).
 
-My goal would be:
-
-- don't open-code string length math
-- never leave the destination unterminated
-- allow for format strings
-- yes/no return indication for "did this truncate?"
-
-Initializing a whole seq_buf struct for these small cases is too much
-overhead...
-
-For both cases (small without seq_buf, large with seq_buf), it is also
-frequently needed to know the resulting strlen. seq_buf doesn't do this
-right today, and a strscpy-style return value also doesn't tell us. :(
+The rest of the seq_buf conversions look right.
 
 -- 
 Kees Cook
