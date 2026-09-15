@@ -4,64 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E26DC88E7B
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 12:15:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D177C88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 12:15:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7462B10F482;
-	Tue, 15 Sep 2026 12:15:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8618710F4A1;
+	Tue, 15 Sep 2026 12:15:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XPGWfVIh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kI77b5Cs";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61FEF10F482
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 12:15:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C729910F4A1
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 12:15:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D5277602C4;
- Tue, 15 Sep 2026 12:14:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBD1B1F00893;
- Tue, 15 Sep 2026 12:14:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4720D60261;
+ Tue, 15 Sep 2026 12:15:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 295751F000FF;
+ Tue, 15 Sep 2026 12:15:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789474499;
- bh=QRMZ7mmRdl98Hr0Jzx0dLUsIBC2R/cA4CuoG4//bR+w=;
+ s=k20260515; t=1789474517;
+ bh=7Ki6bSBJwaxJJeHi7SKUuFLkbZmfL/7uuTnWaWs93uA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XPGWfVIhJ/wSL6Jd1KV8QYkaPXQevpxTo5YKyPKDIrxlw9MIHMHo5cZnoqRuYBPzW
- YAB/BBxKyr04OnAz1fXuFsMiapL3vJK/RuyN3woNJu65a7GotPewX23h9YHqDCxQPk
- 2CWF6CYq7PbvZJuYpGBlpn9YbalxW+tFPh2E8PMbxAki0JSstQ2YNM5+QlpENVA4OR
- 4S8OeAn9BG92ITePDtvvACim8Vy9KB2TGUTfda+kW7PhqaNdVyqOBZvhFMBFu6IU+R
- cXVP4LUVIrc7LmnOQ3vKo+sFLx/fVgoMs3/93rCsxZ1sqN6D06XnUMiUCyDHo1Jf2m
- gcjyzu+b66/Nw==
+ b=kI77b5Cs1CCH5C2TVxPIT8fy3wL5A+5GVvFbNqnc8ywtIl1xsP+kz2+YtB6oqe4rq
+ l5MIumARVSkDXAKZVkJf4FmmuUstog7U7WkwkoO47/GequtFboDqXFKBhm8gRVl+8O
+ R05h3rhCE8VlU3e70rQ0v5HNwr7mByz6nbAUN2qjsZ4EdPZrSzKMrkSw0ptkltPWdD
+ 1K9aNz+rSv8p4Ksfg6V+iO9PxpNKvssHsTIw8bHe/sGHatYYCzuFLzRvKplACIwjle
+ MkbJfnFHm3eFE1Z3cOPmlWvybtFLHN5O2L13O1dy8fXdonFCUhJlZiezPlMPDhpdxP
+ QdqQbUTSLLEqA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC POC 37/50] tpm: vtpm_proxy: install the server
+Subject: Re: [PATCH RFC POC 44/50] drm/etnaviv: install the out-fence
  descriptor when the ioctl returns
-To: "Linus Torvalds" <torvalds@linux-foundation.org>,
- "Christian Brauner" <brauner@kernel.org>
-Cc: linux-m68k@lists.linux-m68k.org, "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Peter
- Zijlstra" <peterz@infradead.org>, linux-arm-kernel@lists.infradead.org,
- virtualization@lists.linux.dev, bpf@vger.kernel.org, "Oleg
- Nesterov" <oleg@redhat.com>, "Jens Axboe" <axboe@kernel.dk>,
- "Eugenio Perez" <eperezma@redhat.com>, kexec@lists.infradead.org,
- linux-openrisc@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- kvm@vger.kernel.org, linux-hyperv@vger.kernel.org, "Jan
- Kara" <jack@suse.cz>, "David Airlie" <airlied@redhat.com>,
- linux-kernel@vger.kernel.org, io-uring@vger.kernel.org,
- linux-snps-arc@lists.infradead.org, linux-sh@vger.kernel.org,
- linux-hexagon@vger.kernel.org, linux-alpha@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-csky@vger.kernel.org,
- sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
- linux-mips@vger.kernel.org, "Jann
- Horn" <jannh@google.com>, linux-mm@kvack.org, linuxppc-dev@lists.ozlabs.org,
+To: "Christian Brauner" <brauner@kernel.org>,
+ "Linus Torvalds" <torvalds@linux-foundation.org>
+Cc: virtualization@lists.linux.dev, linux-parisc@vger.kernel.org,
+ io-uring@vger.kernel.org, "Michael
+ S. Tsirkin" <mst@redhat.com>, "Jann Horn" <jannh@google.com>, "Oleg
+ Nesterov" <oleg@redhat.com>, linux-alpha@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-msm@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, 
  =?utf-8?b?Q2hyaXN0aWFuIEJyYXVuZXIgKEFtdXRhYmxlKQ==?= <brauner@kernel.org>,
- linux-gpio@vger.kernel.org, "Ingo
- Molnar" <mingo@redhat.com>, linux-arm-msm@vger.kernel.org,
- linux-parisc@vger.kernel.org, "Michael S. Tsirkin" <mst@redhat.com>
-In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-37-4d5217d6b246@kernel.org>
+ linux-mm@kvack.org, linux-snps-arc@lists.infradead.org, "Eugenio
+ Perez" <eperezma@redhat.com>, linux-m68k@lists.linux-m68k.org,
+ linux-gpio@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kvm@vger.kernel.org, linux-mips@vger.kernel.org, "Jan
+ Kara" <jack@suse.cz>, linux-sh@vger.kernel.org, linux-um@lists.infradead.org,
+ sparclinux@vger.kernel.org, linux-hexagon@vger.kernel.org, "David
+ Airlie" <airlied@redhat.com>, "Ingo Molnar" <mingo@redhat.com>, "Alexander
+ Viro" <viro@zeniv.linux.org.uk>, kexec@lists.infradead.org,
+ "Peter Zijlstra" <peterz@infradead.org>, linux-csky@vger.kernel.org,
+ linux-openrisc@vger.kernel.org, "Jens Axboe" <axboe@kernel.dk>
+In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-44-4d5217d6b246@kernel.org>
 References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
- <20260915-work-fd-reserve-unify-folded-v1-37-4d5217d6b246@kernel.org>
+ <20260915-work-fd-reserve-unify-folded-v1-44-4d5217d6b246@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 12:14:57 +0000
-Message-Id: <20260915121457.BBD1B1F00893@smtp.kernel.org>
+Date: Tue, 15 Sep 2026 12:15:14 +0000
+Message-Id: <20260915121515.295751F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,5 +85,5 @@ Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-work-fd-re=
-serve-unify-folded-v1-0-4d5217d6b246@kernel.org?part=3D37
+serve-unify-folded-v1-0-4d5217d6b246@kernel.org?part=3D44
 
