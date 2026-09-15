@@ -4,49 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C83C2C88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 11:15:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0BB8C88E53
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 11:16:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3062010FB8B;
-	Tue, 15 Sep 2026 11:15:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0563E10FB8C;
+	Tue, 15 Sep 2026 11:16:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GzGRg4aD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PXSyXrJF";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CDF510FB8B
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 11:15:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EED710FB8C
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 11:16:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CF97B400A3;
- Tue, 15 Sep 2026 11:15:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAA241F000FF;
- Tue, 15 Sep 2026 11:15:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1C1CD40A4A;
+ Tue, 15 Sep 2026 11:16:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2EAF1F000FF;
+ Tue, 15 Sep 2026 11:16:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789470909;
- bh=wCLfBUuxNPv3XS803Z/uR8KINkcBiOGeEsWT7V4HKKQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=GzGRg4aDit1AfIZVZqP9pZdOMdaGOtiiCK8LoKNNO759gim0NOnkHWBbn9hMc6QKW
- oAnHKsKwmRuGxop23SHjHn9J8wdKWgjFIASggu7gj9LtFaxJH/FP8oTrfhjJx1zYQK
- AzQTUsvrMmMQ3rEuiccjwOzPOHoYxbGS6eP4uqcbipL0J4GK7ntxemvkV54fmDWIU6
- /YtG4+NSfuXfFDZ+Xz0q422NautoOVY249AOViQBKk3tFG98eL+PaTj93IxlVxNEZJ
- QkyziJ1/mY9bK3nhL2jjMsIHAAM5pAVK9oxvJVZfE2liJmvbIfc7IsFUzHtrZWFD7t
- dOgYujgvE+LjA==
-Date: Tue, 15 Sep 2026 12:15:05 +0100
-From: Lee Jones <lee@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: =?utf-8?B?WcSwxJ7EsFRDQU4=?= KAVAKLI <kavakliyigitcan@gmail.com>,
- linux-leds@vger.kernel.org, dmitry.torokhov@gmail.com,
- conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- linux-input@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH RFC 02/10] backlight: add Kinetic KTD3136 driver
-Message-ID: <20260915111505.GE11487@google.com>
-References: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
- <20260911-ginkgo-submission-final-v1-2-0e68e63a18d4@gmail.com>
- <20260911085919.24FB01F00893@smtp.kernel.org>
-MIME-Version: 1.0
+ s=k20260515; t=1789470987;
+ bh=52i9ah0RO/482wq3RW5QRt1Q9P4u1ioEaCxUnv0CStY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=PXSyXrJFnRX5YwM8Kp/DMibluj/rG12SrK7tLXfkkWs4wp+bC9fvPszw2RvJDo+jd
+ tuWs8PxxWEwqXg/fB99BGDUKCtc0ocmp9fpN9yjQeV82j9jZ+m14mr9wjY5UIdZiKE
+ I5eDTZSruBLvBXzkZYhmz8oTYVrQJjgUERYVnCQ+qoBaTl5YwNTdoU6yWz6pzJYr/Z
+ 7aoh/dFdn+d2lnAYC1+rS0/L1XsnpscxuuKHcLcKU3WCoB27TfdAevaMgCet69nCcL
+ udM6bQ+kPaj5XJGq71Zmzm/fcZ4mFaAf+6sby0IPCkWImMvVbUlc21sDh+ArflWE5E
+ 1Gk/VFE8esGkA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] drm/syncobj: Use scope-based cleanup for
+ eventfd_ctx
+To: "Bence Csokas" <bence.csokas@arm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260915-efd-autofree-v2-2-06d2c9d1547f@arm.com>
+References: <20260915-efd-autofree-v2-0-06d2c9d1547f@arm.com>
+ <20260915-efd-autofree-v2-2-06d2c9d1547f@arm.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260911085919.24FB01F00893@smtp.kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 11:16:26 +0000
+Message-Id: <20260915111626.D2EAF1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,139 +54,68 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 11 Sep 2026, sashiko-bot@kernel.org wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] cleanup: mixing goto and scope-based cleanup in drm_syncobj_even=
+tfd_ioctl
+--
 
-> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
-> - [High] The 'vin' regulator is enabled during probe but never disabled on error paths or during module removal.
-> - [High] Missing `i2c_set_clientdata()` in probe causes `ktd3136_remove()` to silently skip hardware power-off.
-> - [Medium] Missing lock acquisition in `ktd3136_remove` causes a data race with concurrent backlight sysfs updates.
-> - [Medium] State mismatch leaves backlight physically ON when initial brightness is 0.
-> - [Low] Unnecessary and unused `select REGMAP_I2C` in Kconfig.
+commit ff6fd047e86cd28041b0ce12099546c46df110b2
+Author: Bence Csokas <bence.csokas@arm.com>
 
-Please review, explain or fix the Sashiko review(s).
+drm/syncobj: Use scope-based cleanup for eventfd_ctx
 
-If this is a set, this request includes the other patches too.
+This patch converts the eventfd context in drm_syncobj_eventfd_ioctl() to
+use scope-based cleanup now that eventfd supports it.
 
-> --
-> 
-> commit 15d6d172969378ae4661195e2320fcd1b4ed08c1
-> Author: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
-> 
-> backlight: add Kinetic KTD3136 driver
-> 
-> This commit implements a generic Linux backlight driver for the Kinetic
-> Technologies KTD3136 36V, 6-channel LED driver. It uses the standard
-> backlight class interface over I2C.
-> 
-> > diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
-> > index dbf4ca23a9b6d..010e2ae3fa8cb 100644
-> > --- a/drivers/video/backlight/Kconfig
-> > +++ b/drivers/video/backlight/Kconfig
-> [ ... ]
-> > +config BACKLIGHT_KTD3136
-> > +	tristate "Backlight Driver for Kinetic KTD3136"
-> > +	depends on I2C
-> > +	select REGMAP_I2C
-> 
-> [Severity: Low]
-> Does this driver actually use the regmap API? Looking at the code, it appears
-> to exclusively use raw I2C SMBus operations (e.g., i2c_smbus_read_byte_data).
-> Could this select REGMAP_I2C be safely removed to avoid forcing an unnecessary
-> dependency?
-> 
-> > +	help
-> > +	  Say Y to enable the backlight driver for the Kinetic Technologies
-> [ ... ]
-> > diff --git a/drivers/video/backlight/ktd3136-backlight.c b/drivers/video/backlight/ktd3136-backlight.c
-> > new file mode 100644
-> > index 0000000000000..a8ebe3b23c99f
-> > --- /dev/null
-> > +++ b/drivers/video/backlight/ktd3136-backlight.c
-> [ ... ]
-> > +static int ktd3136_probe(struct i2c_client *client)
-> > +{
-> > +	struct device *dev = &client->dev;
-> > +	struct backlight_properties props;
-> > +	struct ktd3136_data *chip;
-> > +	int ret, val;
-> > +	u32 def_brightness = KTD3136_DEFAULT_BRIGHTNESS;
-> > +	u32 max_brightness = KTD3136_DEFAULT_MAX_BRIGHTNESS;
-> > +
-> > +	chip = devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
-> > +	if (!chip)
-> > +		return -ENOMEM;
-> > +
-> > +	chip->client = client;
-> > +	mutex_init(&chip->lock);
-> 
-> [Severity: High]
-> Is a call to i2c_set_clientdata(client, chip) missing here? Later in
-> ktd3136_remove(), the code calls i2c_get_clientdata(client), which will
-> return NULL if it wasn't set, silently bypassing the hardware power-off.
-> 
-> > +
-> > +	chip->vin = devm_regulator_get_optional(dev, "vin");
-> > +	if (IS_ERR(chip->vin)) {
-> > +		ret = PTR_ERR(chip->vin);
-> > +		if (ret != -ENODEV)
-> > +			return dev_err_probe(dev, ret, "Failed to get vin regulator\n");
-> > +		chip->vin = NULL;
-> > +	}
-> > +
-> > +	if (chip->vin) {
-> > +		ret = regulator_enable(chip->vin);
-> > +		if (ret)
-> > +			return dev_err_probe(dev, ret, "Failed to enable vin regulator\n");
-> > +	}
-> > +
-> > +	chip->enable_gpio = devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_HIGH);
-> > +	if (IS_ERR(chip->enable_gpio))
-> > +		return dev_err_probe(dev, PTR_ERR(chip->enable_gpio),
-> > +				     "Failed to get enable GPIO\n");
-> 
-> [Severity: High]
-> If devm_gpiod_get_optional() fails here, the function returns immediately.
-> Does this leave the vin regulator enabled since there is no devm action or
-> manual regulator_disable(chip->vin) on this error path?
-> 
-> [Severity: Medium]
-> The enable GPIO is asserted HIGH here (powering the hardware), but
-> chip->is_enabled remains false. If the default brightness evaluates to 0,
-> backlight_update_status() calls ktd3136_power_off(). Because chip->is_enabled
-> is false, ktd3136_power_off() returns early without de-asserting the GPIO.
-> Could this state mismatch leave the backlight physically ON when the initial
-> brightness is 0?
-> 
-> > +
-> > +	if (chip->enable_gpio)
-> > +		usleep_range(2000, 3000);
-> [ ... ]
-> > +static void ktd3136_remove(struct i2c_client *client)
-> > +{
-> > +	struct ktd3136_data *chip = i2c_get_clientdata(client);
-> > +
-> > +	if (chip)
-> > +		ktd3136_power_off(chip);
-> 
-> [Severity: Medium]
-> Does ktd3136_power_off(chip) need to be protected by mutex_lock(&chip->lock)
-> here? Since the backlight device is registered with
-> devm_backlight_device_register, its sysfs interface might still be active
-> during .remove(). Could this cause a data race with concurrent sysfs writes
-> to the brightness attribute?
-> 
-> [Severity: High]
-> Does the vin regulator need to be disabled here? It was enabled during probe
-> but there doesn't seem to be a corresponding regulator_disable() call when the
-> driver is unbound.
-> 
-> > +}
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com?part=2
+> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+> index c23a5de27effa..efc4e8af220c8 100644
+> --- a/drivers/gpu/drm/drm_syncobj.c
+> +++ b/drivers/gpu/drm/drm_syncobj.c
+> @@ -1462,9 +1462,9 @@ int
+>  drm_syncobj_eventfd_ioctl(struct drm_device *dev, void *data,
+>  			  struct drm_file *file_private)
+>  {
+> +	struct eventfd_ctx *ev_fd_ctx __free(eventfd) =3D NULL;
+>  	struct drm_syncobj_eventfd *args =3D data;
+>  	struct drm_syncobj *syncobj;
 
--- 
-Lee Jones
+[ ... ]
+
+> @@ -1490,10 +1490,10 @@ drm_syncobj_eventfd_ioctl(struct drm_device *dev,=
+ void *data,
+>  	entry =3D kzalloc_obj(*entry);
+>  	if (!entry) {
+>  		ret =3D -ENOMEM;
+> -		goto err_kzalloc;
+> +		goto err_fdget;
+
+[Severity: Medium]
+Does this mix goto-based error handling and scope-based cleanup within
+drm_syncobj_eventfd_ioctl()?
+
+According to include/linux/cleanup.h, the expectation is that usage of
+goto and cleanup helpers is never mixed in the same function. All resources
+that need cleanup should either be converted to scope-based cleanup, or
+none of them.
+
+Leaving the err_fdget label to manually call drm_syncobj_put(syncobj)
+while using __free(eventfd) for ev_fd_ctx can lead to confusing resource
+ownership and break the expected LIFO teardown ordering.
+
+Could syncobj be converted to use scope-based cleanup as well?
+
+>  	}
+>  	entry->syncobj =3D syncobj;
+> -	entry->ev_fd_ctx =3D ev_fd_ctx;
+> +	entry->ev_fd_ctx =3D no_free_ptr(ev_fd_ctx);
+>  	entry->point =3D args->point;
+>  	entry->flags =3D args->flags;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-efd-autofr=
+ee-v2-0-06d2c9d1547f@arm.com?part=3D2
