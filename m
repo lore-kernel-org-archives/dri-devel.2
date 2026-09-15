@@ -4,73 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A77E0C88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 00:38:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A19C8C88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 00:52:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABF2510F7DC;
-	Tue, 15 Sep 2026 00:38:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A6CE10F759;
+	Tue, 15 Sep 2026 00:52:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LiuJyu5X";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MwdRbq3b";
 	dkim-atps=neutral
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
- [209.85.222.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE64C10F7DC
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 00:38:47 +0000 (UTC)
-Received: by mail-qk1-f169.google.com with SMTP id
- af79cd13be357-93a0bf264a4so236875985a.1
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 17:38:47 -0700 (PDT)
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com
+ [74.125.230.204])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7373710F759
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 00:52:52 +0000 (UTC)
+Received: by mail-qk2-f12.google.com with SMTP id
+ af79cd13be357-93910ad20d4so332041585a.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 17:52:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789432726; x=1790037526; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1789433571; x=1790038371; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=CB0/Ut2q4k6domqU+GFMH7n96krlT2PxA2EBOCoxQxI=;
- b=LiuJyu5XbLtCNSGXuxgaQ6tiQcIUCLq/4/2OL6awma0zzYnzYJ00aJ1bii+3hG5NrM
- RJbWIwojalJYsQAZMkxmsF2T1yurQjcv4gVYRsD7kqLHkUSb4cR0v5+bzbblDtM6/nY6
- Qq1Gz7R79E3ecfb0nuQtknnKUY47gU7HfkWGcxTqxUox5mLJir50H1TBJGhWvJ8MmlsF
- tfQoxAX4wB67GDO0qJnF7gjUZ+b+Y9p/nhZuwdbe9M3/+I+Ex9/fJ+1/i8KrqtleaVZs
- ZSFejrpd5AeD0QMU105oVOLa2idPIcsTlQ7ZxlyfddzOgIELWHqy9z6HaJB+Z7pCdBPl
- lhBg==
+ bh=3FqhYN8GqnOvyCCd51Tqy0N6wSmRpiZ4v7QBDM0Zgas=;
+ b=MwdRbq3bYHQ8zjY9M2Oo0uFqg3OasZxnFxAXDzA3S2sNHrqWx6LdkW9LpMFZd5TJWB
+ g/JdYuDo4QO/wNWAf7m+h7ZeG5vVGRvuYbeIzT5AXBuK2fj6WGA9c2CikzfwnoUXM3fr
+ ihImQFT3FJMMPpHljQ6uSmz3l50bdiyXyd/sHNn+vei0WvzcOS83npuE9j03y5PJU633
+ To42OtaflPE5iOmh71nW+61hdoI4/mlaTVeIVSpMpFopwDGY199KJAZ2dtnjz/TRZrr0
+ FDFK0S3L8tIStwyoBBQZzq3OFPuwi33vc2ypDy0/bhRJHRMxSUmnxS1JTf6i3ZAzES6B
+ ySjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789432726; x=1790037526;
+ d=1e100.net; s=20260707; t=1789433571; x=1790038371;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=CB0/Ut2q4k6domqU+GFMH7n96krlT2PxA2EBOCoxQxI=;
- b=HlpibSfdMydxwqzvsF95S983CZ2RtViYUdAirIWJmN62ic5zI1lsejsx2DFug9Fc9f
- sCs/afAAsUd9O4G4WJTH/5xF0yGUcIitd1uG/Pwi+6G7XC/f2jaP/SYa/b2PUC4go5UR
- opPlVf1bxy7ERR7WOHqpArKXhJe876qPeaLrd0I7hciXGYvP3oJDtoTxJ2CXl9bwAlMn
- uoiv7JouJV2x/Myh89pVcZfAZPDzuBwKjw7DlUNoJptd7DqnZ8/1vGXiccrCIk/M6/wn
- wnbThkM0nRRUMSDI7atuYiaWJJnA9lqcPmZWCPtLJmelixC5ZWCmrnq2UnIpR1AcVA7j
- 7tRQ==
+ bh=3FqhYN8GqnOvyCCd51Tqy0N6wSmRpiZ4v7QBDM0Zgas=;
+ b=XSs6fZEZMQCkhJNJy/Uw7v+kk37JUJB6S2bSvaboqiAfwsiVNiBFG2VpD493dGolBy
+ 3a8A50uqIjSucOHT+wlda8ze0WSFwOo8vLVNoEbvRfqJdCR4jdxreKqNcAO4h6FN97/h
+ oGdi98O2F5ui14dxWvucwyEV8kcDsiZCfVepKBptXJ0isLUzqJIQmJvN3Yusm3ZJyDX8
+ hqeD0sk+8e6LD9zHCABdpGAG4+lwZTjLit23z3M8xse6umCvEA35qY6Esy4IATnT2LtY
+ mbtm8WH5DPcftyWcy43XSX4lAeOfwp+hHyzUd1zx9j2j4moNsk95Nx4B7uTIXZ6u5V4c
+ qi1w==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwT2U6enLwIQcyjg8rmyjvCOWN4vlPK8orK0ent5auwoanguptbM+h1uRHUmEcOhic3WlbEPCqYw1k=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mcb2LjYMY2WMNRazLzk18uAbjprKG/ecMzBEDtZs5CaYU5VALX
- WY6y+mopwiDW2KcAFqkzUAI7RVAsr06krVmNFFgx9U5UsaryRxx6XBA=
-X-Gm-Gg: AYBFou3d/LOxSdxFLXfQ/v9VO6ElXllzTSbQWNh0S73/mY0Ih0CO25h1Ufj6AO6p6UI
- jBa1FJvmY4kK7wIR38aHMEyeNOkG6LfCR5lGO5UGu25LVS+/s9fnQrVKGHoe6Etyh4RovDx6J+3
- cZTpk0uIdDP15TDkbcJZpQ5A2U/wNALYEH4xWwUbTedu0CjRILAAzXuvGEJXqAUhDeoP57wT3aF
- 5i82dit2CFYK2vENnywSZDajt2CxadX9zzDt10Z+COkmUIuO9Kj65ltFPhzgks8wDCitNxNUU/b
- hgNFh3ui0w99U1M7fJbc81swpNpcvZfnltViLB8DhQDpeWJqMNORgr5rY34fr0O9fTSVgH/rN1F
- SJKbdqYRFmZ40EXlMzTvYvNRckSvST3K/N9M4C1GzBsn2h1DL7yFpphppdH+uPHxxUDoXnA0oK9
- S6wsIf/6PRoCRrBUK3MhGt9jq0TLWirAlRA03t/AqEyhRoBrMqs90DpXpFwKiF0DVsV/sB3Sq6Q
- E5KIbdhoB/TksWV3z7o0IT82126lVh/GOzOPRo0cOvR3rn8bBRoleEgPd6A9mknruj9v7l7BAta
- GJZNXWLGlgMLj68NicWpY4Uo/yq6qmcZPJaS9wPBMem6wDtcOny50gxObcQc3UXTitcih3iDEEe
- NGxy9
-X-Received: by 2002:a05:620a:890e:b0:939:710:536c with SMTP id
- af79cd13be357-93a29a11d43mr657586485a.43.1789432726516; 
- Mon, 14 Sep 2026 17:38:46 -0700 (PDT)
+ AKwUvBxdKlpetozRuB22EdUlz2GHYqLjpA37RSzLG0tPkMwDSBZ89XZoezU80PeuLvNwq7RScA8hY+msLn0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nCj/XExp9ym7XG9yxMympyz/XxYggjeTlsIBb5JArbjfsT5FjS
+ a3sh+wEGF3oCsd39Lltc5dFH5ozp3R3NGwYaoycEC6jhigRh6G31gAY=
+X-Gm-Gg: AYBFou0duRLrTBqlGZ85Wz21aHxW7M1PWtJcYaRjR75jE1vimOGmmAFgbovsAxpST6T
+ Qszzem8VBNulIKrimcMqmP/CokYu0oHybO3LbNRCtZNC0hVPvnobX+7XvENfyiAekHbxicC4v43
+ OTtCJgAHGZAbGc1x0xyFh8unjYp3qEmuv86Pdtwuvodty2NDYmuZxRmJEnkAa653HIgrVUI7zdn
+ HbOiS147n5ilWWae9lzgRZ1UO/QZIud4+XepTOccJ5QzWRzmlFKnP6wgm5qIWueGcseLYmhNpFR
+ GV8zNSH6xP3OHixhq/oqS/ie/cDvBIotKufwtITwxJNcqH8+cSGpLz1H45GU16Cbvt8yVrtOjZQ
+ xOhHcurQ/QW2pWIeVcUA0v3lZnLe8WrkScBULcfsHUIhP1iP4T9xaPCexzG/OYhwrCRRZ5TAEBO
+ bKX7s9jFcBfON/UsZBhdT5wb3Ocdj8/uOuFmZKonfb2mxOW2BBse0ZEvy3S/Y0LZoPS0iNdaTSP
+ XH75izwiyvNUkN4m1mnC05TCLADBJ9MH1BxCp6Il6jo8IdJn1OocZUa4SnS+bn135FJ81qNBI9F
+ yDDv0IgGLwDkyUVysfMm2GuMumi/Fku/lhzjcblTBHQY3DDY8bk5n9eP12Wg93KG
+X-Received: by 2002:a05:620a:468c:b0:939:d913:9a74 with SMTP id
+ af79cd13be357-93a29bbcd86mr667300585a.46.1789433571426; 
+ Mon, 14 Sep 2026 17:52:51 -0700 (PDT)
 Received: from 6e-wmo5420-02.ad.psu.edu.net (6e-wmo5420-02.ad.psu.edu.
  [104.39.213.233]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-93a2db5f257sm247664885a.17.2026.09.14.17.38.44
+ af79cd13be357-939ecea9f35sm1063205785a.7.2026.09.14.17.52.50
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 14 Sep 2026 17:38:45 -0700 (PDT)
+ Mon, 14 Sep 2026 17:52:50 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
 To: Helge Deller <deller@gmx.de>
 Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] fbdev: gxt4500: Release WC setup on probe failure
-Date: Mon, 14 Sep 2026 20:38:34 -0400
-Message-ID: <20260915003834.49715-1-mhun512@gmail.com>
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] fbdev: kyro: Release WC setup on registration failure
+Date: Mon, 14 Sep 2026 20:52:43 -0400
+Message-ID: <20260915005243.51683-1-mhun512@gmail.com>
 X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -89,33 +88,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-gxt4500_probe() adds a write-combining range before allocating the cmap
-and registering the framebuffer. If a later step fails, the range is
-not released. Add the missing cleanup before unmapping the framebuffer,
-matching the successful remove path.
+If register_framebuffer() fails, kyrofb_probe() frees the framebuffer
+without releasing its write-combining range. Release the range before
+freeing the framebuffer. Earlier failures still skip this cleanup.
+
+The missing cleanup already exists in the initial Git import, before
+the conversion from mtrr_add() to arch_phys_wc_add().
 
 This issue was identified during our ongoing static-analysis research
 while reviewing kernel code.
 
-Fixes: 38fc4d45fae5 ("gxt4500: Use arch_phys_wc_* for framebuffer")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/video/fbdev/gxt4500.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/video/fbdev/kyro/fbdev.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/video/fbdev/gxt4500.c b/drivers/video/fbdev/gxt4500.c
---- a/drivers/video/fbdev/gxt4500.c
-+++ b/drivers/video/fbdev/gxt4500.c
-@@ -719,6 +719,7 @@ static int gxt4500_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
-  err_free_cmap:
- 	fb_dealloc_cmap(&info->cmap);
-  err_unmap_all:
-+	arch_phys_wc_del(par->wc_cookie);
- 	iounmap(info->screen_base);
-  err_unmap_regs:
- 	iounmap(par->regs);
+diff --git a/drivers/video/fbdev/kyro/fbdev.c b/drivers/video/fbdev/kyro/fbdev.c
+--- a/drivers/video/fbdev/kyro/fbdev.c
++++ b/drivers/video/fbdev/kyro/fbdev.c
+@@ -759,7 +759,7 @@ static int kyrofb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	fb_memset_io(info->screen_base, 0, size);
+ 
+ 	if (register_framebuffer(info) < 0)
+-		goto out_free_fb;
++		goto out_free_wc;
+ 
+ 	fb_info(info, "%s frame buffer device, at %dx%d@%d using %ldk/%ldk of VRAM\n",
+ 		info->fix.id,
+@@ -776,6 +776,8 @@ static int kyrofb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 
+ 	return 0;
+ 
++out_free_wc:
++	arch_phys_wc_del(currentpar->wc_cookie);
+ out_free_fb:
+ 	framebuffer_release(info);
+ 
 -- 
 2.51.0
