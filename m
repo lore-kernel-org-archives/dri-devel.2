@@ -4,48 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 333FBC982C1
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 15:06:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55A54C88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 15:07:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45C1410FC2B;
-	Tue, 15 Sep 2026 15:06:11 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="rchspFkY";
-	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0255B10FC28;
- Tue, 15 Sep 2026 15:06:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=PiSyqhvGSz2PDFqBbXkGWNO7TnAMaaznX9h6SJLmVzw=; b=rchspFkYc1pi3jD/hBSPFPlaIO
- OKp5wrTVAx4+GwEiDs/PfkEnMgE/7r5OPCGfyM3diJnkZWYEPmBcgV+X6KymATgMFasrKj2Shhj2J
- kCWE3vbnpdrr49n4L8ixKiCJEq0PRpNpB3LY4QnIt3cvzuTkRsanODXAdUyTBSpGz9icWRcszUYxx
- WmD4So2vOGOMtasqF/WkR/oxwQo9nPqQKWD59kf+4KLtDaI0AOapX/hWGK/kBg8LcBXYFb9Uuq+rd
- /1Q4Ya7v3lZKyksALKqElbCRJ5/NLkcRAirwTei9VttmKbwk7B6U52RF7Lf9DlsAD98PZmZoOms+N
- YUgqH3OQ==;
-Received: from [81.79.79.1] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x6UjW-002VAq-He; Tue, 15 Sep 2026 17:06:06 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Luke.Wildhardt@proton.me,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, stable@vger.kernel.org
-Subject: [PATCH v2] drm/sched: Do not restore unsaved virtual runtime
-Date: Tue, 15 Sep 2026 16:05:57 +0100
-Message-ID: <20260915150557.62847-1-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.55.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 875C310E0F3;
+	Tue, 15 Sep 2026 15:07:35 +0000 (UTC)
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BAD810E0F3
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 15:07:33 +0000 (UTC)
+X-QQ-mid: zesmtpsz6t1789484670t67a17d3f
+X-QQ-Originating-IP: VtDu49u5oeW10uTnOj34xIDXGh1ZJrJR14GaSySw/yc=
+Received: from [127.0.0.1] ( [180.159.160.209])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Tue, 15 Sep 2026 23:04:26 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 3756391934278307056
+EX-QQ-RecipientCnt: 29
+Message-ID: <811E4CAAE0EC3103+2a53ade9-4b52-49a5-945d-2364fbce3c82@radxa.com>
+Date: Tue, 15 Sep 2026 23:04:25 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] PCI: of: Avoid config reads for disabled bridge nodes
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski
+ <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>
+References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
+ <20260901-q8b-dts-v1-1-7de0b6a73d08@radxa.com>
+ <xfwoa4jjigdx46lunasf5ze23ihm6qcvbhge7n27mxst5fxyzj@3ovbxzp4wzkk>
+Content-Language: en-US
+From: Xilin Wu <sophon@radxa.com>
+Organization: Radxa Computer (Shenzhen) Co., Ltd
+In-Reply-To: <xfwoa4jjigdx46lunasf5ze23ihm6qcvbhge7n27mxst5fxyzj@3ovbxzp4wzkk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: MgRO26CFjEybZlJVhxv+F6oTGh6RwEw9a9Yr08/wwObhmQKJSNI8H8Ed
+ emIjA6ZBXgUHKO2GJ+bmUXd2zIzim6nwffUAlZ0eq0CxvE3E3LFueGxSSLNCQ2lFQJxsoy1
+ Vfh6ARSKbWwxYgr7mh9Tze3b+wNEsvUXLZTcfXYl1okm7cTuzEbKM5jjUeexs+mTfmTQJrK
+ YuYB2eqmMS/AeO3DLo+x/oMLHFvrXl2aFvRpGlFzzuq3A1roKVC3KIZNS7ORYYip+CBDqvH
+ fN2pvEPP6bSLqww1tDsNmwRnEcgkxzqyr57lywT3nawrWme0UURgaMwcUADWfJyRE/oprYT
+ xmKm/ckzepQkwUE9jJWQr9UdHVfyrfvmmgT7kVLc4YZnGs6mUDPniDZIOHjlRL1k4sEUKZa
+ NNY1pCUO1ye7jjA+7MqzNywT5kc/breoGDpSqKprfdj0bIKNybqb7jA1Zsu3tyFlGi8uIff
+ Zc4Q0ta9e6yVUKlkUwX21IfNMfR+5elpwqeBS1bQToyhKsmm85Q7a5iLfulPHRrfQrxLkF6
+ dwPmu9KUUOkpfHgbY8l/qBKYBgC3dg54SDGu5ghzRlxrDmfhCCKH6r0YTwejyRvheKeS0S2
+ b+eyQb9FLi7F59naIrtwrQZsZxrzVeHD56KhTRBX5JToNq/sPjjO4tvcEs06QtqCsdgMY+R
+ TOGQKjcvTihRfuYuLf38tdvSbV2mvvqlMQPykZC1uCLrOTqgC0OG/ZmYIkRnO69hGfxp5jS
+ WveqivrgG/bwxM3TpqWG0nGLOuRtoiS70P53X8D0sBuEqlTPwe8RWGMzaSnLmQyMf+YYloi
+ JOP07Uk8MVhAWNTI9jgdfqxZLYrCLIjZMC/kh8nEfCxZOc5hx74yxHtgdgZpu2EMpNf0Hk1
+ FlnCZkk4sU83ydrQaGEvCpITfTrDYVhhG6FkBIj44S6Xxgrbc7D5ziFBasdKZgrj1ycj/Zz
+ IeEK3la1XcY5pHQ2IXFsD8Rh3GKmERiIPp1G8yAf/usmXM+Xyb9MXHcu938G+U08Ncj+9pz
+ 42SwIsOlp8Dhzcv56hcOSfsoSq+AON67u3etr/0eXFNAX62Yq2WeYD4kPpjaiBfKurYpXZi
+ FUhawLu6B0v
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,144 +86,49 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sophon@radxa.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Prevent pushing a new job to an entity seeing it being the first in the
-queue, and hence entering the drm_sched_rq_add_entity() path, if the pop
-side in drm_sched_entity_pop_job() has just de-queued the job but not yet
-updated the saved virtual time.
+On 9/10/2026 11:04 PM, Manivannan Sadhasivam wrote:
+> On Tue, Sep 01, 2026 at 04:47:54PM +0800, Xilin Wu wrote:
+>> The TC9563 PCI power-control driver powers off external downstream ports
+>> whose device tree nodes have status = "disabled".
+>>
+>> On the Radxa Dragon Q8B, reading the Vendor ID from one of these
+>> powered-off port functions during PCI enumeration raises an Arm SError
+>> instead of returning an all-ones PCI error response. This prevents the
+>> board from completing boot.
+>>
+>> Commit 1a8c251cff20 ("PCI: move OF status = "disabled" detection to
+>> dev->match_driver") made disabled PCI functions remain discoverable so
+>> PCI fixups can still be applied, while suppressing driver binding later.
+>> Preserve that behavior for endpoint functions.
+>>
+>> For an unavailable node describing a PCI-to-PCI bridge, however, the
+>> node also represents a subordinate bus that must not be enumerated.
+>> Check the device tree node before reading the Vendor ID and return a PCI
+>> error response without accessing config space when such a bridge is
+>> disabled.
+>>
+>> Functions not described by device tree and disabled endpoint functions
+>> remain discoverable.
+>>
+>> Signed-off-by: Xilin Wu <sophon@radxa.com>
+> 
+> Does this patch help?
+> https://lore.kernel.org/linux-pci/20260819-ecam_blocker-v2-1-e7a8fdc1c5cb@oss.qualcomm.com/
+> 
+> - Mani
+> 
 
-Restoring the unsaved virtual time, which is at this point not a delta but
-still an absolute value, pushes the said entity to the rear of the run queue
-for a potentially very long time.
+Thanks for the pointer. I don't think it helps in this case. That patch 
+enables the Qualcomm ECAM blocker when the Root Port link goes down. 
+Here, the link between the Root Port and the TC9563 remains up; only 
+some TC9563 downstream port functions are powered off, and probing those 
+functions triggers the SError. Therefore, we still need to avoid these 
+config-space reads.
 
-We close this race by pulling the locked sections out to encompass both
-the queue push/pop and corresponding rbtree management.
-
-This is aligned with the future direction to replace the current lockless
-job queue with one of the fully locked standard list primitives.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
-Suggested-by: Luke.Wildhardt@proton.me # via Claude Opus
-Tested-by: Luke.Wildhardt@proton.me
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Philipp Stanner <phasta@kernel.org>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>
-Cc: <stable@vger.kernel.org> # v7.2+
----
-v2:
-  * More verbose commit text.
----
- drivers/gpu/drm/scheduler/sched_entity.c |  8 +++++++-
- drivers/gpu/drm/scheduler/sched_rq.c     | 20 +++++++++-----------
- 2 files changed, 16 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index bf97508a45b9..e4069fcb0272 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -563,9 +563,10 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
- 	 */
- 	smp_wmb();
- 
-+	spin_lock(&entity->lock);
- 	spsc_queue_pop(&entity->job_queue);
--
- 	drm_sched_rq_pop_entity(entity);
-+	spin_unlock(&entity->lock);
- 
- 	/* Jobs and entities might have different lifecycles. Since we're
- 	 * removing the job from the entities queue, set the jobs entity pointer
-@@ -651,6 +652,9 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 	 * Make sure to set the submit_ts first, to avoid a race.
- 	 */
- 	sched_job->submit_ts = submit_ts = ktime_get();
-+
-+	spin_lock(&entity->lock);
-+
- 	first = spsc_queue_push(&entity->job_queue, &sched_job->queue_node);
- 
- 	/* first job wakes up scheduler */
-@@ -661,5 +665,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 		if (sched)
- 			drm_sched_wakeup(sched);
- 	}
-+
-+	spin_unlock(&entity->lock);
- }
- EXPORT_SYMBOL(drm_sched_entity_push_job);
-diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
-index 0464d324d98d..23f46ec610e7 100644
---- a/drivers/gpu/drm/scheduler/sched_rq.c
-+++ b/drivers/gpu/drm/scheduler/sched_rq.c
-@@ -257,19 +257,17 @@ static ktime_t drm_sched_entity_get_job_ts(struct drm_sched_entity *entity)
- struct drm_gpu_scheduler *
- drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
- {
-+	struct drm_sched_rq *rq = entity->rq;
- 	struct drm_gpu_scheduler *sched;
--	struct drm_sched_rq *rq;
- 
- 	/* Add the entity to the run queue */
--	spin_lock(&entity->lock);
-+	lockdep_assert_held(&entity->lock);
-+
- 	if (entity->stopped) {
--		spin_unlock(&entity->lock);
--
- 		DRM_ERROR("Trying to push to a killed entity\n");
- 		return NULL;
- 	}
- 
--	rq = entity->rq;
- 	spin_lock(&rq->lock);
- 	sched = rq->sched;
- 
-@@ -289,7 +287,6 @@ drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
- 	drm_sched_rq_update_fifo_locked(entity, rq, ts);
- 
- 	spin_unlock(&rq->lock);
--	spin_unlock(&entity->lock);
- 
- 	return sched;
- }
-@@ -343,16 +340,17 @@ drm_sched_rq_next_rr_ts(struct drm_sched_rq *rq,
-  */
- void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
- {
-+	struct drm_sched_rq *rq = entity->rq;
- 	struct drm_sched_job *next_job;
--	struct drm_sched_rq *rq;
-+
-+	lockdep_assert_held(&entity->lock);
-+
-+	spin_lock(&rq->lock);
- 
- 	/*
- 	 * Update the entity's location in the min heap according to
- 	 * the timestamp of the next job, if any.
- 	 */
--	spin_lock(&entity->lock);
--	rq = entity->rq;
--	spin_lock(&rq->lock);
- 	next_job = drm_sched_entity_queue_peek(entity);
- 	if (next_job) {
- 		ktime_t ts;
-@@ -375,8 +373,8 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
- 			drm_sched_entity_save_vruntime(entity, min_vruntime);
- 		}
- 	}
-+
- 	spin_unlock(&rq->lock);
--	spin_unlock(&entity->lock);
- }
- 
- /**
 -- 
-2.55.0
-
+Best regards,
+Xilin Wu <sophon@radxa.com>
