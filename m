@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 493D0C982C5
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 15:33:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC9D3C982C1
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 15:33:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6408810E5F9;
-	Tue, 15 Sep 2026 15:33:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C0E310F10C;
+	Tue, 15 Sep 2026 15:33:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="ocfrQhyK";
+	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="MgUE7O//";
 	dkim-atps=neutral
 Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
  [210.118.77.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C1EF10EC77
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 15:32:34 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 301FB10EC77
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 15:32:41 +0000 (UTC)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
  by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260915153233euoutp0259e286e9af0cf0d264a1c1e31ac813b8~ViFtz4m1G0392703927euoutp02f;
- Tue, 15 Sep 2026 15:32:33 +0000 (GMT)
+ 20260915153239euoutp028c9a2a1f5ba5a981d65b4ee3784cdc39~ViFz5U5fS0392703927euoutp02h;
+ Tue, 15 Sep 2026 15:32:39 +0000 (GMT)
 DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20260915153233euoutp0259e286e9af0cf0d264a1c1e31ac813b8~ViFtz4m1G0392703927euoutp02f
+ 20260915153239euoutp028c9a2a1f5ba5a981d65b4ee3784cdc39~ViFz5U5fS0392703927euoutp02h
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1789486353;
- bh=wBtYFL7Kwh/AbWkuFD4cnzdIXUhpc1coZlgIzXoyZCE=;
+ s=mail20170921; t=1789486359;
+ bh=JcSXHVMDqv6KSfxLj3MK5INKK9EFwX8I0N6g2xkU6Kk=;
  h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
- b=ocfrQhyKMWqfPqUCqCUm/qU0dZHDc4Qz5esQj5h4UZpnVumDskYMo/K8UcdPEBiB0
- s+lZbkP50jAqCBJslsLZ+IrsUkPOfNM8mFuHK18fIaTvziMjQ+ZygszENY+bE4j9X1
- caLSgd2U3Iff5Ywv2XSbVR9FSgiM4udMdDgK9MAo=
+ b=MgUE7O//cUy4rTHrEiCnRpYaxzokcH6wvdIzFDm/DphRUPTBDU+0DSYinsYpDvIVq
+ GgU5c1ARllh0Ti83WtCJJ/DgOSxbV12xBQW1ApiKL6yOoU37+AMBOIhu5JmJY8Lozp
+ yfB22pDmUmtqz//XMd/IzixnyYrc4XjJY6ga/ArA=
 Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
  eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20260915153233eucas1p2e26a6953a31c5f836aeaed03a4ae325e~ViFtkl1xC1214912149eucas1p2e;
- Tue, 15 Sep 2026 15:32:33 +0000 (GMT)
+ 20260915153238eucas1p29917a31d10ce1aa55c1dcb44b62180f9~ViFylzEdz1456714567eucas1p2W;
+ Tue, 15 Sep 2026 15:32:38 +0000 (GMT)
 Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
  [106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260915153231eusmtip19a6ca86b35c8d62c1324b24637525198~ViFr-1w1n0336503365eusmtip1x;
- Tue, 15 Sep 2026 15:32:31 +0000 (GMT)
+ 20260915153236eusmtip152220ca6bbe3751e6dc90fe7c7a6eff2~ViFw96L6d0616606166eusmtip1V;
+ Tue, 15 Sep 2026 15:32:36 +0000 (GMT)
 From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Tue, 15 Sep 2026 17:32:19 +0200
-Subject: [PATCH v4 11/20] drm/bridge: inno-hdmi: Make the PHY configuration
- table optional
+Date: Tue, 15 Sep 2026 17:32:22 +0200
+Subject: [PATCH v4 14/20] clk: starfive: jh7110-vout: Allow pixel clock rate
+ propagation
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-jh7110-clean-send-v4-11-f0e4fd6f2cc8@samsung.com>
+Message-Id: <20260915-jh7110-clean-send-v4-14-f0e4fd6f2cc8@samsung.com>
 In-Reply-To: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
 To: Vinod Koul <vkoul@kernel.org>,  Neil Armstrong
  <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,  Krzysztof
@@ -74,14 +74,14 @@ Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
  <u.kleine-koenig@baylibre.com>,  Michal Wilczynski
  <m.wilczynski@samsung.com>
 X-Mailer: b4 0.15-dev
-X-CMS-MailID: 20260915153233eucas1p2e26a6953a31c5f836aeaed03a4ae325e
+X-CMS-MailID: 20260915153238eucas1p29917a31d10ce1aa55c1dcb44b62180f9
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260915153233eucas1p2e26a6953a31c5f836aeaed03a4ae325e
+X-RootMTR: 20260915153238eucas1p29917a31d10ce1aa55c1dcb44b62180f9
 X-EPHeader: CA
-X-CMS-RootMailID: 20260915153233eucas1p2e26a6953a31c5f836aeaed03a4ae325e
+X-CMS-RootMailID: 20260915153238eucas1p29917a31d10ce1aa55c1dcb44b62180f9
 References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
- <CGME20260915153233eucas1p2e26a6953a31c5f836aeaed03a4ae325e@eucas1p2.samsung.com>
+ <CGME20260915153238eucas1p29917a31d10ce1aa55c1dcb44b62180f9@eucas1p2.samsung.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,80 +97,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The pre-emphasis and drive-strength values in inno_hdmi_phy_config, and
-the registers they are written to, belong to the PHY integrated into the
-controller. A platform whose PHY is a separate device has neither, and
-its own .mode_valid already validates the pixel clock against the real
-PHY, so the table only bounds the generic check.
+The dc8200_pix0 and dc8200_pix1 MUXes feed the display controller, and
+the rate they carry is ultimately produced by the HDMI PHY, which
+registers hdmitx0_pixelclk as a clock provider.
 
-Let such a platform omit the table: skip the integrated-PHY register
-writes in the power-up path and the table lookup in .mode_valid when it
-is absent. Platforms that supply one are unaffected.
+Add CLK_SET_RATE_PARENT to both MUXes so a rate requested on them
+reaches that parent, instead of being clamped to whatever rate the
+parent already happens to run at.
 
+Co-developed-by: Dominique Belhachemi <db@domibel.de>
+Signed-off-by: Dominique Belhachemi <db@domibel.de>
+Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
 Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 ---
- drivers/gpu/drm/bridge/inno-hdmi.c | 19 ++++++++++---------
- 1 file changed, 10 insertions(+), 9 deletions(-)
+ drivers/clk/starfive/clk-starfive-jh7110-vout.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
-index 00450250336adb9530894af767034572d775a8df..0988775e7e4881a84f59efda8465ad4d5e61b4cd 100644
---- a/drivers/gpu/drm/bridge/inno-hdmi.c
-+++ b/drivers/gpu/drm/bridge/inno-hdmi.c
-@@ -538,8 +538,14 @@ static void inno_hdmi_power_up(struct inno_hdmi *hdmi,
- 			       unsigned long mpixelclock)
- {
- 	struct inno_hdmi_phy_config *phy_config;
--	int ret = inno_hdmi_find_phy_config(hdmi, mpixelclock);
-+	int ret;
-+
-+	inno_hdmi_sys_power(hdmi, false);
-+
-+	if (!hdmi->plat_data->phy_configs)
-+		goto out;
- 
-+	ret = inno_hdmi_find_phy_config(hdmi, mpixelclock);
- 	if (ret < 0) {
- 		phy_config = hdmi->plat_data->default_phy_config;
- 		DRM_DEV_ERROR(hdmi->dev,
-@@ -549,8 +555,6 @@ static void inno_hdmi_power_up(struct inno_hdmi *hdmi,
- 		phy_config = &hdmi->plat_data->phy_configs[ret];
- 	}
- 
--	inno_hdmi_sys_power(hdmi, false);
--
- 	hdmi_writeb(hdmi, HDMI_PHY_PRE_EMPHASIS, phy_config->pre_emphasis);
- 	hdmi_writeb(hdmi, HDMI_PHY_DRIVER, phy_config->voltage_level_control);
- 	hdmi_writeb(hdmi, HDMI_PHY_SYS_CTL, 0x15);
-@@ -560,6 +564,7 @@ static void inno_hdmi_power_up(struct inno_hdmi *hdmi,
- 	hdmi_writeb(hdmi, HDMI_PHY_SYNC, 0x00);
- 	hdmi_writeb(hdmi, HDMI_PHY_SYNC, 0x01);
- 
-+out:
- 	inno_hdmi_sys_power(hdmi, true);
- };
- 
-@@ -836,7 +841,8 @@ static enum drm_mode_status inno_hdmi_bridge_mode_valid(struct drm_bridge *bridg
- 	if (mpixelclk < HDMI_TMDS_CHAR_RATE_MIN_HZ)
- 		return MODE_CLOCK_LOW;
- 
--	if (inno_hdmi_find_phy_config(hdmi, mpixelclk) < 0)
-+	if (hdmi->plat_data->phy_configs &&
-+	    inno_hdmi_find_phy_config(hdmi, mpixelclk) < 0)
- 		return MODE_CLOCK_HIGH;
- 
- 	if (plat_ops && plat_ops->mode_valid) {
-@@ -1118,11 +1124,6 @@ struct inno_hdmi *inno_hdmi_probe(struct platform_device *pdev,
- 	int irq;
- 	int ret;
- 
--	if (!plat_data->phy_configs || !plat_data->default_phy_config) {
--		dev_err(dev, "Missing platform PHY ops\n");
--		return ERR_PTR(-ENODEV);
--	}
--
- 	hdmi = devm_drm_bridge_alloc(dev, struct inno_hdmi, bridge, &inno_hdmi_bridge_funcs);
- 	if (IS_ERR(hdmi))
- 		return ERR_CAST(hdmi);
+diff --git a/drivers/clk/starfive/clk-starfive-jh7110-vout.c b/drivers/clk/starfive/clk-starfive-jh7110-vout.c
+index bad20d5d794a72f071b4d547b7304786a8ba9afa..aeba42cd3c44ba205ced52b1826d2d2de82ad78f 100644
+--- a/drivers/clk/starfive/clk-starfive-jh7110-vout.c
++++ b/drivers/clk/starfive/clk-starfive-jh7110-vout.c
+@@ -40,10 +40,12 @@ static const struct jh71x0_clk_data jh7110_voutclk_data[] = {
+ 	JH71X0_GATE(JH7110_VOUTCLK_DC8200_AXI, "dc8200_axi", 0, JH7110_VOUTCLK_VOUT_TOP_AXI),
+ 	JH71X0_GATE(JH7110_VOUTCLK_DC8200_CORE, "dc8200_core", 0, JH7110_VOUTCLK_VOUT_TOP_AXI),
+ 	JH71X0_GATE(JH7110_VOUTCLK_DC8200_AHB, "dc8200_ahb", 0, JH7110_VOUTCLK_VOUT_TOP_AHB),
+-	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX0, "dc8200_pix0", 0, 2,
++	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX0, "dc8200_pix0",
++		    CLK_SET_RATE_PARENT | CLK_SET_RATE_NO_REPARENT, 2,
+ 		    JH7110_VOUTCLK_DC8200_PIX,
+ 		    JH7110_VOUTCLK_HDMITX0_PIXELCLK),
+-	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX1, "dc8200_pix1", 0, 2,
++	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX1, "dc8200_pix1",
++		    CLK_SET_RATE_PARENT | CLK_SET_RATE_NO_REPARENT, 2,
+ 		    JH7110_VOUTCLK_DC8200_PIX,
+ 		    JH7110_VOUTCLK_HDMITX0_PIXELCLK),
+ 	/* LCD */
 
 -- 
 2.34.1
