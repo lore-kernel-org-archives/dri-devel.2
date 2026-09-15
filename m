@@ -4,59 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D230DC88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:34:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DA4FC88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:36:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F098410FA64;
-	Tue, 15 Sep 2026 07:34:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72DB910FA76;
+	Tue, 15 Sep 2026 07:36:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Hr2Ogphm";
+	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="SqhrE50w";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="MOj9iq8y";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A45C010FA64;
- Tue, 15 Sep 2026 07:34:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789457691; x=1820993691;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=kAwlmvVtuXEZRdeycMssBwHiAkoZ4fW5Lq5Wy8kdbXk=;
- b=Hr2Ogphmysc+eiw+KYDTE1eTT8l6Wrqg7lX49yqmI4e6GTqdAHqRTJFx
- zedMQmlCdKKNuwXkUH6jAtv15ytqMNovt+oSdAin7LuQAPz1UVxv0Mliw
- bYVTQzQfP1Btx3vQk4/UUThu31iF/+Qb1/sIunMR0O2ISN2zjgK7QA6m/
- ZlsW3O66cFQoHJK7LHBJQdMCi+GACPj0yxeaeYAE93+2Q2sR7Psik/hd/
- VZJcEgjQ7DPNnwbouWBMEnp1NhYgRfuqgCb41aZX/COkkWNa/boYekQnD
- oGh38gNHEjP+Y2ekkbaqtz/H+wBDWb4y6G6soMQ4nnMq7Q4PPmbQc0IMP Q==;
-X-CSE-ConnectionGUID: BfBiiUJ9QQur9qo/PDIUBA==
-X-CSE-MsgGUID: ApWmsfiOR8WDOcVf6lezmw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93682656"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="93682656"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2026 00:34:51 -0700
-X-CSE-ConnectionGUID: e2CD1t2PTneI7JoPi1z1JA==
-X-CSE-MsgGUID: vBGWQumIQMOwmIHiMPaRQw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="271457164"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.243])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2026 00:34:50 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Alan Previn <alan.previn.teres.alexis@intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- dri-devel@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>
-Subject: Re: [PATCH] drm/xe/mmio: Fix xe_mmio_wait32() to honor delay/sleep
- maximums
-In-Reply-To: <20260914215746.272721-2-alan.previn.teres.alexis@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260914215746.272721-2-alan.previn.teres.alexis@intel.com>
-Date: Tue, 15 Sep 2026 10:34:46 +0300
-Message-ID: <683c9836e408389852f6e6e956cc6862b1429b2a@intel.com>
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3CA210FA76;
+ Tue, 15 Sep 2026 07:36:18 +0000 (UTC)
+Date: Tue, 15 Sep 2026 09:36:14 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1789457776;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=F0XPnkxyinHuP6LWNm97uEI7J3FDxX79bdkqFiNYciE=;
+ b=SqhrE50w1ocVlf7bpgeaWolWTp4TlALhfikJd77/9fAbpZv3jROrX6RuHe9ozTKinQTlVq
+ 5TL3T2e73jZY6BqX+6zCJotxa//4hJoq5worZy947B/ZdP3qeGxu4eV71Gox5uBqhKt58n
+ U9LTKCkF8GdliiYdGg3N+fJZqP6lhkX0P2tEOoJfh15/E/oNw5XFsTX/mtOgScEEpz9BYZ
+ gydy3OCdv00ONKP0zc3wkRS+joc9Nwov2QqA9lbMGpxEaW4pQznJcVIKvKACQxcqUntEIA
+ JiHWGgwyOtbw834tsScsMXkZCFA0+M9mRg3i6E9LGYKJvhfBbw7SLs6mGciJAw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1789457776;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=F0XPnkxyinHuP6LWNm97uEI7J3FDxX79bdkqFiNYciE=;
+ b=MOj9iq8y1HteeIVav02abiLPFsuHVtarPN2TFD7jA7YzWZT9Dij7UoMpx12ZDRoQydWGhe
+ CrGKmIpDqkbjOuAg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Clark Williams <clrkwllms@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>,
+ Archit Taneja <architt@codeaurora.org>,
+ Jeykumar Sankaran <jsanka@codeaurora.org>,
+ Chandan Uddaraju <chandanu@codeaurora.org>,
+ Rajesh Yadav <ryadav@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ venkata.valluru@oss.qualcomm.com,
+ Naman S Thaker <namathak@qti.qualcomm.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/msm: split DPU core IRQ handler under
+ CONFIG_PREEMPT_RT
+Message-ID: <20260915073614.nvT9zW3S@linutronix.de>
+References: <20260909-drm-mis-next-split-irq-v1-1-89bc9c512c53@oss.qualcomm.com>
+ <20260910064723.pbZP3vic@linutronix.de>
+ <aqP3lDjzzsbFNly5@hu-vishsain-blr.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aqP3lDjzzsbFNly5@hu-vishsain-blr.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,520 +81,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 14 Sep 2026, Alan Previn <alan.previn.teres.alexis@intel.com> wrote:
-> Check for overflow in udelay/usleep_range use in __xe_mmio_wait32
-> and pick the correct helper according to the wait time and atomic.
-> Implement a similar helper to replace DIV_ROUND_UP for 32-bit CPUs.
-> Avoid growing delays becoming intollerably large by capping the
-> in-loop wait time.
->
-> v4: - Simplify using poll_timeout_us and poll_timeout_us_atopmic and
->       update all callstack to never use a param for atomic (Jani)
-> v3: - Use div64_s64 kernel API for 32-bit vs 64-bit division.
-> v2: - Fixed checkpatch failure.
->     - Added helper for 64-bit DIV_ROUND_UP on 32-bit CPU (Shasiko
->       review). Fixed bug max range in usleep_range(Shasiko review)
->
-> Fixes: 5c09bd6ccd41 ("drm/xe/mmio: Move xe_mmio_wait32() to xe_mmio.c")
-> Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
-> Assisted-by: Github-Copilot:Claude-Sonnet-5-0
-> ---
->  drivers/gpu/drm/xe/xe_device.c          |  10 +-
->  drivers/gpu/drm/xe/xe_eu_stall.c        |   4 +-
->  drivers/gpu/drm/xe/xe_force_wake.c      |   7 +-
->  drivers/gpu/drm/xe/xe_gsc.c             |   2 +-
->  drivers/gpu/drm/xe/xe_gsc_proxy.c       |   2 +-
->  drivers/gpu/drm/xe/xe_gt.c              |   2 +-
->  drivers/gpu/drm/xe/xe_gt_mcr.c          |   4 +-
->  drivers/gpu/drm/xe/xe_guc.c             |  10 +-
->  drivers/gpu/drm/xe/xe_huc.c             |   2 +-
->  drivers/gpu/drm/xe/xe_mmio.c            | 118 ++++++++++--------------
->  drivers/gpu/drm/xe/xe_mmio.h            |   8 +-
->  drivers/gpu/drm/xe/xe_oa.c              |   4 +-
->  drivers/gpu/drm/xe/xe_pcode.c           |   8 +-
->  drivers/gpu/drm/xe/xe_pxp.c             |   2 +-
->  drivers/gpu/drm/xe/xe_sysctrl_mailbox.c |   4 +-
->  drivers/gpu/drm/xe/xe_uc_fw.c           |   3 +-
->  16 files changed, 90 insertions(+), 100 deletions(-)
->
-> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-> index 205cb4e7f9e8..8fb044331e62 100644
-> --- a/drivers/gpu/drm/xe/xe_device.c
-> +++ b/drivers/gpu/drm/xe/xe_device.c
-> @@ -573,7 +573,7 @@ static void __xe_driver_flr(struct xe_device *xe)
->  	 * is still pending (unless the HW is totally dead), but better to be
->  	 * safe in case something unexpected happens
->  	 */
-> -	ret = xe_mmio_wait32(mmio, GU_CNTL, DRIVERFLR, 0, flr_timeout, NULL, false);
-> +	ret = xe_mmio_wait32(mmio, GU_CNTL, DRIVERFLR, 0, flr_timeout, NULL);
->  	if (ret) {
->  		drm_err(&xe->drm, "Driver-FLR-prepare wait for ready failed! %d\n", ret);
->  		return;
-> @@ -584,7 +584,7 @@ static void __xe_driver_flr(struct xe_device *xe)
->  	xe_mmio_rmw32(mmio, GU_CNTL, 0, DRIVERFLR);
->  
->  	/* Wait for hardware teardown to complete */
-> -	ret = xe_mmio_wait32(mmio, GU_CNTL, DRIVERFLR, 0, flr_timeout, NULL, false);
-> +	ret = xe_mmio_wait32(mmio, GU_CNTL, DRIVERFLR, 0, flr_timeout, NULL);
->  	if (ret) {
->  		drm_err(&xe->drm, "Driver-FLR-teardown wait completion failed! %d\n", ret);
->  		return;
-> @@ -592,7 +592,7 @@ static void __xe_driver_flr(struct xe_device *xe)
->  
->  	/* Wait for hardware/firmware re-init to complete */
->  	ret = xe_mmio_wait32(mmio, GU_DEBUG, DRIVERFLR_STATUS, DRIVERFLR_STATUS,
-> -			     flr_timeout, NULL, false);
-> +			     flr_timeout, NULL);
->  	if (ret) {
->  		drm_err(&xe->drm, "Driver-FLR-reinit wait completion failed! %d\n", ret);
->  		return;
-> @@ -1168,7 +1168,7 @@ static void tdf_request_sync(struct xe_device *xe)
->  		 * transient and need to be flushed..
->  		 */
->  		if (xe_mmio_wait32(&gt->mmio, XE2_TDF_CTRL, TRANSIENT_FLUSH_REQUEST, 0,
-> -				   300, NULL, false))
-> +					    300, NULL))
->  			xe_gt_err_once(gt, "TD flush timeout\n");
->  	}
->  }
-> @@ -1214,7 +1214,7 @@ void xe_device_l2_flush(struct xe_device *xe, bool force)
->  	spin_lock(&gt->global_invl_lock);
->  
->  	xe_mmio_write32(&gt->mmio, XE2_GLOBAL_INVAL, 0x1);
-> -	if (xe_mmio_wait32(&gt->mmio, XE2_GLOBAL_INVAL, 0x1, 0x0, 1000, NULL, true))
-> +	if (xe_mmio_wait32_atomic(&gt->mmio, XE2_GLOBAL_INVAL, 0x1, 0x0, 1000, NULL))
->  		xe_gt_err_once(gt, "Global invalidation timeout\n");
->  
->  	spin_unlock(&gt->global_invl_lock);
-> diff --git a/drivers/gpu/drm/xe/xe_eu_stall.c b/drivers/gpu/drm/xe/xe_eu_stall.c
-> index 8a7c1b5d5ab9..865e08b75c29 100644
-> --- a/drivers/gpu/drm/xe/xe_eu_stall.c
-> +++ b/drivers/gpu/drm/xe/xe_eu_stall.c
-> @@ -707,7 +707,7 @@ static int xe_eu_stall_stream_enable(struct xe_eu_stall_data_stream *stream)
->  		/* Request the firmware to apply the workaround and wait for an ACK */
->  		xe_mmio_write32(&gt->mmio, SWF_SCRATCHPAD(0), REQ_EUSTALL_ENABLE);
->  		ret = xe_mmio_wait32(&gt->mmio, SWF_SCRATCHPAD(0), SWF_EUSTALL_MASK,
-> -				     ACK_EUSTALL_ENABLE, FW_WA_WAIT_TIMEOUT_US, NULL, false);
-> +					     ACK_EUSTALL_ENABLE, FW_WA_WAIT_TIMEOUT_US, NULL);
->  		if (ret) {
->  			xe_gt_err(gt, "Timeout polling for EU stall enable ACK from firmware\n");
->  			xe_force_wake_put(gt_to_fw(gt), stream->fw_ref);
-> @@ -880,7 +880,7 @@ static int xe_eu_stall_disable_locked(struct xe_eu_stall_data_stream *stream)
->  		/* Request the firmware to revert the workaround and wait for an ACK */
->  		xe_mmio_write32(&gt->mmio, SWF_SCRATCHPAD(0), REQ_EUSTALL_DISABLE);
->  		ret = xe_mmio_wait32(&gt->mmio, SWF_SCRATCHPAD(0), SWF_EUSTALL_MASK,
-> -				     ACK_EUSTALL_DISABLE, FW_WA_WAIT_TIMEOUT_US, NULL, false);
-> +					     ACK_EUSTALL_DISABLE, FW_WA_WAIT_TIMEOUT_US, NULL);
->  		if (ret)
->  			xe_gt_err(gt, "Timeout polling for EU stall disable ACK from firmware\n");
->  	}
-> diff --git a/drivers/gpu/drm/xe/xe_force_wake.c b/drivers/gpu/drm/xe/xe_force_wake.c
-> index 197e2197bd0a..12ab0304509c 100644
-> --- a/drivers/gpu/drm/xe/xe_force_wake.c
-> +++ b/drivers/gpu/drm/xe/xe_force_wake.c
-> @@ -109,9 +109,10 @@ static int __domain_wait(struct xe_gt *gt, struct xe_force_wake_domain *domain,
->  	if (IS_SRIOV_VF(gt_to_xe(gt)))
->  		return 0;
->  
-> -	ret = xe_mmio_wait32(&gt->mmio, domain->reg_ack, domain->val, wake ? domain->val : 0,
-> -			     XE_FORCE_WAKE_ACK_TIMEOUT_MS * USEC_PER_MSEC,
-> -			     &value, true);
-> +	ret = xe_mmio_wait32_atomic(&gt->mmio, domain->reg_ack, domain->val,
-> +				    wake ? domain->val : 0,
-> +				    XE_FORCE_WAKE_ACK_TIMEOUT_MS * USEC_PER_MSEC,
-> +				    &value);
->  	if (ret)
->  		xe_gt_err(gt, "Force wake domain %d failed to ack %s (%pe) reg[%#x] = %#x\n",
->  			  domain->id, str_wake_sleep(wake), ERR_PTR(ret),
-> diff --git a/drivers/gpu/drm/xe/xe_gsc.c b/drivers/gpu/drm/xe/xe_gsc.c
-> index 524ac56bdcc7..a43d3739d213 100644
-> --- a/drivers/gpu/drm/xe/xe_gsc.c
-> +++ b/drivers/gpu/drm/xe/xe_gsc.c
-> @@ -196,7 +196,7 @@ static int gsc_fw_wait(struct xe_gt *gt)
->  	return xe_mmio_wait32(&gt->mmio, HECI_FWSTS1(MTL_GSC_HECI1_BASE),
->  			      HECI1_FWSTS1_INIT_COMPLETE,
->  			      HECI1_FWSTS1_INIT_COMPLETE,
-> -			      500 * USEC_PER_MSEC, NULL, false);
-> +			   500 * USEC_PER_MSEC, NULL);
->  }
->  
->  static int gsc_upload(struct xe_gsc *gsc)
-> diff --git a/drivers/gpu/drm/xe/xe_gsc_proxy.c b/drivers/gpu/drm/xe/xe_gsc_proxy.c
-> index 707db650a2ae..63f72ca28ed4 100644
-> --- a/drivers/gpu/drm/xe/xe_gsc_proxy.c
-> +++ b/drivers/gpu/drm/xe/xe_gsc_proxy.c
-> @@ -80,7 +80,7 @@ int xe_gsc_wait_for_proxy_init_done(struct xe_gsc *gsc)
->  	return xe_mmio_wait32(&gt->mmio, HECI_FWSTS1(MTL_GSC_HECI1_BASE),
->  			      HECI1_FWSTS1_CURRENT_STATE,
->  			      HECI1_FWSTS1_PROXY_STATE_NORMAL,
-> -			      USEC_PER_SEC, NULL, false);
-> +			   USEC_PER_SEC, NULL);
->  }
->  
->  static void __gsc_proxy_irq_rmw(struct xe_gsc *gsc, u32 clr, u32 set)
-> diff --git a/drivers/gpu/drm/xe/xe_gt.c b/drivers/gpu/drm/xe/xe_gt.c
-> index 775c826b68b4..9edcc54ad4bf 100644
-> --- a/drivers/gpu/drm/xe/xe_gt.c
-> +++ b/drivers/gpu/drm/xe/xe_gt.c
-> @@ -832,7 +832,7 @@ static int do_gt_reset(struct xe_gt *gt)
->  	xe_mmio_write32(&gt->mmio, GDRST, GRDOM_FULL);
->  	err = xe_mmio_wait32(&gt->mmio, GDRST, GRDOM_FULL, 0,
->  			     GRDOM_RESET_TIMEOUT_MS * USEC_PER_MSEC,
-> -			     NULL, false);
-> +			   NULL);
->  	if (err)
->  		xe_log_err(gt, GT, err,
->  			   "full graphics reset not completed in %u ms\n",
-> diff --git a/drivers/gpu/drm/xe/xe_gt_mcr.c b/drivers/gpu/drm/xe/xe_gt_mcr.c
-> index 1949bf7d370a..a08585f082d3 100644
-> --- a/drivers/gpu/drm/xe/xe_gt_mcr.c
-> +++ b/drivers/gpu/drm/xe/xe_gt_mcr.c
-> @@ -711,8 +711,8 @@ static void mcr_lock(struct xe_gt *gt) __acquires(&gt->mcr_lock)
->  	 * when a read to the relevant register returns 1.
->  	 */
->  	if (GRAPHICS_VERx100(xe) >= 1270)
-> -		ret = xe_mmio_wait32(&gt->mmio, STEER_SEMAPHORE, 0x1, 0x1, 10, NULL,
-> -				     true);
-> +		ret = xe_mmio_wait32_atomic(&gt->mmio, STEER_SEMAPHORE, 0x1, 0x1, 10,
-> +					    NULL);
->  
->  	xe_gt_WARN_ON_ONCE(gt, ret == -ETIMEDOUT);
->  }
-> diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
-> index c7f8bbd4cb92..670140e1aa36 100644
-> --- a/drivers/gpu/drm/xe/xe_guc.c
-> +++ b/drivers/gpu/drm/xe/xe_guc.c
-> @@ -967,13 +967,13 @@ static void guc_prevent_fw_dma_failure_on_reset(struct xe_guc *guc)
->  
->  	ret = xe_mmio_wait32(&gt->mmio, GUC_STATUS, GS_UKERNEL_MASK,
->  			     FIELD_PREP(GS_UKERNEL_MASK, XE_GUC_LOAD_STATUS_READY),
-> -			     100000, &guc_status, false);
-> +				      100000, &guc_status);
->  	if (ret)
->  		xe_gt_warn(gt, "GuC not ready after disabling idle flow (GUC_STATUS: 0x%x)\n",
->  			   guc_status);
->  
->  	ret = xe_mmio_wait32(&gt->mmio, GUC_SRAM_STATUS, GUC_SRAM_HANDLING_MASK,
-> -			     0, 5000, &sram_status, false);
-> +				      0, 5000, &sram_status);
->  	if (ret)
->  		xe_gt_warn(gt, "SRAM handling not complete (GUC_SRAM_STATUS: 0x%x)\n",
->  			   sram_status);
-> @@ -996,7 +996,7 @@ int xe_guc_reset(struct xe_guc *guc)
->  
->  	xe_mmio_write32(mmio, GDRST, GRDOM_GUC);
->  
-> -	ret = xe_mmio_wait32(mmio, GDRST, GRDOM_GUC, 0, 5000, &gdrst, false);
-> +	ret = xe_mmio_wait32(mmio, GDRST, GRDOM_GUC, 0, 5000, &gdrst);
->  	if (ret) {
->  		xe_gt_err(gt, "GuC reset timed out, GDRST=%#x\n", gdrst);
->  		goto err_out;
-> @@ -1538,7 +1538,7 @@ int xe_guc_mmio_send_recv(struct xe_guc *guc, const u32 *request,
->  
->  	ret = xe_mmio_wait32(mmio, reply_reg, GUC_HXG_MSG_0_ORIGIN,
->  			     FIELD_PREP(GUC_HXG_MSG_0_ORIGIN, GUC_HXG_ORIGIN_GUC),
-> -			     50000, &header, false);
-> +				     50000, &header);
->  	if (ret) {
->  		/* scratch registers might be cleared during FLR, try once more */
->  		if (!header) {
-> @@ -1574,7 +1574,7 @@ int xe_guc_mmio_send_recv(struct xe_guc *guc, const u32 *request,
->  		BUILD_BUG_ON((GUC_HXG_TYPE_RESPONSE_SUCCESS ^ GUC_HXG_TYPE_RESPONSE_FAILURE) != 1);
->  
->  		ret = xe_mmio_wait32(mmio, reply_reg, resp_mask, resp_mask,
-> -				     2000000, &header, false);
-> +					     2000000, &header);
->  
->  		if (unlikely(FIELD_GET(GUC_HXG_MSG_0_ORIGIN, header) !=
->  			     GUC_HXG_ORIGIN_GUC))
-> diff --git a/drivers/gpu/drm/xe/xe_huc.c b/drivers/gpu/drm/xe/xe_huc.c
-> index 57afe21444b1..3517bba09399 100644
-> --- a/drivers/gpu/drm/xe/xe_huc.c
-> +++ b/drivers/gpu/drm/xe/xe_huc.c
-> @@ -272,7 +272,7 @@ int xe_huc_auth(struct xe_huc *huc, enum xe_huc_auth_types type)
->  	}
->  
->  	ret = xe_mmio_wait32(&gt->mmio, huc_auth_modes[type].reg, huc_auth_modes[type].val,
-> -			     huc_auth_modes[type].val, 100000, NULL, false);
-> +			     huc_auth_modes[type].val, 100000, NULL);
->  	if (ret) {
->  		xe_gt_err(gt, "HuC: firmware not verified: %pe\n", ERR_PTR(ret));
->  		goto fail;
-> diff --git a/drivers/gpu/drm/xe/xe_mmio.c b/drivers/gpu/drm/xe/xe_mmio.c
-> index 7fa18dfcb5a2..fc0509aa384b 100644
-> --- a/drivers/gpu/drm/xe/xe_mmio.c
-> +++ b/drivers/gpu/drm/xe/xe_mmio.c
-> @@ -5,8 +5,8 @@
->  
->  #include "xe_mmio.h"
->  
-> -#include <linux/delay.h>
->  #include <linux/io-64-nonatomic-lo-hi.h>
-> +#include <linux/iopoll.h>
->  #include <linux/minmax.h>
->  #include <linux/pci.h>
->  
-> @@ -320,82 +320,44 @@ u64 xe_mmio_read64_2x32(struct xe_mmio *mmio, struct xe_reg reg)
->  	return (u64)udw << 32 | ldw;
->  }
->  
-> -static int __xe_mmio_wait32(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val,
-> -			    u32 timeout_us, u32 *out_val, bool atomic, bool expect_match)
-> -{
-> -	ktime_t cur = ktime_get_raw();
-> -	const ktime_t end = ktime_add_us(cur, timeout_us);
-> -	int ret = -ETIMEDOUT;
-> -	s64 wait = 10;
-> -	u32 read;
-> -	bool check;
-> -
-> -	for (;;) {
-> -		read = xe_mmio_read32(mmio, reg);
-> -
-> -		check = (read & mask) == val;
-> -		if (!expect_match)
-> -			check = !check;
-> -
-> -		if (check) {
-> -			ret = 0;
-> -			break;
-> -		}
-> -
-> -		cur = ktime_get_raw();
-> -		if (!ktime_before(cur, end))
-> -			break;
-> -
-> -		if (ktime_after(ktime_add_us(cur, wait), end))
-> -			wait = ktime_us_delta(end, cur);
-> -
-> -		if (atomic)
-> -			udelay(wait);
-> -		else
-> -			usleep_range(wait, wait << 1);
-> -		wait <<= 1;
-> -	}
-> -
-> -	if (ret != 0) {
-> -		read = xe_mmio_read32(mmio, reg);
-> -
-> -		check = (read & mask) == val;
-> -		if (!expect_match)
-> -			check = !check;
-> -
-> -		if (check)
-> -			ret = 0;
-> -	}
-> -
-> -	if (out_val)
-> -		*out_val = read;
-> -
-> -	return ret;
-> -}
-> -
->  /**
->   * xe_mmio_wait32() - Wait for a register to match the desired masked value
->   * @mmio: MMIO target
->   * @reg: register to read value from
->   * @mask: mask to be applied to the value read from the register
->   * @val: desired value after applying the mask
-> - * @timeout_us: time out after this period of time. Wait logic tries to be
-> - * smart, applying an exponential backoff until @timeout_us is reached.
-> + * @timeout_us: time out after this period of time
->   * @out_val: if not NULL, points where to store the last unmasked value
-> - * @atomic: needs to be true if calling from an atomic context
->   *
->   * This function polls for the desired masked value and returns zero on success
->   * or -ETIMEDOUT if timed out.
-> - *
-> - * Note that @timeout_us represents the minimum amount of time to wait before
-> - * giving up. The actual time taken by this function can be a little more than
-> - * @timeout_us for different reasons, specially in non-atomic contexts. Thus,
-> - * it is possible that this function succeeds even after @timeout_us has passed.
->   */
->  int xe_mmio_wait32(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val, u32 timeout_us,
-> -		   u32 *out_val, bool atomic)
-> +		   u32 *out_val)
->  {
-> -	return __xe_mmio_wait32(mmio, reg, mask, val, timeout_us, out_val, atomic, true);
-> +	u32 read;
-> +	int ret;
-> +
-> +	ret = poll_timeout_us(read = xe_mmio_read32(mmio, reg), (read & mask) == val,
-> +			      10, timeout_us, false);
+On 2026-09-11 18:14:04 [+0530], Vishnu Saini wrote:
+> On Thu, Sep 10, 2026 at 08:47:23AM +0200, Sebastian Andrzej Siewior wrote:
+> > On 2026-09-09 14:22:16 [+0530], vishnu.saini@oss.qualcomm.com wrote:
+> > > From: Naman S Thaker <namathak@qti.qualcomm.com>
+> > > 
+> > > On a PREEMPT_RT kernel, dpu_core_irq() runs as a true hardirq handler,
+> > 
+> > *why* is this the case. The code you replaces adds some ifdefs around
+> > request_irq() with 0 as flags. This does not make it run has hardirq.
+> You are right, the statement is incorrect, i will update the commit msg.
+> On RT kernel, the dpu_core_irq() runs in threaded context by default.
+> This behavior is changed in the commit by calling devm_request_threaded_irq with
+> IRQ_ONESHOT flag only for RT kernel using the ifdefs.
 
-You probably do need to let the callers pass in the wait too. 10 us wait
-with a long timeout is going to be pretty bad.
+The why would be interesting. Usually things stay threaded to avoid
+locking issues down the road.
 
-> +	if (out_val)
-> +		*out_val = read;
-> +
-> +	return ret;
-> +}
-> +
-> +int xe_mmio_wait32_atomic(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val,
-> +			  u32 timeout_us, u32 *out_val)
-> +{
-> +	u32 read;
-> +	int ret;
-> +
-> +	ret = poll_timeout_us_atomic(read = xe_mmio_read32(mmio, reg), (read & mask) == val,
-> +				     10, timeout_us, false);
-> +	if (out_val)
-> +		*out_val = read;
-> +
-> +	return ret;
->  }
->  
->  /**
-> @@ -406,15 +368,35 @@ int xe_mmio_wait32(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val, u
->   * @val: value not to be matched after applying the mask
->   * @timeout_us: time out after this period of time
->   * @out_val: if not NULL, points where to store the last unmasked value
-> - * @atomic: needs to be true if calling from an atomic context
-> - *
->   * This function works exactly like xe_mmio_wait32() with the exception that
->   * @val is expected not to be matched.
->   */
->  int xe_mmio_wait32_not(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val, u32 timeout_us,
-> -		       u32 *out_val, bool atomic)
-> +		       u32 *out_val)
->  {
-> -	return __xe_mmio_wait32(mmio, reg, mask, val, timeout_us, out_val, atomic, false);
-> +	u32 read;
-> +	int ret;
-> +
-> +	ret = poll_timeout_us(read = xe_mmio_read32(mmio, reg), (read & mask) != val,
-> +			      10, timeout_us, false);
-> +	if (out_val)
-> +		*out_val = read;
-> +
-> +	return ret;
-> +}
-> +
-> +int xe_mmio_wait32_not_atomic(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val,
-> +			      u32 timeout_us, u32 *out_val)
-> +{
-> +	u32 read;
-> +	int ret;
-> +
-> +	ret = poll_timeout_us_atomic(read = xe_mmio_read32(mmio, reg), (read & mask) != val,
-> +				     10, timeout_us, false);
-> +	if (out_val)
-> +		*out_val = read;
-> +
-> +	return ret;
->  }
->  
->  #ifdef CONFIG_PCI_IOV
-> diff --git a/drivers/gpu/drm/xe/xe_mmio.h b/drivers/gpu/drm/xe/xe_mmio.h
-> index befe021f2215..6391f0fd6507 100644
-> --- a/drivers/gpu/drm/xe/xe_mmio.h
-> +++ b/drivers/gpu/drm/xe/xe_mmio.h
-> @@ -27,9 +27,13 @@ bool xe_mmio_in_range(const struct xe_mmio *mmio, const struct xe_mmio_range *ra
->  
->  u64 xe_mmio_read64_2x32(struct xe_mmio *mmio, struct xe_reg reg);
->  int xe_mmio_wait32(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val,
-> -		   u32 timeout_us, u32 *out_val, bool atomic);
-> +		   u32 timeout_us, u32 *out_val);
-> +int xe_mmio_wait32_atomic(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val,
-> +			  u32 timeout_us, u32 *out_val);
->  int xe_mmio_wait32_not(struct xe_mmio *mmio, struct xe_reg reg, u32 mask,
-> -		       u32 val, u32 timeout_us, u32 *out_val, bool atomic);
-> +		       u32 val, u32 timeout_us, u32 *out_val);
-> +int xe_mmio_wait32_not_atomic(struct xe_mmio *mmio, struct xe_reg reg, u32 mask,
-> +			      u32 val, u32 timeout_us, u32 *out_val);
->  
->  static inline u32 xe_mmio_adjusted_addr(const struct xe_mmio *mmio, u32 addr)
->  {
-> diff --git a/drivers/gpu/drm/xe/xe_oa.c b/drivers/gpu/drm/xe/xe_oa.c
-> index a3484e943c55..98a6f57701e4 100644
-> --- a/drivers/gpu/drm/xe/xe_oa.c
-> +++ b/drivers/gpu/drm/xe/xe_oa.c
-> @@ -513,14 +513,14 @@ static void xe_oa_disable(struct xe_oa_stream *stream)
->  
->  	xe_mmio_rmw32(mmio, __oa_regs(stream)->oa_ctrl, __oactrl_used_bits(stream), 0);
->  	if (xe_mmio_wait32(mmio, __oa_regs(stream)->oa_ctrl,
-> -			   OAG_OACONTROL_OA_COUNTER_ENABLE, 0, 50000, NULL, false))
-> +			   OAG_OACONTROL_OA_COUNTER_ENABLE, 0, 50000, NULL))
->  		drm_err(&stream->oa->xe->drm,
->  			"wait for OA to be disabled timed out\n");
->  
->  	if (GRAPHICS_VERx100(stream->oa->xe) <= 1270 && GRAPHICS_VERx100(stream->oa->xe) != 1260) {
->  		/* <= XE_METEORLAKE except XE_PVC */
->  		xe_mmio_write32(mmio, OA_TLB_INV_CR, 1);
-> -		if (xe_mmio_wait32(mmio, OA_TLB_INV_CR, 1, 0, 50000, NULL, false))
-> +		if (xe_mmio_wait32(mmio, OA_TLB_INV_CR, 1, 0, 50000, NULL))
->  			drm_err(&stream->oa->xe->drm,
->  				"wait for OA tlb invalidate timed out\n");
->  	}
-> diff --git a/drivers/gpu/drm/xe/xe_pcode.c b/drivers/gpu/drm/xe/xe_pcode.c
-> index 266deecbb100..9b3487c8b07a 100644
-> --- a/drivers/gpu/drm/xe/xe_pcode.c
-> +++ b/drivers/gpu/drm/xe/xe_pcode.c
-> @@ -87,8 +87,12 @@ static int __pcode_mailbox_rw(struct xe_tile *tile, u32 mbox, u32 *data0, u32 *d
->  	xe_mmio_write32(mmio, PCODE_DATA1, data1 ? *data1 : 0);
->  	xe_mmio_write32(mmio, PCODE_MAILBOX, PCODE_READY | mbox);
->  
-> -	err = xe_mmio_wait32(mmio, PCODE_MAILBOX, PCODE_READY, 0,
-> -			     timeout_ms * USEC_PER_MSEC, NULL, atomic);
-> +	if (atomic)
-> +		err = xe_mmio_wait32_atomic(mmio, PCODE_MAILBOX, PCODE_READY, 0,
-> +					    timeout_ms * USEC_PER_MSEC, NULL);
-> +	else
-> +		err = xe_mmio_wait32(mmio, PCODE_MAILBOX, PCODE_READY, 0,
-> +				     timeout_ms * USEC_PER_MSEC, NULL);
->  	if (err)
->  		return err;
->  
-> diff --git a/drivers/gpu/drm/xe/xe_pxp.c b/drivers/gpu/drm/xe/xe_pxp.c
-> index 2fef274a585e..d6b820c47c09 100644
-> --- a/drivers/gpu/drm/xe/xe_pxp.c
-> +++ b/drivers/gpu/drm/xe/xe_pxp.c
-> @@ -136,7 +136,7 @@ static int pxp_wait_for_session_state(struct xe_pxp *pxp, u32 id, bool in_play)
->  	u32 mask = BIT(id);
->  
->  	return xe_mmio_wait32(&gt->mmio, KCR_SIP, mask, in_play ? mask : 0,
-> -			      250, NULL, false);
-> +			   250, NULL);
->  }
->  
->  static void pxp_invalidate_queues(struct xe_pxp *pxp);
-> diff --git a/drivers/gpu/drm/xe/xe_sysctrl_mailbox.c b/drivers/gpu/drm/xe/xe_sysctrl_mailbox.c
-> index 72baf1aa4b3a..269ec70aa22a 100644
-> --- a/drivers/gpu/drm/xe/xe_sysctrl_mailbox.c
-> +++ b/drivers/gpu/drm/xe/xe_sysctrl_mailbox.c
-> @@ -40,7 +40,7 @@ static bool sysctrl_wait_bit_clear(struct xe_sysctrl *sc, u32 bit_mask,
->  	int ret;
->  
->  	ret = xe_mmio_wait32_not(sc->mmio, SYSCTRL_MB_CTRL, bit_mask, bit_mask,
-> -				 timeout_ms * 1000, NULL, false);
-> +				   timeout_ms * 1000, NULL);
->  
->  	return ret == 0;
->  }
-> @@ -51,7 +51,7 @@ static bool sysctrl_wait_bit_set(struct xe_sysctrl *sc, u32 bit_mask,
->  	int ret;
->  
->  	ret = xe_mmio_wait32(sc->mmio, SYSCTRL_MB_CTRL, bit_mask, bit_mask,
-> -			     timeout_ms * 1000, NULL, false);
-> +			     timeout_ms * 1000, NULL);
->  
->  	return ret == 0;
->  }
-> diff --git a/drivers/gpu/drm/xe/xe_uc_fw.c b/drivers/gpu/drm/xe/xe_uc_fw.c
-> index e29878b255ba..8fa8a02f73bc 100644
-> --- a/drivers/gpu/drm/xe/xe_uc_fw.c
-> +++ b/drivers/gpu/drm/xe/xe_uc_fw.c
-> @@ -899,8 +899,7 @@ static int uc_fw_xfer(struct xe_uc_fw *uc_fw, u32 offset, u32 dma_flags)
->  			REG_MASKED_FIELD_ENABLE(dma_flags | START_DMA));
->  
->  	/* Wait for DMA to finish */
-> -	ret = xe_mmio_wait32(mmio, DMA_CTRL, START_DMA, 0, 100000, &dma_ctrl,
-> -			     false);
-> +	ret = xe_mmio_wait32(mmio, DMA_CTRL, START_DMA, 0, 100000, &dma_ctrl);
->  	if (ret)
->  		drm_err(&xe->drm, "DMA for %s fw failed, DMA_CTRL=%u\n",
->  			xe_uc_fw_type_repr(uc_fw->type), dma_ctrl);
+> The irq is now split into two parts for RT,
+> 1: primary handler which does not use sleeping locks, and
+> 2: secondary threaded handler which can use sleepable locks.
+> For normal kernels, the request_irq() with 0 flag is still used as-is.
 
--- 
-Jani Nikula, Intel
+If the split is properly done for RT, the non-RT variant should be able
+to use the same without any ifdefs.
+
+>  
+> > > but it dispatches per-encoder callbacks that take sleepable locks
+> > > (spinlock_t becomes an rt_mutex on RT, and some DRM-core locks reached
+> > > through vblank/CRC/writeback handling are sleepable as well). Sleeping
+> > > inside a hardirq handler is not allowed and eventually crashes the
+> > > display, which is what happens after running GLMark2 for a while.
+> > 
+> > That is correct. That is the irq handler are threaded by default and
+> > only non-threaded if explicitly requested.
+> > 
+> > I suggest to stick with non-threaded by default.
+> > There is only one request_threaded_irq() as far as I can tell and this
+> > msm_dp_display_request_irq():
+> > 
+> > |         rc = devm_request_threaded_irq(&pdev->dev, dp->irq,
+> > |                                        msm_dp_display_irq_handler,
+> > |                                        msm_dp_display_irq_thread,
+> > |                                        IRQ_TYPE_LEVEL_HIGH,
+> > |                                        "dp_display_isr", dp);
+> > 
+> > and its primary handler will be threaded on PREEMPT_RT, too. So you end
+> > up with two threads here.
+> You are correct about the primary handler in msm_dp_display_request_irq() being threaded.
+> But the request_threaded_irq function in msm_dp_display_request_irq() is not modified in this commit.
+> The issue fixed by the current commit relates to msm_mdss_irq crash stack below.
+
+Why is it the way it is? What is the issue in the stack trace below?
+This is not described, is it? Your cleared the top of the report.
+Now, msm_dp_display_irq_handler() ors the return value which is wrong.
+You can't return IRQ_WAKE_THREAD | IRQ_HANDLED and expect the thread is
+woken up. It appears the handler is fires over and over which implies
+that something is wrong with your primary handler.
+
+The way this is requested you supposed to have threaded handler and a
+secondary-threaded handler. While msm_dp_display_irq_handler() is
+invoked as threaded the IRQ chip masks the interrupt source. If it
+returns IRQ_WAKE_THREAD it supposed to mask the interrupt source because
+the IRQ-chip unmasks the interrupt while the secondary-threaded handler
+is run. It seems this does not work as intended.
+
+> [  152.108462] Call trace:
+> [  152.108465]  show_stack+0x18/0x30 (C)
+> [  152.108477]  dump_stack_lvl+0x60/0x80
+> [  152.108484]  dump_stack+0x18/0x24
+> [  152.108489]  __report_bad_irq+0x4c/0xec
+> [  152.108496]  note_interrupt+0x340/0x394
+> [  152.108502]  handle_irq_event+0x94/0xa0
+> [  152.108508]  handle_level_irq+0xd8/0x16c
+> [  152.108513]  handle_irq_desc+0x34/0x5c
+> [  152.108518]  generic_handle_domain_irq+0x1c/0x28
+> [  152.108522]  msm_mdss_irq+0x68/0x144 [msm]
+> [  152.108654]  handle_irq_desc+0x34/0x5c
+> [  152.108660]  generic_handle_domain_irq+0x1c/0x28
+> [  152.108664]  gic_handle_irq+0x4c/0x140
+> [  152.108669]  call_on_irq_stack+0x30/0x48
+> [  152.108673]  do_interrupt_handler+0x80/0x84
+> [  152.108678]  el1_interrupt+0x38/0x58
+> [  152.108685]  el1h_64_irq_handler+0x18/0x24
+> [  152.108690]  el1h_64_irq+0x70/0x74
+> [  152.108694]  __schedule+0x6c/0xc9c (P)
+> [  152.108701]  schedule_idle+0x20/0x40
+> [  152.108705]  do_idle+0x17c/0x2c0
+> [  152.108710]  cpu_startup_entry+0x38/0x40
+> [  152.108714]  rest_init+0xd8/0xe0
+> [  152.108719]  console_on_rootfs+0x0/0x6c
+> [  152.108726]  __primary_switched+0x88/0x90
+> [  152.108732] handlers:
+> [  152.108734] [<000000000cabe59c>] irq_default_primary_handler threaded [<00000000779fd542>] msm_irq [msm]
+> [  152.108859] Disabling IRQ #246
+
+Sebastian
