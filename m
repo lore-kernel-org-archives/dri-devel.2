@@ -4,81 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E27C6C88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:34:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D230DC88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:34:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 035B010FA62;
-	Tue, 15 Sep 2026 07:34:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F098410FA64;
+	Tue, 15 Sep 2026 07:34:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ite.com.tw header.i=@ite.com.tw header.b="qs4l0y74";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Hr2Ogphm";
 	dkim-atps=neutral
-X-Greylist: delayed 370 seconds by postgrey-1.36 at gabe;
- Tue, 15 Sep 2026 07:34:21 UTC
-Received: from ironport.ite.com.tw (itemail.ite.com.tw [60.251.196.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 937BF10FA5E
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 07:34:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ite.com.tw; s=dkim;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:references:in-reply-to:to:cc;
- bh=BcH1NykmoVX/ILfQGa0dzRnEacmBWjFL+KKNCDWQNsY=;
- b=qs4l0y74ZR6joqvo/1GT8P8kX0Dfh4cGbLjtSpcLXoYXUp03hmGsuVlT
- 0gzSiDIJEjCnCdl5n70KvrhzptY7T5BwOvbRg31zB9ckDws2VbRFIMl9E
- +KmQNBmcP+FffKSYQ6a4fkwQAbVS/sm/4p58S8HickhidsOxZ0LJ3zt3I
- ybghp0OXFDk1vyiltc941bxWJmySxJSh0A3JMasatjKCRdBfo7eq0gNBC
- pqVN0gbNsGWPofGaV1l0amrUacLGrmmvsMT+qwHU8gCPZA9vAabP50xue
- ROFNOLQF2dCWzG4YzQwmUGsBRIdFKkxnEd/ljuZVCNweUj6mA0c4Fx1RX A==;
-X-CSE-ConnectionGUID: Hhs19nw5QsqGbtS+PtHYzA==
-X-CSE-MsgGUID: deZWQAVrTHmwyZZKsti9Xg==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
- by ironport.ite.com.tw with ESMTP; 15 Sep 2026 15:27:06 +0800
-Received: from CSBMAIL1.internal.ite.com.tw (CSBMAIL1.internal.ite.com.tw
- [192.168.65.58]) by mse.ite.com.tw with ESMTP id 68F7R0Mk029947;
- Tue, 15 Sep 2026 15:27:00 +0800 (+08)
- (envelope-from Pet.Weng@ite.com.tw)
-Received: from [127.0.1.1] (192.168.72.40) by CSBMAIL1.internal.ite.com.tw
- (192.168.65.58) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 15 Sep
- 2026 15:26:59 +0800
-From: Pet Weng <pet.weng@ite.com.tw>
-Date: Tue, 15 Sep 2026 15:26:29 +0800
-Subject: [PATCH v10 1/2] dt-bindings: display: Add ITE IT61620 MIPI DSI to
- HDMI bridge
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A45C010FA64;
+ Tue, 15 Sep 2026 07:34:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789457691; x=1820993691;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=kAwlmvVtuXEZRdeycMssBwHiAkoZ4fW5Lq5Wy8kdbXk=;
+ b=Hr2Ogphmysc+eiw+KYDTE1eTT8l6Wrqg7lX49yqmI4e6GTqdAHqRTJFx
+ zedMQmlCdKKNuwXkUH6jAtv15ytqMNovt+oSdAin7LuQAPz1UVxv0Mliw
+ bYVTQzQfP1Btx3vQk4/UUThu31iF/+Qb1/sIunMR0O2ISN2zjgK7QA6m/
+ ZlsW3O66cFQoHJK7LHBJQdMCi+GACPj0yxeaeYAE93+2Q2sR7Psik/hd/
+ VZJcEgjQ7DPNnwbouWBMEnp1NhYgRfuqgCb41aZX/COkkWNa/boYekQnD
+ oGh38gNHEjP+Y2ekkbaqtz/H+wBDWb4y6G6soMQ4nnMq7Q4PPmbQc0IMP Q==;
+X-CSE-ConnectionGUID: BfBiiUJ9QQur9qo/PDIUBA==
+X-CSE-MsgGUID: ApWmsfiOR8WDOcVf6lezmw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93682656"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="93682656"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2026 00:34:51 -0700
+X-CSE-ConnectionGUID: e2CD1t2PTneI7JoPi1z1JA==
+X-CSE-MsgGUID: vBGWQumIQMOwmIHiMPaRQw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="271457164"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.243])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2026 00:34:50 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Alan Previn <alan.previn.teres.alexis@intel.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
+ dri-devel@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>
+Subject: Re: [PATCH] drm/xe/mmio: Fix xe_mmio_wait32() to honor delay/sleep
+ maximums
+In-Reply-To: <20260914215746.272721-2-alan.previn.teres.alexis@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260914215746.272721-2-alan.previn.teres.alexis@intel.com>
+Date: Tue, 15 Sep 2026 10:34:46 +0300
+Message-ID: <683c9836e408389852f6e6e956cc6862b1429b2a@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260915-it61620-0714-v10-1-738e2a662c06@ite.com.tw>
-References: <20260915-it61620-0714-v10-0-738e2a662c06@ite.com.tw>
-In-Reply-To: <20260915-it61620-0714-v10-0-738e2a662c06@ite.com.tw>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Luca
- Ceresoli <luca.ceresoli@bootlin.com>, Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>
-CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, Hermes Wu <hermes.Wu@ite.com.tw>, Kenneth
- Hung <kenneth.Hung@ite.com.tw>, Pet Weng <pet.weng@ite.com.tw>, Jau-chih
- Tseng <jau-chih.tseng@ite.com.tw>, Pin-yen Lin <treapking@google.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789457258; l=5468;
- i=pet.weng@ite.com.tw; s=20250702; h=from:subject:message-id;
- bh=tlP1iJ85UQy5tBsvpGCCKZ3NqJo96uZlobIIxZUIMS0=;
- b=j4mP8jqMjv/HMuWygHwiQQof3C/sz9t8kg6Wz6GAqiOl4ROiS21M0AceCgbsSYIBe9X3YsFvI
- W0/YAru06FtC+fDQy5xMxm9iyVNVrpRFkrSDxe9LYAMXe/4+XPOy85f
-X-Developer-Key: i=pet.weng@ite.com.tw; a=ed25519;
- pk=wd08uBtTLb93x2ixbKVNsxiZPdMh1Ov4z5klodh2bqo=
-X-Originating-IP: [192.168.72.40]
-X-ClientProxiedBy: CSBMAIL1.internal.ite.com.tw (192.168.65.58) To
- CSBMAIL1.internal.ite.com.tw (192.168.65.58)
-X-TM-SNTS-SMTP: 737AC342BC878933FA1D5F451F525F8EE88D56CB8DB0AB654419F866C97CE8A82002:8
-X-MAIL: mse.ite.com.tw 68F7R0Mk029947
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,184 +72,520 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This chip receives MIPI DSI input and outputs HDMI, and is commonly
-connected to SoCs via I2C and DSI.
+On Mon, 14 Sep 2026, Alan Previn <alan.previn.teres.alexis@intel.com> wrote:
+> Check for overflow in udelay/usleep_range use in __xe_mmio_wait32
+> and pick the correct helper according to the wait time and atomic.
+> Implement a similar helper to replace DIV_ROUND_UP for 32-bit CPUs.
+> Avoid growing delays becoming intollerably large by capping the
+> in-loop wait time.
+>
+> v4: - Simplify using poll_timeout_us and poll_timeout_us_atopmic and
+>       update all callstack to never use a param for atomic (Jani)
+> v3: - Use div64_s64 kernel API for 32-bit vs 64-bit division.
+> v2: - Fixed checkpatch failure.
+>     - Added helper for 64-bit DIV_ROUND_UP on 32-bit CPU (Shasiko
+>       review). Fixed bug max range in usleep_range(Shasiko review)
+>
+> Fixes: 5c09bd6ccd41 ("drm/xe/mmio: Move xe_mmio_wait32() to xe_mmio.c")
+> Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+> Assisted-by: Github-Copilot:Claude-Sonnet-5-0
+> ---
+>  drivers/gpu/drm/xe/xe_device.c          |  10 +-
+>  drivers/gpu/drm/xe/xe_eu_stall.c        |   4 +-
+>  drivers/gpu/drm/xe/xe_force_wake.c      |   7 +-
+>  drivers/gpu/drm/xe/xe_gsc.c             |   2 +-
+>  drivers/gpu/drm/xe/xe_gsc_proxy.c       |   2 +-
+>  drivers/gpu/drm/xe/xe_gt.c              |   2 +-
+>  drivers/gpu/drm/xe/xe_gt_mcr.c          |   4 +-
+>  drivers/gpu/drm/xe/xe_guc.c             |  10 +-
+>  drivers/gpu/drm/xe/xe_huc.c             |   2 +-
+>  drivers/gpu/drm/xe/xe_mmio.c            | 118 ++++++++++--------------
+>  drivers/gpu/drm/xe/xe_mmio.h            |   8 +-
+>  drivers/gpu/drm/xe/xe_oa.c              |   4 +-
+>  drivers/gpu/drm/xe/xe_pcode.c           |   8 +-
+>  drivers/gpu/drm/xe/xe_pxp.c             |   2 +-
+>  drivers/gpu/drm/xe/xe_sysctrl_mailbox.c |   4 +-
+>  drivers/gpu/drm/xe/xe_uc_fw.c           |   3 +-
+>  16 files changed, 90 insertions(+), 100 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+> index 205cb4e7f9e8..8fb044331e62 100644
+> --- a/drivers/gpu/drm/xe/xe_device.c
+> +++ b/drivers/gpu/drm/xe/xe_device.c
+> @@ -573,7 +573,7 @@ static void __xe_driver_flr(struct xe_device *xe)
+>  	 * is still pending (unless the HW is totally dead), but better to be
+>  	 * safe in case something unexpected happens
+>  	 */
+> -	ret = xe_mmio_wait32(mmio, GU_CNTL, DRIVERFLR, 0, flr_timeout, NULL, false);
+> +	ret = xe_mmio_wait32(mmio, GU_CNTL, DRIVERFLR, 0, flr_timeout, NULL);
+>  	if (ret) {
+>  		drm_err(&xe->drm, "Driver-FLR-prepare wait for ready failed! %d\n", ret);
+>  		return;
+> @@ -584,7 +584,7 @@ static void __xe_driver_flr(struct xe_device *xe)
+>  	xe_mmio_rmw32(mmio, GU_CNTL, 0, DRIVERFLR);
+>  
+>  	/* Wait for hardware teardown to complete */
+> -	ret = xe_mmio_wait32(mmio, GU_CNTL, DRIVERFLR, 0, flr_timeout, NULL, false);
+> +	ret = xe_mmio_wait32(mmio, GU_CNTL, DRIVERFLR, 0, flr_timeout, NULL);
+>  	if (ret) {
+>  		drm_err(&xe->drm, "Driver-FLR-teardown wait completion failed! %d\n", ret);
+>  		return;
+> @@ -592,7 +592,7 @@ static void __xe_driver_flr(struct xe_device *xe)
+>  
+>  	/* Wait for hardware/firmware re-init to complete */
+>  	ret = xe_mmio_wait32(mmio, GU_DEBUG, DRIVERFLR_STATUS, DRIVERFLR_STATUS,
+> -			     flr_timeout, NULL, false);
+> +			     flr_timeout, NULL);
+>  	if (ret) {
+>  		drm_err(&xe->drm, "Driver-FLR-reinit wait completion failed! %d\n", ret);
+>  		return;
+> @@ -1168,7 +1168,7 @@ static void tdf_request_sync(struct xe_device *xe)
+>  		 * transient and need to be flushed..
+>  		 */
+>  		if (xe_mmio_wait32(&gt->mmio, XE2_TDF_CTRL, TRANSIENT_FLUSH_REQUEST, 0,
+> -				   300, NULL, false))
+> +					    300, NULL))
+>  			xe_gt_err_once(gt, "TD flush timeout\n");
+>  	}
+>  }
+> @@ -1214,7 +1214,7 @@ void xe_device_l2_flush(struct xe_device *xe, bool force)
+>  	spin_lock(&gt->global_invl_lock);
+>  
+>  	xe_mmio_write32(&gt->mmio, XE2_GLOBAL_INVAL, 0x1);
+> -	if (xe_mmio_wait32(&gt->mmio, XE2_GLOBAL_INVAL, 0x1, 0x0, 1000, NULL, true))
+> +	if (xe_mmio_wait32_atomic(&gt->mmio, XE2_GLOBAL_INVAL, 0x1, 0x0, 1000, NULL))
+>  		xe_gt_err_once(gt, "Global invalidation timeout\n");
+>  
+>  	spin_unlock(&gt->global_invl_lock);
+> diff --git a/drivers/gpu/drm/xe/xe_eu_stall.c b/drivers/gpu/drm/xe/xe_eu_stall.c
+> index 8a7c1b5d5ab9..865e08b75c29 100644
+> --- a/drivers/gpu/drm/xe/xe_eu_stall.c
+> +++ b/drivers/gpu/drm/xe/xe_eu_stall.c
+> @@ -707,7 +707,7 @@ static int xe_eu_stall_stream_enable(struct xe_eu_stall_data_stream *stream)
+>  		/* Request the firmware to apply the workaround and wait for an ACK */
+>  		xe_mmio_write32(&gt->mmio, SWF_SCRATCHPAD(0), REQ_EUSTALL_ENABLE);
+>  		ret = xe_mmio_wait32(&gt->mmio, SWF_SCRATCHPAD(0), SWF_EUSTALL_MASK,
+> -				     ACK_EUSTALL_ENABLE, FW_WA_WAIT_TIMEOUT_US, NULL, false);
+> +					     ACK_EUSTALL_ENABLE, FW_WA_WAIT_TIMEOUT_US, NULL);
+>  		if (ret) {
+>  			xe_gt_err(gt, "Timeout polling for EU stall enable ACK from firmware\n");
+>  			xe_force_wake_put(gt_to_fw(gt), stream->fw_ref);
+> @@ -880,7 +880,7 @@ static int xe_eu_stall_disable_locked(struct xe_eu_stall_data_stream *stream)
+>  		/* Request the firmware to revert the workaround and wait for an ACK */
+>  		xe_mmio_write32(&gt->mmio, SWF_SCRATCHPAD(0), REQ_EUSTALL_DISABLE);
+>  		ret = xe_mmio_wait32(&gt->mmio, SWF_SCRATCHPAD(0), SWF_EUSTALL_MASK,
+> -				     ACK_EUSTALL_DISABLE, FW_WA_WAIT_TIMEOUT_US, NULL, false);
+> +					     ACK_EUSTALL_DISABLE, FW_WA_WAIT_TIMEOUT_US, NULL);
+>  		if (ret)
+>  			xe_gt_err(gt, "Timeout polling for EU stall disable ACK from firmware\n");
+>  	}
+> diff --git a/drivers/gpu/drm/xe/xe_force_wake.c b/drivers/gpu/drm/xe/xe_force_wake.c
+> index 197e2197bd0a..12ab0304509c 100644
+> --- a/drivers/gpu/drm/xe/xe_force_wake.c
+> +++ b/drivers/gpu/drm/xe/xe_force_wake.c
+> @@ -109,9 +109,10 @@ static int __domain_wait(struct xe_gt *gt, struct xe_force_wake_domain *domain,
+>  	if (IS_SRIOV_VF(gt_to_xe(gt)))
+>  		return 0;
+>  
+> -	ret = xe_mmio_wait32(&gt->mmio, domain->reg_ack, domain->val, wake ? domain->val : 0,
+> -			     XE_FORCE_WAKE_ACK_TIMEOUT_MS * USEC_PER_MSEC,
+> -			     &value, true);
+> +	ret = xe_mmio_wait32_atomic(&gt->mmio, domain->reg_ack, domain->val,
+> +				    wake ? domain->val : 0,
+> +				    XE_FORCE_WAKE_ACK_TIMEOUT_MS * USEC_PER_MSEC,
+> +				    &value);
+>  	if (ret)
+>  		xe_gt_err(gt, "Force wake domain %d failed to ack %s (%pe) reg[%#x] = %#x\n",
+>  			  domain->id, str_wake_sleep(wake), ERR_PTR(ret),
+> diff --git a/drivers/gpu/drm/xe/xe_gsc.c b/drivers/gpu/drm/xe/xe_gsc.c
+> index 524ac56bdcc7..a43d3739d213 100644
+> --- a/drivers/gpu/drm/xe/xe_gsc.c
+> +++ b/drivers/gpu/drm/xe/xe_gsc.c
+> @@ -196,7 +196,7 @@ static int gsc_fw_wait(struct xe_gt *gt)
+>  	return xe_mmio_wait32(&gt->mmio, HECI_FWSTS1(MTL_GSC_HECI1_BASE),
+>  			      HECI1_FWSTS1_INIT_COMPLETE,
+>  			      HECI1_FWSTS1_INIT_COMPLETE,
+> -			      500 * USEC_PER_MSEC, NULL, false);
+> +			   500 * USEC_PER_MSEC, NULL);
+>  }
+>  
+>  static int gsc_upload(struct xe_gsc *gsc)
+> diff --git a/drivers/gpu/drm/xe/xe_gsc_proxy.c b/drivers/gpu/drm/xe/xe_gsc_proxy.c
+> index 707db650a2ae..63f72ca28ed4 100644
+> --- a/drivers/gpu/drm/xe/xe_gsc_proxy.c
+> +++ b/drivers/gpu/drm/xe/xe_gsc_proxy.c
+> @@ -80,7 +80,7 @@ int xe_gsc_wait_for_proxy_init_done(struct xe_gsc *gsc)
+>  	return xe_mmio_wait32(&gt->mmio, HECI_FWSTS1(MTL_GSC_HECI1_BASE),
+>  			      HECI1_FWSTS1_CURRENT_STATE,
+>  			      HECI1_FWSTS1_PROXY_STATE_NORMAL,
+> -			      USEC_PER_SEC, NULL, false);
+> +			   USEC_PER_SEC, NULL);
+>  }
+>  
+>  static void __gsc_proxy_irq_rmw(struct xe_gsc *gsc, u32 clr, u32 set)
+> diff --git a/drivers/gpu/drm/xe/xe_gt.c b/drivers/gpu/drm/xe/xe_gt.c
+> index 775c826b68b4..9edcc54ad4bf 100644
+> --- a/drivers/gpu/drm/xe/xe_gt.c
+> +++ b/drivers/gpu/drm/xe/xe_gt.c
+> @@ -832,7 +832,7 @@ static int do_gt_reset(struct xe_gt *gt)
+>  	xe_mmio_write32(&gt->mmio, GDRST, GRDOM_FULL);
+>  	err = xe_mmio_wait32(&gt->mmio, GDRST, GRDOM_FULL, 0,
+>  			     GRDOM_RESET_TIMEOUT_MS * USEC_PER_MSEC,
+> -			     NULL, false);
+> +			   NULL);
+>  	if (err)
+>  		xe_log_err(gt, GT, err,
+>  			   "full graphics reset not completed in %u ms\n",
+> diff --git a/drivers/gpu/drm/xe/xe_gt_mcr.c b/drivers/gpu/drm/xe/xe_gt_mcr.c
+> index 1949bf7d370a..a08585f082d3 100644
+> --- a/drivers/gpu/drm/xe/xe_gt_mcr.c
+> +++ b/drivers/gpu/drm/xe/xe_gt_mcr.c
+> @@ -711,8 +711,8 @@ static void mcr_lock(struct xe_gt *gt) __acquires(&gt->mcr_lock)
+>  	 * when a read to the relevant register returns 1.
+>  	 */
+>  	if (GRAPHICS_VERx100(xe) >= 1270)
+> -		ret = xe_mmio_wait32(&gt->mmio, STEER_SEMAPHORE, 0x1, 0x1, 10, NULL,
+> -				     true);
+> +		ret = xe_mmio_wait32_atomic(&gt->mmio, STEER_SEMAPHORE, 0x1, 0x1, 10,
+> +					    NULL);
+>  
+>  	xe_gt_WARN_ON_ONCE(gt, ret == -ETIMEDOUT);
+>  }
+> diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
+> index c7f8bbd4cb92..670140e1aa36 100644
+> --- a/drivers/gpu/drm/xe/xe_guc.c
+> +++ b/drivers/gpu/drm/xe/xe_guc.c
+> @@ -967,13 +967,13 @@ static void guc_prevent_fw_dma_failure_on_reset(struct xe_guc *guc)
+>  
+>  	ret = xe_mmio_wait32(&gt->mmio, GUC_STATUS, GS_UKERNEL_MASK,
+>  			     FIELD_PREP(GS_UKERNEL_MASK, XE_GUC_LOAD_STATUS_READY),
+> -			     100000, &guc_status, false);
+> +				      100000, &guc_status);
+>  	if (ret)
+>  		xe_gt_warn(gt, "GuC not ready after disabling idle flow (GUC_STATUS: 0x%x)\n",
+>  			   guc_status);
+>  
+>  	ret = xe_mmio_wait32(&gt->mmio, GUC_SRAM_STATUS, GUC_SRAM_HANDLING_MASK,
+> -			     0, 5000, &sram_status, false);
+> +				      0, 5000, &sram_status);
+>  	if (ret)
+>  		xe_gt_warn(gt, "SRAM handling not complete (GUC_SRAM_STATUS: 0x%x)\n",
+>  			   sram_status);
+> @@ -996,7 +996,7 @@ int xe_guc_reset(struct xe_guc *guc)
+>  
+>  	xe_mmio_write32(mmio, GDRST, GRDOM_GUC);
+>  
+> -	ret = xe_mmio_wait32(mmio, GDRST, GRDOM_GUC, 0, 5000, &gdrst, false);
+> +	ret = xe_mmio_wait32(mmio, GDRST, GRDOM_GUC, 0, 5000, &gdrst);
+>  	if (ret) {
+>  		xe_gt_err(gt, "GuC reset timed out, GDRST=%#x\n", gdrst);
+>  		goto err_out;
+> @@ -1538,7 +1538,7 @@ int xe_guc_mmio_send_recv(struct xe_guc *guc, const u32 *request,
+>  
+>  	ret = xe_mmio_wait32(mmio, reply_reg, GUC_HXG_MSG_0_ORIGIN,
+>  			     FIELD_PREP(GUC_HXG_MSG_0_ORIGIN, GUC_HXG_ORIGIN_GUC),
+> -			     50000, &header, false);
+> +				     50000, &header);
+>  	if (ret) {
+>  		/* scratch registers might be cleared during FLR, try once more */
+>  		if (!header) {
+> @@ -1574,7 +1574,7 @@ int xe_guc_mmio_send_recv(struct xe_guc *guc, const u32 *request,
+>  		BUILD_BUG_ON((GUC_HXG_TYPE_RESPONSE_SUCCESS ^ GUC_HXG_TYPE_RESPONSE_FAILURE) != 1);
+>  
+>  		ret = xe_mmio_wait32(mmio, reply_reg, resp_mask, resp_mask,
+> -				     2000000, &header, false);
+> +					     2000000, &header);
+>  
+>  		if (unlikely(FIELD_GET(GUC_HXG_MSG_0_ORIGIN, header) !=
+>  			     GUC_HXG_ORIGIN_GUC))
+> diff --git a/drivers/gpu/drm/xe/xe_huc.c b/drivers/gpu/drm/xe/xe_huc.c
+> index 57afe21444b1..3517bba09399 100644
+> --- a/drivers/gpu/drm/xe/xe_huc.c
+> +++ b/drivers/gpu/drm/xe/xe_huc.c
+> @@ -272,7 +272,7 @@ int xe_huc_auth(struct xe_huc *huc, enum xe_huc_auth_types type)
+>  	}
+>  
+>  	ret = xe_mmio_wait32(&gt->mmio, huc_auth_modes[type].reg, huc_auth_modes[type].val,
+> -			     huc_auth_modes[type].val, 100000, NULL, false);
+> +			     huc_auth_modes[type].val, 100000, NULL);
+>  	if (ret) {
+>  		xe_gt_err(gt, "HuC: firmware not verified: %pe\n", ERR_PTR(ret));
+>  		goto fail;
+> diff --git a/drivers/gpu/drm/xe/xe_mmio.c b/drivers/gpu/drm/xe/xe_mmio.c
+> index 7fa18dfcb5a2..fc0509aa384b 100644
+> --- a/drivers/gpu/drm/xe/xe_mmio.c
+> +++ b/drivers/gpu/drm/xe/xe_mmio.c
+> @@ -5,8 +5,8 @@
+>  
+>  #include "xe_mmio.h"
+>  
+> -#include <linux/delay.h>
+>  #include <linux/io-64-nonatomic-lo-hi.h>
+> +#include <linux/iopoll.h>
+>  #include <linux/minmax.h>
+>  #include <linux/pci.h>
+>  
+> @@ -320,82 +320,44 @@ u64 xe_mmio_read64_2x32(struct xe_mmio *mmio, struct xe_reg reg)
+>  	return (u64)udw << 32 | ldw;
+>  }
+>  
+> -static int __xe_mmio_wait32(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val,
+> -			    u32 timeout_us, u32 *out_val, bool atomic, bool expect_match)
+> -{
+> -	ktime_t cur = ktime_get_raw();
+> -	const ktime_t end = ktime_add_us(cur, timeout_us);
+> -	int ret = -ETIMEDOUT;
+> -	s64 wait = 10;
+> -	u32 read;
+> -	bool check;
+> -
+> -	for (;;) {
+> -		read = xe_mmio_read32(mmio, reg);
+> -
+> -		check = (read & mask) == val;
+> -		if (!expect_match)
+> -			check = !check;
+> -
+> -		if (check) {
+> -			ret = 0;
+> -			break;
+> -		}
+> -
+> -		cur = ktime_get_raw();
+> -		if (!ktime_before(cur, end))
+> -			break;
+> -
+> -		if (ktime_after(ktime_add_us(cur, wait), end))
+> -			wait = ktime_us_delta(end, cur);
+> -
+> -		if (atomic)
+> -			udelay(wait);
+> -		else
+> -			usleep_range(wait, wait << 1);
+> -		wait <<= 1;
+> -	}
+> -
+> -	if (ret != 0) {
+> -		read = xe_mmio_read32(mmio, reg);
+> -
+> -		check = (read & mask) == val;
+> -		if (!expect_match)
+> -			check = !check;
+> -
+> -		if (check)
+> -			ret = 0;
+> -	}
+> -
+> -	if (out_val)
+> -		*out_val = read;
+> -
+> -	return ret;
+> -}
+> -
+>  /**
+>   * xe_mmio_wait32() - Wait for a register to match the desired masked value
+>   * @mmio: MMIO target
+>   * @reg: register to read value from
+>   * @mask: mask to be applied to the value read from the register
+>   * @val: desired value after applying the mask
+> - * @timeout_us: time out after this period of time. Wait logic tries to be
+> - * smart, applying an exponential backoff until @timeout_us is reached.
+> + * @timeout_us: time out after this period of time
+>   * @out_val: if not NULL, points where to store the last unmasked value
+> - * @atomic: needs to be true if calling from an atomic context
+>   *
+>   * This function polls for the desired masked value and returns zero on success
+>   * or -ETIMEDOUT if timed out.
+> - *
+> - * Note that @timeout_us represents the minimum amount of time to wait before
+> - * giving up. The actual time taken by this function can be a little more than
+> - * @timeout_us for different reasons, specially in non-atomic contexts. Thus,
+> - * it is possible that this function succeeds even after @timeout_us has passed.
+>   */
+>  int xe_mmio_wait32(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val, u32 timeout_us,
+> -		   u32 *out_val, bool atomic)
+> +		   u32 *out_val)
+>  {
+> -	return __xe_mmio_wait32(mmio, reg, mask, val, timeout_us, out_val, atomic, true);
+> +	u32 read;
+> +	int ret;
+> +
+> +	ret = poll_timeout_us(read = xe_mmio_read32(mmio, reg), (read & mask) == val,
+> +			      10, timeout_us, false);
 
-IT61620 is a variant of IT6162.
-The main differences are listed below
-- IT61620 supports only a single MIPI DSI input port, while
-  IT6162 supports dual MIPI DSI ports.
-- IT61620 does not include the internal MCU present in IT6162.
+You probably do need to let the callers pass in the wait too. 10 us wait
+with a long timeout is going to be pretty bad.
 
-Because of these architectural differences, IT61620 uses a separate
-compatible string even though the external interfaces and bindings
-are largely similar.
-
-Signed-off-by: Pet Weng <pet.weng@ite.com.tw>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- Documentation/devicetree/bindings/display/bridge/ite,it61620.yaml | 152 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 152 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/display/bridge/ite,it61620.yaml b/Documentation/devicetree/bindings/display/bridge/ite,it61620.yaml
-new file mode 100644
-index 0000000000000000000000000000000000000000..d4f0edeecd0e22f3fa92c9f8e276ce0806c24790
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/bridge/ite,it61620.yaml
-@@ -0,0 +1,152 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/bridge/ite,it61620.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ITE IT61620 MIPI DSI to HDMI Bridge
-+
-+maintainers:
-+  - Pet Weng <pet.weng@ite.com.tw>
-+
-+description: |
-+  The ITE IT61620 is a high-performance, low-power HDMI bridge that converts
-+  MIPI DSI input to HDMI 1.4b TMDS output. It supports up to 4 lanes of MIPI
-+  D-PHY 2.0 input at 2.5Gbps per lane (10Gbps total), compatible with DSI-2
-+  v2.0.
-+
-+  The HDMI transmitter side supports up to 4Kx2K@30Hz resolutions, and is
-+  compliant with HDMI 1.4b and HDCP 1.4.
-+
-+  For audio, the IT61620 supports up to 8-channel LPCM via I2S (multi-line or
-+  TDM mode), with optional S/PDIF or DSD (for SACD). It supports audio
-+  sampling rates up to 192kHz.
-+
-+  IT61620 is a variant of IT6162.
-+  The main differences are listed below
-+  - IT61620 supports only a single MIPI DSI input port, while IT6162 supports
-+    dual MIPI DSI ports.
-+  - IT61620 does not include the internal MCU present in IT6162.
-+
-+  Because of these architectural differences, IT61620 uses a separate
-+  compatible string even though the external interfaces and bindings are
-+  largely similar.
-+
-+allOf:
-+  - $ref: /schemas/sound/dai-common.yaml#
-+
-+properties:
-+  compatible:
-+    const: ite,it61620
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+
-+  ivdd-supply:
-+    description: core voltage
-+
-+  ovdd-supply:
-+    description: I/O voltage
-+
-+  ovdd1833-supply:
-+    description: flexible I/O voltage
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description: Input port for MIPI DSI
-+
-+        properties:
-+          endpoint:
-+            $ref: /schemas/media/video-interfaces.yaml#
-+            unevaluatedProperties: false
-+            required:
-+              - data-lanes
-+
-+      port@1:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Output port for HDMI output
-+
-+      port@2:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Audio input port (I2S)
-+
-+    required:
-+      - port@0
-+      - port@1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - reset-gpios
-+  - ivdd-supply
-+  - ovdd-supply
-+  - ovdd1833-supply
-+  - ports
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        bridge@58 {
-+            compatible = "ite,it61620";
-+            reg = <0x58>;
-+            #sound-dai-cells = <0>;
-+            interrupt-parent = <&pio>;
-+            interrupts = <128 IRQ_TYPE_LEVEL_LOW>;
-+            pinctrl-names = "default";
-+            pinctrl-0 = <&it61620_pins>;
-+            reset-gpios = <&pio 127 GPIO_ACTIVE_LOW>;
-+            ivdd-supply = <&pp1000_hdmi_x>;
-+            ovdd-supply = <&pp3300_vio28_x>;
-+            ovdd1833-supply = <&pp1800_vcamio_x>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+                    it61620_dsi_in: endpoint {
-+                        data-lanes = <0 1 2 3>;
-+                        remote-endpoint = <&dsi_out>;
-+                    };
-+                };
-+
-+                port@1 {
-+                    reg = <1>;
-+                    it61620_hdmi_out: endpoint {
-+                        remote-endpoint = <&hdmi_connector_in>;
-+                    };
-+                };
-+
-+                port@2 {
-+                    reg = <2>;
-+                    it61620_audio_in: endpoint {
-+                        remote-endpoint = <&i2s0_out>;
-+                    };
-+                };
-+            };
-+        };
-+    };
+> +	if (out_val)
+> +		*out_val = read;
+> +
+> +	return ret;
+> +}
+> +
+> +int xe_mmio_wait32_atomic(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val,
+> +			  u32 timeout_us, u32 *out_val)
+> +{
+> +	u32 read;
+> +	int ret;
+> +
+> +	ret = poll_timeout_us_atomic(read = xe_mmio_read32(mmio, reg), (read & mask) == val,
+> +				     10, timeout_us, false);
+> +	if (out_val)
+> +		*out_val = read;
+> +
+> +	return ret;
+>  }
+>  
+>  /**
+> @@ -406,15 +368,35 @@ int xe_mmio_wait32(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val, u
+>   * @val: value not to be matched after applying the mask
+>   * @timeout_us: time out after this period of time
+>   * @out_val: if not NULL, points where to store the last unmasked value
+> - * @atomic: needs to be true if calling from an atomic context
+> - *
+>   * This function works exactly like xe_mmio_wait32() with the exception that
+>   * @val is expected not to be matched.
+>   */
+>  int xe_mmio_wait32_not(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val, u32 timeout_us,
+> -		       u32 *out_val, bool atomic)
+> +		       u32 *out_val)
+>  {
+> -	return __xe_mmio_wait32(mmio, reg, mask, val, timeout_us, out_val, atomic, false);
+> +	u32 read;
+> +	int ret;
+> +
+> +	ret = poll_timeout_us(read = xe_mmio_read32(mmio, reg), (read & mask) != val,
+> +			      10, timeout_us, false);
+> +	if (out_val)
+> +		*out_val = read;
+> +
+> +	return ret;
+> +}
+> +
+> +int xe_mmio_wait32_not_atomic(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val,
+> +			      u32 timeout_us, u32 *out_val)
+> +{
+> +	u32 read;
+> +	int ret;
+> +
+> +	ret = poll_timeout_us_atomic(read = xe_mmio_read32(mmio, reg), (read & mask) != val,
+> +				     10, timeout_us, false);
+> +	if (out_val)
+> +		*out_val = read;
+> +
+> +	return ret;
+>  }
+>  
+>  #ifdef CONFIG_PCI_IOV
+> diff --git a/drivers/gpu/drm/xe/xe_mmio.h b/drivers/gpu/drm/xe/xe_mmio.h
+> index befe021f2215..6391f0fd6507 100644
+> --- a/drivers/gpu/drm/xe/xe_mmio.h
+> +++ b/drivers/gpu/drm/xe/xe_mmio.h
+> @@ -27,9 +27,13 @@ bool xe_mmio_in_range(const struct xe_mmio *mmio, const struct xe_mmio_range *ra
+>  
+>  u64 xe_mmio_read64_2x32(struct xe_mmio *mmio, struct xe_reg reg);
+>  int xe_mmio_wait32(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val,
+> -		   u32 timeout_us, u32 *out_val, bool atomic);
+> +		   u32 timeout_us, u32 *out_val);
+> +int xe_mmio_wait32_atomic(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val,
+> +			  u32 timeout_us, u32 *out_val);
+>  int xe_mmio_wait32_not(struct xe_mmio *mmio, struct xe_reg reg, u32 mask,
+> -		       u32 val, u32 timeout_us, u32 *out_val, bool atomic);
+> +		       u32 val, u32 timeout_us, u32 *out_val);
+> +int xe_mmio_wait32_not_atomic(struct xe_mmio *mmio, struct xe_reg reg, u32 mask,
+> +			      u32 val, u32 timeout_us, u32 *out_val);
+>  
+>  static inline u32 xe_mmio_adjusted_addr(const struct xe_mmio *mmio, u32 addr)
+>  {
+> diff --git a/drivers/gpu/drm/xe/xe_oa.c b/drivers/gpu/drm/xe/xe_oa.c
+> index a3484e943c55..98a6f57701e4 100644
+> --- a/drivers/gpu/drm/xe/xe_oa.c
+> +++ b/drivers/gpu/drm/xe/xe_oa.c
+> @@ -513,14 +513,14 @@ static void xe_oa_disable(struct xe_oa_stream *stream)
+>  
+>  	xe_mmio_rmw32(mmio, __oa_regs(stream)->oa_ctrl, __oactrl_used_bits(stream), 0);
+>  	if (xe_mmio_wait32(mmio, __oa_regs(stream)->oa_ctrl,
+> -			   OAG_OACONTROL_OA_COUNTER_ENABLE, 0, 50000, NULL, false))
+> +			   OAG_OACONTROL_OA_COUNTER_ENABLE, 0, 50000, NULL))
+>  		drm_err(&stream->oa->xe->drm,
+>  			"wait for OA to be disabled timed out\n");
+>  
+>  	if (GRAPHICS_VERx100(stream->oa->xe) <= 1270 && GRAPHICS_VERx100(stream->oa->xe) != 1260) {
+>  		/* <= XE_METEORLAKE except XE_PVC */
+>  		xe_mmio_write32(mmio, OA_TLB_INV_CR, 1);
+> -		if (xe_mmio_wait32(mmio, OA_TLB_INV_CR, 1, 0, 50000, NULL, false))
+> +		if (xe_mmio_wait32(mmio, OA_TLB_INV_CR, 1, 0, 50000, NULL))
+>  			drm_err(&stream->oa->xe->drm,
+>  				"wait for OA tlb invalidate timed out\n");
+>  	}
+> diff --git a/drivers/gpu/drm/xe/xe_pcode.c b/drivers/gpu/drm/xe/xe_pcode.c
+> index 266deecbb100..9b3487c8b07a 100644
+> --- a/drivers/gpu/drm/xe/xe_pcode.c
+> +++ b/drivers/gpu/drm/xe/xe_pcode.c
+> @@ -87,8 +87,12 @@ static int __pcode_mailbox_rw(struct xe_tile *tile, u32 mbox, u32 *data0, u32 *d
+>  	xe_mmio_write32(mmio, PCODE_DATA1, data1 ? *data1 : 0);
+>  	xe_mmio_write32(mmio, PCODE_MAILBOX, PCODE_READY | mbox);
+>  
+> -	err = xe_mmio_wait32(mmio, PCODE_MAILBOX, PCODE_READY, 0,
+> -			     timeout_ms * USEC_PER_MSEC, NULL, atomic);
+> +	if (atomic)
+> +		err = xe_mmio_wait32_atomic(mmio, PCODE_MAILBOX, PCODE_READY, 0,
+> +					    timeout_ms * USEC_PER_MSEC, NULL);
+> +	else
+> +		err = xe_mmio_wait32(mmio, PCODE_MAILBOX, PCODE_READY, 0,
+> +				     timeout_ms * USEC_PER_MSEC, NULL);
+>  	if (err)
+>  		return err;
+>  
+> diff --git a/drivers/gpu/drm/xe/xe_pxp.c b/drivers/gpu/drm/xe/xe_pxp.c
+> index 2fef274a585e..d6b820c47c09 100644
+> --- a/drivers/gpu/drm/xe/xe_pxp.c
+> +++ b/drivers/gpu/drm/xe/xe_pxp.c
+> @@ -136,7 +136,7 @@ static int pxp_wait_for_session_state(struct xe_pxp *pxp, u32 id, bool in_play)
+>  	u32 mask = BIT(id);
+>  
+>  	return xe_mmio_wait32(&gt->mmio, KCR_SIP, mask, in_play ? mask : 0,
+> -			      250, NULL, false);
+> +			   250, NULL);
+>  }
+>  
+>  static void pxp_invalidate_queues(struct xe_pxp *pxp);
+> diff --git a/drivers/gpu/drm/xe/xe_sysctrl_mailbox.c b/drivers/gpu/drm/xe/xe_sysctrl_mailbox.c
+> index 72baf1aa4b3a..269ec70aa22a 100644
+> --- a/drivers/gpu/drm/xe/xe_sysctrl_mailbox.c
+> +++ b/drivers/gpu/drm/xe/xe_sysctrl_mailbox.c
+> @@ -40,7 +40,7 @@ static bool sysctrl_wait_bit_clear(struct xe_sysctrl *sc, u32 bit_mask,
+>  	int ret;
+>  
+>  	ret = xe_mmio_wait32_not(sc->mmio, SYSCTRL_MB_CTRL, bit_mask, bit_mask,
+> -				 timeout_ms * 1000, NULL, false);
+> +				   timeout_ms * 1000, NULL);
+>  
+>  	return ret == 0;
+>  }
+> @@ -51,7 +51,7 @@ static bool sysctrl_wait_bit_set(struct xe_sysctrl *sc, u32 bit_mask,
+>  	int ret;
+>  
+>  	ret = xe_mmio_wait32(sc->mmio, SYSCTRL_MB_CTRL, bit_mask, bit_mask,
+> -			     timeout_ms * 1000, NULL, false);
+> +			     timeout_ms * 1000, NULL);
+>  
+>  	return ret == 0;
+>  }
+> diff --git a/drivers/gpu/drm/xe/xe_uc_fw.c b/drivers/gpu/drm/xe/xe_uc_fw.c
+> index e29878b255ba..8fa8a02f73bc 100644
+> --- a/drivers/gpu/drm/xe/xe_uc_fw.c
+> +++ b/drivers/gpu/drm/xe/xe_uc_fw.c
+> @@ -899,8 +899,7 @@ static int uc_fw_xfer(struct xe_uc_fw *uc_fw, u32 offset, u32 dma_flags)
+>  			REG_MASKED_FIELD_ENABLE(dma_flags | START_DMA));
+>  
+>  	/* Wait for DMA to finish */
+> -	ret = xe_mmio_wait32(mmio, DMA_CTRL, START_DMA, 0, 100000, &dma_ctrl,
+> -			     false);
+> +	ret = xe_mmio_wait32(mmio, DMA_CTRL, START_DMA, 0, 100000, &dma_ctrl);
+>  	if (ret)
+>  		drm_err(&xe->drm, "DMA for %s fw failed, DMA_CTRL=%u\n",
+>  			xe_uc_fw_type_repr(uc_fw->type), dma_ctrl);
 
 -- 
-2.34.1
-
+Jani Nikula, Intel
