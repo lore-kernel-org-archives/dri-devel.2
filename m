@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01443C88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 12:39:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C2FCC88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 12:40:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1007A10F173;
-	Tue, 15 Sep 2026 12:39:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7474D10E243;
+	Tue, 15 Sep 2026 12:40:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gDuBmyMb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OCPuzT+x";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DCA810F173
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 12:39:35 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 745F310E243
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 12:40:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CCD444143A;
- Tue, 15 Sep 2026 12:39:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1C91F0089C;
- Tue, 15 Sep 2026 12:39:34 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D1DF9602A8;
+ Tue, 15 Sep 2026 12:40:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CA611F000FF;
+ Tue, 15 Sep 2026 12:40:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789475974;
- bh=PCrx61r+WjhYK6M7NL1fOYENh0kcxb0uFV2ps0JHmXs=;
+ s=k20260515; t=1789476015;
+ bh=R0CkVzHy1zDNnuSbzEVvhJ9r9+u1n/AcXLLJBx3kR10=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gDuBmyMb5NUb0f63N0hzpGCeBBwUFKDSsYUOH49EV+yLR1N9zf84PL6llByk/FOYP
- tuLNCI1URu2g9W/RL3duDIIfpM2ajk+rZTDaTodKmGVCY7rLY+W1I/UBLc0azXTi6O
- oIU3Tn825ZbPlRG1Ta+5CLIZdx9QULRsD2A0y04URBzv7gVZxopPPtWitfnag7L2Bx
- Cs8qDKWbWdzop7MokDv5yAdKkM6uktsHF91qK3V91HIQmuwYOdLUcZpsDCTU6fRJx1
- FShUd2UvQ/HKKVeodV8+7Qfm1jaCJHhHG3fdio3pGcPNvJEBCKu07gXU1d9nL6bk8Z
- 99UygBgXaMThQ==
+ b=OCPuzT+xDttPPVzAhPzCFPhmZp8klBZpEWoH271EZOOwWY+zhUnplkBuzzr5xAqDl
+ HuLToXA66XN8l5erRWA2cG2tiKLipcz36q1fX3CNnDP3N4bbFaARN48U9nMRcU4KOn
+ K1SvrK3jiCMTimAHQ4//J1wG/QnKnzCTG95cJ9Lzq7TK7wE+gfPCbXR7+0V9MXS1p/
+ 4beNBeN+64YA53ztFsDVubaOvnSD2gJPpbtDk0mwlkrDkPfNpAwwUndhI4o0Y6vAy9
+ lv2TTe/v8R3cUifAESPmGh7zNWRq+k48vLMDyTgjK7WUrXxGAHZgFekYPPFXqBXWyU
+ n71SSnBrikxBA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/5] vgacon: Use vt_cursor_{start,end}()
+Subject: Re: [PATCH v2 1/5] vt: Add cursor-size helpers
 To: "Thomas Zimmermann" <tzimmermann@suse.de>
 Cc: dri-devel@lists.freedesktop.org, linux-serial@vger.kernel.org
-In-Reply-To: <20260915123304.1027277-4-tzimmermann@suse.de>
+In-Reply-To: <20260915123304.1027277-2-tzimmermann@suse.de>
 References: <20260915123304.1027277-1-tzimmermann@suse.de>
- <20260915123304.1027277-4-tzimmermann@suse.de>
+ <20260915123304.1027277-2-tzimmermann@suse.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 12:39:34 +0000
-Message-Id: <20260915123934.7B1C91F0089C@smtp.kernel.org>
+Date: Tue, 15 Sep 2026 12:40:14 +0000
+Message-Id: <20260915124015.5CA611F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,18 +57,26 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Replace vgacon's custom cursor metrics with the shared helpers
-> vc_cursor_start() and vc_font_cursor_end(). Note that the _end()
-> function returns the index of the scanline below the cursor, while
-> VGA hardware expects the cursor's final scanline. Hence vgacon
-> subtracts 1 from the end value.
+> Cursors in the VT subsystem are blocks within a character cell that are
+> filled with the foreground color. The new helpers vc_cursor_start() and
+> vc_cursor_end() return the scanlines in which the cursor block starts rsp.
+> ends. This is compatible with VGA hardware
 >=20
-> The cursor shapes remain mostly unchanged, except that non-underline
-> cursors now also use the glyph's top-most and bottom-most scanline.
-> This follows the style used by fbcon.
+> In terms of cursor design, the new cursor-size helpers follow established
+> styles in fbcon. The only exception is in underline cursors for fonts with
+> a size larger than 10. The underlining dash is now one pixel closer to
+> the font-glyph data, so that the cursor looks less detached. This follows
+> the style used by vgacon.
+>=20
+> Similar code in vgacon and fbcon ignores the cursor's default size stored
+> in vt.cur_default. The consoles default to full-block cursors, while vt
+> defaults to underline cursors. The new helper fall back to cur_default and
+> then underline cursors; in this order.
 >=20
 > v2:
-> - restore use of vc_cell_height (Sashiko)
+> - export non-font interface for vgacon
+> - avoid interference from concurrent user space (Sashiko)
+> - fix function docs (Sashiko)
 >=20
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 
@@ -76,5 +84,5 @@ Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915123304.1027=
-277-1-tzimmermann@suse.de?part=3D3
+277-1-tzimmermann@suse.de?part=3D1
 
