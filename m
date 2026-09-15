@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 246F0C982C4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7440C982C1
 	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:35:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A4FF10E671;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A611F10E677;
 	Wed, 16 Sep 2026 07:35:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="AJhFvxYB";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="L9DSTVY7";
 	dkim-atps=neutral
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95DF410F34C
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:20:10 +0000 (UTC)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-2d63bad3d09so67418645ad.3
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 01:20:10 -0700 (PDT)
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
+ [209.85.215.200])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7041A10F34D
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:20:19 +0000 (UTC)
+Received: by mail-pg1-f200.google.com with SMTP id
+ 41be03b00d2f7-cc4216aee8fso5333748a12.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 01:20:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1789460410; x=1790065210;
+ d=google.com; s=20251104; t=1789460419; x=1790065219;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:from:subject
  :message-id:references:mime-version:in-reply-to:date:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=eELVo8fI0ZjlHs2eEJ49S4+N/SPMib/OwBxEH2gJjRU=;
- b=AJhFvxYBwqGJAtc7dped4/aYubEbIe8YufAwltv4n+N2xZaSgO9TSMHgXSwxRDaypo
- lnDchmv68SRNFV7bENe0bP7/XjJc0LHE6vIbytmh/ZAfWXSZupYUyazaFwUyp53IpRyy
- RF39tsOOXvgJDQuUtFhEqdgqRl7sP4Bx4GJ9ZiAEbRqPeTcwRDdGt7Xvx+QhrJL2hUhQ
- GJkhYVwccCv9DOcskWMrQi1q9oDkZmbj6D4xTCDkt1PTl03NPWqH8miLoL/5meoevqdB
- EOYjkxO9SVkVdidt3cXGuZUq/Ag4MAgMnZKdoM6PvjqkQfXuw329IpRikOc69C1Ooyte
- uj6w==
+ bh=3R1bHblX/YSNAoDVuSots2jijK47BJf7ndWg1gXSC20=;
+ b=L9DSTVY7N3KIKTl95TIlV6RkcZGqD/8vkF/ZcDe5N7zxR3IaNsa4anKO3C06faP8Iw
+ gqW/9BwFP7uGw87XwB/NbLmD3+psIqps+Kq9seouVcYqslhScJxv9iqKOCFQMlm8KSfW
+ 4se2jyTQS2png7o0e7BsrU2qwDAVm4rWzYrSH/q50NrYrn1CZHzP7C558NegntemBdZD
+ 4kEr6wKZED+fV4vsRvTDLUbvKRBlVUh7+LRE0fsgC3FH4pQ8WifXAwOMdsqB/8PnlCya
+ /DJ9sFpHbq7/gipCQgTptij0sqyct3JLP1lWY4W1v4wyDI3x4pXxlgxznag5yWNmWYo8
+ tDtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789460410; x=1790065210;
+ d=1e100.net; s=20260707; t=1789460419; x=1790065219;
  h=content-transfer-encoding:content-type:cc:to:from:subject
  :message-id:references:mime-version:in-reply-to:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=eELVo8fI0ZjlHs2eEJ49S4+N/SPMib/OwBxEH2gJjRU=;
- b=r8RA6EmFPH4Uj6z5vjR/ikf3I1sbhsP2Z193W1tacIb8XIT8I6LbSSeSW+66GrKzb1
- HvBOf2hh2BvgA0U4xpireKVhGueleeJqzzQlixJAhLC+wJAS35z4U/iWG9RrwI9H2HRF
- KwVBoSQh47V0WW1Z6czk8GqtzEeZFypl9K19S0mbGBhstmhHwcSDFzGWLt9yCi5FuZUw
- eLm+rRv9T4wXneUDhmupTIeWJ1Sxq8A/HjtXjQ88RN3IlG3FQ+hOw69dIZVp6nUmnuUC
- 29D9xrZVXqTUnyVdl9oRkodaaBzH5iY57GXAAj4+14KSyoBuN4WDO/RvtLN9tPF/7rqH
- IGbw==
+ bh=3R1bHblX/YSNAoDVuSots2jijK47BJf7ndWg1gXSC20=;
+ b=o8OH4eGQNUPN5IDyvsQPFxoEWLM8iESv9M0f6owrYDh8AhfNn1uxH2fLW2yLDX7Ybh
+ EywbujsZEjOxLQsLmU5izDnJIj2KrqEvdoLkwjsgj/FSNxFLjVT/Bl5GM/yW/H3GuK6j
+ NVa7+h5kfa1kPhOQ/IqOmDIRBKqz/qZhxLowvy/2G5U09M2ODkjWehmi3WlzwyBe1WNM
+ +lfeh1PmA+SHl4IUJfNkzM0jSUdU+hNmau3NJhhfDyllyqLmSTydKEX2gw+ZzceQrXTN
+ LPwXWxbS3+mP7EZWtnjC8NwdF4zP7agGhbTyQmnxiIXw7dfrQveikvNPRmEAo+g196Py
+ KcOA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxo+nZEBXeSfxCTTm3IgY5r89r7a9Kbn5lWQs+jVB5ucn1aZ/rN3yAixTqbNG8roHDhzzcML6VicQs=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mppDYXvBFnEdH6hRUIbNkWQChNm9Bf/xyInt5U3r8WTz4Erz5U
- dBmiezjySXz7XUlobuMFgtHEAmtuE6lnWhgzvP3c9MrxeFAAnbNeoH2obsfoZf16QzOTojtPiOs
- L
-X-Received: from plvv1.prod.google.com ([2002:a17:902:d081:b0:2ca:ceab:34a3])
+ AKwUvBySiwuLMKtQwiQ1gDeGOQwLkNXz/D4crKAssHx+TGFWWelDN/pO77gNmp6CMWSSMa4Ol195CpYSvfs=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mIn1DANWAWTPHTlai+BEZTVm+7l62xrKe+CbVDYwkg4n1YaFv+
+ CoZZ5VJ1srXc/lgfx3kf6AQ6ppA3JhOBI7b9Qn5edkkbEkAcd6PJwlWoq0QRVAQNQpCmfD5Ful3
+ Y
+X-Received: from pghu21.prod.google.com ([2002:a63:ef15:0:b0:cc4:da05:ef4c])
  (user=morbo job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:f612:b0:2d8:d4dd:24c0
- with SMTP id d9443c01a7336-2dd6c7e1a9fmr128970685ad.21.1789460409250; Tue, 15
- Sep 2026 01:20:09 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:18:34 +0000
+ 2002:a05:6a21:3315:b0:3d3:aec2:4dcd
+ with SMTP id adf61e73a8af0-3db40623e61mr13262094637.25.1789460418341; Tue, 15
+ Sep 2026 01:20:18 -0700 (PDT)
+Date: Tue, 15 Sep 2026 08:18:44 +0000
 In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
 Mime-Version: 1.0
 References: <20260915081910.4142719-1-morbo@google.com>
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260915081910.4142719-18-morbo@google.com>
-Subject: [PATCH 17/28] MIPS: cmdline: Refactor bootcmdline_append() to use
- snprintf()
+Message-ID: <20260915081910.4142719-28-morbo@google.com>
+Subject: [PATCH 27/28] drm/xe/pf: Convert strlcat() to seq_buf in
+ control_read()
 From: Bill Wendling <morbo@google.com>
 To: linux-kernel@vger.kernel.org
 Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
@@ -156,22 +156,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-bootcmdline_append() passes "max" (the maximum length of the source
-string "s") as the destination buffer size argument to strlcat(). Because
-strlcat() expects the total size of the destination buffer
-(COMMAND_LINE_SIZE), it fails to append anything whenever "max" is smaller
-than the current length of boot_command_line, and could overflow
-boot_command_line if "max" exceeds COMMAND_LINE_SIZE.
+control_read() builds a list of supported SR-IOV VF control commands in a
+stack buffer by calling strlcat() twice per command in a loop.
 
-In preparation for removing the deprecated strlcat() API[1], replace the
-strlcat() calls with snprintf() using the "%.*s" precision specifier. This
-bounds the read from "s" to at most "max" bytes while properly respecting
-the remaining space in boot_command_line.
+In preparation for removing the deprecated strlcat() API[1], use struct
+seq_buf and seq_buf_printf() to format each command line and pass
+seq_buf_used() directly to simple_read_from_buffer().
 
 Link: https://github.com/KSPP/linux/issues/370 [1]
 Cc: codemender-patching+linux@google.com
-Assisted-by: SecurityEngineer:Gemini2.5Pro [editor_update_file, shell_comma=
-nd_run, make_kernel_build_single_file, test_runner_run_kunit_test]
+Assisted-by: CoT-Agent:Gemini-2.0-Flash [editor_update_file, shell_command_=
+run]
 Signed-off-by: Bill Wendling <morbo@google.com>
 ---
 Cc: Russell King <linux@armlinux.org.uk>
@@ -285,45 +280,44 @@ Cc: devel@lists.orangefs.org
 Cc: linux-hardening@vger.kernel.org
 Cc: linux-sound@vger.kernel.org
 ---
- arch/mips/kernel/setup.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/arch/mips/kernel/setup.c b/arch/mips/kernel/setup.c
-index 1ae6d0c0e1d6..0d9c2137d675 100644
---- a/arch/mips/kernel/setup.c
-+++ b/arch/mips/kernel/setup.c
-@@ -518,13 +518,28 @@ static void __init check_kernel_sections_mem(void)
+diff --git a/drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c b/drivers/gpu/drm/=
+xe/xe_gt_sriov_pf_debugfs.c
+index 0f242db775e1..5db7fc067c4d 100644
+--- a/drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c
++++ b/drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c
+@@ -4,6 +4,7 @@
+  */
 =20
- static void __init bootcmdline_append(const char *s, size_t max)
+ #include <linux/debugfs.h>
++#include <linux/seq_buf.h>
+=20
+ #include <drm/drm_print.h>
+ #include <drm/drm_debugfs.h>
+@@ -663,15 +664,15 @@ static ssize_t control_write(struct file *file, const=
+ char __user *buf, size_t c
+ static ssize_t control_read(struct file *file, char __user *buf, size_t co=
+unt, loff_t *ppos)
  {
-+	size_t len;
-+	int prec;
-+
- 	if (!s[0] || !max)
- 		return;
+ 	char help[128];
++	struct seq_buf s;
+ 	size_t n;
 =20
--	if (boot_command_line[0])
--		strlcat(boot_command_line, " ", COMMAND_LINE_SIZE);
-+	len =3D strlen(boot_command_line);
-+	if (len >=3D COMMAND_LINE_SIZE - 1)
-+		return;
+-	help[0] =3D '\0';
++	seq_buf_init(&s, help, sizeof(help));
+ 	for (n =3D 0; n < ARRAY_SIZE(control_cmds); n++) {
+-		strlcat(help, control_cmds[n].cmd, sizeof(help));
+-		strlcat(help, "\n", sizeof(help));
++		seq_buf_printf(&s, "%s\n", control_cmds[n].cmd);
+ 	}
 =20
--	strlcat(boot_command_line, s, max);
-+	if (len) {
-+		if (COMMAND_LINE_SIZE - len < 3)
-+			return;
-+
-+		prec =3D min_t(size_t, max, COMMAND_LINE_SIZE - len - 2);
-+		snprintf(boot_command_line + len, COMMAND_LINE_SIZE - len, " %.*s",
-+			 prec, s);
-+	} else {
-+		prec =3D min_t(size_t, max, COMMAND_LINE_SIZE - 1);
-+		snprintf(boot_command_line, COMMAND_LINE_SIZE, "%.*s",
-+			 prec, s);
-+	}
+-	return simple_read_from_buffer(buf, count, ppos, help, strlen(help));
++	return simple_read_from_buffer(buf, count, ppos, help, seq_buf_used(&s));
  }
 =20
- #ifdef CONFIG_OF_EARLY_FLATTREE
+ static const struct file_operations control_ops =3D {
 --=20
 2.55.0.1032.g73a4cd73de-goog
 
