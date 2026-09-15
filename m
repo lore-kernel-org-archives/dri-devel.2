@@ -4,63 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1507EC88E53
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 14:22:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37420C88E7F
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 14:24:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7642810E182;
-	Tue, 15 Sep 2026 14:22:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87ED110E278;
+	Tue, 15 Sep 2026 14:24:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="J/EKm1ot";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DsWkms5o";
 	dkim-atps=neutral
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A61910E182
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 14:22:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1789482131;
- bh=JcYucMj7YIbG7YaZWu+7otPfMtUjjyXpiltn2C04Tx0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=J/EKm1otMfFKpLh1PMEA5saa7JQdSg4AJVshyxdLAEnaGKCexNlkLev4zNTxsg8Sb
- JPwQWgSRB41i2QlSjocGmOuLYbG3D4Ii0QeNP9g3bk0MpyHRHUoHlP8orPF2g35Nsj
- gfCsz8XV3vEZrmklDGVJR2fRf32OWFCFZPcQZnCQkWVkSKGOp7DRGUzzG7AnpbW+dZ
- D3KvumOsoVAH1lbqKLeTbZLvrMV9u23RY0yA4z6H/n8Y9yuCSNvwQFSXUrs4OXmU09
- hRpdmORwQMFPhDENDw33JvIOiXCNqNyFDnqaiNq2rYl527WkycAv5bk2nJGLoSOrvT
- b3ugaKI7D85tA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4hkkjl53dyz4wV0;
- Wed, 16 Sep 2026 00:22:03 +1000 (AEST)
-Message-ID: <db61e755-73ce-4dd8-94fc-e7287db963d3@ozlabs.org>
-Date: Tue, 15 Sep 2026 15:22:16 +0100
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 140DD10E278
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 14:24:54 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id D273843F1E;
+ Tue, 15 Sep 2026 14:24:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BABA1F000FF;
+ Tue, 15 Sep 2026 14:24:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789482293;
+ bh=u4z9ICU3bOpoc1/B1eQYXcAn0LuMTUTGKhSXvpccggU=;
+ h=From:Subject:Date:To:Cc;
+ b=DsWkms5oiCzwYo71Q9+gTQZFEdlrkC+pdZ1sYTvS3jieyss8Kh5u6javpEtvXY61L
+ UkHJNEGy7YVcX0Wb86HEvlO+NgpI5v65K/zBnOiML0P2YYMoBq565hxKe33Rc015Yk
+ c5g7wyPE4tbVlVnOVz610wc55j+BoScORt/J4SnjmgIADjoqNBN5uNlntkhZKnt/1M
+ 5hB3lmPPo4Rtgo5nRs2EJuHya7B1F+eif4bc/hBKT21ozjPQSaDfTEsJ6FMOx+dYGk
+ B64/3RViOYWdmB1jTUZxEhfSKmqgMm+havBmaxorlHRFNSs6nBNydr0R0WtkHf0fuC
+ w0rHGxisIcjJw==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v5 00/11] drm/crtc: Convert all drivers to
+ atomic_create_state and remove reset
+Date: Tue, 15 Sep 2026 16:24:41 +0200
+Message-Id: <20260915-drm-no-more-crtc-reset-v5-0-bda007735748@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 9/9] vfio/pci: Permanently revoke a DMABUF on request
-Content-Language: en-GB
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Leon Romanovsky <leon@kernel.org>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, Alex Williamson <alex@shazbot.org>,
- Alex Mastro <amastro@fb.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Longfang Liu
- <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260911214200.33793-1-matt@ozlabs.org>
- <20260911214200.33793-10-matt@ozlabs.org> <20260913165244.GW13683@unreal>
- <20260914113647.GL3968357@nvidia.com> <20260914115456.GY13683@unreal>
- <f21c409d-5675-4c87-8b16-850bcb9474df@ozlabs.org>
- <20260915072002.GD13683@unreal>
- <cebfef6a-88c6-4753-a0a4-87445a72f885@amd.com>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <cebfef6a-88c6-4753-a0a4-87445a72f885@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XOTW6DMBAF4KsgrzuVfwFn1XtUWYA9JFYLbscOS
+ hVx9xqyaKqI5RvpffNuLCEFTOxQ3RjhHFKIUwnmpWLu3E0nhOBLZpLLmjfcgqcRpghjJARH2QF
+ hwgxCd9qb3rVeC1bKX4RDuG7w+/GeCb8vxc/3I+u7VIQ4jiEfqlUdQ3Iw4TXD+gzKL67Y2j2Hl
+ CP9bBtnsZW3Oa0Ue3NmARyGvrFKN8Zx0719IE34+RrptJmzfHDUviOLow3nXttOqWZ4ctSfY7n
+ edVRxZONta4UR0uGTox8csb9HF6euJXLnfCuM++csy/ILDEZrrtEBAAA=
+X-Change-ID: 20260709-drm-no-more-crtc-reset-14a4d5bc8d41
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3959; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=43PxzAp7M4MuOXBNjLgNIXFR8fETzRN92LNXX8qD//A=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkrQ3Wmz/rfdWBVwrGudZ8EH6kVbXvF0B9TfXKCrrNxn
+ Vt6nZhpx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjItoOMDQuuLg9l04rvvzlp
+ 0pJnDRNaItri5mz/FfZz4cdaTQ228qvbdqWrM1/4KPSh8m9gNfOmm4wNB+0nXXdIE7JuWLjryC5
+ 3YYcZPE9N7ky9I/4ypYxla5G+5XuOVMP387euy2Q4uMhj45u5AA==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,111 +75,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Christian,
+This is a follow-up to the plane reset removal series, and part of a
+larger effort to remove the reset hook from all KMS objects.
 
-On 15/09/2026 12:13, Christian König wrote:
-> On 9/15/26 09:20, Leon Romanovsky wrote:
->> On Mon, Sep 14, 2026 at 01:13:36PM +0100, Matt Evans wrote:
->>> Hi Leon,
->>>
->>> On 14/09/2026 12:54, Leon Romanovsky wrote:
->>>> On Mon, Sep 14, 2026 at 08:36:47AM -0300, Jason Gunthorpe wrote:
->>>>> On Sun, Sep 13, 2026 at 07:52:44PM +0300, Leon Romanovsky wrote:
->>>>>> On Fri, Sep 11, 2026 at 10:41:57PM +0100, Matt Evans wrote:
->>>>>>> Expand the VFIO DMABUF revocation state to three states:
->>>>>>> Not revoked, temporarily revoked, and permanently revoked.
->>>>>>
->>>>>> The thing is that "temporarily revoked" is actually the standard
->>>>>> invalidate_mappings/move_notify mechanism of DMABUF, which wasn't good
->>>>>> for VFIO.
->>>>>
->>>>> I think temporarily revokes here means it is revoked from a dmabuf
->>>>> perspective
->>>>
->>>> My guess is that this is more of a "change owner" operation than a
->>>> revoke operation.
->>>>
->>>> The main issue here is that we have to guess the semantics instead of
->>>> having a properly named and documented operation.
->>>
->>> Apologies if the cover letter for the series and patch commit message (which
->>> cover this) are unclear about the motivations and semantics.  On the commit
->>> message, can you suggest clarifications:
->>>
->>> "This is useful for lifecycle management, to reclaim VFIO PCI BAR
->>> ranges previously delegated to a subordinate client process: by
->>> revoking, the driver process can ensure that the loaned resources are
->>> made inaccessible when the client is deemed "done".  The original
->>> DMABUF is defunct, and BAR resources can then be safely re-exported
->>> for use by new clients."
->>>
->>> Given what I'll explain below, do give suggestions please.  There is more
->>> context in the cover letter (the volume of which I didn't think appropriate
->>> for the commit message).
->>
->> 1. Do not mix "driver" and "client" in the same description. For a
->> non-native English speaker, "driver" has a very specific meaning in the
->> context of the Linux kernel.
-> 
-> In the context of DMA-buf it has also proven vital to clearly use the terms importer and exporter to describe the different roles a driver can have.
-> 
-> I can't count how often there was confusion because people (me included) just used "driver" and it wasn't clear which role was meant.
+The CRTC reset hook is overloaded: it is called both at probe time to
+create the initial software state and during suspend/resume to reset
+hardware and software state. These two roles have different
+requirements, and the reset hook is not fallible, making error
+handling difficult for the initial state allocation path.
 
-:)  I see where the quote can be clearer.  FWIW the "driver process" was
-referring to a userspace driver (which is a legitimate use of the D-word
-with VFIO, but still).  I'll clarify that, and will indicate this
-mechanism is used by userspace to influence the VFIO _exporter_ behaviour.
+While reset has the semantics to reset both the software and hardware
+state, the vast majority of implementations and all the helpers only
+reset the software state, making them equivalent to
+atomic_create_state in practice. The atomic_create_state hook makes
+this explicit: it only allocates and initializes a pristine state
+without any side effect, and returns the state pointer or an ERR_PTR
+on failure.
 
->> 2. Explain the lifecycle in the commit message, and why "revoke", which
->> is effectively what the importer does, is not sufficient.
->>
->> 3. The more you put in the cover letter, the less likely people are to
->> read it.
->>
->> 4. Commit messages should describe the patches themselves, since they
->> are what remains visible in the git log, unlike the cover letter.
->>
->> 5. I would call what you describe as "temporarily revoke" is actually "reclaim".
-> 
-> +1
+This series converts all CRTC drivers tree-wide from the reset hook to
+atomic_create_state, then removes the reset hook from struct
+drm_crtc_funcs entirely. Two drivers (tilcdc and loongson) had actual
+hardware reset logic mixed into their reset hook; those are moved to
+CRTC creation instead. The conversions were done using a combination of
+Coccinelle semantic patches and manual adjustments.
 
-I don't follow here, sorry.  Would you please elaborate?
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v5:
+- Convert more drivers recently posted
+- Link to v4: https://lore.kernel.org/r/20260911-drm-no-more-crtc-reset-v4-0-662e0ccd815c@kernel.org
 
-Currently VFIO uses the priv->revoked flag to track whether
-it-the-exporter had previously done dma_buf_invalidate_mappings() on a
-buffer and is now causing all .attach requests to fail.  Do you mean
-that (even without this series) you want to call that concept
-priv->reclaimed instead?
+Changes in v4:
+- Convert gm12u320 too
+- Link to v3: https://lore.kernel.org/r/20260904-drm-no-more-crtc-reset-v3-0-27d9891512ce@kernel.org
 
-Or do you mean that you don't like the words "temporary"/"permanent" and
-are looking for another name for a temporarily unavailable buffer?  (If
-so, I find "not revoked", "reclaimed", "revoked" much less clear than
-not/temp/perm revoked, as such names give no hint as to what to expect.
-But I may have misunderstood what you're getting at.)
+Changes in v3:
+- Test if crtc->helper_private is set before accessing it, and call the
+  temp variable to store it helper_funcs
+- Rework outdated commit logs
+- Fix error path for amdgpu_dm_crtc_init
+- Fix new amdgpu tests doc
+- Rebased on drm-misc-next-2026-09-03
+- Link to v2: https://lore.kernel.org/r/20260831-drm-no-more-crtc-reset-v2-0-4500d49a337f@kernel.org
 
-From the importer side, there is no change from this patch: they might
-observe an invalidate_mappings() and find attach() of a given buffer now
-fails, same as before this patch.  This is only about guaranteeing the
-impossibility of an importer ever being able to re-attach in future.
+Changes in v2:
+- Fix indentation in logicvc
+- Fix hardware reset at probe and suspend for loonsoon and tilcldc
+- Fix state creation for amdgpu
+- Rebase on current drm-misc-next
+- Fix commit message for st7920
+- Fix merge conflict for mediatek
+- Link to v1: https://lore.kernel.org/r/20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org
 
+---
+Maxime Ripard (11):
+      drm/arcgpu: Switch to drm_atomic_helper_crtc_create_state
+      drm/aspeed: Switch to drm_atomic_helper_crtc_create_state
+      drm/gm12u320: Switch to drm_atomic_helper_crtc_create_state
+      drm/mcde: Switch to drm_atomic_helper_crtc_create_state
+      drm/pl111: Switch to drm_atomic_helper_crtc_create_state
+      drm/repaper: Switch to drm_atomic_helper_crtc_create_state
+      drm/tve200: Switch to drm_atomic_helper_crtc_create_state
+      drm/xen: Switch to drm_atomic_helper_crtc_create_state
+      drm/atomic-helper: Remove drm_atomic_helper_crtc_reset
+      drm/atomic-helper: Remove __drm_atomic_helper_crtc_reset
+      drm/crtc: Remove reset
 
-Thanks,
+ drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c  |  2 +-
+ drivers/gpu/drm/drm_atomic_state_helper.c | 45 -------------------------------
+ drivers/gpu/drm/drm_mode_config.c         |  4 +--
+ drivers/gpu/drm/mcde/mcde_display.c       |  2 +-
+ drivers/gpu/drm/pl111/pl111_display.c     |  2 +-
+ drivers/gpu/drm/tiny/arcpgu.c             |  2 +-
+ drivers/gpu/drm/tiny/gm12u320.c           |  2 +-
+ drivers/gpu/drm/tiny/repaper.c            |  2 +-
+ drivers/gpu/drm/tve200/tve200_display.c   |  2 +-
+ drivers/gpu/drm/xen/xen_drm_front_kms.c   |  2 +-
+ include/drm/drm_atomic_state_helper.h     |  3 ---
+ include/drm/drm_crtc.h                    | 12 ---------
+ 12 files changed, 9 insertions(+), 71 deletions(-)
+---
+base-commit: 17c6b88e85ffe5de5720004ae8c2176d52944aca
+change-id: 20260709-drm-no-more-crtc-reset-14a4d5bc8d41
 
-
-Matt
-
-
-PS:  A hypothetical alternative way of doing what this patch is doing is
-instead to have:
-
- - existing priv->revoked
- - new 	    priv->revoked_flag_is_immutable
-
-Then, the ioctl triggers an invalidate_mappings() for a targeted DMABUF,
-sets revoked = true, and revoked_flag_is_immutable = true.  The new flag
-prevents a future vfio_pci_dma_buf_move(false) from clearing revoked.
-For example, a reset doing `move(true); reset; move(false);` can make
-all DMABUFs available to attach again, except for those marked
-immutably-revoked.  (That is equivalent to this new "permanent" state.)
-
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
 
