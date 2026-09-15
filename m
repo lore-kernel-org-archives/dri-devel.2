@@ -4,144 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF79AC88E53
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 13:41:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77751C88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 13:56:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A4A610E57C;
-	Tue, 15 Sep 2026 13:41:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 961E610E87C;
+	Tue, 15 Sep 2026 13:56:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YC/yFeUW";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QzTMkN6O";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OCW7UI/v";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7766510E3AA
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 13:41:23 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68FD0A8d3015914
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 13:41:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- a9Ma2vHXggOVE6yEStb2WHtpUhRSkVE4YG7P0qkunmU=; b=YC/yFeUWbUk/TQZU
- /oZYDsbQHFGbZhbRXb0F6pRvynNxaCk1uZOlStF7LF1WlfqBewv9giMR/oA5YL8X
- utnLaOERlRjEwIaOLTOwceQVbZL/2B204PB7r0lMqm3SsnyIPgGhCTbFpBjHDaYb
- V7RPMgdmQnksh92eWK0CL+YPIdgRzMorgf43/9J2EXQalXRT462lRrVWMV+XRmDU
- TGw9uVD7lm4GKnBpyIUuWrLGndS68OQBjsD9CirRCy7e3hXt7l4+S7jH4/VV/CEy
- Hu5rqcRJ4c1/E5vm7s2UrW2bNl7aeTHMZIHSSdPToVR1L/eTF74vLO8Q4eYm0c0H
- G2DlLQ==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com
- [209.85.221.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpx4sab9d-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 13:41:22 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id
- 71dfb90a1353d-5c8573c977dso3834937e0c.1
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 06:41:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1789479682; x=1790084482;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=a9Ma2vHXggOVE6yEStb2WHtpUhRSkVE4YG7P0qkunmU=;
- b=QzTMkN6Oe0TNokG+TUhn1YA9n5nQ4UCEwyqPTSGtVdRXSb8a452tuGZt7Hf5O6Z+cb
- RkPaDEwI4KgNmyscrufYMNu1b4EFGODVGmyYDWS7FFhQnsr3Skgu+cKQ0PNuNtYeVLLV
- md1fHXjPXwcbF36DmzRDyoKoeNW+tXXQEwqonTw2YLdXSKI/EnlVdKpZ7gXe9pHyjnmU
- tdeyjqPjFg/TTkIjNxVHOm4j9QQpWqoz27B5vTpffy/8ATc2dHlsW86G6VS/X6rt8hNv
- xQXXABEFyLuKgPNpkr4wR1WpTeyi2bBolH7nRwU/DcYWnVSHXsGHQbuOwoksCjE3ntcS
- 3KcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789479682; x=1790084482;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=a9Ma2vHXggOVE6yEStb2WHtpUhRSkVE4YG7P0qkunmU=;
- b=YMFnta3oQOOYGvlW7P5nAqy/oaYVdLADLDtzWdY+n4qJPvvjXPpXTI8aYOjrzb98oS
- OIWu50Xb178bGtvG0GDgqlVKJiATgjJN4ZviPO9QZgKHexMLTpkPCyNnt4eeFRNQuSpf
- mAGF9KzKJtnbVljLMxFF6mMFPMkWWyHotkQYY0DL6Xk8RI2w0uHh9OFQHX43lh6p7w7w
- BUvJrzH69zCBw5W7iGFwzpvHcdfDaDD30N8mEr1re2/g63mVDklCBzR0AYHYgdb+aDbj
- BwttBUEGFawgna3mwrfUeMF6KWejdXqSL6jyQeQjtuyvgCTkLUudiB3RPTcLJTnL0VA4
- uigQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBy3+1hoAd0SqQFqJFrxOpUvwXnkPyYut7do6iS+21sn37RzmJKp6bPZSurHnLZkHweBO8Wu1bXxOso=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lMrLe+H6T0OVW2i75wdxPaMbMbzB5poBUYENFkhCoauyqztq93
- Yfrvc9lSIXxZ687h7YAi7jBilk5ViYFpFQq4RsLALoQ81fx26+cDDbvhRccg4dR3UgTyF8yvJqD
- NFZbRlqwni3ghIv2H6Sn9NTSt6iJsxoqN2Ous2TLHm+MfbgUt+Js8dAiTjbUZfHyP3/E2VG4=
-X-Gm-Gg: AYBFou3upodi/ocIcj2uzjr5T4ILbdJXI81HmDovigSYTeqPxppi4xPGRQs5fX5e0ui
- nl0SYH0YAGOMO/Ou6WYl4g7JGjNMHwZ1reZQ2kFVwNZnMg9k7ZI1ELu7MSJYbr2Zd0aQcispksE
- SRKMUHTrzNIWH3Kdz09gjP3ZLsmQThvH4H205RZSclfPvUI+jf9nj76gJX1gOg1dAiaoPxbhj6o
- GkOa55wbJn+KDqzyjWJCEY10Kg59mgFlmZh0AlVe20390oQNYBIcFlb+qHXzABoFJxtYr8OR4YI
- NFUzJfLY2laShGD7tYCyIvFTnglaZixZ5AbfRzTtgeYQeZH2MFjwxrXztMRBAvNXpOKFRQMB4fS
- t7hxn8Yw8iZ3DQnBfm0sNIFAQ/WA=
-X-Received: by 2002:a05:6122:da2:b0:5c9:7a56:10ed with SMTP id
- 71dfb90a1353d-5c993b59a15mr1424258e0c.8.1789479681811; 
- Tue, 15 Sep 2026 06:41:21 -0700 (PDT)
-X-Received: by 2002:a05:6122:da2:b0:5c9:7a56:10ed with SMTP id
- 71dfb90a1353d-5c993b59a15mr1424146e0c.8.1789479681335; 
- Tue, 15 Sep 2026 06:41:21 -0700 (PDT)
-Received: from [192.168.68.120] ([5.133.47.210])
- by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-486eb32e81asm36821121f8f.7.2026.09.15.06.41.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Sep 2026 06:41:20 -0700 (PDT)
-Message-ID: <9c09c1f5-cffc-421a-96df-753b294d63cd@oss.qualcomm.com>
-Date: Tue, 15 Sep 2026 14:41:19 +0100
-MIME-Version: 1.0
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013021.outbound.protection.outlook.com
+ [40.93.196.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3D5510E6FB;
+ Tue, 15 Sep 2026 13:56:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pHMQL/9+2lJJOf+LiDF7IVGFrwISsNwEm5zwUF9/KrXjba4NELKh3ucm5cl/M9pYnXBVBAhIbklfdR4mfeMUri4EsiAItfUf589kwm3/84NhJEzGv0qQ/bz0YVRooO7ubiADWpGqD19Ov6qqgGkiQBlHv2GrcTCgqBx8LQqhJDrblut31v537Es0EIK+XcdSksvOhOv5ZLbUJv9D2e+xBxKFSGzhyjpHI6DOD2xczPzRxc91PKRLxV+ErkReY2mxL6XHdR/BkrLHL0Y3k+Rhh3NoNatYeyIolIvlYn/153pjIsd+NGo1c50Xj0nYp/S0QbcqAE7CnSa8r5h+LBQ7Fg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M0mfqIV7RF9mdU752ZfhBhox2pHlVflpGPDxsl3vCcY=;
+ b=BSye8RCRbirBJ2i9OD8soUS2jILYIs7eGy+vXvuILkgzlqLWWVsfQY3gj7pzf2DTLh9agDyIPxap3plQkytX09UDeF+NDFjCfiSV3WE2FsjP2VB3aiElFFW/YzAbrGEhsnW7Qa8h3IHdA9FSCH9cw9zqbZLEiuxZX2++fH73IfZuhOIC2SbA+GUUI3vbB35nyn1L/yUEu0flWMKbUHh9y9vdDMxy1uxTLHB4cXlVJfuiZSILF0iYqeZHM92XvwVLdOq3Pxr8dHgZHQKRfJc5yT/8IkHjHOk8XFKKskioIgz9KuyxTkRFfYTIawzYwdqBP6O+RUaiCfWZVhju7SoXxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M0mfqIV7RF9mdU752ZfhBhox2pHlVflpGPDxsl3vCcY=;
+ b=OCW7UI/vmeU8K/WxlTXk8NnTiAgufhA+Tzcr8OFAegXbixGcv1ApFAvB9d/G3OauZaozB3POSNlS4D98sJq7nYmL643evMfiXcHUjnqX6NH+K9gBoBw6W7Uz6dZwCgyfXnK/6sa/uiUIQ5lGKjdzyNjtXWrt34rqiTxPUbarM0A=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SN7PR12MB6983.namprd12.prod.outlook.com (2603:10b6:806:261::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
+ 2026 13:56:06 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.008; Tue, 15 Sep 2026
+ 13:56:05 +0000
+Message-ID: <a59d3421-a241-4497-9890-0b94329b94da@amd.com>
+Date: Tue, 15 Sep 2026 15:56:00 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: arm: qcom: add Lenovo ThinkPad T14s Gen
- 7 (Mahua)
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Douglas Anderson <dianders@chromium.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- mpearson-lenovo@squebb.ca, abel.vesa@oss.qualcomm.com,
- sibi.sankar@oss.qualcomm.com
-References: <20260913201835.250085-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260913201835.250085-2-srinivas.kandagatla@oss.qualcomm.com>
- <20260915-nimble-wakeful-stingray-5beaed@quoll>
+Subject: Re: [PATCH 3/4] drm/amdgpu: don't free mapping when
+ amdgpu_vm_update_range fails
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Cc: Natalie Vock <nat@pixelcluster.dev>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ kernel-dev@igalia.com
+References: <20260914-amdgpu_vm_fixes-v1-0-d6d835591e0f@igalia.com>
+ <20260914-amdgpu_vm_fixes-v1-3-d6d835591e0f@igalia.com>
+ <9c507259-f65c-4f18-8fc7-8e03de0c4f87@amd.com>
+ <acc1e3eb-264c-4591-9f66-5fe93b96f97f@pixelcluster.dev>
+ <aqkf0LE51mObdEJc@quatroqueijos.cascardo.eti.br>
+ <fb733813-9e4d-494a-ba60-469261340e74@amd.com>
+ <aqktL4Ui1MaIvs_j@quatroqueijos.cascardo.eti.br>
 Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-In-Reply-To: <20260915-nimble-wakeful-stingray-5beaed@quoll>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <aqktL4Ui1MaIvs_j@quatroqueijos.cascardo.eti.br>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDE5OCBTYWx0ZWRfX2gqL8eQApCzZ
- KmAOwVYg5/2XXRj+I1M35CdO8FJ/c1r0FUyXmdxrGpt2en+NAixDvkgTEckWk+LbPDjBdIaQR8J
- Zl7IBTvuVrOsvhIEaq2qu1+PM8FgnN0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDE5OCBTYWx0ZWRfX6LxKkGLmZSpL
- ooDFE44dMc5siJDJkwW0V7SKKlXZqmPJwzScZ0tLF3vns77esgugwrEpNq2CYiRtj6CEzDFhWhl
- LOwFgihV7PFo4o43RiIALAHa9lPWLdTUiNygUdBY/YpbT+DEzu7vv+rfCBEKDg0DoZqrz77HuKZ
- qizOc7FtO1q+hCkSQMzyu8UNNMbu1W+vQ45MLThpGJE0pBtgcxwnw03oqghjcnVWpx7i1HRiZaQ
- hI10knkoCZ0EvJ5m2E190Y+ihjXftjN73bVGraLhO0l510mPXlR7WfG9fcfDkmgK3oQYJ0WzOxy
- Qfn0r4rbTv3PXRLOgyEQ+ofZR7Q2sptymdFp8kUZuu/0yyI99lKYqsvKK83gJu1jY8zJRjz4RYI
- GtLAFQ4broS3P1ry4ts01/bGXRuzeZMpaQzW5X3WRJJHUDgIMi3ZU/7n9yiixIvsP3MCNkU+Y/q
- yIbS1Zr0d4Y8n3feSyg==
-X-Authority-Analysis: v=2.4 cv=HsDjiETS c=1 sm=1 tr=0 ts=6aa94b02 cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=YQ8b7Xp_7Ef0BCHzhWkA:9 a=QEXdDO2ut3YA:10 a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-GUID: CYR8Bh6F2QXErkXurV8Ca7jX2rIN373q
-X-Proofpoint-ORIG-GUID: CYR8Bh6F2QXErkXurV8Ca7jX2rIN373q
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_04,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- impostorscore=0 suspectscore=0 spamscore=0 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150198
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN2PR05CA0049.namprd05.prod.outlook.com
+ (2603:10b6:208:236::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB6983:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1e702aa-d8ad-4672-5ef5-08df13311617
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|23010399003|1800799024|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: BbyQKaJnRLuxTaN/uZd0/f8bFjglUHp6h0W0Pfofj7grFN0I23G++nF8tW73nfOv33zfKtU90tXAYRNKFB7XPOB7AwXOeScvgXOJAW3sLopUanS4jvc3Nzwl+HVDZZUVMmsxJc2VuJJnxRlmsT4aLIli3JuSEFBHpkdZVQhWekL3A0uvo/uvWDS55fVTXKK6w8ACVyVqqV9Wo7/5DgsUILmZRYvG5Mn7r+kZ20oYhjTwT/ZwRq27H8jtRjn/91xGT4Nc4Dviho7ZqnISqakg6j2syffaiGaIQOunQDZlyrEfnSjJiIkmReqATJiwBwz3yOp/v8GHlPDKyli9rqlCT5QQj8zy9EqUcXnhlll/z1v9iyBk0ks+dqJYFIOel0RSgyFFzmbPmSHWsU1hGYQEJsKMWrbMyxSTArmlfRsgeokh+bi3xqQePQ4YUl9eRTlSggQnCr7yBwdqOMCmEOAOV4MSqn/dOmVVN8JVy/7a29pYSYWti1flUj4SFxlQ6Yxltg+alO9W7txKldJo6IYlx8sCnW6hDC+3+gffr+HtjdrKfvpnttGObC5smWtbxIX8dWbq/r6OvuUExO9dYwaBWJZIiCDTmIl8QN5RtTvn259Hx1jLQ0Xsyqd9tu/8B0eya1nDd2RC3/hGUSLDbmFKu5Ama9b97yRjjvTe5C5znqg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RDBRU0RYa1NyeG1aT1R1dktIWE0wVkUvZmFGZW5pcWdUNDQzUnd3NzNRUExP?=
+ =?utf-8?B?Ti9lT3VXcFZESDV3UCs3endodTFaRTdrWmZTZ2dyWjA4ZXNjbm9McUZhcUdz?=
+ =?utf-8?B?cHlGSXhPTGVpZWJoQnREazZmRXVkdytPc3NscFJtdDBDUUQ4OXhFYWkvNkhp?=
+ =?utf-8?B?SWxhbHQ0cjVPZHBrc1ZtNnIyRlNmWHo0eFNpNDFYVlJSNWM3WjhSdlVwN3Rx?=
+ =?utf-8?B?S3doQ1RITkZPVWhkOFh1cEs5YVh3cVlrcnc1V1UwU0FsLzZUWUlkVTU5Nlo3?=
+ =?utf-8?B?eXJvemVWa0ppTVFwUFhzZ1VWblc3QjZia1hpSFZ1aDF5dDQyay92dDRJejcy?=
+ =?utf-8?B?UGNUMCtKNUFySFNLUGcvaUxXb0JuR0NHTHQxQVRLd1pQNHVmWDJPUkhpU21V?=
+ =?utf-8?B?NkV4RjJvYWd2bGx0QWRzOUZxbmNzejY5MEdOemVaamFWa1pzb0FpWHFCWkFQ?=
+ =?utf-8?B?dWJqeUk5bmVZdGVVRStiWmpYQ2lrdStFTGNjdVJvZVg2T29XalREaTNidTJF?=
+ =?utf-8?B?VUgyeDh1SW5VUTlRM2pNUjZKOS9qWGVrMlcyUGwyVmJXYmsrL0pFalE0L1Jz?=
+ =?utf-8?B?UWJTMDdDM1gvcFVFZGxqeFgzN2dWSGcwTUFnYXlyMHdNZmJvbHI2R21tS1VC?=
+ =?utf-8?B?cTdXUFBvczE1Y09DZTZxVjRXeHk2cG0wSnZRRjRRQW10REJZa2xURVNDOXk4?=
+ =?utf-8?B?dzRVOWF0bWNubExlZWx1Ni9HS2FObDlGOE93bWtybW9XemVVWXJyeTNuTDd2?=
+ =?utf-8?B?K0x1RDZYTGp2NjF5c1BRUWNWdzBYY0t0MjN6NTdvSHRremdqM1laOGhEM0lC?=
+ =?utf-8?B?bEJEbi9xejRmd1ZlZzdJN0NrSVZJOTJHdGZrUThOdDlmajRXTVhhaGNtZm1C?=
+ =?utf-8?B?elhCUTdtcHdCMlFxQStFU1Y0RUh4OXNnS2xvTG9UQXNuN1RNTXdjbC9EeExz?=
+ =?utf-8?B?LzJxU0NGVE1zQnF1M3gyczlLeFI1Yk0xN1FhYzF2aWdIcHlCY2lWL21CWngz?=
+ =?utf-8?B?MGNEZ0xNSWRRQnB2eVNuMjQzamhCVjdQNU1UVjFNNlUxU3JpZGs0UGJSNFoy?=
+ =?utf-8?B?M3EwTDVRZjdSR1VZSCtBZ0tkM3IxdDIzK2c1WE9jUEx0bzFiQlNqVW4rZnhk?=
+ =?utf-8?B?bnhUZXpsTks2c0F0Q1Q1NGkrdWR4bG1TYnZhWU5MMEFISHB6NEJHT0xubU5G?=
+ =?utf-8?B?WEZtcks3ZGxxY1RzT1FrMFErNWJsdXR4WWJkcVFUWmxVMndkdC9DNjRXbUNx?=
+ =?utf-8?B?anlMeERFK256ckNxUEMzSTlZbUpJUjcxcERKMkkzYWRNOEUvYzI1SkRGWnlV?=
+ =?utf-8?B?TGM0akpDeHdKT2NIZy9XR0hJV3pOdEI1Tll4Mjh5cHUrdnRCUzkwVTBRc1dY?=
+ =?utf-8?B?S3FMVlAvdDVpTjEvSkp1TDUwMEg4LzVzQ0JmaksrckIwaVplQUp2UW1UOUMz?=
+ =?utf-8?B?dER1RklXaVpuRHBNZXVxS0dMRVdNWHVkNE5DQU93ZERjMXBMZm8wRUpMeWVn?=
+ =?utf-8?B?TU8zcWxEenNGU3RqV1NPWGRYRE9iL3NDSGRsUTlWWVhGNjI3Q3FXV2RaZW1Y?=
+ =?utf-8?B?aStrMHFrUlR0ODgydDdXdkF5eHhjTEpxTTFMaXBPd1NLUkdLM0RLcllNTnZF?=
+ =?utf-8?B?aGZsUDZqa2pxRytHMFZXN3NsRmpRSnBDcHoyWTc0Z29tY0NWRmw0WnVBd1cw?=
+ =?utf-8?B?MEx2U3YzVk85bzVUU2NzQzFGSW5kUzdjNktzWWg0bGNNWVdCUDZiYkJtdURl?=
+ =?utf-8?B?V3E0TzZNWGNEVEVzdGtXSUxudUY5cHczNmZCV1Q0anhpcDdoMEdLNFlKMisw?=
+ =?utf-8?B?ZllLWG9Ma2NOd1RIU1ZOU1ZjbXY2SXg5VkdMS2FUN29RbVhDZ2RoWVdBUDlK?=
+ =?utf-8?B?bmVMS0xLRUloZ3pHTmdvQS8xdVpLV0lkZWFkR3NnbmpoUlF6ZDYvYVV3bEE1?=
+ =?utf-8?B?V2tpdjR5V0M5Tmlnamw5ZjhIc0hHWmsvN0U5MGpHQm93R0I2VXBjMUxvTnY1?=
+ =?utf-8?B?NS8rM2RUVUQ0bVRqUmZSSUlCT3FyUEZhYWNxa2taWG1OdjgyVVdaRU5od3F4?=
+ =?utf-8?B?UkJrZFl3U2d3eXBiT2pwSitsdjJ1N3RweXhoTXBIY0tTNms0WGtuRjYzVDls?=
+ =?utf-8?B?TjI1TDN2VlpaeHFDUEZFRCtGeWlCdVNqUGZEWS9VT08vNXFKRU16WjBVWUg2?=
+ =?utf-8?B?UmVCaVZkOWJlWS9ha28wVEY0L3FLck1LOFh0TEVkNDA5TFE4dERuQS9OMnZE?=
+ =?utf-8?B?ZEtWOEFOTzdock5QOEozN3laVVQzc3hoVDlsajZxQ2R6YmVDYUNkcEx3OTZX?=
+ =?utf-8?Q?gskgeUB9ndDGyHpuCv?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1e702aa-d8ad-4672-5ef5-08df13311617
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 13:56:05.6419 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bujYa6Bl6Gb24lKVxQMY5FGlcEh4oMhgzyQN/clkdiRWhAX6/h3zcgonJL3b40Ux
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6983
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,36 +148,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/15/26 11:47 AM, Krzysztof Kozlowski wrote:
-> On Sun, Sep 13, 2026 at 09:18:32PM +0100, Srinivas Kandagatla wrote:
->> Add lenovo,thinkpad-t14s-gen7 as a board compatible under qcom,mahua.
->> The T14s Gen 7 uses the Mahua SoC (a 12-core variant of Glymur with
->> cluster2 / cpu12-cpu17 fused off) rather than Glymur proper, matching
->> what the platform's ACPI MADT dump reports (12 enabled + 6 disabled
->> processors).
+On 9/15/26 13:34, Thadeu Lima de Souza Cascardo wrote:
+> On Tue, Sep 15, 2026 at 01:22:48PM +0200, Christian König wrote:
+>> On 9/15/26 12:37, Thadeu Lima de Souza Cascardo wrote:
+>>> On Tue, Sep 15, 2026 at 10:53:43AM +0200, Natalie Vock wrote:
+>>>> On 9/15/26 10:33, Christian König wrote:
+>>>>> On 9/14/26 22:25, Thadeu Lima de Souza Cascardo wrote:
+>>>>>> If amdgpu_vm_update_range fails when called by amdgpu_vm_clear_freed,
+>>>>>> the clearing of that mapping will not be attempted again. Later on, when
+>>>>>> an IB tries to read that mapping, the read succeeds, leading to a
+>>>>>> potential info leak, or even data corruption, if it attempts to write to
+>>>>>> it.
+>>>>>>
+>>>>>> If the mapping is left in the freed list, then clearing will be
+>>>>>> attempted again during amdgpu_cs_ioctl, which will either fail and not
+>>>>>> submit the job or will succeed in clearing the mapping, preventing the
+>>>>>> invalid access.
+>>>>>
+>>>>> Same as I replied to oushinnyo <oushinnyo@163.com>, absolutely clear NAK to that.
+>>>>>
+>>>>> amdgpu_vm_update_range() can only fail when the device is hot removed and we don't care about clearing page tables in that case.
+>>>>
+>>>> Actually, how so? The SDMA update path has lots of allocations that happen
+>>>> at random points throughout the update process (think the SDMA IB being
+>>>> exhausted, then vm_funcs->update() will allocate a new one and can fail on
+>>>> that, or various fence allocations. Some paths allocate from the delayed IB
+>>>> pool which is just regular GFP_KERNEL, why couldn't these allocations fail?
+>>>>
+>>>> Aside from that, the more trivial failure path that I think Thadeu is also
+>>>> talking about here is that amdgpu_vm_ptes_update will call
+>>>> amdgpu_vm_pt_alloc (so that happens in the middle of VM updates) and these
+>>>> allocations can fail. I'm not even sure if drm_exec can save this one
+>>>> because we need to be ready to drop locks and retry.
+>>>>
+>>>> I get that failing is unacceptable for the cases inside a pagefault handler
+>>>> (though I'm not sure if anything of what I mentioned applies here, pagefault
+>>>> VM updates are immediate so they get GFP_ATOMIC, but maybe the pagefault
+>>>> handler could still allocate PTs?) but for anything else, failure seems like
+>>>> a possibility and maybe we should think about handling it in some way.
+>>>>
+>>>> I'm not sure I see a problem in keeping BOs invalidated and backing off
+>>>> later, since new submissions should be rejected unless the VM manages to
+>>>> complete all updates successfully.
+>>>>
+>>>> Best,
+>>>> Natalie
+>>>>
+>>>
+>>> Thanks, Natalie, those are exactly the possible scenarios here:
+>>> amdgpu_job_alloc and amdgpu_vm_pt_alloc might fail.
+>>>
+>>> Christian,
+>>>
+>>> I have started this investigation once I observed the kmemleak that is
+>>> fixed by the other 3 patches. Natalie brings up the exact case where this
+>>> might happen: amdgpu_vm_pt_alloc fails as all other VRAM BOs are locked as
+>>> they are either ALWAYS_VALID BOs or PT BOs, thus sharing the same dma_resv.
+>>
+>> Yeah and on a clear there is never a single page table allocated. What could be is that temporary memory allocations fail, but we need to make sure that never happens by using the emergency reserves and/or pools.
+>>> Here is a log showing up that something failed during the update:
+>>> [ 3839.556311] [drm:amdgpu_gem_va_ioctl [amdgpu]] *ERROR* Couldn't update BO_VA (-12)
+>>
+>> That is failed memory allocation while trying to map something which we also ignore and delegate to the next CS.
+>>
 > 
-> There is variant with X2E and X2P processors, and on top of that touch
-> and non-touch display. The first will be differentiated by SoC
-> compatible but don't you need compatibles for the last part - display?
+> Yep, that is a possibility as well and amdgpu_vm_bo_update is not ignoring
+> the failure here and leaves the mappings in the invalids list, which the
+> next CS will try to map.
+> 
+>>>
+>>> The investigation then led to a reproducer, which is able to trigger the
+>>> list corruption that is mentioned in patch 4.
+>>>
+>>> And given the kmemleak stack trace shows amdgpu_vm_clear_freed in the stack
+>>> trace, that should clearly be where the failure has happened. Looking at
+>>> the function, then I noticed it ignores the return code and still removes
+>>> the mappings from the list. I was able to write a second reproducer that
+>>> triggers the failure, then releases some memory and demonstrate that
+>>> amdgpu_cs_ioctl does not clear the freed page tables as the freed list is
+>>> empty.
+>>
+>> Unmap/clear operations are also used in MMU notifiers who can't give an error back to higher levels but rather need to unmap the area no matter what.
+>>
+>> So basically that is an operation which can never fail in the first place (except for device is completely gone and then we don't care any more).
+>>
+>> I'm about to split the map/unmap into separate functions to make it clear that unmap operations can't fail.
+>>
+>> When you have a reproducer and can pinpoint where exactly the memory allocation fails that would be rather helpful here.
+>>
+> 
+> What I understand that happens in the case of clear_freed is that we are
+> breaking a PDB/hugepage and descending, as the clear happened in the middle
+> of the hugepage. With the specific reproducer I had to go through lengths
+> of making sure that the original mapping landed on a hugepage-aligned
+> address, then used CLEAR/amdgpu_vm_clear_mappings to unmap a single page in
+> the middle of it.
 
-I only have the LCD variant in front of me
-We could follow the Gen 6 T14s pattern (which already has the LCD/OLED
-split upstream) and two variant SoCs for v2:
-how about something like this?
+Yeah that is exactly the broken case I'm already working on.
 
-  - items:
-      - enum:
-          - lenovo,thinkpad-t14s-gen7-lcd
-          - lenovo,thinkpad-t14s-gen7-oled
-      - const: lenovo,thinkpad-t14s-gen7
-      - const: qcom,mahua
-      - const: qcom,<X2P SOCNAME>
+In that case the clear should just unmap the whole hugepage and not allocate new PDs.
 
+Re-mapping the two fragments before and after the unmapped area is supposed to allocate the new PDs.
 
---srini
+Without that we run into tons of problems with userptrs and MMU notifiers.
+
+I will CC you on the patches I have so far.
+
+Regards,
+Christian.
 
 > 
-> Best regards,
-> Krzysztof
+> The other reproducer that I have required that I used REPLACE instead of
+> MAP in order to trigger the tlb_flush_waitlist issue. REPLACE does call
+> amdgpu_vm_clear_mappings too. Notice that RADV Mesa driver uses REPLACE,
+> instead of MAP, so that explains that we can see this in production.
 > 
+> Regards.
+> Cascardo.
+> 
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> Regards.
+>>> Cascardo.
+>>>
+>>>>>
+>>>>> Regards,
+>>>>> Christian.
+>>>>>
+>>>>>>
+>>>>>> Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+>>>>>> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+>>>>>> ---
+>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
+>>>>>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>>> index 09037df76400..5bde36754607 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>>> @@ -1594,16 +1594,16 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+>>>>>>   	while (!list_empty(&vm->freed)) {
+>>>>>>   		mapping = list_first_entry(&vm->freed,
+>>>>>>   			struct amdgpu_bo_va_mapping, list);
+>>>>>> -		list_del(&mapping->list);
+>>>>>>   		r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
+>>>>>>   					   &sync, mapping->start, mapping->last,
+>>>>>>   					   0, 0, 0, NULL, NULL, &f);
+>>>>>> -		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+>>>>>>   		if (r) {
+>>>>>>   			dma_fence_put(f);
+>>>>>>   			goto error_free;
+>>>>>>   		}
+>>>>>> +		list_del(&mapping->list);
+>>>>>> +		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+>>>>>>   	}
+>>>>>>   	if (fence && f) {
+>>>>>>
+>>>>>
+>>>>
+>>
 
