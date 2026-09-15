@@ -4,132 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06FFEC88E53
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01656C88E53
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:31:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6A4910FA1A;
-	Tue, 15 Sep 2026 07:28:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37E8510FA41;
+	Tue, 15 Sep 2026 07:31:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RMvtKc2E";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="M4tlVxKg";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D07FE10E132
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 15:01:47 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3634C400A9;
- Mon, 14 Sep 2026 15:01:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C5651F000FF;
- Mon, 14 Sep 2026 15:01:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789398107;
- bh=u1RlWGqGnqWzw8PbO9zbWrmr/LvMwLtC2FngYjobCv0=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=RMvtKc2Efv1pbG8Mv02sdIQx9hVQ8bJXtPwMHTd3MYYD4WYoHNaa5fd2EKNkl4LXb
- dAIBQ6wtgd+YqE6LzncYMxkdsEIAOOv5BBJOPrgsl6UEA2CyOPUlz/zhtzL3+K9n+/
- kagkxOWzJtVy1alQpmCXVXCDICc1XxeSbucOdqnmZwdbwEmjNaMYuWiK+M3PHTU3tD
- AESRcc/JnMvD/20iN5iXM7DjY8mImZJGF+9Wx82wOnx+grvK1o+Ua3kR46QNBj6QXG
- CFH8rin/gxmRPwAwD/P8iy2uVPHdoMrR7FDPBjEwPjzBw5ZhKY639RgmIWFGg3yU6H
- Xex7+5jTAEb3g==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 14 Sep 2026 15:57:25 +0100
-Subject: [PATCH v2 05/40] mm/vma: ensure mmap_prepare doesn't set actions
- on a mergeable vma
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
+ [91.207.212.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B44EA10FA48;
+ Tue, 15 Sep 2026 07:31:03 +0000 (UTC)
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+ by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68F7SBYc3263595; Tue, 15 Sep 2026 08:30:52 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=dk201812; bh=fRNJt0AS2s0bmHy9+1Wpf3w
+ aF0oHCu+6NWprJ5UDI9g=; b=M4tlVxKggabXNxLJEmuozYXD0dS5639D+sh4Qg2
+ /M1HnAUm/7qlTNzVL1xfA/1wqFY6wqwO4epmIm76LPhuy4+wCIcTD6WZ+z6Q+uUM
+ HXziUvoaPatfffAinh9Q++n84ILd3rUnAG2+ZKvAZ6hnyULHow3o3+qJkUq2nXWx
+ 6/bLVfRznV/aymwMJjEy1ORqY673XIaTolETmqrqsMXDQlSPjvvszd27UpiipPz8
+ EKXuXa30PWXpwNxEQvcsAnbbcXnnnx6EnH5IpUcIspcyJi8HgQXfr59JZQrI1WAd
+ ix19OfBL+ODGkShOSymIGCZnV/3DfBAj93e2iGOGkQPLwOw==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gmw0q23c2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 15 Sep 2026 08:30:52 +0100 (BST)
+Received: from [127.0.1.1] (172.25.5.88) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 15 Sep
+ 2026 08:30:50 +0100
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Date: Tue, 15 Sep 2026 10:30:42 +0300
+Subject: [PATCH v2] drm/imagination: Manage FW VM context from its init and
+ fini callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-5-7d9781ed5361@kernel.org>
-References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
-In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1311; i=ljs@kernel.org;
- h=from:subject:message-id; bh=1okRmprRB6sg9Mfs+wXkHjRqWyxan5/JZ1tZ/n8xX5k=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcK979XCjVm5Vt0rWwokPzqrcefr21bmtTD3mmy1XO
- ymdtnN16ShlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEWjMZGa48qTrE29h+0iez
- pVMnw/Wbv9kGjcK+Mw49R1UDlC+pxDL897ryeHbcenOG1btqTlsc2qnDq6J5ZpO7jvmDCmO/5fs
- XcgMA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
-X-Mailman-Approved-At: Tue, 15 Sep 2026 07:27:57 +0000
+Message-ID: <20260915-b4-upstream-manage-fw-vm-context-from-init-and-fini-v2-1-c9cb43667143@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIACH0qGoC/6WOQQ7CIBBFr2JYOwZQibryHsYFnQ46JkADFDVN7
+ y7VI7j7L3n5/08iU2LK4rSaRKLKmWNooNcrgXcbbgTcNxZaaiMPSkK3g3HIJZH14G2wzXBPqB4
+ whkKvAi5FDxy4gA09uJZAHffY91IhGila85DI8eu7ern+OI/dg7AsU4tx51xien9vVbV4/z2oC
+ hRoNFofaWtoT2f2t0K4wejFdZ7nDzb1LVcJAQAA
+X-Change-ID: 20260810-b4-upstream-manage-fw-vm-context-from-init-and-fini-195cdd01cc60
+To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
+ <luigi.santivetti@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Paul Walmsley <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>, "Brajesh
+ Gupta" <brajesh.gupta@imgtec.com>,
+ Alexandru Dadu <alexandru.dadu@imgtec.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789457450; l=6458;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=wis1y2leDS3yLg78oRg2pViZyXbUSkczoiYkjBNdENU=;
+ b=uKMPHLS0DyWAz5sBn3Ur6J7h/GTqgU/aek84HhzqyGcmoLZhHzpIOmeg22jG2akvZvsl7JTae
+ rK5kLJKHAHTAZpP6xAKe3OaJSU/mnDeGGTLip6JxFhzNNAOrX9FJMFt
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Originating-IP: [172.25.5.88]
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEwNiBTYWx0ZWRfX8smui4uzZAsh
+ IXMNLx7ht0XGznm68tTK2Vve5l3My+fvIpGUx4RexBB5QdgeFks5kGD1qUQps/ZPifRDiagbn9d
+ 8uz/AkUFyBVHVaotlOQduJCV/K2hcaTYLJF/Jnwk1Itxlwpne3eKszKXPwuAP1gkYY4k/DUL7Jo
+ CMN3dWmdmG58kGNraKCgYFW9PICk5wmTPQbyJRqohl+JswMWZcheWNtZ3xy3FQIbajgPG3LHG7w
+ 4udrv8z1fK7Xs2Ww0FHSQ372Hlbqg5GUMs/lpmY+LNooDEwljs1zvJQ1QjkXYAMIslTX/LvQQoF
+ eRU8d96gYUCLieK1FzpQY1BlIGSsRf31BbgvcleoHikC/M7EbXiopkxAFvhZj+iNYnRn1XnWpuU
+ gfMAZ0Kcend77CDJnwGF91KR/59PeYIBmd3gzswX3PeRlEJT0rXDHbtCyuaN3dsavqaWLVVVWSK
+ U3uiLhAXqSpNqZarAxg==
+X-Authority-Analysis: v=2.4 cv=c8M+0h9l c=1 sm=1 tr=0 ts=6aa8f42c cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=YP7Kpn5otooA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=_O3DOGVWAAAA:8 a=e5mUnYsNAAAA:8 a=JfrnYn6hAAAA:8
+ a=pq3Wg1XxJzrTNXcWAXAA:9 a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22
+ a=t8nPyN_e6usw4ciXM-Pk:22 a=2TKV-7w1aU1AVAwN0oqT:22 a=Vxmtnl_E_bksehYqCbjh:22
+ a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-ORIG-GUID: swSY0G-qtMr705ozNuILUNtzDg4aSgHz
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEwNiBTYWx0ZWRfXwSYFnBPF2Vkp
+ qcYZXgqQ+DX+129oo4yASB/vnNraG/BjtfIK0utq+bRGwtvfZymWfEQbS4GfHrWJ1oMrAHio8gO
+ wqG0Ptyru9CGGJaXT91YXA8iNptsEfg=
+X-Proofpoint-GUID: swSY0G-qtMr705ozNuILUNtzDg4aSgHz
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,44 +107,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When a user requests an mmap_action be performed in mmap_prepare, this
-involves populating the VMA range with data.
+From: Alessio Belle <alessio.belle@imgtec.com>
 
-However, if the VMA is mergeable, it might then mistakenly be merged with
-another VMA without having populated the range.
+While the MIPS firmware virtual memory context is created and destroyed
+from within the MIPS firmware init and fini callbacks, the META and
+RISC-V firmware contexts are created and destroyed from within blocks
+right before or after those callbacks.
 
-Every mmap action currently available sets VMA flags such that the VMA
-cannot be merged.
+Match the logic for all firmware processors by moving those blocks to
+the META and RISC-V init and fini callbacks.
 
-However, to ensure that no future mmap action falls foul of this, assert
-that this is the case upon mmap_prepare validation.
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
+Reviewed-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
 ---
- mm/vma.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Changes in v2:
+- Added Signed-off-by and Reviewed-by lines in the commit message.
+- Link to v1: https://patch.msgid.link/20260810-b4-upstream-manage-fw-vm-context-from-init-and-fini-v1-1-2c6229e36e5e@imgtec.com
 
-diff --git a/mm/vma.c b/mm/vma.c
-index 626a18c08a26..2648fb0e1995 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -2809,6 +2809,15 @@ static int mmap_validate(unsigned long prev_start,
- int mmap_prepare_validate(const struct vm_area_desc *prev_desc,
- 			  const struct vm_area_desc *desc)
- {
-+	/*
-+	 * It is not valid to execute mmap actions for VMAs which can be merged,
-+	 * as any such merge would leave portions of the mapping incorrectly
-+	 * unmapped.
-+	 */
-+	if (vma_flags_can_merge(&desc->vma_flags) &&
-+	    WARN_ON_ONCE(desc->action.type != MMAP_NOTHING))
-+		return -EINVAL;
-+
- 	return mmap_validate(prev_desc->start, desc->start,
- 			     &prev_desc->vma_flags, &desc->vma_flags);
+To: Alessio Belle <alessio.belle@imgtec.com>
+To: Luigi Santivetti <luigi.santivetti@imgtec.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Paul Walmsley <pjw@kernel.org>
+To: Palmer Dabbelt <palmer@dabbelt.com>
+To: Albert Ou <aou@eecs.berkeley.edu>
+To: Alexandre Ghiti <alex@ghiti.fr>
+Cc: imagination@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-riscv@lists.infradead.org
+---
+ drivers/gpu/drm/imagination/pvr_device.c   | 25 +------------------------
+ drivers/gpu/drm/imagination/pvr_fw.c       |  6 ++----
+ drivers/gpu/drm/imagination/pvr_fw.h       |  2 +-
+ drivers/gpu/drm/imagination/pvr_fw_meta.c  | 12 ++++++++++++
+ drivers/gpu/drm/imagination/pvr_fw_riscv.c | 12 ++++++++++++
+ 5 files changed, 28 insertions(+), 29 deletions(-)
+
+diff --git a/drivers/gpu/drm/imagination/pvr_device.c b/drivers/gpu/drm/imagination/pvr_device.c
+index 54fe4180c73c..35eaa54f75ed 100644
+--- a/drivers/gpu/drm/imagination/pvr_device.c
++++ b/drivers/gpu/drm/imagination/pvr_device.c
+@@ -697,25 +697,7 @@ pvr_device_gpu_init(struct pvr_device *pvr_dev)
+ 	if (err)
+ 		return err;
+ 
+-	if (pvr_dev->fw_dev.processor_type != PVR_FW_PROCESSOR_TYPE_MIPS) {
+-		pvr_dev->kernel_vm_ctx = pvr_vm_create_context(pvr_dev, false);
+-		if (IS_ERR(pvr_dev->kernel_vm_ctx))
+-			return PTR_ERR(pvr_dev->kernel_vm_ctx);
+-	}
+-
+-	err = pvr_fw_init(pvr_dev);
+-	if (err)
+-		goto err_vm_ctx_put;
+-
+-	return 0;
+-
+-err_vm_ctx_put:
+-	if (pvr_dev->fw_dev.processor_type != PVR_FW_PROCESSOR_TYPE_MIPS) {
+-		pvr_vm_context_put(pvr_dev->kernel_vm_ctx);
+-		pvr_dev->kernel_vm_ctx = NULL;
+-	}
+-
+-	return err;
++	return pvr_fw_init(pvr_dev);
  }
+ 
+ /**
+@@ -726,11 +708,6 @@ static void
+ pvr_device_gpu_fini(struct pvr_device *pvr_dev)
+ {
+ 	pvr_fw_fini(pvr_dev);
+-
+-	if (pvr_dev->fw_dev.processor_type != PVR_FW_PROCESSOR_TYPE_MIPS) {
+-		WARN_ON(!pvr_vm_context_put(pvr_dev->kernel_vm_ctx));
+-		pvr_dev->kernel_vm_ctx = NULL;
+-	}
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
+index 850a3ec8e775..58ee51cd65df 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.c
++++ b/drivers/gpu/drm/imagination/pvr_fw.c
+@@ -1029,8 +1029,7 @@ pvr_fw_init(struct pvr_device *pvr_dev)
+ err_mm_takedown:
+ 	drm_mm_takedown(&fw_dev->fw_mm);
+ 
+-	if (fw_dev->defs->fini)
+-		fw_dev->defs->fini(pvr_dev);
++	fw_dev->defs->fini(pvr_dev);
+ 
+ 	return err;
+ }
+@@ -1063,8 +1062,7 @@ pvr_fw_fini(struct pvr_device *pvr_dev)
+ 
+ 	drm_mm_takedown(&fw_dev->fw_mm);
+ 
+-	if (fw_dev->defs->fini)
+-		fw_dev->defs->fini(pvr_dev);
++	fw_dev->defs->fini(pvr_dev);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.h b/drivers/gpu/drm/imagination/pvr_fw.h
+index 3390c84e4fd3..4b25291135b6 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.h
++++ b/drivers/gpu/drm/imagination/pvr_fw.h
+@@ -86,7 +86,7 @@ struct pvr_fw_defs {
+ 	 * FW processor specific finalisation.
+ 	 * @pvr_dev: Target PowerVR device.
+ 	 *
+-	 * This function is optional.
++	 * This function is mandatory.
+ 	 */
+ 	void (*fini)(struct pvr_device *pvr_dev);
+ 
+diff --git a/drivers/gpu/drm/imagination/pvr_fw_meta.c b/drivers/gpu/drm/imagination/pvr_fw_meta.c
+index 9ff03bc60a08..6c5dc711e81e 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw_meta.c
++++ b/drivers/gpu/drm/imagination/pvr_fw_meta.c
+@@ -500,9 +500,20 @@ pvr_meta_init(struct pvr_device *pvr_dev)
+ {
+ 	pvr_fw_heap_info_init(pvr_dev, ROGUE_FW_HEAP_META_SHIFT, 0);
+ 
++	pvr_dev->kernel_vm_ctx = pvr_vm_create_context(pvr_dev, false);
++	if (IS_ERR(pvr_dev->kernel_vm_ctx))
++		return PTR_ERR(pvr_dev->kernel_vm_ctx);
++
+ 	return 0;
+ }
+ 
++static void
++pvr_meta_fini(struct pvr_device *pvr_dev)
++{
++	WARN_ON(!pvr_vm_context_put(pvr_dev->kernel_vm_ctx));
++	pvr_dev->kernel_vm_ctx = NULL;
++}
++
+ static u32
+ pvr_meta_get_fw_addr_with_offset(struct pvr_fw_object *fw_obj, u32 offset)
+ {
+@@ -550,6 +561,7 @@ pvr_meta_irq_clear(struct pvr_device *pvr_dev)
+ 
+ const struct pvr_fw_defs pvr_fw_defs_meta = {
+ 	.init = pvr_meta_init,
++	.fini = pvr_meta_fini,
+ 	.fw_process = pvr_meta_fw_process,
+ 	.vm_map = pvr_meta_vm_map,
+ 	.vm_unmap = pvr_meta_vm_unmap,
+diff --git a/drivers/gpu/drm/imagination/pvr_fw_riscv.c b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
+index fc13d483be9a..58bacc522e72 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw_riscv.c
++++ b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
+@@ -103,9 +103,20 @@ pvr_riscv_init(struct pvr_device *pvr_dev)
+ {
+ 	pvr_fw_heap_info_init(pvr_dev, ROGUE_FW_HEAP_RISCV_SHIFT, 0);
+ 
++	pvr_dev->kernel_vm_ctx = pvr_vm_create_context(pvr_dev, false);
++	if (IS_ERR(pvr_dev->kernel_vm_ctx))
++		return PTR_ERR(pvr_dev->kernel_vm_ctx);
++
+ 	return 0;
+ }
+ 
++static void
++pvr_riscv_fini(struct pvr_device *pvr_dev)
++{
++	WARN_ON(!pvr_vm_context_put(pvr_dev->kernel_vm_ctx));
++	pvr_dev->kernel_vm_ctx = NULL;
++}
++
+ static u32
+ pvr_riscv_get_fw_addr_with_offset(struct pvr_fw_object *fw_obj, u32 offset)
+ {
+@@ -154,6 +165,7 @@ pvr_riscv_irq_clear(struct pvr_device *pvr_dev)
+ 
+ const struct pvr_fw_defs pvr_fw_defs_riscv = {
+ 	.init = pvr_riscv_init,
++	.fini = pvr_riscv_fini,
+ 	.fw_process = pvr_riscv_fw_process,
+ 	.vm_map = pvr_riscv_vm_map,
+ 	.vm_unmap = pvr_riscv_vm_unmap,
 
--- 
-2.55.0
+---
+base-commit: e55fead22ff9ee047ab9f1903860c4b43043514e
+change-id: 20260810-b4-upstream-manage-fw-vm-context-from-init-and-fini-195cdd01cc60
+
+Best regards,
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
 
