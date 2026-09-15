@@ -4,46 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17FC2C88E77
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:35:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B1FEC982C5
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:35:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3C2D10E490;
-	Wed, 16 Sep 2026 07:35:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38B0E10E63C;
+	Wed, 16 Sep 2026 07:35:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="OqY9PXnF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dj46Dqgm";
 	dkim-atps=neutral
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Tue, 15 Sep 2026 14:50:43 UTC
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com
- [45.254.49.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B821310F80A
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 14:50:43 +0000 (UTC)
-Received: from tju.edu.cn (gy-adaptive-ssl-proxy-3-entmail-virt135.gy.ntes
- [183.242.150.9])
- by smtp.qiye.163.com (Hmail) with ESMTP id 4ddceb521;
- Tue, 15 Sep 2026 22:45:34 +0800 (GMT+08:00)
-From: Yibo Tan <lhfff@tju.edu.cn>
-To: Nicolas Ferre <nicolas.ferre@microchip.com>, Helge Deller <deller@gmx.de>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v1] fbdev: atmel_lcdfb: Prevent FIFO work after removal
-Date: Tue, 15 Sep 2026 22:45:28 +0800
-Message-Id: <20260915144528.3464726-1-lhfff@tju.edu.cn>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C6B610E0E6;
+ Tue, 15 Sep 2026 18:52:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0657C41A73;
+ Tue, 15 Sep 2026 18:52:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D65A61F00898;
+ Tue, 15 Sep 2026 18:52:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789498349;
+ bh=72tlQhpdmngB3szUrALiHxqSz5LmQFAfQZTFPwAJsm8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=dj46DqgmsACSwFq9HJ3ISBz0v7KQClcuynuO9qvwXog58wO/ScSuYdaGZKHgXWvfQ
+ MNIiLR6/CWGcs2B0MhbCRK2aMTRY6dtK71/bGZdxyT8HaMz+gX3i3TsfrQcfD9O/2g
+ F9R5HI4ZwuLIC/dDLbKGewTrvAWtmj2/uWtbnlwRjy3UiF9zVvG3Q4LlI0NpvD8aAJ
+ DJrMkybpP4frmHg9A0BF8idW56jNNHHMO4Q37zU7dBONYMBSpnYs1SU5pr9ZdsZbOO
+ Z8bm6ke0y1pxqCSk41Eg0cXZYLGeU6SHZOeCpu7UYnxm14Kt0coiGxiIX/45p1elM6
+ JGYqDbDSmP+rQ==
+Date: Tue, 15 Sep 2026 11:52:29 -0700
+From: Kees Cook <kees@kernel.org>
+To: Bill Wendling <morbo@google.com>, nikitash.mariiaw@gmail.com
+Cc: linux-kernel@vger.kernel.org, codemender-patching+linux@google.com,
+ Russell King <linux@armlinux.org.uk>, Huacai Chen <chenhuacai@kernel.org>,
+ WANG Xuerui <kernel@xen0n.name>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Tony Luck <tony.luck@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Matthias Schwarzott <zzam@gentoo.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Arend van Spriel <arend.vanspriel@broadcom.com>,
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>,
+ Anil Gurumurthy <anil.gurumurthy@qlogic.com>,
+ Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>,
+ "Martin K. Petersen" <mkp@kernel.org>,
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
+ Mike Marshall <hubcap@omnibond.com>,
+ Martin Brandenburg <martin@omnibond.com>,
+ Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>,
+ Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>,
+ Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Kanglong Wang <wangkanglong@loongson.cn>,
+ Tiezhu Yang <yangtiezhu@loongson.cn>, Qiang Ma <maqianga@uniontech.com>,
+ Randy Dunlap <rdunlap@infradead.org>, Pengpeng Hou <pengpeng@iscas.ac.cn>,
+ Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>,
+ Thorsten Blum <blum@kernel.org>,
+ Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Lyude Paul <lyude@redhat.com>, Ashutosh Desai <ashutoshdesai993@gmail.com>,
+ Imre Deak <imre.deak@intel.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Johan Hovold <johan@kernel.org>, Johannes Berg <johannes.berg@intel.com>,
+ Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ Cryolitia PukNgae <cryolitia@uniontech.com>,
+ Jiaming Zhang <r772577952@gmail.com>, Will Porter <mrwillporter@gmail.com>,
+ Cen Zhang <zzzccc427@gmail.com>,
+ =?iso-8859-1?Q?C=E1ssio?= Gabriel <cassiogabrielcontato@gmail.com>,
+ Rong Zhang <i@rong.moe>, Arun Raghavan <arunr@valvesoftware.com>,
+ linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+ linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+ linux-edac@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-input@vger.kernel.org,
+ linux-media@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
+ devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-nfs@vger.kernel.org, devel@lists.orangefs.org,
+ linux-hardening@vger.kernel.org, linux-sound@vger.kernel.org
+Subject: Re: [PATCH 21/28] NFS: nfsroot: Refactor root_nfs_cat() to use
+ snprintf()
+Message-ID: <202609151147.C5B45CB@keescook>
+References: <20260915081910.4142719-1-morbo@google.com>
+ <20260915081910.4142719-22-morbo@google.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0a587c6a003a1kunmb39ec71c2df824
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGB1LVhhOTUhIHUoaHx5MQlYeHw
- 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSU9JVUpOS1VCWVdZFhoPEhUdFFlBWU9LSFVKS0hKTk
- xOVUpLS1VKQktLWQY+
-DKIM-Signature: a=rsa-sha256;
- b=OqY9PXnFOEYsBrY58XRsakZ/d8919hvn1n6Ev5om59QW4+FMvm7VfjVtVqBmg6Z8T1jEGbSJQW2DRAk18hgz6sCCmegwOc5ocY+ngoRlDkrmOOHqA1n87PwUajgPcOTGZdFjQrtSnUY16cy407TTEUN9lK57an0zoHN831uMjJg=;
- c=relaxed/relaxed; s=default; d=tju.edu.cn; v=1; 
- bh=R/WqiFUDtj9hW8jTIp2hYqJBQvF/QvuI4kKPkm5/LJo=;
- h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915081910.4142719-22-morbo@google.com>
 X-Mailman-Approved-At: Wed, 16 Sep 2026 07:35:16 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,82 +133,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The LCD controller IRQ schedules sinfo->task to recover from a FIFO
-underflow.  Probe currently requests the IRQ before initializing the
-work, so an early interrupt can schedule an uninitialized work item.
+On Tue, Sep 15, 2026 at 08:18:38AM +0000, Bill Wendling wrote:
+>  fs/nfs/nfsroot.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
 
-The probe error path and remove path cancel the work before freeing the
-IRQ.  A FIFO-underflow interrupt can schedule the work again after that
-cancellation.  framebuffer_release() may then free sinfo while the work
-is still pending.
+This collides with:
+https://lore.kernel.org/all/27956255dde39f58d73a7b51cb53cbe3d7804f54.1786411026.git.mariianikitash@google.com/
 
-KASAN reported a use-after-free in atmel_lcdfb_task() when an underflow
-interrupt occurred during removal.  With the IRQ freed before the work
-was cancelled, the same test completed without a kernel diagnostic.
+> +	ret = snprintf(dest + len, destlen - len, "%s%s",
+> +		       (len && dest[len - 1] != ',') ? "," : "", src);
 
-Initialize the work before requesting the IRQ.  In both cleanup paths,
-free the IRQ before cancelling the work so that it cannot be scheduled
-again after cancellation.
+I prefer Mariia's version because this inline ternary is difficult
+to read.
 
-Fixes: d22579b83735 ("atmel_lcdfb: FIFO underflow management")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
----
- drivers/video/fbdev/atmel_lcdfb.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+I was expecting to land hers soon if the NFS folks don't pipe up. It is
+one of the rare cases of still being open-coded, but the strlen() usage
+was pre-existing to check for the trailing comma, so it's not a clean
+seq_buf() conversion candidate...
 
-diff --git a/drivers/video/fbdev/atmel_lcdfb.c b/drivers/video/fbdev/atmel_lcdfb.c
-index 53f0156992e6..9a0cc09004b7 100644
---- a/drivers/video/fbdev/atmel_lcdfb.c
-+++ b/drivers/video/fbdev/atmel_lcdfb.c
-@@ -1146,6 +1146,9 @@ static int atmel_lcdfb_probe(struct platform_device *pdev)
- 	/* Initialize PWM for contrast or backlight ("off") */
- 	init_contrast(sinfo);
- 
-+	/* Some LCDC recovery operations require process context. */
-+	INIT_WORK(&sinfo->task, atmel_lcdfb_task);
-+
- 	/* interrupt */
- 	ret = request_irq(sinfo->irq_base, atmel_lcdfb_interrupt, 0, pdev->name, info);
- 	if (ret) {
-@@ -1153,10 +1156,6 @@ static int atmel_lcdfb_probe(struct platform_device *pdev)
- 		goto unmap_mmio;
- 	}
- 
--	/* Some operations on the LCDC might sleep and
--	 * require a preemptible task context */
--	INIT_WORK(&sinfo->task, atmel_lcdfb_task);
--
- 	ret = atmel_lcdfb_init_fbinfo(sinfo);
- 	if (ret < 0) {
- 		dev_err(dev, "init fbinfo failed: %d\n", ret);
-@@ -1192,8 +1191,8 @@ static int atmel_lcdfb_probe(struct platform_device *pdev)
- 	dev_set_drvdata(dev, NULL);
- 	fb_dealloc_cmap(&info->cmap);
- unregister_irqs:
--	cancel_work_sync(&sinfo->task);
- 	free_irq(sinfo->irq_base, info);
-+	cancel_work_sync(&sinfo->task);
- unmap_mmio:
- 	exit_backlight(sinfo);
- 	iounmap(sinfo->mmio);
-@@ -1230,6 +1229,7 @@ static void atmel_lcdfb_remove(struct platform_device *pdev)
- 		return;
- 	sinfo = info->par;
- 
-+	free_irq(sinfo->irq_base, info);
- 	cancel_work_sync(&sinfo->task);
- 	exit_backlight(sinfo);
- 	atmel_lcdfb_power_control(sinfo, 0);
-@@ -1238,7 +1238,6 @@ static void atmel_lcdfb_remove(struct platform_device *pdev)
- 	clk_put(sinfo->lcdc_clk);
- 	clk_put(sinfo->bus_clk);
- 	fb_dealloc_cmap(&info->cmap);
--	free_irq(sinfo->irq_base, info);
- 	iounmap(sinfo->mmio);
-  	release_mem_region(info->fix.mmio_start, info->fix.mmio_len);
- 	if (platform_get_resource(pdev, IORESOURCE_MEM, 1)) {
 -- 
-2.39.5
-
+Kees Cook
