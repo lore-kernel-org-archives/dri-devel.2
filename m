@@ -4,56 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E94CEC88E7D
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 18:39:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D9AEC88E77
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 18:46:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4616810F192;
-	Tue, 15 Sep 2026 18:39:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A132D10ED54;
+	Tue, 15 Sep 2026 18:46:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PS24Dpg+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wxchg31n";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C11ED10E497;
- Tue, 15 Sep 2026 18:39:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789497592; x=1821033592;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=DtTTtoC+biWBZ3KhMdWpDIzntMl2HethLm0VKvpGP9E=;
- b=PS24Dpg+SYCpIICrgJ7DoXDaV78/4SNvJN1N1HHtT4BotZZrqhWnsduI
- OeWVv+RpYZj7NjJq8HuFxYEV6pWumqh/BMi88awxJi5PVJ7PN4IVwmz9w
- 3UwXOefDsADMSxktOgjhrJrxg9ut3iUbRNyz40ri6L5ibeNf+UE0THrUJ
- SMetqqRHthIfMj/qN5rcKJoGHjTyLt5dJlltkDHJCXkaagpQiBlx0UAri
- YFCSmUE4q0g6hw8vEyYC26BoRA5I6Hshdy0ma/eSERZn9QCV9vqH2LJUA
- xPg2G00aPxsYlWqF79piWUYWs5hmFJQVeZp5f384UYynxg7xi4CtXkO5X Q==;
-X-CSE-ConnectionGUID: /c/4+F3XRd2JO2ytUrrbMQ==
-X-CSE-MsgGUID: y2iyFoEkRuWlViB+i0wDeg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92380373"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="92380373"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2026 11:39:51 -0700
-X-CSE-ConnectionGUID: Irmi1QVcR4Cby2XcWe0f+w==
-X-CSE-MsgGUID: +UYF84jJT82aKvJH6ZlCnQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="298148621"
-Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.190.238.88])
- by fmviesa001.fm.intel.com with ESMTP; 15 Sep 2026 11:39:49 -0700
-From: Animesh Manna <animesh.manna@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9239910F448;
+ Tue, 15 Sep 2026 18:46:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B7971600CB;
+ Tue, 15 Sep 2026 18:46:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F7391F00893;
+ Tue, 15 Sep 2026 18:46:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789497969;
+ bh=5y1oqCxNl814ubBr82ZnvMhK1yJDe2zxNrwVz10TM/w=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Wxchg31nBcJoq96wVpjsQsM+bJE+A+7HFLDok91X5y7BrM4GeKg57aZeSvZBApymO
+ I31HyB2bZRwqFzsLFR1R3aJRliDRUvKUQXIsIgnDN86pirElYm1fxb2KTKf00TOZew
+ oCX8biPHC4Dh5FAdx4wYEtTUm+iOYTjRw4+3YIXeinn6FyO/Qy1/wPWf/c9YxkeeN/
+ zjAMaMqgVrFNCVCMgzd5Z7M9eGllGeP0IgJItN/QGKRUMeIuQGtjRNbMBsAey4Zw0+
+ LApegQWK6NV90VvIp4ekFNBz2vLontnJBUn5qdrVxvoQQ2wsQpINqBNRh7sYrHCXlP
+ NK+XanGB0R96A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 07/18] drm/i915/alpm: Modify AUX_LESS_WAKE_TIME
+ bitfield for xe3lpd
+To: "Animesh Manna" <animesh.manna@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Cc: jouni.hogander@intel.com, jani.nikula@intel.com, suraj.kandpal@intel.com,
- Animesh Manna <animesh.manna@intel.com>
-Subject: [PATCH v6 18/18] drm/i915/alpm: Disallow ALPM for UHBR link rate
-Date: Tue, 15 Sep 2026 23:34:49 +0530
-Message-Id: <20260915180449.277933-19-animesh.manna@intel.com>
-X-Mailer: git-send-email 2.29.0
-In-Reply-To: <20260915180449.277933-1-animesh.manna@intel.com>
+In-Reply-To: <20260915180449.277933-8-animesh.manna@intel.com>
 References: <20260915180449.277933-1-animesh.manna@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ <20260915180449.277933-8-animesh.manna@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 18:46:08 +0000
+Message-Id: <20260915184609.3F7391F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,38 +55,79 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-DP2.1 ALPM is not supported on UHBR (128b/132b) link rates on the NVL
-platform. Reject the ALPM parameter computation for external DP running
-at a UHBR rate on display version 35, so that ALPM (and the Panel Replay
-and LOBF features that rely on it) is not enabled in that case. eDP is
-excluded so eDP ALPM keeps working at any link rate.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] drm/i915/alpm: ALPM AUX-less wake time incorrectly restricted to=
+ legacy 6-bit maximum on xe3lpd
+--
 
-Cc: Jouni Högander <jouni.hogander@intel.com>
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
----
- drivers/gpu/drm/i915/display/intel_alpm.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+commit fefc7fdf839fcf4154d50e19eac0f82242cca5ad
+Author: Animesh Manna <animesh.manna@intel.com>
+Subject: drm/i915/alpm: Modify AUX_LESS_WAKE_TIME bitfield for xe3lpd
 
-diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
-index 84777c8d31bb..51805a6bca86 100644
---- a/drivers/gpu/drm/i915/display/intel_alpm.c
-+++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-@@ -453,6 +453,12 @@ bool intel_alpm_compute_params(struct intel_dp *intel_dp,
- 	int precharge = intel_dp_aux_fw_sync_len(intel_dp) - preamble;
- 	u8 max_wake_lines;
- 
-+	/* DP2.1 ALPM is not supported on UHBR (128b/132b) link rates on NVL. */
-+	if (DISPLAY_VER(display) == 35 &&
-+	    !intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP) &&
-+	    intel_dp_is_uhbr(crtc_state))
-+		return false;
-+
- 	io_wake_time = max(precharge, io_buffer_wake_time(crtc_state)) +
- 		preamble + phy_wake + tfw_exit_latency;
- 	fast_wake_time = precharge + preamble + phy_wake +
--- 
-2.29.0
+This commit widens the ALPM_CTL_AUX_LESS_WAKE_TIME bitfield from 6 bits
+to 8 bits for xe3lpd (display version 35) and later. It introduces new
+register macros and updates lnl_alpm_configure() to program the wake time
+using the appropriate macro based on the display version.
 
+> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/=
+i915/display/intel_alpm.c
+> index 924fa8dd4638f..dc025058a6266 100644
+> --- a/drivers/gpu/drm/i915/display/intel_alpm.c
+> +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+> @@ -610,8 +610,12 @@ static void lnl_alpm_configure(struct intel_dp *inte=
+l_dp,
+>  	if (intel_alpm_is_alpm_aux_less(intel_dp, crtc_state)) {
+>  		alpm_ctl =3D ALPM_CTL_ALPM_ENABLE |
+>  			ALPM_CTL_ALPM_AUX_LESS_ENABLE |
+> -			ALPM_CTL_AUX_LESS_SLEEP_HOLD_TIME_50_SYMBOLS |
+> -			ALPM_CTL_AUX_LESS_WAKE_TIME(crtc_state->alpm_state.aux_less_wake_line=
+s);
+> +			ALPM_CTL_AUX_LESS_SLEEP_HOLD_TIME_50_SYMBOLS;
+> +
+> +		if (DISPLAY_VER(display) < 35)
+> +			alpm_ctl |=3D ALPM_CTL_AUX_LESS_WAKE_TIME(crtc_state->alpm_state.aux_=
+less_wake_lines);
+> +		else
+> +			alpm_ctl |=3D ALPM_CTL_AUX_LESS_WAKE_TIME_XE3LPD(crtc_state->alpm_sta=
+te.aux_less_wake_lines);
+
+[Severity: Medium]
+While this successfully programs the wider 8-bit wake time on xe3lpd hardwa=
+re,
+does _lnl_compute_aux_less_alpm_params() in the same file also need to be
+updated to use this new mask?
+
+Looking at _lnl_compute_aux_less_alpm_params(), the bounds check is still
+hardcoded to the 6-bit legacy mask ALPM_CTL_AUX_LESS_WAKE_TIME_MASK on all
+platforms:
+
+	if (aux_less_wake_lines > ALPM_CTL_AUX_LESS_WAKE_TIME_MASK ||
+	    silence_period > PORT_ALPM_CTL_SILENCE_PERIOD_MASK ||
+	    lfps_half_cycle > PORT_ALPM_LFPS_CTL_LAST_LFPS_HALF_CYCLE_DURATION_MAS=
+K)
+		return false;
+
+Will this restrict aux_less_wake_lines to a maximum of 63, causing validati=
+on
+to fail and aborting ALPM if the computed wake time is larger on xe3lpd?
+
+Additionally, the safest params fallback is also restricted to the legacy m=
+ask:
+
+	if (display->params.psr_safest_params)
+		aux_less_wake_lines =3D ALPM_CTL_AUX_LESS_WAKE_TIME_MASK;
+
+Will this cap the safest params to 63 instead of 255 on xe3lpd?
+
+> =20
+>  		if (intel_dp->as_sdp_supported)
+>  			intel_alpm_configure_pr_as_sdp(intel_dp, crtc_state);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915180449.2779=
+33-1-animesh.manna@intel.com?part=3D7
