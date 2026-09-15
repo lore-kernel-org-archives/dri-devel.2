@@ -4,67 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BB32C88E77
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 19:43:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9932C88E7D
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 20:10:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 011C410E2B4;
-	Tue, 15 Sep 2026 19:43:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04B9D10E699;
+	Tue, 15 Sep 2026 20:10:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pwrpKISZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gYE9Qded";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B4E910E2B4;
- Tue, 15 Sep 2026 19:43:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=jDSMNgE2SYpBhNEuvByimCISegwGBd2LQBDn3FJ6A8g=; b=pwrpKISZ2dAyS5vSmnRzWCUj4c
- WC7dWtrl3zWoF+NJXN2fMptA0PySKUKxIuA5Ty0HcdN9bOyp0bykNKiWFrOYkAT/2FZYBhIm4x2fE
- 3TR5Fieh7E+hFoofxB3Lq1QtekqaXNAwbvcwoBMoc7zq4hF5PXtwhvRMdCq5PBVsuJx8Sc+52aY+O
- zILgNSIFq0G6QS1k8xSyvEpHy2m+G4qPbftkg5g1IRW/LZMcsDenYFS/ZcEE3zqU+u0AzsW+215lU
- OUAQwV38tUfPF2lFPuY76sHSNRmOqy4SYUfIICxaTx7aeYwoq+D7yZN9Xlo0ccPiXl3JrY31GDYrb
- /LcLhnNA==;
-Received: from [179.105.94.163] (helo=[10.0.0.1])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x6Z4G-002bhq-Oa; Tue, 15 Sep 2026 21:43:48 +0200
-From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Tue, 15 Sep 2026 16:42:22 -0300
-Subject: [PATCH v3 7/7] drm: Rename drm_utils.h to drm_panel_quirks.h
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A309410E699;
+ Tue, 15 Sep 2026 20:10:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5609C40F00;
+ Tue, 15 Sep 2026 20:10:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29E541F000FF;
+ Tue, 15 Sep 2026 20:10:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789503014;
+ bh=zTdmCvT/LodVy49e6H1NylhI2+YP6sAK6mN2yIy2bnY=;
+ h=From:To:Cc:Subject:Date;
+ b=gYE9QdedSLB3Gr1CMO30FyGSRgJCZz7pMbXaOaUkg1Uj93eU51/otdoK/E8FTa04K
+ 2+h+7GYI4XIeOTO6oKPh+27q8XhFjDAzAhz1vWoF3lOSR3YpKb0777JEFDoUWGhxXw
+ 8sOjNu3TXtR+gczhzWqIuxV/YGueYRpQG0mcXRPRctgq1GWMxvTdNMpYx7Ul9uFfDc
+ EIcLoO5sI8d9haNGSyPeyceR5GXAqG3BHDeSpjli2E352ASrhUPMW8ea8mqoTFX4DC
+ PJUdsv59pYFrLofmCLbWCFMg/grhqX6ssgYK8rEfDQYuB4bO3gCaVxYYVMesFLvav6
+ sbgjlshqXNQpw==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ Alex Huang <Alex.Huang2@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>, Ray Wu <ray.wu@amd.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Rodrigo Siqueira <siqueira@igalia.com>,
+ George Zhang <george.zhang@amd.com>, Wayne Lin <wayne.lin@amd.com>,
+ Fangzhi Zuo <jerry.zuo@amd.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/display: remove parse_edid_cea function, harder
+Date: Tue, 15 Sep 2026 22:09:02 +0200
+Message-ID: <20260915201006.3526945-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260915-drm-timeout-helpers-v3-7-f2ae987d861f@igalia.com>
-References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
-In-Reply-To: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6059; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=V51c0b6MqPdt8lxioNAIs0WefPi+KFRC/9D+cdo9mI8=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqqZ+orcjQh4JP8xkkV+hL1b53flZrwZ/l6od1F
- kAej7Busa6JATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaqmfqAAKCRA/8w6Kdoj6
- qv6NCADWxJQJA8mijp4Q4lzJOQvwAS9ObRzJXNhREsEeij/vnNvKQfxm9+BWGms9OfJkY+OGbIU
- 8zJJ4/70BT9HbPabH4hraGgf/q+4ehSgDEE0UqvyAlSYQmKvG8PTONOiOI7H2aETSqaEjYPYBN3
- oZ9nfWcVmGsjy255KEi4Hp85gOMoH7j0xNtKRrTLtj4qmYOENKMtLj+RhT92EjYif/7g/yn3i6X
- nQiVBVd1REQA64Iv18qRLJtO8lalOTZUf0O7NC8arJOcZN3hBmB0k981GH14DeW2X5+mEKKtKg5
- LDlhSHBO76Rq7O3KqmG/BJDwMi+Ushr4ydOd0kSGJ9e2At9X
-X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
- fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,160 +65,442 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that the timeout-related functions were removed from drm_utils.h,
-the header has exclusively panel orientation and backlight quirk getters.
+From: Arnd Bergmann <arnd@arndb.de>
 
-Therefore, rename the header accordingly and update all files that
-include it. The files amdgpu_dm.c, amdgpu_dm_connector.c and panthor_drv.c
-include the header but don't use it, so drop the include there.
+These functions were removed already in the past, but came back
+in a mismerge against a branch that added pointless unit tests
+for the unused functions.
 
-No functional change.
+Remove both the unused functions and the unit tests.
 
-Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
+Fixes: f65198b3d073 ("drm/amd/display: Use HDMI FreeSync range from common EDID parser")
+Fixes: 0412b1064a3b ("drm/amd/display: Cover EDID CEA parsing helpers")
+Fixes: 1bb4c385d6f7 ("Merge branch 'drm-next' of https://gitlab.freedesktop.org/agd5f/linux.git")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c           | 1 -
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c | 2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 1 -
- drivers/gpu/drm/drm_connector.c                             | 2 +-
- drivers/gpu/drm/drm_panel_backlight_quirks.c                | 2 +-
- drivers/gpu/drm/drm_panel_orientation_quirks.c              | 2 +-
- drivers/gpu/drm/panthor/panthor_drv.c                       | 1 -
- drivers/video/fbdev/efifb.c                                 | 2 +-
- include/drm/{drm_utils.h => drm_panel_quirks.h}             | 8 +++-----
- 9 files changed, 8 insertions(+), 13 deletions(-)
+As far as I can tell, the mismerge is currently only in linux-next,
+but the fix may need to be in the amdgpu tree
+---
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   | 101 -------
+ .../display/amdgpu_dm/amdgpu_dm_connector.h   |  10 -
+ .../tests/amdgpu_dm_connector_test.c          | 264 ------------------
+ 3 files changed, 375 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 4426e18f7543..5f20fff2d466 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -98,7 +98,6 @@
- #include <drm/drm_edid.h>
- #include <drm/drm_eld.h>
- #include <drm/drm_mode.h>
--#include <drm/drm_utils.h>
- #include <drm/drm_vblank.h>
- #include <drm/drm_colorop.h>
- #include <drm/drm_gem_atomic_helper.h>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index b9e90ea449ca..3211bd1472b2 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -41,7 +41,7 @@
- #include <linux/backlight.h>
- #include <linux/power_supply.h>
- #include <drm/drm_edid.h>
--#include <drm/drm_utils.h>
-+#include <drm/drm_panel_quirks.h>
- 
- #include <acpi/video.h>
- 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index e7b555fa666f..9e43e70afe8d 100644
+index d76ebf145dfc..37d1508d656b 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -62,7 +62,6 @@
- #include <drm/drm_fixed.h>
- #include <drm/drm_mode.h>
- #include <drm/drm_probe_helper.h>
--#include <drm/drm_utils.h>
- #include <drm/display/drm_dp_mst_helper.h>
- #include <drm/display/drm_hdmi_helper.h>
- #include <drm/drm_privacy_screen_consumer.h>
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 8b4baed060f3..c4d844205971 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -28,10 +28,10 @@
- #include <drm/drm_file.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_panel.h>
-+#include <drm/drm_panel_quirks.h>
- #include <drm/drm_print.h>
- #include <drm/drm_privacy_screen_consumer.h>
- #include <drm/drm_sysfs.h>
--#include <drm/drm_utils.h>
+@@ -3603,107 +3603,6 @@ void dm_restore_drm_connector_state(struct drm_device *dev,
+ }
+ EXPORT_IF_KUNIT(dm_restore_drm_connector_state);
  
- #include <linux/export.h>
- #include <linux/platform_device.h>
-diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-index e417c7533053..dcb91e12bac6 100644
---- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
-+++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-@@ -5,7 +5,7 @@
- #include <linux/export.h>
- #include <linux/module.h>
- #include <drm/drm_edid.h>
--#include <drm/drm_utils.h>
-+#include <drm/drm_panel_quirks.h>
+-STATIC_IFN_KUNIT bool dm_edid_parser_send_cea(struct amdgpu_display_manager *dm,
+-		unsigned int offset,
+-		unsigned int total_length,
+-		u8 *data,
+-		unsigned int length,
+-		struct amdgpu_hdmi_vsdb_info *vsdb)
+-{
+-	bool res;
+-	union dmub_rb_cmd cmd;
+-	struct dmub_cmd_send_edid_cea *input;
+-	struct dmub_cmd_edid_cea_output *output;
+-
+-	if (length > DMUB_EDID_CEA_DATA_CHUNK_BYTES)
+-		return false;
+-
+-	memset(&cmd, 0, sizeof(cmd));
+-
+-	input = &cmd.edid_cea.data.input;
+-
+-	cmd.edid_cea.header.type = DMUB_CMD__EDID_CEA;
+-	cmd.edid_cea.header.sub_type = 0;
+-	cmd.edid_cea.header.payload_bytes =
+-		sizeof(cmd.edid_cea) - sizeof(cmd.edid_cea.header);
+-	input->offset = offset;
+-	input->length = length;
+-	input->cea_total_length = total_length;
+-	memcpy(input->payload, data, length);
+-
+-	res = dc_wake_and_execute_dmub_cmd(dm->dc->ctx, &cmd, DM_DMUB_WAIT_TYPE_WAIT_WITH_REPLY);
+-	if (!res) {
+-		drm_err(adev_to_drm(dm->adev), "EDID CEA parser failed\n");
+-		return false;
+-	}
+-
+-	output = &cmd.edid_cea.data.output;
+-
+-	if (output->type == DMUB_CMD__EDID_CEA_ACK) {
+-		if (!output->ack.success) {
+-			drm_err(adev_to_drm(dm->adev), "EDID CEA ack failed at offset %d\n",
+-					output->ack.offset);
+-		}
+-	} else if (output->type == DMUB_CMD__EDID_CEA_AMD_VSDB) {
+-		if (!output->amd_vsdb.vsdb_found)
+-			return false;
+-
+-		vsdb->freesync_supported = output->amd_vsdb.freesync_supported;
+-		vsdb->amd_vsdb_version = output->amd_vsdb.amd_vsdb_version;
+-		vsdb->min_refresh_rate_hz = output->amd_vsdb.min_frame_rate;
+-		vsdb->max_refresh_rate_hz = output->amd_vsdb.max_frame_rate;
+-		vsdb->freesync_mccs_vcp_code = output->amd_vsdb.freesync_mccs_vcp_code;
+-	} else {
+-		drm_warn(adev_to_drm(dm->adev), "Unknown EDID CEA parser results\n");
+-		return false;
+-	}
+-
+-	return true;
+-}
+-EXPORT_IF_KUNIT(dm_edid_parser_send_cea);
+-
+-STATIC_IFN_KUNIT bool parse_edid_cea_dmcu(struct amdgpu_display_manager *dm,
+-		u8 *edid_ext, int len,
+-		struct amdgpu_hdmi_vsdb_info *vsdb_info)
+-{
+-	return false;
+-}
+-EXPORT_IF_KUNIT(parse_edid_cea_dmcu);
+-
+-STATIC_IFN_KUNIT bool parse_edid_cea_dmub(struct amdgpu_display_manager *dm,
+-		u8 *edid_ext, int len,
+-		struct amdgpu_hdmi_vsdb_info *vsdb_info)
+-{
+-	int i;
+-
+-	/* send extension block to DMCU for parsing */
+-	for (i = 0; i < len; i += 8) {
+-		/* send 8 bytes a time */
+-		if (!dm_edid_parser_send_cea(dm, i, len, &edid_ext[i], 8, vsdb_info))
+-			return false;
+-	}
+-
+-	return vsdb_info->freesync_supported;
+-}
+-EXPORT_IF_KUNIT(parse_edid_cea_dmub);
+-
+-STATIC_IFN_KUNIT bool parse_edid_cea(struct amdgpu_dm_connector *aconnector,
+-		u8 *edid_ext, int len,
+-		struct amdgpu_hdmi_vsdb_info *vsdb_info)
+-{
+-	struct amdgpu_device *adev = drm_to_adev(aconnector->base.dev);
+-	bool ret;
+-
+-	mutex_lock(&adev->dm.dc_lock);
+-	if (adev->dm.dmub_srv)
+-		ret = parse_edid_cea_dmub(&adev->dm, edid_ext, len, vsdb_info);
+-	else
+-		ret = parse_edid_cea_dmcu(&adev->dm, edid_ext, len, vsdb_info);
+-	mutex_unlock(&adev->dm.dc_lock);
+-	return ret;
+-}
+-EXPORT_IF_KUNIT(parse_edid_cea);
+-
+ STATIC_IFN_KUNIT void parse_edid_displayid_vrr(struct drm_connector *connector,
+ 				     const struct edid *edid)
+ {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+index e42a0d53b549..6732e5e644cd 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+@@ -158,16 +158,6 @@ int get_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+ int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+ 			const struct edid *edid,
+ 			struct amdgpu_hdmi_vsdb_info *vsdb_info);
+-bool dm_edid_parser_send_cea(struct amdgpu_display_manager *dm,
+-			     unsigned int offset, unsigned int total_length,
+-			     u8 *data, unsigned int length,
+-			     struct amdgpu_hdmi_vsdb_info *vsdb);
+-bool parse_edid_cea_dmcu(struct amdgpu_display_manager *dm, u8 *edid_ext,
+-			 int len, struct amdgpu_hdmi_vsdb_info *vsdb_info);
+-bool parse_edid_cea_dmub(struct amdgpu_display_manager *dm, u8 *edid_ext,
+-			 int len, struct amdgpu_hdmi_vsdb_info *vsdb_info);
+-bool parse_edid_cea(struct amdgpu_dm_connector *aconnector, u8 *edid_ext,
+-		    int len, struct amdgpu_hdmi_vsdb_info *vsdb_info);
+ void amdgpu_dm_connector_funcs_force(struct drm_connector *connector);
+ enum dc_status dm_validate_stream_and_context(struct dc *dc,
+ 					      struct dc_stream_state *stream);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index 19ead11b5e73..7b6400ec8107 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -6134,259 +6134,6 @@ static void dm_test_restore_state_same_sink(struct kunit *test)
+ 	KUNIT_EXPECT_PTR_EQ(test, stream->sink, aconnector->dc_sink);
+ }
  
- struct drm_panel_match {
- 	enum dmi_field field;
-diff --git a/drivers/gpu/drm/drm_panel_orientation_quirks.c b/drivers/gpu/drm/drm_panel_orientation_quirks.c
-index 3a218fb592ce..813a204cd201 100644
---- a/drivers/gpu/drm/drm_panel_orientation_quirks.c
-+++ b/drivers/gpu/drm/drm_panel_orientation_quirks.c
-@@ -12,7 +12,7 @@
- #include <linux/export.h>
- #include <linux/module.h>
- #include <drm/drm_connector.h>
--#include <drm/drm_utils.h>
-+#include <drm/drm_panel_quirks.h>
- 
- #ifdef CONFIG_DMI
- 
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index 46a3080b0b20..4bb74102acb1 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -25,7 +25,6 @@
- #include <drm/drm_ioctl.h>
- #include <drm/drm_print.h>
- #include <drm/drm_syncobj.h>
--#include <drm/drm_utils.h>
- #include <drm/gpu_scheduler.h>
- #include <drm/panthor_drm.h>
- 
-diff --git a/drivers/video/fbdev/efifb.c b/drivers/video/fbdev/efifb.c
-index ad8dec7807c3..3411be06d3e6 100644
---- a/drivers/video/fbdev/efifb.c
-+++ b/drivers/video/fbdev/efifb.c
-@@ -18,8 +18,8 @@
- #include <linux/sysfb.h>
- #include <video/vga.h>
- #include <asm/efi.h>
--#include <drm/drm_utils.h> /* For drm_get_panel_orientation_quirk */
- #include <drm/drm_connector.h>  /* For DRM_MODE_PANEL_ORIENTATION_* */
-+#include <drm/drm_panel_quirks.h> /* For drm_get_panel_orientation_quirk */
- 
- struct bmp_file_header {
- 	u16 id;
-diff --git a/include/drm/drm_utils.h b/include/drm/drm_panel_quirks.h
-similarity index 63%
-rename from include/drm/drm_utils.h
-rename to include/drm/drm_panel_quirks.h
-index c61dee76451c..60711a49d403 100644
---- a/include/drm/drm_utils.h
-+++ b/include/drm/drm_panel_quirks.h
-@@ -1,14 +1,12 @@
- /* SPDX-License-Identifier: MIT */
- /*
-- * Function prototypes for misc. drm utility functions.
-- * Specifically this file is for function prototypes for functions which
-- * may also be used outside of drm code (e.g. in fbdev drivers).
-+ * Function prototypes for panel-related quirks.
-  *
-  * Copyright (C) 2017 Hans de Goede <hdegoede@redhat.com>
-  */
- 
--#ifndef __DRM_UTILS_H__
--#define __DRM_UTILS_H__
-+#ifndef __DRM_PANEL_QUIRKS_H__
-+#define __DRM_PANEL_QUIRKS_H__
- 
- #include <linux/types.h>
- 
-
+-/* Mock DMCU plumbing for parse_edid_cea_dmcu() tests. */
+-static bool dm_test_dmcu_is_init(struct dmcu *dmcu)
+-{
+-	return true;
+-}
+-
+-static const struct dmcu_funcs dm_test_dmcu_funcs_vsdb = {
+-	.is_dmcu_initialized = dm_test_dmcu_is_init,
+-};
+-
+-static const struct dmcu_funcs dm_test_dmcu_funcs_novsdb = {
+-	.is_dmcu_initialized = dm_test_dmcu_is_init,
+-};
+-
+-static const struct dmcu_funcs dm_test_dmcu_funcs_ackfail = {
+-	.is_dmcu_initialized = dm_test_dmcu_is_init,
+-};
+-
+-/*
+- * Build a bare display manager carrying a dc with a resource pool whose DMCU
+- * uses the supplied funcs table (or no DMCU at all when @funcs is NULL). The
+- * DMCU CEA parser path only touches dm->dc->res_pool->dmcu, so no adev/ctx is
+- * required.
+- */
+-static struct amdgpu_display_manager *
+-dm_test_alloc_dm_dmcu(struct kunit *test, const struct dmcu_funcs *funcs)
+-{
+-	struct amdgpu_display_manager *dm;
+-	struct resource_pool *pool;
+-	struct dmcu *dmcu = NULL;
+-	struct dc *dc;
+-
+-	dm = kunit_kzalloc(test, sizeof(*dm), GFP_KERNEL);
+-	KUNIT_ASSERT_NOT_NULL(test, dm);
+-	dc = kunit_kzalloc(test, sizeof(*dc), GFP_KERNEL);
+-	KUNIT_ASSERT_NOT_NULL(test, dc);
+-	pool = kunit_kzalloc(test, sizeof(*pool), GFP_KERNEL);
+-	KUNIT_ASSERT_NOT_NULL(test, pool);
+-
+-	if (funcs) {
+-		dmcu = kunit_kzalloc(test, sizeof(*dmcu), GFP_KERNEL);
+-		KUNIT_ASSERT_NOT_NULL(test, dmcu);
+-		dmcu->funcs = funcs;
+-	}
+-
+-	pool->dmcu = dmcu;
+-	dc->res_pool = pool;
+-	dm->dc = dc;
+-	return dm;
+-}
+-
+-/*
+- * Build a display manager backed by an amdgpu_device and a dc with a ctx (but
+- * no DMUB), so the DMUB CEA send path can build a command, fail the execute,
+- * and log via drm_err() safely.
+- */
+-static struct amdgpu_display_manager *dm_test_alloc_dm_adev(struct kunit *test)
+-{
+-	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
+-	struct dc *dc = dm_kunit_alloc_dc_with_ctx(test);
+-
+-	KUNIT_ASSERT_NOT_NULL(test, adev);
+-	KUNIT_ASSERT_NOT_NULL(test, dc);
+-	adev->dm.adev = adev;
+-	adev->dm.dc = dc;
+-	return &adev->dm;
+-}
+-
+-/**
+- * dm_test_send_cea_length_too_long - Test an oversized chunk is rejected
+- * @test: KUnit test context
+- */
+-static void dm_test_send_cea_length_too_long(struct kunit *test)
+-{
+-	struct amdgpu_display_manager *dm = dm_test_alloc_dm_adev(test);
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 data[16] = {0};
+-	bool ret;
+-
+-	ret = dm_edid_parser_send_cea(dm, 0, 128, data,
+-				      DMUB_EDID_CEA_DATA_CHUNK_BYTES + 1, &vsdb);
+-	KUNIT_EXPECT_FALSE(test, ret);
+-}
+-
+-/**
+- * dm_test_send_cea_dmub_unavailable - Test a failed DMUB command reports false
+- * @test: KUnit test context
+- */
+-static void dm_test_send_cea_dmub_unavailable(struct kunit *test)
+-{
+-	struct amdgpu_display_manager *dm = dm_test_alloc_dm_adev(test);
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 data[DMUB_EDID_CEA_DATA_CHUNK_BYTES] = {0};
+-	bool ret;
+-
+-	/* ctx->dmub_srv is NULL, so the DMUB command execute fails. */
+-	ret = dm_edid_parser_send_cea(dm, 0, 8, data,
+-				      DMUB_EDID_CEA_DATA_CHUNK_BYTES, &vsdb);
+-	KUNIT_EXPECT_FALSE(test, ret);
+-}
+-
+-/**
+- * dm_test_parse_cea_dmcu_empty - Test an empty extension parses to no VSDB
+- * @test: KUnit test context
+- */
+-static void dm_test_parse_cea_dmcu_empty(struct kunit *test)
+-{
+-	struct amdgpu_display_manager *dm = dm_test_alloc_dm_dmcu(test, NULL);
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 ext[1] = {0};
+-
+-	KUNIT_EXPECT_FALSE(test, parse_edid_cea_dmcu(dm, ext, 0, &vsdb));
+-}
+-
+-/**
+- * dm_test_parse_cea_dmcu_no_dmcu - Test a missing DMCU fails the first send
+- * @test: KUnit test context
+- */
+-static void dm_test_parse_cea_dmcu_no_dmcu(struct kunit *test)
+-{
+-}
+-
+-/**
+- * dm_test_parse_cea_dmcu_vsdb_none - Test the DMCU finds no AMD VSDB
+- * @test: KUnit test context
+- */
+-static void dm_test_parse_cea_dmcu_vsdb_none(struct kunit *test)
+-{
+-	struct amdgpu_display_manager *dm =
+-		dm_test_alloc_dm_dmcu(test, &dm_test_dmcu_funcs_novsdb);
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 ext[DMUB_EDID_CEA_DATA_CHUNK_BYTES] = {0};
+-	bool ret;
+-
+-	ret = parse_edid_cea_dmcu(dm, ext, DMUB_EDID_CEA_DATA_CHUNK_BYTES,
+-				  &vsdb);
+-	KUNIT_EXPECT_FALSE(test, ret);
+-}
+-
+-/**
+- * dm_test_parse_cea_dmcu_multi_chunk - Test intermediate chunks are acked
+- * @test: KUnit test context
+- */
+-static void dm_test_parse_cea_dmcu_multi_chunk(struct kunit *test)
+-{
+-	struct amdgpu_display_manager *dm =
+-		dm_test_alloc_dm_dmcu(test, &dm_test_dmcu_funcs_vsdb);
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 ext[2 * DMUB_EDID_CEA_DATA_CHUNK_BYTES] = {0};
+-	bool ret;
+-
+-	ret = parse_edid_cea_dmcu(dm, ext, 2 * DMUB_EDID_CEA_DATA_CHUNK_BYTES,
+-				  &vsdb);
+-	KUNIT_EXPECT_TRUE(test, ret);
+-}
+-
+-/**
+- * dm_test_parse_cea_dmcu_ack_fail - Test a failed chunk ack aborts the parse
+- * @test: KUnit test context
+- */
+-static void dm_test_parse_cea_dmcu_ack_fail(struct kunit *test)
+-{
+-	struct amdgpu_display_manager *dm =
+-		dm_test_alloc_dm_dmcu(test, &dm_test_dmcu_funcs_ackfail);
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 ext[2 * DMUB_EDID_CEA_DATA_CHUNK_BYTES] = {0};
+-	bool ret;
+-
+-	ret = parse_edid_cea_dmcu(dm, ext, 2 * DMUB_EDID_CEA_DATA_CHUNK_BYTES,
+-				  &vsdb);
+-	KUNIT_EXPECT_FALSE(test, ret);
+-}
+-
+-/**
+- * dm_test_parse_cea_dmub_empty - Test an empty extension returns the flag
+- * @test: KUnit test context
+- */
+-static void dm_test_parse_cea_dmub_empty(struct kunit *test)
+-{
+-	struct amdgpu_display_manager *dm = dm_test_alloc_dm_adev(test);
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 ext[1] = {0};
+-
+-	/* No chunks are sent, so the freesync flag is returned as-is. */
+-	vsdb.freesync_supported = true;
+-	KUNIT_EXPECT_TRUE(test, parse_edid_cea_dmub(dm, ext, 0, &vsdb));
+-}
+-
+-/**
+- * dm_test_parse_cea_dmub_send_fail - Test a chunk send failure aborts the parse
+- * @test: KUnit test context
+- */
+-static void dm_test_parse_cea_dmub_send_fail(struct kunit *test)
+-{
+-	struct amdgpu_display_manager *dm = dm_test_alloc_dm_adev(test);
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 ext[DMUB_EDID_CEA_DATA_CHUNK_BYTES] = {0};
+-	bool ret;
+-
+-	/* The first chunk send fails (no DMUB), so the parse bails out. */
+-	ret = parse_edid_cea_dmub(dm, ext, DMUB_EDID_CEA_DATA_CHUNK_BYTES,
+-				  &vsdb);
+-	KUNIT_EXPECT_FALSE(test, ret);
+-}
+-
+-/**
+- * dm_test_parse_cea_routes_dmub - Test a present dmub_srv routes to DMUB
+- * @test: KUnit test context
+- */
+-static void dm_test_parse_cea_routes_dmub(struct kunit *test)
+-{
+-	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
+-	struct amdgpu_dm_connector *aconnector;
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 ext[1] = {0};
+-
+-	KUNIT_ASSERT_NOT_NULL(test, adev);
+-	mutex_init(&adev->dm.dc_lock);
+-	adev->dm.dmub_srv = kunit_kzalloc(test, 1, GFP_KERNEL);
+-	KUNIT_ASSERT_NOT_NULL(test, adev->dm.dmub_srv);
+-
+-	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
+-	KUNIT_ASSERT_NOT_NULL(test, aconnector);
+-	aconnector->base.dev = &adev->ddev;
+-
+-	/* len 0 routes to the DMUB parser, which returns the freesync flag. */
+-	vsdb.freesync_supported = true;
+-	KUNIT_EXPECT_TRUE(test, parse_edid_cea(aconnector, ext, 0, &vsdb));
+-}
+-
+-/**
+- * dm_test_parse_cea_routes_dmcu - Test a missing dmub_srv routes to DMCU
+- * @test: KUnit test context
+- */
+-static void dm_test_parse_cea_routes_dmcu(struct kunit *test)
+-{
+-	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
+-	struct amdgpu_dm_connector *aconnector;
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 ext[1] = {0};
+-
+-	KUNIT_ASSERT_NOT_NULL(test, adev);
+-	mutex_init(&adev->dm.dc_lock);
+-	adev->dm.dmub_srv = NULL;
+-
+-	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
+-	KUNIT_ASSERT_NOT_NULL(test, aconnector);
+-	aconnector->base.dev = &adev->ddev;
+-
+-	/* len 0 routes to the DMCU parser, which returns false. */
+-	KUNIT_EXPECT_FALSE(test, parse_edid_cea(aconnector, ext, 0, &vsdb));
+-}
+-
+ /**
+  * dm_test_get_amd_vsdb_unsupported - Test a zero VSDB version reports no support
+  * @test: The KUnit test context
+@@ -9083,17 +8830,6 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	KUNIT_CASE(dm_test_restore_state_no_encoder),
+ 	KUNIT_CASE(dm_test_restore_state_no_stream),
+ 	KUNIT_CASE(dm_test_restore_state_same_sink),
+-	KUNIT_CASE(dm_test_send_cea_length_too_long),
+-	KUNIT_CASE(dm_test_send_cea_dmub_unavailable),
+-	KUNIT_CASE(dm_test_parse_cea_dmcu_empty),
+-	KUNIT_CASE(dm_test_parse_cea_dmcu_no_dmcu),
+-	KUNIT_CASE(dm_test_parse_cea_dmcu_vsdb_none),
+-	KUNIT_CASE(dm_test_parse_cea_dmcu_multi_chunk),
+-	KUNIT_CASE(dm_test_parse_cea_dmcu_ack_fail),
+-	KUNIT_CASE(dm_test_parse_cea_dmub_empty),
+-	KUNIT_CASE(dm_test_parse_cea_dmub_send_fail),
+-	KUNIT_CASE(dm_test_parse_cea_routes_dmub),
+-	KUNIT_CASE(dm_test_parse_cea_routes_dmcu),
+ 	/* get_amd_vsdb */
+ 	KUNIT_CASE(dm_test_get_amd_vsdb_unsupported),
+ 	KUNIT_CASE(dm_test_get_amd_vsdb_supported),
 -- 
-2.55.0
+2.53.0
 
