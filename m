@@ -4,43 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DCF9C88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 15:11:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 209B2C88E7F
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 15:13:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6993A10FC3A;
-	Tue, 15 Sep 2026 15:11:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2300E10EA27;
+	Tue, 15 Sep 2026 15:13:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cMJJpPWf";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="jEcL5cdp";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7120D10FC3A
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 15:11:17 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 553FF43F4D;
- Tue, 15 Sep 2026 15:11:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 180501F000FF;
- Tue, 15 Sep 2026 15:11:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789485077;
- bh=6jZ3ICbtn08eZfwl0AK+knyY+36Zj/fzo7VnZ7nqJrA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=cMJJpPWf0oq8+Ya581cTfoMYhpphHbioIDGmDvz2Z1UAqDnVjjwEbSbQgjmnAvMdn
- 0g7AU/xselplkshm0oo3GJKlaUAjxo9bHRPhKzcwFGn7rK9RiLFhPxCunM2BBOG10G
- 4Dg3qdGypNrJrRi2zjZ6M0ntK4Er5n/DrqLX8lCN/tHNQjnGOug8hAdgZnUAplPKnH
- stlxk/iRcyz7AAT3Rdx47QS521DsMpg7AGu36B/dRuESdojohwd+lw8az+waH5Fcji
- 0Cqkw53mUy6eBtfddZy9npdUuyIIHNq9eyekZhd2IJrmvfLiiuCbyiTAGOjfUH2VAm
- qX7xMJerrzrRw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/4] drm/panel: Use managed helpers in assorted panels
-To: "Osama Abdelkader" <osama.abdelkader@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260915145935.60397-4-osama.abdelkader@gmail.com>
-References: <20260915145935.60397-1-osama.abdelkader@gmail.com>
- <20260915145935.60397-4-osama.abdelkader@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 15:11:16 +0000
-Message-Id: <20260915151117.180501F000FF@smtp.kernel.org>
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
+ [91.207.212.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE34610E99F;
+ Tue, 15 Sep 2026 15:13:55 +0000 (UTC)
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+ by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68FFA5L54098599; Tue, 15 Sep 2026 16:13:42 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=dk201812; bh=q
+ j/r3fgW8Isdkdf/XC23o6hAyABbc/h25tHRYCNDU6A=; b=jEcL5cdp+WZilb/ra
+ 0AZQEUTbrXmWVvk48ixAmrTD2csXB7C/rNG/bd1axVsgyVfjBadUPduNo0lIOPma
+ 25+rLGDG8m98zoy41zJqISIckQdmSBq1Omvz0UQ7c9GtH0Ty5phzSFcd5vRecAUV
+ k7Hj/9GERuEStai/QX3pzaWqtQkqyjVfwUm1qmhDsAUnezKhm6GSHWGdWhvpzKeA
+ tGxSwDcP4w7OsImTRXLebtF8uL/Rz9ZrDx/5rwvnkDjqN9xKQGn4mWSosjAZW8cO
+ WPw9elyMab8gguM2Rl+nOEa1pWkER7arYZP21CSEPtQ0fIyM4LnV5F9D/xfc5aZ7
+ XaRUQ==
+Received: from hhmail02.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gmw0q2e3n-5
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 15 Sep 2026 16:13:42 +0100 (BST)
+Received: from NP-A-BELLE.kl.imgtec.org (172.25.6.60) by
+ HHMAIL02.hh.imgtec.org (10.100.10.20) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 15 Sep 2026 16:13:41 +0100
+From: Alessio Belle <alessio.belle@imgtec.com>
+To: Luigi Santivetti <luigi.santivetti@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alexandru Dadu <alexandru.dadu@imgtec.com>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Matt Coster <opensource@mtcoster.net>
+In-Reply-To: <20260910-b4-avoid-init-of-unused-fw-trace-buffer-pointer-v1-0-7e10274384c2@imgtec.com>
+References: <20260910-b4-avoid-init-of-unused-fw-trace-buffer-pointer-v1-0-7e10274384c2@imgtec.com>
+Subject: Re: [PATCH 0/2] drm/imagination: Firmware interface cleanup and
+ improvements
+Message-ID: <178948522129.153878.14998918131309775012.b4-ty@b4>
+Date: Tue, 15 Sep 2026 16:13:41 +0100
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Originating-IP: [172.25.6.60]
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDIyMSBTYWx0ZWRfX8iwZFaVnwgQY
+ ahNKbweKSbsJwWNVLDrxEc19Go4H5TZjKK5tKYMuXnnOS0AACZFiiMz76iUY22KHBw+/AM8ERy1
+ 8nYrx7Fy26IO+LOQigCmeQpseAyI1GOaxhv7mPmX3RGbbpkPK+lSUPYexay8JSusTZvyxTWLWpZ
+ 1dQ46OIN3erVQDVdlnaVflLSu2eITN3W9yjLWP7+KC+MnGoY27lLu3h/MaN8nmudAHV1IpMbskI
+ E10RmRr4PVJPtnEFjgu9yWwMvkJTwayJloR4oGmubNqz1E2zb8YlGVgR0gUmoKcAHh2iTXkQ6KY
+ 5XqkFN2YMckIHwpQVKozYEuOG/MKh6mbt0GUZD299JN56M1dTkE5bMKhoONef+4OzvWGizjnxBn
+ WJPG/X443rlD6HHxVLvm64Jsj870I8jhmVY6o/Rkm023BQeMSeTbxZYHcbkproYsacNSwNbuvTc
+ YqtIH8ZvGLCCBoEdrWw==
+X-Authority-Analysis: v=2.4 cv=c8M+0h9l c=1 sm=1 tr=0 ts=6aa960a6 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=hVUt1O5AELcA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=r_1tXGB3AAAA:8 a=xeOyCs4oyGzV7JhTlrQA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-ORIG-GUID: RLbHYDb7B7kKRc137LcEzYIAR5t5HOcA
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDIyMSBTYWx0ZWRfXzJQGvhTZ1owG
+ po/0tu1Ovy7a4la5nG20cHK8/B4aamrdx8dcuudBPyXYH5Uhwnxc41ssyi7r684vu3wFepVxDyo
+ iSXrhUY0Ghhgt1GOPRxJdazb7JEWSP4=
+X-Proofpoint-GUID: RLbHYDb7B7kKRc137LcEzYIAR5t5HOcA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,123 +88,22 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] drm/panel: Use-After-Free in panel-dsi-cm due to delayed drm_panel=
-_remove
-- [Low] drm/panel: khadas-ts050 compilation error due to undeclared variable
-- [Low] drm/panel: tdo-tl070wsh30 compilation error due to undeclared varia=
-ble
---
+On Thu, 10 Sep 2026 10:56:38 +0300, Alexandru Dadu wrote:
+> Series contains cleanup commits targeted to FW interface.
+>     - Avoid initialization of never used data.
+>     - KCCB member initialized in the correct place.
 
-commit e1629ed943636f060c6cfc7188b70cdb9700480c
-Author: Osama Abdelkader <osama.abdelkader@gmail.com>
-Subject: drm/panel: Use managed helpers in assorted panels
+Applied to drm-misc-next, thanks!
 
-This commit converts multiple panel drivers to use managed device helpers
-for DRM panels and MIPI DSI attach operations. It removes the corresponding
-manual detach and panel remove calls from the driver removal paths.
+[1/2] drm/imagination: Collect KCCB initialisation
+      commit: 05cce7f9b638536c544328ea135edb864f503aa5
+[2/2] drm/imagination: Avoid initialisation of unused FW trace buffer pointer
+      commit: 109f4e9010c37966d59780f7c76064581064b7f2
 
-> diff --git a/drivers/gpu/drm/panel/panel-dsi-cm.c b/drivers/gpu/drm/panel=
-/panel-dsi-cm.c
-> --- a/drivers/gpu/drm/panel/panel-dsi-cm.c
-> +++ b/drivers/gpu/drm/panel/panel-dsi-cm.c
-> @@ -559,16 +559,17 @@ static int dsicm_probe(struct mipi_dsi_device *dsi)
->  	dsi->hs_rate =3D ddata->panel_data->max_hs_rate;
->  	dsi->lp_rate =3D ddata->panel_data->max_lp_rate;
-> =20
-> -	drm_panel_add(&ddata->panel);
-> +	r =3D devm_drm_panel_add(dev, &ddata->panel);
-> +	if (r)
-> +		goto err_sysfs;
+Best regards,
+-- 
+Alessio Belle <alessio.belle@imgtec.com>
 
-[Severity: High]
-Does using the managed version of drm_panel_add() here introduce a potential
-use-after-free in dsicm_remove()?
-
-By relying on devm, the execution of drm_panel_remove() is deferred to the
-devres cleanup phase, which runs after the driver's .remove callback
-(dsicm_remove) has already completed.
-
-[ ... ]
-
-> @@ -580,12 +581,13 @@ static int dsicm_probe(struct mipi_dsi_device *dsi)
->  static void dsicm_remove(struct mipi_dsi_device *dsi)
->  {
->  	struct panel_drv_data *ddata =3D mipi_dsi_get_drvdata(dsi);
-> +	int ret;
-> =20
->  	dev_dbg(&dsi->dev, "remove\n");
-> =20
-> -	mipi_dsi_detach(dsi);
-> -
-> -	drm_panel_remove(&ddata->panel);
-> +	ret =3D mipi_dsi_detach(dsi);
-> +	if (ret < 0)
-> +		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
-> =20
->  	sysfs_remove_group(&dsi->dev.kobj, &dsicm_attr_group);
-> =20
-
-[Severity: High]
-With the manual drm_panel_remove() gone, the panel remains registered with
-the DRM core when dsicm_remove() subsequently cleans up the external
-backlight reference just below this code block:
-
-    if (ddata->extbldev)
-        put_device(&ddata->extbldev->dev);
-
-If a concurrent operation (such as a userspace DRM ioctl triggering a
-display modeset) calls dsicm_disable() on the panel during the window
-between dsicm_remove() returning and the devres cleanup executing, could
-it attempt to use the freed extbldev pointer to disable the backlight?
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/panel/panel-khadas-ts050.c b/drivers/gpu/drm=
-/panel/panel-khadas-ts050.c
-> --- a/drivers/gpu/drm/panel/panel-khadas-ts050.c
-> +++ b/drivers/gpu/drm/panel/panel-khadas-ts050.c
-> @@ -825,7 +825,9 @@ static int khadas_ts050_panel_add(struct khadas_ts050=
-_panel *khadas_ts050)
->  	if (err)
->  		return err;
-> =20
-> -	drm_panel_add(&khadas_ts050->base);
-> +	ret =3D devm_drm_panel_add(dev, &khadas_ts050->base);
-> +	if (ret)
-> +		return ret;
-
-[Severity: Low]
-Will this cause a compilation error? It appears the variable "ret" is used
-here, but looking at khadas_ts050_panel_add() in the source, only "err"
-has been declared in this scope.
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c b/drivers/gpu/d=
-rm/panel/panel-tdo-tl070wsh30.c
-> --- a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
-> +++ b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
-> @@ -150,7 +150,9 @@ static int tdo_tl070wsh30_panel_add(struct tdo_tl070w=
-sh30_panel *tdo_tl070wsh30)
->  	if (err)
->  		return err;
-> =20
-> -	drm_panel_add(&tdo_tl070wsh30->base);
-> +	ret =3D devm_drm_panel_add(dev, &tdo_tl070wsh30->base);
-> +	if (ret)
-> +		return ret;
-
-[Severity: Low]
-Does this also fail to compile for the same reason? The variable "ret" is
-assigned and checked, but only "err" is declared in tdo_tl070wsh30_panel_ad=
-d().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915145935.6039=
-7-1-osama.abdelkader@gmail.com?part=3D3
