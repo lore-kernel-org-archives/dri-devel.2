@@ -4,99 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1472C88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 12:33:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB326C88E7B
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 12:33:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34C2810ECDD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB44310F49F;
 	Tue, 15 Sep 2026 12:33:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="T3j/ithe";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1GFOx9n/";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="dHjsRbfL";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="NdIiCbX+";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="DvFJJIjG";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="l7UUForY";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="I3oonED1";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="K3zLZN/N";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C38610E36C
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 12:33:23 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72A3710E36C
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 12:33:24 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9764921BD3;
- Tue, 15 Sep 2026 12:33:13 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E99451FF51;
+ Tue, 15 Sep 2026 12:33:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789475597; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=2q5BXiOn3GZssHRrJbwJ6n52w/a81OdmkPOetzDBMRk=;
- b=T3j/itheMiKdMalcLDLmHVsYOgCGIZR8rbmdi38BpbwdOGVzIVDMKxGdeprhLq1oGXvEw6
- zGwO/jAQIHe2zi52/m8VnPxPqXVq1lpUicUY6MCXqMIdhaajpaBo2jqS1xdrXiF1JBR3/J
- r4J1W0O7dj26mF6sqpEuDaK8KJYfJu4=
+ t=1789475599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1oIXnK9BJ5o0Bs3piDf5cl5Uw0ez1OiaSndJYSF7vOE=;
+ b=DvFJJIjGSTEnbbZbxsdqCFvYhr+XbgsyYI19fXvBTGZUpGCzGGpx4/MBi5/SpbKFRHyMdN
+ KJKDrZviQU30L4OY57G0d8rdQsJfT16VK0MU6fux935zSKIzSfxTLMDIZdIfUU2eBiZRzJ
+ AFPq3uJGb/r1xoMVNBMPedAo9QfRyrg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789475597;
+ s=susede2_ed25519; t=1789475599;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=2q5BXiOn3GZssHRrJbwJ6n52w/a81OdmkPOetzDBMRk=;
- b=1GFOx9n/sfS8Jl0bl/bScbUPFZL/SxDSk7GyJDOIS0N8/EReA7+cGrpg5jSkXDebNZr0Qs
- ef4/JeO6xLGYzyCA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=dHjsRbfL;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=NdIiCbX+
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1oIXnK9BJ5o0Bs3piDf5cl5Uw0ez1OiaSndJYSF7vOE=;
+ b=l7UUForY6Eiz0Lv2P+JaQrML7Aug3IRdSOArVkaLAoQTFnm38/f7pH1V2MegfQRT0wxUAB
+ Fgbz5UXd7HIp+mCg==
+Authentication-Results: smtp-out2.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789475593; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=2q5BXiOn3GZssHRrJbwJ6n52w/a81OdmkPOetzDBMRk=;
- b=dHjsRbfLJR4Ffy0AAQfv+WyESwtfTTYhJeC+cQZ4GZWVWnilCC6w84Dhx/SNWlzZ658uSX
- fVhO9W6gcF4cUhBhZW2wHnHBjLFEiJM6kNXQOoVpoGAcRuJprrjtoa6oX9/2z9woErPP9D
- Uh7gDW3n4lvvc5W7WRjWlM8TFIPp+F4=
+ t=1789475594; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1oIXnK9BJ5o0Bs3piDf5cl5Uw0ez1OiaSndJYSF7vOE=;
+ b=I3oonED1Bo+qNYl5u6AAMdH8FQDA8YwCNYlgWtjYjKg4MOIz2/vAU1qLOmCmIRdhlibQCR
+ jvJrQVQRnTrizkz/uNwKlzk5wdo20LhCMCBSCt4iYN8u+CkdewH3L1BNSShm3bPT0ZXx/Q
+ yFHWIXmFTRrD+HwgVcteyN3RbL4+EYQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789475593;
+ s=susede2_ed25519; t=1789475594;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=2q5BXiOn3GZssHRrJbwJ6n52w/a81OdmkPOetzDBMRk=;
- b=NdIiCbX+TS2+g0dEfdlLT26F4GP2WAlByIaU1bbA7gFHd2sZZZH3L78JQUIpR/GCrn4apc
- fyBtdYyfaLMHG8Dw==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1oIXnK9BJ5o0Bs3piDf5cl5Uw0ez1OiaSndJYSF7vOE=;
+ b=K3zLZN/N9IaFG+J8oJ9UjnsyzHkWILHgZUl3cfOQYAUsWmoSKmE1jYnxurE+2XkifGkdXq
+ qUKmBMYILB5WKyBQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2E84B136A5;
- Tue, 15 Sep 2026 12:33:13 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 63AF613707;
+ Tue, 15 Sep 2026 12:33:14 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id COmnAwk7qWpGNQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 15 Sep 2026 12:33:13 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id COmnAwk7qWpGNQAAD6G6ig:T5
+ (envelope-from <tzimmermann@suse.de>); Tue, 15 Sep 2026 12:33:14 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: deller@gmx.de, gregkh@linuxfoundation.org, jirislaby@kernel.org,
  simona@ffwll.ch
 Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-serial@vger.kernel.org, sashiko-reviews@lists.linux.dev,
  Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v2 0/5] fbcon,vgacon,vt: Share helpers for text cursors
-Date: Tue, 15 Sep 2026 14:29:11 +0200
-Message-ID: <20260915123304.1027277-1-tzimmermann@suse.de>
+Subject: [PATCH v2 4/5] lib/fonts: Add font_glyph_cursor() helper
+Date: Tue, 15 Sep 2026 14:29:15 +0200
+Message-ID: <20260915123304.1027277-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260915123304.1027277-1-tzimmermann@suse.de>
+References: <20260915123304.1027277-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 9764921BD3
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MIME_TRACE(0.00)[0:+]; FREEMAIL_ENVRCPT(0.00)[gmx.de];
- TO_DN_SOME(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-0.999];
+ MIME_GOOD(-0.10)[text/plain];
  FREEMAIL_TO(0.00)[gmx.de,linuxfoundation.org,kernel.org,ffwll.ch];
- RCPT_COUNT_SEVEN(0.00)[9]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCPT_COUNT_SEVEN(0.00)[9]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email,gmx.de:email];
+ RCVD_COUNT_TWO(0.00)[2]; FREEMAIL_ENVRCPT(0.00)[gmx.de]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,53 +112,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-VT consoles fbcon and vgacon implement various cursor sizes (i.e.,
-underline, block, half-block, etc). Share related code and harmonize
-the look and behaviour.
+The new helper font_glyph_cursor() fills a glyph with a cursor pattern.
+As with the font_glyph_rotate_*() helpers, the caller has to provide the
+output memory.
 
-In patches 1 to 3, move VT cursor-size calculations to the VT subsystem
-and use the new helpers from vgacon. Replace similar code in the console.
-The new helpers also take VT's default cursor size into account.
-
-Fbcon implments a custom helper that creates a cursor glyph for the
-given cursor size. In patches 4 and 5, move the code into the font
-library and update fbcon to use the new helper. The cursor-glyph shape
-rendering is tied to the font in use. Hence move them next to each other.
-Also update fbcon to use the shared cursor-size helpers.
-
-Tested with fbcon under bochs (qemu) and with vgacon on an old SiS
-6202 VGA card. Other consoles (newport_con, sticon) don't support cursor
-sizes, so leave them as-is.
-
-v2:
-- restore vc_cell_height in vgacon
-- avoid interference from concurrent user space
-- fix docs
-
-Thomas Zimmermann (5):
-  vt: Add cursor-size helpers
-  vgacon: Remove trailing whitespaces
-  vgacon: Use vt_cursor_{start,end}()
-  lib/fonts: Add font_glyph_cursor() helper
-  fbcon: Replace fbcon_fill_cursor_mask() with fbcon_cursor_glyph()
-
- drivers/tty/vt/vt.c                  | 93 ++++++++++++++++++++++++++++
- drivers/video/console/vgacon.c       | 43 +++----------
- drivers/video/fbdev/core/bitblit.c   |  3 +-
- drivers/video/fbdev/core/fbcon.c     | 45 ++++----------
- drivers/video/fbdev/core/fbcon.h     |  2 +-
- drivers/video/fbdev/core/fbcon_ccw.c |  3 +-
- drivers/video/fbdev/core/fbcon_cw.c  |  3 +-
- drivers/video/fbdev/core/fbcon_ud.c  |  3 +-
- include/linux/console_struct.h       |  7 +++
- include/linux/font.h                 |  4 ++
- lib/fonts/Makefile                   |  3 +-
- lib/fonts/font_cursor.c              | 56 +++++++++++++++++
- 12 files changed, 188 insertions(+), 77 deletions(-)
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Helge Deller <deller@gmx.de>
+---
+ include/linux/font.h    |  4 +++
+ lib/fonts/Makefile      |  3 ++-
+ lib/fonts/font_cursor.c | 56 +++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 62 insertions(+), 1 deletion(-)
  create mode 100644 lib/fonts/font_cursor.c
 
-
-base-commit: 2535e80aa0dd3d4269a43bf86a1686baddcf08d6
+diff --git a/include/linux/font.h b/include/linux/font.h
+index 5e1cf9830084..be1a26ff8ae9 100644
+--- a/include/linux/font.h
++++ b/include/linux/font.h
+@@ -109,6 +109,10 @@ const unsigned char *font_data_glyph_buf(font_data_t *fd,
+ bool font_data_is_equal(font_data_t *lhs, font_data_t *rhs);
+ int font_data_export(font_data_t *fd, struct console_font *font, unsigned int vpitch);
+ 
++/* font_cursor.c */
++void font_glyph_cursor(unsigned int width, unsigned int height,
++		       unsigned int from, unsigned int to, unsigned char *out);
++
+ /* font_rotate.c */
+ void font_glyph_rotate_90(const unsigned char *glyph, unsigned int width, unsigned int height,
+ 			  unsigned char *out);
+diff --git a/lib/fonts/Makefile b/lib/fonts/Makefile
+index 7202a70a56ef..bc08bf8ea3f8 100644
+--- a/lib/fonts/Makefile
++++ b/lib/fonts/Makefile
+@@ -1,7 +1,8 @@
+ # SPDX-License-Identifier: GPL-2.0
+ # Font handling
+ 
+-font-y := fonts.o
++font-y := fonts.o \
++	  font_cursor.o
+ font-$(CONFIG_FRAMEBUFFER_CONSOLE_ROTATION) += font_rotate.o
+ 
+ # Built-in fonts; sorted by Family-Size in ascending order
+diff --git a/lib/fonts/font_cursor.c b/lib/fonts/font_cursor.c
+new file mode 100644
+index 000000000000..7f4d587669aa
+--- /dev/null
++++ b/lib/fonts/font_cursor.c
+@@ -0,0 +1,56 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++#include <linux/bug.h>
++#include <linux/export.h>
++#include <linux/string.h>
++
++#include "font.h"
++
++/**
++ * font_glyph_cursor - Create a cursor glyph
++ * @width: The glyph width in bits per scanline
++ * @height: The number of scanlines in the glyph
++ * @start: The first scanline of the cursor block
++ * @end: The first scanline after the cursor block
++ * @out: The cursor-glyph bitmap
++ *
++ * The parameters @width and @height refer to the glyph size. The caller
++ * has to provide the output buffer @out of sufficient size to hold the
++ * cursor glyph. The arguments in @start and @end describe the number of
++ * scanlines occupied by the cursor block; counting from the top of the
++ * glyph. The helper fills these scanlines with a pattern and clears the
++ * remaining scanlines.
++ */
++void font_glyph_cursor(unsigned int width, unsigned int height,
++		       unsigned int start, unsigned int end, unsigned char *out)
++{
++	unsigned int pitch = font_glyph_pitch(width);
++	const unsigned char *out_end = out + height * pitch;
++	unsigned int size;
++
++	if (WARN_ON_ONCE(start > height))
++		start = height;
++	if (WARN_ON_ONCE(end > height))
++		end = height;
++
++	if (end < start)
++		end = start;
++
++	/* clear scanlines before cursor block */
++	size = start * pitch;
++	memset(out, 0x00, size);
++	out += size;
++
++	/* set cursor block */
++	size = (end - start) * pitch;
++	memset(out, 0xff, size);
++	out += size;
++
++	/* clear scanlines below cursor block */
++	size = (height - end) * pitch;
++	memset(out, 0x00, size);
++	out += size;
++
++	WARN_ON_ONCE(out != out_end);
++}
++EXPORT_SYMBOL_GPL(font_glyph_cursor);
 -- 
 2.55.0
 
