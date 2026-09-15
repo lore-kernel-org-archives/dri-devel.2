@@ -4,45 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58E53C88E73
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 08:59:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD3D6C88E73
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 09:06:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A48E10E5B2;
-	Tue, 15 Sep 2026 08:59:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 679A710E255;
+	Tue, 15 Sep 2026 09:06:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nQZOrNSF";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="lHN4KzQF";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3A1310E264
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:59:17 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 26FF16025F;
- Tue, 15 Sep 2026 08:59:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A29D71F00899;
- Tue, 15 Sep 2026 08:59:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789462756;
- bh=P/lfWRLpEYaDoKcRNDs/8/gTNhBzaNJFpBJRYvuLsb8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nQZOrNSFM1mftyOfyt8cyVx+BjLx05MFyImMapEvNrHNsmxrl0WDxNm9d674Rjxpi
- D9XQiPtetsJfF4zuDNkqOrUXLJNCUfRC6qkD4q95lVHom7MnR/qxveJzz/dbfEM4PZ
- 1q4ETI2wQped1kD6iYDUBP16lPzl350DYvyEhUJ4BN8ZQE6zMXKLAV3cOlaIZngNjd
- iIl0CbAY1PamflfkWbCGg5A4zLwPi0Ms+By1x23HHhNQEbjiAjvFEqRinH7Ph/uvgB
- 9auqF3d862udmyOCc7LHLMckMq1BJDCgUH81wTmnWRYkeM7x2t58Y90GIHseWjp5vf
- YCFWBqpSaR8ag==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 13/13] drm/mediatek: Add Write DMA (WDMA) Engine for
- Writeback support
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260915084148.11385-14-angelogioacchino.delregno@collabora.com>
-References: <20260915084148.11385-1-angelogioacchino.delregno@collabora.com>
- <20260915084148.11385-14-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
+ [91.207.212.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E034910E255;
+ Tue, 15 Sep 2026 09:06:04 +0000 (UTC)
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+ by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68F6ZoVY3169079; Tue, 15 Sep 2026 10:05:50 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=dk201812; bh=h
+ PNRl497t/azmGKn/enFzCLTDMlMuJ5aKmUdUCKZW30=; b=lHN4KzQFbCKYUCvJ6
+ Jc7g2ikX0jdvVlxc9rPRDwY2iCNBkw066qJ5VWw0ruBoEc3Yc3DMFLAPfG2881Wp
+ p6VdcwBrogEsQ+N/6Nem/hxQ1m6TEVen2EPfBBbOhBd/2B7HntYXUprXh0XTiSF/
+ nuMcdXCP60MVoRbZe/yfFqQL9vP3e3HK8J8WxKw56soS2BXB7VEFRu5fjfImkwzo
+ vojs8AGM1v38dps4G2fzdAZGILj3sx0gQF7P5VccQgJKi+pW+GmlIp+lCysmHy4d
+ kzq20Yf5yu5sJAL4WOvf6QOApa/scSgONJCFqVGm5JsAJbmR5C9M7Tgg8/FBkTl8
+ paQBA==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gmw0q25mu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 15 Sep 2026 10:05:49 +0100 (BST)
+Received: from np-m-daniel1.kl.imgtec.org (172.25.4.227) by
+ HHMAIL01.hh.imgtec.org (10.100.10.19) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 15 Sep 2026 10:05:48 +0100
+Message-ID: <5bcbcbc46c1076f0e4c3b6e249ef2ce61db848a2.camel@imgtec.com>
+Subject: Re: [PATCH] drm/imagination: Fix PowerVR UAPI constant references
+ in kernel-doc
+From: Luigi Santivetti <luigi.santivetti@imgtec.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>, Alessio Belle
+ <alessio.belle@imgtec.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+CC: Faith Ekstrand <faith.ekstrand@collabora.com>, Frank Binns
+ <frank.binns@imgtec.com>,
+ <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+Date: Tue, 15 Sep 2026 10:05:48 +0100
+In-Reply-To: <16d56cee0036a41f411df0efab03bbcc8e964da2.camel@imgtec.com>
+References: <20260912063021.43076-1-kmehltretter@gmail.com>
+ <16d56cee0036a41f411df0efab03bbcc8e964da2.camel@imgtec.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 08:59:16 +0000
-Message-Id: <20260915085916.A29D71F00899@smtp.kernel.org>
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
+MIME-Version: 1.0
+X-Originating-IP: [172.25.4.227]
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEzMCBTYWx0ZWRfX8Lt1CWJwq333
+ jsKmaLtUENBiPkvba/ipYkcp2NaU/A6Kfk1E6aw5PlF8DGOb2hUoBn8tmizeyu5I076Nzkj1N6+
+ 50CvwhGF2yva//Z0n+mn9q3TmbY7zim62VY0pBok+a/zSuIHfMSBygN+puyk6dUReOvgS19HozO
+ N7Z80XyBx4ruAPF/IMttgwAkBp3640KuZI3lRiNEZpHgBWgzLsmbvvVLZkVYfrxGsB1d2QvszHr
+ 8mAbHfqTCCcB2dF0mRqUxDt6z0UEXrRfHDdc5gfMMZ4j0YPZwudDFEUv2R9Wh8zCu9O0Gh/Zz3u
+ I1mm7jwE+jo9WWLLlcmxKzOJD5++CEklAzBbOoFlydy/fhoxyTbuLq4ldzIGbRncKktCNBXP2PV
+ YBbVQbYSzeaq0S/I/YDciff1YMkX3xjmyIbPcIIBlX1BQ0WVasQz9XYG0u+ktSGUs5t9PZsykIv
+ YAqPOjkkq29Olo5HkuQ==
+X-Authority-Analysis: v=2.4 cv=c8M+0h9l c=1 sm=1 tr=0 ts=6aa90a6d cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=eoBRZU4O7WcA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=pGLkceISAAAA:8 a=r_1tXGB3AAAA:8 a=oA8mNzHvY-ziBNhvJ5YA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-ORIG-GUID: 2a7FiZcwJkODQtcoD55aq0AF8gqX9GUm
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEzMCBTYWx0ZWRfXx+LolqKGQxOi
+ wOi/0V9s7cxHXQzBf4GIv03l2XYWiSEDLIxDkZTLZva/hicuaGblaG9d7JxL+rwMxaYXRv9sBXC
+ VkX5pPZFfbapEAleTSa0Ue+MKdN+QnU=
+X-Proofpoint-GUID: 2a7FiZcwJkODQtcoD55aq0AF8gqX9GUm
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,220 +90,110 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [Critical] drm/mediatek: WDMA layer_config overwrites source buffer and c=
-auses NULL pointer dereference
-- [High] pm: resource leak on pm_runtime_get_sync() failure
-- [High] drm/mediatek: lockless wb_pending access causes lost completions a=
-nd WARN_ON
-- [High] drm/mediatek: TOCTOU race in vblank callback execution
-- [Medium] drm/mediatek: direct CPU MMIO writes to WDMA bypass CMDQ synchro=
-nization
-- [Medium] drm/mediatek: incorrect color transform matrix for YUV writeback
-- [Medium] drm/mediatek: mtk_wdma_stop incorrectly signals success for abor=
-ted writeback job
---
+On Tue, 2026-09-15 at 09:51 +0100, Luigi Santivetti wrote:
+> On Sat, 2026-09-12 at 08:30 +0200, Karl Mehltretter wrote:
+> > The PowerVR UAPI comments contain misspellings of the enhancement query
+> > selector, two buffer object flags, and the job submission ioctl. The
+> > correct names were already present in the UAPI definitions when these
+> > comments were introduced.
+> >=20
+> > Use DRM_PVR_DEV_QUERY_ENHANCEMENTS_GET, DRM_PVR_BO_PM_FW_PROTECT,
+> > DRM_PVR_BO_ALLOW_CPU_USERSPACE_ACCESS, and DRM_IOCTL_PVR_SUBMIT_JOBS in
+> > the corresponding comments.
+> >=20
+> > Fixes: 1088d89e5515 ("drm/imagination/uapi: Add PowerVR driver UAPI")
+> > Assisted-by: LLM
+> > Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+>=20
+> Reviewed-by: Luigi Santivetti <luigi.santivetti@imgtec.com>
+>=20
+> Thank you!
+> Luigi
 
-commit 5040ee161768b3e9eb8d9ed33a9148cd22b10b67
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Would you mind propagating your fix driver-wise?
 
-drm/mediatek: Add Write DMA (WDMA) Engine for Writeback support
+$ grep -wnrE
+"DRM_IOCTL_PVR_SUBMIT_JOB|DRM_PVR_DEV_ENHANCEMENTS_GET|DRM_PVR_BO_DEVICE_PM=
+_FW_P
+ROTECT|DRM_PVR_BO_CPU_ALLOW_USERSPACE_ACCESS" drivers/gpu/drm/imagination/
+drivers/gpu/drm/imagination/pvr_fw.c:1841: * %DRM_PVR_BO_DEVICE_PM_FW_PROTE=
+CT is
+implied for all FW objects. Consequently,
+drivers/gpu/drm/imagination/pvr_fw.c:1842: * this function will fail if @fl=
+ags
+has %DRM_PVR_BO_CPU_ALLOW_USERSPACE_ACCESS
+drivers/gpu/drm/imagination/pvr_fw.c:1923: * %DRM_PVR_BO_DEVICE_PM_FW_PROTE=
+CT is
+implied for all FW objects. Consequently,
+drivers/gpu/drm/imagination/pvr_fw.c:1924: * this function will fail if @fl=
+ags
+has %DRM_PVR_BO_CPU_ALLOW_USERSPACE_ACCESS
+drivers/gpu/drm/imagination/pvr_fw.c:1961: * %DRM_PVR_BO_DEVICE_PM_FW_PROTE=
+CT is
+implied for all FW objects. Consequently,
+drivers/gpu/drm/imagination/pvr_fw.c:1962: * this function will fail if @fl=
+ags
+has %DRM_PVR_BO_CPU_ALLOW_USERSPACE_ACCESS
+drivers/gpu/drm/imagination/pvr_fw.c:1998: * %DRM_PVR_BO_DEVICE_PM_FW_PROTE=
+CT is
+implied for all FW objects. Consequently,
+drivers/gpu/drm/imagination/pvr_fw.c:1999: * this function will fail if @fl=
+ags
+has %DRM_PVR_BO_CPU_ALLOW_USERSPACE_ACCESS
+drivers/gpu/drm/imagination/pvr_drv.c:1183: * Called from userspace with
+%DRM_IOCTL_PVR_SUBMIT_JOB.
 
-This commit adds a basic driver for the Write DMA Engine for the MediaTek
-MT8173 and Dimensity 1200 MT6893 platforms. It wires the component into
-mtk_ddp_comp and mtk_drm_drv to enable userspace writeback features.
+>=20
+> ---
+> > =C2=A0include/uapi/drm/pvr_drm.h | 8 ++++----
+> > =C2=A01 file changed, 4 insertions(+), 4 deletions(-)
+> >=20
+> > diff --git a/include/uapi/drm/pvr_drm.h b/include/uapi/drm/pvr_drm.h
+> > index
+> > ccf6c2112468f3f53b093bc298dac2bbbfd35e6e..d97a69b83cc59338b7aae306e4dfa=
+1320f
+> > 07
+> > 1a2d 100644
+> > --- a/include/uapi/drm/pvr_drm.h
+> > +++ b/include/uapi/drm/pvr_drm.h
+> > @@ -231,7 +231,7 @@ struct drm_pvr_dev_query_quirks {
+> > =C2=A0 * the user mode driver.
+> > =C2=A0 *
+> > =C2=A0 * When fetching this type &struct drm_pvr_ioctl_dev_query_args.t=
+ype must
+> > be
+> > set
+> > - * to %DRM_PVR_DEV_ENHANCEMENTS_GET.
+> > + * to %DRM_PVR_DEV_QUERY_ENHANCEMENTS_GET.
+> > =C2=A0 */
+> > =C2=A0struct drm_pvr_dev_query_enhancements {
+> > =C2=A0	/**
+> > @@ -848,8 +848,8 @@ struct drm_pvr_ioctl_create_free_list_args {
+> > =C2=A0	 * @max_num_pages * ``sizeof(__u32)``.
+> > =C2=A0	 *
+> > =C2=A0	 * The buffer object must have been created with
+> > -	 * %DRM_PVR_BO_DEVICE_PM_FW_PROTECT set and
+> > -	 * %DRM_PVR_BO_CPU_ALLOW_USERSPACE_ACCESS not set.
+> > +	 * %DRM_PVR_BO_PM_FW_PROTECT set and
+> > +	 * %DRM_PVR_BO_ALLOW_CPU_USERSPACE_ACCESS not set.
+> > =C2=A0	 */
+> > =C2=A0	__u64 free_list_gpu_addr;
+> > =C2=A0
+> > @@ -1277,7 +1277,7 @@ struct drm_pvr_job {
+> > =C2=A0};
+> > =C2=A0
+> > =C2=A0/**
+> > - * struct drm_pvr_ioctl_submit_jobs_args - Arguments for
+> > %DRM_IOCTL_PVR_SUBMIT_JOB
+> > + * struct drm_pvr_ioctl_submit_jobs_args - Arguments for
+> > %DRM_IOCTL_PVR_SUBMIT_JOBS
+> > =C2=A0 *
+> > =C2=A0 * If the syscall returns an error it is important to check the v=
+alue of
+> > =C2=A0 * @jobs.count. This indicates the index into @jobs.array where t=
+he
+>=20
 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_disp_wdma.c b/drivers/gpu/drm/m=
-ediatek/mtk_disp_wdma.c
-> new file mode 100644
-> index 0000000000000..0575fade92c6b
-> --- /dev/null
-> +++ b/drivers/gpu/drm/mediatek/mtk_disp_wdma.c
-[ ... ]
-> +static irqreturn_t mtk_disp_wdma_irq_handler(int irq, void *dev_id)
-> +{
-> +	struct mtk_disp_wdma *wdma =3D dev_id;
-> +
-> +	/* Clear frame completion interrupt */
-> +	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_STATUS);
-> +
-> +	if (wdma->vblank_cb)
-> +		wdma->vblank_cb(wdma->vblank_cb_data);
-
-[Severity: High]
-Could this race with mtk_wdma_unregister_vblank_cb() if it is called
-concurrently from process context? If unregistration clears wdma->vblank_cb
-exactly between this check and the call, it looks like it could result in a
-NULL pointer dereference.
-
-> +
-> +	/* TODO: Move completion signaling to CMDQ interrupt callback */
-> +	if (wdma->wb_pending) {
-> +		drm_writeback_signal_completion(&wdma->wb_connector, 0);
-> +		wdma->wb_pending =3D false;
-> +	}
-
-[Severity: High]
-Is it safe to check and clear wdma->wb_pending locklessly here? If this
-interrupt fires right after the flag is set to true in
-mtk_wdma_wb_connector_atomic_commit() but before the job is queued, it
-appears it would signal an empty queue (triggering a WARN_ON(!job)) and the
-job would never be signaled once actually queued.
-
-> +
-> +	return IRQ_HANDLED;
-> +}
-[ ... ]
-> +void mtk_wdma_stop(struct device *dev)
-> +{
-> +	struct mtk_disp_wdma *wdma =3D dev_get_drvdata(dev);
-> +
-> +	if (wdma->wb_pending) {
-> +		drm_writeback_signal_completion(&wdma->wb_connector, 0);
-> +		wdma->wb_pending =3D false;
-> +	}
-
-[Severity: Medium]
-Since stopping the engine aborts any pending writeback job leaving the buff=
-er
-incomplete, shouldn't this signal an error status (such as -ECANCELED) rath=
-er
-than 0 (success)? Userspace might consume a corrupted or partial buffer
-otherwise.
-
-> +
-> +	wdma_update_bits(dev, DISP_REG_WDMA_EN, WDMA_ENGINE_EN, 0);
-> +}
-> +
-> +void mtk_wdma_config(struct device *dev, unsigned int width,
-> +		     unsigned int height, unsigned int vrefresh,
-> +		     unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
-> +{
-> +	struct mtk_disp_wdma *wdma =3D dev_get_drvdata(dev);
-> +
-> +	writel(WDMA_FORCE_COMMIT | WDMA_BYPASS_SHADOW,
-> +	       wdma->regs + DISP_REG_WDMA_SHADOW_CTRL);
-> +}
-
-[Severity: Medium]
-Does this direct CPU MMIO write bypass the CMDQ synchronization? Since this
-is forced outside of the VBLANK synchronized CMDQ execution sequence, it
-might cause tearing or memory corruption if the hardware is actively writin=
-g.
-
-[ ... ]
-> +static void mtk_wdma_format_config(struct mtk_disp_wdma *wdma,
-> +				   struct mtk_plane_pending_state *pending,
-> +				   const struct drm_format_info *fmt_info,
-> +				   struct cmdq_pkt *cmdq_pkt)
-> +{
-[ ... ]
-> +	/* Color transform coefficient selection */
-> +	val =3D FIELD_PREP_CONST(WDMA_INT_MTX_SEL, WDMA_CT_COEF_JPEG_TO_RGB);
-> +	mtk_ddp_write_mask(cmdq_pkt, val, &wdma->cmdq_reg, wdma->regs,
-> +			   DISP_REG_WDMA_CFG, WDMA_INT_MTX_SEL);
-
-[Severity: Medium]
-Are we programming the correct color transform matrix for a writeback pipel=
-ine?
-WDMA_CT_COEF_JPEG_TO_RGB converts YUV to RGB, but converting the internal R=
-GB
-pipeline output to a YUV writeback format requires RGB to YUV.
-
-[ ... ]
-> +void mtk_wdma_layer_config(struct device *dev, unsigned int idx,
-> +			   struct mtk_plane_state *state,
-> +			   struct cmdq_pkt *cmdq_pkt)
-> +{
-> +	struct mtk_disp_wdma *wdma =3D dev_get_drvdata(dev);
-> +	struct mtk_plane_pending_state *pending =3D &state->pending;
-[ ... ]
-> +	mtk_wdma_format_config(wdma, pending, fmt_info, cmdq_pkt);
-
-[Severity: Critical]
-Is the writeback engine incorrectly programmed to overwrite the source plan=
-e's
-buffer? WDMA is an output component, but exposing layer_config makes the CR=
-TC
-treat it as a source plane. Passing pending into mtk_wdma_format_config()
-sets the WDMA destination address to the source plane's address
-(pending->addr), which would actively corrupt the framebuffer being scanned
-out.
-
-> +
-> +	drm_writeback_queue_job(&wdma->wb_connector, wdma->wb_connector.base.st=
-ate);
-> +}
-
-[Severity: Critical]
-Will this unconditionally dereference a NULL job pointer? By passing
-wdma->wb_connector.base.state to drm_writeback_queue_job(), it uses a
-connector state where the writeback_job might have already been consumed
-(or is NULL), which will cause a kernel panic during list_add_tail().
-
-[ ... ]
-> +static void mtk_wdma_wb_connector_atomic_commit(struct drm_connector *co=
-nnector,
-> +						struct drm_atomic_commit *state)
-> +{
-[ ... ]
-> +	/* Store writeback pending state before queuing the job */
-> +	wdma->wb_pending =3D true;
-> +
-> +	mtk_wdma_ddp_write_dst_addr(NULL, addr, 0, wdma);
-
-[Severity: Medium]
-As with the WDMA_SHADOW_CTRL write, does this direct unsynchronized CPU MMIO
-write for the destination address bypass CMDQ? Changing the destination
-address asynchronously to VBLANK risks memory corruption in the writeback
-buffer.
-
-> +	drm_writeback_queue_job(&wdma->wb_connector, conn_state);
-> +}
-[ ... ]
-> +static int mtk_disp_wdma_bind(struct device *dev, struct device *master,
-> +			      void *data)
-> +{
-[ ... ]
-> +	ret =3D pm_runtime_get_sync(dev);
-> +	if (ret)
-> +		dev_warn(dev, "Could not get PM Runtime!\n");
-
-[Severity: High]
-Does this incorrectly treat a return value of 1 as an error?
-pm_runtime_get_sync() returns 1 if the device was already active, which is a
-success case, not a failure.
-
-> +
-> +	/*
-> +	 * Disable and clear pending interrupts - write unconditionally as no
-> +	 * crash (SError, etc) will happen as if unpowered/unclocked this is
-> +	 * simply going to be ignored (and the registers will be 0 at reset).
-> +	 */
-> +	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_ENABLE);
-> +	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_STATUS);
-> +
-> +	/* Put RPM only if refcount was incremented before to avoid unbalancing=
- */
-> +	if (ret >=3D 0)
-> +		pm_runtime_put(dev);
-
-[Severity: High]
-Can this leak the runtime PM usage counter on failure? pm_runtime_get_sync()
-increments the usage counter even when returning a negative error code.
-By skipping pm_runtime_put(dev) when ret < 0, the usage counter is
-permanently leaked.
-
-> +
-> +	enable_irq(wdma->irq);
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915084148.1138=
-5-1-angelogioacchino.delregno@collabora.com?part=3D13
