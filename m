@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52AC3C88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 15:43:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79FF8C88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 15:44:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 741A910ED75;
-	Tue, 15 Sep 2026 15:43:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C48C810ED9D;
+	Tue, 15 Sep 2026 15:44:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FWoFG9h8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CyllVRyV";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC38F10ED75
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 15:43:03 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C766310ED9D
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 15:44:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B573D40183;
- Tue, 15 Sep 2026 15:43:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F07CD1F000FF;
- Tue, 15 Sep 2026 15:43:02 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EC4E0600D1;
+ Tue, 15 Sep 2026 15:44:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95DE91F000FF;
+ Tue, 15 Sep 2026 15:44:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789486983;
- bh=/Q+TKB0dTqPeN8L0VQL0IxsQ2XnGw89/lImhUA0TRIc=;
+ s=k20260515; t=1789487061;
+ bh=WgCqCrUZSkqdjRCU1o3q/FLPXpvAuImoRHsybLFffg0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FWoFG9h81W+EkeK6xWljLNGhi+4q24AllFDgLT9ezExiwRZj9G8qbHkRePJo+7VL+
- YTbDGrwWdrikTHq6JsHf9EAERMMq6nazGfDxgx9UPbk/OvyJ7qaNpwon+330J+G67h
- UgU00QlM4ZwrbAjfZtwwpzsDAk3gSk+oS6dlx67YrMZDPLHs7eGby3nUIOhvtzsSmP
- mRyQ9RVjZ3tKQwrMLOQGQXpRqJgCRIDnrdDCJwy3Mx/TMJI6WPvuROLSRrnkatSeVW
- SEREuibAJD8pc607CF+dQ0o/8oPZJcpELssrY1oQYmI4/T/oeuCtmnpPRcsDRHl6Sq
- PG8Z8Do4o3nwg==
+ b=CyllVRyVxXF7DxuPZckfjzCPBAB9QayLE187PkFja5TRn0szrz/k7lA0tYtszFOmh
+ DVyFikJWXGgsLb0E3IBxMK6kK/pMkrwIl6Rp3347La2RpONTaoRorC5/sQjeLmyHLN
+ cFrobng9CQE0y7oaTRW4Yq77NSDqeceZlN/scE4HQN8AL8N738tak8hmXPuEYU51V/
+ mUvHUvowYPNlcU9PVECM0TxuHxcp04y2uSOWUI92ADvclAZacFmXQYY8J46jHGASJR
+ xppWyWbtuxPWgREx8LxZmhVNa87UzDs6LqxmMTOXEeSjyk/wJdB0P7gEwt+0YIVZVQ
+ KmCMu9R9VX2Gw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 09/20] drm/bridge: inno-hdmi: Add .disable platform
- operation
+Subject: Re: [PATCH v4 07/20] drm/bridge: inno-hdmi: Split probe out of bind
 To: "Michal Wilczynski" <m.wilczynski@samsung.com>
-Cc: devicetree@vger.kernel.org, lee@kernel.org, dri-devel@lists.freedesktop.org,
- olteanv@gmail.com, robh@kernel.org, mfd@lists.linux.dev,
- linux-phy@lists.infradead.org, vkoul@kernel.org, linux-clk@vger.kernel.org,
- neil.armstrong@linaro.org, conor+dt@kernel.org
-In-Reply-To: <20260915-jh7110-clean-send-v4-9-f0e4fd6f2cc8@samsung.com>
+Cc: conor+dt@kernel.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org, olteanv@gmail.com,
+ linux-phy@lists.infradead.org, mfd@lists.linux.dev, linux-clk@vger.kernel.org,
+ vkoul@kernel.org, lee@kernel.org
+In-Reply-To: <20260915-jh7110-clean-send-v4-7-f0e4fd6f2cc8@samsung.com>
 References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
- <CGME20260915153229eucas1p2d1b02b6f3871d6b536f678b9ea293c1c@eucas1p2.samsung.com>
- <20260915-jh7110-clean-send-v4-9-f0e4fd6f2cc8@samsung.com>
+ <CGME20260915153226eucas1p1d69e9e853b4b5cfb1d42c2c585b57f95@eucas1p1.samsung.com>
+ <20260915-jh7110-clean-send-v4-7-f0e4fd6f2cc8@samsung.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 15:43:02 +0000
-Message-Id: <20260915154302.F07CD1F000FF@smtp.kernel.org>
+Date: Tue, 15 Sep 2026 15:44:20 +0000
+Message-Id: <20260915154420.95DE91F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,57 +63,67 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] drm/bridge: inno-hdmi: sleep in atomic context via .disable hook
-- [Medium] drm/bridge: inno-hdmi: hardware teardown LIFO ordering violation
+- [Medium] drm/bridge: inno-hdmi: Meaningful code and commit message mismat=
+ch for inno_hdmi_remove()
+- [Medium] drm/bridge: inno-hdmi: TOCTOU race on hdmi->bridge.dev leading t=
+o potential NULL pointer dereference
 --
 
-commit f7201b9edd5364bfbb0fe7f6dfc6706a0f43adf3
+commit 619d70bf74f8f0e498489e8aa8a7c0c9e4e2d3fb
 Author: Michal Wilczynski <m.wilczynski@samsung.com>
 
-drm/bridge: inno-hdmi: Add .disable platform operation
+drm/bridge: inno-hdmi: Split probe out of bind
 
-This commit introduces a new .disable platform operation to the Innosilicon
-HDMI driver and invokes it in inno_hdmi_bridge_atomic_disable(). It allows
-platform-specific drivers to implement power down sequences for PHYs and
-clocks.
+This commit splits the bridge setup into a new exported inno_hdmi_probe()
+function and reduces inno_hdmi_bind() to a wrapper around it. This
+decoupling allows a platform device to register its own bridge without
+attaching it to the DRM encoder immediately.
+
+>     Move the setup into a new exported inno_hdmi_probe(), with a matching
+>     inno_hdmi_remove(), and reduce inno_hdmi_bind() to a wrapper around i=
+t.
+
+[Severity: Medium]
+Is the commit message description accurate regarding the removal function?
+
+The commit message explicitly claims to introduce a matching
+inno_hdmi_remove() function for teardown alongside inno_hdmi_probe(), but
+this function appears to be missing from the patch. Does this break the
+expected API contract described for external decoupled drivers?
 
 > diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/=
 inno-hdmi.c
-> index 1264152fb1434..06917e83c5e53 100644
+> index dd35f5a875d3d..840f1c7bc2029 100644
 > --- a/drivers/gpu/drm/bridge/inno-hdmi.c
 > +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
-> @@ -886,6 +886,10 @@ static void inno_hdmi_bridge_atomic_disable(struct d=
-rm_bridge *bridge,
->  					    struct drm_atomic_commit *state)
+> @@ -929,7 +929,14 @@ static irqreturn_t inno_hdmi_irq(int irq, void *dev_=
+id)
 >  {
->  	struct inno_hdmi *hdmi =3D bridge_to_inno_hdmi(bridge);
-> +	const struct inno_hdmi_plat_ops *plat_ops =3D hdmi->plat_data->ops;
-> +
-> +	if (plat_ops && plat_ops->disable)
-> +		plat_ops->disable(hdmi->dev);
-
-[Severity: High]
-Does this code introduce a sleep in atomic context? The
-inno_hdmi_bridge_atomic_disable() function runs from
-drm_atomic_helper_commit_tail(), which is an atomic context where sleeping =
-is
-strictly forbidden. However, the commit message mentions this hook is meant
-for calling phy_power_off() and clk_disable_unprepare(), which can sleep.
+>  	struct inno_hdmi *hdmi =3D dev_id;
+> =20
+> -	drm_helper_hpd_irq_event(hdmi->bridge.dev);
+> +	/*
+> +	 * The interrupt is requested in probe, but bridge.dev is only set once
+> +	 * the DRM master binds and attaches the bridge, which may never happen.
+> +	 * Drop hotplug events that arrive before then rather than dereference a
+> +	 * NULL drm_device.
+> +	 */
+> +	if (hdmi->bridge.dev)
+> +		drm_helper_hpd_irq_event(hdmi->bridge.dev);
 
 [Severity: Medium]
-Will this break LIFO teardown ordering? Disabling the platform PHY and cloc=
-ks
-via plat_ops->disable() before calling inno_hdmi_standby() leaves the inter=
-nal
-HDMI controller configured while its underlying hardware is powered down. To
-maintain proper LIFO ordering, shouldn't inno_hdmi_standby() be called first
-to put the internal PHY registers in standby before disabling the platform
-clocks and PHY?
+Can this lockless check of hdmi->bridge.dev lead to a NULL pointer
+dereference?
 
-> =20
->  	inno_hdmi_standby(hdmi);
->  }
+Without READ_ONCE(), the compiler might double-fetch the pointer. If the
+pointer is cleared concurrently (for example, during a failed
+drm_bridge_attach() or a teardown path) after the check but before it is
+passed to drm_helper_hpd_irq_event(), it could result in a NULL pointer
+dereference.
+
+Could we use READ_ONCE() and a local variable to prevent a potential race
+condition in inno_hdmi_irq()?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-jh7110-cle=
-an-send-v4-0-f0e4fd6f2cc8@samsung.com?part=3D9
+an-send-v4-0-f0e4fd6f2cc8@samsung.com?part=3D7
