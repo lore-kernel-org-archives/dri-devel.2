@@ -4,85 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D509C88E53
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 11:58:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ACC6C88E7B
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 11:59:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B28A10F45D;
-	Tue, 15 Sep 2026 11:58:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98E0410F45F;
+	Tue, 15 Sep 2026 11:59:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="fkP3BfES";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PNkc1SOO";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7891A10F45D
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 11:58:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1789473487;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=rrOHLRfT4Oom2IJCIMxO8ZxH4CpZaDZtjN+oo/YQUdY=;
- b=fkP3BfESVDezRKV6Zbb0/bjlKUd7ZKTULUgND3xg5sPbHQlIF22quoLwBXN03Dc48dh5QS
- CWWtOe9ooan6EV9qFd8Opg2AnfpO7GeUAYF2OEWgXaQFD4wE3tEbJev3Akoz9ej3L3kEnE
- psi4EAbSdOgTNlOialfhvYFKInDurqQ=
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-9-_XCLaXdTNeGclaCz5hNuKQ-1; Tue, 15 Sep 2026 07:58:06 -0400
-X-MC-Unique: _XCLaXdTNeGclaCz5hNuKQ-1
-X-Mimecast-MFC-AGG-ID: _XCLaXdTNeGclaCz5hNuKQ_1789473485
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2d94a158dc8so65021635ad.2
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 04:58:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789473485; x=1790078285;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=rrOHLRfT4Oom2IJCIMxO8ZxH4CpZaDZtjN+oo/YQUdY=;
- b=SPWXZmtCTqRDwA6TIgR8BKCkCU2vucDeufP/DE4SulNDYQ+wXP6NwB38E12PyLkmIj
- k+hmWBkh5CkIw+1MFH3Wsh6uLGGrilYnx4kY+aYHXaHEFREDigIC7nApyDaUTx1dIsK6
- Q0Bk8wNgka6EiduWQLbWqua1RfBX/Tg7ktfQjhheSasZGjboHoPmB4eSArXt5ZsB2vCu
- luNh8npMc645TeMONevJaycs+byEoI0jVukFJrVf5s+/UlRRNyKd62nKnv3Wa4510xnS
- UY/E1x1Z4QSYF3W0zl6yBlaGEOAmlLmv1IPVQcDz726yAsvwjyJFyrOdWwyq3HOMf18/
- 7r0g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx0I8ZUO0LzHJ3lvd8hjYthJJ5e0h2DntaVpbzKXVhdenIzjwnohiBUE4rGZZeK49m7xdpHDtuFIqw=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lkRG2feSRP856MuGmXWpNtC8xKa5gxUHFFgEcrBwA2Xx+Dmafd
- byrLc74gLLVFjUIGvRhnwSEYWyvzwN1F6O5rlW5hqkMtLjZ2d9bnfF92HHXbmOK4TpUWmMUcTe0
- Jk/H3YWAzXWSTudgZrdvP99b4exeF7CUmFWkm17alJ/ti6yGWRpuMuN4UoZNth3zz/mUaqGDyMo
- Thy0LkEBYLBZdsSbakFBlxuhhrLQOVNvoryUyrr9J0eD6P
-X-Gm-Gg: AYBFou2wmeCAvpB7nJwhmMozc7u5mvWX7PUz1NO4/NMH9Tj/VociWAFyFtoDObVRcKM
- b5aN28qrA1BWMskUjLZ6QCpQ+VmzSv6dHcQyepONQxsurxBVygXzTRlIN7iyTcjaaAF1Vpp3eg1
- Bv2dvQy6ZI4Ysy+AwUdjiBXjPVxIPvJe1qXxW65MBiRlWSgrzj3FRYt8Z6
-X-Received: by 2002:a17:903:f86:b0:2d1:134:b86e with SMTP id
- d9443c01a7336-2dd6c5cc385mr136087595ad.2.1789473485037; 
- Tue, 15 Sep 2026 04:58:05 -0700 (PDT)
-X-Received: by 2002:a17:903:f86:b0:2d1:134:b86e with SMTP id
- d9443c01a7336-2dd6c5cc385mr136087265ad.2.1789473484598; Tue, 15 Sep 2026
- 04:58:04 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260911-drm-no-more-crtc-reset-v4-0-662e0ccd815c@kernel.org>
- <20260911-drm-no-more-crtc-reset-v4-1-662e0ccd815c@kernel.org>
-In-Reply-To: <20260911-drm-no-more-crtc-reset-v4-1-662e0ccd815c@kernel.org>
-From: Javier Martinez Canillas <javierm@redhat.com>
-Date: Tue, 15 Sep 2026 13:57:52 +0200
-X-Gm-Features: AcwNN1Ve6_xryIepL3-REHyXDMVgx4PDwpRwZNkvmXJBVXk-I8x2iknW16bA5ig
-Message-ID: <CAFOAJEfpXP__y40xFuZskxE2Ni7KzM4Ugw0itchx8Zseoi_0sA@mail.gmail.com>
-Subject: Re: [PATCH v4 1/4] drm/gm12u320: Switch to
- drm_atomic_helper_crtc_create_state
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, Hans de Goede <hansg@kernel.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: JMbBKnY_ZzBTRhn_3VxPLQ3V0srrgEPU4jJgRddiK9k_1789473485
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19A5B10F45F
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 11:59:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 30ED7600D1;
+ Tue, 15 Sep 2026 11:59:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1604F1F000FF;
+ Tue, 15 Sep 2026 11:59:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789473593;
+ bh=DQgIYhua5CTViS1X9ZXXGfaSPT/5dqgeOOlUNrKnxWw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=PNkc1SOOx+a0MtActP/scxfu+EOEc0okpYmMq9u2IvQ6wdxXtOCmaRwTaDfxAYQfu
+ KNpmxdQzkwQyaCWqsjPY6fMZbe5ub33vKaPoYJ07B7Q1LWFwdlgiCUvB0QQ8c2qsi1
+ FMsSTqEgiIP1sEOamGDSgZSCZ6TfAMEjISixK2R8eaJA2XnzylLgQ4fdlCaNZFxShP
+ J8hVTu3MQPl0lwmGSaxF9w8s3KltrNP5jpWzkNN2BlxuRXTG4UWjQZqj2E6RzHxSaN
+ 2Rs03FwwuFJXXN68mTYzdZ8pV7LyInc7Ptt8ORor8BsaOlsL4d3xo27nPcBZv3oI95
+ 0hW/vFstsi8gw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC POC 14/50] parisc: commit fds on syscall exit
+To: "Linus Torvalds" <torvalds@linux-foundation.org>,
+ "Christian Brauner" <brauner@kernel.org>
+Cc: "Peter Zijlstra" <peterz@infradead.org>, linux-sh@vger.kernel.org,
+ virtualization@lists.linux.dev, "Eugenio
+ Perez" <eperezma@redhat.com>, "Alexander Viro" <viro@zeniv.linux.org.uk>, "Oleg
+ Nesterov" <oleg@redhat.com>, linux-csky@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org, dri-devel@lists.freedesktop.org,
+ io-uring@vger.kernel.org, kexec@lists.infradead.org, "David
+ Airlie" <airlied@redhat.com>, linux-um@lists.infradead.org,
+ =?utf-8?b?Q2hyaXN0aWFuIEJyYXVuZXIgKEFtdXRhYmxlKQ==?= <brauner@kernel.org>,
+ linux-fsdevel@vger.kernel.org, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-alpha@vger.kernel.org, "Michael
+ S. Tsirkin" <mst@redhat.com>, "Jan Kara" <jack@suse.cz>,
+ "Jens Axboe" <axboe@kernel.dk>, linux-arm-msm@vger.kernel.org,
+ linux-parisc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linuxppc-dev@lists.ozlabs.org, bpf@vger.kernel.org, "Ingo
+ Molnar" <mingo@redhat.com>, linux-gpio@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-hexagon@vger.kernel.org,
+ linux-snps-arc@lists.infradead.org, linux-openrisc@vger.kernel.org,
+ linux-mm@kvack.org, sparclinux@vger.kernel.org, "Jann
+ Horn" <jannh@google.com>
+In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-14-4d5217d6b246@kernel.org>
+References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
+ <20260915-work-fd-reserve-unify-folded-v1-14-4d5217d6b246@kernel.org>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 11:59:51 +0000
+Message-Id: <20260915115952.1604F1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,57 +73,100 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Sep 11, 2026 at 3:21=E2=80=AFPM Maxime Ripard <mripard@kernel.org> =
-wrote:
->
-> The tilcdc crtc implementation uses the deprecated
-> drm_atomic_helper_crtc_reset() as its reset hook.
->
-> Switch to drm_atomic_helper_crtc_create_state() instead.
->
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
->
-> Cc: Hans de Goede <hansg@kernel.org>
-> ---
->  drivers/gpu/drm/tiny/gm12u320.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/tiny/gm12u320.c b/drivers/gpu/drm/tiny/gm12u=
-320.c
-> index 754617722a0d..ddc19cd3e03c 100644
-> --- a/drivers/gpu/drm/tiny/gm12u320.c
-> +++ b/drivers/gpu/drm/tiny/gm12u320.c
-> @@ -650,12 +650,12 @@ static const struct drm_crtc_helper_funcs gm12u320_=
-crtc_helper_funcs =3D {
->  };
->
->  static const struct drm_crtc_funcs gm12u320_crtc_funcs =3D {
->         .set_config             =3D drm_atomic_helper_set_config,
->         .page_flip              =3D drm_atomic_helper_page_flip,
-> -       .reset                  =3D drm_atomic_helper_crtc_reset,
->         .destroy                =3D drm_crtc_cleanup,
-> +       .atomic_create_state    =3D drm_atomic_helper_crtc_create_state,
->         .atomic_duplicate_state =3D drm_atomic_helper_crtc_duplicate_stat=
-e,
->         .atomic_destroy_state   =3D drm_atomic_helper_crtc_destroy_state,
->  };
->
->  static const struct drm_encoder_funcs gm12u320_encoder_funcs =3D {
->
-> --
-> 2.55.0
->
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] parisc: syscall fast path exposes uninitialized pt_regs to ptrace
+--
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+commit 38a139df8c7c61e11fc9314b5f43e371c71a8356
+Author: Christian Brauner <brauner@kernel.org>
+
+parisc: commit fds on syscall exit
+
+This commit adds TIF_FD_SLOTS and tests it in syscall_exit once the return
+value has been saved. A task that reserved descriptors calls
+do_syscall_trace_exit() to commit descriptors and then continues with the
+usual checks.
+
+> diff --git a/arch/parisc/kernel/entry.S b/arch/parisc/kernel/entry.S
+> index e04c5d806c105..c5807cf6fbd8d 100644
+> --- a/arch/parisc/kernel/entry.S
+> +++ b/arch/parisc/kernel/entry.S
+
+[ ... ]
+
+> @@ -1765,6 +1767,16 @@ syscall_do_signal:
+> =20
+>  	b,n     syscall_check_sig
+> =20
+> +syscall_do_fd_slots:
+> +	mfctl	%cr30,%r1
+> +#ifdef CONFIG_64BIT
+> +	ldo	-16(%r30),%r29			/* Reference param save area */
+> +#endif
+> +	ldo	TASK_REGS(%r1),%r26		/* struct pt_regs *regs */
+> +	BL	do_syscall_trace_exit,%r2
+
+[Severity: High]
+Does this expose uninitialized kernel stack memory to a tracer?
+
+When a process executes a system call that reserves a file descriptor slot,
+it enters via the fast path which only saves a minimal set of registers to
+TASK_REGS. If TIF_FD_SLOTS is set, the fast path directly invokes
+do_syscall_trace_exit() here before all registers (like %r3-%r18) are saved.
+
+> +	nop
+> +	b,n	syscall_check_resched
+> +
+>  syscall_restore:
+>  	mfctl	%cr30,%r1
+> =20
+
+[ ... ]
+
+> diff --git a/arch/parisc/kernel/ptrace.c b/arch/parisc/kernel/ptrace.c
+> index 1d9e210702e1f..f142766792afa 100644
+> --- a/arch/parisc/kernel/ptrace.c
+> +++ b/arch/parisc/kernel/ptrace.c
+
+[ ... ]
+
+> @@ -381,6 +382,9 @@ void do_syscall_trace_exit(struct pt_regs *regs)
+>  	int stepping =3D test_thread_flag(TIF_SINGLESTEP) ||
+>  		test_thread_flag(TIF_BLOCKSTEP);
+> =20
+> +	if (test_thread_flag(TIF_FD_SLOTS))
+> +		fd_slots_commit(regs);
+> +
+>  	audit_syscall_exit(regs);
+> =20
+>  #ifdef CONFIG_HAVE_SYSCALL_TRACEPOINTS
+
+[ ... ]
+
+>  	if (stepping || test_thread_flag(TIF_SYSCALL_TRACE))
+>  		ptrace_report_syscall_exit(regs, stepping);
+>  }
+
+[Severity: High]
+If a tracer attaches concurrently while the process is blocked in a file
+descriptor allocation syscall, setting TIF_SYSCALL_TRACE, won't this call p=
+ass
+the incompletely initialized pt_regs from the fast path to the tracing
+subsystem?
+
+This could allow an unprivileged user attaching a tracer to their own proce=
+ss
+to read uninitialized kernel memory via PTRACE_GETREGS. Also, tracer
+modifications via PTRACE_SETREGS to these uninitialized registers would be
+ignored because the fast path does not properly restore them before returni=
+ng
+to userspace.
 
 --=20
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-work-fd-re=
+serve-unify-folded-v1-0-4d5217d6b246@kernel.org?part=3D14
