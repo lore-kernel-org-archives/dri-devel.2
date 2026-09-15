@@ -4,81 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C546BC982C3
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 15:14:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D44CC88E7F
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 15:17:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD01210F749;
-	Tue, 15 Sep 2026 15:14:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C03510E52D;
+	Tue, 15 Sep 2026 15:16:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="VR1c3+v4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IKwXBujt";
 	dkim-atps=neutral
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
- [91.207.212.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46C3910F749;
- Tue, 15 Sep 2026 15:13:58 +0000 (UTC)
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
- by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68FFA5L44098599; Tue, 15 Sep 2026 16:13:41 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=G
- V/PVo8GyfyVCF5G1CsWRL4gv18Uls9QfyH9mSG86x8=; b=VR1c3+v4SxDOA+M/S
- v1EYLoL6AoWiDWuYHbTd9+VUm/33/aIbYPWsv32JQSX3Tgr8A/bARUVt8NBdl8M8
- oC3pZ2VhXHisugAWwXtvSTz0IiZJa0vLnl3uvNSs0LA5jkxo2/qTWS/g19RaNnaD
- 83UhvkGZurPTp4az5HunARkghSxagIA4A6bm+GNDPw9yC+OhGEZ02akrE/L12vkX
- OkHOXDnGcXI//r2wuqPuFw02dbKjAUFGjvag/psmOXnSR8iMvMNOfH8P+EiSjr1S
- +9zV217eueJHlqSD+HEHbzBAom8hzZk13l7+lxEsckVa9kBqUDX+zYMyIvIwd2IA
- S2pog==
-Received: from hhmail02.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gmw0q2e3n-4
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 15 Sep 2026 16:13:41 +0100 (BST)
-Received: from NP-A-BELLE.kl.imgtec.org (172.25.6.60) by
- HHMAIL02.hh.imgtec.org (10.100.10.20) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 15 Sep 2026 16:13:40 +0100
-From: Alessio Belle <alessio.belle@imgtec.com>
-To: Luigi Santivetti <luigi.santivetti@imgtec.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Paul Walmsley <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
- Alexandru Dadu <alexandru.dadu@imgtec.com>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>, "Brajesh
- Gupta" <brajesh.gupta@imgtec.com>
-In-Reply-To: <20260915-b4-upstream-manage-fw-vm-context-from-init-and-fini-v2-1-c9cb43667143@imgtec.com>
-References: <20260915-b4-upstream-manage-fw-vm-context-from-init-and-fini-v2-1-c9cb43667143@imgtec.com>
-Subject: Re: [PATCH v2] drm/imagination: Manage FW VM context from its init
- and fini callbacks
-Message-ID: <178948522091.153878.12659315029005777415.b4-ty@b4>
-Date: Tue, 15 Sep 2026 16:13:40 +0100
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96E4910E52D
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 15:16:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C6D3460142
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 15:16:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F01F1F00898
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 15:16:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789485416;
+ bh=+dVu5sGWbQKQwOma7Xi4cL5jAvE0AQRc4TSNUprY5+E=;
+ h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+ b=IKwXBujtiq0ha8T8DARsdFuYpzysYWxzbW6bLVocjyfaygL3QUFjlIlnjANxOABKp
+ Ngl1Etijj2DojJpbizndyMWR3OebPB6Mm+oeCZuWoA7mLvY6pWQnpKPYwhyQseoUKx
+ BzWGozlyBravBMTPky+8ZB5upHVF3TnIUYsc/U0R9T+pTKzV662v/utcqELTzHan9E
+ iJJVt+ebOLQ+c5IesLnkKr5OOhxKacD7M4xUU6FsiKzvQQcxI/VlUJ2GXQTcPcf5pF
+ 1FeTNO7ljgNnbFPg8VA0kgD9A/7tE5jofhG44fV502PzyJWVRzwNBzbWhBWtV37KJg
+ bTn4H+p6ZOjuA==
+Received: by mail-lf2-f12.google.com with SMTP id
+ 2adb3069b0e04-5b899413537so5555277e87.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:16:56 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwGxmB0LFr2S5/YHqRMB0SqPJAZFL7hZOWwR/Jp9j+qAsi2+B5CG09odEjUbE0i9GUm4VXFZkRJMow=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m0uL33wNZ/waesKMG9oPr5wiUuz3UGl5XFZNmQa2YWkpzmSIRf
+ lSq0ecjgkjl02pdAeuQvvKLTKJ4NSSDkv1ltQ7f4FJ4s9OMc2d3cP/nUY8PvGabDVRNm2NuEKrv
+ Aznkwb3HGmnINAIE450oEVzMxQdJ3Kv0=
+X-Received: by 2002:a05:6512:114a:b0:5b5:e53e:5710 with SMTP id
+ 2adb3069b0e04-5b8ae662458mr2061203e87.2.1789485414817; Tue, 15 Sep 2026
+ 08:16:54 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Originating-IP: [172.25.6.60]
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDIyMSBTYWx0ZWRfX+yF8Mt8I9JyA
- jaZLIZD2uwzGxUYDOPksiu5BMid+1KSSvLHUXQGp3Ij/esZdzm6D0F3iaZa1i6cgRIhwIU/PrFz
- IRb3OZiM30snaKwbY89s6yCowHtKPjyTLbDKhlGLPpoSXUCnTTnA4VPQA0z6RSViWJnOKH0QdeF
- pAsEoCyOgIy0JVTbgsUmzCr+AXhu+BQFTITEo9aUuskhSIDRZ4cDCZlWbhuDDi2Pv7lGS/hako5
- umbmj2SV7lZ0ju6kBwVo7uyiylBd1aWqhscE+dxjnlaMFXValQlBvQhycbuMycffL0HcCkRm7Xg
- z/dY1/dyGAJ4A+kVEqu6ujwyegW06LMjbKRdTsBp/PSfcZKewomx/ih/BUybAzzXojtFd2zCS0L
- be6khP93s93E5wvcTYS3x1sZ3vDy/Sk166RplsJYfbYUS/mT9bwcl6bDzCoOG+oxB/X8dnsdiYz
- NPFo4s9h+9MVapEz/0g==
-X-Authority-Analysis: v=2.4 cv=c8M+0h9l c=1 sm=1 tr=0 ts=6aa960a5 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=hVUt1O5AELcA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=LEeYy3gHpid5cBMN2_YA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: WR3_zUZS0qXTsLKeuAO5_hAFcfbeBwQt
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDIyMSBTYWx0ZWRfXzMk5vHz/2BmD
- OB7G/Nos2y0BDMC39GNQ9Mzw7GUa7NaPzownFvly36gnDOM8NsFdlY6ZR5UjZ21UuFP1GAn6H/Z
- k82K0XowYZ+ADfYyUaKyqpTWoBd5SNo=
-X-Proofpoint-GUID: WR3_zUZS0qXTsLKeuAO5_hAFcfbeBwQt
+References: <20260509190015.79086-1-jernej.skrabec@siol.net>
+ <nIKN_benRn2Bk8SDZrkMCA@gmail.com>
+ <86943057-f5b4-4fae-9172-45f13814494f@kernel.org>
+ <0r4us4OeRRWtJhxvps-bZw@gmail.com>
+ <b1f03d81-85db-4303-89ff-64440b6e1890@kernel.org>
+ <4709b24a-f421-4c81-a023-c37ea66c88bd@arm.com>
+In-Reply-To: <4709b24a-f421-4c81-a023-c37ea66c88bd@arm.com>
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Tue, 15 Sep 2026 23:16:41 +0800
+X-Gmail-Original-Message-ID: <CAGb2v64d-UOdKkDF9u62NB-a5EsFLQckUH1hoqDbmz7eE7wQiA@mail.gmail.com>
+X-Gm-Features: AcwNN1Ua9fzIlsNRznQ7xIwsHTsfTLXcvWghC51yBM4u0ScR5WKMEqw88iUtY7s
+Message-ID: <CAGb2v64d-UOdKkDF9u62NB-a5EsFLQckUH1hoqDbmz7eE7wQiA@mail.gmail.com>
+Subject: Re: [PATCH v2 7/8] dt-bindings: display: allwinner: Split H616 DE33
+ layer reg space
+To: Krzysztof Kozlowski <krzk@kernel.org>, robh@kernel.org, conor+dt@kernel.org
+Cc: Andre Przywara <andre.przywara@arm.com>,
+ =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>, 
+ samuel@sholland.org, mripard@kernel.org, maarten.lankhorst@linux.intel.com, 
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, krzk+dt@kernel.org, 
+ mturquette@baylibre.com, sboyd@kernel.org, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ linux-clk@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,26 +79,170 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: wens@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 15 Sep 2026 10:30:42 +0300, Alexandru Dadu wrote:
-> While the MIPS firmware virtual memory context is created and destroyed
-> from within the MIPS firmware init and fini callbacks, the META and
-> RISC-V firmware contexts are created and destroyed from within blocks
-> right before or after those callbacks.
-> 
-> Match the logic for all firmware processors by moving those blocks to
-> the META and RISC-V init and fini callbacks.
-> 
-> [...]
+On Tue, Jun 16, 2026 at 9:39=E2=80=AFPM Andre Przywara <andre.przywara@arm.=
+com> wrote:
+>
+> Hi,
+>
+> On 6/16/26 05:51, Krzysztof Kozlowski wrote:
+> > On 15/06/2026 17:47, Jernej =C5=A0krabec wrote:
+> >> Dne ponedeljek, 15. junij 2026 ob 06:28:54 Srednjeevropski poletni =C4=
+=8Das je Krzysztof Kozlowski napisal(a):
+> >>> On 14/06/2026 16:08, Jernej =C5=A0krabec wrote:
+> >>>> Dne ponedeljek, 25. maj 2026 ob 14:10:38 Srednjeevropski poletni =C4=
+=8Das je Krzysztof Kozlowski napisal(a):
+> >>>>> On 24/05/2026 23:33, Chen-Yu Tsai wrote:
+> >>>>>> Hi,
+> >>>>>>
+> >>>>>> (resent from new email)
+> >>>>>>
+> >>>>>> On Thu, May 14, 2026 at 2:04=E2=80=AFPM Krzysztof Kozlowski <krzk@=
+kernel.org> wrote:
+> >>>>>>>
+> >>>>>>> On Sat, May 09, 2026 at 09:00:14PM +0200, Jernej Skrabec wrote:
+> >>>>>>>> From: Jernej Skrabec <jernej.skrabec@gmail.com>
+> >>>>>>>>
+> >>>>>>>> As it turns out, current H616 DE33 binding was written based on
+> >>>>>>>> incomplete understanding of DE33 design. Namely, planes are shar=
+ed
+> >>>>>>>> resource and not tied to specific mixer, which was the case for =
+previous
+> >>>>>>>> generations of Display Engine (DE3 and earlier).
+> >>>>>>>>
+> >>>>>>>> This means that current DE33 binding doesn't properly reflect HW=
+ and
+> >>>>>>>> using it would mean that second mixer (used for second display o=
+utput)
+> >>>>>>>> can't be supported.
+> >>>>>>>>
+> >>>>>>>> Remove layer register space, which will be represented with addi=
+tional
+> >>>>>>>> node, and replace it with phandle, which will point to that new,=
+ shared
+> >>>>>>>> node. That way, all mixers can share same layers.
+> >>>>>>>>
+> >>>>>>>> There is no user of this binding yet, so changes can be made saf=
+ely,
+> >>>>>>>> without breaking any backward compatibility.
+> >>>>>>>
+> >>>>>>> There is user. git grep gives me:
+> >>>>>>> drivers/gpu/drm/sun4i/sun8i_mixer.c
+> >>>>>>>
+> >>>>>>> which means this is a released ABI. As I understood, the old code=
+ was
+> >>>>>>
+> >>>>>> We held off on merging the DT changes so that we could rework this=
+.
+> >>>>>> I can't find the actual request though. It was probably over IRC.
+> >>>>>>
+> >>>>>>> working fine but just did not support all use cases. Why this can=
+not be
+> >>>>>>> kept backwards compatible?
+> >>>>>>
+> >>>>>> AFAIK the "planes" block is shared between two display mixers. As =
+the
+> >>>>>> commit message explains, this prevents using the second mixer, sin=
+ce
+> >>>>>> only one of them can claim and map the register space. And on the =
+H700
+> >>>>>> (which is the same die as the H616 discussed here but with more ex=
+posed
+> >>>>>> interfaces), there could actually be a use case for the second mix=
+er.
+> >>>>>
+> >>>>> It explains why you want to make the changes but not why you cannot=
+ keep
+> >>>>> it backwards compatible.
+> >>>>
+> >>>> I guess it can be backward compatible, but I don't think it makes se=
+nse.
+> >>>> Yes, original driver implemented original DT bindings, but there is =
+no node
+> >>>> which uses that binding. If there is no user of that, why would driv=
+er
+> >>>
+> >>> Did you check all out of tree users of the ABI? All vendor kernels,
+> >>> forks and all of them for which the ABI was made for?
+> >>
+> >> Since when do we care about out of tree users? I understand that drive=
+rs
+> >
+> > Since always? That is the meaning of ABI. Otherwise there is no point t=
+o
+> > discuss ABI at all. Why would it exist if you had all DTS inside kernel
+> > always matching the code?
+>
+> In general I would agree with Krzysztof, merged binding means we need to
+> stick to it, but in this case I think that would be over the top. As
+> Jernej said, there are no users, since we didn't commit on the DTs, and
+> the DE33 graphics support in the kernel (bindings and code) is
+> incomplete: it's really just the mixer, but no other components (TCON or
+> output PHYs) required. So it never worked as such.
+>
+> In hindsight we could say that we should have never merged the bindings
+> without having fully working, reviewed and accepted driver code, for the
+> whole display chain. Which we need to do because we create those
+> bindings based on reverse engineering efforts, not by looking at
+> documentation or design documents (which we don't have).
+>
+> >> must support old device tree files. Once they work, compatibility must
+> >> be carried forward. But that's not the case here.
+> >>
+> >> In any case, vendor kernels have completely different DT structure. Th=
+is
+> >> was developed independently from them. Take a look at [1] how BSP DT l=
+ooks
+> >> like, specifically Display Engine node.
+> >>
+> >> Of course there are some distros which grab WIP patches from mailing l=
+ists
+> >> soon after they are available. For example, I know that Armbian carrie=
+d old
+> >> WIP patches which used old ABI. However, such distros generally don't =
+care
+> >> about exact solution and ditch patches as soon as proper solution is m=
+erged
+> >> upstream or even when better WIP patches come around. DT files in such
+> >> distros get updated alongside kernel, they are not hidden in firmware.
+> >>
+> >
+> > I am not talking about BSP. I am talking about out of tree users for
+> > which we defined the ABI and called it that way.
+>
+> If you are looking for DT users outside of the Linux kernel, this is the
+> result of a quick check (list of users from ChatGPT, checks by myself
+> with git clone/git grep):
+> Zephyr RTOS: no graphics support
+> FreeBSD: no H616 support
+> OpenBSD: no H616 graphics support
+> NetBSD: no H616 support
+> U-Boot: no H616 graphics support
+> Barebox: no H616 support
+> TF-A: no graphics support
+> OP-TEE: no (Allwinner) graphics support
+> EDK2: no Allwinner support
 
-Applied to drm-misc-next, thanks!
 
-[1/1] drm/imagination: Manage FW VM context from its init and fini callbacks
-      commit: 6318a8f3cf27fc61a6d5e70141676264da2c5092
+We really need to move forward with this.
 
-Best regards,
--- 
-Alessio Belle <alessio.belle@imgtec.com>
+Are there any concerns other than backward compatibility?
 
+As Andre already pointed out, there are no other notable projects
+implementing the old, incorrect binding.
+
+Out of tree users such as Armbian are likely cherry-picking WIP patches
+from Jernej's tree or the mailing list, even the current stuff like this
+patch[1], and they can and will continue to do so until the stuff is merged=
+.
+
+
+Thanks
+ChenYu
+
+[1] https://github.com/armbian/build/blob/main/patch/kernel/archive/sunxi-6=
+.18/patches.drm/0036-dt-bindings-display-allwinner-Update-H616-DE33-bindi.p=
+atch
