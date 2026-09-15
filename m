@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8B19C982C4
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 18:39:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFF0BC88E7D
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 18:39:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C5E910E829;
-	Tue, 15 Sep 2026 18:39:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2951A10ED20;
+	Tue, 15 Sep 2026 18:39:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ktBSNO9A";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TYHiY0xK";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1961B10ED09;
- Tue, 15 Sep 2026 18:39:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F4E710ED18;
+ Tue, 15 Sep 2026 18:39:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789497555; x=1821033555;
+ t=1789497561; x=1821033561;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=IcnTlkuX6LdGgORmEmh2FssmBcvI5p+4ELWbDF36YIs=;
- b=ktBSNO9ATZFHYHMtrU5yFfoafChJWLXKp/nizFdp6yluQkpglLFrN+kl
- kBJ3I5V/t21Cq/O7gr6+tREheLTkBJvWZjX7lzZ5oVIoDCmBzkZFWRBH0
- YeWh79ftmhh8Cw1ghVLFNVI2CwkXz/s/R+V2XRfcutfSb+GGxXTCLSKKN
- VghHu9+F6reo/ZA3EB61B0GcSV/naQHRjfL6hof0GMYr4pa56+0YKC8rB
- MK2HqoYC+fdetIl8dZABRz/krofvdOfLNSMJReZxrobMIOJp+VyWJh/Fj
- tihLj6ImrSkO1ELOkOzz6mrEOn8jZchqmyNv5Fyj5avyiIMaD54vcLMCB w==;
-X-CSE-ConnectionGUID: 6QhsArSNQTKkQJfrngBLAg==
-X-CSE-MsgGUID: EPKNf4ONTtSqbPXV6d18rA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92380286"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="92380286"
+ bh=RbfkNIQHg7wSl/6+61JFRNCxIZ/YBQDabgbU8jtMobY=;
+ b=TYHiY0xKKE0Ra41VdRodunwA+Jvo6/U1fQaJlP0TY512TBm/W3fxo9CK
+ cd6AVvW9PTFqp+eVZsftsxIhsYCp5C5Pw3/MLSNM0t1u2KnEg6e8C2icD
+ nFziUWxyKO3QAvzQf3TbXEfhOIOlbIiIz0gvMIH8FNU2T9YLs3+gZZ3me
+ MMTFcDvQvFkfPdPJsas10iiOEf6tR22vn92/AUQWGGTIbNn8asQie5ZVt
+ 2QDUh0UcqoPU9BEaEyyvNAuqBrmTN5RPXSJd0DUaVUKWKrjkrmJeNRqct
+ 6KTUPmgfA5c7rt07yjpB0zZv/wb/0da6XsqcuGBcFJ7SeYGW82Z6BBhhp w==;
+X-CSE-ConnectionGUID: 4gB3pgzwR/KtxVtr5VltWg==
+X-CSE-MsgGUID: ZasgtjsUTLucMoCh0LHfNA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92380297"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="92380297"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2026 11:39:15 -0700
-X-CSE-ConnectionGUID: vt9qRtTET5i890p8GBmdxA==
-X-CSE-MsgGUID: L5mcBQKASGSMNNq7UkdnDQ==
+ 15 Sep 2026 11:39:21 -0700
+X-CSE-ConnectionGUID: exlYGZBTSwK0P6h5N9SWFw==
+X-CSE-MsgGUID: O/m0/sRjTRumufyuTYomWQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="298148480"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="298148496"
 Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.190.238.88])
- by fmviesa001.fm.intel.com with ESMTP; 15 Sep 2026 11:39:12 -0700
+ by fmviesa001.fm.intel.com with ESMTP; 15 Sep 2026 11:39:18 -0700
 From: Animesh Manna <animesh.manna@intel.com>
 To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 Cc: jouni.hogander@intel.com, jani.nikula@intel.com, suraj.kandpal@intel.com,
  Animesh Manna <animesh.manna@intel.com>
-Subject: [PATCH v6 06/18] drm/i915/alpm: Auxless wake time calculation for Xe3p
-Date: Tue, 15 Sep 2026 23:34:37 +0530
-Message-Id: <20260915180449.277933-7-animesh.manna@intel.com>
+Subject: [PATCH v6 08/18] drm/i915/alpm: table based establishment period
+Date: Tue, 15 Sep 2026 23:34:39 +0530
+Message-Id: <20260915180449.277933-9-animesh.manna@intel.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20260915180449.277933-1-animesh.manna@intel.com>
 References: <20260915180449.277933-1-animesh.manna@intel.com>
@@ -69,132 +69,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for auxless waketime calculation for DP2.1 ALPM
-as dependent parameter got changed.
+Only use the table when the link rate is listed (idx valid)
+and the LTTPR count is within the table bounds. A zero entry
+means the rate has no tabulated value, so fall back to the
+computed establishment period below.
 
-v1: Initial version.
-v2: Use intel_dp_is_uhbr(). [Jani]
-v3:
-- Separate out switch to active latency calculation.
-- Use macro definition for ML_PHY_LOCK length. [Suraj]
-v4:
-- Fix 32-bit signed integer overflow. [sashiko]
-- Fix negative return of drm_dp_lttpr_count(). [sashiko]
-- Introduce get_ml_phy_lock_len() and get_dp_link_symbol_size(). [Jouni]
-- Align variable naming with bpec formula of establishment_period. [Jouni]
+Note: The table and its values are taken from DP2.1 vesa spec.
 
-Bspec: 71477
+v2: Add check for negative error codes from drm_dp_lttpr_count(). [sashiko]
+
 Cc: Jouni Högander <jouni.hogander@intel.com>
 Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_alpm.c | 69 +++++++++++++++++++----
- 1 file changed, 58 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/display/intel_alpm.c | 95 +++++++++++++++++++++++
+ 1 file changed, 95 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
-index d5823174576a..924fa8dd4638 100644
+index dc025058a626..cb24bba801a1 100644
 --- a/drivers/gpu/drm/i915/display/intel_alpm.c
 +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-@@ -102,21 +102,64 @@ static int get_lfps_half_cycle_clocks(const struct intel_crtc_state *crtc_state)
- 		1000 / (2 * LFPS_CYCLE_COUNT);
+@@ -122,6 +122,92 @@ static int get_dp_link_symbol_size(const struct intel_crtc_state *crtc_state)
+ 	return intel_dp_is_uhbr(crtc_state) ? 32 : 10;
  }
  
-+#define ML_PHY_LOCK_LEN		252
-+#define ML_PHY_LOCK_LEN_UHBR	396
++#define DEFAULT_MAX_LTTPR_COUNT 7
++#define MAX_SUPPORTED_DP_LINK_RATES 12
 +
- static int get_tphy2_p2_to_p0(const struct intel_crtc_state *crtc_state)
- {
--	return 12 * 1000;
-+	struct intel_display *display = to_intel_display(crtc_state);
++static const u32 establishment_periods[DEFAULT_MAX_LTTPR_COUNT][MAX_SUPPORTED_DP_LINK_RATES] = {
++	/* 1620, 2160, 2430, 2700, 3240, 4320, 5400, 6750, 8100, 10000, 13500, 20000 */
++	/* No Retimers */
++	{ 61070, 0, 0, 56710, 0, 0, 53450, 0, 52360, 59050, 56750, 54620 },
++	/*  1 Retimer  */
++	{ 155670, 0, 0, 151310, 0, 0, 148050, 0, 146960, 153650, 151350, 149220 },
++	/*  2 Retimers */
++	{ 181160, 0, 0, 172450, 0, 0, 165910, 0, 163740, 177120, 172520, 168220 },
++	/*  3 Retimers */
++	{ 206650, 0, 0, 193580, 0, 0, 183780, 0, 180510, 200590, 193690, 187290 },
++	/*  4 Retimers */
++	{ 232140, 0, 0, 214710, 0, 0, 201650, 0, 197290, 224060, 214860, 206320 },
++	/*  5 Retimers */
++	{ 257620, 0, 0, 235850, 0, 0, 219510, 0, 214070, 247530, 236030, 225360 },
++	/*  6 Retimers */
++	{ 283110, 0, 0, 256980, 0, 0, 237380, 0, 230850, 271000, 257200, 244390 },
++};
 +
-+	return DISPLAY_VER(display) >= 35 ? (20 * 1000) : (12 * 1000);
-+}
++enum link_rate_idx {
++	LINK_RATE_INVALID = -1,
++	LINK_RATE_1,
++	LINK_RATE_2,
++	LINK_RATE_3,
++	LINK_RATE_4,
++	LINK_RATE_5,
++	LINK_RATE_6,
++	LINK_RATE_7,
++	LINK_RATE_8,
++	LINK_RATE_9,
++	LINK_RATE_10,
++	LINK_RATE_11,
++	LINK_RATE_12
++};
 +
-+static int get_ml_phy_lock_len(const struct intel_crtc_state *crtc_state)
++static int get_link_rate_index(int port_clock)
 +{
-+	return intel_dp_is_uhbr(crtc_state) ? ML_PHY_LOCK_LEN_UHBR : ML_PHY_LOCK_LEN;
-+}
++	int link_rate_index;
 +
-+static int get_dp_link_symbol_size(const struct intel_crtc_state *crtc_state)
-+{
-+	return intel_dp_is_uhbr(crtc_state) ? 32 : 10;
- }
- 
--static int get_establishment_period(const struct intel_crtc_state *crtc_state)
-+static int get_establishment_period(struct intel_dp *intel_dp,
-+				    const struct intel_crtc_state *crtc_state)
- {
- 	int t1 = 50 * 1000;
--	int tps4 = 252;
--	/* port_clock is link rate in 10kbit/s units */
--	int tml_phy_lock = 1000 * 1000 * tps4 / crtc_state->port_clock;
-+	int tps4 = get_ml_phy_lock_len(crtc_state) * get_dp_link_symbol_size(crtc_state);
-+	/*
-+	 * port_clock is link rate in 10kbit/s units, so multiplying by
-+	 * (1000 * 1000)/10 = 100000
-+	 */
-+	int tml_phy_lock = 100000 * tps4 / crtc_state->port_clock;
-+	int lttpr_count = 0;
- 	int tcds, establishment_period;
- 
--	tcds = (7 + DIV_ROUND_UP(6500, tml_phy_lock) + 1) * tml_phy_lock;
--	establishment_period = (SILENCE_PERIOD_TIME + t1 + tcds);
-+	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP)) {
-+		tcds = (7 + DIV_ROUND_UP(6500, tml_phy_lock) + 1) * tml_phy_lock;
-+	} else {
-+		tcds = 7 * tml_phy_lock;
-+		lttpr_count = drm_dp_lttpr_count(intel_dp->lttpr_common_caps);
++	switch (port_clock) {
++	case 162000:
++		link_rate_index = LINK_RATE_1;	// Rate_1 (RBR) - 1.62 Gbps/Lane
++		break;
++	case 216000:
++		link_rate_index = LINK_RATE_2;	// Rate_2       - 2.16 Gbps/Lane
++		break;
++	case 243000:
++		link_rate_index = LINK_RATE_3;	// Rate_3       - 2.43 Gbps/Lane
++		break;
++	case 270000:
++		link_rate_index = LINK_RATE_4;	// Rate_4 (HBR) - 2.70 Gbps/Lane
++		break;
++	case 324000:
++		link_rate_index = LINK_RATE_5;	// Rate_5 (RBR2)- 3.24 Gbps/Lane
++		break;
++	case 432000:
++		link_rate_index = LINK_RATE_6;	// Rate_6       - 4.32 Gbps/Lane
++		break;
++	case 540000:
++		link_rate_index = LINK_RATE_7;	// Rate_7 (HBR2)- 5.40 Gbps/Lane
++		break;
++	case 675000:
++		link_rate_index = LINK_RATE_8;	// Rate_8       - 6.75 Gbps/Lane
++		break;
++	case 810000:
++		link_rate_index = LINK_RATE_9;	// Rate_9 (HBR3)- 8.10 Gbps/Lane
++		break;
++	case 1000000:
++		link_rate_index = LINK_RATE_10;	// Rate_10 (UHBR10) - 10.0 Gbps/Lane
++		break;
++	case 1350000:
++		link_rate_index = LINK_RATE_11;	// Rate_11 (UHBR13.5) - 13.5 Gbps/Lane
++		break;
++	case 2000000:
++		link_rate_index = LINK_RATE_12;	// Rate_12 (UHBR20) - 20.0 Gbps/Lane
++		break;
++	default:
++		link_rate_index = LINK_RATE_INVALID;
++		break;
 +	}
 +
-+	if (lttpr_count > 0) {
-+		/* tlw and tcs values are taken from DP2.1 spec */
-+		int tlw = 13000;
-+		int tcs = 10000;
-+		int tlfps_period = get_lfps_cycle_time(crtc_state);
-+		int tdcs = (SILENCE_PERIOD_TIME + t1 + tcs +
-+			    (lttpr_count - 1) * (tlw + tlfps_period));
-+		int tacds = 70000;
-+		int tds = 7 * tml_phy_lock;
++	return link_rate_index;
++}
 +
-+		/* tdrl is same as tcds*/
-+		establishment_period = tlw + tlfps_period + tdcs + tacds +
-+				       (lttpr_count - 1) * tds + tcds;
-+	} else {
-+		/* TODO: Add a check for data realign by DPCD 0x116[3] */
-+
-+		establishment_period = (SILENCE_PERIOD_TIME + t1 + tcds);
-+	}
- 
- 	return establishment_period;
- }
-@@ -138,12 +181,16 @@ static int get_establishment_period(const struct intel_crtc_state *crtc_state)
-  * within the CDS period complete within the CDS period regardless of
-  * entry into the period
-  * tML_PHY_LOCK = TPS4 Length * ( 10 / (Link Rate in MHz) )
-- * TPS4 Length = 252 Symbols
-+ * ML_PHY_LOCK Length (8b/10b): 252
-+ * ML_PHY_LOCK Length (128b/132b): 396
-+ * TPS4 Length = ML_PHY_LOCK * Rate Div
-+ * Rate Div = 32 for 128b/132b and 10 for 8b/10b.
-  */
--static int _lnl_compute_aux_less_wake_time(const struct intel_crtc_state *crtc_state)
-+static int _lnl_compute_aux_less_wake_time(struct intel_dp *intel_dp,
-+					   const struct intel_crtc_state *crtc_state)
+ static int get_establishment_period(struct intel_dp *intel_dp,
+ 				    const struct intel_crtc_state *crtc_state)
  {
- 	int tphy2_p2_to_p0 = get_tphy2_p2_to_p0(crtc_state);
--	int establishment_period = get_establishment_period(crtc_state);
-+	int establishment_period = get_establishment_period(intel_dp, crtc_state);
+@@ -138,8 +224,17 @@ static int get_establishment_period(struct intel_dp *intel_dp,
+ 	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP)) {
+ 		tcds = (7 + DIV_ROUND_UP(6500, tml_phy_lock) + 1) * tml_phy_lock;
+ 	} else {
++		int idx = get_link_rate_index(crtc_state->port_clock);
++
+ 		tcds = 7 * tml_phy_lock;
+ 		lttpr_count = drm_dp_lttpr_count(intel_dp->lttpr_common_caps);
++
++		if (idx != LINK_RATE_INVALID && lttpr_count >= 0 &&
++		    lttpr_count < DEFAULT_MAX_LTTPR_COUNT &&
++		    establishment_periods[lttpr_count][idx]) {
++			establishment_period = establishment_periods[lttpr_count][idx];
++			return establishment_period;
++		}
+ 	}
  
- 	return DIV_ROUND_UP(tphy2_p2_to_p0 + get_lfps_cycle_time(crtc_state) +
- 			    establishment_period, 1000);
-@@ -158,7 +205,7 @@ _lnl_compute_aux_less_alpm_params(struct intel_dp *intel_dp,
- 		lfps_half_cycle;
- 
- 	aux_less_wake_time =
--		_lnl_compute_aux_less_wake_time(crtc_state);
-+		_lnl_compute_aux_less_wake_time(intel_dp, crtc_state);
- 	aux_less_wake_lines = intel_usecs_to_scanlines(&crtc_state->hw.adjusted_mode,
- 						       aux_less_wake_time);
- 	silence_period = get_silence_period_symbols(crtc_state);
+ 	if (lttpr_count > 0) {
 -- 
 2.29.0
 
