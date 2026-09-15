@@ -4,65 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6115BC88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 22:48:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B0BEC88E77
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 22:51:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 108D310E1C7;
-	Tue, 15 Sep 2026 22:48:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 172B210E20B;
+	Tue, 15 Sep 2026 22:51:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GGPjy4LZ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YQBSeMJR";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3ED810E1C7;
- Tue, 15 Sep 2026 22:48:45 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10D8D10E0EF;
+ Tue, 15 Sep 2026 22:51:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789512526; x=1821048526;
- h=from:date:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=iCsV6Yt3i0365LsOOymIdc9BbzAJGLoMTOgYbTHFBjo=;
- b=GGPjy4LZsAg7YM/T+zM9KpnnaeJZzeD4YbgZ2q9PnrGcOfJYa5NBbHRK
- BeTwhWB0CToHFh1PeJteeNAo9aYU4Y7FjPs7zQPwy9f/q1M/d0XRes3xo
- eqdmVTA+jP4geNhkUtPsMalPcr3+CaeDDYsMq7ypiwMWVhubGvlLf8oeW
- B6YmyMUfIRaohO4l/FrxR1ffqBim+du4N6BtJ4alnnp7XABUWlxkSNLqw
- r3muVCYzWFNeXYjc+cpMq5rMG0PFVnTzK/iyFe1fCCMPoEznPDcnfgod7
- s6Skatie3ApTZgcV9vHUvEyKNeil1oqms5Xep27F7ywnj9EPcM9TYftlV A==;
-X-CSE-ConnectionGUID: jAFKqmNFQxOZUhbyy3CC3A==
-X-CSE-MsgGUID: Af+94HEsSVmESpFmYyMtJA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93588505"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="93588505"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2026 15:48:45 -0700
-X-CSE-ConnectionGUID: l6aLB3sHSDCVOF+13n2dww==
-X-CSE-MsgGUID: N/e3gBTeQPOkIldTAQHVPw==
+ t=1789512700; x=1821048700;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=X+0FK8OT2PjhefoI5L4zXoqLw5l4jyKdtf50y7iPCmU=;
+ b=YQBSeMJRe6jXDP7/dVijE46Ui5TEGSA5qILH9UqzI0UVR1cJIVx8A06G
+ aNEKkrnfmz+AYn2RTSKnV5UV9XQH8AMI89V0NdzA6Z4VX8Kbo2eWxPxUA
+ NMwwaOV5uKyqk7q3VmXvZA+O5QYXbgQINq6UfU9RT3LoZawakIFjtB1jz
+ fPpbQlmc+EvF7Rj9Jo/Ci2RcOR1cyXieOMjJs0zwm/M4O8uzoMvb9IGHx
+ jnIEJCDnKw5DNaZGtR6AjhDGFwahPDW+AOR5afFXZJLsuzjYATlK8Pvq+
+ lvPpBkXsUrGr47bhmMw5TLdGg8uWWb/BFLrRyWyrYmmgx/w6UDUpAYjS2 w==;
+X-CSE-ConnectionGUID: RhtYyuFgQ5y6b9gTTotDfA==
+X-CSE-MsgGUID: RSjl4ySrQUqWkq4OzlEsAA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90025553"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="90025553"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2026 15:51:34 -0700
+X-CSE-ConnectionGUID: 2IbZ+6OQSnq0XydSqdFa0g==
+X-CSE-MsgGUID: lVrrjLmcTFKCt7qLXcFtXA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="277276980"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.24])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2026 15:48:40 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 16 Sep 2026 01:48:36 +0300 (EEST)
-To: Andre Eikmeyer <dev@deq.rocks>
-cc: platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- linux-sound@vger.kernel.org, 
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, 
- =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Kenneth Feng <kenneth.feng@amd.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.de>, Takashi Iwai <tiwai@suse.com>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- dri-devel@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 1/3] platform/x86: apple-gmux: add MacBookPro15, 1 dGPU
- power sequence
-In-Reply-To: <20260812144750.36797-2-dev@deq.rocks>
-Message-ID: <54a9c55c-4437-1974-dc3a-106bc2488fee@linux.intel.com>
-References: <20260812144221.35877-1-dev@deq.rocks>
- <20260812144750.36797-1-dev@deq.rocks> <20260812144750.36797-2-dev@deq.rocks>
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="271364714"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2026 15:51:34 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 15 Sep 2026 15:51:33 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 15 Sep 2026 15:51:33 -0700
+Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.14) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 15 Sep 2026 15:51:33 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Dzu+0XcIRQBK7IvSF8mJdKxXGGvKtZJWwb6HYxer76pXC86jpY8q0vjRUMmQ51ultnQP/bCmDaW0UDHh05xWTDFbRA+2gG/872AuM3fI3YCVsolnQgMgyi7KWFzQGwtOC/ZVd9fnAlcLt88BSGwOm4Dj41Y1snDbOu9Qbq4dcaTI/Nlt+/O68p7NFN6svrm0iJWiLfejpFDTLFhajgYXdw3eD4uuukxj41951aLxcGru7tzWfHpf+rpajgRfFTUQkrpfVMMcXNkbRPdRabtBPfH0XbZaFG49d2UyrUkCRiXQF8PqynclRwMdk2Hl4UqDeLLaSdfOq8wVXglLdo0uaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0Vnor5VvsUY+d1QMHBnAJegGJbhCLJIoymakgP7f7bU=;
+ b=gIa6oSika4Aec5G9gggDpnJOyYeefPggD0wj8d9o/6IlB0TSgdYK0s2EfP5YeMuWeZOCRThRJN2aVe6uji/ygdd6ckDOZFMzcusDIunYxYHwG+4tinShaOcH7P4kgeWupyZ7qSIQpotiCJWR2VUg0wVlF3jXYApxA0zXyL4jaqyDceoQMMtHb5M6eVFFZjXuJ02iwkah0yoMbz+i34eaNJ7VdVnOHaIW8g3+h8f0o8aDSY3660kCg4QHUayShshhOkAwYrj/d8u1xK+TyZznfvOvEtXeaRt2UNPNxE6MyqqCKWYP4mPjusoc/1tVaIOoG8uLJgtro2mxZYZXfGSHyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com (2603:10b6:208:441::12)
+ by CH3PR11MB8413.namprd11.prod.outlook.com (2603:10b6:610:170::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Tue, 15 Sep
+ 2026 22:51:31 +0000
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565]) by IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565%4]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
+ 22:51:31 +0000
+Date: Tue, 15 Sep 2026 18:51:26 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: "Teres Alexis, Alan Previn" <alan.previn.teres.alexis@intel.com>
+CC: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "Nikula, Jani" <jani.nikula@intel.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "Roper, Matthew D"
+ <matthew.d.roper@intel.com>
+Subject: Re: [PATCH] drm/xe/mmio: Fix xe_mmio_wait32() to honor delay/sleep
+ maximums
+Message-ID: <aqnL7lUojj9jm8q_@intel.com>
+References: <20260914215746.272721-2-alan.previn.teres.alexis@intel.com>
+ <683c9836e408389852f6e6e956cc6862b1429b2a@intel.com>
+ <145460bc090d7406d03f1335feaadb07172cff20.camel@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <145460bc090d7406d03f1335feaadb07172cff20.camel@intel.com>
+X-ClientProxiedBy: SJ0PR05CA0056.namprd05.prod.outlook.com
+ (2603:10b6:a03:33f::31) To IA0PR11MB7187.namprd11.prod.outlook.com
+ (2603:10b6:208:441::12)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR11MB7187:EE_|CH3PR11MB8413:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5580f3d4-1ff7-44da-e7db-08df137be253
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|23010399003|366016|4143699003|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: B3HkI0hN4j3j/8RNL3XdiNAYrIhXwMa9kQzXrMoSn0Yu8WSN1O/K55QKkFUiAaS5PeHKJdwHTR6j/OUuu/bYO+8i8Irn2fzjT5O8hYHAD0DC37poiMREJcEyDkHYlHFHELj56yLchhUB7JL9yF3aXJOviyUILGj8hLMTTn9ClmqX4ckgDhpOK6lpnHVK93yGUig3nRLF+hsMPiE4PaByqBUYT9tg49PusYlM2VC8NM1azBWcmzpXkOSHbOkoxCfwpGT2I8GxhBVgWSuHzAvPFCS9S6QRLEImnrvAhjCXXVeDoZDCuy0kiVp/htYtp63ArWnYtxHyuZOz35YxOwA+BZzUBC06wYX/JIsxdm+bRXtdgaRof2W0GVHKIuws+gZLGHmcmt3RYhQBwQvqB4swAkii2cCM9+mAeBNZVN0lIe3Lv962RpIHHq2bzzPMgVfQomAw09xy83krB6dOeh7c8VLjxw93LN3RVEzUPN6Nv5+rFa3UpOuqsHIT60UAgQsdr34Wglp27Yomi3+rD20jb/jEqSOuANqrrYJn1ArvtwcJ9MMb17Ue7s+XddiQJEX4e16PWjCt4IALkMpjtizW2+zCpP7vD5gjJQt0XjFQHFUXyIVL6jf4N0kiiXUhTvpF9lwKItl1Ae4uwhIIi6k92r58QoksZl0JsTm8tc5etFA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR11MB7187.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(4143699003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8NdgkNIHT0gE8eDyNszjrtgvcVgVdma3W7SCxcHYImziuraQhl4uk16hMZAs?=
+ =?us-ascii?Q?VqKu4DT8E8Rru9JniysCy2BeWEA3U2GzH45T0+aJhtEu0hIdy9OFj7/wBvme?=
+ =?us-ascii?Q?eC7uhZuP8rLM/M7l4gz/WjDR20R27WabmhSCYxEie4abL9G4nulHoWfc78UF?=
+ =?us-ascii?Q?jrjVW4DTc9kYqt1TImKeMT4n1GP8SRObduzzPk3UxF43BEL3lOgP+51tvCh/?=
+ =?us-ascii?Q?uNR28+Qpa0FfFaVbgixgq1iU2CdsQ1ojiYX5UPCFxnuTpqCtEp/1BWZMiyzo?=
+ =?us-ascii?Q?YUZtRgw4jJVEwhkq/j155kIf1iqme8sqnftAxZf8Alsciy+5cjyJYGKfsi8Z?=
+ =?us-ascii?Q?ypdglKpHeMpk4jDe9ahgOivFc3XHtT7FO7taXsz+a62s1T6/zK3uecG7tg/o?=
+ =?us-ascii?Q?BPCa7k84zLCGUFP3ovT+rJ8P4fdIuGp6SW/r7uIK5Qx7o30Bon1i0VB5i6Xf?=
+ =?us-ascii?Q?pstNRUUwWfVl1YjX+9UopArVGE0ysRz6zMXv27MsZLLSqVfcFxxHsev4R7AM?=
+ =?us-ascii?Q?PsHbqPWaf1GQj2BKw3RbMn2v6FuSFmcXKbacenDMKORx0yzc48dCuDtjysSB?=
+ =?us-ascii?Q?LnDaK1iPikg0lPvdHopuDhDnuKHvbTusMw8AU67QQtNPmbB4kwuj8jvXzosT?=
+ =?us-ascii?Q?xcCh1uFwewCdNj+WjscVfjMWGaOTcOkJGgu1/8MVNHJom9mXz2RyRK5/Zyun?=
+ =?us-ascii?Q?mNyfcKjj2oPqHPtXV7SctW4HNYcgfuQYHclPErPowDCrKM3f+Kb11bcOWnu7?=
+ =?us-ascii?Q?pymNQrKNQFLT1Zps0F9cf6/M7koRaTdfnFLfxMt9ByoXHCIHZ0cHvT2QXbCQ?=
+ =?us-ascii?Q?wMSf9jFnADFu4jhMncepe/CnZ5Nmeq5al6KHaziLOV/PtpdEYii/RQASre+K?=
+ =?us-ascii?Q?w0NKSC5RVUTGdIWq7ChgX9tdzMb8T/veFyP8yYE5AK12bWjMEZCy3bDweWOQ?=
+ =?us-ascii?Q?sBagsxXDcIVCokFq2HfLQM0ZQWElakPcQGiZHh9m3/oPY4bVKHx2dVaDlEVJ?=
+ =?us-ascii?Q?N3Bs2W1TMevMa61+BO/IC+QfTNY4fb1z3oyzufLnBS+e4iP+tzWLHmh3Pt8T?=
+ =?us-ascii?Q?QA7OPQrsOKnKkLxs8HWDIv33DFwzpwQkSVsODmXNKzYxpXvVw8gCH2VA88e9?=
+ =?us-ascii?Q?VTGJ9o0l+sCtajUWCCi+EiYinjJbkjFugi5xkORbXFdLC5BVphOHjJ9eGgwB?=
+ =?us-ascii?Q?hNUqt7LTUqP5i6n3Kw4A0MKluCY7TspxzGG0oGHXkQ4FRGRwShMefnkuaHTM?=
+ =?us-ascii?Q?zmghw5kqV3cRhAjEx5vxrYdR12sKDQASufLHiG4oD6hkq5jbi0ifQXuxyEq5?=
+ =?us-ascii?Q?p4vT19xohsQD9SwOzOMNXuDrqLc8JiZl7VZ3KDssbuoLI+kqsV9NolnYhj9r?=
+ =?us-ascii?Q?2kBcpD60+RuBgCO2j7Ltk8pWKNSgpxeGlbkqmHWzbmVZmtzk79NXY7CkncmB?=
+ =?us-ascii?Q?3CcNmA6aq0FTVl9zvc4qDqwFeX+sSNPUuKYKkYlmUnRGt0BlbRE40wjYuER1?=
+ =?us-ascii?Q?1Yo2RVpsgARJH2G2h9IDmneA17a2AuU/9JJ0HGL3nlHSeio6lh3EhFkH9N/g?=
+ =?us-ascii?Q?IgMllDJ6MUHqIDdMoZsq7o3Dxkaw71+XM/M4Gg5F1MLzl2fM69X1go5KhNLg?=
+ =?us-ascii?Q?f9fGrbZydkWsbBatWeuJwStDQA45dDBBNG9kdi2LYuLQBRFs5+kwlyh3zwkb?=
+ =?us-ascii?Q?xF2+K5CH5glvRorfHFmVSS5UiFD6KoYun+Dt8oj/tOAec0f+psneyQqSIlz6?=
+ =?us-ascii?Q?iwNqNyUncQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked: j3l6WDbEofPyxdUeTFy9p+OAKu3Feiui1VYIITbwO4qIVVIeSeDpjeH6hZXDJrixm5P2UrfdcixNxKD5XDFW/GvhBGPAu+amQR90snblcQGeJr4/me9xCPMyBr/jpJWD14kPHTR0dPcleBMT7RUFueOtMusIOKaviN0dCEe58yFNIkm0is+K0XfR3pT9nU0pHidsLM2CKCK+DPxdg0RwFWKGG3orKtNh3PkzzPCM9QR8j3byTvjOi1RT+iGUywAHVtwH8Y4iZbkOusroPDIS73I7hOGBTSoxSOOBe0oZSz+NUQTF5JYdhkxVFgBLttt45Aze6j86T06Nx9qxFPSI5Q==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5580f3d4-1ff7-44da-e7db-08df137be253
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7187.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 22:51:31.1626 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mJgaLvLhTuxF7ga/hxC86eRp8pZFkgGBeTeVfeNakereBiyzPrVbizHKj9xj+fd6fNcZsMENUHqlvmsjAlo2hw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB8413
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,195 +163,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 12 Aug 2026, Andre Eikmeyer wrote:
+On Tue, Sep 15, 2026 at 04:00:54PM +0000, Teres Alexis, Alan Previn wrote:
+> On Tue, 2026-09-15 at 10:34 +0300, Nikula, Jani wrote:
+> > On Mon, 14 Sep 2026, Alan Previn <alan.previn.teres.alexis@intel.com> wrote:
+> alan:snip
+> > >  int xe_mmio_wait32(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val, u32 timeout_us,
+> > > -		   u32 *out_val, bool atomic)
+> > > +		   u32 *out_val)
+> > >  {
+> > > -	return __xe_mmio_wait32(mmio, reg, mask, val, timeout_us, out_val, atomic, true);
+> > > +	u32 read;
+> > > +	int ret;
+> > > +
+> > > +	ret = poll_timeout_us(read = xe_mmio_read32(mmio, reg), (read & mask) == val,
+> > > +			      10, timeout_us, false);
+> > 
+> > You probably do need to let the callers pass in the wait too. 10 us wait
+> > with a long timeout is going to be pretty bad.
 
-> From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+agreed
+
+> > 
+> > 
+> alan: okay - perhaps i can make every caller pass in a polling-wait thats a fraction of their wait time.
+> (as a starting point since i dont know what's the expected behavior of every caller).
+> so perhaps something like "timeout_us << 4" (i.e. 1/16th) but pass in 10 us if its anything smaller than that
+> (i.e. smaller than 16 usec).
+
+I think we might be complicating this too much..
+
+what about something simpler like:
+
+#define XE_MMIO_WAIT_MAX_BACKOFF_US   1000
+
+...
+-             wait <<= 1;
++             wait = min_t(s64, wait << 1, XE_MMIO_WAIT_MAX_BACKOFF_US);
+
+
+Also the Fixes tag is not the right one... the bug was there before...
+
 > 
-> The discrete GPU on the MacBookPro15,1 does not return after the legacy
-
-"return" seems wrong term in this sentence.
-
-> GMUX power-on sequence. PCI configuration space remains inaccessible, so
-> runtime PM cannot provide usable hybrid graphics with the integrated GPU
-> as primary.
-> 
-> Evaluate the firmware PWG1 and PWG3 link methods around the GMUX
-> transition and wait for PCI configuration space before completing power-on.
-> Keep the sequence limited to the MacBookPro15,1 and retain the existing
-> path for every other model.
-
-
-
-> This was tested on both the 2018 and 2019 MacBookPro15,1 revisions with the
-> integrated GPU as primary. The discrete GPU transitions between DynOff and
-> DynPwr, and external displays work across the transitions.
-> 
-> Co-developed-by: Andre Eikmeyer <dev@deq.rocks>
-> Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
-> Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-> ---
->  drivers/platform/x86/apple-gmux.c | 86 ++++++++++++++++++++++++++++---
->  1 file changed, 80 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
-> index 9c728ac..ccb059a 100644
-> --- a/drivers/platform/x86/apple-gmux.c
-> +++ b/drivers/platform/x86/apple-gmux.c
-> @@ -22,6 +22,7 @@
->  #include <linux/pci.h>
->  #include <linux/vga_switcheroo.h>
->  #include <linux/debugfs.h>
-> +#include <linux/dmi.h>
->  #include <acpi/video.h>
->  #include <asm/io.h>
->  
-> @@ -74,6 +75,8 @@ struct apple_gmux_data {
->  	enum vga_switcheroo_client_id switch_state_external;
->  	enum vga_switcheroo_state power_state;
->  	struct completion powerchange_done;
-> +	struct pci_dev *discrete_pdev;
-> +	bool use_pwg_power_sequence;
->  
->  	/* debugfs data */
->  	u8 selected_port;
-> @@ -82,6 +85,34 @@ struct apple_gmux_data {
->  
->  static struct apple_gmux_data *apple_gmux_data;
->  
-> +static int gmux_call_pwg(struct apple_gmux_data *gmux_data,
-> +			 const char *method)
-> +{
-> +	acpi_handle handle = ACPI_HANDLE(&gmux_data->discrete_pdev->dev);
-> +	unsigned long long result;
-> +	acpi_status status;
-> +
-> +	if (!handle)
-> +		return -ENODEV;
-> +
-> +	status = acpi_evaluate_integer(handle, (acpi_string)method, NULL,
-> +				       &result);
-> +	if (ACPI_FAILURE(status)) {
-> +		dev_err(&gmux_data->discrete_pdev->dev,
-> +			"failed to evaluate %s: %s\n", method,
-> +			acpi_format_exception(status));
-
-Add hinclude for dev_err().
-
-> +		return -EIO;
-> +	}
-> +
-> +	if (result) {
-> +		dev_err(&gmux_data->discrete_pdev->dev,
-> +			"%s failed: %llu\n", method, result);
-> +		return -EIO;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  struct apple_gmux_config {
->  	u8 (*read8)(struct apple_gmux_data *gmux_data, int port);
->  	void (*write8)(struct apple_gmux_data *gmux_data, int port, u8 val);
-> @@ -510,14 +541,49 @@ static int gmux_switch_ddc(enum vga_switcheroo_client_id id)
->  static int gmux_set_discrete_state(struct apple_gmux_data *gmux_data,
->  				   enum vga_switcheroo_state state)
->  {
-> +	int ret;
-> +
->  	reinit_completion(&gmux_data->powerchange_done);
->  
->  	if (state == VGA_SWITCHEROO_ON) {
-> -		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
-> -		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
-> +		if (gmux_data->use_pwg_power_sequence &&
-> +		    gmux_data->discrete_pdev) {
-> +			u16 vendor;
-> +			int i;
-> +
-> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 2);
-> +			msleep(100);
-> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
-> +
-> +			ret = gmux_call_pwg(gmux_data, "PWG1");
-> +			if (ret)
-> +				return ret;
-> +
-> +			for (i = 0; i < 1000; i++) {
-> +				pci_read_config_word(gmux_data->discrete_pdev,
-> +						     PCI_VENDOR_ID, &vendor);
-> +				if (vendor != 0xffff)
-> +					break;
-> +				usleep_range(1000, 2000);
-> +			}
-> +			if (vendor == 0xffff) {
-
-Does this duplicate pci_bus_read_dev_vendor_id() ?
-
-> +				dev_err(&gmux_data->discrete_pdev->dev,
-> +					"timed out waiting for PCI config space\n");
-> +				return -ETIMEDOUT;
-> +			}
-> +
-> +			ret = gmux_call_pwg(gmux_data, "PWG3");
-> +			if (ret)
-> +				return ret;
-> +		} else {
-> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
-> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
-> +		}
->  		pr_debug("Discrete card powered up\n");
->  	} else {
->  		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
-> +		if (gmux_data->use_pwg_power_sequence)
-> +			usleep_range(10000, 11000);
-
-Where do these numbers come from?
-
->  		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 0);
->  		pr_debug("Discrete card powered down\n");
->  	}
-> @@ -549,11 +615,16 @@ static enum vga_switcheroo_client_id gmux_get_client_id(struct pci_dev *pdev)
->  	 */
->  	if (pdev->vendor == PCI_VENDOR_ID_INTEL)
->  		return VGA_SWITCHEROO_IGD;
-> -	else if (pdev->vendor == PCI_VENDOR_ID_NVIDIA &&
-> -		 pdev->device == 0x0863)
-> +	if (pdev->vendor == PCI_VENDOR_ID_NVIDIA && pdev->device == 0x0863)
->  		return VGA_SWITCHEROO_IGD;
-> -	else
-> -		return VGA_SWITCHEROO_DIS;
-> +
-> +	if (apple_gmux_data->use_pwg_power_sequence &&
-> +	    apple_gmux_data->discrete_pdev != pdev) {
-> +		pci_dev_put(apple_gmux_data->discrete_pdev);
-> +		apple_gmux_data->discrete_pdev = pci_dev_get(pdev);
-> +	}
-> +
-> +	return VGA_SWITCHEROO_DIS;
->  }
->  
->  static const struct vga_switcheroo_handler gmux_handler_no_ddc = {
-> @@ -803,6 +874,8 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
->  	if (!gmux_data)
->  		return -ENOMEM;
->  	pnp_set_drvdata(pnp, gmux_data);
-> +	gmux_data->use_pwg_power_sequence = type == APPLE_GMUX_TYPE_MMIO &&
-> +		dmi_match(DMI_PRODUCT_NAME, "MacBookPro15,1");
-
-This formatting is hard to read.
-
->  	switch (type) {
->  	case APPLE_GMUX_TYPE_MMIO:
-> @@ -1009,6 +1082,7 @@ static void gmux_remove(struct pnp_dev *pnp)
->  	} else
->  		release_region(gmux_data->iostart, gmux_data->iolen);
->  	apple_gmux_data = NULL;
-> +	pci_dev_put(gmux_data->discrete_pdev);
->  	kfree(gmux_data);
->  }
->  
-> 
-
--- 
- i.
-
+> ...alan
