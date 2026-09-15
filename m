@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96D18C88E7D
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 19:43:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BB32C88E77
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 19:43:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB41010E4C0;
-	Tue, 15 Sep 2026 19:43:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 011C410E2B4;
+	Tue, 15 Sep 2026 19:43:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FfyavfKF";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pwrpKISZ";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B27CB10E4C0;
- Tue, 15 Sep 2026 19:43:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B4E910E2B4;
+ Tue, 15 Sep 2026 19:43:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
  MIME-Version:Subject:Date:From:From:Reply-To;
- bh=74Muo5BntwXeM+Cr35CCcLdduvdVE9Mp4EI9XUgj8g0=; b=FfyavfKFMJTkmZQhJsmpT7dgwv
- N6MgXlVZ3B5dnlZUH9scVXwoO1QGFmQwotqQ6Xs/ypsxmHGnLwVJqs1JZ+tgym2O8qRHWkO5MrNgA
- flQBY0ivaibt3GU3CeScUCsXV5HiFOh4qqS48rbGd9Xy7kRjsCaJtv/16SL4NQDbgOmIrnaaySZo0
- sZDusdTonfDfkyV3i2TiU7wSqipyemt5Fd3nVqLY3QTl/1jF/fXSEwioXK4XK/097YCIxfK6/xonD
- IEBaz4M4TaMie81Ks5MtnSyQMcJXz1NlrbiX1M/kxOvUCMA+hZlIlaqLM/ZARY/hMy9cV+iPsce+k
- GLvWs92g==;
+ bh=jDSMNgE2SYpBhNEuvByimCISegwGBd2LQBDn3FJ6A8g=; b=pwrpKISZ2dAyS5vSmnRzWCUj4c
+ WC7dWtrl3zWoF+NJXN2fMptA0PySKUKxIuA5Ty0HcdN9bOyp0bykNKiWFrOYkAT/2FZYBhIm4x2fE
+ 3TR5Fieh7E+hFoofxB3Lq1QtekqaXNAwbvcwoBMoc7zq4hF5PXtwhvRMdCq5PBVsuJx8Sc+52aY+O
+ zILgNSIFq0G6QS1k8xSyvEpHy2m+G4qPbftkg5g1IRW/LZMcsDenYFS/ZcEE3zqU+u0AzsW+215lU
+ OUAQwV38tUfPF2lFPuY76sHSNRmOqy4SYUfIICxaTx7aeYwoq+D7yZN9Xlo0ccPiXl3JrY31GDYrb
+ /LcLhnNA==;
 Received: from [179.105.94.163] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x6Z46-002bhq-Pu; Tue, 15 Sep 2026 21:43:38 +0200
+ id 1x6Z4G-002bhq-Oa; Tue, 15 Sep 2026 21:43:48 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Tue, 15 Sep 2026 16:42:21 -0300
-Subject: [PATCH v3 6/7] drm/vc4: Use drm_timeout_rel_to_jiffies()
+Date: Tue, 15 Sep 2026 16:42:22 -0300
+Subject: [PATCH v3 7/7] drm: Rename drm_utils.h to drm_panel_quirks.h
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260915-drm-timeout-helpers-v3-6-f2ae987d861f@igalia.com>
+Message-Id: <20260915-drm-timeout-helpers-v3-7-f2ae987d861f@igalia.com>
 References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
 In-Reply-To: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -54,15 +54,15 @@ Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1395; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=X83VU5hauSupO2HtcBJ0JCIEsn/ra9PXA5emno0pjc8=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqqZ+os2RwstvskVfgK2OBT3ddVrzepQn3aHDnc
- 6RvXx1lZfaJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaqmfqAAKCRA/8w6Kdoj6
- qidJCACyYl1Pm2ExYNDSfjsK4moV5F0VyCFAUdrKFmKmEPoKO3YrNyuCkjIgW3q2y+rIX6Q3wkK
- w3IwWeRgvSTuB6s+4wP3a688dguW+yBWANiEBx63k7EuULUsE3TirMgcpbqlbaWht0c2wwQDhGU
- 5gISUDEUMCANo2FhlOvvH2qINtp5FqE9qa89N1XvQ0Ox1sjPXq9nr2d8dkXjLMk/D+52KBJJrPa
- pQVejd6NWwTzslzFBMF/fsxOOSm956MbX4asVM5mzkYc96mDkDEb7/i66O6Yt6fl/rWP3WUJwTG
- pVB2n1f1gJ4UzTIwYYGr75/t1tYxep8T3gI6wXMXTTsgyIb+
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6059; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=V51c0b6MqPdt8lxioNAIs0WefPi+KFRC/9D+cdo9mI8=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqqZ+orcjQh4JP8xkkV+hL1b53flZrwZ/l6od1F
+ kAej7Busa6JATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaqmfqAAKCRA/8w6Kdoj6
+ qv6NCADWxJQJA8mijp4Q4lzJOQvwAS9ObRzJXNhREsEeij/vnNvKQfxm9+BWGms9OfJkY+OGbIU
+ 8zJJ4/70BT9HbPabH4hraGgf/q+4ehSgDEE0UqvyAlSYQmKvG8PTONOiOI7H2aETSqaEjYPYBN3
+ oZ9nfWcVmGsjy255KEi4Hp85gOMoH7j0xNtKRrTLtj4qmYOENKMtLj+RhT92EjYif/7g/yn3i6X
+ nQiVBVd1REQA64Iv18qRLJtO8lalOTZUf0O7NC8arJOcZN3hBmB0k981GH14DeW2X5+mEKKtKg5
+ LDlhSHBO76Rq7O3KqmG/BJDwMi+Ushr4ydOd0kSGJ9e2At9X
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,41 +80,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vc4_wait_bo_ioctl() converts its timeout with usecs_to_jiffies(), which
-takes an unsigned int. The microsecond value derived from the u64
-timeout_ns is narrowed to fit, so any timeout above UINT_MAX microseconds,
-around ~71 minutes, wraps into a much shorter one. Unlike the equivalent
-problem in the other drivers, this one is not limited to 32-bit.
+Now that the timeout-related functions were removed from drm_utils.h,
+the header has exclusively panel orientation and backlight quirk getters.
 
-Use the shared helper, which takes the duration in ns and clamps the
-result to MAX_JIFFY_OFFSET.
+Therefore, rename the header accordingly and update all files that
+include it. The files amdgpu_dm.c, amdgpu_dm_connector.c and panthor_drv.c
+include the header but don't use it, so drop the include there.
 
-Fixes: 21bd85f82ec2 ("drm/vc4: Use DMA Resv to implement VC4 wait BO IOCTL")
+No functional change.
+
+Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/vc4/vc4_gem.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c           | 1 -
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c | 2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 1 -
+ drivers/gpu/drm/drm_connector.c                             | 2 +-
+ drivers/gpu/drm/drm_panel_backlight_quirks.c                | 2 +-
+ drivers/gpu/drm/drm_panel_orientation_quirks.c              | 2 +-
+ drivers/gpu/drm/panthor/panthor_drv.c                       | 1 -
+ drivers/video/fbdev/efifb.c                                 | 2 +-
+ include/drm/{drm_utils.h => drm_panel_quirks.h}             | 8 +++-----
+ 9 files changed, 8 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
-index e231c906709c..22e3564d7345 100644
---- a/drivers/gpu/drm/vc4/vc4_gem.c
-+++ b/drivers/gpu/drm/vc4/vc4_gem.c
-@@ -32,6 +32,7 @@
- #include <drm/drm_exec.h>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 4426e18f7543..5f20fff2d466 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -98,7 +98,6 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_eld.h>
+ #include <drm/drm_mode.h>
+-#include <drm/drm_utils.h>
+ #include <drm/drm_vblank.h>
+ #include <drm/drm_colorop.h>
+ #include <drm/drm_gem_atomic_helper.h>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+index b9e90ea449ca..3211bd1472b2 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+@@ -41,7 +41,7 @@
+ #include <linux/backlight.h>
+ #include <linux/power_supply.h>
+ #include <drm/drm_edid.h>
+-#include <drm/drm_utils.h>
++#include <drm/drm_panel_quirks.h>
+ 
+ #include <acpi/video.h>
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index e7b555fa666f..9e43e70afe8d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -62,7 +62,6 @@
+ #include <drm/drm_fixed.h>
+ #include <drm/drm_mode.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_utils.h>
+ #include <drm/display/drm_dp_mst_helper.h>
+ #include <drm/display/drm_hdmi_helper.h>
+ #include <drm/drm_privacy_screen_consumer.h>
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 8b4baed060f3..c4d844205971 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -28,10 +28,10 @@
+ #include <drm/drm_file.h>
+ #include <drm/drm_managed.h>
+ #include <drm/drm_panel.h>
++#include <drm/drm_panel_quirks.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_privacy_screen_consumer.h>
+ #include <drm/drm_sysfs.h>
+-#include <drm/drm_utils.h>
+ 
+ #include <linux/export.h>
+ #include <linux/platform_device.h>
+diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+index e417c7533053..dcb91e12bac6 100644
+--- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
++++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+@@ -5,7 +5,7 @@
+ #include <linux/export.h>
+ #include <linux/module.h>
+ #include <drm/drm_edid.h>
+-#include <drm/drm_utils.h>
++#include <drm/drm_panel_quirks.h>
+ 
+ struct drm_panel_match {
+ 	enum dmi_field field;
+diff --git a/drivers/gpu/drm/drm_panel_orientation_quirks.c b/drivers/gpu/drm/drm_panel_orientation_quirks.c
+index 3a218fb592ce..813a204cd201 100644
+--- a/drivers/gpu/drm/drm_panel_orientation_quirks.c
++++ b/drivers/gpu/drm/drm_panel_orientation_quirks.c
+@@ -12,7 +12,7 @@
+ #include <linux/export.h>
+ #include <linux/module.h>
+ #include <drm/drm_connector.h>
+-#include <drm/drm_utils.h>
++#include <drm/drm_panel_quirks.h>
+ 
+ #ifdef CONFIG_DMI
+ 
+diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+index 46a3080b0b20..4bb74102acb1 100644
+--- a/drivers/gpu/drm/panthor/panthor_drv.c
++++ b/drivers/gpu/drm/panthor/panthor_drv.c
+@@ -25,7 +25,6 @@
+ #include <drm/drm_ioctl.h>
  #include <drm/drm_print.h>
  #include <drm/drm_syncobj.h>
-+#include <drm/drm_timeout.h>
+-#include <drm/drm_utils.h>
+ #include <drm/gpu_scheduler.h>
+ #include <drm/panthor_drm.h>
  
- #include "vc4_drv.h"
- #include "vc4_regs.h"
-@@ -970,7 +971,7 @@ vc4_wait_bo_ioctl(struct drm_device *dev, void *data,
- 	int ret;
- 	struct drm_vc4_wait_bo *args = data;
- 	unsigned long timeout_jiffies =
--		usecs_to_jiffies(div_u64(args->timeout_ns, 1000));
-+		drm_timeout_rel_to_jiffies(args->timeout_ns);
- 	ktime_t start = ktime_get();
- 	u64 delta_ns;
+diff --git a/drivers/video/fbdev/efifb.c b/drivers/video/fbdev/efifb.c
+index ad8dec7807c3..3411be06d3e6 100644
+--- a/drivers/video/fbdev/efifb.c
++++ b/drivers/video/fbdev/efifb.c
+@@ -18,8 +18,8 @@
+ #include <linux/sysfb.h>
+ #include <video/vga.h>
+ #include <asm/efi.h>
+-#include <drm/drm_utils.h> /* For drm_get_panel_orientation_quirk */
+ #include <drm/drm_connector.h>  /* For DRM_MODE_PANEL_ORIENTATION_* */
++#include <drm/drm_panel_quirks.h> /* For drm_get_panel_orientation_quirk */
+ 
+ struct bmp_file_header {
+ 	u16 id;
+diff --git a/include/drm/drm_utils.h b/include/drm/drm_panel_quirks.h
+similarity index 63%
+rename from include/drm/drm_utils.h
+rename to include/drm/drm_panel_quirks.h
+index c61dee76451c..60711a49d403 100644
+--- a/include/drm/drm_utils.h
++++ b/include/drm/drm_panel_quirks.h
+@@ -1,14 +1,12 @@
+ /* SPDX-License-Identifier: MIT */
+ /*
+- * Function prototypes for misc. drm utility functions.
+- * Specifically this file is for function prototypes for functions which
+- * may also be used outside of drm code (e.g. in fbdev drivers).
++ * Function prototypes for panel-related quirks.
+  *
+  * Copyright (C) 2017 Hans de Goede <hdegoede@redhat.com>
+  */
+ 
+-#ifndef __DRM_UTILS_H__
+-#define __DRM_UTILS_H__
++#ifndef __DRM_PANEL_QUIRKS_H__
++#define __DRM_PANEL_QUIRKS_H__
+ 
+ #include <linux/types.h>
  
 
 -- 
