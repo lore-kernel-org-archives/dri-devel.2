@@ -4,66 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25CEBC88E5C
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:35:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CB89C982C1
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:35:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ECCE10E579;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E8D310E554;
 	Wed, 16 Sep 2026 07:35:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="J9H41KXn";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="K/0YTwvX";
 	dkim-atps=neutral
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
- [209.85.215.199])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F4AB10F34C
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:19:51 +0000 (UTC)
-Received: by mail-pg1-f199.google.com with SMTP id
- 41be03b00d2f7-cc1b6f65dacso3734917a12.1
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 01:19:51 -0700 (PDT)
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D322610FAF4
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:20:14 +0000 (UTC)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2db87f759c5so73167115ad.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 01:20:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1789460391; x=1790065191;
+ d=google.com; s=20251104; t=1789460414; x=1790065214;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:from:subject
  :message-id:references:mime-version:in-reply-to:date:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=12RWpnF69Y0ZtQBdjS9tdwBwekyotqtFAvTiEZFvq+s=;
- b=J9H41KXn8qHb1cKt845LczyZwRm6tIAcHFrEs3EL+paflbyU2FwTu25HSi5iX3uoEs
- XGkKwnsqprsmBX1nK/3K4Wi/yYQLMsR1HFftHODcgBcy4GJRupEeDzdnKUIgwp93l1Pp
- k0v36RpfNKZoNnd61vQc9v+R9tWfpEhkVpySzMx876pqrxUgLg+ma6jvzzp9MPeomITd
- TB6cXHt48FFdtvyQ35phADalGYVFgnyJl02RAJSkc5tI4rLpWM84z0ZDd6CqLH7iL/AH
- S5gSlPr73FMAEEK9FNoerRWakZHjoFPhHH8C6VPaBt08CPPlR29BVK2UGunnbMuhOpB1
- siOA==
+ bh=6A34g5ncwO0UUCNmS7GYn32h6CG74u/Wx3k3q5PSbh8=;
+ b=K/0YTwvXo/O6w1KtyD2B3enLQTuHdfdHDXg6W2XX0gKdMzHX/UyD31EOyj2qAb7n+R
+ 2xB8UHHCEaK4E83yCIHsqwNtUKD9tEFgb6dz87AUE/E7OUmq7ZtKbZRyIS7qzpwwdrDL
+ 2tnBGV9wdhFkRCm2ypOnyWg1rI0d1bAJD1cOESClBVZjIn67AsfAiOmGnBtl9R8iwyIv
+ rfNOB5/AmOrK7pGEwtD1SGwDix/87eW7y01K+GGBzepVNNpCWKa84h4smzU2uspRSfOa
+ 6Mpdql2ZgENI2Y6RlZyEe9otwAeRh9U2/O+8uOP9tHygD851GgySJwgOH3SEsU8lsxWN
+ Bm3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789460391; x=1790065191;
+ d=1e100.net; s=20260707; t=1789460414; x=1790065214;
  h=content-transfer-encoding:content-type:cc:to:from:subject
  :message-id:references:mime-version:in-reply-to:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=12RWpnF69Y0ZtQBdjS9tdwBwekyotqtFAvTiEZFvq+s=;
- b=FqLuArMbuPMhINhHUHJgrSm0e6+fAIL2Cwngj3Dn9QtWvy7GmqsbdOAPqBsLlhuPfg
- QtzzKKgFIC1IwoR+lml8enU3ZyX9i5Hf3f9Zb9ewCE7qGEPPflJ2TnGj31fl54qgpq8f
- Ctkejw8C+ZF4DXhQKpaN5dWmHsTfrhDpsrJfVTJfPB2d+06tndYCRluZ+JKVEmrPE0CO
- wiAFiJBZzn8ovIYrPpaQadhLcXQgURk0eG4HRtgktDy3Bx+aZUmLQ/U4IDjlbf7pyqmL
- sxHW75LbR2De9deRqDOTkZTQNu1U717kYpFs48Go3gLGncQEZRBcBfzgQbXWzL3xZpLm
- IlJQ==
+ bh=6A34g5ncwO0UUCNmS7GYn32h6CG74u/Wx3k3q5PSbh8=;
+ b=zHw5Hi34gd01IEqoimBgrGur9Mt1rR5u2YjOBkzaywbvnM2RzqCeSqTZyTUdUn8gJa
+ paedIc6FVni0URaXx1SrHrQdwiSPKrsFwsiobrfabkEO7Ya2StYMAlP5mP0arsI0DiB0
+ tbFhO1naaAQQM6NsaRvamS8pwIK3tmh0Eh+kFhwKh7aMBhqTJkHkeVzK3l5D/JVOKfog
+ 9/8/5f/BoFzU3AFlAcbtNNr0nz7+Py0pXZb5wXJMJYjrc5EG7c7ZWXsu+Alf5u1MGjnT
+ DzHvEc+Hsq423X/ZAmBgxhndv5JnN4sQ2Gjd7V0SPs0bk2W/9hXvJh5soOsXkertNjAk
+ d0VQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxXZ2NF9yKCAr04la2ORHBkT+ZuRmXPo2cUHmuP1WS2AZqPG0givQ2l84XDtGr1IXZ3HedUvZl+zjc=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kFpoiH06zbg/8KwN942LP8Yns5u/KFHTqtc+8p4JMBqHE6rec6
- Qm2IzVGYKHYGy9z3pbIHXZLWpk30JTkZx0MJKKaPs5hO7R+hkBKDtLgskhXlZ3CIu7/wW39MQhE
- z
-X-Received: from pgdo4-n2.prod.google.com
- ([2002:a05:6a02:6204:20b0:cc4:31fa:cb70])
+ AKwUvBzHgGXqYwL4ddn0gdL/f8kN19vHQ/bf3h2G4djl9ga7FqKLzROs3wKayIFW7bkRrKCFOrPGN1C9IaU=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kxRKnbQtuJtuePbCKrcPG2emg4riJs6ggf4+n2ZcqnDOCgC3Q0
+ nf/X3lRXCG6rN0CT2NqB45pMjUKuiDLVC/A/ZEABM3YQzTivRsbIkq9tENthnqpmdqqXdMnqO3m
+ /
+X-Received: from plyw21.prod.google.com ([2002:a17:902:d715:b0:2db:8c06:4fa6])
  (user=morbo job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a20:2587:b0:3d1:c99f:efbf
- with SMTP id adf61e73a8af0-3db405a991dmr13264267637.14.1789460389672; Tue, 15
- Sep 2026 01:19:49 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:18:18 +0000
+ 2002:a17:902:f712:b0:2db:20fa:9443
+ with SMTP id d9443c01a7336-2dd6c6db8c2mr126055895ad.13.1789460413607; Tue, 15
+ Sep 2026 01:20:13 -0700 (PDT)
+Date: Tue, 15 Sep 2026 08:18:39 +0000
 In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
 Mime-Version: 1.0
 References: <20260915081910.4142719-1-morbo@google.com>
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260915081910.4142719-2-morbo@google.com>
-Subject: [PATCH 01/28] ALSA: ac97: Refactor snd_ac97_get_name() to use
- snprintf()
+Message-ID: <20260915081910.4142719-23-morbo@google.com>
+Subject: [PATCH 22/28] media: si2165: Use snprintf() to format frontend name
 From: Bill Wendling <morbo@google.com>
 To: linux-kernel@vger.kernel.org
 Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
@@ -157,18 +155,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-snd_ac97_get_name() appends the codec name using two strlcat() calls and
-then appends the revision using an unbounded sprintf() at
-"name + strlen(name)", which could overflow the destination buffer.
+si2165_probe() constructs the frontend name by appending the chip name and
+supported delivery system suffixes (" DVB-T", " DVB-C") to
+state->fe.ops.info.name using multiple strlcat() calls.
 
-In preparation for removing the deprecated strlcat() API[1], replace the
-strlcat() and sprintf() calls with a single snprintf() using the existing
-string length, matching the pattern already used in the "else" branch.
+In preparation for removing the deprecated strlcat() API[1], format the
+complete frontend name in a single snprintf() call.
 
 Link: https://github.com/KSPP/linux/issues/370 [1]
 Cc: codemender-patching+linux@google.com
-Assisted-by: Claude-3-5-Sonnet:20241022 [editor_update_file, shell_command_=
-run]
+Assisted-by: Developer:Gemini [editor_update_file, make_kernel_build_single=
+_file, shell_command_run]
 Signed-off-by: Bill Wendling <morbo@google.com>
 ---
 Cc: Russell King <linux@armlinux.org.uk>
@@ -282,40 +279,42 @@ Cc: devel@lists.orangefs.org
 Cc: linux-hardening@vger.kernel.org
 Cc: linux-sound@vger.kernel.org
 ---
- sound/pci/ac97/ac97_codec.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/media/dvb-frontends/si2165.c | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
 
-diff --git a/sound/pci/ac97/ac97_codec.c b/sound/pci/ac97/ac97_codec.c
-index 0bb65be021d9..e145099ee02a 100644
---- a/sound/pci/ac97/ac97_codec.c
-+++ b/sound/pci/ac97/ac97_codec.c
-@@ -1850,10 +1850,12 @@ void snd_ac97_get_name(struct snd_ac97 *ac97, unsig=
-ned int id, char *name,
+diff --git a/drivers/media/dvb-frontends/si2165.c b/drivers/media/dvb-front=
+ends/si2165.c
+index f1241b63aa5c..bd15eb58fc84 100644
+--- a/drivers/media/dvb-frontends/si2165.c
++++ b/drivers/media/dvb-frontends/si2165.c
+@@ -1243,20 +1243,17 @@ static int si2165_probe(struct i2c_client *client)
+ 		chip_name, rev_char, state->chip_type,
+ 		state->chip_revcode);
 =20
- 	pid =3D look_for_codec_id(snd_ac97_codec_ids, id);
- 	if (pid) {
--		strlcat(name, " ", maxlen);
--		strlcat(name, pid->name, maxlen);
-+		int l =3D strlen(name);
-+
- 		if (pid->mask !=3D 0xffffffff)
--			sprintf(name + strlen(name), " rev %u", id & ~pid->mask);
-+			snprintf(name + l, maxlen - l, " %s rev %u", pid->name, id & ~pid->mask=
-);
-+		else
-+			snprintf(name + l, maxlen - l, " %s", pid->name);
- 		if (ac97 && pid->patch) {
- 			if ((modem && (pid->flags & AC97_MODEM_PATCH)) ||
- 			    (! modem && ! (pid->flags & AC97_MODEM_PATCH)))
-@@ -1861,6 +1863,7 @@ void snd_ac97_get_name(struct snd_ac97 *ac97, unsigne=
-d int id, char *name,
- 		}
- 	} else {
- 		int l =3D strlen(name);
-+
- 		snprintf(name + l, maxlen - l, " id %x", id & 0xff);
- 	}
- }
+-	strlcat(state->fe.ops.info.name, chip_name,
+-		sizeof(state->fe.ops.info.name));
++	snprintf(state->fe.ops.info.name, sizeof(state->fe.ops.info.name),
++		 "Silicon Labs %s%s%s",
++		 chip_name,
++		 state->has_dvbt ? " DVB-T" : "",
++		 state->has_dvbc ? " DVB-C" : "");
+=20
+ 	n =3D 0;
+-	if (state->has_dvbt) {
++	if (state->has_dvbt)
+ 		state->fe.ops.delsys[n++] =3D SYS_DVBT;
+-		strlcat(state->fe.ops.info.name, " DVB-T",
+-			sizeof(state->fe.ops.info.name));
+-	}
+-	if (state->has_dvbc) {
++	if (state->has_dvbc)
+ 		state->fe.ops.delsys[n++] =3D SYS_DVBC_ANNEX_A;
+-		strlcat(state->fe.ops.info.name, " DVB-C",
+-			sizeof(state->fe.ops.info.name));
+-	}
+=20
+ 	/* return fe pointer */
+ 	*pdata->fe =3D &state->fe;
 --=20
 2.55.0.1032.g73a4cd73de-goog
 
