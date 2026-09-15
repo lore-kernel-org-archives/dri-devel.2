@@ -4,141 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69A7CC88E77
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:35:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEC79C982C4
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:35:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B459B10E5CB;
-	Wed, 16 Sep 2026 07:35:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19FD710E6C2;
+	Wed, 16 Sep 2026 07:35:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="DzVjKMkA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cq1LvBCE";
 	dkim-atps=neutral
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
- [209.85.215.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C26CD10FAF3
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:20:14 +0000 (UTC)
-Received: by mail-pg1-f198.google.com with SMTP id
- 41be03b00d2f7-c89704da8c7so5652893a12.0
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 01:20:14 -0700 (PDT)
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
+ [74.125.228.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41B2410E369
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 13:15:53 +0000 (UTC)
+Received: by mail-ej2-f12.google.com with SMTP id
+ a640c23a62f3a-c254f9f7dbfso46292066b.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 06:15:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1789460414; x=1790065214;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:from:subject
- :message-id:references:mime-version:in-reply-to:date:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=uYw3XH3TVDlWH5yZkMBbor+NJ9bN2wpB4N7ncSus1u4=;
- b=DzVjKMkAAJDViBRKatN0xlFOxrKeg1EakD1u7FgfzzuejRWpDfLacNiszw5OV5olSM
- wSvRaZFJfyPoAvnC4gAkM/pAoSs1sJTdR6NtYdXMQaZz7gq7NIeNTqQq0uzmE3N9mSTZ
- XPEDXO6RZV5MKAOGMAs1opRq+tHXKmZuBCHO2+W/7X3dGBS6gKWEL4gLyptSeZZnp1sC
- fJS5t9sDYj8hf3sCHpk3yhqiIEqTI8wlD2NJtItdwBlhhjxPWxRZTLAFN5/TYuNVVnyv
- zISW5h8oUzizDCWFNKBU0KIuun7MFQU6MuMmZ6i3Ut2AGscTxtB7+djNtu54f4t7m6ef
- vEcA==
+ d=gmail.com; s=20251104; t=1789478151; x=1790082951; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=4U3SB71ReF0ifx8bqGHa72DWklfVhQ9vcJBUaK3Uflc=;
+ b=cq1LvBCEku282kaHiExfLKpyx24QxdLfwW7PZ9bP9NjPEqRRG+pYBXTfaEkTuSZ9qS
+ c/Y/cvpq3ac2+m2EnMg6CC6gTAjPE1Fp7ktX/EyhzPTuaGloeI2+R1mdVo3GkE8Q7J2Q
+ eJAm9al1cXO6M2V9HffjSoHlA+qyvS2R4GccKco+0HvxF5VeWX50ZtgYIQPieBMvd3q2
+ KEWcdjtkTz2oHOeZxvtQvITFHRwPtqmRDqnSJt5+H3DL7PvU0AoQJ6L+eylb7TaL4Frr
+ xKsMbOo+5pgslRK8vJ+EcIXY5JySXWMDBiNIDLXVDORA9jGVde0++W0eo64xgGCjhcjQ
+ WObA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789460414; x=1790065214;
- h=content-transfer-encoding:content-type:cc:to:from:subject
- :message-id:references:mime-version:in-reply-to:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=uYw3XH3TVDlWH5yZkMBbor+NJ9bN2wpB4N7ncSus1u4=;
- b=JcjiR8dLT/CHrhQAsJqB2XQE+sqPjpquCl2wSpASw6D/id7Z0r5OpuTtirbGCWHNmM
- o0gu7I8OkIm51xIkT60nCXGN16byO7AqEcm7OYEzSam8q8ar1oJj5r/gJYQ3UbR4EjgQ
- yO0eBuPg+2E/dkj1ZUYsEa4mS9XwFPW6cN4kqpHxEpTljWG+PsWc2uos3nTBs/vpPtus
- p89DkUjEt1jERlXZrjRnWKQKB5nmqRH4FmpuDTymQRTAtccQsTKpdnepF08VHBcmCVHI
- Im6hSNk0StbiawpTSxuX5WWGO2j0DXbp1bTGEz5Vw6LKA++iL9t4qeFK2Gc9u6COrVOS
- 4UxQ==
+ d=1e100.net; s=20260707; t=1789478151; x=1790082951;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=4U3SB71ReF0ifx8bqGHa72DWklfVhQ9vcJBUaK3Uflc=;
+ b=j6VNv/ueZ8xSyiDBDeQ7WRpNdfYXN8oLsbgZ8KA9nEW8M6B3gtRhMVNgvdzi/6qp+r
+ CsCqU0RzjZb7uHCVLRXRuJXOidI4IVW9PeX4CXQuOALDN+sHVMo3E++4pDAxlPaCE1Pj
+ vlZESCXkuZisU64V3SSVTysiXRJ5ct3R/HmOH+ng98+WOfsgFv7kQiOh4RHvSPqLxXF2
+ 9Ia8YgXYqOlPlGk1SIpJJZ+tAk047V/wugzwZ8+mEPQ7nGyOIZi75fo8yeS90SyWQzxj
+ o17qMe0fBoEYcry21UMOtUdmmxchg8KIcTpPYeqasqO1ZZn2kPLrdrsWkO/uwE5w1miX
+ vIhA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzo7ZFDBU7Nw2RhdISrsqKvxNzFHnLSA7nZZH89/knH0Hmlx8IN0coaEoBoQhQ3OHPkqjbznwIj4zY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mxjtIzB+24sKxzmQYyjzn893gAZMh+V1ZyELDrJs5QTzZNqchd
- JaG/Exv00ahLp5ftyiao2dzFu3Q7vH/sQ12aYGe+EtrNlVRqF1bTVpfiwyq7yATheAzAcEZTkAk
- l
-X-Received: from pgap5.prod.google.com ([2002:a63:4205:0:b0:cc4:33fd:a4f7])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:6d8a:b0:3db:3e1c:8585
- with SMTP id adf61e73a8af0-3db4063b18fmr14587917637.27.1789460412692; Tue, 15
- Sep 2026 01:20:12 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:18:38 +0000
-In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
-Mime-Version: 1.0
-References: <20260915081910.4142719-1-morbo@google.com>
-X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260915081910.4142719-22-morbo@google.com>
-Subject: [PATCH 21/28] NFS: nfsroot: Refactor root_nfs_cat() to use snprintf()
-From: Bill Wendling <morbo@google.com>
-To: linux-kernel@vger.kernel.org
-Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
- Russell King <linux@armlinux.org.uk>, Huacai Chen <chenhuacai@kernel.org>, 
- WANG Xuerui <kernel@xen0n.name>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Helge Deller <deller@gmx.de>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Tony Luck <tony.luck@intel.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>, 
- "=?UTF-8?q?Thomas=20Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Matthias Schwarzott <zzam@gentoo.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Tony Nguyen <anthony.l.nguyen@intel.com>, 
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Arend van Spriel <arend.vanspriel@broadcom.com>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>, 
- Anil Gurumurthy <anil.gurumurthy@qlogic.com>, 
- Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>,
- "Martin K. Petersen" <mkp@kernel.org>, 
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
- Mike Marshall <hubcap@omnibond.com>, Martin Brandenburg <martin@omnibond.com>,
- Kees Cook <kees@kernel.org>, 
- Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>,
- Chuck Lever <cel@kernel.org>, 
- Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
- Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>,
- Tom Talpey <tom@talpey.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Andrew Morton <akpm@linux-foundation.org>,
- "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
- Kanglong Wang <wangkanglong@loongson.cn>, Tiezhu Yang <yangtiezhu@loongson.cn>,
- Qiang Ma <maqianga@uniontech.com>, Randy Dunlap <rdunlap@infradead.org>, 
- Pengpeng Hou <pengpeng@iscas.ac.cn>, Ard Biesheuvel <ardb@kernel.org>,
- Breno Leitao <leitao@debian.org>, Thorsten Blum <blum@kernel.org>,
- Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Lyude Paul <lyude@redhat.com>,
- Ashutosh Desai <ashutoshdesai993@gmail.com>, Imre Deak <imre.deak@intel.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Johan Hovold <johan@kernel.org>, Johannes Berg <johannes.berg@intel.com>, 
- Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>, 
- Cryolitia PukNgae <cryolitia@uniontech.com>,
- Jiaming Zhang <r772577952@gmail.com>, 
- Will Porter <mrwillporter@gmail.com>, Cen Zhang <zzzccc427@gmail.com>, 
- "=?UTF-8?q?C=C3=A1ssio=20Gabriel?=" <cassiogabrielcontato@gmail.com>,
- Rong Zhang <i@rong.moe>, 
- Arun Raghavan <arunr@valvesoftware.com>, linux-arm-kernel@lists.infradead.org, 
- loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
- linux-parisc@vger.kernel.org, linux-edac@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-input@vger.kernel.org, linux-media@vger.kernel.org, 
- intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
- linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev, 
- brcm80211-dev-list.pdl@broadcom.com, devicetree@vger.kernel.org, 
- linux-samsung-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-nfs@vger.kernel.org, 
- devel@lists.orangefs.org, linux-hardening@vger.kernel.org, 
- linux-sound@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ AKwUvBzvyLpykz4ieqffbMv4N8AnQS3QH0vghtD6fc2Kz3hcFGjezcXI33JFpNzULCs2xNEWibJihMpU4Fw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nliDksoyQQ9qz7Mv5j/gQabD5jepf7EBNF+CmDN3nj8+G+PxMC
+ AkvCkCJeA2v6s87tMdHNqo2dl4vC0wxpXWuBddGMKawrFj6RwDtBlEJNO8AJk4qmqvc=
+X-Gm-Gg: AYBFou0JHN087I0dLxXo7tgQcuVeKdUeojZcR3DGAeYEe8wZuZdJSxg0KGLdUT9zF15
+ YCdH0NcxY6An2NkVT9zP7SD2/krK2szHADfkvV3rObyVUUF7/1LvcsMsnGp7JCPvKdvLns7uRnc
+ KVOJmpk3Ax3q6ViV9qju0nVXcG1t4DtdS2LRluuawqnhTiE13ArG6iJ2TBv0uEMtQbwxPiCn/5Y
+ nXQKU9VS7+TvjhiVRm3pW9yBmkOW8LWUoI66Rpv6330yI5rsDL4TmF9mio8lTyQZhgr/0+kmM8X
+ +5USVeNfWtVf6BxYTLq4eE6IAnbfs28L9W1+jdxyLJS5eJ6inaBhVbUEjBRatpC2mhK5X4SSbS1
+ Bc/dH67S/nXG/bFldHIiwTOnu3hbLUfgO4RjcNHwAHKYuEoOg+mFIc9TwdXl8B2FzvrgE+eY6qe
+ DfGDao3vgJDVuEwIdAOrM1gJXeWM+SQlustRFYWMEyFK+/Cpd+AwKspUacbboEozDgX5mHflLya
+ E36i52eORAlmY19VFpq5reSzbNkl5IM0+7R0IrFI95RfgN2SaZJqngaxNqm
+X-Received: by 2002:a17:907:c1b:b0:c26:19de:9aec with SMTP id
+ a640c23a62f3a-c29d79c7b95mr73457266b.43.1789478151079; 
+ Tue, 15 Sep 2026 06:15:51 -0700 (PDT)
+Received: from misharu.home
+ (2a02-a463-a071-0-a3ef-793b-4960-e77.fixed6.kpn.net.
+ [2a02:a463:a071:0:a3ef:793b:4960:e77])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c2966066b76sm90275266b.29.2026.09.15.06.15.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Sep 2026 06:15:50 -0700 (PDT)
+From: Hari Mishal <harimishal1@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, lijo.lazar@amd.com, Jiawei.Gu@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org,
+ Hari Mishal <harimishal1@gmail.com>
+Subject: [PATCH] drm/amdgpu/atom: bound the VBIOS date, part number,
+ version and build getters
+Date: Tue, 15 Sep 2026 15:15:48 +0200
+Message-ID: <20260915131548.28292-1-harimishal1@gmail.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 16 Sep 2026 07:35:16 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -155,159 +94,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-root_nfs_cat() computes the length of "dest" with strlen(), but then uses
-up to two strlcat() calls to append a comma separator and "src",
-rescanning "dest" each time.
+atom_get_vbios_date(), atom_get_vbios_pn(), atom_get_vbios_version()
+and atom_get_vbios_build() all walk the BIOS image using offsets and
+counts taken from the image itself, checked only against each other
+and never against ctx->bios_size:
 
-In preparation for removing the deprecated strlcat() API[1], use the
-already-computed length and a single snprintf() call to append the
-optional comma and "src", returning -1 if the result is truncated.
+ - atom_get_vbios_date() reads 14 bytes at a fixed offset that
+   check_atom_bios()'s minimum size (0x49) does not cover.
+ - atom_get_vbios_pn() dereferences an image-supplied u16 string
+   offset unchecked, then walks and copies from it with only a length
+   cap, not an image cap.
+ - atom_get_vbios_version() takes its search bounds from image u16s;
+   atom_find_str_in_rom() already clamps the search itself, but the
+   match is then advanced by a fixed 18 bytes and STRLEN_NORMAL bytes
+   are copied from there with no check that this still lands inside
+   the image.
+ - atom_get_vbios_build() walks from an image-supplied config-string
+   offset toward the ROM header; a config offset at or past the
+   header makes the pointer difference negative, wrapping through the
+   u16 'len' and passing strscpy() a bound far larger than the
+   32-byte destination.
 
-Link: https://github.com/KSPP/linux/issues/370 [1]
-Cc: codemender-patching+linux@google.com
-Assisted-by: CoPilot:Claude-3.5-Sonnet [editor_update_file, make_kernel_bui=
-ld_single_file]
-Signed-off-by: Bill Wendling <morbo@google.com>
+Bound each getter's reads, walks and copies to ctx->bios_size, falling
+back to an empty string on a malformed image.
+
+Fixes: 29b4c589b43d ("drm/amdgpu: Add vbios info ioctl interface")
+Fixes: d6fa80266178 ("drm/amdgpu: Add vbios build number interface")
+Assisted-by: gkh_clanker_t1000
+Signed-off-by: Hari Mishal <harimishal1@gmail.com>
 ---
-Cc: Russell King <linux@armlinux.org.uk>
-Cc: Huacai Chen <chenhuacai@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: Helge Deller <deller@gmx.de>
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: x86@kernel.org
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Ian Abbott <abbotti@mev.co.uk>
-Cc: H Hartley Sweeten <hsweeten@visionengravers.com>
-Cc: Tony Luck <tony.luck@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: "Thomas Hellstr=C3=B6m" <thomas.hellstrom@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Matthias Schwarzott <zzam@gentoo.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Tony Nguyen <anthony.l.nguyen@intel.com>
-Cc: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@google.com>
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Saravana Kannan <saravanak@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>
-Cc: Peter Griffin <peter.griffin@linaro.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Linus Walleij <linusw@kernel.org>
-Cc: Anil Gurumurthy <anil.gurumurthy@qlogic.com>
-Cc: Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>
-Cc: "Martin K. Petersen" <mkp@kernel.org>
-Cc: Trond Myklebust <trondmy@kernel.org>
-Cc: Anna Schumaker <anna@kernel.org>
-Cc: Mike Marshall <hubcap@omnibond.com>
-Cc: Martin Brandenburg <martin@omnibond.com>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Jiri Pirko <jiri@resnulli.us>
-Cc: Simon Horman <horms@kernel.org>
-Cc: Chuck Lever <cel@kernel.org>
-Cc: Jeff Layton <jlayton@kernel.org>
-Cc: NeilBrown <neil@brown.name>
-Cc: Olga Kornievskaia <okorniev@redhat.com>
-Cc: Dai Ngo <Dai.Ngo@oracle.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: Bill Wendling <morbo@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: Kanglong Wang <wangkanglong@loongson.cn>
-Cc: Tiezhu Yang <yangtiezhu@loongson.cn>
-Cc: Qiang Ma <maqianga@uniontech.com>
-Cc: Randy Dunlap <rdunlap@infradead.org>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: Ard Biesheuvel <ardb@kernel.org>
-Cc: Breno Leitao <leitao@debian.org>
-Cc: Thorsten Blum <blum@kernel.org>
-Cc: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: Ashutosh Desai <ashutoshdesai993@gmail.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Johan Hovold <johan@kernel.org>
-Cc: Johannes Berg <johannes.berg@intel.com>
-Cc: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: Cryolitia PukNgae <cryolitia@uniontech.com>
-Cc: Jiaming Zhang <r772577952@gmail.com>
-Cc: Will Porter <mrwillporter@gmail.com>
-Cc: Cen Zhang <zzzccc427@gmail.com>
-Cc: "C=C3=A1ssio Gabriel" <cassiogabrielcontato@gmail.com>
-Cc: Rong Zhang <i@rong.moe>
-Cc: Arun Raghavan <arunr@valvesoftware.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: loongarch@lists.linux.dev
-Cc: linux-mips@vger.kernel.org
-Cc: linux-parisc@vger.kernel.org
-Cc: linux-edac@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: linux-input@vger.kernel.org
-Cc: linux-media@vger.kernel.org
-Cc: intel-wired-lan@lists.osuosl.org
-Cc: netdev@vger.kernel.org
-Cc: linux-wireless@vger.kernel.org
-Cc: brcm80211@lists.linux.dev
-Cc: brcm80211-dev-list.pdl@broadcom.com
-Cc: devicetree@vger.kernel.org
-Cc: linux-samsung-soc@vger.kernel.org
-Cc: linux-gpio@vger.kernel.org
-Cc: linux-scsi@vger.kernel.org
-Cc: linux-nfs@vger.kernel.org
-Cc: devel@lists.orangefs.org
-Cc: linux-hardening@vger.kernel.org
-Cc: linux-sound@vger.kernel.org
----
- fs/nfs/nfsroot.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/atom.c | 29 ++++++++++++++++++++++++-----
+ 1 file changed, 24 insertions(+), 5 deletions(-)
 
-diff --git a/fs/nfs/nfsroot.c b/fs/nfs/nfsroot.c
-index 432612d22437..a28208414aec 100644
---- a/fs/nfs/nfsroot.c
-+++ b/fs/nfs/nfsroot.c
-@@ -173,12 +173,15 @@ static int __init root_nfs_cat(char *dest, const char=
- *src,
- 			       const size_t destlen)
- {
- 	size_t len =3D strlen(dest);
-+	int ret;
-=20
--	if (len && dest[len - 1] !=3D ',')
--		if (strlcat(dest, ",", destlen) >=3D destlen)
--			return -1;
-+	if (len >=3D destlen)
-+		return -1;
-=20
--	if (strlcat(dest, src, destlen) >=3D destlen)
-+	ret =3D snprintf(dest + len, destlen - len, "%s%s",
-+		       (len && dest[len - 1] !=3D ',') ? "," : "", src);
+diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+index e74253682929..fe9af26ccc11 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atom.c
++++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+@@ -1445,6 +1445,11 @@ static void atom_get_vbios_date(struct atom_context *ctx)
+ 
+ 	p_rom = ctx->bios;
+ 
++	if (ctx->bios_size < OFFSET_TO_VBIOS_DATE + 14) {
++		ctx->date[0] = '\0';
++		return;
++	}
 +
-+	if (ret < 0 || ret >=3D destlen - len)
- 		return -1;
- 	return 0;
- }
---=20
-2.55.0.1032.g73a4cd73de-goog
+ 	date_in_rom = p_rom + OFFSET_TO_VBIOS_DATE;
+ 
+ 	ctx->date[0] = '2';
+@@ -1513,17 +1518,24 @@ static void atom_get_vbios_pn(struct atom_context *ctx)
+ 		vbios_str = p_rom + OFFSET_TO_VBIOS_PART_NUMBER;
+ 	}
+ 
+-	if (*vbios_str == 0) {
++	if (vbios_str >= p_rom + ctx->bios_size)
++		vbios_str = NULL;
++
++	if (vbios_str == NULL || *vbios_str == 0) {
+ 		vbios_str = atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX, 3, 1024, 64);
+ 		if (vbios_str)
+ 			vbios_str += sizeof(BIOS_ATOM_PREFIX) - 1;
++		if (vbios_str >= p_rom + ctx->bios_size)
++			vbios_str = NULL;
+ 	}
+ 	if (vbios_str != NULL && *vbios_str == 0)
+ 		vbios_str++;
+ 
+ 	if (vbios_str != NULL) {
+ 		count = 0;
+-		while ((count < BIOS_STRING_LENGTH) && vbios_str[count] >= ' ' &&
++		while ((count < BIOS_STRING_LENGTH) &&
++		       vbios_str + count < p_rom + ctx->bios_size &&
++		       vbios_str[count] >= ' ' &&
+ 		       vbios_str[count] <= 'z') {
+ 			ctx->vbios_pn[count] = vbios_str[count];
+ 			count++;
+@@ -1556,9 +1568,10 @@ static void atom_get_vbios_version(struct atom_context *ctx)
+ 	/* find anchor ATOMBIOSBK-AMD */
+ 	vbios_ver =
+ 		atom_find_str_in_rom(ctx, BIOS_VERSION_PREFIX, start, end, 64);
+-	if (vbios_ver != NULL) {
+-		/* skip ATOMBIOSBK-AMD VER */
+-		vbios_ver += 18;
++	if (vbios_ver != NULL)
++		vbios_ver += 18; /* skip ATOMBIOSBK-AMD VER */
++
++	if (vbios_ver != NULL && vbios_ver + STRLEN_NORMAL <= p_rom + ctx->bios_size) {
+ 		memcpy(ctx->vbios_ver_str, vbios_ver, STRLEN_NORMAL);
+ 	} else {
+ 		ctx->vbios_ver_str[0] = '\0';
+@@ -1574,7 +1587,13 @@ static void atom_get_vbios_build(struct atom_context *ctx)
+ 	base = CU16(ATOM_ROM_TABLE_PTR);
+ 	atom_rom_hdr = CSTR(base);
+ 
++	if ((uint32_t)base + ATOM_ROM_CFG_PTR + sizeof(uint16_t) > ctx->bios_size)
++		return;
++
+ 	str = CSTR(CU16(base + ATOM_ROM_CFG_PTR));
++	if (str >= atom_rom_hdr)
++		return;
++
+ 	/* Skip config string */
+ 	while (str < atom_rom_hdr && *str++)
+ 		;
+-- 
+2.43.0
 
