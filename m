@@ -4,128 +4,172 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A38D0C982C1
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 21:31:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA478C88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 22:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4332910E39F;
-	Tue, 15 Sep 2026 21:31:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98E2B10E61A;
+	Tue, 15 Sep 2026 22:02:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GOcUHjdE";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jQ1Ue/cv";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013050.outbound.protection.outlook.com
- [40.93.201.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F7CE10E399;
- Tue, 15 Sep 2026 21:31:08 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AFF210E60D;
+ Tue, 15 Sep 2026 22:02:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789509762; x=1821045762;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=grFHafpHLlWDj+KGz3r1NkKFKnJcfBDMvcDdmReh0Z8=;
+ b=jQ1Ue/cvI7e8qONkBOSBq3JPCMu8bfaJPpY8tIo7iJtdkcm6z5iwaGDx
+ 0JA4UtLEybSki2DQjzPum/wBBpeMDPwnxNjei1B2ZIA4rbg1oyjnj3MRD
+ ue+O+o2XwxsMT7QoU/ZNNcUOa3aRgYIRM707K0zEiWyQGDTJVqoC6bkod
+ FD+cjuYri5LRguw3Er6uGieCP1cPcYgMVIR7nR2J7ustYjgwKZSq3qkv8
+ AOQo9pUpya09lL1q4XwLO2iDRGc9sP/idF+vFdqeUw3dhhk3EvmQGRZmp
+ AvY5Ptan2ZjT6XVKH3i3ae3Qm4XRotUZwMbBA9NWKVdwqDNNFhYQYzoIs Q==;
+X-CSE-ConnectionGUID: r9xZ2qJAQAyG43lLFaqleQ==
+X-CSE-MsgGUID: TEclYtKzRoKk6ZBTrWRTEQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92392831"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="92392831"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2026 15:02:42 -0700
+X-CSE-ConnectionGUID: 1ALTtZCxRuOFJbxGB7j+Bw==
+X-CSE-MsgGUID: vtE+2cSjSgezgP3JY8IT4g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="298198831"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2026 15:02:42 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 15 Sep 2026 15:02:41 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 15 Sep 2026 15:02:41 -0700
+Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.7) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 15 Sep 2026 15:02:38 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iIfG5NB5DeNFS9MB71DoslR65r8WQ/c/twc9zvJD26OT0R7HUe+8SXHcPBeApUaynxihQFuqFNqxgN6MJp9jIbCWdie/pR8I4Oqfr0e4sYg6KPfGCqXUoc7uGbXRFJCrF0NLtZWsNqeeqaJiAwccEzWy53/8wC0AOWJP2gUK1eVrV0GVU8Tn6Wgy6bUFJnrt8+RfLqDG1NI5bIxOBt9qCZhhza6kRkZ6X5coqGvdD/NEvQu8SKsStlKr5Rfj1a2A5Re+7gD7+WReQBa+VYqLcMq1PI5vQlZIqMuLxqmZpPC51KfLkRfSW2A1DonYyZrHo1DTD7nc9oNqqROq0O1lNQ==
+ b=mUfpMP6XuZKuuY5B3VLcFhkjm3l3Mp+n9iEHNMDo5d6tXo/RlyFKnE/2DN+Gx1tlhIIS3XwTq+5MxpHFl6QaownMrKzjf4GGXnber+yGKIgI0jq6vF3log21PhSdEtk90Dwjj3fp9y2FheG3JhATHnsuI6QcVPDMemoUsH4Bmssu38Oef1/lcRtYJifY5pyw2twObbt8soT9jm3d6FqGQmGMGMdMImIHQBO9Wcf1dRe2PINboKFyptQmoDKYmCPD9ASDzT9tgXcF1m/j2gcLpkGEIlZsxKSoM+Sh5+4xIUmeVfmgeLpGQLw3xEEEhdG7kKjGhc/tQXWwIOi3o5SNXA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6DHNRhKwaV+qVoPNL2Gtre2H8dGZGhvalJBlRwJQ6M0=;
- b=LS2G+1y8bgfVT8eWkxJASKmR1AwXdFY30yH3cQZk1d8onnV5hZn5OuMXwY884Ouq4KvbnJ8UfG4UUeNSdMQRm8F1I3iPeb9i+2U56NKPeXAiXklGlI26dE1A3wP19fAobopSSqNpky/aZdc3AwVXZc7bbOz7E2HcJXXH8vFO1qtHH6/ca4kjbd+Q2ZGghVu55AuPpuYgmVOLKi9LoV4AijRmJnuhHlFwedjcTVxmpgPeVCMj4/F+SK0KhuPEIi57qbnEJ0fk3UeyHkRzCOP7b1dZgq+pzC3ai8GtDkDJCl3EX2EAS1HD08yycmAra8bNmolKnEcZgppAbrECgYwyuA==
+ bh=aGCCNUBL0K3IeZ66T47v3tKJZX1k+nUwndroroNVrC0=;
+ b=APW9Yt3g8HxUyaeQJkzwyIqQYkAzJQewH3PbkAfDLWo+ONOnmLGkBsFiiBkigYRN8ts3xKYUSFvme2zvlUg7f7Y+DubTkguADamAx/wrlwD610KsMqGaDLwPhbGT3ni2/F1P9bae1Y1jAVwl0m2eUd0/4WrdgxdFeOsDcl2322KySy3qzwZMmSoUg2v2nD93nVhQ9/sEaNdyAzIm+O4wxtug5XSolLtSbD1KnyQuLKICi2d5OWAbKyuQRAVRfNzE0w8OzBQ1kOiKnsr0iVsYliTDXpnTIVFlwYtvD3afr2nfU3S7P848Xq0DrJLXN28sZFc1Axr70MT7JLE1fOz2Bw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6DHNRhKwaV+qVoPNL2Gtre2H8dGZGhvalJBlRwJQ6M0=;
- b=GOcUHjdEBMs2q40D2Xg8m5iJIdmEfFOipa12QJPw2aFxIPu8auJASwN4PatVuwVdfCH/86sArWx3owBsElLJtGnG0m1P/Z8f8ikjKDNSCAlAW4Jr16C0taWI0lrsE+NFVj2YPW37Vv6Z4qwnOJxB4at+gQqSk2iOCGJnEDG0mw0=
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
- by DS7PR12MB5718.namprd12.prod.outlook.com (2603:10b6:8:71::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Tue, 15 Sep
- 2026 21:31:02 +0000
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23]) by BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23%3]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
- 21:31:02 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Hari Mishal <harimishal1@gmail.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>
-CC: "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch"
- <simona@ffwll.ch>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Jiawei.Gu@amd.com"
- <Jiawei.Gu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "gregkh@linuxfoundation.org"
- <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH] drm/amdgpu/atom: bound the VBIOS date, part number,
- version and build getters
-Thread-Topic: [PATCH] drm/amdgpu/atom: bound the VBIOS date, part number,
- version and build getters
-Thread-Index: AQHdRRRX5M9USUK5+0O0nchBSuBZq7bQJckv
-Date: Tue, 15 Sep 2026 21:31:01 +0000
-Message-ID: <BN9PR12MB514604988D937F189E3F772AF7BA2@BN9PR12MB5146.namprd12.prod.outlook.com>
-References: <20260915131548.28292-1-harimishal1@gmail.com>
-In-Reply-To: <20260915131548.28292-1-harimishal1@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-15T21:31:01.214Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5146:EE_|DS7PR12MB5718:EE_
-x-ms-office365-filtering-correlation-id: e3ee10dd-1b29-406f-a60e-08df1370a435
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|23010399003|22082099003|18002099003|8096899003|38070700021|10067099003|11063799006|56012099006;
-x-microsoft-antispam-message-info: W14uOGx8El7JfC8yeiRL8nNk+MGOmjSie8fzMZoQ4tXvWuORgr0fppLvbqOopWGAhsXgCWjPPTtCtvnoYPKmD+GlC4dyrL0kU0YFoWDmx1DN1q9xCzj06yd3npuxcH5bSYyRMlyYZM1E04YZlYgq9UgvsbrOHSQ2koAJ4svJOxU5xNIb0Kl4pex9LsgeAHQFwB9cBoNVfeLImCS4FsmwlrRYR3mxIE7EPjh8RRYCVVaW5ydIfWoGn1Y+9TqdElef8EKSG+mD7+OAs+A6eRw1Lh1Owdoa9kHwH38r3PxCZMKRAmiiw9PrzawV40/UfbmOvPS3OvyB2lSiUpTZQzqRqPOVEfploM4JIac5vCaAqsLTAjN9BEAeG0CBVH/7hk8YsKLaPXbxFAvu9m0MCC+bcqMDRbg7D9+xRRMV7Supm0+AVgx7zTckQyX3xx1xCK0nafH3/bKQ1Gz/xAgOVKbLPe+HQgHI18Q4IAERm0/QUzLPynIxcDe/b+SngRJ3lbjSjOYf/Nsjes1r8l+c+BmQKJTu8z1Thy/fzTOuNPotUGZvevEoDv5CAbJmGE9Jw+EAP86h9ubnsUHJ1H2hWOfeIYO/HquJv1Bvi2nz7Id8ZnLq5cTab6wCU2Oivm+dMdA3xTYRbAHpa6QnMJeuTkEnqbIW41zYIamYRdeEQnhvqJ8d6PjgENKlJ/cMgPJi55l6ei0rCD/5VsyNjTQ84hA8uhFlHw7T4Np5g4NaNaCbUIY=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(22082099003)(18002099003)(8096899003)(38070700021)(10067099003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?kK22dQ6HqlLI8dcTMG+jDx7Za7WS4og2jTFT+ivB0toEGoZJEMSKffWy3u18?=
- =?us-ascii?Q?5Zt2G9KIhFb7zIlv4Xs2PeHEZcCNbmx27DIt4hYmxb5WxJk01/7rqk6BMhEd?=
- =?us-ascii?Q?8XNj1oBYp0hflKH7TG69zYDYEk4J6qqLXO743fEvdoAknzwZ9MVYMCEticu9?=
- =?us-ascii?Q?pK/uVdVm5Rs/jzX3OvZGQ+TSTXBoA8JLL0aNkzqxPw2NpwCSEVW8MdUwSiYH?=
- =?us-ascii?Q?30x/t47ctVwG446503fo2LQGPVaL6JIasSnjz0eYQg9fwCWvrATsAi9Q8oS+?=
- =?us-ascii?Q?0uw3LOniWtBbcTCI/xVsaRxP0gHV0ZdBoxW40iv5Jme+JXTuEa4wslm3QzU4?=
- =?us-ascii?Q?6i1TR4AuGTuL99NMA0bRFBabm7/Uw6C8OmduPnaiZtya3JXUmheUWuUloTZj?=
- =?us-ascii?Q?rn003/oqySmWK+NyjBYQZ50ZFB4HgsVtXJu3pSly8eIwGr5z2+endfpzK6wu?=
- =?us-ascii?Q?1X2i8GIDwATAtZI8ogAxAfHIrnvp9HmsCXTfilQOv+MAEwG0LBAuFSF6gSJZ?=
- =?us-ascii?Q?42pxwLQ2oscKMzqqE6M4Pxu5ZVPTA/SxcnbQ4aq65BlANZBMm0pMsGCf4kw3?=
- =?us-ascii?Q?eNELSMGsFAO7MgP00JdvUsLpyxUnDCSvOd+ZUg95vr+IPuZXziuu4HiZG9HU?=
- =?us-ascii?Q?BT4ECtA1IBLsou+GWf6lgIDWOdbYsEb8FSbAwg8qS92GnuXVyXBUuiokf8MI?=
- =?us-ascii?Q?pL6cSnnYdjmDjgcPDlZdAM9GgatOz+edw4Q+lvqC+WzJ8JOwgNKKqnyjvT8Q?=
- =?us-ascii?Q?z9pjhTjhgXgJYXawG3frBn8HIcbvwf5xSn85+3P7R6ppjEzvwFEGE9XKOmex?=
- =?us-ascii?Q?1S7+ehbSa/Ac6uenXpeKEN4KIUHIwPI7NSyij/D485UpiAHIOjZpcK3Za2uD?=
- =?us-ascii?Q?2AgM/en76MGnZuSQipjcT4whQCztCOP0wobzjFPrEceYuQFGtOEFJ62mmi0i?=
- =?us-ascii?Q?07vK6wTxNRwks2u99sMr1NwiQAIRuT2KZobe13KWrDs/TCVqinQlelxiAOQP?=
- =?us-ascii?Q?l/vNkA8Po7mRe9dQZVt2RI2ac9nBlynVw0R4MK7o2mAFMCqrX6Giu/ar6UUH?=
- =?us-ascii?Q?IhDmXrsPFa46WGa06Jpsrk7oR+5XNmNem8PJkh+UbgMfOM+HVzZqFSP7QIL6?=
- =?us-ascii?Q?zGf/fnxkbCXtecvZvjcS6NmDpCA6DK+8qgGNOJnIu4FrINbpyuPpoIp4YYJ2?=
- =?us-ascii?Q?htoZnAn7WFf1NHgEasWXIa4X6avaARRBwBbXzeQQrmhK0aGUsQWXPX6PcMNB?=
- =?us-ascii?Q?M6i/wnHbWG+t9DNQ1Bh2xbXwljQuRYZ8ZE5JDcFFX5aaNT1xfPdOJ22F33Q5?=
- =?us-ascii?Q?NyYavCl9XAQFrnvyDtWYZto5qIjp0KhegX7qAP8ccnqXU8rOveSSHbmRXk6I?=
- =?us-ascii?Q?WfD92wSwciAdcxbBvICgORWt2jn+Sx40CpJeiKMIu37HxRLXtOpebnBLDHC0?=
- =?us-ascii?Q?RuRtTeNbBAsuTD1aX4PXnerEIHqj02ITok3tYMVw5Xt6hH5E/vpwIXYRxzYQ?=
- =?us-ascii?Q?5+MmLoyvuV1SE/BIZg4TMc2mJlrnAcfkVLzS2CzOUlwTQi4yjv5HlS7EvSST?=
- =?us-ascii?Q?vcXnwEyNoVRB1XVpafiT5O0pAKk2L+pBAA75oSASk9T7fYMa3arnOW47PPo7?=
- =?us-ascii?Q?zCBcjtqsoFQFb4IdTlFgfUrbx5BIHwtA4V0qn2iynfRyPptz0Lu+MPHA000r?=
- =?us-ascii?Q?hXLhd8+GpcQN/FlGftlSNXpzgp7mY5Uel6X79gVAr5vP4+Bl?=
-Content-Type: multipart/alternative;
- boundary="_000_BN9PR12MB514604988D937F189E3F772AF7BA2BN9PR12MB5146namp_"
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com (2603:10b6:208:441::12)
+ by CH8PR11MB9457.namprd11.prod.outlook.com (2603:10b6:610:2c3::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
+ 2026 22:02:36 +0000
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565]) by IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565%4]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
+ 22:02:36 +0000
+Date: Tue, 15 Sep 2026 18:02:29 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+CC: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, "Armin
+ Wolf" <W_Armin@gmx.de>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "hansg@kernel.org" <hansg@kernel.org>, "platform-driver-x86@vger.kernel.org"
+ <platform-driver-x86@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux@weissschuh.net"
+ <linux@weissschuh.net>, "rafael@kernel.org" <rafael@kernel.org>,
+ "lenb@kernel.org" <lenb@kernel.org>, "linux-acpi@vger.kernel.org"
+ <linux-acpi@vger.kernel.org>, "Koenig, Christian" <Christian.Koenig@amd.com>, 
+ "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "patrik.r.jakobsson@gmail.com" <patrik.r.jakobsson@gmail.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>, "tzimmermann@suse.de"
+ <tzimmermann@suse.de>, "joonas.lahtinen@linux.intel.com"
+ <joonas.lahtinen@linux.intel.com>, "tursulin@ursulin.net"
+ <tursulin@ursulin.net>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>, "matthew.brost@intel.com"
+ <matthew.brost@intel.com>, "thomas.hellstrom@linux.intel.com"
+ <thomas.hellstrom@linux.intel.com>, "intel-xe@lists.freedesktop.org"
+ <intel-xe@lists.freedesktop.org>
+Subject: Re: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
+ nvidia_wmi_ec_supported()
+Message-ID: <aqnAdfovLmD2O3wQ@intel.com>
+References: <20260724025959.142826-1-W_Armin@gmx.de>
+ <20260724025959.142826-3-W_Armin@gmx.de>
+ <BN9PR12MB514668975E87D570F50B2D91F7A82@BN9PR12MB5146.namprd12.prod.outlook.com>
+ <86d0e015-a8f4-4e10-a9b6-a9714d3e0f07@gmx.de>
+ <80c4bb47-936b-976b-6ba8-b366f7a455cf@linux.intel.com>
+ <11976ed3784675ad241646287a909286a42675a8@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <11976ed3784675ad241646287a909286a42675a8@intel.com>
+X-ClientProxiedBy: SJ0PR05CA0174.namprd05.prod.outlook.com
+ (2603:10b6:a03:339::29) To IA0PR11MB7187.namprd11.prod.outlook.com
+ (2603:10b6:208:441::12)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR11MB7187:EE_|CH8PR11MB9457:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf6a3c81-9896-48df-3139-08df13750d2c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|1800799024|23010399003|6133799003|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 1DkzVH+NazjgRhVl+1PB4kDZRKEVaMMDTBe1UlCjA4N6yhIe+qkvUnjuM5s7ZFgGc2bv2N1nT/4kvPCZkcthyyPwc6SyKsuqkkLiuve/ordnXbqEiEtIZndmI1PQ2FmHOXNHHC+LDosjHrrWcTHDbWIZPCJ3JjuzmBc92EexuyM4c6otpdH/dMdbLMpe8pyY47fiuO6LaqQUgtXaqRTaCBbp1g+dJAHyGpxHf4G1VDwewdzNc6WXRm4BWrFUfS7ohwNLUQf8gj4ES+rN9g6sxzMXICB45dmujqBq88ITOXmMq7cdmTcFk4H2Liij0w2dIhH/1HOGCAMKkQH4KS/k/bPRY0HRlbGh2KYiid+E6EeJTFkX7kHpkXuECCwvKCqeuNcAB2BTPsfEyyNHR9Etqznnp4e33h9my9TQs5zzKA3ipbsf4fM8HCfd/YcclQAfsBVjoRmb4A6Zn2RI+srb8ixdDy/iOTt0/8SNnAIn+5dq3EcbynXv+Mrl5pPw5H2hvSUf/9cnRGX0LOV3kvxCtjSabF30eLLWjJu3nnCMRCugJayLeN9MuStXQN10q3YGM6oVPp5e3i+0F74rMyiZNuENDpl6wN3mhpbMd8z+F/rOxQWbppD+j+1cLUIPStRgrTZzZP2QdbEkcoCEqgb4TZEqKr8A/W5fDq+lRmBVhpc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR11MB7187.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(6133799003)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?IiIPdq0L2tYEC3TdaQml7TwvdNmQFnl6j0UaxIXBx8IAifkWGIQn13QH2k?=
+ =?iso-8859-1?Q?TmnLf4+iHUFg19iZgp/D97qKKKc2jX/dUDk0bnXfnSe/2gR+3V4K9oeL0N?=
+ =?iso-8859-1?Q?wdU0W3823m9LuXzVFUSYkJ4I/pInKcF0w1Ba/Bxv79eixZlZOKS4QCpeVS?=
+ =?iso-8859-1?Q?95ZRl5MbZ//9Gl+CPgsnZXtpDUPzZRelntcmXQp7/uXtwHGd8OSIM7ElbW?=
+ =?iso-8859-1?Q?At+Sw0so++O/SP04scJtvsmsnHG7yE5g6vUX+GmRj/THkqG5MLxSHfvy06?=
+ =?iso-8859-1?Q?QURmLhD2N7d704jU4LZcCnujtg0g3ihPrxvT1/Dbno3Grkc7FGJwjgYoF2?=
+ =?iso-8859-1?Q?slOeb+PQlzXTzKslDkgbzsmOfAhOaqlcZ7ag57Ea5iIfog0ZyjJNNnFa9b?=
+ =?iso-8859-1?Q?O0tSH1noaLBpGAIdYRHGMgKjQAhmDwNvzXuS9kQcniL6wQI1QwhNowiBRa?=
+ =?iso-8859-1?Q?hYZ2nN4a0TAE28Luihuq+OdA/8RqZDzRmPsMucChH7sgd229NagcUHSct2?=
+ =?iso-8859-1?Q?q5qMjb6WtrxK0NzK1ROGF5kJwLbZQzvHA8nqdRhf9+1WUoAgl5gCGjl1y6?=
+ =?iso-8859-1?Q?RhwkXDc94FWM9O3/RdCejjp49v5SHg6/ot91TFV+/IRMFZ9E0fIh345Og2?=
+ =?iso-8859-1?Q?Hp4ofMWMWGZD3Kgb5uMHsKg2tU0TKAyrBXUU2dOXhER6ZdnufygmdpAkyR?=
+ =?iso-8859-1?Q?bYPZtC0VGbv/GLJXje4Xgdzaplg80c0y8u1835448FXBm5637+IzhxlP+m?=
+ =?iso-8859-1?Q?EpcY3mdcmjquhVvW4+sD5xRmrvz+hv/s2wzFrwuazG0kEkjRHNPeac0kgV?=
+ =?iso-8859-1?Q?OKBb3aGcLrziH1jzeHMmdSduys1nYN+gf1TtzsS3I7AfpMW9zNNrTpNdgs?=
+ =?iso-8859-1?Q?BfVeFGDzekplL0vArW8goJTKg+mru7j8JsPhNZTR5hMjTmLklfaEuRqSCC?=
+ =?iso-8859-1?Q?FoJ+8iiDr9W5GMLY+zYbVsbIhznvGoJF7r/dhMgo5F6L4hl7LSfCGM6Pjg?=
+ =?iso-8859-1?Q?UzyF+bglp09wzAFRmoVfq/D1oC/cWc0DnETpJrWbxYWc2JKtATqYRKEwpP?=
+ =?iso-8859-1?Q?URlhEI0dlI+hBgBJsueFQG+w3kuZ2OnEGWlPvjrLr5R/LJrexbuLeZ03MX?=
+ =?iso-8859-1?Q?66spoVPUqGPg+3SBlvgNktl++PvyxWmNApUsjdP9j2yvMpl0Mm8WAdzLeX?=
+ =?iso-8859-1?Q?rjCMifGA4OBScbTEN7XyhwA/OM5frNP2Fb1FABFUlFGRAHZGsiRrQGWM3i?=
+ =?iso-8859-1?Q?5xhQWUjPkQ4wd7v78bt1MTjwlI7OmDddUgQ0TnD0MczidE/3fhBsUwdw3o?=
+ =?iso-8859-1?Q?zZaQuBNymIqVaB2YTRu4w7oIqvUkW/jlup7k/B2KNWUYds5XNeaOrPMZgL?=
+ =?iso-8859-1?Q?GfApVzpZDuD73uiWRVmRhdx4dy/MbFvQcSfMwuJUOdvebdlB6N3m0bSOL9?=
+ =?iso-8859-1?Q?Zr3E82yI67cAFJyPexXsY+5ibOIb0i7vq/Sg0GIqIZpGjAJ+a0JXPOoLII?=
+ =?iso-8859-1?Q?qPHBkrUkhWYf+AMJ1AYZVzEZw4NKNfpoGUg7Gi3bBYtbhNfWkhosqDrfGv?=
+ =?iso-8859-1?Q?RTpsJaOL7XdWxzmzpdwmitkQr3KEB8So5r/qNre3c2cruDfSLtDwzVGZEA?=
+ =?iso-8859-1?Q?CBCeoRw8YIvcdr1MJFDWWkLrGRI+0kiBJhoIcyLDZ1UNZuHiOEaJiNe7HF?=
+ =?iso-8859-1?Q?jqduQES1xlP1VGBr0cKb65P4q4Nfh99TejOXtLI/AMNknEW3RM/iF/SQYi?=
+ =?iso-8859-1?Q?VLKdbpF54p8K8qPBAYLQyVmP+Y0qDJjJWprX9v11s4XXaVv3ickm0aImDw?=
+ =?iso-8859-1?Q?P2Ls8/eRkg=3D=3D?=
+X-Exchange-RoutingPolicyChecked: dkjHo6tihsuJz3oCVgB+ezvDtJq7SI3kuAYmozCPkb98EaVQNOsn+KtzJOTy3dS2cUf9VKcb7gdVifyv61MeEIkGvayunMxLFqu2uyWSgJfPQw0WEX2G0haxH0YQMIhQIZ0cCTRhh/UIEIrrPeQR1g6w5WY5/RsIx44um//9OpBo+HI6iKrOkCC80Ps2rCIhIxf+7EAnfWjTOU9JedFn9n3CJA4wxlY6BGpxMTzNFTzPIMfz5//rs8al6JAkKJ5V1mXL3+Ny+wPn28cFVx+KejdAeFFOaZkjIWg1Hr8Jg08Ghq3YIzGH/0wN1VxooWd0BNX8tioZFUMqqsjqC5zMDQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf6a3c81-9896-48df-3139-08df13750d2c
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7187.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5146.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3ee10dd-1b29-406f-a60e-08df1370a435
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Sep 2026 21:31:01.8369 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: WyZx904obS9aE/wTzhX+8RCvk4F8j7J7sa82KtNVO06eBCYv99NpsAWNlYbshfUHXV3UvGNxQpGZKSlntRyqdQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5718
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 22:02:36.5424 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 84YrauZ7MLGrG4qx0FI/53P02EjAkOasrjFnOK6Px9t7Z9ixd1DwRh5kH0tOKn5xiUtF4Cka5AJ3Ax715JAKvQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR11MB9457
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,388 +185,229 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---_000_BN9PR12MB514604988D937F189E3F772AF7BA2BN9PR12MB5146namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On Tue, Sep 15, 2026 at 03:31:29PM +0300, Jani Nikula wrote:
+> On Tue, 15 Sep 2026, Ilpo Järvinen <ilpo.jarvinen@linux.intel.com> wrote:
+> > GPU people heads up!!
+> >
+> > On Wed, 2 Sep 2026, Armin Wolf wrote:
+> >
+> >> Am 01.09.26 um 23:30 schrieb Deucher, Alexander:
+> >> 
+> >> > Public
+> >> > 
+> >> > > -----Original Message-----
+> >> > > From: Armin Wolf <W_Armin@gmx.de>
+> >> > > Sent: Thursday, July 23, 2026 11:00 PM
+> >> > > To: hansg@kernel.org; ilpo.jarvinen@linux.intel.com
+> >> > > Cc: platform-driver-x86@vger.kernel.org; linux-kernel@vger.kernel.org;
+> >> > > linux@weissschuh.net; rafael@kernel.org; lenb@kernel.org; linux-
+> >> > > acpi@vger.kernel.org; Deucher, Alexander <Alexander.Deucher@amd.com>;
+> >> > > Koenig, Christian <Christian.Koenig@amd.com>; airlied@gmail.com;
+> >> > > simona@ffwll.ch; amd-gfx@lists.freedesktop.org; dri-
+> >> > > devel@lists.freedesktop.org; patrik.r.jakobsson@gmail.com;
+> >> > > maarten.lankhorst@linux.intel.com; mripard@kernel.org;
+> >> > > tzimmermann@suse.de; jani.nikula@linux.intel.com;
+> >> > > joonas.lahtinen@linux.intel.com; rodrigo.vivi@intel.com;
+> >> > > tursulin@ursulin.net; intel-gfx@lists.freedesktop.org;
+> >> > > matthew.brost@intel.com; thomas.hellstrom@linux.intel.com; intel-
+> >> > > xe@lists.freedesktop.org
+> >> > > Subject: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
+> >> > > nvidia_wmi_ec_supported()
+> >> > > 
+> >> > > The WMI-ACPI driver now supports architectures other than x86.
+> >> > > Remove the CONFIG_X86 handling from video-detect and the associated
+> >> > > drivers to simplify the resulting code.
+> >> > > 
+> >> > > Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+> >> > > Signed-off-by: Armin Wolf <W_Armin@gmx.de>
+> >> > > ---
+> >> > >   drivers/acpi/Kconfig               | 2 +-
+> >> > >   drivers/acpi/video_detect.c        | 8 --------
+> >> > >   drivers/gpu/drm/amd/amdgpu/Kconfig | 4 +---
+> >> > >   drivers/gpu/drm/gma500/Kconfig     | 1 -
+> >> > >   drivers/gpu/drm/i915/Kconfig       | 1 -
+> >> > >   drivers/gpu/drm/radeon/Kconfig     | 4 +---
+> >> > >   drivers/gpu/drm/xe/Kconfig         | 5 ++---
+> >> > >   drivers/platform/loongarch/Kconfig | 1 +
+> >> > >   8 files changed, 6 insertions(+), 20 deletions(-)
+> >> > > 
+> >> > > diff --git a/drivers/acpi/Kconfig b/drivers/acpi/Kconfig index
+> >> > > f165d14cf61a..cc1e58fa664b 100644
+> >> > > --- a/drivers/acpi/Kconfig
+> >> > > +++ b/drivers/acpi/Kconfig
+> >> > > @@ -224,7 +224,7 @@ config ACPI_VIDEO
+> >> > >        tristate "Video"
+> >> > >        depends on BACKLIGHT_CLASS_DEVICE
+> >> > >        depends on INPUT
+> >> > > -     depends on ACPI_WMI || !X86
+> >> > > +     depends on ACPI_WMI
+> >> > >        select THERMAL
+> >> > >        help
+> >> > >          This driver implements the ACPI Extensions For Display Adapters
+> >> > > diff
+> >> > > --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c index
+> >> > > 458efa4fe9d4..af9280b244f1 100644
+> >> > > --- a/drivers/acpi/video_detect.c
+> >> > > +++ b/drivers/acpi/video_detect.c
+> >> > > @@ -82,8 +82,6 @@ find_video(acpi_handle handle, u32 lvl, void *context,
+> >> > > void **rv)
+> >> > >        return AE_OK;
+> >> > >   }
+> >> > > 
+> >> > > -/* This depends on ACPI_WMI which is X86 only */ -#ifdef CONFIG_X86
+> >> > > static bool nvidia_wmi_ec_supported(void)  {
+> >> > >        struct wmi_brightness_args args = {
+> >> > > @@ -105,12 +103,6 @@ static bool nvidia_wmi_ec_supported(void)
+> >> > >         */
+> >> > >        return args.ret == WMI_BRIGHTNESS_SOURCE_EC;  } -#else -static bool
+> >> > > nvidia_wmi_ec_supported(void) -{
+> >> > > -     return false;
+> >> > > -}
+> >> > > -#endif
+> >> > > 
+> >> > >   /* Force to use vendor driver when the ACPI device is known to be
+> >> > >    * buggy */
+> >> > > diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig
+> >> > > b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> >> > > index 12e4a41bf1f0..50305630f533 100644
+> >> > > --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+> >> > > +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> >> > > @@ -30,9 +30,7 @@ config DRM_AMDGPU
+> >> > >        # ACPI_VIDEO's dependencies must also be selected.
+> >> > >        select INPUT if ACPI
+> >> > >        select ACPI_VIDEO if ACPI
+> >> > > -     # On x86 ACPI_VIDEO also needs ACPI_WMI
+> >> > > -     select X86_PLATFORM_DEVICES if ACPI && X86
+> >> > The change below makes sense, but this one looks like it should remain
+> >> > unless X86_PLATFORM_DEVICES is handled some other way?
+> >> > 
+> >> > Alex
+> >> 
+> >> AFAIK the dependency on X86_PLATFORM_DEVICES was only necessary because
+> >> ACPI-WMI depended on it in the past.
+> >> By now ACPI-WMI neither depends on X86_PLATFORM_DEVICES or X86 anymore.
+> >
+> > Hi all,
+> >
+> > Could more GPU people besides Alex take a look on this. I'd want to make 
+> > progress with this series within this cycle but would prefer to have Acks 
+> > from GPU side.
+> 
+> I share the same concern with Alex. It seems to me we could now end up
+> with x86 configurations without X86_PLATFORM_DEVICES, which handle
+> e.g. backlight on a lot of platforms.
+> 
+> I think the safer option might be to go for:
+> 
+> 	depends on X86_PLATFORM_DEVICES || !X86
 
-AMD General
+I also fail to see what is wrong with current xe's version
+that is getting dropped below:
 
-Applied.  Thanks!
+depends on X86_PLATFORM_DEVICES || !(X86 && ACPI)
 
-Alex
-
-________________________________
-From: Hari Mishal <harimishal1@gmail.com>
-Sent: Tuesday, September 15, 2026 9:15 AM
-To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
-stian.Koenig@amd.com>
-Cc: airlied@gmail.com <airlied@gmail.com>; simona@ffwll.ch <simona@ffwll.ch=
->; Lazar, Lijo <Lijo.Lazar@amd.com>; Jiawei.Gu@amd.com <Jiawei.Gu@amd.com>;=
- amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; dri-devel@l=
-ists.freedesktop.org <dri-devel@lists.freedesktop.org>; linux-kernel@vger.k=
-ernel.org <linux-kernel@vger.kernel.org>; gregkh@linuxfoundation.org <gregk=
-h@linuxfoundation.org>; Hari Mishal <harimishal1@gmail.com>
-Subject: [PATCH] drm/amdgpu/atom: bound the VBIOS date, part number, versio=
-n and build getters
-
-atom_get_vbios_date(), atom_get_vbios_pn(), atom_get_vbios_version()
-and atom_get_vbios_build() all walk the BIOS image using offsets and
-counts taken from the image itself, checked only against each other
-and never against ctx->bios_size:
-
- - atom_get_vbios_date() reads 14 bytes at a fixed offset that
-   check_atom_bios()'s minimum size (0x49) does not cover.
- - atom_get_vbios_pn() dereferences an image-supplied u16 string
-   offset unchecked, then walks and copies from it with only a length
-   cap, not an image cap.
- - atom_get_vbios_version() takes its search bounds from image u16s;
-   atom_find_str_in_rom() already clamps the search itself, but the
-   match is then advanced by a fixed 18 bytes and STRLEN_NORMAL bytes
-   are copied from there with no check that this still lands inside
-   the image.
- - atom_get_vbios_build() walks from an image-supplied config-string
-   offset toward the ROM header; a config offset at or past the
-   header makes the pointer difference negative, wrapping through the
-   u16 'len' and passing strscpy() a bound far larger than the
-   32-byte destination.
-
-Bound each getter's reads, walks and copies to ctx->bios_size, falling
-back to an empty string on a malformed image.
-
-Fixes: 29b4c589b43d ("drm/amdgpu: Add vbios info ioctl interface")
-Fixes: d6fa80266178 ("drm/amdgpu: Add vbios build number interface")
-Assisted-by: gkh_clanker_t1000
-Signed-off-by: Hari Mishal <harimishal1@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/atom.c | 29 ++++++++++++++++++++++++-----
- 1 file changed, 24 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu=
-/atom.c
-index e74253682929..fe9af26ccc11 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -1445,6 +1445,11 @@ static void atom_get_vbios_date(struct atom_context =
-*ctx)
-
-         p_rom =3D ctx->bios;
-
-+       if (ctx->bios_size < OFFSET_TO_VBIOS_DATE + 14) {
-+               ctx->date[0] =3D '\0';
-+               return;
-+       }
-+
-         date_in_rom =3D p_rom + OFFSET_TO_VBIOS_DATE;
-
-         ctx->date[0] =3D '2';
-@@ -1513,17 +1518,24 @@ static void atom_get_vbios_pn(struct atom_context *=
-ctx)
-                 vbios_str =3D p_rom + OFFSET_TO_VBIOS_PART_NUMBER;
-         }
-
--       if (*vbios_str =3D=3D 0) {
-+       if (vbios_str >=3D p_rom + ctx->bios_size)
-+               vbios_str =3D NULL;
-+
-+       if (vbios_str =3D=3D NULL || *vbios_str =3D=3D 0) {
-                 vbios_str =3D atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX, =
-3, 1024, 64);
-                 if (vbios_str)
-                         vbios_str +=3D sizeof(BIOS_ATOM_PREFIX) - 1;
-+               if (vbios_str >=3D p_rom + ctx->bios_size)
-+                       vbios_str =3D NULL;
-         }
-         if (vbios_str !=3D NULL && *vbios_str =3D=3D 0)
-                 vbios_str++;
-
-         if (vbios_str !=3D NULL) {
-                 count =3D 0;
--               while ((count < BIOS_STRING_LENGTH) && vbios_str[count] >=
-=3D ' ' &&
-+               while ((count < BIOS_STRING_LENGTH) &&
-+                      vbios_str + count < p_rom + ctx->bios_size &&
-+                      vbios_str[count] >=3D ' ' &&
-                        vbios_str[count] <=3D 'z') {
-                         ctx->vbios_pn[count] =3D vbios_str[count];
-                         count++;
-@@ -1556,9 +1568,10 @@ static void atom_get_vbios_version(struct atom_conte=
-xt *ctx)
-         /* find anchor ATOMBIOSBK-AMD */
-         vbios_ver =3D
-                 atom_find_str_in_rom(ctx, BIOS_VERSION_PREFIX, start, end,=
- 64);
--       if (vbios_ver !=3D NULL) {
--               /* skip ATOMBIOSBK-AMD VER */
--               vbios_ver +=3D 18;
-+       if (vbios_ver !=3D NULL)
-+               vbios_ver +=3D 18; /* skip ATOMBIOSBK-AMD VER */
-+
-+       if (vbios_ver !=3D NULL && vbios_ver + STRLEN_NORMAL <=3D p_rom + c=
-tx->bios_size) {
-                 memcpy(ctx->vbios_ver_str, vbios_ver, STRLEN_NORMAL);
-         } else {
-                 ctx->vbios_ver_str[0] =3D '\0';
-@@ -1574,7 +1587,13 @@ static void atom_get_vbios_build(struct atom_context=
- *ctx)
-         base =3D CU16(ATOM_ROM_TABLE_PTR);
-         atom_rom_hdr =3D CSTR(base);
-
-+       if ((uint32_t)base + ATOM_ROM_CFG_PTR + sizeof(uint16_t) > ctx->bio=
-s_size)
-+               return;
-+
-         str =3D CSTR(CU16(base + ATOM_ROM_CFG_PTR));
-+       if (str >=3D atom_rom_hdr)
-+               return;
-+
-         /* Skip config string */
-         while (str < atom_rom_hdr && *str++)
-                 ;
---
-2.43.0
-
-
---_000_BN9PR12MB514604988D937F189E3F772AF7BA2BN9PR12MB5146namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-AMD General</div>
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Applied.&nbsp; Thanks!</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Alex</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Hari Mishal &lt;harim=
-ishal1@gmail.com&gt;<br>
-<b>Sent:</b> Tuesday, September 15, 2026 9:15 AM<br>
-<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
-ristian &lt;Christian.Koenig@amd.com&gt;<br>
-<b>Cc:</b> airlied@gmail.com &lt;airlied@gmail.com&gt;; simona@ffwll.ch &lt=
-;simona@ffwll.ch&gt;; Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; Jiawei.Gu@amd=
-.com &lt;Jiawei.Gu@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@l=
-ists.freedesktop.org&gt;; dri-devel@lists.freedesktop.org &lt;dri-devel@lis=
-ts.freedesktop.org&gt;;
- linux-kernel@vger.kernel.org &lt;linux-kernel@vger.kernel.org&gt;; gregkh@=
-linuxfoundation.org &lt;gregkh@linuxfoundation.org&gt;; Hari Mishal &lt;har=
-imishal1@gmail.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu/atom: bound the VBIOS date, part number,=
- version and build getters</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">atom_get_vbios_date(), atom_get_vbios_pn(), atom_g=
-et_vbios_version()<br>
-and atom_get_vbios_build() all walk the BIOS image using offsets and<br>
-counts taken from the image itself, checked only against each other<br>
-and never against ctx-&gt;bios_size:<br>
-<br>
-&nbsp;- atom_get_vbios_date() reads 14 bytes at a fixed offset that<br>
-&nbsp;&nbsp; check_atom_bios()'s minimum size (0x49) does not cover.<br>
-&nbsp;- atom_get_vbios_pn() dereferences an image-supplied u16 string<br>
-&nbsp;&nbsp; offset unchecked, then walks and copies from it with only a le=
-ngth<br>
-&nbsp;&nbsp; cap, not an image cap.<br>
-&nbsp;- atom_get_vbios_version() takes its search bounds from image u16s;<b=
-r>
-&nbsp;&nbsp; atom_find_str_in_rom() already clamps the search itself, but t=
-he<br>
-&nbsp;&nbsp; match is then advanced by a fixed 18 bytes and STRLEN_NORMAL b=
-ytes<br>
-&nbsp;&nbsp; are copied from there with no check that this still lands insi=
-de<br>
-&nbsp;&nbsp; the image.<br>
-&nbsp;- atom_get_vbios_build() walks from an image-supplied config-string<b=
-r>
-&nbsp;&nbsp; offset toward the ROM header; a config offset at or past the<b=
-r>
-&nbsp;&nbsp; header makes the pointer difference negative, wrapping through=
- the<br>
-&nbsp;&nbsp; u16 'len' and passing strscpy() a bound far larger than the<br=
->
-&nbsp;&nbsp; 32-byte destination.<br>
-<br>
-Bound each getter's reads, walks and copies to ctx-&gt;bios_size, falling<b=
-r>
-back to an empty string on a malformed image.<br>
-<br>
-Fixes: 29b4c589b43d (&quot;drm/amdgpu: Add vbios info ioctl interface&quot;=
-)<br>
-Fixes: d6fa80266178 (&quot;drm/amdgpu: Add vbios build number interface&quo=
-t;)<br>
-Assisted-by: gkh_clanker_t1000<br>
-Signed-off-by: Hari Mishal &lt;harimishal1@gmail.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/atom.c | 29 ++++++++++++++++++++++++-----<=
-br>
-&nbsp;1 file changed, 24 insertions(+), 5 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu=
-/atom.c<br>
-index e74253682929..fe9af26ccc11 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/atom.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c<br>
-@@ -1445,6 +1445,11 @@ static void atom_get_vbios_date(struct atom_context =
-*ctx)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_rom =3D ctx-&gt;bios;<br=
->
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ctx-&gt;bios_size &lt; OFFSET_TO_=
-VBIOS_DATE + 14) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ctx-&gt;date[0] =3D '\0';<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; date_in_rom =3D p_rom + OF=
-FSET_TO_VBIOS_DATE;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ctx-&gt;date[0] =3D '2';<b=
-r>
-@@ -1513,17 +1518,24 @@ static void atom_get_vbios_pn(struct atom_context *=
-ctx)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; vbios_str =3D p_rom + OFFSET_TO_VBIOS_PART_NUMBER;<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (*vbios_str =3D=3D 0) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vbios_str &gt;=3D p_rom + ctx-&gt=
-;bios_size)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; vbios_str =3D NULL;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vbios_str =3D=3D NULL || *vbios_s=
-tr =3D=3D 0) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; vbios_str =3D atom_find_str_in_rom(ctx, BIOS_ATOM_PRE=
-FIX, 3, 1024, 64);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (vbios_str)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios=
-_str +=3D sizeof(BIOS_ATOM_PREFIX) - 1;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (vbios_str &gt;=3D p_rom + ctx-&gt;bios_size)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios_str =3D NU=
-LL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vbios_str !=3D NULL &a=
-mp;&amp; *vbios_str =3D=3D 0)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; vbios_str++;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vbios_str !=3D NULL) {=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; count =3D 0;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; while ((count &lt; BIOS_STRING_LENGTH) &amp;&amp; vbios_str[coun=
-t] &gt;=3D ' ' &amp;&amp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; while ((count &lt; BIOS_STRING_LENGTH) &amp;&amp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios_str + count &lt;=
- p_rom + ctx-&gt;bios_size &amp;&amp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios_str[count] &gt;=
-=3D ' ' &amp;&amp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios_str[c=
-ount] &lt;=3D 'z') {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ctx-&=
-gt;vbios_pn[count] =3D vbios_str[count];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count=
-++;<br>
-@@ -1556,9 +1568,10 @@ static void atom_get_vbios_version(struct atom_conte=
-xt *ctx)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* find anchor ATOMBIOSBK-=
-AMD */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbios_ver =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; atom_find_str_in_rom(ctx, BIOS_VERSION_PREFIX, start,=
- end, 64);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vbios_ver !=3D NULL) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; /* skip ATOMBIOSBK-AMD VER */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; vbios_ver +=3D 18;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vbios_ver !=3D NULL)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; vbios_ver +=3D 18; /* skip ATOMBIOSBK-AMD VER */<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vbios_ver !=3D NULL &amp;&amp; vb=
-ios_ver + STRLEN_NORMAL &lt;=3D p_rom + ctx-&gt;bios_size) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; memcpy(ctx-&gt;vbios_ver_str, vbios_ver, STRLEN_NORMA=
-L);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ctx-&gt;vbios_ver_str[0] =3D '\0';<br>
-@@ -1574,7 +1587,13 @@ static void atom_get_vbios_build(struct atom_context=
- *ctx)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; base =3D CU16(ATOM_ROM_TAB=
-LE_PTR);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atom_rom_hdr =3D CSTR(base=
-);<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((uint32_t)base + ATOM_ROM_CFG_PTR=
- + sizeof(uint16_t) &gt; ctx-&gt;bios_size)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; str =3D CSTR(CU16(base + A=
-TOM_ROM_CFG_PTR));<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (str &gt;=3D atom_rom_hdr)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Skip config string */<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (str &lt; atom_rom_h=
-dr &amp;&amp; *str++)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ;<br>
--- <br>
-2.43.0<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN9PR12MB514604988D937F189E3F772AF7BA2BN9PR12MB5146namp_--
+> 
+> in all of the cases that select/depend on X86_PLATFORM_DEVICES in drm.
+> 
+> The alternative is to find out, and handle the fallout, if any.
+> 
+> 
+> BR,
+> Jani.
+> 
+> 
+> >
+> >> > > -     select ACPI_WMI if ACPI && X86
+> >> > > +     select ACPI_WMI if ACPI
+> >> > >        help
+> >> > >          Choose this option if you have a recent AMD Radeon graphics card.
+> >> > > 
+> >> > > diff --git a/drivers/gpu/drm/gma500/Kconfig
+> >> > > b/drivers/gpu/drm/gma500/Kconfig index a2acaa699dd5..dc4c56638819
+> >> > > 100644
+> >> > > --- a/drivers/gpu/drm/gma500/Kconfig
+> >> > > +++ b/drivers/gpu/drm/gma500/Kconfig
+> >> > > @@ -11,7 +11,6 @@ config DRM_GMA500
+> >> > >        select ACPI_VIDEO if ACPI
+> >> > >        select BACKLIGHT_CLASS_DEVICE if ACPI
+> >> > >        select INPUT if ACPI
+> >> > > -     select X86_PLATFORM_DEVICES if ACPI
+> >> > >        select ACPI_WMI if ACPI
+> >> > >        help
+> >> > >          Say yes for an experimental 2D KMS framebuffer driver for the
+> >> > > diff --
+> >> > > git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig index
+> >> > > 5e939004b646..71426b9c91f0 100644
+> >> > > --- a/drivers/gpu/drm/i915/Kconfig
+> >> > > +++ b/drivers/gpu/drm/i915/Kconfig
+> >> > > @@ -28,7 +28,6 @@ config DRM_I915
+> >> > >        # but for select to work, need to select ACPI_VIDEO's dependencies,
+> >> > > ick
+> >> > >        select BACKLIGHT_CLASS_DEVICE if ACPI
+> >> > >        select INPUT if ACPI
+> >> > > -     select X86_PLATFORM_DEVICES if ACPI
+> >> > >        select ACPI_WMI if ACPI
+> >> > >        select ACPI_VIDEO if ACPI
+> >> > >        select SYNC_FILE
+> >> > > diff --git a/drivers/gpu/drm/radeon/Kconfig
+> >> > > b/drivers/gpu/drm/radeon/Kconfig index c479f0c0dd5c..3cd70aef770e
+> >> > > 100644
+> >> > > --- a/drivers/gpu/drm/radeon/Kconfig
+> >> > > +++ b/drivers/gpu/drm/radeon/Kconfig
+> >> > > @@ -25,9 +25,7 @@ config DRM_RADEON
+> >> > >        # ACPI_VIDEO's dependencies must also be selected.
+> >> > >        select INPUT if ACPI
+> >> > >        select ACPI_VIDEO if ACPI
+> >> > > -     # On x86 ACPI_VIDEO also needs ACPI_WMI
+> >> > > -     select X86_PLATFORM_DEVICES if ACPI && X86
+> >> > > -     select ACPI_WMI if ACPI && X86
+> >> > > +     select ACPI_WMI if ACPI
+> >> > >        help
+> >> > >          Choose this option if you have an ATI Radeon graphics card.
+> >> > > There
+> >> > >          are both PCI and AGP versions.  You don't need to choose this to
+> >> > > diff -
+> >> > > -git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig index
+> >> > > 4d7dcaff2b91..502c7b3c1f16 100644
+> >> > > --- a/drivers/gpu/drm/xe/Kconfig
+> >> > > +++ b/drivers/gpu/drm/xe/Kconfig
+> >> > > @@ -4,7 +4,6 @@ config DRM_XE
+> >> > >        depends on DRM && PCI
+> >> > >        depends on KUNIT || !KUNIT
+> >> > >        depends on INTEL_VSEC || !INTEL_VSEC
+> >> > > -     depends on X86_PLATFORM_DEVICES || !(X86 && ACPI)
+> >> > >        depends on PAGE_SIZE_4KB || COMPILE_TEST || BROKEN
+> >> > >        select INTERVAL_TREE
+> >> > >        # we need shmfs for the swappable backing store, and in particular
+> >> > > @@ -29,8 +28,8 @@ config DRM_XE
+> >> > >        # but for select to work, need to select ACPI_VIDEO's dependencies,
+> >> > > ick
+> >> > >        select BACKLIGHT_CLASS_DEVICE if ACPI
+> >> > >        select INPUT if ACPI
+> >> > > -     select ACPI_VIDEO if X86 && ACPI
+> >> > > -     select ACPI_WMI if X86 && ACPI
+> >> > > +     select ACPI_VIDEO if ACPI
+> >> > > +     select ACPI_WMI if ACPI
+> >> > >        select SYNC_FILE
+> >> > >        select CRC32
+> >> > >        select SND_HDA_I915 if SND_HDA_CORE
+> >> > > diff --git a/drivers/platform/loongarch/Kconfig
+> >> > > b/drivers/platform/loongarch/Kconfig
+> >> > > index 447528797d07..db7833842142 100644
+> >> > > --- a/drivers/platform/loongarch/Kconfig
+> >> > > +++ b/drivers/platform/loongarch/Kconfig
+> >> > > @@ -23,6 +23,7 @@ config LOONGSON_LAPTOP
+> >> > >        depends on INPUT
+> >> > >        depends on MACH_LOONGSON64
+> >> > >        select ACPI_VIDEO
+> >> > > +     select ACPI_WMI
+> >> > >        select INPUT_SPARSEKMAP
+> >> > >        default y
+> >> > >        help
+> >> > > --
+> >> > > 2.39.5
+> >> > 
+> >> 
+> 
+> -- 
+> Jani Nikula, Intel
