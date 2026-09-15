@@ -4,52 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6611DC88E7B
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 11:37:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9200C88E53
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 11:45:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AEB210FBDF;
-	Tue, 15 Sep 2026 11:37:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA24D10FB6B;
+	Tue, 15 Sep 2026 11:45:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jT8opjhi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OvyMOoJ/";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A55D510FBDF
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 11:37:57 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5858510FB6B
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 11:45:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 285BF600D1;
- Tue, 15 Sep 2026 11:37:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0B2C1F000FF;
- Tue, 15 Sep 2026 11:37:55 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 13D1743ADB;
+ Tue, 15 Sep 2026 11:45:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6688D1F00893;
+ Tue, 15 Sep 2026 11:45:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789472276;
- bh=sYl0ytaxMndC1p5mXgQdcUeluV41DyVTbBzozC+8wMQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=jT8opjhiEdiQ6cfZBvQJD0vOKpDRx9kZiBi7PTWcOOCnISBEmjC68q9lBiLmmyVxJ
- iob0stPbv2i937MR1CZVLg7lxadp1tIYhyFZJ46CUww4G8oS+Cr0tabAeZW0lEqyVd
- j9hJqlmA7n6jBYw37ANWmvCeSVbP1Rx+vDuRz0uMjsbnxJ41MvrFUy8FHsxiuX6pzC
- XQaiHKrR0eSgEdY65kwKMCidRNNqiyt5WZjaUlIIkah5mviZF1bdyZq3lS9z+nsq3d
- nVwbUqvpuBb1MNJNqImVgC9WwVU0RZwLkfO0UUk1CX1nO8KvJ1T5wULwLE64WCpaxk
- 69QSMkkgdihcg==
-Date: Tue, 15 Sep 2026 14:37:52 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Zhiping Zhang <zhipingz@meta.com>, kvm@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Bjorn Helgaas <bhelgaas@google.com>,
- Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH v13 0/5] vfio/dma-buf: add TPH support for peer-to-peer
- access - ping
-Message-ID: <20260915113752.GK13683@unreal>
-References: <20260731211601.3033906-1-zhipingz@meta.com>
- <CAH3zFs0vQidHOWif_LmS0=65S9iiCo7yGibqLvFT5jadjj8wVA@mail.gmail.com>
- <CAH3zFs2XnH6gT0fO4=WLi4x1SL2+Y0S=Jo45SWkR=unPegQ8Hw@mail.gmail.com>
- <CAH3zFs2X8=x-XMXhwC7_aUZivCCPQOSuyXMy-ryKqxLEFY9u-Q@mail.gmail.com>
- <c0c8dea4-1571-482e-be33-f965c7c357d2@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <c0c8dea4-1571-482e-be33-f965c7c357d2@amd.com>
+ s=k20260515; t=1789472756;
+ bh=84qdWoL1LKc5gtdlqTMvnJT+oufAgjOVJobzRLdUed0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=OvyMOoJ/eHXXAGCUuAHV9UPjednx+3v2kDsPpsRiMt2vJNRigBckYplzs+k1CunG2
+ VWZZat6CVLgoaSJTbzAssnUcFLqBHnWcBIQrLSfCF6yx/37jt+iOEtPkQuPGH8kPjd
+ AcdsSWp6kCGfJlkts3qZap21GHGOxCB9xpK4lKpyaxS4E3Gaqn2VwY0tbDq0dM8cvD
+ +S2ZTPvYUXYUWl8wkJIZFxNOYN02VLCEE6CbGr+QmxOcs6ih+Z8gfikh487gD4do1z
+ HtstDA3lVNKx0gLEevE1N9RvYOxqvCFfMI9vHNdE7EnXbFWmMIRc5NCWTLObCYGVL0
+ 9PhkPHo1Z/4SA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC POC 11/50] MIPS: commit fds on syscall exit
+To: "Christian Brauner" <brauner@kernel.org>,
+ "Linus Torvalds" <torvalds@linux-foundation.org>
+Cc: io-uring@vger.kernel.org, linux-gpio@vger.kernel.org,
+ "Jens Axboe" <axboe@kernel.dk>, linuxppc-dev@lists.ozlabs.org,
+ linux-arm-msm@vger.kernel.org, "David
+ Airlie" <airlied@redhat.com>, linux-snps-arc@lists.infradead.org, "Michael
+ S. Tsirkin" <mst@redhat.com>, linux-csky@vger.kernel.org,
+ "Jan Kara" <jack@suse.cz>, linux-kernel@vger.kernel.org,
+ linux-um@lists.infradead.org, "Ingo
+ Molnar" <mingo@redhat.com>, virtualization@lists.linux.dev,
+ "Peter Zijlstra" <peterz@infradead.org>, linux-mips@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, "Alexander
+ Viro" <viro@zeniv.linux.org.uk>, bpf@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
+ linux-openrisc@vger.kernel.org, sparclinux@vger.kernel.org,
+ linux-hexagon@vger.kernel.org, linux-sh@vger.kernel.org,
+ linux-parisc@vger.kernel.org, "Eugenio
+ Perez" <eperezma@redhat.com>, linux-mm@kvack.org,
+ "Jann Horn" <jannh@google.com>, linux-alpha@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org, "Oleg
+ Nesterov" <oleg@redhat.com>, kvm@vger.kernel.org, =?utf-8?b?Q2hyaXN0aWFu?=
+ =?utf-8?b?IEJyYXVuZXIgKEFtdXRhYmxlKQ==?= <brauner@kernel.org>,
+ kexec@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-11-4d5217d6b246@kernel.org>
+References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
+ <20260915-work-fd-reserve-unify-folded-v1-11-4d5217d6b246@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 11:45:52 +0000
+Message-Id: <20260915114553.6688D1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,22 +74,20 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Sep 11, 2026 at 09:58:28AM +0200, Christian König wrote:
-> Hi Zhiping,
-> 
-> sorry I'm completely underwater at the moment and don't have time to take another look at the full set.
-> 
-> But IIRC you already fixed my documentation requirements and skimming over the patch once more I can't see anything wrong of hand.
-> 
-> So feel free to add Acked-by: Christian König <christian.koenig@amd.com> to patch "dma-buf: add optional get_pci_tph() callback" and push it upstream through the VFIO channels.
+> Add TIF_FD_SLOTS to the syscall exit work. The return path rereads
+> the flags after the system call and calls syscall_trace_leave() for
+> any of the exit work bits which commits the reservations before audit
+> and the ptrace exit stop.
+>=20
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Christian,
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-I'm slightly confused here. In the other thread, you expressed concerns
-about having PCI details common to every device in the P2P world in the
-dma-buf code, but here you seem fine with adding a niche P2P feature.
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-work-fd-re=
+serve-unify-folded-v1-0-4d5217d6b246@kernel.org?part=3D11
 
-Thanks,
