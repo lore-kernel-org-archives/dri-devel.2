@@ -4,45 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDB40C88E53
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 13:37:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA97CC88E53
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 13:37:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F1F610E297;
-	Tue, 15 Sep 2026 13:37:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21E8D10E2EC;
+	Tue, 15 Sep 2026 13:37:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="ifzJbiZ4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RvFjMZIS";
 	dkim-atps=neutral
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBC9110E297
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 13:37:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
- s=gloria202408;
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=ldeR0B4GHt3b5GmwgKmYffkbyfoBxCcoI2N1ceTEtE0=; b=ifzJbiZ4sUYioCzujeRclD++2W
- raXXLxleGWSeduKUqRUmGxuy3tTqcS8Qniii5CeOs1hL0kjzRBxp6kMarv4OfAnmmhkeOZeBUKAW3
- MPQ+9Ptv/l4M5gFB2z6TPoAmk90ppF9gkMmh3m/Ixtpll1VP9lZKlJhc+HBpFCgDwi7RRseAvQAGa
- gmOPUlCwwuS7EQfDLMepixFqlRy/8bfcda/AKSF9gAMXDWHdEnJ4ctDEHADVPXIMBYAv6GPizIX1d
- ycdqxxV0hVVvWHrRquQQVhnny32EqSoOo3IEet5eNFvLFZnokuGEgRM+mPSO0vCkNgIiw5jqAhOed
- vHNXrz1g==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Chaoyi Chen <kernel@airkyi.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>,
- Quentin Schulz <quentin.schulz@cherry.de>
-Subject: Re: [PATCH v5 0/3] DSI Controller improvements for Rockchip platforms
-Date: Tue, 15 Sep 2026 15:36:47 +0200
-Message-ID: <3800544.yaVYbkx8dN@diego>
-In-Reply-To: <20260914013331.108-1-kernel@airkyi.com>
-References: <20260914013331.108-1-kernel@airkyi.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5094F10E2EC
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 13:37:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1007143CAF;
+ Tue, 15 Sep 2026 13:37:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 439941F00893;
+ Tue, 15 Sep 2026 13:37:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789479453;
+ bh=BM51LqCTQKkxQjHuUWYfXlc+A3jyZ7CPDkL+FFiZnQU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=RvFjMZISrAofoxatI3txRLvKezud9CwyRisHK6u/f7qV4yUT2+fhG50Licn4tOFTn
+ aUpbIemAcM0nYY73vFMmlmR1G3bd+rt/EKqZZnRrCEtiulHGzVYlo1mfwJKw5wEt1L
+ veYt//N/IyOSrGXAkw1MeTdTZ2AM54UXpTGiPVffI88yWhxPkdAceI85FeCNds2r4u
+ sMz8bBUFz776GaC6PwE+AI/nJ0iZQZZSS6dOKyITBPk7GK5hUpSLwFzs/e94djAAI5
+ B1VOzp9xLYXS5P36Ut/yF0LzCU8F2BPhT15C5ehGRRkZgEiLj+ihYaoD/RGFGUzvdG
+ Nl076XXX2qyeQ==
+Date: Tue, 15 Sep 2026 16:37:29 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Zhiping Zhang <zhipingz@meta.com>, kvm@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Helgaas <bhelgaas@google.com>,
+ Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH v13 0/5] vfio/dma-buf: add TPH support for peer-to-peer
+ access - ping
+Message-ID: <20260915133729.GO13683@unreal>
+References: <20260731211601.3033906-1-zhipingz@meta.com>
+ <CAH3zFs0vQidHOWif_LmS0=65S9iiCo7yGibqLvFT5jadjj8wVA@mail.gmail.com>
+ <CAH3zFs2XnH6gT0fO4=WLi4x1SL2+Y0S=Jo45SWkR=unPegQ8Hw@mail.gmail.com>
+ <CAH3zFs2X8=x-XMXhwC7_aUZivCCPQOSuyXMy-ryKqxLEFY9u-Q@mail.gmail.com>
+ <c0c8dea4-1571-482e-be33-f965c7c357d2@amd.com>
+ <20260915113752.GK13683@unreal>
+ <92950084-ddd1-4868-a81a-bfe214184122@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <92950084-ddd1-4868-a81a-bfe214184122@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,104 +67,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Tue, Sep 15, 2026 at 02:59:43PM +0200, Christian König wrote:
+> On 9/15/26 13:37, Leon Romanovsky wrote:
+> > On Fri, Sep 11, 2026 at 09:58:28AM +0200, Christian König wrote:
+> >> Hi Zhiping,
+> >>
+> >> sorry I'm completely underwater at the moment and don't have time to take another look at the full set.
+> >>
+> >> But IIRC you already fixed my documentation requirements and skimming over the patch once more I can't see anything wrong of hand.
+> >>
+> >> So feel free to add Acked-by: Christian König <christian.koenig@amd.com> to patch "dma-buf: add optional get_pci_tph() callback" and push it upstream through the VFIO channels.
+> > 
+> > Christian,
+> > 
+> > I'm slightly confused here. In the other thread, you expressed concerns
+> > about having PCI details common to every device in the P2P world in the
+> > dma-buf code, but here you seem fine with adding a niche P2P feature.
+> 
+> That one is only using u16 and u8 types and has no dependency on the PCI subsystem whatsoever.
+> 
+> Giving those adjacent information sounds perfectly fine to me, we just can't have any hard dependency on PCI subsystem types or functions.
+> 
+> DMA-buf itself is massively used with vendor specific P2P interconnects, PCI P2P is just a special case of that.
 
-Am Montag, 14. September 2026, 03:33:28 Mitteleurop=C3=A4ische Sommerzeit s=
-chrieb Chaoyi Chen:
-> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
->=20
-> This series is dedicated to enhancing the DSI controller and PHY timing
-> interaction, refining the lane rate calculation, and addressing the
-> associated hardware limitations.
+You are looking at it from the DRM perspective. Outside the DRM world, PCI is
+THE interconnect, everything else is a special case :).
 
+Thanks
 
-Took me a bit to finally test all the different variants for a display
-that shows strange behaviour. Sorry this gets a bit longer.
-
-
-The display in question is the ltk050h3148w [0], display in portrait
-orientation.
-
-Ever since commit ac87d23694f4 ("drm/bridge: synopsys: dw-mipi-dsi: Use
-pixel clock rate to calculate lbcc") [1] and the subsequent fix in commit
-93e82bb4de01 ("drm/bridge: synopsys: dw-mipi-dsi: Fix hcomponent lbcc for
-burst mode") [2], that display has its output shifted about 20 pixels to
-the right, with the line then continuing on the next display line.
-
-We have this display running on all the Theobroma-System modules, so there
-is a lot of variant data :-) .
-
-Your series actually fixed the PX30 part of that shifted output, but for
-the RK3399 the results are sort of mixed:
-
-
-What was confusing me was that in the Rockchip vendor kernel, _all_ DSI
-variants use the standard px30 phy settings? The whole original lookup
-table seems to be gone? And that replicating that setting actually fixes
-the shifted output on RK3399 too?
-
-
-RK3399:
-	original:
-		shifted
-		mode-clock 59400, target_mbps 450
-
-	patches 1+2:
-		shifted
-		mode-clock 59400, target_mbps 450
-
-	patch 3:
-		blank disiplay
-		mode-clock 59400, target_mbps 400
-
-	use static px30 phy with patch3:
-		image is compressed in height and displayed two times one below the other
-		image is _not_ shifted anymore (so left+right alignment are correct)
-		mode-clock 59400, target_mbps 400
-=09
-	use static px30 phy without patch3:
-		image is _not_ shifted anymore
-		output is correct
-		mode-clock 59400, target_mbps 450
-
-
-PX30:
-	original
-		shifted
-		mode-clock 59556, target_mbps 450
-
-	patches 1+2:
-		output is correct
-		image is _not_ shifted anymore (so left+right alignment are correct)
-		mode-clock 59556, target_mbps 450
-
-	patch 3:
-		output is still correct
-		mode-clock 59556, target_mbps 400
-
-RK3588 (DSI2) for reference:
-	output is correct
-	mode-clock 59756, lane_mbps 398
-
-
-Do you have any insight, what could go wrong here?
-
-I'll apply patches 1+2 as they're correct, but will keep patch3 out
-for now.
-
-Also Sashiko seems to still be unhappy with patch3.
-
-
-Thanks a lot
-Heiko
-
-
-[0] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
-/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c#n299
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
-it/?id=3Dac87d23694f44af44a98d21dd77016f2756b6b1b
-[2] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
-it/?id=3D93e82bb4de0196c4caeca1d8a6eef67863981d8f
-
-
-
+> 
+> Regards,
+> Christian.
+> 
+> > 
+> > Thanks,
