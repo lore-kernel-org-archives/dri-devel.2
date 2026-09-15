@@ -4,70 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C537C88E5C
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:35:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B51BC982C7
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:35:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 710F310E77F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE3B110E7B5;
 	Wed, 16 Sep 2026 07:35:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="NqnMc+KK";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="uBBYtunF";
 	dkim-atps=neutral
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2F0410F34C
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:19:54 +0000 (UTC)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2cee1ec30f2so49009585ad.3
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 01:19:54 -0700 (PDT)
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
+ [209.85.210.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C81EA10F34C
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:19:50 +0000 (UTC)
+Received: by mail-pf1-f198.google.com with SMTP id
+ d2e1a72fcca58-86fa6b15ed3so2266955b3a.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 01:19:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1789460394; x=1790065194;
+ d=google.com; s=20251104; t=1789460390; x=1790065190;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:from:subject
- :message-id:references:mime-version:in-reply-to:date:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=fp8wJxWuumatGVjI+YCt9Q6O6hUP8tXGtI5nMGsUbio=;
- b=NqnMc+KKgITaL8zPMYJ95uGqqyCQZI6WbqIGl0dN9Z+DNsPaFuaq2nkjDNUb2MYmRy
- hRLKXI3v7yIXlX5ZHblisMuEUlQu4gNZrBBI15PbjLxu9d54rGGewEGQV5mNG7e6Oh/w
- DjKP6iRWepvPIhNYmnOhUA74wvXm09bkzhYffyvB7cBMbDII6W8lLH2t5DDed1rfjYGa
- TnkIhLvf+sAzBPdS9GSSctHPOq/0Vv6G4JZi1pJg41skPiDke4bVg37a7tmkTORiXq2Y
- blkYXHI67a/Im7BqdoTATAtuRaASdP/606WX1pmLEtkJYvC13OUcwkABHEywZg24iuF2
- fh5g==
+ :message-id:mime-version:date:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=cTJ+iDaVRz+oQczzBBEu9x7Pp5Lm2h3B0iGAZglcmy4=;
+ b=uBBYtunF36eNPA7T+vEJGUBpte8YSOgOBhOFZHDVGG0IDYIypIZ6h97TYDNP+78GQ9
+ yBeSyNuJoyo66vb7XPffdDO0ePG6d4KCJ0hBPpZ5zOmwYFITWhjm7X0338ZvomPcWiq+
+ CvrwmZ3WHVX5nqAy/gOl+uTYoalDnbzCdE45e6I0X/iYzmlGPrrPsDazGd4e+9faCzcF
+ cQWk9x6+23RXwIuN8bdI4smW+XEJbhe1FqSY7wV/5/sG6O61KSi6TF/b/GsepuSWnqRq
+ sIpJes3lDRvQDvpCQf8IlSwlIun4E1oEWdbwDuajELzSbmNrs7bDpv+RZcLavN8rjfo9
+ 5VEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789460394; x=1790065194;
+ d=1e100.net; s=20260707; t=1789460390; x=1790065190;
  h=content-transfer-encoding:content-type:cc:to:from:subject
- :message-id:references:mime-version:in-reply-to:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=fp8wJxWuumatGVjI+YCt9Q6O6hUP8tXGtI5nMGsUbio=;
- b=D1ps8Whdbzcgj/HxkjMFGiZbYt+QUNXqdDt/3c4B3jWs4c+o/TzKiROMUMa8beeC/V
- lD0CzsEKnx0MMZCedEoh/ED0WQj64kkHZ6EDJWbBTJcUbzyqIVU1HuIPNLrcWRjCmfPm
- 4BQv9Jh78V+BL03ylWo4jbVaq7UhZYxU5EdjijYTwbPf2Ay+g7CyU2cbdYr7d3vPG12e
- Noql51hVq4ku+yLoRfotUHS2r058v7l0Dv3uHNMjQKt9ySdTO8EHTGwi09F8yWfPYYRw
- 9ML0DOc4KcsVm4CSdBFUjJ3Bcl6G+mrdllQB7iEH0kxa4ScB/ih98jo/nI/PX/SXolo5
- mPGA==
+ :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=cTJ+iDaVRz+oQczzBBEu9x7Pp5Lm2h3B0iGAZglcmy4=;
+ b=YUHzKSNuMTSOeFju3iNTQa+9w6RT2Kb93ROijNVOTrgjlKNAjOQRoMZVP4ReqiC5oh
+ erjuziwe8nGoAG6aw7k0uuT0UPO2+RxhtfaONztx7aeCXr8+/HVt4spn8l47HM7Rl/gy
+ eCOrxhZ5qOC41L1zPfAdHbyyCsU7NERfzeSsNTPIyzs74xK/ep7P8XL2h38ScROTZiw7
+ x2aw5WwZBZ5/SfZAaPKfx3CwSfnf4vLkbUxoayZJXXaejfeAw4NOCwfN41hrodGr3ifX
+ kuydNklblLS6FvxiVFJwx5T4EdtQCvolMqqrTQ+qh/T/E40axCIL2snqa0MxNdVgw8Vi
+ K1kg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBz5N11P3YqDUd20zPnbzWxQLkdEODEKcuvX1Mux6hRlBM1dyuXN81DX0r0lBT16ltCgnN/7Yn9ZFJQ=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nHPTIIyVIQwt26AsSj1YIGufRHs9bC/QF2as22v9Rgo3ket8kH
- e+z/JhPrM/jweZ4UVYu3bJh+GQ38MBS39HrwPjY6wBe3NhVl84YR2SAKWoD0Wvrn1Z1GZFq37uD
- H
-X-Received: from plbkw15.prod.google.com ([2002:a17:902:f90f:b0:2db:5cac:a627])
+ AKwUvBx20NhKJTzy4y7snA1nipcdDYSsu/EDCEARNVPrlDwabTRD73/l+CkmHPRo0s+FDqxS5DIfW/7QokU=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lSZCa9zRF/AHGqLwsppzp763rqF11sbpghsJj2jtbN7KNQRPgh
+ tqP1pfCCBaS6QA+Lc+ElzoDIVjXRSUe6jCFBfV7Y8sIHocky4hwTyhPeE9IqAMhCbBbK9DoTe16
+ M
+X-Received: from pgbo14.prod.google.com ([2002:a63:5a0e:0:b0:cc4:337f:e10f])
  (user=morbo job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:ffd0:b0:2bf:27b2:4b80
- with SMTP id d9443c01a7336-2dd8384ce53mr639785ad.14.1789460393875; Tue, 15
- Sep 2026 01:19:53 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:18:23 +0000
-In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
+ 2002:a05:6a20:7d9f:b0:3b4:61f:1fec
+ with SMTP id adf61e73a8af0-3db4038ec7cmr15429477637.2.1789460388838; Tue, 15
+ Sep 2026 01:19:48 -0700 (PDT)
+Date: Tue, 15 Sep 2026 08:18:17 +0000
 Mime-Version: 1.0
-References: <20260915081910.4142719-1-morbo@google.com>
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260915081910.4142719-7-morbo@google.com>
-Subject: [PATCH 06/28] comedi: comedi_bond: Refactor strlcat() to seq_buf in
- do_dev_config()
+Message-ID: <20260915081910.4142719-1-morbo@google.com>
+Subject: [PATCH 00/28] Replace remaining strlcat() call sites with
+ snprintf()/seq_buf()
 From: Bill Wendling <morbo@google.com>
 To: linux-kernel@vger.kernel.org
-Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
- Russell King <linux@armlinux.org.uk>, Huacai Chen <chenhuacai@kernel.org>, 
- WANG Xuerui <kernel@xen0n.name>,
+Cc: Bill Wendling <morbo@google.com>, Russell King <linux@armlinux.org.uk>, 
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
  Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
  "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
  Helge Deller <deller@gmx.de>, 
@@ -156,20 +152,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-do_dev_config() builds a space-separated list of bonded devices in
-devpriv->name by formatting each "minor:subdev " pair into a temporary
-stack buffer with snprintf() and appending it with strlcat() in a loop.
+strlcat() is deprecated: like strcat(), it requires re-scanning the
+destination string from the beginning on every call, which is O(n^2)
+when used to build up a string incrementally, and its truncation
+behavior is easy to get wrong. See:
 
-In preparation for removing the deprecated strlcat() API[1], use struct
-seq_buf and seq_buf_printf() to format each entry directly into
-devpriv->name. This avoids repeated rescanning of devpriv->name and
-eliminates the temporary buffer.
+  https://github.com/KSPP/linux/issues/370
 
-Link: https://github.com/KSPP/linux/issues/370 [1]
-Cc: codemender-patching+linux@google.com
-Assisted-by: SecurityEngineerAgent:Gemini2.5 [editor_update_file, make_kern=
-el_build_single_file]
-Signed-off-by: Bill Wendling <morbo@google.com>
+This series removes the remaining strlcat() call sites in the tree
+(plus the one inside fortify-string.h's strcat() implementation
+itself), replacing each with snprintf(), scnprintf(), or the seq_buf()
+API, whichever best fits the surrounding code.
+
+One unrelated fix is included. While auditing drivers/edac/thunderx_edac.c
+for its strlcat() conversion, "EDAC/thunderx: Fix stale error context in
+thunderx_l2c_threaded_isr()" addresses a pre-existing bug, present since
+the driver's original 2017 commit: thunderx_l2c_threaded_isr() computes
+its ring "tail"/"ctx" once before its drain loop and never recomputes
+them per iteration, unlike the analogous OCX handlers in the same file,
+so it re-reports the same ring entry for every queued error instead of
+draining the ring. It's split out as its own patch, ahead of the
+strlcat() conversion for that file, so it can be reviewed and
+backported independently of the rest of this series.
+
+Bill Wendling (28):
+  ALSA: ac97: Refactor snd_ac97_get_name() to use snprintf()
+  sunrpc: Refactor rpc_sockaddr2uaddr() to use snprintf() instead of
+    strlcat()
+  ARM: atags: Replace strlcat() with snprintf() for cmdline extend
+  scsi: bfa: Use snprintf() in bfa_fcs_fabric_nsymb_init()
+  ALSA: usb-audio: Refactor usb_audio_make_longname() to use seq_buf
+  comedi: comedi_bond: Refactor strlcat() to seq_buf in do_dev_config()
+  scsi: bfa: Use snprintf() in bfa_fcs_fabric_psymb_init()
+  devlink: Refactor strlcat() to seq_buf in
+    __devlink_compat_running_version()
+  drm/dp_mst: Refactor build_mst_prop_path() to use seq_buf
+  of/fdt: Replace strlcat() with snprintf() in
+    early_init_dt_scan_chosen()
+  wifi: brcmfmac: Replace strlcat() with snprintf() in
+    brcmf_fw_alloc_request()
+  fortify: Convert strlcat() to snprintf() in strcat()
+  i40e: Replace strlcat() with snprintf() in i40e_nvm_version_str()
+  ALSA: usb-audio: Refactor append_ctl_name() to use snprintf()
+  orangefs: Use seq_buf for debug help string generation
+  pinctrl: samsung: Use snprintf() to construct pin bank names
+  MIPS: cmdline: Refactor bootcmdline_append() to use snprintf()
+  LoongArch: Refactor bootcmdline_init() to use seq_buf instead of
+    strlcat()
+  x86/setup: Use snprintf() to concatenate builtin and boot command
+    lines
+  parisc: Refactor strlcat() to seq_buf in setup_cmdline()
+  NFS: nfsroot: Refactor root_nfs_cat() to use snprintf()
+  media: si2165: Use snprintf() to format frontend name
+  Input: synaptics_usb - use seq_buf and snprintf() for name and phys
+  EDAC/thunderx: Fix stale error context in thunderx_l2c_threaded_isr()
+  EDAC/thunderx: Replace strlcat() with seq_buf
+  wifi: wil6210: Refactor resume_triggers2string() to use seq_buf
+  drm/xe/pf: Convert strlcat() to seq_buf in control_read()
+  drm/xe/pf: Refactor strlcat() to seq_buf in sched_group_engines_read()
+
+ arch/arm/kernel/atags_parse.c                 |  7 +-
+ arch/loongarch/kernel/setup.c                 | 22 +++--
+ arch/mips/kernel/setup.c                      | 21 ++++-
+ arch/parisc/kernel/setup.c                    | 16 ++--
+ arch/x86/kernel/setup.c                       |  8 +-
+ drivers/comedi/drivers/comedi_bond.c          | 16 ++--
+ drivers/edac/thunderx_edac.c                  | 67 ++++++++++------
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 15 ++--
+ drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c   | 24 +++---
+ drivers/input/mouse/synaptics_usb.c           | 29 ++++---
+ drivers/media/dvb-frontends/si2165.c          | 17 ++--
+ drivers/net/ethernet/intel/i40e/i40e.h        | 15 +++-
+ drivers/net/wireless/ath/wil6210/wmi.c        | 38 +++++----
+ .../broadcom/brcm80211/brcmfmac/firmware.c    | 21 ++---
+ drivers/of/fdt.c                              | 11 ++-
+ drivers/pinctrl/samsung/pinctrl-samsung.c     |  3 +-
+ drivers/scsi/bfa/bfa_fcs.c                    | 80 +++++--------------
+ fs/nfs/nfsroot.c                              | 11 ++-
+ fs/orangefs/orangefs-debugfs.c                | 36 ++++-----
+ include/linux/fortify-string.h                |  7 +-
+ net/devlink/dev.c                             |  8 +-
+ net/sunrpc/addr.c                             | 16 ++--
+ sound/pci/ac97/ac97_codec.c                   |  9 ++-
+ sound/usb/card.c                              | 58 +++++++++-----
+ sound/usb/mixer.c                             |  8 +-
+ 25 files changed, 309 insertions(+), 254 deletions(-)
 ---
 Cc: Russell King <linux@armlinux.org.uk>
 Cc: Huacai Chen <chenhuacai@kernel.org>
@@ -281,66 +348,7 @@ Cc: linux-nfs@vger.kernel.org
 Cc: devel@lists.orangefs.org
 Cc: linux-hardening@vger.kernel.org
 Cc: linux-sound@vger.kernel.org
----
- drivers/comedi/drivers/comedi_bond.c | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/comedi/drivers/comedi_bond.c b/drivers/comedi/drivers/=
-comedi_bond.c
-index 8e10ecab4f0d..a10cfbd04c72 100644
---- a/drivers/comedi/drivers/comedi_bond.c
-+++ b/drivers/comedi/drivers/comedi_bond.c
-@@ -39,6 +39,7 @@
-=20
- #include <linux/module.h>
- #include <linux/string.h>
-+#include <linux/seq_buf.h>
- #include <linux/slab.h>
- #include <linux/comedi.h>
- #include <linux/comedi/comedilib.h>
-@@ -170,10 +171,11 @@ static int do_dev_config(struct comedi_device *dev, s=
-truct comedi_devconfig *it)
- {
- 	struct comedi_bond_private *devpriv =3D dev->private;
- 	DECLARE_BITMAP(devs_opened, COMEDI_NUM_BOARD_MINORS);
-+	struct seq_buf s;
- 	int i;
-=20
- 	memset(&devs_opened, 0, sizeof(devs_opened));
--	devpriv->name[0] =3D 0;
-+	seq_buf_init(&s, devpriv->name, sizeof(devpriv->name));
- 	/*
- 	 * Loop through all comedi devices specified on the command-line,
- 	 * building our device list.
-@@ -250,15 +252,9 @@ static int do_dev_config(struct comedi_device *dev, st=
-ruct comedi_devconfig *it)
- 			}
- 			devpriv->devs =3D devs;
- 			devpriv->devs[devpriv->ndevs++] =3D bdev;
--			{
--				/* Append dev:subdev to devpriv->name */
--				char buf[20];
-=20
--				snprintf(buf, sizeof(buf), "%u:%u ",
--					 bdev->minor, bdev->subdev);
--				strlcat(devpriv->name, buf,
--					sizeof(devpriv->name));
--			}
-+			/* Append dev:subdev to devpriv->name */
-+			seq_buf_printf(&s, "%u:%u ", bdev->minor, bdev->subdev);
- 		}
- 	}
-=20
-@@ -267,6 +263,8 @@ static int do_dev_config(struct comedi_device *dev, str=
-uct comedi_devconfig *it)
- 		return -EINVAL;
- 	}
-=20
-+	seq_buf_str(&s);
-+
- 	return 0;
- }
-=20
 --=20
-2.55.0.1032.g73a4cd73de-goog
+2.47.3
 
