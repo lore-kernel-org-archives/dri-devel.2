@@ -4,44 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D66EEC88E77
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 21:21:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E28EC88E77
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 21:25:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DE9510E923;
-	Tue, 15 Sep 2026 21:21:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9472610E081;
+	Tue, 15 Sep 2026 21:25:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hKYawqdH";
+	dkim=pass (2048-bit key; unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="DUW8aNf2";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ps7OgllX";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E64A10E923
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 21:21:02 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A5E5860008;
- Tue, 15 Sep 2026 21:21:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B18D1F000FF;
- Tue, 15 Sep 2026 21:21:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789507261;
- bh=HgY1DKDVRNB+iXLSP5XiE9Ckygkii4XoXd84Z4mKlkw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hKYawqdHs441c0K/UXcqXGWk2YQQLX296pyWOORfWxjHXpfxcRPFlVuYr6mmoKs1p
- 7CbrfA9dIZftG3QhFWS3EynF5RGR/sDFj+js5nD2qMuxv9D+gT9sHFMdt75+8s/+r8
- 7ZQHMtvQTQC9x9m0H5NmSPbhTOPZYxd+RR9SZxI7bKTa/we2rFBx+b8ls79MZIYkw8
- Y2ukqx+KMVNKe4NBWEqYMric80qoyYOqeeLpc48++aCczkk9JJ0jwbiTixKq2C5YGu
- b5Swbp8UBfIdq6cMY4gtmeHCC7b4YP7JjfERoA0UQAWDZkNY/0HezMkkFNNu2c1REG
- pUaYc4LvEAWEQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/5] drm/nouveau/gsp/r570: Add comp mode workaround
- from issue #3172217
-To: "Lyude Paul" <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260915210647.695187-4-lyude@redhat.com>
-References: <20260915210647.695187-1-lyude@redhat.com>
- <20260915210647.695187-4-lyude@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 21:21:00 +0000
-Message-Id: <20260915212101.3B18D1F000FF@smtp.kernel.org>
+X-Greylist: delayed 570 seconds by postgrey-1.36 at gabe;
+ Tue, 15 Sep 2026 21:25:15 UTC
+Received: from fout-a5-smtp.messagingengine.com
+ (fout-a5-smtp.messagingengine.com [103.168.172.148])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB4B510E081
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 21:25:15 +0000 (UTC)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfout.phl.internal (Postfix) with ESMTP id 52317EC07D8;
+ Tue, 15 Sep 2026 17:15:44 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Tue, 15 Sep 2026 17:15:44 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:subject
+ :subject:to:to; s=fm1; t=1789506944; x=1789593344; bh=C97HYBalGs
+ NCZXhkZbNbxgbXvtevHKoKbIlgLMz3x2E=; b=DUW8aNf2UWhr5Xl7IXYV5bv8Eo
+ ifHVde9p2lndgdTS7AvF2c8NTuOKHzLDDPpNt9JJiu3IKXmQ3VbJ+VDpauoVpVQV
+ Gb2dsvyB0JvUwxAu2TDTzfv3ln7uDS7MUtIynQBsJcWeNtZj+ozLh+sd1LT9JFAc
+ fa6tgJiyeGx8Y9Uj9XNr4Fy91RM6uJ7vl0L/FxN2gXGKmVzdv0mtZtD4Mty4w8Df
+ jKPcD9WxhClHlElRMpPDsArsXiXdhMrbWeMh6FSZK8rtXTW0q7yV9YrKnnFQYm6s
+ 1bjB4J/KKPXfEmWLteIwu1AHB4xaf18FpExxMow3rLxeI/MHoTYtowmbmnVg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789506944; x=
+ 1789593344; bh=C97HYBalGsNCZXhkZbNbxgbXvtevHKoKbIlgLMz3x2E=; b=P
+ s7OgllXhwyIHyQfXr7a5Ib8gESIfrwRm/IDgL8p4d8V2FuWt5SbOJyR2wKXkdnlP
+ 3rB7abvWC0OwLeGqGuNbIRlmmu3pB5IwbgzsJKyLfd/iLW8Iq1ob5N2L2tL8c1nn
+ dmjyFk7+HXSFYcX09oAMmzlkKqPzuCiqK21xgzPz15bBU01ZhO8LlkF415hGqxk2
+ L/9nIt8mZh/gHwPpTiuzC6CeO1tshYWL5ItLb0xUeJ0cQkmyJJQAxgaE+vvZzyUz
+ xE9eLzzoUSzkJ3l1CJRLiJyajBDQf/Knjfh3wK5I8ZmzSymlXbsJvSLNbdThCTu+
+ UOgPSRZNMzT5kGcir4Uuw==
+X-ME-Sender: <xms:f7WpagoZFbQiVF9QMQHHBQ7XwsS8ekjLAWNSSE2N-FfSxZBcbjasKQ>
+ <xme:f7WpanFbVHT9lvwsKJ89Vq-9CD83h9Us3RYy-6UknY0or0btjWdQ2tqll2HZIFQSc
+ y2O7_WSCnOukc3mL5xckmSkY9RAe0kKarmhKTdoaQArVKWclR5->
+X-ME-Received: <xmr:f7Wpal5xRWUZL2cps2E4vamZQ6dgPGRdgDcl09-uo10ynv0cC4E55jP6vtWFhV-bOm6caYSQ0_DDlL2fpuON8TWavddswA2l6A>
+X-ME-Proxy-Cause: dmFkZTFaZBlKXrQ3RAdCqzhwYVRj9tUqA33278D0sbjZjCo5mHBj8KO3wGudGXYUi5j8gb
+ 3UM5JjJTBnou2L2pvhuLlqPRFX2ELepnvCv9OpDEX+aIW+baWI1Akf6Bn+HNCOKwBMope2
+ qX70AQ/pOgrQXBHONaEujRHOUVUkk5C3MHngtUjnltCMlBnv2ESbH9WDQdbyjOBXXFg8/B
+ 04ae3X1RO32NTPvlLVp6jo0nctrfIrHbAMmWui/ldCvB5bxgMDdHjTTO4N51/XHxuEaHwt
+ llvFneQrcJo3b4eKBGpf/7RhIrxh9+72WS7zK0e5CbLDDmUtGTejfqcOEKFlcgl3csMLj/
+ W/bKWTLNXgYLRa0oz2eKq/rvlb94E+mMiTCJ4gZAjD8cCEsNeKhBKVPKn2oabbLnYdPBHS
+ JnVMxdX3/VZ+9q9HBhAniFVQhtDan1+OxUBz5uCW9bZvb5YC3AFLm/4R16PCl1G2XmNcqX
+ 6SHDh3Q/sjzjcDBXvmigAEHu6G+efbAf2Ey378sH/9AJkwCewCYcClR3TKAa0sr0ygPzkm
+ G4Qes8A7hKYBOioCpZinOGyfqmyC22B0oHTT3E6mJiWG1rRrcS6oGEG6fL03O7FS6L7wsj
+ d913k9WD2tvq9jyzBvQmU9G7E/Ly9TEthA8sD3VoXLBEoJ709k2O0Jomytxw
+X-ME-Proxy: <xmx:f7Wpavef3wAXeJXh4HzSaOPq2yJPi8NNkQ6XQh9pzmk-hL7LtmgnRQ>
+ <xmx:f7Wpag4_SWYW2yE6mBpqXRObDJJerkdZZdPtKiK4f_ujVtsUO5q8_Q>
+ <xmx:f7Wpak9uM9FnTTec0SVyqo4CynVvmolpDkqi4OfOeH4smnsf2NKm2w>
+ <xmx:f7WpaqHJ8tYP6qrn0D3OV0z5Q16R7liGTKCjR1BECJdyhEXJ47bsMg>
+ <xmx:gLWpanm871F2Os2jLU2qGEd4w1XtcgwvVEFJb31IrDKMY6dtL7eTc7GP>
+Feedback-ID: i001e48d0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 15 Sep 2026 17:15:41 -0400 (EDT)
+Message-ID: <579d804b-d548-4c8d-8350-e1e181a612ae@invisiblethingslab.com>
+Date: Tue, 15 Sep 2026 18:15:38 -0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] Revert "drm/virtio: Allow importing prime buffers when
+ 3D is enabled"
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Yiwei Zhang <zzyiwei@gmail.com>
+References: <20260911144204.2089401-1-dmitry.osipenko@collabora.com>
+Content-Language: en-US
+From: Val Packett <val@invisiblethingslab.com>
+Autocrypt: addr=val@invisiblethingslab.com; keydata=
+ xm8EaFTEiRMFK4EEACIDAwQ+qzawvLuE95iu+QkRqp8P9z6XvFopWtYOaEnYf/nE8KWCnsCD
+ jz82tdbKBpmVOdR6ViLD9tzHvaZ1NqZ9mbrszMXq09VfefoCfZp8jnA2yCT8Y4ykmv6902Ne
+ NnlkVwrNKFZhbCBQYWNrZXR0IDx2YWxAaW52aXNpYmxldGhpbmdzbGFiLmNvbT7CswQTEwkA
+ OxYhBAFMrro+oMGIFPc7Uc87uZxqzalRBQJoVMSJAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMB
+ Ah4HAheAAAoJEM87uZxqzalRlIIBf0cujzfSLhvib9iY8LBh8Tirgypm+hJHoY563xhP0YRS
+ pmqZ6goIuSGpEKcW5mV3egF/TLLAOjsfroWae4giImTVOJvLOsUycxAP4O5b1Qiy+cCGsHKA
+ nCRzrvqnPkyf4OeRznMEaFTEiRIFK4EEACIDAwSffe3tlMmmg3eKVp7SJ+CNZLN0M5qzHSCV
+ dBBkIVvEJo+8SDg4jrx/832rxpvMCz2+x7+OHaeBHKafhOWUccYBLKqV/3nBftxCkbzXDbfY
+ d02BY9H4wBIn0Y3GnwoIXRgDAQkJwpgEGBMJACAWIQQBTK66PqDBiBT3O1HPO7mcas2pUQUC
+ aFTEiQIbDAAKCRDPO7mcas2pUaptAX9f7yUJLGU4C6XjMJvXd8Sz6cGTyxkngPtUyFiNqtad
+ /GXBi3vHKYNfSrdqJ8wmZ8MBgOqWaaa1wE4/3qZU8d4RNR8mF7O40WYK/wdf1ycq1uGad8PN
+ UDOwAqdfvuF3w8QMPw==
+In-Reply-To: <20260911144204.2089401-1-dmitry.osipenko@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,120 +112,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] drm/nouveau/gsp: object class mismatch for NV2080_CTRL_CMD_INTERNA=
-L_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE
-- [High] drm/nouveau/gsp: missing hardware state rollback on suspend failur=
-e leaks GPU state
-- [High] drm/nouveau/gsp: LIFO violation resumes channels before re-enablin=
-g raw comp mode
---
 
-commit 4ceacec02691502afb3850e4b4368411a557d72f
-Author: Lyude Paul <lyude@redhat.com>
+On 9/11/26 11:42 AM, Dmitry Osipenko wrote:
+> Guest userspace may import udmabuf to vrend. Vrend doesn't support guest
+> blobs, and thus, further 3d operations with the imported blob are failing.
+> Typical scenario of the problem shown with mouse cursor RGBA image imported
+> into virtio-gpu, which previously was rejected by virtio-gpu driver.
+> Revert enabling guest blobs importing into vrend to fix the regression.
+>
+> Link: https://gitlab.freedesktop.org/virgl/virglrenderer/-/work_items/674
+> Fixes: df4dc947c46b ("drm/virtio: Allow importing prime buffers when 3D is enabled")
+> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> ---
+>   drivers/gpu/drm/virtio/virtgpu_prime.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_prime.c b/drivers/gpu/drm/virtio/virtgpu_prime.c
+> index 149e6bcb5878..ebf471044d06 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_prime.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_prime.c
+> @@ -349,7 +349,7 @@ struct drm_gem_object *virtgpu_gem_prime_import(struct drm_device *dev,
+>   		}
+>   	}
+>   
+> -	if (!vgdev->has_resource_blob)
+> +	if (!vgdev->has_resource_blob || vgdev->has_virgl_3d)
+>   		return drm_gem_prime_import(dev, buf);
+>   
+>   	bo = kzalloc_obj(*bo);
 
-drm/nouveau/gsp/r570: Add comp mode workaround from issue #3172217
+Oops, right, didn't think the back-compat issues all the way through on 
+that one..
 
-One of the things that OpenRM does right before initiating fbsr is apply a
-special workaround (nvidia issue #3172217) which temporarily disables raw
-compression mode on the GPU. It is later re-enabled after resuming with
-fbsr completes.
+Reviewed-by: Val Packett <val@invisiblethingslab.com>
 
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/dri=
-vers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-> index af5aa5065c3dd..569732320f3dd 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-> @@ -26,6 +26,35 @@ r570_fbsr_suspend_channels(struct nvkm_gsp *gsp, bool =
-suspend)
->  	return nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
->  }
-> =20
-> +static int
-> +r570_memsys_enable_raw_comp_mode(struct nvkm_gsp *gsp, bool enable)
-> +{
-> +	NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS *ctrl;
-> +	int ret;
-> +
-> +	ctrl =3D nvkm_gsp_rm_ctrl_get(&gsp->internal.device.object,
-> +				    NV2080_CTRL_CMD_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE,
-> +				    sizeof(*ctrl));
 
-[Severity: High]
-Does this command need to be sent to device.subdevice instead of
-device.object? The RM firmware validates the object class and will reject t=
-his
-subdevice command when sent to the NV01_DEVICE object, which will cause this
-function to fail and break system suspend on Ampere and Ada GPUs.
+BTW, to clarify wrt the original use case this was intended for— I got 
+it all working, but it adds new feature flags:
 
-> +	if (IS_ERR(ctrl))
-> +		return PTR_ERR(ctrl);
-> +
-> +	ctrl->bRawMode =3D enable;
+https://lore.kernel.org/virtio-comment/20260903021442.423274-1-val@invisiblethingslab.com/
 
-[ ... ]
+So I'll "unlock" this again in new patches but not unconditionally of 
+course. Rather, gated on the new F_CREATE_GUEST_HANDLE flag which would 
+indicate that the device backend *does* support creating guest blobs 
+with host handles (dmabufs).
 
-> @@ -59,6 +89,13 @@ r570_fbsr_resume(struct nvkm_gsp *gsp)
-> =20
->  	/* Finish cleaning up. */
->  	r535_fbsr_resume(gsp);
-> +
-> +	/* Re-enable raw mode if it was previously disabled */
-> +	if (r570_need_raw_comp_war(gsp, device)) {
-> +		ret =3D r570_memsys_enable_raw_comp_mode(gsp, true);
 
-[Severity: High]
-Is it safe to re-enable raw mode after channel scheduling is resumed?
+Thanks,
+~val
 
-In r570_fbsr_suspend(), channel scheduling is stopped before raw mode is
-disabled. In r570_fbsr_resume(), channel scheduling is resumed in code
-preceding this snippet. Resuming channels before restoring raw compression
-mode violates LIFO ordering and creates a race condition where channels mig=
-ht
-begin processing commands while raw mode is still disabled.
-
-> +		if (ret)
-> +			nvkm_error(&gsp->subdev, "Failed to re-enable raw comp mode\n");
-> +	}
->  }
-
-[ ... ]
-
-> @@ -104,6 +141,17 @@ r570_fbsr_suspend(struct nvkm_gsp *gsp)
->  	/* Stop channel scheduling. */
->  	r570_fbsr_suspend_channels(gsp, true);
-> =20
-> +	/* Temporarily disable raw mode to prevent FBSR restore operations from=
- corrupting
-> +	 * compressed surfaces. Required for ampere and ada.
-> +	 *
-> +	 * Nvidia bug #3172217
-> +	 */
-> +	if (r570_need_raw_comp_war(gsp, device)) {
-> +		ret =3D r570_memsys_enable_raw_comp_mode(gsp, false);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-
-[Severity: High]
-Does this code leak hardware state when r570_memsys_enable_raw_comp_mode()
-or the subsequent nvkm_instobj_save() loop fails and returns early?
-
-If either fails, the modifications from r570_fbsr_suspend_channels() and
-r570_memsys_enable_raw_comp_mode() are not rolled back. The Linux PM
-core will abort suspend without calling resume, leaving the GPU permanently
-with suspended scheduling and disabled raw compression mode.
-
->  	/* Save BAR2 allocations to system memory. */
->  	list_for_each_entry(iobj, &imem->list, head) {
->  		if (iobj->preserve) {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915210647.6951=
-87-1-lyude@redhat.com?part=3D3
