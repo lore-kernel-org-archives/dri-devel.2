@@ -4,85 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E705C88E73
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 08:04:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62EAFC88E73
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 08:04:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 431E910FACB;
-	Tue, 15 Sep 2026 08:04:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C95E010F355;
+	Tue, 15 Sep 2026 08:04:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="UhxTuDRK";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="T/44S0xL";
 	dkim-atps=neutral
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D23310FAE7;
- Tue, 15 Sep 2026 08:04:18 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68F6YX3C2004284; Tue, 15 Sep 2026 09:04:04 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=dk201812; bh=MqnkhrEECCI0olLRahm1wuL
- 5//hXevtCEX0ibgxGSvE=; b=UhxTuDRKynaZ4j2kjiJ4zyjTE7E9zeZh8F6cef8
- 56rsPojFuXLJfwxCw0PIiR3Tf2Nak4hqHGdyXydrzyOsQePh+bUVt66gVjEwPs0g
- bUX129iIrv8fY2Loyo+2o+HL8kAgfWhUs6+mLW0MWkiCbMGu0/P2o8oZ63mLRAX/
- C2bGGRyxZ8JrA+91+qF+HYWPKxZsqfG10JVvsySAeGn2SgO+//B67DDX5v/NLT6V
- mCPUz3scgCL9xKusy+hvhw38ftUwWxGLoDYrpXRk3YrLr54fJeLsJnzE6JYqSf4C
- LumXIKduapYs4sXxr5Z5fjWMGBhpkbY4mCyWsrBT2sZGanA==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4gmxtujca6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 15 Sep 2026 09:04:04 +0100 (BST)
-Received: from [127.0.1.1] (172.25.5.88) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 15 Sep
- 2026 09:04:02 +0100
-From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Subject: [PATCH 0/2] drm/imagination: Firmware interface cleanup
-Date: Tue, 15 Sep 2026 11:03:44 +0300
-Message-ID: <20260915-b4-do-not-map-if-structs-unnecessarily-v1-0-a0e2ccee154a@imgtec.com>
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6424010F355
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:04:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+ Message-ID; bh=3wO+URdvSBFVxX9Tuwun1pw6T4zTncXG6LsOhjmrjps=; b=T
+ /44S0xLfFiXzoIzajWOaxbS30znaqhYAKbxLKzHzZ1pieFniAqF6131Gh+nolh+o
+ KpbC4YlQ3lBCqYgoOc7kDIe6LMokw5uDiNhbcj78XsAFx/VFLwxXfizac02LeY0X
+ wzGom9ezhSUt8sr8e8GwlWKV2fENp/iY9S+Tzx9C5M=
+Date: Tue, 15 Sep 2026 16:04:01 +0800 (CST)
+From: CJ <firefly0158@163.com>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [BUG] drm: lease: WARNING in the page allocator from
+ drm_mode_create_lease_ioctl
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2TC/ietkwv5yCRbOkdmEsTju82UcS4ufQl245Xc98Figbk+QAgeFpPNFDG1NiRKyuJkh+TdQFs6cJxc45/N+o2soxKf38hX/xFTvZueQ==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAOD7qGoC/yXNTQ6CMBBA4auQWTsJECTFqxgX/Rl0jE5JpyUaw
- t2tuvw2722glJgUTs0GiVZWjlLRHRrwNytXQg7V0Lf92E7dgG7AEFFixqddkGfUnIrPikWEPKn
- axI83BjJmNC4cTZigxpZEM79+o/Plby3uTj5/67DvH2BuF+GKAAAA
-X-Change-ID: 20260914-b4-do-not-map-if-structs-unnecessarily-de8868bd58d9
-To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
- <luigi.santivetti@imgtec.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, Alexandru Dadu <alexandru.dadu@imgtec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789459442; l=829;
- i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=2QHwNegqTYNEhFn3uRl/78zEGrvHKNKw3w3xL2Ook/c=;
- b=Pks2u9Z6IQoFSXXuxAMR2kWbiH2CVkuxan/bt5gOYtoKwbVPdPTqcPd7Db6aCiLYcz6sBgyBj
- dIdMvJrBJU6Bk44xHVlWrWgmrg4D9vtFcEjwMRknXM6QoKP5VjLmNt7
-X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
- pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Originating-IP: [172.25.5.88]
-X-Authority-Analysis: v=2.4 cv=Se9i5fRu c=1 sm=1 tr=0 ts=6aa8fbf4 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=YP7Kpn5otooA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=nOyVeRINTYQrkHNToBwA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: St5zqxhleYfyVmPltJRh32UECYD8dWsx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDExNSBTYWx0ZWRfX8ja8LId8KMtc
- hInrUTmiZttSd+uvfhngLqQ2VKHhwn66NbmX6szqdZF0Ml3yvLde5+thHiAtCIepq+Q/f5sJDgJ
- ndEsWgsPdOOonQya4fZ/hLO5datln6XDKGKRjnoHTceVwTW1HeuaWLoyGMvCTloScKsGCF66+2f
- UkHAR1vznuSaZjyblpnWUkqN3WSDwsWsND2ZFQrIxbD4TLQkd6TJtm5AKf+vPLErujWr4W4lbqu
- ROBt6z1ww5/wi/rqryKjx0bvdl4EyDqRlsIvGpB9lT2BU0dHNEaf9+HPZpEnJ97j8OUq3Ma/jWj
- OC5epk5MmxzUJ9bLEB115KrDJJpQN8Dw3JPwaMQ6RV38Wjk5z1ONTMSlQwz3f4mRBdjXoFixZsK
- zU71OitFGj3AVJKqN64J6y/Yf8Aj69IeN6IhDHezP1JB7hd3KEw4zGfulh0OGT8uUDt4yQd8oaz
- ppQusQeLSwxlW/OWzFA==
-X-Proofpoint-GUID: St5zqxhleYfyVmPltJRh32UECYD8dWsx
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDExNSBTYWx0ZWRfX7jWjAZmf9QT7
- ADjaoYawS0sqcRk0MZHVIEmMyvRR+1+OX3gyCU6VLr6ELpUbTfII34VdYA/kucNfNoUNsC3dlXY
- Z+wn5UcSPj09bE8ZxB3UrIm/0m+S68A=
+Message-ID: <389fe79.729d.1a0a41825db.Coremail.firefly0158@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: hygvCgD3n7Hx+6hqKhMQAA--.21669W
+X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3REAsWqo+-Ee1gAA39
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,25 +55,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Series contains cleanup commits targeted to FW interface.
-    - Firmware connection ctl moved in the same place as the other
-      firmware ctl structures.
-    - Remove unnecessary structure mapping.
-
-Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
----
-Alessio Belle (2):
-      drm/imagination: Treat FW connection ctl like other interface structures
-      drm/imagination: Don't map FW interface structures unnecessarily
-
- drivers/gpu/drm/imagination/pvr_fw.c | 130 ++++++++++++++++++++---------------
- drivers/gpu/drm/imagination/pvr_fw.h |  18 ++---
- 2 files changed, 80 insertions(+), 68 deletions(-)
----
-base-commit: bd4f284df04d76fd65e57141cb1e6e7a49e4c3cb
-change-id: 20260914-b4-do-not-map-if-structs-unnecessarily-de8868bd58d9
-
-Best regards,
---  
-Alexandru Dadu <alexandru.dadu@imgtec.com>
-
+CgoKSGksCgoKCgpJIGFtIHJlcG9ydGluZyBhIFdBUk5JTkcgZnJvbSB0aGUgcGFnZSBhbGxvY2F0
+b3Igb24gdGhlIERSTSBsZWFzZS1jcmVhdGlvbiBwYXRoLAp0cmlnZ2VyZWQgYnkgYSBzeXprYWxs
+ZXIgcmVwcm9kdWNlci4gIFRoZSBpc3N1ZSBpcyByZXByb2R1Y2libGUgd2l0aCBIRUFEIGNvbW1p
+dApjZWU5Mzk1YWNkODA0M2JlMDY0NGIyNWMzNGJmYTg2NjIzZjJiOTM1ICh2Ny4zLXJjMSwgTGlu
+dXggNy4zLjAtcmMxKS4KCgoKClRoZSByZXByb2R1Y2VyIG9wZW5zIGEgRFJNIHJlbmRlciBub2Rl
+IGFuZCBpc3N1ZXMgRFJNX0lPQ1RMX01PREVfQ1JFQVRFX0xFQVNFCndpdGggYW4gb2JqZWN0IGlk
+IGFycmF5IHdob3NlIGxlbmd0aCBmaWVsZCBpcyAxMDAwMDAwIHdoaWxlIHRoZSBhcnJheSBpdHNl
+bGYKY29udGFpbnMgYSBzaW5nbGUgaWQuCgoKCgpUaGUgY29uc29sZSBzaG93cyBhIFdBUk5JTkcg
+YXQgbW0vcGFnZV9hbGxvYy5jOjUzNDAgd2l0aCBSSVAgaW4KX19hbGxvY19mcm96ZW5fcGFnZXNf
+bm9wcm9mLCByZWFjaGVkIGZyb20gZHJtX21vZGVfY3JlYXRlX2xlYXNlX2lvY3RsIHRocm91Z2gg
+dGhlCmxlYXNlIG9iamVjdCBib29ra2VlcGluZy4gIE9uIHRoZSBrZXJuZWwgd2hlcmUgdGhpcyB3
+YXMgZmlyc3QgcmVwb3J0ZWQgdGhlIHNhbWUKd2FybmluZyB3YXMgcmVjb3JkZWQgYXQgbW0vcGFn
+ZV9hbGxvYy5jOjUzOTggaW4gX19hbGxvY19wYWdlcywgd2hpY2ggaXMgdGhlIHNhbWUKYWxsb2Nh
+dGlvbiBwYXRoIGJlZm9yZSBhIGxhdGVyIHJlZmFjdG9yLCBhbmQgdGhlIGNhbGxlciBpcyB0aGUg
+c2FtZSBpb2N0bC4KCgoKCk9uZSBwb3NzaWJsZSBjYXVzZSBpcyB0aGF0IHRoZSBsZW5ndGggdGhl
+IGlvY3RsIHN1cHBsaWVzIGZvciB0aGUgb2JqZWN0IGlkIGFycmF5CmlzIHVzZWQgdG8gc2l6ZSBh
+biBhbGxvY2F0aW9uIHdpdGhvdXQgYmVpbmcgY2hlY2tlZCBhZ2FpbnN0IHRoZSBudW1iZXIgb2Yg
+b2JqZWN0cwp0aGF0IGNhbiBhY3R1YWxseSBleGlzdCwgc28gdGhlIHJlcXVlc3QgcmVhY2hlcyB0
+aGUgYWxsb2NhdG9yIHdpdGggYSBzaXplIG9yCm9yZGVyIHRoZSBhbGxvY2F0b3Igd2FybnMgYWJv
+dXQuICBUaGlzIGxvb2tzIGxpa2UgYSBtaXNzaW5nIGJvdW5kIG9uIGEKdXNlci1zdXBwbGllZCBj
+b3VudCByYXRoZXIgdGhhbiBhbiBhbGxvY2F0b3IgZGVmZWN0LiAgSSBhbSByZXBvcnRpbmcgdGhl
+IHdhcm5pbmcKYW5kIHRoZSBwYXRoIGFzIG9ic2VydmVkLgoKCgoKVGhpcyBhcHBlYXJzIHRvIGJl
+IGEgcmVjdXJyZW5jZSBvZiB0aGUgc3l6Ym90IGlzc3VlIHdob3NlIGV4dGVybmFsIGlkIGlzCmYy
+Njc0NGI1MmFiODdmMjg2NGUzLiAgSXQgcmVtYWlucyByZXByb2R1Y2libGUgb24gdjcuMy1yYzEu
+CgoKCgpSZXByb2R1Y2VyOgoKCgoKc3l6IHJlcHJvZHVjZXI6CnIwID0gc3l6X29wZW5fZGV2JGRy
+aSgmKDB4N2YwMDAwMDAwMGMwKSwgMHgxZmYsIDB4MCkKaW9jdGwkRFJNX0lPQ1RMX01PREVfQ1JF
+QVRFX0xFQVNFKHIwLCAweGMwMTg2NGM2LCAmKDB4N2YwMDAwMDAwMDQwKT17JigweDdmMDAwMDAw
+MDY0MCk9WzB4MF0sIDB4ZjQyNDB9KQoKCgoKY29uc29sZSBvdXRwdXQ6IGh0dHBzOi8vcGFzdGVi
+aW4uY29tL3Jhdy8xUzRQRUJRVQoKCmtlcm5lbCBjb25maWc6IGh0dHBzOi8vcGFzdGViaW4uY29t
+L3Jhdy9WdTVLeTR1agoKCgoKS2VybmVsOgoKCgoKSEVBRCBjb21taXQ6IGNlZTkzOTVhY2Q4MDQz
+YmUwNjQ0YjI1YzM0YmZhODY2MjNmMmI5MzUKZ2l0IHRyZWU6IHVwc3RyZWFtIChsaW51eC5naXQp
+LCB0ZXN0ZWQgdGhyb3VnaCB0aGUgdjcuMy1yYzEgYW5ub3RhdGVkIHRhZyBvYmplY3QKwqAgwqAg
+wqAgwqAgwqAgwqBlNWUwNDcyNmNkZDA0M2UzMDk2NzcwNzFhYjFiNjVhNGIxOGY0MjJiCmtlcm5l
+bCB2ZXJzaW9uOiA3LjMuMC1yYzEgIzEgUFJFRU1QVChmdWxsKQp0ZXN0ZWQgdGFnOiB2Ny4zLXJj
+MSAoTGludXggNy4zLXJjMSwgMjAyNi0wOC0zMCkKCgoKCkxldCBtZSBrbm93IGlmIHlvdSBuZWVk
+IG1vcmUgZGV0YWlscyBvciB0ZXN0aW5nLgoKCgoKQmVzdCByZWdhcmRzLApDaGFuZ2ppYW4=
