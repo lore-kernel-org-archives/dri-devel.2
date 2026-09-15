@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B285C88E53
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:40:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B4A1C88E73
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:40:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AAF310FA88;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31AF510FA89;
 	Tue, 15 Sep 2026 07:40:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B0+E1yHH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fPVPEsUY";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A962B10FA82
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 07:39:48 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B8F310FA82
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 07:39:49 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 6A4DB413A3;
+ by tor.source.kernel.org (Postfix) with ESMTP id 81AB9602A8;
  Tue, 15 Sep 2026 07:39:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3D6B4C2BCF6;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2FE72C2BCFB;
  Tue, 15 Sep 2026 07:39:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1789457988;
- bh=+ZvUBVLlnhme8yqiJiZGAghhi2ab0L3qh0DBTz3gBa8=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=B0+E1yHH48qchnNwHAAiruot/yaYCnDDcg4y30hw7e9uIYrXz3wkWnNssapl8E+/W
- StenjhKwFr2urjYijKuft8ZuEmg2tLQyouhD9hOroVdIU/DvfPG27L+g3UxTcAal4R
- 80SkZuRnvV8DfNS7VghLTsGmV94EqnQ2wFnkoMjJJeayFWTnCiOG4od0NdMurjWmT7
- 0OofXkRlemfzzPUhU9y9JKu13rCd/kUnxiEzdcE5RvGwt2dJu5q1SGuWyawbaT+4tJ
- rbOSkf1EbAxE3rB7qA94ootxLiwYqUtjvhXGfneQ+Rcbe6Tn5oWEA2lLhhZ+D/X1R0
- E2IFjlm/ryN4A==
+ bh=X2czHbrSs18WUTeT1j+/DpL6IMrShozvKKb9NfGC9O0=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=fPVPEsUYtgGhSjoyqoCH5SypUQD2O+jtI/Dr/75hOOIvBvixu8X1intHt3G/Ri3Kc
+ XNHoG1iSACVrswnzhZNRctrX/VsuYINncWAwkoSqO9K0dygA/AynktHxYY7t+D7PTK
+ cuPh5piS6icVaiaaDPTx5STZRYIRfzbjZO58Ly0Z8zjlg3oIdJgYKSEp7jWCTaH+cX
+ uInYBL1qJdpkGBazkjCaZ1g+19/MhOcpk1CjKGL7JGQBssWyb1j9ouxJnOk6r0ICTZ
+ G6JvizFRWYYdd6jdjxnfptTTAifC7HxP9ZxR7PVB5jgeH69gj7evp5/Q27eZVUhhsq
+ cXo3AGr4+2o7Q==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 1A72BC88E7D;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 068BEC88E73;
  Tue, 15 Sep 2026 07:39:48 +0000 (UTC)
 From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Date: Tue, 15 Sep 2026 15:39:10 +0800
-Subject: [PATCH v2 1/4] drm/virtio: fix object leak when
- drm_gem_handle_create() fails
+Subject: [PATCH v2 0/4] drm/virtio: fix GEM object leaks on error paths
+Date: Tue, 15 Sep 2026 15:39:09 +0800
+Message-Id: <20260915-fixes-v2-0-a0d799e4db66@outlook.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-fixes-v2-1-a0d799e4db66@outlook.com>
-References: <20260915-fixes-v2-0-a0d799e4db66@outlook.com>
-In-Reply-To: <20260915-fixes-v2-0-a0d799e4db66@outlook.com>
+X-B4-Tracking: v=1; b=H4sIAB32qGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyjHQUlJIzE
+ vPSU3UzU4B8JSMDIzMDS0NT3bTMitRiXYtkM0tD81RLAzMzUyWg2oKiVLAEUGl0bG0tAJP91iF
+ XAAAA
+X-Change-ID: 20260915-fixes-8c6917e90665
 To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
  Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
  Gurchetan Singh <gurchetansingh@chromium.org>, 
@@ -56,13 +57,13 @@ Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
  linux-kernel@vger.kernel.org, Junrui Luo <moonafterrain@outlook.com>, 
  Yuhao Jiang <danisjiang@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1755;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1536;
  i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=IqwDkc74tOO8lL0END3OA/+gXOd16vqiITrIyypWgKA=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrBXfHLs+KjxL9dt8d+0PB7/+Evm4I+b64b5Kl+9wp
- hxdaLFCIKOjlIVBjItBVkyR5XjBpW8Wvlt0t/hsSYaZw8oEMoSBi1MAJjLrAsNf6TO1WakrPQrn
- L5mwUmC7vvTxoltXQrRSNm7+1/7/p7SCESPDnNQNBzzsWTZG1sdf9RE7w/n7vq2zRUjo/eAjE5u
- WlRUzAgAcwkvq
+ bh=X2czHbrSs18WUTeT1j+/DpL6IMrShozvKKb9NfGC9O0=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrBXfHN90179brFw37+qpt7Fmt+eoMjV+P7nk3s4JO
+ nJyRscL4uo7SlkYxLgYZMUUWY4XXPpm4btFd4vPlmSYOaxMIEMYuDgFYCIJAQx/hdckFe99sNTx
+ R8R8lSk5FV8WXbeZXcHwuKmgaN2O9coHnzIy3M0z/2R5xODBp9l/+FmXXbHK4nXaU5tveGFSX76
+ ir+xpTgBXL07U
 X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
  fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
 X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
@@ -84,49 +85,43 @@ Reply-To: moonafterrain@outlook.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Junrui Luo <moonafterrain@outlook.com>
+v1 fixed one drm_gem_object_release() misuse in virtio_gpu_gem_create().
+Dmitry asked for the other occurrences the Sashiko bot pointed at [1], so
+v2 turns it into a series.
 
-virtio_gpu_gem_create() owns the reference taken by
-virtio_gpu_object_create(). On the drm_gem_handle_create() error path it
-calls drm_gem_object_release() instead of dropping that reference.
+Patches 1-3 replace drm_gem_object_release() with drm_gem_object_put() on
+the GEM creation error paths. Patch 1 is unchanged from v1.
 
-drm_gem_object_release() is the inverse of drm_gem_object_init() and does
-not touch the reference count or call obj->funcs->free(), so it is only
-correct as the last step of a destructor, as in
-virtio_gpu_cleanup_object(). Using it here leaves the bo at refcount 1
-with no remaining reference, so virtio_gpu_free_object() never runs and
-the shmem pages, sg table and virtio_gpu_object are leaked. Since
-virtio_gpu_object_create() has already set bo->created,
-VIRTIO_GPU_CMD_RESOURCE_UNREF is not queued either, leaking the host-side
-resource and the resource id.
+Patch 4 adds the missing drm_gem_object_release() before kfree(vram) in
+virtio_gpu_vram_create().
 
-drm_gem_handle_create_tail() drops the handle reference on all of its
-internal error paths, so the caller only has to drop its own. Use
-drm_gem_object_put(), matching the success path below.
+Only compile-tested (x86_64, CONFIG_DRM_VIRTIO_GPU=m).
 
-Fixes: dc5698e80cf7 ("Add virtio gpu driver.")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
+[1] https://lore.kernel.org/all/55240372-c265-4b38-be94-f29a58ddbb22@collabora.com/
+
+Changes in v2:
+- Add patches 2-4 covering the other occurrences reported by the bot
+  (Dmitry Osipenko)
+- Link to v1: https://lore.kernel.org/r/20260815-virtgpu-gem-create-leak-v1-1-a4e9fb18caa3@outlook.com
+
 Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 ---
- drivers/gpu/drm/virtio/virtgpu_gem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Junrui Luo (4):
+      drm/virtio: fix object leak when drm_gem_handle_create() fails
+      drm/virtio: fix object leak in virtio_gpu_resource_create_ioctl()
+      drm/virtio: fix object leaks in virtio_gpu_resource_create_blob_ioctl()
+      drm/virtio: release the GEM object on virtio_gpu_vram_create() errors
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/virtio/virtgpu_gem.c
-index 66c3f6f74e9c..d2f0b8a3f172 100644
---- a/drivers/gpu/drm/virtio/virtgpu_gem.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
-@@ -45,7 +45,7 @@ static int virtio_gpu_gem_create(struct drm_file *file,
- 
- 	ret = drm_gem_handle_create(file, &obj->base.base, &handle);
- 	if (ret) {
--		drm_gem_object_release(&obj->base.base);
-+		drm_gem_object_put(&obj->base.base);
- 		return ret;
- 	}
- 
+ drivers/gpu/drm/virtio/virtgpu_gem.c   |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_ioctl.c |  6 +++---
+ drivers/gpu/drm/virtio/virtgpu_vram.c  | 17 +++++++++--------
+ 3 files changed, 13 insertions(+), 12 deletions(-)
+---
+base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+change-id: 20260915-fixes-8c6917e90665
 
+Best regards,
 -- 
-2.51.2
+Junrui Luo <moonafterrain@outlook.com>
 
 
