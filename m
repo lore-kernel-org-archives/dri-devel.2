@@ -4,70 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04105C88E77
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 21:08:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04184C88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 21:17:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54C8A10E2D6;
-	Tue, 15 Sep 2026 21:08:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14D8910E262;
+	Tue, 15 Sep 2026 21:17:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="GoWYtaco";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aBf4NVPp";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E76B210E2D6
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 21:08:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1789506488;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2ATpn8ez/0YuEtC0S+/A/Cw0hfbbKsjXiceZVuc6lSs=;
- b=GoWYtacoczoCCRu1jYIM3sKrGUb17LikI0Vnwm50/Pj7uIX/U0M+IVcy8UIBOqAbTuQroC
- 7SzwP5efUzyjEFimppmxyAOg9zNRKSx5+UOi78nQNn6TQYANb77cWvTOodfRKwTTHqBWQR
- b4cj583lC9KDAqllzdZ4t+iG+W5hmaA=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-397-0J5yZtvJMDi8q541Fju1Uw-1; Tue,
- 15 Sep 2026 17:08:04 -0400
-X-MC-Unique: 0J5yZtvJMDi8q541Fju1Uw-1
-X-Mimecast-MFC-AGG-ID: 0J5yZtvJMDi8q541Fju1Uw_1789506483
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id BA9E11869BB8; Tue, 15 Sep 2026 21:08:02 +0000 (UTC)
-Received: from GoldenWind.redhat.com (unknown [10.22.80.179])
- by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 53CD61800446; Tue, 15 Sep 2026 21:08:00 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: "Timur Tabi" <ttabi@nvidia.com>, "Dave Airlie" <airlied@redhat.com>,
- "Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>,
- "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Kees Cook" <kees@kernel.org>, "Simona Vetter" <simona@ffwll.ch>,
- "David Airlie" <airlied@gmail.com>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "Maxime Ripard" <mripard@kernel.org>,
- "Hongling Zeng" <zenghongling@kylinos.cn>,
- "Mel Henning" <mhenning@darkrefraction.com>,
- "Danilo Krummrich" <dakr@kernel.org>, "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v2 5/5] drm/nouveau/gsp/r570: Enable Gcoff in fbsr again
-Date: Tue, 15 Sep 2026 14:51:52 -0400
-Message-ID: <20260915210647.695187-6-lyude@redhat.com>
-In-Reply-To: <20260915210647.695187-1-lyude@redhat.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C2DC10E262
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 21:17:28 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id DB1E640597;
+ Tue, 15 Sep 2026 21:17:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9409E1F00893;
+ Tue, 15 Sep 2026 21:17:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789507047;
+ bh=Kk9SLsv0fNNfWd47WJQCIpWkgR/ipvdbi5Km3j3cQ28=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=aBf4NVPpfQxSKs0OMU++ugGqONbYPMYBPadJ82yJHRbuRK1jRRQPv72U6R4Lwyfal
+ C3UhEv7AoQDqHpQII99F9qqmAr8T9xue0fdx8Mdxmiql0ba9w04VetzPh9zTUjONrC
+ lvLWnoqxodw9aFEaxH38WyqxXBk1A0BZ6yrtC9B27jCIZKzKujQB5wr6A7WNk3H1q3
+ hIaBAS8293XLpD4NKZf4hluNPx3ctCC+i7Ug0BPHOwGFTwLF0u8A7QaHNDDJkl91uz
+ 2Vf+DzESSiaMuaUI7tprahR4KUALiUa918KpaQ3ezLhWr8BeQPMptfbz9IcSrU7qpG
+ YXMu8BE98eqcg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/5] drm/nouveau/gsp/r535: Add support for
+ INTERNAL_GCX_ENTRY_PREREQUISITE
+To: "Lyude Paul" <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260915210647.695187-2-lyude@redhat.com>
 References: <20260915210647.695187-1-lyude@redhat.com>
-MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
-X-Mimecast-MFC-PROC-ID: VqMRQeFcBMde0ti98d9IzW1dU8WxPQu8p8UY6sOOvKE_1789506483
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+ <20260915210647.695187-2-lyude@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 21:17:27 +0000
+Message-Id: <20260915211727.9409E1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,32 +54,80 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that we're properly saving the compbit backing stores on fbsr init, we
-can start setting bEnteringGcOff = 1 again without things breaking, which
-brings us closer to following the exact same code-paths OpenRM does for
-fbsr.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] nouveau: nvif_device_gcx_ready negative error codes handled as b=
+itmask
+--
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+commit 181d7ad17939e59149b939f631f63cac7294478a
+Author: Lyude Paul <lyude@redhat.com>
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-index feef5104a6241..11f18b3eb6b16 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-@@ -135,7 +135,7 @@ r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size)
- 	ctrl->hClient = gsp->internal.client.object.handle;
- 	ctrl->hSysMem = memlist.handle;
- 	ctrl->sysmemAddrOfSuspendResumeData = gsp->sr.meta.addr;
--	ctrl->bEnteringGcoffState = 0;
-+	ctrl->bEnteringGcoffState = 1;
- 
- 	ret = nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
- 	if (ret)
--- 
-2.55.0
+drm/nouveau/gsp/r535: Add support for INTERNAL_GCX_ENTRY_PREREQUISITE
 
+This commit adds support for querying the GSP to see if the GPU is ready
+to enter Gc6 and/or GcOff before runtime suspending. If the GPU is not
+ready, the runtime suspend process is delayed.
+
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouv=
+eau/nouveau_drm.c
+> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+[ ... ]
+> @@ -1164,6 +1165,14 @@ nouveau_pmops_runtime_suspend(struct device *dev)
+>  		return -EBUSY;
+>  	}
+> =20
+> +	/* Check if the GPU itself is ready for runtime suspend, otherwise mark=
+ as busy and check
+> +	 * again in a bit. */
+> +	if (!(nvif_device_gcx_ready(nvif) & NV_DEVICE_GCOFF_READY)) {
+> +		NV_DEBUG(drm, "GPU isn't ready for suspend yet, delaying...\n");
+> +		pm_runtime_mark_last_busy(dev);
+> +		return -EBUSY;
+> +	}
+> +
+
+[Severity: Medium]
+Should this check for a negative error code before applying the bitmask?
+
+The nvif_device_gcx_ready() function can return negative error codes
+if the underlying RPC call fails. Because this returned integer is
+directly bitwise ANDed with NV_DEVICE_GCOFF_READY (which is BIT(1)),
+the two's complement representation of a negative error code will yield
+an arbitrary true or false result depending on its specific bit pattern.
+
+For example, if an error returns -EINVAL (-22), bit 1 is set. The bitwise
+check evaluates to true, which bypasses the delay and unsafely puts the
+GPU to sleep. Alternatively, if the error is -ENOMEM (-12), bit 1 is
+cleared, which evaluates to false and delays the suspend.
+
+> diff --git a/drivers/gpu/drm/nouveau/nvif/device.c b/drivers/gpu/drm/nouv=
+eau/nvif/device.c
+> --- a/drivers/gpu/drm/nouveau/nvif/device.c
+> +++ b/drivers/gpu/drm/nouveau/nvif/device.c
+[ ... ]
+> +int
+> +nvif_device_gcx_ready(struct nvif_device *device)
+> +{
+> +	struct nv_device_gcx_ready_v0 args =3D {};
+> +	int ret;
+> +
+> +	ret =3D nvif_object_mthd(&device->object, NV_DEVICE_V0_GCX_READY, &args=
+, sizeof(args));
+> +	if (ret)
+> +		return ret;
+> +
+> +	return args.ready;
+> +}
+
+Here is where nvif_device_gcx_ready() explicitly propagates the negative
+error code returned from nvif_object_mthd() on failure.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915210647.6951=
+87-1-lyude@redhat.com?part=3D1
