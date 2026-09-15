@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3EF1C88E7F
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 10:44:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C37FC88E53
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 10:44:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD92110F418;
-	Tue, 15 Sep 2026 10:44:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CEF810F423;
+	Tue, 15 Sep 2026 10:44:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="s+msqHx8";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="WjnHBMwd";
+	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="aj/kfVAU";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="NSS5GWOT";
 	dkim-atps=neutral
 Received: from flow-b6-smtp.messagingengine.com
  (flow-b6-smtp.messagingengine.com [202.12.124.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58A2C10F418
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 10:44:30 +0000 (UTC)
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
- by mailflow.stl.internal (Postfix) with ESMTP id 39E6B130050A;
- Tue, 15 Sep 2026 06:44:29 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-07.internal (MEProxy); Tue, 15 Sep 2026 06:44:29 -0400
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EAA310F422
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 10:44:42 +0000 (UTC)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailflow.stl.internal (Postfix) with ESMTP id 30071130050E;
+ Tue, 15 Sep 2026 06:44:41 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-02.internal (MEProxy); Tue, 15 Sep 2026 06:44:41 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
  h=cc:cc:content-transfer-encoding:content-type:date:date:from
  :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm2; t=1789469069; x=
- 1789476269; bh=ogiWiCQ3bNIbKL3gCXgpDZdn7OpFJCd90E8FcpUzIl4=; b=s
- +msqHx8wYt7BuCOFl3j9MsX9w5GJ8YE6oc4CkgbByOEn3NOMqoBjIiawV+IulPFL
- 9AwkeEoZGKzkdkerOj5nHQoZLp+mYaw8d7zEuSrN+boTRolFsnQqAqSn1L1m74tc
- 1aP3xbI1s96UbU3b9VKj8uDgq2C1nPSXcpZgQw7dMB6wZSwXkfYNqISMSEJaDa9E
- lE7qZbMNZ17/L/eyVyqR/tRbDsdaTmV9va9m/8B6OUdQYKXoJbM9yHvIYeh7kkDn
- G3v7iHZDDMA1MYSw5rvDL+dVN9ON+bp0r0lYSpOkTNhLC1SLIgl3xiwjnMo/ieAq
- hJLOPpSBPCkmTeeL2wtcA==
+ :reply-to:subject:subject:to:to; s=fm2; t=1789469081; x=
+ 1789476281; bh=lQdZ0GHKydOrKI+dUcKiWk5+c+F2epU+605XobNgMDI=; b=a
+ j/kfVAULkQ7Zl+5CTq4oWRIGyK+jSYdSb+kceBSWxB5CwZpF2H14siu6rd7FPUPK
+ tULObl6PDTehISiwCcyM1dT45XXzKORzQPy3Wk0h7vbcNfyiqmAgz9uoupH7r5Pz
+ xL91HkGsi/FNvHQ7wWESYKwTs4+L65iqfHdhcD9CjQmsDfh44XgH+w+KezgHftHz
+ 1LSdC0KDQPo+2fLE2S3cv8e5gC2irXXfotCDYK9zTo4GEwwnQjuXYGOkRkoOM5zP
+ TaoOy/p7jMIfpQVd3lzgQIYLVufvLvF6le0p/RcTLomtUft37LgKJKoFvcee+Vv2
+ E90qnbUBlNhtGvwr3hgoQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; t=1789469069; x=1789476269; bh=o
- giWiCQ3bNIbKL3gCXgpDZdn7OpFJCd90E8FcpUzIl4=; b=WjnHBMwdVgj4BAee9
- m/OgXvi+1kHFNoqgxNDz5qtHh2Q6iKnukLSZugVEwP4ARgDqBjjL52fM3RJCJLvs
- AIWtIp7Mv8TZ3JlAQaJjAlifBWSmrE3hdDfZLQZG3TejVjh5pFg6fhmDg1opvX2H
- TtwXoN23Vvp72wrI19uXcNXY8q+BxBGYIgV9ItX4VtoVuux++RNjjUuohNTGv8vn
- hwu5lB289sy8ikWyDgnxg4asa2/6/nnB80K5x7d7VpQllED2rwH+UpMeU8gKAS9r
- dTEkt+PGCkhYN7Ee3W7DYs8rM7KwoAhHQ53ERW9q2I5lF13cq52f5ZbJYOFxhim4
- 0zshA==
-X-ME-Sender: <xms:jCGpaqoVmFGDTOC5qaEmAH6V7NsjhF1GKP0AQTS-Q81WWEyDfvW-GQ>
- <xme:jCGpaozV9zNQwn1qABCtp3Y5ojQvDXyjXvIvakdmYpuG1yX3QCJs5fpSuVxXqzcCK
- E1X_kab3-yt8SAeO_PlZ1871ocNdSM7WHXTomwIO3XqBb27LDi9FAZj>
-X-ME-Received: <xmr:jCGpatASSAozexkJ7pFWahd05CWLLiPLSM0v2oZoOTEFxUFqtRKMEyOtcZzSwMZ5IjeufI9SFg>
-X-ME-Proxy-Cause: dmFkZTE+OOtKqCgoTSrVlWQquKDyDOihaRAkbxrETzU46WPYI4xRZhEiyJhifUIK7wOXWw
- wVB9SQ/RAi7MrJDFDtBnx7Pb+n0YwQkRdmArbygP/oxZoxHW8LIKLQIL2L7jzJ+dDFOc0i
- zgJzZNFATjdf2+j0asWJSTUnqqtG7PFp8Vs3eFHmviT3HEJrjWQLemcS9TcZGgU54P+FV5
- 4Pm9j2o7pLtOaGphBt5Uxmdvehz8zGy65174LdzdOvWQ05shZHdK5O0prBfSV/v5pCB4Ev
- utsMlLRk0S0Gt2QFQEaEqPdSBGLc8kXC99b8ea4ToJp+YO5u/c8PUKkTZ3pOeCnaAxuGdJ
- /BT8K/nh0P2FrQdFEYE10UTIUcJu1LBR0D58cwa6sA7yRrw8n3uAEOF9WPqwtcDwa042iz
- mhczxIDOr1uQ4NzgmUNuf7i05ePBq49Vg54C/SPO7k7KbGPcvm6e3rQTKt4k5jlFlVIX9e
- wBFEYsWLJpoqkNgf6E+q6bXxB3tH/w09nozAW55tQU40NUhjLbj3etpz4hy/OzwnbNWZK1
- bXAj4gQwE6OfDnkkv1yfUSmhhdvWNDGhi66omzFpzZkhm9Hjd+xxjJKmjo8eczfSA6tPeL
- B/iZ54o49qMTeRC3U05fb0n3Pg1n8Cgw4GricS8ygP1+0Y1iEQFNmKcZi3ig
-X-ME-Proxy: <xmx:jCGpauIhTG36Kp2V-obtlQSpqdHi-H9xP_-4IBOrznHVyM7xBCUufw>
- <xmx:jCGpaoEnTYIq2e-X814_FvcLEASVzZG_gPZtkQaSINKJORBD-Jr6pg>
- <xmx:jCGpapGrycSu2DFz6QVxyQQ-qVHz6FJN4yc3giSTeRR6n6V2PiwOAA>
- <xmx:jCGpagt5IMWVnNcX2ARVIRybhgbA2lCYz7MWYpFUSpGlqPUdjChS2g>
- <xmx:jSGpascosawkquzodOiMEvFO_cgJHLhL3eHT9rwMBX_PwJ3J5Y5UM3iU>
+ :x-me-sender:x-sasl-enc; s=fm1; t=1789469081; x=1789476281; bh=l
+ QdZ0GHKydOrKI+dUcKiWk5+c+F2epU+605XobNgMDI=; b=NSS5GWOTn39hXlrjh
+ 2tynGo4wuL6qi8Uutjv9s1wC/6C3JGTixQ9RcDynsquvj0a2yu3vRBDa6xn5xTNv
+ PGAjeKG6r7WbdteYWg/sRwnbpn1aJZROpUo5MWB+4s687zZ6MwmzJPVsMQuTLSXJ
+ VFYrXUy4GebYjpW0oMBAiHkEgXEbDTyG4fDrS2e7cr9d03ajtgEWvV1DZEDFKj7D
+ uVm4q/WMPwt9kXANMZIcegfjGamCMwtwywU8F1k0SYaTNWEkcQJWnt1x71qa6/di
+ PbSYUZsw6FmPs+2KJWXCU6ux1qZlJ1HLEVVeDUI8xsBu4Zr0Y/oBzikVwZfk7QLU
+ Xm9uw==
+X-ME-Sender: <xms:mCGpaulfFjI7ChMxdRQGtMQZ5KRCZsdj4UAMAqA_nB_oE7yEVqbnRA>
+ <xme:mCGpal8MhlQ3cZLcEnLGMLQ2TNi7BZMc58Il3SRZYf6umdd7zzZNs49Y0WDK3uan2
+ _toQHp1YYxblSuuuuDD9u5AUD3cwk2JnoY0dzxbINxVvlKKZOmkiYc>
+X-ME-Received: <xmr:mCGpaqf8mjAiYH05QaZQ-F8w81ck0dQA4Y2sRfBgF9fS4QrgKXTxIcyuqd9gD4gcey4p_zALrA>
+X-ME-Proxy-Cause: dmFkZTEJ7lsNMc5MXcmK0yAby6zAyahnp/o+BLQRTsAUuD6zUFYE1mfayW4ARlNvxFxbHL
+ RViSXklp2Mvqoh7nMl9WcpZxcA5zX09aM17WbnSDD1mVdJoa+dDoRGgFZ+ZZgzctt5mn//
+ Fi1Mt6BzxdDiSZyXddMkKr5ZuKnhcJKMT/Ww41HfwQaAux+0BU99FP+g6srkBweq+0Pyu4
+ FpApM0KD75gdC3rQ4X6qbPGbs1ABgnV9cF7lajdZo5Ix2shyw0qolijI7Y4mlyGIz0nhlc
+ sJGrQ0glbm4LA0H4VdiK+uhUvmoFkp3adh0VEvVmG9UeMUF3kO5gMGvK351yi5uht+G8Y6
+ Qn4mGh9p2Xp3teJ7lrtCnrs4DdEl2OlXx9GRcKrLB9ltkK7+THqkrBW73sBwUIHNGSQ33T
+ t1jiSbJMzpBY0x54Agj03p0KNE9PU/CBjhMk4rkAqh17Ocw2+BegO5gj4Is1+nmY/Hr4Ud
+ 4es7cuCAO7MwuMjnKHCkWXetZkXS760OVgVfVVBxFrnofhsZa9oIEDunDHREs2Lgald8I0
+ SQPER3rKqOKGJcscVf2nyPIosWdeo6M/ItD1XXQJqRWmfNTgaG8R4SrD8rGd7DrdQjUjzR
+ m6bKc0yRBgXKgVwqjX9KAhf8HV14wdHyfrq02KY8hpjbMsVrColr2Vd2Minw
+X-ME-Proxy: <xmx:mCGpam3c5EA3z8LrqMi1g3EQTmeW40wRRWtnJjBB4uZGszSyIQJotg>
+ <xmx:mCGparB2EVT0lQmJ6tQdfG3oPmYBkuJAFODE3eifreIfnp9ohe405w>
+ <xmx:mCGpapSc1zXEWjNwHd6G7DyVeq6RZq6ClH-wiBAQSpv8QXQWvgm9gQ>
+ <xmx:mCGpalLJXDeY3fdFYcM4wRi5kIZwPHQqXHmuiYXtv6x-tyAgRYQLUw>
+ <xmx:mSGpakKLisGSJz2wemHICUK6KjKAeHZ6Vr2wzb1a3apsOjwfnchHHEKH>
 Feedback-ID: i7a5e4b5f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 15 Sep 2026 06:44:20 -0400 (EDT)
+ 15 Sep 2026 06:44:32 -0400 (EDT)
 From: Jiaxing Hu <gahing@gahingwoo.com>
 To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
  krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
@@ -81,9 +81,10 @@ Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
  iommu@lists.linux.dev, linux-pm@vger.kernel.org,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [PATCH v13 04/14] accel/rocket: let the core suspend after a reset
-Date: Tue, 15 Sep 2026 22:43:18 +1200
-Message-ID: <20260915104328.45901-5-gahing@gahingwoo.com>
+Subject: [PATCH v13 05/14] accel/rocket: factor the completion tail out of the
+ IRQ handler
+Date: Tue, 15 Sep 2026 22:43:19 +1200
+Message-ID: <20260915104328.45901-6-gahing@gahingwoo.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260915104328.45901-1-gahing@gahingwoo.com>
 References: <20260915104328.45901-1-gahing@gahingwoo.com>
@@ -104,67 +105,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-rocket_reset() drops the in-flight job's runtime PM reference with
-pm_runtime_put_noidle(), a bare decrement that requests nothing. The core
-is left at usage_count 0 but still runtime-active with no idle request
-pending, so it does not suspend until something else asks, and on a
-platform whose power domain does work on power-on that work never happens.
+rocket_job_handle_irq() stops the block and then either starts the job's
+next task or retires the job. The second half is a step of its own and
+reads better with a name, now that taking the register writes under
+job_lock has moved it a level deeper inside the scoped guard.
 
-On RK3576 that work is a bus interface reset the domain cycles when it
-comes up. Without it the NPU's IOMMU stops answering, and the job after a
-timeout returns a surface of the output zero point with rk_iommu reporting
-that MMU_DTE_ADDR is not functioning.
+Move it to rocket_job_next_locked(). The early return that used to leave
+the handler now leaves the helper, which is the same thing here: the scoped
+guard drops job_lock either way and nothing follows it.
 
-Measured on a ROCK 4D in one boot, three runs, one variable between them.
-With the bare put the core reads runtime-active with its rail still up
-after the reset, the IOMMU reports the failure on the next attach and the
-inference returns 0 of 128 channels. With the reference put back through
-pm_runtime_put_autosuspend() the core reads suspended with the rail down,
-there is no IOMMU message, and the same inference returns 128 of 128. A
-third run repeating the first failed the same way.
+Doing it as its own patch keeps the locking fix at the head of the series
+minimal, so a bisect that stops before this one gets that fix and nothing
+else. There is one caller, and no functional change.
 
-It also matches the put in the completion path a few lines away, so the
-reset path no longer leaves the device in a state the rest of the driver
-never produces. The remaining put, on the error path in rocket_job_run(),
-is a plain pm_runtime_put() and is left alone here: it unwinds a
-pm_runtime_resume_and_get() that never reached the hardware, and changing
-it belongs in its own patch.
-
-Igor Paunovic ran the differential on RK3588: 45 induced resets, all of
-them on core 0 with the other two cores bound but idle in his single
-client protocol, with and without the two preceding patches, and the
-domain dropped every single time with no MMU message on either kernel. So
-this is not rocket-wide. His conditions cross a healthy block with a lowered
-timeout rather than a hung one, which he was careful to say his protocol
-cannot settle, but it is what scopes the change to RK3576.
-
-Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail.com/
-Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
 Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
+Reviewed-by: Igor Paunovic <royalnet026@gmail.com>
 ---
- drivers/accel/rocket/rocket_job.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/accel/rocket/rocket_job.c | 31 ++++++++++++++++++++-----------
+ 1 file changed, 20 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index dfe9135d8..2a0b8af6f 100644
+index 2a0b8af6f..54f9c299d 100644
 --- a/drivers/accel/rocket/rocket_job.c
 +++ b/drivers/accel/rocket/rocket_job.c
-@@ -437,12 +437,12 @@ rocket_reset(struct rocket_core *core, struct drm_sched_job *bad)
+@@ -341,6 +341,25 @@ static struct dma_fence *rocket_job_run(struct drm_sched_job *sched_job)
+ 	return ERR_PTR(ret);
+ }
  
- 	/*
- 	 * No handler is running now, but we might still have stuck jobs. Let's
--	 * make sure the PM counters stay balanced by manually calling
--	 * pm_runtime_put_noidle().
-+	 * make sure the PM counters stay balanced by putting the reference the
-+	 * job took, and request idle while doing it so the core can suspend.
- 	 */
- 	scoped_guard(mutex, &core->job_lock) {
- 		if (core->in_flight_job)
--			pm_runtime_put_noidle(core->dev);
-+			pm_runtime_put_autosuspend(core->dev);
++/* Start the job's next task, or retire it. Caller holds job_lock. */
++static void rocket_job_next_locked(struct rocket_core *core)
++{
++	lockdep_assert_held(&core->job_lock);
++
++	if (!core->in_flight_job)
++		return;
++
++	if (core->in_flight_job->next_task_idx < core->in_flight_job->task_count) {
++		rocket_job_hw_submit(core, core->in_flight_job);
++		return;
++	}
++
++	iommu_detach_group(NULL, iommu_group_get(core->dev));
++	dma_fence_signal(core->in_flight_job->done_fence);
++	pm_runtime_put_autosuspend(core->dev);
++	core->in_flight_job = NULL;
++}
++
+ static void rocket_job_handle_irq(struct rocket_core *core)
+ {
+ 	pm_runtime_mark_last_busy(core->dev);
+@@ -354,17 +373,7 @@ static void rocket_job_handle_irq(struct rocket_core *core)
+ 		rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
+ 		rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
  
- 		iommu_detach_group(NULL, core->iommu_group);
+-		if (core->in_flight_job) {
+-			if (core->in_flight_job->next_task_idx < core->in_flight_job->task_count) {
+-				rocket_job_hw_submit(core, core->in_flight_job);
+-				return;
+-			}
+-
+-			iommu_detach_group(NULL, iommu_group_get(core->dev));
+-			dma_fence_signal(core->in_flight_job->done_fence);
+-			pm_runtime_put_autosuspend(core->dev);
+-			core->in_flight_job = NULL;
+-		}
++		rocket_job_next_locked(core);
+ 	}
+ }
  
 -- 
 2.43.0
