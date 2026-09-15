@@ -4,45 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6507DC88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 18:34:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75400C982C1
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 18:39:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC7C010E08E;
-	Tue, 15 Sep 2026 18:34:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ACAA10E59D;
+	Tue, 15 Sep 2026 18:39:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VoYPMZoX";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UcaHnmjj";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECDE810E08E
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 18:34:33 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B416543D7D;
- Tue, 15 Sep 2026 18:34:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C1CC1F00893;
- Tue, 15 Sep 2026 18:34:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789497273;
- bh=eELp8ums8QqZ8J4s+mPiGbqZuKh/YbZF3tcpjDwE5C8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=VoYPMZoXrECziDS621vUgkZxjB8n2WDzK0P/b0U/bSeIliftjh/IBog0DZ9oZ4mw+
- lRn3KRf+X/wVtauhO8OrSHCyjwjTnr6RGWqjAHjp7pM1ru5c51RNr2rx4P+Y/kA1Ee
- lCUUe+tG9V4SFM8U/tb5woXCI2ToZQZucgyiU7EUu4SG3LV4quBX+YfFd+wopiHqeZ
- Mlf1TRGwxX1l67jWnAYk6wKK5726vtcxP24+VJUXmaOGu2exL+HhSJ9khsHfnhZIML
- UZANsW8aBJ2FUTpnlBch+6H4+Vwm6511Swaak2YDYGWoAuBR0WDdjYj+pznCL4xUDl
- hWZl4IJAi/oxg==
-Date: Tue, 15 Sep 2026 13:34:31 -0500
-From: Rob Herring <robh@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v3 01/22] accel: ethosu: Suspend after initialization
-Message-ID: <20260915183431.GC1926857-robh@kernel.org>
-References: <20260908-ethosu-fixes-v3-0-490fe215286f@kernel.org>
- <20260908-ethosu-fixes-v3-1-490fe215286f@kernel.org>
- <20260908221807.330411F00A3A@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 206B010E4C0;
+ Tue, 15 Sep 2026 18:38:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789497538; x=1821033538;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=he/XPig/uPsUn21JLshRP4nbLaHW1ZtzvlAQ5TaIbRs=;
+ b=UcaHnmjjluFEYAJq4C1KQLJvXRbMCKjuJdBbkbdDZYOy5WBgzcCtQKGU
+ 0fPeltzWzupJuKLKZmXCqMjNZY4PeiT8TyjHCMXjFybTDXmr3s9IjvR1y
+ sUxKz9K2F9ZSK8DjCmcwyzOMtxTESYoxZbqGlSz983I1d3zbc6jFSTnKv
+ 0vqd9j4KXgd/fYkavErFy5rPFMgqL8mGgKs8BVIv7zJYPK64Xruly9OGy
+ kRI1hrMruqEDo4UiUOFK3fxRxPMJb9tLVuGmOQG2jg33TrD2pxDsatvla
+ 24g3GL8OnXzP208N3/kn332Ipgb0WJcXnsi58Jfl7pHSgtDAAmdAxU/5A w==;
+X-CSE-ConnectionGUID: mwFaa1+sQh2NXfgNQbEYbQ==
+X-CSE-MsgGUID: d8n/MYrYTf+UdxC2Azt2ZA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92380252"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="92380252"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2026 11:38:56 -0700
+X-CSE-ConnectionGUID: +9lQygFMROe4dNrCEm4+mw==
+X-CSE-MsgGUID: /RoUaHHtTEO3mH096GRd/w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="298148436"
+Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.190.238.88])
+ by fmviesa001.fm.intel.com with ESMTP; 15 Sep 2026 11:38:54 -0700
+From: Animesh Manna <animesh.manna@intel.com>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: jouni.hogander@intel.com, jani.nikula@intel.com, suraj.kandpal@intel.com,
+ Animesh Manna <animesh.manna@intel.com>
+Subject: [PATCH v6 00/18] Enable DP2.1 alpm
+Date: Tue, 15 Sep 2026 23:34:31 +0530
+Message-Id: <20260915180449.277933-1-animesh.manna@intel.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908221807.330411F00A3A@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,140 +67,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 08, 2026 at 10:18:06PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> 
-> Pre-existing issues:
-> - [High] Hardware Access in IRQ Handler
-> - [High] TOCTOU race on `dev->in_flight_job` between the IRQ handler and the timeout worker causes job tracking corruption
-> - [Medium] Missing pm_runtime_mark_last_busy() defeats autosuspend functionality
-> --
-> 
-> commit 70e7c7d4b9e3f59284be594e6021ace41a2927aa
-> Author: Rob Herring (Arm) <robh@kernel.org>
-> 
-> accel: ethosu: Suspend after initialization
-> 
-> The initial runtime-PM reference is held only while initializing the
-> NPU. Release it synchronously from ethosu_init() after the final
-> hardware access, before registering the DRM device.
-> 
-> > diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
-> > index 8108622de258f..df76253d01a64 100644
-> > --- a/drivers/accel/ethosu/ethosu_drv.c
-> > +++ b/drivers/accel/ethosu/ethosu_drv.c
-> > @@ -338,6 +338,8 @@ static int ethosu_init(struct ethosu_device *ethosudev)
-> >  		 ethosudev->npu_info.sram_size / 1024,
-> >  		 ethosudev->npu_info.pmu_counters);
-> >  
-> > +	pm_runtime_put_sync_suspend(ethosudev->base.dev);
-> > +
-> >  	return 0;
-> >  }
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does explicitly disabling the
-> NPU clocks here expose a risk of crashing in the IRQ handler?
-> 
-> If a spurious interrupt occurs while the device is suspended, the IRQ handler
-> will unconditionally read from the unclocked NPU registers:
-> 
-> drivers/accel/ethosu/ethosu_job.c:ethosu_job_irq_handler() {
-> 	struct ethosu_device *dev = data;
-> 	u32 status = readl_relaxed(dev->regs + NPU_REG_STATUS);
-> 
-> 	if (!(status & STATUS_IRQ_RAISED))
-> 		return IRQ_NONE;
-> 	...
-> }
-> 
-> Subsystem guidelines mandate that IRQ handlers use pm_runtime_get_if_active()
-> to verify the device is powered on before accessing any registers. Accessing
-> memory-mapped registers of an unclocked device typically triggers a
-> synchronous bus fault or asynchronous external abort, resulting in a system
-> crash.
+ALPM support added on DP2.1 and xe3p will support DP2.1 alpm.
+This patch series extending alpm supoort for DP2.1.
 
+Cc: Jouni Högander <jouni.hogander@intel.com>
+Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 
-Not an issue as explained before.
+Animesh Manna (18):
+  drm/i915/alpm: Add DPCD definition for DP2.1 ALPM capability
+  drm/i915/alpm: Move alpm sink capability readout into a separate
+    function
+  drm/i915/alpm: alpm_init() for DP2.1
+  drm/i915/alpm: Enable debugfs for DP2.1
+  drm/i915/alpm: Refactor Auxless wake time calculation
+  drm/i915/alpm: Auxless wake time calculation for Xe3p
+  drm/i915/alpm: Modify AUX_LESS_WAKE_TIME bitfield for xe3lpd
+  drm/i915/alpm: table based establishment period
+  drm/i915/alpm: Half LFPS cycle calculation
+  drm/i915/alpm: Modify LFPS cycle count for DP ALPM
+  drm/i915/alpm: Modify LFPS_CYCLE_COUNT bitfield for xe3lpd
+  drm/i915/alpm: Program LTTPR count for DP 2.1 ALPM
+  drm/i915/alpm: Enable MAC Transmitting LFPS for LT PHY
+  drm/i915/alpm: Replace is_edp() with alpm_is_possible()
+  drm/i915/alpm: Introduce has_alpm to decouple from pr/psr2/lobf
+  drm/i915/alpm: Compute and program switch to active latency
+  drm/i915/alpm: Program zero-based LFPS half cycle duration
+  drm/i915/alpm: Disallow ALPM for UHBR link rate
 
-> 
-> [ ... ]
-> 
-> [Severity: High]
-> This is a pre-existing issue, but can the timeout worker and IRQ handler race
-> and corrupt the job tracking?
-> 
-> ethosu_job_handle_irq() reads dev->in_flight_job without locking:
-> 
-> drivers/accel/ethosu/ethosu_job.c:ethosu_job_handle_irq() {
-> 	...
-> 	job = READ_ONCE(dev->in_flight_job);
-> 	if (job) {
-> 		WRITE_ONCE(dev->in_flight_job, NULL);
-> 		dma_fence_signal(job->done_fence);
-> 	}
-> }
-> 
-> Concurrently, ethosu_job_timedout() can run in a workqueue, stop the scheduler,
-> and modify the state without locking:
-> 
-> drivers/accel/ethosu/ethosu_job.c:ethosu_job_timedout() {
-> 	...
-> 	drm_sched_stop(&dev->sched, bad);
-> 
-> 	WRITE_ONCE(dev->in_flight_job, NULL);
-> 
-> 	/* Proceed with reset now. */
-> 	pm_runtime_force_suspend(dev->base.dev);
-> 	pm_runtime_force_resume(dev->base.dev);
-> 
-> 	/* Restart the scheduler */
-> 	drm_sched_start(&dev->sched, 0);
-> 	...
-> }
-> 
-> If the scheduler immediately pushes a new job, updating dev->in_flight_job,
-> could the preempted IRQ thread resume and blindly execute
-> WRITE_ONCE(dev->in_flight_job, NULL), overwriting the new job's tracking?
-> 
-> When the new job completes, the IRQ handler would read NULL and fail to signal
-> its fence, causing a perfectly valid job to falsely time out and trigger an
-> unnecessary hardware reset loop.
+ drivers/gpu/drm/i915/display/intel_alpm.c     | 359 +++++++++++++++---
+ drivers/gpu/drm/i915/display/intel_alpm.h     |   7 +-
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c  |   6 +-
+ drivers/gpu/drm/i915/display/intel_ddi.c      |   5 +-
+ .../drm/i915/display/intel_display_types.h    |   2 +
+ drivers/gpu/drm/i915/display/intel_dp.c       |  15 +-
+ .../drm/i915/display/intel_dp_link_training.c |  21 +
+ drivers/gpu/drm/i915/display/intel_lt_phy.c   |  27 ++
+ drivers/gpu/drm/i915/display/intel_lt_phy.h   |   2 +
+ .../gpu/drm/i915/display/intel_lt_phy_regs.h  |   3 +
+ drivers/gpu/drm/i915/display/intel_psr.c      |  48 ++-
+ drivers/gpu/drm/i915/display/intel_psr.h      |   1 -
+ drivers/gpu/drm/i915/display/intel_psr_regs.h |  16 +-
+ include/drm/display/drm_dp.h                  |   4 +-
+ 14 files changed, 433 insertions(+), 83 deletions(-)
 
-This may be an issue, but isn't related at all to this patch. Will 
-investigate more.
-
-> 
-> [Severity: Medium]
-> This is a pre-existing issue, but does this autosuspend implementation actually
-> delay powering down the NPU?
-> 
-> In ethosu_job_cleanup(), the driver drops the runtime PM reference:
-> 
-> drivers/accel/ethosu/ethosu_job.c:ethosu_job_cleanup() {
-> 	struct ethosu_job *job = container_of(ref, struct ethosu_job,
-> 						refcount);
-> 
-> 	pm_runtime_put_autosuspend(job->dev->base.dev);
-> 	...
-> }
-> 
-> Since pm_runtime_mark_last_busy() is never called, the autosuspend timer
-> evaluates from the beginning of the active PM transition rather than its
-> completion.
-> 
-> Will the old last_busy timestamp cause the autosuspend delay to evaluate as
-> already expired, defeating the autosuspend mechanism and leading to excessive
-> hardware power cycling?
-
-No, according to the documentation:
-
-Documentation/power/runtime_pm.rst:  `int pm_runtime_put_autosuspend(struct device *dev);`
-Documentation/power/runtime_pm.rst-    - set the power.last_busy field to the current time and decrement the
-Documentation/power/runtime_pm.rst-      device's usage counter; if the result is 0 then run
-Documentation/power/runtime_pm.rst-      pm_request_autosuspend(dev) and return its result
-
-pm_runtime_put_autosuspend() will update last_busy, so no issue here.
-
-Rob
+-- 
+2.29.0
 
