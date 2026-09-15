@@ -4,140 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 547DBC88E77
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 21:20:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D66EEC88E77
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 21:21:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA95A10E903;
-	Tue, 15 Sep 2026 21:20:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DE9510E923;
+	Tue, 15 Sep 2026 21:21:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="P8O/E+cH";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VlrcTrqm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hKYawqdH";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F38A510E8D6
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 21:20:55 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68FItnen3342365
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 21:20:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- chAJluwUiQNqr4LZZnWIA9G5yILa+6S7/Y3KKqeYuRQ=; b=P8O/E+cH5ZhO7tUU
- u5TgnSJyp5SvxJfPD1XY6QBLo30991IkgTRGJaNCEdHexZ+skk66jvReoHmr9iqS
- OJLWi0Sic4zahwuOwJpBxFGQQsWhGlBth7c/fC1EoaJMDImznPFUgwVVJS06t72x
- MntpxGT7INviqcfOpN8PcWp/HsqqcTVIOIlY2kPRS7sbd9Ce0bKfO4RMA5MRsxTL
- VMafdTLjTteSwTz5ZWEyfpuVbe9X/fTr0in7CwzJSAjIx2fOuDwXb3Z6RaT2fSgu
- RL3IPdXXossl7N1Exai+0LtAfLfcyn7OjL3eR1k4Ep6i8JA73nWHDlrCK3rInRcv
- f4OMUg==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
- [209.85.215.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq1qpc95r-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 21:20:55 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id
- 41be03b00d2f7-cc489e7a701so6991274a12.2
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 14:20:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1789507255; x=1790112055;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=chAJluwUiQNqr4LZZnWIA9G5yILa+6S7/Y3KKqeYuRQ=;
- b=VlrcTrqmizbtcJvvGfeb9y/OvuI7/UvxI4f5JvdCzOqXUAoVzdiObYoGlKrPq9UpR/
- JZK5y+jcIUGFZul02ana4th8vNL2wuxnAfTSzGm7YGqbejmt3NoC5JXx9r2xgjHX/pGt
- z4kSElE/pldZEUqLExf0ta6lFUJO1GRehjmdSsW9TV06abRXxzhp2DZ/Ob7EjugCsJKM
- o7ttab+ob1nT8PgGg9FQaz+81GAmT59ailcAUkKYSN/IgjfgAl5cidzZYERZ1NoMx/UM
- Ss4WnRw231yZoE3+tzvWm8NOb5deWY0D+PobDbT8ds2yt3GENonTzVorYpMMSv0ApE2v
- c1xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789507255; x=1790112055;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=chAJluwUiQNqr4LZZnWIA9G5yILa+6S7/Y3KKqeYuRQ=;
- b=gSO0myebjxu7GlKtEuGqLNPFurelr3yv/qvXwifUcWcuqIEuMICmHSE4EpDZc+dFCl
- ukT0Iu96q8vvkdGQG/qKGVgEyr8+vv4wOCxKjiCnnj8LROAuEMSjHvOy8vgMb0+1FIXC
- YLyT6/QbNPST/0Rc42LYUu/Cn5Nu9OuTdChM6fbp29WcNYDJjinn7p4ZserIgHECCIti
- Gb9pHTqlGWv/kedq2WTaj95szku+iAzRjcWEmh4dtG7+aNUlLcGbc9e4gAwNnpQskRzk
- RlpUr7XuRGaAeJ+3V7QQhPrsFLHBXkoKMo3mtDR2I6/R8edBWIt/BFRsa/DbXLF2Y0gS
- eLXA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx7EhKpzGrR6LCYF1mcDhGfoXX8OCMrmF/lR+X8qT02GIYjcxEoOjhAv0+uIxurmRQpB3H0QNRS3aE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nPhvrL953FSpKeuC1aPPVFAKGQRW28h9m5SyHMrh4E+AryMOi5
- SQDtljXsi5XeKNZj6t9qY7lfYQIOgf0bY7/p8Lp7dbF7ydDnzczxLTanx5HTxFvrJTlEI3ei6ky
- KbmpVVDWK+/PsxQoF+0nVpMgJbPpdAHLOy7+1xOmGbROAkKKhBuWCn6sDiGF5gmuHDLgy2Uw=
-X-Gm-Gg: AYBFou2VkOeC35mpYeP0pKEaz6Tmkr3gUPTQQ7IVOl/29tVx99j9xeVLWFFIoyMFKto
- E+BA+CH7HYXK8FSIVPUHbnYycU8O9agmVnfm188oqH75d3qmvCpBlLmc2akVH1HaXq/3r5C4ory
- z3ZwJ1n1npuadpulDXmZiYixjdyc0fSpWfS2mFYbAnTAqsm9O+tvqWtEbQG8TKWAqJkfEUC4cBM
- Cggv8tSjXLntC328Dljr5QXqQVUWbkterILDxsrA4S7+62Gs7qBMeqH/qFuZRgBAzxBBaoJKaeU
- gef9ASdd5zc3irGrsas4e7ySzpHwezDpCrS03WnIFtqWmo2GJI/IUrNTzO21AWqMLwaYkVbuGTp
- ZWAbnGMut1/Fw2M8sv3XR12qLgQ==
-X-Received: by 2002:a17:90b:390e:b0:39e:53a:c8d4 with SMTP id
- 98e67ed59e1d1-39e1e424a7dmr277885a91.12.1789507254616; 
- Tue, 15 Sep 2026 14:20:54 -0700 (PDT)
-X-Received: by 2002:a17:90b:390e:b0:39e:53a:c8d4 with SMTP id
- 98e67ed59e1d1-39e1e424a7dmr277857a91.12.1789507254153; 
- Tue, 15 Sep 2026 14:20:54 -0700 (PDT)
-Received: from [192.168.1.15] ([106.222.230.202])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-33bf5a6a166sm1717762eec.10.2026.09.15.14.20.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Sep 2026 14:20:53 -0700 (PDT)
-Message-ID: <7128505e-c8c9-4d00-96f9-2576ea2a0fda@oss.qualcomm.com>
-Date: Wed, 16 Sep 2026 02:50:47 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] drm/msm/a6xx: use correct timestamp counter on
- A750 GPU
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260909-topic-sm8650-gmu-a750-timestamp-reg-v2-0-091d74958951@linaro.org>
-Content-Language: en-US
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-In-Reply-To: <20260909-topic-sm8650-gmu-a750-timestamp-reg-v2-0-091d74958951@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDMxMiBTYWx0ZWRfX+/MFSE2waXgj
- D7LApvyJcANNGDyJ2wpwJm5sjB8zNLShYgTcHvvNY3QNVAkJcpIdZ8AlJYZI0RB1I23IKDFNm2V
- yJZJMM5FcKCemypeZB9h/e83wMw1rSo=
-X-Authority-Analysis: v=2.4 cv=I4Xw19gg c=1 sm=1 tr=0 ts=6aa9b6b7 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=BSf2YShhMxZyV2bg4MjkLg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=bC-a23v3AAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=Nyh0hyempXrTQnLp8KQA:9
- a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22 a=FO4_E8m0qiDe52t0p3_H:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: dahI2dzzFOsHTE7Mwns3N99ulvnZEKO7
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDMxMiBTYWx0ZWRfX7B9sPpXELlhf
- MEbEx8kOFSsDKitcAXaLkFnevIJuvJEFHkRQfe8kihhxvexV2DfJBQAEm+MSiW4cjNHe1KNXjCF
- Vu6LdGQrdEFGrDRIDJ9IlgAGobeDzi5fyed0VpLT166J7CHbN91MttFCdJJm930K/dl5CzHkPC9
- KaBI1yblCKeusJyeF2QNsGZp5q/ofPjAxdiiYNQgVF25aV5kYJe2nd4u0bTXkLHLO7MEgenxCtJ
- Deev7K123P3JIwUB2CA25YpFOZZ+bQ/78kolBvunYBJg2PrQGllLsEgENobEB1eqcs7UCc98QI2
- vEf2SLHENuDzpLEmEurN4T6SYpgzE6jA89Dk73c0vXT/Rcr+CLnp5+UvmFiA63BlHoeaIdO0ADF
- 6bOyva65M7cM+MHklxhLhDhFNdOeHvkPtEmw5JLmW7RNQipFpbzGTpwPuBwEm85ml6mNcsYCuFN
- m5RnHvc8062LTHLtdGw==
-X-Proofpoint-GUID: dahI2dzzFOsHTE7Mwns3N99ulvnZEKO7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 phishscore=0 clxscore=1015
- priorityscore=1501 bulkscore=0 malwarescore=0 impostorscore=0 adultscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609150312
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E64A10E923
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 21:21:02 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id A5E5860008;
+ Tue, 15 Sep 2026 21:21:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B18D1F000FF;
+ Tue, 15 Sep 2026 21:21:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789507261;
+ bh=HgY1DKDVRNB+iXLSP5XiE9Ckygkii4XoXd84Z4mKlkw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=hKYawqdHs441c0K/UXcqXGWk2YQQLX296pyWOORfWxjHXpfxcRPFlVuYr6mmoKs1p
+ 7CbrfA9dIZftG3QhFWS3EynF5RGR/sDFj+js5nD2qMuxv9D+gT9sHFMdt75+8s/+r8
+ 7ZQHMtvQTQC9x9m0H5NmSPbhTOPZYxd+RR9SZxI7bKTa/we2rFBx+b8ls79MZIYkw8
+ Y2ukqx+KMVNKe4NBWEqYMric80qoyYOqeeLpc48++aCczkk9JJ0jwbiTixKq2C5YGu
+ b5Swbp8UBfIdq6cMY4gtmeHCC7b4YP7JjfERoA0UQAWDZkNY/0HezMkkFNNu2c1REG
+ pUaYc4LvEAWEQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/5] drm/nouveau/gsp/r570: Add comp mode workaround
+ from issue #3172217
+To: "Lyude Paul" <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260915210647.695187-4-lyude@redhat.com>
+References: <20260915210647.695187-1-lyude@redhat.com>
+ <20260915210647.695187-4-lyude@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 21:21:00 +0000
+Message-Id: <20260915212101.3B18D1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,56 +54,120 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] drm/nouveau/gsp: object class mismatch for NV2080_CTRL_CMD_INTERNA=
+L_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE
+- [High] drm/nouveau/gsp: missing hardware state rollback on suspend failur=
+e leaks GPU state
+- [High] drm/nouveau/gsp: LIFO violation resumes channels before re-enablin=
+g raw comp mode
+--
 
+commit 4ceacec02691502afb3850e4b4368411a557d72f
+Author: Lyude Paul <lyude@redhat.com>
 
-On 9/9/2026 6:37 PM, Neil Armstrong wrote:
-> The A750 uses a different counter register as used on the downstream
-> driver:
-> 
-> static u64 gen7_9_0_read_alwayson(struct adreno_device *adreno_dev)
-> {
-> ...
-> 	/* Always use the GMU AO counter when doing a AHB read */
-> 	gmu_core_regread(device, GEN7_GMU_CX_AO_COUNTER_HI, &hi);
-> 	gmu_core_regread(device, GEN7_GMU_CX_AO_COUNTER_LO, &lo);
-> ...
-> }
-> 
-> gen7_reg.h:#define GEN7_GMU_CX_AO_COUNTER_LO		0x1f880
-> gen7_reg.h:#define GEN7_GMU_CX_AO_COUNTER_HI		0x1f881
-> 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+drm/nouveau/gsp/r570: Add comp mode workaround from issue #3172217
 
-Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+One of the things that OpenRM does right before initiating fbsr is apply a
+special workaround (nvidia issue #3172217) which temporarily disables raw
+compression mode on the GPU. It is later re-enabled after resuming with
+fbsr completes.
 
-This is correct. There was a register shuffling in the gmu_cx block in a750 and another shuffling later in gen8 family.
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/dri=
+vers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
+> index af5aa5065c3dd..569732320f3dd 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
+> @@ -26,6 +26,35 @@ r570_fbsr_suspend_channels(struct nvkm_gsp *gsp, bool =
+suspend)
+>  	return nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
+>  }
+> =20
+> +static int
+> +r570_memsys_enable_raw_comp_mode(struct nvkm_gsp *gsp, bool enable)
+> +{
+> +	NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS *ctrl;
+> +	int ret;
+> +
+> +	ctrl =3D nvkm_gsp_rm_ctrl_get(&gsp->internal.device.object,
+> +				    NV2080_CTRL_CMD_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE,
+> +				    sizeof(*ctrl));
 
-It is a good idea to review other GMU_CX* register offsets with KGSL. Also, please consider including a fixes tag.
+[Severity: High]
+Does this command need to be sent to device.subdevice instead of
+device.object? The RM firmware validates the object class and will reject t=
+his
+subdevice command when sent to the NV01_DEVICE object, which will cause this
+function to fail and break system suspend on Ampere and Ada GPUs.
 
--Akhil.
+> +	if (IS_ERR(ctrl))
+> +		return PTR_ERR(ctrl);
+> +
+> +	ctrl->bRawMode =3D enable;
 
+[ ... ]
 
-> ---
-> Changes in v2:
-> - Fix swapped H/L registers in XML
-> - Link to v1: https://patch.msgid.link/20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-0-284880d6e68b@linaro.org
-> 
-> ---
-> Neil Armstrong (2):
->       drm/msm/a6xx: Add CX AO Counter registers used for a750 GPUs
->       drm/msm/a6xx: Use CX AO Counter register for timestamp on a750 GPUs
-> 
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c             | 12 +++++++++---
->  drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml |  2 ++
->  2 files changed, 11 insertions(+), 3 deletions(-)
-> ---
-> base-commit: df2908090cda368b01ff43709f51890076c56157
-> change-id: 20260908-topic-sm8650-gmu-a750-timestamp-reg-2e7575e6279d
-> 
-> Best regards,
-> --  
-> Neil Armstrong <neil.armstrong@linaro.org>
+> @@ -59,6 +89,13 @@ r570_fbsr_resume(struct nvkm_gsp *gsp)
+> =20
+>  	/* Finish cleaning up. */
+>  	r535_fbsr_resume(gsp);
+> +
+> +	/* Re-enable raw mode if it was previously disabled */
+> +	if (r570_need_raw_comp_war(gsp, device)) {
+> +		ret =3D r570_memsys_enable_raw_comp_mode(gsp, true);
 
+[Severity: High]
+Is it safe to re-enable raw mode after channel scheduling is resumed?
+
+In r570_fbsr_suspend(), channel scheduling is stopped before raw mode is
+disabled. In r570_fbsr_resume(), channel scheduling is resumed in code
+preceding this snippet. Resuming channels before restoring raw compression
+mode violates LIFO ordering and creates a race condition where channels mig=
+ht
+begin processing commands while raw mode is still disabled.
+
+> +		if (ret)
+> +			nvkm_error(&gsp->subdev, "Failed to re-enable raw comp mode\n");
+> +	}
+>  }
+
+[ ... ]
+
+> @@ -104,6 +141,17 @@ r570_fbsr_suspend(struct nvkm_gsp *gsp)
+>  	/* Stop channel scheduling. */
+>  	r570_fbsr_suspend_channels(gsp, true);
+> =20
+> +	/* Temporarily disable raw mode to prevent FBSR restore operations from=
+ corrupting
+> +	 * compressed surfaces. Required for ampere and ada.
+> +	 *
+> +	 * Nvidia bug #3172217
+> +	 */
+> +	if (r570_need_raw_comp_war(gsp, device)) {
+> +		ret =3D r570_memsys_enable_raw_comp_mode(gsp, false);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+
+[Severity: High]
+Does this code leak hardware state when r570_memsys_enable_raw_comp_mode()
+or the subsequent nvkm_instobj_save() loop fails and returns early?
+
+If either fails, the modifications from r570_fbsr_suspend_channels() and
+r570_memsys_enable_raw_comp_mode() are not rolled back. The Linux PM
+core will abort suspend without calling resume, leaving the GPU permanently
+with suspended scheduling and disabled raw compression mode.
+
+>  	/* Save BAR2 allocations to system memory. */
+>  	list_for_each_entry(iobj, &imem->list, head) {
+>  		if (iobj->preserve) {
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915210647.6951=
+87-1-lyude@redhat.com?part=3D3
