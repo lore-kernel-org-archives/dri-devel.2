@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 655BBC982C1
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:35:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4243C88E5C
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:35:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C910E10E503;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2DA610E515;
 	Wed, 16 Sep 2026 07:35:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="QUXalycd";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="I2A+ch81";
 	dkim-atps=neutral
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6515410F34C
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:19:56 +0000 (UTC)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2d54187d8b0so89993115ad.0
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 01:19:56 -0700 (PDT)
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F56C10F34C
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:20:00 +0000 (UTC)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-39512608fb1so9970637a91.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 01:20:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1789460396; x=1790065196;
+ d=google.com; s=20251104; t=1789460399; x=1790065199;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:from:subject
  :message-id:references:mime-version:in-reply-to:date:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=su2v7itwh4re1nYnX3JAIlBIidMghtZfDu1F4zgeEKU=;
- b=QUXalycdKrMyfIhODTukXyUQDxTM6fqm1RcQUVQVU5mz30M1XTu2ICyyf//nvyVTZ3
- 4P+ZzEJ0kd+3m/TLTqNkQFqyUq15r1PmHjDExrTI80bYIZ8R1qAHsl5vtEu8Cps9llXx
- dtNA6MLRvUirNOgey5MCrDeDkiaZF2aFOc0N2WWlM0ZBFV2CjD6RH9qUGk2HBrCi/W1Q
- /ya1a+FqF8D1oHdIDHRg+itv5ONrDcGRQk5ZYpirMAkAF1cb1zdErJaL75cEmN1IVUvR
- LFLutjlbWBitWH3Sn/h+yvzE+qO1/US15St7JH+8lex4FYv9niyQ1wMZEKCvrQXP9bAE
- l68Q==
+ bh=ANECGYJQk2+Ya+FPrAm+IsCBeyM6Er0meffRIzFfkVU=;
+ b=I2A+ch81MqR4m1AnQjOmoSiAmukwsZizOEPnsYRei6DwWRoRYVNh/8WJgKYPqUmEOP
+ /d8QGbINkF8fxJAo+K+884K0mwkG/5KE1F6oOUVF7xE7GehSO9qQKnfltVkvF1Ax5Ave
+ wlOrai9WbjPeryhGuIpX+tQeWkLdDojtxIxtIN837xF9Muj4V49zWaPzF0C0eiAJMUll
+ yNI5t4J0qkbynelioPbac4kqkfXe9yq6LeAWbMLyOjBaEbuRDq3iU4x6O8wAxvt0ixm9
+ h/ol8g4QptUHaV8VL4M8lDDdCfgpNojVL6XpL3hcLot3DkOOeL1D8i1MFhQk6fl//G+3
+ iHzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789460396; x=1790065196;
+ d=1e100.net; s=20260707; t=1789460399; x=1790065199;
  h=content-transfer-encoding:content-type:cc:to:from:subject
  :message-id:references:mime-version:in-reply-to:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=su2v7itwh4re1nYnX3JAIlBIidMghtZfDu1F4zgeEKU=;
- b=a2XIxoEA/GDIg3E54oTe2+vh37BaWUw7EnBnxyu7hAKeJYvCM+QhsR/aeXO1aOOf3t
- YdqxApQ+ND55En2mIgSEaHz2gi+PqYS+g89v0MvxewU96+WdBaoILPNwNQQN53M5oLbq
- klUTyScWyAZutUQSEsl8SJxIys2wZY+4De5EA7Ahk4SbOcYMthLUInrzt+Sao87AiFt8
- HPLWTookDQ9Qb/KoMI1mwx96XkDzLLS+Wc+eOemIhsawOuujgukSXpqH+OH7oWGeuoUI
- mULs+Jh0gN3sd1PyDXTFUm0Vs8qrsF9KbNYCyjSNWbJsPuDE7VB7NPVo8WrIc04L83Wn
- K+og==
+ bh=ANECGYJQk2+Ya+FPrAm+IsCBeyM6Er0meffRIzFfkVU=;
+ b=V2hO7KhVwsKSPa3uR4tVDsdMBqKHoJR/bSek6wC62pPhD+Bh4TrUy1ZU0SJXdr21LB
+ vPjRpe7svubxM4fxx6TgrCraDRF7Jblk10EuheERyPVcnmWrvQo4/qBFVpwkFBqVtcNJ
+ Nxz2PLoWOkgMSmp3LEZRE/g1C+/H5tK3uhVpy0+kyRvnsMbp/+pqQMh5wsr5hiYsEOh0
+ 6hv8zcfF+Bbx3hXmaWyL5vDZMaI+XttnUleHaXs5HYiQb4gpLztgrlbK0XIAydpjblMx
+ 8cJ0MseVXbzTbpVyKYrp4dley/YOY4ReTQ8Yiqw+efufiOrVR5YYCFnogoruCLzbZLIv
+ vl3Q==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzZxNoqfkc0GKJf9a89tZEyj6npphiJBsip0q8xmeHIf5RZIn4YJa1+jasp2nCgO2kZEiJlLsF4GfA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mWCwtaFqeTkONOqRdhpMaUSKwWcClfyXc5c4KTIvkueRCUpgTC
- zpL9H9P7iLhDa6kSq8U8OeMXEYT3ZbGXC49EpCWthF4H1wkREuvDDEF22q4NlGSVhHpivsNOxS3
- W
-X-Received: from plpo14.prod.google.com ([2002:a17:903:3e0e:b0:2cc:e407:8fef])
+ AKwUvBwwmJoQNOyX2Ch1L9xV95EkOusT9tctpvdo5jYP47zL6seLc5RGnjYZOXqn1PtdNqdY1iggqIdTpjA=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lRJZaVrUTgC1yYIz076adsgbIStc2LqkbubLcQUabDHxipqWHg
+ cIiyTZFj1dWOE84pNgerKmxOTh5Ix5OqmzCtRJQ3XvrYtfhgMd3yg6SUy96tqiS+zXfhAa8GmE5
+ Z
+X-Received: from pllj10.prod.google.com ([2002:a17:902:758a:b0:2dd:63c:daa3])
  (user=morbo job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:3508:b0:2dd:8b2:6e64
- with SMTP id d9443c01a7336-2dd83851cd5mr695675ad.12.1789460395589; Tue, 15
- Sep 2026 01:19:55 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:18:25 +0000
+ 2002:a17:902:ccd1:b0:2dd:40cb:a04c
+ with SMTP id d9443c01a7336-2dd8386925cmr476775ad.19.1789460398847; Tue, 15
+ Sep 2026 01:19:58 -0700 (PDT)
+Date: Tue, 15 Sep 2026 08:18:29 +0000
 In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
 Mime-Version: 1.0
 References: <20260915081910.4142719-1-morbo@google.com>
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260915081910.4142719-9-morbo@google.com>
-Subject: [PATCH 08/28] devlink: Refactor strlcat() to seq_buf in
- __devlink_compat_running_version()
+Message-ID: <20260915081910.4142719-13-morbo@google.com>
+Subject: [PATCH 12/28] fortify: Convert strlcat() to snprintf() in strcat()
 From: Bill Wendling <morbo@google.com>
 To: linux-kernel@vger.kernel.org
 Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
@@ -156,17 +155,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-__devlink_compat_running_version() appends running firmware version
-strings and spaces to "buf" inside nested netlink attribute loops using
-strlcat(), rescanning "buf" on every iteration.
+The fortified implementation of strcat() in include/linux/fortify-string.h
+currently relies on strlcat() to perform bounded concatenation and detect
+buffer overflows.
 
-In preparation for removing the deprecated strlcat() API[1], use struct
-seq_buf anchored at the current length of "buf" and append each version
-entry with seq_buf_printf().
+In preparation for removing the deprecated strlcat() API[1], replace the
+strlcat() call in strcat(). When the destination buffer size is unknown
+(SIZE_MAX), call __underlying_strcat() directly. Otherwise, determine the
+destination length with __fortify_strlen() and append the source string
+using __builtin_snprintf(), preserving the existing fortify_panic() check
+on overflow.
 
 Link: https://github.com/KSPP/linux/issues/370 [1]
 Cc: codemender-patching+linux@google.com
-Assisted-by: CoPilot:v1 [editor_update_file, shell_command_run]
+Assisted-by: SecurityEngineer:Gemini1.5Pro [editor_update_file, shell_comma=
+nd_run, test_runner_run_kunit_test]
 Signed-off-by: Bill Wendling <morbo@google.com>
 ---
 Cc: Russell King <linux@armlinux.org.uk>
@@ -280,52 +283,30 @@ Cc: devel@lists.orangefs.org
 Cc: linux-hardening@vger.kernel.org
 Cc: linux-sound@vger.kernel.org
 ---
- net/devlink/dev.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ include/linux/fortify-string.h | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/net/devlink/dev.c b/net/devlink/dev.c
-index 55959b0ff5ab..987b071345c4 100644
---- a/net/devlink/dev.c
-+++ b/net/devlink/dev.c
-@@ -5,6 +5,7 @@
-  */
-=20
- #include <linux/device.h>
-+#include <linux/seq_buf.h>
- #include <net/genetlink.h>
- #include <net/sock.h>
- #include "devl_internal.h"
-@@ -1190,6 +1191,7 @@ static void __devlink_compat_running_version(struct d=
-evlink *devlink,
+diff --git a/include/linux/fortify-string.h b/include/linux/fortify-string.=
+h
+index cf841dc71fef..0b489124bfcb 100644
+--- a/include/linux/fortify-string.h
++++ b/include/linux/fortify-string.h
+@@ -363,7 +363,12 @@ __FORTIFY_INLINE __diagnose_as(__builtin_strcat, 1, 2)
+ char *strcat(char * const POS p, const char *q)
  {
- 	struct devlink_info_req req =3D {};
- 	const struct nlattr *nlattr;
-+	struct seq_buf s;
- 	struct sk_buff *msg;
- 	int rem, err;
-=20
-@@ -1202,6 +1204,9 @@ static void __devlink_compat_running_version(struct d=
-evlink *devlink,
- 	if (err)
- 		goto free_msg;
-=20
-+	seq_buf_init(&s, buf, len);
-+	s.len =3D strnlen(buf, len);
+ 	const size_t p_size =3D __member_size(p);
+-	const size_t wanted =3D strlcat(p, q, p_size);
 +
- 	nla_for_each_attr_type(nlattr, DEVLINK_ATTR_INFO_VERSION_RUNNING,
- 			       (void *)msg->data, msg->len, rem) {
- 		const struct nlattr *kv;
-@@ -1209,8 +1214,7 @@ static void __devlink_compat_running_version(struct d=
-evlink *devlink,
++	if (p_size =3D=3D SIZE_MAX)
++		return __underlying_strcat(p, q);
++
++	const size_t p_len =3D __fortify_strlen(p);
++	const size_t wanted =3D p_len + __builtin_snprintf(p + p_len, p_size - p_=
+len, "%s", q);
 =20
- 		nla_for_each_nested_type(kv, DEVLINK_ATTR_INFO_VERSION_VALUE,
- 					 nlattr, rem_kv) {
--			strlcat(buf, nla_data(kv), len);
--			strlcat(buf, " ", len);
-+			seq_buf_printf(&s, "%s ", (const char *)nla_data(kv));
- 		}
- 	}
- free_msg:
+ 	if (p_size <=3D wanted)
+ 		fortify_panic(FORTIFY_FUNC_strcat, FORTIFY_WRITE, p_size, wanted + 1, p)=
+;
 --=20
 2.55.0.1032.g73a4cd73de-goog
 
