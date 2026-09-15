@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10159C88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 20:52:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 350D7C88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 20:54:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50F5F10E32C;
-	Tue, 15 Sep 2026 20:52:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76AC710E1DE;
+	Tue, 15 Sep 2026 20:54:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="A9uacRKF";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="p/3+iy6R";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE55010E2F7
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 20:52:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36C6E10E20D
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 20:54:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
  MIME-Version:Subject:Date:From:From:Reply-To;
- bh=agEhBlrbDZrVFoeurHsyAEFpY0A66t5ppdPVVxBJvh8=; b=A9uacRKFtdNGgTELdvjWdTdNkQ
- rS9YjKrxfFRK2MRt5XIWt43+z9VjsLv0aMp31FnyutY4AlftCsKX4IP5HIy8DISt0hFUxnN+UMhBv
- H4Z2s0FtJM+ZJkQNBQ3Fuvrgt08pshoFPiUOGC0qoLpmEIQApFx8YyK1fhYqhXNByaxtipZsFWBL9
- Ap11T4DYQ/6Y+XoT5Yxf8MfduyXC/oSixsC11JK7KQkDbLHBL79KLHlbeElcQWggGPE+1SfKJf1aH
- flQ5Vzrw7P1u4pu/etItX9M6h9PO11x9PYaZntVFNuYxVvaX6OffKS5IOVQqRWrKkfC58ZC+a+6lI
- XBb27DGg==;
+ bh=jy41rL2C99WwqbzsGdokIDAJtd++SsNXJlNToXkn2/E=; b=p/3+iy6RKWR4fabVY+veX2qDX5
+ 3M6Mi0mDKUOLqJpVxavXxhT5TUBzoqRyOBfPQSvY9OdS4qwKr81ni24bLEnwzYXfgYygDKrEGxJct
+ 25nzHXBtAe13aaGZhgGt5jgwgS7x90RNlwXd/UpsHT1dIQLgP/wC2cUGVU53dCEEPhxaF1KqyqXLX
+ u2BmjNKSXeEIUK6BqBQzN0mReXSRbLFLqkHhV0/r29t1bb9OyT7mOQNC4pec9leyev8TTRi6zDXWj
+ X/N9ocs9CoBcGaoE7mgLkJby8uxt66PizPofzNZ6JU07/9Lan+z1NGmfX3bKwLh1cA9885wBBviaY
+ wqxBE33Q==;
 Received: from [179.105.94.163] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x6a7z-002dV8-KV; Tue, 15 Sep 2026 22:51:43 +0200
+ id 1x6a89-002dV8-2I; Tue, 15 Sep 2026 22:51:53 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Tue, 15 Sep 2026 17:51:25 -0300
-Subject: [PATCH v2 2/4] dt-bindings: display: bcm2835-v3d: Add an optional
- reset line
+Date: Tue, 15 Sep 2026 17:51:27 -0300
+Subject: [PATCH v2 4/4] ARM: dts: bcm2835: Add the V3D reset line
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260915-vc4-reset-control-v2-2-cb3a25b07822@igalia.com>
+Message-Id: <20260915-vc4-reset-control-v2-4-cb3a25b07822@igalia.com>
 References: <20260915-vc4-reset-control-v2-0-cb3a25b07822@igalia.com>
 In-Reply-To: <20260915-vc4-reset-control-v2-0-cb3a25b07822@igalia.com>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -53,15 +52,15 @@ Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1024; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=+1vCCICnTfTUPZja9+FN03P4GSIFk+wqTqZhGjuCP2Q=;
- b=owGbwMvMwMVo/5mvq6zj1yrG02pJDFkr119Q7ZkrqFXI7esf99Bz7jK1XUd/5vtMe6X8b1Zgu
- 5T4m4cRnYzGLAyMXAyyYoosP57E1jKKlbNrLiu/CDOIlQlkCgMXpwBM5NNU9n8WQrkVdQs28m4+
- +HNb8SMWcY9bJby6JXJl1joNzo7sO5a7/dQTnPGsyD5YaB3b1kJDC+XHB/uX2iw+obxP+N2dDza
- 5BlrCXFMUd5+PMa7QfsNgu+dw5uu8r9F3F67c6rbycPGVtmwJB53y96c6LjnPP/T8qlj1yned3/
- ewvK2Yc+/vJdGi8Kpf2ydwFfIyvXv6TMNAc8s3Y/7qlfzqcbZX8y/N1i6xkttq2XHLT1+gVEpty
- 7lp4oFR89o+lXp2u+fzLhZmmXu5k/NL95S3LEaWB2X7hCRdI/vLqjbo5DjGsCQGxjlv8Xzt4lsz
- xVONa8/SrBP+M/WiZl88vEh6XeH19q7mu8GPxSvyWa19AA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1033; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=dlVUl7bzR8j4uxgKwkmLFvf4+0M2KU8ullpBi92dtio=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqqa/Q000cUx/ZW8mpeb8DDfkPFYfpnTN4W9XSh
+ LhU6EWLAtqJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaqmv0AAKCRA/8w6Kdoj6
+ qqJeB/oCNt+zDr+CHDkq0/Srg7hMhDTiOysPGHI+za99lJDZgxABoGypT7fK8AxOghIgr6pqnTr
+ Xa0OH1TzG5NWGyhNo2/h4SS0ExyFkj/y8nzmx5lLGRvEfrQVDZGJp2SeRBFa2if/ie7H/3MupzD
+ g2Cbb8ryaLzl3gsNJcC6cACX+bIpSXjXlHrNxhj+n1GEREMQij5jBbLBeprKPXQIIYNFsoyicMa
+ ao/wfPVPBR3aX5oGL1ZbnD3pIZacL7PBzO4f/u5Hs1gairAfoz5/W+VC91PQybMuSjwMs/clFI4
+ JltT9I2ZkdYQCyfOUgl9Jf5Gk5P10y8zlQGGC6jMrE7wlCk6
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -79,34 +78,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The BCM2835 power management block drives a reset line for the V3D block
-that is independent of the graphics power domain, allowing the GPU to be
-reset without power-cycling the domain. Expose this reset line in the V3D
-binding.
+The PM block exposes a reset line for the V3D block, which the vc4 driver
+uses to reset the GPU when recovering from a hang instead of forcing its
+power domain down. Wire it up in the shared V3D node, covering BCM2835,
+BCM2836 and BCM2837.
 
-Keep the property optional, as devices like the Broadcom Cygnus don't have
-a reset line.
+BCM2711 already describes the same reset line for its V3D node.
 
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
 Reviewed-by: Stefan Wahren <wahrenst@gmx.net>
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+ arch/arm/boot/dts/broadcom/bcm2835-common.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml b/Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml
-index c55a8217de25..1063e686647c 100644
---- a/Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml
-+++ b/Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml
-@@ -27,6 +27,9 @@ properties:
-   power-domains:
-     maxItems: 1
+diff --git a/arch/arm/boot/dts/broadcom/bcm2835-common.dtsi b/arch/arm/boot/dts/broadcom/bcm2835-common.dtsi
+index 1e76b290510d..39eea8ce1058 100644
+--- a/arch/arm/boot/dts/broadcom/bcm2835-common.dtsi
++++ b/arch/arm/boot/dts/broadcom/bcm2835-common.dtsi
+@@ -139,6 +139,7 @@ v3d: v3d@7ec00000 {
+ 			compatible = "brcm,bcm2835-v3d";
+ 			reg = <0x7ec00000 0x1000>;
+ 			interrupts = <1 10>;
++			resets = <&pm BCM2835_RESET_V3D>;
+ 		};
  
-+  resets:
-+    maxItems: 1
-+
- required:
-   - compatible
-   - reg
+ 	};
 
 -- 
 2.55.0
