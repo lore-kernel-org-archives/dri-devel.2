@@ -4,135 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE878C982C1
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A49E0C88E7F
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:28:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39B6910F927;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF7B610F993;
 	Tue, 15 Sep 2026 07:28:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HnW+2Aaz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CXRIKr0/";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9765410EF52
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 14:59:29 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C172660252;
- Mon, 14 Sep 2026 14:59:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06AFC1F000FF;
- Mon, 14 Sep 2026 14:59:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789397968;
- bh=pZW21joDRBUaKxwzUQh3KFT5Y8Es/1y/2DJwB/njVeQ=;
- h=From:Subject:Date:To:Cc;
- b=HnW+2AazavyexVIo74Bg73UujoM3Z012DSayATOnNZjl3MfSJ9xBJTZPAKFmN3VMc
- th+xjTSVfkLbR67we5Uq6HLQ+xbzrQTuTNvW9vch0D5psiEOKLV4/GOvkp5NRH8/yV
- EEJvpi5ikwPDh6/KO06ZApgPjfDMDJmR8V86Y5C2DTCSLtZQiWt7CVOfK425a7xmGT
- 0ci+yJUOLZm6UcvOrHB1KP1uQzos+nofIZogXA3/FIwFgWJ3bE14JuJSuMOyoFwg9T
- KvihyX7WrmnibVw2JjFcYJxMDk3El2hL8Vu1n/hEnnLut51kaxSRQrKXFS4Y0eV8M1
- SGBaiAfHmO3Cw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: [PATCH v2 00/40] mm: make VMA flag semantics explicit, eliminate
- VM_SPECIAL
-Date: Mon, 14 Sep 2026 15:57:20 +0100
-Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
+ [74.125.228.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F83E10F7F7
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 00:54:34 +0000 (UTC)
+Received: by mail-ej2-f12.google.com with SMTP id
+ a640c23a62f3a-c25085f2426so47224666b.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 17:54:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789433673; x=1790038473; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=hWZ4Y4zJql57aJqzMLFBZaa2Td+FuNKRPfVlv/bP7Sk=;
+ b=CXRIKr0/ZmMDrS73QRqW4KiweIpOB79NuQakt8Xw2/Mc1qoym3pK1rd1W61GFrN4LV
+ JHk0eA2GLD8O4KmVCHA1Nw9o5Xmatsr6lMODE+P9kjbILQDKcECPZ9bX/bQFnTRXQIYb
+ e/3hB+90wZ0D99D81uVpXwjrsNfvuYb7JD6GsDuJeeud/h3l7YnSrhfaQ2hDW9TocA/A
+ JfZwQNvQX922M76nyqM02hwHL2WRsgTugiWBUbfjfHtPj75hzo1N8XHMqK+W0ra99giw
+ cUUTdVPchPLxh3aiJj89cO5n6H/Q2B1bMmrJCiYV6NjJKKxYoIp/krSE1TMsnr7jjhKs
+ WYBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789433673; x=1790038473;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=hWZ4Y4zJql57aJqzMLFBZaa2Td+FuNKRPfVlv/bP7Sk=;
+ b=zL3IOQ27Oie70FuOOyIGDMOnSDFzn1dsvl1szVzUjaq0VvI0dw3Inm4hutBfFNmKn8
+ OG+gTonKTb/dFjrbBvUoLrfmEGuVe1zuSe76r+OyiBnkST9rm1xtNKLDMAMimZD0ft54
+ 575AnksVHLQA4w4+vE3xc7iCRS6HxgXEVXXD0flt0sfIebfrkn5+ZLmOMcUMXQ8MBW/Y
+ v6mXXma++ymxZExKEe9HiJQIZaIKUTPZC492Y0+rJI9arQkF3ceWL5T3NUNIBFEf8WOF
+ 1N61UoJ5B/O1Ky7BqPfZJzAE7nyAVg5gP7k/zrLOsQlp2Ce1YBOVvfGnPCj/bYr7A+H3
+ Qc5w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBx7OPJnqma1qEa87z+NJrQf2volWXDC/7p7DpDZv8U3Ocjyqz/rRuZfRjLpHRIcgxmlHVrUdLN6Me8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++k5EU/ytp1MmYQmI2mWvTq20Q/WufbZYjBXC/bZGq8D6B7v1koo
+ AFhUvNMCLjtC5IaJ3BCVaqnP4+VJBvSAr14ooFWN0r4+GffzY5irPOJf
+X-Gm-Gg: AYBFou1mFGf9xPUtq7hZogxduvgjgT65JK0cN7Sm6o4i4ed1WNt9Tl3WyNS65sFxdzb
+ 4Gd5009L7TpKsIztYr7c0Zc9MPUEc1L+LNn85GQuHe5eFKGaFurIjo07T8p0brDiuSf/2hasifw
+ 7eaDAozCpFHbhaYLC2cC7uBLaemGeDIN9AQHSNSzkp5yLBmwwdtRuCtRz4sMGusLHGivDgkERSM
+ shY2nqGG4yDm9NnNFRAvz/pw8rJ9I+3Sn004b3cufmKBCtt1Cch1rEOL40onz5Npqd90rS8F9oY
+ 7QZuV5xu1Oo6URwGBOxV1PzwAnQd5e0a0i8sLBs8E5g2tdmWg8CqELPbKnFfKFmx8StqVlA6rOV
+ mMLKwkJyu1Y8nSC8tMfcKJaLMtADeVSSDOy809ckoQg6m1ifej6/LQPz3FB1rMgqeYYmCRCzYOv
+ Ae//CKThWBbrEpGRvsJTrOFntSG0KqRPQzZwFVCDxIQmluoX0lGrXCBMzCE8RwOhCLrf5aNlhm4
+ mVQk7AGSTGISrHwHao=
+X-Received: by 2002:a17:907:9491:b0:c20:c5f4:e19f with SMTP id
+ a640c23a62f3a-c29b881e271mr346326166b.4.1789433672479; 
+ Mon, 14 Sep 2026 17:54:32 -0700 (PDT)
+Received: from Nuel20.localdomain ([105.113.65.85])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c29660ead67sm501097966b.51.2026.09.14.17.54.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 14 Sep 2026 17:54:32 -0700 (PDT)
+From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, alex.hung@amd.com, bhawanpreet.lakha@amd.com,
+ Wayne.Lin@amd.com, ivan.lipski@amd.com, matthew.schwartz@linux.dev,
+ Jerry.Zuo@amd.com, chiahsuan.chung@amd.com, emmaonana18@gmail.com,
+ chen-yu.chen@amd.com, skhan@linuxfoundation.org, me@brighamcampbell.com
+Subject: [PATCH] drm/amd/display: fix kernel-doc warnings for
+ amdgpu_display_manager
+Date: Tue, 15 Sep 2026 01:54:21 +0100
+Message-ID: <20260915005421.20570-1-emmaonana18@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WOTQ6CMBBGr0K6dkw7ARVX3sOwGMoUqlBIi42Ec
- Hf5OYDLl7x875tFYG85iHsyC8/RBtu7FfCUCN2QqxlstbJAiRd5RQVlCl1HAwyeB/IMsSMwLdU
- QyFkzASopU8wqkxGJdWX1jP3uhWdxcPiUL9bjNrsZjQ1j76f9QlSbd9RyeftbiwokVKSNyrVmx
- PLxZu+4Pfe+FsWyLD+cr45z4QAAAA==
-X-Change-ID: 20260721-b4-mmap-prepare-vma-flag-sanify-2100425df5aa
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
- Takashi Iwai <tiwai@suse.de>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10931; i=ljs@kernel.org;
- h=from:subject:message-id; bh=/iHtXWh2MpE1FcqpEZH17raLB5B9Z+qJUnN+hdbqOgg=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcK86yWWxTubsZhvd2UHr5/qWHZmV5jPttUBLdqzon
- oVnMxae6yhlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEWNgYGR7uS1Wx895+UU0z
- RnrFixMlzk93rt9zb7OVCveTfKGpd/kYGV6+S34fsYVN1nDZmqvtnt46LZzOacqfl/rWFWm8P+5
- 6khEA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 15 Sep 2026 07:27:57 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -149,222 +94,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The VM_SPECIAL / VMA_SPECIAL_FLAGS mask conflates several unrelated
-properties:
+scripts/kernel-doc reports missing and excess member descriptions
+for struct amdgpu_display_manager:
 
-* Is this kernel-owned, whether MMIO, kernel-allocated pages, or ordinary
-  pages a driver maps itself?
-* Can it be expanded or merged?
-* Is this a 'weird' case like mlock where migration might race and we
-  'have' to set invalid flags to notify?
-* Is it another 'weird' case where we just want to stop GUP from touching
-  it?
+  struct member 'power_module' not described
+  struct member 'hdmi_frl_status_polling_wq' not described
+  struct member 'hdmi_frl_status_polling_delay_ms' not described
+  struct member 'boot_time_crc_info' not described
+  Excess struct member 'dm_boot_time_crc_info' description
 
-Driver writers have often been confused about this, and who can blame them?
+Add @power_module to the main struct doc, document
+hdmi_frl_status_polling_wq/work/delay_ms with separate inline
+comments, and rename @dm_boot_time_crc_info to @boot_time_crc_info
+to match the actual member name.
 
-It also interacts badly with the eternal edgecase known as hugetlb - which
-sets VMA_DONTEXPAND_BIT but doesn't also want to be treated like a
-'special' flag.
-
-Another issue is that we cannot make sensible assumptions about flag
-use. It's not possible to assume VMA_IO_BIT means iommu because drivers
-abuse it and mlock abuses it.
-
-Special is also an overloaded term in mm. VDSO and VVAR mappings are also
-called 'special' but they're special in a... special way.
-
-Sometimes things are called special that are a subset of
-VMA_SPECIAL_FLAGS (VMA_PFNMAP_BIT and VMA_MIXEDMAP_BIT for instance when it
-comes to zapping or vm_normal_folio()).
-
-There's a specific kind of special for THP too, which considers
-PFN map, mixed map 'special' but DAX not.
-
-It's all rather a mess.
-
-This series brings some order to things by both limiting what drivers can
-do with VMA flags and switching to using predicates that describe
-behaviour, not arbitrary flags.
-
-It establishes the invariant that only kernel-owned mappings may set
-VMA_IO_BIT or clear VMA_MAYWRITE_BIT in an mmap hook, enforcing this by
-validating VMA state after every mmap and mmap_prepare hook.
-
-It updates usbmon and sg to mmap_prepare in order to do so, adding a new
-mmap action for mapping discontiguous kernel pages, and has hfi1 and the
-ALSA PCM status page map their pages eagerly instead.
-
-It also establishes the invariant that VMA_MIXEDMAP_BIT be set when mapping
-kernel memory, something that is usually the case but happens not to be for
-some users - specifically defio, cmt_speech, uprobes and the bpf arena, all
-of which are updated to do the right thing.
-
-It replaces VM_SPECIAL and arbitrary flag tests with predicates that say
-what is actually being tested:
-
-   vma_is_kernel_owned()   Does a driver or kernel code manage a VMA's
-                           life cycle?
-
-  vma_is_fixed_mapping()   Is the VMA not permitted to be expanded or
-                           merged?
-
-     vma_is_persistent()   Do bytes written to the VMA stay written, and
-                           bytes read stay the same unless userland changes
-                           them?
-
-         vma_can_merge()   Can the VMA be merged with a compatible
-                           neighbour?
-
-           vma_can_gup()   Can GUP obtain pages from the VMA, i.e. is it
-                           neither a PFN map nor memory-mapped I/O?
-
-Remaining raw VMA_IO_BIT, VMA_PFNMAP_BIT and VMA_MIXEDMAP_BIT tests
-scattered across mm are also converted to predicates where it makes sense
-to do so.
-
-And also the opportunity is taken to eliminate THP's vma_is_special_huge()
-which was an existing source of confusion.
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
 ---
-v2:
-* Rebased on mm-unstable.
-* Introduced new patch to fix various mmap_prepare and file interactions
-  that weren't quite right as per Sashiko. None impact anything upstream
-  yet so it doesn't need to be a fix.
-* Restore vma->vm_start if an mmap hook has moved it before tearing the
-  VMA down, so we unmap the range we established rather than the one the
-  hook invented, as per Sashiko.
-* Reject a discontiguous kernel page batch of zero pages rather than
-  looping forever, and bound batches by the pages remaining in the VMA,
-  as per Sashiko.
-* Add the missing map_kernel_discontig member to the userland VMA tests'
-  copy of struct mmap_action as per Sashiko.
-* Set VM_DONTEXPAND on hfi1's RCV_HDRQ, RCV_EGRBUF and RTAIL mappings, as
-  dma_mmap_coherent() doesn't on the IOMMU-DMA path, as per Sashiko.
-* Recompute vma->vm_page_prot in snd_pcm_mmap_status() after clearing
-  VM_WRITE, as vm_insert_page() uses it immediately rather than at fault
-  time, as per Sashiko.
-* munlock_vma_folio() now tests VMA_LOCKED_MASK so an unmap racing the
-  mlock walk still munlocks folios the walk has already counted, as per
-  Sashiko.
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-v1:
-https://lore.kernel.org/r/20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org
-
----
-Lorenzo Stoakes (ARM) (40):
-      mm/vma: fix mmap_prepare file handling, remove file_doesnt_need_get
-      mm/vma: predicate setting mmap_prepare VMA fields on new vma alloc
-      mm/vma: introduce and use vma_[flags_]can_merge()
-      mm: consistently validate VMA state after mmap[_prepare] hooks
-      mm/vma: ensure mmap_prepare doesn't set actions on a mergeable vma
-      mm: make map_kernel_pages_[prepare,complete] internal and unexported
-      mm/vma: tidy up map kernel pages enum values
-      mm: add mmap action for discontiguous kernel page mapping
-      docs: filesystems: update mmap_prepare docs for discontig kernel pgs
-      drivers/usb/mon: update to use mmap_prepare + map kernel pages
-      infiniband: update hfi1 to use remap_vmalloc_range()
-      selinux: reject writable opens of policy file, drop mmap shared/write check
-      ALSA: pcm: use vm_insert_page() to map PCM status page
-      bpf: arena: mark arena_map_mmap() mappings VM_MIXEDMAP
-      mm/vma: add vma[_flags]_is_kernel_owned() predicates
-      mm/vma: only allow mmap to clear VMA_MAYWRITE_BIT if kernel-owned
-      mm/vma: add and use vma_[flags]_is_fixed_mapping
-      scsi: sg: convert mmap hook to mmap_prepare and rework
-      fbdev: defio: assert FBINFO_VIRTFB, drop VM_IO, add VM_MIXEDMAP
-      HSI: cmt_speech: convert mmap hook to mmap_prepare, refactor
-      mm/gup: error out early on !VMA_MAYREAD_BIT VMAs
-      uprobes: remove VM_IO, set VM_MIXEDMAP for mapped kernel pages
-      mm/mlock: clear VMA_LOCKED_MASK over mmap callback
-      mm/mlock: eliminate weird VMA_IO_BIT abuse and simplify
-      mm/vma: enforce that only kernel-owned mappings may set VMA_IO_BIT
-      mm: remove VMA_IO_BIT check in vma[_flags]_is_kernel_owned()
-      mm: remove hugetlb_inline.h
-      mm: rename is_vm_hugetlb_page() to vma_is_hugetlb()
-      mm: drop some redundant checks around hugetlb VMAs
-      mm/madvise: update is_valid_guard_vma() to use vma_can_merge()
-      mm/vma: introduce vma[_flags]_is_persistent()
-      mm/uffd: use predicates for userfaultfd checks
-      mm/madvise: use predicates for madvise(..., MADV_DOFORK)
-      mm: eliminate VMA_SPECIAL_FLAGS usage when hugetlb explicitly tested
-      mm: eliminate VMA_SPECIAL_FLAGS check in lru_gen_look_around()
-      mm: avoid use of VMA_SPECIAL_FLAGS in migrate_vma_setup()
-      mm: eliminate VM_SPECIAL, VMA_SPECIAL_FLAGS
-      fuse: dax: do not set VM_MIXEDMAP
-      mm/huge_memory: remove vma_is_special_huge()
-      mm/vma: introduce and use vma[_flags]_can_gup()
-
- Documentation/filesystems/mmap_prepare.rst |  81 +++++++++
- arch/arm64/kvm/mmu.c                       |   4 +-
- arch/powerpc/mm/book3s64/radix_tlb.c       |   6 +-
- arch/powerpc/mm/nohash/e500_hugetlbpage.c  |   2 +-
- arch/powerpc/mm/nohash/tlb.c               |   2 +-
- arch/riscv/kvm/mmu.c                       |   2 +-
- arch/riscv/mm/tlbflush.c                   |   2 +-
- arch/s390/mm/gmap_helpers.c                |   6 +-
- arch/sparc/mm/init_64.c                    |   2 +-
- arch/x86/kernel/uprobes.c                  |   2 +-
- drivers/gpu/drm/drm_gpusvm.c               |   5 +-
- drivers/hsi/clients/cmt_speech.c           |  33 +---
- drivers/infiniband/hw/hfi1/file_ops.c      |  83 +++------
- drivers/scsi/sg.c                          | 115 ++++++-------
- drivers/usb/mon/mon_bin.c                  |  82 +++++----
- drivers/video/fbdev/core/fb_defio.c        |   6 +-
- drivers/video/fbdev/ssd1307fb.c            |   2 +
- fs/coredump.c                              |   6 +-
- fs/fuse/dax.c                              |   2 +-
- fs/hugetlbfs/inode.c                       |   2 +-
- fs/proc/task_mmu.c                         |   8 +-
- include/asm-generic/tlb.h                  |   4 +-
- include/linux/hugetlb.h                    |   5 +-
- include/linux/hugetlb_inline.h             |  28 ---
- include/linux/mm.h                         | 266 +++++++++++++++++++++++++++--
- include/linux/mm_types.h                   |  50 +++++-
- include/linux/pagemap.h                    |   1 -
- include/linux/rmap.h                       |   2 +-
- include/linux/userfaultfd_k.h              |   1 -
- kernel/bpf/arena.c                         |   3 +-
- kernel/events/core.c                       |   2 +-
- kernel/events/uprobes.c                    |   4 +-
- kernel/sched/fair.c                        |   3 +-
- mm/folio.c                                 |   2 +-
- mm/gup.c                                   |  15 +-
- mm/hmm.c                                   |   3 +-
- mm/huge_memory.c                           |  31 ++--
- mm/hugetlb.c                               |  14 +-
- mm/internal.h                              |  79 +++++----
- mm/ksm.c                                   |   4 +-
- mm/madvise.c                               |  28 +--
- mm/memory.c                                | 142 ++++++++++++---
- mm/mempolicy.c                             |   5 +-
- mm/migrate_device.c                        |  12 +-
- mm/mlock.c                                 |  51 +++---
- mm/mmap.c                                  |   2 +-
- mm/mmu_gather.c                            |   2 +-
- mm/mprotect.c                              |   5 +-
- mm/mremap.c                                |  11 +-
- mm/page_vma_mapped.c                       |   4 +-
- mm/pagewalk.c                              |   2 +-
- mm/rmap.c                                  |   4 +-
- mm/swapfile.c                              |   2 +-
- mm/userfaultfd.c                           |  45 +++--
- mm/util.c                                  |  29 +++-
- mm/vma.c                                   | 254 +++++++++++++++++++--------
- mm/vma.h                                   |  30 +++-
- mm/vma_internal.h                          |   1 -
- mm/vmscan.c                                |   9 +-
- security/selinux/selinuxfs.c               |  11 +-
- sound/core/pcm_native.c                    |  38 ++---
- tools/testing/vma/include/dup.h            |  66 +++++--
- tools/testing/vma/include/stubs.h          |   2 +-
- tools/testing/vma/tests/merge.c            |  10 +-
- 64 files changed, 1153 insertions(+), 582 deletions(-)
----
-base-commit: 6b41451631cabf9ea3b384c2a099088e1598f963
-change-id: 20260721-b4-mmap-prepare-vma-flag-sanify-2100425df5aa
-
-Best regards,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 3524931451c8..61756c089fcc 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -330,6 +330,7 @@ struct hpd_rx_irq_offload_work {
+  * @backlight_link: Link on which to control backlight
+  * @backlight_caps: Capabilities of the backlight device
+  * @freesync_module: Module handling freesync calculations
++ * @power_module: Module handling power calculations
+  * @hdcp_workqueue: AMDGPU content protection queue
+  * @fw_dmcu: Reference to DMCU firmware
+  * @dmcu_fw_version: Version of the DMCU firmware
+@@ -716,16 +717,26 @@ struct amdgpu_display_manager {
+ 		char reply_data[0x40];  // Cannot include dmub_cmd here
+ 	} fused_io[8];
+ 	/**
+-	 * @hdmi_frl_status_polling_work:
++	 * @hdmi_frl_status_polling_wq:
+ 	 *
+ 	 * workqueue for 200ms frl status polling
+ 	 */
+ 	struct workqueue_struct *hdmi_frl_status_polling_wq;
++	/**
++	 * @hdmi_frl_status_polling_work:
++	 *
++	 * Delayed work for 200ms HDMI FRL status polling.
++	 */
+ 	struct delayed_work hdmi_frl_status_polling_work;
++	/**
++	 * @hdmi_frl_status_polling_delay_ms:
++	 *
++	 * Delay, in milliseconds, between HDMI FRL status polls.
++	 */
+ 	unsigned int hdmi_frl_status_polling_delay_ms;
+ 
+ 	/**
+-	 * @dm_boot_time_crc_info:
++	 * @boot_time_crc_info:
+ 	 *
+ 	 * Buffer info for the boot time crc.
+ 	 */
 -- 
-Lorenzo Stoakes (ARM) <ljs@kernel.org>
+2.43.0
 
