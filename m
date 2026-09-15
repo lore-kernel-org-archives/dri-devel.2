@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E0C4C88E7D
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 16:47:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49939C88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 16:47:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B613010E609;
-	Tue, 15 Sep 2026 16:47:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DFB510E858;
+	Tue, 15 Sep 2026 16:47:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="OZDG+q6G";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="BYjV5xyS";
 	dkim-atps=neutral
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FC9810E609
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 16:47:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B15510E858
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 16:47:12 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 2BE424E4063B;
- Tue, 15 Sep 2026 16:47:03 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id EAD794E4063F;
+ Tue, 15 Sep 2026 16:47:10 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id CE5AF602B0;
- Tue, 15 Sep 2026 16:47:02 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id B6F82602B0;
+ Tue, 15 Sep 2026 16:47:10 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 53BDC11C7AFFA; 
- Tue, 15 Sep 2026 18:46:58 +0200 (CEST)
+ with ESMTPSA id DAF8611C7AFE9; 
+ Tue, 15 Sep 2026 18:47:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1789490821; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1789490829; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=4TU13u1Mejf3+R/VztpyEKMgsFgdv4lrS3jA2CK6KvQ=;
- b=OZDG+q6G/fkjk4cU2J4pjm8icsNa2dTMQcpHIp5JvcQ8BhKfYLXCug8d+wVaWMeQalSb0d
- d9vYOQe2lgAHkK0U2RnW8otvWINqLtIvVAkaiEalLx4Duyi+3MNmP9c5NYiduULk+OR7VA
- swhnPo/kv4QYJpU5dqYocYPzaxk09mT+kWKG85pWUSSlXLvX9xavOcLTnpdnST36Bv+rDK
- lYtdz4GstXbK1CvlEc2g7Bcb+P9rx8rK+jfee4eYQuOEr8hpx1NHs6IIMdongMvEF3Hvkl
- lbjBysUu8pukLfuQRm9IeRfJDPpj0QVvrl3etc5SMjh5stME3mnZulG/v3Hn0Q==
+ bh=EjicvGqkSrsJUQu/V2bDvrATSZ5gFUEV+GL7szDeTF8=;
+ b=BYjV5xySY6DjHBybQdkBwpd/o13W4UJaSd50ibfYqddE0WmnwB1yC6DyN04yemFmm8mkzU
+ eDmwD9EOyHVkJ5glBuJflq7aaugksOQ/enyKDccb3wiAjDWMboj3rBnseB9tgqdmxUYk/f
+ +KK3i+HYxw26wui2Ht5NopAy0a0gg6+oNcAiwhYgrrqpsC259bRYjwnL2XA7RriJDck7gd
+ 8jds2v140yTOiNQbaQiMml0Wdkwbho9pOqK0lVA1KI3ir9Ohzvuk5XJh+M9tXSok3+iwJ6
+ rv8PQFw/VNhh/Ylqz95B3PrBGuQlMqKhbrtsFof870HYvjw7RAI6t7Nv6PZLJA==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 15 Sep 2026 18:46:16 +0200
-Subject: [PATCH v4 3/9] drm/bridge: nxp-ptn3460: select DRM_PANEL_BRIDGE,
- not DRM_PANEL
+Date: Tue, 15 Sep 2026 18:46:18 +0200
+Subject: [PATCH v4 5/9] drm/bridge: tc358775: select DRM_PANEL_BRIDGE, not
+ DRM_PANEL
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-drm-bridge-drm_panel-cleanup-v4-3-30401d9406f3@bootlin.com>
+Message-Id: <20260915-drm-bridge-drm_panel-cleanup-v4-5-30401d9406f3@bootlin.com>
 References: <20260915-drm-bridge-drm_panel-cleanup-v4-0-30401d9406f3@bootlin.com>
 In-Reply-To: <20260915-drm-bridge-drm_panel-cleanup-v4-0-30401d9406f3@bootlin.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -56,8 +56,8 @@ Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Sean Paul <seanpaul@chromium.org>
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Tony Lindgren <tony@atomide.com>, 
+ Michael Walle <mwalle@kernel.org>, Vinay Simha BN <simhavcs@gmail.com>
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,25 +80,27 @@ DRM_PANEL.
 
 But it uses devm_drm_of_get_bridge(), which is enabled by DRM_PANEL_BRIDGE.
 
-Cc: Sean Paul <seanpaul@chromium.org>
+Cc: Tony Lindgren <tony@atomide.com>
+Cc: Michael Walle <mwalle@kernel.org>
+Cc: Vinay Simha BN <simhavcs@gmail.com>
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
  drivers/gpu/drm/bridge/Kconfig | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index c98f62b23b1d..1d4db73bd760 100644
+index 65f4d9d9b67d..e2ee76899468 100644
 --- a/drivers/gpu/drm/bridge/Kconfig
 +++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -259,7 +259,7 @@ config DRM_NXP_PTN3460
- 	tristate "NXP PTN3460 DP/LVDS bridge"
- 	depends on OF
+@@ -421,7 +421,7 @@ config DRM_TOSHIBA_TC358775
+ 	select DRM_DISPLAY_HELPER
  	select DRM_KMS_HELPER
+ 	select REGMAP_I2C
 -	select DRM_PANEL
 +	select DRM_PANEL_BRIDGE
+ 	select DRM_MIPI_DSI
  	help
- 	  NXP PTN3460 eDP-LVDS bridge chip driver.
- 
+ 	  Toshiba TC358775 DSI/LVDS bridge chip driver.
 
 -- 
 2.55.0
