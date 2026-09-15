@@ -4,45 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20CDBC88E53
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 09:36:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D08DC88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 09:46:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2001710E5CA;
-	Tue, 15 Sep 2026 09:36:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80CD510FB44;
+	Tue, 15 Sep 2026 09:46:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kSujiUsR";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nw5t4M2/";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6ADA10E5CA
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 09:36:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A17F6416B9;
- Tue, 15 Sep 2026 09:36:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 380F81F000FF;
- Tue, 15 Sep 2026 09:36:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789465014;
- bh=Dyo5Lc1AOpB/dSDhID1emqrb50oYcSN1kaZpw8kGh2I=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kSujiUsRfj7NfjOWvaSnfIrScJPFlw9cHx066vI+Dtnn1fookrZhuYn7lJ49LcNP/
- WhXlsFJ0bsn9iP5R+3ePNSOS3342cOyddORuvCVJLj4SZQOttHJ7vtJyiZw+IreWR/
- 6GEta2RKC3r9wcnG0u6fTzbrbjKzjVSh22bw3FLZbHPyC57tMaz5YHmN6VODs/OX26
- 5PxIrrVApK7VJOyDSFRogYfmQUZR0meSfuWWxl9KduX/OpwaAPQzikF3nPacmF26aZ
- R5WQ6E/7GJotokgEuxmg9Cu9FfLMk7f6uqkdZr2ajBhqAj7xJ1Dnqu2GOUEl7Hvr8n
- 1yacrchuinGUg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: display: msm: Add INT2 GDSC to
- Kaanapali DPU
-To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260915-msm_gdsc2-v2-1-9157237b8382@oss.qualcomm.com>
-References: <20260915-msm_gdsc2-v2-0-9157237b8382@oss.qualcomm.com>
- <20260915-msm_gdsc2-v2-1-9157237b8382@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 09:36:53 +0000
-Message-Id: <20260915093654.380F81F000FF@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9DEB10FB3C
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 09:46:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789465574; x=1821001574;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=g0K9A3toXigBI62aNpPDa1/PMxKe35NY2orLSoU0er4=;
+ b=nw5t4M2/wI+eWDw6eG1/8ZZDW+G5erzM5GSIY7hjIDBoInQQOnZgw94i
+ 1ExjaPntGxrYrK6Zv3khdWTtV46CVavoANafKhq95q7Py9GmSGCyCWkZK
+ czJI/+vULMnfvWz4Rnf5NZgFfsTha4h7YtTo3/+0lbOFg2fopYquIKKjP
+ AR2cUtmrkUx2zyjJm3Q9dsLKnnGrF9sREJvnYP4wzbtycygXE0yDX0udN
+ N/jAhUMgymlKaqEDT2NMSPJQgo1g3SkFTJx8epzJoQgJjwf/qqX9af5AV
+ f0XXTOYDxILlDBLZV1Fyd0O5DU5ZpqWyD2t/MJQvwO9k+fy/hotH/+DR6 Q==;
+X-CSE-ConnectionGUID: TZER89yyQUSeOX1N3XAUjA==
+X-CSE-MsgGUID: dpppu8XdTx6WoQ/u4rYjew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="112592233"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="112592233"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2026 02:46:13 -0700
+X-CSE-ConnectionGUID: wTeylYXATAazoda1Q0uuZA==
+X-CSE-MsgGUID: fFaTlMeHQD+sn2nGNSZMag==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="273466161"
+Received: from bahr-mobl1.ger.corp.intel.com (HELO [10.94.251.7])
+ ([10.94.251.7])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2026 02:46:10 -0700
+Message-ID: <b0c7d83e-84d5-4340-9e8a-252e6377b6b8@linux.intel.com>
+Date: Tue, 15 Sep 2026 11:46:07 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] accel/ivpu: Move register poll timeouts to
+ vdev->timeout
+To: Karol Wachowski <karol.wachowski@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
+ andrzej.kacprowski@linux.intel.com,
+ Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
+References: <20260915083651.950890-1-karol.wachowski@linux.intel.com>
+Content-Language: en-US
+From: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <20260915083651.950890-1-karol.wachowski@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,81 +73,49 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: missing INT2 power domain in Kaanapali MDSS example
---
+On 2026-09-15 10:36 AM, Karol Wachowski wrote:
+> From: Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
+> 
+> Use the vdev->timeout structure for register poll timeouts. This allows
+> adjusting those timeouts depending on the platform type.
+> For FPGA set MMU timeouts to 10x.
+> 
+> Register poll timeouts are expressed in microseconds and are passed to
+> read_poll_timeout(), which disables a timeout when it is 0, unlike the
+> millisecond timeouts that are disabled with a negative value.
+> 
+> Also initialize state_dump_msg in the IVPU_TEST_MODE_DISABLE_TIMEOUTS
+> branch, which was missed when the field was added. Unlike the other
+> fields, it is a fixed delay passed to msleep() rather than a timeout, so
+> it has to keep a finite value. It is only reachable with this debug test
+> mode enabled, so there is no need for backporting.
+> 
 
-commit fc3449e10374106de27dd1a562563cdee9c4085f
-Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Reviewed-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
 
-dt-bindings: display: msm: Add INT2 GDSC to Kaanapali DPU
-
-Kaanapali (SM8850) has an additional INT2 GDSC that powers a subset
-of the DPU source pipes (VIG2/VIG3/DMA5), on top of the CORE_GDSC
-that powers the rest of the MDSS hardware. This commit describes INT2 GDSC
-as an additional power domain of the DPU device rather than of the whole
-MDSS and restricts the schema change to the Kaanapali DPU compatible.
-
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dp=
-u.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-> index aa0cf0ec5b93f..88aa71d2b9120 100644
-> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-[ ... ]
-> @@ -61,6 +61,29 @@ required:
->    - clocks
->    - clock-names
-> =20
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,kaanapali-dpu
-> +    then:
-> +      properties:
-> +        power-domains:
-> +          items:
-> +            - description: MMCX power domain
-> +            - description: INT2 GDSC power domain
-> +
-> +        power-domain-names:
-> +          minItems: 2
-> +          maxItems: 2
-> +          items:
-> +            - const: mmcx
-> +            - const: int2
-> +
-> +      required:
-> +        - power-domain-names
-
-[Severity: Low]
-Does this new requirement break the example in the qcom,kaanapali-mdss
-binding?
-
-The example in=20
-Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.yaml
-defines a display-controller node with compatible =3D "qcom,kaanapali-dpu"
-but only provides one power domain:
-
-        display-controller@9801000 {
-            compatible =3D "qcom,kaanapali-dpu";
-            ...
-            power-domains =3D <&rpmhpd RPMHPD_MMCX>;
-
-Since the new constraints require two power domains and power-domain-names
-for this compatible string, should the example be updated to avoid failing
-the make dt_binding_check validation?
-
->  unevaluatedProperties: false
-> =20
->  examples:
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-msm_gdsc2-=
-v2-0-9157237b8382@oss.qualcomm.com?part=3D1
+> Signed-off-by: Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
+> Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+> ---
+> Changes in v3:
+>   - Address Sashiko AI review comment: disable the microsecond register
+>     poll timeouts with 0 instead of -1. read_poll_timeout() treats 0 as
+>     "never timeout", while -1 is converted to 0xffffffff and results in
+>     a finite ~71.6 minute timeout
+>     Review: https://sashiko.dev/#/patchset/20260914082649.891871-1-karol.wachowski@linux.intel.com?part=1
+>   - Initialize state_dump_msg in the IVPU_TEST_MODE_DISABLE_TIMEOUTS
+>     branch, it is a fixed msleep() delay and has to remain finite
+>   - Explain the timeout semantics in the commit message
+>   - Link to v2: https://lore.kernel.org/dri-devel/20260914084503.895042-1-karol.wachowski@linux.intel.com/T/#u
+> 
+> Changes in v2:
+>   - Add Signed-off-by: Karol Wachowski
+>   - Link to v1: https://lore.kernel.org/dri-devel/20260914082649.891871-1-karol.wachowski@linux.intel.com/T/#u
+> ---
+>   drivers/accel/ivpu/ivpu_drv.h   |  3 +++
+>   drivers/accel/ivpu/ivpu_hw.c    | 22 ++++++++++++++++++++++
+>   drivers/accel/ivpu/ivpu_hw_ip.c |  6 ++----
+>   drivers/accel/ivpu/ivpu_mmu.c   | 12 ++++--------
+>   4 files changed, 31 insertions(+), 12 deletions(-)
