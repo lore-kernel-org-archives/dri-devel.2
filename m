@@ -4,135 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77751C88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 13:56:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BF90C88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 13:59:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 961E610E87C;
-	Tue, 15 Sep 2026 13:56:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C64C10E27E;
+	Tue, 15 Sep 2026 13:59:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OCW7UI/v";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pG52829U";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013021.outbound.protection.outlook.com
- [40.93.196.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3D5510E6FB;
- Tue, 15 Sep 2026 13:56:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pHMQL/9+2lJJOf+LiDF7IVGFrwISsNwEm5zwUF9/KrXjba4NELKh3ucm5cl/M9pYnXBVBAhIbklfdR4mfeMUri4EsiAItfUf589kwm3/84NhJEzGv0qQ/bz0YVRooO7ubiADWpGqD19Ov6qqgGkiQBlHv2GrcTCgqBx8LQqhJDrblut31v537Es0EIK+XcdSksvOhOv5ZLbUJv9D2e+xBxKFSGzhyjpHI6DOD2xczPzRxc91PKRLxV+ErkReY2mxL6XHdR/BkrLHL0Y3k+Rhh3NoNatYeyIolIvlYn/153pjIsd+NGo1c50Xj0nYp/S0QbcqAE7CnSa8r5h+LBQ7Fg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M0mfqIV7RF9mdU752ZfhBhox2pHlVflpGPDxsl3vCcY=;
- b=BSye8RCRbirBJ2i9OD8soUS2jILYIs7eGy+vXvuILkgzlqLWWVsfQY3gj7pzf2DTLh9agDyIPxap3plQkytX09UDeF+NDFjCfiSV3WE2FsjP2VB3aiElFFW/YzAbrGEhsnW7Qa8h3IHdA9FSCH9cw9zqbZLEiuxZX2++fH73IfZuhOIC2SbA+GUUI3vbB35nyn1L/yUEu0flWMKbUHh9y9vdDMxy1uxTLHB4cXlVJfuiZSILF0iYqeZHM92XvwVLdOq3Pxr8dHgZHQKRfJc5yT/8IkHjHOk8XFKKskioIgz9KuyxTkRFfYTIawzYwdqBP6O+RUaiCfWZVhju7SoXxg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M0mfqIV7RF9mdU752ZfhBhox2pHlVflpGPDxsl3vCcY=;
- b=OCW7UI/vmeU8K/WxlTXk8NnTiAgufhA+Tzcr8OFAegXbixGcv1ApFAvB9d/G3OauZaozB3POSNlS4D98sJq7nYmL643evMfiXcHUjnqX6NH+K9gBoBw6W7Uz6dZwCgyfXnK/6sa/uiUIQ5lGKjdzyNjtXWrt34rqiTxPUbarM0A=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SN7PR12MB6983.namprd12.prod.outlook.com (2603:10b6:806:261::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 13:56:06 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.008; Tue, 15 Sep 2026
- 13:56:05 +0000
-Message-ID: <a59d3421-a241-4497-9890-0b94329b94da@amd.com>
-Date: Tue, 15 Sep 2026 15:56:00 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] drm/amdgpu: don't free mapping when
- amdgpu_vm_update_range fails
-To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Cc: Natalie Vock <nat@pixelcluster.dev>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
- Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- kernel-dev@igalia.com
-References: <20260914-amdgpu_vm_fixes-v1-0-d6d835591e0f@igalia.com>
- <20260914-amdgpu_vm_fixes-v1-3-d6d835591e0f@igalia.com>
- <9c507259-f65c-4f18-8fc7-8e03de0c4f87@amd.com>
- <acc1e3eb-264c-4591-9f66-5fe93b96f97f@pixelcluster.dev>
- <aqkf0LE51mObdEJc@quatroqueijos.cascardo.eti.br>
- <fb733813-9e4d-494a-ba60-469261340e74@amd.com>
- <aqktL4Ui1MaIvs_j@quatroqueijos.cascardo.eti.br>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <aqktL4Ui1MaIvs_j@quatroqueijos.cascardo.eti.br>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR05CA0049.namprd05.prod.outlook.com
- (2603:10b6:208:236::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com
+ [209.85.219.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7B3A10E3AA
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 13:59:18 +0000 (UTC)
+Received: by mail-qv1-f46.google.com with SMTP id
+ 6a1803df08f44-90cd4631090so9840226d6.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 06:59:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789480758; cv=none;
+ d=google.com; s=arc-20260327;
+ b=EIoZ0GPf30AMGVhSUIefjOJCYnvFUd2L685oDHvtJHA/OpwMAiK+nj/5ll44/A5+6S
+ RJniQq7eR1luUPzWMtK0dm4+sK0vR7Cx26VKNuTBq9iIA5oegpIZdFgPFQ1dE5j8hvSy
+ Hb8fRTmQjoz9KbVMwOT7/gM2vz+c13M6MU33DWAVVjzEY54lkooImFhFFSGfiIqHKDUr
+ xiMdeM9tfOEl0oOiKoOj8QLlTwzs3eowZ7+5Ft7XipBYDJc9yhq5S4f+iT60X7ecPE7o
+ h0DTIQ2ELfVlNZWnb+uu8UP78R7cuolCJpQISOT1zFSj5hrzamguq4dAzsgZ5Y1BAJAQ
+ AmOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=qtYpuKUyAlpc4Ck0pC2uxBVaD63r9WyFlbfA/VDUwk0=;
+ fh=QIA0xPOTVDxE6BoBq+zo47qebeUtXGmHz2Pwe6T1/Go=;
+ b=natF7rIgx1nCXkbHqQr1Zpn9kMsdzuj5RPET4ZtYOO88LUFU/00ArQIaJGMMGMWt3O
+ JAYziLgChuBOaXXWOonDTFA49ycb9QdBGPof1tpDmu55LQPBhFQ52/0pIVyH9Q9bdkwH
+ p2QculJTgGGzurNril0LPkA/gE/j9sKgGF4n2yAzkvWKlMSM/TQilevYnHyPX6bAiAiO
+ 1Nzw6dH1B25kZaLVbyv8hpTqWStY3jN5h6rCRE0pdCCdqd7smOskflBceL1wbiKz2eie
+ CqK6lBOHlPRBdYGkhDVW24QNCv2Q0O7CcdTAehMD/47D6Oj3aALad7LDBujXkuV/k9JA
+ X5Aw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789480758; x=1790085558; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=qtYpuKUyAlpc4Ck0pC2uxBVaD63r9WyFlbfA/VDUwk0=;
+ b=pG52829Ut1IqxJphqI2yqA2U7m3G+wm9LAGwQdlZ2d3ZhfAzfpBIq2lk8kqxPDC9XX
+ hrCYmPNjMmWD73xjV0Y/T1kVU5TzlIg61aSkM+nwgGLGyYplHakXKjZpTRe3p66r9/+a
+ VD11Hvs0zAkC34hfVZTHljuq+T0vRn/RDQ2I+agE7q9FfZjtLq/a25k46NWy2VVyDini
+ ILnHKh7gVXMpDTSGEwPdjnBeruvXK1I8SAmmy7nmxU/Nw+YfDxAM3NKw4VgnwRgR99x6
+ GSt4KgegNr+Xk9ooGKCLmBdm6S4hmd0zOrdXwzaIyqfmAP7ub1UqnbIAWj6GyZs6udY4
+ balw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789480758; x=1790085558;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=qtYpuKUyAlpc4Ck0pC2uxBVaD63r9WyFlbfA/VDUwk0=;
+ b=esGnaTPIcCIyiNW2F9ikkhe6mUXU2KqboWzDVb8YrYPlkV5EhW0rvn94IJ4niR9KMT
+ x+eQXED6yeJ31mh/QXE4owb0ofRmYaGaxLnZQcahPWGhWiCHj3W8TNYIxfJ17A6PEUpO
+ NvcRHjhYkt3RX8qxsGb/lroAMq6J5qnU+Bn/HJQ80nq6Z6i4ZMJRz10nfosqRsTGDOWH
+ HJs4SxOP1CMWiC2M5QE5lL6TKb45xecjZ1C5ky+DeRp8S7XHEM366+ShwYfIbCxrYW3l
+ aJihjr5bQfAfpZf1aa2b8K5tT3W8pbib4J894v2z82z80xQWy9llyHWAaKvtcMIVcaTr
+ BOiA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw0z2C4EyE59XRZX/unr4EAz9mCkn+tQqiREK3NxCg+Nerp9nAy0o8DXY3aF5My3u7u5zy1oZoSUUY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kLrgCzW0d75UXy0u7OSWxpB8BMrNj+zzH1P3NJib8PJfDlIQ5p
+ 3bkZNsbV9MFLsH9B7SrHK1h6weUhBvFvPsJmURNe8nKHdUAcy9yCKRA87m1Zrybsju09yp2iw6Z
+ DHq7Xsqdqb7icugoAcxktCtfoUzSgXjQ=
+X-Gm-Gg: AYBFou2m4XiAGV7nI3Wh2URnp5awM0hq6HJIyW5DYZpo6t3KbOjvK7Ko+YIGq9Z3SXE
+ Bo+zuH/4lCh3IVWmjy2676fr27wijj2SfCdN0K42Q1FOK1NwI8mQllx2V9WPnpOkJGpVyAFxULR
+ EjLxN55qM+uwfhgifkjUMnQZCK+UInwF49TxquvGYflUkVcbTPlo4g1sZpX16gHydCJDmIrnUm8
+ 3WmEOAL8DUXwxkZe7qGctxaAqlHMDbbu1sFVQI889tN2byvm7Wav0kcqkbbmNADoEQNcVKLsaSx
+ g1VyULTGUtFgFXT8OClV6F1IDD4YuXHxDO4W2Fw/GAIP/T4io5zaHfTeFZx9b4kt4XO7VqUc+ri
+ tbNZyC+bA4u85w/caPmk=
+X-Received: by 2002:a05:6214:428c:b0:910:6ca7:cad4 with SMTP id
+ 6a1803df08f44-91234347c67mr48629936d6.5.1789480757416; Tue, 15 Sep 2026
+ 06:59:17 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB6983:EE_
-X-MS-Office365-Filtering-Correlation-Id: d1e702aa-d8ad-4672-5ef5-08df13311617
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|1800799024|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: BbyQKaJnRLuxTaN/uZd0/f8bFjglUHp6h0W0Pfofj7grFN0I23G++nF8tW73nfOv33zfKtU90tXAYRNKFB7XPOB7AwXOeScvgXOJAW3sLopUanS4jvc3Nzwl+HVDZZUVMmsxJc2VuJJnxRlmsT4aLIli3JuSEFBHpkdZVQhWekL3A0uvo/uvWDS55fVTXKK6w8ACVyVqqV9Wo7/5DgsUILmZRYvG5Mn7r+kZ20oYhjTwT/ZwRq27H8jtRjn/91xGT4Nc4Dviho7ZqnISqakg6j2syffaiGaIQOunQDZlyrEfnSjJiIkmReqATJiwBwz3yOp/v8GHlPDKyli9rqlCT5QQj8zy9EqUcXnhlll/z1v9iyBk0ks+dqJYFIOel0RSgyFFzmbPmSHWsU1hGYQEJsKMWrbMyxSTArmlfRsgeokh+bi3xqQePQ4YUl9eRTlSggQnCr7yBwdqOMCmEOAOV4MSqn/dOmVVN8JVy/7a29pYSYWti1flUj4SFxlQ6Yxltg+alO9W7txKldJo6IYlx8sCnW6hDC+3+gffr+HtjdrKfvpnttGObC5smWtbxIX8dWbq/r6OvuUExO9dYwaBWJZIiCDTmIl8QN5RtTvn259Hx1jLQ0Xsyqd9tu/8B0eya1nDd2RC3/hGUSLDbmFKu5Ama9b97yRjjvTe5C5znqg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RDBRU0RYa1NyeG1aT1R1dktIWE0wVkUvZmFGZW5pcWdUNDQzUnd3NzNRUExP?=
- =?utf-8?B?Ti9lT3VXcFZESDV3UCs3endodTFaRTdrWmZTZ2dyWjA4ZXNjbm9McUZhcUdz?=
- =?utf-8?B?cHlGSXhPTGVpZWJoQnREazZmRXVkdytPc3NscFJtdDBDUUQ4OXhFYWkvNkhp?=
- =?utf-8?B?SWxhbHQ0cjVPZHBrc1ZtNnIyRlNmWHo0eFNpNDFYVlJSNWM3WjhSdlVwN3Rx?=
- =?utf-8?B?S3doQ1RITkZPVWhkOFh1cEs5YVh3cVlrcnc1V1UwU0FsLzZUWUlkVTU5Nlo3?=
- =?utf-8?B?eXJvemVWa0ppTVFwUFhzZ1VWblc3QjZia1hpSFZ1aDF5dDQyay92dDRJejcy?=
- =?utf-8?B?UGNUMCtKNUFySFNLUGcvaUxXb0JuR0NHTHQxQVRLd1pQNHVmWDJPUkhpU21V?=
- =?utf-8?B?NkV4RjJvYWd2bGx0QWRzOUZxbmNzejY5MEdOemVaamFWa1pzb0FpWHFCWkFQ?=
- =?utf-8?B?dWJqeUk5bmVZdGVVRStiWmpYQ2lrdStFTGNjdVJvZVg2T29XalREaTNidTJF?=
- =?utf-8?B?VUgyeDh1SW5VUTlRM2pNUjZKOS9qWGVrMlcyUGwyVmJXYmsrL0pFalE0L1Jz?=
- =?utf-8?B?UWJTMDdDM1gvcFVFZGxqeFgzN2dWSGcwTUFnYXlyMHdNZmJvbHI2R21tS1VC?=
- =?utf-8?B?cTdXUFBvczE1Y09DZTZxVjRXeHk2cG0wSnZRRjRRQW10REJZa2xURVNDOXk4?=
- =?utf-8?B?dzRVOWF0bWNubExlZWx1Ni9HS2FObDlGOE93bWtybW9XemVVWXJyeTNuTDd2?=
- =?utf-8?B?K0x1RDZYTGp2NjF5c1BRUWNWdzBYY0t0MjN6NTdvSHRremdqM1laOGhEM0lC?=
- =?utf-8?B?bEJEbi9xejRmd1ZlZzdJN0NrSVZJOTJHdGZrUThOdDlmajRXTVhhaGNtZm1C?=
- =?utf-8?B?elhCUTdtcHdCMlFxQStFU1Y0RUh4OXNnS2xvTG9UQXNuN1RNTXdjbC9EeExz?=
- =?utf-8?B?LzJxU0NGVE1zQnF1M3gyczlLeFI1Yk0xN1FhYzF2aWdIcHlCY2lWL21CWngz?=
- =?utf-8?B?MGNEZ0xNSWRRQnB2eVNuMjQzamhCVjdQNU1UVjFNNlUxU3JpZGs0UGJSNFoy?=
- =?utf-8?B?M3EwTDVRZjdSR1VZSCtBZ0tkM3IxdDIzK2c1WE9jUEx0bzFiQlNqVW4rZnhk?=
- =?utf-8?B?bnhUZXpsTks2c0F0Q1Q1NGkrdWR4bG1TYnZhWU5MMEFISHB6NEJHT0xubU5G?=
- =?utf-8?B?WEZtcks3ZGxxY1RzT1FrMFErNWJsdXR4WWJkcVFUWmxVMndkdC9DNjRXbUNx?=
- =?utf-8?B?anlMeERFK256ckNxUEMzSTlZbUpJUjcxcERKMkkzYWRNOEUvYzI1SkRGWnlV?=
- =?utf-8?B?TGM0akpDeHdKT2NIZy9XR0hJV3pOdEI1Tll4Mjh5cHUrdnRCUzkwVTBRc1dY?=
- =?utf-8?B?S3FMVlAvdDVpTjEvSkp1TDUwMEg4LzVzQ0JmaksrckIwaVplQUp2UW1UOUMz?=
- =?utf-8?B?dER1RklXaVpuRHBNZXVxS0dMRVdNWHVkNE5DQU93ZERjMXBMZm8wRUpMeWVn?=
- =?utf-8?B?TU8zcWxEenNGU3RqV1NPWGRYRE9iL3NDSGRsUTlWWVhGNjI3Q3FXV2RaZW1Y?=
- =?utf-8?B?aStrMHFrUlR0ODgydDdXdkF5eHhjTEpxTTFMaXBPd1NLUkdLM0RLcllNTnZF?=
- =?utf-8?B?aGZsUDZqa2pxRytHMFZXN3NsRmpRSnBDcHoyWTc0Z29tY0NWRmw0WnVBd1cw?=
- =?utf-8?B?MEx2U3YzVk85bzVUU2NzQzFGSW5kUzdjNktzWWg0bGNNWVdCUDZiYkJtdURl?=
- =?utf-8?B?V3E0TzZNWGNEVEVzdGtXSUxudUY5cHczNmZCV1Q0anhpcDdoMEdLNFlKMisw?=
- =?utf-8?B?ZllLWG9Ma2NOd1RIU1ZOU1ZjbXY2SXg5VkdMS2FUN29RbVhDZ2RoWVdBUDlK?=
- =?utf-8?B?bmVMS0xLRUloZ3pHTmdvQS8xdVpLV0lkZWFkR3NnbmpoUlF6ZDYvYVV3bEE1?=
- =?utf-8?B?V2tpdjR5V0M5Tmlnamw5ZjhIc0hHWmsvN0U5MGpHQm93R0I2VXBjMUxvTnY1?=
- =?utf-8?B?NS8rM2RUVUQ0bVRqUmZSSUlCT3FyUEZhYWNxa2taWG1OdjgyVVdaRU5od3F4?=
- =?utf-8?B?UkJrZFl3U2d3eXBiT2pwSitsdjJ1N3RweXhoTXBIY0tTNms0WGtuRjYzVDls?=
- =?utf-8?B?TjI1TDN2VlpaeHFDUEZFRCtGeWlCdVNqUGZEWS9VT08vNXFKRU16WjBVWUg2?=
- =?utf-8?B?UmVCaVZkOWJlWS9ha28wVEY0L3FLck1LOFh0TEVkNDA5TFE4dERuQS9OMnZE?=
- =?utf-8?B?ZEtWOEFOTzdock5QOEozN3laVVQzc3hoVDlsajZxQ2R6YmVDYUNkcEx3OTZX?=
- =?utf-8?Q?gskgeUB9ndDGyHpuCv?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1e702aa-d8ad-4672-5ef5-08df13311617
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 13:56:05.6419 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bujYa6Bl6Gb24lKVxQMY5FGlcEh4oMhgzyQN/clkdiRWhAX6/h3zcgonJL3b40Ux
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6983
+References: <20260905142500.17666-1-zhoulol888@gmail.com>
+ <20260915064200.23171-1-zhoulol888@gmail.com>
+ <69d0f3f3566521e516e439e818a619766561567c@intel.com>
+In-Reply-To: <69d0f3f3566521e516e439e818a619766561567c@intel.com>
+From: Activate Windows <zhoulol888@gmail.com>
+Date: Tue, 15 Sep 2026 21:59:06 +0800
+X-Gm-Features: AcwNN1V-PMybVCwMGP9Ri_2RLLkQkWkHW6MDdwoRi03kcrCMTtjQFFHabyW8iaM
+Message-ID: <CAEnyS7FrjPdkErjnNO5bOkEvrRdGfWYNB-GnhjpB2iKYFMJx5g@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/xe/display: Remove invalid initial plane PTE check
+ for iGPU
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, ville.syrjala@linux.intel.com, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Content-Type: multipart/alternative; boundary="000000000000e0da58065b85f47d"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,165 +111,250 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/15/26 13:34, Thadeu Lima de Souza Cascardo wrote:
-> On Tue, Sep 15, 2026 at 01:22:48PM +0200, Christian König wrote:
->> On 9/15/26 12:37, Thadeu Lima de Souza Cascardo wrote:
->>> On Tue, Sep 15, 2026 at 10:53:43AM +0200, Natalie Vock wrote:
->>>> On 9/15/26 10:33, Christian König wrote:
->>>>> On 9/14/26 22:25, Thadeu Lima de Souza Cascardo wrote:
->>>>>> If amdgpu_vm_update_range fails when called by amdgpu_vm_clear_freed,
->>>>>> the clearing of that mapping will not be attempted again. Later on, when
->>>>>> an IB tries to read that mapping, the read succeeds, leading to a
->>>>>> potential info leak, or even data corruption, if it attempts to write to
->>>>>> it.
->>>>>>
->>>>>> If the mapping is left in the freed list, then clearing will be
->>>>>> attempted again during amdgpu_cs_ioctl, which will either fail and not
->>>>>> submit the job or will succeed in clearing the mapping, preventing the
->>>>>> invalid access.
->>>>>
->>>>> Same as I replied to oushinnyo <oushinnyo@163.com>, absolutely clear NAK to that.
->>>>>
->>>>> amdgpu_vm_update_range() can only fail when the device is hot removed and we don't care about clearing page tables in that case.
->>>>
->>>> Actually, how so? The SDMA update path has lots of allocations that happen
->>>> at random points throughout the update process (think the SDMA IB being
->>>> exhausted, then vm_funcs->update() will allocate a new one and can fail on
->>>> that, or various fence allocations. Some paths allocate from the delayed IB
->>>> pool which is just regular GFP_KERNEL, why couldn't these allocations fail?
->>>>
->>>> Aside from that, the more trivial failure path that I think Thadeu is also
->>>> talking about here is that amdgpu_vm_ptes_update will call
->>>> amdgpu_vm_pt_alloc (so that happens in the middle of VM updates) and these
->>>> allocations can fail. I'm not even sure if drm_exec can save this one
->>>> because we need to be ready to drop locks and retry.
->>>>
->>>> I get that failing is unacceptable for the cases inside a pagefault handler
->>>> (though I'm not sure if anything of what I mentioned applies here, pagefault
->>>> VM updates are immediate so they get GFP_ATOMIC, but maybe the pagefault
->>>> handler could still allocate PTs?) but for anything else, failure seems like
->>>> a possibility and maybe we should think about handling it in some way.
->>>>
->>>> I'm not sure I see a problem in keeping BOs invalidated and backing off
->>>> later, since new submissions should be rejected unless the VM manages to
->>>> complete all updates successfully.
->>>>
->>>> Best,
->>>> Natalie
->>>>
->>>
->>> Thanks, Natalie, those are exactly the possible scenarios here:
->>> amdgpu_job_alloc and amdgpu_vm_pt_alloc might fail.
->>>
->>> Christian,
->>>
->>> I have started this investigation once I observed the kmemleak that is
->>> fixed by the other 3 patches. Natalie brings up the exact case where this
->>> might happen: amdgpu_vm_pt_alloc fails as all other VRAM BOs are locked as
->>> they are either ALWAYS_VALID BOs or PT BOs, thus sharing the same dma_resv.
->>
->> Yeah and on a clear there is never a single page table allocated. What could be is that temporary memory allocations fail, but we need to make sure that never happens by using the emergency reserves and/or pools.
->>> Here is a log showing up that something failed during the update:
->>> [ 3839.556311] [drm:amdgpu_gem_va_ioctl [amdgpu]] *ERROR* Couldn't update BO_VA (-12)
->>
->> That is failed memory allocation while trying to map something which we also ignore and delegate to the next CS.
->>
-> 
-> Yep, that is a possibility as well and amdgpu_vm_bo_update is not ignoring
-> the failure here and leaves the mappings in the invalids list, which the
-> next CS will try to map.
-> 
->>>
->>> The investigation then led to a reproducer, which is able to trigger the
->>> list corruption that is mentioned in patch 4.
->>>
->>> And given the kmemleak stack trace shows amdgpu_vm_clear_freed in the stack
->>> trace, that should clearly be where the failure has happened. Looking at
->>> the function, then I noticed it ignores the return code and still removes
->>> the mappings from the list. I was able to write a second reproducer that
->>> triggers the failure, then releases some memory and demonstrate that
->>> amdgpu_cs_ioctl does not clear the freed page tables as the freed list is
->>> empty.
->>
->> Unmap/clear operations are also used in MMU notifiers who can't give an error back to higher levels but rather need to unmap the area no matter what.
->>
->> So basically that is an operation which can never fail in the first place (except for device is completely gone and then we don't care any more).
->>
->> I'm about to split the map/unmap into separate functions to make it clear that unmap operations can't fail.
->>
->> When you have a reproducer and can pinpoint where exactly the memory allocation fails that would be rather helpful here.
->>
-> 
-> What I understand that happens in the case of clear_freed is that we are
-> breaking a PDB/hugepage and descending, as the clear happened in the middle
-> of the hugepage. With the specific reproducer I had to go through lengths
-> of making sure that the original mapping landed on a hugepage-aligned
-> address, then used CLEAR/amdgpu_vm_clear_mappings to unmap a single page in
-> the middle of it.
+--000000000000e0da58065b85f47d
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Yeah that is exactly the broken case I'm already working on.
+Thank you.
+Follow-up: reading 0d5d5d0c2c72, the check assumes GRAPHICS_VERx100(xe) >=
+=3D
+1270 stands in for "MTL+ with LMEMBAR". On the PTL I hit this on, the
+initial plane is rejected.
 
-In that case the clear should just unmap the whole hugepage and not allocate new PDs.
+I'm working out whether the BIOS PTE actually lacks XE_GGTT_PTE_DM there --
+I'll follow up with a proper v2. I don't have the machine in front of me
+for a few days.
 
-Re-mapping the two fragments before and after the unmapped area is supposed to allocate the new PDs.
+On Tue, Sep 15, 2026 at 4:40=E2=80=AFPM Jani Nikula <jani.nikula@linux.inte=
+l.com>
+wrote:
 
-Without that we run into tons of problems with userptrs and MMU notifiers.
+> On Tue, 15 Sep 2026, Andrew Zhou <zhoulol888@gmail.com> wrote:
+> > Pantherlake integrated graphics can have the XE_GGTT_PTEDM bit set in
+> > the BIOS-initialised framebuffer PTE. The validation rejects this and
+> > fails to create the initial framebuffer, resulting in static.
+> >
+> > Remove the too-strict validation. Since this was the only caller of
+> > need_pte_local() outside the DGFX path, the helper is now
+> > unconditionally true there; fold the check and drop the dead
+> > need_pte_local() and has_lmembar() helpers.
+> >
+> > Signed-off-by: Andrew Zhou <zhoulol888@gmail.com>
+> > Tested-by: Andrew Zhou <zhoulol888@gmail.com>
+> > Tested-on: Intel Core Ultra X7 358H, integrated graphics, B0 stepping
+>
+> This is basically a revert of 0d5d5d0c2c72 ("drm/xe: Check the PTE local
+> memory bit for initial FB in stolen"). You'd do well to dig a bit of git
+> blame and see what changed, why, and by whom.
+>
+> Cc: Ville, Maarten, Matthew
+>
+>
+> BR,
+> Jani.
+>
+> > ---
+> > v1 -> v2:
+> > - Drop need_pte_local() and has_lmembar(), now dead after removing the
+> >   iGPU validation (sashiko)
+> > ---
+> >  drivers/gpu/drm/xe/display/xe_initial_plane.c | 20 +------------------
+> >  1 file changed, 1 insertion(+), 19 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/xe/display/xe_initial_plane.c
+> b/drivers/gpu/drm/xe/display/xe_initial_plane.c
+> > index 0f86b7303..3484b3033 100644
+> > --- a/drivers/gpu/drm/xe/display/xe_initial_plane.c
+> > +++ b/drivers/gpu/drm/xe/display/xe_initial_plane.c
+> > @@ -27,16 +27,6 @@ static bool is_pte_local(u64 pte)
+> >       return pte & XE_GGTT_PTE_DM;
+> >  }
+> >
+> > -static bool has_lmembar(struct xe_device *xe)
+> > -{
+> > -     return GRAPHICS_VERx100(xe) >=3D 1270;
+> > -}
+> > -
+> > -static bool need_pte_local(struct xe_device *xe)
+> > -{
+> > -     return IS_DGFX(xe) || has_lmembar(xe);
+> > -}
+> > -
+> >  static struct xe_bo *
+> >  initial_plane_bo(struct xe_device *xe,
+> >                struct intel_initial_plane_config *plane_config)
+> > @@ -60,7 +50,7 @@ initial_plane_bo(struct xe_device *xe,
+> >       if (IS_DGFX(xe)) {
+> >               u64 pte =3D xe_ggtt_read_pte(tile0->mem.ggtt, base);
+> >
+> > -             if (is_pte_local(pte) !=3D need_pte_local(xe)) {
+> > +             if (!is_pte_local(pte)) {
+> >                       drm_err(&xe->drm, "Initial plane PTE has bad loca=
+l
+> memory bit\n");
+> >                       return NULL;
+> >               }
+> > @@ -85,7 +75,6 @@ initial_plane_bo(struct xe_device *xe,
+> >                           &phys_base);
+> >       } else {
+> >               struct ttm_resource_manager *stolen;
+> > -             u64 pte;
+> >
+> >               stolen =3D ttm_manager_type(&xe->ttm, XE_PL_STOLEN);
+> >               if (!stolen) {
+> > @@ -93,13 +82,6 @@ initial_plane_bo(struct xe_device *xe,
+> >                       return NULL;
+> >               }
+> >
+> > -             pte =3D xe_ggtt_read_pte(tile0->mem.ggtt, base);
+> > -
+> > -             if (is_pte_local(pte) !=3D need_pte_local(xe)) {
+> > -                     drm_err(&xe->drm, "Initial plane PTE has bad loca=
+l
+> memory bit\n");
+> > -                     return NULL;
+> > -             }
+> > -
+> >               phys_base =3D base;
+> >               flags |=3D XE_BO_FLAG_STOLEN;
+>
+> --
+> Jani Nikula, Intel
+>
 
-I will CC you on the patches I have so far.
+--000000000000e0da58065b85f47d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Regards,
-Christian.
+<div dir=3D"ltr"><div dir=3D"ltr">Thank you.<br><span class=3D"gmail-">Foll=
+ow-up: reading 0d5d5d0c2c72, the check assumes </span><code>GRAPHICS_VERx10=
+0(xe) &gt;=3D 1270</code><span class=3D"gmail-"> stands in for &quot;MTL+ w=
+ith LMEMBAR&quot;. On the PTL I hit this on, the initial plane is rejected.=
+=C2=A0<br><br>I&#39;m working out whether the BIOS PTE actually lacks XE_GG=
+TT_PTE_DM there -- I&#39;ll follow up with a proper v2. I don&#39;t have th=
+e machine in front of me for a few days.</span></div><br><div class=3D"gmai=
+l_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Tue=
+, Sep 15, 2026 at 4:40=E2=80=AFPM Jani Nikula &lt;<a href=3D"mailto:jani.ni=
+kula@linux.intel.com">jani.nikula@linux.intel.com</a>&gt; wrote:<br></div><=
+blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
+eft:1px solid rgb(204,204,204);padding-left:1ex">On Tue, 15 Sep 2026, Andre=
+w Zhou &lt;<a href=3D"mailto:zhoulol888@gmail.com" target=3D"_blank">zhoulo=
+l888@gmail.com</a>&gt; wrote:<br>
+&gt; Pantherlake integrated graphics can have the XE_GGTT_PTEDM bit set in<=
+br>
+&gt; the BIOS-initialised framebuffer PTE. The validation rejects this and<=
+br>
+&gt; fails to create the initial framebuffer, resulting in static.<br>
+&gt;<br>
+&gt; Remove the too-strict validation. Since this was the only caller of<br=
+>
+&gt; need_pte_local() outside the DGFX path, the helper is now<br>
+&gt; unconditionally true there; fold the check and drop the dead<br>
+&gt; need_pte_local() and has_lmembar() helpers.<br>
+&gt;<br>
+&gt; Signed-off-by: Andrew Zhou &lt;<a href=3D"mailto:zhoulol888@gmail.com"=
+ target=3D"_blank">zhoulol888@gmail.com</a>&gt;<br>
+&gt; Tested-by: Andrew Zhou &lt;<a href=3D"mailto:zhoulol888@gmail.com" tar=
+get=3D"_blank">zhoulol888@gmail.com</a>&gt;<br>
+&gt; Tested-on: Intel Core Ultra X7 358H, integrated graphics, B0 stepping<=
+br>
+<br>
+This is basically a revert of 0d5d5d0c2c72 (&quot;drm/xe: Check the PTE loc=
+al<br>
+memory bit for initial FB in stolen&quot;). You&#39;d do well to dig a bit =
+of git<br>
+blame and see what changed, why, and by whom.<br>
+<br>
+Cc: Ville, Maarten, Matthew<br>
+<br>
+<br>
+BR,<br>
+Jani.<br>
+<br>
+&gt; ---<br>
+&gt; v1 -&gt; v2:<br>
+&gt; - Drop need_pte_local() and has_lmembar(), now dead after removing the=
+<br>
+&gt;=C2=A0 =C2=A0iGPU validation (sashiko)<br>
+&gt; ---<br>
+&gt;=C2=A0 drivers/gpu/drm/xe/display/xe_initial_plane.c | 20 +------------=
+------<br>
+&gt;=C2=A0 1 file changed, 1 insertion(+), 19 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/xe/display/xe_initial_plane.c b/drivers/g=
+pu/drm/xe/display/xe_initial_plane.c<br>
+&gt; index 0f86b7303..3484b3033 100644<br>
+&gt; --- a/drivers/gpu/drm/xe/display/xe_initial_plane.c<br>
+&gt; +++ b/drivers/gpu/drm/xe/display/xe_initial_plane.c<br>
+&gt; @@ -27,16 +27,6 @@ static bool is_pte_local(u64 pte)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return pte &amp; XE_GGTT_PTE_DM;<br>
+&gt;=C2=A0 }<br>
+&gt;=C2=A0 <br>
+&gt; -static bool has_lmembar(struct xe_device *xe)<br>
+&gt; -{<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0return GRAPHICS_VERx100(xe) &gt;=3D 1270;<br>
+&gt; -}<br>
+&gt; -<br>
+&gt; -static bool need_pte_local(struct xe_device *xe)<br>
+&gt; -{<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0return IS_DGFX(xe) || has_lmembar(xe);<br>
+&gt; -}<br>
+&gt; -<br>
+&gt;=C2=A0 static struct xe_bo *<br>
+&gt;=C2=A0 initial_plane_bo(struct xe_device *xe,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct intel_in=
+itial_plane_config *plane_config)<br>
+&gt; @@ -60,7 +50,7 @@ initial_plane_bo(struct xe_device *xe,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_DGFX(xe)) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0u64 pte =3D xe_g=
+gtt_read_pte(tile0-&gt;mem.ggtt, base);<br>
+&gt;=C2=A0 <br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (is_pte_local(pte)=
+ !=3D need_pte_local(xe)) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!is_pte_local(pte=
+)) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0drm_err(&amp;xe-&gt;drm, &quot;Initial plane PTE has bad local=
+ memory bit\n&quot;);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0return NULL;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; @@ -85,7 +75,6 @@ initial_plane_bo(struct xe_device *xe,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;phys_base);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct ttm_resou=
+rce_manager *stolen;<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0u64 pte;<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0stolen =3D ttm_m=
+anager_type(&amp;xe-&gt;ttm, XE_PL_STOLEN);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!stolen) {<b=
+r>
+&gt; @@ -93,13 +82,6 @@ initial_plane_bo(struct xe_device *xe,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0return NULL;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 <br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pte =3D xe_ggtt_read_=
+pte(tile0-&gt;mem.ggtt, base);<br>
+&gt; -<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (is_pte_local(pte)=
+ !=3D need_pte_local(xe)) {<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0drm_err(&amp;xe-&gt;drm, &quot;Initial plane PTE has bad local memor=
+y bit\n&quot;);<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0return NULL;<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; -<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0phys_base =3D ba=
+se;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0flags |=3D XE_BO=
+_FLAG_STOLEN;<br>
+<br>
+-- <br>
+Jani Nikula, Intel<br>
+</blockquote></div></div>
 
-> 
-> The other reproducer that I have required that I used REPLACE instead of
-> MAP in order to trigger the tlb_flush_waitlist issue. REPLACE does call
-> amdgpu_vm_clear_mappings too. Notice that RADV Mesa driver uses REPLACE,
-> instead of MAP, so that explains that we can see this in production.
-> 
-> Regards.
-> Cascardo.
-> 
->> Regards,
->> Christian.
->>
->>>
->>> Regards.
->>> Cascardo.
->>>
->>>>>
->>>>> Regards,
->>>>> Christian.
->>>>>
->>>>>>
->>>>>> Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
->>>>>> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
->>>>>> ---
->>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
->>>>>>   1 file changed, 2 insertions(+), 2 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>> index 09037df76400..5bde36754607 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>> @@ -1594,16 +1594,16 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
->>>>>>   	while (!list_empty(&vm->freed)) {
->>>>>>   		mapping = list_first_entry(&vm->freed,
->>>>>>   			struct amdgpu_bo_va_mapping, list);
->>>>>> -		list_del(&mapping->list);
->>>>>>   		r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
->>>>>>   					   &sync, mapping->start, mapping->last,
->>>>>>   					   0, 0, 0, NULL, NULL, &f);
->>>>>> -		amdgpu_vm_free_mapping(adev, vm, mapping, f);
->>>>>>   		if (r) {
->>>>>>   			dma_fence_put(f);
->>>>>>   			goto error_free;
->>>>>>   		}
->>>>>> +		list_del(&mapping->list);
->>>>>> +		amdgpu_vm_free_mapping(adev, vm, mapping, f);
->>>>>>   	}
->>>>>>   	if (fence && f) {
->>>>>>
->>>>>
->>>>
->>
-
+--000000000000e0da58065b85f47d--
