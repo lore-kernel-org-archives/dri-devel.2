@@ -4,133 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5780C88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 11:23:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73A1EC88E53
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 11:31:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 040A110F3D5;
-	Tue, 15 Sep 2026 11:23:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4D7B10FBA0;
+	Tue, 15 Sep 2026 11:31:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ncpbOT4a";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E7tiikKz";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011035.outbound.protection.outlook.com [52.101.62.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C56B110F3D5;
- Tue, 15 Sep 2026 11:23:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Oo+I8GcRtou1FmDZruZsVQbdBZDu1vgWOgJYkAoS/1GuPkcnKhhjV30N/ftLEfAF1T5s0pIr8cafAN8sKR5mn/YdqdskraR+Xyy/Sn0SPu4aocV/dRuEx8oWbC8+WOo/uTz6vD3i0YbndYiul5gsXKFCPIDw9fi0jbOYIpZBia4JSzWT/LTeD4nBNJLXo+Etp/m3hbQSEINU5seEEuCIZfj49LyY2xq+o4iRzTHUdSnDXZ8LQFmFhny190YycLcwZcX68UEu4xz04Of0IkZvuMjiwFHS08XRMi+JN+apKuYEBvo42W2JycjxGre58OfGyGX4t/mTU9u4DquVcEAEjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xC1z4NLMYL/o4hNBcHKF/wGagidJ7Ie9PikmYXqA7lI=;
- b=JA4wUxPQjKAzQJgyNZce4CQh6WRx5rSDAVa2F6aOK/NPUHXJhrENuUXgX0n6m+urenHW7jYVIrT7ULkJCTnAJIWYlg9XZOMQjV+9WlCQkl61OAjkUBlC0CpXan3Bq35tmMhZ1x91raNxb/oKjiD6ly4HQqSYSwbtMlmNmNomXvKo3Jb7kRpY/wTPppq9Qs2b6ow/30PWXDYvLNZVAbyEatT2K1pBegveMCvGjmJMbNI+d8RBITXRZuj5zHZqvvQEcL4tstydJ3ze9x+mhyoKw6e/Ok10Y/xnvU0Yrst0kA6QGxYCF2YtB1ews8x/xaPxm5BmTx36vauDo3nEG0v0uA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xC1z4NLMYL/o4hNBcHKF/wGagidJ7Ie9PikmYXqA7lI=;
- b=ncpbOT4aHnLdOAbJWcEokmwXOgEpmTk0xdIuEgqNi7YM6W6y/vvbahqyxgt/SrlI+amW6OgqQO5Za/4KFZfshw4Rp5ZgUK8Y5061p+4Kk08uWJiWRFHzYkFyxhsdO4KH+mAl993FmMSul3ECnL94HsNaWaQFlGRRh7WJrG7UhTw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ2PR12MB8112.namprd12.prod.outlook.com (2603:10b6:a03:4f8::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Tue, 15 Sep
- 2026 11:22:52 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.008; Tue, 15 Sep 2026
- 11:22:52 +0000
-Message-ID: <fb733813-9e4d-494a-ba60-469261340e74@amd.com>
-Date: Tue, 15 Sep 2026 13:22:48 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] drm/amdgpu: don't free mapping when
- amdgpu_vm_update_range fails
-To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Natalie Vock <nat@pixelcluster.dev>
-Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
- Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- kernel-dev@igalia.com
-References: <20260914-amdgpu_vm_fixes-v1-0-d6d835591e0f@igalia.com>
- <20260914-amdgpu_vm_fixes-v1-3-d6d835591e0f@igalia.com>
- <9c507259-f65c-4f18-8fc7-8e03de0c4f87@amd.com>
- <acc1e3eb-264c-4591-9f66-5fe93b96f97f@pixelcluster.dev>
- <aqkf0LE51mObdEJc@quatroqueijos.cascardo.eti.br>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <aqkf0LE51mObdEJc@quatroqueijos.cascardo.eti.br>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0247.namprd13.prod.outlook.com
- (2603:10b6:208:2ba::12) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C2CB10FBA0
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 11:31:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1D6A840952;
+ Tue, 15 Sep 2026 11:31:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE7091F000FF;
+ Tue, 15 Sep 2026 11:31:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789471881;
+ bh=CAJtKPFKPGeuK6/4FcUJJhXpcyxiLyxrGeWoP03hjX8=;
+ h=From:Subject:Date:To:Cc;
+ b=E7tiikKzEgWbcjup28lG7XRiPSUJnQOmsnywq0ncyYHyQqJnTKt0FKdhc261bi9OH
+ 0SlILqTj5qE3J8OEyDI9zqLYPy8psNZLLrF7QOW4W4UQnh0hGPOhQASSGdWdu6CXlB
+ AinpX1RK+sPUhsT5EBGslz/xjWU79vTK2oG+qEZWWfaWT7bIGAFoh926ly17QWcoIQ
+ QJCJXpfCSDC9mQet/UenNMcEEu3ND/zogF3V4a6m5lxpAeKrS/RkcQCtt28J4Htm15
+ ioCbMP38XAAhzbjEh1DggCyILiXq6YLqnQmybNy4sunfucifPnv8TR98hWLnUmAKl0
+ e5z5SrdGFsCyg==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH RFC POC 00/50] file: handle files on syscall exit
+Date: Tue, 15 Sep 2026 13:30:46 +0200
+Message-Id: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB8112:EE_
-X-MS-Office365-Filtering-Correlation-Id: c5b472ed-8085-439c-2dc2-08df131bae99
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|1800799024|6133799003|22082099003|18002099003|4143699003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: BWFeNYI/AzidhNu4fDcPdLwWunV1uECuzP5u/JZPAY6PWKW7e68K+j3NYTOcM2o9k7OVRJiaC/zxiOsvejzzUGnmYOMyAoVSGkyO8DypD8Sd1l5GIyk9AjmWNaqBviBeiLpfKGrePMtTe28djjzjRPEN22dF6wniiZfV1zVhEB7Kab7fBlonzuVONH+jggedtDIX5Jkdedj9Tnm3O6tIKqdvpOvEO8rwuMI0p8X8DkhubCJPfuQuATz0O5x0iuuVhIfm1yzE8RvjzMr+HIYEbKuqeGnQzW4eZ4IGnx+EFSFKCNgiKx54+xldZ8wJ8x2IHSIaxujTjL5td9nNEwUIX0wMgc+M29RTHH6EUlaqS49oorC+5+3lTfUnmHk9CCYudlxGDFbahgOkqZt2dV/hWs7NbPlPLBke7zXuApkJ3m/GES6/XuuLqDIt0HZPDl5ZQ5A1JxcuY3Fuel5bOWCujiZtnnKobGY6svyk0WugXsJceJn7d3QYFGtqPcON+m70j7ZsqtNOMjsmca4joid6tZSOGDnWu7FT9yHqlMGTS+vP3XmEvuh+q3JTpIf0XLUD/D9AMPrwxTKNjTkIM5buxzZq01V0emym4gQeJK7nRQXwE+ZUJktRYCqml/Joupy1x1sos9kSknG6OpJoamCw2XZky40wlIPm6w2CBBGaLQ8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(6133799003)(22082099003)(18002099003)(4143699003)(10067099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZDhJZm5MRmEvRnMwOHBibzlwbWJFcC9QR2EvL1Y0eGVHS0JXcnhGTWdBSzZX?=
- =?utf-8?B?cVU0Yk5kN0xWbjF0bk9nQ2NFZ0tDSTlOd0RBakUyRFdJbXB1VTdYQ2FsZHEz?=
- =?utf-8?B?Sk9PblRucVNrT3BiTjZnUytSbHJRRWFmdWNReEExQTQvV3B4TTRQaWUrd3dW?=
- =?utf-8?B?YzlkZDFOY1RLVGJDWEc4UThYelhMNGh5d1VRU1pTVjFJSHlWLzJEdHN3L00z?=
- =?utf-8?B?S3dFd0hJNkV4dWxrUzZsZ2VEaklwUVFaWEpEcHJ3YVJEK3lrQllGenJqY0c0?=
- =?utf-8?B?d0h4ODBJM1ZHRFovT0JSUXg4cDFrejZCbXdVaUlPT3lXWVR3ajUrbFZUOWxN?=
- =?utf-8?B?eXV1eEVXVDJKa1VqbUxhRVFNV3BXZjFUbE9IY3hLS3k3VVUvL0ltd3pORGhH?=
- =?utf-8?B?TmMxMGR5YlBid2tMWGVMY3U3a08wQ1dxWUh4WitDT2VSRnNvcDVsY2w3WnRz?=
- =?utf-8?B?Z2lWU0N0K2Y0K212OWI2MmQ3YzB1dVUzaTMxRUJaRWdOZFIwb1VWdTEyUkJs?=
- =?utf-8?B?djJjamRMSVlQbGxZUitmc0pBVXFvWDlEUnlPS0d4VTNQc1BmTEcvUWNONGdK?=
- =?utf-8?B?MjlaT0IzS2Vaenl3dWRZaUtQTzdYSXVCWEZIemhxSVFwU1V4cnd4bnJZR2dw?=
- =?utf-8?B?RFIxb1lxZXhBVVhRbFAvYXpCaXpUVUgzS2F0TjhieUdXNVBpVGt6cUlwNlYw?=
- =?utf-8?B?Ry80dkEvNllYcFlUclZ6RG5nZTFqa1BKL1NlcW14TE9KcGFRMkF5a1BHSWRZ?=
- =?utf-8?B?dEIyRi9KRFNnaHJHdm45bmR5N1NDQlJkQy9FZEY4VC81MVRZU3hoaDN4cFZB?=
- =?utf-8?B?Q0R3cWl0S3NobmVnbzJ4UU9vYy9PWFRyMVRKU29pNHVjVHA3eXNqcDZmQVoy?=
- =?utf-8?B?T3RMRmFuU2ZwMUYrUmEwZ3pONlZ3aHFRRWgyY2hFNjFHVkE4azU5WDlxOHRC?=
- =?utf-8?B?bzBzOThKdzhCZTBmN0JlSEdmM1dyOFN1RkR4WTFzbzRsMnFxaXhhMU5TL2xu?=
- =?utf-8?B?V0ZGRGx0d1pISzl5aVNoUUwxaWlndUtSWlBxUWJJd3plTzVVREFoOUE0SitX?=
- =?utf-8?B?VnFzMjVBdVVlc093Z2hYZ0paQjhQMDJOaVlmUElMRWRwQTVBc1A2K0hacDEv?=
- =?utf-8?B?ZWhYa0RhN3hCS3pPVUlxaHlWeVZIbjZoWEwvWGJDaUtCWTJoZ0pJZVFad1lN?=
- =?utf-8?B?NE10aXhFZlI2eWRUcWZFb2pxbjQzWmJYNko0RWUyY3RxTTNZeUNhb0R6cS9R?=
- =?utf-8?B?MjhnMnlVMEk0NmNXLzVkRWJtOTlPUzZsT3luWkNIS0hkZ0VnL1pvaURLSDFN?=
- =?utf-8?B?WWt1WHFpZDNmbzFHYmtBSFAyc2xmKy9rQ2pZWHQvellXUGMxYmxUY2syL2NV?=
- =?utf-8?B?Tit6V1kwOVVOSEVhaVVkMUlDMnFSZFBucFdmUUZaZEsxOGpLWEg2SUs5dXN5?=
- =?utf-8?B?Z3BibnFGd0oxa3FXdDJ4NnJHbEl3T29xRXNmQ1JnVTVVbmR2S1JaMEZWRTJm?=
- =?utf-8?B?L0dibWJCQ3IybHhrMGJrMnRPZ0J4R1g2QkdWWFJ5OGtsdE52MVFPSEJyVnNh?=
- =?utf-8?B?U24yb3ExalFqRzl1alFwUUVwNmdZakp1cmkxTGdzdVdtYXdxbTZlNEFJY1pF?=
- =?utf-8?B?TGg2VXhXN1drMTh1TjF0NjIxei90S3hQaWQ2MnNZWXY1amxtNnJsT3g4anJm?=
- =?utf-8?B?UkhtdmhFNlMxRnZpMXJtS05PTFpnNkEveDVMTHZLZlJ4L3pFK1hGSVBQb3JH?=
- =?utf-8?B?dHI3b3FIdnNHc25aQi9LTTl1YWR3K1BHSy94ZWNnMGsrOGM1Sy9iTGhCSS9O?=
- =?utf-8?B?YnB6bmx2Wm1vcGVyRFFuY2swOFRCWWFIOVdTVktHdnViTDBwZmE5bDBYS3kw?=
- =?utf-8?B?dXpWb0hHalYyZmJCR2VqemoyRU5BZlNOeEFTa05NNjFVZkJEREplc0lySlBk?=
- =?utf-8?B?cmR3dWhkaDUxMFR4RXFOV3RTenoxMFp0eWk3MkQvUFVXK3pJa3lTWVh6K2J5?=
- =?utf-8?B?Smd6MkVYcjFaUUNEUmtUdnFmUlVuRE5BdGZjcEcwZDNSVWxjQUMrSndlWVhi?=
- =?utf-8?B?RG16SFBYYlk2NXhmSm42NVVlRTZWczNQa2VLU2tBTXprd3ZFWnpCNDV6M0Uy?=
- =?utf-8?B?VFpRNS9HdHpOZVlOdVZPSXVjYTltbEd2QWdldXFIMnVERlJMU3NXSENKTFda?=
- =?utf-8?B?UnF3YmwyRGNlRnl6b2xoWVFsbDhYUEZRUE81bU5FQnJwWlo3cmpyWlRTUE56?=
- =?utf-8?B?K1A4cGNycUo0Q09yMzJzOCs5MDNrb2U4V1VwVlFsRHRBM0llWC9JTTNaOC9K?=
- =?utf-8?Q?houSGrFs57T7qJ0q2r?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5b472ed-8085-439c-2dc2-08df131bae99
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 11:22:52.6071 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iT/lDfCzW21sH+6Wwxl3Wi34X1zPhqm2xTCDNDwXZzTFvzakN9vQWprJb9Nd5rT2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8112
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2Nyw6CMBBFf4XM2ml4iBG3JG41bo0LykylalrTC
+ moI/24LLu/MveeM4Nlp9rBLRnA8aK+tCSFbJdB2jbkyagoZ8jTfpFVW4tu6OypCx2E5MPZGqy8
+ q+yAmlNuKiqxcy4JSCIinY6U/M/4Mp32dHA81XJaH7+WN21eEx6psPKN0jWm7eIoaoUj8NWLWi
+ EUjYhem6QdT5RjovQAAAA==
+X-Change-ID: 20260915-work-fd-reserve-unify-folded-b89d3154b3d0
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jann Horn <jannh@google.com>, 
+ Jan Kara <jack@suse.cz>, Ingo Molnar <mingo@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ Oleg Nesterov <oleg@redhat.com>, linux-alpha@vger.kernel.org, 
+ linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+ linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org, 
+ linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
+ linux-sh@vger.kernel.org, sparclinux@vger.kernel.org, 
+ linux-um@lists.infradead.org, Jens Axboe <axboe@kernel.dk>, 
+ io-uring@vger.kernel.org, netdev@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-gpio@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ bpf@vger.kernel.org, David Airlie <airlied@redhat.com>, 
+ virtualization@lists.linux.dev, kvm@vger.kernel.org, 
+ kexec@lists.infradead.org, linux-hyperv@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11212; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=tghJXnBoCORuUllyVM5kOenrKYvUcLA4//tYvMQ3Gwc=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSt1KmZfVvdXbIn41vJt/oHZ9cvPhHnHXlduWLl4TSB5
+ BsG1wzUO0pZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACYSP4+R4aD04rbPT/bfPqP8
+ 9uSeOZ+ErR6x+W14vnzltXsvZhzbPcWOkeGY1wMZvuPZ2+W5eQ7v+q00SZHnk3fSzCfWYt9Z60S
+ 6GPkA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,127 +85,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/15/26 12:37, Thadeu Lima de Souza Cascardo wrote:
-> On Tue, Sep 15, 2026 at 10:53:43AM +0200, Natalie Vock wrote:
->> On 9/15/26 10:33, Christian König wrote:
->>> On 9/14/26 22:25, Thadeu Lima de Souza Cascardo wrote:
->>>> If amdgpu_vm_update_range fails when called by amdgpu_vm_clear_freed,
->>>> the clearing of that mapping will not be attempted again. Later on, when
->>>> an IB tries to read that mapping, the read succeeds, leading to a
->>>> potential info leak, or even data corruption, if it attempts to write to
->>>> it.
->>>>
->>>> If the mapping is left in the freed list, then clearing will be
->>>> attempted again during amdgpu_cs_ioctl, which will either fail and not
->>>> submit the job or will succeed in clearing the mapping, preventing the
->>>> invalid access.
->>>
->>> Same as I replied to oushinnyo <oushinnyo@163.com>, absolutely clear NAK to that.
->>>
->>> amdgpu_vm_update_range() can only fail when the device is hot removed and we don't care about clearing page tables in that case.
->>
->> Actually, how so? The SDMA update path has lots of allocations that happen
->> at random points throughout the update process (think the SDMA IB being
->> exhausted, then vm_funcs->update() will allocate a new one and can fail on
->> that, or various fence allocations. Some paths allocate from the delayed IB
->> pool which is just regular GFP_KERNEL, why couldn't these allocations fail?
->>
->> Aside from that, the more trivial failure path that I think Thadeu is also
->> talking about here is that amdgpu_vm_ptes_update will call
->> amdgpu_vm_pt_alloc (so that happens in the middle of VM updates) and these
->> allocations can fail. I'm not even sure if drm_exec can save this one
->> because we need to be ready to drop locks and retry.
->>
->> I get that failing is unacceptable for the cases inside a pagefault handler
->> (though I'm not sure if anything of what I mentioned applies here, pagefault
->> VM updates are immediate so they get GFP_ATOMIC, but maybe the pagefault
->> handler could still allocate PTs?) but for anything else, failure seems like
->> a possibility and maybe we should think about handling it in some way.
->>
->> I'm not sure I see a problem in keeping BOs invalidated and backing off
->> later, since new submissions should be rejected unless the VM manages to
->> complete all updates successfully.
->>
->> Best,
->> Natalie
->>
-> 
-> Thanks, Natalie, those are exactly the possible scenarios here:
-> amdgpu_job_alloc and amdgpu_vm_pt_alloc might fail.
-> 
-> Christian,
-> 
-> I have started this investigation once I observed the kmemleak that is
-> fixed by the other 3 patches. Natalie brings up the exact case where this
-> might happen: amdgpu_vm_pt_alloc fails as all other VRAM BOs are locked as
-> they are either ALWAYS_VALID BOs or PT BOs, thus sharing the same dma_resv.
+Hey,
 
-Yeah and on a clear there is never a single page table allocated. What could be is that temporary memory allocations fail, but we need to make sure that never happens by using the emergency reserves and/or pools.
-> Here is a log showing up that something failed during the update:
-> [ 3839.556311] [drm:amdgpu_gem_va_ioctl [amdgpu]] *ERROR* Couldn't update BO_VA (-12)
+The idea in this series is old-ish and really never let go of me and so
+I wanted to at least dump it onto the list once even if it's just for
+illustrative purposes.
 
-That is failed memory allocation while trying to map something which we also ignore and delegate to the next CS.
+I still had parts of an implementation laying around that I started
+montsh ago alongside FD_PREPARE()/FD_ADD(). I sat down and finished it.
 
-> 
-> The investigation then led to a reproducer, which is able to trigger the
-> list corruption that is mentioned in patch 4.
-> 
-> And given the kmemleak stack trace shows amdgpu_vm_clear_freed in the stack
-> trace, that should clearly be where the failure has happened. Looking at
-> the function, then I noticed it ignores the return code and still removes
-> the mappings from the list. I was able to write a second reproducer that
-> triggers the failure, then releases some memory and demonstrate that
-> amdgpu_cs_ioctl does not clear the freed page tables as the freed list is
-> empty.
+We've spoken about this idea a few times over the years that we could
+reserve fds and files on a task and then install or a clean them up on
+syscall success or error and get rid of most of the complicated cleanup
+dance that we have in a lot of code. In particular drm. It last came up
+during the Rust file descriptor reservation discussion quite some time
+ago.
 
-Unmap/clear operations are also used in MMU notifiers who can't give an error back to higher levels but rather need to unmap the area no matter what.
+TL;DR, this lets arch code handle fd install and cleanup. fd_prepare()
+allocates a descriptor like get_unused_fd_flags() does and records it in
+a slot on the task. fd_stage() attaches the file to that slot and
+returns the number.
 
-So basically that is an operation which can never fail in the first place (except for device is completely gone and then we don't care any more).
+When the syscall returns success the exit path installs every staged
+file. When it returns an error it drops the descriptors and the files.
 
-I'm about to split the map/unmap into separate functions to make it clear that unmap operations can't fail.
+So a caller reserves, hands the number to userspace whenever it wants,
+creates the file, stages it and returns errors without unwinding
+anything.
 
-When you have a reproducer and can pinpoint where exactly the memory allocation fails that would be rather helpful here.
+fd_prepare() returns the slot itself, as a const pointer. The
+preexisting fd_prepare_fd() and fd_prepare_file() give access to the fd
+and file.
 
-Regards,
-Christian.
+get_unused_fd_flags() and fd_install() don't change. A descriptor is
+only reserved where a caller asks for it. And open(), dup() and all
+other syscalls that maximize speed simply use FD_ADD().
 
-> 
-> Regards.
-> Cascardo.
-> 
->>>
->>> Regards,
->>> Christian.
->>>
->>>>
->>>> Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
->>>> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
->>>> ---
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
->>>>   1 file changed, 2 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>> index 09037df76400..5bde36754607 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>> @@ -1594,16 +1594,16 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
->>>>   	while (!list_empty(&vm->freed)) {
->>>>   		mapping = list_first_entry(&vm->freed,
->>>>   			struct amdgpu_bo_va_mapping, list);
->>>> -		list_del(&mapping->list);
->>>>   		r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
->>>>   					   &sync, mapping->start, mapping->last,
->>>>   					   0, 0, 0, NULL, NULL, &f);
->>>> -		amdgpu_vm_free_mapping(adev, vm, mapping, f);
->>>>   		if (r) {
->>>>   			dma_fence_put(f);
->>>>   			goto error_free;
->>>>   		}
->>>> +		list_del(&mapping->list);
->>>> +		amdgpu_vm_free_mapping(adev, vm, mapping, f);
->>>>   	}
->>>>   	if (fence && f) {
->>>>
->>>
->>
+The task keeps two slots inline. For SCM_RIGHTS and multi-descriptor
+ioctls a spill array is added. It stick with the task.
+
+Reservations belong to the thread and the syscall that made them. A
+child of fork() starts without any. A thread can't unshare its fdtagble
+with outstanding reservations. Kernel threads never return to userspace
+so nothing would commit. Anything left at exit is a bug and gets warned
+about and dropped.
+
+Christian
+
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+Christian Brauner (50):
+      file: install files on syscall exit
+      entry: commit fds on syscall exit
+      alpha: commit fds on syscall exit
+      ARC: commit fds on syscall exit
+      ARM: commit fds on syscall exit
+      arm64: commit fds on syscall exit
+      csky: commit fds on syscall exit
+      hexagon: commit fds on syscall exit
+      m68k: commit fds on syscall exit
+      microblaze: commit fds on syscall exit
+      MIPS: commit fds on syscall exit
+      nios2: commit fds on syscall exit
+      openrisc: commit fds on syscall exit
+      parisc: commit fds on syscall exit
+      sh: commit fds on syscall exit
+      sparc: commit fds on syscall exit
+      um: commit fds on syscall exit
+      xtensa: commit fds on syscall exit
+      file: require the syscall exit hook from every architecture
+      file: warn when the descriptor table is unshared with slots
+      io_uring: commit fds per request
+      net: install SCM_RIGHTS descriptors when recvmsg() returns
+      file: open-code receive_fd()'s immediate install
+      file: make FD_ADD() a standalone immediate install
+      file: reimplement FD_PREPARE() on the deferred fd_prepare() path
+      dma-buf: stop unwinding sync file descriptors by hand
+      drm/amdkfd: stop collecting CRIU dma-buf descriptors for a final install
+      drm/msm: install the out-fence descriptor when the ioctl returns
+      drm/virtio: install the out-fence descriptor when the ioctl returns
+      drm/vmwgfx: install the out-fence descriptor when the ioctl returns
+      vfio: install the migration data descriptor when the ioctl returns
+      liveupdate: install the session descriptors when the ioctl returns
+      io_uring/zcrx: install the exported descriptor when the request returns
+      sctp: install the peeloff descriptor when the syscall returns
+      ALSA: compress: install the task descriptors when the ioctl returns
+      nitro_enclaves: install the enclave descriptor when the ioctl returns
+      tpm: vtpm_proxy: install the server descriptor when the ioctl returns
+      perf: stop putting the event descriptor back on failure
+      seccomp: stop putting the listener descriptor back on failure
+      KVM: stop putting descriptors back on failure
+      KVM: guest_memfd: stop putting the descriptor back on failure
+      drm: stop unwinding descriptors by hand
+      drm/amdgpu: stop unwinding the fence descriptor by hand
+      drm/etnaviv: install the out-fence descriptor when the ioctl returns
+      accel/habanalabs: stop putting the dma-buf descriptor back on failure
+      xen/gntdev-dmabuf: stop putting the descriptor back on failure
+      iio: buffer: install the buffer descriptor when the ioctl returns
+      misc: fastrpc: install the dma-buf descriptor when the ioctl returns
+      iommufd: stop putting descriptors back on failure
+      Drivers: hv: mshv: stop putting descriptors back on failure
+
+ arch/alpha/include/asm/thread_info.h         |   2 +
+ arch/alpha/kernel/entry.S                    |  24 ++-
+ arch/alpha/kernel/ptrace.c                   |   3 +
+ arch/arc/include/asm/thread_info.h           |   2 +
+ arch/arc/kernel/entry.S                      |   5 +
+ arch/arc/kernel/ptrace.c                     |   4 +
+ arch/arm/include/asm/thread_info.h           |   2 +
+ arch/arm/kernel/entry-common.S               |   2 +
+ arch/arm/kernel/ptrace.c                     |   4 +
+ arch/arm64/include/asm/thread_info.h         |   4 +-
+ arch/arm64/kernel/ptrace.c                   |   4 +
+ arch/csky/include/asm/thread_info.h          |   2 +
+ arch/csky/kernel/entry.S                     |   9 +
+ arch/csky/kernel/ptrace.c                    |   4 +
+ arch/hexagon/include/asm/thread_info.h       |   2 +
+ arch/hexagon/kernel/traps.c                  |   4 +
+ arch/m68k/68000/entry.S                      |  10 ++
+ arch/m68k/coldfire/entry.S                   |  12 ++
+ arch/m68k/include/asm/thread_info.h          |   2 +
+ arch/m68k/kernel/entry.S                     |   2 +
+ arch/m68k/kernel/ptrace.c                    |   3 +
+ arch/microblaze/include/asm/thread_info.h    |   5 +-
+ arch/microblaze/kernel/ptrace.c              |   4 +
+ arch/mips/include/asm/thread_info.h          |   5 +-
+ arch/mips/kernel/ptrace.c                    |   4 +
+ arch/nios2/include/asm/thread_info.h         |   2 +
+ arch/nios2/kernel/entry.S                    |   5 +
+ arch/nios2/kernel/ptrace.c                   |   3 +
+ arch/openrisc/include/asm/thread_info.h      |   5 +-
+ arch/openrisc/kernel/entry.S                 |   5 +-
+ arch/openrisc/kernel/ptrace.c                |   4 +
+ arch/parisc/include/asm/thread_info.h        |   2 +
+ arch/parisc/kernel/entry.S                   |  12 ++
+ arch/parisc/kernel/ptrace.c                  |   4 +
+ arch/powerpc/platforms/cell/spufs/inode.c    |  12 +-
+ arch/sh/include/asm/thread_info.h            |  10 +-
+ arch/sh/kernel/entry-common.S                |   8 +-
+ arch/sh/kernel/ptrace_32.c                   |   4 +
+ arch/sparc/include/asm/thread_info_32.h      |   2 +
+ arch/sparc/include/asm/thread_info_64.h      |   9 +-
+ arch/sparc/kernel/entry.S                    |   2 +-
+ arch/sparc/kernel/ptrace_32.c                |   4 +
+ arch/sparc/kernel/ptrace_64.c                |   4 +
+ arch/sparc/kernel/syscalls.S                 |   4 +-
+ arch/um/include/asm/thread_info.h            |   2 +
+ arch/um/kernel/ptrace.c                      |   4 +
+ arch/xtensa/include/asm/thread_info.h        |   2 +
+ arch/xtensa/kernel/entry.S                   |   5 +
+ arch/xtensa/kernel/ptrace.c                  |   4 +
+ drivers/accel/habanalabs/common/memory.c     |  13 +-
+ drivers/char/tpm/tpm_vtpm_proxy.c            |  30 +---
+ drivers/dma-buf/dma-buf.c                    |  33 ++--
+ drivers/dma-buf/sw_sync.c                    |  40 ++---
+ drivers/dma-buf/sync_file.c                  |  52 ++----
+ drivers/gpio/gpiolib-cdev.c                  |  18 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c       |  16 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c     |  67 ++------
+ drivers/gpu/drm/drm_lease.c                  |  20 +--
+ drivers/gpu/drm/drm_prime.c                  |  13 +-
+ drivers/gpu/drm/drm_syncobj.c                |  44 ++---
+ drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c |  14 +-
+ drivers/gpu/drm/msm/msm_gem_submit.c         |  22 +--
+ drivers/gpu/drm/msm/msm_gem_vma.c            |  22 +--
+ drivers/gpu/drm/msm/msm_perfcntr.c           |   6 +-
+ drivers/gpu/drm/virtio/virtgpu_submit.c      |  32 ++--
+ drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c      |  29 ++--
+ drivers/hv/mshv_root_main.c                  |  27 +--
+ drivers/hv/mshv_vtl_main.c                   |  20 +--
+ drivers/iio/industrialio-buffer.c            |  26 +--
+ drivers/iommu/iommufd/eventq.c               |  39 ++---
+ drivers/media/mc/mc-request.c                |   6 +-
+ drivers/misc/fastrpc.c                       |  19 +--
+ drivers/misc/ntsync.c                        |   6 +-
+ drivers/vfio/vfio_main.c                     |  25 +--
+ drivers/virt/nitro_enclaves/ne_misc_dev.c    |  33 ++--
+ drivers/xen/gntdev-dmabuf.c                  |  14 +-
+ fs/eventfd.c                                 |   6 +-
+ fs/eventpoll.c                               |   6 +-
+ fs/exec.c                                    |   3 +
+ fs/file.c                                    | 245 +++++++++++++++++++++++++--
+ fs/namespace.c                               |  12 +-
+ fs/nsfs.c                                    |   6 +-
+ fs/xfs/xfs_handle.c                          |   6 +-
+ include/linux/entry-common.h                 |   8 +-
+ include/linux/file.h                         | 160 +++++------------
+ include/linux/sched.h                        |  21 +++
+ include/linux/thread_info.h                  |   2 +
+ io_uring/io_uring.c                          |  27 +++
+ io_uring/mock_file.c                         |   5 +-
+ io_uring/zcrx.c                              |  25 +--
+ kernel/bpf/bpf_iter.c                        |   6 +-
+ kernel/bpf/token.c                           |   6 +-
+ kernel/events/core.c                         |  31 ++--
+ kernel/exit.c                                |   1 +
+ kernel/fork.c                                |   3 +
+ kernel/liveupdate/luo_core.c                 |  48 ++----
+ kernel/liveupdate/luo_session.c              |  24 +--
+ kernel/seccomp.c                             |  13 +-
+ mm/userfaultfd.c                             |   6 +-
+ net/core/scm.c                               |  13 +-
+ net/handshake/netlink.c                      |  20 ++-
+ net/kcm/kcmsock.c                            |   5 +-
+ net/sctp/socket.c                            |  78 ++++-----
+ sound/core/compress_offload.c                |  24 ++-
+ virt/kvm/guest_memfd.c                       |  20 +--
+ virt/kvm/kvm_main.c                          |  65 +++----
+ 106 files changed, 962 insertions(+), 861 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260915-work-fd-reserve-unify-folded-b89d3154b3d0
 
