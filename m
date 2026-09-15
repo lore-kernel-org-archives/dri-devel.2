@@ -4,83 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42B05C88E7F
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 12:31:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5E67C88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 12:33:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1426310ECDC;
-	Tue, 15 Sep 2026 12:31:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2E3A10E36C;
+	Tue, 15 Sep 2026 12:33:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hJ+lJtZG";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="hevYXOHI";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="r3wYPLul";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Bc0gPQCH";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CBQWObV3";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C8C710E0A7;
- Tue, 15 Sep 2026 12:31:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789475499; x=1821011499;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=32KwHaouwkg2IFwHsP/xenwquCRjaCAgeCXIRNVazDA=;
- b=hJ+lJtZGPKUSn/L2DsFexOyf2JqhQaDaOwVNlMmc9pU/uK+IrMD4mRQJ
- d4+SSKP/HhuFeM7ZyTqq05YWWj35cGG1smah6h5RJQd8LLuX326RgujVE
- 0YUIK/Og4VxzpZHyOITPsRAZ6ZZGlOfC0RDj/JPIrUapT8l5kLIeOoPbY
- p8rpQx5InDr1kXNoUma9Gqa3kp6pz2NRT/Xf9WuzaQmMsT+dvrWitiIU9
- 6TMLUZMYM7cMrOZAF74qCLRltYyLRUIdaUjXWYptXA8IWkUNqIwl7xSmv
- W6FNaGRUuEhe0ZGe+UfLXE1NIdp85wFUXSqPm8409w93TxidMQQopCPnf Q==;
-X-CSE-ConnectionGUID: s6kvmaqqRaGhH3+BWfabPA==
-X-CSE-MsgGUID: itV0qUyGTai45pvZU3CK8A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89678870"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="89678870"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2026 05:31:38 -0700
-X-CSE-ConnectionGUID: 5CzhA7o5R7Oo8KIgkAMvug==
-X-CSE-MsgGUID: JuygdXRlSY+0CJx23WbFTg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="266786085"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.243])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2026 05:31:32 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ilpo =?utf-8?Q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Armin
- Wolf <W_Armin@gmx.de>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "hansg@kernel.org"
- <hansg@kernel.org>, "platform-driver-x86@vger.kernel.org"
- <platform-driver-x86@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux@weissschuh.net"
- <linux@weissschuh.net>, "rafael@kernel.org" <rafael@kernel.org>,
- "lenb@kernel.org" <lenb@kernel.org>, "linux-acpi@vger.kernel.org"
- <linux-acpi@vger.kernel.org>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "patrik.r.jakobsson@gmail.com"
- <patrik.r.jakobsson@gmail.com>, "maarten.lankhorst@linux.intel.com"
- <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
- <mripard@kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>, "tursulin@ursulin.net"
- <tursulin@ursulin.net>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>, "matthew.brost@intel.com"
- <matthew.brost@intel.com>, "thomas.hellstrom@linux.intel.com"
- <thomas.hellstrom@linux.intel.com>, "intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>
-Subject: Re: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
- nvidia_wmi_ec_supported()
-In-Reply-To: <80c4bb47-936b-976b-6ba8-b366f7a455cf@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260724025959.142826-1-W_Armin@gmx.de>
- <20260724025959.142826-3-W_Armin@gmx.de>
- <BN9PR12MB514668975E87D570F50B2D91F7A82@BN9PR12MB5146.namprd12.prod.outlook.com>
- <86d0e015-a8f4-4e10-a9b6-a9714d3e0f07@gmx.de>
- <80c4bb47-936b-976b-6ba8-b366f7a455cf@linux.intel.com>
-Date: Tue, 15 Sep 2026 15:31:29 +0300
-Message-ID: <11976ed3784675ad241646287a909286a42675a8@intel.com>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 778E210E5B9
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 12:33:23 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E5F1B1FF4F;
+ Tue, 15 Sep 2026 12:33:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1789475598; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=idqundGVxc+hDEeHHfaZ5fn99f5AR2I7AkBnsZ8niRg=;
+ b=hevYXOHIWsnkIU8d/8nEkgZ16jtm98s4ZVKdI1o7samRYLByaGiNnmYbo3+SorDSXjZayI
+ E2GkhuGDZx0JoXVhBYJ1FcPi38ZUtipWh+6iE3i205AOEaSaCRlLN27FIYKtR31VbTDSH9
+ gY6BPxDjQxYSD727mAySihkM++Av2gI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1789475598;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=idqundGVxc+hDEeHHfaZ5fn99f5AR2I7AkBnsZ8niRg=;
+ b=r3wYPLulwf7V86rF0VnLJpVVgxlXOKWWj7WPCWnGhsF9qviLMRUVqSFsBu3y0EqY8Z45oT
+ Yh3wU7dJAPdas8Bg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Bc0gPQCH;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=CBQWObV3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1789475593; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=idqundGVxc+hDEeHHfaZ5fn99f5AR2I7AkBnsZ8niRg=;
+ b=Bc0gPQCHXNGg8otlol0UPBYVdWE2vIvpwBk8QbHtkZYJBdUrTwGtHlqodxpAJvDBTPEp+p
+ EvbcK48V60pPo3UE11cWioBdLPALNVHnQyhhwekr38Ic8aAH2LNjV9cQmR45n5COP+riAY
+ xGumKnRe3rsg5Nm26Cgd2m3qaCzhBJM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1789475593;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=idqundGVxc+hDEeHHfaZ5fn99f5AR2I7AkBnsZ8niRg=;
+ b=CBQWObV3CnI4klsyWL8eJEYanlf1K9fDiiYVhIWFA6zM0S/odVZD5kvcCZj0XCJKzPL3+H
+ T2EitFOFj+0tKVCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7785F136D1;
+ Tue, 15 Sep 2026 12:33:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id COmnAwk7qWpGNQAAD6G6ig:T2
+ (envelope-from <tzimmermann@suse.de>); Tue, 15 Sep 2026 12:33:13 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: deller@gmx.de, gregkh@linuxfoundation.org, jirislaby@kernel.org,
+ simona@ffwll.ch
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-serial@vger.kernel.org, sashiko-reviews@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v2 1/5] vt: Add cursor-size helpers
+Date: Tue, 15 Sep 2026 14:29:12 +0200
+Message-ID: <20260915123304.1027277-2-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260915123304.1027277-1-tzimmermann@suse.de>
+References: <20260915123304.1027277-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: E5F1B1FF4F
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[gmx.de,linuxfoundation.org,kernel.org,ffwll.ch];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,gmx.de:email,pg.gda.pl:email];
+ RCPT_COUNT_SEVEN(0.00)[9];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FREEMAIL_ENVRCPT(0.00)[gmx.de]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,237 +124,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 15 Sep 2026, Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com> wro=
-te:
-> GPU people heads up!!
->
-> On Wed, 2 Sep 2026, Armin Wolf wrote:
->
->> Am 01.09.26 um 23:30 schrieb Deucher, Alexander:
->>=20
->> > Public
->> >=20
->> > > -----Original Message-----
->> > > From: Armin Wolf <W_Armin@gmx.de>
->> > > Sent: Thursday, July 23, 2026 11:00 PM
->> > > To: hansg@kernel.org; ilpo.jarvinen@linux.intel.com
->> > > Cc: platform-driver-x86@vger.kernel.org; linux-kernel@vger.kernel.or=
-g;
->> > > linux@weissschuh.net; rafael@kernel.org; lenb@kernel.org; linux-
->> > > acpi@vger.kernel.org; Deucher, Alexander <Alexander.Deucher@amd.com>;
->> > > Koenig, Christian <Christian.Koenig@amd.com>; airlied@gmail.com;
->> > > simona@ffwll.ch; amd-gfx@lists.freedesktop.org; dri-
->> > > devel@lists.freedesktop.org; patrik.r.jakobsson@gmail.com;
->> > > maarten.lankhorst@linux.intel.com; mripard@kernel.org;
->> > > tzimmermann@suse.de; jani.nikula@linux.intel.com;
->> > > joonas.lahtinen@linux.intel.com; rodrigo.vivi@intel.com;
->> > > tursulin@ursulin.net; intel-gfx@lists.freedesktop.org;
->> > > matthew.brost@intel.com; thomas.hellstrom@linux.intel.com; intel-
->> > > xe@lists.freedesktop.org
->> > > Subject: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
->> > > nvidia_wmi_ec_supported()
->> > >=20
->> > > The WMI-ACPI driver now supports architectures other than x86.
->> > > Remove the CONFIG_X86 handling from video-detect and the associated
->> > > drivers to simplify the resulting code.
->> > >=20
->> > > Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
->> > > Signed-off-by: Armin Wolf <W_Armin@gmx.de>
->> > > ---
->> > >   drivers/acpi/Kconfig               | 2 +-
->> > >   drivers/acpi/video_detect.c        | 8 --------
->> > >   drivers/gpu/drm/amd/amdgpu/Kconfig | 4 +---
->> > >   drivers/gpu/drm/gma500/Kconfig     | 1 -
->> > >   drivers/gpu/drm/i915/Kconfig       | 1 -
->> > >   drivers/gpu/drm/radeon/Kconfig     | 4 +---
->> > >   drivers/gpu/drm/xe/Kconfig         | 5 ++---
->> > >   drivers/platform/loongarch/Kconfig | 1 +
->> > >   8 files changed, 6 insertions(+), 20 deletions(-)
->> > >=20
->> > > diff --git a/drivers/acpi/Kconfig b/drivers/acpi/Kconfig index
->> > > f165d14cf61a..cc1e58fa664b 100644
->> > > --- a/drivers/acpi/Kconfig
->> > > +++ b/drivers/acpi/Kconfig
->> > > @@ -224,7 +224,7 @@ config ACPI_VIDEO
->> > >        tristate "Video"
->> > >        depends on BACKLIGHT_CLASS_DEVICE
->> > >        depends on INPUT
->> > > -     depends on ACPI_WMI || !X86
->> > > +     depends on ACPI_WMI
->> > >        select THERMAL
->> > >        help
->> > >          This driver implements the ACPI Extensions For Display Adap=
-ters
->> > > diff
->> > > --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c in=
-dex
->> > > 458efa4fe9d4..af9280b244f1 100644
->> > > --- a/drivers/acpi/video_detect.c
->> > > +++ b/drivers/acpi/video_detect.c
->> > > @@ -82,8 +82,6 @@ find_video(acpi_handle handle, u32 lvl, void *cont=
-ext,
->> > > void **rv)
->> > >        return AE_OK;
->> > >   }
->> > >=20
->> > > -/* This depends on ACPI_WMI which is X86 only */ -#ifdef CONFIG_X86
->> > > static bool nvidia_wmi_ec_supported(void)  {
->> > >        struct wmi_brightness_args args =3D {
->> > > @@ -105,12 +103,6 @@ static bool nvidia_wmi_ec_supported(void)
->> > >         */
->> > >        return args.ret =3D=3D WMI_BRIGHTNESS_SOURCE_EC;  } -#else -s=
-tatic bool
->> > > nvidia_wmi_ec_supported(void) -{
->> > > -     return false;
->> > > -}
->> > > -#endif
->> > >=20
->> > >   /* Force to use vendor driver when the ACPI device is known to be
->> > >    * buggy */
->> > > diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig
->> > > b/drivers/gpu/drm/amd/amdgpu/Kconfig
->> > > index 12e4a41bf1f0..50305630f533 100644
->> > > --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
->> > > +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
->> > > @@ -30,9 +30,7 @@ config DRM_AMDGPU
->> > >        # ACPI_VIDEO's dependencies must also be selected.
->> > >        select INPUT if ACPI
->> > >        select ACPI_VIDEO if ACPI
->> > > -     # On x86 ACPI_VIDEO also needs ACPI_WMI
->> > > -     select X86_PLATFORM_DEVICES if ACPI && X86
->> > The change below makes sense, but this one looks like it should remain
->> > unless X86_PLATFORM_DEVICES is handled some other way?
->> >=20
->> > Alex
->>=20
->> AFAIK the dependency on X86_PLATFORM_DEVICES was only necessary because
->> ACPI-WMI depended on it in the past.
->> By now ACPI-WMI neither depends on X86_PLATFORM_DEVICES or X86 anymore.
->
-> Hi all,
->
-> Could more GPU people besides Alex take a look on this. I'd want to make=
-=20
-> progress with this series within this cycle but would prefer to have Acks=
-=20
-> from GPU side.
+Cursors in the VT subsystem are blocks within a character cell that are
+filled with the foreground color. The new helpers vc_cursor_start() and
+vc_cursor_end() return the scanlines in which the cursor block starts rsp.
+ends. This is compatible with VGA hardware
 
-I share the same concern with Alex. It seems to me we could now end up
-with x86 configurations without X86_PLATFORM_DEVICES, which handle
-e.g. backlight on a lot of platforms.
+In terms of cursor design, the new cursor-size helpers follow established
+styles in fbcon. The only exception is in underline cursors for fonts with
+a size larger than 10. The underlining dash is now one pixel closer to
+the font-glyph data, so that the cursor looks less detached. This follows
+the style used by vgacon.
 
-I think the safer option might be to go for:
+Similar code in vgacon and fbcon ignores the cursor's default size stored
+in vt.cur_default. The consoles default to full-block cursors, while vt
+defaults to underline cursors. The new helper fall back to cur_default and
+then underline cursors; in this order.
 
-	depends on X86_PLATFORM_DEVICES || !X86
+v2:
+- export non-font interface for vgacon
+- avoid interference from concurrent user space (Sashiko)
+- fix function docs (Sashiko)
 
-in all of the cases that select/depend on X86_PLATFORM_DEVICES in drm.
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Helge Deller <deller@gmx.de>
+---
+ drivers/tty/vt/vt.c            | 93 ++++++++++++++++++++++++++++++++++
+ include/linux/console_struct.h |  7 +++
+ 2 files changed, 100 insertions(+)
 
-The alternative is to find out, and handle the fallout, if any.
+diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
+index 57edf37495a8..5d2583cd6e79 100644
+--- a/drivers/tty/vt/vt.c
++++ b/drivers/tty/vt/vt.c
+@@ -71,6 +71,7 @@
+  * by Adam Tla/lka <atlka@pg.gda.pl>, Aug 2006
+  */
+ 
++#include <linux/compiler.h>
+ #include <linux/module.h>
+ #include <linux/types.h>
+ #include <linux/sched/signal.h>
+@@ -264,6 +265,98 @@ unsigned int vc_font_size(const struct vc_font *font)
+ }
+ EXPORT_SYMBOL_GPL(vc_font_size);
+ 
++/*
++ * Cursors
++ */
++
++/**
++ * vc_cursor_start - Calculates the cursor's first scanline within a character cell
++ * @cell_height: The overall height of the character cell
++ * @cursor_size: The size constant of cursor pattern
++ *
++ * The parameter @cell_height is the height of the character cell as
++ * displayed by the console. The argument given in @cursor_size is one
++ * of the CUR_ constants, as stored in struct @vc_data.vc_cursor_type.
++ * For unknown values, the helper draws the default cursor or an underline
++ * dash.
++ *
++ * Returns:
++ * The index of the cursor's first scanline within the character cell
++ */
++unsigned int vc_cursor_start(unsigned int cell_height, unsigned int cursor_size)
++{
++	const unsigned int cursor_default_size = CUR_SIZE(READ_ONCE(cur_default));
++
++retry:
++	switch (cursor_size) {
++	case CUR_NONE:
++		return cell_height;
++	case CUR_UNDERLINE:
++		if (cell_height < 10)
++			return cell_height - 1;
++		else
++			return cell_height - 3;
++	case CUR_LOWER_THIRD:
++		return cell_height - cell_height / 3;
++	case CUR_LOWER_HALF:
++		return cell_height - cell_height / 2;
++	case CUR_TWO_THIRDS:
++		return cell_height - (cell_height * 2) / 3;
++	case CUR_BLOCK:
++		return 0;
++	default:
++		pr_warn_once("Unknown cursor %u\n", cursor_size);
++		if (cursor_size != cursor_default_size)
++			cursor_size = cursor_default_size;
++		else
++			cursor_size = CUR_UNDERLINE;
++		goto retry;
++	}
++}
++EXPORT_SYMBOL_GPL(vc_cursor_start);
++
++/**
++ * vc_cursor_end - Calculates the first scanline after the cursor within a character cell
++ * @cell_height: The overall height of the character cell
++ * @cursor_size: The size constant of cursor pattern
++ *
++ * The parameter @cell_height is the height of the character cell as
++ * displayed by the console. The argument given in @cursor_size is one
++ * of the CUR_ constants, as stored in struct @vc_data.vc_cursor_type.
++ * For unknown values, the helper draws the default cursor or an underline
++ * dash.
++ *
++ * Returns:
++ * The index of the first scanline after the cursor within the character cell
++ */
++unsigned int vc_cursor_end(unsigned int cell_height, unsigned int cursor_size)
++{
++	const unsigned int cursor_default_size = CUR_SIZE(READ_ONCE(cur_default));
++
++retry:
++	switch (cursor_size) {
++	case CUR_UNDERLINE:
++		if (cell_height < 10)
++			return cell_height;
++		else
++			return cell_height - 1;
++	case CUR_NONE:
++	case CUR_LOWER_THIRD:
++	case CUR_LOWER_HALF:
++	case CUR_TWO_THIRDS:
++	case CUR_BLOCK:
++		return cell_height;
++	default:
++		pr_warn_once("Unknown cursor %u\n", cursor_size);
++		if (cursor_size != cursor_default_size)
++			cursor_size = cursor_default_size;
++		else
++			cursor_size = CUR_UNDERLINE;
++		goto retry;
++	}
++}
++EXPORT_SYMBOL_GPL(vc_cursor_end);
++
+ /*
+  * /sys/class/tty/tty0/
+  *
+diff --git a/include/linux/console_struct.h b/include/linux/console_struct.h
+index fe915afdece5..1d37c7898ea0 100644
+--- a/include/linux/console_struct.h
++++ b/include/linux/console_struct.h
+@@ -204,6 +204,10 @@ struct vc {
+ extern struct vc vc_cons [MAX_NR_CONSOLES];
+ extern void vc_SAK(struct work_struct *work);
+ 
++/*
++ * Cursors
++ */
++
+ #define CUR_MAKE(size, change, set)	((size) | ((change) << 8) |	\
+ 		((set) << 16))
+ #define CUR_SIZE(c)		 ((c) & 0x00000f)
+@@ -222,6 +226,9 @@ extern void vc_SAK(struct work_struct *work);
+ #define CUR_CHANGE(c)		 ((c) & 0x00ff00)
+ #define CUR_SET(c)		(((c) & 0xff0000) >> 8)
+ 
++unsigned int vc_cursor_start(unsigned int cell_height, unsigned int cursor_size);
++unsigned int vc_cursor_end(unsigned int cell_height, unsigned int cursor_size);
++
+ bool con_is_visible(const struct vc_data *vc);
+ 
+ #endif /* _LINUX_CONSOLE_STRUCT_H */
+-- 
+2.55.0
 
-
-BR,
-Jani.
-
-
->
->> > > -     select ACPI_WMI if ACPI && X86
->> > > +     select ACPI_WMI if ACPI
->> > >        help
->> > >          Choose this option if you have a recent AMD Radeon graphics=
- card.
->> > >=20
->> > > diff --git a/drivers/gpu/drm/gma500/Kconfig
->> > > b/drivers/gpu/drm/gma500/Kconfig index a2acaa699dd5..dc4c56638819
->> > > 100644
->> > > --- a/drivers/gpu/drm/gma500/Kconfig
->> > > +++ b/drivers/gpu/drm/gma500/Kconfig
->> > > @@ -11,7 +11,6 @@ config DRM_GMA500
->> > >        select ACPI_VIDEO if ACPI
->> > >        select BACKLIGHT_CLASS_DEVICE if ACPI
->> > >        select INPUT if ACPI
->> > > -     select X86_PLATFORM_DEVICES if ACPI
->> > >        select ACPI_WMI if ACPI
->> > >        help
->> > >          Say yes for an experimental 2D KMS framebuffer driver for t=
-he
->> > > diff --
->> > > git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig in=
-dex
->> > > 5e939004b646..71426b9c91f0 100644
->> > > --- a/drivers/gpu/drm/i915/Kconfig
->> > > +++ b/drivers/gpu/drm/i915/Kconfig
->> > > @@ -28,7 +28,6 @@ config DRM_I915
->> > >        # but for select to work, need to select ACPI_VIDEO's depende=
-ncies,
->> > > ick
->> > >        select BACKLIGHT_CLASS_DEVICE if ACPI
->> > >        select INPUT if ACPI
->> > > -     select X86_PLATFORM_DEVICES if ACPI
->> > >        select ACPI_WMI if ACPI
->> > >        select ACPI_VIDEO if ACPI
->> > >        select SYNC_FILE
->> > > diff --git a/drivers/gpu/drm/radeon/Kconfig
->> > > b/drivers/gpu/drm/radeon/Kconfig index c479f0c0dd5c..3cd70aef770e
->> > > 100644
->> > > --- a/drivers/gpu/drm/radeon/Kconfig
->> > > +++ b/drivers/gpu/drm/radeon/Kconfig
->> > > @@ -25,9 +25,7 @@ config DRM_RADEON
->> > >        # ACPI_VIDEO's dependencies must also be selected.
->> > >        select INPUT if ACPI
->> > >        select ACPI_VIDEO if ACPI
->> > > -     # On x86 ACPI_VIDEO also needs ACPI_WMI
->> > > -     select X86_PLATFORM_DEVICES if ACPI && X86
->> > > -     select ACPI_WMI if ACPI && X86
->> > > +     select ACPI_WMI if ACPI
->> > >        help
->> > >          Choose this option if you have an ATI Radeon graphics card.
->> > > There
->> > >          are both PCI and AGP versions.  You don't need to choose th=
-is to
->> > > diff -
->> > > -git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig index
->> > > 4d7dcaff2b91..502c7b3c1f16 100644
->> > > --- a/drivers/gpu/drm/xe/Kconfig
->> > > +++ b/drivers/gpu/drm/xe/Kconfig
->> > > @@ -4,7 +4,6 @@ config DRM_XE
->> > >        depends on DRM && PCI
->> > >        depends on KUNIT || !KUNIT
->> > >        depends on INTEL_VSEC || !INTEL_VSEC
->> > > -     depends on X86_PLATFORM_DEVICES || !(X86 && ACPI)
->> > >        depends on PAGE_SIZE_4KB || COMPILE_TEST || BROKEN
->> > >        select INTERVAL_TREE
->> > >        # we need shmfs for the swappable backing store, and in parti=
-cular
->> > > @@ -29,8 +28,8 @@ config DRM_XE
->> > >        # but for select to work, need to select ACPI_VIDEO's depende=
-ncies,
->> > > ick
->> > >        select BACKLIGHT_CLASS_DEVICE if ACPI
->> > >        select INPUT if ACPI
->> > > -     select ACPI_VIDEO if X86 && ACPI
->> > > -     select ACPI_WMI if X86 && ACPI
->> > > +     select ACPI_VIDEO if ACPI
->> > > +     select ACPI_WMI if ACPI
->> > >        select SYNC_FILE
->> > >        select CRC32
->> > >        select SND_HDA_I915 if SND_HDA_CORE
->> > > diff --git a/drivers/platform/loongarch/Kconfig
->> > > b/drivers/platform/loongarch/Kconfig
->> > > index 447528797d07..db7833842142 100644
->> > > --- a/drivers/platform/loongarch/Kconfig
->> > > +++ b/drivers/platform/loongarch/Kconfig
->> > > @@ -23,6 +23,7 @@ config LOONGSON_LAPTOP
->> > >        depends on INPUT
->> > >        depends on MACH_LOONGSON64
->> > >        select ACPI_VIDEO
->> > > +     select ACPI_WMI
->> > >        select INPUT_SPARSEKMAP
->> > >        default y
->> > >        help
->> > > --
->> > > 2.39.5
->> >=20
->>=20
-
---=20
-Jani Nikula, Intel
