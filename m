@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36E29C88E77
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:35:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 246F0C982C4
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:35:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9468810E660;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A4FF10E671;
 	Wed, 16 Sep 2026 07:35:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="kpOq4tCJ";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="AJhFvxYB";
 	dkim-atps=neutral
 Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
  [209.85.214.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE45E10F34C
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:20:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95DF410F34C
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:20:10 +0000 (UTC)
 Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-2db3734d06dso80498875ad.0
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 01:20:09 -0700 (PDT)
+ d9443c01a7336-2d63bad3d09so67418645ad.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 01:20:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1789460409; x=1790065209;
+ d=google.com; s=20251104; t=1789460410; x=1790065210;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:from:subject
  :message-id:references:mime-version:in-reply-to:date:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=jD1fGYdmSfmtHfbCTu69NC0iIcRgu3QWne7aaYuG46g=;
- b=kpOq4tCJ3jSLgimO047tAfg3IhDz+jsnGKl3I+iMvVsETUvmnsKr97UN3d3XznVH3K
- aq+zz/nGu7+UIS8GI3eRD2PL2qsRUDreIR0gpo0nGRwabj5nOq9GjrAmGzE4x/Gl9i2b
- BM7H5fSZeEZiiP+3Y7y64uxfmvdugADuCWxm3SKKlIL+Svd7k7puSnk4bgM3ucyYkUXH
- SCAmxzSxiZhuGV9jOag31ftfFT6vMcjaICvdS+VrtKP17eMu86LGZC1bZBwdYtHWYbkC
- DH2DY2tRDI15HzPyj/8kKDdZ/EtvFV7hyAuALgVSA6qZFuU0BOz1hXqaXYaO+nDAEl/Q
- Brbg==
+ bh=eELVo8fI0ZjlHs2eEJ49S4+N/SPMib/OwBxEH2gJjRU=;
+ b=AJhFvxYBwqGJAtc7dped4/aYubEbIe8YufAwltv4n+N2xZaSgO9TSMHgXSwxRDaypo
+ lnDchmv68SRNFV7bENe0bP7/XjJc0LHE6vIbytmh/ZAfWXSZupYUyazaFwUyp53IpRyy
+ RF39tsOOXvgJDQuUtFhEqdgqRl7sP4Bx4GJ9ZiAEbRqPeTcwRDdGt7Xvx+QhrJL2hUhQ
+ GJkhYVwccCv9DOcskWMrQi1q9oDkZmbj6D4xTCDkt1PTl03NPWqH8miLoL/5meoevqdB
+ EOYjkxO9SVkVdidt3cXGuZUq/Ag4MAgMnZKdoM6PvjqkQfXuw329IpRikOc69C1Ooyte
+ uj6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789460409; x=1790065209;
+ d=1e100.net; s=20260707; t=1789460410; x=1790065210;
  h=content-transfer-encoding:content-type:cc:to:from:subject
  :message-id:references:mime-version:in-reply-to:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=jD1fGYdmSfmtHfbCTu69NC0iIcRgu3QWne7aaYuG46g=;
- b=uANSlpxE5X77hNY14VdtXYduQ3d+Vs59IOb7cWqqOCCDeQDOEGAdn3Utp3Cjn/hqHs
- W78bHc5FCRsmRYe3If4hG9iG5c6rIOQDcuCpioofKP8tDS9eb1OzPCRXM9u2JSqBKhY5
- 6n5Tiw3l89w729M8pRNPOA8aX9HJAPyQ0UENdB1x4076OStkDmppI/yntm7UicPv9N1m
- LEKo6wkm4vV2sU/YsrlhgBLikREFnAhzwoGH97QfCuwNrJiKnpkNQ8UZPY1vOWv0WoLS
- pGrcLCt2cXd4zJBQFQRcuYjET5m221HUSdnMHhL5D7PgTIAawBwrbGEAML90CTsoRIgC
- jxVw==
+ bh=eELVo8fI0ZjlHs2eEJ49S4+N/SPMib/OwBxEH2gJjRU=;
+ b=r8RA6EmFPH4Uj6z5vjR/ikf3I1sbhsP2Z193W1tacIb8XIT8I6LbSSeSW+66GrKzb1
+ HvBOf2hh2BvgA0U4xpireKVhGueleeJqzzQlixJAhLC+wJAS35z4U/iWG9RrwI9H2HRF
+ KwVBoSQh47V0WW1Z6czk8GqtzEeZFypl9K19S0mbGBhstmhHwcSDFzGWLt9yCi5FuZUw
+ eLm+rRv9T4wXneUDhmupTIeWJ1Sxq8A/HjtXjQ88RN3IlG3FQ+hOw69dIZVp6nUmnuUC
+ 29D9xrZVXqTUnyVdl9oRkodaaBzH5iY57GXAAj4+14KSyoBuN4WDO/RvtLN9tPF/7rqH
+ IGbw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxWn6G08xX3eualcOdg3+otH3/EAWGHPMTGQtTCYrZHCyXxpONjuMViG8PcPmB7bqLI0XaEW3zmpxg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nMshJ9mmoLjkbXlOKSletO9imtbaiwHApsI99cCGWy6DWKm30h
- CJtyrYcGBOY7LdeNm9AqHHIFkJeYgByX3dmddI+Tdw+Yq8b75zN07sKWPIuCNO7/AZ+nsb5bY5k
- g
-X-Received: from plbkq15.prod.google.com ([2002:a17:903:284f:b0:2dd:1c44:fe2])
+ AKwUvBxo+nZEBXeSfxCTTm3IgY5r89r7a9Kbn5lWQs+jVB5ucn1aZ/rN3yAixTqbNG8roHDhzzcML6VicQs=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mppDYXvBFnEdH6hRUIbNkWQChNm9Bf/xyInt5U3r8WTz4Erz5U
+ dBmiezjySXz7XUlobuMFgtHEAmtuE6lnWhgzvP3c9MrxeFAAnbNeoH2obsfoZf16QzOTojtPiOs
+ L
+X-Received: from plvv1.prod.google.com ([2002:a17:902:d081:b0:2ca:ceab:34a3])
  (user=morbo job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:1a0c:b0:2d9:464f:d45f
- with SMTP id d9443c01a7336-2dd6c5ba2f0mr129830935ad.5.1789460408347; Tue, 15
- Sep 2026 01:20:08 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:18:33 +0000
+ 2002:a17:902:f612:b0:2d8:d4dd:24c0
+ with SMTP id d9443c01a7336-2dd6c7e1a9fmr128970685ad.21.1789460409250; Tue, 15
+ Sep 2026 01:20:09 -0700 (PDT)
+Date: Tue, 15 Sep 2026 08:18:34 +0000
 In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
 Mime-Version: 1.0
 References: <20260915081910.4142719-1-morbo@google.com>
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260915081910.4142719-17-morbo@google.com>
-Subject: [PATCH 16/28] pinctrl: samsung: Use snprintf() to construct pin bank
- names
+Message-ID: <20260915081910.4142719-18-morbo@google.com>
+Subject: [PATCH 17/28] MIPS: cmdline: Refactor bootcmdline_append() to use
+ snprintf()
 From: Bill Wendling <morbo@google.com>
 To: linux-kernel@vger.kernel.org
 Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
@@ -156,17 +156,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-samsung_banks_node_get() constructs each pin bank node name by copying
-bank->name with strscpy() and appending the suffix with strlcat().
+bootcmdline_append() passes "max" (the maximum length of the source
+string "s") as the destination buffer size argument to strlcat(). Because
+strlcat() expects the total size of the destination buffer
+(COMMAND_LINE_SIZE), it fails to append anything whenever "max" is smaller
+than the current length of boot_command_line, and could overflow
+boot_command_line if "max" exceeds COMMAND_LINE_SIZE.
 
-In preparation for removing the deprecated strlcat() API[1], format the
-node name in a single snprintf() call, which preserves the existing
-truncation check against sizeof(node_name).
+In preparation for removing the deprecated strlcat() API[1], replace the
+strlcat() calls with snprintf() using the "%.*s" precision specifier. This
+bounds the read from "s" to at most "max" bytes while properly respecting
+the remaining space in boot_command_line.
 
 Link: https://github.com/KSPP/linux/issues/370 [1]
 Cc: codemender-patching+linux@google.com
-Assisted-by: Gemini:Pro [editor_update_file, make_kernel_build_single_file,=
- checkpatch_run]
+Assisted-by: SecurityEngineer:Gemini2.5Pro [editor_update_file, shell_comma=
+nd_run, make_kernel_build_single_file, test_runner_run_kunit_test]
 Signed-off-by: Bill Wendling <morbo@google.com>
 ---
 Cc: Russell King <linux@armlinux.org.uk>
@@ -280,26 +285,45 @@ Cc: devel@lists.orangefs.org
 Cc: linux-hardening@vger.kernel.org
 Cc: linux-sound@vger.kernel.org
 ---
- drivers/pinctrl/samsung/pinctrl-samsung.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ arch/mips/kernel/setup.c | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/pinctrl/samsung/pinctrl-samsung.c b/drivers/pinctrl/sa=
-msung/pinctrl-samsung.c
-index 5ecc9ed4c44d..0d639eec689c 100644
---- a/drivers/pinctrl/samsung/pinctrl-samsung.c
-+++ b/drivers/pinctrl/samsung/pinctrl-samsung.c
-@@ -1155,8 +1155,7 @@ static void samsung_banks_node_get(struct device *dev=
-, struct samsung_pinctrl_dr
+diff --git a/arch/mips/kernel/setup.c b/arch/mips/kernel/setup.c
+index 1ae6d0c0e1d6..0d9c2137d675 100644
+--- a/arch/mips/kernel/setup.c
++++ b/arch/mips/kernel/setup.c
+@@ -518,13 +518,28 @@ static void __init check_kernel_sections_mem(void)
 =20
- 	bank =3D d->pin_banks;
- 	for (i =3D 0; i < d->nr_banks; ++i, ++bank) {
--		strscpy(node_name, bank->name, sizeof(node_name));
--		len =3D strlcat(node_name, suffix, sizeof(node_name));
-+		len =3D snprintf(node_name, sizeof(node_name), "%s%s", bank->name, suffi=
-x);
- 		if (len >=3D sizeof(node_name)) {
- 			dev_err(dev, "Too long pin bank name '%s', ignoring\n",
- 				bank->name);
+ static void __init bootcmdline_append(const char *s, size_t max)
+ {
++	size_t len;
++	int prec;
++
+ 	if (!s[0] || !max)
+ 		return;
+=20
+-	if (boot_command_line[0])
+-		strlcat(boot_command_line, " ", COMMAND_LINE_SIZE);
++	len =3D strlen(boot_command_line);
++	if (len >=3D COMMAND_LINE_SIZE - 1)
++		return;
+=20
+-	strlcat(boot_command_line, s, max);
++	if (len) {
++		if (COMMAND_LINE_SIZE - len < 3)
++			return;
++
++		prec =3D min_t(size_t, max, COMMAND_LINE_SIZE - len - 2);
++		snprintf(boot_command_line + len, COMMAND_LINE_SIZE - len, " %.*s",
++			 prec, s);
++	} else {
++		prec =3D min_t(size_t, max, COMMAND_LINE_SIZE - 1);
++		snprintf(boot_command_line, COMMAND_LINE_SIZE, "%.*s",
++			 prec, s);
++	}
+ }
+=20
+ #ifdef CONFIG_OF_EARLY_FLATTREE
 --=20
 2.55.0.1032.g73a4cd73de-goog
 
