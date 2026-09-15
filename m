@@ -4,94 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01656C88E53
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:31:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 717CFC88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:34:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37E8510FA41;
-	Tue, 15 Sep 2026 07:31:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FD8910FA5C;
+	Tue, 15 Sep 2026 07:34:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="M4tlVxKg";
+	dkim=pass (2048-bit key; unprotected) header.d=ite.com.tw header.i=@ite.com.tw header.b="fpPYsWDs";
 	dkim-atps=neutral
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
- [91.207.212.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B44EA10FA48;
- Tue, 15 Sep 2026 07:31:03 +0000 (UTC)
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
- by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68F7SBYc3263595; Tue, 15 Sep 2026 08:30:52 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=dk201812; bh=fRNJt0AS2s0bmHy9+1Wpf3w
- aF0oHCu+6NWprJ5UDI9g=; b=M4tlVxKggabXNxLJEmuozYXD0dS5639D+sh4Qg2
- /M1HnAUm/7qlTNzVL1xfA/1wqFY6wqwO4epmIm76LPhuy4+wCIcTD6WZ+z6Q+uUM
- HXziUvoaPatfffAinh9Q++n84ILd3rUnAG2+ZKvAZ6hnyULHow3o3+qJkUq2nXWx
- 6/bLVfRznV/aymwMJjEy1ORqY673XIaTolETmqrqsMXDQlSPjvvszd27UpiipPz8
- EKXuXa30PWXpwNxEQvcsAnbbcXnnnx6EnH5IpUcIspcyJi8HgQXfr59JZQrI1WAd
- ix19OfBL+ODGkShOSymIGCZnV/3DfBAj93e2iGOGkQPLwOw==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gmw0q23c2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 15 Sep 2026 08:30:52 +0100 (BST)
-Received: from [127.0.1.1] (172.25.5.88) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+X-Greylist: delayed 431 seconds by postgrey-1.36 at gabe;
+ Tue, 15 Sep 2026 07:34:18 UTC
+Received: from ironport.ite.com.tw (219-87-157-213.static.tfn.net.tw
+ [219.87.157.213])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A910410FA5B
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 07:34:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ite.com.tw; s=dkim;
+ h=from:subject:date:message-id:mime-version:
+ content-transfer-encoding:in-reply-to:references:to:cc;
+ bh=QrAgWkImRd7ho2JuXHNUm0qpLVkPKY3YCQcWe9zC/hg=;
+ b=fpPYsWDsCrOQoow+ZbS9wjl6mhDE+Li0pXhwWMpsQ/9bgotgGmmpmcpK
+ 1mGug7lqOBbqEUFJEX11KRMlNWDwaXxXnqLMDlmueb7bVO/7amR402lzA
+ AkgBFjk8bVKBiYpXQN6tKj0ZOD3bNt4Lk1hL8EengHuC1ncfxkbhTz1qR
+ EnycwyistuU0muOC9D3KZKh6j5dpo+xiisVubbJbQkHy4B3paPtYK/MkZ
+ YoWeXvv82q9+nVNzsI5yiLQHfItZiC01r+xYWX/k8/wXOGqHbRUqNy4pO
+ wwHfupXsph5TPf43DNeqsPvZliZfSsgoksZjEFMscku7gi0G4SQsN5MPw Q==;
+X-CSE-ConnectionGUID: b7M7O5qkRwGJPew7eezEgg==
+X-CSE-MsgGUID: Ubrx7M2EQ3SreZavDRfeLg==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+ by ironport.ite.com.tw with ESMTP; 15 Sep 2026 15:27:04 +0800
+Received: from CSBMAIL1.internal.ite.com.tw (CSBMAIL1.internal.ite.com.tw
+ [192.168.65.58]) by mse.ite.com.tw with ESMTP id 68F7QxjR029913;
+ Tue, 15 Sep 2026 15:26:59 +0800 (+08)
+ (envelope-from Pet.Weng@ite.com.tw)
+Received: from [127.0.1.1] (192.168.72.40) by CSBMAIL1.internal.ite.com.tw
+ (192.168.65.58) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 15 Sep
- 2026 08:30:50 +0100
-From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Tue, 15 Sep 2026 10:30:42 +0300
-Subject: [PATCH v2] drm/imagination: Manage FW VM context from its init and
- fini callbacks
+ 2026 15:26:59 +0800
+From: Pet Weng <pet.weng@ite.com.tw>
+Subject: [PATCH v10 0/2] Add ITE IT61620 MIPI DSI to HDMI bridge driver
+Date: Tue, 15 Sep 2026 15:26:28 +0800
+Message-ID: <20260915-it61620-0714-v10-0-738e2a662c06@ite.com.tw>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260915-b4-upstream-manage-fw-vm-context-from-init-and-fini-v2-1-c9cb43667143@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIACH0qGoC/6WOQQ7CIBBFr2JYOwZQibryHsYFnQ46JkADFDVN7
- y7VI7j7L3n5/08iU2LK4rSaRKLKmWNooNcrgXcbbgTcNxZaaiMPSkK3g3HIJZH14G2wzXBPqB4
- whkKvAi5FDxy4gA09uJZAHffY91IhGila85DI8eu7ern+OI/dg7AsU4tx51xien9vVbV4/z2oC
- hRoNFofaWtoT2f2t0K4wejFdZ7nDzb1LVcJAQAA
-X-Change-ID: 20260810-b4-upstream-manage-fw-vm-context-from-init-and-fini-195cdd01cc60
-To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
- <luigi.santivetti@imgtec.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+X-B4-Tracking: v=1; b=H4sIACTzqGoC/3XQz04DIRAG8FdpOLvNzAADePI9jAeWP5aDrdndr
+ Jqm7y7bRFshJnP5Jvl9TDiLOU0lzeJxdxZTWstcTscaEB52Ihz88TUNJdaFICANBtVQFkYmGK7
+ Bj6pOSDmTE5W8TymXz2vf80vNhzIvp+nrWr/itv2naMUBBmkYkVWE0dmnsqR9OL3tlw+xNa100
+ 5Zso6lqbTlrJ1XUudfyVyOAa7TcdGRLEcgqhZ1WN03IjVZVu0g5eWOV8anT+k4TNVpX7fPIyjg
+ fZfCd5h/NgBIazVUb8NmzdiRH3Wlz0xJlo8325+yRYwDJkTtt7zS1b9uqIRkggyFr7zrt7rVpt
+ Nu0JCdtGF20fy+/XC7fH9Pn2ZoCAAA=
+X-Change-ID: 20250714-it61620-0714-ab4ab4ceff29
+In-Reply-To: <20260327-it61620-0714-v9-0-032938cb9d85@ite.com.tw>
+References: <20260327-it61620-0714-v9-0-032938cb9d85@ite.com.tw>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Paul Walmsley <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>, "Brajesh
- Gupta" <brajesh.gupta@imgtec.com>,
- Alexandru Dadu <alexandru.dadu@imgtec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789457450; l=6458;
- i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=wis1y2leDS3yLg78oRg2pViZyXbUSkczoiYkjBNdENU=;
- b=uKMPHLS0DyWAz5sBn3Ur6J7h/GTqgU/aek84HhzqyGcmoLZhHzpIOmeg22jG2akvZvsl7JTae
- rK5kLJKHAHTAZpP6xAKe3OaJSU/mnDeGGTLip6JxFhzNNAOrX9FJMFt
-X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
- pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Originating-IP: [172.25.5.88]
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEwNiBTYWx0ZWRfX8smui4uzZAsh
- IXMNLx7ht0XGznm68tTK2Vve5l3My+fvIpGUx4RexBB5QdgeFks5kGD1qUQps/ZPifRDiagbn9d
- 8uz/AkUFyBVHVaotlOQduJCV/K2hcaTYLJF/Jnwk1Itxlwpne3eKszKXPwuAP1gkYY4k/DUL7Jo
- CMN3dWmdmG58kGNraKCgYFW9PICk5wmTPQbyJRqohl+JswMWZcheWNtZ3xy3FQIbajgPG3LHG7w
- 4udrv8z1fK7Xs2Ww0FHSQ372Hlbqg5GUMs/lpmY+LNooDEwljs1zvJQ1QjkXYAMIslTX/LvQQoF
- eRU8d96gYUCLieK1FzpQY1BlIGSsRf31BbgvcleoHikC/M7EbXiopkxAFvhZj+iNYnRn1XnWpuU
- gfMAZ0Kcend77CDJnwGF91KR/59PeYIBmd3gzswX3PeRlEJT0rXDHbtCyuaN3dsavqaWLVVVWSK
- U3uiLhAXqSpNqZarAxg==
-X-Authority-Analysis: v=2.4 cv=c8M+0h9l c=1 sm=1 tr=0 ts=6aa8f42c cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=YP7Kpn5otooA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=_O3DOGVWAAAA:8 a=e5mUnYsNAAAA:8 a=JfrnYn6hAAAA:8
- a=pq3Wg1XxJzrTNXcWAXAA:9 a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22
- a=t8nPyN_e6usw4ciXM-Pk:22 a=2TKV-7w1aU1AVAwN0oqT:22 a=Vxmtnl_E_bksehYqCbjh:22
- a=1CNFftbPRP8L7MoqJWF3:22
-X-Proofpoint-ORIG-GUID: swSY0G-qtMr705ozNuILUNtzDg4aSgHz
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEwNiBTYWx0ZWRfXwSYFnBPF2Vkp
- qcYZXgqQ+DX+129oo4yASB/vnNraG/BjtfIK0utq+bRGwtvfZymWfEQbS4GfHrWJ1oMrAHio8gO
- wqG0Ptyru9CGGJaXT91YXA8iNptsEfg=
-X-Proofpoint-GUID: swSY0G-qtMr705ozNuILUNtzDg4aSgHz
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Luca
+ Ceresoli <luca.ceresoli@bootlin.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>
+CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, Hermes Wu <hermes.Wu@ite.com.tw>, Kenneth
+ Hung <kenneth.Hung@ite.com.tw>, Pet Weng <pet.weng@ite.com.tw>, Jau-chih
+ Tseng <jau-chih.tseng@ite.com.tw>, Pin-yen Lin <treapking@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789457257; l=9375;
+ i=pet.weng@ite.com.tw; s=20250702; h=from:subject:message-id;
+ bh=s3NdJpBL2H3T34Cjcf3/iU7S/YWt1F7gDytj+EPvTfY=;
+ b=YRRrJmXe09U6sh/E5peJnV366UAjl6jFEM2YrYIwVXwbs5xGI24C8In0qoEgwMUXRvtd1Z0Pl
+ fLjkxVFHOLWAdV3H2lnvlnX67p91Ycs4aN5mxcM5NTHZ+53tcyH2i9j
+X-Developer-Key: i=pet.weng@ite.com.tw; a=ed25519;
+ pk=wd08uBtTLb93x2ixbKVNsxiZPdMh1Ov4z5klodh2bqo=
+X-Originating-IP: [192.168.72.40]
+X-ClientProxiedBy: CSBMAIL1.internal.ite.com.tw (192.168.65.58) To
+ CSBMAIL1.internal.ite.com.tw (192.168.65.58)
+X-TM-SNTS-SMTP: 732AF0DB9A6B5B4AC802CD8F91F77CA42CF57B4039588DBC229065194A3180D02002:8
+X-MAIL: mse.ite.com.tw 68F7QxjR029913
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,199 +101,191 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Alessio Belle <alessio.belle@imgtec.com>
+This patch series adds support for the ITE IT61620 MIPI DSI to HDMI 
+bridge chip.
 
-While the MIPS firmware virtual memory context is created and destroyed
-from within the MIPS firmware init and fini callbacks, the META and
-RISC-V firmware contexts are created and destroyed from within blocks
-right before or after those callbacks.
+The IT61620 is an I2C-controlled bridge that receives MIPI DSI input 
+and outputs HDMI signals. A single-port MIPI DSI input is converted to 
+an HDMI 1.4 output. This series introduces:
+- A device tree binding YAML file describing the hardware
+- A new DRM bridge driver implementing the basic functionality
 
-Match the logic for all firmware processors by moving those blocks to
-the META and RISC-V init and fini callbacks.
+Hotplug may be provided by the next bridge (typically hdmi-connector
+with hpd-gpios). If that bridge already implements OP_HPD / OP_DETECT,
+this driver leaves those ops to it and only receives hpd_notify().
+Otherwise it owns connector status from the chip HPD pin. That pin also
+carries HDCP Ri pulses, so chip HPD IRQs are debounced before
+drm_bridge_hpd_notify().
 
-Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
-Reviewed-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Signed-off-by: Pet Weng <pet.weng@ite.com.tw>
 ---
+Changes in v10:
+- dt-bindings: no change since v9; keep Reviewed-by from Krzysztof
+- drm/bridge: dropped Reviewed-by from Dmitry due to functional changes
+  1. HDMI IRQ: test int_status1 bits, not the TX_REG_INT1 address
+  2. Use pm_runtime_get_if_in_use() in the threaded IRQ to avoid
+     deadlocking with disable_irq() in runtime suspend
+  3. Update HDCP content-protection from work that takes
+     connection_mutex (do not call the helper from IRQ / hdcp_work)
+  4. Serialize DDC abort on HDCP auth fail with ddc_lock
+  5. Clamp KSV FIFO reads; treat an empty FIFO as an error
+  6. Include the 8 M0 bytes in the HDCP SHA-1 input length
+  7. Write AVI infoframe after clearing the AVI packet, not VSIF
+  8. Write A0 pattern-generator registers through tx_regmap
+  9. Parse MIPI endpoint data-lanes / lane-polarities; attach DSI with
+     the parsed lane count instead of a hard-coded 4
+ 10. Implement OP_DETECT / OP_HPD when the next bridge does not:
+     detect() and edid_read() resume the chip; hpd_enable() holds
+     runtime PM; HPD IRQs are debounced; power-on W1Cs latched HPD_CHG
+     before enable_irq()
+ 11. hpd_notify() does not touch runtime PM when this driver owns OP_HPD
+ 12. Use devm_pm_runtime_enable(); cancel HDCP/HPD work on remove and
+     let devres unwind DSI, bridge and PM (no early mutex_destroy)
+ 13. Switch to drm_atomic_commit / atomic_create_state
+ 14. Use abs_diff() for the MIPI htotal delay; drop redundant
+     pm_runtime_mark_last_busy(); log pre_enable resume failures
+- Link to v9: https://lore.kernel.org/r/20260327-it61620-0714-v9-0-032938cb9d85@ite.com.tw
+
+Changes in v9:
+- Fix commit message wrapping to follow kernel style
+- Run checkpatch.pl and address reported issues
+- Restore Reviewed-by from Krzysztof as the change is non-functional
+- Link to v8: https://lore.kernel.org/r/20260320-it61620-0714-v8-0-0e70271cf5a9@ite.com.tw
+
+Changes in v8:
+- dt-binding:
+ 1. Clarify the hardware differences between IT6162 and IT61620 in the
+    description (IT61620 is single-port and lacks an internal MCU). 	[Krzysztof]
+ 2. Dropped Reviewed-by from Krzysztof due to description changes.
+- Call drm_atomic_helper_connector_hdmi_clear_audio_infoframe() in audio
+  shutdown path								[Dmitry]
+- Link to v7: https://lore.kernel.org/r/20260313-it61620-0714-v7-0-36a16dc036d6@ite.com.tw
+
+Changes in v7:
+- The dt-bindings were previously reviewed by Krzysztof Kozlowski.
+- drm/bridge:								[Dmitry]
+ 1. drop redundant register access wrappers and use regmap APIs directly
+ 2. use drm_dbg_kms() instead of drm_dbg() when printing display timing information
+ 3. use drm_display_mode directly for video timing
+ 4. add helper for writing 16-bit timing registers
+ 5. simplify HDMI interrupt handling
+ 6. add mono audio support
+ 7. program audio parameters directly
+ 8. inline audio infoframe disable logic
+- MAINTAINERS: squash to driver patch					[Dmitry]
+- Link to v6: https://lore.kernel.org/r/20260130-it61620-0714-v6-0-70afa65923b5@ite.com.tw
+
+Changes in v6:
+- In patch 1								[Luca] 
+ 1. Fix a typo in the commit message.
+ 2. Remove redundant assignment of bridge.funcs, which is already set by 
+    devm_drm_bridge_alloc().
+- Link to v5: https://lore.kernel.org/r/20251222-it61620-0714-v5-0-afb6479ad3ca@ite.com.tw
+
+Changes in v5:
+- Fix dt_binding_check errors by adding missing unevaluatedProperties constraints
+  for port and endpoint nodes in the device tree binding.		[Rob]
+- Link to v4: https://lore.kernel.org/r/20251216-it61620-0714-v4-0-9d2fea7847ae@ite.com.tw
+
+Changes in v4:
+- In patch 1								[Krzysztof]
+ 1. Remove redundant "description" fields from interrupts and regulators
+ 2. Drop pinctrl-names and pinctrl-0; driver does not require them
+ 3. Remove port/endpoint properties already covered by video interfaces schema
+ 4. Fix example indentation to 4 spaces for readability
+- In patch 2								[Jani]
+ 1. Use connector->display_info from DRM helper instead of parsing EDID manually
+- In patch 2								[Dmitry]
+ 1. Remove redundant powered check in reg access
+ 2. Use TMDS character rate instead of pixel clock for N/CTS
+ 3. Use consistent lowercase naming for tmds.
+ 4. Use test_bit() instead of custom bit-test helper
+ 5. Use tmds_char_rate_valid instead of custom mode_valid
+ 6. Use custom EDID read instead of DDC bus for segment handling
+ 7. Drop redundant atomic feature check
+ 8. Pass flags directly to drm_bridge_attach()
+ 9. Check DRM_BRIDGE_ATTACH_NO_CONNECTOR flag before drm_bridge_attach()
+ 10. Short-circuit HPD update if connector status unchanged
+ 11. Remove unnecessary NULL check for connector state
+ 12. Rename cached_edid to edid since it's no longer cached
+ 13. Remove redundant sample rate checks; rely on hdmi-codec validation
+ 14. Remove unsupported 18-bit audio sample size; rely on hdmi-codec
+ 15. Remove unnecessary fmt switch; rely on hdmi-codec defaults
+ 16. Check and propagate errors from it61620_audio_update_hw_params instead of
+     ignoring them
+- In patch 3								[Krzysztof]
+ 1. Remove unnecessary T: field pointing to git; subsystem already defines it
+- Link to v3: https://lore.kernel.org/r/20251009-it61620-0714-v3-0-5d682d028441@ite.com.tw
+
+Changes in v3:
+- Wrapped description lines to comply with 80-character line length limit
+  in patch 1.								[Rob]
+- Renamed node from "it61620@58" to "bridge@58" in patch 1.		[Rob]
+- Add port@2 for I2S audio input in patch 1.				[Dmitry]
+- Updated the Kconfig dependency from CRYPTO and CRYPTO_HASH to 
+  CRYPTO_LIB_SHA1 in patch 2.						[Eric]
+- In patch 2								[Dmitry]
+ 1. Audio and InfoFrame
+   - Rename audfmt to i2s_input_format for clarity.
+   - Remove unused infoframe[HDMI_INFOFRAME_SIZE(AUDIO)].
+ 2. Platform data and structure
+   - Drop platform data usage; migrate members into struct it61620
+ 3. Code organization
+   - Reorder functions to avoid the need for forward declarations.
+   - Add static inline to small helper functions
+     (e.g. bridge_to_it61620()).
+ 4. HDCP handling
+   - Make HDCP enable/disable conditional on conn_state->content_protection.
+   - Report authentication result using drm_hdcp_update_content_protection().
+ 5. Error handling
+   - Replace manual error path with dev_err_probe().
+ 6. Power management
+   - Inline suspend/resume callbacks.
+   - Use DEFINE_RUNTIME_DEV_PM_OPS() instead of explicit struct definition.
+ 7. Bridge callbacks
+   - Drop empty bridge_detach().
+   - Inline it61620_bridge_mode_valid().
+ 8. EDID handling
+   - Remove unnecessary cached EDID duplication.
+ 9. Mode set and pixel clock
+   - Move mode handling to atomic_enable().
+   - Keep only pixelclock for future N/CTS audio calculations.
+ 10. Logging
+    - Replace noisy drm_err() calls with drm_dbg().
+ 11. InfoFrame support
+    - Add support for SPD and Vendor InfoFrames.
+- Link to v2: https://lore.kernel.org/r/20250828-it61620-0714-v2-0-586f5934d5f8@ite.com.tw
+
 Changes in v2:
-- Added Signed-off-by and Reviewed-by lines in the commit message.
-- Link to v1: https://patch.msgid.link/20260810-b4-upstream-manage-fw-vm-context-from-init-and-fini-v1-1-2c6229e36e5e@imgtec.com
-
-To: Alessio Belle <alessio.belle@imgtec.com>
-To: Luigi Santivetti <luigi.santivetti@imgtec.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Paul Walmsley <pjw@kernel.org>
-To: Palmer Dabbelt <palmer@dabbelt.com>
-To: Albert Ou <aou@eecs.berkeley.edu>
-To: Alexandre Ghiti <alex@ghiti.fr>
-Cc: imagination@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-riscv@lists.infradead.org
----
- drivers/gpu/drm/imagination/pvr_device.c   | 25 +------------------------
- drivers/gpu/drm/imagination/pvr_fw.c       |  6 ++----
- drivers/gpu/drm/imagination/pvr_fw.h       |  2 +-
- drivers/gpu/drm/imagination/pvr_fw_meta.c  | 12 ++++++++++++
- drivers/gpu/drm/imagination/pvr_fw_riscv.c | 12 ++++++++++++
- 5 files changed, 28 insertions(+), 29 deletions(-)
-
-diff --git a/drivers/gpu/drm/imagination/pvr_device.c b/drivers/gpu/drm/imagination/pvr_device.c
-index 54fe4180c73c..35eaa54f75ed 100644
---- a/drivers/gpu/drm/imagination/pvr_device.c
-+++ b/drivers/gpu/drm/imagination/pvr_device.c
-@@ -697,25 +697,7 @@ pvr_device_gpu_init(struct pvr_device *pvr_dev)
- 	if (err)
- 		return err;
- 
--	if (pvr_dev->fw_dev.processor_type != PVR_FW_PROCESSOR_TYPE_MIPS) {
--		pvr_dev->kernel_vm_ctx = pvr_vm_create_context(pvr_dev, false);
--		if (IS_ERR(pvr_dev->kernel_vm_ctx))
--			return PTR_ERR(pvr_dev->kernel_vm_ctx);
--	}
--
--	err = pvr_fw_init(pvr_dev);
--	if (err)
--		goto err_vm_ctx_put;
--
--	return 0;
--
--err_vm_ctx_put:
--	if (pvr_dev->fw_dev.processor_type != PVR_FW_PROCESSOR_TYPE_MIPS) {
--		pvr_vm_context_put(pvr_dev->kernel_vm_ctx);
--		pvr_dev->kernel_vm_ctx = NULL;
--	}
--
--	return err;
-+	return pvr_fw_init(pvr_dev);
- }
- 
- /**
-@@ -726,11 +708,6 @@ static void
- pvr_device_gpu_fini(struct pvr_device *pvr_dev)
- {
- 	pvr_fw_fini(pvr_dev);
--
--	if (pvr_dev->fw_dev.processor_type != PVR_FW_PROCESSOR_TYPE_MIPS) {
--		WARN_ON(!pvr_vm_context_put(pvr_dev->kernel_vm_ctx));
--		pvr_dev->kernel_vm_ctx = NULL;
--	}
- }
- 
- /**
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
-index 850a3ec8e775..58ee51cd65df 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw.c
-@@ -1029,8 +1029,7 @@ pvr_fw_init(struct pvr_device *pvr_dev)
- err_mm_takedown:
- 	drm_mm_takedown(&fw_dev->fw_mm);
- 
--	if (fw_dev->defs->fini)
--		fw_dev->defs->fini(pvr_dev);
-+	fw_dev->defs->fini(pvr_dev);
- 
- 	return err;
- }
-@@ -1063,8 +1062,7 @@ pvr_fw_fini(struct pvr_device *pvr_dev)
- 
- 	drm_mm_takedown(&fw_dev->fw_mm);
- 
--	if (fw_dev->defs->fini)
--		fw_dev->defs->fini(pvr_dev);
-+	fw_dev->defs->fini(pvr_dev);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.h b/drivers/gpu/drm/imagination/pvr_fw.h
-index 3390c84e4fd3..4b25291135b6 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.h
-+++ b/drivers/gpu/drm/imagination/pvr_fw.h
-@@ -86,7 +86,7 @@ struct pvr_fw_defs {
- 	 * FW processor specific finalisation.
- 	 * @pvr_dev: Target PowerVR device.
- 	 *
--	 * This function is optional.
-+	 * This function is mandatory.
- 	 */
- 	void (*fini)(struct pvr_device *pvr_dev);
- 
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_meta.c b/drivers/gpu/drm/imagination/pvr_fw_meta.c
-index 9ff03bc60a08..6c5dc711e81e 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_meta.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_meta.c
-@@ -500,9 +500,20 @@ pvr_meta_init(struct pvr_device *pvr_dev)
- {
- 	pvr_fw_heap_info_init(pvr_dev, ROGUE_FW_HEAP_META_SHIFT, 0);
- 
-+	pvr_dev->kernel_vm_ctx = pvr_vm_create_context(pvr_dev, false);
-+	if (IS_ERR(pvr_dev->kernel_vm_ctx))
-+		return PTR_ERR(pvr_dev->kernel_vm_ctx);
-+
- 	return 0;
- }
- 
-+static void
-+pvr_meta_fini(struct pvr_device *pvr_dev)
-+{
-+	WARN_ON(!pvr_vm_context_put(pvr_dev->kernel_vm_ctx));
-+	pvr_dev->kernel_vm_ctx = NULL;
-+}
-+
- static u32
- pvr_meta_get_fw_addr_with_offset(struct pvr_fw_object *fw_obj, u32 offset)
- {
-@@ -550,6 +561,7 @@ pvr_meta_irq_clear(struct pvr_device *pvr_dev)
- 
- const struct pvr_fw_defs pvr_fw_defs_meta = {
- 	.init = pvr_meta_init,
-+	.fini = pvr_meta_fini,
- 	.fw_process = pvr_meta_fw_process,
- 	.vm_map = pvr_meta_vm_map,
- 	.vm_unmap = pvr_meta_vm_unmap,
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_riscv.c b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-index fc13d483be9a..58bacc522e72 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-@@ -103,9 +103,20 @@ pvr_riscv_init(struct pvr_device *pvr_dev)
- {
- 	pvr_fw_heap_info_init(pvr_dev, ROGUE_FW_HEAP_RISCV_SHIFT, 0);
- 
-+	pvr_dev->kernel_vm_ctx = pvr_vm_create_context(pvr_dev, false);
-+	if (IS_ERR(pvr_dev->kernel_vm_ctx))
-+		return PTR_ERR(pvr_dev->kernel_vm_ctx);
-+
- 	return 0;
- }
- 
-+static void
-+pvr_riscv_fini(struct pvr_device *pvr_dev)
-+{
-+	WARN_ON(!pvr_vm_context_put(pvr_dev->kernel_vm_ctx));
-+	pvr_dev->kernel_vm_ctx = NULL;
-+}
-+
- static u32
- pvr_riscv_get_fw_addr_with_offset(struct pvr_fw_object *fw_obj, u32 offset)
- {
-@@ -154,6 +165,7 @@ pvr_riscv_irq_clear(struct pvr_device *pvr_dev)
- 
- const struct pvr_fw_defs pvr_fw_defs_riscv = {
- 	.init = pvr_riscv_init,
-+	.fini = pvr_riscv_fini,
- 	.fw_process = pvr_riscv_fw_process,
- 	.vm_map = pvr_riscv_vm_map,
- 	.vm_unmap = pvr_riscv_vm_unmap,
+- Call the sha1() library function instead of using the crypto_shash
+  "sha1" in patch 2.
+- Rewrite it61620_hdmi_ddc_wait() with readx_poll_timeout() in patch 2.	[Pin-yen]
+- Rewrite it61620_hdmi_hdcp_wait_ksv_list() with readx_poll_timeout() in
+  patch 2.
+- Replace interrupts-extended with interrupts in patch 1.		[Rob]
+- Replace dsi-lanes with the standard property data-lanes from the graph
+  binding.								[Rob]
+- Replace "#/$defs/port-base" with "#/properties/port" in patch 1.	[Rob]
+- Drop unused labels and "hdmi" for the node name.			[Rob]
+- Drop status in patch 1.						[Rob]
+- Link to v1: https://lore.kernel.org/r/20250714-it61620-0714-v1-0-3761164d0b98@ite.com.tw
 
 ---
-base-commit: e55fead22ff9ee047ab9f1903860c4b43043514e
-change-id: 20260810-b4-upstream-manage-fw-vm-context-from-init-and-fini-195cdd01cc60
+Pet Weng (2):
+      dt-bindings: display: Add ITE IT61620 MIPI DSI to HDMI bridge
+      drm/bridge: Add ITE IT61620 MIPI DSI to HDMI bridge driver
+
+ Documentation/devicetree/bindings/display/bridge/ite,it61620.yaml |  152 ++++++++
+ MAINTAINERS                                                       |    7 +
+ drivers/gpu/drm/bridge/Kconfig                                    |   18 +
+ drivers/gpu/drm/bridge/Makefile                                   |    1 +
+ drivers/gpu/drm/bridge/ite-it61620.c                              | 2763 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 2941 insertions(+)
+---
+base-commit: 7d66a68c6f216b78ea22ce8a4c7f8d456c76e8ba
+change-id: 20250714-it61620-0714-ab4ab4ceff29
 
 Best regards,
---  
-Alexandru Dadu <alexandru.dadu@imgtec.com>
+-- 
+Pet Weng <pet.weng@ite.com.tw>
 
