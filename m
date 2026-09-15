@@ -4,91 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EA63C88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 20:49:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D63BBC88E77
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 20:52:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E55310E2CD;
-	Tue, 15 Sep 2026 20:49:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 457CF10E2F7;
+	Tue, 15 Sep 2026 20:52:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="S0XjJj46";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="FBVeIXN9";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="kXoZYFRB";
 	dkim-atps=neutral
-Received: from fhigh-b5-smtp.messagingengine.com
- (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D65B110E2CD
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 20:49:05 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfhigh.stl.internal (Postfix) with ESMTP id E8AA87A019A;
- Tue, 15 Sep 2026 16:49:04 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Tue, 15 Sep 2026 16:49:05 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm3; t=1789505344;
- x=1789591744; bh=Yu3kwCeYKncFj2yvTs8psD8GdjcBGRTHyepDYo8UUHQ=; b=
- S0XjJj46BMnulHOgquahdQXs9mFuZne1ZLNp33Xd/mArwF4m2Fs++B9xP025Q0Hy
- F+DtgIrbCRwMqoDcl6MoQrUMcJ8CFm/ADFO6+iLIKrI7eqpPsTqCXQ7r9St6+TRY
- CdjXnYhwCEXf+B7H8GPXmWgCQQcCzpLGoPOnDER5hfCBrfh0k00dQc/heaRti0/r
- 7ZoowdPnGlH5VbBXS2uQ8Mv6qpiov1oKtj6+YH8CGsEoE6FOWDSObNma4C5gAbX5
- NHd6HqZtWknYrQWRymzSsa9TCei19l10z5XjPB73KJOFIR/6ykOGjsRB7g5RRsSo
- uo8YezYVyzw6J1xaARM1/w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789505344; x=
- 1789591744; bh=Yu3kwCeYKncFj2yvTs8psD8GdjcBGRTHyepDYo8UUHQ=; b=F
- BVeIXN9d2DdRi4eF/1h8zMnymRIuYXlwsLLj0B7g8FfQ52dM/zj1emLJH5Z9aCPV
- VIDvTjw8LV4193li4aJWNYqdBfWWa5Z7gcpRbylJPQXcQycnMR9QEfuDG4DnZvtV
- FmR2Q2iNQgVNBKk/hduJibIWJRsDxCyIayc5xNKgMQ0k8iHXvXxAPZJHsnRtmUZB
- aN+kidz81vSiO8Kr3ACx3BF6gGQ4EegNWH1N4lZFxrw1zhmGgZCsWCAv7mq7MsZL
- Uv906A6slGgzFGINTCSkG+gTqK1Qz74wzjZ/JVAB50GQ5Xge7j5SsjpW7ZyiTsTX
- mgslCg/NpETbge4vo2Dww==
-X-ME-Sender: <xms:QK-pamdRWFATRVgAfgXeX7NSCi_EhiKHVd20JIkJAd4bdRGM-ifu3Q>
- <xme:QK-paswZfWNKelufFb9cL8fXDqfw-p8KEv74s5ETUAf7jZHYmGurZSYA9vDxxv9Vc
- 0Ld1hyx9g4BQ8Iw0S3JReXGUViJYIDYDa2Q2c0bFVxg-UMUwM6tJ9U>
-X-ME-Received: <xmr:QK-par98J-XQfx-ZgF7fwOJciyOK0Bo5wot8vpvaVi1F3TSNV_bSHjRU8_5cNQ>
-X-ME-Proxy-Cause: dmFkZTEuF6bmHZCvCsnfNQtR2pOXNN9GBfAHzsleUwWU/Ky3k3ztGS8DqFsBQkAvAifzeZ
- +3OLgbKjr4Ahgl2Rz4LjksHmK+nPokDADeJ7RC8EmXDCKC56DD/0lZctu/0lv1YIWeFWhL
- 0/QisnnHF3SR6dbciZO9DHXaM/SU8g7j44RQRNJnUhMgTlvyN3JSgOTiBbPulouLlarjKk
- Q6zyyRV2daCAHKnXse+tbtCRkc7NOP7bOsLpl+AIUSQYCbGO9uhNjsX2fQWE0BAFn5RGZK
- GaFWfhudUGaBA0bXAqDA9WkrRnenU4OErsupN76W8AfxfHM7nK4suUyRffTwF/yInlkkt/
- H1lr0zQ3AbBqIJid3B3ZDrfVL+Jw7BLrqoSUWOHJ9zubi9VUYOZ0PAPoLPD/79H29FN0zU
- QtEKUb82Yx+PAXO+DICkI8JXytWRTCKxlabITZwiiyHOE191ExOmAYhpWhU7/YDA5n77wy
- NjeusLBXHcsUYOP/FYGqUSLyVbNW9n2DmXuu1bdxBiIEx7Ocoxc0wZT+YcowXJc1675CXc
- wlgmk3BWetlB2knLZdbKRmfIT0xq8kdU8H//O8bU+ofDC4lu72UN88ofChN/G/Vip1NInn
- 3dNOY18zp/NTxY49BWeK6qnPQsgukLLKo7cQcePrCM/zX1z211fh/mUYfPGw
-X-ME-Proxy: <xmx:QK-paqy4bN46-gSxfMfV9pzNmCgMyui-EYFl7yQU3aMH_IkzK2LPSg>
- <xmx:QK-pajoB4yStycydEGpqIumtb9RXT2w3mu166GGZdfGt6z8iFk_0eA>
- <xmx:QK-pajoZPO68iDFSbicntOf-M1yV3Y18VJKoXmfwbhRDtIee-7_iXQ>
- <xmx:QK-parBCeY9-3ZhpmZ-u8k8PtxqLvPTrFKDJj8XJTZnmFVkoFQ734A>
- <xmx:QK-papWGpn8S2q_eydKHAiGT_m7f-82FywlZq8ajFF5XEHqze-AgyOgT>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 15 Sep 2026 16:49:03 -0400 (EDT)
-Date: Tue, 15 Sep 2026 14:49:01 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Zhiping Zhang <zhipingz@meta.com>
-Cc: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Jason
- Gunthorpe <jgg@ziepe.ca>, Bjorn Helgaas <bhelgaas@google.com>,
- kvm@vger.kernel.org, linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
- dri-devel@lists.freedesktop.org, alex@shazbot.org
-Subject: Re: [PATCH v13 0/5] vfio/dma-buf: add TPH support for peer-to-peer
- access - ping
-Message-ID: <20260915144901.554f905f@shazbot.org>
-In-Reply-To: <CAH3zFs3=t3rNDDjUsCAekfhEGOJPyx-YXKta7NdHy3kBKU_RHQ@mail.gmail.com>
-References: <20260731211601.3033906-1-zhipingz@meta.com>
- <CAH3zFs0vQidHOWif_LmS0=65S9iiCo7yGibqLvFT5jadjj8wVA@mail.gmail.com>
- <CAH3zFs2XnH6gT0fO4=WLi4x1SL2+Y0S=Jo45SWkR=unPegQ8Hw@mail.gmail.com>
- <CAH3zFs2X8=x-XMXhwC7_aUZivCCPQOSuyXMy-ryKqxLEFY9u-Q@mail.gmail.com>
- <c0c8dea4-1571-482e-be33-f965c7c357d2@amd.com>
- <CAH3zFs3=t3rNDDjUsCAekfhEGOJPyx-YXKta7NdHy3kBKU_RHQ@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A4C310E30C
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 20:52:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:Subject:Date:From:From:Reply-To;
+ bh=Ip8Mgu6O241vMEK9gqYh1SWDJL6v4VwwvgEBYTDZPn8=; b=kXoZYFRBI1UGNYbOl0B96rk/9W
+ Tc6W7nmtTVI7KVx+PJqVjvCmaJpXYIXVFvgu4J7x3t/3LqYOJMkK3w37KwUMWAQlXc71MQElCIcmk
+ W6oXaEczBajPEFMDUJ57KVzF3ZbFV9VlUsFUEoiNG6f8OPKO3v94j+LDeEjzPsipN2aJ2B8069Ivw
+ 0cWVsrBdJtQkKusbz5m0j1UB8V+E6zn1PbofQl+eLDNeTmakMTuvMFu18wTdTD4UQOcDa30Xlrn30
+ e+LDZYSA9BnyWQ2KGlEG+aWsthx4F5s6bsTAgStIp2sZzAuauj+DMjHbqmUAGwKqBfGg7/sVlKvJa
+ uZivotaQ==;
+Received: from [179.105.94.163] (helo=[10.0.0.1])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1x6a84-002dV8-Bi; Tue, 15 Sep 2026 22:51:48 +0200
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Date: Tue, 15 Sep 2026 17:51:26 -0300
+Subject: [PATCH v2 3/4] drm/vc4: Use the reset controller to recover from a
+ GPU hang
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260915-vc4-reset-control-v2-3-cb3a25b07822@igalia.com>
+References: <20260915-vc4-reset-control-v2-0-cb3a25b07822@igalia.com>
+In-Reply-To: <20260915-vc4-reset-control-v2-0-cb3a25b07822@igalia.com>
+To: Maxime Ripard <mripard@kernel.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Stefan Wahren <wahrenst@gmx.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7916; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=iOsH3TYz6JS3VWYGuWs4PQ7kM3vbCVT0+U5Ng8AjGHM=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqqa/QHL9IAt0U5GccT4BeAx90WlwAkpUZ+avX8
+ XvIFKZcsSOJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaqmv0AAKCRA/8w6Kdoj6
+ qr/ZB/9OvH9nXxRKn1TuqbSpIGQMirT/x8oRiGVgHiu+KTzufmIuivl4kMUg13QD0HqEo+hKhh3
+ LB/w1dDigZwoxgWjgm8IcBjhsJiJ678crc9jLojrnzlwiM8W5wwogQoRXkflxoaaNx6rsZvdz0U
+ QTOvKsrN1gRVFYg+fI4Pih/eBS37U//z58fN/+AvhkYSgiJrNhHYELXJdKTUW+ESAZrQrqwtQpo
+ lIGur3joD2CxHYdWom3/PksBgvetlKaHMqzLI2Q0QqcXXbWoslyyPpQdDqu9G5tHPIdPA8qL2rP
+ 6VedWi0KubeVBGZ81KF7hIzQSGGpakSDsN1EKRhNJ5fJpyZO
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,356 +79,249 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 14 Sep 2026 09:44:57 -0700
-Zhiping Zhang <zhipingz@meta.com> wrote:
+vc4_reset() recovers a hung GPU by dropping the runtime PM usage count to
+zero so that the power domain goes down, and then taking it again. Such an
+unconventional approach only works if the driver knows exactly how many
+references it holds, which is why vc4 wrapped every pm_runtime_get_sync()
+call in a private refcount and mutex.
 
-> Thanks Christian -- no worries on the bandwidth, I'll add the Acked-by
-> to patch 3.
->=20
-> Hi Alex, Jason, Bjorn,
->=20
-> Could you help with reviews on patch 4 (vfio/pci) and patch 5
-> (RDMA/mlx5), plus acks on patches 1-2 (PCI TPH core) so the set can
-> travel whole if it goes through the VFIO tree, which is the route
-> Christian suggests?
->=20
-> I've also rebased the set onto 7.3 (base 5225b8eec4c9) and retested on
-> hardware -- PCIe analyzer captures confirming the requested ST and PH
-> on outbound TLPs, no splats.
->=20
-> One thing to decide: upstream took 13 for
-> VFIO_DEVICE_FEATURE_ZPCI_ERROR after v13 went out, so
-> VFIO_DEVICE_FEATURE_DMA_BUF_TPH becomes 14 in the respin -- let me
-> know if you'd rather it be something else.
->=20
-> I'll post v14 after I hear from you. Delta from v13 is the rebase,
-> that feature-number move, and nothing else functional.
+Commit 670c672608a1 ("soc: bcm: bcm2835-pm: Add support for power domains
+under a new binding.") exposed a V3D reset line for exactly this reason,
+so that the block can be reset without power-cycling its domain, but the
+vc4 driver never picked it up. Use it now, which removes the need for the
+private refcount and leaves vc4_v3d_pm_get/put() as plain runtime PM
+wrappers.
 
-IIRC, we're pretty well settled on the vfio-pci front.  The feature
-number does need to be iterated to the next available.  We still need
-acks from PCI and mlx5, and given the extent of the mlx5 changes I
-expect I need to provide a branch for Jason/Leon once I merge it.
-Thanks,
+The reset line is optional, to accommodate older device trees. Device
+trees that do not describe one still get the driver-side recovery in
+vc4_irq_reset(), but the hardware is left untouched. Two in-tree platforms
+use the VC4 V3D block: BCM2835 gains the resets property in the next
+commit, and Cygnus is no worse off than it was, as its V3D node has no
+power domain and the power-cycle only ever gated its clock.
 
-Alex
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
+---
+ drivers/gpu/drm/vc4/vc4_drv.h | 13 ++++++++-----
+ drivers/gpu/drm/vc4/vc4_gem.c | 40 ++++++++++++++++++++++++----------------
+ drivers/gpu/drm/vc4/vc4_irq.c |  7 +++----
+ drivers/gpu/drm/vc4/vc4_v3d.c | 36 ++++++++++++------------------------
+ 4 files changed, 47 insertions(+), 49 deletions(-)
 
+diff --git a/drivers/gpu/drm/vc4/vc4_drv.h b/drivers/gpu/drm/vc4/vc4_drv.h
+index 649032174dbd..695bc6a29d30 100644
+--- a/drivers/gpu/drm/vc4/vc4_drv.h
++++ b/drivers/gpu/drm/vc4/vc4_drv.h
+@@ -212,14 +212,9 @@ struct vc4_dev {
+ 
+ 	struct work_struct overflow_mem_work;
+ 
+-	int power_refcount;
+-
+ 	/* Set to true when the load tracker is active. */
+ 	bool load_tracker_enabled;
+ 
+-	/* Mutex controlling the power refcount. */
+-	struct mutex power_lock;
+-
+ 	struct {
+ 		struct timer_list timer;
+ 		struct work_struct reset_work;
+@@ -294,6 +289,13 @@ struct vc4_v3d {
+ 	struct platform_device *pdev;
+ 	void __iomem *regs;
+ 	struct clk *clk;
++
++	/* Reset line for the V3D block, used to recover from a GPU hang.
++	 * NULL if the device tree does not describe one, in which case the
++	 * GPU cannot be reset.
++	 */
++	struct reset_control *reset;
++
+ 	struct debugfs_regset32 regset;
+ };
+ 
+@@ -1056,6 +1058,7 @@ int vc4_v3d_bin_bo_get(struct vc4_dev *vc4, bool *used);
+ void vc4_v3d_bin_bo_put(struct vc4_dev *vc4);
+ int vc4_v3d_pm_get(struct vc4_dev *vc4);
+ void vc4_v3d_pm_put(struct vc4_dev *vc4);
++void vc4_v3d_init_hw(struct drm_device *dev);
+ int vc4_v3d_debugfs_init(struct drm_minor *minor);
+ 
+ /* vc4_validate.c */
+diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
+index e231c906709c..3212b9167620 100644
+--- a/drivers/gpu/drm/vc4/vc4_gem.c
++++ b/drivers/gpu/drm/vc4/vc4_gem.c
+@@ -23,7 +23,7 @@
+ 
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+-#include <linux/pm_runtime.h>
++#include <linux/reset.h>
+ #include <linux/device.h>
+ #include <linux/io.h>
+ #include <linux/sched/signal.h>
+@@ -292,19 +292,22 @@ vc4_save_hang_state(struct drm_device *dev)
+ static void
+ vc4_reset(struct drm_device *dev)
+ {
+-	struct vc4_dev *vc4 = to_vc4_dev(dev);
++	struct vc4_v3d *v3d = to_vc4_dev(dev)->v3d;
++	int ret;
+ 
+-	DRM_INFO("Resetting GPU.\n");
++	vc4_irq_disable(dev);
+ 
+-	mutex_lock(&vc4->power_lock);
+-	if (vc4->power_refcount) {
+-		/* Power the device off and back on the by dropping the
+-		 * reference on runtime PM.
+-		 */
+-		pm_runtime_put_sync_suspend(&vc4->v3d->pdev->dev);
+-		pm_runtime_get_sync(&vc4->v3d->pdev->dev);
++	if (v3d->reset) {
++		drm_info(dev, "Resetting GPU.\n");
++
++		ret = reset_control_reset(v3d->reset);
++		if (ret)
++			drm_err(dev, "Failed to reset the GPU: %d\n", ret);
++
++		vc4_v3d_init_hw(dev);
++	} else {
++		drm_info_once(dev, "No reset line; GPU state is not reset.\n");
+ 	}
+-	mutex_unlock(&vc4->power_lock);
+ 
+ 	vc4_irq_reset(dev);
+ 
+@@ -320,10 +323,19 @@ vc4_reset_work(struct work_struct *work)
+ {
+ 	struct vc4_dev *vc4 =
+ 		container_of(work, struct vc4_dev, hangcheck.reset_work);
++	int ret;
++
++	/* Make sure the device is not suspended during the reset. */
++	ret = vc4_v3d_pm_get(vc4);
++	if (ret) {
++		drm_err(&vc4->base, "Failed to resume V3D for GPU reset: %d\n", ret);
++		return;
++	}
+ 
+ 	vc4_save_hang_state(&vc4->base);
+-
+ 	vc4_reset(&vc4->base);
++
++	vc4_v3d_pm_put(vc4);
+ }
+ 
+ static void
+@@ -1177,10 +1189,6 @@ int vc4_gem_init(struct drm_device *dev)
+ 
+ 	INIT_WORK(&vc4->job_done_work, vc4_job_done_work);
+ 
+-	ret = drmm_mutex_init(dev, &vc4->power_lock);
+-	if (ret)
+-		return ret;
+-
+ 	INIT_LIST_HEAD(&vc4->purgeable.list);
+ 
+ 	ret = drmm_mutex_init(dev, &vc4->purgeable.lock);
+diff --git a/drivers/gpu/drm/vc4/vc4_irq.c b/drivers/gpu/drm/vc4/vc4_irq.c
+index 7877d493d80e..3a3ea1e62dcb 100644
+--- a/drivers/gpu/drm/vc4/vc4_irq.c
++++ b/drivers/gpu/drm/vc4/vc4_irq.c
+@@ -336,10 +336,9 @@ void vc4_irq_reset(struct drm_device *dev)
+ 	V3D_WRITE(V3D_INTCTL, V3D_DRIVER_IRQS);
+ 
+ 	/*
+-	 * Turn all our interrupts on.  Binner out of memory is the
+-	 * only one we expect to trigger at this point, since we've
+-	 * just come from poweron and haven't supplied any overflow
+-	 * memory yet.
++	 * Turn all our interrupts on. Binner out of memory is the only
++	 * one we expect to trigger at this point, since the reset cleared
++	 * the overflow memory address and none has been supplied yet.
+ 	 */
+ 	V3D_WRITE(V3D_INTENA, V3D_DRIVER_IRQS);
+ 
+diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
+index a86739873e05..b40d98c9d1d2 100644
+--- a/drivers/gpu/drm/vc4/vc4_v3d.c
++++ b/drivers/gpu/drm/vc4/vc4_v3d.c
+@@ -9,6 +9,7 @@
+ #include <linux/component.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
++#include <linux/reset.h>
+ 
+ #include <drm/drm_print.h>
+ 
+@@ -122,29 +123,13 @@ static int vc4_v3d_debugfs_ident(struct seq_file *m, void *unused)
+ 	return 0;
+ }
+ 
+-/*
+- * Wraps pm_runtime_get_sync() in a refcount, so that we can reliably
+- * get the pm_runtime refcount to 0 in vc4_reset().
+- */
+ int
+ vc4_v3d_pm_get(struct vc4_dev *vc4)
+ {
+ 	if (WARN_ON_ONCE(vc4->gen > VC4_GEN_4))
+ 		return -ENODEV;
+ 
+-	mutex_lock(&vc4->power_lock);
+-	if (vc4->power_refcount++ == 0) {
+-		int ret = pm_runtime_get_sync(&vc4->v3d->pdev->dev);
+-
+-		if (ret < 0) {
+-			vc4->power_refcount--;
+-			mutex_unlock(&vc4->power_lock);
+-			return ret;
+-		}
+-	}
+-	mutex_unlock(&vc4->power_lock);
+-
+-	return 0;
++	return pm_runtime_resume_and_get(&vc4->v3d->pdev->dev);
+ }
+ 
+ void
+@@ -153,15 +138,10 @@ vc4_v3d_pm_put(struct vc4_dev *vc4)
+ 	if (WARN_ON_ONCE(vc4->gen > VC4_GEN_4))
+ 		return;
+ 
+-	mutex_lock(&vc4->power_lock);
+-	if (--vc4->power_refcount == 0) {
+-		pm_runtime_mark_last_busy(&vc4->v3d->pdev->dev);
+-		pm_runtime_put_autosuspend(&vc4->v3d->pdev->dev);
+-	}
+-	mutex_unlock(&vc4->power_lock);
++	pm_runtime_put_autosuspend(&vc4->v3d->pdev->dev);
+ }
+ 
+-static void vc4_v3d_init_hw(struct drm_device *dev)
++void vc4_v3d_init_hw(struct drm_device *dev)
+ {
+ 	struct vc4_dev *vc4 = to_vc4_dev(dev);
+ 
+@@ -447,6 +427,14 @@ static int vc4_v3d_bind(struct device *dev, struct device *master, void *data)
+ 	if (IS_ERR(v3d->clk))
+ 		return dev_err_probe(dev, PTR_ERR(v3d->clk), "Failed to get V3D clock\n");
+ 
++	v3d->reset = devm_reset_control_get_optional_exclusive(dev, NULL);
++	if (IS_ERR(v3d->reset))
++		return dev_err_probe(dev, PTR_ERR(v3d->reset),
++				     "Failed to get reset control\n");
++
++	if (!v3d->reset)
++		drm_warn(drm, "No V3D reset line in the device tree");
++
+ 	ret = platform_get_irq(pdev, 0);
+ 	if (ret < 0)
+ 		return ret;
 
-> On Fri, Sep 11, 2026 at 12:58=E2=80=AFAM Christian K=C3=B6nig
-> <christian.koenig@amd.com> wrote:
-> > =20
-> > > =20
-> > Hi Zhiping,
-> >
-> > sorry I'm completely underwater at the moment and don't have time to ta=
-ke another look at the full set.
-> >
-> > But IIRC you already fixed my documentation requirements and skimming o=
-ver the patch once more I can't see anything wrong of hand.
-> >
-> > So feel free to add Acked-by: Christian K=C3=B6nig <christian.koenig@am=
-d.com> to patch "dma-buf: add optional get_pci_tph() callback" and push it =
-upstream through the VFIO channels.
-> >
-> > Regards,
-> > Christian.
-> >
-> > On 9/10/26 23:46, Zhiping Zhang wrote: =20
-> > > Hi Christian,
-> > >
-> > > Third ping on this series. The only patch still without review is 3/5,
-> > > which adds an optional get_pci_tph() callback to dma_buf_ops:
-> > >
-> > > https://lore.kernel.org/kvm/20260731211601.3033906-4-zhipingz@meta.co=
-m/
-> > >
-> > > It lets an exporter report the PCIe TPH steering tag for a
-> > > peer-to-peer mapping. The callback is optional -- exporters that don't
-> > > implement it behave exactly as today -- and nothing else in dma-buf
-> > > changes.
-> > >
-> > > The rest of the series is settled: Chengwen acked patch 2, the
-> > > automated review is clean, and there are no open comments from v12.
-> > > Alex is holding his ack until the dma-buf side has been looked at, so
-> > > this one callback is gating the whole series.
-> > >
-> > > If you have concerns about the API shape or the locking, I'll respin.
-> > > If someone else should review the dma-buf side, tell me who and I'll
-> > > take it there. Otherwise I'll check with Alex and Jason next week on
-> > > how to proceed, since 7.3 is in rc and the next window is about a
-> > > month out.
-> > >
-> > > Thanks,
-> > > Zhiping
-> > >
-> > > On Wed, Sep 2, 2026 at 1:53=E2=80=AFPM Zhiping Zhang <zhipingz@meta.c=
-om> wrote: =20
-> > >>
-> > >> Hi Christian,
-> > >>
-> > >> Another ping on this series for your attention. Pls see below for mo=
-re details.
-> > >>
-> > >> Thanks,
-> > >> Zhiping
-> > >>
-> > >> On Fri, Aug 14, 2026 at 11:08=E2=80=AFAM Zhiping Zhang <zhipingz@met=
-a.com> wrote: =20
-> > >>>
-> > >>>  Hi Christian,
-> > >>>
-> > >>> A gentle ping on this series, especially patch 3, which adds the
-> > >>> optional dma-buf get_pci_tph() callback. Could you please review th=
-is
-> > >>> when you have a chance?
-> > >>>
-> > >>> https://lore.kernel.org/linux-pci/20260731211601.3033906-4-zhipingz=
-@meta.com/
-> > >>>
-> > >>> Thanks,
-> > >>> Zhiping
-> > >>>
-> > >>>
-> > >>> On Fri, Jul 31, 2026 at 2:22=E2=80=AFPM Zhiping Zhang <zhipingz@met=
-a.com> wrote: =20
-> > >>>>
-> > >>>> This series adds TLP Processing Hints (TPH) support to the VFIO dm=
-a-buf
-> > >>>> export path, allowing importing drivers (e.g. mlx5) to use the
-> > >>>> exporter's steering tag when performing peer-to-peer DMA into a
-> > >>>> VFIO-owned device.
-> > >>>>
-> > >>>> There is no separate in-tree vendor kernel driver for the target d=
-evice:
-> > >>>> vfio-pci is the in-tree driver and the targeted device is managed
-> > >>>> from userspace via VFIO passthrough. That is why the ST has to flow
-> > >>>> through a uAPI: userspace owns the device and its ST table, so it =
-is the
-> > >>>> entity that can configure a meaningful value for a given dma-buf. =
-The
-> > >>>> kernel-visible participants are still in-tree: vfio-pci exports the
-> > >>>> dma-buf and mlx5 imports it.
-> > >>>>
-> > >>>> On the effect: the endpoint's PCIe ingress block uses the ST as
-> > >>>> an in-band instruction for the incoming P2P TLP -- selecting a tar=
-get
-> > >>>> cache partition and, on writes, an in-flight operation on the data
-> > >>>> before it lands. The dma-buf callback keeps this opaque to the
-> > >>>> framework -- only the producer (userspace owner of the VFIO device)
-> > >>>> and the consumer (endpoint block) need to interpret the value. The
-> > >>>> dma-buf get_pci_tph callback itself is optional, but workloads that
-> > >>>> depend on the endpoint's in-flight operation need it because fallb=
-ack
-> > >>>> does not produce the same result.
-> > >>>>
-> > >>>> The dma-buf hook is intentionally generic and discoverable rather =
-than
-> > >>>> a private side channel. The exporter owns the completing address
-> > >>>> space for the dma-buf and decides whether it can provide a meaning=
-ful
-> > >>>> ST/PH tuple for that completer; the dma-buf core keeps the tuple o=
-paque,
-> > >>>> and importers merely request the namespace they support and place =
-the
-> > >>>> returned value on generated TLPs. Exporters that cannot derive a
-> > >>>> meaningful tuple simply return -EOPNOTSUPP.
-> > >>>>
-> > >>>> TPH is advisory: a steering tag that is not honored on the path (f=
-or
-> > >>>> example an intermediate routing element that does not forward the =
-TPH
-> > >>>> prefix) is ignored and the request completes as an ordinary,
-> > >>>> non-TPH transaction (PCIe Base 6.4 sec 2.2.7.1). This series there=
-fore
-> > >>>> targets the same-Root-Port / common-switch topology, where the ST
-> > >>>> reaches the completer; cross-Root-Port P2P is best-effort and is n=
-ot
-> > >>>> gated in the uAPI, since supplying an unused ST is harmless and th=
-ere
-> > >>>> is no discoverable "TPH routing" capability to test against.
-> > >>>>
-> > >>>> Patch 1 folds the reserved 0b10 "TPH Completer Supported" encoding=
- into
-> > >>>> "not supported" in get_rp_completer_type(), so only architected va=
-lues
-> > >>>> can reach the TPH Requester Enable field. It was previously posted
-> > >>>> standalone to linux-pci; per Alex Williamson's v12 review it now t=
-ravels
-> > >>>> with the series, which removes the cross-tree ordering dependency =
-and
-> > >>>> lets review tooling apply the series as posted.
-> > >>>> Patch 2 adds small PCI/TPH type helpers so drivers can query the e=
-nabled
-> > >>>> TPH requester mode and the device's TPH Completer Supported field
-> > >>>> without reaching into pci_dev internals (and so callers in
-> > >>>> CONFIG_PCIE_TPH=3Dn builds get a clean fallback). pcie_tph_complet=
-er_type()
-> > >>>> applies the same reserved-encoding fold as get_rp_completer_type(),
-> > >>>> inlined locally so the helper is self-contained.
-> > >>>> Patch 3 adds the optional dma_buf_ops::get_pci_tph callback plus t=
-he
-> > >>>> dma_buf_get_pci_tph() importer wrapper so importers can fetch TPH
-> > >>>> metadata from an exporter under dmabuf->resv.
-> > >>>> Patch 4 implements get_pci_tph in vfio-pci and adds the new uAPI
-> > >>>> (VFIO_DEVICE_FEATURE_DMA_BUF_TPH) for userspace to attach the meta=
-data.
-> > >>>> Patch 5 wires up the mlx5 RDMA driver as a consumer. It also enfor=
-ces the
-> > >>>> dma_buf_get_pci_tph() steering-tag lifetime: the tag is only valid=
- for the
-> > >>>> mapping it was queried against, and the mkey's TPH fields cannot be
-> > >>>> reprogrammed in place. mlx5 therefore records the registration-tim=
-e tuple
-> > >>>> and re-queries after each dma-buf mapping is established under
-> > >>>> dmabuf->resv; unchanged tuples continue with the existing mkey, wh=
-ile
-> > >>>> changed or missing tuples fail the remap rather than continue with=
- a
-> > >>>> stale hint. For vfio-pci BAR dma-bufs this is expected to be a no-=
-op
-> > >>>> because invalidation is revoke/quiesce, not movement to a new back=
-ing
-> > >>>> placement, and the userspace-provided tuple is not changed by the
-> > >>>> revoke/un-revoke path.
-> > >>>>
-> > >>>> Build-tested with both CONFIG_PCIE_TPH=3Dy and CONFIG_PCIE_TPH=3Dn.
-> > >>>> Functional validation on the target topology: PCIe analyzer captur=
-es
-> > >>>> on the P2P TLPs confirm the ST emitted by mlx5 matches the value
-> > >>>> configured through VFIO_DEVICE_FEATURE_DMA_BUF_TPH, and the end-to=
--end
-> > >>>> P2P workload only produces results consistent with the endpoint's
-> > >>>> ST-selected in-flight operation. For example, with userspace
-> > >>>> configuring 8-bit ST=3D0xf0 and PH=3D2, an analyzer capture of a p=
-eer-to-
-> > >>>> peer MWr64 shows "STP MWr64 TC=3D0 OHC=3D2 ..." followed by "OHC-B
-> > >>>> ST=3DF0h PH=3D2 HV=3D1":
-> > >>>> (TLP Captures)
-> > >>>> 08000260 -> STP MWr64 TC=3D0 OHC=3D2 TS=3D0 Attr=3D0 L=3D8
-> > >>>> F0000004 -> RID=3D4h:0h.0h EP- Tag=3DF0h
-> > >>>> E0200000 -> AddrH=3D000020E0h
-> > >>>> 00080006 -> AddrL=3D06000800h
-> > >>>> 90F00000 -> OHC-B ST=3DF0h PH=3D2 HV=3D1 AMA=3D0 AV-
-> > >>>>
-> > >>>> The dma-buf get_pci_tph interface has also been exercised by a sec=
-ond,
-> > >>>> independent importer: a different vendor's NIC whose driver is not=
- yet
-> > >>>> upstream, locally taught to call dma_buf_get_pci_tph(). A PCIe ana=
-lyzer
-> > >>>> confirmed the ST it placed on outbound P2P TLPs matches the value
-> > >>>> configured through VFIO_DEVICE_FEATURE_DMA_BUF_TPH, the same resul=
-t as
-> > >>>> with mlx5. Two unrelated importer drivers exercising the callback
-> > >>>> end-to-end shows the interface is not tied to a single consumer. T=
-hat
-> > >>>> importer change is out-of-tree and not part of this series. For th=
-at
-> > >>>> second importer, with userspace configuring 8-bit ST=3D0xe0 and PH=
-=3D0,
-> > >>>> an analyzer capture shows:
-> > >>>> (TLP Captures)
-> > >>>> 08200260 -> STP MWr64 TC=3D0 OHC=3D2 TS=3D1 Attr=3D0 L=3D8
-> > >>>> 4E00004C -> RID=3D4Ch:0h.0h EP- Tag=3D4Eh
-> > >>>> 00170000 -> AddrH=3D00001700h
-> > >>>> 00200006 -> AddrL=3D06002000h
-> > >>>> 10E00000 -> OHC-B ST=3DE0h PH=3D0 HV=3D1 AMA=3D0 AV-
-> > >>>>
-> > >>>> Changes since v12:
-> > >>>>   Patch 1 (PCI/TPH, new to the series): the reserved-encoding fold,
-> > >>>>   previously posted standalone to linux-pci [1], is now the first =
-patch
-> > >>>>   here (Alex Williamson). Sashiko could not apply v12 because of t=
-hat
-> > >>>>   external dependency; with the fold in-series and the mlx5 leak f=
-ix in
-> > >>>>   linux-next, v13 has none. The code is unchanged from the standal=
-one
-> > >>>>   v3; the Fixes: tag is dropped, since no code path can reach the
-> > >>>>   reserved encoding today and the patch is hardening rather than a=
- fix
-> > >>>>   for observed silicon.
-> > >>>>
-> > >>>>   Patch 2 (PCI/TPH): inline the reserved-encoding fold in
-> > >>>>   pcie_tph_completer_type() rather than calling the helper that ea=
-rlier
-> > >>>>   folding revisions added; that helper was dropped in folding v3 p=
-er
-> > >>>>   Bjorn Helgaas and Wei Huang.
-> > >>>>
-> > >>>>   Patch 3 (dma-buf): no functional change.
-> > >>>>
-> > >>>>   Patch 4 (vfio/pci): also gate the DMA_BUF_TPH feature on
-> > >>>>   vdev->pci_ops->get_dmabuf_phys, matching
-> > >>>>   vfio_pci_core_feature_dma_buf(). Without it PROBE reported the f=
-eature
-> > >>>>   as supported on a device that advertises TPH Completer support b=
-ut
-> > >>>>   cannot export a vfio dma-buf at all, so nothing could ever carry=
- the
-> > >>>>   metadata (Alex Williamson, who raised this to uAPI-affecting
-> > >>>>   severity).
-> > >>>>
-> > >>>>   Patch 5 (mlx5): keep the !dev->st early-out in mlx5_st_alloc_ind=
-ex()
-> > >>>>   ahead of the pcie_tph_get_cpu_st() call, so splitting out
-> > >>>>   mlx5_st_alloc_index_by_tag() neither adds an ACPI _DSM invocatio=
-n on
-> > >>>>   devices without ST support nor changes the errno userspace sees =
-when
-> > >>>>   the _DSM lookup fails (Alex Williamson). The commit message now
-> > >>>>   describes this rather than presenting the split as a pure extrac=
-tion.
-> > >>>>
-> > >>>> Previous link:
-> > >>>> v12: https://lore.kernel.org/linux-pci/20260715204008.3911275-1-zh=
-ipingz@meta.com/
-> > >>>> v11: https://lore.kernel.org/linux-pci/20260702181025.2694961-1-zh=
-ipingz@meta.com/
-> > >>>> v10: https://lore.kernel.org/linux-pci/20260630224328.3218796-1-zh=
-ipingz@meta.com/
-> > >>>> v9: https://lore.kernel.org/dri-devel/20260622184211.2229399-1-zhi=
-pingz@meta.com/
-> > >>>> v8: https://lore.kernel.org/dri-devel/20260615065912.2177918-1-zhi=
-pingz@meta.com/
-> > >>>> v7: https://lore.kernel.org/dri-devel/20260611161546.4075580-1-zhi=
-pingz@meta.com/
-> > >>>> v6: https://lore.kernel.org/dri-devel/20260608185646.4085127-1-zhi=
-pingz@meta.com/
-> > >>>> v5: https://lore.kernel.org/dri-devel/20260526144401.1485788-1-zhi=
-pingz@meta.com/
-> > >>>> v4: https://lore.kernel.org/linux-pci/20260519201401.1558410-1-zhi=
-pingz@meta.com/
-> > >>>> v3: https://lore.kernel.org/linux-pci/20260512184755.4137227-1-zhi=
-pingz@meta.com/
-> > >>>> v2: https://lore.kernel.org/linux-pci/20260430200704.352228-1-zhip=
-ingz@meta.com/
-> > >>>>
-> > >>>> Zhiping Zhang (5):
-> > >>>>   PCI/TPH: treat reserved 0b10 completer encoding as unsupported
-> > >>>>   PCI/TPH: Add requester/completer type helpers
-> > >>>>   dma-buf: add optional get_pci_tph() callback
-> > >>>>   vfio/pci: implement get_pci_tph and DMA_BUF_TPH feature
-> > >>>>   RDMA/mlx5: get tph for p2p access when registering dma-buf mr
-> > >>>>
-> > >>>>  drivers/dma-buf/dma-buf.c                     |  32 ++++
-> > >>>>  drivers/infiniband/hw/mlx5/main.c             |   1 +
-> > >>>>  drivers/infiniband/hw/mlx5/mlx5_ib.h          |  11 ++
-> > >>>>  drivers/infiniband/hw/mlx5/mr.c               | 151 +++++++++++++=
-++++-
-> > >>>>  drivers/infiniband/hw/mlx5/odp.c              |   7 +
-> > >>>>  .../net/ethernet/mellanox/mlx5/core/lib/st.c  |  52 +++++-
-> > >>>>  drivers/pci/tph.c                             |  55 ++++++-
-> > >>>>  drivers/vfio/pci/vfio_pci_core.c              |   3 +
-> > >>>>  drivers/vfio/pci/vfio_pci_dmabuf.c            | 120 +++++++++++++-
-> > >>>>  drivers/vfio/pci/vfio_pci_priv.h              |  13 ++
-> > >>>>  include/linux/dma-buf.h                       |  25 +++
-> > >>>>  include/linux/mlx5/driver.h                   |  15 ++
-> > >>>>  include/linux/pci-tph.h                       |   8 +
-> > >>>>  include/uapi/linux/vfio.h                     |  43 +++++
-> > >>>>  14 files changed, 517 insertions(+), 19 deletions(-)
-> > >>>>
-> > >>>> --
-> > >>>> 2.53.0-Meta
-> > >>>> =20
-> > =20
+-- 
+2.55.0
 
