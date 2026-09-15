@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9B23C88E7B
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 10:58:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9646BC982C2
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 10:59:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C3BF10F412;
-	Tue, 15 Sep 2026 10:58:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD8A710FB35;
+	Tue, 15 Sep 2026 10:58:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oPTvglxf";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="BxaQPnB/";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CD9110F404
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 10:58:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F26910F40E
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 10:58:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1789469924;
- bh=sBlK784vZ/oqRMvO5qMK02PMD1Gt0+oIJw0QmxBvQ2A=;
+ s=mail; t=1789469931;
+ bh=4xsDqrilJ7fbk1vkeIBx9zljoIWiTgKz6huGqgRYnvI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=oPTvglxf1y1Q5InX+Qtm4qblgd5bYGkk/CBKck5i5h0bb1eIQi5EkqiOdxBQtxLus
- KpkBNnHPvBecAmROpFK3kKYz3SvRS51+nmJZMf/bUR+K1HF23Z7RfERzlsMoADFlE+
- L4IEYMO/Q6+s1Imgj4xRuvb9lJkOEufpKML/typHwrOj1RtrXLDfUTfUpKn+ehd67M
- x58/UJ6BuQmNa34V7R2c3cIUU/8uJS8OrOVUuxfgW4vvw9VPrnsgjN+scMG1OwCmTK
- ZGiONEJ1SMVfdFGVL/rhsG0YUeofmpUFfCSmpV+G5veyjErwKgIQhiIgaPMfFZ1Bme
- V/VNc8dPg28pQ==
+ b=BxaQPnB/SRz+afydyotjvnxYwj2Ox/p89aONIy/uNE+au2WuXqVJeLXIQ5AsJRDze
+ Xl+FHyXC5ghz9M9zhwewTvRt7qgkJwy/YuMnguuFXIhw3WXagSpR97wCF9P4Za4D5e
+ 4UBYspSDonLOHaIOxveAoBVR6QGgt3XBS9vN/u+XErTTsE9s3TIOmF7ffls2uB9JpH
+ uhn/9BH3RiyKei4rEx26T830Du17751mfSph9Yu5IWadimLvyyovgnIKhInXvIyxde
+ 2ep3ggx8YSRwpCQqBRGjN7+30A4+AFropgu8rDIMvpS3+/eU+7mxus7gYdZyaYTKKQ
+ DQHvNYQjmcmxQ==
 Received: from laura.lan (unknown [100.64.0.215])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: laura.nao)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 0053617E0A27;
- Tue, 15 Sep 2026 12:58:43 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id DAE4117E0E61;
+ Tue, 15 Sep 2026 12:58:50 +0200 (CEST)
 From: Laura Nao <laura.nao@collabora.com>
-Date: Tue, 15 Sep 2026 12:57:36 +0200
-Subject: [PATCH 3/9] drm/tyr: add MappedBo, a kernel BO with an
- always-valid CPU mapping
+Date: Tue, 15 Sep 2026 12:57:42 +0200
+Subject: [PATCH 9/9] drm/tyr: wait for global interface readiness
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-tyr-interfaces-v1-3-5d28f1f75aca@collabora.com>
+Message-Id: <20260915-tyr-interfaces-v1-9-5d28f1f75aca@collabora.com>
 References: <20260915-tyr-interfaces-v1-0-5d28f1f75aca@collabora.com>
 In-Reply-To: <20260915-tyr-interfaces-v1-0-5d28f1f75aca@collabora.com>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -59,7 +58,8 @@ To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
  John Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, 
- kernel@collabora.com, Laura Nao <laura.nao@collabora.com>
+ kernel@collabora.com, Laura Nao <laura.nao@collabora.com>, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>
 X-Mailer: b4 0.14.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,147 +76,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Daniel Almeida <daniel.almeida@collabora.com>
+Add a wait helper for global interface readiness using the Job IRQ.
+JobIrqEvents signals readiness and wakes waiters when the firmware sets
+the GLB bit. After booting the firmware, probe waits until the firmware
+reports that the global interface is ready to accept requests.
+Register the Job IRQ before booting the firmware so that the initial GLB
+event is not missed. Store the JobIrqMaskGuard returned by
+job_irq_init() ahead of the ThreadedRegistration in
+TyrDrmRegistrationData so the Job IRQ is masked before it is freed.
 
-Firmware sections need CPU access at well-defined points: once at load
-time to copy the section payload in, and, for the shared section, for
-the lifetime of the driver to talk to the CSF interface blocks.
-
-Introduce MappedBo, which pairs a KernelBo with one persistent vmap so
-the GPU mapping and the CPU mapping share a single lifetime, and hold it
-in Section instead of the bare KernelBo. Section payload initialization
-now writes through the persistent mapping.
-
-This is the foundation for resolving firmware-reported MCU virtual
-addresses into validated views of the shared section: the object that
-owns both mappings is the natural place for those checks to live.
-
+Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
 Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 Signed-off-by: Laura Nao <laura.nao@collabora.com>
 ---
- drivers/gpu/drm/tyr/fw.rs  | 14 ++++++-------
- drivers/gpu/drm/tyr/gem.rs | 49 ++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 56 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/tyr/driver.rs | 30 +++++++++++++++++++++++++++++-
+ drivers/gpu/drm/tyr/fw.rs     | 23 ++++++++++++++---------
+ drivers/gpu/drm/tyr/fw/irq.rs |  1 -
+ 3 files changed, 43 insertions(+), 11 deletions(-)
 
+diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
+index 2dcf33ec93ea..138afeecfb3d 100644
+--- a/drivers/gpu/drm/tyr/driver.rs
++++ b/drivers/gpu/drm/tyr/driver.rs
+@@ -21,6 +21,7 @@
+         poll,
+         Io, //
+     },
++    irq::ThreadedRegistration,
+     new_mutex,
+     of,
+     platform,
+@@ -37,10 +38,18 @@
+ 
+ use crate::{
+     file::TyrDrmFileData,
+-    fw::Firmware,
++    fw::{
++        irq::{
++            job_irq_init,
++            JobIrq,
++            JobIrqMaskGuard, //
++        },
++        Firmware, //
++    },
+     gem::Bo,
+     gpu,
+     gpu::GpuInfo,
++    irq::TyrIrq,
+     mmu::Mmu,
+     regs::gpu_control::*, //
+ };
+@@ -81,6 +90,12 @@ pub(crate) struct TyrDrmRegistrationData<'drm> {
+     /// GPU MMIO register mapping.
+     pub(crate) iomem: Arc<IoMem<'drm>>,
+ 
++    /// Masks the Job IRQ on drop. Must be declared before `job_irq` so it is
++    /// dropped first (see [`JobIrqMaskGuard`]).
++    _job_irq_mask: JobIrqMaskGuard<'drm>,
++
++    job_irq: Pin<KBox<ThreadedRegistration<'drm, TyrIrq<JobIrq<'drm>>>>>,
++
+     /// GPU information read from hardware during probe.
+     pub(crate) gpu_info: GpuInfo,
+ }
+@@ -158,7 +173,18 @@ fn probe<'bound>(
+             &gpu_info,
+         )?;
+ 
++        let (_job_irq_mask, job_irq_registration) =
++            // SAFETY: The resulting registration is stored in
++            // `TyrDrmRegistrationData`, which is dropped normally when
++            // the driver is unbound. It is not leaked or forgotten.
++            unsafe { job_irq_init(pdev, iomem.clone(), firmware.events.clone()) }?;
++
++        let job_irq = KBox::pin_init(job_irq_registration, GFP_KERNEL)?;
++
+         firmware.boot()?;
++        firmware.wait_ready(1000).inspect_err(|e| {
++            dev_err!(pdev, "Error waiting for firmware to be ready: {:?}\n", e);
++        })?;
+         firmware.enable_global_interface(&gpu_info, &core_clk)?;
+ 
+         let reg_data = pin_init!(TyrDrmRegistrationData {
+@@ -174,6 +200,8 @@ fn probe<'bound>(
+                     _sram: sram_regulator,
+                 }),
+                 iomem,
++                _job_irq_mask,
++                job_irq,
+                 gpu_info,
+         });
+ 
 diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
-index 19bdeee858ce..fb4d47ab35a3 100644
+index 1499ffdef51f..3a7a11c5723e 100644
 --- a/drivers/gpu/drm/tyr/fw.rs
 +++ b/drivers/gpu/drm/tyr/fw.rs
-@@ -144,7 +144,7 @@ struct Section<'drm> {
-     // Keep the BO backing this firmware section so that both the
-     // GPU mapping and CPU mapping remain valid until the Section is dropped.
-     #[expect(dead_code)]
--    mem: gem::KernelBo<'drm>,
-+    mem: Arc<gem::MappedBo<'drm>>,
+@@ -36,7 +36,8 @@
+         ArcBorrow,
+         Mutex, //
+     },
+-    time, //
++    time,
++    time::Msecs, //
+ };
+ 
+ use crate::{
+@@ -68,10 +69,7 @@
+             MCU_CONTROL,
+             MCU_STATUS, //
+         }, //
+-        job_control::{
+-            JOB_IRQ_CLEAR,
+-            JOB_IRQ_RAWSTAT, //
+-        }, //
++        job_control::JOB_IRQ_CLEAR,
+     },
+     vm::Vm, //
+ };
+@@ -179,6 +177,9 @@ pub(crate) struct Firmware<'drm> {
+     /// The global FW interface.
+     #[pin]
+     global_iface: Mutex<FwIfaces<'drm>>,
++
++    /// Firmware events signalled via the Job IRQ.
++    pub(crate) events: Arc<irq::JobIrqEvents>,
  }
  
- /// Loaded firmware with sections mapped into MCU VM.
-@@ -171,13 +171,13 @@ fn drop(&mut self) {
- }
+ #[pinned_drop]
+@@ -291,6 +292,7 @@ pub(crate) fn new(
+                     vm: vm.clone(),
+                     sections,
+                     global_iface <- new_mutex!(FwIfaces::new()?),
++                    events: irq::JobIrqEvents::new()?,
+                 }),
+                 GFP_KERNEL,
+             )?)
+@@ -327,10 +329,8 @@ pub(crate) fn boot(&self) -> Result {
+         io.write_reg(MCU_CONTROL::zeroed().with_req(McuControlMode::Auto));
  
- impl<'drm> Firmware<'drm> {
--    fn init_section_mem(dev: &Device, mem: &mut KernelBo<'drm>, data: &KVec<u8>) -> Result {
-+    fn init_section_mem(dev: &Device, mem: &gem::MappedBo<'drm>, data: &KVec<u8>) -> Result {
-         if data.is_empty() {
-             return Ok(());
-         }
- 
--        let vmap = mem.bo().vmap::<0>()?;
--        let size = mem.bo().size();
-+        let vmap = mem.vmap();
-+        let size = mem.size();
- 
-         if data.len() > size {
-             dev_err!(dev, "fw section {} bigger than BO {}", data.len(), size);
-@@ -235,13 +235,13 @@ pub(crate) fn new(
- 
-                 let va = u64::from(parsed.va.start);
- 
--                let mut mem = KernelBo::new(
-+                let mem = gem::MappedBo::new(KernelBo::new(
-                     ddev,
-                     vm.clone(),
-                     size,
-                     KernelBoVaAlloc::Explicit(va),
-                     parsed.vm_map_flags,
--                )?;
-+                )?)?;
- 
-                 let section_start = parsed.data_range.start as usize;
-                 let section_end = parsed.data_range.end as usize;
-@@ -252,7 +252,7 @@ pub(crate) fn new(
-                 let bytes = fw_data.get(section_start..section_end).ok_or(EINVAL)?;
-                 data.extend_from_slice(bytes, GFP_KERNEL)?;
- 
--                Self::init_section_mem(dev, &mut mem, &data)?;
-+                Self::init_section_mem(dev, &mem, &data)?;
- 
-                 sections.push(Section { data, mem }, GFP_KERNEL)?;
+         if let Err(e) = poll::read_poll_timeout(
+-            || Ok((io.read(MCU_STATUS), io.read(JOB_IRQ_RAWSTAT))),
+-            |(mcu_status, irq_rawstat)| {
+-                mcu_status.value() == McuStatus::Enabled && irq_rawstat.glb()
+-            },
++            || Ok(io.read(MCU_STATUS)),
++            |status| status.value() == McuStatus::Enabled,
+             time::Delta::from_millis(1),
+             time::Delta::from_millis(100),
+         ) {
+@@ -393,4 +393,9 @@ pub(crate) fn enable_global_interface(&self, gpu_info: &GpuInfo, core_clk: &Clk)
              }
-diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
-index 3bf3787f5c3f..4763b5b2cd80 100644
---- a/drivers/gpu/drm/tyr/gem.rs
-+++ b/drivers/gpu/drm/tyr/gem.rs
-@@ -136,6 +136,12 @@ pub(crate) fn new(
-     pub(crate) fn bo(&self) -> &Bo {
-         &self.bo
-     }
-+
-+    /// Returns the GPU virtual address range occupied by this buffer.
-+    #[expect(dead_code)]
-+    pub(crate) fn va_range(&self) -> Range<u64> {
-+        self.va_range.clone()
-+    }
- }
- 
- impl Drop for KernelBo<'_> {
-@@ -158,3 +164,46 @@ fn drop(&mut self) {
          }
      }
++
++    /// Waits until the firmware signals readiness via the GLB IRQ bit.
++    pub(crate) fn wait_ready(&self, timeout_ms: Msecs) -> Result {
++        self.events.wait_ready(timeout_ms)
++    }
  }
-+
-+/// A kernel-owned buffer object with an always-valid kernel (CPU) mapping.
-+///
-+/// This pairs a [`KernelBo`] with a persistent vmap of its backing GEM object,
-+/// so the GPU mapping and the CPU mapping share one lifetime. Consumers that
-+/// need CPU access to the buffer contents (e.g. the firmware interface blocks
-+/// in the CSF shared section) hold an `Arc<MappedBo>` instead of creating
-+/// short-lived vmaps at every use site.
-+pub(crate) struct MappedBo<'drm> {
-+    /// Persistent CPU mapping of `kernel_bo`'s backing object.
-+    ///
-+    /// Declared before `kernel_bo` so the mapping is dropped first.
-+    vmap: shmem::VMapOwned<BoData>,
-+    /// The underlying kernel-owned buffer object.
-+    #[expect(dead_code)]
-+    kernel_bo: KernelBo<'drm>,
-+}
-+
-+impl<'drm> MappedBo<'drm> {
-+    /// Wraps `kernel_bo` together with a persistent CPU mapping of its buffer.
-+    pub(crate) fn new(kernel_bo: KernelBo<'drm>) -> Result<Arc<Self>> {
-+        let vmap = kernel_bo.bo.owned_vmap::<0>()?;
-+        Ok(Arc::new(Self { vmap, kernel_bo }, GFP_KERNEL)?)
-+    }
-+
-+    /// Returns the persistent CPU mapping of the buffer.
-+    pub(crate) fn vmap(&self) -> &shmem::VMapOwned<BoData> {
-+        &self.vmap
-+    }
-+
-+    /// Returns the GPU virtual address range occupied by the buffer.
-+    pub(crate) fn va_range(&self) -> Range<u64> {
-+        self.kernel_bo.va_range()
-+    }
-+}
-+
-+impl core::ops::Deref for MappedBo<'_> {
-+    type Target = Bo;
-+
-+    fn deref(&self) -> &Bo {
-+        self.vmap.owner()
-+    }
-+}
+diff --git a/drivers/gpu/drm/tyr/fw/irq.rs b/drivers/gpu/drm/tyr/fw/irq.rs
+index 7dd894de18cb..95380cb428ba 100644
+--- a/drivers/gpu/drm/tyr/fw/irq.rs
++++ b/drivers/gpu/drm/tyr/fw/irq.rs
+@@ -3,7 +3,6 @@
+ //! IRQ handling for the Job IRQ.
+ //!
+ //! The Job IRQ signals events from the MCU, including global interface acknowledgements.
+-#![allow(dead_code)]
+ 
+ use kernel::{
+     device::Bound, //
 
 -- 
 2.39.5
