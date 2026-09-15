@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DA1EC88E77
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:35:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B774C982C1
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:35:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7979610E5B7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C609010E746;
 	Wed, 16 Sep 2026 07:35:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="FqDL6nvP";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="cl2nea30";
 	dkim-atps=neutral
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFD3510E241
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:20:22 +0000 (UTC)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2d6fed0652bso45540085ad.2
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 01:20:22 -0700 (PDT)
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1819210F34C
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:19:58 +0000 (UTC)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2dd1631d291so48026205ad.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 01:19:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1789460422; x=1790065222;
+ d=google.com; s=20251104; t=1789460397; x=1790065197;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:from:subject
  :message-id:references:mime-version:in-reply-to:date:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=RYxDJLbbwpCoc34IeHntB/eNfLB4EmZZnrz8tORBuFs=;
- b=FqDL6nvPZHWL5YDBoZsgNwL6MS5L0HYV4lArs7urFIqlKm7HtbK6WMcaBIJlFtLMhe
- WszBd/x2Wn+BGS8L5fffnztUhC7lquK/uL7xAgGmerRvVJoyw5KpeZnbo5DU8SBXmKTB
- irgoAmXoeKhUn6n1T+5MJXMYA1BKZqsCtl4M6wfmj7L+qQIN2I2T2DnZ9WfECVLEQija
- 7RSKW9mnlCj3TjXKugLu9nCVUPiBMTq1oZQKqAWBj6mtJ86eIxmHA+dZ6tUi92MYinLW
- LE4N5jmHVcRP6KHR+v8tYVX8Hglr4CaVjaWURuMqgdx3v3sVxAq5ltKS+jXraDISiWd9
- Hrww==
+ bh=q9qHU7CDEu6zWWmniYe9q2ucwWYfoa3UieeTJM1aJto=;
+ b=cl2nea30qwchDhjuyTw6WvDYd6UjEqmDvlZf7mHooChvl9h9+tROCGMXqg08o3MJjy
+ obhpyyKfIkUmSBjrivLJ2blleMH9996h5BxOspy6QKbA8172sdBzaQ5K0ZSY7bqdBMOJ
+ YsnXrvPGVMBXL8cB7kpcnlf2EvrP9ghX3QLD6DQvoakiOi+cbDfNRA+l8J+tiJjEOlqj
+ CJjujRwNL3H5h8sPa84vcqge+NgJ1CO8OQl11efXFDiL7p2ao4Nn8cSuQk/GfyFxbhHA
+ UvFQj0QZ/7NAj3Ojk452kJQdWhPEpldbW6/5h3Rfls9vwkmc/JoLuCu2J9bZtx1jskF8
+ ZIKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789460422; x=1790065222;
+ d=1e100.net; s=20260707; t=1789460397; x=1790065197;
  h=content-transfer-encoding:content-type:cc:to:from:subject
  :message-id:references:mime-version:in-reply-to:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=RYxDJLbbwpCoc34IeHntB/eNfLB4EmZZnrz8tORBuFs=;
- b=s2qmi7CPCejhHerkZZrEaJGq6gMvt3Jh08vNWhfj3d0Izt0hxLJr3mg/qtWVXtMMG9
- za+aw8hWsUHvQLYmsjQ+KTEiHQDWCWvC+Iv3V7BdLha/wnRFNTwJHIxcbEpJltUQwPLI
- jn7GR95HO0kqNe0UNsMIqITnmsb0hM87lXcI6itVFdpGkA0VhXZDag1lFj5CIQhT8dB9
- C3wRIwOjR1c/TR0nSrgmvun3O4R+AkWSua7IrtTKxrYlZxTOFG66omBCk3s+Di0yhQkL
- UOBY7i77xOhEXUfOsliFjw6xfo+re1NfQHAsbUQw9rQxgITLjf+n3JZ+cCacWCx6H/8o
- usMQ==
+ bh=q9qHU7CDEu6zWWmniYe9q2ucwWYfoa3UieeTJM1aJto=;
+ b=TLkow4okoaHZO77My9DtxrXatWPFZNaLzdSLvC4ORG4F7jcSCE0t160iqqc0vcWwc4
+ D9yURO9+Iism1Sa1YIEd8apqLJwy+0qdmu494x02n5Jo1S0dJS8SC80nIJ+13acaKbe9
+ 9aZiu2T64cHcpjN2zkMgiZ0LNB2aCcZAqAJ8i07XL7ZD3TNK/Vz4UO0IcUqmMyyFPEQ1
+ /cr0PogXkdJcoWnHTp2JqvWSUQlmB84qPEtEXRBnTFZLlVIWwhgUDNBHmGoGXzOtSiso
+ ok90wJvFuamgNhWL/oFaZztr0fou6dxRbSC6KrrFh/uVoBLBbcDxiNmUaAOUGIAgPzed
+ KwPg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzW7KfH6EEMHkZx4sloFxFfZOXdZugWK6fRhMjgOKh0zJkLzheTWTmpjipTMau3u/+bFN7ngf6j96k=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lw8+UdHLwbffjb4CskHlKGudwmNl17V6nEVGzwJdx7OKxE2VwQ
- PA6MQj20jTnSxcAZR6EA4DVa1LidLvr+HCXsRonfwZjUWi52l4+9HmNjp8liaCJIcivkkvAUUD7
- D
-X-Received: from plas19.prod.google.com ([2002:a17:903:2013:b0:2dd:75f1:13f5])
+ AKwUvByYMWIFPMVIbeEQ0KHje/ovt3y4XPzGbtD2l287lSJLX5ons4Dug6JNlbaC3mYQAtUfuPOvszCUGqM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ktSswcROkyVeCWYTp3ZjdjvbrbexlPazG+DEJFzQemrRfOhv03
+ YayT1IRzC7ZFAimB6i5GTWmr0AKo0g3N4k5Kck2oY0W2UBqblFJ8rHwVLl/zLN1rH4h32lt10BZ
+ 2
+X-Received: from plhc17.prod.google.com ([2002:a17:903:2351:b0:2cf:ca4d:25e3])
  (user=morbo job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:40c6:b0:2d0:cc92:f7a9
- with SMTP id d9443c01a7336-2dd837a6aeemr1077095ad.4.1789460419151; Tue, 15
- Sep 2026 01:20:19 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:18:45 +0000
+ 2002:a17:903:2408:b0:2d8:d4ce:9f32
+ with SMTP id d9443c01a7336-2dd83869ae3mr512075ad.16.1789460397125; Tue, 15
+ Sep 2026 01:19:57 -0700 (PDT)
+Date: Tue, 15 Sep 2026 08:18:27 +0000
 In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
 Mime-Version: 1.0
 References: <20260915081910.4142719-1-morbo@google.com>
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260915081910.4142719-29-morbo@google.com>
-Subject: [PATCH 28/28] drm/xe/pf: Refactor strlcat() to seq_buf in
- sched_group_engines_read()
+Message-ID: <20260915081910.4142719-11-morbo@google.com>
+Subject: [PATCH 10/28] of/fdt: Replace strlcat() with snprintf() in
+ early_init_dt_scan_chosen()
 From: Bill Wendling <morbo@google.com>
 To: linux-kernel@vger.kernel.org
 Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
@@ -156,17 +156,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Similar to control_read(), sched_group_engines_read() constructs a
-space-separated list of hardware engine names in a stack buffer using
-repeated strlcat() calls inside a loop.
+When CONFIG_CMDLINE_EXTEND is enabled, early_init_dt_scan_chosen() uses
+two strlcat() calls to append a space and CONFIG_CMDLINE to the command
+line buffer.
 
-In preparation for removing the deprecated strlcat() API[1], refactor
-sched_group_engines_read() to use struct seq_buf and seq_buf_printf().
+In preparation for removing the deprecated strlcat() API[1], replace the
+strlcat() calls with a single snprintf() call using the existing string
+length.
+
+Additionally, check for a NULL initial_boot_params pointer and jump to
+"handle_cmdline" so that CONFIG_CMDLINE handling still occurs without
+dereferencing a NULL FDT pointer in fdt_path_offset().
 
 Link: https://github.com/KSPP/linux/issues/370 [1]
 Cc: codemender-patching+linux@google.com
-Assisted-by: Developer:Gemini [editor_update_file, make_kernel_build_single=
-_file, shell_command_run]
+Assisted-by: Assistant:Claude-3.5-Sonnet [editor_update_file, shell_command=
+_run]
 Signed-off-by: Bill Wendling <morbo@google.com>
 ---
 Cc: Russell King <linux@armlinux.org.uk>
@@ -280,50 +285,39 @@ Cc: devel@lists.orangefs.org
 Cc: linux-hardening@vger.kernel.org
 Cc: linux-sound@vger.kernel.org
 ---
- drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+ drivers/of/fdt.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c b/drivers/gpu/drm/=
-xe/xe_gt_sriov_pf_debugfs.c
-index 5db7fc067c4d..548a50f74422 100644
---- a/drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c
-+++ b/drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c
-@@ -377,8 +377,10 @@ static ssize_t sched_group_engines_read(struct file *f=
-ile, char __user *buf,
- 	struct xe_hw_engine *hwe;
- 	enum xe_hw_engine_id id;
- 	char engines[128];
-+	struct seq_buf s;
-+	const char *s_str;
+diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
+index a64afc3ded3d..311021a83f03 100644
+--- a/drivers/of/fdt.c
++++ b/drivers/of/fdt.c
+@@ -1095,6 +1095,9 @@ int __init early_init_dt_scan_chosen(char *cmdline)
+ 	const void *rng_seed;
+ 	const void *fdt =3D initial_boot_params;
 =20
--	engines[0] =3D '\0';
-+	seq_buf_init(&s, engines, sizeof(engines));
-=20
- 	if (group < num_groups) {
- 		for_each_hw_engine(hwe, gt, id) {
-@@ -386,15 +388,14 @@ static ssize_t sched_group_engines_read(struct file *=
-file, char __user *buf,
- 			u16 guc_logical_instance =3D xe_hwe_guc_logical_instance(hwe);
- 			u32 mask =3D groups[group].engines[guc_class];
-=20
--			if (mask & BIT(guc_logical_instance)) {
--				strlcat(engines, hwe->name, sizeof(engines));
--				strlcat(engines, " ", sizeof(engines));
--			}
-+			if (mask & BIT(guc_logical_instance))
-+				seq_buf_printf(&s, "%s ", hwe->name);
- 		}
--		strlcat(engines, "\n", sizeof(engines));
-+		seq_buf_puts(&s, "\n");
- 	}
-=20
--	return simple_read_from_buffer(buf, count, ppos, engines, strlen(engines)=
-);
-+	s_str =3D seq_buf_str(&s);
-+	return simple_read_from_buffer(buf, count, ppos, s_str, strlen(s_str));
- }
-=20
- static const struct file_operations sched_group_engines_fops =3D {
++	if (!fdt)
++		goto handle_cmdline;
++
+ 	node =3D fdt_path_offset(fdt, "/chosen");
+ 	if (node < 0)
+ 		node =3D fdt_path_offset(fdt, "/chosen@0");
+@@ -1133,8 +1136,12 @@ int __init early_init_dt_scan_chosen(char *cmdline)
+ 	 */
+ #ifdef CONFIG_CMDLINE
+ #if defined(CONFIG_CMDLINE_EXTEND)
+-	strlcat(cmdline, " ", COMMAND_LINE_SIZE);
+-	strlcat(cmdline, CONFIG_CMDLINE, COMMAND_LINE_SIZE);
++	{
++		size_t len =3D strlen(cmdline);
++
++		if (len < COMMAND_LINE_SIZE)
++			snprintf(cmdline + len, COMMAND_LINE_SIZE - len, " %s", CONFIG_CMDLINE)=
+;
++	}
+ #elif defined(CONFIG_CMDLINE_FORCE)
+ 	strscpy(cmdline, CONFIG_CMDLINE, COMMAND_LINE_SIZE);
+ #else
 --=20
 2.55.0.1032.g73a4cd73de-goog
 
