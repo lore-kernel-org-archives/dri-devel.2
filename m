@@ -4,57 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07828C88E53
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 11:34:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75E4AC88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 11:34:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DE6310FBBF;
-	Tue, 15 Sep 2026 11:34:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D92610FBA3;
+	Tue, 15 Sep 2026 11:34:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FhTWnISt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JyIhvS+J";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F261510FBC2;
- Tue, 15 Sep 2026 11:34:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Subject:Cc:To:From:Date:From:Reply-To;
- bh=Tz70FkAmxl8+RAnBZsRyzCmi4ZFCRbX5FfKa0dCDfRY=; b=FhTWnIStr2QmZKS8U2wEyumk3s
- 4V5NyVgoqVvSIyHakgrUGhNjEvix4irLlOGoCtfvkxjtUMm0g2k6IiDt5saGWLfDDkTz2YF7jxkEN
- N/3lGVSK3aKst/YoGUzevX5+38x1vou3MkmcFLsuEo1h5Z0kEcjsuiy1EH2uU4M4KBOoHY5lKBYaP
- LToycRHnq658/tEGCyyOshiz7ZC4W7JWZVKfmLh052h/woMwXNmIbGRzEUX6z66X2p5MX0aEJfyZD
- 5YA/+z8v2NS+/zIf55gorzY6GsnwcB/GT26li9aV0U+srcJMtyCe3zd5L77nBAIrj2Mul39zJlRWA
- 9PnaETPA==;
-Received: from 179-125-70-185-dinamico.pombonet.net.br ([179.125.70.185]
- helo=quatroqueijos.cascardo.eti.br)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x6RQS-002Pae-SU; Tue, 15 Sep 2026 13:34:13 +0200
-Date: Tue, 15 Sep 2026 08:34:07 -0300
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Natalie Vock <nat@pixelcluster.dev>,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
- Shashank Sharma <shashank.sharma@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-Subject: Re: [PATCH 3/4] drm/amdgpu: don't free mapping when
- amdgpu_vm_update_range fails
-Message-ID: <aqktL4Ui1MaIvs_j@quatroqueijos.cascardo.eti.br>
-References: <20260914-amdgpu_vm_fixes-v1-0-d6d835591e0f@igalia.com>
- <20260914-amdgpu_vm_fixes-v1-3-d6d835591e0f@igalia.com>
- <9c507259-f65c-4f18-8fc7-8e03de0c4f87@amd.com>
- <acc1e3eb-264c-4591-9f66-5fe93b96f97f@pixelcluster.dev>
- <aqkf0LE51mObdEJc@quatroqueijos.cascardo.eti.br>
- <fb733813-9e4d-494a-ba60-469261340e74@amd.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB35610FBA4
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 11:34:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9286F4187C;
+ Tue, 15 Sep 2026 11:34:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 405011F000FF;
+ Tue, 15 Sep 2026 11:34:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789472064;
+ bh=KlocZhp7qjck9olR3klidY4UlF+C5OwdG3ef0fBmbDU=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=JyIhvS+JT82mqNUDoQEI5NLWlLHGSvHqAL4SSQ1kt8SKfEf+HfcjXdwmraSKCHGE8
+ ZOy1pOhBVyA8CD8/PMtsr6/M5DyMiVViu2ENl+54eY1cvO87TiRTHmWjqOn6VYaBoZ
+ R+EwigxYuUkdDx++PpQix7gADr1dTufOLv25uLow4e3SSmRhk6Xa/nk8d3fLnQOYYC
+ Ydpt0fW4a/KY4J+ehGRp+fITQ9UnHopTKNJg1/CR1zut9A3qFE0J3crkfG5HDtEzwq
+ G8elLfwAFZ2cfYNwrhA3h2Y1eTB9tlgjFj5+2pZKNm3kY5rb7mp2PNhr6wwTmKvzYc
+ atFGIdRwNt4XQ==
+From: Christian Brauner <brauner@kernel.org>
+Date: Tue, 15 Sep 2026 13:31:10 +0200
+Subject: [PATCH RFC POC 24/50] file: make FD_ADD() a standalone immediate
+ install
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <fb733813-9e4d-494a-ba60-469261340e74@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260915-work-fd-reserve-unify-folded-v1-24-4d5217d6b246@kernel.org>
+References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
+In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jann Horn <jannh@google.com>, 
+ Jan Kara <jack@suse.cz>, Ingo Molnar <mingo@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ Oleg Nesterov <oleg@redhat.com>, linux-alpha@vger.kernel.org, 
+ linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+ linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org, 
+ linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
+ linux-sh@vger.kernel.org, sparclinux@vger.kernel.org, 
+ linux-um@lists.infradead.org, Jens Axboe <axboe@kernel.dk>, 
+ io-uring@vger.kernel.org, netdev@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-gpio@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ bpf@vger.kernel.org, David Airlie <airlied@redhat.com>, 
+ virtualization@lists.linux.dev, kvm@vger.kernel.org, 
+ kexec@lists.infradead.org, linux-hyperv@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2484; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=T3KSWcji/YSytHTghs9Kt5BT4n+B/RVkFjKfZEpUiUE=;
+ b=kA0DAAoWkcYbwGV43KIByyZiAGqpLH2gnJPMvFkt0o4MjNDtgkqII7AmPHUY9LRg5JJdYim/g
+ oh1BAAWCgAdFiEEQIc0Vx6nDHizMmkokcYbwGV43KIFAmqpLH0ACgkQkcYbwGV43KIfFQEAxyCZ
+ bG8G/x+eu+vLdk6b9eKItI7HciqUsL6XwpabfYsA/1x0tYtG16iv2X3gSieaXgcMCW+XfqmAtez
+ piRVBKO4N
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,149 +83,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 15, 2026 at 01:22:48PM +0200, Christian König wrote:
-> On 9/15/26 12:37, Thadeu Lima de Souza Cascardo wrote:
-> > On Tue, Sep 15, 2026 at 10:53:43AM +0200, Natalie Vock wrote:
-> >> On 9/15/26 10:33, Christian König wrote:
-> >>> On 9/14/26 22:25, Thadeu Lima de Souza Cascardo wrote:
-> >>>> If amdgpu_vm_update_range fails when called by amdgpu_vm_clear_freed,
-> >>>> the clearing of that mapping will not be attempted again. Later on, when
-> >>>> an IB tries to read that mapping, the read succeeds, leading to a
-> >>>> potential info leak, or even data corruption, if it attempts to write to
-> >>>> it.
-> >>>>
-> >>>> If the mapping is left in the freed list, then clearing will be
-> >>>> attempted again during amdgpu_cs_ioctl, which will either fail and not
-> >>>> submit the job or will succeed in clearing the mapping, preventing the
-> >>>> invalid access.
-> >>>
-> >>> Same as I replied to oushinnyo <oushinnyo@163.com>, absolutely clear NAK to that.
-> >>>
-> >>> amdgpu_vm_update_range() can only fail when the device is hot removed and we don't care about clearing page tables in that case.
-> >>
-> >> Actually, how so? The SDMA update path has lots of allocations that happen
-> >> at random points throughout the update process (think the SDMA IB being
-> >> exhausted, then vm_funcs->update() will allocate a new one and can fail on
-> >> that, or various fence allocations. Some paths allocate from the delayed IB
-> >> pool which is just regular GFP_KERNEL, why couldn't these allocations fail?
-> >>
-> >> Aside from that, the more trivial failure path that I think Thadeu is also
-> >> talking about here is that amdgpu_vm_ptes_update will call
-> >> amdgpu_vm_pt_alloc (so that happens in the middle of VM updates) and these
-> >> allocations can fail. I'm not even sure if drm_exec can save this one
-> >> because we need to be ready to drop locks and retry.
-> >>
-> >> I get that failing is unacceptable for the cases inside a pagefault handler
-> >> (though I'm not sure if anything of what I mentioned applies here, pagefault
-> >> VM updates are immediate so they get GFP_ATOMIC, but maybe the pagefault
-> >> handler could still allocate PTs?) but for anything else, failure seems like
-> >> a possibility and maybe we should think about handling it in some way.
-> >>
-> >> I'm not sure I see a problem in keeping BOs invalidated and backing off
-> >> later, since new submissions should be rejected unless the VM manages to
-> >> complete all updates successfully.
-> >>
-> >> Best,
-> >> Natalie
-> >>
-> > 
-> > Thanks, Natalie, those are exactly the possible scenarios here:
-> > amdgpu_job_alloc and amdgpu_vm_pt_alloc might fail.
-> > 
-> > Christian,
-> > 
-> > I have started this investigation once I observed the kmemleak that is
-> > fixed by the other 3 patches. Natalie brings up the exact case where this
-> > might happen: amdgpu_vm_pt_alloc fails as all other VRAM BOs are locked as
-> > they are either ALWAYS_VALID BOs or PT BOs, thus sharing the same dma_resv.
-> 
-> Yeah and on a clear there is never a single page table allocated. What could be is that temporary memory allocations fail, but we need to make sure that never happens by using the emergency reserves and/or pools.
-> > Here is a log showing up that something failed during the update:
-> > [ 3839.556311] [drm:amdgpu_gem_va_ioctl [amdgpu]] *ERROR* Couldn't update BO_VA (-12)
-> 
-> That is failed memory allocation while trying to map something which we also ignore and delegate to the next CS.
-> 
+FD_ADD() was built on FD_PREPARE() + fd_publish(). Give it its own small
+macro that allocates the descriptor so it stays an immediate one-shot
+for the hot descriptor-is-the-result paths (open, socket, accept, memfd
+etc.).
 
-Yep, that is a possibility as well and amdgpu_vm_bo_update is not ignoring
-the failure here and leaves the mappings in the invalids list, which the
-next CS will try to map.
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ include/linux/file.h | 36 +++++++++++++++++++++---------------
+ 1 file changed, 21 insertions(+), 15 deletions(-)
 
-> > 
-> > The investigation then led to a reproducer, which is able to trigger the
-> > list corruption that is mentioned in patch 4.
-> > 
-> > And given the kmemleak stack trace shows amdgpu_vm_clear_freed in the stack
-> > trace, that should clearly be where the failure has happened. Looking at
-> > the function, then I noticed it ignores the return code and still removes
-> > the mappings from the list. I was able to write a second reproducer that
-> > triggers the failure, then releases some memory and demonstrate that
-> > amdgpu_cs_ioctl does not clear the freed page tables as the freed list is
-> > empty.
-> 
-> Unmap/clear operations are also used in MMU notifiers who can't give an error back to higher levels but rather need to unmap the area no matter what.
-> 
-> So basically that is an operation which can never fail in the first place (except for device is completely gone and then we don't care any more).
-> 
-> I'm about to split the map/unmap into separate functions to make it clear that unmap operations can't fail.
-> 
-> When you have a reproducer and can pinpoint where exactly the memory allocation fails that would be rather helpful here.
-> 
+diff --git a/include/linux/file.h b/include/linux/file.h
+index 04dd85cdd9bf..1ee7f058a882 100644
+--- a/include/linux/file.h
++++ b/include/linux/file.h
+@@ -259,24 +259,30 @@ static inline int class_fd_prepare_lock_err(const struct fd_prepare *fdf)
+ 		take_fd(fdp->__fd);                            \
+ 	})
+ 
+-/* Do not use directly. */
+-#define __FD_ADD(_fdf, _fd_flags, _file_owned)            \
+-	({                                                \
+-		FD_PREPARE(_fdf, _fd_flags, _file_owned); \
+-		s32 ret = _fdf.err;                       \
+-		if (likely(!ret))                         \
+-			ret = fd_publish(_fdf);           \
+-		ret;                                      \
+-	})
+-
+ /*
+- * FD_ADD - Allocate and install an fd and file in one step.
++ * FD_ADD - allocate a descriptor, build the file and install it in one step.
+  * @_fd_flags: flags for get_unused_fd_flags()
+- * @_file_owned: struct file to take ownership of
++ * @_file_owned: struct file to take ownership of (can be an expression)
+  *
+- * Returns the allocated fd number, or negative error code on failure.
++ * The file expression is evaluated only after the descriptor is allocated, so
++ * a full table does not run its side effects. Drops the file and returns a
++ * negative errno on failure. Installs immediately: for anything more than a
++ * bare install-and-return (reporting the number, configuring the file,
++ * installing several descriptors) use fd_prepare()/fd_stage().
+  */
+-#define FD_ADD(_fd_flags, _file_owned) \
+-	__FD_ADD(__UNIQUE_ID(fd_prepare), _fd_flags, _file_owned)
++#define FD_ADD(_fd_flags, _file_owned)					\
++({									\
++	int __fd = get_unused_fd_flags(_fd_flags);			\
++	if (likely(__fd >= 0)) {					\
++		struct file *__file = (_file_owned);			\
++		if (unlikely(IS_ERR_OR_NULL(__file))) {			\
++			put_unused_fd(__fd);				\
++			__fd = __file ? PTR_ERR(__file) : -ENOMEM;	\
++		} else {						\
++			fd_install(__fd, __file);			\
++		}							\
++	}								\
++	__fd;								\
++})
+ 
+ #endif /* __LINUX_FILE_H */
 
-What I understand that happens in the case of clear_freed is that we are
-breaking a PDB/hugepage and descending, as the clear happened in the middle
-of the hugepage. With the specific reproducer I had to go through lengths
-of making sure that the original mapping landed on a hugepage-aligned
-address, then used CLEAR/amdgpu_vm_clear_mappings to unmap a single page in
-the middle of it.
+-- 
+2.53.0
 
-The other reproducer that I have required that I used REPLACE instead of
-MAP in order to trigger the tlb_flush_waitlist issue. REPLACE does call
-amdgpu_vm_clear_mappings too. Notice that RADV Mesa driver uses REPLACE,
-instead of MAP, so that explains that we can see this in production.
-
-Regards.
-Cascardo.
-
-> Regards,
-> Christian.
-> 
-> > 
-> > Regards.
-> > Cascardo.
-> > 
-> >>>
-> >>> Regards,
-> >>> Christian.
-> >>>
-> >>>>
-> >>>> Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
-> >>>> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-> >>>> ---
-> >>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
-> >>>>   1 file changed, 2 insertions(+), 2 deletions(-)
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> >>>> index 09037df76400..5bde36754607 100644
-> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> >>>> @@ -1594,16 +1594,16 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
-> >>>>   	while (!list_empty(&vm->freed)) {
-> >>>>   		mapping = list_first_entry(&vm->freed,
-> >>>>   			struct amdgpu_bo_va_mapping, list);
-> >>>> -		list_del(&mapping->list);
-> >>>>   		r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
-> >>>>   					   &sync, mapping->start, mapping->last,
-> >>>>   					   0, 0, 0, NULL, NULL, &f);
-> >>>> -		amdgpu_vm_free_mapping(adev, vm, mapping, f);
-> >>>>   		if (r) {
-> >>>>   			dma_fence_put(f);
-> >>>>   			goto error_free;
-> >>>>   		}
-> >>>> +		list_del(&mapping->list);
-> >>>> +		amdgpu_vm_free_mapping(adev, vm, mapping, f);
-> >>>>   	}
-> >>>>   	if (fence && f) {
-> >>>>
-> >>>
-> >>
-> 
