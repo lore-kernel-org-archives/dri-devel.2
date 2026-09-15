@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE0C1C88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 16:46:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FC4FC88E7F
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 16:47:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 203E710E605;
-	Tue, 15 Sep 2026 16:46:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A7D210E2ED;
+	Tue, 15 Sep 2026 16:47:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Pq7XWDym";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="A5MjBa5c";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61B0610E605
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 16:46:52 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9189D10E2ED
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 16:47:00 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 2D6FB4E4063B;
- Tue, 15 Sep 2026 16:46:51 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 3DD3E1A0809;
+ Tue, 15 Sep 2026 16:46:59 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 00450602B0;
- Tue, 15 Sep 2026 16:46:51 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 10D56602B0;
+ Tue, 15 Sep 2026 16:46:59 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 022B811C7AFFA; 
- Tue, 15 Sep 2026 18:46:41 +0200 (CEST)
+ with ESMTPSA id 355F411C7B005; 
+ Tue, 15 Sep 2026 18:46:49 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1789490805; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1789490813; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=v6366VsSiaRH0wdJwmxft2fxgluFM1XPLj8kd59Ruwc=;
- b=Pq7XWDymMysrdOecCyVudyOxDERJXurAMNR0wMNtMkEB2Sid9ez+h8F71OOd+BsOt262/N
- op9yGOZpAKcKvpiPi60Ad1hGLzLFxca2g/6y7+qSlWRmDc3/3Lcz1sqI5LeOCajDJ6jkF3
- u+jMl7jxa0B3ojZ51nKF2SYPxthV2e4mpC9kEvpAO9yYuBTur7g6wGMYTt4IA21E6dpRE2
- Nbw1qvhXXgxOTnNmWx3y3ghGpkziMLDiaLNaFU2eTW0zULVp5p32DlMVMBK62qEDSmhUGw
- pkdOu53QsZPlfy6zl6TnVRAhUoEgcY/YzNsnlhjrDpYYOntdGelpZjxntCIeBw==
+ bh=jLOehHTQ/WXK8R/pVOQvKNT+LOYuNe8gT3lU0A2hNAI=;
+ b=A5MjBa5cR9xc2yipHATr8nuVDYZYmVEir4RubUZZzc0QE8clih0wrwgx1gGvy8EDWJ4tWm
+ B+Zc7NM4P8Qt61MddUfsvLLLiRhwE3IRq6+3eXT6dZCaYPpEPI7RXU2GR1t61bMCmb3L3+
+ rLvvE090VNz8Q4+LkoOqC6UgFcf8Wlot6/TFNV56h7xP6zsvKKTho7tYmKZJo5bhfIx/X9
+ qfQTVwsBkza4aqwobgpsD+lLYE78XcaG2IFSelVRcLwJqAClOErG8DtlOVPmZjWdMGT4w6
+ fVyalGWv7mVTDJIC+j9Fcg5Lko4QEGnbuqGAqc12NOK7kveR+kJb3XbVCGeWGg==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 15 Sep 2026 18:46:14 +0200
-Subject: [PATCH v4 1/9] drm/bridge: tc358764: don't select unused DRM_PANEL
+Date: Tue, 15 Sep 2026 18:46:15 +0200
+Subject: [PATCH v4 2/9] drm/bridge: ti-dlpc3433: don't depend on DRM_PANEL,
+ select DRM_PANEL_BRIDGE
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-drm-bridge-drm_panel-cleanup-v4-1-30401d9406f3@bootlin.com>
+Message-Id: <20260915-drm-bridge-drm_panel-cleanup-v4-2-30401d9406f3@bootlin.com>
 References: <20260915-drm-bridge-drm_panel-cleanup-v4-0-30401d9406f3@bootlin.com>
 In-Reply-To: <20260915-drm-bridge-drm_panel-cleanup-v4-0-30401d9406f3@bootlin.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -56,8 +57,8 @@ Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
  Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, Marek Vasut <marex@denx.de>, 
- Jagan Teki <jagan@amarulasolutions.com>
+ Jagan Teki <jagan@amarulasolutions.com>, 
+ Christopher Vollo <chris@renewoutreach.org>
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -78,26 +79,31 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 This driver does not use the drm_panel APIs at all, so no need to select
 DRM_PANEL.
 
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Marek Vasut <marex@denx.de>
+But it uses devm_drm_of_get_bridge(), which is enabled by DRM_PANEL_BRIDGE.
+
 Cc: Jagan Teki <jagan@amarulasolutions.com>
+Cc: Christopher Vollo <chris@renewoutreach.org>
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/bridge/Kconfig | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/bridge/Kconfig | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index 837db36cdf48..a402f8c5b321 100644
+index a402f8c5b321..c98f62b23b1d 100644
 --- a/drivers/gpu/drm/bridge/Kconfig
 +++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -388,7 +388,6 @@ config DRM_TOSHIBA_TC358764
+@@ -428,9 +428,10 @@ config DRM_TOSHIBA_TC358775
+ 
+ config DRM_TI_DLPC3433
+ 	tristate "TI DLPC3433 Display controller"
+-	depends on DRM && DRM_PANEL
++	depends on DRM
  	depends on OF
  	select DRM_MIPI_DSI
- 	select DRM_KMS_HELPER
--	select DRM_PANEL
++	select DRM_PANEL_BRIDGE
  	help
- 	  Toshiba TC358764 DSI/LVDS bridge driver.
- 
+ 	  TI DLPC3433 is a MIPI DSI based display controller bridge
+ 	  for processing high resolution DMD based projectors.
 
 -- 
 2.55.0
