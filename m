@@ -4,45 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EC4BC88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 16:53:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EEEDC88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 16:53:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1FB210E094;
-	Tue, 15 Sep 2026 16:53:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F5CA10E0D3;
+	Tue, 15 Sep 2026 16:53:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="2OdrkAYb";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="FtmzQ07B";
 	dkim-atps=neutral
-X-Greylist: delayed 401 seconds by postgrey-1.36 at gabe;
- Tue, 15 Sep 2026 16:53:49 UTC
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0528710E094
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05AA410E0D3
  for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 16:53:48 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 2D18BC5CD51;
- Tue, 15 Sep 2026 16:47:50 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 46D1BC5CD52;
+ Tue, 15 Sep 2026 16:47:58 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 8FDC5602B0;
- Tue, 15 Sep 2026 16:47:06 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id AA326602B0;
+ Tue, 15 Sep 2026 16:47:14 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 331BF11C7AFDA; 
- Tue, 15 Sep 2026 18:47:01 +0200 (CEST)
+ with ESMTPSA id E518711C7AFDA; 
+ Tue, 15 Sep 2026 18:47:09 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1789490825; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1789490833; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=g8oxrJgI4DlQCKYb+mTgrYUPdm2is++2ExLzzDokFSQ=;
- b=2OdrkAYbByzuEX8pxvEC7fssdfI480zw8qGLV71m5d+RRl1Iyr8Tn2M4Xw585Lqm3YiaM9
- ktInnXZZX2sYq+Lv5ij9DejURg8UKH+t3XnG6Uxy3px/HIb1QRaPULHasPOcDibgxbmpN6
- hQ+iGX61w2RKvyesAz5StmKdjm/Y+lsLsTKBIIP9pL8SxGabsY7PzC1frgKiF2YBmu+wyI
- qtATH+qzcHyWGr4/VI9qJCdqi9YaAhGBVJad8cPeTACZvIB5+/Rx8PzYUBJQMm0sRBDxLk
- zH8zQy/4SWSeVgbiVbCJ4tsCBs1PtVLLzvXkApti4e5RqcJl61d5YlU/y8vByA==
+ bh=4S2yNFw54mi8kizpo4SMAmA0eCb6FLd+PRdQwv2Y0fs=;
+ b=FtmzQ07BTvx8EdVKTbS9SyOs1Kq3yodV33IwS4cYJlkwrsqEPrH3vNmLuo2ddjrFt3FC6g
+ ydTKwgVpUG7Xmts1kcQf5OiPAueVoYHOdIR/NuuWXtEOyTfI0OZd1JD0ns/i9lT3xZTJ+4
+ lJ0gJ3cPBkwcnl9/bDwPWZmguUldIQaqhA2Nr0vyQnH10nKUcbrtATqKU7BGgwMCLKz6jD
+ fRK3BsxUZHwF4psveFWPcKXarEWXlRfyhTlnAK5FQ/3cetLBCslnghC6EpxKT0OXK0CowF
+ qDYexFgpbeZvqvQPTdNKyuLnsOJRUv8EEHXHcHuH3DE8BbVQPO9NfZ6NbqUhIQ==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 15 Sep 2026 18:46:17 +0200
-Subject: [PATCH v4 4/9] drm/bridge: parade-ps8622: select DRM_PANEL_BRIDGE,
- not DRM_PANEL
+Date: Tue, 15 Sep 2026 18:46:19 +0200
+Subject: [PATCH v4 6/9] drm/bridge: tc358767: select DRM_PANEL_BRIDGE
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-drm-bridge-drm_panel-cleanup-v4-4-30401d9406f3@bootlin.com>
+Message-Id: <20260915-drm-bridge-drm_panel-cleanup-v4-6-30401d9406f3@bootlin.com>
 References: <20260915-drm-bridge-drm_panel-cleanup-v4-0-30401d9406f3@bootlin.com>
 In-Reply-To: <20260915-drm-bridge-drm_panel-cleanup-v4-0-30401d9406f3@bootlin.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -59,7 +56,8 @@ Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
  Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Vincent Palatin <vpalatin@chromium.org>
+ Maoyi Xie <maoyixie.tju@gmail.com>, Andy Yan <andy.yan@rock-chips.com>, 
+ Andrey Gusakov <andrey.gusakov@cogentembedded.com>
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -77,30 +75,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This driver does not use the drm_panel APIs at all, so no need to select
-DRM_PANEL.
+This driver uses devm_drm_panel_bridge_add(), which is enabled by
+DRM_PANEL_BRIDGE.
 
-But it uses devm_drm_of_get_bridge(), which is enabled by DRM_PANEL_BRIDGE.
+Leave the 'select DRM_PANEL' because it is needed for drm_panel_put() which
+the driver uses.
 
-Cc: Vincent Palatin <vpalatin@chromium.org>
+Cc: Maoyi Xie <maoyixie.tju@gmail.com>
+Cc: Andy Yan <andy.yan@rock-chips.com>
+Cc: Andrey Gusakov <andrey.gusakov@cogentembedded.com>
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/bridge/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index 1d4db73bd760..65f4d9d9b67d 100644
+index e2ee76899468..a4bc1b5401c0 100644
 --- a/drivers/gpu/drm/bridge/Kconfig
 +++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -276,7 +276,7 @@ config DRM_OF_DISPLAY_MODE_BRIDGE
- config DRM_PARADE_PS8622
- 	tristate "Parade eDP/LVDS bridge"
- 	depends on OF
--	select DRM_PANEL
+@@ -400,6 +400,7 @@ config DRM_TOSHIBA_TC358767
+ 	select REGMAP_I2C
+ 	select DRM_MIPI_DSI
+ 	select DRM_PANEL
 +	select DRM_PANEL_BRIDGE
- 	select DRM_KMS_HELPER
- 	select BACKLIGHT_CLASS_DEVICE
  	help
+ 	  Toshiba TC358767 eDP bridge chip driver.
+ 
 
 -- 
 2.55.0
