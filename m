@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A417C88E53
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 09:49:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E9B4C88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 09:52:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5ECF10FB43;
-	Tue, 15 Sep 2026 09:49:30 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mZO5/YrY";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A9F910FB43
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 09:49:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789465769; x=1821001769;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=oiAJDJE1tzojlnTYiGToaVwCtEbHpdayYs5Hs8FF/Uo=;
- b=mZO5/YrYD8oJdQs7kAOR+FrLdPzoaSi9H8HTVC6zDpORHfLTTxZKmmY0
- g0SpRS3/qbwooIt/Ay7ms3oDfvcvFgi2wdNSJSz1HWtpJWK58GziumYdh
- Enpy/4MDBYoXQySzj9YZyZZhJMQSjmQ2dcD05kaeo1ToiWfdybvzkIdu7
- eV+m4UHbDOMxqgR7wrcsTSRiGWUXSMZLXA3NzKQqjBb5PWcbAYVkzrK5O
- ZuDSao3yc+PWhWoIhriqa/uyHgFIGOw2SDdHGolyAcx63W1LEZCbUHOYr
- b7MZ1IGD1QDtfQpCtuWnrs2Q1ttmUBkmwwsomRmv/vmlxHpCJB8OrVAg+ g==;
-X-CSE-ConnectionGUID: vgSzKubrScivbBir6Bz+mA==
-X-CSE-MsgGUID: 70+43B/LTxyH0zd+vaoIqw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="101340315"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="101340315"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2026 02:49:29 -0700
-X-CSE-ConnectionGUID: ZYtBkfizRU+8/gl3wn/AwA==
-X-CSE-MsgGUID: /rHgvH94QNmsURLERmomsA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="311209211"
-Received: from soc-5cg43972ff.clients.intel.com (HELO [10.102.88.163])
- ([10.102.88.163])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2026 02:49:28 -0700
-Message-ID: <679d644e-ac6a-43ce-b409-5d33c1a6e39d@linux.intel.com>
-Date: Tue, 15 Sep 2026 11:49:14 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3C1F10E5CC;
+	Tue, 15 Sep 2026 09:52:18 +0000 (UTC)
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net
+ (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5F77310E5CC
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 09:52:17 +0000 (UTC)
+Received: from zju.edu.cn (unknown [10.98.66.117])
+ by mtasvr (Coremail) with SMTP id _____wC3oH5GFalqnIYWAQ--.1237S3;
+ Tue, 15 Sep 2026 17:52:07 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+ by mail-app1 (Coremail) with SMTP id yy_KCgAHnKZEFalqmZWCBA--.58449S2;
+ Tue, 15 Sep 2026 17:52:04 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: mripard@kernel.org
+Cc: dave.stevenson@raspberrypi.com, mcanal@igalia.com,
+ kernel-list@raspberrypi.com, maarten.lankhorst@linux.intel.com,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, eric@anholt.net,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH v2] drm/vc4: drain the hangcheck timer and works on V3D unbind
+Date: Tue, 15 Sep 2026 09:51:03 +0000
+Message-Id: <20260915095103.156007-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] accel/ivpu: Move register poll timeouts to
- vdev->timeout
-To: Karol Wachowski <karol.wachowski@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-References: <20260915083651.950890-1-karol.wachowski@linux.intel.com>
-Content-Language: en-US
-From: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-In-Reply-To: <20260915083651.950890-1-karol.wachowski@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: yy_KCgAHnKZEFalqmZWCBA--.58449S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?GZTLGAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+ sfnVCjTgEH9dVomQuWcozCBBGUbBEboUFAL4E/QfBxwz1UIjDBc2PaDGv0BxEDX8Pd2V7p
+ Ht855YS2FQHSRv2QNCGp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxWF4UCw1fCFWkGw4UuF1kXrc_yoW5Xr4kpF
+ s8CayYgrZ5JFW5twnrXF1xZF95Ja1rtFy7Cry29w43Crn3AryrtF90ka4YgFZrJaykWr43
+ XFs7t3909FyrZ3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+ xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+ CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+ xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+ kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
+ MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+ 0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
+ wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
+ WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
+ cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,198 +70,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 15-Sep-26 10:36 AM, Karol Wachowski wrote:
-> From: Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
-> 
-> Use the vdev->timeout structure for register poll timeouts. This allows
-> adjusting those timeouts depending on the platform type.
-> For FPGA set MMU timeouts to 10x.
-> 
-> Register poll timeouts are expressed in microseconds and are passed to
-> read_poll_timeout(), which disables a timeout when it is 0, unlike the
-> millisecond timeouts that are disabled with a negative value.
-> 
-> Also initialize state_dump_msg in the IVPU_TEST_MODE_DISABLE_TIMEOUTS
-> branch, which was missed when the field was added. Unlike the other
-> fields, it is a fixed delay passed to msleep() rather than a timeout, so
-> it has to keep a finite value. It is only reachable with this debug test
-> mode enabled, so there is no need for backporting.
-> 
-> Signed-off-by: Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
-> Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
-> ---
-> Changes in v3:
->   - Address Sashiko AI review comment: disable the microsecond register
->     poll timeouts with 0 instead of -1. read_poll_timeout() treats 0 as
->     "never timeout", while -1 is converted to 0xffffffff and results in
->     a finite ~71.6 minute timeout
->     Review: https://sashiko.dev/#/patchset/20260914082649.891871-1-karol.wachowski@linux.intel.com?part=1
->   - Initialize state_dump_msg in the IVPU_TEST_MODE_DISABLE_TIMEOUTS
->     branch, it is a fixed msleep() delay and has to remain finite
->   - Explain the timeout semantics in the commit message
->   - Link to v2: https://lore.kernel.org/dri-devel/20260914084503.895042-1-karol.wachowski@linux.intel.com/T/#u
-> 
-> Changes in v2:
->   - Add Signed-off-by: Karol Wachowski
->   - Link to v1: https://lore.kernel.org/dri-devel/20260914082649.891871-1-karol.wachowski@linux.intel.com/T/#u
-> ---
->   drivers/accel/ivpu/ivpu_drv.h   |  3 +++
->   drivers/accel/ivpu/ivpu_hw.c    | 22 ++++++++++++++++++++++
->   drivers/accel/ivpu/ivpu_hw_ip.c |  6 ++----
->   drivers/accel/ivpu/ivpu_mmu.c   | 12 ++++--------
->   4 files changed, 31 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/accel/ivpu/ivpu_drv.h b/drivers/accel/ivpu/ivpu_drv.h
-> index 37d5a6ac55f8..8762b8969d96 100644
-> --- a/drivers/accel/ivpu/ivpu_drv.h
-> +++ b/drivers/accel/ivpu/ivpu_drv.h
-> @@ -186,6 +186,9 @@ struct ivpu_device {
->   		int autosuspend;
->   		int d0i3_entry_msg;
->   		int state_dump_msg;
-> +		int mmu_reg;
-> +		int mmu_queue;
-> +		int pwr_island_status;
->   	} timeout;
->   };
->   
-> diff --git a/drivers/accel/ivpu/ivpu_hw.c b/drivers/accel/ivpu/ivpu_hw.c
-> index 647dc045c231..47ed9beeb3fb 100644
-> --- a/drivers/accel/ivpu/ivpu_hw.c
-> +++ b/drivers/accel/ivpu/ivpu_hw.c
-> @@ -99,13 +99,21 @@ static void wa_init(struct ivpu_device *vdev)
->   static void timeouts_init(struct ivpu_device *vdev)
->   {
->   	if (ivpu_test_mode & IVPU_TEST_MODE_DISABLE_TIMEOUTS) {
-> +		/* in milliseconds, negative value disables the timeout */
->   		vdev->timeout.boot = -1;
->   		vdev->timeout.jsm = -1;
->   		vdev->timeout.tdr = -1;
->   		vdev->timeout.inference = -1;
->   		vdev->timeout.autosuspend = -1;
->   		vdev->timeout.d0i3_entry_msg = -1;
-> +		/* fixed delay, not a timeout - has to remain finite */
-> +		vdev->timeout.state_dump_msg = 100;
-> +		/* in microseconds, zero disables the timeout */
-> +		vdev->timeout.mmu_reg = 0;
-> +		vdev->timeout.mmu_queue = 0;
-> +		vdev->timeout.pwr_island_status = 0;
->   	} else if (ivpu_is_fpga(vdev)) {
-> +		/* in milliseconds */
->   		vdev->timeout.boot = 50;
->   		vdev->timeout.jsm = 15000;
->   		vdev->timeout.tdr = 30000;
-> @@ -113,7 +121,12 @@ static void timeouts_init(struct ivpu_device *vdev)
->   		vdev->timeout.autosuspend = -1;
->   		vdev->timeout.d0i3_entry_msg = 500;
->   		vdev->timeout.state_dump_msg = 10000;
-> +		/* in microseconds */
-> +		vdev->timeout.mmu_reg = 100 * USEC_PER_MSEC;
-> +		vdev->timeout.mmu_queue = 1000 * USEC_PER_MSEC;
-> +		vdev->timeout.pwr_island_status = 5 * USEC_PER_MSEC;
->   	} else if (ivpu_is_simics(vdev)) {
-> +		/* in milliseconds */
->   		vdev->timeout.boot = 50;
->   		vdev->timeout.jsm = 500;
->   		vdev->timeout.tdr = 10000;
-> @@ -121,7 +134,12 @@ static void timeouts_init(struct ivpu_device *vdev)
->   		vdev->timeout.autosuspend = 100;
->   		vdev->timeout.d0i3_entry_msg = 100;
->   		vdev->timeout.state_dump_msg = 10;
-> +		/* in microseconds */
-> +		vdev->timeout.mmu_reg = 10 * USEC_PER_MSEC;
-> +		vdev->timeout.mmu_queue = 100 * USEC_PER_MSEC;
-> +		vdev->timeout.pwr_island_status = 5 * USEC_PER_MSEC;
->   	} else {
-> +		/* in milliseconds */
->   		vdev->timeout.boot = 1000;
->   		vdev->timeout.jsm = 500;
->   		vdev->timeout.tdr = 2000;
-> @@ -132,6 +150,10 @@ static void timeouts_init(struct ivpu_device *vdev)
->   			vdev->timeout.autosuspend = 100;
->   		vdev->timeout.d0i3_entry_msg = 5;
->   		vdev->timeout.state_dump_msg = 100;
-> +		/* in microseconds */
-> +		vdev->timeout.mmu_reg = 10 * USEC_PER_MSEC;
-> +		vdev->timeout.mmu_queue = 100 * USEC_PER_MSEC;
-> +		vdev->timeout.pwr_island_status = 5 * USEC_PER_MSEC;
->   	}
->   }
->   
-> diff --git a/drivers/accel/ivpu/ivpu_hw_ip.c b/drivers/accel/ivpu/ivpu_hw_ip.c
-> index 81f0b1f8f5a6..46661fbf9d05 100644
-> --- a/drivers/accel/ivpu/ivpu_hw_ip.c
-> +++ b/drivers/accel/ivpu/ivpu_hw_ip.c
-> @@ -15,8 +15,6 @@
->   #include "ivpu_mmu.h"
->   #include "ivpu_pm.h"
->   
-> -#define PWR_ISLAND_STATUS_TIMEOUT_US        (5 * USEC_PER_MSEC)
-> -
->   #define TIM_SAFE_ENABLE		            0xf1d0dead
->   #define TIM_WATCHDOG_RESET_VALUE            0xffffffff
->   
-> @@ -350,10 +348,10 @@ static int wait_for_pwr_island_status(struct ivpu_device *vdev, u32 exp_val)
->   
->   	if (ivpu_hw_ip_gen(vdev) == IVPU_HW_IP_37XX)
->   		return REGV_POLL_FLD(VPU_37XX_HOST_SS_AON_PWR_ISLAND_STATUS0, MSS_CPU, exp_val,
-> -				     PWR_ISLAND_STATUS_TIMEOUT_US);
-> +				     vdev->timeout.pwr_island_status);
->   	else
->   		return REGV_POLL_FLD(VPU_40XX_HOST_SS_AON_PWR_ISLAND_STATUS0, CSS_CPU, exp_val,
-> -				     PWR_ISLAND_STATUS_TIMEOUT_US);
-> +				     vdev->timeout.pwr_island_status);
->   }
->   
->   static void pwr_island_isolation_drive_37xx(struct ivpu_device *vdev, bool enable)
-> diff --git a/drivers/accel/ivpu/ivpu_mmu.c b/drivers/accel/ivpu/ivpu_mmu.c
-> index b2025274f91d..c846499d96ce 100644
-> --- a/drivers/accel/ivpu/ivpu_mmu.c
-> +++ b/drivers/accel/ivpu/ivpu_mmu.c
-> @@ -220,9 +220,6 @@
->   #define IVPU_MMU_STE_1_S1DSS		GENMASK_ULL(1, 0)
->   #define IVPU_MMU_STE_1_S1DSS_TERMINATE	0x0
->   
-> -#define IVPU_MMU_REG_TIMEOUT_US		(10 * USEC_PER_MSEC)
-> -#define IVPU_MMU_QUEUE_TIMEOUT_US	(100 * USEC_PER_MSEC)
-> -
->   #define IVPU_MMU_GERROR_ERR_MASK ((REG_FLD(IVPU_MMU_REG_GERROR, CMDQ)) | \
->   				  (REG_FLD(IVPU_MMU_REG_GERROR, EVTQ_ABT)) | \
->   				  (REG_FLD(IVPU_MMU_REG_GERROR, PRIQ_ABT)) | \
-> @@ -438,14 +435,14 @@ static int ivpu_mmu_reg_write_cr0(struct ivpu_device *vdev, u32 val)
->   {
->   	REGV_WR32(IVPU_MMU_REG_CR0, val);
->   
-> -	return REGV_POLL_FLD(IVPU_MMU_REG_CR0ACK, VAL, val, IVPU_MMU_REG_TIMEOUT_US);
-> +	return REGV_POLL_FLD(IVPU_MMU_REG_CR0ACK, VAL, val, vdev->timeout.mmu_reg);
->   }
->   
->   static int ivpu_mmu_reg_write_irq_ctrl(struct ivpu_device *vdev, u32 val)
->   {
->   	REGV_WR32(IVPU_MMU_REG_IRQ_CTRL, val);
->   
-> -	return REGV_POLL_FLD(IVPU_MMU_REG_IRQ_CTRLACK, VAL, val, IVPU_MMU_REG_TIMEOUT_US);
-> +	return REGV_POLL_FLD(IVPU_MMU_REG_IRQ_CTRLACK, VAL, val, vdev->timeout.mmu_reg);
->   }
->   
->   static int ivpu_mmu_irqs_setup(struct ivpu_device *vdev)
-> @@ -465,8 +462,7 @@ static int ivpu_mmu_cmdq_wait_for_cons(struct ivpu_device *vdev)
->   	struct ivpu_mmu_queue *cmdq = &vdev->mmu->cmdq;
->   	int ret;
->   
-> -	ret = REGV_POLL_FLD(IVPU_MMU_REG_CMDQ_CONS, VAL, cmdq->prod,
-> -			    IVPU_MMU_QUEUE_TIMEOUT_US);
-> +	ret = REGV_POLL_FLD(IVPU_MMU_REG_CMDQ_CONS, VAL, cmdq->prod, vdev->timeout.mmu_queue);
->   	if (ret)
->   		return ret;
->   
-> @@ -880,7 +876,7 @@ static int ivpu_mmu_evtq_set(struct ivpu_device *vdev, bool enable)
->   		val = REG_CLR_FLD(IVPU_MMU_REG_CR0, EVTQEN, val);
->   	REGV_WR32(IVPU_MMU_REG_CR0, val);
->   
-> -	return REGV_POLL_FLD(IVPU_MMU_REG_CR0ACK, VAL, val, IVPU_MMU_REG_TIMEOUT_US);
-> +	return REGV_POLL_FLD(IVPU_MMU_REG_CR0ACK, VAL, val, vdev->timeout.mmu_reg);
->   }
->   
->   static int ivpu_mmu_evtq_enable(struct ivpu_device *vdev)
-Reviewed-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+Nothing stops the hangcheck timer that submitted jobs arm, or the
+job_done_work that the render-done interrupt queues, at teardown:
+vc4_irq_disable() cancels only overflow_mem_work, and vc4_gem_destroy()
+runs from the drm-managed release, after vc4_v3d_unbind() has already
+uninstalled the V3D interrupt and cleared vc4->v3d. A timer still armed
+by then reads V3D registers through the NULL vc4->v3d pointer, and the
+late callbacks run on the vc4_dev embedding them after it has been
+freed.
+
+Drain them in vc4_v3d_unbind(): shut the timer down and cancel
+reset_work before the interrupt is taken down, because its
+vc4_irq_reset() re-enables it, then flush job_done_work so that
+completions queued at teardown still release their jobs.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: d5b1a78a772f ("drm/vc4: Add support for drawing 3D frames.")
+Cc: stable@vger.kernel.org # 6.2+
+Link: https://lore.kernel.org/r/20260909053509.657074-1-fanwu01@zju.edu.cn
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+Changes in v2 (Maíra Canal, Sashiko review):
+
+- Drop the VC4_GEN_4 guards: vc4_v3d_unbind() only runs on GEN4.
+- State why reset_work must stop before the interrupt is taken down
+  instead of describing the calls.
+- Flush job_done_work instead of cancelling it, so completions queued
+  at teardown still release their jobs.
+- Relax the stable floor to 6.2+ now that vc4->gen is not referenced.
+ drivers/gpu/drm/vc4/vc4_v3d.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
+index f32410420d3e..3f9f43074122 100644
+--- a/drivers/gpu/drm/vc4/vc4_v3d.c
++++ b/drivers/gpu/drm/vc4/vc4_v3d.c
+@@ -9,6 +9,7 @@
+ #include <linux/component.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
++#include <linux/timer.h>
+ 
+ #include <drm/drm_print.h>
+ 
+@@ -497,8 +498,15 @@ static void vc4_v3d_unbind(struct device *dev, struct device *master,
+ 	struct drm_device *drm = data;
+ 	struct vc4_dev *vc4 = to_vc4_dev(drm);
+ 
++	/* A straggler vc4_irq_reset() re-enables the interrupt. */
++	timer_shutdown_sync(&vc4->hangcheck.timer);
++	cancel_work_sync(&vc4->hangcheck.reset_work);
++
+ 	vc4_irq_uninstall(drm);
+ 
++	/* Flush rather than cancel, so queued completions release their jobs. */
++	flush_work(&vc4->job_done_work);
++
+ 	/* Disable the binner's overflow memory address, so the next
+ 	 * driver probe (if any) doesn't try to reuse our old
+ 	 * allocation.
+
