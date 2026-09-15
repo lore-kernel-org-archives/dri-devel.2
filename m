@@ -4,79 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3944CC88E53
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 06:43:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B455C88E53
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 07:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 892B710E254;
-	Tue, 15 Sep 2026 06:43:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 947C610E6C8;
+	Tue, 15 Sep 2026 07:02:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="VDbw7Kpg";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="TGF9eXsH";
 	dkim-atps=neutral
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com
- [74.125.228.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B94210E254
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 06:43:08 +0000 (UTC)
-Received: by mail-pz2-f42.google.com with SMTP id
- d2e1a72fcca58-86dd69a1b15so691647b3a.0
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 23:43:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1789454588; x=1790059388;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:date:message-id
- :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=tKUg9BLWff5kiPeotNdE9F6L4UtNLkRCJ8RzVJJbCgI=;
- b=VDbw7KpgtCnKhq64mumcagbPU28DBqmR1Z22euv606jOyn93YNXqRsbkCXbF1KZHUK
- P5CwIt7bDOefL0XTNUrM1nmNicW7aBrfB/DbQWXfBclLa9fQ5spOK1yWQ8f5SDsYC0NV
- Kwuv080eocO10oD/W38Vc7jt23dzso1b1qMZ4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789454588; x=1790059388;
- h=content-transfer-encoding:content-type:mime-version:date:message-id
- :subject:references:in-reply-to:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=tKUg9BLWff5kiPeotNdE9F6L4UtNLkRCJ8RzVJJbCgI=;
- b=Pw2w68gtrd2PNnT/0ZwRToAgRLmCXFtFsM5/cSw8NOG0p6bezMTRWFaLkFIekIKD3C
- 1BxwBnkhP/5Zl6b0Bo9pQse+b1KwY+EVuzAqF1ryXK9Edv/t8ZKOCJbg76T+O8OT7avE
- 1tMwinh9pnLW3Tleb4QfiLgf3MF5LIHkNTtJuNALAnf7Bgr3We/l1u9lYqVoJ7Ad6L9l
- Lj5JHiaXy8zjoT/tD3MVCvJ8cAn04lOTYJjjik0dEmEUOiGXYC+RbN0Uoi/txwx20/vq
- MCuhMBzArr1oCTL/LKWJJ4MGcAMcYCtOTPVp68ZYDam5MJ59wcwaGn0am8M12ln2Z5TS
- pXFQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz65Jku0kbUntBp2xC1IyOA4CiQBcE+WY2yhy6mRNA2xv34n5AAx8Iw0cJ50dLTYloNAe3a4Ueb1HQ=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++ldgJnVQQGZP4awxkaq/J3zOKAw9ZbjG3QH4SUSb0+/JY5eTF2u
- F9EB8pVydBbxlgo4emC7BkrsdsBp7LhdnHseQL4/ZInCskcCRypzH8MURxyD8+zcow==
-X-Gm-Gg: AYBFou3StY0jc1qJlnNWUrmMjPXHl6+rHvIBki+ClhUMLQanYRoYO3JQAgUiGcHO6KE
- KQOK7e/rpgB/9YIvEqUU2sPEPTr31hC7VgwJvopyTaz7MvbyAMlUmqRU6dE5c+hp4OHXKKAqiI6
- M+P91f4yOm+6ECRrzmlOjoCFyve5/Nq1Ql+toWjpAPyJ7fc5E+3r/RZG19MSRzJvbkzrrJhNQMe
- e8WR0Wglc4iXP0RgF3imD8UwJsrul7lanv+Okry1obkQA0K10pjW5SQ1gkMYRnJn3KnHWQ5N3Ab
- 4dEVt9d03FRP4bNmmsP6wVyQ1sjpR1JFDRDJ79AkP8t6NOTA8SYy+4N/sLKJEEhMsOuy88XEuqo
- HXWLqTt2pjcK7QQ+Vpx25SBtHWrHe08+mdXZm2MI05ji+aBDAobvhkeeKGWNJvAS8Wqula+pDKW
- im0c9u2Tt/+PyrZMiZxmsbSvzfta8AjB/4eo/b/Hs05aMCxSuH1wskAo4jvmmYFfhGo2PGTz4YR
- +ZjmYG2WPadg5Jf09cZSY5eSy8njz58UQTBWMc0PqkIhjY0N7/4NlV/rQ==
-X-Received: by 2002:a05:6a00:3996:b0:867:bb96:52b2 with SMTP id
- d2e1a72fcca58-8708abcaaa7mr3435307b3a.5.1789454587912; 
- Mon, 14 Sep 2026 23:43:07 -0700 (PDT)
-Received: from wenst-7875.tpe.corp.google.com
- ([2a00:79e0:203d:7:fb1f:30c0:2c68:79bd])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-86b29cbb760sm5618262b3a.46.2026.09.14.23.43.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Sep 2026 23:43:07 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Chen-Yu Tsai <wenst@chromium.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260903084823.4156065-1-wenst@chromium.org>
-References: <20260903084823.4156065-1-wenst@chromium.org>
-Subject: Re: [PATCH v2] drm/sysfb: Use iosys_map_memset() to clear buffer
-Message-Id: <178945458608.1777136.8682538603402448473.b4-ty@chromium.org>
-Date: Tue, 15 Sep 2026 14:43:06 +0800
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78E4810E573
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 07:02:41 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hkXyh60FwzKmLQ;
+ Tue, 15 Sep 2026 09:02:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1789455757; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=qbg3BtMVbqaxsbsMd5F1ZFrzrzZ93PsiV9IrV9o+Gkw=;
+ b=TGF9eXsHWYgqqIwAndc9WiDAEVCnd9Ln5NMvm+l9F3auEOMQxyVWdFOnNXx37eG/ciBKIs
+ vJYWzvbQgiermtzGKuxlIRoQBd7muThquAwe08tMr/RwYIWWjGmg7tGqMV02kNSZFHeJS5
+ 5ljeZ3N9KT+UAVxbrr2kuf16YMLLXcHX9EcIPXD6KS32dAolhJ0r588b7gOa39QhJQGPoM
+ GC70QvLP3CQPhH1cusW67oDsuIlVGMD4KOz92AWTwC+seTiMbVLs8ntaOXE+y+w2JGXLuK
+ sm9xekN1IuJHOHHsf5EZ3B5vyL5X7fDOXj7+LjdZIYqrSH0vc5t9QFLAyXA6gQ==
+Message-ID: <b81b997db594e257bc15fffc8b2aad8ae7de7ca1.camel@mailbox.org>
+Subject: Re: [PATCH 1/2] dma-buf/dma-fence: fix checking signaling bit for
+ timeline and driver name v2
+From: Philipp Stanner <phasta@mailbox.org>
+To: christian.koenig@amd.com, phasta@kernel.org, malhyuk97@gmail.com, 
+ tursulin@ursulin.net, matthew.brost@intel.com, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com
+Date: Tue, 15 Sep 2026 09:02:28 +0200
+In-Reply-To: <20260914182740.1587-1-christian.koenig@amd.com>
+References: <20260914182740.1587-1-christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+X-MBO-RS-ID: a5d148c3a37057ef1a7
+X-MBO-RS-META: xak74pntb63q3zmutakbmg64y5sc7h6p
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,26 +62,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 03 Sep 2026 16:48:22 +0800, Chen-Yu Tsai wrote:
-> The atomic disable in drm/sysfb currently clears the buffer using
-> memset_io(). Since the mapping is provided in a |struct iosys_map|,
-> it is better to use the related API instead of extracting the vaddr.
-> This is mentioned as a TODO item.
-> 
-> Switch to iosys_map_memset(), which takes the mapping as well as an
-> offset into the mapping.
-> 
-> [...]
+On Mon, 2026-09-14 at 20:27 +0200, Christian K=C3=B6nig wrote:
+> The patch "dma-buf: dma-fence: Fix potential NULL pointer dereference"
+> changed the check to test for the ops pointer instead of the signaled
+> bit to avoid a potential NULL dereference when the ops pointer has been
+> cleared.
+>=20
+> The problem is now that the ops pointer is cleared only when neither the
+> release nor the wait callback is implemented and this isn't true for a lo=
+t
+> of dma_fence implementations yet. So those implementations lost the RCU
+> protection after signaling of the returned string resulting in potential
+> use after free.
+>=20
+> Add the signaling check additional to the ops pointer check so that we
+> have both the protection against NULL dereference as well as the RCU
+> protection after signaling for the returned string.
+>=20
+> v2: improve comments to note RCU protection and explain why we check
+> =C2=A0=C2=A0=C2=A0 both signaling state and ops pointer
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Fixes: 035219a760ed ("dma-buf: dma-fence: Fix potential NULL pointer dere=
+ference")
+> CC: stable@vger.kernel.org=C2=A0# 7.2+
+> Reported-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
+> Tested-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
 
-Applied to drm-misc-next in drm-misc, thanks!
+Reviewed-by: Philipp Stanner <phasta@kernel.org>
 
-[1/1] drm/sysfb: Use iosys_map_memset() to clear buffer
-      commit: b57c9b345d18d67902625355c45caf322e2ab794
+> ---
+> =C2=A0drivers/dma-buf/dma-fence.c | 16 ++++++++++++++--
+> =C2=A0include/linux/dma-fence.h=C2=A0=C2=A0 |=C2=A0 6 ++++++
+> =C2=A02 files changed, 20 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index 05090fb0fd5ae..f52675f3ba03a 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -1170,7 +1170,13 @@ const char __rcu *dma_fence_driver_name(struct dma=
+_fence *fence)
+> =C2=A0
+> =C2=A0	/* RCU protection is required for safe access to returned string *=
+/
+> =C2=A0	ops =3D rcu_dereference(fence->ops);
+> -	if (ops)
+> +
+> +	/*
+> +	 * Check both signaled state and ops pointer, we don't know which one i=
+s
+> +	 * loaded first and ops pointer is only set to NULL on newer
+> +	 * implementations.
+> +	 */
 
-Best regards,
--- 
-Chen-Yu Tsai <wenst@chromium.org>
+nit: "we don't know" doesn't give the reader confidence that the
+ordering is right. I would more say "Load ordering is irrelevant
+because =E2=80=A6".
 
+
+P.
