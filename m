@@ -4,78 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AF62C88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 01:27:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD6DBC88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 01:28:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D116E10E231;
-	Tue, 15 Sep 2026 01:27:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1181610F827;
+	Tue, 15 Sep 2026 01:28:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="E96jjB/v";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jEHdvSeT";
 	dkim-atps=neutral
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com
- [74.125.230.205])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A66D810E231
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 01:27:51 +0000 (UTC)
-Received: by mail-qk2-f13.google.com with SMTP id
- af79cd13be357-939eb3249c1so338941485a.2
- for <dri-devel@lists.freedesktop.org>; Mon, 14 Sep 2026 18:27:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789435670; x=1790040470; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Iu+JFm569gxQFfXrOc5fB1avNX3cgHG06h6b0Ix3qh0=;
- b=E96jjB/vsAcaZxkYzdnSksHoI4JApvx+cwIeo2N+47eDdYDoLFdZi64ln3Mgl8LEzV
- rArFyQIwhyuPWMH1v68pI+rNLglnl12UnYYDON3csNH8JjCP+Wvebf7ROVXmpTS6WRtO
- 4mK3taYS0th7dojTpfeLEtHXb1aakdOLtvCMYE5ZaQAt6Arn2hAxQymDLlSFv70uUx9g
- vWEqRuqo7b6KI7MnX4+qRDYWUEgMocVppzYmSSSoJO107P6A1Tcar4wq4j3IyhYRh0tJ
- xqlu6uteipSfjMllHUrijGHRfpnXOfw9mXD9QbAhsDv2ycL0q7NHjPDDqijz/bO3cSuZ
- 38Gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789435670; x=1790040470;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Iu+JFm569gxQFfXrOc5fB1avNX3cgHG06h6b0Ix3qh0=;
- b=nnLdVTLKPXtkrndmiKUsg7BiDPqxWznVZo04dpvGLUfj879Tl5w/FCJLAIdsztiSBi
- Zkcy8YxBRcOg1dHr3PKMyjwi+pNWv+Hj4z7fYyW356jZgtEKgaMQfrJJuCjznpttoZ7y
- Yly0NXYU8J9aTVR/FvdortjV8PzIJ+lz6CnnShT14MHD9LeihsZedNFJbVek8Cy4i83M
- bYfI9aV/whftKhawpZUTVwsVgUq/Inc4l1YJROhX/udsjPBWWrinrSW5vDNDzvl5laDy
- sei25DKdZVAq2occHgf3nI7z2+wbBld4ToFkuf5MDwYaDNLhhSv9oQA2EMwg9baCTSPA
- tIGw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwNVE+s9V8b8GKfAWPVuj1R0U9A4rKbmJdI5lK9rRFlZaLYT37mWOE4uqCy39lj/UL1lyf/5nXB0ww=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lOc+yrUjTv/eYxQE25Mvnj3nFJJqsKHqviZIX5CecwOWzKDfOX
- AgN0ZqbZgNhEitm7QoVUtjAtUvkwQhTkZ09VUuuueHgTW8HhJbNYQ+c=
-X-Gm-Gg: AYBFou0iM56Nh2H3thN8OhvtfmXaUeZHnmXIJt0v1qx5Z3VjNxRvdAPy/z9XHSSdeE0
- zy0IFuwKs90ml7dT2ima31cpLmdFB++emzK3m0i5rOsQF5mv3KZkpx4u1Ey6sSomNfEJr7vxdrS
- bp2DsxOe5QtfZIuhiIToS59nJO7Hn6FOviDFT+bv1Tx4Bcou4l9B+XwAP6PjS3QpnwHIvcQ9sd4
- BkRl/TqYhtRsH4BOPYP1UGE3wlNSBlth2j7vUucS5KvjWwcRGDoqnrcLAOcjTD95FNqH6Z1V4/5
- iH9VnLZJ2Bh/Mxmb0uSXrkLYmyGojnCvw1+vZcknwwQv8fSJ2ZQC9bKVbBb2s2WFJszyLpSIrw/
- JcA/p5GajTui+QqrllWQ3fdw6GJ4jXqKcEpr1Rbzt+9JgtMTAgZQZk3kmF9NpIldZrPl2bgNltu
- b992kNY/+kO7hwQ+WydMXvM2jdvKdnPLXupjjT+Ew9oUFCUhIkgRWd+Zf7r6fu2X5tiq4AOLMbK
- NNDu9NEUAef4qGhLsPFHoFyQariupLHhNQJxTIiMm5auhQTaCW8PNquBdIIOQKuwv9F8BJws3nX
- peF5sy8tobHaKdlujze7W/8PF6Wj425Tpp1Sc95/FUBruI/zKkpQmBKk7TXTOLwG9wJQSg==
-X-Received: by 2002:a05:620a:2904:b0:930:9091:f0ce with SMTP id
- af79cd13be357-93a2985a593mr832839785a.22.1789435670571; 
- Mon, 14 Sep 2026 18:27:50 -0700 (PDT)
-Received: from 6e-wmo5420-02.ad.psu.edu.net (6e-wmo5420-02.ad.psu.edu.
- [104.39.213.233]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-939e80471a3sm1131736185a.22.2026.09.14.18.27.47
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 14 Sep 2026 18:27:48 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH] drm/gma500: Balance MSI and IRQ state on installation failure
-Date: Mon, 14 Sep 2026 21:27:40 -0400
-Message-ID: <20260915012740.66623-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0361E10F827;
+ Tue, 15 Sep 2026 01:28:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789435692; x=1820971692;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=vxKBsQIpe7DLBjFXdzE6tvrUFxa/eCSEVdeGmd5kzRM=;
+ b=jEHdvSeTFJDGnwp6KcQ+WHvxZpquv/Lc5iCq8W0vrQgC6+/2oXugGFLs
+ BNX26S4+9xCSvytWg//P8FF16cDUBUsTVDAQHFAMlr85xJesgdchujkx4
+ FWhkeyA30EhPVfssZReMfDENDn6gmbMzq1bLXC6hd5GnHxYXsYB5h5DcU
+ +c1fVFgmU4QKZBcrTN3dfNKkhKFepRN27d5i41+IUOLKvpH7tCgIUq5L8
+ 2UzDmEKEkCro5cLxir0XZvku7m90bZ/J9AASebakHojieR8L9Epz2l+5o
+ wXhXYzHtn2LgAEksJfQ5dP4VXl77uyUEdgtozt66WVXXXgwZKC4l3Ybbc A==;
+X-CSE-ConnectionGUID: XXcinCxrQnq3K1fHxtn8uw==
+X-CSE-MsgGUID: 7gUocP/ES8ekI+WD2zCXYg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89922118"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="89922118"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2026 18:28:11 -0700
+X-CSE-ConnectionGUID: O3IFcRfKReebNmgmtO9kuQ==
+X-CSE-MsgGUID: T/EaKHJlSqiOVGd4xgzbXw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="269519151"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2026 18:28:11 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 14 Sep 2026 18:28:10 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Mon, 14 Sep 2026 18:28:10 -0700
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.48) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 14 Sep 2026 18:28:09 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CuIjd0mwCp4L30910OK4LD6nmIGldU5PhsFPi+7Q7WnLM9jXTWO3A6Xefa+tvFl0RoCmYUvBkQgb6lD0VsTKLYYB9pMBii3pjNqtvRTYqjnKqgm1VJmbepuXrX8kntgjy7p8Oqx7DRysdCa2hnluwR52SCZLaRAMdTLi9FGCAu93Kg8HY87yC3varj+baBWW7psVlaaBUAwh1/VLomDRHxsOjKatmNX7PYk6H0s1cECGZ+WKqcNyS14MO+qbPFRbcWmQpF5vosdmymMPI1+QV3uvqPFKlqVLsJEE/7DQKoEL3HAnHF5GBws3MbV1JEYRrKwjDXPbQa2AX4ApafWhAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vxKBsQIpe7DLBjFXdzE6tvrUFxa/eCSEVdeGmd5kzRM=;
+ b=VUuCqqP2l3xeBVWaQ3CTjFdlEjWios6jSZ1Chyfx2ZgDzEpqdu9Neou0nZ40kavbvO90WGs4YMeojsY90CPA0mopF+KJBb8s7+Xrl7tZNpkgE4TT34RZgK+gum43A87/b1fXTSX4dttbAGTsX4jCwfV9jiLMerYjggr26RagdnEoj/AWk7zZfroWyYhKoFmVzg59ZMhn6BqlA8ag5Q6PqAkoPF7jy8q9jOfyi0VcJBAOzXFvvs7S9bkb0gckW3ZMz4sKXEo30HjsOwdgI6VIn50/F4v1/paqQqOv5kiiMS7dMKd1aQVFiNp3z2cblcfQ6MGPA5fbCPahaPNqlmcUvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA1PR11MB6418.namprd11.prod.outlook.com (2603:10b6:208:3aa::18)
+ by DS7PR11MB9473.namprd11.prod.outlook.com (2603:10b6:8:258::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
+ 2026 01:28:02 +0000
+Received: from IA1PR11MB6418.namprd11.prod.outlook.com
+ ([fe80::b831:13bc:a1c9:2628]) by IA1PR11MB6418.namprd11.prod.outlook.com
+ ([fe80::b831:13bc:a1c9:2628%4]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
+ 01:28:02 +0000
+From: "Prabhakaran, Krishna" <krishna.prabhakaran@intel.com>
+To: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "Auld, Matthew" <matthew.auld@intel.com>, =?iso-8859-1?Q?Thomas_Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Subject: Re: [PATCH v4] drm/i915/dmabuf: avoid global wbinvd on dma-buf import
+Thread-Topic: [PATCH v4] drm/i915/dmabuf: avoid global wbinvd on dma-buf import
+Thread-Index: AQHdOxHGow/j692TMUalNxr6NQYx9LbO6rRr
+Date: Tue, 15 Sep 2026 01:28:01 +0000
+Message-ID: <IA1PR11MB6418C4B9C463B2B58748A9D4FABA2@IA1PR11MB6418.namprd11.prod.outlook.com>
+References: <20260820205031.344338-1-krishna.prabhakaran@intel.com>
+ <20260902193147.3835028-1-krishna.prabhakaran@intel.com>
+In-Reply-To: <20260902193147.3835028-1-krishna.prabhakaran@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA1PR11MB6418:EE_|DS7PR11MB9473:EE_
+x-ms-office365-filtering-correlation-id: edefb8cb-f348-484c-feb5-08df12c8956d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|366016|18002099003|22082099003|38070700021|4143699003|10067099003|56012099006|11063799006;
+x-microsoft-antispam-message-info: CB6NmWeNj0YyNnNid7p74egtHFyt4lkLIFqspF2nJhwUXniNu+oQJYkzpfiGlpmtN28kNBZIilGaKPOQHOCg4OLun8daHcKs9LP2WE8SOPA1D7N9+qaX12Zv80uy5cQq5HycxcSafcdI3FhDUa2ZVRFOZvSs8CURevIFLD/SgwpYNbw+H7iX1quwOG64dtHBZPNVQoM9yIzVjihO/mRc8maEocid1sVOAh1oN9zj1XH9HrZakMmS3H5UsfqLS0c0wRn65FBOSeVFFcULW6bzFXwyk6JL9fsLZtULX8yIlsL23avvp4AP9+kTmqE6z4tBAHcHwbrd5r06cxoU6aGLJAsYJ3VYSDc58N3JCRMSwW1T9z+uubilGYpnZQlLE67/CS59RMEndMCaMTkOxsXypDd8zEfqXxddaTew6FSd0NIKy18MdHWGPavYoq1iGR8At5WkivGP7LZk7Z1sLW076d3viD3YzwlpFDeBkYKOFN8aRyZBjVf9HlhNWg7Pzy21N/o2aUsbJimZhMAtls+6tR1qNYUIaF83XJr/EOk2AtOtlSsbTvYpJmBYMTV1BHbnodHOdf7bXQccQuiVXgVOe7G/dARgJRQPDMoNJfuB7UKG0mDL0Iq8Z+ITAMCCy82BYs8cLB3vadUtK1F3vruOjhQEypxoIo3ND2FIfmUO8z6XgOqZW849rcPMHiW3xG2nvpEzw7jV+R9YL693MCb9/yfq0kVe6+1Waqtlt5LkGmc=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA1PR11MB6418.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(18002099003)(22082099003)(38070700021)(4143699003)(10067099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?EVfLzozS7KzfgQrbfllERI4zkGJMe3oQEL4bKn+s7NNnV5EvgT0GKWXTGJ?=
+ =?iso-8859-1?Q?LSCtzyalZHw47YdgIYbCJPk1hVOUplwxiHQEqS7VqoGSab+BvoRebf6k46?=
+ =?iso-8859-1?Q?4GWnbysChl2Va+8gBIMjeLuDcWDPshx5vh0x8YKxRRLGBkjm7Ogyyr8hGS?=
+ =?iso-8859-1?Q?ldyk7jbj1MbDqLTyKgANASKScLeaX4dWH2QNXZbrHGrAj1NBEd8JWlLYUi?=
+ =?iso-8859-1?Q?X8SoFinTuiCVLQYSZMdOly6TpSa8FDnJi9DOlFTa5bGD9XCm1vTtCldCCS?=
+ =?iso-8859-1?Q?DQkIgx8nSHjCtTbdmKAM1WIqmt5g6s0Ita4jFLQ5lHyrf1Hb8VxJ2EerjL?=
+ =?iso-8859-1?Q?uGEsoja6XQztQRkWKrh3bEEjHfAXersMxgBGnPU8cueRBpdTaQZ/ddW7Sb?=
+ =?iso-8859-1?Q?mok7ZekiN50BkuGRqD7Xu+JHDQhzW0TH8URIKkj+vYOi+dA28dqYHZbuQ/?=
+ =?iso-8859-1?Q?7YBQW6Ar7aaw9KFzD/3aMpzC5dlEaQi52ElFmZ5e4wo0d6hGr9Yc2Gc1Iq?=
+ =?iso-8859-1?Q?hPwmknQO2Dqe/ZTjMtelbMtWDaDuXXFMaEadVLsLlps9c+XKoURt+BjLZ7?=
+ =?iso-8859-1?Q?1cBN/Nb0zWlerav8aVymlpO5geH+5q/is0AoFtq5KUL2XU8wPbt2CMjeQ5?=
+ =?iso-8859-1?Q?kMS3k6OWzupbG8UNHcn5DoOktTyIe03MBGLErDg34AQViOGZ8R17Tf0pQU?=
+ =?iso-8859-1?Q?NLylfU/4eEHkuMcje5fAPO3b5BLs/IEvh0pG4am5VpJ6s3GTUxWajGb+uw?=
+ =?iso-8859-1?Q?Ti/DhXLKE/jEKqjIfOWUaBy/IMeLSbJJQKbgr/371Xi+F8wKExbPqWq49g?=
+ =?iso-8859-1?Q?Wdm7R3fR+iW6qxGGaHLQsV5f5HzEIf5AcgLOPmztfJTrv8mXQXZ6jGmqdk?=
+ =?iso-8859-1?Q?pMl9EHZ9MeWdsA25Sin7WV3SWD2dg4Ed7McBIq/yVHSdTrvBc6wiSabG39?=
+ =?iso-8859-1?Q?SRW++/ykJpuNw6VqGt3rWvf4zDhX/2AUkaFpNMhV445ivqlwOjHIq0iY+5?=
+ =?iso-8859-1?Q?FfMz3G3eSs7H+N66GAssVtpew3ylsTZIltGaOMl0GRulhkCCjk5ta9rXuH?=
+ =?iso-8859-1?Q?5tmx5EGHOEDSRv2JERrklIqzQqKPasCmpAuRQ+OUchFRXd+Xrb/i5pJPer?=
+ =?iso-8859-1?Q?aluIhvzNzPxtwO5zj0vA+xR1BYT0yNPqDtqfSvUzr/L5b6UNYHdVDi7/bY?=
+ =?iso-8859-1?Q?/nOOpGWefEwb9U+LlEA3g28gOx7LvQkVoCbBgL+lzEZnGblU21sSw9N5sW?=
+ =?iso-8859-1?Q?XP9MjV9EGvd1FwGA9LdpLU9FFI6kZNtxiGx4Bt8b2V728u89/KR02N3jJb?=
+ =?iso-8859-1?Q?2aG3vpnbFgMKEVxsBycUOSWkdEiE5Khew4eJahHYSL2M1cWJIjY4rqYbNb?=
+ =?iso-8859-1?Q?SVoDjKv++J3jB2+VgLe7CwH8I4xXmaQuuxzlNH/NTVvrlINwsKKKlYlVZh?=
+ =?iso-8859-1?Q?HInmso2GneubBgoBnSZ96AAjkvCJmSjGbZqYyp98Ig31ogfiR4zV/ME+iH?=
+ =?iso-8859-1?Q?Y39I05ge2RgZcw+ARAhWXgFZo2p8QsPcxgUo3WiT7oaVoJ5S9VpH8N9P1+?=
+ =?iso-8859-1?Q?uN3RyWm3pg3huxwBNYsQ6J2MmNg6QHS9MYXiu5gXj9o3di3+O1JNf1/wGI?=
+ =?iso-8859-1?Q?tzFnDe5n9kjfUe46AhQf71Tm15c7ZmX+P09lhhPHIwlAv6pQ6GDX9GXmO/?=
+ =?iso-8859-1?Q?NTXBqTgtjMe144S1JmvhDz8lvW0M+G9QyaNJQx8hK2gkxAJYm2XHiSuuac?=
+ =?iso-8859-1?Q?/v/rMdV3GBKvOUeesXF12WuQCd2pMkhnJok7hrASBTVD/USO1r79djMJu5?=
+ =?iso-8859-1?Q?oa990plPNZ7VuEkqWopR1CecbW8/BEs=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: MyMlmpC9QtExchad+oCiPYJqkRSgfLbVcZDwUyas360SmUNf8bNrrhR67pdp8rA5aHjoOr4oox0ThV7OYvMLVG4YmXu2rt1z2LAhaCVPNzJY4bb57IejREiCcB+vtLEiPqWTjGgzlx/AGDPmQnEIGHkaGqq2PEmN+CwaQlxH5Kr+7fRPuZbiJEh58HBpzrsHUSVdPvFbfc7U27UnoBJJ/tb50xkar9yz/gt+CWz0+ceE14JysbeF0/A2UbJub1PG9OZlx2aUB42xDAIBKxwcyrjTv1FLtaAEVfM+nOuW3owWLvS1C9IrAbH49HeshsCBPM+gUUAd1sZt6bbWB81olA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB6418.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: edefb8cb-f348-484c-feb5-08df12c8956d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Sep 2026 01:28:01.9373 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: QkXTBAtioH5RkTS9+bk1b2DTjbvGX7gRRkjEjfsLwTI6u5zvReECxtnMwjwMWy6AnCg18mAhfTJoj7j2SxUgvG4zmq0wVInKO329bsZ/FcM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB9473
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,67 +168,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-gma_irq_install() leaves MSI enabled when requesting the IRQ fails.
-Disable MSI on failed installation and clear irq_enabled on uninstall,
-so an unsuccessful reinstall after suspend does not leave stale state
-that makes a later uninstall free an unregistered IRQ.
-
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
-
-Fixes: 9b6a16575ebf ("drm/gma500: Fix (vblank) IRQs not working after suspend/resume")
-Fixes: da596080b2b4 ("drm/gma500: Fix call trace when psb_gem_mm_init() fails")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/gpu/drm/gma500/psb_irq.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/gma500/psb_irq.c b/drivers/gpu/drm/gma500/psb_irq.c
---- a/drivers/gpu/drm/gma500/psb_irq.c
-+++ b/drivers/gpu/drm/gma500/psb_irq.c
-@@ -316,15 +316,17 @@ int gma_irq_install(struct drm_device *dev)
- 		dev_priv->use_msi = false;
- 	}
- 
--	if (pdev->irq == IRQ_NOTCONNECTED)
--		return -ENOTCONN;
-+	if (pdev->irq == IRQ_NOTCONNECTED) {
-+		ret = -ENOTCONN;
-+		goto err_disable_msi;
-+	}
- 
- 	gma_irq_preinstall(dev);
- 
- 	/* PCI devices require shared interrupts. */
- 	ret = request_irq(pdev->irq, gma_irq_handler, IRQF_SHARED, dev->driver->name, dev);
- 	if (ret)
--		return ret;
-+		goto err_disable_msi;
- 
- 	gma_irq_postinstall(dev);
- 
-@@ -332,5 +334,10 @@ int gma_irq_install(struct drm_device *dev)
- 
- 	return 0;
-+
-+err_disable_msi:
-+	if (dev_priv->use_msi)
-+		pci_disable_msi(pdev);
-+	return ret;
- }
- 
- void gma_irq_uninstall(struct drm_device *dev)
-@@ -373,6 +380,7 @@ void gma_irq_uninstall(struct drm_device *dev)
- 	free_irq(pdev->irq, dev);
- 	if (dev_priv->use_msi)
- 		pci_disable_msi(pdev);
-+	dev_priv->irq_enabled = false;
- }
- 
- int gma_crtc_enable_vblank(struct drm_crtc *crtc)
--- 
-2.51.0
+Just a gentle ping on this v4 series. The lone CI dmesg-warn is the known v=
+blank-evasion flake, unrelated to this patch.=0A=
+=0A=
+Thanks,=0A=
+Krishna=0A=
