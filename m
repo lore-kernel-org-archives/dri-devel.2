@@ -4,59 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C84E6C88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 13:36:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDB40C88E53
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 13:37:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0497710E28B;
-	Tue, 15 Sep 2026 13:36:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F1F610E297;
+	Tue, 15 Sep 2026 13:37:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="pFs8lMg5";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="ifzJbiZ4";
 	dkim-atps=neutral
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 308B610E28B
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 13:36:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1789479351;
- bh=DWVhKVS/oSZ89zVo3nQvXjYHkur/TgVABxyYwyrAR0Y=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=pFs8lMg5Su6CKj2jFXvGnKo/eWjf+h7+TwkRwWF+lPArue6NsQMLIQ6Bb/iRiOYaO
- ArJEto5IzfAFSR89Zfi14G8FilORU31JSnElxNNuxVC124ioGheV1za7DGjjgpgNvO
- GjMTsPlmnRGEhjxdwpeouBHxcOX779m2QSZyvJKDFY0hIawHzHODw4kXTfJ6S363qp
- OvmhxHONJQ7Y32zHh78PPW3Olr3tLUfAh4Ql3nvepYxk/E42dxzYg7/FmNyEmzB1If
- DuDevqJQJsktX+2rntw4eerCg0kNbQATVLtF4nnwOz3G/jI0nx+DBnsMWbaWrgngtR
- CB8tcnmO/395g==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4hkjhF4Nc5z4w0p;
- Tue, 15 Sep 2026 23:35:40 +1000 (AEST)
-Message-ID: <17f63c69-61a1-47c8-a4cb-705f9d394317@ozlabs.org>
-Date: Tue, 15 Sep 2026 14:35:42 +0100
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBC9110E297
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 13:37:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=ldeR0B4GHt3b5GmwgKmYffkbyfoBxCcoI2N1ceTEtE0=; b=ifzJbiZ4sUYioCzujeRclD++2W
+ raXXLxleGWSeduKUqRUmGxuy3tTqcS8Qniii5CeOs1hL0kjzRBxp6kMarv4OfAnmmhkeOZeBUKAW3
+ MPQ+9Ptv/l4M5gFB2z6TPoAmk90ppF9gkMmh3m/Ixtpll1VP9lZKlJhc+HBpFCgDwi7RRseAvQAGa
+ gmOPUlCwwuS7EQfDLMepixFqlRy/8bfcda/AKSF9gAMXDWHdEnJ4ctDEHADVPXIMBYAv6GPizIX1d
+ ycdqxxV0hVVvWHrRquQQVhnny32EqSoOo3IEet5eNFvLFZnokuGEgRM+mPSO0vCkNgIiw5jqAhOed
+ vHNXrz1g==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Chaoyi Chen <kernel@airkyi.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Quentin Schulz <quentin.schulz@cherry.de>
+Subject: Re: [PATCH v5 0/3] DSI Controller improvements for Rockchip platforms
+Date: Tue, 15 Sep 2026 15:36:47 +0200
+Message-ID: <3800544.yaVYbkx8dN@diego>
+In-Reply-To: <20260914013331.108-1-kernel@airkyi.com>
+References: <20260914013331.108-1-kernel@airkyi.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/9] dma-buf: Export dma_buf_set_name()
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
- Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260911214200.33793-1-matt@ozlabs.org>
- <20260911214200.33793-4-matt@ozlabs.org>
- <38195919-cdf3-49d4-bf2a-10f6cbab454a@amd.com>
-Content-Language: en-GB
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <38195919-cdf3-49d4-bf2a-10f6cbab454a@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,164 +58,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Christian,
+Hi,
 
-On 14/09/2026 12:06, Christian König wrote:
-> On 9/11/26 23:41, Matt Evans wrote:
->> dma_buf_set_name() originally took a __user string to duplicate for
->> the buffer name.  Make this function a generic set-name helper, taking
->> a kernel-allocated string.
->>
->> Wrap this by a new dma_buf_set_name_user() to support the existing
->> ioctl path for a user-provided string.
-> 
-> That just describes what the patch does and not why, in other words this needs a bit more justification for the change.
-> 
-> For example something like "Allow exporters/importers to set the name of buffers from pre-existing information".
-
-Fair enough, am adding missing rationale.
-
-> It is also important to describe which role should set a name (exporter, importer or both). When an exporter gives a standard name for it's buffers that is most likely harmless, but when an importer bluntly overwrites a name previously set by an exporter or userspace then we really need a good reason for that.
-
-Good point; my expectation was that exporters would use this to either
-set or update the name, and importers would never do this.  I will make
-this clear in the commit message/comments, thanks.
-
->>
->> Signed-off-by: Matt Evans <matt@ozlabs.org>
->> ---
->>  drivers/dma-buf/dma-buf.c | 58 ++++++++++++++++++++++++++++++---------
->>  include/linux/dma-buf.h   |  2 ++
->>  2 files changed, 47 insertions(+), 13 deletions(-)
->>
->> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
->> index d504c636dc29..8129ea11ff58 100644
->> --- a/drivers/dma-buf/dma-buf.c
->> +++ b/drivers/dma-buf/dma-buf.c
->> @@ -405,31 +405,29 @@ static __poll_t dma_buf_poll(struct file *file, poll_table *poll)
->>  }
->>  
->>  /**
->> - * dma_buf_set_name - Set a name to a specific dma_buf to track the usage.
->> - * It could support changing the name of the dma-buf if the same
->> - * piece of memory is used for multiple purpose between different devices.
->> + * dma_buf_set_name_user - Set a dma_buf's name from a user string
->> + *
->> + * The string is up to DMA_BUF_NAME_LEN long, including the terminator.
->>   *
->>   * @dmabuf: [in]     dmabuf buffer that will be renamed.
->>   * @buf:    [in]     A piece of userspace memory that contains the name of
->>   *                   the dma-buf.
->>   *
->> - * Returns 0 on success. If the dma-buf buffer is already attached to
->> - * devices, return -EBUSY.
->> - *
->> + * Returns 0 on success, and any previously-set name is freed.
->>   */
-> 
-> Kerneldoc for a static function is usually overkill.
-
-The original static function had some so I kept it, but no worries. Removed.
-
-> And since this is used only once and very complicated I would completely merge the logic into dma_buf_ioctl().
-
-Will do (no function, no kerneldoc).
+Am Montag, 14. September 2026, 03:33:28 Mitteleurop=C3=A4ische Sommerzeit s=
+chrieb Chaoyi Chen:
+> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+>=20
+> This series is dedicated to enhancing the DSI controller and PHY timing
+> interaction, refining the lane rate calculation, and addressing the
+> associated hardware limitations.
 
 
-Many thanks,
+Took me a bit to finally test all the different variants for a display
+that shows strange behaviour. Sorry this gets a bit longer.
 
 
-Matt
+The display in question is the ltk050h3148w [0], display in portrait
+orientation.
+
+Ever since commit ac87d23694f4 ("drm/bridge: synopsys: dw-mipi-dsi: Use
+pixel clock rate to calculate lbcc") [1] and the subsequent fix in commit
+93e82bb4de01 ("drm/bridge: synopsys: dw-mipi-dsi: Fix hcomponent lbcc for
+burst mode") [2], that display has its output shifted about 20 pixels to
+the right, with the line then continuing on the next display line.
+
+We have this display running on all the Theobroma-System modules, so there
+is a lot of variant data :-) .
+
+Your series actually fixed the PX30 part of that shifted output, but for
+the RK3399 the results are sort of mixed:
 
 
-> 
-> Regards,
-> Christian.
-> 
->> -static long dma_buf_set_name(struct dma_buf *dmabuf, const char __user *buf)
->> +static long dma_buf_set_name_user(struct dma_buf *dmabuf, const char __user *buf)
->>  {
->>  	char *name = strndup_user(buf, DMA_BUF_NAME_LEN);
->> +	int ret;
->>  
->>  	if (IS_ERR(name))
->>  		return PTR_ERR(name);
->>  
->> -	spin_lock(&dmabuf->name_lock);
->> -	kfree(dmabuf->name);
->> -	dmabuf->name = name;
->> -	spin_unlock(&dmabuf->name_lock);
->> +	ret = dma_buf_set_name(dmabuf, name);
->> +	if (ret)
->> +		kfree(name);
->>  
->> -	return 0;
->> +	return ret;
->>  }
->>  
->>  #if IS_ENABLED(CONFIG_SYNC_FILE)
->> @@ -578,7 +576,7 @@ static long dma_buf_ioctl(struct file *file,
->>  
->>  	case DMA_BUF_SET_NAME_A:
->>  	case DMA_BUF_SET_NAME_B:
->> -		return dma_buf_set_name(dmabuf, (const char __user *)arg);
->> +		return dma_buf_set_name_user(dmabuf, (const char __user *)arg);
->>  
->>  #if IS_ENABLED(CONFIG_SYNC_FILE)
->>  	case DMA_BUF_IOCTL_EXPORT_SYNC_FILE:
->> @@ -854,6 +852,40 @@ void dma_buf_put(struct dma_buf *dmabuf)
->>  }
->>  EXPORT_SYMBOL_NS_GPL(dma_buf_put, "DMA_BUF");
->>  
->> +/**
->> + * dma_buf_set_name - Set a dma_buf's name
->> + * It could support changing the name of the dma-buf if the same piece
->> + * of memory is used for multiple purpose between different devices.
->> + *
->> + * @dmabuf: [in]     dmabuf buffer that will be renamed.
->> + * @name:   [in]     The name of the dma-buf, allocated with kmalloc() or
->> + *                   similar.  This takes ownership of the allocation
->> + *                   on success, which will be kfree()d when the
->> + *                   dmabuf is released or a new name assigned.
->> + *
->> + * Returns 0 on success, -EINVAL if the name is NULL, or -E2BIG if the
->> + * name exceeds DMA_BUF_NAME_LEN.
->> + */
->> +int dma_buf_set_name(struct dma_buf *dmabuf, char *name)
->> +{
->> +	if (!name)
->> +		return -EINVAL;
->> +
->> +	/* dmabuffs_dname() won't use the string if the length
->> +	 * (including terminator) exceeds DMA_BUF_NAME_LEN:
->> +	 */
->> +	if (strlen(name) >= DMA_BUF_NAME_LEN)
->> +		return -E2BIG;
->> +
->> +	spin_lock(&dmabuf->name_lock);
->> +	kfree(dmabuf->name);
->> +	dmabuf->name = name;
->> +	spin_unlock(&dmabuf->name_lock);
->> +
->> +	return 0;
->> +}
->> +EXPORT_SYMBOL_NS_GPL(dma_buf_set_name, "DMA_BUF");
->> +
->>  static int dma_buf_wrap_sg_table(struct sg_table **sg_table)
->>  {
->>  	struct scatterlist *to_sg, *from_sg;
->> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
->> index d1203da56fc5..14d3950b63c8 100644
->> --- a/include/linux/dma-buf.h
->> +++ b/include/linux/dma-buf.h
->> @@ -570,6 +570,8 @@ int dma_buf_fd(struct dma_buf *dmabuf, int flags);
->>  struct dma_buf *dma_buf_get(int fd);
->>  void dma_buf_put(struct dma_buf *dmabuf);
->>  
->> +int dma_buf_set_name(struct dma_buf *dmabuf, char *name);
->> +
->>  struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *,
->>  					enum dma_data_direction);
->>  void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
-> 
+What was confusing me was that in the Rockchip vendor kernel, _all_ DSI
+variants use the standard px30 phy settings? The whole original lookup
+table seems to be gone? And that replicating that setting actually fixes
+the shifted output on RK3399 too?
+
+
+RK3399:
+	original:
+		shifted
+		mode-clock 59400, target_mbps 450
+
+	patches 1+2:
+		shifted
+		mode-clock 59400, target_mbps 450
+
+	patch 3:
+		blank disiplay
+		mode-clock 59400, target_mbps 400
+
+	use static px30 phy with patch3:
+		image is compressed in height and displayed two times one below the other
+		image is _not_ shifted anymore (so left+right alignment are correct)
+		mode-clock 59400, target_mbps 400
+=09
+	use static px30 phy without patch3:
+		image is _not_ shifted anymore
+		output is correct
+		mode-clock 59400, target_mbps 450
+
+
+PX30:
+	original
+		shifted
+		mode-clock 59556, target_mbps 450
+
+	patches 1+2:
+		output is correct
+		image is _not_ shifted anymore (so left+right alignment are correct)
+		mode-clock 59556, target_mbps 450
+
+	patch 3:
+		output is still correct
+		mode-clock 59556, target_mbps 400
+
+RK3588 (DSI2) for reference:
+	output is correct
+	mode-clock 59756, lane_mbps 398
+
+
+Do you have any insight, what could go wrong here?
+
+I'll apply patches 1+2 as they're correct, but will keep patch3 out
+for now.
+
+Also Sashiko seems to still be unhappy with patch3.
+
+
+Thanks a lot
+Heiko
+
+
+[0] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c#n299
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
+it/?id=3Dac87d23694f44af44a98d21dd77016f2756b6b1b
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
+it/?id=3D93e82bb4de0196c4caeca1d8a6eef67863981d8f
+
+
 
