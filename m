@@ -4,71 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FFFDC88E53
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 08:53:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16CA4C88E73
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 08:54:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47E3C10FB1C;
-	Tue, 15 Sep 2026 08:53:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1862410FB29;
+	Tue, 15 Sep 2026 08:54:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="dCblNtuj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PdiRRWjx";
 	dkim-atps=neutral
-Received: from smtpout9.mo536.mail-out.ovh.net
- (smtpout9.mo536.mail-out.ovh.net [51.210.91.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F035610FB1B
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:53:48 +0000 (UTC)
-Received: from director2.derp.mail-out.ovh.net
- (director2.derp.mail-out.ovh.net [79.137.60.36])
- by mo536.mail-out.ovh.net (Postfix) with ESMTPS id 4hkbQy41Vpz88QW;
- Tue, 15 Sep 2026 08:53:46 +0000 (UTC)
-Received: from director2.derp.mail-out.ovh.net
- (director2.derp.mail-out.ovh.net. [127.0.0.1])
- by director2.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <Felix.Kuehling@amd.com>; Tue, 15 Sep 2026 08:53:46 +0000 (UTC)
-Received: from mta3.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.54.195])
- by director2.derp.mail-out.ovh.net (Postfix) with ESMTPS id
- 4hkbQy2jX3z1xnN; Tue, 15 Sep 2026 08:53:46 +0000 (UTC)
-Received: from pixelcluster.dev (unknown [10.1.6.10])
- (Authenticated sender: nat@pixelcluster.dev)
- by mta3.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id BD736941C0F; 
- Tue, 15 Sep 2026 08:53:44 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-112S0062fb875ee-7c31-4641-b87e-a825690d011d,
- 634639D5DEE1255606E722C812DAF3B2B8290A83) smtp.auth=nat@pixelcluster.dev
-X-OVh-ClientIp: 88.133.252.134
-Message-ID: <acc1e3eb-264c-4591-9f66-5fe93b96f97f@pixelcluster.dev>
-Date: Tue, 15 Sep 2026 10:53:43 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] drm/amdgpu: don't free mapping when
- amdgpu_vm_update_range fails
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
- Shashank Sharma <shashank.sharma@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-References: <20260914-amdgpu_vm_fixes-v1-0-d6d835591e0f@igalia.com>
- <20260914-amdgpu_vm_fixes-v1-3-d6d835591e0f@igalia.com>
- <9c507259-f65c-4f18-8fc7-8e03de0c4f87@amd.com>
-Content-Language: en-US
-From: Natalie Vock <nat@pixelcluster.dev>
-In-Reply-To: <9c507259-f65c-4f18-8fc7-8e03de0c4f87@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 547750305977950490
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTFP1GB/Mq9ugbM65ptfFecNw4cE6zHrfZis2lK1tpIUbbCcsZCoCSFfIOYVagt4YIq6NPVPxnGw8Qn+mRW35l0FjHn7gkVpMsWM8Aoy8pg6AuYbdux3eM4ZnDMxpSrEhhRfu0D75a8OUHZCTD/D4eg6Veszz3P0NBvRChc5XjdNmB+xu1GWYUbP/aW2KD1Pm3bIIv1G1t1F6ePePgqMNDdjfqKRF1fgTbVHGZRcv9k6PMA6xy3ytIu6K7LKgLTuzVnzeH8XMZjX+ckOOvLPbZl8sl7W363UDy8pmdCJyYuxlXecjiWWPz0NFdUJIBR/wrFlHiSRQc1oU0AvNaQhSWetEFQo089szU/wSCVpVdOiFhWauRVD2iUJZlqzxkmOT/uP82ygCdOz8FNHJHGULPVqMrgCepOdeXEO3afwUKAjoS+QuDhhfzlTwQX7pQTzGAVO2cMov1jP6QJKuOEcGSA5AOjm8ek+vLMJkWw/Ui3GYfNR0CdUwzNzX3OUEgLUFH9F0OsMFaUifLWOt6v3RKxlYzcXo3IxkmY0SjJWqtpSieyey4M8BVmugQz06bojCyHmRvjXEcpfdlifHQ/rIeW9oHIfrrAeSudljTDXeRzFjeTspxJjrjy+0BPivI3bVpBLXFEP9Jx0Eef0djplfGgnoFdVQj4yGynCuu6LEQ3Qdw
-DKIM-Signature: a=rsa-sha256; bh=WRp+mPf4zKF8qWvhUr9y9cqRugHJ5fNXfhoLK6UIoMg=; 
- c=relaxed/relaxed; d=pixelcluster.dev; h=From;
- s=ovhmo-selector-1; t=1789462427; v=1;
- b=dCblNtujZMaVqLQ5ejsv/FUac444JD5iLJ/cjyYv6Wmecsc9pxaiIDYjbyPPSvrfSLTUi4BG
- 70FWkIHS1gMPdpCtFZbe1Twpw55foc1Gty8CT6sfhEYabfPcBhrc52kgJySHl7zeH1BMmDwdGX1
- s5tTh5mX5u5A9C9FoZnJ2kle7CZYEv0SLk7WPv9L+O+sbPW4nYL+Fi4AJik9N5nZpMb//RaazTD
- aSsKlnrwyJBpsc4244i1YpTEbcBFoKccbVvKqhzsJTPUTuDqLgWi0g+SiCFubuQaUxbMsoGHLn2
- 2weeEVrAbDUR4ImuA6q8Vp1wKuHTr3q8M9rctk2DZ8fyw==
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A66D10FB29
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:54:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 5E068602C8;
+ Tue, 15 Sep 2026 08:54:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C41291F000FF;
+ Tue, 15 Sep 2026 08:54:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789462494;
+ bh=nhFDk1spMGQrf3O5K/5bVDZ1T+4kcRRIr3mLvyFTDis=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=PdiRRWjxp9Jxxi7zY6LtJWDNdlF+UL2bMU8Cl5+eVt/o9GnvIkyIicv1tOXEPZnkb
+ 6NbAZ/pFMU7cuJ/Z/qIk/qpqEaqcxJMX0opToIYLu68o5L8DFf4Wbccy0YEUm/5BZW
+ 0PHX2t4aYllSMcoCTMalsbJWh+3wErXRg1m0QBYoWdPvtCxhtvMff3XWHr0BnzOBUf
+ hfR4WxHvxsqG/Cgum2iNFAVIWM5R1dqwibCx/AgdaY0Lw4FFnfRLEX8AyIJQdiW3xX
+ Pn3qU76cgznh5g5uzdE+ZXTbIdu3uX8YVIdelJGMrV/LdrVBpw1EXHBHDfzc7NBsPj
+ JSsJReGDImNIw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 09/13] drm/mediatek: mtk_dsi: Add support for SRAM
+ QoS setting
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260915084148.11385-10-angelogioacchino.delregno@collabora.com>
+References: <20260915084148.11385-1-angelogioacchino.delregno@collabora.com>
+ <20260915084148.11385-10-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 08:54:53 +0000
+Message-Id: <20260915085453.C41291F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,87 +55,121 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/15/26 10:33, Christian König wrote:
-> On 9/14/26 22:25, Thadeu Lima de Souza Cascardo wrote:
->> If amdgpu_vm_update_range fails when called by amdgpu_vm_clear_freed,
->> the clearing of that mapping will not be attempted again. Later on, when
->> an IB tries to read that mapping, the read succeeds, leading to a
->> potential info leak, or even data corruption, if it attempts to write to
->> it.
->>
->> If the mapping is left in the freed list, then clearing will be
->> attempted again during amdgpu_cs_ioctl, which will either fail and not
->> submit the job or will succeed in clearing the mapping, preventing the
->> invalid access.
-> 
-> Same as I replied to oushinnyo <oushinnyo@163.com>, absolutely clear NAK to that.
-> 
-> amdgpu_vm_update_range() can only fail when the device is hot removed and we don't care about clearing page tables in that case.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] drm/mediatek: dimensional mismatch in DSI QoS threshold calculatio=
+ns
+- [High] drm/mediatek: DSI TX buffer RW times incorrectly based on vertical=
+ resolution
+--
 
-Actually, how so? The SDMA update path has lots of allocations that 
-happen at random points throughout the update process (think the SDMA IB 
-being exhausted, then vm_funcs->update() will allocate a new one and can 
-fail on that, or various fence allocations. Some paths allocate from the 
-delayed IB pool which is just regular GFP_KERNEL, why couldn't these 
-allocations fail?
+commit beb6a7b889e54e3fb8cb1cebc84be4316c0c70e3
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Aside from that, the more trivial failure path that I think Thadeu is 
-also talking about here is that amdgpu_vm_ptes_update will call 
-amdgpu_vm_pt_alloc (so that happens in the middle of VM updates) and 
-these allocations can fail. I'm not even sure if drm_exec can save this 
-one because we need to be ready to drop locks and retry.
+drm/mediatek: mtk_dsi: Add support for SRAM QoS setting
 
-I get that failing is unacceptable for the cases inside a pagefault 
-handler (though I'm not sure if anything of what I mentioned applies 
-here, pagefault VM updates are immediate so they get GFP_ATOMIC, but 
-maybe the pagefault handler could still allocate PTs?) but for anything 
-else, failure seems like a possibility and maybe we should think about 
-handling it in some way.
+Add support for automatically calculating and setting the Quality of Service
+(QoS) parameters and DSI IP SRAM Line Buffering in the newest DSI IPs like
+the one found on MT8196, MT6991 and variants.
 
-I'm not sure I see a problem in keeping BOs invalidated and backing off 
-later, since new submissions should be rejected unless the VM manages to 
-complete all updates successfully.
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
+k/mtk_dsi.c
+> index 6e92e4e1586f7..16bf08bee38e3 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+[ ... ]
+> @@ -771,6 +816,102 @@ static int mtk_dsi_set_dsc_params(struct mtk_dsi *d=
+si)
+>  	return drm_dsc_compute_rc_parameters(dsc);
+>  }
+> =20
+> +static void mtk_dsi_config_hw_buffers(struct mtk_dsi *dsi)
+> +{
+[ ... ]
+> +	/* Read as: [Data rate (MHz)] * [Number of DSI lanes] / [8 buffer block=
+s] */
+> +	tmp =3D (u64)dsi->data_rate * dsi->lanes;
+> +	data_rate_per_buf =3D div_u64(tmp, 8 * buffer_unit * HZ_PER_MHZ);
+> +
+> +	/*
+> +	 * Anti-latency buffer output threshold for absolute timer mode: this
+> +	 * parameter controls the maximum amount of output data that the FIFO
+> +	 * can hold before running out of buffer space.
+> +	 *
+> +	 * The data will therefore be sent either when the DSI IP0s internal
+> +	 * vblank vs bus QoS timer expires or when it reaches the amount of
+> +	 * buffers set in BUF_OUT_VALID_THRESHOLD (regardless of QoS) to avoid
+> +	 * partially, or entirely, losing frame(s).
+> +	 */
+> +	out_valid_thresh =3D MTK_DSI_DEFAULT_QOS_VALID_FIFO_US * data_rate_per_=
+buf;
+> +	out_valid_thresh =3D min(out_valid_thresh, MTK_DSI_MAX_FIFO_BYTES - 1);
 
-Best,
-Natalie
+[Severity: High]
+Does this code inadvertently compare buffer units against bytes?
 
-> 
-> Regards,
-> Christian.
-> 
->>
->> Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
->> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
->>   1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> index 09037df76400..5bde36754607 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> @@ -1594,16 +1594,16 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
->>   	while (!list_empty(&vm->freed)) {
->>   		mapping = list_first_entry(&vm->freed,
->>   			struct amdgpu_bo_va_mapping, list);
->> -		list_del(&mapping->list);
->>   
->>   		r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
->>   					   &sync, mapping->start, mapping->last,
->>   					   0, 0, 0, NULL, NULL, &f);
->> -		amdgpu_vm_free_mapping(adev, vm, mapping, f);
->>   		if (r) {
->>   			dma_fence_put(f);
->>   			goto error_free;
->>   		}
->> +		list_del(&mapping->list);
->> +		amdgpu_vm_free_mapping(adev, vm, mapping, f);
->>   	}
->>   
->>   	if (fence && f) {
->>
-> 
+In mtk_dsi_config_hw_buffers(), data_rate_per_buf is calculated in
+buffer units. Multiplying it by MTK_DSI_DEFAULT_QOS_VALID_FIFO_US yields
+out_valid_thresh in buffer units. However, it is then capped against
+MTK_DSI_MAX_FIFO_BYTES, which is a byte count. This dimensional mismatch
+writes incorrect configuration values to the DSI QoS hardware registers,
+which could lead to FIFO under-provisioning or values exceeding SRAM capaci=
+ty.
 
+> +	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_BUF_CON1], BUF_OUT_VALID_THRESH, out_=
+valid_thresh);
+> +
+> +	/* Enable ULTRA signal trigger between SOF and VACT */
+> +	mtk_dsi_mask(dsi, data->reg_adv[DSI_VDE], VDE_BLOCK_ULTRA, 0);
+> +
+> +	/* Calculate fill rate with line counter mode for DSI Video Mode */
+> +	if (dsi->format =3D=3D MIPI_DSI_FMT_RGB565)
+> +		dsi_buf_bpp =3D 2;
+> +	else
+> +		dsi_buf_bpp =3D 3;
+> +
+> +	pclk_mhz =3D dsi->vm.pixelclock / HZ_PER_MHZ;
+> +	fill_rate =3D div_u64((u64)pclk_mhz * data->pixels_per_iter * dsi_buf_b=
+pp,
+> +			    buffer_unit);
+> +
+> +	/* Calculate QoS Anti-Latency parameters */
+> +	sodi_hi =3D MTK_DSI_MAX_FIFO_BYTES * num_hw_buffers;
+> +	sodi_hi -=3D (fill_rate - data_rate_per_buf) * 12 / 10;
+
+[Severity: High]
+Is it intentional to subtract buffer units from a value initialized in byte=
+s?
+
+Here in mtk_dsi_config_hw_buffers(), sodi_hi is initialized using
+MTK_DSI_MAX_FIFO_BYTES (in bytes), but the subtracted amount is based on
+fill_rate and data_rate_per_buf, which appear to be in buffer units. This
+mismatch can corrupt the calculation and cause hardware lockups or display
+corruption.
+
+> +	sodi_lo =3D MTK_DSI_DEFAULT_QOS_SODI_LO_OVERHEAD * data_rate_per_buf;
+> +	preultra_hi =3D MTK_DSI_DEFAULT_QOS_PREULTRA_HI_US * data_rate_per_buf;
+> +	preultra_lo =3D MTK_DSI_DEFAULT_QOS_PREULTRA_LO_US * data_rate_per_buf;
+> +	ultra_hi =3D MTK_DSI_DEFAULT_QOS_ULTRA_HI_US * data_rate_per_buf;
+> +	ultra_lo =3D MTK_DSI_DEFAULT_QOS_ULTRA_LO_US * data_rate_per_buf;
+> +	urgent_hi =3D MTK_DSI_DEFAULT_QOS_URGENT_HI_US * data_rate_per_buf;
+> +	urgent_lo =3D MTK_DSI_DEFAULT_QOS_URGENT_LO_US * data_rate_per_buf;
+> +	rw_times =3D dsi->vm.vactive * dsi_buf_bpp;
+> +	rw_times /=3D data->num_burst_lines * data->pixels_per_iter;
+
+[Severity: High]
+Does this calculate the transmission burst times based on the vertical
+resolution instead of the horizontal line width?
+
+In mtk_dsi_config_hw_buffers(), rw_times is calculated using the display's
+vertical active lines (dsi->vm.vactive). This results in computing bytes
+per column instead of bytes per line, which makes the computed line
+transmission burst times incorrect for the DSI SRAM line buffers.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915084148.1138=
+5-1-angelogioacchino.delregno@collabora.com?part=3D9
