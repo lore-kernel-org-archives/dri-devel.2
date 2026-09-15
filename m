@@ -4,87 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC2CDC88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 16:42:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 985EBC88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 16:43:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8B0F10E583;
-	Tue, 15 Sep 2026 16:42:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABB0010EBD8;
+	Tue, 15 Sep 2026 16:43:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="OPS9B9VO";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jPteS5vi";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B97B10E583
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 16:42:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1789490560;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=DLlkjfOuya7v+DEz1a4h/J49rgyXuu2hbrUFVJeEY/s=;
- b=OPS9B9VOMPab5aoyTonSF49qVAYt3Sd3GcFcbOdYt/6jPunRnxU5MBlz65c/Tvil2OFJJG
- TNKChQ3GKvnlYNMW04cffEJKIFPnp63Xs9IOC1HQ3iSqS4GtzmsWQcGamBoUWSNv3nIHYg
- UAiWZQbPdM4f+2e3m5DmkkPFNo66mUs=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-546-oZkL0fDHOM-AAY5H_VmchA-1; Tue, 15 Sep 2026 12:42:38 -0400
-X-MC-Unique: oZkL0fDHOM-AAY5H_VmchA-1
-X-Mimecast-MFC-AGG-ID: oZkL0fDHOM-AAY5H_VmchA_1789490558
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-912348a0ffbso12984916d6.3
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 09:42:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789490558; x=1790095358;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=DLlkjfOuya7v+DEz1a4h/J49rgyXuu2hbrUFVJeEY/s=;
- b=wPcRDkrd2gBd72qqNW8q9Oec+W3lOh1tVfFVU8wM78yz4U0YkARiV8v6aYsmEDSE8+
- WjgeveQM9sdjIx/mAzhZwrlOPk1XFYva9UGrU2fe7rM4eXHKp7Rnm/4J2OtNGRJPdqcs
- zlzxqRHuaKrlu5xFr4UvP0SzmmIWtj93wgp+k79TYEaoF3zx/isP3zIBzAMN+z9Y5l0o
- n//KICaz8hA45KxplrCma8ByO4HSB6N7Ny/slo0Y0yxx6w9/PWZ3pJ5tmFr3k81uzbos
- b0Z5NYmyyY1Ft7eBwRRUg9Ml9a/NYlCZ6JbZL/rkhjI7fR8MUrCNrvabZGPKT8hOC+V5
- V9CA==
-X-Gm-Message-State: AFuF++l0dag7kLpqJtpg9jrqjJLaN7OYLlnOIz3vg3yJUHA+efh71Aza
- 7J79+ROBaP0O+V/3aH8Zcxe92SCBx2dJ18OI7SX60LQj7Iw4EFWVFL/y5WbUJamJeyyKjUw5TrO
- NQ56LmNcAd+ZRTAN1oqwL3E9G/SZGRT6Iy36qFIfZqjwdht1mcqxrX1A0SVDqTyOufDnKL8pDNX
- Lo8g==
-X-Gm-Gg: AYBFou15eKdFRdrYja1YA+Vhq/5DpncmWHTzslqObH5wONhR0OF3j4BGgOFQav6p5lS
- K37perWjylBQdqIe6818H848xDYVoAVG5cpAbRakKTDfI4lDUjZZxTZ4QYh3eO33yuZIqLnYHv/
- hAwEcYwArraWOS9bG82qHsnLJnXKVDHsSQrUaNOwWLxdbJVu4Hk9TzSrt+82P2UPJAQzgWkH4//
- E2XHNSfFkyxQQu2Li1sjp8Jq+eNE33gNlFFhAL6xycxQTCe+R920vl8W/en/X6FB2gColOzapUQ
- LFEQS/ajk6WdLEvkIFD77PQ/aC3f+LhYtDxnZNkcNbF6Bg/+Levk/zBot+aDjGlt/7gEWfl8
-X-Received: by 2002:a05:6214:5012:b0:910:49a5:346e with SMTP id
- 6a1803df08f44-9123a41e15dmr28824716d6.5.1789490558197; 
- Tue, 15 Sep 2026 09:42:38 -0700 (PDT)
-X-Received: by 2002:a05:6214:5012:b0:910:49a5:346e with SMTP id
- 6a1803df08f44-9123a41e15dmr28824076d6.5.1789490557581; 
- Tue, 15 Sep 2026 09:42:37 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-9123be61d17sm2634486d6.14.2026.09.15.09.42.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Sep 2026 09:42:37 -0700 (PDT)
-Message-ID: <13440da22f31b81af4ac27471ab6d10f1523018f.camel@redhat.com>
-Subject: Re: [PATCH 1/5] drm/nouveau/gsp/r535: Add support for
- INTERNAL_GCX_ENTRY_PREREQUISITE
-From: lyude@redhat.com
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-Date: Tue, 15 Sep 2026 12:42:36 -0400
-In-Reply-To: <20260911223650.8F0F61F000FF@smtp.kernel.org>
-References: <20260911222428.752641-1-lyude@redhat.com>
- <20260911222428.752641-2-lyude@redhat.com>
- <20260911223650.8F0F61F000FF@smtp.kernel.org>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64BCE10EB01;
+ Tue, 15 Sep 2026 16:43:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789490635; x=1821026635;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=SMkOx9gK9qzyOfgjR5uRghpGFA5qikwbfZzFZr1cCNk=;
+ b=jPteS5vi/MDdKrvoJXDeF17HruSBQ18N6+Z6x+2ubfLPsAY7i+AXkM5H
+ oGhrxmsmi9Fsk8uonULzZBJGgAOyCUO5W3cvhP9v6EPaq6v0ZvcgaQlkC
+ onbViWShsefBj7Pd+BtIS/pXZyklsanFX+nZ3Cezo68hdxno3dk5PdL0p
+ m8qf1DS6mNQVGrJWy6tSnhqdYp0xPtLBYFMGhyzAl4mqsH9tk15/djOFQ
+ D/qV8GDN68wgDpagzD/RKeAgLz0n9Pd0Ze5qs3Qs2xvuUaap9p0uQJ0wq
+ lhfGJkAKBYE/0jNRyZlfXn/8GxOU4Ogw/vt+d7pG4advA3v9vpKHavmIH Q==;
+X-CSE-ConnectionGUID: /rWnCGenQ4WtqYJ3G62Seg==
+X-CSE-MsgGUID: 4SzZP/hmQzKql/i7Zal/zw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89706644"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="89706644"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2026 09:43:55 -0700
+X-CSE-ConnectionGUID: mEXtx4c6ThaXufpH7j8csQ==
+X-CSE-MsgGUID: kCOmFT7fSYigXViEwjtpow==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="266850777"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.243])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2026 09:43:53 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: "Teres Alexis, Alan Previn" <alan.previn.teres.alexis@intel.com>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "Roper, Matthew D" <matthew.d.roper@intel.com>
+Subject: Re: [PATCH] drm/xe/mmio: Fix xe_mmio_wait32() to honor delay/sleep
+ maximums
+In-Reply-To: <145460bc090d7406d03f1335feaadb07172cff20.camel@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260914215746.272721-2-alan.previn.teres.alexis@intel.com>
+ <683c9836e408389852f6e6e956cc6862b1429b2a@intel.com>
+ <145460bc090d7406d03f1335feaadb07172cff20.camel@intel.com>
+Date: Tue, 15 Sep 2026 19:43:51 +0300
+Message-ID: <f52c0b78ddae61cf668c89708b48ad82ba5f95dc@intel.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 76KV2xfXAN8YqBImWwFA4UvkPNvjTeYSI3RtECrAweA_1789490558
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,29 +74,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 2026-09-11 at 22:36 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential
-> issue(s) to consider:
-> - [High] Negative error codes from `nvif_device_gcx_ready()` are
-> treated as bitmasks, leading to unpredictable runtime suspend
-> behavior.
+On Tue, 15 Sep 2026, "Teres Alexis, Alan Previn" <alan.previn.teres.alexis@intel.com> wrote:
+> On Tue, 2026-09-15 at 10:34 +0300, Nikula, Jani wrote:
+>> On Mon, 14 Sep 2026, Alan Previn <alan.previn.teres.alexis@intel.com> wrote:
+> alan:snip
+>> >  int xe_mmio_wait32(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val, u32 timeout_us,
+>> > -		   u32 *out_val, bool atomic)
+>> > +		   u32 *out_val)
+>> >  {
+>> > -	return __xe_mmio_wait32(mmio, reg, mask, val, timeout_us, out_val, atomic, true);
+>> > +	u32 read;
+>> > +	int ret;
+>> > +
+>> > +	ret = poll_timeout_us(read = xe_mmio_read32(mmio, reg), (read & mask) == val,
+>> > +			      10, timeout_us, false);
+>> 
+>> You probably do need to let the callers pass in the wait too. 10 us wait
+>> with a long timeout is going to be pretty bad.
+>> 
+>> 
+> alan: okay - perhaps i can make every caller pass in a polling-wait thats a fraction of their wait time.
+> (as a starting point since i dont know what's the expected behavior of every caller).
+> so perhaps something like "timeout_us << 4" (i.e. 1/16th) but pass in 10 us if its anything smaller than that
+> (i.e. smaller than 16 usec).
 
-Probably right
+I think you need to talk to the xe maintainers, really.
 
-> - [High] Hardcoding `r535_gsp_gcx_ready(gsp)` bypasses the GSP
-> function vtable and will cause a NULL pointer dereference on non-RM
-> GSPs.
+BR,
+Jani.
 
-Completely wrong.
 
-> - [Medium] `nvkm_udevice_gcx_ready()` bypasses the ioctl unpack
-> protocol and returns a positive bitmask directly as a return code.
-
-I think fine? But unsure if I actually agree with this, if anyone has
-any thoughts on this let me know
-
-> - [Low] `GSP_GCX_ENTRY_GC6_READY` and `GSP_GCX_ENTRY_GCOFF_READY` are
-> defined but never used.
-
-Correct
-
+-- 
+Jani Nikula, Intel
