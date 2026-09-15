@@ -4,55 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75A30C88E53
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 14:14:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DBF1C88E53
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 14:17:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9ED610E928;
-	Tue, 15 Sep 2026 14:14:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03DB710E040;
+	Tue, 15 Sep 2026 14:17:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SOIIdH32";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="ZdWWWKWA";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B9C810E928
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 14:14:37 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8BB9E600D1;
- Tue, 15 Sep 2026 14:14:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9EE71F00893;
- Tue, 15 Sep 2026 14:14:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789481676;
- bh=1DqTDhfTaY5kNEZvyvJAHvbbtLEgp4W1u2FkCfhR/3Y=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=SOIIdH324OsHlSys8G4ktSwBhwKeQYT1XdDI4BiW1MHArQnOlJdFM2/S+1tTFysVm
- PqWF2uHubMFvVdjcTfZwL2Et5wrF/MOSUaAybJM1vTFl1oj9pZ8nGk3YFTLtsrm7yN
- GVJi8mKsmpRptJ9eWR3GovF6lACo7eSWoreoj0ziJtq92tpUEQ4wdHcxoBoJLuqdU8
- Q0Q4MmkKvGWoBg4eHDZ4zyg/uVUyS3C5rOsTw6X5zkb0rs3SBgNwf8pJhjhwjj/6gy
- +6nWc65BtFjhs+7k4sT/derBjKiMHdYO+tUPpwIskuOQrdRimUpxuLjuMfiXu0S32Y
- myrB4BeG+Uo9A==
-From: Maxime Ripard <mripard@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Maxime Ripard <mripard@kernel.org>
-Cc: Devarsh Thakkar <devarsht@ti.com>,
-	dri-devel@lists.freedesktop.org
-Subject: Re: (subset) [PATCH v5 03/33] drm/atomic: Convert
- drm_priv_to_bridge_state to container_of_const
-Date: Tue, 15 Sep 2026 16:14:02 +0200
-Message-ID: <178948162526.1987579.5824374892587582733.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907-drm-state-readout-v5-3-5fa1ac7a5148@kernel.org>
-References: <20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org>
- <20260907-drm-state-readout-v5-3-5fa1ac7a5148@kernel.org>
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A29610E040;
+ Tue, 15 Sep 2026 14:17:22 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hkkcH3C1VzKmJ9;
+ Tue, 15 Sep 2026 16:17:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1789481839; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=qoUybKolGpMVSrpKPnSxjyM3WuM7fg6PJ5WlGQw4DUk=;
+ b=ZdWWWKWAwwVvTwg3DG9y6HRFrPQvVvFCflhZlxEBY3eZcoJ9HlEgt0YwmRkVUknQf4/TxT
+ ifYLmn5xLUaPa+x1w7S/o8FJieMJX9IR2f1QFJWJajOumis6bnKHM+wzANxWZkzFF5brkg
+ kBxSKSl88p/kDmKZqsUAuEZJFkq93Dhk8GrsM+ZUBoj0u6rscuNXf0jq3xv6p7HAcMUQ/3
+ RNr93oJzqr1v8oGRbTtGMlC0Hp0jinJIHbYVvo0AoARIvGL8GW7pDzmOEUU6OeUTDe2f+T
+ Veb8rw3ztsxW6QiyP70YlScK+UYDGQnW5qi3nIIOmsvCk+QQkjLq27yMpWyjvA==
+Message-ID: <aa8db13d6133855cee5a76cb8b77b05c3eec9807.camel@mailbox.org>
+Subject: Re: [PATCH] drm/sched: Do not restore unsaved virtual runtime
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Luke.Wildhardt@proton.me, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
+ <dakr@kernel.org>, Pierre-Eric Pelloux-Prayer
+ <pierre-eric.pelloux-prayer@amd.com>, Matthew Brost
+ <matthew.brost@intel.com>, Vitaly Prosyak	 <vitaly.prosyak@amd.com>,
+ stable@vger.kernel.org, Michel Daenzer	 <mdaenzer@redhat.com>
+Date: Tue, 15 Sep 2026 16:17:11 +0200
+In-Reply-To: <0766f89f-380f-49ef-a55b-dda1d3bedeac@igalia.com>
+References: <20260907130527.52530-1-tvrtko.ursulin@igalia.com>
+ <ad1382b98d5c6cb258658e8e85156a0ccd8dd7cf.camel@mailbox.org>
+ <35456574-5fc6-4270-85f9-940201998116@igalia.com>
+ <2958b5de0ab4ee1c46e2068eeb7448d6e2072ee6.camel@mailbox.org>
+ <acfea48c-dd63-4352-917e-a97a10a8b810@igalia.com>
+ <28a236dcae3e2cac75b4f5afc091136db04134e7.camel@mailbox.org>
+ <0766f89f-380f-49ef-a55b-dda1d3bedeac@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: p43c91dk7ogw8pydrfzy6i1m848dauj1
+X-MBO-RS-ID: 3d384f5940539f8fe9c
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,19 +72,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 07 Sep 2026 15:23:39 +0200, Maxime Ripard wrote:
-> container_of_const is more flexible than container_of when
-> it comes to mixing pointers constness. Switch to it.
-> 
-> 
+On Mon, 2026-09-14 at 13:31 +0100, Tvrtko Ursulin wrote:
+> On 14/09/2026 10:37, Philipp Stanner wrote:
 
-Applied to misc/kernel.git (drm-misc-next)
+[=E2=80=A6]
 
-[03/33] drm/atomic: Convert drm_priv_to_bridge_state to container_of_const
-        commit: 7a4e435602c949c4a64e8cadfe816450953c2f6d
+> > I took another look and I think my only issue is basically just that
+> > the patch addresses something which we should have done regardless of
+> > the bug at hands. So I'd be already happy if the commit just had a
+> > different title and slightly extended commit message, like:
+> >=20
+> > "drm/sched: Fix vruntime race by extending locking"
+> >=20
+> > plus sth like
+> >=20
+> > "this simultaneously serves as a preparational step to replace the
+> > spsc_queue as a whole".
+>=20
+> As I think it is fine as is I would prefer not to spend time on a respin=
+=20
+> unless you insist.
 
-Thanks!
-Maxime
+As I see it every patch that fixes something by moving or adding a lock
+solves a race condition. So we should call the child by the name. By
+calling it that we also publicly agree on our desire to extend locking
+and document in the log that drm_sched is moving towards that goal.
+
+If the effort bothers you too much, I could also apply it and thereby
+rephrase a bit.
+
+We can then request backmerge into misc-next and base the followup-
+cleanups on it.
+
+>=20
+> > > > Is there a plan btw as to how you would like to proceed with CFS?
+> > >=20
+> > > So for me the most typical and useful plan, and in the context of the
+> > > desired spsc removal, is:
+> > >=20
+> > > =C2=A0=C2=A0 - Merge this fix so it gets into 7.2
+> > > =C2=A0=C2=A0 - Spsc removal RFC for some upcoming release N.
+> > > =C2=A0=C2=A0 - Remove experimental status from fair policy for kernel=
+ release >=3D N.
+> > > =C2=A0=C2=A0 - Switch fair to default at >=3D N+1.
+> >=20
+> > Couldn't it be enabled first for dedicated users? AFAIK it was
+> > developed with Steam's gaming platforms in mind. Can their OS devs be
+> > asked to switch it on or test it downstream?
+>=20
+> It wasn't quite developed for single game use cases, but with the wider=
+=20
+> goal of improving the code base and DRM landscape in general.
+>=20
+> Also, I think it could give us false confidence since the matrix of=20
+> hardware + kernel setups is quite small. Even this bug wasn't caught on=
+=20
+> an official platform, neither could I repro it on a Steam Deck. So I=20
+> would say a release or two after it is set as default is quite safe=20
+> since it can be easily reverted with a one line change.
+
+OK.
+
+
+P.
