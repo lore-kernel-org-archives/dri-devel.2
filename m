@@ -4,132 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18E6EC88E75
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 23:15:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46CBAC88E75
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 23:20:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFDE610E1EE;
-	Tue, 15 Sep 2026 23:15:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FDE710E209;
+	Tue, 15 Sep 2026 23:20:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="SIXx0xrA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="szAHdEIL";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C60310E1EE
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 23:15:12 +0000 (UTC)
-Received: from pps.filterd (m0528007.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68FMPAsx1448954
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 16:15:12 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=
- pps82601-s2048-2026-q3; bh=9wSKnU6K8x6VtxP/QNuLN7MLmNw6mKZQmf+9X
- IiVvUU=; b=SIXx0xrA+TwjdlTogR7fvr6LvG2I7Icv08Az9vCa/jwMZH5282lDb
- fITP5NGPExDCwMPo2NWJYTt4cs//NI3xZM6vnLSwvCKR03RHUaKT4FRbZQXF7pW8
- wsxiplIBxZPBMsM/WO1a6MO0wTOImFGp0ZNUrmacGmQkr1i93e3ApULxS50+MCOG
- RDvPl4MJ2C+2R6YDeiugKDUPRPGote74ERplmgd5+LniAtVGTlx4x2BIu1DmUtp6
- 4bCDxqPm0RNRhVOR0xeEdOywHGun5E4lFBdCvFLcju9Nq0rmk6h1Ixd6uFDthHXF
- laYCFWUso+8lYVXC18+EsNnAdYEHhqNkw==
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
- [209.85.210.72])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4gpwrh7u8u-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 16:15:11 -0700 (PDT)
-Received: by mail-ot1-f72.google.com with SMTP id
- 46e09a7af769-80a4a17618dso1350957a34.0
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 16:15:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789514111; cv=none;
- d=google.com; s=arc-20260327;
- b=Trjti52H3Asm+gYYMNx7eKM4jMIu1KQInUPYeF1c2L3yKU+OJpccOkBUw/LRrZN7dM
- i82VBYaqzL7MAIWYjcm4o8Q+PPIBcqZplsiXHNcSeA65k85mWRsFgN55fb3X4t9feVsn
- gGdZ0Km0ZfTNIpnOLNUqyStT0NWrXKu4FnTDXx+3yfOqXvny1ZVeUDsifPv1yGsHqwwg
- tTXj/tL1M/I9TbQOmNNpeaBYz2vkaJ087WhR9ca5lb+8Dlr3U6W+om/viwQCopY0WBmP
- x2N7fPTfQQok8lFJVDYowDCwMw+CJEooCtcYXjDRFXREGNzryadKZs1quK6xSY/njQRX
- DvVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version;
- bh=5Z9FH4pGg+zZG5DGIDh+CM+cqcFCAu2VEGfh4kw4QyM=;
- fh=cGPwmXmsjoEcCPEgTW7lUxx9Z3P6aPnqkFDTR7D/IWI=;
- b=mfQCP4L+3k8YCOnhzUO5Ua+sYezMGsE1Uh/ur9sGWa2BEidCyHksQas4LvOS2Yj+Fo
- jp5ExaHO0rryOGQOpdTIIPLZXYdkaHKpjjzquiBjdl2kmMUtDJtZF1uSijPNN1xW/kVl
- mW2rpnkDiWp+YN7QAOXlHbcEQILdpK7SFcdItm9FGwcmGCX9FYgkA+oPZ46ER2IEf3zr
- pFfBmi/9fUjlZIv0QaR6/i0ISc3E6QA5GbX7Ichq+pmOPIETEVXwts2bmCBbgUYWEaEO
- jOWDUq7TxXAbZAhGR/5lauZM0D0a679qF9z4fJkBI9dHQBHWWUtm1NBjpvFf92ZSrZH0
- qxpg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com
+ [74.125.228.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 020F210E26E
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 23:20:51 +0000 (UTC)
+Received: by mail-pz2-f12.google.com with SMTP id
+ d2e1a72fcca58-85469e25400so224577b3a.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 16:20:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789514451; x=1790119251; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=IGMnqDW895Je/mS7NKJPFeoFTm2jsczP2vXK225eeOg=;
+ b=szAHdEILMY/SW5Fwk1l3I4tx0NWcGYwbY3VooazTPYZl++1X5NuZiv5tlP7ZglutCI
+ WRUFyfxUvhQaSFiYxpfx9IQcsmRPtjp3S/IOJ0FYdhOTmC7RAEenr7NcB8bxmTV0PaV2
+ a95EBdg4TEjfP5sx4zEJICKf4Xilnw6tJitD8LRdd5as+GhHjOoWiFbB+AldLPggqa30
+ EYsXxZsv5T8sZ6z5lQtYbsxTGTte5jWEI5+2j+6m+iEImcP6QTlCsjukIVzJRijDU/L/
+ Gvc4RqJMtQF4mfEI7KFdZ4RVTbLyXkyi3zmM7Z7k9OSkf5+mHOSHKy48mGsfgkMgeQRt
+ 5esw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789514111; x=1790118911;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=5Z9FH4pGg+zZG5DGIDh+CM+cqcFCAu2VEGfh4kw4QyM=;
- b=Ps2UvaMkQJSqQgpKpf9qsO7Anzcua6+x2PQm3vC/JfylmLLWFW4jXXgU7UL92UyaJR
- 6z0bYmsgwb0R6vfCs71vW/RC+Kc8JyZEixHM+BrDOB1QaILkBlnekRuyyya7GjSNWx1w
- dpBkcgK5ZuszxjFehSa0kxf+xML78+QBzULr+QvAsaEKL/LAmxzzqxfw/Qz45R6umbTf
- vJUE8pGIbkZTDjtTVm6nK56nkM2/UfAf/BerrVotW3StNMs5AfEpUxOGEauT+/Qx1Znf
- bG1VNb7ocrduToByYJmq3YMBMwJHdncUV0MduVLoxl2ujTbrjNPM9DRCU9ssQCWR5b5J
- rpvA==
+ d=1e100.net; s=20260707; t=1789514451; x=1790119251;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=IGMnqDW895Je/mS7NKJPFeoFTm2jsczP2vXK225eeOg=;
+ b=fKZWHuImkuy5cg4whkaEZy//8qB/IJfH9V87Ld3uM8XkchI+GrTPAbsZy1QwZ83t2l
+ 4B1S3nfqHkdxWZRQ2gV85r7yTH3pxm2/uR0wHTwTxsJQbC5Unbyed2hFdWJUzYmvdHHn
+ pKm0Xfd0NDjWR+d7d5lu1ll0RwfwDKwevK/xF74gEWtmLN73LlcGlf/vnFnT3PCubfa+
+ eiCrNxZv9t4WKX1T2c2/Wfl8/+e4zGW+l+ea2xzUaDZFPXB/9mbgLhxCBBCaMSs484et
+ O6fXMrKes5R3VbPNlXBFE/EAmgdSfaUgUxFgIOG6RxsYMJPRTSs6Lsf2hwe5JlDtwx2v
+ TLhw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxXQr4OgPGIpFIa45IF6+1f4lEbenk0AtNyifoPcxtezV4DOUdIfKf/8d/dUYfQZemVq6fmTcYRZpg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++k/fuP7M2L9y5KsYSRWaGVzrMqsjIqiRp1j/12ZPOiX1/l5BTQf
- Z2Uweno05X8O2zfWDVL800olrOpoPtl5fYYtQj2ETOw4++AR7kaquK5fCbgkPioAhdZBQNbuvVn
- ahh1LPaguD1mWSACjK7FZW8ODypsnnKWoypWG0CTLitNkeL337WhrONQ8c/b9EkllTeITGKU76G
- QnBDI6160zTiXUGKTY0uQu/tMN9fHF2QH/e6nCmNPFH34=
-X-Gm-Gg: AYBFou0mtatxCJLQoo/nJaz+FBTVL8L96luHBgBaSm2xN09YHlibNS4bqDgo891YkKK
- OkixQui0+Z0j6kRIDbb5PSbx+4U4c6vDOBgaz9VpC/EU3iqAzhNH3ghjp5J9w798MFPw7mNKv4D
- hnUE681vVy2/IZk+TF0DUEYKvyU4ub6MUFfKsbEySuSgVwnDZChNgdcs+O7nBqi9QL6GKXfzsB
-X-Received: by 2002:a05:6830:6001:b0:7f9:555:1def with SMTP id
- 46e09a7af769-80b37d7fdc1mr343292a34.11.1789514111047; 
- Tue, 15 Sep 2026 16:15:11 -0700 (PDT)
-X-Received: by 2002:a05:6830:6001:b0:7f9:555:1def with SMTP id
- 46e09a7af769-80b37d7fdc1mr343224a34.11.1789514110002; Tue, 15 Sep 2026
- 16:15:10 -0700 (PDT)
+ AKwUvByoWe2rC4eQxoVv34bg+GX+0OrJGiz8s8a/u4sKR8ZcywaJFfd3imF88vDTiF1rKdb9ro7on1VELus=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ntMmxMMz5dRkmUq68Bpb/qEjqNJODW9Wrh6GKkU/DjHfGiWmi0
+ jcQ7EI7wt7bq92MF7ql9mj3qq+cLwrYn866Ui8rl6stLH8cyAIkTzFI=
+X-Gm-Gg: AYBFou1fdHwjJsQue0uJcB+tBF+/n2qH67ZoJyAaS04Y544cBvjZ0wf9XxPY6VsQy5u
+ 8TvIUYCQ8JNAlH8M8N6h7sXHIGotlK36UYsTxp5RVVBFQKKGGdUlZk/mcrDm1WYE2zisP25D3AP
+ BboBrK3vnicNRiAKKyMZhPtC867J/LEjWFvQ3YV2s6cnMjE6M3JEOQpckwxLAQgC8qtVNR/R9rM
+ zBKf0INUx9nSb3PtMNDZfzp5coF1+U3uE3oJqJiwqtLPImsGJttKarTlSnp6Qk5ce+RQuwOIHlF
+ sU1DRenTb7wT4knL8jeZ2a3EleKma+Q8JUprT5H3krYOuE1umxj4Yg14tjIRrChwrtyqAO/I39H
+ abNhKwQsMfPnW+6JaegbLDpbPCp/ZNutFYoLQr7HPT4p4w18TMJFq2324BKqjvk9l0Tgg0ipiET
+ 5w16hCCqOMS62sD/l5P62Ige/Pa/u2bHh9xcR1nGvHpaa7a8VQPGfDiMRqf5BRuBZKNSA25J2CA
+ AnOEE3ermQe4xAzAubMR3sKG4DVdQ==
+X-Received: by 2002:a05:6a21:9090:b0:3d0:e034:a26f with SMTP id
+ adf61e73a8af0-3dd5f5d8672mr1159394637.17.1789514451428; 
+ Tue, 15 Sep 2026 16:20:51 -0700 (PDT)
+Received: from at-Standard-PC-Q35-ICH9-2009 ([27.59.94.4])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-33bf5a6a166sm2341985eec.10.2026.09.15.16.20.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Sep 2026 16:20:50 -0700 (PDT)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: alexdeucher@gmail.com
+Cc: 062bel313@gmail.com, Alexander.Deucher@amd.com, Christian.Koenig@amd.com,
+ Kenneth.Feng@amd.com, airlied@gmail.com, amd-gfx@lists.freedesktop.org,
+ atharvatiwarilinuxdev@gmail.com, dri-devel@lists.freedesktop.org,
+ ed@aicharmers.com, linux-kernel@vger.kernel.org, simona@ffwll.ch
+Subject: Re: [PATCH v2] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 14
+Date: Tue, 15 Sep 2026 19:20:43 -0400
+Message-ID: <20260915232043.1222-1-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CADnq5_NyBdPbavmiPVdsHkP_Oi1w7ngX0kPSNce+BWN-YkuAFQ@mail.gmail.com>
+References: <CADnq5_NyBdPbavmiPVdsHkP_Oi1w7ngX0kPSNce+BWN-YkuAFQ@mail.gmail.com>
 MIME-Version: 1.0
-References: <20260731211601.3033906-2-zhipingz@meta.com>
- <20260915221924.GA876929@bhelgaas>
-In-Reply-To: <20260915221924.GA876929@bhelgaas>
-From: Zhiping Zhang <zhipingz@meta.com>
-Date: Tue, 15 Sep 2026 16:14:58 -0700
-X-Gm-Features: AcwNN1XwigNQ9uW6nBUmoxE2F8a1TK24gfEznyxrn867tS2zzsfZXU6D-kJDtU4
-Message-ID: <CAH3zFs2EyhpkJXRr7gbC+Oyb3y6Y+yyVzAgXCvg7_won0er4oQ@mail.gmail.com>
-Subject: Re: [PATCH v13 1/5] PCI/TPH: treat reserved 0b10 completer encoding
- as unsupported
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Michael Guralnik <michaelgur@nvidia.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian Konig <christian.koenig@amd.com>,
- Alex Williamson <alex@shazbot.org>,
- Bjorn Helgaas <bhelgaas@google.com>, kvm@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Chengwen Feng <fengchengwen@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDMzOSBTYWx0ZWRfXzlNBe6pIuD+V
- hDDpoMHY3N8stinoT0BVU3qh+JTGJOY07gw9mUncsYemiqOPfp4eeyu6khEhyKD1bqqthtumZ2B
- 1aQ1UcIiG6m5mrwo8azk/BSGUgOGe1o=
-X-Authority-Analysis: v=2.4 cv=aqsnmiZV c=1 sm=1 tr=0 ts=6aa9d17f cx=c_pps
- a=+3WqYijBVYhDct2f5Fivkw==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=4h92JMTCafKA-fb_NiOh:22
- a=VwQbUJbxAAAA:8 a=VabnemYjAAAA:8 a=i0EeH86SAAAA:8 a=1XWaLZrsAAAA:8
- a=4OgE2WNpP8yww339eGMA:9 a=QEXdDO2ut3YA:10 a=eYe2g0i6gJ5uXG_o6N4q:22
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-GUID: xi5XQO7ZclBz5C0SQLJYKGGclJDj8mwa
-X-Proofpoint-ORIG-GUID: xi5XQO7ZclBz5C0SQLJYKGGclJDj8mwa
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDMzOSBTYWx0ZWRfX1b4yvq1HuNk4
- OsEBXt87e6MHqCbSwKm8JXiZXWiqdfGP7zBM6xcK0J/jV/zAKCf/eukgvSX7yfwmceVn1vN+V7N
- kyJplaMKIZSboqjlVOtXZwXNDp68O+l9itpcoE/ofaol/v7hzvtagm4WYHUmF2AVhPCxLJATfDL
- /d4lokH6g04FFgZiPSjqxTxZlJ/CVKGpw+NcgLm6EA2aop0oq5rLiwXf/poAVJ1cM78XHtr5MrI
- xxfFsW1E0VZiawKcCUbRAwocfm68xAnPMyAuigCv2RmY2rZ5vybYCoQ55QToJLMMGucktuWw7PO
- HQsEoztfmC19QzCvanjQszWdqSKTHErLqF7+4Niff2kIDaPxR6ZWTjyH1wX7zBySQxJkloxQd26
- rf2TZU+UukGl+/3tIbhRsXmZm+KKbUxDiyUmApK2uHgrSwsHHvsSvxRvewHgjDVeSG2jXdAf5aN
- y6UPwmf80awYmztyOGw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,39 +92,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 15, 2026 at 3:19=E2=80=AFPM Bjorn Helgaas <helgaas@kernel.org> =
-wrote:
->
-> >
-> On Fri, Jul 31, 2026 at 02:15:48PM -0700, Zhiping Zhang wrote:
-> > get_rp_completer_type() returns the Root Port's "TPH Completer
-> > Supported" field (bits 13:12 of Device Capabilities 2) verbatim. The
-> > 0b10 encoding is reserved, but pcie_enable_tph() feeds the raw value
-> > into the requester type:
-> >
-> >       pdev->tph_req_type =3D min(pdev->tph_req_type, rp_req_type);
-> >
-> > and later writes tph_req_type to the TPH Requester Enable field, which
-> > only defines 0b00 (disable), 0b01 (TPH only) and 0b11 (extended TPH).
-> >
-> > No known hardware presents the reserved 0b10 in this field, so this is
-> > defensive hardening rather than a fix for observed silicon: fold the
-> > reserved encoding into "not supported" so only the three architected
-> > values can ever reach the Requester Enable field.
-> >
-> > Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
-> > Acked-by: Chengwen Feng <fengchengwen@huawei.com>
->
-> In subject, to match history of the file:
->
->   PCI/TPH: Treat reserved 0b10 completer encoding as unsupported
->
-> Acked-by: Bjorn Helgaas <bhelgaas@google.com>
->
+> I can drop the patch if you feel strongly, although it is pretty
+> similar your original patch, it just keeps all of the logic within
+> navi10_ppt.c which is cleaner in my opinion rather than pulling navi1x
+> specific logic into the core pm code.
+> 
+> Alex
 
-Thanks Bjorn! I'll fix the subject to match the file's history and
-carry your Acked-by in v14, which will otherwise just be a rebase of
-v13 onto 7.3.
+I dont have problem with the code, the problem is that, this is not the
+solution to this problem, as i said in the previous, the solution lies
+in the DC not the SMU (i tested by removing dce_v10_0_early_init and adding
+that function to dce_v10_sw_init), it is also confirmed via the testing using
+Opencore Lecacy patcher, which makes the display 5K, and make the display not
+use compatibility mode (4K), and it also fixes the SMU problem.
 
-Thanks,
-Zhiping
+(https://gitlab.freedesktop.org/drm/amd/-/work_items/4455)
+
+You can choose to upstream this, i dont necessarily have a problem with this
+patch as long as i am the patch author (eg using From: )
+
+Thanks
