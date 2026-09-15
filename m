@@ -4,141 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C93BC982C5
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:37:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B7D8C88E77
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:38:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DECB110E7D1;
-	Wed, 16 Sep 2026 07:37:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1C1010E72B;
+	Wed, 16 Sep 2026 07:38:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="FSSKG05a";
+	dkim=pass (2048-bit key; unprotected) header.d=jolla.com header.i=@jolla.com header.b="xVhy/Pu+";
 	dkim-atps=neutral
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8509310F34C
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:19:53 +0000 (UTC)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2db8e9fe9c7so60578805ad.0
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 01:19:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1789460393; x=1790065193;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:from:subject
- :message-id:references:mime-version:in-reply-to:date:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=zWD4hm0/QtNssxCPHbfwVqSd2Rh5fwz1bRTM/8vetN0=;
- b=FSSKG05aaHRfRLOtySzohdUeKXh4OXV7KPWOS3T+L5qxqHGv9Ts2H8wNgsnjuwzUy6
- pAFThFX1p2nnYPWJyLwVxdoHcEajF7TekCu+uKJ1fUPfhaRAjDQlEPeQyMUh3RnrlWZE
- slMSeUUfUefLKndhLBNIjjOruoz/CWUtCZHYaY5j/y1Br3XnHF92E1WjhvplMRBJAjLQ
- ViLNJRQ6GOTcbjQtkKqm5Jok5fDWxeQhIJ9fStLq1+jzPG9TlWjCTcif93pl23ZLdeZ+
- xL6Sb1gdxblvYEeK8nks6kHN9yzD+FUVgIXR4X5M4Z+uk4DB82v9PiKRZrjM1x1JJm9T
- ar7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789460393; x=1790065193;
- h=content-transfer-encoding:content-type:cc:to:from:subject
- :message-id:references:mime-version:in-reply-to:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=zWD4hm0/QtNssxCPHbfwVqSd2Rh5fwz1bRTM/8vetN0=;
- b=exakCL3ELoxzhvcpsDx+cUjNTq5rtMmpKh7nLK6uCX/WPdxOHPE7jf6TTg1benqvp/
- ykmfHQ4+ybvdqJ/hL/iRfr9SHoXp1IAwxE1l05s0GKc4ZCwVn0QZH8rtrw5GBHHJn/k3
- /N6zA3IA9d84qoS+/NWUFVNS7mtxoeQsMN0RHCmDhZI+7ehVQcCpMwb00fMqs9Ya48jO
- 2rJAiYQzXyafDwDcS7u0wHBToFSJdSsROeWIRNPwoFhBWdj0t1eW9ItVu9vZSs/YPduy
- jUICcmivNovSFRCSHcgm6HEYvw5Y93Z3HvjYYYXM1BKWAmfSsaPckMbMtRpvezK/4GHL
- zP5A==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzFjJf2Imji1aCOz7h4jAFOFYmpe9MTpwTFsSqz2NvgrjYc3yNvteYw7+2PaLUqLNUvdhrukzwEuOo=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kRCVr+vMGRk4qAiu9K4vQAZPD0iJ27gZ07l3PkDtVu1pQZIEHt
- DogOP3H/ksoSe3x4I1//kC09E5hh/MscYd97HpO1P8P+Qr47cIWpvylL4yhLK8DiBP3HeP1GU3t
- x
-X-Received: from plot14.prod.google.com ([2002:a17:902:8c8e:b0:2dd:4712:5539])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:f541:b0:2dd:1701:3b6e
- with SMTP id d9443c01a7336-2dd6c73381dmr119309875ad.16.1789460392218; Tue, 15
- Sep 2026 01:19:52 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:18:21 +0000
-In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
-Mime-Version: 1.0
-References: <20260915081910.4142719-1-morbo@google.com>
-X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260915081910.4142719-5-morbo@google.com>
-Subject: [PATCH 04/28] scsi: bfa: Use snprintf() in bfa_fcs_fabric_nsymb_init()
-From: Bill Wendling <morbo@google.com>
-To: linux-kernel@vger.kernel.org
-Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
- Russell King <linux@armlinux.org.uk>, Huacai Chen <chenhuacai@kernel.org>, 
- WANG Xuerui <kernel@xen0n.name>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Helge Deller <deller@gmx.de>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Tony Luck <tony.luck@intel.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>, 
- "=?UTF-8?q?Thomas=20Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Matthias Schwarzott <zzam@gentoo.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Tony Nguyen <anthony.l.nguyen@intel.com>, 
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Arend van Spriel <arend.vanspriel@broadcom.com>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>, 
- Anil Gurumurthy <anil.gurumurthy@qlogic.com>, 
- Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>,
- "Martin K. Petersen" <mkp@kernel.org>, 
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
- Mike Marshall <hubcap@omnibond.com>, Martin Brandenburg <martin@omnibond.com>,
- Kees Cook <kees@kernel.org>, 
- Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>,
- Chuck Lever <cel@kernel.org>, 
- Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
- Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>,
- Tom Talpey <tom@talpey.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Andrew Morton <akpm@linux-foundation.org>,
- "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
- Kanglong Wang <wangkanglong@loongson.cn>, Tiezhu Yang <yangtiezhu@loongson.cn>,
- Qiang Ma <maqianga@uniontech.com>, Randy Dunlap <rdunlap@infradead.org>, 
- Pengpeng Hou <pengpeng@iscas.ac.cn>, Ard Biesheuvel <ardb@kernel.org>,
- Breno Leitao <leitao@debian.org>, Thorsten Blum <blum@kernel.org>,
- Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Lyude Paul <lyude@redhat.com>,
- Ashutosh Desai <ashutoshdesai993@gmail.com>, Imre Deak <imre.deak@intel.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Johan Hovold <johan@kernel.org>, Johannes Berg <johannes.berg@intel.com>, 
- Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>, 
- Cryolitia PukNgae <cryolitia@uniontech.com>,
- Jiaming Zhang <r772577952@gmail.com>, 
- Will Porter <mrwillporter@gmail.com>, Cen Zhang <zzzccc427@gmail.com>, 
- "=?UTF-8?q?C=C3=A1ssio=20Gabriel?=" <cassiogabrielcontato@gmail.com>,
- Rong Zhang <i@rong.moe>, 
- Arun Raghavan <arunr@valvesoftware.com>, linux-arm-kernel@lists.infradead.org, 
- loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
- linux-parisc@vger.kernel.org, linux-edac@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-input@vger.kernel.org, linux-media@vger.kernel.org, 
- intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
- linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev, 
- brcm80211-dev-list.pdl@broadcom.com, devicetree@vger.kernel.org, 
- linux-samsung-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-nfs@vger.kernel.org, 
- devel@lists.orangefs.org, linux-hardening@vger.kernel.org, 
- linux-sound@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazon11023115.outbound.protection.outlook.com
+ [40.107.162.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 525C410EB0D
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 18:51:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=POFSOLmJZfwzr+Fy6VzZiGGgrY4q3PJQetk7xa7mKEglW142rNQlHrEBcejkD2H9q6XCd213g0TZcYmBiUvmbRZBdhDvLttrsB+Ee4timsev00WSp1DG47QKsxMhhHi7Xzk/evr2DGRi3LbMWinyDZkxV+U34Z43ZusXv+rKac/rYcqDoR8Jig+fdMB1HXCLJVIOO0DsCWWmExvX+ZFUDKbEdaUuWTrxMti9WfN1z9LK4g8Ggbf1SlM9lRKNvLdiJ8fU0gdvWcsrTdwIay4DFNlnIAjk5W8pht/D8ChKAorglPIdPuzPUR68OyF4udkMaIlO//He3NwPqnmqVxJ7Ww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gy4e+TiE3ZBRV7e/zyq8KrJd0p7tRcqE+1ERfNyFZLM=;
+ b=mOiAfZ2CEfOrHd2oA3Vmmprg3ScelgUxPisdTG7OTiKnVb6pEnTYEVgRVinko33BcGsWi7WOZuvVeiG2zpQ1byvfi/0T8zLBUGajM5LTd2TtW+s65RYoQgt+OB4/1RkOekYqtrgtbZw8a1emSLTGALPzW2vlF/vp7SlfPd79b8zhBECLsR8jZlpi8jTfyaJIZ/2q1Iq/AiV7jMOyQ7uJy5XGBvcjobzm5tH29m4aMXLVObjthWY8vVGEl4lIZI4E26H6D1xNiKTExPgSpRJxuuZXXcWvE+HVQEqycsGoHcwWNszmQyUpXx4Ne9CdFoZpOo0He18Qg505IUpPvgaFHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=jolla.com; dmarc=pass action=none header.from=jolla.com;
+ dkim=pass header.d=jolla.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jolla.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Gy4e+TiE3ZBRV7e/zyq8KrJd0p7tRcqE+1ERfNyFZLM=;
+ b=xVhy/Pu+2gA8TGBVtez0rAPZOwphG2NsYvcEJWF21n1NIkV7gmC6wQv6jpITao88iG2GYP9NhUW0YqBlM14q81Wy/LC8d8qMiVefJXNzlOK+uTpTTemZOdvloTZKb6M5yFBHsJJhLYhcTGUWOQjxgjrHLp09LCopOWtDphzdjlYmaZbDXaAbvkhK34uXIX75NcVmMiYlLKCoofMBrd750owLP9JdQfFqYCd6oqKSrc9DI+hZYXeNWuK2R02j8lvvPdw8caRAaT5JtiijrTgLlcMAiWT54sYGtWkm89SZF9NNJRFKtvzY3GiWNfMUsVrfrtjnVCi3UTkE3/AlWAs9LA==
+Received: from GV1PR06MB8417.eurprd06.prod.outlook.com (2603:10a6:150:24::20)
+ by GV2PR06MB10875.eurprd06.prod.outlook.com (2603:10a6:150:339::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
+ 2026 18:51:10 +0000
+Received: from GV1PR06MB8417.eurprd06.prod.outlook.com
+ ([fe80::4cc8:af2b:8580:2a99]) by GV1PR06MB8417.eurprd06.prod.outlook.com
+ ([fe80::4cc8:af2b:8580:2a99%4]) with mapi id 15.21.0428.009; Tue, 15 Sep 2026
+ 18:51:09 +0000
+From: Nikolai Burov <nikolai.burov@jolla.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
+CC: "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>, "tzimmermann@suse.de"
+ <tzimmermann@suse.de>, "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "robh@kernel.org" <robh@kernel.org>,
+ "krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+ <conor+dt@kernel.org>, "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "jitao.shi@mediatek.com" <jitao.shi@mediatek.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "kernel@collabora.com"
+ <kernel@collabora.com>, "justin.yeh@mediatek.com" <justin.yeh@mediatek.com>,
+ "jason-jh.lin@mediatek.com" <jason-jh.lin@mediatek.com>
+Subject: Re: [PATCH v8 02/13] drm/mediatek: Implement Display Stream
+ Compression support
+Thread-Topic: [PATCH v8 02/13] drm/mediatek: Implement Display Stream
+ Compression support
+Thread-Index: AQHdRQqeK2Ypb3mcyEKOw4qUZ3ay3rbPp/cDgAAVSQCAADsIUA==
+Date: Tue, 15 Sep 2026 18:51:09 +0000
+Message-ID: <GV1PR06MB841771AF67A658BF71D4F479E4BA2@GV1PR06MB8417.eurprd06.prod.outlook.com>
+References: <20260915084148.11385-1-angelogioacchino.delregno@collabora.com>
+ <20260915084148.11385-3-angelogioacchino.delregno@collabora.com>
+ <GV1PR06MB8417DED4A9C82CE84248F5F5E4BA2@GV1PR06MB8417.eurprd06.prod.outlook.com>
+ <14b99e0a-e08a-42af-b982-471cae869149@collabora.com>
+In-Reply-To: <14b99e0a-e08a-42af-b982-471cae869149@collabora.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=jolla.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV1PR06MB8417:EE_|GV2PR06MB10875:EE_
+x-ms-office365-filtering-correlation-id: e1f599fd-e746-4cce-dc0b-08df135a4e94
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|23010399003|1800799024|10070799003|22082099003|18002099003|3023799007|38070700021|4143699003|10067099003|56012099006;
+x-microsoft-antispam-message-info: 6o2kqmtbo7Gcnfb4rqtIB9hODVf1hLO1d9rkH3S6w/ms9obNF2b82Ks50M5amwEL2uztGUQPKHDjCx+jwTJxStY/JGOq7ZDpIakMvDrmkgBhZlKrhD8KDA52/h5P3np7yTRhWYMV5opI3G2m1hvjYTZM5TxQlz179dOgeWN87mICLCorW38PNvBkigjvR5XMliEFmZpGWM/ssTdo5FYxafkybascUJp2pgjGVT6IWkDVKHAWqSGh37Qhuqb3Z78p9MDm12YB3VOalGBRiZJPbsKRABMAaImzon2uiyixS50azmrrLHgc/BoutSVQcmKqMJbtODq4DrjlZ0rZ3/npoP9c+1OwWPzasCxCC1jXHcK9NlddFW6l0I0pTiKDTVtU2v+p8RZUnZOFZQvx1sMbNhqsTnuyRTyLR8D7MhCWRZnkK50V87bceo5lJCwPuwuU98FgyQTuSolep8cEn3dMSOaWuK8xR3MEBP8U0LKxfDIKdAVqCFHfnnP2mkuhvqMUFa45o6czpvXfN6r+AlVFv+w1ZFQ7XRVEvQFY79+S5sqNfTgxzr+6DtVxY+D9lC4x3gILroBHNfTI/xAwpX/xYtL0XTD7y7V9mRVMQnWuf1Z71UCCQNEpJLlT5fiMTPZMZgVn4uQYkwATqMYADA8qLEb7UzMWwBWEt/z3+x6sA3CezRf5U6D+Epy+v6kXQm8XL/oSpMgx/IJk+sjuwY7DfAtfKLwBrwb9zP7UWhoVTus=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:GV1PR06MB8417.eurprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(10070799003)(22082099003)(18002099003)(3023799007)(38070700021)(4143699003)(10067099003)(56012099006);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?6tEZ/Hch3WbRUYuE72+6859/cUTmAr5o6yiuiBlefHT+Mf1TtfPfJCHboJ?=
+ =?iso-8859-1?Q?jd3mmvcDG/gAfpnTYdvOvEwchmsOzujGLdtJZ6BdAfmBiRAv9rC42xCk1C?=
+ =?iso-8859-1?Q?+FrJHzhokrKJhaGmMgwWI/Ik6ctpR/uxAzKRolaLcz1/CIVFHypgY0bAQN?=
+ =?iso-8859-1?Q?IWnMmsahY7oFPVht+uAeo9QL+rbCyGX2gIbJhetM1kLuR/qhq65lAXyjai?=
+ =?iso-8859-1?Q?EZDGO5EndNTS94Q5Q/p28aU9NoZYMzcOnIXAZGJURoOtoIulaIPijAcLWG?=
+ =?iso-8859-1?Q?esHjcfA7MibMW3T23dIrBfHEDYU0ME6DZASMlxztU8C6rKvLh/DaULN7y1?=
+ =?iso-8859-1?Q?7tLogZuoVYNr1SpyfaRTpPULR4ILFQglpO1hnQKow/Yn4aIKSgR29hhBQd?=
+ =?iso-8859-1?Q?MC8T3kBi4+kUaXmByNFcDIyG6yCCdPvKc08PxOUpzu73wMK7DpQjnyyNUJ?=
+ =?iso-8859-1?Q?GyLHVFvbQ9kwn+OLYUXd2SsHvgDJzn4qiSFVRZQCKhJEzgBzGXV+9I4fn5?=
+ =?iso-8859-1?Q?5AtXIT6xn0lH3W41IynfYR303jDXZO4EhmjVbCMPqKet7561stHoNXTHjx?=
+ =?iso-8859-1?Q?xcfTNwrjn2iqBQiR98Hg2s9aWX8UmqWo/TJpJa+hgZTF8Nwsmg/Aihx00e?=
+ =?iso-8859-1?Q?euTcrFi1cWcTRAkDwW9wCHhlhn/9adc9ArWBF6GignvwnViYWd4a50iAtj?=
+ =?iso-8859-1?Q?xPvJ6VZmoYFOYn646zfkS1mo+Hb4UFWHH5Us6Q48Bxg7Bcb+YwL+CxMTTf?=
+ =?iso-8859-1?Q?W+fZeU6Z8okj3JqrQikacKbBNpwFChxD0tuGl7IbWq5uHUHPfueliShkXA?=
+ =?iso-8859-1?Q?aVWHF3jTr5y6uIEtQGVtbKiXAk3T7MCIwB/npPJGUOvIh/HXxp/4XXyaQh?=
+ =?iso-8859-1?Q?0GltAzd/TyJZ884t7d69oM5mEz95AxTE9dnuAynQWtAYMVc2yCW3Hmn5w5?=
+ =?iso-8859-1?Q?7LTfPxLovgCd/Hiwds32b6l5pR8yvUcfnoXELSqOLgTvLv9yrgCp3gwW2o?=
+ =?iso-8859-1?Q?ebzVo/e2FHE+AtoGW/eGSPh+K88+Y5meV6waUk4SeYvXcnEmP1Z9Ce+SOC?=
+ =?iso-8859-1?Q?0tac4+zBbDcfj/PTYKmsA0hvln+tP68IS9qMwFzWFWo7MgmofddvnH2xuz?=
+ =?iso-8859-1?Q?bSlolEnJoiiwUOmpYREx673n/iEWMxQGMNsL/6ecSMOSVaU+fpi9RI46Hf?=
+ =?iso-8859-1?Q?ZBu5G4tGI80XnnGvS/x04lJdFfHfGezWFlZogU1yiIIm8S9XiEqOZ/arHb?=
+ =?iso-8859-1?Q?b0g3WxzHnYZDA/FonDyJGZgkrAvV0WW4JE4WS8eqaR8QN7X4PXnI4R6m1F?=
+ =?iso-8859-1?Q?iRclds8QoibZoWQQtoXjqZG0jnM0cuGU5FrUhlkIq3MYlLRcPRbhDUxCOo?=
+ =?iso-8859-1?Q?55LYfBGYBePPDtfDuBsfHRhmGUlSXBaYjrhjBMXD8yxr1lsxSmkmUVt+gM?=
+ =?iso-8859-1?Q?T5zJ3UdWmuQKF60KOovGMXby7Mt3MTUZBimuFErzZvcxdilT1AEHePSchk?=
+ =?iso-8859-1?Q?28xmjDtbrIta2wlTdXzOlTmX3jjXLlntcGAkwSGjV412d3SvIRX6CmcJFN?=
+ =?iso-8859-1?Q?6SW5ViKRVvGzKvtiUMfkfNQQIA19QHsLJfZ4bmCWWgNEodRMivTBrc3mGy?=
+ =?iso-8859-1?Q?cGznSlhZl9vCAmg6TKT/tLHCoAYCDTluh4u9zXhwEsguL1s7SRxRpNO9rI?=
+ =?iso-8859-1?Q?RLMCRg97WtfEF3R+Mmj1BBdUo2yKma4NP+i188RFY1P9dHsN3Bk0sQRUSG?=
+ =?iso-8859-1?Q?5bfDgOLMsghZTAHOA5SmLXIKkTzbGwjKmvRHxxYUm3zojCK9nVnGfRKcMu?=
+ =?iso-8859-1?Q?TcjVZzgHcFPdFyJ43ShysmQrKARzV8erkQTX5rhFgQkDXf1R8SKjiwRXpO?=
+ =?iso-8859-1?Q?FG?=
+x-ms-exchange-antispam-messagedata-1: YcZoa4U+vk+JtA==
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: jolla.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV1PR06MB8417.eurprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e1f599fd-e746-4cce-dc0b-08df135a4e94
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Sep 2026 18:51:09.5519 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b6cd1562-9512-488f-a364-34d46554c96a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jJMjOIGqlSgteI1ImBxGvFhM1bjOohzVER57R265LVUX0XyhyIL2ecYoplolDXcGw3ALD+/H+FTkEPuACOpEEw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR06MB10875
 X-Mailman-Approved-At: Wed, 16 Sep 2026 07:35:16 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -155,174 +153,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-bfa_fcs_fabric_nsymb_init() constructs the node symbolic name using
-strscpy() followed by five strlcat() calls and explicit NUL-termination.
-
-In preparation for removing the deprecated strlcat() API[1], replace the
-chained string copies with a single snprintf() call.
-
-Link: https://github.com/KSPP/linux/issues/370 [1]
-Cc: codemender-patching+linux@google.com
-Assisted-by: Gemini-2.5-Pro:2.5 [shell_command_run, editor_update_file]
-Signed-off-by: Bill Wendling <morbo@google.com>
----
-Cc: Russell King <linux@armlinux.org.uk>
-Cc: Huacai Chen <chenhuacai@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: Helge Deller <deller@gmx.de>
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: x86@kernel.org
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Ian Abbott <abbotti@mev.co.uk>
-Cc: H Hartley Sweeten <hsweeten@visionengravers.com>
-Cc: Tony Luck <tony.luck@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: "Thomas Hellstr=C3=B6m" <thomas.hellstrom@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Matthias Schwarzott <zzam@gentoo.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Tony Nguyen <anthony.l.nguyen@intel.com>
-Cc: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@google.com>
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Saravana Kannan <saravanak@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>
-Cc: Peter Griffin <peter.griffin@linaro.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Linus Walleij <linusw@kernel.org>
-Cc: Anil Gurumurthy <anil.gurumurthy@qlogic.com>
-Cc: Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>
-Cc: "Martin K. Petersen" <mkp@kernel.org>
-Cc: Trond Myklebust <trondmy@kernel.org>
-Cc: Anna Schumaker <anna@kernel.org>
-Cc: Mike Marshall <hubcap@omnibond.com>
-Cc: Martin Brandenburg <martin@omnibond.com>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Jiri Pirko <jiri@resnulli.us>
-Cc: Simon Horman <horms@kernel.org>
-Cc: Chuck Lever <cel@kernel.org>
-Cc: Jeff Layton <jlayton@kernel.org>
-Cc: NeilBrown <neil@brown.name>
-Cc: Olga Kornievskaia <okorniev@redhat.com>
-Cc: Dai Ngo <Dai.Ngo@oracle.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: Bill Wendling <morbo@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: Kanglong Wang <wangkanglong@loongson.cn>
-Cc: Tiezhu Yang <yangtiezhu@loongson.cn>
-Cc: Qiang Ma <maqianga@uniontech.com>
-Cc: Randy Dunlap <rdunlap@infradead.org>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: Ard Biesheuvel <ardb@kernel.org>
-Cc: Breno Leitao <leitao@debian.org>
-Cc: Thorsten Blum <blum@kernel.org>
-Cc: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: Ashutosh Desai <ashutoshdesai993@gmail.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Johan Hovold <johan@kernel.org>
-Cc: Johannes Berg <johannes.berg@intel.com>
-Cc: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: Cryolitia PukNgae <cryolitia@uniontech.com>
-Cc: Jiaming Zhang <r772577952@gmail.com>
-Cc: Will Porter <mrwillporter@gmail.com>
-Cc: Cen Zhang <zzzccc427@gmail.com>
-Cc: "C=C3=A1ssio Gabriel" <cassiogabrielcontato@gmail.com>
-Cc: Rong Zhang <i@rong.moe>
-Cc: Arun Raghavan <arunr@valvesoftware.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: loongarch@lists.linux.dev
-Cc: linux-mips@vger.kernel.org
-Cc: linux-parisc@vger.kernel.org
-Cc: linux-edac@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: linux-input@vger.kernel.org
-Cc: linux-media@vger.kernel.org
-Cc: intel-wired-lan@lists.osuosl.org
-Cc: netdev@vger.kernel.org
-Cc: linux-wireless@vger.kernel.org
-Cc: brcm80211@lists.linux.dev
-Cc: brcm80211-dev-list.pdl@broadcom.com
-Cc: devicetree@vger.kernel.org
-Cc: linux-samsung-soc@vger.kernel.org
-Cc: linux-gpio@vger.kernel.org
-Cc: linux-scsi@vger.kernel.org
-Cc: linux-nfs@vger.kernel.org
-Cc: devel@lists.orangefs.org
-Cc: linux-hardening@vger.kernel.org
-Cc: linux-sound@vger.kernel.org
----
- drivers/scsi/bfa/bfa_fcs.c | 31 +++++++------------------------
- 1 file changed, 7 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/scsi/bfa/bfa_fcs.c b/drivers/scsi/bfa/bfa_fcs.c
-index 9b57312f43f5..7a4e0e8c7182 100644
---- a/drivers/scsi/bfa/bfa_fcs.c
-+++ b/drivers/scsi/bfa/bfa_fcs.c
-@@ -821,30 +821,13 @@ bfa_fcs_fabric_nsymb_init(struct bfa_fcs_fabric_s *fa=
-bric)
-=20
- 	bfa_ioc_get_adapter_model(&fabric->fcs->bfa->ioc, model);
-=20
--	/* Model name/number */
--	strscpy(port_cfg->node_sym_name.symname, model,
--		BFA_SYMNAME_MAXLEN);
--	strlcat(port_cfg->node_sym_name.symname,
--			BFA_FCS_PORT_SYMBNAME_SEPARATOR,
--			BFA_SYMNAME_MAXLEN);
--
--	/* Driver Version */
--	strlcat(port_cfg->node_sym_name.symname, (char *)driver_info->version,
--		BFA_SYMNAME_MAXLEN);
--	strlcat(port_cfg->node_sym_name.symname,
--			BFA_FCS_PORT_SYMBNAME_SEPARATOR,
--			BFA_SYMNAME_MAXLEN);
--
--	/* Host machine name */
--	strlcat(port_cfg->node_sym_name.symname,
--		driver_info->host_machine_name,
--		BFA_SYMNAME_MAXLEN);
--	strlcat(port_cfg->node_sym_name.symname,
--			BFA_FCS_PORT_SYMBNAME_SEPARATOR,
--			BFA_SYMNAME_MAXLEN);
--
--	/* null terminate */
--	port_cfg->node_sym_name.symname[BFA_SYMNAME_MAXLEN - 1] =3D 0;
-+	/* Model name/number, Driver Version, Host machine name */
-+	snprintf(port_cfg->node_sym_name.symname, BFA_SYMNAME_MAXLEN,
-+		 "%s" BFA_FCS_PORT_SYMBNAME_SEPARATOR
-+		 "%s" BFA_FCS_PORT_SYMBNAME_SEPARATOR
-+		 "%s" BFA_FCS_PORT_SYMBNAME_SEPARATOR,
-+		 model, (char *)driver_info->version,
-+		 driver_info->host_machine_name);
- }
-=20
- /*
---=20
-2.55.0.1032.g73a4cd73de-goog
-
+On 9/15/26 6:05 PM, AngeloGioacchino Del Regno wrote:=0A=
+[...]=0A=
+>>> +    ret =3D drm_dsc_setup_rc_params(dsc, DRM_DSC_1_1_PRE_SCR);=0A=
+>>> +    if (ret) {=0A=
+>>> +        dev_err(dev, "Cannot find DSC RC params\n");=0A=
+>>> +        return ret;=0A=
+>>> +    }=0A=
+>>=0A=
+>> The defaults in MediaTek's downstream driver match DRM_DSC_1_2_444, not=
+=0A=
+>> DRM_DSC_1_1_PRE_SCR, and the panel on my test device requires that even=
+=0A=
+>> though it uses DSC v1.1. This may be a panel-specific problem, but have=
+=0A=
+>> you tested this with any actual panels that need 1_1_PRE_SCR?=0A=
+>>=0A=
+>=0A=
+> My downstream uses 1_1_PRE_SCR... that's why it is like this.=0A=
+>=0A=
+> I can resolve it like=0A=
+>=0A=
+>      if (dsc->dsc_version_major =3D=3D 1 && dsc->dsc_version_minor =3D=3D=
+ 1)=0A=
+>          type =3D DRM_DSC_1_1_PRE_SCR;=0A=
+>      else=0A=
+>          type =3D DRM_DSC_1_2_444;=0A=
+>=0A=
+>      ret =3D drm_dsc_setup_rc_params(dsc, type);=0A=
+>=0A=
+> ...that will work, granted that the panel declares the correct DSC versio=
+n.=0A=
+>=0A=
+=0A=
+Unfortunately not, because DRM_DSC_1_2_444 is also needed for some v1.1=0A=
+panels. From drivers/gpu/drm/drm_dsc_helper.c:=0A=
+=0A=
+/*=0A=
+ * Selected Rate Control Related Parameter Recommended Values from DSC v1.2=
+, v1.2a, v1.2b and=0A=
+ * DSC_v1.1_E1 specs.=0A=
+ *=0A=
+ * Cross-checked against C Model releases: DSC_model_20161212 and 20210623=
+=0A=
+ */=0A=
+static const struct rc_parameters_data rc_parameters_1_2_444[] =3D {=0A=
+...=0A=
+=0A=
+I'm pretty sure that my device is not using DSC v1.2.=0A=
+=0A=
+Since this is definitely panel-specific and there seems to be no good=0A=
+way to detect the required parameters at the moment, this is probably=0A=
+something to fix later.=0A=
+=0A=
+[...]=0A=
+>> I don't quite understand what is going on here, even in the original=0A=
+>> driver before this patch. What is the point of setting VACT_NL twice?=0A=
+>> Does mtk_dsi_ps_control() really need to be called in mtk_dsi_poweron()=
+=0A=
+>> if mtk_dsi_config_vdo_timing() ends up calling it a second time?=0A=
+>=0A=
+> I didn't do much research, but MT8173 and 8192 if I remember correctly=0A=
+> won't work=0A=
+> without this sequence. I saw that 2 years ago or something, so I don't=0A=
+> remember=0A=
+> all that clearly.=0A=
+>=0A=
+=0A=
+Okay, it's fine to keep it as-is then to avoid breaking older SoCs. One=0A=
+change I would definitely recommend though is to move=0A=
+mtk_dsi_set_dsc_params() to the very beginning of the sequence, maybe=0A=
+even into mtk_dsi_host_attach().=0A=
+=0A=
+Otherwise some parts of the code might end up relying on unpopulated=0A=
+parameters by accident, and it's harder to debug if they change in the=0A=
+middle of the sequence.=0A=
+=0A=
+[...]=0A=
+> We can always come back to this in the future with a separate patch, and=
+=0A=
+> we should=0A=
+> do just that, otherwise series versions will never come to an end :-)=0A=
+>=0A=
+=0A=
+Agreed. My work is currently also based on the restructured mediatek-drm=0A=
+driver, but I will try to send follow-up patches for MT6858 support once=0A=
+some of this stuff lands upstream.=0A=
+=0A=
+Best regards,=0A=
+Nikolai=
