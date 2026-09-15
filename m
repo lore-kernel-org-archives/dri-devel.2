@@ -4,105 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDBD1C982C1
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 22:55:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09E19C88E77
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 22:57:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDD4910E0EF;
-	Tue, 15 Sep 2026 22:55:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 441F810E331;
+	Tue, 15 Sep 2026 22:57:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="gJ36Dkp1";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bl9YApFy";
 	dkim-atps=neutral
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
- [74.125.228.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB19E10E0EF
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 22:55:17 +0000 (UTC)
-Received: by mail-ej2-f12.google.com with SMTP id
- a640c23a62f3a-c25ef7a3ce9so47401966b.3
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 15:55:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google; t=1789512916; x=1790117716;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=7NEEN5klK6sYQ7k8fj+V0z2WeSFVNwjy5fJJIdfiMPQ=;
- b=gJ36Dkp1ACVy7bFPXlvxMSKyh3tlXOBty/09/uydkjfeK9YRshWa990l9b7kV64BZ8
- KJwZGah/XsPBLQ6C6tre5PCsv5IbYSFEJk7naGxIqn7SuzUZjdWkt0aaMmnvt6eJBR4i
- U2huh/6dSmjXqD+vfi01WD+h4wAqRWdT/iA64=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789512916; x=1790117716;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=7NEEN5klK6sYQ7k8fj+V0z2WeSFVNwjy5fJJIdfiMPQ=;
- b=SmqfMaMYteocwJ3sTwjLQQ91LWqtuwtKQWRadj6PFAsT95q/q6rfnjnJ/rKsf7lGRa
- F7H3YP6B72gPR53hTEhK5rAA5Wl2jf4pxyN25EBFDfE3912lDoL5jI8KXHOqv56M/vl/
- SXfA53THQu0Nh2G1BY312wtRqfikQbE6EpcBZQMAP3xDQu9Awc2YtPZUnubC9CybLBxy
- adW1LLZ92z/O1fPUFV3a2wlJjyjGLqBhHheyqdzXTP7+ZFiFhHTv26XRBRON3bXPR6Kw
- AVmabTzCY7acZD35Zf95jaRWrdjQDl/KyD3CPFCstFb5E6GjngL/2yJe1eTlUAfzsY/k
- v5Yg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwOJPXzJBdi2kJ3iyT4UfB9LFmeL3k+mC9uETqjAYI4UqKwbJ/L9Ocxk0t854FPMkIEybLxcmltoCc=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l5ndYjt1zc7JdCEyjTNYrU/MR3OHZ6n+fPM+m6XLI5kBVUEuuH
- FiTBxkWY6djjpHFDR0LBCjZBGZPpxyJecbpTVc9EevrRw0tawJ5ZfKfBYiW48BbaiiOF/PxNok1
- B6DytBmSOCw==
-X-Gm-Gg: AYBFou2saGdvVimBcaI0eEltwdyvGsgBHkpK5TZZoffNi1ZtfdyjBogvx0hgLJKj7DB
- vD+Qg7g1HzzJ1ohfkOKyxY3Xz5BG0fxSm2Lh892Q6xwTRZf4gDqy09bQI3lPBx21AxD6DNvhjSn
- o2acnGNtmwPEmQ7g9vi1eQjaAAIlDUggtqz69u7sr6JWgm0YeyclekhIONY6PQ4OKwO/ZZhUczt
- IqEAgPxfSIfmU638E/udmfAPKKD0Ke5t/j/9J+l2MkJLQL3rHnTu0y/3Lg1SEK45alHL6ZI8W0a
- b3CDyU8cdSi8MjQtHcPQTa/T9v2vYbG+AHROs74Bt19b9ylECfhDqYzfhDlqC8G9sg7LnXJxmeo
- KKw2dCz8PpRcN8OE7GfCCrMWau9vutlq7mpt+jpNEBjkjGSqusQIeWaeBeu5gLXW9X70+uF+zOx
- cHoVhdngvKppht4JOPUIYY7WkHj/EoMLJc6dl0IpuQFeVriC7yChYvO9+Yv4y8Wt6QZsZgNqx0K
- zxJfQiMfFciE4ib1aY0L+bVEC9qeiQxKxN7jlWNGjFxF/Hj
-X-Received: by 2002:a17:906:c113:b0:c26:3107:71dd with SMTP id
- a640c23a62f3a-c29e5207742mr9708366b.13.1789512915809; 
- Tue, 15 Sep 2026 15:55:15 -0700 (PDT)
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com.
- [74.125.228.76]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c29de454014sm34886166b.13.2026.09.15.15.55.14
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Sep 2026 15:55:14 -0700 (PDT)
-Received: by mail-ed2-f12.google.com with SMTP id
- 4fb4d7f45d1cf-6a605844571so457271a12.3
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 15:55:14 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvByGtxHknRyqw2jteuAft/jjlSJ+90PeZHS1l40uhVvL0B1KqUwqjjaGGBzjtJmFy077DWEGhDHZZfE=@lists.freedesktop.org
-X-Received: by 2002:a05:6402:5d1:b0:6a9:a6c0:e5ef with SMTP id
- 4fb4d7f45d1cf-6aa2244ef06mr218172a12.37.1789512913950; Tue, 15 Sep 2026
- 15:55:13 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2468C10E331;
+ Tue, 15 Sep 2026 22:57:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789513048; x=1821049048;
+ h=from:date:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=66jj762JfaXsbIBBClFV/f4ej6TgRD0oqtsZGoAZsUw=;
+ b=bl9YApFyCxjcsqW1ZTQ8/1WyDqlqCKDeOlNKWQ9/ArcXt3XjXPiI1Lp3
+ oenLnd8nf3FBLMuEuXN0aGgIfjanrV7BPDJ0d2HluyRy489WKI4AY86ni
+ 6YBsiwKXwY16/PGXOIFPzeLTlqy2LdY5FUn5MRDc5VCWR2uhFmnw3U42V
+ jgLxlUwYx74Px5wbDZ/zmGFmeZmPPGoqbBfSL8npFR+Xbv30ZYQY95xtg
+ vpLggfpzJt0zoUVqAUFrAQkiIzHCDSSoVWRG5gvtdFvBupTdpTWazY+Tg
+ 7LwhE1FQMImL/OxXQACS5SbMPpPrlm2CYUriqWFLiTSjsGswMAZX9qyJL g==;
+X-CSE-ConnectionGUID: XYiBuWBvT3C6YcaXQ/yaOw==
+X-CSE-MsgGUID: S/T9doQ5RbCfYZzi4gQOJw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90100625"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="90100625"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2026 15:57:27 -0700
+X-CSE-ConnectionGUID: 4SAMl0PuRbagtVDqer+LkA==
+X-CSE-MsgGUID: yo4ER2n2TauUfB8UmTmLPg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="271706272"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.24])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2026 15:57:21 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 16 Sep 2026 01:57:18 +0300 (EEST)
+To: Andre Eikmeyer <dev@deq.rocks>
+cc: platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ linux-sound@vger.kernel.org, 
+ Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Kenneth Feng <kenneth.feng@amd.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.de>, Takashi Iwai <tiwai@suse.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ dri-devel@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 2/3] drm/amdgpu: add Apple GMUX runtime PM support
+In-Reply-To: <20260812144750.36797-3-dev@deq.rocks>
+Message-ID: <816106ec-234e-7c11-dd41-d4dbd45b3220@linux.intel.com>
+References: <20260812144221.35877-1-dev@deq.rocks>
+ <20260812144750.36797-1-dev@deq.rocks> <20260812144750.36797-3-dev@deq.rocks>
 MIME-Version: 1.0
-References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
- <CAHk-=wjeamU=_RYT9cR3dZJ2N-Teo-N1+aYh7jwhrB=iWXD0cg@mail.gmail.com>
- <CACSVV028AdnTYa6OKDeoJYCau58uTkKMgEdqTn7crNSV8QZxOA@mail.gmail.com>
-In-Reply-To: <CACSVV028AdnTYa6OKDeoJYCau58uTkKMgEdqTn7crNSV8QZxOA@mail.gmail.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 15 Sep 2026 15:54:57 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wjhJF91TCO0Zqeuf+caG2tQZ4AzbLr2qFmRmnMM4dbh4g@mail.gmail.com>
-X-Gm-Features: AcwNN1Wx2MaYDtFtmeOlL6MnzYY7doY_FEPpziKatTBWbLOeKsjmritQ5JuAL3M
-Message-ID: <CAHk-=wjhJF91TCO0Zqeuf+caG2tQZ4AzbLr2qFmRmnMM4dbh4g@mail.gmail.com>
-Subject: Re: [PATCH RFC POC 00/50] file: handle files on syscall exit
-To: rob.clark@oss.qualcomm.com
-Cc: Christian Brauner <brauner@kernel.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Jann Horn <jannh@google.com>, Jan Kara <jack@suse.cz>,
- Ingo Molnar <mingo@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- Oleg Nesterov <oleg@redhat.com>, linux-alpha@vger.kernel.org, 
- linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
- linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org, 
- linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
- linux-sh@vger.kernel.org, sparclinux@vger.kernel.org, 
- linux-um@lists.infradead.org, Jens Axboe <axboe@kernel.dk>,
- io-uring@vger.kernel.org, 
- netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, bpf@vger.kernel.org, 
- David Airlie <airlied@redhat.com>, virtualization@lists.linux.dev,
- kvm@vger.kernel.org, 
- kexec@lists.infradead.org, linux-hyperv@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,16 +77,246 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 15 Sept 2026 at 15:21, Rob Clark <rob.clark@oss.qualcomm.com> wrote:
->
-> With fd's it is more than just about error rollback.. exposing an fd
-> to userspace mid-way thru an ioctl is an easy security bug to write..
+On Wed, 12 Aug 2026, Andre Eikmeyer wrote:
 
-That isn't very common code. It's something that is done by a few
-strange cases, and yes, those cases should just do it right.
+> The MacBookPro15,1 uses Apple GMUX to control power to the discrete GPU,
+> but it does not expose the ATPX or ACPI power-resource interfaces currently
+> recognized by amdgpu. The driver therefore leaves runtime PM disabled even
+> though vga_switcheroo can switch the GPU reliably.
+> 
+> A dedicated GMUX runtime PM mode uses the existing vga_switcheroo PM domain
+> to sequence GPU power. A runtime-suspended GMUX GPU can remain powered off
+> across system sleep, following the smart-suspend handling already used by
+> BOCO devices.
+> 
+> This allows the discrete GPU to enter D3cold while the integrated GPU is
+> primary and allows PRIME workloads and external displays to wake it on
+> demand. The model enablement is limited to the tested MacBookPro15,1.
+> 
+> This was tested on both the 2018 and 2019 MacBookPro15,1 revisions together
+> with the apple-gmux and HDA changes in this series.
+> 
+> Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 34 ++++++++++++++++++----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 30 ++++++++++++-------
+>  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h    |  1 +
+>  4 files changed, 49 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 7b09410..cc2e2e2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1402,6 +1402,7 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev);
+>  int amdgpu_device_link_reset(struct amdgpu_device *adev);
+>  bool amdgpu_device_supports_atpx(struct amdgpu_device *adev);
+>  bool amdgpu_device_supports_px(struct amdgpu_device *adev);
+> +bool amdgpu_device_supports_gmux(struct amdgpu_device *adev);
+>  bool amdgpu_device_supports_boco(struct amdgpu_device *adev);
+>  bool amdgpu_device_supports_smart_shift(struct amdgpu_device *adev);
+>  int amdgpu_device_supports_baco(struct amdgpu_device *adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index bff3e06..bfa2b7a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -34,6 +34,7 @@
+>  #include <linux/slab.h>
+>  #include <linux/iommu.h>
+>  #include <linux/pci.h>
+> +#include <linux/dmi.h>
+>  #include <linux/pci-p2pdma.h>
+>  #include <linux/apple-gmux.h>
+>  #include <linux/nospec.h>
+> @@ -568,6 +569,22 @@ bool amdgpu_device_supports_px(struct amdgpu_device *adev)
+>  	return false;
+>  }
+>  
+> +static const struct dmi_system_id amdgpu_gmux_runpm_dmi_table[] = {
+> +	{
+> +		.matches = {
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,1"),
+> +		},
+> +	},
+> +	{ }
+> +};
+> +
+> +bool amdgpu_device_supports_gmux(struct amdgpu_device *adev)
+> +{
+> +	return dmi_check_system(amdgpu_gmux_runpm_dmi_table) &&
+> +	       !dev_is_removable(&adev->pdev->dev) &&
+> +	       apple_gmux_detect(NULL, NULL);
+> +}
+> +
+>  /**
+>   * amdgpu_device_supports_boco - Is the device a dGPU with ACPI power resources
+>   *
+> @@ -631,6 +648,9 @@ void amdgpu_device_detect_runtime_pm_mode(struct amdgpu_device *adev)
+>  			/* enable PX as runtime mode */
+>  			adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
+>  			dev_info(adev->dev, "Using ATPX for runtime pm\n");
+> +		} else if (amdgpu_device_supports_gmux(adev)) {
+> +			adev->pm.rpm_mode = AMDGPU_RUNPM_GMUX;
+> +			dev_info(adev->dev, "Using Apple GMUX for runtime pm\n");
+>  		} else if (amdgpu_device_supports_boco(adev)) {
+>  			/* enable boco as runtime mode */
+>  			adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
+> @@ -3711,7 +3731,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>  {
+>  	struct pci_dev *pdev = adev->pdev;
+>  	int r, i;
+> -	bool px = false;
+> +	bool gmux, px = false;
+>  	u32 max_MBps;
+>  	int tmp;
+>  
+> @@ -4144,13 +4164,14 @@ fence_driver_init:
+>  		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode);
+>  
+>  	px = amdgpu_device_supports_px(adev);
+> +	gmux = amdgpu_device_supports_gmux(adev);
+>  
+>  	if (px || (!dev_is_removable(&adev->pdev->dev) &&
+> -				apple_gmux_detect(NULL, NULL)))
+> +		   apple_gmux_detect(NULL, NULL)))
 
-But "those few cases should do it right" does not mean "make a whole
-new subsystem for this thing that makes a simple "open" actually be
-slower and stranger".
+Please don't make unrelated space changes in a logic change.
 
-             Linus
+>  		vga_switcheroo_register_client(adev->pdev,
+> -					       &amdgpu_switcheroo_ops, px);
+> +					       &amdgpu_switcheroo_ops, px || gmux);
+>  
+> -	if (px)
+> +	if (px || gmux)
+>  		vga_switcheroo_init_domain_pm_ops(adev->dev, &adev->vga_pm_domain);
+>  
+>  	adev->pm_nb.notifier_call = amdgpu_device_pm_notifier;
+> @@ -4278,7 +4299,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+>  void amdgpu_device_fini_sw(struct amdgpu_device *adev)
+>  {
+>  	int i, idx;
+> -	bool px;
+> +	bool gmux, px;
+>  
+>  	amdgpu_device_ip_fini(adev);
+>  	amdgpu_fence_driver_sw_fini(adev);
+> @@ -4309,12 +4330,13 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
+>  	adev->xcp_mgr = NULL;
+>  
+>  	px = amdgpu_device_supports_px(adev);
+> +	gmux = amdgpu_device_supports_gmux(adev);
+>  
+>  	if (px || (!dev_is_removable(&adev->pdev->dev) &&
+>  				apple_gmux_detect(NULL, NULL)))
+>  		vga_switcheroo_unregister_client(adev->pdev);
+>  
+> -	if (px)
+> +	if (px || gmux)
+>  		vga_switcheroo_fini_domain_pm_ops(adev->dev);
+>  
+>  	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 1aed121..b8d4273 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2485,11 +2485,12 @@ retry_init:
+>  		DRM_ERROR("Creating debugfs files failed (%d).\n", ret);
+>  
+>  	if (adev->pm.rpm_mode != AMDGPU_RUNPM_NONE) {
+> -		/* only need to skip on ATPX */
+> +		/* ATPX requires a full system-sleep transition. */
+>  		if (amdgpu_device_supports_px(adev))
+>  			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_NO_DIRECT_COMPLETE);
+> -		/* we want direct complete for BOCO */
+> -		if (amdgpu_device_supports_boco(adev))
+> +		/* BOCO and GMUX can remain runtime suspended across system sleep. */
+> +		if (amdgpu_device_supports_boco(adev) ||
+> +		    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+>  			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_SMART_PREPARE |
+>  						DPM_FLAG_SMART_SUSPEND |
+>  						DPM_FLAG_MAY_SKIP_RESUME);
+> @@ -2598,7 +2599,9 @@ static int amdgpu_pmops_prepare(struct device *dev)
+>  	/* Return a positive number here so
+>  	 * DPM_FLAG_SMART_SUSPEND works properly
+>  	 */
+> -	if (amdgpu_device_supports_boco(adev) && pm_runtime_suspended(dev))
+> +	if ((amdgpu_device_supports_boco(adev) ||
+> +	     adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX) &&
+> +	    pm_runtime_suspended(dev))
+>  		return 1;
+>  
+>  	/* if we will not support s3 or s2i for the device
+> @@ -2860,7 +2863,8 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+>  	}
+>  
+>  	adev->in_runpm = true;
+> -	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
+> +	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
+> +	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+>  		drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
+>  
+>  	/*
+> @@ -2887,8 +2891,9 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+>  	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
+>  		adev->mp1_state = PP_MP1_STATE_NONE;
+>  
+> -	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX) {
+> -		/* Only need to handle PCI state in the driver for ATPX
+> +	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
+> +	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX) {
+> +		/* Only need to handle PCI state in the driver for ATPX and GMUX.
+>  		 * PCI core handles it for _PR3.
+>  		 */
+>  		amdgpu_device_cache_pci_state(pdev);
+> @@ -2935,10 +2940,11 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
+>  	if (!pci_device_is_present(adev->pdev))
+>  		adev->no_hw_access = true;
+>  
+> -	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX) {
+> +	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
+> +	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX) {
+>  		drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
+>  
+> -		/* Only need to handle PCI state in the driver for ATPX
+> +		/* Only need to handle PCI state in the driver for ATPX and GMUX.
+>  		 * PCI core handles it for _PR3.
+>  		 */
+>  		pci_set_power_state(pdev, PCI_D0);
+> @@ -2958,12 +2964,14 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
+>  	}
+>  	ret = amdgpu_device_resume(drm_dev, false);
+>  	if (ret) {
+> -		if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
+> +		if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
+> +		    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+>  			pci_disable_device(pdev);
+>  		return ret;
+>  	}
+>  
+> -	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
+> +	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
+> +	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+
+Maybe helper to check these? (But I'm not the maintainer for this code so 
+I don't know what they want.)
+
+>  		drm_dev->switch_power_state = DRM_SWITCH_POWER_ON;
+>  
+>  	amdgpu_restore_umd_profile_pstate_after_runpm(adev);
+> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> index 8d1b097..df24b01 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> @@ -48,6 +48,7 @@ enum amdgpu_int_thermal_type {
+>  enum amdgpu_runpm_mode {
+>  	AMDGPU_RUNPM_NONE,
+>  	AMDGPU_RUNPM_PX,
+> +	AMDGPU_RUNPM_GMUX,
+>  	AMDGPU_RUNPM_BOCO,
+>  	AMDGPU_RUNPM_BACO,
+>  	AMDGPU_RUNPM_BAMACO,
+> 
+
+-- 
+ i.
+
