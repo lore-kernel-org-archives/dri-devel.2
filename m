@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9BC0C982C2
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 08:42:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2717C982C4
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 08:42:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E52210FAFF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E60CB10FB00;
 	Tue, 15 Sep 2026 08:42:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="EY7ariHc";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="EoX/f5Mg";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23BC610E5D0
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:42:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EBCF10FAFE
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:42:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1789461726;
- bh=6aKjiiiV3r+u+ttJGtnTE0DCvbNuV5aY0+blwbJlC64=;
+ s=mail; t=1789461741;
+ bh=QpWDXMInbFN3WeBYM2f1WhDswqZtV+zcEfSv/zqQxCQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EY7ariHcSosv9FXvURve5zifrtHUzlfN3bgGtelahL8mdbR/BGDVGJU0wEafcITP9
- /x3pAPm9fpabSh0zFAD9bLrsAPtycUBH53UdLM/7czPIoEvVWuaRbxMizIxOpmWDc3
- MtPMjUR8V9SHOSdvlhApP0kOaI2yCfzqOcKrCea0C5W2LGHd05+x160wZ0iceg+LSq
- 2zPURihIvH2P9OXPpTk6Pdi4RoqIdTzbUOtffFoIfgyeHseS4qupvkVc7NeOkwcinC
- uRA2TnbIYgEOwM/R4rt539qM7T4Nl5zt1BvUsrfAoyHbDrOT1xMJzrzWgjfRXkpLT2
- kpsMpY1rr7zCA==
+ b=EoX/f5Mg1kIIaS+xeslFEg8THhHga+PljQs1li6PeC5K9nj+uNGh5aeYqbv+AGNQS
+ /ZpfsXJJAAgNYSBal4xJaPF3gzUgaSzKay9zf/c0YYeR4g88N5kti+LKR34phk5LqM
+ o1Fnz5xEM3VlhNkhTYouEOGyrA8Tn9+KmlRKRlSNaCWeQ96Z7uRrO2K15YiuAqeTh8
+ SWCaFjTeSq/SBdzTYeZ7zvmzZ0ItlZCtcCFkLpBShdWL2NTWxoBIdL2lNhboWwKhyl
+ 155fumXt8a7vfcHNE1y3YAc/kBDyBx1604OG2osxWD+oXxyiOe7pSvyPMbY3Zqo2BZ
+ WCED4FftZRa4g==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1506A17E125C;
- Tue, 15 Sep 2026 10:42:05 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id BBF8517E090C;
+ Tue, 15 Sep 2026 10:42:19 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
@@ -41,12 +41,11 @@ Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
  jitao.shi@mediatek.com, dri-devel@lists.freedesktop.org,
  linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com,
- CK Hu <ck.hu@mediatek.com>
-Subject: [PATCH v8 05/13] drm/mediatek: mtk_dsi: Enable interrupt at component
- bind time
-Date: Tue, 15 Sep 2026 10:41:40 +0200
-Message-ID: <20260915084148.11385-6-angelogioacchino.delregno@collabora.com>
+ kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com
+Subject: [PATCH v8 13/13] drm/mediatek: Add Write DMA (WDMA) Engine for
+ Writeback support
+Date: Tue, 15 Sep 2026 10:41:48 +0200
+Message-ID: <20260915084148.11385-14-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260915084148.11385-1-angelogioacchino.delregno@collabora.com>
 References: <20260915084148.11385-1-angelogioacchino.delregno@collabora.com>
@@ -67,103 +66,796 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Having the DSI interrupt enabled before actually binding the DSI
-component to the display controller driver is both useless and
-dangerous: the main purpose of this interrupt is to signal CMD
-done, LP RX data ready, or VideoMode done, or to reset the HW
-engine if this doesn't come.
+Add a basic driver for the Write DMA Engine and initial compatible
+for the MediaTek MT8173 and MediaTek Dimensity 1200 MT6893, and
+hook it up to the mtk_ddp_comp and mtk_drm_drv in order for it to
+probe.
 
-Should this interrupt come too late (during probe), the HW will
-be reset only at the next occurrence of a timeout, which slows
-down boot and may render artifacts to the DSI display.
+This display controller component is used to enable the writeback
+engine that can be used for faster display image capturing in the
+userspace (for example, screenshots and screen recording).
 
-Moreover, clearing the DSI interrupt while the display controller
-is not ready yet, may result in an interrupt storm.
+Note that, for full functionality, the mtk_crtc driver needs to
+implement support for vblank callbacks, format checking and layer
+setup from multiple concurrent components: this is not covered in
+this change, as will be implemented with an upcoming restructuring
+of the (almost all) mediatek-drm drivers.
 
-In order to prevent this from happening, request the interrupt
-with IRQF_NO_AUTOEN, and enable it only when binding DSI to its
-display controller component master.
-
-Reviewed-by: CK Hu <ck.hu@mediatek.com>
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/mtk_dsi.c | 24 +++++++++++++-----------
- 1 file changed, 13 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/mediatek/Makefile        |   1 +
+ drivers/gpu/drm/mediatek/mtk_ddp_comp.c  |  21 +-
+ drivers/gpu/drm/mediatek/mtk_disp_drv.h  |  20 +
+ drivers/gpu/drm/mediatek/mtk_disp_wdma.c | 628 +++++++++++++++++++++++
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c   |   4 +
+ drivers/gpu/drm/mediatek/mtk_drm_drv.h   |   1 +
+ 6 files changed, 673 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_wdma.c
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-index 0b167b4411e5..ef1638e77f00 100644
---- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-@@ -225,6 +225,7 @@ struct mtk_dsi {
- 	int refcount;
- 	bool enabled;
- 	bool lanes_ready;
-+	int irq;
- 	u32 irq_data;
- 	wait_queue_head_t irq_wait_queue;
- 	const struct mtk_dsi_driver_data *driver_data;
-@@ -1101,6 +1102,8 @@ static int mtk_dsi_bind(struct device *dev, struct device *master, void *data)
- 		return ret;
- 	}
+diff --git a/drivers/gpu/drm/mediatek/Makefile b/drivers/gpu/drm/mediatek/Makefile
+index 03b3470ea5b5..8079962597c8 100644
+--- a/drivers/gpu/drm/mediatek/Makefile
++++ b/drivers/gpu/drm/mediatek/Makefile
+@@ -11,6 +11,7 @@ mediatek-drm-y := mtk_crtc.o \
+ 		  mtk_disp_ovl.o \
+ 		  mtk_disp_ovl_adaptor.o \
+ 		  mtk_disp_rdma.o \
++		  mtk_disp_wdma.o \
+ 		  mtk_drm_drv.o \
+ 		  mtk_dsi.o \
+ 		  mtk_dpi.o \
+diff --git a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
+index 13aaf12ecbe5..94b356da6de7 100644
+--- a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
++++ b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
+@@ -357,6 +357,22 @@ static const struct mtk_ddp_comp_funcs ddp_rdma = {
+ 	.get_num_formats = mtk_rdma_get_num_formats,
+ };
  
-+	enable_irq(dsi->irq);
++static const struct mtk_ddp_comp_funcs ddp_wdma = {
++	.clk_enable = mtk_wdma_clk_enable,
++	.clk_disable = mtk_wdma_clk_disable,
++	.config = mtk_wdma_config,
++	.start = mtk_wdma_start,
++	.stop = mtk_wdma_stop,
++	.register_vblank_cb = mtk_wdma_register_vblank_cb,
++	.unregister_vblank_cb = mtk_wdma_unregister_vblank_cb,
++	.enable_vblank = mtk_wdma_enable_vblank,
++	.disable_vblank = mtk_wdma_disable_vblank,
++	.layer_nr = mtk_wdma_layer_nr,
++	.layer_config = mtk_wdma_layer_config,
++	.get_formats = mtk_wdma_get_formats,
++	.get_num_formats = mtk_wdma_get_num_formats,
++};
 +
- 	return 0;
- }
+ static const struct mtk_ddp_comp_funcs ddp_ufoe = {
+ 	.clk_enable = mtk_ddp_clk_enable,
+ 	.clk_disable = mtk_ddp_clk_disable,
+@@ -460,8 +476,8 @@ static const struct mtk_ddp_comp_match mtk_ddp_matches[DDP_COMPONENT_DRM_ID_MAX]
+ 	[DDP_COMPONENT_RDMA2]		= { MTK_DISP_RDMA,		2, &ddp_rdma },
+ 	[DDP_COMPONENT_RDMA4]		= { MTK_DISP_RDMA,		4, &ddp_rdma },
+ 	[DDP_COMPONENT_UFOE]		= { MTK_DISP_UFOE,		0, &ddp_ufoe },
+-	[DDP_COMPONENT_WDMA0]		= { MTK_DISP_WDMA,		0, NULL },
+-	[DDP_COMPONENT_WDMA1]		= { MTK_DISP_WDMA,		1, NULL },
++	[DDP_COMPONENT_WDMA0]		= { MTK_DISP_WDMA,		0, &ddp_wdma },
++	[DDP_COMPONENT_WDMA1]		= { MTK_DISP_WDMA,		1, &ddp_wdma },
+ };
  
-@@ -1109,6 +1112,8 @@ static void mtk_dsi_unbind(struct device *dev, struct device *master,
- {
- 	struct mtk_dsi *dsi = dev_get_drvdata(dev);
+ static bool mtk_ddp_comp_find(struct device *dev,
+@@ -642,6 +658,7 @@ int mtk_ddp_comp_init(struct device *dev, struct device_node *node, struct mtk_d
+ 	    type == MTK_DISP_OVL_2L ||
+ 	    type == MTK_DISP_PWM ||
+ 	    type == MTK_DISP_RDMA ||
++	    type == MTK_DISP_WDMA ||
+ 	    type == MTK_DPI ||
+ 	    type == MTK_DP_INTF ||
+ 	    type == MTK_DSI)
+diff --git a/drivers/gpu/drm/mediatek/mtk_disp_drv.h b/drivers/gpu/drm/mediatek/mtk_disp_drv.h
+index 5a823de07cde..766092f18eb9 100644
+--- a/drivers/gpu/drm/mediatek/mtk_disp_drv.h
++++ b/drivers/gpu/drm/mediatek/mtk_disp_drv.h
+@@ -180,6 +180,26 @@ void mtk_mdp_rdma_config(struct device *dev, struct mtk_mdp_rdma_cfg *cfg,
+ const u32 *mtk_mdp_rdma_get_formats(struct device *dev);
+ size_t mtk_mdp_rdma_get_num_formats(struct device *dev);
  
-+	disable_irq(dsi->irq);
++int mtk_wdma_clk_enable(struct device *dev);
++void mtk_wdma_clk_disable(struct device *dev);
++void mtk_wdma_config(struct device *dev, unsigned int width,
++		     unsigned int height, unsigned int vrefresh,
++		     unsigned int bpc, struct cmdq_pkt *cmdq_pkt);
++unsigned int mtk_wdma_layer_nr(struct device *dev);
++void mtk_wdma_layer_config(struct device *dev, unsigned int idx,
++			   struct mtk_plane_state *state,
++			   struct cmdq_pkt *cmdq_pkt);
++void mtk_wdma_start(struct device *dev);
++void mtk_wdma_stop(struct device *dev);
++void mtk_wdma_register_vblank_cb(struct device *dev,
++				 void (*vblank_cb)(void *),
++				 void *vblank_cb_data);
++void mtk_wdma_unregister_vblank_cb(struct device *dev);
++void mtk_wdma_enable_vblank(struct device *dev);
++void mtk_wdma_disable_vblank(struct device *dev);
++const u32 *mtk_wdma_get_formats(struct device *dev);
++size_t mtk_wdma_get_num_formats(struct device *dev);
 +
- 	drm_encoder_cleanup(&dsi->encoder);
- }
- 
-@@ -1342,7 +1347,6 @@ static int mtk_dsi_probe(struct platform_device *pdev)
- {
- 	struct mtk_dsi *dsi;
- 	struct device *dev = &pdev->dev;
--	int irq_num;
- 	int ret;
- 
- 	dsi = devm_drm_bridge_alloc(dev, struct mtk_dsi, bridge,
-@@ -1375,9 +1379,9 @@ static int mtk_dsi_probe(struct platform_device *pdev)
- 	if (IS_ERR(dsi->phy))
- 		return dev_err_probe(dev, PTR_ERR(dsi->phy), "Failed to get MIPI-DPHY\n");
- 
--	irq_num = platform_get_irq(pdev, 0);
--	if (irq_num < 0)
--		return irq_num;
-+	dsi->irq = platform_get_irq(pdev, 0);
-+	if (dsi->irq < 0)
-+		return dsi->irq;
- 
- 	dsi->host.ops = &mtk_dsi_ops;
- 	dsi->host.dev = dev;
-@@ -1386,17 +1390,15 @@ static int mtk_dsi_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, dsi);
- 
-+	ret = devm_request_irq(&pdev->dev, dsi->irq, mtk_dsi_irq,
-+			       IRQF_NO_AUTOEN, dev_name(&pdev->dev), dsi);
+ int mtk_padding_clk_enable(struct device *dev);
+ void mtk_padding_clk_disable(struct device *dev);
+ void mtk_padding_start(struct device *dev);
+diff --git a/drivers/gpu/drm/mediatek/mtk_disp_wdma.c b/drivers/gpu/drm/mediatek/mtk_disp_wdma.c
+new file mode 100644
+index 000000000000..0575fade92c6
+--- /dev/null
++++ b/drivers/gpu/drm/mediatek/mtk_disp_wdma.c
+@@ -0,0 +1,628 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) 2021 MediaTek Inc.
++ * Copyright (c) 2025 Collabora Ltd
++ *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
++ */
++
++#include <drm/drm_atomic.h>
++#include <drm/drm_atomic_helper.h>
++#include <drm/drm_connector.h>
++#include <drm/drm_edid.h>
++#include <drm/drm_fourcc.h>
++#include <drm/drm_framebuffer.h>
++#include <drm/drm_gem_dma_helper.h>
++#include <drm/drm_probe_helper.h>
++#include <drm/drm_writeback.h>
++
++#include <linux/align.h>
++#include <linux/clk.h>
++#include <linux/component.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
++#include <linux/soc/mediatek/mtk-cmdq.h>
++#include <linux/wordpart.h>
++
++#include "mtk_crtc.h"
++#include "mtk_ddp_comp.h"
++#include "mtk_disp_drv.h"
++#include "mtk_drm_drv.h"
++
++#define DISP_REG_WDMA_INT_ENABLE		0x000
++ #define WDMA_FRAME_COMPLETE_INT		BIT(0)
++#define DISP_REG_WDMA_INT_STATUS		0x004
++#define DISP_REG_WDMA_EN			0x008
++ #define WDMA_ENGINE_EN				BIT(0)
++#define DISP_REG_WDMA_CFG			0x014
++ #define WDMA_CFG_OUT_FMT			GENMASK(7, 4)
++  #define WDMA_OUT_FMT_RGB565			0
++  #define WDMA_OUT_FMT_RGB888			1
++  #define WDMA_OUT_FMT_RGBA8888			2
++  #define WDMA_OUT_FMT_ARGB8888			3
++  #define WDMA_OUT_FMT_UYVY			4
++  #define WDMA_OUT_FMT_YUY2			5
++  #define WDMA_OUT_FMT_P010			6
++  #define WDMA_OUT_FMT_Y_ONLY			7
++  #define WDMA_OUT_FMT_I420			8
++  #define WDMA_OUT_FMT_ARGB2101010		11
++  #define WDMA_OUT_FMT_NV12			12
++ #define WDMA_CT_EN				BIT(11)
++ #define WDMA_CFG_SWAP				BIT(16)
++ #define WDMA_UFO_DCP_ENABLE			BIT(17)
++ #define WDMA_INT_MTX_SEL			GENMASK(27, 23)
++  #define WDMA_CT_COEF_RGB_TO_JPEG		0
++  #define WDMA_CT_COEF_JPEG_TO_RGB		4
++#define DISP_REG_WDMA_SRC_SIZE			0x018
++#define DISP_REG_WDMA_CLIP_SIZE			0x01c
++ #define WDMA_HEIGHT_PX				GENMASK(29, 16)
++ #define WDMA_WIDTH_PX				GENMASK(13, 0)
++#define DISP_REG_WDMA_CLIP_COORD		0x020
++ #define WDMA_CLIP_Y_COORD			GENMASK(29, 16)
++ #define WDMA_CLIP_X_COORD			GENMASK(13, 0)
++#define DISP_REG_WDMA_SHADOW_CTRL		0x024
++ #define WDMA_FORCE_COMMIT			BIT(0)
++ #define WDMA_BYPASS_SHADOW			BIT(1)
++#define DISP_REG_WDMA_DST_W_IN_BYTE		0x028
++#define DISP_REG_WDMA_DST_UV_PITCH		0x078
++ #define WDMA_UV_DST_W_IN_BYTE			GENMASK(15, 0)
++#define DISP_REG_WDMA_DST_ADDR_LSB		0xf00
++#define DISP_REG_WDMA_DST_ADDR_MSB_MT6893	0xf20
++#define DISP_REG_WDMA_DST_ADDRX(r, x)		(r + (x * 0x4))
++
++static const u32 mtk_wdma_wb_output_formats[] = {
++	DRM_FORMAT_RGB888
++};
++
++static const u32 mt6893_formats[] = {
++	DRM_FORMAT_XRGB8888,
++	DRM_FORMAT_ARGB8888,
++	DRM_FORMAT_BGRX8888,
++	DRM_FORMAT_BGRA8888,
++	DRM_FORMAT_ABGR8888,
++	DRM_FORMAT_XBGR8888,
++	DRM_FORMAT_RGB888,
++	DRM_FORMAT_BGR888,
++	DRM_FORMAT_RGB565,
++	DRM_FORMAT_YUV420,
++	DRM_FORMAT_YVU420,
++	DRM_FORMAT_UYVY,
++	DRM_FORMAT_YUYV,
++};
++
++struct mtk_disp_wdma_data {
++	u32 reg_wdma_dst_addr0_msb;
++	const u32 *formats;
++	size_t num_formats;
++};
++
++struct mtk_disp_wdma {
++	struct device			*dev;
++	struct clk			*clk;
++	void __iomem			*regs;
++	struct cmdq_client_reg		cmdq_reg;
++	const struct mtk_disp_wdma_data	*data;
++	void				(*vblank_cb)(void *data);
++	void				*vblank_cb_data;
++	int				irq;
++	struct drm_writeback_connector	wb_connector;
++	bool				wb_pending;
++};
++
++static inline struct mtk_disp_wdma *connector_to_wdma(struct drm_connector *connector)
++{
++	return container_of(connector, struct mtk_disp_wdma, wb_connector.base);
++}
++
++static irqreturn_t mtk_disp_wdma_irq_handler(int irq, void *dev_id)
++{
++	struct mtk_disp_wdma *wdma = dev_id;
++
++	/* Clear frame completion interrupt */
++	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_STATUS);
++
++	if (wdma->vblank_cb)
++		wdma->vblank_cb(wdma->vblank_cb_data);
++
++	/* TODO: Move completion signaling to CMDQ interrupt callback */
++	if (wdma->wb_pending) {
++		drm_writeback_signal_completion(&wdma->wb_connector, 0);
++		wdma->wb_pending = false;
++	}
++
++	return IRQ_HANDLED;
++}
++
++static void wdma_update_bits(struct device *dev, unsigned int reg,
++			     unsigned int mask, unsigned int val)
++{
++	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
++	unsigned int tmp = readl(wdma->regs + reg);
++
++	tmp = (tmp & ~mask) | (val & mask);
++	writel(tmp, wdma->regs + reg);
++}
++
++void mtk_wdma_register_vblank_cb(struct device *dev,
++				 void (*vblank_cb)(void *),
++				 void *vblank_cb_data)
++{
++	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
++
++	wdma->vblank_cb = vblank_cb;
++	wdma->vblank_cb_data = vblank_cb_data;
++}
++
++void mtk_wdma_unregister_vblank_cb(struct device *dev)
++{
++	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
++
++	wdma->vblank_cb = NULL;
++	wdma->vblank_cb_data = NULL;
++}
++
++void mtk_wdma_enable_vblank(struct device *dev)
++{
++	wdma_update_bits(dev, DISP_REG_WDMA_INT_ENABLE, WDMA_FRAME_COMPLETE_INT,
++			 WDMA_FRAME_COMPLETE_INT);
++}
++
++void mtk_wdma_disable_vblank(struct device *dev)
++{
++	wdma_update_bits(dev, DISP_REG_WDMA_INT_ENABLE, WDMA_FRAME_COMPLETE_INT, 0);
++}
++
++const u32 *mtk_wdma_get_formats(struct device *dev)
++{
++	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
++
++	return wdma->data->formats;
++}
++
++size_t mtk_wdma_get_num_formats(struct device *dev)
++{
++	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
++
++	return wdma->data->num_formats;
++}
++
++int mtk_wdma_clk_enable(struct device *dev)
++{
++	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
++
++	return clk_prepare_enable(wdma->clk);
++}
++
++void mtk_wdma_clk_disable(struct device *dev)
++{
++	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
++
++	clk_disable_unprepare(wdma->clk);
++}
++
++void mtk_wdma_start(struct device *dev)
++{
++	wdma_update_bits(dev, DISP_REG_WDMA_EN, WDMA_ENGINE_EN,
++			 WDMA_ENGINE_EN);
++}
++
++void mtk_wdma_stop(struct device *dev)
++{
++	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
++
++	if (wdma->wb_pending) {
++		drm_writeback_signal_completion(&wdma->wb_connector, 0);
++		wdma->wb_pending = false;
++	}
++
++	wdma_update_bits(dev, DISP_REG_WDMA_EN, WDMA_ENGINE_EN, 0);
++}
++
++void mtk_wdma_config(struct device *dev, unsigned int width,
++		     unsigned int height, unsigned int vrefresh,
++		     unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
++{
++	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
++
++	writel(WDMA_FORCE_COMMIT | WDMA_BYPASS_SHADOW,
++	       wdma->regs + DISP_REG_WDMA_SHADOW_CTRL);
++}
++
++static u32 wdma_fmt_convert(unsigned int fmt)
++{
++	switch (fmt) {
++	default:
++	case DRM_FORMAT_RGB565:
++		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_RGB565);
++	case DRM_FORMAT_BGR565:
++		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_RGB565) | WDMA_CFG_SWAP;
++	case DRM_FORMAT_RGB888:
++		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_RGB888);
++	case DRM_FORMAT_BGR888:
++		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_RGB888) | WDMA_CFG_SWAP;
++	case DRM_FORMAT_RGBX8888:
++	case DRM_FORMAT_RGBA8888:
++		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_RGBA8888);
++	case DRM_FORMAT_BGRX8888:
++	case DRM_FORMAT_BGRA8888:
++		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_RGBA8888) | WDMA_CFG_SWAP;
++	case DRM_FORMAT_XRGB8888:
++	case DRM_FORMAT_ARGB8888:
++		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_ARGB8888);
++	case DRM_FORMAT_XBGR8888:
++	case DRM_FORMAT_ABGR8888:
++		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_ARGB8888) | WDMA_CFG_SWAP;
++	case DRM_FORMAT_UYVY:
++		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_UYVY);
++	case DRM_FORMAT_YUYV:
++		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_YUY2);
++	case DRM_FORMAT_YUV420:
++		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_I420);
++	case DRM_FORMAT_YVU420:
++		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_I420) | WDMA_CFG_SWAP;
++	}
++}
++
++unsigned int mtk_wdma_layer_nr(struct device *dev)
++{
++	return 1;
++}
++
++static void mtk_wdma_ddp_write_dst_addr(struct cmdq_pkt *cmdq_pkt, u64 val,
++					u8 reg_id, struct mtk_disp_wdma *wdma)
++{
++	mtk_ddp_write(cmdq_pkt, lower_32_bits(val), &wdma->cmdq_reg, wdma->regs,
++		      DISP_REG_WDMA_DST_ADDRX(DISP_REG_WDMA_DST_ADDR_LSB, reg_id));
++
++	if (wdma->data->reg_wdma_dst_addr0_msb == 0)
++		return;
++
++	mtk_ddp_write(cmdq_pkt, upper_32_bits(val), &wdma->cmdq_reg, wdma->regs,
++		      DISP_REG_WDMA_DST_ADDRX(wdma->data->reg_wdma_dst_addr0_msb, reg_id));
++}
++
++static void mtk_wdma_format_config(struct mtk_disp_wdma *wdma,
++				   struct mtk_plane_pending_state *pending,
++				   const struct drm_format_info *fmt_info,
++				   struct cmdq_pkt *cmdq_pkt)
++{
++	unsigned int u_off, u_stride, u_size, v_off;
++	u32 val;
++
++	/*
++	 * For RGB formats, this sets the image destination address;
++	 * For YUV formats, this sets the Y component destination address.
++	 */
++	mtk_wdma_ddp_write_dst_addr(cmdq_pkt, pending->addr, 0, wdma);
++
++	if (!fmt_info->is_yuv) {
++		/* Disable color transform matrix and data compression */
++		mtk_ddp_write_mask(cmdq_pkt, 0, &wdma->cmdq_reg, wdma->regs,
++				   DISP_REG_WDMA_CFG,
++				   WDMA_UFO_DCP_ENABLE | WDMA_CT_EN);
++		return;
++	}
++
++	/* Additional format config required only for 420 sampling */
++	if (!drm_format_info_is_yuv_sampling_420(fmt_info))
++		return;
++
++	u_off = pending->pitch * pending->height;
++	u_stride = pending->pitch / 2;
++
++	if (drm_format_info_is_yuv_planar(fmt_info)) {
++		/* YUV420 or YVU420 */
++		u_stride = ALIGN(u_stride, 16);
++		u_size = u_stride * pending->height / 2;
++		v_off = u_off + u_size;
++	} else {
++		/* NV12 or NV21 */
++		u_size = u_stride * pending->height / 2;
++		v_off = 0;
++	}
++
++	/* Set U and V components destination addresses */
++	mtk_wdma_ddp_write_dst_addr(cmdq_pkt, pending->addr + u_off, 1, wdma);
++	mtk_wdma_ddp_write_dst_addr(cmdq_pkt, pending->addr + v_off, 2, wdma);
++
++	mtk_ddp_write(cmdq_pkt, FIELD_PREP(WDMA_UV_DST_W_IN_BYTE, u_stride),
++		      &wdma->cmdq_reg, wdma->regs, DISP_REG_WDMA_DST_UV_PITCH);
++
++	/* Color transform coefficient selection */
++	val = FIELD_PREP_CONST(WDMA_INT_MTX_SEL, WDMA_CT_COEF_JPEG_TO_RGB);
++	mtk_ddp_write_mask(cmdq_pkt, val, &wdma->cmdq_reg, wdma->regs,
++			   DISP_REG_WDMA_CFG, WDMA_INT_MTX_SEL);
++
++	/* Enable color transform matrix, disable data compression */
++	mtk_ddp_write_mask(cmdq_pkt, WDMA_CT_EN, &wdma->cmdq_reg, wdma->regs,
++			   DISP_REG_WDMA_CFG, WDMA_UFO_DCP_ENABLE | WDMA_CT_EN);
++}
++
++void mtk_wdma_layer_config(struct device *dev, unsigned int idx,
++			   struct mtk_plane_state *state,
++			   struct cmdq_pkt *cmdq_pkt)
++{
++	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
++	struct mtk_plane_pending_state *pending = &state->pending;
++	unsigned int pitch = pending->pitch & 0xffff;
++	unsigned int fmt = pending->format;
++	unsigned int con = wdma_fmt_convert(fmt);
++	const struct drm_format_info *fmt_info = drm_format_info(fmt);
++	u16 clip_sz_h = pending->height;
++	u16 clip_sz_w = pending->width;
++	u32 val;
++
++	val = FIELD_PREP(WDMA_HEIGHT_PX, pending->height);
++	val |= FIELD_PREP(WDMA_WIDTH_PX, pending->width);
++	mtk_ddp_write(cmdq_pkt, val, &wdma->cmdq_reg, wdma->regs,
++		      DISP_REG_WDMA_SRC_SIZE);
++
++	val = FIELD_PREP(WDMA_HEIGHT_PX, pending->y);
++	val |= FIELD_PREP(WDMA_WIDTH_PX, pending->x);
++	mtk_ddp_write(cmdq_pkt, val, &wdma->cmdq_reg, wdma->regs,
++		      DISP_REG_WDMA_CLIP_COORD);
++
++	if (fmt_info->is_yuv) {
++		if ((pending->y + pending->height) % 2)
++			clip_sz_h--;
++
++		if ((pending->x + pending->width) % 2)
++			clip_sz_w--;
++	}
++	val = FIELD_PREP(WDMA_HEIGHT_PX, clip_sz_h);
++	val |= FIELD_PREP(WDMA_WIDTH_PX, clip_sz_w);
++	mtk_ddp_write(cmdq_pkt, val, &wdma->cmdq_reg, wdma->regs,
++		      DISP_REG_WDMA_CLIP_SIZE);
++
++	mtk_ddp_write(cmdq_pkt, con, &wdma->cmdq_reg, wdma->regs,
++		      DISP_REG_WDMA_CFG);
++	mtk_ddp_write(cmdq_pkt, pitch, &wdma->cmdq_reg, wdma->regs,
++		      DISP_REG_WDMA_DST_W_IN_BYTE);
++
++	mtk_wdma_format_config(wdma, pending, fmt_info, cmdq_pkt);
++
++	drm_writeback_queue_job(&wdma->wb_connector, wdma->wb_connector.base.state);
++}
++
++static enum drm_connector_status
++mtk_wdma_wb_connector_detect(struct drm_connector *connector, bool force)
++{
++	return connector_status_connected;
++}
++
++static const struct drm_connector_funcs mtk_wdma_wb_connector_funcs = {
++	.detect = mtk_wdma_wb_connector_detect,
++	.fill_modes = drm_helper_probe_single_connector_modes,
++	.destroy = drm_connector_cleanup,
++	.reset = drm_atomic_helper_connector_reset,
++	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
++};
++
++static int mtk_wdma_wb_atomic_check(struct drm_encoder *encoder,
++				    struct drm_crtc_state *crtc_state,
++				    struct drm_connector_state *conn_state)
++{
++	const struct drm_display_mode *mode = &crtc_state->mode;
++	struct drm_framebuffer *fb;
++	int i;
++
++	if (!conn_state->writeback_job || !conn_state->writeback_job->fb)
++		return 0;
++
++	fb = conn_state->writeback_job->fb;
++	if (fb->width != mode->hdisplay || fb->height != mode->vdisplay)
++		return -EINVAL;
++
++	for (i = 0; i < ARRAY_SIZE(mtk_wdma_wb_output_formats); i++) {
++		if (fb->format->format == mtk_wdma_wb_output_formats[i])
++			return 0;
++	}
++
++	return -EINVAL;
++}
++
++static const struct drm_encoder_helper_funcs mtk_wdma_wb_encoder_helper_funcs = {
++	.atomic_check = mtk_wdma_wb_atomic_check,
++};
++
++static int mtk_wdma_wb_connector_get_modes(struct drm_connector *connector)
++{
++	struct drm_device *dev = connector->dev;
++
++	return drm_add_modes_noedid(connector, dev->mode_config.max_width,
++				    dev->mode_config.max_height);
++}
++
++static enum drm_mode_status
++mtk_wdma_wb_connector_mode_valid(struct drm_connector *connector,
++				 const struct drm_display_mode *mode)
++{
++	struct drm_device *dev = connector->dev;
++	struct drm_mode_config *mode_config = &dev->mode_config;
++	int w = mode->hdisplay, h = mode->vdisplay;
++
++	if (w < mode_config->min_width || w > mode_config->max_width)
++		return MODE_BAD_HVALUE;
++
++	if (h < mode_config->min_height || h > mode_config->max_height)
++		return MODE_BAD_VVALUE;
++
++	return MODE_OK;
++}
++
++static void mtk_wdma_wb_connector_atomic_commit(struct drm_connector *connector,
++						struct drm_atomic_commit *state)
++{
++	struct drm_connector_state *conn_state =
++		drm_atomic_get_new_connector_state(state, connector);
++	struct mtk_disp_wdma *wdma = connector_to_wdma(connector);
++	struct drm_framebuffer *fb;
++	struct drm_gem_object *gem;
++	struct drm_gem_dma_object *dma_obj;
++	dma_addr_t addr;
++
++	if (WARN_ON(!conn_state->writeback_job))
++		return;
++
++	fb = conn_state->writeback_job->fb;
++	if (!fb)
++		return;
++
++	gem = fb->obj[0];
++	dma_obj = to_drm_gem_dma_obj(gem);
++	addr = dma_obj->dma_addr;
++
++	/* Store writeback pending state before queuing the job */
++	wdma->wb_pending = true;
++
++	mtk_wdma_ddp_write_dst_addr(NULL, addr, 0, wdma);
++	drm_writeback_queue_job(&wdma->wb_connector, conn_state);
++}
++
++static const struct drm_connector_helper_funcs mtk_wdma_wb_connector_helper_funcs = {
++	.get_modes = mtk_wdma_wb_connector_get_modes,
++	.mode_valid = mtk_wdma_wb_connector_mode_valid,
++	.atomic_commit = mtk_wdma_wb_connector_atomic_commit,
++};
++
++static int mtk_disp_wdma_bind(struct device *dev, struct device *master,
++			      void *data)
++{
++	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
++	struct drm_device *drm_dev = data;
++	int crtcs, ret;
++
++	crtcs = mtk_find_possible_crtcs(drm_dev, wdma->dev);
++	if (crtcs < 0)
++		return crtcs;
++
++	drm_connector_helper_add(&wdma->wb_connector.base,
++				 &mtk_wdma_wb_connector_helper_funcs);
++
++	ret = drm_writeback_connector_init(drm_dev, &wdma->wb_connector,
++					   &mtk_wdma_wb_connector_funcs,
++					   &mtk_wdma_wb_encoder_helper_funcs,
++					   mtk_wdma_wb_output_formats,
++					   ARRAY_SIZE(mtk_wdma_wb_output_formats),
++					   crtcs);
 +	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
++		return ret;
 +
- 	ret = mipi_dsi_host_register(&dsi->host);
- 	if (ret < 0)
- 		return dev_err_probe(dev, ret, "Failed to register DSI host\n");
- 
--	ret = devm_request_irq(&pdev->dev, irq_num, mtk_dsi_irq,
--			       IRQF_TRIGGER_NONE, dev_name(&pdev->dev), dsi);
--	if (ret) {
--		mipi_dsi_host_unregister(&dsi->host);
--		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
--	}
--
- 	dsi->bridge.of_node = dev->of_node;
- 	dsi->bridge.type = DRM_MODE_CONNECTOR_DSI;
- 
++	ret = pm_runtime_get_sync(dev);
++	if (ret)
++		dev_warn(dev, "Could not get PM Runtime!\n");
++
++	/*
++	 * Disable and clear pending interrupts - write unconditionally as no
++	 * crash (SError, etc) will happen as if unpowered/unclocked this is
++	 * simply going to be ignored (and the registers will be 0 at reset).
++	 */
++	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_ENABLE);
++	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_STATUS);
++
++	/* Put RPM only if refcount was incremented before to avoid unbalancing */
++	if (ret >= 0)
++		pm_runtime_put(dev);
++
++	enable_irq(wdma->irq);
++	return 0;
++}
++
++static void mtk_disp_wdma_unbind(struct device *dev, struct device *master,
++				 void *data)
++{
++	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
++
++	disable_irq(wdma->irq);
++}
++
++static const struct component_ops mtk_disp_wdma_component_ops = {
++	.bind	= mtk_disp_wdma_bind,
++	.unbind = mtk_disp_wdma_unbind,
++};
++
++static int mtk_disp_wdma_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct mtk_disp_wdma *priv;
++	struct resource *res;
++	int ret;
++
++	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	priv->dev = dev;
++
++	priv->irq = platform_get_irq(pdev, 0);
++	if (priv->irq < 0)
++		return priv->irq;
++
++	priv->clk = devm_clk_get(dev, NULL);
++	if (IS_ERR(priv->clk))
++		return dev_err_probe(dev, PTR_ERR(priv->clk),
++				     "failed to get wdma clk\n");
++
++	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	priv->regs = devm_ioremap_resource(dev, res);
++	if (IS_ERR(priv->regs))
++		return dev_err_probe(dev, PTR_ERR(priv->regs),
++				     "failed to ioremap wdma\n");
++#if IS_REACHABLE(CONFIG_MTK_CMDQ)
++	ret = cmdq_dev_get_client_reg(dev, &priv->cmdq_reg, 0);
++	if (ret)
++		dev_dbg(dev, "get mediatek,gce-client-reg fail!\n");
++#endif
++
++	priv->data = of_device_get_match_data(dev);
++	platform_set_drvdata(pdev, priv);
++
++	ret = devm_request_irq(dev, priv->irq, mtk_disp_wdma_irq_handler,
++			       IRQF_NO_AUTOEN, dev_name(dev), priv);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "Failed to request irq\n");
++
++	ret = devm_pm_runtime_enable(dev);
++	if (ret)
++		return ret;
++
++	ret = component_add(dev, &mtk_disp_wdma_component_ops);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to add component\n");
++
++	return 0;
++}
++
++static void mtk_disp_wdma_remove(struct platform_device *pdev)
++{
++	component_del(&pdev->dev, &mtk_disp_wdma_component_ops);
++}
++
++static const struct mtk_disp_wdma_data mt6893_wdma_driver_data = {
++	.reg_wdma_dst_addr0_msb = DISP_REG_WDMA_DST_ADDR_MSB_MT6893,
++	.formats = mt6893_formats,
++	.num_formats = ARRAY_SIZE(mt6893_formats),
++};
++
++static const struct mtk_disp_wdma_data mt8173_wdma_driver_data = {
++	.formats = mt6893_formats,
++	.num_formats = ARRAY_SIZE(mt6893_formats),
++};
++
++static const struct of_device_id mtk_disp_wdma_driver_dt_match[] = {
++	{ .compatible = "mediatek,mt6893-disp-wdma", .data = &mt6893_wdma_driver_data },
++	{ .compatible = "mediatek,mt8173-disp-wdma", .data = &mt8173_wdma_driver_data },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, mtk_disp_wdma_driver_dt_match);
++
++struct platform_driver mtk_disp_wdma_driver = {
++	.probe		= mtk_disp_wdma_probe,
++	.remove		= mtk_disp_wdma_remove,
++	.driver		= {
++		.name	= "mediatek-disp-wdma",
++		.of_match_table = mtk_disp_wdma_driver_dt_match,
++	},
++};
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+index aec8da072a41..7020fc0845cf 100644
+--- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
++++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+@@ -796,6 +796,8 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
+ 	  .data = (void *)MTK_DISP_RDMA },
+ 	{ .compatible = "mediatek,mt8173-disp-ufoe",
+ 	  .data = (void *)MTK_DISP_UFOE },
++	{ .compatible = "mediatek,mt6893-disp-wdma",
++	  .data = (void *)MTK_DISP_WDMA },
+ 	{ .compatible = "mediatek,mt8173-disp-wdma",
+ 	  .data = (void *)MTK_DISP_WDMA },
+ 	{ .compatible = "mediatek,mt2701-dpi",
+@@ -1175,6 +1177,7 @@ static int mtk_drm_probe(struct platform_device *pdev)
+ 		    comp_type == MTK_DISP_OVL_2L ||
+ 		    comp_type == MTK_DISP_OVL_ADAPTOR ||
+ 		    comp_type == MTK_DISP_RDMA ||
++		    comp_type == MTK_DISP_WDMA ||
+ 		    comp_type == MTK_DP_INTF ||
+ 		    comp_type == MTK_DPI ||
+ 		    comp_type == MTK_DSI) {
+@@ -1283,6 +1286,7 @@ static struct platform_driver * const mtk_drm_drivers[] = {
+ 	&mtk_disp_ovl_adaptor_driver,
+ 	&mtk_disp_ovl_driver,
+ 	&mtk_disp_rdma_driver,
++	&mtk_disp_wdma_driver,
+ 	&mtk_dpi_driver,
+ 	&mtk_drm_platform_driver,
+ 	&mtk_dsi_driver,
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.h b/drivers/gpu/drm/mediatek/mtk_drm_drv.h
+index 43aac2d956e7..8b5c51d93f72 100644
+--- a/drivers/gpu/drm/mediatek/mtk_drm_drv.h
++++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.h
+@@ -77,6 +77,7 @@ extern struct platform_driver mtk_disp_merge_driver;
+ extern struct platform_driver mtk_disp_ovl_adaptor_driver;
+ extern struct platform_driver mtk_disp_ovl_driver;
+ extern struct platform_driver mtk_disp_rdma_driver;
++extern struct platform_driver mtk_disp_wdma_driver;
+ extern struct platform_driver mtk_dpi_driver;
+ extern struct platform_driver mtk_dsi_driver;
+ extern struct platform_driver mtk_ethdr_driver;
 -- 
 2.55.0
 
