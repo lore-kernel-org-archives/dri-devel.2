@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAF2DC982C7
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 11:35:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C2F8C88E7B
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 11:35:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C66F610FBBA;
-	Tue, 15 Sep 2026 11:35:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E194C10FBBD;
+	Tue, 15 Sep 2026 11:35:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HrkMpIvO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XqYmNccj";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A7AF10FBBA
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 11:35:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B75510FBBD
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 11:35:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2F5DC415D0;
+ by sea.source.kernel.org (Postfix) with ESMTP id 2303642E75;
+ Tue, 15 Sep 2026 11:35:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 863231F00893;
  Tue, 15 Sep 2026 11:35:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91A641F0089B;
- Tue, 15 Sep 2026 11:35:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789472119;
- bh=vu/oKxz+arn92APs3M7qiv06zwHfUu2cH5sFUjT3DBs=;
+ s=k20260515; t=1789472127;
+ bh=SiDQySP8IWTYUOdB117br7TNLcvsxWg+xpN5r3cQq6M=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=HrkMpIvO7iGYskIOyxgrnhbmY51Jc8Ub7q4Why0AOMW3f+ydbKbSBCxy95zXyqe1p
- ZoAv51UkkYKpcZYTAAisBxBl4hf6Uv+KmnEvtmEszCrFQ4UCX6prXJTwvfuh+VBg0H
- KsE2Brv2yI+jIip82JC/Ngr+3NzDrIw2sFwoF22lMvLiCLY/9/fGutyOhJmWBoHQ0r
- N5tgRdT+HEy2DU7RimgNlnfIOmMDcup/G0VPUdWrNxwZPN/IikW4sEG5zmO1gaEX/J
- VgppH76C/4vJ+axoPp1uwZD0v634hBDcqupR0UFuTNRHu80xxaX7JAyL6dF7YCetWD
- 6h8T6BgsJ0X2A==
+ b=XqYmNccjTCHTgLZfaFkSBqBDFVVBpN4V7uWmro0nlZYhYXdIOR3pUJm31rdV5qmY+
+ IvkQ+yJ07iMIJdVfTfCU/X+J1F85+bUe/IC+GzOLdoIsjHzzI0cRTRkin0A6HJ4e9A
+ wjbY7EF1qh+Lal3EYMMKlHTRwBv+A5nykmakJD+8D67Z72hDwiPvXhqDAFfL92TuNh
+ lR+9tIh+dTMh59L9wRnctKfZHIAF9NgyjZ0E3adVhwso4Hs5jlLy1+Oyk4a8gR0BJY
+ rzlOT3+qL2yuGXywSlb/k0KzE8CbI8Z7lw3SuGIaABfBF2TZ/OabNmu6rvP9iBmcEe
+ 3ufAwvnh6Znbw==
 From: Christian Brauner <brauner@kernel.org>
-Date: Tue, 15 Sep 2026 13:31:17 +0200
-Subject: [PATCH RFC POC 31/50] vfio: install the migration data descriptor
+Date: Tue, 15 Sep 2026 13:31:18 +0200
+Subject: [PATCH RFC POC 32/50] liveupdate: install the session descriptors
  when the ioctl returns
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-work-fd-reserve-unify-folded-v1-31-4d5217d6b246@kernel.org>
+Message-Id: <20260915-work-fd-reserve-unify-folded-v1-32-4d5217d6b246@kernel.org>
 References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
 In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
 To: Linus Torvalds <torvalds@linux-foundation.org>
@@ -60,12 +60,12 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jann Horn <jannh@google.com>,
  kexec@lists.infradead.org, linux-hyperv@vger.kernel.org, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>
 X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1192; i=brauner@kernel.org;
- h=from:subject:message-id; bh=ZuarGRo5ZqIHA3hh6zA1izPVcZ2LCwhC5SlPF3ZepH0=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSt1Kkzvf951a0G+ZqpXSZ3J2/arrxG/8r9+aez1z9K9
- bjIVK2r1FHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRLQaMDBeN9d/bKs4OXXDx
- gkR+xafcmPCqbumzYcILTbl2Jzp0VTP8YspvytbQP3uhP99bqOslw97nz5UieFd43hf6lsB++8w
- DdgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3361; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=B2yzY8WVH9I+iLi4OuPEJenUrd90D6GAB5zasGpbfEQ=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSt1Kk7WTbjY/LDc6u2Nl9xvMO+7IG4y7ylT0vafyesW
+ 7+59X5BSUcpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBEdFwZGQ4ll/MKLt9+yuPv
+ Ls73Mh5H/nGs+LpMfK0El6Rj9O4LjyQZGY7rKSdd2rLmmIq27bPU4yUy5+NELr/9Lxu7/vCdBG/
+ ZPH4A
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -87,49 +87,135 @@ Rely on the fd exit path machinery.
 
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/vfio/vfio_main.c | 25 +++++++------------------
- 1 file changed, 7 insertions(+), 18 deletions(-)
+ kernel/liveupdate/luo_core.c    | 48 ++++++++++++-----------------------------
+ kernel/liveupdate/luo_session.c | 24 ++++++---------------
+ 2 files changed, 21 insertions(+), 51 deletions(-)
 
-diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
-index 423ead48aafe..93d9d21f4074 100644
---- a/drivers/vfio/vfio_main.c
-+++ b/drivers/vfio/vfio_main.c
-@@ -903,28 +903,17 @@ EXPORT_SYMBOL_GPL(vfio_mig_get_next_state);
- static int vfio_ioct_mig_return_fd(struct file *filp, void __user *arg,
- 				   struct vfio_device_feature_mig_state *mig)
+diff --git a/kernel/liveupdate/luo_core.c b/kernel/liveupdate/luo_core.c
+index 1b2bda22902d..3899bbf30b53 100644
+--- a/kernel/liveupdate/luo_core.c
++++ b/kernel/liveupdate/luo_core.c
+@@ -270,61 +270,41 @@ struct luo_device_state {
+ static int luo_ioctl_create_session(struct luo_ucmd *ucmd)
  {
--	int ret;
--	int fd;
-+	FD_PREPARE(fdf, O_CLOEXEC, filp);
+ 	struct liveupdate_ioctl_create_session *argp = ucmd->cmd;
++	const struct fd_slot *fd;
+ 	struct file *file;
+ 	int err;
  
--	fd = get_unused_fd_flags(O_CLOEXEC);
--	if (fd < 0) {
--		ret = fd;
--		goto out_fput;
-+	if (IS_ERR(fdf)) {
-+		fput(filp);
-+		return PTR_ERR(fdf);
- 	}
+-	argp->fd = get_unused_fd_flags(O_CLOEXEC);
+-	if (argp->fd < 0)
+-		return argp->fd;
++	fd = fd_prepare(O_CLOEXEC);
++	if (IS_ERR(fd))
++		return PTR_ERR(fd);
  
--	mig->data_fd = fd;
--	if (copy_to_user(arg, mig, sizeof(*mig))) {
--		ret = -EFAULT;
--		goto out_put_unused;
--	}
--	fd_install(fd, filp);
-+	mig->data_fd = fd_prepare_fd(fdf);
-+	if (copy_to_user(arg, mig, sizeof(*mig)))
-+		return -EFAULT;
- 	return 0;
+ 	err = luo_session_create(argp->name, &file);
+ 	if (err)
+-		goto err_put_fd;
 -
--out_put_unused:
--	put_unused_fd(fd);
--out_fput:
--	fput(filp);
--	return ret;
+-	err = luo_ucmd_respond(ucmd, sizeof(*argp));
+-	if (err)
+-		goto err_put_file;
+-
+-	fd_install(argp->fd, file);
+-
+-	return 0;
++		return err;
+ 
+-err_put_file:
+-	fput(file);
+-err_put_fd:
+-	put_unused_fd(argp->fd);
++	argp->fd = fd_stage(fd, file);
+ 
+-	return err;
++	return luo_ucmd_respond(ucmd, sizeof(*argp));
  }
  
- static int
+ static int luo_ioctl_retrieve_session(struct luo_ucmd *ucmd)
+ {
+ 	struct liveupdate_ioctl_retrieve_session *argp = ucmd->cmd;
++	const struct fd_slot *fd;
+ 	struct file *file;
+ 	int err;
+ 
+-	argp->fd = get_unused_fd_flags(O_CLOEXEC);
+-	if (argp->fd < 0)
+-		return argp->fd;
++	fd = fd_prepare(O_CLOEXEC);
++	if (IS_ERR(fd))
++		return PTR_ERR(fd);
+ 
+ 	err = luo_session_retrieve(argp->name, &file);
+ 	if (err < 0)
+-		goto err_put_fd;
+-
+-	err = luo_ucmd_respond(ucmd, sizeof(*argp));
+-	if (err)
+-		goto err_put_file;
+-
+-	fd_install(argp->fd, file);
+-
+-	return 0;
++		return err;
+ 
+-err_put_file:
+-	fput(file);
+-err_put_fd:
+-	put_unused_fd(argp->fd);
++	argp->fd = fd_stage(fd, file);
+ 
+-	return err;
++	return luo_ucmd_respond(ucmd, sizeof(*argp));
+ }
+ 
+ static int luo_open(struct inode *inodep, struct file *filep)
+diff --git a/kernel/liveupdate/luo_session.c b/kernel/liveupdate/luo_session.c
+index f48e9a4185f9..7de35bad1ede 100644
+--- a/kernel/liveupdate/luo_session.c
++++ b/kernel/liveupdate/luo_session.c
+@@ -282,33 +282,23 @@ static int luo_session_retrieve_fd(struct luo_session *session,
+ 				   struct luo_ucmd *ucmd)
+ {
+ 	struct liveupdate_session_retrieve_fd *argp = ucmd->cmd;
++	const struct fd_slot *fd;
+ 	struct file *file;
+ 	int err;
+ 
+-	argp->fd = get_unused_fd_flags(O_CLOEXEC);
+-	if (argp->fd < 0)
+-		return argp->fd;
++	fd = fd_prepare(O_CLOEXEC);
++	if (IS_ERR(fd))
++		return PTR_ERR(fd);
+ 
+ 	mutex_lock(&session->mutex);
+ 	err = luo_retrieve_file(&session->file_set, argp->token, &file);
+ 	mutex_unlock(&session->mutex);
+ 	if (err < 0)
+-		goto err_put_fd;
+-
+-	err = luo_ucmd_respond(ucmd, sizeof(*argp));
+-	if (err)
+-		goto err_put_file;
+-
+-	fd_install(argp->fd, file);
+-
+-	return 0;
++		return err;
+ 
+-err_put_file:
+-	fput(file);
+-err_put_fd:
+-	put_unused_fd(argp->fd);
++	argp->fd = fd_stage(fd, file);
+ 
+-	return err;
++	return luo_ucmd_respond(ucmd, sizeof(*argp));
+ }
+ 
+ static int luo_session_finish(struct luo_session *session,
 
 -- 
 2.53.0
