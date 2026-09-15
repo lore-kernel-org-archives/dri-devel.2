@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9367EC982C1
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 18:39:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D84CAC982C7
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 18:39:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1F4910E879;
-	Tue, 15 Sep 2026 18:39:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF10310ED25;
+	Tue, 15 Sep 2026 18:39:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EDVqjtae";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Tyh2a7Lw";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D491A10E4C0;
- Tue, 15 Sep 2026 18:39:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FB3810E884;
+ Tue, 15 Sep 2026 18:39:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789497564; x=1821033564;
+ t=1789497558; x=1821033558;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=bIdI2iCQpw0asbXUucKB25jMAjgVM2wvcs3ks7/Q9zo=;
- b=EDVqjtaezfHIgRnA8Eb7B7t+jYl9U5JAP1W5oCsO/CrKacDMFgNL4FuP
- YvHTN1XvBfkxxekTk8rhBhaUPZjjCqZOPwgxphBW2VmpjYJlNfXvVBhuK
- 58Cub9C40Mnz0widqkFBcZajE/Agpja0oHdd0IJ62el5EqMmX+xKKOEep
- g6TR/GVehB90CQ844+HTzKTSttobslgttGgLu1jan07sg2nox9xGVbeFG
- s82Djhq9ZOBJLvk0n0HsrwYbhRz7J6/GbJCbeGVFFJEjoujLw2VnyEy8y
- RkzNPYuGe5zlPsSnj6VQYKGXHSu17xg6UrglyXBsgfIu3srPv94ExiBlb w==;
-X-CSE-ConnectionGUID: /DOcPWz+TEaxdG4dSkZQIA==
-X-CSE-MsgGUID: QK7X66c1QDGU5jxfuboBJA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92380301"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="92380301"
+ bh=DjECLiaImBRSgUFSzxUG4hQNKDR/iBe0ttBpiJ6+Qqs=;
+ b=Tyh2a7LwyUKxld0lBkJ2X2o3t7TS5vHnlJSDb/DOVMt6eZcNLBQsCop9
+ YyM3mg1h13jKYLcNrqTxSnhBRWb9HRYUEadsf6mDX4Hpq+Y4pmGlHd52U
+ ELALSkP4t+9pfPlfwSVrFxctHkRpL7jX9svo5xn+GZfrRinUv5qwrnuZi
+ LH8JafJQVLNZNHzu0YNBrGU6lTrsq8VAX+Zzl6kEjScicascDWq0dSgQk
+ RPDlVM/zjlWvzUBGl0Rl4xLHQzKY0EAghsEdKSVN4gdGpzcn5wOImHzqB
+ 7R/WNTEEz02FDpsxrCV+EKsiVYwIDj0NrbUhN7itr7sR4nKf+Z18/P8A9 A==;
+X-CSE-ConnectionGUID: Kfs619rNReWXW28k4D296A==
+X-CSE-MsgGUID: z5sUIsQaTYOB3YKBm8GghQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92380292"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="92380292"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2026 11:39:24 -0700
-X-CSE-ConnectionGUID: H+XfMcX8QRSnuPMNTYIRIA==
-X-CSE-MsgGUID: ZDYG2lP3RL+g9JkWyOcdKw==
+ 15 Sep 2026 11:39:18 -0700
+X-CSE-ConnectionGUID: Wxnd5G4cSNOkYvIVel3P/w==
+X-CSE-MsgGUID: 9OYyrS0BRpS232Mh1zxIsA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="298148503"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="298148489"
 Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.190.238.88])
- by fmviesa001.fm.intel.com with ESMTP; 15 Sep 2026 11:39:21 -0700
+ by fmviesa001.fm.intel.com with ESMTP; 15 Sep 2026 11:39:15 -0700
 From: Animesh Manna <animesh.manna@intel.com>
 To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 Cc: jouni.hogander@intel.com, jani.nikula@intel.com, suraj.kandpal@intel.com,
  Animesh Manna <animesh.manna@intel.com>
-Subject: [PATCH v6 09/18] drm/i915/alpm: Half LFPS cycle calculation
-Date: Tue, 15 Sep 2026 23:34:40 +0530
-Message-Id: <20260915180449.277933-10-animesh.manna@intel.com>
+Subject: [PATCH v6 07/18] drm/i915/alpm: Modify AUX_LESS_WAKE_TIME bitfield
+ for xe3lpd
+Date: Tue, 15 Sep 2026 23:34:38 +0530
+Message-Id: <20260915180449.277933-8-animesh.manna@intel.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20260915180449.277933-1-animesh.manna@intel.com>
 References: <20260915180449.277933-1-animesh.manna@intel.com>
@@ -69,82 +70,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for half LFPS cycle calculation for DP2.1 ALPM as dependent
-parameters got changed.
+The AUX_LESS_WAKE_TIME bitfield in ALPM_CTL is widened from 6 bits to
+8 bits starting from xe3lpd (display version 35). Add the register mask
+and field macro for the wider bitfield and program the wake time using
+the appropriate macro based on the display version.
 
-v1: Initial version.
-v2: Avoid returning early. [Jani]
-v3: Use intel_crtc_has_type(). [Suraj]
-v4: Split in separate function based on HAS_LT_PHY() check. [Jouni]
+v2: Modify AUX_LESS_WAKE_TIME bitfield for xe3lpd. [Suraj]
+v3: Separate out AUX_LESS_WAKE_TIME bitfield change into its own
+patch. [Jouni]
 
+Bspec: 71477
 Cc: Jouni Högander <jouni.hogander@intel.com>
 Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_alpm.c | 41 ++++++++++++++++++-----
- 1 file changed, 33 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_alpm.c     | 8 ++++++--
+ drivers/gpu/drm/i915/display/intel_psr_regs.h | 2 ++
+ 2 files changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
-index cb24bba801a1..14ecb27095b2 100644
+index 924fa8dd4638..dc025058a626 100644
 --- a/drivers/gpu/drm/i915/display/intel_alpm.c
 +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-@@ -74,24 +74,49 @@ static int get_silence_period_symbols(const struct intel_crtc_state *crtc_state)
- 		1000 / 1000;
- }
- 
--static void get_lfps_cycle_min_max_time(const struct intel_crtc_state *crtc_state,
--					int *min, int *max)
-+static void lnl_get_lfps_period_min_max_time(const struct intel_crtc_state *crtc_state,
-+					     int *min, int *max)
- {
--	if (crtc_state->port_clock < 540000) {
--		*min = 65 * LFPS_CYCLE_COUNT;
--		*max = 75 * LFPS_CYCLE_COUNT;
--	} else {
-+	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP)) {
-+		if (crtc_state->port_clock < 540000) {
-+			*min = 65 * LFPS_CYCLE_COUNT;
-+			*max = 75 * LFPS_CYCLE_COUNT;
-+		} else {
-+			*min = 140;
-+			*max = 800;
-+		}
-+	}
-+}
+@@ -610,8 +610,12 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
+ 	if (intel_alpm_is_alpm_aux_less(intel_dp, crtc_state)) {
+ 		alpm_ctl = ALPM_CTL_ALPM_ENABLE |
+ 			ALPM_CTL_ALPM_AUX_LESS_ENABLE |
+-			ALPM_CTL_AUX_LESS_SLEEP_HOLD_TIME_50_SYMBOLS |
+-			ALPM_CTL_AUX_LESS_WAKE_TIME(crtc_state->alpm_state.aux_less_wake_lines);
++			ALPM_CTL_AUX_LESS_SLEEP_HOLD_TIME_50_SYMBOLS;
 +
-+static void xe3plpd_get_lfps_period_min_max_time(const struct intel_crtc_state *crtc_state,
-+						 int *min, int *max)
-+{
-+	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP)) {
- 		*min = 140;
- 		*max = 800;
-+	} else {
-+		*min = 320;
-+		*max = 1600;
- 	}
- }
++		if (DISPLAY_VER(display) < 35)
++			alpm_ctl |= ALPM_CTL_AUX_LESS_WAKE_TIME(crtc_state->alpm_state.aux_less_wake_lines);
++		else
++			alpm_ctl |= ALPM_CTL_AUX_LESS_WAKE_TIME_XE3LPD(crtc_state->alpm_state.aux_less_wake_lines);
  
-+static void get_lfps_period_min_max_time(const struct intel_crtc_state *crtc_state,
-+					int *min, int *max)
-+{
-+	struct intel_display *display = to_intel_display(crtc_state);
-+
-+	if (HAS_LT_PHY(display))
-+		xe3plpd_get_lfps_period_min_max_time(crtc_state, min, max);
-+	else
-+		lnl_get_lfps_period_min_max_time(crtc_state, min, max);
-+}
-+
- static int get_lfps_cycle_time(const struct intel_crtc_state *crtc_state)
- {
- 	int tlfps_cycle_min, tlfps_cycle_max;
+ 		if (intel_dp->as_sdp_supported)
+ 			intel_alpm_configure_pr_as_sdp(intel_dp, crtc_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_psr_regs.h b/drivers/gpu/drm/i915/display/intel_psr_regs.h
+index bb577e7e3bbd..016ce24944dc 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_psr_regs.h
+@@ -301,7 +301,9 @@
+ #define  ALPM_CTL_EXTENDED_FAST_WAKE_MIN_LINES		5
+ #define  ALPM_CTL_EXTENDED_FAST_WAKE_TIME(lines)	REG_FIELD_PREP(ALPM_CTL_EXTENDED_FAST_WAKE_TIME_MASK, (lines) - ALPM_CTL_EXTENDED_FAST_WAKE_MIN_LINES)
+ #define  ALPM_CTL_AUX_LESS_WAKE_TIME_MASK		REG_GENMASK(5, 0)
++#define  ALPM_CTL_AUX_LESS_WAKE_TIME_MASK_XE3LPD	REG_GENMASK(7, 0)
+ #define  ALPM_CTL_AUX_LESS_WAKE_TIME(val)		REG_FIELD_PREP(ALPM_CTL_AUX_LESS_WAKE_TIME_MASK, val)
++#define  ALPM_CTL_AUX_LESS_WAKE_TIME_XE3LPD(val)	REG_FIELD_PREP(ALPM_CTL_AUX_LESS_WAKE_TIME_MASK_XE3LPD, val)
  
--	get_lfps_cycle_min_max_time(crtc_state, &tlfps_cycle_min,
--				    &tlfps_cycle_max);
-+	get_lfps_period_min_max_time(crtc_state, &tlfps_cycle_min,
-+				     &tlfps_cycle_max);
- 
- 	return tlfps_cycle_min +  (tlfps_cycle_max - tlfps_cycle_min) / 2;
- }
+ #define _ALPM_CTL2_A	0x60954
+ #define ALPM_CTL2(dev_priv, tran)	_MMIO_TRANS2(dev_priv, tran, _ALPM_CTL2_A)
 -- 
 2.29.0
 
