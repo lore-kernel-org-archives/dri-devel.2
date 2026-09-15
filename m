@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D23FDC88E7D
-	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 08:42:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 127CEC88E53
+	for <dri-devel@archiver.kernel.org>; Tue, 15 Sep 2026 08:42:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 033F910F344;
-	Tue, 15 Sep 2026 08:42:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E472010F34D;
+	Tue, 15 Sep 2026 08:42:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="HoZaf1qw";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="h+ukPA2w";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9894D10E268
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:42:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1276B10F34D
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 08:42:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1789461719;
- bh=mvbGJKU7g8urQTzwwQuSXtCvZqjpvJmauyF4amfDJEo=;
+ s=mail; t=1789461724;
+ bh=qyYNtF6Szv6pA6AN5mfvaTW4lHJbi9aApiqokgMWKXA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HoZaf1qwQrMpmVncFwrCnPtV5S3mIecl+tpw051P6gbMK9m6rLVgtGQSo6KeSMeae
- KmgrjF2x2dfxCfRVw4o8ioa1nw+cjXbiDkxcHbLUKDFG9uCaX7jFwWeFYy/d7pHNEB
- O5HHvRVVyLAvDJnRkSdCjQIdpCfs+it6vhIEnb/l6x2r1L0YY1tXhjm4XmRQLs1H7T
- 5rIFGazTWDEjgoCwd9V/T5EOIHJ3457qB+MfpTRmCvg6rKpOjJy3yQlKoUNhCoSImw
- Ggrm+wYrKrY1uUGBLzLCwJ0ZlcDqtKm5HXNWx/DVAfoCFvuM2xWtAhzWG6C2xVgQMq
- 90JOYvjiH5WQA==
+ b=h+ukPA2w+O/JtIcUTUZ5KiiWlpnmHXb5do22l6ZTC0C2NGJXYKj9RzAn359prDzdF
+ f5YsnfXuEuZNPoHQQN5rpRXbIAB09ZaXeVdkOMCxd0KKWR4USiOB0CzAI0PZir/ewn
+ x5VANATbcIb4cIMdoelSqRYy9r4hopLVRQSr7iRCYcHOMLrkRAFjXpa3xG/Usgi8gK
+ 6GGPd3hlq/u4UDOKINxV6FsjzeNHk19UA9xbqREs28l8Z3TlxPHwr/seAeQ5QiZ6JT
+ ATGnjLgdZDIS7CLBPiiOAVA15WGAxveK5BvL0q+cXoyamb+oteWIDLkmSxiC2AhqIe
+ 3CroR9g7hrMVg==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id A11B417E0CFC;
- Tue, 15 Sep 2026 10:41:57 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 2394517E1168;
+ Tue, 15 Sep 2026 10:42:03 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
@@ -43,10 +43,10 @@ Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com,
  CK Hu <ck.hu@mediatek.com>
-Subject: [PATCH v8 01/13] dt-bindings: display: mediatek: dsc: Add MT8196
- compatible
-Date: Tue, 15 Sep 2026 10:41:36 +0200
-Message-ID: <20260915084148.11385-2-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v8 04/13] drm/mediatek: mtk_dsi: Cleanup encoder if reset
+ fails during bind
+Date: Tue, 15 Sep 2026 10:41:39 +0200
+Message-ID: <20260915084148.11385-5-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260915084148.11385-1-angelogioacchino.delregno@collabora.com>
 References: <20260915084148.11385-1-angelogioacchino.delregno@collabora.com>
@@ -67,33 +67,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add compatible for the Display Stream Compression (DSC) IP found
-in the display controller of the MT8196 SoC.
+When binding the dsi component, the .bind() callback initializes
+the encoder, and then will optionally trigger resets.
 
-This IP is compatible with the one found in MT8195.
+Should that last operation fail, binding will as well fail but
+the encoder is never removed from the DRM encoder list and if
+the driver gets removed afterwards, this may crash the kernel
+because of an use-after-free condition.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+In order to avoid that, cleanup the encoder upon reset failure.
+
+Fixes: 605c83753d97 ("drm/mediatek: mtk_dsi: Reset the dsi0 hardware")
 Reviewed-by: CK Hu <ck.hu@mediatek.com>
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- .../devicetree/bindings/display/mediatek/mediatek,dsc.yaml    | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/mediatek/mtk_dsi.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml
-index a5b88eb97e3b..c8b3e86943e4 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml
-@@ -23,7 +23,9 @@ properties:
-       - enum:
-           - mediatek,mt8195-disp-dsc
-       - items:
--          - const: mediatek,mt8188-disp-dsc
-+          - enum:
-+              - mediatek,mt8188-disp-dsc
-+              - mediatek,mt8196-disp-dsc
-           - const: mediatek,mt8195-disp-dsc
+diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
+index 97b8a91874f5..0b167b4411e5 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dsi.c
++++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+@@ -1095,7 +1095,13 @@ static int mtk_dsi_bind(struct device *dev, struct device *master, void *data)
+ 	if (ret)
+ 		return ret;
  
-   reg:
+-	return device_reset_optional(dev);
++	ret = device_reset_optional(dev);
++	if (ret) {
++		drm_encoder_cleanup(&dsi->encoder);
++		return ret;
++	}
++
++	return 0;
+ }
+ 
+ static void mtk_dsi_unbind(struct device *dev, struct device *master,
 -- 
 2.55.0
 
