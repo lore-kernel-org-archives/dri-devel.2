@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7182BC982C9
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 16:51:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62FABC982C9
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 16:51:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8E1E10E34F;
-	Wed, 16 Sep 2026 16:51:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92DD110E3D5;
+	Wed, 16 Sep 2026 16:51:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KDzpsTWg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JcbHzxFv";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27CD310E34F
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:51:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F050C10E3D5
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:51:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0B19343D2C
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:51:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D77531F00921
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:50:59 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D5C5040280
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:51:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B865F1F000FF
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:51:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789577459;
- bh=aPNoc/IlVGOzrz4AF5oUnZbB8ytSLfqRYFF3aP/E0sQ=;
+ s=k20260515; t=1789577509;
+ bh=jlDHHiMVqeXgdpn1Zj7e0N2hLgqwzeWFJxceKYb+YHU=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=KDzpsTWg/z/5krxTobDbUSigXfKLPKN3GY+kPVHqBR7Qs64CjzbIot5CkPAxP2KI+
- Upq0GS82M9H0w++Czaj9svBiDTIMQmYdYP/CnWtiPeFrOEHUujcdjRSLexmI83DV+8
- d3OQKB1DCYTLA88vtfqbmhxp+3cXxscBoXEspNQE0qlsMYOfCwjg24mnoTiNgsl1/S
- 2qLgSSSaznjuc0hKlv6DMiusMtJMUHjJIhhSSySZ7vl9callQF4Q+5MgOlSemRyTDx
- yueZt3Uscllvxw64KPLdcYhjZOLgiIXI50AcSMUhvVtuef5e/bhhcPutASFv5vSY+5
- AtaQQrqZxPKdg==
-Received: by mail-lf2-f12.google.com with SMTP id
- 2adb3069b0e04-5b76462aae9so905444e87.2
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 09:50:59 -0700 (PDT)
+ b=JcbHzxFvgLrpPJkR5R3XBY3y2SfCcwhDFnSiLhJ1B+/JTtnxdxndb4zLLznpRuxMr
+ zDUB6DlQP+4KRhUFQ8qZIwmbtMSg4Sa213btbd920xJW3yvf/Rn4Qzedge0V2JpjlX
+ DSseYM02zkMboFVManwZ9pkz7gBcwpL3z/fAJjcC2l/MJBjBv12ZukFan7Y5adtLR5
+ PKISREbVUR980BR6UCPR2TSmSQ7nhb1eCTbfCo2hB8HPqtX95CCZxk0cjc1OeNxXHC
+ wHby+UM/xrpkpvxH7mvJSJwmMZRLimAjK/eOXdvW4CtjMIwx6V8jFLqWrsv0qByTdb
+ TzMjmwn1jm1BA==
+Received: by mail-lf2-f13.google.com with SMTP id
+ 2adb3069b0e04-5b74e0c2e4dso1308865e87.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 09:51:49 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AKwUvBxBQONjdO46FqnSMc/0MMb/BhjJ1XFX8w7Pq71qqAQboH0Jp6yeXtjvj7txJbFJmgMfEWnKv0o99dU=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m+hE1sLvEvUdf1/J3ww9RUsSQSRCl2+KFsuVefxp5DMojuwUoW
- Jpp6NN/M1DPzsEN+T4UoKuPRS5JgW1lom/chiY25CpVLkI3hpno0j2zZtzvVdM8pc0jbJnhF0vK
- yyprB8DiJ9Np1OB2E4Ve+46M+R8/z52A=
-X-Received: by 2002:a05:6512:4023:b0:5b8:b419:c8ad with SMTP id
- 2adb3069b0e04-5b8b6617917mr969995e87.17.1789577458536; Wed, 16 Sep 2026
- 09:50:58 -0700 (PDT)
+ AKwUvBzHw/2lVHmPF0kwY803tz6TivJeMFcnvulUo9t9HeF0ZJV0vM56SnOKD2ADiHynm8lOAvl10r2jMTw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kqEsG7gNYCiE+HR8yXhgikNgoUrzLX9ZIuzFeXJWBoKiOcOht2
+ /nvQhh+nIsoUBOJgjRqQkH4HEYiWR3m3RCxl5ru1Sj09OdoUdpuPW7tWSAqlI8/1z3XEqzD4Cn4
+ A6JxIRPrGzuZFWv5Qwu0izjRZVgoanRE=
+X-Received: by 2002:a05:6512:3d10:b0:5b6:17b6:2224 with SMTP id
+ 2adb3069b0e04-5b8b665478emr1974764e87.23.1789577508492; Wed, 16 Sep 2026
+ 09:51:48 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260909132153.1596191-1-arnd@kernel.org>
- <20260909132153.1596191-9-arnd@kernel.org>
-In-Reply-To: <20260909132153.1596191-9-arnd@kernel.org>
+ <20260909132153.1596191-13-arnd@kernel.org>
+In-Reply-To: <20260909132153.1596191-13-arnd@kernel.org>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 18:50:45 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=dBJNiZMwRfYtVXC=qfWEU8WY1DRRzDA1o9Ngsd_VRqg@mail.gmail.com>
-X-Gm-Features: AcwNN1VWCbypMBp0nAwSnIVxOHs3QNpjZkwVGv_5Swi1QUA8mHWSb92JoMn3LYg
-Message-ID: <CAD++jL=dBJNiZMwRfYtVXC=qfWEU8WY1DRRzDA1o9Ngsd_VRqg@mail.gmail.com>
-Subject: Re: [PATCH 08/14] mfd: remove unused aat2870 driver
+Date: Wed, 16 Sep 2026 18:51:35 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm253spmn1Tq2Jekiw2Q9xD_HDQ+AFRgWovLyE=veAfhA@mail.gmail.com>
+X-Gm-Features: AcwNN1Xrn_ibUNrql-q0n8N3iTosx-ZSLrxjHuJr9HzfGfgIlGS2dfpxQ3q588w
+Message-ID: <CAD++jLm253spmn1Tq2Jekiw2Q9xD_HDQ+AFRgWovLyE=veAfhA@mail.gmail.com>
+Subject: Re: [PATCH 12/14] mfd: remove unused mcp-sa11x0/ucb1x00 driver
 To: Arnd Bergmann <arnd@kernel.org>
 Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
  linux-kernel@vger.kernel.org, 
@@ -93,13 +93,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 9, 2026 at 3:23=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wrot=
+On Wed, Sep 9, 2026 at 3:24=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wrot=
 e:
 
 > From: Arnd Bergmann <arnd@arndb.de>
 >
-> This driver was apparently never used, as it has has no devicetree
-> support and never had corresponding platform_data definitions.
+> The sa1100 platform has been removed, so these drivers are no longer
+> used anywhere.
 >
 > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
