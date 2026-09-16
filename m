@@ -4,50 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4627C982CC
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 15:40:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF460C982C9
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 15:41:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FA9810E94F;
-	Wed, 16 Sep 2026 15:40:50 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C040D10E94F
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 15:40:48 +0000 (UTC)
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-05 (Coremail) with SMTP id zQCowACXATx7uKpqrPxsCA--.21197S2;
- Wed, 16 Sep 2026 23:40:43 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: dave.stevenson@raspberrypi.com, dri-devel@lists.freedesktop.org,
- javierm@redhat.com, kernel-list@raspberrypi.com,
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- mcanal@igalia.com, mripard@kernel.org, simona@ffwll.ch,
- tzimmermann@suse.de, Wentao Liang <vulab@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/vc4: Fix firmware reference leak in vc4_drm_bind()
-Date: Wed, 16 Sep 2026 15:40:15 +0000
-Message-Id: <20260916154015.2056797-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowACXATx7uKpqrPxsCA--.21197S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7XFW5Ww45XryxKFykArW3GFg_yoWDtFc_ur
- 18ZrZ7XrW8uFWq9r9rCw47Ar9Ik3yDWFWFva1ayayfJr13JF4jqFya93y5Xry7Cr47AFyD
- A3WDXrWrCa17GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUb3AFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
- Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s
- 1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0
- cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r1j6r
- 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
- n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
- kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
- 67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
- CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
- MIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCT
- nIWIevJa73UjIFyTuYvjfUwFApDUUUU
-X-Originating-IP: [36.110.52.2]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgcMA2qqok86DAABsU
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DBC610E3D0;
+	Wed, 16 Sep 2026 15:41:36 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jVGw9rEs";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88FE810E3D0
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 15:41:35 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7224D43925;
+ Wed, 16 Sep 2026 15:41:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28BD91F00893;
+ Wed, 16 Sep 2026 15:41:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789573295;
+ bh=a02D6i1RP1n3mdxSE+c5Jvz3yEutDKEehkXVrrZZ4Z4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=jVGw9rEsNVKiUfJ/nYUDrt6FTttUIfGYKchPLtfAgmfN4V1jttIE+K7XQ0h/Hr++6
+ BjkY/NGZu8xS0IfdatdtrBO05s8j1wtSYaBobRF4lYYAtwUiLr411BIYu6/jp2A6xm
+ E4EqZgvOlvf5ZrcBLmSyL4t2kIqRmdiPV3GkibEweT4grzw6O+hUxIJYP3/LTmUDoU
+ sdU6PywP892UYKEenexqjeNzgGCpdL5G8dZ/nOClM14exqIq5ONRwr+3K51pFiVrgL
+ VZ2ZoRCO+LQLm1k4uZWfD4X57W0Le9gUEsgbdDLiELZSMwbPQ1DMfxa3Xsmbo9E2B+
+ KTGyo6j4trwGQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 01/38] selftests/dyndbg: Add kselftest script to
+ verify dynamic-debug
+To: "Jim Cromie" <jim.cromie@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org
+In-Reply-To: <20260916-dd-cmap-part2-clean-v10-1-af4cf4767707@gmail.com>
+References: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
+ <20260916-dd-cmap-part2-clean-v10-1-af4cf4767707@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 16 Sep 2026 15:41:34 +0000
+Message-Id: <20260916154135.28BD91F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,40 +54,67 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The firmware reference obtained via rpi_firmware_get() is leaked when
-aperture_remove_all_conflicting_devices() fails, as the error label
-returns without putting it. This happens before the firmware is
-consumed and put further down in the function.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] selftests/dyndbg: dead write-only variable CUMULATIVE_DDCMDS
+--
 
-Put the firmware reference before jumping to err.
+commit baf1eba97598bc14d4dc1aac7aa207aedefbdfac
+Author: Jim Cromie <jim.cromie@gmail.com>
 
-Fixes: c406ad5e4a85 ("drm/vc4: Notify the firmware when DRM is in charge")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/vc4/vc4_drv.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+selftests/dyndbg: Add kselftest script to verify dynamic-debug
 
-diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
-index a14ecb769461..7953d4f781d8 100644
---- a/drivers/gpu/drm/vc4/vc4_drv.c
-+++ b/drivers/gpu/drm/vc4/vc4_drv.c
-@@ -362,8 +362,11 @@ static int vc4_drm_bind(struct device *dev)
- 	}
- 
- 	ret = aperture_remove_all_conflicting_devices(driver->name);
--	if (ret)
-+	if (ret) {
-+		if (firmware)
-+			rpi_firmware_put(firmware);
- 		goto err;
-+	}
- 
- 	if (firmware) {
- 		ret = rpi_firmware_property(firmware,
--- 
-2.34.1
+This commit introduces a new kselftest script and helper library to verify
+dynamic debug functionality. It uses spatial control-file slicing and
+temporal syslog slicing to validate expected outcomes against an embedded
+database of golden records.
 
+> diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/t=
+ools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+> new file mode 100755
+> index 0000000000000..73c2a4b07bd32
+> --- /dev/null
+> +++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+
+[ ... ]
+
+> +function ddcmd () {
+> +    # ddcmd <query_args> [range_pattern] [pass|fail|log]
+> +    local args=3D"$1"
+> +    local range=3D"$2"
+> +    local action=3D"${3:-pass}"
+> +    local exp_exit=3D0
+> +
+> +    [ "$action" =3D "fail" ] && exp_exit=3D1
+> +    log_ddcmd "$args"
+> +
+> +    # Update cumulative state-machine lineage
+> +    if [[ "$args" =3D=3D *"=3D_"* ]]; then
+> +        CUMULATIVE_DDCMDS=3D"$args"
+> +    else
+> +        CUMULATIVE_DDCMDS=3D"${CUMULATIVE_DDCMDS}; $args"
+> +    fi
+
+[Severity: Low]
+Is this variable used anywhere? It appears CUMULATIVE_DDCMDS is written to
+here in ddcmd() but is never read or evaluated in this script or subsequent
+patches in the series.
+
+> +
+> +    [ "$action" !=3D "pass" ] && log_start
+> +    [ -n "$range" ] && capture_before "$range"
+> +
+> +    output=3D$( (echo "$args" > /proc/dynamic_debug/control) 2>&1 )
+> +    handle_exit_code $BASH_LINENO $FUNCNAME $? $exp_exit
+> +
+> +    [ "$action" !=3D "pass" ] && log_stop
+> +    [ -n "$range" ] && verify_after_change
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-dd-cmap-pa=
+rt2-clean-v10-0-af4cf4767707@gmail.com?part=3D1
