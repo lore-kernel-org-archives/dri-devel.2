@@ -4,63 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A453C982C5
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:09:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07447C982C4
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:16:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A7EC10E34B;
-	Wed, 16 Sep 2026 07:09:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CA9610E459;
+	Wed, 16 Sep 2026 07:16:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K7SwAZ5T";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aMmykuyK";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B014D10E34B
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 07:09:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id ADAFF6053A;
- Wed, 16 Sep 2026 07:09:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 165081F000FF;
- Wed, 16 Sep 2026 07:09:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789542593;
- bh=p2gx8+1v2YG2nXZ5rZ43ZGOVbgNWYwB+4lHcBSPfXX4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=K7SwAZ5TQox94KhnzDZgdWak9JeascnEJT6tgsdFitx13oH/yvHVurs3emFIQIidi
- xcR0gIE20GLza50nMYtjBg//0e7WD22sTKu3OHciVTO0Egw6dpfNvS97BoC4LpWgvN
- ZD0aZmUahuws0zfu0FGKie6dskhpn2wDFZH1gLvxR0Y/XLP3PDKD59Q3XEFPNj3iGd
- l3nMpo+kKycUGKylVUc5DFObZlUBNTgMifgw32kRkszA3iFJ9ppTn7CES9cJYrH1JE
- XD/gyr3hXov/6xjsaqqL1FGY+8ZmWmmW0Gqlh80XrHJbwZzvXyNf+hmB3sQ+DilGUR
- S0XyD3cx8I3Gw==
-Date: Wed, 16 Sep 2026 09:09:41 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jann Horn <jannh@google.com>, 
- Jan Kara <jack@suse.cz>, Ingo Molnar <mingo@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org, Oleg Nesterov <oleg@redhat.com>,
- linux-alpha@vger.kernel.org, 
- linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-csky@vger.kernel.org, 
- linux-hexagon@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
- linux-mips@vger.kernel.org, 
- linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org,
- linux-sh@vger.kernel.org, 
- sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
- Jens Axboe <axboe@kernel.dk>, 
- io-uring@vger.kernel.org, netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- bpf@vger.kernel.org, David Airlie <airlied@redhat.com>, 
- virtualization@lists.linux.dev, kvm@vger.kernel.org, kexec@lists.infradead.org,
- linux-hyperv@vger.kernel.org
-Subject: Re: [PATCH RFC POC 00/50] file: handle files on syscall exit
-Message-ID: <20260916-seilbahn-heimvorteil-edelmut-bad3637b3a95@brauner>
-References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
- <CAHk-=wjeamU=_RYT9cR3dZJ2N-Teo-N1+aYh7jwhrB=iWXD0cg@mail.gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2D5410E035;
+ Wed, 16 Sep 2026 07:16:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789542984; x=1821078984;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=wJASVwD5FkjisPWHjqrTjFP3UNclm4eHqGrZ4f0/D5M=;
+ b=aMmykuyKBvCHKZEuEVrJLkrqq9ovCWoYo17jq6YCT+F2nH5dciI56bIa
+ YK6e4NsJftIYVY2RRRK9+FKibJdfyfIwBVHmSGVQuzC1LIYVk36aU2FyC
+ oyrCtbGQvhThLOiceJk9A9snsTnvyM76CXuQGeDt6t7HgdORh7aYmRrJ7
+ YWCeFCttudXEWSVgMBdE1ULXG/Q7SxNcdnY37KvBtukIVWzn6O75YX5hP
+ zF8eWezkAdJsR1JevyoQOUwWjaBN5TwOl5Gk7dBIWnxHVdVUMxvDg+Gjn
+ v8GBMJyWR78s5RSFZE098zKKdOdPmjJtAcq8Taxd4UmpGW9JgwZ1F1R/1 g==;
+X-CSE-ConnectionGUID: d5obTUjFQZaPTk7oRZxHFA==
+X-CSE-MsgGUID: dAmvrDFASyqV2D0jfhFkqQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93785557"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="93785557"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2026 00:16:24 -0700
+X-CSE-ConnectionGUID: lJQK1QvPQCyySz8RA97EBA==
+X-CSE-MsgGUID: TqnnTvGPT1OVP8fTWzuNdg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="276776558"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.147])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2026 00:16:16 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Armin Wolf <W_Armin@gmx.de>, Ilpo =?utf-8?Q?J=C3=A4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "hansg@kernel.org"
+ <hansg@kernel.org>, "platform-driver-x86@vger.kernel.org"
+ <platform-driver-x86@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux@weissschuh.net"
+ <linux@weissschuh.net>, "rafael@kernel.org" <rafael@kernel.org>,
+ "lenb@kernel.org" <lenb@kernel.org>, "linux-acpi@vger.kernel.org"
+ <linux-acpi@vger.kernel.org>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "patrik.r.jakobsson@gmail.com"
+ <patrik.r.jakobsson@gmail.com>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
+ "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>, "tursulin@ursulin.net"
+ <tursulin@ursulin.net>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>, "matthew.brost@intel.com"
+ <matthew.brost@intel.com>, "thomas.hellstrom@linux.intel.com"
+ <thomas.hellstrom@linux.intel.com>, "intel-xe@lists.freedesktop.org"
+ <intel-xe@lists.freedesktop.org>
+Subject: Re: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
+ nvidia_wmi_ec_supported()
+In-Reply-To: <3ef68773-e07e-437a-98fb-a3c5fc08539c@gmx.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260724025959.142826-1-W_Armin@gmx.de>
+ <20260724025959.142826-3-W_Armin@gmx.de>
+ <BN9PR12MB514668975E87D570F50B2D91F7A82@BN9PR12MB5146.namprd12.prod.outlook.com>
+ <86d0e015-a8f4-4e10-a9b6-a9714d3e0f07@gmx.de>
+ <80c4bb47-936b-976b-6ba8-b366f7a455cf@linux.intel.com>
+ <11976ed3784675ad241646287a909286a42675a8@intel.com>
+ <3ef68773-e07e-437a-98fb-a3c5fc08539c@gmx.de>
+Date: Wed, 16 Sep 2026 10:16:13 +0300
+Message-ID: <62d7da838e7042df8456e76190db792093065b57@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wjeamU=_RYT9cR3dZJ2N-Teo-N1+aYh7jwhrB=iWXD0cg@mail.gmail.com>
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,28 +98,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 15, 2026 at 09:02:31AM -0700, Linus Torvalds wrote:
-> On Tue, 15 Sept 2026 at 04:31, Christian Brauner <brauner@kernel.org> wrote:
-> >
-> > TL;DR, this lets arch code handle fd install and cleanup. fd_prepare()
-> > allocates a descriptor like get_unused_fd_flags() does and records it in
-> > a slot on the task. fd_stage() attaches the file to that slot and
-> > returns the number.
-> 
-> Honestly, I am *not* a fan. At all.
+On Wed, 16 Sep 2026, Armin Wolf <W_Armin@gmx.de> wrote:
+> Am 15.09.26 um 14:31 schrieb Jani Nikula:
+>
+>> On Tue, 15 Sep 2026, Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com> =
+wrote:
+>>> GPU people heads up!!
+>>>
+>>> On Wed, 2 Sep 2026, Armin Wolf wrote:
+>>>
+>>>> Am 01.09.26 um 23:30 schrieb Deucher, Alexander:
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>> b/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>> index 12e4a41bf1f0..50305630f533 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>> @@ -30,9 +30,7 @@ config DRM_AMDGPU
+>>>>>>         # ACPI_VIDEO's dependencies must also be selected.
+>>>>>>         select INPUT if ACPI
+>>>>>>         select ACPI_VIDEO if ACPI
+>>>>>> -     # On x86 ACPI_VIDEO also needs ACPI_WMI
+>>>>>> -     select X86_PLATFORM_DEVICES if ACPI && X86
+>>>>> The change below makes sense, but this one looks like it should remain
+>>>>> unless X86_PLATFORM_DEVICES is handled some other way?
+>>>>>
+>>>>> Alex
+>>>> AFAIK the dependency on X86_PLATFORM_DEVICES was only necessary because
+>>>> ACPI-WMI depended on it in the past.
+>>>> By now ACPI-WMI neither depends on X86_PLATFORM_DEVICES or X86 anymore.
+>>> Hi all,
+>>>
+>>> Could more GPU people besides Alex take a look on this. I'd want to make
+>>> progress with this series within this cycle but would prefer to have Ac=
+ks
+>>> from GPU side.
+>> I share the same concern with Alex. It seems to me we could now end up
+>> with x86 configurations without X86_PLATFORM_DEVICES, which handle
+>> e.g. backlight on a lot of platforms.
+>>
+>> I think the safer option might be to go for:
+>>
+>> 	depends on X86_PLATFORM_DEVICES || !X86
+>>
+>> in all of the cases that select/depend on X86_PLATFORM_DEVICES in drm.
+>>
+>> The alternative is to find out, and handle the fallout, if any.
+>>
+>>
+>> BR,
+>> Jani.
+>
+> Alright, should i leave the original "select X86_PLATFORM_DEVICES if ..."=
+ statements
+> as-is or should is change them to "depends on X86_PLATFORM_DEVICES || !X8=
+6" everywhere?
 
-I'm really glad that you don't like it! I hate it too.
+There are some places that depends on X86_PLATFORM_DEVICES. I think it's
+almost always a mistake to have some places select and some places
+depends on, and select should anyway be used with care. I'd go for
+depends on.
 
-To quote back from the cover letter:
+BR,
+Jani.
 
-> The idea in this series is old-ish and really never let go of me and so
-> I wanted to at least dump it onto the list once even if it's just for
-> illustrative purposes.
 
-I think the cleanup-based solution we've added a couple of releases ago
-is the better appraoch. Which is why I chose it over this.
-
-But this install-on-the-way-out idea has been brought up quite a few
-times as the "better approach". I never really believed it would work
-nicely. Now we have an implementation on the list that we can point to
-and we can move on from this.
+--=20
+Jani Nikula, Intel
