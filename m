@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D8E6C982C1
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 23:48:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BDABC982C1
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 23:52:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1425B10E124;
-	Wed, 16 Sep 2026 23:48:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89C7D10E13A;
+	Wed, 16 Sep 2026 23:52:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="JUun7hBa";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="GrOnomwf";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C920E10E124
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 23:48:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5F5710E13A
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 23:52:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1789602517;
+ s=mimecast20190719; t=1789602756;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xnxlhPopZDA9jrGnXRXH2XzZuWhm3/u3li0L+5ojL0Y=;
- b=JUun7hBaw09j2WH54JtKiMqxDFRR/rr7tL8FTJuQMx6ZT6YSXGrPp7LQPeBhrsVBmn9MFi
- NmG2LieMrHCJFSeZDyQaKMq542+8ai8W1d3AW+ND7KYCaOvACaai75MbFZBtw1VIjn+E61
- YLDMZKqq5o94OOp7PzQtLbwwiledNZQ=
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
- [209.85.215.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=XxveY0gK9JFrEbJosmnsDKRmBotP9lpgucyith6XnGI=;
+ b=GrOnomwfMeSOPMSm8v97+2SGQiRXjgabOBY/I9UtNK16Yf8L3yIQaJ49o5lo9Yaq6IxkDn
+ ah1m4XQjMSXdWfemprxwIcNjyM/dX/1m2oN/f7Nj5rbNJ0ZLb7b/X7i1PsWPy7omEov9XF
+ hJht9LXswCmA2R2dZam9FTPlXbI0sFg=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-622-jKEg-xTOOwqo-pPu1flsJQ-1; Wed, 16 Sep 2026 19:48:36 -0400
-X-MC-Unique: jKEg-xTOOwqo-pPu1flsJQ-1
-X-Mimecast-MFC-AGG-ID: jKEg-xTOOwqo-pPu1flsJQ_1789602515
-Received: by mail-pg1-f198.google.com with SMTP id
- 41be03b00d2f7-cc51591102fso297703a12.1
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:48:36 -0700 (PDT)
+ us-mta-2-xmaD8STHM8KU_jld16M7IQ-1; Wed, 16 Sep 2026 19:52:34 -0400
+X-MC-Unique: xmaD8STHM8KU_jld16M7IQ-1
+X-Mimecast-MFC-AGG-ID: xmaD8STHM8KU_jld16M7IQ_1789602754
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-90e87478402so7498256d6.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:52:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789602515; x=1790207315;
+ d=1e100.net; s=20260707; t=1789602754; x=1790207554;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=xnxlhPopZDA9jrGnXRXH2XzZuWhm3/u3li0L+5ojL0Y=;
- b=MK5rz19yx7G1TN+gQzNCDHlbrCsiO/pSbUplf+v+iT4mFhKWqVmvQZMEOaFf2PLrKl
- 4kLlCTrFqkbIcWpZ6asB9mRB9hizkF0UoLG0crcUFrgI9nfLcoxUzRehi8NL/+fH2/4b
- qhGL2aEoufMoW9BLo3pCeT9EG/V1WVluP2Wh1dnEk08jmGVcc/c8d7OF6VJ5jhi5w7Fp
- l0zrDoQosf8SXbhJLnPH+FDzOSvf6BJ7nO6gF7WdMpVbQWvUVlxnvdT/UCxCV6qe9ZF2
- W856C66HK6lr9HqkTa2bpqGgSZ4RHIQZ+Yrk+hn2BuyXRotJwyigtEtBMyXILqPshtw/
- TCjQ==
-X-Gm-Message-State: AFuF++n0iJEhQ+ciUbnCXxWyob/PCm6F5/Zkl5PAmuY+o0B2rKNSRGLb
- HSwVoqOc9uK96I9p2Ub7gYvr0l6v0E9PSmJsK2yY5Az7nWxgSoTdIDYvBMqqwW0f7t3LDO2qWGL
- d+3hSmRUExO+mc5CeIZCq9mtQh50krrVtcOMCT2gw/w+8hmCQB5J6RTS2NpC1/otIYhKF0kYuFj
- 6RzLY9/5UcqsiLzfXXs+dsQx21w9kkwvgrO4BCSxW9o3S8
-X-Gm-Gg: AYBFou0g7SBRnIn21E71LvipVAHa2+tIztPpHmmPwSM734Ht9m9QZXApuRKplwAn3/o
- mwS+X5k1PFWmvyB5BF90JoNu38PQA4s34spl7SRsBU78JO1VD9fmBsOUXo+PAr44KtgZC4DAUkG
- A8y4bAUkBNFfE0FiT5W47gHNdqPPgi0zm0+ZyrDKpe1HV5pTh4LvxGTrvrbnkNA1b6nmfinK4Dm
- /GNXGCGCrGBqD7d
-X-Received: by 2002:a05:6a21:6b10:b0:3da:1e7b:ea27 with SMTP id
- adf61e73a8af0-3dd5f6fcf23mr11578375637.21.1789602515345; 
- Wed, 16 Sep 2026 16:48:35 -0700 (PDT)
-X-Received: by 2002:a05:6a21:6b10:b0:3da:1e7b:ea27 with SMTP id
- adf61e73a8af0-3dd5f6fcf23mr11578329637.21.1789602514925; Wed, 16 Sep 2026
- 16:48:34 -0700 (PDT)
+ bh=XxveY0gK9JFrEbJosmnsDKRmBotP9lpgucyith6XnGI=;
+ b=xMblqyH2CJ/t8XF1R+iUD31JK96iLD3AJdUdyGw59CSvMpJTDQL/Dn1rp8Gk3LrCAG
+ +cNqpHUSnnEg2K732f+BUoeWDHfBfsVzz/qeCgd1QuwHrDUiBCAPVdmFvje8z5T8Z3dh
+ fzynA9GvrbUzSmE5gKlzcYsbgz9SrS0gREVV5B7Spx9cNVjsdl+zAeLxh1lqB3Tm7ONA
+ +vu8RJAFY+C4a7RIaQTRKwZmCkHFJzVAISK6ty4y2PyFNVzE+fNnWzZTlkzuMZoTbrpd
+ BXQu83lUO5cPw4Wah2f0w9tSWNAuRdDorIAmiwMPiFakbwwjRCyHQKEbJSzMUKoeA1EM
+ H+7g==
+X-Gm-Message-State: AFuF++l40hskQKaJ8miof1RPDNMNTHq9Gwlb/c/tx3yTc38T5qKKejLI
+ G9j5PqoX0n5C0dS/QncoRHNRZzD8B2uy6yupw/qMtEb4cHLJhjZ3gs+Mv2Lm+I2cLhokAGkcclM
+ B2pwD4Sv//HzzbM1pcJY6pyAEhGIS/EqvQ4slaBUw71nHEyX3254ByS0GbNtzVcuzjcAF5ZUD+y
+ 87wSCYjMeicgl4aoQTQZTFY6jEBsbSqooh1AzsQskVb486
+X-Gm-Gg: AYBFou1N6e/BVPpcqujB7QY7PdAkXz+sscN1W7CLIQFeZGpenxo+c/+FGjNcPi66Gtd
+ w2wgR8dvEsKXK3L+/aDXodSBduYHJ4AbrQTL1ttyamgqv9k/aBWf02zZTrotlWwcKdqeIS3ntEX
+ CEzrAfNAf6HeQoraTaPG52HvKpoWpK2Jv1sOJVjh7BptxtAEuhDzu2BCytQiST1bZVmmCBvSN9b
+ XSHaRk6eonTebq7
+X-Received: by 2002:a05:6214:cc7:b0:912:c32:f67d with SMTP id
+ 6a1803df08f44-9123d71d88bmr87785906d6.5.1789602754232; 
+ Wed, 16 Sep 2026 16:52:34 -0700 (PDT)
+X-Received: by 2002:a05:6214:cc7:b0:912:c32:f67d with SMTP id
+ 6a1803df08f44-9123d71d88bmr87785576d6.5.1789602753822; Wed, 16 Sep 2026
+ 16:52:33 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260916223358.507351-1-lyude@redhat.com>
- <20260916223358.507351-2-lyude@redhat.com>
-In-Reply-To: <20260916223358.507351-2-lyude@redhat.com>
+ <20260916223358.507351-4-lyude@redhat.com>
+In-Reply-To: <20260916223358.507351-4-lyude@redhat.com>
 From: David Airlie <airlied@redhat.com>
-Date: Thu, 17 Sep 2026 09:48:22 +1000
-X-Gm-Features: AcwNN1V8GFuFBGj8sz9eOODt6sJo4wkIs0f7lYVi3FbrfgfAjEUxRByMOdrQ3Zo
-Message-ID: <CAMwc25pFFJ5vL4QajybiYrvyS+Dd_iohvQNEHTFZVTLjzJe0VA@mail.gmail.com>
-Subject: Re: [PATCH v4 1/5] drm/nouveau/gsp/r535: Add support for
- INTERNAL_GCX_ENTRY_PREREQUISITE
+Date: Thu, 17 Sep 2026 09:52:20 +1000
+X-Gm-Features: AcwNN1Vhn0Q92zF9XK_q_kVcWg67HkJPIJKmLIMdoKKm-T5YZ3FSW1jZ1gt4KBo
+Message-ID: <CAMwc25o+rVLRvHPqmurPJtPnqHupx4SNz=ZSrStwKm+GEejFng@mail.gmail.com>
+Subject: Re: [PATCH v4 3/5] drm/nouveau/gsp/r570: Add comp mode workaround
+ from issue #3172217
 To: Lyude Paul <lyude@redhat.com>
 Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Timur Tabi <ttabi@nvidia.com>, 
@@ -85,7 +85,7 @@ Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  Hongling Zeng <zenghongling@kylinos.cn>, 
  Danilo Krummrich <dakr@kernel.org>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 2o_Ab0CXhKLIoPYAer-JlVAwn0FBAe-M0IrxlH3rSvw_1789602515
+X-Mimecast-MFC-PROC-ID: wDIUqQn1SlAbhntspDjwHY_QrkiqGTFCoA-Ulw0QicE_1789602754
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -107,66 +107,56 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 On Thu, Sep 17, 2026 at 8:35=E2=80=AFAM Lyude Paul <lyude@redhat.com> wrote=
 :
 >
-> OpenRM's runtime PM handling looks a bit different then nouveau's, one pa=
-rt
-> in particular that differs from us: OpenRM actually consults GSP to ask
-> whether the GPU should be allowed to enter Gc6 and/or GcOff before runtim=
-e
-> suspending the GPU. In the event the card isn't ready, runtime suspend is
-> simply delayed for a few seconds before retrying.
+> One of the things that OpenRM does right before initiating fbsr is apply =
+a
+> special workaround (nvidia issue #3172217) which temporarily disables raw
+> compression mode on the GPU. It is later re-enabled after resuming with
+> fbsr completes.
 >
-> Implement the command used for querying GSP about this,
-> NV2080_CTRL_CMD_INTERNAL_GCX_ENTRY_PREREQUISITE, and check to ensure that
-> the GPU is ready for runtime suspend in nouveau_pmops_runtime_suspend()
-> using this query. If the GPU can't be runtime suspended, update the last
-> busy counter of the device and then return -EBUSY from
-> nouveau_pmops_runtime_suspend() - essentially delaying the runtime suspen=
-d
-> process by whatever autosuspend_delay_ms is set to.
+> Since we don't currently save the compbit backing with fbsr, this shouldn=
+'t
+> currently make any functional difference in the suspend/resume process. B=
+ut
+> it will be required for implementing support for saving and restoring
+> compbit backings from the GPU.
 >
 > Signed-off-by: Lyude Paul <lyude@redhat.com>
 >
 > ---
-
->  static int
->  nvkm_gsp_fini(struct nvkm_subdev *subdev, enum nvkm_suspend_state suspen=
-d)
->  {
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/priv.h b/drivers/gpu=
-/drm/nouveau/nvkm/subdev/gsp/priv.h
-> index 71b7203bef507..b07797813b049 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/priv.h
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/priv.h
-> @@ -93,6 +93,7 @@ void r535_gsp_dtor(struct nvkm_gsp *);
->  int r535_gsp_oneinit(struct nvkm_gsp *);
->  int r535_gsp_init(struct nvkm_gsp *);
->  int r535_gsp_fini(struct nvkm_gsp *, enum nvkm_suspend_state suspend);
-> +int r535_gsp_gcx_ready(struct nvkm_gsp *gsp);
+> V2:
+> * Fix gsp object mismatch in r570_memsys_enable_raw_comp_mode()
+> * Clarify debug message a bit in r570_memsys_enable_raw_comp_mode()
+> V3:
+> * Enable raw mode before rescheduling FIFO channels
 >
->  int nvkm_gsp_new_(const struct nvkm_gsp_fwif *, struct nvkm_device *, en=
-um nvkm_subdev_type, int,
->                   struct nvkm_gsp **);
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h b=
-/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-> index b6683a5bf870c..fd1170037c030 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-> @@ -782,6 +782,13 @@ typedef struct NV2080_CTRL_INTERNAL_INTR_GET_KERNEL_=
-TABLE_PARAMS {
+>  .../nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c    | 48 +++++++++++++++++++
+>  .../nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h       |  6 +++
+>  2 files changed, 54 insertions(+)
 >
->  #define GSP_FW_HEAP_PARAM_CLIENT_ALLOC_SIZE      ((48 << 10) * 2048)   /=
-/ Support 2048 channels
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/dri=
+vers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
+> index af5aa5065c3dd..fe618a94461dc 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
+> @@ -26,6 +26,35 @@ r570_fbsr_suspend_channels(struct nvkm_gsp *gsp, bool =
+suspend)
+>         return nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl)=
+;
+>  }
 >
-> +#define NV2080_CTRL_CMD_INTERNAL_GCX_ENTRY_PREREQUISITE (0x2080a7d7)
+> +static int
+> +r570_memsys_enable_raw_comp_mode(struct nvkm_gsp *gsp, bool enable)
+> +{
+> +       NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS *=
+ctrl;
+> +       int ret;
 > +
-> +typedef struct NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS {
-> +    NvBool bIsGC6Satisfied;
-> +    NvBool bIsGCOFFSatisfied;
-> +} NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS;
-> +
->  typedef union rpc_message_rpc_union_field_v03_00
+> +       ctrl =3D nvkm_gsp_rm_ctrl_get(&gsp->internal.device.object,
+> +                                   NV2080_CTRL_CMD_INTERNAL_MEMSYS_PROGR=
+AM_RAW_COMPRESSION_MODE,
+> +                                   sizeof(*ctrl));
 
-you can drop this hunk if r535 doesn't have it.
+I think all 2080 need to be on gsp->internal.device.subdevice
 
 Dave.
 
