@@ -4,55 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4AC0C88E77
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:50:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A165C88E77
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:51:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42E4A10E7E5;
-	Wed, 16 Sep 2026 07:50:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EBE310E4A2;
+	Wed, 16 Sep 2026 07:51:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="wdrxyjxt";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="BxQzUfzo";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lCBuT9Ou";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="II3l/jzB";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ucPKXdWy";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DDFD10E7E5
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 07:50:42 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 6AEB2C5CD5E;
- Wed, 16 Sep 2026 07:51:24 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 8C3AE60337;
- Wed, 16 Sep 2026 07:50:40 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 7E66B11C7AFE8; 
- Wed, 16 Sep 2026 09:50:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1789545039; h=from:subject:date:message-id:to:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=IP/VqCNL+/3lGkj7Q+GRZIqx0kF2RYLs0QLuZeve2Ok=;
- b=wdrxyjxtpv0j1qeKGZgnvoiR+rZ6vetF+ipVtqenTN5edPNYslgn1p5lAyfEu/oyFelFkK
- 4MHjc3UG5zFhJpyhhyYfYS5Pf++jpct0NcP7afsYUKzJ/iYijmk9KizMi2M9HJheT2a1za
- fQjRKrmH++oN56y1A3X5mF3qH8d0OaQJmGedQyXq4Fb09D4PNqAfa/zVp8OahVwiwkaJyW
- +9IjfC9kYLjYj05hosxkX2NT3Eetc9lg6cVniphJhZknAke+IjQ1u7CZH014x2fSGoa0tQ
- pqJ6IOOZB6Cooillh9iiDxugEDMa+dQZvIdLnT7vA/0+ilckmV5+SwHV8Ok1Og==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 16 Sep 2026 09:50:35 +0200
-Message-Id: <DLGKRRWANR4E.1AG4LI99DCJ2F@bootlin.com>
-To: "Osama Abdelkader" <osama.abdelkader@gmail.com>,
- <luca.ceresoli@bootlin.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Jessica Zhang" <jesszhan0024@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v5 4/4] drm/panel: simple: Use managed helpers in
- panel-simple
-X-Mailer: aerc 0.22.0
-References: <20260915145935.60397-1-osama.abdelkader@gmail.com>
- <20260915145935.60397-5-osama.abdelkader@gmail.com>
-In-Reply-To: <20260915145935.60397-5-osama.abdelkader@gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DECB110E6A5
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 07:51:25 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 404C41FD86;
+ Wed, 16 Sep 2026 07:51:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1789545080; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=XBhtVBTat+R1KWkqHRDVuXf9g4iyat+P91M6XkPAv2w=;
+ b=BxQzUfzoqAIHFY0Ykr5vgXzbVKLviRIY7hccIBoiF0VOwuulTxGuADWpvUhUQGE+dtvh6x
+ 3vN3THPQlyMTgaSmtlFC8E/xSCtAvNR4pl0Y78zwc64vtFl+S/JL6W18IKobHCawM233/6
+ sqXYRyZdz9GCSXrRWvGRYHQ1PVG3uV8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1789545080;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=XBhtVBTat+R1KWkqHRDVuXf9g4iyat+P91M6XkPAv2w=;
+ b=lCBuT9OuoBHAwbbbQn7B51DQOeRuFn6J7gbvd5edmEp/evS0eeAuQT8S9jVqh8UkB94o8U
+ qjgOLhXNZcO2jyAQ==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b="II3l/jzB";
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ucPKXdWy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1789545076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=XBhtVBTat+R1KWkqHRDVuXf9g4iyat+P91M6XkPAv2w=;
+ b=II3l/jzBRy236VBKXLz7gLYqUZsYcddfazBTpq8CVwqWHn3k4en4Tv5GHhIazbrHUJIGwK
+ vm8f28e1ZkgsVFsf4uANGqPfeKkzJpof49bKphUnOo3yLSjwWLCS30PmEyIeuJehsiTG8+
+ CnPVBO8r96Y8mAYMuU0iAqn7oPc5BaA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1789545076;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=XBhtVBTat+R1KWkqHRDVuXf9g4iyat+P91M6XkPAv2w=;
+ b=ucPKXdWyMHsByG8+jpc4ABTYOK6OpiDIOhFzz69x9AXbFTAGbG/3PxJQtkShM3fc5d7X5h
+ 7Z4Ia2cIthQ1fwAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 51DDA136A5;
+ Wed, 16 Sep 2026 07:51:15 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Kr1lAXNKqmpDJwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 16 Sep 2026 07:51:15 +0000
+Message-ID: <9a248432-31df-484d-abc3-3fc73b42a43c@suse.de>
+Date: Wed, 16 Sep 2026 09:51:14 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] drm/imx: replace struct drm_simple_display_pipe
+ with regular atomic helpers
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Ze Huang <ze.huang@oss.qualcomm.com>,
+ Alexey Brodkin <abrodkin@synopsys.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Linus Walleij <linusw@kernel.org>,
+ Hans de Goede <hansg@kernel.org>, Alex Lanzano <lanzano.alex@gmail.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Marian Cichy <m.cichy@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
+ xen-devel@lists.xenproject.org
+References: <20260727-drm-simple-kms-removal-v3-0-de36e534f7a1@oss.qualcomm.com>
+ <20260727-drm-simple-kms-removal-v3-2-de36e534f7a1@oss.qualcomm.com>
+ <8e4c84be-5c89-4d84-adda-aad4c7de0c8a@suse.de> <aqpJKSSKunElnQ3o@houat>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <aqpJKSSKunElnQ3o@houat>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 404C41FD86
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ ARC_NA(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCPT_COUNT_TWELVE(0.00)[25]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_CC(0.00)[oss.qualcomm.com,synopsys.com,linux.intel.com,gmail.com,ffwll.ch,jms.id.au,codeconstruct.com.au,nxp.com,pengutronix.de,kernel.org,epam.com,lists.freedesktop.org,vger.kernel.org,lists.ozlabs.org,lists.infradead.org,lists.linux.dev,lists.xenproject.org];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TAGGED_RCPT(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
+ imap1.dmz-prg2.suse.org:helo, suse.com:url, suse.de:dkim, suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,113 +166,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Osama,
+Hi
 
-On Tue Sep 15, 2026 at 4:59 PM CEST, Osama Abdelkader wrote:
-> Use the managed panel add helper in panel-simple and drop the manual
-> panel remove call from the remove path.
+Am 16.09.26 um 09:46 schrieb Maxime Ripard:
+> On Wed, Sep 16, 2026 at 08:50:21AM +0200, Thomas Zimmermann wrote:
+>>> +static const struct drm_plane_funcs imx_lcdc_plane_funcs = {
+>>> +	.update_plane		= drm_atomic_helper_update_plane,
+>>> +	.disable_plane		= drm_atomic_helper_disable_plane,
+>>> +	.destroy		= drm_plane_cleanup,
+>>> +	.reset			= drm_atomic_helper_plane_reset,
+> Also, this needs to be drm_atomic_helper_plane_create_state
 >
-> Keep the MIPI DSI attach and detach manual, since panel-simple's
-> remove callback also unprepares/disables the panel and releases the
-> DDC adapter; deferring the detach to devm would run it after that
-> cleanup instead of before, changing the teardown order.
+>>> +static const struct drm_crtc_funcs imx_lcdc_crtc_funcs = {
+>>> +	.reset			= drm_atomic_helper_crtc_reset,
+>   and drm_atomic_helper_crtc_create_state
+
+Right. I forgot that create_state is available already.
+
+Best regards
+Thomas
+
 >
-> Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+> Maxime
 
-Thanks for continuing the cleanup.
-
-However there is still some confusion in how you are sending patch series:
-
- * You sent the patches to various recipients including mailing lists
-   (which is OK), but did not send the cover letter to mailing lists. I got
-   the cover and it only has me in To: and nobody in Cc:.
-
- * You sent two iterations the same day without an explanation; this is
-   normally a confusing behaviour, which makes sense only rarely and for a
-   very good reason which is clearly explained in reply to the previous
-   revision (e.g. "sorry, this series is broken, ignore it, sending a fixed
-   one very soon")
-
- * The panel-simple patch disappeared in v6, why? (see next question)
-
- * The Changelog for v6 (not visible on mailing lists) is overly verbose,
-   so I didn't even try reading it. Please use oneliners or so. And in case
-   you did, don't uncritically copy-paste AI slop. Think about your readers
-   and te minimum info they need.
-
-I think I already suggested using b4 to send your patches, which would
-handle the mechanical aspects for you. It prevent issues like the first
-bullet above.
-
-Can you please send a v7 with the above fixed, as well as the changelog
-made concise (including the v5 and v6 entries)? I'll be glad to review
-that.
-
-Kind regards,
-Luca
-
-> ---
->  drivers/gpu/drm/panel/panel-simple.c | 15 ++++-----------
->  1 file changed, 4 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel=
-/panel-simple.c
-> index c95964ba25a9..02d21dde5766 100644
-> --- a/drivers/gpu/drm/panel/panel-simple.c
-> +++ b/drivers/gpu/drm/panel/panel-simple.c
-> @@ -737,7 +737,9 @@ static struct panel_simple *panel_simple_probe(struct=
- device *dev)
->  		goto disable_pm_runtime;
->  	}
->
-> -	drm_panel_add(&panel->base);
-> +	err =3D devm_drm_panel_add(dev, &panel->base);
-> +	if (err)
-> +		goto disable_pm_runtime;
->
->  	return panel;
->
-> @@ -785,7 +787,6 @@ static void panel_simple_remove(struct device *dev)
->  {
->  	struct panel_simple *panel =3D dev_get_drvdata(dev);
->
-> -	drm_panel_remove(&panel->base);
->  	panel_simple_shutdown(dev);
->
->  	pm_runtime_dont_use_autosuspend(dev);
-> @@ -6540,7 +6541,6 @@ static int panel_simple_dsi_probe(struct mipi_dsi_d=
-evice *dsi)
->  {
->  	const struct panel_desc_dsi *desc;
->  	struct panel_simple *panel;
-> -	int err;
->
->  	panel =3D panel_simple_probe(&dsi->dev);
->  	if (IS_ERR(panel))
-> @@ -6551,14 +6551,7 @@ static int panel_simple_dsi_probe(struct mipi_dsi_=
-device *dsi)
->  	dsi->format =3D desc->format;
->  	dsi->lanes =3D desc->lanes;
->
-> -	err =3D mipi_dsi_attach(dsi);
-> -	if (err) {
-> -		struct panel_simple *panel =3D mipi_dsi_get_drvdata(dsi);
-> -
-> -		drm_panel_remove(&panel->base);
-> -	}
-> -
-> -	return err;
-> +	return mipi_dsi_attach(dsi);
->  }
->
->  static void panel_simple_dsi_remove(struct mipi_dsi_device *dsi)
-
-
-
-
-
+-- 
 --
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
+
