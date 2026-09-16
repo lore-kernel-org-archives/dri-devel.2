@@ -4,119 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7953DC88E5C
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:36:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B762C88E77
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:36:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EAD710E7E6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBB0510E754;
 	Wed, 16 Sep 2026 07:35:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FtG1AIAh";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="BUTxWAZV";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07F9910E28E;
- Tue, 15 Sep 2026 18:30:23 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2728C600CB;
- Tue, 15 Sep 2026 18:30:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE75C1F00898;
- Tue, 15 Sep 2026 18:30:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789497021;
- bh=zCJx1lMoPaoDeiIN5oezRLV8MqYpA3JhuUg8Z+dhoag=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=FtG1AIAh8Ifu90TvPASnvJLKq/3hHoybYyG8CBtKd2A3Tko5EoQZmhxlykHybSWCY
- H6+cZEX9BUB3VzICpj+OZxPJ673u94nnolr9H+SDA6dBcoGGYAc9yHJcjV+Ep8BP0l
- el5biVBlyvnMpvBBdnmFKteUXHpcuI8Bb8Pu3nE8NtDNIpu6JJu8fFsiOvrLa3Qrgq
- NkHBRSaDsJkBM6eE9SQ++npMsQoPqmrvJCP6/7TZu7tvF19A4a5+2+kwcqpI8v/iuX
- YN51bg9WV0sHN4tZ47tD/7Vxl/N2tA6azTTrtrat6edEQApqlwzt/pVbGgznFVhGNY
- okL3wnYQoU9Ng==
-Date: Tue, 15 Sep 2026 11:30:21 -0700
-From: Kees Cook <kees@kernel.org>
-To: Bill Wendling <morbo@google.com>
-Cc: linux-kernel@vger.kernel.org, codemender-patching+linux@google.com,
- Russell King <linux@armlinux.org.uk>, Huacai Chen <chenhuacai@kernel.org>,
- WANG Xuerui <kernel@xen0n.name>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Tony Luck <tony.luck@intel.com>,
+X-Greylist: delayed 50067 seconds by postgrey-1.36 at gabe;
+ Wed, 16 Sep 2026 01:59:52 UTC
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 026B610E0B4
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 01:59:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=BW
+ 0xL9oOuUagOkBoGGchsZiOagcsUoaE1mg2KKNypGU=; b=BUTxWAZVv8VfMEM9g0
+ O4NME5qvxfFwE0rGzUx6Dgw3iGb8N+iqvIyC8LSpHYiAEkVFAufZGDhkHV3tmp/5
+ G553oHJnO+/pVoppHGVLIlvgundWPbmdNpk4Ek0Env0/DjkTEyxIhkwl8AtGinE/
+ TAJRgNvo29dYFeiJJu4mkz0fg=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+ by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id
+ _____wCHlXrK96lqbYrfAw--.61328S3; 
+ Wed, 16 Sep 2026 09:58:37 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Matthias Schwarzott <zzam@gentoo.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Arend van Spriel <arend.vanspriel@broadcom.com>,
- Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>,
- Anil Gurumurthy <anil.gurumurthy@qlogic.com>,
- Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>,
- "Martin K. Petersen" <mkp@kernel.org>,
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
- Mike Marshall <hubcap@omnibond.com>,
- Martin Brandenburg <martin@omnibond.com>,
- Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>,
- Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
- NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>,
- Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Kanglong Wang <wangkanglong@loongson.cn>,
- Tiezhu Yang <yangtiezhu@loongson.cn>, Qiang Ma <maqianga@uniontech.com>,
- Randy Dunlap <rdunlap@infradead.org>, Pengpeng Hou <pengpeng@iscas.ac.cn>,
- Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>,
- Thorsten Blum <blum@kernel.org>,
- Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Lyude Paul <lyude@redhat.com>, Ashutosh Desai <ashutoshdesai993@gmail.com>,
- Imre Deak <imre.deak@intel.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Johan Hovold <johan@kernel.org>, Johannes Berg <johannes.berg@intel.com>,
- Miri Korenblit <miriam.rachel.korenblit@intel.com>,
- Alexander Stein <alexander.stein@ew.tq-group.com>,
- Cryolitia PukNgae <cryolitia@uniontech.com>,
- Jiaming Zhang <r772577952@gmail.com>, Will Porter <mrwillporter@gmail.com>,
- Cen Zhang <zzzccc427@gmail.com>,
- =?iso-8859-1?Q?C=E1ssio?= Gabriel <cassiogabrielcontato@gmail.com>,
- Rong Zhang <i@rong.moe>, Arun Raghavan <arunr@valvesoftware.com>,
- linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
- linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
- linux-edac@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
- devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-nfs@vger.kernel.org, devel@lists.orangefs.org,
- linux-hardening@vger.kernel.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH 28/28] drm/xe/pf: Refactor strlcat() to seq_buf in
- sched_group_engines_read()
-Message-ID: <202609151126.29464A5E1@keescook>
-References: <20260915081910.4142719-1-morbo@google.com>
- <20260915081910.4142719-29-morbo@google.com>
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Andreas Kemnade <andreas@kemnade.info>,
+ Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>,
+ Tony Lindgren <tony@atomide.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-omap@vger.kernel.org, quchaosheng000406@163.com
+Subject: [PATCH v2 2/2] ARM: dts: ti/omap: drop unit-address from tpd12s015
+ endpoints
+Date: Wed, 16 Sep 2026 09:58:33 +0800
+Message-ID: <20260916015833.112753-2-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260916015833.112753-1-quchaosheng000406@163.com>
+References: <20260915120327.47114-1-quchaosheng000406@163.com>
+ <20260916015833.112753-1-quchaosheng000406@163.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915081910.4142719-29-morbo@google.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wCHlXrK96lqbYrfAw--.61328S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr48Xry8uw43ZFy5Gr1UAwb_yoW8Ww45p3
+ s2vFs7tan7WF10kr4DAw1qkF1qkF4DuF1akF1UWryUCa13Xw1rJF1xtwn2kr1UCa4fZw4j
+ 9rs5WasFqw1DWF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pirHUDUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDAA02q2qp983XgAAA3+
 X-Mailman-Approved-At: Wed, 16 Sep 2026 07:35:16 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -133,55 +72,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 15, 2026 at 08:18:45AM +0000, Bill Wendling wrote:
-> diff --git a/drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c b/drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c
+ARM: dts: ti/omap: drop unit-address from tpd12s015 endpoints
 
-This is the same file touched as
-https://lore.kernel.org/all/20260915081910.4142719-28-morbo@google.com/
-and doing the same thing, roughly? I think it'd be best to combine
-these, especially since one depends on the other's addition of seq_buf.h
+The endpoint nodes of the tpd12s015 encoder on the am5729-beagleboneai and
+the am57xx-idk carry a unit-address without a matching reg property, which
+the device tree specification does not allow.
 
-> index 5db7fc067c4d..548a50f74422 100644
-> --- a/drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c
-> +++ b/drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c
-> @@ -377,8 +377,10 @@ static ssize_t sched_group_engines_read(struct file *file, char __user *buf,
->  	struct xe_hw_engine *hwe;
->  	enum xe_hw_engine_id id;
->  	char engines[128];
-> +	struct seq_buf s;
-> +	const char *s_str;
->  
-> -	engines[0] = '\0';
-> +	seq_buf_init(&s, engines, sizeof(engines));
+Drop the unit-address so the nodes are named "endpoint".
 
-As with the others, DECLARE_SEQ_BUF should be used.
+No functional change.
 
->  	if (group < num_groups) {
->  		for_each_hw_engine(hwe, gt, id) {
-> @@ -386,15 +388,14 @@ static ssize_t sched_group_engines_read(struct file *file, char __user *buf,
->  			u16 guc_logical_instance = xe_hwe_guc_logical_instance(hwe);
->  			u32 mask = groups[group].engines[guc_class];
->  
-> -			if (mask & BIT(guc_logical_instance)) {
-> -				strlcat(engines, hwe->name, sizeof(engines));
-> -				strlcat(engines, " ", sizeof(engines));
-> -			}
-> +			if (mask & BIT(guc_logical_instance))
-> +				seq_buf_printf(&s, "%s ", hwe->name);
->  		}
-> -		strlcat(engines, "\n", sizeof(engines));
-> +		seq_buf_puts(&s, "\n");
->  	}
->  
-> -	return simple_read_from_buffer(buf, count, ppos, engines, strlen(engines));
-> +	s_str = seq_buf_str(&s);
-> +	return simple_read_from_buffer(buf, count, ppos, s_str, strlen(s_str));
+Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+---
 
-While this is the correct length, it does illustrate why I think we need
-a new seq_buf helper to get the strlen result detected from NUL
-termination like seq_buf_str().
-
--Kees
+diff --git a/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts b/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
+index 76bfb3647..f40017a0e 100644
+--- a/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
++++ b/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
+@@ -168,7 +168,7 @@ ports {
+ 			port@0 {
+ 				reg = <0x0>;
+ 
+-				hdmi_encoder_in: endpoint@0 {
++				hdmi_encoder_in: endpoint {
+ 					remote-endpoint = <&hdmi_out>;
+ 				};
+ 			};
+@@ -176,7 +176,7 @@ hdmi_encoder_in: endpoint@0 {
+ 			port@1 {
+ 				reg = <0x1>;
+ 
+-				hdmi_encoder_out: endpoint@0 {
++				hdmi_encoder_out: endpoint {
+ 					remote-endpoint = <&hdmi_connector_in>;
+ 				};
+ 			};
+diff --git a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
+index 5eccff3bb..4e8a5820b 100644
+--- a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
++++ b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
+@@ -135,7 +135,7 @@ ports {
+ 			port@0 {
+ 				reg = <0>;
+ 
+-				tpd12s015_in: endpoint@0 {
++				tpd12s015_in: endpoint {
+ 					remote-endpoint = <&hdmi_out>;
+ 				};
+ 			};
+@@ -143,7 +143,7 @@ tpd12s015_in: endpoint@0 {
+ 			port@1 {
+ 				reg = <1>;
+ 
+-				tpd12s015_out: endpoint@0 {
++				tpd12s015_out: endpoint {
+ 					remote-endpoint = <&hdmi_connector_in>;
+ 				};
+ 			};
 
 -- 
-Kees Cook
+2.43.0
+
