@@ -4,70 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A23C7C982C4
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 13:58:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A362C88E5C
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 14:19:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BE7210E457;
-	Wed, 16 Sep 2026 13:58:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94CA810E3C5;
+	Wed, 16 Sep 2026 14:19:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KrvTzmVs";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ej0sekJC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DE5E10E48B;
- Wed, 16 Sep 2026 13:58:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789567119; x=1821103119;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:references:in-reply-to:to:cc;
- bh=r6J6OMUuexc90xruyZevzc+hksoDZaaD+TsUNdnaTAg=;
- b=KrvTzmVs34ieDy0NqKuW4lPNXKy4bSpkEhE9vqeb8nxZry2PpMUpVdRO
- fv3v6CiniJjlz9SsWBhGeD0sY1CxSUn7MLy2EsmCV/X8GEkfNNK9ltkfV
- QfSkQeMgLdjBc8DYOIu1Xv+ACsHwfIux7cBKPUudY1RR/sCBCWUzkgO+z
- AYXc8aJMw9UC68FX2xGZAbeGb9I76omicDBoj66/g6w9vcWvAUsiIXaak
- PnH3PK4nm0URoLvz34Uy8nOs0EKhkq96MTMu46FfeXxo4EGgEwdblcKgN
- dJELE7fFi2zRXmc5oisCYbuKjWgxRM6NDWPiJkP6ybyhOiXBq4IDm2Te5 g==;
-X-CSE-ConnectionGUID: ohPZxiCJRG+3unlxHxB9ZA==
-X-CSE-MsgGUID: 07crsD7NQsGG3EIItl/tyg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89881960"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="89881960"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2026 06:58:39 -0700
-X-CSE-ConnectionGUID: y+1ySo3ATyiH3qc3EjZNlg==
-X-CSE-MsgGUID: /8tjTf7vQxSpqBxablUU0Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="277475774"
-Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
- by orviesa005-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 06:58:36 -0700
-From: Alexander Usyskin <alexander.usyskin@intel.com>
-Date: Wed, 16 Sep 2026 16:58:16 +0300
-Subject: [PATCH v2 2/2] drm/xe/nvm: define survivabilty partition
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012062.outbound.protection.outlook.com [52.101.53.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E825610E3BF
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 14:19:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sPoILQSrenkA+SUp64FE91643hajIvZAN9ZjhRNceUcrsAG49rk2QLWjiUhtRcTxIjy1bXmbvHMnpsqVdFVIOA2ZyGpAuLe7+ihsexWrelzuw8rv7/nHZ8aO29hkgZaWnoiECUxS5AnfYuVY5YR+SKAuXip5HMbmW27c1sCl/M73ivR6aQkKL3sDXArQr3LHoMe0D5ptRs0jSEnyOLkJyFrFhPs4RpfVfv09forFkq1dXU5txTfCoINiLznXNU4900vJ39m8/DwiniTomgO8BVDfsWaJak2HxUVeOD6v0E7G9qnTBMNSwkVdKnst4htJd/DkPWR/FdsdB1K7OAd0rQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=y49uP/0eWsPU5T4lWBH2LsBH0cDLkJdWpiNqboe1DJI=;
+ b=XBHqujz2sr1tUTz9eJrVlqOy51AfmgiriwzwMWsfcesbTM51oKQMyM8oy6U8FLgAtoCHosVC6cfVuNk882tat91qf1gI6UU7E5a94rNPV1YDvdszatAKruYUIvs0tNSzp/aYXlLlejXQG/2xgasTxKb1/lRPIC3rR1nxLkrHz0QgRGsFbN+r+VWv4xYVBpTJEnPiFuuhAd+vV5yfGRJwjOsphw75BrykPVxc4XAOP0ZOFJNqoNSJtddr04XWxoRbQf7GvukLs8rQF7p+fPXJ+hpHL4koisKf5BE3QPlH7bmCxgIvTyPq4ztdIJ+r/29k+sQrSjSd6jqkmjxDO0go+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=y49uP/0eWsPU5T4lWBH2LsBH0cDLkJdWpiNqboe1DJI=;
+ b=Ej0sekJCuV4quyl4aa8ElDB3iFYXnFCHjvXSUetN0lloWPff9k8CDVwv6Rv2cPZ+9ylqfuhh30p33e8D4iClHZnhDuHKFvUJZJ8BzYDl36AOBX9Q0zTEyNvB26fLCYP0B75Vsf774WodxopGQiojeE3TGK1UsyqvgihdM77YggU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SAWPR12MB999142.namprd12.prod.outlook.com (2603:10b6:806:4e1::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
+ 2026 14:19:53 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
+ 14:19:53 +0000
+Message-ID: <0fdfe19e-f8ef-47ff-aa99-66adbc524728@amd.com>
+Date: Wed, 16 Sep 2026 16:19:47 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 9/9] vfio/pci: Permanently revoke a DMABUF on request
+To: Matt Evans <matt@ozlabs.org>, Leon Romanovsky <leon@kernel.org>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, Alex Williamson <alex@shazbot.org>,
+ Alex Mastro <amastro@fb.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>, Longfang Liu
+ <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260911214200.33793-1-matt@ozlabs.org>
+ <20260911214200.33793-10-matt@ozlabs.org> <20260913165244.GW13683@unreal>
+ <20260914113647.GL3968357@nvidia.com> <20260914115456.GY13683@unreal>
+ <f21c409d-5675-4c87-8b16-850bcb9474df@ozlabs.org>
+ <20260915072002.GD13683@unreal>
+ <cebfef6a-88c6-4753-a0a4-87445a72f885@amd.com>
+ <db61e755-73ce-4dd8-94fc-e7287db963d3@ozlabs.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <db61e755-73ce-4dd8-94fc-e7287db963d3@ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0052.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cc::10) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-cri_surviv-v2-2-7de1b5328204@intel.com>
-References: <20260916-cri_surviv-v2-0-7de1b5328204@intel.com>
-In-Reply-To: <20260916-cri_surviv-v2-0-7de1b5328204@intel.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Menachem Adin <menachem.adin@intel.com>, 
- Alexander Usyskin <alexander.usyskin@intel.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789567108; l=2014;
- i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
- bh=r6J6OMUuexc90xruyZevzc+hksoDZaaD+TsUNdnaTAg=;
- b=Am8KStxYAynVDvH7dT+OdnRw/Ic6z/7dUnqsjX3cp/VW5kJv55QASSXI+waec1DbMiJwR2w1g
- yfhsqlTE/qIAdqi8Y5Sh8/Wdv1VocbAeLjl7CKsBbvOIjv9FNnmWwWw
-X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
- pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SAWPR12MB999142:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1c24e63c-f8f0-4e04-124d-08df13fd9350
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|7416014|23010399003|376014|366016|6133799003|18002099003|22082099003|4143699003|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: Gzh48wIsnjdl3NsBGzB0KDZEcB4NSlPC14XbYDHDQeuykH68Jily1ku3s14abFQbMnYUH5NkXVkYT1mdVdhZbDwtJVFolvIQa4zdnkbfgxRBFznzedjoXYP2tB5KyVOWFeHx46Y9jAZLTFdkBA845mztmPZaO9oR66gDhRiUWqAG3ACoZzoKil1OEFQ+y6UJ8FVx/KpRPNQC9DGmVEvlcTK2f09z7FxQJats0lUUn/8t2CZAhoKBEGMGilM/EjvIx5FJOInuYPRuI3Xk+SjO2ttzGiOHcjK2+nrwtdQNTAOnsbX0a8YcChJtCapwhbzM3c0l+jY5gZvlBACK64DBw3aVjR/mmxY4Nfwjus+/bTUeiApglnj6hh2ilFR2uRcURDD9ho9N25tZEpzMEVh1TNawahwAgvre3nHdXk2IIP0WqHE8gIbd5qqSiDLBcPVltz6CvYzCa3oRnsXTsp72IcER28dJxSgmagSXeuPtZfzcbD8X9eUzB3z1jZyqomcT4n24tGCzQgf+70e08BwrQdEUPITQRq9wyNb5Icu4Snxqc3ouBKK+p2qhnm42YkZAOohzs6omw7xTX54c50dCQCnJlAKcUNB90K0KaMNMBlh49Lkk8NdkA4b9JW7gkiaITkY0+fE3x8OloPAnbEQsb8Nz7b/yqoVVY/oe/gE2gIw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(23010399003)(376014)(366016)(6133799003)(18002099003)(22082099003)(4143699003)(10067099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Sm96bFJuWDBiSzM0RG1yV09vL1lpRWI5L3ZHYVB4UnhaNTZUdjlYQi9pRElo?=
+ =?utf-8?B?elM5ZXd0VE1uRUk3WENsQ1VMOHBCaEdnZUVOL3l3dnVDYjN0Wk5BeVlmRTNo?=
+ =?utf-8?B?MkRIaUwyTkJPVlJsOTR1QlpMWXY0aHlsNHk2S25iN1BrYzNRSi9zamNjM3BR?=
+ =?utf-8?B?bDJZWVA1VC9yaVdOY1VvTWs3UVp3dDkxcnI2cURtY3FZMldxbnhpV0xmNDZ3?=
+ =?utf-8?B?bUprUytsR3V0UzA4dHM0bzN6Z0Zoa0lUMWRoU0pCbThYRlo4anFuZEliTlBL?=
+ =?utf-8?B?Zm8vajdXMFkraTk0bzErbnh6YU8vQ2p4cWs0YnZVN1NBcW1sbFpBTEVyMFdO?=
+ =?utf-8?B?VVNSQ09UaVc0RTFFemFkUVBrd2pEVEhyVGtBTEFBU1VOckNIZEswRVAyM3lp?=
+ =?utf-8?B?cDB6VDcyc1FuZkw4R0JXRXBhZUgwd1l0eXo1YTBVUkJpZjJMUDVmeVpyR0Uv?=
+ =?utf-8?B?a3M0TnZhM0g1NVQrZXg0K1Q3aWJmRzB1QWxyTEk2YlAwZ2NDRy9mcENpakFs?=
+ =?utf-8?B?dGhFeEZoYi9JWkhTUDV4dEE5S1pqS1k5NThkNVB5S3Rpc2ZVaHZ2cHZNODVk?=
+ =?utf-8?B?Y1Z2dTRYc0NBaDRoNWl3MnhEYXNkdU9Pb1ZkVHhsQjNjQlNsc3FtUGNXVGg5?=
+ =?utf-8?B?MnJqSUtuZHN5dzRWSG41MUdRM2hiMTZWdkxhMHhMMmE2TFo0OWJJWTl0dmdl?=
+ =?utf-8?B?ZVg5MlNhSG9SZWtNbTBJeDU4OFNHMzZ3SkRrcHJ0alcrYTE2dVkxQVVvcXlH?=
+ =?utf-8?B?TE9XdmNoNGNCUm15OUJzRWdnQ3J4cnVrSitweFZtTG52TGNkTE9zSytpYXRI?=
+ =?utf-8?B?aVlDdTRiMFZnNlBOWHNIYXNIYy9VQTBXWDZUZEhQUzd1WVI5b2hpeVB2eGZM?=
+ =?utf-8?B?TXRDTEtzODg4ZzZPNlhRTDVjN0lrV3ZkTTRjeHV0Z1FSR1Y5blhmaTgrNWRS?=
+ =?utf-8?B?amV2S1B4RXlnUDhqMlVJM1lZSWcxVTRDN1N4Z3Q2UkZub0NHMGFPWFBFelMz?=
+ =?utf-8?B?cDFJVmxMQ0Qzd2k0NC8vVWRlTENCaWVKOStGRU1TVFRuUHdsVSt2cjUxVWd0?=
+ =?utf-8?B?Y2dOZ0Q2eWtPWGdacUE5alBWa1FCbkMyTjJsUDl5OUUvQ1FLZ3BhZFpvWVlX?=
+ =?utf-8?B?WnFHVXIxdTByVERudkJ1alI2aHVHeXRwcHNVYmF2amZaTW4zZm9PSklGbzI3?=
+ =?utf-8?B?R0QyRWVMb2UySFluV2MzcnVMWTFSL3lPeEkzWVZYZGRsZTN0YVJKYWo1cGdI?=
+ =?utf-8?B?ZlVWbmpLVzhtb3ZWdFFtMG44b1UzVkR6SE92RnRkbW1rdmlubHV1OSs1Q2tQ?=
+ =?utf-8?B?RnZFWStpdU51K0JnVDh6WDgyb29YOGZmaU4wbnJpakdrbUlvS2lRZHk2M2ZD?=
+ =?utf-8?B?cGdwUzdFQkUxaFBsTWNhc3VtazRLYnRtYngrSDV4Z0p4WVJCRndoVXlIdWpL?=
+ =?utf-8?B?aXlsUXl2bDRuTnV2eDkvcVBmVDd1YnM1NTNTSVgrd29KT1BWeTNzMFNNVVFQ?=
+ =?utf-8?B?WnNCWkZkTWNWdWNvc21uSGpLVTRUMUQwWWRJOHNnMDMvTjJrM3ZwMGdPYlB5?=
+ =?utf-8?B?V3NMVUVwMml4YmpsdGEvMUZsWU1TcjU1d01rVkU1VWVuLzIxRnJCU2lGZTUv?=
+ =?utf-8?B?U0tVTWdCd1RRTDhaY2ZKUDNzUldrelhpb2ZScy92S3lndEtrWGlZL2ZpU01h?=
+ =?utf-8?B?ZlloNWw0ZlpSVGwrUU1ZTFdFWnRGeEF0MXlUeTh1cXNtZFNtb3p5bWM3cmRS?=
+ =?utf-8?B?L05CZk8wOVI0VW5VZEZFbm5Ud0FVaWd0aHI3SHhhNmZpeUJBd1FEbVlIeUZ3?=
+ =?utf-8?B?RjBUQ295eGhva0Q2VVdWeDg2Y0l0dS9pS2RUOHFyYUVxWFg2UDA3QS93TjhE?=
+ =?utf-8?B?RXJ4T2VKN28zVlA5enFmRm5mOHg5L1JBdzUvMTc3U1VIT3hRN3hYa05PTEx6?=
+ =?utf-8?B?WHJFWjhlNmJhNlJRN05CVjJKU1o3SllpUUZYTzdjRm9ZK3JlUXJjL2d1UlVI?=
+ =?utf-8?B?QXhHUEVrZlJpeGtFcyt3QjlHUkRQbDAvbnUzUXIra3dNbTVNNFVrQThDaHlW?=
+ =?utf-8?B?VThwbmpnQVp2K20xd3dQOW9jdFQwSlBPb2lOUElVTmJLSXFaS1o3bzRqbjlC?=
+ =?utf-8?B?YXF6TUZDZlhCc0lxcHhabm00SlZyQ2V6bmlKUFdpcno5alR3R3pRQytlZDhq?=
+ =?utf-8?B?OFZ2THRzQVdjaXpxWWFaZitqS1NabG1nblRTU0NiWWQ4cWZvZE5IdWVtdjVv?=
+ =?utf-8?B?UXo4MDRoL3ZQSWxoSnh0aWtrZ1BpNitpK2VNMS80ZUNsaUxObUlDZEpyT0RO?=
+ =?utf-8?Q?wPLtfozIyym82/Vf2W?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c24e63c-f8f0-4e04-124d-08df13fd9350
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 14:19:53.1924 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /d2sOgS8xSRg7CSLEMcMBxWqsvGD8Qg+vSJB6xGXdNnMOMtPn9XX+KVuAhtJ6CsO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999142
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,68 +151,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Define 8M survivability partition for CRI when
-storage is open for write override.
+On 9/15/26 16:22, Matt Evans wrote:
+> Hi Christian,
+> 
+> On 15/09/2026 12:13, Christian König wrote:
+>> On 9/15/26 09:20, Leon Romanovsky wrote:
+>>> On Mon, Sep 14, 2026 at 01:13:36PM +0100, Matt Evans wrote:
+>>>> Hi Leon,
+>>>>
+>>>> On 14/09/2026 12:54, Leon Romanovsky wrote:
+>>>>> On Mon, Sep 14, 2026 at 08:36:47AM -0300, Jason Gunthorpe wrote:
+>>>>>> On Sun, Sep 13, 2026 at 07:52:44PM +0300, Leon Romanovsky wrote:
+>>>>>>> On Fri, Sep 11, 2026 at 10:41:57PM +0100, Matt Evans wrote:
+>>>>>>>> Expand the VFIO DMABUF revocation state to three states:
+>>>>>>>> Not revoked, temporarily revoked, and permanently revoked.
+>>>>>>>
+>>>>>>> The thing is that "temporarily revoked" is actually the standard
+>>>>>>> invalidate_mappings/move_notify mechanism of DMABUF, which wasn't good
+>>>>>>> for VFIO.
+>>>>>>
+>>>>>> I think temporarily revokes here means it is revoked from a dmabuf
+>>>>>> perspective
+>>>>>
+>>>>> My guess is that this is more of a "change owner" operation than a
+>>>>> revoke operation.
+>>>>>
+>>>>> The main issue here is that we have to guess the semantics instead of
+>>>>> having a properly named and documented operation.
+>>>>
+>>>> Apologies if the cover letter for the series and patch commit message (which
+>>>> cover this) are unclear about the motivations and semantics.  On the commit
+>>>> message, can you suggest clarifications:
+>>>>
+>>>> "This is useful for lifecycle management, to reclaim VFIO PCI BAR
+>>>> ranges previously delegated to a subordinate client process: by
+>>>> revoking, the driver process can ensure that the loaned resources are
+>>>> made inaccessible when the client is deemed "done".  The original
+>>>> DMABUF is defunct, and BAR resources can then be safely re-exported
+>>>> for use by new clients."
+>>>>
+>>>> Given what I'll explain below, do give suggestions please.  There is more
+>>>> context in the cover letter (the volume of which I didn't think appropriate
+>>>> for the commit message).
+>>>
+>>> 1. Do not mix "driver" and "client" in the same description. For a
+>>> non-native English speaker, "driver" has a very specific meaning in the
+>>> context of the Linux kernel.
+>>
+>> In the context of DMA-buf it has also proven vital to clearly use the terms importer and exporter to describe the different roles a driver can have.
+>>
+>> I can't count how often there was confusion because people (me included) just used "driver" and it wasn't clear which role was meant.
+> 
+> :)  I see where the quote can be clearer.  FWIW the "driver process" was
+> referring to a userspace driver (which is a legitimate use of the D-word
+> with VFIO, but still).  I'll clarify that, and will indicate this
+> mechanism is used by userspace to influence the VFIO _exporter_ behaviour.
+> 
+>>> 2. Explain the lifecycle in the commit message, and why "revoke", which
+>>> is effectively what the importer does, is not sufficient.
+>>>
+>>> 3. The more you put in the cover letter, the less likely people are to
+>>> read it.
+>>>
+>>> 4. Commit messages should describe the patches themselves, since they
+>>> are what remains visible in the git log, unlike the cover letter.
+>>>
+>>> 5. I would call what you describe as "temporarily revoke" is actually "reclaim".
+>>
+>> +1
+> 
+> I don't follow here, sorry.  Would you please elaborate?
+> 
+> Currently VFIO uses the priv->revoked flag to track whether
+> it-the-exporter had previously done dma_buf_invalidate_mappings() on a
+> buffer and is now causing all .attach requests to fail.  Do you mean
+> that (even without this series) you want to call that concept
+> priv->reclaimed instead?
 
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
----
- drivers/gpu/drm/xe/xe_nvm.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+That sounds like a permanent revoke. 
 
-diff --git a/drivers/gpu/drm/xe/xe_nvm.c b/drivers/gpu/drm/xe/xe_nvm.c
-index 51a1a431ad85..783c3103a8a4 100644
---- a/drivers/gpu/drm/xe/xe_nvm.c
-+++ b/drivers/gpu/drm/xe/xe_nvm.c
-@@ -56,10 +56,11 @@ static bool xe_nvm_non_posted_erase(struct xe_device *xe)
- 	}
- }
- 
--static bool xe_nvm_writable_override(struct xe_device *xe)
-+static bool xe_nvm_writable_override(struct xe_device *xe, size_t *survivability_size)
- {
- 	struct xe_mmio *mmio = xe_root_tile_mmio(xe);
- 	bool writable_override;
-+	size_t s_size = 0;
- 	struct xe_reg reg;
- 	u32 test_bit, test_val;
- 
-@@ -68,6 +69,7 @@ static bool xe_nvm_writable_override(struct xe_device *xe)
- 		reg = PCODE_SCRATCH(0);
- 		test_bit = FDO_MODE;
- 		test_val = FDO_MODE;
-+		s_size = SZ_8M;
- 		break;
- 	case XE_BATTLEMAGE:
- 		reg = HECI_FWSTS2(DG2_GSC_HECI2_BASE);
-@@ -91,12 +93,17 @@ static bool xe_nvm_writable_override(struct xe_device *xe)
- 		break;
- 	default:
- 		drm_err(&xe->drm, "Unknown platform\n");
-+		*survivability_size = 0;
- 		return true;
- 	}
- 
- 	writable_override = (xe_mmio_read32(mmio, reg) & test_bit) == test_val;
--	if (writable_override)
-+	if (writable_override) {
- 		drm_info(&xe->drm, "NVM access overridden by jumper\n");
-+		*survivability_size = s_size;
-+	} else {
-+		*survivability_size = 0;
-+	}
- 	return writable_override;
- }
- 
-@@ -143,7 +150,7 @@ int xe_nvm_init(struct xe_device *xe)
- 	if (!nvm)
- 		return -ENOMEM;
- 
--	nvm->writable_override = xe_nvm_writable_override(xe);
-+	nvm->writable_override = xe_nvm_writable_override(xe, &nvm->survivability_size);
- 	nvm->non_posted_erase = xe_nvm_non_posted_erase(xe);
- 	nvm->bar.parent = &pdev->resource[0];
- 	nvm->bar.start = GEN12_GUNIT_NVM_BASE + pdev->resource[0].start;
+> Or do you mean that you don't like the words "temporary"/"permanent" and
+> are looking for another name for a temporarily unavailable buffer?  (If
+> so, I find "not revoked", "reclaimed", "revoked" much less clear than
+> not/temp/perm revoked, as such names give no hint as to what to expect.
+> But I may have misunderstood what you're getting at.)
 
--- 
-2.53.0
+Yeah it's pretty much the naming I would clarify.
+
+The original idea of notifying the importer that it need to re-create the mapping was resource reclaim.
+
+But when you have some IOCTL or sysfs or whatever to disable a DMA-buf permanently I would call that revoke.
+
+I'm still not 100% sure what a temporary revoke should be. If you have some IOCTL/sysfs/whatever to temporary say to importers "You can't use that resource" then that most likely won't fly.
+ 
+> From the importer side, there is no change from this patch: they might
+> observe an invalidate_mappings() and find attach() of a given buffer now
+> fails, same as before this patch.  This is only about guaranteeing the
+> impossibility of an importer ever being able to re-attach in future.
+
+That sounds reasonable.
+
+When a resource becomes unavailable you seriously need completely destroy it, re-create it and then import it again into other drivers which want to use it should it ever become available again.
+
+Regards,
+Christian.
+
+> 
+> 
+> Thanks,
+> 
+> 
+> Matt
+> 
+> 
+> PS:  A hypothetical alternative way of doing what this patch is doing is
+> instead to have:
+> 
+>  - existing priv->revoked
+>  - new 	    priv->revoked_flag_is_immutable
+> 
+> Then, the ioctl triggers an invalidate_mappings() for a targeted DMABUF,
+> sets revoked = true, and revoked_flag_is_immutable = true.  The new flag
+> prevents a future vfio_pci_dma_buf_move(false) from clearing revoked.
+> For example, a reset doing `move(true); reset; move(false);` can make
+> all DMABUFs available to attach again, except for those marked
+> immutably-revoked.  (That is equivalent to this new "permanent" state.)
+> 
+> 
 
