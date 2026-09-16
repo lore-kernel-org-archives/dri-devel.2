@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 528AFC88E5C
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 13:46:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61CE4C88E77
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 13:46:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7201010E3B7;
-	Wed, 16 Sep 2026 13:46:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C0C910E455;
+	Wed, 16 Sep 2026 13:46:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="ZPALrDjd";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="jcyziUB5";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0474110E39A;
- Wed, 16 Sep 2026 13:46:03 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01EB710E382
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 13:46:09 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 45F30C5CD58;
- Wed, 16 Sep 2026 13:46:45 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id CA0C11A08E1;
+ Wed, 16 Sep 2026 13:46:07 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 47AEF60337;
- Wed, 16 Sep 2026 13:46:01 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 93E7660337;
+ Wed, 16 Sep 2026 13:46:07 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id F028A11C7B031; 
- Wed, 16 Sep 2026 15:45:52 +0200 (CEST)
+ with ESMTPSA id 680BF11C7B03A; 
+ Wed, 16 Sep 2026 15:45:59 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1789566358; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1789566365; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=VGcTy6f0Ll8C9rnyFjUhYOXAZUo1mPpaSmiZJ/9wm2c=;
- b=ZPALrDjdz3TB141LdfvYONuMS9LDNcQYGrg3ty0iQvv7KwogBRI0eE7pVTXCe6Ixe+SL2D
- CXjLjjWG1o9Vc1yKPc30O3KleM6ArW51aNq/J9FXVIBJDwUkpVE8qVALVSbnuDHdLccss5
- j2CoC4X67Jitr5IlOzGHmeNdK9zINGThF/ZyVFBVVMpyP4bVAU2e1QVL0FNBD0fmNWoP4Q
- nZ8hK0LPfdV1A+6KjGAX6SyncA/GvCUMiVv8MEmnHhs6HlKvS9t7r6NJAOwqgJMBN5ZqpB
- x46HaF0f3PjSEuKtjUSLi3UKYzAUSdD5geWD9bEASgDaS1595E3yQRVAYgkaQw==
+ bh=3E/DleiMuFSTLVuEtlsom3pL9KlwnB1jDhq/hJdTS2s=;
+ b=jcyziUB5f+XKLfGg0f90awIzxC9+e4tQ7SBLyDxK0rsPfvMLTF/a2qIzDM0NZi0kGUNKne
+ cbt+3Rru48IUeIruFPwUZUSISizy3iItoVOFjctwMItV1OpG03FznkKpmPBWIVom9xf+wI
+ EmagRqAsvGSlWwzMPa28+1FmoP6oE36mk31CxUyiG64POfR+CsxoVfGTmuelDsBIpgXTi7
+ ZYS75G+tvuFOeirSEfjvRdF0Nk3y/mEy5Q5JkFvoLefR7LzLlARB1MWqGHjEXOYlj+isor
+ HZ7SOc6wQ+B02C7cASkwslK1d+3XxFFOEpdT73v/qM70wTYvxFwamny/OmVmcQ==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 16 Sep 2026 15:45:26 +0200
-Subject: [PATCH v3 02/19] drm: of: remove now unnecessary forward declarations
+Date: Wed, 16 Sep 2026 15:45:27 +0200
+Subject: [PATCH v3 03/19] drm/panel: move to a new module
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-drm-bridge-every-panel-v3-2-83afb4f1a707@bootlin.com>
+Message-Id: <20260916-drm-bridge-every-panel-v3-3-83afb4f1a707@bootlin.com>
 References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
 In-Reply-To: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -90,41 +90,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-These forward declarations are now redundant after having moved
-drm_of_find_panel_or_bridge():
+Work is in progress for every drm_panel to embed a drm_bridge, which will
+make the drm_panel code (currently in the drm module) depend on the
+drm_kms_helper module.
 
- * struct drm_panel is not referenced in this file
+To avoid the main drm module to depend on other drm modules and create a
+depepdency loop, move drm_panel.o to a new drm_panel module, so the module
+dependency will be drm_panel -> drm_kms_helper instead.
 
- * struct drm_bridge is now referenced only inside an
-
-      #if IS_ENABLED(CONFIG_OF) && IS_ENABLED(CONFIG_DRM_PANEL_BRIDGE)
-
-   block, and in this case struct drm_bridge is already declared thanks to
-   these lines:
-
-      #if IS_ENABLED(CONFIG_OF) && IS_ENABLED(CONFIG_DRM_PANEL_BRIDGE)
-      ...
-      #include <drm/drm_bridge.h>
-      #endif
-
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- include/drm/drm_of.h | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/Makefile      | 2 +-
+ drivers/gpu/drm/panel/Kconfig | 2 +-
+ include/drm/drm_panel.h       | 4 ++--
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/include/drm/drm_of.h b/include/drm/drm_of.h
-index 402f5db11e47..f6dad2c6e9b9 100644
---- a/include/drm/drm_of.h
-+++ b/include/drm/drm_of.h
-@@ -14,8 +14,6 @@ struct component_match;
- struct device;
- struct drm_device;
- struct drm_encoder;
--struct drm_panel;
--struct drm_bridge;
- struct device_node;
- struct mipi_dsi_device_info;
- struct mipi_dsi_host;
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index e635fcffd379..29c9c1d90c11 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -79,7 +79,6 @@ drm-$(CONFIG_DRM_CLIENT) += \
+ 	drm_client_modeset.o \
+ 	drm_client_sysrq.o
+ drm-$(CONFIG_COMPAT) += drm_ioc32.o
+-drm-$(CONFIG_DRM_PANEL) += drm_panel.o
+ drm-$(CONFIG_OF) += drm_of.o
+ drm-$(CONFIG_PCI) += drm_pci.o
+ drm-$(CONFIG_DEBUG_FS) += \
+@@ -96,6 +95,7 @@ drm-$(CONFIG_DRM_PANIC_SCREEN_QR_CODE) += drm_panic_qr.o
+ drm-$(CONFIG_DRM_RAS) += drm_ras.o drm_ras_nl.o drm_ras_genl_family.o
+ obj-$(CONFIG_DRM)	+= drm.o
+ 
++obj-$(CONFIG_DRM_PANEL) += drm_panel.o
+ obj-$(CONFIG_DRM_PANEL_ORIENTATION_QUIRKS) += drm_panel_orientation_quirks.o
+ obj-$(CONFIG_DRM_PANEL_BACKLIGHT_QUIRKS) += drm_panel_backlight_quirks.o
+ 
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index 747f47347521..0a79a0558101 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -1,6 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ config DRM_PANEL
+-	bool
++	tristate
+ 	depends on DRM
+ 	help
+ 	  Panel registration and lookup framework.
+diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
+index bf15e40fd796..34fcbcdda2c8 100644
+--- a/include/drm/drm_panel.h
++++ b/include/drm/drm_panel.h
+@@ -336,7 +336,7 @@ void drm_panel_disable(struct drm_panel *panel);
+ 
+ int drm_panel_get_modes(struct drm_panel *panel, struct drm_connector *connector);
+ 
+-#if defined(CONFIG_OF) && defined(CONFIG_DRM_PANEL)
++#if defined(CONFIG_OF) && IS_ENABLED(CONFIG_DRM_PANEL)
+ struct drm_panel *of_drm_find_panel(const struct device_node *np);
+ int drm_of_find_panel_or_bridge(const struct device_node *np,
+ 				int port, int endpoint,
+@@ -357,7 +357,7 @@ static inline int drm_of_find_panel_or_bridge(const struct device_node *np,
+ }
+ #endif
+ 
+-#if defined(CONFIG_DRM_PANEL)
++#if IS_ENABLED(CONFIG_DRM_PANEL)
+ bool drm_is_panel_follower(struct device *dev);
+ int drm_panel_add_follower(struct device *follower_dev,
+ 			   struct drm_panel_follower *follower);
 
 -- 
 2.55.0
