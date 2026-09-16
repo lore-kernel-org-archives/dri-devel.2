@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0821C982C4
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 13:47:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 920CFC88E5C
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 13:47:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CFE510E85C;
-	Wed, 16 Sep 2026 13:47:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFD5210E572;
+	Wed, 16 Sep 2026 13:47:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="b9FMJI36";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="K0GCnw3i";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5AF210E6F2;
- Wed, 16 Sep 2026 13:47:04 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9759310E39A
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 13:47:10 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 91A22C5CD63;
- Wed, 16 Sep 2026 13:47:46 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 6AD0C1A07A8;
+ Wed, 16 Sep 2026 13:47:09 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 95CE160337;
- Wed, 16 Sep 2026 13:47:02 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 3525E60337;
+ Wed, 16 Sep 2026 13:47:09 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id B423011C7B03B; 
- Wed, 16 Sep 2026 15:46:52 +0200 (CEST)
+ with ESMTPSA id 380E211C7B041; 
+ Wed, 16 Sep 2026 15:46:59 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1789566418; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1789566426; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=cPET2NhrdD6HSvBQlq/W5IT0tYfRgFI87leV1mZtICo=;
- b=b9FMJI3689bW6Mbp3QP/ZTgl/CWUhb8O+HyJBznbODXELvvhwULKj8sn/RhTSRHvKohWrN
- IoclnNC1/3J4nwYlZTnTFwM3INfHr04fEmprfB1H0qwZmdsyVA0Xio+nEQY9AYX7dByIrV
- yzp6KnOX2F2QDWAMoOIy/ks3dPpzEZwNHvH7R9SJ6YlOL8aHTe5UmcZoEttoiXNE7o05Mh
- D6qvEGQ5zVOsTsPfXMt71MkYGQXtedfNhSpWJ+vENj5Abz1dgOKbBANkTXr1jdPKYO0NRn
- c9FWdb1D3hEnCMkxW9QebJz8Fh9o+t/4iSO/3myOXSqD+CBMjHhWPvghwb+94w==
+ bh=jSm15aEu8LMTkgjEDcY83AKYO/FAhIifYcjSr+uceZs=;
+ b=K0GCnw3iJUIIJEBk5d04XwNWx4yCPreArhb6pcIbW1Eow4P6spCGVFWsiku75QKgQrx9Oh
+ NWU+WPKhHDIWxMmdy0H7m8SKMS1dFLT/y1+vBcbzk9fusVyuaZ7sc5L7DAiOIg5iAm6Xi2
+ qz3qwJ4hHu9jGcatl1pSETQ7ZQVTuXyvSlB9h8QbhKLjaDNRQ98cXptgCTkZdxbFsJyuVB
+ H4wFymq2C4ZEXJN6i36nC7YmXkm7Y9UuUq6yWzaJmHZt6gGXxg0zNBaNuj9wqS/gvs7n46
+ PPHklhmhdxpd4FfudS0Hrj4KEenttlxJuUAnPdCuOKVyTvalRFk5aU9pF0eWew==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 16 Sep 2026 15:45:33 +0200
-Subject: [PATCH v3 09/19] drm/bridge: tc358767: don't create a panel_bridge
+Date: Wed, 16 Sep 2026 15:45:34 +0200
+Subject: [PATCH v3 10/19] drm/bridge: waveshare-dsi: don't create a
+ panel_bridge
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-drm-bridge-every-panel-v3-9-83afb4f1a707@bootlin.com>
+Message-Id: <20260916-drm-bridge-every-panel-v3-10-83afb4f1a707@bootlin.com>
 References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
 In-Reply-To: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -101,155 +102,61 @@ of putting the bridge reference by using bridge->next_bridge.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/bridge/Kconfig    |  2 --
- drivers/gpu/drm/bridge/tc358767.c | 64 ++++++++++++---------------------------
- 2 files changed, 20 insertions(+), 46 deletions(-)
+ drivers/gpu/drm/bridge/waveshare-dsi.c | 17 +++++------------
+ 1 file changed, 5 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index 89e87460aefc..4766ae85da17 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -402,8 +402,6 @@ config DRM_TOSHIBA_TC358767
- 	select DRM_KMS_HELPER
- 	select REGMAP_I2C
- 	select DRM_MIPI_DSI
--	select DRM_PANEL
--	select DRM_PANEL_BRIDGE
- 	help
- 	  Toshiba TC358767 eDP bridge chip driver.
- 
-diff --git a/drivers/gpu/drm/bridge/tc358767.c b/drivers/gpu/drm/bridge/tc358767.c
-index ac83af7902cd..51f4baa62a53 100644
---- a/drivers/gpu/drm/bridge/tc358767.c
-+++ b/drivers/gpu/drm/bridge/tc358767.c
-@@ -35,7 +35,6 @@
- #include <drm/drm_edid.h>
+diff --git a/drivers/gpu/drm/bridge/waveshare-dsi.c b/drivers/gpu/drm/bridge/waveshare-dsi.c
+index 420f3b870a74..2c40bfef2b45 100644
+--- a/drivers/gpu/drm/bridge/waveshare-dsi.c
++++ b/drivers/gpu/drm/bridge/waveshare-dsi.c
+@@ -16,11 +16,9 @@
+ #include <drm/drm_bridge.h>
  #include <drm/drm_mipi_dsi.h>
  #include <drm/drm_of.h>
 -#include <drm/drm_panel.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
  
-@@ -370,7 +369,6 @@ struct tc_data {
- 	struct drm_dp_aux	aux;
- 
- 	struct drm_bridge	bridge;
--	struct drm_bridge	*panel_bridge;
- 	struct drm_connector	connector;
- 
- 	struct mipi_dsi_device	*dsi;
-@@ -1742,8 +1740,8 @@ static int tc_connector_get_modes(struct drm_connector *connector)
- 		return 0;
- 	}
- 
--	if (tc->panel_bridge) {
--		num_modes = drm_bridge_get_modes(tc->panel_bridge, connector);
-+	if (tc->bridge.next_bridge) {
-+		num_modes = drm_bridge_get_modes(tc->bridge.next_bridge, connector);
- 		if (num_modes > 0)
- 			return num_modes;
- 	}
-@@ -1788,7 +1786,7 @@ tc_connector_detect(struct drm_connector *connector, bool force)
- 	if (tc->hpd_pin >= 0)
- 		return tc_bridge_detect(&tc->bridge, connector);
- 
--	if (tc->panel_bridge)
-+	if (tc->bridge.next_bridge)
- 		return connector_status_connected;
- 	else
- 		return connector_status_unknown;
-@@ -1809,10 +1807,10 @@ static int tc_dpi_bridge_attach(struct drm_bridge *bridge,
+ struct ws_bridge {
+ 	struct drm_bridge bridge;
+-	struct drm_bridge *next_bridge;
+ 	struct backlight_device *backlight;
+ 	struct device *dev;
+ 	struct regmap *reg_map;
+@@ -89,7 +87,7 @@ static int ws_bridge_bridge_attach(struct drm_bridge *bridge,
  {
- 	struct tc_data *tc = bridge_to_tc(bridge);
+ 	struct ws_bridge *ws = bridge_to_ws_bridge(bridge);
  
--	if (!tc->panel_bridge)
-+	if (!tc->bridge.next_bridge)
- 		return 0;
- 
--	return drm_bridge_attach(tc->bridge.encoder, tc->panel_bridge,
-+	return drm_bridge_attach(tc->bridge.encoder, tc->bridge.next_bridge,
- 				 &tc->bridge, flags);
+-	return drm_bridge_attach(encoder, ws->next_bridge,
++	return drm_bridge_attach(encoder, ws->bridge.next_bridge,
+ 				 &ws->bridge, flags);
  }
  
-@@ -1825,9 +1823,9 @@ static int tc_edp_bridge_attach(struct drm_bridge *bridge,
- 	struct drm_device *drm = bridge->dev;
+@@ -150,7 +148,6 @@ static struct backlight_device *ws_bridge_create_backlight(struct ws_bridge *ws)
+ static int ws_bridge_probe(struct i2c_client *i2c)
+ {
+ 	struct device *dev = &i2c->dev;
+-	struct drm_panel *panel;
+ 	struct ws_bridge *ws;
  	int ret;
  
--	if (tc->panel_bridge) {
-+	if (tc->bridge.next_bridge) {
- 		/* If a connector is required then this driver shall create it */
--		ret = drm_bridge_attach(tc->bridge.encoder, tc->panel_bridge,
-+		ret = drm_bridge_attach(tc->bridge.encoder, tc->bridge.next_bridge,
- 					&tc->bridge, flags | DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 		if (ret)
- 			return ret;
-@@ -2318,53 +2316,31 @@ static int tc_probe_dpi_bridge_endpoint(struct tc_data *tc)
- {
- 	struct device *dev = tc->dev;
- 	struct drm_bridge *bridge;
--	struct drm_panel *panel;
--	int ret;
+@@ -164,14 +161,10 @@ static int ws_bridge_probe(struct i2c_client *i2c)
+ 	if (IS_ERR(ws->reg_map))
+ 		return dev_err_probe(dev, PTR_ERR(ws->reg_map), "Failed to allocate regmap\n");
  
- 	/* port@1 is the DPI input/output port */
--	ret = drm_of_find_panel_or_bridge(dev->of_node, 1, 0, &panel, &bridge);
--	if (ret && ret != -ENODEV)
--		return dev_err_probe(dev, ret,
--				     "Could not find DPI panel or bridge\n");
+-	ret = drm_of_find_panel_or_bridge(dev->of_node, 1, -1, &panel, NULL);
+-	if (ret)
+-		return dev_err_probe(dev, ret, "Failed to find remote panel\n");
 -
--	if (panel) {
--		bridge = devm_drm_panel_bridge_add(dev, panel);
--		drm_panel_put(panel);
--		if (IS_ERR(bridge))
--			return PTR_ERR(bridge);
--	}
--
--	if (bridge) {
--		tc->panel_bridge = bridge;
--		tc->bridge.type = DRM_MODE_CONNECTOR_DPI;
-+	bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 1, 0);
-+	if (IS_ERR(bridge))
-+		return dev_err_probe(dev, PTR_ERR(bridge),
-+				     "Could not find DPI bridge\n");
+-	ws->next_bridge = devm_drm_panel_bridge_add(dev, panel);
+-	drm_panel_put(panel);
+-	if (IS_ERR(ws->next_bridge))
+-		return PTR_ERR(ws->next_bridge);
++	ws->bridge.next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 1, -1);
++	if (IS_ERR(ws->bridge.next_bridge))
++		return dev_err_probe(dev, PTR_ERR(ws->bridge.next_bridge),
++				     "Failed to find remote bridge\n");
  
--		return 0;
--	}
-+	tc->bridge.next_bridge = bridge;
-+	tc->bridge.type = DRM_MODE_CONNECTOR_DPI;
- 
--	return ret;
-+	return 0;
- }
- 
- static int tc_probe_edp_bridge_endpoint(struct tc_data *tc)
- {
- 	struct device *dev = tc->dev;
--	struct drm_panel *panel;
--	int ret;
-+	struct drm_bridge *bridge;
- 
- 	/* port@2 is the output port */
--	ret = drm_of_find_panel_or_bridge(dev->of_node, 2, 0, &panel, NULL);
--	if (ret && ret != -ENODEV)
--		return dev_err_probe(dev, ret,
--				     "Could not find DSI panel or bridge\n");
--
--	if (panel) {
--		struct drm_bridge *panel_bridge;
--
--		panel_bridge = devm_drm_panel_bridge_add(dev, panel);
--		drm_panel_put(panel);
--		if (IS_ERR(panel_bridge))
--			return PTR_ERR(panel_bridge);
-+	bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 2, 0);
-+	if (IS_ERR(bridge) && PTR_ERR(bridge) != -ENODEV)
-+		return dev_err_probe(dev, PTR_ERR(bridge), "Could not find DSI bridge\n");
- 
--		tc->panel_bridge = panel_bridge;
-+	if (!IS_ERR(bridge)) {
-+		tc->bridge.next_bridge = bridge;
- 		tc->bridge.type = DRM_MODE_CONNECTOR_eDP;
- 	} else {
- 		tc->bridge.type = DRM_MODE_CONNECTOR_DisplayPort;
+ 	ws->backlight = ws_bridge_create_backlight(ws);
+ 	if (IS_ERR(ws->backlight)) {
 
 -- 
 2.55.0
