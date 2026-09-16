@@ -4,91 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EF61C88E77
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 00:45:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72211C88E75
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 00:50:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CA4E10E202;
-	Wed, 16 Sep 2026 00:45:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5655610E34A;
+	Wed, 16 Sep 2026 00:50:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="HWmUAYE/";
+	dkim=pass (2048-bit key; unprotected) header.d=ubuntu.com header.i=@ubuntu.com header.b="e0TRwae7";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2803010E202
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 00:45:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1789519506;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=HfPUYzlcgmsFLjqRxvjtuvi+F6kyqT67ipaEXy3hQRw=;
- b=HWmUAYE/1SWLkeqUAA9xE2FmFzXNV1Wsx+s/1VtjAyOizvU3YgEpnCkpVxIssPmYew+bJk
- 17CE3bmMoQ6pm+VpnMdGXtv17DCZqTz6wTtxAkB9J/NdN3hejWNNZ622UipAdPkyRHW0qB
- lXBQ5V/EHbilk1NAfo8dHwXYne5vwnU=
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-363-npLxfYwuNqigM0fBX4fLQQ-1; Tue, 15 Sep 2026 20:45:04 -0400
-X-MC-Unique: npLxfYwuNqigM0fBX4fLQQ-1
-X-Mimecast-MFC-AGG-ID: npLxfYwuNqigM0fBX4fLQQ_1789519504
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-38ecc48b3c2so8670338a91.1
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 17:45:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789519504; x=1790124304;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=HfPUYzlcgmsFLjqRxvjtuvi+F6kyqT67ipaEXy3hQRw=;
- b=kvIj8w8diPbbFcQTgbE3luozghtvh2E02gTb+NpCzz/mLhlrJve68+T6Fguc5ITsof
- 79r/II7C/R8Ujpm3cuzukwQPxvKEKvWLz9SoqmJ1xhlO0o1HjFHmuLJHaCnCUJuulxL3
- ju5YVQWLv8rDum9ckqzdchCgMVXuC41upL8UTSUjMVRhhlNgff1WPGbnM55riTdwrJy2
- nU3yb8znaPXUjDyAcqUScRNC9S4C0qxfULN4Wr2qv/hsnVg4K0+xrdyplDpYDn4R+hmJ
- oTJcs9CyQCFlodD5S/IhZEATQEBrOh8vVEkxra/69ZsHpoGWyqec0dm02xwzPzZroaP7
- IWqA==
-X-Gm-Message-State: AFuF++mxLEfYJtceZrP/+SZdk4ykpvbD1iBozIsLbS8BewMBlljlcv/8
- eF8NQ/eOcxF2bcc9xBhYtiLckEV6u6PljJmddIWdq5ILiffU5uGhosk5if1JXaMR4PBIPgm/mUw
- 2klzMdDd/X3l6gReVCvw1s/SRgdPr3LdUXz7nzCLYx06D/k8C0RPIz/kh5RL6jkk0Qi7E2xfCmr
- k13OP5rsPzyJUVQVoY9ZDW4ukG5a7d04R+GX4ailTtAzZh
-X-Gm-Gg: AYBFou296VH8WPg3QDlDR5PAbceVYvtBj03X/zbIGx5UcO5dGND3++17DMWEYBWS5UA
- TdqKLCiwyqDTRSCr19EexScFz5b352K3Ts+QD+rRcLK237Rg/9ulkUQfO+9RdK9jdryum/1mne+
- Cr/S/XfH08BavOZBeG7nu0gzONmVswnuPbBJSgBC9iuObrJuqrb8L8ib4u8Roj+Zk1mmi9IgrUb
- oFfk+luSF4zi7Bi
-X-Received: by 2002:a17:90b:5386:b0:398:dcef:c040 with SMTP id
- 98e67ed59e1d1-39e1e4aa012mr1554343a91.19.1789519503340; 
- Tue, 15 Sep 2026 17:45:03 -0700 (PDT)
-X-Received: by 2002:a17:90b:5386:b0:398:dcef:c040 with SMTP id
- 98e67ed59e1d1-39e1e4aa012mr1554271a91.19.1789519502710; Tue, 15 Sep 2026
- 17:45:02 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260916001603.22394-1-lyude@redhat.com>
- <20260916001603.22394-3-lyude@redhat.com>
-In-Reply-To: <20260916001603.22394-3-lyude@redhat.com>
-From: David Airlie <airlied@redhat.com>
-Date: Wed, 16 Sep 2026 10:44:50 +1000
-X-Gm-Features: AcwNN1U2rMYqd8tDZTEqUV094CLCyp-28AzSPzCe3dT76HzOjLGKJxyGK8p2h-Q
-Message-ID: <CAMwc25pBOU62TV77ZSSyH6DP=K4FMCpd9i98L4H+QWQ0=--FOg@mail.gmail.com>
-Subject: Re: [PATCH v3 2/5] drm/nouveau/gsp/r535: Add support for
- MEMSYS_GET_STATIC_CONFIG
-To: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Timur Tabi <ttabi@nvidia.com>, 
- Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Kees Cook <kees@kernel.org>, 
- Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>, 
- Hongling Zeng <zenghongling@kylinos.cn>,
- Mel Henning <mhenning@darkrefraction.com>, 
- Danilo Krummrich <dakr@kernel.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 06sDAqguwSYS5BngmsRO12QNFUKpMguM_CXoIHmUvLQ_1789519504
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E17E310E34A
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 00:50:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
+ h=In-Reply-To: References: To: From: Subject: Cc: Message-Id: Date:
+ Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
+ s=fe-953a8a3ca9; t=1789519831;
+ bh=s2V8BnF8h+8Uq8u8VZxp/reb7V9zH1peGA2ahNF542Q=;
+ b=e0TRwae7Xt7kymxL+k8sHFGT2O8CL01HcJ+TLxp1iWFjS+VZ0RAl3YBZSIiJ2T8IaJnXwezC6
+ hIcUHNDea9JXMHbxYvnZ6p8KT7hyON3p9fyIP0zkxXWtKP89DNqq0ckQnwCxwrEnsysg34P83dg
+ aX0531ufxgQNZWpOssMRdKo3oPu100Z/a2xI6VQG2SGdD0YSvuf8+q47cFCqq8KTdCGq1dcALGo
+ l+sDq14PWwqk0tKfolJlJ+iRbNokme5WNWusBXwZtCPXy+f/j6tvuZpzrm/zxLMlYpm2z0DUWTS
+ 5r2Xm6cuB6aUyF9UHmUa33yZA2tc9PBMU/tOuqi7I47w==
+X-Forward-Email-ID: 6aa9e69076866d48a84e7189
+X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
+ 121.127.44.66
+X-Forward-Email-Version: 2.14.2
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8; format=Flowed
+Date: Tue, 15 Sep 2026 20:45:01 -0400
+Message-Id: <DLGBPXP4F8E0.9X0QMZ9GFQVF@ubuntu.com>
+Cc: <linux-phy@lists.infradead.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <mfd@lists.linux.dev>, <linux-clk@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-rockchip@lists.infradead.org>, <linux-riscv@lists.infradead.org>,
+ "Marek Szyprowski" <m.szyprowski@samsung.com>, "Maud Spierings"
+ <maud_spierings@murena.io>, "Graham Markall" <hello@big-grey.co.uk>,
+ "Icenowy Zheng" <zhengxingda@iscas.ac.cn>, "Chaoyi Chen"
+ <chaoyi.chen@rock-chips.com>, "Joshua Peisach" <jpeisach@ubuntu.com>,
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v4 00/20] drm: starfive: jh7110: Enable display subsystem
+From: "Joshua Peisach" <jpeisach@ubuntu.com>
+To: "Michal Wilczynski" <m.wilczynski@samsung.com>, "Vinod Koul"
+ <vkoul@kernel.org>, "Neil Armstrong" <neil.armstrong@linaro.org>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca
+ Ceresoli" <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "Lee Jones" <lee@kernel.org>,
+ "Andy Yan" <andy.yan@rock-chips.com>, "Philipp Zabel"
+ <p.zabel@pengutronix.de>, "Emil Renner Berthing" <kernel@esmil.dk>, "Hal
+ Feng" <hal.feng@starfivetech.com>, "Michael Turquette"
+ <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Heiko
+ Stuebner" <heiko@sntech.de>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
+ Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>, "Dominique Belhachemi" <db@domibel.de>,
+ "Brian Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
+ <jbrunet+clk@baylibre.com>
+X-Mailer: aerc 0.21.0
+References: <CGME20260915153213eucas1p148f013af239a334fc78cdc249c0f8a61@eucas1p1.samsung.com>
+ <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+In-Reply-To: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,223 +88,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 16, 2026 at 10:22=E2=80=AFAM Lyude Paul <lyude@redhat.com> wrot=
-e:
+On Tue Sep 15, 2026 at 11:32 AM EDT, Michal Wilczynski wrote:
 >
-> This is a GSP structure describing various characteristics of the memory
-> management system that GSP provides. Start by fetching it during driver
-> load, but don't do anything with the information we get from it just yet.
+> Testing
+> =3D=3D=3D=3D=3D=3D=3D
 >
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
->
+> Tested on a VisionFive 2 v1.3B using modetest.
+
+I.. got nothing. I did have to manually modprobe the modules, but
+unless I am doing something wrong.. I didn't get anything and modetest
+just gave -2.
+
 > ---
-> V3
-> * s/nvkm_gsp_rm_ctrl_get()/nvkm_gsp_rm_ctrl_rd()/
+> Michal Wilczynski (20):
+>       dt-bindings: phy: Add starfive,jh7110-inno-hdmi-phy
+>       dt-bindings: display: bridge: Add starfive,jh7110-inno-hdmi-control=
+ler
+>       dt-bindings: mfd: Add starfive,jh7110-hdmi-subsystem
+>       dt-bindings: soc: starfive: Add starfive,jh7110-vout-syscon
+>       dt-bindings: display: verisilicon: Add starfive,jh7110-dc8200
+>       dt-bindings: soc: starfive: Add starfive,jh7110-vout-subsystem
+>       drm/bridge: inno-hdmi: Split probe out of bind
+>       drm/bridge: inno-hdmi: Allow the register map to come from a parent
+>       drm/bridge: inno-hdmi: Add .disable platform operation
+>       drm/bridge: inno-hdmi: Add .mode_valid platform operation
+>       drm/bridge: inno-hdmi: Make the PHY configuration table optional
+>       soc: starfive: Add jh7110-hdmi-subsystem driver
+>       soc: starfive: Add jh7110-vout-subsystem driver
+>       clk: starfive: jh7110-vout: Allow pixel clock rate propagation
+>       drm/bridge: starfive: Add JH7110 HDMI controller driver
+>       phy: Add common Innosilicon HDMI PHY helpers
+>       phy: rockchip: inno-hdmi: Use the common Innosilicon PHY helpers
+>       phy: starfive: Add jh7110-inno-hdmi-phy driver
+>       riscv: dts: starfive: jh7110: Update DT for display subsystem
+>       MAINTAINERS: Add StarFive JH7110 display subsystem entry
 >
->  .../gpu/drm/nouveau/include/nvkm/subdev/gsp.h |  4 ++
->  .../drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 17 +++++++
->  .../nvkm/subdev/gsp/rm/r535/nvrm/gsp.h        | 45 +++++++++++++++++
->  .../drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c |  8 +++
->  .../nvkm/subdev/gsp/rm/r570/nvrm/gsp.h        | 50 +++++++++++++++++++
->  .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h   |  1 +
->  6 files changed, 125 insertions(+)
+>  .../starfive,jh7110-inno-hdmi-controller.yaml      | 121 +++++
+>  .../bindings/display/verisilicon,dc.yaml           |   1 +
+>  .../mfd/starfive,jh7110-hdmi-subsystem.yaml        |  95 ++++
+>  .../phy/starfive,jh7110-inno-hdmi-phy.yaml         |  49 ++
+>  .../soc/starfive/starfive,jh7110-syscon.yaml       |   1 +
+>  .../starfive/starfive,jh7110-vout-subsystem.yaml   | 218 ++++++++
+>  MAINTAINERS                                        |  13 +
+>  arch/riscv/boot/dts/starfive/jh7110-common.dtsi    | 121 ++++-
+>  arch/riscv/boot/dts/starfive/jh7110.dtsi           | 105 +++-
+>  drivers/clk/starfive/clk-starfive-jh7110-vout.c    |   6 +-
+>  drivers/gpu/drm/bridge/Kconfig                     |  11 +
+>  drivers/gpu/drm/bridge/Makefile                    |   1 +
+>  drivers/gpu/drm/bridge/inno-hdmi.c                 | 112 +++-
+>  drivers/gpu/drm/bridge/jh7110-inno-hdmi.c          | 297 +++++++++++
+>  drivers/phy/Kconfig                                |   8 +
+>  drivers/phy/Makefile                               |   1 +
+>  drivers/phy/phy-inno-hdmi.c                        | 298 +++++++++++
+>  drivers/phy/rockchip/Kconfig                       |   1 +
+>  drivers/phy/rockchip/phy-rockchip-inno-hdmi.c      | 168 +-----
+>  drivers/phy/starfive/Kconfig                       |  20 +
+>  drivers/phy/starfive/Makefile                      |   1 +
+>  drivers/phy/starfive/phy-jh7110-inno-hdmi.c        | 579 +++++++++++++++=
+++++++
+>  drivers/soc/Kconfig                                |   1 +
+>  drivers/soc/Makefile                               |   1 +
+>  drivers/soc/starfive/Kconfig                       |  43 ++
+>  drivers/soc/starfive/Makefile                      |   3 +
+>  drivers/soc/starfive/jh7110-hdmi-subsystem.c       |  73 +++
+>  drivers/soc/starfive/jh7110-vout-subsystem.c       |  82 +++
+>  include/drm/bridge/inno_hdmi.h                     |  10 +-
+>  include/linux/phy/inno-hdmi-phy.h                  |  85 +++
+>  30 files changed, 2337 insertions(+), 188 deletions(-)
+> ---
+> base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+> change-id: 20251031-jh7110-clean-send-7d2242118026
 >
-> diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h b/drivers/=
-gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-> index 64fed208e4cf8..0e193baaf9bbb 100644
-> --- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-> +++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-> @@ -156,6 +156,10 @@ struct nvkm_gsp {
->                 struct sg_table fbsr;
->         } sr;
->
-> +       struct {
-> +               bool use_raw_mode_comptagline_alloc;
-> +       } memsys;
-> +
->         struct {
->                 struct nvkm_gsp_mem mem;
->
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/driv=
-ers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-> index 09b17b85dc1ac..5df5365e744f5 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-> @@ -1808,6 +1808,23 @@ r535_gsp_fini(struct nvkm_gsp *gsp, enum nvkm_susp=
-end_state suspend)
->         return 0;
->  }
->
-> +int
-> +r535_gsp_get_static_memsys_info(struct nvkm_gsp *gsp)
-> +{
-> +       NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS *ctrl;
-> +
-> +       ctrl =3D nvkm_gsp_rm_ctrl_rd(&gsp->internal.device.subdevice,
-> +                                   NV2080_CTRL_CMD_INTERNAL_MEMSYS_GET_S=
-TATIC_CONFIG,
-> +                                   sizeof(*ctrl));
-> +       if (IS_ERR(ctrl))
-> +               return PTR_ERR(ctrl);
-> +
-> +       gsp->memsys.use_raw_mode_comptagline_alloc =3D ctrl->bUseRawModeC=
-omptaglineAllocation;
-> +
-> +       nvkm_gsp_rm_ctrl_done(&gsp->internal.device.subdevice, ctrl);
-> +       return 0;
-> +}
-> +
->  int
->  r535_gsp_init(struct nvkm_gsp *gsp)
->  {
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h b=
-/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-> index fd1170037c030..fee5418a72a68 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-> @@ -789,6 +789,51 @@ typedef struct NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQ=
-UISITE_PARAMS {
->      NvBool bIsGCOFFSatisfied;
->  } NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS;
->
-> +typedef struct NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS {
-> +    /*! Determines if RM should use 1 to 1 Comptagline allocation policy=
- */
-> +    NvBool bOneToOneComptagLineAllocation;
-> +
-> +    /*! Determines if RM should use 1 to 4 Comptagline allocation policy=
- */
-> +    NvBool bUseOneToFourComptagLineAllocation;
-> +
-> +    /*! Determines if RM should use raw Comptagline allocation policy */
-> +    NvBool bUseRawModeComptaglineAllocation;
-> +
-> +    /*! Has COMPBIT_BACKING_SIZE been overridden to zero (i.e. disabled)=
-? */
-> +    NvBool bDisableCompbitBacking;
-> +
-> +    /*! Determine if we need to disable post L2 compression */
-> +    NvBool bDisablePostL2Compression;
-> +
-> +    /*! Is ECC DRAM feature supported? */
-> +    NvBool bEnabledEccFBPA;
-> +
-> +    NvBool bL2PreFill;
-> +
-> +    /*! L2 cache size */
-> +    NV_DECLARE_ALIGNED(NvU64 l2CacheSize, 8);
-> +
-> +    /*! Indicate whether fpba is present or not */
-> +    NvBool bFbpaPresent;
-> +
-> +    /*! Size covered by one comptag */
-> +    NvU32  comprPageSize;
-> +
-> +    /*! log32(comprPageSize) */
-> +    NvU32  comprPageShift;
-> +
-> +    /*! RAM type */
-> +    NvU32  ramType;
-> +
-> +    /*! LTC count */
-> +    NvU32  ltcCount;
-> +
-> +    /*! LTS per LTC count */
-> +    NvU32  ltsPerLtcCount;
-> +} NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS;
-> +
-> +#define NV2080_CTRL_CMD_INTERNAL_MEMSYS_GET_STATIC_CONFIG        (0x2080=
-0a1c) /* finn: Evaluated from "(FINN_NV20_SUBDEVICE_0_INTERNAL_INTERFACE_ID=
- << 8) | NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS_MESSAGE_ID" *=
-/
-> +
->  typedef union rpc_message_rpc_union_field_v03_00
->  {
->      NvU32      spare;
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c b/driv=
-ers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-> index b45781cd0dfdc..5a51fe7e5ab98 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-> @@ -137,6 +137,14 @@ r570_gsp_get_static_info(struct nvkm_gsp *gsp)
->                 }
->         }
->
-> +       ret =3D r535_gsp_get_static_memsys_info(gsp);
-> +       if (ret) {
-> +               nvkm_error(&gsp->subdev, "Retrieving static memsys info f=
-ailed\n");
-> +               return ret;
-> +       }
-> +       nvkm_debug(&gsp->subdev, "memsys: Use raw mode for comptag alloca=
-tions? %s\n",
-> +                  str_yes_no(gsp->memsys.use_raw_mode_comptagline_alloc)=
-);
-> +
->         return 0;
->  }
->
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h b=
-/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
-> index c458569af9d72..e2d9d1949e4e1 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
-> @@ -494,6 +494,56 @@ typedef struct
->
->  #define GSP_FW_WPR_META_REVISION  1
->
-> +#define NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS_MESSAGE_ID =
-(0x1CU)
-> +
-> +typedef struct NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS {
-> +    /*! Determines if RM should use 1 to 1 Comptagline allocation policy=
- */
-> +    NvBool bOneToOneComptagLineAllocation;
-> +
-> +    /*! Determines if RM should use 1 to 4 Comptagline allocation policy=
- */
-> +    NvBool bUseOneToFourComptagLineAllocation;
-> +
-> +    /*! Determines if RM should use raw Comptagline allocation policy */
-> +    NvBool bUseRawModeComptaglineAllocation;
-> +
-> +    /*! Has COMPBIT_BACKING_SIZE been overridden to zero (i.e. disabled)=
-? */
-> +    NvBool bDisableCompbitBacking;
-> +
-> +    /*! Determine if we need to disable post L2 compression */
-> +    NvBool bDisablePostL2Compression;
-> +
-> +    /*! Is ECC DRAM feature supported? */
-> +    NvBool bEnabledEccFBPA;
-> +
-> +    NvBool bL2PreFill;
-> +
-> +    /*! L2 cache size */
-> +    NV_DECLARE_ALIGNED(NvU64 l2CacheSize, 8);
-> +
-> +    /*! Indicate whether fpba is present or not */
-> +    NvBool bFbpaPresent;
-> +
-> +    /*! Size covered by one comptag */
-> +    NvU32  comprPageSize;
-> +
-> +    /*! log32(comprPageSize) */
-> +    NvU32  comprPageShift;
-> +
-> +    /*! RAM type */
-> +    NvU32  ramType;
-> +
-> +    /*! LTC count */
-> +    NvU32  ltcCount;
-> +
-> +    /*! LTS per LTC count */
-> +    NvU32  ltsPerLtcCount;
-> +} NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS;
-> +
+> Best regards,
 
-Is this used anywhere? if the 535 and 570 structs match then don't include =
-it.
+By the way, something weird happenined while I applied the patches
+using git am. Somehow, some were out of order. The 10th patch
+adding .mode_valid tried to be applied before .disable even though
+in the series, the order is correctly set? git would obviously
+fail because the .disable entry did not exist in the header, so I had
+to manually put those in.
 
-Dave.
-
+I guess it's possible that something went wrong here? I personally
+pulled the mailbox from the lore.kernel.org mbox.gz file.
