@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F4079C88E77
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 00:34:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 097F5C88E77
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 00:35:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C39510E06F;
-	Wed, 16 Sep 2026 00:34:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DED610E08B;
+	Wed, 16 Sep 2026 00:35:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VtDexF6A";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FTwhqBjB";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CE6010E06F
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 00:34:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0E1310E08B
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 00:35:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BB2964087F;
- Wed, 16 Sep 2026 00:34:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 732E61F000FF;
- Wed, 16 Sep 2026 00:34:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D4D1D40A6D;
+ Wed, 16 Sep 2026 00:35:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96E5F1F000FF;
+ Wed, 16 Sep 2026 00:35:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789518844;
- bh=k24fp0J5mGcfnMeR08fm8Nt3JpA3dKi/SgVwUSb4xsA=;
+ s=k20260515; t=1789518955;
+ bh=qc58WhPumtPlpuEzzwgDcEAKs5EbWbvUnz+WEbrqmNY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VtDexF6AjzIekw6GqYn6sVVCUlXBzMgcEtrFImS76b1VjZAs4SYYISBGnVyvkrfew
- Ph8M3OTldbLPHMVAwzQnsMUEqWcGwkcAJ8f/0kZrZUqaIdD50p2DRk9x2E1sZXTHsE
- yA5+mzzJlwlDjUYey1XTG5CpurmjdzzVF6b4lmgNNsm/puvF8Ped7rw/T95RAEbyiv
- TYAmaidKSIy0mtKkXwNzlqy2VCiwL29Q2zPKYZ7QLj8AL5kGoUZqUtIYmCpxS0BXhU
- xBaQmIYuu1hOJ7NnBAHotRcEeMVyT3HYYbomDnimJjomEMnQ1lJ3if6RgyfDxVPj1Q
- zcmOliJBoPgPw==
+ b=FTwhqBjBlaz0d3r8eWP08amy8v5BkCClo721NujHH9qomguKeSjdK0ygJAwwO038D
+ Sr0PyyOPbtpwKaCzeX+ORzchPHN+KogrjAGXiIeOJXyDqNnPix986bxjW9C205XE8t
+ IRWw2H0Dw87vZ/g4yiF+ruP4Zy1ACniSK/SqkmUmr/aFNhtoi62x5R5+SA5flYFZ0k
+ dh/FqkJ+/AKhugo+ouCwuwEWXiuMUfjhiaLiPR9T24cEZbJi8gK/Eb1g5g9Mgf6FTA
+ GuSZjwNlxRZixyOl2wRklXZGEex96IijxtayEejQmSftX+pvU5oUhhtzqsfYhDbUG1
+ O6SMQlSFPqQdQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/5] drm/nouveau/gsp/r570: Add comp mode workaround
- from issue #3172217
+Subject: Re: [PATCH v3 2/5] drm/nouveau/gsp/r535: Add support for
+ MEMSYS_GET_STATIC_CONFIG
 To: "Lyude Paul" <lyude@redhat.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260916001603.22394-4-lyude@redhat.com>
+In-Reply-To: <20260916001603.22394-3-lyude@redhat.com>
 References: <20260916001603.22394-1-lyude@redhat.com>
- <20260916001603.22394-4-lyude@redhat.com>
+ <20260916001603.22394-3-lyude@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 00:34:03 +0000
-Message-Id: <20260916003404.732E61F000FF@smtp.kernel.org>
+Date: Wed, 16 Sep 2026 00:35:55 +0000
+Message-Id: <20260916003555.96E5F1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,74 +60,57 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/nouveau/gsp: wrong RM object in r570_memsys_enable_raw_comp_mo=
-de()
+- [Medium] nouveau/gsp: r535_gsp_get_static_memsys_info omitted from R535 i=
+nit path
 --
 
-commit eb1bdf6977173ce64b7e6625732d7ec397b78121
+commit 66ae2756f54f0408a696a11be12bc7b083f1942f
 Author: Lyude Paul <lyude@redhat.com>
 
-drm/nouveau/gsp/r570: Add comp mode workaround from issue #3172217
+drm/nouveau/gsp/r535: Add support for MEMSYS_GET_STATIC_CONFIG
+   =20
+This patch introduces a GSP structure describing memory management system
+characteristics. It adds code to fetch this structure during driver load
+and saves the use_raw_mode_comptagline_alloc flag for later use.
 
-This commit adds a workaround to temporarily disable raw compression mode
-on the GPU before initiating FBSR during suspend, and re-enable it during
-resume. This addresses an issue on Ampere and Ada GPUs where restore
-operations could otherwise corrupt compressed surfaces.
-
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/dri=
-vers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-> index af5aa5065c3dd..fe618a94461dc 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/driv=
+ers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
+> index 09b17b85dc1ac..5df5365e744f5 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
 [ ... ]
-> @@ -26,6 +26,35 @@ r570_fbsr_suspend_channels(struct nvkm_gsp *gsp, bool =
-suspend)
->  	return nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
+> @@ -1808,6 +1808,23 @@ r535_gsp_fini(struct nvkm_gsp *gsp, enum nvkm_susp=
+end_state suspend)
+>  	return 0;
 >  }
 > =20
-> +static int
-> +r570_memsys_enable_raw_comp_mode(struct nvkm_gsp *gsp, bool enable)
+> +int
+> +r535_gsp_get_static_memsys_info(struct nvkm_gsp *gsp)
 > +{
-> +	NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS *ctrl;
-> +	int ret;
+> +	NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS *ctrl;
 > +
-> +	ctrl =3D nvkm_gsp_rm_ctrl_get(&gsp->internal.device.object,
-> +				    NV2080_CTRL_CMD_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE,
+> +	ctrl =3D nvkm_gsp_rm_ctrl_rd(&gsp->internal.device.subdevice,
+> +				    NV2080_CTRL_CMD_INTERNAL_MEMSYS_GET_STATIC_CONFIG,
 > +				    sizeof(*ctrl));
-
-[Severity: High]
-Should this use &gsp->internal.device.subdevice instead of .object?
-
-The command being allocated is an 0x2080 Subdevice command
-(NV2080_CTRL_CMD_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE). If this is
-requested against the Device object instead of the Subdevice object, the GS=
-P RM
-will reject the control command with an error because the target object does
-not match the command's expected class.
-
 > +	if (IS_ERR(ctrl))
 > +		return PTR_ERR(ctrl);
 > +
-> +	ctrl->bRawMode =3D enable;
+> +	gsp->memsys.use_raw_mode_comptagline_alloc =3D ctrl->bUseRawModeComptag=
+lineAllocation;
 > +
-> +	ret =3D nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.object, ctrl);
-
-[Severity: High]
-Similarly, should this write be issued to the subdevice?=20
-
-Since r570_fbsr_suspend() propagates the return value of this function on G=
-A100
-and AD100 GPUs, an RM validation failure resulting from the class mismatch =
-will
-abort the suspend sequence entirely.
-
-> +	if (!ret)
-> +		nvkm_debug(&gsp->subdev, "memsys: Raw compression mode %s\n",
-> +			   str_enabled_disabled(enable));
-> +
-> +	return ret;
+> +	nvkm_gsp_rm_ctrl_done(&gsp->internal.device.subdevice, ctrl);
+> +	return 0;
 > +}
+> +
+
+[Severity: Medium]
+Should r535_gsp_get_static_info() in this file also call this function?
+
+The commit message indicates this adds support for R535, but it looks like
+this function is only called from r570_gsp_get_static_info() in r570/gsp.c.
+Because it is omitted from r535_gsp_get_static_info(), gsp->memsys remains
+uninitialized on R535 hardware.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916001603.2239=
-4-1-lyude@redhat.com?part=3D3
+4-1-lyude@redhat.com?part=3D2
