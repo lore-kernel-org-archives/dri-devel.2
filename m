@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB7E8C88E5C
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 10:01:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D33A3C982C4
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 10:02:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA92D89C48;
-	Wed, 16 Sep 2026 10:01:34 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B792E10E039
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 10:01:32 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
- by APP-05 (Coremail) with SMTP id zQCowABn0z33aKpq16xnCA--.15755S2;
- Wed, 16 Sep 2026 18:01:27 +0800 (CST)
-Message-ID: <c3ac76b91f85c8e886a79b4ceb9b9109d1ce12ee.camel@iscas.ac.cn>
-Subject: Re: [PATCH v2] drm/verisilicon: set blend mode for the cursor plane
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Wed, 16 Sep 2026 18:01:27 +0800
-In-Reply-To: <20260910094904.3502741-1-zhengxingda@iscas.ac.cn>
-References: <20260910094904.3502741-1-zhengxingda@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09D19896C7;
+	Wed, 16 Sep 2026 10:02:12 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D9FC896C7;
+ Wed, 16 Sep 2026 10:02:10 +0000 (UTC)
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+ by APP-03 (Coremail) with SMTP id rQCowACXmjgfaapqL8_gBw--.61668S2;
+ Wed, 16 Sep 2026 18:02:07 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ andrey.grodzovsky@amd.com, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ simona@ffwll.ch, Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: Fix vmid_wait fence leak in amdgpu_ring_init()
+Date: Wed, 16 Sep 2026 10:01:39 +0000
+Message-Id: <20260916100139.2012124-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-CM-TRANSID: zQCowABn0z33aKpq16xnCA--.15755S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw45ZF13XFy8XFW8Zr43Jrb_yoW8AF43pF
- 4YyFWDAF90yanxtry7C3WxKay7ua15G3Z7XF95u34UZwn8try5Ar1rGr1S9F4UJr47W34r
- KFsrAr9xAry09F7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkIb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
- C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxAI
- w28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr
- 4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxG
- rwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJw
- CI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2
- z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU5-txPUUUUU==
-X-Originating-IP: [112.94.103.44]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: rQCowACXmjgfaapqL8_gBw--.61668S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw17JrWDXr13uw18Ar43KFg_yoW8Zr4xpF
+ WSg345JrykZF17K3yUAFy8WFyUK3WxJrWIgF4xCw1F9wn8CF95tFyrJw4YqryDCFsFkF43
+ tr98Xa9rGF1qkrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
+ 1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+ 628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
+ IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
+ MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
+ W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+ JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJr
+ UvcSsGvfC2KfnxnUUI43ZEXa7VUbtl1PUUUUU==
+X-Originating-IP: [36.110.52.2]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgYMA2qqPpSvhAAAsO
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,61 +61,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-09-10=E5=9B=9B=E7=9A=84 17:49 +0800=EF=BC=8CIcenowy Zheng=E5=
-=86=99=E9=81=93=EF=BC=9A
-> Blend mode properties are now required to expose pixel formats w/
-> alpha.
->=20
-> Experiments show that the fixed blending mode for the cursor seems to
-> be
-> COVERAGE:
->=20
-> - With a cursor plane filled with R=3DG=3D0, B=3D0xff, A=3D0x40, the curs=
-or
-> is
-> =C2=A0 visible on a pure-white background, which means the background is
-> =C2=A0 multiplied.
-> - With a cursor plane filled with R=3DG=3DB=3D0xff, A=3D0x40, the cursor
-> isn't
-> =C2=A0 pure white and non-white patterns can be see through, which means
-> the
-> =C2=A0 cursor is multiplied.
->=20
-> Add a fixed COVERAGE blend mode property for the cursor plane.
->=20
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+amdgpu_ring_init() initializes ring->vmid_wait with a reference to the
+stub fence taken via dma_fence_get_stub().  When a later step of the
+initialization fails, e.g. amdgpu_fence_driver_init_ring(), a writeback
+slot allocation or the ring buffer allocation, the function returns an
+error without releasing the stub fence reference and the reference is
+leaked if the ring is torn down without amdgpu_ring_fini().
 
-Applied onto drm-misc-fixes.
+Move the stub fence assignment to the end of the initialization, right
+before the ring is registered with the GPU scheduler, where no further
+failure is possible.  The stub fence is only consumed by command
+submission handling in amdgpu_ids.c once the ring is up and running, so
+nothing reads it during the error-prone part of the initialization.
 
-Thanks,
-Icenowy
+Fixes: 48e9fbd1a284 ("drm/amdgpu: initialize the vmid_wait with the stub fence")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> ---
-> =C2=A0drivers/gpu/drm/verisilicon/vs_cursor_plane.c | 2 ++
-> =C2=A01 file changed, 2 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> index fa4f601dd0c87..da456dced88aa 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> @@ -11,6 +11,7 @@
-> =C2=A0
-> =C2=A0#include <drm/drm_atomic.h>
-> =C2=A0#include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_blend.h>
-> =C2=A0#include <drm/drm_crtc.h>
-> =C2=A0#include <drm/drm_fourcc.h>
-> =C2=A0#include <drm/drm_framebuffer.h>
-> @@ -267,6 +268,7 @@ struct drm_plane *vs_cursor_plane_init(struct
-> drm_device *drm_dev,
-> =C2=A0		return plane;
-> =C2=A0
-> =C2=A0	drm_plane_helper_add(plane, &vs_cursor_plane_helper_funcs);
-> +	drm_plane_create_blend_mode_property(plane,
-> BIT(DRM_MODE_BLEND_COVERAGE));
-> =C2=A0
-> =C2=A0	return plane;
-> =C2=A0}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index d6bee5c30073..8c12c373ab7b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -254,7 +254,6 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+ 		ring->adev = adev;
+ 		ring->num_hw_submission = sched_hw_submission;
+ 		ring->sched_score = sched_score;
+-		ring->vmid_wait = dma_fence_get_stub();
+ 
+ 		ring->idx = adev->num_rings++;
+ 		adev->rings[ring->idx] = ring;
+@@ -374,6 +373,7 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+ 
+ 	ring->max_dw = max_dw;
+ 	ring->hw_prio = hw_prio;
++	ring->vmid_wait = dma_fence_get_stub();
+ 
+ 	if (!ring->no_scheduler && ring->funcs->type < AMDGPU_HW_IP_NUM) {
+ 		hw_ip = ring->funcs->type;
+-- 
+2.34.1
 
