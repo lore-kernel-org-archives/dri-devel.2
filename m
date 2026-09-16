@@ -4,55 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14538C88E5C
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 09:27:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE153C88E5C
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 09:29:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43B6210E242;
-	Wed, 16 Sep 2026 09:27:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E824310E787;
+	Wed, 16 Sep 2026 09:29:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KxlsKd9D";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="YCaIdDCy";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45C2210E99B
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 09:27:16 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4B03D60234;
- Wed, 16 Sep 2026 09:27:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3C7F1F000FF;
- Wed, 16 Sep 2026 09:27:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789550835;
- bh=7L/dBuwC/LCncorqUmBiBPEI/nqSHfIDCw4avwp2hRY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=KxlsKd9D75q4P1papf9K7j6IA4uhFJRU+ZPwhp4fY2GrrPN8kGDJCA1b6r1E/a431
- qymTivRi/i9uPPit+DQ2mx1vJCCyHsxJ3o1IPOCfhGbLuw6TWBX1spkhVeqod2bmz6
- r8c4PnMwuY2U8XPxjQUrModSIbFoxZFgge3ULSp73mvbNEkVwvDtvW22BRm+GO2AV2
- dgOyobM9UtC0LgRDHRrj0DdYlECOq8b9ckc0V/kA7FEnLi+/Z50Czu4EdmErv/rgSq
- cvLmEt0iKwKHHCSwtI2xyeQqHDMb1kmu8lbfBoq9DS2CofVmQyymc5OWCalIbSvysU
- 74FiKaniytr3g==
-Received: from johan by xi.lan with local (Exim 4.99.5)
- (envelope-from <johan@kernel.org>) id 1x6lv6-00000005xhO-2LeK;
- Wed, 16 Sep 2026 11:27:12 +0200
-Date: Wed, 16 Sep 2026 11:27:12 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Boris Breyillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/panfrost: add missing
- pm_runtime_dont_use_autosuspend() calls
-Message-ID: <aqpg8KHXwr2lNK9Q@hovoldconsulting.com>
-References: <20260916075051.1353-1-joshua.crofts1@gmail.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 324FD10E787
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 09:29:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1789550997;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=pLJ3zniryXoIXYXj2kORk+UpoeKS9R6ImYDJyVbdKgw=;
+ b=YCaIdDCyoE93yZmBAfESVoajo49TPwa7hyUImgklXjgAUauE0Chzl86f50GNoG1YHkECbX
+ uKOo7D/Pns4ekjXFNcSGeDA73JAlN9XoMn0nntR3B7692bbvQVsqyPCtGxslQ+DCgKEJnz
+ UEYk9QAiKvMY6GLKrQa4HtfSFvVHLhs=
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-633-LQioUc3UMMy-TGuPEYsgdg-1; Wed, 16 Sep 2026 05:29:56 -0400
+X-MC-Unique: LQioUc3UMMy-TGuPEYsgdg-1
+X-Mimecast-MFC-AGG-ID: LQioUc3UMMy-TGuPEYsgdg_1789550995
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2dd667770efso19137405ad.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 02:29:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789550995; x=1790155795;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=pLJ3zniryXoIXYXj2kORk+UpoeKS9R6ImYDJyVbdKgw=;
+ b=c9MIgxt8bojyqNzxabAyClHhZlNxwrqhrQaAtjzBJ9ovfg2l5XVv4+MIIGC4GTYT07
+ JwkwszhzzgoAwX6I0WxXuMiAC2H9Gc0gwXZN9S9UZQqXDZc/6UTm3WJOpcm9nlhMjT1G
+ Qqtv/trSGTAguMlUjnylPyhslFrlaXnNRuMcfYn74RCFrzutUnYkj3ZGM5huuiWamiVp
+ WGSX5/v3Xtzt2mQ68EzyhR76Ogqi65jgpjaA4fIEIfWfqYwa9wwgrdwvF/pvMaFEd8Co
+ Y4F0r8ZDzWQYS/vBGKrSa7wVS/hWVABZdQpmMvLdcl2hG0GKFjxRTrJeG0DGT+w5nLlX
+ URmQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByyVQ/1Kd5OFu/wqupPnafhRJRsUJNBwd3eOS+KzXSpZ2/WKoTO4M61u5P1vL6IxeESDK+ELBeiO8g=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nZL2fcHV3zIjj6vYdwCVtl7mRR+NZ5Z0p7iq4jbSJgNxnTvG9P
+ Ujwxm1AoPjVDlolBvllZ8+oJ1diweWNbq7fk7Zifu/CNfkqJ9BS8HgnWfHma2/7hwy6Sjz9H38q
+ In26F1oy2pZTtfO0oYX7INkmnLjwsWd3S6kasUeoU2M2hD4Kf4Ph4SZ2Bd79YWO/t0W8VfxIs5A
+ UEyMWvO5fJaWEsVrCFybAnnJdlvftGdrQbrXyJzKXk7jCP
+X-Gm-Gg: AYBFou04G09FffSSL+MjGhPY8EMGKlxbxIHwPdoEv9eOBhllFdPp6zFXhNz951w4uZ+
+ 8NhXnPiiefve9hu4vrrMZ/Vh5xqDXtMqtu69sAVEqy8vk7mTYqFWjykpdRKqZsoCbaP0L74Nyt0
+ HJVJ/p6PQSjP54dk11tnwesyJx7GtJfzAiftWi8C+wvmuMtbnaMWUIj+xV
+X-Received: by 2002:a17:903:3b8f:b0:2d7:4bc8:41a4 with SMTP id
+ d9443c01a7336-2dd8ea1cd1dmr23798605ad.10.1789550995055; 
+ Wed, 16 Sep 2026 02:29:55 -0700 (PDT)
+X-Received: by 2002:a17:903:3b8f:b0:2d7:4bc8:41a4 with SMTP id
+ d9443c01a7336-2dd8ea1cd1dmr23798155ad.10.1789550994573; Wed, 16 Sep 2026
+ 02:29:54 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916075051.1353-1-joshua.crofts1@gmail.com>
+References: <20260911124540.279841-1-tzimmermann@suse.de>
+ <20260911124540.279841-3-tzimmermann@suse.de>
+In-Reply-To: <20260911124540.279841-3-tzimmermann@suse.de>
+From: Javier Martinez Canillas <javierm@redhat.com>
+Date: Wed, 16 Sep 2026 11:29:42 +0200
+X-Gm-Features: AcwNN1VjQRR608PaSU5v9yXg9eP7o3aE9lu55JInhqrDujLUhvS3kxSMIUXF4N0
+Message-ID: <CAFOAJEfWX09ZvnQvn1+SBeW4_MaSRO2JNLfoJRGYS4jXGr-09w@mail.gmail.com>
+Subject: Re: [PATCH v5 02/14] drm/panic: Test address from kmap op for NULL
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: jfalempe@redhat.com, airlied@gmail.com, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, geert@linux-m68k.org, rdunlap@infradead.org, 
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org, 
+ linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev, 
+ sashiko-reviews@lists.linux.dev, stable@vger.kernel.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 6pHHITDj2UCqwA8GJOEd2ARoxUIJmJgvOVLOHG99ODM_1789550995
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,33 +102,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 16, 2026 at 07:50:51AM +0000, Joshua Crofts wrote:
-> panfrost_remove() and panfrost_probe() disable PM runtime on teardown or
-> failure but don't call the pm_runtime_dont_use_autosuspend() function,
-> causing potential resource leaks.
+Hello Thomas,
 
-No, as I've explained repeatedly elsewhere, it does not cause any
-resource leaks. [1][2]
+On Fri, Sep 11, 2026 at 2:46=E2=80=AFPM Thomas Zimmermann <tzimmermann@suse=
+.de> wrote:
+>
+> Do nothing if kmap_local_page_try_from_panic() returns NULL. This is
+> not likely to hapen, as the previous page from the same memory area
+> has been mapped successfully.
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Fixes: 23437509a694 ("drm/panic: Fix 24bit pixel crossing page boundaries=
+")
+> Cc: Javier Martinez Canillas <javierm@redhat.com>
+> Cc: Jocelyn Falempe <jfalempe@redhat.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: <stable@vger.kernel.org> # v6.18+
+> ---
+>  drivers/gpu/drm/drm_panic.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
+> index ba21df4be338..d28ce8878e05 100644
+> --- a/drivers/gpu/drm/drm_panic.c
+> +++ b/drivers/gpu/drm/drm_panic.c
+> @@ -178,6 +178,8 @@ static void drm_panic_write_pixel24_xpage(void *vaddr=
+, struct page *next_page,
+>         u8 *p =3D vaddr + offset;
+>
+>         vaddr2 =3D kmap_local_page_try_from_panic(next_page);
+> +       if (!vaddr2)
+> +               return;
+>
+>         *p++ =3D color & 0xff;
+>         color >>=3D 8;
+> --
+> 2.55.0
+>
 
-The autosuspend setting leaks if you will, but that only matters in the
-theoretical corner case of someone rebinding a different driver (which
-will soon also taint the kernel).
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
-So don't exaggerate the impact, this is essentially just a cleanup,
-which is fine in itself.
+--=20
+Best regards,
 
-> Add the missing function calls.
-> 
-> Found using Coccinelle.
-> 
-> Fixes: 5c0c825ae4c6 ("drm/panfrost: Replace DRM driver allocation method with newer one")
-> Cc: <stable@vger.kernel.org>
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
-And it does not need to be backported.
-
-> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
-
-Johan
-
-[1] https://lore.kernel.org/all/aqpd3viN1UoZBkgL@hovoldconsulting.com/
-[2] https://lore.kernel.org/linux-iio/aow51Nk-cet9qaUQ@hovoldconsulting.com/
