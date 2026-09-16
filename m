@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38514C982CC
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 15:33:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37562C982C9
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 15:33:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA8A710EBB7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A931B10EBB6;
 	Wed, 16 Sep 2026 15:33:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="US2mHeLb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BUpGEwU4";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FC1D10EB75
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 15:33:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19DA710E3CF
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 15:33:01 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7ECCB44819;
- Wed, 16 Sep 2026 15:33:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5744FC32781;
- Wed, 16 Sep 2026 15:33:01 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9CD1244503;
+ Wed, 16 Sep 2026 15:33:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 73B7CC4AF13;
+ Wed, 16 Sep 2026 15:33:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1789572781;
- bh=zO3Egf0jeAb7YrKoCS3TtL+z2wOABQGcC52sZZTtfuI=;
+ s=k20201202; t=1789572780;
+ bh=oYK6blO7F6plBbHXnQ3FHlcmqrRnRoAREkrF1chFxd4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=US2mHeLbe/OgIjWE0z1+MGC7DvtSlmZ8COww4Erqoo3NQP4vjQYd4JsdjOuRHV34H
- DhtrFC5EJYFPLPItaZJgtHr1yUDkRBIVl9V8VnNsYFSX6C7F5hO7NA/+j/b7WX8p//
- lCIYUoKZxB3D8Lt7s7KYjAbxsrGEv/vewiCNrMWwl9QdsEgAxg+kq+gwliMCqoIbzt
- RYcducaj3Ej44btvP/7+GmAToj1wnwicMn6vRZ15zeK8Ow1AIZTlYbEBmMMZvLEB9m
- OuZzdB+ul3SnGZGYZZ8GcmAaHCtfWA4Na1EVNuYmDPMFT5JmT6sPuVGcGbCSqHE2vJ
- 3H+BHr+xEhwOw==
+ b=BUpGEwU4yKlgbOudlGfGgpBPDJrjY7riC/UfezUp/6AsuwSBs/k1afPJbR8y78Bby
+ 3A9F1H/2D3ZU+HoitoQKYG0KxbN+5h/qH7TftR4cSM/6lW20Qx5JPXv2HN6XQz4Iw9
+ +Rh5FHmidVuvT1A8BMWagJkya6KXAIlokuZGBheUSY/W60AFtOEGau39C+yS9SfU0Q
+ nWAAGSEGRQOuEtbCcn9jj5I2tjFDSxnt0yUsRc5rZHmADKMcet8EQ4DAn5hGibJoq7
+ /CQcj0q76xDIOcGqW4692KYf/0lWrAtK4mO1WwLGuZvWy569jZyuHWCvAwtTdXplfK
+ TBVBgHUIwpTlA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 3CC1DC982C5;
- Wed, 16 Sep 2026 15:33:01 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 4F76AC982CB;
+ Wed, 16 Sep 2026 15:33:00 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Wed, 16 Sep 2026 09:33:10 -0600
-Subject: [PATCH v10 18/38] dyndbg: macrofy a 2-index for-loop pattern
+Date: Wed, 16 Sep 2026 09:33:01 -0600
+Subject: [PATCH v10 09/38] dyndbg: reword "class unknown," to "class:_UNKNOWN_"
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-dd-cmap-part2-clean-v10-18-af4cf4767707@gmail.com>
+Message-Id: <20260916-dd-cmap-part2-clean-v10-9-af4cf4767707@gmail.com>
 References: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
 In-Reply-To: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -65,11 +65,11 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  Jim Cromie <jim.cromie@gmail.com>, 
  Louis Chauvet <louis.chauvet@bootlin.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789572777; l=2812;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789572777; l=1375;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=jJY4VpZf9KDyt540yN24p5FCEf0yAU/738K4eGBzbQY=;
- b=MmaTEyesKlbp+rZqXapIgRmM/T8hXQcmkSU0mbEi/P/XGmjwwyC2G0YzvZLkJZLyMslgkYXNw
- xwSocTxNchfCj+01xF369gHvEVGa64dEK3jlwDhFFitBqizzImUm1QJ
+ bh=csqO3nNcbjzgMPxkjWfqE3DZm4hxNgITA915Yd69aPA=;
+ b=7ADwEfXu+vb3PCq2NEl1CNxzwsWxZKKMLDSu9U7PwWa2x9bFQ8wfb3R0hxR7Or+rXJOQI1Pta
+ w6s5TByVQ5VCZfxdIr7D+x8zVgW90biqEZd3dgaIM4ZcFOo0zd02wTT
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -93,74 +93,41 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-dynamic-debug currently has 2 __sections (__dyndbg, __dyndb_classes),
-struct _ddebug_info keeps track of them both, with 2 members each:
-_vec and _vec#_len.
+When a dyndbg classname is unknown to a kernel module, the callsite is
+un-addressable via >control queries, and therefore uncontrollable.
 
-We need to loop over these sections, with index and record pointer,
-making ref to both _vec and _vec_len.  This is already fiddly and
-error-prone, and will get worse as we add a 3rd section.
+The control-file displays this condition as "class unknown, _id:N"
+currently.  That spelling is sub-optimal/too-generic, so change it to
+"class:_UNKNOWN_ _id:N" to loudly announce the erroneous situation,
+and to make it uniquely greppable.
 
-Lets instead embed/abstract the fiddly-ness in the `for_subvec()`
-macro, and avoid repeating it going forward.
+NB: while this might be seen as a user-visible change, this shouldn't
+disqualify the change:
 
-This is a for-loop macro expander, so it syntactically expects to
-precede either a single statement or a { block } of them, and the
-usual typeof or do-while-0 tricks are unavailable to fix the
-multiple-expansion warning.
+a- it reports a classmap coding error condition, which should be
+   detected in (or before) review.
+b- SHOUTING the error makes it more visible, uniquely greppable.
+c- the classmap feature is marked BROKEN for its only current user.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
-v2: move RvB after SoB
----
- lib/dynamic_debug.c | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index d2d3213061d2..4d5f495968d9 100644
+index 5187516c57a9..2269166763cc 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -149,6 +149,20 @@ static void v3pr_info_dq(const struct ddebug_query *query, const char *msg)
- 		  query->first_lineno, query->last_lineno, query->class_string);
- }
+@@ -1174,7 +1174,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 		if (class)
+ 			seq_printf(m, " class:%s", class);
+ 		else
+-			seq_printf(m, " class unknown, _id:%d", dp->class_id);
++			seq_printf(m, " class:_UNKNOWN_ _id:%d", dp->class_id);
+ 	}
+ 	seq_putc(m, '\n');
  
-+/*
-+ * simplify a repeated for-loop pattern walking N steps in a T _vec
-+ * member inside a struct _box.  It expects int i and T *_sp to be
-+ * declared in the caller.
-+ * @_i:  caller provided counter.
-+ * @_sp: cursor into _vec, to examine each item.
-+ * @_box: ptr to a struct containing @_vec member
-+ * @_vec: name of a member in @_box
-+ */
-+#define for_subvec(_i, _sp, _box, _vec)			\
-+	for ((_i) = 0, (_sp) = (_box)->_vec;		\
-+	     (_i) < (_box)->num_##_vec;			\
-+	     (_i)++, (_sp)++)		/* { block } */
-+
- static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table const *dt,
- 							const char *class_string,
- 							int *class_id)
-@@ -156,7 +170,7 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
- 	struct ddebug_class_map *map;
- 	int i, idx;
- 
--	for (map = dt->classes, i = 0; i < dt->num_classes; i++, map++) {
-+	for_subvec(i, map, dt, classes) {
- 		idx = match_string(map->class_names, map->length, class_string);
- 		if (idx >= 0) {
- 			*class_id = idx + map->base;
-@@ -1165,8 +1179,7 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
- 	 * the builtin/modular classmap vector/section.  Save the start
- 	 * and length of the subrange at its edges.
- 	 */
--	for (cm = di->classes, i = 0; i < di->num_classes; i++, cm++) {
--
-+	for_subvec(i, cm, di, classes) {
- 		if (!strcmp(cm->mod_name, dt->mod_name)) {
- 			if (!nc) {
- 				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
 
 -- 
 2.55.0
