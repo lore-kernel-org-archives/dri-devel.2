@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 767D9C982CC
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 14:23:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B98CC982C3
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 14:23:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6F7F10EB30;
-	Wed, 16 Sep 2026 14:23:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0912E10EB3B;
+	Wed, 16 Sep 2026 14:23:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GjOziDyV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mN6psvww";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0F3410E12D;
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E6CA89E36;
  Wed, 16 Sep 2026 14:23:03 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id BDC3B60A55;
+ by sea.source.kernel.org (Postfix) with ESMTP id DEBC0447CB;
  Wed, 16 Sep 2026 14:23:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 68D89C4AF52;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7FA56C2BCB9;
  Wed, 16 Sep 2026 14:23:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1789568582;
- bh=PiGlgLq4HLzgcNWJlnKLCTJCXSksB8hMt6d6mZbN6c4=;
+ bh=9xqG+3+WmHmv5lQsSS1zepKcYxP21tK9ofhGCGMOOlo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=GjOziDyVYw35YtnwDFq6vgtNVGiHiiSvvnXuMUlOPX4cSSLIeadeiD9Z4RFg8lrFH
- UapIoVVH02NbqiKul2VHtIvM5md/s0y+BCWwkssN+QJCXywsjCD87yUEsjVL7T13XG
- kg1EN72UGXkny8mnqhU9+Xes+TUoTMHqdnEld8gboIqDJ0Ln122DjppiloHycejXVt
- ncruOgXlhmknnW2tmlR10pUMn5KvDMMdVDBbAHnh8410h+s6jOaJqQXb4wOiEjnc99
- zjJ7M62lU7iYD0lzpp8ezwiEjfXkMGco/F9NXyAHn9SYR6ngxd9rRqHnPjo0d6Wfsl
- B1KCuqU+aV8hg==
+ b=mN6psvwwlx20wI2MywztYgMLqvRThrsmttpyncBMavnSQD0Wx3z4qoR4LNI42JdXx
+ /xV9STCqqlhtP8ju7swWT2ZZOd+9ztl3nnR9Sl0iAv1uc7Hc9B655gXjLQC/Ug4Mf2
+ jQeSOsx14NFT+ZQZoJiob79nHSZNML/C5ckDyeSgky2odA6AuvLqkoa48zvRgRyN8W
+ rNAPVwIzn2aFbdkeBm6IwPNuvoD64GRzRBJPTCkXQHd22hbsKOnBJgnhHe49IAcxX0
+ 0SuB9vGzxG4uyj4gY6zF0ENhbWwWczZgBYafOIbgboJe0+JzLXtcfQzsGnWld4eqa0
+ 7X75wPAM87hPg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 4F39AC88E77;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 69927C982C7;
  Wed, 16 Sep 2026 14:23:02 +0000 (UTC)
 From: Muzaffer Kadir via B4 Relay
  <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Wed, 16 Sep 2026 17:22:08 +0300
-Subject: [PATCH v2 03/19] dt-bindings: nvmem: Add compatible for MSM8952
+Date: Wed, 16 Sep 2026 17:22:09 +0300
+Subject: [PATCH v2 04/19] dt-bindings: power: rpmpd: Add MSM8952 power domains
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-msm8952-initial-support-v2-3-798c2602dde1@mainlining.org>
+Message-Id: <20260916-msm8952-initial-support-v2-4-798c2602dde1@mainlining.org>
 References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
 In-Reply-To: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
 To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
@@ -77,11 +77,11 @@ Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
  linux-pm@vger.kernel.org, linux-input@vger.kernel.org, 
  Muzaffer Kadir <muzafferkadir@mainlining.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789568579; l=797;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789568579; l=754;
  i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=xgv3VAmEPihKNLAMfmEupJn/tXfri03oKJMevM96r+c=;
- b=/X3rdvd2b3vhEzK00ebQaRMu29/ObyBFEKVJUQRxqmvT8slB2l8YtKCIHogcg15nbdJjJAwAR
- apzndBaCrmTB2dGpWJPFljvmpMI+74MaLtSN7vYcsad7mQmBotHNF74
+ bh=z3YwdcIAvY7eEvL/O1RSkMfScbVn/9IEcdYfTg2p+uc=;
+ b=k2HY+70CTYWzFxnB0MMknEq61jOrV/rr6qzY++RxCzSv4ElVtzFDdeZ4AJrux/oO83JrQhr7j
+ woY4pCZESpKBBJArxHT1PPEA0PqN0uppThvfylRVTpZ/Zo+nIIty07M
 X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
  pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
 X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
@@ -105,25 +105,25 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Document the QFPROM block found on MSM8952.
+Document the compatible for the rpmpd found on MSM8952.
 
 Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml | 1 +
+ Documentation/devicetree/bindings/power/qcom,rpmpd.yaml | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
-index 566304ed4c78..646f2e8dcf4d 100644
---- a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
-+++ b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
-@@ -37,6 +37,7 @@ properties:
-           - qcom,msm8916-qfprom
-           - qcom,msm8917-qfprom
-           - qcom,msm8937-qfprom
-+          - qcom,msm8952-qfprom
-           - qcom,msm8960-qfprom
-           - qcom,msm8974-qfprom
-           - qcom,msm8976-qfprom
+diff --git a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
+index a70bfacbc5d1..8ee1c25a7c9d 100644
+--- a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
++++ b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
+@@ -76,6 +76,7 @@ properties:
+       - items:
+           - enum:
+               - qcom,msm8937-rpmpd
++              - qcom,msm8952-rpmpd
+           - const: qcom,msm8917-rpmpd
+       - items:
+           - enum:
 
 -- 
 2.55.0
