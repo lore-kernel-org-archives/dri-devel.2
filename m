@@ -4,125 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94516C88E5C
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 13:30:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E05DCC88E77
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 13:42:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D172910E56C;
-	Wed, 16 Sep 2026 13:30:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AFD310E2FB;
+	Wed, 16 Sep 2026 13:42:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WPrgFdfQ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fuuoHtm9";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013032.outbound.protection.outlook.com
- [40.107.201.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C385F10E56C
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 13:30:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n4usrxmHwtLMCHv9SnKXuFjgksBgbxjTivaLj7BnP+uYyff6Mn10qZmXL9SOL5maidwFmLTnd0oZ6cTU3prKx4d17JeWDUsEAJDH21yiVdgkDRgmXy4lLy2bhH9LRxdvDiOtMF0adZ+f/ARzzq0N7e2ZC6fn+Sdk1ontUV+3zvG9PlEB3CDMV4YQWDrvPFRLc5oR3B5OW+naWqthqFflO9MLgSY2wEfnu+gnp5AdQ461u2PI9xFbIwGGmwY0UgWZwarCvQ26tKq99NjaNSwe7Dko8tSJWZJsF69PUipP5MhbITnnaUPM8fY/buhVV17wpsfBuHARoTbSllum2c/GCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jo8S/l8JJzBQNMO/i75lVdt/pq9IEWuVKGTUb8oHPVc=;
- b=WAcmicr1kKsR8206TAKVWLU35rzA3IvtYB0oaE33x0lHa9DqaVxDVyvKetK1mQW6dcMPH23lZQ3kj5jTGLgFMmCLPPyZ1Em9M/tuzEUjY3vX3e4DrT9K2/1AubJJTsZ7WBialPx79pksWt8B6lIBYY9ZrzhzXR8f3Y9Oykf5dEaM9SlXhR2CeEc8Qr/XIV+uPhVa7BTcggR/NNiP6owFSQAr7yB16IeQyfS0c6foyR3bqP2HkVEIWGRlOdvXDXsjfwTyFYGbohnshYjLoIVYxoKObxlb1EyyQa/u5+RaR6gV7rj0Vx+brjIk+aa53gFwuagPw9dPMeqQFFINoAnJFw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jo8S/l8JJzBQNMO/i75lVdt/pq9IEWuVKGTUb8oHPVc=;
- b=WPrgFdfQawn9/diq1ac8xFIlY2ZSLhHqlz/37PgkNOVq54g984oFXl6yUQ7NkXu7vMXCfmTNvpB2kxmaanc9gcW6h9ykmbYUdiynBBWGCRCQpVh1o99SU7jYZHayRXsbBq8Bj6/ac6wEU/pVSK3zmU7AjJEcLpNUpuhb9j6rhuk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB8584.namprd12.prod.outlook.com (2603:10b6:610:164::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 13:30:12 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
- 13:30:11 +0000
-Message-ID: <a51b4181-f102-4820-b5c1-af9cb3d9b77f@amd.com>
-Date: Wed, 16 Sep 2026 15:30:07 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: DMA BUFFER SHARING FRAMEWORK: tighten F:
- matches
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20260916-maint-dma-buf-v1-1-0f8d6c5bf1cd@kernel.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260916-maint-dma-buf-v1-1-0f8d6c5bf1cd@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0081.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9a::8) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C94110E047;
+ Wed, 16 Sep 2026 13:42:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789566176; x=1821102176;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=lMOHGhqhRC7o8DUWxe2ZtG0eCBNNwQPKpwZSpxZkLjE=;
+ b=fuuoHtm9s6pI2tk6MbCFoVhBTpAAc7rhXx/j6mq4mFaC2t4iAM2m7q7I
+ ybn2+oK6vANUzZfwdMv/QRRqZFVp26aOw0izFNIFX20+c608BKqB6TFMe
+ rKho+tCUDUiKbl8ThnHmAnYdN00+symXe9UT6AMge7IeFkQF9fOwlmIeB
+ fHfITYQnJJ0I+63LBkAwwtUaJKyogFnVlvAKh6k+reHHSeKyYcbXnmATs
+ J9J7JeE5pipH8GY6vMfTBgeRkGp7zPLxFbQe3pL6dsJdDDkEV046LSK2n
+ in4Lmlj1J8s1jzhbx87Si+kDXo7j2bW6P0Ux8WpyQBl016DvuGAWcvIUG w==;
+X-CSE-ConnectionGUID: 6bqCOc0QQ1i858/cH0t7uQ==
+X-CSE-MsgGUID: dkD2o4U1SYOaWUhtbHqyFw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93814094"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="93814094"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2026 06:42:56 -0700
+X-CSE-ConnectionGUID: 33c8L43rQM+N7DHUEOWbWA==
+X-CSE-MsgGUID: IuQaeLKrSrK4WNC52PKSyQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="303230461"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.154])
+ ([10.245.244.154])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2026 06:42:55 -0700
+Message-ID: <2efce17e1036dae156f0eb3f8abbce98e754d537.camel@linux.intel.com>
+Subject: Re: [PATCH] drm/xe: Limit sg segment size to PAGE_SIZE on Xen PV
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Szymon =?UTF-8?Q?Aceda=C5=84ski?= <accek@invisiblethingslab.com>, 
+ intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, marmarek@invisiblethingslab.com, 
+ xen-devel@lists.xenproject.org, stable@vger.kernel.org
+Date: Wed, 16 Sep 2026 15:42:52 +0200
+In-Reply-To: <20260820101212.1608543-1-accek@invisiblethingslab.com>
+References: <20260820101212.1608543-1-accek@invisiblethingslab.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB8584:EE_
-X-MS-Office365-Filtering-Correlation-Id: a06b9ff9-6f05-470e-6cb8-08df13f6a261
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|1800799024|11063799006|10067099003|5023799004|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: PxIevyZJUKiDbfcoglak9mxEd8KNg8dLfuwQ6z+jmWLyZ3PJ/6VYMkouxmpq2CDB9x2pH4NdpURoicbZ6Z8J9xnsJUFoIcmZRYFVbpmZNRA/0J2AKEvUieBOt3a/l6ypj6Y0t5yTSZnY6Tovrjg7e6qWm3OGv9YeO67Z+aml+C7qc09V+SlJJw9vqQIc3lHqiNv4dLixbwFsf8fyF4rVk033QhsBmqQr6xMljzjIP6R4Vrte7SbAKbRJ4burfz6V49jsftCLw2QKKEQGzjWygzTMRHJydSuFMLbVQX6UVabbLhoZZfQqXJNvx/EECSCAiShoJIi1C2cGcL0pJSpE/6TlCxbwy+GgICisN/uCE1t7G3ABJJuamYLD7g0qhJpfi8oiNhJHE8NF+BXdxWe5oZPF38c9lq4RGdceG0RoeH8/DnyYTwLWHBNf5g6MZasCd1PDeA18L6qQsfDifDr+mfFcb4wpL99/Lt8Ty+50Isi/gly2/n0HVH++nDWGtLaNYfAewyis62kt6/CKUWdkTR87G2FTGqa/uFKWrr4gHrRbL88mzqZ1dGfIfNQXgioBiGi6RohyPZ8NcVzXD3qTy25vNcpc6l6L+BsaX9BHz8Rm5/vjzsP9fKeBLdNFwY73
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(10067099003)(5023799004)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V2o1T3pUNkR2M1Z4eW1XODJRakdick1CclRqbU9INFlHam8zMDcvK3ZSNitn?=
- =?utf-8?B?MDZVbkNmMjRFSk5JR3VHNHpMb0pqRTlVWm5QZ3VQdkZRdndLeGNCRTFxUmRE?=
- =?utf-8?B?SDgzYzZPeGhlL1U4MTFmdFBUSVdxSGxJd1F0RVlZZnJibXBrYmJueGkzdE5O?=
- =?utf-8?B?UWQ5RHdSR2R4L2Jpa1hXbW0xSGRJR3BUcWJ3dmtsZDFXTnVFQlpnbWRDVDl5?=
- =?utf-8?B?RXRPY2w1VFZZTCtLR3BjcE5KeG81VDJ0cS9QbHJNcGV0NEpsSkdFOSs4WERz?=
- =?utf-8?B?c3phNVZ3M1IxV1FudVpyTk1EV0k4anJJQ0I5TG1GZ1paQXo0Z1RVUnhqODVq?=
- =?utf-8?B?SktqYUVkZ283QTlhNlNyWFJ5STBxSkdEUEFNMVBsUWYvZzl1a202eXBwelNV?=
- =?utf-8?B?ait0cmU5RURUS0Q0NzVjd01aazJ5OG9mVzB6bnM4Ny81U3IrU1hsZWNyQ0Jm?=
- =?utf-8?B?YXVqT0lwTDdIODFGNkxqT2FlSDhMZUZKN0RKSjQ5WUJaL1dSTndwQUdMRU5D?=
- =?utf-8?B?cHpKTXAyUDJ6OHZMOFptYmcxNkx5MVE5RzhjbDdFWFYxSHkxeG1PckhST3Jt?=
- =?utf-8?B?UHZSYWM2TUhLNTFCUVBEMmMxR3J0QVpsZXc1ZEJiNmZ2eitWb3F4Q2Q1U0tB?=
- =?utf-8?B?c3Ixb3FuR1h2WXU1MW1vMEtvSkcwUEp6Q2UzMXVzQ0NiSkRyMFBIU1hGellv?=
- =?utf-8?B?U1o1cG4yeVlPTEJRYU1icDRtTENPYlEwZDNCQ1JWN01ubXNiQVpnQXl0YzMw?=
- =?utf-8?B?cTZaeko2VU5wckNsL1l5VitMY253K0dvdFBoNnY4Wk96K0dUSmV1U3Y5WGcr?=
- =?utf-8?B?ay96WjE2bDhadGNkZ2FYOVBlUmhod2pKR2NEMUlsUjVlQkthV0VNdjNnNWpj?=
- =?utf-8?B?U052Sjh4Wmo3K0IyeEswREhLaHdDZEVDT0tQamJDUVJKR0l6aFpYNzgvM0dY?=
- =?utf-8?B?MzMySDJTL0Z0bGxwUmZFcDg5ZGh3bVNBQmtRYll2eWY2UHU2VzE1Szh6S2Fv?=
- =?utf-8?B?RUdubTJQUVNCN1RDTFFCOFVhNVVvbTViTjVZUGR5Nmxtd3FBdDhMbzMvbDl1?=
- =?utf-8?B?REEzRlZBNWE1UUcyWmQ4UXRjQW1Cc0hSK2V5RnYvbENRUXEwR2NvR2hMdktp?=
- =?utf-8?B?ZFJEYklxMGl4cVBjZTNVUGN2WFcyREZSbUc2Nk5BYy9IK1FFZFRhQW1raDdR?=
- =?utf-8?B?b05keU5oaWdPUUFKRFMzQmlNc0lYMEhMWjk0aHh0NVVidGhDV2p3QVNFcnRG?=
- =?utf-8?B?S2NkS2FmQ0JtOTBJOTdpM0ZTY1Q1V2RqU2JEVDVRZTluaGRHU2NZUXhkc0hK?=
- =?utf-8?B?UURxMnV5T0RnZDc1ZjNhL1lnVEtBWjNCdDg5TlArbjhxTEx1K0JDa2FQSzVU?=
- =?utf-8?B?QnE2K0RoSHVlek1OYXlIYU9jQ0dycVgwa01aTzQvUGZtS2g3N0dtY0VUS2lL?=
- =?utf-8?B?Y1Awbk5IU1FXQnpRYk1XUWlLUWVaSGNWcjBOMFJDRFRzbm91V01PMXBrZDBa?=
- =?utf-8?B?UGhueE8zRFhuZGpNTVhQTXVpQ2hqWUFkNDBlamFld09IaGdjeWU0bytaZTFt?=
- =?utf-8?B?UFRydTUrSkpIT3ROOG1MS0hvUi9RZjdLdGlJaWIyU0VFOUxYTEIyZEs3VUVN?=
- =?utf-8?B?S3lYdVhvM2prOVhUNitTME9BZ1pjODFiREdJbEZYR2JGRzg4V2xuelIrNWt1?=
- =?utf-8?B?YStjMWxscXZDYW5RaVNDemxaZi8vOXJyL3pBL242ejBnUzJLWEQ4TXlMQS9H?=
- =?utf-8?B?MVh6NzUrK1A1TWxqd0h5VmxWY0VzWnZsZzV0N2FtWkRrSW5PRDNrZEU1RkhK?=
- =?utf-8?B?U0pjWThZKzBMcEs5QnM4R1N4aEE2NjJKVFprTUh5OFNmRm5uK0JvcGRQNzdW?=
- =?utf-8?B?bFNTTEhwNWJWbzE4Sk0wSkY2bFhYT3VMeENFbGt4MFI5dTNoeTZDWXoyRTBR?=
- =?utf-8?B?RXRaZGMxcFl5Q0NEOFltZ3ZUMTRNRlpoSE92TGRBdjFmSFhyLzFXNDhhYUtD?=
- =?utf-8?B?elpYbHJFSWlPeWFGMEJ5azRWdDY5aUZhV01FQ1dQcnM0emNmMk1KVEdvUFVh?=
- =?utf-8?B?TjhOQ1crdXRZRXh6K2d1cktSbDd6cHc5SkdsSGREODBqVzg5OUcrMndZdUt0?=
- =?utf-8?B?ckNxcURHMFF2azdieFRPaG5NU1hKOEtSNzR4b3c3Uzg3U3JxU3Zyc1UvSFVC?=
- =?utf-8?B?TzM5YUxUOGlaNys4LzdpN1BOSlVJRGd1NEZ6NSt3WWZ0ME1RMW1uZG5kbWxi?=
- =?utf-8?B?dWxYT3BGZWVIOTRYeU96ekNMby92MW5EOGk0ZGpsNVlJRW51dDVaSXFWWHc5?=
- =?utf-8?Q?7daODAhcHdXO7zuMY2?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a06b9ff9-6f05-470e-6cb8-08df13f6a261
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 13:30:11.8979 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /WT+pO/mzRrxugBiT0ysnI7MVivprNeg8U63WgG1CNn8XwRuTAb+p9WWMfklsxr5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8584
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,47 +72,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/16/26 15:21, Mike Rapoport (Microsoft) wrote:
-> F:	include/linux/*fence.h
-> 
-> in "DMA BUFFER SHARING FRAMEWORK" entry matches include/linux/kfence.h
-> although that header has nothing to do with dma-buf.
-> 
-> Replace it with explicit 'include/linux/dma-fence.h'.
-> 
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Hi!
 
-Acked-by: Christian König <christian.koenig@amd.com>
+On Thu, 2026-08-20 at 12:12 +0200, Szymon Aceda=C5=84ski wrote:
+> Fixes display corruption on Xen PV dom0, where DMA buffers are not
 
-Thanks a lot that was on my TODO list for an eternity as well!
+Please use imperative language in commit messages: "Fix display
+corruption..."
 
-Regards,
-Christian
+> guaranteed machine-contiguous, in which case bounce buffering kicks
+> in, breaking xe's memory coherency assumptions.
+>=20
+> Apply the same workaround i915 carries in i915_sg_segment_size()
+> since
+> commit 78a07fe777c4 ("drm/i915: stop abusing swiotlb_max_segment").
+>=20
+> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel
+> GPUs")
+> Reported-by: Marek Marczykowski-G=C3=B3recki
+> <marmarek@invisiblethingslab.com>
+> Closes:
+> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8382
+> Link: https://lore.kernel.org/xen-devel/aYtznP_tT6xNPwf-@mail-itl/
+> Link:
+> https://lore.kernel.org/all/20221020110308.1582518-1-hch@lst.de/=C2=A0#
+> i915 counterpart
+> Cc: stable@vger.kernel.org=C2=A0# v6.8+
+> Signed-off-by: Szymon Aceda=C5=84ski <accek@invisiblethingslab.com>
+
+Please also CC the Author of the original i915 patch in case there
+are any updates to the validity of this hack. While there is a
+precedent in i915 authored by Christoph, the patch really relies
+on completely undocumented behaviour....
+
+Otherwise LGTM, Once you have an update I'll forward it to Xe CI.
+
+Thanks,
+Thomas
+
 
 > ---
->  MAINTAINERS | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index c2414447892c2..656bc5ed8d2ba 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -7688,7 +7688,7 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
->  F:	Documentation/driver-api/dma-buf.rst
->  F:	Documentation/userspace-api/dma-buf-alloc-exchange.rst
->  F:	drivers/dma-buf/
-> -F:	include/linux/*fence.h
-> +F:	include/linux/dma-fence.h
->  F:	include/linux/dma-buf.h
->  F:	include/linux/dma-buf/
->  F:	include/linux/dma-resv.h
-> 
-> ---
-> base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-> change-id: 20260916-maint-dma-buf-3311abfdc90e
-> 
-> --
-> Sincerely yours,
-> Mike.
-> 
-
+> =C2=A0drivers/gpu/drm/xe/xe_bo.h | 19 +++++++++++++++++++
+> =C2=A01 file changed, 19 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
+> index e8081af..152bfcf 100644
+> --- a/drivers/gpu/drm/xe/xe_bo.h
+> +++ b/drivers/gpu/drm/xe/xe_bo.h
+> @@ -9,6 +9,8 @@
+> =C2=A0#include <drm/drm_prime.h>
+> =C2=A0#include <drm/ttm/ttm_tt.h>
+> =C2=A0
+> +#include <xen/xen.h>
+> +
+> =C2=A0#include "xe_bo_types.h"
+> =C2=A0#include "xe_ggtt.h"
+> =C2=A0#include "xe_macros.h"
+> @@ -575,6 +577,23 @@ static inline unsigned int
+> xe_sg_segment_size(struct device *dev)
+> =C2=A0	struct scatterlist __maybe_unused sg;
+> =C2=A0	size_t max =3D BIT_ULL(sizeof(sg.length) * 8) - 1;
+> =C2=A0
+> +	/*
+> +	 * For Xen PV guests pages aren't contiguous in DMA
+> (machine) address
+> +	 * space.=C2=A0 The DMA API takes care of that both in
+> dma_alloc_* (by
+> +	 * calling into the hypervisor to make the pages contiguous)
+> and in
+> +	 * dma_map_* (by bounce buffering).=C2=A0 But xe (like i915, see
+> commit
+> +	 * 78a07fe777c4) ignores the coherency aspects of the DMA
+> API and thus
+> +	 * can't cope with bounce buffering actually happening, so
+> add a hack
+> +	 * here to force small allocations and mappings when running
+> in PV
+> +	 * mode on Xen.
+> +	 *
+> +	 * Note this will still break if bounce buffering is
+> required for other
+> +	 * reasons, like confidential computing hypervisors or PCIe
+> root ports
+> +	 * with addressing limitations.
+> +	 */
+> +	if (xen_pv_domain())
+> +		return PAGE_SIZE;
+> +
+> =C2=A0	max =3D min_t(size_t, max, dma_max_mapping_size(dev));
+> =C2=A0
+> =C2=A0	/*
+>=20
+> base-commit: b4f95affc66ef76342c1f6bf3849f6c8ade6b9d6
