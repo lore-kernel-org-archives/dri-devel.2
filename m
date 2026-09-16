@@ -4,88 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D2C6C88E5C
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 05:24:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB2C4C88E5C
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 05:32:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9296B10E217;
-	Wed, 16 Sep 2026 05:24:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B98CB10E036;
+	Wed, 16 Sep 2026 05:32:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OhWe9we9";
+	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="mpz2+FK9";
 	dkim-atps=neutral
-Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com
- [74.125.231.139])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DA7F10E036
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 05:24:11 +0000 (UTC)
-Received: by mail-oo2-f11.google.com with SMTP id
- 46e09a7af769-7f4ddb9adf4so2127393a34.1
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 22:24:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789536250; x=1790141050; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=zSwtxaUSQ7K0oB62qUITKeVKiPbi0vng9/BLzWTtzOE=;
- b=OhWe9we9uAduPuaoDwJmizOLTcULGwO3Z/BnJf2SoxfC+KanxVC2YCcJlOK+NFw9el
- L3DDT5uH6xkQn/8G/u/2He5yjCwKdSe5CCLV7dORUyXIYTAU8Blh+lI6M1KuTAcs8t1Q
- SHc6o+GA8ibMS9NdOdhmleAutu36aEYDLcIXB2Ajp9H8QfLoZAn0andzitoh9EtEJ18n
- iKTYz4r+iFbM4xHE/Pq1vxRN9222M/utAWJbRP0bkFdFzdB+WY7Tz0PCBMmxfmWP+G2Y
- 6Oiw5iA/hpjICgTVs6FamxmPKD9gkWC7x9WMeoPK+hBcxsqAmm++nYu2K3rKaS+QQm/L
- 0unA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789536250; x=1790141050;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=zSwtxaUSQ7K0oB62qUITKeVKiPbi0vng9/BLzWTtzOE=;
- b=Kt5iHqGyFcYNqXpOSyJQzMkwKj5qPO3Ew5+mw6YSZlbRPADeWeqc/OuOn/1+oV/SBW
- /Zl/hJT8Af205CpLcvYc4DHN2RDARzjds9Isz/2yTh1xl8WkQvLUcSoTjV6aW8S/crm5
- 6cjw31Zn+UoJ34rsXyncyHy3Evw9ACsLby6FlPUg+ObnkP4NfUDaCb6fJo1qVpF618vf
- 8N7waW4HWBaJJL+9Br/5YSh/5u7ChvigroIDAIb1ivat3PFhw+9WxVkIHWDmRkgXJhPi
- VuSJJy9WLqfvB9hHdeQqyVNDLhWvY8hXrAsqalFinTghSj6WQXNZd3KQTU/o4VUILT1g
- dS+g==
-X-Gm-Message-State: AFuF++mcEeJOnq+eEU/v9a3Q6nkQM4qtmn4z2wH6PU7WLtTEekYwxYzy
- vc7WVMOUqzlE3VqZev80mHHsXzp4akq7stMZDMJgzf1w4IiuWZwcCe3d
-X-Gm-Gg: AYBFou3VVNn7Uy8rYR1sSqCRERkAmSPtEA5qdhlMCBXUm7IS6T/Zi9JSn8TDqwgzJTG
- p23bHuopV77D0Z9w/iJrsNFlVCxEWAHlgh+ywFr095ckKGMHZCM8Tl0j65yA1H3ZchBNMSVkP2X
- m8DJ1on9yVLdH4DNbTm13wwhwkR3prtGhXTKle2SQRm2M2xy5zs5WjicO6puWSWVBKC/WGvb0JL
- bFerK9Pk3Zjr8Bh7+Gle7AroqlJyXhOQqrNw1ww8m/XN0mwQZhOIGjaFY+RojbjtDavS0zI5QXz
- b0psuoR/Fu3W7tZNp13p7RM7aw0UW3OavoUqCQm8HXe1r9HHgg6R8Vw963czOU9VEllOUq3LDEC
- eGjxGIxXX3JECCBiuBVscxvOnfqR383xnsWkTp1emnd97oU24hrr7hqd4oK8qC0netsNFhpe1b3
- L2g0taiecCPPRZvpNK8BA/hxvMO8a+i81jzbQe02PHbpw2nJlJGS8XT7wgO2QOJ8bsq4A=
-X-Received: by 2002:a05:6830:6d2e:b0:80a:45e1:7677 with SMTP id
- 46e09a7af769-80b2f3ac500mr1403318a34.23.1789536250381; 
- Tue, 15 Sep 2026 22:24:10 -0700 (PDT)
-Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
- by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-80b07ad0294sm1562819a34.24.2026.09.15.22.24.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Sep 2026 22:24:09 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Wed, 16 Sep 2026 00:24:00 -0500
-Subject: [PATCH] drm/mediatek: dsi: force command mode in mtk_dsi_poweron()
+Received: from smtpout8.mo536.mail-out.ovh.net
+ (smtpout8.mo536.mail-out.ovh.net [51.210.91.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB20910E036
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 05:32:01 +0000 (UTC)
+Received: from director6.derp.mail-out.ovh.net
+ (director6.derp.mail-out.ovh.net [79.137.60.226])
+ by mo536.mail-out.ovh.net (Postfix) with ESMTPS id 4hl6vf6qtYz89Dq;
+ Wed, 16 Sep 2026 05:31:58 +0000 (UTC)
+Received: from director6.derp.mail-out.ovh.net
+ (director6.derp.mail-out.ovh.net. [127.0.0.1])
+ by director6.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+ for <arunpravin.paneerselvam@amd.com>; Wed, 16 Sep 2026 05:31:58 +0000 (UTC)
+Received: from mta11.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.0.187])
+ by director6.derp.mail-out.ovh.net (Postfix) with ESMTPS id
+ 4hl6vf5vx4z46ZB; Wed, 16 Sep 2026 05:31:58 +0000 (UTC)
+Received: from pixelcluster.dev (unknown [10.1.6.5])
+ (Authenticated sender: nat@pixelcluster.dev)
+ by mta11.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 8639A9A1C21;
+ Wed, 16 Sep 2026 05:31:57 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-104R0051070beb6-b773-446b-8d4f-44f46e538ee6,
+ 69B76013C106EEA375DAA2C64D98DF65BC6C8E4B) smtp.auth=nat@pixelcluster.dev
+X-OVh-ClientIp: 88.133.252.134
+Message-ID: <06ba629c-192e-4a65-a48f-0f61b7037c7b@pixelcluster.dev>
+Date: Wed, 16 Sep 2026 07:31:56 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-rbrue-suez-upstreaming-mtk-dsi-cmd-mode-v1-1-b37f167e25cb@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3NwQqDMAyA4VeRnBeonYjuVcYO2kQXRqskdoyJ7
- 27x+F3+fwdjFTZ4VDsof8VkSQX1rYLwHtLMKFQM3vnW9XWLOmpmtMx/zKttykOUNGPcPkgmGCJ
- hXIiRunsTnO+nZuyg1FblSX7X6fk6jhM0/FZ9eQAAAA==
-X-Change-ID: 20260916-rbrue-suez-upstreaming-mtk-dsi-cmd-mode-d834c029f4b8
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789536248; l=2721;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=hpjXRGa4viZcbFnNO5KBT0ICAECMSKtgFaKjk3ZUers=;
- b=YGYtnMBV27PnM1edrgMETUOi3yg7VZTGrzPFHJou4Uz1zxAGKN1TiUeZkDDsyt2+fjf5MWWPb
- W6IpgB8c/lLB0mGPpb7e2KK71MSkVE3pVyuDUNsENUDYOqVIuiy9cDh
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] MAINTAINERS: change TTM maintainers to Natalie and Arun
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ christian.koenig@amd.com, ray.huang@amd.com,
+ arunpravin.paneerselvam@amd.com, matthew.auld@intel.com,
+ matthew.brost@intel.com, thomas.hellstrom@linux.intel.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260915154804.605772-1-christian.koenig@amd.com>
+Content-Language: en-US
+From: Natalie Vock <nat@pixelcluster.dev>
+In-Reply-To: <20260915154804.605772-1-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+x-ovh-tracer-id: 3012345201672020284
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: dmFkZTFRfwPuXz5e3IWqGYPDEKHZ3x/M2YZGSZ8E32VVcwMb1j3KKBl2m+tUHN2rZrm0fucxlaeylCZLlLoFNNxPvCVmDDGLqP/abZiAUzT6vOW7ZsA4E2YR8C7feuD4+EjwKWiCxuDBaUzUlgnZ7UW3A/bcBcHOu0KMTTRVRDhp/QqaXvZednGeQ973KFdCRKyqcvISUYeoqzBlNgLYv+/OYTATaSOA7mtAneBn9N3cQTzmKSzF81pAvYcIG3meuA6y2M4j6cw4s0QTyDjoYkyPSfLhZkt5Xc3SonFVlrjooVE5qQy8nOrldhuZ700d3btYSV+SMyKdXXmbTBj0RdYhCLkcT8iQCRGcNFiimQc1yvyb+gUsSc96f9rd0DMZJPlvWEV/kakVVw1PTCovHZRrLWtlaPkWSTteM1SGd7mQLQkrjJfa84thnAqDp7BAfUMKANCwPoL7LMhniZg2uaOw5uY8uje4fu+rs3stns+CsGYC4bCD1MXLPLQfuVm5Hk3iPuS2uMQBTFwAqkNq0CYOEv9aJ2edVUkxO6DbMQSpFsM1dM72Ipr3W/F+Vn6xy1MwQX4GUUT2+z+j83qrlFSuDpd+JbWSx9hKXVIp9i/MUg5+vXozSPKFkzCQhwlo89RpPjgtZ/jiIHksDeLI/Pj9Q2HBaAX7NpydA4elDca8WlsjqA
+DKIM-Signature: a=rsa-sha256; bh=ioPl4fvpUxZb/jtEXguIL+7E9wHogFQsb1NAV9MRKf8=; 
+ c=relaxed/relaxed; d=pixelcluster.dev; h=From;
+ s=ovhmo-selector-1; t=1789536719; v=1;
+ b=mpz2+FK9rbNsHe2aDHrnKz+gAmGH6p+Ap+EWyc6Cvcj0w2WNL0z4Sva8CWBkN7tY4hhWzDfX
+ 1ca3lSYDbYO3gFKaGx7mS1CnPNrmILrQN+Ti74/qMtCuYS4QuaXTdr96GyuSXJEQLOWgIqgGrr1
+ aLwo2BRW6+V8zhcG2ifYJKWGFmP2OXnXuGervL48a9iy+Sk7E2WhGRn97JNIlSC9A7Tq863yhZZ
+ QuaXjLK60kwK8/hYOcFhBDeO6/KEdrtGVzaEzo/9ncXngs69HXgzBZ/dpZ2LwfcOvamC+P8Y55S
+ R6T7cmZkvjnE1QSCVLY4NHk1ay5MyPST+8bXWroPCcoOg==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,69 +78,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-mtk_dsi_reset_engine() does not touch DSI_MODE_CTRL, so whatever the
-bootloader left there survives power-on. On boards where the bootloader
-lights the panel for a boot logo and hands the DSI over still running, the
-leftover value is a video mode, and the first mtk_dsi_host_transfer() then
-takes the "already streaming" path: it stops the stream and waits for
-VM_DONE, which never arrives, because the engine reset has already stopped
-the stream. The panel's very first command fails and it is never
-initialised:
+Hi,
 
-  [drm] Wait DSI IRQ(0x00000008) Timeout
-  *ERROR* failed to switch cmd mode
-  sending dcs data 8f a5 failed: -62
+On 9/15/26 17:48, Christian König wrote:
+> The blunt reality is that I don't have time to look into patches or bugs
+> any more as it would be necessary. The same counts for Ray.
+> 
+> Natalie has been working on the dmem cgroup patches for TTM and agreed
+> to take over looking more into TTM.
+> 
+> Arun is working in my team and already maintaining AMDs VRAM backend for
+> TTM and the underlying buddy allocator.
+> 
+> Add Thomas as reviewer as well, better to have more eyes on that
+> component.
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
 
-Set command mode right after the engine reset, so DSI_MODE_CTRL describes
-the state the reset leaves the engine in. The video mode is programmed by
-mtk_dsi_set_mode() when the stream is actually started, exactly as today.
+Acked-by: Natalie Vock <nat@pixelcluster.dev>
 
-Seen on the Amazon Fire HD 10 (2017), whose LK bootloader draws its logo
-over DSI in video mode and never stops the stream before jumping to the
-kernel.
+Thank you for your work!
 
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
-The board this was found on, an Amazon Fire HD 10 (2017), is not upstream
-yet, so no in-tree board regresses without this. It is a state-consistency
-fix either way: mtk_dsi_reset_engine() stops the stream but leaves
-DSI_MODE_CTRL still describing the mode the bootloader was driving, and
-nothing writes that register again until mtk_dsi_set_mode() at stream start.
-
-This touches the same lines as "drm/mediatek: mtk_dsi: Transfer register
-offsets to per-SoC const" from the MT8196 series; I will rebase on top of
-that if it lands first.
----
- drivers/gpu/drm/mediatek/mtk_dsi.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-index 7961139333ad..4cb486f54653 100644
---- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-@@ -737,6 +737,15 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
- 		       dsi->regs + dsi->driver_data->reg_shadow_dbg_off);
- 
- 	mtk_dsi_reset_engine(dsi);
-+
-+	/*
-+	 * mtk_dsi_reset_engine() leaves DSI_MODE_CTRL alone, so a video mode
-+	 * left there by a bootloader that handed the panel over still running
-+	 * would make the first command wait for a VM_DONE that never arrives.
-+	 * mtk_dsi_set_mode() programs the real mode when the stream starts.
-+	 */
-+	mtk_dsi_set_cmd_mode(dsi);
-+
- 	mtk_dsi_phy_timconfig(dsi);
- 
- 	mtk_dsi_ps_control(dsi, true);
-
----
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-change-id: 20260916-rbrue-suez-upstreaming-mtk-dsi-cmd-mode-d834c029f4b8
-
-Best regards,
---  
-Ryan Brue <ryanbrue.dev@gmail.com>
+Best,
+Natalie
+> ---
+>   MAINTAINERS | 5 +++--
+>   1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 5b5a4e4b35cf..b6e58a138501 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -9140,10 +9140,11 @@ F:	drivers/gpu/drm/drm_privacy_screen*
+>   F:	include/drm/drm_privacy_screen*
+>   
+>   DRM TTM SUBSYSTEM
+> -M:	Christian Koenig <christian.koenig@amd.com>
+> -M:	Huang Rui <ray.huang@amd.com>
+> +M:	Natalie Vock <nat@pixelcluster.dev>
+> +M:	Arun Pravin <arunpravin.paneerselvam@amd.com>
+>   R:	Matthew Auld <matthew.auld@intel.com>
+>   R:	Matthew Brost <matthew.brost@intel.com>
+> +R:	Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>   L:	dri-devel@lists.freedesktop.org
+>   S:	Maintained
+>   T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
 
