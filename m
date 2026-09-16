@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 497F9C982C3
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 14:43:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B963DC982C3
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 14:44:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A77CD10E454;
-	Wed, 16 Sep 2026 14:43:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2434210E3EF;
+	Wed, 16 Sep 2026 14:44:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="l9GfSJOx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="agBrgLbP";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8C2E10E13E
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 14:43:39 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 271E010E3EF
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 14:44:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B26CE432F2;
- Wed, 16 Sep 2026 14:43:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 104E41F000FF;
- Wed, 16 Sep 2026 14:43:39 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5A1C86053A;
+ Wed, 16 Sep 2026 14:44:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A18D1F000FF;
+ Wed, 16 Sep 2026 14:44:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789569819;
- bh=A13kCcw9ArEt4WpVsX8DkVfrRV1kpvUki+/PUinst9M=;
+ s=k20260515; t=1789569878;
+ bh=FBvbPH8tbC/J+MeTv9LGjYGrwJAxOJHNVOVhnC4K2mY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=l9GfSJOxK53P7MzywYkzh7dGNQHQrbwtAe9Z9RiQuoO7wO1qHjKrvgeA7lIaAslY/
- 3Lrfikc2K5g5hBsi65K5xnfD6a9XZSctiqOKsgci3UhyxhVrWU5AEemjqdxAKVpYgr
- /knpyjgmiLoZJyiwWbGuiupxph7LWV9q7X1eHllvCF1cYb8daiiQ2/1Zfi6lwzFgTA
- z1wKSghl6m9Hk/ZEh65INK0rh7GS4AraKji8Ez9PhFSXDI0sd5+RFxHUFozESIt1Mg
- Jn0Gi6sW2MTIzrDmUx/itf7KyuUrLxwFt3cEEfgwpLMzq4Y0MuqcqL3xF89v6QeO9l
- aNDlKWp7xotaQ==
+ b=agBrgLbPtX7pcsBoIDTRLYtlo2wuhz82bfv1jtcmIdw1AaIEMbmCyUTTZnmNuqrdl
+ 2ae2Fk1OljbT2LELpAqw5UajmYiYeOFNaeYMW+A7FPQKrtmu8xrbbQKNIe5nEKqWiM
+ EX99rt/b0aYWkzThlSQJgbkkr8aXEYQBNCrNG3miksc8bHE7b7DyNJLg81ETvducRH
+ qC5MmNB+EejLzEiMFSHa/Ae0bTkLnlXmWU59S4merznCIBc8+I/AaCd3MYv1/VwATw
+ lYxI3WG7FXVPju4s/C+TDTzDVzXUTCdOBVmklo6dW0fRrCFcTDxaDSUw13cCesf116
+ e6T6fJevZDM+w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 13/19] drm: msm: mdp5: Add MDP5 configuration for
- MSM8952
+Subject: Re: [PATCH v2 02/19] clk: qcom: Add global clock controller driver
+ for MSM8952
 To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, lee@kernel.org, dmitry.torokhov@gmail.com,
- robh@kernel.org, linux-clk@vger.kernel.org, conor+dt@kernel.org,
- linux-input@vger.kernel.org
-In-Reply-To: <20260916-msm8952-initial-support-v2-13-798c2602dde1@mainlining.org>
+Cc: conor+dt@kernel.org, linux-clk@vger.kernel.org, linux-input@vger.kernel.org,
+ dmitry.torokhov@gmail.com, devicetree@vger.kernel.org, mfd@lists.linux.dev,
+ lee@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260916-msm8952-initial-support-v2-2-798c2602dde1@mainlining.org>
 References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
- <20260916-msm8952-initial-support-v2-13-798c2602dde1@mainlining.org>
+ <20260916-msm8952-initial-support-v2-2-798c2602dde1@mainlining.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 14:43:38 +0000
-Message-Id: <20260916144339.104E41F000FF@smtp.kernel.org>
+Date: Wed, 16 Sep 2026 14:44:37 +0000
+Message-Id: <20260916144437.8A18D1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,67 +60,131 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] drm/msm: hardware corruption due to zero-initialized LM3 base addr=
-ess
+- [High] clk: qcom: gp1/2/3_clk_src CCF parent incorrectly mapped to gpll0_=
+vote instead of xo
+- [High] clk: qcom: reset map targets CBCR enable bits instead of BCR reset=
+ registers
 --
 
-commit f01ed8464ded4b4b827835f9551a26ed60e5dded
+commit f6425874e2d9adc87ee0fd906bb71cd217405222
 Author: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-drm: msm: mdp5: Add MDP5 configuration for MSM8952
+clk: qcom: Add global clock controller driver for MSM8952
 
-This commit adds the mdp5_cfg_hw entry for MDP5 version v1.12 found on
-the MSM8952.
+This commit adds the global clock controller (GCC) driver for the Qualcomm
+MSM8952 SoC. It provides clocks, resets, and power domains needed for vario=
+us
+hardware components on the device.
 
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/m=
-sm/disp/mdp5/mdp5_cfg.c
-> index 7c91fc1915f39..d34c94d6f7e2e 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-> @@ -744,6 +744,86 @@ static const struct mdp5_cfg_hw msm8x76_config =3D {
->  	.max_clk =3D 360000000,
->  };
-> =20
-> +static const struct mdp5_cfg_hw msm8952_config =3D {
-> +	.name =3D "msm8952",
+Link: https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-w=
+ear-7.0.0_r0.3/drivers/clk/qcom/clock-gcc-8952.c
 
+diff --git a/drivers/clk/qcom/gcc-msm8952.c b/drivers/clk/qcom/gcc-msm8952.c
+--- a/drivers/clk/qcom/gcc-msm8952.c
++++ b/drivers/clk/qcom/gcc-msm8952.c
 [ ... ]
-
-> +	.lm =3D {
-> +		.count =3D 2,
-> +		.base =3D { 0x44000, 0x47000 },
-> +		.instances =3D {
-> +				{ .id =3D 0, .pp =3D 0, .dspp =3D 0,
-> +				  .caps =3D MDP_LM_CAP_DISPLAY, },
-> +				{ .id =3D 3, .pp =3D -1, .dspp =3D -1,
-> +				  .caps =3D MDP_LM_CAP_WB },
-> +			     },
+> static struct clk_rcg2 gp1_clk_src =3D {
+> 	.cmd_rcgr =3D 0x08004,
+> 	.mnd_width =3D 8,
+> 	.hid_width =3D 5,
+> 	.parent_map =3D gcc_xo_map,
+> 	.freq_tbl =3D ftbl_gcc_gp1_3_clk,
+> 	.clkr.hw.init =3D &(struct clk_init_data){
+> 		.name =3D "gp1_clk_src",
+> 		.parent_hws =3D (const struct clk_hw *[]) {
+> 			&gpll0_vote.hw,
+> 		},
 
 [Severity: High]
-Will this lead to hardware register corruption when LM3 is brought up?
+Does this code map to the wrong parent hardware clock? The parent_map is set
+to gcc_xo_map (which implies hardware source 0, typically XO), but the CCF
+parent_hws array points to &gpll0_vote.hw (800MHz) instead of the XO
+reference.
 
-In msm8952_config, the .lm.base array is initialized sequentially as
-{ 0x44000, 0x47000 }, which assigns base[0] =3D 0x44000 and base[1] =3D 0x4=
-7000.
-This leaves base[3] implicitly zero-initialized.
+This causes the Common Clock Framework to report the parent rate as 800MHz
+while the hardware operates at 19.2MHz. Consequently, downstream drivers
+configuring these clocks may compute incorrect hardware dividers, leading to
+severe underclocking, and it will keep gpll0_vote enabled unnecessarily.
 
-However, the second LM instance is defined with .id =3D 3 (for LM3). When t=
+> 		.num_parents =3D 1,
+> 		.ops =3D &clk_rcg2_ops,
+> 	},
+> };
+>=20
+> static struct clk_rcg2 gp2_clk_src =3D {
+> 	.cmd_rcgr =3D 0x09004,
+> 	.mnd_width =3D 8,
+> 	.hid_width =3D 5,
+> 	.parent_map =3D gcc_xo_map,
+> 	.freq_tbl =3D ftbl_gcc_gp1_3_clk,
+> 	.clkr.hw.init =3D &(struct clk_init_data){
+> 		.name =3D "gp2_clk_src",
+> 		.parent_hws =3D (const struct clk_hw *[]) {
+> 			&gpll0_vote.hw,
+> 		},
+
+[Severity: High]
+Does the same parent mismatch apply here to gp2_clk_src as well?
+
+> 		.num_parents =3D 1,
+> 		.ops =3D &clk_rcg2_ops,
+> 	},
+> };
+>=20
+> static struct clk_rcg2 gp3_clk_src =3D {
+> 	.cmd_rcgr =3D 0x0a004,
+> 	.mnd_width =3D 8,
+> 	.hid_width =3D 5,
+> 	.parent_map =3D gcc_xo_map,
+> 	.freq_tbl =3D ftbl_gcc_gp1_3_clk,
+> 	.clkr.hw.init =3D &(struct clk_init_data){
+> 		.name =3D "gp3_clk_src",
+> 		.parent_hws =3D (const struct clk_hw *[]) {
+> 			&gpll0_vote.hw,
+> 		},
+
+[Severity: High]
+And similarly, does gp3_clk_src also point to gpll0_vote.hw instead of xo?
+
+[ ... ]
+> static const struct qcom_reset_map gcc_msm8952_resets[] =3D {
+> 	[RST_CAMSS_MICRO_BCR]		=3D { 0x56008 },
+> 	[RST_USB_HS_BCR]		=3D { 0x41000 },
+> 	[RST_QUSB2_PHY_BCR]		=3D { 0x4103c },
+> 	[RST_USB_HS_PHY_CFG_AHB_CBCR]	=3D { 0x41030 },
+
+[Severity: High]
+Are we targeting the Clock Branch Control Register (CBCR) here instead of t=
 he
-driver configures this mixer, it uses lm->id to access the LM registers.
-Because base[3] is 0, the driver will mistakenly perform writes to offset 0=
-x0
-of the MDP block (which corresponds to top-level registers).
+Block Control Register (BCR)?
 
-Should designated initializers be used for the base array here, such as
-{ [0] =3D 0x44000, [3] =3D 0x47000 }?
+By omitting .bit, the reset framework defaults to bit 0, which is the clock
+enable bit for CBCRs. When a subsystem requests a block reset, the driver
+will toggle the clock enable bit instead of actually resetting the hardware
+block. This corrupts the clock's enabled/disabled state behind the
+framework's back and fails to reset the hardware.
 
-> +		.nb_stages =3D 8,
-> +		.max_width =3D 2048,
-> +		.max_height =3D 0xFFFF,
-> +	},
+> 	[RST_USB2_HS_PHY_ONLY_BCR]	=3D { 0x41034 },
+> 	[RST_USB_FS_BCR]		=3D { 0x3f000 },
+> 	[RST_CAMSS_CSI1PIX_CBCR]	=3D { 0x4f058 },
+> 	[RST_CAMSS_CSI_VFE1_CBCR]	=3D { 0x58074 },
+> 	[RST_CAMSS_VFE1_CBCR]		=3D { 0x5805c },
+> 	[RST_CAMSS_CPP_CBCR]		=3D { 0x5803c },
+
+[Severity: High]
+Do these CAMSS entries also incorrectly target CBCR registers instead of th=
+eir
+respective BCR hardware reset registers? Similar to the USB reset above, th=
+is
+could break hardware state recovery for fundamental blocks by toggling clock
+enablements instead.
+
+> 	[RST_MSS_BCR]			=3D { 0x71000 },
+> 	[RST_MDSS_BCR]			=3D { 0x4d074 },
+> };
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-msm8952-in=
-itial-support-v2-0-798c2602dde1@mainlining.org?part=3D13
+itial-support-v2-0-798c2602dde1@mainlining.org?part=3D2
