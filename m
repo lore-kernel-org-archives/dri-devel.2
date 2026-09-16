@@ -4,91 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62A12C88E7F
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 19:01:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAC2DC982C9
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 19:09:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73CDF10E084;
-	Wed, 16 Sep 2026 19:01:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A02310E0A2;
+	Wed, 16 Sep 2026 19:09:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="UkLIHhXr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hHhU4x9m";
 	dkim-atps=neutral
-Received: from mail-pl1-f226.google.com (mail-pl1-f226.google.com
- [209.85.214.226])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9B1310E084
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 19:01:54 +0000 (UTC)
-Received: by mail-pl1-f226.google.com with SMTP id
- d9443c01a7336-2dd05e8b98cso127425ad.3
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 12:01:54 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789585314; x=1790190114;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=HQjL7mB3HOpapqPau0b0W9gBmfWNxjEV90JOaj+pSA4=;
- b=WOVMr9+pugs8BcY5IzEIobmVCgPaAfJWN5RlON57ZqVB3e3p99Hs4GGOxe+yBlvLkx
- QU3zseCjsN5/2jSvKPGbA81NIeJlvSSvS5F+8sBx4pZ/MsbfkCz20CK+KJZrlrdNMlRo
- IQIRyGCt7M8SVgTkRqBOm5kcCfMcasYcz8AJZE4XUSiJqZb9nwEu/ghB+RR3fiycr4TH
- 2owU7UJfGYi0/U0QbOV658wn2/VECz3Bg8uP8UsQDBkkcHO9MPupJUdRiBHLy4tKED2B
- YT0ypD0OP1Ws9aLxLWuQ6BsrmvYaoslgI/bAJ0HRJvQxYMdGO3SQUjVC4isnRwWPCGoj
- 4Omw==
-X-Gm-Message-State: AFuF++nwMhuEQNYfQeMvGVACyt9twabXl9JGomCO1Me+NUaRHehgFlWK
- kEUXRQOBogvRp1Lj+YRGH3wzZ3i5GDWwJkeJ/1hyt9/oNbZvJOIKu/G1otiGAKm71izkKs1ktYK
- PplSMa0w9bGsaYRJ2Jr8sMWqjCiFZCochP1np+tFWMwLHJFMNrhl82JpU2FlEATCwtKDml/6KOQ
- eyuTAWZt3CVihQv0q/5YB0iWMIRzyhPY/Ag7qvan5Bt61qKwpgMRfilBQkNMrxLvHscZmgEpHSW
- G1Thn77S/J8ns0tEeH+
-X-Gm-Gg: AYBFou0RZwUioZ0rwfElOCZLlw7wqRYeYJetkniuQZ5ycqTbZSb7RG1XGHKIDBxXc+H
- 1kaQDcgNapt2FA4W6iczo7RhwHweaxHcgujtNsQk1raBzg12Gqak16sd+M10hzBO3CxbtV3WToW
- 2Xk9svHBAXmpmWdRVj/SXNwwE37T/YfMMFjtk4rB0ZaMm/lJG0N3ASwmjhEe+xKoxd8R4o0dyfQ
- cYKEDMPfQsIZLjvvYi0rclqyn7lzq0d9m3eCH1g7ofCfLh+z+rEmdDXdPMmWIq6BDDzwSA8UdsS
- pLVjoz1gDKqzbY0Tp7k5nEHN0fdBSSet5RQCNRBF+k7kXm2s//d78+fng4x+lC35Gzv1xtwYtR/
- Zn2Qs40nIZ/ArmHqQWjxhEdV29B55lVp+bqWldbYaB672ttaUTN8wdsafVyrSTKl4n5ZSoKZRkJ
- kvBWiIHlXnke9ceU1uwhLXf/bB3T87BS9kO7A=
-X-Received: by 2002:a17:902:db09:b0:2ca:6c8:abd8 with SMTP id
- d9443c01a7336-2dd8e52586amr74983455ad.12.1789585313985; 
- Wed, 16 Sep 2026 12:01:53 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
- by smtp-relay.gmail.com with ESMTPS id
- d9443c01a7336-2dd89f2184esm1439795ad.54.2026.09.16.12.01.53
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 16 Sep 2026 12:01:53 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-ot1-f70.google.com with SMTP id
- 46e09a7af769-805da97443aso21486a34.2
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 12:01:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1789585312; x=1790190112;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=HQjL7mB3HOpapqPau0b0W9gBmfWNxjEV90JOaj+pSA4=;
- b=UkLIHhXrdTUmFKTu0Of5U1VLaaMVgu7MSg/qwN+3nXW9lp5z9ZF95aM+ODLI+TCHsv
- ojhO834xByd9lDZYNgb15pg/8oub9s6V7sTUhd5vHAbSjmDRw9fQYSSGrFrPJr8gUU/s
- np74dbNFiuavnZkBW61aUOFNlAp0OyFea8++I=
-X-Received: by 2002:a05:6820:f02f:b0:6bd:dede:11d7 with SMTP id
- 006d021491bc7-6c7d36fa639mr3756007eaf.37.1789585312293; 
- Wed, 16 Sep 2026 12:01:52 -0700 (PDT)
-X-Received: by 2002:a05:6820:f02f:b0:6bd:dede:11d7 with SMTP id
- 006d021491bc7-6c7d36fa639mr3755948eaf.37.1789585311672; 
- Wed, 16 Sep 2026 12:01:51 -0700 (PDT)
-Received: from plasma.dhcp.broadcom.net ([192.19.144.250])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-33bf5a6a0c5sm9627234eec.7.2026.09.16.12.01.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Sep 2026 12:01:50 -0700 (PDT)
-From: Ian Forbes <ian.forbes@broadcom.com>
-To: dri-devel@lists.freedesktop.org
-Cc: bcm-kernel-feedback-list@broadcom.com, zack.rusin@broadcom.com,
- maaz.mombasawala@broadcom.com, Ian Forbes <ian.forbes@broadcom.com>
-Subject: [PATCH v2] drm/vmwgfx: Add blend mode property
-Date: Wed, 16 Sep 2026 14:01:44 -0500
-Message-ID: <20260916190144.2080777-1-ian.forbes@broadcom.com>
-X-Mailer: git-send-email 2.55.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70D5F10E0A2
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 19:09:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 95ED7601EF;
+ Wed, 16 Sep 2026 19:09:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2329B1F000FF;
+ Wed, 16 Sep 2026 19:09:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789585745;
+ bh=AMcO2iLuYe0RqQ1IiPTE/T6y5x4Ll1izgQ/KZY/ilnM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=hHhU4x9mU3ku723pP87RoJ5WzjQ0yVHv/4ZKRJShcj4syvRLCmEqK6zGymrZtt6SP
+ huX5ohB4ytQT6obVYi7k66CagvqCWw9EfYbuw7LtGjRTqaT7SLmb+fHC/YWAyl4Ooi
+ xyYxiM2fqBBMAsrEf3mnUuyeY4XEZWO8MshUnhwB31Jqz+c1NlK5ue2iq2wvTtP0XY
+ C+IDXyfZyWFl8WZc8t4arSEvG0ugKPM34iMvp6doRzx3ZzmAFM3KZeMSvOehhJoSPL
+ g0nKfSpkag40yE8ArTgG7QYUM5c0J3eFLPThKPMzRMPRmdkaKWAuC14ZfhoXEsFO7D
+ lZuMPiIduYPEw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] misc: fastrpc: Add cache maintenance for non-coherent
+ platforms
+To: "Abhinav Parihar" <abhinav.parihar@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260916185850.3686010-1-abhinav.parihar@oss.qualcomm.com>
+References: <20260916185850.3686010-1-abhinav.parihar@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 16 Sep 2026 19:09:04 +0000
+Message-Id: <20260916190905.2329B1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,44 +53,170 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This stops the log spamming introduced by the referenced fixes commit.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] misc: fastrpc: missing error handling for dma_buf_begin_cpu_access=
+()
+- [High] misc: fastrpc: cache coherency bypass due to user pointer overlap =
+detection
+- [High] misc: fastrpc: missing max_raix update causes incorrect do_cmo eva=
+luation
+- [Low] misc: fastrpc: dead code in RPC control header overlap check
+--
 
-Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-Signed-off-by: Ian Forbes <ian.forbes@broadcom.com>
----
+commit 131a71612f32d48a67415e31fef5d7317be532ce
+Author: Abhinav Parihar <abhinav.parihar@oss.qualcomm.com>
+Subject: misc: fastrpc: Add cache maintenance for non-coherent platforms
 
-v2:
- - Add DRM_MODE_BLEND_PREMULT to primary plane to fix IGT
+This commit adds cache maintenance for fastrpc argument buffers on
+non-coherent platforms. It introduces fastrpc_flush_args() and
+fastrpc_inv_args() to flush input buffers and invalidate output buffers bas=
+ed
+on the "dma-coherent" property.
 
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index d4fac2caca867..83d04b9d2ea02 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+[ ... ]
+> @@ -675,6 +679,9 @@ static void fastrpc_get_buff_overlaps(struct fastrpc_=
+invoke_ctx *ctx)
+>  			if (ctx->olaps[i].end > max_end) {
+>  				max_end =3D ctx->olaps[i].end;
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-index 1b407b61f683..31d3ee0825ca 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-@@ -20,10 +20,18 @@
- #include <drm/drm_rect.h>
- #include <drm/drm_sysfs.h>
- #include <drm/drm_edid.h>
-+#include <drm/drm_blend.h>
- 
- void vmw_du_init(struct vmw_display_unit *du)
- {
- 	vmw_vkms_crtc_init(&du->crtc);
-+	drm_plane_create_blend_mode_property(&du->primary,
-+					     BIT(DRM_MODE_BLEND_PIXEL_NONE) |
-+					     BIT(DRM_MODE_BLEND_PREMULTI));
-+	// Check that the cursor plane was actually initialized
-+	if (du->crtc.cursor == &du->cursor.base)
-+		drm_plane_create_blend_mode_property(&du->cursor.base,
-+						     BIT(DRM_MODE_BLEND_PREMULTI));
- }
- 
- void vmw_du_cleanup(struct vmw_display_unit *du)
--- 
-2.55.0
+[Severity: High]
+Does this code miss updating max_raix when max_end is extended?
 
+If a partially overlapping buffer extends max_end, max_raix remains stale.
+Subsequent fully subsumed buffers might then evaluate their boundary crossi=
+ng
+(do_cmo) against this stale max_raix, potentially skipping necessary cache
+maintenance.
+
+>  			} else {
+> +				if ((max_raix < inbufs && ctx->olaps[i].raix + 1 > inbufs) ||
+> +					(ctx->olaps[i].raix < inbufs && max_raix + 1 > inbufs))
+> +					ctx->olaps[i].do_cmo =3D true;
+>  				ctx->olaps[i].mend =3D 0;
+>  				ctx->olaps[i].mstart =3D 0;
+>  			}
+[ ... ]
+> @@ -1067,6 +1075,64 @@ static int fastrpc_create_maps(struct fastrpc_invo=
+ke_ctx *ctx)
+>  	return 0;
+>  }
+> =20
+> +static void fastrpc_flush_args(struct fastrpc_invoke_ctx *ctx)
+> +{
+> +	union fastrpc_remote_arg *rpra =3D ctx->rpra;
+> +	int i, inbufs, outbufs;
+> +
+> +	inbufs =3D REMOTE_SCALARS_INBUFS(ctx->sc);
+> +	outbufs =3D REMOTE_SCALARS_OUTBUFS(ctx->sc);
+> +
+> +	for (i =3D 0; i < inbufs + outbufs; ++i) {
+> +		int raix =3D ctx->olaps[i].raix;
+> +		struct fastrpc_map *map =3D ctx->maps[raix];
+> +
+> +		if (raix + 1 > inbufs)
+> +			continue;
+> +		if (!map || !map->buf)
+> +			continue;
+> +
+> +		if (rpra[raix].buf.len && (ctx->olaps[i].mstart || ctx->olaps[i].do_cm=
+o)) {
+
+[Severity: High]
+Can cache maintenance be incorrectly skipped here due to relying on mstart?
+
+The fastrpc_get_buff_overlaps() function calculates overlaps and sets mstart
+using the user-provided virtual address (ctx->args[i].ptr), rather than the
+underlying dma-buf identity.=20
+
+If a user passes the same ptr value for two distinct dma-buf fds, the overl=
+ap
+logic merges them and sets mstart =3D 0 for the second buffer. Additionally=
+, if
+ptr =3D=3D 0, mstart also evaluates to 0. This could allow untrusted usersp=
+ace to
+bypass cache maintenance, leading to silent data corruption or coherency
+issues.
+
+> +			dma_buf_begin_cpu_access(map->buf, DMA_TO_DEVICE);
+
+[Severity: High]
+Is it safe to ignore the return value of dma_buf_begin_cpu_access() here?
+
+This function can fail (e.g., returning -ERESTARTSYS if interrupted by a
+signal while waiting on fences).=20
+
+Ignoring the failure causes the driver to proceed with unstabilized buffers
+(which could lead to data corruption) and unconditionally calls
+dma_buf_end_cpu_access() on the error path, violating API pairing and
+potentially causing exporter crashes or state corruption.
+
+> +			dma_buf_end_cpu_access(map->buf, DMA_TO_DEVICE);
+> +		}
+> +	}
+> +}
+> +
+> +static void fastrpc_inv_args(struct fastrpc_invoke_ctx *ctx)
+> +{
+> +	union fastrpc_remote_arg *rpra =3D ctx->rpra;
+> +	int i, inbufs, outbufs;
+> +
+> +	inbufs =3D REMOTE_SCALARS_INBUFS(ctx->sc);
+> +	outbufs =3D REMOTE_SCALARS_OUTBUFS(ctx->sc);
+> +
+> +	for (i =3D 0; i < inbufs + outbufs; ++i) {
+> +		int raix =3D ctx->olaps[i].raix;
+> +		struct fastrpc_map *map =3D ctx->maps[raix];
+> +
+> +		if (raix + 1 <=3D inbufs)
+> +			continue;
+> +		if (!rpra[raix].buf.len)
+> +			continue;
+> +		if (!map || !map->buf)
+> +			continue;
+> +
+> +		/*
+> +		 * Skip invalidation if the argument overlaps with the
+> +		 * RPC control header page.
+> +		 */
+> +		if (((uintptr_t)rpra & PAGE_MASK) =3D=3D
+> +			((uintptr_t)rpra[raix].buf.pv & PAGE_MASK))
+> +			continue;
+
+[Severity: Low]
+Does this code perform a meaningless comparison?
+
+The overlap check compares a kernel virtual address (rpra) with a user-space
+virtual address (rpra[raix].buf.pv).=20
+
+Because of the `if (!map || !map->buf) continue;` check above it, this code
+is only reached for explicit user dma-buf mappings, where pv is explicitly =
+set
+to the user-space ptr. These addresses will virtually never match, making t=
+his
+dead code.
+
+> +
+> +		if (ctx->olaps[i].mstart || ctx->olaps[i].do_cmo) {
+> +			dma_buf_begin_cpu_access(map->buf, DMA_FROM_DEVICE);
+
+[Severity: High]
+Should this check the return value of dma_buf_begin_cpu_access() and handle
+errors appropriately before proceeding and calling dma_buf_end_cpu_access()?
+
+> +			dma_buf_end_cpu_access(map->buf, DMA_FROM_DEVICE);
+> +		}
+> +	}
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916185850.3686=
+010-1-abhinav.parihar@oss.qualcomm.com?part=3D1
