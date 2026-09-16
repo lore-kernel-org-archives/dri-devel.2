@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F2F4C88E5C
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 10:29:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8678C88E5C
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 10:29:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48A4C10E00F;
-	Wed, 16 Sep 2026 10:29:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5DFF10E0D5;
+	Wed, 16 Sep 2026 10:29:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AdnAkBgw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ok3MbPof";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F0CE10E00F
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 10:29:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14BE610E0D5
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 10:29:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 524DB42B38;
- Wed, 16 Sep 2026 10:29:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 151761F000FF;
- Wed, 16 Sep 2026 10:29:02 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id F2A7143DEF;
+ Wed, 16 Sep 2026 10:29:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1A821F00899;
+ Wed, 16 Sep 2026 10:29:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789554542;
- bh=NRmX5LwGXE/WOkvNLcK6K7ifhQeO+g/3S3/FQP7Fgzg=;
+ s=k20260515; t=1789554587;
+ bh=EERVotOWiM+ZUuTAtSVUx9c8lfIv/u6Z0yalyr+fIHQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=AdnAkBgwAJaO//Wnnwd5aD21n2yhYAb5KsOCbBtHxwnohajo1DJtjfEkVujeJOztE
- AG8qhoNtdanprFnp42FTdsCRdQHtpU9ilIH9M5ZmVrVaF3FKKlHT8VI/WoW3WpWXUY
- tQnDKaXUfZI5fzfzwg0pl5eYHwu0ETFeACNWE4K5S8JmhX+QXsfxia3olgsG+yuOVm
- Cj3ntfW6VHbmhSxVgavp/ECsRjZz5LiHov+M3ms5rwQuSAAFnjkBQKpAmEjUrm1CZT
- qlBVKa43MMykyDTPPlYzem/GOr4m5ucY1HhT3U1I6PnB/a8jzIcs12Rsvkeo8KFyPP
- hJ438Ymei2Wgw==
+ b=ok3MbPofYCoMmnadLYg0SQP9TzBHmhAFDoMeXfRt0S+SpF7z4jayqqJTLviR+kiVe
+ gBVoqaq5MY5JUZkXWZXbUYBOO+nxYIGIdw/eL/k4NS7dM6yh/3z7uO/QoZCTbSGBdr
+ CB9w6O/UzkR/358tNImOkFgiqUAtNLVf6huI1SUlAfiVduKxHxh+aXeO5biViLLf1T
+ 5/7HFnky7XADtJElZUbMb2JRAP+/+rGMzt/0TMNgYBEYCYwEBpWyH/Iu5xOKeODSIj
+ Mg3wFCdcKY5whWW0MnIIiBpWOAK9OJ0fumRoI1L5FmCuQds//qST8TokidQWEwKH2X
+ WH6qi3URfmzpg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/bridge: microchip-lvds: Fix runtime PM leak in
- mchp_lvds_enable()
+Subject: Re: [PATCH] drm/mali-dp: Fix runtime PM leak in
+ malidp_crtc_atomic_enable()
 To: "Wentao Liang" <vulab@iscas.ac.cn>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260916101922.2018259-1-vulab@iscas.ac.cn>
-References: <20260916101922.2018259-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260916102112.2018372-1-vulab@iscas.ac.cn>
+References: <20260916102112.2018372-1-vulab@iscas.ac.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 10:29:01 +0000
-Message-Id: <20260916102902.151761F000FF@smtp.kernel.org>
+Date: Wed, 16 Sep 2026 10:29:47 +0000
+Message-Id: <20260916102947.C1A821F00899@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,50 +59,56 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/bridge: runtime PM usage counter underflow on atomic_enable =
-error
+- [High] drm/malidp: runtime PM usage counter underflow in malidp_crtc_atom=
+ic_disable()
 --
 
-commit f6da183dff281321349d56635d572cdbbecf6393
+commit 3492dcc2c28d3962cf4a64dc34d1fb164aaf6580
 Author: Wentao Liang <vulab@iscas.ac.cn>
 
-drm/bridge: microchip-lvds: Fix runtime PM leak in mchp_lvds_enable()
+drm/mali-dp: Fix runtime PM leak in malidp_crtc_atomic_enable()
 
-This patch attempts to fix a runtime PM usage counter leak in
-mchp_lvds_atomic_enable() by dropping the reference when
-pm_runtime_get_sync() fails.
+This patch drops the runtime PM reference with pm_runtime_put_noidle() on
+the resume failure path in malidp_crtc_atomic_enable(). This is intended
+to fix a reference leak when pm_runtime_get_sync() fails.
 
-> diff --git a/drivers/gpu/drm/bridge/microchip-lvds.c b/drivers/gpu/drm/br=
-idge/microchip-lvds.c
-> index dd4ffc9f4df3f..f30ebeea4a4da 100644
-> --- a/drivers/gpu/drm/bridge/microchip-lvds.c
-> +++ b/drivers/gpu/drm/bridge/microchip-lvds.c
-> @@ -144,6 +144,7 @@ static void mchp_lvds_atomic_enable(struct drm_bridge=
- *bridge,
->  	ret =3D pm_runtime_get_sync(lvds->dev);
->  	if (ret < 0) {
->  		dev_err(lvds->dev, "failed to get pm runtime: %d\n", ret);
-> +		pm_runtime_put_noidle(lvds->dev);
+> diff --git a/drivers/gpu/drm/arm/malidp_crtc.c b/drivers/gpu/drm/arm/mali=
+dp_crtc.c
+> index 157ff148efe7a..ec7b9db8b0b45 100644
+> --- a/drivers/gpu/drm/arm/malidp_crtc.c
+> +++ b/drivers/gpu/drm/arm/malidp_crtc.c
+> @@ -56,6 +56,7 @@ static void malidp_crtc_atomic_enable(struct drm_crtc *=
+crtc,
+> =20
+>  	if (err < 0) {
+>  		DRM_DEBUG_DRIVER("Failed to enable runtime power management: %d\n", er=
+r);
+> +		pm_runtime_put_noidle(crtc->dev->dev);
 
-[Severity: Medium]
-Will this lead to a runtime PM usage counter underflow when the bridge is
-disabled?
+[Severity: High]
+Could this addition cause a runtime PM usage counter underflow when the CRTC
+is later disabled?
 
-The DRM bridge API's atomic_enable callback returns void, so the DRM core
-cannot be notified of a failure. If pm_runtime_get_sync() fails, the DRM co=
-re
-still considers the bridge enabled and will unconditionally call
-mchp_lvds_atomic_disable() during the next modeset or pipeline teardown.
+Because malidp_crtc_atomic_enable() returns void, the DRM core still
+considers the CRTC active even if it returns early on error here. When the
+CRTC is later disabled, malidp_crtc_atomic_disable() will be unconditionally
+called, which executes its own pm_runtime_put():
 
-Since this patch locally drops the PM reference here on the error path, the
-unconditional pm_runtime_put() in mchp_lvds_atomic_disable() will decrement
-the usage count a second time, causing an underflow. Before this patch, the
-reference left by the failing get_sync() balanced the unconditional put in
-the disable path.
+drivers/gpu/drm/arm/malidp_crtc.c:malidp_crtc_atomic_disable() {
+	...
+	clk_disable_unprepare(hwdev->pxlclk);
+
+	pm_runtime_put(crtc->dev->dev);
+}
+
+If we drop the PM reference here on the error path, wouldn't the later call
+to pm_runtime_put() in malidp_crtc_atomic_disable() result in a double-put
+and underflow the PM usage counter?
 
 >  		return;
 >  	}
+>
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916101922.2018=
-259-1-vulab@iscas.ac.cn?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916102112.2018=
+372-1-vulab@iscas.ac.cn?part=3D1
