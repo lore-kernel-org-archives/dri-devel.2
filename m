@@ -4,94 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEFD3C982C1
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 21:13:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C251C982C1
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 22:35:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11E4810E0F2;
-	Wed, 16 Sep 2026 21:13:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B026C10E07D;
+	Wed, 16 Sep 2026 22:35:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="jHuJEF74";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="REc9T8Tf";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E4D010E0F2
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 21:13:06 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ABE410E07D
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 22:35:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1789593185;
+ s=mimecast20190719; t=1789598100;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=g2VZBiIhAndeip+NGRI8TveTvXF5sUhhIo3CK7DVi2o=;
- b=jHuJEF749TvEbINF9RIqHHWiK85UucfgZgbJ8VRzj5FhGOXI4jwTH44x663gVFkWIPERpY
- yl4rIHaG2cpQQtCg8xdyTOOSHXK+l4QXkbsa+V3oCH6GKnyZDp31IfVUM0W/m3sESUkpRy
- uWntUTwNpSfPOu9tYIJGqBbTLh5i7Fg=
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com
- [209.85.222.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-463-CjFzdm4uMGix45kNt4VtvA-1; Wed, 16 Sep 2026 17:13:04 -0400
-X-MC-Unique: CjFzdm4uMGix45kNt4VtvA-1
-X-Mimecast-MFC-AGG-ID: CjFzdm4uMGix45kNt4VtvA_1789593184
-Received: by mail-ua1-f72.google.com with SMTP id
- a1e0cc1a2514c-98304865f02so113919241.1
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 14:13:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789593184; x=1790197984;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=g2VZBiIhAndeip+NGRI8TveTvXF5sUhhIo3CK7DVi2o=;
- b=JY8TrvzukGfF43XiWpw7G7PrDJZ86jDOv9Ls0rE2KwSDxKJtqJappYjFt551Etsp5Y
- /8lo8WID0ceON4oNavC22xpYG5P55p7/gRK/8jNGqhHaVHIHhCWgRnbCHVzyKIovI4Zw
- oOIKpNtZuxbMgFH2u0Jfw+ZGT84Iwej/ypsMppt/saXeKn5f5asDkiX5SV0fLGkwCUog
- 0CxOrkMo3odHeC10JTqrfkj+ej4Py39U/3OOsVBl/9AztRQECBcahdnanGCFmde6sFM7
- 8WPEZoM4hzGSk3w5+zCxT1/8523yIIJ6qX0ZFSEQufFf0bO/VneGmT5OFBH4UKXn9emB
- cDBQ==
-X-Gm-Message-State: AFuF++lk5ogxb9CZKFGnuCGaFDRmqd2jJReoGyWDaGH/SI4RYivjIgU0
- pHX2HMnOrRjLmFNlIud+G79KFkmBKiyuOBN7QJLQ00xf07TXh3rlYI0QFcrkcnoek5Db021xDrl
- rZf5S9FZYrFimns15BrEvhl5aOaeVFQtAzKmYw9pCxtvfWU5IAveFlg6YR9Zs7v5qSiAlYg==
-X-Gm-Gg: AYBFou1T7sDdq8wQoSaDmQMmEQVJuJFBQ4v8kqqATjhtAy9R7Ywn+d7kaMv+yUaDF4w
- Hha6DBsPS5+Mkg8NYNLvUcOp9UJfJyA4v2pdw/8aJBBH8f4fvnAxwNvZJwBlrwomRbJBW5+pqEd
- AkCOJsNLd42cie/YyhOxhdGqf0uFBYkPwzBtTdFZrYjkTiV6vmmObQFiK8gX4GTnlrf9W8FhGa0
- WnFmC/ETdPXmz9zPFJfm0NiPP7Q/o4NdVoDYUbW/ovSKJEhBtMh1veaMkoH37mOnV+f/NwUd/zP
- 3UvTa1b+Y1ckTyvVGO4DXC/HvuGEbKKTbeaJoBkI7Hr6J4RN4nSL7yf9PvECilybNFuaYTXc
-X-Received: by 2002:a05:6102:1628:b0:79b:f57e:ea17 with SMTP id
- ada2fe7eead31-7a201fa284dmr272255137.3.1789593183913; 
- Wed, 16 Sep 2026 14:13:03 -0700 (PDT)
-X-Received: by 2002:a05:6102:1628:b0:79b:f57e:ea17 with SMTP id
- ada2fe7eead31-7a201fa284dmr272241137.3.1789593183541; 
- Wed, 16 Sep 2026 14:13:03 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-7a1e384dc10sm1123769137.11.2026.09.16.14.13.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Sep 2026 14:13:02 -0700 (PDT)
-Message-ID: <b143ac7a1a911146f3569b934a8da54734610728.camel@redhat.com>
-Subject: Re: [PATCH v3 1/5] drm/nouveau/gsp/r535: Add support for
- INTERNAL_GCX_ENTRY_PREREQUISITE
-From: lyude@redhat.com
-To: David Airlie <airlied@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Timur Tabi <ttabi@nvidia.com>, Mohamed Ahmed	
- <mohamedahmedegypt2001@gmail.com>, Andy Shevchenko	
- <andriy.shevchenko@linux.intel.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Kees Cook <kees@kernel.org>, Simona
- Vetter	 <simona@ffwll.ch>, David Airlie <airlied@gmail.com>, Thomas
- Zimmermann	 <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>,
- Hongling Zeng	 <zenghongling@kylinos.cn>, Mel Henning
- <mhenning@darkrefraction.com>, Danilo Krummrich <dakr@kernel.org>
-Date: Wed, 16 Sep 2026 17:13:01 -0400
-In-Reply-To: <CAMwc25rP6u9=0PxN_OpYUs33cNqoiYYEFpwN4FKPQyHvNb+=Cg@mail.gmail.com>
-References: <20260916001603.22394-1-lyude@redhat.com>
- <20260916001603.22394-2-lyude@redhat.com>
- <CAMwc25rP6u9=0PxN_OpYUs33cNqoiYYEFpwN4FKPQyHvNb+=Cg@mail.gmail.com>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
+ content-transfer-encoding:content-transfer-encoding;
+ bh=hyzBhMwpeAjXeWZ8oT+xDx18tHVYCSWsv/6bhvYHBDs=;
+ b=REc9T8TfEH+CYSXF9twBJYijxNKfGDgI/J8/tm61o1yxumvO3YUHWsfPx64ZcLkOJaTlC+
+ vHbmL4tCKo3Vw+6m6dsnEnHGQ/iiAQwa1vjQYLTvzB48dfaYg4iwli6y5QTXQrS2r7eaBl
+ Wcb76jHNdlAt91b++rc1qdMsqac1gyw=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-74-2I1OL0sIOLaYKlSWu7kWBQ-1; Wed,
+ 16 Sep 2026 18:34:54 -0400
+X-MC-Unique: 2I1OL0sIOLaYKlSWu7kWBQ-1
+X-Mimecast-MFC-AGG-ID: 2I1OL0sIOLaYKlSWu7kWBQ_1789598092
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 5C7811800BCC; Wed, 16 Sep 2026 22:34:51 +0000 (UTC)
+Received: from GoldenWind.redhat.com (unknown [10.22.64.52])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 806B21800577; Wed, 16 Sep 2026 22:34:48 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: "Dave Airlie" <airlied@redhat.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+ "Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Kees Cook" <kees@kernel.org>, "Simona Vetter" <simona@ffwll.ch>,
+ "David Airlie" <airlied@gmail.com>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>,
+ "Maxime Ripard" <mripard@kernel.org>,
+ "Mel Henning" <mhenning@darkrefraction.com>,
+ "Hongling Zeng" <zenghongling@kylinos.cn>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Lyude Paul" <lyude@redhat.com>
+Subject: [PATCH v4 0/5] drm/nouveau/gsp/r570: Follow OpenRM's runtime PM
+ process more closely
+Date: Wed, 16 Sep 2026 18:25:04 -0400
+Message-ID: <20260916223358.507351-1-lyude@redhat.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: bULdVRzyqmJ52l73qUBaWg3UADxTck4PTBoSv0x0itw_1789593184
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Mimecast-MFC-PROC-ID: vj66nfmlYWrc2ZjjR_jaPvX6HtuUp09uze9C-0ymheg_1789598092
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,20 +81,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+While we have runtime PM working a lot more reliably then in the past
+with R570, we're still doing things a lot differently then OpenRM. For
+instance, we don't save/restore comptag backing stores, and we don't ask
+GSP whether it's OK to enter GcOff.
+
+This series fixes this, and gets our runtime PM process to look a lot
+closer to OpenRM's by implementing some missing pieces and workarounds.
+
+Tested on my daily-driver desktop with an AD102, a ThinkPad P17 Gen1
+with a GA103GLM, a Dell Precision 7780 with an AD103, and my test
+machine with a GB206.
+
+Patch series based on drm-misc/drm-misc-next. Branch with patches here:
+
+	https://gitlab.freedesktop.org/lyudess/linux/-/commits/nouveau/rpm-openrm-sync
+
+Previous version:
+
+	https://patchwork.freedesktop.org/series/173901/
+
+Lyude Paul (5):
+  drm/nouveau/gsp/r535: Add support for INTERNAL_GCX_ENTRY_PREREQUISITE
+  drm/nouveau/gsp/r535: Add support for MEMSYS_GET_STATIC_CONFIG
+  drm/nouveau/gsp/r570: Add comp mode workaround from issue #3172217
+  drm/nouveau/gsp/r570: Start saving comptag backing stores
+  drm/nouveau/gsp/r570: Enable Gcoff in fbsr again
+
+ drivers/gpu/drm/nouveau/include/nvif/cl0080.h | 10 +++
+ drivers/gpu/drm/nouveau/include/nvif/device.h |  1 +
+ .../gpu/drm/nouveau/include/nvkm/subdev/gsp.h |  6 ++
+ drivers/gpu/drm/nouveau/nouveau_drm.c         | 13 ++++
+ drivers/gpu/drm/nouveau/nvif/device.c         | 13 ++++
+ .../gpu/drm/nouveau/nvkm/engine/device/user.c | 35 +++++++++
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/base.c    | 10 +++
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/priv.h    |  1 +
+ .../drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 17 ++++
+ .../nvkm/subdev/gsp/rm/r535/nvrm/gsp.h        | 52 +++++++++++++
+ .../nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c    | 77 ++++++++++++++++++-
+ .../drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c | 36 +++++++++
+ .../nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h       | 29 +++++++
+ .../nvkm/subdev/gsp/rm/r570/nvrm/gsp.h        |  7 ++
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h   |  3 +
+ 15 files changed, 308 insertions(+), 2 deletions(-)
 
 
-On Wed, 2026-09-16 at 10:42 +1000, David Airlie wrote:
-> > +typedef struct NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS
-> > {
-> > +=C2=A0=C2=A0=C2=A0 NvBool bIsGC6Satisfied;
-> > +=C2=A0=C2=A0=C2=A0 NvBool bIsGCOFFSatisfied;
-> > +} NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS;
->=20
-> Have you confirmed this struct didn't change in r570,
->=20
-> Thanks,
-
-It would appear I have made a mistake - this struct isn't even in r535,
-which I could have sworn I explicitly checked. Glad I double checked
-before responding, thanks for noticing this :)
+base-commit: 5589ef09f93b85b6f506e279a502d4cf1654f232
+-- 
+2.55.0
 
