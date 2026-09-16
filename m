@@ -4,47 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F094C982C4
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 15:23:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7D7AC982CC
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 15:33:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26B5810E05C;
-	Wed, 16 Sep 2026 15:23:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDFBF10E75F;
+	Wed, 16 Sep 2026 15:33:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EKIJpwdB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NA3lg0aa";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AABB110E05C
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 15:23:21 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EB3A9602CB;
- Wed, 16 Sep 2026 15:23:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 139FB1F000FF;
- Wed, 16 Sep 2026 15:23:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789572200;
- bh=8XrCLw0N5Bj3c9gGn7s8ZZDqA5ZxMunPjxBKuNACMAA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=EKIJpwdBuYKsxoBu78MMneqFf3aw8kJWCyxcbQ0yg2dE+1gcoPJtPjD63QYO/CqHC
- 9o6dc63baqKhlhH5aL9+4DZQl6qom0HJ3no903iTGKdA8mt4KZuee4oi54QqcDNPC8
- Nv+POdd+Xk5lZVlYdwxizqml1fkpMBlrmEc6CAbgMpkH3oQNEnCmpkiAJCrBODJoD6
- 7WtlCNjVOYYmNo947kuRv952neMNcLzqA6A7lcf87QsXEH0+0yaiZu9Y7/VtdkZncC
- xKxvmS6sAEGzWApuWSUdyABJGFgWgInfjp/l9sva9C7IEpA19lfi8Rva1w/dzw6R8f
- UxKk1VfNmQ/DQ==
-From: Maxime Ripard <mripard@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v5 0/9] drm/plane: Convert all drivers to
- atomic_create_state and remove reset
-Date: Wed, 16 Sep 2026 17:23:14 +0200
-Message-ID: <178957219055.2965664.16396763960121735725.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260916-drm-no-more-plane-reset-v5-0-f590d2003f2c@kernel.org>
-References: <20260916-drm-no-more-plane-reset-v5-0-f590d2003f2c@kernel.org>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17EBA10E531
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 15:33:00 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id DFDCF43B69;
+ Wed, 16 Sep 2026 15:32:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9CF24C2BCFF;
+ Wed, 16 Sep 2026 15:32:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1789572779;
+ bh=quH97pzV1CtXlnKeUyBN5rKrZ5ibIEYYlVcGld/HXrU=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=NA3lg0aa7LMi/qaPILldobe9QPEZC8hzwUZi2QLCBfp8W9Vwtll/gwyUQtKiiOhnB
+ rk6UoEZUqSFdPsg1MeuPUspRRLA7jPb4xD8s06pbn0WvY1SiivBx7TA5LW4i9b6NIz
+ mj9U8f7pgnbwMapcZ0pt4x4Yd7J+SasDHA3Ql2GzoB7iair8WZ1j/y1BMkvuIFV7op
+ oljVt7Im8q1llMDthC9ui2G00nwKR40EJosORrIZzEcXFZiSJIp29a/L41ndqQ1VA9
+ 4vSJpNSURz+2VGRcRMOjPQB3m+BaEcJ+jNwH/XMzevOrUB77NVYKpQlCmjDqpHqEIj
+ 9urYJYnP4fuGA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 780B6C982C5;
+ Wed, 16 Sep 2026 15:32:59 +0000 (UTC)
+From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
+Date: Wed, 16 Sep 2026 09:32:54 -0600
+Subject: [PATCH v10 02/38] vmlinux.lds.h: refactor BOUNDED_SECTION_* macros
+ into bounded_sections.lds.h
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-dd-cmap-part2-clean-v10-2-af4cf4767707@gmail.com>
+References: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
+In-Reply-To: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
+To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+ Jonathan Corbet <corbet@net.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Len Brown <lenb@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
+ linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
+ Jim Cromie <jim.cromie@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789572777; l=4249;
+ i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
+ bh=DmN3dQkizTo0tooZt8HHaXhkTJxaFppBGFefz+LuWYE=;
+ b=uUh0c7edMYohecQYQX4CbqhGA9/2ZT6ajm72OmEveHCn488srngXQRDNko3baFGRQVUF+SHT3
+ D3crPB8UIrlCQLcbEAK6YGGMNX2wwZCmUrwg51SN2yXcvUkoq/VNMvb
+X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
+ pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
+ auth_id=958
+X-Original-From: Jim Cromie <jim.cromie@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,41 +87,130 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: jim.cromie@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 16 Sep 2026 10:55:43 +0200, Maxime Ripard wrote:
-> This is a follow-up to the bridge reset removal series, and part of a
-> larger effort to remove the reset hook from all KMS objects.
-> 
-> The plane reset hook is overloaded: it is called both at probe time
-> to create the initial software state and during suspend/resume to
-> reset hardware and software state. These two roles have different
-> requirements, and the reset hook is not fallible, making error
-> handling difficult for the initial state allocation path.
-> 
-> [...]
+From: Jim Cromie <jim.cromie@gmail.com>
 
-Applied to misc/kernel.git (drm-misc-next)
+Move BOUNDED_SECTION_* macros to a new helper file:
+include/asm-generic/bounded_sections.lds.h and include it back into
+vmlinux.lds.h.  This allows its reuse later to fix a failure to keep
+dyndbg sections in some circumstances.
 
-[1/9] drm/arcgpu: Switch to drm_atomic_helper_plane_create_state
-      commit: a88a31a625af4c990860a60a5b84797a9dd4a446
-[2/9] drm/aspeed: Switch to drm_atomic_helper_plane_create_state
-      commit: fbc8f33eebfae0f79526fa759690aff9bf98fa4e
-[3/9] drm/mcde: Switch to drm_atomic_helper_plane_create_state
-      commit: d24a400a17df2105bce34f0cd6b22e0341297368
-[4/9] drm/pl111: Switch to drm_atomic_helper_plane_create_state
-      commit: 896c2267d1555b8343da61e9667360cfd9e4be2f
-[5/9] drm/tve200: Switch to drm_atomic_helper_plane_create_state
-      commit: 18b4aaafdc18e5de08c58623066a69c86528ba46
-[6/9] drm/xen: Switch to drm_atomic_helper_plane_create_state
-      commit: 79d498da3eee2ea6945840e8e051fb7564a17cc5
-[7/9] drm/atomic-state-helper: Remove drm_atomic_helper_plane_reset()
-      commit: e62864df82f6a47c969485636b2894472f321acd
-[8/9] drm/atomic-state-helper: Remove __drm_atomic_helper_plane_reset()
-      commit: 18216d5fa8dc29c76c4d3944282d990ebc41514c
-[9/9] drm/plane: Remove reset
-      commit: 5589ef09f93b85b6f506e279a502d4cf1654f232
+NOTES:
 
-Thanks!
-Maxime
+These macros are only for use in vmlinux.lds.h, where the _start &
+_end symbols are needed.  Modules keep sections separate in ELF
+sections, with their boundaries known, so the _start and _end are not
+useful, and may confuse tools not expecting them.
+
+This patch ignores a checkpatch warning, because new file is covered
+by "GENERIC INCLUDE/ASM HEADER FILES" in MAINTAINERS
+
+CC: Arnd Bergmann <arnd@arndb.de>
+CC: linux-arch@vger.kernel.org
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+v3: move include to top
+---
+ include/asm-generic/bounded_sections.lds.h | 36 ++++++++++++++++++++++++++++++
+ include/asm-generic/vmlinux.lds.h          | 31 +------------------------
+ 2 files changed, 37 insertions(+), 30 deletions(-)
+
+diff --git a/include/asm-generic/bounded_sections.lds.h b/include/asm-generic/bounded_sections.lds.h
+new file mode 100644
+index 000000000000..8c29293ca7fb
+--- /dev/null
++++ b/include/asm-generic/bounded_sections.lds.h
+@@ -0,0 +1,36 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++
++#ifndef _ASM_GENERIC_BOUNDED_SECTIONS_H
++#define _ASM_GENERIC_BOUNDED_SECTIONS_H
++
++#define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
++	_BEGIN_##_label_ = .;						\
++	KEEP(*(_sec_))							\
++	_END_##_label_ = .;
++
++#define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
++	_label_##_BEGIN_ = .;						\
++	KEEP(*(_sec_))							\
++	_label_##_END_ = .;
++
++#define BOUNDED_SECTION_BY(_sec_, _label_)				\
++	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
++
++#define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
++
++#define HEADERED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
++	_HDR_##_label_	= .;						\
++	KEEP(*(.gnu.linkonce.##_sec_))					\
++	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)
++
++#define HEADERED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
++	_label_##_HDR_ = .;						\
++	KEEP(*(.gnu.linkonce.##_sec_))					\
++	BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)
++
++#define HEADERED_SECTION_BY(_sec_, _label_)				\
++	HEADERED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
++
++#define HEADERED_SECTION(_sec)	 HEADERED_SECTION_BY(_sec, _sec)
++
++#endif /* _ASM_GENERIC_BOUNDED_SECTIONS_H */
+diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
+index b2988aa12f66..b4ece391f7b1 100644
+--- a/include/asm-generic/vmlinux.lds.h
++++ b/include/asm-generic/vmlinux.lds.h
+@@ -50,6 +50,7 @@
+  *               [__nosave_begin, __nosave_end] for the nosave data
+  */
+ 
++#include <asm-generic/bounded_sections.lds.h>
+ #include <asm-generic/codetag.lds.h>
+ 
+ #ifndef LOAD_OFFSET
+@@ -211,36 +212,6 @@
+ # endif
+ #endif
+ 
+-#define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
+-	_BEGIN_##_label_ = .;						\
+-	KEEP(*(_sec_))							\
+-	_END_##_label_ = .;
+-
+-#define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
+-	_label_##_BEGIN_ = .;						\
+-	KEEP(*(_sec_))							\
+-	_label_##_END_ = .;
+-
+-#define BOUNDED_SECTION_BY(_sec_, _label_)				\
+-	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
+-
+-#define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
+-
+-#define HEADERED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
+-	_HDR_##_label_	= .;						\
+-	KEEP(*(.gnu.linkonce.##_sec_))					\
+-	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)
+-
+-#define HEADERED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
+-	_label_##_HDR_ = .;						\
+-	KEEP(*(.gnu.linkonce.##_sec_))					\
+-	BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)
+-
+-#define HEADERED_SECTION_BY(_sec_, _label_)				\
+-	HEADERED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
+-
+-#define HEADERED_SECTION(_sec)	 HEADERED_SECTION_BY(_sec, _sec)
+-
+ #ifdef CONFIG_TRACE_BRANCH_PROFILING
+ #define LIKELY_PROFILE()						\
+ 	BOUNDED_SECTION_BY(_ftrace_annotated_branch, _annotated_branch_profile)
+
+-- 
+2.55.0
+
+
