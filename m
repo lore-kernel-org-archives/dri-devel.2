@@ -4,43 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50876C88E7F
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 18:04:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF0D6C88E7F
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 18:04:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 948BF10ED18;
-	Wed, 16 Sep 2026 18:04:08 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ggRCgkYV";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D60210ED0B;
- Wed, 16 Sep 2026 18:04:07 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 27687405E8;
- Wed, 16 Sep 2026 18:04:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D86C91F000FF;
- Wed, 16 Sep 2026 18:04:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789581847;
- bh=OkD2ZKM+WX8G8x36sG/PNn8k0bq4DArJkN9flkkkpLk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ggRCgkYVseEIKyWYT4PCzoYDqx7DmWZAwsZTnKsZh/yENcN05oj4WH4nfLzPXqN4D
- gy+JLQJldfSUH2+g0WVULTAddQOn2JFr74pjyzrx3s+yX4jFtuX6zAZk4fd+k1g+/K
- uFYDt/CnOjLYP+uo/YS7jrk1F99NnI59n3w1ucaBhIHSqu1nIbqnL0hWPL+XPl3rDf
- rS/KLcSBEyHDlvKSNz1Vj34D0grXNPnWvH8z+j17+onpdhxaQZIY8FAju75VGhkGL7
- KHgHDfCStLesUF72mkYaOAk/BXjm2M+R/+lDCNJJ6dHtEeBvkmkEpLenM2q0HsRngc
- pH5jkNtI/5eVw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/i915/gvt: Fix mm reference leak in
- handle_g2v_notification()
-To: "Wentao Liang" <vulab@iscas.ac.cn>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260916173720.2088455-1-vulab@iscas.ac.cn>
-References: <20260916173720.2088455-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 18:04:06 +0000
-Message-Id: <20260916180406.D86C91F000FF@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30BD010ED27;
+	Wed, 16 Sep 2026 18:04:18 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3E4A10ED26
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 18:04:15 +0000 (UTC)
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+ by APP-05 (Coremail) with SMTP id zQCowAB3pkAa2qpqgSRvCA--.23709S2;
+ Thu, 17 Sep 2026 02:04:10 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: bskeggs@redhat.com, dakr@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, lyude@redhat.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ nouveau@lists.freedesktop.org, simona@ffwll.ch, tzimmermann@suse.de,
+ Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
+Subject: [PATCH] drm/nouveau: Fix runtime PM leak in nouveau_connector_detect()
+Date: Wed, 16 Sep 2026 18:03:42 +0000
+Message-Id: <20260916180342.2090360-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowAB3pkAa2qpqgSRvCA--.23709S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7trykXr1UGw4kGF1DurW3Jrb_yoW8Jw1kpF
+ ZrKFWSyrWkJw4rK3WvyF18JFy3A3ykJFW5Gasaq34Uuw1rAr1Uuw48Aw1qqFyjyr95G3yY
+ y3ZFq39Iqa15C3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9v14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
+ WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+ Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7
+ v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF
+ 7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026x
+ CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+ JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+ 1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0
+ rVWUJVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr
+ 0_GcJvcSsGvfC2KfnxnUUI43ZEXa7VU1VHq7UUUUU==
+X-Originating-IP: [36.110.52.2]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUMA2qqozV6OgAAsF
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,90 +59,41 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] drm/i915/gvt: UAF and Double Free in PPGTT mm object lifecycle
---
+If nvif_outp_edid_get() fails, nouveau_connector_detect() returns
+early without dropping the runtime PM reference taken at the start
+of the function, keeping the device powered on until the next
+successful detect.
 
-commit 01f0e076eca16f11c93a812eb503401ad6e94137
-Author: Wentao Liang <vulab@iscas.ac.cn>
+Balance the reference on the error path like the other exit paths
+do.
 
-drm/i915/gvt: Fix mm reference leak in handle_g2v_notification()
+Fixes: 0cd7e0718139 ("drm/nouveau/disp: add output method to fetch edid")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/nouveau/nouveau_connector.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-This commit changes the PPGTT page table create path to avoid taking an ext=
-ra
-reference for an already registered mm. It uses intel_vgpu_find_ppgtt_mm() =
-to
-check if the mm exists and skips creation if it is already tracked.
+diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
+index cc239492c7f0..4a750d4bf1f4 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_connector.c
++++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
+@@ -600,8 +600,11 @@ nouveau_connector_detect(struct drm_connector *connector, bool force)
+ 				new_edid = drm_get_edid(connector, nv_encoder->i2c);
+ 		} else {
+ 			ret = nvif_outp_edid_get(&nv_encoder->outp, (u8 **)&new_edid);
+-			if (ret < 0)
++			if (ret < 0) {
++				pm_runtime_mark_last_busy(dev->dev);
++				pm_runtime_put_autosuspend(dev->dev);
+ 				return connector_status_disconnected;
++			}
+ 		}
+ 
+ 		nouveau_connector_set_edid(nv_connector, new_edid);
+-- 
+2.34.1
 
-> diff --git a/drivers/gpu/drm/i915/gvt/handlers.c b/drivers/gpu/drm/i915/g=
-vt/handlers.c
-> index 22dd0179863ee..6b967da3a8836 100644
-> --- a/drivers/gpu/drm/i915/gvt/handlers.c
-> +++ b/drivers/gpu/drm/i915/gvt/handlers.c
-> @@ -1505,7 +1505,17 @@ static int handle_g2v_notification(struct intel_vg=
-pu *vgpu, int notification)
->  		root_entry_type =3D GTT_TYPE_PPGTT_ROOT_L3_ENTRY;
->  		fallthrough;
->  	case VGT_G2V_PPGTT_L4_PAGE_TABLE_CREATE:
-> -		mm =3D intel_vgpu_get_ppgtt_mm(vgpu, root_entry_type, pdps);
-> +		/*
-> +		 * A newly created mm keeps its initial reference as the
-> +		 * registration reference, dropped by the DESTROY
-> +		 * notification. A duplicate CREATE for an already tracked
-> +		 * mm must not take an extra reference that nothing drops.
-> +		 */
-> +		mm =3D intel_vgpu_find_ppgtt_mm(vgpu, pdps);
-> +		if (mm)
-> +			return 0;
-
-[Severity: Critical]
-Can this logic lead to a use-after-free and double free if a guest issues a
-duplicate CREATE after a DESTROY while a workload is still active?
-
-If a guest VM performs the following sequence:
-1. Issues a CREATE notification (refcount=3D1).
-2. Submits Workload A using the page table (refcount=3D2).
-3. Issues a DESTROY notification (refcount drops to 1, object remains due to
-   Workload A).
-4. Issues another CREATE for the same page table.
-
-Here, intel_vgpu_find_ppgtt_mm() finds the object and returns 0, but no
-registration reference is taken, leaving the refcount at 1.
-
-If the guest then submits Workload B (refcount=3D2), and Workload A finishes
-(refcount=3D1), a subsequent DESTROY from the guest will drop the refcount =
-to 0:
-
-drivers/gpu/drm/i915/gvt/gtt.c:intel_vgpu_put_ppgtt_mm() {
-    ...
-    intel_vgpu_mm_put(mm);
-    ...
-}
-
-This frees the object while Workload B is still active.
-
-Once Workload B finishes, the cleanup path accesses the prematurely freed
-shadow_mm and attempts to drop its reference again:
-
-drivers/gpu/drm/i915/gvt/scheduler.c:intel_vgpu_destroy_workload() {
-    ...
-    if (workload->shadow_mm)
-        intel_vgpu_mm_put(workload->shadow_mm);
-    ...
-}
-
-Does this new condition need to take a registration reference when the mm is
-found, to prevent it from being freed prematurely?
-
-> +
-> +		mm =3D intel_vgpu_create_ppgtt_mm(vgpu, root_entry_type, pdps);
->  		return PTR_ERR_OR_ZERO(mm);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916173720.2088=
-455-1-vulab@iscas.ac.cn?part=3D1
