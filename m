@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBFB4C88E5C
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:47:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0FF5C982C1
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 07:49:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26A4C10E7EA;
-	Wed, 16 Sep 2026 07:47:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30B2B10E376;
+	Wed, 16 Sep 2026 07:49:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Tn1lMA18";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bdswz4jI";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8833110E376
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 07:47:42 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0EDA10E376
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 07:48:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6E68F42B8A;
- Wed, 16 Sep 2026 07:47:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 309571F000FF;
- Wed, 16 Sep 2026 07:47:42 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id BD8A56020C;
+ Wed, 16 Sep 2026 07:48:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 535EE1F000FF;
+ Wed, 16 Sep 2026 07:48:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789544862;
- bh=Y8XJV4Gs05GEjZo728rbJMkc4NyDQWSZce11nGH4GCo=;
+ s=k20260515; t=1789544938;
+ bh=4ttehqGJyOlgrXzvih58aN2rFoWFDWhoo4R/YVUygUE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Tn1lMA18bbJra7uGskmIJZ+Z2A3hQJsl76nrrm9w+2itsvyIKfHH+kSBN6/tJKeQt
- 1txspDpOJxd6mJrXXg0w57McBik53kSL9iToeI/zvlLXqYilNNlrwQCmPOm22JNjel
- ITAhmxyDVqm5I1akzHAz/duzbdn/Re6khyhU/1oT6CTPFuWamq4ePtHcQde6LX0YtP
- 9+PkpDFhj8QLaMVzHeKo3OWOb5hL3WJWqWxySPBbHGNFxoLCwZOdPEgpKk+hUvKt91
- bHiaJXSK+8CFq28cHdq63ELoJXtqxX2uFXjSZU2vkg6qr1CVLhmPR49u+NzySZWNOZ
- ZhSr0rxkvAQ/A==
+ b=bdswz4jI9Yp6eVcwkVC9prLkysRUa1+MvYP2BZREJdsHAD8O0Zo45qu6tz8lzyQ8S
+ ZL1f+VBod99eWviyZDiBi94ebNmdzVuKlMXGaSvUdUVuqWl53a3E27nJ49UP//1XMW
+ xUtgY0CuTSElBZnhfRYwFPEwJq/MbfTulVWE/EMa1JUjq24EHSCVuGYnUREyJmXSH+
+ RAD2PrKeAaWyMC0V0tAqSStTZsD0aKQpVGxZCBOlO06iPJjueW543WqxoxY/xbNzHU
+ a9IQzS5tTHo20GPaMknmQurO6VTyWPxxNCw+kHNZ/UprKGs3/a8ZRaZFnoGkSztntk
+ ImOdQsVelGEtw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amdkfd: Fix file reference leak in
- criu_restore_devices()
+Subject: Re: [PATCH] firmware/sysfb: Fix device reference count leak in
+ sysfb_disable()
 To: "Wentao Liang" <vulab@iscas.ac.cn>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260916074216.1973191-1-vulab@iscas.ac.cn>
-References: <20260916074216.1973191-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260916073815.1972045-1-vulab@iscas.ac.cn>
+References: <20260916073815.1972045-1-vulab@iscas.ac.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 07:47:41 +0000
-Message-Id: <20260916074742.309571F000FF@smtp.kernel.org>
+Date: Wed, 16 Sep 2026 07:48:57 +0000
+Message-Id: <20260916074858.535EE1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,63 +59,62 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/amdkfd: uninitialized pointer dereference in criu_restore_devi=
-ces()
+- [High] sysfb: kill-switch bypass when parent device query returns an error
 --
 
-commit 40984d73f07608e70e87d6e7d3692de70675fb26
+commit cea5d6870e1a5b4277264d29fe9056b6df3310b7
 Author: Wentao Liang <vulab@iscas.ac.cn>
 
-drm/amdkfd: Fix file reference leak in criu_restore_devices()
+firmware/sysfb: Fix device reference count leak in sysfb_disable()
 
-This commit attempts to fix a file reference count leak in=20
-criu_restore_devices() by calling fput() when a drm_file is already set=20
-on the process device data structure.
+This commit addresses a device reference count leak in sysfb_disable(). It
+adds a check to ensure the parent device is not an error pointer and releas=
+es
+the reference using put_device() before returning.
 
-Cc: stable@vger.kernel.org
-
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/a=
-md/amdkfd/kfd_chardev.c
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -2380,6 +2380,7 @@ static int criu_restore_devices(struct kfd_process =
-*p,
->  		}
+> diff --git a/drivers/firmware/sysfb.c b/drivers/firmware/sysfb.c
+> --- a/drivers/firmware/sysfb.c
+> +++ b/drivers/firmware/sysfb.c
+> @@ -71,9 +71,12 @@ void sysfb_disable(struct device *dev)
 > =20
->  		if (pdd->drm_file) {
-> +			fput(drm_file);
+>  	mutex_lock(&disable_lock);
+>  	parent =3D sysfb_parent_dev(si);
+> -	if (!dev || !parent || dev =3D=3D parent) {
+> -		sysfb_unregister();
+> -		disabled =3D true;
+> +	if (!IS_ERR(parent)) {
 
 [Severity: High]
-Could this lead to an uninitialized pointer dereference?
+Will wrapping the unregistration logic in !IS_ERR(parent) bypass the global
+kill-switch when the parent device query returns an error?
 
-Looking at criu_restore_devices(), the variable drm_file is declared as an
-uninitialized local variable inside the loop:
+Graphics drivers use sysfb_disable(NULL) as a global kill-switch to
+unconditionally disable the generic firmware framebuffer before native DRM
+drivers take over.
 
-    for (i =3D 0; i < args->num_devices; i++) {
-        ...
-        struct file *drm_file;
-        ...
-        if (pdd->drm_file) {
-            fput(drm_file);
-            ...
-        }
-        ...
-        drm_file =3D fget(device_buckets[i].drm_fd);
-    }
+sysfb_parent_dev() can return an ERR_PTR (like -ENODEV) if the PCI device
+exists but its memory decoding is not enabled. If this happens during early
+boot or driver probe, this new check skips the block entirely, silently
+bypassing the kill-switch and leaving the disabled flag as false.
 
-At the point where fput(drm_file) is called in this new error path, drm_file
-has not yet been assigned a value via fget().=20
+If a built-in native DRM driver disables sysfb and subsequently enables PCI
+memory decoding, could a later execution of sysfb_init() see disabled =3D=
+=3D false
+and incorrectly register the generic framebuffer on top of the already-runn=
+ing
+native driver? This concurrent access could lead to resource conflicts or k=
+ernel
+panics.
 
-If this error path is taken on the first iteration, it seems like fput()=20
-would be called on uninitialized stack memory. If it happens on a subsequen=
-t=20
-iteration, could this result in a double-free of the reference from the=20
-previous iteration?
-
->  			ret =3D -EINVAL;
->  			goto exit;
->  		}
+> +		if (!dev || !parent || dev =3D=3D parent) {
+> +			sysfb_unregister();
+> +			disabled =3D true;
+> +		}
+> +		put_device(parent);
+>  	}
+>  	mutex_unlock(&disable_lock);
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916074216.1973=
-191-1-vulab@iscas.ac.cn?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916073815.1972=
+045-1-vulab@iscas.ac.cn?part=3D1
