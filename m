@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FED7C982C1
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 22:51:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AEF2C982C9
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 22:51:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C05D310E1F8;
-	Wed, 16 Sep 2026 22:51:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85A4110E28A;
+	Wed, 16 Sep 2026 22:51:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PCnJB/oJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OOEhS7zc";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5813A10E1F8
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 22:51:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBBA510E28A
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 22:51:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1300E4020D;
- Wed, 16 Sep 2026 22:51:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF8A41F000FF;
- Wed, 16 Sep 2026 22:51:19 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B3DAA43748;
+ Wed, 16 Sep 2026 22:51:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 770231F000FF;
+ Wed, 16 Sep 2026 22:51:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789599080;
- bh=N9lWvhKmNtndIXUwha639JZXAqv13aiGsDOv1MIY6rU=;
+ s=k20260515; t=1789599090;
+ bh=QGT9vKQWzP+wMsli5c8KtZR/PDBvtAJ0jo3wvlQU+iY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PCnJB/oJCYKho5scGQ0fzve5RnncYXAn0HHN07A+DKGSHhS3Onh+WbxqaiNDO1xI8
- sejyjN2pC/ZYW4u+SdN/NwGLgj1btVrq+4mcloqmY4iASK1lUYVeiqD3i3JHGz2Jyi
- tgH7fhH0n1o356RSXTG/Jppi8QzVN3TvV/sGUyMs8VBSi3D2PwJxnEDV5JxPVUONmB
- lpgmiuU443RuAvUuUQbyDXcSNsmH+3LBo+VKU1kzamUOx4Ke1VEshTxNiyCSzOlFTC
- aNtdnLg3fEmIMAvKzgtWflrT6rW6aTHgqUlcUG3BXRDT1SCDf4fZn1Wy5DWIZf1e08
- Kr1SQDuKHMxEg==
+ b=OOEhS7zccZg+N8Z4WH3ra/UZxSdZhjhHNiitBzAKba/s6ao/7Id79TZSmZGZmOUD+
+ tIPts6Pm9vHo3WLR8pQJSG/dzF7tTcUAlH/NDLYC8dUYEUnXFdLsPluig4pSVS9gqN
+ ILG7aBgXHT9wVDnhR8cg5b+sXggmvUu1dJPP17mETGmk3W710hU0I8uXIrYVQbPMUr
+ H9xO/i9nvcF8Y1zXqdjxBJlmKjEyYBaRdEJgFv6uQ4fXd8sXyyl2Z0YUnbWPmaw4Bo
+ FLFBPZE/LZoqDAPsIA16+7Q2anH/eqv561qXIcHPvoYzQZygzjtD/CNGc4Jm5uLXPR
+ zDUKYsOGDp2pg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/5] drm/nouveau/gsp/r570: Start saving comptag
- backing stores
+Subject: Re: [PATCH v4 1/5] drm/nouveau/gsp/r535: Add support for
+ INTERNAL_GCX_ENTRY_PREREQUISITE
 To: "Lyude Paul" <lyude@redhat.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260916223358.507351-5-lyude@redhat.com>
+In-Reply-To: <20260916223358.507351-2-lyude@redhat.com>
 References: <20260916223358.507351-1-lyude@redhat.com>
- <20260916223358.507351-5-lyude@redhat.com>
+ <20260916223358.507351-2-lyude@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 22:51:19 +0000
-Message-Id: <20260916225119.BF8A41F000FF@smtp.kernel.org>
+Date: Wed, 16 Sep 2026 22:51:30 +0000
+Message-Id: <20260916225130.770231F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,100 +58,148 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] nouveau: integer truncation allows heap overflow via GSP compbit s=
-ize
+- [Critical] nouveau/gsp: NULL pointer dereference when RM is disabled
+- [Medium] pm: autosuspend stall on transient GCX readiness query error
+- [Low] nouveau/gsp: API mismatch in gcx_ready using different object for a=
+lloc/free
 --
 
-commit 9c4d2d77f428ab0f70d6ac1a683c604ade884fd2
+commit 71e096484486fcd07150f6da48fcb331a8eae639
 Author: Lyude Paul <lyude@redhat.com>
 
-drm/nouveau/gsp/r570: Start saving comptag backing stores
+drm/nouveau/gsp/r535: Add support for INTERNAL_GCX_ENTRY_PREREQUISITE
 
-This commit implements support for saving and restoring comptag backing
-stores during the OpenRM fbsr process. It fetches the required space for the
-compbit backing stores from the GSP and adds it to the memory allocated for
-fbsr.
+OpenRM consults GSP to ask whether the GPU should be allowed to enter Gc6
+and/or GcOff before runtime suspending. This patch implements the
+NV2080_CTRL_CMD_INTERNAL_GCX_ENTRY_PREREQUISITE command query to check for
+this readiness and delay runtime suspend if necessary.
 
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/dri=
-vers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouv=
+eau/nouveau_drm.c
+> index b0f9fb10a74dd..c2e2f430deded 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+
 [ ... ]
-> @@ -26,6 +26,23 @@ r570_fbsr_suspend_channels(struct nvkm_gsp *gsp, bool =
-suspend)
->  	return nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
+
+> @@ -1164,6 +1165,18 @@ nouveau_pmops_runtime_suspend(struct device *dev)
+>  		return -EBUSY;
+>  	}
+> =20
+> +	// Check if the GPU itself is ready for runtime suspend, otherwise mark=
+ as busy and check
+> +	// again in a bit.
+> +	ret =3D nvif_device_gcx_ready(nvif);
+> +	if (ret < 0) {
+> +		NV_ERROR(drm, "Failed to query GCX readiness (returned %d)\n", ret);
+> +		return -EBUSY;
+
+[Severity: Medium]
+When nvif_device_gcx_ready() fails, this error path returns -EBUSY without
+calling pm_runtime_mark_last_busy(dev).
+
+Will this stall the autosuspend timer? Without advancing last_busy, the PM
+core will not automatically reschedule the timer, leaving the device in
+the RPM_ACTIVE state.
+
+> +	} else if (!(ret & NV_DEVICE_GCOFF_READY)) {
+> +		NV_DEBUG(drm, "GPU isn't ready for suspend yet, delaying...\n");
+> +		pm_runtime_mark_last_busy(dev);
+> +		return -EBUSY;
+> +	}
+> +
+>  	nouveau_switcheroo_optimus_dsm();
+>  	ret =3D nouveau_do_suspend(drm, true);
+
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c b/drivers/gpu=
+/drm/nouveau/nvkm/subdev/gsp/base.c
+> index 9ba1316831e7e..e475d0e8fa7bf 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
+
+[ ... ]
+
+> @@ -47,6 +48,15 @@ nvkm_gsp_intr_stall(struct nvkm_gsp *gsp, enum nvkm_su=
+bdev_type type, int inst)
+>  	return -ENOENT;
 >  }
 > =20
-> +static int
-> +r570_fb_get_compbit_store_size(struct nvkm_gsp *gsp, u64 *size)
+> +int
+> +nvkm_gsp_gcx_ready(struct nvkm_gsp *gsp)
 > +{
-> +	NV0080_CTRL_FB_GET_COMPBIT_STORE_INFO_PARAMS *ctrl;
+> +	if (!gsp->rm->api->gsp->gcx_ready)
+
+[Severity: Critical]
+Does this code cause a NULL pointer dereference when RM is disabled?
+
+On devices that use GSP but do not load GSP-RM (such as GV100 or Turing
+without experimental RM enabled, or when disabled via the module parameter),
+gsp->rm is never allocated and remains NULL.
+
+Since nouveau_pmops_runtime_suspend() invokes this path for any GPU with a
+GSP, won't this result in a kernel panic upon entering runtime suspend?
+
+> +		return NV_DEVICE_GC6_READY | NV_DEVICE_GCOFF_READY;
 > +
-> +	ctrl =3D nvkm_gsp_rm_ctrl_rd(&gsp->internal.device.object,
-> +				   NV0080_CTRL_CMD_FB_GET_COMPBIT_STORE_INFO,
+> +	return gsp->rm->api->gsp->gcx_ready(gsp);
+> +}
+> +
+
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c b/driv=
+ers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+> index b45781cd0dfdc..dfda6b0b910a2 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+
+[ ... ]
+
+> @@ -215,6 +216,32 @@ r570_gsp_set_rmargs(struct nvkm_gsp *gsp, bool resum=
+e)
+>  	args->bDmemStack =3D 1;
+>  }
+> =20
+> +int
+> +r570_gsp_gcx_ready(struct nvkm_gsp *gsp)
+> +{
+> +	NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS *ctrl;
+> +	int ret =3D 0;
+> +
+> +	ctrl =3D nvkm_gsp_rm_ctrl_rd(&gsp->internal.device.subdevice,
+> +				   NV2080_CTRL_CMD_INTERNAL_GCX_ENTRY_PREREQUISITE,
 > +				   sizeof(*ctrl));
 > +	if (IS_ERR(ctrl))
 > +		return PTR_ERR(ctrl);
 > +
-> +	*size =3D ctrl->Size;
-
-[Severity: High]
-Does this code need to validate the untrusted 64-bit value returned from the
-GSP firmware?
-
-If a compromised or malicious GSP firmware provides a crafted value, it can=
- be
-used to exploit integer truncations during allocation.
-
+> +	if (ctrl->bIsGC6Satisfied)
+> +		ret |=3D NV_DEVICE_GC6_READY;
+> +	if (ctrl->bIsGCOFFSatisfied)
+> +		ret |=3D NV_DEVICE_GCOFF_READY;
 > +
-> +	nvkm_gsp_rm_ctrl_done(&gsp->internal.device.object, ctrl);
-> +	return 0;
+> +	nvkm_debug(&gsp->subdev,
+> +		   "GCX ready status: GC6=3D%s GCOFF=3D%s\n",
+> +		   str_yes_no(ctrl->bIsGC6Satisfied), str_yes_no(ctrl->bIsGCOFFSatisfi=
+ed));
+> +
+> +	nvkm_gsp_rm_ctrl_done(&gsp->internal.client.object, ctrl);
+
+[Severity: Low]
+This isn't a bug, but is there an object mismatch here?
+
+The memory for ctrl is allocated earlier using the device.subdevice object:
+
+	ctrl =3D nvkm_gsp_rm_ctrl_rd(&gsp->internal.device.subdevice, ...);
+
+but it is released here using the mismatched client.object.
+
+While this avoids a crash because both objects' client fields resolve to
+the same GSP context internally, does this violate the API contract?
+
+> +	return ret;
 > +}
-[ ... ]
-> @@ -174,6 +197,8 @@ r570_fbsr_suspend(struct nvkm_gsp *gsp)
->  	size  =3D gsp->fb.heap.size;
->  	size +=3D gsp->fb.rsvd_size;
->  	size +=3D gsp->fb.bios.vga_workspace.size;
-> +	size +=3D compbit_store_size;
-
-[Severity: High]
-Can this unvalidated addition allow an attacker to craft a specific size
-that perfectly aligns for integer truncation in the allocator?
-
-When nvkm_gsp_sg() receives this size, it computes pages and passes it to
-sg_alloc_table():
-
-nvkm_gsp_sg(device, size, &gsp->sr.fbsr)
-   const u64 pages =3D DIV_ROUND_UP(size, PAGE_SIZE);
-   ...
-   ret =3D sg_alloc_table(sgt, pages, GFP_KERNEL);
-
-Since sg_alloc_table() takes a 32-bit unsigned int nents, a crafted size
-(like 4TB + 1 bytes) would truncate to a tiny non-zero value, allowing a
-massive allocation request to succeed by allocating only a few pages.
-
-Additionally, when this size reaches r535_fbsr_memlist():
-
-r535_fbsr_memlist()
-   const u32 pages =3D size / GSP_PAGE_SIZE;
-   ...
-   rpc =3D nvkm_gsp_rpc_get(gsp, NV_VGPU_MSG_FUNCTION_ALLOC_MEMORY,
-                          sizeof(*rpc) + pages * sizeof(rpc->pteDesc.pte_pd=
-e[0]));
-
-The 32-bit truncation results in a 0-PTE buffer allocation. The subsequent =
-loop
-then writes PTEs based on the actual SG table length, causing an out-of-bou=
-nds
-heap write.
-
 > +
->  	nvkm_debug(subdev, "fbsr: size: 0x%llx bytes\n", size);
-> =20
->  	ret =3D nvkm_gsp_sg(device, size, &gsp->sr.fbsr);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916223358.5073=
-51-1-lyude@redhat.com?part=3D4
+51-1-lyude@redhat.com?part=3D1
