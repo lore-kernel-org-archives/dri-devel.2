@@ -4,67 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79295C982C4
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 14:30:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0B92C982C3
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 14:31:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D693710EB67;
-	Wed, 16 Sep 2026 14:30:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3786810EB74;
+	Wed, 16 Sep 2026 14:31:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="PAFHXDga";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xznV+6l2";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C618710EB67
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 14:30:52 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 1B039C5CD63;
- Wed, 16 Sep 2026 14:31:35 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 1645860337;
- Wed, 16 Sep 2026 14:30:51 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id C273711C7B024; 
- Wed, 16 Sep 2026 16:30:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1789569045; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=ifWQ8YaMc5CQm1ni9DW+Z7Yqh55h/cFdZBqgsTVphkY=;
- b=PAFHXDgagaMbICkI8pF/F5Nz5W1gjfLrs/YkppCqVP1pMYNSPxgzDNoh7q+DYhGicdwrYf
- PT5MKU1C05LYJEvG7c2FAjeCDXZt49uyTEXYiGNsgQEZUIFo9Gn3dNx1y9W9wkLfU/7aPb
- vzohVysiTuf4GVtby1VsmN8oKU9d8Q7ZUe89SyFGWHWqfmxt14PRsnXT7ywBVYdGwH5OlH
- jqCvJ05G71TC8RvUYP+fNsTf78dwavvp6emdYAP1L54EDJ9LaoeEcGMIrOf0hq9e7O2q6s
- lH0l7yhmzYU7wIfR98nbme6zK7TkBj3xK17AW9YJl4T1VYqxyZnDThae3cpVdw==
-Mime-Version: 1.0
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011033.outbound.protection.outlook.com [52.101.62.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF97710EB71;
+ Wed, 16 Sep 2026 14:31:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Kn2rYb6QoTRpdtLLiPMsvoLJZBZ2ueNdYZ3m8+mX05hvNImLR4v4A8/MgJA36MQH3Ge71D4TDlVOUhlhJCg8PIxGe6fLOup3B/FJyXLU6djugqpQ0SmTg/iKmpx7lhVL02xvkytDSXv7OOlDslkhCiRJETjvvpOeNAO19+tzBHhtsqZeiGpNWy7vhIqce06YiaW4A0trHX+syLZNutAhdE49mEatTL9PsA52WImTkPBhcsyO5eigtJOvhZ5ZgAvT3kHZB/VBRzKT4IODmj2ZpmWGA13832+KvG1t+5pSdTmYU8chTfxlofW3TWoh5kgTpPRc9Z8V6kUO3HqxHkIpNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fT3DBg0VKI0AM70xe2XwNwRSPVnoD03zSvio/vlEq2Y=;
+ b=SCge8U5iVxfrSb6X2xQDyydl+7PzBg9eOxKaW15EsleiYgI/oGuRWHGBM3NRP+zJRxuafmws9/KPm/b3iWNVIL5N8hFxtvvSErEXC0x77dwZQyX5EzKeSgiMhIo7RLDvUbQTufdNU33b2CEKkIACtn2CJdUmpXU1MoBvFp2vqdU3X63Q6+gUrYe0iEhqxqFIsUZfxatamAAp3xnKFdCA0VUlrfcM0LjbyQzjQMkef6SIOwKhFU4Ekz5ctQgwEB5vzfVa5JFQ3pi/92y/KPsJh/J/VZ8yOG4sf6r0c7pbMVyQKvNceXVUKH9iTEsBCSFBRj4sQbvTkaxFTPcAhjJV8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fT3DBg0VKI0AM70xe2XwNwRSPVnoD03zSvio/vlEq2Y=;
+ b=xznV+6l21eavmM1gSzzeAg4CEg7wKQOdfqOesX6/Slnf5ew5G2Ciup8ypNM//ZK8ZhF2zfdHFtfezC8UOergJ5y1by+/ZVH6dX2n8RpWVIC5MUJBCGTbJmttU0saM5oQzgjv5aX4uY+3qHKr4YeBzz9+u5euNKjN5/TpgobnCJY=
+Received: from BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
+ by MN0PR12MB5739.namprd12.prod.outlook.com (2603:10b6:208:372::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
+ 2026 14:31:07 +0000
+Received: from BN9PR12MB5146.namprd12.prod.outlook.com
+ ([fe80::535a:591e:27f6:c23]) by BN9PR12MB5146.namprd12.prod.outlook.com
+ ([fe80::535a:591e:27f6:c23%3]) with mapi id 15.21.0406.007; Wed, 16 Sep 2026
+ 14:31:07 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: Wentao Liang <vulab@iscas.ac.cn>, "Ma, Jun" <Jun.Ma2@amd.com>
+CC: "airlied@gmail.com" <airlied@gmail.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "simona@ffwll.ch" <simona@ffwll.ch>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH] drm/amdgpu: Fix runtime PM leak in
+ amdgpu_securedisplay_debugfs_write()
+Thread-Topic: [PATCH] drm/amdgpu: Fix runtime PM leak in
+ amdgpu_securedisplay_debugfs_write()
+Thread-Index: AQHdRcIbM/eFAZAegkWKQOst5kNqCbbRRGrQ
+Date: Wed, 16 Sep 2026 14:31:07 +0000
+Message-ID: <BN9PR12MB514643E27306496A92D40603F7B92@BN9PR12MB5146.namprd12.prod.outlook.com>
+References: <20260916095910.2011628-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260916095910.2011628-1-vulab@iscas.ac.cn>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-09-16T14:30:53.0000000Z;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
+ v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5146:EE_|MN0PR12MB5739:EE_
+x-ms-office365-filtering-correlation-id: 22718f94-32a6-4711-f2bb-08df13ff257c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|38070700021|10067099003|22082099003|18002099003|11063799006|56012099006;
+x-microsoft-antispam-message-info: MVgMHhWAo4XKJ1fvRwuj2fD00hqGhR8A6rNp+5tdm2+U/iJuZeDTli3oQH6eulqS7T6H+ioXv4jkH4L31dsZiNM4p8JR7cQ0+nI1mvm7+hXhQPjWQ7KDZMEXWvaFfzKtF+0x6id6VNIm8AS/s36RKOdDBoHo3sTJ//xFFHmDxPcxac9JkKZyCpNN57bLWjAFiXNiZj34ujsNTGR9jpp7P4eAwEZIUh2UpISYdWe8o5c6e+DUeXgASEWiJTpFIqPC5811kRhK4NYyyatamoslDOGlIm9grU0ZZAfXgqWIIop2IMgkL60LgeoQhUf28Yuh49ZuCRfqQBJqTLA8zNN9jLB1ZQxAeFdlR1QvUngl0WdiAj8sMLAAYiZC5wwbfcFObRzayFvM3NCb0pJ5pldhzCwHXi06JbNw3HtBpMkqJcCj6oqVd5eQ2Zo30ZKQ4P2HRva2Qalox4eZy9U3eevfaJQmO2//sk4VXOCjnXZNDvDCmI3rg08xr/FriyKbeBmqTO80yTNnCrumqr94voap7cJdgEax6cHn9xiJ95SjzViSNw5x9icS2yruzyCx+RGvG4r456zIiO3vw1ptcytRNbL4Jek5T8u5Wsq85euVQD60vKSM5g3de4V9XTibZD9MjiWKRFwO9ScJfGiGj1ZbhtaNFnnrwxixMclTfhh5U0aqXBd2aYUPwK8QWgT1juZy5+OKFNgZuNOCAW4scBxuTEsgTDpiGM/4pKsKuI3PWmM=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(38070700021)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?bRIbTffkwHqcezOHgpAtUaOLfHHG76jjg/NycvDCteVWGEQj869ZjryKtvqy?=
+ =?us-ascii?Q?L12zh8QRny7J6SiTbyzLOXqzW+V1bdyn0FGWDl1IwfiA7lKrtJEe2Ba3Sasg?=
+ =?us-ascii?Q?yaYr2fPjTCXnudpuP3SLLSmFpmHlAKBLBIdWLRO5l29u8nPULPxGLnDQa/E5?=
+ =?us-ascii?Q?CIrqdhv2ie4JCXY7mYp19ZkMdgyuj0049e0oGE4jforWhTcat6Z/B5CRT1bJ?=
+ =?us-ascii?Q?RpQbI4UDOqgxWbnUPIRXhx/Qm1zzwTyLE4Np9wnuqnKap854HA4rMM1bDcJg?=
+ =?us-ascii?Q?8An7INNf85JJOqdbJD+AOobxh8tJ3vI69ZKQCfyeDhXBNzRsFmkGvL2boDIL?=
+ =?us-ascii?Q?Yb/TUCZkomClnwu4Q3WwTWMWQSV7JkxjJL3AeppwiIfgnAaOmFGc9OlFcZB9?=
+ =?us-ascii?Q?eoy6ZrVl4w0kWATfl2o5LrfKKyclQX2QZVI8sX7EYfqynVzri90ciEzpvzLe?=
+ =?us-ascii?Q?3PB3JboJUyPksGiRTuA3Q9dVVZldQSpi1euFJ+pR/mctIyGjf33Eejm4P6Zf?=
+ =?us-ascii?Q?Q9h7m62vEHp75aRXmC1pY/lgalkrwiiNUOsekRdO7qmwvKiEdqzZuDFE4WEu?=
+ =?us-ascii?Q?Ba2n0Yr1ewV7+aqYHqeJ9+Y3rha90Qdk1kc0YKVnHWr30EX0sDaatop4D3tm?=
+ =?us-ascii?Q?VXLHCLvLieRQFX1lFst8e2UtNvXlz3zvf+RM2tGhxhakbSLdACWcxYrZ/PJb?=
+ =?us-ascii?Q?Opw7Opr4Zamh3RnfAonmVmmb/pQJ9CAHAJrdFt6hNB99ifWuJ7ajfvUa6ihg?=
+ =?us-ascii?Q?bH9l57R2gd3E0WpM7htt+SmQvsVIpDZ0HSyAmHbEuSy9KNKBcr9wACvzTslU?=
+ =?us-ascii?Q?qEFSHLCXbQ2hZRvgPzdIqA/AzfVLjOgqbJSKs7iartgVVZnMQYDEafoArHbj?=
+ =?us-ascii?Q?u07SFX5IykvCoSQhlcr9cSSHWWKNv7yckDPA/uGgLMM8jneQ4XnRkKjQWV/6?=
+ =?us-ascii?Q?pfEfmdpuolHTQ07/9bEXzX6f8Xd4QAA0HM8g1BIRaOZhb7w06fPIfQMoguXp?=
+ =?us-ascii?Q?2ZUICoRJ52bFsFKOtYmGFYCwblqgf9AJ+6EgiWxr38Bz2k968MhPJLZdYuou?=
+ =?us-ascii?Q?p54/Dvg5/MLQzuU0+aGrwCHbsZdf27QxH0HnTmnd9gMbOpGi+eOLadf9spz6?=
+ =?us-ascii?Q?qe2LRAi9iMVWXmGEDnsHgVmCk0kovy/PoTU51lZqbl8FIZTsdm/cK0e/5N8v?=
+ =?us-ascii?Q?OCQ0cWK6nvKAm5A1+Fv/O3r+I/nNF969YAWgidk+eVSce8HV+MAY5wJrsHtp?=
+ =?us-ascii?Q?bmd5dAtQXsAEPWrb8QnIEi+pjf6E1Z/glbfMR4wwt6/ygs/OEB0ihc+EKDAF?=
+ =?us-ascii?Q?vKFFh2Dv6JP/UBw8iYeEoJLmA+VOZjrXVcabw1QstZTos2jsmMDMwfoNopsd?=
+ =?us-ascii?Q?aEYRVts33l1jJGWAJaSZlM7I8zb2lqpNwNSxefW4rewal9Nsud1ZD6UAmAua?=
+ =?us-ascii?Q?PRj3vcqcfmIDpVL2S58JQxgzPbOZApPpwfFQqmbdig4qmO0xwNQ5nI/z4W20?=
+ =?us-ascii?Q?7IFNuR9Yg9rCOjU8xyy46gGJEClZypTCoigqW/nvRcOfrg4KCSEtEgTZ/4eI?=
+ =?us-ascii?Q?JwsKSWEoWkyrONSUuIwpRh50S0L4rW6hYKh9gSzRrZEgZbanvAafW30Rq0mX?=
+ =?us-ascii?Q?x49uQEcJM8Z/EsjtnAmUt/X87LMNzdzAtVqmfvg4AVvzSNu62VdRmsb0jftW?=
+ =?us-ascii?Q?jmTSAI/603xd7mKLK7RAdHQgBNVhSXUQwdpucyLu9uoBT3ux?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 16 Sep 2026 16:30:37 +0200
-Message-Id: <DLGTA297W2SP.36MAJCYAC9O2X@bootlin.com>
-Subject: Re: [PATCH v4 2/4] drm: mxsfb: Add optional DPI output bus-width
- configuration
-Cc: "Marek Vasut" <marex@denx.de>, "Stefan Agner" <stefan@agner.ch>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Frank Li" <Frank.Li@nxp.com>,
- "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Francesco
- Dolcini" <francesco.dolcini@toradex.com>,
- <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>, "Alexander Stein"
- <alexander.stein@ew.tq-group.com>
-To: "Francesco Dolcini" <francesco@dolcini.it>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20260813092836.38367-1-francesco@dolcini.it>
- <20260813092836.38367-3-francesco@dolcini.it>
- <178954813309.214898.6895255097019153080.b4-review@b4>
- <20260916091543.GA277833@francesco-nb>
- <DLGP7GKZJBOP.350QK94UOGRYV@bootlin.com>
- <20260916114350.GB284106@francesco-nb>
-In-Reply-To: <20260916114350.GB284106@francesco-nb>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5146.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22718f94-32a6-4711-f2bb-08df13ff257c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2026 14:31:07.6342 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 277fdTOB0PYSDDfodUu4uYb7iv93HjAMTVa+QJujYQckSp0K9HNanA61orQ38nJK1omgWrspPYOzoIDnQkUtYA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5739
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,120 +138,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Sep 16, 2026 at 1:43 PM CEST, Francesco Dolcini wrote:
-> On Wed, Sep 16, 2026 at 01:19:08PM +0200, Luca Ceresoli wrote:
->> On Wed Sep 16, 2026 at 11:15 AM CEST, Francesco Dolcini wrote:
->> > Hello Luca,
->> >
->> > On Wed, Sep 16, 2026 at 10:42:13AM +0200, Luca Ceresoli wrote:
->> >> > LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format=
-. The
->> >> > format reported by the downstream panel or bridge describes the dis=
-play
->> >> > input, but it does not describe how the LCDIF data pins are physica=
-lly
->> >> > wired on the board.
->> >> >
->> >> > These can differ. For example, a 16-bit LCDIF bus can be connected =
-to a
->> >> > 24-bit display by wiring the available color bits to the correspond=
-ing
->> >> > display inputs. In that case, using the display's 24-bit format to
->> >> > configure LCDIF selects the wrong data-bus mode and changes the ass=
-ignment
->> >> > of color bits on the LCD_DATA pins.
->> >> >
->> >> > Read the optional bus-width endpoint property from the LCDIF output=
- port
->> >> > and use it to select the media bus format used to configure LCDIF. =
-This
->> >> > allows the LCDIF bus mode to describe the physical interface
->> >> > independently of the downstream display format.
->> >> >
->> >> > When the optional property is absent, or it has an invalid value, c=
-ontinue
->> >> > using the format reported by the downstream display device, preserv=
-ing
->> >> > the existing behavior. The code is not validating the DT for
->> >> > correctness and just fall back to the previous behavior in case of
->> >> > errors.
->> >>
->> >> Why? Generally speaking errors are better spotted immediately, not ig=
-nored
->> >> silently.
->> >
->> > My understanding is that the C driver code should not validate the DT
->> > and that this is the general recommendation when parsing properties fr=
-om
->> > the DT.
->> >
->> > The DT checker is going to spot errors in the DT even earlier and in a
->> > static way.
->>
->> Drivers typically check for invalid values.
->>
->> And people writing their private dts can do mistakes and not run the sta=
-tic
->> checks. Bad on their side, sure, but having a runtime error would be use=
-ful
->> there.
+Public
+
+> -----Original Message-----
+> From: Wentao Liang <vulab@iscas.ac.cn>
+> Sent: Wednesday, September 16, 2026 5:59 AM
+> To: Ma, Jun <Jun.Ma2@amd.com>
+> Cc: airlied@gmail.com; Deucher, Alexander <Alexander.Deucher@amd.com>;
+> amd-gfx@lists.freedesktop.org; Koenig, Christian
+> <Christian.Koenig@amd.com>; dri-devel@lists.freedesktop.org; linux-
+> kernel@vger.kernel.org; simona@ffwll.ch; Wentao Liang <vulab@iscas.ac.cn>=
+;
+> stable@vger.kernel.org
+> Subject: [PATCH] drm/amdgpu: Fix runtime PM leak in
+> amdgpu_securedisplay_debugfs_write()
 >
-> Understood. I would personally not do it. I can add the required error
-> checking code. No other DRM maintainer/reviewer commented so far, so I
-> am taking this as a request.
+> amdgpu_securedisplay_debugfs_write() resumes the device with
+> pm_runtime_get_sync() before parsing the debugfs input.  In the
+> SECUREDISPLAY send ROI CRC case, an invalid user input, i.e. a missing or=
+ out
+> of range phy_id, makes the function return -EINVAL without calling
+> pm_runtime_put_autosuspend(), leaking the runtime PM reference and
+> keeping the GPU awake.
 >
-> What should I do in case there is an invalid value? Fail or have a
-> warning message?
-
-Just fail. You are in the probe path, so it's OK.
-
->> Also consider potential regressions. Say someone has an invalid value in
->> their product, say bus-width =3D <15>, which works because the default 1=
-8
->> which gets used as a fallback happens to be the correct value for their
->> hardware. Some years later we implement the new bus-width =3D <15>, and =
-then
->> that user upgrades to a newer kernel and their display won't work becaus=
-e
->> it will start using that incorrect bus-witch =3D <15>. Better stopping t=
-his
->> before it starts, IMO.
+> Drop the runtime PM reference on the invalid input error path before
+> returning.
 >
-> I do not see this situation honestly, if you have a wrong value, e.g. 15
-> bits, before this patch is ignored, and after this patch is also
-> ignored ...
+> Fixes: 7e39d7ec3588 ("drm/amdgpu: Fix the uninitialized variable warning"=
+)
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-There is no problem with the code in this patch alone.
+This was already fixed.
 
-The problem is when in two years in the future we do implement 15
-bits. (That's an example to explain the principle, I don't expect it to
-happen with this driver.) But imagine in the future we add:
+Thanks,
 
-	switch (bus_width) {
-    +	case 15:
-    +		mxsfb->bus_format =3D MEDIA_BUS_FMT_RGB555_1X15;
-    +		break;
-	case 16:
-		mxsfb->bus_format =3D MEDIA_BUS_FMT_RGB565_1X16;
-		break;
+Alex
 
-At that point the device in the wild with the incorrect 'bus-width =3D <15>=
-'
-will start using RGB555 and fail, because they really have a 18 bit panel
-which worked thanks to the automagic "if DT is wrong, let's go with the
-default". That's a regression for that device.
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
+> index 3739be1b71e0..fdb05f5857d3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
+> @@ -137,6 +137,7 @@ static ssize_t
+> amdgpu_securedisplay_debugfs_write(struct file *f, const char __u
+>       case 2:
+>               if (size < 3 || phy_id >=3D TA_SECUREDISPLAY_MAX_PHY) {
+>                       dev_err(adev->dev, "Invalid input: %s\n", str);
+> +                     pm_runtime_put_autosuspend(dev->dev);
+>                       return -EINVAL;
+>               }
+>               mutex_lock(&psp->securedisplay_context.mutex);
+> --
+> 2.34.1
 
-Reporting an error from day 0 means 'bus-width =3D <15>' will be blocked, t=
-he
-device won't probe and the mistake in the device tree gets fixed before
-shipping.
-
-I hope it's clearer now.
-
-Cheers,
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
