@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9E17C88E5C
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 13:48:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB4B5C88E77
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 13:48:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D892110EAD6;
-	Wed, 16 Sep 2026 13:48:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2868F10EB02;
+	Wed, 16 Sep 2026 13:48:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="q2GXSr3M";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="lqMs18pt";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0603510EAD6
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 13:48:19 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3944510EB08
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 13:48:29 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id C50F14E40727;
- Wed, 16 Sep 2026 13:48:17 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id E308DC5CD60;
+ Wed, 16 Sep 2026 13:49:11 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 98B0760337;
- Wed, 16 Sep 2026 13:48:17 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id E9E0B60337;
+ Wed, 16 Sep 2026 13:48:27 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E1C4E11C7B035; 
- Wed, 16 Sep 2026 15:48:04 +0200 (CEST)
+ with ESMTPSA id 4B60B11C7B031; 
+ Wed, 16 Sep 2026 15:48:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1789566490; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1789566501; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=QjTr2Jmo4sllECWNzVI6O2II4pn3OSCLwMo1L497iBk=;
- b=q2GXSr3MBNevWtr1X4GL5najFiFRCky4UDT9+gVxjCXDZmeQnPUNB3iBKRW8SS5eMuwAH0
- e0RcOblp7qN+c50PtK5sZyWm7zvlBrfenS0ff+azzPN+fTSjdar7/YoOFPhzX2xzFO+ioP
- ZEgz69QYHQLGn8EMFMvl3NKPghhdfQu91EPTu7GXgpn3ln5u/vnxtTgNkfoTuHO2s/lf7O
- HXYgmH+GXJv/mSQTXZVJs1rsIiEwV0/ZzwEhCKGCkQPspx45LzvgFWd8XydFDzeoZeQvyW
- rLB8r/PtIndVeczq82GfGMwOXFL0P1Gv7id5bAIl9G04miXl2G84LDQQqs7VQg==
+ bh=MD4jPpx6j1WYD4nbW7d8UqWXM8K9b2WkM/tu92eB2HU=;
+ b=lqMs18ptXF8NUeKU+aI21TpbFbBcw1SoqWE6OMCl3CiiAOPaZ2r2AkiTc2GN1UMh6yMoMd
+ nHpD4gqZRQF51T9INEtHYF9r5v8vzyhTqH/xqmOYLb7fETXdA5YkCrkhB4qiBZQTWPJkmp
+ l1epuxUJcnn5aNIYwdG9nC6z25Ty4A9I3yCUvD81EDNhoZc+bqI9TPyoT5ormKNMLFTSww
+ H9zwhIf8a62TuSAbuEYuN5gbZcwErbWDIQzjy2RUzybhp0HDVBHRJGYSrfUxwPMZyc0QTz
+ CA6oWZsWkVSOEzQmAPDLNiWz1vhVCLauw7lDX8anlUJiulXnMLM4imFm64hYgA==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 16 Sep 2026 15:45:42 +0200
-Subject: [PATCH v3 18/19] drm/tve200: don't create a panel_bridge
+Date: Wed, 16 Sep 2026 15:45:43 +0200
+Subject: [PATCH v3 19/19] drm/bridge: analogix_dp: don't create a panel_bridge
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-drm-bridge-every-panel-v3-18-83afb4f1a707@bootlin.com>
+Message-Id: <20260916-drm-bridge-every-panel-v3-19-83afb4f1a707@bootlin.com>
 References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
 In-Reply-To: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -96,125 +96,223 @@ panel-bridge API is just a deprecated wrapper to access it.
 Update and simplify the code by just getting a reference to the
 already-existing bridge using of_drm_get_bridge_by_endpoint().
 
-And since of_drm_find_and_get_bridge() returns a refcounted bridge, take
-care of putting the bridge reference.
+As of_drm_get_bridge_by_endpoint() returns a refcounted bridge, take care
+of putting the bridge reference. This is not easily done in the remove path
+due to the different probe paths of the user drivers, so add a devm action
+to ensure the reference is put only when it was taken.
 
+Assisted-by: opencode:deepseek-v4-flash-0731
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/tve200/Kconfig      |  1 -
- drivers/gpu/drm/tve200/tve200_drm.h |  1 -
- drivers/gpu/drm/tve200/tve200_drv.c | 30 +++++++-----------------------
- 3 files changed, 7 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/bridge/analogix/Kconfig            |  1 -
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 40 +++++++++++++---------
+ drivers/gpu/drm/exynos/exynos_dp.c                 | 36 ++-----------------
+ drivers/gpu/drm/rockchip/analogix_dp-rockchip.c    |  9 -----
+ include/drm/bridge/analogix_dp.h                   |  1 -
+ 5 files changed, 25 insertions(+), 62 deletions(-)
 
-diff --git a/drivers/gpu/drm/tve200/Kconfig b/drivers/gpu/drm/tve200/Kconfig
-index c0746ae8f703..afe243df4ebb 100644
---- a/drivers/gpu/drm/tve200/Kconfig
-+++ b/drivers/gpu/drm/tve200/Kconfig
-@@ -8,7 +8,6 @@ config DRM_TVE200
- 	select DRM_BRIDGE
- 	select DRM_CLIENT_SELECTION
- 	select DRM_PANEL
--	select DRM_PANEL_BRIDGE
- 	select DRM_KMS_HELPER
- 	select DRM_GEM_DMA_HELPER
- 	help
-diff --git a/drivers/gpu/drm/tve200/tve200_drm.h b/drivers/gpu/drm/tve200/tve200_drm.h
-index 631a9f5d9aa6..708f8020667a 100644
---- a/drivers/gpu/drm/tve200/tve200_drm.h
-+++ b/drivers/gpu/drm/tve200/tve200_drm.h
-@@ -103,7 +103,6 @@ struct tve200_drm_dev_private {
- 	struct drm_device *drm;
+diff --git a/drivers/gpu/drm/bridge/analogix/Kconfig b/drivers/gpu/drm/bridge/analogix/Kconfig
+index da156fd15764..5672d83cb4a1 100644
+--- a/drivers/gpu/drm/bridge/analogix/Kconfig
++++ b/drivers/gpu/drm/bridge/analogix/Kconfig
+@@ -33,7 +33,6 @@ config DRM_ANALOGIX_DP
+ 	depends on DRM
+ 	depends on OF
+ 	select DRM_DISPLAY_DP_AUX_BUS
+-	select DRM_PANEL
  
- 	struct drm_connector *connector;
--	struct drm_panel *panel;
- 	struct drm_bridge *bridge;
- 	struct drm_plane plane;
- 	struct drm_crtc crtc;
-diff --git a/drivers/gpu/drm/tve200/tve200_drv.c b/drivers/gpu/drm/tve200/tve200_drv.c
-index 63ca4a53fc4c..9874554e5065 100644
---- a/drivers/gpu/drm/tve200/tve200_drv.c
-+++ b/drivers/gpu/drm/tve200/tve200_drv.c
-@@ -65,7 +65,6 @@ static int tve200_modeset_init(struct drm_device *dev)
+ config DRM_ANALOGIX_ANX7625
+ 	tristate "Analogix Anx7625 MIPI to DP interface support"
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 18e76d1e78e1..6df6963740d2 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -29,7 +29,6 @@
+ #include <drm/drm_device.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_of.h>
+-#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ 
+@@ -1567,15 +1566,6 @@ int analogix_dp_bind(struct analogix_dp_device *dp, struct drm_device *drm_dev)
+ 	if (ret)
+ 		goto err_unregister_aux;
+ 
+-	if (dp->plat_data->panel) {
+-		dp->plat_data->next_bridge = devm_drm_panel_bridge_add(dp->dev,
+-								       dp->plat_data->panel);
+-		if (IS_ERR(dp->plat_data->next_bridge)) {
+-			ret = PTR_ERR(dp->plat_data->next_bridge);
+-			goto err_unregister_aux;
+-		}
+-	}
+-
+ 	ret = drm_bridge_attach(dp->encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+ 	if (ret) {
+ 		DRM_ERROR("failed to create bridge (%d)\n", ret);
+@@ -1647,6 +1637,11 @@ struct drm_dp_aux *analogix_dp_get_aux(struct analogix_dp_device *dp)
+ }
+ EXPORT_SYMBOL_GPL(analogix_dp_get_aux);
+ 
++static void analogix_dp_put_bridge(void *data)
++{
++	drm_bridge_put(data);
++}
++
+ static int analogix_dp_aux_done_probing(struct drm_dp_aux *aux)
  {
- 	struct drm_mode_config *mode_config;
- 	struct tve200_drm_dev_private *priv = dev->dev_private;
--	struct drm_panel *panel;
- 	struct drm_bridge *bridge;
+ 	struct analogix_dp_device *dp = to_dp(aux);
+@@ -1655,14 +1650,25 @@ static int analogix_dp_aux_done_probing(struct drm_dp_aux *aux)
  	int ret;
  
-@@ -77,19 +76,10 @@ static int tve200_modeset_init(struct drm_device *dev)
- 	mode_config->min_height = 240;
- 	mode_config->max_height = 576;
- 
--	ret = drm_of_find_panel_or_bridge(dev->dev->of_node,
--					  0, 0, &panel, &bridge);
+ 	/*
+-	 * If drm_of_find_panel_or_bridge() returns -ENODEV, there may be no valid panel
+-	 * or bridge nodes. The driver should go on for the driver-free bridge or the DP
+-	 * mode applications.
++	 * If of_drm_get_bridge_by_endpoint() returns -ENODEV, there may be no
++	 * valid panel or bridge nodes. The driver should go on for the
++	 * driver-free bridge or the DP mode applications.
+ 	 */
+-	ret = drm_of_find_panel_or_bridge(dp->dev->of_node, port, 0,
+-					  &plat_data->panel, &plat_data->next_bridge);
 -	if (ret && ret != -ENODEV)
 -		return ret;
--	if (panel) {
--		bridge = drm_panel_bridge_add_typed(panel,
--						    DRM_MODE_CONNECTOR_Unknown);
--		drm_panel_put(panel);
--		if (IS_ERR(bridge)) {
--			ret = PTR_ERR(bridge);
--			goto out_bridge;
--		}
--	} else {
-+	bridge = of_drm_get_bridge_by_endpoint(dev->dev->of_node, 0, 0);
-+	if (IS_ERR(bridge) && PTR_ERR(bridge) != -ENODEV)
-+		return PTR_ERR(bridge);
-+	if (IS_ERR(bridge) || !drm_bridge_is_panel(bridge)) {
- 		/*
- 		 * TODO: when we are using a different bridge than a panel
- 		 * (such as a dumb VGA connector) we need to devise a different
-@@ -100,6 +90,8 @@ static int tve200_modeset_init(struct drm_device *dev)
- 		goto out_bridge;
- 	}
- 
-+	bridge->type = DRM_MODE_CONNECTOR_Unknown;
++	plat_data->next_bridge = of_drm_get_bridge_by_endpoint(dp->dev->of_node,
++							       port, 0);
++	if (IS_ERR(plat_data->next_bridge)) {
++		if (PTR_ERR(plat_data->next_bridge) == -ENODEV)
++			plat_data->next_bridge = NULL;
++		else
++			return PTR_ERR(plat_data->next_bridge);
++	}
 +
- 	ret = tve200_display_init(dev);
- 	if (ret) {
- 		dev_err(dev->dev, "failed to init display\n");
-@@ -121,9 +113,6 @@ static int tve200_modeset_init(struct drm_device *dev)
- 		goto out_bridge;
- 	}
++	if (plat_data->next_bridge) {
++		ret = devm_add_action_or_reset(dp->dev, analogix_dp_put_bridge,
++					       plat_data->next_bridge);
++		if (ret)
++			return ret;
++	}
  
--	dev_info(dev->dev, "attached to panel %s\n",
--		 dev_name(panel->dev));
+ 	return component_add(dp->dev, plat_data->ops);
+ }
+diff --git a/drivers/gpu/drm/exynos/exynos_dp.c b/drivers/gpu/drm/exynos/exynos_dp.c
+index e1c9e2946b8a..82c238829921 100644
+--- a/drivers/gpu/drm/exynos/exynos_dp.c
++++ b/drivers/gpu/drm/exynos/exynos_dp.c
+@@ -26,7 +26,6 @@
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_encoder.h>
+ #include <drm/drm_of.h>
+-#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/exynos_drm.h>
+@@ -147,7 +146,6 @@ static const struct component_ops exynos_dp_ops = {
+ static int exynos_dp_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+-	struct device_node *np;
+ 	struct exynos_dp_device *dp;
+ 
+ 	dp = devm_kzalloc(&pdev->dev, sizeof(struct exynos_dp_device),
+@@ -163,18 +161,6 @@ static int exynos_dp_probe(struct platform_device *pdev)
+ 	 */
+ 	platform_set_drvdata(pdev, dp);
+ 
+-	/* This is for the backward compatibility. */
+-	np = of_parse_phandle(dev->of_node, "panel", 0);
+-	if (np) {
+-		dp->plat_data.panel = of_drm_find_panel(np);
 -
- 	ret = drm_vblank_init(dev, 1);
- 	if (ret) {
- 		dev_err(dev->dev, "failed to init vblank\n");
-@@ -136,8 +125,6 @@ static int tve200_modeset_init(struct drm_device *dev)
- 	goto finish;
+-		of_node_put(np);
+-		if (IS_ERR(dp->plat_data.panel))
+-			return PTR_ERR(dp->plat_data.panel);
+-
+-		goto out;
+-	}
+-
+ 	if (of_get_display_timings(dev->of_node)) {
+ 		dp->plat_data.next_bridge = devm_drm_of_display_mode_bridge(dp->dev,
+ 									dp->dev->of_node,
+@@ -189,19 +175,11 @@ static int exynos_dp_probe(struct platform_device *pdev)
+ 	dp->plat_data.power_off = exynos_dp_poweroff;
+ 	dp->plat_data.ops = &exynos_dp_ops;
  
- out_bridge:
--	if (panel)
--		drm_panel_bridge_remove(bridge);
- 	drm_mode_config_cleanup(dev);
- finish:
- 	return ret;
-@@ -233,8 +220,6 @@ static int tve200_probe(struct platform_device *pdev)
- 	return 0;
+-out:
+ 	dp->adp = analogix_dp_probe(dev, &dp->plat_data);
+-	if (IS_ERR(dp->adp)) {
+-		/*
+-		 * The driver core does not invoke remove() for failed probes,
+-		 * so release the probe-time panel reference here.
+-		 */
+-		if (dp->plat_data.panel)
+-			drm_panel_put(dp->plat_data.panel);
++	if (IS_ERR(dp->adp))
+ 		return PTR_ERR(dp->adp);
+-	}
  
- mode_config_cleanup:
--	if (priv->panel)
--		drm_panel_bridge_remove(priv->bridge);
- 	drm_mode_config_cleanup(drm);
- clk_disable:
- 	clk_disable_unprepare(priv->pclk);
-@@ -248,10 +233,9 @@ static void tve200_remove(struct platform_device *pdev)
- 	struct drm_device *drm = platform_get_drvdata(pdev);
- 	struct tve200_drm_dev_private *priv = drm->dev_private;
+-	if (dp->plat_data.panel || dp->plat_data.next_bridge)
++	if (dp->plat_data.next_bridge)
+ 		return component_add(&pdev->dev, &exynos_dp_ops);
+ 	else
+ 		return analogix_dp_finish_probe(dp->adp);
+@@ -209,16 +187,6 @@ static int exynos_dp_probe(struct platform_device *pdev)
  
-+	drm_bridge_put(priv->bridge);
- 	drm_dev_unregister(drm);
- 	drm_atomic_helper_shutdown(drm);
--	if (priv->panel)
--		drm_panel_bridge_remove(priv->bridge);
- 	drm_mode_config_cleanup(drm);
- 	clk_disable_unprepare(priv->pclk);
- 	drm_dev_put(drm);
+ static void exynos_dp_remove(struct platform_device *pdev)
+ {
+-	struct exynos_dp_device *dp = platform_get_drvdata(pdev);
+-
+-	/*
+-	 * Release the probe-time reference from of_drm_find_panel(). If bind
+-	 * ran, the panel_bridge holds a second reference that devm cleanup
+-	 * will release when the bridge is destroyed after remove() returns.
+-	 */
+-	if (dp->plat_data.panel)
+-		drm_panel_put(dp->plat_data.panel);
+-
+ 	component_del(&pdev->dev, &exynos_dp_ops);
+ }
+ 
+diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+index 587e60232ec7..071d31aa5288 100644
+--- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+@@ -28,7 +28,6 @@
+ #include <drm/drm_bridge_connector.h>
+ #include <drm/bridge/analogix_dp.h>
+ #include <drm/drm_of.h>
+-#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ 
+@@ -488,14 +487,6 @@ static void rockchip_dp_remove(struct platform_device *pdev)
+ {
+ 	struct rockchip_dp_device *dp = platform_get_drvdata(pdev);
+ 
+-	/*
+-	 * Release the probe-time reference from of_drm_find_panel(). If bind
+-	 * ran, the panel_bridge holds a second reference that devm cleanup
+-	 * will release when the bridge is destroyed after remove() returns.
+-	 */
+-	if (dp->plat_data.panel)
+-		drm_panel_put(dp->plat_data.panel);
+-
+ 	component_del(&pdev->dev, &rockchip_dp_component_ops);
+ }
+ 
+diff --git a/include/drm/bridge/analogix_dp.h b/include/drm/bridge/analogix_dp.h
+index 0e0b87abee59..6033137b651e 100644
+--- a/include/drm/bridge/analogix_dp.h
++++ b/include/drm/bridge/analogix_dp.h
+@@ -35,7 +35,6 @@ static inline bool analogix_dp_is_rockchip(enum analogix_dp_devtype type)
+ 
+ struct analogix_dp_plat_data {
+ 	enum analogix_dp_devtype dev_type;
+-	struct drm_panel *panel;
+ 	struct drm_bridge *next_bridge;
+ 	struct drm_encoder *encoder;
+ 	struct drm_connector *connector;
 
 -- 
 2.55.0
