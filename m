@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B26A8C88E5C
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 13:48:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9E17C88E5C
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 13:48:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D681210EAF4;
-	Wed, 16 Sep 2026 13:48:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D892110EAD6;
+	Wed, 16 Sep 2026 13:48:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="QGALR/4F";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="q2GXSr3M";
 	dkim-atps=neutral
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B74F10EAF4
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 13:48:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0603510EAD6
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 13:48:19 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id EC6154E40736;
- Wed, 16 Sep 2026 13:48:06 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id C50F14E40727;
+ Wed, 16 Sep 2026 13:48:17 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id B9F0660337;
- Wed, 16 Sep 2026 13:48:06 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 98B0760337;
+ Wed, 16 Sep 2026 13:48:17 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 8B57111C7B031; 
- Wed, 16 Sep 2026 15:47:53 +0200 (CEST)
+ with ESMTPSA id E1C4E11C7B035; 
+ Wed, 16 Sep 2026 15:48:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1789566480; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1789566490; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=WuZX7Ld13ojOYCTY0ar+bokEZLNX0F8BwuavdUHGtR8=;
- b=QGALR/4FPgZgsJZy9ShvO3e3wFndnrRlRApyWADH7o1KovktZ6gvPgK5F3GcNw7Xi4G2vp
- jDl32gEpAtULcO8jsBkGW+p7uDlw04AuoovRFl1g/lx8/75D5MKKLRDH7kwUVFAKp6ithU
- HsjCJjTIVNmRSKBUP6bM2vX7HQXd/kqGyPzL6AO4iI+iB8TusNMlHxNFUkb36uwwAwc8uN
- SCVmLoMR/scL/Jz4EBOAuzAQD02IYoVrIYq1MNN03qOCft36nfQHBx5Wm8NopxtVSHKIC0
- +7q6jNwndNZrUZpcLnB+S5CsGCAtKzdXd2tLF5blJtYK8fz7pJolZTed0/UZHQ==
+ bh=QjTr2Jmo4sllECWNzVI6O2II4pn3OSCLwMo1L497iBk=;
+ b=q2GXSr3MBNevWtr1X4GL5najFiFRCky4UDT9+gVxjCXDZmeQnPUNB3iBKRW8SS5eMuwAH0
+ e0RcOblp7qN+c50PtK5sZyWm7zvlBrfenS0ff+azzPN+fTSjdar7/YoOFPhzX2xzFO+ioP
+ ZEgz69QYHQLGn8EMFMvl3NKPghhdfQu91EPTu7GXgpn3ln5u/vnxtTgNkfoTuHO2s/lf7O
+ HXYgmH+GXJv/mSQTXZVJs1rsIiEwV0/ZzwEhCKGCkQPspx45LzvgFWd8XydFDzeoZeQvyW
+ rLB8r/PtIndVeczq82GfGMwOXFL0P1Gv7id5bAIl9G04miXl2G84LDQQqs7VQg==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 16 Sep 2026 15:45:41 +0200
-Subject: [PATCH v3 17/19] drm/omap: dss: don't create a panel_bridge
+Date: Wed, 16 Sep 2026 15:45:42 +0200
+Subject: [PATCH v3 18/19] drm/tve200: don't create a panel_bridge
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-drm-bridge-every-panel-v3-17-83afb4f1a707@bootlin.com>
+Message-Id: <20260916-drm-bridge-every-panel-v3-18-83afb4f1a707@bootlin.com>
 References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
 In-Reply-To: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -96,104 +96,125 @@ panel-bridge API is just a deprecated wrapper to access it.
 Update and simplify the code by just getting a reference to the
 already-existing bridge using of_drm_get_bridge_by_endpoint().
 
+And since of_drm_find_and_get_bridge() returns a refcounted bridge, take
+care of putting the bridge reference.
+
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/omapdrm/dss/omapdss.h |  1 -
- drivers/gpu/drm/omapdrm/dss/output.c  | 42 ++++-------------------------------
- 2 files changed, 4 insertions(+), 39 deletions(-)
+ drivers/gpu/drm/tve200/Kconfig      |  1 -
+ drivers/gpu/drm/tve200/tve200_drm.h |  1 -
+ drivers/gpu/drm/tve200/tve200_drv.c | 30 +++++++-----------------------
+ 3 files changed, 7 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/omapdrm/dss/omapdss.h b/drivers/gpu/drm/omapdrm/dss/omapdss.h
-index 4c22c09c93d5..e3e685c931f1 100644
---- a/drivers/gpu/drm/omapdrm/dss/omapdss.h
-+++ b/drivers/gpu/drm/omapdrm/dss/omapdss.h
-@@ -204,7 +204,6 @@ struct omap_dss_device {
- 	struct dss_device *dss;
- 	struct drm_bridge *bridge;
- 	struct drm_bridge *next_bridge;
+diff --git a/drivers/gpu/drm/tve200/Kconfig b/drivers/gpu/drm/tve200/Kconfig
+index c0746ae8f703..afe243df4ebb 100644
+--- a/drivers/gpu/drm/tve200/Kconfig
++++ b/drivers/gpu/drm/tve200/Kconfig
+@@ -8,7 +8,6 @@ config DRM_TVE200
+ 	select DRM_BRIDGE
+ 	select DRM_CLIENT_SELECTION
+ 	select DRM_PANEL
+-	select DRM_PANEL_BRIDGE
+ 	select DRM_KMS_HELPER
+ 	select DRM_GEM_DMA_HELPER
+ 	help
+diff --git a/drivers/gpu/drm/tve200/tve200_drm.h b/drivers/gpu/drm/tve200/tve200_drm.h
+index 631a9f5d9aa6..708f8020667a 100644
+--- a/drivers/gpu/drm/tve200/tve200_drm.h
++++ b/drivers/gpu/drm/tve200/tve200_drm.h
+@@ -103,7 +103,6 @@ struct tve200_drm_dev_private {
+ 	struct drm_device *drm;
+ 
+ 	struct drm_connector *connector;
 -	struct drm_panel *panel;
- 
- 	struct list_head list;
- 
-diff --git a/drivers/gpu/drm/omapdrm/dss/output.c b/drivers/gpu/drm/omapdrm/dss/output.c
-index 6e9bc605ee22..36d37deac802 100644
---- a/drivers/gpu/drm/omapdrm/dss/output.c
-+++ b/drivers/gpu/drm/omapdrm/dss/output.c
-@@ -12,7 +12,6 @@
- #include <linux/of_graph.h>
- 
- #include <drm/drm_bridge.h>
--#include <drm/drm_panel.h>
- 
- #include "dss.h"
- #include "omapdss.h"
-@@ -20,40 +19,16 @@
- int omapdss_device_init_output(struct omap_dss_device *out,
- 			       struct drm_bridge *local_bridge)
+ 	struct drm_bridge *bridge;
+ 	struct drm_plane plane;
+ 	struct drm_crtc crtc;
+diff --git a/drivers/gpu/drm/tve200/tve200_drv.c b/drivers/gpu/drm/tve200/tve200_drv.c
+index 63ca4a53fc4c..9874554e5065 100644
+--- a/drivers/gpu/drm/tve200/tve200_drv.c
++++ b/drivers/gpu/drm/tve200/tve200_drv.c
+@@ -65,7 +65,6 @@ static int tve200_modeset_init(struct drm_device *dev)
  {
--	struct device_node *remote_node;
-+	struct drm_bridge *bridge;
+ 	struct drm_mode_config *mode_config;
+ 	struct tve200_drm_dev_private *priv = dev->dev_private;
+-	struct drm_panel *panel;
+ 	struct drm_bridge *bridge;
  	int ret;
  
--	remote_node = of_graph_get_remote_node(out->dev->of_node,
--					       out->of_port, 0);
--	if (!remote_node) {
-+	bridge = of_drm_get_bridge_by_endpoint(out->dev->of_node, out->of_port, 0);
-+	if (IS_ERR(bridge)) {
- 		dev_dbg(out->dev, "failed to find video sink\n");
- 		return 0;
- 	}
+@@ -77,19 +76,10 @@ static int tve200_modeset_init(struct drm_device *dev)
+ 	mode_config->min_height = 240;
+ 	mode_config->max_height = 576;
  
--	out->panel = of_drm_find_panel(remote_node);
--	if (IS_ERR(out->panel))
--		out->panel = NULL;
--
--	if (!out->panel)
--		out->bridge = of_drm_find_and_get_bridge(remote_node);
--
--	of_node_put(remote_node);
--
--	if (out->panel) {
--		struct drm_bridge *bridge;
--
--		bridge = drm_panel_bridge_add(out->panel);
--		drm_panel_put(out->panel);
+-	ret = drm_of_find_panel_or_bridge(dev->dev->of_node,
+-					  0, 0, &panel, &bridge);
+-	if (ret && ret != -ENODEV)
+-		return ret;
+-	if (panel) {
+-		bridge = drm_panel_bridge_add_typed(panel,
+-						    DRM_MODE_CONNECTOR_Unknown);
+-		drm_panel_put(panel);
 -		if (IS_ERR(bridge)) {
--			dev_err(out->dev,
--				"unable to create panel bridge (%ld)\n",
--				PTR_ERR(bridge));
 -			ret = PTR_ERR(bridge);
--			goto error;
+-			goto out_bridge;
 -		}
--
--		out->bridge = drm_bridge_get(bridge);
--	}
-+	out->bridge = bridge;
- 
- 	if (local_bridge) {
- 		if (!out->bridge) {
-@@ -65,11 +40,6 @@ int omapdss_device_init_output(struct omap_dss_device *out,
- 		out->bridge = drm_bridge_get(local_bridge);
+-	} else {
++	bridge = of_drm_get_bridge_by_endpoint(dev->dev->of_node, 0, 0);
++	if (IS_ERR(bridge) && PTR_ERR(bridge) != -ENODEV)
++		return PTR_ERR(bridge);
++	if (IS_ERR(bridge) || !drm_bridge_is_panel(bridge)) {
+ 		/*
+ 		 * TODO: when we are using a different bridge than a panel
+ 		 * (such as a dumb VGA connector) we need to devise a different
+@@ -100,6 +90,8 @@ static int tve200_modeset_init(struct drm_device *dev)
+ 		goto out_bridge;
  	}
  
--	if (!out->bridge) {
--		ret = -EPROBE_DEFER;
--		goto error;
--	}
++	bridge->type = DRM_MODE_CONNECTOR_Unknown;
++
+ 	ret = tve200_display_init(dev);
+ 	if (ret) {
+ 		dev_err(dev->dev, "failed to init display\n");
+@@ -121,9 +113,6 @@ static int tve200_modeset_init(struct drm_device *dev)
+ 		goto out_bridge;
+ 	}
+ 
+-	dev_info(dev->dev, "attached to panel %s\n",
+-		 dev_name(panel->dev));
 -
+ 	ret = drm_vblank_init(dev, 1);
+ 	if (ret) {
+ 		dev_err(dev->dev, "failed to init vblank\n");
+@@ -136,8 +125,6 @@ static int tve200_modeset_init(struct drm_device *dev)
+ 	goto finish;
+ 
+ out_bridge:
+-	if (panel)
+-		drm_panel_bridge_remove(bridge);
+ 	drm_mode_config_cleanup(dev);
+ finish:
+ 	return ret;
+@@ -233,8 +220,6 @@ static int tve200_probe(struct platform_device *pdev)
  	return 0;
  
- error:
-@@ -79,10 +49,6 @@ int omapdss_device_init_output(struct omap_dss_device *out,
+ mode_config_cleanup:
+-	if (priv->panel)
+-		drm_panel_bridge_remove(priv->bridge);
+ 	drm_mode_config_cleanup(drm);
+ clk_disable:
+ 	clk_disable_unprepare(priv->pclk);
+@@ -248,10 +233,9 @@ static void tve200_remove(struct platform_device *pdev)
+ 	struct drm_device *drm = platform_get_drvdata(pdev);
+ 	struct tve200_drm_dev_private *priv = drm->dev_private;
  
- void omapdss_device_cleanup_output(struct omap_dss_device *out)
- {
--	if (out->bridge && out->panel)
--		drm_panel_bridge_remove(out->next_bridge ?
--					out->next_bridge : out->bridge);
--
- 	drm_bridge_put(out->next_bridge);
- 	drm_bridge_put(out->bridge);
- }
++	drm_bridge_put(priv->bridge);
+ 	drm_dev_unregister(drm);
+ 	drm_atomic_helper_shutdown(drm);
+-	if (priv->panel)
+-		drm_panel_bridge_remove(priv->bridge);
+ 	drm_mode_config_cleanup(drm);
+ 	clk_disable_unprepare(priv->pclk);
+ 	drm_dev_put(drm);
 
 -- 
 2.55.0
