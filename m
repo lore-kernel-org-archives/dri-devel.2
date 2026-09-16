@@ -4,37 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7180AC88E77
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 09:55:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F34CEC88E77
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 09:56:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74C2D10E7E0;
-	Wed, 16 Sep 2026 09:55:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3466A10E8A4;
+	Wed, 16 Sep 2026 09:56:09 +0000 (UTC)
 Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BA3110E7E0;
- Wed, 16 Sep 2026 09:55:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 819B410E898;
+ Wed, 16 Sep 2026 09:56:06 +0000 (UTC)
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-03 (Coremail) with SMTP id rQCowABXXDp0Z6pqbrngBw--.37206S2;
- Wed, 16 Sep 2026 17:55:00 +0800 (CST)
+ by APP-03 (Coremail) with SMTP id rQCowACnrTu0Z6pqUb3gBw--.42600S2;
+ Wed, 16 Sep 2026 17:56:04 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- lijo.lazar@amd.com, linux-kernel@vger.kernel.org, simona@ffwll.ch,
- Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: Fix acpi device leak in
- amdgpu_acpi_enumerate_xcc()
-Date: Wed, 16 Sep 2026 09:54:32 +0000
-Message-Id: <20260916095432.2009976-1-vulab@iscas.ac.cn>
+To: Lang.Yu@amd.com
+Cc: airlied@gmail.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ simona@ffwll.ch, Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: Fix last_update fence leak in amdgpu_vm_init()
+Date: Wed, 16 Sep 2026 09:55:36 +0000
+Message-Id: <20260916095536.2010601-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowABXXDp0Z6pqbrngBw--.37206S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kw15ZFy5XF48Zr48GryxuFg_yoW8Jw4Upr
- 4Sqr15CryDuF12k3yUJanrXF90kay7uryfCrW7ZwnF9w45XFyrXFy5J3Wj9r97AFZ3CFsI
- yr9rJay8XF1qyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID: rQCowACnrTu0Z6pqUb3gBw--.42600S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WrWDtFykWr1fGrW5Gr4rKrg_yoW8XryUpF
+ WfGF17K3yDZr4xtw4UZF18ZFyqkw47XFyFkr4qkr1fWw1rJwnakry5ZrW8Wr97CFZ5AFW3
+ tr1DA3y8XF1qyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
  9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
  rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
  JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
  CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
  2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
@@ -46,7 +45,7 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7Kw15ZFy5XF48Zr48GryxuFg_yoW8Jw4Upr
  JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJr
  UvcSsGvfC2KfnxnUUI43ZEXa7VUbtl1PUUUUU==
 X-Originating-IP: [36.110.52.2]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIMA2qqP4ejfgAAsx
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEMA2qqP7miUQAAs3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,39 +61,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-amdgpu_acpi_enumerate_xcc() looks up each XCC ACPI device with
-acpi_dev_get_first_match_dev(), which takes a reference to the device.
-The reference is dropped with acpi_dev_put() after the XCC info is
-initialized, but if the kzalloc_obj() allocation of the XCC info fails
-the function returns -ENOMEM without releasing the reference, leaking
-the last reference to the ACPI device.
+amdgpu_vm_init() initializes vm->last_update, vm->last_unlocked and
+vm->last_tlb_flush with references to the stub fence taken via
+dma_fence_get_stub().  The error label at the end of the function
+releases the last_unlocked and last_tlb_flush references with
+dma_fence_put(), but the reference stored in vm->last_update is never
+dropped, so whenever the page table root creation, the reservation of
+the root BO or the PASID registration fails, the stub fence reference
+leaks.
 
-Drop the ACPI device reference on the allocation failure path before
-returning.
+Drop the vm->last_update reference together with the other stub fence
+references on the error path.
 
-Fixes: 4d5275ab0b18 ("drm/amdgpu: Add parsing of acpi xcc objects")
+Fixes: 187916e6ed9d ("drm/amdgpu: install stub fence into potential unused fence pointers")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index 516ab9cf88fc..8d3f1f5a141e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -1167,8 +1167,10 @@ int amdgpu_acpi_enumerate_xcc(void)
- 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index fccd758b6699..494197ac20e8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2693,6 +2693,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	amdgpu_bo_unref(&root_bo);
  
- 		xcc_info = kzalloc_obj(struct amdgpu_acpi_xcc_info);
--		if (!xcc_info)
-+		if (!xcc_info) {
-+			acpi_dev_put(acpi_dev);
- 			return -ENOMEM;
-+		}
- 
- 		INIT_LIST_HEAD(&xcc_info->list);
- 		xcc_info->handle = acpi_device_handle(acpi_dev);
+ error_free_delayed:
++	dma_fence_put(vm->last_update);
+ 	dma_fence_put(vm->last_tlb_flush);
+ 	dma_fence_put(vm->last_unlocked);
+ 	ttm_lru_bulk_move_fini(&adev->mman.bdev, &vm->lru_bulk_move);
 -- 
 2.34.1
 
