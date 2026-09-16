@@ -4,33 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F34CEC88E77
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 09:56:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE42EC88E77
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 09:58:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3466A10E8A4;
-	Wed, 16 Sep 2026 09:56:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C40B910E087;
+	Wed, 16 Sep 2026 09:58:37 +0000 (UTC)
 Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 819B410E898;
- Wed, 16 Sep 2026 09:56:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A07C510E087;
+ Wed, 16 Sep 2026 09:58:35 +0000 (UTC)
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-03 (Coremail) with SMTP id rQCowACnrTu0Z6pqUb3gBw--.42600S2;
- Wed, 16 Sep 2026 17:56:04 +0800 (CST)
+ by APP-03 (Coremail) with SMTP id rQCowABXXDpJaKpqJMXgBw--.37267S2;
+ Wed, 16 Sep 2026 17:58:33 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Lang.Yu@amd.com
+To: Dennis.Li@amd.com
 Cc: airlied@gmail.com, alexander.deucher@amd.com,
  amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- simona@ffwll.ch, Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: Fix last_update fence leak in amdgpu_vm_init()
-Date: Wed, 16 Sep 2026 09:55:36 +0000
-Message-Id: <20260916095536.2010601-1-vulab@iscas.ac.cn>
+ monk.liu@amd.com, simona@ffwll.ch, Wentao Liang <vulab@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: Fix runtime PM leak in
+ amdgpu_debugfs_test_ib_show()
+Date: Wed, 16 Sep 2026 09:58:05 +0000
+Message-Id: <20260916095805.2011304-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowACnrTu0Z6pqUb3gBw--.42600S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7WrWDtFykWr1fGrW5Gr4rKrg_yoW8XryUpF
- WfGF17K3yDZr4xtw4UZF18ZFyqkw47XFyFkr4qkr1fWw1rJwnakry5ZrW8Wr97CFZ5AFW3
- tr1DA3y8XF1qyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID: rQCowABXXDpJaKpqJMXgBw--.37267S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uFW5JFWDtFW5uFW5Gry8Zrb_yoW8GFy7p3
+ 9Yg3WYvr1DZF17t34DAa18XFyru3yaqryxGrykuw1Uu3Z8JF1rJF15JrWjgry8GrZ7CwsI
+ vrZ7KrW3ZF1qyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
  9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
  rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
  1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
@@ -45,7 +47,7 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7WrWDtFykWr1fGrW5Gr4rKrg_yoW8XryUpF
  JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJr
  UvcSsGvfC2KfnxnUUI43ZEXa7VUbtl1PUUUUU==
 X-Originating-IP: [36.110.52.2]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEMA2qqP7miUQAAs3
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggMA2qqPpSseAAAs-
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,37 +63,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-amdgpu_vm_init() initializes vm->last_update, vm->last_unlocked and
-vm->last_tlb_flush with references to the stub fence taken via
-dma_fence_get_stub().  The error label at the end of the function
-releases the last_unlocked and last_tlb_flush references with
-dma_fence_put(), but the reference stored in vm->last_update is never
-dropped, so whenever the page table root creation, the reservation of
-the root BO or the PASID registration fails, the stub fence reference
-leaks.
+amdgpu_debugfs_test_ib_show() resumes the device with
+pm_runtime_get_sync() before taking the reset domain semaphore with
+down_write_killable().  If the write lock acquisition is interrupted,
+the function returns without calling pm_runtime_put_autosuspend(),
+leaking the runtime PM reference acquired for the device and keeping
+the GPU awake.
 
-Drop the vm->last_update reference together with the other stub fence
-references on the error path.
+Drop the runtime PM reference on the interrupted down_write_killable()
+error path before returning.
 
-Fixes: 187916e6ed9d ("drm/amdgpu: install stub fence into potential unused fence pointers")
+Fixes: 6049db43d6dd ("drm/amdgpu: change reset lock from mutex to rw_semaphore")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index fccd758b6699..494197ac20e8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2693,6 +2693,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	amdgpu_bo_unref(&root_bo);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 092fd3309099..adc0252f6400 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1764,8 +1764,10 @@ static int amdgpu_debugfs_test_ib_show(struct seq_file *m, void *unused)
  
- error_free_delayed:
-+	dma_fence_put(vm->last_update);
- 	dma_fence_put(vm->last_tlb_flush);
- 	dma_fence_put(vm->last_unlocked);
- 	ttm_lru_bulk_move_fini(&adev->mman.bdev, &vm->lru_bulk_move);
+ 	/* Avoid accidently unparking the sched thread during GPU reset */
+ 	r = down_write_killable(&adev->reset_domain->sem);
+-	if (r)
++	if (r) {
++		pm_runtime_put_autosuspend(dev->dev);
+ 		return r;
++	}
+ 
+ 	/* hold on the scheduler */
+ 	for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
 -- 
 2.34.1
 
