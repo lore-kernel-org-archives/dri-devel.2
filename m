@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22666C982C3
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 14:23:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47555C982C4
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 14:23:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D97C10EB59;
-	Wed, 16 Sep 2026 14:23:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1273110EB4C;
+	Wed, 16 Sep 2026 14:23:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZdUQ5q7g";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CCSa+cVK";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5683710E8F4;
- Wed, 16 Sep 2026 14:23:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3686C10E8F4;
+ Wed, 16 Sep 2026 14:23:09 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C528844856;
- Wed, 16 Sep 2026 14:23:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9ED60C2BCF7;
- Wed, 16 Sep 2026 14:23:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8D3AD42A32;
+ Wed, 16 Sep 2026 14:23:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 636CEC2BCB3;
+ Wed, 16 Sep 2026 14:23:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1789568583;
- bh=68xt0rCfMk3htQ+CNQtRlu7SHWfHYk23uy9xMNYUavE=;
+ s=k20201202; t=1789568584;
+ bh=W5bxwKW7Qv7LDsd62O2zaLBXfqVwPhTC1S3iUkPX6gk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=ZdUQ5q7g+6VJixBAP2wzqsp4xZThg9LNCib9S0Y8CKOFMdD9+H7B1ll2XdemGHU6L
- aqrqNgIxbM6y07I1kDY4l79ytFwI+XjMTNeoCO+yi/Tqqq1ZGH+tfP/ZdwA7OXjnyi
- 1cNR4SzzbKj/8RDqHjIAMQe34MfTzudT17+JR3/HrRBKj1CDE/7ofoe6WAn7sAQVCE
- ZSSiSvDCwcZuWPUmrtA4xUKvGMefP4UmEhneEDj+qYfwVfwwmRK6amo4zkgDd3ZplM
- 91g4bLfIp6CwdmP+f3fMvEAIDg0tDRXtDJurucRMIBv5Q3TxJaFrY3bOv5iuYeEdBa
- JBPJnFa8if7hg==
+ b=CCSa+cVKIB/ZxGxQNaScqwBS2X/chkgymrN7PI9NK5QQHH7p5/GZr3hK1VClTcQu+
+ eq/U9PImkmxMwJkXmiEPjGD21xQ1nDnuCkHNbFeB7F5TJ3ZY4QEK4iRsMDeBl5ESYD
+ lAK8gmlGrBtzjJEPkgPLO5dsNzZkz5Csy/narFEDvNnAbU1Kq1xjq/K58j1qe9t2OD
+ 5K5eSwJyeximL1zlULwiGVEqat4jYmh+xxqbNc25vaIguJ7vcPP1UmXxrCogwCZxrB
+ z3UQqLIVF/5PracdYjCugdYjx7b1dMPy/ZYTLQuvx4u6v7r5IHN8Sc1BiK5fZtP4Ja
+ zA//jwzWxyd6g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 833E9C88E77;
- Wed, 16 Sep 2026 14:23:03 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 4B6DBC982C5;
+ Wed, 16 Sep 2026 14:23:04 +0000 (UTC)
 From: Muzaffer Kadir via B4 Relay
  <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Wed, 16 Sep 2026 17:22:18 +0300
-Subject: [PATCH v2 13/19] drm: msm: mdp5: Add MDP5 configuration for
- MSM8952
+Date: Wed, 16 Sep 2026 17:22:24 +0300
+Subject: [PATCH v2 19/19] arm64: dts: qcom: generalmobile-shamrock: new device
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-msm8952-initial-support-v2-13-798c2602dde1@mainlining.org>
+Message-Id: <20260916-msm8952-initial-support-v2-19-798c2602dde1@mainlining.org>
 References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
 In-Reply-To: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
 To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
@@ -78,11 +77,11 @@ Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
  linux-pm@vger.kernel.org, linux-input@vger.kernel.org, 
  Muzaffer Kadir <muzafferkadir@mainlining.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789568579; l=2908;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789568579; l=11308;
  i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=iJr3V7WxoPjZJBrBl5G8abT5fWMjrLqAWAzBrQzyHX8=;
- b=K6cMt2RzCyLTcNfNqQpFwSE97LtWUMtFbd+1vhHKt0SMEKwr64JQjm2aa/l3hLO13iuQw1Ezs
- 2DDPYIFwNLeAYxaIHN0iF8IYhcIESviwBogVCfp8KTJbo9K3kud4JxX
+ bh=/IrfQac56QvvxYiADORju0/FWRcrPJaPis1VE0E9U5M=;
+ b=6ZN09MjQ+trrem67KAH/ylyagf/vDayDtWtal8Pff15BEzniGYKdfzw/UvOVtNC393qb/jd6p
+ IMUcP65wJpYBZmlnVd+VIccIBkOkWGYNz3QuQRQSiK4tSj12O4Wjuum
 X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
  pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
 X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
@@ -106,112 +105,471 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Add the mdp5_cfg_hw entry for MDP5 version v1.12 found on MSM8952.
+Add General Mobile Shamrock (GM 5 Plus). Shamrock is designed
+similar to L9300. Downstream reference is [1].
+
+[1] https://github.com/Asderdd/android_kernel_generalmobile_shamrock/blob/cm-14.1/arch/arm/boot/dts/qcom/msm8952-l9300.dtsi
 
 Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c | 81 ++++++++++++++++++++++++++++++++
- 1 file changed, 81 insertions(+)
+ arch/arm64/boot/dts/qcom/Makefile                  |   1 +
+ .../dts/qcom/msm8952-generalmobile-shamrock.dts    | 436 +++++++++++++++++++++
+ 2 files changed, 437 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-index 7c91fc1915f3..d34c94d6f7e2 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-@@ -744,6 +744,86 @@ static const struct mdp5_cfg_hw msm8x76_config = {
- 	.max_clk = 360000000,
- };
- 
-+static const struct mdp5_cfg_hw msm8952_config = {
-+	.name = "msm8952",
-+	.mdp = {
-+		.count = 1,
-+		.base = { 0x0 },
-+		.caps = MDP_CAP_SMP |
-+			0,
-+	},
-+	.smp = {
-+		.mmb_count = 8,
-+		.mmb_size = 8192,
-+		.clients = {
-+			[SSPP_VIG0] = 1, [SSPP_DMA0] = 4,
-+			[SSPP_RGB0] = 7, [SSPP_RGB1] = 8,
-+		},
-+	},
-+	.ctl = {
-+		.count = 3,
-+		.base = { 0x01000, 0x01200, 0x01400 },
-+		.flush_hw_mask = 0xffffffff,
-+	},
-+	.pipe_vig = {
-+		.count = 1,
-+		.base = { 0x04000 },
-+		.caps = MDP_PIPE_CAP_HFLIP | MDP_PIPE_CAP_VFLIP |
-+				MDP_PIPE_CAP_SCALE | MDP_PIPE_CAP_CSC |
-+				MDP_PIPE_CAP_DECIMATION,
-+	},
-+	.pipe_rgb = {
-+		.count = 2,
-+		.base = { 0x14000, 0x16000 },
-+		.caps = MDP_PIPE_CAP_HFLIP | MDP_PIPE_CAP_VFLIP |
-+				MDP_PIPE_CAP_DECIMATION,
-+	},
-+	.pipe_dma = {
-+		.count = 1,
-+		.base = { 0x24000 },
-+		.caps = MDP_PIPE_CAP_HFLIP | MDP_PIPE_CAP_VFLIP,
-+	},
-+	.pipe_cursor = {
-+		.count = 1,
-+		.base = { 0x440DC },
-+		.caps = MDP_PIPE_CAP_HFLIP	|
-+			MDP_PIPE_CAP_VFLIP	|
-+			MDP_PIPE_CAP_SW_PIX_EXT	|
-+			MDP_PIPE_CAP_CURSOR	|
-+			0,
-+	},
-+	.lm = {
-+		.count = 2,
-+		.base = { 0x44000, 0x47000 },
-+		.instances = {
-+				{ .id = 0, .pp = 0, .dspp = 0,
-+				  .caps = MDP_LM_CAP_DISPLAY, },
-+				{ .id = 3, .pp = -1, .dspp = -1,
-+				  .caps = MDP_LM_CAP_WB },
-+			     },
-+		.nb_stages = 8,
-+		.max_width = 2048,
-+		.max_height = 0xFFFF,
-+	},
-+	.dspp = {
-+		.count = 1,
-+		.base = { 0x54000 },
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index d6547fb18edf..3cc2dfb09116 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -125,6 +125,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= msm8939-samsung-a7.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8939-sony-xperia-kanuti-tulip.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8939-wingtech-wt82918.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8939-wingtech-wt82918hd.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= msm8952-generalmobile-shamrock.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-flipkart-rimob.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-motorola-potter.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-xiaomi-daisy.dtb
+diff --git a/arch/arm64/boot/dts/qcom/msm8952-generalmobile-shamrock.dts b/arch/arm64/boot/dts/qcom/msm8952-generalmobile-shamrock.dts
+new file mode 100644
+index 000000000000..e6c92ebcbf21
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/msm8952-generalmobile-shamrock.dts
+@@ -0,0 +1,436 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +
-+	},
-+	.pp = {
-+		.count = 3,
-+		.base = { 0x70000, 0x70800, 0x72000 },
-+	},
-+	.intf = {
-+		.base = { 0x00000, 0x6a800 },
-+		.connect = {
-+			[0] = INTF_DISABLED,
-+			[1] = INTF_DSI,
-+		},
-+	},
-+	.max_clk = 320000000,
++/dts-v1/;
++
++#include "msm8952.dtsi"
++#include "pm8950.dtsi"
++#include "pmi8950.dtsi"
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/leds/common.h>
++
++/ {
++	model = "General Mobile GM 5 Plus";
++	compatible = "generalmobile,shamrock", "qcom,msm8952";
++	qcom,msm-id = <QCOM_ID_MSM8952 0x0>;
++	qcom,board-id = <QCOM_BOARD_ID_QRD 1>;
++	chassis-type = "handset";
++
++	aliases {
++		mmc0 = &sdhc_1; /* SDC1 eMMC slot */
++		mmc1 = &sdhc_2; /* SDC2 SD card slot */
++		serial0 = &blsp1_uart2;
++	};
++
++	battery: battery {
++		compatible = "simple-battery";
++
++		charge-term-current-microamp = <100000>;
++		charge-full-design-microamp-hours = <3100000>;
++		constant-charge-current-max-microamp = <3000000>;
++		constant-charge-voltage-max-microvolt = <4400000>;
++		voltage-min-design-microvolt = <3400000>;
++		voltage-max-design-microvolt = <4400000>;
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++
++		framebuffer {
++			compatible = "simple-framebuffer";
++			memory-region = <&cont_splash_mem>;
++
++			width = <1080>;
++			height = <1920>;
++			stride = <(1080 * 3)>;
++			format = "r8g8b8";
++
++			power-domains = <&gcc MDSS_GDSC>;
++
++			clocks = <&gcc GCC_MDSS_AHB_CLK>,
++				 <&gcc GCC_MDSS_AXI_CLK>,
++				 <&gcc GCC_MDSS_VSYNC_CLK>,
++				 <&gcc GCC_MDSS_MDP_CLK>,
++				 <&gcc GCC_MDSS_BYTE0_CLK>,
++				 <&gcc GCC_MDSS_PCLK0_CLK>,
++				 <&gcc GCC_MDSS_ESC0_CLK>;
++		};
++	};
++
++	/* Front Flash */
++	flash-led-controller {
++		compatible = "sgmicro,sgm3140";
++
++		enable-gpios = <&tlmm 33 GPIO_ACTIVE_HIGH>;
++		flash-gpios = <&tlmm 128 GPIO_ACTIVE_HIGH>;
++
++		pinctrl-0 = <&front_flash_default>;
++		pinctrl-names = "default";
++
++		front_flash_led: led {
++			function = LED_FUNCTION_FLASH;
++			color = <LED_COLOR_ID_WHITE>;
++			flash-max-microamp = <1000000>;
++			led-max-microamp = <625000>;
++			flash-max-timeout-us = <1280000>;
++		};
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++
++		pinctrl-0 = <&gpio_hall_sensor_default>, <&gpio_keys_default>;
++		pinctrl-names = "default";
++
++		event-hall-sensor {
++			label = "Hall Effect Sensor";
++			gpios = <&tlmm 46 GPIO_ACTIVE_LOW>;
++			linux,input-type = <EV_SW>;
++			linux,code = <SW_LID>;
++			linux,can-disable;
++			wakeup-source;
++		};
++
++		button-volume-up {
++			label = "Volume Up";
++			gpios = <&tlmm 85 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_VOLUMEUP>;
++			debounce-interval = <15>;
++			wakeup-source;
++		};
++	};
++
++	multi-led {
++		compatible = "leds-group-multicolor";
++		color = <LED_COLOR_ID_RGB>;
++		function = LED_FUNCTION_INDICATOR;
++		leds = <&red_status>, <&green_status>, <&blue_status>;
++	};
++
++	reserved-memory {
++		cont_splash_mem: cont-splash@83200000 {
++			reg = <0x0 0x83200000 0x0 (1080 * 1920 * 3)>;
++			no-map;
++		};
++	};
++
++	vph_pwr: regulator-vph-pwr {
++		compatible = "regulator-fixed";
++		regulator-name = "vph-pwr";
++		regulator-always-on;
++		regulator-boot-on;
++	};
 +};
 +
- static const struct mdp5_cfg_hw msm8x53_config = {
- 	.name = "msm8x53",
- 	.mdp = {
-@@ -1017,6 +1097,7 @@ static const struct mdp5_cfg_handler cfg_handlers_v1[] = {
- 	{ .revision = 9, .config = { .hw = &msm8x94_config } },
- 	{ .revision = 7, .config = { .hw = &msm8x96_config } },
- 	{ .revision = 11, .config = { .hw = &msm8x76_config } },
-+	{ .revision = 12, .config = { .hw = &msm8952_config } },
- 	{ .revision = 14, .config = { .hw = &msm8937_config } },
- 	{ .revision = 15, .config = { .hw = &msm8917_config } },
- 	{ .revision = 16, .config = { .hw = &msm8x53_config } },
++&adsp {
++	status = "okay";
++};
++
++&blsp1_i2c2 {
++	status = "okay";
++	/* SMB1351 @1d charger */
++	/* wsa881x-i2c @e @44 @f @45 audio amplifier */
++};
++
++&blsp1_i2c3 {
++	status = "okay";
++
++	/* himax,852x@48 Touchscreen */
++
++	touchscreen@5d {
++		compatible = "goodix,gt970", "goodix,gt911";
++		reg = <0x5d>;
++		interrupts-extended = <&tlmm 65 IRQ_TYPE_EDGE_FALLING>;
++		irq-gpios = <&tlmm 65 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&tlmm 64 GPIO_ACTIVE_HIGH>;
++		AVDD28-supply = <&pm8950_l10>;
++		VDDIO-supply = <&pm8950_l6>;
++
++		pinctrl-0 = <&touchscreen_default>;
++		pinctrl-names = "default";
++
++		touchscreen-size-x = <1080>;
++		touchscreen-size-y = <1920>;
++	};
++};
++
++&blsp2_i2c1 {
++	status = "okay";
++
++	/* FUSB301 @25 USB-C Controller */
++
++	tpa6130a2: tpa6130a2@60 {
++		compatible = "ti,tpa6130a2";
++		pinctrl-0 = <&tpa6130a2_default>;
++		pinctrl-names = "default";
++		reg = <0x60>;
++		power-gpio = <&tlmm 61 GPIO_ACTIVE_HIGH>;
++		Vdd-supply = <&pm8950_l22>;
++	};
++
++	tusb320: tusb320@67 {
++		compatible = "ti,tusb320";
++		reg = <0x67>;
++		interrupts-extended = <&tlmm 45 IRQ_TYPE_EDGE_RISING>;
++	};
++
++	led-controller@68 {
++		compatible = "si-en,sn3193";
++		reg = <0x68>;
++
++		shutdown-gpios = <&tlmm 68 GPIO_ACTIVE_HIGH>;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		red_status: led@1 {
++			reg = <1>;
++			label = "red:status";
++			led-max-microamp = <17500>;
++		};
++
++		green_status: led@2 {
++			reg = <2>;
++			label = "green:status";
++			led-max-microamp = <17500>;
++		};
++
++		blue_status: led@3 {
++			reg = <3>;
++			label = "blue:status";
++			led-max-microamp = <17500>;
++		};
++	};
++};
++
++&lpass_mem {
++	status = "okay";
++};
++
++&pm8950_spmi_regulators {
++	/* PM8950 S5 + S6 = VDD_APC supply */
++	pm8950_s5: s5 {
++		regulator-min-microvolt = <1050000>;
++		regulator-max-microvolt = <1350000>;
++		regulator-always-on;
++		regulator-boot-on;
++	};
++};
++
++&pm8950_resin {
++	linux,code = <KEY_VOLUMEDOWN>;
++
++	status = "okay";
++};
++
++&pmi8950_wled {
++	qcom,enabled-strings = <0 1>;
++	qcom,current-limit-microamp = <30000>;
++	qcom,ovp-millivolt = <29500>;
++	qcom,external-pfet;
++
++	status = "okay";
++};
++
++&ramoops_mem {
++	status = "okay";
++};
++
++&rpm_requests {
++	pm8950_rpm_regulators: regulators {
++		compatible = "qcom,rpm-pm8950-regulators";
++		vdd_s1-supply = <&vph_pwr>;
++		vdd_s2-supply = <&vph_pwr>;
++		vdd_s3-supply = <&vph_pwr>;
++		vdd_s4-supply = <&vph_pwr>;
++		vdd_s6-supply = <&vph_pwr>;
++		vdd_l1_l19-supply = <&pm8950_s3>;
++		vdd_l2_l23-supply = <&pm8950_s3>;
++		vdd_l3-supply = <&pm8950_s3>;
++		vdd_l5_l6_l7_l16-supply = <&pm8950_s4>;
++		vdd_l8_l11_l12_l17_l22-supply = <&vph_pwr>;
++		vdd_l9_l10_l13_l14_l15_l18-supply = <&vph_pwr>;
++
++		pm8950_s1: s1 {
++			regulator-min-microvolt = <1000000>;
++			regulator-max-microvolt = <1225000>;
++		};
++
++		pm8950_s3: s3 {
++			regulator-min-microvolt = <1300000>;
++			regulator-max-microvolt = <1300000>;
++		};
++		pm8950_s4: s4 {
++			regulator-min-microvolt = <2050000>;
++			regulator-max-microvolt = <2050000>;
++		};
++
++		pm8950_l2: l2 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-always-on;
++			regulator-boot-on;
++		};
++
++		/* pm8950_l3 is managed by rpmpd (RPMPD_VDDMX) */
++
++		pm8950_l5: l5 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8950_l6: l6 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8950_l7: l7 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8950_l8: l8 {
++			regulator-min-microvolt = <2850000>;
++			regulator-max-microvolt = <2900000>;
++		};
++
++		pm8950_l9: l9 {
++			regulator-min-microvolt = <3000000>;
++			regulator-max-microvolt = <3300000>;
++		};
++
++		pm8950_l10: l10 {
++			regulator-min-microvolt = <2800000>;
++			regulator-max-microvolt = <2800000>;
++		};
++
++		pm8950_l11: l11 {
++			regulator-min-microvolt = <2950000>;
++			regulator-max-microvolt = <2950000>;
++			regulator-allow-set-load;
++			regulator-system-load = <200000>;
++		};
++
++		pm8950_l12: l12 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2950000>;
++		};
++
++		pm8950_l13: l13 {
++			regulator-min-microvolt = <3075000>;
++			regulator-max-microvolt = <3075000>;
++		};
++
++		pm8950_l14: l14 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <3300000>;
++		};
++
++		pm8950_l15: l15 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <3300000>;
++		};
++
++		pm8950_l16: l16 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8950_l17: l17 {
++			regulator-min-microvolt = <2850000>;
++			regulator-max-microvolt = <2850000>;
++		};
++
++		pm8950_l19: l19 {
++			regulator-min-microvolt = <1225000>;
++			regulator-max-microvolt = <1350000>;
++		};
++
++		pm8950_l22: l22 {
++			regulator-min-microvolt = <2800000>;
++			regulator-max-microvolt = <2800000>;
++		};
++
++		pm8950_l23: l23 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++		};
++	};
++};
++
++&sdhc_1 {
++	vmmc-supply = <&pm8950_l8>;
++	vqmmc-supply = <&pm8950_l5>;
++
++	status = "okay";
++};
++
++&sdhc_2 {
++	cd-gpios = <&tlmm 67 GPIO_ACTIVE_HIGH>;
++	vmmc-supply = <&pm8950_l11>;
++	vqmmc-supply = <&pm8950_l12>;
++
++	status = "okay";
++};
++
++&sleep_clk {
++	clock-frequency = <32768>;
++};
++
++&tlmm {
++	gpio-reserved-ranges = <20 4>; /* Unknown, TZ Protected */
++
++	gpio_hall_sensor_default: gpio-hall-sensor-default-state {
++		pins = "gpio46";
++		function = "gpio";
++		drive-strength = <6>;
++		bias-pull-up;
++	};
++
++	tpa6130a2_default: tpa6130a2-default-state {
++		pins = "gpio61";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-pull-down;
++	};
++
++	touchscreen_default: touchscreen-default-state {
++		ts-reset-pins {
++			pins = "gpio64";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-disable;
++		};
++		ts-irq-pins {
++			pins = "gpio65";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-disable;
++		};
++	};
++
++	gpio_keys_default: gpio-keys-default-state {
++		pins = "gpio85";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-up;
++	};
++
++	front_flash_default: front-flash-default-state {
++		front-flash-enable-pins {
++			pins = "gpio33";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-pull-down;
++		};
++		front-flash-flash-pins {
++			pins = "gpio128";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-pull-down;
++		};
++	};
++};
++
++&xo_board {
++	clock-frequency = <19200000>;
++};
 
 -- 
 2.55.0
