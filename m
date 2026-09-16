@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC259C982C1
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 16:49:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA44DC982C9
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 16:50:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0011410E070;
-	Wed, 16 Sep 2026 16:49:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38FDB10E3DF;
+	Wed, 16 Sep 2026 16:50:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cd4r1GHC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JRfWJMYb";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D04A10E070
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:49:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8163010E2B5
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:50:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2774543D61
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:49:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 091181F00898
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:49:52 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6B8B843D4A
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:50:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51A841F0089C
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:50:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789577392;
- bh=Ggb+PcHRJDo/Cz5nvBOFJMC2dQF5gLYbmIeM6Iqn8Mw=;
+ s=k20260515; t=1789577409;
+ bh=L7Nv3D+LAVl5eGsM7/8TZo2OXjqL6TT+3lXEOOWeVno=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=Cd4r1GHCl9wIrSqnqjtWDezktEP7YxzsTF995HOslNxGGx8emoYeghjU88ngoQ8la
- ODIi7iiXnwbLDy8NJzUKHUppA/yjwI8DTg4k6INkkeC/k5tkWXRtz8SF3iCERMkKnq
- NJRgf58SYKgDnJEvzG835+jYXRNfIaOA4gUAmk7WEAfG///8y94nPPLFEzOWOxFLJU
- P6VzaI7S9n7heLTKA5eMBQiy3AsnTOvEaiacnjt1UmASV9EM88p+9yquXHLKwLs4Po
- YqwY6p5IoBFOHSIzZDdhx+dmIDaP6H0oeP3LS1r0cUjRkq4oJLBsys+oQQPvYQSEMw
- tNNcU+93CV5UA==
+ b=JRfWJMYb32Rm+IxTGvWpJpVsMLrjJ68BqhbJ1lGRrYsTjhE1OZfZj1qbzkB0veld6
+ aydd8hcy346Zxb6783g1qefug17abCGHwEEP5EzN/vTF6tUlqT5ZPT9NonaNcBN6Mm
+ iFHRI8HRf+oFvcyk19LmsMR/ieQvjycJb8CfLWsfTiXI1BT7/RcsPiDeyUeP4sl6Te
+ lG7eTE1DFCyEJnR2F3YWWd+EREGj4zAlFNo6xxzQLZbMu98CG5M/4U6F5hTA659o1r
+ atcvb2ngG2XHrNfqUI5igAlUejpBaeyRareRjXW7WalzRDlX5tkNV+y19q3/HKoiYf
+ MIIkl+PwLwMGg==
 Received: by mail-lf2-f13.google.com with SMTP id
- 2adb3069b0e04-5b5e4f16f15so1138911e87.3
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 09:49:51 -0700 (PDT)
+ 2adb3069b0e04-5b5e4f13d77so1507725e87.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 09:50:09 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AKwUvBxRW6AHEy8mmXwm2TTaDvmgQ2mb7vvzIuY39SwgQV7c1rczFiCbPIEJMNoJDVtharrxQEqBIFs1JHo=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lGOTs/wsAvE4zjFAf7fK/B5JmDNzzJpPAldBo8iKnlg3+oADCf
- rKopN7kCGEyZFS0B0mtoDIq9jUw0d54ENwFnaR/DT7qcSHB8kcFuMpHd9GE2msBahocMCPbpV2o
- mHbcepkKITZgHAdwa7wkeQsXji0+3O3U=
-X-Received: by 2002:a05:6512:1595:b0:5b6:422:a61c with SMTP id
- 2adb3069b0e04-5b8b666eb43mr1907989e87.28.1789577390371; Wed, 16 Sep 2026
- 09:49:50 -0700 (PDT)
+ AKwUvByrDQWg9iNhLifb3XZB2V9GCNRtx62wZQiwCYDu5bONBGngfupbU2auka3qyfiuLk0n3+IfgTzbph8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m8cCimcHXtKNBdlI96j2HP8R5Yfx3l0pRN7st08/m9lbIOGlSV
+ VLd/qR3VqenQHO48Gu60kKvpDnK542k9hjqibVhos8VX3VshlGEXckT06aeMrxHJiRQ4VMX18Iv
+ M3ORbMRDs43CL5NU4wRwO4hqrspHD+gI=
+X-Received: by 2002:a05:6512:a91:b0:5b5:edd1:471f with SMTP id
+ 2adb3069b0e04-5b8b660ce5dmr1007964e87.11.1789577407936; Wed, 16 Sep 2026
+ 09:50:07 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260909132153.1596191-1-arnd@kernel.org>
- <20260909132153.1596191-3-arnd@kernel.org>
-In-Reply-To: <20260909132153.1596191-3-arnd@kernel.org>
+ <20260909132153.1596191-4-arnd@kernel.org>
+In-Reply-To: <20260909132153.1596191-4-arnd@kernel.org>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 18:49:37 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnHa+1e0N8V0znwzeTZSX1Y5YDAa=cVKSYjeFpZM0o_OQ@mail.gmail.com>
-X-Gm-Features: AcwNN1Whb6PQ06lQN_GxsWNtotsS8LqxjoSrqgaYpOWlLWlGsW2D5EFYiCtujyY
-Message-ID: <CAD++jLnHa+1e0N8V0znwzeTZSX1Y5YDAa=cVKSYjeFpZM0o_OQ@mail.gmail.com>
-Subject: Re: [PATCH 02/14] mfd: remove unused rdc321x southbridge support
+Date: Wed, 16 Sep 2026 18:49:55 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm-AwYYyJ9s2MTa7r_raesRar36Hugyf1R1Ny0zCqL5_A@mail.gmail.com>
+X-Gm-Features: AcwNN1UmqUhvwRMmw62XliPfw_HgO3-Fmrm9oMts4wPzbRxPuRqcz84S4okTZmg
+Message-ID: <CAD++jLm-AwYYyJ9s2MTa7r_raesRar36Hugyf1R1Ny0zCqL5_A@mail.gmail.com>
+Subject: Re: [PATCH 03/14] mfd: remove unused si476x driver
 To: Arnd Bergmann <arnd@kernel.org>
 Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
  linux-kernel@vger.kernel.org, 
@@ -98,13 +98,9 @@ e:
 
 > From: Arnd Bergmann <arnd@arndb.de>
 >
-> The rdc321x was a 486-class SoC developed by RDC. While RDC's later
-> products closely resemble the DM&P Vortex86 product line and are still
-> sold under both names, I checked the datasheets for those and found that
-> the GPIO and WDT blocks on them are incompatible with the rtc321x.
->
-> Remove this driver, as there is no way to run Linux any more on the
-> older chips after i486 support has been removed.
+> The si476x driver was added in linux-3.9 without devicetree
+> support, and has always failed the probe function in the
+> absence of a si476x_platform_data definition.
 >
 > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
