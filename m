@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A03F6C88E77
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 13:47:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D112CC88E77
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 13:47:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD94D10EA77;
-	Wed, 16 Sep 2026 13:47:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB7A010E8B9;
+	Wed, 16 Sep 2026 13:47:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="j+LjOiVR";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="GaLXVyvl";
 	dkim-atps=neutral
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5554B10EA77;
- Wed, 16 Sep 2026 13:47:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D210310EAD6
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 13:47:48 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 2AA711A08DB;
- Wed, 16 Sep 2026 13:47:40 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id A6ADB1A07A8;
+ Wed, 16 Sep 2026 13:47:47 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id EFAD560337;
- Wed, 16 Sep 2026 13:47:39 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 7988B60337;
+ Wed, 16 Sep 2026 13:47:47 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 40C8911C7B035; 
- Wed, 16 Sep 2026 15:47:30 +0200 (CEST)
+ with ESMTPSA id 28BE011C7B010; 
+ Wed, 16 Sep 2026 15:47:37 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1789566457; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1789566464; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=PUMg2fB0et95uQDSbRtWmOzHTKa5cLqwreFUewKCGh4=;
- b=j+LjOiVRG5C8lgeqJAN9fvYpi1btsO+fLPNR75iMBB7TCRku8/Nm5mh5mk0cRguolV2VXb
- /338lvksbKfw+ZaijX2ivihEfU5agmr2mwqHBbPpoBTTiVH3ipUaublKAYVi+z5yiI8Dcx
- F3eFlclUHoj1kNZkl90cJ5V/DxxbsEPTMNB/oc9aIKhomPybZNw7Uxy6/L6IzhGTCPAhZy
- 5C2oOUBtsBS/FnJQOzeldmcxLi0zPFs2CupbbAdDsk3rc8Bz6/blNflit5TR3ShU+f2IR2
- XSO8zaecW+Fyko+HgV6gnIRfb5S6eKSRFE+5LQ+bN5V0RPNnaV/R64TMnHC6Rw==
+ bh=EWRTsEHuRPkhkItzwYv+I9LHRR2SBwOu9YrwdxAKFPU=;
+ b=GaLXVyvlnZ11WFk3pSwWsFPtpLVHBau1pJicQ7XfphujamQascdo7WaeiZeosNYAn0TjtD
+ tuIuipnC8LUTc0y91LT92dF0N5/w6b4jhR7zKOifZUdBI/0j+E1WuzQULiqS2mmgpDjN8a
+ J1OWzRWDDt2soWH4ivaWECOyMYgy5SAuUviWVJvzuV9P3WhWQJPh0rMltE2QxjtwIJ+HE1
+ spZCl3T9x4LMaW1Fq41yIDoI1VCj1T7TjoON+rqt6QHz0Ce0AScAZSGMFREXhawBSzZwku
+ k76+c5B7LPAwBQXflZogBi/avMX6EANwWNvlUN5Edm1y9KfU952vzhCPeJntCQ==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 16 Sep 2026 15:45:38 +0200
-Subject: [PATCH v3 14/19] drm/bridge: samsung-dsim: don't create a panel_bridge
+Date: Wed, 16 Sep 2026 15:45:39 +0200
+Subject: [PATCH v3 15/19] drm/bridge: tc358768: don't create a panel_bridge
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-drm-bridge-every-panel-v3-14-83afb4f1a707@bootlin.com>
+Message-Id: <20260916-drm-bridge-every-panel-v3-15-83afb4f1a707@bootlin.com>
 References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
 In-Reply-To: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -94,85 +94,98 @@ Now a panel_bridge is automatically created for every drm_panel and the
 panel-bridge API is just a deprecated wrapper to access it.
 
 Update and simplify the code by just getting a reference to the
-already-existing bridge using of_drm_find_and_get_bridge().
+already-existing bridge using of_drm_get_bridge_by_endpoint().
+
+As of_drm_get_bridge_by_endpoint() returns a refcounted bridge, take care
+of putting the bridge reference when not used anymore.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/bridge/Kconfig        |  1 -
- drivers/gpu/drm/bridge/samsung-dsim.c | 24 +++++-------------------
- 2 files changed, 5 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/bridge/Kconfig    |  2 --
+ drivers/gpu/drm/bridge/tc358768.c | 25 ++++++-------------------
+ 2 files changed, 6 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index 0ab3cab92363..4be220f7335c 100644
+index 4be220f7335c..847a6397eb10 100644
 --- a/drivers/gpu/drm/bridge/Kconfig
 +++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -302,7 +302,6 @@ config DRM_SAMSUNG_DSIM
- 	depends on OF && HAS_IOMEM
+@@ -408,8 +408,6 @@ config DRM_TOSHIBA_TC358768
+ 	depends on OF
  	select DRM_KMS_HELPER
- 	select DRM_MIPI_DSI
+ 	select REGMAP_I2C
+-	select DRM_PANEL
 -	select DRM_PANEL_BRIDGE
- 	select GENERIC_PHY
- 	select GENERIC_PHY_MIPI_DPHY
+ 	select DRM_MIPI_DSI
+ 	select VIDEOMODE_HELPERS
  	help
-diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/bridge/samsung-dsim.c
-index 5457a7b02a33..ea2837384774 100644
---- a/drivers/gpu/drm/bridge/samsung-dsim.c
-+++ b/drivers/gpu/drm/bridge/samsung-dsim.c
-@@ -25,7 +25,6 @@
- #include <video/mipi_display.h>
- 
- #include <drm/bridge/samsung-dsim.h>
+diff --git a/drivers/gpu/drm/bridge/tc358768.c b/drivers/gpu/drm/bridge/tc358768.c
+index d1fc6af37cc5..cc989ab5cf25 100644
+--- a/drivers/gpu/drm/bridge/tc358768.c
++++ b/drivers/gpu/drm/bridge/tc358768.c
+@@ -22,7 +22,6 @@
+ #include <drm/drm_drv.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
 -#include <drm/drm_panel.h>
- #include <drm/drm_print.h>
+ #include <video/mipi_display.h>
+ #include <video/videomode.h>
  
- /* returns true iff both arguments logically differs */
-@@ -1898,7 +1897,6 @@ static int samsung_dsim_host_attach(struct mipi_dsi_host *host,
- 	struct device *dev = dsi->dev;
- 	struct device_node *np = dev->of_node;
- 	struct device_node *remote;
+@@ -137,7 +136,6 @@ static const char * const tc358768_supplies[] = {
+ 
+ struct tc358768_dsi_output {
+ 	struct mipi_dsi_device *dev;
 -	struct drm_panel *panel;
- 	int ret = 0;
+ 	struct drm_bridge *bridge;
+ };
  
- 	/*
-@@ -1913,7 +1911,7 @@ static int samsung_dsim_host_attach(struct mipi_dsi_host *host,
- 		    of_node_name_eq(remote, "ports"))
- 			continue;
+@@ -443,7 +441,6 @@ static int tc358768_dsi_host_attach(struct mipi_dsi_host *host,
+ {
+ 	struct tc358768_priv *priv = dsi_host_to_tc358768(host);
+ 	struct drm_bridge *bridge;
+-	struct drm_panel *panel;
+ 	struct device_node *ep;
+ 	int ret;
  
--		goto of_find_panel_or_bridge;
-+		goto of_find_bridge;
+@@ -471,24 +468,15 @@ static int tc358768_dsi_host_attach(struct mipi_dsi_host *host,
+ 		return -ENOTSUPP;
  	}
  
- 	/*
-@@ -1927,25 +1925,13 @@ static int samsung_dsim_host_attach(struct mipi_dsi_host *host,
+-	ret = drm_of_find_panel_or_bridge(host->dev->of_node, 1, 0, &panel,
+-					  &bridge);
+-	if (ret)
+-		return ret;
++	bridge = of_drm_get_bridge_by_endpoint(host->dev->of_node, 1, 0);
++	if (IS_ERR(bridge))
++		return PTR_ERR(bridge);
  
- 	remote = of_graph_get_remote_node(np, 1, 0);
- 
--of_find_panel_or_bridge:
-+of_find_bridge:
- 	if (!remote)
- 		return -ENODEV;
- 
--	panel = of_drm_find_panel(remote);
--	if (!IS_ERR(panel)) {
--		next_bridge = devm_drm_panel_bridge_add(dev, panel);
+-	if (panel) {
+-		bridge = drm_panel_bridge_add_typed(panel,
+-						    DRM_MODE_CONNECTOR_DSI);
 -		drm_panel_put(panel);
--		if (IS_ERR(next_bridge)) {
--			ret = PTR_ERR(next_bridge);
--			next_bridge = NULL; // Inhibit the cleanup action on an ERR_PTR
--		} else {
--			drm_bridge_get(next_bridge);
--		}
--	} else {
--		next_bridge = of_drm_find_and_get_bridge(remote);
--		if (!next_bridge)
--			ret = -EINVAL;
+-		if (IS_ERR(bridge))
+-			return PTR_ERR(bridge);
+-
+-		bridge->pre_enable_prev_first = true;
 -	}
-+	next_bridge = of_drm_find_and_get_bridge(remote);
-+	if (!next_bridge)
-+		ret = -EINVAL;
++	bridge->type = DRM_MODE_CONNECTOR_DSI;
++	bridge->pre_enable_prev_first = true;
  
- 	of_node_put(remote);
+ 	priv->output.dev = dev;
+ 	priv->output.bridge = bridge;
+-	priv->output.panel = panel;
  
+ 	priv->dsi_lanes = dev->lanes;
+ 	priv->dsi_bpp = mipi_dsi_pixel_format_to_bpp(dev->format);
+@@ -518,8 +506,7 @@ static int tc358768_dsi_host_detach(struct mipi_dsi_host *host,
+ 	struct tc358768_priv *priv = dsi_host_to_tc358768(host);
+ 
+ 	drm_bridge_remove(&priv->bridge);
+-	if (priv->output.panel)
+-		drm_panel_bridge_remove(priv->output.bridge);
++	drm_bridge_put(priv->output.bridge);
+ 
+ 	return 0;
+ }
 
 -- 
 2.55.0
