@@ -4,50 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CC72C982CC
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 18:31:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE58EC982C9
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 18:37:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64BF410ED48;
-	Wed, 16 Sep 2026 18:31:35 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87FE010ED48
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 18:31:33 +0000 (UTC)
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-05 (Coremail) with SMTP id zQCowACXADuA4Kpq55RvCA--.23779S2;
- Thu, 17 Sep 2026 02:31:28 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: cgmeiner@igalia.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- mcanal@igalia.com, mripard@kernel.org, mwen@igalia.com, simona@ffwll.ch,
- tzimmermann@suse.de, Wentao Liang <vulab@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/v3d: Fix perfmon reference leak in
- v3d_perfmon_set_global_ioctl()
-Date: Wed, 16 Sep 2026 18:31:00 +0000
-Message-Id: <20260916183100.2092174-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowACXADuA4Kpq55RvCA--.23779S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tr1fZryxWr1xAw1fXF1fWFg_yoW8GF43pw
- 4fCryUKw1ftF929w17trWkWFyavw1fJFWkWFyqvwsxXr4Svr4DJry0kr9Yqr15Gr1fKF12
- qr1DCa1fWF1UCrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9q14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
- JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
- W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
- 7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbV
- WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
- xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
- kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
- WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
- I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG
- 6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJV
- W0obIYCTnIWIevJa73UjIFyTuYvjfUw5l8UUUUU
-X-Originating-IP: [36.110.52.2]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAIMA2qqpO9+ogABsX
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0552E10E054;
+	Wed, 16 Sep 2026 18:37:26 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Sfg/Mc0v";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 040F210E054
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 18:37:25 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9C19B43E8A;
+ Wed, 16 Sep 2026 18:37:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ED331F000FF;
+ Wed, 16 Sep 2026 18:37:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789583844;
+ bh=qI3rqaLfBVNb9p6MO4MyzX0bepaO0rF2eK9wsirJj7o=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Sfg/Mc0vrG0dKH1crcTEvisy2WuTcAt2OPYkpetnui58ZK7CvtA3s2Y1qs2bBe/+C
+ Cf7nrh1OM4hz1U/+NrDCvpXtLwJxpLC+20RrYvxISKJq+JTNvwMtxYvCe5Ww3sK+0P
+ bpYf4sk/5oWwxo/xtUsL3hN5m0p5yeLx+wloz6Aw7HwcmQfZzph84jt2i4aeCGaSqU
+ ePTCQkhin7qoKNaqiPPzbYFcxCJOxtFs+pKXAaw1U+YyREtCrgmlbBWS5QQ1bc4AaC
+ EarvEoKv7eiXoR1WtzKF0tu8x2AXQopyhncvn+mnq8D1jHSKTQ0M98EOQQXIncfh6S
+ TpqVPUm4DHQjg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/tegra: Fix bo reference leak in
+ host1x_reloc_copy_from_user()
+To: "Wentao Liang" <vulab@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260916182550.2091797-1-vulab@iscas.ac.cn>
+References: <20260916182550.2091797-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 16 Sep 2026 18:37:23 +0000
+Message-Id: <20260916183724.5ED331F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,49 +53,62 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-v3d_perfmon_find() takes a reference to the perfmon which the ioctl
-transfers to the global pointer on success.  The error paths are
-missing this transfer: clearing the global perfmon while none is set,
-and setting a global perfmon when one is already configured both
-return without dropping the reference.  Release it on both paths.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/tegra: type confusion and memory corruption in host1x_reloc_co=
+py_from_user
+--
 
-Fixes: c6eabbab359c ("drm/v3d: Add DRM_IOCTL_V3D_PERFMON_SET_GLOBAL")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/v3d/v3d_perfmon.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+commit 6284447bfe9e49ad17b9df316519006595821f25
+Author: Wentao Liang <vulab@iscas.ac.cn>
 
-diff --git a/drivers/gpu/drm/v3d/v3d_perfmon.c b/drivers/gpu/drm/v3d/v3d_perfmon.c
-index 8e0249580bba..12bb1b087fa9 100644
---- a/drivers/gpu/drm/v3d/v3d_perfmon.c
-+++ b/drivers/gpu/drm/v3d/v3d_perfmon.c
-@@ -461,16 +461,20 @@ int v3d_perfmon_set_global_ioctl(struct drm_device *dev, void *data,
- 
- 	/* If the request is to clear the global performance monitor */
- 	if (req->flags & DRM_V3D_PERFMON_CLEAR_GLOBAL) {
--		if (!v3d->global_perfmon)
-+		if (!v3d->global_perfmon) {
-+			v3d_perfmon_put(perfmon);
- 			return -EINVAL;
-+		}
- 
- 		xchg(&v3d->global_perfmon, NULL);
- 
- 		return 0;
- 	}
- 
--	if (cmpxchg(&v3d->global_perfmon, NULL, perfmon))
-+	if (cmpxchg(&v3d->global_perfmon, NULL, perfmon)) {
-+		v3d_perfmon_put(perfmon);
- 		return -EBUSY;
-+	}
- 
- 	return 0;
- }
--- 
-2.34.1
+drm/tegra: Fix bo reference leak in host1x_reloc_copy_from_user()
 
+This commit fixes a reference leak on the command buffer object when the
+subsequent lookup for the relocation target fails. It drops the reference
+before returning the error.
+
+> diff --git a/drivers/gpu/drm/tegra/drm.c b/drivers/gpu/drm/tegra/drm.c
+> index 324480c87fb1f..1a70d37b8c1f3 100644
+> --- a/drivers/gpu/drm/tegra/drm.c
+> +++ b/drivers/gpu/drm/tegra/drm.c
+> @@ -159,8 +159,10 @@ static int host1x_reloc_copy_from_user(struct host1x=
+_reloc *dest,
+>  		return -ENOENT;
+> =20
+>  	dest->target.bo =3D tegra_gem_lookup(file, target);
+> -	if (!dest->target.bo)
+> +	if (!dest->target.bo) {
+> +		drm_gem_object_put(dest->cmdbuf.bo);
+
+[Severity: High]
+Does this cause memory corruption due to a type mismatch?
+
+Looking at host1x_reloc_copy_from_user(), dest->cmdbuf.bo is a struct
+host1x_bo pointer. Passing it to drm_gem_object_put(), which expects a
+struct drm_gem_object pointer, appears to lead to type confusion.
+
+When tegra_gem_lookup(file, target) fails and this error path is taken,
+drm_gem_object_put() will attempt to decrement the reference count by
+treating the struct host1x_bo as a struct drm_gem_object. This is likely
+to decrement the first member of struct host1x_bo, which is its ops vtable
+pointer, instead of an actual kref.=20
+
+Since this is reachable from userspace via the DRM_IOCTL_TEGRA_SUBMIT ioctl
+by supplying a valid cmdbuf but an invalid target BO, could this corrupt
+the vtable pointer and lead to crashes or potential control-flow hijacking
+when the ops are later used?
+
+>  		return -ENOENT;
+> +	}
+> =20
+>  	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916182550.2091=
+797-1-vulab@iscas.ac.cn?part=3D1
