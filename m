@@ -4,83 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEE12C982C1
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 07:04:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB458C982D2
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 07:04:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2ACA10E86A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF49110E868;
 	Thu, 17 Sep 2026 07:04:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JRVI2pHi";
+	dkim=pass (2048-bit key; unprotected) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="XrnN/ayq";
 	dkim-atps=neutral
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
- [74.125.228.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF1EE10E4A2
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 07:50:57 +0000 (UTC)
-Received: by mail-ej2-f12.google.com with SMTP id
- a640c23a62f3a-c254f705536so141987066b.1
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 00:50:57 -0700 (PDT)
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAEB210E1AF
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 21:18:33 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-49e7bcb94d3so1342045e9.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 14:18:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789545056; x=1790149856; darn=lists.freedesktop.org;
+ d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1789593512;
+ x=1790198312; darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=j8D6JnnoF4uT9GFk7g9DjQ1aSimSgKnpfAaaRW4jURk=;
- b=JRVI2pHit+VG4iLL/QpoazCeQ7mYpx3XRkxMuXKifj4Gr71UdE80dSz0Gugu4kwvaX
- zl4V/JxSKzGhOYEZQ+cnzxaFR6yYN14/UrVsMI6th0G67T5odxnfqt/Q2FngVLrsNwD4
- Hm/2wMCz/Li5EYrL1YsifnZxI+QYCSrNXLwiNVjbmsfoqk9FcToKjTfrEKas3WCMzFIb
- dhpKaW4JH6Pmk8oUv0X8DFXfsGkhwPgGrh1GVwmRKPGl156LT7/wcOP9lkKQpM84fe3h
- jXgLGja0TDt17MucwUjd7qwSLCdY54hirZeHej+nY5iUH+BYGkHimH2igjViG5gWOt2d
- ctWw==
+ bh=8c7Lrwf6LLYMTB0zxM6IKxndmvRTeS9nJzIt6c8lINU=;
+ b=XrnN/ayq1WTDX10IsxxPHPFBuqBGLVubeyJDRItcR29CKupXRZnu4Vx3FAKnhYQFek
+ +i+zCQs+5/WT8gAp6zo7pw2Kujz7apN0cvXSF5GJDLKzC+0Nkbtpe/rehGhkJnAjBvI7
+ PznlHj3Q07qwL7YGvja3SZLtdn1k3JbI86MbGZy1Ssc7kRMXB8uh+gFGJTsTw5/u+/HD
+ NVNteJAICcoQBTtjAHWYQFLhmg0RCvELiYKQlRfMkkOBmRPIIO1GRAV7svkL56g4UyQB
+ upaJg1PNquMludcjRv9EZfZfzKt6H1rC4F44rprQ9PzlO4/+sSE+w0xKE7pyu1M9YAr4
+ CnWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789545056; x=1790149856;
+ d=1e100.net; s=20260707; t=1789593512; x=1790198312;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=j8D6JnnoF4uT9GFk7g9DjQ1aSimSgKnpfAaaRW4jURk=;
- b=q4XULYh/oK7JHRM+Dkj8MZu7cYgmQOnbda8lipnyoTUU/Df0FZnztImmDzJDk5cYmj
- yyMr39p8w5PZG+IsNe4sm/xIlvJZNZysB5MWHWn2+pMr13eMX9Khg4Q3qk4knkBgdVkd
- weibQOY7SxjywIqG8pGsVF2qCWRgBSzdYGbTOeGxA5Y4nViC0booI69f7p1E7BRzDHsq
- KvApIlwA4PIO+Z9C07roLUsKa6EYPYMyypUCCvOGReEQ5uo+kFDu2LHSMm/Dyc3CQUL5
- K9vy6xaaRP3U8JnfdTFuZDDspUw2f0kjUx0/mHetX4Od9MmHVZ69M67LBeASlH3P8YaN
- eBMg==
-X-Gm-Message-State: AFuF++kwusJTjgt4bHD48+fMu9cBzGwO2z/A9aXdLYfFvGiSfmc+ziQY
- 8uj2xLCPM+WTTWod4cK6ZNSCoGw1ou3j8kXrMTzwid/X6389dWMbeo8g
-X-Gm-Gg: AYBFou3nUi+RPPO8L2JB7mmLfG1tqr9dtkVuzZP7YYEpRSrPA/gPOqj6RjvZ/Ba5jag
- wx89aWzC5IasOOCi9GmoPz9UZtFAxEANx4q0O3HlpU2ikaQMLy7NhzghTiBxV0rZyOZ9aCluUqd
- AavRtvHQLFRHjx9F/10mbGttRbNm+Z+IX/SPt0kYUOSiAJyjt2rE5E95WakxEwqd3fFbko+P8Z8
- smwxXFvpA3r+E6CfIJKStrbu6yCh/SwdeerimWaWeJih0CaU9Dy2TW26sR1J+ju59uyC2TYaqpz
- FNZJ+N2xXG3IADr3w9RS6gIMEiYuCJkDdSK5QA4TSXTmaPdvyPv6fLelpVZd0nv2NsgaMsqIJMN
- 6xJh9xXRRAs/RA/h2Uxf6N4L/nsClbCY7jZLdQMY9s/GjmhYeamXdQoI9mheDzYUbsTIHPy0303
- mf/lsiJ+r80C/kxHbAGLRkdMO/2oKH/Vz2ABYmAMG3ebzs775FtwIry4XWwr5NstJNBB/lF2aDa
- ZM1heMvt5zUJ6Y/bH+7lckRYTOgCKBS8qdYNJNkVlj98yxr0kFeCkSqdJSS991ymaoMPHMFtkfr
- 84/xgzoTkLvITwgR1QaL1usxFPTy0UJglitColUf5yv3unr+5oumdoe9ZaUAyLwrUrWS7IHVBQR
- hY2sOLd/8H33jzKqGCAzQeDnh8NKjWkeBdYrUSxbqnDg3IPH02nIFpjWtvG+fhk2Lqpoh+S6r8j
- 5IuIXAIYu+Kq6bO0gdahlr6pi7gnv924EaAKONmNCbMZHQthJKBy2ZeVbMvAaHFayuoFc0EIc+I
- miCoep4LOybzY02
-X-Received: by 2002:a17:907:940a:b0:c29:4415:2ebb with SMTP id
- a640c23a62f3a-c29e51e2170mr112244966b.8.1789545055876; 
- Wed, 16 Sep 2026 00:50:55 -0700 (PDT)
-Received: from
- cs-280612103108-default.europe-west4-a.c.oa7bb030819b2a894-tp.internal
- (219.145.32.34.bc.googleusercontent.com. [34.32.145.219])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c29de652313sm76139466b.55.2026.09.16.00.50.55
+ bh=8c7Lrwf6LLYMTB0zxM6IKxndmvRTeS9nJzIt6c8lINU=;
+ b=hGWasQb0HcLbdGjVMNd0WLNBNOe5e309Q2VXq/q5OG2t+2uVATmpLI/TxsYfmD9PcI
+ 7CkC76DhVqxK9UV6tmttRnGRUq6ZlYqhzvvN3F8taT62K8YNkX99Jc5vXMy2YdPRxTWx
+ 1RH9u1kOMbBh71Xkn3CjXIFWhIpgTbbsZFWccb6aS5RhOi94pq4AkNDlWYEwZderxVrT
+ J5pTsRdtu6rmN4NsmgKMqQecW4TxIyqZUz8fROrwifFo08ARcTMtIXonJzqqOs8SnmG/
+ paxMruRvZOMkLIKgnhoeQKRuuxR8VdmlSRECQv6SDKu2xlKnuk4QIwwJgvsllY+yqtYA
+ 6S1Q==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwvw7b1hsvycN/hvTua3XhuDvOAFE95J4qIJMLj73QucBRX7pF8cAi7YgwGLNM5w8zkdhRaVqWBwzM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kK57EZ7YT6NNIDL8psNDdzef5ctK4Tr0o0dbMcs/PyYl6moFe6
+ x7pUC8Ve0ZUs3Rw7KrPpuiq77+Nqtfgy3JUuCFKcAU19CKafquY7u1Zmy7NsExOpSw==
+X-Gm-Gg: AYBFou3B+BW52vkZAR6rc31NY3i1wGM6BjVjoJDjs/9Nl+gt29dQRENaNlWWxt4my46
+ BHxwrHLIGWuQdSOOEcm+s4Yy2sClJr3ozsZm3zV1gfbAnQRS5B/z8u8o2Vec58ZlsDZn0rRCyoS
+ 79KX5YizVjZjDVGuBT7C2koznp8kWLK8/lyWAiIR2szmuTF2w2hppmb3kU+IG7CVwelHodrRR67
+ lCdVPUYreJTI5TNTpjWyzTWqrJ5QIhzqtUgyNB8uhVREqPXYioOGD/CkjE1jNA4vo/5UpMJV6eL
+ 4MWqLmJXHl+2lG4fKfxiupTSatfE1i8KX85eYTJNTfS19/bZ6AD5B0MCpcdx5nUlaNMXQJP0vLw
+ meDqHgOPKuBMEFRUN+LZzMVlq4g5bnTM7kHYme1aQ/JRrqxOFg9iPEJePu1S52YWyXR4566G7OB
+ w8n/6mWNMjJjLKv4p5pDApkxlp6sHOJArM5Db9DjdklEyL0LPvdyGX8z6G8vRGJ8EBdZqi9B4Sy
+ y9p2FWk38HJecwj5CQF5Ka+hg==
+X-Received: by 2002:a05:600c:8b78:b0:49c:fc6e:8cb4 with SMTP id
+ 5b1f17b1804b1-49ebb4297c4mr52763795e9.24.1789593511641; 
+ Wed, 16 Sep 2026 14:18:31 -0700 (PDT)
+Received: from horizon ([217.155.46.38]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49fbbd83e39sm46567695e9.4.2026.09.16.14.18.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Sep 2026 00:50:55 -0700 (PDT)
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Boris Breyillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Dave Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: [PATCH] drm/panfrost: add missing pm_runtime_dont_use_autosuspend()
- calls
-Date: Wed, 16 Sep 2026 07:50:51 +0000
-Message-ID: <20260916075051.1353-1-joshua.crofts1@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Wed, 16 Sep 2026 14:18:31 -0700 (PDT)
+From: Sean Rhodes <sean@starlabs.systems>
+To: linux-kernel@vger.kernel.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/i915/drrs: Ignore sync polarity when matching modes
+Date: Wed, 16 Sep 2026 22:18:30 +0100
+Message-ID: <6436114aa461b08bf0abddadf2c091c45dc81075.1789593508.git.sean@starlabs.systems>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 17 Sep 2026 07:04:01 +0000
@@ -99,41 +92,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-panfrost_remove() and panfrost_probe() disable PM runtime on teardown or
-failure but don't call the pm_runtime_dont_use_autosuspend() function,
-causing potential resource leaks.
+Some panels advertise DRRS modes with matching timings but different sync
+polarities. is_alt_drrs_mode() currently includes DRM_MODE_MATCH_FLAGS and
+rejects such pairs.
 
-Add the missing function calls.
+Commit 2bd0db4b3f0b ("drm/i915: Allow panel fixed modes to have differing
+sync polarities") already made is_alt_fixed_mode() ignore H/V sync polarity
+because panels can declare alternate modes with different values and
+Windows/GOP accepts them. Apply the same rule when matching DRRS modes.
+Continue to require matching timings, 3D flags, and all other mode flags.
 
-Found using Coccinelle.
-
-Fixes: 5c0c825ae4c6 ("drm/panfrost: Replace DRM driver allocation method with newer one")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Tested: BOE NE160QAM-NZ1 (3840x2400); DRRS reached low refresh.
+Tested: Huawei 23040676 (2520x1680); DRRS reached low refresh.
+Signed-off-by: Sean Rhodes <sean@starlabs.systems>
 ---
- drivers/gpu/drm/panfrost/panfrost_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/i915/display/intel_panel.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 36cc2e67a308..74e8e5783f9b 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -1012,6 +1012,7 @@ static int panfrost_probe(struct platform_device *pdev)
- err_out2:
- 	drm_dev_unregister(&pfdev->base);
- err_out1:
-+	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
- 	pm_runtime_disable(pfdev->base.dev);
- 	panfrost_device_fini(pfdev);
- 	pm_runtime_set_suspended(pfdev->base.dev);
-@@ -1027,6 +1028,7 @@ static void panfrost_remove(struct platform_device *pdev)
- 	panfrost_gem_shrinker_cleanup(&pfdev->base);
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
+index 81e638d0c7b3..e79c51a1c33c 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.c
++++ b/drivers/gpu/drm/i915/display/intel_panel.c
+@@ -144,10 +144,13 @@ intel_panel_fixed_mode(struct intel_connector *connector,
+ static bool is_alt_drrs_mode(const struct drm_display_mode *mode,
+ 			     const struct drm_display_mode *preferred_mode)
+ {
++	u32 sync_flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_NHSYNC |
++		DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_NVSYNC;
++
+ 	return drm_mode_match(mode, preferred_mode,
+ 			      DRM_MODE_MATCH_TIMINGS |
+-			      DRM_MODE_MATCH_FLAGS |
+ 			      DRM_MODE_MATCH_3D_FLAGS) &&
++		(mode->flags & ~sync_flags) == (preferred_mode->flags & ~sync_flags) &&
+ 		mode->clock != preferred_mode->clock;
+ }
  
- 	pm_runtime_get_sync(pfdev->base.dev);
-+	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
- 	pm_runtime_disable(pfdev->base.dev);
- 	panfrost_device_fini(pfdev);
- 	pm_runtime_set_suspended(pfdev->base.dev);
--- 
-2.47.3
-
