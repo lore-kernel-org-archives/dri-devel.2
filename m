@@ -4,78 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E83B6C982C1
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 16:23:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B895C982C9
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 16:24:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03CF510E02E;
-	Wed, 16 Sep 2026 16:23:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCDB910E2FD;
+	Wed, 16 Sep 2026 16:24:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=stgolabs.net header.i=@stgolabs.net header.b="UB84TBjg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mvnePnaj";
 	dkim-atps=neutral
-Received: from dormouse.ash.relay.mailchannels.net
- (dormouse.ash.relay.mailchannels.net [23.83.222.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B46710E02E
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:23:04 +0000 (UTC)
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
- by relay.mailchannels.net (Postfix) with ESMTP id 75E5660D42;
- Wed, 16 Sep 2026 16:23:03 +0000 (UTC)
-Received: from pdx1-sub0-mail-a209.dreamhost.com
- (100-98-23-230.trex-nlb.outbound.svc.cluster.local [100.98.23.230])
- (Authenticated sender: dreamhost)
- by relay.mailchannels.net (Postfix) with ESMTPA id 01638639A9;
- Wed, 16 Sep 2026 16:22:58 +0000 (UTC)
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
-X-MailChannels-Auth-Id: dreamhost
-X-Continue-Plucky: 5f9e6bc91db29077_1789575783295_690671158
-X-MC-Loop-Signature: 1789575783295:4125694942
-X-MC-Ingress-Time: 1789575783295
-Received: from pdx1-sub0-mail-a209.dreamhost.com (pop.dreamhost.com
- [64.90.62.162]) (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
- by 100.98.23.230 (trex/8.0.2); Wed, 16 Sep 2026 16:23:03 +0000
-Received: from offworld (unknown [76.167.199.67])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: dave@stgolabs.net)
- by pdx1-sub0-mail-a209.dreamhost.com (Postfix) with ESMTPSA id 4hlPLp1szfz2V; 
- Wed, 16 Sep 2026 09:22:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
- s=dreamhost; t=1789575778;
- bh=hJgpgR1Pu/CBur1LbvrXJNeDc+USSMxzhOQ5CgOveDU=;
- h=Date:From:To:Cc:Subject:Content-Type;
- b=UB84TBjgMsU8N22HyV0v1QNyr+X3lWfaEQKfIgmYqEJHppr/sviQuiTC+eFSSeFzM
- azGUgQBxN4/Qlw6/MJ3/pbQOytqvMEZDw6ERx3MS/sM09uy5xFjVcrqoGkN0G36NYQ
- jMEKLLCO4pVkP9Bwdj5ksWOVw8S4mpJhJ7JVgiicEC/QYiFgVbWWW5PJg15RNjrw3J
- oiNx6cHT7s3/NC5kDRp3kB1bEWTg4Y+S9p9gnxXsFKzYTZRTXB/Gd9FBid6IpCNO6j
- wYa9X9zhfnwKs3BtBZhm2fe97NdRyS2oVwHHj+vbZKywl9b2YKn2tcuBNRm0lGWZaD
- jy2gTz7kFE70w==
-Date: Wed, 16 Sep 2026 09:22:55 -0700
-From: Davidlohr Bueso <dave@stgolabs.net>
-To: "T.J. Mercier" <tjmercier@google.com>
-Cc: Christian =?utf-8?B?S8Ovwr/CvW5pZw==?= <christian.koenig@amd.com>,
- sumit.semwal@linaro.org, phasta@kernel.org,
- benjamin.gaignard@collabora.com, jstultz@google.com,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 1/3] dma-buf: system_heap: add a 2MB allocation order for
- IOMMU superpages
-Message-ID: <20260916162255.jv3dqacwtgfiv5kd@offworld>
-References: <20260914212258.2657788-1-dave@stgolabs.net>
- <20260914212258.2657788-2-dave@stgolabs.net>
- <54ae0d83-d777-4357-8e87-dfc3a5c7b835@amd.com>
- <CABdmKX1ky3Jfr7B-Oqaz17aLJwo1SSh1huZ05NG7D44SMF=9fw@mail.gmail.com>
- <871b6fc6-e126-429f-881c-9cc517ee8dcc@amd.com>
- <CABdmKX1g=wcLHOFkRN6DLPTABrnn2uWmgCKpCtixhiV_b+9J1g@mail.gmail.com>
- <CABdmKX2GU0Eby=SEeALzeEp5ragEjU3Fw468Jv1yykD1Zdrgag@mail.gmail.com>
- <d8d3af91-4f21-44ea-bc90-339fa1adacf9@amd.com>
- <CABdmKX1YtyFM_MoMbPr4JUCXCr8TGPVbXUrAoQRELpp54cK-0w@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <CABdmKX1YtyFM_MoMbPr4JUCXCr8TGPVbXUrAoQRELpp54cK-0w@mail.gmail.com>
-User-Agent: NeoMutt/20220429
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D8C410E2FD
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:24:27 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1C6AA43BC4;
+ Wed, 16 Sep 2026 16:24:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF6241F000FF;
+ Wed, 16 Sep 2026 16:24:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789575867;
+ bh=4SQlnidzW+1l/xiJhjGGyJPT2AkWd+OwVikR6YFgf60=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=mvnePnajS2kW8kE6SyqZiwiPWT8nmGc1YqZWv7Pezdg49sqPu/3YsARD9GpHbvF+T
+ iq/w0Cs9vZ/NF1rR6Tet9325N+9XnhIBqqVXaBigLr/c9NqidAtSBC0u1Hr1I4JbdH
+ LiZfNlOZcNX/+fEiqDDAoC2ca3egwWkoUlBoq5VDcclYQy2c5k7I8T9uM0u0rNTiYK
+ T7lT/0jbOlSXLxbKzNg3QUJSwXOA4HxWr26dvsuCKUZvHJ3vP803fz5BlsBHjpku69
+ 0p3EhiTJVUOMMny86iVfDJ15GdaDJ9jv6ea52Wl66fLKhvgM+/KdVGe00l1gj9wHCY
+ xkkBDD5eiPlXQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 24/38] selftests/dyndbg: Enable FT_classmap_inheritance
+To: "Jim Cromie" <jim.cromie@gmail.com>
+Cc: linux-modules@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260916-dd-cmap-part2-clean-v10-24-af4cf4767707@gmail.com>
+References: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
+ <20260916-dd-cmap-part2-clean-v10-24-af4cf4767707@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 16 Sep 2026 16:24:26 +0000
+Message-Id: <20260916162426.BF6241F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,24 +53,88 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 16 Sep 2026, T.J. Mercier wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] selftests: dyndbg: load-time parameters truncated due to shell q=
+uoting bug
+--
 
->I'm not sure these patches were motivated by Android (based on x86
->focus in the commit message), but Davidlohr would have to comment on
->that. That's just where most of my experience comes from and what I
->can share details about.
+commit f2f3cad7addd566a67a218932463053f35d4d782
+Author: Jim Cromie <jim.cromie@gmail.com>
 
-This series was motivated by exploring new use cases for dma-buf (such
-as kvcache), not really for Android specifically. I was counting on
-the cheap/one-time 2Mb attempt (current high order semantics) to not be
-a problem for potential performance gains. As for the x86 I tested here,
-basically because it's what I have on hand, I had no idea ROCm was a no-no
-for system heaps.
+selftests/dyndbg: Enable FT_classmap_inheritance
 
-I am fine dropping this effort.
+Exercise classmap state inheritance between supermod and submod,
+verifying that class settings and controlling parameter states propagate
+from parent classmap definitions to dependent class users upon module
+load and during runtime reconfiguration.
 
-Thanks,
-Davidlohr
+> diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/t=
+ools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+> index 09a8dbf239dcf..51338ebc74bf8 100755
+> --- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+> +++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+[ ... ]
+> @@ -298,6 +299,78 @@ function FT_basic_queries {
+>      ddcmd "file $f =3D_" "$f"
+>  }
+> =20
+> +function FT_classmap_inheritance {
+> +    v_echo "${GREEN}# TEST_MOD_SUBMOD ${NC}"
+> +
+> +    ifrmmod test_dynamic_debug_submod
+> +    ifrmmod test_dynamic_debug
+> +
+> +    # modprobe with plain-old +p & 3 class enablements
+> +    my_modprobe test_dynamic_debug \
+> +	"dyndbg=3D+p;class D2_CORE +pf;class D2_KMS +pt;class D2_ATOMIC +pm"
+
+[Severity: Medium]
+Are these load-time parameters truncated during module load due to how the
+shell handles quotes?
+
+When bash evaluates and strips the double quotes before executing modprobe,
+modprobe constructs the kernel options string without adding quotes around
+the parameters. The kernel's parse_args() function (using next_arg() in
+lib/cmdline.c) splits module parameters at unquoted spaces.
+
+This means it treats D2_CORE and +pf as separate unknown parameters. The
+dyndbg parsing logic executes +p but fails on the truncated class command,
+completely ignoring the actual class configurations.
+
+Does this defeat the test's intent to verify load-time classmap inheritance,
+allowing it to pass only because the golden hash recorded the incorrectly
+applied +p state?
+
+It appears this space-splitting flaw persists through the end of the patch
+series, and the newly added FT_test_classes also replicates it.
+
+> +    verify_control_slice '\[test_dynamic_debug\]'
+> +
+> +    set_param 5 /sys/module/test_dynamic_debug/parameters/p_level_num
+> +    verify_control_slice '\[test_dynamic_debug\]'
+> +
+> +    my_modprobe test_dynamic_debug_submod
+> +    verify_control_slice 'test_dynamic_debug_submod'
+> +
+> +    # fresh start, to clear all above flags (test-fn limits)
+> +    ifrmmod test_dynamic_debug_submod
+> +    ifrmmod test_dynamic_debug
+> +
+> +    # load submod, which loads supermod
+> +    my_modprobe test_dynamic_debug_submod \
+> +	"dyndbg=3D+p;class D2_CORE +pfs;class D2_KMS +pts;class D2_ATOMIC +pmf"
+
+[Severity: Medium]
+Does this submod load suffer from the same space-splitting issue?
+
+> +    verify_control_slice 'test_dynamic_debug'
+> +
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-dd-cmap-pa=
+rt2-clean-v10-0-af4cf4767707@gmail.com?part=3D24
