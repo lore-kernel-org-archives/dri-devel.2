@@ -4,103 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBAF8C982C9
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 17:57:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 664FFC88E7F
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 17:58:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1546210ED0F;
-	Wed, 16 Sep 2026 17:57:13 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JZjiawt7";
-	dkim-atps=neutral
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com
- [74.125.228.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E193510ED11
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 17:57:11 +0000 (UTC)
-Received: by mail-pz2-f12.google.com with SMTP id
- 41be03b00d2f7-cc42c773d05so94508a12.3
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 10:57:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789581431; cv=none;
- d=google.com; s=arc-20260327;
- b=eCBIwHZJvnrIkOIrnVyCS6VYYYG9QjMIO//s8myBeU70vPlAUnj4DGc9AYhrH1hkZ3
- 2f+TUdhHg/JiRlqbg4r4qhbxSlw8D87LN0Ri60/qSZC9LTtrEwEkM3z1n3V/u0+7rIL7
- 2D/YV1pYD7ZSBd4zMVHU2GvEZgfX6H5Ha3sA7B0mg/zMBMntckTgDNpdcuIb1+45UbJF
- YGFOmkkeLCiSyyJZhf8DQ5gispPHvBJ1OIlcsVk1SyCF8MrA/oeLeDmylbV/YAiI1gk5
- yghEmOapn1SBr8+wzNB4l6GaScR9wZ7S0WGmRL5XHJIk63AuRIy9sU+29LSHLPtyupah
- LqDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=bRhmmCrAtVPev1jQLA09AINV4vc5qQ/mpuw1U6wCpOQ=;
- fh=RjgSKQi2OcZ+JqPy8RrIN4HGHuCIeWKc4WPJdE1iIW4=;
- b=YHzgK3WF0Kqj13cpZd4MUZ+obHwsho14vm/apJ3JczcbP/Lv0FEpJEB+RECG2CO0E4
- xk2DJfSWPSKY2ss1BEbvcV2kRKwMN8KKnhJaEdtzpZKGDvF/vOHHQ570BjdpFrhS/hEK
- maU+Q9e5g/gqsk+dvaVoaGjaciFaO9i22Zf3ro+5RyrlVgUOiY5B0hz6Swu+sG71pPwD
- syUrta0A097SFCUqEgetqdz9Dtn4yaU3Db6HCjeE51WmKHqoGxRI8+snYlvntHVNlib4
- NkKS6QAox3A22pWUqKty+Rde0oQLJFtdzQXseWjlqqXLE3L2xVB85yyZeM2mWqvXLPMa
- 0B7g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789581431; x=1790186231; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=bRhmmCrAtVPev1jQLA09AINV4vc5qQ/mpuw1U6wCpOQ=;
- b=JZjiawt7DOi9MRWB6haEQtK8c+kiIH9iitR+NkeF2asLJbfeO9Ea69be1CI5ROcZ23
- M0Zu9DpAaNaBPSeQuTTuEhxXCX49Yaz/yk67Ix/qzOXTABIKcVUpdWSEVcslEjUyOkU0
- jTYew+AIMjmhikDo64qawIjvjtkguVcLrARD/lUKDvc46YzZoSh/PTNqUCYbGBsxfyui
- b6XZkmCZY+/6gg32DMj12VVaMjuaDgSzMbeN5elNyYV9zQbK4gnSkKHQGowtoQzucnil
- qjcmvewpUTbqf2LIvp9TthSbnWOx29R5JFa/XEGE4q9YaD2DQFC1fwQx1YA2/FHT3DAB
- pciA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789581431; x=1790186231;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=bRhmmCrAtVPev1jQLA09AINV4vc5qQ/mpuw1U6wCpOQ=;
- b=IfOqfArbmfVt8V73vtIr6cgGlV8yYCCYX+VCk/TwLcgGqO8fpH2pn3wQxX/5Yw5oTH
- HIFX0WIehfzlVsTAIbJeoXjV4rroUB/bG0pz+ZEYA+TO8bUtZTeV7bnm9tzB2Wqq6G7U
- mDWc5UgTmRS4TmKEtzymGINTOYKnGkeHUYrUSf/H/EIwgCOWyFTl27CI7RKtk0WKf+J6
- 7/hgvCSUf+5R1KMqXxuvr4YJFAapDekkDUVegEnmSyXgM3757WMNu8BAC6oMg9iG7T6Y
- 6UIyUxb7lU8Ig5mkr4FgW/EBQJRAmCvv+t4fj8mbArGHpw8YUEPZINiOKVx0BgP7BI4u
- on5w==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxzQS2HIF60RF69HXxnubo1vuGui9o3qeMQkHr2BLxHxnbjPrh9fFlUDCtvprjeUn51jh8A/YPCtYA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m/HtkDmvkAEqog/0wYPjoCw/GGsh9KxowVJf0zC7zq2cASYc/t
- 51MUYGGFzmZSgt+R9ei/UTCH6ip43SYRwJJhKav1O9BnwtaNF1wLEJRGjohVxYqmtkOj5c6upIn
- VddYlkX2ddptzmJebGWdbTs6QJ115wW4=
-X-Gm-Gg: AYBFou2GCm/sCm07D3JXRISn+82YdIlomqwGHVBLGVrPfaoZhmCpPFYwe8f347Xyr3O
- dWHHhHM0DengjHl6ciwSsBNpGKC+x9dpeeOXkx2gQ9/KNEJ539G6BCGeQ3iFcopgnFvkiM8v8qh
- AQ/DHSM6muEnl0lXwGQ0RahbcEPf6TxNRXJeLzBZLV3thdNiysMqy+HIBqHaOPYKusFkZncSzLt
- rd6Dgbfiv3jrJsxx47KW1rszs71FrnyFhT8iZp/wEvDKdHPv1OXeBQtNwCkQdkdG0Q4IDQqL45+
- TZIW73lzzJjztn+Ncc404rkr/L61dQ9Fghck9lvEsb+oB5VQbBhRL8Y1XhbiOT/Mbm9qkVV4S1t
- rQD88ur581UfQNauDQ5z9ow6HaG7Ko42UOZquBAQ//daLzG4Vg6da
-X-Received: by 2002:a17:90b:4c49:b0:39d:fcbe:fdd7 with SMTP id
- 98e67ed59e1d1-39e1e23cff7mr5673235a91.1.1789581431294; Wed, 16 Sep 2026
- 10:57:11 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95C9510ECFA;
+	Wed, 16 Sep 2026 17:58:13 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 350EB10ECFA
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 17:58:12 +0000 (UTC)
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+ by APP-05 (Coremail) with SMTP id zQCowAAHcz2u2KpqJwtvCA--.23607S2;
+ Thu, 17 Sep 2026 01:58:06 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: abhinav.kumar@linux.dev
+Cc: airlied@gmail.com, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, jesszhan0024@gmail.com,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ lumag@kernel.org, marijn.suijten@somainline.org,
+ robin.clark@oss.qualcomm.com, sean@poorly.run, simona@ffwll.ch,
+ Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
+Subject: [PATCH] drm/msm/dsi: Fix VM leak in dsi_tx_buf_alloc_6g()
+Date: Wed, 16 Sep 2026 17:57:38 +0000
+Message-Id: <20260916175738.2089950-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20260915201525.3530491-1-arnd@kernel.org>
-In-Reply-To: <20260915201525.3530491-1-arnd@kernel.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 16 Sep 2026 13:56:58 -0400
-X-Gm-Features: AcwNN1WqFxHVyo89bZ3kWQkp1b6VgBRYVdOql17xbIgcYVCDABYsam0h7bBy_4M
-Message-ID: <CADnq5_MG+Yrws17OPHCCtc2Sw2yVBZUf-6ym8QCxnOW+SFKFfg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: fix unused function warnings
-To: Arnd Bergmann <arnd@kernel.org>, "Wentland, Harry" <Harry.Wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Tom Chung <chiahsuan.chung@amd.com>, 
- Gaghik Khachatrian <gaghik.khachatrian@amd.com>,
- Dillon Varone <dillon.varone@amd.com>, 
- Arnd Bergmann <arnd@arndb.de>, Rodrigo Siqueira <siqueira@igalia.com>, 
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- Alex Hung <alex.hung@amd.com>, Ray Wu <ray.wu@amd.com>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowAAHcz2u2KpqJwtvCA--.23607S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZry7Wr4UuFyruFWDGFWrAFb_yoWkZFbEga
+ sYqwn7JF47KFnrKF1jyw12vrWqkFya9r40vr1rt3W3JFyqyr15W34SvFs5Z3ZF9r4rJF9F
+ yw17Xr1rXrsFgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUb-xFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+ 6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26F
+ 4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+ 7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbV
+ WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
+ xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
+ kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+ WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
+ I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG
+ 6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJV
+ W0obIYCTnIWIevJa73UjIFyTuYvjfUFhL0UUUUU
+X-Originating-IP: [36.110.52.2]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwcMA2qqpVhvogAAs-
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,76 +63,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 15, 2026 at 4:21=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wro=
-te:
->
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> When CONFIG_DRM_AMD_DC_DCE is disabled, most functions insde dce110_hwseq=
-.c
-> are no longer referenced, causing a lot of warnings such as
->
-> drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dce110/dce110_hwseq.c:3510:=
-13: error: 'dce110_enable_analog_link_output' defined but not used [-Werror=
-=3Dunused-function]
->  3510 | static void dce110_enable_analog_link_output(
->       |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dce110/dce110_hwseq.c:3391:=
-13: error: 'dce110_set_cursor_attribute' defined but not used [-Werror=3Dun=
-used-function]
->  3391 | static void dce110_set_cursor_attribute(struct pipe_ctx *pipe_ctx=
-)
->
-> Replace the #ifdef with an IS_ENABLED() check that leads to an empty func=
-tion
-> in this configuration, so the compiler can eliminate the unused functions
-> and not complain about it.
->
-> Fixes: cd2cfe4d1504 ("drm/amd/display: gate DCE ASIC code behind CONFIG_D=
-RM_AMD_DC_DCE")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
-> This still leaves an unused empty function, not sure how much harder
-> we should try. Maybe the file should just be built conditionally?
+dsi_tx_buf_alloc_6g() takes a reference to the kms VM with
+drm_gpuvm_get() and stores it in msm_host->vm.  If
+msm_gem_kernel_new() fails, the function returns early without
+dropping that reference.  Since msm_host->tx_gem_obj is cleared on
+the error path, msm_dsi_tx_buf_free() will never see a non-NULL
+tx_gem_obj and thus never calls drm_gpuvm_put(), leaking the VM
+reference.
 
-I think so?  @Wentland, Harry What do you think?
+Drop the VM reference and clear msm_host->vm on the error path.
 
-Alex
+Fixes: 5e05be782645 ("drm/msm/dsi: free TX buffer in unbind")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> ---
->  .../gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c  | 10 ++++------
->  1 file changed, 4 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/=
-drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> index 817f2bf736f4..a334e10eb1cd 100644
-> --- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> @@ -3618,7 +3618,6 @@ void dce110_disable_link_output(struct dc_link *lin=
-k,
->         dc->link_srv->dp_trace_source_sequence(link, DPCD_SOURCE_SEQ_AFTE=
-R_DISABLE_LINK_PHY);
->  }
->
-> -#if defined(CONFIG_DRM_AMD_DC_DCE)
->  static const struct hw_sequencer_funcs dce110_funcs =3D {
->         .program_gamut_remap =3D program_gamut_remap,
->         .program_output_csc =3D program_output_csc,
-> @@ -3685,9 +3684,8 @@ static const struct hwseq_private_funcs dce110_priv=
-ate_funcs =3D {
->
->  void dce110_hw_sequencer_construct(struct dc *dc)
->  {
-> -       dc->hwss =3D dce110_funcs;
-> -       dc->hwseq->funcs =3D dce110_private_funcs;
-> +       if (IS_ENABLED(CONFIG_DRM_AMD_DC_DCE)) {
-> +               dc->hwss =3D dce110_funcs;
-> +               dc->hwseq->funcs =3D dce110_private_funcs;
-> +       }
->  }
-> -
-> -#endif /* CONFIG_DRM_AMD_DC_DCE */
-> -
-> --
-> 2.53.0
->
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 982abaaac00d..29e0de0e0c22 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -1250,6 +1250,8 @@ int dsi_tx_buf_alloc_6g(struct msm_dsi_host *msm_host, int size)
+ 
+ 	if (IS_ERR(data)) {
+ 		msm_host->tx_gem_obj = NULL;
++		drm_gpuvm_put(msm_host->vm);
++		msm_host->vm = NULL;
+ 		return PTR_ERR(data);
+ 	}
+ 
+-- 
+2.34.1
+
