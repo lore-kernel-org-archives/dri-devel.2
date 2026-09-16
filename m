@@ -4,75 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72211C88E75
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 00:50:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0170C88E77
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 01:52:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5655610E34A;
-	Wed, 16 Sep 2026 00:50:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A4FC10E058;
+	Wed, 16 Sep 2026 01:52:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ubuntu.com header.i=@ubuntu.com header.b="e0TRwae7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LUNXV5tg";
 	dkim-atps=neutral
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E17E310E34A
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 00:50:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
- h=In-Reply-To: References: To: From: Subject: Cc: Message-Id: Date:
- Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
- s=fe-953a8a3ca9; t=1789519831;
- bh=s2V8BnF8h+8Uq8u8VZxp/reb7V9zH1peGA2ahNF542Q=;
- b=e0TRwae7Xt7kymxL+k8sHFGT2O8CL01HcJ+TLxp1iWFjS+VZ0RAl3YBZSIiJ2T8IaJnXwezC6
- hIcUHNDea9JXMHbxYvnZ6p8KT7hyON3p9fyIP0zkxXWtKP89DNqq0ckQnwCxwrEnsysg34P83dg
- aX0531ufxgQNZWpOssMRdKo3oPu100Z/a2xI6VQG2SGdD0YSvuf8+q47cFCqq8KTdCGq1dcALGo
- l+sDq14PWwqk0tKfolJlJ+iRbNokme5WNWusBXwZtCPXy+f/j6tvuZpzrm/zxLMlYpm2z0DUWTS
- 5r2Xm6cuB6aUyF9UHmUa33yZA2tc9PBMU/tOuqi7I47w==
-X-Forward-Email-ID: 6aa9e69076866d48a84e7189
-X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
- 121.127.44.66
-X-Forward-Email-Version: 2.14.2
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8; format=Flowed
-Date: Tue, 15 Sep 2026 20:45:01 -0400
-Message-Id: <DLGBPXP4F8E0.9X0QMZ9GFQVF@ubuntu.com>
-Cc: <linux-phy@lists.infradead.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <mfd@lists.linux.dev>, <linux-clk@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <linux-riscv@lists.infradead.org>,
- "Marek Szyprowski" <m.szyprowski@samsung.com>, "Maud Spierings"
- <maud_spierings@murena.io>, "Graham Markall" <hello@big-grey.co.uk>,
- "Icenowy Zheng" <zhengxingda@iscas.ac.cn>, "Chaoyi Chen"
- <chaoyi.chen@rock-chips.com>, "Joshua Peisach" <jpeisach@ubuntu.com>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v4 00/20] drm: starfive: jh7110: Enable display subsystem
-From: "Joshua Peisach" <jpeisach@ubuntu.com>
-To: "Michal Wilczynski" <m.wilczynski@samsung.com>, "Vinod Koul"
- <vkoul@kernel.org>, "Neil Armstrong" <neil.armstrong@linaro.org>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca
- Ceresoli" <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "Lee Jones" <lee@kernel.org>,
- "Andy Yan" <andy.yan@rock-chips.com>, "Philipp Zabel"
- <p.zabel@pengutronix.de>, "Emil Renner Berthing" <kernel@esmil.dk>, "Hal
- Feng" <hal.feng@starfivetech.com>, "Michael Turquette"
- <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Heiko
- Stuebner" <heiko@sntech.de>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
- Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, "Dominique Belhachemi" <db@domibel.de>,
- "Brian Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
- <jbrunet+clk@baylibre.com>
-X-Mailer: aerc 0.21.0
-References: <CGME20260915153213eucas1p148f013af239a334fc78cdc249c0f8a61@eucas1p1.samsung.com>
- <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
-In-Reply-To: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E70B10E058;
+ Wed, 16 Sep 2026 01:52:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3F3FF406B3;
+ Wed, 16 Sep 2026 01:52:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 702F51F00893;
+ Wed, 16 Sep 2026 01:52:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789523544;
+ bh=RoggnMyXqTX8Q0RxNcj5GA4kKvWXwLxnK7Rigc2pLq4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=LUNXV5tg7qC/dMPkp1LZAxRxIRo0hV45cXwnXFrbS+scNQxCIS1f/RsGFHFBcbZZM
+ fdkcXpnpNPqr7VX64Jh9VLMETSHkRI3ySTf5h0usU0z0s3PhNEmbGlpStsQxNFPNtY
+ Cm6CbsGJuAsg9aLig4wA43+ln4+oE641hLMF5ey9zHlF8sCxHxaEIpK7UYCaEVf1ZH
+ ji6R1etXVGkIDKOSqCH9hPlyq5zXKFQqr15UQq2Srm2oPd3t1bAXCA/7RkvftJpj4x
+ jlFrMnQ051uwyzEKA9xhrcjjK7sp5uWV/ns9MD/Fieff6dsx01+1/W2EWBuox743T8
+ diax7edr1svGw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+ Roman Demidov <roman.demidov.nn@gmail.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Wayne Lin <Wayne.Lin@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ Mario Limonciello <Mario.Limonciello@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Melissa Wen <mwen@igalia.com>,
+ Alex Hung <alex.hung@amd.com>, Mario Limonciello <superm1@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Sunil Khatri <sunil.khatri@amd.com>,
+ Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, WenTao Liang <vulab@iscas.ac.cn>,
+ George Zhang <george.zhang@amd.com>
+Subject: Re: [PATCH 5.10/5.15/6.1 v2] drm/amd/display: set new_stream to NULL
+ after release
+Date: Tue, 15 Sep 2026 21:52:07 -0400
+Message-ID: <daily-reply-20260915-0002-re-amd-display-new-stream-null@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260915074611.9133-1-roman.demidov.nn@gmail.com>
+References: <20260915074611.9133-1-roman.demidov.nn@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,85 +78,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Sep 15, 2026 at 11:32 AM EDT, Michal Wilczynski wrote:
->
-> Testing
-> =3D=3D=3D=3D=3D=3D=3D
->
-> Tested on a VisionFive 2 v1.3B using modetest.
+> Backport fix for CVE-2026-68236
+> v2: Include version 5.15 in the patch, as Sasha Levin <sashal@kernel.org>
+> suggested.
 
-I.. got nothing. I did have to manually modprobe the modules, but
-unless I am doing something wrong.. I didn't get anything and modetest
-just gave -2.
+Queued for 6.1, 5.15 and 5.10, thanks.
 
-> ---
-> Michal Wilczynski (20):
->       dt-bindings: phy: Add starfive,jh7110-inno-hdmi-phy
->       dt-bindings: display: bridge: Add starfive,jh7110-inno-hdmi-control=
-ler
->       dt-bindings: mfd: Add starfive,jh7110-hdmi-subsystem
->       dt-bindings: soc: starfive: Add starfive,jh7110-vout-syscon
->       dt-bindings: display: verisilicon: Add starfive,jh7110-dc8200
->       dt-bindings: soc: starfive: Add starfive,jh7110-vout-subsystem
->       drm/bridge: inno-hdmi: Split probe out of bind
->       drm/bridge: inno-hdmi: Allow the register map to come from a parent
->       drm/bridge: inno-hdmi: Add .disable platform operation
->       drm/bridge: inno-hdmi: Add .mode_valid platform operation
->       drm/bridge: inno-hdmi: Make the PHY configuration table optional
->       soc: starfive: Add jh7110-hdmi-subsystem driver
->       soc: starfive: Add jh7110-vout-subsystem driver
->       clk: starfive: jh7110-vout: Allow pixel clock rate propagation
->       drm/bridge: starfive: Add JH7110 HDMI controller driver
->       phy: Add common Innosilicon HDMI PHY helpers
->       phy: rockchip: inno-hdmi: Use the common Innosilicon PHY helpers
->       phy: starfive: Add jh7110-inno-hdmi-phy driver
->       riscv: dts: starfive: jh7110: Update DT for display subsystem
->       MAINTAINERS: Add StarFive JH7110 display subsystem entry
->
->  .../starfive,jh7110-inno-hdmi-controller.yaml      | 121 +++++
->  .../bindings/display/verisilicon,dc.yaml           |   1 +
->  .../mfd/starfive,jh7110-hdmi-subsystem.yaml        |  95 ++++
->  .../phy/starfive,jh7110-inno-hdmi-phy.yaml         |  49 ++
->  .../soc/starfive/starfive,jh7110-syscon.yaml       |   1 +
->  .../starfive/starfive,jh7110-vout-subsystem.yaml   | 218 ++++++++
->  MAINTAINERS                                        |  13 +
->  arch/riscv/boot/dts/starfive/jh7110-common.dtsi    | 121 ++++-
->  arch/riscv/boot/dts/starfive/jh7110.dtsi           | 105 +++-
->  drivers/clk/starfive/clk-starfive-jh7110-vout.c    |   6 +-
->  drivers/gpu/drm/bridge/Kconfig                     |  11 +
->  drivers/gpu/drm/bridge/Makefile                    |   1 +
->  drivers/gpu/drm/bridge/inno-hdmi.c                 | 112 +++-
->  drivers/gpu/drm/bridge/jh7110-inno-hdmi.c          | 297 +++++++++++
->  drivers/phy/Kconfig                                |   8 +
->  drivers/phy/Makefile                               |   1 +
->  drivers/phy/phy-inno-hdmi.c                        | 298 +++++++++++
->  drivers/phy/rockchip/Kconfig                       |   1 +
->  drivers/phy/rockchip/phy-rockchip-inno-hdmi.c      | 168 +-----
->  drivers/phy/starfive/Kconfig                       |  20 +
->  drivers/phy/starfive/Makefile                      |   1 +
->  drivers/phy/starfive/phy-jh7110-inno-hdmi.c        | 579 +++++++++++++++=
-++++++
->  drivers/soc/Kconfig                                |   1 +
->  drivers/soc/Makefile                               |   1 +
->  drivers/soc/starfive/Kconfig                       |  43 ++
->  drivers/soc/starfive/Makefile                      |   3 +
->  drivers/soc/starfive/jh7110-hdmi-subsystem.c       |  73 +++
->  drivers/soc/starfive/jh7110-vout-subsystem.c       |  82 +++
->  include/drm/bridge/inno_hdmi.h                     |  10 +-
->  include/linux/phy/inno-hdmi-phy.h                  |  85 +++
->  30 files changed, 2337 insertions(+), 188 deletions(-)
-> ---
-> base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-> change-id: 20251031-jh7110-clean-send-7d2242118026
->
-> Best regards,
-
-By the way, something weird happenined while I applied the patches
-using git am. Somehow, some were out of order. The 10th patch
-adding .mode_valid tried to be applied before .disable even though
-in the series, the order is correctly set? git would obviously
-fail because the .disable entry did not exist in the header, so I had
-to manually put those in.
-
-I guess it's possible that something went wrong here? I personally
-pulled the mailbox from the lore.kernel.org mbox.gz file.
+-- 
+Thanks,
+Sasha
