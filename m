@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33C59C982C7
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 10:01:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB7E8C88E5C
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 10:01:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AA7110E5AE;
-	Wed, 16 Sep 2026 10:01:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA92D89C48;
+	Wed, 16 Sep 2026 10:01:34 +0000 (UTC)
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EABF410E259
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 10:01:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B792E10E039
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 10:01:32 +0000 (UTC)
 Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
- by APP-05 (Coremail) with SMTP id zQCowAA3pD7caKpqW6tnCA--.15049S2;
- Wed, 16 Sep 2026 18:01:00 +0800 (CST)
-Message-ID: <83c63bc0e24cf0187e55105559237c77025353b8.camel@iscas.ac.cn>
-Subject: Re: [PATCH 1/2] drm/verisilicon: add primary modifier for format
- tables
+ by APP-05 (Coremail) with SMTP id zQCowABn0z33aKpq16xnCA--.15755S2;
+ Wed, 16 Sep 2026 18:01:27 +0800 (CST)
+Message-ID: <c3ac76b91f85c8e886a79b4ceb9b9109d1ce12ee.camel@iscas.ac.cn>
+Subject: Re: [PATCH v2] drm/verisilicon: set blend mode for the cursor plane
 From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
  <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Wed, 16 Sep 2026 18:01:00 +0800
-In-Reply-To: <20260910095000.3505878-1-zhengxingda@iscas.ac.cn>
-References: <20260910095000.3505878-1-zhengxingda@iscas.ac.cn>
+Date: Wed, 16 Sep 2026 18:01:27 +0800
+In-Reply-To: <20260910094904.3502741-1-zhengxingda@iscas.ac.cn>
+References: <20260910094904.3502741-1-zhengxingda@iscas.ac.cn>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-X-CM-TRANSID: zQCowAA3pD7caKpqW6tnCA--.15049S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXw1DAFW3ArW8Ww15ZF4rAFb_yoW5Kry3pa
- 1xAryqyFWrAw45tFy7JayUKay5C3Z7Xas2grnxuw17urn8Kr15WFW5Kr9IkFZ8KrWxAw17
- trnYkry7uFW2yrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkIb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+X-CM-TRANSID: zQCowABn0z33aKpq16xnCA--.15755S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw45ZF13XFy8XFW8Zr43Jrb_yoW8AF43pF
+ 4YyFWDAF90yanxtry7C3WxKay7ua15G3Z7XF95u34UZwn8try5Ar1rGr1S9F4UJr47W34r
+ KFsrAr9xAry09F7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUkIb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
  0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
  A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
  jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
  C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
  1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxAI
  w28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr
  4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxG
- rwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8Jw
+ rwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJw
  CI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2
- z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8SdgJUUUUU==
+ z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU5-txPUUUUU==
 X-Originating-IP: [112.94.103.44]
 X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -65,105 +64,59 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 =E5=9C=A8 2026-09-10=E5=9B=9B=E7=9A=84 17:49 +0800=EF=BC=8CIcenowy Zheng=E5=
 =86=99=E9=81=93=EF=BC=9A
-> Currently the format tables are only used for the primary plane.
+> Blend mode properties are now required to expose pixel formats w/
+> alpha.
 >=20
-> Add primary modifiers to names related to the tables.
+> Experiments show that the fixed blending mode for the cursor seems to
+> be
+> COVERAGE:
+>=20
+> - With a cursor plane filled with R=3DG=3D0, B=3D0xff, A=3D0x40, the curs=
+or
+> is
+> =C2=A0 visible on a pure-white background, which means the background is
+> =C2=A0 multiplied.
+> - With a cursor plane filled with R=3DG=3DB=3D0xff, A=3D0x40, the cursor
+> isn't
+> =C2=A0 pure white and non-white patterns can be see through, which means
+> the
+> =C2=A0 cursor is multiplied.
+>=20
+> Add a fixed COVERAGE blend mode property for the cursor plane.
 >=20
 > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-Applied (the whole patchset) onto drm-misc-fixes.
+Applied onto drm-misc-fixes.
 
 Thanks,
 Icenowy
 
 > ---
-> =C2=A0drivers/gpu/drm/verisilicon/vs_hwdb.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 | 12 ++++++------
-> =C2=A0drivers/gpu/drm/verisilicon/vs_hwdb.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++--
-> =C2=A0drivers/gpu/drm/verisilicon/vs_primary_plane.c |=C2=A0 4 ++--
-> =C2=A03 files changed, 10 insertions(+), 10 deletions(-)
+> =C2=A0drivers/gpu/drm/verisilicon/vs_cursor_plane.c | 2 ++
+> =C2=A01 file changed, 2 insertions(+)
 >=20
-> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> index 2a0f7c59afa3a..56aa450443068 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> @@ -10,7 +10,7 @@
-> =C2=A0#include "vs_dc_top_regs.h"
-> =C2=A0#include "vs_hwdb.h"
+> diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+> b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+> index fa4f601dd0c87..da456dced88aa 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+> @@ -11,6 +11,7 @@
 > =C2=A0
-> -static const u32 vs_formats_array_no_yuv444[] =3D {
-> +static const u32 vs_primary_formats_array_no_yuv444[] =3D {
-> =C2=A0	DRM_FORMAT_XRGB4444,
-> =C2=A0	DRM_FORMAT_XBGR4444,
-> =C2=A0	DRM_FORMAT_RGBX4444,
-> @@ -44,7 +44,7 @@ static const u32 vs_formats_array_no_yuv444[] =3D {
-> =C2=A0	/* TODO: non-RGB formats */
-> =C2=A0};
+> =C2=A0#include <drm/drm_atomic.h>
+> =C2=A0#include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_blend.h>
+> =C2=A0#include <drm/drm_crtc.h>
+> =C2=A0#include <drm/drm_fourcc.h>
+> =C2=A0#include <drm/drm_framebuffer.h>
+> @@ -267,6 +268,7 @@ struct drm_plane *vs_cursor_plane_init(struct
+> drm_device *drm_dev,
+> =C2=A0		return plane;
 > =C2=A0
-> -static const u32 vs_formats_array_with_yuv444[] =3D {
-> +static const u32 vs_primary_formats_array_with_yuv444[] =3D {
-> =C2=A0	DRM_FORMAT_XRGB4444,
-> =C2=A0	DRM_FORMAT_XBGR4444,
-> =C2=A0	DRM_FORMAT_RGBX4444,
-> @@ -79,13 +79,13 @@ static const u32 vs_formats_array_with_yuv444[] =3D
-> {
-> =C2=A0};
+> =C2=A0	drm_plane_helper_add(plane, &vs_cursor_plane_helper_funcs);
+> +	drm_plane_create_blend_mode_property(plane,
+> BIT(DRM_MODE_BLEND_COVERAGE));
 > =C2=A0
-> =C2=A0static const struct vs_formats vs_formats_no_yuv444 =3D {
-> -	.array =3D vs_formats_array_no_yuv444,
-> -	.num =3D ARRAY_SIZE(vs_formats_array_no_yuv444)
-> +	.primary_array =3D vs_primary_formats_array_no_yuv444,
-> +	.primary_num =3D
-> ARRAY_SIZE(vs_primary_formats_array_no_yuv444)
-> =C2=A0};
-> =C2=A0
-> =C2=A0static const struct vs_formats vs_formats_with_yuv444 =3D {
-> -	.array =3D vs_formats_array_with_yuv444,
-> -	.num =3D ARRAY_SIZE(vs_formats_array_with_yuv444)
-> +	.primary_array =3D vs_primary_formats_array_with_yuv444,
-> +	.primary_num =3D
-> ARRAY_SIZE(vs_primary_formats_array_with_yuv444)
-> =C2=A0};
-> =C2=A0
-> =C2=A0static struct vs_chip_identity vs_chip_identities[] =3D {
-> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> b/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> index 2065ecb730437..616076d931a57 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> @@ -10,8 +10,8 @@
-> =C2=A0#include <linux/types.h>
-> =C2=A0
-> =C2=A0struct vs_formats {
-> -	const u32 *array;
-> -	unsigned int num;
-> +	const u32 *primary_array;
-> +	unsigned int primary_num;
-> =C2=A0};
-> =C2=A0
-> =C2=A0struct vs_chip_identity {
-> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> index 1f2be41ae496c..8e94491693019 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> @@ -168,8 +168,8 @@ struct drm_plane *vs_primary_plane_init(struct
-> drm_device *drm_dev, struct vs_dc
-> =C2=A0
-> =C2=A0	plane =3D drmm_universal_plane_alloc(drm_dev, struct
-> drm_plane, dev, 0,
-> =C2=A0					=C2=A0=C2=A0 &vs_primary_plane_funcs,
-> -					=C2=A0=C2=A0 dc->identity.formats-
-> >array,
-> -					=C2=A0=C2=A0 dc->identity.formats-
-> >num,
-> +					=C2=A0=C2=A0 dc->identity.formats-
-> >primary_array,
-> +					=C2=A0=C2=A0 dc->identity.formats-
-> >primary_num,
-> =C2=A0					=C2=A0=C2=A0 NULL,
-> =C2=A0					=C2=A0=C2=A0 DRM_PLANE_TYPE_PRIMARY,
-> =C2=A0					=C2=A0=C2=A0 NULL);
+> =C2=A0	return plane;
+> =C2=A0}
 
