@@ -4,49 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98832C982C9
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 15:46:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81933C982CC
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 15:47:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B905A10EC6C;
-	Wed, 16 Sep 2026 15:46:19 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A97510EC6C
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 15:46:17 +0000 (UTC)
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-05 (Coremail) with SMTP id zQCowABXwz3BuapqjRBtCA--.21738S2;
- Wed, 16 Sep 2026 23:46:09 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: bcm-kernel-feedback-list@broadcom.com, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- thellstrom@vmware.com, tzimmermann@suse.de, zack.rusin@broadcom.com,
- Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
-Subject: [PATCH] drm/vmwgfx: Fix tfile reference leak in ttm_base_object_init()
-Date: Wed, 16 Sep 2026 15:45:42 +0000
-Message-Id: <20260916154542.2063219-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowABXwz3BuapqjRBtCA--.21738S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw4fAFyxXFWDKF45CFyUZFb_yoW8WrWkpF
- ZxXrW7tryrJr4xKwsrAa1kXr9xK3ZF9r1DKFyYv3sFvr15Zay3Crs8XayqgFWUGrs7Zr43
- ta109r9xZFWUZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9I14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
- 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
- I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
- 0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
- 8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
- Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
- x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
- 1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
- 6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0ob
- IYCTnIWIevJa73UjIFyTuYvjfUrrWFUUUUU
-X-Originating-IP: [36.110.52.2]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMMA2qqozU9AwAAs9
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3EE110E050;
+	Wed, 16 Sep 2026 15:47:05 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KORdjHVe";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FC1010E050
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 15:47:04 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id EEAAF602CB;
+ Wed, 16 Sep 2026 15:47:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 773B31F000FF;
+ Wed, 16 Sep 2026 15:47:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789573623;
+ bh=Mx/WdcnA9WUEs1IOuBH8MMQKjCutHAhuRSPiR/QCDG0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=KORdjHVeZS85a9QsDJtgywzaolW56TBjQbU8ODrI5WJw/efsNmmpv6WI9IKHH6Cn0
+ C8zH9RHpKg+KD3aw5HL0zg5dFnUJLxENDjUwVwasUTC0cfhh1LQFzvcDuaA/vJpMAk
+ RjekycoxblGBtYG0zJpPsUpxjIyjw7nT9i41AZxPgEXaPNp7ZDLl1llVXVaBeDS9n4
+ 32onC30tuvMqJ47M1IxteMaZCJcbDFukycY2zVSd0JnfsaS6nyOFe1vBMvbIeHzXo2
+ p+/wI1O4/WtELcJuH77r7J3JFqJgklJobjtNy52ZuwPUEMHQDsIggMgwjwSmGolKG1
+ SHel84/+F4snA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 07/38] dyndbg: factor ddebug_match_desc out from
+ ddebug_change
+To: "Jim Cromie" <jim.cromie@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org
+In-Reply-To: <20260916-dd-cmap-part2-clean-v10-7-af4cf4767707@gmail.com>
+References: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
+ <20260916-dd-cmap-part2-clean-v10-7-af4cf4767707@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 16 Sep 2026 15:47:02 +0000
+Message-Id: <20260916154703.773B31F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,50 +54,50 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-ttm_base_object_init() takes a reference on the caller's ttm_object_file
-via ttm_object_file_ref(). The reference is normally released by
-ttm_release_base() when the object's refcount drops to zero, but on the
-two error paths, idr_alloc() failure and ttm_ref_object_add() failure,
-the object is torn down by the caller without ever dropping the
-reference.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dyndbg: orphaned comment for ddebug_change applied to ddebug_match_=
+desc
+--
 
-Drop the tfile reference with ttm_object_file_unref() on both error
-paths.
+commit 09e57b269ce55ff151c63cc7e5d0dc659c6f52d5
+Author: Jim Cromie <jim.cromie@gmail.com>
 
-Fixes: 0b8762e997df ("drm/ttm, drm/vmwgfx: Move the lock- and object functionality to the vmwgfx driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/vmwgfx/ttm_object.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+dyndbg: factor ddebug_match_desc out from ddebug_change
 
-diff --git a/drivers/gpu/drm/vmwgfx/ttm_object.c b/drivers/gpu/drm/vmwgfx/ttm_object.c
-index 2421b0dd057c..92433b60e282 100644
---- a/drivers/gpu/drm/vmwgfx/ttm_object.c
-+++ b/drivers/gpu/drm/vmwgfx/ttm_object.c
-@@ -203,8 +203,10 @@ int ttm_base_object_init(struct ttm_object_file *tfile,
- 	ret = idr_alloc(&tdev->idr, base, 1, 0, GFP_NOWAIT);
- 	spin_unlock(&tdev->object_lock);
- 	idr_preload_end();
--	if (ret < 0)
-+	if (ret < 0) {
-+		ttm_object_file_unref(&base->tfile);
- 		return ret;
-+	}
- 
- 	base->handle = ret;
- 	ret = ttm_ref_object_add(tfile, base, NULL, false);
-@@ -218,6 +220,7 @@ int ttm_base_object_init(struct ttm_object_file *tfile,
- 	spin_lock(&tdev->object_lock);
- 	idr_remove(&tdev->idr, base->handle);
- 	spin_unlock(&tdev->object_lock);
-+	ttm_object_file_unref(&base->tfile);
- 	return ret;
- }
- 
--- 
-2.34.1
+This commit factors out the per-descriptor matching logic from
+ddebug_change into a new boolean function, ddebug_match_desc,
+to simplify the inner loop.
 
+> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+> index 49334d1aa4b3a..5187516c57a93 100644
+> --- a/lib/dynamic_debug.c
+> +++ b/lib/dynamic_debug.c
+> @@ -172,6 +172,60 @@ static struct ddebug_class_map *ddebug_find_valid_cl=
+ass(struct ddebug_table cons
+>   * callsites, normally the same as number of changes.  If verbose,
+>   * logs the changes.  Takes ddebug_lock.
+>   */
+> +static bool ddebug_match_desc(const struct ddebug_query *query,
+> +			      struct _ddebug *dp,
+> +			      int valid_class)
+
+[Severity: Low]
+Does this placement separate the block comment from its intended target?
+
+The comment describes a function that returns the number of matching callsi=
+tes
+and takes ddebug_lock, which accurately describes ddebug_change().
+
+However, by inserting ddebug_match_desc() immediately after this comment,
+does it leave ddebug_change() undocumented and make the comment falsely app=
+ly
+to ddebug_match_desc() (which returns a bool and takes no locks)?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-dd-cmap-pa=
+rt2-clean-v10-0-af4cf4767707@gmail.com?part=3D7
