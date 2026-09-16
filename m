@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF305C88E75
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 00:42:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EF61C88E77
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 00:45:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BD5F10E0CE;
-	Wed, 16 Sep 2026 00:42:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CA4E10E202;
+	Wed, 16 Sep 2026 00:45:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="b4jRgCuo";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="HWmUAYE/";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B27010E0CE
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 00:42:57 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2803010E202
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 00:45:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1789519376;
+ s=mimecast20190719; t=1789519506;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=mGse0lGtGHSILpOr5QMAUERvmnhcCgoXhrGdKRPvFPo=;
- b=b4jRgCuom9XsjlQvWCzdOJJfsHBtv2U3qHesmFaRLVeCbAmNUSOPMCCFXja7qRvL7aGA68
- zJoYhbSuG1dwyVkeB/yXd2vDWWItQi0E9gWw7AsA8cAZHaPW9LaVMp9S2bSlbvaSE9GScT
- 4I+kC4qozCXdsxvzt3WfGBHWYRwfpyQ=
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=HfPUYzlcgmsFLjqRxvjtuvi+F6kyqT67ipaEXy3hQRw=;
+ b=HWmUAYE/1SWLkeqUAA9xE2FmFzXNV1Wsx+s/1VtjAyOizvU3YgEpnCkpVxIssPmYew+bJk
+ 17CE3bmMoQ6pm+VpnMdGXtv17DCZqTz6wTtxAkB9J/NdN3hejWNNZ622UipAdPkyRHW0qB
+ lXBQ5V/EHbilk1NAfo8dHwXYne5vwnU=
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-372-PxEU1PBZOI-cewHM3sLkCw-1; Tue, 15 Sep 2026 20:42:55 -0400
-X-MC-Unique: PxEU1PBZOI-cewHM3sLkCw-1
-X-Mimecast-MFC-AGG-ID: PxEU1PBZOI-cewHM3sLkCw_1789519374
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-39deb05ef51so3667508a91.3
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 17:42:54 -0700 (PDT)
+ us-mta-363-npLxfYwuNqigM0fBX4fLQQ-1; Tue, 15 Sep 2026 20:45:04 -0400
+X-MC-Unique: npLxfYwuNqigM0fBX4fLQQ-1
+X-Mimecast-MFC-AGG-ID: npLxfYwuNqigM0fBX4fLQQ_1789519504
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-38ecc48b3c2so8670338a91.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 17:45:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789519374; x=1790124174;
+ d=1e100.net; s=20260707; t=1789519504; x=1790124304;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=mGse0lGtGHSILpOr5QMAUERvmnhcCgoXhrGdKRPvFPo=;
- b=L2KgEAca8PKp+npVm/suPPpJhMZARPoV05QCtVk6A/1d7L4dgy1uia46lumTnF/J9l
- GPmKNv3pFzPTH3Q6VXL7ERaoGX3lmuqjiknjc8Qok2RAeMi4qd0qB6wRhS1veZ4CXmlQ
- TfPFyZzFcIYzeu+yAcH7h+MgVapD3cvT7e5u0xnmwdL6aZ7ipbk8WorN8VdMCThJRt7v
- qNlXX7Bp3CktIYR8Il2Rei8ysDmfYgwXtNKurjJGSuFC8A99gP1YTQsVDi8BImzEeSzr
- rQ6zrPCRirs79PkcQ5F3fQW0JuXeiN0LQJCjBJeDleAnhKh6NSPypA8dhm9cvzNcJfbf
- QUDQ==
-X-Gm-Message-State: AFuF++lAt66ZJxwmnJrF9bEGH373sTo4NTDFYBxIoI88+XsWq1scHtsc
- 2HrNeKPVvfnsGlh7jL9jgaVKBq2ve44HW3WWzzpbTOzrsqiGdJEXSx1/Bl0NadRFowONHWJKMDL
- PQAtRtvslrMtI+KEuUTQ88XQyRiz3gxHMtBRGucOBfqsAKois/PkSl8zjue8aoninJDySl18GAn
- NfTE5ypXYsP+jMC/yX70Bl46U6oL0L39ld+RKuZo3l5XwJ
-X-Gm-Gg: AYBFou2Q908rUjptZpMYrBnq1z32Qr/eWKKR6iveU1yF1OgWH6WtLmdcjRQRNzroSmx
- yK18kuRnoPdcgUrjeoK7crfMayqS70x2nMH/+4Dvt5QTLHij4XeAfykVkO8C6ge/H9zJOolhLlf
- lPWl1WUXQ/OxxRw1ye6xLfwbxkJRSqVxm6228RtrmT0jKxdGttXBPzUPaD+/at1xL5BpnFELCck
- VmXhYqc4mzlc881
-X-Received: by 2002:a17:90b:5281:b0:39d:f050:a010 with SMTP id
- 98e67ed59e1d1-39e1e263d08mr1734219a91.1.1789519373699; 
- Tue, 15 Sep 2026 17:42:53 -0700 (PDT)
-X-Received: by 2002:a17:90b:5281:b0:39d:f050:a010 with SMTP id
- 98e67ed59e1d1-39e1e263d08mr1734159a91.1.1789519373138; Tue, 15 Sep 2026
- 17:42:53 -0700 (PDT)
+ bh=HfPUYzlcgmsFLjqRxvjtuvi+F6kyqT67ipaEXy3hQRw=;
+ b=kvIj8w8diPbbFcQTgbE3luozghtvh2E02gTb+NpCzz/mLhlrJve68+T6Fguc5ITsof
+ 79r/II7C/R8Ujpm3cuzukwQPxvKEKvWLz9SoqmJ1xhlO0o1HjFHmuLJHaCnCUJuulxL3
+ ju5YVQWLv8rDum9ckqzdchCgMVXuC41upL8UTSUjMVRhhlNgff1WPGbnM55riTdwrJy2
+ nU3yb8znaPXUjDyAcqUScRNC9S4C0qxfULN4Wr2qv/hsnVg4K0+xrdyplDpYDn4R+hmJ
+ oTJcs9CyQCFlodD5S/IhZEATQEBrOh8vVEkxra/69ZsHpoGWyqec0dm02xwzPzZroaP7
+ IWqA==
+X-Gm-Message-State: AFuF++mxLEfYJtceZrP/+SZdk4ykpvbD1iBozIsLbS8BewMBlljlcv/8
+ eF8NQ/eOcxF2bcc9xBhYtiLckEV6u6PljJmddIWdq5ILiffU5uGhosk5if1JXaMR4PBIPgm/mUw
+ 2klzMdDd/X3l6gReVCvw1s/SRgdPr3LdUXz7nzCLYx06D/k8C0RPIz/kh5RL6jkk0Qi7E2xfCmr
+ k13OP5rsPzyJUVQVoY9ZDW4ukG5a7d04R+GX4ailTtAzZh
+X-Gm-Gg: AYBFou296VH8WPg3QDlDR5PAbceVYvtBj03X/zbIGx5UcO5dGND3++17DMWEYBWS5UA
+ TdqKLCiwyqDTRSCr19EexScFz5b352K3Ts+QD+rRcLK237Rg/9ulkUQfO+9RdK9jdryum/1mne+
+ Cr/S/XfH08BavOZBeG7nu0gzONmVswnuPbBJSgBC9iuObrJuqrb8L8ib4u8Roj+Zk1mmi9IgrUb
+ oFfk+luSF4zi7Bi
+X-Received: by 2002:a17:90b:5386:b0:398:dcef:c040 with SMTP id
+ 98e67ed59e1d1-39e1e4aa012mr1554343a91.19.1789519503340; 
+ Tue, 15 Sep 2026 17:45:03 -0700 (PDT)
+X-Received: by 2002:a17:90b:5386:b0:398:dcef:c040 with SMTP id
+ 98e67ed59e1d1-39e1e4aa012mr1554271a91.19.1789519502710; Tue, 15 Sep 2026
+ 17:45:02 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260916001603.22394-1-lyude@redhat.com>
- <20260916001603.22394-2-lyude@redhat.com>
-In-Reply-To: <20260916001603.22394-2-lyude@redhat.com>
+ <20260916001603.22394-3-lyude@redhat.com>
+In-Reply-To: <20260916001603.22394-3-lyude@redhat.com>
 From: David Airlie <airlied@redhat.com>
-Date: Wed, 16 Sep 2026 10:42:41 +1000
-X-Gm-Features: AcwNN1Vs8ufolmqLJX-ytdf5rJExuz1QFL1qUEVtr1TxWyGYdEA5LkZ7nRPeWL0
-Message-ID: <CAMwc25rP6u9=0PxN_OpYUs33cNqoiYYEFpwN4FKPQyHvNb+=Cg@mail.gmail.com>
-Subject: Re: [PATCH v3 1/5] drm/nouveau/gsp/r535: Add support for
- INTERNAL_GCX_ENTRY_PREREQUISITE
+Date: Wed, 16 Sep 2026 10:44:50 +1000
+X-Gm-Features: AcwNN1U2rMYqd8tDZTEqUV094CLCyp-28AzSPzCe3dT76HzOjLGKJxyGK8p2h-Q
+Message-ID: <CAMwc25pBOU62TV77ZSSyH6DP=K4FMCpd9i98L4H+QWQ0=--FOg@mail.gmail.com>
+Subject: Re: [PATCH v3 2/5] drm/nouveau/gsp/r535: Add support for
+ MEMSYS_GET_STATIC_CONFIG
 To: Lyude Paul <lyude@redhat.com>
 Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Timur Tabi <ttabi@nvidia.com>, 
@@ -85,7 +85,7 @@ Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  Mel Henning <mhenning@darkrefraction.com>, 
  Danilo Krummrich <dakr@kernel.org>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: JMkLhoDNMjZW33WWDGgCa3TjNhlQkbAfg_0yucSGCPU_1789519374
+X-Mimecast-MFC-PROC-ID: 06sDAqguwSYS5BngmsRO12QNFUKpMguM_CXoIHmUvLQ_1789519504
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -107,132 +107,220 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 On Wed, Sep 16, 2026 at 10:22=E2=80=AFAM Lyude Paul <lyude@redhat.com> wrot=
 e:
 >
-> OpenRM's runtime PM handling looks a bit different then nouveau's, one pa=
-rt
-> in particular that differs from us: OpenRM actually consults GSP to ask
-> whether the GPU should be allowed to enter Gc6 and/or GcOff before runtim=
-e
-> suspending the GPU. In the event the card isn't ready, runtime suspend is
-> simply delayed for a few seconds before retrying.
->
-> Implement the command used for querying GSP about this,
-> NV2080_CTRL_CMD_INTERNAL_GCX_ENTRY_PREREQUISITE, and check to ensure that
-> the GPU is ready for runtime suspend in nouveau_pmops_runtime_suspend()
-> using this query. If the GPU can't be runtime suspended, update the last
-> busy counter of the device and then return -EBUSY from
-> nouveau_pmops_runtime_suspend() - essentially delaying the runtime suspen=
-d
-> process by whatever autosuspend_delay_ms is set to.
+> This is a GSP structure describing various characteristics of the memory
+> management system that GSP provides. Start by fetching it during driver
+> load, but don't do anything with the information we get from it just yet.
 >
 > Signed-off-by: Lyude Paul <lyude@redhat.com>
 >
 > ---
-
+> V3
+> * s/nvkm_gsp_rm_ctrl_get()/nvkm_gsp_rm_ctrl_rd()/
 >
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c b/drivers/=
-gpu/drm/nouveau/nvkm/engine/device/user.c
-> index 23d11d8221cb6..c47d6daa9e5aa 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
-> @@ -27,6 +27,8 @@
+>  .../gpu/drm/nouveau/include/nvkm/subdev/gsp.h |  4 ++
+>  .../drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 17 +++++++
+>  .../nvkm/subdev/gsp/rm/r535/nvrm/gsp.h        | 45 +++++++++++++++++
+>  .../drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c |  8 +++
+>  .../nvkm/subdev/gsp/rm/r570/nvrm/gsp.h        | 50 +++++++++++++++++++
+>  .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h   |  1 +
+>  6 files changed, 125 insertions(+)
 >
->  #include <core/client.h>
->  #include <subdev/fb.h>
-> +#include <subdev/gsp.h>
-> +#include <subdev/gsp/priv.h>
-
-Including a priv.h seems like a layering violation.
-
-I think you should define a nvkm_gsp_gcx_ready and then call the r535
-via a function pointer in nvkm_gsp_func.
-
-
->  #include <subdev/instmem.h>
->  #include <subdev/timer.h>
+> diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h b/drivers/=
+gpu/drm/nouveau/include/nvkm/subdev/gsp.h
+> index 64fed208e4cf8..0e193baaf9bbb 100644
+> --- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
+> +++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
+> @@ -156,6 +156,10 @@ struct nvkm_gsp {
+>                 struct sg_table fbsr;
+>         } sr;
 >
-> @@ -189,6 +191,41 @@ nvkm_udevice_time(struct nvkm_udevice *udev, void *d=
-ata, u32 size)
->         return ret;
+> +       struct {
+> +               bool use_raw_mode_comptagline_alloc;
+> +       } memsys;
+> +
+>         struct {
+>                 struct nvkm_gsp_mem mem;
+>
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/driv=
+ers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
+> index 09b17b85dc1ac..5df5365e744f5 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
+> @@ -1808,6 +1808,23 @@ r535_gsp_fini(struct nvkm_gsp *gsp, enum nvkm_susp=
+end_state suspend)
+>         return 0;
 >  }
 >
-> +static int
-> +nvkm_udevice_gcx_ready(struct nvkm_udevice *udev, void *data, u32 size)
+> +int
+> +r535_gsp_get_static_memsys_info(struct nvkm_gsp *gsp)
 > +{
-> +       struct nvkm_object *object =3D &udev->object;
-> +       struct nvkm_device *device =3D udev->device;
-> +       struct nvkm_gsp *gsp =3D device->gsp;
-> +       union {
-> +               struct nv_device_gcx_ready_v0 v0;
-> +       } *args =3D data;
-> +       int ret =3D -ENOSYS;
+> +       NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS *ctrl;
 > +
-> +       /* XXX: We don't know any way of performing this check outside of=
- GSP, so just assume
-> +        * things are ready for non-GSP clients.
-> +        */
-> +       if (!gsp) {
-> +               args->v0.ready =3D NV_DEVICE_GC6_READY | NV_DEVICE_GCOFF_=
-READY;
-> +               return 0;
-> +       }
+> +       ctrl =3D nvkm_gsp_rm_ctrl_rd(&gsp->internal.device.subdevice,
+> +                                   NV2080_CTRL_CMD_INTERNAL_MEMSYS_GET_S=
+TATIC_CONFIG,
+> +                                   sizeof(*ctrl));
+> +       if (IS_ERR(ctrl))
+> +               return PTR_ERR(ctrl);
 > +
-> +       nvif_ioctl(object, "device gcx ready size %d\n", size);
-> +       ret =3D nvif_unpack(ret, &data, &size, args->v0, 0, 0, false);
-> +       if (!ret) {
-> +               nvif_ioctl(object, "device gcx ready vers %d\n", args->v0=
-.version);
+> +       gsp->memsys.use_raw_mode_comptagline_alloc =3D ctrl->bUseRawModeC=
+omptaglineAllocation;
 > +
-> +               ret =3D r535_gsp_gcx_ready(gsp);
-> +               if (ret < 0)
-> +                       return ret;
-> +
-> +               args->v0.ready =3D ret;
-> +               ret =3D 0;
-> +       }
-> +
-> +       return ret;
-> +}
-> +
->  static int
->  nvkm_udevice_mthd(struct nvkm_object *object, u32 mthd, void *data, u32 =
-size)
->  {
-> @@ -199,6 +236,8 @@ nvkm_udevice_mthd(struct nvkm_object *object, u32 mth=
-d, void *data, u32 size)
->                 return nvkm_udevice_info(udev, data, size);
->         case NV_DEVICE_V0_TIME:
->                 return nvkm_udevice_time(udev, data, size);
-> +       case NV_DEVICE_V0_GCX_READY:
-> +               return nvkm_udevice_gcx_ready(udev, data, size);
->         default:
->                 break;
->         }
-> +       return ret;
+> +       nvkm_gsp_rm_ctrl_done(&gsp->internal.device.subdevice, ctrl);
+> +       return 0;
 > +}
 > +
 >  int
->  r535_gsp_fini(struct nvkm_gsp *gsp, enum nvkm_suspend_state suspend)
+>  r535_gsp_init(struct nvkm_gsp *gsp)
 >  {
 > diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h b=
 /drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-> index b6683a5bf870c..fd1170037c030 100644
+> index fd1170037c030..fee5418a72a68 100644
 > --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
 > +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-> @@ -782,6 +782,13 @@ typedef struct NV2080_CTRL_INTERNAL_INTR_GET_KERNEL_=
-TABLE_PARAMS {
+> @@ -789,6 +789,51 @@ typedef struct NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQ=
+UISITE_PARAMS {
+>      NvBool bIsGCOFFSatisfied;
+>  } NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS;
 >
->  #define GSP_FW_HEAP_PARAM_CLIENT_ALLOC_SIZE      ((48 << 10) * 2048)   /=
-/ Support 2048 channels
->
-> +#define NV2080_CTRL_CMD_INTERNAL_GCX_ENTRY_PREREQUISITE (0x2080a7d7)
+> +typedef struct NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS {
+> +    /*! Determines if RM should use 1 to 1 Comptagline allocation policy=
+ */
+> +    NvBool bOneToOneComptagLineAllocation;
 > +
-> +typedef struct NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS {
-> +    NvBool bIsGC6Satisfied;
-> +    NvBool bIsGCOFFSatisfied;
-> +} NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS;
+> +    /*! Determines if RM should use 1 to 4 Comptagline allocation policy=
+ */
+> +    NvBool bUseOneToFourComptagLineAllocation;
+> +
+> +    /*! Determines if RM should use raw Comptagline allocation policy */
+> +    NvBool bUseRawModeComptaglineAllocation;
+> +
+> +    /*! Has COMPBIT_BACKING_SIZE been overridden to zero (i.e. disabled)=
+? */
+> +    NvBool bDisableCompbitBacking;
+> +
+> +    /*! Determine if we need to disable post L2 compression */
+> +    NvBool bDisablePostL2Compression;
+> +
+> +    /*! Is ECC DRAM feature supported? */
+> +    NvBool bEnabledEccFBPA;
+> +
+> +    NvBool bL2PreFill;
+> +
+> +    /*! L2 cache size */
+> +    NV_DECLARE_ALIGNED(NvU64 l2CacheSize, 8);
+> +
+> +    /*! Indicate whether fpba is present or not */
+> +    NvBool bFbpaPresent;
+> +
+> +    /*! Size covered by one comptag */
+> +    NvU32  comprPageSize;
+> +
+> +    /*! log32(comprPageSize) */
+> +    NvU32  comprPageShift;
+> +
+> +    /*! RAM type */
+> +    NvU32  ramType;
+> +
+> +    /*! LTC count */
+> +    NvU32  ltcCount;
+> +
+> +    /*! LTS per LTC count */
+> +    NvU32  ltsPerLtcCount;
+> +} NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS;
+> +
+> +#define NV2080_CTRL_CMD_INTERNAL_MEMSYS_GET_STATIC_CONFIG        (0x2080=
+0a1c) /* finn: Evaluated from "(FINN_NV20_SUBDEVICE_0_INTERNAL_INTERFACE_ID=
+ << 8) | NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS_MESSAGE_ID" *=
+/
+> +
+>  typedef union rpc_message_rpc_union_field_v03_00
+>  {
+>      NvU32      spare;
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c b/driv=
+ers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+> index b45781cd0dfdc..5a51fe7e5ab98 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+> @@ -137,6 +137,14 @@ r570_gsp_get_static_info(struct nvkm_gsp *gsp)
+>                 }
+>         }
+>
+> +       ret =3D r535_gsp_get_static_memsys_info(gsp);
+> +       if (ret) {
+> +               nvkm_error(&gsp->subdev, "Retrieving static memsys info f=
+ailed\n");
+> +               return ret;
+> +       }
+> +       nvkm_debug(&gsp->subdev, "memsys: Use raw mode for comptag alloca=
+tions? %s\n",
+> +                  str_yes_no(gsp->memsys.use_raw_mode_comptagline_alloc)=
+);
+> +
+>         return 0;
+>  }
+>
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h b=
+/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
+> index c458569af9d72..e2d9d1949e4e1 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
+> @@ -494,6 +494,56 @@ typedef struct
+>
+>  #define GSP_FW_WPR_META_REVISION  1
+>
+> +#define NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS_MESSAGE_ID =
+(0x1CU)
+> +
+> +typedef struct NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS {
+> +    /*! Determines if RM should use 1 to 1 Comptagline allocation policy=
+ */
+> +    NvBool bOneToOneComptagLineAllocation;
+> +
+> +    /*! Determines if RM should use 1 to 4 Comptagline allocation policy=
+ */
+> +    NvBool bUseOneToFourComptagLineAllocation;
+> +
+> +    /*! Determines if RM should use raw Comptagline allocation policy */
+> +    NvBool bUseRawModeComptaglineAllocation;
+> +
+> +    /*! Has COMPBIT_BACKING_SIZE been overridden to zero (i.e. disabled)=
+? */
+> +    NvBool bDisableCompbitBacking;
+> +
+> +    /*! Determine if we need to disable post L2 compression */
+> +    NvBool bDisablePostL2Compression;
+> +
+> +    /*! Is ECC DRAM feature supported? */
+> +    NvBool bEnabledEccFBPA;
+> +
+> +    NvBool bL2PreFill;
+> +
+> +    /*! L2 cache size */
+> +    NV_DECLARE_ALIGNED(NvU64 l2CacheSize, 8);
+> +
+> +    /*! Indicate whether fpba is present or not */
+> +    NvBool bFbpaPresent;
+> +
+> +    /*! Size covered by one comptag */
+> +    NvU32  comprPageSize;
+> +
+> +    /*! log32(comprPageSize) */
+> +    NvU32  comprPageShift;
+> +
+> +    /*! RAM type */
+> +    NvU32  ramType;
+> +
+> +    /*! LTC count */
+> +    NvU32  ltcCount;
+> +
+> +    /*! LTS per LTC count */
+> +    NvU32  ltsPerLtcCount;
+> +} NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS;
+> +
 
-Have you confirmed this struct didn't change in r570,
+Is this used anywhere? if the 535 and 570 structs match then don't include =
+it.
 
-Thanks,
 Dave.
 
