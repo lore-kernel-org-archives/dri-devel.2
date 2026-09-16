@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB363C982C4
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 11:08:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89128C982CB
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 11:08:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCE1510E655;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0E6910E6D2;
 	Wed, 16 Sep 2026 11:08:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oU4OqbZb";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="QNKt687A";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C31DB10E488
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 11:08:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C6BE10E488
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 11:08:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1789556916;
- bh=6EHds//n4+NFmxl71I9PCgmjYbS9lTfCOyADVHqg2XA=;
+ s=mail; t=1789556911;
+ bh=j/gsFohJsX2pb991NM8358zeV5EJxqTR9EawuUysLmA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oU4OqbZbjcODi1LGBvFbwctZxSAFUC79IZVYx7h6/b+Lj6UJnnQyOJF8lO4oUnasw
- AUyicmKMgr8lVgKtEzuHOP3YQ9v+ToX9iR3qkmi8M83fmfio2KczGs2o5MaBerZURx
- llrCkwgviBn6oDsmsVxGyx5CxafQg0WSZUJLTDWqAIMQ6VKKXrgjlya7ZYKZpYAzBV
- rI5I/2XF6M4se+Xh5IEJgTGmCeSXOoVQjTPR7kT8A3g9WTCRYUxREy8KuGPm6/WRC2
- +WGi96uTskBscpx+ZyH7zCS7o+3rSS/9ae5lbTmJUYpfnNPXwlaebiBU0WDlr8LHoK
- GF8hdUYBv28KA==
+ b=QNKt687A/gPrA9a+UfT7S8xsQUKMqNyVBB/F3+NFyI7AuJI5/7jJclZCeE3BvARCi
+ kYwNM/8n6BgHOuWSKeWh/tE7qDloCPLL23r5rHw7yqRlzJ8vpJlVLsiiXAU9oEKGd5
+ 5/pbvVV0PyV6bL7dPuNvx56c0hPbmA5r1Qw1CBwC+t4NeUDRgVtRwSOmANyk3vX+x0
+ IIKd0Bc69fQpdl4QzMdlToOqgybOyxfIcMnOdxBuElFKEBQ7evjuiKoskUSLZf+0bk
+ Q2UuWEkuPPeMU8M1VVXcBzFZn/NN0/bmWulfuA3WXHa6/I12mv6/0GBHg+4WBCCVQf
+ uTlZSbPz2PIFQ==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id C722C17E13A8;
- Wed, 16 Sep 2026 13:08:35 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 07D2E17E127A;
+ Wed, 16 Sep 2026 13:08:30 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
@@ -41,10 +41,13 @@ Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
  jitao.shi@mediatek.com, dri-devel@lists.freedesktop.org,
  linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com
-Subject: [PATCH v9 08/13] drm/mediatek: mtk_dsi: Add support for MT8189
-Date: Wed, 16 Sep 2026 13:08:20 +0200
-Message-ID: <20260916110825.102631-9-angelogioacchino.delregno@collabora.com>
+ kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ CK Hu <ck.hu@mediatek.com>
+Subject: [PATCH v9 03/13] dt-bindings: display: mediatek: dsi: Document MT8189
+ and MT8196
+Date: Wed, 16 Sep 2026 13:08:15 +0200
+Message-ID: <20260916110825.102631-4-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916110825.102631-1-angelogioacchino.delregno@collabora.com>
 References: <20260916110825.102631-1-angelogioacchino.delregno@collabora.com>
@@ -65,29 +68,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for the DSI IP found in the MT8189 SoC: this one is
-similar to the IPs found in the most recent already supported SoCs
-with the only difference being that it supports a higher link rate
-of 2.5Gbps instead of 1.5Gbps.
+Add compatible strings for MT8189 and MT8196 SoCs.
+These are compatible with the DSI IPs found in the MT8188/95 and
+others, but with differences making them not fully compatible.
 
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: CK Hu <ck.hu@mediatek.com>
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/mtk_drm_drv.c | 2 ++
+ .../devicetree/bindings/display/mediatek/mediatek,dsi.yaml      | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index bd2d17017bd2..08f6be311dd1 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -826,6 +826,8 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
- 	  .data = (void *)MTK_DSI },
- 	{ .compatible = "mediatek,mt8188-dsi",
- 	  .data = (void *)MTK_DSI },
-+	{ .compatible = "mediatek,mt8189-dsi",
-+	  .data = (void *)MTK_DSI },
- 	{ }
- };
- 
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
+index 27ffbccc2a08..b5cdfe0eaca4 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
+@@ -30,6 +30,8 @@ properties:
+           - mediatek,mt8183-dsi
+           - mediatek,mt8186-dsi
+           - mediatek,mt8188-dsi
++          - mediatek,mt8189-dsi
++          - mediatek,mt8196-dsi
+       - items:
+           - enum:
+               - mediatek,mt6795-dsi
 -- 
 2.55.0
 
