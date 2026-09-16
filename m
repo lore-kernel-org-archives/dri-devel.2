@@ -4,50 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBA3EC88E5C
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 09:54:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62E04C88E77
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 09:54:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE4AC10E012;
-	Wed, 16 Sep 2026 09:54:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DECD10E2F9;
+	Wed, 16 Sep 2026 09:54:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="fINTCHd2";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="XTBEJa4S";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cdXX6ouD";
 	dkim-atps=neutral
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C72410E8F5
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 09:53:58 +0000 (UTC)
-From: Nam Cao <namcao@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1789552436;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gU28K/TBmhCpoW3RpgGeEwSRVwR0d59zct58qf7aOmM=;
- b=fINTCHd2rV5qr8hjmNiqsQ4kOatkIK9D9rw4UdLHoz2bQS/o6CllgkB3r7yfaRgZ8h8A/N
- 9ZWUJUXswF3y/wEMSvF97Bcyi5ijZpITTAFGs1xKXXZUn6JgFMLlQ4HY6hrY8Ak4c4wJ1R
- HdOMPTC+Fm9QLPckwARGA0qcR6vSsJYONMDfHSOc9mAKt/0ceLsusKTE2zkREdEMfFRZax
- VMAvNojX/ixR/MKY2wJiCqMZPv/zodO4iz8BgAN/6Q4H0UdFxOgNCoeYOGhE8CyFNDoyja
- MGAcIOtkkok0yiGfD4arKl5sEkWhUsHG9KFJwKsp8HRhSCLSOq9a3W1lZ/ht6g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1789552436;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gU28K/TBmhCpoW3RpgGeEwSRVwR0d59zct58qf7aOmM=;
- b=XTBEJa4S1t4j/hKUlrlaaDS2takijVXH7QjcDoSKns0Jg3CN6SgDUy41SQB8W5H5heoKF3
- zNiHzB2t8we1GiAg==
-To: Omer PALA <palaomer100@gmail.com>, andy@kernel.org,
- gregkh@linuxfoundation.org
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: fbtft: fb_upd161704: replace udelay with
- usleep_range
-In-Reply-To: <20260916093928.52057-1-palaomer100@gmail.com>
-References: <20260916093928.52057-1-palaomer100@gmail.com>
-Date: Wed, 16 Sep 2026 11:53:55 +0200
-Message-ID: <87ecet5xos.fsf@yellow.woof>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E463610E8A4;
+ Wed, 16 Sep 2026 09:53:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789552438; x=1821088438;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Sva6WVpd0pDoNKxpgtpCwi1QvDuFKi2gSP+Is+AT3Aw=;
+ b=cdXX6ouDRKPsNNr9H+xT2YzDCufgyMAlISYBUUMa3IHOkkgFZTuDVprm
+ LR6Hcj8qEhj/ZFUgfmkRTyIh2LC/FbyNN2al3tj8nIUmU0Pe7LdJc/Olc
+ sOi+5t09v5TpGisNm5znjku1DAziCLL9Z1WxOOFLXwtUCT95ucWmLhD+r
+ nKN7103aTORkGrO9I0JDdlNhFGvsjJK1rckAJWhNJ4ltO/EfvvWgrocWe
+ CwkTDFJUXnNk4Q48IkfwYlNN8qc9a6ab0463fL4ftD3kWwoyJ9uB2HK4m
+ J952jEBo7NBl5In3oCg86FyURic70E62wkNwv6BSZMBCZtxGMIYfVHRxT w==;
+X-CSE-ConnectionGUID: SLyvrGzSQiORO0HETCE3AA==
+X-CSE-MsgGUID: 0BTRF9NVQgqYI5zvS1lbjw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="429605"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="429605"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2026 02:53:58 -0700
+X-CSE-ConnectionGUID: 7AZYY5eMQa63QAFcTyeITA==
+X-CSE-MsgGUID: nBJz1UtFRi+9wS9zjoQV2g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="277415582"
+Received: from varungup-desk.iind.intel.com ([10.190.238.71])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2026 02:53:56 -0700
+From: Arvind Yadav <arvind.yadav@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: rodrigo.vivi@intel.com, matthew.brost@intel.com,
+ himal.prasad.ghimiray@intel.com, thomas.hellstrom@linux.intel.com
+Subject: [PATCH 5/5] drm/xe/guc: Reset LRC ring pointers before replay
+Date: Wed, 16 Sep 2026 15:23:37 +0530
+Message-ID: <20260916095337.3104891-6-arvind.yadav@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260916095337.3104891-1-arvind.yadav@intel.com>
+References: <20260916095337.3104891-1-arvind.yadav@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,16 +71,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Omer PALA <palaomer100@gmail.com> writes:
-> Replace udelay() calls with usleep_range()
-> to avoid busy-waiting and allow the
-> scheduler to sleep during delays.
->
-> Signed-off-by: Omer PALA <palaomer100@gmail.com>
+A GT reset can stop a context after the LRC head has advanced past the
+start of the oldest pending job.
 
-This change cannot be accepted unless it has been validated with
-hardware.
+The replay path rewinds the software ring tail to the job's recorded
+start so the pending jobs are written again. However, it leaves the LRC
+head at its saved later position and initializes the LRC tail from that
+position.
 
-Btw, I am curious why we have these udelay(). Can we remove them?
+The hardware and software ring positions can therefore use different
+replay starting points.
 
-Nam
+Before resubmitting the queue, set the software tail and both LRC ring
+pointers to the start of the oldest pending job. Update the pointers
+while the context is unregistered, before resubmitting pending jobs.
+
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
+---
+ drivers/gpu/drm/xe/xe_guc_submit.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c b/drivers/gpu/drm/xe/xe_guc_submit.c
+index ca24a77dfb26..878ba94d22e0 100644
+--- a/drivers/gpu/drm/xe/xe_guc_submit.c
++++ b/drivers/gpu/drm/xe/xe_guc_submit.c
+@@ -2984,17 +2984,17 @@ static void guc_exec_queue_start(struct xe_exec_queue *q)
+ 		trace_xe_exec_queue_resubmit(q);
+ 		if (job) {
+ 			for (i = 0; i < q->width; ++i) {
++				u32 replay_head = job->ptrs[i].head;
++
+ 				/*
+-				 * The GuC context is unregistered at this point
+-				 * time, adjusting software ring tail ensures
+-				 * jobs are rewritten in original placement,
+-				 * adjusting LRC tail ensures the newly loaded
+-				 * GuC / contexts only view the LRC tail
+-				 * increasing as jobs are written out.
++				 * A started job may have advanced the saved LRC
++				 * head past its original ring position. Rewind
++				 * both head and tail before rewriting and
++				 * replaying the pending jobs.
+ 				 */
+-				q->lrc[i]->ring.tail = job->ptrs[i].head;
+-				xe_lrc_set_ring_tail(q->lrc[i],
+-						     xe_lrc_ring_head(q->lrc[i]));
++				q->lrc[i]->ring.tail = replay_head;
++				xe_lrc_set_ring_head(q->lrc[i], replay_head);
++				xe_lrc_set_ring_tail(q->lrc[i], replay_head);
+ 			}
+ 		}
+ 		xe_sched_resubmit_jobs(sched);
+-- 
+2.43.0
+
