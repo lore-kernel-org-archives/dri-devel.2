@@ -4,57 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E2E5C88E77
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 09:22:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14538C88E5C
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 09:27:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C407F10E096;
-	Wed, 16 Sep 2026 09:22:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43B6210E242;
+	Wed, 16 Sep 2026 09:27:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="T0JrFGj1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KxlsKd9D";
 	dkim-atps=neutral
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3414E10E096
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 09:22:46 +0000 (UTC)
-Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net
- [178.82.167.143])
- by mail11.truemail.it (Postfix) with ESMTPA id 1CB4A22819;
- Wed, 16 Sep 2026 11:22:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
- s=default; t=1789550564;
- bh=BTV5XMyrmHp39LHImMD7jLIBjdgbYzzgBsLUqmjYR3M=; h=From:To:Subject;
- b=T0JrFGj1/D4bssAaOGqKlJb+MlfTwpU+rmpdeUZaoGgTMQlHtWmIBgKSv6CPgR5pu
- CJOcJwIxs9Br5Grbb0Jgo4NsmF8jhNEmC+f3g3WM0fCsiPfH+ObpmpO8wCM4uT1qew
- V1rIi407+uL42ECJgC6e5fSOOvfWK4tWxnJJiYriUEeSeQzyrD87kt82LOEx7744rw
- JM+KJGHb+fy+2MoqMyzrWct/oZ5HhIfbMh8LNsQS3crESWCXOrgJ1R9ck25n6cXvzg
- 8VoH2BINXGyYMm0ZbsyNxb306RT3moHfBVGG+6IR+YXarl6NmMqkuF/5DKVMnyqT92
- 0W8BP2CYLyb/w==
-Date: Wed, 16 Sep 2026 11:22:42 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>, Marek Vasut <marex@denx.de>,
- Stefan Agner <stefan@agner.ch>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45C2210E99B
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 09:27:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4B03D60234;
+ Wed, 16 Sep 2026 09:27:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3C7F1F000FF;
+ Wed, 16 Sep 2026 09:27:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789550835;
+ bh=7L/dBuwC/LCncorqUmBiBPEI/nqSHfIDCw4avwp2hRY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=KxlsKd9D75q4P1papf9K7j6IA4uhFJRU+ZPwhp4fY2GrrPN8kGDJCA1b6r1E/a431
+ qymTivRi/i9uPPit+DQ2mx1vJCCyHsxJ3o1IPOCfhGbLuw6TWBX1spkhVeqod2bmz6
+ r8c4PnMwuY2U8XPxjQUrModSIbFoxZFgge3ULSp73mvbNEkVwvDtvW22BRm+GO2AV2
+ dgOyobM9UtC0LgRDHRrj0DdYlECOq8b9ckc0V/kA7FEnLi+/Z50Czu4EdmErv/rgSq
+ cvLmEt0iKwKHHCSwtI2xyeQqHDMb1kmu8lbfBoq9DS2CofVmQyymc5OWCalIbSvysU
+ 74FiKaniytr3g==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+ (envelope-from <johan@kernel.org>) id 1x6lv6-00000005xhO-2LeK;
+ Wed, 16 Sep 2026 11:27:12 +0200
+Date: Wed, 16 Sep 2026 11:27:12 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Boris Breyillon <boris.brezillon@collabora.com>,
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v4 3/4] ARM: dts: imx6ull-colibri: Set LCDIF bus-width
-Message-ID: <20260916092242.GB277833@francesco-nb>
-References: <20260813092836.38367-1-francesco@dolcini.it>
- <20260813092836.38367-4-francesco@dolcini.it>
- <178954813309.214898.9623998050171113140.b4-review@b4>
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] drm/panfrost: add missing
+ pm_runtime_dont_use_autosuspend() calls
+Message-ID: <aqpg8KHXwr2lNK9Q@hovoldconsulting.com>
+References: <20260916075051.1353-1-joshua.crofts1@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <178954813309.214898.9623998050171113140.b4-review@b4>
+In-Reply-To: <20260916075051.1353-1-joshua.crofts1@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,46 +68,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Luca,
-thanks for the review.
+On Wed, Sep 16, 2026 at 07:50:51AM +0000, Joshua Crofts wrote:
+> panfrost_remove() and panfrost_probe() disable PM runtime on teardown or
+> failure but don't call the pm_runtime_dont_use_autosuspend() function,
+> causing potential resource leaks.
 
-On Wed, Sep 16, 2026 at 10:42:13AM +0200, Luca Ceresoli wrote:
-> > The lcd DPI interface on colibri imx6ull uses a 18-bit width bus, set
-> > the bus-width property accordingly.
-> >
-> > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> >
-> > diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
-> > index ec3c1e7301f4..1eb1cf2d7395 100644
-> > --- a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
-> > +++ b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
-> > @@ -229,6 +229,7 @@ &lcdif {
-> >
-> >  	port {
-> >  		lcdif_out: endpoint {
-> > +			bus-width = <18>;
+No, as I've explained repeatedly elsewhere, it does not cause any
+resource leaks. [1][2]
+
+The autosuspend setting leaks if you will, but that only matters in the
+theoretical corner case of someone rebinding a different driver (which
+will soon also taint the kernel).
+
+So don't exaggerate the impact, this is essentially just a cleanup,
+which is fine in itself.
+
+> Add the missing function calls.
 > 
-> I don't know the hardware in detail, but the datasheet [0] mentions 16, 18
-> and 24 bits, and says "Up to 24-bit color (18-bit recommended)". More
-> details in ection 5.6.1.
+> Found using Coccinelle.
 > 
-> This patch would force 18 bits, but "recommended" suggests 24 bits makes
-> sense in some cases, no?
-> 
-> Can you elaborate on this?
+> Fixes: 5c0c825ae4c6 ("drm/panfrost: Replace DRM driver allocation method with newer one")
+> Cc: <stable@vger.kernel.org>
 
-The colibri family standard defines only 18-bit for the parallel RGB
-interface on the edge connector, the additional 6-bit are mapped on
-different pins that are not on fixed position, depend on the actual SoM
-and can also be not present at all. The standard/generic colibri family
-carrier boards can only rely on the 18-bits being available therefore.
+And it does not need to be backported.
 
-24-bit is possible and makes sense only on a specific combo
-carrier+module, and not as a generic SoM feature. Assuming you would
-have such combo you should just override the property on the carrier
-board dts file deviating from the standard colibri family.
+> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
 
-let me know if you want such detailed explanation in the commit message
+Johan
 
-Francesco
-
+[1] https://lore.kernel.org/all/aqpd3viN1UoZBkgL@hovoldconsulting.com/
+[2] https://lore.kernel.org/linux-iio/aow51Nk-cet9qaUQ@hovoldconsulting.com/
