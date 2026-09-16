@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CC84C982C9
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 16:52:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 334DEC982C1
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 16:53:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E651D10E3E6;
-	Wed, 16 Sep 2026 16:52:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FA1510E3DD;
+	Wed, 16 Sep 2026 16:53:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KAhjYlUJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JJ//Aepn";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF61B10E3E6
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:52:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02ABE10E3E9
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:53:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B9227602CC
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:52:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 696A31F008AB
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:52:46 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 79BF960A54
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:53:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB58A1F008BE
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:53:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789577566;
- bh=iIGcosXdsqHKF2ZHJfMci5sHM1xFoCT4RjNBihYG63k=;
+ s=k20260515; t=1789577606;
+ bh=A8OUnScFkntcgVv0El+XRQhsZJJugzhrkrqucm1xVqI=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=KAhjYlUJz4B3vlKbDDlDmaEOmLi6tMe6vOLCW5EZoCs26rLbd8glXJaTpSZ5ZncRt
- G1EQC5qwpstgB2j2XaL86slCFiWMTfVHspK6M+fbSkz9IsAkX78GqJs2dpYzkU2az5
- pLiawOJCLQ408ODC/MdUIRjzmGWlpTCTWUmaGZ7quTrO+c5iLtuE4rqYPtVgHEdkO0
- Kc8fUuOuvuraydHFdXnnYj5vBz5OVYt8cGxLANsZDmJmv0dsmNq5PvmvLSGGl3QqPP
- P7KD/vfJErAG9yROB1uqphrZwuUor23SdPagQu0WaDDl3rLRb2sksX4etGG4xRFK33
- rCWMVsGN5e/Og==
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-5b8b3c8c4bbso1299914e87.0
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 09:52:46 -0700 (PDT)
+ b=JJ//Aepn20JwNBvgjPe2RGPw3W1TnzMJZL/1hbP4HXBkwn7oafbEKxyAkD242zIlA
+ mxiFlxtkmChee+seVVxgSwqzTw2/2qQK0we0712tsN07f4SxhiZzdIQV4fEFge8P3/
+ eXve/Ikiuca0hD0ksm1quV6jvVcfQKngvgIPch06kggcScyYBReWU1BZQ4w+BDChhO
+ cGkgQlSSPeS1/dDsoagEKEc13m+IpOu4TIhAfls9D/+S+C/kUAOQgOb9jAwOjq10Cs
+ 9vCLGY4l6ToWfXsrjRRPyQjen+4pYHsH5KDYWCIGz6+YqUeRWbKAAdd7LHAkuCR8Qp
+ yDeQXu92KeBiA==
+Received: by mail-lf2-f12.google.com with SMTP id
+ 2adb3069b0e04-5b5e4f15b78so1205645e87.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 09:53:26 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AKwUvBxRUv0lo+I/MUHR/gYA+004Vgkru844xJ44RYoSoOznkNPdTy3foYeH691q00RJLZZWoeg9/7bkUKg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kX83qPoE1VL8CF/mBr1zwjIPW/NKCFDJGlgapCteCDVUy46HSR
- GfpTU6aL+ciktmVzWWHCbkH403d0fhncMNzOf0x8AmmFPxuersMa7CGg2KGRmXh8JVzaFD3grhl
- UiD9wPbEmI4awoxGl4QJjhFpmMmD7Iog=
-X-Received: by 2002:ac2:5299:0:b0:5b8:9a95:e251 with SMTP id
- 2adb3069b0e04-5b8ba710651mr51799e87.25.1789577565097; Wed, 16 Sep 2026
- 09:52:45 -0700 (PDT)
+ AKwUvBwHX+mrtTT8q6NWcMq0LLD0jXeBbedfXgqLobptno0KDLxh/QOee1zbN0pV9jjSC+el3hElcjE63nQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kufcAwtjvNmO3j7ZZ/y2e4QcBqY18N+XvLiVFcOlKXcoUfQlAj
+ Jcw59M6Bd4rOqgKlvjSk3oH1fJhaFYaUZkNhmFoABKiWodAh/RMbQcpiuiL2cRXEastRwo5LG7W
+ mXtuiKHhWgmKufWW4a3jNkSEI9R78EOE=
+X-Received: by 2002:a05:6512:3e07:b0:5b6:95e:87ce with SMTP id
+ 2adb3069b0e04-5b8b660a94fmr1957280e87.2.1789577605581; Wed, 16 Sep 2026
+ 09:53:25 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260909132153.1596191-1-arnd@kernel.org>
- <20260909132153.1596191-14-arnd@kernel.org>
-In-Reply-To: <20260909132153.1596191-14-arnd@kernel.org>
+ <20260909132153.1596191-15-arnd@kernel.org>
+In-Reply-To: <20260909132153.1596191-15-arnd@kernel.org>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 18:52:32 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkz5WV2OBPRu+JJT3PeKhQruiF-Ydcgg7e4OGdM9qchQQ@mail.gmail.com>
-X-Gm-Features: AcwNN1Xmdqnt0f8Pu7UGQOVbB8vXW7jTvbrrYbhRnZP_VjfrieoeJn1KmD2hzRE
-Message-ID: <CAD++jLkz5WV2OBPRu+JJT3PeKhQruiF-Ydcgg7e4OGdM9qchQQ@mail.gmail.com>
-Subject: Re: [PATCH 13/14] mfd: remove unused menelaus driver
+Date: Wed, 16 Sep 2026 18:53:12 +0200
+X-Gmail-Original-Message-ID: <CAD++jLk-e58uiZ5JfiKtW+4tKoVyCXrEz9n4W52PnmtKLqQrEA@mail.gmail.com>
+X-Gm-Features: AcwNN1UPBZKZl1X4uCVkQyjhp-cH_klICrLDEiep9UNQdzrrNpZtksTPMzubFl4
+Message-ID: <CAD++jLk-e58uiZ5JfiKtW+4tKoVyCXrEz9n4W52PnmtKLqQrEA@mail.gmail.com>
+Subject: Re: [PATCH 14/14] mfd: remove unused iPaq micro driver
 To: Arnd Bergmann <arnd@kernel.org>
 Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
  linux-kernel@vger.kernel.org, 
@@ -98,12 +98,12 @@ e:
 
 > From: Arnd Bergmann <arnd@arndb.de>
 >
-> Menelaus was a companion chip for the omap24xx platform, which has
-> been remvoed from the kernel, so now the menelaus driver is unused
-> and can be removed.
+> The iPaq support has been removed from the kernel, this driver is
+> no longer used anywhere.
 >
 > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
+Also delete the header as Sashiko says, with that:
 Reviewed-by: Linus Walleij <linusw@kernel.org>
 
 Yours,
