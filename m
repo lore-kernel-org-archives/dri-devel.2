@@ -4,49 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69D2AC88E77
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 10:21:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 792E1C88E5C
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 10:24:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3F2310E1FD;
-	Wed, 16 Sep 2026 10:21:47 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E163510E1FD
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 10:21:45 +0000 (UTC)
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-03 (Coremail) with SMTP id rQCowABHUT+0bapqTQLhBw--.15107S2;
- Wed, 16 Sep 2026 18:21:40 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- liviu.dudau@arm.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- simona@ffwll.ch, tzimmermann@suse.de, Wentao Liang <vulab@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/mali-dp: Fix runtime PM leak in
- malidp_crtc_atomic_enable()
-Date: Wed, 16 Sep 2026 10:21:12 +0000
-Message-Id: <20260916102112.2018372-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowABHUT+0bapqTQLhBw--.15107S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKFW8KF4Utw1DJw15Ar43ZFb_yoWktrc_Gw
- 1rZrsrZw4jyFyqg3W2yanxZr9a9ryv9FWkX3yIqw43trW09F4UXryIvr9Yyr9xXFW7Kr9F
- ga1DCa45J3s3ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbaAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
- 6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
- I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
- 0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
- 8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
- Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
- x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
- 4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
- JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_Gc
- JvcSsGvfC2KfnxnUUI43ZEXa7VU11rW7UUUUU==
-X-Originating-IP: [36.110.52.2]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMMA2qqP7mz3AAAsp
+	by gabe.freedesktop.org (Postfix) with ESMTP id A671F10E2B2;
+	Wed, 16 Sep 2026 10:24:19 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NECwBO9e";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA1D510E2B2
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 10:24:17 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id AA89440194;
+ Wed, 16 Sep 2026 10:24:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 633911F000FF;
+ Wed, 16 Sep 2026 10:24:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789554257;
+ bh=MUUSEvC8HwgkkdMSzSbvDCfYVxag3KBNi4U70+ipG0s=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=NECwBO9eooP+2PKrGlA7aqVNO2ZB9GgHxNoMB7QBQiBcNuxjGc9EIA7RXLhPYi914
+ R/De0C/KKyqiuNqEA3aDEZA/6PPKmIIlfyj4XWldp7RhsIRE18V2LrHG77Azxkx6ok
+ Rh5IZzSB5cnKpxAcoc8g1fmsQAr6lj02U2z7TGXDJ+on6myMPeSxI8txbrMRrUJc8U
+ jkm1bBgwfh3jgAZfJJF0N40nrhI7MQU0Lk9Oshoj2rYtNvoCunW1xWIPjtfiPzmKEp
+ etuniInqf2iICz6v4pIXep8Nb/Vbn/XBARz9T3dHiB1V89gqdk5ApbH5Jn9EdNDx5Y
+ Ufa6X25P3nzwg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/bridge: lt8912b: Fix next_bridge reference leak in
+ lt8912_parse_dt()
+To: "Wentao Liang" <vulab@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260916101401.2017498-1-vulab@iscas.ac.cn>
+References: <20260916101401.2017498-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 16 Sep 2026 10:24:16 +0000
+Message-Id: <20260916102417.633911F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,38 +53,74 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-malidp_crtc_atomic_enable() resumes the device with
-pm_runtime_get_sync() and returns early when the resume fails.  The
-runtime PM usage count is incremented by pm_runtime_get_sync() even
-when the resume fails, so returning without dropping the reference
-leaks it and, once the error has been hit, prevents the device from
-ever suspending again.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/bridge: double-put of next_bridge on error and teardown
+--
 
-Drop the runtime PM reference with pm_runtime_put_noidle() on the
-resume failure path before returning.
+commit 836b7cdeed1872c95aba63f08e9bc717bdb9d7d6
+Author: Wentao Liang <vulab@iscas.ac.cn>
 
-Fixes: 85f6421889ec ("drm: mali-dp: Enable power management for the device.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/arm/malidp_crtc.c | 1 +
- 1 file changed, 1 insertion(+)
+drm/bridge: lt8912b: Fix next_bridge reference leak in lt8912_parse_dt()
 
-diff --git a/drivers/gpu/drm/arm/malidp_crtc.c b/drivers/gpu/drm/arm/malidp_crtc.c
-index 18e6157b1047..a2c6e536c55d 100644
---- a/drivers/gpu/drm/arm/malidp_crtc.c
-+++ b/drivers/gpu/drm/arm/malidp_crtc.c
-@@ -56,6 +56,7 @@ static void malidp_crtc_atomic_enable(struct drm_crtc *crtc,
- 
- 	if (err < 0) {
- 		DRM_DEBUG_DRIVER("Failed to enable runtime power management: %d\n", err);
-+		pm_runtime_put_noidle(crtc->dev->dev);
- 		return;
- 	}
- 
--- 
-2.34.1
+This commit attempts to fix a reference leak by manually calling
+drm_bridge_put() on the next bridge during error paths in lt8912_parse_dt()
+and during driver teardown in lt8912_put_dt().
 
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt8912b.c b/drivers/gpu/drm/b=
+ridge/lontium-lt8912b.c
+> index e347d04b7b2de..3bd920a43e936 100644
+> --- a/drivers/gpu/drm/bridge/lontium-lt8912b.c
+> +++ b/drivers/gpu/drm/bridge/lontium-lt8912b.c
+> @@ -748,6 +748,7 @@ static int lt8912_parse_dt(struct lt8912 *lt)
+>  	return 0;
+> =20
+>  err_free_host_node:
+> +	drm_bridge_put(lt->bridge.next_bridge);
+
+[Severity: High]
+Does this manual put operation leave a dangling pointer that will trigger a
+double-put?
+
+The lt struct is allocated via devm_drm_bridge_alloc(), which registers
+a devres cleanup action that eventually calls __drm_bridge_free(). That
+cleanup natively handles dropping the chained bridge reference by calling
+drm_bridge_put(bridge->next_bridge).
+
+Since this pointer isn't cleared here, will devres cleanup attempt to put
+this already-freed reference again if an error occurs after
+of_drm_find_and_get_bridge() succeeds (for example, if
+lt8912_get_regulators() fails)?
+
+>  	of_node_put(port_node);
+>  	of_node_put(lt->host_node);
+>  	return ret;
+> @@ -755,6 +756,7 @@ static int lt8912_parse_dt(struct lt8912 *lt)
+> =20
+>  static int lt8912_put_dt(struct lt8912 *lt)
+>  {
+> +	drm_bridge_put(lt->bridge.next_bridge);
+
+[Severity: High]
+Similarly, will this cause a double-put during driver unbind?
+
+When the driver is unbound, lt8912_put_dt() manually drops the reference
+here. Then the devres cleanup automatically drops it again using the dangli=
+ng
+pointer, which could lead to a refcount underflow and use-after-free of the
+next DRM bridge in the chain.
+
+Could we either rely entirely on the devres cleanup, or use something like
+a clear-and-put approach to avoid leaving a dangling pointer?
+
+>  	of_node_put(lt->host_node);
+>  	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916101401.2017=
+498-1-vulab@iscas.ac.cn?part=3D1
