@@ -4,126 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B2BAC88E77
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 11:28:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C2E9C88E5C
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 11:40:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DB0F10E467;
-	Wed, 16 Sep 2026 11:28:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D612010E011;
+	Wed, 16 Sep 2026 11:40:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pN76R6yX";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="yPCQ7f7g";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="0m8DXT4c";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="a3CzjK4f";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="k1IyKPLj";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013039.outbound.protection.outlook.com
- [40.93.196.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D75F10E6C7
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 11:28:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BUz4GBaBiX8RVHJsUw0NqTrQQlF2ywKgwyGBJXOMtmhweMV5s0hVPOdNhXMyVnPgXdDGixntGM8bX8+xQZAWF/lsmCQ1RllfhwLuSxxZL7V8feJH6yiMCT1fTua6bkj8d7t+g3yOhYv/k+0Y2Zp/JBuHXMoe5frv2Ieg/pFHorMqzXoYIhgJKtbxxZZ5PgEiP7ssHqT3OEi3yTdatD7SnliILIZySmqpOIIRaYisGjTGVv6K2RSuqc1ZqQWjvMMq1by/wpZnGMQcWopo+T6EtGHkmkEmKgWnhrZsS0/PkiH1G4ibT+mFbxQgbQ0wiN115xqyRdsWkvQ7Rj5SAvXFOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qSc8TncsUUqKeAk1qtN39PwX/k1zTCmgwTdBLab+PYs=;
- b=o6pLVkDJJ3ZO1Nn+Ewm0e6T40vFPQaj4ccqhamidecTPXGQA+W8OoyNNrIedmoalDPj/3R0BDunFYredUGdC3AKFLcLx/oj01n4vZkmL+FhXBVgmlG/WCA0Yhb6ns176a8cICaUzi4sis/PKToZRsz4wzoxsNwiCJKLooV0VTZlUMuvzS5EJGEUO9Ign0c9Z0F9eIZhLbScLyVRmR+vDsUIt4VNP110MhTj3mQCvZg88QQE206cJptgjSQZiMHtys0fLbp4x4uYGvbDiYxKb6t7pTxVTMB1X0wh1KpSIKvHpWGoh8q8k1vYWEcD31lN/OivYYQ6FNHO/Xpr2IWJwQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qSc8TncsUUqKeAk1qtN39PwX/k1zTCmgwTdBLab+PYs=;
- b=pN76R6yXnq0LGoabZ0g+lFNJP2erQp5iFlKUgozXefWKa1lkDpFXBpj0L8L0rLkBeojvL5kfdf7bOCQdtuf+CzMZwV0FpdSvi4u+tLKi3a9uPe+UhwgnkUR253NkjEVOjvCIlxZMro5ut8Vb9l9AgdCnjO6xZSPnwGvUPw4w72g=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
- by CH3PR12MB8754.namprd12.prod.outlook.com (2603:10b6:610:170::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Wed, 16 Sep
- 2026 11:28:49 +0000
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d%4]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
- 11:28:49 +0000
-Message-ID: <d55151eb-4b81-41c7-927e-96635c1f6b7f@amd.com>
-Date: Wed, 16 Sep 2026 16:58:42 +0530
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9766110E011
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 11:40:31 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D83D521D92;
+ Wed, 16 Sep 2026 11:40:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1789558826; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=4ACCVKSOT1L3CY8XolLfX55VUFwK/vZiCkUVPuDdiiM=;
+ b=yPCQ7f7g0Zfwl+BtMonqJwbEy9ve/CxLm2dGq3e8U9DBeEFwcX6OATLHvFzh4HJzkG+JZZ
+ bkVGstIfKz2T+S2GzDb5E5CidQPIpJSZMSzJDKEAWvD3WcmSJy8HckqOo7O8lrPB2QJYSH
+ K7kWGYBD/DMAOHdwyCaYF9QxRaX6zoY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1789558826;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=4ACCVKSOT1L3CY8XolLfX55VUFwK/vZiCkUVPuDdiiM=;
+ b=0m8DXT4c4S07Jgs584c92IYC6ruu7436ztco68xzjD3HnelS3o+RrnLAMraS+YSS0nMeCk
+ d9w4MFLHfTeovyCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1789558821; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=4ACCVKSOT1L3CY8XolLfX55VUFwK/vZiCkUVPuDdiiM=;
+ b=a3CzjK4f6Pzl6L6U+1MsfPjlg/SxnuYy1ufdFijvmPcW1LQMkLN8/d9jRoo/5eBGA40+K5
+ p1vQ+6rsTQlQYosdGAJxPiGXTkkjdLgNikWYJOckExnCUkdlGzIDUqjSbQdSRhzKpb9s+e
+ oO50ngeiCC9qu+KomLMUB6Ge56hUW7c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1789558821;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=4ACCVKSOT1L3CY8XolLfX55VUFwK/vZiCkUVPuDdiiM=;
+ b=k1IyKPLjCEiACFOkc9VVYTppBiTo1Nf7SvPcvtMQf8LfKkX/QLVnREoc5PDeoAc+VPSqip
+ t1yRa7QTyRmJfFCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4769A136D1;
+ Wed, 16 Sep 2026 11:40:21 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id pHThNiSAqmrPKAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 16 Sep 2026 11:40:21 +0000
+Message-ID: <f4c6feab-b1ec-48df-81a5-888444b243a3@suse.de>
+Date: Wed, 16 Sep 2026 13:40:20 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: change TTM maintainers to Natalie and Arun
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- christian.koenig@amd.com, ray.huang@amd.com, nat@pixelcluster.dev,
- matthew.auld@intel.com, matthew.brost@intel.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260915154804.605772-1-christian.koenig@amd.com>
- <a3c94fcf0029e7f257a0219532d906643846ffd1.camel@linux.intel.com>
+Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
+ e-ink panel
+To: LiangCheng Wang <zaq14760@gmail.com>, Devarsh Thakkar <devarsht@ti.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Wig Cheng <onlywig@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Sam Ravnborg <sam@ravnborg.org>,
+ Javier Martinez Canillas <javierm@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com>
+ <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
+ <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
+ <20260616083921.4066690-1-zaq14760@gmail.com>
+ <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com>
+ <20260617020926.114947-1-zaq14760@gmail.com>
+ <8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com>
+ <20260731035705.3198816-1-zaq14760@gmail.com>
+ <20260916082924.956116-1-zaq14760@gmail.com>
+ <0a13ccb8-8817-4223-a4a2-0de594ac8c71@suse.de>
+ <20260916094453.1062125-1-zaq14760@gmail.com>
 Content-Language: en-US
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <a3c94fcf0029e7f257a0219532d906643846ffd1.camel@linux.intel.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260916094453.1062125-1-zaq14760@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0117.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:27::32) To DM4PR12MB5039.namprd12.prod.outlook.com
- (2603:10b6:5:38a::18)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|CH3PR12MB8754:EE_
-X-MS-Office365-Filtering-Correlation-Id: 76d43ef8-2a84-4c5d-7b7c-08df13e5ad9f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 7WYUFk7p+1JXf1XwWlahsr/Cywh9CRk7ztxvx6Ga0/rvumoct+aAgrQ8Fe+OFoIFJ6xcDhTr7HePEjLShOt71ggsuR10V3nhw3JQrbgLnnlQJG4quaFOa9UCsowdMSKZDx3sLBJnsgiKy2KdkIpJjuGFjoC6QxEPvTlIS7k/0YmKCL9lVnoIMvdqb86eYjC4zTp8GJa5m8XG4Q9n68W9/skdVo3IY0OOfx/3AmoLUybNQwpY1PIoHdg6Dv804EDU+7tXSs9VxZDkkXJIlVBMB45Py6TxZSlnG89C6nvE2Hkis8OGh3O2fDUe9k62jO43RiRRxiKKiXSaErP9aSo0z091oCMGNb00IDRgXUfREklH+Su1cujeYsv75yMySZVMj0ZMpbh0g+HS4JYZYAHj8thWM/iyBJbsgoU4jTvHLsoY67gUMALMTU49kgybpZRb78T3iln4nQvv4nCJbyabKy2lV0wi+zFZeop2r0QD8WLcafIHNL1Wxbfl7M0UN9JZNunxghHHT+kZUStZOoBKbnwiVKXC0A8gSQHiNbUok1zR56zSe06BPKj4aDtzaE6Kd64vcyDQhmbyaSnyWjdzCVA6k46Cph6j3p1eb2asRBJmA31sF0Yvah1vkDuy2rko
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5039.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UElyVzdmdVpGLzE0NHNVMWpMQjRyT3ZiYXZqdVI2SjFvR2RiYTlva08wcUtI?=
- =?utf-8?B?Y014Sm4vTFNSN3hmelRjZkNZQkpmTGFTMVV5WkF1OHArZTdIRlVpVnI3UGx0?=
- =?utf-8?B?ZFFTY2sxT2ducEhOQXlPK3VobDk5cjNiTUhYNERuVklRQnpnNzNlUzRwR2I5?=
- =?utf-8?B?WU5pdmZHK2dscE5YeVpXVFFoNEs3d0J1TDhaUUZXSC9Id2tpUUhTdTA1a2pt?=
- =?utf-8?B?bWRjOHFPWDl6NzNhMkxrLzNSNU9XVER0ZVlOSWdqYURnUnMvSjRPaG0vV01H?=
- =?utf-8?B?b1J5VjI5Yi9nK1VnVHlPTzIxRlNhZDAxVWdqV2kxanE1WWNXelBZWUNrcEpz?=
- =?utf-8?B?d1l2TmNlU2NaT2NPRTlmRElGM2VWQkZwUW9WTDM5WTFMNWcvR2VQdE5UYnFu?=
- =?utf-8?B?TUF0RHdkWmFXV3kzVy9ndGlnd2hBWnBMclc2UnJabWJpcURiUDhtMUErZC9x?=
- =?utf-8?B?RGczeDBPZGFhNzdtS3JyeHZDT3ljVlg2YXpWNGh4Wmx1eWhhR3poenVOYVli?=
- =?utf-8?B?MHFsZEZ6aDdkRUlLNERHYjUrVVJRQVh4V3ptMGIyMnF3MXJadkJVdU14aGk3?=
- =?utf-8?B?bkxQZE5ZbmZ5NitrLzhhdm1NeTRBS1B1bDYwaUk2TUQzV0ZLMnRXMjg2eFVI?=
- =?utf-8?B?eGNqYnhWTzFZTFNqbTRWcEtwWFJYYnVmSmV1b0FlRmc4clk0NW5uVmdLdFZD?=
- =?utf-8?B?bko0K2Rla0J3L3VTZ0pEbVV6b3JlYVhtQ0ZYeXI2TzdaTkVVRDdlVWpyRFR5?=
- =?utf-8?B?WGZ0TUNtallVUGh0ak1XdEVKbHdudk83aWxIdW1zMDgycU1SVVJSVHRLaXlR?=
- =?utf-8?B?R2lDbmtCaDF5ZGJsSk1DRDdxdVBxM0FHYkMwZFdjMThUd0czTHBaL2RYVnlN?=
- =?utf-8?B?dzljWm4rOFRjVGdUYlN6VTd0UmF4QmxIdC9ncjlXd29IV2k5VzRnbVFqUy9J?=
- =?utf-8?B?UFJ6eGk3QzQxbmZrTjV1MEF3OFoxKzhQbElmVmdGTmNwdEY5STRqdlg5ekt0?=
- =?utf-8?B?VnJibHNqVjRocW5qM0p1bTg5YWg5Uml2eVZybklFQmtLc2s0V2lUUXlUckNs?=
- =?utf-8?B?RjZad0tpSDAzSVdBb0JPTDAydjA3dC9hWmxsdmZBVjhQN1NjeWVzWExSUDFi?=
- =?utf-8?B?ajlOV1RDbHVsWGNHd0Z5K1h0YmZsSDRrQ3RlVUVaMXZTTWpWZ2ZDZTVuQTls?=
- =?utf-8?B?SzU0T0J2a2djOFphYUZQM2trWjNjbTRxUHBOVnZpVEFQVm1Eai9FRHZLYnBx?=
- =?utf-8?B?VnVqV0lqK0ZheFo2TXl6Y3Z0Rk9wQnBPclYzVEZCRUpNbWtOaisxb1U1NmRI?=
- =?utf-8?B?SG1UTGhOcWEvM1k4TmxBejdQejgwbGVrWTE2ZFJDUUMxSTkwbUZzRmZBWWNz?=
- =?utf-8?B?ZVN2Vzc4YXc1c3NxRjMrL3NMNVdZcW4yR0VBcEw0MU5TV2E5dmpLaEkwYitC?=
- =?utf-8?B?dkR0TldDbDBLSzZPL3hCWHFWcGdHN3ZOM3RvcXd3d0dXbGpTMnlwajAxZmRl?=
- =?utf-8?B?Mm4vM0VnK08xdGpYLzJDUzE4ZHVoQWdJR1JjVTNFT0JMMVFDL2hrME9DSjNB?=
- =?utf-8?B?MjBySjFlNi9tcFJOdWdkZE9SaTFIVWtUSCtBM211Mk1xdWlSU0pVdzNrYkV6?=
- =?utf-8?B?V3lNVEtpVlZFbmcyZTNkYkxNTE5RN2tCZ1NudjAwQlNPNUtGa2ROY1hESDd5?=
- =?utf-8?B?eHplSVdpd1p0R0lvY0tqNXlTNTcvYnpYeXdVTFY2YkJMVm45Y0dqS2htQm1k?=
- =?utf-8?B?emtYTnphSDgyUE1rMHRyVGlscFhad1hyayt3cTZneUlqbEZ6T3cwTDduU1ps?=
- =?utf-8?B?c2I2UnFSVlRuQjlFRzVaMlBJYldSMStHcXNsbWo2UDhkZzkrVEx0dVNJYysr?=
- =?utf-8?B?NjJ5eHdqTlY3U0JsSUNISTBhYzcwZlROWnVKV2YvZkZKSUZ1NDFEN1Yrd1B4?=
- =?utf-8?B?ZmpEMkUrWURnN3pjcGx3WXVnTzEzVEhoOVpkS2pENm54ZHdwWEsvVVo0TW10?=
- =?utf-8?B?dkhUMjhXcSs3RDI0SzNpb3haaFJmMkpBd3EzUjl2V2F5WnloZHIvaTZTcXJW?=
- =?utf-8?B?ZkRvV1ZqWE1IUFFSRFZFc05saUZjZjdTSDFIbUZVaHAyaGg3cEdnTDJUdWR0?=
- =?utf-8?B?TTM2clo3TjdUa0NITzNYM0J5R2Q1MTgwdVRvZXNNbGVGa3VCVWM0dWU4UUJz?=
- =?utf-8?B?dDhLNXl6OWpYWk1BR1lqQTgrdTdTbHlJdXZOdzE4OENtSkNLb053U0VydGJu?=
- =?utf-8?B?dFd4dmpxOWIvY2QwVkNMVjVMQ3V0cUZCQjJnanZlbm16UHJaT0JPbjJQTC9L?=
- =?utf-8?B?cW1FTGlBZFJFMFp3SjM4ekxFdjJaOFo3QXljTUQ2NXNRVVJSL0ZOQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76d43ef8-2a84-4c5d-7b7c-08df13e5ad9f
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 11:28:49.4648 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RBFRGMWtP5PN/KPx1VGzy4vqZPmXdw3ZZH1fRJmFWvN5I5YY5w9ksdFXAoA/edZq+GhuEW8MGp9nemb9KE6vnA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8754
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ FREEMAIL_TO(0.00)[gmail.com,ti.com,linux.intel.com,kernel.org,ffwll.ch,linaro.org,ravnborg.org,redhat.com];
+ TAGGED_RCPT(0.00)[dt]; MIME_TRACE(0.00)[0:+];
+ RCPT_COUNT_TWELVE(0.00)[17]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
+ suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,74 +157,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+(cc'ing Javier for ssd130x expertise)
 
+Hi
 
-On 9/16/2026 3:14 PM, Thomas Hellström wrote:
-> On Tue, 2026-09-15 at 17:48 +0200, Christian König wrote:
->> The blunt reality is that I don't have time to look into patches or
->> bugs
->> any more as it would be necessary. The same counts for Ray.
->>
->> Natalie has been working on the dmem cgroup patches for TTM and
->> agreed
->> to take over looking more into TTM.
->>
->> Arun is working in my team and already maintaining AMDs VRAM backend
->> for
->> TTM and the underlying buddy allocator.
->>
->> Add Thomas as reviewer as well, better to have more eyes on that
->> component.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> ---
->>   MAINTAINERS | 5 +++--
->>   1 file changed, 3 insertions(+), 2 deletions(-)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index 5b5a4e4b35cf..b6e58a138501 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -9140,10 +9140,11 @@ F:	drivers/gpu/drm/drm_privacy_screen*
->>   F:	include/drm/drm_privacy_screen*
->>   
->>   DRM TTM SUBSYSTEM
->> -M:	Christian Koenig <christian.koenig@amd.com>
->> -M:	Huang Rui <ray.huang@amd.com>
->> +M:	Natalie Vock <nat@pixelcluster.dev>
->> +M:	Arun Pravin <arunpravin.paneerselvam@amd.com>
->>   R:	Matthew Auld <matthew.auld@intel.com>
->>   R:	Matthew Brost <matthew.brost@intel.com>
->> +R:	Thomas Hellström <thomas.hellstrom@linux.intel.com>
->>   L:	dri-devel@lists.freedesktop.org
->>   S:	Maintained
->>   T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-> Acked-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Am 16.09.26 um 11:44 schrieb LiangCheng Wang:
+> Hi Thomas,
 >
-> @Natalie, @Arun Do you have a presence on dri-devel IRC? If so, Nicks?
+> Thank you for the quick reply.
 >
-> Also what is your stance on merging pages to TTM?
-> 1) Requiring an explicit maintainer ack, or
-> 2) an R-B from one of the reviewers/maintainers and no concerns raised
-> within reasonable time?
-> 3) drm-misc as default merge repo?
-Hi Thomas,
-
-I am not currently on dri-devel IRC, but I will set up an OFTC account 
-and follow up with my nick shortly.
-
-Regarding the merge process, my preference would also be option 2, i.e. 
-a Reviewed-by from one of the reviewers/maintainers with no concerns 
-raised within a reasonable timeframe.
-For larger or more significant changes, I think a closer maintainer 
-review before merging would be good.
-I will also try my best to review patches on time so this rarely happens.
-
-Using drm-misc as the default merge repository sounds good to me as well.
-
-Thanks,
-Arun.
+>> Where exactly are these ssd16xx patches. I cannot find them in the DRM
+>> trees. I presume they are not upstream yet?
+> That is right, they are not upstream. Devarsh posted them on 1 May and
+> the series is still at v1 on the list:
 >
-> Thanks,
-> Thomas
+>    [PATCH 0/6] Add DRM driver for Solomon SSD16xx e-paper display controllers
+>    https://lore.kernel.org/all/20260430183311.2978142-1-devarsht@ti.com/
+>
+> One thing that is easy to miss, and that I should have made clearer in my
+> last mail: that v1 series covers the SSD1683 only. The SSD1677, which is
+> the controller on the PIXPAPER 4.26m, is not part of it. Devarsh has
+> SSD1677 support in a staged branch that he kindly shared with me in July,
+> and that is what I tested on the panel:
+>
+>    https://github.com/devarsht/linux-next/commits/ssd16xx_7_2/
+>
+> Those SSD1677 patches have not been posted to the list yet, which is why
+> the panel support has not had anything to build on so far.
+>
+>> If there's support for similar ICs, I'd strongly prefer to have the
+>> ssd1677 be part of that instead of a stand-alone driver.
+>>
+>> Once the stand-alone driver is in place, users will rely on it. Then it
+>> becomes hard to replace. We had (have?) cases where there are several
+>> drivers for the same hardware.
+> Understood, and thank you for explaining the reasoning - the point about
+> users coming to depend on a driver that is then hard to replace makes
+> sense, and I would rather not create that problem. I will drop the
+> standalone driver and add the PIXPAPER 4.26m to ssd16xx instead, once the
+> shared driver is in.
+
+Oh, I now took a closer look at the ssd16xx driver.  I thought that it 
+would use the panel helpers, but that's not the case. It's a 'regular' 
+DRM driver.
+
+If the ssd16xx does not make progress, we could also try to merge your 
+code as ssd16xx and Devarsh would then add support for additional ICs on 
+top.
+
+There's also the ssd130x driver under solomon/ how does it related to 
+the ssd16xx? Is that similar as well?
+
+Best regards
+Thomas
+
+>
+> Devarsh, thank you again for sharing the branch, and for making room for
+> the panel in your work in the first place. I am glad to keep testing
+> SSD1677 on real hardware whenever that is useful to you.
+>
+> Regards,
+> LiangCheng
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
