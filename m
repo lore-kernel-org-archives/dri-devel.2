@@ -4,46 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5C6EC982C3
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 14:54:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCEA7C982C4
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 15:18:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0371710EB6E;
-	Wed, 16 Sep 2026 14:54:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F150410E2C3;
+	Wed, 16 Sep 2026 15:18:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="imxkUhaY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="COnZZ33b";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9275D10EBB7
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 14:54:30 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3E52A558;
- Wed, 16 Sep 2026 16:52:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1789570367;
- bh=hGC+EVI4Y0/YtilopqcCFxb7GcD2lK3DAQ+eE7bTOd4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=imxkUhaYqBRwTsCLCU/fusfDyOLm0nkX1ecwfWqRGYk7yTmtrEiLFx5eYXQLurwKq
- r3b1Irx2RFqxAMPzlXgeTp9mHD22fwp+pk4qUYSoVKLDqaCQkhKM3bZDGVeUVjUMTU
- XHdjLRA5lbdXGn8Lr13Jmgczs3HOL3wPWzw835rU=
-Date: Wed, 16 Sep 2026 17:54:27 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: airlied@gmail.com, andrzej.hajda@intel.com, architt@codeaurora.org,
- bbrezillon@kernel.org, dri-devel@lists.freedesktop.org,
- eric@anholt.net, jernej.skrabec@gmail.com, jonas@kwiboo.se,
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, neil.armstrong@linaro.org, rfoss@kernel.org,
- simona@ffwll.ch, tzimmermann@suse.de, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/bridge: cdns-dsi: Fix runtime PM leak in
- cdns_dsi_bridge_atomic_pre_enable()
-Message-ID: <20260916145427.GA40507@killaraus.ideasonboard.com>
-References: <20260916100405.2012604-1-vulab@iscas.ac.cn>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0161810E2C3
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 15:18:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789571885; x=1821107885;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=VNhfwe1YQNfXfL4xlEP5bFJpLb9Qtlo/4pyZP6bIrus=;
+ b=COnZZ33bIOEmrKxtLcdrmCecpSEws3bLsCvxVQllX+yAKA3w3qJKOT62
+ kZRsCj9mxDxPG8Q/aUHfNf+o8xiokSE/VhhRdU1G3GBHfnU0m8CyhnTcK
+ oYjwfXazQ5eLfraYFDrNLd1uSmbmRaL/PZhqOMRjO5PbVLOyzCyfJCjRK
+ kUOZQVGNw5KvYqxgTMcX4V3MBJGh/4zQmJqdcyHjyUlITCQr0otzgCeY2
+ aQOGyLB9tTDmNw7HX8eeYM+qVcDqLkStoYrB1f+bQBg3OEn0wEfwsn269
+ Sbw1khPVeQ1IenjuG3/+wKrSPL23eNyroUrX8tkpta5kzvFAtVikn9XrK w==;
+X-CSE-ConnectionGUID: /zPXSOLPRbeWXEMjz35zDw==
+X-CSE-MsgGUID: vVtATqp9QsWAaXbqpPhw6Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="112719141"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="112719141"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2026 08:17:49 -0700
+X-CSE-ConnectionGUID: UjFCmABbSWSbvLBWnu+Ucw==
+X-CSE-MsgGUID: xzBrnVp1SNiA+cWrRKRxIQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="270736684"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.145])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2026 08:17:46 -0700
+Date: Wed, 16 Sep 2026 18:17:43 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: =?iso-8859-1?Q?=D6mer?= PALA <palaomer100@gmail.com>
+Cc: Nam Cao <namcao@linutronix.de>, andy@kernel.org,
+ gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: fbtft: fb_upd161704: replace udelay with
+ usleep_range
+Message-ID: <aqqzFxRfbxf14uld@ashevche-desk.local>
+References: <20260916093928.52057-1-palaomer100@gmail.com>
+ <87ecet5xos.fsf@yellow.woof> <aqp4GA1q6cLKivZo@ashevche-desk.local>
+ <CAKhZXnr0GdUrEu9vyMAWRCWyQzPM7cWQ6LRDa8fX0hnMkTN0RQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260916100405.2012604-1-vulab@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAKhZXnr0GdUrEu9vyMAWRCWyQzPM7cWQ6LRDa8fX0hnMkTN0RQ@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,45 +77,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 16, 2026 at 10:04:05AM +0000, Wentao Liang wrote:
-> cdns_dsi_bridge_atomic_pre_enable() resumes the DSI controller with
-> pm_runtime_get_sync() and returns early with a WARN_ON() when the
-> resume fails.  pm_runtime_get_sync() increments the runtime PM usage
-> count even when it fails, so returning without dropping the reference
-> leaks it and prevents the device from ever suspending again once the
-> error has been hit.
-> 
-> Drop the runtime PM reference with pm_runtime_put_noidle() on the
-> resume failure path before returning.
-> 
-> Fixes: e19233955d9e ("drm/bridge: Add Cadence DSI driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-> index 0dd85e26248c..fca4528edfa6 100644
-> --- a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-> +++ b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-> @@ -733,8 +733,10 @@ static void cdns_dsi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
->  	 * enable their streams.
->  	 */
->  
-> -	if (WARN_ON(pm_runtime_get_sync(dsi->base.dev) < 0))
-> +	if (WARN_ON(pm_runtime_get_sync(dsi->base.dev) < 0)) {
-> +		pm_runtime_put_noidle(dsi->base.dev);
->  		return;
-> +	}
+On Wed, Sep 16, 2026 at 03:08:06PM +0300, Ömer PALA wrote:
+> On Wed, Sep 16, 2026 at 12:39:28PM +0300, Andy Shevchenko wrote:
 
-Anything wrong with pm_runtime_resume_and_get() ?
+...
 
->  
->  	new_bridge_state = drm_atomic_get_new_bridge_state(state, bridge);
->  	if (WARN_ON(!new_bridge_state))
+> Second, do you understand the difference on what
+> code is doing before and after your change?
+> I understand that udelay() provides deterministic, busy-wait timing required for
+> hardware register initialization, whereas usleep_range() introduces scheduler
+> overhead and non-deterministic delays.
+> Out of technical curiosity regarding the driver IC: theoretically, if we knew
+> the exact window between the hardware lock/stabilization
+> time (min) and the internal state-machine timeout (max) from the datasheet,
+> would a range like usleep_range(min, max) be acceptable,
+> or does scheduler wake-up latency make it too risky for
+> timing-critical init sequences without hardware validation?
+> I will drop this patch series.
+
+It's not only about timings, longer sleeps most likely are fine, the main
+problem is atomicity.
+
+...
+
+Note, your reply is malformed. Choose proper tools to communicate in
+the Linux kernel mailing lists.
 
 -- 
-Regards,
+With Best Regards,
+Andy Shevchenko
 
-Laurent Pinchart
+
