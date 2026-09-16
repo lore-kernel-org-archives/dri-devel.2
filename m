@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDD49C88E77
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 13:46:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F08F7C88E77
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 13:46:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD81610E161;
-	Wed, 16 Sep 2026 13:46:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C59D89E47;
+	Wed, 16 Sep 2026 13:46:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="CD66GLPb";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="efB9rYui";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E65D10E161;
- Wed, 16 Sep 2026 13:46:46 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79B3589E47;
+ Wed, 16 Sep 2026 13:46:56 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id EFD004E40736;
- Wed, 16 Sep 2026 13:46:44 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 98D8DC5CD60;
+ Wed, 16 Sep 2026 13:47:38 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id B325960337;
- Wed, 16 Sep 2026 13:46:44 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 9E9D260337;
+ Wed, 16 Sep 2026 13:46:54 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 4434511C7B040; 
- Wed, 16 Sep 2026 15:46:29 +0200 (CEST)
+ with ESMTPSA id 4C8B111C7B042; 
+ Wed, 16 Sep 2026 15:46:42 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1789566396; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1789566411; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=7w1uPyaYjbV/AzoYagowX8aCeRR8/9jNsyB2/i8ji+c=;
- b=CD66GLPbez6qUMGecDMwJly8JKoywBC1WJmMkpDzjFZPuWVq6yeMis4y+VCYVecsY3WIYm
- vsTHwQ61/noyLOFbuH2W6zMSQuXb2qLUvPlIhnVT50bz0GbCHWdWqHX/9Unmf0zwOdOru6
- LlmYDl/lmfZjOaSV7RWFuEFS/pY7IcwATZO+TbkaIf1QWlNf+Yx+EJPcLd+s31ga3oGG7b
- j5Aq5ByReKclJX44jXbDQYXcdqJgOlfqCTmsMg2qrbaFTKopsM15hucnJuu11yjgWCS8Cj
- U9+qTNQhtCjIbNLNta57oF1BRBsIhnyd0nzOEHKs+j9o8fCl1azbb/U3BjqTIQ==
+ bh=Kzx7cYVqLgkBsTDq0kfXPzm/eoE3/PwS0/f16oAjmtA=;
+ b=efB9rYuizlWyBmeyjgXAyqT/EmO5MBA2lRywzCNv1NeGY+zZNubrYDREDfyFlAfDhc+Ln3
+ THOiYddqwpbMAMnpCfg3Z9NJyxnRTupdDioY4Yqs8LxIzqBZY7mbSJEfBtpJcbFYCRe0Af
+ bPznxNRs4e1WFuvruUlofhhNEMnRMwkIgEBgIaXOVH6t4+nqLDM3nGsQ0jeKLdn945rrRz
+ Ih7MdR6/pySHjFk5RNY79AJHDJHO/3XM62oACWrTor2rIcsE4eB0YjchUanbSXBGAVRHgt
+ secfu1AAKqmLazXF9tB2qxEgpbtbbpHbd3kKCRRa2LAzYj9o2F+qlD8PzVd6Ww==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 16 Sep 2026 15:45:31 +0200
-Subject: [PATCH v3 07/19] drm/panel: deprecate panel-bridge APIs
+Date: Wed, 16 Sep 2026 15:45:32 +0200
+Subject: [PATCH v3 08/19] drm/todo: add entry for removing the panel_bridge API
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-drm-bridge-every-panel-v3-7-83afb4f1a707@bootlin.com>
+Message-Id: <20260916-drm-bridge-every-panel-v3-8-83afb4f1a707@bootlin.com>
 References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
 In-Reply-To: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -90,108 +90,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that a drm_bridge is embedded into every drm_panel, the panel_bridge is
-not needed anymore. Its APIs are just accessing the embedded drm_bridge
-transparently.
-
-Deprecate them all, encouraging to use the drm_bridge API.
+Now that a drm-bridge is embedded into every drm_panel during the panel
+creation, the panel_bridge does not really exist anymore. Its API has been
+deprecated and kept until drivers convert to the bridge API.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/drm_panel.c | 31 +++++++++++++++++++++++++------
- 1 file changed, 25 insertions(+), 6 deletions(-)
+ Documentation/gpu/todo.rst | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-index 707ad9aa907a..c00529bfb706 100644
---- a/drivers/gpu/drm/drm_panel.c
-+++ b/drivers/gpu/drm/drm_panel.c
-@@ -250,6 +250,9 @@ EXPORT_SYMBOL(drm_bridge_is_panel);
-  *
-  * @panel: The drm_panel being wrapped.  Must be non-NULL.
-  *
-+ * This function is deprecated. A drm_bridge is embedded into every panel.
-+ * Don't use it in new drivers and update your driver to stop using it.
-+ *
-  * For drivers converting from directly using drm_panel: The expected
-  * usage pattern is that during either encoder module probe or DSI
-  * host attach, a drm_panel will be looked up through
-@@ -287,9 +290,8 @@ EXPORT_SYMBOL(drm_panel_bridge_add);
-  * This is just like drm_panel_bridge_add(), but forces the connector type to
-  * @connector_type instead of infering it from the panel.
-  *
-- * This function is deprecated and should not be used in new drivers. Use
-- * drm_panel_bridge_add() instead, and fix panel drivers as necessary if they
-- * don't report a connector type.
-+ * This function is deprecated. A drm_bridge is embedded into every panel.
-+ * Don't use it in new drivers and update your driver to stop using it.
-  */
- struct drm_bridge *drm_panel_bridge_add_typed(struct drm_panel *panel,
- 					      u32 connector_type)
-@@ -306,6 +308,10 @@ EXPORT_SYMBOL(drm_panel_bridge_add_typed);
-  * created by drm_panel_bridge_add().
-  *
-  * @bridge: The drm_bridge being freed.
-+ *
-+ * This function is deprecated. A drm_bridge is embedded into every panel
-+ * and removed when the panel is removed.  Don't use it in new drivers and
-+ * update your driver to stop using it.
-  */
- void drm_panel_bridge_remove(struct drm_bridge *bridge)
- {
-@@ -355,6 +361,9 @@ static void devm_drm_panel_bridge_release(struct device *dev, void *res)
-  * @dev: device to tie the bridge lifetime to
-  * @panel: The drm_panel being wrapped.  Must be non-NULL.
-  *
-+ * This function is deprecated. A drm_bridge is embedded into every panel.
-+ * Don't use it in new drivers and update your driver to stop using it.
-+ *
-  * This is the managed version of drm_panel_bridge_add() which automatically
-  * calls drm_panel_bridge_remove() when @dev is unbound.
-  */
-@@ -379,9 +388,8 @@ EXPORT_SYMBOL(devm_drm_panel_bridge_add);
-  * This is just like devm_drm_panel_bridge_add(), but forces the connector type
-  * to @connector_type instead of infering it from the panel.
-  *
-- * This function is deprecated and should not be used in new drivers. Use
-- * devm_drm_panel_bridge_add() instead, and fix panel drivers as necessary if
-- * they don't report a connector type.
-+ * This function is deprecated. A drm_bridge is embedded into every panel.
-+ * Don't use it in new drivers and update your driver to stop using it.
-  */
- struct drm_bridge *devm_drm_panel_bridge_add_typed(struct device *dev,
- 						   struct drm_panel *panel,
-@@ -422,6 +430,9 @@ static void drmm_drm_panel_bridge_release(struct drm_device *drm, void *ptr)
-  * @drm: DRM device to tie the bridge lifetime to
-  * @panel: The drm_panel being wrapped.  Must be non-NULL.
-  *
-+ * This function is deprecated. A drm_bridge is embedded into every panel.
-+ * Don't use it in new drivers and update your driver to stop using it.
-+ *
-  * This is the DRM-managed version of drm_panel_bridge_add() which
-  * automatically calls drm_panel_bridge_remove() when @dev is cleaned
-  * up.
-@@ -472,6 +483,10 @@ EXPORT_SYMBOL(drm_panel_bridge_connector);
-  * @port: port in the device tree node
-  * @endpoint: endpoint in the device tree node
-  *
-+ * This function is deprecated. A drm_bridge is embedded into every panel.
-+ * Don't use it in new drivers and convert your driver to
-+ * of_drm_get_bridge_by_endpoint().
-+ *
-  * Given a DT node's port and endpoint number, finds the connected node
-  * and returns the associated bridge if any, or creates and returns a
-  * drm panel bridge instance if a panel is connected.
-@@ -508,6 +523,10 @@ EXPORT_SYMBOL(devm_drm_of_get_bridge);
-  * @port: port in the device tree node
-  * @endpoint: endpoint in the device tree node
-  *
-+ * This function is deprecated. A drm_bridge is embedded into every panel.
-+ * Don't use it in new drivers and convert your driver to
-+ * of_drm_get_bridge_by_endpoint().
-+ *
-  * Given a DT node's port and endpoint number, finds the connected node
-  * and returns the associated bridge if any, or creates and returns a
-  * drm panel bridge instance if a panel is connected.
+diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+index cb0ce432c114..a437ae5c71f4 100644
+--- a/Documentation/gpu/todo.rst
++++ b/Documentation/gpu/todo.rst
+@@ -484,6 +484,31 @@ Contact: Douglas Anderson <dianders@chromium.org>
+ 
+ Level: Starter
+ 
++Remove panel_bridge API functions
++---------------------------------
++
++Now that a drm_bridge is embedded into every drm_panel, the panel_bridge is
++not needed anymore. Its APIs are just accessing the embedded drm_bridge
++transparently, and the are deprecated.
++
++The funcions to remove are:
++ - drm_panel_bridge_add_typed()
++ - devm_drm_of_get_bridge()
++ - drmm_of_get_bridge()
++ - drm_panel_bridge_remove()
++ - drmm_drm_panel_bridge_release()
++ - devm_drm_panel_bridge_release()
++ - their direct or indirect callers
++
++Convert users of those functions and eventually remove them when unused, or
++make them static drm_panel.c functions when used internally by the
++``drm_panel.c`` code.
++
++Contact: Luca Ceresoli <luca.ceresoli@bootlin.com>
++         Maxime Ripard <mripard@kernel.org>,
++
++Level: Easy
++
+ Convert users of of_drm_find_bridge() to of_drm_find_and_get_bridge()
+ ---------------------------------------------------------------------
+ 
 
 -- 
 2.55.0
