@@ -4,80 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAA30C982C1
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 07:04:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DC84C982D2
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 07:04:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D13610E92B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF13710E97A;
 	Thu, 17 Sep 2026 07:04:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Lxf9+HGN";
+	dkim=pass (2048-bit key; unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="W8z3cBvm";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="TFZUoj1s";
 	dkim-atps=neutral
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
- [74.125.228.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6DBF10E8E6
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 14:23:37 +0000 (UTC)
-Received: by mail-ej2-f12.google.com with SMTP id
- a640c23a62f3a-c254f56039dso149306066b.3
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 07:23:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789568616; x=1790173416; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=B6QT3yGLHL6iAKp7l+6TCtIqZRata/HBJzcHAfxOozE=;
- b=Lxf9+HGNhRNgHTg4S9zZx0HarFzTCbFXECgjrcPEtD5WcJmTZ99TxdocbFPxjnrdIx
- zglJtMO7LN6cFJ/IBhgxux5DRemLcYg2k4BNLlE2x4BKs4FTkEdtdj5Fp7wEpfmDW4as
- CzfopFHcf398gufO6483ukjtijMppTJtVF3rIi+3yH4Jx6nbOwxgMvLnBlzA0fEFmoPi
- uebUVo1YEYUPnvg8fgL/cs3s40EzZTUqmLpOnys75iV+e2hHUxeI3YSMAazazEoII03o
- UOaAjr6d3ukQ8ItBfLN2z34DteK3zRrAx/Bs8bzse1CpaNuGg8VWPSJHwm5/Z9+s/8co
- 8COQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789568616; x=1790173416;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=B6QT3yGLHL6iAKp7l+6TCtIqZRata/HBJzcHAfxOozE=;
- b=TJvZJpSKz3AiuEndWKyl9efcUzPoTtk6nHw51w71fphhuaan1sNUHDuxZKHa+Zaufq
- z5TkT3RWcH1Z2SgBLH8Mt++cer7lRKSC5RENoVoNS7TxRHDxdJZ0aQ3NBJauj2R7ilzv
- t91CPxddGbAgBlFOZc+kV7jxucT3K3tudvikZd/8GTEHQacwBuOy0QaaxnuarwFatKJE
- BXyo38cyXJwcNm85iEXpDVNUkpDg5wPTmzPYp+gyo2M4dAJkwwvDToQUE8Q3lMy/BLFh
- 4jT2z/XnljvP3t7sb9MIhL2WKbdk00xwzGROpRzhpijotUf7AW4fdC2aGoSHNu0Vzcz8
- sAOA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzVEN5L7zBSB9vpySTCW4gVEW/X3AoWt+13eddq9fMHpmjLzH8TtKsMmVPRd3V1OSpXKx+1QqZha3E=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mGIYmOiffudt/E/6Su4XWyG1zriMdqgO0BTCznGNrULne2AACg
- aPwNZG+WLoUaH54DxUTnHUVVLoBOMseLTIjl36pkeIvrkxshdTYkq7Xv
-X-Gm-Gg: AYBFou2x9saM05vU9ZSKwqZ5S/mta+Oz5hOq9JGWei7aOLCbKJgstVSzlaQsjPB86j7
- BOXsGs/yjIv6LFMSEIqU/w11VxKPyyWxbJFQHeBhJjI6P/6H5Wtkhlnkj9nu/tm+oIqf+UKThDm
- 29LHGNA6PXGij86P/Ap2aVkE5N8h5UCcE5znsWgp1+0jCphSgetcLWqc1qS8bJeHfQvr1KgvyNp
- L/lr/gMMH0sB9a8gQhp5+BQrqQdIYLJ9AN3sfJFHvYS7aaHr7huOI1zXXsteoxVg2Z3AeckjycF
- MOqafYJi4oG75an2baUhTNIG/UeJ9Ou2Ew95JDzJ0ds3tGw29Ker5n2HZu3aXlWkDmldDniwAeZ
- HlzfTkzn3MWPthSlBNLv0TgyYFNsvRXPkSVRP7bMTMAzyIaL+DWprJytC/Ot2dANzaLIX3vMPbc
- jjlJ+zMcnK1prmuOm0CUUAkvW+fT1MLFZgT/66Lkwd6obxzltuQFGI1tEotKrMWkOwOk9JK7MDJ
- WAeVXGFgGN5/Gf1G6p5vlOU4xTjaHeszkb88Vlm32NyBpUDRLEwUo/D7I7N
-X-Received: by 2002:a17:907:7241:b0:c26:19de:9138 with SMTP id
- a640c23a62f3a-c29e5351a04mr213058866b.43.1789568615501; 
- Wed, 16 Sep 2026 07:23:35 -0700 (PDT)
-Received: from misharu.home
- (2a02-a463-a071-0-1562-51d1-d5f-82bb.fixed6.kpn.net.
- [2a02:a463:a071:0:1562:51d1:d5f:82bb])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c29e801cdfesm105216566b.58.2026.09.16.07.23.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Sep 2026 07:23:34 -0700 (PDT)
-From: Hari Mishal <harimishal1@gmail.com>
-To: harry.wentland@amd.com,
-	sunpeng.li@amd.com
-Cc: siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, hersenxs.wu@amd.com, Jerry.Zuo@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org,
- Hari Mishal <harimishal1@gmail.com>, stable@vger.kernel.org
-Subject: [PATCH] drm/amd/display: guard dc_sink dereferences in MST mode
- validation
-Date: Wed, 16 Sep 2026 16:23:32 +0200
-Message-ID: <20260916142332.10394-1-harimishal1@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from fhigh-a3-smtp.messagingengine.com
+ (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0D0C10E392;
+ Wed, 16 Sep 2026 17:30:41 +0000 (UTC)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 2ADD614000F4;
+ Wed, 16 Sep 2026 13:30:41 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Wed, 16 Sep 2026 13:30:41 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:from:from:in-reply-to
+ :message-id:mime-version:reply-to:subject:subject:to:to; s=fm1;
+ t=1789579841; x=1789666241; bh=sEzC4k5CJmAV6EJO1XhWjipY2iPMC41J
+ 5KqRauPMcFs=; b=W8z3cBvmX93Pzsm5bNCRiY139GXpeJe1v3Xkn22MstaPsHgy
+ qP3GyTYl3P4a67pLjO1PGEb1dFV1DfPLDykR4z/854lyE6SMAtsArI+Gg3QGFr1n
+ 22KxTFVF9xgnaXFSKcdskfp+stDb1Pu+bcwUl6yYWwE7HdqikOZmXN7S2PksSAiz
+ sgsf43bs4CbOHMqYYAtbePUcusunHBJd3lidU1ECQdq27jC6XHpJWeRCKR2HI0SI
+ 54cDKJ3qD8gY/Pp6ysmC2UYSxTKrj+SIgbfvcG/60mX9CYFf9Ad0K/j/m2WjSNhF
+ kvv8ksUz7PGSeUJLLSMNF+khLrS/fwOUBVeUOA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:message-id:mime-version:reply-to:subject
+ :subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; t=1789579841; x=1789666241; bh=sEzC4k5CJmAV6EJO1XhWjipY2iPM
+ C41J5KqRauPMcFs=; b=TFZUoj1sd5wzq6V92J/uxsf3SSM2ifhX4DsjAgUNlWhU
+ 6eAsn61pwSeiVLgGV7jvmCKRWbXQ6CLYgzqEyQyv759H6AiJGx9yCW0EZQGvSqZA
+ tdLRY4dnewtM5NFNa99MZxpUr+OwHRfifJ+FXNEbp/VePCF8odEsQ7SJjMpAePN6
+ yl8MXZQOR9wortnzRLC5Cv8WCPbUmDe+qwK+357xalVj0aNXRwvbTbZPLtQprqPe
+ 8fnjP8Nhh2NWHHZ+WzFzG5iiuhGyDesYUDsQAReRN+nca32x16AxG+UqKvyJLZwb
+ e07DMW/szM+5nAcoTmduXKQo+NQgCo0s6D5w4prHYA==
+X-ME-Sender: <xms:QNKqar4EE9LI-Ci45nMVNqyof-kwidRJpl306loLxgGmy3IwfVmqSA>
+ <xme:QNKqatkELrkNM8W2gVc3-2rio61NawOH3E1ezo3jDG4WzJ49qn8VIWzz2PCaNrSer
+ cPQwbP557BE_fZbGQ3OAJ3MR-A2hCQ4qFF21tn4dWpHAU8Cgt0>
+X-ME-Received: <xmr:QNKqamXp7FAlrkBIVB8SzSqRW9nEiS28hNCrLWexN4SBh6xYgoJGqbppGv9TzE1xFJc0rmwbSvQi>
+X-ME-Proxy-Cause: dmFkZTFRR2SdzYysCnDldAnwcUjqwv+J1OcwrzewRKc+tpczioQYwLmLsiqEXhmQdC2nje
+ 56bGrrx9GV0swaDUdEK3vzaaVqY+M/XwqVdnxH+XYP25yLI5dgcMCMyHp1UAKHpzlMM6Pa
+ NfKIQqGtUlBxkueH0hJjWk2FklFgBKXLz2xRvyNL8MinjeW04yJe6UQoDcfj7Fm7GkQqjv
+ hWMDmiLq+BTLEM4gbkW/awJ3xlxmRvUzWx2Z1pfR7j7X/jzaQ8xRnBoS7gvzb3G9bG0ct3
+ i24Lbjgm0XtyjqxFcsT4bz5ya9cZ4U8Y9gRKqIKKaOSFKm85ALGxH1ylfLgRm2aN/+3adN
+ cUBVfKKQWHA2itOHpXXPGf2EhOirzoD+YJUN8W2J8btmtWKsDaOFNp10yxo1cjCNfqFLCA
+ eetNRPqBIDmnhflwbewQqA80/IE9YIqIzcnlCVJFyqgi/DPFkMyhrMlFDOWWfHiQjIeh9G
+ 89n9QqLFXfGqXXqk99gbjnMCdgUUBVwfGw6Qv0Oj/Sv5b8KJP0y9gIov6j06UeHeBXiu58
+ ngIpfuaFxt/OlglSkpwlIdfm8koIBhdly2sJuzoiRSESBrEf2tn7hwG3rFYegHCYuFa04F
+ L7fp6z+VojadVcqdg1VI+iW4SHrDfKfNnDMGMAOf0fHuPfqzSNP33fuzmKRg
+X-ME-Proxy: <xmx:QNKqamQRcqvlLVMy3OsQDxJ-Pj62_oGYUfuHRu2Y5BOtNr-7ukxvxg>
+ <xmx:QNKqajCN2AJCPPGKq58J4g9L4vvSXTYb25eOUnyQ7d--iuJtUJD3Mg>
+ <xmx:QNKqauuEzb0d10ZGzyknk3K36HIWDjgTpWiMYIC8Ck0U3NuKpU4EOw>
+ <xmx:QNKqah9C--fGdirKD9LXW3LiBUUq7NtHJYplpvh9CAou0G6ozyA7Qw>
+ <xmx:QdKqaoNidy3xp9Bfq4NoR1cy-a8FbyWcN-DtMO5vSOMoLGcheiud6Y02>
+Feedback-ID: i792e4853:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 16 Sep 2026 13:30:37 -0400 (EDT)
+From: =?UTF-8?q?Szymon=20Aceda=C5=84ski?= <accek@invisiblethingslab.com>
+To: intel-xe@lists.freedesktop.org
+Cc: thomas.hellstrom@linux.intel.com, matthew.brost@intel.com,
+ rodrigo.vivi@intel.com, maarten.lankhorst@linux.intel.com, hch@lst.de,
+ bob.beckett@collabora.com, dri-devel@lists.freedesktop.org,
+ marmarek@invisiblethingslab.com, xen-devel@lists.xenproject.org,
+ =?UTF-8?q?Szymon=20Aceda=C5=84ski?= <accek@invisiblethingslab.com>,
+ stable@vger.kernel.org
+Subject: [PATCH v2] drm/xe: Limit sg segment size to PAGE_SIZE on Xen PV
+Date: Wed, 16 Sep 2026 19:30:30 +0200
+Message-ID: <20260916173030.3223833-1-accek@invisiblethingslab.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 17 Sep 2026 07:04:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -95,54 +98,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dm_dp_mst_is_port_support_mode() reads
-aconnector->dc_sink->dsc_caps... for the DSC branch-throughput check,
-and get_conv_frl_bw()'s HDMI-PCON FRL-bandwidth path reads
-aconnector->dc_sink->edid_caps.max_frl_rate, both without a NULL
-check. dc_sink is cleared asynchronously on MST unplug, and both
-functions run from paths that the driver's own comments document as
-racing that teardown: the connector probe worker's ->mode_valid
-callback and a compositor's atomic check, neither of which holds the
-MST manager lock that the teardown path uses. The former does have an
-existing dsc_aux NULL check, but dsc_aux isn't reliably cleared in
-every path that clears dc_sink, so it doesn't cover this.
+Fix display corruption on Xen PV dom0, where DMA buffers are not
+guaranteed machine-contiguous, in which case bounce buffering kicks
+in, breaking xe's memory coherency assumptions.
 
-Fail the port-support check and skip the FRL conversion path when the
-sink is already gone.
+Apply the same workaround i915 carries in i915_sg_segment_size() since
+commit 78a07fe777c4 ("drm/i915: stop abusing swiotlb_max_segment").
 
-Fixes: f04d275d94e1 ("drm/amd/display: add mst port output bw check")
-Fixes: 5c9b8b27a883 ("drm/amd/display: Tie FRL support into amdgpu_dm")
-Cc: stable@vger.kernel.org
-Assisted-by: gkh_clanker_t1000
-Signed-off-by: Hari Mishal <harimishal1@gmail.com>
+Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
+Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8382
+Link: https://lore.kernel.org/xen-devel/aYtznP_tT6xNPwf-@mail-itl/
+Link: https://lore.kernel.org/all/20221020110308.1582518-1-hch@lst.de/ # i915 counterpart
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Robert Beckett <bob.beckett@collabora.com>
+Cc: stable@vger.kernel.org # v6.8+
+Signed-off-by: Szymon Acedański <accek@invisiblethingslab.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+v2:
+ - Imperative language in the commit message (Thomas Hellström)
+ - CC the authors of the original i915 workaround (Thomas Hellström)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 045a7f88b754..7261317d4c0f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -1231,7 +1231,8 @@ static bool get_conv_frl_bw(struct amdgpu_dm_connector *aconnector,
- 	unsigned int max_sink_bw_in_kbps = 0;
- 	unsigned int dsc_max_sink_bw_in_kbps = 0;
+ drivers/gpu/drm/xe/xe_bo.h | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
+index 290ca62..341fa93 100644
+--- a/drivers/gpu/drm/xe/xe_bo.h
++++ b/drivers/gpu/drm/xe/xe_bo.h
+@@ -9,6 +9,8 @@
+ #include <drm/drm_prime.h>
+ #include <drm/ttm/ttm_tt.h>
  
--	if (aconnector->dc_link->dc->caps.dp_hdmi21_pcon_support &&
-+	if (aconnector->dc_sink &&
-+	    aconnector->dc_link->dc->caps.dp_hdmi21_pcon_support &&
- 	    aconnector->mst_downstream_port_caps.bytes.byte0.bits.DWN_STRM_PORTX_TYPE == DOWN_STREAM_DETAILED_HDMI) {
- 		max_conv_bw_in_kbps = dc_link_bw_kbps_from_raw_frl_link_rate_data(
- 				aconnector->dc_link->dc,
-@@ -1996,6 +1997,9 @@ enum dc_status dm_dp_mst_is_port_support_mode(
- 	struct dc_dsc_config_options dsc_options = {0};
- 	uint32_t stream_kbps;
- 
-+	if (!aconnector->dc_sink)
-+		return DC_FAIL_BANDWIDTH_VALIDATE;
++#include <xen/xen.h>
 +
- 	/* DSC unnecessary case
- 	 * Check if timing could be supported within end-to-end BW
- 	 */
+ #include "xe_bo_types.h"
+ #include "xe_ggtt.h"
+ #include "xe_macros.h"
+@@ -574,6 +576,23 @@ static inline unsigned int xe_sg_segment_size(struct device *dev)
+ 	struct scatterlist __maybe_unused sg;
+ 	size_t max = BIT_ULL(sizeof(sg.length) * 8) - 1;
+ 
++	/*
++	 * For Xen PV guests pages aren't contiguous in DMA (machine) address
++	 * space.  The DMA API takes care of that both in dma_alloc_* (by
++	 * calling into the hypervisor to make the pages contiguous) and in
++	 * dma_map_* (by bounce buffering).  But xe (like i915, see commit
++	 * 78a07fe777c4) ignores the coherency aspects of the DMA API and thus
++	 * can't cope with bounce buffering actually happening, so add a hack
++	 * here to force small allocations and mappings when running in PV
++	 * mode on Xen.
++	 *
++	 * Note this will still break if bounce buffering is required for other
++	 * reasons, like confidential computing hypervisors or PCIe root ports
++	 * with addressing limitations.
++	 */
++	if (xen_pv_domain())
++		return PAGE_SIZE;
++
+ 	max = min_t(size_t, max, dma_max_mapping_size(dev));
+ 
+ 	/*
+
+base-commit: baafc300cd079a5210c1e70e5ea3d93518e40b38
 -- 
-2.43.0
+2.53.0
 
