@@ -4,34 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53799C982C9
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 17:29:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87662C88E7F
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 17:31:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62CC610E8E9;
-	Wed, 16 Sep 2026 17:29:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8969D10E175;
+	Wed, 16 Sep 2026 17:31:45 +0000 (UTC)
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3ABD10E627;
- Wed, 16 Sep 2026 17:29:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5662E10E175;
+ Wed, 16 Sep 2026 17:31:43 +0000 (UTC)
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-05 (Coremail) with SMTP id zQCowACXAj3o0apquZ9uCA--.22432S2;
- Thu, 17 Sep 2026 01:29:12 +0800 (CST)
+ by APP-05 (Coremail) with SMTP id zQCowACXADt60qpqpKduCA--.22649S2;
+ Thu, 17 Sep 2026 01:31:38 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
 To: airlied@gmail.com
-Cc: chris@chris-wilson.co.uk, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com,
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ jani.nikula@linux.intel.com, john.c.harrison@intel.com,
  joonas.lahtinen@linux.intel.com, linux-kernel@vger.kernel.org,
- rodrigo.vivi@intel.com, simona@ffwll.ch, tursulin@ursulin.net,
- Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
-Subject: [PATCH] drm/i915/gt: Fix rq use-after-free in signal_irq_work()
-Date: Wed, 16 Sep 2026 17:28:44 +0000
-Message-Id: <20260916172844.2087895-1-vulab@iscas.ac.cn>
+ matthew.brost@intel.com, rodrigo.vivi@intel.com, simona@ffwll.ch,
+ tursulin@ursulin.net, Wentao Liang <vulab@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/i915/guc: Fix ce use-after-free in
+ scrub_guc_desc_for_outstanding_g2h()
+Date: Wed, 16 Sep 2026 17:31:10 +0000
+Message-Id: <20260916173110.2088036-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowACXAj3o0apquZ9uCA--.22432S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ww4xuFy8AFykury3trW5ZFb_yoW8Ww4Dpr
- 43JFyYyrZ8ZFnFv3WrC3W8CF4fWa42yF1UWF98G3s3Jwn8tas3Ar9YvFyjqFyY9rs3Xw1q
- qryqqrW7WFWUZr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID: zQCowACXADt60qpqpKduCA--.22649S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uw13KF47XrWkAFWfXw48Crg_yoW8Ww17pr
+ 4aqw1Y9Fy5AF4SvF9rA3WjqFyfK3WrJa4xWw1DGw15Jas5J3WDGr92yay5tFyDAr1xJ3sa
+ yF17KrW3W3Wa9FJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
  9KBjDU0xBIdaVrnRJUUU9q14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
  rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
  1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
@@ -46,7 +48,7 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7Ww4xuFy8AFykury3trW5ZFb_yoW8Ww4Dpr
  6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F
  4UJbIYCTnIWIevJa73UjIFyTuYvjfU5byZUUUUU
 X-Originating-IP: [36.110.52.2]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwIMA2qqpVhjkQAAsF
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwAMA2qqpVhkigAAsb
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,50 +64,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The final i915_request_put() can release the last reference to a
-signaled request, freeing it synchronously (kmem_cache_free) before the
-RCU iterator advances to read rq->signal_link.next. Grab the next
-request up front, so the loop does not touch a request that may already
-have been freed.
+A context flagged SCHED_STATE_DESTROYED has already dropped its final
+reference, and __guc_context_destroy() frees it immediately (virtual
+engine contexts are kfree'd outright). The pending_disable block is not
+mutually exclusive with the destroyed state and kept using the context
+after that destroy. Defer __guc_context_destroy() until after the
+pending_disable handling.
 
-Fixes: c744d50363b7 ("drm/i915/gt: Split the breadcrumb spinlock between global and contexts")
+Fixes: eb5e7da736f3 ("drm/i915/guc: Reset implementation for new GuC interface")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index f840e98792cd..90bc32b526b8 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -213,7 +213,7 @@ static void signal_irq_work(struct irq_work *work)
- 	for (ce = list_first_or_null_rcu(&b->signalers, typeof(*ce), signal_link);
- 	     ce;
- 	     ce = cn) {
--		struct i915_request *rq;
-+		struct i915_request *rq, *rn;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 7b88e081c76d..5eab2baa1f7f 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1122,7 +1122,6 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
+ 			if (destroyed) {
+ 				intel_gt_pm_put_async_untracked(guc_to_gt(guc));
+ 				release_guc_id(guc, ce);
+-				__guc_context_destroy(ce);
+ 			}
+ 			if (pending_enable || deregister)
+ 				intel_context_put(ce);
+@@ -1145,6 +1144,13 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
+ 			intel_context_put(ce);
+ 		}
  
- 		/*
- 		 * Grab the next signaler up front, as dropping the final
-@@ -223,9 +223,16 @@ static void signal_irq_work(struct irq_work *work)
- 		cn = list_next_or_null_rcu(&b->signalers, &ce->signal_link,
- 					   typeof(*cn), signal_link);
- 
--		list_for_each_entry_rcu(rq, &ce->signals, signal_link) {
-+		for (rq = list_first_or_null_rcu(&ce->signals,
-+						 typeof(*rq), signal_link);
-+		     rq;
-+		     rq = rn) {
- 			bool release;
- 
-+			rn = list_next_or_null_rcu(&ce->signals,
-+						   &rq->signal_link,
-+						   typeof(*rn), signal_link);
++		/*
++		 * Finish the destroy last, as it may free the context while
++		 * the above states still need to access it.
++		 */
++		if (destroyed)
++			__guc_context_destroy(ce);
 +
- 			if (!__i915_request_is_complete(rq))
- 				break;
- 
+ 		if (do_put)
+ 			intel_context_put(ce);
+ 		xa_lock(&guc->context_lookup);
 -- 
 2.34.1
 
