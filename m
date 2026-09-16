@@ -4,75 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DAF1C88E77
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 13:14:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40B0BC88E77
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 13:22:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57BEF10E79E;
-	Wed, 16 Sep 2026 13:14:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5321810E0C7;
+	Wed, 16 Sep 2026 13:22:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="akBX6LHe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LfoVsNzt";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B5BD10E79E
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 13:14:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEFA510E0C7
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 13:22:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3845F6053A
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 13:14:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4A0E1F00893
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 13:14:02 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2AE5760234;
+ Wed, 16 Sep 2026 13:22:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 366A81F000FF;
+ Wed, 16 Sep 2026 13:22:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789564442;
- bh=pihBz4gn+5eleCo7xhCNM4+VAMRmVbSp72bOE4FVM2U=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=akBX6LHe38VpRRHRDqiXVGPbMIsT3Yvr6/pzNS0JkAZrMjBTpCLNe5Nzosrt8JRJw
- xL46ZYU3+BMGiAqj2fgONy8QFMuPGCs+VKLN8fzxnODpsFtdPf8st5sNvtY9tkBjGl
- txwWpE/VQA67nOUOxEbNtrZr0i6SrSbn/oLPQhzAYMJZfKoaDt4JS+69OMKHr+nbug
- ibwx+BtWbBoTcK4zu5q1of+pRz2V0ruyep29Edi2mfNc9x8kFMIZbF0OwFF58h4Ehj
- 6PoCDCNtVNanRVqdT2TS+4mLUtan5L6jCaaB4+Hz3oOm+sJIcJ34PAx8j7Tu/yJnl5
- ml0caq6d/uV0A==
-Received: by mail-lr2-f12.google.com with SMTP id
- 38308e7fff4ca-3a2ff00b8d8so7816221fa.1
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 06:14:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBwjX5jG03JD6Ydke5eYEkXZZRNqRRFf7cOLLd67pzZwjTBETdQpSY8Z7rOpoIHbfuYwO/c2mbNjjN4=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++losDi0j/A440qO0L+vVI0h8xy2QJ7jaquyFOavcu3YJFF0d7M6
- Em4PhZchT2b967lyl4WRFxr+KSNEqP9qI8IOQbRfDR1B32vWg7uenxjwG6KBxBzaSCR7cKYYMm4
- P/PK+tlNULUjMMrOiIBnnsHopYw3IpGM=
-X-Received: by 2002:a05:6512:3e07:b0:5b7:651b:1cc0 with SMTP id
- 2adb3069b0e04-5b8b660c2bfmr761601e87.4.1789564441313; Wed, 16 Sep 2026
- 06:14:01 -0700 (PDT)
+ s=k20260515; t=1789564923;
+ bh=YFiTkxY4NnahRWADkTjvK32t/QFawfHXHLOvPkMD0aQ=;
+ h=From:Date:Subject:To:Cc;
+ b=LfoVsNzttzZqw9jnVkyiKm1jz+gqn9MVzP6upZW+Cvpfvd4RJMlUv/W2EVBdpN0m2
+ P3IcsjsLZkLuPbbV1Po9K1gKylmprm58C01Y6VUd4HfGIvZUQ1aIMc6/QMX45+Yiug
+ 67hZhEMDg5EDO5cSZQN1Sjh9DvQ2vEer22SvLAYt4+ougxk1Gf8cxREmBiwnm+1+oo
+ s1wyueL5y+UtLChAJcCAuTmJxca04manCul/6PI8joa9F8k7or12RIyQHchxNQxdwd
+ sigzQkzEyKLH9Vz2yV+suHMRGb6MY12IVj+DdC4BHEUGYZLBexHNDh3uL1/69jMw/T
+ fdiz1E6L9WFkg==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Wed, 16 Sep 2026 16:21:58 +0300
+Subject: [PATCH] MAINTAINERS: DMA BUFFER SHARING FRAMEWORK: tighten F: matches
 MIME-Version: 1.0
-References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
- <20260901-q8b-dts-v1-5-7de0b6a73d08@radxa.com>
-In-Reply-To: <20260901-q8b-dts-v1-5-7de0b6a73d08@radxa.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 15:13:46 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnuNCcaY+GW5Qzv1caSZfi0CGx_3Hx33x8MVpR6iS0wtg@mail.gmail.com>
-X-Gm-Features: AcwNN1Vw67ZSGXweqRIWzw8TAfqqxjv5DWNR5PtBCdGSa2CfcBJrR47asGFCEnY
-Message-ID: <CAD++jLnuNCcaY+GW5Qzv1caSZfi0CGx_3Hx33x8MVpR6iS0wtg@mail.gmail.com>
-Subject: Re: [PATCH 5/6] dt-bindings: pinctrl: qcom,
- sc8280xp-tlmm: allow gpio-line-names
-To: Xilin Wu <sophon@radxa.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
- Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-maint-dma-buf-v1-1-0f8d6c5bf1cd@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDMBBFryKz7tBEQbBXKV1MkolOIbFMtBTEu
+ zdpl+/z3zugsAoXuHUHKL+lyJor2EsHfqE8M0qoDL3pRzPZERNJ3jAkQrdHHAZrycXgJ8NQnZd
+ ylM+vd3/8uezuyX5rkfZwVBidUvZLm1aVWfI1UdlY4Ty/DQzjNJEAAAA=
+X-Change-ID: 20260916-maint-dma-buf-3311abfdc90e
+To: Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=83=C2=B6nig?= <christian.koenig@amd.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+X-Mailer: b4 0.17-dev
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,17 +62,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 1, 2026 at 10:48=E2=80=AFAM Xilin Wu <sophon@radxa.com> wrote:
+F:	include/linux/*fence.h
 
-> The SC8280XP TLMM GPIO controller exposes 230 GPIO lines. Allow boards to
-> provide descriptive names for these lines and constrain the list to the
-> number of GPIOs exposed by the controller.
->
-> Signed-off-by: Xilin Wu <sophon@radxa.com>
+in "DMA BUFFER SHARING FRAMEWORK" entry matches include/linux/kfence.h
+although that header has nothing to do with dma-buf.
 
-Sophon, right I got that reference ;)
+Replace it with explicit 'include/linux/dma-fence.h'.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+---
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Yours,
-Linus Walleij
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c2414447892c2..656bc5ed8d2ba 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7688,7 +7688,7 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+ F:	Documentation/driver-api/dma-buf.rst
+ F:	Documentation/userspace-api/dma-buf-alloc-exchange.rst
+ F:	drivers/dma-buf/
+-F:	include/linux/*fence.h
++F:	include/linux/dma-fence.h
+ F:	include/linux/dma-buf.h
+ F:	include/linux/dma-buf/
+ F:	include/linux/dma-resv.h
+
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20260916-maint-dma-buf-3311abfdc90e
+
+--
+Sincerely yours,
+Mike.
+
