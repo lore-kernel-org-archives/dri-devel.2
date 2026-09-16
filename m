@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97A88C982CC
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 14:23:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E5C2C982C5
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 14:23:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 691A510EB0F;
-	Wed, 16 Sep 2026 14:23:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC0AB10EB10;
+	Wed, 16 Sep 2026 14:23:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WF8I84dg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kDRodZd6";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 926F110E5AD;
- Wed, 16 Sep 2026 14:23:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2ED9C10E5AD;
+ Wed, 16 Sep 2026 14:23:05 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 33F1B447FD;
+ by sea.source.kernel.org (Postfix) with ESMTP id 5381844810;
  Wed, 16 Sep 2026 14:23:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D6C5EC4AF54;
- Wed, 16 Sep 2026 14:23:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 19FDBC4AF68;
+ Wed, 16 Sep 2026 14:23:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1789568583;
- bh=eT5LkGareOk93Rj7V9Zm4FI9L73wsasq/yn696PUOww=;
+ bh=ZxMzSJkRAAT8q4hnIB5+u1Z/6/ziiMQZPOtoIyl9iHo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=WF8I84dgp91hsIPC/wl+xnbPm3I82YgVtU9sDFDAYVGGCYr2NZh68T6DuiJz0xlwB
- Y9J5m4AWXhxPzZawtZkwWZKxCU1JNtGRovDCdM8XCAyX5vn0mZsxI33IbJhriegVIm
- ZMdWcpINaWpmvJA1cD/k4qntFZvWNyZok84Am/FQSfsq+zD4AfFRwShPIqEoYGPHlx
- 3RCyT3Jzi52rN3iK2NzZH7J4ELF8/opafc/qAqqUNnNgE0ZL88VKEsDTpzfDvLpwjU
- CqLzGuI5SKAVR/9plSdEY8GBwd9IURF4xcJuwGMQI3d+0ykeHzW9gq76e7t1pjJ3Fr
- BWHcyVf7nUIEg==
+ b=kDRodZd6gnJTresbwpA7Al/pmxOc81wqcHfF7sxXnTpuwsZCBi4RhPBpHyiMpCLe4
+ taZx4eZkIAUhBGe8YhIpfw8smLVivHp8cptG5opGIMiAg7YJfDR2fTiIzpqCWYp9Fm
+ Hr2bGaq83gQqXELi8BgbIaUwjtZloUIWF0AWeHqgKo8ZA2kR+DpkG3r8cKtxGw2vPK
+ I/6hZLnbtLaCIRO246+BZAYZZ782rXD0TitI6O6vq1dwxSij0xrkLlmdWYE0f0z5dn
+ qb6TzNsEi68R73JgKeKrr1XfQL/GEMv2+df5o4/5wKuZiWQmtrkGjiqzPPPWAqX47H
+ B3ncaWeYO0GZA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id BF389C982C9;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id F2A3EC982CA;
  Wed, 16 Sep 2026 14:23:02 +0000 (UTC)
 From: Muzaffer Kadir via B4 Relay
  <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Wed, 16 Sep 2026 17:22:12 +0300
-Subject: [PATCH v2 07/19] dt-bindings: arm: qcom: Document MSM8952 SoC binding
+Date: Wed, 16 Sep 2026 17:22:14 +0300
+Subject: [PATCH v2 09/19] dt-bindings: mfd: qcom,tcsr: Add compatible for
+ MSM8952
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-msm8952-initial-support-v2-7-798c2602dde1@mainlining.org>
+Message-Id: <20260916-msm8952-initial-support-v2-9-798c2602dde1@mainlining.org>
 References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
 In-Reply-To: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
 To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
@@ -77,11 +78,11 @@ Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
  linux-pm@vger.kernel.org, linux-input@vger.kernel.org, 
  Muzaffer Kadir <muzafferkadir@mainlining.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789568579; l=1049;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789568579; l=762;
  i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=DQpSYfJxPOHEsOBbMjWNm3lqodBpWTMPFkqMOhmenck=;
- b=jz7ecWkwnZM/HdnR8m4zTZ4AagplhUpNs9ASvavoBsfD847uC24TMEIPJ22WU4JaE/ydfflpW
- 5zpSTzTG6bcCyZvlWerLS5Dyce2xMH8YexPWDPhV+G6yqdThTyAzIH/
+ bh=qeaBGCeLrtM04JD/SV5a/sI/wkX12kN/dQisJFr7ioM=;
+ b=4GZxS8t4nccqh0sc4Jny/8OKmUy92ItLBP1t71gGRWV6HupZAoNiHGn5D/lPF2t8gKR1HvCc3
+ gBo2bsR4q+dBwXuGbraEBu8xhpF8WZQZ07T8qFfYv6d003mm+gAsZH6
 X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
  pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
 X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
@@ -105,37 +106,25 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Document the MSM8952 and add General Mobile shamrock to it.
+Document the qcom,tcsr-msm8952 compatible.
 
 Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- Documentation/devicetree/bindings/arm/qcom.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+ Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index eddf87fbd0cc..b611ad40f537 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -296,6 +296,11 @@ properties:
-               - wingtech,wt82918hdhw39
-           - const: qcom,msm8939
- 
-+      - items:
-+          - enum:
-+              - generalmobile,shamrock
-+          - const: qcom,msm8952
-+
-       - items:
-           - enum:
-               - flipkart,rimob
-@@ -1341,6 +1346,7 @@ allOf:
-               - qcom,msm8917
-               - qcom,msm8937
-               - qcom,msm8939
-+              - qcom,msm8952
-               - qcom,msm8953
-               - qcom,msm8956
-               - qcom,msm8992
+diff --git a/Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml b/Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml
+index c3889f974ed3..a021e4dea486 100644
+--- a/Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml
++++ b/Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml
+@@ -60,6 +60,7 @@ properties:
+           - qcom,tcsr-msm8916
+           - qcom,tcsr-msm8917
+           - qcom,tcsr-msm8937
++          - qcom,tcsr-msm8952
+           - qcom,tcsr-msm8953
+           - qcom,tcsr-msm8960
+           - qcom,tcsr-msm8974
 
 -- 
 2.55.0
