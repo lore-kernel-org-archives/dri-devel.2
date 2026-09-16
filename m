@@ -4,89 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97E4CC88E5C
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 05:55:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1938C88E5C
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 06:13:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A70CE10E132;
-	Wed, 16 Sep 2026 05:55:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7BBB10E21C;
+	Wed, 16 Sep 2026 06:13:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mLv/OZGG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jGiIdh8j";
 	dkim-atps=neutral
-Received: from mail-oo2-f10.google.com (mail-oo2-f10.google.com
- [74.125.231.138])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C040210E132
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 05:55:09 +0000 (UTC)
-Received: by mail-oo2-f10.google.com with SMTP id
- 006d021491bc7-6c7150a9098so511561eaf.0
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 22:55:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789538109; x=1790142909; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=MqFU5BpLPG1Ad79y0zq7m4k9RGfhTKwi6mVEHKHgkMk=;
- b=mLv/OZGGhA9914aGh/kKt0W0nFo6TS0zKkI+2LoWtmP8NOZGFqdWwcN8H97wtPyHIg
- QHulxVXopeJOwO55V6Ur2U7p2Pi5IuQYDWi3X9M+dUAxhl+OopwUu8Q0stzq2LETGWqb
- LrMHu4HWKXDEtoOTWZBgddiLoUTPlfGXA+lt9Y2/SXZgHDF3xkCo7fUUMOs8eD0+4sGT
- mS/57kZBx3y7YVoVm7N2m70KdTwFmR6F1rxDVx64dQ+H8zYQ4SyIftgrOK4LuKozPFbj
- JA/eJrsf9uetmLtKmrvNQtRH0Y9RiS/FM4dbdEnXRg/EnVlyPia0r3iDW7jd1Gm21pW6
- rwcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789538109; x=1790142909;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=MqFU5BpLPG1Ad79y0zq7m4k9RGfhTKwi6mVEHKHgkMk=;
- b=s6dUXSaEB9SpC7R/SwnoDDP4iKBhoAaOY0b9SJtzjy2VegZLUzH25skm6qHTMqY5oe
- dQoiKaoFqTJZ9IV3RikOSBizARBAsNs1pp3f2zC2MO7USOFLtSlVgILDeRgIweWj4ecG
- gQRON8jQ0kz8cRpiZQ39cH5Sqv7j0XiONoM591bEyX0Krw3avUyv61yL87h7uopoWbyD
- gBPS+Dnwp4+XNUNqS8RlqsUOApYGmw+qjH0OIonqqGnXWx2TJ6QvzwcFqj0idPAi7kss
- r05HXKMfD+aje/jblKrJOeFPpFIJ1i+uQVJfLCnRS1P4gHNJIzufU+O/G2E63HnDssMi
- YkLw==
-X-Gm-Message-State: AFuF++mxX1Qna6GmVZ5yYKqMo+p8VsVJPdgk0aV3tn/XXJLBAJ5Es1hK
- DybsA6O+dtaRZhstDqFouAYZMqFl7rbyHYI+4zDpQWbQEYicXZAp/pwh
-X-Gm-Gg: AYBFou2DKN23d8c9frXiYSziSW2AfJY6LSnSkpU5fqGcjRKGeAJqaA2cBYD1l6DKvAx
- 0K1ofc53y3RtGshryVgQv5ZIMozZUhZqtLYhZ5nnWLyvXEFicQc1ugFoN5cYT1jvhxnoMVJsW5f
- nHQaZt2WXdLo2WtSthrrK/dHchcXsdUARxSvlIRN34qGIDUC2YUvByGsACSowwGeQHrlb3DVS6d
- S07SOZJVJpJ+FGPywLsTLwGCXOXDXsIumGCksvsGs6QliJzJYRn+s8C2V546f+ccjqh+np+IWtl
- tHWbH+kO1VD0dGVCbY8O7dZMiDTp+vDiyksMQ7eUPSUuF6Xfvc8bMlJIXhcheZVQ1BhwUz8tBtq
- jmVumaW7BCSuael4PhI+O1zzg3paN1euR8mWLCpIzis/SQelZ1vgpPqfgkJGmTD7XBNS7yoXOS5
- AivPik8WHQo8nFwV8qTPZyFZPRHkkwseHVTRSZAEVCofussMsyoAXHz0srwxXpmCnSexe+tEzE4
- SBMnvLNTjK3UG3B
-X-Received: by 2002:a05:6820:188e:b0:6b3:f4b8:bb86 with SMTP id
- 006d021491bc7-6c7d1bc852cmr1410414eaf.22.1789538108821; 
- Tue, 15 Sep 2026 22:55:08 -0700 (PDT)
-Received: from ?IPV6:2600:8804:5716:d800::b712? ([2600:8804:5716:d800::b712])
- by smtp.gmail.com with ESMTPSA id
- 006d021491bc7-6c7a78ac1c6sm1949699eaf.13.2026.09.15.22.55.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Sep 2026 22:55:07 -0700 (PDT)
-Message-ID: <b9a58aac-4a49-43ed-93f9-32c295609312@gmail.com>
-Date: Wed, 16 Sep 2026 00:55:05 -0500
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D72C10E21C
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 06:13:35 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1FDB344518;
+ Wed, 16 Sep 2026 06:13:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 583DE1F000FF;
+ Wed, 16 Sep 2026 06:13:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789539215;
+ bh=nPQ+SPnLhTuHcF+yZ9MBJCNwFbi4iGTYsbjMp/LctXk=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=jGiIdh8jAz+HJEIdKmY4JOmnR8ieKwt442ZiB5eTYHeiD1G8M4UupUG7/mjsj3XXU
+ MaDy6nBC+3UnxTxldC0xrEWPLlMpopnIXRRS1AGMLMZBqJXvPbHlQuzEK6g00Bsjs+
+ laQZMyMN5br3huAy55RIL90Xe2d8XeiV+K0cgU0W3uGy45YVrKvdIaHjebIKsmBKgC
+ tXVHD0JOcQxN40TnmKBr9+I0vFSQ8DrobODS3K4daEPm+/Wmj+/ndt5T9s1+56QIr0
+ 7cp9xsaon4uibZ4a/zpOBxAbd1DX5DUYYlTVgH1oRmEbmjcw3QF0HvycocZ+Mt9ERg
+ NWnBBB45cTeqA==
+Message-ID: <e061856c-f630-4978-b991-ea19cd23999b@kernel.org>
+Date: Wed, 16 Sep 2026 08:13:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] drivers: gpu: drm: panel: Add BOE NT51021 driver
-To: Nickolay Goppen <setotau@mainlining.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-References: <20260913-qcom-novatek-nt51021-panels-v3-0-266bc5d7e8c9@mainlining.org>
- <20260913-qcom-novatek-nt51021-panels-v3-2-266bc5d7e8c9@mainlining.org>
+Subject: Re: [PATCH v2] dt-bindings: display: panel: mipi-dbi-spi: add
+ sitronix,st7789v-tft28
+To: Frese <freseenzo@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Noralf_Tr=C3=B8nnes?=
+ <noralf@tronnes.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260911203342.76692-1-freseenzo@gmail.com>
+ <20260913-easygoing-chubby-sidewinder-67beb9@quoll>
+ <f8fbfb26a60bd664bb4c436acfa541b5e4976916.camel@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-In-Reply-To: <20260913-qcom-novatek-nt51021-panels-v3-2-266bc5d7e8c9@mainlining.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <f8fbfb26a60bd664bb4c436acfa541b5e4976916.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,12 +108,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Not sure if I was supposed to reply with the trailer again, but to the 
-individual patch, or if I should leave it since I already messed it up 
-in the thread, so I hope I'm not doing this wrong:
+On 13/09/2026 22:42, Frese wrote:
+> Hi Krzysztof,
+> 
+> Thanks for the review, this is one of my first kernel contributions,
+> so please bear with me.
+> 
+> This panel is a generic hobbyist module, wired via jumpers to a stock
+> Raspberry Pi 4B, not soldered onto any fixed product like
+> saef,sftc154b (Anbernic RG-Nano) or shineworld,lh133k (LXA boards).
+> Mainline has no Raspberry Pi overlay tree, so there's no in-tree
+> consumer to add. I noticed sainsmart18 currently has no in-tree
+> consumer either, though it was added as part of the original binding's
+> example, so I'm not sure that's a strong precedent. Would a
+> documentation example, or an out-of-tree overlay demonstrating the
+> tested wiring, be an acceptable alternative here?
+> 
+> Vendor prefix was already fixed in v2 (sitronix,st7789v-tft28) —
+> sorry the subject change broke Patchwork's series detection.
 
-Tested-by: Ryan Brue <ryanbrue.dev@gmail.com> # Amazon Fire HD 10 
-(2017), boe,tv101wum-nm0
+We usually do not document bindings for hardware just because it exists.
+Binding needs a user and one patch means there is no user.
 
 Best regards,
-Ryan
+Krzysztof
