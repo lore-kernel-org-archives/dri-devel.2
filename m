@@ -4,67 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8163AC88E5C
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 10:35:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F548C88E77
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 10:38:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBB1B10E5C7;
-	Wed, 16 Sep 2026 10:35:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36D3410E39D;
+	Wed, 16 Sep 2026 10:38:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="lmODPOKr";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gUT+FP5R";
 	dkim-atps=neutral
-Received: from smtpout9.mo536.mail-out.ovh.net
- (smtpout9.mo536.mail-out.ovh.net [51.210.91.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A15A10E5AF
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 10:35:19 +0000 (UTC)
-Received: from director4.derp.mail-out.ovh.net
- (director4.derp.mail-out.ovh.net [79.137.60.37])
- by mo536.mail-out.ovh.net (Postfix) with ESMTPS id 4hlFdc21vVz880h;
- Wed, 16 Sep 2026 10:35:16 +0000 (UTC)
-Received: from director4.derp.mail-out.ovh.net
- (director4.derp.mail-out.ovh.net. [127.0.0.1])
- by director4.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <arunpravin.paneerselvam@amd.com>; Wed, 16 Sep 2026 10:35:16 +0000 (UTC)
-Received: from mta10.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.188.201])
- by director4.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4hlFdc168Sz1xtp;
- Wed, 16 Sep 2026 10:35:16 +0000 (UTC)
-Received: from pixelcluster.dev (unknown [10.1.6.9])
- (Authenticated sender: nat@pixelcluster.dev)
- by mta10.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id A8732781C1E;
- Wed, 16 Sep 2026 10:35:14 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-113S0075e4818bc-688d-4982-a32e-6e16fa858dde,
- 69B76013C106EEA375DAA2C64D98DF65BC6C8E4B) smtp.auth=nat@pixelcluster.dev
-X-OVh-ClientIp: 88.133.252.134
-Message-ID: <5e301f2e-730c-479a-890d-7ed6044b8a1c@pixelcluster.dev>
-Date: Wed, 16 Sep 2026 12:35:13 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19F8310E39D;
+ Wed, 16 Sep 2026 10:38:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789555093; x=1821091093;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=ufovKCgBNhXnbPzj/lpiXQm744ME1c3ZVF6M1lsd968=;
+ b=gUT+FP5RcT+Rk4UMkh9aupdt4UyMmv7efzqaIGbtsB3wqCmGnhxhIEoc
+ 4uYtvk3ZBZijDI0fgRiyazmntGgiX7bEFKEo3KmjnQ0zkXizpZ+Or7fF5
+ DCByXdvlPiCQwGIZZoJDiTCK190MqhoPooI56wIsnq2CRRT2qi/MfjA1Y
+ 3PcHtgb6D8oJQHLyzuS4PUZk269bv4Qq+PKbaPVjTF00ggpkaUyHb1L1u
+ ndtGqMu85esxXL7dee0NsHoPvZv7F0lxeQ+vxiN3Wj1t9WKmX/rhAbNo/
+ bBo6MzwY8Q4Obly+6sbYBYxrDh8wltJR4VnqfSKVWj9lZ37lmFr8ZvZdz w==;
+X-CSE-ConnectionGUID: 4uBKvp6dS7myU55d9KdI1A==
+X-CSE-MsgGUID: 5MHj/wxcT/+a2ofCdp/Rsg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89867901"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="89867901"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2026 03:38:12 -0700
+X-CSE-ConnectionGUID: MR10V8t2RDe1IN8Wt9XXOw==
+X-CSE-MsgGUID: GTSQVkVQTl2VBMYLk6fsBQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="1529447"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.147])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2026 03:38:06 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: =?utf-8?Q?Ma=C3=ADra?= Canal <mcanal@igalia.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, Melissa Wen
+ <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Dave Stevenson
+ <dave.stevenson@raspberrypi.com>, Raspberry Pi Kernel Maintenance
+ <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ =?utf-8?Q?Ma=C3=ADra?= Canal <mcanal@igalia.com>
+Subject: Re: [PATCH v3 2/7] drm: Add drm_timeout_rel_to_jiffies()
+In-Reply-To: <20260915-drm-timeout-helpers-v3-2-f2ae987d861f@igalia.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
+ <20260915-drm-timeout-helpers-v3-2-f2ae987d861f@igalia.com>
+Date: Wed, 16 Sep 2026 13:38:02 +0300
+Message-ID: <c20c43109d3ebb08ad6a0c811ffaeb48f90efed5@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: change TTM maintainers to Natalie and Arun
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- christian.koenig@amd.com, ray.huang@amd.com,
- arunpravin.paneerselvam@amd.com, matthew.auld@intel.com,
- matthew.brost@intel.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260915154804.605772-1-christian.koenig@amd.com>
- <a3c94fcf0029e7f257a0219532d906643846ffd1.camel@linux.intel.com>
-Content-Language: en-US
-From: Natalie Vock <nat@pixelcluster.dev>
-In-Reply-To: <a3c94fcf0029e7f257a0219532d906643846ffd1.camel@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 8134626828561047868
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTGglG5C7iKN+LXavtK7wlbmmkf4F/ObYq9HxSCoL2A5ZMFapu7bWDJwcVtau5SozmeyW9OkZUGBc54FdE5LfCQ9+7rP1QEij5VZBTLhL2FpmK/PgFTo022WCwiA1vkWSlvf8pFgT8+0irNsrZ4Hps+PAJyPcTn6b0GTKZ+UqM47ZQGzEqheWTpf+E6uB2fqcPyhyI2aGrC8HiqI0CiCdPyWc9rXjC3J+g97YQrSocvhmiq39dsG+SFJbQpk3Jookrce8Yjy7odG13oeVC1IJ7VsQDGEJjzMq1FJtQE0Y0Kd8a6Zd7uojJD5BvAyKgsw4IwU05W/x6RRLiWOQsJKpjEip/JxggW9ydd5k/mjqRcx303fOFUo70Lz7FGYgHUIE6J+XfwF9fJiy1cp+m9TiMiOXh2LMZGh6NrkkpVoDmoY53TrbzS7jBSf786C7ak+RW8HsJabmgMn6LHonxNnjFdpwzkDcFVosry8gMjeXqR8Ui7rEqXfwmxoCTAtg0yMXT5FINQ+4hmcGQkyIknSNFrqKx7/NLlYoQUCu5COJX4oblLJKF2MRPK6zh09RpmgUZq7JAu4/V3ieOSseaef485dua5MSBZ3uByu/W/W3gL5a4DzUcWxoiR7zQSZxNohITi9Yh8ZHw3ac6Wk2n4Lh+9muCR2mOampUpMYc+eRB/K8w
-DKIM-Signature: a=rsa-sha256; bh=A+22pfm5bN0jvueOmz1GvYenM8HgxlTvocVz96fbruU=; 
- c=relaxed/relaxed; d=pixelcluster.dev; h=From;
- s=ovhmo-selector-1; t=1789554917; v=1;
- b=lmODPOKrFz/jQ3FRlII/7+3fHr98CXYvizu/nmzb1pSZgqi9qDzIRxEquk3EF7XcLbBOwfH9
- 92a/g+8hQSIiwYx7fhh2l7s23EXc3Vs4pyK16HfIO2MIziSW4dlINKIW6bQo5tiZTMeqy42B/vz
- QyVRqZFoRsixoWd8Xo5wlwi4kcYTKjjoioNk4awDk9Xuor2NIBkP3VP3GSCD6pMsxbnSLtheWcI
- 7KB0JHbAxQpXnwh38ZQkM5shczRwD1v3TrOFDFKPdYeZdw6sCd3FwZ+KznrqgpDATyKg1wIN1CJ
- eZhEV/LNzeOPtGkOkZV2BrotClfjoshrvAku91CofQHVQ==
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,74 +83,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Tue, 15 Sep 2026, Ma=C3=ADra Canal <mcanal@igalia.com> wrote:
+> drm_timeout_abs_to_jiffies() covers the drivers whose wait UAPI takes an
+> absolute deadline, but there is no equivalent for the drivers that
+> express a wait as a duration. Drivers such as i915 and v3d convert the
+> value themselves.
+>
+> Converting a nanosecond duration to jiffies needs some care.
+> nsecs_to_jiffies() returns unsigned long, so on 32-bit a large
+> userspace-supplied timeout overflows its range and is silently truncated.
+>
+> i915 already handles both cases in a local helper, which v3d has a copy
+> of. Add the same conversion to the core, so that it is available to any
+> driver and both copies can be dropped.
+>
+> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+> ---
+>  drivers/gpu/drm/drm_timeout.c | 45 +++++++++++++++++++++++++++++++++++++=
+++++++
+>  include/drm/drm_timeout.h     |  1 +
+>  2 files changed, 46 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
+> index 35e10293e0a1..ee545475429c 100644
+> --- a/drivers/gpu/drm/drm_timeout.c
+> +++ b/drivers/gpu/drm/drm_timeout.c
+> @@ -9,6 +9,7 @@
+>  #include <linux/export.h>
+>  #include <linux/jiffies.h>
+>  #include <linux/ktime.h>
+> +#include <linux/math64.h>
+>  #include <linux/sched.h>
+>=20=20
+>  #include <drm/drm_timeout.h>
+> @@ -48,3 +49,47 @@ signed long drm_timeout_abs_to_jiffies(int64_t timeout=
+_nsec)
+>  	return timeout_jiffies64 + 1;
+>  }
+>  EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+> +
+> +/**
+> + * drm_timeout_rel_to_jiffies - calculate jiffies timeout from relative =
+value
+> + * @timeout_nsec: relative timeout in ns, 0 for poll
+> + *
+> + * Calculate the timeout in jiffies from a relative timeout in ns, for d=
+rivers
+> + * whose UAPI expresses a wait as a duration rather than as a deadline.
+> + *
+> + * The result is clamped to MAX_JIFFY_OFFSET. That keeps it positive onc=
+e it is
+> + * converted to the signed long taken by dma_fence_wait_timeout() and fr=
+iends,
+> + * which matters on 32-bit, and keeps it distinct from MAX_SCHEDULE_TIME=
+OUT so
+> + * that a finite wait is never understood as an infinite one.
+> + *
+> + * It's strongly discouraged to use relative timeouts in uAPIs, as they =
+do not
+> + * survive a restarted ioctl. A signal-interrupted ioctl is re-entered w=
+ith the
+> + * same arguments, so the duration starts counting from zero again. New =
+uAPIs
+> + * should take an absolute deadline and use drm_timeout_abs_to_jiffies().
+> + *
+> + * Returns:
+> + * 0 if @timeout_nsec is 0. Otherwise the equivalent number of jiffies a=
+nd
+> + * clamped to MAX_JIFFY_OFFSET.
+> + */
+> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec)
+> +{
+> +	u64 secs;
+> +	u32 rem;
+> +
+> +	/* Make 0 timeout means poll, as for the absolute variant. */
+> +	if (timeout_nsec =3D=3D 0)
+> +		return 0;
+> +
+> +	/*
+> +	 * As nsecs_to_jiffies64() does not guard against overflow, split
+> +	 * the timeout into whole seconds and nanoseconds. This way
+> +	 * nsecs_to_jiffies64() is always handed a value below a second.
+> +	 */
+> +	secs =3D div_u64_rem(timeout_nsec, NSEC_PER_SEC, &rem);
+> +	if (secs >=3D MAX_JIFFY_OFFSET / HZ)
+> +		return MAX_JIFFY_OFFSET;
+> +
+> +	return min_t(u64, MAX_JIFFY_OFFSET,
+> +		     secs_to_jiffies(secs) + nsecs_to_jiffies64(rem) + 1);
+> +}
+> +EXPORT_SYMBOL(drm_timeout_rel_to_jiffies);
+> diff --git a/include/drm/drm_timeout.h b/include/drm/drm_timeout.h
+> index cd9621c52062..6ee222a3e97c 100644
+> --- a/include/drm/drm_timeout.h
+> +++ b/include/drm/drm_timeout.h
+> @@ -12,5 +12,6 @@
+>  #include <linux/types.h>
+>=20=20
+>  signed long drm_timeout_abs_to_jiffies(s64 timeout_nsec);
+> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec);
 
-On 9/16/26 11:44, Thomas Hellström wrote:
-> On Tue, 2026-09-15 at 17:48 +0200, Christian König wrote:
->> The blunt reality is that I don't have time to look into patches or
->> bugs
->> any more as it would be necessary. The same counts for Ray.
->>
->> Natalie has been working on the dmem cgroup patches for TTM and
->> agreed
->> to take over looking more into TTM.
->>
->> Arun is working in my team and already maintaining AMDs VRAM backend
->> for
->> TTM and the underlying buddy allocator.
->>
->> Add Thomas as reviewer as well, better to have more eyes on that
->> component.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> ---
->>   MAINTAINERS | 5 +++--
->>   1 file changed, 3 insertions(+), 2 deletions(-)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index 5b5a4e4b35cf..b6e58a138501 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -9140,10 +9140,11 @@ F:	drivers/gpu/drm/drm_privacy_screen*
->>   F:	include/drm/drm_privacy_screen*
->>   
->>   DRM TTM SUBSYSTEM
->> -M:	Christian Koenig <christian.koenig@amd.com>
->> -M:	Huang Rui <ray.huang@amd.com>
->> +M:	Natalie Vock <nat@pixelcluster.dev>
->> +M:	Arun Pravin <arunpravin.paneerselvam@amd.com>
->>   R:	Matthew Auld <matthew.auld@intel.com>
->>   R:	Matthew Brost <matthew.brost@intel.com>
->> +R:	Thomas Hellström <thomas.hellstrom@linux.intel.com>
->>   L:	dri-devel@lists.freedesktop.org
->>   S:	Maintained
->>   T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-> 
-> Acked-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> 
-> @Natalie, @Arun Do you have a presence on dri-devel IRC? If so, Nicks?
+The signed/unsigned differences here bug me a little. Maybe explain why
+in the commit message if there's a rationale?
 
-Yes, I have the nick "pixelcluster".
+I note that drm_timeout_rel_to_jiffies() return value is assigned to
+unsigned long variables half the time. I guess its kernel-doc could say
+it never returns negative values?
 
-> 
-> Also what is your stance on merging pages to TTM?
-> 1) Requiring an explicit maintainer ack, or
-> 2) an R-B from one of the reviewers/maintainers and no concerns raised
-> within reasonable time?
+BR,
+Jani.
 
-I think my preference would more or less be 2). That is, if for some
-reason no maintainer answers, after some time the patches should be ok
-to merge (but if a maintainer does explicitly ack/R-b the patch it can
-be merged sooner). I'll try my best to not leave patches unanswered so
-hopefully 2) stays a rarity :)
 
-> 3) drm-misc as default merge repo?
 
-Sure, why not? Basically like it's been so far as well, right? It didn't
-seem to me like the patch volume for TTM is particularly large at least
-so far, so something like a separate branch might not be worth the
-hassle.
 
-Best,
-Natalie
+>=20=20
+>  #endif
 
+--=20
+Jani Nikula, Intel
