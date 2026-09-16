@@ -4,50 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEB6FC982C5
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 14:23:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49060C982C4
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 14:23:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A11DA10E5B0;
-	Wed, 16 Sep 2026 14:23:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BCC210EA84;
+	Wed, 16 Sep 2026 14:23:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ssRLWlh1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="exh7L9Zb";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 953EA89E36;
- Wed, 16 Sep 2026 14:23:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9676210E8E6;
+ Wed, 16 Sep 2026 14:23:05 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 512CA43DAD;
- Wed, 16 Sep 2026 14:23:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1693DC2BCC7;
- Wed, 16 Sep 2026 14:23:02 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5B77F44812;
+ Wed, 16 Sep 2026 14:23:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0AFCCC2BCFC;
+ Wed, 16 Sep 2026 14:23:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1789568582;
- bh=APrimV7r9j/JDntzPd0f09aiQ+Q+YLOAvyz5vdDyQb8=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=ssRLWlh1+Y+w+X+oyT8PAE5abljdmV7SggUBajixOAoECKjgze1fO46CaQ8CpApbX
- nIuw9o9I7fICTkd/qxUoyuMkrKdrVUtJOgCUo3M1zYNZA+c4WbTizbQyVEDexpVMKw
- qDgDweyClLksk8PzZkwoy76gnQBsu7+l+S+bC9TJDgmnwBMhXh/OS1DrfUCUG01tHT
- h9wzMCztl33QrKyWi4XBo3/EhIyfYWpbO5SWldyQMP2OUX3LxAla9UpNXksj4yMSb2
- 457icuecQpdkCZkNiPrwv2+HYMAQBM5N+cR2T2MY5VWYms2RxmVAUVe8DBbdsUheES
- NdeAchN1qt38g==
+ s=k20201202; t=1789568583;
+ bh=hMjOLXi4WnOlJoO4+au9mXBLP0X78laGn5iNJX8n4Zo=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=exh7L9Zb79dR9rrCg7hb1NWT4eyNbFr9vvcvSbU0r3m4d+qVJQtQBwRW6CG0MwpMM
+ t4aIPSsob8Fj9Ih3bsH5f3OurO+06DUSolAY/EkeROZ9Y8PqLFdP5/nBlG49Z0McjB
+ 16KmSZ8wZL+T8/3oIfZD0aMlLvml1MZSckHuupl4v9B5G54SsbkY4JmNolfxnK0gwF
+ wC/7iyvtpdlT81j/obmGycEBE1Pk3VVnlEW6SIRAoZelHdtvb/0EEla1jWVE2wQTyP
+ hgWuA8J9T693+CtWUH9OBOWIq0VHGK5DM6asmQ2YHUWer3M3rc7DKMBJT0c7zNMAbL
+ KhvQ82Q//jG8A==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id DDE83C88E7D;
- Wed, 16 Sep 2026 14:23:01 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id DA9BAC982C5;
+ Wed, 16 Sep 2026 14:23:02 +0000 (UTC)
 From: Muzaffer Kadir via B4 Relay
  <devnull+muzafferkadir.mainlining.org@kernel.org>
-Subject: [PATCH v2 00/19] Add Initial Support For MSM8952, Add General
- Mobile Shamrock
-Date: Wed, 16 Sep 2026 17:22:05 +0300
-Message-Id: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
+Date: Wed, 16 Sep 2026 17:22:13 +0300
+Subject: [PATCH v2 08/19] dt-bindings: iommu: qcom,iommu: Add MSM8952 IOMMU
+ to SMMUv2 compatibles
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNwQ6CMBBEf8Xs2TXthgL15H8YDhVX2ARa0iLRE
- P7dSrx6fJOZNyskjsIJzocVIi+SJPgMdDxA2zvfMco9M5CiUlllcUxjbQ2heJnFDZie0xTijKV
- yytiWWBuGvJ4iP+S1m69N5l7SHOJ7P1r0N/05Nf11LhoVKq4KMlV9M1RcRid+yDXfnULsoNm27
- QMXm3EfwwAAAA==
-X-Change-ID: 20260909-msm8952-initial-support-60a059c2e15e
+Message-Id: <20260916-msm8952-initial-support-v2-8-798c2602dde1@mainlining.org>
+References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
+In-Reply-To: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
 To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
  Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
  Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
@@ -79,15 +76,13 @@ Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
  iommu@lists.linux.dev, mfd@lists.linux.dev, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, Krzysztof Kozlowski <krzk@kernel.org>, 
  linux-pm@vger.kernel.org, linux-input@vger.kernel.org, 
- Muzaffer Kadir <muzafferkadir@mainlining.org>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>
+ Muzaffer Kadir <muzafferkadir@mainlining.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789568578; l=4824;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789568579; l=899;
  i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=APrimV7r9j/JDntzPd0f09aiQ+Q+YLOAvyz5vdDyQb8=;
- b=hxQTWuCmnN5RxaTfxCbRvKqSYfp1IkgodMwMDO5M+dIh8pOkb/NbEkdfS6Y+DnDxoID5n8Czt
- jiYXe7Dj3twA8ZSQOohs7Ew3vSH3o1Qln+Dg/iZ8hy5ZkZyMqCIqLpT
+ bh=0sCdnuV2zL4qFCD91/lsOBAdGEuX14F5OA12mUrh81M=;
+ b=oFxl89oUNz8qaoWEgvuoc6laenhDGi6BKA8lf1a2aze3zbyapLqXz+jbo40QKIBhptgFNp883
+ e7RORtmNyBkC05K1uBQvZhlT9PwYQfH2lfijh7nMEKUGHWdeCCGD8ap
 X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
  pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
 X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
@@ -109,107 +104,31 @@ Reply-To: muzafferkadir@mainlining.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-MSM8952 is a SoC with 8 core cpu and Adreno 405 gpu.
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Ported without uart connection. ramoops and usb
-mainly used to debug.
-USB is not enabled in this series because it
-depends on the not yet upstreamed (and not developed by me)
-pmi8950_smbcharger.
-
-General Mobile shamrock display panel driver
-is generated using MSM8916's mdss dsi panel
-driver generator and tested with it. I didn't
-include it.
-
-The GCC and DTS files are derived from existing
-Qualcomm source files. Original copyright notices
-are retained.
-
-GCC is based on msm8939's gcc file.
-SoC device tree is based on MSM8937 file.
-
-in some downstreams MSM8952 GCC is merged with
-MSM8917 and MSM8937's. But upstreamed MSM8917 is
-based on different GCC and different pll structure.
-I have no way to verify MSM8952 pll so I am not sure
-about how correct pll structure is.
-
-Pinctrl driver was submitted and merged here:
-https://lore.kernel.org/all/20260907-msm8952-pinctrl-v5-0-9a2d8d72ffdb@mainlining.org/
+Add MSM8952 compatible string with "qcom,msm-iommu-v2" as fallback
+for the MSM8952 IOMMU which is compatible with Qualcomm's secure
+fw "SMMU v2" implementation.
 
 Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
-Changes in v2:
-- Changed device dts file as David's and Konrad's suggestions
-- Removed accidental duplicated clock assigments and fixed wrong gcc gp1,gp2
-  and gp3 parent_maps
-- Updated commit messages to make it wrapped at 72 character.
-- Fixed spi1 tlmm node naming
-- Added remaining spi and i2c nodes
-- Wired up mpm
-- Add mmio-sram to rpm_msg_ram
-- Reformatted msm8952.dtsi
-- Removed rpmcc-msm8952 driver entry and replaced it with rpmcc-msm8976
-- Merged sdhci tlmm pins to single nodes, now it is similar to existing SoCs
-- Rebased to latest linux-next, now storage works
-- Removed polling-delay properties from tsens
-- Link to v1: https://lore.kernel.org/r/20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org
+ Documentation/devicetree/bindings/iommu/qcom,iommu.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
----
-Muzaffer Kadir (19):
-      dt-bindings: clock: qcom: Add MSM8952 global clock controller
-      clk: qcom: Add global clock controller driver for MSM8952
-      dt-bindings: nvmem: Add compatible for MSM8952
-      dt-bindings: power: rpmpd: Add MSM8952 power domains
-      dt-bindings: mmc: sdhci-msm: Add MSM8952 compatible
-      dt-bindings: vendor-prefixes: Add General Mobile
-      dt-bindings: arm: qcom: Document MSM8952 SoC binding
-      dt-bindings: iommu: qcom,iommu: Add MSM8952 IOMMU to SMMUv2 compatibles
-      dt-bindings: mfd: qcom,tcsr: Add compatible for MSM8952
-      dt-bindings: display/msm: qcom, mdp5: Add MSM8952 compatible
-      dt-bindings: firmware: qcom,scm: Document MSM8952 SCM
-      dt-bindings: clock: qcom,rpmcc: Add MSM8952 compatible
-      drm: msm: mdp5: Add MDP5 configuration for MSM8952
-      soc: qcom: ubwc: Add UBWC config for MSM8952
-      dt-bindings: thermal: tsens: Add MSM8952
-      thermal: qcom: tsens: Add support for MSM8952 tsens
-      arm64: dts: qcom: Add initial support for MSM8952
-      dt-bindings: input: touchscreen: goodix: Add binding for GT970
-      arm64: dts: qcom: generalmobile-shamrock: new device
+diff --git a/Documentation/devicetree/bindings/iommu/qcom,iommu.yaml b/Documentation/devicetree/bindings/iommu/qcom,iommu.yaml
+index 93a489025317..9952b9da9a6a 100644
+--- a/Documentation/devicetree/bindings/iommu/qcom,iommu.yaml
++++ b/Documentation/devicetree/bindings/iommu/qcom,iommu.yaml
+@@ -27,6 +27,7 @@ properties:
+           - const: qcom,msm-iommu-v1
+       - items:
+           - enum:
++              - qcom,msm8952-iommu
+               - qcom,msm8953-iommu
+               - qcom,msm8976-iommu
+           - const: qcom,msm-iommu-v2
 
- Documentation/devicetree/bindings/arm/qcom.yaml    |    6 +
- .../bindings/clock/qcom,gcc-msm8952.yaml           |   56 +
- .../devicetree/bindings/clock/qcom,rpmcc.yaml      |    5 +
- .../devicetree/bindings/display/msm/qcom,mdp5.yaml |    1 +
- .../devicetree/bindings/firmware/qcom,scm.yaml     |    3 +
- .../bindings/input/touchscreen/goodix.yaml         |   35 +-
- .../devicetree/bindings/iommu/qcom,iommu.yaml      |    1 +
- .../devicetree/bindings/mfd/qcom,tcsr.yaml         |    1 +
- .../devicetree/bindings/mmc/qcom,sdhci-msm.yaml    |    1 +
- .../devicetree/bindings/nvmem/qcom,qfprom.yaml     |    1 +
- .../devicetree/bindings/power/qcom,rpmpd.yaml      |    1 +
- .../devicetree/bindings/thermal/qcom-tsens.yaml    |    1 +
- .../devicetree/bindings/vendor-prefixes.yaml       |    2 +
- arch/arm64/boot/dts/qcom/Makefile                  |    1 +
- .../dts/qcom/msm8952-generalmobile-shamrock.dts    |  436 +++
- arch/arm64/boot/dts/qcom/msm8952.dtsi              | 2679 +++++++++++++++
- drivers/clk/qcom/Kconfig                           |   10 +
- drivers/clk/qcom/Makefile                          |    1 +
- drivers/clk/qcom/gcc-msm8952.c                     | 3550 ++++++++++++++++++++
- drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c           |   81 +
- drivers/soc/qcom/ubwc_config.c                     |    1 +
- drivers/thermal/qcom/tsens-v1.c                    |   44 +
- drivers/thermal/qcom/tsens.c                       |    3 +
- drivers/thermal/qcom/tsens.h                       |    2 +-
- include/dt-bindings/clock/qcom,gcc-msm8952.h       |  217 ++
- 25 files changed, 7123 insertions(+), 16 deletions(-)
----
-base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
-change-id: 20260909-msm8952-initial-support-60a059c2e15e
-
-Best regards,
---  
-Muzaffer Kadir <muzafferkadir@mainlining.org>
+-- 
+2.55.0
 
 
