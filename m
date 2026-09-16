@@ -4,44 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02F68C982C9
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 16:37:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E87BBC982C1
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 16:40:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47A2310E08D;
-	Wed, 16 Sep 2026 16:37:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F10D110E0DD;
+	Wed, 16 Sep 2026 16:40:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WiPg5ZLp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TKsIZmoj";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65DD910E08D
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:37:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6446510E0DD
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:40:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EDA2041B44;
- Wed, 16 Sep 2026 16:37:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ABE61F000FF;
- Wed, 16 Sep 2026 16:37:31 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3037241B71
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:40:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 135C81F00898
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:40:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789576651;
- bh=fnQ/LEy8CpwXRHtpdaP0pEJ9RfxvbYmeBW7andNB+vo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WiPg5ZLp9sZKRtBrhlmSW4H3Re9BeVjYWfp2G6f/qIVtUS0ieCVnKAOQSI8rIcHyu
- w8C3ugElOYk1VtYgdDDv32SXDDCiflE2UFKDGToo+gqmcuPL8kd7Hwjslx8mPhm2xZ
- IYsOzGvcJgRgB2rDR8dKAB7kbUgCXV3dhDExJjy3LvlGmqCKLocr7k55A9F2J2T0gh
- G9uJsYdlNGAW7VgItbYbiIoYqYiElJyoCad+S2lwmokO1IoUG4V9R5iF4g1WMWC6vd
- aZ08YWvIIFDPY8GKcaAoK8jHxg4jQEcC7UglrSpw5Ng+5s6lFKmm8QrD+1Uwh1wKjY
- byHg0OysSEPUg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 27/38] dyndbg-test: add do_bulk testpoint, rename
- do_prints to do_classes
-To: "Jim Cromie" <jim.cromie@gmail.com>
-Cc: linux-modules@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260916-dd-cmap-part2-clean-v10-27-af4cf4767707@gmail.com>
-References: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
- <20260916-dd-cmap-part2-clean-v10-27-af4cf4767707@gmail.com>
-Content-Type: text/plain; charset=utf-8
+ s=k20260515; t=1789576828;
+ bh=NMD7vBQ6RWs/J5cNo+VFCsSkxyb2apVp1B4H98H0FXc=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=TKsIZmojAOCZjVkuTEgu/Ojwjhf036GzQdXroxfypwiDNIxHQWqBjvK0vOkxCSOvf
+ SDTolr2qG/vfhUXo0swwfHYpn9E8Z47GZVBKvuDxpwgQ1cXXuQh9Fh877873KVTmzB
+ XQyqW0MAgfIvsHXGLckUqVpptBkk31pAt/Q9KMAu02W9Fvi9xEodCxZPsLnbYp+k8+
+ n+6cOLyimrkEwcaLHYCw4WMeswPWzpUp5oX0knNETQuVaKKQ8xoaEsU1O1qy2GNzPg
+ aR+ez/vPscABS5AEn7M4qruHiurIohb0SFlk4+C07AlCWDYM088WL3whOU8RqNtLXx
+ JMVjqi15NNTfQ==
+Received: by mail-lf2-f12.google.com with SMTP id
+ 2adb3069b0e04-5b899413537so1630689e87.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 09:40:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwgjBU0eVbbZETWEXb5ucyLWV5jMNZuU8I/D/WDsjD1mOAGZNh7bRENQXBpUtElHwrot4pk8o48gmA=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mM72LV5wQ1hPYVHMKgQF9yLcpJXXViIkZ4goGT2+YD1aq2xpNh
+ +iJmfjvGlFoWYIR5OXrXOzfSrf5YSSPUvYEg9lh7rk0k444JZd+qKS4IOb36jvhERVcDQ/riHTQ
+ gfaHvuBBdcp2DTs8fFa9bHVVz0M9/ua4=
+X-Received: by 2002:a05:6512:1107:b0:5b4:a836:13fd with SMTP id
+ 2adb3069b0e04-5b8b661e3a7mr897834e87.22.1789576826773; Wed, 16 Sep 2026
+ 09:40:26 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
+In-Reply-To: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 18:40:12 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkQw-U=e43K7Zjdawid5D54hoQFAkVLBLmOsq00FGOoAg@mail.gmail.com>
+X-Gm-Features: AcwNN1WRdUJu-Cn8nI0om7fEFyccuBINdekovMd8_4ronkacx1OYdjXuVXiord8
+Message-ID: <CAD++jLkQw-U=e43K7Zjdawid5D54hoQFAkVLBLmOsq00FGOoAg@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] Xiaomi Poco F1 (ebbg display variant) fixes
+To: david@ixit.cz
+Cc: Joel Selvaraj <foss@joelselvaraj.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Sam Ravnborg <sam@ravnborg.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Casey Connolly <casey.connolly@linaro.org>, 
+ stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 16:37:31 +0000
-Message-Id: <20260916163731.9ABE61F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,81 +76,20 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] test_dynamic_debug: unkillable process in do_bulk and do_classes
---
+On Tue, Sep 8, 2026 at 2:45=E2=80=AFPM David Heidelberg via B4 Relay
+<devnull+david.ixit.cz@kernel.org> wrote:
 
-commit 6245dc1853df17e050ea8032572222d30c017fd7
-Author: Jim Cromie <jim.cromie@gmail.com>
+> Been broken in mainline for some time.
+>
+> Signed-off-by: David Heidelberg <david@ixit.cz>
 
-dyndbg-test: add do_bulk testpoint, rename do_prints to do_classes
+Looks good to me:
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-This commit introduces a do_bulk testpoint and renames do_prints to
-do_classes in the test_dynamic_debug module. These changes allow generating
-high-volume workloads with a single sysfs write to better support testing of
-dynamic debug features.
+Or should I simply apply it for fixes?
 
-> diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-> index 01ce07001d4c7..560e23f14ac8f 100644
-> --- a/lib/test_dynamic_debug.c
-> +++ b/lib/test_dynamic_debug.c
-[ ... ]
-> -static void do_prints(void)
-> +static void do_classes(unsigned int ct)
->  {
-> -	pr_debug("do_prints:\n");
-> -	do_cats();
-> -	do_levels();
-> +	/* maybe clamp this */
-> +	pr_debug("do_classes %u times:\n", ct);
-> +	for (; ct; ct--) {
-> +		do_cats();
-> +		do_levels();
-> +		cond_resched();
-
-[Severity: Medium]
-Can this loop in do_classes() run indefinitely without checking for signals?
-
-If a large integer (e.g., UINT_MAX) is written to the do_classes sysfs
-parameter, the lack of fatal_signal_pending() or signal_pending() prevents
-the test from being gracefully aborted via SIGKILL or SIGINT. This could
-trap the process in kernel space and flood syslog/journald.
-
-> +	}
-> +}
-> +
-> +static void do_bulk(unsigned int ct)
-> +{
-> +	unsigned int i;
-> +
-> +	pr_debug("do_bulk %u times:\n", ct);
-> +	for (i =3D 0; i < ct; i++) {
-> +		pr_debug("bulk msg %u.0\n", i + 1);
-> +		pr_debug("bulk msg %u.1\n", i + 1);
-> +		pr_debug("bulk msg %u.2\n", i + 1);
-> +		pr_debug("bulk msg %u.3\n", i + 1);
-> +		pr_debug("bulk msg %u.4\n", i + 1);
-> +		pr_debug("bulk msg %u.5\n", i + 1);
-> +		pr_debug("bulk msg %u.6\n", i + 1);
-> +		pr_debug("bulk msg %u.7\n", i + 1);
-> +		pr_debug("bulk msg %u.8\n", i + 1);
-> +		pr_debug("bulk msg %u.9\n", i + 1);
-> +		cond_resched();
-
-[Severity: Medium]
-Similarly, does this loop in do_bulk() also need a signal check?
-
-A process writing a large value to the do_bulk sysfs parameter could
-become unkillable for an extended period, preventing process termination.
-
-> +	}
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-dd-cmap-pa=
-rt2-clean-v10-0-af4cf4767707@gmail.com?part=3D27
+Yours,
+Linus Walleij
