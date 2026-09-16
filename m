@@ -4,114 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C6E9C88E75
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 03:38:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D2C6C88E5C
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 05:24:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C51310E2F3;
-	Wed, 16 Sep 2026 03:38:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9296B10E217;
+	Wed, 16 Sep 2026 05:24:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="X2oM0Vt7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OhWe9we9";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011040.outbound.protection.outlook.com [52.101.62.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71AB710E2F3
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 03:38:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CwTpPQrrov8EU0h9qiRJ8oT4KdNMKHb1GssoCsMtSu5iUmzMDt5ovHbiTTs76ux2WPRxkYDNZPcgOb2CnF65FWsAF6ofWgANLkv/OkV/wqALXIV6rRfLcdcivcvXGfZS3Vg+Llyc/njyY2y6vobJcXl2HS07u95t80pJFqkbqYeASasZ1C9d9iPMKieY5BC6WxP/KZtCx/ERmP734MS9jNdEGkmcefr1wNMRHNrVPz8sp5Fo6WvtLDYHfgbvMUfzzLvSXH/N6PHkqjlIvhRCA6C/EW9dp3tkghrdyG0bbV9XLqgJOuEpEXJskQQliNCTPqHUltUrKUzh81RUmAdvOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+v9LL/MFIwB8zAscmw1HaajsV7ej/HuFE/o0cgon93s=;
- b=YwD2tN3bftTliGTI23RydLbXtBF0d5QWlsTBPYajpnS/kCnz8IKjaFbTs4hcayUCQBPx/2M1KIxEyJGD7Qg9CEJBgIgc1oAtg69u+Ltzf3wkSz8UBYciyBvUInAKdtWMKgJAYGLPVlRcbexqecBg+gtZWzdO1+xR2VsY/3JlCBKDdeWON1NJRAlPXfArlzNQjRw9S43LA+wScoBebntyU8+Gn4NwtG48NkkFednVUImvL66utJqvuJy28lYoCIg8RUuXJ243cTOmRorMbzAWEy6Msg65L6G3+FyoguUBHrKjVbz26L5q3pss0sWDgrnciC7D/Y/WQGfACvndQVpg2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+v9LL/MFIwB8zAscmw1HaajsV7ej/HuFE/o0cgon93s=;
- b=X2oM0Vt7oU/SN7COJNnkzc0EVlYTc2rJ1NUJf4NHMQWZrZggQtxg1vnCtNQY14OYHYypR5CoME0f8eH0eHN/iBmxqV3TnDAaDIiXjrspbXRSEvBMZKgSOq+V9qdES5Vbtwq78oX++A2r7X6nznDA42IdB4++osbzgNXixq/DQV4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA5PPF37951B1C9.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8c6) by SN7PR12MB7276.namprd12.prod.outlook.com
- (2603:10b6:806:2af::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 03:38:18 +0000
-Received: from SA5PPF37951B1C9.namprd12.prod.outlook.com
- ([fe80::2ebe:b9c2:13f5:89fb]) by SA5PPF37951B1C9.namprd12.prod.outlook.com
- ([fe80::2ebe:b9c2:13f5:89fb%8]) with mapi id 15.21.0406.007; Wed, 16 Sep 2026
- 03:38:18 +0000
-Date: Wed, 16 Sep 2026 11:37:58 +0800
-From: Huang Rui <ray.huang@amd.com>
-To: Christian KKKnig <ckoenig.leichtzumerken@gmail.com>
-Cc: christian.koenig@amd.com, nat@pixelcluster.dev,
- arunpravin.paneerselvam@amd.com, matthew.auld@intel.com,
- matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] MAINTAINERS: change TTM maintainers to Natalie and Arun
-Message-ID: <aqoPFhvMDvfGGh7X@amd.com>
-References: <20260915154804.605772-1-christian.koenig@amd.com>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260915154804.605772-1-christian.koenig@amd.com>
-X-ClientProxiedBy: TPYP295CA0003.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:7d0:9::14) To SA5PPF37951B1C9.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8c6)
+Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com
+ [74.125.231.139])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DA7F10E036
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 05:24:11 +0000 (UTC)
+Received: by mail-oo2-f11.google.com with SMTP id
+ 46e09a7af769-7f4ddb9adf4so2127393a34.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 22:24:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789536250; x=1790141050; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=zSwtxaUSQ7K0oB62qUITKeVKiPbi0vng9/BLzWTtzOE=;
+ b=OhWe9we9uAduPuaoDwJmizOLTcULGwO3Z/BnJf2SoxfC+KanxVC2YCcJlOK+NFw9el
+ L3DDT5uH6xkQn/8G/u/2He5yjCwKdSe5CCLV7dORUyXIYTAU8Blh+lI6M1KuTAcs8t1Q
+ SHc6o+GA8ibMS9NdOdhmleAutu36aEYDLcIXB2Ajp9H8QfLoZAn0andzitoh9EtEJ18n
+ iKTYz4r+iFbM4xHE/Pq1vxRN9222M/utAWJbRP0bkFdFzdB+WY7Tz0PCBMmxfmWP+G2Y
+ 6Oiw5iA/hpjICgTVs6FamxmPKD9gkWC7x9WMeoPK+hBcxsqAmm++nYu2K3rKaS+QQm/L
+ 0unA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789536250; x=1790141050;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=zSwtxaUSQ7K0oB62qUITKeVKiPbi0vng9/BLzWTtzOE=;
+ b=Kt5iHqGyFcYNqXpOSyJQzMkwKj5qPO3Ew5+mw6YSZlbRPADeWeqc/OuOn/1+oV/SBW
+ /Zl/hJT8Af205CpLcvYc4DHN2RDARzjds9Isz/2yTh1xl8WkQvLUcSoTjV6aW8S/crm5
+ 6cjw31Zn+UoJ34rsXyncyHy3Evw9ACsLby6FlPUg+ObnkP4NfUDaCb6fJo1qVpF618vf
+ 8N7waW4HWBaJJL+9Br/5YSh/5u7ChvigroIDAIb1ivat3PFhw+9WxVkIHWDmRkgXJhPi
+ VuSJJy9WLqfvB9hHdeQqyVNDLhWvY8hXrAsqalFinTghSj6WQXNZd3KQTU/o4VUILT1g
+ dS+g==
+X-Gm-Message-State: AFuF++mcEeJOnq+eEU/v9a3Q6nkQM4qtmn4z2wH6PU7WLtTEekYwxYzy
+ vc7WVMOUqzlE3VqZev80mHHsXzp4akq7stMZDMJgzf1w4IiuWZwcCe3d
+X-Gm-Gg: AYBFou3VVNn7Uy8rYR1sSqCRERkAmSPtEA5qdhlMCBXUm7IS6T/Zi9JSn8TDqwgzJTG
+ p23bHuopV77D0Z9w/iJrsNFlVCxEWAHlgh+ywFr095ckKGMHZCM8Tl0j65yA1H3ZchBNMSVkP2X
+ m8DJ1on9yVLdH4DNbTm13wwhwkR3prtGhXTKle2SQRm2M2xy5zs5WjicO6puWSWVBKC/WGvb0JL
+ bFerK9Pk3Zjr8Bh7+Gle7AroqlJyXhOQqrNw1ww8m/XN0mwQZhOIGjaFY+RojbjtDavS0zI5QXz
+ b0psuoR/Fu3W7tZNp13p7RM7aw0UW3OavoUqCQm8HXe1r9HHgg6R8Vw963czOU9VEllOUq3LDEC
+ eGjxGIxXX3JECCBiuBVscxvOnfqR383xnsWkTp1emnd97oU24hrr7hqd4oK8qC0netsNFhpe1b3
+ L2g0taiecCPPRZvpNK8BA/hxvMO8a+i81jzbQe02PHbpw2nJlJGS8XT7wgO2QOJ8bsq4A=
+X-Received: by 2002:a05:6830:6d2e:b0:80a:45e1:7677 with SMTP id
+ 46e09a7af769-80b2f3ac500mr1403318a34.23.1789536250381; 
+ Tue, 15 Sep 2026 22:24:10 -0700 (PDT)
+Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
+ by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-80b07ad0294sm1562819a34.24.2026.09.15.22.24.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Sep 2026 22:24:09 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Date: Wed, 16 Sep 2026 00:24:00 -0500
+Subject: [PATCH] drm/mediatek: dsi: force command mode in mtk_dsi_poweron()
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA5PPF37951B1C9:EE_|SN7PR12MB7276:EE_
-X-MS-Office365-Filtering-Correlation-Id: 609ae73f-8752-41d8-0769-08df13a3f282
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|23010399003|56012099006|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: qM1LsDxTtsGFgfQ9YfL6h3dhSlT1Hi978M8QGoQaJlV6gv7j/+b41VEvhclSJLWF7xG6HySssZfJBj6/gxOUykLLehY37ycRKGbHR924UUayTz+M4b3s7j1YO4U/E8ey/MJcsnEVXTF3VQa8hgee0Pab5P4bTVMCoqTSLA6Kv0zISQopb/IBl4oe2k4jNGUde+4uQ4EJArPmgGxPH9t3hlymo5cpMP23hLdyHk3DM7W1GRy7p0mHvmjchiTmlFEKRwRC2XFOIP9g3pf0sP0/rB/ElIFIh/+AShrV4bZK3oHkRqCl58gwIMoxPSdr7NYf12AQ+PXrUJdFzhrGgLehTnUAkgWT1v+/TAA1cPOdrFP4rnruy75WePOk824Gm0CdbiDb/3CiEb5vNsbdN5OyB7bnvQnI+GI4YWKhWxEep+vnQ7Q8idTCXq91MDPHi8sP+DnRueuP4xx9hBulXFEUI6m8rL9uvyR6wsEUHZ0KuKozob5OhCvKGYbzRUcDP5JgheMr6QiS6D5vPxTevP4uLQEj0XhyHeWvCh8Y1imPeSOLNm9jgeLAfcpvioSaQg4wuUkwEefpIhidk8kLpi/xaofJyWweHYHXv6BVIrX1iLHHXgUReb0G08THXl4moCEr
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA5PPF37951B1C9.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?5vo+gkbZ9sXGo5meDtrTcVV2teYz90IBHNovMNsgGLgJnlJRozspPWnny8?=
- =?iso-8859-1?Q?pNzWvIc+zUd6NadJkOe4X71yWrIxDiTlogKhIaYzkRpckGnCKNiQk/wAXw?=
- =?iso-8859-1?Q?++uosWngpnujKiahoIpOtomHSrr2EpMCsR39bqw3vQ77iqy18qDIciXa9S?=
- =?iso-8859-1?Q?Wg1dX5CP7BMOxOUvdh/g7rWCAXhw1CiaajROqUNZnGG/flAL6fWLMTtYAy?=
- =?iso-8859-1?Q?EVnCzfBH48xOPLu2HH4ZxsDixZ8pYIGjRgMCRzJI/SAXkIbRTK6Uqm7E+C?=
- =?iso-8859-1?Q?oVc6u8FmyM/8zK0+2cBilvhV0SDqe4w/yLaBB8aRGurMmiTuOPvlG997MS?=
- =?iso-8859-1?Q?JUunIzHfmhs9JJBmRV/UJTzaeTiUz8rCGEwB500z5O3FB1UbwUQgRKvgBC?=
- =?iso-8859-1?Q?lzfJ7BLZgXjpAjwB/QzKGvQp/AFfDqKP24pX38LYDAPB7Q0yR9v08FqpI4?=
- =?iso-8859-1?Q?zj2kgPlgcHrUWZZbIBPpw9SZknyO+CZcrMTedNPqI9mRW/DrimutrfCKFF?=
- =?iso-8859-1?Q?AF4m/APTFHu7W+Gxx4NJMJjSwIu6nlMboSHXQ3XpSYA3DnjaYcK9UCeYuU?=
- =?iso-8859-1?Q?3W5CzC4N/LaiXp5PBMTiRQ/34S+VUR5oNjvASr8/hXGhWmGHeGMj1iqT8v?=
- =?iso-8859-1?Q?RJ0urCj4EWBaSSpYaXcQ1QW2bt8CCztAuazBmOQ1sRrszJY9/oKMQMFwu/?=
- =?iso-8859-1?Q?K3wP18/CtyN0rmQK4kd8pB6cYohh1lv39NH3Dormm6Q4YzYzv2aXd/vooQ?=
- =?iso-8859-1?Q?w4BeJTI4rItONFwqsj2v5px366oOrB22ozXBC//4l6AsLnggxHfvoME0h5?=
- =?iso-8859-1?Q?5/Ff6HR67379olep8afl3Qc8qPG4aYcydSYcseCMObZyM8uY+vdCyT1wjV?=
- =?iso-8859-1?Q?nyraZmcoqfHTGVueYhSNevuk4s216SBOb7j78dmZSmIF8AIcGa9jhAzkNY?=
- =?iso-8859-1?Q?Gfr5v5n/Mew6fQ4wWMVe6Yrhqaba5BIaVvSMsEeZoB7oZ/YLUOhuIyWRBO?=
- =?iso-8859-1?Q?S5UMlNJIbw6twyWqWKO27IcrzoLWODfeJ7Iazb0RyQj5vTBXmv24Ybdtnt?=
- =?iso-8859-1?Q?vWgN1SrqQ5xrdBbwD+wVxgD3yh10q3ElvwGxnfXYBbUdFQOZyo/5Zah1B3?=
- =?iso-8859-1?Q?URGYIeYMi7vEMcsrPmDGC1ZhtL0g4Vl+hG/GEkYs4KaDYvH+kOop0lljpa?=
- =?iso-8859-1?Q?BLKkm0WXG/ACMIkjvKd8vhkbsXeSJPaehBXcTvgc+mk/6krnERr1kuQgcQ?=
- =?iso-8859-1?Q?CM5g7D0ugClAAm/0byEcrPRlsbonL1P3ee+dYev0Cz+YSrOo7uMB8LjArh?=
- =?iso-8859-1?Q?YM48j3eRL98i0notqVqL+DhRUgvcjZdpe3nO7wN/OGezSzAssOpzz1aUog?=
- =?iso-8859-1?Q?U6U6db8eK3lrDBDFS7FhSX/qnhWPpHx3aCTYuG5iXa8Ix25Kj0g4feoIWV?=
- =?iso-8859-1?Q?WtOIo7VArePuW+XPJAcvm4ETy8PLDy4KU7CyyGOZuryq+3PjwR7JpKoHqS?=
- =?iso-8859-1?Q?Ckf9fUPNugV982dXDRYiwTg2WrKlqH06usNQxqMutHJaLykyvdM0B9qkRm?=
- =?iso-8859-1?Q?FIrScLqFG+5qv4Uz5CUC8H3fWy7/oIkVjPQLHfNkJpEqVEt9iuIr+GRf1T?=
- =?iso-8859-1?Q?IeEPhqn8iipatIuFlMBLKQekcKUjcfMGbHuFAIEY61+HKmI0m2YVOu6aYz?=
- =?iso-8859-1?Q?ZFD5R8ysUaM9uPk9p5/T7uzg5G6qdZuerQfeHl5//+bogrwxBz/eRwjCfZ?=
- =?iso-8859-1?Q?iozlrL7T7QXXDmC5rhSTvD7KQg7UZfOtdvwXTZ4YOOTQ2l?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 609ae73f-8752-41d8-0769-08df13a3f282
-X-MS-Exchange-CrossTenant-AuthSource: SA5PPF37951B1C9.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 03:38:18.0886 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KQZjmRrFtXC8kI/lnDbyV+fqE89VBh84TWzJji/dJfVsj4d80LTikfNl/VqZ+xY3xN1W25R3hHLz6y5pmisTRw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7276
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-rbrue-suez-upstreaming-mtk-dsi-cmd-mode-v1-1-b37f167e25cb@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3NwQqDMAyA4VeRnBeonYjuVcYO2kQXRqskdoyJ7
+ 27x+F3+fwdjFTZ4VDsof8VkSQX1rYLwHtLMKFQM3vnW9XWLOmpmtMx/zKttykOUNGPcPkgmGCJ
+ hXIiRunsTnO+nZuyg1FblSX7X6fk6jhM0/FZ9eQAAAA==
+X-Change-ID: 20260916-rbrue-suez-upstreaming-mtk-dsi-cmd-mode-d834c029f4b8
+To: Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Ryan Brue <ryanbrue.dev@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789536248; l=2721;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=hpjXRGa4viZcbFnNO5KBT0ICAECMSKtgFaKjk3ZUers=;
+ b=YGYtnMBV27PnM1edrgMETUOi3yg7VZTGrzPFHJou4Uz1zxAGKN1TiUeZkDDsyt2+fjf5MWWPb
+ W6IpgB8c/lLB0mGPpb7e2KK71MSkVE3pVyuDUNsENUDYOqVIuiy9cDh
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,47 +101,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 15, 2026 at 05:48:04PM +0200, Christian KKKnig wrote:
-> The blunt reality is that I don't have time to look into patches or bugs
-> any more as it would be necessary. The same counts for Ray.
-> 
-> Natalie has been working on the dmem cgroup patches for TTM and agreed
-> to take over looking more into TTM.
-> 
-> Arun is working in my team and already maintaining AMDs VRAM backend for
-> TTM and the underlying buddy allocator.
-> 
-> Add Thomas as reviewer as well, better to have more eyes on that
-> component.
-> 
-> Signed-off-by: Christian König <christian.koenig@amd.com>
+mtk_dsi_reset_engine() does not touch DSI_MODE_CTRL, so whatever the
+bootloader left there survives power-on. On boards where the bootloader
+lights the panel for a boot logo and hands the DSI over still running, the
+leftover value is a video mode, and the first mtk_dsi_host_transfer() then
+takes the "already streaming" path: it stops the stream and waits for
+VM_DONE, which never arrives, because the engine reset has already stopped
+the stream. The panel's very first command fails and it is never
+initialised:
 
-Yes, thank you, Christian, for your many years of valuable contributions to TTM.
+  [drm] Wait DSI IRQ(0x00000008) Timeout
+  *ERROR* failed to switch cmd mode
+  sending dcs data 8f a5 failed: -62
 
-Acked-by: Huang Rui <ray.huang@amd.com>
+Set command mode right after the engine reset, so DSI_MODE_CTRL describes
+the state the reset leaves the engine in. The video mode is programmed by
+mtk_dsi_set_mode() when the stream is actually started, exactly as today.
 
-> ---
->  MAINTAINERS | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 5b5a4e4b35cf..b6e58a138501 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -9140,10 +9140,11 @@ F:	drivers/gpu/drm/drm_privacy_screen*
->  F:	include/drm/drm_privacy_screen*
->  
->  DRM TTM SUBSYSTEM
-> -M:	Christian Koenig <christian.koenig@amd.com>
-> -M:	Huang Rui <ray.huang@amd.com>
-> +M:	Natalie Vock <nat@pixelcluster.dev>
-> +M:	Arun Pravin <arunpravin.paneerselvam@amd.com>
->  R:	Matthew Auld <matthew.auld@intel.com>
->  R:	Matthew Brost <matthew.brost@intel.com>
-> +R:	Thomas Hellström <thomas.hellstrom@linux.intel.com>
->  L:	dri-devel@lists.freedesktop.org
->  S:	Maintained
->  T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-> -- 
-> 2.43.0
-> 
+Seen on the Amazon Fire HD 10 (2017), whose LK bootloader draws its logo
+over DSI in video mode and never stops the stream before jumping to the
+kernel.
+
+Assisted-by: LLM
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+---
+The board this was found on, an Amazon Fire HD 10 (2017), is not upstream
+yet, so no in-tree board regresses without this. It is a state-consistency
+fix either way: mtk_dsi_reset_engine() stops the stream but leaves
+DSI_MODE_CTRL still describing the mode the bootloader was driving, and
+nothing writes that register again until mtk_dsi_set_mode() at stream start.
+
+This touches the same lines as "drm/mediatek: mtk_dsi: Transfer register
+offsets to per-SoC const" from the MT8196 series; I will rebase on top of
+that if it lands first.
+---
+ drivers/gpu/drm/mediatek/mtk_dsi.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
+index 7961139333ad..4cb486f54653 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dsi.c
++++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+@@ -737,6 +737,15 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
+ 		       dsi->regs + dsi->driver_data->reg_shadow_dbg_off);
+ 
+ 	mtk_dsi_reset_engine(dsi);
++
++	/*
++	 * mtk_dsi_reset_engine() leaves DSI_MODE_CTRL alone, so a video mode
++	 * left there by a bootloader that handed the panel over still running
++	 * would make the first command wait for a VM_DONE that never arrives.
++	 * mtk_dsi_set_mode() programs the real mode when the stream starts.
++	 */
++	mtk_dsi_set_cmd_mode(dsi);
++
+ 	mtk_dsi_phy_timconfig(dsi);
+ 
+ 	mtk_dsi_ps_control(dsi, true);
+
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20260916-rbrue-suez-upstreaming-mtk-dsi-cmd-mode-d834c029f4b8
+
+Best regards,
+--  
+Ryan Brue <ryanbrue.dev@gmail.com>
+
