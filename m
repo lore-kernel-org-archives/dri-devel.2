@@ -4,158 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6911FC88E77
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 06:37:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 167D4C88E77
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 06:41:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 884F310E025;
-	Wed, 16 Sep 2026 06:37:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25B8310E34D;
+	Wed, 16 Sep 2026 06:41:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ILKqrp7+";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QwXdOxzk";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="oJfHApqx";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R8zU+xyj";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7152110E025
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 06:37:33 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E64A510E341
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 06:41:36 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68G69mDU2780354
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 06:37:33 GMT
+ 68G69dlj1163427
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 06:41:36 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- AQ+wFIcS7R/qaD+wlIu1vUybEb7TOl8vT6jhLZTSv0w=; b=ILKqrp7+N1wCkRrs
- nLsngSEOjVJ4Se7FEQ1iUV1nCgLA7yCzm8iUPx6tsQrlSE+mvCg3a9WPt1Bxn7zL
- KeUXGlzm+v1Ss8EMBjk4K7w9GhzYGcP9meburL+vh5BJGcXaoDUQV7CYJt5zuQT0
- MyMVDiXjbqHsQRwTZSdoyS2O6wAnUpiUO1TnyOwQh/nmZZmJndPMDKuPbQmF6oBe
- QZr0PEnlP2PINYvG4aYJqXvjBNpXITeXRfBlZPFr71GfC+Emzi1mKlMO1MkwSRkU
- ZRxCADeLpv5CmwgeXaTX/iXVZ1mnewDdb52wg2TLcpWo9BPFJivl4tcQnpbuyANG
- pkhS0g==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq6kc4ck3-1
+ k7xUpNbQ+GJk0CbZTwlsOmUvv3akuhf1PsrESAkkrMs=; b=oJfHApqxG2uOt3Z1
+ V/TbV0YFH7lnDjG919dTQbFfcYoLKOE8u3pPql4rhrsTjRaF09Wb8KwERtMtkfpG
+ STJbqBZGSA2W//Cy6Ran8ODglVH4MoGMUAJLZs17TO0uZc0iwaUSMtkow5a4Adey
+ auiqFcJXeBvcf5TLhkC9im8+cNoF/wNVHT/+TaF6q5HVQbpTS4Y27mFbYOQl/o0/
+ JrvBoAbpQ1f0Hk1LV0ZFEiHnXfel2rHT/sXQx2tdSFyTh2nbEIuwFiK6IMsMg+DS
+ Gd7VuW8pD0HEO8LUkpzsYyTye5w3PeY1N8m4yeBADlxUiTUs8E0WHTtwNZQP8YBV
+ mqQN/Q==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq9n63769-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 06:37:32 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-912330dd4dbso34543966d6.1
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 23:37:32 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 06:41:36 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-93a3f673221so286760185a.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 23:41:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1789540652; x=1790145452;
+ d=oss.qualcomm.com; s=google; t=1789540895; x=1790145695;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=AQ+wFIcS7R/qaD+wlIu1vUybEb7TOl8vT6jhLZTSv0w=;
- b=QwXdOxzk9gPC2o+rkyYubPGsA/DeTXlmzFeiYBj5Fmxo6nhRRVaNXjx5EUpDSqqv1z
- zGrRz2zzh8RgIUriy8ZIC7HvJvehQ3c6lwlZ19yVnavZSrZooMNuEAdNwoLc9c1001Da
- UusS4rGiksL3b/miFi6ObwNTCxNBiQu0/sRu+droSUAWK7QxVHV6x2lVNYescOlRMk28
- HpdpCCL7GjaWrpIIwU3bVuxP7TXylrBslZx9OSNeFApxGLZWxNdjmCmTIbOOYFNsKpyg
- eSCvVrVXrj5af+2LyHWCsNe5I4ndz/Uurww8bQgEQmCHGH//OmnjD2SM/oJuo68wc8aD
- npBg==
+ :content-type; bh=k7xUpNbQ+GJk0CbZTwlsOmUvv3akuhf1PsrESAkkrMs=;
+ b=R8zU+xyj9odv/xIk35R2kZ+9BQ1laBJKsXYTtJ2BvJwlYMu6heYC+WX6+l7s39kt/6
+ P1CrTkTaRSi5aQ9y5W4hX6A/2zN7T+dopXsiL+RlYoLwdxBQwgqnUkBoQsZCexNTibdO
+ niZ39PTfsoPRjC/Oo8WsHCkkGN7UfGLK1mxF7dTczZDUef+/rej9QDSfvhAjv8WHjeVI
+ P6D7B99fksb7Ex22+VTlYn29TpK6FXe3ewd7k+bCgYE+YDBu0nAekg1pBUgtmmlNWvZG
+ ykWjUHhi4vFuPHQFE3Z2K2dA0MZsXVQxWlRlJnrr5zV5slNY1TLp/4+ExvWr7TR36PLj
+ RfaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789540652; x=1790145452;
+ d=1e100.net; s=20260707; t=1789540895; x=1790145695;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=AQ+wFIcS7R/qaD+wlIu1vUybEb7TOl8vT6jhLZTSv0w=;
- b=x47600YAoaWJcT+DNq0LOAW+fscEOdkF2u2rMCeDhiwjDmiWQgX6FF6mukl2n17vQ4
- SqHB+MayJs+WlEF1KZAqzy0e2BprvFywCTo8vjxhTDZMrU1MU2NIoVmzb+e9cbimHNTl
- Uc9saCvNrcxd8KI3QwZa2fVn8XtF3DUvf7pKXll8/ATJppUGCoWodghR7D9PNpRZLG9D
- utUeSj4nM601m5AQKCvthGCjGSTL7Q6PUPC6KGfi4l5YBQ1hqYuKISQdIFYGHjhcDPYo
- xeCCkHl9j/+n4mrCJgeDuyEWUuzTe4sjng2Oq/0ooGH+2OPXXh024llKBWW8pwfl2CMN
- 9CqQ==
+ bh=k7xUpNbQ+GJk0CbZTwlsOmUvv3akuhf1PsrESAkkrMs=;
+ b=vt38uZwfYPqOVi9zta56mYhlBQKGDPadeDCd94KBKDAedAWKIW18kTMinSBKGHA1Xq
+ 5pacpbWr0nrDRUaO79bv01XznV6KRgUhGkOEehVq7w32ueqYOHFTXTi3Of+LT17yersg
+ wpoCoioS2pp3l5K8LVFT6TSWle96X5F3iFW853sJDRHYfBruCNb4hT2wQHmZ+C1lr1z7
+ 1X2QKGsYl5qx89XdAoLDKvmu0OKslIM7Cd624pv4Ih0aZwqeTshdewBXCyo5b/9IFz1l
+ SaldxAshpZUDj/dYoiCENUnsP4XKphraw4td3hoV6ckKpnv60ljD8baqE95fSC+culta
+ Xecw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzMJhtGE5GA/qyabhovI4fF35ZOLmBzo7RbfgBmeIubt2ighc6aj5MgDfzKiwsBTwhmr4WcnGRPcRU=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n8mrmVjoYlk/HW7Pks6HNFNYVqcDXnFFcNg50keI0TB+JKSse/
- ip3No7muuni4bTMCIj6vyyOqujdbjlhKIycfucCSCXZx9+Ppuy5bEYDFXFDAUb6r7A+fmwI68bW
- 3RKAXZLtTvGSFT+X4GGoHcZ5k84HH4szjQd4UTygw2DFaYp0n7EAaztgtrWtqjGNYx65FiR0=
-X-Gm-Gg: AYBFou0l2qvwebalsheRRtpwDgBYsH6yfGTPh8oSrJVi/IH5TPOiuK0p8HIQ6WpYhQX
- v58na58Sh9FqfRuVdbm/FIuluTWFpxvWXZjBSzzB39JFVda/TwsINGnyeksuKmHPPBZDbvWWOE4
- caZNrhvGcQaoH6WESzMERkHr9e8JHfHKcGbPtxR1oqDiq6ALOPkiV4mwmldsYIdvI4HszX1Ab6p
- L+qrvoAakpxGPUX5jPBEsKYM/7PzI2CgveBZn2IBHy7MTF9wA0uo/+gZ6qc4ftRib/a1VFx0ezH
- U6kV2KNe1iCRUBgKVpuRv/r2eiV48iZFq7RmKKFL8q/nAPG+q6/+udTwMxHnJ8bM9PFmB5/5/jG
- drGF4eaFqExzcE3VkfDJf5SCFscICTVbBf9IoX96q/mN8EQlRsMsM1h87ihR+18/h
-X-Received: by 2002:a05:6214:3186:b0:910:3923:cc76 with SMTP id
- 6a1803df08f44-91234436ca6mr106063746d6.31.1789540651603; 
- Tue, 15 Sep 2026 23:37:31 -0700 (PDT)
-X-Received: by 2002:a05:6214:3186:b0:910:3923:cc76 with SMTP id
- 6a1803df08f44-91234436ca6mr106063206d6.31.1789540651009; 
- Tue, 15 Sep 2026 23:37:31 -0700 (PDT)
+ AKwUvBxZB2Ns/4dVRnN8CNW6kiyj8C7gixXVRiHZn4E8ugWNGVWR3WZN8x7b5cDijbId8gezTPRYWezfGKw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kw4uDSI7yGQN85ZHda5kOMs+1L9q/VKPoYhOmhIAitiYnSlFkS
+ A3gImxOmQrGhGIMqb0/y6alcTXJO3KVFb12/UIZGyRKd9nHryAnfyjqdF3tlwlENmgSKzkOhHb4
+ g+uhEQZzEfBEp3quvkrwFC03cUUl9W2QC+pA0e568dk761GYmB2k5k5C4l1i8YlydKDbD6Y8=
+X-Gm-Gg: AYBFou1Sz/DTC2x7I2/+Pv+zstdImPPiIPzSVcZdPXjebnV+sGvVHeWH5mQSc0khNRT
+ MWftcgH1pN/hqp5XIeYyrtx2WCvqECaJjTGAGzEiM5PfgvthQ9tJ7oD7EU+qyC36Bq7li0HwbTX
+ xIQYxz2H/5c4ejZYu/7llXErGNWG4Oz7WMDBhf9yFz5jXQoYZmly7diKRZUkPiVUDghT1HQDIIc
+ CxdGjfjVW6qNuSndWc9lOFGsYRM4PLbhIpwxJzJh2/sHgBn+M/bYoNw6dH45CkQ0xdG9zNYaogr
+ 6+vV/0w5vsbMkQ9vn4NzLacjRe2HdRj5VU2dBxeH7lsqLkCt9fsAMlzsPDMrhq8ShV+iSqlNAva
+ rZ40sx9eGlOoXd3CnFkk+KlvxyzkxAgb9RMLH8mGSyZEJAh3qenDrPws8DfZ21mVX
+X-Received: by 2002:a05:622a:313:b0:530:ce8c:b6ee with SMTP id
+ d75a77b69052e-5327f247e18mr24291761cf.60.1789540894449; 
+ Tue, 15 Sep 2026 23:41:34 -0700 (PDT)
+X-Received: by 2002:a05:622a:313:b0:530:ce8c:b6ee with SMTP id
+ d75a77b69052e-5327f247e18mr24291481cf.60.1789540894012; 
+ Tue, 15 Sep 2026 23:41:34 -0700 (PDT)
 Received: from [10.38.246.144] (Global_NAT1_IAD_FW.qualcomm.com.
  [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-9123bddcf56sm18155886d6.2.2026.09.15.23.37.22
+ 6a1803df08f44-9123bef592esm17733656d6.49.2026.09.15.23.41.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Sep 2026 23:37:30 -0700 (PDT)
-Message-ID: <ec70fa7f-4e02-484a-b7f7-ced7b81d3e44@oss.qualcomm.com>
-Date: Wed, 16 Sep 2026 14:37:20 +0800
+ Tue, 15 Sep 2026 23:41:33 -0700 (PDT)
+Message-ID: <73ab2465-5b11-4ca3-9a82-bf01bf9978e9@oss.qualcomm.com>
+Date: Wed, 16 Sep 2026 14:41:27 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] drm/bridge: allow hpd_notify() to suppress connector
- hotplug events
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+Subject: Re: [PATCH v6 00/29] drm/msm/dp: Add MST support for MSM chipsets
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-References: <20260629-msm-dp-msttypec-v1-0-646a10256233@oss.qualcomm.com>
- <20260629-msm-dp-msttypec-v1-1-646a10256233@oss.qualcomm.com>
- <cgk2httvebzm2jnjnb437mutez66tfozzdk77mjwukfzngdioh@mu46u3pwlf2u>
- <af5f2e4f-42a2-49f3-9c6c-0f910c5f9208@oss.qualcomm.com>
- <pyqpajtjcnslk6g5ysn3ce2csrb76fhd5bif4vdb6wezomlmsg@fsl55exyufx2>
- <dd375289-0174-41ad-980f-f027fad976f6@oss.qualcomm.com>
- <fcc816d3-e3d4-4dbf-8ae5-bbbac6e2189a@oss.qualcomm.com>
- <z7a7c2pe7aqpqlh7z6ep4fhctujnwaxqxukqaywjwvt3w7ahnc@j5i5f53c4fqu>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <jesszhan0024@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260831-msm-dp-mst-v6-0-c91d35d6fb9e@oss.qualcomm.com>
 Content-Language: en-US
 From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <z7a7c2pe7aqpqlh7z6ep4fhctujnwaxqxukqaywjwvt3w7ahnc@j5i5f53c4fqu>
+In-Reply-To: <20260831-msm-dp-mst-v6-0-c91d35d6fb9e@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDA4MyBTYWx0ZWRfXyzBZGVm6b0tJ
- 79HyYlXHLvpfIj9uoIuRh5vcWBQvOBHJuKY3yihtLmWEYpZh8JAsv4222msvz94m9eB0uczyuHx
- ceo7FxBSzQPMJ+oikHs7IERubl5FRn0=
-X-Proofpoint-GUID: Lx9WllhupZAh4wWIreda3sDOegEyDaYS
-X-Authority-Analysis: v=2.4 cv=ZINCCn7b c=1 sm=1 tr=0 ts=6aaa392c cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+X-Authority-Analysis: v=2.4 cv=BdVNQbt2 c=1 sm=1 tr=0 ts=6aaa3a20 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=NHX6yGbTSU1aQjhbUZcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-ORIG-GUID: Lx9WllhupZAh4wWIreda3sDOegEyDaYS
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDA4MyBTYWx0ZWRfX0IXXSmznHe9p
- Oe2g97nZ+wafGbzPhSvFSCPGz8+G4gb+ch1IE1QTJ8Pawlxc5dPG6EkkJuMRSFdg2sCsVrV6cbc
- LhkTTPF5qmibk7JkLksoIDN1fhQ6sHFnlsfaZ3ivLvGEMS5qQmlI1l8BZXu56a8m0cXDwJoHuwq
- HU3qcs5IP1IUM9wHjENCEbRnTN6W8uPwLiY7fgqPn7cvJ9YNj3llt3lO6C2qP4kx0RI/BivCvyR
- bo+npRocd/0CRrMK1NWXLw1fYATbZzy00p2jXCj+pQ5bsh0XHOorjXFR8jFm42aXjVsVKJNSd4j
- C4bGpM07zJPm97XL3DoCNsr8NlqcGAOX/Z+CZrLITgLWX/8PagO392qhBsVNVoQkbgBe7Qkwxx4
- ++RN6xMIJytRE/Ouhb/7KUgtj/dekCrJofDgOuGCC1N1ralgi4l6I2TF4ozRcK8QobrjsWjIMO8
- F0QxA94F76mczv3I/+A==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=7-eTeZkr4q0XwLXdS2QA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDA4NCBTYWx0ZWRfXw5I6D8XCKCkE
+ 5r8/xE6KmPW0J3NP9Awg6KVe+5NcGJFUrmMD2hxSKB1RLS7wtt6qSPDEt320zD0i7r3rnHzDoic
+ GB2zZiNIDHxZ32/NZqxRwiCVm8YFrf6Zq4zakPMada7YaFLP6uqe+FrWjY0TVlbD2Q+dGCntlTP
+ XaFQabP0bJUUpq+KVdB/tVwiKqFhT5BAstvSQRJh19rZtM5cl3cP9H/W5A3vjBAjdSnbom0MEIs
+ gm3iY1ymgApk4G3PbEWqBhIsGpLNuKC5FUgoIt2g+A7YoxAuOoEUgpXAX/64LGk0Wr7WuMqYjYF
+ ICuHVK3Gm5xs/DBU7+4Egg/4H6a4VqnOX53w2orkHRecyiPFZnJDFVm++kASXNGi9pQXIS5jqFz
+ IpwTSXELW+Zq6e8EycKR8lyB2KSlma+JKcrzhsToYwE1l60duKM+qUMwY66YyJG0o7Fks/jiET6
+ Vu9p+9UzC0NO/sPWvnw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDA4NCBTYWx0ZWRfX830G3oJSKdPP
+ UulFhxUTjGUZV2DBs0iq18gtg2FAVZoj5arPvsyrzeg6cijds8+3Zag0dih6PdqkU32me2AmQwM
+ GGo3zhoRnD8E/TdRtFqG/RBEr4omUUU=
+X-Proofpoint-GUID: 9fB_kYbd9vrHyJHHLgl_dobzA5IxUCPV
+X-Proofpoint-ORIG-GUID: 9fB_kYbd9vrHyJHHLgl_dobzA5IxUCPV
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0
- adultscore=0 bulkscore=0 phishscore=0 priorityscore=1501 suspectscore=0
+ bulkscore=0 priorityscore=1501 adultscore=0 spamscore=0 clxscore=1015
+ impostorscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160083
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160084
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,181 +153,197 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 9/8/2026 9:10 PM, Dmitry Baryshkov wrote:
-> On Mon, Aug 24, 2026 at 11:15:44AM +0800, Yongxing Mou wrote:
->>
->>
->> On 8/21/2026 3:20 PM, Yongxing Mou wrote:
->>>
->>>
->>> On 8/18/2026 11:01 AM, Dmitry Baryshkov wrote:
->>>> On Mon, Aug 17, 2026 at 04:01:41PM +0800, Yongxing Mou wrote:
->>>>>
->>>>>
->>>>> On 7/12/2026 6:21 PM, Dmitry Baryshkov wrote:
->>>>>> On Mon, Jun 29, 2026 at 10:48:03PM +0800, Yongxing Mou wrote:
->>>>>>> The bridge connector framework currently invokes all bridge
->>>>>>> hpd_notify() callbacks and unconditionally emits a connector hotplug
->>>>>>> event afterwards.
->>>>>>>
->>>>>>> However, not every HPD notification requires a userspace
->>>>>>> hotplug event.
->>>>>>>
->>>>>>> In particular, DP MST bridges may use hpd_notify() to
->>>>>>> propagate HPD and
->>>>>>> IRQ notifications through the bridge chain while the actual hotplug
->>>>>>> handling is performed by the DRM DP MST core. Connector creation,
->>>>>>> removal and userspace hotplug events are already managed by the MST
->>>>>>> topology framework.
->>>>>>>
->>>>>>> Allow hpd_notify() implementations to suppress the bridge connector
->>>>>>> hotplug event by introducing a bool *send_hotplug parameter. Drivers
->>>>>>> can clear this flag when HPD processing should not result in a
->>>>>>> connector hotplug notification.
->>>>>>
->>>>>> Why? Worst case the kernel receives another hotplug notification which
->>>>>> gets ignored by the driver.
->>>>>>
->>>>> Hi, thanks for reviwing those patches.
->>>>> Let me try to explain the motivation.
->>>>>
->>>>> Semantically, IRQ_HPD is just an IRQ notification, not a
->>>>> connection state
->>>>> transition, and shouldn't be turned into a userspace hotplug in
->>>>> the first
->>>>> place. However, drm_bridge_connector_handle_hpd() currently calls
->>>>> drm_kms_helper_connector_hotplug_event() unconditionally after
->>>>> processing
->>>>> the event, so every IRQ_HPD ends up reported as a hotplug.
->>>>
->>>> What if the IRQ_HPD is delivered together with the first HPD event (for
->>>> example because of the TCPM processing those events)? See the mechanism
->>>> in the displayport.c AltMode driver.
->>>>
->>> The DRM API should simply pass both long HPD IRQs and short HPD IRQs to
->>> the driver as they are, and let the driver decide how to handle them.
->>> Based on my review of the implementations from all three vendors, when
->>> long and short HPD IRQs occur simultaneously, the long HPD IRQ is always
->>> handled first, followed by the short HPD IRQ.
->>>
->>> I have another thought regarding the current DRM API. Could we have the
->>> DRM layer pass only the HPD event information (long IRQ and/or short
->>> IRQ) instead of connector status, and leave all handling decisions to
->>> the driver? The DRM core would simply report LONG_HPD | SHORT_HPD, and
->>> each driver could decide how to process the event. This seems like a
->>> pattern that could be shared across different drivers.
->>>
->>> This is just my current understanding. Please let me know if I've missed
->>> anything or got something wrong. Thanks.
->> Sorry, after thinking about it again, this idea is not fundamentally
->> different from your current approach. In the end, we still need to handle
->> HPD state transitions in the driver. It seems my previous suggestion does
->> not really simplify the problem, so I apologize if it has caused any
->> confusion or misled the discussion.
+On 8/31/2026 4:17 PM, Yongxing Mou wrote:
+> Add support for Multi-stream transport for MSM chipsets that allow
+> a single instance of DP controller to send multiple streams.
 > 
-> No worries.
+> This series has been validated on sa8775p ride platform using multiple
+> MST dongles and also daisy chain method on both DP0 and DP1 upto 1080P.
 > 
-> I'm currently stuck between two ideas: continue pursuing the current
-> "single API for both events" or implement new "two API for two events".
-> I think that the second might sound more plausible, but in the end it
-> would complicate drivers much more, because now they'd need to handle
-> synchronisation issues on their own.
+> With 4x4K monitors, due to lack of layer mixers that combination will not
+> work but this can be supported as well after some rework on the DPU side.
 > 
-> If we start from the DP AltMode, we have a single state word which
-> specifies exactly, 'HPD pin status' and 'was the IRQ_HPD captured'. Our
-> DP controller also has about the same status word: the connected status
-> and the IRQ_HPD pulse. Which (for me) points out that the single API is
-> a correct way to handle the HPD/IRQ_HPD.
+> In addition, SST was re-validated with all these changes to ensure there
+> were no regressions.
 > 
-I’m not objecting to the single-API approach. I’m just not completely 
-sure yet how it simplifies the driver-side handling, since the driver 
-may still need to deal with HPD and IRQ_HPD arriving at around the same 
-time, or IRQ_HPD arriving when the link is no longer present.
-
-For reference, Intel, AMD, and Nouveau appear to process HPD state 
-changes and IRQ_HPD handling in separate workers. I’m not sure whether 
-that is relevant here, but I thought it might be useful information.
-> Now, coming to the drivers/userspace side. Let's leave the MST story
-> aside for a moment. For the DP branch devices connected to the USB-C the
-> AltMode will always report 'connected', but the DP's detect callback
-> would rightfully report 'disconnected' if there is no actual monitor.
-> The kernel should do it's best in this case and report that the
-> connector is disconnected without any interim states. I think we do it
-> already. The compositor should do it's job and skip full scene
-> evaluation of the disconnected connector gets disconnected again.
+> The prerequisite cleanup series [1] has been merged into linux-next.
 > 
-Agree.
-> Event filtering. Historically, drm_bridge_connector was trying to filter
-> HPD event. We had to remove it because for the DP prefiltering doesn't
-> work. This might have left the gap, which now needs to be filled. The
-> bridge_connector uses drm_kms_helper_connector_hotplug_event() which
-> just reports the even to the userspace. Consider reworking
-> drm_bridge_connector_handle_hpd() to behave more like
-> drm_connector_helper_hpd_irq_event(). Execute hpd_notify under the same
-> mutex lock, capture if the status has actually changed afterwards and
-> report it to userspace only if there was a change.
+> Type-C MST support depends on the DRM IRQ design which is still under
+> discussion, so it will be updated in that series first and folded into
+> the MST series once the design stabilizes.
 > 
-Yes, i want to update a new verison to do this and update the 'HPD come 
-with irq' case. One question, do you have any rough timeline in mind for 
-the next revision of the IRQ series?
->>>>> Second, MST IRQ_HPD is level-sticky -- as long as the ACK has not been
->>>>> cleared, the IRQ keeps firing repeatedly, and MST bring-up (link
->>>>> training
->>>>> / MST enable handshake) itself generates a burst of IRQ_HPDs. So this is
->>>>> not about "one extra hotplug", but about a burst of them within a short
->>>>> window.
->>>>
->>>> Ok, if it is level-sticky, it should be handled as such.
->>>>
->>>>>
->>>>> Every one of those hotplugs is delivered to userspace via udev and
->>>>> prompts the compositor to re-probe the connector. In the window before
->>>>> mst_active is set, that re-probe walks back into msm_dp_bridge_detect()
->>>>> and performs aux/DPCD accesses, racing with the MST enable flow.
->>>>
->>>> If there is a race, the path needs to have a lock, preventing concurrent
->>>> access. Otherwise, you are just shortening the window instead of solving
->>>> the problem.
->>>>
->>>>>
->>>>> The amplification also isn't limited to a single connector: on Hamoa
->>>>> there are 4 connectors (3x DP + eDP), and we observe that a hotplug on
->>>>> any one connector causes the compositor to re-query all 4. So this burst
->>>>
->>>> Please fix the compositor, it should not need to query all 4 connectors
->>>> if the HPD event came from the single one.
->>>>
->>>>> of spurious IRQ_HPDs during MST enable ends up amplified across the
->>>>> whole card.
->>>>
->>>> How do i915, amdgpu and nouveau respond to IRQ_HPD? When do they send
->>>> the HPD event to the userspace?
->>>>
->>> The driver revalidates the actual connector state, and a hotplug event
->>> is triggered only when an actual connector state change or a link status
->>> change is detected.
->>>>>>> A NULL pointer indicates that hotplug suppression is not supported by
->>>>>>> the caller, such as the connector detect polling path.
->>>>>>
->>>>>> And nothing in this patch makes any use of it. I'd say, it's
->>>>>> questionable addition. Let me check other patches...
->>>>>>
->>>>> You are right, I will reorganize the patches in next patchset.
->>>>>>>
->>>>>>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->>>>>>> ---
->>>>>>>     drivers/gpu/drm/bridge/lontium-lt9611uxc.c     |  3 ++-
->>>>>>>     drivers/gpu/drm/display/drm_bridge_connector.c | 15 +++++++++------
->>>>>>>     drivers/gpu/drm/meson/meson_encoder_hdmi.c     |  3 ++-
->>>>>>>     drivers/gpu/drm/msm/dp/dp_display.c            |  3 ++-
->>>>>>>     drivers/gpu/drm/msm/dp/dp_drm.h                |  3 ++-
->>>>>>>     drivers/gpu/drm/omapdrm/dss/hdmi4.c            |  3 ++-
->>>>>>>     include/drm/drm_bridge.h                       |  3 ++-
->>>>>>>     7 files changed, 21 insertions(+), 12 deletions(-)
->>>>>>
->>>>>
->>>>
->>>
->>
+> Overall, the patch series has been organized in the following way:
 > 
-
+> 1) First set are preparatory refactors to decouple link-level and
+> stream-level operations for MST readiness.
+> 2) Prepare the DP driver to get ready to handle multiple streams. This
+> is the bulk of the work as current DP driver design had to be adjusted
+> to make this happen.
+> 3) Finally, new files to handle MST related operations, DPU encoder
+> integration, and SST/MST connector state management.
+> 
+> Note:
+> Validation for this series has so far been done on the latest linux-next
+> on LeMans, covering both FB console and Weston.
+> 
+> [1] https://lore.kernel.org/r/20260528-dp_mstclean-v9-0-f094cea8ca24@oss.qualcomm.com
+> 
+> ---
+> Changes in v6:
+> - Rebased onto linux-next 20260828; drop already-merged prerequisite
+>    cleanup patches.
+> - Reordered patches for better logical flow.
+> - Patch 01: Also move power_on=false into display_unprepare.
+> - Patch 02 (new): Split from old patch 04.
+> - Patch 03 (new): Split from old patch 04.
+> - Patch 04: Squash num_pixel_clks into this patch.
+> - Patch 05: Use loop for snapshot; skip inactive streams before adding.
+> - Patch 06 (new): Split register definitions out of old patch 04.
+> - Patch 07: Rewrite old patch 04; replace stream_id special-casing
+>    with transparent msm_dp_read/write_link() helpers.
+> - Patch 08: Fix REG_DP_MST_ACT register placement.
+> - Patch 13: Drop defensive start_slot bounds check; rename
+>    channel_alloc -> update_timeslot.
+> - Patch 14: Guard link training with active_stream_cnt == 0.
+> - Patch 16: Add locking annotation; group link_ready with status
+>    variables.
+> - Patch 17: Drop redundant stream_id >= DP_STREAM_MAX check.
+> - Patch 18: Consolidate msm_dp_mst_attach_encoder() and
+>    msm_dp_get_mst_max_stream() definition, declaration, and usage
+>    into this patch.
+> - Patch 19 (new): Split connector/topology callbacks out of old
+>    patch 23+24.
+> - Patch 20 (new): Split dpu_encoder_get_intf() refactor out of old
+>    patch 21.
+> - Patch 21: Squash stream_id condition; reorder before MST encoder
+>    patch.
+> - Patch 22: Use thin wrappers instead of renaming/exporting core
+>    dpu_encoder functions; use suggested for-loop style.
+> - Patch 23 (new): Split atomic stream enable/disable/check out of
+>    old patch 23.
+> - Patch 24: Add hpd_irq_lock; use %*ph for ESI debug prints.
+> - Patch 26: Defer SST-disconnect-on-MST-cap to new patches 28-29
+>    to avoid bisect breakage.
+> - Patch 27: Add comment for clear-before-write DPCD sequence.
+> - Patch 28 (new): Split from old patch 14; handle boot-with-cable
+>    SST bridge detection.
+> - Patch 29 (new): Handle SST connector status when MST is enabled.
+> - Link to v5: https://lore.kernel.org/r/20260629-msm-dp-mst-v5-0-2ed6aee1867a@oss.qualcomm.com
+> 
+> Changes in v5(fix comments from V4):
+> - Dropped early refactoring patches (v4 01-12); restructured as
+>    "move link-level teardown", "factor out _helper variants", etc.
+> - Dropped v4 39/39 (platform MST stream list); use DT pixel-clock
+>    count instead per Dmitry's request.
+> - Patch 02: Remove artificial max-stream limitation check.
+>    unify register naming (REG_DP1 vs MMSS_DP1).
+> - Patch 05: Calculate ACT wait time dynamically from mode parameters
+>    instead of hardcoded 20 ms.
+> - Patch 08: Replace start-slot loop with direct math; fix commit message.
+> - Patch 09: Add locking annotation "Must be called with
+>    msm_dp_mst::mst_lock held" to msm_dp_ctrl_push_vcpf().
+> - Patch 17: Rename prepared flag to link_ready.
+> - Patch 22: Move drm_dp_mst_atomic_check() call into msm_atomic.c.
+> - Patch 23: Replace bridge-based MST DRM model with encoder-based
+>    approach; remove redundant bridge layer between encoder and connector.
+> - Patch 24: Add drm_edid_free(); add FIXME for bpp negotiation.
+> - Patch 25: Use dp->plugged flag instead of link status for MST plug path routing.
+> - Link to v4: https://lore.kernel.org/r/20260410-msm-dp-mst-v4-0-b20518dea8de@oss.qualcomm.com
+> 
+> Changes in v4:
+> - Fixed most comments from V3.
+> - Rebase onto HPD refactor V5.
+> - Fixed casing/formatting issues, for example: “mst”.
+> - Drop .mode_set() and set_mode in .atomic_enable().
+> - Rewrite commit messages that are unclear.
+> - Use the same API for MST link and SST link writes.
+> - Use the new drm_dp_dpcd_read_byte() / drm_dp_dpcd_write_byte() interfaces.
+> - Remove some unnecessary payload fields from the MST bridge.
+> - Remove some defensive NULL pointer checks.
+> - Reworked the patch order to make the series easier to follow.
+> - Add support for more platforms.
+> - Link to v3: https://lore.kernel.org/r/20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com
+> 
+> Changes in v3: Fixed review comments from Dmitry
+> - Fixed lots of comments from series V1/V2.
+> - Rebased onto next-20250808.
+> - Rebased onto Jessica's HPD-refactor branch.
+> - Fixed formatting issues in commit messages under changes.
+> - Removed unnecessary one-line wrappers.
+> - Relocated MST-related .atomic_check() calls to their appropriate positions.
+> - Removed the logic related to slot checking in .mode_valid().
+> - Link to v2: https://lore.kernel.org/r/20250609-msm-dp-mst-v2-0-a54d8902a23d@quicinc.com
+> 
+> Changes in v2: Fixed review comments from Dmitry
+> - Rebase on top of next-20250606
+> - Add all 4 streams pixel clks support and MST2/MST3 Link clk support
+> - Address the formatting issues mentioned in the review comments
+> - Drop the cache of msm_dp_panel->drm_edid cached
+> - Remove the one-line wrapper funtion and redundant conditional check
+> - Fixed the commit messgae descriptions of some patches
+> - Reordered the patches and renamed some functions and variables
+> - Link to v1: https://lore.kernel.org/all/20241205-dp_mst-v1-0-f
+> 8618d42a99a@quicinc.com/
+> 
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> 
+> ---
+> Abhinav Kumar (16):
+>        drm/msm/dp: move link-level teardown from display_disable to display_unprepare
+>        drm/msm/dp: introduce stream_id for each DP panel
+>        drm/msm/dp: add support for programming p1/p2/p3 register blocks
+>        drm/msm/dp: add support to send ACT packets for MST
+>        drm/msm/dp: add support to enable MST in mainlink control
+>        drm/msm/dp: no need to update tu calculation for mst
+>        drm/msm/dp: always program MST_FIFO_CONSTANT_FILL for MST use cases
+>        drm/msm/dp: add support for sending VCPF packets in DP controller
+>        drm/msm/dp: add support for MST channel slot allocation
+>        drm/msm/dp: replace power_on with active_stream_cnt
+>        drm/msm/dp: factor out _helper variants of bridge ops accepting a panel
+>        drm/msm/dp: add msm_dp_display_get_panel() to initialize DP panel
+>        drm/msm/dp: add HPD callback for dp MST
+>        drm/msm/dp: mark the SST bridge disconnected when mst is active
+>        drm/msm/dp: enable MST on capable sinks
+>        drm/msm/dp: mark the SST bridge disconnected when an MST-capable sink is present
+> 
+> Yongxing Mou (13):
+>        drm/msm/dp: refactor msm_dp_ctrl_config_msa() to take panel
+>        drm/msm/dp: drop redundant config_ctrl_link() from msm_dp_ctrl_on_stream()
+>        drm/msm/dp: add MST stream register definitions
+>        drm/msm/dp: add stream-aware link register accessors
+>        drm/msm/dp: add link_ready to manage link-level operations
+>        drm/msm/dp: introduce dp_mst_drm module
+>        drm/msm/dp: add MST connector creation and topology callbacks
+>        drm/msm/dpu: pass msm_display_info to dpu_encoder_get_intf()
+>        drm/msm/dpu: use stream_id to select MST interfaces
+>        drm/msm/dpu: add per-stream MST encoders
+>        drm/msm/dp: add atomic stream handling for MST
+>        drm/msm/dp: wire MST helpers into atomic check and commit paths
+>        drm/msm/dp: mark the SST connector disconnected when MST is enabled
+> 
+>   drivers/gpu/drm/msm/Makefile                |   3 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  51 ++-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |   2 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  27 +-
+>   drivers/gpu/drm/msm/dp/dp_audio.c           |   2 +-
+>   drivers/gpu/drm/msm/dp/dp_ctrl.c            | 479 ++++++++++++++++++++++---
+>   drivers/gpu/drm/msm/dp/dp_ctrl.h            |  19 +-
+>   drivers/gpu/drm/msm/dp/dp_display.c         | 414 ++++++++++++++++-----
+>   drivers/gpu/drm/msm/dp/dp_display.h         |  26 +-
+>   drivers/gpu/drm/msm/dp/dp_mst_drm.c         | 538 ++++++++++++++++++++++++++++
+>   drivers/gpu/drm/msm/dp/dp_mst_drm.h         |  16 +
+>   drivers/gpu/drm/msm/dp/dp_panel.c           | 205 ++++++++---
+>   drivers/gpu/drm/msm/dp/dp_panel.h           |  19 +-
+>   drivers/gpu/drm/msm/dp/dp_reg.h             |  69 ++++
+>   drivers/gpu/drm/msm/msm_atomic.c            |  14 +-
+>   drivers/gpu/drm/msm/msm_drv.h               |  41 +++
+>   drivers/gpu/drm/msm/msm_kms.c               |   1 +
+>   17 files changed, 1727 insertions(+), 199 deletions(-)
+> ---
+> base-commit: e30626823a406725ce29bc75cb8ec467d3e1e326
+> change-id: 20260410-msm-dp-mst-35130b6e8b84
+> 
+> Best regards,
+Hi,
+This is a gentle ping on this series.
+If you have a chance to review it, I'd appreciate any comments and feedback.
