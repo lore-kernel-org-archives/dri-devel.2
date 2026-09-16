@@ -4,31 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44148C88E7F
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 19:14:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0CB1C88E7F
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 19:17:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 946AC10E0BD;
-	Wed, 16 Sep 2026 19:14:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5235110E1B4;
+	Wed, 16 Sep 2026 19:17:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="Q0mHmn6s";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="i1ver//s";
 	dkim-atps=neutral
-X-Greylist: delayed 364 seconds by postgrey-1.36 at gabe;
- Wed, 16 Sep 2026 19:14:38 UTC
-Received: from mta0.migadu.com (out-199.mta0.migadu.com [91.218.175.199])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03B5510E0BD
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 19:14:37 +0000 (UTC)
+Received: from mta0.migadu.com (out-236.mta0.migadu.com [91.218.175.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B913310E397
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 19:17:19 +0000 (UTC)
 X-Envelope-To: dri-devel@lists.freedesktop.org
 DKIM-Signature: a=rsa-sha256; bh=d5rIYyuUq1yZ3+uvYAUim7aaKaINlMEW4ezCIRPM5Fs=; 
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789586076; v=1; x=1790190876;
- b=Q0mHmn6szaiFQhU9pdAlueNu/5N+QDPEowouD0fGDNEG+alQfirZmT2oFGaK8f+VeiUTVWaq
- KoHLiX26WsszwEjZY6ivAF+Fz0aIlHWYDMvUB+5ktJ0Q8PX+/EjgXHf1EmWFXr/B+8rhznsh4fU
- BsQANzV0ieivfP3yJGGqOM7U=
+ t=1789586238; v=1; x=1790191038;
+ b=i1ver//sppL39s68YOLnMzn5Ht0wCNw7OknSR/bMshC/mkga5HKgclBIC+pwTqpvDbsTZVTt
+ qfZE3qlE0ddS+UmsOBS5JK8FOjrIveGowKZjlRnGP4dGxpnxBclZe9m5nTfh/jq+gulpUi7k1OF
+ 33QOQMLJuNvBqcqQGFGPfXwU=
 X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id deeea5a6716aa5cc;
- Wed, 16 Sep 2026 19:08:32 +0000
-X-Mizu-Trace-ID: deeea5a6716aa5cc
+Received: by smtp.migadu.com with ESMTPS id 7b29d5cee3ba1853;
+ Wed, 16 Sep 2026 19:11:14 +0000
+X-Mizu-Trace-ID: 7b29d5cee3ba1853
 X-Migadu-Flow: FLOW_OUT
 From: Matthew Schwartz <matthew.schwartz@linux.dev>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -36,10 +34,10 @@ To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
 Cc: Mario Limonciello <mario.limonciello@amd.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Matthew Schwartz <matthew.schwartz@linux.dev>
-Subject: [PATCH 1/2] [FOR-UPSTREAM] drm/amd/display: Use linear backlight
- curve in power module
-Date: Wed, 16 Sep 2026 12:08:22 -0700
-Message-ID: <20260916190823.1193460-1-matthew.schwartz@linux.dev>
+Subject: [PATCH RESEND 1/2] drm/amd/display: Use linear backlight curve in
+ power module
+Date: Wed, 16 Sep 2026 12:11:01 -0700
+Message-ID: <20260916191102.1195881-1-matthew.schwartz@linux.dev>
 X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
