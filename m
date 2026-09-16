@@ -4,44 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF460C982C9
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 15:41:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF3DFC982CC
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 15:42:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DBC610E3D0;
-	Wed, 16 Sep 2026 15:41:36 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jVGw9rEs";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88FE810E3D0
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 15:41:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7224D43925;
- Wed, 16 Sep 2026 15:41:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28BD91F00893;
- Wed, 16 Sep 2026 15:41:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789573295;
- bh=a02D6i1RP1n3mdxSE+c5Jvz3yEutDKEehkXVrrZZ4Z4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jVGw9rEsNVKiUfJ/nYUDrt6FTttUIfGYKchPLtfAgmfN4V1jttIE+K7XQ0h/Hr++6
- BjkY/NGZu8xS0IfdatdtrBO05s8j1wtSYaBobRF4lYYAtwUiLr411BIYu6/jp2A6xm
- E4EqZgvOlvf5ZrcBLmSyL4t2kIqRmdiPV3GkibEweT4grzw6O+hUxIJYP3/LTmUDoU
- sdU6PywP892UYKEenexqjeNzgGCpdL5G8dZ/nOClM14exqIq5ONRwr+3K51pFiVrgL
- VZ2ZoRCO+LQLm1k4uZWfD4X57W0Le9gUEsgbdDLiELZSMwbPQ1DMfxa3Xsmbo9E2B+
- KTGyo6j4trwGQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 01/38] selftests/dyndbg: Add kselftest script to
- verify dynamic-debug
-To: "Jim Cromie" <jim.cromie@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org
-In-Reply-To: <20260916-dd-cmap-part2-clean-v10-1-af4cf4767707@gmail.com>
-References: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
- <20260916-dd-cmap-part2-clean-v10-1-af4cf4767707@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 15:41:34 +0000
-Message-Id: <20260916154135.28BD91F00893@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4807810EC52;
+	Wed, 16 Sep 2026 15:42:13 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A11510EC52
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 15:42:11 +0000 (UTC)
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+ by APP-05 (Coremail) with SMTP id zQCowACX_znNuKpqXgFtCA--.21607S2;
+ Wed, 16 Sep 2026 23:42:05 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: dave.stevenson@raspberrypi.com, dri-devel@lists.freedesktop.org,
+ kernel-list@raspberrypi.com, linux-kernel@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, mcanal@igalia.com, mripard@kernel.org,
+ simona@ffwll.ch, tzimmermann@suse.de, Wentao Liang <vulab@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/vc4: Fix firmware reference leak in vc4_hvs_bind()
+Date: Wed, 16 Sep 2026 15:41:37 +0000
+Message-Id: <20260916154137.2058618-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowACX_znNuKpqXgFtCA--.21607S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr1kGFWkZr47AFy8Cw4rZrb_yoW8Gry8pF
+ 4UJFyFk3y5uF4ft343AFs5XF1fZan7tFWfCF9Y9wna9345try5JrySv34rKFyUZF4kA3Zx
+ KF1qvrWxAas8ZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+ 0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+ 8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+ Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+ x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
+ 1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
+ JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYx
+ BIdaVFxhVjvjDU0xZFpf9x0JUG_M-UUUUU=
+X-Originating-IP: [36.110.52.2]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwQMA2qqpVgy4AABsi
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,67 +59,43 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] selftests/dyndbg: dead write-only variable CUMULATIVE_DDCMDS
---
+The firmware reference taken via rpi_firmware_get() is leaked when
+either of the devm_clk_get() calls for the core or display clocks
+fails, as both error paths return without releasing it.
 
-commit baf1eba97598bc14d4dc1aac7aa207aedefbdfac
-Author: Jim Cromie <jim.cromie@gmail.com>
+Put the firmware reference before returning from both clock lookup
+error paths.
 
-selftests/dyndbg: Add kselftest script to verify dynamic-debug
+Fixes: 2a001ca00ad5 ("drm/vc4: hdmi: Rework hdmi_enable_4kp60 detection code")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/vc4/vc4_hvs.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-This commit introduces a new kselftest script and helper library to verify
-dynamic debug functionality. It uses spatial control-file slicing and
-temporal syslog slicing to validate expected outcomes against an embedded
-database of golden records.
+diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
+index ee8d0738501b..20dde4150068 100644
+--- a/drivers/gpu/drm/vc4/vc4_hvs.c
++++ b/drivers/gpu/drm/vc4/vc4_hvs.c
+@@ -1680,6 +1680,7 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
+ 					     (vc4->gen >= VC4_GEN_6_C) ? "core" : NULL);
+ 		if (IS_ERR(hvs->core_clk)) {
+ 			dev_err(&pdev->dev, "Couldn't get core clock\n");
++			rpi_firmware_put(firmware);
+ 			return PTR_ERR(hvs->core_clk);
+ 		}
+ 
+@@ -1687,6 +1688,7 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
+ 					     (vc4->gen >= VC4_GEN_6_C) ? "disp" : NULL);
+ 		if (IS_ERR(hvs->disp_clk)) {
+ 			dev_err(&pdev->dev, "Couldn't get disp clock\n");
++			rpi_firmware_put(firmware);
+ 			return PTR_ERR(hvs->disp_clk);
+ 		}
+ 
+-- 
+2.34.1
 
-> diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/t=
-ools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-> new file mode 100755
-> index 0000000000000..73c2a4b07bd32
-> --- /dev/null
-> +++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-
-[ ... ]
-
-> +function ddcmd () {
-> +    # ddcmd <query_args> [range_pattern] [pass|fail|log]
-> +    local args=3D"$1"
-> +    local range=3D"$2"
-> +    local action=3D"${3:-pass}"
-> +    local exp_exit=3D0
-> +
-> +    [ "$action" =3D "fail" ] && exp_exit=3D1
-> +    log_ddcmd "$args"
-> +
-> +    # Update cumulative state-machine lineage
-> +    if [[ "$args" =3D=3D *"=3D_"* ]]; then
-> +        CUMULATIVE_DDCMDS=3D"$args"
-> +    else
-> +        CUMULATIVE_DDCMDS=3D"${CUMULATIVE_DDCMDS}; $args"
-> +    fi
-
-[Severity: Low]
-Is this variable used anywhere? It appears CUMULATIVE_DDCMDS is written to
-here in ddcmd() but is never read or evaluated in this script or subsequent
-patches in the series.
-
-> +
-> +    [ "$action" !=3D "pass" ] && log_start
-> +    [ -n "$range" ] && capture_before "$range"
-> +
-> +    output=3D$( (echo "$args" > /proc/dynamic_debug/control) 2>&1 )
-> +    handle_exit_code $BASH_LINENO $FUNCNAME $? $exp_exit
-> +
-> +    [ "$action" !=3D "pass" ] && log_stop
-> +    [ -n "$range" ] && verify_after_change
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-dd-cmap-pa=
-rt2-clean-v10-0-af4cf4767707@gmail.com?part=3D1
