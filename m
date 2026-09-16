@@ -4,138 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 167D4C88E77
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 06:41:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68ED8C88E77
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 06:50:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25B8310E34D;
-	Wed, 16 Sep 2026 06:41:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BB0910E341;
+	Wed, 16 Sep 2026 06:50:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="oJfHApqx";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R8zU+xyj";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="TZ/zq1Rn";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="e5N4EcVW";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0/M4VYRi";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cd3MI51R";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E64A510E341
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 06:41:36 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68G69dlj1163427
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 06:41:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- k7xUpNbQ+GJk0CbZTwlsOmUvv3akuhf1PsrESAkkrMs=; b=oJfHApqxG2uOt3Z1
- V/TbV0YFH7lnDjG919dTQbFfcYoLKOE8u3pPql4rhrsTjRaF09Wb8KwERtMtkfpG
- STJbqBZGSA2W//Cy6Ran8ODglVH4MoGMUAJLZs17TO0uZc0iwaUSMtkow5a4Adey
- auiqFcJXeBvcf5TLhkC9im8+cNoF/wNVHT/+TaF6q5HVQbpTS4Y27mFbYOQl/o0/
- JrvBoAbpQ1f0Hk1LV0ZFEiHnXfel2rHT/sXQx2tdSFyTh2nbEIuwFiK6IMsMg+DS
- Gd7VuW8pD0HEO8LUkpzsYyTye5w3PeY1N8m4yeBADlxUiTUs8E0WHTtwNZQP8YBV
- mqQN/Q==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq9n63769-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 06:41:36 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-93a3f673221so286760185a.0
- for <dri-devel@lists.freedesktop.org>; Tue, 15 Sep 2026 23:41:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1789540895; x=1790145695;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=k7xUpNbQ+GJk0CbZTwlsOmUvv3akuhf1PsrESAkkrMs=;
- b=R8zU+xyj9odv/xIk35R2kZ+9BQ1laBJKsXYTtJ2BvJwlYMu6heYC+WX6+l7s39kt/6
- P1CrTkTaRSi5aQ9y5W4hX6A/2zN7T+dopXsiL+RlYoLwdxBQwgqnUkBoQsZCexNTibdO
- niZ39PTfsoPRjC/Oo8WsHCkkGN7UfGLK1mxF7dTczZDUef+/rej9QDSfvhAjv8WHjeVI
- P6D7B99fksb7Ex22+VTlYn29TpK6FXe3ewd7k+bCgYE+YDBu0nAekg1pBUgtmmlNWvZG
- ykWjUHhi4vFuPHQFE3Z2K2dA0MZsXVQxWlRlJnrr5zV5slNY1TLp/4+ExvWr7TR36PLj
- RfaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789540895; x=1790145695;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=k7xUpNbQ+GJk0CbZTwlsOmUvv3akuhf1PsrESAkkrMs=;
- b=vt38uZwfYPqOVi9zta56mYhlBQKGDPadeDCd94KBKDAedAWKIW18kTMinSBKGHA1Xq
- 5pacpbWr0nrDRUaO79bv01XznV6KRgUhGkOEehVq7w32ueqYOHFTXTi3Of+LT17yersg
- wpoCoioS2pp3l5K8LVFT6TSWle96X5F3iFW853sJDRHYfBruCNb4hT2wQHmZ+C1lr1z7
- 1X2QKGsYl5qx89XdAoLDKvmu0OKslIM7Cd624pv4Ih0aZwqeTshdewBXCyo5b/9IFz1l
- SaldxAshpZUDj/dYoiCENUnsP4XKphraw4td3hoV6ckKpnv60ljD8baqE95fSC+culta
- Xecw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxZB2Ns/4dVRnN8CNW6kiyj8C7gixXVRiHZn4E8ugWNGVWR3WZN8x7b5cDijbId8gezTPRYWezfGKw=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kw4uDSI7yGQN85ZHda5kOMs+1L9q/VKPoYhOmhIAitiYnSlFkS
- A3gImxOmQrGhGIMqb0/y6alcTXJO3KVFb12/UIZGyRKd9nHryAnfyjqdF3tlwlENmgSKzkOhHb4
- g+uhEQZzEfBEp3quvkrwFC03cUUl9W2QC+pA0e568dk761GYmB2k5k5C4l1i8YlydKDbD6Y8=
-X-Gm-Gg: AYBFou1Sz/DTC2x7I2/+Pv+zstdImPPiIPzSVcZdPXjebnV+sGvVHeWH5mQSc0khNRT
- MWftcgH1pN/hqp5XIeYyrtx2WCvqECaJjTGAGzEiM5PfgvthQ9tJ7oD7EU+qyC36Bq7li0HwbTX
- xIQYxz2H/5c4ejZYu/7llXErGNWG4Oz7WMDBhf9yFz5jXQoYZmly7diKRZUkPiVUDghT1HQDIIc
- CxdGjfjVW6qNuSndWc9lOFGsYRM4PLbhIpwxJzJh2/sHgBn+M/bYoNw6dH45CkQ0xdG9zNYaogr
- 6+vV/0w5vsbMkQ9vn4NzLacjRe2HdRj5VU2dBxeH7lsqLkCt9fsAMlzsPDMrhq8ShV+iSqlNAva
- rZ40sx9eGlOoXd3CnFkk+KlvxyzkxAgb9RMLH8mGSyZEJAh3qenDrPws8DfZ21mVX
-X-Received: by 2002:a05:622a:313:b0:530:ce8c:b6ee with SMTP id
- d75a77b69052e-5327f247e18mr24291761cf.60.1789540894449; 
- Tue, 15 Sep 2026 23:41:34 -0700 (PDT)
-X-Received: by 2002:a05:622a:313:b0:530:ce8c:b6ee with SMTP id
- d75a77b69052e-5327f247e18mr24291481cf.60.1789540894012; 
- Tue, 15 Sep 2026 23:41:34 -0700 (PDT)
-Received: from [10.38.246.144] (Global_NAT1_IAD_FW.qualcomm.com.
- [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-9123bef592esm17733656d6.49.2026.09.15.23.41.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Sep 2026 23:41:33 -0700 (PDT)
-Message-ID: <73ab2465-5b11-4ca3-9a82-bf01bf9978e9@oss.qualcomm.com>
-Date: Wed, 16 Sep 2026 14:41:27 +0800
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1450410E341
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 06:50:33 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 38C6A1FDD2;
+ Wed, 16 Sep 2026 06:50:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1789541427; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=q1Rlto9SnJgRaHJraIYWJFcfagZYqIMFP0BBB/sf7fE=;
+ b=TZ/zq1RnlM2xpYQOmH/HwJkp52sY0SEiteMePDhTlwWGfBUZHpTyHScFA59Y81pfwVw/EI
+ 5TGLA4NaOat3FNyV3fDgwLj5DgPHZr7rgw+ppJSdcOJHfAJBtyvL88dmmBLYnim0IMjT3J
+ l77GTDr9t23y9GiGER02VBh3aQh2djA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1789541427;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=q1Rlto9SnJgRaHJraIYWJFcfagZYqIMFP0BBB/sf7fE=;
+ b=e5N4EcVW7vOCcAoIIiYm3cIS8BaVJB0Mbo77IPyji6ZoQAZnZQpJ77LI7UNWhAvGBMgMcN
+ OKIq7Dtdr70o0IBA==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b="0/M4VYRi";
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=cd3MI51R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1789541423; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=q1Rlto9SnJgRaHJraIYWJFcfagZYqIMFP0BBB/sf7fE=;
+ b=0/M4VYRiPlBIQlmFuj1q2+uA1pXiWQ9A2HAy2vIXEEcrush/tlyFGsE7Xq0f+w6oU0y72w
+ 0BB+Kh+6eRrssN2U3/VBty0LYeYIvQ8RdrPEhWdGbCXCLfb9ZVUT0k8b0oyGu10Xj0CyvH
+ 0+57HrK3SBPeRoyTFFffmW3EIb0OQ3Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1789541423;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=q1Rlto9SnJgRaHJraIYWJFcfagZYqIMFP0BBB/sf7fE=;
+ b=cd3MI51RD6FudCt6pZ5qioa6wu2F0gZlMJFOQ3lZ/z2GekKGtjSos20r1Jd3JSxsPv7wIt
+ WpdvOtYiAR/zABBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3ED2C136D1;
+ Wed, 16 Sep 2026 06:50:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id K2fRBy48qmqIYgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 16 Sep 2026 06:50:22 +0000
+Message-ID: <8e4c84be-5c89-4d84-adda-aad4c7de0c8a@suse.de>
+Date: Wed, 16 Sep 2026 08:50:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 00/29] drm/msm/dp: Add MST support for MSM chipsets
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260831-msm-dp-mst-v6-0-c91d35d6fb9e@oss.qualcomm.com>
+Subject: Re: [PATCH v3 2/2] drm/imx: replace struct drm_simple_display_pipe
+ with regular atomic helpers
+To: Ze Huang <ze.huang@oss.qualcomm.com>,
+ Alexey Brodkin <abrodkin@synopsys.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Linus Walleij <linusw@kernel.org>,
+ Hans de Goede <hansg@kernel.org>, Alex Lanzano <lanzano.alex@gmail.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Marian Cichy <m.cichy@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ imx@lists.linux.dev, xen-devel@lists.xenproject.org
+References: <20260727-drm-simple-kms-removal-v3-0-de36e534f7a1@oss.qualcomm.com>
+ <20260727-drm-simple-kms-removal-v3-2-de36e534f7a1@oss.qualcomm.com>
 Content-Language: en-US
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <20260831-msm-dp-mst-v6-0-c91d35d6fb9e@oss.qualcomm.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260727-drm-simple-kms-removal-v3-2-de36e534f7a1@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=BdVNQbt2 c=1 sm=1 tr=0 ts=6aaa3a20 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=7-eTeZkr4q0XwLXdS2QA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
- a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDA4NCBTYWx0ZWRfXw5I6D8XCKCkE
- 5r8/xE6KmPW0J3NP9Awg6KVe+5NcGJFUrmMD2hxSKB1RLS7wtt6qSPDEt320zD0i7r3rnHzDoic
- GB2zZiNIDHxZ32/NZqxRwiCVm8YFrf6Zq4zakPMada7YaFLP6uqe+FrWjY0TVlbD2Q+dGCntlTP
- XaFQabP0bJUUpq+KVdB/tVwiKqFhT5BAstvSQRJh19rZtM5cl3cP9H/W5A3vjBAjdSnbom0MEIs
- gm3iY1ymgApk4G3PbEWqBhIsGpLNuKC5FUgoIt2g+A7YoxAuOoEUgpXAX/64LGk0Wr7WuMqYjYF
- ICuHVK3Gm5xs/DBU7+4Egg/4H6a4VqnOX53w2orkHRecyiPFZnJDFVm++kASXNGi9pQXIS5jqFz
- IpwTSXELW+Zq6e8EycKR8lyB2KSlma+JKcrzhsToYwE1l60duKM+qUMwY66YyJG0o7Fks/jiET6
- Vu9p+9UzC0NO/sPWvnw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDA4NCBTYWx0ZWRfX830G3oJSKdPP
- UulFhxUTjGUZV2DBs0iq18gtg2FAVZoj5arPvsyrzeg6cijds8+3Zag0dih6PdqkU32me2AmQwM
- GGo3zhoRnD8E/TdRtFqG/RBEr4omUUU=
-X-Proofpoint-GUID: 9fB_kYbd9vrHyJHHLgl_dobzA5IxUCPV
-X-Proofpoint-ORIG-GUID: 9fB_kYbd9vrHyJHHLgl_dobzA5IxUCPV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 adultscore=0 spamscore=0 clxscore=1015
- impostorscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160084
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 38C6A1FDD2
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url,qualcomm.com:email,suse.de:dkim,suse.de:mid,bootlin.com:url,pengutronix.de:email,i.mx:url];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[oss.qualcomm.com,synopsys.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,jms.id.au,codeconstruct.com.au,nxp.com,pengutronix.de,epam.com];
+ ARC_NA(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCPT_COUNT_TWELVE(0.00)[25]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TAGGED_RCPT(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:url, pengutronix.de:email, i.mx:url,
+ suse.com:url, qualcomm.com:email, suse.de:dkim, suse.de:mid,
+ imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,199 +168,474 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi
+
+Am 26.07.26 um 21:42 schrieb Ze Huang:
+> Convert i.MX LCDC to explicit primary plane, CRTC and encoder objects.
+> Keep no-scaling plane check and GEM framebuffer prepare callback from
+> simple-KMS path.
+>
+> Wire the vblank lifecycle explicitly with CRTC vblank callbacks and
+> drm_crtc_vblank_on()/drm_crtc_vblank_off(). Use the old CRTC state in the
+> disable path for clock unwinding so the clock reference count remains
+> paired with the previous active state.
+>
+> Signed-off-by: Ze Huang <ze.huang@oss.qualcomm.com>
+> ---
+>   drivers/gpu/drm/imx/lcdc/imx-lcdc.c | 264 ++++++++++++++++++++++++++----------
+>   1 file changed, 190 insertions(+), 74 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+> index 81024f7d9e96..4835f01954f7 100644
+> --- a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+> +++ b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+> @@ -2,6 +2,7 @@
+>   // SPDX-FileCopyrightText: 2020 Marian Cichy <M.Cichy@pengutronix.de>
+>   
+>   #include <drm/clients/drm_client_setup.h>
+> +#include <drm/drm_atomic.h>
+>   #include <drm/drm_bridge.h>
+>   #include <drm/drm_bridge_connector.h>
+>   #include <drm/drm_damage_helper.h>
+> @@ -14,9 +15,9 @@
+>   #include <drm/drm_gem_dma_helper.h>
+>   #include <drm/drm_gem_framebuffer_helper.h>
+>   #include <drm/drm_of.h>
+> +#include <drm/drm_plane_helper.h>
+>   #include <drm/drm_print.h>
+>   #include <drm/drm_probe_helper.h>
+> -#include <drm/drm_simple_kms_helper.h>
+>   #include <drm/drm_vblank.h>
+>   #include <linux/bitfield.h>
+>   #include <linux/clk.h>
+> @@ -102,7 +103,9 @@
+>   
+>   struct imx_lcdc {
+>   	struct drm_device drm;
+> -	struct drm_simple_display_pipe pipe;
+> +	struct drm_plane plane;
+> +	struct drm_crtc crtc;
+> +	struct drm_encoder encoder;
+>   	struct drm_connector *connector;
+>   	void __iomem *base;
+>   
+> @@ -135,14 +138,15 @@ static unsigned int imx_lcdc_get_format(unsigned int drm_format)
+>   	}
+>   }
+>   
+> -static void imx_lcdc_update_hw_registers(struct drm_simple_display_pipe *pipe,
+> -					 struct drm_plane_state *old_state,
+> +static void imx_lcdc_update_hw_registers(struct drm_crtc *crtc,
+> +					 struct drm_crtc_state *old_crtc_state,
+> +					 struct drm_crtc_state *new_crtc_state,
+> +					 struct drm_plane_state *new_state,
+>   					 bool mode_set)
+>   {
+> -	struct drm_crtc *crtc = &pipe->crtc;
+> -	struct drm_plane_state *new_state = pipe->plane.state;
+> +	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(crtc->dev);
+> +	const struct drm_display_mode *mode = &new_crtc_state->mode;
+>   	struct drm_framebuffer *fb = new_state->fb;
+> -	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(pipe->crtc.dev);
+>   	u32 lpcr, lvcr, lhcr;
+>   	u32 framesize;
+>   	dma_addr_t addr;
+> @@ -155,24 +159,24 @@ static void imx_lcdc_update_hw_registers(struct drm_simple_display_pipe *pipe,
+>   		return;
+>   
+>   	/* Disable PER clock to make register write possible */
+> -	if (old_state && old_state->crtc && old_state->crtc->enabled)
+> +	if (old_crtc_state && old_crtc_state->enable)
+>   		clk_disable_unprepare(lcdc->clk_per);
+>   
+>   	/* Framesize */
+> -	framesize = FIELD_PREP(IMX21LCDC_LSR_XMAX, crtc->mode.hdisplay >> 4) |
+> -		FIELD_PREP(IMX21LCDC_LSR_YMAX, crtc->mode.vdisplay);
+> +	framesize = FIELD_PREP(IMX21LCDC_LSR_XMAX, mode->hdisplay >> 4) |
+> +		FIELD_PREP(IMX21LCDC_LSR_YMAX, mode->vdisplay);
+>   	writel(framesize, lcdc->base + IMX21LCDC_LSR);
+>   
+>   	/* HSYNC */
+> -	lhcr = FIELD_PREP(IMX21LCDC_LHCR_HFPORCH, crtc->mode.hsync_start - crtc->mode.hdisplay - 1) |
+> -		FIELD_PREP(IMX21LCDC_LHCR_HWIDTH, crtc->mode.hsync_end - crtc->mode.hsync_start - 1) |
+> -		FIELD_PREP(IMX21LCDC_LHCR_HBPORCH, crtc->mode.htotal - crtc->mode.hsync_end - 3);
+> +	lhcr = FIELD_PREP(IMX21LCDC_LHCR_HFPORCH, mode->hsync_start - mode->hdisplay - 1) |
+> +		FIELD_PREP(IMX21LCDC_LHCR_HWIDTH, mode->hsync_end - mode->hsync_start - 1) |
+> +		FIELD_PREP(IMX21LCDC_LHCR_HBPORCH, mode->htotal - mode->hsync_end - 3);
+>   	writel(lhcr, lcdc->base + IMX21LCDC_LHCR);
+>   
+>   	/* VSYNC */
+> -	lvcr = FIELD_PREP(IMX21LCDC_LVCR_VFPORCH, crtc->mode.vsync_start - crtc->mode.vdisplay) |
+> -		FIELD_PREP(IMX21LCDC_LVCR_VWIDTH, crtc->mode.vsync_end - crtc->mode.vsync_start) |
+> -		FIELD_PREP(IMX21LCDC_LVCR_VBPORCH, crtc->mode.vtotal - crtc->mode.vsync_end);
+> +	lvcr = FIELD_PREP(IMX21LCDC_LVCR_VFPORCH, mode->vsync_start - mode->vdisplay) |
+> +		FIELD_PREP(IMX21LCDC_LVCR_VWIDTH, mode->vsync_end - mode->vsync_start) |
+> +		FIELD_PREP(IMX21LCDC_LVCR_VBPORCH, mode->vtotal - mode->vsync_end);
+>   	writel(lvcr, lcdc->base + IMX21LCDC_LVCR);
+>   
+>   	lpcr = readl(lcdc->base + IMX21LCDC_LPCR);
+> @@ -184,19 +188,20 @@ static void imx_lcdc_update_hw_registers(struct drm_simple_display_pipe *pipe,
+>   	writel(new_state->fb->pitches[0] / 4, lcdc->base + IMX21LCDC_LVPWR);
+>   
+>   	/* Enable PER clock */
+> -	if (new_state->crtc->enabled)
+> +	if (new_crtc_state->enable)
+>   		clk_prepare_enable(lcdc->clk_per);
+>   }
+>   
+> -static void imx_lcdc_pipe_enable(struct drm_simple_display_pipe *pipe,
+> -				 struct drm_crtc_state *crtc_state,
+> -				 struct drm_plane_state *plane_state)
+> +static void imx_lcdc_crtc_helper_atomic_enable(struct drm_crtc *crtc,
+> +					       struct drm_atomic_commit *commit)
+>   {
+>   	int ret;
+>   	int clk_div;
+>   	int bpp;
+> -	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(pipe->crtc.dev);
+> -	struct drm_display_mode *mode = &pipe->crtc.mode;
+> +	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(crtc->dev);
+> +	struct drm_crtc_state *cstate = drm_atomic_get_new_crtc_state(commit, crtc);
+> +	struct drm_plane_state *pstate = drm_atomic_get_new_plane_state(commit, &lcdc->plane);
+> +	struct drm_display_mode *mode = &cstate->mode;
+>   	struct drm_display_info *disp_info = &lcdc->connector->display_info;
+>   	const int hsync_pol = (mode->flags & DRM_MODE_FLAG_PHSYNC) ? 0 : 1;
+>   	const int vsync_pol = (mode->flags & DRM_MODE_FLAG_PVSYNC) ? 0 : 1;
+> @@ -207,7 +212,7 @@ static void imx_lcdc_pipe_enable(struct drm_simple_display_pipe *pipe,
+>   
+>   	clk_div = DIV_ROUND_CLOSEST_ULL(clk_get_rate(lcdc->clk_per),
+>   					mode->clock * 1000);
+> -	bpp = imx_lcdc_get_format(plane_state->fb->format->format);
+> +	bpp = imx_lcdc_get_format(pstate->fb->format->format);
+>   
+>   	writel(FIELD_PREP(IMX21LCDC_LPCR_PCD, clk_div - 1) |
+>   	       FIELD_PREP(IMX21LCDC_LPCR_LPPOL, hsync_pol) |
+> @@ -231,40 +236,46 @@ static void imx_lcdc_pipe_enable(struct drm_simple_display_pipe *pipe,
+>   
+>   	ret = clk_prepare_enable(lcdc->clk_ipg);
+>   	if (ret) {
+> -		dev_err(pipe->crtc.dev->dev, "Cannot enable ipg clock: %pe\n", ERR_PTR(ret));
+> +		dev_err(crtc->dev->dev, "Cannot enable ipg clock: %pe\n", ERR_PTR(ret));
+>   		return;
+>   	}
+>   	ret = clk_prepare_enable(lcdc->clk_ahb);
+>   	if (ret) {
+> -		dev_err(pipe->crtc.dev->dev, "Cannot enable ahb clock: %pe\n", ERR_PTR(ret));
+> +		dev_err(crtc->dev->dev, "Cannot enable ahb clock: %pe\n", ERR_PTR(ret));
+>   
+>   		clk_disable_unprepare(lcdc->clk_ipg);
+>   
+>   		return;
+>   	}
+>   
+> -	imx_lcdc_update_hw_registers(pipe, NULL, true);
+> +	imx_lcdc_update_hw_registers(crtc, NULL, cstate, pstate, true);
+>   
+>   	/* Enable VBLANK Interrupt */
+>   	writel(INTR_EOF, lcdc->base + IMX21LCDC_LIER);
+> +
+> +	drm_crtc_vblank_on(crtc);
+>   }
+>   
+> -static void imx_lcdc_pipe_disable(struct drm_simple_display_pipe *pipe)
+> +static void imx_lcdc_crtc_helper_atomic_disable(struct drm_crtc *crtc,
+> +						struct drm_atomic_commit *commit)
+>   {
+> -	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(pipe->crtc.dev);
+> -	struct drm_crtc *crtc = &lcdc->pipe.crtc;
+> +	struct drm_crtc_state *old_crtc_state = drm_atomic_get_old_crtc_state(commit, crtc);
+> +	struct drm_crtc_state *new_crtc_state = drm_atomic_get_new_crtc_state(commit, crtc);
+> +	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(crtc->dev);
+>   	struct drm_pending_vblank_event *event;
+>   
+> +	drm_crtc_vblank_off(crtc);
+> +
+>   	clk_disable_unprepare(lcdc->clk_ahb);
+>   	clk_disable_unprepare(lcdc->clk_ipg);
+>   
+> -	if (pipe->crtc.enabled)
+> +	if (old_crtc_state->enable)
+>   		clk_disable_unprepare(lcdc->clk_per);
+>   
+>   	spin_lock_irq(&lcdc->drm.event_lock);
+> -	event = crtc->state->event;
+> +	event = new_crtc_state->event;
+>   	if (event) {
+> -		crtc->state->event = NULL;
+> +		new_crtc_state->event = NULL;
+>   		drm_crtc_send_vblank_event(crtc, event);
+>   	}
+>   	spin_unlock_irq(&lcdc->drm.event_lock);
+> @@ -273,66 +284,151 @@ static void imx_lcdc_pipe_disable(struct drm_simple_display_pipe *pipe)
+>   	writel(0, lcdc->base + IMX21LCDC_LIER);
+>   }
+>   
+> -static int imx_lcdc_pipe_check(struct drm_simple_display_pipe *pipe,
+> -			       struct drm_plane_state *plane_state,
+> -			       struct drm_crtc_state *crtc_state)
+> +static int imx_lcdc_crtc_helper_atomic_check(struct drm_crtc *crtc,
+> +					     struct drm_atomic_commit *commit)
+>   {
+> +	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(commit, crtc);
+> +	struct drm_crtc_state *old_crtc_state = drm_atomic_get_old_crtc_state(commit, crtc);
+>   	const struct drm_display_mode *mode = &crtc_state->mode;
+> -	const struct drm_display_mode *old_mode = &pipe->crtc.state->mode;
+> +	const struct drm_display_mode *old_mode = &old_crtc_state->mode;
+> +	int ret;
+>   
+> -	if (mode->hdisplay < LCDC_MIN_XRES || mode->hdisplay > LCDC_MAX_XRES ||
+> -	    mode->vdisplay < LCDC_MIN_YRES || mode->vdisplay > LCDC_MAX_YRES ||
+> -	    mode->hdisplay % 0x10) { /* must be multiple of 16 */
+> -		drm_err(pipe->crtc.dev, "unsupported display mode (%u x %u)\n",
+> +	if (crtc_state->enable) {
+> +		ret = drm_atomic_helper_check_crtc_primary_plane(crtc_state);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	if (crtc_state->enable &&
+> +	    (mode->hdisplay < LCDC_MIN_XRES || mode->hdisplay > LCDC_MAX_XRES ||
+> +	     mode->vdisplay < LCDC_MIN_YRES || mode->vdisplay > LCDC_MAX_YRES ||
+> +	     mode->hdisplay % 0x10)) { /* must be multiple of 16 */
+> +		drm_err(crtc->dev, "unsupported display mode (%u x %u)\n",
+>   			mode->hdisplay, mode->vdisplay);
+>   		return -EINVAL;
+>   	}
+>   
+> -	crtc_state->mode_changed =
+> -		old_mode->hdisplay != mode->hdisplay ||
+> -		old_mode->vdisplay != mode->vdisplay;
+> +	if (old_mode->hdisplay != mode->hdisplay ||
+> +	    old_mode->vdisplay != mode->vdisplay)
+> +		crtc_state->mode_changed = true;
+>   
+> -	return 0;
+> +	return drm_atomic_add_affected_planes(commit, crtc);
+>   }
+>   
+> -static void imx_lcdc_pipe_update(struct drm_simple_display_pipe *pipe,
+> -				 struct drm_plane_state *old_state)
+> +static void imx_lcdc_plane_helper_atomic_update(struct drm_plane *plane,
+> +						struct drm_atomic_commit *commit)
+>   {
+> -	struct drm_crtc *crtc = &pipe->crtc;
+> -	struct drm_pending_vblank_event *event = crtc->state->event;
+> -	struct drm_plane_state *new_state = pipe->plane.state;
+> +	struct drm_plane_state *old_state = drm_atomic_get_old_plane_state(commit, plane);
+> +	struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(commit, plane);
+> +	struct drm_crtc *crtc = new_state->crtc;
+> +	struct drm_crtc_state *old_crtc_state = NULL;
+> +	struct drm_crtc_state *new_crtc_state;
+>   	struct drm_framebuffer *fb = new_state->fb;
+>   	struct drm_framebuffer *old_fb = old_state->fb;
+>   	struct drm_crtc *old_crtc = old_state->crtc;
+>   	bool mode_changed = false;
+>   
+> +	if (!fb || !crtc)
+> +		return;
+> +
+> +	if (old_crtc)
+> +		old_crtc_state = drm_atomic_get_old_crtc_state(commit, old_crtc);
+> +
+> +	new_crtc_state = drm_atomic_get_new_crtc_state(commit, crtc);
+> +	if (!new_crtc_state)
+> +		return;
+> +
+>   	if (old_fb && old_fb->format != fb->format)
+>   		mode_changed = true;
+>   	else if (old_crtc != crtc)
+>   		mode_changed = true;
+>   
+> -	if (!drm_atomic_crtc_needs_modeset(crtc->state))
+> -		imx_lcdc_update_hw_registers(pipe, old_state, mode_changed);
+> +	if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
+> +		imx_lcdc_update_hw_registers(crtc, old_crtc_state, new_crtc_state,
+> +					     new_state, mode_changed);
+> +}
+>   
+> -	if (event) {
+> -		crtc->state->event = NULL;
+> +static int imx_lcdc_plane_helper_atomic_check(struct drm_plane *plane,
+> +					      struct drm_atomic_commit *commit)
+> +{
+> +	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(commit, plane);
+> +	struct drm_crtc_state *crtc_state = NULL;
+> +
+> +	if (plane_state->crtc) {
+> +		crtc_state = drm_atomic_get_crtc_state(commit, plane_state->crtc);
+> +		if (IS_ERR(crtc_state))
+> +			return PTR_ERR(crtc_state);
+> +	}
+>   
+> -		spin_lock_irq(&crtc->dev->event_lock);
+> +	return drm_atomic_helper_check_plane_state(plane_state, crtc_state,
+> +						   DRM_PLANE_NO_SCALING,
+> +						   DRM_PLANE_NO_SCALING,
+> +						   false, false);
+> +}
+>   
+> -		if (crtc->state->active && drm_crtc_vblank_get(crtc) == 0)
+> -			drm_crtc_arm_vblank_event(crtc, event);
+> -		else
+> -			drm_crtc_send_vblank_event(crtc, event);
+> +static const struct drm_plane_helper_funcs imx_lcdc_plane_helper_funcs = {
+> +	.prepare_fb	= drm_gem_plane_helper_prepare_fb,
+> +	.atomic_check	= imx_lcdc_plane_helper_atomic_check,
+> +	.atomic_update	= imx_lcdc_plane_helper_atomic_update,
+> +};
+>   
+> -		spin_unlock_irq(&crtc->dev->event_lock);
+> -	}
+> +static const struct drm_plane_funcs imx_lcdc_plane_funcs = {
+> +	.update_plane		= drm_atomic_helper_update_plane,
+> +	.disable_plane		= drm_atomic_helper_disable_plane,
+> +	.destroy		= drm_plane_cleanup,
+> +	.reset			= drm_atomic_helper_plane_reset,
+> +	.atomic_duplicate_state	= drm_atomic_helper_plane_duplicate_state,
+> +	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
+> +};
+> +
+> +static void imx_lcdc_crtc_helper_atomic_flush(struct drm_crtc *crtc,
+> +					      struct drm_atomic_commit *commit)
+> +{
+> +	struct drm_crtc_state *new_crtc_state = drm_atomic_get_new_crtc_state(commit, crtc);
+> +	struct drm_pending_vblank_event *event = new_crtc_state->event;
+> +
+> +	if (!event)
+> +		return;
+> +
+> +	new_crtc_state->event = NULL;
+> +
+> +	spin_lock_irq(&crtc->dev->event_lock);
+> +	if (new_crtc_state->active && drm_crtc_vblank_get(crtc) == 0)
+> +		drm_crtc_arm_vblank_event(crtc, event);
+> +	else
+> +		drm_crtc_send_vblank_event(crtc, event);
+> +	spin_unlock_irq(&crtc->dev->event_lock);
+>   }
+
+Please use drm_crtc_vblank_atomic_flush(). [1]
+
+[1] 
+https://elixir.bootlin.com/linux/v7.2.5/source/drivers/gpu/drm/drm_vblank_helper.c#L51
+
+Best regards
+Thomas
+
+>   
+> -static const struct drm_simple_display_pipe_funcs imx_lcdc_pipe_funcs = {
+> -	.enable = imx_lcdc_pipe_enable,
+> -	.disable = imx_lcdc_pipe_disable,
+> -	.check = imx_lcdc_pipe_check,
+> -	.update = imx_lcdc_pipe_update,
+> +static const struct drm_crtc_helper_funcs imx_lcdc_crtc_helper_funcs = {
+> +	.atomic_check	= imx_lcdc_crtc_helper_atomic_check,
+> +	.atomic_enable	= imx_lcdc_crtc_helper_atomic_enable,
+> +	.atomic_disable	= imx_lcdc_crtc_helper_atomic_disable,
+> +	.atomic_flush	= imx_lcdc_crtc_helper_atomic_flush,
+> +};
+> +
+> +static int imx_lcdc_crtc_enable_vblank(struct drm_crtc *crtc)
+> +{
+> +	return 0;
+> +}
+> +
+> +static void imx_lcdc_crtc_disable_vblank(struct drm_crtc *crtc)
+> +{
+> +}
+> +
+> +static const struct drm_crtc_funcs imx_lcdc_crtc_funcs = {
+> +	.reset			= drm_atomic_helper_crtc_reset,
+> +	.destroy		= drm_crtc_cleanup,
+> +	.set_config		= drm_atomic_helper_set_config,
+> +	.page_flip		= drm_atomic_helper_page_flip,
+> +	.atomic_duplicate_state	= drm_atomic_helper_crtc_duplicate_state,
+> +	.atomic_destroy_state	= drm_atomic_helper_crtc_destroy_state,
+> +	.enable_vblank		= imx_lcdc_crtc_enable_vblank,
+> +	.disable_vblank		= imx_lcdc_crtc_disable_vblank,
+> +};
+> +
+> +static const struct drm_encoder_funcs imx_lcdc_encoder_funcs = {
+> +	.destroy = drm_encoder_cleanup,
+>   };
+>   
+>   static const struct drm_mode_config_funcs imx_lcdc_mode_config_funcs = {
+> @@ -370,7 +466,7 @@ MODULE_DEVICE_TABLE(of, imx_lcdc_of_dev_id);
+>   static irqreturn_t imx_lcdc_irq_handler(int irq, void *arg)
+>   {
+>   	struct imx_lcdc *lcdc = arg;
+> -	struct drm_crtc *crtc = &lcdc->pipe.crtc;
+> +	struct drm_crtc *crtc = &lcdc->crtc;
+>   	unsigned int status;
+>   
+>   	status = readl(lcdc->base + IMX21LCDC_LISR);
+> @@ -388,6 +484,9 @@ static int imx_lcdc_probe(struct platform_device *pdev)
+>   	struct imx_lcdc *lcdc;
+>   	struct drm_device *drm;
+>   	struct drm_bridge *bridge;
+> +	struct drm_plane *plane;
+> +	struct drm_crtc *crtc;
+> +	struct drm_encoder *encoder;
+>   	int irq;
+>   	int ret;
+>   	struct device *dev = &pdev->dev;
+> @@ -429,23 +528,40 @@ static int imx_lcdc_probe(struct platform_device *pdev)
+>   	if (ret)
+>   		return dev_err_probe(dev, ret, "Cannot initialize mode configuration structure\n");
+>   
+> -	/* CRTC, Plane, Encoder */
+> -	ret = drm_simple_display_pipe_init(drm, &lcdc->pipe,
+> -					   &imx_lcdc_pipe_funcs,
+> -					   imx_lcdc_formats,
+> -					   ARRAY_SIZE(imx_lcdc_formats), NULL, NULL);
+> +	plane = &lcdc->plane;
+> +	ret = drm_universal_plane_init(drm, plane, 0,
+> +				       &imx_lcdc_plane_funcs,
+> +				       imx_lcdc_formats,
+> +				       ARRAY_SIZE(imx_lcdc_formats),
+> +				       NULL,
+> +				       DRM_PLANE_TYPE_PRIMARY, NULL);
+> +	if (ret < 0)
+> +		return dev_err_probe(drm->dev, ret, "Cannot initialize primary plane\n");
+> +	drm_plane_helper_add(plane, &imx_lcdc_plane_helper_funcs);
+> +
+> +	crtc = &lcdc->crtc;
+> +	ret = drm_crtc_init_with_planes(drm, crtc, plane, NULL,
+> +					&imx_lcdc_crtc_funcs, NULL);
+> +	if (ret < 0)
+> +		return dev_err_probe(drm->dev, ret, "Cannot initialize CRTC\n");
+> +	drm_crtc_helper_add(crtc, &imx_lcdc_crtc_helper_funcs);
+> +
+> +	encoder = &lcdc->encoder;
+> +	ret = drm_encoder_init(drm, encoder, &imx_lcdc_encoder_funcs,
+> +			       DRM_MODE_ENCODER_NONE, NULL);
+>   	if (ret < 0)
+> -		return dev_err_probe(drm->dev, ret, "Cannot setup simple display pipe\n");
+> +		return dev_err_probe(drm->dev, ret, "Cannot initialize encoder\n");
+> +	encoder->possible_crtcs = drm_crtc_mask(crtc);
+>   
+>   	ret = drm_vblank_init(drm, drm->mode_config.num_crtc);
+>   	if (ret < 0)
+>   		return dev_err_probe(drm->dev, ret, "Failed to initialize vblank\n");
+>   
+> -	ret = drm_bridge_attach(&lcdc->pipe.encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+> +	ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+>   	if (ret)
+>   		return dev_err_probe(drm->dev, ret, "Cannot attach bridge\n");
+>   
+> -	lcdc->connector = drm_bridge_connector_init(drm, &lcdc->pipe.encoder);
+> +	lcdc->connector = drm_bridge_connector_init(drm, encoder);
+>   	if (IS_ERR(lcdc->connector))
+>   		return dev_err_probe(drm->dev, PTR_ERR(lcdc->connector), "Cannot init bridge connector\n");
+>   
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
 
-On 8/31/2026 4:17 PM, Yongxing Mou wrote:
-> Add support for Multi-stream transport for MSM chipsets that allow
-> a single instance of DP controller to send multiple streams.
-> 
-> This series has been validated on sa8775p ride platform using multiple
-> MST dongles and also daisy chain method on both DP0 and DP1 upto 1080P.
-> 
-> With 4x4K monitors, due to lack of layer mixers that combination will not
-> work but this can be supported as well after some rework on the DPU side.
-> 
-> In addition, SST was re-validated with all these changes to ensure there
-> were no regressions.
-> 
-> The prerequisite cleanup series [1] has been merged into linux-next.
-> 
-> Type-C MST support depends on the DRM IRQ design which is still under
-> discussion, so it will be updated in that series first and folded into
-> the MST series once the design stabilizes.
-> 
-> Overall, the patch series has been organized in the following way:
-> 
-> 1) First set are preparatory refactors to decouple link-level and
-> stream-level operations for MST readiness.
-> 2) Prepare the DP driver to get ready to handle multiple streams. This
-> is the bulk of the work as current DP driver design had to be adjusted
-> to make this happen.
-> 3) Finally, new files to handle MST related operations, DPU encoder
-> integration, and SST/MST connector state management.
-> 
-> Note:
-> Validation for this series has so far been done on the latest linux-next
-> on LeMans, covering both FB console and Weston.
-> 
-> [1] https://lore.kernel.org/r/20260528-dp_mstclean-v9-0-f094cea8ca24@oss.qualcomm.com
-> 
-> ---
-> Changes in v6:
-> - Rebased onto linux-next 20260828; drop already-merged prerequisite
->    cleanup patches.
-> - Reordered patches for better logical flow.
-> - Patch 01: Also move power_on=false into display_unprepare.
-> - Patch 02 (new): Split from old patch 04.
-> - Patch 03 (new): Split from old patch 04.
-> - Patch 04: Squash num_pixel_clks into this patch.
-> - Patch 05: Use loop for snapshot; skip inactive streams before adding.
-> - Patch 06 (new): Split register definitions out of old patch 04.
-> - Patch 07: Rewrite old patch 04; replace stream_id special-casing
->    with transparent msm_dp_read/write_link() helpers.
-> - Patch 08: Fix REG_DP_MST_ACT register placement.
-> - Patch 13: Drop defensive start_slot bounds check; rename
->    channel_alloc -> update_timeslot.
-> - Patch 14: Guard link training with active_stream_cnt == 0.
-> - Patch 16: Add locking annotation; group link_ready with status
->    variables.
-> - Patch 17: Drop redundant stream_id >= DP_STREAM_MAX check.
-> - Patch 18: Consolidate msm_dp_mst_attach_encoder() and
->    msm_dp_get_mst_max_stream() definition, declaration, and usage
->    into this patch.
-> - Patch 19 (new): Split connector/topology callbacks out of old
->    patch 23+24.
-> - Patch 20 (new): Split dpu_encoder_get_intf() refactor out of old
->    patch 21.
-> - Patch 21: Squash stream_id condition; reorder before MST encoder
->    patch.
-> - Patch 22: Use thin wrappers instead of renaming/exporting core
->    dpu_encoder functions; use suggested for-loop style.
-> - Patch 23 (new): Split atomic stream enable/disable/check out of
->    old patch 23.
-> - Patch 24: Add hpd_irq_lock; use %*ph for ESI debug prints.
-> - Patch 26: Defer SST-disconnect-on-MST-cap to new patches 28-29
->    to avoid bisect breakage.
-> - Patch 27: Add comment for clear-before-write DPCD sequence.
-> - Patch 28 (new): Split from old patch 14; handle boot-with-cable
->    SST bridge detection.
-> - Patch 29 (new): Handle SST connector status when MST is enabled.
-> - Link to v5: https://lore.kernel.org/r/20260629-msm-dp-mst-v5-0-2ed6aee1867a@oss.qualcomm.com
-> 
-> Changes in v5(fix comments from V4):
-> - Dropped early refactoring patches (v4 01-12); restructured as
->    "move link-level teardown", "factor out _helper variants", etc.
-> - Dropped v4 39/39 (platform MST stream list); use DT pixel-clock
->    count instead per Dmitry's request.
-> - Patch 02: Remove artificial max-stream limitation check.
->    unify register naming (REG_DP1 vs MMSS_DP1).
-> - Patch 05: Calculate ACT wait time dynamically from mode parameters
->    instead of hardcoded 20 ms.
-> - Patch 08: Replace start-slot loop with direct math; fix commit message.
-> - Patch 09: Add locking annotation "Must be called with
->    msm_dp_mst::mst_lock held" to msm_dp_ctrl_push_vcpf().
-> - Patch 17: Rename prepared flag to link_ready.
-> - Patch 22: Move drm_dp_mst_atomic_check() call into msm_atomic.c.
-> - Patch 23: Replace bridge-based MST DRM model with encoder-based
->    approach; remove redundant bridge layer between encoder and connector.
-> - Patch 24: Add drm_edid_free(); add FIXME for bpp negotiation.
-> - Patch 25: Use dp->plugged flag instead of link status for MST plug path routing.
-> - Link to v4: https://lore.kernel.org/r/20260410-msm-dp-mst-v4-0-b20518dea8de@oss.qualcomm.com
-> 
-> Changes in v4:
-> - Fixed most comments from V3.
-> - Rebase onto HPD refactor V5.
-> - Fixed casing/formatting issues, for example: “mst”.
-> - Drop .mode_set() and set_mode in .atomic_enable().
-> - Rewrite commit messages that are unclear.
-> - Use the same API for MST link and SST link writes.
-> - Use the new drm_dp_dpcd_read_byte() / drm_dp_dpcd_write_byte() interfaces.
-> - Remove some unnecessary payload fields from the MST bridge.
-> - Remove some defensive NULL pointer checks.
-> - Reworked the patch order to make the series easier to follow.
-> - Add support for more platforms.
-> - Link to v3: https://lore.kernel.org/r/20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com
-> 
-> Changes in v3: Fixed review comments from Dmitry
-> - Fixed lots of comments from series V1/V2.
-> - Rebased onto next-20250808.
-> - Rebased onto Jessica's HPD-refactor branch.
-> - Fixed formatting issues in commit messages under changes.
-> - Removed unnecessary one-line wrappers.
-> - Relocated MST-related .atomic_check() calls to their appropriate positions.
-> - Removed the logic related to slot checking in .mode_valid().
-> - Link to v2: https://lore.kernel.org/r/20250609-msm-dp-mst-v2-0-a54d8902a23d@quicinc.com
-> 
-> Changes in v2: Fixed review comments from Dmitry
-> - Rebase on top of next-20250606
-> - Add all 4 streams pixel clks support and MST2/MST3 Link clk support
-> - Address the formatting issues mentioned in the review comments
-> - Drop the cache of msm_dp_panel->drm_edid cached
-> - Remove the one-line wrapper funtion and redundant conditional check
-> - Fixed the commit messgae descriptions of some patches
-> - Reordered the patches and renamed some functions and variables
-> - Link to v1: https://lore.kernel.org/all/20241205-dp_mst-v1-0-f
-> 8618d42a99a@quicinc.com/
-> 
-> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> 
-> ---
-> Abhinav Kumar (16):
->        drm/msm/dp: move link-level teardown from display_disable to display_unprepare
->        drm/msm/dp: introduce stream_id for each DP panel
->        drm/msm/dp: add support for programming p1/p2/p3 register blocks
->        drm/msm/dp: add support to send ACT packets for MST
->        drm/msm/dp: add support to enable MST in mainlink control
->        drm/msm/dp: no need to update tu calculation for mst
->        drm/msm/dp: always program MST_FIFO_CONSTANT_FILL for MST use cases
->        drm/msm/dp: add support for sending VCPF packets in DP controller
->        drm/msm/dp: add support for MST channel slot allocation
->        drm/msm/dp: replace power_on with active_stream_cnt
->        drm/msm/dp: factor out _helper variants of bridge ops accepting a panel
->        drm/msm/dp: add msm_dp_display_get_panel() to initialize DP panel
->        drm/msm/dp: add HPD callback for dp MST
->        drm/msm/dp: mark the SST bridge disconnected when mst is active
->        drm/msm/dp: enable MST on capable sinks
->        drm/msm/dp: mark the SST bridge disconnected when an MST-capable sink is present
-> 
-> Yongxing Mou (13):
->        drm/msm/dp: refactor msm_dp_ctrl_config_msa() to take panel
->        drm/msm/dp: drop redundant config_ctrl_link() from msm_dp_ctrl_on_stream()
->        drm/msm/dp: add MST stream register definitions
->        drm/msm/dp: add stream-aware link register accessors
->        drm/msm/dp: add link_ready to manage link-level operations
->        drm/msm/dp: introduce dp_mst_drm module
->        drm/msm/dp: add MST connector creation and topology callbacks
->        drm/msm/dpu: pass msm_display_info to dpu_encoder_get_intf()
->        drm/msm/dpu: use stream_id to select MST interfaces
->        drm/msm/dpu: add per-stream MST encoders
->        drm/msm/dp: add atomic stream handling for MST
->        drm/msm/dp: wire MST helpers into atomic check and commit paths
->        drm/msm/dp: mark the SST connector disconnected when MST is enabled
-> 
->   drivers/gpu/drm/msm/Makefile                |   3 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  51 ++-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |   2 +
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  27 +-
->   drivers/gpu/drm/msm/dp/dp_audio.c           |   2 +-
->   drivers/gpu/drm/msm/dp/dp_ctrl.c            | 479 ++++++++++++++++++++++---
->   drivers/gpu/drm/msm/dp/dp_ctrl.h            |  19 +-
->   drivers/gpu/drm/msm/dp/dp_display.c         | 414 ++++++++++++++++-----
->   drivers/gpu/drm/msm/dp/dp_display.h         |  26 +-
->   drivers/gpu/drm/msm/dp/dp_mst_drm.c         | 538 ++++++++++++++++++++++++++++
->   drivers/gpu/drm/msm/dp/dp_mst_drm.h         |  16 +
->   drivers/gpu/drm/msm/dp/dp_panel.c           | 205 ++++++++---
->   drivers/gpu/drm/msm/dp/dp_panel.h           |  19 +-
->   drivers/gpu/drm/msm/dp/dp_reg.h             |  69 ++++
->   drivers/gpu/drm/msm/msm_atomic.c            |  14 +-
->   drivers/gpu/drm/msm/msm_drv.h               |  41 +++
->   drivers/gpu/drm/msm/msm_kms.c               |   1 +
->   17 files changed, 1727 insertions(+), 199 deletions(-)
-> ---
-> base-commit: e30626823a406725ce29bc75cb8ec467d3e1e326
-> change-id: 20260410-msm-dp-mst-35130b6e8b84
-> 
-> Best regards,
-Hi,
-This is a gentle ping on this series.
-If you have a chance to review it, I'd appreciate any comments and feedback.
