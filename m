@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B6B4C982C1
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 16:50:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7182BC982C9
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 16:51:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7335710E2B5;
-	Wed, 16 Sep 2026 16:50:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8E1E10E34F;
+	Wed, 16 Sep 2026 16:51:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HzyqTTzd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KDzpsTWg";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3C1F10E2B5
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:50:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27CD310E34F
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:51:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8BFAF43D0D
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:50:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 645241F00900
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:50:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0B19343D2C
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:51:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D77531F00921
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:50:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789577435;
- bh=YbF9Hq6ip8NH9UOOHu4vU+eokzBGAvhZ+dvcT2bOj6k=;
+ s=k20260515; t=1789577459;
+ bh=aPNoc/IlVGOzrz4AF5oUnZbB8ytSLfqRYFF3aP/E0sQ=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=HzyqTTzdTWLsGmoCJP7+EXA26N7h4dqjzbXM5JPEPRmAvBShC5ylp3QJV/IjFmw2j
- mjYxuiIBuHovU5P+xcx8DR4hs3yIUF84rFvt80tKQbbcmWfaC3EJjON9izC9FxzvdM
- oFVfWzvRvSrFfZUjJLWso1ndlCj0t1vaf66uaca+2kSipx62tXWjn+XumW5OQJgL4j
- T4S5S1y7EEAGt7l3v09zRQP7DTAhU8QxP8B2Vg2Tp9QhJZlqEaP1j07YpuHi9gJLJK
- RTsbMzdFpidBi3Q6p012fOaANPqli9LviU2nv30Gm+quxkMLGJbSfeU5/2BANPeULK
- z/AWiwO1xhFsg==
-Received: by mail-lf2-f13.google.com with SMTP id
- 2adb3069b0e04-5b5e4f16c72so1165068e87.0
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 09:50:35 -0700 (PDT)
+ b=KDzpsTWg/z/5krxTobDbUSigXfKLPKN3GY+kPVHqBR7Qs64CjzbIot5CkPAxP2KI+
+ Upq0GS82M9H0w++Czaj9svBiDTIMQmYdYP/CnWtiPeFrOEHUujcdjRSLexmI83DV+8
+ d3OQKB1DCYTLA88vtfqbmhxp+3cXxscBoXEspNQE0qlsMYOfCwjg24mnoTiNgsl1/S
+ 2qLgSSSaznjuc0hKlv6DMiusMtJMUHjJIhhSSySZ7vl9callQF4Q+5MgOlSemRyTDx
+ yueZt3Uscllvxw64KPLdcYhjZOLgiIXI50AcSMUhvVtuef5e/bhhcPutASFv5vSY+5
+ AtaQQrqZxPKdg==
+Received: by mail-lf2-f12.google.com with SMTP id
+ 2adb3069b0e04-5b76462aae9so905444e87.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 09:50:59 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AKwUvBz8ufBdhxz7U/VjHaD4AX1fNKs4lApewadq0nsE4z6awpg/5NRjsH+ij66T+nDe2JJ5uehhoUUniKg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nTaN0mHVGbvW7aj6YFEqtgjionZXzfDEWgFap6DxnrykXULHE0
- jrmSB5xsrKetf2coQ86Nn9eFoPlF6Olwv9Uy9yHi+8xqfh23Ls8G5vVkCat9FH6qkMOGM2hYONp
- ZI8WZcPeJYYEKqyoxBJly9QEacGJPGvo=
-X-Received: by 2002:a05:6512:12cb:b0:5b5:e263:dcc7 with SMTP id
- 2adb3069b0e04-5b8b660c1ebmr1008093e87.5.1789577434048; Wed, 16 Sep 2026
- 09:50:34 -0700 (PDT)
+ AKwUvBxBQONjdO46FqnSMc/0MMb/BhjJ1XFX8w7Pq71qqAQboH0Jp6yeXtjvj7txJbFJmgMfEWnKv0o99dU=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m+hE1sLvEvUdf1/J3ww9RUsSQSRCl2+KFsuVefxp5DMojuwUoW
+ Jpp6NN/M1DPzsEN+T4UoKuPRS5JgW1lom/chiY25CpVLkI3hpno0j2zZtzvVdM8pc0jbJnhF0vK
+ yyprB8DiJ9Np1OB2E4Ve+46M+R8/z52A=
+X-Received: by 2002:a05:6512:4023:b0:5b8:b419:c8ad with SMTP id
+ 2adb3069b0e04-5b8b6617917mr969995e87.17.1789577458536; Wed, 16 Sep 2026
+ 09:50:58 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260909132153.1596191-1-arnd@kernel.org>
- <20260909132153.1596191-6-arnd@kernel.org>
-In-Reply-To: <20260909132153.1596191-6-arnd@kernel.org>
+ <20260909132153.1596191-9-arnd@kernel.org>
+In-Reply-To: <20260909132153.1596191-9-arnd@kernel.org>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 18:50:21 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=8g4U-BkKH2zVuxQD1BqHNP-EseUsKzTJNpJFaR+Q6AQ@mail.gmail.com>
-X-Gm-Features: AcwNN1W58wTtgVz2clQ_wz9Mlu89xpFs3b5LWAbQ7ez6ueMaGMU5iIjS17A22CM
-Message-ID: <CAD++jL=8g4U-BkKH2zVuxQD1BqHNP-EseUsKzTJNpJFaR+Q6AQ@mail.gmail.com>
-Subject: Re: [PATCH 05/14] mfd: remove unused adp5520 driver
+Date: Wed, 16 Sep 2026 18:50:45 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=dBJNiZMwRfYtVXC=qfWEU8WY1DRRzDA1o9Ngsd_VRqg@mail.gmail.com>
+X-Gm-Features: AcwNN1VWCbypMBp0nAwSnIVxOHs3QNpjZkwVGv_5Swi1QUA8mHWSb92JoMn3LYg
+Message-ID: <CAD++jL=dBJNiZMwRfYtVXC=qfWEU8WY1DRRzDA1o9Ngsd_VRqg@mail.gmail.com>
+Subject: Re: [PATCH 08/14] mfd: remove unused aat2870 driver
 To: Arnd Bergmann <arnd@kernel.org>
 Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
  linux-kernel@vger.kernel.org, 
@@ -98,9 +98,8 @@ e:
 
 > From: Arnd Bergmann <arnd@arndb.de>
 >
-> This driver requires the use of platform_data definitions rather than
-> devicetree, but that was last used on the blackfin architecture in
-> 2018 and nothing could have used it upstream since.
+> This driver was apparently never used, as it has has no devicetree
+> support and never had corresponding platform_data definitions.
 >
 > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
