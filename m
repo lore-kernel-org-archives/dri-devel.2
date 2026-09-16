@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76F84C982C5
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 14:23:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 767D9C982CC
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 14:23:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6892E10E12D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6F7F10EB30;
 	Wed, 16 Sep 2026 14:23:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SPBfGnlY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GjOziDyV";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 074A010E8F4;
- Wed, 16 Sep 2026 14:23:08 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 0AFE944870;
- Wed, 16 Sep 2026 14:23:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D19DCC2BCB3;
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0F3410E12D;
  Wed, 16 Sep 2026 14:23:03 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id BDC3B60A55;
+ Wed, 16 Sep 2026 14:23:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 68D89C4AF52;
+ Wed, 16 Sep 2026 14:23:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1789568583;
- bh=I4CTX75TF5hVx5UxMd8q7ZxWApioKhsfuYRkgccb7/o=;
+ s=k20201202; t=1789568582;
+ bh=PiGlgLq4HLzgcNWJlnKLCTJCXSksB8hMt6d6mZbN6c4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=SPBfGnlYryT4By6nB8pUwUYaohWMigVzZz7uhPW9y5lcm1TIPhKKKL7nRg3yQMwWo
- jXHVb/bVfxefxileDbJ5gvGRR2UPD+tM+vtGAVe80k3Jv+MzODsNxwYh4oR7u/5c+R
- suBqA+m7cuv4wMYdlZA/h4WbK1zP4qqxMwaQa2KBuGzggjZMum1m0e2xKysPp/bOtN
- JIEX5ZQbz5XLmbDd3HIIMnMy/sagTWiUV3fTMhCY6XTt1ozxEIA7YPBeFWsBrD3Fpj
- lBfs9AyN1l1pndTSCrlRDelNJ/NpysdoiM21knYQ+7/sQWT8K5x6L+zFTVZOv6XILm
- 7ddTa8quypoHA==
+ b=GjOziDyVYw35YtnwDFq6vgtNVGiHiiSvvnXuMUlOPX4cSSLIeadeiD9Z4RFg8lrFH
+ UapIoVVH02NbqiKul2VHtIvM5md/s0y+BCWwkssN+QJCXywsjCD87yUEsjVL7T13XG
+ kg1EN72UGXkny8mnqhU9+Xes+TUoTMHqdnEld8gboIqDJ0Ln122DjppiloHycejXVt
+ ncruOgXlhmknnW2tmlR10pUMn5KvDMMdVDBbAHnh8410h+s6jOaJqQXb4wOiEjnc99
+ zjJ7M62lU7iYD0lzpp8ezwiEjfXkMGco/F9NXyAHn9SYR6ngxd9rRqHnPjo0d6Wfsl
+ B1KCuqU+aV8hg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id B8EC0C982C5;
- Wed, 16 Sep 2026 14:23:03 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 4F39AC88E77;
+ Wed, 16 Sep 2026 14:23:02 +0000 (UTC)
 From: Muzaffer Kadir via B4 Relay
  <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Wed, 16 Sep 2026 17:22:20 +0300
-Subject: [PATCH v2 15/19] dt-bindings: thermal: tsens: Add MSM8952
+Date: Wed, 16 Sep 2026 17:22:08 +0300
+Subject: [PATCH v2 03/19] dt-bindings: nvmem: Add compatible for MSM8952
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-msm8952-initial-support-v2-15-798c2602dde1@mainlining.org>
+Message-Id: <20260916-msm8952-initial-support-v2-3-798c2602dde1@mainlining.org>
 References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
 In-Reply-To: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
 To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
@@ -79,9 +79,9 @@ Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
 X-Mailer: b4 0.15.2
 X-Developer-Signature: v=1; a=ed25519-sha256; t=1789568579; l=797;
  i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=qpZ4iKLD/3vBtZO46iDlquc+pQ/AKxoxvg54YFCLw48=;
- b=2XsdEXnBXh1Az36JsopU3NLkX1Igbws9nWi07z6oO8aDEqtGI6mtUKxfnWg2d+BBR0GxtQ7e1
- qJLGLY6WuOpDgkI9y1IxqNf0lYodueH9m/FsNohPFgxWRIecX7ypuRI
+ bh=xgv3VAmEPihKNLAMfmEupJn/tXfri03oKJMevM96r+c=;
+ b=/X3rdvd2b3vhEzK00ebQaRMu29/ObyBFEKVJUQRxqmvT8slB2l8YtKCIHogcg15nbdJjJAwAR
+ apzndBaCrmTB2dGpWJPFljvmpMI+74MaLtSN7vYcsad7mQmBotHNF74
 X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
  pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
 X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
@@ -105,25 +105,25 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Add compatible string for tsens block found in MSM8952.
+Document the QFPROM block found on MSM8952.
 
 Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- Documentation/devicetree/bindings/thermal/qcom-tsens.yaml | 1 +
+ Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml b/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
-index 5a8f7673e730..c78074fbcecf 100644
---- a/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
-+++ b/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
-@@ -46,6 +46,7 @@ properties:
-         items:
-           - enum:
-               - qcom,msm8937-tsens
-+              - qcom,msm8952-tsens
-               - qcom,msm8956-tsens
-               - qcom,msm8976-tsens
-               - qcom,qcs404-tsens
+diff --git a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+index 566304ed4c78..646f2e8dcf4d 100644
+--- a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
++++ b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+@@ -37,6 +37,7 @@ properties:
+           - qcom,msm8916-qfprom
+           - qcom,msm8917-qfprom
+           - qcom,msm8937-qfprom
++          - qcom,msm8952-qfprom
+           - qcom,msm8960-qfprom
+           - qcom,msm8974-qfprom
+           - qcom,msm8976-qfprom
 
 -- 
 2.55.0
