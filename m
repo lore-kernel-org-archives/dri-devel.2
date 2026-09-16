@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD2E9C982C9
-	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 16:55:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5B3AC982C1
+	for <dri-devel@archiver.kernel.org>; Wed, 16 Sep 2026 16:56:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46C5210E45A;
-	Wed, 16 Sep 2026 16:55:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 314C810E465;
+	Wed, 16 Sep 2026 16:56:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jgG2fcgm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LwL5uJTv";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1153010E45A
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:55:39 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82EFD10E465
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:56:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5472560A54
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:55:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00EB81F00A08
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:55:37 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2AA3143D6A
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:56:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AE591F00906
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 16:56:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789577738;
- bh=3Rl9kH69FoIDw7gGLNXjdv5fuBqhGXd9XmucXEFUoPA=;
+ s=k20260515; t=1789577763;
+ bh=FsAF5t94/E+0eDbBJV3FrxLYtGfzl97iFt4l9Z2gsvc=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=jgG2fcgm04XQ1sjv96yZWoL9W/lNflacZnI7oSFM1D9ZHGfNQQoEWWSMuQG/IC2/T
- 2VuhpPXP8oBGkHZtPfmlzEoCglvXu8AYWKJ6X2RLLUZ5sChU4Uhy7YW6OUHmroACcr
- AjGBRjESalVhyQaIXKoxQj/+xiefBFKY77Vyt8vXOTqRH2tTrsPkfVkbJWnysisBe4
- ZLlwQY3EjrTvAb8MZuXdCJf47zm/QDAlH8wgNCWJRVgHxqLSx/j1A0MBJDPgaNwxBz
- ZxK2KUNJH//fwQQp9knX4O8sha16fCgt/rNFFXZAkNG2+va1/xHBuVoEU+PGVQYV26
- M6VHoCiEiQlEQ==
-Received: by mail-lr2-f27.google.com with SMTP id
- 38308e7fff4ca-3a5b6840edcso10431091fa.1
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 09:55:37 -0700 (PDT)
+ b=LwL5uJTvk+caRQNwbSB5ATPRXw7brmRpqJk2QtEll9wNrHzM4LXKPhOBdmC+qqHOI
+ NaAfUFq4rzoGACFTTyQdLoVYuJm1jdHaHb3qn8txxe+xc8JINpsTykSozSnWxabH7h
+ op/idZS1YNtNoCVSPRb1QEGHzn2m7zw2LDIyCIF4UfpM40ioUVIK3/wHAx+xiSWMvN
+ /xVulE7ndQVQaOLAUcAleHr+kdN6ev6pJOs9oO4QLDkU1T8hSvaeyWKeIa8Kzkm0DD
+ ggUQq/Z5XbsvLX0fdmmQODqsVDJJlwrxRbedL+4Z4hrIX17PbxybKgpia9/d18jI5C
+ V90mrPeJbBvPw==
+Received: by mail-lf2-f12.google.com with SMTP id
+ 2adb3069b0e04-5b88dc3bc02so1254691e87.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 09:56:02 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AKwUvBw9grS7buVeGKetAGSEgohULpFf47PYgXWPxygOgSBovHZNAEWYSwNIfka2CM0W71Bod9bwejSTh2k=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n4wtK7OIKrQ9EmOZ+4+FeTRKAHwu0bySSzgasidBV6Lwm2tw/Q
- yGTmL9z+OEi8w2aL/dSf/smUeQZW9oobk2716YmUn5hCQyc3pEcA2/xorjH8wNBLwM4jnrDYp71
- 2qm1UCdMj2Eunm0sWsD7GB9IZvMPMx4o=
-X-Received: by 2002:a05:6512:2c97:b0:5b4:ac27:6bb0 with SMTP id
- 2adb3069b0e04-5b8b666abe2mr2187526e87.25.1789577736627; Wed, 16 Sep 2026
- 09:55:36 -0700 (PDT)
+ AKwUvBzcD6AsrFwulUaBx3TBbJUhUWzhVXTNaceOCdiF40xMVf9RC/YxEVXi1ehKqKAx/rrr7rOqL1iLIZM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mdIqsilo6t24x/lvmBXbCjeL/pn9vCYVpo2qKX5nW+4+MYwvoQ
+ CS+pFENzZ+q209YppMQ1kmYB2h6CnIa1rya0zHoz/0mJkhIqo//D0nLL9OuWLBPzv3ZQkP3nh/O
+ H/q2EV2Lh756QPysP3iIEzilJMui8AKQ=
+X-Received: by 2002:a05:6512:3e1b:b0:5b6:1a7c:fd7f with SMTP id
+ 2adb3069b0e04-5b8b6652b42mr975442e87.37.1789577761635; Wed, 16 Sep 2026
+ 09:56:01 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260909132153.1596191-1-arnd@kernel.org>
- <20260909132153.1596191-7-arnd@kernel.org>
-In-Reply-To: <20260909132153.1596191-7-arnd@kernel.org>
+ <20260909132153.1596191-8-arnd@kernel.org>
+In-Reply-To: <20260909132153.1596191-8-arnd@kernel.org>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 18:55:24 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=7tuZWkXqn0gj14JDbsxkT=cU_1aFOXMRc=PmE-3X-eg@mail.gmail.com>
-X-Gm-Features: AcwNN1XvcQ2YIjfo5CFBtXX11PIudi6lRGCv7LMnZ1tHaTMlEuKLFH_DVwfW2u8
-Message-ID: <CAD++jL=7tuZWkXqn0gj14JDbsxkT=cU_1aFOXMRc=PmE-3X-eg@mail.gmail.com>
-Subject: Re: [PATCH 06/14] mfd: remove unused da903x driver
+Date: Wed, 16 Sep 2026 18:55:49 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmJ4tbJuwuQtAx6UCxWU4XghXwp=saMqy5SRsASqe-=Hg@mail.gmail.com>
+X-Gm-Features: AcwNN1X4XEEO3B_3JMl6a8g-CgUfyegbwNLsrb9Ef6iUWMuuaWJ5SqyyXzqaDA0
+Message-ID: <CAD++jLmJ4tbJuwuQtAx6UCxWU4XghXwp=saMqy5SRsASqe-=Hg@mail.gmail.com>
+Subject: Re: [PATCH 07/14] mfd: remove unused lp8788 driver
 To: Arnd Bergmann <arnd@kernel.org>
 Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
  linux-kernel@vger.kernel.org, 
@@ -98,9 +98,11 @@ e:
 
 > From: Arnd Bergmann <arnd@arndb.de>
 >
-> This driver was used on a handful of ARM/PXA boards until those
-> got removed a few years ago. Without devicetree support, there is
-> no way to use them upstream.
+> This driver was apparently never used upstream, and without devicetree
+> support cannot be used by external board support.
+>
+> The MAINTAINER entry was already removed in 2021 as the email address
+> bounced.
 >
 > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
