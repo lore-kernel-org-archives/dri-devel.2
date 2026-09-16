@@ -4,56 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A067C982CD
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 07:05:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BC3BC982CD
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 07:05:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04D1210EA57;
-	Thu, 17 Sep 2026 07:05:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6BAF10E97E;
+	Thu, 17 Sep 2026 07:05:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="FJZ+1v6q";
+	dkim=pass (2048-bit key; unprotected) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="kyZFW2ZO";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6443D10E59A
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 12:33:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Yw
- thTuFCXwhCBJs5emd3GoGmBBNdx1niAg81qBqSATQ=; b=FJZ+1v6qf9fbgWzOIX
- S1A4zX3b77WP7sEBTYv9OSDrKoN0PUeBJuTmSRxLlLhRxTQJuAxPp70g5UU3OhYd
- bGhmomt0fOSK22Pch61DaAqtLoFEPtdnrGioRw4bM5mSCOs43vp4epTI+0DdlTt5
- pk/BvLimCSQzCPBl9il3dTjA4=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
- by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id
- _____wA3JL1KjKpqEbZDBA--.13280S3; 
- Wed, 16 Sep 2026 20:32:13 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>,
- Andreas Kemnade <andreas@kemnade.info>,
- Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>,
- Tony Lindgren <tony@atomide.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-omap@vger.kernel.org, quchaosheng000406@163.com
-Subject: [PATCH v3 2/2] ARM: dts: ti/omap: drop unit-address from tpd12s015
- endpoints
-Date: Wed, 16 Sep 2026 20:32:10 +0800
-Message-ID: <20260916123210.107841-2-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260916123210.107841-1-quchaosheng000406@163.com>
-References: <20260916015833.112753-1-quchaosheng000406@163.com>
- <20260916123210.107841-1-quchaosheng000406@163.com>
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
+ [209.85.128.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF1F710E09F
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 21:43:24 +0000 (UTC)
+Received: by mail-yw1-f178.google.com with SMTP id
+ 00721157ae682-86162c086f8so790487b3.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 14:43:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789595003; cv=none;
+ d=google.com; s=arc-20260327;
+ b=C/LfNraO55MwyuB1A9c/zO85jSbSpDyjcVuwHmcSJ/pSiiMhYaDf6zU2gvS4aVqsLX
+ by+tTGPlxbMyzsjqrIUTFQt3h9F/8+UkzL850MmxLS3wbf4lRQZ02+nybdxQ5pfWKjkL
+ SzJlnvabecnSpV014GczcnQigYRW5wlviek2iFxrdKRAF+D7acaWH8X87Qa7bB4YEtd5
+ 3kuEaB3c+bQoKj2Xv0WzetQl/c08CkK452uVWz9CJlcHuOXG4BrzjfxB+VjKHZfMah+M
+ DDDcGVKCuytN+PUxuK1OLJI9iut7oqvXKt1QPfqiXNQcDP7C/TQ7t2ZYCM22e7eN7PeR
+ iXeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=XcwxAB43YdszLPV10ZP5iQsr+p0JEvwgv6jHK+rlABU=;
+ fh=1OwIzntrVtmK/hr5SSRdldaUTh3BIaJ7s4eVrYivD2E=;
+ b=ChgU94EuSWpZMSFcLEF3bxCWngj+VWgzAc9NTo3a+pZW9UbHJyH3jkf98okhHv+9XX
+ /cCAasCQSeuzkNXptU2OknTEZyD1HIvPqVEgR77OLXb8nxvg3neOnKcD4E+CuDiPx10N
+ 4LlLK54vHZfJgHruJApeZ5YaalKW6di8+0BiixSvRR8wgUOFlemigMuoqSKoBGBkjnTG
+ TBhPC2eW0ak+iq7wHP25tUGoCsprq+zvtIMRn5H+1EfULFLsMnRjnmvOWZa/V3l+GFR4
+ EKpipt7s1QHM9z+kQDSJHu3/SwFNID7dxWMK1ELx+M/OEVUIdKraZb5D/0UFoLzQQ7rN
+ DoQg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1789595003;
+ x=1790199803; darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=XcwxAB43YdszLPV10ZP5iQsr+p0JEvwgv6jHK+rlABU=;
+ b=kyZFW2ZOIxGgQ6+neWeFzPq3KajdBpZzNGNUJBK7ZceXIzOcnGE1Jw8lg2iL4QVoqO
+ tqpDIujuZns4LUYo76RvSQ516Obaa20muTmhy+/J8yXawNjp0MShGJzvEUElX2iz3DXQ
+ UD9UDexyPpiTGP92S3rm+6mxC66fdbnUioMxoCZoAcT37kMjz+cz14gVZkYQ8M5f8BeV
+ aaAnQtws32CYxwVfN6yqpuh4K1+Aed0E+8ourkEcyPx+yBPyoq2+eBZZgZfhvvXn5GD0
+ iRmTnusKXjYfOySU5+tzYUQyKj/6ZBCIGp5AghHRq6VKLEsE25kKjDQ3u6BIPMS7gOIg
+ gTGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789595003; x=1790199803;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=XcwxAB43YdszLPV10ZP5iQsr+p0JEvwgv6jHK+rlABU=;
+ b=cDLE8mKORG1TfAofnQZIpS1iuPPD1BwVyKF2OuuDPQqdXiYQq9Ar+/TkBBgp6aE686
+ leEdfYr9td7cS1E5ajUDFHQYuewy6+WHovRQz342NWFGgM4L7pm+ZwDDZv8FRzofWzCI
+ atLnJYBczO/9PbtUbI3b9N0NV0g5GLVJQjdHUJoO4K2QWKQaJX60bhvXNq9UFKh1Z85k
+ 2iTCxqjKl+jBSWjSL1C4ov0i7fxSY0Hl5cEap9piAR7kCdMiUKP8PNxel1iuZOe46LZ7
+ dnAwHvXrRKYQn1jS9sr6zFMo7jPDmTMkc7kaWs8WOSGF4iWNe/4fkveRDJqsNs9JBysx
+ zjaw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzY3b4swazHvxLT2iZnX3Zr3C3ywKlnIR75J3yJ+XnfD9CyJyOKOtZu4ABL+DlXLBCjjhUHCWbJ2fI=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m8pmzChifSanvaV0GiIlN6X0+NjoQSkSafhDHEIu+zdClqlxKW
+ Ju1GK4H3ka6VlUNDChbj1X5xfcrsrRrrzF2lANRvfe7OlG9PEsBWtqHiickFh+D6MD5RJ2Fs30O
+ hwO0SJ1zXDYD6M9+nQ3EC6mLkqWct2AQbRiyR5Stl
+X-Gm-Gg: AYBFou1nCNWMJ4U9U+bdn0IYUQWdZFtNtJZnSv2JT/dtMYY+iyu+xiXDeWjekGWOqIJ
+ /xRYD/MrHBIs2Tl+YWIYp1gmFcK36EyWvQ36zI/2WnbFUJedlF3zNQx6+V0QkA/nhvQkIar5Ne2
+ Ksst3g6t9uKGvCvVRuqvZWrKXVr18uBk2MSsOGh6V8cJBAgKtzHPfjDiR58t8hBiQVZnOwz2PP7
+ mPgZab0fu46QOBYNv2eq6oStQWw61GgEsZO5KVgB3Jd1JCW53fA7WjXzyTj6g6qfvOJXqHIXMV1
+ xgZ7uQTaEXK9wQDJ4MK+k6arI4EVdyEPzuuzVQCWxPlWc1My+vop5XdHHQxO7ur0nDNrT8HLM/H
+ Aq54B0r1FCw==
+X-Received: by 2002:a05:690c:7:b0:873:5c7b:c12d with SMTP id
+ 00721157ae682-8944596a1a4mr2540477b3.21.1789595003466; Wed, 16 Sep 2026
+ 14:43:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wA3JL1KjKpqEbZDBA--.13280S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr48Xry8uw43urWxCry8Xwb_yoW8Cr18p3
- s29F4ktws7GF109F4DZw1q9F1qkF4DuF1ayF4UWryUCa13Xw1rJF1xt3sakr1UCayfZw4j
- 9rs5WasFqw1DWF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pisNVkUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDAA178GqqjE15RQAA37
+References: <cover.1788284852.git.sean@starlabs.systems>
+ <apfz3lf1RIfAkKYS@google.com>
+ <CABtds-0w2b0P6SGoAZGHJe-4usmG6B8SUP1ufRQyp0+9UFcF3g@mail.gmail.com>
+In-Reply-To: <CABtds-0w2b0P6SGoAZGHJe-4usmG6B8SUP1ufRQyp0+9UFcF3g@mail.gmail.com>
+From: Sean Rhodes <sean@starlabs.systems>
+Date: Wed, 16 Sep 2026 22:43:10 +0100
+X-Gm-Features: AcwNN1U8ZB3podUdFXiPZ834VqBifCusJKONnKfdetS9jbEaRFfMhwBYCh_JS1c
+Message-ID: <CABtds-2srRmKDvNj7g_0C2w8L72WczLsA+Vc_Yg3KC4gvSJyqw@mail.gmail.com>
+Subject: Re: (subset) [PATCH v14 0/5] coreboot CFR firmware attributes
+To: Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Hans de Goede <hansg@kernel.org>, 
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones" <luke@ljones.dev>, 
+ Denis Benato <denis.benato@linux.dev>, Prasanth Ksr <prasanth.ksr@dell.com>, 
+ Jorge Lopez <jorge.lopez2@hp.com>, Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ "Derek J. Clark" <derekjohn.clark@gmail.com>,
+ Joshua Grisham <josh@joshuagrisham.com>, 
+ Will Deacon <will@kernel.org>, Douglas Anderson <dianders@chromium.org>, 
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
+ Chen-Yu Tsai <wenst@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ platform-driver-x86@vger.kernel.org, Dell.Client.Kernel@dell.com, 
+ Brian Norris <briannorris@chromium.org>, Julius Werner <jwerner@chromium.org>, 
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>, 
+ Titouan Ameline de Cadeville <titouan.ameline@gmail.com>, 
+ Laxman Acharya Padhya <acharyalaxman8848@gmail.com>,
+ Yidi Lin <yidilin@google.com>, 
+ Kees Cook <kees@kernel.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>, 
+ chrome-platform@lists.linux.dev, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Bjorn Andersson <andersson@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, Arnd Bergmann <arnd@arndb.de>,
+ Eric Biggers <ebiggers@kernel.org>, 
+ Luca Weiss <luca.weiss@fairphone.com>, Michal Simek <michal.simek@amd.com>, 
+ Sven Peter <sven@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>, 
+ linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 17 Sep 2026 07:04:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,64 +140,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The endpoint nodes of the tpd12s015 encoder on the am5729-beagleboneai and
-the am57xx-idk carry a unit-address without a matching reg property, which
-the device tree specification does not allow.
+How about patch 1 and 4?
 
-Drop the unit-address so the nodes are named "endpoint".
+Thanks
 
-No functional change.
+Sean
 
-Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
----
- arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts | 4 ++--
- arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi  | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts b/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
-index 76bfb364777e..f40017a0e414 100644
---- a/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
-+++ b/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
-@@ -168,7 +168,7 @@ ports {
- 			port@0 {
- 				reg = <0x0>;
- 
--				hdmi_encoder_in: endpoint@0 {
-+				hdmi_encoder_in: endpoint {
- 					remote-endpoint = <&hdmi_out>;
- 				};
- 			};
-@@ -176,7 +176,7 @@ hdmi_encoder_in: endpoint@0 {
- 			port@1 {
- 				reg = <0x1>;
- 
--				hdmi_encoder_out: endpoint@0 {
-+				hdmi_encoder_out: endpoint {
- 					remote-endpoint = <&hdmi_connector_in>;
- 				};
- 			};
-diff --git a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-index 5eccff3bb4b6..4e8a5820b05c 100644
---- a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-@@ -135,7 +135,7 @@ ports {
- 			port@0 {
- 				reg = <0>;
- 
--				tpd12s015_in: endpoint@0 {
-+				tpd12s015_in: endpoint {
- 					remote-endpoint = <&hdmi_out>;
- 				};
- 			};
-@@ -143,7 +143,7 @@ tpd12s015_in: endpoint@0 {
- 			port@1 {
- 				reg = <1>;
- 
--				tpd12s015_out: endpoint@0 {
-+				tpd12s015_out: endpoint {
- 					remote-endpoint = <&hdmi_connector_in>;
- 				};
- 			};
--- 
-2.43.0
-
+On Wed, 2 Sept 2026 at 11:01, Sean Rhodes <sean@starlabs.systems> wrote:
+>
+> Thank you :)
+>
+> On Wed, 2 Sept 2026 at 11:01, Tzung-Bi Shih <tzungbi@kernel.org> wrote:
+> >
+> > On Tue, Sep 01, 2026 at 06:48:01PM +0100, Sean Rhodes wrote:
+> > > Move the firmware attributes class helper out of platform/x86, rename the
+> > > coreboot-table firmware driver directory from google to coreboot, and add a
+> > > coreboot CFR firmware attributes driver.
+> > >
+> > > Changes in v14:
+> > > - Rebase on current upstream master after Linux 7.3-rc1, preserving the
+> > >   intervening coreboot table bounds and CBMEM no-map changes.
+> > > - Drop the standalone include-order cleanup. Replace the affected relative
+> > >   includes directly in the firmware attributes helper move, as requested by
+> > >   Tzung-Bi.
+> > > - Split the DRM coreboot framebuffer dependency update from the firmware
+> > >   directory and Kconfig rename so it can receive a DRM Acked-by separately.
+> > > - Keep the CFR driver and its runtime behavior unchanged from v13.
+> > >
+> > > [...]
+> >
+> > Applied to
+> >
+> >     https://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git for-firmware-next
+> >
+> > [2/5] firmware: Rename google firmware directory to coreboot
+> >       commit: 44e33a5aaa2de3f5cf2701d6f4b0a7c63d4fe602
+> >
+> > Also created an immutable branch "ib-coreboot-rename-7.4"[1] for patch 3
+> > and patch 5 which build-time depend on it.
+> >
+> > Thanks!
+> >
+> > [1] https://lore.kernel.org/all/apfyaxKEEJz20wRC@google.com
