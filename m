@@ -4,80 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2CA3C982D2
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:11:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91EE9C982D7
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:11:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D23DE10F1F9;
-	Fri, 18 Sep 2026 07:11:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AF8D10F1FD;
+	Fri, 18 Sep 2026 07:11:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BdEeoGC1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dbRB47of";
 	dkim-atps=neutral
-Received: from mail-vs2-f29.google.com (mail-vs2-f29.google.com
- [74.125.227.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A1B110E0AE
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:36:03 +0000 (UTC)
-Received: by mail-vs2-f29.google.com with SMTP id
- 71dfb90a1353d-5c67e5059f9so494203e0c.2
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 09:36:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789662962; x=1790267762; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=J0HrSFs1iyASxRb+VzpnZv3WQ9ucZZcUM1YgNRzctxU=;
- b=BdEeoGC1gNCnWYDOW/IyC49BW8YzNE22zzHe6RRqmouVkqiU1iEctJf6BOkUbxTXOm
- lWKCAzsLDQNwwHj5lKu5qwg9FomG0BQ6RIy10l0PBw+FrQQIOdaHuoN4JV+3q0W0z+4a
- jqHLDx+O49YOdYRUww4LOPc3ObEKrJ0pDbmEhjIXMsdgYDWci5svT5l+CYFCoil4DOBG
- hU3OEQxsfi3bSAr8C1qPMpSVhbySvXV1mWr/p3pTalM3lAfH8LNpdPbtiFpYkshnH2IN
- OBh7bnmHW17LnJllkPYpmSo0+CTPWyzUTE29iPM6PWhEDMCvjdDo4+4VbWkdH0ceU6cA
- hJog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789662962; x=1790267762;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=J0HrSFs1iyASxRb+VzpnZv3WQ9ucZZcUM1YgNRzctxU=;
- b=khiBttf8wZ5jG9DJbRXGQMoE3HJihCsH5+eC+sMcggPjBBq/Vqx21R7MuqYQGfnOjF
- Q3as7IMSOWmmAXYhSolLnCPkss4PThfLuspE05iEmgV3vzKFBkJbSNKnbOjSwrwWCyZz
- y2uqxZqy+gKTaAHRkgqIMldvlsbJXKYpYGfv99hcaiwJ4tU305y39BK03EaxN2HCxXwL
- XLOyrKduata47194dPBG3yCo8DgninL3TKZbt7wb6Dulv7mUt8Sm/qqaFMb1ytQ6Fj66
- rtUm739cJSpZmWoqyznAzufEwOegoA6P2dQ7a3UnJ74Yz2rB7PocMkF+5AeVXOuiSPcP
- LMvA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzvbUeJU9uGTqc9CW//rXkDOy/h5kL4kBRiX+t+EJ7vdGfHQoT9gMeSIVGya23lL7NSJPnHzZGSkVY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kzjLJ9jS6aoeFMlQ+9FkWhGyS6ZLkQf/uvC1ouLyogvgWEFKVm
- Szg0cP8qSdG5bTCfj+dl0gl4XCajKVyBYgx0gT58t1bfsBEYMf1ZZB3/
-X-Gm-Gg: AYBFou1fjhL7ys1FQeYcTV9+3AQuL3niQuQfsp/0iS3Wj2SHxCHcNLaApPWRgwziHzC
- jpE+kdc8iRw023toMYc+XUMoU/H5e5gssFz1CmVODr1FmBuyVm5/LyyxLDeno9eRxr1KwgF1rXj
- VcNG7qRTvp8xupLYDUhCQdX/gV/ZFQXLWE9rze5+bAu3DrbGxTGOGiKJabYvho6wBl675yEXYu9
- aXA4iE4Ni62ucS6waobxXSvQdUmJJHk0VMNGZnIX+m/T3Tfzft/Iqw4dpmFP76/18UeS9H481rO
- SnlP8NYPs9+tC2q3sDQm+t/4mYGGTxTjMdJ4WezgOopIOVyqw+newbWv4Hb9U43HXMwAVOntCvY
- ExzPTsHF6qFgkZQBtO+nz3Hoqt1udoh1/jGBrPLaK7yANDR3O5lUw8ERdXbqp4wKxZKgjzBcI3b
- PkyIAk8rd+60ttOojOR+lQLT0xW5JW3g6SpqKzXTR2AiG/ux8zhsuPR//5XXwWYzvjf1b4w2jjg
- VS+Moth9cmwAoQCcOHzAlCez3EmSOleWoQyxOVJtbKJ79I=
-X-Received: by 2002:a05:6122:614a:b0:5c7:a814:b987 with SMTP id
- 71dfb90a1353d-5c9a73a13cfmr1469841e0c.2.1789662961786; 
- Thu, 17 Sep 2026 09:36:01 -0700 (PDT)
-Received: from lord ([170.246.209.50]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5c9a53b2ba1sm3065363e0c.8.2026.09.17.09.35.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Sep 2026 09:36:01 -0700 (PDT)
-From: =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
-To: intel-xe@lists.freedesktop.org
-Cc: matthew.brost@intel.com, daniele.ceraolospurio@intel.com,
- stuart.summers@intel.com, julia.filipchuk@intel.com,
- thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
- jani.nikula@intel.com, navonjohnlukose@gmail.com,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
-Subject: [PATCH v4 0/3] drm/xe: fix GuC TLB invalidation ack stalls on ARL
- (Wa_22016122933)
-Date: Thu, 17 Sep 2026 13:35:50 -0300
-Message-ID: <20260917163553.1742580-1-talesam@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E82A88FF9
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:29:38 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 63B42600D4;
+ Thu, 17 Sep 2026 16:29:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 220F71F00893;
+ Thu, 17 Sep 2026 16:29:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789662577;
+ bh=Ht1E3XYrT6zNGxe7BXRz6LPnDrSfYBDlq1F1i7I+270=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=dbRB47ofHZr0h32dLtHj8gOYSjObkQRAfNeh3WPpPefyZxKOj7REK2DmcOKSOXO4f
+ r9l6XNryKF+hpjo+7ObcmU6U7x0dvAHPHf6EiKNhNWj06W9kIeQAdpcIRhTWo4QMl0
+ RLrIJyu85upL/D9BkeJtRpjYmwYQ+tu0uLxXZqU3delH3fds8ajC/dRzaFuPXut4QI
+ XIefC9t+6YJl/LvCrT+V9rJkGbY/z2ONmNS5BphoYawKorecqpAvg6Dk9QmITZDy0M
+ X8mhMaBvKWEtlGv4TgAQKXieOEDeNXteg9TAK+d+4eMe8FYZ7ggCJ4YCtWPX8ir6Wv
+ ykGgfMLJZ62sg==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 17 Sep 2026 17:22:22 +0100
+Subject: [PATCH v3 13/40] ALSA: pcm: use vm_insert_page() to map PCM status
+ page
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 18 Sep 2026 07:09:59 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-13-4583d8a23bca@kernel.org>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+ Takashi Iwai <tiwai@suse.de>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2769; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=BufAYcKoxP4rPy82Onp5UAmN13VcupWKa3H7JCJQDTQ=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB8ocPh1OGSVz5SG6f3iG/++71lddiNl9w1Vz6vib
+ vJ97/JCOkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRzR4M/8PXr92WnfMhnff8
+ Ky3lLw5LZ8cV/t7hJLpj/TOrqe6OwZUM/91rC3Tu9qnN7fy2I/G/RaLPxDL7E0EWF1987fxwr/F
+ wJzsA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+X-Mailman-Approved-At: Fri, 18 Sep 2026 07:10:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,76 +146,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+There's no need to keep a fault handler around for this, instead map on
+mmap.
 
-v4 of the TLB invalidation ack stall fix for ARL, rebased on today's
-drm-tip. Tracked in:
+While we're here, rename area to vma to be consistent.
 
-  https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8678
+This correctly makes the mapping a mixed map mapping.
 
-Recap: on the standalone media GT of MTL/ARL the CPU reads stale cache
-lines for data the GuC has already written. The visible symptom is TLB
-invalidation acks appearing to stall for a near-constant ~2.3s. i915
-works around this as Wa_22016122933; xe never inherited it. Patch 3
-implements it, scoped like i915.
+This works towards establishing the invariant that only PFN mapped or mixed
+map mappings may clear the VM_MAYWRITE flag. The status page mapping clears
+VM_MAYWRITE, so it must be kernel-owned; the control page mapping remains
+writable and is left fault-based.
 
-In v3 I asked two open questions in this cover letter. Since there was
-no preference expressed, v4 makes the conservative choice in both cases
-and documents the reasoning in the commit message, so the series is not
-blocked on a decision:
+The assumption is made that the struct pcm_mmap_status structure is at most
+a page in size, which is asserted as a build bug.
 
- 1. CPU mapping: keeping XE_BO_FLAG_NEEDS_UC (uncached on both sides).
-    It is the tested configuration and no throughput difference against
-    the CPU-WC variant was measurable. Matching i915's exact CPU-WC +
-    GGTT-UC combination needs either a new BO flag or decoupling the
-    GGTT cache-mode selection from XE_BO_FLAG_NEEDS_UC; happy to add
-    that plumbing if parity is preferred.
+This is safe to assume, as the size of the structure is 56 bytes at most.
 
- 2. Scope: covering the GuC-shared allocations (CTBs, log, ADS, SLPC,
-    engine activity), which is where the failures were observed. i915
-    additionally covers media-GT LRC/ring state; that can be a
-    follow-up if wanted.
+Acked-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ sound/core/pcm_native.c | 38 +++++++++++++-------------------------
+ 1 file changed, 13 insertions(+), 25 deletions(-)
 
-Fixes:/Cc: stable are still left out, since MTL/ARL is require_force_probe
-in xe. Also happy to add them.
-
-Validation of patch 3 is now six weeks on two ARL machines (7d51 and
-7dd1), across kernels 7.1.6, 7.1.8 and 7.2, with over 10M TLB
-invalidations processed and zero ack stalls. Before the fix both
-machines reproduced 20-60 stalls/day, every day, on two GuC firmware
-versions. The 7dd1 machine, which could not survive a day of media
-workloads on xe without a platform freeze, has been running xe full
-time since 11 August with zero incidents.
-
-Patches 1-2 are the diagnostics that made the investigation possible
-and are unchanged since v3. checkpatch is clean on the series.
-
-v3 -> v4:
-- Rebased on drm-tip.
-- Patch 3: resolved both open questions in the commit message instead
-  of leaving them for discussion; refreshed validation data.
-
-Thanks,
-Tales
-
-Tales A. Mendonça (3):
-  drm/xe: Capture devcoredump on TLB invalidation timeout
-  drm/xe: Log when a timed out TLB invalidation ack finally arrives
-  drm/xe: Implement Wa_22016122933
-
- drivers/gpu/drm/xe/xe_devcoredump.c         | 46 +++++++++++----------
- drivers/gpu/drm/xe/xe_devcoredump.h         | 15 +++++--
- drivers/gpu/drm/xe/xe_guc.c                 | 16 +++++++
- drivers/gpu/drm/xe/xe_guc.h                 |  2 +
- drivers/gpu/drm/xe/xe_guc_ads.c             |  3 +-
- drivers/gpu/drm/xe/xe_guc_ct.c              |  6 ++-
- drivers/gpu/drm/xe/xe_guc_engine_activity.c |  6 ++-
- drivers/gpu/drm/xe/xe_guc_log.c             |  7 +++-
- drivers/gpu/drm/xe/xe_guc_pc.c              |  3 +-
- drivers/gpu/drm/xe/xe_tlb_inval.c           | 39 +++++++++++++++++
- drivers/gpu/drm/xe/xe_tlb_inval_types.h     | 17 ++++++++
- drivers/gpu/drm/xe/xe_wa_oob.rules          |  1 +
- 12 files changed, 128 insertions(+), 33 deletions(-)
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 62324282fcae..c98fb3df14f3 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -3760,39 +3760,27 @@ static __poll_t snd_pcm_poll(struct file *file, poll_table *wait)
+ /*
+  * mmap status record
+  */
+-static vm_fault_t snd_pcm_mmap_status_fault(struct vm_fault *vmf)
++static int snd_pcm_mmap_status(struct snd_pcm_substream *substream, struct file *file,
++			       struct vm_area_struct *vma)
+ {
+-	struct snd_pcm_substream *substream = vmf->vma->vm_private_data;
++	const unsigned long size = vma->vm_end - vma->vm_start;
+ 	struct snd_pcm_runtime *runtime;
+-	
+-	if (substream == NULL)
+-		return VM_FAULT_SIGBUS;
+-	runtime = substream->runtime;
+-	vmf->page = virt_to_page(runtime->status);
+-	get_page(vmf->page);
+-	return 0;
+-}
++	struct page *page;
+ 
+-static const struct vm_operations_struct snd_pcm_vm_ops_status =
+-{
+-	.fault =	snd_pcm_mmap_status_fault,
+-};
++	BUILD_BUG_ON(sizeof(struct snd_pcm_mmap_status) > PAGE_SIZE);
+ 
+-static int snd_pcm_mmap_status(struct snd_pcm_substream *substream, struct file *file,
+-			       struct vm_area_struct *area)
+-{
+-	long size;
+-	if (!(area->vm_flags & VM_READ))
++	if (!(vma->vm_flags & VM_READ))
+ 		return -EINVAL;
+-	size = area->vm_end - area->vm_start;
+-	if (size != PAGE_ALIGN(sizeof(struct snd_pcm_mmap_status)))
++	if (size != PAGE_SIZE)
+ 		return -EINVAL;
+-	area->vm_ops = &snd_pcm_vm_ops_status;
+-	area->vm_private_data = substream;
+-	vm_flags_mod(area, VM_DONTEXPAND | VM_DONTDUMP,
++
++	vm_flags_mod(vma, VM_DONTEXPAND | VM_DONTDUMP,
+ 		     VM_WRITE | VM_MAYWRITE);
++	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
+ 
+-	return 0;
++	runtime = substream->runtime;
++	page = virt_to_page(runtime->status);
++	return vm_insert_page(vma, vma->vm_start, page);
+ }
+ 
+ /*
 
 -- 
 2.55.0
