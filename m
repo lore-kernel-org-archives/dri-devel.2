@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAA25C982D0
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 20:57:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3B58C982D2
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 21:03:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21D0910E501;
-	Thu, 17 Sep 2026 20:57:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24FB310E5FC;
+	Thu, 17 Sep 2026 21:03:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="EYpAifWm";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Ms5tB0nJ";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F372E10E501
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 20:57:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC51010E5FC
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 21:03:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
  MIME-Version:Date:Message-ID:From:Reply-To;
- bh=ZjCkgmfnhsr/nRvgJrfgsAtyK/FU0kzhYD9tqIxNJHc=; b=EYpAifWmPhZbrYASxGj3nPTZbf
- YDnpBq5yJx6NSwLFO/irqjcLAdwZ2+utaODd8dzZZ0tPMyAf6Z8Xq9k4hrydRnUi5FnH2YcHUJVL3
- EqglfTr3w8y7M4Q9Th5WFVsmilF43Zt0yf7n268BPpCkm9xr4hgQBxGQQxRXIui97GDwQpCT7nDvz
- zyCiJMMQCSULW+hOIaSy58hJsIhUeNj8U129nT1fVus1sL2VFcM1Bj+HEgTTY0yN/HPDzE30bh22X
- AaqhoA9MpkKeVTjGw3138C1MWjXy9dlauIws6HngKqEO04DwJ9EcL5TX9/QsVkhDBfx6xAddhO4Ac
- bkGUbI9A==;
+ bh=WPT3loKEvy34Kug8Bmer100Ee2Gt1ulHDe7e2kGuSXg=; b=Ms5tB0nJi0A24/8w46w76OyMRe
+ NdlPcjXq4ThABtjg7m1CKKnR54RL+p4EJKb59z0XVNwwwpPEvKg/iWc8CNkYY1jpZMXHm8zCbmR7f
+ Vwzz6JakArbAZrj+cju0QzX/M2fVWwpZFG15sZ88ariMlEXZTKFwuuadvE7Z91XmKu3iOjkEEvg0a
+ hBXqJCcwkUkDJLrEe9SCXdKM8UPdFqY+9uvFmlPDr1xWmnXycYNmdKXBXi3upFiQ6f10wPf5hwHI4
+ zYtherua1A9NulCus1z0Iy+HT/LwQxDYiHiCj7NmgyAAf+vRp6lqVftB7ApSDw614n1Z68zYiE7Tl
+ eGgNny5g==;
 Received: from [179.105.94.163] (helo=[192.168.0.2])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1x7JAt-003eL1-W4; Thu, 17 Sep 2026 22:57:44 +0200
-Message-ID: <7bd0f461-1b1d-416e-a68c-c0389b04f325@igalia.com>
-Date: Thu, 17 Sep 2026 17:57:39 -0300
+ id 1x7JGb-003eRT-51; Thu, 17 Sep 2026 23:03:37 +0200
+Message-ID: <5f80ac77-c1f4-42cc-bdcd-e4222f72d853@igalia.com>
+Date: Thu, 17 Sep 2026 18:03:30 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/v3d: Fix perfmon reference leak in
- v3d_perfmon_set_global_ioctl()
+Subject: Re: [PATCH] drm/vc4: Fix firmware reference leak in vc4_hvs_bind()
 To: Wentao Liang <vulab@iscas.ac.cn>, airlied@gmail.com
-Cc: cgmeiner@igalia.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, mwen@igalia.com, simona@ffwll.ch, tzimmermann@suse.de,
- stable@vger.kernel.org
-References: <20260916183100.2092174-1-vulab@iscas.ac.cn>
+Cc: dave.stevenson@raspberrypi.com, dri-devel@lists.freedesktop.org,
+ kernel-list@raspberrypi.com, linux-kernel@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
+ tzimmermann@suse.de, stable@vger.kernel.org
+References: <20260916154137.2058618-1-vulab@iscas.ac.cn>
 From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 Content-Language: en-US
 Autocrypt: addr=mcanal@igalia.com; keydata=
@@ -67,7 +66,7 @@ Autocrypt: addr=mcanal@igalia.com; keydata=
  Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
  uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
  raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20260916183100.2092174-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260916154137.2058618-1-vulab@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -87,54 +86,50 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi Wentao,
 
-On 16/09/26 15:31, Wentao Liang wrote:
-> v3d_perfmon_find() takes a reference to the perfmon which the ioctl
-> transfers to the global pointer on success.  The error paths are
-> missing this transfer: clearing the global perfmon while none is set,
-> and setting a global perfmon when one is already configured both
-> return without dropping the reference.  Release it on both paths.
+On 16/09/26 12:41, Wentao Liang wrote:
+> The firmware reference taken via rpi_firmware_get() is leaked when
+> either of the devm_clk_get() calls for the core or display clocks
+> fails, as both error paths return without releasing it.
 > 
-> Fixes: c6eabbab359c ("drm/v3d: Add DRM_IOCTL_V3D_PERFMON_SET_GLOBAL")
+> Put the firmware reference before returning from both clock lookup
+> error paths.
+> 
+> Fixes: 2a001ca00ad5 ("drm/vc4: hdmi: Rework hdmi_enable_4kp60 detection code")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>   drivers/gpu/drm/vc4/vc4_hvs.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
+> index ee8d0738501b..20dde4150068 100644
+> --- a/drivers/gpu/drm/vc4/vc4_hvs.c
+> +++ b/drivers/gpu/drm/vc4/vc4_hvs.c
+> @@ -1680,6 +1680,7 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
+>   					     (vc4->gen >= VC4_GEN_6_C) ? "core" : NULL);
+>   		if (IS_ERR(hvs->core_clk)) {
+>   			dev_err(&pdev->dev, "Couldn't get core clock\n");
+> +			rpi_firmware_put(firmware);
 
-Already addressed in [1].
+Instead of adding this line twice, move the line `firmware =
+rpi_firmware_get(node)` closer to its actual use. Then, you don't need
+to add these `rpi_firmware_put()` calls.
 
-[1] 
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=6bf7e2affc6e62da7add393d7f352d4040f5bc27
+The same comment applies to your other PATCH: `[PATCH] drm/vc4: Fix
+firmware reference leak in vc4_drm_bind()`.
 
 Best regards,
 - Maíra
 
-> ---
->   drivers/gpu/drm/v3d/v3d_perfmon.c | 8 ++++++--
->   1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/v3d/v3d_perfmon.c b/drivers/gpu/drm/v3d/v3d_perfmon.c
-> index 8e0249580bba..12bb1b087fa9 100644
-> --- a/drivers/gpu/drm/v3d/v3d_perfmon.c
-> +++ b/drivers/gpu/drm/v3d/v3d_perfmon.c
-> @@ -461,16 +461,20 @@ int v3d_perfmon_set_global_ioctl(struct drm_device *dev, void *data,
+>   			return PTR_ERR(hvs->core_clk);
+>   		}
 >   
->   	/* If the request is to clear the global performance monitor */
->   	if (req->flags & DRM_V3D_PERFMON_CLEAR_GLOBAL) {
-> -		if (!v3d->global_perfmon)
-> +		if (!v3d->global_perfmon) {
-> +			v3d_perfmon_put(perfmon);
->   			return -EINVAL;
-> +		}
+> @@ -1687,6 +1688,7 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
+>   					     (vc4->gen >= VC4_GEN_6_C) ? "disp" : NULL);
+>   		if (IS_ERR(hvs->disp_clk)) {
+>   			dev_err(&pdev->dev, "Couldn't get disp clock\n");
+> +			rpi_firmware_put(firmware);
+>   			return PTR_ERR(hvs->disp_clk);
+>   		}
 >   
->   		xchg(&v3d->global_perfmon, NULL);
->   
->   		return 0;
->   	}
->   
-> -	if (cmpxchg(&v3d->global_perfmon, NULL, perfmon))
-> +	if (cmpxchg(&v3d->global_perfmon, NULL, perfmon)) {
-> +		v3d_perfmon_put(perfmon);
->   		return -EBUSY;
-> +	}
->   
->   	return 0;
->   }
 
