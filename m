@@ -4,83 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E924C982D9
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:11:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6226DC982D7
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:11:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C2F310F1F4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD1D610F1FA;
 	Fri, 18 Sep 2026 07:11:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OqQ0inTr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hvWGxTwP";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8852B10F147
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 03:01:48 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- d9443c01a7336-2d747f05ffcso1898175ad.0
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 20:01:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789700508; x=1790305308; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=toYt9rYplhPBNw8uYg7TjR1uc/+s1ghvN6xnP+MGyco=;
- b=OqQ0inTr41DmtWbJlBM43UKYrmg6jLqbJ0XqWmkwpagwY//SDLr/8RZ+uds+o8Yebc
- P6voeD8pVIbrR7uTIARCltfHUAKbWMDRF8qfCXFM7qCS589vVjwpXToHp65TcfguOjkw
- noTtuZ8PnypiFkeYhjiOjgn4ICxYGK9J9H3RsH9DSvZmS8aO3Ney+9ns3oOSRmYIRB7h
- nYHyCw4YQoBn9JThgnn1XaNECtbPjfGR+Ez3oemHBAI9ox3vJlpD0KxmkXfzBpKzsCaG
- Wt70AnzK5VhtsYLs3/gfCk/9BDxXHIY2DG67Ycvc1XyUtRH3kwJpDTx40WSlVceIQzEa
- uchA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789700508; x=1790305308;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=toYt9rYplhPBNw8uYg7TjR1uc/+s1ghvN6xnP+MGyco=;
- b=pXiWhzttxKs5E7zFKrpAAJPzzTYdgKKrqIuztq1gsMRVfTtmjApeW9el6/LsCZXe5K
- hIoaFR0NwtkbeEwDl2OTTgJSDxNXrLMe/XpwUXlg8/Ihhm9Lxa+KN19fSmUOr8m6CmCh
- 6EJMTklJcfNX/kN+T5/QarVuRP+L3VaAI1ZQD0z9Vxe1amkGIBqmCNqTkDQ6mS0BYVF9
- +pwy2TAwl8HP38PHglx7+fjPmTE0jL44yj3cvGzSnPtW3TXLTcQcdwlReGRkV9ZKPvHH
- CmjRGjdg3UlOdeghS8LXp/mG0f5lxDEfJA3RfW2FU0HeULjRe9UjM8+iRs5QD4o9zcS4
- I+nA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwnuxxBs8zduBsrCs1qf0+PlEvfXRLA2SHayrfOAOQH5BD0JNfrqZQMkSPE5V0Q7/FlVmHUoD6doas=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mqZPolUFMZGB9Hi3PaihHWFiNWKJsUdbq5tLk5e2DjKIlMLhvV
- QcyKBiynBNPB3/zq6xgOsjNX2Hdxo6MAdtLb161dLISsTrbIf6M7Dtn2
-X-Gm-Gg: AYBFou3Qjm5uZRBg91jZTpO1HoVt+MFB4H2OdxXWlK1UwJBw6Q/Jdv4iBUAm/udoR78
- UDNCsJEi+IUSfO6pfgReEuw47Q2PaxTe01x6BR6H7eTF3/Uf8MYbaCs6ApOt53U6FCpulVxddKy
- 2UItntuAgEee5VGReNmy4o44rz2Q56ktoAt6I53mxTOz+8CLD7vYXXq3dQmX9iZUuP/Ag1EBn/F
- 2SIj/X6PqBRXJG2zkMzZsA+8VnprqaLNXIITGxIlre6dfA+CtgBK3bDFPa5ks5/c4tkBlHnwWqy
- 8Q9hKb/++MH+nlwI50FbA/+jS/7jTjhSCDEFxpXNAhe8Or1IA+usLRUmpGXq1DXJuO6TOU3+77D
- CBvvj5HxCZGd2AiSwnWfVbGLSIgkUwzPY+mU8sLXq3QzLf+5I8HCwLhxgtwg0/Nct8CbX1KYhGH
- ZogX/ZNa6BGg9gzsXC83Qo3j9ZoxTr+Jj9iRdtuoGI9pUFLTdFdc8hum75olm1ilnejTWZE/0N4
- /E+EXpTHLjbv5Yyf9CRE8PFx6J615Q+nd2kI2VNu6V8hNpCVHbMZLdL25FxA2E=
-X-Received: by 2002:a17:90b:52cf:b0:398:9c39:520f with SMTP id
- 98e67ed59e1d1-39e54bd0941mr2537352a91.15.1789700508027; 
- Thu, 17 Sep 2026 20:01:48 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39e362e9402sm7969141a91.15.2026.09.17.20.01.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Sep 2026 20:01:47 -0700 (PDT)
-From: Joey Lu <a0987203069@gmail.com>
-To: zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH v7 4/7] drm/verisilicon: add DC8000 (DCUltraLite) display
- controller support
-Date: Fri, 18 Sep 2026 11:01:22 +0800
-Message-ID: <20260918030125.315978-5-a0987203069@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260918030125.315978-1-a0987203069@gmail.com>
-References: <20260918030125.315978-1-a0987203069@gmail.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B41A110E0AE
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:31:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8ECBB40442;
+ Thu, 17 Sep 2026 16:31:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A25AD1F00893;
+ Thu, 17 Sep 2026 16:31:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789662699;
+ bh=J93IefE6R7bnCPulaKM+ijl/FGhARLRmiup15HlMn+w=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=hvWGxTwPbL/0y9ufvfrDERbVeXjXo3aoZIB10YSJrTS8MkFVudd31KyZ0me7D6CKV
+ v8MPABnXhm5bFydQm+c9Bc6WjOh5tvi0rJJR7brSEO2YC2qQ5rbcvTqS3l/wQM/wds
+ LP1lWhDX4Nho9nUMv8cFnzIJ2lbt37zMJcSpSszEjoLY0p6hqhcf1Gkuse+hX8lNu9
+ O9wvRJ/aTO5pCrRJr0roLnDiPI6n/AT7t3eg4apzoU8VOCn8Is6njfXpTZK1XnxYcr
+ +Y4DomJ/rkREqe3GVD6Dg2EyVmVfBhyny8WTcmatQUJuQRtNjnwyNtIE5Rx6vzun3g
+ eMpzLndJiKcmg==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 17 Sep 2026 17:22:26 +0100
+Subject: [PATCH v3 17/40] mm/vma: add and use vma_[flags]_is_fixed_mapping
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 18 Sep 2026 07:10:00 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-17-4583d8a23bca@kernel.org>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6504; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=CGrRM0X4xfz5KjQLNJ8DloCWWdgxK3gfJkwtQtlAo4A=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB9UL1NO3L9llvkhy4JF579KOp2dlSjtcWJjJtMVh
+ 7O//xkd7yhlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEXmkx/BViW/R4VcGp3Vfz
+ nt89nHAh5sXRvi0Mfs3T5gRxc+3PXfeS4b/3uWN5rmu+FWXmTVZ59mc/p6u1RjqL5nr1W8ta64X
+ OKTMBAA==
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+X-Mailman-Approved-At: Fri, 18 Sep 2026 07:09:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,166 +144,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The Verisilicon DC IP family also ships in a DCUltraLite (DC8000
-generation) configuration that lacks the DC8200's CONFIG_EX staging
-registers and PANEL_START sync register, and exposes its VSYNC
-interrupt through a differently laid out status/enable register pair.
+This determines whether a VMA cannot be expanded or merged because what
+they mapped was determined to be a set size at mmap time.
 
-Add a vs_dc_funcs implementation for the DC8000 generation in
-vs_dc8000.c: framebuffer updates are latched directly through
-FB_CONFIG's enable/reset/valid bits instead of a staging commit, panel
-output starts as soon as PANEL_CONFIG.RUNNING is set with no separate
-sync register to arm, and the VSYNC interrupt is acknowledged through
-DISP_IRQ_STA/DISP_IRQ_EN.  Select this vtable in the probe path based
-on the chip identity's generation field.
+This typically refers to kernel-owned mappings, however VMA_DONTEXPAND_BIT
+is not reliably set alongside VMA_PFNMAP_BIT or VMA_MIXEDMAP_BIT, so we
+must explicitly test for this for now.
 
-Signed-off-by: Joey Lu <a0987203069@gmail.com>
-Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+We also explicitly test for VMA_PFNMAP_BIT as VMA_DONTEXPAND_BIT may not be
+set for VMA_PFNMAP_BIT's despite the one implying the other.
+
+Use this predicate in vma_flags_can_merge() and in check_prep_vma() in the
+mremap logic testing to see if mremap() can expand the VMA. The criteria
+for khugepaged and MADV_COLLAPSE eligibility in
+__thp_vma_allowable_orders() are precisely those for mergeability, so use
+vma_can_merge() there (with an expanded comment).
+
+This obviates the need for the VM_NO_KHUGEPAGED mask, so remove it.
+
+Hugetlb VMAs remain excluded from khugepaged as hugetlbfs always sets
+VMA_DONTEXPAND_BIT.
+
+Also update the userland VMA tests to reflect the change.
+
+No functional change intended.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/gpu/drm/verisilicon/Makefile    |  2 +-
- drivers/gpu/drm/verisilicon/vs_dc.c     |  5 +-
- drivers/gpu/drm/verisilicon/vs_dc.h     |  1 +
- drivers/gpu/drm/verisilicon/vs_dc8000.c | 92 +++++++++++++++++++++++++
- 4 files changed, 98 insertions(+), 2 deletions(-)
- create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8000.c
+ include/linux/mm.h              | 39 +++++++++++++++++++++++++++++++++++----
+ mm/huge_memory.c                | 11 +++++++----
+ mm/mremap.c                     |  5 ++---
+ tools/testing/vma/include/dup.h | 16 +++++++++++++++-
+ 4 files changed, 59 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/verisilicon/Makefile b/drivers/gpu/drm/verisilicon/Makefile
-index 9d4cd16452fa1..d2fd8e4dff242 100644
---- a/drivers/gpu/drm/verisilicon/Makefile
-+++ b/drivers/gpu/drm/verisilicon/Makefile
-@@ -1,6 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index cab29d6e15c1..ca598e5f9715 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -600,9 +600,6 @@ enum {
+ #define VMA_REMAP_FLAGS mk_vma_flags(VMA_IO_BIT, VMA_PFNMAP_BIT,	\
+ 				     VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT)
  
--verisilicon-dc-objs := vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o vs_drm.o vs_hwdb.o \
-+verisilicon-dc-objs := vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o vs_dc8000.o vs_drm.o vs_hwdb.o \
- 	vs_plane.o vs_primary_plane.o vs_cursor_plane.o
+-/* This mask prevents VMA from being scanned with khugepaged */
+-#define VM_NO_KHUGEPAGED (VM_SPECIAL | VM_HUGETLB)
+-
+ /* This mask defines which mm->def_flags a process can inherit its parent */
+ #define VM_INIT_DEF_MASK	VM_NOHUGEPAGE
  
- obj-$(CONFIG_DRM_VERISILICON_DC) += verisilicon-dc.o
-diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c b/drivers/gpu/drm/verisilicon/vs_dc.c
-index 9729b693d360e..3e9e2c0264f5d 100644
---- a/drivers/gpu/drm/verisilicon/vs_dc.c
-+++ b/drivers/gpu/drm/verisilicon/vs_dc.c
-@@ -134,7 +134,10 @@ static int vs_dc_probe(struct platform_device *pdev)
- 	dev_info(dev, "Found DC%x rev %x customer %x\n", dc->identity.model,
- 		 dc->identity.revision, dc->identity.customer_id);
+@@ -1650,6 +1647,40 @@ static inline bool vma_is_kernel_owned(const struct vm_area_struct *vma)
+ 	return vma_flags_is_kernel_owned(&vma->flags);
+ }
  
--	dc->funcs = &vs_dc8200_funcs;
-+	if (dc->identity.generation == VSDC_GEN_DC8200)
-+		dc->funcs = &vs_dc8200_funcs;
-+	else
-+		dc->funcs = &vs_dc8000_funcs;
- 
- 	if (port_count > dc->identity.display_count) {
- 		dev_err(dev, "too many downstream ports than HW capability\n");
-diff --git a/drivers/gpu/drm/verisilicon/vs_dc.h b/drivers/gpu/drm/verisilicon/vs_dc.h
-index 825f5dd6bf174..ac96ad7011994 100644
---- a/drivers/gpu/drm/verisilicon/vs_dc.h
-+++ b/drivers/gpu/drm/verisilicon/vs_dc.h
-@@ -66,5 +66,6 @@ struct vs_dc {
- };
- 
- extern const struct vs_dc_funcs vs_dc8200_funcs;
-+extern const struct vs_dc_funcs vs_dc8000_funcs;
- 
- #endif /* _VS_DC_H_ */
-diff --git a/drivers/gpu/drm/verisilicon/vs_dc8000.c b/drivers/gpu/drm/verisilicon/vs_dc8000.c
-new file mode 100644
-index 0000000000000..df7bd5bdd7f2a
---- /dev/null
-+++ b/drivers/gpu/drm/verisilicon/vs_dc8000.c
-@@ -0,0 +1,92 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) 2026 Joey Lu <yclu4@nuvoton.com>
++/**
++ * vma_flags_is_fixed_mapping() - Do the specified VMA flags indicate that this
++ * is a fixed mapping that cannot be expanded or merged?
++ * @flags: The VMA flags to test.
++ *
++ * Fixed mappings are those whose size is set at the point of mmap (for
++ * instance, a kernel-owned mapping of a fixed range of memory), and thus
++ * cannot be expanded or merged.
++ *
++ * Returns: true if the flags indicate a fixed mapping.
 + */
-+
-+#include <linux/regmap.h>
-+
-+#include <drm/drm_print.h>
-+
-+#include "vs_crtc_regs.h"
-+#include "vs_dc.h"
-+#include "vs_drm.h"
-+#include "vs_primary_plane_regs.h"
-+
-+static void vs_dc8000_panel_enable_ex(struct vs_dc *dc, unsigned int output)
++static inline bool vma_flags_is_fixed_mapping(const vma_flags_t *flags)
 +{
-+	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-+			VSDC_FB_CONFIG_RESET);
++	/*
++	 * VMA_PFNMAP_BIT should imply VMA_DONTEXPAND_BIT, but some callers set
++	 * only the former.
++	 */
++	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_DONTEXPAND_BIT);
 +}
 +
-+static void vs_dc8000_panel_disable_ex(struct vs_dc *dc, unsigned int output)
++/**
++ * vma_is_fixed_mapping() - Is this VMA a fixed mapping that cannot be
++ * expanded or merged?
++ * @vma: The VMA to test.
++ *
++ * See vma_flags_is_fixed_mapping() for a description of this property.
++ *
++ * Returns: true if the VMA maps a fixed mapping.
++ */
++static inline bool vma_is_fixed_mapping(const struct vm_area_struct *vma)
 +{
-+	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-+			  VSDC_FB_CONFIG_RESET);
++	return vma_flags_is_fixed_mapping(&vma->flags);
 +}
 +
-+static void vs_dc8000_crtc_begin(struct vs_dc *dc, unsigned int output)
+ /**
+  * vma_flags_can_merge() - Do the specified VMA flags permit the VMA to be
+  * merged with another?
+@@ -1671,7 +1702,7 @@ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
+ 	if (vma_flags_is_kernel_owned(flags))
+ 		return false;
+ 	/* VMA explicitly marked as being unmergeable. */
+-	if (vma_flags_test(flags, VMA_DONTEXPAND_BIT))
++	if (vma_flags_is_fixed_mapping(flags))
+ 		return false;
+ 
+ 	return true;
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 4cd917f77f3f..4d0acd9a1099 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -212,11 +212,14 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
+ 		return in_pf ? orders : 0;
+ 
+ 	/*
+-	 * khugepaged special VMA and hugetlb VMA.
+-	 * Must be checked after dax since some dax mappings may have
+-	 * VM_MIXEDMAP set.
++	 * khugepaged moves data from VMAs once collapsed, after they have been
++	 * faulted in, relying on refaulting for file-backed memory.
++	 *
++	 * Kernel-owned mappings cannot be reliably reconstructed from page
++	 * faults, and fixed mappings (including hugetlb) may not be marked as
++	 * kernel-owned - precisely the mappings which cannot be merged.
+ 	 */
+-	if (!in_pf && !smaps && (vm_flags & VM_NO_KHUGEPAGED))
++	if (!in_pf && !smaps && !vma_can_merge(vma))
+ 		return 0;
+ 
+ 	/*
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 7c368440fafe..ed19b47c2caf 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -1788,8 +1788,7 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
+ 		return -EINVAL;
+ 	}
+ 
+-	if ((vrm->flags & MREMAP_DONTUNMAP) &&
+-	    vma_test_any(vma, VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT))
++	if ((vrm->flags & MREMAP_DONTUNMAP) && vma_is_fixed_mapping(vma))
+ 		return -EINVAL;
+ 
+ 	/*
+@@ -1827,7 +1826,7 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
+ 	if (pgoff + (new_len >> PAGE_SHIFT) < pgoff)
+ 		return -EINVAL;
+ 
+-	if (vma_test_any(vma, VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT))
++	if (vma_is_fixed_mapping(vma))
+ 		return -EFAULT;
+ 
+ 	if (!mlock_future_ok(mm, vma_test(vma, VMA_LOCKED_BIT), vrm->delta))
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index d09148ce2305..b8b1462ca710 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1676,6 +1676,20 @@ static inline bool vma_is_kernel_owned(const struct vm_area_struct *vma)
+ 	return vma_flags_is_kernel_owned(&vma->flags);
+ }
+ 
++static inline bool vma_flags_is_fixed_mapping(const vma_flags_t *flags)
 +{
-+	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-+			VSDC_FB_CONFIG_VALID);
++	/*
++	 * VMA_PFNMAP_BIT should imply VMA_DONTEXPAND_BIT, but some callers set
++	 * only the former.
++	 */
++	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_DONTEXPAND_BIT);
 +}
 +
-+static void vs_dc8000_crtc_flush(struct vs_dc *dc, unsigned int output)
++static inline bool vma_is_fixed_mapping(const struct vm_area_struct *vma)
 +{
-+	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-+			  VSDC_FB_CONFIG_VALID);
++	return vma_flags_is_fixed_mapping(&vma->flags);
 +}
 +
-+static void vs_dc8000_crtc_enable_ex(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-+			VSDC_FB_CONFIG_ENABLE);
-+}
-+
-+static void vs_dc8000_crtc_disable_ex(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-+			  VSDC_FB_CONFIG_ENABLE);
-+}
-+
-+static void vs_dc8000_enable_vblank(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_set_bits(dc->regs, VSDC_DISP_IRQ_EN,
-+			VSDC_DISP_IRQ_VSYNC(output));
-+}
-+
-+static void vs_dc8000_disable_vblank(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_clear_bits(dc->regs, VSDC_DISP_IRQ_EN,
-+			  VSDC_DISP_IRQ_VSYNC(output));
-+}
-+
-+static u32 vs_dc8000_irq_ack(struct vs_dc *dc)
-+{
-+	u32 hw_irqs, unified = 0, known = 0;
-+	unsigned int i;
-+
-+	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &hw_irqs);
-+
-+	for (i = 0; i < VSDC_MAX_OUTPUTS; i++) {
-+		known |= VSDC_DISP_IRQ_VSYNC(i);
-+		if (hw_irqs & VSDC_DISP_IRQ_VSYNC(i))
-+			unified |= VSDC_IRQ_VSYNC(i);
-+	}
-+
-+	drm_WARN_ONCE(&dc->drm_dev->base, hw_irqs & ~known,
-+		      "Unknown hardware IRQ bits: %#x\n", hw_irqs & ~known);
-+
-+	return unified;
-+}
-+
-+const struct vs_dc_funcs vs_dc8000_funcs = {
-+	.panel_enable_ex	= vs_dc8000_panel_enable_ex,
-+	.panel_disable_ex	= vs_dc8000_panel_disable_ex,
-+	.crtc_begin		= vs_dc8000_crtc_begin,
-+	.crtc_flush		= vs_dc8000_crtc_flush,
-+	.crtc_enable_ex		= vs_dc8000_crtc_enable_ex,
-+	.crtc_disable_ex	= vs_dc8000_crtc_disable_ex,
-+	.enable_vblank		= vs_dc8000_enable_vblank,
-+	.disable_vblank		= vs_dc8000_disable_vblank,
-+	.irq_ack		= vs_dc8000_irq_ack,
-+};
+ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
+ {
+ 	/*
+@@ -1691,7 +1705,7 @@ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
+ 	if (vma_flags_is_kernel_owned(flags))
+ 		return false;
+ 	/* VMA explicitly marked as being unmergeable. */
+-	if (vma_flags_test(flags, VMA_DONTEXPAND_BIT))
++	if (vma_flags_is_fixed_mapping(flags))
+ 		return false;
+ 
+ 	return true;
+
 -- 
-2.43.0
+2.55.0
 
