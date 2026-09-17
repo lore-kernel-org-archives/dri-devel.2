@@ -4,85 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F16D6C982D0
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 21:13:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EB9EC88E72
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 21:14:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D96510E0FE;
-	Thu, 17 Sep 2026 21:13:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEA6110EBB4;
+	Thu, 17 Sep 2026 21:14:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="dkXTfZBv";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="PD/B4aGC";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDCF610E0FE
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 21:13:26 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10F8310E769
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 21:14:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1789679606;
+ s=mimecast20190719; t=1789679675;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=04R2pZSwG+OaBUsHlvhl9TEuvS7EQ6VAEsVarWVXYVE=;
- b=dkXTfZBvZKJpPHmZ1/WHTVgV1oJrkA8WskKiptghNg1SDmPol/x8/OUxHgy4fCT2bAOher
- r6LwmZONTz1NiqvdkMFomru+Vu+kc/ew8rJwN+HGSz0auO5lmJwGVfsT7uNVuFfoN6HkPE
- rp6mlpKXhSDmSvIDyGDVZqqSm73BYHk=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=38jxd0wQcDwbVDumJ2B589A/WlIbq9+EZCtolWKlhvg=;
+ b=PD/B4aGCVugPwOpe/Y3p+hFV62uHWhu0IKrtaEHvff2L16Wlmuiom4qEsLzOWRVDezx5YD
+ lJ8pPB7oGPocYpHdrtQxSVKKBVGi2LBCR6lVAjDDoS2SxqJM1xa3K+jWJHPQgFNh+jJZoU
+ gfD0MqDLzm80mI68uT4JerXSZ2+3sHI=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-27-f1MmhMS4Ob2n4tWdXMKpZA-1; Thu, 17 Sep 2026 17:13:24 -0400
-X-MC-Unique: f1MmhMS4Ob2n4tWdXMKpZA-1
-X-Mimecast-MFC-AGG-ID: f1MmhMS4Ob2n4tWdXMKpZA_1789679604
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-934963b2bc0so10956985a.3
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 14:13:24 -0700 (PDT)
+ us-mta-450-jRKGUx6DOiS9rw2URwiBew-1; Thu, 17 Sep 2026 17:14:32 -0400
+X-MC-Unique: jRKGUx6DOiS9rw2URwiBew-1
+X-Mimecast-MFC-AGG-ID: jRKGUx6DOiS9rw2URwiBew_1789679671
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-90e8dd8be81so1917746d6.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 14:14:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789679604; x=1790284404;
+ d=1e100.net; s=20260707; t=1789679671; x=1790284471;
  h=mime-version:user-agent:content-transfer-encoding:content-type
  :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=+1WRQ3xpv0F4/rm47tzzwq3oGBSMX7i9LTQrQwZCVGM=;
- b=RGj9lOspd19p5h2MwOU+aYtJ1Qz0g17TNSAsoA26eEEMl8YXUmp29poCav9mQ2ppUv
- R0DsY2cau7Tn2laGEYKKNAxF9yJnVNknITIlvjbIIUvAUVmQJuQGCXMPMimf0ewQ9esf
- UfEftORglS5TLKUS3kWlWNrJMUxnR5WRlz3q9MuxpeW1uIOWhjsuf7Kcz+NabseklRcR
- WQic9G9q+qBwsAsRhZzmdIUM3tDOzzQz9NuZcHlPdcWqSK3+FS2kqVBVWR4wkaeLoDmH
- 4MdDd8Lw6Y5xA9a+LBGd6Qy9dd89BKizuoAoA8b8YvSy/8DNc/zeGQBB8Vn0sNBN22Wo
- zqxA==
-X-Gm-Message-State: AFuF++mptvs5VMyGNM25aKFxgYq/lPGoL4V74UVlzr13PvKscQSILiA2
- WKfEQhPlqFgQWeOE1Skrcr2BQ8HZPG8OBgde/2gWViU6tnt0DaWbT8ksudtynGb3swiHZUNYKBO
- d3zU69sEqxTyQMMuqAEnGGbpVYizmpEo/WN2c16w/LHE0nmjIZauEpLYjjTq8TQca0A1slA==
-X-Gm-Gg: AYBFou2no2/ti2Tv03bKciaYh/nLot9OYdI2KTw25aQqRbHByOCagOeRMHRRmAC2Ko6
- ZOCs2zbOT6XYFl93b9txjpIIbnUPRcl7OEiU5GmOGdef01oS0RRCKprmj3JbvcHoiq+OoYcHDQz
- +/f6lM55a6UaGqNNZsKUePgoiLNayPZI58YFioDdNxGeNGqj6irB7bUT96MWyqC5MfFLRkWMYFz
- dMpaiQrdEww/iMPRWVWuSFBRwprvaL9p2tF/iRtoE8V9Mr0ysdWg0LjzVP+hw/79KQZXlySuPQt
- kGWe2Er0kUz3WVUisXcQ6l7jIIVIpBxctyuddqiBy1RTeoS6sbikaDUYWNdS8gfvBHxlehCu
-X-Received: by 2002:a05:620a:4103:b0:938:e23a:2ce9 with SMTP id
- af79cd13be357-93bdc6d5f01mr40255285a.16.1789679603875; 
- Thu, 17 Sep 2026 14:13:23 -0700 (PDT)
-X-Received: by 2002:a05:620a:4103:b0:938:e23a:2ce9 with SMTP id
- af79cd13be357-93bdc6d5f01mr40251785a.16.1789679603464; 
- Thu, 17 Sep 2026 14:13:23 -0700 (PDT)
+ bh=38jxd0wQcDwbVDumJ2B589A/WlIbq9+EZCtolWKlhvg=;
+ b=j+Q+zgM2WpQ/9TWPgfWus9+9ybLZldLhYygBgTOVbEIk4QViOBvyqTjNHNtyjDwEfV
+ CsVz0b0UNjdSbP4cmjyeXRgSSX0ejOnQNLB4AoFN5BsXOvCK7b0S1DUOc7JAayhcI/Se
+ fhifUg4WUOk5NnF1uJzBw5S+6sQn3kWWGuLUv7vBG3aKlCgrKZALrdq7lJTSVX3JtY5I
+ W3dg7kq3Qlf+fgtAJ4/AWhp2kSiosrS3HGVXIZANSammcaRVqmvrX6A29Y+E0l+kJC0u
+ XBv5o9xqi4cvM0hxnsJ/yEXxJDfwesKcqlZVBHpu6qjdiumeERFcxJoi/NVG77FshJ3u
+ uYaA==
+X-Gm-Message-State: AFuF++l5q7+O4U3sTrXleHKj7lnD7JK9ChHbe9h2bCf5NHac0u0XbGz1
+ 9k/gqypOcj7yQCJrB6SLDDkPT3nKHTdkug7sGcfTU+L+ukF7LljlLe82EstRLeK2DbYhsE2zqnE
+ k0s5i6vxyjt2GQdiFNV32LgRS2XOvb+Q8hqpzfosgJdkBI4w8YqoPcU2/xuJ73VxADrcXLg==
+X-Gm-Gg: AYBFou2hw3vBJ0W9IfCH7/BDjpCaW5mkkImqUwomQMwhY5hLmOTFanCfE/6VULAbiCU
+ CNHmOpLsYRDT9mrj/5mn7FUiHZIvMy6JAKpfSi8eWx97ZBFjZjBpMHOFbSyBfVt87KeDGXgGbcL
+ FZNYHps0Cbj5Xj///sKBbO47kI4TnvjHWb+DWkvOc2Lsy7rFujw5hWWg03uuxYu9+6Eq0SUyZNA
+ 0ecN6ptTsc+DRFAGkUBQBRN/f7h7pz/oZ8UDbeTKeOykaDMTz/77NJncYUJgSoQoPRqxZ73b77c
+ zkyFK3DFjPJWuWkFLWuMuXoRMe4GHipmQc0Tlb4LkvyzD7XIw9AZouM58MYMgGPejhul2pRW
+X-Received: by 2002:a05:6214:8087:b0:910:6407:4ccf with SMTP id
+ 6a1803df08f44-91254b85e5dmr10163176d6.24.1789679671338; 
+ Thu, 17 Sep 2026 14:14:31 -0700 (PDT)
+X-Received: by 2002:a05:6214:8087:b0:910:6407:4ccf with SMTP id
+ 6a1803df08f44-91254b85e5dmr10162576d6.24.1789679670867; 
+ Thu, 17 Sep 2026 14:14:30 -0700 (PDT)
 Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-93b7821d231sm558697385a.21.2026.09.17.14.13.21
+ 6a1803df08f44-91252c5bef1sm7218696d6.9.2026.09.17.14.14.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Sep 2026 14:13:22 -0700 (PDT)
-Message-ID: <d6d916ceab76de14541a087c092cecf895c82164.camel@redhat.com>
-Subject: Re: [PATCH v2 3/4] drm/nouveau/device: don't use the pstate cursor
- after the loop
+ Thu, 17 Sep 2026 14:14:30 -0700 (PDT)
+Message-ID: <1372e336906a9418352edcf552d899685fb9b1d5.camel@redhat.com>
+Subject: Re: [PATCH 0/2] drm/nouveau/clk: fix RAM error handling and pstate
+ desync in nvkm_pstate_prog
 From: lyude@redhat.com
 To: Francesco Magazzu <postadelmaga@gmail.com>, Danilo Krummrich
  <dakr@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Dan Carpenter <dan.carpenter@linaro.org>,
- Karol Herbst <kherbst@redhat.com>
-Date: Thu, 17 Sep 2026 17:13:21 -0400
-In-Reply-To: <20260712123616.1180830-4-postadelmaga@gmail.com>
-References: <20260712123616.1180830-1-postadelmaga@gmail.com>
- <20260712123616.1180830-4-postadelmaga@gmail.com>
+ linux-kernel@vger.kernel.org, Karol Herbst <kherbst@redhat.com>
+Date: Thu, 17 Sep 2026 17:14:29 -0400
+In-Reply-To: <27293a63217c3261c42d011cef8cf31e3d43fefd.camel@redhat.com>
+References: <20260727152821.128432-1-postadelmaga@gmail.com>
+ <27293a63217c3261c42d011cef8cf31e3d43fefd.camel@redhat.com>
 User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: TKHqcnV7scThZgltxaOayrXjDAckilQ4tqTP4PNQsrQ_1789679604
+X-Mimecast-MFC-PROC-ID: d3K0nXBSGCvTx1Tv4DX3caxrZSgMK_N_STKl4kv_8as_1789679671
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -101,67 +100,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+Well, I -would- have pushed it but then I quickly realized I reviewed
+these patches in the wrong order, whoops :).
 
-On Sun, 2026-07-12 at 14:36 +0200, Francesco Magazzu wrote:
-> nvkm_control_mthd_pstate_attr() looks up the pstate at the index
-> supplied
-> by userspace by walking clk->states, and then keeps using the
-> list_for_each_entry cursor after the loop.=C2=A0 This is not triggerable
-> today:
-> the function already rejects args->v0.state >=3D clk->state_nr before
-> the
-> loop, and clk->state_nr is kept in sync with the number of entries on
-> clk->states, so the lookup always breaks on a real entry.
+Just consider these reviewed, will push once the series this depends on
+is all good to go
+
+On Thu, 2026-09-17 at 16:51 -0400, lyude@redhat.com wrote:
+> For the whole series:
 >=20
-> Should the loop ever run to completion, the cursor would point at the
-> list
-> head rather than at a pstate, and the pstate->base.domain[] read and
-> the
-> walk of pstate->list that follow would read past it.=C2=A0 Rather than
-> leave
-> that trap in place, track whether the entry was found and return -
-> EINVAL if
-> it was not, like the other lookup failures in this function.
+> Reviewed-by: Lyude Paul <lyude@redhat.com>
 >=20
-> No functional change.
+> Will push to drm-misc-fixes in just a moment
 >=20
-> Signed-off-by: Francesco Magazzu <postadelmaga@gmail.com>
-> ---
-> =C2=A0drivers/gpu/drm/nouveau/nvkm/engine/device/ctrl.c | 8 +++++++-
-> =C2=A01 file changed, 7 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/ctrl.c
-> b/drivers/gpu/drm/nouveau/nvkm/engine/device/ctrl.c
-> index f2e9a0626..28702741a 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/device/ctrl.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/ctrl.c
-> @@ -74,6 +74,7 @@ nvkm_control_mthd_pstate_attr(struct nvkm_control
-> *ctrl, void *data, u32 size)
-> =C2=A0=09const struct nvkm_domain *domain;
-> =C2=A0=09struct nvkm_pstate *pstate;
-> =C2=A0=09struct nvkm_cstate *cstate;
-> +=09bool found =3D false;
-> =C2=A0=09int i =3D 0, j =3D -1;
-> =C2=A0=09u32 lo, hi;
-> =C2=A0=09int ret =3D -ENOSYS;
-> @@ -104,10 +105,15 @@ nvkm_control_mthd_pstate_attr(struct
-> nvkm_control *ctrl, void *data, u32 size)
-> =C2=A0
-> =C2=A0=09if (args->v0.state !=3D
-> NVIF_CONTROL_PSTATE_ATTR_V0_STATE_CURRENT) {
-> =C2=A0=09=09list_for_each_entry(pstate, &clk->states, head) {
-> -=09=09=09if (i++ =3D=3D args->v0.state)
-> +=09=09=09if (i++ =3D=3D args->v0.state) {
-> +=09=09=09=09found =3D true;
-> =C2=A0=09=09=09=09break;
-> +=09=09=09}
-> =C2=A0=09=09}
-> =C2=A0
-> +=09=09if (!found)
-> +=09=09=09return -EINVAL;
-> +
-> =C2=A0=09=09lo =3D pstate->base.domain[domain->name];
-> =C2=A0=09=09hi =3D lo;
-> =C2=A0=09=09list_for_each_entry(cstate, &pstate->list, head) {
+> On Mon, 2026-07-27 at 17:28 +0200, Francesco Magazzu wrote:
+> > Follow-up to "[PATCH v2 0/4] drm/nouveau: fix list cursor use after
+> > loop
+> > in the clk pstate paths"
+> > (20260712123616.1180830-1-postadelmaga@gmail.com).
+> > Sashiko AI review flagged three pre-existing issues while reviewing
+> > patch
+> > 2/4 of that series; the third (clk->func->prog()'s error being
+> > clobbered
+> > by nvkm_volt_set_id() in nvkm_cstate_prog()) is already fixed by
+> > patch 4/4
+> > of that series. These two patches address the other two:
+> >=20
+> > =C2=A0 1. nvkm_pstate_prog() drops the RAM reclock error and falls
+> > through
+> > to
+> > =C2=A0=C2=A0=C2=A0=C2=A0 core clock programming anyway.
+> > =C2=A0 2. nvkm_pstate_prog() commits clk->pstate to the new state befor=
+e
+> > the
+> > =C2=A0=C2=A0=C2=A0=C2=A0 hardware transition has actually succeeded.
+> >=20
+> > Francesco Magazzu (2):
+> > =C2=A0 drm/nouveau/clk: don't ignore RAM clock programming errors in
+> > =C2=A0=C2=A0=C2=A0 nvkm_pstate_prog
+> > =C2=A0 drm/nouveau/clk: only update clk->pstate after hardware
+> > programming
+> > =C2=A0=C2=A0=C2=A0 succeeds
+> >=20
+> > =C2=A0nvkm/subdev/clk/base.c | 9 +++++++--
+> > =C2=A01 file changed, 7 insertions(+), 2 deletions(-)
 
