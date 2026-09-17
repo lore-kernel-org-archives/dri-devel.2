@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3ED4C982D9
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D47D8C88E75
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3AA810F1E8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B31BF10F1E7;
 	Fri, 18 Sep 2026 07:10:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QWkBRqZL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Em9Vcp7v";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8726110E755
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:24:01 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1B3010E0AE
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:32:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6C13940DDB;
- Thu, 17 Sep 2026 16:24:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17C491F00893;
- Thu, 17 Sep 2026 16:23:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 13A25601EF;
+ Thu, 17 Sep 2026 16:32:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F145F1F00898;
+ Thu, 17 Sep 2026 16:31:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789662241;
- bh=RLuxQ43cC1lLz4lxQslG77OEAHKejqlxyeMy3HZv9pA=;
+ s=k20260515; t=1789662729;
+ bh=zqpk9MXgaX25nS5Ys5rO6UCVR/iTsHvR4Kg11ITNpTs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=QWkBRqZLCDNxOzD4bIoFLP6D591QCq0iBOm36/NiXTWdshlgjNwPfC2G3rAcH/Hp2
- 95W1Lz510usTswgM8JeIJl2rLqPVhR6krFVIK0DmKZo3x31YNW+Qx4QWBqTvnkY8r0
- hsT5OU2i/NQTAAr8G7ViMBrzZ4kKUKI4NVr5+JOM7oVllH3UsE9EdOkYD9cq7a9aHe
- fdXjKWh8vXNmRbEkoPi4X4JucUCcqOeFk5yI+H/Ow2kApn+D0xIECgSozkBztL3jIs
- FbRx+2bmiYA8JoaZqRiiayTobqBrxEFcMh//EzCGCtoSKabDHc+OT8N03U13EE5eZu
- WvnejAGNThGTQ==
+ b=Em9Vcp7vsIS4Jn8qf/ahkPwaLGTBcJ8S5LIKDJMNWb3KRHsMyPmFX4JPiU7TvPOmF
+ +MrSzGz5nbDpirTrKKpT7f6veK5ZPsJ2sVnniUA2IYHo6fkoPifqJuSw6gsonsSdOk
+ qXJfQMLxAO1xfepbXhdfm+6hYk7pWgyENu3ZHr5AgPibg54dq2nQxPUic4WtiQZx5A
+ DwAUQEVEZXEwEOTOE62x/pD269SFWj0pYwkt33CXVoAPjv7oZfWr5BxshfaNUB250A
+ h9QMdMAmTMKLNhEYJLvTV4VhhkZ0P8xHGGUUAVCdZVEIt0VSeavBiKuRA5nUo2iTbx
+ bVHAAHQknK+jw==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:22:11 +0100
-Subject: [PATCH v3 02/40] mm/vma: predicate setting mmap_prepare VMA fields
- on new vma alloc
+Date: Thu, 17 Sep 2026 17:22:27 +0100
+Subject: [PATCH v3 18/40] scsi: sg: convert mmap hook to mmap_prepare and
+ rework
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-2-4583d8a23bca@kernel.org>
+Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-18-4583d8a23bca@kernel.org>
 References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
 In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -121,15 +121,15 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1712; i=ljs@kernel.org;
- h=from:subject:message-id; bh=Oc6a87+f8ib3EMGGxGSi+EZ7/9tYFaGdj2ExhgkqcQY=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCO/78/Jqbd8+paP6cTt/5Z5+U2oglfPFdt+545/uO
- Sw4xsdzo6OUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQATWXaTkaFB3yA7fdtVsSlL
- Hxos5Zlncfhbg0lew/ZbrwqeRfrfPhbCyLAk6WT6622K9b4/I/g2603cejZIW/5HIC+b8fWAszZ
- 5EnwA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5937; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=HTYbod2OP3AjRPEv6Ph886TsUDFUWldGDo6PKBX7Wqs=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB+MTmlykN749ErGgtLIbfJWW1wOmzJePeXSkp6a7
+ iw7/7ZYRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACay7x3D/+Iwtu3lofl/9wnM
+ 1bQpCNefY17DevBw5pv01fefayU83s/wT5t1Z0mEyM2PT4XbeZ4tWbny13uNg/Ymxre/m73J9S3
+ vZgMA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
-X-Mailman-Approved-At: Fri, 18 Sep 2026 07:10:00 +0000
+X-Mailman-Approved-At: Fri, 18 Sep 2026 07:09:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,47 +145,188 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-It only makes sense to manipulate VMA fields if we allocated a new VMA,
-rather than merged it.
+Move from the deprecated mmap hook to the new mmap_prepare hook.
 
-VMA merging does not compare vm_ops or vm_private_data, so a merged VMA
-keeps its own, which is also what the legacy f_op->mmap path does since it
-never touches an existing VMA. Previously set_vma_user_defined_fields()
-overwrote the merged VMA's fields with those set for the new mapping. In
-practice these are the same values, with rare exceptions such as shmem
-selecting vm_ops based on whether the file has been unlinked, so no
-user-visible change is expected.
+We are mapping kernel pages here, so use the discontiguous kernel mapping
+mmap action to do so.
 
-Make this dependency explicit, and additionally constify have_mmap_prepare
-while we're here.
+Unwind the rather confusing loop and instead map as many pages as we can at
+one time.
+
+Note that we do not need to pay attention to rsv_schp->k_use_sg here, as
+the pages are populated for the length of the buffer at
+rsv_schp->page_order granularity as compound pages.
+
+The discontiguous kernel page mapping logic handles the compound pages for
+us.
+
+sfp->mmap_called keeps the buffer stable for us. As before it is never
+cleared, so a failed mmap also leaves it set.
+
+We also remove some useless vma, vma->vm_file NULL checks - these will
+always be non-NULL if you reached the mmap hook logic.
+
+We retain log output for consistency, but change what's output on page
+mapping to indicate that sg_discontig_get() does the work now.
+
+Note that we drop the VMA_IO_BIT flag for the VMA here. It was never
+necessary as we invoke alloc_pages() which gives us refcounted folios that
+are fine for GUP to access (VMA_IO_BIT would prevent that).
 
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/vma.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/scsi/sg.c | 115 ++++++++++++++++++++++++------------------------------
+ 1 file changed, 51 insertions(+), 64 deletions(-)
 
-diff --git a/mm/vma.c b/mm/vma.c
-index fa784f069da4..4b74b48c29b7 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -2894,7 +2894,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
+diff --git a/drivers/scsi/sg.c b/drivers/scsi/sg.c
+index 5408f002e6c0..3f9e08725602 100644
+--- a/drivers/scsi/sg.c
++++ b/drivers/scsi/sg.c
+@@ -1212,85 +1212,72 @@ sg_fasync(int fd, struct file *filp, int mode)
+ 	return fasync_helper(fd, filp, mode, &sfp->async_qp);
+ }
+ 
+-static vm_fault_t
+-sg_vma_fault(struct vm_fault *vmf)
++static int sg_discontig_init(void *vm_private_data, void **private)
  {
- 	struct mm_struct *mm = current->mm;
- 	struct vm_area_struct *vma = NULL;
--	bool have_mmap_prepare = file && file->f_op->mmap_prepare;
-+	const bool have_mmap_prepare = file && file->f_op->mmap_prepare;
- 	VMA_ITERATOR(vmi, mm, addr);
- 	const pgoff_t anon_pgoff = addr >> PAGE_SHIFT;
- 	MMAP_STATE(map, mm, &vmi, addr, len, pgoff, anon_pgoff, vma_flags, file);
-@@ -2937,7 +2937,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
- 		allocated_new = true;
+-	struct vm_area_struct *vma = vmf->vma;
+-	Sg_fd *sfp;
+-	unsigned long offset, len, sa;
+-	Sg_scatter_hold *rsv_schp;
+-	int k, length;
+-
+-	if ((NULL == vma) || (!(sfp = (Sg_fd *) vma->vm_private_data)))
+-		return VM_FAULT_SIGBUS;
+-	rsv_schp = &sfp->reserve;
+-	offset = vmf->pgoff << PAGE_SHIFT;
+-	if (offset >= rsv_schp->bufflen)
+-		return VM_FAULT_SIGBUS;
+-	SCSI_LOG_TIMEOUT(3, sg_printk(KERN_INFO, sfp->parentdp,
+-				      "sg_vma_fault: offset=%lu, scatg=%d\n",
+-				      offset, rsv_schp->k_use_sg));
+-	sa = vma->vm_start;
+-	length = 1 << (PAGE_SHIFT + rsv_schp->page_order);
+-	for (k = 0; k < rsv_schp->k_use_sg && sa < vma->vm_end; k++) {
+-		len = vma->vm_end - sa;
+-		len = (len < length) ? len : length;
+-		if (offset < len) {
+-			struct page *page = rsv_schp->pages[k] + (offset >> PAGE_SHIFT);
+-			get_page(page);	/* increment page count */
+-			vmf->page = page;
+-			return 0; /* success */
+-		}
+-		sa += len;
+-		offset -= len;
++	const unsigned long req_sz = (unsigned long)*private;
++	Sg_fd *sfp = vm_private_data;
++	Sg_scatter_hold *rsv_schp = &sfp->reserve;
++	int err = 0;
++
++	mutex_lock(&sfp->f_mutex);
++	if (req_sz > rsv_schp->bufflen) {
++		err = -ENOMEM;	/* cannot map more than reserved buffer */
++		goto out;
++	}
++	sfp->mmap_called = 1; /* Prevents changes to buffer size. */
++out:
++	mutex_unlock(&sfp->f_mutex);
++	return err;
++}
++
++static int
++sg_discontig_get(struct discontig_kernel_page_state *state)
++{
++	Sg_fd *sfp = state->vm_private_data;
++	Sg_scatter_hold *rsv_schp = &sfp->reserve;
++	const unsigned int order = rsv_schp->page_order;
++	const pgoff_t nr_pages = state->nr_pages_mapped;
++
++	if (nr_pages >= (rsv_schp->bufflen >> PAGE_SHIFT)) {
++		discontig_kernel_map_abort(state);
++		return 0;
  	}
  
--	if (have_mmap_prepare && !map_is_anon(&map))
-+	if (have_mmap_prepare && allocated_new && !map_is_anon(&map))
- 		set_vma_user_defined_fields(vma, &map);
+-	return VM_FAULT_SIGBUS;
++	SCSI_LOG_TIMEOUT(3, sg_printk(KERN_INFO, sfp->parentdp,
++				      "%s: offset=%lu, scatg=%d\n", __func__,
++				      nr_pages << PAGE_SHIFT, rsv_schp->k_use_sg));
++
++	discontig_kernel_map_page(state, rsv_schp->pages[nr_pages >> order]);
++	return 0;
+ }
  
- 	__mmap_complete(&map, vma);
+-static const struct vm_operations_struct sg_mmap_vm_ops = {
+-	.fault = sg_vma_fault,
++static const struct discontig_kernel_page_ops sg_discontig_ops = {
++	.init = sg_discontig_init,
++	.get = sg_discontig_get,
+ };
+ 
+ static int
+-sg_mmap(struct file *filp, struct vm_area_struct *vma)
++sg_mmap_prepare(struct vm_area_desc *desc)
+ {
+-	Sg_fd *sfp;
+-	unsigned long req_sz, len, sa;
+-	Sg_scatter_hold *rsv_schp;
+-	int k, length;
+-	int ret = 0;
++	Sg_fd *sfp = desc->file->private_data;
++	const unsigned long req_sz = vma_desc_size(desc);
+ 
+-	if ((!filp) || (!vma) || (!(sfp = (Sg_fd *) filp->private_data)))
++	if (!sfp)
+ 		return -ENXIO;
+-	req_sz = vma->vm_end - vma->vm_start;
++
+ 	SCSI_LOG_TIMEOUT(3, sg_printk(KERN_INFO, sfp->parentdp,
+ 				      "sg_mmap starting, vm_start=%p, len=%d\n",
+-				      (void *) vma->vm_start, (int) req_sz));
+-	if (vma->vm_pgoff)
++				      (void *) desc->start, (int) req_sz));
++
++	if (desc->pgoff)
+ 		return -EINVAL;	/* want no offset */
+-	rsv_schp = &sfp->reserve;
+-	mutex_lock(&sfp->f_mutex);
+-	if (req_sz > rsv_schp->bufflen) {
+-		ret = -ENOMEM;	/* cannot map more than reserved buffer */
+-		goto out;
+-	}
+ 
+-	sa = vma->vm_start;
+-	length = 1 << (PAGE_SHIFT + rsv_schp->page_order);
+-	for (k = 0; k < rsv_schp->k_use_sg && sa < vma->vm_end; k++) {
+-		len = vma->vm_end - sa;
+-		len = (len < length) ? len : length;
+-		sa += len;
+-	}
++	vma_desc_set_flags(desc, VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT);
++	desc->private_data = sfp;
+ 
+-	sfp->mmap_called = 1;
+-	vm_flags_set(vma, VM_IO | VM_DONTEXPAND | VM_DONTDUMP);
+-	vma->vm_private_data = sfp;
+-	vma->vm_ops = &sg_mmap_vm_ops;
+-out:
+-	mutex_unlock(&sfp->f_mutex);
+-	return ret;
++	mmap_action_map_discontig_kernel_pages(desc, (void *)req_sz,
++					       &sg_discontig_ops);
++	return 0;
+ }
+ 
+ static void
+@@ -1415,7 +1402,7 @@ static const struct file_operations sg_fops = {
+ 	.unlocked_ioctl = sg_ioctl,
+ 	.compat_ioctl = compat_ptr_ioctl,
+ 	.open = sg_open,
+-	.mmap = sg_mmap,
++	.mmap_prepare = sg_mmap_prepare,
+ 	.release = sg_release,
+ 	.fasync = sg_fasync,
+ };
 
 -- 
 2.55.0
