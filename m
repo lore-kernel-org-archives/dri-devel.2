@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D106DC88E75
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADC11C982D2
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FCCF10EA75;
-	Fri, 18 Sep 2026 07:10:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC0AA10E95C;
+	Fri, 18 Sep 2026 07:10:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HrTjhgWc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="byPXcWCB";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A0D510E0AE
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:34:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36F2110E0AE
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:38:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C18B6601EF;
- Thu, 17 Sep 2026 16:34:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B430A1F00898;
- Thu, 17 Sep 2026 16:34:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A9E7660216;
+ Thu, 17 Sep 2026 16:38:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D0441F000FF;
+ Thu, 17 Sep 2026 16:38:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789662882;
- bh=vZ2BcQjAwuwkC6/1VounDnE32rIC0Hjr2OUSnxyIkA8=;
+ s=k20260515; t=1789663126;
+ bh=lLYk3o3B0/wt5kKG7m+ibDGyo2yi3t47XmKybZiJ1Rs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=HrTjhgWc4//TyGo0MLAC3WMKB3trg0Da9llQBlNoG2CpnsE0E+nakCyji8mxZQpme
- VxHtk/idNgtQHfSor0Csyd9oGbaEoBYWo5jU9iNQ8ixYYL7YholnWwWdjJ4ajhiULo
- Rt8HXHFM9s9qJkcNIEd9WiyFvrIxm8Ob2Yziy+8eirXWq3iHf+8bU1EthZuZAvWGTz
- XibJ9IjZMVpXZBSOt2SVbDtXwXstrt0FCqmIib4HPGqMeXtQTPrE7Dj694QH14hQGs
- VddhDCAHjtM8xo5QTvEBLv6Je7pdirLDgUavvQkghweAOYclDKp41x5BVF7eVbvUlz
- 2c2X7fiXPR9PQ==
+ b=byPXcWCBqQ2k/JxAm0NOmPWYbT6DeEbK75BKRpWKfzp7+QTfB6gD6Jwr5+NtnYFbF
+ vANP/UXdPyvEOeRBtYogU/57/nulluJHybMAJOC35jvz4xD2wPVFBI91Aw+YsOC+sP
+ 6aNwYISVKfiJjWMFVvcA55zNh95pCsarrRKnXr7KWJWILUFd3HUcYcuPpIxzLPlFhY
+ ycbrt4mv4ZS4RVqRxw1P4RGv/E/7Aff2Vt9c+5Yo5G9KPZl7lvt2riK4lE3Gcrd8f1
+ cHDUqHsQw2H28rT4egz7snB+IabetMBAx5sqYD1rZ08IBRgGxzunW/DzNmOVsFjYOB
+ FaMAt505vgJZA==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:22:32 +0100
-Subject: [PATCH v3 23/40] mm/mlock: clear VMA_LOCKED_MASK over mmap
- callback
+Date: Thu, 17 Sep 2026 17:22:40 +0100
+Subject: [PATCH v3 31/40] mm/vma: introduce vma[_flags]_is_persistent()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-23-4583d8a23bca@kernel.org>
+Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-31-4583d8a23bca@kernel.org>
 References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
 In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -121,15 +120,15 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2686; i=ljs@kernel.org;
- h=from:subject:message-id; bh=LP2OVTJBUZHnaHZyV54sJNvm4xxGiJDQinrnPbsdCWM=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB86ImDlv7d0LV9pyYYSnTXehbNvS6Z4eWg9PxvNf
- 6c17ItuRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACZSpcPwT/Gqj2rCgy9S2gsd
- lH2dxR687NLN9Zwt0l65W7fT43ykNCNDR/dUtWOr0gLXbTrNuv1CZ2Dqc3WLVGmxJ92z5f9UPAr
- kBQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3843; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=g+DP477oZGptEtdcgQ46pNPCZKGp7Qm9RMjCOcTExak=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB8u6fNauyHdvmVJ5W6uovZ+1YSTvTFcx3vNJj9Ue
+ 7bq3cw3HaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZiIpxAjw8Wj14sVjnlLqEpf
+ alzq8/uu46r80HPN9mFnBc0937Q0H2P4H2is/PxS+84+HRY92StXjVg7lJTdbzpWtfbv3MIVqFD
+ GBwA=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
-X-Mailman-Approved-At: Fri, 18 Sep 2026 07:09:59 +0000
+X-Mailman-Approved-At: Fri, 18 Sep 2026 07:10:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,83 +144,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently there's a confusing mess around VMA_LOCKED_BIT and
-VMA_LOCKONFAULT_BIT.
+Introduce vma[_flags]_is_persistent() for the purposes of identifying
+mappings that are persistent in the sense that bytes to the mapping stay
+there, and bytes read from the mapping are the same unless changed by
+actions taken by userland.
 
-It is permitted for drivers to set any flags they like, with the VMA
-already possessing lock flags.
+Kernel-owned mappings do not fall into this category, as their owner may
+change the contents without the user having initiated it, and nor of course
+does memory-mapped I/O.
 
-This results in the absurd situation of a VMA possessing both
-VMA_SPECIAL_FLAGS and VMA_LOCKED_MASK flags, which is not permitted.
+We exclude fixed mappings as these are singled out as being unmergeable and
+so cannot be guaranteed to persist user data.
 
-This has resulted in mlock_vma_folio() having a very silly check for this
-scenario to work around it.
+hugetlb mappings are fixed mappings, but their contents are entirely the
+user's, so they are explicitly carved out as persistent, as the MADV_DODUMP
+check already does.
 
-There is no need for this - just clear the flags before invoking the hook
-and reinstate them afterwards if they are required.
+It excludes droppable mappings, which by their nature are ephemeral.
 
-Nothing relies upon this being set during the mmap operation.
+Use this functionality to update the madvise MADV_DODUMP check to test for
+persistence rather than open-coding this.
 
-mmap_prepare is unaffected by this so requires no fix.
+This replaces the VM_SPECIAL check which means it no longer checks for
+VMA_IO_BIT, however this is safe as we have established the invariant that
+only kernel-owned mappings may set VMA_IO_BIT, so we implicitly include
+these.
+
+No functional change intended.
 
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/internal.h |  9 +--------
- mm/vma.c      | 14 ++++++++++++++
- 2 files changed, 15 insertions(+), 8 deletions(-)
+ include/linux/mm.h | 44 ++++++++++++++++++++++++++++++++++++++++++++
+ mm/madvise.c       |  4 ++--
+ 2 files changed, 46 insertions(+), 2 deletions(-)
 
-diff --git a/mm/internal.h b/mm/internal.h
-index b81fce5fe510..b2c6c9435021 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -971,14 +971,7 @@ void mlock_folio(struct folio *folio);
- static inline void mlock_vma_folio(struct folio *folio,
- 				struct vm_area_struct *vma)
- {
--	/*
--	 * The VM_SPECIAL check here serves two purposes.
--	 * 1) VM_IO check prevents migration from double-counting during mlock.
--	 * 2) Although mmap_region() and mlock_fixup() take care that VM_LOCKED
--	 *    is never left set on a VM_SPECIAL vma, there is an interval while
--	 *    file->f_op->mmap() is using vm_insert_page(s), when VM_LOCKED may
--	 *    still be set while VM_SPECIAL bits are added: so ignore it then.
--	 */
-+	/* The VM_IO check prevents migration from double-counting during mlock. */
- 	if (unlikely((vma->vm_flags & (VM_LOCKED|VM_SPECIAL)) == VM_LOCKED))
- 		mlock_folio(folio);
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 154fc25c9efa..0579e6afb19f 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -1741,6 +1741,50 @@ static inline bool vma_can_merge(const struct vm_area_struct *vma)
+ 	return vma_flags_can_merge(&vma->flags);
  }
-diff --git a/mm/vma.c b/mm/vma.c
-index 1dec10946918..1db8b218fe64 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -2607,6 +2607,11 @@ static int __mmap_new_file_vma(struct mmap_state *map,
- 	if (!map->vm_file->f_op->mmap)
- 		return 0;
  
++/**
++ * vma_flags_is_persistent() - Do the specified VMA flags imply that the VMA
++ * contains persistent data?
++ * @flags: The VMA flags to test.
++ *
++ * Persistent in the sense that - if you write bytes to the mapping - do they
++ * stay written?
++ *
++ * If the kernel or a device could write to the memory independently of
++ * userland, or the kernel could arbitrarily discard it, then it is not
++ * persistent.
++ *
++ * Returns: true if the flags imply this VMA is persistent, otherwise false.
++ */
++static inline bool vma_flags_is_persistent(const vma_flags_t *flags)
++{
++	/* hugetlb is a fixed mapping, but its contents are the user's own. */
++	if (vma_flags_is_hugetlb(flags))
++		return true;
 +	/*
-+	 * Driver-specified flags may make the lock flags invalid, so clear
-+	 * VMA_LOCKED_MASK and reinstate it afterwards if appropriate.
++	 * MMIO mappings may not store what is written and may be changed by the
++	 * device. Kernel-owned and fixed mappings may be changed by their owner
++	 * without the user having initiated it.
 +	 */
-+	vma_clear_flags_mask(vma, VMA_LOCKED_MASK);
- 	error = mmap_file(vma->vm_file, vma);
- 	map->vm_file = vma->vm_file;
- 
-@@ -2623,6 +2628,15 @@ static int __mmap_new_file_vma(struct mmap_state *map,
- 		return error;
- 	}
- 
-+	/* If VMA flags still valid for locked mask, reinstate. */
-+	if (vma_supports_mlock(vma)) {
-+		const vma_flags_t mask =
-+			vma_flags_and_mask(&map->vma_flags,
-+					   VMA_LOCKED_MASK);
++	if (vma_flags_is_kernel_owned(flags) ||
++	    vma_flags_is_fixed_mapping(flags))
++		return false;
++	/* Droppable memory is discardable by definition. */
++	return !vma_flags_test_single_mask(flags, VMA_DROPPABLE);
++}
 +
-+		vma_set_flags_mask(vma, mask);
-+	}
++/**
++ * vma_is_persistent() - Does the VMA contain persistent data?
++ * @vma: The VMA to test.
++ *
++ * See vma_flags_is_persistent() for details.
++ *
++ * Returns: true if the VMA is persistent, otherwise false.
++ */
++static inline bool vma_is_persistent(const struct vm_area_struct *vma)
++{
++	return vma_flags_is_persistent(&vma->flags);
++}
 +
- 	map->vma_flags = vma->flags;
- 
- 	return 0;
+ /**
+  * vma_kernel_pagesize - Default page size granularity for this VMA.
+  * @vma: The user mapping.
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 0922d5f07a12..e15973292f94 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -1584,8 +1584,8 @@ static int madvise_vma_behavior(struct madvise_behavior *madv_behavior)
+ 		new_flags |= VM_DONTDUMP;
+ 		break;
+ 	case MADV_DODUMP:
+-		if ((!vma_is_hugetlb(vma) && (new_flags & VM_SPECIAL)) ||
+-		    (new_flags & VM_DROPPABLE))
++		/* Non-persistent memory cannot be dumped. */
++		if (!vma_is_persistent(vma))
+ 			return -EINVAL;
+ 		new_flags &= ~VM_DONTDUMP;
+ 		break;
 
 -- 
 2.55.0
