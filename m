@@ -4,140 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 156E1C982C1
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 07:54:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D934C982C1
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 07:56:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B4F210E460;
-	Thu, 17 Sep 2026 07:54:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90BEC10E444;
+	Thu, 17 Sep 2026 07:56:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="r8X6D9XS";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cC351Cz3";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KFvAYSiS";
 	dkim-atps=neutral
-Received: from CWXP265CU008.outbound.protection.outlook.com
- (mail-ukwestazon11020077.outbound.protection.outlook.com [52.101.195.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9351210E444;
- Thu, 17 Sep 2026 07:54:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q213LX9uewB8JA3dOtKJJOQX6kwPxXKaGoNa6CXGlouCESYmK0dDrFJP8cSFC2j8fnSUPb7+8Mn39WPTR7UaXFLmn/67njM8vaQmoUZogFSCMJXaXGn/SjS3tuTpKVZXmUELaY4s1tb+R4HSlo2x+GR27MrR2KzRJIydfMRMoME/PqZbRq7wdVV0lNfwhVjFgxaZIUGJHp4vhm9VSjbr0HQ/vseXXKZhC8Fy6hWxcLqcLZVlCz1GHJh3weI/9rlWI479DkIChKyfDNfHo05ia+gUZ/YIYs0dSUTJiA5YNtDVsd8+N41AeIXq/w8RkG/SCu82IyecYdFt20RgVgmmZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yUDUzkZgc1iTbO2RZOnIFG4NjtMDza/Fjz8YZOKeZNo=;
- b=p/XtrxY/drfao8EpvXQatmIPC37qXp0uH63YJy3dzQg0f2ENbrea6KnMVYK6GntIuSXNUaSMlc5FFxfbLZwYT68Wmx3Zhr8dm1HtSu3MjUCQqzIAZ7LEPRQgkgMSiG5otZlLAs5mjeBEEmcaptxnFCnf6hfUW4HNrtz4cERkZSi3cqC5RcmW5hRrlUGPMqR0tL4SraMFlfKvVTuZoySGMMinKAJ/Z5Dq5p5CBqf22NJqLTO4wrJULjzkxzYpDorV+GjBZ0kIcVbHc12kK0SUkn+5d1AqvtDK2SiFFxx38b9XAHXUVr+qGvytVAyv2eVi950+hC7zz1YgiVp21IajGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yUDUzkZgc1iTbO2RZOnIFG4NjtMDza/Fjz8YZOKeZNo=;
- b=r8X6D9XS0jcmuADCpiy+4CJlQW/oyLLSXxixRMpp28Fkk9WrRcaoJn3NZ4DFy4y2weqHUR07EpAi6zZuGmaDqXAQzRVBPHb8SWHQlQbz6kSX2SQaf8j/ScarUOZn0GpeMbCWcikHYBQ7xX97VDJnwxGesZRtFe7Joz98aos18CY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b4::24)
- by CWXP265MB2822.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:c3::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
- 2026 07:54:01 +0000
-Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
- ([fe80::c07d:488c:d4aa:2a4a]) by LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
- ([fe80::c07d:488c:d4aa:2a4a%4]) with mapi id 15.21.0406.007; Thu, 17 Sep 2026
- 07:54:01 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 17 Sep 2026 08:53:56 +0100
-Message-Id: <DLHFGW1ISL53.3D3X360WD8HPV@garyguo.net>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
- <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v2 7/8] gpu: nova-core: add NVKV typed decoding
-From: "Gary Guo" <gary@garyguo.net>
-To: "Eliot Courtney" <ecourtney@nvidia.com>, "Alexandre Courbot"
- <acourbot@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
- <20260827-b4-nvkv-v2-7-0de9d5c8658c@nvidia.com>
- <DLEQBIQ50C39.23F0YZK9D7VUD@nvidia.com>
- <DLEUCB80B7ZP.BW7O43IISMQR@nvidia.com>
-In-Reply-To: <DLEUCB80B7ZP.BW7O43IISMQR@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0221.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a6::10) To LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4b4::24)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8D8010E444
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 07:56:40 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68H60GqR1924343
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 07:56:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=PfClSxRVkrfkzd/aMC38kqBu
+ wsc6wodH7g/O5+B060M=; b=cC351Cz3FKnbAmbwF8Valz1+O3Ke711ETI/IspiF
+ EV/gAjRy3MflaR3dA98hBp7VpmynY6LvnCUp9tEJd0zGodlV0vvnWp3e8XUHGsxa
+ 97Shdep2V9woRBLB4X7V+XmbBmWKycVhHPa0xcPmCLu/Noldyxb6h+UcQNNyYiV7
+ tjwIQWMYpinQa4pm9Pv2tpBWdY00VvpJ+C/9NE07va0RxsXNwSRmFll8IJ9oh46T
+ Vnyaww+Ga7IcftNRYzbMrYl/8IhDwMGQjqDHxQk9jB2Dxd9LUIwl4CYDEFzbQsF3
+ XrIvUqsddweiQ733QzZsTURMhp8600BMoFBRp5zRsqIemg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqxw8ua9r-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 07:56:40 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-93bd22160bbso21079785a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 00:56:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1789631799; x=1790236599;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=PfClSxRVkrfkzd/aMC38kqBuwsc6wodH7g/O5+B060M=;
+ b=KFvAYSiSFG2nyMWpqdDpG/8tCZc7wVT73cVaHtqvWYTUhg5jgSaC44lvJakRrcV9q4
+ TrK8YGPAxmjZpRdhGmFr6+CjTL55ieRYGOeHvbJjCaUllEBVgcap1TQaqmHeTRq4yZul
+ 26m7Eb2QUqJyLsRVRxPhqOZbHvubWu4Ug8+i9G42nSWvYsNJcpNXzzrqitEgdJFgcsHl
+ eBElQd5rZWuZoVn6l4vrF1hDBkNZZQNjYdlTUOwrzE/+LOnvqhy7GBTQhKEt9iq3r4me
+ cPkvoALzzm3X59Xo9H5z2fe3LwGDitMTl0ywyGYC09Vphdx224QNof4E0zEmI5lC6+0f
+ c3VA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789631799; x=1790236599;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=PfClSxRVkrfkzd/aMC38kqBuwsc6wodH7g/O5+B060M=;
+ b=XugNcYDoac9aG/2ShNLG4MokhArMxH/q8VNhLLbPA+h+mMW84R0clixadmvyFdo3xa
+ Jujpp8wYqsQ+lnD16ULbtFj6oQvCI5NT/YjI1GJLGf6EC8kIbi/udfVx/xsIwib/j1Of
+ LsXZm9valIgzKi+tAdOVJZgN5o8qW5FFjiwmye0vHN/PXy06MZdmIHRh0z4TIre3r+w1
+ AVYQWJF3p6YLBdQj2hBzmhWJv5e+/9rw062ZnOz28FGhxT23IRJSxhQ3L8i9DLk8sxXn
+ yCDgDeWRJNfNaHIUDC6JEmUWETH4xnFZiyIROYlHT2safREreHGOABAsWdN7aKgRHoRj
+ XkFQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxZiKT9FiAowKCZPQ1YRo+CBGm4qXTO6HpJpjBN83VCggsv0U4hHNUk1GFu3sG1Savb5pDqx467GVM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ncLYYua9+9X//YKNyHjId4mlwGaLub0Lo0Cd/D3yMotCImSAxN
+ +tkXV5nA3ppr42DJvst8Gc2hLDSLF2iB+FTVk9iCWOI4K0adiEkFfN/fhwlC7EiHvX7+VeJn94e
+ YBzI1Sl6vlRApcuUxJsTq0ecCgwIvKiRyqrt/L1sJNlgZrdwGh5XL5IIoQcPvfoRghF3GVRc=
+X-Gm-Gg: AYBFou35751z0te/NoPnMtRaaxhoKHtiypHRS7wowLXVuMgALNsDMonyAWzO/E0xlWo
+ PmGwY1vzj9UcaT2hdlE91WNOiXyMMJIO1ArxC79o1rzK8aMoBOqU18FQ7O5HRsYNTkBOnOQF5dZ
+ 1r2dBmLDOFdTEjGARrWLmMllKxlhZiiAqyjX7Z5JtiILEc37689cY6dqJJEuEHt4Q87SeFmz+Rd
+ Dqrrlk+FR+6g5AcFRzP3Cfiy0d5BwUJyF8jL87O+rbGpPbPG3Ig56EZfbNf7CYUB2A1o2nqJInp
+ /4bHzJqPu36HR95DXAKj9pRGRIYPquKoeUGG9yiotHdxCB+GLzjQm5Ggk0VbXjMQ+Lx+AlLYhYj
+ KK8K1kA3Uz/Xi0KrKaayLeYLPf7ZwTnP/8+KSrqcX8ev22RjeNgC2XBky+TgR/v6yP/0ubjlw4r
+ aqSWb0fCYT0I5/
+X-Received: by 2002:a05:620a:600b:b0:93b:c45f:9024 with SMTP id
+ af79cd13be357-93bc45f915fmr557190785a.7.1789631799328; 
+ Thu, 17 Sep 2026 00:56:39 -0700 (PDT)
+X-Received: by 2002:a05:620a:600b:b0:93b:c45f:9024 with SMTP id
+ af79cd13be357-93bc45f915fmr557188085a.7.1789631798944; 
+ Thu, 17 Sep 2026 00:56:38 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5b8b57deda4sm1587200e87.55.2026.09.17.00.56.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Sep 2026 00:56:37 -0700 (PDT)
+Date: Thu, 17 Sep 2026 10:56:35 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 02/29] drm/msm/dp: refactor msm_dp_ctrl_config_msa()
+ to take panel
+Message-ID: <lo76t74cekbhmigetz5ovb6t7fg2pbvkh5h2pzjbjxmq6lb3e2@f2nhqd4la3w2>
+References: <20260831-msm-dp-mst-v6-0-c91d35d6fb9e@oss.qualcomm.com>
+ <20260831-msm-dp-mst-v6-2-c91d35d6fb9e@oss.qualcomm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOZP265MB8551:EE_|CWXP265MB2822:EE_
-X-MS-Office365-Filtering-Correlation-Id: 56e3acca-623e-4595-3f2d-08df1490d636
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|23010399003|10067099003|4143699003|56012099006|3023799007|10063799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Fn8eJyzD51Z0uJkJyLwzWsJ0SfKubrUlX+5ZffnM82yjrMdCYsgl5l9IOuHq1Jv1RdUJk9hCtUc3dx7hAF6XcXdvJFuMWj68dmAO+7Sjir27m0oSE9dqQf+t3pnxXWNkgKO1VjTacXanEmPNa2ven2cSFik2aOSB3yRlmIXQg1S0d/7a67n7i/AMocCODFLzsltgBqiSyGrnog0uaSsSm/Cdpv+ox3xiKQv8hbLXscDxa4eE8OkOULTrEP9gwEnXPRX415gbWEhEsyQ7uKA4B4YdwTy29h+js6jvwFyzZdhuNuvN7G5eoANao9xe32B7ZNei8qWcPBo1gtY77r9kdTWH1dEyZym8k6r0xVSIvpbKgLYVBy+OswFEO5IdDeYi6vNbGU2yh6nJHa3jnzCWoHthuZmovat4yryKBZM9ipoS/OgaqWfld+329HC7mbNUVsaSdwrFi1+W3N47iDv464czJZp4rsmMIZGVAQt/wS8qZPo/tAM/lL4IWIuOvmx1nSDw7NQnF8snoDdLjhZA/YbG6O0OnJB6V7ixhERNxfYWN9NOjl/6kwIUGshaXAATA836/5NO1qzfLAxU4iBC/ZH1ZHugFwHNG1S5843nAOmClAD20/GMRvEls7tRkMzdFOACD/fKHQ6H2wvDyi7o/V2tYzo8qfyKVxE0eJkeX68=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(10067099003)(4143699003)(56012099006)(3023799007)(10063799003)(18002099003)(22082099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QThZQXdoWnRoZU1hL0RvNTRSN2tvSlVSNlhKdGlQazBjU0VOV1FURzhCQzJL?=
- =?utf-8?B?a0U0TXdSN0xOcTFIK0lHUVRPcXdJR1pQTStNK2dKbEJMV3Q4MTBYSzRnUHVJ?=
- =?utf-8?B?TTBBNENlZFpTdVJIOUUrTUxPcFJ2c0Z3c2g5TnFXRVBRZW4rb2hOR2YxRHJD?=
- =?utf-8?B?OWpVRld0TGNSLzdQWGIrTjlkOFdqSlVGM2FsQS9DdHYxVFVpZTFZcCsyMFdt?=
- =?utf-8?B?UnhvTG81SmpGQzBtN2oxVkxJU0k2TytzNElJZ1I3QS9GV3JDL1B4ajhYV00y?=
- =?utf-8?B?ZVBibGwwWFZhQmhreTRqNWZLbldHR3NVeDJKUVJlZ29QNjNoeEdTZjhnYkpy?=
- =?utf-8?B?alM4VmV1b1FrNmFtUGFOeFVhbkpsZ0I0dkQvMzQ5SHhVaC9yNzJmaTNmZENO?=
- =?utf-8?B?VEZUV2psOUd5ZVFCN0s2eGtVaDdXcUxhMnc1eFY1dEtDQm5tTUVHY3BRelF3?=
- =?utf-8?B?cEcwYWl5QkFMdXFtay9zQlV4RGhaWTFHaHNtakUwZkZsOEVZbzRtUExVSDBZ?=
- =?utf-8?B?eGl2SC8vbVRSVEJiaHRXUHo3UFNMbFJ4SjgxalJhTk01cU82MkhaL1BCMk5H?=
- =?utf-8?B?TVM4VjN1Y29qSk82K2RnNE9ySUQ4TzN5RjN4Y3lpWUZudTNrdS9pOHNHUVdY?=
- =?utf-8?B?TTM3Z0xVWk9uenJlYThtQnlUVWR6WGNyWTlLTnRUMk45TFdWMmVFOUlMa3Fa?=
- =?utf-8?B?L3JJeTZXTXh3emo1NFZrUkZNNjI5blBKOFV1SDB5RVN3OXhMSFA3MEpHOGFY?=
- =?utf-8?B?OTNSaTNsL1JTZG0xODdHSTVFdDJHekk5RVFmbHErUkJEaHBmbUJKUEFVb0Zm?=
- =?utf-8?B?L0ZKME9jeVlHVFF1OGVaNndHa2hrRDRRUGVHU005QmVxVWZESkpOUWs0Z1Rx?=
- =?utf-8?B?RUdSMnpYUDIzbkxxU0h3N1FHZ2U4ZjZmUXdLMFBlUjZ5WlVYZk1ERjF4enA4?=
- =?utf-8?B?NkkvT0NIRTNOaGg5RHBIVFc0ZTY1cGc5VlI1b3ZFRm9sYWtxb0pWMldaRExz?=
- =?utf-8?B?YUQ0Y1hvOTcyemlLa0RTdWFXZEZjVXZqNnl1d3Z2RHRnY05XcFlFOXM2aEZL?=
- =?utf-8?B?WWt3dFhXUU1WOGh5RkM0a3BEUlBaSGExZ0pDc21vcVd2cXpQMkFKTzJlUlBx?=
- =?utf-8?B?UXVsVlUzemhzQjdSckxObmg3NWVqZ2xrMVY5RTlnOTVlaVlqam1vaXdNVUtq?=
- =?utf-8?B?Qzdtc0NENFRMZzgxSHZ1bEoxS1hDeE1qSzZIZ2JGOVZCbGZPTXFmUGR0M2ZK?=
- =?utf-8?B?dTFVQXVVaU5LckhHZTcwcWl6UEpuK01HeHEyc2lIVmIzYzQwWEZ0TVkvSGhZ?=
- =?utf-8?B?Q1ZWUkxHUmRxVlFiVkRRK2orSG9ZQWRYNU4yZVQzSER4M3hpWWhuM1h6bDFv?=
- =?utf-8?B?Z0NXQUhYcmNQMVlMd1V6Mzh1OVFHemQ3eDQveUpjaEg0TDNJaVpyazBCSHFT?=
- =?utf-8?B?VTN1R3owUjQyL1hML2FkSDg4dis4c2JkS3YxWXZ0RWc5NG45elBTVWxEdUg2?=
- =?utf-8?B?eW1GSnhFejFQYTRnOGh0OFpvY1ZjaTNUVWpYS3Bpb1cvUWRoUWZSUUkrajJ5?=
- =?utf-8?B?QmxCMWlNRnBNSVBFK0YrZlFMcTExbi9tb2NFby90VW9GamhyemdseFMvM29k?=
- =?utf-8?B?d3Jnd2JvOUVodU40bkNNdUVDbkJqRit0WjNzTnJQL3hYcmZwVURqOWI4Z01a?=
- =?utf-8?B?Q2lEbG1pS2NSL0xwaFEwQy9xd3FNMzUyWlNsRjc2SjlBWkFGR1dodERYOE1i?=
- =?utf-8?B?dzhJMG43UUUrUlQ1ZXZpTGZOZVdYV3ZvV2VhYk1zSm5ZVURwTmFMNHZ0R1Nv?=
- =?utf-8?B?ZUEvUGpkWXNOVXVDVStUV1R1ZjVIVEEwL3VEYmF6Y25NdXNhYlBJZmpjbU1E?=
- =?utf-8?B?Uk5Yb3diRmxSQ0I3YzlNS2YzRFdIU2ZwTE5MMXVUd3FGQ2ZuNWJHTmY0dnVm?=
- =?utf-8?B?Q3E3M0dqYVVONDM5MEFXLzdhTFBEODB3Y1Nmd2pESGxSSzhad3lnNTRrdnFr?=
- =?utf-8?B?b1dUWFRMRlNVM1hWMFhkOWM2b0xmakliK0lJTENNS08vdTExR1k1aVBkQWdO?=
- =?utf-8?B?aXdIc2hBYnRaOGNNdmF2TjFuMGdvY3lQODAwNWV3TFVYM3IwWEsrdWFicmJD?=
- =?utf-8?B?NU1DcWJ0dC9aZjZlM2Jzc2xHUzFxUDBHcFFJNGl5ZU45OVZiV0FHK2I1eCs4?=
- =?utf-8?B?ajdTOHVrVlVZQ2xrNGJLem41SjFMOHdhekhPUXNJRERwMExuS096V2NpMXZP?=
- =?utf-8?B?c1RzdVhUbWpNM2pkL3FGejYwOXBBeVgzNWE1aktET0pQeFZMa0x4N2hiK3g1?=
- =?utf-8?Q?XN1QrnwDlPHPAFb4Md?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56e3acca-623e-4595-3f2d-08df1490d636
-X-MS-Exchange-CrossTenant-AuthSource: LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 07:54:01.3975 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qYS9OIpKKrVwZb3qxTU5CfAWfUY6AoBKDSQeh06nxwv+J65RsKf4oM5xZ5y6b+I3ZJimftMKn9t728I0h7KrxQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2822
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831-msm-dp-mst-v6-2-c91d35d6fb9e@oss.qualcomm.com>
+X-Proofpoint-GUID: F-QT-CFJx-z1MWO4mMj8FAI_nBc042y7
+X-Authority-Analysis: v=2.4 cv=bY3+w+PB c=1 sm=1 tr=0 ts=6aab9d38 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=HrO3g0W2lMO92zknuLYA:9 a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDEwNiBTYWx0ZWRfX9rk3/Ua4cDPx
+ kzL3oRHlgPqLpOz1cFXULpd7v7wQp1L4NgJYGqMOhNkCzP8TQHtfVbyWCxLaaz5xNyQdZCFsIgt
+ +H94yEeBYHnAFWJDNf/uZlx8rgLuTws=
+X-Proofpoint-ORIG-GUID: F-QT-CFJx-z1MWO4mMj8FAI_nBc042y7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDEwNiBTYWx0ZWRfX0E8jslsNWT2S
+ VqT3UhN+rjkUD3rSCUGckUXPYsdYbFjBtznznBxR5y//Ghxy2bVQbFHkjAmzM/60DnoPkme4XwW
+ tZefC1pPHXFomIK0FXgG/Gi/j8sA/5fJMcf8JWVZXNdpvDMYKIJ/6JbHhHglYWru8WA3BNPbdoK
+ rWgcmmFj5XrHfy51FqrxI5PiKHxmoMFAB5PTidXowDblE/ctEJGuuQHAcgtjiXVC41OJFOuP7nz
+ gxDUXzQ6/zUVMwBd9LFPTyRDVWNe2M84peuLCq1ozLc/VGdjbP+zs3K74/mQkGBFo3aQwugTIOe
+ jdLx1M8zEovTl9Cte10ccFK6QgTYJzVmVKnPm4XRLng0UbLoeRXtdxnZJ6eJ0feq58rHy/5JIUt
+ LgFh1qqjMTnOPIvC1z2zuQBc9xgw90PQ4Ki24KZD7aeY7EyLzC24pgb+VR7P/Enz5DCo/rgfAb/
+ PMSxwOomLJlSB1k3UlA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-17_01,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 malwarescore=0 adultscore=0 impostorscore=0
+ priorityscore=1501 suspectscore=0 lowpriorityscore=0 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170106
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,128 +150,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Sep 14, 2026 at 7:55 AM BST, Eliot Courtney wrote:
-> On Mon Sep 14, 2026 at 12:46 PM JST, Alexandre Courbot wrote:
->> On Thu Aug 27, 2026 at 11:12 PM JST, Eliot Courtney wrote:
->>>  use crate::gsp::nvkv::{
->>> +    Array,
->>>      Index,
->>> +    Key,
->>>      KeyId,
->>>      Op,
->>>      Opcode, //
->>>  };
->>>  use crate::num;
->>> =20
->>> +/// Defines a schema struct together with its [`Schema`] implementatio=
-n that decodes into `$target`.
->>> +///
->>> +/// Each member of the struct should implement `Schema`. For every (ke=
-y, index, value) triple
->>> +/// decoded from the NVKV stream, the generated parent `Schema` implem=
-entation will call each member
->>> +/// in declaration order with that triple. If a member consumes that t=
-riple, it will stop there.
->>> +/// Otherwise it will keep going until all members are tried.
->>> +///
->>> +/// The schema struct holds the state required by the schema implement=
-ation to do the decode. It's
->>> +/// recommended to use one of the existing Schema kinds (`Required`, `=
-Accumulated`, `Key`, `Array`,
->>> +/// `Indexed`) for each member.
->>> +///
->>> +/// # Examples
->>> +///
->>> +/// ```
->>> +/// nvkv_decode! {
->>> +///     struct RequestSchema =3D> Request {
->>> +///         id: Required<u32, 0x0001>,
->>> +///         name: Array<u8, 64, 0x0002>,
->>> +///     }
->>> +/// }
->>> +/// ```
->>> +macro_rules! nvkv_decode {
->>> +    (
->>> +        $(#[$attr:meta])*
->>> +        $vis:vis struct $name:ident =3D> $target:ident {
->>> +            $(
->>> +                $(#[$field_attr:meta])*
->>> +                $field_vis:vis $field:ident : $ty:ty
->>> +            ),* $(,)?
->>> +        }
->>> +    ) =3D> {
->>> +        $(#[$attr])*
->>> +        $vis struct $name {
->>> +            $(
->>> +                $(#[$field_attr])*
->>> +                $field_vis $field: $ty,
->>> +            )*
->>> +        }
->>> +
->>> +        impl $crate::gsp::nvkv::Schema for $name {
->>> +            type Target =3D $target;
->>> +
->>> +            fn init() -> impl ::kernel::prelude::Init<Self> {
->>> +                ::pin_init::init!(Self {
->>> +                    $( $field <- <$ty as $crate::gsp::nvkv::Schema>::i=
-nit(), )*
->>> +                })
->>> +            }
->>> +
->>> +            fn visit(
->>> +                &mut self,
->>> +                key: $crate::gsp::nvkv::KeyId,
->>> +                index: $crate::gsp::nvkv::Index,
->>> +                value: $crate::gsp::nvkv::DecoderValue<'_>,
->>> +            ) -> ::kernel::error::Result<bool> {
->>> +                Ok(false
->>> +                    $( || $crate::gsp::nvkv::Schema::visit(&mut self.$=
-field, key, index, value)? )*)
->>
->> Mmm looks like this is going to be `O(n)` with `n` being the number of
->> fields?
->>
->> This is ok for a first implementation but eventually I hope we can
->> switch to a more efficient dispatch.
->
-> I thought quite a bit about this while writing this code, since we need
-> the escape hatch to imperative decode (custom Schema impl basically). To
-> be able to get it down to a match on the key, we need to know ahead of
-> time which keys a Schema will consume. That duplicates the info from the
-> visit() implementation.
->
-> I thought up a few methods but it's unclear to me which one is best, so
-> I just left it for now. Please LMK if you think this is urgent, I can
-> try in a follow up to improve this. Here are my ideas (when I say O(1)
-> lookup I mean modulo how the compiler decides to do it with the set of
-> key IDs it gets):
->
-> 1. current code - just visit()
-> pros: key source of truth not duplicates
-> cons: O(field) visit as you say
->
-> 2. Associated const KEY_ID: Option<KeyId> - None if a Schema accepts mult=
-iple keys.
-> You can match on each associated const in the macro.
-> pros: O(1) if the current key goes to a field with KEY_ID =3D Some(...)
-> cons: O(#fields accepting multiple keys) if current key is one of them
->
-> 3. fn accepts() -> bool
-> You can match on `if F::accepts(key)` for each field. We could potentiall=
-y make
-> this const with Gary's const traits polyfill.
-> pros: O(1) if you write an inline-able+optimizable implementation.
->
-> 4. Associated const KEYS table; use tricks to concat tables
-> pros: O(1) lookup=20
-> cons: actually MSRV can't get this to optimize down to O(1)=20
->   if you use slice::contains(), but stable can.
+On Mon, Aug 31, 2026 at 04:17:19PM +0800, Yongxing Mou wrote:
+> Replace the (rate, stream_rate_khz, is_ycbcr_420) parameter triple with
+> (panel, rate); both values are already derivable from panel->msm_dp_mode.
+> 
+> This lets config_msa() use panel->stream_id when writing
+> SOFTWARE_MVID/NVID for MST streams, added by a later patch.
 
-Hmm, am I missing the obvious? Why not generate a `match` expression on IDs=
- of
-fields? It looks like in the example all keys would have a known ID to the
-macro.
+Please note the difference from other commit messages. Start by
+describing the issue or the problem, then continue with the solution.
+Yours instead describes the change and then mentions that 'This lets
+something to do something'.
 
-Best,
-Gary
+Why are we performing this change?
 
+> 
+> No functional change.
+> 
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c | 16 ++++++----------
+>  1 file changed, 6 insertions(+), 10 deletions(-)
+> 
+
+-- 
+With best wishes
+Dmitry
