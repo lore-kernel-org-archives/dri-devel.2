@@ -4,145 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DF2EC982CF
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 11:42:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24403C88E72
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 11:42:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 859B110EE23;
-	Thu, 17 Sep 2026 11:42:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89DDB10EE36;
+	Thu, 17 Sep 2026 11:42:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="lBjGyDwC";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="ctLZV5vY";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011026.outbound.protection.outlook.com
- [40.93.194.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB98610EE23;
- Thu, 17 Sep 2026 11:42:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yxn3K2UpsQ+dDgFeDVs6OHk08zt/gNOydgkpIfLcAa+0AHhzvh+737d/A81p5YSRuIcibjmshboosBnun2Y6aC/p9hz0yXXa3LR9UNU/jurnvyUDcOKdxkrx5p1oWOlCSHpHHWIO+lKM5kXzjYKFiBdQsf0E4CAxnzGAsYzN2OpKCTW4ZU/9RKyCEAsGh9veIyuB68PhjfstpGRrmrcfDivRiXOVGtFDmVrFYhqrztfWclIVJKU70JSn29o+28Oj3Ss4bD8/0/0ix5wt2JjT4iJ93vLCB85Q1fv24Yh/bS0KyLcx3QKfsk2dkjcyV90VQ24R1KWum7ZPFbr9j+qp2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LuenNrnlVkNBGHeXc6GXaQVy/5kMClE2H3lql5Htim0=;
- b=Vujooz7bUZpkFYxKKIgi5JVYBZpEh3ni9/0hvnNPelDo6x6bxsNahQ9h7CenX1K9Tld4PIvTngwgWHJQNl4ry7UuX+AH6Ippp//qiq8wAU7kOlMlELT8eO+26TOJhB0Dtbtns3fMDfSKQE3FB1WEVRSrli+SCqCdp6JL67FYtjTXTWkcuiAcxAlSPRBtIO5rN9X7hy1/ykIgw7OrTpdTUHcfj3MJJ/OcO/MfAwMUj+DhHDnQb5edvaBsVbMNxX2hjkCVhZ3QLaK4uI9i2DyYQYyXzcxYhKxj6luw6Sbx6uFx++q8PExp0EyQFAnfcUsqAXGat4tDiF7+cIK9Kb+1Og==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LuenNrnlVkNBGHeXc6GXaQVy/5kMClE2H3lql5Htim0=;
- b=lBjGyDwCsAQobc1YrpDG1fXtATlRCR3gjKy6yLcDmfoeMU/IbQh7OJbypgpEIf3r4kbSAFVouZ6FFxFgU76a9Sl3bR48h5h/TCTz84mfHWK5RyssFYd5ycH7mjsuJettShk3AzgleJ9bUmtAcscV/sQKsEP/Kx1Czvl7g/iQgBRBg2ilHIK1tGjIh/FPACPv403tQ0UV4MK0HPooZi59rbPHn0qGago7kn7rg7CHYQZyEygMj+OCNBSutZg0t/00peioqUCE+AuzhfqfrSWSVBlZaWNX94DHqjnZSFUC9zipohVOIkgdAFpkpImNkPnU8zE22A4FbT0RrUOmVUwbjw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- DM4PR12MB6088.namprd12.prod.outlook.com (2603:10b6:8:af::18) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.13; Thu, 17 Sep 2026 11:42:11 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
- 11:42:11 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 17 Sep 2026 20:42:07 +0900
-Message-Id: <DLHKBLIVFIX8.346WFGAIJBL9D@nvidia.com>
-Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil Babka"
- <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Uladzislau
- Rezki" <urezki@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v2 7/8] gpu: nova-core: add NVKV typed decoding
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>, "Alexandre Courbot" <acourbot@nvidia.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
- <20260827-b4-nvkv-v2-7-0de9d5c8658c@nvidia.com>
- <DLEQBIQ50C39.23F0YZK9D7VUD@nvidia.com>
- <DLEUCB80B7ZP.BW7O43IISMQR@nvidia.com>
- <DLHFGW1ISL53.3D3X360WD8HPV@garyguo.net>
- <DLHGE0SNY9CO.1OPWR5QXKJLAZ@nvidia.com>
- <DLHGPFAO0A8J.TU9XW1AZ8XAK@garyguo.net>
-In-Reply-To: <DLHGPFAO0A8J.TU9XW1AZ8XAK@garyguo.net>
-X-ClientProxiedBy: TYCP301CA0020.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:400:381::13) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com
+ [74.125.224.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D443C10E6F0
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 11:42:52 +0000 (UTC)
+Received: by mail-yx2-f13.google.com with SMTP id
+ 956f58d0204a3-66e4ab20a32so687056d50.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 04:42:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789645372; cv=none;
+ d=google.com; s=arc-20260327;
+ b=kt+R6l6QW0Clo99G7WxzyTJcU0SCD476VuSKKvM5lMHEclCHyvSWZv3VEI+vhKcE8t
+ TyteLzBXmTt/OFSw2b2VyKLQpmDNAQr+f2pBYY1Wf4Sn1zpZ/CCKKpT2Plzt2TlcZ1ws
+ ob9fN11EfN3ZqLaQ+1m5VHIfSvy7QeUfREOlJFgOfWuIEwQuAsbNXiXIz81UdgUw8Sj0
+ wRh085EPATDb6YI9J6tnQV4tdt0NyoHRN+ta2/breMgmBQNgV/t5mQknww3FWJ/uPKj6
+ Lj3rLIiywjBT5q00v5OFn/8q8PQLsvEBgslfTyHHGYHd5l/OW988Odx6AV6EkSx3OIFb
+ iueg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=glNGbXLPG/pOAS+pJMdVn3sfq0+G6eulTKEjqN2qPww=;
+ fh=q22b0e+tE+zJNhszOaxLmAznj5+YUOPH/uhqtJTL81g=;
+ b=SWUNWUKt1F41Wqc+RpnaR1u53oYz2gdGvTRQYND4lr71xEyHzUIdmn+MsN9SiBEMun
+ 9MeQaNkzdNGZG/TOc7RzAK0X8mZJOYGQbbQGRJR8T1da7gngVTP56ukaPqEs/MjUxldJ
+ FLeSJ9suz+Txh2GqqPA1Qn5nGmJdFhMOx3rDqIcN2j+7Z2RMpnjkrCFSDAYwcq6PxIBf
+ l5bv9H0O9hTg8ePz1JvRlu/KFOtCCO/RNZvzrLaObmMR/K/IZLqfpzfpSA1tiEFHBrtp
+ Me+hn92eBXhHaYV7TpLmSUIRGAMcHL8kJZmdRxX6byr97UydZjnmyAKbO5oASa0EFG9F
+ 20ug==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1789645372; x=1790250172;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=glNGbXLPG/pOAS+pJMdVn3sfq0+G6eulTKEjqN2qPww=;
+ b=ctLZV5vYevN47e4qvvqDPb50n464UH2K3MfhURSywNWXVI1YQNKy5YpfbS2PJZE8xO
+ S27qoLCVygir1fQjFwP0BsAloYRETZoadUqb182ySOQM7OeKOmH1dF+Tp8u9GVbTSi7x
+ 8tQKp6IzpftzbdbrGhWHi7hDknPBLaaApsWzI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789645372; x=1790250172;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=glNGbXLPG/pOAS+pJMdVn3sfq0+G6eulTKEjqN2qPww=;
+ b=k6mJfJJcURv6wlOa1Tfpo5pF1Umf7DOanYfKEkzSwoZf0JoSGExyk4D5ntHAqFPHlf
+ dm+O7vxvlVAl1d2fs/BpVV+Q+reL3NCpo9yuzdzw0ayp1EwEm761Jes5qbubhW+c3j3O
+ sVz89hhI3LJ/syspzJauhp8g1DIQkOs+Uao5MYJZ/Ex4PNKVBCwVIqOC+ZeNvTwgKpxY
+ yW6X207NBQUsyAgjYABvfHJfJKvcYvlK6es65akW9YqOQD0zJojVKyqivdhsQCmEMZ/P
+ PCRZKj2yOIX93gk5hjxcm1LbRbgwzmaTDujqH7/gsMePEnMpNF2fsXIUve1rFixtX3Ul
+ QxOw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByp1WWNYB8DTC3nRwYDJtuuRyB21qPtu4v3oisdt7GbhtGb1gJtL0xdmcm4hf4JE8erVzeUBfSprWY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lr2CWJMSUhlRAbasHA2Ljc54lbRDsmxE/uhsqJCd1HlFZpySS1
+ RF2RVOnSFd+ysbDvhv46bYv333TYRPIqH4GhwBgxq6xpuEX1R+/W4GwqkmUwdD01HcZLZdDBLkI
+ rH4tmh/08TM+6nbfjYoHYN2t1iNny0PfQOeEwdHoL
+X-Gm-Gg: AYBFou2HmlIB/4DFg75DvskYJuZQJZt0fOx+DvYhoOALXFYtOv7Qt7NaA8sB1LQYFd8
+ PXgVEqY3J6dj4eXM4wglFXvYzo4LxTJQQ1jpOQ6fJLS6lEKMpEWVSuzMbBZc3mCoNNT8oMY1a8a
+ scmekAMnY8xV0CKzYkqxAGWBT1Liuy1BUYfZdHdJHaeb8/hEc/l2Lzw/u+Xzq71rwDIKZrE2CLC
+ /VhgmrIiT+g0siXx7JO6A//YGoeF5dXoRLry0419A48mrrSdw1b1Fv5o0frhbyYTTI1LMxkpBmX
+ 09FFCt1UBu9fnV1xM3Nwra6EP0rF3LtB5Qqx8gUdAZUSGPTeHxy227YwjX4h3mOO7cZLZC8qhtf
+ HesJi5MQX
+X-Received: by 2002:a05:690e:1181:b0:66e:54a0:cdd3 with SMTP id
+ 956f58d0204a3-6717724501emr313133d50.42.1789645371777; Thu, 17 Sep 2026
+ 04:42:51 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|DM4PR12MB6088:EE_
-X-MS-Office365-Filtering-Correlation-Id: d533a4f7-d98a-4b2f-fe8f-08df14b0b5df
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|10070799003|23010399003|1800799024|7416014|376014|10067099003|56012099006|3023799007|10063799003|22082099003|11063799006|18002099003|4143699003;
-X-Microsoft-Antispam-Message-Info: Y8Bbd8b8lGqFMgiCZzOxINHrHcFg+IJ7GvYObtqsQA0mJnbCzOXkQk3fBeWNQagZ/o/suzZZjFi7qg6EWPGpeVkr6/d9DAAOlJdezHW09S+mubeckFwMe6I5AfqT7tMPLTz+d54EdQK89N9gMnzeebePh4NXcYWVFMwsiE52pB6gUglJiGPT5e0urepb5pmyf4nvAZcvkSbQzx3jHKfpufLe+V3ePuIU+3sir6xQIKnUy3L1BmK2o7eINFFDWDOcxlbeP99fvXtESDLMOGYIVdS2Y+3CGGqoLlgj5kF1KJ93kqg3BDUNw9ZcI+N6u/Y040KnTtV3JtET/6gjR/g/ASjbwTbjymJgf1TN3dbHAUaJr9unXIOhM4K3KRreEQmnKxGU4obZtCg5BBi9czbS8swG7ogKDCYmtEhNtSQMI0aA8UM3+hjHkvr+qBxj2xtSQ9SF54xZoAtZq6yrrFh0HZzWCqqkZKljQNDT70NFVOVRklWlzPDXJNpFXPFHOD0cADkMU++RM0KZfmFyrhhWMLIft2Fc1Px1TLLjXOjwDyqYPfINmbs/4pTsKWlGPhA59zJhU9oIi0sU54W/gAwlxcXu1TRdzMNcNOd6472KWDLUDQisPL+H/7kbhCdCjTD7SgEP8SdRRP41FrG6J0MGJCLr9YBURpTdYi/TtbxO7zQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(10070799003)(23010399003)(1800799024)(7416014)(376014)(10067099003)(56012099006)(3023799007)(10063799003)(22082099003)(11063799006)(18002099003)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K2Nsc1VFVHFNb2FEOGxXSjZmY0tEblBWZlhQa3ZiYndBSXB6SDN6VmY5aENp?=
- =?utf-8?B?Z1NacjhhQ2xjSlNYZUNNWFh3aE1aSW5FWU1OZlNUQnFhVkVYTy9uZzVWRE8z?=
- =?utf-8?B?UTR3SXZEenNBYXBhQ1Q2Szg5QWJPWkxUSHVuajMyNmVMR2h6allMSGkvckhS?=
- =?utf-8?B?WjdzMjkyQXJyRDJWYnoyTG5oaEJqeFBZMU94ODdlR0VCK1JsTkNsUUMrTjh0?=
- =?utf-8?B?VVF4VnJnTERXd3J3TnVsblRQdHlpa001QlFjWEtGb3FLQjJQMDYwRFlVVDBq?=
- =?utf-8?B?enNGYWVTYkhHaVNoOEhnMEVTd1V1ajh6bWkzV0RFbzNpbityZFdudWRFK1dJ?=
- =?utf-8?B?SmU2R0M0N0pZM3B6SktRcFhaT1NqRlY1TDZmVnJiWG84eE5oVTgvNllXOGtD?=
- =?utf-8?B?VFNPQlQySVl1YlR0QXFGVWVwaTdGakU3RHVoSEtRbm5KZVJnOWp5TFU4bisy?=
- =?utf-8?B?bC9hSnVpeldndndOVFV6Tk9GYVd2OE02and2dmg1YnR5bWJXVGMvNWoyU3NE?=
- =?utf-8?B?MUVVYlNWNWtuVDJ4cHpsZ0daSlArVTZaZXN6WUFhd1RDa3BtQ0Z2YzYwVDVw?=
- =?utf-8?B?K2dLellYbUZnMTJFKzAxN0VRczIxMGhad1hIUTZlazd5ZGdCb2ltcHg2bDJL?=
- =?utf-8?B?Y0M2eHRmRC9zZm1LNFEvUjZLb0hXeCtJK2wvVmFkWHBydkRmRzR2NlVzNnRB?=
- =?utf-8?B?OWlPdUJzRXYzY3Uxd3Z4ejZIVURCalpQYS9LMCtKeTdDd1hNQlkxbnpQMkd6?=
- =?utf-8?B?YjJPQVBMYkhTYnduODlnRmp2elJtMklrUkRBMFNPNFVJY2JsbGdQYjlsc2Z4?=
- =?utf-8?B?T0s4R1hPTjZwUHVNUWs4WU0wd1lSY1RLbk9oNURMSE9QQlM2enUwaTdJUUdF?=
- =?utf-8?B?TDBzaGVKR2lqMTFGa3A1ODJib3Q2d0UxRVlYeC9BNEp4VFVJaXR0cThvNWI2?=
- =?utf-8?B?ejdhUGkyM0dTcEo4aWJ2bjdZcjVwNWx0VjdUM1NGNG13aklkQ0F5WitPeEpN?=
- =?utf-8?B?c1pmVTI0ZkFIeTdLV3N0ZE5pODR6dDNFOTZqRDJNdkNNcjIrRjlNMldHaVVK?=
- =?utf-8?B?c0JtOWdSWmVEcUlSdHpyTTRaeUtHYVdRRXJBbGlMUktRKy9DUzRiV0Y0eEVt?=
- =?utf-8?B?MDljdFZWSUVDZVVidVVkdGIyK2Z1eHl6V0tINytJK2NaYWxRR2EzdHQraXRU?=
- =?utf-8?B?RzMzVHByY09WREdTM2Q5bTBHbkIxUlNJbENHdUcydXNlMEdFT2cyRWtJc3B4?=
- =?utf-8?B?Qys1ZHJwdGRORFJRdWFqT2hmV2lZaTZsTll2MVYweGpKR1VvSk1rQlYzeTM5?=
- =?utf-8?B?MFI5THNRb2Y2ZmM1d1AvRWlYazNkU0cwOEJmeVZDSHBOOXpzVS9LZ1dBUWJF?=
- =?utf-8?B?YUVDRVpzd21sOXFCYTRleUxnamtESU9JZ2ttMUZGVi9wLzVmVkExMWc4Vkc0?=
- =?utf-8?B?TnJOV2xCb3B4MjNuaDhaM2tqLzZHNkIrbW5kY1NTMUlVbkV3MTl1V0ZadkFB?=
- =?utf-8?B?a0dQaml0ZFpobm9YVE1SeVp5bFhPSTVyQUUvS2pVOFBiRG9NZlVrY0hEeXVX?=
- =?utf-8?B?M2syY1FQaHdBNEtPTkhUa0cxQXNaOHd3V0RtTDBnbGNPamc3cC9RZ1JXMnhu?=
- =?utf-8?B?V0dUdFdrQkZPTlliNFhMTG11SXcvZGlUY0xnOXVETnJ2Tm5ROExhcW1PRHNk?=
- =?utf-8?B?cmtEekt4UzJ6dllyZDRXZ1RjS2puRXNFblVqUmJQSjIwaEp0WkpBZ29qbU52?=
- =?utf-8?B?Uk5WaDdNcGJxbjBQR0N4bkFLR3ZYLzc4WE9jQzRpN08rR2hXYlVtRnV1Ujl5?=
- =?utf-8?B?Q1IrZHhqZDZwaHFzUGI0RmdkYUo1TWNwME9LU3JnTjBnMW82Tm41TXBvSnZB?=
- =?utf-8?B?WnV0OE5zU3o5UGc4N0NXem92TDYzdEMvTFV4UXFucktKenZZazg2WnBFazNl?=
- =?utf-8?B?VE9Qa2Z5ZnVuQkpCaEZQNTRRSGQ5N25kbzhHRUhpdEdQTzZWL0k0U1JCSTR6?=
- =?utf-8?B?ZXNOQ2FQM1hmcUVwREQ1TUtQa1lTcFhkVlFrWXQvWmRXZlFCMVMvZU1jVnBT?=
- =?utf-8?B?MnFNeEJJeUJSOVB6UktKYi9nR3R4MWxmN0dkRXdaUkNMYkt6K1RRV05uU3E3?=
- =?utf-8?B?eld5aHZnYlR2Y3dWekgydm8xNDJOejBDdUI4YXZ1UGFJc0RSUVUwcEl4MVNx?=
- =?utf-8?B?M0lqQTV0bEVHWHh2M05HWi9lNEtSRjd0NytyL0RXV2hZaTdRb1Bzd1llNDY0?=
- =?utf-8?B?ZVFBV1ZxV2tKNlVaU3lQNEVDeDdEM2FIZDBNN1VSdkpTQ3BkeHMydjhSK0x2?=
- =?utf-8?B?OUVzbUc5VGptaGVWRXBUUlVFcGF6YWg5dEVlNDhVV1JlVjRtOVQvei9iRjR2?=
- =?utf-8?Q?OfcK8n2jo9pq71gRGHHmzKNRv8xK0u6sou+91ojaLayD9?=
-X-MS-Exchange-AntiSpam-MessageData-1: 6i4IlDmghvznyQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d533a4f7-d98a-4b2f-fe8f-08df14b0b5df
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 11:42:10.9917 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0GfuqYVndhjP2PHa2drseAeWxkdjnWsHO659VBfeGFp19V9X2UA9NoD+XdlzieFkSP1JN0CC2BC4yrqPQbBqiw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6088
+References: <20260916033327.3054126-1-wenst@chromium.org>
+ <6d21e808d343283264665ec16d297317000fdf4d.camel@icenowy.me>
+In-Reply-To: <6d21e808d343283264665ec16d297317000fdf4d.camel@icenowy.me>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Thu, 17 Sep 2026 19:42:39 +0800
+X-Gm-Features: AcwNN1UiSWBQWxLfTBKkSaF0uFiyhB3L4EIUoSHVNJlTekBmF6uuJ4F5EBEDj-E
+Message-ID: <CAGXv+5FHiW8umZ=wLLb5wK5Qz3hf-mbxC_zH5v+pwxxyUNTwew@mail.gmail.com>
+Subject: Re: [PATCH RFT v2 0/5] drm: Add and use
+ drm_fb_dma_get_gem_clipped_addr() helper
+To: Icenowy Zheng <uwu@icenowy.me>
+Cc: Liu Ying <victor.liu@nxp.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ linux-sunxi@lists.linux.dev, imx@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,160 +116,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Sep 17, 2026 at 5:52 PM JST, Gary Guo wrote:
-> On Thu Sep 17, 2026 at 9:37 AM BST, Alexandre Courbot wrote:
->> On Thu Sep 17, 2026 at 8:53 AM BST, Gary Guo wrote:
->>> On Mon Sep 14, 2026 at 7:55 AM BST, Eliot Courtney wrote:
->>>> On Mon Sep 14, 2026 at 12:46 PM JST, Alexandre Courbot wrote:
->>>>> On Thu Aug 27, 2026 at 11:12 PM JST, Eliot Courtney wrote:
->>>>>>  use crate::gsp::nvkv::{
->>>>>> +    Array,
->>>>>>      Index,
->>>>>> +    Key,
->>>>>>      KeyId,
->>>>>>      Op,
->>>>>>      Opcode, //
->>>>>>  };
->>>>>>  use crate::num;
->>>>>> =20
->>>>>> +/// Defines a schema struct together with its [`Schema`] implementa=
-tion that decodes into `$target`.
->>>>>> +///
->>>>>> +/// Each member of the struct should implement `Schema`. For every =
-(key, index, value) triple
->>>>>> +/// decoded from the NVKV stream, the generated parent `Schema` imp=
-lementation will call each member
->>>>>> +/// in declaration order with that triple. If a member consumes tha=
-t triple, it will stop there.
->>>>>> +/// Otherwise it will keep going until all members are tried.
->>>>>> +///
->>>>>> +/// The schema struct holds the state required by the schema implem=
-entation to do the decode. It's
->>>>>> +/// recommended to use one of the existing Schema kinds (`Required`=
-, `Accumulated`, `Key`, `Array`,
->>>>>> +/// `Indexed`) for each member.
->>>>>> +///
->>>>>> +/// # Examples
->>>>>> +///
->>>>>> +/// ```
->>>>>> +/// nvkv_decode! {
->>>>>> +///     struct RequestSchema =3D> Request {
->>>>>> +///         id: Required<u32, 0x0001>,
->>>>>> +///         name: Array<u8, 64, 0x0002>,
->>>>>> +///     }
->>>>>> +/// }
->>>>>> +/// ```
->>>>>> +macro_rules! nvkv_decode {
->>>>>> +    (
->>>>>> +        $(#[$attr:meta])*
->>>>>> +        $vis:vis struct $name:ident =3D> $target:ident {
->>>>>> +            $(
->>>>>> +                $(#[$field_attr:meta])*
->>>>>> +                $field_vis:vis $field:ident : $ty:ty
->>>>>> +            ),* $(,)?
->>>>>> +        }
->>>>>> +    ) =3D> {
->>>>>> +        $(#[$attr])*
->>>>>> +        $vis struct $name {
->>>>>> +            $(
->>>>>> +                $(#[$field_attr])*
->>>>>> +                $field_vis $field: $ty,
->>>>>> +            )*
->>>>>> +        }
->>>>>> +
->>>>>> +        impl $crate::gsp::nvkv::Schema for $name {
->>>>>> +            type Target =3D $target;
->>>>>> +
->>>>>> +            fn init() -> impl ::kernel::prelude::Init<Self> {
->>>>>> +                ::pin_init::init!(Self {
->>>>>> +                    $( $field <- <$ty as $crate::gsp::nvkv::Schema>=
-::init(), )*
->>>>>> +                })
->>>>>> +            }
->>>>>> +
->>>>>> +            fn visit(
->>>>>> +                &mut self,
->>>>>> +                key: $crate::gsp::nvkv::KeyId,
->>>>>> +                index: $crate::gsp::nvkv::Index,
->>>>>> +                value: $crate::gsp::nvkv::DecoderValue<'_>,
->>>>>> +            ) -> ::kernel::error::Result<bool> {
->>>>>> +                Ok(false
->>>>>> +                    $( || $crate::gsp::nvkv::Schema::visit(&mut sel=
-f.$field, key, index, value)? )*)
->>>>>
->>>>> Mmm looks like this is going to be `O(n)` with `n` being the number o=
-f
->>>>> fields?
->>>>>
->>>>> This is ok for a first implementation but eventually I hope we can
->>>>> switch to a more efficient dispatch.
->>>>
->>>> I thought quite a bit about this while writing this code, since we nee=
-d
->>>> the escape hatch to imperative decode (custom Schema impl basically). =
-To
->>>> be able to get it down to a match on the key, we need to know ahead of
->>>> time which keys a Schema will consume. That duplicates the info from t=
-he
->>>> visit() implementation.
->>>>
->>>> I thought up a few methods but it's unclear to me which one is best, s=
-o
->>>> I just left it for now. Please LMK if you think this is urgent, I can
->>>> try in a follow up to improve this. Here are my ideas (when I say O(1)
->>>> lookup I mean modulo how the compiler decides to do it with the set of
->>>> key IDs it gets):
->>>>
->>>> 1. current code - just visit()
->>>> pros: key source of truth not duplicates
->>>> cons: O(field) visit as you say
->>>>
->>>> 2. Associated const KEY_ID: Option<KeyId> - None if a Schema accepts m=
-ultiple keys.
->>>> You can match on each associated const in the macro.
->>>> pros: O(1) if the current key goes to a field with KEY_ID =3D Some(...=
-)
->>>> cons: O(#fields accepting multiple keys) if current key is one of them
->>>>
->>>> 3. fn accepts() -> bool
->>>> You can match on `if F::accepts(key)` for each field. We could potenti=
-ally make
->>>> this const with Gary's const traits polyfill.
->>>> pros: O(1) if you write an inline-able+optimizable implementation.
->>>>
->>>> 4. Associated const KEYS table; use tricks to concat tables
->>>> pros: O(1) lookup=20
->>>> cons: actually MSRV can't get this to optimize down to O(1)=20
->>>>   if you use slice::contains(), but stable can.
->>>
->>> Hmm, am I missing the obvious? Why not generate a `match` expression on=
- IDs of
->>> fields? It looks like in the example all keys would have a known ID to =
-the
->>> macro.
->>
->> Some keys may come from embedded structs, which the macro has no way to
->> see.
+On Thu, Sep 17, 2026 at 7:16=E2=80=AFPM Icenowy Zheng <uwu@icenowy.me> wrot=
+e:
 >
-> You can match all keys that you can see, and delegate to embedded structs=
- if
-> keys are not known.
+> =E5=9C=A8 2026-09-16=E4=B8=89=E7=9A=84 11:33 +0800=EF=BC=8CChen-Yu Tsai=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > Hi,
+> >
+> > This is v2 of my drm_fb_dma_get_gem_clipped_addr() series.
+> >
+> > Changes since v1:
+> > - Add and use new drm_framebuffer_get_block_offset() helper (Thomas)
+> >
+> >
+> > This series adds a helper to retrieve the buffer starting address of
+> > a
+> > "clipped" framebuffer. This contrasts with drm_fb_dma_get_gem_addr(),
+> > which gives the address of the full buffer.
 >
-> This is essentially the same pattern that `#[serde(flatten)]` uses, just
-> replacing identifier names with keys.
+> Should vs_fb_get_dma_addr() in verisilicon/vs_plane.c be replaced with
+> this helper too?
 >
-> The keys don't need be part of the type system, and it just additional me=
-tadata
-> for the macro to generate correct impl.
->
-> Best,
-> Gary
+> I implemented manual framebuffer offset addition here.
 
-This sounds approximately equivalent to the option #2 I mentioned
-(w.r.t. delegating if the keys are not known).
+Didn't I replace vs_fb_get_dma_addr() with drm_fb_dma_get_gem_addr()
+already? At the time only primary and cursor planes were supported by
+the driver. The primary plane can't be clipped, and the cursor plane
+had some custom clipping, but seemed to want the unclipped address.
 
-I considered a serde-like approach where the metadata is annotated for
-the macro rather than by the type system, but I wanted to keep the macro
-simple and not introduce more macro-DSL than I need to. And also keep it
-kinda easy to write manual Schemas by not keeping the deserialization
-info in macro metadata.
+
+ChenYu
+
+> Thanks,
+> Icenowy
+>
+> >
+> > Some drivers program their hardware with clipped dimensions, so they
+> > should be using the clipped buffer address as well, unless the
+> > hardware
+> > can advance the scanout directly. (Side note: many drivers still use
+> > the non-clipped dimensions.)
+> >
+> > While at it, also pull out the offset calculation of
+> > drm_fb_dma_get_gem_addr()
+> > into a separate helper in drm_framebuffer.[ch], thereby separating
+> > responsibilities.
+> >
+> > The sun4i driver was recently incorrectly converted to use the
+> > unclipped
+> > drm_fb_dma_get_gem_addr() helper. This broke offsets into subsampled
+> > pixel groups, but also exposed the mismatch between the dimensions
+> > used
+> > vs the buffer address. Two other drivers were also touched.
+> >
+> >
+> > Patch 1 adds a new helper to return the byte offset into a
+> > framebuffer
+> > for the start of the pixel block of the given pixel coordinates.
+> >
+> > Patch 2 adds the new helper to return the buffer address based on
+> > clipped coordinates.
+> >
+> > Patch 3 switches the sun4i driver to the new helper, and fixes the
+> > luma plane buffer address offset for subsampled YUV formats.
+> >
+> > Patch 4 converts the imx/dc driver to use the new helper. This fixes
+> > a
+> > mismatch between the programmed coordinates and the buffer address.
+> >
+> > Patch 5 replaces the open coded buffer address calculation in the
+> > imx/dcss driver with the new helper. Existing behavior, which might
+> > be
+> > wrong, is preserved.
+> >
+> >
+> > Please help test. The series is only compile tested on my end. The
+> > sun4i
+> > changes should revert its behavior to before the
+> > drm_fb_dma_get_gem_addr()
+> > was adopted. The imx/dcss changes should not have any behavioral
+> > difference.
+> >
+> >
+> > Thanks
+> > ChenYu
+> >
+> > Chen-Yu Tsai (5):
+> >   drm: Split framebuffer pixel offset calculation from
+> >     drm_fb_dma_get_gem_addr()
+> >   drm/fb-dma-helper: Add drm_fb_dma_get_gem_clipped_addr()
+> >   drm/sun4i: layers: Fix VI buffer address for clipped offsets
+> >   drm/imx/dc: plane: Switch to drm_fb_dma_get_gem_clipped_addr()
+> >   drm/imx/dcss: plane: Switch to drm_fb_dma_get_gem_clipped_addr()
+> >
+> >  drivers/gpu/drm/drm_fb_dma_helper.c    | 61 ++++++++++++++----------
+> > --
+> >  drivers/gpu/drm/drm_framebuffer.c      | 45 +++++++++++++++++++
+> >  drivers/gpu/drm/imx/dc/dc-plane.c      |  4 +-
+> >  drivers/gpu/drm/imx/dcss/dcss-plane.c  | 34 ++++++--------
+> >  drivers/gpu/drm/sun4i/sun8i_ui_layer.c |  2 +-
+> >  drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 16 ++++++-
+> >  include/drm/drm_fb_dma_helper.h        |  4 ++
+> >  include/drm/drm_framebuffer.h          |  3 ++
+> >  8 files changed, 118 insertions(+), 51 deletions(-)
