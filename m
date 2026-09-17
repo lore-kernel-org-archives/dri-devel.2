@@ -4,131 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C9B7C982D9
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B6F4C982D2
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1003910F1D1;
-	Fri, 18 Sep 2026 07:10:05 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D8IdL7ri";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CAEC10F1BA;
+	Fri, 18 Sep 2026 07:10:04 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7942C10E0AE
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:26:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E07D10EE1E;
+ Thu, 17 Sep 2026 11:55:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5DE9A435FD;
- Thu, 17 Sep 2026 16:26:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42E521F000FF;
- Thu, 17 Sep 2026 16:26:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789662394;
- bh=6WNH4ajOGiRyME4gV0hKpqyimaBUBR6xvgBKJbfZQV4=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=D8IdL7riodczGnX2g7Ly+2X6aSiAwz4EPzGrUsxSBrMPJJobLo7PYqAj1ZR+bimYM
- 1vu7lCSys1fJJVkf85oR6/ZuSbQ/tbBQLdX3ewGiFk8JZUxpd7CwlkH4b8ZMJ8lIi4
- TwxzSbzqRu847qAEUbxBRSHhV6kJqfvGJw9qd9GZY0XTjJUOU7SZ4ibkGeS4IzEkjz
- Zs0/arTkyh9T1fDD97IlBz1yW49oyPFEDmAQbrqxOxsVNNLtswpJiNgggDx8CeF5oX
- 2qPEd7di6MpkeozZynKitl3ZSUJEmKidyX66JgD/6HIAgBBZdksmlaPZeRoqMZ7sTn
- dQbbKZaoA67XQ==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:22:16 +0100
-Subject: [PATCH v3 07/40] mm/vma: tidy up map kernel pages enum values
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-7-4583d8a23bca@kernel.org>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
+ by sea.source.kernel.org (Postfix) with ESMTP id DE62541680;
+ Thu, 17 Sep 2026 11:55:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40CAD1F0089E;
+ Thu, 17 Sep 2026 11:55:18 +0000 (UTC)
+Date: Thu, 17 Sep 2026 13:55:14 +0200
+From: Maxime Ripard <self@mripard.dev>
+To: Dave Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
  Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3944; i=ljs@kernel.org;
- h=from:subject:message-id; bh=HY4Q3Cfycqa6fp8N5aZLFaoVFjw/3MQxTeg608Oh/QQ=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCO+fvuN7XXp8+tu63Nwv7b77p3Kb7Ji0+qXaO3aZ1
- NVHxSt1OkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAnCRWYwMe55v7PZcHOa1vNd+
- /urH9pPPR+2tED21/JY7N8duARYTZ4Z/2v+2LFJ1l3V/E3DxOeu/LLFy/6cd96u71Jrkvn7+EZH
- MCAA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
-X-Mailman-Approved-At: Fri, 18 Sep 2026 07:09:59 +0000
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, 
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-misc-fixes
+Message-ID: <aqvVENQ4ksJEIcdb@houat>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="l556737gsdzolcq4"
+Content-Disposition: inline
+X-Mailman-Approved-At: Fri, 18 Sep 2026 07:10:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,118 +54,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-MMAP_MAP_KERNEL_PAGES is a mouthful, discard the MAP_ as that's implied by
-MMAP.
 
-Also while we're here delete useless comments for mmap actions whose names
-clearly indicate what they are for.
+--l556737gsdzolcq4
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: [PULL] drm-misc-fixes
+MIME-Version: 1.0
 
-Also update the userland VMA tests to reflect this change.
+Hi,
 
-No functional change intended.
+Here's this week drm-misc-fixes PR
 
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- include/linux/mm.h              | 2 +-
- include/linux/mm_types.h        | 8 ++++----
- mm/util.c                       | 8 ++++----
- tools/testing/vma/include/dup.h | 8 ++++----
- 4 files changed, 13 insertions(+), 13 deletions(-)
+Maxime
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 0c17f0932b76..a1f2d375cf7d 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -4623,7 +4623,7 @@ static inline void mmap_action_map_kernel_pages(struct vm_area_desc *desc,
- {
- 	struct mmap_action *action = &desc->action;
- 
--	action->type = MMAP_MAP_KERNEL_PAGES;
-+	action->type = MMAP_KERNEL_PAGES;
- 	action->map_kernel.start = start;
- 	action->map_kernel.pages = pages;
- 	action->map_kernel.nr_pages = nr_pages;
-diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-index 5413bd10fff2..9ca2ea3664bc 100644
---- a/include/linux/mm_types.h
-+++ b/include/linux/mm_types.h
-@@ -815,11 +815,11 @@ struct pfnmap_track_ctx {
- 
- /* What action should be taken after an .mmap_prepare call is complete? */
- enum mmap_action_type {
--	MMAP_NOTHING,		/* Mapping is complete, no further action. */
--	MMAP_REMAP_PFN,		/* Remap PFN range. */
--	MMAP_IO_REMAP_PFN,	/* I/O remap PFN range. */
-+	MMAP_NOTHING,
-+	MMAP_REMAP_PFN,
-+	MMAP_IO_REMAP_PFN,
- 	MMAP_SIMPLE_IO_REMAP,	/* I/O remap with guardrails. */
--	MMAP_MAP_KERNEL_PAGES,	/* Map kernel page range from array. */
-+	MMAP_KERNEL_PAGES,	/* Map kernel page range from array. */
- };
- 
- /*
-diff --git a/mm/util.c b/mm/util.c
-index bdd5923eebc7..438170490e7f 100644
---- a/mm/util.c
-+++ b/mm/util.c
-@@ -1467,7 +1467,7 @@ int mmap_action_prepare(struct vm_area_desc *desc)
- 		return io_remap_pfn_range_prepare(desc);
- 	case MMAP_SIMPLE_IO_REMAP:
- 		return simple_ioremap_prepare(desc);
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		return map_kernel_pages_prepare(desc);
- 	}
- 
-@@ -1498,7 +1498,7 @@ int mmap_action_complete(struct vm_area_struct *vma,
- 	case MMAP_REMAP_PFN:
- 		err = remap_pfn_range_complete(vma, action);
- 		break;
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		err = map_kernel_pages_complete(vma, action);
- 		break;
- 	case MMAP_IO_REMAP_PFN:
-@@ -1521,7 +1521,7 @@ int mmap_action_prepare(struct vm_area_desc *desc)
- 	case MMAP_REMAP_PFN:
- 	case MMAP_IO_REMAP_PFN:
- 	case MMAP_SIMPLE_IO_REMAP:
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		WARN_ON_ONCE(1); /* nommu cannot handle these. */
- 		break;
- 	}
-@@ -1542,7 +1542,7 @@ int mmap_action_complete(struct vm_area_struct *vma,
- 	case MMAP_REMAP_PFN:
- 	case MMAP_IO_REMAP_PFN:
- 	case MMAP_SIMPLE_IO_REMAP:
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		WARN_ON_ONCE(1); /* nommu cannot handle this. */
- 
- 		err = -EINVAL;
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 2986ae6ca1e5..1098655a5f4a 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -454,11 +454,11 @@ static __always_inline bool vma_flags_empty(const vma_flags_t *flags)
- 
- /* What action should be taken after an .mmap_prepare call is complete? */
- enum mmap_action_type {
--	MMAP_NOTHING,		/* Mapping is complete, no further action. */
--	MMAP_REMAP_PFN,		/* Remap PFN range. */
--	MMAP_IO_REMAP_PFN,	/* I/O remap PFN range. */
-+	MMAP_NOTHING,
-+	MMAP_REMAP_PFN,
-+	MMAP_IO_REMAP_PFN,
- 	MMAP_SIMPLE_IO_REMAP,	/* I/O remap with guardrails. */
--	MMAP_MAP_KERNEL_PAGES,	/* Map kernel page range from an array. */
-+	MMAP_KERNEL_PAGES,	/* Map kernel page range from array. */
- };
- 
- /*
+drm-misc-fixes-2026-09-17:
+Two ttm fixes for ttm_tt_swapout(), one page-alignment and one overflow
+fix for dma-buf, a drm_pending_vblank_event leak fix for drm,
+suspend/resume fixes for nouveau, one out-of-bounds access fix for gud,
+a use-after-free fix for vc4, a fence signaling fix, a race condition
+fix for sched, planes formats fixes for verisilicon, and add the blend
+mode property for loongson
+The following changes since commit fd73f4a6659897191fa0d40695fe370925dd3780:
 
--- 
-2.55.0
+  Linux 7.3-rc3 (2026-09-13 14:38:02 -0700)
 
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-20=
+26-09-17
+
+for you to fetch changes up to 5535d5e61a77ad79118ea7665ce1c14f857f0f12:
+
+  drm/loongson: Create blend mode property for cursor plane (2026-09-17 15:=
+12:26 +0800)
+
+----------------------------------------------------------------
+Two ttm fixes for ttm_tt_swapout(), one page-alignment and one overflow
+fix for dma-buf, a drm_pending_vblank_event leak fix for drm,
+suspend/resume fixes for nouveau, one out-of-bounds access fix for gud,
+a use-after-free fix for vc4, a fence signaling fix, a race condition
+fix for sched, planes formats fixes for verisilicon, and add the blend
+mode property for loongson
+
+----------------------------------------------------------------
+Christian K=F6nig (1):
+      dma-buf/dma-fence: fix checking signaling bit for timeline and driver=
+ name v3
+
+David Hu (2):
+      dma-buf: Fix silent overflow for phys vec to sgt
+      dma-buf: Split sgl by largest page-aligned chunk
+
+Huacai Chen (1):
+      drm/loongson: Create blend mode property for cursor plane
+
+Icenowy Zheng (3):
+      drm/verisilicon: set blend mode for the cursor plane
+      drm/verisilicon: add primary modifier for format tables
+      drm/verisilicon: remove ARGB formats from primary plane
+
+Karl Mehltretter (2):
+      dma-buf: Make DMABUF_DEBUG default to y on DEBUG_KERNEL kernels
+      drm/vc4: Use managed KMS polling to fix UAF on unbind
+
+Lyude Paul (4):
+      Revert "nouveau/gsp: fix suspend/resume regression on r570 firmware"
+      drm/nouveau/gsp/r570: Set GcOff =3D 0 in fbsr
+      drm/nouveau/gsp/r570: Enable S/R Display workaround in GSP
+      drm/nouveau/gsp: Increase delay for magic sleep in r535_gsp_fini()
+
+Maxime Ripard (1):
+      Merge fdo/drm/drm-fixes into drm-misc-fixes
+
+Sajal Gupta (1):
+      drm/gud: fix out-of-bounds write in gud_plane_atomic_check()
+
+Sophie D (1):
+      drm/gud: Ignore damage clips in full update mode
+
+Thadeu Lima de Souza Cascardo (1):
+      drm: Fix drm_pending_vblank_event leak in error path for out_fence_ptr
+
+Tvrtko Ursulin (1):
+      drm/sched: Fix virtual runtime race
+
+Vadim Nikitushkin (2):
+      drm/ttm: fix swapped-out resources never leaving their bulk_move range
+      drm/ttm: apply the swapout bulk_move fix to the intended condition
+
+ drivers/dma-buf/Kconfig                            |  2 +-
+ drivers/dma-buf/dma-buf-mapping.c                  | 31 ++++++++++-----
+ drivers/dma-buf/dma-fence.c                        | 14 ++++++-
+ drivers/gpu/drm/drm_atomic_uapi.c                  | 13 +++++--
+ drivers/gpu/drm/gud/gud_pipe.c                     |  7 +++-
+ drivers/gpu/drm/loongson/lsdc_plane.c              |  5 ++-
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c |  2 +-
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c  |  8 +++-
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c |  8 ++--
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c  |  3 +-
+ .../drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h |  8 ++++
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h    |  2 +-
+ drivers/gpu/drm/scheduler/sched_entity.c           |  8 +++-
+ drivers/gpu/drm/scheduler/sched_rq.c               | 20 +++++-----
+ drivers/gpu/drm/ttm/ttm_bo.c                       |  2 +-
+ drivers/gpu/drm/vc4/vc4_kms.c                      |  2 +-
+ drivers/gpu/drm/verisilicon/vs_cursor_plane.c      |  2 +
+ drivers/gpu/drm/verisilicon/vs_hwdb.c              | 44 +++---------------=
+----
+ drivers/gpu/drm/verisilicon/vs_hwdb.h              |  4 +-
+ drivers/gpu/drm/verisilicon/vs_primary_plane.c     |  4 +-
+ include/linux/dma-fence.h                          |  6 +++
+ 21 files changed, 110 insertions(+), 85 deletions(-)
+
+--l556737gsdzolcq4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaqvVIgAKCRAnX84Zoj2+
+dnEgAX90JkLYTLQJyOLedTAfWZ0aj+eK0/GHmdeNjE6Yll62wrc99KZD73sbpsYo
+Uqc+sPsBfRnlxKgUOk/tEuobnk5PHyPjqkZLl6sM1U06wFVjDyXJFWb8/sg1Y1At
+lGFQIlLWoA==
+=zb9x
+-----END PGP SIGNATURE-----
+
+--l556737gsdzolcq4--
