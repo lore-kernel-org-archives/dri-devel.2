@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C209CC88E72
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 17:45:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14B7AC982D6
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 17:45:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE56310ED5A;
-	Thu, 17 Sep 2026 17:45:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D52C10E3F4;
+	Thu, 17 Sep 2026 17:45:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FDxiI0WY";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nGM8aUqh";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F6BA10EC68
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 17:45:26 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 673C210E3F4
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 17:45:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4DEE9600D4;
- Thu, 17 Sep 2026 17:45:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 320DF1F00898;
- Thu, 17 Sep 2026 17:45:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789667125;
- bh=O5H1hZshSBJhIdHc0JA75duWW0fV+utc0ymv/zcPeG4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FDxiI0WYmPE+oVgUqhtaheFOAWoC1aqIFOC2otsBZmnP/i9esxnpXeU9vwojN6bTO
- Qha23w5ktUfKIX7sLWtEN01QMYTSdhScryve/O5xXGgoNDgc8PSArdNBaGp6Cux1OX
- uMxsbCetIg4fqFjXqBUzFFChH8stVNOQqrQE68cKAEAFS7Qkoh5MmNQ3FehqtoanSa
- lGJKNeHXBPASZ4VtHRu71cHXxpPUPJOmUNoNDXI/ye9PqTf+JS+z05lEOfyMDs1dJs
- tasrjzN4CkUzwhCxybqUD8eTXVENeS38ol4pqdEbSPTCy7doGx5k2YpFZkBbVC3umv
- +PnUcy8bkc1Aw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 34/40] mm: eliminate VMA_SPECIAL_FLAGS usage when
- hugetlb explicitly tested
-To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
-Cc: linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, "Christian
- Borntraeger" <borntraeger@linux.ibm.com>, "Heiko Carstens" <hca@linux.ibm.com>,
- "Marc Zyngier" <maz@kernel.org>, selinux@vger.kernel.org,
- dri-devel@lists.freedesktop.org, "Vasily
- Gorbik" <gor@linux.ibm.com>, kvmarm@lists.linux.dev, linux-scsi@vger.kernel.org,
- "Oliver
- Upton" <oupton@kernel.org>, bpf@vger.kernel.org, kvm@vger.kernel.org,
- "Alexander
- Gordeev" <agordeev@linux.ibm.com>, linux-perf-users@vger.kernel.org
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-34-4583d8a23bca@kernel.org>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-34-4583d8a23bca@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 17:45:23 +0000
-Message-Id: <20260917174524.320DF1F00898@smtp.kernel.org>
+ by sea.source.kernel.org (Postfix) with ESMTP id 0E83941908;
+ Thu, 17 Sep 2026 17:45:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60F4E1F0089A;
+ Thu, 17 Sep 2026 17:45:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1789667155;
+ bh=MYsk118QlVYhV6g6CujJesNIpIsXreUjPlJN1M49CpI=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=nGM8aUqhGu/wn4ax6wMxbVov/iI/HV63AxRAblKtG+AShvtBzefArIsYp+HRL9Nqr
+ Bj3HtIJPfiqmX1RPqwxtZKF6Em7NbBIx7Xe7n4v5vEPKkJUtK0V+sw7sM5kQ/+Yno9
+ ptLMO/LbFVH5d1KCHGi/qdy+NfjNHKjKLR2Gc64k=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Matthew Brost <matthew.brost@intel.com>,
+ Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 1247/1250] drm/ttm: Drop tt->restore after successful
+ restore
+Date: Thu, 17 Sep 2026 16:17:22 +0100
+Message-ID: <20260917151626.101707354@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
+References: <20260917151551.901433442@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,34 +64,122 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> It is now an invariant that VMA_IO_BIT is not set except by kernel-owned
-> mappings, so each existing VMA_SPECIAL_FLAGS test need only test for
-> VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT and VMA_MIXEDMAP_BIT.
->=20
-> This is precisely a test for a kernel-owned or fixed mapping.
->=20
-> Update a number of callsites which already explicitly handle hugetlb
-> mappings.
->=20
-> vma_supports_mlock() and ksm_compatible() also explicitly bail on droppab=
-le
-> mappings - detecting kernel-owned, fixed or droppable mappings is handled
-> by vma_is_persistent(), so in these cases use this predicate.
->=20
-> should_skip_vma() tests for locked, kernel-owned or fixed memory (having
-> already excluded hugetlb mappings) so simply test for those there.
->=20
-> No functional change intended.
->=20
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+------------------
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-b4-mmap-pr=
-epare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org?part=3D34
+From: Matthew Brost <matthew.brost@intel.com>
+
+[ Upstream commit 941ac10529b3be5965a88d432a161ab459672ba8 ]
+
+ttm_pool_restore_and_alloc() can successfully complete the restore
+process via ttm_pool_restore_commit(), but tt->restore is not dropped
+afterward. As a result, subsequent backup/restore flows observe what
+appears to be a completed restore, while in reality shmem handles are
+still installed in tt->pages, leading to the stack trace below.
+
+Fix this by freeing and dropping tt->restore in
+ttm_pool_restore_and_alloc() upon successful completion of the restore.
+
+20545 [  309.784531] RIP: 0010:sg_alloc_append_table_from_pages+0x38c/0x490
+20547 [  309.809570] RSP: 0018:ffffc9000623b838 EFLAGS: 00010206
+20548 [  309.814827] RAX: 0000000000001000 RBX: ffff88816e42a160 RCX: 0000000000000000
+20549 [  309.821986] RDX: 0000000000002000 RSI: 0000000000000003 RDI: 0000000000001000
+20550 [  309.829147] RBP: ffff88816e42a168 R08: 0000000000000002 R09: 000000007ffff000
+20551 [  309.836310] R10: ffffc9000623b928 R11: 0000000000000000 R12: 000000007ffff000
+20552 [  309.843471] R13: ffff88815ba5a100 R14: 0000000000000000 R15: 0000000000000001
+20553 [  309.850634] FS:  00007f9ff305e700(0000) GS:ffff888276c94000(0000) knlGS:0000000000000000
+20554 [  309.858749] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+20555 [  309.864519] CR2: 00007f9fca701000 CR3: 00000001565e2005 CR4: 0000000008f70ef0
+20556 [  309.871678] PKRU: 55555558
+20557 [  309.874403] Call Trace:
+20558 [  309.876866]  <TASK>
+20559 [  309.878988]  sg_alloc_table_from_pages_segment+0x60/0x100
+20560 [  309.884415]  ? ttm_resource_manager_usage+0x36/0x60 [ttm]
+20561 [  309.889845]  ? xe_tt_map_sg+0x7d/0xd0 [xe]
+20562 [  309.894045]  xe_tt_map_sg+0x7d/0xd0 [xe]
+20563 [  309.898037]  xe_bo_move+0x927/0xaa0 [xe]
+20564 [  309.902029]  ttm_bo_handle_move_mem+0xba/0x170 [ttm]
+20565 [  309.907022]  ttm_bo_validate+0xbe/0x190 [ttm]
+20566 [  309.911405]  xe_bo_validate+0x9a/0x120 [xe]
+20567 [  309.915663]  xe_gpuvm_validate+0xd9/0x140 [xe]
+20568 [  309.920206]  drm_gpuvm_validate+0x2f0/0x5b0 [drm_gpuvm]
+20569 [  309.925459]  ? drm_exec_lock_obj+0x63/0x210 [drm_exec]
+20570 [  309.930627]  xe_vm_validate_rebind+0x46/0xb0 [xe]
+20571 [  309.935428]  xe_exec_fn+0x20/0x40 [xe]
+20572 [  309.939249]  drm_gpuvm_exec_lock+0x78/0xc0 [drm_gpuvm]
+20573 [  309.944410]  xe_validation_exec_lock+0x5a/0xa0 [xe]
+20574 [  309.949385]  xe_exec_ioctl+0x806/0xc30 [xe]
+20575 [  309.953639]  ? ttwu_queue_wakelist+0xd9/0xf0
+20576 [  309.957935]  ? __pfx_xe_exec_fn+0x10/0x10 [xe]
+20577 [  309.962449]  ? __wake_up_common+0x73/0xa0
+20578 [  309.966482]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
+20579 [  309.971263]  drm_ioctl_kernel+0xa3/0x100
+20580 [  309.975209]  drm_ioctl+0x213/0x440
+20581 [  309.978637]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
+20582 [  309.983415]  xe_drm_ioctl+0x67/0xd0 [xe]
+20583 [  309.987408]  __x64_sys_ioctl+0x7f/0xd0
+
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Link: https://patch.msgid.link/20260617015531.1164189-1-matthew.brost@intel.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/ttm/ttm_pool.c |   15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -838,6 +838,7 @@ int ttm_pool_restore_and_alloc(struct tt
+ {
+ 	struct ttm_pool_tt_restore *restore = tt->restore;
+ 	struct ttm_pool_alloc_state alloc;
++	int ret;
+ 
+ 	if (WARN_ON(!ttm_tt_is_backed_up(tt)))
+ 		return -EINVAL;
+@@ -861,14 +862,22 @@ int ttm_pool_restore_and_alloc(struct tt
+ 	} else {
+ 		alloc = restore->snapshot_alloc;
+ 		if (ttm_pool_restore_valid(restore)) {
+-			int ret = ttm_pool_restore_commit(restore, tt->backup,
+-							  ctx, &alloc);
++			ret = ttm_pool_restore_commit(restore, tt->backup,
++						      ctx, &alloc);
+ 
+ 			if (ret)
+ 				return ret;
+ 		}
+-		if (!alloc.remaining_pages)
++		if (!alloc.remaining_pages) {
++			ret = ttm_pool_apply_caching(&alloc);
++			if (ret)
++				return ret;
++
++			kfree(tt->restore);
++			tt->restore = NULL;
++
+ 			return 0;
++		}
+ 	}
+ 
+ 	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
+
 
