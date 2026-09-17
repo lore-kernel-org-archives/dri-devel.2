@@ -4,67 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF883C982CF
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 11:51:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03349C982CF
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 11:54:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 185D910EE40;
-	Thu, 17 Sep 2026 11:51:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53E8710E20C;
+	Thu, 17 Sep 2026 11:54:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=icenowy.me header.i=uwu@icenowy.me header.b="EcwjcfxS";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AxRx57Fi";
 	dkim-atps=neutral
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com
- [165.173.180.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D30A410EE40
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 11:51:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1789645872; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Pd82UWvfSs6YpVrv1vAog2PUcpE+Ombq1RArsu0V0jTFZTQtWDh0bYMe6p2rTteg9h++P5hRHi4cDvwe9KTHSgt5I+nSV+Y1BmfeAxqi0foyCAdK3OaWDXaCc/gyIeRHM7oMFN22tAmqqQPlK1pP6+5y4DzvhMkxKfkwOE0trTk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1789645872;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=kseQKRvQdNnN8LYBnsMt6SWVvkkwfz7j+iCs7tAx5Sw=; 
- b=bKNa4ZfgdhmY6u6pSqaA/IS4XO5OJNN59WJTndP4weOKGmlMy7BMyjWaI+Ab+hLd8RTpB2VikQ7KMh02VopEmjgf7/ExO9TVTr5Z0aFd0mZthVYX/NEPis2wME2wrbGTF2G5wLFEkqZCcWyestNKUwsfRls7x1fooQ8ooqeIWQw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=icenowy.me;
- spf=pass  smtp.mailfrom=uwu@icenowy.me;
- dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789645872; 
- s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
- h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
- bh=kseQKRvQdNnN8LYBnsMt6SWVvkkwfz7j+iCs7tAx5Sw=;
- b=EcwjcfxStg1/MXXpii5AtWo3avKE4bU5Fkdyodhl8QYdZlmR2jz2kZC9/NL/xnYL
- A+ZyeFJfs+U9gbLyO94UdPXQHJ6LVvAg9mvUovNw5Kfjfhl4SQV7xmGW0H/G9PncBSL
- 0/jTXWOqZXEY4skU+BoGiZDgTBzePxvpCjDWKVQMEPVHdCMJ6tU0hK3hC6FGEbSPIaT
- vpHHuJ7MIt+BJ5CGp4NqR8tOab8PwdbFqHBWZEPzZHFtTffjW+6ZsUReOVExE6zZmP4
- A5MucyOfpQUmneVrHeDziFb84wPTO9VCboxzUcBiiQq2qiCEPl30c6XC5dp1OV2W9cy
- UsdO2QKvZQ==
-Received: by smtp.zohomail.com with SMTPS id 1789645871551851.4316439919276;
- Thu, 17 Sep 2026 04:51:11 -0700 (PDT)
-Message-ID: <c70b6dbe42aa5ba489dba7634ad604b41925146a.camel@icenowy.me>
-Subject: Re: [PATCH RFT v2 0/5] drm: Add and use
- drm_fb_dma_get_gem_clipped_addr() helper
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Liu Ying <victor.liu@nxp.com>, Laurentiu Palcu
- <laurentiu.palcu@oss.nxp.com>,  Lucas Stach <l.stach@pengutronix.de>,
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej@kernel.org>,  Samuel
- Holland <samuel@sholland.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard	 <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie	 <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 	linux-sunxi@lists.linux.dev,
- imx@lists.linux.dev, 	dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org
-Date: Thu, 17 Sep 2026 19:51:05 +0800
-In-Reply-To: <CAGXv+5FHiW8umZ=wLLb5wK5Qz3hf-mbxC_zH5v+pwxxyUNTwew@mail.gmail.com>
-References: <20260916033327.3054126-1-wenst@chromium.org>
- <6d21e808d343283264665ec16d297317000fdf4d.camel@icenowy.me>
- <CAGXv+5FHiW8umZ=wLLb5wK5Qz3hf-mbxC_zH5v+pwxxyUNTwew@mail.gmail.com>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7253110E20C
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 11:54:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789646080; x=1821182080;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=vAIdKmlOq8rM8x7TTXwKSuaj2ViCkL62qRrNagWcHuc=;
+ b=AxRx57FiH/FeCUav1cVvYDuKIcfGSuuFUvKiDEOpN2Afsb9dSb2/K+Ct
+ g+MJRiKxCybRVnWbG/sRAWQ2mKoo99LmH+72qACAngdacPAoxB2HpIT2G
+ cM/MO78gbPRY12l4b8NRTdTXU6QPQvMpJzKA//TgNrWU2ReHa6dNvTtb0
+ 2a4osibGA+9NX3/cFDm7xSxTB6vTB6/DOYtO1WAXQJh/1+xSZJvQwKjpH
+ DXF6eMsw5yslFRyA3uGsLcep0jIQOxBYRNKOzNBv3EsnStiT+oGz4jhPo
+ QWdrH2imz2uIyb61WzlanhNMmDKv4+YNDSAUUup8fB1WCPpuBw6KvuFWb g==;
+X-CSE-ConnectionGUID: /kCYAej9Sv2n2jleygXLVg==
+X-CSE-MsgGUID: wIq4erh4Qae6wjTatpYrDg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89194088"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="89194088"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2026 04:54:39 -0700
+X-CSE-ConnectionGUID: CIN8f1UTSt+Urk2GUf8ewQ==
+X-CSE-MsgGUID: W+XTHwFiT3+X46IR9no28Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="278961452"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.90])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2026 04:54:34 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Thomas Huth <thuth@redhat.com>, Maxime Ripard <mripard@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Alex
+ Deucher <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Dave Stevenson
+ <dave.stevenson@raspberrypi.com>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, Simona Vetter <simona.vetter@ffwll.ch>, Luca
+ Ceresoli <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v4 1/2] drm: Rename struct drm_atomic_state to
+ drm_atomic_commit
+In-Reply-To: <c49dea95-69a7-4c74-8321-ee81f7f6fb66@redhat.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260427-drm-drm-atomic-update-v4-0-c0e713bfdf25@kernel.org>
+ <20260427-drm-drm-atomic-update-v4-1-c0e713bfdf25@kernel.org>
+ <c49dea95-69a7-4c74-8321-ee81f7f6fb66@redhat.com>
+Date: Thu, 17 Sep 2026 14:54:31 +0300
+Message-ID: <8f8a6e12fa8c0fb5485bab71749d0ac41e7b28e1@intel.com>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,140 +85,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-09-17=E5=9B=9B=E7=9A=84 19:42 +0800=EF=BC=8CChen-Yu Tsai=E5=
-=86=99=E9=81=93=EF=BC=9A
-> On Thu, Sep 17, 2026 at 7:16=E2=80=AFPM Icenowy Zheng <uwu@icenowy.me> wr=
-ote:
-> >=20
-> > =E5=9C=A8 2026-09-16=E4=B8=89=E7=9A=84 11:33 +0800=EF=BC=8CChen-Yu Tsai=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > > Hi,
-> > >=20
-> > > This is v2 of my drm_fb_dma_get_gem_clipped_addr() series.
-> > >=20
-> > > Changes since v1:
-> > > - Add and use new drm_framebuffer_get_block_offset() helper
-> > > (Thomas)
-> > >=20
-> > >=20
-> > > This series adds a helper to retrieve the buffer starting address
-> > > of
-> > > a
-> > > "clipped" framebuffer. This contrasts with
-> > > drm_fb_dma_get_gem_addr(),
-> > > which gives the address of the full buffer.
-> >=20
-> > Should vs_fb_get_dma_addr() in verisilicon/vs_plane.c be replaced
-> > with
-> > this helper too?
-> >=20
-> > I implemented manual framebuffer offset addition here.
->=20
-> Didn't I replace vs_fb_get_dma_addr() with drm_fb_dma_get_gem_addr()
+On Thu, 17 Sep 2026, Thomas Huth <thuth@redhat.com> wrote:
+> On 27/04/2026 09.02, Maxime Ripard wrote:
+>> The KMS framework uses two slightly different definitions for the state
+>> concept. For a given object (plane, CRTC, encoder, etc., so
+>> drm_$OBJECT_state), the state is the entire state of that object.
+>> However, at the device level, drm_atomic_state refers to a state update
+>> for a limited number of objects.
+>> 
+>> Thus, drm_atomic_state isn't the entire device state, but only the full
+>> state of some objects in that device. This has been an endless source of
+>> confusion and thus bugs.
+>> 
+>> We can rename the drm_atomic_state structure to drm_atomic_commit to
+>> make it less confusing.
+>> 
+>> This patch was created using:
+>> 
+>> rg -l drm_atomic_state | \
+>> 	xargs sed -i 's/drm_atomic_state/drm_atomic_commit/g; s/drm_atomic_commit_helper/drm_atomic_state_helper/g'
+>> mv drivers/gpu/drm/tests/drm_atomic_state_test.c drivers/gpu/drm/tests/drm_atomic_commit_test.c
+>> 
+>> Acked-by: Simona Vetter <simona.vetter@ffwll.ch>
+>> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Acked-by: Jani Nikula <jani.nikula@intel.com>
+>> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>> Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+>> ---
+> ...
+>> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+>> index 41c57063f3b4..4ffa057e2784 100644
+>> --- a/drivers/gpu/drm/drm_atomic.c
+>> +++ b/drivers/gpu/drm/drm_atomic.c
+> ...
+>> @@ -1764,16 +1764,16 @@ EXPORT_SYMBOL(drm_atomic_check_only);
+>>    * Note that this function can return -EDEADLK if the driver needed to acquire
+>>    * more locks but encountered a deadlock. The caller must then do the usual w/w
+>>    * backoff dance and restart. All other errors are fatal.
+>>    *
+>>    * This function will take its own reference on @state.
+>> - * Callers should always release their reference with drm_atomic_state_put().
+>> + * Callers should always release their reference with drm_atomic_commit_put().
+>>    *
+>>    * Returns:
+>>    * 0 on success, negative error code on failure.
+>>    */
+>> -int drm_atomic_commit(struct drm_atomic_state *state)
+>> +int drm_atomic_commit(struct drm_atomic_commit *state)
+> This causes now warnings when running "make htmldocs" :
+>
+> .../Documentation/gpu/drm-kms:308: .../drivers/gpu/drm/drm_atomic.c:1841: 
+> WARNING: Duplicate C declaration, also defined at gpu/drm-kms:408.
+> Declaration is '.. c:function:: int drm_atomic_commit (struct 
+> drm_atomic_commit *state)'. [duplicate_declaration.c]
+>
+> Should the function maybe be renamed now?
 
-Yes, it seems so. I checked newest rc, but this change is in drm-misc-
-next. Sorry for the noise.
+No. It's a long-standing limitation in Sphinx that it doesn't support
+the namespaces C has for functions and types. The workaround is to wrap
+one or the other in an explicit Sphinx namespace in the .rst file.
 
-> already? At the time only primary and cursor planes were supported by
-> the driver. The primary plane can't be clipped, and the cursor plane
-> had some custom clipping, but seemed to want the unclipped address.
+BR,
+Jani.
 
-Yes it looks like thedrm_fb_dma_get_gem_addr() helper already handled
-the non-clipping source offset.
 
-Thanks,
-Icenowy
-
->=20
->=20
-> ChenYu
->=20
-> > Thanks,
-> > Icenowy
-> >=20
-> > >=20
-> > > Some drivers program their hardware with clipped dimensions, so
-> > > they
-> > > should be using the clipped buffer address as well, unless the
-> > > hardware
-> > > can advance the scanout directly. (Side note: many drivers still
-> > > use
-> > > the non-clipped dimensions.)
-> > >=20
-> > > While at it, also pull out the offset calculation of
-> > > drm_fb_dma_get_gem_addr()
-> > > into a separate helper in drm_framebuffer.[ch], thereby
-> > > separating
-> > > responsibilities.
-> > >=20
-> > > The sun4i driver was recently incorrectly converted to use the
-> > > unclipped
-> > > drm_fb_dma_get_gem_addr() helper. This broke offsets into
-> > > subsampled
-> > > pixel groups, but also exposed the mismatch between the
-> > > dimensions
-> > > used
-> > > vs the buffer address. Two other drivers were also touched.
-> > >=20
-> > >=20
-> > > Patch 1 adds a new helper to return the byte offset into a
-> > > framebuffer
-> > > for the start of the pixel block of the given pixel coordinates.
-> > >=20
-> > > Patch 2 adds the new helper to return the buffer address based on
-> > > clipped coordinates.
-> > >=20
-> > > Patch 3 switches the sun4i driver to the new helper, and fixes
-> > > the
-> > > luma plane buffer address offset for subsampled YUV formats.
-> > >=20
-> > > Patch 4 converts the imx/dc driver to use the new helper. This
-> > > fixes
-> > > a
-> > > mismatch between the programmed coordinates and the buffer
-> > > address.
-> > >=20
-> > > Patch 5 replaces the open coded buffer address calculation in the
-> > > imx/dcss driver with the new helper. Existing behavior, which
-> > > might
-> > > be
-> > > wrong, is preserved.
-> > >=20
-> > >=20
-> > > Please help test. The series is only compile tested on my end.
-> > > The
-> > > sun4i
-> > > changes should revert its behavior to before the
-> > > drm_fb_dma_get_gem_addr()
-> > > was adopted. The imx/dcss changes should not have any behavioral
-> > > difference.
-> > >=20
-> > >=20
-> > > Thanks
-> > > ChenYu
-> > >=20
-> > > Chen-Yu Tsai (5):
-> > > =C2=A0 drm: Split framebuffer pixel offset calculation from
-> > > =C2=A0=C2=A0=C2=A0 drm_fb_dma_get_gem_addr()
-> > > =C2=A0 drm/fb-dma-helper: Add drm_fb_dma_get_gem_clipped_addr()
-> > > =C2=A0 drm/sun4i: layers: Fix VI buffer address for clipped offsets
-> > > =C2=A0 drm/imx/dc: plane: Switch to drm_fb_dma_get_gem_clipped_addr()
-> > > =C2=A0 drm/imx/dcss: plane: Switch to
-> > > drm_fb_dma_get_gem_clipped_addr()
-> > >=20
-> > > =C2=A0drivers/gpu/drm/drm_fb_dma_helper.c=C2=A0=C2=A0=C2=A0 | 61 ++++=
-++++++++++------
-> > > ----
-> > > --
-> > > =C2=A0drivers/gpu/drm/drm_framebuffer.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- | 45 +++++++++++++++++++
-> > > =C2=A0drivers/gpu/drm/imx/dc/dc-plane.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- |=C2=A0 4 +-
-> > > =C2=A0drivers/gpu/drm/imx/dcss/dcss-plane.c=C2=A0 | 34 ++++++--------
-> > > =C2=A0drivers/gpu/drm/sun4i/sun8i_ui_layer.c |=C2=A0 2 +-
-> > > =C2=A0drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 16 ++++++-
-> > > =C2=A0include/drm/drm_fb_dma_helper.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0 4 ++
-> > > =C2=A0include/drm/drm_framebuffer.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++
-> > > =C2=A08 files changed, 118 insertions(+), 51 deletions(-)
+-- 
+Jani Nikula, Intel
