@@ -4,83 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD94BC982D2
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:11:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA01AC982D9
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:11:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1115C10F206;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3500610F207;
 	Fri, 18 Sep 2026 07:11:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cT5Z4YbF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mEoJuA7U";
 	dkim-atps=neutral
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com
- [74.125.227.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA23C10E5B8
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:36:14 +0000 (UTC)
-Received: by mail-vs2-f43.google.com with SMTP id
- 71dfb90a1353d-5c7f7cc52efso356741e0c.3
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 09:36:14 -0700 (PDT)
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com
+ [74.125.227.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 474F810E032
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 18:13:27 +0000 (UTC)
+Received: by mail-pj2-f43.google.com with SMTP id
+ 98e67ed59e1d1-39dbdfaef3cso1126926a91.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 11:13:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789662974; x=1790267774; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=pFCvkrGHeoh04W9xHjBBzfI8dcLvWE3494aYsAJUFFo=;
- b=cT5Z4YbF7PQ47hYBM1w+ecnJ3SJryB6lrEu6aJ9wRsLCuJzKhHhMfflx8MJBBAUk8A
- Kg51y9iOloAdzQmmCj8PzmUTpE9IuQYvYRELI7rrweJ14HcpSOO4SzXCfsQeFpAXcyCh
- sPmxPon0zdtqKyC/fmeW4zWmHvrw9sWv693EU7zzBO8a5SQyXCpRZ2Ug50JRWdyvRW5A
- t3APbR6vR8snXpxaMdcr+TSicQB6TmtIIvi1OMABQUJ5K6ffqN2OoXVJ5z6DD22WIC2Y
- uBEJs5B5hmBM5zUKb8R2sDYcVXTamnocJRJAjnm7XB68NL771eH2DwNzzXcKq9znWHys
- RVgg==
+ d=gmail.com; s=20251104; t=1789668807; x=1790273607; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=7khdMbHecw2szquJ6Kapkum4M/lnE/1+tiTkVlutz8k=;
+ b=mEoJuA7Ukyq75ytasG/+fMy9TR78U6LKm5KFEfgW4AwM06U0yjGlrtK6KdEEO0rnoC
+ 53i69/yNe6kZ634UtSDeoRcoVsiVFcs53xvmcuX+A+CvMIEriDkKpRk+sjl7hv2acF2I
+ rBhNsqNm8JEluGCjDKnF0Y/ddnvWZvMPguHl/7V10cE1whWpOp6e7JeeDboEC+7PEzWr
+ uiJs/d72DyvMTZEwubYM0y4CZwiBnBSaG900CRG6UpqOhg7+S9gcpfNfjzoNduLkerS/
+ tWNkURbOiJH4z4zeC/WTlbKUq8sNW2sjYNZyIhEMag9t0gb0rIyOpwWpkcpUbwjaye66
+ M+FQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789662974; x=1790267774;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=pFCvkrGHeoh04W9xHjBBzfI8dcLvWE3494aYsAJUFFo=;
- b=UbcU6eegbc+5TB/UoEJ6ssZrhaI33z6M4MUoEej6y+L4koBtymUia6O1jLHTyVTPzs
- sSzr70F5kFjeINgfeGSBgI8MeaDwSC9qwjWusoCLrrK9bMbuRfQFXANVKrTwLb8Iwjd6
- ZeLAoOl9OqjZEr7VdVKZV1sd8IMHj9LV65iW76sdBgnMZcNK0wGoO9oMQFcAHAoRJRV4
- 0e8qpdAlJYGCBFyI6hXFbj/HYZCRZIlPQp+Ndh0no5+jt8eP37S/rp1GAOUyQaxRyfse
- +6DIlFLhn8krD7kwLWvH5k2jDX2Tlg9SSjmgExDqOdse0OlmCZFG40albiR/d/n3Uw3U
- SGqQ==
+ d=1e100.net; s=20260707; t=1789668807; x=1790273607;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=7khdMbHecw2szquJ6Kapkum4M/lnE/1+tiTkVlutz8k=;
+ b=ebhms/i9uV1I39XTXHpWrDRDH1LZIxnTidABvb1RyA36PAx/FoYfm89+sw0eZoGw8F
+ KOKNXZiJFynAHTXz4wFckugYC1udmv2RS/16HOoR4DZuYwk5vwYT39lCYzjJHskTDfUW
+ 8CIw/ow7O5KNYBuHGs7Q6vhBQ0VmyemxMY7a0eOzah4+hlLPuBtQUKbETiidAzKeJO9V
+ J0YcB3tYWMa0rV9MyksvYuO0illOX1ir03XCP8FK6LxhbKTm9FFpOKuiFHBuRdHiDCRF
+ B5O5I4UKIR1e3TR1+CGFrKcqPCicWiXpxoN03LLnGTKlk3kxO2aNLGK9Gx82M0rSumwm
+ tzJQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzwmq4ngwk/3TFI+XAC19HtcqTd+xpwpHpd5nfX9xpuNEOH1CLIM6hCfwNO5jQH88D0OrDP8/gWZuw=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n7rorloDvIOUvwjstuJxTuro2rbMQltLEZEpNjOys0GyPldm26
- nINMh6z6D3U0De/AQVkesZ+Ed4b2+ZmXs4IE4Z8OtAxKNZ7tOfnICzi5
-X-Gm-Gg: AYBFou2Bs73DpKhtjf0RNt6h2g+qr8FS6zehPmNZwWlD7QdebUOTikWUu3jT/Lr+/LA
- xOQkq2PPhMX1n4VTvQzLDSqjbzrITIdF/ftyD4BtK3syUGlZ3absBt80mpMgKcwPbwCg8dtvk47
- tJt9N3mZUT6LFOvful+VJsGnMILuYMcT2o2WYoDN3fzaQ/lfC88eWIqIBoBZA2XxPcUvVpYsXQG
- CnwWMM61I6XBC/PebWOZOCqEiQWOaDYq1kdUBwO/fJs/ZWvEGpg+XE4einvb7/8c0k7uPkdK4uI
- 4jzyjaOkleJnh/ZJYvfOU5FQmRdUo3PYVSx/SvmAKty5gEJ2nH8Eh6BHj3wt/wf9+FiPFTRIbvJ
- FtLqVNnuXBuN0YjtB4uiSGx0bpY9h5Zu/0eYOwcYME9pCh7IAsxR6V6+psBrWkJk2WYy2yIpgsh
- HfLTOB0GkEXmGRGTORjT+9FxxOQY10I3Zy7pM7baTxsaIO2I1E4pFlaPjkR6lwzII9oxPvN/ujT
- R/KRKx9l5m6BoozGNtw783cfLp4jQuIx7RehOA4LntPdmw=
-X-Received: by 2002:a05:6122:3129:b0:5c9:a60b:e5ba with SMTP id
- 71dfb90a1353d-5c9a60be90cmr2013450e0c.10.1789662973593; 
- Thu, 17 Sep 2026 09:36:13 -0700 (PDT)
-Received: from lord ([170.246.209.50]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5c9a53b2ba1sm3065363e0c.8.2026.09.17.09.36.09
+ AKwUvBwnNv9A4MDGdGmuZA2wjr1w2ZG0AJl3s0OeHLb6oiCPb63Dc5ndxWyetJoO/s2A6czObSIXCmPhZt8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lnYMzmZhRZRHqy6xGi5yxyaOqbXT4GHrUjRUKjRPw9JrljrcMm
+ 3ry3fktG/MaeJWKrU7yNLNkqB3haE4+avUvSTdzz8WKOTHh9b0bTZiKY
+X-Gm-Gg: AYBFou0OK+RrsbNb4HmAQr4JahLnHUXURJGB8QmCbGfxAW/JDp7V7jDNeFw4ZZ8ai/q
+ /RQ1/J4PHeyTsSTBMwoNOZ/8Baf9fl3VT/+gNaP4I4lx8OzSc8k300LvDhymxcUx0BsxTylDYaC
+ gU8IV47ng5i/ZTIzTPcvldAhTQjgX5lf3F7Veb1jLPBUUH+cS7OmUd3YAZtMHvD46rF7Q8VtNmk
+ ROyCeeacFsfDvYYiFTwhWW+JWPDB9YifPOAtagV0tW2X53u4wfvHXo1DpezKltMPTzkLU41jbE6
+ ZbdbbWm4iP/UYAIXeH/EuEz3fycBrunWpBO2M4+XhDncL5k3oxAomVnYSGdHq9C6FlrXYpKtdLf
+ T/8vT4ELcz9Sv6bY2bSWETvpm9rfoFaWb+CzvOKzloMVjOpqv1yohxjOW+OiKZP9D90NfuYFuCo
+ eP41iK+tWwRe8T/wzAczS+mZSZ2Rjk3Z+htn9yCqZVjKs+1REUYXUzkjQ03PaLkPH8ygC0USqkI
+ IArecn0tQ==
+X-Received: by 2002:a17:90b:5305:b0:381:6c5:3f63 with SMTP id
+ 98e67ed59e1d1-39e54dcd917mr18825a91.6.1789668806508; 
+ Thu, 17 Sep 2026 11:13:26 -0700 (PDT)
+Received: from om2 ([67.161.167.155]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-33bf56d7e5bsm17209186eec.0.2026.09.17.11.13.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Sep 2026 09:36:13 -0700 (PDT)
-From: =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
-To: intel-xe@lists.freedesktop.org
-Cc: matthew.brost@intel.com, daniele.ceraolospurio@intel.com,
- stuart.summers@intel.com, julia.filipchuk@intel.com,
- thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
- jani.nikula@intel.com, navonjohnlukose@gmail.com,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
-Subject: [PATCH v4 3/3] drm/xe: Implement Wa_22016122933
-Date: Thu, 17 Sep 2026 13:35:53 -0300
-Message-ID: <20260917163553.1742580-4-talesam@gmail.com>
+ Thu, 17 Sep 2026 11:13:25 -0700 (PDT)
+From: Claire DuSoleil <claire.m.dusoleil@gmail.com>
+To: Zack Rusin <zack.rusin@broadcom.com>
+Cc: Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Claire DuSoleil <claire.m.dusoleil@gmail.com>
+Subject: [PATCH] drm/vmwgfx: Fix GEM_CLOSE returning -EINVAL for
+ PRIME-imported surfaces
+Date: Thu, 17 Sep 2026 11:13:12 -0700
+Message-ID: <20260917181312.12473-1-claire.m.dusoleil@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917163553.1742580-1-talesam@gmail.com>
-References: <20260917163553.1742580-1-talesam@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 18 Sep 2026 07:09:59 +0000
+X-Mailman-Approved-At: Fri, 18 Sep 2026 07:10:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,251 +96,421 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On platforms with a standalone media GT and media version 13.00
-(MTL/ARL), memory shared between the CPU and the media GT's GuC must
-not be mapped cached on the CPU side: the CPU can otherwise read stale
-cache lines for data the GuC has already written.
+Importing a client's GPU buffer via the generic
+DRM_IOCTL_PRIME_FD_TO_HANDLE ioctl succeeds for surface-backed dma-bufs,
+but releasing the resulting handle via the equally-generic
+DRM_IOCTL_GEM_CLOSE fails with -EINVAL.
 
-i915 implements this as Wa_22016122933 (see
-intel_gt_needs_wa_22016122933(), used by intel_guc_allocate_vma() and
-intel_gt_coherent_map_type()); xe never inherited it.
+vmw_prime_fd_to_handle() imports through ttm_prime_fd_to_handle(), which
+files the handle in the driver's private ttm_object table (tdev->idr).
+DRM_IOCTL_GEM_CLOSE only ever looks in the standard per-file GEM handle
+table (file_priv->object_idr) -- there is no per-driver override for it
+anywhere in struct drm_driver -- so it can never find a handle from the
+private table and always returns -EINVAL.
 
-The visible symptom on ARL is TLB invalidation acks stalling for a
-near-constant ~2.3s: the GuC writes the G2H ack in time, but the CPU
-keeps reading a stale (empty) view of the G2H CTB until the line is
-naturally evicted, so the fence timeout at 2.25s fires first. GuC log
-decode confirmed all invalidations were handled promptly by the
-firmware, and only the media GT was affected. See Link for the full
-investigation (three machines affected: 7d51, 7dd1, Arc Pro 130T).
+This breaks any generic userspace that assumes PRIME_FD_TO_HANDLE and
+GEM_CLOSE operate as a matched pair on the same table -- true for every
+other driver, but not this one. Wayland compositors that validate a
+client's dmabuf with a driver-agnostic import-then-close probe (e.g.
+Hyprland's linux-dmabuf-v1 create_immed validation) treat the close
+failure as "the buffer is invalid" and kill the client, even though the
+buffer is fine.
 
-Making the mapping coherent instead of uncached does not help: with a
-GGTT PAT entry repurposed to WB|COH_2WAY the driver comes up and the
-media GT GuC runs, but the stalls remain (request-to-ack 2290ms).
-Uncached really is required here. Note that 2-way coherency is not
-normally reachable from a GGTT PTE (only 2 PAT bits), so that
-experiment needed a modified PAT table and may not reflect a supported
-configuration.
+ttm_prime_fd_to_handle() cannot simply be replaced with the generic
+drm_gem_prime_fd_to_handle() path: vmw_prime_dmabuf_ops leaves .attach
+and .map_dma_buf stubbed with -ENOSYS (surface storage lives host-side),
+so the generic import path can never succeed for these buffers at all --
+ttm_prime_fd_to_handle() is the only mechanism capable of importing a
+surface-backed dma-buf.
 
-Add the OOB workaround scoped like i915 (media version 13.00, media GT
-only - MEDIA_VERSION() OOB rules only match the media GT on standalone
-media platforms) and apply XE_BO_FLAG_NEEDS_UC to the GuC-shared
-allocations the CPU reads from: the CTBs, the GuC log, ADS, the SLPC
-shared data and the engine activity buffers. hwconfig and the G2G
-buffer are allocated on the primary GT only, where the workaround does
-not apply.
+Fix this by wrapping the private handle in a minimal, non-TTM-backed GEM
+object registered in the standard per-file handle table, so ordinary
+GEM_CLOSE finds it and releases the real reference through it.
 
-Note that XE_BO_FLAG_NEEDS_UC drives both the CPU mapping (uncached)
-and the GGTT cache mode (XE_CACHE_NONE instead of XE_CACHE_WB), which is
-stricter than i915: i915 documents the workaround as WC on the CPU side
-and UC on the GPU side. A CPU-WC variant with the GGTT side kept at
-XE_CACHE_NONE was measured to be equally effective, but expressing it
-would require either a new BO flag or decoupling the GGTT cache-mode
-selection from XE_BO_FLAG_NEEDS_UC - simply swapping in
-XE_BO_FLAG_FORCE_WC silently relaxes the GPU side back to WB and the
-stalls return. The stricter mapping is kept here since it is the tested
-configuration and no throughput difference between the two was
-measurable; the extra plumbing can be added later if parity with i915 is
-preferred.
+Existing userspace (Mesa's own SVGA winsys, vmw_drm_surface_from_handle()
+in vmw_screen_dri.c) also calls this ioctl for real rendering imports,
+then feeds the returned value back into DRM_VMW_REF_SURFACE and
+DRM_VMW_UNREF_SURFACE as a raw ttm handle -- so vmw_prime_fd_to_handle()
+must keep returning something that still works as a raw ttm handle for
+those two ioctls, and for every execbuf command that references a
+surface by handle. vmw_prime_resolve_handle() is added to transparently
+redirect a bridge handle back to the real ttm handle, and called from
+every function that consumes a raw surface handle from userspace:
+vmw_surface_handle_reference(), vmw_surface_destroy_ioctl(), and
+vmw_user_resource_lookup_handle() -- the shared choke point behind
+every execbuf command-validation call site, plus vmw_present_ioctl(),
+vmw_user_object_lookup(), and vmw_dumb_create(). This keeps all of that
+existing usage unaffected.
 
-Scope is limited to the GuC-shared allocations, which is where the
-failures were observed. i915 additionally covers media-GT LRC/ring
-state; extending xe to match can be done as a follow-up if wanted.
+The bridge takes its own reference directly on the underlying
+ttm_base_object (ttm_base_object_lookup_for_ref()/ttm_base_object_unref()),
+independent of the tfile-scoped ttm_ref_object entry that
+REF_SURFACE/UNREF_SURFACE manipulate, so its lifetime does not depend on
+how many times userspace opens and closes its own references to the
+same handle. The transient ttm_ref_object entry that
+ttm_prime_fd_to_handle() itself creates is deliberately left in place
+on success, matching stock behavior: vmw_surface_handle_reference()
+forces require_exist=true for render clients, and ttm_ref_object_add()
+with require_existed=true only reuses a pre-existing entry rather than
+creating one, so removing it here would make every subsequent
+DRM_VMW_REF_SURFACE call from a render client (both Mesa and this
+validation pattern connect via the render node) fail with -EPERM.
 
-Validation on two ARL machines (7d51 and 7dd1): before, 20-60 TLB
-invalidation ack stalls per day, every day, for weeks, on every kernel
-and on two GuC firmware versions (70.53.0 and 70.72.1). After: zero
-stalls in six weeks of combined runtime, over 10M TLB invalidations
-processed under the same workloads, across kernels 7.1.6, 7.1.8 and
-7.2. The 7dd1 machine, which could not survive a day of media
-workloads on xe without a platform freeze, has been running xe full
-time since 11 August, including days with heavy video transcoding,
-with zero stalls and zero freezes.
+Before this change, every object filed in file_priv->object_idr was
+guaranteed to be a real struct vmw_bo, so vmw_user_bo_lookup() casts
+the GEM object behind a looked-up handle straight to struct vmw_bo via
+an unchecked container_of() (to_vmw_bo()). This is no longer true once
+a bridge object can occupy a slot in the same table: passing a bridge
+handle to any of vmw_user_bo_lookup()'s ten call sites (buffer/context/
+shader binding, DRM_IOCTL_PRIME_HANDLE_TO_FD's small-handle branch,
+etc.) would reinterpret a small vmw_prime_import_bridge allocation as
+the much larger struct vmw_bo, causing an out-of-bounds read on every
+subsequent field access. Fixed by rejecting a non-vmw_bo handle in
+vmw_user_bo_lookup() itself: reject any handle whose gobj->funcs isn't
+&vmw_gem_object_funcs, the same driver-established GEM object type tag
+already used at both of struct vmw_bo's own creation sites, so this
+introduces no new tagging mechanism and cannot reject a legitimate
+vmw_bo.
 
-The coherency experiment, the CPU-WC measurements and the engine
-activity coverage gap were found by Navon John Lukose while A/B
-testing v2 on an ARL 7d51.
+Tested on a VMware Workstation guest, kernel 7.2.3-arch1-3 and, after a
+later kernel update, 7.2.5-3-omarchy: a standalone
+PRIME_FD_TO_HANDLE/GEM_CLOSE reproducer confirms the fix, real Hyprland
+now compositing GPU-rendered clients that previously died on their
+first frame, and the kernel log stays clean across driver init and
+normal use, with no rejections logged from the new vmw_user_bo_lookup()
+check. All seven changed files were also confirmed byte-for-byte
+identical to drm-misc-next, and this patch applies to it directly with
+no fuzz.
 
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8678
-Suggested-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Tales A. Mendonça <talesam@gmail.com>
-Tested-by: Navon John Lukose <navonjohnlukose@gmail.com>
+Signed-off-by: Claire DuSoleil <claire.m.dusoleil@gmail.com>
 ---
- drivers/gpu/drm/xe/xe_guc.c                 | 16 ++++++++++++++++
- drivers/gpu/drm/xe/xe_guc.h                 |  2 ++
- drivers/gpu/drm/xe/xe_guc_ads.c             |  3 ++-
- drivers/gpu/drm/xe/xe_guc_ct.c              |  6 ++++--
- drivers/gpu/drm/xe/xe_guc_engine_activity.c |  6 ++++--
- drivers/gpu/drm/xe/xe_guc_log.c             |  7 +++++--
- drivers/gpu/drm/xe/xe_guc_pc.c              |  3 ++-
- drivers/gpu/drm/xe/xe_wa_oob.rules          |  1 +
- 8 files changed, 36 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/vmwgfx/vmwgfx_bo.c       |  13 ++
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.h      |   3 +
+ drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c  |   5 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_ioctl.c    |   2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_prime.c    | 147 ++++++++++++++++++++++-
+ drivers/gpu/drm/vmwgfx/vmwgfx_resource.c |   4 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c  |  13 +-
+ 7 files changed, 178 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
-index c7f8bbd4cb9..3ab4cb9e496 100644
---- a/drivers/gpu/drm/xe/xe_guc.c
-+++ b/drivers/gpu/drm/xe/xe_guc.c
-@@ -1469,6 +1469,22 @@ int xe_guc_suspend(struct xe_guc *guc)
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+index 9c7a73c..9d87f19 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+@@ -651,6 +651,19 @@ int vmw_user_bo_lookup(struct drm_file *filp,
+ 		return -ESRCH;
+ 	}
  
-+/**
-+ * xe_guc_bo_wa_flags - Extra BO flags for memory shared with the GuC
-+ * @gt: the &xe_gt whose GuC the buffer will be shared with
++	/*
++	 * A handle in the standard GEM table is not necessarily a real
++	 * vmw_bo -- it may be a prime-import bridge object (see
++	 * vmwgfx_prime.c). to_vmw_bo() below is an unchecked container_of;
++	 * calling it on anything else corrupts an out-of-bounds pointer.
++	 */
++	if (gobj->funcs != &vmw_gem_object_funcs) {
++		drm_gem_object_put(gobj);
++		DRM_ERROR("Handle 0x%08lx is not a vmwgfx buffer object.\n",
++			  (unsigned long)handle);
++		return -ESRCH;
++	}
++
+ 	*out = to_vmw_bo(gobj);
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
+index 38bea8a..bf8a453 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
+@@ -788,6 +788,7 @@ extern int vmw_resource_reserve(struct vmw_resource *res, bool interruptible,
+ extern bool vmw_resource_needs_backup(const struct vmw_resource *res);
+ extern int vmw_user_resource_lookup_handle(
+ 	struct vmw_private *dev_priv,
++	struct drm_file *file_priv,
+ 	struct ttm_object_file *tfile,
+ 	uint32_t handle,
+ 	const struct vmw_user_resource_conv *converter,
+@@ -1105,6 +1106,8 @@ extern int vmw_prime_handle_to_fd(struct drm_device *dev,
+ 				  struct drm_file *file_priv,
+ 				  uint32_t handle, uint32_t flags,
+ 				  int *prime_fd);
++extern uint32_t vmw_prime_resolve_handle(struct drm_file *file_priv,
++					 uint32_t handle);
+ struct drm_gem_object *vmw_prime_import_sg_table(struct drm_device *dev,
+ 						 struct dma_buf_attachment *attach,
+ 						 struct sg_table *table);
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+index a9136a6..7383319 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+@@ -648,7 +648,8 @@ vmw_cmd_res_check(struct vmw_private *dev_priv,
+ 			return ret;
+ 
+ 		ret = vmw_user_resource_lookup_handle
+-			(dev_priv, sw_context->fp->tfile, *id_loc, converter, &res);
++			(dev_priv, sw_context->filp, sw_context->fp->tfile, *id_loc,
++			 converter, &res);
+ 		if (ret != 0) {
+ 			VMW_DEBUG_USER("Could not find/use resource 0x%08x.\n",
+ 				       (unsigned int) *id_loc);
+@@ -4073,7 +4074,7 @@ static int vmw_execbuf_tie_context(struct vmw_private *dev_priv,
+ 		return ret;
+ 
+ 	ret = vmw_user_resource_lookup_handle
+-		(dev_priv, sw_context->fp->tfile, handle,
++		(dev_priv, sw_context->filp, sw_context->fp->tfile, handle,
+ 		 user_context_converter, &res);
+ 	if (ret != 0) {
+ 		VMW_DEBUG_USER("Could not find or user DX context 0x%08x.\n",
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ioctl.c b/drivers/gpu/drm/vmwgfx/vmwgfx_ioctl.c
+index d962ef2..1494a8d 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_ioctl.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ioctl.c
+@@ -220,7 +220,7 @@ int vmw_present_ioctl(struct drm_device *dev, void *data,
+ 	}
+ 	vfb = vmw_framebuffer_to_vfb(fb);
+ 
+-	ret = vmw_user_resource_lookup_handle(dev_priv, tfile, arg->sid,
++	ret = vmw_user_resource_lookup_handle(dev_priv, file_priv, tfile, arg->sid,
+ 					      user_surface_converter,
+ 					      &res);
+ 	if (ret)
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_prime.c b/drivers/gpu/drm/vmwgfx/vmwgfx_prime.c
+index 598b90a..5315251 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_prime.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_prime.c
+@@ -35,6 +35,7 @@
+ #include "vmwgfx_bo.h"
+ #include "ttm_object.h"
+ #include <linux/dma-buf.h>
++#include <linux/slab.h>
+ 
+ /*
+  * DMA-BUF attach- and mapping methods. No need to implement
+@@ -72,15 +73,157 @@ const struct dma_buf_ops vmw_prime_dmabuf_ops =  {
+ 	.release = NULL,
+ };
+ 
++/*
++ * A surface-backed dma-buf can only be imported through
++ * ttm_prime_fd_to_handle() -- vmw_prime_dmabuf_ops leaves .attach and
++ * .map_dma_buf unimplemented above, so the generic PRIME import path
++ * (drm_gem_prime_fd_to_handle() -> dma_buf_attach()) can never reach it and
++ * fails with -ENOSYS before it starts. ttm_prime_fd_to_handle() works
++ * because it bypasses dma-buf attach/map entirely and reads dma_buf->priv
++ * directly, but the handle it returns lives in the private ttm_object
++ * table (tdev->idr), not file_priv->object_idr, so the generic
++ * DRM_IOCTL_GEM_CLOSE (drm_gem_handle_delete(), which only ever looks in
++ * file_priv->object_idr) can never find it and fails with -EINVAL.
 + *
-+ * Wa_22016122933: on the standalone media GT, memory shared between the
-+ * CPU and the GuC must not be mapped cached on the CPU side, otherwise
-+ * the CPU can read stale data written by the GuC (e.g. G2H CTB writes)
-+ * for multiple seconds.
++ * Bridge the two tables: wrap the real ttm_base_object in a minimal,
++ * non-TTM-backed GEM object and hand back a handle from the standard
++ * table instead, so ordinary GEM_CLOSE succeeds.
 + *
-+ * Return: additional XE_BO_FLAG_* to use when allocating GuC-shared memory
++ * Existing userspace (Mesa's own SVGA winsys, in vmw_drm_surface_from_handle())
++ * calls this exact ioctl for real rendering imports too, then feeds the
++ * returned value straight back into DRM_VMW_REF_SURFACE / DRM_VMW_UNREF_SURFACE
++ * as a raw ttm handle -- it is not just a probe-only code path. So the value
++ * returned here must keep working as a raw ttm handle for those two ioctls
++ * and for every execbuf command that references a surface by handle
++ * (vmw_user_resource_lookup_handle(), the single choke point all of those
++ * funnel through). vmw_prime_resolve_handle() below is called from all three
++ * of those places to transparently redirect a bridge handle back to the real
++ * ttm handle, so existing userspace keeps working unmodified.
++ *
++ * The bridge's own hold on the object is a *separate*, independent
++ * ttm_base_object reference (taken via ttm_base_object_lookup_for_ref(),
++ * released via ttm_base_object_unref()), not a claim on the tfile-scoped
++ * ttm_ref_object entry that REF_SURFACE/UNREF_SURFACE manipulate. That
++ * entry is created transiently by ttm_prime_fd_to_handle() below and is
++ * deliberately left alone on success -- see the comment at the end of
++ * vmw_prime_fd_to_handle() for why it cannot simply be dropped here
++ * (vmw_surface_handle_reference()'s require_exist path depends on it
++ * still existing). This bridge's own reference exists alongside it,
++ * purely so this bridge's lifetime never depends on how many times
++ * userspace itself opens and closes references to the same ttm handle:
++ * without it, if userspace fully released the ttm handle through its own
++ * REF/UNREF_SURFACE calls while this GEM handle was still open, this
++ * bridge's eventual .free() would unref a handle number that may by then
++ * have been recycled for a completely unrelated object.
 + */
-+u32 xe_guc_bo_wa_flags(struct xe_gt *gt)
++struct vmw_prime_import_bridge {
++	struct drm_gem_object    base;
++	struct ttm_base_object  *base_obj;
++	uint32_t                 ttm_handle;
++};
++
++static void vmw_prime_import_bridge_free(struct drm_gem_object *obj)
 +{
-+	return XE_GT_WA(gt, 22016122933) ? XE_BO_FLAG_NEEDS_UC : 0;
++	struct vmw_prime_import_bridge *bridge =
++		container_of(obj, struct vmw_prime_import_bridge, base);
++
++	ttm_base_object_unref(&bridge->base_obj);
++	drm_gem_object_release(obj);
++	kfree(bridge);
 +}
 +
- void xe_guc_notify(struct xe_guc *guc)
++static const struct drm_gem_object_funcs vmw_prime_import_bridge_funcs = {
++	.free = vmw_prime_import_bridge_free,
++};
++
++/**
++ * vmw_prime_resolve_handle - Translate a possible prime-import bridge GEM
++ * handle back to the real ttm handle it wraps.
++ *
++ * @file_priv: The caller's drm file, whose own GEM handle table is checked.
++ * @handle: A handle as supplied by userspace -- either an ordinary raw ttm
++ * handle (the common case, unchanged from historical behavior), or a
++ * bridge handle returned by vmw_prime_fd_to_handle() above.
++ *
++ * Returns the real ttm handle to use. If @handle does not name one of this
++ * file's own prime-import bridge objects, @handle is returned unchanged.
++ */
++uint32_t vmw_prime_resolve_handle(struct drm_file *file_priv, uint32_t handle)
++{
++	struct drm_gem_object *gobj = drm_gem_object_lookup(file_priv, handle);
++	uint32_t real_handle = handle;
++
++	if (gobj) {
++		if (gobj->funcs == &vmw_prime_import_bridge_funcs) {
++			struct vmw_prime_import_bridge *bridge =
++				container_of(gobj, struct vmw_prime_import_bridge, base);
++			real_handle = bridge->ttm_handle;
++		}
++		drm_gem_object_put(gobj);
++	}
++
++	return real_handle;
++}
++
+ int vmw_prime_fd_to_handle(struct drm_device *dev,
+ 			   struct drm_file *file_priv,
+ 			   int fd, u32 *handle)
  {
- 	struct xe_gt *gt = guc_to_gt(guc);
-diff --git a/drivers/gpu/drm/xe/xe_guc.h b/drivers/gpu/drm/xe/xe_guc.h
-index 61e3ee19a59..c4eca40d69c 100644
---- a/drivers/gpu/drm/xe/xe_guc.h
-+++ b/drivers/gpu/drm/xe/xe_guc.h
-@@ -30,6 +30,7 @@
- 	xe_guc_fw_version_at_least((guc), MAKE_GUC_VER_ARGS(ver))
++	struct vmw_private *dev_priv = vmw_priv(dev);
+ 	struct ttm_object_file *tfile = vmw_fpriv(file_priv)->tfile;
+-	int ret = ttm_prime_fd_to_handle(tfile, fd, handle);
++	struct vmw_prime_import_bridge *bridge;
++	struct ttm_base_object *base_obj;
++	uint32_t ttm_handle;
++	int ret = ttm_prime_fd_to_handle(tfile, fd, &ttm_handle);
  
- struct drm_printer;
-+struct xe_gt;
+ 	if (ret)
+-		ret = drm_gem_prime_fd_to_handle(dev, file_priv, fd, handle);
++		return drm_gem_prime_fd_to_handle(dev, file_priv, fd, handle);
++
++	/*
++	 * Take our own independent reference before dropping the transient
++	 * one ttm_prime_fd_to_handle() just created, so the object can never
++	 * be dropped to zero in between.
++	 */
++	base_obj = ttm_base_object_lookup_for_ref(dev_priv->tdev, ttm_handle);
++	if (!base_obj) {
++		ttm_ref_object_base_unref(tfile, ttm_handle);
++		return -EINVAL;
++	}
++
++	bridge = kzalloc(sizeof(*bridge), GFP_KERNEL);
++	if (!bridge) {
++		ttm_base_object_unref(&base_obj);
++		ttm_ref_object_base_unref(tfile, ttm_handle);
++		return -ENOMEM;
++	}
++
++	drm_gem_private_object_init(dev, &bridge->base, PAGE_SIZE);
++	bridge->base.funcs = &vmw_prime_import_bridge_funcs;
++	bridge->base_obj   = base_obj;
++	bridge->ttm_handle = ttm_handle;
++
++	ret = drm_gem_handle_create(file_priv, &bridge->base, handle);
++	drm_gem_object_put(&bridge->base);
++
++	/*
++	 * On success, deliberately leave the transient ttm_ref_object entry
++	 * ttm_prime_fd_to_handle() created in place -- do not touch it.
++	 * vmw_surface_handle_reference()'s DRM_VMW_REF_SURFACE path forces
++	 * require_exist=true for render clients (drm_is_render_client()),
++	 * which is exactly what Mesa and this bridge's own callers are, and
++	 * ttm_ref_object_add() with require_existed=true returns -EPERM
++	 * unless a ref-object entry for this (tfile, ttm_handle) pair
++	 * already exists -- it will not create a new one. This entry is
++	 * that pre-existing one. Stock vmw_prime_fd_to_handle() never
++	 * touched it either, for the same reason. Our own independent
++	 * base_obj reference above is what makes GEM_CLOSE work; it does
++	 * not replace this entry, it exists alongside it.
++	 *
++	 * On failure, nothing else will ever be able to reach this handle to
++	 * release it, so clean it up here to avoid leaking it.
++	 */
++	if (ret)
++		ttm_ref_object_base_unref(tfile, ttm_handle);
  
- void xe_guc_comm_init_early(struct xe_guc *guc);
- int xe_guc_init_noalloc(struct xe_guc *guc);
-@@ -45,6 +46,7 @@ void xe_guc_runtime_suspend(struct xe_guc *guc);
- void xe_guc_runtime_resume(struct xe_guc *guc);
- int xe_guc_suspend(struct xe_guc *guc);
- int xe_guc_softreset(struct xe_guc *guc);
-+u32 xe_guc_bo_wa_flags(struct xe_gt *gt);
- void xe_guc_notify(struct xe_guc *guc);
- int xe_guc_auth_huc(struct xe_guc *guc, u32 rsa_addr);
- int xe_guc_mmio_send(struct xe_guc *guc, const u32 *request, u32 len);
-diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
-index ff8eee3831a..abc7266fc6f 100644
---- a/drivers/gpu/drm/xe/xe_guc_ads.c
-+++ b/drivers/gpu/drm/xe/xe_guc_ads.c
-@@ -435,7 +435,8 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
- 					  XE_BO_FLAG_SYSTEM |
- 					  XE_BO_FLAG_GGTT |
- 					  XE_BO_FLAG_GGTT_INVALIDATE |
--					  XE_BO_FLAG_PINNED_NORESTORE);
-+					  XE_BO_FLAG_PINNED_NORESTORE |
-+					  xe_guc_bo_wa_flags(gt));
- 	if (IS_ERR(bo))
- 		return PTR_ERR(bo);
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c b/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c
+index e3a187a..7ba4dbf 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_resource.c
+@@ -255,6 +255,7 @@ int vmw_resource_init(struct vmw_private *dev_priv, struct vmw_resource *res,
+  * type, -EINVAL will be returned.
+  */
+ int vmw_user_resource_lookup_handle(struct vmw_private *dev_priv,
++				    struct drm_file *file_priv,
+ 				    struct ttm_object_file *tfile,
+ 				    uint32_t handle,
+ 				    const struct vmw_user_resource_conv
+@@ -265,6 +266,7 @@ int vmw_user_resource_lookup_handle(struct vmw_private *dev_priv,
+ 	struct vmw_resource *res;
+ 	int ret = -EINVAL;
  
-diff --git a/drivers/gpu/drm/xe/xe_guc_ct.c b/drivers/gpu/drm/xe/xe_guc_ct.c
-index 5c4733da385..5c393aa29de 100644
---- a/drivers/gpu/drm/xe/xe_guc_ct.c
-+++ b/drivers/gpu/drm/xe/xe_guc_ct.c
-@@ -376,7 +376,8 @@ int xe_guc_ct_init(struct xe_guc_ct *ct)
- 					  XE_BO_FLAG_SYSTEM |
- 					  XE_BO_FLAG_GGTT |
- 					  XE_BO_FLAG_GGTT_INVALIDATE |
--					  XE_BO_FLAG_PINNED_NORESTORE);
-+					  XE_BO_FLAG_PINNED_NORESTORE |
-+					  xe_guc_bo_wa_flags(gt));
- 	if (IS_ERR(bo))
- 		return PTR_ERR(bo);
++	handle = vmw_prime_resolve_handle(file_priv, handle);
+ 	base = ttm_base_object_lookup(tfile, handle);
+ 	if (unlikely(!base))
+ 		return -EINVAL;
+@@ -300,7 +302,7 @@ int vmw_user_object_lookup(struct vmw_private *dev_priv,
  
-@@ -386,7 +387,8 @@ int xe_guc_ct_init(struct xe_guc_ct *ct)
- 					  XE_BO_FLAG_SYSTEM |
- 					  XE_BO_FLAG_GGTT |
- 					  XE_BO_FLAG_GGTT_INVALIDATE |
--					  XE_BO_FLAG_PINNED_NORESTORE);
-+					  XE_BO_FLAG_PINNED_NORESTORE |
-+					  xe_guc_bo_wa_flags(gt));
- 	if (IS_ERR(bo))
- 		return PTR_ERR(bo);
+ 	WARN_ON(uo->surface || uo->buffer);
  
-diff --git a/drivers/gpu/drm/xe/xe_guc_engine_activity.c b/drivers/gpu/drm/xe/xe_guc_engine_activity.c
-index a782be57caa..729ce8ac140 100644
---- a/drivers/gpu/drm/xe/xe_guc_engine_activity.c
-+++ b/drivers/gpu/drm/xe/xe_guc_engine_activity.c
-@@ -97,7 +97,8 @@ static int allocate_engine_activity_buffers(struct xe_guc *guc,
- 
- 	metadata_bo = xe_bo_create_pin_map_novm(gt_to_xe(gt), tile, PAGE_ALIGN(metadata_size),
- 						ttm_bo_type_kernel, XE_BO_FLAG_SYSTEM |
--						XE_BO_FLAG_GGTT | XE_BO_FLAG_GGTT_INVALIDATE,
-+						XE_BO_FLAG_GGTT | XE_BO_FLAG_GGTT_INVALIDATE |
-+						xe_guc_bo_wa_flags(gt),
- 						false);
- 
- 	if (IS_ERR(metadata_bo))
-@@ -105,7 +106,8 @@ static int allocate_engine_activity_buffers(struct xe_guc *guc,
- 
- 	bo = xe_bo_create_pin_map_novm(gt_to_xe(gt), tile, PAGE_ALIGN(size),
- 				       ttm_bo_type_kernel, XE_BO_FLAG_VRAM_IF_DGFX(tile) |
--				       XE_BO_FLAG_GGTT | XE_BO_FLAG_GGTT_INVALIDATE, false);
-+				       XE_BO_FLAG_GGTT | XE_BO_FLAG_GGTT_INVALIDATE |
-+				       xe_guc_bo_wa_flags(gt), false);
- 
- 	if (IS_ERR(bo)) {
- 		xe_bo_unpin_map_no_vm(metadata_bo);
-diff --git a/drivers/gpu/drm/xe/xe_guc_log.c b/drivers/gpu/drm/xe/xe_guc_log.c
-index 538d4df0f7a..7d006268ce9 100644
---- a/drivers/gpu/drm/xe/xe_guc_log.c
-+++ b/drivers/gpu/drm/xe/xe_guc_log.c
-@@ -17,6 +17,7 @@
- #include "xe_force_wake.h"
- #include "xe_gt_printk.h"
- #include "xe_gt_types.h"
-+#include "xe_guc.h"
- #include "xe_map.h"
- #include "xe_mmio.h"
- #include "xe_module.h"
-@@ -624,14 +625,16 @@ void xe_guc_log_print_lfd(struct xe_guc_log *log, struct drm_printer *p)
- int xe_guc_log_init(struct xe_guc_log *log)
+-	ret = vmw_user_resource_lookup_handle(dev_priv, tfile, handle,
++	ret = vmw_user_resource_lookup_handle(dev_priv, filp, tfile, handle,
+ 					      user_surface_converter,
+ 					      &res);
+ 	if (!ret) {
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+index bd05637..5aabb36 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+@@ -689,8 +689,9 @@ int vmw_surface_destroy_ioctl(struct drm_device *dev, void *data,
  {
- 	struct xe_device *xe = log_to_xe(log);
--	struct xe_tile *tile = gt_to_tile(log_to_gt(log));
-+	struct xe_gt *gt = log_to_gt(log);
-+	struct xe_tile *tile = gt_to_tile(gt);
- 	struct xe_bo *bo;
+ 	struct drm_vmw_surface_arg *arg = (struct drm_vmw_surface_arg *)data;
+ 	struct ttm_object_file *tfile = vmw_fpriv(file_priv)->tfile;
++	uint32_t sid = vmw_prime_resolve_handle(file_priv, arg->sid);
  
- 	bo = xe_managed_bo_create_pin_map(xe, tile, GUC_LOG_SIZE,
- 					  XE_BO_FLAG_SYSTEM |
- 					  XE_BO_FLAG_GGTT |
- 					  XE_BO_FLAG_GGTT_INVALIDATE |
--					  XE_BO_FLAG_PINNED_NORESTORE);
-+					  XE_BO_FLAG_PINNED_NORESTORE |
-+					  xe_guc_bo_wa_flags(gt));
- 	if (IS_ERR(bo))
- 		return PTR_ERR(bo);
+-	return ttm_ref_object_base_unref(tfile, arg->sid);
++	return ttm_ref_object_base_unref(tfile, sid);
+ }
  
-diff --git a/drivers/gpu/drm/xe/xe_guc_pc.c b/drivers/gpu/drm/xe/xe_guc_pc.c
-index 097b075bd89..e0105222a2c 100644
---- a/drivers/gpu/drm/xe/xe_guc_pc.c
-+++ b/drivers/gpu/drm/xe/xe_guc_pc.c
-@@ -1391,7 +1391,8 @@ int xe_guc_pc_init(struct xe_guc_pc *pc)
- 					  XE_BO_FLAG_VRAM_IF_DGFX(tile) |
- 					  XE_BO_FLAG_GGTT |
- 					  XE_BO_FLAG_GGTT_INVALIDATE |
--					  XE_BO_FLAG_PINNED_NORESTORE);
-+					  XE_BO_FLAG_PINNED_NORESTORE |
-+					  xe_guc_bo_wa_flags(gt));
- 	if (IS_ERR(bo))
- 		return PTR_ERR(bo);
+ /**
+@@ -999,7 +1000,13 @@ vmw_surface_handle_reference(struct vmw_private *dev_priv,
+ 								&handle,
+ 								base_p);
+ 	} else {
+-		handle = u_handle;
++		/*
++		 * u_handle may be a raw ttm handle (the historical case), or
++		 * a prime-import bridge GEM handle returned by an earlier
++		 * generic PRIME_FD_TO_HANDLE call (see vmwgfx_prime.c) --
++		 * resolve it back to the real ttm handle either way.
++		 */
++		handle = vmw_prime_resolve_handle(file_priv, u_handle);
+ 	}
  
-diff --git a/drivers/gpu/drm/xe/xe_wa_oob.rules b/drivers/gpu/drm/xe/xe_wa_oob.rules
-index dd69ad07f7a..30958b26a1d 100644
---- a/drivers/gpu/drm/xe/xe_wa_oob.rules
-+++ b/drivers/gpu/drm/xe/xe_wa_oob.rules
-@@ -14,6 +14,7 @@
- 16017236439	PLATFORM(PVC)
- 14019821291	MEDIA_VERSION_RANGE(1300, 2000)
- 14015076503	MEDIA_VERSION(1300)
-+22016122933	MEDIA_VERSION(1300)
- 14018913170	GRAPHICS_VERSION_RANGE(1270, 1274)
- 		MEDIA_VERSION(1300)
- 		PLATFORM(DG2)
--- 
-2.55.0
-
+ 	ret = -EINVAL;
+@@ -2321,7 +2328,7 @@ int vmw_dumb_create(struct drm_file *file_priv,
+ 	args->size = arg.rep.buffer_size;
+ 	args->pitch = vmw_surface_calculate_pitch(desc, &drm_size);
+ 
+-	ret = vmw_user_resource_lookup_handle(dev_priv, tfile, arg.rep.handle,
++	ret = vmw_user_resource_lookup_handle(dev_priv, file_priv, tfile, arg.rep.handle,
+ 					      user_surface_converter,
+ 					      &res);
+ 	if (ret) {
