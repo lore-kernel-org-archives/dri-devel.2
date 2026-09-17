@@ -4,63 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41666C982D0
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 20:30:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16861C88E72
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 20:34:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8188210F085;
-	Thu, 17 Sep 2026 20:30:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6001010F105;
+	Thu, 17 Sep 2026 20:34:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Y/O9H4/J";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="UT1tx/UM";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B46510F085
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 20:30:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789677013; x=1821213013;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=O4E/r/TO4Ia/0BjZxJmv84fyinvl9/+1ynT1NWdhvas=;
- b=Y/O9H4/JvHtY233JWEPekKTQrT47IzeBjH2m2xL0I4gZeAarqOYsKruj
- tW2acy7rx8ifiOxI+LWOxmoAhsaTsJZTI/bGoUaZMcMtaqd6omlCUGdRS
- 8GVKrupUQ0JcC5hzhrTG8IebXj7LS33kOPzxKft7/Z9GHiCDnlw8xvWzs
- 6IpIHgnWvvo2ZMgWjbhcrkdyXeORb5QdOx02gBmp9dZZRW8P05r4kJu1B
- cEAfnN/AsbYafHz5OKofO91wUxW7MGBVZfJg9YqsgGIxci8SMwIvvc07f
- gmAokr81FsUUug0dyCkw9JJTU/NbjdqF8KXC3qKfPFFhmUWSUlPFTuybD g==;
-X-CSE-ConnectionGUID: KE2oUUt0QPuOimJYsug3Cw==
-X-CSE-MsgGUID: zvCzULHYRomQMEsOGr/h8w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90007927"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="90007927"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2026 13:30:12 -0700
-X-CSE-ConnectionGUID: dSxZsrCVRm6JjrCxhaBwiw==
-X-CSE-MsgGUID: LwfJGjC0QIGxUw/0hFem2w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="267777446"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
- by fmviesa009.fm.intel.com with ESMTP; 17 Sep 2026 13:30:08 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1x7Ik9-000000008TJ-42b7;
- Thu, 17 Sep 2026 20:30:05 +0000
-Date: Fri, 18 Sep 2026 04:29:06 +0800
-From: kernel test robot <lkp@intel.com>
-To: Wentao Liang <vulab@iscas.ac.cn>, airlied@gmail.com
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- dri-devel@lists.freedesktop.org, jernej.skrabec@gmail.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-sunxi@lists.linux.dev, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, samuel@sholland.org, simona@ffwll.ch,
- tzimmermann@suse.de, wens@kernel.org,
- Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/sun4i: Fix pdev reference leak in
- sun8i_r40_tcon_tv_set_mux()
-Message-ID: <202609180443.vTkwAZL6-lkp@intel.com>
-References: <20260916182412.2091681-1-vulab@iscas.ac.cn>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E104F10F105
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 20:34:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1789677288;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=mYjbBVwargHWsKu07Jhp0TKQU4hcLQthxlQyB3uB2hE=;
+ b=UT1tx/UMh8lTgo+z3E+X7BdByxO6HGONT7dlqGLDdkdJq75X8nS7QTAFZ+WFzKZGM7WFsv
+ V/G1LKaY64xGTksSdVZFdOJv11kozygNOCywbaghit3GpqPiruKK2vIphofZGZ1xOuzHPN
+ 6HGWjAK5wnWHyhoQqKI8qpPgRX3+8p4=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-177-1hrVmQQDNOSDjheYhywRvw-1; Thu, 17 Sep 2026 16:34:46 -0400
+X-MC-Unique: 1hrVmQQDNOSDjheYhywRvw-1
+X-Mimecast-MFC-AGG-ID: 1hrVmQQDNOSDjheYhywRvw_1789677286
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-9390a2c895bso13534585a.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 13:34:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789677286; x=1790282086;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=mYjbBVwargHWsKu07Jhp0TKQU4hcLQthxlQyB3uB2hE=;
+ b=YYp5GJ/Dv6I/L4vAvwWMEDaKy6ATHpMcRT4sPiSQhvYBeC+MasRP1L42/Mh0+8cVDD
+ T/3u11SRMn9DsSGW64XtzCJaoKAdWyaNEHz5IiRZ6cJfvWeOiCUDBGaZzhIIkNeviUmJ
+ QD1KCbwUlP15TfGq4xNPTq+QLg61oSsCu5nWDoKj5YH8U74YxAiFRbMbqwaokWmIddxY
+ Uuwbn85irgiZ7fG+RyXXAdhW+NxSkvCqWKZfdAQctnZMPAV1LsFBfBSoG29XvnUaLbPT
+ W0EgOcMYLYiNIMQru+ricHmaueMP7lC++r3q2vpOOolwrrrYNJ3vx8N//Gv4TzHrccoC
+ iXNg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByX8FBfF7tAoYbNahLQ9SbrOHDrAj2D3+nc1lF6GyaCQS/6CNJjLDEriOAr0a2cBmFeOJQeE2GfZuw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ksgEBo180w8+S8/30yA7hDpPm7Z09OeFCdzo4b+HgT0z3hFKNv
+ pJyW2gDbv70n9wT/ya+gIKhIW3BiO80uWO3IIXVbc6BzLnc3wqkPSRjk1KGUfsrWQm6biztFkJg
+ v+Hj6/aVW7e4a66LMAmjSvTDdCzhENA28wPqTFTfMXcvMULgjGdYgN3+1Jfk+A//p2u/7iA==
+X-Gm-Gg: AYBFou2I9HzD5csiDJ0dkpg1sk/BgA9j5gCxNuX0/CwkDuPw4V2Yo6LNRRWsrl1x0g7
+ tDFhHybXCo4Ob7NJ9x8vXRTnQ6DS14mRTciXJg/uF2KXXFE/DclhD452+qoA04Vq4FhRK7PryVa
+ oJL+pOVFBWPX3iAXAncI7ec6UvQ7v9AT0Zch5Yv4rL0Oahhd1Vk9yMk8VNG4AFPVRxvmx/vnjSc
+ CjKEn+jWPJIDGviJTwYscJYihw/g+gbHa2NAE2S8rFY66nGW6poO6kTIbkhLR4zlBz9GHW1Z5PM
+ 2N+pW2TKR4JRj4JWogZxnvN4l6W96df8e01NFrmc1DftvuuK623l3DTnGe3k6Lv1T6sr0Du1
+X-Received: by 2002:a05:620a:254a:b0:93b:d79f:d951 with SMTP id
+ af79cd13be357-93bdca433b5mr16959485a.70.1789677286162; 
+ Thu, 17 Sep 2026 13:34:46 -0700 (PDT)
+X-Received: by 2002:a05:620a:254a:b0:93b:d79f:d951 with SMTP id
+ af79cd13be357-93bdca433b5mr16957185a.70.1789677285807; 
+ Thu, 17 Sep 2026 13:34:45 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-93b781deec2sm559137785a.7.2026.09.17.13.34.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Sep 2026 13:34:45 -0700 (PDT)
+Message-ID: <fcd366286750d61f0d4e2b99ddef2a9d36e72b0f.camel@redhat.com>
+Subject: Re: [PATCH] drm/nouveau/bios/init: drop unneeded semicolon
+From: lyude@redhat.com
+To: Julia Lawall <Julia.Lawall@inria.fr>
+Cc: kernel-janitors@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, 	nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Thu, 17 Sep 2026 16:34:44 -0400
+In-Reply-To: <20260801191002.1383835-8-Julia.Lawall@inria.fr>
+References: <20260801191002.1383835-8-Julia.Lawall@inria.fr>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916182412.2091681-1-vulab@iscas.ac.cn>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: hcqjg5Ad-ImIS8B_QYizjNi0wwcqt80vss_g9RrLCyM_1789677286
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,78 +103,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Wentao,
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-kernel test robot noticed the following build errors:
+Will push to drm-misc-next in a moment
 
-[auto build test ERROR on sunxi/sunxi/for-next]
-[also build test ERROR on daeinki-drm-exynos/exynos-drm-next drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-misc/drm-misc-next drm-tip/drm-tip linus/master v7.3-rc3 next-20260916]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+On Sat, 2026-08-01 at 21:09 +0200, Julia Lawall wrote:
+> When a function-like macro expands to an expression, that expression
+> doesn't need a semicolon after it.=C2=A0 All uses have been verified to
+> have their own semicolons.
+>=20
+> This was found using the following Coccinelle semantic patch:
+>=20
+> @r@
+> identifier i : script:ocaml() { String.lowercase_ascii i =3D i };
+> expression e;
+> @@
+>=20
+> *#define i(...) e;
+>=20
+> Signed-off-by: Julia Lawall <Julia.Lawall@inria.fr>
+>=20
+> ---
+> =C2=A0drivers/gpu/drm/nouveau/nvkm/subdev/bios/init.c |=C2=A0=C2=A0=C2=A0=
+ 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/init.c
+> b/drivers/gpu/drm/nouveau/nvkm/subdev/bios/init.c
+> index b54f044c4..3f888fb97 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/init.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/bios/init.c
+> @@ -403,7 +403,7 @@ init_table_(struct nvbios_init *init, u16 offset,
+> const char *name)
+> =C2=A0#define init_io_condition_table(b) init_table_((b), 0x08, "io
+> condition table")
+> =C2=A0#define init_io_flag_condition_table(b) init_table_((b), 0x0a, "io
+> flag condition table")
+> =C2=A0#define init_function_table(b) init_table_((b), 0x0c, "function
+> table")
+> -#define init_xlat_table(b) init_table_((b), 0x10, "xlat table");
+> +#define init_xlat_table(b) init_table_((b), 0x10, "xlat table")
+> =C2=A0
+> =C2=A0static u16
+> =C2=A0init_script(struct nvkm_bios *bios, int index)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Wentao-Liang/drm-sun4i-Fix-pdev-reference-leak-in-sun8i_r40_tcon_tv_set_mux/20260916-182412
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/sunxi/linux.git sunxi/for-next
-patch link:    https://lore.kernel.org/r/20260916182412.2091681-1-vulab%40iscas.ac.cn
-patch subject: [PATCH] drm/sun4i: Fix pdev reference leak in sun8i_r40_tcon_tv_set_mux()
-config: arm-defconfig (https://download.01.org/0day-ci/archive/20260918/202609180443.vTkwAZL6-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 7252edd9aa82ef1c570ff6694ef7f4763a8a5d2f)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260918/202609180443.vTkwAZL6-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609180443.vTkwAZL6-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/sun4i/sun4i_tcon.c:811:14: error: use of undeclared identifier 'pdev'; did you mean 'dev'?
-     811 |         put_device(&pdev->dev);
-         |                     ^~~~
-         |                     dev
-   drivers/gpu/drm/sun4i/sun4i_tcon.c:786:50: note: 'dev' declared here
-     786 | static int sun4i_tcon_init_clocks(struct device *dev,
-         |                                                  ^
->> drivers/gpu/drm/sun4i/sun4i_tcon.c:811:20: error: no member named 'dev' in 'struct device'
-     811 |         put_device(&pdev->dev);
-         |                     ~~~~  ^
-   2 errors generated.
-
-
-vim +811 drivers/gpu/drm/sun4i/sun4i_tcon.c
-
-   785	
-   786	static int sun4i_tcon_init_clocks(struct device *dev,
-   787					  struct sun4i_tcon *tcon)
-   788	{
-   789		tcon->clk = devm_clk_get_enabled(dev, "ahb");
-   790		if (IS_ERR(tcon->clk)) {
-   791			dev_err(dev, "Couldn't get the TCON bus clock\n");
-   792			return PTR_ERR(tcon->clk);
-   793		}
-   794	
-   795		if (tcon->quirks->has_channel_0) {
-   796			tcon->sclk0 = devm_clk_get_enabled(dev, "tcon-ch0");
-   797			if (IS_ERR(tcon->sclk0)) {
-   798				dev_err(dev, "Couldn't get the TCON channel 0 clock\n");
-   799				return PTR_ERR(tcon->sclk0);
-   800			}
-   801		}
-   802	
-   803		if (tcon->quirks->has_channel_1) {
-   804			tcon->sclk1 = devm_clk_get(dev, "tcon-ch1");
-   805			if (IS_ERR(tcon->sclk1)) {
-   806				dev_err(dev, "Couldn't get the TCON channel 1 clock\n");
-   807				return PTR_ERR(tcon->sclk1);
-   808			}
-   809		}
-   810	
- > 811		put_device(&pdev->dev);
-   812	
-   813		return 0;
-   814	}
-   815	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
