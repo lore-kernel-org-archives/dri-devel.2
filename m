@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20A48C88E75
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03007C982D7
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDC0410F1DC;
-	Fri, 18 Sep 2026 07:10:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 477EE10F1D3;
+	Fri, 18 Sep 2026 07:10:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HFj1ZcuE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jIIfr1dY";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58DC988FF9
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:30:09 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D865210E00E
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:25:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AE23F600D4;
- Thu, 17 Sep 2026 16:30:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CB891F000FF;
- Thu, 17 Sep 2026 16:29:37 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8DBC741859;
+ Thu, 17 Sep 2026 16:25:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EC121F000FF;
+ Thu, 17 Sep 2026 16:25:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789662608;
- bh=qgN2FFKKPpmp05DaHJUklpQtNOudy/Yy1fqR/MizKYA=;
+ s=k20260515; t=1789662333;
+ bh=8zUDlDajoLo9shAT2eWSvXFFt1x2wdqtDjriRhbNo6Y=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=HFj1ZcuEDNTMnh2Nqg6+fJfV02zj4ziSKQ6RRu3yQsj5p9v46CsiyUooZCzc+YKP8
- 34+cHO9Ai3c1E0itgx/XfzOSuRfYmy8HAt254s7g3BLKzyjpUAnQOVrO0QhDVNgiq3
- flPs+hy1XGA0Y7fr1T5cxhyfnmG67B5FQqIFoWXsIONz3QdBqErmu8iV1XFY4RLphO
- IFPC2LNRFjPKPOaYpFPD72y8tC/6OnYCr6cG2Sad5uOHcVDlZ4CJ7psZsf+Fnn5m50
- NrSpWB5QWg5LSJldkts2rYONeMhUptkU9gWhvtFpmXXEctHjrUlI2vfeMdLEBsJtm/
- Oqt+2k9sPTlrw==
+ b=jIIfr1dY5Y6yUBVPzpQtob/6PKGQ/KkiAaN6tkH5dtYIPaU7u+htS8ArcPnlhxaXJ
+ tHJxyzcbqBjgQKUa5UQC/IT790lvfATEygmgoPx7gBSUiC+4ji4Wdp5mMVNWM0NoKy
+ zHyuAFujuXmFR50iBT3C5hJroCfuXBIuwkbhitV02qQcKqrUlJL/eEMPl+CANyccwK
+ k3ZV7wtR7pyYo7QLyuI8SNULhv2ot0z9DARSve+y4UekG4p3Ycjuj9H/20kPMpU8Kf
+ GZT0O8zTdiTinqgWKO98a5x1Yug3NZ/9GWFi/Xgm1t6SuLqfQcS0Hm6Rr7uLRHz024
+ UwI4k4J7cE4kg==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:22:23 +0100
-Subject: [PATCH v3 14/40] bpf: arena: mark arena_map_mmap() mappings
- VM_MIXEDMAP
+Date: Thu, 17 Sep 2026 17:22:14 +0100
+Subject: [PATCH v3 05/40] mm/vma: ensure mmap_prepare doesn't set actions
+ on a mergeable vma
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-14-4583d8a23bca@kernel.org>
+Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-5-4583d8a23bca@kernel.org>
 References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
 In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -119,15 +119,14 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
  kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2130; i=ljs@kernel.org;
- h=from:subject:message-id; bh=R3tb6SjOVu7d1sP7Jc7DgfQesg/5MmuNI7Jhk6g3s7I=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB9I54nnNvtaIzQtQLirIc/9iwfHss/3oxY92Nyjp
- NYufetcRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACby8iIjw4Z/yqcuR2/Xfn+H
- S/lV3fFHj2t+hpZ0/BU4/O3EpbNTVAwZGa7W9Yjb2IRpLFvWrbWlSPbedPOzxjoW/zcszF4buGz
- NIRYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1368; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=w3dS+6CYztzIjEhtJt3yaqv3CXCLNku1+RXavwrSev0=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCO+/vHnCoy+HuE5fLHlRPt1qp8T64Jl/V1y40DHtZ
+ fPTiz+sfTpKWRjEuBhkxRRZnn8R3x8kEjav84K/G8wcViaQIQxcnAIwkdvqjAwzQ1Ljhcx4prrN
+ 2n3L8vw+PsttEWszl93ZWrDtX9Xr5IQEhn9qfvO3fuXmu6sYzP07MHhLa0rMgWMfLvX5KTQF1Jp
+ 8OMgDAA==
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Fri, 18 Sep 2026 07:09:59 +0000
@@ -146,55 +145,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The bpf_map->ops->map_mmap callback invoked by bpf_map_mmap() can be set to
-one of ringbuf_map_mmap_kern(), ringbuf_map_mmap_user(), array_map_mmap()
-or arena_map_mmap().
+When a user requests an mmap_action be performed in mmap_prepare, this
+involves populating the VMA range with data.
 
-It is convention in mm to mark mappings whose pages the kernel manages
-itself with VM_MIXEDMAP, so the core mm knows not to treat them as ordinary
-page cache or anonymous memory.
+However, if the VMA is mergeable, it might then mistakenly be merged with
+another VMA without having populated the range.
 
-The map_mmap callbacks ringbuf_map_mmap_kern() and ringbuf_map_mmap_user()
-use remap_vmalloc_range(), which ultimately invokes vm_insert_page() and so
-marks the ranges VM_MIXEDMAP, and array_map_mmap() sets VM_MIXEDMAP
-explicitly.
+Every mmap action currently available sets VMA flags such that the VMA
+cannot be merged.
 
-However, the exception to this is arena_map_mmap(), which doesn't set the
-flag.
+However, to ensure that no future mmap action falls foul of this, assert
+that this is the case upon mmap_prepare validation.
 
-This patch corrects this and updates the comment to reflect it.
-
-The pages are refcounted and vm_normal_page() finds them regardless of the
-flag, and VM_DONTEXPAND remains set (marking the memory as VM_SPECIAL and
-thus unmergeable). The one effect is that NUMA balancing now skips these
-VMAs, as it already does for the other bpf map mappings, which is the
-reason array_map_mmap() gives for setting the flag.
-
-The intent of this patch is to be able to establish the invariant that only
-PFN-mapped or mixed map ranges may clear the VM_MAYWRITE flag, as is done
-in bpf_map_mmap().
-
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- kernel/bpf/arena.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ mm/vma.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
-index 7b6847200b43..b69fe5e34339 100644
---- a/kernel/bpf/arena.c
-+++ b/kernel/bpf/arena.c
-@@ -620,8 +620,9 @@ static int arena_map_mmap(struct bpf_map *map, struct vm_area_struct *vma)
- 	 * clears VM_MAYEXEC. Set VM_DONTEXPAND to avoid potential change
- 	 * of user_vm_start. Set VM_DONTCOPY to prevent arena VMA from
- 	 * being copied into the child process on fork.
-+	 * This is a kernel page so set VM_MIXEDMAP.
- 	 */
--	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTCOPY);
-+	vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTCOPY);
- 	vma->vm_ops = &arena_vm_ops;
- 	return 0;
- }
+diff --git a/mm/vma.c b/mm/vma.c
+index d6ed10cefc8f..62f2ce1ad5a1 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2809,6 +2809,15 @@ static int mmap_validate(unsigned long prev_start, unsigned long prev_end,
+ int mmap_prepare_validate(const struct vm_area_desc *prev_desc,
+ 			  const struct vm_area_desc *desc)
+ {
++	/*
++	 * It is not valid to execute mmap actions for VMAs which can be merged,
++	 * as any such merge would leave portions of the mapping incorrectly
++	 * unmapped.
++	 */
++	if (vma_flags_can_merge(&desc->vma_flags) &&
++	    WARN_ON_ONCE(desc->action.type != MMAP_NOTHING))
++		return -EINVAL;
++
+ 	return mmap_validate(prev_desc->start, prev_desc->end,
+ 			     desc->start, desc->end,
+ 			     &prev_desc->vma_flags, &desc->vma_flags);
 
 -- 
 2.55.0
