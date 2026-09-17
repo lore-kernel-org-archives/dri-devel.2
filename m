@@ -4,83 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E628CC88E75
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50B1DC982D7
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1A4210E52F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEFDC10E48B;
 	Fri, 18 Sep 2026 07:10:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XcknQWAq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JoDlkFdJ";
 	dkim-atps=neutral
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com
- [74.125.227.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC16110E474
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:36:06 +0000 (UTC)
-Received: by mail-vs2-f42.google.com with SMTP id
- 71dfb90a1353d-5c67e4d8d8aso616740e0c.1
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 09:36:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789662966; x=1790267766; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=cy4JBzcYgTlVJ3CCegt21X3nFCpon3tLTKb2Uir12HE=;
- b=XcknQWAqkzVqjx8uQPL8U3YoqoagKoUSjhsLvB2UhluIXga8obmc7jf9xspJtiabRy
- hYCyUx8ZdJf9bMx0l+h8IvTTENu/aJPEhopZjxZ+SP0rL/klT2E4S50WCtZAmdlqK1e4
- yJVra0IAaGJp6xqPOGXm0QbGlNQKTQLIBC20zsSi3eQugWishUp4KnYqApB3s9Cu9R6h
- AiJH9avpGzVKn2G3pLTZBMONphVz6Lf5XtW/SsrC8qg91P9INJ6xmUyR53+hMZmRAurR
- p+bCWNFgIT2utyvNQ3+b2wypbDIErXiuDiKA+9plep7yqfdFjwQV06V4dNkQbDNntDgI
- /2ZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789662966; x=1790267766;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=cy4JBzcYgTlVJ3CCegt21X3nFCpon3tLTKb2Uir12HE=;
- b=VPuja4WLb39EvVAMMiPHmvU0QYAoN3Ki66D3U+3Z7mDkpauegdeYRWsxAsPIOp4w0W
- Vbr6EC61uyGTKs4uS7IooGtHTvPsXHJrhx+mHHvaUQ/Vx+K/ZtfWC8+KgdAeJCXbHPAD
- chImXrop1fMV01jgh3ds/CYnKpuY9oIV6xHSfJWof4NK2Wdi+KRv0+8A9FHkULnApMvR
- uyiWTz3Xop7tDiTeBPcOY/gTZf+FMfIRkZVtj1ozA7RKnTwrbOKxB32Rkq0ZyOI0oeiq
- qKPaTjBEZM0qZ3V8LbORkPKlTcEhe0Hm0bG/lTeaD9U1OC8pNIet4sgoI0hKiOPrvywR
- CXcg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzR+fLbMiZKy7Fj8tMmnfGbsOjwlXivkRyR/NSUIppCEx791q8tuSY8Cu42UX56Gw6GLrdAQwjOBh8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m2ydmXsk2Ps6ipZswawHH5VqUsk8yUQYOlBHM5V+aInWeVzuay
- YQCye0i4TFYUna4F//G4hKSfWToknAqQfJ4r89K9TMAIuylhATAR1jl9
-X-Gm-Gg: AYBFou3UJCemw0cpKJMPFMg7mmgAZB6tM0XMqe2HnLAqrWttdegncjEnSBaLlDnFGmW
- GG58U3f4XuTXdyujL3sC4+jSPhWTK7/YQBKExqed0VtVVPjYUgKu3Xn7s1f0t+A1t8Casm5y54+
- zP32+w4d4TzIJpsrSREgtTQBwc20VpOlAdBTn3sQQajKdMDZrZB+SQ6dOjnW2KNRuH55ynA3/vB
- rwUTa9Wqj/MZerJ2pXuWfrMZp6NPuZtfkYGXTW5QHQrOTCzsUMSOBTaPnd2AavNz3f4E/XW/KJ3
- 8hkdB9FKhTfRkJZSMprKZUVX6/ei1y4em5djBZHbfbDujKpjQ+u8J0rROHSpHifMwHJh+DbMC/A
- 7Q0ewhET1H8wneyS/yURF977IocrBF3phYauFhN5jcRbbJz3ywDDW9ZmV3w6T/c0G4X/5tmETcX
- JZUc+I9AEbBJPYmL+ahKzh1sYggv7AwSjbAFXyLknDaHaLbh/7dE5FXMtH7SLEfG7gFMSLUeBRR
- yTWyZuqbRwzfZ5rlEQlK8asCVAJM7vfVUSHtm7mhdLATko=
-X-Received: by 2002:a05:6122:3a07:b0:5c9:a60c:2731 with SMTP id
- 71dfb90a1353d-5c9a62dd8ddmr1314560e0c.9.1789662965694; 
- Thu, 17 Sep 2026 09:36:05 -0700 (PDT)
-Received: from lord ([170.246.209.50]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5c9a53b2ba1sm3065363e0c.8.2026.09.17.09.36.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Sep 2026 09:36:05 -0700 (PDT)
-From: =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
-To: intel-xe@lists.freedesktop.org
-Cc: matthew.brost@intel.com, daniele.ceraolospurio@intel.com,
- stuart.summers@intel.com, julia.filipchuk@intel.com,
- thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
- jani.nikula@intel.com, navonjohnlukose@gmail.com,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
-Subject: [PATCH v4 1/3] drm/xe: Capture devcoredump on TLB invalidation timeout
-Date: Thu, 17 Sep 2026 13:35:51 -0300
-Message-ID: <20260917163553.1742580-2-talesam@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917163553.1742580-1-talesam@gmail.com>
-References: <20260917163553.1742580-1-talesam@gmail.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEFD810E00E
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:24:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id DD9D6600D4;
+ Thu, 17 Sep 2026 16:24:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF5951F00898;
+ Thu, 17 Sep 2026 16:24:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789662271;
+ bh=uiI0DfRLdeopnxcWki2BiuU0vqEbo4SKS60DQ1+UvnI=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=JoDlkFdJExhib+79sc3mbfFfTiLq4I84vCOE0BnAQsEViidFeCUIBU6Zm+WK7uvcj
+ h3csAo6DvbditOrQSEUCMBMciY3oOVayc8TDnECzj/lgzATxo4ZOI26+/ORFffaWmx
+ 2qsyWRW4WAU1n2K5zxr2LRl+pClqa/u4krK8Zz81OxU/ByR0bHNUWzTyerdoDNipmN
+ Ncm8kcmNyyPXoBM7G2bA7me43O5b5GMmXPb5M2fjlLqdpGDCH92oScWrB/taMJWdgK
+ G3mqQa4OD5nCb2qOAGA4UUM9ssa42pQJFvg8ObELlHIO9hH0dpr8oJB++BvZfbY8Fs
+ ss4o3EktWPFnA==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 17 Sep 2026 17:22:12 +0100
+Subject: [PATCH v3 03/40] mm/vma: introduce and use vma_[flags_]can_merge()
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 18 Sep 2026 07:10:00 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-3-4583d8a23bca@kernel.org>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3665; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=jEmmzTa/nXg8cFJkAn6p6g1Z/ZjRGGA7aJrZ0nX97uA=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCO977B/Gyum+YKumwMGjDGsvifHV8Cjf/W97nXHD0
+ ddGx461dJSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiy7sYGR7qfJ/4a8qOPVJ/
+ fzOn+hy8GnGIV3Z6eqTLurnzjubyPX/OyLB1L/PmvNtfO+Ycf2+w9xaT+Mew3gMKHHuL5Wb8kpv
+ s94QBAA==
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+X-Mailman-Approved-At: Fri, 18 Sep 2026 07:09:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,237 +144,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-TLB invalidation timeouts currently leave no record of the firmware
-state behind: there is no exec queue or job to blame, so nothing calls
-xe_devcoredump() and the GuC log content at the time of the hang is
-lost.
+Replace the open-coded VMA_SPECIAL_FLAGS check in the VMA merge logic with
+two new functions vma_flags_can_merge() and vma_can_merge() and update the
+merge logic to use the former.
 
-Add xe_devcoredump_gt(), a variant of xe_devcoredump() for hangs that
-are not tied to an exec queue or job. It captures the GuC log and CT
-state of the affected GT, reusing the existing snapshot machinery and
-the "only first snapshot" policy, and hook it up to the TLB invalidation
-timeout path.
+This abstracts the check and expresses it in terms of the desired behaviour
+rather than an arbitrary and confusing VMA flag.
 
-This was instrumental in diagnosing GuC TLB invalidation ack stalls on
-ARL (see Link), where the invalidation request is consumed from the H2G
-CTB immediately but the ack G2H only arrives ~2.3s later, after the
-timeout has already fired.
+This also lays the groundwork for making further improvements in VMA flag
+usage.
 
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8678
-Signed-off-by: Tales A. Mendonça <talesam@gmail.com>
+Also update the userland VMA tests to reflect the change.
+
+No functional change intended.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_devcoredump.c | 46 ++++++++++++++++-------------
- drivers/gpu/drm/xe/xe_devcoredump.h | 15 +++++++---
- drivers/gpu/drm/xe/xe_tlb_inval.c   | 20 +++++++++++++
- 3 files changed, 56 insertions(+), 25 deletions(-)
+ include/linux/mm.h              | 21 +++++++++++++++++++++
+ mm/vma.c                        | 19 +++++++++++--------
+ tools/testing/vma/include/dup.h |  5 +++++
+ 3 files changed, 37 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_devcoredump.c b/drivers/gpu/drm/xe/xe_devcoredump.c
-index 5f2b90b18f9..6bee8933f95 100644
---- a/drivers/gpu/drm/xe/xe_devcoredump.c
-+++ b/drivers/gpu/drm/xe/xe_devcoredump.c
-@@ -74,11 +74,6 @@ static struct xe_device *coredump_to_xe(const struct xe_devcoredump *coredump)
- 	return container_of(coredump, struct xe_device, devcoredump);
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 969594074fd2..68250ece4219 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -1612,6 +1612,27 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
+ 	return is_shared_maywrite(&vma->flags);
  }
  
--static struct xe_guc *exec_queue_to_guc(struct xe_exec_queue *q)
--{
--	return &q->gt->uc.guc;
--}
--
- static ssize_t __xe_devcoredump_read(char *buffer, ssize_t count,
- 				     ssize_t start,
- 				     struct xe_devcoredump *coredump)
-@@ -323,40 +318,44 @@ static void xe_devcoredump_deferred_snap_work(struct work_struct *work)
- }
- 
- static void devcoredump_snapshot(struct xe_devcoredump *coredump,
-+				 struct xe_gt *gt,
- 				 struct xe_exec_queue *q,
- 				 struct xe_sched_job *job)
- {
- 	struct xe_devcoredump_snapshot *ss = &coredump->snapshot;
--	struct xe_guc *guc = exec_queue_to_guc(q);
-+	struct xe_guc *guc = &gt->uc.guc;
- 	const char *process_name = "no process";
- 	bool cookie;
- 
- 	ss->snapshot_time = ktime_get_real();
- 	ss->boot_time = ktime_get_boottime();
- 
--	if (q->vm && q->vm->xef) {
-+	if (q && q->vm && q->vm->xef) {
- 		process_name = q->vm->xef->process_name;
- 		ss->pid = q->vm->xef->pid;
- 	}
- 
- 	strscpy(ss->process_name, process_name);
- 
--	ss->gt = q->gt;
-+	ss->gt = gt;
- 	INIT_WORK(&ss->work, xe_devcoredump_deferred_snap_work);
- 
- 	/* keep going if fw fails as we still want to save the memory and SW data */
--	CLASS(xe_force_wake, fw_ref)(gt_to_fw(q->gt), XE_FORCEWAKE_ALL);
-+	CLASS(xe_force_wake, fw_ref)(gt_to_fw(gt), XE_FORCEWAKE_ALL);
- 
- 	cookie = dma_fence_begin_signalling();
- 
- 	ss->guc.log = xe_guc_log_snapshot_capture(&guc->log, true);
- 	ss->guc.ct = xe_guc_ct_snapshot_capture(&guc->ct);
--	ss->ge = xe_guc_exec_queue_snapshot_capture(q);
--	if (job)
--		ss->job = xe_sched_job_snapshot_capture(job);
--	ss->vm = xe_vm_snapshot_capture(q->vm);
- 
--	xe_engine_snapshot_capture_for_queue(q);
-+	if (q) {
-+		ss->ge = xe_guc_exec_queue_snapshot_capture(q);
-+		if (job)
-+			ss->job = xe_sched_job_snapshot_capture(job);
-+		ss->vm = xe_vm_snapshot_capture(q->vm);
-+
-+		xe_engine_snapshot_capture_for_queue(q);
-+	}
- 
- 	queue_work(system_dfl_wq, &ss->work);
- 
-@@ -364,19 +363,24 @@ static void devcoredump_snapshot(struct xe_devcoredump *coredump,
- }
- 
- /**
-- * xe_devcoredump - Take the required snapshots and initialize coredump device.
-- * @q: The faulty xe_exec_queue, where the issue was detected.
-- * @job: The faulty xe_sched_job, where the issue was detected.
-+ * __xe_devcoredump - Take the required snapshots and initialize coredump device.
-+ * @gt: The GT where the issue was detected.
-+ * @q: The faulty xe_exec_queue, where the issue was detected, may be NULL for
-+ *     hangs that are not tied to an exec queue (e.g. TLB invalidation
-+ *     timeouts); in that case only the GT-level state (GuC log and CT state)
-+ *     is captured.
-+ * @job: The faulty xe_sched_job, where the issue was detected, may be NULL.
-  * @fmt: Printf format + args to describe the reason for the core dump
-  *
-  * This function should be called at the crash time within the serialized
-  * gt_reset. It is skipped if we still have the core dump device available
-  * with the information of the 'first' snapshot.
-  */
--__printf(3, 4)
--void xe_devcoredump(struct xe_exec_queue *q, struct xe_sched_job *job, const char *fmt, ...)
-+__printf(4, 5)
-+void __xe_devcoredump(struct xe_gt *gt, struct xe_exec_queue *q,
-+		      struct xe_sched_job *job, const char *fmt, ...)
- {
--	struct xe_device *xe = gt_to_xe(q->gt);
-+	struct xe_device *xe = gt_to_xe(gt);
- 	struct xe_devcoredump *coredump = &xe->devcoredump;
- 	va_list varg;
- 
-@@ -394,7 +398,7 @@ void xe_devcoredump(struct xe_exec_queue *q, struct xe_sched_job *job, const cha
- 	coredump->snapshot.reason = kvasprintf(GFP_ATOMIC, fmt, varg);
- 	va_end(varg);
- 
--	devcoredump_snapshot(coredump, q, job);
-+	devcoredump_snapshot(coredump, gt, q, job);
- 
- 	drm_info(&xe->drm, "Xe device coredump has been created\n");
- 	drm_info(&xe->drm, "Check your /sys/class/drm/card%d/device/devcoredump/data\n",
-diff --git a/drivers/gpu/drm/xe/xe_devcoredump.h b/drivers/gpu/drm/xe/xe_devcoredump.h
-index 5391a80a4d1..bc4800b3a3f 100644
---- a/drivers/gpu/drm/xe/xe_devcoredump.h
-+++ b/drivers/gpu/drm/xe/xe_devcoredump.h
-@@ -11,15 +11,17 @@
- struct drm_printer;
- struct xe_device;
- struct xe_exec_queue;
-+struct xe_gt;
- struct xe_sched_job;
- 
- #ifdef CONFIG_DEV_COREDUMP
--void xe_devcoredump(struct xe_exec_queue *q, struct xe_sched_job *job, const char *fmt, ...);
-+void __xe_devcoredump(struct xe_gt *gt, struct xe_exec_queue *q,
-+		      struct xe_sched_job *job, const char *fmt, ...);
- int xe_devcoredump_init(struct xe_device *xe);
- #else
--static inline void xe_devcoredump(struct xe_exec_queue *q,
--				  struct xe_sched_job *job,
--				  const char *fmt, ...)
-+static inline void __xe_devcoredump(struct xe_gt *gt, struct xe_exec_queue *q,
-+				    struct xe_sched_job *job,
-+				    const char *fmt, ...)
- {
- }
- 
-@@ -29,6 +31,11 @@ static inline int xe_devcoredump_init(struct xe_device *xe)
- }
- #endif
- 
-+#define xe_devcoredump(_q, _job, _fmt, ...) \
-+	__xe_devcoredump((_q)->gt, _q, _job, _fmt, ##__VA_ARGS__)
-+#define xe_devcoredump_gt(_gt, _fmt, ...) \
-+	__xe_devcoredump(_gt, NULL, NULL, _fmt, ##__VA_ARGS__)
-+
- void xe_print_blob_ascii85(struct drm_printer *p, const char *prefix, char suffix,
- 			   const void *blob, size_t offset, size_t size);
- 
-diff --git a/drivers/gpu/drm/xe/xe_tlb_inval.c b/drivers/gpu/drm/xe/xe_tlb_inval.c
-index 7c3bf32d925..7a0c04fac60 100644
---- a/drivers/gpu/drm/xe/xe_tlb_inval.c
-+++ b/drivers/gpu/drm/xe/xe_tlb_inval.c
-@@ -5,6 +5,7 @@
- 
- #include <drm/drm_managed.h>
- 
-+#include "xe_devcoredump.h"
- #include "xe_device_types.h"
- #include "xe_force_wake.h"
- #include "xe_gt_stats.h"
-@@ -29,6 +30,12 @@
- 
- #define FENCE_STACK_BIT		DMA_FENCE_FLAG_USER_BITS
- 
-+/* The frontend is only ever embedded in a GT */
-+static struct xe_gt *tlb_inval_to_gt(struct xe_tlb_inval *tlb_inval)
++/**
++ * vma_flags_can_merge() - Do the specified VMA flags permit the VMA to be
++ * merged with another?
++ * @flags: The VMA flags to test.
++ * Returns: true if the flags permit merging, false otherwise.
++ */
++static inline bool vma_flags_can_merge(const vma_flags_t *flags)
 +{
-+	return container_of(tlb_inval, struct xe_gt, tlb_inval);
++	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
 +}
 +
- static void xe_tlb_inval_fence_fini(struct xe_tlb_inval_fence *fence)
- {
- 	if (WARN_ON_ONCE(!fence->tlb_inval))
-@@ -73,6 +80,7 @@ static void xe_tlb_inval_fence_timeout(struct work_struct *work)
- 	struct xe_device *xe = tlb_inval->xe;
- 	struct xe_tlb_inval_fence *fence, *next;
- 	long timeout_delay = tlb_inval->ops->timeout_delay(tlb_inval);
-+	int timedout_seqno = 0;
- 
- 	tlb_inval->ops->flush(tlb_inval);
- 
-@@ -90,6 +98,8 @@ static void xe_tlb_inval_fence_timeout(struct work_struct *work)
- 			"TLB invalidation fence timeout, seqno=%d recv=%d",
- 			fence->seqno, tlb_inval->seqno_recv);
- 
-+		timedout_seqno = fence->seqno;
++/**
++ * vma_can_merge() - Do @vma's flags permit it to be merged with another VMA?
++ * @vma: The VMA to test.
++ * Returns: true if the flags permit merging, otherwise false.
++ */
++static inline bool vma_can_merge(const struct vm_area_struct *vma)
++{
++	return vma_flags_can_merge(&vma->flags);
++}
 +
- 		fence->base.error = -ETIME;
- 		xe_tlb_inval_fence_signal(fence);
- 	}
-@@ -97,6 +107,16 @@ static void xe_tlb_inval_fence_timeout(struct work_struct *work)
- 		queue_delayed_work(tlb_inval->timeout_wq, &tlb_inval->fence_tdr,
- 				   timeout_delay);
- 	spin_unlock_irq(&tlb_inval->pending_lock);
-+
-+	/*
-+	 * Capture the GuC log and CT state so the firmware side of the hang
-+	 * can be inspected; there is no queue or job to blame here. Must be
-+	 * outside pending_lock as the capture takes sleeping locks.
-+	 */
-+	if (timedout_seqno)
-+		xe_devcoredump_gt(tlb_inval_to_gt(tlb_inval),
-+				  "TLB invalidation fence timeout, seqno=%d recv=%d",
-+				  timedout_seqno, tlb_inval->seqno_recv);
- }
- 
  /**
+  * vma_kernel_pagesize - Default page size granularity for this VMA.
+  * @vma: The user mapping.
+diff --git a/mm/vma.c b/mm/vma.c
+index 4b74b48c29b7..05d2c676672e 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -924,13 +924,14 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
+ 
+ 	vmg->state = VMA_MERGE_NOMERGE;
+ 
++	if (!vma_flags_can_merge(&vmg->vma_flags))
++		return NULL;
+ 	/*
+-	 * If a special mapping or if the range being modified is neither at the
+-	 * furthermost left or right side of the VMA, then we have no chance of
+-	 * merging and should abort.
++	 * If the range being modified is neither at the furthermost left or
++	 * right side of the VMA, then we have no chance of merging and should
++	 * abort.
+ 	 */
+-	if (vma_flags_test_any_mask(&vmg->vma_flags, VMA_SPECIAL_FLAGS) ||
+-	    (!left_side && !right_side))
++	if (!left_side && !right_side)
+ 		return NULL;
+ 
+ 	if (left_side)
+@@ -1152,9 +1153,11 @@ struct vm_area_struct *vma_merge_new_range(struct vma_merge_struct *vmg)
+ 
+ 	vmg->state = VMA_MERGE_NOMERGE;
+ 
+-	/* Special VMAs are unmergeable, also if no prev/next. */
+-	if (vma_flags_test_any_mask(&vmg->vma_flags, VMA_SPECIAL_FLAGS) ||
+-	    (!prev && !next))
++	if (!vma_flags_can_merge(&vmg->vma_flags))
++		return NULL;
++
++	/* VMAs with no prev/next are unmergeable. */
++	if (!prev && !next)
+ 		return NULL;
+ 
+ 	can_merge_left = can_vma_merge_left(vmg);
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 16c09dac59d9..2fd422789717 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1647,3 +1647,8 @@ static inline bool file_is_dev_zero(const struct file *file)
+ {
+ 	return file && file->f_op == &zero_fops;
+ }
++
++static inline bool vma_flags_can_merge(const vma_flags_t *flags)
++{
++	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
++}
+
 -- 
 2.55.0
 
