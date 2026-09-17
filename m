@@ -4,132 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AE7FC982D7
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44C23C982D9
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65BA910ECBD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EC5010ECC1;
 	Fri, 18 Sep 2026 07:10:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FdLw98tn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="p7d9p4Qq";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E94EF10E0AE
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:32:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6BC98601EF;
- Thu, 17 Sep 2026 16:32:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CC201F00899;
- Thu, 17 Sep 2026 16:32:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789662760;
- bh=R1TTFxJqK2JOmLB4wxg0hlSgvzQnwmSO7NGWVXFT9S4=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=FdLw98tnnAoDtWH8kD0dPvk66NNqKS785LfS0XG2ecgpcUicXfTn4HGu3RCwa2PmW
- tPhI1GvWWiu11djXSGAre8RjZgwuCIibHgzbSC6aSdaemxpRXKiorH/HqCo2sgumn/
- fvbto+ZFnQL6qSXhc1Xj+kLs10DOhc3iBSRgQQoSDG9t2MRbNJb8kV0gDl2WYT/Je/
- PyeOf5EwRvMKqcXppj1Nc7NIYrxSxhLgXwXtr9nlTLPjIEzaIs834ljJ91EuHrQrKT
- /3V4+AavOF/q2rkxgpcN9Y0daI6siTUv8WWfukz/a4HpzwIh6nvg4pHK3HEBHqDDmX
- OLAFkk6l2yBHw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:22:28 +0100
-Subject: [PATCH v3 19/40] fbdev: defio: assert FBINFO_VIRTFB, drop VM_IO,
- add VM_MIXEDMAP
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com
+ [74.125.228.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F32F210ED73
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 10:49:51 +0000 (UTC)
+Received: by mail-pz2-f41.google.com with SMTP id
+ 41be03b00d2f7-cc4c3304833so486647a12.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 03:49:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789642191; x=1790246991; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=JgGGToNc2v5pflrpzy2awJuFvrt52U0TkSLrIqd2nHA=;
+ b=p7d9p4QqSRDUHFvP+M9HWb+QxrB8Q3XDFRGMaI1hSHb9jOhXbH0H45+0zCqkZR4R+C
+ ZhH3eYLnyKkCEUtTf8ZZjmd1V8+5jHGSKmAKYllquFeSOeB/esL/2zk8xpmX4Ve2vV8n
+ LGSSZYrcIjansXu5gE8rRUkrRf+D0jO+TSr9NYr8nHY4GwQHT7ToWdUBDPZ3NnKpd8cU
+ EeY2UYC/ONEMtT0MEaLOjsQEV9IRXG1B+BchkEM9gCVzytIdALyU86/dGIr8J4ag8CPf
+ 3c8L6vz1BDjTKHSJ6ec0DLWwBHsK3/bJVxIAMqhnI+3hDsk60JQYcHHShgEgyJAwXgB6
+ 6qqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789642191; x=1790246991;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=JgGGToNc2v5pflrpzy2awJuFvrt52U0TkSLrIqd2nHA=;
+ b=iRGlf/k1A8f5lgyvzpjxbkOizm2mpSgY8RcE8vueOKnPw57wk/uaN5VhJeN3a8t7CN
+ nBL7+G0uKkYUkZhubH+DNEAinnegZ097VbqhrxL/lWE74YBqPZ+jgp8oO0kkkHMVCGcs
+ hlQWwrcbGSB0lMcDx7OxCGP4yY58rDYsuLn/WIOxHtqLgstCHdkfNown/gYsWARJWfwI
+ h7IajlwUSpjkX6T+gLpl5rc53DPptiDlzgWecMezGCbh7bkOsHH0VVa2ONeP2fyMBuBp
+ xXBdJM6kqVQC2qYmiaMTlHRQL92UAeKmXGgTw37gs12xa2gQA26byyp1hwU0hlO2N9A7
+ chRA==
+X-Gm-Message-State: AFuF++nvZ3yAaWyfoSna9RPnlgte5Eqfn507yIldfZJo/DZi9lJNSIX9
+ OPlX+TvDwmGJteMNIXTQwBEahrdEXcipCy7+3fJ77ccQIi8Jams0heJx
+X-Gm-Gg: AYBFou2u5hVbPdL4gyEpi3U2q3cu3AstVlX/iBYLGMWtNoD0gVF/ZQ6qGW40t5Oy4Xy
+ R5OXWIU2fml1Vu2RRB3/BROq4nTMt4gYqX/sZfDFzOSknsZ/TL+rqx/jkGkMTpVTTeB0jmOkD9N
+ Z6RcE9z12Vcqu0sIymBOHHC5N6IucoK2dx+EteepwukiLY2l2OgYTwHLHjtobbx1psUCoH+EoLt
+ EbWuAHRSpG+zpb6lZmbMGzcsK/rD574FLsAMQ9cEpNyltOtA6JZ4YjuyG8ik/TB0IG/DtqxQq0L
+ yQLLtukcAmIkcTvBA8dXxkZ4JUzfXxMTiZ2yHh6d87krxeC2KNxSb2PdrWHUUyzulWMmnBF5ZnP
+ B+lgB0AaxHU2CWz4vmvzDyGOg9OcINWyqIhEKvhLPW0jsDxtLUW4DkEOLVth/scKQeFgGvT3tGf
+ VvVknUGZLzbAAOztqrWbTB9/7gCAFOfxhCkBhltpPepdlChr9fbQAxhR/mdeQKNiGm2P4PZcvWQ
+ bFbJ67TNQ+BrrAp05vI15xyljOwrhvOjrD0BuAhz8W8XbqQQfq3d7sT1Jrr/Gi7xAwVlXb1Sd31
+ J6RnZ4EI5tLdASKx+Kv2l9OlK/1UFQcfIM8pzVtp0YQnRkA=
+X-Received: by 2002:a17:90b:4e88:b0:398:cb56:e92 with SMTP id
+ 98e67ed59e1d1-39e1e30ba45mr15259032a91.11.1789642191459; 
+ Thu, 17 Sep 2026 03:49:51 -0700 (PDT)
+Received: from [192.168.2.3] ([2403:581e:d87e:0:fc2d:ed31:e80e:412d])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39e39bb3f1dsm1062109a91.3.2026.09.17.03.49.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Sep 2026 03:49:51 -0700 (PDT)
+From: James Calligeros <jcalligeros99@gmail.com>
+Date: Thu, 17 Sep 2026 20:49:29 +1000
+Subject: [PATCH RESEND] drm/fourcc: Add Apple Interchange layout format
+ modifier
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-19-4583d8a23bca@kernel.org>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+Message-Id: <20260917-apple-interchange-modifier-v1-1-875294689c48@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2362; i=ljs@kernel.org;
- h=from:subject:message-id; bh=In9WHX8b1sLbbe6jUcP+2i7LCzJ4p//dj4w0OtHuz9I=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB+8bOi9UPLIo/LJk2JWhM3+b3BdgtnAyfJrpf4ET
- s3Sm/x3O0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRD0cYGRrX9Htz//Woqtj5
- yGpTVNPsHHWljs3FZyeckZj57lRJoCTD/1qtjbYPt3hX96zbuyf64ve193k5H5nVanZnM7eYLUs
- W4AYA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
-X-Mailman-Approved-At: Fri, 18 Sep 2026 07:09:59 +0000
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ asahi@lists.linux.dev, Oliver Bestmann <oliver.bestmann@googlemail.com>, 
+ sofus <sofus.c@icloud.com>, James Calligeros <jcalligeros99@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2059;
+ i=jcalligeros99@gmail.com; h=from:subject:message-id;
+ bh=X1GV84Wq/vFzYUv/sfCUjMI1OdVSf5hhLntbftA070c=;
+ b=owGbwMvMwCV2xczoYuD3ygTG02pJDFmrjx7fMcmxc0PVGZ9HIrxaxg9nG8kejncTsVz6OcDp/
+ Jn8/9vVOiayMIhxMViKKbJsaBLymG3EdrNfpHIvzBxWJpAh0iINDEDAwsCXm5hXaqRjpGeqbahn
+ aKRjrGPEwMUpAFMdFsXIsF1l057fpy2nK83nbVmU9Ex0n02S09e+U2nefeUd59dNymdkmHVg1ZT
+ sJwbz/M/uleJP44+qa6q95nTvsPtND7dLJmuaeAA=
+X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
+ fpr=B08212489B3206D98F1479BDD43632D151F77960
+X-Mailman-Approved-At: Fri, 18 Sep 2026 07:10:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,64 +102,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently all drivers which use defio allocate system memory. All of them
-also set FBINFO_VIRTFB, other than ssd1307fb, however this driver allocates
-system RAM, so simply failed to set this flag when it ought to.
+Apple Interchange is a tiled and compressed image layout used
+for buffer exchange between Apple hardware blocks. It is
+similar to the already-supported GPU_TILED_COMPRESSED layout.
 
-This patch sets FBINFO_VIRTFB on ssd1307fb probe, then drops setting VM_IO
-in fb_deferred_io_mmap() and instead requires FBINFO_VIRTFB to be set,
-erroring out with a kernel warning if not.
+Add a format modifier for Apple Interchange so that it can be
+used for buffer exchange.
 
-The logic requires a page from the driver and since commit 1ecbc7dd2902
-("fbdev/deferred-io: Always call get_page() for framebuffer pages") has
-always required it to be refcounted, so this was implicitly already the
-case.
-
-Finally this patch sets VM_MIXEDMAP, as the logic is mapping
-kernel-allocated memory so this is appropriate.
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
 ---
- drivers/video/fbdev/core/fb_defio.c | 6 +++---
- drivers/video/fbdev/ssd1307fb.c     | 2 ++
- 2 files changed, 5 insertions(+), 3 deletions(-)
+ include/uapi/drm/drm_fourcc.h | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/drivers/video/fbdev/core/fb_defio.c b/drivers/video/fbdev/core/fb_defio.c
-index fd00b86e1ae6..fb359ecc3966 100644
---- a/drivers/video/fbdev/core/fb_defio.c
-+++ b/drivers/video/fbdev/core/fb_defio.c
-@@ -366,13 +366,13 @@ int fb_deferred_io_mmap(struct fb_info *info, struct vm_area_struct *vma)
- {
- 	vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
+diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
+index a103fdc0b3a3..aa51c116cd7d 100644
+--- a/include/uapi/drm/drm_fourcc.h
++++ b/include/uapi/drm/drm_fourcc.h
+@@ -1626,6 +1626,26 @@ drm_fourcc_canonicalize_nvidia_format_mod(__u64 modifier)
+ #define DRM_FORMAT_MOD_APPLE_GPU_TILED fourcc_mod_code(APPLE, 1)
+ #define DRM_FORMAT_MOD_APPLE_GPU_TILED_COMPRESSED fourcc_mod_code(APPLE, 2)
  
-+	if (WARN_ON_ONCE(!(info->flags & FBINFO_VIRTFB)))
-+		return -EINVAL;
- 	if (!try_module_get(THIS_MODULE))
- 		return -EINVAL;
- 
- 	vma->vm_ops = &fb_deferred_io_vm_ops;
--	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
--	if (!(info->flags & FBINFO_VIRTFB))
--		vm_flags_set(vma, VM_IO);
-+	vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTDUMP);
- 	vma->vm_private_data = info->fbdefio_state;
- 
- 	fb_deferred_io_state_get(info->fbdefio_state); /* released in vma->vm_ops->close() */
-diff --git a/drivers/video/fbdev/ssd1307fb.c b/drivers/video/fbdev/ssd1307fb.c
-index c4fdecafd856..958514a35433 100644
---- a/drivers/video/fbdev/ssd1307fb.c
-+++ b/drivers/video/fbdev/ssd1307fb.c
-@@ -763,6 +763,8 @@ static int ssd1307fb_probe(struct i2c_client *client)
- 	info->fix.smem_start = __pa(vmem);
- 	info->fix.smem_len = vmem_size;
- 
-+	info->flags = FBINFO_VIRTFB;
++/*
++ * Apple Interchange layout
++ *
++ * Apple Interchange is a compressed framebuffer format used exclusively for
++ * sharing buffers between hardware blocks (GPU, display controller, video
++ * codecs) on Apple platforms. It is similar to and uses the same compression
++ * scheme as GPU_TILED_COMPRESSED. There is no known uncompressed variant
++ * of Apple Interchange.
++ *
++ * Unlinke the GPU layouts, tile size is not dependent on bit depth. RGB
++ * images and the chroma components of YUV images use 16x16 tiles. The
++ * luma component of YUV images uses 32x32 tiles. Compression tiles
++ * are once again 16x16 with 8 bytes of metadata per compression subtile.
++ *
++ * AGX has limited support for Apple Interchange. It cannot be used for Z/S
++ * buffers or array images, for example. It is intended for scanout buffer
++ * sharing only.
++ */
++#define DRM_FORMAT_MOD_APPLE_INTERCHANGE fourcc_mod_code(APPLE, 3)
 +
- 	fb_deferred_io_init(info);
- 
- 	i2c_set_clientdata(client, info);
+ /*
+  * AMD modifiers
+  *
 
+---
+base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+change-id: 20260830-apple-interchange-modifier-cbcc311c835d
+
+Best regards,
+--
+James Calligeros <jcalligeros99@gmail.com>
 -- 
-2.55.0
+James Calligeros <jcalligeros99@gmail.com>
 
