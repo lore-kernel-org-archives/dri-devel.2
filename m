@@ -4,68 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7C10C982D2
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 17:00:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E47DBC88E72
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 17:01:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8B9C10EFF3;
-	Thu, 17 Sep 2026 17:00:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBB5A10EFDA;
+	Thu, 17 Sep 2026 17:01:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="hRwGFAOV";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="TmExEdPn";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="wnwVyECH";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="IP7XbDMS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KQfHQF1N";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8837110EFF5
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 17:00:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1789664456;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=3cUvhJCeylyKmCRzVdnpI1XudDCvPfdO1HTMEIyjjhA=;
- b=hRwGFAOV/wG3wM+wyYELxI0hU9RvKDt4LKV1PElYtgvKj+Dz4KY6F973Ha87DrdxWWQCn3
- m2+G3DnbUdbqfMEr0xbiMk8e9fXtlUp/Gm7wqjVRpwotgeVlqC6lgmQANfZp8Dt87iMKnX
- I9J384XyciytnyV9KcxrL941e07BgN0=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-104-fL7CYz7kOVOXxBhP8eCeEA-1; Thu,
- 17 Sep 2026 13:00:52 -0400
-X-MC-Unique: fL7CYz7kOVOXxBhP8eCeEA-1
-X-Mimecast-MFC-AGG-ID: fL7CYz7kOVOXxBhP8eCeEA_1789664450
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDC6110E990
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 17:00:52 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 172EE1802554; Thu, 17 Sep 2026 17:00:50 +0000 (UTC)
-Received: from GoldenWind.lan (unknown [10.22.64.177])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id E1D3930002C2; Thu, 17 Sep 2026 17:00:46 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: "Timur Tabi" <ttabi@nvidia.com>, "Dave Airlie" <airlied@redhat.com>,
- "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
- "Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Kees Cook" <kees@kernel.org>, "Simona Vetter" <simona@ffwll.ch>,
- "David Airlie" <airlied@gmail.com>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "Maxime Ripard" <mripard@kernel.org>,
- "Mel Henning" <mhenning@darkrefraction.com>,
- "Hongling Zeng" <zenghongling@kylinos.cn>,
- "Danilo Krummrich" <dakr@kernel.org>, "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v5 0/5] drm/nouveau/gsp/r570: Follow OpenRM's runtime PM
- process more closely
-Date: Thu, 17 Sep 2026 12:58:31 -0400
-Message-ID: <20260917170042.440276-1-lyude@redhat.com>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2DFE021A75;
+ Thu, 17 Sep 2026 17:00:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1789664447; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=yeEMisngx5b8Pf0iu3jfCoPmLPlvkMuxoKVc4eTvbog=;
+ b=TmExEdPnLftdYw7SEccLB8+FQbfA6iXVQqG9pJNtw36T6Ifymqef11qQwmBgAgDK9I/VRx
+ dRnvk1pCwM9lGT2fSS3BUNpU+W1CJUIpIX0NW2LzQtRABvQkGs/sJ70GqaJ7Xo4bZCQyGc
+ O32chXsbVtVu/8m19ymeJRxfXE9kJTc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1789664447;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=yeEMisngx5b8Pf0iu3jfCoPmLPlvkMuxoKVc4eTvbog=;
+ b=wnwVyECHCrZzjTZOrlSraW77RnmBM0ew9tFRz5XJguyrVli5oR4nODrxZtQ2RQsXsp+pIt
+ cBy+hWf9svpKIoCA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=IP7XbDMS;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=KQfHQF1N
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1789664443; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=yeEMisngx5b8Pf0iu3jfCoPmLPlvkMuxoKVc4eTvbog=;
+ b=IP7XbDMSJfUiapGCCQJ1FV8TgQbY29eHmEWhvDA7TGPanHEMTbQtotPuAbPNC+izUdeAop
+ 68GTh3FFc6ZRrzdcbCBtja0QrL/hjvEfbFVtLMIkULaQPiQEZjmqB1qSPB7rxerONW7Nc1
+ 5JNNjD3y63sNkeGTckc1AKNjdodbwMo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1789664443;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=yeEMisngx5b8Pf0iu3jfCoPmLPlvkMuxoKVc4eTvbog=;
+ b=KQfHQF1NMEX9cD5SoRcNujI2w3JAOwNKfuALgbFXnr8KD6swj2iLTWkAsb6Bh5MHuy3/xd
+ 26T/pNXr/TKILyDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E4A5613918;
+ Thu, 17 Sep 2026 17:00:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 3WpsKbocrGpsKwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 17 Sep 2026 17:00:42 +0000
+Message-ID: <2c339a2d-2988-49c4-a07f-dcec2eb6732d@suse.de>
+Date: Thu, 17 Sep 2026 19:00:42 +0200
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-MFC-PROC-ID: EXq7Rjbx8Pu1yuQwwIJYgiOTUZtTN3m536UpvJi1ye0_1789664450
-X-Mimecast-Originator: redhat.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/client: fix restore of partially initialized client
+To: sashiko-reviews@lists.linux.dev, shechenglong <shechenglong@xfusion.com>
+Cc: dri-devel@lists.freedesktop.org
+References: <20260907035147.1339-1-shechenglong@xfusion.com>
+ <20260917154743.1621-1-shechenglong@xfusion.com>
+ <20260917160619.256C91F00893@smtp.kernel.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260917160619.256C91F00893@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 2DFE021A75
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MID_RHS_MATCH_FROM(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[xfusion.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:mid,suse.com:url];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,52 +146,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-While we have runtime PM working a lot more reliably then in the past
-with R570, we're still doing things a lot differently then OpenRM. For
-instance, we don't save/restore comptag backing stores, and we don't ask
-GSP whether it's OK to enter GcOff.
+Hi
 
-This series fixes this, and gets our runtime PM process to look a lot
-closer to OpenRM's by implementing some missing pieces and workarounds.
+Am 17.09.26 um 18:06 schrieb sashiko-bot@kernel.org:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] drm/client: early return of 0 in fbdev restore aborts fallback loop
+> --
+>
+> commit d167ca7eea0e08eeed4c9c5277344faccb69545c
+> Author: shechenglong <shechenglong@xfusion.com>
+>
+> drm/client: fix restore of partially initialized client
+>
+> This commit fixes a NULL pointer dereference that occurs when userspace
+> closes a DRM file descriptor and a partially initialized fbdev client is
+> restored. It adds a check to skip the restore operation if the framebuffer
+> device has not been fully initialized.
+>
+>> diff --git a/drivers/gpu/drm/clients/drm_fbdev_client.c b/drivers/gpu/drm/clients/drm_fbdev_client.c
+>> index 827f326687140..7574bd36f45eb 100644
+>> --- a/drivers/gpu/drm/clients/drm_fbdev_client.c
+>> +++ b/drivers/gpu/drm/clients/drm_fbdev_client.c
+>> @@ -42,6 +42,14 @@ static int drm_fbdev_client_restore(struct drm_client_dev *client, bool force)
+>>   {
+>>   	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+>>   
+>> +	/*
+>> +	 * The client is registered before the initial fbdev probe.
+>> +	 * If probing failed, the client remains registered but there
+>> +	 * is no valid fbdev framebuffer to restore.
+>> +	 */
+>> +	if (!fb_helper->info || !fb_helper->fb)
+>> +		return 0;
+> [Severity: Medium]
+> Does returning 0 here prematurely abort the fallback loop in the caller?
+>
+> When the fbdev client is registered but fails probing, fb_helper->info is
+> NULL. The caller, drm_client_dev_restore(), iterates through clients and
+> calls their restore callbacks. Since drm_client_dev_restore() breaks the loop
+> on the first 0 return, this falsely signals success.
+>
+> This means the display is not restored by other registered clients
+> (like drm_log) when userspace closes the DRM fd or exits. Should this return
+> a negative error code like -ENODEV to allow the loop to continue?
 
-Tested on my daily-driver desktop with an AD102, a ThinkPad P17 Gen1
-with a GA103GLM, a Dell Precision 7780 with an AD103, and my test
-machine with a GB206.
+We can ignore this problem for now.  Multi-client setups have never been 
+used or even tested before.
 
-Patch series based on drm-misc/drm-misc-next. Branch with patches here:
+Best regards
+Thomas
 
-	https://gitlab.freedesktop.org/lyudess/linux/-/commits/nouveau/rpm-openrm-sync
+>
+>> +
+>>   	drm_fb_helper_restore_fbdev_mode_unlocked(fb_helper, force);
+>>   
+>>   	return 0;
+>>   }
 
-Previous version:
-
-	https://patchwork.freedesktop.org/series/173901/
-
-Lyude Paul (5):
-  drm/nouveau/gsp/r570: Add support for INTERNAL_GCX_ENTRY_PREREQUISITE
-  drm/nouveau/gsp/r535: Add support for MEMSYS_GET_STATIC_CONFIG
-  drm/nouveau/gsp/r570: Add comp mode workaround from issue #3172217
-  drm/nouveau/gsp/r570: Start saving comptag backing stores
-  drm/nouveau/gsp/r570: Enable Gcoff in fbsr again
-
- drivers/gpu/drm/nouveau/include/nvif/cl0080.h | 10 +++
- drivers/gpu/drm/nouveau/include/nvif/device.h |  1 +
- .../gpu/drm/nouveau/include/nvkm/subdev/gsp.h |  6 ++
- drivers/gpu/drm/nouveau/nouveau_drm.c         | 13 ++++
- drivers/gpu/drm/nouveau/nvif/device.c         | 13 ++++
- .../gpu/drm/nouveau/nvkm/engine/device/user.c | 35 +++++++++
- .../gpu/drm/nouveau/nvkm/subdev/gsp/base.c    | 10 +++
- .../gpu/drm/nouveau/nvkm/subdev/gsp/priv.h    |  1 +
- .../drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 17 ++++
- .../nvkm/subdev/gsp/rm/r535/nvrm/gsp.h        | 45 +++++++++++
- .../nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c    | 77 ++++++++++++++++++-
- .../drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c | 36 +++++++++
- .../nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h       | 29 +++++++
- .../nvkm/subdev/gsp/rm/r570/nvrm/gsp.h        |  7 ++
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h   |  3 +
- 15 files changed, 301 insertions(+), 2 deletions(-)
-
-
-base-commit: 5535d5e61a77ad79118ea7665ce1c14f857f0f12
 -- 
-2.55.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
