@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AA83C88E72
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 12:34:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D03AC982D1
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 12:34:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F1D910EE89;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B153F10EE9B;
 	Thu, 17 Sep 2026 12:33:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ULFOSIKb";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="gUIhr/FC";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8031C10EE89
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 12:33:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A70610EE89
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 12:33:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1789648435;
- bh=JeE7JSuO5/PJ0ZMUTphbSHVFgspwYWBLPaeJwLbCYsU=;
+ bh=+/6KEJbBTvcP3lAfbZbBakogb+HfHH7iLFVHHmk1YoU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ULFOSIKbsrko4F3FTkqwavaF/ildILVjscSw+5WroSP4mzXOv6TAulOfqNhQ/mtwh
- noA9NWPNoKwX6XzQP/0lNAmfjkJSvvJDMY4IOgjjcfUkv4p+KTgCWfmHzAA+FJ3+Ul
- 8caBF16l/4L9t1X0DCg3RYW9HCS104Vxyxt6tSNPq2ZUxZo4E0eWI+8byO1wU2L/s0
- +RJnTckUS66ZDbpdqvw8NMfEmFdgS7E0Sbng1ZcnKrTYQFstclMn617uHdjzsm2tU2
- hsnSALFBLjAD2xgIDYj/DnUN+6+R7aNTJ9PRY3sJ8iuUR+Ywa8yIIDzJfRW4QvfByS
- L8bpwTwg+23pA==
+ b=gUIhr/FC9+Cl5DFVzrJYVeO0JcJTA1T15TJvK8x3B0FWu5TUhOi8IVS0kUX1yhuHB
+ 6SVYGKPWW0GYnUAGKeMipVbSVau3gkC2yaXkoz268wud29FJuGKydD6OIoRQrwPSYW
+ sQ17H4tEdlERTIRpl25zU+EBvIbXvuMJ8rdnltKrEzPTHK+3hBDmi1d22Fia7odM3r
+ 1b/xvYMQmoXmMRWnI9aVbzJM6uLHl+OUHoL3pfMae0RRP1XgCSE1cqMEabeMlKBjRQ
+ 00/WRAVFXLVP0Mo96sfzoN+ZBW9d9XTUdwLk9/K8qIKlyVypwjxy6JOB+OHeyjBmDR
+ 8G247a+Xro7MA==
 Received: from fedora-21.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id C390D17E0C7E;
- Thu, 17 Sep 2026 14:33:54 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 636D017E0CFC;
+ Thu, 17 Sep 2026 14:33:55 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu, 17 Sep 2026 14:33:43 +0200
-Subject: [PATCH 1/4] drm/panthor: Avoid false positives in
- iova_mapped_as_huge_page()
+Date: Thu, 17 Sep 2026 14:33:44 +0200
+Subject: [PATCH 2/4] drm/panthor: Fix iova_mapped_as_huge_page() for
+ imported BOs
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-panthor-fix-partial-unmap-v1-1-c7008f15fea3@collabora.com>
+Message-Id: <20260917-panthor-fix-partial-unmap-v1-2-c7008f15fea3@collabora.com>
 References: <20260917-panthor-fix-partial-unmap-v1-0-c7008f15fea3@collabora.com>
 In-Reply-To: <20260917-panthor-fix-partial-unmap-v1-0-c7008f15fea3@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
@@ -51,11 +51,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789648434; l=3538;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789648434; l=2952;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=JeE7JSuO5/PJ0ZMUTphbSHVFgspwYWBLPaeJwLbCYsU=;
- b=wGPgQEwelskuc+lgj7kWNWjVNyFvfecrBCYufa5vvhzqTKH4bSrQS1ZBavi6UlpBqhybW8/8b
- aTf36urAxk+CCQBkEkTEl0rOOHfVQgSGtP6IHIlzw9DdPEDP5H2lvYt
+ bh=+/6KEJbBTvcP3lAfbZbBakogb+HfHH7iLFVHHmk1YoU=;
+ b=/6f0RvsmRgtCwqThhT/PPj2gaRskYBI2YfE6ievX8O1cQq6L4EofKhrSDQWV+efX7B6Ltird6
+ +2avVtJSqAeAs4VE14V24hhr/lZWazV7AkFGTiaGW3h0CgmqZ/5R+5Q
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,86 +73,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The check on the folio size is actually moot if the BO offset matching
-the VA we're checking huge-mapping for is not 2M aligned as well.
-This means that we are sometimes returning true when we shouldn't, which
-forces an extra unmap+map to deal with block-mapping splits. It's not
-a functional bug per-se, because the unmap+map sequence will restore
-things in the state we expect them to be, but it's better to properly
-optimize those cases.
+Imported BOs have no backing.pages array allocated, leading to a NULL
+deref when iova_mapped_as_huge_page() gets called on them.
 
-Note that we now align the VA on 2M address below it otherwise we can't
-check the bo_offset alignment (both physical and virtual address need
-to be aligned, in addition to the physically contiguous size being 2M,
-which the folio size check ensures).
+Implement this check through and sgt walk to reach the position of the
+sgt targeted by a VA, and check that the DMA address is properly aligned
+and the size remaining in the SG entry is bigger than a huge page.
+This is basically matching the logic in vm_map_pages(), with get_pgsize()
+being replaced by a simpler test, because we don't care about the pgcount
+info.
 
-These changes force us to pass the drm_gpuva that's being unmapped
-instead of the new mappings that will be created to cover the left/right
-sections we remap. This changes makes the logic a lot easier to reason
-about, because it doesn't make sense to how things were mapped by
-passing the new mappings that are not yet in place.
-
+Reported-by: Akash Goel <akash.goel@arm.com>
 Fixes: 8e7460eac786 ("drm/panthor: Support partial unmaps of huge pages")
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_mmu.c | 24 +++++++++++++++++++-----
- 1 file changed, 19 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/panthor/panthor_mmu.c | 44 ++++++++++++++++++++++++++++-------
+ 1 file changed, 36 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index 9f63a048df61..b0a7033480e6 100644
+index b0a7033480e6..6cef954e2cba 100644
 --- a/drivers/gpu/drm/panthor/panthor_mmu.c
 +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -2295,15 +2295,29 @@ static int panthor_gpuva_sm_step_map(struct drm_gpuva_op *op, void *priv)
- }
- 
- static bool
--iova_mapped_as_huge_page(struct drm_gpuva_op_map *op, u64 addr)
-+iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
+@@ -2299,7 +2299,6 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
  {
--	struct panthor_gem_object *bo = to_panthor_bo(op->gem.obj);
-+	struct panthor_gem_object *bo = to_panthor_bo(mapping->gem.obj);
-+	u64 aligned_va = ALIGN_DOWN(va, SZ_2M);
- 	const struct page *pg;
+ 	struct panthor_gem_object *bo = to_panthor_bo(mapping->gem.obj);
+ 	u64 aligned_va = ALIGN_DOWN(va, SZ_2M);
+-	const struct page *pg;
  	pgoff_t bo_offset;
  
--	bo_offset = addr - op->va.addr + op->gem.offset;
-+	/* If the 2M-aligned VA is outside the mapping being tested, we know
-+	 * it's not a huge map.
-+	 */
-+	if (aligned_va < mapping->va.addr)
-+		return false;
-+
-+	bo_offset = aligned_va - mapping->va.addr + mapping->gem.offset;
- 	pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
+ 	/* If the 2M-aligned VA is outside the mapping being tested, we know
+@@ -2309,16 +2308,45 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
+ 		return false;
  
-+	/* In case of shmem backing, we know we can only have a huge mapping
-+	 * if the bo_offset is 2M aligned, meaning we can skip the folio size
-+	 * check if it's not the case.
-+	 */
-+	if (!IS_ALIGNED(bo_offset, SZ_2M))
-+		return false;
+ 	bo_offset = aligned_va - mapping->va.addr + mapping->gem.offset;
+-	pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
+ 
+-	/* In case of shmem backing, we know we can only have a huge mapping
+-	 * if the bo_offset is 2M aligned, meaning we can skip the folio size
+-	 * check if it's not the case.
+-	 */
+-	if (!IS_ALIGNED(bo_offset, SZ_2M))
++	if (drm_gem_is_imported(&bo->base)) {
++		struct sg_table *sgt = bo->dmap.sgt;
++		struct scatterlist *sgl;
++		unsigned int count;
 +
- 	return folio_size(page_folio(pg)) >= SZ_2M;
++		/* If this is an imported BO, we have to walk the SGT and
++		 * check the dma address/size alignment to determine if it's
++		 * a huge map or not.
++		 */
++		for_each_sgtable_dma_sg(sgt, sgl, count) {
++			size_t len = sg_dma_len(sgl);
++			dma_addr_t daddr;
++
++			if (len <= bo_offset) {
++				bo_offset -= len;
++				continue;
++			}
++
++			len -= bo_offset;
++			daddr = sg_dma_address(sgl) + bo_offset;
++
++			return IS_ALIGNED(daddr, SZ_2M) &&
++			       len >= SZ_2M;
++		}
++
+ 		return false;
++	} else {
++		const struct page *pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
+ 
+-	return folio_size(page_folio(pg)) >= SZ_2M;
++		/* In case of shmem backing, we know we can only have a huge mapping
++		 * if the bo_offset is 2M aligned, meaning we can skip the folio size
++		 * check if it's not the case.
++		 */
++		if (!IS_ALIGNED(bo_offset, SZ_2M))
++			return false;
++
++		return folio_size(page_folio(pg)) >= SZ_2M;
++	}
  }
  
-@@ -2328,7 +2342,7 @@ unmap_hugepage_align(const struct drm_gpuva_op_remap *op,
- 	 */
- 	if (op->prev && aligned_unmap_start < *unmap_start &&
- 	    op->prev->va.addr <= aligned_unmap_start &&
--	    (is_sparse || iova_mapped_as_huge_page(op->prev, *unmap_start))) {
-+	    (is_sparse || iova_mapped_as_huge_page(op->unmap->va, *unmap_start))) {
- 		*unmap_range += *unmap_start - aligned_unmap_start;
- 		*unmap_start = aligned_unmap_start;
- 	}
-@@ -2338,7 +2352,7 @@ unmap_hugepage_align(const struct drm_gpuva_op_remap *op,
- 	 */
- 	if (op->next && aligned_unmap_end > unmap_end &&
- 	    op->next->va.addr + op->next->va.range >= aligned_unmap_end &&
--	    (is_sparse || iova_mapped_as_huge_page(op->next, unmap_end - 1))) {
-+	    (is_sparse || iova_mapped_as_huge_page(op->unmap->va, unmap_end - 1))) {
- 		*unmap_range += aligned_unmap_end - unmap_end;
- 	}
- }
+ static void
 
 -- 
 2.55.0
