@@ -4,71 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7336AC88E72
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 19:10:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 389B7C88E72
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 19:15:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D54C210F07E;
-	Thu, 17 Sep 2026 19:10:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D68B10F084;
+	Thu, 17 Sep 2026 19:15:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="cnqULCc1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iAR2/6yS";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B9E910F071
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 19:09:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1789672196;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=RHd/Dk5Z3xxUsB7VKRWoo8mcH7HGTcC9gaNXWpM+1jM=;
- b=cnqULCc1iTbLM6wHK3kgXIMfEn7xhPQfo2kFxzbjLmskSY/XGEmn2JC+8uurM4pkbr5d9v
- yclFCsb2KS7cRHpZoLpguGHTty3kj6NWXtyd6YJG/J5nTifnd6XYZ7siClMBUF/V3YZwRo
- WIh1XxKFkY2YpG8xxl1VhmxriFzdQnA=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-460-jXrflQxCNBGwIkgJlFvpow-1; Thu,
- 17 Sep 2026 15:09:51 -0400
-X-MC-Unique: jXrflQxCNBGwIkgJlFvpow-1
-X-Mimecast-MFC-AGG-ID: jXrflQxCNBGwIkgJlFvpow_1789672189
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 12F64183019B; Thu, 17 Sep 2026 19:09:49 +0000 (UTC)
-Received: from GoldenWind.lan (unknown [10.22.64.177])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 85A2519AC047; Thu, 17 Sep 2026 19:09:46 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Dave Airlie <airlied@redhat.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
- "Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Kees Cook" <kees@kernel.org>, "Simona Vetter" <simona@ffwll.ch>,
- "David Airlie" <airlied@gmail.com>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "Maxime Ripard" <mripard@kernel.org>,
- "Mel Henning" <mhenning@darkrefraction.com>,
- "Hongling Zeng" <zenghongling@kylinos.cn>,
- "Danilo Krummrich" <dakr@kernel.org>, "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v6 4/5] drm/nouveau/gsp/r570: Start saving comptag backing
- stores
-Date: Thu, 17 Sep 2026 14:54:28 -0400
-Message-ID: <20260917185916.1089621-5-lyude@redhat.com>
-In-Reply-To: <20260917185916.1089621-1-lyude@redhat.com>
-References: <20260917185916.1089621-1-lyude@redhat.com>
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com
+ [74.125.228.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08EEE10F084
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 19:15:25 +0000 (UTC)
+Received: by mail-ed2-f12.google.com with SMTP id
+ 4fb4d7f45d1cf-6a60591bb18so868493a12.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 12:15:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789672523; x=1790277323; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=UVO42avi1AUnneieHW+g4jz1dvgdxwcJ0ctKNKrRziI=;
+ b=iAR2/6yS2LRdsTLru3rvafZOFu5L8Nn/Rw0XQarPxcvuYNhLm8G7c/31K2O+DOw2Uu
+ zExKri7Z/6IbD6lEjejm/uCcO/crSs1SkUWPtgJIMxK5P/qDNOJ6ifqg3DzFGeJxaH8v
+ QmvYqo6nUdaXB2kA5XZjBnOjbviE2A/QbY5J6/GytyLPX4iASH91vWTPH9Boigv2KP/w
+ S5xRZTjZkDcprW+Ih6eX+l6rJd+niQMPcQFRyhSoaF+Bwvxai75mKK6/nFD+VvgBIBFw
+ 8iVXnsWnKxbyCXIVfl0er9tKMMNQoUWneo7wuLxweXjnVs92oSsG35B3t9n3olxDgYoI
+ xCeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789672523; x=1790277323;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=UVO42avi1AUnneieHW+g4jz1dvgdxwcJ0ctKNKrRziI=;
+ b=zo84SJ+3NdQphg5I55Rl22VDg3Fs5lIV51Gr+pkT/PWbOx0GvngYh/jAmXlCeFImcE
+ xu0tTxg8y4d9RWnkXG5U3cFSWxfbM9kKGnktKkWam7XNX75qNH1Mc3qe0xzMtSCtA/nL
+ yAIn/RA5tXCeEiDIBh4lWOG+Y4hVOgNuvbRYLljryvTEYqIP6HEB9lxKDsAu3cnWH1io
+ TI/i9Td+HyKrTvHG285ZvBMeu1/rKNtlAAp7HhbDb0iXdQN8SQ1FHsEkJinc6As25lF5
+ 5i8x6J9XJp303QaePSA00bzGqwcoLLzBYt9pyj+AeM7CjV7FXy/2vh1Qg1ShkTEiofIv
+ KVDw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxm6xqNMrumsPp5brD0f0VHDHYjA+lmvNGuPEG7XCbWYtJgn9ICj53FT3JutwgQt3oaU8lCt0D4S3w=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m8AyXGPDZQVqUlstjb3zci25DDPzCzGqNBEgOZUcIeU/t5yOmO
+ djit3peY82zmlegTq7JL891624ZqiBPeR9AudKpa/vC11wNkuERVB68S
+X-Gm-Gg: AYBFou0CY4NZ8UV9B/ptDb4v3S09qFTCU3WiftDVWEF4mtqTn2EBet999GX2y7/7SSy
+ s7VnfdVgu6knmtSVXyEFm36adtFsYoVl1Ufw9xiBN4uo1oHsQxecpBNMjDP5GonsEKR91hudFN1
+ xbrunuWso7SC1EqR5isy9RDkfe2NY2ZXY8fBXYMAxlSrNuy0Gdq0gQQpApv/CbYNFWMiuZ9qFAT
+ 3frRorvSYQSI7M8ZeMrrK0j0JBkZ3zvX6gVNXJkDUmfjhM/xU73HOULt3nZBpFHXITf7bzbAmjW
+ fp0RUFHOXdJWiUWyeAXF2COS8sDcoviePwA2HKs7NwWpVN5nKN3SgotzB2IYwbY9GBO7i1WJI9D
+ GBZ5wqP7TLfQ0A6O/0O2KoeR9VSToYs93ArGGE6tx0O5e/56jYP2pO2ioMhUbJvgD4LZLGea+wV
+ qvOTJI/EZMC2UryVhXBv/u7WOCYAsvOnr8D2OBkwE8S0Ekkv4JxPZEK/3xwmkojvniUO8=
+X-Received: by 2002:a17:907:9703:b0:c24:6382:2648 with SMTP id
+ a640c23a62f3a-c2a16403e1fmr9238266b.5.1789672523059; 
+ Thu, 17 Sep 2026 12:15:23 -0700 (PDT)
+Received: from cartold ([77.213.69.61]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c29de454b4csm333264166b.17.2026.09.17.12.15.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Sep 2026 12:15:22 -0700 (PDT)
+From: Theo Andersen Carton <andersen.theo@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, kai.heng.feng@canonical.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Theo Andersen Carton <andersen.theo@gmail.com>, stable@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: skip the noirq suspend reset for a
+ switcheroo-parked GPU
+Date: Thu, 17 Sep 2026 21:15:12 +0200
+Message-ID: <20260917191512.38838-1-andersen.theo@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: 6HW1ToLNA66ilAaDjXuFsgsQa-d-YiemRICivMwSeX4_1789672189
-X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,129 +89,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-One of the portions of OpenRM's fbsr process that we never implemented is
-the saving and restoring of comptag backing stores. This isn't strictly
-necessary for fbsr to work (as long as we don't specify bEnteringGcOff =
-1), but implementing it brings us much closer to matching OpenRM's fbsr
-process - which means we can rely on things being well tested on Nvidia's
-side.
+amdgpu_pmops_suspend_noirq() resets the ASIC unconditionally. When the GPU
+has been parked by vga_switcheroo it has neither power nor a PCIe link, so
+the reset cannot reach it: pci_set_power_state() reports the device as
+inaccessible and amdgpu_asic_reset() returns -EINVAL. A failure there
+aborts the entire noirq suspend phase, and with it the system suspend, so
+the machine cannot sleep at all while the GPU is switched off.
 
-Now that we have the required driver workarounds in place and fetch the
-required information from GSP's memsys on driver load, let's implement
-support for this by fetching the required space for the compbit backing
-stores and adding it to the amount of memory that we allocate for fbsr.
+amdgpu_device_prepare(), amdgpu_device_suspend() and amdgpu_device_resume()
+all bail out early on DRM_SWITCH_POWER_OFF. This callback was added later,
+for an unrelated reason, and did not inherit the check. nouveau guards
+every one of its PM callbacks the same way.
 
-With this, we should be able to safely enable bEnteringGcOff in fbsr.
+Bail out the same way here. On a single-GPU system switch_power_state is
+never DRM_SWITCH_POWER_OFF, so this is a no-op there.
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Reviewed-by: Dave Airlie <airlied@redhat.com>
+Found on a MacBookPro11,5, where the Radeon is powered down through
+apple-gmux so that the internal panel can be driven by the iGPU instead.
+Every suspend failed in amdgpu_pmops_suspend_noirq() while the card was
+off; with this check a full S3 cycle completes.
 
+Fixes: 9e051720f9d3 ("drm/amdgpu: Ensure HDA function is suspended before ASIC reset")
+Cc: stable@vger.kernel.org
+Signed-off-by: Theo Andersen Carton <andersen.theo@gmail.com>
 ---
-V2:
-* Fix object mismatch in r570_fb_get_compbit_store_size() (rm_ctrl_done
-  and rm_ctrl_rd() were using different objects by mistake)
-* Fix GSP object mismatchs
-* Don't return the size of the compbit store directly from
-  r570_fb_get_compbit_store_size(), this makes it impossible for us to
-  return errors since it's a u64.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
- .../nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c    | 27 ++++++++++++++++++-
- .../nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h       | 23 ++++++++++++++++
- 2 files changed, 49 insertions(+), 1 deletion(-)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 5c33c19fd9bc..d9d794a7db96 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2664,6 +2664,14 @@ static int amdgpu_pmops_suspend_noirq(struct device *dev)
+ 	struct amdgpu_device *adev = drm_to_adev(drm_dev);
+ 	int r;
+ 
++	/*
++	 * A GPU parked by vga_switcheroo has no power and no PCIe link, so the
++	 * ASIC reset below would fail and abort the whole noirq suspend phase.
++	 * Bail out like amdgpu_device_prepare/suspend/resume() already do.
++	 */
++	if (drm_dev->switch_power_state == DRM_SWITCH_POWER_OFF)
++		return 0;
++
+ 	if (amdgpu_acpi_should_gpu_reset(adev)) {
+ 		amdgpu_device_lock_reset_domain(adev->reset_domain);
+ 		r = amdgpu_asic_reset(adev);
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-index f73d9b29e891d..a93a39ef7c690 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-@@ -26,6 +26,23 @@ r570_fbsr_suspend_channels(struct nvkm_gsp *gsp, bool suspend)
- 	return nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
- }
- 
-+static int
-+r570_fb_get_compbit_store_size(struct nvkm_gsp *gsp, u64 *size)
-+{
-+	NV0080_CTRL_FB_GET_COMPBIT_STORE_INFO_PARAMS *ctrl;
-+
-+	ctrl = nvkm_gsp_rm_ctrl_rd(&gsp->internal.device.object,
-+				   NV0080_CTRL_CMD_FB_GET_COMPBIT_STORE_INFO,
-+				   sizeof(*ctrl));
-+	if (IS_ERR(ctrl))
-+		return PTR_ERR(ctrl);
-+
-+	*size = ctrl->Size;
-+
-+	nvkm_gsp_rm_ctrl_done(&gsp->internal.device.object, ctrl);
-+	return 0;
-+}
-+
- static int
- r570_memsys_enable_raw_comp_mode(struct nvkm_gsp *gsp, bool enable)
- {
-@@ -135,7 +152,7 @@ r570_fbsr_suspend(struct nvkm_gsp *gsp)
- 	struct nvkm_device *device = subdev->device;
- 	struct nvkm_instmem *imem = device->imem;
- 	struct nvkm_instobj *iobj;
--	u64 size;
-+	u64 size, compbit_store_size;
- 	int ret;
- 
- 	/* Stop channel scheduling. */
-@@ -152,6 +169,12 @@ r570_fbsr_suspend(struct nvkm_gsp *gsp)
- 			return ret;
- 	}
- 
-+	ret = r570_fb_get_compbit_store_size(gsp, &compbit_store_size);
-+	if (ret < 0)
-+		return ret;
-+	nvkm_debug(&gsp->subdev, "fbsr: Compbit backing store size: 0x%llx bytes\n",
-+		   compbit_store_size);
-+
- 	/* Save BAR2 allocations to system memory. */
- 	list_for_each_entry(iobj, &imem->list, head) {
- 		if (iobj->preserve) {
-@@ -174,6 +197,8 @@ r570_fbsr_suspend(struct nvkm_gsp *gsp)
- 	size  = gsp->fb.heap.size;
- 	size += gsp->fb.rsvd_size;
- 	size += gsp->fb.bios.vga_workspace.size;
-+	size += compbit_store_size;
-+
- 	nvkm_debug(subdev, "fbsr: size: 0x%llx bytes\n", size);
- 
- 	ret = nvkm_gsp_sg(device, size, &gsp->sr.fbsr);
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h
-index 9050a8274b273..cb3e448415b42 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h
-@@ -16,6 +16,29 @@ typedef struct NV2080_CTRL_INTERNAL_FBSR_INIT_PARAMS {
-     NV_DECLARE_ALIGNED(NvU64 sysmemAddrOfSuspendResumeData, 8);
- } NV2080_CTRL_INTERNAL_FBSR_INIT_PARAMS;
- 
-+#define NV0080_CTRL_CMD_FB_GET_COMPBIT_STORE_INFO (0x801306) /* finn: Evaluated from "(FINN_NV01_DEVICE_0_FB_INTERFACE_ID << 8) | NV0080_CTRL_FB_GET_COMPBIT_STORE_INFO_PARAMS_MESSAGE_ID" */
-+
-+typedef struct NV0080_CTRL_FB_GET_COMPBIT_STORE_INFO_PARAMS {
-+    NV_DECLARE_ALIGNED(NvU64 Size, 8);
-+    NV_DECLARE_ALIGNED(NvU64 Address, 8);
-+    NvU32 AddressSpace;
-+    NvU32 MaxCompbitLine;
-+    NvU32 comptagsPerCacheLine;
-+    NvU32 cacheLineSize;
-+    NvU32 cacheLineSizePerSlice;
-+    NvU32 cacheLineFetchAlignment;
-+    NV_DECLARE_ALIGNED(NvU64 backingStoreBase, 8);
-+    NvU32 gobsPerComptagPerSlice;
-+    NvU32 backingStoreCbcBase;
-+    NvU32 comptaglineAllocationPolicy;
-+    NV_DECLARE_ALIGNED(NvU64 privRegionStartOffset, 8);
-+    NvU32 cbcCoveragePerSlice;
-+} NV0080_CTRL_FB_GET_COMPBIT_STORE_INFO_PARAMS;
-+
-+#define NV0080_CTRL_CMD_FB_GET_COMPBIT_STORE_INFO_ADDRESS_SPACE_UNKNOWN 0 // ADDR_UNKNOWN
-+#define NV0080_CTRL_CMD_FB_GET_COMPBIT_STORE_INFO_ADDRESS_SPACE_SYSMEM  1 // ADDR_SYSMEM
-+#define NV0080_CTRL_CMD_FB_GET_COMPBIT_STORE_INFO_ADDRESS_SPACE_FBMEM   2 // ADDR_FBMEM
-+
- #define NV2080_CTRL_CMD_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE (0x20800a6f) /* finn: Evaluated from "(FINN_NV20_SUBDEVICE_0_INTERNAL_INTERFACE_ID << 8) | NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS_MESSAGE_ID" */
- 
- typedef struct NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS {
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
 -- 
 2.55.0
 
