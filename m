@@ -4,130 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50B1DC982D7
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 120B6C982D2
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEFDC10E48B;
-	Fri, 18 Sep 2026 07:10:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16C7310E6DD;
+	Fri, 18 Sep 2026 07:10:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JoDlkFdJ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K3BJnti3";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEFD810E00E
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:24:32 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DD9D6600D4;
- Thu, 17 Sep 2026 16:24:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF5951F00898;
- Thu, 17 Sep 2026 16:24:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789662271;
- bh=uiI0DfRLdeopnxcWki2BiuU0vqEbo4SKS60DQ1+UvnI=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=JoDlkFdJExhib+79sc3mbfFfTiLq4I84vCOE0BnAQsEViidFeCUIBU6Zm+WK7uvcj
- h3csAo6DvbditOrQSEUCMBMciY3oOVayc8TDnECzj/lgzATxo4ZOI26+/ORFffaWmx
- 2qsyWRW4WAU1n2K5zxr2LRl+pClqa/u4krK8Zz81OxU/ByR0bHNUWzTyerdoDNipmN
- Ncm8kcmNyyPXoBM7G2bA7me43O5b5GMmXPb5M2fjlLqdpGDCH92oScWrB/taMJWdgK
- G3mqQa4OD5nCb2qOAGA4UUM9ssa42pQJFvg8ObELlHIO9hH0dpr8oJB++BvZfbY8Fs
- ss4o3EktWPFnA==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:22:12 +0100
-Subject: [PATCH v3 03/40] mm/vma: introduce and use vma_[flags_]can_merge()
+Received: from mail-wm2-f9.google.com (mail-wm2-f9.google.com [74.125.225.137])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF0C810EF65
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 14:40:51 +0000 (UTC)
+Received: by mail-wm2-f9.google.com with SMTP id
+ 5b1f17b1804b1-49e6eb11e9cso3318895e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 07:40:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789656050; x=1790260850; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=uxdo04KgC3ZopuNd4o1TqXYNrHfISkm+8Ow6DwBarvc=;
+ b=K3BJnti3AU7sRZvtA6r/9IG2I1PDm+NuJGnXOFnfTXKrr5bzIPSswTQereryInLEU9
+ j1gcDNQfYgxlWL62WSxPeNLtZr6nwTj4ZkUNBaUnTh/TCjHwm3tvnZWhpo9x15Z0Qz4V
+ aXZtjc4vtyC3ygW3YwIWCtWWXNUqISaUp3UCC1ho3meVhw8zkTK+p1pT5g8SVZ4JBPrD
+ M6YXjDjWm/6RDk9EjMqwYGZFZLX6Ax3LHiOqnyzQZJ+UqhWtEKTtTJeEKplPX03VnE6H
+ 56QYWOhicGjYmEnRf0uzmr3GGVaybR3W/CR3z7xeGlSDlUbH7fkmuaVL21NvsrY1FVws
+ Frhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789656050; x=1790260850;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=uxdo04KgC3ZopuNd4o1TqXYNrHfISkm+8Ow6DwBarvc=;
+ b=gGc2vZjctAuSEzbu0i8xkB74+6/npWBT1da0fbVGeBBDdAXPtk1VHRCkCo4YEQzPJI
+ HUm2L1VnSSmad5lkWOmcgLkNSp1BZJWBsYCiC1Ir23g1rCgDBVl/pSKhIbI5Q9qBtVY+
+ 0+G3I0FOzsmhXVR3/lKa+IfgOo/oiMT2ZdBMMalRBCYrXA7YwW5flLe38axQhbW2v8hT
+ DnJZGpWyFLMVGeFUNMNQPuMv3CJBDZpERk/df7InmCtqJf/0Fq4pGzohOkzhdD6PedEI
+ CddChblzgOT+3Ao7m2RR+JwLOmYwpGxmuxsZ5wwjewZvc6UGnU5PmLGt2wXHhSXw81vY
+ t5Dw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByo1CnHJqHfUl4rbgnJoxYQ66pLQDuZHZu84Z9EibRIVdlR2cmGCzJXzVQl58P5myXT8/7YRqxJETg=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lFgZx1Snqw8E7BZ3f7xdPSuflKAiag55oH/BTpeAnfYvtKjNl1
+ UjS04Uxqdkdz3zjorH9HCB9ZYvtd0AMa/FWqKvlnsH03SpgzQ7Vwlth8
+X-Gm-Gg: AYBFou3QFj3JyvbPgUL2+Jr7s4ffz0PzCGydQmGaBRVJV2EWrDJPDiDR6p7ps/vBg62
+ 9REGrsfSPbhl5D0tfz0IoK+y+/PHVmNlPQWL9Jql2C3QifsvvR7yoGDuZnO7jeEtLB0lquYZ3a7
+ SS1yjJOE6KS5ieFmIXmGPLJuOKdVMtWHskF0ZdUBA+YkqJ54Erhj9nzop8B26EnnB8GlwDJJd1P
+ raRu8VGoG50ROn0FrlSsttfHa4h2fWqRUllODTtzyJ+vOGzcNBbl5mTU9HzKTZd02XZz6x0lMPV
+ WQNnuo+LOEBmYvXxVI+rsFlCc5EChZfF6Fke5xAJmkSy0WAmtY4ZVKZnlHrIzpAVvXjqkXXTzGV
+ dCwSpU+N9zoCFt7UEtGxGMqy6uf/0hXl/ruFg+NztNJpkRGhz+kvG5a+TQJuKa6WPY6sfkNINIx
+ R4NImgUD2Sy1npp+xEgLu8jqAuCP14gMMDQg92xmKhTFEEpUVpJ28VncuOXdsn48g/9Nakb8YE3
+ iGbLw==
+X-Received: by 2002:a05:600c:c1c8:20b0:49f:c1a1:5222 with SMTP id
+ 5b1f17b1804b1-49fc1a1522amr13221935e9.33.1789656049693; 
+ Thu, 17 Sep 2026 07:40:49 -0700 (PDT)
+Received: from chicken.. ([2a02:2f02:5101:7300:44c:8311:3d26:e514])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49fbd1d0d0bsm78988225e9.1.2026.09.17.07.40.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Sep 2026 07:40:48 -0700 (PDT)
+From: Daniel Matyas <matyasdaniel006@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+ =?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
+ Ulf Hansson <ulfh@kernel.org>, Liang Yang <liang.yang@amlogic.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>,
+ Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Vinod Koul <vkoul@kernel.org>, Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: Jose Abreu <joabreu@synopsys.com>, Ray Jui <ray.jui@broadcom.com>,
+ Scott Branden <scott.branden@broadcom.com>,
+ Atish Patra <atishp@rivosinc.com>, Shawn Guo <shawn.guo@linaro.org>,
+ Dmitry Osipenko <digetx@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Ibrahim Tilki <Ibrahim.Tilki@analog.com>,
+ Okan Sahin <Okan.Sahin@analog.com>, devicetree@vger.kernel.org,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>,
+ linux-rtc@vger.kernel.org, Ricard Wanderlof <ricardw@axis.com>,
+ patches@opensource.cirrus.com, Lukas Wunner <lukas@wunner.de>,
+ Chunfeng Yun <chunfeng.yun@mediatek.com>,
+ Eugen Hristev <ehristev@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org, linux@analog.com,
+ linux-input@vger.kernel.org, chrome-platform@lists.linux.dev,
+ linux-riscv@lists.infradead.org, Daniel Matyas <matyasdaniel006@gmail.com>
+Subject: [PATCH] dt-bindings: Expand flow lists to block lists
+Date: Thu, 17 Sep 2026 17:40:28 +0300
+Message-ID: <20260917144028.459053-1-matyasdaniel006@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-3-4583d8a23bca@kernel.org>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3665; i=ljs@kernel.org;
- h=from:subject:message-id; bh=jEmmzTa/nXg8cFJkAn6p6g1Z/ZjRGGA7aJrZ0nX97uA=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCO977B/Gyum+YKumwMGjDGsvifHV8Cjf/W97nXHD0
- ddGx461dJSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiy7sYGR7qfJ/4a8qOPVJ/
- fzOn+hy8GnGIV3Z6eqTLurnzjubyPX/OyLB1L/PmvNtfO+Ycf2+w9xaT+Mew3gMKHHuL5Wb8kpv
- s94QBAA==
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 18 Sep 2026 07:09:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,112 +122,787 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace the open-coded VMA_SPECIAL_FLAGS check in the VMA merge logic with
-two new functions vma_flags_can_merge() and vma_can_merge() and update the
-merge logic to use the former.
+Running dt_bindings_check returned:
+[error] string value is redundantly quoted with any quotes (quoted-strings)
 
-This abstracts the check and expresses it in terms of the desired behaviour
-rather than an arbitrary and confusing VMA flag.
+The files used quotation marks in flow lists because the strings had
+commas and these commas were interpreted as separators. Convert flow
+style lists to block style lists, so that there is no problems with the
+commas.
 
-This also lays the groundwork for making further improvements in VMA flag
-usage.
-
-Also update the userland VMA tests to reflect the change.
-
-No functional change intended.
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Daniel Matyas <matyasdaniel006@gmail.com>
 ---
- include/linux/mm.h              | 21 +++++++++++++++++++++
- mm/vma.c                        | 19 +++++++++++--------
- tools/testing/vma/include/dup.h |  5 +++++
- 3 files changed, 37 insertions(+), 8 deletions(-)
+ .../bindings/display/atmel,lcdc-display.yaml  |  9 ++++---
+ .../devicetree/bindings/eeprom/at24.yaml      |  4 +++-
+ .../devicetree/bindings/example-schema.yaml   |  6 +++--
+ .../bindings/hwmon/pmbus/adi,max20830.yaml    |  6 +++--
+ .../bindings/iio/adc/ti,ads112c14.yaml        |  6 +++--
+ .../bindings/iio/frequency/adi,adf41513.yaml  |  3 ++-
+ .../bindings/iio/frequency/adi,adrf6780.yaml  |  6 +++--
+ .../bindings/iio/temperature/adi,ltc2983.yaml |  6 +++--
+ .../bindings/input/azoteq,iqs7222.yaml        | 12 ++++++----
+ .../bindings/input/google,cros-ec-keyb.yaml   |  6 +++--
+ .../devicetree/bindings/input/input.yaml      |  3 ++-
+ .../devicetree/bindings/input/iqs269a.yaml    | 12 ++++++----
+ .../devicetree/bindings/input/iqs626a.yaml    | 15 ++++++++----
+ .../input/touchscreen/azoteq,iqs7211.yaml     | 24 ++++++++++++-------
+ .../interrupt-controller/riscv,aplic.yaml     |  3 ++-
+ .../bindings/mfd/maxim,max8998.yaml           |  6 +++--
+ .../bindings/mfd/samsung,s5m8767.yaml         | 21 +++++++++++-----
+ .../devicetree/bindings/mmc/arm,pl18x.yaml    |  9 ++++---
+ .../bindings/mtd/amlogic,meson-nand.yaml      |  8 +++++--
+ .../devicetree/bindings/net/snps,dwmac.yaml   |  6 +++--
+ .../bindings/pci/brcm,iproc-pcie.yaml         |  3 ++-
+ .../devicetree/bindings/perf/riscv,pmu.yaml   |  3 ++-
+ .../phy/hisilicon,hi3798cv200-combphy.yaml    |  6 +++--
+ .../bindings/phy/nvidia,tegra20-usb-phy.yaml  |  6 +++--
+ .../bindings/regulator/adi,max77857.yaml      |  6 +++--
+ .../bindings/regulator/maxim,max8997.yaml     |  9 ++++---
+ .../regulator/samsung,s2mpg10-regulator.yaml  |  3 ++-
+ .../regulator/samsung,s2mpg11-regulator.yaml  |  3 ++-
+ .../bindings/regulator/ti,tps65132.yaml       |  3 ++-
+ .../devicetree/bindings/riscv/cpus.yaml       |  6 +++--
+ .../bindings/rtc/abracon,abx80x.yaml          |  6 +++--
+ .../soc/tegra/nvidia,tegra20-pmc.yaml         | 10 +++++---
+ .../bindings/sound/ti,tlv320adc3xxx.yaml      |  6 +++--
+ .../devicetree/bindings/sound/wlf,wm8904.yaml | 18 ++++++++++----
+ .../devicetree/bindings/tpm/tpm-common.yaml   |  6 +++--
+ .../bindings/usb/mediatek,mtk-xhci.yaml       |  3 ++-
+ .../bindings/usb/mediatek,mtu3.yaml           | 12 ++++++----
+ .../bindings/watchdog/atmel,at91sam9-wdt.yaml |  3 ++-
+ 38 files changed, 192 insertions(+), 91 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 969594074fd2..68250ece4219 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -1612,6 +1612,27 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
- 	return is_shared_maywrite(&vma->flags);
- }
+diff --git a/Documentation/devicetree/bindings/display/atmel,lcdc-display.yaml b/Documentation/devicetree/bindings/display/atmel,lcdc-display.yaml
+index a5cf040ab4ea..51aa13f6a348 100644
+--- a/Documentation/devicetree/bindings/display/atmel,lcdc-display.yaml
++++ b/Documentation/devicetree/bindings/display/atmel,lcdc-display.yaml
+@@ -23,9 +23,12 @@ description:
  
-+/**
-+ * vma_flags_can_merge() - Do the specified VMA flags permit the VMA to be
-+ * merged with another?
-+ * @flags: The VMA flags to test.
-+ * Returns: true if the flags permit merging, false otherwise.
-+ */
-+static inline bool vma_flags_can_merge(const vma_flags_t *flags)
-+{
-+	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
-+}
-+
-+/**
-+ * vma_can_merge() - Do @vma's flags permit it to be merged with another VMA?
-+ * @vma: The VMA to test.
-+ * Returns: true if the flags permit merging, otherwise false.
-+ */
-+static inline bool vma_can_merge(const struct vm_area_struct *vma)
-+{
-+	return vma_flags_can_merge(&vma->flags);
-+}
-+
- /**
-  * vma_kernel_pagesize - Default page size granularity for this VMA.
-  * @vma: The user mapping.
-diff --git a/mm/vma.c b/mm/vma.c
-index 4b74b48c29b7..05d2c676672e 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -924,13 +924,14 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
+ select:
+   anyOf:
+-    - required: [ 'atmel,dmacon' ]
+-    - required: [ 'atmel,lcdcon2' ]
+-    - required: [ 'atmel,guard-time' ]
++    - required:
++        - atmel,dmacon
++    - required:
++        - atmel,lcdcon2
++    - required:
++        - atmel,guard-time
  
- 	vmg->state = VMA_MERGE_NOMERGE;
+ properties:
+   atmel,dmacon:
+diff --git a/Documentation/devicetree/bindings/eeprom/at24.yaml b/Documentation/devicetree/bindings/eeprom/at24.yaml
+index ef88f46928a4..6d9167cfd12d 100644
+--- a/Documentation/devicetree/bindings/eeprom/at24.yaml
++++ b/Documentation/devicetree/bindings/eeprom/at24.yaml
+@@ -20,7 +20,9 @@ select:
+       contains:
+         anyOf:
+           - pattern: "^atmel,(24(c|cs|mac)[0-9]+|spd)$"
+-          - enum: ["microchip,24aa025e48", "microchip,24aa025e64"]
++          - enum:
++              - microchip,24aa025e48
++              - microchip,24aa025e64
+   required:
+     - compatible
  
-+	if (!vma_flags_can_merge(&vmg->vma_flags))
-+		return NULL;
- 	/*
--	 * If a special mapping or if the range being modified is neither at the
--	 * furthermost left or right side of the VMA, then we have no chance of
--	 * merging and should abort.
-+	 * If the range being modified is neither at the furthermost left or
-+	 * right side of the VMA, then we have no chance of merging and should
-+	 * abort.
- 	 */
--	if (vma_flags_test_any_mask(&vmg->vma_flags, VMA_SPECIAL_FLAGS) ||
--	    (!left_side && !right_side))
-+	if (!left_side && !right_side)
- 		return NULL;
+diff --git a/Documentation/devicetree/bindings/example-schema.yaml b/Documentation/devicetree/bindings/example-schema.yaml
+index b04f3cc4312c..4ff46f1384b9 100644
+--- a/Documentation/devicetree/bindings/example-schema.yaml
++++ b/Documentation/devicetree/bindings/example-schema.yaml
+@@ -206,10 +206,12 @@ properties:
+ dependencies:
+   # 'vendor,bool-property' is only allowed when 'vendor,string-array-property'
+   # is present
+-  vendor,bool-property: [ 'vendor,string-array-property' ]
++  vendor,bool-property:
++    - vendor,string-array-property
+   # Expressing 2 properties in both orders means all of the set of properties
+   # must be present or none of them.
+-  vendor,string-array-property: [ 'vendor,bool-property' ]
++  vendor,string-array-property:
++    - vendor,bool-property
  
- 	if (left_side)
-@@ -1152,9 +1153,11 @@ struct vm_area_struct *vma_merge_new_range(struct vma_merge_struct *vmg)
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20830.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20830.yaml
+index cc50a4ee44a2..7904dacff789 100644
+--- a/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20830.yaml
++++ b/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20830.yaml
+@@ -67,8 +67,10 @@ required:
+   - vddh-supply
  
- 	vmg->state = VMA_MERGE_NOMERGE;
+ dependencies:
+-  adi,vout-rfb1-ohms: ['adi,vout-rfb2-ohms']
+-  adi,vout-rfb2-ohms: ['adi,vout-rfb1-ohms']
++  adi,vout-rfb1-ohms:
++    - adi,vout-rfb2-ohms
++  adi,vout-rfb2-ohms:
++    - adi,vout-rfb1-ohms
  
--	/* Special VMAs are unmergeable, also if no prev/next. */
--	if (vma_flags_test_any_mask(&vmg->vma_flags, VMA_SPECIAL_FLAGS) ||
--	    (!prev && !next))
-+	if (!vma_flags_can_merge(&vmg->vma_flags))
-+		return NULL;
-+
-+	/* VMAs with no prev/next are unmergeable. */
-+	if (!prev && !next)
- 		return NULL;
+ unevaluatedProperties: false
  
- 	can_merge_left = can_vma_merge_left(vmg);
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 16c09dac59d9..2fd422789717 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -1647,3 +1647,8 @@ static inline bool file_is_dev_zero(const struct file *file)
- {
- 	return file && file->f_op == &zero_fops;
- }
-+
-+static inline bool vma_flags_can_merge(const vma_flags_t *flags)
-+{
-+	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
-+}
-
+diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
+index facfeee61330..6dd59552a41f 100644
+--- a/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
+@@ -132,8 +132,10 @@ dependencies:
+   refn-supply: [ refp-supply ]
+ 
+ oneOf:
+-  - required: [ refp-supply ]
+-  - required: [ "ti,refp-refn-resistor-ohms" ]
++  - required:
++      - refp-supply
++  - required:
++      - ti,refp-refn-resistor-ohms
+   - properties:
+       refp-supply: false
+       refn-supply: false
+diff --git a/Documentation/devicetree/bindings/iio/frequency/adi,adf41513.yaml b/Documentation/devicetree/bindings/iio/frequency/adi,adf41513.yaml
+index f4fae9210382..c71ebc039af2 100644
+--- a/Documentation/devicetree/bindings/iio/frequency/adi,adf41513.yaml
++++ b/Documentation/devicetree/bindings/iio/frequency/adi,adf41513.yaml
+@@ -166,7 +166,8 @@ properties:
+     type: boolean
+ 
+ dependencies:
+-  adi,charge-pump-resistor-ohms: [ 'adi,charge-pump-current-microamp' ]
++  adi,charge-pump-resistor-ohms:
++    - adi,charge-pump-current-microamp
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/iio/frequency/adi,adrf6780.yaml b/Documentation/devicetree/bindings/iio/frequency/adi,adrf6780.yaml
+index f11391ab4b62..2bb3ddd252c9 100644
+--- a/Documentation/devicetree/bindings/iio/frequency/adi,adrf6780.yaml
++++ b/Documentation/devicetree/bindings/iio/frequency/adi,adrf6780.yaml
+@@ -104,8 +104,10 @@ properties:
+     const: 0
+ 
+ dependencies:
+-  adi,lo-x2-en: [ "adi,lo-en" ]
+-  adi,lo-ppf-en: [ "adi,lo-en" ]
++  adi,lo-x2-en:
++    - adi,lo-en
++  adi,lo-ppf-en:
++    - adi,lo-en
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/iio/temperature/adi,ltc2983.yaml b/Documentation/devicetree/bindings/iio/temperature/adi,ltc2983.yaml
+index 13e5f29f0588..19fc978deb76 100644
+--- a/Documentation/devicetree/bindings/iio/temperature/adi,ltc2983.yaml
++++ b/Documentation/devicetree/bindings/iio/temperature/adi,ltc2983.yaml
+@@ -284,7 +284,8 @@ patternProperties:
+               type: boolean
+ 
+           dependencies:
+-            adi,current-rotate: [ 'adi,rsense-share' ]
++            adi,current-rotate:
++              - adi,rsense-share
+ 
+       - if:
+           properties:
+@@ -368,7 +369,8 @@ patternProperties:
+       - adi,rsense-handle
+ 
+     dependencies:
+-      adi,current-rotate: [ 'adi,rsense-share' ]
++      adi,current-rotate:
++        - adi,rsense-share
+ 
+     allOf:
+       - if:
+diff --git a/Documentation/devicetree/bindings/input/azoteq,iqs7222.yaml b/Documentation/devicetree/bindings/input/azoteq,iqs7222.yaml
+index 418c168b223b..5043ed4cbd5c 100644
+--- a/Documentation/devicetree/bindings/input/azoteq,iqs7222.yaml
++++ b/Documentation/devicetree/bindings/input/azoteq,iqs7222.yaml
+@@ -396,8 +396,10 @@ patternProperties:
+         description: Specifies the cycle's current reference trim.
+ 
+     dependencies:
+-      azoteq,iref-level: ["azoteq,iref-enable"]
+-      azoteq,iref-trim: ["azoteq,iref-enable"]
++      azoteq,iref-level:
++        - azoteq,iref-enable
++      azoteq,iref-trim:
++        - azoteq,iref-enable
+ 
+     additionalProperties: false
+ 
+@@ -627,8 +629,10 @@ patternProperties:
+         additionalProperties: false
+ 
+     dependencies:
+-      azoteq,ref-weight: ["azoteq,ref-select"]
+-      azoteq,use-prox: ["azoteq,ref-select"]
++      azoteq,ref-weight:
++        - azoteq,ref-select
++      azoteq,use-prox:
++        - azoteq,ref-select
+ 
+     additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/input/google,cros-ec-keyb.yaml b/Documentation/devicetree/bindings/input/google,cros-ec-keyb.yaml
+index fefaaf46a240..a8e61ad5b52a 100644
+--- a/Documentation/devicetree/bindings/input/google,cros-ec-keyb.yaml
++++ b/Documentation/devicetree/bindings/input/google,cros-ec-keyb.yaml
+@@ -45,8 +45,10 @@ properties:
+       when the keyboard has a custom design for the top row keys.
+ 
+ dependencies:
+-  function-row-physmap: [ 'linux,keymap' ]
+-  google,needs-ghost-filter: [ 'linux,keymap' ]
++  function-row-physmap:
++    - linux,keymap
++  google,needs-ghost-filter:
++    - linux,keymap
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/input/input.yaml b/Documentation/devicetree/bindings/input/input.yaml
+index 64d1c46cb2f2..7181af1ac8c2 100644
+--- a/Documentation/devicetree/bindings/input/input.yaml
++++ b/Documentation/devicetree/bindings/input/input.yaml
+@@ -75,6 +75,7 @@ properties:
+     default: 0
+ 
+ dependencies:
+-  linux,input-type: [ "linux,code" ]
++  linux,input-type:
++    - linux,code
+ 
+ additionalProperties: true
+diff --git a/Documentation/devicetree/bindings/input/iqs269a.yaml b/Documentation/devicetree/bindings/input/iqs269a.yaml
+index 2c3f693b8982..e77702feaeca 100644
+--- a/Documentation/devicetree/bindings/input/iqs269a.yaml
++++ b/Documentation/devicetree/bindings/input/iqs269a.yaml
+@@ -272,10 +272,14 @@ properties:
+       in order to be interpreted as a flick or swipe.
+ 
+ dependencies:
+-  azoteq,gesture-swipe: ["linux,keycodes"]
+-  azoteq,timeout-tap-ms: ["linux,keycodes"]
+-  azoteq,timeout-swipe-ms: ["linux,keycodes"]
+-  azoteq,thresh-swipe: ["linux,keycodes"]
++  azoteq,gesture-swipe:
++    - linux,keycodes
++  azoteq,timeout-tap-ms:
++    - linux,keycodes
++  azoteq,timeout-swipe-ms:
++    - linux,keycodes
++  azoteq,thresh-swipe:
++    - linux,keycodes
+ 
+ patternProperties:
+   "^channel@[0-7]$":
+diff --git a/Documentation/devicetree/bindings/input/iqs626a.yaml b/Documentation/devicetree/bindings/input/iqs626a.yaml
+index e424d67b0542..534ee0742fdb 100644
+--- a/Documentation/devicetree/bindings/input/iqs626a.yaml
++++ b/Documentation/devicetree/bindings/input/iqs626a.yaml
+@@ -500,7 +500,8 @@ patternProperties:
+         additionalProperties: false
+ 
+     dependencies:
+-      azoteq,assoc-weight: ["azoteq,assoc-select"]
++      azoteq,assoc-weight:
++        - azoteq,assoc-select
+ 
+     additionalProperties: false
+ 
+@@ -722,10 +723,14 @@ patternProperties:
+         additionalProperties: false
+ 
+     dependencies:
+-      azoteq,gesture-swipe: ["linux,keycodes"]
+-      azoteq,timeout-tap-ms: ["linux,keycodes"]
+-      azoteq,timeout-swipe-ms: ["linux,keycodes"]
+-      azoteq,thresh-swipe: ["linux,keycodes"]
++      azoteq,gesture-swipe:
++        - linux,keycodes
++      azoteq,timeout-tap-ms:
++        - linux,keycodes
++      azoteq,timeout-swipe-ms:
++        - linux,keycodes
++      azoteq,thresh-swipe:
++        - linux,keycodes
+ 
+     additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/azoteq,iqs7211.yaml b/Documentation/devicetree/bindings/input/touchscreen/azoteq,iqs7211.yaml
+index e4dbbafb3779..bb5407649717 100644
+--- a/Documentation/devicetree/bindings/input/touchscreen/azoteq,iqs7211.yaml
++++ b/Documentation/devicetree/bindings/input/touchscreen/azoteq,iqs7211.yaml
+@@ -347,9 +347,12 @@ properties:
+         additionalProperties: false
+ 
+     dependencies:
+-      azoteq,rx-enable: ["azoteq,tx-enable"]
+-      azoteq,tx-enable: ["azoteq,rx-enable"]
+-      azoteq,channel-select: ["azoteq,rx-enable"]
++      azoteq,rx-enable:
++        - azoteq,tx-enable
++      azoteq,tx-enable:
++        - azoteq,rx-enable
++      azoteq,channel-select:
++        - azoteq,rx-enable
+ 
+     additionalProperties: false
+ 
+@@ -592,11 +595,16 @@ properties:
+   touchscreen-swapped-x-y: true
+ 
+ dependencies:
+-  touchscreen-size-x: ["azoteq,num-contacts"]
+-  touchscreen-size-y: ["azoteq,num-contacts"]
+-  touchscreen-inverted-x: ["azoteq,num-contacts"]
+-  touchscreen-inverted-y: ["azoteq,num-contacts"]
+-  touchscreen-swapped-x-y: ["azoteq,num-contacts"]
++  touchscreen-size-x:
++    - azoteq,num-contacts
++  touchscreen-size-y:
++    - azoteq,num-contacts
++  touchscreen-inverted-x:
++    - azoteq,num-contacts
++  touchscreen-inverted-y:
++    - azoteq,num-contacts
++  touchscreen-swapped-x-y:
++    - azoteq,num-contacts
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/riscv,aplic.yaml b/Documentation/devicetree/bindings/interrupt-controller/riscv,aplic.yaml
+index 0718071444d2..20a52bd25bd8 100644
+--- a/Documentation/devicetree/bindings/interrupt-controller/riscv,aplic.yaml
++++ b/Documentation/devicetree/bindings/interrupt-controller/riscv,aplic.yaml
+@@ -101,7 +101,8 @@ properties:
+       that is mentioned in the "interrupts-extended"
+ 
+ dependencies:
+-  riscv,delegation: [ "riscv,children" ]
++  riscv,delegation:
++    - riscv,children
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/mfd/maxim,max8998.yaml b/Documentation/devicetree/bindings/mfd/maxim,max8998.yaml
+index f3c3f64fd012..a4fd1805b13f 100644
+--- a/Documentation/devicetree/bindings/mfd/maxim,max8998.yaml
++++ b/Documentation/devicetree/bindings/mfd/maxim,max8998.yaml
+@@ -130,8 +130,10 @@ properties:
+           - regulator-name
+ 
+ dependencies:
+-  max8998,pmic-buck1-dvs-gpios: [ "max8998,pmic-buck1-dvs-voltage" ]
+-  max8998,pmic-buck2-dvs-gpio: [ "max8998,pmic-buck2-dvs-voltage" ]
++  max8998,pmic-buck1-dvs-gpios:
++    - max8998,pmic-buck1-dvs-voltage
++  max8998,pmic-buck2-dvs-gpio:
++    - max8998,pmic-buck2-dvs-voltage
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/mfd/samsung,s5m8767.yaml b/Documentation/devicetree/bindings/mfd/samsung,s5m8767.yaml
+index 249248078c59..df0640423757 100644
+--- a/Documentation/devicetree/bindings/mfd/samsung,s5m8767.yaml
++++ b/Documentation/devicetree/bindings/mfd/samsung,s5m8767.yaml
+@@ -143,12 +143,21 @@ required:
+   - s5m8767,pmic-buck-ds-gpios
+ 
+ dependencies:
+-  s5m8767,pmic-buck2-dvs-voltage: [ 's5m8767,pmic-buck-dvs-gpios' ]
+-  s5m8767,pmic-buck3-dvs-voltage: [ 's5m8767,pmic-buck-dvs-gpios' ]
+-  s5m8767,pmic-buck4-dvs-voltage: [ 's5m8767,pmic-buck-dvs-gpios' ]
+-  s5m8767,pmic-buck2-uses-gpio-dvs: [ 's5m8767,pmic-buck-dvs-gpios', 's5m8767,pmic-buck2-dvs-voltage' ]
+-  s5m8767,pmic-buck3-uses-gpio-dvs: [ 's5m8767,pmic-buck-dvs-gpios', 's5m8767,pmic-buck3-dvs-voltage' ]
+-  s5m8767,pmic-buck4-uses-gpio-dvs: [ 's5m8767,pmic-buck-dvs-gpios', 's5m8767,pmic-buck4-dvs-voltage' ]
++  s5m8767,pmic-buck2-dvs-voltage:
++    - s5m8767,pmic-buck-dvs-gpios
++  s5m8767,pmic-buck3-dvs-voltage:
++    - s5m8767,pmic-buck-dvs-gpios
++  s5m8767,pmic-buck4-dvs-voltage:
++    - s5m8767,pmic-buck-dvs-gpios
++  s5m8767,pmic-buck2-uses-gpio-dvs:
++    - s5m8767,pmic-buck-dvs-gpios
++    - s5m8767,pmic-buck2-dvs-voltage
++  s5m8767,pmic-buck3-uses-gpio-dvs:
++    - s5m8767,pmic-buck-dvs-gpios
++    - s5m8767,pmic-buck3-dvs-voltage
++  s5m8767,pmic-buck4-uses-gpio-dvs:
++    - s5m8767,pmic-buck-dvs-gpios
++    - s5m8767,pmic-buck4-dvs-voltage
+ 
+ additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+index 8d62be4355a0..fec8ecbb56d5 100644
+--- a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
++++ b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+@@ -168,9 +168,12 @@ properties:
+       The GPIO matching the CKIN pin.
+ 
+ dependencies:
+-  st,cmd-gpios: [ "st,use-ckin" ]
+-  st,ck-gpios: [ "st,use-ckin" ]
+-  st,ckin-gpios: [ "st,use-ckin" ]
++  st,cmd-gpios:
++    - st,use-ckin
++  st,ck-gpios:
++    - st,use-ckin
++  st,ckin-gpios:
++    - st,use-ckin
+ 
+ unevaluatedProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/mtd/amlogic,meson-nand.yaml b/Documentation/devicetree/bindings/mtd/amlogic,meson-nand.yaml
+index fa2aa29be794..00079edc7dd3 100644
+--- a/Documentation/devicetree/bindings/mtd/amlogic,meson-nand.yaml
++++ b/Documentation/devicetree/bindings/mtd/amlogic,meson-nand.yaml
+@@ -85,8 +85,12 @@ patternProperties:
+     dependencies:
+       nand-ecc-strength: [nand-ecc-step-size]
+       nand-ecc-step-size: [nand-ecc-strength]
+-      amlogic,boot-pages: [nand-is-boot-medium, "amlogic,boot-page-step"]
+-      amlogic,boot-page-step: [nand-is-boot-medium, "amlogic,boot-pages"]
++      amlogic,boot-pages:
++        - nand-is-boot-medium
++        - amlogic,boot-page-step
++      amlogic,boot-page-step:
++        - nand-is-boot-medium
++        - amlogic,boot-pages
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+index 2449311c6d28..8eb84942ce3f 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+@@ -605,8 +605,10 @@ required:
+   - phy-mode
+ 
+ dependencies:
+-  snps,reset-active-low: ["snps,reset-gpio"]
+-  snps,reset-delays-us: ["snps,reset-gpio"]
++  snps,reset-active-low:
++    - snps,reset-gpio
++  snps,reset-delays-us:
++    - snps,reset-gpio
+ 
+ allOf:
+   - $ref: ethernet-controller.yaml#
+diff --git a/Documentation/devicetree/bindings/pci/brcm,iproc-pcie.yaml b/Documentation/devicetree/bindings/pci/brcm,iproc-pcie.yaml
+index 18e7981241b5..2f1be6420e23 100644
+--- a/Documentation/devicetree/bindings/pci/brcm,iproc-pcie.yaml
++++ b/Documentation/devicetree/bindings/pci/brcm,iproc-pcie.yaml
+@@ -82,7 +82,8 @@ properties:
+   msi-parent: true
+ 
+ dependencies:
+-  brcm,pcie-ob-axi-offset: ["brcm,pcie-ob"]
++  brcm,pcie-ob-axi-offset:
++    - brcm,pcie-ob
+   brcm,pcie-msi-inten: [msi-controller]
+ 
+ required:
+diff --git a/Documentation/devicetree/bindings/perf/riscv,pmu.yaml b/Documentation/devicetree/bindings/perf/riscv,pmu.yaml
+index d01c677ad3c7..aa2ccf00d136 100644
+--- a/Documentation/devicetree/bindings/perf/riscv,pmu.yaml
++++ b/Documentation/devicetree/bindings/perf/riscv,pmu.yaml
+@@ -90,7 +90,8 @@ properties:
+             bitmap of all MHPMCOUNTERx that can monitor the range of events
+ 
+ dependencies:
+-  riscv,event-to-mhpmevent: [ "riscv,event-to-mhpmcounters" ]
++  riscv,event-to-mhpmevent:
++    - riscv,event-to-mhpmcounters
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/phy/hisilicon,hi3798cv200-combphy.yaml b/Documentation/devicetree/bindings/phy/hisilicon,hi3798cv200-combphy.yaml
+index 81001966f657..2040723f5297 100644
+--- a/Documentation/devicetree/bindings/phy/hisilicon,hi3798cv200-combphy.yaml
++++ b/Documentation/devicetree/bindings/phy/hisilicon,hi3798cv200-combphy.yaml
+@@ -48,8 +48,10 @@ required:
+   - resets
+ 
+ oneOf:
+-  - required: ['hisilicon,fixed-mode']
+-  - required: ['hisilicon,mode-select-bits']
++  - required:
++      - hisilicon,fixed-mode
++  - required:
++      - hisilicon,mode-select-bits
+ 
+ additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/phy/nvidia,tegra20-usb-phy.yaml b/Documentation/devicetree/bindings/phy/nvidia,tegra20-usb-phy.yaml
+index a37e8322dc50..90eba0e6ecdb 100644
+--- a/Documentation/devicetree/bindings/phy/nvidia,tegra20-usb-phy.yaml
++++ b/Documentation/devicetree/bindings/phy/nvidia,tegra20-usb-phy.yaml
+@@ -251,8 +251,10 @@ allOf:
+         - nvidia,xcvr-lsrslew
+ 
+       anyOf:
+-        - required: ["nvidia,xcvr-setup"]
+-        - required: ["nvidia,xcvr-setup-use-fuses"]
++        - required:
++            - nvidia,xcvr-setup
++        - required:
++            - nvidia,xcvr-setup-use-fuses
+ 
+       if:
+         properties:
+diff --git a/Documentation/devicetree/bindings/regulator/adi,max77857.yaml b/Documentation/devicetree/bindings/regulator/adi,max77857.yaml
+index d1fa74aca721..4191c5f3dcd0 100644
+--- a/Documentation/devicetree/bindings/regulator/adi,max77857.yaml
++++ b/Documentation/devicetree/bindings/regulator/adi,max77857.yaml
+@@ -43,8 +43,10 @@ properties:
+     description: Bottom feedback resistor value in ohms for external feedback.
+ 
+ dependencies:
+-  adi,rtop-ohms: [ 'adi,rbot-ohms' ]
+-  adi,rbot-ohms: [ 'adi,rtop-ohms' ]
++  adi,rtop-ohms:
++    - adi,rbot-ohms
++  adi,rbot-ohms:
++    - adi,rtop-ohms
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/regulator/maxim,max8997.yaml b/Documentation/devicetree/bindings/regulator/maxim,max8997.yaml
+index 2b266ea43716..acc493840588 100644
+--- a/Documentation/devicetree/bindings/regulator/maxim,max8997.yaml
++++ b/Documentation/devicetree/bindings/regulator/maxim,max8997.yaml
+@@ -251,9 +251,12 @@ required:
+   - regulators
+ 
+ dependencies:
+-  max8997,pmic-buck1-uses-gpio-dvs: [ 'max8997,pmic-buck125-dvs-gpios' ]
+-  max8997,pmic-buck2-uses-gpio-dvs: [ 'max8997,pmic-buck125-dvs-gpios' ]
+-  max8997,pmic-buck5-uses-gpio-dvs: [ 'max8997,pmic-buck125-dvs-gpios' ]
++  max8997,pmic-buck1-uses-gpio-dvs:
++    - max8997,pmic-buck125-dvs-gpios
++  max8997,pmic-buck2-uses-gpio-dvs:
++    - max8997,pmic-buck125-dvs-gpios
++  max8997,pmic-buck5-uses-gpio-dvs:
++    - max8997,pmic-buck125-dvs-gpios
+ 
+ additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/regulator/samsung,s2mpg10-regulator.yaml b/Documentation/devicetree/bindings/regulator/samsung,s2mpg10-regulator.yaml
+index 7252f94b3a8f..506b61175ae9 100644
+--- a/Documentation/devicetree/bindings/regulator/samsung,s2mpg10-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/samsung,s2mpg10-regulator.yaml
+@@ -139,7 +139,8 @@ $defs:
+           property describes the GPIO line used.
+ 
+     dependentRequired:
+-      enable-gpios: [ "samsung,ext-control" ]
++      enable-gpios:
++        - samsung,ext-control
+ 
+ allOf:
+   # Bucks 8, 9, and LDO 1 can not be controlled externally - above definition
+diff --git a/Documentation/devicetree/bindings/regulator/samsung,s2mpg11-regulator.yaml b/Documentation/devicetree/bindings/regulator/samsung,s2mpg11-regulator.yaml
+index 119386325d1b..3a8a2945efd7 100644
+--- a/Documentation/devicetree/bindings/regulator/samsung,s2mpg11-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/samsung,s2mpg11-regulator.yaml
+@@ -116,7 +116,8 @@ $defs:
+           property describes the GPIO line used.
+ 
+     dependentRequired:
+-      enable-gpios: [ "samsung,ext-control" ]
++      enable-gpios:
++        - samsung,ext-control
+ 
+ allOf:
+   # Bucks 4, 6, 7 and 10 can not be controlled externally - above definition
+diff --git a/Documentation/devicetree/bindings/regulator/ti,tps65132.yaml b/Documentation/devicetree/bindings/regulator/ti,tps65132.yaml
+index 873d92738eb0..f120f82398dc 100644
+--- a/Documentation/devicetree/bindings/regulator/ti,tps65132.yaml
++++ b/Documentation/devicetree/bindings/regulator/ti,tps65132.yaml
+@@ -48,7 +48,8 @@ patternProperties:
+         description: Regulator active discharge time in microseconds.
+ 
+     dependencies:
+-      active-discharge-gpios: [ 'ti,active-discharge-time-us' ]
++      active-discharge-gpios:
++        - ti,active-discharge-time-us
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/riscv/cpus.yaml b/Documentation/devicetree/bindings/riscv/cpus.yaml
+index 5feeb2203050..26914597d049 100644
+--- a/Documentation/devicetree/bindings/riscv/cpus.yaml
++++ b/Documentation/devicetree/bindings/riscv/cpus.yaml
+@@ -151,8 +151,10 @@ anyOf:
+       - riscv,isa-base
+ 
+ dependencies:
+-  riscv,isa-base: [ "riscv,isa-extensions" ]
+-  riscv,isa-extensions: [ "riscv,isa-base" ]
++  riscv,isa-base:
++    - riscv,isa-extensions
++  riscv,isa-extensions:
++    - riscv,isa-base
+ 
+ required:
+   - interrupt-controller
+diff --git a/Documentation/devicetree/bindings/rtc/abracon,abx80x.yaml b/Documentation/devicetree/bindings/rtc/abracon,abx80x.yaml
+index 355b0598411a..9990de48bdd3 100644
+--- a/Documentation/devicetree/bindings/rtc/abracon,abx80x.yaml
++++ b/Documentation/devicetree/bindings/rtc/abracon,abx80x.yaml
+@@ -53,8 +53,10 @@ properties:
+     enum: [0, 3, 6, 11]
+ 
+ dependentRequired:
+-  abracon,tc-diode: ["abracon,tc-resistor"]
+-  abracon,tc-resistor: ["abracon,tc-diode"]
++  abracon,tc-diode:
++    - abracon,tc-resistor
++  abracon,tc-resistor:
++    - abracon,tc-diode
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/soc/tegra/nvidia,tegra20-pmc.yaml b/Documentation/devicetree/bindings/soc/tegra/nvidia,tegra20-pmc.yaml
+index f516960dbbef..819adf7e005e 100644
+--- a/Documentation/devicetree/bindings/soc/tegra/nvidia,tegra20-pmc.yaml
++++ b/Documentation/devicetree/bindings/soc/tegra/nvidia,tegra20-pmc.yaml
+@@ -365,9 +365,13 @@ allOf:
+ additionalProperties: false
+ 
+ dependencies:
+-  nvidia,suspend-mode: ['nvidia,core-pwr-off-time', 'nvidia,cpu-pwr-off-time']
+-  nvidia,core-pwr-off-time: ['nvidia,core-pwr-good-time']
+-  nvidia,cpu-pwr-off-time: ['nvidia,cpu-pwr-good-time']
++  nvidia,suspend-mode:
++    - nvidia,core-pwr-off-time
++    - nvidia,cpu-pwr-off-time
++  nvidia,core-pwr-off-time:
++    - nvidia,core-pwr-good-time
++  nvidia,cpu-pwr-off-time:
++    - nvidia,cpu-pwr-good-time
+ 
+ examples:
+   - |
+diff --git a/Documentation/devicetree/bindings/sound/ti,tlv320adc3xxx.yaml b/Documentation/devicetree/bindings/sound/ti,tlv320adc3xxx.yaml
+index 66b76656229f..4e02f2dc5aa8 100644
+--- a/Documentation/devicetree/bindings/sound/ti,tlv320adc3xxx.yaml
++++ b/Documentation/devicetree/bindings/sound/ti,tlv320adc3xxx.yaml
+@@ -125,8 +125,10 @@ properties:
+       Mic bias voltage output on MICBIAS2 pin
+ 
+ dependencies:
+-  ti,micbias1-gpo: ['ti,micbias1-vg']
+-  ti,micbias2-gpo: ['ti,micbias2-vg']
++  ti,micbias1-gpo:
++    - ti,micbias1-vg
++  ti,micbias2-gpo:
++    - ti,micbias2-vg
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/sound/wlf,wm8904.yaml b/Documentation/devicetree/bindings/sound/wlf,wm8904.yaml
+index 3029a868e5e1..eb0cf2002865 100644
+--- a/Documentation/devicetree/bindings/sound/wlf,wm8904.yaml
++++ b/Documentation/devicetree/bindings/sound/wlf,wm8904.yaml
+@@ -107,12 +107,20 @@ properties:
+       maxItems: 24
+ 
+ dependencies:
+-  wlf,drc-cfg-names: [ 'wlf,drc-cfg-regs' ]
+-  wlf,drc-cfg-regs: [ 'wlf,drc-cfg-names' ]
++  wlf,drc-cfg-names:
++    - wlf,drc-cfg-regs
++  wlf,drc-cfg-regs:
++    - wlf,drc-cfg-names
+ 
+-  wlf,retune-mobile-cfg-names: [ 'wlf,retune-mobile-cfg-hz', 'wlf,retune-mobile-cfg-regs' ]
+-  wlf,retune-mobile-cfg-regs: [ 'wlf,retune-mobile-cfg-names', 'wlf,retune-mobile-cfg-hz' ]
+-  wlf,retune-mobile-cfg-hz: [ 'wlf,retune-mobile-cfg-names', 'wlf,retune-mobile-cfg-regs' ]
++  wlf,retune-mobile-cfg-names:
++    - wlf,retune-mobile-cfg-hz
++    - wlf,retune-mobile-cfg-regs
++  wlf,retune-mobile-cfg-regs:
++    - wlf,retune-mobile-cfg-names
++    - wlf,retune-mobile-cfg-hz
++  wlf,retune-mobile-cfg-hz:
++    - wlf,retune-mobile-cfg-names
++    - wlf,retune-mobile-cfg-regs
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/tpm/tpm-common.yaml b/Documentation/devicetree/bindings/tpm/tpm-common.yaml
+index 3c1241b2a43f..b8853c39ebbf 100644
+--- a/Documentation/devicetree/bindings/tpm/tpm-common.yaml
++++ b/Documentation/devicetree/bindings/tpm/tpm-common.yaml
+@@ -50,8 +50,10 @@ properties:
+ 
+ # must always have both linux,sml-base and linux,sml-size
+ dependentRequired:
+-  linux,sml-base: ['linux,sml-size']
+-  linux,sml-size: ['linux,sml-base']
++  linux,sml-base:
++    - linux,sml-size
++  linux,sml-size:
++    - linux,sml-base
+ 
+ # must only have either memory-region or linux,sml-base
+ # as well as either resets or reset-gpios
+diff --git a/Documentation/devicetree/bindings/usb/mediatek,mtk-xhci.yaml b/Documentation/devicetree/bindings/usb/mediatek,mtk-xhci.yaml
+index 231e6f35a986..af13035f94dc 100644
+--- a/Documentation/devicetree/bindings/usb/mediatek,mtk-xhci.yaml
++++ b/Documentation/devicetree/bindings/usb/mediatek,mtk-xhci.yaml
+@@ -194,7 +194,8 @@ patternProperties:
+     description: The hard wired USB devices.
+ 
+ dependencies:
+-  wakeup-source: [ 'mediatek,syscon-wakeup' ]
++  wakeup-source:
++    - mediatek,syscon-wakeup
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml b/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml
+index d148e938d647..27d512ada717 100644
+--- a/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml
++++ b/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml
+@@ -227,10 +227,14 @@ patternProperties:
+       example if the host mode is enabled.
+ 
+ dependencies:
+-  connector: [ usb-role-switch ]
+-  port: [ usb-role-switch ]
+-  role-switch-default-mode: [ usb-role-switch ]
+-  wakeup-source: [ 'mediatek,syscon-wakeup' ]
++  connector:
++    - usb-role-switch
++  port:
++    - usb-role-switch
++  role-switch-default-mode:
++    - usb-role-switch
++  wakeup-source:
++    - mediatek,syscon-wakeup
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/watchdog/atmel,at91sam9-wdt.yaml b/Documentation/devicetree/bindings/watchdog/atmel,at91sam9-wdt.yaml
+index ad27bc518670..fea4f510aa6c 100644
+--- a/Documentation/devicetree/bindings/watchdog/atmel,at91sam9-wdt.yaml
++++ b/Documentation/devicetree/bindings/watchdog/atmel,at91sam9-wdt.yaml
+@@ -104,7 +104,8 @@ allOf:
+           const: hardware
+ 
+ dependencies:
+-  atmel,reset-type: ['atmel,watchdog-type']
++  atmel,reset-type:
++    - atmel,watchdog-type
+ 
+ unevaluatedProperties: false
+ 
 -- 
-2.55.0
+2.43.0
 
