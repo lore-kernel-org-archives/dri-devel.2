@@ -4,131 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07BF0C982D2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF60AC982D9
 	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11F4110EA73;
-	Fri, 18 Sep 2026 07:10:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1A4910E7D0;
+	Fri, 18 Sep 2026 07:10:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Pyt7zq3w";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mDBBHK/I";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81D2B10E0AE
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:34:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 016B410EE1E
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 11:40:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5151643B19;
- Thu, 17 Sep 2026 16:34:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5968D1F00893;
- Thu, 17 Sep 2026 16:33:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BD2C24395F;
+ Thu, 17 Sep 2026 11:40:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A09061F000FF;
+ Thu, 17 Sep 2026 11:40:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789662852;
- bh=GfRJzELhUA3zmjv637fDp+tblD+oWrGBxslIXX4F7cw=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Pyt7zq3wVrUAhNpXFXSuMVbDH6B9z27BuC4N5wSlqvK2YZ+YYcE38ItXJSygGLBUo
- jAOODUNiB8Hl2Z9TIS2vNbKclQyw54/sJwA+VbvsXDn0TD6r5o228/oBdRI3ZVNXtE
- Vn6qrdsda/Xfpp6xcB32G5ie9VvVYF6zK2oGcw7N0Tr0KugM/8h8+9skPGKu81Fu1v
- dUTlbWz+k5DmldJr+jaFMBP1ti+JPFxPgg1webbI7hC3+m22mXIypG2Kegwu62ONHh
- IphxagghomlS1XLWIPjchqsW+MqR5DhD81KyMXcMv4/F4ESQ4UCrMz8qtzU5tzkm2V
- 9qfYZxVjVZdRw==
+ s=k20260515; t=1789645243;
+ bh=BApzGHIqAjiErWcRlmmivBGBfFVBONt4ktRgWMUzDCk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=mDBBHK/IhHEPd17SZQYudlv622AFtJid39i0LAeTPe5KX2n4jjfEibNrHMdEGP/lt
+ eUgQ97JZr9jtSS+gOZV9ctH5mVpR5Wezp3sekSSbMJ5cOeo6kdk0KT15/6B49AIGEy
+ W3xTRN8TOmbFo/L3aM1LzCnmwuDCeyPl4is4tqU7CxU3Ioxbh6x+wbfLlNfNi4Nbut
+ a7/lNdUCvCwU4aCE2PFX04HuH+W5hEeEwQfpeBZl00atZiv1MQM4dBxsjASoERsnQh
+ U2zQOve9t2ri7i6jgJuS/I7mx5ZPVMsb+fxhyacjpxeRyQ3wCmjEdg7jvg80HHafvW
+ 7dUndTZsEPJPw==
+Date: Thu, 17 Sep 2026 12:40:08 +0100
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:22:31 +0100
-Subject: [PATCH v3 22/40] uprobes: remove VM_IO, set VM_MIXEDMAP for mapped
- kernel pages
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-22-4583d8a23bca@kernel.org>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
  Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
  Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
+ Paul Moore <paul@paul-moore.com>,
  Stephen Smalley <stephen.smalley.work@gmail.com>, 
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
  Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
  Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
  Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
  Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
  Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, 
+ Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>,
+ Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
  Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
  Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
+ Vincent Guittot <vincent.guittot@linaro.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
+ Arnd Bergmann <arnd@arndb.de>, 
  Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, 
+ Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
  Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
  Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, 
  Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
  Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2070; i=ljs@kernel.org;
- h=from:subject:message-id; bh=joQXUjvjM3OjL+Ta6QEJ1w5g7Vsv4M79ot1AULAZKpk=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB/q4Fj8329FrtbDMiFFC29ptVwduSnTb/sdWLDt6
- EPNQz15HaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZhIjAYjQysXc4jOXOkLizqe
- C2g/vP3cILJezzj8ioBasHvjo9+dNYwMOz/GLnqz6VVSzVbf/sX67g2LDpjmmxbucpy7/tS7Rzs
- a2AE=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
+ linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev
+Subject: Re: [PATCH v2 01/40] mm/vma: fix mmap_prepare file handling, remove
+ file_doesnt_need_get
+Message-ID: <aqvRKarObW1Zy-QD@gremlin>
+References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
+ <20260914-b4-mmap-prepare-vma-flag-sanify-v2-1-7d9781ed5361@kernel.org>
+ <aquz9Z9JrK_H_E0g@kernel.org> <aqu5jtMV2gyZFrSe@gremlin>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqu5jtMV2gyZFrSe@gremlin>
 X-Mailman-Approved-At: Fri, 18 Sep 2026 07:10:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -145,63 +142,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-These are not MMIO pages so VMA_IO_BIT is an inappropriate flag to set.
+On Thu, Sep 17, 2026 at 10:57:57AM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Thu, Sep 17, 2026 at 12:33:41PM +0300, Mike Rapoport wrote:
+> > But the patch iteslf needs to be fixed :)
+> >
+> > It seems to be the change that broke the CI.
+> >
+> > The rest is from LLM, take it with a grain of salt :)
+>
+> Ack will assess + respin
 
-Instead, set them VMA_MIXEDMAP_BIT as they are kernel mappings and this is
-the appropriate flag to set for those.
+Apologies to everybody's inbox but this will need a respin to resolve a conflict
+in a subsequent commit.
 
-This provides the semantics required - no VMA merging is permitted, but
-does not prevent GUP.
+This was to fix a sashiko report (not a bug anywhere in production, but could
+lead to bugs in future by accident), and got sashiko + [another AI]-reviewed
+before sending all of which missed it :)) the robot overloads are not quite in
+charge yet ;)
 
-However this has no meaningful impact as these are refcounted and thus can
-be GUPed.
+Fix is simple - update flags at the right time. The error was pre-empting
+setting everything rather than just map->vm_file.
 
-A previous commit already prevented __mm_populate() from being invoked on
-XOL areas, which VMA_IO_BIT was previously relied upon to do, so that is no
-longer required.
+Will look through other sashiko stuff then respin a bit later.
 
-Both VMAs set a VMA name, so always_dump_vma() returns true before
-vma_dump_size() reaches its VMA_IO_BIT check, and thus there is no change
-in core dump behaviour.
-
-Change this for both the core xol_add_vma() function and the x86-specific
-get_uprobe_trampoline() function.
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- arch/x86/kernel/uprobes.c | 2 +-
- kernel/events/uprobes.c   | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/arch/x86/kernel/uprobes.c b/arch/x86/kernel/uprobes.c
-index 65a2de82ecd2..0f60c0d076b6 100644
---- a/arch/x86/kernel/uprobes.c
-+++ b/arch/x86/kernel/uprobes.c
-@@ -715,7 +715,7 @@ static struct vm_area_struct *get_uprobe_trampoline(struct mm_struct *mm, unsign
- 
- 	*new_mapping = true;
- 	return _install_special_mapping(mm, vaddr, PAGE_SIZE,
--				VM_READ|VM_EXEC|VM_MAYEXEC|VM_MAYREAD|VM_IO,
-+				VM_READ|VM_EXEC|VM_MAYEXEC|VM_MAYREAD|VM_MIXEDMAP,
- 				&tramp_mapping);
- }
- 
-diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
-index 7709ea882477..b89cc5cee002 100644
---- a/kernel/events/uprobes.c
-+++ b/kernel/events/uprobes.c
-@@ -1726,8 +1726,8 @@ static int xol_add_vma(struct mm_struct *mm, struct xol_area *area)
- 	}
- 
- 	vma = _install_special_mapping(mm, area->vaddr, PAGE_SIZE,
--				VM_EXEC|VM_MAYEXEC|VM_DONTCOPY|VM_IO|
--				VM_SEALED_SYSMAP,
-+				VM_EXEC|VM_MAYEXEC|VM_DONTCOPY|
-+				VM_MIXEDMAP|VM_SEALED_SYSMAP,
- 				&xol_mapping);
- 	if (IS_ERR(vma)) {
- 		ret = PTR_ERR(vma);
-
--- 
-2.55.0
-
+--
+Cheers, Lorenzo
