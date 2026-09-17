@@ -4,101 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5B46C982D0
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 20:19:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6F78C88E72
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 20:24:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D639910E785;
-	Thu, 17 Sep 2026 20:19:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9520710F0BE;
+	Thu, 17 Sep 2026 20:24:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="hoVnCUZo";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aRGKxuBI";
 	dkim-atps=neutral
-Received: from mail-qv1-f97.google.com (mail-qv1-f97.google.com
- [209.85.219.97])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E962510E785
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 20:19:39 +0000 (UTC)
-Received: by mail-qv1-f97.google.com with SMTP id
- 6a1803df08f44-90cc107c451so12136d6.0
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 13:19:39 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789676379; x=1790281179;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=fLxZssB9U7mhFEndNCTWKOH6wwXoCj1Ld9FrnWBLISM=;
- b=QKGNJIu3m8QYbPnx5G0aWPR9/Efb56EPGpwkJVtiuuJFDZF+KdcmhJYSdw5PgWF0QU
- ksA5hepHxdOuIEXiPY+txXd0pjarMxg46dTyBcLJ40RjYh/AJgpe3VqFSNOOYRxHC3GJ
- IQcqsft3zHHOM4YqL1fV2agvvcZA1vo6wXw8AQJ6JivHadOiQ5uBa1DAycyYNfFGIEVW
- WG90SHgYzkNjZSIvlh8HYuOCfFuJoyDnkpKJ18IFF6f7MlL3go4f9O+z1osCw5yGfiZJ
- L7wNyeDsRy/A+4XXMuOfJR1isiW30LJqeCoQekRoQif7diblu7TR1uz+xIpNoteTL7l8
- 2hlg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBykhXPJCXp/nflXK85QnQPOKNvhqDZ5OlFoHQJpyPyG8C1UQ1+uooOQ9kDR3DLIW8Le1CETZksN8oE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mr0KQduwuE5j5J254l2A56MYnaO+Okz3J6oDs8/U9WLTJN+Hui
- fRKYZ74+/Sa8kpGQ7UDz+QjcT+RxXjNTkWE4kfRJJEMCQSkXjX06N0x4eqtkYNQnp7LukPhpKZK
- z0xexntZPWIUqVjm//Eimg2jckJcOUsxlPjVvTl8zeyzCI2nOjf16ht/WUqzW7VHyaD2+gTPUPl
- EcIw0asg3t4lT84bS/ZqzN8vy0DKbqCcvw6rcaWgyHXutDh64RFs5G8TxOYaQr1lDlPQe4s0UZ3
- bxfENCz4+MISovVesNl
-X-Gm-Gg: AYBFou3LVo1A4MI662oHkn2f6HmTqL4fpZWaxq0Kfs5TgONGGdG9X7AN5XSz2GwIVf+
- j3+Z+42lx01vOyXtYuca4xcco5vMLDODmcYBqHd5qrcNGgsA5J4+IRo+dvmAeQB8Grsa4pZk7iH
- Zlh+HfVHeqtLBFfTDK2Y8Z951jVImxt6kMccuY0QejhlrdnqrEgkvxMwwhWIKZlUlQn8F8Hc8Qx
- O+uSg5sv36Pn0YWsaIrYVyAZlGrLxV237XV1qmaTzZppZBI5DdN3zOuNxm9RoV5f4qCSkceZ6nx
- zpiOUnT38c9BGuvTweqJUzckrNdxcV9vJaFa44r+6qNuXLr6bvNGebLZ1it6ZF5fiq5Sus/GJPh
- SpSd593IBPL2UKzQyGy9nBIuLIJTrEd0vaT33X3Pu7p0op0D017OcW3QrEm0nNEcxkL06fyFRJk
- +osvYhj+6ZSklQGJScJnjLt2FkWUzc8Zo7
-X-Received: by 2002:a0c:f404:0:b0:910:3453:d4ab with SMTP id
- 6a1803df08f44-91254c2b165mr6962976d6.32.1789676378603; 
- Thu, 17 Sep 2026 13:19:38 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-98.dlp.protect.broadcom.com. [144.49.247.98])
- by smtp-relay.gmail.com with ESMTPS id
- 6a1803df08f44-91252c68d0dsm139096d6.12.2026.09.17.13.19.37
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 17 Sep 2026 13:19:38 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-lf1-f70.google.com with SMTP id
- 2adb3069b0e04-5b617595b4fso17462e87.0
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 13:19:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1789676376; x=1790281176;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=fLxZssB9U7mhFEndNCTWKOH6wwXoCj1Ld9FrnWBLISM=;
- b=hoVnCUZoLt4m0V+hRYacjZSjUtW+391Ibp4ovQKZ51rjOjJIvh1et7Jc1VX9kKh9F1
- bQgcI+c1eaiNCYoO+er0M2eETyShAHbr8E5G0sEuyeu4ldNzLtmuTfm75aZGRt3B8Rmn
- GKu/RRXCIPqIE+hPBnyLvixCnyFAKNBJPJStE=
-X-Forwarded-Encrypted: i=1;
- AKwUvBxj7ZF2z+h2v9b7HIad6LfZluGJbtTXsy2dBwRyXxpqJH59LsWj2Z15fVFrAENI44nxVAoGJ2Y/Ook=@lists.freedesktop.org
-X-Received: by 2002:a05:6512:3e0b:b0:5b8:c05d:2aae with SMTP id
- 2adb3069b0e04-5b8c17fde11mr13665e87.15.1789676375856; 
- Thu, 17 Sep 2026 13:19:35 -0700 (PDT)
-X-Received: by 2002:a05:6512:3e0b:b0:5b8:c05d:2aae with SMTP id
- 2adb3069b0e04-5b8c17fde11mr13659e87.15.1789676375347; Thu, 17 Sep 2026
- 13:19:35 -0700 (PDT)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010064.outbound.protection.outlook.com [52.101.85.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D68C710F0BE
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 20:24:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dSDcdNJqr8o9U2AZyGruviZpUkZeOl7VTzmRZj1cDbMUIV++Hpfyj/cNdAKv4KO2UppgVa/O2J9caUA8Mn2WKnqCvzM9TUsxrbjoXz858RV9+W4lMY7o8H+cTG9ZwGJgLmY7yO73OhIIr1LRD7YwrikVgnUr6gy2UZ6c5gUSlHEYIxvmFHMwk076r4WZPRi8JiS5JQ/Ko+yX2EvakSADSTNys1u4/4b+B1hyYg/fqbKOGxIGqf4hCEgQdW1bfRN2xiYb/H8PHLh3pQp5xz6+4rVYBPaSRv3LxZeXFbNw+dZGfBqWoL671SYRt2fwyEhgDCnz7+nPOrNvzfnxttsBrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=suYWBYdIpXhcf2ZgFMeqayRMChXy+6OctjmXk4HO/Gw=;
+ b=SqBQcX8FpA7duZVzRNwVqo31wQ9PtSrkjb6QI+IzNq+PkMGiMMAOzb6y/YNKyKOIu5r7iILMthMmoJiijNeQaqGNNtjVJYuaXjHcEG34KwRbmIjZ+WcN+pkXZKtcwTjW/dtHVvEvNThqCpOK/+bJSDHQTYbdAtvN5aDnFO1JLNoZuYc3q64FmrsnnNwUiVf7JIA6C7j3uwjiF3Z1C8KrSPBRAm3HWySqW4BB6nc+RvcqDSmvP0lMnf8XFL952Jhev0bgoH4iFl/a3q9tUzDNFWOw2ihBbhLWcWNcyWeLnLIMkjSdFZp2q7Y7vPb8DlecpV93lM0sjkmjLoFg16q3QQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=suYWBYdIpXhcf2ZgFMeqayRMChXy+6OctjmXk4HO/Gw=;
+ b=aRGKxuBIM83SUZNapMaE3cePO4XHIdoOtwh9GEhJyTziK1orBQPDU9Z4jOiZ8fk6alYHhk6LFgFTgJnx3leUCiUA5QmGR1LoS84WtkC6yxjFbTq0pgDlnPCd7GUTd3H+n/rNShtJTt0LVvapz+rOrqWsXfd96Uc/6Naj5eTmCbk=
+Received: from MW4PR04CA0111.namprd04.prod.outlook.com (2603:10b6:303:83::26)
+ by PH8PR12MB6724.namprd12.prod.outlook.com (2603:10b6:510:1cf::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Thu, 17 Sep
+ 2026 20:23:55 +0000
+Received: from MWH0EPF000C618F.namprd02.prod.outlook.com
+ (2603:10b6:303:83:cafe::2b) by MW4PR04CA0111.outlook.office365.com
+ (2603:10b6:303:83::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Thu,
+ 17 Sep 2026 20:23:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MWH0EPF000C618F.mail.protection.outlook.com (10.167.249.103) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Thu, 17 Sep 2026 20:23:55 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
+ 2026 15:23:54 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Thu, 17 Sep 2026 15:23:54 -0500
+Message-ID: <81bcf2ab-cfcd-3e2a-ca91-671e72d93bb8@amd.com>
+Date: Thu, 17 Sep 2026 13:23:49 -0700
 MIME-Version: 1.0
-References: <20260917181312.12473-1-claire.m.dusoleil@gmail.com>
-In-Reply-To: <20260917181312.12473-1-claire.m.dusoleil@gmail.com>
-From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Thu, 17 Sep 2026 16:19:23 -0400
-X-Gm-Features: AcwNN1U_Znxt7WnpZzFL2-G3BQr_uBz7mzWDa193ESrqbE6ctOWIqc94KVZxAP0
-Message-ID: <CABQX2QM6vB3+AaJdSBu_gVN=Mw9Fz5W5xoDR2mxsUKRLaPpOvQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/vmwgfx: Fix GEM_CLOSE returning -EINVAL for
- PRIME-imported surfaces
-To: Claire DuSoleil <claire.m.dusoleil@gmail.com>
-Cc: Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="000000000000aa59ee065bb38085"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v2 1/2] accel/amdxdna: clear the mailbox channel pointer
+ when starting it fails
+Content-Language: en-US
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: Eva Crystal <0xiviel@gmail.com>, <min.ma@amd.com>, Min Ma
+ <mamin506@gmail.com>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>
+References: <cover.1789334558.git.0xiviel@gmail.com>
+ <2fcf0eca215090dbbd95cb86e1bf5076056d3818.1789334558.git.0xiviel@gmail.com>
+ <e9fd6957-306b-a649-0352-1beabb91c60a@amd.com>
+In-Reply-To: <e9fd6957-306b-a649-0352-1beabb91c60a@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C618F:EE_|PH8PR12MB6724:EE_
+X-MS-Office365-Filtering-Correlation-Id: b719a433-dd4d-4237-73a8-08df14f998d2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|1800799024|23010399003|36860700016|22082099003|18002099003|4143699003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: PYokYou/iQ6dlyxFfvklv2+XvVLZDfdjWUchgz8vV1xO6au8P01GSfE9Xnxqr6kq7G5m4yMLkayhIjaXhkCwe0NpyDwg/lDNgJFdLdeU76TOdFp3qilPRxCxCjTb1Uwgm9ZdVH9QDk9LuI9j+SbT/3idGvlt3GZyEGZAZz99KbL26wN8kLmqOyoPX/ufTQi8VKSSIlA/kE603hSj8IGBAy+wo0Keir5eu4bBXKB9jyHsueUw11QZxScL2H1k/IJDJX5AvnWvP33teIolTCqdcewf9Sx45kSpNK3NaH6jaGOrzASr9xqT1pFQ5mutirXOo2jYH89Jf2wpm7/HUaY1U86lR0L8Z8RY/tyKFJZpj7L40YY/WKXyVttWiACoznsAD1iOZX+Ev31Z9G1IQKYx1/jC2cOK9MZyynozL0LCANb8fPwr/95kWJuqvRZORy4X2gq79pFd6Vvsw5BnqBMx7+7t+yZGvt0tsILPrCFDzTfmW3HHhnfYWe9IAN7FmV15B/Xdq8cN+GaPqPbDWA3mPGXTBfQEMlNdCgBqGBsSj16iuAyJWpr0GOHBq9eZ3qxRGvFNyPk7iP9WmbdU5LN9yPPWEIsCcbYhoNskkOzPZTE5e+sBWNm0Ps4sqUoBt9nXhNnNTSRgO193t7v4mAzQ8A29ngMKzBgthu1y18kYsAgOnScDHuHlq4qmSrmh/cTvRpi1FFQX6AbxT8TyJHTd4w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(23010399003)(36860700016)(22082099003)(18002099003)(4143699003)(10067099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: lZCQbWFhgn/dsU3ij2Ot0rQ7xdRJl/CAyUha3uJD1jnCTaaBGdxu2gtfyFy/rQ15FoXTmYHiwm1DaDVYpfba3mV2yCbQovQ49uY/Rxko3hfQ8gk0HvmEhi3Gz4ZRwoF2bYY53mHf6WNt7/U+0gz5V9C8W3PFQCnHxyCgWm/MF8DHX1OjNBzR1DcFMcoC02onBSmzV58yYIoL6joO6YO4QlfBaY6fFfxETsgWuzP9pJe930YPq8AUH1r1MK2NTU3xfNfqP+egO0WI36c/kZmIp84XRq0Ind4FMlEcevtGUY9g/Y3R6hPX8JOl2PmR56Fh5OnorxFgsLJwOsvfJw0bRMo5kYu49D3jlI3QhZ5UCQvFnZ6XYxiabz4l075QghXIbzQe+ubZ313UBWylT4tH4XLBFH1/ffUro8Kp2JOsrjvNxJtDFlaKtlb5m/8ntPkd
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 20:23:55.2459 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b719a433-dd4d-4237-73a8-08df14f998d2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C618F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6724
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,122 +117,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000aa59ee065bb38085
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Applied to drm-misc-next
 
-On Thu, Sep 17, 2026 at 2:13=E2=80=AFPM Claire DuSoleil
-<claire.m.dusoleil@gmail.com> wrote:
-> All seven changed files were also confirmed byte-for-byte
-
-Sure, humans do that all the time... Seriously though, this is crazy.
-Claire, you can't expect anyone to even look at this. You just wasted
-tokens/compute by letting some LLM run wild. If you want to use an LLM
-to help fix the bug you are trying to address, the best approach is to
-have it generate IGT testcases so that people who understand the code
-and have a running test setup for this driver can tackle it.
-
-z
-
---000000000000aa59ee065bb38085
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
-
-MIIVIgYJKoZIhvcNAQcCoIIVEzCCFQ8CAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGg
-ghKPMIIGqDCCBJCgAwIBAgIQfofDCS7XZu8vIeKo0KeY9DANBgkqhkiG9w0BAQwFADBMMSAwHgYD
-VQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSNjETMBEGA1UEChMKR2xvYmFsU2lnbjETMBEGA1UE
-AxMKR2xvYmFsU2lnbjAeFw0yMzA0MTkwMzUzNTNaFw0yOTA0MTkwMDAwMDBaMFIxCzAJBgNVBAYT
-AkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBS
-NiBTTUlNRSBDQSAyMDIzMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwjAEbSkPcSyn
-26Zn9VtoE/xBvzYmNW29bW1pJZ7jrzKwPJm/GakCvy0IIgObMsx9bpFaq30X1kEJZnLUzuE1/hlc
-hatYqyORVBeHlv5V0QRSXY4faR0dCkIhXhoGknZ2O0bUJithcN1IsEADNizZ1AJIaWsWbQ4tYEYj
-ytEdvfkxz1WtX3SjtecZR+9wLJLt6HNa4sC//QKdjyfr/NhDCzYrdIzAssoXFnp4t+HcMyQTrj0r
-pD8KkPj96sy9axzegLbzte7wgTHbWBeJGp0sKg7BAu+G0Rk6teO1yPd75arbCvfY/NaRRQHk6tmG
-71gpLdB1ZhP9IcNYyeTKXIgfMh2tVK9DnXGaksYCyi6WisJa1Oa+poUroX2ESXO6o03lVxiA1xyf
-G8lUzpUNZonGVrUjhG5+MdY16/6b0uKejZCLbgu6HLPvIyqdTb9XqF4XWWKu+OMDs/rWyQ64v3mv
-Sa0te5Q5tchm4m9K0Pe9LlIKBk/gsgfaOHJDp4hYx4wocDr8DeCZe5d5wCFkxoGc1ckM8ZoMgpUc
-4pgkQE5ShxYMmKbPvNRPa5YFzbFtcFn5RMr1Mju8gt8J0c+dxYco2hi7dEW391KKxGhv7MJBcc+0
-x3FFTnmhU+5t6+CnkKMlrmzyaoeVryRTvOiH4FnTNHtVKUYDsCM0CLDdMNgoxgkCAwEAAaOCAX4w
-ggF6MA4GA1UdDwEB/wQEAwIBhjBMBgNVHSUERTBDBggrBgEFBQcDAgYIKwYBBQUHAwQGCisGAQQB
-gjcUAgIGCisGAQQBgjcKAwwGCisGAQQBgjcKAwQGCSsGAQQBgjcVBjASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBQAKTaeXHq6D68tUC3boCOFGLCgkjAfBgNVHSMEGDAWgBSubAWjkxPioufi
-1xzWx/B/yGdToDB7BggrBgEFBQcBAQRvMG0wLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwMi5nbG9i
-YWxzaWduLmNvbS9yb290cjYwOwYIKwYBBQUHMAKGL2h0dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5j
-b20vY2FjZXJ0L3Jvb3QtcjYuY3J0MDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6Ly9jcmwuZ2xvYmFs
-c2lnbi5jb20vcm9vdC1yNi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUAA4IC
-AQCRkUdr1aIDRmkNI5jx5ggapGUThq0KcM2dzpMu314mJne8yKVXwzfKBtqbBjbUNMODnBkhvZcn
-bHUStur2/nt1tP3ee8KyNhYxzv4DkI0NbV93JChXipfsan7YjdfEk5vI2Fq+wpbGALyyWBgfy79Y
-IgbYWATB158tvEh5UO8kpGpjY95xv+070X3FYuGyeZyIvao26mN872FuxRxYhNLwGHIy38N9ASa1
-Q3BTNKSrHrZngadofHglG5W3TMFR11JOEOAUHhUgpbVVvgCYgGA6dSX0y5z7k3rXVyjFOs7KBSXr
-dJPKadpl4vqYphH7+P40nzBRcxJHrv5FeXlTrb+drjyXNjZSCmzfkOuCqPspBuJ7vab0/9oeNERg
-nz6SLCjLKcDXbMbKcRXgNhFBlzN4OUBqieSBXk80w2Nzx12KvNj758WavxOsXIbX0Zxwo1h3uw75
-AI2v8qwFWXNclO8qW2VXoq6kihWpeiuvDmFfSAwRLxwwIjgUuzG9SaQ+pOomuaC7QTKWMI0hL0b4
-mEPq9GsPPQq1UmwkcYFJ/Z4I93DZuKcXmKMmuANTS6wxwIEw8Q5MQ6y9fbJxGEOgOgYL4QIqNULb
-5CYPnt2LeiIiEnh8Uuh8tawqSjnR0h7Bv5q4mgo3L1Z9QQuexUntWD96t4o0q1jXWLyrpgP7Zcnu
-CzCCBYMwggNroAMCAQICDkXmuwODM8OFZUjm/0VRMA0GCSqGSIb3DQEBDAUAMEwxIDAeBgNVBAsT
-F0dsb2JhbFNpZ24gUm9vdCBDQSAtIFI2MRMwEQYDVQQKEwpHbG9iYWxTaWduMRMwEQYDVQQDEwpH
-bG9iYWxTaWduMB4XDTE0MTIxMDAwMDAwMFoXDTM0MTIxMDAwMDAwMFowTDEgMB4GA1UECxMXR2xv
-YmFsU2lnbiBSb290IENBIC0gUjYxEzARBgNVBAoTCkdsb2JhbFNpZ24xEzARBgNVBAMTCkdsb2Jh
-bFNpZ24wggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCVB+hzymb57BTKezz3DQjxtEUL
-LIK0SMbrWzyug7hBkjMUpG9/6SrMxrCIa8W2idHGsv8UzlEUIexK3RtaxtaH7k06FQbtZGYLkoDK
-RN5zlE7zp4l/T3hjCMgSUG1CZi9NuXkoTVIaihqAtxmBDn7EirxkTCEcQ2jXPTyKxbJm1ZCatzEG
-xb7ibTIGph75ueuqo7i/voJjUNDwGInf5A959eqiHyrScC5757yTu21T4kh8jBAHOP9msndhfuDq
-jDyqtKT285VKEgdt/Yyyic/QoGF3yFh0sNQjOvddOsqi250J3l1ELZDxgc1Xkvp+vFAEYzTfa5MY
-vms2sjnkrCQ2t/DvthwTV5O23rL44oW3c6K4NapF8uCdNqFvVIrxclZuLojFUUJEFZTuo8U4lptO
-TloLR/MGNkl3MLxxN+Wm7CEIdfzmYRY/d9XZkZeECmzUAk10wBTt/Tn7g/JeFKEEsAvp/u6P4W4L
-sgizYWYJarEGOmWWWcDwNf3J2iiNGhGHcIEKqJp1HZ46hgUAntuA1iX53AWeJ1lMdjlb6vmlodiD
-D9H/3zAR+YXPM0j1ym1kFCx6WE/TSwhJxZVkGmMOeT31s4zKWK2cQkV5bg6HGVxUsWW2v4yb3BPp
-DW+4LtxnbsmLEbWEFIoAGXCDeZGXkdQaJ783HjIH2BRjPChMrwIDAQABo2MwYTAOBgNVHQ8BAf8E
-BAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUrmwFo5MT4qLn4tcc1sfwf8hnU6AwHwYD
-VR0jBBgwFoAUrmwFo5MT4qLn4tcc1sfwf8hnU6AwDQYJKoZIhvcNAQEMBQADggIBAIMl7ejR/ZVS
-zZ7ABKCRaeZc0ITe3K2iT+hHeNZlmKlbqDyHfAKK0W63FnPmX8BUmNV0vsHN4hGRrSMYPd3hckSW
-tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
-2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
-phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
-a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
-ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
-07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
-SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
-rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGWDCCBECg
-AwIBAgIMYT8cPnonh1geNIT5MA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
-ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
-MDIzMB4XDTI0MTEyODA2NTUwOVoXDTI2MTEyOTA2NTUwOVowgaUxCzAJBgNVBAYTAlVTMRMwEQYD
-VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
-MDExNzEWMBQGA1UEChMNQlJPQURDT00gSU5DLjETMBEGA1UEAxMKWmFjayBSdXNpbjEmMCQGCSqG
-SIb3DQEJARYXemFjay5ydXNpbkBicm9hZGNvbS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
-ggEKAoIBAQCwQ8KpnuEwUOX0rOrLRj3vS0VImknKwshcmcfA9VtdEQhJHGDQoNjaBEFQHqLqn4Lf
-hqEGUo+nKhz2uqGl2MtQFb8oG+yJPCFPgeSvbiRxmeOwSP0jrNADVKpYpy4UApPqS+UfVQXKbwbM
-6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
-SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
-uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
-Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
-b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
-dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
-BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
-Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
-oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
-A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
-s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
-SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
-QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
-fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
-iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
-3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
-91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
-06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
-b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
-VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIJeH
-4GjMbOZ3gKMP43t3rn4y6ausMJNmGad9o769ilhSMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MDkxNzIwMTkzNlowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAF5pLcPqulZUibFGoT9+vanxHjG3dwaaor+ltrz/
-HqoGD7uz8fIEQU35k3vuKUCw/ZN5hXS2GUz574sFAIPw48+OgRlXo0p185ezewqJC2os1cExnngx
-Fz72af818AR+0hXbpb/Zw+X65UPEz97srVvESPpyVPItz4ChO4HnONcaZfAs270/42nkCdA4FIr1
-ha27vOx9TdJCRl8b9i/ipaJXlu3LPKnVNZLbNL33vkZyRjlyV+P4BruxuEFrSI1q7KWtt/YrzBGA
-W4OslCK+1/m7ru0hEyfXgUcVxUQcEU9lPWM75/n+fjF7WCgMsd5+g7pjxYdRgSZvH21Dfw2yMKA=
---000000000000aa59ee065bb38085--
+On 9/15/26 09:36, Lizhi Hou wrote:
+>
+> On 9/13/26 14:31, Eva Crystal wrote:
+>> aie2_create_context() allocates a mailbox channel, starts it, and on a
+>> failed start frees it again:
+>>
+>>     hwctx->priv->mbox_chann = xdna_mailbox_alloc_channel(ndev->mbox);
+>>     ...
+>>     ret = xdna_mailbox_start_channel(hwctx->priv->mbox_chann, ...);
+>>     if (ret)
+>>         goto free_channel;
+>>     ...
+>> free_channel:
+>>     xdna_mailbox_free_channel(hwctx->priv->mbox_chann);
+>>
+>> hwctx->priv->mbox_chann keeps pointing at the freed channel. That
+>> pointer is the driver's own test for whether a hardware context has a
+>> usable channel: aie2_destroy_context() returns early on NULL,
+>> aie2_sched_job_run() refuses to run a job on NULL, and the message
+>> helpers return -ENODEV on NULL. A stale pointer passes all of them.
+>>
+>> It matters on the restart path. aie2_hwctx_restart() calls
+>> aie2_create_context() again on a hardware context that is already live,
+>> after aie2_hwctx_stop() has torn its channel down, and the context
+>> survives a failure there: aie2_sched_job_timedout() discards the return
+>> value entirely, and aie2_hwctx_resume() only propagates it. What is
+>> left is a live hardware context holding a freed channel, and every
+>> later user of it takes the non-NULL branch:
+>>
+>>    - the next job submitted reaches xdna_mailbox_send_msg() on the freed
+>>      channel, via the !mbox_chann guard in aie2_sched_job_run(),
+>>    - a second command timeout reaches aie2_hwctx_stop() ->
+>>      aie2_destroy_context(),
+>>    - closing the device reaches aie2_hwctx_fini() ->
+>>      aie2_release_resource() -> xrs_release_resource() ->
+>>      aie2_xrs_unload() -> aie2_destroy_context(),
+>>
+>> and aie2_destroy_context() then calls xdna_mailbox_stop_channel()
+>> followed by xdna_mailbox_free_channel() on memory that was already
+>> freed: a use-after-free, and a second free of the same channel.
+>>
+>> The AIE4 management channel already does this correctly -
+>> aie4_mailbox_start() clears ndev->aie.mgmt_chann right after freeing
+>> it. Do the same here.
+>>
+>> The create path itself is not affected: when aie2_xrs_load() fails,
+>> xrs_allocate_resource() removes the solver node without calling
+>> ->unload, and aie2_hwctx_init() frees hwctx->priv, so the stale pointer
+>> never outlives the structure holding it.
+>>
+>> Starting a channel can fail today without this patch: the ring buffer
+>> sizes firmware reports are rejected unless both are powers of two, and
+>> request_irq() can fail.
+>>
+>> Fixes: d5b8b0347fa8 ("accel/amdxdna: Split mailbox channel create 
+>> function")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Eva Crystal <0xiviel@gmail.com>
+>> ---
+>>   drivers/accel/amdxdna/aie2_message.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/accel/amdxdna/aie2_message.c 
+>> b/drivers/accel/amdxdna/aie2_message.c
+>> index b4c49259a1a2..f658760c3d48 100644
+>> --- a/drivers/accel/amdxdna/aie2_message.c
+>> +++ b/drivers/accel/amdxdna/aie2_message.c
+>> @@ -277,6 +277,7 @@ int aie2_create_context(struct amdxdna_dev_hdl 
+>> *ndev, struct amdxdna_hwctx *hwct
+>>     free_channel:
+>>       xdna_mailbox_free_channel(hwctx->priv->mbox_chann);
+>> +    hwctx->priv->mbox_chann = NULL;
+> Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+>>   del_ctx_req:
+>>       aie2_destroy_context_req(ndev, hwctx->fw_ctx_id);
+>>       return ret;
