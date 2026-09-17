@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1090CC982D0
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 10:33:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AE2CC88E72
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 10:34:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4048710E0E1;
-	Thu, 17 Sep 2026 10:33:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3482010ED64;
+	Thu, 17 Sep 2026 10:34:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QhBgFjDl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OsQ7N44W";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28B2210E0E1
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 10:33:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3C9A10ED4A
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 10:34:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3CA2060230;
- Thu, 17 Sep 2026 10:33:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8A7D1F000FF;
- Thu, 17 Sep 2026 10:33:31 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3180A6022E;
+ Thu, 17 Sep 2026 10:34:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92F271F000FF;
+ Thu, 17 Sep 2026 10:34:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789641212;
- bh=ystkHgfg/B2+LWhyt4IqYeXfy5fWKql2JcdLt5+qRwI=;
+ s=k20260515; t=1789641277;
+ bh=A5vZJgu6y0sFszhGK8CduL/HbXSIZ/z1c/boerVDM2M=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QhBgFjDlrqKyxZblUiGQD0fHQ7o7EcENTQMUO9gWu7a0RsgvndkwR/+s8uj9OLpug
- kAEivoqIxthMuDsUrSKlzWLTR8J4o6Wbq9+ANIWp0vNcKNMsJYbN+W8/cij7xZH8T7
- siW7cElkAAdDHltBchifW1KHZOFkWUlQVSIQXf/H14qIxo5rg4BvCEDrgz6ii8JiNW
- h4VhCI7tQsl6ZZNVGgcUyUyI7xJ8YemICBuDeD1Dy2uFGqqZeppBkxsdyvQic35R8A
- u9ApcFFiw9CTn+u7bX2TCXKDFIBtoHufO1kSrOFVP6RQcx7vBMotBr/ZRpYnIK3aL1
- Mrt7EkrHKtuCg==
+ b=OsQ7N44Wkcxo01qpGvDlqi5QGTlzb1ttT2HN2hJ3kWJlZWs4EZCUMMgG7xdEcj7HR
+ 5V2/PYnObXYH3tCY1jsiDS6WPcvcPj2760OpsCKb6sYFqUhowAbtKS6WrSBPu/Zf46
+ qMVjFlKDCM3owrnduoroh8A+pWo+ML7TouJBNns7YfZsqPDgNE7K134N1B4XyE6VBi
+ sTVp+MhM1TO4MElm/OgYpdysH6jp7EXzvuX6HQUIh61v8ma3Z3iScPfWRTHTvVNQbF
+ KGB19gBp3Ejqk2Gfgzb/Gi3XpnLcp6TxjSdgOF3IjqgRvoTlWdFApv0MSXxKcO+wre
+ B9izSKiq0p8yw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/4] drm/virtio-gpu: Add VIRTIO_GPU_CAPSET_ROCM
- capability
+Subject: Re: [PATCH v6 2/4] drm/virtgpu api: add blob userptr resource
 To: "Honglei Huang" <honghuan@amd.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, virtualization@lists.linux.dev,
- "Eugenio Perez" <eperezma@redhat.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260917102540.1312102-2-honghuan@amd.com>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev, "Eugenio Perez" <eperezma@redhat.com>
+In-Reply-To: <20260917102540.1312102-3-honghuan@amd.com>
 References: <20260917102540.1312102-1-honghuan@amd.com>
- <20260917102540.1312102-2-honghuan@amd.com>
+ <20260917102540.1312102-3-honghuan@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 10:33:31 +0000
-Message-Id: <20260917103331.A8A7D1F000FF@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 10:34:37 +0000
+Message-Id: <20260917103437.92F271F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,44 +60,58 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] uapi: VIRTIO_GPU_CAPSET_ROCM defines unstandardized capset ID 8
+- [High] virtio-gpu: guest-only blob flags leaked to host breaking wire ABI
 --
 
-commit ddbf02d8a1557a4976371db4a94be88bc1f7052f
-Author: Honglei Huang <honghuan@amd.com>
+commit ce150cb1a68528e491d40b28c03376311a653c0c
+Author: Honglei Huang <Honglei1.Huang@amd.com>
 
-drm/virtio-gpu: Add VIRTIO_GPU_CAPSET_ROCM capability
+drm/virtgpu api: add blob userptr resource
 
-This commit adds a new GPU capability set VIRTIO_GPU_CAPSET_ROCM to the vir=
-tio
-gpu UAPI header to support ROCm compute workloads in virtualized environmen=
-ts.
+This commit adds DRM ioctl flags and a userptr field to allow userspace
+to request a blob backed by an existing process mapping. It introduces
+guest-only flags VIRTGPU_BLOB_FLAG_USE_USERPTR and
+VIRTGPU_BLOB_FLAG_USERPTR_RDONLY for guest pin behavior.
 
-> diff --git a/include/uapi/linux/virtio_gpu.h b/include/uapi/linux/virtio_=
-gpu.h
-> index 4f530d90058c7..3d4dfadc9d789 100644
-> --- a/include/uapi/linux/virtio_gpu.h
-> +++ b/include/uapi/linux/virtio_gpu.h
-> @@ -321,6 +321,7 @@ struct virtio_gpu_cmd_submit {
->  #define VIRTIO_GPU_CAPSET_VENUS 4
->  #define VIRTIO_GPU_CAPSET_CROSS_DOMAIN 5
->  #define VIRTIO_GPU_CAPSET_DRM 6
-> +#define VIRTIO_GPU_CAPSET_ROCM 8
+> diff --git a/include/uapi/drm/virtgpu_drm.h b/include/uapi/drm/virtgpu_dr=
+m.h
+> index 95587e12aed57..6171b4e2300b1 100644
+> --- a/include/uapi/drm/virtgpu_drm.h
+> +++ b/include/uapi/drm/virtgpu_drm.h
+> @@ -186,6 +186,9 @@ struct drm_virtgpu_resource_create_blob {
+>  #define VIRTGPU_BLOB_FLAG_USE_MAPPABLE     0x0001
+>  #define VIRTGPU_BLOB_FLAG_USE_SHAREABLE    0x0002
+>  #define VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE 0x0004
+> +/* Guest-only flags */
+> +#define VIRTGPU_BLOB_FLAG_USE_USERPTR      0x0008
+> +#define VIRTGPU_BLOB_FLAG_USERPTR_RDONLY   0x0010
 
-[Severity: Medium]
-Does allocating this ID without specification standardization risk permanen=
-t ABI
-collisions?
+[Severity: High]
+Do these guest-only flags leak to the host and break the virtio wire ABI?
 
-If the virtio standard later assigns ID 8 to another capability, this UAPI
-addition could cause a conflict. Furthermore, skipping ID 7 leaves an
-undocumented gap that might conflict with virtio standardization protocols.
-Has ID 8 been allocated in the upstream virtio specification?
+When userspace calls the DRM_IOCTL_VIRTGPU_RESOURCE_CREATE_BLOB ioctl,
+verify_blob() assigns rc_blob->blob_flags directly to params->blob_flags.
+This struct is passed to virtio_gpu_userptr_create(), which calls
+virtio_gpu_cmd_resource_create_blob().
 
-> =20
->  /* VIRTIO_GPU_CMD_GET_CAPSET_INFO */
->  struct virtio_gpu_get_capset_info {
+In virtio_gpu_cmd_resource_create_blob(), the flags are written directly to
+the command without masking:
+
+drivers/gpu/drm/virtio/virtgpu_vq.c:virtio_gpu_cmd_resource_create_blob() {
+    ...
+    cmd_p->blob_flags =3D cpu_to_le32(params->blob_flags);
+    ...
+}
+
+If these guest-only flags are not masked out before being sent to the host,
+will strict hosts reject the command with an error, making the userptr
+feature unusable?=20
+
+I noticed this wire ABI violation appears to remain unfixed at the end of
+the patch series (commit 357076bf581c).
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917102540.1312=
-102-1-honghuan@amd.com?part=3D1
+102-1-honghuan@amd.com?part=3D2
