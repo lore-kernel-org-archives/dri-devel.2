@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADC11C982D2
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AE7FC982D7
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC0AA10E95C;
-	Fri, 18 Sep 2026 07:10:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65BA910ECBD;
+	Fri, 18 Sep 2026 07:10:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="byPXcWCB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FdLw98tn";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36F2110E0AE
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:38:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E94EF10E0AE
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:32:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A9E7660216;
- Thu, 17 Sep 2026 16:38:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D0441F000FF;
- Thu, 17 Sep 2026 16:38:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6BC98601EF;
+ Thu, 17 Sep 2026 16:32:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CC201F00899;
+ Thu, 17 Sep 2026 16:32:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789663126;
- bh=lLYk3o3B0/wt5kKG7m+ibDGyo2yi3t47XmKybZiJ1Rs=;
+ s=k20260515; t=1789662760;
+ bh=R1TTFxJqK2JOmLB4wxg0hlSgvzQnwmSO7NGWVXFT9S4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=byPXcWCBqQ2k/JxAm0NOmPWYbT6DeEbK75BKRpWKfzp7+QTfB6gD6Jwr5+NtnYFbF
- vANP/UXdPyvEOeRBtYogU/57/nulluJHybMAJOC35jvz4xD2wPVFBI91Aw+YsOC+sP
- 6aNwYISVKfiJjWMFVvcA55zNh95pCsarrRKnXr7KWJWILUFd3HUcYcuPpIxzLPlFhY
- ycbrt4mv4ZS4RVqRxw1P4RGv/E/7Aff2Vt9c+5Yo5G9KPZl7lvt2riK4lE3Gcrd8f1
- cHDUqHsQw2H28rT4egz7snB+IabetMBAx5sqYD1rZ08IBRgGxzunW/DzNmOVsFjYOB
- FaMAt505vgJZA==
+ b=FdLw98tnnAoDtWH8kD0dPvk66NNqKS785LfS0XG2ecgpcUicXfTn4HGu3RCwa2PmW
+ tPhI1GvWWiu11djXSGAre8RjZgwuCIibHgzbSC6aSdaemxpRXKiorH/HqCo2sgumn/
+ fvbto+ZFnQL6qSXhc1Xj+kLs10DOhc3iBSRgQQoSDG9t2MRbNJb8kV0gDl2WYT/Je/
+ PyeOf5EwRvMKqcXppj1Nc7NIYrxSxhLgXwXtr9nlTLPjIEzaIs834ljJ91EuHrQrKT
+ /3V4+AavOF/q2rkxgpcN9Y0daI6siTUv8WWfukz/a4HpzwIh6nvg4pHK3HEBHqDDmX
+ OLAFkk6l2yBHw==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:22:40 +0100
-Subject: [PATCH v3 31/40] mm/vma: introduce vma[_flags]_is_persistent()
+Date: Thu, 17 Sep 2026 17:22:28 +0100
+Subject: [PATCH v3 19/40] fbdev: defio: assert FBINFO_VIRTFB, drop VM_IO,
+ add VM_MIXEDMAP
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-31-4583d8a23bca@kernel.org>
+Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-19-4583d8a23bca@kernel.org>
 References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
 In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -120,15 +121,15 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
  fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3843; i=ljs@kernel.org;
- h=from:subject:message-id; bh=g+DP477oZGptEtdcgQ46pNPCZKGp7Qm9RMjCOcTExak=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB8u6fNauyHdvmVJ5W6uovZ+1YSTvTFcx3vNJj9Ue
- 7bq3cw3HaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZiIpxAjw8Wj14sVjnlLqEpf
- alzq8/uu46r80HPN9mFnBc0937Q0H2P4H2is/PxS+84+HRY92StXjVg7lJTdbzpWtfbv3MIVqFD
- GBwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2362; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=In9WHX8b1sLbbe6jUcP+2i7LCzJ4p//dj4w0OtHuz9I=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB+8bOi9UPLIo/LJk2JWhM3+b3BdgtnAyfJrpf4ET
+ s3Sm/x3O0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRD0cYGRrX9Htz//Woqtj5
+ yGpTVNPsHHWljs3FZyeckZj57lRJoCTD/1qtjbYPt3hX96zbuyf64ve193k5H5nVanZnM7eYLUs
+ W4AYA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
-X-Mailman-Approved-At: Fri, 18 Sep 2026 07:10:00 +0000
+X-Mailman-Approved-At: Fri, 18 Sep 2026 07:09:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,110 +145,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Introduce vma[_flags]_is_persistent() for the purposes of identifying
-mappings that are persistent in the sense that bytes to the mapping stay
-there, and bytes read from the mapping are the same unless changed by
-actions taken by userland.
+Currently all drivers which use defio allocate system memory. All of them
+also set FBINFO_VIRTFB, other than ssd1307fb, however this driver allocates
+system RAM, so simply failed to set this flag when it ought to.
 
-Kernel-owned mappings do not fall into this category, as their owner may
-change the contents without the user having initiated it, and nor of course
-does memory-mapped I/O.
+This patch sets FBINFO_VIRTFB on ssd1307fb probe, then drops setting VM_IO
+in fb_deferred_io_mmap() and instead requires FBINFO_VIRTFB to be set,
+erroring out with a kernel warning if not.
 
-We exclude fixed mappings as these are singled out as being unmergeable and
-so cannot be guaranteed to persist user data.
+The logic requires a page from the driver and since commit 1ecbc7dd2902
+("fbdev/deferred-io: Always call get_page() for framebuffer pages") has
+always required it to be refcounted, so this was implicitly already the
+case.
 
-hugetlb mappings are fixed mappings, but their contents are entirely the
-user's, so they are explicitly carved out as persistent, as the MADV_DODUMP
-check already does.
+Finally this patch sets VM_MIXEDMAP, as the logic is mapping
+kernel-allocated memory so this is appropriate.
 
-It excludes droppable mappings, which by their nature are ephemeral.
-
-Use this functionality to update the madvise MADV_DODUMP check to test for
-persistence rather than open-coding this.
-
-This replaces the VM_SPECIAL check which means it no longer checks for
-VMA_IO_BIT, however this is safe as we have established the invariant that
-only kernel-owned mappings may set VMA_IO_BIT, so we implicitly include
-these.
-
-No functional change intended.
-
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- include/linux/mm.h | 44 ++++++++++++++++++++++++++++++++++++++++++++
- mm/madvise.c       |  4 ++--
- 2 files changed, 46 insertions(+), 2 deletions(-)
+ drivers/video/fbdev/core/fb_defio.c | 6 +++---
+ drivers/video/fbdev/ssd1307fb.c     | 2 ++
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 154fc25c9efa..0579e6afb19f 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -1741,6 +1741,50 @@ static inline bool vma_can_merge(const struct vm_area_struct *vma)
- 	return vma_flags_can_merge(&vma->flags);
- }
+diff --git a/drivers/video/fbdev/core/fb_defio.c b/drivers/video/fbdev/core/fb_defio.c
+index fd00b86e1ae6..fb359ecc3966 100644
+--- a/drivers/video/fbdev/core/fb_defio.c
++++ b/drivers/video/fbdev/core/fb_defio.c
+@@ -366,13 +366,13 @@ int fb_deferred_io_mmap(struct fb_info *info, struct vm_area_struct *vma)
+ {
+ 	vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
  
-+/**
-+ * vma_flags_is_persistent() - Do the specified VMA flags imply that the VMA
-+ * contains persistent data?
-+ * @flags: The VMA flags to test.
-+ *
-+ * Persistent in the sense that - if you write bytes to the mapping - do they
-+ * stay written?
-+ *
-+ * If the kernel or a device could write to the memory independently of
-+ * userland, or the kernel could arbitrarily discard it, then it is not
-+ * persistent.
-+ *
-+ * Returns: true if the flags imply this VMA is persistent, otherwise false.
-+ */
-+static inline bool vma_flags_is_persistent(const vma_flags_t *flags)
-+{
-+	/* hugetlb is a fixed mapping, but its contents are the user's own. */
-+	if (vma_flags_is_hugetlb(flags))
-+		return true;
-+	/*
-+	 * MMIO mappings may not store what is written and may be changed by the
-+	 * device. Kernel-owned and fixed mappings may be changed by their owner
-+	 * without the user having initiated it.
-+	 */
-+	if (vma_flags_is_kernel_owned(flags) ||
-+	    vma_flags_is_fixed_mapping(flags))
-+		return false;
-+	/* Droppable memory is discardable by definition. */
-+	return !vma_flags_test_single_mask(flags, VMA_DROPPABLE);
-+}
++	if (WARN_ON_ONCE(!(info->flags & FBINFO_VIRTFB)))
++		return -EINVAL;
+ 	if (!try_module_get(THIS_MODULE))
+ 		return -EINVAL;
+ 
+ 	vma->vm_ops = &fb_deferred_io_vm_ops;
+-	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
+-	if (!(info->flags & FBINFO_VIRTFB))
+-		vm_flags_set(vma, VM_IO);
++	vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTDUMP);
+ 	vma->vm_private_data = info->fbdefio_state;
+ 
+ 	fb_deferred_io_state_get(info->fbdefio_state); /* released in vma->vm_ops->close() */
+diff --git a/drivers/video/fbdev/ssd1307fb.c b/drivers/video/fbdev/ssd1307fb.c
+index c4fdecafd856..958514a35433 100644
+--- a/drivers/video/fbdev/ssd1307fb.c
++++ b/drivers/video/fbdev/ssd1307fb.c
+@@ -763,6 +763,8 @@ static int ssd1307fb_probe(struct i2c_client *client)
+ 	info->fix.smem_start = __pa(vmem);
+ 	info->fix.smem_len = vmem_size;
+ 
++	info->flags = FBINFO_VIRTFB;
 +
-+/**
-+ * vma_is_persistent() - Does the VMA contain persistent data?
-+ * @vma: The VMA to test.
-+ *
-+ * See vma_flags_is_persistent() for details.
-+ *
-+ * Returns: true if the VMA is persistent, otherwise false.
-+ */
-+static inline bool vma_is_persistent(const struct vm_area_struct *vma)
-+{
-+	return vma_flags_is_persistent(&vma->flags);
-+}
-+
- /**
-  * vma_kernel_pagesize - Default page size granularity for this VMA.
-  * @vma: The user mapping.
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 0922d5f07a12..e15973292f94 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -1584,8 +1584,8 @@ static int madvise_vma_behavior(struct madvise_behavior *madv_behavior)
- 		new_flags |= VM_DONTDUMP;
- 		break;
- 	case MADV_DODUMP:
--		if ((!vma_is_hugetlb(vma) && (new_flags & VM_SPECIAL)) ||
--		    (new_flags & VM_DROPPABLE))
-+		/* Non-persistent memory cannot be dumped. */
-+		if (!vma_is_persistent(vma))
- 			return -EINVAL;
- 		new_flags &= ~VM_DONTDUMP;
- 		break;
+ 	fb_deferred_io_init(info);
+ 
+ 	i2c_set_clientdata(client, info);
 
 -- 
 2.55.0
