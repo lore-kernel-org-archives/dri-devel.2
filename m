@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A84BC982D1
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 12:04:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6C01C982D7
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 12:04:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C8C910E3F8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBE3210EE45;
 	Thu, 17 Sep 2026 12:04:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="b0LP64rp";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pOP5vFEa";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4C2210E3F8;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8F2510EE1E;
  Thu, 17 Sep 2026 12:04:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=gs4Qd+KMY/RhH/19Tr5sJ3MNG94oFeTViDA1dKLFHu8=; b=b0LP64rpk8jXLFacYIMAITrb3V
- dTLpjo1t0U0JkKpugHu5HFAtB4mTaRMJCHglnQu+F6P3w4ZaVNK1FW5+4okYnJAl5FdhgdNAnWrFM
- REXt76a9IkTFhs2gCIQ5ulz4b4VAJ12BgHz/wv5pp23L1MtO3OIE2PElx8W232UP1sSE/bwJ3een4
- 0VU+XEiLlqYIBhMIQ1kUywUujpXhdo8U26QIClOV25OKn2D8psDikzFA9bT2EaLzvLGFKMnVNs80e
- 5ZiUYm+ofcECXChcTBd0FNeWs8VxBM+iYlvUxdCuqhRSkqcoH0QQIrHYeGiqd6i5oyUAfl5XSfMyD
- YvHAjyPg==;
+ bh=kDQgtq56JCyMoLEQ3j8sZaXBrfgZSMjfiMK2Xh4Ioe8=; b=pOP5vFEaYN39iw9g0i9MG+YD8I
+ tBes6npczQzyFyRfpkk6HacZZWFZKgewWRqPEist3eMsc4RLaUkX2sKILIuliTb6FbYsg/OGdn2EC
+ lrr6IlmdcRfpIdwmIkqe60+lWRWYpEKvIx8rPzTwJJo0uEgItWbnN+ctf9BuCarXCkybI5L47Ohyf
+ qUWbFMwCCetjwTP0WQFYlKRYH6ejz9V0ip+sY3F+CRz1jYU2V3GATVKrk2X34Z4Av203IJ/Khv5kb
+ 1XszlLbjmPEpoW7PsdLsXRVWp0C5fZh2dpcPWOYK4T7dlHixOmh0pJNNitppbRsClshrSKH2xcEI9
+ wdrMPoPQ==;
 Received: from [81.79.79.1] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x7Ar9-003NUO-Sd; Thu, 17 Sep 2026 14:04:47 +0200
+ id 1x7Ar8-003NUG-Cq; Thu, 17 Sep 2026 14:04:46 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -41,12 +41,10 @@ Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>
-Subject: [RFC 2/2] drm/amdgpu: Wire up DRM memory stats reporting
-Date: Thu, 17 Sep 2026 13:04:44 +0100
-Message-ID: <20260917120444.86471-3-tvrtko.ursulin@igalia.com>
+Subject: [RFC 0/2] DRM standardized memory stats
+Date: Thu, 17 Sep 2026 13:04:42 +0100
+Message-ID: <20260917120444.86471-1-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917120444.86471-1-tvrtko.ursulin@igalia.com>
-References: <20260917120444.86471-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -65,18 +63,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Wire up the driver agnostic DRM memory reporting for the VRAM and GTT
-memory regions.
+Re-floating a simple idea (this time with more Cc) born from an user interest to
+be able to correctly size the swap space during OS installation, based on the
+size of the VRAM a discrete GPU might have. And to be able to do it in a vendor
+agnostic way.
 
-As the list of regions and their stats needs to be returned to the DRM
-core for inspection and remain valid after the callback had exited, the
-persistent storage is kept at the device level and updated on each query.
+Idea is to expose a standardized scheme in sysfs, under the DRM class card, and
+under a new 'memstat' directory. Such as, example from amdgpu:
 
-The current list of memory region names as reported for fdinfo memory
-stats is exported as a helper in order to achieve standardized names, as
-required by the DRM contract.
+/sys/class/drm/card1/memstat/
+├── gtt
+│   ├── total_mb
+│   └── used_mb
+└── vram
+    ├── total_mb
+    └── used_mb
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Or with concrete numbers:
+
+$ grep -Hr . /sys/class/drm/card1/memstat/
+/sys/class/drm/card1/memstat/vram/total_mb:1024
+/sys/class/drm/card1/memstat/vram/used_mb:445
+/sys/class/drm/card1/memstat/gtt/total_mb:7394
+/sys/class/drm/card1/memstat/gtt/used_mb:71
+
+Drivers need to implement a simple DRM driver level callback which needs to
+report a stable list of interesting memory regions and their respective stats.
+The region names then become sub-directory names under the new 'memstat'
+directory, with each region exposing the total size and the current usage.
+
+Similar data can already be queried if the dmem cgroup controller is enabled,
+also only for the participating drivers, by querying the root cgroup. But
+perhaps sysfs is easier, or perhaps it is too much code for too little benefit.
+I am curious to hear any opinions.
+
 Cc: Maíra Canal <mcanal@igalia.com>
 Cc: Ludovico de Nittis <ludovico.denittis@collabora.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
@@ -86,176 +106,24 @@ Cc: Maxime Ripard <mripard@kernel.org>
 Cc: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: David Airlie <airlied@gmail.com>
 Cc: Simona Vetter <simona@ffwll.ch>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  6 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 40 +++++++++++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 37 ++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |  3 ++
- 5 files changed, 75 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 79b69d74eb2e..8c00f76cfc7b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -965,6 +965,9 @@ struct amdgpu_device {
- 
- 	struct amdgpu_uma_carveout_info uma_info;
- 
-+	struct drm_memory_info		memory_info;
-+	struct drm_memory_region_info	__memory_region_info[2]; /* Storage for memory_info */
-+
- 	/* KFD
- 	 * Must be last --ends in a flexible-array member.
- 	 */
-@@ -1350,4 +1353,7 @@ void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
- 			   uint64_t uid);
- uint64_t amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
- 			       enum amdgpu_uid_type type, uint8_t inst);
-+
-+const struct drm_memory_info *amdgpu_drm_memory_info(struct drm_device *drm);
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 9c5e93cd3ee6..9830497b9ed2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -3142,7 +3142,7 @@ static const struct drm_driver amdgpu_kms_driver = {
- #ifdef CONFIG_PROC_FS
- 	.show_fdinfo = amdgpu_show_fdinfo,
- #endif
--
-+	.get_memory_info = amdgpu_drm_memory_info,
- 	.gem_prime_import = amdgpu_gem_prime_import,
- 
- 	.name = DRIVER_NAME,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-index b349bb3676d5..3bbd053cd9f7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-@@ -55,14 +55,9 @@ static const char *amdgpu_ip_name[AMDGPU_HW_IP_NUM] = {
- 	[AMDGPU_HW_IP_VPE]	=	"vpe",
- };
- 
--void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
-+const char *amdgpu_ttm_pl_to_name(unsigned int placement)
- {
--	struct amdgpu_fpriv *fpriv = file->driver_priv;
--	struct amdgpu_vm *vm = &fpriv->vm;
--
--	struct amdgpu_mem_stats stats[__AMDGPU_PL_NUM];
--	ktime_t usage[AMDGPU_HW_IP_NUM];
--	const char *pl_name[] = {
-+	static const char *names[] = {
- 		[TTM_PL_VRAM] = "vram",
- 		[TTM_PL_TT] = "gtt",
- 		[TTM_PL_SYSTEM] = "cpu",
-@@ -72,6 +67,30 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
- 		[AMDGPU_PL_DOORBELL] = "doorbell",
- 		[AMDGPU_PL_MMIO_REMAP] = "mmioremap",
- 	};
-+
-+	if (WARN_ON_ONCE(placement >= ARRAY_SIZE(names)))
-+		return "unknown";
-+
-+	return names[placement];
-+}
-+
-+void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
-+{
-+	struct amdgpu_fpriv *fpriv = file->driver_priv;
-+	struct amdgpu_vm *vm = &fpriv->vm;
-+
-+	struct amdgpu_mem_stats stats[__AMDGPU_PL_NUM];
-+	ktime_t usage[AMDGPU_HW_IP_NUM];
-+	static const unsigned int regions[] = {
-+		TTM_PL_VRAM,
-+		TTM_PL_TT,
-+		TTM_PL_SYSTEM,
-+		AMDGPU_PL_GDS,
-+		AMDGPU_PL_GWS,
-+		AMDGPU_PL_OA,
-+		AMDGPU_PL_DOORBELL,
-+		AMDGPU_PL_MMIO_REMAP,
-+	};
- 	unsigned int hw_ip, i;
- 
- 	amdgpu_vm_get_memory(vm, stats);
-@@ -85,15 +104,12 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
- 
- 	drm_printf(p, "pasid:\t%u\n", fpriv->vm.pasid);
- 
--	for (i = 0; i < ARRAY_SIZE(pl_name); i++) {
--		if (!pl_name[i])
--			continue;
--
-+	for (i = 0; i < ARRAY_SIZE(regions); i++) {
- 		drm_print_memory_stats(p,
- 				       &stats[i].drm,
- 				       DRM_GEM_OBJECT_RESIDENT |
- 				       DRM_GEM_OBJECT_PURGEABLE,
--				       pl_name[i]);
-+				       amdgpu_ttm_pl_to_name(regions[i]));
- 	}
- 
- 	/* Legacy amdgpu keys, alias to drm-resident-memory-: */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index c509dc45ba19..2336ea1cd008 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -3027,3 +3027,40 @@ void amdgpu_ttm_debugfs_init(struct amdgpu_device *adev)
- 
- #endif
- }
-+
-+const struct drm_memory_info *amdgpu_drm_memory_info(struct drm_device *drm)
-+{
-+	struct amdgpu_device *adev = drm_to_adev(drm);
-+	struct drm_memory_info *info = &adev->memory_info;
-+	static const unsigned int regions[] = {
-+		TTM_PL_VRAM,
-+		TTM_PL_TT,
-+	};
-+	struct drm_memory_region_info *region;
-+	struct ttm_resource_manager *man;
-+	unsigned int i;
-+
-+	if (WARN_ON_ONCE(ARRAY_SIZE(adev->__memory_region_info) !=
-+			 ARRAY_SIZE(regions)))
-+		return NULL;
-+
-+	if (!info->num_regions) {
-+		for (i = 0; i < ARRAY_SIZE(regions); i++) {
-+			region = &info->region[i];
-+			strscpy(region->name,
-+				amdgpu_ttm_pl_to_name(regions[i]),
-+				sizeof(region->name));
-+			man = ttm_manager_type(&adev->mman.bdev, regions[i]);
-+			region->total_mb = man->size >> 20;
-+			info->num_regions++;
-+		}
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(regions); i++) {
-+		region = &info->region[i];
-+		man = ttm_manager_type(&adev->mman.bdev, regions[i]);
-+		region->used_mb = ttm_resource_manager_usage(man) >> 20;
-+	}
-+
-+	return &adev->memory_info;
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index adb6cfae5052..1ed07fb4a755 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -271,4 +271,7 @@ void amdgpu_ttm_mmio_remap_free_sgt(struct device *dev,
- 				    enum dma_data_direction dir,
- 				    struct sg_table *sgt);
- 
-+const char *amdgpu_ttm_pl_to_name(unsigned int placement);
-+const struct drm_memory_info *amdgpu_drm_memory_info(struct drm_device *drm);
-+
- #endif
+Tvrtko Ursulin (2):
+  drm: Allow drivers to report standardized memory stats
+  drm/amdgpu: Wire up DRM memory stats reporting
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   6 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  40 +++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  37 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |   3 +
+ drivers/gpu/drm/drm_drv.c                  |  10 ++
+ drivers/gpu/drm/drm_sysfs.c                | 123 +++++++++++++++++++++
+ include/drm/drm_device.h                   |  19 ++++
+ include/drm/drm_drv.h                      |   8 ++
+ include/drm/drm_file.h                     |   9 ++
+ include/drm/drm_sysfs.h                    |   4 +
+ 11 files changed, 248 insertions(+), 13 deletions(-)
+
 -- 
 2.55.0
 
