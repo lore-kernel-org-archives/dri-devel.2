@@ -4,54 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5386C982D0
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 11:15:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C672C982CF
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 11:16:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C55F10E6F1;
-	Thu, 17 Sep 2026 11:15:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9BF610EDD0;
+	Thu, 17 Sep 2026 11:16:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="T7BQox8K";
+	dkim=pass (2048-bit key; unprotected) header.d=icenowy.me header.i=uwu@icenowy.me header.b="fHCW3CnH";
 	dkim-atps=neutral
-X-Greylist: delayed 603 seconds by postgrey-1.36 at gabe;
- Thu, 17 Sep 2026 11:15:25 UTC
-Received: from mta-64-228.siemens.flowmailer.net
- (mta-64-228.siemens.flowmailer.net [185.136.64.228])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D5E610E6D7
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 11:15:25 +0000 (UTC)
-Received: by mta-64-228.siemens.flowmailer.net with ESMTPSA id
- 20260917110519e985c19a43000207ea
- for <dri-devel@lists.freedesktop.org>;
- Thu, 17 Sep 2026 13:05:20 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
- d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
- bh=GXdhflyGWUbl9NTwcQhvsBNxzZkrZQmTOjB/BvxV0xM=;
- b=T7BQox8KW3PoO/xkGmhlbpXZ5uf1MOPc5BNZ8KwkRrJzXu/oEN3D59u/JJMK92icZ6bR8y
- yjiAzH4v2TYOAmhnWkqpAAdAF+W1RCXkWEgRSLXceBfrpGyQjaNVHzSVUt7R3fqmhK9xA9r6
- IG53XaQnATykqiGZVgfcHE5bjBMqEfiFnDAxp7jf1L1TjxefpLRLSYpeWqMBPqrTQvhhYvVb
- sRm0rgXdUmY566vFnJSqpE64rKIhH4Yj/iHChnrRBPk3OuoOPYm29cKe3552/OAVgSKkIGc4
- P/1uM378ptL7mwc7SzPgr5t1xSAQiMNBWsdkEbhAZsV+Z7Br82JqWDsw==;
-From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-To: dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
+Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com
+ [165.173.182.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BD3810EDD0
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 11:15:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1789643753; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=eULJmLEuwv9sBnXxHcwQJE5HTxIvPrHEhvJn0UJbP4WaF1WdxZdpQJc9fKmAmuaelKDU6MFEG/h5tsTjevVaGUNEwuYtNcvqrAlts861YcCabnEHeMEoT5SkIlVE33tEnV/ge01RoIcI1zIbNpAatIhwVyIxBTVn+hlAHJPIAg0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1789643753;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=L+7jrrmM1xceNH5ZDG2/Kd0WCxATH/Vel0IisJNbBPA=; 
+ b=FJQRfbqRm+mJMKFxD43UkwdtEzpJplzRD8xuPnh99zhoizTulrC5T94tolYsVrylH4Pey/lwBj9zb4b59+5goqOe+x8l24CjhGEnBAId9WT+kffG16BDyoD9c29Wxuaa400DRT8W+sBP22yPbiCQCLb+wT0K+tFPItczLxXkoxs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=icenowy.me;
+ spf=pass  smtp.mailfrom=uwu@icenowy.me;
+ dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789643753; 
+ s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+ h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+ bh=L+7jrrmM1xceNH5ZDG2/Kd0WCxATH/Vel0IisJNbBPA=;
+ b=fHCW3CnHaIVW1eDh1hW7EoqdMjqgwzdh4TzthQw+wJ2ld3pis1jC9rGYkaXvI1jO
+ v2jjHF+FVy+1tWxxU0PGAxbaivcUqoiu5ArVgRveLZBopeji1tZNGSgMH/RR7GMibtf
+ XZt7iboMb6hXhInrcdzUtOP7Vy85ef4UYHVvM50TeYa1x52kJzifPNXUvmKAYytiIl/
+ ymfuJlGampHWZyp9CGJVhJ8k1XXJDMZQ296Mjb3/v0kLDgLsgNP1LLf75mkFPr4kDIu
+ hkiZWncWDpvinCFqTsD6t27GUiQmoOV9cmSTiTubOZUR8CAGyYaZZtWbJ2mAY9PlBtF
+ qLCHwHRk2w==
+Received: by smtp.zohomail.com with SMTPS id 1789643751945368.595441490814;
+ Thu, 17 Sep 2026 04:15:51 -0700 (PDT)
+Message-ID: <6d21e808d343283264665ec16d297317000fdf4d.camel@icenowy.me>
+Subject: Re: [PATCH RFT v2 0/5] drm: Add and use
+ drm_fb_dma_get_gem_clipped_addr() helper
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Chen-Yu Tsai <wenst@chromium.org>, Liu Ying <victor.liu@nxp.com>, 
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, Lucas Stach
+ <l.stach@pengutronix.de>, Chen-Yu Tsai <wens@kernel.org>,  Jernej Skrabec
+ <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>, Maarten
+ Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ linux-sunxi@lists.linux.dev, imx@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] drm/panel: simple: Add Truly TFT320240-229-E panel
-Date: Thu, 17 Sep 2026 13:05:13 +0200
-Message-ID: <20260917110517.1053556-1-alexander.sverdlin@siemens.com>
+Date: Thu, 17 Sep 2026 19:15:45 +0800
+In-Reply-To: <20260916033327.3054126-1-wenst@chromium.org>
+References: <20260916033327.3054126-1-wenst@chromium.org>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-456497:519-21489:flowmailer
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,21 +78,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+=E5=9C=A8 2026-09-16=E4=B8=89=E7=9A=84 11:33 +0800=EF=BC=8CChen-Yu Tsai=E5=
+=86=99=E9=81=93=EF=BC=9A
+> Hi,
+>=20
+> This is v2 of my drm_fb_dma_get_gem_clipped_addr() series.
+>=20
+> Changes since v1:
+> - Add and use new drm_framebuffer_get_block_offset() helper (Thomas)
+>=20
+>=20
+> This series adds a helper to retrieve the buffer starting address of
+> a
+> "clipped" framebuffer. This contrasts with drm_fb_dma_get_gem_addr(),
+> which gives the address of the full buffer.
 
-Add Truly TFT320240-229-E panel support into panel-simple driver along with
-the required DT bindings documentation.
+Should vs_fb_get_dma_addr() in verisilicon/vs_plane.c be replaced with
+this helper too?
 
-Alexander Sverdlin (1):
-  dt-bindings: display: simple: Add Truly TFT320240-229-E panel
+I implemented manual framebuffer offset addition here.
 
-Frank Bodammer (1):
-  drm/panel: simple: Add support for Truly TFT320240-229-E panel
+Thanks,
+Icenowy
 
- .../bindings/display/panel/panel-simple.yaml  |  2 ++
- drivers/gpu/drm/panel/panel-simple.c          | 29 +++++++++++++++++++
- 2 files changed, 31 insertions(+)
-
--- 
-2.55.0
-
+>=20
+> Some drivers program their hardware with clipped dimensions, so they
+> should be using the clipped buffer address as well, unless the
+> hardware
+> can advance the scanout directly. (Side note: many drivers still use
+> the non-clipped dimensions.)
+>=20
+> While at it, also pull out the offset calculation of
+> drm_fb_dma_get_gem_addr()
+> into a separate helper in drm_framebuffer.[ch], thereby separating
+> responsibilities.
+>=20
+> The sun4i driver was recently incorrectly converted to use the
+> unclipped
+> drm_fb_dma_get_gem_addr() helper. This broke offsets into subsampled
+> pixel groups, but also exposed the mismatch between the dimensions
+> used
+> vs the buffer address. Two other drivers were also touched.
+>=20
+>=20
+> Patch 1 adds a new helper to return the byte offset into a
+> framebuffer
+> for the start of the pixel block of the given pixel coordinates.
+>=20
+> Patch 2 adds the new helper to return the buffer address based on
+> clipped coordinates.
+>=20
+> Patch 3 switches the sun4i driver to the new helper, and fixes the
+> luma plane buffer address offset for subsampled YUV formats.
+>=20
+> Patch 4 converts the imx/dc driver to use the new helper. This fixes
+> a
+> mismatch between the programmed coordinates and the buffer address.
+>=20
+> Patch 5 replaces the open coded buffer address calculation in the
+> imx/dcss driver with the new helper. Existing behavior, which might
+> be
+> wrong, is preserved.
+>=20
+>=20
+> Please help test. The series is only compile tested on my end. The
+> sun4i
+> changes should revert its behavior to before the
+> drm_fb_dma_get_gem_addr()
+> was adopted. The imx/dcss changes should not have any behavioral
+> difference.
+>=20
+>=20
+> Thanks
+> ChenYu
+>=20
+> Chen-Yu Tsai (5):
+> =C2=A0 drm: Split framebuffer pixel offset calculation from
+> =C2=A0=C2=A0=C2=A0 drm_fb_dma_get_gem_addr()
+> =C2=A0 drm/fb-dma-helper: Add drm_fb_dma_get_gem_clipped_addr()
+> =C2=A0 drm/sun4i: layers: Fix VI buffer address for clipped offsets
+> =C2=A0 drm/imx/dc: plane: Switch to drm_fb_dma_get_gem_clipped_addr()
+> =C2=A0 drm/imx/dcss: plane: Switch to drm_fb_dma_get_gem_clipped_addr()
+>=20
+> =C2=A0drivers/gpu/drm/drm_fb_dma_helper.c=C2=A0=C2=A0=C2=A0 | 61 ++++++++=
+++++++----------
+> --
+> =C2=A0drivers/gpu/drm/drm_framebuffer.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 4=
+5 +++++++++++++++++++
+> =C2=A0drivers/gpu/drm/imx/dc/dc-plane.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 4 +-
+> =C2=A0drivers/gpu/drm/imx/dcss/dcss-plane.c=C2=A0 | 34 ++++++--------
+> =C2=A0drivers/gpu/drm/sun4i/sun8i_ui_layer.c |=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 16 ++++++-
+> =C2=A0include/drm/drm_fb_dma_helper.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0 4 ++
+> =C2=A0include/drm/drm_framebuffer.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++
+> =C2=A08 files changed, 118 insertions(+), 51 deletions(-)
