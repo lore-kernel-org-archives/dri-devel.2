@@ -4,47 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43DB9C982C1
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 08:05:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB2A6C982C1
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 08:08:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7527B10E478;
-	Thu, 17 Sep 2026 08:05:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D11F510E45C;
+	Thu, 17 Sep 2026 08:08:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="okLQjjQS";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XwLUdBkz";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE1E310E45C
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 08:05:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F1A6760204;
- Thu, 17 Sep 2026 08:05:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEDD31F000FF;
- Thu, 17 Sep 2026 08:05:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789632350;
- bh=cxwNQuo1MwfkPiWaoqYyt95s3x3hs0Jga33AiR0XIrA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=okLQjjQS8e8XfTSw0HqPrQyGitnrCIvyz830zgR6/erIwDab0WsaWMISWK+/ZszYj
- N/g0aXJ9D33G0dLmyHzMwKAoY3CoDh0+bx86MdJKXoqeYc6GYpXO6erFukGGAzhmzg
- MJ5s8WdmHo19xXQRIQLv3qmMZWpWFdd77SY+3/pB12NETZw/vmqTYOtecIKzr5mFiU
- U3ypHdZyRULIzGY4BCdvjAsalplSb5L4JocHc4US1zAevB8qPz95ZbmdVKPsLduXbI
- 0xM/nblSmwkzHGQvaNa6i5Gx46xysXtunQNB1/ZZBiI6MLz1WrBBko98xxw1eb1Ii1
- olKZLsN2rPlnA==
-Date: Thu, 17 Sep 2026 10:05:46 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Leander Kieweg <kieweg.leander@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, u.kleine-koenig@baylibre.com
-Subject: Re: [PATCH v4 1/2] dt-bindings: display: Add GlandaGPU binding
-Message-ID: <20260917-exceptional-artificial-mackerel-0bcad7@quoll>
-References: <20260913205007.118552-1-kieweg.leander@gmail.com>
- <20260913205007.118552-2-kieweg.leander@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0F7B10E45C
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 08:08:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789632537; x=1821168537;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Yobk6heVxctqxr2mlbmcRBpI0WJzUEDDTC0ybpvphDQ=;
+ b=XwLUdBkz6/OU1OUCX4JSj7NcE31FSctsbDVtKrq/N3NHxXHCSrXJaM4b
+ uc7RPMKZERqry1lk6hozkVapqX3gYCbBYddeZj85I2UBDDdXv2va7tDYc
+ aG+oMvCjqzSfb0oUe34ngaYiDlwXwtDOoiC1LJ3916Nu33Bi7onSS3qCg
+ nxEPvV5AjFGbYBUEXj4C2m+jdGYuoUnfvYVBI8iFxV1U5nOTLBZOPboKq
+ Yg9I8CGYNEu/D9ymnJ1HmioJ7RpZmErh5S7PEBNsOsmBoA7Q+laDT2FIk
+ veyfP1Ufakf673eADVkLcuPh+JzEwsuESUCTnEx0WzzTvrlsFzZbSOfGg w==;
+X-CSE-ConnectionGUID: jnQ+dw/oS7Klhav+3tZLeg==
+X-CSE-MsgGUID: +qETNnh7Sv6siS36ItKPNA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89896472"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="89896472"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2026 01:08:56 -0700
+X-CSE-ConnectionGUID: 40ykZD70SHCV91zllPiq6g==
+X-CSE-MsgGUID: svGeHbhgTyu75M251Asybw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="275603378"
+Received: from mocoilea-mobl1.ger.corp.intel.com (HELO [10.245.32.242])
+ ([10.245.32.242])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2026 01:08:54 -0700
+Message-ID: <ce048cc5-010b-4483-8b90-d1cf8e220875@linux.intel.com>
+Date: Thu, 17 Sep 2026 10:08:51 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260913205007.118552-2-kieweg.leander@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] accel/ivpu: Synchronize context abort work with device
+ reset
+To: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
+ andrzej.kacprowski@linux.intel.com, Jozef Wludzik <jozef.wludzik@intel.com>
+References: <20260914083006.892645-1-karol.wachowski@linux.intel.com>
+ <c90719c7-ce9f-42f5-a182-82e00eaaeb31@linux.intel.com>
+Content-Language: en-US
+From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
+In-Reply-To: <c90719c7-ce9f-42f5-a182-82e00eaaeb31@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,22 +74,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Sep 13, 2026 at 10:50:06PM +0200, Leander Kieweg wrote:
-> Add Device Tree binding documentation for GlandaGPU, a custom
-> FPGA-based 2D display controller.
+On 15-Sep-26 10:46, Dawid Osuchowski wrote:
+> On 2026-09-14 10:30 AM, Karol Wachowski wrote:
+>> From: Jozef Wludzik <jozef.wludzik@intel.com>
+>>
+>> Acquire pm->reset_lock in ivpu_context_abort_work_fn() to prevent it
+>> from running concurrently with a device reset. If the lock cannot be
+>> acquired immediately, skip the abort work to avoid racing with reset.
+>> The device power management is disabled during reset.
+>>
 > 
-> For hardware designs and RTL sources, see:
-> https://github.com/stiangglanda/GlandaGPU
-> 
-> Signed-off-by: Leander Kieweg <kieweg.leander@gmail.com>
-> ---
->  .../bindings/display/kieweg,gpu.yaml          | 55 +++++++++++++++++++
->  .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
->  2 files changed, 57 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/kieweg,gpu.yaml
+> Reviewed-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Thanks, applied to drm-misc-next.
 
-Best regards,
-Krzysztof
+
+>> Signed-off-by: Jozef Wludzik <jozef.wludzik@intel.com>
+>> Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+>> ---
+>>   drivers/accel/ivpu/ivpu_job.c | 7 ++++++-
+>>   1 file changed, 6 insertions(+), 1 deletion(-)
 
