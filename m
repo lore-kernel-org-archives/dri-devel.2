@@ -4,131 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D084C982D9
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:11:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A52D0C88E75
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:11:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E7F610F20A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 938F010F20B;
 	Fri, 18 Sep 2026 07:11:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V2q4yDxE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f/AsL3rs";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C00510E0AE
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:41:30 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 83089600D4;
- Thu, 17 Sep 2026 16:41:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F31891F00898;
- Thu, 17 Sep 2026 16:40:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789663289;
- bh=FbEvWuDC6KaxDOww6JLm5X1oq7s2JCzdjzk0eBTVi0U=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=V2q4yDxEwjCNULJ1wnapBLzBV559XXPol46rdR9VnEF1Is/X6FPfAsqnicDy+a9B2
- PSf+epomDur9Gilo9l4e/Wz59jWSIU+Ydc+44/ZAn7DJ+dw/60hQlLhudXXu3Qlq8x
- tMrZGb4wK9r9aaOwAnnTG1ulaN+DLMUUKqW03DYaizpXlTp6a0JoSEk92vDsyfnzsI
- PweH4DrsTaFoQtaHHNehKk2tI7J16c6Mdwgj5QzFv/TomdCYf5ZNfw1xR3xvXC0GEi
- bLvpD8QTRyv9RsiDKNeF6TkGBv58m3jk7H0mwdOLeILBOknknZ+mkfcI0qpWtTqE4B
- JJIbh6yqwtf4g==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:22:45 +0100
-Subject: [PATCH v3 36/40] mm: avoid use of VMA_SPECIAL_FLAGS in
- migrate_vma_setup()
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB6ED10E731
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 13:51:16 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-495437bb891so5787825e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 06:51:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789653075; x=1790257875; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ZqUTUUtcpH+QYrYSYHDv9OjVF9PUa57N/cCdTlthFwY=;
+ b=f/AsL3rsVEJ+EHSADL1WDwWFvY06+C8p+533hbgOlfmpZOiL6iXXDsFe0btJDLHWKa
+ c/NPKJOKYFnATqM+IIlEa45VymUuDSV4bmK6zhPs9MfrDfFxY/Eenibebe4ZEzAScnw5
+ tuVX3MzLtAxkoatmP+tQUsg+oCLlCqAOHLxPj6AgTwu9xhn2Z4733DjIPkmDpegd8J7I
+ NREnDVVMisgrWOt3rol6c+pfZaEVKoZqkbnHnlS9JujAF9VVZAKYSEjWMiXJLAuZ7BHp
+ A8F3xnb6FWYeSNnlVnosxSZHYurYDk67P74VjIQCsYbJKzpmL5jZefnxKN46x++B4Ub3
+ V6/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789653075; x=1790257875;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ZqUTUUtcpH+QYrYSYHDv9OjVF9PUa57N/cCdTlthFwY=;
+ b=xeGfHaFo64YHThdNybfwA+uEb2qhau8NcHnp7oUiwieEvMEAYAIejr9bpf91Y7aD9z
+ D3lvhaFHCNQeRtm25bXreEPMcf+MeIHEA7amnefMEuEhZUgUom4HlHHP5N2h2Vc9TbAU
+ WE55xO69KY9wlTdHwKyuD0qhscfVJDiO8S/s99ZAEcaZHYUgmYI0ETyDX17LJ9inkSjx
+ 5gSaP4HaKzeY7NY2UrRgSNsGaTGvLuwjQzOZTuhBGTkLJ7bZ+6WsxSQVB3vcL5mK9FW1
+ 4GqWUDprzNN0aTlgeyHNiEOwD9NSXgnNPdA0czbhv/eFJVjmQ/j5A8KUIf8Y4AffwSea
+ kxsg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxbUXObfiCyaBL8cKgbkmrG6RLjNIOsx8/JkDAvIUoRoeNY+G5h1bJnWhGZPmQhOW2pH3ugCiyNCyM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nkHqZ1aJv5bhfq2fdS28R4NwDXKx41e3IGGZQuNaVcSepMyADB
+ cCIF8fC2GiQS9oPLcG6MB3pqvAy3tysm6zW3z1O1ZMgrY18A16DiB5Kl
+X-Gm-Gg: AYBFou3SG5TIzUcAqJc+zP9M3m3eSnr2c6NfRWWSflTFApRT+u3F0QSHRK8YG2DKssM
+ ajSatN73LBVxXyjzG2hIzNMNIePPSu7VhyKz3qsCVR50GHUdGznOOEwzGeHWADI0zDwu7MgURP1
+ Uh4v+3EjYsrNiQsOSKX6E1YyJZvkooMLsvraKL7nQHVY5pCZdgIiG2ii650Q5wgK1/1mvKUlt6I
+ 3BbVYeUsGxK9G25kSEZw/k6+LyUXkrvgm4s1InhSdbYYV/cacb/+D+Fs0htu66xK0yfmHlOQWxM
+ y4B7nk451rKJMYcaRySC2fyyeedn0fA4jwmcsJrPdp0ILa7Bqgf/obo9gcrF5tfKGSMH5iR9N0V
+ f6GMe38XVsc7XXPE0e+k+RYxzErvonRgVdY9uY3geJ3rZPr17vjAuE2i0iaChZ9OQ+rizWr58lf
+ +1q2ViEtGyWACVjTMlTMmvjGi5MEwj1irpBYPF3zSaHUzTbQjGHMH0fv8QDTOFV7o1zcYETwLpM
+ 14H/DB8xKyP5rzrWGAkAVRJW+nop1qR7UAXyg4e7cjaObfc3GT7Et32ei/pIQ==
+X-Received: by 2002:a05:600c:a59c:b0:49d:2589:d8e9 with SMTP id
+ 5b1f17b1804b1-49fbd1e58a6mr31063615e9.11.1789653074785; 
+ Thu, 17 Sep 2026 06:51:14 -0700 (PDT)
+Received: from kbuild.local ([46.10.181.108]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4870bcc7d1esm15669993f8f.0.2026.09.17.06.51.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Sep 2026 06:51:13 -0700 (PDT)
+From: Tano Dzhinski <tano.dzhinski@gmail.com>
+To: Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Tano Dzhinski <tano.dzhinski@gmail.com>
+Subject: [PATCH] drm/nouveau/disp: don't reject HDMI config on cards without
+ SCDC
+Date: Thu, 17 Sep 2026 13:50:51 +0000
+Message-ID: <20260917135051.47683-1-tano.dzhinski@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-36-4583d8a23bca@kernel.org>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1631; i=ljs@kernel.org;
- h=from:subject:message-id; bh=12r+57hlfcUqhp52wOQ04zakYjCIf/s1O/YwMYeI4F0=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB9ZefTW43MXj/f9+j7r8s+fR3o9Ze9l5QVPPy2x5
- GHgjpecfB2lLAxiXAyyYoosz7+I7w8SCZvXecHfDWYOKxPIEAYuTgGYSOghhv9eLyal7ZhkPSnX
- 6OPt2rBFT3+evh75KH+1fu7fRLOa+3ELGBlOv+PqW9jt8ev/jfvbtvRLHJsX8H/DsvMWucoiveV
- RfPJcAA==
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 18 Sep 2026 07:10:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -145,52 +91,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now we have the expressive vma_is_kernel_owned() and vma_is_fixed_mapping()
-predicates, use them to determine whether to proceed with migration. This
-drops the VMA_IO_BIT test, which is safe as only kernel-owned mappings may
-set it.
+nv50_hdmi_enable() passes the sink's SCDC capability from its EDID
+straight through to nvif_outp_hdmi(). On pre-Maxwell-2 cards there is no
+hdmi->scdc callback, so nvkm_uoutp_mthd_hdmi() rejects the whole
+configuration with -EINVAL, and nv50_hdmi_enable() returns before
+hdmi->ctrl() runs and before the AVI and VSI infoframes are sent.
 
-hugetlb mappings remain excluded, as they are fixed mappings.
+The result on such a card driving an SCDC-capable HDMI 2.0 sink is that
+HDMI audio silently stops working. Video is unaffected, and nothing is
+logged, which makes the failure hard to attribute.
 
-No functional change intended.
+SCDC is optional, and the hdmi->scdc() call further down is already
+guarded against a missing callback. Requesting it on a card that cannot
+do it need not invalidate the rest of the HDMI configuration, so drop
+that term from the condition and let the existing guard skip SCDC alone.
 
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Giuseppe Ranieri posted a fix for this to the nouveau list on
+2026-01-17, which received no review:
+https://ratatoskr.run/nouveau/2026/01/16963412
+
+Fixes: 6c6abab20b99 ("drm/nouveau/disp: add output hdmi config method")
+Signed-off-by: Tano Dzhinski <tano.dzhinski@gmail.com>
 ---
- mm/migrate_device.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index b9c453c28795..b74c0ae42768 100644
---- a/mm/migrate_device.c
-+++ b/mm/migrate_device.c
-@@ -739,19 +739,21 @@ static void migrate_vma_unmap(struct migrate_vma *migrate)
-  */
- int migrate_vma_setup(struct migrate_vma *args)
- {
-+	const struct vm_area_struct *vma = args->vma;
- 	long nr_pages = (args->end - args->start) >> PAGE_SHIFT;
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c b/drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c
+index 377d0e0cef84..9887b3898505 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c
+@@ -253,8 +253,7 @@ nvkm_uoutp_mthd_hdmi(struct nvkm_outp *outp, void *argv, u32 argc)
  
- 	args->start &= PAGE_MASK;
- 	args->end &= PAGE_MASK;
--	if (!args->vma || vma_test_any_mask(args->vma, VMA_SPECIAL_FLAGS) ||
--	    vma_is_dax(args->vma))
-+	if (!vma)
-+		return -EINVAL;
-+	if (vma_is_kernel_owned(vma) || vma_is_fixed_mapping(vma) ||
-+	    vma_is_dax(vma))
+ 	if (!ior->func->hdmi ||
+ 	    args->v0.max_ac_packet > 0x1f ||
+-	    args->v0.rekey > 0x7f ||
+-	    (args->v0.scdc && !ior->func->hdmi->scdc))
++	    args->v0.rekey > 0x7f)
  		return -EINVAL;
- 	if (nr_pages <= 0)
- 		return -EINVAL;
--	if (args->start < args->vma->vm_start ||
--	    args->start >= args->vma->vm_end)
-+	if (args->start < vma->vm_start || args->start >= vma->vm_end)
- 		return -EINVAL;
--	if (args->end <= args->vma->vm_start || args->end > args->vma->vm_end)
-+	if (args->end <= vma->vm_start || args->end > vma->vm_end)
- 		return -EINVAL;
- 	if (!args->src || !args->dst)
- 		return -EINVAL;
-
+ 
+ 	if (!args->v0.enable) {
 -- 
-2.55.0
+2.43.0
 
