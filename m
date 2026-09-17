@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 715F5C982D2
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 07:38:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E911CC982D0
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 07:38:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E7B010E635;
-	Thu, 17 Sep 2026 07:38:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F28DC10E988;
+	Thu, 17 Sep 2026 07:38:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jckCPMXD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eidDD0Hg";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B14F710E5F4;
- Thu, 17 Sep 2026 07:38:17 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11C6E10E63E;
+ Thu, 17 Sep 2026 07:38:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6C20441731;
- Thu, 17 Sep 2026 07:38:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 987411F00893;
- Thu, 17 Sep 2026 07:38:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3D222602D4;
+ Thu, 17 Sep 2026 07:38:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 100061F00893;
+ Thu, 17 Sep 2026 07:38:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789630697;
- bh=jpGqW+MfOshPFAQDSqOKwBdLG/2Mt9oKqLi0j+mvT7o=;
+ s=k20260515; t=1789630700;
+ bh=TNrmOzHwD6xXc0sWOUCNVFhhf1k2QOBK2AnwV4XNMY8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jckCPMXDvo3wNKxAPzl89AuzzCT57RHDDpILaY+yDfyiARawwRx0VMLNGNwYCz1K8
- YY3B85URloPktb8hIaUs2A5ZrLyY1Hu6qHVoNfpB+Rn2iBdgvj8Bvk5Zx7cJ9xkTzk
- 69RN8vPMiDvXzcaQ4FD7y0xxo6hCEO5AkudhwQ3NcuMi8HpD9hYQtHxlrjPJVv/RJt
- rcjLk4vsOXc/2nfIwRcm/9PfDFt0PzAS8jCaBSOo2gf4rC9dOdC01n8IBizW9YPMmH
- A8p3eNgOtM/d8tlH/F2hQsZCdB6J/Q3PgS31vrdI4jWW3nRNvZ6X/sUdC1KBdH2DrC
- Y9e3tZWuCznxg==
+ b=eidDD0Hg/CJLHWx70ku4SQ/gsXn9lGG0vBuZYHK71gr9alw45PzSWBFm5FSflYpwN
+ xyNy59C+BAZ4kfr0TnB6Prv9WkA0KWmSAtjzZ9RnXEm1CkMisk2b6pnX3SvrwLWt2s
+ HwFKxA2AuJeycEFDVxzhE8GvDURf02iVl0K4vHKvHfDrh9UndIYteV2riLarDfoWo3
+ ACvGoNhjFEq0RAIWtFWyrBb+svJm4V1TgW3qaoMrKzyWCBIbZbLoScvUdeDCrxaW5F
+ ILxGycsAMJleu/8vYcejAkls1lO/ZgnAPv6ks5TiaeTXX2475wHiCipLcTW3z1Gltb
+ cny6TWahZ1Q+Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 03/28] ARM: atags: Replace strlcat() with snprintf() for
- cmdline extend
+Subject: Re: [PATCH 05/28] ALSA: usb-audio: Refactor
+ usb_audio_make_longname() to use seq_buf
 To: "Bill Wendling" <morbo@google.com>
-Cc: linux-scsi@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- media-ci@linuxtv.org, "Anna
- Schumaker" <anna@kernel.org>, dmitry.torokhov@gmail.com, robh@kernel.org, "Jeff
- Layton" <jlayton@kernel.org>, linux-input@vger.kernel.org,
+Cc: linux-scsi@vger.kernel.org, conor+dt@kernel.org,
  "Chuck Lever" <cel@kernel.org>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260915081910.4142719-4-morbo@google.com>
+ devicetree@vger.kernel.org, media-ci@linuxtv.org, robh@kernel.org,
+ dri-devel@lists.freedesktop.org, dmitry.torokhov@gmail.com, "Anna
+ Schumaker" <anna@kernel.org>, linux-input@vger.kernel.org,
+ "Jeff Layton" <jlayton@kernel.org>
+In-Reply-To: <20260915081910.4142719-6-morbo@google.com>
 References: <20260915081910.4142719-1-morbo@google.com>
- <20260915081910.4142719-4-morbo@google.com>
+ <20260915081910.4142719-6-morbo@google.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 07:38:16 +0000
-Message-Id: <20260917073816.987411F00893@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 07:38:18 +0000
+Message-Id: <20260917073819.100061F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,72 +65,88 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] arm: atags: OOB read and panic in parse_tag_cmdline() due to strle=
-n()
+- [Medium] alsa: usb-audio: string corruption in usb_audio_make_longname() =
+on seq_buf overflow
 --
 
-commit 9d3172b712a6dbf6594b26ae8fb56ebd952c7d66
+commit 4261f1e1f38e25d5a907e1a1ad3aeefb3e4075ae
 Author: Bill Wendling <morbo@google.com>
 
-ARM: atags: Replace strlcat() with snprintf() for cmdline extend
+ALSA: usb-audio: Refactor usb_audio_make_longname() to use seq_buf
 
-This commit replaces the deprecated strlcat() API with snprintf() in
-parse_tag_cmdline() to append the bootloader tag command line to
-default_command_line.
+This commit refactors usb_audio_make_longname() to use struct seq_buf=20
+instead of deprecated string functions like strlcat() for building the
+device longname.
 
 Link: https://github.com/KSPP/linux/issues/370 [1]
 
-> diff --git a/arch/arm/kernel/atags_parse.c b/arch/arm/kernel/atags_parse.c
-> index 4ec591bde3dfa..21140b44d96e6 100644
-> --- a/arch/arm/kernel/atags_parse.c
-> +++ b/arch/arm/kernel/atags_parse.c
-> @@ -121,9 +121,10 @@ __tagtable(ATAG_REVISION, parse_tag_revision);
->  static int __init parse_tag_cmdline(const struct tag *tag)
->  {
->  #if defined(CONFIG_CMDLINE_EXTEND)
-> -	strlcat(default_command_line, " ", COMMAND_LINE_SIZE);
-> -	strlcat(default_command_line, tag->u.cmdline.cmdline,
-> -		COMMAND_LINE_SIZE);
-> +	size_t len =3D strlen(default_command_line);
-
-[Severity: High]
-Is it possible for strlen() to read out of bounds or panic here?
-
-If CONFIG_CMDLINE is exactly COMMAND_LINE_SIZE characters long, the C compi=
-ler
-initializes the default_command_line array without a null terminator. The
-original strlcat() code used strnlen() underneath and handled full buffers
-safely.
-
-Under CONFIG_FORTIFY_SOURCE, calling strlen() on an unterminated buffer tri=
-ggers
-a fortify_panic(), which will crash the kernel during early boot.
-
-Without CONFIG_FORTIFY_SOURCE, strlen() will read out of bounds until it fi=
-nds
-a null byte, resulting in len being larger than COMMAND_LINE_SIZE.
-
-> +
-> +	snprintf(default_command_line + len, COMMAND_LINE_SIZE - len,
-> +		 " %s", tag->u.cmdline.cmdline);
-
-[Severity: High]
-If len exceeds COMMAND_LINE_SIZE as described above, will this calculation
-underflow?
-
-This would cause COMMAND_LINE_SIZE - len to mathematically underflow to a h=
-uge
-unsigned value.
-
-When this huge size parameter is passed to snprintf(), it triggers a
-WARN_ON_ONCE(size > INT_MAX) in vsnprintf().
-
->  #elif defined(CONFIG_CMDLINE_FORCE)
->  	pr_warn("Ignoring tag cmdline (using the default kernel command line)\n=
-");
+> diff --git a/sound/usb/card.c b/sound/usb/card.c
+> index 9307da95efbef..bdca8085fca66 100644
+> --- a/sound/usb/card.c
+> +++ b/sound/usb/card.c
 
 [ ... ]
 
+> @@ -667,44 +670,61 @@ static void usb_audio_make_longname(struct usb_devi=
+ce *dev,
+>  		s =3D preset->vendor_name;
+>  	else if (quirk && quirk->vendor_name)
+>  		s =3D quirk->vendor_name;
+> -	*card->longname =3D 0;
+> +
+> +	seq_buf_init(&sb, card->longname, sizeof(card->longname));
+> +
+>  	if (s && *s)
+> -		strscpy(card->longname, s);
+> +		seq_buf_puts(&sb, s);
+>  	else if (dev->manufacturer && *dev->manufacturer)
+> -		strscpy(card->longname, dev->manufacturer);
+> -
+> -	if (*card->longname) {
+> -		strim(card->longname);
+> -		if (*card->longname)
+> -			strlcat(card->longname, " ", sizeof(card->longname));
+> +		seq_buf_puts(&sb, dev->manufacturer);
+> +
+> +	if (seq_buf_used(&sb)) {
+> +		char *trimmed;
+> +
+> +		seq_buf_str(&sb);
+> +		trimmed =3D strim(card->longname);
+> +		if (trimmed !=3D card->longname)
+> +			memmove(card->longname, trimmed, strlen(trimmed) + 1);
+> +		sb.len =3D strlen(card->longname);
+> +		if (sb.len)
+> +			seq_buf_putc(&sb, ' ');
+
+[Severity: Medium]
+Does this seq_buf_putc() call leave the string without a null terminator if
+the buffer subsequently overflows?
+
+strim() and memmove() remove leading and trailing spaces by shifting the
+string and inserting a null terminator, but they leave the old shifted
+characters in the buffer immediately after the new null terminator.
+seq_buf_putc() then overwrites the new null terminator with a space, but
+does not append a new one to maintain string safety.
+
+If any subsequent seq_buf_puts() calls (like shortname, path, or speed)
+exceed the 80-byte capacity, they silently abort and place the buffer into
+an overflow state without writing a new null terminator.=20
+
+At the end of usb_audio_make_longname(), seq_buf_str() sees the overflow
+state and places a null terminator only at the very end of the buffer, not
+at the logical string end.
+
+Can this expose duplicated characters or trailing spaces when the device
+manufacturer string and subsequent concatenated parts exceed 80 bytes?
+
+>  	}
+> =20
+> -	strlcat(card->longname, card->shortname, sizeof(card->longname));
+> +	seq_buf_puts(&sb, card->shortname);
+> =20
+> -	len =3D strlcat(card->longname, " at ", sizeof(card->longname));
+
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915081910.4142=
-719-1-morbo@google.com?part=3D3
+719-1-morbo@google.com?part=3D5
