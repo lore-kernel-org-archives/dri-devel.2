@@ -4,94 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F296FC982D0
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 18:51:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2061C982D0
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 18:52:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14E0810F066;
-	Thu, 17 Sep 2026 18:51:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E58310F069;
+	Thu, 17 Sep 2026 18:52:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T3n8vnGk";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H+WzPnKr";
 	dkim-atps=neutral
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
- [74.125.228.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3962A10F069
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 18:51:09 +0000 (UTC)
-Received: by mail-ej2-f12.google.com with SMTP id
- a640c23a62f3a-c254f9f7db0so189856866b.3
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 11:51:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789671067; cv=none;
- d=google.com; s=arc-20260327;
- b=U/pnovdO9JTAvCkU3YNjzrhdK6/FPomN84y+hVsz/iMm1Cw5rZ4n2MZRz7t4c2AamI
- kBM08LGxx7iLxFFq/HKrUinmIgJcdGamwOAtYYpu48l8zzgYAtmruD6lBQ9T7vUWjAXN
- SvuCwRiEFl4Rv0tdLn8c4EYFKJNId/nsO6McSW5Dd4oKJ0YSuk1dZ/HrzIQxFkZxL2nB
- gAsQCallxKjDZcGyUs/KgQ+oBwmX0pCDD81Z+f5eGeJ/7cfldNJxfXOjpWJNE69qHKHJ
- yqk8YfHosW0FjhfXbf6HxzV+sBqfYY9WYRO7e/4JjYlyK9XjrBZtx6nH916EVFqpr7dS
- UV4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=9kVz82MAvAbBww+/Fr0+me1zCzCm1neo4UwNfXq+b7A=;
- fh=FlYx7hdemyRhtlKAaSQ73rEl1xdvGrwvtO5vrcUucIE=;
- b=dupn+dQk43jnKLOXc3kRUv4DqjTBR2Up8lQBPGJa9DPtfAIAPYUMwnGAV9e7Gjc3im
- STO/BwqezZNSA03WvIV6MheLmVCs509iaFSYiMc3/dknVWZYwnAHOD7kHQm/0+9cNWyB
- cU82cQe5e67ZHHJFTlirIau+MalfUPgOU8K/FmzClranrANRgMbFteQwrLOyRpX671C9
- 072OuJg1uNoKZSPYgk7/POTjaNnFmcp7owmsEskVjCHws1NsW7oyggTu/4O4o7vQJ9FR
- b2KQwmdxBO244xHEAcAKkc9rNe3CRhYznaVDzYEHAKV1aoIDF+eFMFypbzdxfDEdkhZ3
- tDcw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com
+ [74.125.228.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13FF910F06D
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 18:52:58 +0000 (UTC)
+Received: by mail-ed2-f12.google.com with SMTP id
+ 4fb4d7f45d1cf-6a6063d7dc4so1906917a12.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 11:52:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789671067; x=1790275867; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=9kVz82MAvAbBww+/Fr0+me1zCzCm1neo4UwNfXq+b7A=;
- b=T3n8vnGkciLzjDfHJITqjQfo7Few/yb7PqqlQ40h6DjOBNhJlKSrClL9YwRSzmR6Qt
- AjuPbmtl28QET5+6EM2A7/VYeqdrZmAbEDwtfAxeoZfBzrnjo9bRM4ifYR6uz2iPPGVF
- 7lOfHdESiWP88+EXgD7tUvWFsepSjH5lIKCDeWQq6bFtkt00+UkjXUlTbH7WNNXZaV6x
- AIk0Q4STZi4KIbuqQ9y2ER2NTnGqYyTs6x+Lnx4Z3BrR+yWhvlV1+3VMOHBn5cOJ6Wnu
- oQDHce+aYoAS37iZ7dld7YKyNQN3tzD43/TozcjCWn4Q/THbki7CqdeL2lBeGsDZqfmI
- J7Ug==
+ d=gmail.com; s=20251104; t=1789671176; x=1790275976; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Rja8CkyCHKN0BB+9VZU25/yAjyQ+Z2Lz6sA9AfSQojE=;
+ b=H+WzPnKrQhzoyV9HGhcOA9NqhXcfhS/qhR++9/kbJdbJ72YqSFpq5rOwBgn70LP5xJ
+ GsGHHHVgGAAYOA105PcOmMkXBSb4Ngdmo1Xl4HWfWjucS7K35Xkqiuxh/kekz5fFcEQp
+ e+4yQoDA27YtO+9MHk4vutPEhm2lNt9yrvDGjFWaw+FY+KnEBqnLOI/spgcFQYFNUXXy
+ r/3tpM0M6WCgvjgNyoS3xpPc16rhM7DqaWoWAkkrDtjeP6DdgWxIZOloTJpvHqYPGFCm
+ urLT7hR2s64aAX7Jk2hDKHkGJfibD5OU8fqQ4IpyVNtzeV0MSetJAkmmEiTB8+8YKqPS
+ EvaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789671067; x=1790275867;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=9kVz82MAvAbBww+/Fr0+me1zCzCm1neo4UwNfXq+b7A=;
- b=arq3wnGPSg0El/86Yj3lJCAmIa3Ovxp9aD9NDUbhGcLMI4vkvjVg0AQ93f6Xo0BFN0
- 79QN7cj6poWHgM8s7CGy/O5+13j8YCcpz+YtqWwO5zmZHn9Zvk8PQyJlt1WQSFGye8v+
- DDkhNTNGkZ6kisHJDQFIa59Co7d6WmFj+uFJzfVUfok2Z9ypbvcY62WjLDsPfvnjQVUG
- wqlQPSkVMbrjPJRzAwd+JVprBD+rLcMRB1SnQ+QRU5xXnxroZYIaQAS603RSxCMGubUe
- OkTA8cvr3bMJ7u2w8Ez2rzoVQWVEynAT55lztkygFHNamGgUOi7RPw7c7Wt+MlkT4RIx
- S0nw==
+ d=1e100.net; s=20260707; t=1789671176; x=1790275976;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Rja8CkyCHKN0BB+9VZU25/yAjyQ+Z2Lz6sA9AfSQojE=;
+ b=aiL1F1AZGVAnaqrUlBBFm2ruyXSpM+93EVRqlzI8PhxgO6XkL+m5u33lv/YUJplKKI
+ B07csZOJQAJRqXqkSqQ7tF5wgIqpz4QPCLbJHs0UWdstvcSNSxWQjTThbxzvfH7jwjzO
+ KtYeCu7yqrt20dYR2B/pjwLiD52sbWb6S3nUG7up/SskLAJYTG3oAMQscvKJohIGwmvl
+ EqVWTUVTi90LD37FsjFfqfxf6m2F+KRsvwOwiyJKK5gEXL+gEuXlhvfx0R9+hacGBYSo
+ hZDa6dBaFzhNmykDk23r1WHMR7Yv0Dl9HW8QQUl/mVn5futbKvvbLg0F41BoWone/wba
+ P8rg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBz9AA1q5SVIv7u5gSBztXA4HkPFFJUVToyhw761DGBTgImk7b+/LlkNRZEc9W4uidfXpm2SWrViJtI=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kLBt9tGMD38rl1fCw3dbqLuw0BWv5rp0WeW5FV43m+grZGuVQV
- 0xBmf6+PHRGkoM63sxRGpt1lYGggSK5Y7W7aPxolkSoICWcdHFco0bPmbTaYHzm2kBS+GzgheOK
- XJKE6lZPORFuavf5VQmxuBGGjfEKzpLk=
-X-Gm-Gg: AYBFou1XoLNzACN5pfwSBiriu/P59uyIbIWO0o/rsobwVBK5qzjXJV4aqaMP737rPDR
- UKtF58TyFwHvGVY8gTW2bsri2UQrktl4UhGxGwSyF4aBLhCtTWj2IkSejm5ddO9UyB5quMZty0B
- tQ4/xEW+ddrpnTioSkLg3LhrQSPM5lOcI95PsnnqdVn/tvGyCqLeP4xhhXiiyzfDp8GQqR5sx+N
- PfgZ2F9AnCJb2KnIW+vDhj/HmQk+x0gmQX2iiV8OMxZRBW7jZwhPWWPmoO+GR3hP8DsDzV0zR7r
- 1CPjb/1q/WKS96LZhg6GrJX7RxGXHhgS13S7976jWQdsuaYYpIbsYg==
-X-Received: by 2002:a17:907:6d06:b0:c29:3a1b:ec8e with SMTP id
- a640c23a62f3a-c2a1569b034mr13494966b.3.1789671067393; Thu, 17 Sep 2026
- 11:51:07 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260912091805.531666-1-andersen.theo@gmail.com>
- <c7215b173c533cd697d8eb37b56c2a1890ea7c41@intel.com>
-In-Reply-To: <c7215b173c533cd697d8eb37b56c2a1890ea7c41@intel.com>
+ AKwUvBw/IbPrljz8U6HInpKbY53exS+T+2QPka/130JJdwMMbAwWRw+yMjn0wT0/5lK8kzG4sojgZeUJMbQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nagM3KrOr2iSRfF7DQ1IQ+jCmdCeGwZjlxmlaq6tgKDQWwIJwJ
+ pKq1+HIv9AsHxusxPJv0M1Yi3cN930Gwt5t2+nb88TEEYRXDV+Epw00u
+X-Gm-Gg: AYBFou0FH3k3iNTlZEuiv5jVJcBeIkR3qa5SO+cfu9JBRVewEQ0bWJcrcNVFzkJPsYg
+ cpgrYlWmJclxNogtJ3NAwSrY7Zrom9PUypmQR6u9pbTugimhDPzm0FL/kNhDoMuocJtmTgdfTKM
+ 3qYoJYF+ZffTHSgXMm3PPByvaTXKAFUbNGEtFTeSRS1IOja1jxh/w4UnmJC3kqgMboZDSUW+6Ox
+ O/tuJqWok0gqWq4GEB1pSg4PAz8A97wjmHOctsw+Rfu1r51somuBwlrSY+Du7dWaot39l93kHK2
+ tKNZpiHd+Bmer4Lemf5ixsvLVexJm1pM+/8BGBFAywBucKDjGRhW2axo8lHa2hmhpEhqQI/N268
+ bLBsnvzDqEXpMdCeivlLQ6Tbb4HHfyZymhAMQFwg+E53y/4F7ow20WD/YptgG0o3xna0X5oiDL9
+ Wbz0bkcldBxfslXAlN6A7g/YGLhObodqaDjvAmUT/ZdyWZ4Ltb5umW21XaBbQORkalc1s=
+X-Received: by 2002:a05:6402:24c5:b0:6aa:13a8:beea with SMTP id
+ 4fb4d7f45d1cf-6aa22452a31mr10658257a12.21.1789671175963; 
+ Thu, 17 Sep 2026 11:52:55 -0700 (PDT)
+Received: from cartold ([77.213.69.61]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6aa1d286e76sm3610549a12.23.2026.09.17.11.52.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Sep 2026 11:52:55 -0700 (PDT)
 From: Theo Andersen Carton <andersen.theo@gmail.com>
-Date: Thu, 17 Sep 2026 20:50:56 +0200
-X-Gm-Features: AcwNN1WHuc8o-nFGlfzO4INLAjuamK1x7axEj4QEzHLMTpq90hpTZl6XJiyGKjA
-Message-ID: <CANFnrsrR-benwg2i=mGs1RywuwcxkFE9Pzw8O7kGRQnNyit-tw@mail.gmail.com>
-Subject: Re: [PATCH] drm/i915/ddi: add DDI A force 4 lanes quirk for Apple
+To: jani.nikula@linux.intel.com,
+	rodrigo.vivi@intel.com
+Cc: joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Theo Andersen Carton <andersen.theo@gmail.com>
+Subject: [PATCH v3] drm/i915/ddi: add DDI A force 4 lanes quirk for Apple
  MacBookPro11, 5
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com, 
- tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Date: Thu, 17 Sep 2026 20:52:35 +0200
+Message-ID: <20260917185235.23792-1-andersen.theo@gmail.com>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,56 +90,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> I'm guessing this is v2 of [1], but I shouldn't have to guess.
+On dual-GPU Retina MacBooks the internal panel is muxed to the discrete
+GPU at boot, so Apple's firmware never lights up eDP on the Intel side.
+As a result it never sets DDI_A_4_LANES, and intel_ddi_max_lanes() reads
+back a source maximum of two lanes for port A.
 
-You're right, it is effectively v2 of [1] -- same patch, no functional
-change. Sorry for not labelling it.
+intel_dp_max_common_lane_count() then takes min3(source_max = 2,
+sink_max = 4, ...) = 2, giving 2 x 2.7 Gbps x 8/10 = 4.32 Gbps of link
+bandwidth. The panel's native 2880x1800@60 8bpc mode needs 8.1 Gbps, so
+every mode is rejected with MODE_CLOCK_HIGH and the connector comes up
+with no usable modes at all -- the panel stays dark whenever i915 is
+made to drive it, which looks like a hardware limitation but is not.
 
-[1] was pasted into a mail client by hand, which hard-wrapped the
-"diff --git" lines and turned the leading tabs into spaces. It did reach
-the lists, but not as an applicable patch, so I resent it with
-git send-email and didn't think of it as a revision. I'll use proper vN
-and changelogs from here on.
+The lanes are physically there. Reading the panel's DPCD from the AMD
+side, where amdgpu drives it correctly, reports MAX_LANE_COUNT = 0x84,
+i.e. 4 lanes, and amdgpu's own link_settings shows it running the panel
+at 4 lanes / HBR. macOS likewise drives this panel from the iGPU at its
+native resolution, so all four lanes are routed through the gmux to
+DDI A. Only the register bit is unset.
 
-> Is there a bug report about this? Would be nice to see the logs in the
-> failing case. See [2].
+intel_ddi_a_force_4_lanes() already exists for exactly this situation --
+its neighbouring comment notes that "Some BIOS might fail to set this
+bit on port A if eDP wasn't lit up at boot" -- but it only covers
+Broxton and Geminilake. Extend it with a DMI quirk so affected Macs get
+the correct lane count too.
 
-There wasn't one -- I went straight to the list. Filed now:
+The DMI match is deliberately narrow. Other dual-GPU models in the same
+family are very likely affected identically, but they are untested, so
+widen the match only as reports come in.
 
-  https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17087
+Tested on a MacBookPro11,5 (Haswell Crystal Well, Iris Pro 5200 +
+Radeon R9 M370X): with the quirk, DDI A comes up as 4 lanes, link
+training passes at link rate 270000 / lane count 4, and i915 drives the
+internal panel at its native 2880x1800.
 
-It has the full failing-case log with drm debug enabled, on an unpatched
-i915 with the panel muxed to the iGPU. AUX and EDID are fine, and then the
-panel's only mode is pruned:
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17087
+Signed-off-by: Theo Andersen Carton <andersen.theo@gmail.com>
+---
+Numbering note: neither earlier posting was labelled, so to match the
+numbering already used on the list this is v3. v1 [1] was pasted into a
+mail client by hand, which hard-wrapped the diff and detabbed it, leaving
+it unapplicable. v2 [2] was the same patch resent with git send-email,
+unlabelled.
 
-  [drm:intel_dp_print_rates] sink rates: 162000, 270000
-  [drm:update_display_info] [CONNECTOR:93:eDP-1] Assigning EDID-1.4
-digital sink color depth as 8 bpc.
-  [drm:drm_mode_prune_invalid] Rejected mode: "2880x1800": 60 337750
-2880 2928 2960 3040 1800 1803 1809 1852 0x48 0x9 (CLOCK_HIGH)
+v3:
+- No functional change since v2.
+- Commit message: the machine is Haswell (Crystal Well), not Broadwell as
+  v1/v2 claimed. The DMI match was always by model, so no code change.
+- Added Closes: tag for the bug report, which carries the failing-case
+  logs, the VBT dump and the EDID.
 
-because intel_ddi_max_lanes() reports a source maximum of 2 for port A.
-The matching log with the quirk applied is attached too, where the same
-link trains at lane count 4.
+[1] https://lore.kernel.org/r/CANFnrspHiK7ii28XPdLkOMyhSZcJ9xz6CT-kNX+oiiF+8N-2Fg@mail.gmail.com
+[2] https://lore.kernel.org/lkml/20260912091805.531666-1-andersen.theo@gmail.com/
+ drivers/gpu/drm/i915/display/intel_ddi.c    |  7 +++++
+ drivers/gpu/drm/i915/display/intel_quirks.c | 34 +++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
+ 3 files changed, 42 insertions(+)
 
-> i915_vbt from debugfs would also be interesting.
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 02a53c9848e1..f746287830b3 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -4976,6 +4976,13 @@ static bool intel_ddi_a_force_4_lanes(struct intel_digital_port *dig_port)
+ 	if (display->platform.geminilake || display->platform.broxton)
+ 		return true;
+ 
++	/*
++	 * Machines whose firmware leaves eDP dark on the Intel side never set
++	 * the bit, so trust the quirk rather than the register.
++	 */
++	if (intel_has_quirk(display, QUIRK_DDI_A_FORCE_4_LANES))
++		return true;
++
+ 	return false;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 33245f44c0d5..feb28956a013 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -100,6 +100,20 @@ static void quirk_disable_psr2(struct intel_display *display)
+ 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
+ }
+ 
++/*
++ * Dual-GPU Macs boot with the internal panel muxed to the discrete GPU, so
++ * the firmware never lights up eDP on the Intel side and consequently never
++ * sets DDI_A_4_LANES -- even though all four lanes are wired through the gmux
++ * to DDI A. Without the bit, port A is capped at two lanes, which is not
++ * enough bandwidth for the panel's native mode, leaving the connector with no
++ * usable modes at all.
++ */
++static void quirk_ddi_a_force_4_lanes(struct intel_display *display)
++{
++	intel_set_quirk(display, QUIRK_DDI_A_FORCE_4_LANES);
++	drm_info(display->drm, "Applying DDI A force 4 lanes quirk\n");
++}
++
+ struct intel_quirk {
+ 	int device;
+ 	int subsystem_vendor;
+@@ -142,6 +156,13 @@ static int intel_dmi_no_pps_backlight(const struct dmi_system_id *id)
+ 	return 1;
+ }
+ 
++static int intel_dmi_ddi_a_force_4_lanes(const struct dmi_system_id *id)
++{
++	DRM_INFO("DDI A is 4 lanes despite firmware on %s\n", id->ident);
++
++	return 1;
++}
++
+ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+ 	{
+ 		.dmi_id_list = &(const struct dmi_system_id[]) {
+@@ -188,6 +209,19 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+ 		},
+ 		.hook = quirk_no_pps_backlight_power_hook,
+ 	},
++	{
++		.dmi_id_list = &(const struct dmi_system_id[]) {
++			{
++				.callback = intel_dmi_ddi_a_force_4_lanes,
++				.ident = "Apple MacBookPro11,5",
++				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
++					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro11,5"),
++				},
++			},
++			{ }
++		},
++		.hook = quirk_ddi_a_force_4_lanes,
++	},
+ };
+ 
+ static struct intel_quirk intel_quirks[] = {
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+index 970a4fe52faf..d2b8e9183c62 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.h
++++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+@@ -23,6 +23,7 @@ enum intel_quirk_id {
+ 	QUIRK_EDP_LIMIT_RATE_HBR2,
+ 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
+ 	QUIRK_DISABLE_PSR2,
++	QUIRK_DDI_A_FORCE_4_LANES,
+ };
+ 
+ void intel_init_quirks(struct intel_display *display);
 
-Attached to the bug as i915_vbt.bin, 6144 bytes -- a $VBT HASWELL block,
-BIOS build 1215 dated 12/13/2012, on Apple firmware 427.140.8.0.0. Say the
-word if you'd rather have a specific block dumped inline.
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+-- 
+2.55.0
 
-> The patch itself looks sane.
-
-Thanks. One thing I got wrong in the commit message, which v3 fixes: I
-wrote Broadwell, but the machine is Haswell Crystal Well -- i7-4980HQ,
-8086:0d26, $VBT HASWELL, and i915 logs "Found haswell". Apple's ACPI DMAR
-OEM string says BDW, which is what misled me. No code change; the quirk
-matches on DMI model either way.
-
-I'll send it as v3 rather than v2, to match the numbering you used
-above -- neither earlier posting was labelled, and renumbering them now
-would just recreate the ambiguity. It has that fix, a Closes: tag for the
-bug, and a changelog spelling out what v1 and v2 were.
-
-BR,
-Theo
