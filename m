@@ -4,47 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FA64C88E72
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 18:00:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13763C88E72
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 18:00:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5364210E3A0;
-	Thu, 17 Sep 2026 18:00:17 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7DB310E3A0
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 18:00:15 +0000 (UTC)
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-05 (Coremail) with SMTP id zQCowABHdkCsKqxqbtuFCA--.1923S2;
- Fri, 18 Sep 2026 02:00:13 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: dri-devel@lists.freedesktop.org
-Cc: jeff.hugo@oss.qualcomm.com, linux-kernel@vger.kernel.org,
- ogabbay@kernel.org, tomeu@tomeuvizoso.net,
- Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
-Subject: [PATCH] accel/rocket: Fix use-after-free in rocket_ioctl_create_bo()
-Date: Thu, 17 Sep 2026 18:00:13 +0000
-Message-Id: <20260917180013.2166025-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 260B510E76E;
+	Thu, 17 Sep 2026 18:00:45 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LVkG09Hq";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3302510E76E
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 18:00:43 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 61C626022F;
+ Thu, 17 Sep 2026 18:00:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACBF31F00893;
+ Thu, 17 Sep 2026 18:00:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789668042;
+ bh=bDkA9Is1Jx1AOE6Tvx2VWAovPxbpbhANimFsfanmC0s=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=LVkG09HqfsKZmJFS9qmt6OvQIdIMnn38+xzlPNcI19TxAJDAVqDvcv13mx5RhiTJF
+ BLFpnR+BysQpygTq/jJME04w/nYC6JbWWyngMv/UqyKfFg/XRgx7vghrbUABrl1xVa
+ gzPWxiGrTTasJL7YDq+byQVo+FUUD/WjlOUBbOLR/Xd71lWSaRrldlsJicJcKWYeHS
+ hiIJQAirnKUCBG3M/4JbVZfqSp+8BFzJVS57Tp/RKVgvNfoJF+cer2fMfEtKfCDQB9
+ 69UFkPdaOAPFuQu79OdO6zaHZJVHecxL8QaqbdLDMo5FenvMFzH+F34vu3f36Eukda
+ OZliUmPKbP87Q==
+Date: Thu, 17 Sep 2026 23:30:37 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Daniel Matyas <matyasdaniel006@gmail.com>
+Cc: Lee Jones <lee@kernel.org>,
+ =?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+ Ulf Hansson <ulfh@kernel.org>, Liang Yang <liang.yang@amlogic.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
+ Ray Jui <ray.jui@broadcom.com>, Scott Branden <scott.branden@broadcom.com>,
+ Atish Patra <atishp@rivosinc.com>, Shawn Guo <shawn.guo@linaro.org>,
+ Dmitry Osipenko <digetx@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Ibrahim Tilki <Ibrahim.Tilki@analog.com>,
+ Okan Sahin <Okan.Sahin@analog.com>, devicetree@vger.kernel.org,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>,
+ linux-rtc@vger.kernel.org, Ricard Wanderlof <ricardw@axis.com>,
+ patches@opensource.cirrus.com, Lukas Wunner <lukas@wunner.de>,
+ Chunfeng Yun <chunfeng.yun@mediatek.com>,
+ Eugen Hristev <ehristev@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux@analog.com, linux-input@vger.kernel.org,
+ chrome-platform@lists.linux.dev, linux-riscv@lists.infradead.org
+Subject: Re: [PATCH] dt-bindings: Expand flow lists to block lists
+Message-ID: <aqwqxSxqg7aRjchE@parshuram>
+References: <20260917144028.459053-1-matyasdaniel006@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowABHdkCsKqxqbtuFCA--.1923S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cw4DuFWktr45tF15JF4rGrg_yoW8Jw43pa
- 9xGry2yrZxK3yjgrZ7ZF4kua4rCw4akr18u348tw1rurn3ta4ft34Fkryqqr4UCrykWrWY
- qr1UJr1F9a4jy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvC1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
- w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
- IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2
- jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4
- CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
- Jrv_JF1lYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
- Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r126r1DMxAIw28I
- cxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr
- 0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY
- 17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
- C0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
- 6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2Kf
- nxnUUI43ZEXa7VU1cyCJUUUUU==
-X-Originating-IP: [36.110.52.2]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAENA2qr9nB43gAAsi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917144028.459053-1-matyasdaniel006@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,36 +94,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-If drm_gem_handle_create() fails, it takes and then releases its handle
-reference internally, leaving the creator's reference as the only one
-held.  The drm_gem_object_put() then drops that last reference, freeing
-the object via rocket_gem_bo_free(), and the subsequent goto err makes
-drm_gem_shmem_object_free() run on the already freed object.
+On 17-09-26, 17:40, Daniel Matyas wrote:
+> Running dt_bindings_check returned:
+> [error] string value is redundantly quoted with any quotes (quoted-strings)
+> 
+> The files used quotation marks in flow lists because the strings had
+> commas and these commas were interpreted as separators. Convert flow
+> style lists to block style lists, so that there is no problems with the
+> commas.
 
-Return directly on the error instead: the put has already released
-everything the function acquired at this point, so there is nothing
-left to clean up on the err path.
+Acked-by: Vinod Koul <vkoul@kernel.org>
 
-Fixes: 658ebeac3351 ("accel/rocket: Add IOCTL for BO creation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/accel/rocket/rocket_gem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/accel/rocket/rocket_gem.c b/drivers/accel/rocket/rocket_gem.c
-index 91095d1b3066..521819041475 100644
---- a/drivers/accel/rocket/rocket_gem.c
-+++ b/drivers/accel/rocket/rocket_gem.c
-@@ -82,7 +82,7 @@ int rocket_ioctl_create_bo(struct drm_device *dev, void *data, struct drm_file *
- 	ret = drm_gem_handle_create(file, gem_obj, &args->handle);
- 	drm_gem_object_put(gem_obj);
- 	if (ret)
--		goto err;
-+		return ret;
- 
- 	sgt = drm_gem_shmem_get_pages_sgt(shmem_obj);
- 	if (IS_ERR(sgt)) {
 -- 
-2.34.1
-
+~Vinod
