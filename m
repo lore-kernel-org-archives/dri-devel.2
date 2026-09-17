@@ -4,61 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB9F0C982C1
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 02:20:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 737AFC982C1
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 02:23:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 915E910E3FB;
-	Thu, 17 Sep 2026 02:20:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9760D10E545;
+	Thu, 17 Sep 2026 02:23:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="C+O6n/Tc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FMBUJ8uc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A02410E3FB;
- Thu, 17 Sep 2026 02:20:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789611639; x=1821147639;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=uaRNHAbNqeF/mMuH2ZtQgqqmjOT8sz6v8esrl6uU8GU=;
- b=C+O6n/Tcgj4dMA4kstcVTrFa9r+O2eLPlEB138qYBDC1xkMtrQGONvYl
- i3+HEZk6JU27NTe1Nt7MsCKMZrGhlHSklDT2weBB8o6/EDo6U3K3i+akx
- YzvFdBHFVUv0Vee2LKIB44J0Ik54Vj2zne3WprtwRq5g0PZTtVnILLxr4
- 89172vMj4XEnyx0l0p8Goq/pwlYXIqdxAexEfR6KTzF/kPMMejz16ezCK
- SX3hVFVnHZX/kOvZMQA86RTfI0xRXtWYvYrLpX2F+Ul4hawRV2GDXusRm
- vQngt45XoixrboW1MN7ynwzkLzMzV9Ug35f8WvBJ9JGDkGDokEZralAur w==;
-X-CSE-ConnectionGUID: d4vlEyeQRWiqqmsDT9GIDA==
-X-CSE-MsgGUID: x956KzkwTeiqBaCon1gGcA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100593461"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="100593461"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2026 19:20:38 -0700
-X-CSE-ConnectionGUID: a+FrgqhxRjKDOKkVEATCSQ==
-X-CSE-MsgGUID: y3/3CyIPRK6AE7Rx+yu9QQ==
-X-ExtLoop1: 1
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
- by fmviesa003.fm.intel.com with ESMTP; 16 Sep 2026 19:20:35 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1x71jk-0000000071J-3YSR;
- Thu, 17 Sep 2026 02:20:32 +0000
-Date: Thu, 17 Sep 2026 10:20:03 +0800
-From: kernel test robot <lkp@intel.com>
-To: Wentao Liang <vulab@iscas.ac.cn>, Felix.Kuehling@amd.com
-Cc: oe-kbuild-all@lists.linux.dev, airlied@gmail.com,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, david.yatsin@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- rajneesh.bhardwaj@amd.com, simona@ffwll.ch,
- Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/amdkfd: Fix file reference leak in
- criu_restore_devices()
-Message-ID: <202609171036.aewbdced-lkp@intel.com>
-References: <20260916074216.1973191-1-vulab@iscas.ac.cn>
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com
+ [74.125.227.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86C9510E545
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 02:23:16 +0000 (UTC)
+Received: by mail-pj2-f42.google.com with SMTP id
+ 98e67ed59e1d1-39666e7c9efso45166a91.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 19:23:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789611796; x=1790216596; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from:cc
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Nkh0FnuQtTwLU/gLgK8Zr6SvB3rMVV5l8Nx6NE3bkmQ=;
+ b=FMBUJ8ucQYW1odJ6Ru02b/q61hpW0Lr+vum8z46p9p9bnlzwQJ0OeMju76nsclY/dy
+ 0AqRmH/CgB8Ts4+2RwLOb1MVq5b4TUJN+rXfkxsZH1iJJuKunMfvnGt+Sw72eb5pdE1T
+ Bb7g8LmEKS3ZGgTdZGJMpkonnaYhZ6gAyAvgUxdgELWCtQJJHZ83U1OUBvHfRE1XXhx2
+ 4+qncUpnWW779i1r9USbnV7sYKrS1fYkCpK4aNq1e/Vz3mjh0u1YhtFTvlMiOP0Lo75I
+ pslM74OuvuBoq3NLKwDvJQMAUIASxGKAbBZNisYdQmGjOb87IUM0KDERBifN2Cc1+xBE
+ rkiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789611796; x=1790216596;
+ h=content-transfer-encoding:content-type:in-reply-to:from:cc
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Nkh0FnuQtTwLU/gLgK8Zr6SvB3rMVV5l8Nx6NE3bkmQ=;
+ b=XrQNdCS+Xlncva+n88TKkACjmRX1/PY4Hp0XcknQicfnN/fIAPc2GBz8hLOThUNh9D
+ GP4wAsLJ+fot21ADpBWQjJ2HzZkTsySR3A10TV/+Pm8h3mWVke9Cet4HrCvJnzq6yBPz
+ EJ2JmIPPEIaOD0/Hj1rEmtGFjGM6WzFaLkBzZsVwTBhz4KS9ARPwZeRpgxte62yJtDK8
+ NdvVHFOwBtTSRYuzpawavbkui/D1cN400rYJ4BzQcWHIpKnlR4TBQSyH1a1kU3ylUyAg
+ imfs+hSIZ+3tYfrKpS8H03YiqXhIzgeAq7Hu2w24zQIT5yPYIysvg8Afj1LJswvElvoN
+ bamg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxyvVm/52sUNAeiYx6TBy8lmde0E6XNt6NwGyxrz9QT9hMgycpG45sNnzBmAQ8Yxcme541+HsBB8dg=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kvMOhpG3VM2GQPdT4RhsUaGahVyejPYGi5uVHrOYycpdpiiph0
+ E2LK98UFFyDzc4rQGJ54egx90YS40eU59U4k9ruGWTex9p6MC4wWUzp9
+X-Gm-Gg: AYBFou17aEdeq9pYJwPz1mxfxTH3oUm/Kch2u4Ez7XULCZ49WZvhoQ/gYYlR4jHCkZv
+ WrobPwNC1eELSv6vbkhZzz69nsvkC15PsRFX4tYuqecP2NvqCJYGF+isGS/cm9nrk6mxnrtFC+v
+ MtcV/cDYW5A4I2D5Lb7VGcC7YbuQK6dqMskKo4ncvJ+vH/CauF2Xs5v0chtvYjDl3aeUA/RCDKP
+ go0mLnKsWZ2Vwt/fCJOJA5AnAkyKhXg1i+2hDpScFWN452caZ3ZoP/CcjBsO/BPnw3HI9Fgo6KT
+ 0Td8WYm6QdA9EKZjn+2F110wLXlNciPJbFDkad9iHMZkBb9o5lggNJB1cfq80YNExfr2BpuNKUo
+ o1USayfO2IHrLYIVhnXDLyPL/1S0SWyzdNDD9EM223BogNVIILv1NPEqNgpVvN9PuiqRta+ldIY
+ wHWbWVW5qzyzEM63Y5QXxO8Vh9ORTRtmqYH20Nfcbwarqtz9XiCaIK/RjBKxX+rLTKD0TQj+ub4
+ XLJyGEyCeGVtq6Txndeg+u9baF1dMtxhTkAoH7T99Q=
+X-Received: by 2002:a17:90b:5386:b0:39d:febe:7452 with SMTP id
+ 98e67ed59e1d1-39e1e64b9bcmr7917463a91.4.1789611795933; 
+ Wed, 16 Sep 2026 19:23:15 -0700 (PDT)
+Received: from [192.168.0.203]
+ (2607-8700-5500-a805-0000-0000-0000-0002.16clouds.com.
+ [2607:8700:5500:a805::2]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-14397197dc8sm9065853c88.3.2026.09.16.19.23.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 16 Sep 2026 19:23:15 -0700 (PDT)
+Message-ID: <bfce38b4-5475-4af6-acbb-cfb20e9b590a@gmail.com>
+Date: Thu, 17 Sep 2026 10:23:00 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916074216.1973191-1-vulab@iscas.ac.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6] drm/bridge: dw-hdmi-qp: serialize HDMI audio callbacks
+ with PHY enable/disable
+To: Igor Paunovic <royalnet026@gmail.com>
+References: <20260915103433.13163-1-rmxpzlb@gmail.com>
+ <20260916161000.11756-1-royalnet026@gmail.com>
+Content-Language: en-US
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+From: Frank Zhang <rmxpzlb@gmail.com>
+In-Reply-To: <20260916161000.11756-1-royalnet026@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,149 +95,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Wentao,
+On 9/17/26 00:09, Igor Paunovic wrote:
+> Hi Frank,
+> 
+> I tested v6 on an Orange Pi 5 Plus (RK3588): git am onto a
+> drm-misc-next based 7.3.0-rc2 tree with PROVE_LOCKING and
+> DEBUG_ATOMIC_SLEEP, HDMI output to a TV.
+> 
+> The reproducer I used on v5 (output off, then open and close the PCM)
+> now stops at the open: dw_hdmi_qp_audio_enable() returned -EOPNOTSUPP
+> three times out of three, nothing from ASoC or the bridge was logged,
+> and since the startup failed, the shutdown path never reached
+> clear_audio_infoframe().
+> 
+> So I also ran the sequence from your commit message: PCM opened with
+> the output on, output turned off by the compositor while the stream
+> runs, PCM closed after that. With function_graph on
+> dw_hdmi_qp_bridge_clear_audio_infoframe() and
+> dw_hdmi_qp_audio_enable(), the clear call after the disable takes and
+> drops phy.lock and returns 0 with no regmap access inside it; with the
+> output on, as a control, one regmap_update_bits_base() call shows up
+> inside it, under the lock.
+> 
+> There was no external abort, SError, lockdep report or might_sleep
+> splat in the whole run, including two output off/on cycles, and once
+> the output was back on a new stream played on the TV.
+> 
+> Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus (RK3588)
+> 
+> Not covered: I did not try to hit the window the lock is meant to
+> close (an atomic disable landing between the state check and a
+> register write), so that part rests on the code; and I did not check
+> Dmitry's condition from v2 [1] that a PHY off/on cycle clears the
+> audio registers.
+> 
+> v6 overlaps with Detlev's patch [2] (both return -EOPNOTSUPP from the
+> audio callbacks while the output is off), and [2] no longer applies on
+> top of v6. For the crash, v6 alone now covers both sequences from my
+> v5 note (open with the output already off, and the output going away
+> under an open PCM), so my remark there that both patches are needed
+> does not apply to v6.
+> 
+> An LLM assistant applied and built the patch, wrote the test scripts,
+> counted the traces and helped draft this mail; I ran the tests on the
+> board and did the listening myself.
+> 
+> [1] https://lore.kernel.org/all/urguajogb4zsz4jg3ef32hpyf2awxkywdtlk5ackdi2gjai4l7@vpjaf3sznkto/
+> [2] https://lore.kernel.org/all/20260519-fix-hdmi-audio-warnings-v1-1-9608966c993f@collabora.com/
+> 
+> Igor
 
-kernel test robot noticed the following build warnings:
+Hi Igor,
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on linus/master v7.3-rc3 next-20260916]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Thanks for your testing.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Wentao-Liang/drm-amdkfd-Fix-file-reference-leak-in-criu_restore_devices/20260916-074216
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260916074216.1973191-1-vulab%40iscas.ac.cn
-patch subject: [PATCH] drm/amdkfd: Fix file reference leak in criu_restore_devices()
-config: x86_64-randconfig-1300-20260917 (https://download.01.org/0day-ci/archive/20260917/202609171036.aewbdced-lkp@intel.com/config)
-compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260917/202609171036.aewbdced-lkp@intel.com/reproduce)
+Best regards,
+Frank
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609171036.aewbdced-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_chardev.c:2383:9: warning: variable 'drm_file' is uninitialized when used here [-Wuninitialized]
-    2383 |                         fput(drm_file);
-         |                              ^~~~~~~~
-   drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_chardev.c:2356:24: note: initialize the variable 'drm_file' to silence this warning
-    2356 |                 struct file *drm_file;
-         |                                      ^
-         |                                       = NULL
-   1 warning generated.
-
-
-vim +/drm_file +2383 drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_chardev.c
-
-  2330	
-  2331	static int criu_restore_devices(struct kfd_process *p,
-  2332					struct kfd_ioctl_criu_args *args,
-  2333					uint64_t *priv_offset,
-  2334					uint64_t max_priv_data_size)
-  2335	{
-  2336		struct kfd_criu_device_bucket *device_buckets;
-  2337		struct kfd_criu_device_priv_data *device_privs;
-  2338		int ret = 0;
-  2339		uint32_t i;
-  2340	
-  2341		if (args->num_devices != p->n_pdds)
-  2342			return -EINVAL;
-  2343	
-  2344		if (*priv_offset + (args->num_devices * sizeof(*device_privs)) > max_priv_data_size)
-  2345			return -EINVAL;
-  2346	
-  2347		device_buckets = memdup_array_user((void *)args->devices,
-  2348						args->num_devices, sizeof(*device_buckets));
-  2349	
-  2350		if (IS_ERR(device_buckets))
-  2351			return PTR_ERR(device_buckets);
-  2352	
-  2353		for (i = 0; i < args->num_devices; i++) {
-  2354			struct kfd_node *dev;
-  2355			struct kfd_process_device *pdd;
-  2356			struct file *drm_file;
-  2357	
-  2358			/* device private data is not currently used */
-  2359	
-  2360			if (!device_buckets[i].user_gpu_id) {
-  2361				pr_err("Invalid user gpu_id\n");
-  2362				ret = -EINVAL;
-  2363				goto exit;
-  2364			}
-  2365	
-  2366			dev = kfd_device_by_id(device_buckets[i].actual_gpu_id);
-  2367			if (!dev) {
-  2368				pr_err("Failed to find device with gpu_id = %x\n",
-  2369					device_buckets[i].actual_gpu_id);
-  2370				ret = -EINVAL;
-  2371				goto exit;
-  2372			}
-  2373	
-  2374			pdd = kfd_get_process_device_data(dev, p);
-  2375			if (!pdd) {
-  2376				pr_err("Failed to get pdd for gpu_id = %x\n",
-  2377						device_buckets[i].actual_gpu_id);
-  2378				ret = -EINVAL;
-  2379				goto exit;
-  2380			}
-  2381	
-  2382			if (pdd->drm_file) {
-> 2383				fput(drm_file);
-  2384				ret = -EINVAL;
-  2385				goto exit;
-  2386			}
-  2387			pdd->user_gpu_id = device_buckets[i].user_gpu_id;
-  2388	
-  2389			drm_file = fget(device_buckets[i].drm_fd);
-  2390			if (!drm_file) {
-  2391				pr_err("Invalid render node file descriptor sent from plugin (%d)\n",
-  2392					device_buckets[i].drm_fd);
-  2393				ret = -EINVAL;
-  2394				goto exit;
-  2395			}
-  2396	
-  2397			/* create the vm using render nodes for kfd pdd */
-  2398			if (kfd_process_device_init_vm(pdd, drm_file)) {
-  2399				pr_err("could not init vm for given pdd\n");
-  2400				/* On success, the PDD keeps the drm_file reference */
-  2401				fput(drm_file);
-  2402				ret = -EINVAL;
-  2403				goto exit;
-  2404			}
-  2405			/*
-  2406			 * pdd now already has the vm bound to render node so below api won't create a new
-  2407			 * exclusive kfd mapping but use existing one with renderDXXX but is still needed
-  2408			 * for iommu v2 binding  and runtime pm.
-  2409			 */
-  2410			pdd = kfd_bind_process_to_device(dev, p);
-  2411			if (IS_ERR(pdd)) {
-  2412				ret = PTR_ERR(pdd);
-  2413				goto exit;
-  2414			}
-  2415	
-  2416			if (!pdd->qpd.proc_doorbells) {
-  2417				ret = kfd_alloc_process_doorbells(dev->kfd, pdd);
-  2418				if (ret)
-  2419					goto exit;
-  2420			}
-  2421		}
-  2422	
-  2423		/*
-  2424		 * We are not copying device private data from user as we are not using the data for now,
-  2425		 * but we still adjust for its private data.
-  2426		 */
-  2427		*priv_offset += args->num_devices * sizeof(*device_privs);
-  2428	
-  2429	exit:
-  2430		kfree(device_buckets);
-  2431		return ret;
-  2432	}
-  2433	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
