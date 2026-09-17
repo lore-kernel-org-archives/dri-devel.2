@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF4EEC982D0
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 10:38:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A65D5C982D0
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 10:38:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3147B10ED37;
-	Thu, 17 Sep 2026 10:38:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB0DA10ED4D;
+	Thu, 17 Sep 2026 10:38:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Hna2aaPI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h5SUOKBQ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 735B410ED37
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 10:38:10 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 692F910ED4D
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 10:38:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7CDA0600D4;
- Thu, 17 Sep 2026 10:38:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E83911F000FF;
- Thu, 17 Sep 2026 10:38:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 23D3B43ACC;
+ Thu, 17 Sep 2026 10:38:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B978E1F000FF;
+ Thu, 17 Sep 2026 10:38:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789641489;
- bh=9qTsxEj3Um15bf5hTLhvTnNr14o866YJtkfn25RWeOc=;
+ s=k20260515; t=1789641500;
+ bh=u74oRtiWCXv3HgSYW+QJ4HuHIn93ZY7JgW79VbwRUfE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Hna2aaPIjQzAuM3nCq4Cu5DB9cZOxA8BMRawRE09KaE8qRPG9Nj4Bwmo6NkoAuQxR
- cAr+OFOrXhgkCUti8aPtbYnoD/QvvIig9t1GNLlukJRxIGGpPgE2T7+U5i26GaacJK
- FsgqHf6+ifz5LctuaHzhW0yQAdAB3NGF7ztp3Agqmu5mwkOqVRVeItgu7E5NOM+U93
- KmjYnlr6KWZcSS8jheKsBqI5KSQVyMsUy3SkeA8vVrm4KkXWa632Y6n+t8CjFF1ki7
- lSbZXyNsBVP4XZncdQS3PQrnTglW9HFyeMwIAOTiETmyAbolK/8mI5DXQBxKzTyEVt
- PUo07sLzCP7ag==
+ b=h5SUOKBQspg8kB+hI0vWVKTfZf3Am6onWuFZ8MBcG36WXhXlwhM0GstMOKcFrJF8p
+ LbFaxqoA1GqfOXw71fbwaiVGnWv8gon+R5w7Jww9qGHS2KnYcViJ8Ztb6Ov650D5WA
+ RUuu8FZiYPYaNauZaKjBYyHHJXNWyzkE4mm5UvlVzTjhqplPktqEvClmoA5mqIru64
+ 8mYwPzvHYY8zxr3FQXheHMNCCy6RHy9ndArJ9zc99IZGFPddxSgrFTF3WnlMkTZLr3
+ 8wWdKRu6iKSmLyDVC/dn64sL4tshVj6HdHDNVsbjf9BRavGKBk5toCuSsH7+GMvktE
+ fCsO/Yq0ol7YA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 3/4] drm/virtio: implement userptr support for
- zero-copy memory access
+Subject: Re: [PATCH v6 4/4] drm/virtio: wire blob ioctl creation to userptr
+ objects
 To: "Honglei Huang" <honghuan@amd.com>
-Cc: virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org, "Eugenio
- Perez" <eperezma@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
-In-Reply-To: <20260917102540.1312102-4-honghuan@amd.com>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, virtualization@lists.linux.dev,
+ "Eugenio Perez" <eperezma@redhat.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260917102540.1312102-5-honghuan@amd.com>
 References: <20260917102540.1312102-1-honghuan@amd.com>
- <20260917102540.1312102-4-honghuan@amd.com>
+ <20260917102540.1312102-5-honghuan@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 10:38:08 +0000
-Message-Id: <20260917103808.E83911F000FF@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 10:38:19 +0000
+Message-Id: <20260917103819.B978E1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,125 +59,137 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Critical] drm/virtio: missing pointer clear in virtio_gpu_userptr_get_pa=
-ges()
-- [Critical] drm/virtio: unconditional dma_map_sgtable() causes data corrup=
-tion
+- [Critical] drm/virtio: double-free and UAF in virtio_gpu_userptr_get_page=
+s error path
+- [High] drm/virtio: read-only userptr memory mapped as DMA_BIDIRECTIONAL
+- [Medium] drm/virtio: silent fallback to VRAM if userptr is combined with =
+HOST3D
 --
 
-commit 6e836cf8f7dd384050e500d6dbf47a69c2767c26
+commit 357076bf581ca76e53fbe71d8c16da04e304d01c
 Author: Honglei Huang <Honglei1.Huang@amd.com>
-Subject: drm/virtio: implement userptr support for zero-copy memory access
 
-This commit adds userptr blob objects so the guest kernel can pin an existi=
-ng
-userspace mapping and advertise it as CREATE_BLOB backing entries. It pins
-pages using pin_user_pages_fast() and maps the scatterlist for the device.
+drm/virtio: wire blob ioctl creation to userptr objects
 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_userptr.c b/drivers/gpu/drm/v=
-irtio/virtgpu_userptr.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/virtio/virtgpu_userptr.c
-> @@ -0,0 +1,323 @@
+Integrate userptr into the blob resource creation ioctl.
+
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/vir=
+tio/virtgpu_ioctl.c
+> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
 [ ... ]
-> +static int
-> +virtio_gpu_userptr_get_pages(struct virtio_gpu_object_userptr *userptr)
-> +{
-[ ... ]
-> +		ret =3D pin_user_pages_fast(userptr->start + pinned * PAGE_SIZE,
-> +					  num_pages, flag,
-> +					  userptr->pages + pinned);
-> +
-> +		if (ret < 0) {
-> +			if (pinned)
-> +				unpin_user_pages(userptr->pages, pinned);
-> +			kvfree(userptr->pages);
-> +			return ret;
-> +		}
-
-[Severity: Critical]
-Does this error path leave a dangling pointer? The userptr->pages array is
-freed here but not set to NULL.
-
-If pin_user_pages_fast() fails, this bubbles up to virtio_gpu_userptr_creat=
-e()=20
-which jumps to err_cleanup and calls virtio_gpu_cleanup_object(). That
-function ultimately invokes virtio_gpu_userptr_put_pages():
-
-	if (userptr->pages) {
-		unpin_user_pages(userptr->pages, userptr->npages);
-		kvfree(userptr->pages);
-		userptr->pages =3D NULL;
-	}
-
-Because userptr->pages wasn't cleared, won't this result in a use-after-free
-and double-free when the cleanup function executes?
-
-[ ... ]
-> +static int
-> +virtio_gpu_userptr_get_entries(struct virtio_gpu_device *vgdev,
-> +			       struct virtio_gpu_object_userptr *userptr,
-> +			       struct virtio_gpu_mem_entry **ents,
-> +			       unsigned int *nents)
-> +{
-> +	bool use_dma_api =3D virtio_gpu_use_dma_api(vgdev->vdev);
-[ ... ]
-> +	if (use_dma_api) {
-> +		for_each_sgtable_dma_sg(userptr->sgt, sg, si) {
-> +			(*ents)[si].addr =3D cpu_to_le64(sg_dma_address(sg));
-> +			(*ents)[si].length =3D cpu_to_le32(sg_dma_len(sg));
-> +			(*ents)[si].padding =3D 0;
-> +		}
+> @@ -458,6 +460,17 @@ static int verify_blob(struct virtio_gpu_device *vgd=
+ev,
+>  			return -EINVAL;
+>  	}
+> =20
+> +	if (rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_USERPTR) {
+> +		if (!rc_blob->userptr)
+> +			return -EINVAL;
 > +	} else {
-> +		for_each_sgtable_sg(userptr->sgt, sg, si) {
-> +			(*ents)[si].addr =3D cpu_to_le64(sg_phys(sg));
-> +			(*ents)[si].length =3D cpu_to_le32(sg->length);
-> +			(*ents)[si].padding =3D 0;
-> +		}
-> +	}
-[ ... ]
-> +int virtio_gpu_userptr_create(struct virtio_gpu_device *vgdev,
-> +			      struct drm_file *file,
-> +			      struct virtio_gpu_object_params *params,
-> +			      struct virtio_gpu_object **bo_ptr)
-> +{
-[ ... ]
-> +	sgt =3D drm_prime_pages_to_sg(vgdev->ddev, userptr->pages,
-> +				    userptr->npages);
-> +	if (IS_ERR(sgt)) {
-> +		ret =3D PTR_ERR(sgt);
-> +		goto err_cleanup;
+> +		if (rc_blob->userptr)
+> +			return -EINVAL;
+> +
+> +		if (rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USERPTR_RDONLY)
+> +			return -EINVAL;
 > +	}
 > +
-> +	ret =3D dma_map_sgtable(drm_dev_dma_dev(vgdev->ddev), sgt,
-> +			      DMA_BIDIRECTIONAL, 0);
+
+[Severity: Medium]
+Will this silently fall back to VRAM if the user requests a userptr blob but
+sets the memory type to VIRTGPU_BLOB_MEM_HOST3D?
+
+If guest_blob is false and host3d_blob is true, the userptr flag is validat=
+ed
+here but it doesn't ensure a guest memory type was requested.
+
+This could allow the execution to fall through into:
+
+virtio_gpu_resource_create_blob_ioctl() {
+    ...
+    else if (!guest_blob && host3d_blob)
+        ret =3D virtio_gpu_vram_create(vgdev, &params, &bo);
+    ...
+}
+
+which would silently ignore params.userptr and allocate standard VRAM inste=
+ad
+of returning -EINVAL.
+
+>  	switch (rc_blob->blob_mem) {
+>  	case VIRTGPU_BLOB_MEM_GUEST:
+[ ... ]
+> @@ -538,8 +552,10 @@ static int virtio_gpu_resource_create_blob_ioctl(str=
+uct drm_device *dev,
+>  				      vfpriv->ctx_id, NULL, NULL);
+>  	}
+> =20
+> -	if (guest_blob)
+> +	if (guest_blob && !params.userptr)
+>  		ret =3D virtio_gpu_object_create(vgdev, &params, &bo, NULL);
+> +	else if (guest_blob && params.userptr)
+> +		ret =3D virtio_gpu_userptr_create(vgdev, file, &params, &bo);
 
 [Severity: Critical]
-Can this unconditional DMA mapping cause silent data corruption?
+Does the error path in virtio_gpu_userptr_get_pages() lead to a use-after-f=
+ree
+and double-free when this is called?
 
-If the system uses SWIOTLB bounce buffers and the device is configured to
-bypass the DMA API, the dma_map_sgtable() call will allocate a bounce buffe=
-r.
+If virtio_gpu_userptr_get_pages() enters the error path, it frees the pages
+array but leaves a dangling pointer:
 
-Later in virtio_gpu_userptr_get_entries(), the code branches based on
-virtio_gpu_use_dma_api(), and if false it ignores the DMA address and passes
-the raw physical address (sg_phys) to the device.
+virtio_gpu_userptr_get_pages() {
+    ...
+    if (pinned)
+        unpin_user_pages(userptr->pages, pinned);
+    kvfree(userptr->pages);
+    return ret;
+}
 
-Since the raw physical address is passed to the device when DMA is bypassed,
-the device will write directly to the original physical memory. However,
-during cleanup, dma_unmap_sgtable() with DMA_BIDIRECTIONAL will copy the
-unmodified bounce buffer back over the original memory. Will this overwrite
-and destroy the data written by the device?
+The error returned to virtio_gpu_userptr_create() triggers a jump to
+err_cleanup and calls virtio_gpu_cleanup_object(), which eventually calls
+virtio_gpu_userptr_put_pages():
 
-> +	if (ret) {
-> +		sg_free_table(sgt);
-> +		kfree(sgt);
-> +		goto err_cleanup;
-> +	}
+virtio_gpu_userptr_put_pages() {
+    if (userptr->pages) {
+        unpin_user_pages(userptr->pages, userptr->npages);
+        kvfree(userptr->pages);
+        userptr->pages =3D NULL;
+    }
+}
+
+Because the pointer is not NULL, this would unpin and free the already freed
+array, potentially corrupting page refcounts and memory.
+
+
+[Severity: High]
+Can a read-only userptr be overwritten by the host device?
+
+When VIRTGPU_BLOB_FLAG_USERPTR_RDONLY is specified, the userptr memory is
+pinned without FOLL_WRITE, allowing read-only memory to be pinned. However,
+the DMA mapping in virtio_gpu_userptr_create() appears to be hardcoded to
+bidirectional:
+
+virtio_gpu_userptr_create() {
+    ...
+    ret =3D dma_map_sgtable(drm_dev_dma_dev(vgdev->ddev), sgt,
+                          DMA_BIDIRECTIONAL, 0);
+    ...
+}
+
+Because it is mapped bidirectionally, the IOMMU allows device writes to the=
+se
+physical pages. Can unprivileged userspace submit command buffers that
+instruct the host device to write into the blob, overwriting the read-only
+guest memory? Should this use DMA_TO_DEVICE when USERPTR_RDONLY is set?
+
+> +	else if (!guest_blob && host3d_blob)
+> +		ret =3D virtio_gpu_vram_create(vgdev, &params, &bo);
+>  	else
+>  		return -EINVAL;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917102540.1312=
-102-1-honghuan@amd.com?part=3D3
+102-1-honghuan@amd.com?part=3D4
