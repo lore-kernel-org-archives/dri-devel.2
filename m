@@ -4,132 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AE7CC982D2
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:11:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEEC7C982D7
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:11:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E877B10F1F0;
-	Fri, 18 Sep 2026 07:11:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1015710F1F7;
+	Fri, 18 Sep 2026 07:11:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NbGrMViY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cqWJoRLt";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA5CD10E0AE
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:35:13 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3C8FB60204;
- Thu, 17 Sep 2026 16:35:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06C0D1F00893;
- Thu, 17 Sep 2026 16:34:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789662912;
- bh=iUrUzF8/4le7qbZJTJU61T+Fa+3vJMcHcbFMQMklauE=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=NbGrMViY3FCte36X1jspWft9Z2nr7hlK1j1KoUCdouicGQ4vngnADXTaDJ13pqF2h
- gZP8hVDVTwk81EIp0XvKf4jIYJomoz10GNlI/vsArmiZaDbHLdlb6ch6TKWeY+xZPN
- 8jYdpuaVkfapPTsJTos1M6YJilAonCM43SKhaLLpVDcn6jkPX7b+6rZjyAJ/fp9PhK
- zG5XdUTGkfUfWUrEvAuz6PusjaJRL1HI7ANV+0EZ+P6w/THbhupmu16d9+sItdmJ+T
- lTnhjA/FMaqU8r+N6HCPwSbriaKRn0EZuAj+IVgNupantuDiUDu9oQH7andD5ab4wD
- 76EQDMaDeZ7tA==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:22:33 +0100
-Subject: [PATCH v3 24/40] mm/mlock: eliminate weird VMA_IO_BIT abuse and
- simplify
+Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com
+ [74.125.231.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20AE210E055
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 21:56:43 +0000 (UTC)
+Received: by mail-oo2-f39.google.com with SMTP id
+ 006d021491bc7-6c24d19ebcfso54773eaf.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 14:56:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789682202; cv=none;
+ d=google.com; s=arc-20260327;
+ b=FYbL621FKTCOqiio8wvd3/ZdZ/9+QdVgCsiJqrh2NWK5gX0yRGfZNU/qINZ/tsxPWO
+ cV4Tr1fId27xxOmTDhacdNGRP53nyXtzMme8L1vkYJ5Z7PJyGziPErS6t+eRGRuoXJF1
+ yHz7E4ZohzuWblAzKXeUsM1AMCq2e+cIU+iFzoHDo7HbUxp1V7y64YEpAB+7TI0EWxid
+ BAb9S/+MC7po/UGDA+qwneXQFEXZqaou9W210rC7SxSoCz4JSNLZKvXly/N+vFWANuGq
+ cIlRAA/aVUGwAM4vtJA8JBL0ZIDjWMlQPOflJevaNgcOAky6HtQZeIfKzQm2j0pTgC9Q
+ vXXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=er5a82jOE/dMjvQLmdh6qXHLj1Ar/Uat8F/LKGOIt+k=;
+ fh=kwQd/Uma5UGYtEkJPVCPjK7eO95OZpR+GXczQRuBO+8=;
+ b=fEhNqp5OiK6j3sA7954AJIbA2fGmh398K0RrPtVRF3GbZOTFkIYpQWjabWuN8tt189
+ jezmTIO3G2fXK14ugAfHJWDaMpyOmCrrT+cFTTvV33FKtmowxKwXPACrR7vnIfNpm2rc
+ Ybtl0FTTE2qD/SGArkF9VCClcyOoNzQCepMvMqS+hxns6E38fx4BPGWNC1b2LGGZXpRD
+ 8Gl3eQCgvU/sG0v4q+MknrnDH8ZgrVCgbHMDqBdkbS8nvlMWs/2DPr4iNlJoxIy7AVME
+ L3XetacSDMs7m9yEV1bxGqcjgN8suvENM2EZZsu2PkpJg22lbd3Gvxaw66/+VRwF1w2y
+ 5qTg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789682202; x=1790287002; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=er5a82jOE/dMjvQLmdh6qXHLj1Ar/Uat8F/LKGOIt+k=;
+ b=cqWJoRLt436bOgof+JkIZOaDjWVC6y7c+ZcBs3hBQtNVb3ldj66F63QtHlsWS2K5au
+ NVlashruLeb9xaFGrAJojVfRHZywKRn2oE797vW698uNDJaonrXGEspbnr/ZuUVX2QME
+ F4D4uBxVcJTgx8VOa1JjX5GDYrwovnFYqhUXOVX9cHcuBLQZUriCUCrs5gaYZUs6omHU
+ dOAJZVQ2Mvo3FYkHR7UQTKKuhrU8GdmOu80sZNM4WP4DEoPjVsbMK2m999v/hWky2uuL
+ iyCfPlmeoo8WGqgt3znnbTPnUpXE+MEMhWEBTZ757k9sKiniQyps03kZ6wQkjkneWu3S
+ +33g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789682202; x=1790287002;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=er5a82jOE/dMjvQLmdh6qXHLj1Ar/Uat8F/LKGOIt+k=;
+ b=jHAT2PmYugjXNg0XidsIoH4ti8yj60Y1PHqRmgwfYLaLFPbMOnRvheIEAmETNVTijN
+ bi1tS093GN2SPptZEj3VmBqz5sWvP5DtAZJUx7tBvnD7KgQoSmC9oq0prSuNfA4trEio
+ BKkqzloWhA+KcYVBjnrRhyBbIQaqqr8cRe6iDK8+UwaMzQE/uH4FyUomQAKTziA4I1H5
+ Henh6hbHwpkb1x+/h4bneJgjRh6DWb6slNNtglfGVJl0CQT4K8CbXkSGglphephuD+MJ
+ cNGjy1q62cST+KAesoRN/PNgdRxTXg8bP/2Pdj2ey/5o4jqOI96ENKr+g+l6vwSCe7wx
+ hjqg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByRsbHNvK/YSFXAWGsgpKb5fSI4QB35op+PYBYbK2eKnt2+uKNaC0e2xihSpB2aOa6KIboCQaL2n7c=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kyefNzqmnL1hFZspKqX1h1b9szwytorMGSPmFOAOHVNEvC5Is4
+ g0o8+KD2Y69AiplK6bpvqwXKpcyj19cEcsFfXjpmol0+VX9xBYQZb4LzMelQFCAyzj3WwpU2XfM
+ JD61hHdOQSYcvQxCy8Yq8b3JxyOSXGa4=
+X-Gm-Gg: AYBFou2TQryMZUKyxjNHHQYBqhuvxHOxls/CXU2/aYdS5Cu2DLeTYSB/3p7McANYULS
+ fYxdN+P3SQmT3/FDe9/a6G/aP9DmFiMTG1uglkUgDX2J3fY6ZuoUYY5POYt2T5UnoRx8GR29lWf
+ 3Bd003od1y0a8fXx7ftxXSNyW6zgiKvyPiw23hDKXdpcoe9aAWjJ+iPIa/kyG5dTNYxqxpoOGld
+ yT889por7tnQMchxpnP8mrrVIqAKd6OfS1Zyze0HSz9HCynz61YK9OYpM2BLBZaMfEV9XHGbs9U
+ 0/AMutywzrbUKxgoZbKTVza1r3YlfE+ph/3O8kAhf1lseRVLEPgDadC9E0DXGL53/zIyuiZLHWh
+ Zf26AlrWxfQYr0UbBw5zyyvgYwKKhIU4/54ar
+X-Received: by 2002:a05:6820:2219:b0:6b1:61b8:7ed5 with SMTP id
+ 006d021491bc7-6ca9a132698mr439448eaf.1.1789682201892; Thu, 17 Sep 2026
+ 14:56:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-24-4583d8a23bca@kernel.org>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7394; i=ljs@kernel.org;
- h=from:subject:message-id; bh=/pi2tmOR3YT+ZF3zfKDveG7AsuWVeuqglzukqGZd1a8=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB9ii9uce+yv+vNykVzHytZ5Wnl1/B4BHQ4qj3uVm
- GqaNm7qKGVhEONikBVTZHn+RXx/kEjYvM4L/m4wc1iZQIYwcHEKwERuvmRkWKiX+yo/70SBUcLa
- uYLVd8JT9m6+Fqca7a1zor481mbPW4b/sStP3m2c5WPzTPfrqkMx85nuW++dyVLWILBlR2fcz6V
- 1HAA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
-X-Mailman-Approved-At: Fri, 18 Sep 2026 07:09:59 +0000
+References: <20260917135051.47683-1-tano.dzhinski@gmail.com>
+ <20260917215114.1136715-1-tano.dzhinski@gmail.com>
+In-Reply-To: <20260917215114.1136715-1-tano.dzhinski@gmail.com>
+From: tanodzh <tano.dzhinski@gmail.com>
+Date: Fri, 18 Sep 2026 00:56:26 +0300
+X-Gm-Features: AcwNN1UdQBWI62Niu39vnc_MepV5q8WTyFHhbRmt4e0Z1fYt3vUYBBKqOEmd_No
+Message-ID: <CAJhzm-8wFgQoAt3gYHnKg-f-dVCiUycdcs38CUOa-rSrmT2NFQ@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/nouveau/disp: don't reject HDMI config on cards
+ without SCDC
+To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>
+Cc: Giuseppe Ranieri <giuseppe@ranieri.dev>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, nouveau@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Fri, 18 Sep 2026 07:10:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,207 +111,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When performing mlock() or munlock() otherwise normal VMAs have VMA_IO_BIT
-solely to fix a race with migration which might otherwise double-count
-mlock VMAs.
+FYI - the CC to Giuseppe bounced: ranieri.dev no longer resolves
+(NXDOMAIN on the MX lookup), so he can't be reached at that address
+anymore. Possibly why the original posting went unanswered from his
+side too.
 
-This is unnecessary - at the point of applying folio mlock state, whether
-setting or clearing PG_mlocked, we know whether or not we are locking.
+The From: and Signed-off-by: in v2 still record him as the author,
+which seemed right to keep regardless.
 
-Solve this in two ways - thread a boolean through the page table walk
-indicating whether a lock or unlock is being performed, and run a locking
-walk with VMA_LOCKONFAULT_BIT set and VMA_LOCKED_BIT cleared.
+Everything else on the CC list delivered fine.
 
-This state never occurs otherwise, as VMA_LOCKONFAULT_BIT always implies
-VMA_LOCKED_BIT. These are also always cleared together.
+Tano
 
-Then, update folio_add_lru_vma() and mlock_folio() to check only for
-VMA_LOCKED_BIT, and update try_to_unmap_one() to check for VMA_LOCKED_MASK
-instead.
 
-Also remove the useless invocation of allow_mlock_munlock() which simply
-returns true if unlocking and instead rename it to allow_mlock() and only
-call it when locking.
-
-Finally, with the other mlock abuse of VMA_IO_BIT addressed, update
-mlock_vma_folio() and folio_add_lru_vma() to simply test for
-VMA_LOCKED_BIT. munlock_vma_folio() tests VMA_LOCKED_MASK instead, as an
-unmap racing with the locking walk must still munlock folios the walk has
-already counted.
-
-While here, also replace some deprecated VMA flag predicates.
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- mm/folio.c    |  2 +-
- mm/internal.h | 10 +++++++---
- mm/mlock.c    | 51 +++++++++++++++++++--------------------------------
- mm/rmap.c     |  4 +++-
- 4 files changed, 30 insertions(+), 37 deletions(-)
-
-diff --git a/mm/folio.c b/mm/folio.c
-index 47a437e0f7fd..35e242b48870 100644
---- a/mm/folio.c
-+++ b/mm/folio.c
-@@ -505,7 +505,7 @@ void folio_add_lru_vma(struct folio *folio, struct vm_area_struct *vma)
- {
- 	VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
- 
--	if (unlikely((vma->vm_flags & (VM_LOCKED | VM_SPECIAL)) == VM_LOCKED))
-+	if (vma_test(vma, VMA_LOCKED_BIT))
- 		mlock_new_folio(folio);
- 	else
- 		folio_add_lru(folio);
-diff --git a/mm/internal.h b/mm/internal.h
-index b2c6c9435021..84aa3e6c8bac 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -971,8 +971,7 @@ void mlock_folio(struct folio *folio);
- static inline void mlock_vma_folio(struct folio *folio,
- 				struct vm_area_struct *vma)
- {
--	/* The VM_IO check prevents migration from double-counting during mlock. */
--	if (unlikely((vma->vm_flags & (VM_LOCKED|VM_SPECIAL)) == VM_LOCKED))
-+	if (vma_test(vma, VMA_LOCKED_BIT))
- 		mlock_folio(folio);
- }
- 
-@@ -989,7 +988,12 @@ static inline void munlock_vma_folio(struct folio *folio,
- 	 * always munlock the folio and page reclaim will correct it
- 	 * if it's wrong.
- 	 */
--	if (unlikely(vma->vm_flags & VM_LOCKED))
-+	/*
-+	 * VMA_LOCKONFAULT_BIT alone marks an mlock walk in progress, see
-+	 * mlock_vma_pages_range(). An unmap racing with the walk must still
-+	 * munlock folios the walk has already counted.
-+	 */
-+	if (unlikely(vma_test_any_mask(vma, VMA_LOCKED_MASK)))
- 		munlock_folio(folio);
- }
- 
-diff --git a/mm/mlock.c b/mm/mlock.c
-index 39215a3eab1f..4235a1518fc9 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -316,22 +316,10 @@ static inline unsigned int folio_mlock_step(struct folio *folio,
- 	return folio_pte_batch(folio, pte, ptent, count);
- }
- 
--static inline bool allow_mlock_munlock(struct folio *folio,
-+static inline bool allow_mlock(struct folio *folio,
- 		struct vm_area_struct *vma, unsigned long start,
- 		unsigned long end, unsigned int step)
- {
--	/*
--	 * For unlock, allow munlock large folio which is partially
--	 * mapped to VMA. As it's possible that large folio is
--	 * mlocked and VMA is split later.
--	 *
--	 * During memory pressure, such kind of large folio can
--	 * be split. And the pages are not in VM_LOCKed VMA
--	 * can be reclaimed.
--	 */
--	if (!vma_test(vma, VMA_LOCKED_BIT))
--		return true;
--
- 	/* folio_within_range() cannot take KSM, but any small folio is OK */
- 	if (!folio_test_large(folio))
- 		return true;
-@@ -352,6 +340,7 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
- 
- {
- 	struct vm_area_struct *vma = walk->vma;
-+	const bool lock = walk->private;
- 	spinlock_t *ptl;
- 	pte_t *start_pte, *pte;
- 	pte_t ptent;
-@@ -368,7 +357,7 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
- 		folio = pmd_folio(*pmd);
- 		if (folio_is_zone_device(folio))
- 			goto out;
--		if (vma_test(vma, VMA_LOCKED_BIT))
-+		if (lock)
- 			mlock_folio(folio);
- 		else
- 			munlock_folio(folio);
-@@ -390,10 +379,10 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
- 			continue;
- 
- 		step = folio_mlock_step(folio, pte, addr, end);
--		if (!allow_mlock_munlock(folio, vma, start, end, step))
-+		if (lock && !allow_mlock(folio, vma, start, end, step))
- 			goto next_entry;
- 
--		if (vma_test(vma, VMA_LOCKED_BIT))
-+		if (lock)
- 			mlock_folio(folio);
- 		else
- 			munlock_folio(folio);
-@@ -428,31 +417,29 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
- 		.pmd_entry = mlock_pte_range,
- 		.walk_lock = PGWALK_WRLOCK_VERIFY,
- 	};
-+	const bool lock = vma_flags_test(new_vma_flags, VMA_LOCKED_BIT);
-+	vma_flags_t walk_flags = *new_vma_flags;
- 
- 	/*
--	 * There is a slight chance that concurrent page migration,
--	 * or page reclaim finding a page of this now-VMA_LOCKED_BIT vma,
--	 * will call mlock_vma_folio() and raise page's mlock_count:
--	 * double counting, leaving the page unevictable indefinitely.
--	 * Communicate this danger to mlock_vma_folio() with VMA_IO_BIT,
--	 * which is a VMA_SPECIAL_FLAGS flag not allowed on VMA_LOCKED_BIT vmas.
--	 * mmap_lock is held in write mode here, so this weird
--	 * combination should not be visible to other mmap_lock users;
--	 * but WRITE_ONCE so rmap walkers must see VMA_IO_BIT if VMA_LOCKED_BIT.
-+	 * LOCKONFAULT without LOCKED never otherwise occurs: it marks a walk in
-+	 * progress so that rmap-side callers, which test VMA_LOCKED_BIT, do not
-+	 * count folios, while try_to_unmap_one(), which tests VMA_LOCKED_MASK,
-+	 * still refuses to unmap them.
- 	 */
--	if (vma_flags_test(new_vma_flags, VMA_LOCKED_BIT))
--		vma_flags_set(new_vma_flags, VMA_IO_BIT);
-+	if (lock) {
-+		vma_flags_clear(&walk_flags, VMA_LOCKED_BIT);
-+		vma_flags_set(&walk_flags, VMA_LOCKONFAULT_BIT);
-+	}
-+
- 	vma_start_write(vma);
--	vma_flags_reset_once(vma, new_vma_flags);
-+	vma_flags_reset_once(vma, &walk_flags);
- 
- 	lru_add_drain();
--	walk_page_range_vma(vma, start, end, &mlock_walk_ops, NULL);
-+	walk_page_range_vma(vma, start, end, &mlock_walk_ops, (void *)lock);
- 	lru_add_drain();
- 
--	if (vma_flags_test(new_vma_flags, VMA_IO_BIT)) {
--		vma_flags_clear(new_vma_flags, VMA_IO_BIT);
-+	if (lock)
- 		vma_flags_reset_once(vma, new_vma_flags);
--	}
- }
- 
- /*
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 5332c52909be..6661bc11ce65 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -2239,9 +2239,11 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
- 
- 		/*
- 		 * If the folio is in an mlock()d vma, we must not swap it out.
-+		 * VMA_LOCKONFAULT_BIT alone marks an mlock walk in progress, see
-+		 * mlock_vma_pages_range().
- 		 */
- 		if (!(flags & TTU_IGNORE_MLOCK) &&
--		    (vma->vm_flags & VM_LOCKED)) {
-+		    vma_test_any_mask(vma, VMA_LOCKED_MASK)) {
- 			ptes++;
- 
- 			/*
-
--- 
-2.55.0
-
+=D0=9D=D0=B0 =D0=BF=D1=82, 18.09.2026=E2=80=AF=D0=B3. =D0=B2 0:51 Tano Dzhi=
+nski <tano.dzhinski@gmail.com> =D0=BD=D0=B0=D0=BF=D0=B8=D1=81=D0=B0:
+>
+> From: Giuseppe Ranieri <giuseppe@ranieri.dev>
+>
+> nv50_hdmi_enable() passes the sink's SCDC capability from its EDID
+> straight through to nvif_outp_hdmi(). On pre-Maxwell-2 cards there is no
+> hdmi->scdc callback, so nvkm_uoutp_mthd_hdmi() rejects the whole
+> configuration with -EINVAL, and nv50_hdmi_enable() returns before
+> hdmi->ctrl() runs and before the AVI and VSI infoframes are sent.
+>
+> The result on such a card driving an SCDC-capable HDMI 2.0 sink is that
+> HDMI audio silently stops working. Video is unaffected, and nothing is
+> logged, which makes the failure hard to attribute.
+>
+> SCDC is optional, and the hdmi->scdc() call further down is already
+> guarded against a missing callback. Requesting it on a card that cannot
+> do it need not invalidate the rest of the HDMI configuration, so drop
+> that term from the condition and let the existing guard skip SCDC alone.
+>
+> Fixes: 6c6abab20b99 ("drm/nouveau/disp: add output hdmi config method")
+> Signed-off-by: Giuseppe Ranieri <giuseppe@ranieri.dev>
+> Co-authored-by: Tano Dzhinski <tano.dzhinski@gmail.com>
+> Signed-off-by: Tano Dzhinski <tano.dzhinski@gmail.com>
+> Tested-by: Tano Dzhinski <tano.dzhinski@gmail.com>
+> ---
+> v2: restore Giuseppe Ranieri's original authorship and Signed-off-by
+>     (he posted this fix to the nouveau list on 2026-01-17,
+>     https://ratatoskr.run/nouveau/2026/01/16963412), per Lyude's
+>     review of v1. Added Co-authored-by and Tested-by.
+>     Tested on GK104 (GTX 670MX) with BenQ PD2700U and EW2790U.
+>
+>  drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c b/drivers/g=
+pu/drm/nouveau/nvkm/engine/disp/uoutp.c
+> index 377d0e0cef84..9887b3898505 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c
+> @@ -253,8 +253,7 @@ nvkm_uoutp_mthd_hdmi(struct nvkm_outp *outp, void *ar=
+gv, u32 argc)
+>
+>         if (!ior->func->hdmi ||
+>             args->v0.max_ac_packet > 0x1f ||
+> -           args->v0.rekey > 0x7f ||
+> -           (args->v0.scdc && !ior->func->hdmi->scdc))
+> +           args->v0.rekey > 0x7f)
+>                 return -EINVAL;
+>
+>         if (!args->v0.enable) {
+> --
+> 2.43.0
+>
