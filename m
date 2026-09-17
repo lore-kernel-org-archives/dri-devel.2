@@ -4,43 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5A22C88E72
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 12:15:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D21CFC88E72
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 12:15:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E36E810EE60;
-	Thu, 17 Sep 2026 12:15:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 169DF10EE71;
+	Thu, 17 Sep 2026 12:15:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZJZLDNjD";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Q8/fUxOv";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4603210EE60
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 12:15:16 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D86F440672;
- Thu, 17 Sep 2026 12:15:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D89C1F000FF;
- Thu, 17 Sep 2026 12:15:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789647315;
- bh=v+iKZCvUzGwRx9637EGE5iO/2rb+bBh1L4O7ptr78C8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZJZLDNjDPyao2nTe444ecWF76EGLbm3mBMhY+qp9BNKhtYIaCvl1geo2LdGRqUn57
- uioz+xr6+yWjw+hT14vnsGEYs1lyIDQraVBVTSrMlRoZ+oD36yaQJ3NfKFOQNHocBo
- su5ORUNwb9kDledrBwsonikDKdCkxVPWh3zdRL1JU2cMwsIyUJ2E2GwUBUNQFU+Yfj
- zLmeIAEYbGFVXHxD4JniMhNFKrpJZPEggEln2wCHm2jo8UOMMKEISYIxLM+P3kmS93
- 92Mm4Zrn4utcgSZdae/bgWWcrRK9kZgAYzu/dzy4vZA0zvYFJtQNE6l5FBHonYO70e
- BKJ9sa3josJwA==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC 2/2] drm/amdgpu: Wire up DRM memory stats reporting
-To: "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260917120444.86471-3-tvrtko.ursulin@igalia.com>
-References: <20260917120444.86471-1-tvrtko.ursulin@igalia.com>
- <20260917120444.86471-3-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset=utf-8
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 614CA10EE71
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 12:15:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1789647329;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=LZFYhEhHWIHNXKUGiHbv+ydyuO6lOjysOTH2X16TZjw=;
+ b=Q8/fUxOvYaTv7G14tVmAYuQ+fW2PNp3pRxOAjMn5f4e3yLxkxoftIhJLeaTlx1TSEhB4Yc
+ GjiaE8cwpjwp9AK2sTUW74s1OoZUCpi2k0x4lIj46ECK7UUNTU2x9ck2fNuySlFvNvvvVb
+ fOAB4+JFQDgka+hQR1VTgxArvnRIJVE=
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
+ [209.85.215.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-479-rQvvUQX8N3aPnWrzssjhhg-1; Thu, 17 Sep 2026 08:15:28 -0400
+X-MC-Unique: rQvvUQX8N3aPnWrzssjhhg-1
+X-Mimecast-MFC-AGG-ID: rQvvUQX8N3aPnWrzssjhhg_1789647327
+Received: by mail-pg1-f199.google.com with SMTP id
+ 41be03b00d2f7-cc4e496e5c3so657146a12.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 05:15:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789647327; x=1790252127;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=LZFYhEhHWIHNXKUGiHbv+ydyuO6lOjysOTH2X16TZjw=;
+ b=qGT0eCgxqW/0t3AiwwhwYMAc9f5i4OrzvUc7VKJCSEpYYwdK58kemTO2daVDzNaVgX
+ LEvsrgIY2OAHRCOVXpsPbzxQ8z7A9DY5nqqpRo7o6A0uAvv2rzG6muBp0jF2PuK4W3uD
+ 9ObXnFXyDfKTlKlaPveqdicWPCmEDgI6GdgogwkBpzGqgiDqExdmyxe+M6TlzJOcNuUJ
+ 70zaDcFZobimYU9sT1nMyI1VP0JFlUnLvt8EJ4ipjVjXIfefsZRJrTkZGVolvSmHxCsy
+ aJWFcIn6gm1DTR7sqewXNN8p9QSwKi7JSaI5aqTsNi4yIti11KfOxayodHjMNJC6A6Xf
+ eX9Q==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBycYrkX3yz5EZTd4i2V8GOD/+xpVYEnEMC/yfIwvNBnQpQeplTUJO7wII7/3kyTEMztTWakNwVZFoY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nyu7b+xpuo3Fgm1rysp8w8235Fi7aMJXuOkOUgk45jFnDrH2Cz
+ CWo/dTF6KgWecfXPWGPSINrdwpJeGGNQIjdn1UIIZ59wl8jQe+Y1xKqdiJH8TRWiN675QfWfA8t
+ jVSmloWyiiVknqYCbsokmsRV+WC2unw7AzO7IPtas5AReshCgRX3UetnAND/z9fhJBEhgyFU5qy
+ qShx53ysMQTZM4K2SmKh8T/73O/HpxZI4Z5IAaS3iITRr8
+X-Gm-Gg: AYBFou1ib0i1d9YmCFwSEIebJWEMYnzlv8dbiIlOAEnjWtMy/PKbltmR1+Jg+GZx5xB
+ sSJdZ3yE/WJ7GnxQOjZeFXLJzoKTv3dvo6G8ZGb8J/GZ1xMAJGXLfzN6byc7vrpQGfK9Z7AumQb
+ Bber3PDnJQ/HOdMezZBGQHSykiR8ANc0PYVyYvYTymnZ2r8mOVMl7GQDZK
+X-Received: by 2002:a05:6a20:7faa:b0:3da:7140:da35 with SMTP id
+ adf61e73a8af0-3dd5f5b29c1mr15338781637.15.1789647326705; 
+ Thu, 17 Sep 2026 05:15:26 -0700 (PDT)
+X-Received: by 2002:a05:6a20:7faa:b0:3da:7140:da35 with SMTP id
+ adf61e73a8af0-3dd5f5b29c1mr15338675637.15.1789647325964; Thu, 17 Sep 2026
+ 05:15:25 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com>
+ <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
+ <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
+ <20260616083921.4066690-1-zaq14760@gmail.com>
+ <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com>
+ <20260617020926.114947-1-zaq14760@gmail.com>
+ <8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com>
+ <20260731035705.3198816-1-zaq14760@gmail.com>
+ <20260916082924.956116-1-zaq14760@gmail.com>
+ <0a13ccb8-8817-4223-a4a2-0de594ac8c71@suse.de>
+ <20260916094453.1062125-1-zaq14760@gmail.com>
+ <f4c6feab-b1ec-48df-81a5-888444b243a3@suse.de>
+ <20260917025644.1262504-1-zaq14760@gmail.com>
+ <CAFOAJEfnDrGTg40h=R0mfZasroPkrSsmbVmmMA91O9uOzu_gYQ@mail.gmail.com>
+ <0259fb51-acb8-4b07-a6d5-2fe25fb0de9c@suse.de>
+In-Reply-To: <0259fb51-acb8-4b07-a6d5-2fe25fb0de9c@suse.de>
+From: Javier Martinez Canillas <javierm@redhat.com>
+Date: Thu, 17 Sep 2026 14:15:14 +0200
+X-Gm-Features: AcwNN1UH5rUGs68RRraAabQu2d2krHmsXTgl_y76k48XKzO4lUNKUp0VaqGzlHk
+Message-ID: <CAFOAJEe_7Cqo_=NWPGyYBTu3mD3CjPMC92ZZR6qHPjAhQws7pw@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
+ e-ink panel
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: LiangCheng Wang <zaq14760@gmail.com>, Devarsh Thakkar <devarsht@ti.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Wig Cheng <onlywig@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Sam Ravnborg <sam@ravnborg.org>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: UUGdJupDQBS5KKWjlk7xuJnj80EyjcA7kvvOyf628iM_1789647327
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 12:15:15 +0000
-Message-Id: <20260917121515.9D89C1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,158 +115,46 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] amdgpu: data race and OOB read in amdgpu_drm_memory_info lazy init
-- [High] amdgpu: embedded flexible array member causes UB and FORTIFY panics
-- [Medium] amdgpu: array index mismatch in fdinfo mixes up memory stats
-- [Medium] amdgpu: unprotected concurrent updates to region->used_mb cause =
-data race
---
+Hello Thomas,
 
-commit 0821285be07eaef79323cee5db70d046b94e519f
-Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-drm/amdgpu: Wire up DRM memory stats reporting
+On Thu, Sep 17, 2026 at 1:34=E2=80=AFPM Thomas Zimmermann <tzimmermann@suse=
+.de> wrote:
+>
+> Hi
+>
+> Am 17.09.26 um 12:49 schrieb Javier Martinez Canillas:
 
-This commit wires up the driver agnostic DRM memory reporting for the VRAM
-and GTT memory regions. It keeps the persistent storage at the device level
-and exports a helper for standardized region names.
+[...]
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index 79b69d74eb2e5..8c00f76cfc7b6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -965,6 +965,9 @@ struct amdgpu_device {
-> =20
->  	struct amdgpu_uma_carveout_info uma_info;
-> =20
-> +	struct drm_memory_info		memory_info;
-> +	struct drm_memory_region_info	__memory_region_info[2]; /* Storage for m=
-emory_info */
-> +
+> > There are a few bits that I think are similar though and could be
+> > reused, for example the pixpaper_spi_write() helper logic is basically
+> > the same than ssd130x_spi_write() AFAICT.
+> >
+> > Same for pixpaper_send_cmd() and pixpaper_send_data(), I believe that
+> > is the same logic that we now have in ssd130x_write_cmds(). Specially
+> > after the recent commit 3e391b0b516b ("drm/ssd130x: Add SSD135X_FAMILY
+> > and SSD1351 support") that introduced a cmd_params_are_data flag that
+> > allows to send the operation as command and the parameters as data.
+> >
+> > So the MCU interface seems to be the same, in particular for the
+> > 4-wire SPI interface which AFAIU is what this new SSD1677 driver
+> > supports.
+>
+> I cannot advice anything here, but at least I'd like to get ssd16xx out
+> of tiny/. It would be great to have it all under solomon/. It looks like
+> sitronix/ does a similar thing.
+>
 
-[Severity: High]
-Does embedding a structure with a flexible array member in the middle
-of another struct cause undefined behavior and compiler warnings?
-
-struct drm_memory_info ends with a flexible array member (region[]).
-Embedding it here before __memory_region_info[2] means the compiler
-evaluates the size of memory_info as only its fixed members (4 bytes).
-
-When writing to info->region[i] later, FORTIFY/UBSAN checks may panic
-as the access exceeds the recognized object bounds.
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_fdinfo.c
-> index b349bb3676d5f..3bbd053cd9f7f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-[ ... ]
-> @@ -85,15 +104,12 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struc=
-t drm_file *file)
-> =20
->  	drm_printf(p, "pasid:\t%u\n", fpriv->vm.pasid);
-> =20
-> -	for (i =3D 0; i < ARRAY_SIZE(pl_name); i++) {
-> -		if (!pl_name[i])
-> -			continue;
-> -
-> +	for (i =3D 0; i < ARRAY_SIZE(regions); i++) {
->  		drm_print_memory_stats(p,
-> -				       &stats[i].drm,
-> +				       &stats[i].drm,
->  				       DRM_GEM_OBJECT_RESIDENT |
->  				       DRM_GEM_OBJECT_PURGEABLE,
-> -				       pl_name[i]);
-> +				       amdgpu_ttm_pl_to_name(regions[i]));
->  	}
-
-[Severity: Medium]
-Is there an array index mismatch here?
-
-The stats array is populated by amdgpu_vm_get_memory() which maps
-placement IDs directly to indices (e.g., TTM_PL_SYSTEM is 0,
-TTM_PL_VRAM is 2).
-
-However, the loop iterates using a sequential index i (0 to 7) and
-fetches &stats[i].drm, but labels it with amdgpu_ttm_pl_to_name(regions[i]).
-
-For i=3D0, regions[0] is TTM_PL_VRAM (2), meaning it fetches stats[0]
-(CPU memory) but labels it as VRAM.
-
-Should the fetch use &stats[regions[i]].drm to correctly match the data
-with the placement ID?
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.c
-> index 0ca9b1669e0fe..d6da850eadc97 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -3026,3 +3026,40 @@ void amdgpu_ttm_debugfs_init(struct amdgpu_device =
-*adev)
-> =20
->  #endif
->  }
-> +
-> +const struct drm_memory_info *amdgpu_drm_memory_info(struct drm_device *=
-drm)
-> +{
-> +	struct amdgpu_device *adev =3D drm_to_adev(drm);
-> +	struct drm_memory_info *info =3D &adev->memory_info;
-[ ... ]
-> +	if (!info->num_regions) {
-> +		for (i =3D 0; i < ARRAY_SIZE(regions); i++) {
-> +			region =3D &info->region[i];
-> +			strscpy(region->name,
-> +				amdgpu_ttm_pl_to_name(regions[i]),
-> +				sizeof(region->name));
-> +			man =3D ttm_manager_type(&adev->mman.bdev, regions[i]);
-> +			region->total_mb =3D man->size >> 20;
-> +			info->num_regions++;
-> +		}
-> +	}
-
-[Severity: High]
-Is this lockless lazy initialization safe against concurrent access?
-
-If multiple threads query DRM memory info concurrently via fdinfo, they
-can simultaneously enter the if (!info->num_regions) block. Both threads
-could execute info->num_regions++ in a loop.
-
-Since the backing array (__memory_region_info) only has 2 elements,
-concurrent increments can push num_regions to 4. When the DRM core later
-iterates up to num_regions, will this lead to out-of-bounds memory reads?
-
-> +
-> +	for (i =3D 0; i < ARRAY_SIZE(regions); i++) {
-> +		region =3D &info->region[i];
-> +		man =3D ttm_manager_type(&adev->mman.bdev, regions[i]);
-> +		region->used_mb =3D ttm_resource_manager_usage(man) >> 20;
-> +	}
-> +
-> +	return &adev->memory_info;
-> +}
-
-[Severity: Medium]
-Can unprotected concurrent updates to region->used_mb cause data races?
-
-Because amdgpu_drm_memory_info() updates region->used_mb directly within
-the globally shared adev->memory_info structure without synchronization,
-concurrent readers and writers might race, leading to torn reads or
-KCSAN splats.
-
-Would it be safer to allocate a drm_memory_info struct per-query instead
-of caching it globally?
+Yes, I agree. Especially since there is even some (albeit small) code
+that could be reused.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917120444.8647=
-1-1-tvrtko.ursulin@igalia.com?part=3D2
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
