@@ -4,54 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14B7AC982D6
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 17:45:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D80AC88E72
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 17:47:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D52C10E3F4;
-	Thu, 17 Sep 2026 17:45:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DA2E10E3B6;
+	Thu, 17 Sep 2026 17:47:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nGM8aUqh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Km9GTO/C";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 673C210E3F4
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 17:45:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0E83941908;
- Thu, 17 Sep 2026 17:45:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60F4E1F0089A;
- Thu, 17 Sep 2026 17:45:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1789667155;
- bh=MYsk118QlVYhV6g6CujJesNIpIsXreUjPlJN1M49CpI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=nGM8aUqhGu/wn4ax6wMxbVov/iI/HV63AxRAblKtG+AShvtBzefArIsYp+HRL9Nqr
- Bj3HtIJPfiqmX1RPqwxtZKF6Em7NbBIx7Xe7n4v5vEPKkJUtK0V+sw7sM5kQ/+Yno9
- ptLMO/LbFVH5d1KCHGi/qdy+NfjNHKjKLR2Gc64k=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Matthew Brost <matthew.brost@intel.com>,
- Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 1247/1250] drm/ttm: Drop tt->restore after successful
- restore
-Date: Thu, 17 Sep 2026 16:17:22 +0100
-Message-ID: <20260917151626.101707354@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
-References: <20260917151551.901433442@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013053.outbound.protection.outlook.com
+ [40.107.201.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2871510E3B6
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 17:47:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GWNpOe+J+9CZ62YVZtD3V1SHzYqkmMPRWJbLVAy3jXadIQkrpDrNIBgvZwFzoH7AdbNx27N8nmYHU/FT0lx92IPdWESJNKPk61mQw/Bvp1O6ecyprslPg78IFOos+GGOW39kQIuCzDTezawU5EPQqVw/nnEMlwmbHy2hZpHvJC6xCRPWXI6bAjCRUKmiRIuV+w+N+2R6ErxUHVGEguVMzttdpsEilK3Cmur260rl79fXQv1nCftuoNHbXWIFqVUwYDNTRjXsLAwinNV21gWw5vk55oHwfc23xt4zrrmKpvlNaFSzftu3B15h75FX6uHFKwBpJYO57fUIs9Mgr3OMNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ncQbpxFHiAsLl3hah/bHdk2hQkJJCg5bBW513Ei0e1w=;
+ b=Qe/64y8vIXVsIMU0TYj3ZSc0rvEYFjVyXfX+jrTvGpKNBaSCPKqLtRdGhsKxU7l+YjVK1fEXPehfYcPGyh7DPj5/t+8cNBzRPEvyURD5C186nooHeiS8h+Mtl1oUEgfmE8chiPK0zbZCuFNLpZfCTiO1jvuuPIqYO0ut24Zi9hG9JeknJ9YLI2jr/pvO52tp7SsYATwcF0kTSFmynhoVypMHBXpOI5PDFx3wXzRGJWO0zG8fuatrV4yFsf36H8qLOKfWfPTohfpXL9ge86wrV7HSAX6AyH1BJZkRmESudeBphSx7oPnLHdYGlZ/s5CltG92hZlZS8CHPvk4Dca2I5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ncQbpxFHiAsLl3hah/bHdk2hQkJJCg5bBW513Ei0e1w=;
+ b=Km9GTO/C7WjtZjfnl+jycpexAXJynMMlAIB5iKdtLOYM70wjx0AZVLP4mrnr8+c9FU3e6HJdNOWrmMSv3u2XiN81N7eT7FqF1xyRU2bJUzSQqtqaJRXSuaPP8BPHr6URVRmRZCk6A6waoJ/OSush+OuLDafJfqRcjOu7zKZ3qHw=
+Received: from BN0PR07CA0007.namprd07.prod.outlook.com (2603:10b6:408:141::24)
+ by SA1PR12MB7295.namprd12.prod.outlook.com (2603:10b6:806:2b6::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
+ 2026 17:47:37 +0000
+Received: from BN3PEPF00022BD6.namprd03.prod.outlook.com
+ (2603:10b6:408:141:cafe::30) by BN0PR07CA0007.outlook.office365.com
+ (2603:10b6:408:141::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Thu,
+ 17 Sep 2026 17:47:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BD6.mail.protection.outlook.com (10.167.248.101) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Thu, 17 Sep 2026 17:47:33 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
+ 2026 12:47:33 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
+ 2026 12:47:33 -0500
+Received: from [172.19.69.116] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Thu, 17 Sep 2026 12:47:32 -0500
+Message-ID: <df2d1b7a-5dc6-4139-9fc8-43b92e78bd75@amd.com>
+Date: Thu, 17 Sep 2026 10:47:32 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V3] accel/amdxdna: Set HMM_PFN_REQ_WRITE for writable BO
+ faults
+To: Lizhi Hou <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+ <quic_jhugo@quicinc.com>, <mario.limonciello@amd.com>,
+ <karol.wachowski@linux.intel.com>, <dri-devel@lists.freedesktop.org>
+CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
+References: <20260917171952.1883974-1-lizhi.hou@amd.com>
+Content-Language: en-US
+From: Max Zhen <max.zhen@amd.com>
+In-Reply-To: <20260917171952.1883974-1-lizhi.hou@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BD6:EE_|SA1PR12MB7295:EE_
+X-MS-Office365-Filtering-Correlation-Id: 597a5e65-c812-42b2-8872-08df14e3c0db
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|376014|23010399003|82310400026|1800799024|56012099006|11063799006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: LyXCBUhz18VfAEI4ooXbMECoX16BIqn9TQmaV4kosDTLtsmydJE7alychwAKZawe7Kc0lDFrBp72gur7qaIBhywO5Flrl8EZkfl2O0XmXGCvJbYLA88Trs9mKcq7rNLZX0P5ijz+CP7pSANnRKq9fiyN+cpNWomxgSzz5muVreG/DaqP5YVf6evbXlb+SCECf0a916aOL5O1BSqvgKZRgZMinaNQfk016JIQgbyby9rtKCX6FCLgE6N7Dx5jOCdnaz/2uHlC4FsG0k6VokeQttBX/Z1/6koUcQY6JR28lllcoT+QEIsak5w3VqG3hLdtcUiSN33KHicKC1PuEOdJ7xmY/lbt98TEvMQEx6qhempqZcWAqJGJd3Zb7tcl4381R8enn0DxPzCZiKgNfp0hPeJby/lFtrv6Ba8KEA00QbkBJj1o64dVfug721IOOMSy34vkPgv4vJb3ZtdJ0T7mmeCZxg/T2KfCoP5eAb6RYT4wjHy0oZ97KOO3TeOrppnTr1F+fKDvSy47gMbDs5P8I0rR8/sXuOTYVSuJprh+ha2ujrAUicpnyxvmfxlj34EcK6F4ksPfQcfucuuGLh57LLIzrmtnzic89cSAWQPHiRyRDsp2Hu7Z+01flfNBXK3NaNrSIZjY4FSSufmvaX+XJ9RwI082BGFw+RGykb8m/uFePqtKMw8GtzQ71aFYZ+fJ3VcYOjoM710r2KEvHXfpvQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(23010399003)(82310400026)(1800799024)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: ixzkX2Ne4Dh6VlSiwT3HJl8Du/9YL6lM6X1fFz93ZFmRszzBjAdycvYdnSxlsb/oPNFjrvoyabTBuMdRaVLuvebSwWqUjawn8xPrr/ZdpyynaIYMv475dOXJWIHp7oZVlJTCfSaYgh2FedpbRTvprz5XxIPuchcfAVC7TeHWGFwfbdk+zN+APtlCVgiyn521P+QNPW5MlIrtV29vREz7gZm3yrmEgmC6nAvTE+0L2eVEhVVtWg+XoDc+8jYksvQ+jz2kE0gW4sM2PoGdL0xD02++33lhoVw8BfEjgGnXVwxryOeo+7rmvoVrjtcZN/dsRAzCI7IiH8yDX6DGc8YFi6tYDuprDO4aX1OPugD8J2YeRZM1dQouq4c9N/8u6/dE/4vVwqT+cP9SHiZSm34qugRzZQ02qVfA/uJ+dcvDQxGbZP7AP+Pf+dFFMqk/+mbk
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 17:47:33.5246 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 597a5e65-c812-42b2-8872-08df14e3c0db
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BD6.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7295
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,119 +119,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
 
-------------------
 
-From: Matthew Brost <matthew.brost@intel.com>
-
-[ Upstream commit 941ac10529b3be5965a88d432a161ab459672ba8 ]
-
-ttm_pool_restore_and_alloc() can successfully complete the restore
-process via ttm_pool_restore_commit(), but tt->restore is not dropped
-afterward. As a result, subsequent backup/restore flows observe what
-appears to be a completed restore, while in reality shmem handles are
-still installed in tt->pages, leading to the stack trace below.
-
-Fix this by freeing and dropping tt->restore in
-ttm_pool_restore_and_alloc() upon successful completion of the restore.
-
-20545 [  309.784531] RIP: 0010:sg_alloc_append_table_from_pages+0x38c/0x490
-20547 [  309.809570] RSP: 0018:ffffc9000623b838 EFLAGS: 00010206
-20548 [  309.814827] RAX: 0000000000001000 RBX: ffff88816e42a160 RCX: 0000000000000000
-20549 [  309.821986] RDX: 0000000000002000 RSI: 0000000000000003 RDI: 0000000000001000
-20550 [  309.829147] RBP: ffff88816e42a168 R08: 0000000000000002 R09: 000000007ffff000
-20551 [  309.836310] R10: ffffc9000623b928 R11: 0000000000000000 R12: 000000007ffff000
-20552 [  309.843471] R13: ffff88815ba5a100 R14: 0000000000000000 R15: 0000000000000001
-20553 [  309.850634] FS:  00007f9ff305e700(0000) GS:ffff888276c94000(0000) knlGS:0000000000000000
-20554 [  309.858749] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-20555 [  309.864519] CR2: 00007f9fca701000 CR3: 00000001565e2005 CR4: 0000000008f70ef0
-20556 [  309.871678] PKRU: 55555558
-20557 [  309.874403] Call Trace:
-20558 [  309.876866]  <TASK>
-20559 [  309.878988]  sg_alloc_table_from_pages_segment+0x60/0x100
-20560 [  309.884415]  ? ttm_resource_manager_usage+0x36/0x60 [ttm]
-20561 [  309.889845]  ? xe_tt_map_sg+0x7d/0xd0 [xe]
-20562 [  309.894045]  xe_tt_map_sg+0x7d/0xd0 [xe]
-20563 [  309.898037]  xe_bo_move+0x927/0xaa0 [xe]
-20564 [  309.902029]  ttm_bo_handle_move_mem+0xba/0x170 [ttm]
-20565 [  309.907022]  ttm_bo_validate+0xbe/0x190 [ttm]
-20566 [  309.911405]  xe_bo_validate+0x9a/0x120 [xe]
-20567 [  309.915663]  xe_gpuvm_validate+0xd9/0x140 [xe]
-20568 [  309.920206]  drm_gpuvm_validate+0x2f0/0x5b0 [drm_gpuvm]
-20569 [  309.925459]  ? drm_exec_lock_obj+0x63/0x210 [drm_exec]
-20570 [  309.930627]  xe_vm_validate_rebind+0x46/0xb0 [xe]
-20571 [  309.935428]  xe_exec_fn+0x20/0x40 [xe]
-20572 [  309.939249]  drm_gpuvm_exec_lock+0x78/0xc0 [drm_gpuvm]
-20573 [  309.944410]  xe_validation_exec_lock+0x5a/0xa0 [xe]
-20574 [  309.949385]  xe_exec_ioctl+0x806/0xc30 [xe]
-20575 [  309.953639]  ? ttwu_queue_wakelist+0xd9/0xf0
-20576 [  309.957935]  ? __pfx_xe_exec_fn+0x10/0x10 [xe]
-20577 [  309.962449]  ? __wake_up_common+0x73/0xa0
-20578 [  309.966482]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
-20579 [  309.971263]  drm_ioctl_kernel+0xa3/0x100
-20580 [  309.975209]  drm_ioctl+0x213/0x440
-20581 [  309.978637]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
-20582 [  309.983415]  xe_drm_ioctl+0x67/0xd0 [xe]
-20583 [  309.987408]  __x64_sys_ioctl+0x7f/0xd0
-
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Link: https://patch.msgid.link/20260617015531.1164189-1-matthew.brost@intel.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/ttm/ttm_pool.c |   15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
-
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -838,6 +838,7 @@ int ttm_pool_restore_and_alloc(struct tt
- {
- 	struct ttm_pool_tt_restore *restore = tt->restore;
- 	struct ttm_pool_alloc_state alloc;
-+	int ret;
- 
- 	if (WARN_ON(!ttm_tt_is_backed_up(tt)))
- 		return -EINVAL;
-@@ -861,14 +862,22 @@ int ttm_pool_restore_and_alloc(struct tt
- 	} else {
- 		alloc = restore->snapshot_alloc;
- 		if (ttm_pool_restore_valid(restore)) {
--			int ret = ttm_pool_restore_commit(restore, tt->backup,
--							  ctx, &alloc);
-+			ret = ttm_pool_restore_commit(restore, tt->backup,
-+						      ctx, &alloc);
- 
- 			if (ret)
- 				return ret;
- 		}
--		if (!alloc.remaining_pages)
-+		if (!alloc.remaining_pages) {
-+			ret = ttm_pool_apply_caching(&alloc);
-+			if (ret)
-+				return ret;
-+
-+			kfree(tt->restore);
-+			tt->restore = NULL;
-+
- 			return 0;
-+		}
- 	}
- 
- 	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
-
+On 9/17/2026 Thu 10:19, Lizhi Hou wrote:
+> When aie2_populate_range() faults in pages, it only sets
+> HMM_PFN_REQ_FAULT. Without HMM_PFN_REQ_WRITE, handle_mm_fault() does not
+> request write permissions and may populate the CPU page tables with
+> read-only PTEs.
+> 
+> Check the VMA flags and set HMM_PFN_REQ_WRITE when the VMA has VM_WRITE.
+> 
+> Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
+> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+Reviewed-by: Max Zhen <max.zhen@amd.com>
+> ---
+> V3:
+>    Revert the V2 change. Instead, add comment to describe why it is not
+> an issue.
+> V2:
+>    Fix sashiko comment.
+> 
+>   drivers/accel/amdxdna/amdxdna_gem.c | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+> index e861db6f9369..a5e30855c8a1 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -418,7 +418,15 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
+>   	mapp->range.notifier = &mapp->notifier;
+>   	mapp->range.start = vma->vm_start;
+>   	mapp->range.end = vma->vm_end;
+> +	/*
+> +	 * Access permissions are fixed at mmap() time. Changing them later
+> +	 * with mprotect() is not supported: the range keeps requesting the
+> +	 * original permissions, so the application may see a fault failure
+> +	 * or an IOMMU fault.
+> +	 */
+>   	mapp->range.default_flags = HMM_PFN_REQ_FAULT;
+> +	if (vma->vm_flags & VM_WRITE)
+> +		mapp->range.default_flags |= HMM_PFN_REQ_WRITE;
+>   	mapp->abo = abo;
+>   	kref_init(&mapp->refcnt);
+>   
 
