@@ -4,78 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42F42C982D6
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 15:06:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD44FC982D6
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 15:14:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FBCF10E02B;
-	Thu, 17 Sep 2026 15:06:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05E7B10EF6E;
+	Thu, 17 Sep 2026 15:14:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="ngBXbn7/";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="06JGvczP";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1635110E02B
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 15:06:01 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE39410EF6E
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 15:14:40 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 634831A0934;
- Thu, 17 Sep 2026 15:05:59 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 3131EC5CD78;
+ Thu, 17 Sep 2026 15:15:23 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 26C255FAA3;
- Thu, 17 Sep 2026 15:05:59 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id B08065FAA3;
+ Thu, 17 Sep 2026 15:14:38 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id C35C211C7B08C; 
- Thu, 17 Sep 2026 17:05:33 +0200 (CEST)
+ with ESMTPSA id 19AA311C7B064; 
+ Thu, 17 Sep 2026 17:14:21 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1789657549; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- in-reply-to:references; bh=/OfWtIewPY5C/r0HMIf+o2IIttSmiKU4y8rC/hzPssc=;
- b=ngBXbn7/ts81Rynz7n5bSN7vmTTpu4edcR52tEjvtmzV0mtJnaTqQaaGTaP6UXbcZcuttd
- OmHSxedWnPBXZuzpLcrjJddURZ4iBxRQxqWuUXqCtPjgw44XdjtUZzeb4ixeueEh/Pjs3x
- /eWz9LcI5bxvgzjpghmVc+XOtR8IQ3BUPB6X/utwtHLYoy1NQVdzrmV/b3RW+jMtn6MkTh
- +P+X9EUacmGoXpVXdFe93bfZwrZ5ww11hjFw5RlJwwEHjnY4K+Lzz34RW8ywCr6zBFQl5u
- wZSqY+rp+UjM2V2g8x9tD4szg7BX2Co1MnCeqc+BhGY2Fm25gVBYVqzQV44emw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Daniel Matyas <matyasdaniel006@gmail.com>
-Cc: Lee Jones <lee@kernel.org>,  =?utf-8?Q?Andr=C3=A9?= Draszik
- <andre.draszik@linaro.org>,
- Ulf Hansson <ulfh@kernel.org>,  Liang Yang <liang.yang@amlogic.com>,
- Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
- <vigneshr@ti.com>,  Neil Armstrong <neil.armstrong@linaro.org>,  Kevin
- Hilman <khilman@baylibre.com>,  Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,  Andrew Lunn
- <andrew+netdev@lunn.ch>,  "David S. Miller" <davem@davemloft.net>,  Eric
- Dumazet <edumazet@google.com>,  Jakub Kicinski <kuba@kernel.org>,  Paolo
- Abeni <pabeni@redhat.com>,  Bjorn Helgaas <bhelgaas@google.com>,  Lorenzo
- Pieralisi <lpieralisi@kernel.org>,  Krzysztof =?utf-8?Q?Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>,  Manivannan Sadhasivam <mani@kernel.org>,  Ray
- Jui <rjui@broadcom.com>,  Scott Branden <sbranden@broadcom.com>,  Broadcom
- internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,  Will
- Deacon <will@kernel.org>,  Mark Rutland <mark.rutland@arm.com>,  Vinod
- Koul <vkoul@kernel.org>,  Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,  Liam Girdwood
- <lgirdwood@gmail.com>,  Mark Brown <broonie@kernel.org>,  Jose Abreu
- <joabreu@synopsys.com>,  Ray Jui <ray.jui@broadcom.com>,  Scott Branden
- <scott.branden@broadcom.com>,  Atish Patra <atishp@rivosinc.com>,  Shawn
- Guo <shawn.guo@linaro.org>,  Dmitry Osipenko <digetx@gmail.com>,  Thierry
- Reding <thierry.reding@gmail.com>,  Ibrahim Tilki
- <Ibrahim.Tilki@analog.com>,  Okan Sahin <Okan.Sahin@analog.com>,
- devicetree@vger.kernel.org,  Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@sifive.com>,  Conor Dooley <conor@kernel.org>,
- linux-rtc@vger.kernel.org,  Ricard Wanderlof <ricardw@axis.com>,
- patches@opensource.cirrus.com,  Lukas Wunner <lukas@wunner.de>,  Chunfeng
- Yun <chunfeng.yun@mediatek.com>,  Eugen Hristev <ehristev@kernel.org>,
- dri-devel@lists.freedesktop.org,  linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,  linux-hwmon@vger.kernel.org,
- linux-iio@vger.kernel.org,  linux@analog.com,
- linux-input@vger.kernel.org,  chrome-platform@lists.linux.dev,
- linux-riscv@lists.infradead.org
-Subject: Re: [PATCH] dt-bindings: Expand flow lists to block lists
-In-Reply-To: <20260917144028.459053-1-matyasdaniel006@gmail.com> (Daniel
- Matyas's message of "Thu, 17 Sep 2026 17:40:28 +0300")
-References: <20260917144028.459053-1-matyasdaniel006@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Thu, 17 Sep 2026 17:05:33 +0200
-Message-ID: <87tsnnj4ua.fsf@bootlin.com>
-MIME-Version: 1.0
-Content-Type: text/plain
+ t=1789658075; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=bno2OaQ++0XptPjxv4KLgDTOcVdE7Tfrme9WXDcNkg4=;
+ b=06JGvczP9h2B9VsHO67nopzA/zScpYBAk95FVUSIdBi80r/e4D/4/f6p2O7Rgdt4/dQ7tq
+ cpXZh4/+EdLpVWWxsGPDs6WWpSUu8xdPaITv2jauejuiq8ryxXsmJPBHiASw/IBpCPyZ2B
+ YcIRa30DnBr9Jd20ufOksMI3GG8UO+hcxwp0XCPfSs6+Fun0COv8Fd5SlUIjkDJw7dbh2s
+ xTupwiu/if9HcVDsoQ+E7xRTy7QNCAU2qF2fO3mWUJc+owfEb/YZdNYMeNshIovXTvouWd
+ fYrOcoIGoJHzWOOXBrg3IVedQSQ40U7HezUpFSUb36WWC5Ysaoh0A5ToeRNQyg==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 17 Sep 2026 17:14:20 +0200
+Message-Id: <DLHOU2RLKSDR.YLNQEAWXPDRE@bootlin.com>
+Subject: Re: [PATCH v3 18/19] drm/tve200: don't create a panel_bridge
+Cc: "Albert Esteve" <aesteve@redhat.com>, "Anusha Srivatsa"
+ <asrivats@redhat.com>, "Dmitry Baryshkov"
+ <dmitry.baryshkov@oss.qualcomm.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>,
+ "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-mips@vger.kernel.org>,
+ <linux-rockchip@lists.infradead.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>, <asahi@lists.linux.dev>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-tegra@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+ <linux-samsung-soc@vger.kernel.org>
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>,
+ "Lucas Stach" <l.stach@pengutronix.de>, "Frank Li" <Frank.Li@nxp.com>,
+ "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Paul
+ Cercueil" <paul@crapouillou.net>, "Paul Kocialkowski" <paulk@sys-base.io>,
+ "Linus Walleij" <linusw@kernel.org>, "Inki Dae" <inki.dae@samsung.com>,
+ "Jagan Teki" <jagan@amarulasolutions.com>, "Marek Szyprowski"
+ <m.szyprowski@samsung.com>, "Sean Paul" <sean@poorly.run>, "Jonathan
+ Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy
+ Dunlap" <rdunlap@infradead.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
+ <20260916-drm-bridge-every-panel-v3-18-83afb4f1a707@bootlin.com>
+In-Reply-To: <20260916-drm-bridge-every-panel-v3-18-83afb4f1a707@bootlin.com>
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,16 +90,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 17/09/2026 at 17:40:28 +03, Daniel Matyas <matyasdaniel006@gmail.com> wrote:
+Hello,
 
-> Running dt_bindings_check returned:
-> [error] string value is redundantly quoted with any quotes (quoted-strings)
+On Wed Sep 16, 2026 at 3:45 PM CEST, Luca Ceresoli wrote:
+> Now a panel_bridge is automatically created for every drm_panel and the
+> panel-bridge API is just a deprecated wrapper to access it.
 >
-> The files used quotation marks in flow lists because the strings had
-> commas and these commas were interpreted as separators. Convert flow
-> style lists to block style lists, so that there is no problems with the
-> commas.
+> Update and simplify the code by just getting a reference to the
+> already-existing bridge using of_drm_get_bridge_by_endpoint().
 >
-> Signed-off-by: Daniel Matyas <matyasdaniel006@gmail.com>
+> And since of_drm_find_and_get_bridge() returns a refcounted bridge, take
+> care of putting the bridge reference.
+>
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Acked-by: Miquel Raynal <miquel.raynal@bootlin.com> # MTD
+I just found this patch fails building on current drm-misc-next due to
+another patch landed earlier this week. Will be fixed in v4.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
