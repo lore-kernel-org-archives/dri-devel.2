@@ -4,86 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F41F4C982C1
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 07:23:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69B0BC982C1
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 07:36:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AB0810E430;
-	Thu, 17 Sep 2026 07:23:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 469F910E607;
+	Thu, 17 Sep 2026 07:36:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="Fkbtd11e";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gfjNXBl+";
 	dkim-atps=neutral
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
- [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A5CC10E430
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 07:22:59 +0000 (UTC)
-Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49ccf3ca626so2322125e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 00:22:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1789629777; x=1790234577; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=jtER79YEfUdewNdGI8bNbynmacCVTSf1eVDUEcusWmw=;
- b=Fkbtd11eOqXc9gpPb4bzV1Yotu6yLV+eESKLHQqhd2gUU+wlYEtFHo4DeSfNbkiMu5
- LS9dpyf+xIL+mdfD++z+hGPYnnE7GM3P2f8GgM60IYerT1mgIeMGhBHAB0Si0t9vMnkd
- WAvhGHEifPwslEoF1dXijgi5ERwA/7YXtxMuSDxvCanDlZ+T7euPWz2AGok50f/qytYq
- 0ybXj9rE6Iae8pO/plG/+A/l/QO0D2rEGiSdiq+HtFq33nl1ew+ITrNEIjQLbd8a1M3G
- h+QB9JooYso/TFg+IgHqCJDJP1rSE0ofKksEoyYLGIwvX/3Ij2jpqmIEdKu2EhKZWiqQ
- DwHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789629777; x=1790234577;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=jtER79YEfUdewNdGI8bNbynmacCVTSf1eVDUEcusWmw=;
- b=fhelBnTUH+Q/4rE7xcQUuzaR98HkdUqv/lwfHdYXTa3qiuMkCYFRqryEM4+VTyelyz
- jPePcsfDAzDCSSZ5CFwqyTLMKdyJsZWDkJR1UI97WXa3Y6j5adfF3p3OfpnEoucg/dJU
- PgG4XFDTWwYDbUBiwfFPfgdORrvEPhKXGOYH3iLMBwB9m6xqAeqJMLzJwvbdU/y1Zwzm
- gb0pmnzgacQ4vFM8gyMW0G93L2HE+h2cViQ5bW/q2ugsjwyyCQtUKuPaj3S6A7s0FBuW
- oSW3WNCBrkVLwpm9tlxOZlhraBiIDJwEp99WG3wgMck6KIVwEsoO+2v7FS+eduhEsbTn
- YRwg==
-X-Gm-Message-State: AFuF++kQ3oZUdloWTBCeMB38wlqfeOGkoNHvZQlga1ol0TAKcuC8xHfe
- nFxnNZ3Rc3e8nTTrUMJrXj3CGoPXSRCsG4LL/i3yBm2Jk1BfmOWTnPI2oA1hy0HPEGs=
-X-Gm-Gg: AYBFou0gavCqx5qxQwrDfDDE4cv+XH+CRv9cybjMHhNePtmSlTq3ufCKWncfcIflrZ/
- 0KuKVaeGiW5pEhxruZPOwZfvEdnVTVvXxjTiQu/u773TWMyKxsJrNxBMFW0BMdbFNQXy4zBJQSB
- QsxYkV0OebOVrWSsyzLKQ8KiqGG3fnnZVRAYsiUaC+oV1mxWE61Hog57Dhfi2uvTOT+sB3QE6cE
- yjCFVDOnrvYEU6Itan2PjRq5XfWio6tn+EEYsrm6UU/cJjZL5OI8bymNXoFPSlxOCxmyOH6RoTa
- X6/ycbsPZNe5lFDiJrbuqvjobcMv2Q8OAkSAv7kIk+On+IK9lTdi7RxP8d2rxfkkZ5flBbnh9Pd
- 8zAq5A60S14cDGcjpa9xgsCpRx8nhFeyhr2h7gYJu+zklJxeF5cr/89L7A5yeZlQRlkXYCWZFmJ
- Kehm3NM/Y5vCC8UCUk9l4itxf/wqsxBkK/efbIU/uCMTOx/eeqXpHreJCURYAd1doaLSN0uQLPR
- bOtIVvMaBY7m30=
-X-Received: by 2002:a05:600c:3547:b0:49c:fa20:cbfb with SMTP id
- 5b1f17b1804b1-49eb73253demr61340245e9.18.1789629777083; 
- Thu, 17 Sep 2026 00:22:57 -0700 (PDT)
-Received: from [192.168.0.116] ([81.79.79.1]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fbd32c5e1sm76754145e9.5.2026.09.17.00.22.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Sep 2026 00:22:56 -0700 (PDT)
-Message-ID: <d9481d22-5355-45da-81e0-a066260e568b@ursulin.net>
-Date: Thu, 17 Sep 2026 08:22:55 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D54210E607
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 07:36:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789630576; x=1821166576;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=fFsXsdJmM+T4Frta7q8+ZDhdN43sXhlIZkM4hMO7Tzo=;
+ b=gfjNXBl+m2QW0iL79eHdj2QuBLlvOkYPvOut1qmZLhI3ZZSA4qZ9hUUY
+ JD7ZB37/zgFSJ2w4Ba7AHsmn+vh4a9N8kNMJzKMtlJNTN5L3DxAxz3ZtZ
+ GFct1nFTnCeWU16oBxcBu8VGO2YOtsb3YIR6GSrajI59+1lZjJBzy3yGV
+ j5HobUpUL0b+76nz/Bame0eHazQHsgLg/R56wBJ89kHNdSk4/M5e+mEr8
+ ZI1Jh32r5+EYHUv8a72YRHM3heWY3C8a+PQHda7xCqAkYtnFYPhyJcJ7i
+ /HyLan60jWVMZEa+Xr/5SUTAi/x1QWi8eBWvaJlLaDvKKYfzw1ahzAF+J w==;
+X-CSE-ConnectionGUID: xJJ+LvY1TsOOY7ekFHPHkA==
+X-CSE-MsgGUID: Tmb2EWzdQ6q1oihzXhKErQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93851406"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="93851406"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2026 00:36:16 -0700
+X-CSE-ConnectionGUID: +aL9pj8+TmC9blf2PDAP1A==
+X-CSE-MsgGUID: b9575PWxRCCOdcnOvfVcvg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="297122013"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+ by fmviesa002.fm.intel.com with ESMTP; 17 Sep 2026 00:36:13 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1x76fB-000000007GH-3VKM;
+ Thu, 17 Sep 2026 07:36:09 +0000
+Date: Thu, 17 Sep 2026 15:35:46 +0800
+From: kernel test robot <lkp@intel.com>
+To: Wentao Liang <vulab@iscas.ac.cn>, airlied@gmail.com
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ jonathanh@nvidia.com, linux-kernel@vger.kernel.org,
+ linux-tegra@vger.kernel.org, mperttunen@nvidia.com, simona@ffwll.ch,
+ thierry.reding@kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] drm/tegra: Fix bo reference leak in
+ host1x_reloc_copy_from_user()
+Message-ID: <202609171531.CIG2e49k-lkp@intel.com>
+References: <20260916182550.2091797-1-vulab@iscas.ac.cn>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] drm/sched: Protect entity->last_scheduled with
- spinlock
-To: phasta@kernel.org, Danilo Krummrich <dakr@kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260910075942.2000338-2-phasta@kernel.org>
- <20260910075942.2000338-5-phasta@kernel.org>
- <f186f871-064a-4f45-8987-fe9f2fb3fa1c@ursulin.net>
- <47731da478e8801dc9823ecf286e941020e30963.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <47731da478e8801dc9823ecf286e941020e30963.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916182550.2091797-1-vulab@iscas.ac.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,30 +74,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Wentao,
 
-On 16/09/2026 13:54, Philipp Stanner wrote:
-> On Fri, 2026-09-11 at 09:17 +0100, Tvrtko Ursulin wrote:
->> Also, to repeat what I said before, I benchmarked this a bit under
->> extreme circumstances (4x non vsynced vkgears) and did not find a
->> regression in fps.
-> 
-> Does that mean you give this an official Tested-by: …
-> ?
+kernel test robot noticed the following build errors:
 
-Not sure if it was the same version I tested back then so best I re-test 
-it quickly once you post the rebase. I was actually planning to review 
-it once sashiko is happy and Christian at least acks it, which he now did.
+[auto build test ERROR on tegra/for-next]
+[also build test ERROR on daeinki-drm-exynos/exynos-drm-next drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-misc/drm-misc-next drm-tip/drm-tip linus/master v7.3-rc3 next-20260916]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Regards,
+url:    https://github.com/intel-lab-lkp/linux/commits/Wentao-Liang/drm-tegra-Fix-bo-reference-leak-in-host1x_reloc_copy_from_user/20260916-182550
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/tegra/linux.git for-next
+patch link:    https://lore.kernel.org/r/20260916182550.2091797-1-vulab%40iscas.ac.cn
+patch subject: [PATCH] drm/tegra: Fix bo reference leak in host1x_reloc_copy_from_user()
+config: arc-randconfig-1001-20260917 (https://download.01.org/0day-ci/archive/20260917/202609171531.CIG2e49k-lkp@intel.com/config)
+compiler: arc-linux-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260917/202609171531.CIG2e49k-lkp@intel.com/reproduce)
 
-Tvrtko
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609171531.CIG2e49k-lkp@intel.com/
 
->> Here you can compact with the idiomatic:
->>
->>    prev = dma_fence_get(entity->last_scheduled);
-> 
-> Good idea, will do.
-> 
-> Thx,
-> P.
+All errors (new ones prefixed by >>):
 
+   drivers/gpu/drm/tegra/drm.c: In function 'host1x_reloc_copy_from_user':
+>> drivers/gpu/drm/tegra/drm.c:163:48: error: passing argument 1 of 'drm_gem_object_put' from incompatible pointer type [-Wincompatible-pointer-types]
+     163 |                 drm_gem_object_put(dest->cmdbuf.bo);
+         |                                    ~~~~~~~~~~~~^~~
+         |                                                |
+         |                                                struct host1x_bo *
+   In file included from include/drm/drm_gpuvm.h:35,
+                    from include/drm/drm_debugfs.h:38,
+                    from drivers/gpu/drm/tegra/drm.c:19:
+   include/drm/drm_gem.h:572:43: note: expected 'struct drm_gem_object *' but argument is of type 'struct host1x_bo *'
+     572 | drm_gem_object_put(struct drm_gem_object *obj)
+         |                    ~~~~~~~~~~~~~~~~~~~~~~~^~~
+
+
+vim +/drm_gem_object_put +163 drivers/gpu/drm/tegra/drm.c
+
+   126	
+   127	static int host1x_reloc_copy_from_user(struct host1x_reloc *dest,
+   128					       struct drm_tegra_reloc __user *src,
+   129					       struct drm_device *drm,
+   130					       struct drm_file *file)
+   131	{
+   132		u32 cmdbuf, target;
+   133		int err;
+   134	
+   135		err = get_user(cmdbuf, &src->cmdbuf.handle);
+   136		if (err < 0)
+   137			return err;
+   138	
+   139		err = get_user(dest->cmdbuf.offset, &src->cmdbuf.offset);
+   140		if (err < 0)
+   141			return err;
+   142	
+   143		err = get_user(target, &src->target.handle);
+   144		if (err < 0)
+   145			return err;
+   146	
+   147		err = get_user(dest->target.offset, &src->target.offset);
+   148		if (err < 0)
+   149			return err;
+   150	
+   151		err = get_user(dest->shift, &src->shift);
+   152		if (err < 0)
+   153			return err;
+   154	
+   155		dest->flags = HOST1X_RELOC_READ | HOST1X_RELOC_WRITE;
+   156	
+   157		dest->cmdbuf.bo = tegra_gem_lookup(file, cmdbuf);
+   158		if (!dest->cmdbuf.bo)
+   159			return -ENOENT;
+   160	
+   161		dest->target.bo = tegra_gem_lookup(file, target);
+   162		if (!dest->target.bo) {
+ > 163			drm_gem_object_put(dest->cmdbuf.bo);
+   164			return -ENOENT;
+   165		}
+   166	
+   167		return 0;
+   168	}
+   169	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
