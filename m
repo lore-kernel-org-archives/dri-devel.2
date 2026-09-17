@@ -4,54 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75D16C982DA
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:13:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14067C982D7
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:14:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5988A10F212;
-	Fri, 18 Sep 2026 07:13:47 +0000 (UTC)
-X-Greylist: delayed 363 seconds by postgrey-1.36 at gabe;
- Fri, 18 Sep 2026 01:41:00 UTC
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8205C10E509
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 01:41:00 +0000 (UTC)
-Received: from fric.. (unknown [36.110.52.2])
- by APP-01 (Coremail) with SMTP id qwCowACnfvIrlaxqB_xECA--.11695S2;
- Fri, 18 Sep 2026 09:34:35 +0800 (CST)
-From: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-To: Gerd Hoffmann <kraxel@redhat.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org
-Cc: Huan Yang <link@vivo.com>, Robert Mader <robert.mader@collabora.com>,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-Subject: [PATCH] dma-buf/udmabuf: avoid oversized kvmalloc in init_udmabuf()
-Date: Fri, 18 Sep 2026 01:34:34 +0000
-Message-Id: <20260918013434.1849135-1-xujiakai24@mails.ucas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CB8F10F204;
+	Fri, 18 Sep 2026 07:14:22 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eptxRHyb";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEB0B88FF9
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:28:36 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 63817601EF;
+ Thu, 17 Sep 2026 16:28:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2124A1F000FF;
+ Thu, 17 Sep 2026 16:28:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789662516;
+ bh=10L90PzOXSgbgk2Yp7RVeipj6WjV7mej+Ed4jbhmuXc=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=eptxRHybXyah7jNOCIE+oNZ/IohTqXcA0mkjUlcUQNeIMBlwC5WNDaEuR8zKtnzp4
+ d8gtAZBhi138AiUGojyUOlhSC6Bwi6+oyHGdcO6uaB+TO6TNwiasU++a5qxAMoMUOU
+ 8XiShLwMIh5+BqAn96wOTWp1Dc0vJZpa0rkoYOfM+K+a5qP8hlcAxkdbt9H+MGcfGy
+ SuiBKUxlWP78pgDt3HtcFJ07iR5IUgdl05lka5bLNHOTdtpu07zevV83G1yl6K/X5j
+ JUeen7SEg+ZMhnQNHztAL3ahdOERkML9Qe/Tsy/kHlDigHfQHtqNpfEX71xIsrSuE7
+ N8yKvZuWdcGTw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 17 Sep 2026 17:22:20 +0100
+Subject: [PATCH v3 11/40] infiniband: update hfi1 to use remap_vmalloc_range()
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowACnfvIrlaxqB_xECA--.11695S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3Gw1kKr48GFW7uryxCrWktFb_yoW7Xrykpr
- 4aqr4UCr40qF1DA3WUJFn8Jw1UAa1DAFW7W3y7Gr1kZF1UCw1UZFn7Gry8JryDGw1UZay7
- tF1DAw40qr1UAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUBq14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
- 6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
- 4UJVWxJr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG
- 64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F
- 4j6r4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS
- 5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw2
- 8IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4l
- x2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrw
- CI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI
- 42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z2
- 80aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU1-txDUUUUU==
-X-Originating-IP: [36.110.52.2]
-X-CM-SenderInfo: 50xmxthndljko6pdxz3voxutnvoduhdfq/
-X-Mailman-Approved-At: Fri, 18 Sep 2026 07:09:59 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-11-4583d8a23bca@kernel.org>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10306; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=t2zMqz7GwrO9LwCoKVbfTLpQhoUUcOpzKx1NKvIhX3o=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB/I5ar705nlbL5p8RP3w1ENcvnWn7/u+3DPM1z4x
+ s7dtlNWdJSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAioQsZGZbmbN6bpFR6+7/T
+ KY9TJsH7NW+e73vXWf95deY+y18yvwwY/mmcfu6nElTK9/PA1i+9Bi9XdGeveP9BuvB0xKNzR2Z
+ nfmAHAA==
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+X-Mailman-Approved-At: Fri, 18 Sep 2026 07:10:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,101 +144,282 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-init_udmabuf() allocates two pointer arrays with one entry per page of
-the created buffer.  Since commit 1c0844c6184e ("udmabuf: change folios
-array from kmalloc to kvmalloc") these arrays are allocated with
-kvmalloc(), which warns and fails when the requested size exceeds
-INT_MAX bytes.
+In cases which map chip memory from vmalloc()'d ranges, the hfi1 infiniband
+drivers currently installs a fault handler, and then smuggles the kernel
+virtual address of this range in vma->vm_pgoff.
 
-With the default size limit of 64 MB the largest possible request was
-far below that threshold, but commit 44e9eb5a7621 ("dma-buf/udmabuf:
-Disable the size limit by default") raised the limit to INT_MAX MB.
-With 4K pages, creating a buffer of more than INT_MAX / 8 pages (about
-1 TB of pinned memory) now makes kvmalloc() hit its "crazy size"
-WARN_ON_ONCE(), which is trivially triggerable from unprivileged users
-through the UDMABUF_CREATE ioctls:
+This is exposing KASLR-sensitive internal kernel state in the VMA, and is
+entirely unnecessary.
 
-  WARNING: CPU: 0 PID: 412 at mm/slub.c:7021 __kvmalloc_node_noprof
-  Call Trace:
-   udmabuf_create
-   udmabuf_ioctl_create_list
+Instead, use remap_vmalloc_range() to remap the VMA to the span, and
+eliminate the fault handler altogether.
 
-Fix it by rejecting buffers whose page count exceeds what the pointer
-arrays can address before calling init_udmabuf(), returning -EINVAL.
+remap_vmalloc_range() checks that the VMA does not extend beyond the
+vmalloc area, and the driver already requires the VMA to exactly match the
+span of the memory being mapped, so this has no impact.
 
-Fixes: 1c0844c6184e ("udmabuf: change folios array from kmalloc to kvmalloc")
-Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
-Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+The memory is all preallocated so not having a fault handler has no impact
+either, other than pre-mapping the ranges which is beneficial.
+
+We also remove the VM_IO flag as it's not appropriate here, and the
+VM_DONTEXPAND flag as remap_vmalloc_range() will set it (and also mark the
+range correctly as a mixed map).
+
+We also update the vmalloc paths to place the virtual kernel address in
+memvirt, rather than overloading the physical address memaddr. We predicate
+the vmalloc handling on the vmalloc flag before we check memvirt for the
+virtual address-derived PFN remap path, so this works fine.
+
+remap_vmalloc_range() requires that the vmalloc()'d areas were all
+allocated using vmalloc_user() - each of cq->comps,
+uctxt->subctxt_rcvegrbuf, uctxt->subctxt_rcvhdr_base,
+uctxt->subctxt_uregbase and dd->events were allocated this way, so that
+requirement is satisfied.
+
+We also remove VM_IO and VM_DONTEXPAND from the STATUS command, as these
+are both set on remap.
+
+Finally, we remove VM_DONTEXPAND from the PIO_BUFS, PIO_BUFS_SOP and UREGS
+commands, as these are also all set on remap. PIO_CRED retains it, as
+dma_mmap_coherent() may map via vm_insert_page() on the IOMMU-DMA path,
+which sets only VM_MIXEDMAP. The RCV_HDRQ, RCV_EGRBUF and RTAIL commands
+also map via dma_mmap_coherent() and never set VM_DONTEXPAND, so set it for
+them for the same reason.
+
+Note that we retain expected behaviour throughout - the vmalloc remapped
+ranges set VM_MIXEDMAP | VM_DONTDUMP | VM_DONTEXPAND for each range.
+
+VM_IO was never appropriate as the ranges are explicitly not MMIO, and the
+reference to the v3.7 VM_RESERVED semantics map on to VM_MIXEDMAP |
+VM_DONTDUMP | VM_DONTEXPAND correctly - no core dump, unmergeable, no
+normal vm page for purposes of reclaim/migration/etc.
+
+There is a change in behaviour in that pages mapped using
+remap_vmalloc_range() will now have normal GUP-able pages, however this
+should have no impact as there is no reason not to allow this.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/dma-buf/udmabuf.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/infiniband/hw/hfi1/file_ops.c | 83 +++++++++++------------------------
+ 1 file changed, 25 insertions(+), 58 deletions(-)
 
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index df6dd00462423..25984e75d7ff3 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -383,6 +383,14 @@ static long udmabuf_create(struct miscdevice *device,
- 	if (!pgcnt)
- 		goto err_noinit;
+diff --git a/drivers/infiniband/hw/hfi1/file_ops.c b/drivers/infiniband/hw/hfi1/file_ops.c
+index dc548e6802e2..b02d1f1dbb27 100644
+--- a/drivers/infiniband/hw/hfi1/file_ops.c
++++ b/drivers/infiniband/hw/hfi1/file_ops.c
+@@ -70,7 +70,6 @@ static int set_ctxt_pkey(struct hfi1_ctxtdata *uctxt, unsigned long arg);
+ static int ctxt_reset(struct hfi1_ctxtdata *uctxt);
+ static int manage_rcvq(struct hfi1_ctxtdata *uctxt, u16 subctxt,
+ 		       unsigned long arg);
+-static vm_fault_t vma_fault(struct vm_fault *vmf);
+ static long hfi1_file_ioctl(struct file *fp, unsigned int cmd,
+ 			    unsigned long arg);
  
-+	/*
-+	 * init_udmabuf() allocates two arrays of pointers, one entry per
-+	 * page, with kvmalloc(), which cannot handle sizes larger than
-+	 * INT_MAX bytes.
+@@ -85,10 +84,6 @@ static const struct file_operations hfi1_file_ops = {
+ 	.llseek = noop_llseek,
+ };
+ 
+-static const struct vm_operations_struct vm_ops = {
+-	.fault = vma_fault,
+-};
+-
+ /*
+  * Types of memories mapped into user processes' space
+  */
+@@ -304,13 +299,13 @@ static ssize_t hfi1_write_iter(struct kiocb *kiocb, struct iov_iter *from)
+ 	return reqs;
+ }
+ 
+-static inline void mmap_cdbg(u16 ctxt, u8 subctxt, u8 type, u8 mapio, u8 vmf,
++static inline void mmap_cdbg(u16 ctxt, u8 subctxt, u8 type, u8 mapio, u8 is_vmalloc,
+ 			     u64 memaddr, void *memvirt, dma_addr_t memdma,
+ 			     ssize_t memlen, struct vm_area_struct *vma)
+ {
+ 	hfi1_cdbg(PROC,
+-		  "%u:%u type:%u io/vf/dma:%d/%d/%d, addr:0x%llx, len:%lu(%lu), flags:0x%lx",
+-		  ctxt, subctxt, type, mapio, vmf, !!memdma,
++		  "%u:%u type:%u io/vmalloc/dma:%d/%d/%d, addr:0x%llx, len:%lu(%lu), flags:0x%lx",
++		  ctxt, subctxt, type, mapio, is_vmalloc, !!memdma,
+ 		  memaddr ?: (u64)memvirt, memlen,
+ 		  vma->vm_end - vma->vm_start, vma->vm_flags);
+ }
+@@ -325,7 +320,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 		memaddr = 0;
+ 	void *memvirt = NULL;
+ 	dma_addr_t memdma = 0;
+-	u8 subctxt, mapio = 0, vmf = 0, type;
++	u8 subctxt, mapio = 0, is_vmalloc = 0, type;
+ 	ssize_t memlen = 0;
+ 	int ret = 0;
+ 	u16 ctxt;
+@@ -347,7 +342,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 	/*
+ 	 * vm_pgoff is used as a buffer selector cookie.  Always mmap from
+ 	 * the beginning.
+-	 */ 
 +	 */
-+	if (pgcnt > INT_MAX / sizeof(struct page *))
-+		goto err_noinit;
-+
- 	ret = init_udmabuf(ubuf, pgcnt);
- 	if (ret)
- 		goto err;
--- 
-2.34.1
+ 	vma->vm_pgoff = 0;
+ 	flags = vma->vm_flags;
+ 
+@@ -366,7 +361,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 		 */
+ 		memlen = PAGE_ALIGN(uctxt->sc->credits * PIO_BLOCK_SIZE);
+ 		flags &= ~VM_MAYREAD;
+-		flags |= VM_DONTCOPY | VM_DONTEXPAND;
++		flags |= VM_DONTCOPY;
+ 		vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
+ 		mapio = 1;
+ 		break;
+@@ -401,6 +396,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 		memlen = rcvhdrq_size(uctxt);
+ 		memvirt = uctxt->rcvhdrq;
+ 		memdma = uctxt->rcvhdrq_dma;
++		flags |= VM_DONTEXPAND;
+ 		break;
+ 	case RCV_EGRBUF: {
+ 		unsigned long vm_start_save;
+@@ -422,7 +418,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 			ret = -EPERM;
+ 			goto done;
+ 		}
+-		vm_flags_clear(vma, VM_MAYWRITE);
++		vm_flags_mod(vma, VM_DONTEXPAND, VM_MAYWRITE);
+ 		/*
+ 		 * Mmap multiple separate allocations into a single vma.  From
+ 		 * here, dma_mmap_coherent() calls dma_direct_mmap(), which
+@@ -438,7 +434,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 			memvirt = uctxt->egrbufs.buffers[i].addr;
+ 			memdma = uctxt->egrbufs.buffers[i].dma;
+ 			vma->vm_end += memlen;
+-			mmap_cdbg(ctxt, subctxt, type, mapio, vmf, memaddr,
++			mmap_cdbg(ctxt, subctxt, type, mapio, is_vmalloc, memaddr,
+ 				  memvirt, memdma, memlen, vma);
+ 			ret = dma_mmap_coherent(&dd->pcidev->dev, vma,
+ 						memvirt, memdma, memlen);
+@@ -467,7 +463,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 		 * user registers.
+ 		 */
+ 		memlen = PAGE_SIZE;
+-		flags |= VM_DONTCOPY | VM_DONTEXPAND;
++		flags |= VM_DONTCOPY;
+ 		vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
+ 		mapio = 1;
+ 		break;
+@@ -476,15 +472,10 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 		 * Use the page where this context's flags are. User level
+ 		 * knows where it's own bitmap is within the page.
+ 		 */
+-		memaddr = (unsigned long)
+-			(dd->events + uctxt_offset(uctxt)) & PAGE_MASK;
++		memvirt = dd->events + uctxt_offset(uctxt);
++		memvirt = (void *)(((uintptr_t)memvirt) & PAGE_MASK);
+ 		memlen = PAGE_SIZE;
+-		/*
+-		 * v3.7 removes VM_RESERVED but the effect is kept by
+-		 * using VM_IO.
+-		 */
+-		flags |= VM_IO | VM_DONTEXPAND;
+-		vmf = 1;
++		is_vmalloc = 1;
+ 		break;
+ 	case STATUS:
+ 		if (flags & VM_WRITE) {
+@@ -493,7 +484,6 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 		}
+ 		memaddr = kvirt_to_phys((void *)dd->status);
+ 		memlen = PAGE_SIZE;
+-		flags |= VM_IO | VM_DONTEXPAND;
+ 		break;
+ 	case RTAIL:
+ 		if (!HFI1_CAP_IS_USET(DMA_RTAIL)) {
+@@ -512,25 +502,23 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 		memvirt = (void *)hfi1_rcvhdrtail_kvaddr(uctxt);
+ 		memdma = uctxt->rcvhdrqtailaddr_dma;
+ 		flags &= ~VM_MAYWRITE;
++		flags |= VM_DONTEXPAND;
+ 		break;
+ 	case SUBCTXT_UREGS:
+-		memaddr = (u64)uctxt->subctxt_uregbase;
++		memvirt = uctxt->subctxt_uregbase;
+ 		memlen = PAGE_SIZE;
+-		flags |= VM_IO | VM_DONTEXPAND;
+-		vmf = 1;
++		is_vmalloc = 1;
+ 		break;
+ 	case SUBCTXT_RCV_HDRQ:
+-		memaddr = (u64)uctxt->subctxt_rcvhdr_base;
++		memvirt = uctxt->subctxt_rcvhdr_base;
+ 		memlen = rcvhdrq_size(uctxt) * uctxt->subctxt_cnt;
+-		flags |= VM_IO | VM_DONTEXPAND;
+-		vmf = 1;
++		is_vmalloc = 1;
+ 		break;
+ 	case SUBCTXT_EGRBUF:
+-		memaddr = (u64)uctxt->subctxt_rcvegrbuf;
++		memvirt = uctxt->subctxt_rcvegrbuf;
+ 		memlen = uctxt->egrbufs.size * uctxt->subctxt_cnt;
+-		flags |= VM_IO | VM_DONTEXPAND;
+ 		flags &= ~VM_MAYWRITE;
+-		vmf = 1;
++		is_vmalloc = 1;
+ 		break;
+ 	case SDMA_COMP: {
+ 		struct hfi1_user_sdma_comp_q *cq = fd->cq;
+@@ -539,10 +527,9 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 			ret = -EFAULT;
+ 			goto done;
+ 		}
+-		memaddr = (u64)cq->comps;
++		memvirt = cq->comps;
+ 		memlen = PAGE_ALIGN(sizeof(*cq->comps) * cq->nentries);
+-		flags |= VM_IO | VM_DONTEXPAND;
+-		vmf = 1;
++		is_vmalloc = 1;
+ 		break;
+ 	}
+ 	default:
+@@ -559,12 +546,10 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 	}
+ 
+ 	vm_flags_reset(vma, flags);
+-	mmap_cdbg(ctxt, subctxt, type, mapio, vmf, memaddr, memvirt, memdma, 
++	mmap_cdbg(ctxt, subctxt, type, mapio, is_vmalloc, memaddr, memvirt, memdma,
+ 		  memlen, vma);
+-	if (vmf) {
+-		vma->vm_pgoff = PFN_DOWN(memaddr);
+-		vma->vm_ops = &vm_ops;
+-		ret = 0;
++	if (is_vmalloc) {
++		ret = remap_vmalloc_range(vma, memvirt, 0);
+ 	} else if (memdma) {
+ 		ret = dma_mmap_coherent(&dd->pcidev->dev, vma,
+ 					memvirt, memdma, memlen);
+@@ -588,24 +573,6 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 	return ret;
+ }
+ 
+-/*
+- * Local (non-chip) user memory is not mapped right away but as it is
+- * accessed by the user-level code.
+- */
+-static vm_fault_t vma_fault(struct vm_fault *vmf)
+-{
+-	struct page *page;
+-
+-	page = vmalloc_to_page((void *)(vmf->pgoff << PAGE_SHIFT));
+-	if (!page)
+-		return VM_FAULT_SIGBUS;
+-
+-	get_page(page);
+-	vmf->page = page;
+-
+-	return 0;
+-}
+-
+ static __poll_t hfi1_poll(struct file *fp, struct poll_table_struct *pt)
+ {
+ 	struct hfi1_ctxtdata *uctxt;
 
-
 -- 
-Below is the crash report:
-------------[ cut here ]------------
-WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013, CPU#0: syz.5.27938/167363
-Modules linked in:
-CPU: 0 UID: 0 PID: 167363 Comm: syz.5.27938 Tainted: G        W    L      7.3.0-rc2 #1 PREEMPT(full) 
-Tainted: [W]=WARN, [L]=SOFTLOCKUP
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
-RIP: 0010:__kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013
-Code: 05 bf fa 2d 08 49 8b 0f c6 04 08 00 65 48 ff 0d 90 fa 2d 08 0f 85 4c fd ff ff e8 05 43 8c ff e9 42 fd ff ff e8 9b 86 0e 04 90 <0f> 0b 90 31 db e9 d2 fe ff ff f3 0f 1e fa 65 8b 05 8d fa 2d 08 89
-RSP: 0018:ffffc90002bc3cf8 EFLAGS: 00010246
-RAX: 0000000000000100 RBX: 0000000000000000 RCX: 0000008000000000
-RDX: 0000008000000000 RSI: 0000000000000000 RDI: ffffffff835e3226
-RBP: 00000000ffffffff R08: 00000000000028c0 R09: 00000000ffffffff
-R10: 0000000000000006 R11: 0000000000000002 R12: 0000008000000000
-R13: 00000000000028c0 R14: 0000001000000000 R15: 0000008000000000
-FS:  00007fc89ae45640(0000) GS:ffff8880f3de4000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000000110c2ff305 CR3: 000000002b3d4000 CR4: 0000000000752ef0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000006000
-DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000400
-PKRU: 80000000
-Call Trace:
- <TASK>
- init_udmabuf home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:193 [inline]
- udmabuf_create+0x1b6/0x750 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:386
- udmabuf_ioctl_create home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:465 [inline]
- udmabuf_ioctl+0x132/0x1d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:496
- vfs_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:51 [inline]
- __do_sys_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xbc/0x130 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:583
- do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x12b/0x350 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x590d6d
-Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 a8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fc89ae44fd8 EFLAGS: 00000216 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000000000611e7f RCX: 0000000000590d6d
-RDX: 00002000000023c0 RSI: 0000000040187542 RDI: 000000000000000a
-RBP: 00007fc89ae45010 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000216 R12: 00007fc89ae45640
-R13: 000000000000000b R14: 0000000000528d40 R15: 00007fc89ae25000
- </TASK>
----[ end trace 0000000000000000 ]---
----
+2.55.0
 
