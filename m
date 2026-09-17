@@ -4,82 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 737AFC982C1
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 02:23:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D9F7C982CC
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 02:56:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9760D10E545;
-	Thu, 17 Sep 2026 02:23:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6217810E0BA;
+	Thu, 17 Sep 2026 02:56:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FMBUJ8uc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="luBSYXqB";
 	dkim-atps=neutral
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com
- [74.125.227.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86C9510E545
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 02:23:16 +0000 (UTC)
-Received: by mail-pj2-f42.google.com with SMTP id
- 98e67ed59e1d1-39666e7c9efso45166a91.3
- for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 19:23:16 -0700 (PDT)
+Received: from mail-pj2-f19.google.com (mail-pj2-f19.google.com
+ [74.125.227.147])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DBEB10E0BA
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 02:56:52 +0000 (UTC)
+Received: by mail-pj2-f19.google.com with SMTP id
+ d9443c01a7336-2db18fe433fso2972065ad.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 16 Sep 2026 19:56:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789611796; x=1790216596; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from:cc
- :content-language:references:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Nkh0FnuQtTwLU/gLgK8Zr6SvB3rMVV5l8Nx6NE3bkmQ=;
- b=FMBUJ8ucQYW1odJ6Ru02b/q61hpW0Lr+vum8z46p9p9bnlzwQJ0OeMju76nsclY/dy
- 0AqRmH/CgB8Ts4+2RwLOb1MVq5b4TUJN+rXfkxsZH1iJJuKunMfvnGt+Sw72eb5pdE1T
- Bb7g8LmEKS3ZGgTdZGJMpkonnaYhZ6gAyAvgUxdgELWCtQJJHZ83U1OUBvHfRE1XXhx2
- 4+qncUpnWW779i1r9USbnV7sYKrS1fYkCpK4aNq1e/Vz3mjh0u1YhtFTvlMiOP0Lo75I
- pslM74OuvuBoq3NLKwDvJQMAUIASxGKAbBZNisYdQmGjOb87IUM0KDERBifN2Cc1+xBE
- rkiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789611796; x=1790216596;
- h=content-transfer-encoding:content-type:in-reply-to:from:cc
- :content-language:references:to:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1789613812; x=1790218612; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Nkh0FnuQtTwLU/gLgK8Zr6SvB3rMVV5l8Nx6NE3bkmQ=;
- b=XrQNdCS+Xlncva+n88TKkACjmRX1/PY4Hp0XcknQicfnN/fIAPc2GBz8hLOThUNh9D
- GP4wAsLJ+fot21ADpBWQjJ2HzZkTsySR3A10TV/+Pm8h3mWVke9Cet4HrCvJnzq6yBPz
- EJ2JmIPPEIaOD0/Hj1rEmtGFjGM6WzFaLkBzZsVwTBhz4KS9ARPwZeRpgxte62yJtDK8
- NdvVHFOwBtTSRYuzpawavbkui/D1cN400rYJ4BzQcWHIpKnlR4TBQSyH1a1kU3ylUyAg
- imfs+hSIZ+3tYfrKpS8H03YiqXhIzgeAq7Hu2w24zQIT5yPYIysvg8Afj1LJswvElvoN
- bamg==
+ bh=mep4zkN4WAtJ2xw4HnArFK/4M5cNXhyijbcrj72ZXVk=;
+ b=luBSYXqBSMAzpzrD6jUxbPzgv1bBU0MGFVRDGBjPAtfW1cg85sclpvsa5PaYkTak2a
+ ZRU7mZBiD6//2QZoy0kFjHhn0+kX98+IUXYR1ZvNRhJc1iThOgH+3Q0uhVMnedq4EBe4
+ UZDJPR+8YZiX9CjG+NsZZQ0z6Po82nlKN2Fk2NX7SlUkmJj+II0Mw/LjImZdVyOaJShN
+ ABdiC6a8CiERZ6Xi3qo4K+uAiTc4SDoWOQjsnd38VzMHvpT+Q9pMy0FHZsb4hlis5b2f
+ AqlKH1065aWNY3LW8I0Mi+9WWsoq8261Nr9CKKT5J9GfRXV4iuFiDS6gXk3uxYufgR3S
+ 0dJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789613812; x=1790218612;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=mep4zkN4WAtJ2xw4HnArFK/4M5cNXhyijbcrj72ZXVk=;
+ b=B0bFUSmPwW2PrxGWo4CC13QS8vmqzOnyoO7Yc/+ZZmSQ1zTb1PDXVP7vdE82JlHTjT
+ C4w941SnT1T6KWs/K8BSQvEH6x1fxq2EmUjALZhr2oWH4zfUQlyg9xaoyfw95UUtGB5F
+ yvyNduurs7/XUBkGUyARmZlCy2+VFkk2duaJKg4R5mlfvGK12POwnb/YO4t8R3s9eKFP
+ M+8g37q9RgGxwTMmoEUGb8ImQrfrLKHjGDGnvw7ACQh+7rwTXMQaEWC2Co4t3iZYWhNS
+ xpxRy7t2nmaxwH0iPDGmIoJZfGcPNO1EVvqzHKl/7lrYpezSF4LqrTsfhXX79LL5R94o
+ tBgg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxyvVm/52sUNAeiYx6TBy8lmde0E6XNt6NwGyxrz9QT9hMgycpG45sNnzBmAQ8Yxcme541+HsBB8dg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kvMOhpG3VM2GQPdT4RhsUaGahVyejPYGi5uVHrOYycpdpiiph0
- E2LK98UFFyDzc4rQGJ54egx90YS40eU59U4k9ruGWTex9p6MC4wWUzp9
-X-Gm-Gg: AYBFou17aEdeq9pYJwPz1mxfxTH3oUm/Kch2u4Ez7XULCZ49WZvhoQ/gYYlR4jHCkZv
- WrobPwNC1eELSv6vbkhZzz69nsvkC15PsRFX4tYuqecP2NvqCJYGF+isGS/cm9nrk6mxnrtFC+v
- MtcV/cDYW5A4I2D5Lb7VGcC7YbuQK6dqMskKo4ncvJ+vH/CauF2Xs5v0chtvYjDl3aeUA/RCDKP
- go0mLnKsWZ2Vwt/fCJOJA5AnAkyKhXg1i+2hDpScFWN452caZ3ZoP/CcjBsO/BPnw3HI9Fgo6KT
- 0Td8WYm6QdA9EKZjn+2F110wLXlNciPJbFDkad9iHMZkBb9o5lggNJB1cfq80YNExfr2BpuNKUo
- o1USayfO2IHrLYIVhnXDLyPL/1S0SWyzdNDD9EM223BogNVIILv1NPEqNgpVvN9PuiqRta+ldIY
- wHWbWVW5qzyzEM63Y5QXxO8Vh9ORTRtmqYH20Nfcbwarqtz9XiCaIK/RjBKxX+rLTKD0TQj+ub4
- XLJyGEyCeGVtq6Txndeg+u9baF1dMtxhTkAoH7T99Q=
-X-Received: by 2002:a17:90b:5386:b0:39d:febe:7452 with SMTP id
- 98e67ed59e1d1-39e1e64b9bcmr7917463a91.4.1789611795933; 
- Wed, 16 Sep 2026 19:23:15 -0700 (PDT)
-Received: from [192.168.0.203]
- (2607-8700-5500-a805-0000-0000-0000-0002.16clouds.com.
- [2607:8700:5500:a805::2]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-14397197dc8sm9065853c88.3.2026.09.16.19.23.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Sep 2026 19:23:15 -0700 (PDT)
-Message-ID: <bfce38b4-5475-4af6-acbb-cfb20e9b590a@gmail.com>
-Date: Thu, 17 Sep 2026 10:23:00 +0800
+ AKwUvBw54bjSv1u0p0ShNejrvipvemuo5MS16xoPGE2E90wg018xgxlfmsapmNc55ovxn741YBO3LZOvYQQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nuRC5d2L4DKNgkRmV0sDRsWmjhUYMz4mG4uHOSeVZkuwkKuRNP
+ 1/1nn3xCsKwhd5CblSPkshEpQOnGKB5XbELJy7EraVMi6gbZtp2bqK2C
+X-Gm-Gg: AYBFou1v1fbk1qATsqP1k3rAsdFy+eZyv22NJN9VKpAkn+nOHFxYuQEJdldgCQD9SW/
+ noOgBsYzbEcDUnqrm9DrgIblbBbi9m3rPjIjG00JWjS+pA74edaa73nGYZzRSBuEsUNl1URblvT
+ SDAwhs+eMKP4eVIzLaHOVlnJzhTYX5dsAMHOROndg/ObUJZ2CLExAEFmqGNUmIyTfU0HDRcmE2e
+ j9lWaEc4QFpDIcH3unLZd1P43wDYYmCb+JQMHzT/7bMevRFWuSte8VjprC9+ZJ9UOAJ0+K0EZ/Q
+ KW0tm+QH7EwoumDCFyw6XUqa7CpwoYImWwcOtJgUVMJ2MCbaqsfo66KVl0JVJ8gUfHvCfZ5mbLn
+ 0NRPR9scOvE9ukEw63Hf7aegCJdzYEmuVzEaJe2LeRBZzCn20yErLe3Zh40B1uI/bcudJ5caPl/
+ J3R+NGe3ze8TcUhGxeXvhJJuBC23e/9+/7ZU6n9b6MImgI1c1ij2RwPP3iwU2R4WR0QFVavE3ZR
+ /TiXOx3jMkvAZvuuODpD/2JhzVWLUQz1XoxjE6/3TDRHvOq6erBT6iQ4yKPP/NA+oFICnPLgZbq
+ sk6ZO3N0LQc=
+X-Received: by 2002:a17:903:3848:b0:2dd:76b1:34f0 with SMTP id
+ d9443c01a7336-2dd8e5244a5mr107821025ad.11.1789613811428; 
+ Wed, 16 Sep 2026 19:56:51 -0700 (PDT)
+Received: from lcwang-Precision-3630-Tower..
+ (125-227-154-99.hinet-ip.hinet.net. [125.227.154.99])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2dd89eb896bsm19014945ad.43.2026.09.16.19.56.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Sep 2026 19:56:51 -0700 (PDT)
+From: LiangCheng Wang <zaq14760@gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Devarsh Thakkar <devarsht@ti.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Wig Cheng <onlywig@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Sam Ravnborg <sam@ravnborg.org>
+Cc: LiangCheng Wang <zaq14760@gmail.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
+ e-ink panel
+Date: Thu, 17 Sep 2026 10:56:44 +0800
+Message-Id: <20260917025644.1262504-1-zaq14760@gmail.com>
+In-Reply-To: <f4c6feab-b1ec-48df-81a5-888444b243a3@suse.de>
+References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com>
+ <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
+ <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
+ <20260616083921.4066690-1-zaq14760@gmail.com>
+ <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com>
+ <20260617020926.114947-1-zaq14760@gmail.com>
+ <8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com>
+ <20260731035705.3198816-1-zaq14760@gmail.com>
+ <20260916082924.956116-1-zaq14760@gmail.com>
+ <0a13ccb8-8817-4223-a4a2-0de594ac8c71@suse.de>
+ <20260916094453.1062125-1-zaq14760@gmail.com>
+ <f4c6feab-b1ec-48df-81a5-888444b243a3@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6] drm/bridge: dw-hdmi-qp: serialize HDMI audio callbacks
- with PHY enable/disable
-To: Igor Paunovic <royalnet026@gmail.com>
-References: <20260915103433.13163-1-rmxpzlb@gmail.com>
- <20260916161000.11756-1-royalnet026@gmail.com>
-Content-Language: en-US
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-From: Frank Zhang <rmxpzlb@gmail.com>
-In-Reply-To: <20260916161000.11756-1-royalnet026@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,60 +112,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/17/26 00:09, Igor Paunovic wrote:
-> Hi Frank,
-> 
-> I tested v6 on an Orange Pi 5 Plus (RK3588): git am onto a
-> drm-misc-next based 7.3.0-rc2 tree with PROVE_LOCKING and
-> DEBUG_ATOMIC_SLEEP, HDMI output to a TV.
-> 
-> The reproducer I used on v5 (output off, then open and close the PCM)
-> now stops at the open: dw_hdmi_qp_audio_enable() returned -EOPNOTSUPP
-> three times out of three, nothing from ASoC or the bridge was logged,
-> and since the startup failed, the shutdown path never reached
-> clear_audio_infoframe().
-> 
-> So I also ran the sequence from your commit message: PCM opened with
-> the output on, output turned off by the compositor while the stream
-> runs, PCM closed after that. With function_graph on
-> dw_hdmi_qp_bridge_clear_audio_infoframe() and
-> dw_hdmi_qp_audio_enable(), the clear call after the disable takes and
-> drops phy.lock and returns 0 with no regmap access inside it; with the
-> output on, as a control, one regmap_update_bits_base() call shows up
-> inside it, under the lock.
-> 
-> There was no external abort, SError, lockdep report or might_sleep
-> splat in the whole run, including two output off/on cycles, and once
-> the output was back on a new stream played on the TV.
-> 
-> Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus (RK3588)
-> 
-> Not covered: I did not try to hit the window the lock is meant to
-> close (an atomic disable landing between the state check and a
-> register write), so that part rests on the code; and I did not check
-> Dmitry's condition from v2 [1] that a PHY off/on cycle clears the
-> audio registers.
-> 
-> v6 overlaps with Detlev's patch [2] (both return -EOPNOTSUPP from the
-> audio callbacks while the output is off), and [2] no longer applies on
-> top of v6. For the crash, v6 alone now covers both sequences from my
-> v5 note (open with the output already off, and the output going away
-> under an open PCM), so my remark there that both patches are needed
-> does not apply to v6.
-> 
-> An LLM assistant applied and built the patch, wrote the test scripts,
-> counted the traces and helped draft this mail; I ran the tests on the
-> board and did the listening myself.
-> 
-> [1] https://lore.kernel.org/all/urguajogb4zsz4jg3ef32hpyf2awxkywdtlk5ackdi2gjai4l7@vpjaf3sznkto/
-> [2] https://lore.kernel.org/all/20260519-fix-hdmi-audio-warnings-v1-1-9608966c993f@collabora.com/
-> 
-> Igor
+Hi Thomas,
 
-Hi Igor,
+> There's also the ssd130x driver under solomon/ how does it related to
+> the ssd16xx? Is that similar as well?
 
-Thanks for your testing.
+They share the vendor, but not much else as far as I can tell - Javier
+will know ssd130x far better than I do.
 
-Best regards,
-Frank
+It is an OLED driver over regmap, while ssd16xx is e-paper over raw SPI
+with a BUSY handshake, RAM address windows and waveform LUTs.  The
+register maps do not overlap, so I doubt there is much the two could
+share.
 
+Its shape does look like a good model though - one driver covering three
+sub-families through a variant table.  And if you would prefer ssd16xx to
+sit in drivers/gpu/drm/solomon/ next to it, that is fine by me.
+
+> If the ssd16xx does not make progress, we could also try to merge your
+> code as ssd16xx and Devarsh would then add support for additional ICs on
+> top.
+
+Thank you - I would be glad to help that way if it comes to it.
+
+Devarsh, it is your series though, so please say if you would rather carry
+it yourself; I would only pick it up with your agreement.
+
+I should also be honest about what I could offer: only what the SSD1677
+and the PIXPAPER 4.26m need, arranged so that further controllers can be
+added on top.  This panel is the only SSD16xx hardware I have, so I could
+not implement or test the others.  If that is too small a starting point,
+I quite understand.
+
+Regards,
+LiangCheng
