@@ -4,45 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32C92C982D2
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 16:55:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7C10C982D2
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 17:00:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BBAE10E766;
-	Thu, 17 Sep 2026 16:55:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8B9C10EFF3;
+	Thu, 17 Sep 2026 17:00:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HngNrs3+";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="hRwGFAOV";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85C2510E766
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:55:05 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 66521407C9;
- Thu, 17 Sep 2026 16:55:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F10AF1F00893;
- Thu, 17 Sep 2026 16:55:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789664105;
- bh=hdMWxFaReQNrBONPks9rCkvr9HbAFCBDYi2fYllmLK0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HngNrs3+7AqsdPTj2xsxgPM08gtyUtsRMirNbMtGLWHLN2yU6zwxXmPum8C96E4em
- q8vfWkIMYGC+o1XaKXppPbG/KIQsmLdwRZMvaCFKDtAdzfqqW0sozBlgmvS184PqpQ
- A0M9dIZ+yQFrPLJZ3YH0n+72oyvpY0cBiheLI0rMQtqbEwk70G2CbdTkegfo6fUVDR
- I57Abrmwi/lKV0AFVYUq3g0jqw7KMVzE56lIWCs+PtUQiNr+2hFFHaIymlHKvMNix/
- ACckVQSLxCfAiWSwKUHPfr/KJr5ZvPxzcC/kOmZfC/EYvWWOP4s5LSPIR/qt3K3nNN
- MZTZ4sXQLBE3w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 6/9] drm/panel: novatek-nt36672a: Add 3 panels used
- in Xiaomi phones
-To: "Alexey Minnekhanov" <alexeymin@minlexx.ru>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260917-nt36672a-panels-v2-6-f8de8be5b86f@minlexx.ru>
-References: <20260917-nt36672a-panels-v2-0-f8de8be5b86f@minlexx.ru>
- <20260917-nt36672a-panels-v2-6-f8de8be5b86f@minlexx.ru>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 16:55:04 +0000
-Message-Id: <20260917165504.F10AF1F00893@smtp.kernel.org>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8837110EFF5
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 17:00:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1789664456;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=3cUvhJCeylyKmCRzVdnpI1XudDCvPfdO1HTMEIyjjhA=;
+ b=hRwGFAOV/wG3wM+wyYELxI0hU9RvKDt4LKV1PElYtgvKj+Dz4KY6F973Ha87DrdxWWQCn3
+ m2+G3DnbUdbqfMEr0xbiMk8e9fXtlUp/Gm7wqjVRpwotgeVlqC6lgmQANfZp8Dt87iMKnX
+ I9J384XyciytnyV9KcxrL941e07BgN0=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-104-fL7CYz7kOVOXxBhP8eCeEA-1; Thu,
+ 17 Sep 2026 13:00:52 -0400
+X-MC-Unique: fL7CYz7kOVOXxBhP8eCeEA-1
+X-Mimecast-MFC-AGG-ID: fL7CYz7kOVOXxBhP8eCeEA_1789664450
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 172EE1802554; Thu, 17 Sep 2026 17:00:50 +0000 (UTC)
+Received: from GoldenWind.lan (unknown [10.22.64.177])
+ by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id E1D3930002C2; Thu, 17 Sep 2026 17:00:46 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: "Timur Tabi" <ttabi@nvidia.com>, "Dave Airlie" <airlied@redhat.com>,
+ "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+ "Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Kees Cook" <kees@kernel.org>, "Simona Vetter" <simona@ffwll.ch>,
+ "David Airlie" <airlied@gmail.com>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>,
+ "Maxime Ripard" <mripard@kernel.org>,
+ "Mel Henning" <mhenning@darkrefraction.com>,
+ "Hongling Zeng" <zenghongling@kylinos.cn>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Lyude Paul" <lyude@redhat.com>
+Subject: [PATCH v5 0/5] drm/nouveau/gsp/r570: Follow OpenRM's runtime PM
+ process more closely
+Date: Thu, 17 Sep 2026 12:58:31 -0400
+Message-ID: <20260917170042.440276-1-lyude@redhat.com>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Mimecast-MFC-PROC-ID: EXq7Rjbx8Pu1yuQwwIJYgiOTUZtTN3m536UpvJi1ye0_1789664450
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,62 +78,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/panel: nt36672a: skipped power-down sequence on partial comm=
-and failure
---
+While we have runtime PM working a lot more reliably then in the past
+with R570, we're still doing things a lot differently then OpenRM. For
+instance, we don't save/restore comptag backing stores, and we don't ask
+GSP whether it's OK to enter GcOff.
 
-commit dfbf7416bcb60d153c91f5ee831680912a52282d
-Author: Alexey Minnekhanov <alexeymin@minlexx.ru>
+This series fixes this, and gets our runtime PM process to look a lot
+closer to OpenRM's by implementing some missing pieces and workarounds.
 
-drm/panel: novatek-nt36672a: Add 3 panels used in Xiaomi phones
+Tested on my daily-driver desktop with an AD102, a ThinkPad P17 Gen1
+with a GA103GLM, a Dell Precision 7780 with an AD103, and my test
+machine with a GB206.
 
-This commit adds support for 3 DSI video mode panels used in Xiaomi Redmi
-Note 6 Pro and Note 7, which share the Novatek NT36672A controller. The
-panels use a common initialization and de-initialization sequence with
-minor variations.
+Patch series based on drm-misc/drm-misc-next. Branch with patches here:
 
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu=
-/drm/panel/panel-novatek-nt36672a.c
-> index a445c8067aa5f..d356348d39608 100644
-> --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-[ ... ]
-> +static void lavender_tulip_deinit_cmds(struct mipi_dsi_multi_context *ds=
-i_ctx)
-> +{
-> +	dsi_ctx->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +
-> +	mipi_dsi_dcs_set_display_off_multi(dsi_ctx);
-> +	mipi_dsi_msleep(dsi_ctx, 20);
-> +	mipi_dsi_dcs_enter_sleep_mode_multi(dsi_ctx);
-> +	mipi_dsi_msleep(dsi_ctx, 120);
+	https://gitlab.freedesktop.org/lyudess/linux/-/commits/nouveau/rpm-openrm-sync
 
-[Severity: Medium]
-Does this sequence introduce a regression by skipping the hardware power-do=
-wn
-commands if the initial display-off command fails?
+Previous version:
 
-If mipi_dsi_dcs_set_display_off_multi() encounters an error, it sets
-dsi_ctx->accum_err. Because accum_err is not reset to 0 before the following
-commands, mipi_dsi_msleep() and mipi_dsi_dcs_enter_sleep_mode_multi() will
-immediately return without executing.
+	https://patchwork.freedesktop.org/series/173901/
 
-Bypassing the panel's sleep sequence and mandatory delays before cutting
-regulator power can cause visual artifacts like flashes or fading, and might
-violate hardware power sequencing requirements.
+Lyude Paul (5):
+  drm/nouveau/gsp/r570: Add support for INTERNAL_GCX_ENTRY_PREREQUISITE
+  drm/nouveau/gsp/r535: Add support for MEMSYS_GET_STATIC_CONFIG
+  drm/nouveau/gsp/r570: Add comp mode workaround from issue #3172217
+  drm/nouveau/gsp/r570: Start saving comptag backing stores
+  drm/nouveau/gsp/r570: Enable Gcoff in fbsr again
 
-Should we reset dsi_ctx->accum_err to 0 after the display-off command to
-ensure the sleep mode and delay commands still execute, similar to what is
-already done in tianma_fhd_video_send_deinit_cmds()?
+ drivers/gpu/drm/nouveau/include/nvif/cl0080.h | 10 +++
+ drivers/gpu/drm/nouveau/include/nvif/device.h |  1 +
+ .../gpu/drm/nouveau/include/nvkm/subdev/gsp.h |  6 ++
+ drivers/gpu/drm/nouveau/nouveau_drm.c         | 13 ++++
+ drivers/gpu/drm/nouveau/nvif/device.c         | 13 ++++
+ .../gpu/drm/nouveau/nvkm/engine/device/user.c | 35 +++++++++
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/base.c    | 10 +++
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/priv.h    |  1 +
+ .../drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 17 ++++
+ .../nvkm/subdev/gsp/rm/r535/nvrm/gsp.h        | 45 +++++++++++
+ .../nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c    | 77 ++++++++++++++++++-
+ .../drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c | 36 +++++++++
+ .../nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h       | 29 +++++++
+ .../nvkm/subdev/gsp/rm/r570/nvrm/gsp.h        |  7 ++
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h   |  3 +
+ 15 files changed, 301 insertions(+), 2 deletions(-)
 
-> +}
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-nt36672a-p=
-anels-v2-0-f8de8be5b86f@minlexx.ru?part=3D6
+base-commit: 5535d5e61a77ad79118ea7665ce1c14f857f0f12
+-- 
+2.55.0
+
