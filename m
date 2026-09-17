@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10EC0C88E72
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 17:37:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7583DC982D2
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 17:38:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E56010F03A;
-	Thu, 17 Sep 2026 17:37:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE02110F039;
+	Thu, 17 Sep 2026 17:38:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Sz1/D6Se";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RcDwMYTW";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99D7910F03A
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 17:37:25 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D684310F039
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 17:38:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1E2A060209;
- Thu, 17 Sep 2026 17:37:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04B521F000FF;
- Thu, 17 Sep 2026 17:37:23 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BB6DF4341A;
+ Thu, 17 Sep 2026 17:38:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 145AC1F00893;
+ Thu, 17 Sep 2026 17:38:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789666644;
- bh=Ni2lk/F+x51pxio27CcLR0ChrZ/liibTbsc9tVaaHHQ=;
+ s=k20260515; t=1789666691;
+ bh=doCNSwjURbmhHg+0frD2eI6LIXLK7q+AfOXJiRsEf+0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Sz1/D6Se/JLZwI5eVhF7AC9FSNcWw7o1Cg7PcGUhtbCD2WViptuTWvox6tqQ+ONmg
- VpILjyXW/7gTOHw5DLMvxhZDsNVf0ACnncnU8ieZI5QLg+5f8UxYu6EGcmzpqBEjxW
- HUvvXs3eYSVBBWglC6RWsD/iVH56ofSknRitV1DzrTPFkHjQTiXOfvC8ufJC56/ctE
- R0MW4AkLLZP278Ob9Ca1YWv4iuEXRqChmZyesx4NTgR05jCUcRf6rGuNdJ6QTMkVQz
- wASCj54fP8cQ6wUoZHAvN5uZlrEaHCsjVbm4x54k+2Wie97p19E0cQx9Kzt9kjTdhf
- HTHw7iaF43xdg==
+ b=RcDwMYTWjAVjmL5SbqKtX8uLVBnIEyD/7kxdhxieXPHjp/PVkVwphRYDc+U24v+H0
+ BGtDABCZBYibFk3sThJZcZuHBY1inIjSG9+L084I/aALOwXP8H5T6zXmYPOYQ9mjMB
+ QHQop8Wde9DPDWu0+CIULjegrFZZISw3W0QAIfvNdDIYttKTn19gKqNH9rsZ3pFUNr
+ 1bDQ0yRHvdjtK+C3KEQjSWlBtd4sbXFx53kTR2OWpBW6OZdQs7Zkzm27CI3MspdIi2
+ HAu/buPLcR+qcZI42vC5hBJPbQUTF1WkIAPIw4K1T9cGUL2fxajdFr+ZNRgoQlkwhi
+ r9XrrJsnn28Dw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 33/40] mm/madvise: use predicates for madvise(...,
- MADV_DOFORK)
+Subject: Re: [PATCH v3 38/40] fuse: dax: do not set VM_MIXEDMAP
 To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
-Cc: linux-trace-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-s390@vger.kernel.org, kvmarm@lists.linux.dev, bpf@vger.kernel.org,
- linux-scsi@vger.kernel.org, "Heiko
- Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>,
- linux-perf-users@vger.kernel.org, "Oliver
- Upton" <oupton@kernel.org>, kvm@vger.kernel.org,
- "Marc Zyngier" <maz@kernel.org>, selinux@vger.kernel.org, "Alexander
- Gordeev" <agordeev@linux.ibm.com>, dri-devel@lists.freedesktop.org, "Christian
- Borntraeger" <borntraeger@linux.ibm.com>
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-33-4583d8a23bca@kernel.org>
+Cc: bpf@vger.kernel.org, "Vasily Gorbik" <gor@linux.ibm.com>, "Christian
+ Borntraeger" <borntraeger@linux.ibm.com>,
+ "Alexander Gordeev" <agordeev@linux.ibm.com>, linux-rdma@vger.kernel.org,
+ selinux@vger.kernel.org, linux-perf-users@vger.kernel.org, "Heiko
+ Carstens" <hca@linux.ibm.com>, kvmarm@lists.linux.dev, kvm@vger.kernel.org,
+ linux-s390@vger.kernel.org, "Marc
+ Zyngier" <maz@kernel.org>, "Oliver Upton" <oupton@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-scsi@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-38-4583d8a23bca@kernel.org>
 References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-33-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-38-4583d8a23bca@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 17:37:23 +0000
-Message-Id: <20260917173724.04B521F000FF@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 17:38:10 +0000
+Message-Id: <20260917173811.145AC1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,25 +65,28 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Make it clear what we're blocking in MADV_DOFORK. Previously we simply
-> disallowed VM_SPECIAL i.e. kernel-owned mappings, fixed mappings and
-> VMA_IO_BIT.
+> Commit e1fb4a086495 ("dax: remove VM_MIXEDMAP for fsdax and device dax")
+> prevented fsdax and device-dax from setting VM_MIXEDMAP, as DAX no longer
+> relies on it to direct core mm paths.
 >=20
-> Now the invariant is established that only kernel-owned mappings can set
-> VMA_IO_BIT, the VMA_IO_BIT check is redundant.
+> The fuse DAX implementation, added later, copied the old pattern and still
+> sets it.
 >=20
-> The rest is equivalent to testing for a kernel-owned or fixed mapping,
-> i.e. exactly the same check as whether the VMA is permitted to be merged.
+> Fuse DAX maps pages the same way fsdax does, via dax_iomap_fault() and
+> ultimately vmf_insert_page_mkwrite() and vmf_insert_folio_pmd(), which
+> insert ordinary refcounted pages and so do not require VM_MIXEDMAP.
 >=20
-> This was established by commit 0b2758f48f22 ("Require (reasonably) normal
-> mappings for MADV_DOFORK") containing my hands-down favourite call out of
-> all time.
+> Setting it only serves to mark the mapping as kernel-owned, making fuse D=
+AX
+> the sole DAX implementation whose mappings are unmergeable, cannot be
+> mlock()'d, eagerly copy page tables on fork and reject MADV_DOFORK and
+> MADV_DODUMP.
 >=20
-> Express the same thing differently - if we wouldn't be allowed to merge i=
-t,
-> then we aren't allowed to manipulate CoW behaviour on fork.
+> It also requires vma_is_special_huge() in mm/huge_memory.c to carve DAX o=
+ut
+> of its kernel-owned check explicitly.
 >=20
-> No functional change intended.
+> There is no reason for fuse DAX to keep on using this flag so drop it.
 >=20
 > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
@@ -92,5 +94,5 @@ Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-b4-mmap-pr=
-epare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org?part=3D33
+epare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org?part=3D38
 
