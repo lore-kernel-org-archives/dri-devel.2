@@ -4,44 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D84CC88E75
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:07:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3A35C88E75
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97FB310E405;
-	Fri, 18 Sep 2026 07:07:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1E8110E6C6;
+	Fri, 18 Sep 2026 07:10:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mh9nBd+2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CgeGrjeB";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAA1410E405
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 07:07:23 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D43F10E0AE
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:30:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E33C16053E;
- Fri, 18 Sep 2026 07:07:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71B7E1F000FF;
- Fri, 18 Sep 2026 07:07:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D88084389C;
+ Thu, 17 Sep 2026 16:30:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAF1D1F00893;
+ Thu, 17 Sep 2026 16:30:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789715242;
- bh=oqcbT3JJup7pGVZk81gKL6jgTLhiTQXHaidtQVQG+1s=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mh9nBd+2UWEVEJGM+1ui8d/V3dCClPKcG/bYSvQhTvj/O5vzAPxZ3+9aa/rVsfn07
- HHPze9t8bVzJ1wyDaHFmBiVMzN0nRcIrMnvYEmBcQUaSuLlQBGzBLDch4eGXdjRAMM
- xk17+hGlbqewAkn9EoUgVk4N6bHMo4yZe4L9iR/C4RhxJBXVtmVpivsvexda6oF/b6
- T0UOYR2B7ef28xCiU/y2mosAsPiirVBZ3UDY+4GYybHoXdIhkIXOxhNUcGEAKYXJS6
- DN3Q5OtGrW++Iz4mbISYjHs7GGeycTwIk/34zvnlkP1MeDQqCd9puiTPxyQ2Zb3xAD
- iXkdTlQwOKi2g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 4/4] drm/virtio: wire blob ioctl creation to userptr
- objects
-To: "Honglei Huang" <honghuan@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260918065653.2170828-5-honghuan@amd.com>
-References: <20260918065653.2170828-1-honghuan@amd.com>
- <20260918065653.2170828-5-honghuan@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 07:07:21 +0000
-Message-Id: <20260918070722.71B7E1F000FF@smtp.kernel.org>
+ s=k20260515; t=1789662638;
+ bh=ImRrf8Uis4VeyDKpz9HIiHrVsyekRqVAuTCVKg6Blzg=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=CgeGrjeBYmhKGotgIUun9axeK/dNVfBXSzmtlshBYV+wBy3A1YCYGxLNnaJ6AR/aH
+ zrsKDDlxEJCZprBbBAU7t6ymn5Mpi4VqWku8K/u0pLpLVD1BmNhwPtet7NcBHg6JOm
+ 2kHufx0ZreU0q2o4SI4S0LfhAK3pRQr4HdFdNpKPLpACNA8NW0QmJhPaKRQ+9tZqNd
+ ysF6WgzqVf7aK5iwfSDYpEgj8ymuJHJjiJVthF93k427hNRKrXka1T2gcB6alnCkW/
+ 0SW6GYu8RDgilJA8AN+MUvnaUNLilJB0GS6DHv4SowpmKmlxb+LPmPJLfkmCTp8r7g
+ 7HPDZ7Utyv3Yw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 17 Sep 2026 17:22:24 +0100
+Subject: [PATCH v3 15/40] mm/vma: add vma[_flags]_is_kernel_owned() predicates
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-15-4583d8a23bca@kernel.org>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5409; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=nMd3B7YARPUXIbfbJDzc6m3UAcco9vqw6A7IL7GS27c=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB9QONtu/kXVi7PDt/2g89NrD4OPLJ+YlpqWUxs19
+ 1LSPcvnHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZhI2gpGhi0HtkmeOZzPYbe0
+ oCPyny7fLT+bjdf3fRW8zSnebmM7w5Thf5DoBNGchodfxH3WXZn14qnkejXRrQX+akVf3jzst1d
+ ZywoA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+X-Mailman-Approved-At: Fri, 18 Sep 2026 07:09:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,75 +141,155 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] drm/virtio: privilege escalation via unnegotiated VIRTGPU_BLOB=
-_FLAG_USE_READONLY
---
+Rather than referring to VMA flags with uncertain meaning, add a new
+predicate that explicitly describes what possession of the VMA_PFNMAP_BIT
+or VMA_MIXEDMAP_BIT flags mean, and then refer to that function for
+determining VMA mergeability.
 
-commit b371f8bf32b2c925d61457787ca19851334b0963
-Author: Honglei Huang <honghuan@amd.com>
-drm/virtio: wire blob ioctl creation to userptr objects
+Either flag means the contents of the mapping are owned by the kernel,
+usually a driver, rather than by the core mm: the memory may be MMIO,
+kernel-allocated pages or even ordinary pages the driver maps itself, but
+the core must not populate, reclaim, migrate, copy-on-write or merge the
+range on its own initiative.
 
-This commit integrates userptr into the blob resource creation ioctl.
-It selects virtio_gpu_userptr_create for non-zero userptrs and
-accepts the VIRTGPU_BLOB_FLAG_USE_READONLY flag.
+We initially also include VMA_IO_BIT here, as by implication, these must be
+kernel-owned. (mlock() also sets VMA_IO_BIT transiently on ordinary VMAs
+while locking them, which is addressed later in this series.)
 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/vir=
-tio/virtgpu_ioctl.c
-> index 3d8e4ccdb7c1f..d42ca3898d4ed 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> @@ -36,7 +36,10 @@
-> =20
->  #define VIRTGPU_BLOB_FLAG_USE_MASK (VIRTGPU_BLOB_FLAG_USE_MAPPABLE | \
->  				    VIRTGPU_BLOB_FLAG_USE_SHAREABLE | \
-> -				    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE)
-> +				    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE | \
-> +				    VIRTGPU_BLOB_FLAG_USE_READONLY)
-> +
-> +#define VIRTGPU_BLOB_HINT_MASK DRM_VIRTGPU_BLOB_FLAG_HINT_DEFER_MAPPING
+However the intent is to in future remove this, as no mapping should be
+marked as an I/O mapping without also being marked with VMA_PFNMAP_BIT.
 
-[ ... ]
+This forms the basis of further work intended to improve how we express VMA
+properties such as this.
 
-> @@ -453,11 +459,18 @@ static int verify_blob(struct virtio_gpu_device *vg=
-dev,
->  	if (rc_blob->blob_flags & ~VIRTGPU_BLOB_FLAG_USE_MASK)
->  		return -EINVAL;
+Also update the VMA userland tests to reflect the change.
 
-[Severity: Critical]
-Does verify_blob() unconditionally allow VIRTGPU_BLOB_FLAG_USE_READONLY=20
-without verifying if the host emulator actually supports enforcing it?
+No functional change intended.
 
-Other flags, such as VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE, have explicit host=
-=20
-capability checks (such as vgdev->has_resource_assign_uuid) further down in=
-=20
-this function.=20
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ include/linux/mm.h              | 56 ++++++++++++++++++++++++++++++++++++++++-
+ tools/testing/vma/include/dup.h | 29 ++++++++++++++++++++-
+ 2 files changed, 83 insertions(+), 2 deletions(-)
 
-If a guest userspace calls DRM_IOCTL_VIRTGPU_RESOURCE_CREATE_BLOB with=20
-VIRTGPU_BLOB_FLAG_USE_READONLY set and a user pointer to read-only memory,=
-=20
-the guest pins the memory without FOLL_WRITE. If the hypervisor does not=20
-understand the READONLY flag, it might ignore it and map the memory as=20
-read-write.=20
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 2a92193ac6a5..cab29d6e15c1 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -1612,6 +1612,44 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
+ 	return is_shared_maywrite(&vma->flags);
+ }
+ 
++/**
++ * vma_flags_is_kernel_owned() - Do the specified VMA flags indicate that the
++ * contents of the VMA are owned by the kernel rather than the core mm?
++ * @flags: The VMA flags to test.
++ *
++ * A kernel-owned mapping is one whose contents are established and controlled
++ * by the kernel, typically a driver, rather than by the core mm's fault and
++ * rmap machinery.
++ *
++ * The mapping may be memory-mapped I/O, kernel-allocated pages or ordinary
++ * pages the owner has chosen to map itself (shmem via a PFN map, for instance).
++ *
++ * In all cases the core mm must not populate, reclaim, migrate, copy-on-write
++ * or merge it of its own accord.
++ *
++ * Pages mapped this way are not necessarily reference counted or map counted.
++ *
++ * Returns: true if the flags indicate a kernel-owned mapping.
++ */
++static inline bool vma_flags_is_kernel_owned(const vma_flags_t *flags)
++{
++	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT,
++				  VMA_IO_BIT);
++}
++
++/**
++ * vma_is_kernel_owned() - Are the contents of @vma owned by the kernel?
++ * @vma: The VMA to test.
++ *
++ * See vma_flags_is_kernel_owned() for a description of this property.
++ *
++ * Returns: true if the VMA is kernel-owned.
++ */
++static inline bool vma_is_kernel_owned(const struct vm_area_struct *vma)
++{
++	return vma_flags_is_kernel_owned(&vma->flags);
++}
++
+ /**
+  * vma_flags_can_merge() - Do the specified VMA flags permit the VMA to be
+  * merged with another?
+@@ -1620,7 +1658,23 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
+  */
+ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
+ {
+-	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
++	/*
++	 * VMA merging assumes that a VMA's flags and fields completely describe
++	 * its state.
++	 *
++	 * However, kernel-owned mappings may have established state upon mapping
++	 * not embodied in any attribute of the VMA.
++	 *
++	 * Additionally, private (CoW) PFN maps encode the source PFN of the
++	 * range in vma->vm_pgoff, which may otherwise cause spurious merges.
++	 */
++	if (vma_flags_is_kernel_owned(flags))
++		return false;
++	/* VMA explicitly marked as being unmergeable. */
++	if (vma_flags_test(flags, VMA_DONTEXPAND_BIT))
++		return false;
++
++	return true;
+ }
+ 
+ /**
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 1d5f6b3cbd21..d09148ce2305 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1665,7 +1665,34 @@ static inline bool file_is_dev_zero(const struct file *file)
+ 	return file && file->f_op == &zero_fops;
+ }
+ 
++static inline bool vma_flags_is_kernel_owned(const vma_flags_t *flags)
++{
++	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT,
++				  VMA_IO_BIT);
++}
++
++static inline bool vma_is_kernel_owned(const struct vm_area_struct *vma)
++{
++	return vma_flags_is_kernel_owned(&vma->flags);
++}
++
+ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
+ {
+-	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
++	/*
++	 * VMA merging assumes that a VMA's flags and fields completely describe
++	 * its state.
++	 *
++	 * However, kernel-owned mappings may have established state upon mapping
++	 * not embodied in any attribute of the VMA.
++	 *
++	 * Additionally, private (CoW) PFN maps encode the source PFN of the
++	 * range in vma->vm_pgoff, which may otherwise cause spurious merges.
++	 */
++	if (vma_flags_is_kernel_owned(flags))
++		return false;
++	/* VMA explicitly marked as being unmergeable. */
++	if (vma_flags_test(flags, VMA_DONTEXPAND_BIT))
++		return false;
++
++	return true;
+ }
 
-Could this allow unprivileged guest users to submit virtio-gpu rendering=20
-commands that write to the buffer, bypassing the guest's page protections=20
-and modifying arbitrary read-only memory in the guest?
+-- 
+2.55.0
 
-> +	if (rc_blob->blob_hints & ~VIRTGPU_BLOB_HINT_MASK)
-> +		return -EINVAL;
-> +
->  	if (rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE) {
->  		if (!vgdev->has_resource_assign_uuid)
->  			return -EINVAL;
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918065653.2170=
-828-1-honghuan@amd.com?part=3D4
