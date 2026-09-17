@@ -4,149 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7D5AC88E72
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 11:34:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DF2EC982CF
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 11:42:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D9B310EE04;
-	Thu, 17 Sep 2026 11:34:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 859B110EE23;
+	Thu, 17 Sep 2026 11:42:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="BZ8WmCBC";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ITv+zBHp";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ddWDcZxw";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rEgigdPB";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="lBjGyDwC";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F91610EE04
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 11:34:26 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id BBB5B21BC9;
- Thu, 17 Sep 2026 11:34:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789644860; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=6H3+7HWZmllVud8whTSzg6hp9aJmxAORCWRKfg4F3/M=;
- b=BZ8WmCBC1+RvnBwCfIDoSKqVf0CvxEo0Njg/15U/OLVpq1NDtUabOMtkB1/xfG7NwG86cl
- CB4BWtvOOfcf8ucOtBL1xUY/r1xit7Bwk1p43ujEOqgGS8ZVr0dTrpDnVp4yQCZ/7ST+nt
- 7iFiMz8OB0J+R3gwVOsBxv+yhqViOdY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789644860;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=6H3+7HWZmllVud8whTSzg6hp9aJmxAORCWRKfg4F3/M=;
- b=ITv+zBHpjgPwOmvK0LWe+jXKLdp/9dcW4kV9R0rFhhuKmgCtxt3txu9C3dSZ5QVMQFchfV
- u8UzGGMDzri55nCw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789644856; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=6H3+7HWZmllVud8whTSzg6hp9aJmxAORCWRKfg4F3/M=;
- b=ddWDcZxw1hpEhlBJPPJOrvfCBmT7K4v+T0nBvO88X7alda5NYcyb9GzA/gDTNry6bawLmo
- R42+WGadDJXryz625tfXcVgw8abu+5AIN7EJAR9YQvf9y65ysmOQrKbyiM6Y7kkkMLEO3Q
- gKIgLvpHtxCHYclJhlEfyqFnGIt5dgI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789644856;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=6H3+7HWZmllVud8whTSzg6hp9aJmxAORCWRKfg4F3/M=;
- b=rEgigdPBlzLuzdmLXzTeOsJ4r03UbXJmuqdmR9DbsnzEc1OQ9CJEWxqwpVLC7/86DiPkCd
- kBewwcTbW+IRHFCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 30E5D1374A;
- Thu, 17 Sep 2026 11:34:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id cjPKMzfQq2rYNwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 17 Sep 2026 11:34:16 +0000
-Message-ID: <0259fb51-acb8-4b07-a6d5-2fe25fb0de9c@suse.de>
-Date: Thu, 17 Sep 2026 13:34:15 +0200
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011026.outbound.protection.outlook.com
+ [40.93.194.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB98610EE23;
+ Thu, 17 Sep 2026 11:42:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yxn3K2UpsQ+dDgFeDVs6OHk08zt/gNOydgkpIfLcAa+0AHhzvh+737d/A81p5YSRuIcibjmshboosBnun2Y6aC/p9hz0yXXa3LR9UNU/jurnvyUDcOKdxkrx5p1oWOlCSHpHHWIO+lKM5kXzjYKFiBdQsf0E4CAxnzGAsYzN2OpKCTW4ZU/9RKyCEAsGh9veIyuB68PhjfstpGRrmrcfDivRiXOVGtFDmVrFYhqrztfWclIVJKU70JSn29o+28Oj3Ss4bD8/0/0ix5wt2JjT4iJ93vLCB85Q1fv24Yh/bS0KyLcx3QKfsk2dkjcyV90VQ24R1KWum7ZPFbr9j+qp2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LuenNrnlVkNBGHeXc6GXaQVy/5kMClE2H3lql5Htim0=;
+ b=Vujooz7bUZpkFYxKKIgi5JVYBZpEh3ni9/0hvnNPelDo6x6bxsNahQ9h7CenX1K9Tld4PIvTngwgWHJQNl4ry7UuX+AH6Ippp//qiq8wAU7kOlMlELT8eO+26TOJhB0Dtbtns3fMDfSKQE3FB1WEVRSrli+SCqCdp6JL67FYtjTXTWkcuiAcxAlSPRBtIO5rN9X7hy1/ykIgw7OrTpdTUHcfj3MJJ/OcO/MfAwMUj+DhHDnQb5edvaBsVbMNxX2hjkCVhZ3QLaK4uI9i2DyYQYyXzcxYhKxj6luw6Sbx6uFx++q8PExp0EyQFAnfcUsqAXGat4tDiF7+cIK9Kb+1Og==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LuenNrnlVkNBGHeXc6GXaQVy/5kMClE2H3lql5Htim0=;
+ b=lBjGyDwCsAQobc1YrpDG1fXtATlRCR3gjKy6yLcDmfoeMU/IbQh7OJbypgpEIf3r4kbSAFVouZ6FFxFgU76a9Sl3bR48h5h/TCTz84mfHWK5RyssFYd5ycH7mjsuJettShk3AzgleJ9bUmtAcscV/sQKsEP/Kx1Czvl7g/iQgBRBg2ilHIK1tGjIh/FPACPv403tQ0UV4MK0HPooZi59rbPHn0qGago7kn7rg7CHYQZyEygMj+OCNBSutZg0t/00peioqUCE+AuzhfqfrSWSVBlZaWNX94DHqjnZSFUC9zipohVOIkgdAFpkpImNkPnU8zE22A4FbT0RrUOmVUwbjw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ DM4PR12MB6088.namprd12.prod.outlook.com (2603:10b6:8:af::18) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.13; Thu, 17 Sep 2026 11:42:11 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
+ 11:42:11 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 17 Sep 2026 20:42:07 +0900
+Message-Id: <DLHKBLIVFIX8.346WFGAIJBL9D@nvidia.com>
+Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil Babka"
+ <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Uladzislau
+ Rezki" <urezki@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v2 7/8] gpu: nova-core: add NVKV typed decoding
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>, "Alexandre Courbot" <acourbot@nvidia.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
+ <20260827-b4-nvkv-v2-7-0de9d5c8658c@nvidia.com>
+ <DLEQBIQ50C39.23F0YZK9D7VUD@nvidia.com>
+ <DLEUCB80B7ZP.BW7O43IISMQR@nvidia.com>
+ <DLHFGW1ISL53.3D3X360WD8HPV@garyguo.net>
+ <DLHGE0SNY9CO.1OPWR5QXKJLAZ@nvidia.com>
+ <DLHGPFAO0A8J.TU9XW1AZ8XAK@garyguo.net>
+In-Reply-To: <DLHGPFAO0A8J.TU9XW1AZ8XAK@garyguo.net>
+X-ClientProxiedBy: TYCP301CA0020.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:400:381::13) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
- e-ink panel
-To: Javier Martinez Canillas <javierm@redhat.com>,
- LiangCheng Wang <zaq14760@gmail.com>
-Cc: Devarsh Thakkar <devarsht@ti.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Wig Cheng <onlywig@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Sam Ravnborg <sam@ravnborg.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com>
- <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
- <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
- <20260616083921.4066690-1-zaq14760@gmail.com>
- <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com>
- <20260617020926.114947-1-zaq14760@gmail.com>
- <8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com>
- <20260731035705.3198816-1-zaq14760@gmail.com>
- <20260916082924.956116-1-zaq14760@gmail.com>
- <0a13ccb8-8817-4223-a4a2-0de594ac8c71@suse.de>
- <20260916094453.1062125-1-zaq14760@gmail.com>
- <f4c6feab-b1ec-48df-81a5-888444b243a3@suse.de>
- <20260917025644.1262504-1-zaq14760@gmail.com>
- <CAFOAJEfnDrGTg40h=R0mfZasroPkrSsmbVmmMA91O9uOzu_gYQ@mail.gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CAFOAJEfnDrGTg40h=R0mfZasroPkrSsmbVmmMA91O9uOzu_gYQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TAGGED_RCPT(0.00)[dt]; RCVD_TLS_ALL(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[17];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- FREEMAIL_TO(0.00)[redhat.com,gmail.com];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[ti.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,linaro.org,ravnborg.org,lists.freedesktop.org,vger.kernel.org,ideasonboard.com];
- MID_RHS_MATCH_FROM(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.com:url,
- imap1.dmz-prg2.suse.org:helo]
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|DM4PR12MB6088:EE_
+X-MS-Office365-Filtering-Correlation-Id: d533a4f7-d98a-4b2f-fe8f-08df14b0b5df
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|10070799003|23010399003|1800799024|7416014|376014|10067099003|56012099006|3023799007|10063799003|22082099003|11063799006|18002099003|4143699003;
+X-Microsoft-Antispam-Message-Info: Y8Bbd8b8lGqFMgiCZzOxINHrHcFg+IJ7GvYObtqsQA0mJnbCzOXkQk3fBeWNQagZ/o/suzZZjFi7qg6EWPGpeVkr6/d9DAAOlJdezHW09S+mubeckFwMe6I5AfqT7tMPLTz+d54EdQK89N9gMnzeebePh4NXcYWVFMwsiE52pB6gUglJiGPT5e0urepb5pmyf4nvAZcvkSbQzx3jHKfpufLe+V3ePuIU+3sir6xQIKnUy3L1BmK2o7eINFFDWDOcxlbeP99fvXtESDLMOGYIVdS2Y+3CGGqoLlgj5kF1KJ93kqg3BDUNw9ZcI+N6u/Y040KnTtV3JtET/6gjR/g/ASjbwTbjymJgf1TN3dbHAUaJr9unXIOhM4K3KRreEQmnKxGU4obZtCg5BBi9czbS8swG7ogKDCYmtEhNtSQMI0aA8UM3+hjHkvr+qBxj2xtSQ9SF54xZoAtZq6yrrFh0HZzWCqqkZKljQNDT70NFVOVRklWlzPDXJNpFXPFHOD0cADkMU++RM0KZfmFyrhhWMLIft2Fc1Px1TLLjXOjwDyqYPfINmbs/4pTsKWlGPhA59zJhU9oIi0sU54W/gAwlxcXu1TRdzMNcNOd6472KWDLUDQisPL+H/7kbhCdCjTD7SgEP8SdRRP41FrG6J0MGJCLr9YBURpTdYi/TtbxO7zQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(10070799003)(23010399003)(1800799024)(7416014)(376014)(10067099003)(56012099006)(3023799007)(10063799003)(22082099003)(11063799006)(18002099003)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K2Nsc1VFVHFNb2FEOGxXSjZmY0tEblBWZlhQa3ZiYndBSXB6SDN6VmY5aENp?=
+ =?utf-8?B?Z1NacjhhQ2xjSlNYZUNNWFh3aE1aSW5FWU1OZlNUQnFhVkVYTy9uZzVWRE8z?=
+ =?utf-8?B?UTR3SXZEenNBYXBhQ1Q2Szg5QWJPWkxUSHVuajMyNmVMR2h6allMSGkvckhS?=
+ =?utf-8?B?WjdzMjkyQXJyRDJWYnoyTG5oaEJqeFBZMU94ODdlR0VCK1JsTkNsUUMrTjh0?=
+ =?utf-8?B?VVF4VnJnTERXd3J3TnVsblRQdHlpa001QlFjWEtGb3FLQjJQMDYwRFlVVDBq?=
+ =?utf-8?B?enNGYWVTYkhHaVNoOEhnMEVTd1V1ajh6bWkzV0RFbzNpbityZFdudWRFK1dJ?=
+ =?utf-8?B?SmU2R0M0N0pZM3B6SktRcFhaT1NqRlY1TDZmVnJiWG84eE5oVTgvNllXOGtD?=
+ =?utf-8?B?VFNPQlQySVl1YlR0QXFGVWVwaTdGakU3RHVoSEtRbm5KZVJnOWp5TFU4bisy?=
+ =?utf-8?B?bC9hSnVpeldndndOVFV6Tk9GYVd2OE02and2dmg1YnR5bWJXVGMvNWoyU3NE?=
+ =?utf-8?B?MUVVYlNWNWtuVDJ4cHpsZ0daSlArVTZaZXN6WUFhd1RDa3BtQ0Z2YzYwVDVw?=
+ =?utf-8?B?K2dLellYbUZnMTJFKzAxN0VRczIxMGhad1hIUTZlazd5ZGdCb2ltcHg2bDJL?=
+ =?utf-8?B?Y0M2eHRmRC9zZm1LNFEvUjZLb0hXeCtJK2wvVmFkWHBydkRmRzR2NlVzNnRB?=
+ =?utf-8?B?OWlPdUJzRXYzY3Uxd3Z4ejZIVURCalpQYS9LMCtKeTdDd1hNQlkxbnpQMkd6?=
+ =?utf-8?B?YjJPQVBMYkhTYnduODlnRmp2elJtMklrUkRBMFNPNFVJY2JsbGdQYjlsc2Z4?=
+ =?utf-8?B?T0s4R1hPTjZwUHVNUWs4WU0wd1lSY1RLbk9oNURMSE9QQlM2enUwaTdJUUdF?=
+ =?utf-8?B?TDBzaGVKR2lqMTFGa3A1ODJib3Q2d0UxRVlYeC9BNEp4VFVJaXR0cThvNWI2?=
+ =?utf-8?B?ejdhUGkyM0dTcEo4aWJ2bjdZcjVwNWx0VjdUM1NGNG13aklkQ0F5WitPeEpN?=
+ =?utf-8?B?c1pmVTI0ZkFIeTdLV3N0ZE5pODR6dDNFOTZqRDJNdkNNcjIrRjlNMldHaVVK?=
+ =?utf-8?B?c0JtOWdSWmVEcUlSdHpyTTRaeUtHYVdRRXJBbGlMUktRKy9DUzRiV0Y0eEVt?=
+ =?utf-8?B?MDljdFZWSUVDZVVidVVkdGIyK2Z1eHl6V0tINytJK2NaYWxRR2EzdHQraXRU?=
+ =?utf-8?B?RzMzVHByY09WREdTM2Q5bTBHbkIxUlNJbENHdUcydXNlMEdFT2cyRWtJc3B4?=
+ =?utf-8?B?Qys1ZHJwdGRORFJRdWFqT2hmV2lZaTZsTll2MVYweGpKR1VvSk1rQlYzeTM5?=
+ =?utf-8?B?MFI5THNRb2Y2ZmM1d1AvRWlYazNkU0cwOEJmeVZDSHBOOXpzVS9LZ1dBUWJF?=
+ =?utf-8?B?YUVDRVpzd21sOXFCYTRleUxnamtESU9JZ2ttMUZGVi9wLzVmVkExMWc4Vkc0?=
+ =?utf-8?B?TnJOV2xCb3B4MjNuaDhaM2tqLzZHNkIrbW5kY1NTMUlVbkV3MTl1V0ZadkFB?=
+ =?utf-8?B?a0dQaml0ZFpobm9YVE1SeVp5bFhPSTVyQUUvS2pVOFBiRG9NZlVrY0hEeXVX?=
+ =?utf-8?B?M2syY1FQaHdBNEtPTkhUa0cxQXNaOHd3V0RtTDBnbGNPamc3cC9RZ1JXMnhu?=
+ =?utf-8?B?V0dUdFdrQkZPTlliNFhMTG11SXcvZGlUY0xnOXVETnJ2Tm5ROExhcW1PRHNk?=
+ =?utf-8?B?cmtEekt4UzJ6dllyZDRXZ1RjS2puRXNFblVqUmJQSjIwaEp0WkpBZ29qbU52?=
+ =?utf-8?B?Uk5WaDdNcGJxbjBQR0N4bkFLR3ZYLzc4WE9jQzRpN08rR2hXYlVtRnV1Ujl5?=
+ =?utf-8?B?Q1IrZHhqZDZwaHFzUGI0RmdkYUo1TWNwME9LU3JnTjBnMW82Tm41TXBvSnZB?=
+ =?utf-8?B?WnV0OE5zU3o5UGc4N0NXem92TDYzdEMvTFV4UXFucktKenZZazg2WnBFazNl?=
+ =?utf-8?B?VE9Qa2Z5ZnVuQkpCaEZQNTRRSGQ5N25kbzhHRUhpdEdQTzZWL0k0U1JCSTR6?=
+ =?utf-8?B?ZXNOQ2FQM1hmcUVwREQ1TUtQa1lTcFhkVlFrWXQvWmRXZlFCMVMvZU1jVnBT?=
+ =?utf-8?B?MnFNeEJJeUJSOVB6UktKYi9nR3R4MWxmN0dkRXdaUkNMYkt6K1RRV05uU3E3?=
+ =?utf-8?B?eld5aHZnYlR2Y3dWekgydm8xNDJOejBDdUI4YXZ1UGFJc0RSUVUwcEl4MVNx?=
+ =?utf-8?B?M0lqQTV0bEVHWHh2M05HWi9lNEtSRjd0NytyL0RXV2hZaTdRb1Bzd1llNDY0?=
+ =?utf-8?B?ZVFBV1ZxV2tKNlVaU3lQNEVDeDdEM2FIZDBNN1VSdkpTQ3BkeHMydjhSK0x2?=
+ =?utf-8?B?OUVzbUc5VGptaGVWRXBUUlVFcGF6YWg5dEVlNDhVV1JlVjRtOVQvei9iRjR2?=
+ =?utf-8?Q?OfcK8n2jo9pq71gRGHHmzKNRv8xK0u6sou+91ojaLayD9?=
+X-MS-Exchange-AntiSpam-MessageData-1: 6i4IlDmghvznyQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d533a4f7-d98a-4b2f-fe8f-08df14b0b5df
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 11:42:10.9917 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0GfuqYVndhjP2PHa2drseAeWxkdjnWsHO659VBfeGFp19V9X2UA9NoD+XdlzieFkSP1JN0CC2BC4yrqPQbBqiw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6088
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,90 +158,160 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
-
-Am 17.09.26 um 12:49 schrieb Javier Martinez Canillas:
-> Hello LiangCheng,
->
-> Thanks Thomas for CC'ing me since I missed this patch series.
->
-> On Thu, Sep 17, 2026 at 4:57 AM LiangCheng Wang <zaq14760@gmail.com> wrote:
->> Hi Thomas,
+On Thu Sep 17, 2026 at 5:52 PM JST, Gary Guo wrote:
+> On Thu Sep 17, 2026 at 9:37 AM BST, Alexandre Courbot wrote:
+>> On Thu Sep 17, 2026 at 8:53 AM BST, Gary Guo wrote:
+>>> On Mon Sep 14, 2026 at 7:55 AM BST, Eliot Courtney wrote:
+>>>> On Mon Sep 14, 2026 at 12:46 PM JST, Alexandre Courbot wrote:
+>>>>> On Thu Aug 27, 2026 at 11:12 PM JST, Eliot Courtney wrote:
+>>>>>>  use crate::gsp::nvkv::{
+>>>>>> +    Array,
+>>>>>>      Index,
+>>>>>> +    Key,
+>>>>>>      KeyId,
+>>>>>>      Op,
+>>>>>>      Opcode, //
+>>>>>>  };
+>>>>>>  use crate::num;
+>>>>>> =20
+>>>>>> +/// Defines a schema struct together with its [`Schema`] implementa=
+tion that decodes into `$target`.
+>>>>>> +///
+>>>>>> +/// Each member of the struct should implement `Schema`. For every =
+(key, index, value) triple
+>>>>>> +/// decoded from the NVKV stream, the generated parent `Schema` imp=
+lementation will call each member
+>>>>>> +/// in declaration order with that triple. If a member consumes tha=
+t triple, it will stop there.
+>>>>>> +/// Otherwise it will keep going until all members are tried.
+>>>>>> +///
+>>>>>> +/// The schema struct holds the state required by the schema implem=
+entation to do the decode. It's
+>>>>>> +/// recommended to use one of the existing Schema kinds (`Required`=
+, `Accumulated`, `Key`, `Array`,
+>>>>>> +/// `Indexed`) for each member.
+>>>>>> +///
+>>>>>> +/// # Examples
+>>>>>> +///
+>>>>>> +/// ```
+>>>>>> +/// nvkv_decode! {
+>>>>>> +///     struct RequestSchema =3D> Request {
+>>>>>> +///         id: Required<u32, 0x0001>,
+>>>>>> +///         name: Array<u8, 64, 0x0002>,
+>>>>>> +///     }
+>>>>>> +/// }
+>>>>>> +/// ```
+>>>>>> +macro_rules! nvkv_decode {
+>>>>>> +    (
+>>>>>> +        $(#[$attr:meta])*
+>>>>>> +        $vis:vis struct $name:ident =3D> $target:ident {
+>>>>>> +            $(
+>>>>>> +                $(#[$field_attr:meta])*
+>>>>>> +                $field_vis:vis $field:ident : $ty:ty
+>>>>>> +            ),* $(,)?
+>>>>>> +        }
+>>>>>> +    ) =3D> {
+>>>>>> +        $(#[$attr])*
+>>>>>> +        $vis struct $name {
+>>>>>> +            $(
+>>>>>> +                $(#[$field_attr])*
+>>>>>> +                $field_vis $field: $ty,
+>>>>>> +            )*
+>>>>>> +        }
+>>>>>> +
+>>>>>> +        impl $crate::gsp::nvkv::Schema for $name {
+>>>>>> +            type Target =3D $target;
+>>>>>> +
+>>>>>> +            fn init() -> impl ::kernel::prelude::Init<Self> {
+>>>>>> +                ::pin_init::init!(Self {
+>>>>>> +                    $( $field <- <$ty as $crate::gsp::nvkv::Schema>=
+::init(), )*
+>>>>>> +                })
+>>>>>> +            }
+>>>>>> +
+>>>>>> +            fn visit(
+>>>>>> +                &mut self,
+>>>>>> +                key: $crate::gsp::nvkv::KeyId,
+>>>>>> +                index: $crate::gsp::nvkv::Index,
+>>>>>> +                value: $crate::gsp::nvkv::DecoderValue<'_>,
+>>>>>> +            ) -> ::kernel::error::Result<bool> {
+>>>>>> +                Ok(false
+>>>>>> +                    $( || $crate::gsp::nvkv::Schema::visit(&mut sel=
+f.$field, key, index, value)? )*)
+>>>>>
+>>>>> Mmm looks like this is going to be `O(n)` with `n` being the number o=
+f
+>>>>> fields?
+>>>>>
+>>>>> This is ok for a first implementation but eventually I hope we can
+>>>>> switch to a more efficient dispatch.
+>>>>
+>>>> I thought quite a bit about this while writing this code, since we nee=
+d
+>>>> the escape hatch to imperative decode (custom Schema impl basically). =
+To
+>>>> be able to get it down to a match on the key, we need to know ahead of
+>>>> time which keys a Schema will consume. That duplicates the info from t=
+he
+>>>> visit() implementation.
+>>>>
+>>>> I thought up a few methods but it's unclear to me which one is best, s=
+o
+>>>> I just left it for now. Please LMK if you think this is urgent, I can
+>>>> try in a follow up to improve this. Here are my ideas (when I say O(1)
+>>>> lookup I mean modulo how the compiler decides to do it with the set of
+>>>> key IDs it gets):
+>>>>
+>>>> 1. current code - just visit()
+>>>> pros: key source of truth not duplicates
+>>>> cons: O(field) visit as you say
+>>>>
+>>>> 2. Associated const KEY_ID: Option<KeyId> - None if a Schema accepts m=
+ultiple keys.
+>>>> You can match on each associated const in the macro.
+>>>> pros: O(1) if the current key goes to a field with KEY_ID =3D Some(...=
+)
+>>>> cons: O(#fields accepting multiple keys) if current key is one of them
+>>>>
+>>>> 3. fn accepts() -> bool
+>>>> You can match on `if F::accepts(key)` for each field. We could potenti=
+ally make
+>>>> this const with Gary's const traits polyfill.
+>>>> pros: O(1) if you write an inline-able+optimizable implementation.
+>>>>
+>>>> 4. Associated const KEYS table; use tricks to concat tables
+>>>> pros: O(1) lookup=20
+>>>> cons: actually MSRV can't get this to optimize down to O(1)=20
+>>>>   if you use slice::contains(), but stable can.
+>>>
+>>> Hmm, am I missing the obvious? Why not generate a `match` expression on=
+ IDs of
+>>> fields? It looks like in the example all keys would have a known ID to =
+the
+>>> macro.
 >>
->>> There's also the ssd130x driver under solomon/ how does it related to
->>> the ssd16xx? Is that similar as well?
->> They share the vendor, but not much else as far as I can tell - Javier
->> will know ssd130x far better than I do.
->>
->> It is an OLED driver over regmap, while ssd16xx is e-paper over raw SPI
->> with a BUSY handshake, RAM address windows and waveform LUTs.  The
->> register maps do not overlap, so I doubt there is much the two could
->> share.
->>
-> Correct, I don't think there is much overlap between the ssd13xx and
-> ssd16xx families.
+>> Some keys may come from embedded structs, which the macro has no way to
+>> see.
 >
-> There are a few bits that I think are similar though and could be
-> reused, for example the pixpaper_spi_write() helper logic is basically
-> the same than ssd130x_spi_write() AFAICT.
+> You can match all keys that you can see, and delegate to embedded structs=
+ if
+> keys are not known.
 >
-> Same for pixpaper_send_cmd() and pixpaper_send_data(), I believe that
-> is the same logic that we now have in ssd130x_write_cmds(). Specially
-> after the recent commit 3e391b0b516b ("drm/ssd130x: Add SSD135X_FAMILY
-> and SSD1351 support") that introduced a cmd_params_are_data flag that
-> allows to send the operation as command and the parameters as data.
+> This is essentially the same pattern that `#[serde(flatten)]` uses, just
+> replacing identifier names with keys.
 >
-> So the MCU interface seems to be the same, in particular for the
-> 4-wire SPI interface which AFAIU is what this new SSD1677 driver
-> supports.
+> The keys don't need be part of the type system, and it just additional me=
+tadata
+> for the macro to generate correct impl.
+>
+> Best,
+> Gary
 
-I cannot advice anything here, but at least I'd like to get ssd16xx out 
-of tiny/. It would be great to have it all under solomon/. It looks like 
-sitronix/ does a similar thing.
+This sounds approximately equivalent to the option #2 I mentioned
+(w.r.t. delegating if the keys are not known).
 
-Best regards
-Thomas
-
->
->> Its shape does look like a good model though - one driver covering three
->> sub-families through a variant table.  And if you would prefer ssd16xx to
->> sit in drivers/gpu/drm/solomon/ next to it, that is fine by me.
->>
-> I think that's a good idea, as I mentioned above some of the helpers
-> used by ssd130x could be factored out in a solomon-common.{h,c} or
-> something and be shared by both driver ssd130x and ssd16xx drivers (in
-> insight I should had called ssd13xx to the driver since now it
-> supports SSD130X, SSD132X, SSD133X and SSD135X families...).
->
->>> If the ssd16xx does not make progress, we could also try to merge your
->>> code as ssd16xx and Devarsh would then add support for additional ICs on
->>> top.
->> Thank you - I would be glad to help that way if it comes to it.
->>
-> Agreed. The ssd16xx driver could do the same than ssd130x and support
-> both SSD1677 and SSD1683. They seem to be quite similar by looking at
-> the datasheets publicly available.
->
->> Devarsh, it is your series though, so please say if you would rather carry
->> it yourself; I would only pick it up with your agreement.
->>
->> I should also be honest about what I could offer: only what the SSD1677
->> and the PIXPAPER 4.26m need, arranged so that further controllers can be
->> added on top.  This panel is the only SSD16xx hardware I have, so I could
->> not implement or test the others.  If that is too small a starting point,
->> I quite understand.
->>
-> That's OK. When I introduced the ssd130x driver, it only supported the
-> SSD1306 controller and over time we added suppport for more ICs and
-> 13xx families.
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+I considered a serde-like approach where the metadata is annotated for
+the macro rather than by the type system, but I wanted to keep the macro
+simple and not introduce more macro-DSL than I need to. And also keep it
+kinda easy to write manual Schemas by not keeping the deserialization
+info in macro metadata.
