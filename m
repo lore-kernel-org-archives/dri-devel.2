@@ -4,132 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF6ABC88E75
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:11:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD94BC982D2
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:11:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7F4C10F1EB;
-	Fri, 18 Sep 2026 07:11:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1115C10F206;
+	Fri, 18 Sep 2026 07:11:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Gspn9qQ7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cT5Z4YbF";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D24010E0AE
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:40:49 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BC224602D4;
- Thu, 17 Sep 2026 16:40:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 213F61F000FF;
- Thu, 17 Sep 2026 16:40:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789663248;
- bh=1QRQ9WYzmW2nABpmD05iYHWtoRPkYuNGcAfZon3VB64=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Gspn9qQ7Co3hTNTbvqHEG4UcsqEuAaXs4WpY+IWArwLJpD+5im1F/7UjZBYzBxEFP
- r6kNzzWv/ygP9N4CBTIF6SK4Me1N+TZ7kg6quLRtughmHxBkfXwla981QkTLotSK4V
- PNjnrxnE7nvQlWvnL9nNWOrPkCRYAY+FZPJilWJSHjfUPF9+dMlR6D9G7cKVnY5zew
- CY9et4FnP9P/JyfZel2Guas6YNCbujBjaIbwC7sV5R2ANs6rbBZryLjyMGMzIfInyM
- 67LHWbWvbSV5TTZ0+n/kZZXO1u8Gous31lF+kG/dEXbhUdNWe84ivAYvKYlYgwsB+w
- kA8OssQfVfUsg==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:22:44 +0100
-Subject: [PATCH v3 35/40] mm: eliminate VMA_SPECIAL_FLAGS check in
- lru_gen_look_around()
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com
+ [74.125.227.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA23C10E5B8
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:36:14 +0000 (UTC)
+Received: by mail-vs2-f43.google.com with SMTP id
+ 71dfb90a1353d-5c7f7cc52efso356741e0c.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 09:36:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789662974; x=1790267774; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=pFCvkrGHeoh04W9xHjBBzfI8dcLvWE3494aYsAJUFFo=;
+ b=cT5Z4YbF7PQ47hYBM1w+ecnJ3SJryB6lrEu6aJ9wRsLCuJzKhHhMfflx8MJBBAUk8A
+ Kg51y9iOloAdzQmmCj8PzmUTpE9IuQYvYRELI7rrweJ14HcpSOO4SzXCfsQeFpAXcyCh
+ sPmxPon0zdtqKyC/fmeW4zWmHvrw9sWv693EU7zzBO8a5SQyXCpRZ2Ug50JRWdyvRW5A
+ t3APbR6vR8snXpxaMdcr+TSicQB6TmtIIvi1OMABQUJ5K6ffqN2OoXVJ5z6DD22WIC2Y
+ uBEJs5B5hmBM5zUKb8R2sDYcVXTamnocJRJAjnm7XB68NL771eH2DwNzzXcKq9znWHys
+ RVgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789662974; x=1790267774;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=pFCvkrGHeoh04W9xHjBBzfI8dcLvWE3494aYsAJUFFo=;
+ b=UbcU6eegbc+5TB/UoEJ6ssZrhaI33z6M4MUoEej6y+L4koBtymUia6O1jLHTyVTPzs
+ sSzr70F5kFjeINgfeGSBgI8MeaDwSC9qwjWusoCLrrK9bMbuRfQFXANVKrTwLb8Iwjd6
+ ZeLAoOl9OqjZEr7VdVKZV1sd8IMHj9LV65iW76sdBgnMZcNK0wGoO9oMQFcAHAoRJRV4
+ 0e8qpdAlJYGCBFyI6hXFbj/HYZCRZIlPQp+Ndh0no5+jt8eP37S/rp1GAOUyQaxRyfse
+ +6DIlFLhn8krD7kwLWvH5k2jDX2Tlg9SSjmgExDqOdse0OlmCZFG40albiR/d/n3Uw3U
+ SGqQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzwmq4ngwk/3TFI+XAC19HtcqTd+xpwpHpd5nfX9xpuNEOH1CLIM6hCfwNO5jQH88D0OrDP8/gWZuw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++n7rorloDvIOUvwjstuJxTuro2rbMQltLEZEpNjOys0GyPldm26
+ nINMh6z6D3U0De/AQVkesZ+Ed4b2+ZmXs4IE4Z8OtAxKNZ7tOfnICzi5
+X-Gm-Gg: AYBFou2Bs73DpKhtjf0RNt6h2g+qr8FS6zehPmNZwWlD7QdebUOTikWUu3jT/Lr+/LA
+ xOQkq2PPhMX1n4VTvQzLDSqjbzrITIdF/ftyD4BtK3syUGlZ3absBt80mpMgKcwPbwCg8dtvk47
+ tJt9N3mZUT6LFOvful+VJsGnMILuYMcT2o2WYoDN3fzaQ/lfC88eWIqIBoBZA2XxPcUvVpYsXQG
+ CnwWMM61I6XBC/PebWOZOCqEiQWOaDYq1kdUBwO/fJs/ZWvEGpg+XE4einvb7/8c0k7uPkdK4uI
+ 4jzyjaOkleJnh/ZJYvfOU5FQmRdUo3PYVSx/SvmAKty5gEJ2nH8Eh6BHj3wt/wf9+FiPFTRIbvJ
+ FtLqVNnuXBuN0YjtB4uiSGx0bpY9h5Zu/0eYOwcYME9pCh7IAsxR6V6+psBrWkJk2WYy2yIpgsh
+ HfLTOB0GkEXmGRGTORjT+9FxxOQY10I3Zy7pM7baTxsaIO2I1E4pFlaPjkR6lwzII9oxPvN/ujT
+ R/KRKx9l5m6BoozGNtw783cfLp4jQuIx7RehOA4LntPdmw=
+X-Received: by 2002:a05:6122:3129:b0:5c9:a60b:e5ba with SMTP id
+ 71dfb90a1353d-5c9a60be90cmr2013450e0c.10.1789662973593; 
+ Thu, 17 Sep 2026 09:36:13 -0700 (PDT)
+Received: from lord ([170.246.209.50]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5c9a53b2ba1sm3065363e0c.8.2026.09.17.09.36.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Sep 2026 09:36:13 -0700 (PDT)
+From: =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
+To: intel-xe@lists.freedesktop.org
+Cc: matthew.brost@intel.com, daniele.ceraolospurio@intel.com,
+ stuart.summers@intel.com, julia.filipchuk@intel.com,
+ thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
+ jani.nikula@intel.com, navonjohnlukose@gmail.com,
+ dri-devel@lists.freedesktop.org,
+ =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
+Subject: [PATCH v4 3/3] drm/xe: Implement Wa_22016122933
+Date: Thu, 17 Sep 2026 13:35:53 -0300
+Message-ID: <20260917163553.1742580-4-talesam@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917163553.1742580-1-talesam@gmail.com>
+References: <20260917163553.1742580-1-talesam@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-35-4583d8a23bca@kernel.org>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1176; i=ljs@kernel.org;
- h=from:subject:message-id; bh=DL5e220u7y3LwD4Eiaa74zWyGi+IuXsLh7IOYBtbckQ=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB9hLL35ff77dPnnyjWxyxtOXnb5+35nmharbKxQy
- 6vMp54JHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZiIqy/Db9aa5weOsMxRtPrs
- HCqQHviv6mfnxF/xdR/y2ZT0lC4lMTL8M7Jx8PFZKXNRYHPiW8EVFv+upxuICcwLWyu1R4MnxHw
- zCwA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
-X-Mailman-Approved-At: Fri, 18 Sep 2026 07:10:00 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 18 Sep 2026 07:09:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,37 +96,251 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A kernel-owned or fixed mapping is one which sets VMA_PFNMAP_BIT,
-VMA_MIXEDMAP_BIT or VMA_DONTEXPAND_BIT, which is precisely what
-VMA_SPECIAL_FLAGS tests for other than VMA_IO_BIT, which is safe to drop as
-only kernel-owned mappings may set it.
+On platforms with a standalone media GT and media version 13.00
+(MTL/ARL), memory shared between the CPU and the media GT's GuC must
+not be mapped cached on the CPU side: the CPU can otherwise read stale
+cache lines for data the GuC has already written.
 
-Using these predicates rather than VMA_SPECIAL_FLAGS makes the check
-self-documenting and helps eliminate the confusion around 'special' flags.
+i915 implements this as Wa_22016122933 (see
+intel_gt_needs_wa_22016122933(), used by intel_guc_allocate_vma() and
+intel_gt_coherent_map_type()); xe never inherited it.
 
-No functional change intended.
+The visible symptom on ARL is TLB invalidation acks stalling for a
+near-constant ~2.3s: the GuC writes the G2H ack in time, but the CPU
+keeps reading a stale (empty) view of the G2H CTB until the line is
+naturally evicted, so the fence timeout at 2.25s fires first. GuC log
+decode confirmed all invalidations were handled promptly by the
+firmware, and only the media GT was affected. See Link for the full
+investigation (three machines affected: 7d51, 7dd1, Arc Pro 130T).
 
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Making the mapping coherent instead of uncached does not help: with a
+GGTT PAT entry repurposed to WB|COH_2WAY the driver comes up and the
+media GT GuC runs, but the stalls remain (request-to-ack 2290ms).
+Uncached really is required here. Note that 2-way coherency is not
+normally reachable from a GGTT PTE (only 2 PAT bits), so that
+experiment needed a modified PAT table and may not reflect a supported
+configuration.
+
+Add the OOB workaround scoped like i915 (media version 13.00, media GT
+only - MEDIA_VERSION() OOB rules only match the media GT on standalone
+media platforms) and apply XE_BO_FLAG_NEEDS_UC to the GuC-shared
+allocations the CPU reads from: the CTBs, the GuC log, ADS, the SLPC
+shared data and the engine activity buffers. hwconfig and the G2G
+buffer are allocated on the primary GT only, where the workaround does
+not apply.
+
+Note that XE_BO_FLAG_NEEDS_UC drives both the CPU mapping (uncached)
+and the GGTT cache mode (XE_CACHE_NONE instead of XE_CACHE_WB), which is
+stricter than i915: i915 documents the workaround as WC on the CPU side
+and UC on the GPU side. A CPU-WC variant with the GGTT side kept at
+XE_CACHE_NONE was measured to be equally effective, but expressing it
+would require either a new BO flag or decoupling the GGTT cache-mode
+selection from XE_BO_FLAG_NEEDS_UC - simply swapping in
+XE_BO_FLAG_FORCE_WC silently relaxes the GPU side back to WB and the
+stalls return. The stricter mapping is kept here since it is the tested
+configuration and no throughput difference between the two was
+measurable; the extra plumbing can be added later if parity with i915 is
+preferred.
+
+Scope is limited to the GuC-shared allocations, which is where the
+failures were observed. i915 additionally covers media-GT LRC/ring
+state; extending xe to match can be done as a follow-up if wanted.
+
+Validation on two ARL machines (7d51 and 7dd1): before, 20-60 TLB
+invalidation ack stalls per day, every day, for weeks, on every kernel
+and on two GuC firmware versions (70.53.0 and 70.72.1). After: zero
+stalls in six weeks of combined runtime, over 10M TLB invalidations
+processed under the same workloads, across kernels 7.1.6, 7.1.8 and
+7.2. The 7dd1 machine, which could not survive a day of media
+workloads on xe without a platform freeze, has been running xe full
+time since 11 August, including days with heavy video transcoding,
+with zero stalls and zero freezes.
+
+The coherency experiment, the CPU-WC measurements and the engine
+activity coverage gap were found by Navon John Lukose while A/B
+testing v2 on an ARL 7d51.
+
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8678
+Suggested-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Tales A. Mendonça <talesam@gmail.com>
+Tested-by: Navon John Lukose <navonjohnlukose@gmail.com>
 ---
- mm/vmscan.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/xe/xe_guc.c                 | 16 ++++++++++++++++
+ drivers/gpu/drm/xe/xe_guc.h                 |  2 ++
+ drivers/gpu/drm/xe/xe_guc_ads.c             |  3 ++-
+ drivers/gpu/drm/xe/xe_guc_ct.c              |  6 ++++--
+ drivers/gpu/drm/xe/xe_guc_engine_activity.c |  6 ++++--
+ drivers/gpu/drm/xe/xe_guc_log.c             |  7 +++++--
+ drivers/gpu/drm/xe/xe_guc_pc.c              |  3 ++-
+ drivers/gpu/drm/xe/xe_wa_oob.rules          |  1 +
+ 8 files changed, 36 insertions(+), 8 deletions(-)
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 09ff20c3df5b..001f8b760266 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4418,8 +4418,8 @@ bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr)
- 	if (spin_is_contended(pvmw->ptl))
- 		return true;
+diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
+index c7f8bbd4cb9..3ab4cb9e496 100644
+--- a/drivers/gpu/drm/xe/xe_guc.c
++++ b/drivers/gpu/drm/xe/xe_guc.c
+@@ -1469,6 +1469,22 @@ int xe_guc_suspend(struct xe_guc *guc)
+ 	return 0;
+ }
  
--	/* exclude special VMAs containing anon pages from COW */
--	if (vma->vm_flags & VM_SPECIAL)
-+	/* exclude kernel-owned and fixed VMAs containing anon pages from COW */
-+	if (vma_is_kernel_owned(vma) || vma_is_fixed_mapping(vma))
- 		return true;
++/**
++ * xe_guc_bo_wa_flags - Extra BO flags for memory shared with the GuC
++ * @gt: the &xe_gt whose GuC the buffer will be shared with
++ *
++ * Wa_22016122933: on the standalone media GT, memory shared between the
++ * CPU and the GuC must not be mapped cached on the CPU side, otherwise
++ * the CPU can read stale data written by the GuC (e.g. G2H CTB writes)
++ * for multiple seconds.
++ *
++ * Return: additional XE_BO_FLAG_* to use when allocating GuC-shared memory
++ */
++u32 xe_guc_bo_wa_flags(struct xe_gt *gt)
++{
++	return XE_GT_WA(gt, 22016122933) ? XE_BO_FLAG_NEEDS_UC : 0;
++}
++
+ void xe_guc_notify(struct xe_guc *guc)
+ {
+ 	struct xe_gt *gt = guc_to_gt(guc);
+diff --git a/drivers/gpu/drm/xe/xe_guc.h b/drivers/gpu/drm/xe/xe_guc.h
+index 61e3ee19a59..c4eca40d69c 100644
+--- a/drivers/gpu/drm/xe/xe_guc.h
++++ b/drivers/gpu/drm/xe/xe_guc.h
+@@ -30,6 +30,7 @@
+ 	xe_guc_fw_version_at_least((guc), MAKE_GUC_VER_ARGS(ver))
  
- 	/* avoid taking the LRU lock under the PTL when possible */
-
+ struct drm_printer;
++struct xe_gt;
+ 
+ void xe_guc_comm_init_early(struct xe_guc *guc);
+ int xe_guc_init_noalloc(struct xe_guc *guc);
+@@ -45,6 +46,7 @@ void xe_guc_runtime_suspend(struct xe_guc *guc);
+ void xe_guc_runtime_resume(struct xe_guc *guc);
+ int xe_guc_suspend(struct xe_guc *guc);
+ int xe_guc_softreset(struct xe_guc *guc);
++u32 xe_guc_bo_wa_flags(struct xe_gt *gt);
+ void xe_guc_notify(struct xe_guc *guc);
+ int xe_guc_auth_huc(struct xe_guc *guc, u32 rsa_addr);
+ int xe_guc_mmio_send(struct xe_guc *guc, const u32 *request, u32 len);
+diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
+index ff8eee3831a..abc7266fc6f 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ads.c
++++ b/drivers/gpu/drm/xe/xe_guc_ads.c
+@@ -435,7 +435,8 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
+ 					  XE_BO_FLAG_SYSTEM |
+ 					  XE_BO_FLAG_GGTT |
+ 					  XE_BO_FLAG_GGTT_INVALIDATE |
+-					  XE_BO_FLAG_PINNED_NORESTORE);
++					  XE_BO_FLAG_PINNED_NORESTORE |
++					  xe_guc_bo_wa_flags(gt));
+ 	if (IS_ERR(bo))
+ 		return PTR_ERR(bo);
+ 
+diff --git a/drivers/gpu/drm/xe/xe_guc_ct.c b/drivers/gpu/drm/xe/xe_guc_ct.c
+index 5c4733da385..5c393aa29de 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ct.c
++++ b/drivers/gpu/drm/xe/xe_guc_ct.c
+@@ -376,7 +376,8 @@ int xe_guc_ct_init(struct xe_guc_ct *ct)
+ 					  XE_BO_FLAG_SYSTEM |
+ 					  XE_BO_FLAG_GGTT |
+ 					  XE_BO_FLAG_GGTT_INVALIDATE |
+-					  XE_BO_FLAG_PINNED_NORESTORE);
++					  XE_BO_FLAG_PINNED_NORESTORE |
++					  xe_guc_bo_wa_flags(gt));
+ 	if (IS_ERR(bo))
+ 		return PTR_ERR(bo);
+ 
+@@ -386,7 +387,8 @@ int xe_guc_ct_init(struct xe_guc_ct *ct)
+ 					  XE_BO_FLAG_SYSTEM |
+ 					  XE_BO_FLAG_GGTT |
+ 					  XE_BO_FLAG_GGTT_INVALIDATE |
+-					  XE_BO_FLAG_PINNED_NORESTORE);
++					  XE_BO_FLAG_PINNED_NORESTORE |
++					  xe_guc_bo_wa_flags(gt));
+ 	if (IS_ERR(bo))
+ 		return PTR_ERR(bo);
+ 
+diff --git a/drivers/gpu/drm/xe/xe_guc_engine_activity.c b/drivers/gpu/drm/xe/xe_guc_engine_activity.c
+index a782be57caa..729ce8ac140 100644
+--- a/drivers/gpu/drm/xe/xe_guc_engine_activity.c
++++ b/drivers/gpu/drm/xe/xe_guc_engine_activity.c
+@@ -97,7 +97,8 @@ static int allocate_engine_activity_buffers(struct xe_guc *guc,
+ 
+ 	metadata_bo = xe_bo_create_pin_map_novm(gt_to_xe(gt), tile, PAGE_ALIGN(metadata_size),
+ 						ttm_bo_type_kernel, XE_BO_FLAG_SYSTEM |
+-						XE_BO_FLAG_GGTT | XE_BO_FLAG_GGTT_INVALIDATE,
++						XE_BO_FLAG_GGTT | XE_BO_FLAG_GGTT_INVALIDATE |
++						xe_guc_bo_wa_flags(gt),
+ 						false);
+ 
+ 	if (IS_ERR(metadata_bo))
+@@ -105,7 +106,8 @@ static int allocate_engine_activity_buffers(struct xe_guc *guc,
+ 
+ 	bo = xe_bo_create_pin_map_novm(gt_to_xe(gt), tile, PAGE_ALIGN(size),
+ 				       ttm_bo_type_kernel, XE_BO_FLAG_VRAM_IF_DGFX(tile) |
+-				       XE_BO_FLAG_GGTT | XE_BO_FLAG_GGTT_INVALIDATE, false);
++				       XE_BO_FLAG_GGTT | XE_BO_FLAG_GGTT_INVALIDATE |
++				       xe_guc_bo_wa_flags(gt), false);
+ 
+ 	if (IS_ERR(bo)) {
+ 		xe_bo_unpin_map_no_vm(metadata_bo);
+diff --git a/drivers/gpu/drm/xe/xe_guc_log.c b/drivers/gpu/drm/xe/xe_guc_log.c
+index 538d4df0f7a..7d006268ce9 100644
+--- a/drivers/gpu/drm/xe/xe_guc_log.c
++++ b/drivers/gpu/drm/xe/xe_guc_log.c
+@@ -17,6 +17,7 @@
+ #include "xe_force_wake.h"
+ #include "xe_gt_printk.h"
+ #include "xe_gt_types.h"
++#include "xe_guc.h"
+ #include "xe_map.h"
+ #include "xe_mmio.h"
+ #include "xe_module.h"
+@@ -624,14 +625,16 @@ void xe_guc_log_print_lfd(struct xe_guc_log *log, struct drm_printer *p)
+ int xe_guc_log_init(struct xe_guc_log *log)
+ {
+ 	struct xe_device *xe = log_to_xe(log);
+-	struct xe_tile *tile = gt_to_tile(log_to_gt(log));
++	struct xe_gt *gt = log_to_gt(log);
++	struct xe_tile *tile = gt_to_tile(gt);
+ 	struct xe_bo *bo;
+ 
+ 	bo = xe_managed_bo_create_pin_map(xe, tile, GUC_LOG_SIZE,
+ 					  XE_BO_FLAG_SYSTEM |
+ 					  XE_BO_FLAG_GGTT |
+ 					  XE_BO_FLAG_GGTT_INVALIDATE |
+-					  XE_BO_FLAG_PINNED_NORESTORE);
++					  XE_BO_FLAG_PINNED_NORESTORE |
++					  xe_guc_bo_wa_flags(gt));
+ 	if (IS_ERR(bo))
+ 		return PTR_ERR(bo);
+ 
+diff --git a/drivers/gpu/drm/xe/xe_guc_pc.c b/drivers/gpu/drm/xe/xe_guc_pc.c
+index 097b075bd89..e0105222a2c 100644
+--- a/drivers/gpu/drm/xe/xe_guc_pc.c
++++ b/drivers/gpu/drm/xe/xe_guc_pc.c
+@@ -1391,7 +1391,8 @@ int xe_guc_pc_init(struct xe_guc_pc *pc)
+ 					  XE_BO_FLAG_VRAM_IF_DGFX(tile) |
+ 					  XE_BO_FLAG_GGTT |
+ 					  XE_BO_FLAG_GGTT_INVALIDATE |
+-					  XE_BO_FLAG_PINNED_NORESTORE);
++					  XE_BO_FLAG_PINNED_NORESTORE |
++					  xe_guc_bo_wa_flags(gt));
+ 	if (IS_ERR(bo))
+ 		return PTR_ERR(bo);
+ 
+diff --git a/drivers/gpu/drm/xe/xe_wa_oob.rules b/drivers/gpu/drm/xe/xe_wa_oob.rules
+index dd69ad07f7a..30958b26a1d 100644
+--- a/drivers/gpu/drm/xe/xe_wa_oob.rules
++++ b/drivers/gpu/drm/xe/xe_wa_oob.rules
+@@ -14,6 +14,7 @@
+ 16017236439	PLATFORM(PVC)
+ 14019821291	MEDIA_VERSION_RANGE(1300, 2000)
+ 14015076503	MEDIA_VERSION(1300)
++22016122933	MEDIA_VERSION(1300)
+ 14018913170	GRAPHICS_VERSION_RANGE(1270, 1274)
+ 		MEDIA_VERSION(1300)
+ 		PLATFORM(DG2)
 -- 
 2.55.0
 
