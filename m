@@ -4,56 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A4E3C982D8
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 14:01:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95672C982D6
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 14:02:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF43910EED6;
-	Thu, 17 Sep 2026 14:01:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06DB510E407;
+	Thu, 17 Sep 2026 14:02:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="hg6ytkSa";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="eZ9Q7/S/";
 	dkim-atps=neutral
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2733710E708
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 14:00:52 +0000 (UTC)
-Received: from francesco-nb.. (xcpe-178-82-167-143.dyn.res.sunrise.net
- [178.82.167.143])
- by mail11.truemail.it (Postfix) with ESMTPA id A98911FA20;
- Thu, 17 Sep 2026 16:00:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
- s=default; t=1789653650;
- bh=ZE0ukJ6bQ6a7O3hQA/ihz1VgijeMNRxCp7w3+5a93pY=; h=From:To:Subject;
- b=hg6ytkSatcyVRBIFf0+qOmXksXOYEzMUNicqkdTjkleFTzRvaIK69+/rGFafO0Lt/
- oI+p9mDSESRLq6s/kmc+PhTcrcwTEKNpWOjN/SoAeix7BeVa8VpJL8aNw+dklShVlQ
- IKxwnS+LAZapdfKGJU6KMpbrrocwieEBYeUD7plD/pE9teLSJheRoGj0tiOO3QQJ0F
- /owdFFNnY3NKSKelHRF4ngLQSE5Qe4lZz+C1iq2+2wF6SRzCXopGn1X7Sj0WUVb8Ud
- oVULFMTdJlLZY3qp5U2O9YOgH11JEVMdOzUO4sMXpkgPOtw9rdFIQeKb5lgJbaqlWV
- kELwHilgQmfyg==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>
-Subject: [PATCH v5 0/4] drm: mxsfb: Support LCDIF interface bus width
-Date: Thu, 17 Sep 2026 16:00:35 +0200
-Message-ID: <20260917140042.118181-1-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
+Received: from mail-vs2-f40.google.com (mail-vs2-f40.google.com
+ [74.125.227.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE27110E407
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 14:02:56 +0000 (UTC)
+Received: by mail-vs2-f40.google.com with SMTP id
+ ada2fe7eead31-78a6c77d255so277743137.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 07:02:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1789653775; x=1790258575; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=5WF8VcNkm/QhAqH+TgnbaHxVovZYWfwOqxhhljrRvjc=;
+ b=eZ9Q7/S/DEY4FhXMUDOplTqKHf/k6QeyadXgZP/COEPtoXs3xspTQYQZbXZlR6oi7k
+ h3J6en5YpV795E/SZ/LT6t+kigguJuvBNPqNHlhDA2DUtcopBkYdWmsufYRlynS/NGIp
+ hWc0b/J5DE84rp3a5V/y0cn8B6lDaM9FHUubjDgKSclHATMyyoA2mX8oj7wQlQZM13Qk
+ bJtb/yQreUWGzcsBa/x+ieoQclubCR/K5wSHpgp3eaodhnyk5aeiVioMdf2Z2/Dk5kHL
+ hFfe9l8T0Xa9PIEyXqGh+No9sKjfLo5AW6Ge5+wDaY5omboFZTFlUZqcdC0aIC/jmMDu
+ yvyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789653775; x=1790258575;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=5WF8VcNkm/QhAqH+TgnbaHxVovZYWfwOqxhhljrRvjc=;
+ b=vjM/wZ/XjF1t3phnt6Ce65F+0C7s+wJbcGd7H2Rra+rVQCw/CV8xo6DzQ/vR+h0ylY
+ QMfao2ax4C1PGRKKCGFvvhmP3zB/7WJH12C/bF7qG09eMGHM9A5AkPOccuEVZKt4IpdN
+ zQYe/SF2HlkNWuemvRqB5AdRBQ/9IsOdzfTtD1EF0Hv0xdl2QFH52jySmOA2v9w2Ddcn
+ TsOqVUcXhe/Rkiuvv3sFKRIUHOE/t59lZU2FAJeMPOL8NXW3Hoo0dRRnVhYdf0Kncfvn
+ VytbzTyxl4JasdkFR9p9UtU8evbP/tMQxw4dqlqNi8lVSEkwtWBq7z3kWo/PbqroEvmb
+ fQVg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzDKQg6i4q1cqKSv3HgubtEmMutr93CGEKGCDzwJoy4OqtdsHbt601eabP/n4HPELhmwCXDui1Pe40=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m6hjIRlsb+equewl+GJ1fUMtmiIrjWyWudT6th4k7t80qqlYLU
+ B1I6gA8WzEwgCTUUfb2/j/marMrah428qXLynugNedxdFXamcx07TUqSuQpcUvGGohs=
+X-Gm-Gg: AYBFou24K42CrPoNyca6fioeDBRI/yZRwEeqxhnq1+fsLa5oA7jXho8p2er+t6IPLTF
+ W5/mr3ZX0XUkvYVx9Ll7P2vZxqQcpvXIk8wt3veZQihURFw0ouza/HxXYQmzkO7sVOJbqAQbj5x
+ OTki0FTc4rvY29DthjhNBN6qsSKQi6WqYyRWVH//ZBQV4LncBo1qDNgZDqEAy6CANpSB38ib4RB
+ MiHS35F0gnbuEjf+qrakrMwfBYR1cTi9hIhSFLISDnex73cpIha2Jbqoj9vFvMTGhF8DD7Rl4ic
+ 8RxOMperXlqMTRB1KPe6B/fM6+HKgdQI7bcrc5qE6QXc4t6vguCsIlD/KknOpStYbJ445u8Rpow
+ JxDpRKHHHPbOELMTlHhlJdOMLT3XNgZdnrMhWx/dpZWkTJdP9uGpbM0TIjnOL34WsBb5fOsAuUf
+ RiHURnhD/76tYCf2TKiS2k6wQTrhw8RHhRpma2lkPubFvDTRSQKx9CF0JnCSCxVIdoCtqUM4WBN
+ fDuYidWNSxakOVu5v84DZCqI5rz8s1XTovr1hZHMj+3l79HD7eXQfcR
+X-Received: by 2002:a05:6102:a189:20b0:7a2:63d4:3d25 with SMTP id
+ ada2fe7eead31-7a263d44d51mr364707137.32.1789653775451; 
+ Thu, 17 Sep 2026 07:02:55 -0700 (PDT)
+Received: from ziepe.ca
+ (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net.
+ [159.2.239.150]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-9123bec59fasm50600486d6.39.2026.09.17.07.02.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Sep 2026 07:02:54 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1x7ChR-0000000Co7R-3O0W;
+ Thu, 17 Sep 2026 11:02:53 -0300
+Date: Thu, 17 Sep 2026 11:02:53 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>, Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
+ direct peer-to-peer route
+Message-ID: <20260917140253.GG3196566@ziepe.ca>
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
+ <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,54 +113,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+On Thu, Sep 17, 2026 at 03:56:12PM +0200, Thomas Hellström wrote:
 
-The width of the physical LCDIF output bus can differ from the input bus
-format advertised by the downstream panel or bridge.
+> That is, a flag to tell the topology check that some transactions
+> *will* take the host-bridge path due to IOVA being used, and that the
+> computations including pci_p2pdma_distance() need to check whether that
+> is possible (checking whitelist etc.) and return the corresponding
+> THRU_HOST_BRIDGE mapping type. Translated transactions taking a short-
+> cut using the bus-address would then be hidden from the driver.
 
-Such a distinction is required when the LCDIF bus width does not match the
-width of the downstream display interface. For example, an 18-bit or
-16-bit LCDIF bus can drive a 24-bit display by wiring the available color
-bits to the appropriate display inputs. Configuring LCDIF solely from the
-display's 24-bit format in this case selects the wrong LCD_DATABUS_WIDTH
-mode, changing the color-bit assignment on the LCD_DATA pins and resulting
-in incorrect colors.
+I imagined it would work by the driver passing in what modes it
+supports and Intel GPU would simply pass in ATS only.
 
-Use the common OF graph endpoint bus-width property to describe the width
-of the physical LCDIF output bus. Make the mxsfb driver derive the
-corresponding media bus format from this property and use it in preference
-to the format reported by the downstream display. When the property is
-absent, the existing behavior is preserved.
+Even something like mlx has variation, only some operations can opt
+into ATS, many others are never-ATS.
 
-Set the endpoint bus width for the Colibri iMX6ULL and Colibri iMX7 boards,
-which route an 18-bit LCD interface.
+Driver should not make statements like " *will* take the host-bridge
+path" since it has no idea.
 
-v5:
- - add a-b / r-b tags
- - fail probe if bus-width has an invalid value
-v4: https://lore.kernel.org/all/20260813092836.38367-1-francesco@dolcini.it/
- - use /schemas/graph.yaml#/$defs/port-base
- - add r-b and t-b tags
-v3: https://lore.kernel.org/all/20260812132954.148571-1-francesco@dolcini.it/
- - use video-interfaces.yaml
-v2: https://lore.kernel.org/all/20260723093813.180089-1-francesco@dolcini.it/
- - use the common bus-width property instead of the legacy interface-pix-fmt
-v1: https://lore.kernel.org/all/20260717121847.488148-1-francesco@dolcini.it/
-
-Francesco Dolcini (4):
-  dt-bindings: lcdif: Add endpoint bus-width property
-  drm: mxsfb: Add optional DPI output bus-width configuration
-  ARM: dts: imx6ull-colibri: Set LCDIF bus width
-  ARM: dts: imx7-colibri: Set LCDIF bus width
-
- .../bindings/display/fsl,lcdif.yaml           | 12 +++++-
- .../arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi |  1 +
- arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi   |  1 +
- drivers/gpu/drm/mxsfb/mxsfb_drv.c             | 43 +++++++++++++++++++
- drivers/gpu/drm/mxsfb/mxsfb_drv.h             |  2 +
- drivers/gpu/drm/mxsfb/mxsfb_kms.c             | 12 ++++++
- 6 files changed, 70 insertions(+), 1 deletion(-)
-
--- 
-2.47.3
-
+Jason
