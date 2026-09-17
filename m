@@ -4,86 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22E50C88E75
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11775C982D2
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:10:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7277310F1E5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E16E10F1E4;
 	Fri, 18 Sep 2026 07:10:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LWsBhdiL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BKmVmgXT";
 	dkim-atps=neutral
-Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com
- [74.125.231.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A6ED10E732
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:02:21 +0000 (UTC)
-Received: by mail-oa2-f12.google.com with SMTP id
- 586e51a60fabf-466ccbd4773so383778fac.2
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 09:02:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789660940; cv=none;
- d=google.com; s=arc-20260327;
- b=ZlhOLtDBtTYRbL8w6Vq5Snd39wRXNFwaCtVjhj+/6taCunE3LAaBErG62uv/bBMJCI
- gbUnuzdfCd1kNHyY6oRydR+VsU7NgjITIf5vjabdqSXYZuvNzg0qVMdhNAg142fGxt02
- argiJ9oq3V5MAN91SBwe0C16kCAng+Hm0Lx1BI6Fl5/9/glv5QTlZJ/UhM4c6CPgJOue
- UPkz2txiVHIKpCDV3637cFjxPK9iphO3wHqI9cKcZC3JrCztlkt0RGO3zt0rBn1Roqhb
- r0ubgShSS4c4FmCXFr4vYByh5O4V9vcK2ZbHzcQAy/tBJIsEfI8SH3S8/7lc89yWsHIZ
- SYag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=b0tUvCCKxWiukowbms3IQFy9J4GEYM5tWNQBQqifKDQ=;
- fh=rdVGboUKQTe2PQPC07+N7izNoR5Mh+KRwIz2BQB2NMY=;
- b=H7xLQwfdHWK8Z181ifxnO6VOFLZfGC87wjS56JpZPeh0efH9XJaZb1cs90i2Udb1kj
- FJv+rjXj7RUHDUcLvIvxpEgdTcAgUibRqI0YkEs9QWdo21YAMaYUgMIj6NZZSDA4HTe6
- VNmtWNgzxQCU4wp8BAZqr1rlzZxpADkmy7bP2YaHQCPEQgLHiZzQOhh/LHkYH3wEWJ0+
- qi72V5ZyNMDHdlcBzrUwY1esOVZepbMZaNLo1b/BvLOrGxTE+1Hm6c41Dui6Ni98ruVW
- auME9sct1GJ0z1afjHQU2uqACNYR7K10kb6wi2NyblDrAsA+kOrCiMKnYEjRlHkOvh1u
- BwVw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789660940; x=1790265740; darn=lists.freedesktop.org;
- h=content-type:to:subject:message-id:date:from:mime-version:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=b0tUvCCKxWiukowbms3IQFy9J4GEYM5tWNQBQqifKDQ=;
- b=LWsBhdiLK8yh6NTuSI/A5O5L5v/cSnZmUGq6ilHgEB7v57K+K0pxvllIpBW1MJwzKp
- NPN2DnXSfUxzBg56RYDYMuTS7vGVu//B8uGoyu1neDMdjLHb4i8+jp58lqYbd06H3j/n
- 4ZkFX2RwgV/mVD1DK6QXZzj5PAhbv/uuTcgylJm2T1p64/kL4lvOXqgUbMvUldwoRfT1
- 4/xFzmiYtpARm2QyOSMI3lM7u7/aqhrDWHpl+6P5g0Fss6R4jUfzn/RRXBf8bUJIASD1
- 3g95I+kEBI48V/FX4TUf6/m17FZ0tQh95+ljWsZT6nZ0M+2DDe7rBGsoQfgvzr6Utr46
- Hwbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789660940; x=1790265740;
- h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=b0tUvCCKxWiukowbms3IQFy9J4GEYM5tWNQBQqifKDQ=;
- b=LSxyZyQRPxdEBGR1BDog9V0MJj1uYkATM0V4qSQG47crTgwYcNWQRhEpoza06bYVpO
- EUfcTGqp2AjDZ+18MrktmL6PjuKFN1DSTWJqBLyNXjYjfehiIv4i6+2UQUGRUFLrvE7W
- ngyFdooXhjFM+XlqerUL0Dzb9tqLozVD/w3SrgZSW9Y6PE152lUcfPHoPf/uIcDvmFTg
- s+CfvLVpmJcdeV9vaNtJqtii96pI1VlNrhyZWcuPVUCYODn/pW0Jy7WMBjv5eZkHua65
- XnioWmN0vcHcNwAwXHUi+TCZeRG412EP92W3kTbd+mkEQqMrG/V/U9tDEkb2cc4QIPgO
- wcqw==
-X-Gm-Message-State: AFuF++m7Xr3OYvWTNH/QEOwdv7S4wt8E5HBriP/1+doY89Q/NnYKyUha
- /xoqGSQCtPt1e5NNSFeCUkTXhq8wc08TyH7SRKxO3W+yg1Xndx+DC1saZ3iOE3hyvpfnIeEKb8v
- 2o+px06co2bTfeeKvGwxCOl6Ftstd5C4/bCNP
-X-Gm-Gg: AYBFou1HfQ1Md7RtSMaOZFI2cxPZBxr3Cm9p2FKZJtA2zSIa68imIe1CtZ6WjI8aAZC
- HftSFXTONmSEmgoj6TpulRMu3fHK92OtZWa3qpfixn+YMJuzPr/mlSU/XwPuD/STYPje6Y/r6kA
- 9mfZcbm4YtT6niWbY0T/bovIwtVCJ7g/h4QLtQDV1zh4+ensyqYTVvkIBFlNKRCAsyTQryOYrz6
- M03rfbMZLzABWFkoS0b3G1/e9H8Sn+A/S63CsaorE8mk8mRQoB2LVj0Syy3lImt6IJyHQggN+Sm
- hb3PlCXdn4df92U/Ue4gq0to9oHhXE1vr9vIVZrFCYNi+2xNjsGvREWaCCUHMl9lHkITpDNtnCK
- CApAjH53q3cMu84VIdH7qqGTT8IkE2yCf1FiGhmIPr+/GMKiFYyGUzFDo7UE3Ocl/iREP0FSo5C
- 0=
-X-Received: by 2002:a05:6870:b3cd:b0:483:b752:633f with SMTP id
- 586e51a60fabf-48477b05245mr7431722fac.36.1789660939885; Thu, 17 Sep 2026
- 09:02:19 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3FD010E4F6
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:36:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id EC77760210;
+ Thu, 17 Sep 2026 16:36:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C17581F00893;
+ Thu, 17 Sep 2026 16:35:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789662973;
+ bh=2vUpjFSCSmyvMLIG1AQYKTdJJ8/j63OLmVWWNJsaBsI=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=BKmVmgXTSV0XK9j329Mx2rNtj/mOZsQ702ImyF+y7INTlqGVHbqkyjZl/ysBTl5EP
+ gj4PlSgHckU+9Pve8h8w0EFiLo2s1POYm1WQ6ZJIv0t3oyKUNtY69jV0bu64AmEo5O
+ V0fPEBosooqc3oZ0+ihMx3lb2lRUCgQT1d7LpA/vdctXRoKAfgIOW6HQfWNqsX6Zuz
+ HU8kgEhybiwnMKasm2ZGwrIDPO/b6mZtifZAbnghS86qSdsbjW34N95Ae8fFKQrJiR
+ 6CfRv/sQNyiaU3DjmC1dGS9agHrzJLjuaKC9h5X83sT4B3tFptwbXa2jMl3AFBn/ZF
+ DBbFm1lN94l3Q==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 17 Sep 2026 17:22:35 +0100
+Subject: [PATCH v3 26/40] mm: remove VMA_IO_BIT check in
+ vma[_flags]_is_kernel_owned()
 MIME-Version: 1.0
-From: joao 222 <joolucas64@gmail.com>
-Date: Thu, 17 Sep 2026 13:02:08 -0300
-X-Gm-Features: AcwNN1UP5qZW-lZHKgUX3VxHAPiIZeCzJeooFsndOnyuIJ9kqDLDoVeL6w4tAOU
-Message-ID: <CA+irm5xWBnH=2VwWz-YTsWc_kMK7x9tskdNYzmQjejn21fQnnA@mail.gmail.com>
-Subject: [BUG] drm/edid: Samsung display reports 1360x768 as preferred instead
- of native 1366x768
-To: dri-devel@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="00000000000097724b065bafe859"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-26-4583d8a23bca@kernel.org>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6787; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=/qhYfBPmYatz10Dgxqp/JH08Wu0JRVlKPSmSPF2nv0s=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB+atPhJ882XD+fevmR+ytni7IOK95u3HTe9sG/rX
+ Z95gpnX7naUsjCIcTHIiimyPP8ivj9IJGxe5wV/N5g5rEwgQxi4OAVgIrMMGBlW876vVtoX2Ljv
+ lI3TOWd+hVWp5fELHzNoP7uiY2X8bnYyw/8sCeMZzvFTKux3FlXwVSqqHhAXOX3Vwmit4pFCBYm
+ mZGYA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Fri, 18 Sep 2026 07:10:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,122 +145,177 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---00000000000097724b065bafe859
-Content-Type: text/plain; charset="UTF-8"
+We have now made it such that every driver which sets VMA_IO_BIT marks it
+as kernel-owned.
 
-Hello,
+However, vma_flags_is_kernel_owned() currently checks for VMA_IO_BIT. This
+was a product of drivers previously marking a range as kernel-owned by
+setting VMA_IO_BIT alone.
 
-I would like to report a Samsung HDMI display that provides an
-incorrect preferred mode in its EDID.
+Fix this by removing the VMA_IO_BIT check in vma_flags_is_kernel_owned(),
+and update mmap_validate_vma_flags() to use vma_flags_is_kernel_owned()
+rather than open-coding the VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT check.
 
-The display is a native 1366x768 panel, but its EDID marks 1360x768 as
-the preferred timing. The EDID itself is structurally valid and also
-contains a valid 1366x768 timing.
+This change means that vma[_flags]_can_merge() doesn't check VMA_IO_BIT any
+longer (which is now redundant) as it calls vma_flags_is_kernel_owned().
 
-Display identification from EDID:
+Now that the predicate means precisely VMA_PFNMAP_BIT or VMA_MIXEDMAP_BIT,
+also use it at the other sites which open-code that pair, so the intent is
+stated rather than the flags, with no functional change:
 
-- Manufacturer: `SAM`
-- Product ID: `28744`
-- Serial: `16780800`
-- EDID version: 1.3
-- Manufacture date: week 1, 2020
+zap_special_vma_range() only zaps kernel-owned mappings, as drivers use it
+to tear down ranges they established themselves.
 
-Relevant timings from the original EDID:
+The mprotect() arch PFN modification check applies to kernel-owned
+mappings, which may map PFNs without struct pages.
 
-    DTD 1: 1360x768 @ 60.015 Hz
-    ...
-    CTA DTD 5: 1366x768 @ 59.7895 Hz
-    CTA DTD 6: 1360x768 @ 60.015 Hz
+NUMA balancing skips VM_MIXEDMAP mappings having already excluded VM_IO
+and VM_PFNMAP mappings via vma_migratable(), so it skips exactly the
+kernel-owned mappings - say so.
 
-Because 1360x768 is the first detailed timing, it is treated as the
-preferred mode.
+Finally, update the VMA userland merge 'special' flag tests to no longer
+assert that VMA_IO_BIT prevents merge as VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT
+now suffices.
 
-This appears to be incorrect for this display. Selecting 1360x768
-causes visible scaling/blur, while 1366x768 produces a sharp native
-image.
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ include/linux/mm.h              |  3 +--
+ kernel/sched/fair.c             |  2 +-
+ mm/memory.c                     |  6 +++---
+ mm/mprotect.c                   |  3 +--
+ mm/vma.c                        |  2 +-
+ tools/testing/vma/include/dup.h |  3 +--
+ tools/testing/vma/tests/merge.c | 10 ++--------
+ 7 files changed, 10 insertions(+), 19 deletions(-)
 
-The important point is that 1366x768 is already provided by the
-monitor's EDID with the correct timing; Linux does not need to create
-or add a new mode.
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index ca598e5f9715..4b6aa0b47b00 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -1630,8 +1630,7 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
+  */
+ static inline bool vma_flags_is_kernel_owned(const vma_flags_t *flags)
+ {
+-	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT,
+-				  VMA_IO_BIT);
++	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT);
+ }
+ 
+ /**
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 8dff37059faf..a71f0ab79bcd 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -4212,7 +4212,7 @@ static void task_numa_work(struct callback_head *work)
+ 
+ 	for (; vma; vma = vma_next(&vmi)) {
+ 		if (!vma_migratable(vma) || !vma_policy_mof(vma) ||
+-			is_vm_hugetlb_page(vma) || (vma->vm_flags & VM_MIXEDMAP)) {
++			is_vm_hugetlb_page(vma) || vma_is_kernel_owned(vma)) {
+ 			trace_sched_skip_vma_numa(mm, vma, NUMAB_SKIP_UNSUITABLE);
+ 			continue;
+ 		}
+diff --git a/mm/memory.c b/mm/memory.c
+index 45b21bb04a18..1e6cd2e50408 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2343,19 +2343,19 @@ void zap_vma_range(struct vm_area_struct *vma, unsigned long address,
+ }
+ 
+ /**
+- * zap_special_vma_range - zap all page table entries in a special vma range
++ * zap_special_vma_range - zap all page table entries in a kernel-owned VMA
+  * @vma: the vma covering the range to zap
+  * @address: starting address of the range to zap
+  * @size: number of bytes to zap
+  *
+  * This function does nothing when the provided address range is not fully
+- * contained in @vma, or when the @vma is not VM_PFNMAP or VM_MIXEDMAP.
++ * contained in @vma, or when @vma is not kernel-owned.
+  */
+ void zap_special_vma_range(struct vm_area_struct *vma, unsigned long address,
+ 		unsigned long size)
+ {
+ 	if (!range_in_vma(vma, address, address + size) ||
+-	   !(vma->vm_flags & (VM_PFNMAP | VM_MIXEDMAP)))
++	   !vma_is_kernel_owned(vma))
+ 		return;
+ 
+ 	zap_vma_range(vma, address, size);
+diff --git a/mm/mprotect.c b/mm/mprotect.c
+index 2888ee638d87..fe32fd87cf5c 100644
+--- a/mm/mprotect.c
++++ b/mm/mprotect.c
+@@ -783,8 +783,7 @@ mprotect_fixup(struct vma_iterator *vmi, struct mmu_gather *tlb,
+ 	 * uncommon case, so doesn't need to be very optimized.
+ 	 */
+ 	if (arch_has_pfn_modify_check() &&
+-	    vma_flags_test_any(&old_vma_flags, VMA_PFNMAP_BIT,
+-			       VMA_MIXEDMAP_BIT) &&
++	    vma_flags_is_kernel_owned(&old_vma_flags) &&
+ 	    !vma_flags_test_any_mask(&new_vma_flags, VMA_ACCESS_FLAGS)) {
+ 		pgprot_t new_pgprot = vm_get_page_prot(newflags);
+ 
+diff --git a/mm/vma.c b/mm/vma.c
+index 56a0cd154419..0bc3651abe13 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2787,7 +2787,7 @@ static int mmap_validate_vma_flags(const vma_flags_t *flags)
+ 		return -EINVAL;
+ #endif
+ 
+-	if (!vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT)) {
++	if (!vma_flags_is_kernel_owned(flags)) {
+ 		/* Only kernel-owned mappings may set VMA_IO_BIT. */
+ 		if (WARN_ON_ONCE(vma_flags_test(flags, VMA_IO_BIT)))
+ 			return -EINVAL;
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index b8b1462ca710..97d3bf6cd5b7 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1667,8 +1667,7 @@ static inline bool file_is_dev_zero(const struct file *file)
+ 
+ static inline bool vma_flags_is_kernel_owned(const vma_flags_t *flags)
+ {
+-	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT,
+-				  VMA_IO_BIT);
++	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT);
+ }
+ 
+ static inline bool vma_is_kernel_owned(const struct vm_area_struct *vma)
+diff --git a/tools/testing/vma/tests/merge.c b/tools/testing/vma/tests/merge.c
+index acaab282939c..b26f1a66a170 100644
+--- a/tools/testing/vma/tests/merge.c
++++ b/tools/testing/vma/tests/merge.c
+@@ -496,17 +496,11 @@ static bool test_vma_merge_special_flags(void)
+ 		.mm = &mm,
+ 		.vmi = &vmi,
+ 	};
+-	vma_flag_t special_flags[] = { VMA_IO_BIT, VMA_DONTEXPAND_BIT,
++	vma_flag_t special_flags[] = { VMA_DONTEXPAND_BIT,
+ 		VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT };
+-	vma_flags_t all_special_flags = EMPTY_VMA_FLAGS;
+ 	int i;
+ 	struct vm_area_struct *vma_left, *vma;
+ 
+-	/* Make sure there aren't new VM_SPECIAL flags. */
+-	for (i = 0; i < ARRAY_SIZE(special_flags); i++)
+-		vma_flags_set(&all_special_flags, special_flags[i]);
+-	ASSERT_FLAGS_SAME_MASK(&all_special_flags, VMA_SPECIAL_FLAGS);
+-
+ 	/*
+ 	 * 01234
+ 	 * AAA
+@@ -520,7 +514,7 @@ static bool test_vma_merge_special_flags(void)
+ 	 * 01234
+ 	 * AAA*
+ 	 *
+-	 * This should merge if not for the VM_SPECIAL flag.
++	 * This should merge if not for the 'special' flag.
+ 	 */
+ 	vmg_set_range(&vmg, 0x3000, 0x4000, 3, vma_flags);
+ 	for (i = 0; i < ARRAY_SIZE(special_flags); i++) {
 
-I tested this by creating an EDID override which only changes the
-preferred timing from the existing 1360x768 timing to the existing
-1366x768 timing.
+-- 
+2.55.0
 
-With the original EDID:
-
-    1360x768
-    ...
-    1366x768
-
-With the corrected EDID:
-
-    1366x768
-    ...
-    1360x768
-
-The corrected EDID passes `edid-decode` validation.
-
-I loaded it using:
-
-    drm.edid_firmware=HDMI-A-1:edid/samsung-1366.bin
-
-After reboot, DRM reported 1366x768 as the first mode:
-
-    1366x768
-    ...
-    1360x768
-
-and the desktop selected 1366x768. The display is sharp at its native
-resolution.
-
-The same general behavior was reproduced with different Linux
-distributions and hardware, including a separate NVIDIA-based Nintendo
-Switch system running Fedora/KDE on x11 so it does not appear specific
-to one desktop environment or compositor.
-
-Current test system:
-
-    Arch Linux
-    Linux 7.2.6-arch2-1
-    NVIDIA DRM
-    GNOME / Wayland
-
-Would this display be appropriate for an EDID quirk to correct the
-preferred mode, or is there another preferred-mode handling mechanism
-that would be more appropriate?
-
-The underlying issue appears to be that the Samsung display is
-providing an incorrect preferred-mode declaration in its EDID:
-1360x768 is advertised as preferred even though the panel is 1366x768
-and the EDID already contains the correct 1366x768 timing.
-
-I have attached both the original EDID and the corrected EDID used for the test.
-
-Thanks.
-
---00000000000097724b065bafe859
-Content-Type: application/octet-stream; name="edid_raw.bin"
-Content-Disposition: attachment; filename="edid_raw.bin"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mu5pu56p0>
-X-Attachment-Id: f_mu5pu56p0
-
-AP///////wBMLUhwAA4AAQEeAQOARid4CiOtpFRNmSYPR0q97gCBwAEBAQEBAQEBAQEBAQEBZiFQ
-sFEAGzBAcDYACiUhAAAeAR0AclHQHiBuKFUACiUhAAAeAAAA/QAYSw9EFwAKICAgICAgAAAA/ABT
-QU1TVU5HCiAgICAgAa4CAzPxTYQTBRQDEhAfICEiBxYpCQcHFQdQVwcAgwEAAOIAD+MFwwFnAwwA
-EAC4LeMGDQEBHYAYcRwWIFgsJQAKJSEAAJ4BHYDQchwWIBAsJYAKJSEAAJ5mIVaqUQAeMEaPMwAK
-JSEAAB5mIVCwUQAbMEBwNgAKJSEAAB4AAAAAZQ==
---00000000000097724b065bafe859
-Content-Type: application/octet-stream; name="edid_raw_patched.bin"
-Content-Disposition: attachment; filename="edid_raw_patched.bin"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mu5pvvkb1>
-X-Attachment-Id: f_mu5pvvkb1
-
-AP///////wBMLUhwAA4AAQEeAQOARid4CiOtpFRNmSYPR0q97gCBwAEBAQEBAQEBAQEBAQEBZiFW
-qlEAHjBGjzMACiUhAAAeZiFQsFEAGzBAcDYACiUhAAAeAAAA/QAYSw9EFwAKICAgICAgAAAA/ABT
-QU1TVU5HCiAgICAgAVoCAzPxTQQTBRQDEhAfICEiBxYpCQcHFQdQVwcAgwEAAOIAD+MFwwFnAwwA
-EAC4LeMGDQFmIVaqUQAeMEaPMwAKJSEAAB4BHYAYcRwWIFgsJQAKJSEAAJ4BHYDQchwWIBAsJYAK
-JSEAAJ5mIVCwUQAbMEBwNgAKJSEAAB4AAAAA5Q==
---00000000000097724b065bafe859--
