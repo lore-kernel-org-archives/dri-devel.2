@@ -4,124 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98AC5C88E72
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 20:26:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFA10C982D0
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 20:26:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2EA010F0F4;
-	Thu, 17 Sep 2026 20:26:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A52510F076;
+	Thu, 17 Sep 2026 20:26:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="m9DWyDmk";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="hyp29NaH";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012051.outbound.protection.outlook.com [52.101.48.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BA0C10F0ED;
- Thu, 17 Sep 2026 20:26:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xFGFnJFYO74hmLdO5veubsIhnD2fGUKxT9h0IVROlYB4YuWT97HJQwHlfdhICoeBytQ36hg8TtCc5fyMuLHxBZv3A8kW5VybIieGoBhWR1FDeCp0OW/RyFTtt7MvnrINSZNKafp54Afb4T2klj/eQ3Pu7e9Z6B6Y4dzk5xSB5WlVm5T93P5w0yxatbtLKM5GCubWgJw1qMJkJWkEgVE6Bd8Hp4Z7DgebPyIpJSkf5NoZ4h6jgf85MF7/cRdq3ui5x8kdF2FSTrPv07fM3dUc5xTXbLWVjdlaOjl89uPJGmGbgV8xR/7AFtLPiw/H2XsOvf7awUYThzAcVpxvDnHpNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yyLyjn7tBurALIVdLMVTxdplDRX5x894G3TrGhS4oAs=;
- b=EgpwMR678UMyt45oCrM1nYqbhceXPgizUcwh/zOkAmVtKdUV6Z8u7Gip7zQE6hoYdOoHgZP+KkvtTEfQlCk1sfDxpSd+dCZiwDhfsXofxRPcQYN8y2lWGAK/zF0NZb2rLN0Vze7cOVBEd7z0jQpBKSPQbD/K5d04RSFCGYLQKu7scNEey8RzJvTKQdYOyFhVngZ6gZ1DMTK5BIXCD95j7KjMty73zaWeUI8t5YLvaSSqXaaJOhIq5+LDeDZ7o1pvLvurbVjDe5yIzd+WHQguwkVTRqKbkf5GyHzspF/bAXffgFXO9j+SWpRtpSgqViGujgmuBMNdBZhWhMG+yBUlMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yyLyjn7tBurALIVdLMVTxdplDRX5x894G3TrGhS4oAs=;
- b=m9DWyDmk964bnBR13E3CgAMq8RJqAxGOxOywYetF6JVqA9s0VqVo7JuWY4oFOJumth4JLd+sTf8keOY/Y7KNI8H7MKdWuHpAxEo4vise9oZYU6qh7IMeXA0/tEHuFuSJclwNHmQ3DWYOaZESxAz/k1CwP8xK2FNBJOXqraiSL1M=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
- by CY8PR12MB7315.namprd12.prod.outlook.com (2603:10b6:930:51::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
- 2026 20:26:16 +0000
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a%3]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
- 20:26:15 +0000
-Message-ID: <af7a9d72-2294-45f1-88dd-9818392e9a65@amd.com>
-Date: Thu, 17 Sep 2026 16:26:12 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amd/display: Honor EDID overrides for connected
- sinks
-To: Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: stable@vger.kernel.org
-References: <20260917135949.2552704-1-mario.limonciello@amd.com>
- <20260917135949.2552704-3-mario.limonciello@amd.com>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20260917135949.2552704-3-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT3PR01CA0007.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:86::19) To SJ0PR12MB7007.namprd12.prod.outlook.com
- (2603:10b6:a03:486::8)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1706410F085
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 20:26:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1789676805;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ya+cIlw22G+pUR3u7ErvGhK75QjcpcCjqrMDeSWo6yw=;
+ b=hyp29NaHyZlOgkDHgmbmNYOe6bCBS5j1cJfFeAY/sRcguEXVoK7GSGbLNIvx5SmuWsfGEy
+ bA0r0qltyRY1CWwWNtRJssBy4ykZ8OvA5r2zmcHy9FP1RR1atYU0qYEWa9qFZ1Jmx0BlRL
+ oLZQDwCe+dah/JQ6Wag8naXsvqMci3k=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-298-F-0POpC0NB2l1E8QHzZo7w-1; Thu, 17 Sep 2026 16:26:43 -0400
+X-MC-Unique: F-0POpC0NB2l1E8QHzZo7w-1
+X-Mimecast-MFC-AGG-ID: F-0POpC0NB2l1E8QHzZo7w_1789676803
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-53001b668a6so33922821cf.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 13:26:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789676803; x=1790281603;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ya+cIlw22G+pUR3u7ErvGhK75QjcpcCjqrMDeSWo6yw=;
+ b=Hw2o9Emy4ZARzMGzwpCp7afBHy7KMnvO7Iwj64oOq3aOhqeKrdFzRlH2HfL0SehsgL
+ nsD+pskI639f857UiVO1+Sy+cXbS8KRTPyrR+/xV0tIxgPFjKrqPS3lpaB/xVaqIJqgU
+ F2bUK7yXIpSpS1KmEqGKG3cd/t2UtoauOGNqGA++1G6Q12ml0/WjH7WBcgukHaQLhzCg
+ eSPzel4qw3ZwL/IUlQDS+Xe0C8vpb1KPMi5pvL+Dmk7VUICbbxYrB4mdTmJMF7h8xKMA
+ DA4HcmZFakZhKNmw72+b+bT2OuYqixHsGYdiVlombudUukKIH/b4+ogKVzt+bTVNqyFB
+ eokQ==
+X-Gm-Message-State: AFuF++nPyEqOmOzGiuywxYmO3gvi8K7L2llRpPTtOuc7yK2o42EI5he/
+ SdJHZRMki1tr9/373ZkPzRInAYYulVsx8VPINeno3G7iUUskyKXU11+4QIdgfJYRxK6SKyxa+pj
+ l1LT8j9yxz8Ci8z3ail5IgrCWLNEod7xX+XPPDghwReDuZgK71ki/QaWa5gNTOFtJoY9dkg==
+X-Gm-Gg: AYBFou1ooelL/QQnXBBQAVQ931cebtANDxFNDjfl300UJVXKHPvnDrK/kpGLB55OmYU
+ n4qsRX0LF0vbJ6HNpUlz/UKXafLY0e73huyoMO1SjndDWNfHP+9uH+AOrav7v6hePK9R31JVC+H
+ NScmCQMXpkyEnMvfFdMMp/guClZcDYf2BZm3Y+GGGhTQJSLj7sQcOqOEjr2V4ni7bcS6tzPGV2I
+ n4n0qkBXRaeCBUDOtHrJWIyxEiR3aTTLqu/Jq05XhZqiwHQZ/+Uu1OpCUhqRTxUCmusoa81MLi/
+ lZbgmmOBAtPjoOykzkWe9ysLNFO7DR+PGM9DH5N+ZEqzpvyV5+ZLWf+y0FTTRicsxfn9QPdY
+X-Received: by 2002:ac8:7e81:0:b0:530:256c:3718 with SMTP id
+ d75a77b69052e-5329e4f5460mr6673671cf.38.1789676803116; 
+ Thu, 17 Sep 2026 13:26:43 -0700 (PDT)
+X-Received: by 2002:ac8:7e81:0:b0:530:256c:3718 with SMTP id
+ d75a77b69052e-5329e4f5460mr6672891cf.38.1789676802166; 
+ Thu, 17 Sep 2026 13:26:42 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-91252c805e1sm6287236d6.19.2026.09.17.13.26.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Sep 2026 13:26:41 -0700 (PDT)
+Message-ID: <bd730e30c96bea38d8430460ee73f073e280374c.camel@redhat.com>
+Subject: Re: [PATCH 1/2] drm/nouveau: Fix NULL pointer dereferences in
+ GETPARAM ioctl
+From: lyude@redhat.com
+To: Jim Cromie <jim.cromie@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Date: Thu, 17 Sep 2026 16:26:40 -0400
+In-Reply-To: <20260815-null-fixes-v1-1-0df9dda951fb@gmail.com>
+References: <20260815-null-fixes-v1-0-0df9dda951fb@gmail.com>
+ <20260815-null-fixes-v1-1-0df9dda951fb@gmail.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|CY8PR12MB7315:EE_
-X-MS-Office365-Filtering-Correlation-Id: a6e45b22-61e1-4598-9527-08df14f9ec68
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|366016|11063799006|56012099006|3023799007|4143699003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 8fIptCu3KIxY3NPIBGIBkFzQ+R1HMBw9/Yq8yxgkaW3Icr0c70Wm8fKVubHgB6BsJJvjB8qw9TD6FK0UfV8ad8JZfMi+CHMNyRNDf/2Eh8b+n4m9nGYIcnCNcZnywA6IXcef1uLoNQIQZZvG7BywKWwjTG4SlXK1luw+mFax+QmWhmz68jwUg2drUqUWrOr7oytLDWdisXzKudZz0Y23FgSfkybmtrZcWVIYGdBgf0NsnE/4mMt/GBRwWBYR8fC9fSGX+wJimX1+hjvcbFc8JM0bjVTrsAye069k2bWFCVTmvrZRnm/FiaHOcpoMQpFId++HSfwmiucyxDA+j3wGTvtNXUk2DZTc/FB57b+XzFqqnUZR1t/nJnn3IiiCIIf+RgppJPwhqJkvx9Nn3KluzA4/k6jZbiSj+E+XbDY/K7Cy9VHCyMzOnhhz1ecG7U1nHhduYtJJRdCaZIe++VTh7JFPZVzPnG5LG7Lic0e0djukbhuE5+ErfcjvAEQB2NSF2AwVAb+DUZ1HumDDGRG/ZCpX2cw9OABGQQ+Ef2sEtWUsO54kDUav/fVoV6qd0YX9ehizuwQxj+1YSgiHNA/cokGWNEnpnfEqstYvN1i614gzrSp6LF3f+03ipeoIU6xj
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(11063799006)(56012099006)(3023799007)(4143699003)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cGUvcGQ5TzFhZUZ0S1R4ekZVS1lXd1hJYjR5VVBtRHV2WHRxazJvNldPZHpo?=
- =?utf-8?B?Tm9qMzBEY3lJUFpPWWhvVHFjTXhSaXNPdGpLY0VEMXVNUllrdWI3eVVRRWlh?=
- =?utf-8?B?VEJvQTg0cmI2RTZoRDRGN0dldk4weWZpRU1ZN3BVWThld0kvZHdWdzNDc0kv?=
- =?utf-8?B?Sm02aG1ETERpeHhmdmZycElrbGVsMkFlczZKaWI5ZjNKR1NqaThoQk5CaURh?=
- =?utf-8?B?Tm4wRThLU2syY2wzWFhMR1lIaTNWaHlpajJrZWJseHhZbGxwMkRzcytHSnBN?=
- =?utf-8?B?ZndrVnBVNXZja1g5VVBBQVNXaXZ6d0E0NXl5YXlZcXg4ZjJ6cnhEelNyWnJv?=
- =?utf-8?B?K3kyWEltbEFFRVU3N2lNR1JZSTkxWkdZdWMvMitiRXVDYkxXWGtiVWJpUEhS?=
- =?utf-8?B?ZkxFQ0dwdWJnamNpWVZSMTc0SXZwY0xFVFMwa0xQKzhLZmdORktOd3VrbWFU?=
- =?utf-8?B?dDVMUlNkMHV2d3NEeFRxVUxJUFpoS284TnI1MHMvN0tubDVSZFJ1UklDcVUw?=
- =?utf-8?B?UWQyQnFMMGxmbDB0MGp1bitZQUU4cEFTb08vYlMyd2hiVEpVWEdwTkxZR1Vy?=
- =?utf-8?B?RmhnNmM5RnhPbUcwbnNRcHR0UTh3NWJHT0g1NlZNQnByNW5pUTNlUnR0MjNz?=
- =?utf-8?B?QTdXN3U4OHpQVndESms4dUdya3VONDVnazkxM2JGbkNhNCs0NWpqbFMyM1Jt?=
- =?utf-8?B?Y3padlc2REF3V0hCcVZqbFNETnNRWTMva1lOVUNWQjhSMlJtL1ZqM1hzaGRv?=
- =?utf-8?B?cy9IOFkwMUp1endoazhlbmp1dUNMYVJSS0V6dzBXb3UwMi9vckFDUUc0ZVdq?=
- =?utf-8?B?NGtuM1l3RFBpVnRjZWk2dC8xdk1JeUl0MjFQNkJVVDRKaW9tTkZ4N1FlNVo1?=
- =?utf-8?B?d09EYnZDTmNSK3YrMHY2aXU5SWoyVlJ2am9iZGIrUlRBdktNa3ZTWGNvUzU1?=
- =?utf-8?B?QUdaMlVFK21sKzE2T3FrVGxlOU1WV0lzZ3VTYTFDOGVXRjhTN2NNb1NCM2Z6?=
- =?utf-8?B?VTh3Mzg5TFB4L0tWK3pWaWZuU1JUSUxMNjVNRHREK0ZvVUdCbXUvajUvTGpl?=
- =?utf-8?B?T09KRTNuN1dieHlnR1VEUzU5Uml3UUhVOHp2SHBVTUV0OEVncWdLZGV1SFNS?=
- =?utf-8?B?b3NmMWJMQ1M0U0xkQ0RuL3RWR01VeU1pSUdnQW5KNEQyUkxzd3NFeVJIYWlL?=
- =?utf-8?B?R3BBczJ5eXZIR2J1YmZCS3B1VmtYUXRZaUhaYXl0NzdCQVlhSCs4MG45dWor?=
- =?utf-8?B?OXR1MWJyM08rTldUQ1doNUZBem1WLy82MDhZVitKdmdFbm81S3o2cGw1RG5v?=
- =?utf-8?B?K0RpTVdFVXJCdVEyRGNmaGoxM3NqQnBtQ3BJc0lORkZCQjkvS2haa1Blbko2?=
- =?utf-8?B?aVc3bmxnNWNrZnUyU2pkaGNwWlFqZktnMGpkekhJdnFERzVKVTRUOUFSb1BM?=
- =?utf-8?B?ZDdSVUtQR29hRWtKdWxzajBzM2k1d1dzVEgvdnNMRUVqdXF2TENyZHd2WnBC?=
- =?utf-8?B?bm9wS2FPL0hZRmZjVGszYUN0U09nYnlLNXlpQ1UzOXQ3RVQxV2p6WU0vZ201?=
- =?utf-8?B?RS9tNHh2MTRDZjJKT0VnU1FKOXhKSWJST2tHcFQvcGxJVERJQ0IyTDdsbGd0?=
- =?utf-8?B?WHdxU3hNaUswOTBmTFZHRG1XVjJoK0I4aGZRbm1Oa3FHajdhK3g5T0dITjIr?=
- =?utf-8?B?aHRMcllrZUVpZVdwa1ZXRERBU29ER24rYU1NWHR4MWg2dGNCOXYwQWlDNnFY?=
- =?utf-8?B?MytraXpiSGdjOU1nV0x6aVArbUV2RE05Tk1SY3I2VVc1ZlpMc2Z0OUJ5eUhO?=
- =?utf-8?B?cTBOQ1JYUk1wdFVQSHVnc002S1BQc2hUanNSQzd5eEh2dTYwVmF3ZEh3K2FI?=
- =?utf-8?B?VzgyRFZ4bnVFRFhyVnZ3Z2NXcm83MWM0Q1VxUUhTaUIvOTFGS1NXQWxOZitz?=
- =?utf-8?B?VXp5aEw2RTlvSVk0OFpncW9TUFZ0YmRPbzQvREhUSGRTdnFZYlAwT3UyaFV1?=
- =?utf-8?B?SWRLdXFqWEkxcytkc3k1VVRiK1pVZVlVSzFQajBwZGhRMENVaXkvMGkwaUh1?=
- =?utf-8?B?TjNoU3U1dnJidW9FellBZVVrUGRFYTRFbXpuUjgyeVVaYUJyZWVJa1d1RmF2?=
- =?utf-8?B?ZE1DUjBtR3FVWEMvSkF3dk5tWEljMS9nWjNKZnhSUUlJSk1HVFYrWGNIeG5P?=
- =?utf-8?B?SWhDbmhYUDFkei9sZnB1QzNrL25JY2poT29kWTZPcUxKeUYyeFA2YWNQRld5?=
- =?utf-8?B?Zm10Sjhib1lXdXp6VUJXYVlJazZNVGtEdjBjR2NZSENFS3F6K2RIcmRqWG5w?=
- =?utf-8?B?cXlLS2Jyb3QzVXVkZzBsMjVXcDIzbDdzdkMyaGd1Tm1mNGVwZ25HQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6e45b22-61e1-4598-9527-08df14f9ec68
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 20:26:15.6935 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cpPtL9fJckcw0iHr+OB4jeIyXqWasem5FkbmU8P8LVp5y/jn5fTJolkepw/JhKm8lDIzAp2qF0rW18xkhUVhaQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7315
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 2jjksUwaFxMrWKJDKjTD-KQfDCu2cIz_ptfUE0E94jA_1789676803
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,59 +102,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-09-17 09:59, Mario Limonciello wrote:
-> Display Core determines whether a digital sink is physically connected
-> from HPD before dm_helpers_read_local_edid() attempts to acquire its EDID.
-> 
-> The helper currently calls drm_edid_read_ddc(). For an unforced connector,
-> that function probes DDC before consulting a debugfs or firmware override.
-> If a present sink stops responding over DDC, the probe returns early. The
-> configured override is ignored, and AMDGPU creates a 640x480 fallback mode.
-> That also prevents DRM's later override fallback from running.
-> 
-> Read an explicit override before trying ACPI, VBIOS, or DDC sources. Since
-> DC has already established physical presence, this does not make the EDID
-> override force a disconnected connector on. The existing successful-read
-> path updates the DRM connector and copies and parses the EDID into dc_sink,
-> keeping DRM and Display Core state synchronized.
-> 
-> Fixes: 7c7f5b15be65 ("drm/amd/display: Refactor edid read.")
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5779
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+On Sat, 2026-08-15 at 11:30 -0600, Jim Cromie wrote:
+> When hardware or firmware initialization fails, the graphics engine
+> (gr) or device functions may remain NULL. Attempting to access these
+> during the GETPARAM ioctl (e.g., NOUVEAU_GETPARAM_GRAPH_UNITS)
+> results
+> in a kernel NULL pointer dereference, causing a crash when userspace
+> (GNOME/Mesa) attempts to probe the device.
+>=20
+> Add safety checks for 'gr', 'gr->func', and 'nvkm_device->func' in
+> the
+> ioctl handler. Return -ENODEV to signal the missing hardware state to
+> userspace, and use NV_ERROR_ONCE to provide diagnostic proof in the
+> kernel log without risking a console flood.
+>=20
+> RFC:
+>=20
+> These crashes may not be repeatable, they happened while I was trying
+> to build nouveau as a builtin module, with binary blobs in the kernel
+> image, on a laptop with an encrypted disk.=C2=A0 Gemini tells me this
+> won't
+> work, so I punted.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+"Gemini tells me this won't work, so I punted."
 
-Harry
+I'm sorry, what exactly do you mean here? And could you clarify what
+LLMs were used for in writing this series? Code generation, analysis,
+etc.?
 
-> ---
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 14 +++++++++-----
->  1 file changed, 9 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index d451082552e83..b8f02c854667e 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -1244,12 +1244,16 @@ enum dc_edid_status dm_helpers_read_local_edid(
->  	 * do check sum and retry to make sure read correct edid.
->  	 */
->  	do {
-> -		drm_edid = dm_helpers_read_acpi_edid(aconnector);
-> -		if (drm_edid)
-> -			drm_info(connector->dev, "Using ACPI provided EDID for %s\n", connector->name);
-> -		else if (!ddc)
-> +		drm_edid = drm_edid_read_override(connector);
-> +		if (!drm_edid) {
-> +			drm_edid = dm_helpers_read_acpi_edid(aconnector);
-> +			if (drm_edid)
-> +				drm_info(connector->dev, "Using ACPI provided EDID for %s\n",
-> +					 connector->name);
-> +		}
-> +		if (!drm_edid && !ddc)
->  			drm_edid = dm_helpers_read_vbios_hardcoded_edid(link, aconnector);
-> -		else
-> +		else if (!drm_edid)
->  			drm_edid = drm_edid_read_ddc(connector, ddc);
->  		drm_edid_connector_update(connector, drm_edid);
->  
+>=20
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 
