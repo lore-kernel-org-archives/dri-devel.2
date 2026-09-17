@@ -4,51 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8948DC982D2
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 17:11:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27C23C88E72
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 17:11:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 908A310ED85;
-	Thu, 17 Sep 2026 17:11:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B69110E776;
+	Thu, 17 Sep 2026 17:11:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ew1yxHMt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZHo0zrHh";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99EA210ED85
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 17:11:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E640310E776
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 17:11:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D41FB60207;
- Thu, 17 Sep 2026 17:11:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA5DC1F000FF;
- Thu, 17 Sep 2026 17:11:09 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 69A2860207;
+ Thu, 17 Sep 2026 17:11:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00C9C1F00893;
+ Thu, 17 Sep 2026 17:11:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789665070;
- bh=dUVTlcdT8aM+caf/oZ2Aapvv5WbGeHyh5slkxf4lhg4=;
+ s=k20260515; t=1789665097;
+ bh=dZO41uufujK+iupIyYnVeMZxw5jne5ZnddSeSFryDeY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ew1yxHMtH056/lzL7meOqpy5eqtMBrXZmNCNZhIm6Aoxqdd01awgXWLBv1PLLYuvP
- 79oxBIWNZqTicpG1am+T+HJJUXm4umkVWOdZG7ulySslVKl5fWthELadfxctLCBCYJ
- c91T/sFP9ROZNgN8WzWXdeXDFfjW3eQyO6R8okxZmDwKbSHHr/GITTOPO31RRSNemY
- frK+ycOu1JoBLnl3UjyeEwDAG3BBG7hpwN73RZrCtslBdMqTuAb2/0tBIuHouEkXQR
- oVooa4yVaB+w1N+iWEl31/qRkpt9vw43dpuqT6tL1XZR5hUva90o7ksJiwWDSnsVuR
- LUlZI3J2eGNsQ==
+ b=ZHo0zrHhbq6I0XnQnTB9YFT2Zu8GRlhffdPU8RFe43fLJTCqzjRF1vISlmNWHC5X8
+ +b4ww4ZMJp5IV8/3a+aO2Fn1mdDEu94iEx3AfNg5+DVrjjJ7ml9jsVscAzmy/LmaSE
+ 8VWp3iV1dgcxrctTPVMFOKz3obAID5hzAI5f46cAVKpDcLS1diKvfpIUcYKKPtBGD1
+ cpV3tOA1+AntJrQHIdUQAD89Y6FjRSMxa4cqSaGK6GaeqSWfjb63i+tbYsGB6KXNAT
+ luZFXBrb6Qz70zg/8ijwFs5ris2xqsl1ScWRLb/6t86uyqUbnGYTUlIm9JQQkJOCUu
+ X5Y5vmw+cvMog==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 03/40] mm/vma: introduce and use vma_[flags_]can_merge()
-To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
-Cc: linux-rdma@vger.kernel.org, linux-trace-kernel@vger.kernel.org, "Alexander
- Gordeev" <agordeev@linux.ibm.com>, selinux@vger.kernel.org,
- linux-scsi@vger.kernel.org, kvmarm@lists.linux.dev,
- linux-perf-users@vger.kernel.org, linux-s390@vger.kernel.org,
- dri-devel@lists.freedesktop.org, bpf@vger.kernel.org, "Oliver
- Upton" <oupton@kernel.org>, "Christian Borntraeger" <borntraeger@linux.ibm.com>,
- kvm@vger.kernel.org, "Heiko
- Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>, "Marc
- Zyngier" <maz@kernel.org>
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-3-4583d8a23bca@kernel.org>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-3-4583d8a23bca@kernel.org>
+Subject: Re: [PATCH v5 2/5] drm/nouveau/gsp/r535: Add support for
+ MEMSYS_GET_STATIC_CONFIG
+To: "Lyude Paul" <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260917170042.440276-3-lyude@redhat.com>
+References: <20260917170042.440276-1-lyude@redhat.com>
+ <20260917170042.440276-3-lyude@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 17:11:09 +0000
-Message-Id: <20260917171109.BA5DC1F000FF@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 17:11:36 +0000
+Message-Id: <20260917171137.00C9C1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,26 +58,60 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Replace the open-coded VMA_SPECIAL_FLAGS check in the VMA merge logic with
-> two new functions vma_flags_can_merge() and vma_can_merge() and update the
-> merge logic to use the former.
->=20
-> This abstracts the check and expresses it in terms of the desired behavio=
-ur
-> rather than an arbitrary and confusing VMA flag.
->=20
-> This also lays the groundwork for making further improvements in VMA flag
-> usage.
->=20
-> Also update the userland VMA tests to reflect the change.
->=20
-> No functional change intended.
->=20
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] nouveau: missing r535_gsp_get_static_memsys_info() call in r535 =
+init
+--
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+commit ea59a1e02ca1ca9ba089fd374c676d4e85191d91
+Author: Lyude Paul <lyude@redhat.com>
+
+drm/nouveau/gsp/r535: Add support for MEMSYS_GET_STATIC_CONFIG
+
+This commit introduces support for MEMSYS_GET_STATIC_CONFIG to fetch memory
+management characteristics from the GSP during driver load. It implements t=
+he
+fetching logic and wires it up for the r570 initialization path.
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c b/driv=
+ers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+> index dfda6b0b910a2..dff2081ed764f 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+> @@ -138,6 +138,14 @@ r570_gsp_get_static_info(struct nvkm_gsp *gsp)
+>  		}
+>  	}
+> =20
+> +	ret =3D r535_gsp_get_static_memsys_info(gsp);
+> +	if (ret) {
+> +		nvkm_error(&gsp->subdev, "Retrieving static memsys info failed\n");
+> +		return ret;
+> +	}
+> +	nvkm_debug(&gsp->subdev, "memsys: Use raw mode for comptag allocations?=
+ %s\n",
+> +		   str_yes_no(gsp->memsys.use_raw_mode_comptagline_alloc));
+> +
+>  	return 0;
+>  }
+
+[Severity: Medium]
+Since the commit title explicitly claims to add support for r535, does
+r535_gsp_get_static_info() in=20
+drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c=20
+also need to call r535_gsp_get_static_memsys_info()?
+
+Right now, it appears the initialization is only performed in the r570 path.
+When loading the nouveau driver on a GPU that uses the r535 GSP firmware,
+this leaves gsp->memsys.use_raw_mode_comptagline_alloc uninitialized (false=
+).
+
+Could this create a mismatch and leave internal state incorrectly initializ=
+ed=20
+for r535 hardware?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-b4-mmap-pr=
-epare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org?part=3D3
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917170042.4402=
+76-1-lyude@redhat.com?part=3D2
