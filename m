@@ -4,91 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95DFAC982D2
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 22:10:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74474C982D2
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 22:11:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCA8510E4B8;
-	Thu, 17 Sep 2026 22:10:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B53AB10E4C5;
+	Thu, 17 Sep 2026 22:11:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="EcZ1oSDL";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="dlfRg/Dh";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97AC710E4B8
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 22:10:10 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FC3D10E4C5
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 22:11:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1789683009;
+ s=mimecast20190719; t=1789683101;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Ud4TYwbWHYsVK5PwKqeeWvh3vyT9zE8Y/zwj3gXwLMk=;
- b=EcZ1oSDLZAStU9v/LLLJAZtazjMdGRvJ678CiDpmIP/LXH7v2BT4NFxmnIcTGGZGV6s7E3
- p1YfS156nQxlOWI46l726nQfRBhW1CZmoQEHKFt11MU42dsfWc1C1zmRcrrhMxBL2IsUsG
- Pb2ho5ocUbvdTJHcmxZeMty9DgHYY94=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=S6U6C2auesxaluxxDRg42OWIqsobC3AFy0qVLLWaE4A=;
+ b=dlfRg/DhRWbOWxbR2i5gWPI80X2TQN643nPuO1fT0cwVAf51opTtZWNWd+2w1Aw/syoVVJ
+ WcVYp4EqytHelxbwZvFyjKOXjzSxyC7VEM2I0cn/pErF6PzTK9RiJgjF7PUAbSMMDm+vhc
+ aMnYDIB7Wb+HL7wNLstyA3ncJ79HR0g=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-685-RxKAtppeP9iZdAp1ltzMKQ-1; Thu, 17 Sep 2026 18:10:08 -0400
-X-MC-Unique: RxKAtppeP9iZdAp1ltzMKQ-1
-X-Mimecast-MFC-AGG-ID: RxKAtppeP9iZdAp1ltzMKQ_1789683008
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-93a07b5b5efso269332185a.1
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 15:10:08 -0700 (PDT)
+ us-mta-148-37svgeXTNgO_ARsWFXigVQ-1; Thu, 17 Sep 2026 18:11:40 -0400
+X-MC-Unique: 37svgeXTNgO_ARsWFXigVQ-1
+X-Mimecast-MFC-AGG-ID: 37svgeXTNgO_ARsWFXigVQ_1789683100
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-9104c2ce026so4157306d6.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 15:11:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789683008; x=1790287808;
+ d=1e100.net; s=20260707; t=1789683100; x=1790287900;
  h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:to:from:subject:message-id:x-gm-gg
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=8z7jGkncFvYX44ONKGgmNu9yUifGbhbRMAl3u7dsO+Y=;
- b=rcHmQRJW3s8M8Q9yl//A5WMPLxKhTMHF0ppxA2/htr7kL1RPL4LTrQtMQxG9uDS/Qv
- M8OSsilUpgkf5Iq4d36/fk6jbr2whY2/++y3slojyKCUCVc+Eg+ts6Lj29Dl/V0beY8q
- mohDp/eYDOB85O8myC65P+0dxstJfLEBop54Hd8ja7HRmrwwOANkPPqfaMqlemD4lzoD
- rsDZZXAxenR4SqizhlOnlrREhhiL4bhM6cxR30+cMne8Zh+yG8cDd113w8r7rysS0bkZ
- +WgY6XmOK9LjRceDi4sEyWGTciUUOEdPU7OrpdMll8NbN+FnTOXDfCtUvxgw7DfLTgkf
- zcNg==
+ bh=O71094SnvEzOsUSd9r3JWt4fCSADbtCWy3jIsFoSJ/s=;
+ b=CYiXX+qEiBntIowmJg5WYQwSamSvRsuuNmq8YP06IlQGFzSsASP75m3bOkFL1YlMOf
+ vZjFSNzt/w2NNYgi67bxo66/uqDEbcXQMUWhelk2qQK0hxKbSZmhHMWiA8drVXqlBlUS
+ OVw1Hv59y1Lf+1KXE7bjnX4EuQdAyxlCA/snsybt6DzUxqgX3i/bvC/gNoA+f8NTbI76
+ y3Ojtba2i+uYh8b0tCpTtoHpd6UGcqC6r1/6pnHViq9cbMammd7qV75wnVgnKurtzHK+
+ 2INQhAAaugD8CAInnLETFyxLuzL6hWls3N5LClDuaTIX7MCREBhVmt5fcGz2gJUve13B
+ Ljyg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBy7zjkBuunwaxPpl1IlwguY2ii0ECKAQv33o7yUkKQsVSlJkbyJKVLPaICmTqP8oj2Kug/Vo1NuDsI=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nFAeV64V6Yo8K0M6OPKhh6UVA//dxItiDguyq+7g/DDWX8Oe0g
- bspZ5QhpeZKtAsejwf/9ErraBDsS7G2/GPybMEq3tkoQ3Ftl19I35UmPYu9FvOFpzvQfex2ZdRE
- ISO0rwYbMiVCmFkYCkHAZSyqAIe4YA1+FnfHEnspZFY93wcLExsu3vho2Iw2vUuGwuNlMpA==
-X-Gm-Gg: AYBFou10olp6MO73H1zZt1UIZDCwMOGc1a3SDQGcpBRNq5kUhhEi7mVZnaxqVxmwZ/B
- ZlaZjII3OtzuI+HzM54njxSrpqcGU0gn2XFqLzjZkl2MN6TlygDm17VC8+bpkBo641+R2IpUoGd
- t23In1I80jMxktcsHsuhsjQPmhdtx2eeWM1gm/9StHSTTl+MpAI59YQtC5m4dIpv4SftzbbUzhQ
- 8mbwEASRU13aBqCAdEEM8FfmOsYq9oqpbauic/XP3MaDQbbSpoHSjyVcSs1liMFGOkpj25h4gSc
- RGt/+5LIFHIQgZvtnN9X+GwKlhf386J1++DUWzqBfCCW6in+AnFUm4a8cbBByA5qH5zVl9SY
-X-Received: by 2002:a05:620a:1a17:b0:93a:1091:e692 with SMTP id
- af79cd13be357-93bdbaa321dmr92009785a.7.1789683007747; 
- Thu, 17 Sep 2026 15:10:07 -0700 (PDT)
-X-Received: by 2002:a05:620a:1a17:b0:93a:1091:e692 with SMTP id
- af79cd13be357-93bdbaa321dmr92006185a.7.1789683007243; 
- Thu, 17 Sep 2026 15:10:07 -0700 (PDT)
+ AKwUvBzaLVWFGriUDK+gpmGzB3axr2ShwAJemv5hl14l5z082H1V2dAQOcmpJvlcuaUDv3x5XDyneRlFoOw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nbdWCYOx0btOaPUlDpeNa1TomJBf0wZLk5ZJpNmGJg/maWoNpH
+ 6X1tZiIKvZXHNbqW0KYeiyYTfJqB7KHfgOq0cvgQnJCMkZc84uSVCNS6HZsYqfqyFecwsMp/aZD
+ 1R/jeBRb8qq99pgUVIXh0cOc9pIGFFsbi1+yAcV9C93hp8fH8kIEBriVkjrQlDc94fAM9qA==
+X-Gm-Gg: AYBFou28lwSZzXM0EniEsLq8uVVDgF/u0xKOeaIr/mx23OHYPc4MgTIx8knRFu6LVfg
+ JWe8O39r7/wHKvcQ2jeJG8CXwdZ9//ey8MAYi9m3C/uCwkjNcyO4YnznTQ2KW2GDFl45F0I7cLJ
+ c6qPw4TypuCpxT8Umf6dwSowgmZ9tHhxqN1mIKV8+MkCkgMhJdq2GW0uEC3hAcoPBZ1kLNrLRLw
+ +9mdh7QpqW2VlFedsN7SgBQyxsjGlVCg/eFbjcqHEHBIahx9pkinVQaniBOFqsVlsreXan2FG3/
+ 6bUUzDjMt88kA7+ojAMzHwtwfWniiTPj36ZJ76pGo5cT0NPlyFMBKqGuMIwT/hO3zD2SKniQ
+X-Received: by 2002:a05:6214:6110:b0:912:517b:913 with SMTP id
+ 6a1803df08f44-91254cd0952mr9605016d6.50.1789683099514; 
+ Thu, 17 Sep 2026 15:11:39 -0700 (PDT)
+X-Received: by 2002:a05:6214:6110:b0:912:517b:913 with SMTP id
+ 6a1803df08f44-91254cd0952mr9604356d6.50.1789683098863; 
+ Thu, 17 Sep 2026 15:11:38 -0700 (PDT)
 Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-93b781dfde3sm572372785a.12.2026.09.17.15.10.06
+ 6a1803df08f44-912568b9646sm142846d6.31.2026.09.17.15.11.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Sep 2026 15:10:06 -0700 (PDT)
-Message-ID: <ff3015a1c4b08088b0638b00670e86d612a27978.camel@redhat.com>
-Subject: Re: [PATCH] drm/nouveau: Fix memory leaks in debugfs and hwmon init
- error paths
+ Thu, 17 Sep 2026 15:11:37 -0700 (PDT)
+Message-ID: <8ae8462fb2f74d0ab1a1d6ac663fa3a90d57ff5d.camel@redhat.com>
+Subject: Re: [PATCH] drm/nouveau: fix autosuspend cleanup during teardown
 From: lyude@redhat.com
-To: liupeng <liupeng01@kylinos.cn>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Guenter Roeck
- <linux@roeck-us.net>, "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <dri-devel@lists.freedesktop.org>, "open list:DRM DRIVER FOR NVIDIA
- GEFORCE/QUADRO GPUS" <nouveau@lists.freedesktop.org>, open list
- <linux-kernel@vger.kernel.org>, "open list:HARDWARE 
- ""MONITORING:Keyword:(devm_)?hwmon_device_(un)?register(|_with_groups|_with_info)"
- <linux-hwmon@vger.kernel.org>
-Date: Thu, 17 Sep 2026 18:10:05 -0400
-In-Reply-To: <20260824090505.49913-1-liupeng01@kylinos.cn>
-References: <20260824090505.49913-1-liupeng01@kylinos.cn>
+To: Guangshuo Li <lgs201920130244@gmail.com>, Danilo Krummrich
+ <dakr@kernel.org>,  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann	
+ <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter	
+ <simona@ffwll.ch>, Dave Airlie <airlied@redhat.com>, 
+ dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Date: Thu, 17 Sep 2026 18:11:36 -0400
+In-Reply-To: <20260808134137.2864847-1-lgs201920130244@gmail.com>
+References: <20260808134137.2864847-1-lgs201920130244@gmail.com>
 User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: yLnyuUepqcdd3cR1EkJv5LjbQ20lqbSPhpL4RhZ2vuc_1789683008
+X-Mimecast-MFC-PROC-ID: 7F87KSpFwsqyLeHwVJqM3XAhBOMkICgxrUUvGUpZ9DQ_1789683100
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -107,75 +104,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Mind adding the proper Fixes: tags and Cc: tags here?
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-On Mon, 2026-08-24 at 17:05 +0800, liupeng wrote:
-> In nouveau_debugfs_init(), if nvif_object_ctor() fails, the
-> previously
-> allocated drm->debugfs is leaked because the function returns the
-> error code directly.
+Will push to drm-misc-fixes in just a moment
+
+On Sat, 2026-08-08 at 21:41 +0800, Guangshuo Li wrote:
+> nouveau_drm_device_init() calls pm_runtime_use_autosuspend(), but
+> nouveau_drm_device_fini() does not call the matching
+> pm_runtime_dont_use_autosuspend().
 >=20
-> In nouveau_hwmon_init(), if hwmon_device_register_with_info() fails,
-> the allocated hwmon structure is leaked because the function returns
-> the error code directly.
+> If the autosuspend delay is set to a negative value while autosuspend
+> is enabled, the runtime PM core increments usage_count to prevent
+> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+> during teardown, this reference is not dropped and usage_count
+> remains
+> unbalanced.
 >=20
-> Fix both by freeing the allocated memory and clearing the pointer on
-> the error paths.
+> The documentation for pm_runtime_use_autosuspend() also notes that it
+> is important to undo it with pm_runtime_dont_use_autosuspend() at
+> driver exit time, unless runtime PM was initially enabled with
+> devm_pm_runtime_enable().
 >=20
-> Signed-off-by: liupeng <liupeng01@kylinos.cn>
+> Add the missing pm_runtime_dont_use_autosuspend() call to the common
+> device teardown path.
+>=20
+> This issue was found by manual code inspection.
+>=20
+> Fixes: 5addcf0a5f0f ("nouveau: add runtime PM support (v0.9)")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_debugfs.c | 15 ++++++++++++---
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_hwmon.c=C2=A0=C2=A0 |=C2=A0 2 ++
-> =C2=A02 files changed, 14 insertions(+), 3 deletions(-)
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_drm.c | 1 +
+> =C2=A01 file changed, 1 insertion(+)
 >=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-> b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-> index 47d5579c568d..88223931f382 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-> @@ -295,13 +295,22 @@ nouveau_drm_debugfs_init(struct drm_minor
-> *minor)
-> =C2=A0int
-> =C2=A0nouveau_debugfs_init(struct nouveau_drm *drm)
-> =C2=A0{
-> +=09int ret;
-> +
-> =C2=A0=09drm->debugfs =3D kzalloc_obj(*drm->debugfs);
-> =C2=A0=09if (!drm->debugfs)
-> =C2=A0=09=09return -ENOMEM;
-> =C2=A0
-> -=09return nvif_object_ctor(&drm->client.device.object,
-> "debugfsCtrl", 0,
-> -=09=09=09=09NVIF_CLASS_CONTROL, NULL, 0,
-> -=09=09=09=09&drm->debugfs->ctrl);
-> +=09ret =3D nvif_object_ctor(&drm->client.device.object,
-> "debugfsCtrl", 0,
-> +=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 NVIF_CLASS_CONTROL, NULL, =
-0,
-> +=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &drm->debugfs->ctrl);
-> +=09if (ret) {
-> +=09=09kfree(drm->debugfs);
-> +=09=09drm->debugfs =3D NULL;
-> +=09=09return ret;
-> +=09}
-> +
-> +=09return 0;
-> =C2=A0}
-> =C2=A0
-> =C2=A0void
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-> b/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-> index 726397ab035d..ffbe7f542ab0 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-> @@ -697,6 +697,8 @@ nouveau_hwmon_init(struct drm_device *dev)
-> =C2=A0=09if (IS_ERR(hwmon_dev)) {
-> =C2=A0=09=09ret =3D PTR_ERR(hwmon_dev);
-> =C2=A0=09=09NV_ERROR(drm, "Unable to register hwmon device:
-> %d\n", ret);
-> +=09=09drm->hwmon =3D NULL;
-> +=09=09kfree(hwmon);
-> =C2=A0=09=09return ret;
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> index e16f59b00f6f..1579a4b0785e 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> @@ -585,6 +585,7 @@ nouveau_drm_device_fini(struct nouveau_drm *drm)
+> =C2=A0=09if (nouveau_pmops_runtime()) {
+> =C2=A0=09=09pm_runtime_get_sync(dev->dev);
+> =C2=A0=09=09pm_runtime_forbid(dev->dev);
+> +=09=09pm_runtime_dont_use_autosuspend(dev->dev);
 > =C2=A0=09}
 > =C2=A0
+> =C2=A0=09nouveau_led_fini(dev);
 
