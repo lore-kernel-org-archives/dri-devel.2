@@ -4,91 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E35FBC982CD
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 06:16:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C552C982CD
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 06:50:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D30810E52B;
-	Thu, 17 Sep 2026 06:16:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B929810E308;
+	Thu, 17 Sep 2026 06:50:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="AZkiVDIo";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="NAOOfaLR";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LH5ruNMC";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="T1hDRImX";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="wblOtbjC";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="TBLLsnlz";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="gQhVQK0B";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="SJHCDlh/";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAE7010E52B
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 06:16:57 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6045B10E308
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 06:50:33 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2E9D72003F;
- Thu, 17 Sep 2026 06:16:48 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B125221D61;
+ Thu, 17 Sep 2026 06:50:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789625812; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1789627827; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=03sHb354peHDuLnPpFcI1Biva5JylP/nsFdqNGyHyw8=;
- b=AZkiVDIor1HT4MlarqJYseMlAIlTZxRb1HnUwgAZxXsif3NuxUfExx7qGFRFZh1GVTWP7D
- W7oeEurwpZjr9FzoO3p5Y8Zhm9fpnuEleMMqQePTORe430k6b51LC5rchAEbKWB2r1oEAJ
- qKjyw/xzP8lcUzA9zVUaWds4zSbDlkU=
+ bh=9fYHboSVW8fHJcZFTTtzAscQSNcUswBho2XC+wgFeyw=;
+ b=wblOtbjCE//IH8attoEp0g1epeDKUawS9gJsxjU/mZksVZaIIjFa35XNjOEGbuP8lETKD9
+ HdvOpHBY+IDduP8LVq1GbmSSWI2RUS821kUGhMUjDKBK029GYomo0szb5xWQqVFaZEbQgM
+ LSd5fRCEZXJP5tOHOLC87mOLBAxSoj8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789625812;
+ s=susede2_ed25519; t=1789627827;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=03sHb354peHDuLnPpFcI1Biva5JylP/nsFdqNGyHyw8=;
- b=NAOOfaLRHwIDCzUxZXR9/VQ5BjMqWE1d0yfrwJIDA/2iKh3zIp1PZpbjw99KJXI+By8z9d
- LacJT12rcjFqSvBQ==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=LH5ruNMC;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=T1hDRImX
+ bh=9fYHboSVW8fHJcZFTTtzAscQSNcUswBho2XC+wgFeyw=;
+ b=TBLLsnlzTwp22yCsGddbv3GJf2nk7s1WWVswpygffnN943EoX7lRNw8v988EXxYW78JsIy
+ JfE5eB3WCk6L7DDg==
+Authentication-Results: smtp-out1.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789625808; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1789627823; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=03sHb354peHDuLnPpFcI1Biva5JylP/nsFdqNGyHyw8=;
- b=LH5ruNMCBZxhucjIK9liS/OAcunv1c8xNWycrYqlsZhX0ZLSr+NwK61ooLw9FFiTObMNw+
- 0Yj8lTikjZxhUvKbYjM3HjIuJXOE5RSienWjSVZ3ueSyZB663bMyE6/5vpHo3/Dc6edjHt
- M3084ly7ys7QiukXriAg5uKogtNh0Jc=
+ bh=9fYHboSVW8fHJcZFTTtzAscQSNcUswBho2XC+wgFeyw=;
+ b=gQhVQK0BrtfaZD8x15/rUb9ZH2/3ksZsfnFmF2eEdbA202P7ncRcVZ6lECeWNaI09eeFnL
+ FbjIo9YT6INisB6b1pLT8rN3amrbO6OmzV8YWdbKZeEgOOut8V7SGnbMq6xpgIUi0UFTjs
+ BBvOSANYXQTa5ltrU1Xs4RW2H8JGxOM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789625808;
+ s=susede2_ed25519; t=1789627823;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=03sHb354peHDuLnPpFcI1Biva5JylP/nsFdqNGyHyw8=;
- b=T1hDRImXPRaigjvJ0g+rH9dma/NjInNe1HIWbFzUNULE5H/KdIzqCFLI2VORNMIBUc0DM3
- zU8TY57KrW3GkxDw==
+ bh=9fYHboSVW8fHJcZFTTtzAscQSNcUswBho2XC+wgFeyw=;
+ b=SJHCDlh/43hkJkJteA7inZN1LtAZxNeSyLHyu2F5N7OqTCmZZKk3m7tXH080OTSXfHSvgL
+ hA6WvG0AUyU+B4AQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AE17013786;
- Thu, 17 Sep 2026 06:16:47 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 617E0134B3;
+ Thu, 17 Sep 2026 06:50:23 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 5YDrE8+Fq2plSgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 17 Sep 2026 06:16:47 +0000
-Message-ID: <1f98d0ec-8432-41ea-a3b1-0fbed621e1bf@suse.de>
-Date: Thu, 17 Sep 2026 08:16:46 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id P/zaAq+Nq2pieAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 17 Sep 2026 06:50:23 +0000
+Message-ID: <2d89b88f-863c-4e8d-839c-5e800b4c4902@suse.de>
+Date: Thu, 17 Sep 2026 08:50:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3] drm/loongson: Create blend mode property for cursor
- plane
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Huacai Chen <chenhuacai@loongson.cn>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Huacai Chen <chenhuacai@kernel.org>,
- Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,
- Xi Ruoyao <xry111@xry111.site>
-Cc: dri-devel@lists.freedesktop.org
-References: <20260903084212.3621540-1-chenhuacai@loongson.cn>
- <a740569552a88eeb51055b73c8f05333269a0780.camel@iscas.ac.cn>
+Subject: Re: [PATCH] firmware/sysfb: Fix device reference count leak in
+ sysfb_disable()
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ Wentao Liang <vulab@iscas.ac.cn>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "javierm@redhat.com" <javierm@redhat.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <20260916073815.1972045-1-vulab@iscas.ac.cn>
+ <BN9PR12MB5146B7A8975825C3623CFF97F7B92@BN9PR12MB5146.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -115,30 +111,21 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <a740569552a88eeb51055b73c8f05333269a0780.camel@iscas.ac.cn>
+In-Reply-To: <BN9PR12MB5146B7A8975825C3623CFF97F7B92@BN9PR12MB5146.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 2E9D72003F
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_TWELVE(0.00)[12];
- FREEMAIL_TO(0.00)[iscas.ac.cn,loongson.cn,gmail.com,ffwll.ch,kernel.org,linux.intel.com,aosc.io,xry111.site];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; MID_RHS_MATCH_FROM(0.00)[];
+ NEURAL_HAM_SHORT(-0.20)[-0.993]; MIME_GOOD(-0.10)[text/plain];
+ FROM_HAS_DN(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,suse.com:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,loongson.cn:email];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DKIM_TRACE(0.00)[suse.de:+]
+ ARC_NA(0.00)[]; TO_DN_EQ_ADDR_SOME(0.00)[]; TO_DN_SOME(0.00)[];
+ MIME_TRACE(0.00)[0:+]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; RCPT_COUNT_FIVE(0.00)[6];
+ RCVD_COUNT_TWO(0.00)[2]; MID_RHS_MATCH_FROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
+ iscas.ac.cn:email, amd.com:email, suse.de:email, suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,78 +141,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi
 
-
-Am 17.09.26 um 07:08 schrieb Icenowy Zheng:
-> 在 2026-09-03四的 16:42 +0800，Huacai Chen写道：
->> After commit 860e748bddcc929 ("drm: ensure blend mode supported if
->> pixel
->> format with alpha exposed") we get warnings at boot:
->>
->> loongson 0000:00:06.1: [drm] [PLANE:41:ls-cursor-plane-0] pixel
->> format with alpha exposed but blend mode not setup. Please fix.
->> loongson 0000:00:06.1: [drm] [PLANE:46:ls-cursor-plane-1] pixel
->> format with alpha exposed but blend mode not setup. Please fix.
->>
->> The reason is the cursor plane supports color formats with alpha but
->> the
->> driver doesn't create blend mode property, which triggers the warning
->> in
->> validate_blend_mode_for_alpha_formats().
->>
->> The loongson DC HW doesn't support DRM_MODE_BLEND_PREMULTI, so create
->> blend mode property with DRM_MODE_BLEND_COVERAGE for cursor planes
->> since
->> it is the only one implemented in the driver.
-> It looks like this patch is hanging here for weeks. Should I apply it
-> to drm-misc-fixes?
-
-Go ahead
-
+Am 16.09.26 um 23:06 schrieb Deucher, Alexander:
+> Public
 >
-> Thanks,
-> Icenowy
->
->> Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+>> -----Original Message-----
+>> From: Wentao Liang <vulab@iscas.ac.cn>
+>> Sent: Wednesday, September 16, 2026 3:38 AM
+>> To: Deucher, Alexander <Alexander.Deucher@amd.com>
+>> Cc: dri-devel@lists.freedesktop.org; javierm@redhat.com; linux-
+>> kernel@vger.kernel.org; tzimmermann@suse.de; Wentao Liang
+>> <vulab@iscas.ac.cn>; stable@vger.kernel.org
+>> Subject: [PATCH] firmware/sysfb: Fix device reference count leak in
+>> sysfb_disable()
+>>
+>> In sysfb_disable(), parent is obtained via sysfb_parent_dev(si), which calls
+>> screen_info_pci_dev(si) and returns a pointer to &pdev->dev with an acquired
+>> reference count. However, sysfb_disable() does not release this reference
+>> before returning, leading to a device reference leak.
+>>
+>> Fix this by checking if parent is not an ERR_PTR and calling
+>> put_device(parent) before releasing the mutex.
+>>
+>> Fixes: b49420d6a1ae ("video/aperture: optionally match the device in
+>> sysfb_disable()")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 >> ---
->>   drivers/gpu/drm/loongson/lsdc_plane.c | 5 +++--
->>   1 file changed, 3 insertions(+), 2 deletions(-)
+>>   drivers/firmware/sysfb.c | 9 ++++++---
+>>   1 file changed, 6 insertions(+), 3 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c
->> b/drivers/gpu/drm/loongson/lsdc_plane.c
->> index bea42215796d..bcc0ffa17bdf 100644
->> --- a/drivers/gpu/drm/loongson/lsdc_plane.c
->> +++ b/drivers/gpu/drm/loongson/lsdc_plane.c
->> @@ -7,6 +7,7 @@
->>   
->>   #include <drm/drm_atomic.h>
->>   #include <drm/drm_atomic_helper.h>
->> +#include <drm/drm_blend.h>
->>   #include <drm/drm_framebuffer.h>
->>   #include <drm/drm_gem_atomic_helper.h>
->>   #include <drm/drm_print.h>
->> @@ -765,7 +766,7 @@ int ls7a1000_cursor_plane_init(struct drm_device
->> *ddev,
->>   
->>   	drm_plane_helper_add(plane,
->> &ls7a1000_cursor_plane_helper_funcs);
->>   
->> -	return 0;
->> +	return drm_plane_create_blend_mode_property(plane,
->> BIT(DRM_MODE_BLEND_COVERAGE));
->>   }
->>   
->>   int ls7a2000_cursor_plane_init(struct drm_device *ddev,
->> @@ -790,5 +791,5 @@ int ls7a2000_cursor_plane_init(struct drm_device
->> *ddev,
->>   
->>   	drm_plane_helper_add(plane,
->> &ls7a2000_cursor_plane_helper_funcs);
->>   
->> -	return 0;
->> +	return drm_plane_create_blend_mode_property(plane,
->> BIT(DRM_MODE_BLEND_COVERAGE));
->>   }
+>> diff --git a/drivers/firmware/sysfb.c b/drivers/firmware/sysfb.c index
+>> 8833582c1883..11c5ce128a6c 100644
+>> --- a/drivers/firmware/sysfb.c
+>> +++ b/drivers/firmware/sysfb.c
+>> @@ -71,9 +71,12 @@ void sysfb_disable(struct device *dev)
+>>
+>>        mutex_lock(&disable_lock);
+>>        parent = sysfb_parent_dev(si);
+>> -     if (!dev || !parent || dev == parent) {
+>> -             sysfb_unregister();
+>> -             disabled = true;
+>> +     if (!IS_ERR(parent)) {
+> Are there cases where sysfb_unregister() would need to be called even if parent returns an error?
+
+It could be seen as a defensive measure. Usually we want to unregister 
+the system framebuffer only if the native driver's device equals the 
+parent. But if we fail to retrieve a parent, it might be better to 
+unregister unconditionally.  Otherwise the sysfb driver might interfere 
+with the native driver.
+
+I think that would be a good idea.
+
+Best regards
+Thomas
+
+
+>
+> Alex
+>
+>> +             if (!dev || !parent || dev == parent) {
+>> +                     sysfb_unregister();
+>> +                     disabled = true;
+>> +             }
+>> +             put_device(parent);
+>>        }
+>>        mutex_unlock(&disable_lock);
+>>   }
+>> --
+>> 2.34.1
 
 -- 
 --
