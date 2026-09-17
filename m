@@ -4,71 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54F51C88E72
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 17:01:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EE47C982DA
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 17:01:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A94310EFA3;
-	Thu, 17 Sep 2026 17:01:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B00910EFF1;
+	Thu, 17 Sep 2026 17:01:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="DcrUmXEE";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="B3hVcA4l";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="turxnDHO";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ic2Q2o2t";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QJGRZrOn";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBF3F10E990
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 17:01:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1789664484;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=JP/uDEX2IPOSsVOnPf5VFYwjODpygq1wiqDkrVKezOo=;
- b=DcrUmXEERbTdtZShmqFgK1Q4nBilmplWPHrVMy0Skb/miS/KtdrLM2X1cq7/CpKzTZIkNm
- 4Uce0g9zZY5qBYbAUwuuXud5gXAn50MBvmuD8A9X+a2SwK1r37A/+YsUjaFANujC38Vcog
- lz7MD7uyxncQVT8CBZdQsQ/XY7P4xyo=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-486-nJQf6tf4P3OrNpxv-SjAFA-1; Thu,
- 17 Sep 2026 13:01:22 -0400
-X-MC-Unique: nJQf6tf4P3OrNpxv-SjAFA-1
-X-Mimecast-MFC-AGG-ID: nJQf6tf4P3OrNpxv-SjAFA_1789664478
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0494C10F01D
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 17:01:20 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 3EE3F18F0F01; Thu, 17 Sep 2026 17:01:18 +0000 (UTC)
-Received: from GoldenWind.lan (unknown [10.22.64.177])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 039E530002C2; Thu, 17 Sep 2026 17:01:15 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Dave Airlie <airlied@redhat.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
- "Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Kees Cook" <kees@kernel.org>, "Simona Vetter" <simona@ffwll.ch>,
- "David Airlie" <airlied@gmail.com>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "Maxime Ripard" <mripard@kernel.org>,
- "Mel Henning" <mhenning@darkrefraction.com>,
- "Hongling Zeng" <zenghongling@kylinos.cn>,
- "Danilo Krummrich" <dakr@kernel.org>, "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v5 2/5] drm/nouveau/gsp/r535: Add support for
- MEMSYS_GET_STATIC_CONFIG
-Date: Thu, 17 Sep 2026 12:58:33 -0400
-Message-ID: <20260917170042.440276-3-lyude@redhat.com>
-In-Reply-To: <20260917170042.440276-1-lyude@redhat.com>
-References: <20260917170042.440276-1-lyude@redhat.com>
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4AE6B1FF79;
+ Thu, 17 Sep 2026 17:01:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1789664475; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=5uhCQu1LsR2DxLlwe1opPC+yCFUyyvPxUdPcJQiuwgQ=;
+ b=B3hVcA4lgerhjCfqx+uuP2w5bXDTmTEgMSIk4jf++hTUpfJmrilnotZLv6tIyDpcb/6F7Z
+ uEji71sKc7nbU7NMiO5W54aVpiOcTTTtzMPwSunSi+BNqw2wR8dfbvT6Bp4uB7++jp7MND
+ yhTFVhvooUWQIhHlskmIpaC+lEFqnA8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1789664475;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=5uhCQu1LsR2DxLlwe1opPC+yCFUyyvPxUdPcJQiuwgQ=;
+ b=turxnDHO1F5xNtO3nEHg1oGSRWCgjaKv5nP29nQFVR/yXMl+jwv371OsTlo2DXacA/vS/v
+ RZdJV9gwxcQlT3Aw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1789664471; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=5uhCQu1LsR2DxLlwe1opPC+yCFUyyvPxUdPcJQiuwgQ=;
+ b=ic2Q2o2tvFk2AE872FumL8erSziaX7E7YYsCvvaPSUV31WuB17F4tDLME7oQrdqBpAFbgr
+ juITDLkcLqddUmKL1G/DP60TdJI47nC01FJVeq3xH2aOlYFraFtQVpEcu3SdnKstk3HYCL
+ b7jhJ+oV1VaHPDCcHRLDBCmufaTVCFk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1789664471;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=5uhCQu1LsR2DxLlwe1opPC+yCFUyyvPxUdPcJQiuwgQ=;
+ b=QJGRZrOnYGKSfVhgApSGkGrqK1CgcrVPHMisCBt21I/J4wk+Htu21dRrGuIIQZrBV22bMI
+ 3lDn16e+kNsZWmDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D9E40134B3;
+ Thu, 17 Sep 2026 17:01:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id pGf7JtYcrGoTLAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 17 Sep 2026 17:01:10 +0000
+Message-ID: <0c61889e-8632-4c68-9c98-bdd639abef66@suse.de>
+Date: Thu, 17 Sep 2026 19:01:10 +0200
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-MFC-PROC-ID: oas29JYqTdRpEFyw1AHtYArc8SwgrsL_hEI6miTwok0_1789664478
-X-Mimecast-Originator: redhat.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/client: fix restore of partially initialized client
+To: shechenglong <shechenglong@xfusion.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stone.xulei@xfusion.com, chenjialong@xfusion.com, stable@vger.kernel.org
+References: <20260907035147.1339-1-shechenglong@xfusion.com>
+ <20260917154743.1621-1-shechenglong@xfusion.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260917154743.1621-1-shechenglong@xfusion.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[xfusion.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch]; 
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCPT_COUNT_SEVEN(0.00)[10]; MID_RHS_MATCH_FROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[xfusion.com:email, suse.com:url,
+ imap1.dmz-prg2.suse.org:helo, suse.de:email, suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,156 +141,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is a GSP structure describing various characteristics of the memory
-management system that GSP provides. Start by fetching it during driver
-load, but don't do anything with the information we get from it just yet.
+Hi,
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Reviewed-by: Dave Airlie <airlied@redhat.com>
+I merged the patch into drm-misc-fixes.
 
----
-V3
-* s/nvkm_gsp_rm_ctrl_get()/nvkm_gsp_rm_ctrl_rd()/
-V4:
-* Remove mistakenly duplicated struct
+Best regards
+Thomas
 
- .../gpu/drm/nouveau/include/nvkm/subdev/gsp.h |  4 ++
- .../drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 17 +++++++
- .../nvkm/subdev/gsp/rm/r535/nvrm/gsp.h        | 45 +++++++++++++++++++
- .../drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c |  8 ++++
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h   |  1 +
- 5 files changed, 75 insertions(+)
+Am 17.09.26 um 17:47 schrieb shechenglong:
+> I got a null-ptr-deref report when closing a DRM file descriptor:
+>
+> WARNING: drivers/gpu/drm/drm_atomic.c:2031 at
+> __drm_atomic_helper_set_config+0x18e/0x1b0 [drm]
+>
+> Call Trace:
+> drm_client_modeset_commit_atomic+0x16b/0x220 [drm]
+> drm_client_modeset_commit_locked+0x56/0x160 [drm]
+> drm_client_modeset_commit+0x21/0x40 [drm]
+> __drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x7b/0x80
+> drm_fbdev_client_restore+0xe/0x20 [drm_client_lib]
+> drm_client_dev_restore+0x9f/0xc0 [drm]
+> drm_release+0xc5/0xe0 [drm]
+>
+> The warning is followed by a NULL pointer dereference:
+>
+> BUG: kernel NULL pointer dereference, address: 0000000000000008
+>
+> RIP:
+> __drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x41/0x80
+> [drm_kms_helper]
+>
+> Call Trace:
+> drm_fbdev_client_restore+0xe/0x20 [drm_client_lib]
+> drm_client_dev_restore+0x9f/0xc0 [drm]
+> drm_release+0xc5/0xe0 [drm]
+> __fput+0xdc/0x2b0
+> __x64_sys_close+0x39/0x80
+> do_syscall_64+0x8d/0x460
+> entry_SYSCALL_64_after_hwframe+0x76/0x7e
+>
+> drm_client_register() adds the DRM client to the device client list
+> before invoking the initial hotplug callback. If the hotplug callback
+> fails, the client remains registered.
+>
+> For the fbdev client, a failure during drm_fb_helper_initial_config()
+> causes the partially initialized fbdev helper to be cleaned up.
+> drm_fb_helper_fini() releases fb_helper->info and leaves it NULL.
+>
+> The fbdev client therefore remains registered even though there is no
+> fully initialized framebuffer device.
+>
+> Later, when userspace closes the DRM file descriptor, drm_release()
+> can invoke the restore callbacks of registered DRM clients:
+>
+> drm_release()
+> drm_client_dev_restore()
+> drm_fbdev_client_restore()
+> drm_fb_helper_restore_fbdev_mode_unlocked()
+>
+> drm_fbdev_client_restore() currently restores the fbdev state
+> unconditionally. For a partially initialized fbdev client this can
+> submit an incomplete modeset state and subsequently access fbdev
+> state which has not been initialized, resulting in the warning and
+> NULL pointer dereference above.
+>
+> drm_fbdev_client_unregister() already uses fb_helper->info to
+> distinguish a fully probed framebuffer device from a partially
+> initialized client.
+>
+> Use the same condition in drm_fbdev_client_restore() and skip restore
+> if no framebuffer device has been successfully initialized.
+>
+> Fixes: 5d08c44e47b9 ("drm/fbdev: Add memory-agnostic fbdev client")
+> Cc: <stable@vger.kernel.org> # v6.13+
+>
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Signed-off-by: shechenglong <shechenglong@xfusion.com>
+> ---
+> Changes in v2:
+> - Add the Fixes and stable tags suggested by Thomas Zimmermann.
+>
+>   drivers/gpu/drm/clients/drm_fbdev_client.c | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/clients/drm_fbdev_client.c b/drivers/gpu/drm/clients/drm_fbdev_client.c
+> index 91d196a397cf..1c16bc1084c4 100644
+> --- a/drivers/gpu/drm/clients/drm_fbdev_client.c
+> +++ b/drivers/gpu/drm/clients/drm_fbdev_client.c
+> @@ -42,6 +42,14 @@ static int drm_fbdev_client_restore(struct drm_client_dev *client, bool force)
+>   {
+>   	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+>   
+> +	/*
+> +	 * The client is registered before the initial fbdev probe.
+> +	 * If probing failed, the client remains registered but there
+> +	 * is no valid fbdev framebuffer to restore.
+> +	 */
+> +	if (!fb_helper->info || !fb_helper->fb)
+> +		return 0;
+> +
+>   	drm_fb_helper_restore_fbdev_mode_unlocked(fb_helper, force);
+>   
+>   	return 0;
 
-diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-index cd10c37053695..ed5c6e0e68d3c 100644
---- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-+++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-@@ -156,6 +156,10 @@ struct nvkm_gsp {
- 		struct sg_table fbsr;
- 	} sr;
- 
-+	struct {
-+		bool use_raw_mode_comptagline_alloc;
-+	} memsys;
-+
- 	struct {
- 		struct nvkm_gsp_mem mem;
- 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-index 94925f1590ea4..63aa30f947471 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-@@ -1782,6 +1782,23 @@ r535_gsp_fini(struct nvkm_gsp *gsp, enum nvkm_suspend_state suspend)
- 	return 0;
- }
- 
-+int
-+r535_gsp_get_static_memsys_info(struct nvkm_gsp *gsp)
-+{
-+	NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS *ctrl;
-+
-+	ctrl = nvkm_gsp_rm_ctrl_rd(&gsp->internal.device.subdevice,
-+				    NV2080_CTRL_CMD_INTERNAL_MEMSYS_GET_STATIC_CONFIG,
-+				    sizeof(*ctrl));
-+	if (IS_ERR(ctrl))
-+		return PTR_ERR(ctrl);
-+
-+	gsp->memsys.use_raw_mode_comptagline_alloc = ctrl->bUseRawModeComptaglineAllocation;
-+
-+	nvkm_gsp_rm_ctrl_done(&gsp->internal.device.subdevice, ctrl);
-+	return 0;
-+}
-+
- int
- r535_gsp_init(struct nvkm_gsp *gsp)
- {
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-index b6683a5bf870c..7b10b7548c575 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-@@ -782,6 +782,51 @@ typedef struct NV2080_CTRL_INTERNAL_INTR_GET_KERNEL_TABLE_PARAMS {
- 
- #define GSP_FW_HEAP_PARAM_CLIENT_ALLOC_SIZE      ((48 << 10) * 2048)   // Support 2048 channels
- 
-+typedef struct NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS {
-+    /*! Determines if RM should use 1 to 1 Comptagline allocation policy */
-+    NvBool bOneToOneComptagLineAllocation;
-+
-+    /*! Determines if RM should use 1 to 4 Comptagline allocation policy */
-+    NvBool bUseOneToFourComptagLineAllocation;
-+
-+    /*! Determines if RM should use raw Comptagline allocation policy */
-+    NvBool bUseRawModeComptaglineAllocation;
-+
-+    /*! Has COMPBIT_BACKING_SIZE been overridden to zero (i.e. disabled)? */
-+    NvBool bDisableCompbitBacking;
-+
-+    /*! Determine if we need to disable post L2 compression */
-+    NvBool bDisablePostL2Compression;
-+
-+    /*! Is ECC DRAM feature supported? */
-+    NvBool bEnabledEccFBPA;
-+
-+    NvBool bL2PreFill;
-+
-+    /*! L2 cache size */
-+    NV_DECLARE_ALIGNED(NvU64 l2CacheSize, 8);
-+
-+    /*! Indicate whether fpba is present or not */
-+    NvBool bFbpaPresent;
-+
-+    /*! Size covered by one comptag */
-+    NvU32  comprPageSize;
-+
-+    /*! log32(comprPageSize) */
-+    NvU32  comprPageShift;
-+
-+    /*! RAM type */
-+    NvU32  ramType;
-+
-+    /*! LTC count */
-+    NvU32  ltcCount;
-+
-+    /*! LTS per LTC count */
-+    NvU32  ltsPerLtcCount;
-+} NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS;
-+
-+#define NV2080_CTRL_CMD_INTERNAL_MEMSYS_GET_STATIC_CONFIG        (0x20800a1c) /* finn: Evaluated from "(FINN_NV20_SUBDEVICE_0_INTERNAL_INTERFACE_ID << 8) | NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS_MESSAGE_ID" */
-+
- typedef union rpc_message_rpc_union_field_v03_00
- {
-     NvU32      spare;
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-index dfda6b0b910a2..dff2081ed764f 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-@@ -138,6 +138,14 @@ r570_gsp_get_static_info(struct nvkm_gsp *gsp)
- 		}
- 	}
- 
-+	ret = r535_gsp_get_static_memsys_info(gsp);
-+	if (ret) {
-+		nvkm_error(&gsp->subdev, "Retrieving static memsys info failed\n");
-+		return ret;
-+	}
-+	nvkm_debug(&gsp->subdev, "memsys: Use raw mode for comptag allocations? %s\n",
-+		   str_yes_no(gsp->memsys.use_raw_mode_comptagline_alloc));
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-index 86970129ad96a..17480d4e527ac 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-@@ -176,6 +176,7 @@ int r535_gr_promote_ctx(struct r535_gr *, bool golden, struct nvkm_vmm *,
- 			struct nvkm_memory **pctxbuf_mem, struct nvkm_vma **pctxbuf_vma,
- 			struct nvkm_gsp_object *chan);
- int r570_gsp_gcx_ready(struct nvkm_gsp *gsp);
-+int r535_gsp_get_static_memsys_info(struct nvkm_gsp *gsp);
- extern const struct nvkm_rm_api_engine r535_nvdec;
- extern const struct nvkm_rm_api_engine r535_nvenc;
- extern const struct nvkm_rm_api_engine r535_nvjpg;
 -- 
-2.55.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
