@@ -4,44 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BA2CC88E72
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 14:14:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E8FDC88E72
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 14:17:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F1C510EED9;
-	Thu, 17 Sep 2026 14:14:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6985E10EEE4;
+	Thu, 17 Sep 2026 14:17:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FWimDGj3";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="h6QEB0nl";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7B1A10EED9
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 14:14:08 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 983A960204;
- Thu, 17 Sep 2026 14:14:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E97B01F000FF;
- Thu, 17 Sep 2026 14:14:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789654447;
- bh=cpwZ9carUYtl87VKALOi7gLN5i+7uaZp55JKc1ylHqI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FWimDGj3Mx5W9TD/hfp/qATVSfi72A/d+7Xkxxo/Cwu+q+JfXjXa2MPgGS3hflzEb
- 6iyIQ/YF36036EhgWODUTrqudd6whdOjnwlzDLuCcAau3332JNSbmZB8KefIvuON2L
- ZeAKJdCv0JVeTHWLHoe4n2cty5U5IvBrn+mtfFeITSBBWzjKUl74CRtHcs8kyt0U1e
- /0YmInYBoZe+T3sUVGM/ZNKo8U3WrSwxj0wDEgyOy2A90IOd1fIBToVPvXFqM6Y1sf
- I40iNqF0s4IjAJwjamVXHxEHWyR5eNKIZtLKpUfp/koF90ItWFR3kk/X9e3zDSpbPE
- snxWJKWCVz5hA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/4] dt-bindings: lcdif: Add endpoint bus-width property
-To: "Francesco Dolcini" <francesco@dolcini.it>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260917140042.118181-2-francesco@dolcini.it>
-References: <20260917140042.118181-1-francesco@dolcini.it>
- <20260917140042.118181-2-francesco@dolcini.it>
-Content-Type: text/plain; charset=utf-8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 163D610E88D
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 14:17:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789654628; x=1821190628;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=MDZHHIBC+OMEMEsQQONixUk9LTcLJLWtKNH7Kg/sPTo=;
+ b=h6QEB0nlR8z73OSfSy8ucVxshES69TJ1lMrKAyHdkLnuKwJYPGTwETks
+ 6nVQRhzAsqwa0wMZfQJOA1oXMMK9OnfDOM4Xlro3xTcsHwSrTTBTsjk5o
+ XpLsGnDWimsVkkQWTteIBPpYYVuuKB9JdmMp8w3BewUpi9L5qKhLxmoOM
+ azLUJyRtcXmF9r4hbnF537l6JTj4+Luntc+T5gXeYWJj5ArSwJ2+yuCGu
+ ampmAD1EiwGyKLUuaV0R3esw3p9oiwiKa7mUYUuDgX+cCMzIK5efRYPJd
+ zLiKYAkR89149ey4KivgxUIObrco4mhquHoawL39GeZgH6Ray38jydBz9 g==;
+X-CSE-ConnectionGUID: nZDTW8NETZKqu4YrJ7yLxA==
+X-CSE-MsgGUID: S+AqqBMNQq+GN3I0r6zJyA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89214240"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="89214240"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2026 07:17:04 -0700
+X-CSE-ConnectionGUID: /Qnwxs0ASJKRCbdsv2wkEA==
+X-CSE-MsgGUID: kKQtuzvqRtudznznbRbuAw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="279045906"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.245.63])
+ ([10.245.245.63])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2026 07:16:59 -0700
+Message-ID: <7d8118ee06f29b73988108c0892022b3a2626f1d.camel@linux.intel.com>
+Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
+ direct peer-to-peer route
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ Logan Gunthorpe <logang@deltatee.com>, Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman	 <gregkh@linuxfoundation.org>, Jens Axboe
+ <axboe@kernel.dk>, Alex Williamson	 <alex@shazbot.org>, Ankit Agrawal
+ <ankita@nvidia.com>, Jonathan Corbet	 <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, "Joerg Roedel (AMD)"	 <joro@8bytes.org>, Will
+ Deacon <will@kernel.org>, Robin Murphy	 <robin.murphy@arm.com>, Randy
+ Dunlap <rdunlap@infradead.org>, Sumit Semwal	 <sumit.semwal@linaro.org>,
+ Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>,
+ linux-pci@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,  Tushar Dave
+ <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 	linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+Date: Thu, 17 Sep 2026 16:16:57 +0200
+In-Reply-To: <20260917140253.GG3196566@ziepe.ca>
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
+ <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
+ <20260917140253.GG3196566@ziepe.ca>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 14:14:06 +0000
-Message-Id: <20260917141406.E97B01F000FF@smtp.kernel.org>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,68 +84,52 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: fsl,lcdif: endpoint constraints bypassed for unit-addr=
-essed endpoints
---
+On Thu, 2026-09-17 at 11:02 -0300, Jason Gunthorpe wrote:
+> On Thu, Sep 17, 2026 at 03:56:12PM +0200, Thomas Hellstr=C3=B6m wrote:
+>=20
+> > That is, a flag to tell the topology check that some transactions
+> > *will* take the host-bridge path due to IOVA being used, and that
+> > the
+> > computations including pci_p2pdma_distance() need to check whether
+> > that
+> > is possible (checking whitelist etc.) and return the corresponding
+> > THRU_HOST_BRIDGE mapping type. Translated transactions taking a
+> > short-
+> > cut using the bus-address would then be hidden from the driver.
+>=20
+> I imagined it would work by the driver passing in what modes it
+> supports and Intel GPU would simply pass in ATS only.
+>=20
+> Even something like mlx has variation, only some operations can opt
+> into ATS, many others are never-ATS.
+>=20
+> Driver should not make statements like " *will* take the host-bridge
+> path" since it has no idea.
 
-commit fb72496bb41dc4492a1048af127118bf41d36a4a
-Author: Francesco Dolcini <francesco.dolcini@toradex.com>
+Yes, agreed, but anyway DMA-BUF would then, as part of the
+dynamic_attach negotiation have an interface that takes an ATS only
+flag and use it to determine whether P2P is possible at all, and use
+them at mapping time to set up the correct SG list (IOVA or BUS
+address).
 
-dt-bindings: lcdif: Add endpoint bus-width property
+Similarly the dma_map_page() needs to know these flags for p2pdma pages
+so that it never sets up a BUS_ADDRESS to an ATS-enabled device that
+didn't explicitly ask for it?
 
-The DPI output of the LCD interface can be configured with a bus width
-of 16, 18, or 24 bits. Introduce a bus-width property to the output
-endpoint, specifying the number of parallel RGB bits connected.
+And this all (and in addition the previous discussion around pcie
+subsystems calls from within dma-buf, and data-types for mapping
+information) makes me think that abstracting fast dma-buf interconnects
+along with our previous discussions is a good thing. Then interconnect
+details and cross-subsystem dependencies can be hidden in the
+interconnect implementations, suitably placed in the tree.
 
-> diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/D=
-ocumentation/devicetree/bindings/display/fsl,lcdif.yaml
-> index 2dd0411ec6516..89cea0c14cf1d 100644
-> --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> @@ -68,9 +68,19 @@ properties:
->      maxItems: 1
-> =20
->    port:
-> -    $ref: /schemas/graph.yaml#/properties/port
-> +    $ref: /schemas/graph.yaml#/$defs/port-base
-> +    unevaluatedProperties: false
->      description: The LCDIF output port
-> =20
-> +    properties:
-> +      endpoint:
 
-[Severity: Low]
-Does restricting this to the literal 'endpoint' key bypass validation for
-unit-addressed endpoints?
+Thanks,
+Thomas
 
-Existing in-tree device trees, such as arch/arm64/boot/dts/freescale/imx93.=
-dtsi,
-define unit-addressed endpoints under the lcdif port:
 
-		lcdif_to_ldb: endpoint@1 {
-			reg =3D <1>;
-
-Because this uses the literal 'endpoint' key rather than a pattern property
-like "^endpoint(@[0-9a-f]+)?$", multi-endpoint configurations will fail
-to match this rule.
-
-This causes device tree validation to silently bypass the bus-width enum
-constraints and other video-interfaces.yaml rules for those configurations.
-
-> +        $ref: /schemas/media/video-interfaces.yaml
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          bus-width:
-> +            enum: [ 16, 18, 24 ]
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917140042.1181=
-81-1-francesco@dolcini.it?part=3D1
+>=20
+> Jason
