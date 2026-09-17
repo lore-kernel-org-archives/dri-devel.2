@@ -4,76 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75B23C982C1
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 06:55:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC33CC982CD
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 06:57:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1D7410E599;
-	Thu, 17 Sep 2026 06:55:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19C5710E638;
+	Thu, 17 Sep 2026 06:57:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K+tHetcK";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Nhqvs3nW";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB94310E599
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 06:55:17 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9232360200;
- Thu, 17 Sep 2026 06:55:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BC1C1F000FF;
- Thu, 17 Sep 2026 06:55:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789628116;
- bh=0cpgHu6US2Uily33ztbXw+ldbSJYhicXWHuvO/gNsVk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=K+tHetcK34nXqZBo42umrkNZLCznX3OoUq60qydN7AWoh72XWvcHTY/HcOOnlVtde
- qVJDbPHGv5E5c68XcmAedHb6xb4daXvABWGiXNaLlYUpAdnbZogBFYd115b3AE+shz
- lWQfEnWIe6toV9HtZ1f/1chhdhHOg6d1ZtV1Z8ZNoNEaXe+qazVRUDdYXl7shlvtfS
- aR+wVMFKp+rYB+FgjNa7kjeoqO3gvs/tK0lWB37KVziPoHtKU2JdgCuI5gAlFSvgyp
- TwNNJ7vybPmM2yKYtZzl/vGyfuN2r2q19v8Ma1zKH8xpqdbIND17H4cD4tByqqW3N9
- jgF9iWc/O7F2A==
-Date: Thu, 17 Sep 2026 08:55:12 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>,
- Andy Yan <andy.yan@rock-chips.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>,
- Hal Feng <hal.feng@starfivetech.com>,
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, 
- Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-riscv@lists.infradead.org, Marek Szyprowski <m.szyprowski@samsung.com>, 
- Maud Spierings <maud_spierings@murena.io>,
- Graham Markall <hello@big-grey.co.uk>, 
- Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
- Joshua Peisach <jpeisach@ubuntu.com>,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v4 04/20] dt-bindings: soc: starfive: Add
- starfive,jh7110-vout-syscon
-Message-ID: <20260917-crazy-meteoric-trout-3c041d@quoll>
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
- <CGME20260915153220eucas1p1f5b0e03015500d9d66db8993426c8734@eucas1p1.samsung.com>
- <20260915-jh7110-clean-send-v4-4-f0e4fd6f2cc8@samsung.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9950B10E638;
+ Thu, 17 Sep 2026 06:57:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789628248; x=1821164248;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=emH1J4cBgiN5T9BbNi7z7yhKApmeSxcgOTtnbUvF3DA=;
+ b=Nhqvs3nWjxPy63A9i4ZUptin9VKCY5NdVQQoy6sbt1o4jJFb+ekcGjFd
+ y85WZ72Nk7ukAsTp4KvOrhzrtNYJPKShdcxNFl6k9js4Ylt/Pzq9b8x06
+ esgOx/W6/sZIDU5bukL54K6BGrErWNaz42/xxP8QUInwj9xDfiGyFmvVY
+ NUfZEYMiEnhxyTRQRnfEsLz+AOh7nGTIRL8ALSfBiVrm2hVE9tCOJB/Oz
+ TiHqHMA43h7z5ZKINKXiQ9KqKjZ8uzCOLFSMpjg54OuVw8GkzviXWo1e6
+ xAE8/91w7iwL6Nus63QodkmKjqXfdyayc8LvtJ0Qcdr/sGbeIPLgQkbBY A==;
+X-CSE-ConnectionGUID: MSjeaNLzQNiFg5dC6wvDhQ==
+X-CSE-MsgGUID: JNWhsgwvSP6M4i0QDRV+eg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93846236"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="93846236"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2026 23:57:25 -0700
+X-CSE-ConnectionGUID: 7sCm9ffsTReAiqJK44SzgA==
+X-CSE-MsgGUID: 8gnKXQFZRDiQK/kt8e4gZw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="269333869"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.16])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2026 23:57:21 -0700
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260915-jh7110-clean-send-v4-4-f0e4fd6f2cc8@samsung.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260916171935.2087305-1-vulab@iscas.ac.cn>
+References: <20260916171935.2087305-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] drm/i915: Fix vm reference leak in mock_gem_device()
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: andi.shyti@linux.intel.com, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ linux-kernel@vger.kernel.org, matthew.d.roper@intel.com,
+ rodrigo.vivi@intel.com, simona@ffwll.ch, sujaritha.sundaresan@intel.com,
+ tursulin@ursulin.net, Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
+To: Wentao Liang <vulab@iscas.ac.cn>, airlied@gmail.com
+Date: Thu, 17 Sep 2026 09:57:18 +0300
+Message-ID: <178962823827.28653.5098493516220452854@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,19 +73,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 15, 2026 at 05:32:12PM +0200, Michal Wilczynski wrote:
-> The video output subsystem has its own system controller, documented as
-> dom_vout_syscon. Among other things it holds the mux that selects which
-> DC8200 output drives the HDMI transmitter, so the HDMI controller needs
-> to reach it.
-> 
-> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
-> ---
->  .../devicetree/bindings/soc/starfive/starfive,jh7110-syscon.yaml         | 1 +
->  1 file changed, 1 insertion(+)
+Quoting Wentao Liang (2026-09-16 20:19:35)
+> mock_gem_device() takes a reference on the GGTT vm for gt->vm, but
+> neither mock_device_release() nor the setup error paths drop it, unlike
+> the real teardown where intel_gt_driver_release() releases gt->vm.
+> Drop the reference before mock_fini_ggtt() and on the error paths.
+>=20
+> Fixes: cdeea858d8df ("drm/i915: Remove unused i915->ggtt")
+> Cc: stable@vger.kernel.org
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+We're not putting Fixes and definitely not Cc: stable for selftest
+improvements.
 
-Best regards,
-Krzysztof
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
+You clearly did not try to address any of the issues per the surrounding
+coding style or understand the severity before Cc stable, but just generated
+some static code fixes and commit messages with LLM.
+
+Looking at your history of spamming the LKML with 30+ patches per day
+and not a single response for requests to fix things or add the
+Assisted-by tag, don't really expect you or even your LLM to read this.
+So this reply is more for documentation purposes.
+
+Doesn't really inspire any confidence to merge anything or look at any
+further of your multiple patches which you send separately and not in
+series in the hopes of getting some merged even when pushback in others.
+
+If I happen to be wrong, let me know.
+
+Regards, Joonas
