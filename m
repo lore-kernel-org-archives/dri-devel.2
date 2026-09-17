@@ -4,85 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C563C982C1
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 07:05:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D6F1C982C1
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 07:16:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42CC110E8BE;
-	Thu, 17 Sep 2026 07:05:18 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="hRpLQ70o";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="uwcN4+Ps";
-	dkim-atps=neutral
-Received: from fhigh-a2-smtp.messagingengine.com
- (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D2D610E8C0;
- Wed, 16 Sep 2026 08:22:37 +0000 (UTC)
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 70FD514001FE;
- Wed, 16 Sep 2026 04:22:36 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-08.internal (MEProxy); Wed, 16 Sep 2026 04:22:36 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- invisiblethingslab.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:subject:subject:to
- :to; s=fm1; t=1789546956; x=1789633356; bh=RjjXMwO3RBHhN10FlHwFS
- JNkrOjydygpbSv33I0kjNg=; b=hRpLQ70oc3RG9dD0nXCXmAEiDbJhGfJYT46oz
- MX5gtetl0J1wtwOeCaUGgtqL9dVqntxYNEVRnUdP4cVxvvfYvdOMd5hoAEYDKmcR
- lus2bh9/CCqbMF/aP1msNoh3VCE3b78DzuEIk0cgnP76LBYJkGsXRI7Uyf6DCc9h
- 19pQCpgRwhtZrwgj0aPVAOX3bvjcsDILVBfLP6McetE4EwNgGW2lH+u8VQQbOViv
- 1jarod7ODO0ZT+rmQjbxwssTQUTCgDGuPkAojUEjyWUsx4i1KcG3kFMhxRvkrHbc
- ynBQOZO65UhCyZPQhvuei5J+L5C8UfXuAXXfQT7AEjSqGHlLw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; t=1789546956; x=1789633356; bh=R
- jjXMwO3RBHhN10FlHwFSJNkrOjydygpbSv33I0kjNg=; b=uwcN4+PsaRMWo8t2Z
- O70Mjgh2qaXZUiybtF0blAVa8KIINka9xa0ejJUhGiw3oFCP3eVxZJr78qx/0sS6
- DkAAeesMIAnex1U0cn6UiNCNvmc9v2aglaOIPEESQoXGf3fYaxQynG0ZsogXOJQ2
- tu3ztAaqWj0vq0cTmvHX9dmqD8lFF4T2JP+mATnhL+JFULagW6nOZtOuktChvIyG
- IF3oO7FcjTCdO+8e/XuaIE0Uu81MlSf7bvsNBTIleLeTsj4GFHuaQoaN/tfvE4Af
- LQUwZcOUK323mvn+tmBex/eZerBlqRz3tCmZ+dhOkPuofviCe3zRyDvyq1CsoRc2
- cJD+A==
-X-ME-Sender: <xms:zFGqamj3l-85ka1StKLz9Wg9kYHaC4CmPjSZmts4vqkwcYp53J4hHQ>
- <xme:zFGqapmnjwJxbzBmX_hBFILiVtmclH0JE45jjVOn3A395JQnF1C19_BVTrNOR8cNR
- mLj1WHnFVqt3R5G5CNV5DjmkIeBtXXRHmpSsg2zWv3bvKk7gkE>
-X-ME-Received: <xmr:zFGqahun590ZEzDD7fSCs58lj4KxfPJVWyQ2j5RYntCnxQVDUihMPdNrk4uvFkhRu5DWLDWGxEZu>
-X-ME-Proxy-Cause: dmFkZTFjALIVprZhtt7ZqpzfHXxszJynVq6cy3cumQYNy92JwiWl76o59hd46DRSJCK7bs
- fDy7agiGOpVisM7lAwV7WTJtVJ776e1E9d/3WI0PxwufSF+YSQrjB/Jqtq5DbSwa/nWkf3
- xnUMgCvJMBfyp7auhPYv97TsOsT6SXZcrNrXuS/nhfU/8Q4674cUiHvsu+v2s1SqPNRdyw
- xytLlIZufebWPN0F+nkTz9U3xB+zVYB0b1k61J//8NoC5yfkEiH6pQEQWQayBb2MpohjRE
- t5ZmWM7pbfV55pXX0I8Q+s8COmIvcH7koD7eaYedl9dFhW9fatu1xmO5QpYUI7++r4jReK
- 8ut51Bj0QpuuOHQryLvRxPfW4/Kk7+JtySRT9UbeNiOS57Z4YHO+XccTjRgaVWM1oSV30v
- EkBzPrIcMcP88qeMXH0DOuhye16V4onZLqJQ3VZopA9XYPyK9pELgyr01IwQ+DAnTCxZ41
- JOmoEf2xnrE9lLmfYwgTyudoBcc8HbN3sXeasUMe7vInrstrfBoN7OMHGxDnJpYLxUlGPF
- bo2LX5krukBngQ9BIqdpBJSV2yG7IJtjjOJNTKy+hAc0qqDtOXzACmtnroEzALSou9g2ao
- QZJewunSl1ucy3nBlK1jRdufSfjTYGdv+CASmdzLL3YpfhK4zseIWyW3bWcQ
-X-ME-Proxy: <xmx:zFGqavYdNSCXeJNvejqXD6joi-tQjBUPI2NlXsfC7qc6YVlRcCMBrw>
- <xmx:zFGqapD10ONosXyv7OdVuf80fQ4X0mAGl8PKkHTYu_u7ZMFKSzuSYg>
- <xmx:zFGqan-k-Q42LqM8F7xMxQSe0AV_Bm5nxJ3rUAc-h6ubJvSKvewhPw>
- <xmx:zFGqalQgMDoOIilOzaEBnRAW-p83GciKDuQ_mHRCcOuHjfPkIatr9w>
- <xmx:zFGqapUv7mNnHXl29R3cT22Nx5-dM8nDNyRvWCxwQeDIVDb1GYwgHc6Y>
-Feedback-ID: i792e4853:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 16 Sep 2026 04:22:32 -0400 (EDT)
-From: =?UTF-8?q?Szymon=20Aceda=C5=84ski?= <accek@invisiblethingslab.com>
-To: intel-xe@lists.freedesktop.org
-Cc: lucas.demarchi@intel.com, thomas.hellstrom@linux.intel.com,
- rodrigo.vivi@intel.com, matthew.brost@intel.com,
- maarten.lankhorst@linux.intel.com, marmarek@invisiblethingslab.com,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] drm/xe: Limit sg segment size to PAGE_SIZE on Xen PV
-Date: Wed, 16 Sep 2026 10:22:22 +0200
-Message-ID: <20260916082222.2650308-1-accek@invisiblethingslab.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260820101212.1608543-1-accek@invisiblethingslab.com>
-References: <20260820101212.1608543-1-accek@invisiblethingslab.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CC1C10E5AB;
+	Thu, 17 Sep 2026 07:16:44 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89F4110E5AB
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 07:16:41 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
+ by APP-05 (Coremail) with SMTP id zQCowABXh0HSk6tq0IV7CA--.37891S2;
+ Thu, 17 Sep 2026 15:16:34 +0800 (CST)
+Message-ID: <3340e2f95503da758cdcb086ed9b95d166fe93a7.camel@iscas.ac.cn>
+Subject: Re: [PATCH V3] drm/loongson: Create blend mode property for cursor
+ plane
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Huacai Chen <chenhuacai@loongson.cn>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Huacai Chen <chenhuacai@kernel.org>,
+ Jianmin Lv <lvjianmin@loongson.cn>,  Qianhai Wu <wuqianhai@loongson.cn>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Mingcong Bai
+ <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>
+Cc: dri-devel@lists.freedesktop.org
+Date: Thu, 17 Sep 2026 15:16:34 +0800
+In-Reply-To: <20260903084212.3621540-1-chenhuacai@loongson.cn>
+References: <20260903084212.3621540-1-chenhuacai@loongson.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 17 Sep 2026 07:04:01 +0000
+X-CM-TRANSID: zQCowABXh0HSk6tq0IV7CA--.37891S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kr47ArWkAFy8tw43Ww47XFb_yoW8tFWUpa
+ nxAFW0kr98AayDt34DAa4fKa13Za1fG34vqr95X39F9r1qkrnxAF1UGrnIgrWUJr47Grya
+ gr97Crn8CF4jkr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+ A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+ w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+ vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+ 1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+ C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+ wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+ v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+ jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
+ ZFpf9x07betCcUUUUU=
+X-Originating-IP: [112.94.103.44]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,21 +67,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Gentle ping.
+=E5=9C=A8 2026-09-03=E5=9B=9B=E7=9A=84 16:42 +0800=EF=BC=8CHuacai Chen=E5=
+=86=99=E9=81=93=EF=BC=9A
+> After commit 860e748bddcc929 ("drm: ensure blend mode supported if
+> pixel
+> format with alpha exposed") we get warnings at boot:
+>=20
+> loongson 0000:00:06.1: [drm] [PLANE:41:ls-cursor-plane-0] pixel
+> format with alpha exposed but blend mode not setup. Please fix.
+> loongson 0000:00:06.1: [drm] [PLANE:46:ls-cursor-plane-1] pixel
+> format with alpha exposed but blend mode not setup. Please fix.
+>=20
+> The reason is the cursor plane supports color formats with alpha but
+> the
+> driver doesn't create blend mode property, which triggers the warning
+> in
+> validate_blend_mode_for_alpha_formats().
+>=20
+> The loongson DC HW doesn't support DRM_MODE_BLEND_PREMULTI, so create
+> blend mode property with DRM_MODE_BLEND_COVERAGE for cursor planes
+> since
+> it is the only one implemented in the driver.
+>=20
+> Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
 
-Maybe this was missed, because it's my first patch here and
-patchwork reports that I'm not in the allowlist for CI.
-
-  https://patchwork.freedesktop.org/series/172525/
-
-Could someone trigger a retest (and ideally add accek@invisiblethingslab.com
-to the allowlist)? Happy to resend or rebase if preferred.
-
-This fixes xe being unusable as a Xen PV dom0 GPU driver (display
-corruption, GuC job timeouts and eventual swiotlb exhaustion) --
-https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8382.
-
-It's the Qubes OS on Lunar Lake issue Maarten was looking into in June.
+Applied to drm-misc-fixes.
 
 Thanks,
-Szymon
+Icenowy
+
+> ---
+> =C2=A0drivers/gpu/drm/loongson/lsdc_plane.c | 5 +++--
+> =C2=A01 file changed, 3 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c
+> b/drivers/gpu/drm/loongson/lsdc_plane.c
+> index bea42215796d..bcc0ffa17bdf 100644
+> --- a/drivers/gpu/drm/loongson/lsdc_plane.c
+> +++ b/drivers/gpu/drm/loongson/lsdc_plane.c
+> @@ -7,6 +7,7 @@
+> =C2=A0
+> =C2=A0#include <drm/drm_atomic.h>
+> =C2=A0#include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_blend.h>
+> =C2=A0#include <drm/drm_framebuffer.h>
+> =C2=A0#include <drm/drm_gem_atomic_helper.h>
+> =C2=A0#include <drm/drm_print.h>
+> @@ -765,7 +766,7 @@ int ls7a1000_cursor_plane_init(struct drm_device
+> *ddev,
+> =C2=A0
+> =C2=A0	drm_plane_helper_add(plane,
+> &ls7a1000_cursor_plane_helper_funcs);
+> =C2=A0
+> -	return 0;
+> +	return drm_plane_create_blend_mode_property(plane,
+> BIT(DRM_MODE_BLEND_COVERAGE));
+> =C2=A0}
+> =C2=A0
+> =C2=A0int ls7a2000_cursor_plane_init(struct drm_device *ddev,
+> @@ -790,5 +791,5 @@ int ls7a2000_cursor_plane_init(struct drm_device
+> *ddev,
+> =C2=A0
+> =C2=A0	drm_plane_helper_add(plane,
+> &ls7a2000_cursor_plane_helper_funcs);
+> =C2=A0
+> -	return 0;
+> +	return drm_plane_create_blend_mode_property(plane,
+> BIT(DRM_MODE_BLEND_COVERAGE));
+> =C2=A0}
+
