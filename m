@@ -4,44 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 180DCC88E72
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 16:50:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2813C88E72
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 16:54:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6195F10E6C0;
-	Thu, 17 Sep 2026 16:50:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE29310E740;
+	Thu, 17 Sep 2026 16:54:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FDMtiq7w";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eyLCjGmd";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE89910E6C0;
- Thu, 17 Sep 2026 16:50:43 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95F3610E740
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 16:54:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 005BA60A65;
- Thu, 17 Sep 2026 16:50:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7466A1F00893;
- Thu, 17 Sep 2026 16:50:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4464943F26;
+ Thu, 17 Sep 2026 16:54:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF3671F00893;
+ Thu, 17 Sep 2026 16:54:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789663842;
- bh=FpOzlcBd2kqK7eeHO5VWE9VsuJKh2BhaFuW479O+5t4=;
+ s=k20260515; t=1789664048;
+ bh=soTBV+PjMnLk3CJqDep3SeaGxjjzvxEjiNUk8qBpmsU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FDMtiq7wwHPUwDYB5WFIXJNvT9Lqjuucb7yM6csDCStP89r/VO3mXv3CtZRel3KPk
- viSacpBIs2PBDu5xak3HCp/7mi9i7ImFR0xTY6qaMwGEDRILpYCrWNr1tFL1055OuF
- KB6EJAMbmCYtuLce0pZlaE2p4nwMMnrKPpHpf2kQru7atsV2woYffK9lzZ+erZgBFN
- p9BMkBMP5qHHMxWkmW+E4o22q42AnXkRO0hVrHJ6Al25roVBHxd1hRAlG2/tkflqB/
- n0kDDP1/u7sE92sAEPkFJ62j0YImwXxRvLHJ9DtSPkytI3jFXjCyWBOlqZ5OREVQju
- j/A+EyR+sYy2A==
+ b=eyLCjGmdrDwctVmdHC7BJ3p9PF7o5gpRumDdAuDAaNy8Ld2HpjE2vuKO9qOrrRHPW
+ BIVGQKAcpQ8Tj0OpdswMByR6ajR3Dr82AtiefkpkLRgfILf0If9zPj9JfsJLEwzHko
+ lZ+oKPguQan3LQuuXUKVNSNNMX5mooVKrg6a07th26o4uULzeIlVKJQilArdmXeR1I
+ hEXdXdBvG98j1Uhq6/S7vugxw7MRbvx2aNsyq2olk+tmmGC5oeXOUXad9+03EQgA/r
+ PRR7KJN5XzZUPvjgUyDNjVHsKlxnZtkUnez9B+V0y/tkfkcJzV+ScJO0Z4Cj1IA/FQ
+ 1fth1ZkQIXKUQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/3] drm/xe: Capture devcoredump on TLB invalidation
- timeout
-To: =?utf-8?b?VGFsZXMgQS4gTWVuZG9uw6dh?= <talesam@gmail.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260917163553.1742580-2-talesam@gmail.com>
-References: <20260917163553.1742580-1-talesam@gmail.com>
- <20260917163553.1742580-2-talesam@gmail.com>
+Subject: Re: [PATCH v3 01/40] mm/vma: fix mmap_prepare file handling, remove
+ file_doesnt_need_get
+To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
+Cc: kvm@vger.kernel.org, selinux@vger.kernel.org, linux-scsi@vger.kernel.org,
+ "Alexander
+ Gordeev" <agordeev@linux.ibm.com>, "Heiko Carstens" <hca@linux.ibm.com>,
+ "Christian
+ Borntraeger" <borntraeger@linux.ibm.com>, "Oliver Upton" <oupton@kernel.org>,
+ "Marc Zyngier" <maz@kernel.org>, linux-s390@vger.kernel.org,
+ "Vasily Gorbik" <gor@linux.ibm.com>, linux-rdma@vger.kernel.org,
+ kvmarm@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
+ bpf@vger.kernel.org
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-1-4583d8a23bca@kernel.org>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-1-4583d8a23bca@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 16:50:42 +0000
-Message-Id: <20260917165042.7466A1F00893@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 16:54:06 +0000
+Message-Id: <20260917165406.DF3671F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,61 +69,75 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] drm/xe: data race in xe_tlb_inval_fence_timeout() reading seqno_recv
+- [High] mm: NULL pointer dereference in compat_vma_mmap() error and succes=
+s paths
 --
 
-commit ef794f6bbaafa679257b9fec9405245af4942e68
-Author: Tales A. Mendon=C3=A7a <talesam@gmail.com>
+commit ed2cb69a22a3cc12d20a6c5599880de22d11566c
+Author: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-drm/xe: Capture devcoredump on TLB invalidation timeout
+mm/vma: fix mmap_prepare file handling, remove file_doesnt_need_get
+   =20
+The map->file_doesnt_need_get flag is confusing and the existing
+implementation has holes.
 
-This commit adds xe_devcoredump_gt(), a variant of xe_devcoredump() for han=
-gs
-that are not tied to an exec queue or job. It hooks this new capture mechan=
-ism
-into the TLB invalidation timeout path to capture the GuC log and CT state.
-
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8678
-
-> diff --git a/drivers/gpu/drm/xe/xe_tlb_inval.c b/drivers/gpu/drm/xe/xe_tl=
-b_inval.c
-> index 7c3bf32d9258b..7a0c04fac60aa 100644
-> --- a/drivers/gpu/drm/xe/xe_tlb_inval.c
-> +++ b/drivers/gpu/drm/xe/xe_tlb_inval.c
 [ ... ]
-> @@ -97,6 +107,16 @@ static void xe_tlb_inval_fence_timeout(struct work_st=
-ruct *work)
->  		queue_delayed_work(tlb_inval->timeout_wq, &tlb_inval->fence_tdr,
->  				   timeout_delay);
->  	spin_unlock_irq(&tlb_inval->pending_lock);
-> +
-> +	/*
-> +	 * Capture the GuC log and CT state so the firmware side of the hang
-> +	 * can be inspected; there is no queue or job to blame here. Must be
-> +	 * outside pending_lock as the capture takes sleeping locks.
-> +	 */
-> +	if (timedout_seqno)
-> +		xe_devcoredump_gt(tlb_inval_to_gt(tlb_inval),
-> +				  "TLB invalidation fence timeout, seqno=3D%d recv=3D%d",
-> +				  timedout_seqno, tlb_inval->seqno_recv);
 
-[Severity: Low]
-Does this code introduce a data race when reading tlb_inval->seqno_recv?
-
-In xe_tlb_inval_fence_timeout() in drivers/gpu/drm/xe/xe_tlb_inval.c, the
-pending_lock spinlock is dropped just before this block. Because seqno_recv
-is read locklessly here, and concurrent updates (such as those in
-xe_tlb_inval_done_handler()) use WRITE_ONCE(), reading it directly could
-result in a data race.
-
-Could this lead to KCSAN warnings or logging a corrupted value in the
-devcoredump reason string? Would it be safer to read this using READ_ONCE()
-or cache the value while the lock is held?
-
->  }
+> diff --git a/mm/util.c b/mm/util.c
+> index bf0513d1d3d08..016932780925e 100644
+> --- a/mm/util.c
+> +++ b/mm/util.c
+> @@ -1228,8 +1228,11 @@ int __compat_vma_mmap(struct vm_area_desc *desc,
 > =20
->  /**
+>  	/* Perform any preparatory tasks for mmap action. */
+>  	err =3D mmap_action_prepare(desc);
+> -	if (err)
+> +	if (err) {
+> +		if (desc->vm_file !=3D vma->vm_file)
+> +			fput(desc->vm_file);
+
+[Severity: High]
+Is it possible for desc->vm_file to be NULL here? If a stacked driver's
+mmap_prepare() hook changes the mapping to anonymous (clearing desc->vm_file
+to NULL) and mmap_action_prepare() fails, this error path would call
+fput(desc->vm_file) passing NULL. Because fput() does not tolerate NULL
+pointers, would this lead to a NULL pointer dereference?
+
+>  		return err;
+> +	}
+>  	/* Update the VMA from the descriptor. */
+>  	compat_set_vma_from_desc(vma, desc);
+>  	/* Complete any specified mmap actions. */
+
+[ ... ]
+
+> diff --git a/mm/vma.h b/mm/vma.h
+> index e97bd2dfa786d..f15faa83f3d63 100644
+> --- a/mm/vma.h
+> +++ b/mm/vma.h
+> @@ -394,8 +394,10 @@ static inline void compat_set_vma_from_desc(struct v=
+m_area_struct *vma,
+> =20
+>  	/* Mutable fields. Populated with initial state. */
+>  	vma_set_pgoff(vma, desc->pgoff);
+> -	if (desc->vm_file !=3D vma->vm_file)
+> -		vma_set_file(vma, desc->vm_file);
+> +	if (desc->vm_file !=3D vma->vm_file) {
+> +		fput(vma->vm_file);
+
+[Severity: High]
+Similarly, could vma->vm_file be NULL here? If __compat_vma_mmap() is invok=
+ed
+on an initially anonymous VMA (where vma->vm_file is NULL) and the driver
+provides a backing file, this success path calls fput(vma->vm_file) passing
+NULL.
+
+> +		vma->vm_file =3D desc->vm_file;
+> +	}
+>  	vma->flags =3D desc->vma_flags;
+>  	vma->vm_page_prot =3D desc->page_prot;
+>
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917163553.1742=
-580-1-talesam@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-b4-mmap-pr=
+epare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org?part=3D1
