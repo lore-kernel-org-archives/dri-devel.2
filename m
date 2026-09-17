@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 272FBC88E72
-	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 14:36:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6557DC982D6
+	for <dri-devel@archiver.kernel.org>; Thu, 17 Sep 2026 14:36:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD05F10EF39;
-	Thu, 17 Sep 2026 14:36:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2ADDC10EF4C;
+	Thu, 17 Sep 2026 14:36:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="L6IDDSOl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5noAOEuO";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012057.outbound.protection.outlook.com
- [40.107.200.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2ED7210EF19;
- Thu, 17 Sep 2026 14:36:26 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013032.outbound.protection.outlook.com
+ [40.93.201.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94DF610EF4C;
+ Thu, 17 Sep 2026 14:36:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M5awjF6EcaXGp7N8EA7x33fGWX7SMGO0hIDdCjc0DFwMFec9zMzzO1kKOG7xt0kGlju00cuz3tM9Jjs3kEDa+sfbnH8E7voUHhThhacUK2o5L85MQ0XlBoaqz9eEptnF8dC2y+g22gnp9nJ+nI1FAtQenFVKfJLD/r4De9DYWwVEDpSpn1+3IiDb1Oy9I4ylihhMuxp1aYxhdl4Kmt2afC8T53AsmCd36WTP6o4S2uMqv0zeIHx/CmUrc/R3DyyTP6XUEAn3/fYYHS3V8mkGKxR8ytMii8i1mhSciQd60lXqd+DynY9gdwWSeCOU3pJ94piLOJ2vKKBpYkLmSHpHXw==
+ b=PL3yPYz9bmwz7030ckFTHZv4McMGWtVD619gAxc7KRdRviQ+mB3jxAVzh+wroPH+7Vs3eLk5u63vKUzmzScR+yr61AEi9ECL9dYUzC5umbLSlm1uLgpAIg4WfFbA/OkpysFhXF87PisD6OWVUuqfxJYG6P9HTOEKXxvb7IbjbKKAbt1iXEez61Q74vRHLKQM5e6rg4IGIVLvWDXTwGLbcQpnmV4nPJEW3JY8QfSDz6W3xLX/FDl+ZvC113uXBFuE+IcVaZ8Go7Tde3tfYoM13tbCOOOGHUE4TNEtjoerRh+TKpbtAZYJHp0fUmChGGQD1ZHJWiTiYU3OSeKp8NTkpw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u2++VU5n6gdyF34uFGh9HCkvo7gaPTV/G00Jt5KjJTM=;
- b=WHwaSixGgpTlE/T8Kh0T50csRu5MjhVtnpoa/ILDOW1U6XWRLGrt0T5GR6t6/9ADRIgnpYDmT5du10RL28Rt/CkLWoVvbjK+Mnh38xz86sxccWiuFROVnlQjCVfj3CsCUdv1Tc2ulEuVAPRmEtMhr2t0zJiWIerFPWsSsG5nJXCgdRAQvV7/yJ/0/bwhW5PD7QlymeHB+rPKwVMuoGV71DCUm90/Ztzt/Q3C9PM9Paf6hzrtE4Txo8wbUkfJZPc6TLzCWK3rkIleETs3ekoDaFxYX44t2eDqDndy1QWKuk+bppAUXAUQYuFlqwwhbi1pDjXDnoymGJf2NJvqeOWYyw==
+ bh=Yu8f1y8iRvbyXv46b1YpiHqXCYphCCVrq/IdNy12OOk=;
+ b=JCVWNAedWjK59CSjg3oo01aZ9i/q90Xb1F6LiX6mFcLOTAgsxg0SnzPOD/yONX3eZQ2u/ZIuAae2oY3kxrw2FiZbW765N1ydTRBI6pjpAFQ8TCgwszQVrItHFxVdOmou9vlvAwznjydfF+pb95h0Bby1AXx7felp1CSvaOApsVdeEQQPS4AOdOso8dJDQEx3cFk7GaUYO3GJ7NVRuMJkPyiu6riLbfwwkuWD8PhEoQYYfIOIUqmdRyz1e0mLay1ube3VH7SJqYkKbRzMfShC06l9rc7KrO2F9kNtfEeXfSTeGTZhaCnBST9MdGx0EhIFUMq9TZLtd1gyujaQisB5ig==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u2++VU5n6gdyF34uFGh9HCkvo7gaPTV/G00Jt5KjJTM=;
- b=L6IDDSOlwKpxoJxet2DQC0dC9gpWUtvQQfqsZEORQvA8kRk/7a/xlkvrTTITvcQiYwMEnIeAB1JqCVo5XTsB9R6nTc0IRBY1HO4byZhMURirisANfm2S1L4/2bULGmQdGwlG8SfBHez2COxAU06T2JqAuU2WDxQwzRef4DsSYYk=
-Received: from MW4PR04CA0384.namprd04.prod.outlook.com (2603:10b6:303:81::29)
- by DM6PR12MB4465.namprd12.prod.outlook.com (2603:10b6:5:28f::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
- 2026 14:36:18 +0000
+ bh=Yu8f1y8iRvbyXv46b1YpiHqXCYphCCVrq/IdNy12OOk=;
+ b=5noAOEuOT35zj9uAnqsPrhKzDQQmNcOKFmuuUN6rl43hSarJ7nkqIzeaYpRpCyOGEJvh2UgeyU4qL9PVqKZ3LpMeYg86UCymiXm7VeIM9dwaKtZ1598cc5071m4HJu+RgQsw/jZFs7ETEHl1lQ9IfcEQfRYKJc9GMvDdmBMRLOI=
+Received: from MW4PR04CA0378.namprd04.prod.outlook.com (2603:10b6:303:81::23)
+ by SN7PR12MB6958.namprd12.prod.outlook.com (2603:10b6:806:262::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
+ 2026 14:36:21 +0000
 Received: from SJ5PEPF000001C8.namprd05.prod.outlook.com
- (2603:10b6:303:81:cafe::53) by MW4PR04CA0384.outlook.office365.com
- (2603:10b6:303:81::29) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:303:81:cafe::a) by MW4PR04CA0378.outlook.office365.com
+ (2603:10b6:303:81::23) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Thu,
- 17 Sep 2026 14:36:17 +0000
+ 17 Sep 2026 14:36:18 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,18 +51,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SJ5PEPF000001C8.mail.protection.outlook.com (10.167.242.36) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 17 Sep 2026 14:36:17 +0000
+ 15.21.451.8 via Frontend Transport; Thu, 17 Sep 2026 14:36:18 +0000
 Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 17 Sep 2026 09:36:16 -0500
+ 15.2.2562.49; Thu, 17 Sep 2026 09:36:17 -0500
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
 CC: Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH 0/2] drm/edid: Honor overrides when DDC is unresponsive
-Date: Thu, 17 Sep 2026 08:59:47 -0500
-Message-ID: <20260917135949.2552704-1-mario.limonciello@amd.com>
+Subject: [PATCH 1/2] drm/edid: Add an override-only EDID reader
+Date: Thu, 17 Sep 2026 08:59:48 -0500
+Message-ID: <20260917135949.2552704-2-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260917135949.2552704-1-mario.limonciello@amd.com>
+References: <20260917135949.2552704-1-mario.limonciello@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -71,29 +73,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001C8:EE_|DM6PR12MB4465:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30084067-ad67-4862-b0ca-08df14c908cc
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001C8:EE_|SN7PR12MB6958:EE_
+X-MS-Office365-Filtering-Correlation-Id: b446a37d-9f05-4273-60a8-08df14c90960
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|36860700016|1800799024|82310400026|3023799007|18002099003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: D2jYWJpc+vNCMtJLQo+vu0imjiiXFa3sxZTT3XDXjcMzE8mYvEuXwqv4v75FQ14MBpvnqP0zBuII/6q3528Qq05CUGVRpmT/qoBXZRLyuiviu6I1dj5bQsh5R196+a7BtQDW7GockWs+oJKpSz609u77NLQ40hFe36YQWRHFJCJ+wcmO/IGiNyLe/9zAtY9YqWupvzL7oeOYNaihvjhGBfwmHJs5YDNyzEXoF7CurW0vIX1H2WlDIUtGnvf/uRlGxj75WuhUdzLJTQwAW9SINl2pcNvWeD5MFfa7BlF8kp7S2GLsaWDOhos71gJWsZIniQCgAirhMl6H/T+nSp4qzmqP1K/yy44LMgnycoTNyoOFNePthXI6yeVt/ouOx8aLY+XgG4zCnxQqeAH6duxCFl0/lgHEVN7yfkGFZm2YKtu0Nlrx+vbeRQqqSBxU7imwIN7BMbOLoQz/flN9kjjfBgjFQkaJTA7K9HQgqBtuU4Jf9mYRiFjVTn8EcE8Qe8utqn52xA9IOQ169IWU/povt5hEN83AFwghYR3l5DtpqyRvSbsBYqZ9B40JbHIF9Wuc3KYCanmjq6UEugwpKjwyuQpsYdkOWV7lxPYTuZXCoRd4D4HRSedtrUOo5LIiwBHKryaimUmV4P4ajwyKV8X1+T9pye0/iC5Wq1oq+ayeFT9G679OFyW9aQeGSTr/btnlzZa7LRz14XfcqVn7IKyFAQ==
+ ARA:13230040|376014|82310400026|1800799024|23010399003|36860700016|22082099003|18002099003|3023799007|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info: 1IaMOzrqB655fxOcgANuJZzUKMHKvzIL3T64OPqub6BwAaCAYIsYlnXjtPFyubto6pzY1SE1YV2wJ17tYIPK+W6A6U944llJksDodDXDsPiA/OWV08imRmL3GEmQsScF5XqtPJwE8iN/WusGdFjcWXgVxBhFGc4eWs4uppi8LzYE5fiGMp/m2TQerylZGzfCfDF4FzmPBJaAWYM8FBDjaS0QvQk+wauEpZ5VDqrsfXZuTzD0TnuG1/nBl7W0K+UN69elJsHqf/ysyn16xzywFhUd/W3eiSFx/4sIArN9wV9CtbLWbds3G5qyhjokAuoYJE7L0vWkDZKsvVpqBiZURpo2x/nMKUwoMNGSn8F9L/Io3pG4zidINro8yLMl4fnR9YP9+KDEaM43MIU8876uFQDYsM4qZ1ZBf/scOvpA0wjVMf+1+f7rBCEF3XDXRTG0pYcHMZbJvCz2YtxusYMTcHtFFaYDa0/OvtaVh7xNanlPjIbIXqFyfpdjuQ3nI2NV90+ORdksW3P0v/C7N3Sod8s7w4h1f/BLwUyCV1u+fjgxy+3zcoZVyUg9SpFgdFqm3NGOL1kOjUwVXI++/ANDK4wcmmhFiYrBonb8qOT0nDFA1O0GqObvEHWRaEMNgno6E437GUMNlZlO9zR/2P7NjOq8Zg62PKmZlEjIUy0YnRIQ61OJM6lkIIsU2vRDz+71wWmjia/lyZs7KC4boZW3QA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(36860700016)(1800799024)(82310400026)(3023799007)(18002099003)(10067099003)(56012099006)(11063799006);
+ SFS:(13230040)(376014)(82310400026)(1800799024)(23010399003)(36860700016)(22082099003)(18002099003)(3023799007)(11063799006)(10067099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 8eGZCizR2UZMT1bUj9FJxB91GEkGzJ/NA4bDxjNQQiDcwxjGhz+4x9x3kiAYNXLWPAfuZGhakUfsku6055f7BKD6ZpbjBelFdLq+hbTFPl1z6S1qSuI4M6qtDAX6QMONZg7LhrkV8XSrIHS9oUgYsESE5lVDb0s8EMtj/Xh6JjspqV+5zrgVSHx6vNIjmjq2tXGo9M0DoAQx7XCgifV5zL97QaVrQNw93guJBYYRDrpZYL/LXIDozvgcqvthcQ7IBf1GTgnLlmBhLn4VSFb0ZeGy+EFTEgjUMDw7/eiTMnH2nKw4Q8TL0nJ1S4oyF09LwhK3rjauSpcLcgx2oOay026vEz/6T+DvhmF+STorNWg/UX7cwkvD7tA9TscRbRZu5qtkAk4DXanUSGXxpELrjB15M1bHo1YgMZQpYnTKXj5Jh/M6GJFIM2j1VtlxKN0e
+X-MS-Exchange-AntiSpam-MessageData-0: DHhxFMiRQ2VRu9tMvC4SzLQPDo60jKKUDQksJNGmOKiNr8WE0lm2LLyqZBL3PP/MP/3uoyaV50m/Mip6b12Cuyn9JGn9PK5qRoHX2jUjlUNS5datxNHkd01n8IVKDhXHo/tXRF0adg5mS/wh7haKmXFSL1deQMTxx4AdkRn8nI0vk/SEFjimIY4FeNKEx36kfC9+sDbdxh67kznHkBldlPhXV4H8n+xrRrruXribulMnVdMwMek+oL7HSLlYcfCQXLh+HVQhpwUsMRDAqdFUaLI1zr64EbSBn6zeKAob6EfcpTyn9YEYLS7Hl9WmgnGqSJF/Hbh8LEjizfKxZUVdv8YQsafavHSbE3gi7BlP4R8J/e20IAPgPvZM0R2d7TH8/v8jOlm/BKAu+IhARhnATQeQAvDqLzoAk5SPXzdzKardT9s9vp4sotyidcjJinq4
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 14:36:17.7239 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30084067-ad67-4862-b0ca-08df14c908cc
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 14:36:18.6910 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b446a37d-9f05-4273-60a8-08df14c90960
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001C8.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4465
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6958
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,34 +111,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-DRM's EDID read helpers probe DDC before consulting debugfs or firmware
-overrides. This preserves connector-detection semantics for drivers that
-use a successful EDID read as evidence that a sink is connected, but it
-prevents drivers with independent presence detection from using an
-override when DDC is unresponsive.
+The existing EDID read helpers retain a DDC presence probe before they
+consult debugfs or firmware overrides. This is necessary for drivers that
+use a successful EDID read as connector-presence evidence.
 
-This affects AMD Display Core, which establishes physical presence from
-HPD before attempting to read the EDID. When a connected sink stops
-responding over DDC, the configured override is ignored and AMDGPU falls
-back to a 640x480 mode.
+Drivers with independent presence detection cannot retrieve an override
+when DDC is unresponsive.
 
-Add an override-only EDID reader that does not access hardware, then use
-it in AMD Display Core before trying ACPI, VBIOS, or DDC sources. The new
-helper preserves DRM_FORCE_OFF handling and the existing preference for
-debugfs overrides over firmware EDIDs.
+Add drm_edid_read_override() so those drivers can retrieve a configured
+override without probing hardware. Keep DRM_FORCE_OFF semantics and the
+existing debugfs-before-firmware priority.
 
-The first patch introduces the helper. The second fixes the AMDGPU
-regression.
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/drm_edid.c | 22 ++++++++++++++++++++++
+ include/drm/drm_edid.h     |  1 +
+ 2 files changed, 23 insertions(+)
 
-Mario Limonciello (2):
-  drm/edid: Add an override-only EDID reader
-  drm/amd/display: Honor EDID overrides for connected sinks
-
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 14 +++++++-----
- drivers/gpu/drm/drm_edid.c                    | 22 +++++++++++++++++++
- include/drm/drm_edid.h                        |  1 +
- 3 files changed, 32 insertions(+), 5 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 3148038747b6e..4857bcae5e117 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -2289,6 +2289,28 @@ static const struct drm_edid *drm_edid_override_get(struct drm_connector *connec
+ 	return IS_ERR(override) ? NULL : override;
+ }
+ 
++/**
++ * drm_edid_read_override - read override or firmware EDID
++ * @connector: connector to use
++ *
++ * Read the EDID from debugfs override_edid or firmware EDID
++ * (drm_edid_load_firmware() and drm.edid_firmware parameter), in this priority
++ * order. This does not probe the connector or read the EDID from hardware.
++ *
++ * The returned pointer must be freed using drm_edid_free().
++ *
++ * Return: Pointer to EDID, or NULL if the connector is forced off or no EDID
++ * override is available.
++ */
++const struct drm_edid *drm_edid_read_override(struct drm_connector *connector)
++{
++	if (connector->force == DRM_FORCE_OFF)
++		return NULL;
++
++	return drm_edid_override_get(connector);
++}
++EXPORT_SYMBOL(drm_edid_read_override);
++
+ /* For debugfs edid_override implementation */
+ int drm_edid_override_show(struct drm_connector *connector, struct seq_file *m)
+ {
+diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
+index a2617aa34edfc..cdd874b98340d 100644
+--- a/include/drm/drm_edid.h
++++ b/include/drm/drm_edid.h
+@@ -469,6 +469,7 @@ const struct drm_edid *drm_edid_dup(const struct drm_edid *drm_edid);
+ void drm_edid_free(const struct drm_edid *drm_edid);
+ bool drm_edid_valid(const struct drm_edid *drm_edid);
+ const struct edid *drm_edid_raw(const struct drm_edid *drm_edid);
++const struct drm_edid *drm_edid_read_override(struct drm_connector *connector);
+ const struct drm_edid *drm_edid_read(struct drm_connector *connector);
+ const struct drm_edid *drm_edid_read_ddc(struct drm_connector *connector,
+ 					 struct i2c_adapter *adapter);
 -- 
 2.43.0
 
