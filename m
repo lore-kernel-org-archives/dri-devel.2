@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CDA5C982E0
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 14:18:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E364CC982DA
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 14:19:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E761210F3D3;
-	Fri, 18 Sep 2026 14:18:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B9EE10F3CF;
+	Fri, 18 Sep 2026 14:19:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SEgeU/Hn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kg03Xg9/";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC89A10F3C8
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 14:18:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 478E610F3D6
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 14:18:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9468D43D93;
- Fri, 18 Sep 2026 14:18:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE0D41F000FF;
- Fri, 18 Sep 2026 14:18:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2ECEC40552;
+ Fri, 18 Sep 2026 14:18:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BD931F00898;
+ Fri, 18 Sep 2026 14:18:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789741119;
- bh=XS3XWsQS/wsJtDoSQO+mZMWhw7DtPyBFXXLY/FPwBKQ=;
+ s=k20260515; t=1789741127;
+ bh=WrDnBXEUES0WR7P2lhOYTykVEKJTOaUBbf8pmdHPY8w=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=SEgeU/HnYxhDq5V1fO8AS+IuEcp0vYFEr9p9DXDBIHAeE4XesjOMgUkzj35OsPhr5
- rL2truSuMKBXLNs3CDla6u4QbEI9+w7MiMo/2sDP5vh3BbQxaiWirnjCCNdE8DhRRO
- EgwyFG5tnPyRglSa5X+rtgaLmqYPBjwvLMViGgS/8DLvwaBOAcX6RXkNwZW1SZHZyd
- zcf9a7NG7uxGV5iDHSUmIAbxkAxE7wG9NQqEEnn5FHtAFhT3vJwO8Y7yaMA4etVzUa
- STejFyRM+Uuo/QCsOh4lBHgEsQoi7SvZi1Ogad0B292RpFKFTDvcfXu3aTX4rZCjdG
- jqHrDp1SW8nlQ==
+ b=kg03Xg9/UH09L0FZmK58QNBMKkuOUJYfHkkLDCTA4OVxT5Vmnyz/a+rHtVWzZ7B1q
+ 1xsmCbtbFlJzXI/dMKI9xq1YlLsHnJFnDv+PrmqkmFaWbaQmBxmEQWCIepMgvBcU9J
+ gw9bU6ys0aM2AX0vzvJgpBJJwUo7O5XJGW/rgo73GMR+DmGkCJeBcYQiWaJEohxytZ
+ GcRjH67IT0Q1KjEW/JJSyIoi23V1OIR3BEYQ1cRlvZ6Nsdaab1mdcuAUcaR9/kHcSL
+ tn3JdcIARLUcLA26pQ05bvrGrOxCc0vjVJTA/E1NTbFjFM/iguhmoKhfgEHeQvpB7f
+ LRMFYY0D5tQkw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 18 Sep 2026 16:17:59 +0200
-Subject: [PATCH v4 10/13] drm/atomic: Allow filling a commit with pristine
- object states
+Date: Fri, 18 Sep 2026 16:18:01 +0200
+Subject: [PATCH v4 12/13] drm/vkms: Switch container_of helpers to
+ container_of_const
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-drm-reset-state-flag-v4-10-5ad106370f05@kernel.org>
+Message-Id: <20260918-drm-reset-state-flag-v4-12-5ad106370f05@kernel.org>
 References: <20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org>
 In-Reply-To: <20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -56,12 +56,12 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6028; i=mripard@kernel.org;
- h=from:subject:message-id; bh=inWTgkDtp0vChZ9VKuHwhKGj/PyO3yywRvlVuv2aAuM=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlrPYTjFF9ZagTnT2eXnnfP8HyvOHdUg2SHcU56WlTfk
- tL/M9s6prIwCHMyyIopsjyRCTu9vH1xlYP9yh8wc1iZQIYwcHEKwEQuGDM2PGeJVuX54uanYXhO
- cYYr0/5La7QYGjO2NPyNXf9mr9TZl4e80kV/nf27rHP1gnNZRaf+M9apJzBHrypfcE1Z/OGxOXe
- vHFwo96dSepJ39vrwTtdfSZbtb5fsDDzGnvjwNkuz9pH3bsEA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1657; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=T0/yZbif8qvMhUYbKQ5OZSohlQVc+4QmXLfUx6lhP6s=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlrPUREFCSXLm76OPOa5hdNsTWLLVYE13YrheR1fb0/1
+ ajBkO1Zx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhIUzxjQ/eMvRdit14Vvvun
+ k+fIwt7GltOnmvl85ywq6e7P+H1s71+JFyZn2ERPvZu2JjX9yAWjJMY6y6NyX05eWu3yoO3d/yh
+ dMZZqzr9aASZlf0ItzvevXRcXWMf1OHjCH9u1//dNNVvF/aYaAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -79,180 +79,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The upcoming DRM_MODE_ATOMIC_RESET flag will need to create an atomic
-commit that brings the entire device back to a pristine state, as if
-no configuration had ever been applied.
+The vkms container_of helpers use container_of() which discards the
+const qualifier from the input pointer. This prevents passing a const
+state pointer to to_vkms_plane_state() without a cast, for instance
+in atomic_get_property which receives a const drm_plane_state.
 
-Create drm_atomic_commit_fill_with_defaults() which iterates over all
-CRTCs, planes, connectors, and color operations in the device and
-inserts a fresh default state for each one into the commit. This uses
-the atomic_create_state() hooks rather than atomic_duplicate_state(),
-since atomic_create_state() provides exactly this pristine state on a
-per-object basis.
+Switch all four helpers to container_of_const() so the const qualifier
+is properly propagated to the result type.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 108 +++++++++++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/drm_ioctl.c  |   1 +
- include/drm/drm_atomic.h     |   3 +-
- 3 files changed, 111 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/vkms/vkms_drv.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 7a77051096c9..b039edaa3271 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1647,10 +1647,118 @@ bool drm_atomic_implements_create_state(struct drm_device *dev)
+diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
+index 381483aa4fb0..dea6cad3f1b9 100644
+--- a/drivers/gpu/drm/vkms/vkms_drv.h
++++ b/drivers/gpu/drm/vkms/vkms_drv.h
+@@ -248,20 +248,20 @@ struct vkms_device {
+ /*
+  * The following helpers are used to convert a member of a struct into its parent.
+  */
  
- 	return true;
- }
- EXPORT_SYMBOL(drm_atomic_implements_create_state);
+ #define drm_crtc_to_vkms_output(target) \
+-	container_of(target, struct vkms_output, crtc)
++	container_of_const(target, struct vkms_output, crtc)
  
-+/**
-+ * drm_atomic_commit_fill_with_defaults - populate a commit with pristine states
-+ * @commit: atomic commit to fill
-+ *
-+ * Iterate over all CRTCs, planes, connectors, and color operations in
-+ * the device and insert a freshly created default state for each one
-+ * into @commit. The states are created through the atomic_create_state()
-+ * hooks, producing the same initial state the driver starts with rather
-+ * than a copy of the current hardware state.
-+ *
-+ * This is meant to be used with the %DRM_MODE_ATOMIC_RESET flag, which
-+ * needs to bring the device back to a known baseline before applying
-+ * userspace property changes on top.
-+ *
-+ * Returns:
-+ * 0 on success, or a negative error code on failure.
-+ */
-+int drm_atomic_commit_fill_with_defaults(struct drm_atomic_commit *commit)
-+{
-+	struct drm_device *dev = commit->dev;
-+	struct drm_mode_config *config = &dev->mode_config;
-+	struct drm_crtc *crtc;
-+	struct drm_plane *plane;
-+	struct drm_connector *connector;
-+	struct drm_connector_list_iter conn_iter;
-+	struct drm_colorop *colorop;
-+	int ret;
-+
-+	drm_WARN_ON(dev, !commit->acquire_ctx);
-+
-+	/*
-+	 * Private objects are ignored because none have userspace
-+	 * properties we might want to reset. atomic_check
-+	 * implementations will derive or infer their private obj state
-+	 * from the state that will end up being committed anyway.
-+	 */
-+	drm_for_each_colorop(colorop, dev) {
-+		struct drm_colorop_state *colorop_state;
-+
-+		ret = drm_modeset_lock(&colorop->plane->mutex, commit->acquire_ctx);
-+		if (ret)
-+			return ret;
-+
-+		colorop_state = drm_atomic_helper_colorop_create_state(colorop);
-+		if (IS_ERR(colorop_state))
-+			return PTR_ERR(colorop_state);
-+
-+		drm_atomic_commit_set_colorop_state(commit, colorop, colorop_state);
-+	}
-+
-+	drm_for_each_plane(plane, dev) {
-+		struct drm_plane_state *plane_state;
-+
-+		ret = drm_modeset_lock(&plane->mutex, commit->acquire_ctx);
-+		if (ret)
-+			return ret;
-+
-+		plane_state = plane->funcs->atomic_create_state(plane);
-+		if (IS_ERR(plane_state))
-+			return PTR_ERR(plane_state);
-+
-+		drm_atomic_commit_set_plane_state(commit, plane, plane_state);
-+	}
-+
-+	drm_for_each_crtc(crtc, dev) {
-+		struct drm_crtc_state *crtc_state;
-+
-+		ret = drm_modeset_lock(&crtc->mutex, commit->acquire_ctx);
-+		if (ret)
-+			return ret;
-+
-+		crtc_state = crtc->funcs->atomic_create_state(crtc);
-+		if (IS_ERR(crtc_state))
-+			return PTR_ERR(crtc_state);
-+
-+		drm_atomic_commit_set_crtc_state(commit, crtc, crtc_state);
-+	}
-+
-+	drm_connector_list_iter_begin(dev, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		struct drm_connector_state *connector_state;
-+
-+		ret = drm_modeset_lock(&config->connection_mutex, commit->acquire_ctx);
-+		if (ret) {
-+			drm_connector_list_iter_end(&conn_iter);
-+			return ret;
-+		}
-+
-+		connector_state = connector->funcs->atomic_create_state(connector);
-+		if (IS_ERR(connector_state)) {
-+			drm_connector_list_iter_end(&conn_iter);
-+			ret = PTR_ERR(connector_state);
-+			return ret;
-+		}
-+
-+		ret = drm_atomic_commit_set_connector_state(commit, connector, connector_state);
-+		if (ret) {
-+			connector->funcs->atomic_destroy_state(connector, connector_state);
-+			drm_connector_list_iter_end(&conn_iter);
-+			return ret;
-+		}
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_atomic_commit_fill_with_defaults);
-+
- /**
-  * drm_atomic_add_encoder_bridges - add bridges attached to an encoder
-  * @state: atomic state
-  * @encoder: DRM encoder
-  *
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index 9039a39c4324..0dbf04d4aa9e 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -31,10 +31,11 @@
- #include <linux/export.h>
- #include <linux/nospec.h>
- #include <linux/pci.h>
- #include <linux/uaccess.h>
+ #define drm_device_to_vkms_device(target) \
+-	container_of(target, struct vkms_device, drm)
++	container_of_const(target, struct vkms_device, drm)
  
-+#include <drm/drm_atomic.h>
- #include <drm/drm_auth.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
- #include <drm/drm_ioctl.h>
-diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index 94356566a514..841a11ee2fda 100644
---- a/include/drm/drm_atomic.h
-+++ b/include/drm/drm_atomic.h
-@@ -700,11 +700,12 @@ int drm_crtc_commit_wait(struct drm_crtc_commit *commit);
+ #define to_vkms_crtc_state(target)\
+-	container_of(target, struct vkms_crtc_state, base)
++	container_of_const(target, struct vkms_crtc_state, base)
  
- struct drm_atomic_commit * __must_check
- drm_atomic_commit_alloc(struct drm_device *dev);
- void drm_atomic_commit_clear(struct drm_atomic_commit *state);
- 
--bool drm_atomic_can_create_state(struct drm_device *dev);
-+bool drm_atomic_implements_create_state(struct drm_device *dev);
-+int drm_atomic_commit_fill_with_defaults(struct drm_atomic_commit *commit);
+ #define to_vkms_plane_state(target)\
+-	container_of(target, struct vkms_plane_state, base.base)
++	container_of_const(target, struct vkms_plane_state, base.base)
  
  /**
-  * drm_atomic_commit_get - acquire a reference to the atomic state
-  * @state: The atomic state
+  * vkms_create() - Create a device from a configuration
+  * @config: Config used to configure the new device
   *
 
 -- 
