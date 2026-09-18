@@ -4,44 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4C38C88E75
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 06:16:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8036CC982D2
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 06:17:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5653F10F191;
-	Fri, 18 Sep 2026 06:16:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C827F10F18F;
+	Fri, 18 Sep 2026 06:17:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BqP6dFFK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hC+VO2Ft";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51E6810F191
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 06:16:16 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7212410F18F
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 06:17:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5E4FA601EF;
- Fri, 18 Sep 2026 06:16:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC2581F000FF;
- Fri, 18 Sep 2026 06:16:14 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 497FC40743;
+ Fri, 18 Sep 2026 06:17:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3305D1F000FF;
+ Fri, 18 Sep 2026 06:17:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789712175;
- bh=NC4MKgOXSOXLvcJNq54W3NpHgxlxE/yver/k3uh1wBA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BqP6dFFKIQHOSImWi2JX1kXw4ZV7XEf600F1+7Xeb82ness4d6fME8Q7RDINVf8mV
- BWgqrJzDNdkdHcBoNekrlAdEbZS0tGWAJE9gtOqO6Z3nzH58Pm2P6OvKhutNT5Cqzj
- DV4sjgD5DoTvgj2w24w/f3YsbnjMYnLHk4YijaID/FP4zdK9FqHfVuyAhxErHycCAX
- cI/yGXsWQiOd7XJ16zl2Ur8CpIlhSsLOtmvcBQQEk4oVg5/2c4RlsjTvfjfdfzwfjZ
- nlFD6Y6SUZgAAx4ZYvO5VOjiFwpblDcKDY/CV5n2H81HJxDVAPyt3XsjqlHfZCgcee
- +0xNbFSbUzk6Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 3/4] drm/virtio: implement userptr support for
- zero-copy memory access
-To: "Honglei Huang" <honghuan@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260918055917.2133574-4-honghuan@amd.com>
-References: <20260918055917.2133574-1-honghuan@amd.com>
- <20260918055917.2133574-4-honghuan@amd.com>
+ s=k20260515; t=1789712222;
+ bh=B/13cZeUrOLEzs/U0VXbyufzLI/X+a7vJxST3/Q9H/g=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=hC+VO2FtDKbfS2UHZn7KsHJfhAMbfycfRebcPAyoit5um1I4sEqs1B3s/d7QsmYOx
+ /uPdeYvBgduMlrxD/q5Qx/yZmnVjrncmd9Y9Pju17LeWasqH1HIMdlKoWQt5U+07Hz
+ itUI4J2CpMvUEEBQ/TG3dnLcJuv6Ss41jE5ltAkW2SHN1CaJfJtBo8gwaiEDocZ2u/
+ 4YSO3SLQuAartQeYdD1llGHXlMPFhoAhE1udDqkdlpPAbhR3AS4sCi+2T9sNWXk37m
+ 4u2pFM2ozWD9atAEq6/Rf2uBnfPTpaGO4ftBf4KHUAopzadDfZD5zCYKSdh+cDicgJ
+ SHLy28DKe56aw==
+Date: Fri, 18 Sep 2026 08:16:58 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Joshua Peisach <jpeisach@ubuntu.com>
+Cc: Michal Wilczynski <m.wilczynski@samsung.com>, 
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>,
+ Hal Feng <hal.feng@starfivetech.com>,
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, 
+ Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-riscv@lists.infradead.org, Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Maud Spierings <maud_spierings@murena.io>,
+ Graham Markall <hello@big-grey.co.uk>, 
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
+ starfive,jh7110-inno-hdmi-phy
+Message-ID: <20260918-futuristic-mindful-waxbill-21fa2d@quoll>
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+ <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
+ <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
+ <20260917-mutant-chamois-of-competence-46ca77@quoll>
+ <DLI0QTP0NUHS.DAFYGACKWKWO@ubuntu.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 06:16:14 +0000
-Message-Id: <20260918061614.EC2581F000FF@smtp.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <DLI0QTP0NUHS.DAFYGACKWKWO@ubuntu.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,63 +86,53 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] drm/virtio: privilege escalation via HINT_USERPTR_RDONLY
---
+On Thu, Sep 17, 2026 at 08:34:18PM -0400, Joshua Peisach wrote:
+> On Thu Sep 17, 2026 at 2:51 AM EDT, Krzysztof Kozlowski wrote:
+> > On Tue, Sep 15, 2026 at 05:32:09PM +0200, Michal Wilczynski wrote:
+> > > Add the dt-binding for the StarFive JH7110 Innosilicon HDMI PHY.
+> > > 
+> > > This device is a child of the starfive,jh7110-hdmi-subsystem node. It
+> > > functions as both a PHY provider for the controller and as a clock
+> > > provider for the variable pixel clock (hdmi_pclk), which it generates
+> > > from its refoclk.
+> > > 
+> > > Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+> > 
+> > While I appreciate other people looking at this, I don't think review
+> > here applies. It was a blanket tag, given to the entire series, with
+> > exception that it is from newbie, thus I want to ask: was this binding
+> > REALLY reviewed by Joshua?
+> > 
+> > Are the rest of the patches actually reviewed or just "looks good to
+> > me"? I see no comments from Joshua on v3, v2 and v1, which is usual sign
+> > of doing review.
+> > 
+> > 
+> I commented on v3 saying that I would test if I could. I don't just
 
-commit 20ea6ca5af258a43b1dc12cab535283738613d35
-Author: Honglei Huang <honghuan@amd.com>
-Subject: drm/virtio: implement userptr support for zero-copy memory access
+Testing has nothing to do with reviewing.
 
-This commit adds userptr blob object support to virtio-gpu, allowing the
-guest kernel to pin existing userspace mappings and use them as CREATE_BLOB
-backing entries. It handles page pinning, DMA mapping if required, and
-syncing the scatterlist for the device.
+> throw "Reviewed-by" on everything I look at.
+> 
+> If anything, I've been trying to be more honest in reviews, and only
+> review ones that I actually care about[1].
 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_userptr.c b/drivers/gpu/drm/v=
-irtio/virtgpu_userptr.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/virtio/virtgpu_userptr.c
-[ ... ]
-> +static int
-> +virtio_gpu_userptr_get_pages(struct virtio_gpu_object_userptr *userptr)
-> +{
-> +	unsigned int flag =3D FOLL_LONGTERM;
-> +	unsigned int num_pages, pinned =3D 0;
-> +	int ret =3D 0;
-[ ... ]
-> +	if (!(userptr->flags & DRM_VIRTGPU_BLOB_FLAG_HINT_USERPTR_RDONLY))
-> +		flag |=3D FOLL_WRITE;
-> +
-> +	do {
-> +		num_pages =3D userptr->npages - pinned;
-> +
-> +		ret =3D pin_user_pages_fast(userptr->start + pinned * PAGE_SIZE,
-> +					  num_pages, flag,
-> +					  userptr->pages + pinned);
+You gave blanket tag for entire series, so I do not get this argument.
 
-[Severity: Critical]
-Does this allow unprivileged userspace to bypass guest page protections?
+> 
+> If reviewing patches isn't a good way for newbies to start getting
+> familiar with the kernel code (especially a NEW driver), then I don't
+> know what is.
 
-If a malicious guest userspace maps read-only memory (such as executable
-pages like libc.so) and passes it with
-DRM_VIRTGPU_BLOB_FLAG_HINT_USERPTR_RDONLY, the code omits FOLL_WRITE when
-calling pin_user_pages_fast.=20
+Writing code and receiving review is something for newbies to start
+with. If you do not know kernel code or bindings, why do you think
+your review is applicable? If I try to review design of a post-tension
+concrete bridge, I would probably learn something. Would my
+review apply? No.
 
-The pinned physical addresses are then sent to the host. If the guest has no
-vIOMMU (where virtio_gpu_use_dma_api() is false), these addresses are passed
-directly to the host without DMA_TO_DEVICE IOMMU protection. The userspace
-process could then submit a command stream via VIRTGPU_EXECBUFFER instructi=
-ng
-the host GPU to write to this resource, causing the host hypervisor to write
-directly into the guest's read-only physical memory.
+Best regards,
+Krzysztof
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918055917.2133=
-574-1-honghuan@amd.com?part=3D3
