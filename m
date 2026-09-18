@@ -4,51 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C754C982DA
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 14:24:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85566C982D8
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 14:30:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84AB510E8FC;
-	Fri, 18 Sep 2026 14:24:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E9C810E91F;
+	Fri, 18 Sep 2026 14:30:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="Rcxa7+ab";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HYp/j1QX";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 692B010E3E8;
- Fri, 18 Sep 2026 14:24:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1789741478;
- bh=bDTUM+9dvgRBrmyVJ4C1tivQMZH4gidWEZsLJcqUTZs=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Rcxa7+abU1Zs1qaTpBQGGFYre+8gLilmQfSpfTaInWpoUDxHtRoN9trMllh02LlpB
- 8o8w2x+LzlrS83qSIXBfvyJeeQeIdVL9kEPi7V4WVK0v7zMoWMF28oPN+lLqRDuL/C
- JH+mCiaD7lWEMP+sT9VhFwpIsjK6R+c7QPr5hyblCNEmtsmsYLIQ5oNHeYNmOEPWux
- d6EHPU66DPg9JI82kFfRhCf+F02sFd2QpgeeEfDZ/sbV62Oq/oo6hEhLg064jrqF9O
- 0AMKRDkqK28DPv9U2r49UfGnye7tI6cga+exkUCoq6pnm+Fm/c0/C4/044vglTpvyY
- 42vHX8TE9hZ+g==
-Message-ID: <43a77431-f24e-4e26-890b-d60b1844f028@lankhorst.se>
-Date: Fri, 18 Sep 2026 16:24:39 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C858C10E095;
+ Fri, 18 Sep 2026 14:30:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789741808; x=1821277808;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=YEg0jcvQc1mOshL2/RNi5RSlJ9cuCkQUn+/hJtpivRo=;
+ b=HYp/j1QXpQJMhSpN6D31I6X6gYkBIfmePHiqCihrkICj0ucCo6aOkqxH
+ l5EwSVIiY1BgZbNBxe9MmrF2EMxpSAKeJbLHy8ekSvTA7wiUe4Ds9hvKs
+ 7gYKIwS5oTIzh1BfYOdk0QXQc7aw0Sc0/VZi8Ae8xr0riwlmroGE9s7yy
+ edCKnI3CGesSMGR6wgpbE6a3A4TLgpmaXRM3Hg5WrC/EqyYr0B0Kx2D52
+ eKnvQi28JKS20A4hjdigIMejXT3KBbczxm5txLXdjH9S5yDW7cEKLOS++
+ z3vygk9yTqmPctcKIpFXJXcbbFyEPwVo9LUoilqdEbwr/WoL3a0KgHDNV w==;
+X-CSE-ConnectionGUID: G4Ia6RAgR92T/qgz4xPS5Q==
+X-CSE-MsgGUID: lSGlNFYESZaGmZ5BuXYhjA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="115783504"
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; d="scan'208";a="115783504"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2026 07:30:07 -0700
+X-CSE-ConnectionGUID: vc2ELreXSRqSyMReXZmiTw==
+X-CSE-MsgGUID: iTSBgMDqR9edYlTzeXJRJQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="2856614"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.216])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2026 07:30:05 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Fangzhi Zuo <jerry.zuo@amd.com>, timo.proemer04@gmail.com, Harry
+ Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex
+ Deucher <alexander.deucher@amd.com>
+Cc: Fangzhi Zuo <jerry.zuo@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v2 2/2] drm/amd/display: Use drm_edid_block_count()
+ instead of raw extensions
+In-Reply-To: <20260727213305.810014-1-jerry.zuo@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260713193237.2639-1-timo.proemer04@gmail.com>
+ <20260713193237.2639-3-timo.proemer04@gmail.com>
+ <20260713194945.2AFE11F00A3A@smtp.kernel.org>
+ <20260727213305.810014-1-jerry.zuo@amd.com>
+Date: Fri, 18 Sep 2026 17:30:02 +0300
+Message-ID: <a8a004b82a037ec2f218d6b324298ba505286bc2@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/7] drm/i915: All fixes to make i915 work well with
- PREEMPT_RT.
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Jani Nikula <jani.nikula@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20260706114823.752313-1-dev@lankhorst.se>
- <20260706122026.IJAiyhhw@linutronix.de>
- <c4222f81-72b2-4eea-a900-da327f0df928@lankhorst.se>
- <20260709110200.2_5Eg8xF@linutronix.de>
- <a6c056ba-0847-4d2c-a7bd-39ac27eb15d5@lankhorst.se>
- <20260918083118.POmXtJuv@linutronix.de>
- <4c94abcc-2f0f-4454-999f-38640972dfe2@ursulin.net>
- <178972632228.60564.16756848994208751058@jlahtine-mobl>
-Content-Language: en-US
-From: Maarten Lankhorst <dev@lankhorst.se>
-In-Reply-To: <178972632228.60564.16756848994208751058@jlahtine-mobl>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,64 +77,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
+On Mon, 27 Jul 2026, Fangzhi Zuo <jerry.zuo@amd.com> wrote:
+> Hi Timo,
+>
+> Thanks for the patch. Heads-up that this overlaps with a fix already in
+> amd-staging-drm-next:
+>
+>   21590e1adc9e ("drm/amd/display: Fix 8K Mode Not Parsed by EDID")
+
+More precisely commit 11a90eaf5c80 ("drm/amd/display: Fix 8K Mode Not
+Parsed by EDID") upstream.
+
+> That commit addresses the same underlying problem your patch targets --
+> edid->extensions (byte 0x7e) not accounting for HF-EEODB blocks, so only
+> 2 of 4 blocks of an HDMI 2.1 EDID get copied into sink->dc_edid and the
+> 8K modes in the DisplayID extension blocks are lost. It takes a slightly
+> different approach: instead of drm_edid_block_count(), it populates
+> edid_blob_ptr with a full, HF-EEODB-aware blob and copies
+> edid_blob_ptr->length. So on current amd-staging the
+> dm_helpers_read_local_edid() hunk here no longer applies cleanly.
+
+That's an awful, ugly hack. Please work to remove it. Drivers are not
+supposed to look at or use connector->edid_blob_ptr at all. See the
+documentation.
+
+I really did put in a *lot* of effort into abstracting HF-EEODB properly
+and neatly for everyone, across the subsystem. The opaque struct
+drm_edid is the abstraction. Please embrace it, and you'll get HF-EEODB
+for free, with no hacks.
+
+If you face issues, please talk to me instead of hacking stuff and
+intentionally working around the the abstractions.
+
+> Could you rebase on the latest amd-staging-drm-next and see what, if
+> anything, is still needed on top? There may still be value in the
+> helper conversion for readability, but we should avoid re-fixing the
+> same HF-EEODB issue two different ways.
+
+The one and only fix for HF-EEODB is to use struct drm_edid everywhere.
 
 
-On 9/18/26 12:12, Joonas Lahtinen wrote:
-> Quoting Tvrtko Ursulin (2026-09-18 12:44:43)
->>
->> On 18/09/2026 09:31, Sebastian Andrzej Siewior wrote:
->>> On 2026-07-09 13:36:57 [+0200], Maarten Lankhorst wrote:
->>>> Hey,
->>> Hi Maarten,
->>>
->>>> Yeah the problem was similar, I believe neither check should exist,
->>>> instead the caller should give this information like the comment mentions.
->>>
->>> Any update here? Maybe I have been left out on reposts. Any chance this
->>> gets in before the LTS of this year gets out?
->>
->> Side question, there was a bunch of sashiko issues against v4 - have 
->> those been addressed?
->>
->> As today it is the first time I see patch 7/7 which is a bit of a scary 
->> one. I have to ask how much does Intel commit to fixing out any 
->> potential breakage given the status of i915?
-> 
-> I'd say there is very close to zero chance of accepting patch 7. And
-> that would take massive functional and performance validation efforts
-> done by the person wanting the patch to get merged.
-> 
+BR,
+Jani.
 
-I don't mind taking the responsibility to debug and troubleshoot if things break.
-Patch 7/7 fixes a real bug that is hard to trigger otherwise, but can most definitely
-happen.
 
-I believe it should be treated it as any other fix, merge it and when there are
-bug reports, solve those.
-
-Most of my energy and work is going to other projects now, so I won't be able to do
-the entire validation in advance. I will definitely ensure CI is clean and passing,
-it's how I came across this bugfix in the first place.
-
-If bug reports come in and point to this patch, I will be able to take a look and
-solve the reported issues, but I won't be able to hunt for them in advance.
-
-It's only a few weeks until the -rc cutoff, so we can make it part of the next cycle.
-
-> And yes, there would also need to be commitment to fix any fallout by
-> that same person in weekly -rc cadence. So please raise your hand, whoever
-> wants to volunteer.
-> 
-> There's already the earlier much smaller patch about vblank that needs
-> to get reviewes and acceptance and it hasn't been able to be driven
-> to completion.
-> 
-> So projecting from that, I don't exactly expect patch like 7 in this
-> series to get merged in any near future without somebody really stepping
-> forward and signing to do all the validation and and perf regression
-> testing.
-> 
-> Regards, Joonas
-Kind regards,
-~Maarten Lankhorst
+-- 
+Jani Nikula, Intel
