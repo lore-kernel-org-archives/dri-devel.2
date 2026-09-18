@@ -4,97 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6074C982D2
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 08:23:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FF0EC88E75
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 08:24:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16EB910E888;
-	Fri, 18 Sep 2026 08:23:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C170A10E867;
+	Fri, 18 Sep 2026 08:24:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="POVzRpsb";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Hdcpnpbx";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010014.outbound.protection.outlook.com [52.101.201.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CB9B10E87D
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 08:23:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=exnfkKgfbE0jIiR2HgKjblPWB6kR+Wq3l3Tzc8MuSbfLLEpO+zYLmp4lYSDj4LhJKE2B5JR1W3uxAGwFb0CXgb72o1EsNqXyPjoTT5S4wwwoC5V0QvGaQAaDw9oBYPz0RtZtNbpa+VHuBdAcqldkOPhmh6i1IOod1BtqBUSADh+Oxv/Ej6l+/nQ7i28NJ717DOftsLvyANdcKLnQwntzseATMCvAxVCNAORwaXMV5UN3r9zoV9Qzy1AYcMTmbFsLFHA1tA8S9945sHNKaLNTlqhVIfoU0LkOMDLIdUIBZRC5eMp91oSAara435F8pKcKUUw2xF8ErWEk7/4o/mKRlA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FPZgi3EZoiK37BEgU8VWTDJ16nfVL1aGE1DlxaQkN8A=;
- b=cYtV4zt9jBF7JT6ToIv29MWbYb/DIa5l+ifCLk4fiHSU8+jCeZkpWXfx4wLpmwLSr4N4TbVmZN3veY4CS3Yppc+1uSfi0KnM+MAWC/Bsj5CX1puUcEY7XUz7yDG5XPt0FBTgjEgZEvl0RCGhtnUTvm5T4NVzdB1KTnx1UiDrvEEFLbuYznTy/hiuqBTlZ7kpMazqdrEdL2uWcFGq+EXSO+RvP4yfWQ1SMjWM7tgIKUTVsQXGU2xs4CV1rSQL3kH4tgh7Z49MD4ouFawY9PXMIo+tlVV7FAOhbu72PVGdLWhgdz5AUN2mv8ET1TLk3+JcfIYT0Y/1HlmKzY0ocVi4EQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FPZgi3EZoiK37BEgU8VWTDJ16nfVL1aGE1DlxaQkN8A=;
- b=POVzRpsbiA3nDsfs5cjJAMjPyp+QSYQlBNqbxl4XzP/kuO+RZJ74lDBrjD9POf5tYUNJSQvPQPrrz0ffBVtFjDiaeleMN94LyVEL9ZzFUSDZJrN9J3SFYSitnEsNuuDU0EgX+MN5g0G9TRL7kQSDHnOUaARoWOAFqypgB/TAyVQ=
-Received: from BN1PR13CA0020.namprd13.prod.outlook.com (2603:10b6:408:e2::25)
- by SN7PR12MB7812.namprd12.prod.outlook.com (2603:10b6:806:329::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Fri, 18 Sep
- 2026 08:23:25 +0000
-Received: from BN1PEPF0001854A.namprd05.prod.outlook.com
- (2603:10b6:408:e2:cafe::45) by BN1PR13CA0020.outlook.office365.com
- (2603:10b6:408:e2::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.9 via Frontend Transport; Fri, 18
- Sep 2026 08:23:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF0001854A.mail.protection.outlook.com (10.167.248.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 08:23:25 +0000
-Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 18 Sep
- 2026 03:23:22 -0500
-From: Honglei Huang <honghuan@amd.com>
-To: <dri-devel@lists.freedesktop.org>
-CC: Honglei Huang <honghuan@amd.com>
-Subject: [PATCH v8 1/4] drm/virtio-gpu: Add VIRTIO_GPU_CAPSET_ROCM capability
-Date: Fri, 18 Sep 2026 16:23:08 +0800
-Message-ID: <20260918082311.2213619-2-honghuan@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260918082311.2213619-1-honghuan@amd.com>
-References: <20260918082311.2213619-1-honghuan@amd.com>
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
+ [74.125.228.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F27E10E867
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 08:24:07 +0000 (UTC)
+Received: by mail-ej2-f12.google.com with SMTP id
+ a640c23a62f3a-c264788fd58so66690866b.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 01:24:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1789719846; x=1790324646; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=0ORtPf5rfrOcpgyi/FO05MAHQySi4ZeH+yKwjJ5NuVg=;
+ b=Hdcpnpbx+yuv/lBh7zQEGgKbMyoNGKRs6N7I8VaJI4j1ndzkqwj1KvXwIZ0Os/lfr6
+ eDKg+a1fjvBc5BZ/dWcaHVAIBYI8YBEFNIRxV17U+7DNXXaBJjdnnGHIBZgEJhGFaRYc
+ 8JU3avE/roZszLiRODiQHyrDB1uIVWeYQQInwUEnIEepQimBuXqMPTSN7HqkO4Z6MWYM
+ bbGFOdS68uiIUUw0KqWFRLgUsvmJNeU1BI581hUIiyUIv6K/YhuCAeL5UhW4JUICuHua
+ WE1AbuDot9xuqkaO6Tdgm4mtxSl7ZQnFGfmHkCtGojgWZhN2j5d+fwPCkzpZRU8dc38I
+ KH/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789719846; x=1790324646;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=0ORtPf5rfrOcpgyi/FO05MAHQySi4ZeH+yKwjJ5NuVg=;
+ b=iw6VSWUJSwHwRlWgfVFpc98Mp6CCXUBarguJ+OAiAKfd79b4iSy4xV7zrDnF+KTyvB
+ wef8BRTOxCBBkh0TdIIqI58qk+doPqVlead3OE/Vp1hiySQUZQID45Qt943oXVt8UOZW
+ em04vfp5FvXpbsBGPG6no3mjauT8I10X+ws4HqJcDiJ7gJ83WbhRwrELoNlwwep4WhsY
+ aUADmS44k2EtmwmgfFJUu/KpHZ8Vt4+6+FxT8ysG7j7OEkKWQfFqOmm/8NF7XtpIlR1D
+ 9jlukNeVvFHrZamXyYbY02E4GM1/oIZurDUEiEWjIsSc8qKnu3Vi2K7DqyFzUxXJEDYT
+ cDXA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz0ti6iNVmPJRn2Uv8Ag8Q+tqGZ0VDQuPE6ti5zdcRgrd5nxcYqHbR+PofPN+l04V+dZjt5cVdIwHU=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nUDpegiF7geZt3e3qhHo/a7e6WPLMDTB7cWn9OE0+Qh5aMB9tE
+ gDhdaHyG5Am358Je50bwb/3/vzBcrqPruQE+ME4oaur2xqhRFcDZpix8tpOoOf2nJG0=
+X-Gm-Gg: AYBFou2SJX+DyAO5PXG6IzLfWaFcdecyV8hfRKF9DjKogQ9FBH/wkcnoGrx6e7d/OI/
+ ah6iK7C7/PZrlaTzJW96UJtx7EDIiWFFUzPp0UusWcIithObt6vEvPs3NyBCkeBf7JFtJfVsrP5
+ EWxIGNsYv3uYHQUpfdDTvmAHOjXO3B9gO2yg4TuXIYt42MXz/pK8lldYQC+iDGzhw3vs6vflZ4e
+ yfMmDNi2KFib5W9+dGdEkkIom3mxBMb9N8gHuvbKzFR73EyZrD2wLxzYv+pO07XVJJZPQzrs81g
+ rkwCPL+h1E7m7mrJKGSzbvpLaAZVPTGaXtuKmV6xn6SpVE7iq2xoPGXqLwZPzD1IsvPM32bZgam
+ I5Bzo2ftpVmBx4gCk8t8SrYGBPrHXQwiBa08HOvUDPEsXNjLk6/BcS7BcRXr09pt3sztZ1VOB4H
+ MsOYAUJOwyGCmG33brLumRqyPh8Mz+QM/+KVmU1GYCk+iYYQkFFemDdgRiy7Oau9Rda37gUgwyE
+ rk=
+X-Received: by 2002:a17:907:72c7:b0:c26:3190:296b with SMTP id
+ a640c23a62f3a-c2a15e7df89mr192409366b.48.1789719845848; 
+ Fri, 18 Sep 2026 01:24:05 -0700 (PDT)
+Received: from draszik.lan ([109.255.181.4]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c2a1bbc6aafsm33384266b.51.2026.09.18.01.24.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 18 Sep 2026 01:24:05 -0700 (PDT)
+Message-ID: <b567cb05cf1508be7474e2874d267d8e8a09e49c.camel@linaro.org>
+Subject: Re: [PATCH] dt-bindings: Expand flow lists to block lists
+From: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
+To: Daniel Matyas <matyasdaniel006@gmail.com>, Lee Jones <lee@kernel.org>, 
+ Ulf Hansson <ulfh@kernel.org>, Liang Yang <liang.yang@amlogic.com>, Miquel
+ Raynal	 <miquel.raynal@bootlin.com>, Richard Weinberger <richard@nod.at>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Kevin Hilman	 <khilman@baylibre.com>, Jerome
+ Brunet <jbrunet@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller"	 <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski	 <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Bjorn Helgaas	 <bhelgaas@google.com>, Lorenzo
+ Pieralisi <lpieralisi@kernel.org>, Krzysztof =?UTF-8?Q?Wilczy=C5=84ski?=	
+ <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, Ray Jui	
+ <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, Broadcom
+ internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Will
+ Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,  Vinod Koul
+ <vkoul@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, Jonathan
+ Hunter	 <jonathanh@nvidia.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark
+ Brown	 <broonie@kernel.org>
+Cc: Jose Abreu <joabreu@synopsys.com>, Ray Jui <ray.jui@broadcom.com>, Scott
+ Branden <scott.branden@broadcom.com>, Atish Patra <atishp@rivosinc.com>,
+ Shawn Guo	 <shawn.guo@linaro.org>, Dmitry Osipenko <digetx@gmail.com>,
+ Thierry Reding	 <thierry.reding@gmail.com>, Ibrahim Tilki
+ <Ibrahim.Tilki@analog.com>, Okan Sahin <Okan.Sahin@analog.com>,
+ devicetree@vger.kernel.org, Paul Walmsley	 <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley	 <conor@kernel.org>,
+ linux-rtc@vger.kernel.org, Ricard Wanderlof <ricardw@axis.com>, 
+ patches@opensource.cirrus.com, Lukas Wunner <lukas@wunner.de>, Chunfeng Yun
+ <chunfeng.yun@mediatek.com>, Eugen Hristev <ehristev@kernel.org>, 
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+ linux-iio@vger.kernel.org, linux@analog.com, linux-input@vger.kernel.org, 
+ chrome-platform@lists.linux.dev, linux-riscv@lists.infradead.org
+Date: Fri, 18 Sep 2026 09:25:27 +0100
+In-Reply-To: <20260917144028.459053-1-matyasdaniel006@gmail.com>
+References: <20260917144028.459053-1-matyasdaniel006@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0001854A:EE_|SN7PR12MB7812:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d01f90b-6680-4c15-ee7f-08df155e1c21
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|18002099003|22082099003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: rYeqZcqX0NNWfXFA2rNMUxfoNOxVGUISKP5rxaf/r21sQrvLA68lXR7steiLsqnetyv8TUHeIFoYE9NRx6rkcc6w+xAP8s3H9/2FQxVz4ByDW+CAfjeGXqak2eKpjoSauCMMpaMWSQm6rKudlAptQ1SBdKbVBFXRSEPg+OoL3mwvun/Q55o9n2A2TbDc/AzE+C6vJORyMEcZNhXf+vFld1GlRMtL+uLoz2TiXfIaCILyCJOOYjtVFO60lYxcs/8+AFOZVnbRc77lFCX40/duZ/tM9pIUDT79WD5iu1DnaQnZhCjEff4hOT637ZTiFYvElflass6xw20mo688/Pv2boJrS2KnlfijzRT/Ij2IYX/IqUClw5lv57V/MQMtz5Bd9pBSoUyM9xmk2S0km9Mg7AF9b9RiIci6uDAeoiipp5h9oFdIsok5pOndhrRST2tO510sNXjugi8D/hhFAqkT6CQZWu/W2ba/npYTJXpiMbRM0N1jNAYD2uakOdVRABnULJ/TfeYPFpibQiBvZ8HpkbarhmCCFLdWt1IGMFQuFkGR3WzKZmhahEzShouw1sbtgaDb3t51wXm4MLerAlYfbdI5lxHXgyz3Xb0UTdubve3nHZrRnWV5dQ1qe64z1IDiY1q5ZXpOThxyiHlrf7w4XlGKxMulFj9M9AtUj+P7F3uxn4ZlBHflK2qN46hhOlZ4PzrEGU9zH0XZO/Easd5d+g==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: prqGvrzmV7g7RpsBs+hOHm3yrDmEcQuGwkUf9uuXsb1ZezkYFCoyN28kW4g9I0XNRdzRVAFdv2BplwfJ03HVMl8Dyk48RcwPYI6Kj3mNYZWt21xaKtx9ZOXaDw1vXQvLg9XUpxirhuSAvJUMSlGi7+V4B0iv0GEB1oPzIn3NbSLnoLN8Woc1Z0tu3Xm2nCl7O/N+LXK6+lk2jYQkH73kpSagbPybEfzGImOzGGGp9HqS9s8DjFLSjcwFrGghVtYyOtyW0JKNyCpjSWMjndYv4rnRyQ5t6WjwUGCdPnwQATtluvScupD8TvtoPX8it66RJIW9HrOvlU1ClT6vub3e4yd6f0x8Vx+nk5+YpRmlSjESj6pYGoX/AU1ElXrxJVmZRS1vNZwSBLu5vuN0HmShffbcx8IsX6kSTZdlTiPKzNmj1FqtcMVr0j4Q8wLIxujQ
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 08:23:25.2560 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d01f90b-6680-4c15-ee7f-08df155e1c21
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0001854A.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7812
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,33 +120,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a new GPU capability set VIRTIO_GPU_CAPSET_ROCM to support
-ROCm compute workloads in virtualized environments.
+On Thu, 2026-09-17 at 17:40 +0300, Daniel Matyas wrote:
+> Running dt_bindings_check returned:
+> [error] string value is redundantly quoted with any quotes (quoted-string=
+s)
+>=20
+> The files used quotation marks in flow lists because the strings had
+> commas and these commas were interpreted as separators. Convert flow
+> style lists to block style lists, so that there is no problems with the
+> commas.
+>=20
+> Signed-off-by: Daniel Matyas <matyasdaniel006@gmail.com>
+> ---
 
-ROCm (Radeon Open Compute) is AMD's open-source software platform
-for GPU compute and HPC workloads.
-
-ID 7 is already used by VIRCL in the virgl/virtio-gpu stack, so
-ROCm uses ID 8. A matching virtio-gpu specification change is in
-progress to register this assignment.
-
-Signed-off-by: Honglei Huang <honghuan@amd.com>
----
- include/uapi/linux/virtio_gpu.h | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/include/uapi/linux/virtio_gpu.h b/include/uapi/linux/virtio_gpu.h
-index 4f530d9005..3d4dfadc9d 100644
---- a/include/uapi/linux/virtio_gpu.h
-+++ b/include/uapi/linux/virtio_gpu.h
-@@ -321,6 +321,7 @@ struct virtio_gpu_cmd_submit {
- #define VIRTIO_GPU_CAPSET_VENUS 4
- #define VIRTIO_GPU_CAPSET_CROSS_DOMAIN 5
- #define VIRTIO_GPU_CAPSET_DRM 6
-+#define VIRTIO_GPU_CAPSET_ROCM 8
- 
- /* VIRTIO_GPU_CMD_GET_CAPSET_INFO */
- struct virtio_gpu_get_capset_info {
--- 
-2.34.1
-
+Acked-by: Andr=C3=A9 Draszik <andre.draszik@linaro.org>
