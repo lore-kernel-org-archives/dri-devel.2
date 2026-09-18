@@ -4,78 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23080C88E75
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:14:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC366C982D7
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:17:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6650610F20F;
-	Fri, 18 Sep 2026 07:14:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAA4010F208;
+	Fri, 18 Sep 2026 07:17:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VFpxGotI";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="H9fyLLx+";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE4A210EEB0
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 12:47:24 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- 98e67ed59e1d1-396ccda24a3so598154a91.0
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 05:47:24 -0700 (PDT)
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com
+ [74.125.224.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BFBA10F208
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 07:17:25 +0000 (UTC)
+Received: by mail-yx2-f13.google.com with SMTP id
+ 956f58d0204a3-66e4aa8d882so492192d50.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 00:17:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789715844; cv=none;
+ d=google.com; s=arc-20260327;
+ b=ZGSjBeHhOgyjhu+84hBBUZ3dm0JaZH9xoHzWR1Dc99rDr6gM3qhkJ1TrDC4mUuQOK1
+ 3VWn+Cnr8MpNG9dg8shZgz6VvnA5iAIvGMZJx/M5hZFY4rRvf1K/bt16A9poc192UTUc
+ TrbD2ursxTvONu/0UuYa5f/aVL2uXYkAcPzOlSNU1L/ctFsZJ0v2gJgQtD7j0ap1NyRo
+ Ua1HDgZzOyatcZNh/dQdwaCjacyxgiZyj0CWV8uATaz33nz0KW7qZVy02KDQzokZjrRs
+ 9pj0tFLnxnb8WxIbYfA+oofxDnVetjz8MZ90bI/qDAOJI6g7DxUC5A4WJS+glbjJQuUu
+ uvEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=ITqNY912hHAbwc9T2h8ninUwVl/brEY9TWjcH5XDilY=;
+ fh=nzSOjxv2474JwXaDRBxeyVMTlIqjOfvlZ7hxa3HONWo=;
+ b=Gdwb9cwPtbAKm0miy92pgWbxKYL6eUbRvvk42Y/mt9nzUH4SgpJsTmBCJiMN+jBIDs
+ BGLRvojbKGuapZ0WPBALq+N5mUuyvi/6cLXI4NrOMJ0FO8Jm49IVbxvzsRFeI7MYSLDi
+ WmZcQVdYBPPUieshBpRt8CWal762prcTL5wrjYSLvTiG9MDPnjA1LDX1zcPvcSlQEwjB
+ hc7tJ2PCAxL8mMMT31hsq24dlziXWPWp4O56dqarKQWdCXdebnra3lpUvT8VX2jseUp5
+ 5tnWp3nbksx93GS44xqoHw0bd8HBIYGhZKeI930WYFD4IyAqGHxCeGw7znltWZzgCpwb
+ Y2XA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789649244; x=1790254044; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=DbfultDs2OD6410ViT9useBSnVgsUPIPJqHZwqlPlSs=;
- b=VFpxGotIYIe/rFyQAJCdpMT7t/xQVjPlHpYAnfpLEpc6CZayyN3HYTkQaZ5Nfo18yA
- KAZfvP0GM0zPF+58zPs8FWmjm3OwbB4RWN5T//eBCy8plvINwwZ+McbKaZfd2jCNm8Y9
- EboueAWbDtblEgwavTeoN/RhjLX7t/cvl+t0Kkz8r0ZXDTzwjjJ/7/wUUf+KBUG/MZ02
- 4/RsjChhYLAvyttOqspCCVAMZg1R/Q5jmac71YaRh/3jiLG8p5rsSpyjnvn71hGqjzCG
- 5QWSDAEGlHBlYPg1XRmUsWbcTtkEwtLHu50aZVSS0FyfXMo1k9DjGZyolxpeksNLEvRf
- hRbg==
+ d=chromium.org; s=google; t=1789715844; x=1790320644;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=ITqNY912hHAbwc9T2h8ninUwVl/brEY9TWjcH5XDilY=;
+ b=H9fyLLx+MPHSjfR7iHuGXcktD/iaSnwvYj2SSDD0HEPju7qWMo2sk4OxRN/zRBPMTE
+ JO3dreirc0LVikjLmqq3R4I/xSNFei/AvuUgeMTvJz77Swdp0+rutU97LCXYZwdnFTLs
+ 9XfHbTcmzDVNGYr7+6hRwCm/t6QyqDlw023WQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789649244; x=1790254044;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=DbfultDs2OD6410ViT9useBSnVgsUPIPJqHZwqlPlSs=;
- b=CHMf2IYEWWDrdcefSPjw+Ld0HY75Ln8UBVeV8EjU+nO1odYCjEmKvaNAmthjn9KWGm
- Lz46R1f56qh67mcgzYQazIPYiqcKkOtpnKzluDT1NpNaBhDQxz6dPxdLjb1Dqghz59aR
- rjFSEaGTN1reNvOgWbRI5OFWaXDtFFLGku5nmHF14SRRZw5JvAh8hwCWSWvwWTsS3iX/
- xXcqsEkuxJYqeU7etkXSeV/XNdr/OfsYUORt+Jv0GePUCiL5Gzfs54mEDvM0qrnN7WsT
- GVKoHpNP9h2pG46lG1VXYXBXJGWTLK0DoSzbhf7gxP7Y5mJ8JK6nJZ2cgZ8UdjGTrUBm
- K88g==
+ d=1e100.net; s=20260707; t=1789715844; x=1790320644;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ITqNY912hHAbwc9T2h8ninUwVl/brEY9TWjcH5XDilY=;
+ b=CNDiu831Z7GSFjzmsEiCIxbjUQrRnZyYmh/JF2O+FzQZQrXCjiNAk4wNstcs2aiWeV
+ /sasFjIdQXuDVROp5+KYV6oDNd2GRSppwKIGkXJNCdxiKIOoyHOmaHa/Tl4LWv6a3Io+
+ yn1/8K9wmkGRQhJTuvAhhcE6v0pSfkdCDIRCxxFVlK1pGjq6b+k028DOV2HFZ1LVw31z
+ lXTvzdmyLjVlfYjfZeuXqj4EXi1u2izTet/1S7Yb2IDVQ7ArytMx62urpbJHxOoFA6qj
+ n+Z55Z5sLe7bBsp/Hq1Qeuh7obE8+5iH9+0YBnXaMeUU8TGowKsekcRBgVb3V8Ugb4a5
+ ZfoQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwBRTlfKoNfVLLEM+4AWarbWgX3vCb1owtmn0D98HLuj/Rv17YNPLMbUnpgW9+D93VzD6KACVmyGfo=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mHaBZnwAKgQUPMP+Yj6y+age4iHhJM96chloyym31g5kDt//Kg
- zxh0L/q4A6vu5ognLjFiicERBIuSoUvSuu3R5LzBXrwkCyAECq2noEMA
-X-Gm-Gg: AYBFou1E310PT57yGVEgBTuFNlXUJjwuP+oBuMNw7cr7ToXA8zft5/DjHmumDfwmecw
- 1E/RPGJcdIIJksQJs9DXPMuqwFGaJ000wcBPUPtSwEGZmhUFb2OD4qBFD8ziv9yHzRQFtb1A/jt
- GjgUVLSLdHyOinjT6nRNQAQlxwoA649xl12gs9phZf3gmpvYmUplE6rUYCXJX2zlf90JJGZjKM8
- JiCMcIRLpVdZtE4QemQX6AgkUYx0fj2s6WWMMe27W/omLRIvV7SdoDUE3UPVUACtBgc/92POE/a
- hJ4/2sYeDlE7MrKHVD12fUY2SrdNW7jOyzgKuxd0U6bfNdfCEujHblmFkVE0JdZisSeODBvWhd4
- MqMPrRTUiq52yhUWAE2j7cl2ji9zC8SYcpevkVT5/ogbcQACkrpzshHRVu4lHhNAHox23l19Egp
- L/ruk/Y9DLpH7RXddX0QsBscePFkzwFTyzG6XBnhLNo4N4t0TO/uqDZ1ByWmY+GFmTzAmgkSVWS
- n7Xs4q09AUAlc37WM/DsKJ4syPI7a4=
-X-Received: by 2002:a17:90a:d16:b0:39e:3554:4d0e with SMTP id
- 98e67ed59e1d1-39e35545939mr9663298a91.1.1789649244173; 
- Thu, 17 Sep 2026 05:47:24 -0700 (PDT)
-Received: from flyingfox ([2402:a00:163:2ce9:6c87:7904:21fa:8675])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-14395cfb0b1sm12349328c88.5.2026.09.17.05.47.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Sep 2026 05:47:23 -0700 (PDT)
-From: Vivek Kumar <vk092kumar@gmail.com>
-To: robin.clark@oss.qualcomm.com
-Cc: lumag@kernel.org, abhinav.kumar@linux.dev, jesszhan0024@gmail.com,
- sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Vivek Kumar <vk092kumar@gmail.com>
-Subject: [PATCH v3] drm/msm/dp: allow eDP sinks without DP_SINK_COUNT
-Date: Thu, 17 Sep 2026 18:17:06 +0530
-Message-ID: <20260917124706.421107-1-vk092kumar@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ AKwUvBx8S+3XtAop02BAxprCZLuE+vIXOJXlyKDLeV3UOcaa35vfNgBfDgn8D6KJC0iG8I8vtLgZFFUNgvY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nvmFFqlh9pkT6TilZN9PGhpsBDyNAymszD59CNQtyXNhLKEhJD
+ p3LHNddBpvYR+hmt+aWEqkgasvvmQIsgLCu91cJA/DMgEF+j8HF08URbqnjRUy/8hEfLhZbmiUL
+ wqwT+KhCvpWKRLrSjdnsEUSoZKLHuc3XdfybKg6z42OVwBxNU0AnR2A==
+X-Gm-Gg: AYBFou3QSc4RLxdEyYTAHLUwTUjN1YirA+Pup7NUIk+TnXrGwKNb/yAllDlWlBL4yo3
+ apWXik00Jl9JdhCZSWnnXBhzL/t05UWPQZ0IRdpx/mo39N62HuL/F0GMnppCN8DyzoB/yuWIhT3
+ VGiPdOsqILKc1X9atGNb0r6UlRpVGZaextPNpVfZ2tOlfjIbe/RLFGEGctGKohD8Fy2pS0UAx68
+ JEvjqUlgOhHFcQ9/QkMWQU1leHhlAxTGpg+8IOzbSWx/2T9IoHiAiTc1avxK8Xsf9yJ6b3X9XdA
+ wWM4H9UjG9nMG3cyeWSWh0UxDeJbX17764KtwqgbY6Hdi1MNvr/AzOA30avLw59Xl+TcixLkpJ5
+ 7stUl/0ip6A==
+X-Received: by 2002:a05:690e:1244:b0:667:ba34:51e2 with SMTP id
+ 956f58d0204a3-6717fc73f18mr528044d50.13.1789715844017; Fri, 18 Sep 2026
+ 00:17:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 18 Sep 2026 07:09:59 +0000
+References: <20260916033327.3054126-1-wenst@chromium.org>
+ <20260916033327.3054126-2-wenst@chromium.org>
+ <f6ace486-70d8-4e81-89cb-e9d55ad9ac8b@suse.de>
+ <CAGXv+5ErgWVNtnRiW+QA7+Mzh=W_Y+HGL_iRa1fOaXCYSoAwMA@mail.gmail.com>
+ <f7fa4c4c-bc59-4822-94bb-6e9d68f8f0ca@suse.de>
+ <CAGXv+5GNjKxzHuBn28PbRtbFA1yuJ7h02xDpght4add3emuKJg@mail.gmail.com>
+In-Reply-To: <CAGXv+5GNjKxzHuBn28PbRtbFA1yuJ7h02xDpght4add3emuKJg@mail.gmail.com>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Fri, 18 Sep 2026 15:17:12 +0800
+X-Gm-Features: AcwNN1VfNznx-wGfs8r_CeKKtrEj641j8sqUrt8qB1yK2OIkZ-fPkbPmzPQcswY
+Message-ID: <CAGXv+5FOB9Y3HCt=ydrcUPdo7S92MiJRqsjXAZiW99-3NfYECQ@mail.gmail.com>
+Subject: Re: [PATCH RFT v2 1/5] drm: Split framebuffer pixel offset
+ calculation from drm_fb_dma_get_gem_addr()
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Liu Ying <victor.liu@nxp.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-sunxi@lists.linux.dev, 
+ imx@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,82 +120,277 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Some eDP sinks, especially fixed-format eDP-to-HDMI bridge chips with
-no downstream AUX-capable panel behind them, do not report a non-zero
-DP_SINK_COUNT even though they participate normally in DPCD capability
-exchange and link training.
+On Fri, Sep 18, 2026 at 3:06=E2=80=AFPM Chen-Yu Tsai <wenst@chromium.org> w=
+rote:
+>
+> On Fri, Sep 18, 2026 at 2:41=E2=80=AFPM Thomas Zimmermann <tzimmermann@su=
+se.de> wrote:
+> >
+> > Hi
+> >
+> > Am 18.09.26 um 06:16 schrieb Chen-Yu Tsai:
+> > > On Thu, Sep 17, 2026 at 11:20=E2=80=AFPM Thomas Zimmermann <tzimmerma=
+nn@suse.de> wrote:
+> > >> Hi
+> > >>
+> > >> Am 16.09.26 um 05:33 schrieb Chen-Yu Tsai:
+> > >>> Currently drm_fb_dma_get_gem_addr() calculates the offset into the
+> > >>> framebuffer memory for the framebuffer's unclipped source coordinat=
+es,
+> > >>> adds that to the framebuffer's backing storage, and returns the res=
+ult.
+> > >>>
+> > >>> We are about to add a variant that uses the clipped source coordina=
+tes,
+> > >>> so there is already some reuse of code. However, calculating the da=
+ta
+> > >>> offset for a given pixel is not specific to the DMA FB helpers. The
+> > >>> offset is only related to the framebuffer.
+> > >>>
+> > >>> Split out the offset calculation into a new framebuffer helper so t=
+hat
+> > >>> non-DMA users can also reuse the same code.
+> > >>>
+> > >>> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+> > >>> Cc: <stable@vger.kernel.org> # dependency for next patch
+> > >>> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> > >>> ---
+> > >>> Changes since v1:
+> > >>> - New patch
+> > >>> ---
+> > >>>    drivers/gpu/drm/drm_fb_dma_helper.c | 28 ++----------------
+> > >>>    drivers/gpu/drm/drm_framebuffer.c   | 45 +++++++++++++++++++++++=
+++++++
+> > >>>    include/drm/drm_framebuffer.h       |  3 ++
+> > >>>    3 files changed, 51 insertions(+), 25 deletions(-)
+> > >>>
+> > >>> diff --git a/drivers/gpu/drm/drm_fb_dma_helper.c b/drivers/gpu/drm/=
+drm_fb_dma_helper.c
+> > >>> index fd71969d2fb1..ab0f37d8a5ff 100644
+> > >>> --- a/drivers/gpu/drm/drm_fb_dma_helper.c
+> > >>> +++ b/drivers/gpu/drm/drm_fb_dma_helper.c
+> > >>> @@ -75,36 +75,14 @@ dma_addr_t drm_fb_dma_get_gem_addr(struct drm_f=
+ramebuffer *fb,
+> > >>>                                   unsigned int plane)
+> > >>>    {
+> > >>>        struct drm_gem_dma_object *obj;
+> > >>> -     dma_addr_t dma_addr;
+> > >>> -     u8 h_div =3D 1, v_div =3D 1;
+> > >>> -     u32 block_w =3D drm_format_info_block_width(fb->format, plane=
+);
+> > >>> -     u32 block_h =3D drm_format_info_block_height(fb->format, plan=
+e);
+> > >>> -     u32 block_size =3D fb->format->char_per_block[plane];
+> > >>> -     u32 sample_x;
+> > >>> -     u32 sample_y;
+> > >>> -     u32 block_start_y;
+> > >>> -     u32 num_hblocks;
+> > >>>
+> > >>>        obj =3D drm_fb_dma_get_gem_obj(fb, plane);
+> > >>>        if (!obj)
+> > >>>                return 0;
+> > >>>
+> > >>> -     dma_addr =3D obj->dma_addr + fb->offsets[plane];
+> > >>> -
+> > >>> -     if (plane > 0) {
+> > >>> -             h_div =3D fb->format->hsub;
+> > >>> -             v_div =3D fb->format->vsub;
+> > >>> -     }
+> > >>> -
+> > >>> -     sample_x =3D (state->src_x >> 16) / h_div;
+> > >>> -     sample_y =3D (state->src_y >> 16) / v_div;
+> > >>> -     block_start_y =3D (sample_y / block_h) * block_h;
+> > >>> -     num_hblocks =3D sample_x / block_w;
+> > >>> -
+> > >>> -     dma_addr +=3D fb->pitches[plane] * block_start_y;
+> > >>> -     dma_addr +=3D block_size * num_hblocks;
+> > >>> -
+> > >>> -     return dma_addr;
+> > >>> +     return obj->dma_addr + drm_framebuffer_get_block_offset(fb, p=
+lane,
+> > >>> +                                                             state=
+->src_x >> 16,
+> > >>> +                                                             state=
+->src_y >> 16);
+> > >>>    }
+> > >>>    EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_addr);
+> > >>>
+> > >>> diff --git a/drivers/gpu/drm/drm_framebuffer.c b/drivers/gpu/drm/dr=
+m_framebuffer.c
+> > >>> index d32aceb6ca9b..9e1231162047 100644
+> > >>> --- a/drivers/gpu/drm/drm_framebuffer.c
+> > >>> +++ b/drivers/gpu/drm/drm_framebuffer.c
+> > >>> @@ -1208,6 +1208,51 @@ void drm_framebuffer_print_info(struct drm_p=
+rinter *p, unsigned int indent,
+> > >>>        }
+> > >>>    }
+> > >>>
+> > >>> +/**
+> > >>> + * drm_framebuffer_get_block_offset() - Get offset to start of pix=
+el block for
+> > >>> + * the given framebuffer and coordinates.
+> > >>> + * @fb: The framebuffer
+> > >>> + * @plane: Which plane
+> > >>> + * @x: x coordinate for pixel
+> > >>> + * @y: y coordinate for pixel
+> > >>> + *
+> > >>> + * This function will usually be called from the PLANE callback fu=
+nctions,
+> > >>> + * or from one of the helpers that calculates the framebuffer's DM=
+A address.
+> > >>> + *
+> > >>> + * Return: offset from start of framebuffer to start of pixel bloc=
+k
+> > >>> + */
+> > >>> +u32 drm_framebuffer_get_block_offset(struct drm_framebuffer *fb, u=
+nsigned int plane,
+> > >>> +                                  unsigned int x, unsigned int y)
+> > >> Better use u64 as return type.
+> > > To avoid overflow? Not sure who would use crazy large framebuffers, b=
+ut
+> > > doesn't hurt to play it safe.
+> >
+> > I'd be worried about a malicious user space that tries to access OOB.
+> >
+> > Apart from that, we use u64 for other framebuffer-related sizes like
+> > pitch calculations or dma addresses. Using u64 here would keep that
+> > consistent.
+>
+> Indeed. It seemed weird that the helper originally used u32. Maybe it
+> was carried over from CMA on ARMv7, which predominantly only had
+> 32-bit address space data busses?
+>
+> >
+> > >
+> > >>> +{
+> > >>> +     u8 h_div =3D 1, v_div =3D 1;
+> > >>> +     u32 block_w =3D drm_format_info_block_width(fb->format, plane=
+);
+> > >>> +     u32 block_h =3D drm_format_info_block_height(fb->format, plan=
+e);
+> > >>> +     u32 block_size =3D fb->format->char_per_block[plane];
+> > >>> +     u32 sample_x;
+> > >>> +     u32 sample_y;
+> > >>> +     u32 block_start_y;
+> > >>> +     u32 num_hblocks;
+> > >>> +     u32 offset;
+> > >>> +
+> > >>> +     offset =3D fb->offsets[plane];
+> > >>> +
+> > >>> +     if (plane > 0) {
+> > >>> +             h_div =3D fb->format->hsub;
+> > >>> +             v_div =3D fb->format->vsub;
+> > >>> +     }
+> > >>> +
+> > >>> +     sample_x =3D x / h_div;
+> > >>> +     sample_y =3D y / v_div;
+> > >>> +     block_start_y =3D (sample_y / block_h) * block_h;
+> > >>> +     num_hblocks =3D sample_x / block_w;
+> > >>> +
+> > >>> +     offset +=3D fb->pitches[plane] * block_start_y;
+> > >>> +     offset +=3D block_size * num_hblocks;
+> > >> User space controls the values in fb->offsets and fb->pitches.  I'm =
+not
+> > >> sure how well they have been validated already at this point. Did yo=
+u
+> > >> investigate this?
+> > > It wouldn't be worse than before, since this changes is purely code m=
+ovement.
+> > >
+> > > There are minimal sanity checks done by drm_internal_framebuffer_crea=
+te()
+> > > in framebuffer_check(), such as offset overflow or pitch size too sma=
+ll,
+> > > but that's about it. It would be up to individual drivers to perform =
+more
+> > > checks that match their hardware limitations.
+> >
+> > Right, makes sense. Looking through the framebuffer validation, a
+> > buffer-size check could be done in framebuffer_check().  But that's
+> > another patch series.
+>
+> That's further covered by drm_gem_fb_init_with_funcs(), which
+> drm_gem_fb_create*() goes into. I didn't check all the drivers that
+> implemented their own .fb_create callback though.
+>
+> - rockchip uses the GEM FB helpers
+> - MSM reimplements the GEM FB helpers, but does have proper size checks
+> - nouveau has size checks
+> - omap has size checks
 
-Treating sink_count == 0 as a permanent disconnect is valid for external
-DisplayPort, but it breaks eDP probe/enable paths in
-msm_dp_display_prepare_link().
+Side note: it seems that the drivers that reimplement
+drm_gem_fb_init_with_funcs() do so because they need to do additional
+checks on the (sub-classed) GEM objects. Perhaps exporting drm_gem_fb_init(=
+)
+or deconstructing drm_gem_fb_init_with_funcs() could allow more of them
+to use common helpers for things like size checks.
 
-Use the same eDP exemption as drm_dp_read_sink_count_cap() for the raw
-sink_count checks in this driver, via a small shared helper, so valid eDP
-outputs are not rejected as disconnected just because the downstream sink
-does not expose a usable DP_SINK_COUNT.
-
-Tested on a Qualcomm QCS6490-based board driving a fixed-format
-eDP-to-HDMI bridge IC (chrontel,ch7218a).
-
-Signed-off-by: Vivek Kumar <vk092kumar@gmail.com>
----
- drivers/gpu/drm/msm/dp/dp_aux.c  |  8 ++++++++
- drivers/gpu/drm/msm/dp/dp_aux.h  |  1 +
- drivers/gpu/drm/msm/dp/dp_link.c | 10 ++++++++++
- 3 files changed, 19 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-index 3825a2fb48e2..3b5a4da93122 100644
---- a/drivers/gpu/drm/msm/dp/dp_aux.c
-+++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-@@ -679,6 +679,14 @@ u32 msm_dp_aux_is_link_connected(struct drm_dp_aux *msm_dp_aux)
- 	return status;
- }
- 
-+bool msm_dp_aux_is_edp(struct drm_dp_aux *msm_dp_aux)
-+{
-+	struct msm_dp_aux_private *aux =
-+		container_of(msm_dp_aux, struct msm_dp_aux_private, msm_dp_aux);
-+
-+	return aux->is_edp;
-+}
-+
- struct drm_dp_aux *msm_dp_aux_get(struct device *dev,
- 			      struct phy *phy,
- 			      bool is_edp,
-diff --git a/drivers/gpu/drm/msm/dp/dp_aux.h b/drivers/gpu/drm/msm/dp/dp_aux.h
-index 4be02e8b4d0b..9ab401c8526f 100644
---- a/drivers/gpu/drm/msm/dp/dp_aux.h
-+++ b/drivers/gpu/drm/msm/dp/dp_aux.h
-@@ -22,6 +22,7 @@ void msm_dp_aux_hpd_intr_enable(struct drm_dp_aux *msm_dp_aux);
- void msm_dp_aux_hpd_intr_disable(struct drm_dp_aux *msm_dp_aux);
- u32 msm_dp_aux_get_hpd_intr_status(struct drm_dp_aux *msm_dp_aux);
- u32 msm_dp_aux_is_link_connected(struct drm_dp_aux *msm_dp_aux);
-+bool msm_dp_aux_is_edp(struct drm_dp_aux *msm_dp_aux);
- 
- struct phy;
- struct drm_dp_aux *msm_dp_aux_get(struct device *dev,
-diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
-index 34a91e194a12..bf08b5b18097 100644
---- a/drivers/gpu/drm/msm/dp/dp_link.c
-+++ b/drivers/gpu/drm/msm/dp/dp_link.c
-@@ -725,6 +725,16 @@ static int msm_dp_link_parse_sink_status_field(struct msm_dp_link_private *link)
- 		DRM_ERROR("DP parse sink count failed\n");
- 		return ret;
- 	}
-+
-+	/*
-+	 * Some eDP sinks do not report a valid sink count, even though they
-+	 * otherwise participate in link training and DPCD capability exchange.
-+	 * Treat a zero raw count as a valid non-zero placeholder so we do not
-+	 * misclassify the link as disconnected on eDP.
-+	 */
-+	if (msm_dp_aux_is_edp(link->aux) && ret == 0)
-+		ret = 1;
-+
- 	link->msm_dp_link.sink_count = ret;
- 
- 	ret = drm_dp_dpcd_read_link_status(link->aux,
--- 
-2.55.0
-
+> > >
+> > > What sort of issues are you thinking about?
+> >
+> > Again, I'm thinking of malicious user space that crafts these values to
+> > force an OOB access.
+>
+> I think we're covered.
+>
+>
+> Thanks
+> ChenYu
+>
+> > Best regards
+> > Thomas
+> >
+> >
+> > >
+> > >
+> > > ChenYu
+> > >
+> > >> Best regards
+> > >> Thomas
+> > >>
+> > >>
+> > >>> +
+> > >>> +     return offset;
+> > >>> +}
+> > >>> +EXPORT_SYMBOL(drm_framebuffer_get_block_offset);
+> > >>> +
+> > >>>    #ifdef CONFIG_DEBUG_FS
+> > >>>    static int drm_framebuffer_info(struct seq_file *m, void *data)
+> > >>>    {
+> > >>> diff --git a/include/drm/drm_framebuffer.h b/include/drm/drm_frameb=
+uffer.h
+> > >>> index 38b24fc8978d..c07aea1cc59f 100644
+> > >>> --- a/include/drm/drm_framebuffer.h
+> > >>> +++ b/include/drm/drm_framebuffer.h
+> > >>> @@ -220,6 +220,9 @@ void drm_framebuffer_remove(struct drm_framebuf=
+fer *fb);
+> > >>>    void drm_framebuffer_cleanup(struct drm_framebuffer *fb);
+> > >>>    void drm_framebuffer_unregister_private(struct drm_framebuffer *=
+fb);
+> > >>>
+> > >>> +u32 drm_framebuffer_get_block_offset(struct drm_framebuffer *fb, u=
+nsigned int plane,
+> > >>> +                                  unsigned int x, unsigned int y);
+> > >>> +
+> > >>>    /**
+> > >>>     * drm_framebuffer_get - acquire a framebuffer reference
+> > >>>     * @fb: DRM framebuffer
+> > >> --
+> > >> --
+> > >> Thomas Zimmermann
+> > >> Graphics Driver Developer
+> > >> SUSE Software Solutions Germany GmbH
+> > >> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
+> > >> GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG N=C3=BCrnberg)
+> > >>
+> > >>
+> >
+> > --
+> > --
+> > Thomas Zimmermann
+> > Graphics Driver Developer
+> > SUSE Software Solutions Germany GmbH
+> > Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
+> > GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG N=C3=BCrnberg)
+> >
+> >
