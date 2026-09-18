@@ -4,70 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E0CBC982D7
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 19:52:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C136C982D7
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 20:00:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D79810E9AF;
-	Fri, 18 Sep 2026 19:52:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46ABC10F4ED;
+	Fri, 18 Sep 2026 20:00:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Gm6qzNfW";
+	dkim=pass (2048-bit key; unprotected) header.d=deltatee.com header.i=@deltatee.com header.b="W/ONbTcH";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABA2110E9AF
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 19:52:09 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 51E9744512
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 19:52:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39D581F0089C
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 19:52:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789761129;
- bh=2aZ2SRdSwMAy6l7corBl6TSn3cdYhbUcwCmUTuq+Lz0=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=Gm6qzNfWy5SaEaZiWboTlhe73I5Y3sKUdV6dA1lzHfVwoETVwe+9hP7CmVBl37W43
- X8HruD8sWl9SRDFkfNmCHKrzypv+Oh0peVFrVCV026JEEP8+eguYm8Yy+gakSLDM+e
- h+m+fv9lnjTbvJ0rf5+NYRXRuQ5NW4+Vjc2dCMAq2MKfiznZQPeqnMlra/QJxE3iaC
- KzUnoA71jnKCeftkRbab5KjOcfPHnTV4eVW8WJUJwQFgArkQpF4yQyg/dR7XURkReL
- 1QIjIi01Po7Ajp4zITvll8Yj5PdiraLijx4XpY+89UhP1uEzsw2oSatYZ9aWf2cc/X
- F/+VsHDt6R/cQ==
-Received: by mail-lf2-f12.google.com with SMTP id
- 2adb3069b0e04-5b899413537so1620589e87.1
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 12:52:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBzAQPrZdw/FFvOOFwh2cOzf3IoinnhYcY/25ghEOb83f9w28sjqUPzrqhAKAFFl2+QMJozkqMOu/2Y=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kriqrcHMpA8svbYwb1ENkJxTH6ZJUW/3IsThXCP4YU6A05Zkic
- /mcVYTCCBdBUjiVjMQca+T7cUPN4Gc0EZ3gZMG62Y77s5R5g1xkNad6N5fwjCCzb3RFIDjViflS
- u6NdAuAVVlOJrK/1EYL27YiEciIcDod8=
-X-Received: by 2002:a05:6512:a94:b0:5b6:183b:d1fb with SMTP id
- 2adb3069b0e04-5b8c184918cmr1248231e87.34.1789761127739; Fri, 18 Sep 2026
- 12:52:07 -0700 (PDT)
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF96810F4ED
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 20:00:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+ MIME-Version:Date:Message-ID:content-disposition;
+ bh=cmiry3JcpazZ6l/PDBYrf3Gg/OWOS79zaTVf2b02IB0=; b=W/ONbTcHvbbIcERFDBy5V9+fz8
+ ClXKlqhfI9/+PEX5UPZD/o9kNZB2xeLc6zsCCTmVEebXhBjHQB1VHAH3gZOcPOirQCS5xTtaH0f5y
+ s0JCpmFhn7hlwfUnwEhUXZMND0d06IpSnuXzm8j86ZILMwQr8gCPbjPiwyNNd/0T4UK7TSQzEcPNC
+ 5aqkcHGEO3iirTALpNPzRsqeyqDK7uUa2nahHS2hhtAH2q05KmkruKKkOSr1EwNbW/d6ezacx2EXb
+ kuJwha3ZRhs0SHbPVT9LjGFOUI6TCSn71LmSJBR0L8gAurJAb3h9zxd1NU58TeZwTWpyag9nqPIUW
+ MSa9+CMQ==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+ by ale.deltatee.com with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.98.2)
+ (envelope-from <logang@deltatee.com>) id 1x7ekV-0000000Cs4I-1zVG;
+ Fri, 18 Sep 2026 13:59:56 -0600
+Message-ID: <1384e37c-d4d4-41d7-8d74-c4e60f52c9d7@deltatee.com>
+Date: Fri, 18 Sep 2026 13:59:54 -0600
 MIME-Version: 1.0
-References: <20260914-ux500-power-domains-v7-1-v2-0-9d0c17e1f816@kernel.org>
- <20260914-ux500-power-domains-v7-1-v2-17-9d0c17e1f816@kernel.org>
- <aqhg8fCuVBqDvRrh@lizhi-Precision-Tower-5810>
-In-Reply-To: <aqhg8fCuVBqDvRrh@lizhi-Precision-Tower-5810>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 18 Sep 2026 21:51:54 +0200
-X-Gmail-Original-Message-ID: <CAD++jLm-_-a1ROYBYPo96Tp+qdUr2Ka=F1H0O=ngoqJ9wrqyqg@mail.gmail.com>
-X-Gm-Features: AcwNN1VfgwBXDgi6e_-s2oKD27ppfBOu9eGlZ28XYdT8IngR0jAuGkn-SUSGs0s
-Message-ID: <CAD++jLm-_-a1ROYBYPo96Tp+qdUr2Ka=F1H0O=ngoqJ9wrqyqg@mail.gmail.com>
-Subject: Re: [PATCH v2 17/20] dmaengine: ste_dma40: Use power domain for LCLA
- SRAM
-To: Frank Li <Frank.li@oss.nxp.com>, Saravana Kannan <saravanak@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
- Mark Brown <broonie@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
- Lee Jones <lee@kernel.org>, 
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- dmaengine@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
+ <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-4-5ef07ec9ef06@nvidia.com>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260914-fix-p2p-acs-v4-0-v6-4-5ef07ec9ef06@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, kch@nvidia.com,
+ gregkh@linuxfoundation.org, axboe@kernel.dk, alex@shazbot.org,
+ ankita@nvidia.com, jgg@ziepe.ca, corbet@lwn.net, skhan@linuxfoundation.org,
+ joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, rdunlap@infradead.org,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ tdave@nvidia.com, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
+ kvm@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+Subject: Re: [PATCH v6 04/18] PCI: Reject unreadable ACS controls in isolation
+ checks
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,26 +85,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Sep 14, 2026 at 11:02=E2=80=AFPM Frank Li <Frank.li@oss.nxp.com> wr=
-ote:
-> On Mon, Sep 14, 2026 at 01:54:45PM +0200, Linus Walleij wrote:
 
-> >       if (base->plat_data->use_esram_lcla) {
-> > +             np_lcla =3D of_parse_phandle(np, "sram", 1);
-> > +             if (!np_lcla) {
-> > +                     dev_err(dev, "no LCLA SRAM node\n");
-> > +                     ret =3D -EINVAL;
-> > +                     goto destroy_cache;
-> > +             }
->
-> sram is used at many place, is it good to put into
-> drivers/of/property.c DEFINE_SIMPLE_PROP to avoid set up device link by
-> each driver?
 
-I have absolutely no idea if that is a good idea or how to
-even use that macro.
+On 2026-09-14 05:22, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
+> 
+> pci_acs_flags_enabled() and the Intel SPT PCH quirk use ACS registers
+> without checking config-space read errors. A failed read may leave control
+> state indeterminate yet allow the device to satisfy requested isolation
+> controls.
+> 
+> Return false when either ACS capability or control state cannot be read.
+> An unknown state cannot prove isolation.
+> 
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 
-But Saravana will know, so let's ask him!
+Looks good to me.
 
-Yours,
-Linus Walleij
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
