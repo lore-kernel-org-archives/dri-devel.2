@@ -4,62 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26A31C982DA
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 12:15:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 952CBC982DC
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 12:19:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1590B10E8C8;
-	Fri, 18 Sep 2026 12:15:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 963B310F348;
+	Fri, 18 Sep 2026 12:19:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="l2Hvu22q";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FdDUPc/z";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F405A10E8C8
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 12:15:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E542F60A82;
- Fri, 18 Sep 2026 12:15:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEB791F000FF;
- Fri, 18 Sep 2026 12:15:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789733705;
- bh=+8ouL8MHD3D1pD50ird+0r+dFeJQjvvbk3v4ZZQqqXs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=l2Hvu22qiDsRKF2dKtyIxq/BuSR7nfYOOeG3+byXlyAoETgK9LqUOuJf3cPOxvCk9
- ErhqPvZWMTU0HVQRHUlSoKCVv4TTd/UVGn9MIJc1m0h/cvb5JjTclY7E4W1i4QRSQ/
- x9Owc28rL0PF6cQprfFCFa5XAjmbt/JpP7/o3PY2oA2uoLtlTjhBJX4HT1qwc7bwrp
- GfkiEtJuhX0PazsalVk64Sr4JjlBI88Y/Upmbe8SPhLHlKOiZIbUJH+CqwwiJvZtAW
- JO4jA67c801lRH5V6gEpMjNdTEf1tcR54d2kKhjbRRN2ELDKWA0IuNx68rVtOqC2mw
- ooJwoi5T2fIhw==
-Date: Fri, 18 Sep 2026 15:15:00 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
- direct peer-to-peer route
-Message-ID: <20260918121500.GV13683@unreal>
-References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
- <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
- <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D68710F348;
+ Fri, 18 Sep 2026 12:19:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Subject:To:From:Date:From:Reply-To;
+ bh=Iee394mqfwxTLAURR3viKDxcnu4q6zhVi5eyIe3N21c=; b=FdDUPc/zzW65vpaDzCpjBnqML5
+ KEbB7hwa7u7J3ZfzpZ+lDCzyvh3theIkuEFGvobwknEqBtic2Ojg6R4oZFs3jeLvIMStRYneffdXz
+ /jQMbqVuB2BJD2RRe3oem0hLPZ1Il7Mg7kUaWv9jI3rOBOFwlt1h+gT6SwodJ27wf+mxNl86HO2V/
+ u+uIRw1YodmhzvD3tYRD6QlB37XnI8JIinM9LA4F1WRHRVvKtXwEhSRsUaaqFXnORvIjRKiStQ/G7
+ Ap6s5w1bccFtVra+g474npXLfv08ggt07AZjUFHeSyF+59E3s9E3lO2Q7g8/orjdHCAoX/9dx12CF
+ Z0STIGVQ==;
+Received: from 179-125-70-185-dinamico.pombonet.net.br ([179.125.70.185]
+ helo=quatroqueijos.cascardo.eti.br)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1x7XZ2-003vjO-IC; Fri, 18 Sep 2026 14:19:36 +0200
+Date: Fri, 18 Sep 2026 09:19:29 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ igt-dev@lists.freedesktop.org, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+Subject: Re: [PATCH i-g-t v6 2/9] tests/cgroup_dmem: add dmem cgroup
+ controller test
+Message-ID: <aq0sUV6Lfb8lVs4N@quatroqueijos.cascardo.eti.br>
+References: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
+ <20260903-dmem_max-v6-2-61dc62970fae@igalia.com>
+ <20260917094559.3mgy6enka2dfeuq6@kamilkon-DESK.igk.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
+In-Reply-To: <20260917094559.3mgy6enka2dfeuq6@kamilkon-DESK.igk.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,221 +69,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 17, 2026 at 03:56:12PM +0200, Thomas Hellström wrote:
-> Hi
-> 
-> On Mon, 2026-09-14 at 14:22 +0300, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
+On Thu, Sep 17, 2026 at 11:45:59AM +0200, Kamil Konieczny wrote:
+> Hi Thadeu,
+> On 2026-09-03 at 19:00:24 -0300, Thadeu Lima de Souza Cascardo wrote:
+> > From: Thomas Hellstr�m <thomas.hellstrom@linux.intel.com>
 > > 
-> > mlx5_umem_needs_ats() enables ATS for any dma-buf whose caller asked
-> > for
-> > Relaxed Ordering, on the assumption that a switch in the path has CR,
-> > RR
-> > and DT all set. It also enables it for a buffer already mapped with
-> > the
-> > peer's bus addresses, which are not translatable at all.
+> > Add a test that exercises the cgroup v2 dmem controller interface using
+> > the new igt_cgroup library.
 > > 
-> > P2PDMA has read the ACS controls, so ask it through
-> > dma_buf_p2pdma_map_type(): enable ATS only where the path is not
-> > routed
-> > directly as it stands, but would be for a Translated Request whose
-> > Completions carry Relaxed Ordering. Exporters that name no provider
-> > keep
-> > the old assumption, since their ACS settings remain hidden.
+> > The test uses igt_simple_main and:
+> >   - Skips if no dmem regions are registered (no cgroup v2 or no
+> >    dmem-capable device).
+> >   - Creates a sub-cgroup and moves the test process into it.
+> >   - Enumerates all registered device memory regions and prints their
+> >    capacity, system-wide current usage, per-cgroup current usage, and
+> >    configured min, low and max limits.
+> >   - Destroys the cgroup on completion.
 > > 
-> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > Assisted-by: GitHub Copilot:claude-sonnet-4.6
+> > Signed-off-by: Thomas Hellstr�m <thomas.hellstrom@linux.intel.com>
 > > ---
-> >  drivers/infiniband/hw/mlx5/mlx5_ib.h | 36 ++------------------------
-> > ------
-> >  drivers/infiniband/hw/mlx5/mr.c      | 40
-> > ++++++++++++++++++++++++++++++++++++
-> >  2 files changed, 42 insertions(+), 34 deletions(-)
+> >  tests/cgroup_dmem.c | 92 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+> >  tests/meson.build   |  1 +
+> >  2 files changed, 93 insertions(+)
 > > 
-> > diff --git a/drivers/infiniband/hw/mlx5/mlx5_ib.h
-> > b/drivers/infiniband/hw/mlx5/mlx5_ib.h
-> > index e9ddf2e97a76..ab32742b2180 100644
-> > --- a/drivers/infiniband/hw/mlx5/mlx5_ib.h
-> > +++ b/drivers/infiniband/hw/mlx5/mlx5_ib.h
-> > @@ -1646,40 +1646,8 @@ static inline bool rt_supported(int ts_cap)
-> >  	       ts_cap ==
-> > MLX5_TIMESTAMP_FORMAT_CAP_FREE_RUNNING_AND_REAL_TIME;
-> >  }
-> >  
-> > -/*
-> > - * PCI Peer to Peer is a trainwreck. If no switch is present then
-> > things
-> > - * sometimes work, depending on the pci_distance_p2p logic for
-> > excluding broken
-> > - * root complexes. However if a switch is present in the path, then
-> > things get
-> > - * really ugly depending on how the switch is setup. This table
-> > assumes that the
-> > - * root complex is strict and is validating that all req/reps are
-> > matches
-> > - * perfectly - so any scenario where it sees only half the
-> > transaction is a
-> > - * failure.
-> > - *
-> > - * CR/RR/DT  ATS RO P2P
-> > - * 00X       X   X  OK
-> > - * 010       X   X  fails (request is routed to root but root never
-> > sees comp)
-> > - * 011       0   X  fails (request is routed to root but root never
-> > sees comp)
-> > - * 011       1   X  OK
-> > - * 10X       X   1  OK
-> > - * 101       X   0  fails (completion is routed to root but root
-> > didn't see req)
-> > - * 110       X   0  SLOW
-> > - * 111       0   0  SLOW
-> > - * 111       1   0  fails (completion is routed to root but root
-> > didn't see req)
-> > - * 111       1   1  OK
-> > - *
-> > - * Unfortunately we cannot reliably know if a switch is present or
-> > what the
-> > - * CR/RR/DT ACS settings are, as in a VM that is all hidden. Assume
-> > that
-> > - * CR/RR/DT is 111 if the ATS cap is enabled and follow the last
-> > three rows.
-> > - *
-> > - * For now assume if the umem is a dma_buf then it is P2P.
-> > - */
-> > -static inline bool mlx5_umem_needs_ats(struct mlx5_ib_dev *dev,
-> > -				       struct ib_umem *umem, int
-> > access_flags)
-> > -{
-> > -	if (!MLX5_CAP_GEN(dev->mdev, ats) || !umem->is_dmabuf)
-> > -		return false;
-> > -	return access_flags & IB_ACCESS_RELAXED_ORDERING;
-> > -}
-> > +bool mlx5_umem_needs_ats(struct mlx5_ib_dev *dev, struct ib_umem
-> > *umem,
-> > +			 int access_flags);
-> >  
-> >  int set_roce_addr(struct mlx5_ib_dev *dev, u32 port_num,
-> >  		  unsigned int index, const union ib_gid *gid,
-> > diff --git a/drivers/infiniband/hw/mlx5/mr.c
-> > b/drivers/infiniband/hw/mlx5/mr.c
-> > index 00e13028762a..286f372e5b0c 100644
-> > --- a/drivers/infiniband/hw/mlx5/mr.c
-> > +++ b/drivers/infiniband/hw/mlx5/mr.c
-> > @@ -38,6 +38,7 @@
-> >  #include <linux/export.h>
-> >  #include <linux/delay.h>
-> >  #include <linux/dma-buf.h>
-> > +#include <linux/dma-buf-mapping.h>
-> >  #include <linux/dma-resv.h>
-> >  #include <rdma/frmr_pools.h>
-> >  #include <rdma/ib_umem_odp.h>
-> > @@ -47,6 +48,45 @@
-> >  #include "data_direct.h"
-> >  #include "dmah.h"
-> >  
-> > +MODULE_IMPORT_NS("DMA_BUF");
+> > diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
+> > new file mode 100644
+> > index 000000000000..442c965f9bbf
+> > --- /dev/null
+> > +++ b/tests/cgroup_dmem.c
+> > @@ -0,0 +1,92 @@
+> > +// SPDX-License-Identifier: MIT
+> > +/*
+> > + * Copyright � 2025 Intel Corporation
+> > + */
 > > +
-> > +bool mlx5_umem_needs_ats(struct mlx5_ib_dev *dev, struct ib_umem
-> > *umem,
-> > +			 int access_flags)
+> > +/**
+> > + * TEST: cgroup dmem
+> > + * Description: Exercises the cgroup v2 dmem controller interface.  Creates a
+> > + *              cgroup, moves the process into it, enumerates all dmem regions,
+> > + *              prints their capacity, system-wide current usage, per-cgroup
+> > + *              current usage and configured limits, then destroys the cgroup.
+> > + * Category: Core
+> > + * Mega feature: General Core features
+> > + * Sub-category: uapi
+> > + * Functionality: cgroup
+> > + * Feature: dmem
+> > + * Test category: uapi
+> > + */
+> > +
+> > +#include <inttypes.h>
+> > +
+> > +#include "igt.h"
+> > +#include "igt_cgroup.h"
+> > +
+> > +IGT_TEST_DESCRIPTION("Exercises the cgroup v2 dmem controller interface.");
+> > +
+> > +static void fmt_bytes(uint64_t v, char *buf, size_t len)
 > > +{
-> > +	struct dma_buf_attachment *attach;
-> > +
-> > +	if (!MLX5_CAP_GEN(dev->mdev, ats) || !umem->is_dmabuf)
-> > +		return false;
-> > +
-> > +	/*
-> > +	 * The Completer decides whether its Completions carry
-> > Relaxed
-> > +	 * Ordering, and only a Request that asked for it can expect
-> > them to.
-> > +	 */
-> > +	if (!(access_flags & IB_ACCESS_RELAXED_ORDERING))
-> > +		return false;
-> > +
-> > +	attach = to_ib_umem_dmabuf(umem)->attach;
-> > +	switch (dma_buf_p2pdma_map_type(attach, 0)) {
-> > +	case PCI_P2PDMA_MAP_NONE:
-> > +		/* Nothing is known about the route, so fall back to
-> > the bet. */
-> > +		return true;
-> > +	case PCI_P2PDMA_MAP_BUS_ADDR:
-> > +		/*
-> > +		 * The path is routed directly already and is
-> > programmed with
-> > +		 * the peer's bus addresses. Those are not
-> > translatable, so
-> > +		 * ATS would be wrong as well as pointless.
-> > +		 */
-> > +		return false;
-> > +	default:
-> > +		break;
-> > +	}
-> > +
-> > +	return dma_buf_p2pdma_map_type(attach,
-> > +				       PCI_P2PDMA_TLP_TRANSLATED |
-> > +					      
-> > PCI_P2PDMA_TLP_RELAXED_CPL) ==
-> > +	       PCI_P2PDMA_MAP_BUS_ADDR;
+> > +	if (v == IGT_CGROUP_DMEM_MAX)
+> > +		snprintf(buf, len, "max");
+> > +	else
+> > +		snprintf(buf, len, "%" PRIu64, v);
 > > +}
 > > +
+> > +int igt_simple_main()
 > 
-> It looks like this works well when the device can choose whether to
-> enable ATS per transaction. 
+> Can it be igt_main() with igt_fixture for require and a basic
+> subtest? It is not blocker, it could be converted later.
 > 
-> However, at least for the Intel GPUs, ATS enablement is based on the
-> PCIe-side enable bit.
+> Regards,
+> Kamil
 > 
-> This means that if p2pdma tells the dma-mapping layer to give an Xe
-> device a bus address rather than an IOVA, things break, while
-> pci_p2pdma_distance says everything is OK.
-> 
-> It looks like the infrastructure and solution added in this series is
-> targeted at fixing this on the device side by conditionally enabling
-> ATS. However I think we need to look also at having the computed
-> routing assume untranslated transactions using IOVA rather than bus
-> address.
-> 
-> That is, a flag to tell the topology check that some transactions
-> *will* take the host-bridge path due to IOVA being used, and that the
-> computations including pci_p2pdma_distance() need to check whether that
-> is possible (checking whitelist etc.) and return the corresponding
-> THRU_HOST_BRIDGE mapping type. Translated transactions taking a short-
-> cut using the bus-address would then be hidden from the driver.
 
-The word *will* puzzles me. As I understand it, if your device has ATS
-enabled all the time, it should always get THRU_HOST_BRIDGE.
+I do change it to igt_main() in a later patch. So, it is converted later. I
+will it as is, then.
 
-In the mlx5 case, we can enable or disable ATS on the fly, but what does a
-device with ATS enabled globally do for different mapping types? Do you
-simply not use dma_buf_p2pdma_map_type() at all and continue to operate
-as is?
+Thanks.
+Cascardo.
 
-I asked some questions my AI tool about XE:
-------------------------------------------------------------------------------------------------
-Xe needs THRU_HOST_BRIDGE even with ATS completely disabled. xe_ttm_vram_mgr_alloc_sgt()
-maps VRAM with dma_map_resource() unconditionally (xe_ttm_vram_mgr.c:450) — an IOVA under
-an IOMMU, never a bus address, with no ATS involvement at all. ATS only adds the possibility
-that some of that traffic short-cuts invisibly. The actual requirement is “this caller cannot
-program bus addresses”, which is true of Xe regardless of the ATS Enable bit.
--------------------------------------------------------------------------------------------------
-
-Could you please clarify what the expected behavior is here? My series
-does not change the existing behavior; it only reports the routing more
-clearly for each TLP class.
-
-Thanks
-
-> 
-> Whether that is best done as a parameter to these functions or perhaps
-> as a flag in the PCI device, I'm not sure.
-> 
-> Thanks,
-> Thomas
-> 
-> 
-> 
-> 
-> >  static int mkey_max_umr_order(struct mlx5_ib_dev *dev)
-> >  {
-> >  	if (MLX5_CAP_GEN(dev->mdev,
-> > umr_extended_translation_offset))
+> > +{
+> > +	struct igt_cgroup *cg;
+> > +	const char *region;
+> > +	char **regions;
+> > +	uint64_t capacity, sys_current, cg_current, min, low, max;
+> > +	char cap_s[32], sys_s[32], cg_s[32];
+> > +	char min_s[32], low_s[32], max_s[32];
+> > +	int i;
+> > +
+> > +	igt_require_f(igt_cgroup_dmem_available(),
+> > +		      "No dmem regions found; is cgroup v2 with the "
+> > +		      "dmem controller available?\n");
+> > +
+> > +	cg = igt_cgroup_new("igt-cgroup-dmem-test");
+> > +	igt_assert_f(cg, "Failed to create cgroup\n");
+> > +
+> > +	igt_cgroup_move_current(cg);
+> > +
+> > +	regions = igt_cgroup_dmem_regions();
+> > +	igt_assert_f(regions, "Failed to enumerate dmem regions\n");
+> > +
+> > +	igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
+> > +		 "region", "capacity", "system-current",
+> > +		 "cgroup-current", "min", "low", "max");
+> > +	igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
+> > +		 "------", "--------", "--------------",
+> > +		 "--------------", "---", "---", "---");
+> > +
+> > +	for (i = 0; regions[i]; i++) {
+> > +		region = regions[i];
+> > +
+> > +		igt_cgroup_dmem_get_capacity(region, &capacity);
+> > +		fmt_bytes(capacity, cap_s, sizeof(cap_s));
+> > +
+> > +		igt_cgroup_dmem_get_system_current(region, &sys_current);
+> > +		fmt_bytes(sys_current, sys_s, sizeof(sys_s));
+> > +
+> > +		igt_cgroup_dmem_get_current(cg, region, &cg_current);
+> > +		fmt_bytes(cg_current, cg_s, sizeof(cg_s));
+> > +
+> > +		igt_cgroup_dmem_get_min(cg, region, &min);
+> > +		fmt_bytes(min, min_s, sizeof(min_s));
+> > +
+> > +		igt_cgroup_dmem_get_low(cg, region, &low);
+> > +		fmt_bytes(low, low_s, sizeof(low_s));
+> > +
+> > +		igt_cgroup_dmem_get_max(cg, region, &max);
+> > +		fmt_bytes(max, max_s, sizeof(max_s));
+> > +
+> > +		igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
+> > +			 region, cap_s, sys_s, cg_s,
+> > +			 min_s, low_s, max_s);
+> > +	}
+> > +
+> > +	igt_cgroup_dmem_regions_free(regions);
+> > +	igt_cgroup_free(cg);
+> > +}
+> > diff --git a/tests/meson.build b/tests/meson.build
+> > index 1ac89bab7e15..c362d42888ba 100644
+> > --- a/tests/meson.build
+> > +++ b/tests/meson.build
+> > @@ -1,4 +1,5 @@
+> >  test_progs = [
+> > +	'cgroup_dmem',
+> >  	'core_auth',
+> >  	'core_debugfs',
+> >  	'core_getclient',
+> > 
+> > -- 
+> > 2.47.3
+> > 
