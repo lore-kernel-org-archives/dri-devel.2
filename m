@@ -4,52 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4BCEC982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:00:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA7FCC982E6
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:00:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0064B10E3CB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1486510E3CD;
 	Mon, 21 Sep 2026 07:00:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="gdwBrRdX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CdjGmd4c";
 	dkim-atps=neutral
-Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 123A710E8C8
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 12:12:20 +0000 (UTC)
-Received: from [133.11.54.183] (h183.csg.ci.i.u-tokyo.ac.jp [133.11.54.183])
- (authenticated bits=0)
- by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68ICC4oI045599
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Fri, 18 Sep 2026 21:12:04 +0900 (JST)
- (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
-DKIM-Signature: a=rsa-sha256; bh=O45OBg23J/3oHx2lRf9Yr5ZgoFt2a7CrhzAaB/z4DUY=; 
- c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
- h=From:Message-ID:To:Subject:Date;
- s=rs20250326; t=1789733524; v=1;
- b=gdwBrRdXb4kOUDph0TGZ2TULlcnxCtlxvATeO1mntbAb9m/6wPYiVGLYLBWWP4LM
- WwpYgHFOeU/zSWR+or1xdde0JQen1RkAIuq+qX23uT6mapPJEaPFqcHRxaBhZcEi
- NvrFRao73Y2JuIWMsauB1Z3KPJbBuAAGClMHCSwFhM5EqJUkgQpWbbryU1fOLjG2
- z8E2bTh0PkaH8ezj5DDAfulRVs7dyP80fRs1Uzz5E5bLy/llriPzWKjige03k6Iq
- klbMcYoITiKdAH1HS1rJxy1qBj6JknfUqoS9KXVqiDI9eOEF5sEsStseMtKOuLYe
- z6SK2nyXabwKywnYw9ZNpg==
-Message-ID: <a08fc58b-c67a-4a96-a967-7280c8f9e965@rsg.ci.i.u-tokyo.ac.jp>
-Date: Fri, 18 Sep 2026 21:12:03 +0900
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com
+ [74.125.228.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0142610E2FC
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 08:19:55 +0000 (UTC)
+Received: by mail-pz2-f41.google.com with SMTP id
+ 41be03b00d2f7-cc1cea4bfb6so181436a12.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 01:19:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789719595; x=1790324395; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=jVdvgZ3mBIXnAi5+B7rUQd/+WHdfPalGGkadsUCWlhs=;
+ b=CdjGmd4cp+ySmCaI7vzKghdlnfS7IY0yUyN8Kd8PAFAtkdNMGMJmt5Xbhtdzw2BmEt
+ TJT5266klkn+pbOx3u4LvFwyjbq3fUUbqagwhVG7hVVVC1jHJq/hvD9/GgPapzO4dRXB
+ 82QgUZ1ud0rqsWSd+QBS8/WGFfzK4aYHl6Q99/SqjPl4gfvXnLARKp8MivzvaHk8ctjG
+ PQ2jKXszKGKf59fgr385N+iJoOaZfjiyrMosJJ0mcjd0vNFMFFtd11LBp1vz2V/vXGeg
+ lIzbOkVbm3r2UhpK4LBcEqFVwniEkD0qiEtDEX2oRW3bxg4j+YjhYdeZOJKJQvvQlFIw
+ Z4NA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789719595; x=1790324395;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=jVdvgZ3mBIXnAi5+B7rUQd/+WHdfPalGGkadsUCWlhs=;
+ b=OA4CW8/xQa7gAcvHNSS++GZaNoRHzjUcUmAVDmV15XsNyuhIKVuZYG/OynbuJruWiS
+ ChXbq4G9xKuvzA+eYoX/nA0HMbdRBVBJtTmElfCTq9eNTxOlJyQzRA8VdSPbZEfo0eF3
+ 9VGk0KsLse4pUnhFRR+1MmgetpyufwogeTLnTGMEaQENhy0c2jB+G7jY9EWvJKR9TW6x
+ qTWkREwzFGE4WjVR0VCcrdMKcdCyn37nM4V0a2Ke8qxMSh72gINQ+MX0eNEIXWXEXY9u
+ ho7TJLQOuYxzEb9HKkAdlT/Vjg1YsmxHFJIlK+mklA2RJKb4OFO5+fCHQIWKeqYYIZbR
+ Quag==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzE7Y8vjy0risdSJ7Z9AJEOE5Nb9gbjk9DfIrzGgVv+OMK9yxhgIGufciVqVVzpbalsU6TPsPush0U=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kCJy0GSc9elaUEeYn44/3J9E4yeEL3sH0P2KqOE+55E4Z8bq1N
+ O79z9161yktz3d3Br4ZYS+YI5kpi45UgLNiZJXgL6UbvQlhQuKnT6jBW
+X-Gm-Gg: AYBFou0TNNmUggTPEJu+/wZpvajjnKr1PCRcCoOrN0TQ5nL2jMiPI+DQ+Sqy6Sjd+Y3
+ 8BiqZNsl4lPAarMzOK4N2lsx5g6+zFnC69lmKKjeXXC1B4WL9t8hlnMpzHbU8vjYf5rA3sbVWx/
+ 5avLCYOFV5AF0b8unKwQBBuUovyr9vSedXN/kMe7FuIUTupbOwXeGLNyABZ3VmCCL1Kl1M+fO7E
+ lNRbaxOCuCRv+YG6XAS6vYMpGUCFouH8Ul6+148fHkkPoBapJhHm6ORFtNigpZyVRm6msKL84eb
+ uKYwsyL5xTxNXHomO02Doad16Vz5QiVjc+/WB98RpqmPvrfmVT2m+y0p+d+LHAUxhLj6vkVTpS0
+ iP4lO+Eyo5t+zvvZEKbOGVcupGbDDwzffsU7yiOpbx4VpK86cst9RGj3JPkrTaq0l5wWjSVnWZW
+ 134n0p4QB6fxnZ0JiL7rFcf4yAm5tAiqn3H85car8ucHpgGfaikkWpYpM5tHFw8/2QI3LJd8+2g
+ G/NF1GXYA==
+X-Received: by 2002:a17:90b:2f50:b0:39d:f08e:e6e7 with SMTP id
+ 98e67ed59e1d1-39e54e3c71emr7234090a91.9.1789719595407; 
+ Fri, 18 Sep 2026 01:19:55 -0700 (PDT)
+Received: from amd.ban-spse ([165.204.217.251])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-144ce065314sm2947550c88.14.2026.09.18.01.19.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 18 Sep 2026 01:19:55 -0700 (PDT)
+From: Priyanka Mani <priyankamani2100@gmail.com>
+To: Gerd Hoffmann <kraxel@redhat.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Robert Mader <robert.mader@collabora.com>, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com,
+ Priyanka Mani <priyankamani2100@gmail.com>
+Subject: [PATCH] dma-buf/udmabuf: don't warn on oversized allocation requests
+Date: Fri, 18 Sep 2026 08:19:17 +0000
+Message-ID: <0a3814afb3419bb1106cf0ff1734a6b7a85f9335.1789707887.git.priyankamani2100@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/4] drm/virtgpu api: add blob userptr resource
-To: Honglei Huang <honghuan@amd.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>
-Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Ray Huang <Ray.Huang@amd.com>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260918095940.2253018-1-honghuan@amd.com>
- <20260918095940.2253018-3-honghuan@amd.com>
-Content-Language: en-US
-From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-In-Reply-To: <20260918095940.2253018-3-honghuan@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 21 Sep 2026 07:00:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,117 +94,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026/09/18 18:59, Honglei Huang wrote:
-> Add a userptr address field so userspace can request a blob backed
-> by an existing process mapping. A non-zero userptr selects that
-> path; probe VIRTGPU_PARAM_USERPTR before using the field.
-> 
-> GPU-readonly backing is requested with the virtio CREATE_BLOB wire
-> flag VIRTIO_GPU_BLOB_FLAG_USE_READONLY (also
-> VIRTGPU_BLOB_FLAG_USE_READONLY). The device MUST NOT write such a
-> resource. The guest pins without FOLL_WRITE only when the device
-> advertised VIRTIO_GPU_F_BLOB_READONLY (VIRTGPU_PARAM_BLOB_READONLY).
-> 
-> Signed-off-by: Honglei Huang <honghuan@amd.com>
-> ---
->   include/uapi/drm/virtgpu_drm.h  | 13 +++++++++++++
->   include/uapi/linux/virtio_gpu.h |  6 ++++++
->   2 files changed, 19 insertions(+)
-> 
-> diff --git a/include/uapi/drm/virtgpu_drm.h b/include/uapi/drm/virtgpu_drm.h
-> index 95587e12ae..80f73b3276 100644
-> --- a/include/uapi/drm/virtgpu_drm.h
-> +++ b/include/uapi/drm/virtgpu_drm.h
-> @@ -99,6 +99,8 @@ struct drm_virtgpu_execbuffer {
->   #define VIRTGPU_PARAM_SUPPORTED_CAPSET_IDs 7 /* Bitmask of supported capability set ids */
->   #define VIRTGPU_PARAM_EXPLICIT_DEBUG_NAME 8 /* Ability to set debug name from userspace */
->   #define VIRTGPU_PARAM_BLOB_ALIGNMENT 9 /* Device alignment requirements for blobs */
-> +#define VIRTGPU_PARAM_USERPTR 10 /* CREATE_BLOB userptr field is supported */
-> +#define VIRTGPU_PARAM_BLOB_READONLY 11 /* VIRTGPU_BLOB_FLAG_USE_READONLY is honored */
->   
->   struct drm_virtgpu_getparam {
->   	__u64 param;
-> @@ -186,6 +188,10 @@ struct drm_virtgpu_resource_create_blob {
->   #define VIRTGPU_BLOB_FLAG_USE_MAPPABLE     0x0001
->   #define VIRTGPU_BLOB_FLAG_USE_SHAREABLE    0x0002
->   #define VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE 0x0004
-> +/* Wire flag: device MUST NOT write. Guest pins without FOLL_WRITE.
-> + * Rejected unless VIRTGPU_PARAM_BLOB_READONLY is 1.
-> + */
+udmabuf_create() derives the number of pages to allocate directly from
+the size supplied by userspace, bounded only by the size_limit_mb module
+parameter. Since commit 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size
+limit by default") that parameter defaults to INT_MAX, which puts the
+page count limit at roughly 5.5e11 pages, i.e. no limit in practice.
 
-According to Documentation/process/coding-style.rst, the preferred style 
-for long (multi-line) comments is:
+init_udmabuf() then asks kvmalloc_objs() for pgcnt * sizeof(struct page *)
+bytes. __kvmalloc_node_noprof() refuses any request larger than INT_MAX
+and splats WARN_ON_ONCE(!(flags & __GFP_NOWARN)) on its way out, while
+kvmalloc_objs() defaults to a plain GFP_KERNEL.
 
-	/*
-	 * This is the preferred style for multi-line
-	 * comments in the Linux kernel source code.
-	 * Please use it consistently.
-	 *
-	 * Description:  A column of asterisks on the left side,
-	 * with beginning and ending almost-blank lines.
-	 */
+A single UDMABUF_CREATE against /dev/udmabuf with a sufficiently large
+size is therefore all it takes to trigger:
 
-So please avoid putting text on the same line as the opening /*.
+  ------------[ cut here ]------------
+  WARNING: mm/slub.c:7022 at __kvmalloc_node_noprof+0x412/0x5a0
+  Call Trace:
+   udmabuf_create+0x11f/0x540
+   udmabuf_ioctl+0xf1/0x190
+   __x64_sys_ioctl+0x91/0xe0
+   do_syscall_64+0xdd/0x4a0
 
-Furthermore, because this is a UAPI header (defining the interface 
-between userspace and the kernel, rather than the guest and the host), 
-it should use terminology appropriate for userspace. Kernel-internal 
-implementation details like FOLL_WRITE and terms like "guest" shouldn't 
-be mentioned here.
+The size is entirely userspace-controlled and allocation failure is
+already handled by returning -ENOMEM to the caller, so this is not a
+condition the kernel needs to complain about. Pass __GFP_NOWARN and let
+the existing error path do its job.
 
-That being said, I don't think this comment is necessary in the first 
-place. Anyone who needs to know the exact behavior will look at the 
-virtio specification. I recommend just dropping the comment entirely.
+Note that capping the limit instead would change the error reported to
+userspace from -ENOMEM to -EINVAL and would reintroduce a fixed ceiling
+that the above commit deliberately removed, so __GFP_NOWARN seems the
+more faithful fix.
 
-> +#define VIRTGPU_BLOB_FLAG_USE_READONLY     0x0008
->   	/* zero is invalid blob_mem */
->   	__u32 blob_mem;
->   	__u32 blob_flags;
-> @@ -205,6 +211,13 @@ struct drm_virtgpu_resource_create_blob {
->   #define DRM_VIRTGPU_BLOB_FLAG_HINT_DEFER_MAPPING        0x0001
->   	__u32 blob_hints;
->   	__u32 pad2;
-> +
-> +	/*
-> +	 * Guest VA to pin as blob backing. Non-zero selects the userptr
-> +	 * path and is valid only with VIRTGPU_BLOB_MEM_GUEST. Must be 0
-> +	 * otherwise. Probe VIRTGPU_PARAM_USERPTR before using this field.
-> +	 */
+Reported-by: syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=bfeed181d1ce9ec87a8f
+Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
+Signed-off-by: Priyanka Mani <priyankamani2100@gmail.com>
+---
+ drivers/dma-buf/udmabuf.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-This comment is useful since it discusses UAPI specifics. However, 
-please avoid the term "Guest VA". Since guest userspace has no concept 
-of a "host" or "PA" (physical address), simply saying "address" is 
-sufficient and more concise.
-
-Regards,
-Akihiko Odaki
-
-> +	__u64 userptr;
->   };
->   
->   #define VIRTGPU_CONTEXT_PARAM_CAPSET_ID       0x0001
-> diff --git a/include/uapi/linux/virtio_gpu.h b/include/uapi/linux/virtio_gpu.h
-> index 3d4dfadc9d..33f5332e59 100644
-> --- a/include/uapi/linux/virtio_gpu.h
-> +++ b/include/uapi/linux/virtio_gpu.h
-> @@ -72,6 +72,10 @@
->    * must be aligned to that value.
->    */
->   #define VIRTIO_GPU_F_BLOB_ALIGNMENT      5
-> +/*
-> + * VIRTIO_GPU_BLOB_FLAG_USE_READONLY
-> + */
-> +#define VIRTIO_GPU_F_BLOB_READONLY       6
->   
->   enum virtio_gpu_ctrl_type {
->   	VIRTIO_GPU_UNDEFINED = 0,
-> @@ -415,6 +419,8 @@ struct virtio_gpu_resource_create_blob {
->   #define VIRTIO_GPU_BLOB_FLAG_USE_MAPPABLE     0x0001
->   #define VIRTIO_GPU_BLOB_FLAG_USE_SHAREABLE    0x0002
->   #define VIRTIO_GPU_BLOB_FLAG_USE_CROSS_DEVICE 0x0004
-> +/* Device MUST NOT write. Driver may pin read-only guest pages. */
-> +#define VIRTIO_GPU_BLOB_FLAG_USE_READONLY     0x0008
->   	/* zero is invalid blob mem */
->   	__le32 blob_mem;
->   	__le32 blob_flags;
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index df6dd0046242..127369e502a3 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -190,11 +190,13 @@ static void unpin_all_folios(struct udmabuf *ubuf)
+ 
+ static __always_inline int init_udmabuf(struct udmabuf *ubuf, pgoff_t pgcnt)
+ {
+-	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt);
++	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt,
++				    GFP_KERNEL | __GFP_NOWARN);
+ 	if (!ubuf->pages)
+ 		return -ENOMEM;
+ 
+-	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt);
++	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt,
++					    GFP_KERNEL | __GFP_NOWARN);
+ 	if (!ubuf->pinned_folios)
+ 		return -ENOMEM;
+ 
+-- 
+2.43.0
 
