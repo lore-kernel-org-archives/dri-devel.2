@@ -4,44 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C1E2C982DC
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 11:14:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E446DC982DC
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 11:19:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62A6510F2DF;
-	Fri, 18 Sep 2026 11:14:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A078110F2E6;
+	Fri, 18 Sep 2026 11:19:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WskpxSdY";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="C0ckz4ua";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0CAE10F2DF
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 11:14:33 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A9DAA4384E;
- Fri, 18 Sep 2026 11:14:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 791F31F000FF;
- Fri, 18 Sep 2026 11:14:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789730073;
- bh=Kuutvxa5QOfFNe/emeep5WZ9K8kyOggGj16iP5pCM6w=;
- h=Date:From:To:Cc:Subject;
- b=WskpxSdYHnnWly4FY2W1f19/eURP/yUxDnKQfnOtrOkFM3K8fPMTg9Q89yG4DZhP7
- MUvvzh7NfWgg8w7Q4RjXZVNJ5KHD2PAn1OxTbjxKn3uZjWpTnZxdUgsQJ5M2e2w0i1
- Q+TiU3zX+1NQR+sQgwpjLE53U5HYRxl9UI1rFxXcNJ7eYt9n/xYByoUNmzMmrABjNT
- RCii7y9dsTYagKyQKcEyPMqBcVAOPqqkzW29DiSS1LHVCPVqpFgz6APPOiyL0r9bkC
- WAerT0pjufRYNW+lG1NT/zjqhXHHPPanZltMkYg/CQHvVAjNN+Ub2hh15obFnX6a0U
- kUyZ1wFM934rA==
-Date: Fri, 18 Sep 2026 12:14:30 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Lyude Paul <lyude@redhat.com>
-Subject: linux-next: manual merge of the drm tree with the drm-misc-fixes tree
-Message-ID: <aq0dFhGo62Hbqt4B@sirena.org.uk>
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBDA410F2E6;
+ Fri, 18 Sep 2026 11:19:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1789730359;
+ bh=GXZ96OfNecmNSW0OMTeZ6CVtyLVGDalnRKwldr7+V98=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=C0ckz4uaQmExJlGerK/Sa7sEB9sphaPQ/rS5w1fCo3g/9sMrXBhRhWmAWwpH0ycj+
+ e2aI4vIg2zVz1afubovg3Iv7V6dOTac1QoJpZexYFq2kE7JVw8wI2oUHApwJFVUe4+
+ vAQ/yzAxfSiRw6dLPJV6lzHIjpS3Tv2YLzllMowDiWft3MzXHZu08D8uD/xcVJXv4C
+ yIRkVG0/fwTernMdLsaou+xQugcXY3yinlzc1JhEZVWvJ5ogpI7nz/pPFbiGr47t5p
+ 7AHGKIzM5E4yU3uZOSItSYmFunOGJa6Pd+rMlBgrot5M5hDXyrsRAC2cHMQqb+ujgk
+ R/SG9XiqzMbsQ==
+Message-ID: <0ed50720-3533-4cd7-8579-0dc175a822dd@lankhorst.se>
+Date: Fri, 18 Sep 2026 13:19:18 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Q2wXDt7ErM0nUYQz"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/7] drm/i915: All fixes to make i915 work well with
+ PREEMPT_RT.
+To: Tvrtko Ursulin <tursulin@ursulin.net>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Jani Nikula <jani.nikula@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260706114823.752313-1-dev@lankhorst.se>
+ <20260706122026.IJAiyhhw@linutronix.de>
+ <c4222f81-72b2-4eea-a900-da327f0df928@lankhorst.se>
+ <20260709110200.2_5Eg8xF@linutronix.de>
+ <a6c056ba-0847-4d2c-a7bd-39ac27eb15d5@lankhorst.se>
+ <20260918083118.POmXtJuv@linutronix.de>
+ <4c94abcc-2f0f-4454-999f-38640972dfe2@ursulin.net>
+Content-Language: en-US
+From: Maarten Lankhorst <dev@lankhorst.se>
+In-Reply-To: <4c94abcc-2f0f-4454-999f-38640972dfe2@ursulin.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,49 +63,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hey,
 
---Q2wXDt7ErM0nUYQz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 9/18/26 11:44, Tvrtko Ursulin wrote:
+> 
+> On 18/09/2026 09:31, Sebastian Andrzej Siewior wrote:
+>> On 2026-07-09 13:36:57 [+0200], Maarten Lankhorst wrote:
+>>> Hey,
+>> Hi Maarten,
+>>
+>>> Yeah the problem was similar, I believe neither check should exist,
+>>> instead the caller should give this information like the comment mentions.
+>>
+>> Any update here? Maybe I have been left out on reposts. Any chance this
+>> gets in before the LTS of this year gets out?
+> 
+> Side question, there was a bunch of sashiko issues against v4 - have those been addressed?
+> 
+> As today it is the first time I see patch 7/7 which is a bit of a scary one. I have to ask how much does Intel commit to fixing out any potential breakage given the status of i915?
+> 
+> + other maintainers FYI
+Patch 7/7 addresses a real issue, it just happened to be more easily found on PREEMPT_RT.
 
-Hi all,
+I haven't had much time to look at PREEMPT_RT lately, I'll see if I can get some time to look at
+sashiko, but lack of reviews have not been helping.
 
-Today's linux-next merge of the drm tree got a conflict in:
+Every time I send out revised patches, it takes a few months before I receive a response.
+By that time I have moved on to other projects, and finding time takes a lot of time again.
+If the cycle took only a few days I could finish this quickly and get it merged.
 
-  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-
-between commits:
-
-  12f6eff11ccf9 ("drm/nouveau/gsp/r570: Set GcOff =3D 0 in fbsr")
-  adb87c20081e5 ("drm/nouveau/gsp/r570: Enable Gcoff in fbsr again")
-
-=66rom the drm-misc-fixes tree and commit:
-
-  c7abe771e0138 ("drm/nouveau/gsp/r570: Set GcOff =3D 0 in fbsr")
-
-=66rom the drm tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
---Q2wXDt7ErM0nUYQz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqtHRUACgkQJNaLcl1U
-h9DckQf+PiPWQ03VXLT9bpTg1sTG/vNBTQhBxDu8yvSqwnFTdXMy4dfdp5PzdN0s
-FtixadN/chjJp5LuvVaDvZvdxYQjX5zolcEgiIVcXRq+f6W5lb+ijIWVGwo8uq+R
-GK7DfpXuiElkgqtLkPrQRNv1hdB/LOVgpC/nyTtnCz+q6S+SLy0nf7uwYcSmOU+J
-3RMM6CQ4ly3BVBMs0lp/el80HhhJPBH4YyU4lYneuNA6hSJKkjLMt6HSDlvOSY5M
-UWQ2dkOIDIYKlxIaoWkCP0W54eJRy0nUiwGjeI5SPh1rAvUOi/xIG8u1nQJZZAc8
-cwwHKf4Et2CMk17/rlWPSyweolUJPA==
-=SG1x
------END PGP SIGNATURE-----
-
---Q2wXDt7ErM0nUYQz--
+Kind regards,
+~Maarten Lankhorst
