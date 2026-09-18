@@ -4,145 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77565C982D8
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 16:49:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 990A1C982D7
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 16:58:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9159E10F480;
-	Fri, 18 Sep 2026 16:49:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A553210E94C;
+	Fri, 18 Sep 2026 16:58:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="FzRLV2My";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FzRLV2My";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="F862iJkl";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kaOV9X20";
 	dkim-atps=neutral
-Received: from DB3PR0202CU003.outbound.protection.outlook.com
- (mail-northeuropeazon11010069.outbound.protection.outlook.com [52.101.84.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9605D10E954
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 16:49:23 +0000 (UTC)
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=wI7UUqsf7EN4YP8jjeVSzPqxLcpk9P+vemUapVi73SiV2Mo0adLujC1cqAcAEUgLIxddHLWKXxYs2/PoPvu+urY1oMRnJCV+JZu3z+xDNtM8Nh+vHXwMjer66NhIltnb84JwGWQ3iKi+xhw13NFzjJ2jAepjA94H4gi74a2aCMRNIw0jKlRTSz81l7aBapDKnwEtqHPY78ijUUPXZ0YWdGcdudGM4ZG0KetcBENXDCa8UP9UTMOhB+aAj87eCRiIj/rKAxbn2Un8gto7CbRBpgpZZU0pYuQbtgFCIjF0yl2JdFjTJKPIJ9JIqqB8UUMSP66LGKTZgz7YzftrGodb5w==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TsjMqik8bGGmL4/SXKbODKjsV/mB91Quf3nlfDYT5dA=;
- b=Y0P7wLA3F7kxfGD9sC5uJY/LMO8+QGyAmrDOzPq71Aac9bZ2d7DYlSUbeiyTRSUo916echVsg0ji6uNmwu/AxeSbs9CFmYEddt0ZVLtpRLWyUd4rOtTtoB9MjCifWr51Vn6TUaOhItQrfrNuBRyWjyKxOmNj1EspmWB31JTYnHOYMhrdLf8WBjOzlG8Gw/1yQcv9bFwIh359NQiyGT1SnTe+8a58bISnHi/XwJt075IrZCqjo9zz+Wi6m1gbNhY/PWbEXviSvo+AfhiX7dpJwlYcyLeOYpnSoLjyJt5CyG2OEegI//6A4rzzIIadPXZdCi7/9ezjFZNnEt7WCOOUdA==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=collabora.com smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TsjMqik8bGGmL4/SXKbODKjsV/mB91Quf3nlfDYT5dA=;
- b=FzRLV2MyF+rVTWGgzhxPsmk1RdVp3zNPIkU6PkwaCCSN9cDCWhjO5M/NgnSbTzIYyHZXS5FM7OZisR29WCDyF3vmsBB1Hl0DfjC73ebl+mXWU0Z/G37e6KG87R/jTf18caQtTjjsWfjddy+AuEnDH8WZcxmCw1dKqKUgf1bnT6U=
-Received: from DU7P194CA0026.EURP194.PROD.OUTLOOK.COM (2603:10a6:10:553::23)
- by PAVPR08MB9186.eurprd08.prod.outlook.com (2603:10a6:102:30c::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 16:49:16 +0000
-Received: from DB1PEPF000509EE.eurprd03.prod.outlook.com
- (2603:10a6:10:553:cafe::78) by DU7P194CA0026.outlook.office365.com
- (2603:10a6:10:553::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.13 via Frontend Transport; Fri,
- 18 Sep 2026 16:49:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- DB1PEPF000509EE.mail.protection.outlook.com (10.167.242.72) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.7
- via Frontend Transport; Fri, 18 Sep 2026 16:49:16 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HegPTFLcNO5LGBTFkc/DPoNRbOZeo2Fy3lhW+eTDFzW4ZGjV6eo9QsHqEAv9WceqLvGbZc3vlMzncECieF/8v49wl4Djf2Vs4qG4k5h9BMMmUR3MBQchW2qx2XNPLDgo5ny81+VFUmYAGNodYTyRYfAq1zPtI2e6asuq905wzCQtaLVVV31PYhiHrHR7Lji4LVzKTxbumLrxhQ75/BYTxaCAfft9rUT/3UEYDn+TlRcJ0vHtz+9jHtuk4/nmA1qbkNwdme/nE6qU4TQkSywbkql2JPYpAz3OZFEz8AC3zAnx13cxKxx+ih9IxDhq6U0y8D+axlePumPfNiGc5KQiKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TsjMqik8bGGmL4/SXKbODKjsV/mB91Quf3nlfDYT5dA=;
- b=xepWjMeTXceJ7F32OTLJuN7WLHcNj2JQsMfoOqYE7Nm0ASzrLKNCwiwE58ubax56jENsl9PzT7IbY3fMsbscXAGzJzeTv50058iGv6Z+EsZggdUEkZBJrlvFd7bKbxAyH5zHyGa3QkMDx/DdUWY5Cq5Xih34cIGLqlpDiBRdeCXs6WgQ+pVAWZ1nNtwMq6+t61KlRgmE21YjbZT+Iz5UVV2h2+IBEVQTE7OEl/ppNBivWIYJmUrs5wZaIEDT7wrDQfHKHZBtGTCSooztJgS6TPgO/XpRoFW0TAk5NPbC5aP5FS5X6bLeusNX22Oznr/izZLK2KLlkIHrwkHiGqA+Bg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TsjMqik8bGGmL4/SXKbODKjsV/mB91Quf3nlfDYT5dA=;
- b=FzRLV2MyF+rVTWGgzhxPsmk1RdVp3zNPIkU6PkwaCCSN9cDCWhjO5M/NgnSbTzIYyHZXS5FM7OZisR29WCDyF3vmsBB1Hl0DfjC73ebl+mXWU0Z/G37e6KG87R/jTf18caQtTjjsWfjddy+AuEnDH8WZcxmCw1dKqKUgf1bnT6U=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from GVXPR08MB11744.eurprd08.prod.outlook.com (2603:10a6:150:316::8)
- by GV2PR08MB8511.eurprd08.prod.outlook.com (2603:10a6:150:b5::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 16:48:43 +0000
-Received: from GVXPR08MB11744.eurprd08.prod.outlook.com
- ([fe80::f478:4ce7:8b51:133]) by GVXPR08MB11744.eurprd08.prod.outlook.com
- ([fe80::f478:4ce7:8b51:133%7]) with mapi id 15.21.0451.004; Fri, 18 Sep 2026
- 16:48:43 +0000
-Message-ID: <c7077b55-a96d-442c-b21b-25253817689e@arm.com>
-Date: Fri, 18 Sep 2026 17:48:41 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] drm/panthor: Actually check huge-page mapping on
- sparse regions
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, nd@arm.com
-References: <20260917-panthor-fix-partial-unmap-v1-0-c7008f15fea3@collabora.com>
- <20260917-panthor-fix-partial-unmap-v1-4-c7008f15fea3@collabora.com>
-Content-Language: en-US
-From: Akash Goel <akash.goel@arm.com>
-In-Reply-To: <20260917-panthor-fix-partial-unmap-v1-4-c7008f15fea3@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0650.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:296::20) To GVXPR08MB11744.eurprd08.prod.outlook.com
- (2603:10a6:150:316::8)
-MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic: GVXPR08MB11744:EE_|GV2PR08MB8511:EE_|DB1PEPF000509EE:EE_|PAVPR08MB9186:EE_
-X-MS-Office365-Filtering-Correlation-Id: b68e2c9c-ac3e-44af-33e8-08df15a4c6ea
-X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
- ARA:13230040|366016|376014|1800799024|23010399003|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info-Original: CuCqRNQ9ywe91G8rzKRfNtkp0Tkvg8Tk1VUA+0l3+7RWks4mF0qmWbSC7bQfo7xqdpMSvQxO7i2wWLea2cgkDURWwt91sAlVlHTKYoaIWj7UTrT9H7+xAGzUjfXlhKv8cDWGkbZaR9VOUsLCp0nGFugbA/Fc20GDj5DelFYCEh252jOvP/L2SGfDxclC/tRc7AoUwWaGIjpny5pk32y1Xm1XIciQYYo7Lazri7lXWXQKY2vLeLg/L0z6qYIz1CgG1Z5Q4RPh4to3okcRsAaF7KdAY6E3G9KBBCDz9C/H9tWoeL8gY+p02sJGd7zgJnmhs4j8YVB+Ta7oUG4nCjQf8T10fT4uK3bJIBNU02BTetnUEnlJuzGQSkxdFQqfLc/9Y7cD8vNpwHNR2/b5LgT/xha9FmQPOdYzzBPrRKz+ss5ckoiAuBWllyil2kFUkfi2J8K+FzucoWRVqioZUZUnRYQ7lg1D9SqKRi5NjcMMMl4Ghmvv5hORyokku9EqXO29uMKf6uYjsxyWXE+KCCuBXizGbrrnqSNigWy8ZIgVUoerySAPGB6u2ggiEtqlW36v+EncRc11sooeeo/Mnj2qfyJ7WHrh0yZDA9eIz0d7zXqE7Lfw0glKhUWGe2YvUFg7nV1WOSrK2Sym95fQMZFYNp12K1YzLEL1Z21zzigRzIw=
-X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
- SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:GVXPR08MB11744.eurprd08.prod.outlook.com;
- PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-Exchange-RoutingPolicyChecked: nwC1UhChzrt0oJQtn7kjiaRXoNLWoxI70vcKVaDt3uegzj7fR8GEBTBgSjLZFICvsM1EK1dvARWaZHnPLCzP+zBdFNkqvLMe5RPNHEOaoCHieppfdSLzZRAOK+hxr4eY+Gh03hePf+qQaIOzVK+sf3kJprmIbr8lH2BBzSGnXChsQzM6Ylx4Sk56Kc9gaaoMd/yKY/0gtf2mKAR99gD0PVLOV4GstFA+uPRXb7B6DysbaLqExK3qw8b29RRRPez9LTpeLsY66UgXeZQethyMWWNJX8xqxxyJ1X5PFSUViQR/Ec7ookilG7lHyvtBEytRV3QcYmufvxmfdX0SDZBwoQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR08MB8511
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: DB1PEPF000509EE.eurprd03.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs: bbb8ab60-fd7d-4dcc-cea4-08df15a4b31c
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|23010399003|14060799003|1800799024|35042699022|376014|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: hOWYYRW8Gf0G818mxBblmBgtdXiEtslFY+iYM042nwXAGKz32U6OIPzneLdkbhPoSobRCdrjiYCRto8Z/Z+HeAcwWJFsf0uoKuAK1Jxu8BhYRmxTf7my5T1pOHoQHwbvz3z2bnGN2PGCAuA8quLH2OZcQmeuzXupBPpBp97bK2/gehZlQFMYgNZhYXaaBSTkceom/jMBieIdIlmP+N1ZwAsMHAndBef0ZJHcJaQUfrWERJ5UI267NHFA2SffSj7I6EBOKXJsYVJ3mGeuFJyA6MT9SbOFYJ+GX0aWf3KB24ZnhjWZn/LG/WsK/J9K67tN3unX1aGY9Cxsq6v9h/7HtAoNdts2Ab967dt+CDIARLnyAI7hzhY4KI20MCMBrH4UtiP2E8u2hEogs30a2xWVjZYwDUoMmEppPIvUgX1ETcjiMn8VYaNZqP2YT3IivfAIU/q1zBvhNGy+NjeZC2DiceQIzbO1iGvPcC++Ki7DBTERwNo1MJS6V44tqkYV238R9ATh5h1R/gwPDydQLOl5h+9UVKqUsaEsMKnHznYceewg4hK1yhRAqVPW07e1FFzwV3fAHmexvvfNjyr0xCedvKU4+HSje/1C5drZOt30VQiyNuKqooC0UAy3EbRiA3u5vIUnsjLmSW1hM8vwaRqTlp5t2/FtaqoO5UecxsN74D2zBkz2TbV7kGd/XkvAOckApOlsfz3DPZrvNoESI3aVLA==
-X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
- PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(23010399003)(14060799003)(1800799024)(35042699022)(376014)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 0ybYxz8JBk4UE4W0TaK8xmk3oROlx9xlg1P08h6EBRGcDEVppvomwWe+FkRPzcpm1lESe/C/dZxqOkShoYo77EQfY9ZhP8LwuCiDjlOyo/Ln85N+mKomUFK6suVbXbDLbjR6sqz0J1kUGx/87k17Kt+6Ju+rzITbTOp+5WloExZyLYEpCtzNS2wPjG5AiOCpmJyfgbQwSDBHSGJpC9fei2S2nFGEU8xJj2Vz28b4l4D01lg11ieIKjowGvCuWWA5/ng/H9qlzKMi9sMOkpApdYxvKfRZ0b3dGaQ4gjcWoWS9AjqI4YuGD+mWjZTEI6n24tUW0J8JY6F2jfy5/8IhuBSu5lEAvQI5BzDanKDYOpqo3dhb1OPJazgRLKF31HuYRvIeOCTkP/z9HNIYgrm8EmaIh6hJRfiJXcMup6KDMKcy5jPzWkphusUchL+zin5l
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 16:49:16.4955 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b68e2c9c-ac3e-44af-33e8-08df15a4c6ea
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
- Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource: DB1PEPF000509EE.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR08MB9186
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BADA10E94C
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 16:58:45 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68IGnvuN2364101
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 16:58:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ FmJ9l5QFBMMe48wI+FnvFQSDXsCaB79a0WihlyuJstA=; b=F862iJklfTEspXfc
+ UjvRsNylWUiwop35P1muhLn10HTOL/M7stdoCV5Frgx1dJJyqJCtb9FvturdV8sv
+ z3alBIEzMWiVlVthfKBVozYtF7rTFVwi4etMJQaCL3Xb1OMzWcr3mo94SqS0NKef
+ R2spGU2cf3Z4YDgyNC0YvETba6iLNRQtX+MmCmDbez6Y2pZzcL6/1A49LPfbZR3+
+ EwSgfygJ0q8qQ9GphKHYvddiZI3X3ZqEQSOuyLKfi60D+5Gm3ZpMKc/Bkp7QtCxC
+ 19jlA5mLGS4eEQmM2YLhernOpYqFKGMWVlTYHqEyqO4snc1SdLMMuu7ckn2KAGe8
+ b6XcSg==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grtdpusas-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 16:58:44 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id
+ d2e1a72fcca58-855315ccb64so1018684b3a.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 09:58:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1789750723; x=1790355523;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-type:content-transfer-encoding:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=FmJ9l5QFBMMe48wI+FnvFQSDXsCaB79a0WihlyuJstA=;
+ b=kaOV9X20FujHuc1giQCQk3KsjqIU8wnypt9/DZDt6kt9KmmO250pn2X5anKmXcSBU4
+ f+QHcXXDbl9HyY44C7AHMy4tqaqiWZmgaPKyroItObalq54F2sHK2211W8VU3KMl4AhC
+ g13dLT0bgkHsLxKXgBIF3FNnmtFhfNA6w060gjYlmAxItixQgjjv/endcNP61eG1mJ2+
+ te5/jrz2iWWZLqdyM0WOmZen4czHcW387f/qwxBaSscGYwecR+2peGMuHoq+lRr7lfIT
+ fmu4ngGpNVKQlxNNw6GlDsMT7lGLNPYEeZRjuvd4jDsMF0BRUKxdbYx817KB81yGpQfT
+ nvtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789750723; x=1790355523;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-type:content-transfer-encoding:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=FmJ9l5QFBMMe48wI+FnvFQSDXsCaB79a0WihlyuJstA=;
+ b=mzuds0NSttdr7iIa/tcvYcTZAoaK8N6Pd3ynfa9T2F3bCrOcpiw6vFSEhvPpEyzQbs
+ iposKjCoWgd8KSQgG529mtBreXtwt+nwFKlv2OetPJaau/2l2poSarJiWFLEEYqW9vk/
+ 1DEifMFQcfdkyum3mDvjva1b9yR+KWll+Y9zQ07ukoaxFzmJxmt5ILLpJZGs9tI+rbHd
+ 2P1QwhzTRYGMgC9J5d1vh6HGO7IF1YoGLzVfDrrd3uNd38lwyh44SIUtmPDyIJa3YNSs
+ /p8FtnWe+pA4uIck0MIwXwQxRIj8SbQU2Ze1MFZlXcnq63UcqwRN9WeyGXKf35jjb3eD
+ Pa7g==
+X-Gm-Message-State: AFuF++nnBKdYPYlZfK2jDbFq9DGo1zI0stCkRIbhI1nzQoSFU4ACqx6Y
+ PL+wFQqRwVOwBLgth6hnYvPXTTzMGWeFZ7aK+/LrdcjRG7K3bF9lje0/nwH0F2vKwbNqHFPppMI
+ hQG3btRMwDNGJ0drKljRzkteVsKWyCpj+kAVdwv6qn6jJmcABU90+nvdudt6eZWenslS/CYc=
+X-Gm-Gg: AYBFou3675jEkG3whk0zYPOruYIA9+LESO4z/pdXgks2iJfWy2izNbfXUBZJodvc2NF
+ ZXTHzL/VezxhjzBajhSSbD9jWpUwUC3CEGo1gknDIB1xO6bXzEs/z4jWXpf8CzDC9DYOcSJlsmz
+ ntPyaQ2GNC5I0PcDo73Mp4ZhV+dGgb1rJzVrse3R8THyyRLT7mK+hRTwKuERhWmEDUYvMLxQNfQ
+ TaUAUetduNtHBTAtAKPZQx+lrwULLH94X8Pd+kCu9NhprYkfVHxyG4wFaHnYYGsTbZzecziUYZS
+ STsKAFxFoCH6Kpa/mywu36903GkLsGGDwwFKEOAjXXp3wf/ygjSKs8qN4L686Fb99/zIa81gABc
+ 0oEBo0g==
+X-Received: by 2002:a05:6a20:d707:b0:3dd:a195:fa0e with SMTP id
+ adf61e73a8af0-3dda195fd95mr361292637.51.1789750723361; 
+ Fri, 18 Sep 2026 09:58:43 -0700 (PDT)
+X-Received: by 2002:a05:6a20:d707:b0:3dd:a195:fa0e with SMTP id
+ adf61e73a8af0-3dda195fd95mr361267637.51.1789750722830; 
+ Fri, 18 Sep 2026 09:58:42 -0700 (PDT)
+Received: from localhost ([143.246.51.243]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cc5c50e7433sm1426162a12.28.2026.09.18.09.58.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 18 Sep 2026 09:58:42 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 19 Sep 2026 00:58:17 +0800
+Message-Id: <DLILO7Y6WWXC.ON1PAKLWJM1Y@oss.qualcomm.com>
+Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-aspeed@lists.ozlabs.org>,
+ <linux-arm-kernel@lists.infradead.org>, <imx@lists.linux.dev>,
+ <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3 1/2] drm/imx/lcdc: avoid duplicate clk_per enable
+From: "Ze Huang" <ze.huang@oss.qualcomm.com>
+To: "Thomas Zimmermann" <tzimmermann@suse.de>, "Ze Huang"
+ <ze.huang@oss.qualcomm.com>, "Alexey Brodkin" <abrodkin@synopsys.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Joel Stanley" <joel@jms.id.au>, "Andrew Jeffery"
+ <andrew@codeconstruct.com.au>, "Frank Li" <Frank.Li@nxp.com>, "Sascha
+ Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Linus
+ Walleij" <linusw@kernel.org>, "Hans de Goede" <hansg@kernel.org>, "Alex
+ Lanzano" <lanzano.alex@gmail.com>, "Oleksandr Andrushchenko"
+ <oleksandr_andrushchenko@epam.com>, "Philipp Zabel"
+ <p.zabel@pengutronix.de>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
+ <u.kleine-koenig@pengutronix.de>, "Marian Cichy" <m.cichy@pengutronix.de>
+X-Mailer: aerc 0.22.0.r10.g73f20125
+References: <20260727-drm-simple-kms-removal-v3-0-de36e534f7a1@oss.qualcomm.com>
+ <20260727-drm-simple-kms-removal-v3-1-de36e534f7a1@oss.qualcomm.com>
+ <bbf8fd0e-8e1c-4899-98f4-b8231800de8c@suse.de>
+In-Reply-To: <bbf8fd0e-8e1c-4899-98f4-b8231800de8c@suse.de>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDI0MiBTYWx0ZWRfXzonYsICu19dW
+ 0m9qwk629EDcZ7QVzppN+nO2cRFZaX+6STT/Hzr3Vit31yadGeHdQ94b3XCeR4Mu494AYzPc8ga
+ X1siIdv3l7TTPZufaaSsua5tB9CCVh8KGgEL6A5JaXcqpIa3OTonvzzaRGjmZDtP4Bfa3Wt70PJ
+ UbkcAMyHgHiyEEQcohCmgvftmNji9i8I0sxNGpa2hUhBVjWf8oWvjpy2FCser/wkiLrfVd9S2sf
+ 0NFejiGc8aHjZEDWO4dN3OwDMT+lZbAcE5B1bLRmxbeRjrY87ZtBR9S3ixUF0yR0tbb5wxK9Xc2
+ seE59XtTg4Xyk1GcWRg2b/iQPAXHoMpJjNY1QtmyO1BClsycL7HMddV4i+InunzFHxpTlgI9vFk
+ TxrWGsFD76HoZbm1jWkI/WVcIgKX7ehREQbf1+6p7Py2aLDxBGAFvB85S77zzNP8MEIiBqUNHk6
+ lVB9QKox5VCZqr3F5BA==
+X-Authority-Analysis: v=2.4 cv=N+e8hG9B c=1 sm=1 tr=0 ts=6aad6dc4 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=LNnhWNgewsfctp/cwirQdA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=gNeoJdBQTLUQTwsD9V0A:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDI0MiBTYWx0ZWRfX5EXM271hA8sg
+ ytFrlmuC6mb15TN+U4nMo9qsrGyo6R1j5vHfgBMk+0IHLMVrwpETFDF3ImDh3OGfCRS0ffhDlb3
+ xFHeev5CCxbcgVPWUfZWXdE/1sRFrww=
+X-Proofpoint-ORIG-GUID: VBZ2zHPhJL3zzknE13FNEN3cNMUH9Yxr
+X-Proofpoint-GUID: VBZ2zHPhJL3zzknE13FNEN3cNMUH9Yxr
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_05,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 lowpriorityscore=0 priorityscore=1501
+ malwarescore=0 clxscore=1015 spamscore=0 adultscore=0 impostorscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609180242
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,72 +156,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Wed Sep 16, 2026 at 2:24 PM CST, Thomas Zimmermann wrote:
+> Hi
+>
+> Am 26.07.26 um 21:42 schrieb Ze Huang:
+>> The simple-KMS helper calls the pipe update after enabling the CRTC.
+>> On an enable commit, imx_lcdc_pipe_enable() already programs the
+>> mode and enables clk_per. The following pipe update sees the plane move
+>> from no CRTC to the active CRTC, treats it as a mode update, and calls
+>> imx_lcdc_update_hw_registers() again.
+>>
+>> That second call has no old CRTC state to disable clk_per first, but it
+>> enables clk_per again at the end. The disable path only drops one
+>> reference, leaving clk_per enabled after each on/off cycle.
+>>
+>> Skip the register update from the pipe update path when the CRTC already
+>> needs a modeset. The enable path has already programmed the hardware for
+>> that commit; keep the event handling in pipe update unchanged.
+>
+
+Thanks for your review.
+
+> That seems reasonable. Once the driver uses regular DRM helpers instead=
+=20
+> of simple_kms,=20
+
+> it can all be untangled and this test won't be necessary any longer.
+
+Yes, that's the goal.
+
+IMO it's better to spilt the operations in imx_lcdc_update_hw_registers()
+or distinguish the caller.
+
+However, it might be risky to make big changes without hardware validation,
+I think it accpetable for now.
+
+>
+>>
+>> Fixes: c87e859cdeb5 ("drm/imx/lcdc: Implement DRM driver for imx25")
+>> Signed-off-by: Ze Huang <ze.huang@oss.qualcomm.com>
+>
+> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+>
+>> ---
+>>   drivers/gpu/drm/imx/lcdc/imx-lcdc.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c b/drivers/gpu/drm/imx/l=
+cdc/imx-lcdc.c
+>> index f52832b43aca..81024f7d9e96 100644
+>> --- a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+>> +++ b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+>> @@ -311,7 +311,8 @@ static void imx_lcdc_pipe_update(struct drm_simple_d=
+isplay_pipe *pipe,
+>>   	else if (old_crtc !=3D crtc)
+>>   		mode_changed =3D true;
+>>  =20
+>> -	imx_lcdc_update_hw_registers(pipe, old_state, mode_changed);
+>> +	if (!drm_atomic_crtc_needs_modeset(crtc->state))
+>> +		imx_lcdc_update_hw_registers(pipe, old_state, mode_changed);
+>>  =20
+>>   	if (event) {
+>>   		crtc->state->event =3D NULL;
+>>
 
 
-On 9/17/26 13:33, Boris Brezillon wrote:
-> With the recent changes to iova_mapped_as_huge_page(), the check for
-> huge-page mapping of sparse BOs is actually simple:
-> 
-> - for a sparse mapping, we know the BO offset any VA in this regions is
->    va & (SZ_2M - 1)
-> - the VA we're searching the BO offset for is the 2M-aligned
->    aligned_va value
-> 
-> This guarantees that the BO offset to check is always zero in that case.
-> 
-> This is simple enough to let the code check if page 0 is a huge page
-> and save the unmap+map dance when the dummy BO is not backed by a
-> a huge page. So let's do that and kill the comment that says it's too
-> complicated.
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> ---
-
-Thanks for this change.
-
-Looks good to me.
-
-Reviewed-by: Akash Goel <akash.goel@arm.com>
-
->   drivers/gpu/drm/panthor/panthor_mmu.c | 15 ++++++++-------
->   1 file changed, 8 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index d2897099763e..01564d250adf 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -2337,18 +2337,18 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
->   
->   		return false;
->   	} else {
-> -		const struct page *pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
->   		struct panthor_vma *vma = container_of(mapping, struct panthor_vma, base);
->   		bool is_sparse = vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
-> +		const struct page *pg;
->   
-> -		/* If the unmapped VMA stands for a sparse mapping, always
-> -		 * assume the backing storage is a THP, since the overhead of
-> -		 * unmapping 2MiB worth of 4KiB pages and remapping some of
-> -		 * them is offset by the logic of working out whether it's
-> -		 * the opposite case right below.
-> +		/* BO offset on a sparse mapping is chosen so that 2M-aligned
-> +		 * VAs point to the start of the BO. Since aligned_va (the
-> +		 * address we check huge-page against) is 2M-aligned, the BO
-> +		 * offset is guaranteed to be zero.
-> +		 * Check panthor_fix_sparse_map_offset() for more details.
->   		 */
->   		if (is_sparse)
-> -			return true;
-> +			bo_offset = 0;
->   
->   		/* In case of shmem backing, we know we can only have a huge
->   		 * mapping if the bo_offset is 2M aligned, meaning we can skip
-> @@ -2357,6 +2357,7 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
->   		if (!IS_ALIGNED(bo_offset, SZ_2M))
->   			return false;
->   
-> +		pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
->   		return folio_size(page_folio(pg)) >= SZ_2M;
->   	}
->   }
-> 
