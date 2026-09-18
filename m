@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F19D9C982DC
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 11:14:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C1E2C982DC
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 11:14:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ABB110E8BA;
-	Fri, 18 Sep 2026 11:14:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62A6510F2DF;
+	Fri, 18 Sep 2026 11:14:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="S+MEo7bZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WskpxSdY";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C76F10E8BA
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 11:14:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0CAE10F2DF
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 11:14:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8595E402FA;
- Fri, 18 Sep 2026 11:14:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F2FD1F000FF;
- Fri, 18 Sep 2026 11:14:25 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A9DAA4384E;
+ Fri, 18 Sep 2026 11:14:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 791F31F000FF;
+ Fri, 18 Sep 2026 11:14:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789730065;
- bh=jUqU0NiWKdtzGjAaxgXZCdDBLRMtY0+BF09DlWMh+38=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=S+MEo7bZeOmoZcqQo2Q/YT8V6YVJ6cCxIOMB69xcRnBnHdOed2Cp4y0mAQ2HqKZrX
- 1ZY4KTzD1JGNdFzp3SUiiQ+IcUMPNg6Sd2gcqTtfZaVO/0HKOkKppUoBhxb4U8v5dK
- qBNQP3e+DJrlxU9jEXrz8+ogeip4YsahYuM06VJ2/tsR5hUJ/EmoBWBLtE+dcLZrHP
- Uk91Q6RJoH67vXeO7BT0N/BWWdnH7u3eQLs6vswSKx17BIO6f/1HfncZ0vBLs3mseQ
- o75KCq/6L7CtMFtgx/GJDeYlPV6BdBS70c0lJOjYxcaQF8aLKe1QttOgaoM8ghX3cH
- BiSv8aLT1p9tw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] drm/imagination: Fix page count for page table
- for map() interface
-To: "Brajesh Gupta" <brajesh.gupta@imgtec.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260918-mmu_fix-v3-2-7b3d73aef041@imgtec.com>
-References: <20260918-mmu_fix-v3-0-7b3d73aef041@imgtec.com>
- <20260918-mmu_fix-v3-2-7b3d73aef041@imgtec.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 11:14:24 +0000
-Message-Id: <20260918111425.3F2FD1F000FF@smtp.kernel.org>
+ s=k20260515; t=1789730073;
+ bh=Kuutvxa5QOfFNe/emeep5WZ9K8kyOggGj16iP5pCM6w=;
+ h=Date:From:To:Cc:Subject;
+ b=WskpxSdYHnnWly4FY2W1f19/eURP/yUxDnKQfnOtrOkFM3K8fPMTg9Q89yG4DZhP7
+ MUvvzh7NfWgg8w7Q4RjXZVNJ5KHD2PAn1OxTbjxKn3uZjWpTnZxdUgsQJ5M2e2w0i1
+ Q+TiU3zX+1NQR+sQgwpjLE53U5HYRxl9UI1rFxXcNJ7eYt9n/xYByoUNmzMmrABjNT
+ RCii7y9dsTYagKyQKcEyPMqBcVAOPqqkzW29DiSS1LHVCPVqpFgz6APPOiyL0r9bkC
+ WAerT0pjufRYNW+lG1NT/zjqhXHHPPanZltMkYg/CQHvVAjNN+Ub2hh15obFnX6a0U
+ kUyZ1wFM934rA==
+Date: Fri, 18 Sep 2026 12:14:30 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Lyude Paul <lyude@redhat.com>
+Subject: linux-next: manual merge of the drm tree with the drm-misc-fixes tree
+Message-ID: <aq0dFhGo62Hbqt4B@sirena.org.uk>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="Q2wXDt7ErM0nUYQz"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,72 +54,52 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/imagination: map failure due to incorrect page table prealloca=
-tion
---
 
-commit 745ba10b948681b4d3d12138bed64dc2fbad043c
-Author: Brajesh Gupta <brajesh.gupta@imgtec.com>
+--Q2wXDt7ErM0nUYQz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-drm/imagination: Fix page count for page table for map() interface
+Hi all,
 
-This commit aims to fix the page count calculation for mapping a buffer obj=
-ect
-by including the GPU virtual start address. It updates the
-pvr_mmu_op_context_create function to accept the device address and uses it
-to compute the required page table memory.
+Today's linux-next merge of the drm tree got a conflict in:
 
-> diff --git a/drivers/gpu/drm/imagination/pvr_mmu.c b/drivers/gpu/drm/imag=
-ination/pvr_mmu.c
-> index 23261d9ad3fdd..62eae7fcd5a26 100644
-> --- a/drivers/gpu/drm/imagination/pvr_mmu.c
-> +++ b/drivers/gpu/drm/imagination/pvr_mmu.c
-> @@ -2347,8 +2348,9 @@ void pvr_mmu_op_context_destroy(struct pvr_mmu_op_c=
-ontext *op_ctx)
->   */
->  struct pvr_mmu_op_context *
->  pvr_mmu_op_context_create(struct pvr_mmu_context *ctx, struct sg_table *=
-sgt,
-> -			  u64 sgt_offset, u64 size)
-> +			  u64 device_addr, u64 sgt_offset, u64 size)
->  {
-> +	u64 start_addr =3D device_addr + sgt_offset;
+  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
 
-[Severity: High]
-Does this computation incorrectly add the physical buffer offset (sgt_offse=
-t)
-to the virtual device address (device_addr)?
+between commits:
 
-It appears that shifting the address window this way can lead to
-under-allocation of page tables. For instance, if a user-space application
-maps a memory region where the true virtual address range from device_addr
-to device_addr + size crosses more page directory boundaries than the
-shifted range (start_addr to start_addr + size), the preallocation will
-fall short.
+  12f6eff11ccf9 ("drm/nouveau/gsp/r570: Set GcOff =3D 0 in fbsr")
+  adb87c20081e5 ("drm/nouveau/gsp/r570: Enable Gcoff in fbsr again")
 
-As an example, if L0 tables cover 2MB (0x200000), and we have
-device_addr =3D 0x1FF000, size =3D 0x2000, and sgt_offset =3D 0x1000: the a=
-ctual
-mapping touches both 0x1FF000 and 0x200000, requiring two L0 tables. Howeve=
-r,
-start_addr becomes 0x200000, causing the logic to preallocate only one
-L0 table. Later, when pvr_mmu_map executes, it could fail to retrieve the
-second table from the preallocated list and return -ENOMEM.
+=66rom the drm-misc-fixes tree and commit:
 
-Could this result in unprivileged user-space clients experiencing random map
-failures depending on the buffer offset?
+  c7abe771e0138 ("drm/nouveau/gsp/r570: Set GcOff =3D 0 in fbsr")
 
->  	int err;
-> =20
->  	struct pvr_mmu_op_context *op_ctx =3D kzalloc_obj(*op_ctx);
-[ ... ]
+=66rom the drm tree.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-mmu_fix-v3=
--0-7b3d73aef041@imgtec.com?part=3D2
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+--Q2wXDt7ErM0nUYQz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqtHRUACgkQJNaLcl1U
+h9DckQf+PiPWQ03VXLT9bpTg1sTG/vNBTQhBxDu8yvSqwnFTdXMy4dfdp5PzdN0s
+FtixadN/chjJp5LuvVaDvZvdxYQjX5zolcEgiIVcXRq+f6W5lb+ijIWVGwo8uq+R
+GK7DfpXuiElkgqtLkPrQRNv1hdB/LOVgpC/nyTtnCz+q6S+SLy0nf7uwYcSmOU+J
+3RMM6CQ4ly3BVBMs0lp/el80HhhJPBH4YyU4lYneuNA6hSJKkjLMt6HSDlvOSY5M
+UWQ2dkOIDIYKlxIaoWkCP0W54eJRy0nUiwGjeI5SPh1rAvUOi/xIG8u1nQJZZAc8
+cwwHKf4Et2CMk17/rlWPSyweolUJPA==
+=SG1x
+-----END PGP SIGNATURE-----
+
+--Q2wXDt7ErM0nUYQz--
