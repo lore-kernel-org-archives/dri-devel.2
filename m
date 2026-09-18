@@ -4,104 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A72CC982DC
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 11:25:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C5C9C982DA
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 11:26:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD8FA10E709;
-	Fri, 18 Sep 2026 11:25:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2AB310E897;
+	Fri, 18 Sep 2026 11:26:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=tomeuvizoso-net.20251104.gappssmtp.com header.i=@tomeuvizoso-net.20251104.gappssmtp.com header.b="r2CEMeWo";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ig+dMfJE";
 	dkim-atps=neutral
-Received: from mail-qk2-f24.google.com (mail-qk2-f24.google.com
- [74.125.230.216])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A49EF10E709
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 11:25:04 +0000 (UTC)
-Received: by mail-qk2-f24.google.com with SMTP id
- af79cd13be357-939695b5741so58106385a.1
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 04:25:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789730703; cv=none;
- d=google.com; s=arc-20260327;
- b=YU88yKux/IdqIbMQJ9vtqrw2anG76ejH0M9hdcW3YHxUwSdTeFcv1zatGdd9HKCdmj
- w8z28eQL3vz53YVOi6SujvzbG2ROyBZU38wTyjvHQPY3cYHzXLGOAx907kYPOGbbnOvq
- 6vsGoAVji7paRPrz7nOhfXDmberx7s2eE72BB/idE3vmifpJyM83xRoK7pK3l7Hu2gSN
- 81tfxhwAYQxSdjnA522UmLR6mkrVo8/9EX69OilSKFkSCSX0UzA8JqfTm0hO0O6OzYRh
- Cq5ZMqccI5YXlQAemQdGeSCdI1NPC8FeWpNCTJOtN7Qh1Pvubq+5DWQklEzYbdKrpxzn
- m6Pg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=fxNae09A1OnN2DhU/tJerCjit10PKrqeq902N6O9xkU=;
- fh=/cIqTdJBl0sXalAFKtBoHcehYLKKeuPYGJ9PeLhrhDE=;
- b=DT2s7BpB3S6WJdSrPnhqraec+KiPBmwqGvR+LILnVAOjfF8lPFA8ggVmhgTzNlvKq7
- PEaLIHAti170uaWKhJTRKaJQSSGRPANVFMLs9pqQcFJMl5fj0IRgNsN3dsTZPy6dLunc
- 7RznJahx4PKsMRk/ktvWekCGSeihKyNnS2hsrcz5vrDXZX+JL7qWqq/XbQNMRuuJa6ZZ
- u239Ii4/6tL+x212Cb2gDZ7i1C/C7SBYwXjm71lwlmuVNl4D6m4Lu5id8o3ccm2G79iD
- SHU6YH/l+lZKdDg9hYfbYrDeMMr/boeBqSByFQRlJHfEStSZ5BjTULVmymTiGADFez8W
- VsEA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tomeuvizoso-net.20251104.gappssmtp.com; s=20251104; t=1789730703;
- x=1790335503; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=fxNae09A1OnN2DhU/tJerCjit10PKrqeq902N6O9xkU=;
- b=r2CEMeWo9Wj5va5rJXLCIL+HeEYkOR1OIINwXNm91+Pms38Y7eNmJse0VSGY7XuQdm
- Yd0pKtMKJ4kNOlgBZagefvfXfXj6KpaBHoieYB/Uxe5fCPOFGyftYiSmA/e7k/t//u//
- 9sCIlpIGZibwZP3rLluVV+zrsAhdvlZhciE/wZ5tvKZ2+mhXAceNnO9NESptnef7aIW5
- F2mtG98j7q6Njcw59EHBa0zmw6oKdJCdh9lMKsFNUUgABJO0DJJbkMmEH2HEmTqmTZ+b
- 0qN/ZL8SnqOQ/Z0h1vZBvFhU7HeJi6wzAYi8av45CGsPbY+s/SiUK6w7RohUzySECHoF
- Pdzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789730703; x=1790335503;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=fxNae09A1OnN2DhU/tJerCjit10PKrqeq902N6O9xkU=;
- b=aYzS2E+kmnm1KFDynrWCJIu+8IjTZxdbZdXR6nAZjuBvmBZNAoNa0YVtvwBqwYua7n
- sZNHzvEV5GPX+rqOgUCQ3jonhhSuzJOi1gbJHwYAxiF7+w32uL/5eOOQHAg23O0CEpid
- VhxBKarwpqhh5mB3f9rUwJL/4Svca+A2lGOc3GYziLYg5f6SfrAqeVXGVoNNSXmB2lqX
- mjbH9FVMxpG+4mP82mIk8WGAEHPIPef3Qf5YTlJErYNR75hQAwgEAVKN4nrWD/gppTiR
- znb1jJV6pa82bsxTfhbaQI8uMfn1mCptYuD/f4ha+5JfotsO1F1qxNw800Rp8eRNKsg7
- Tnwg==
-X-Forwarded-Encrypted: i=1;
- AKwUvByUW9Wcfvc4u9jfgyJdf2c9QysZ8NNwrGIodUZDCPp/AdgX6eFkfT01P2AW9xuhvz4rmgkzI1IIjxY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nQAQp+0tQt/aFPKQZKgIyO/nxh/k9rXBIqAUkIIAx/BGM6f0Te
- Kk8euEf84aP3rum2sQU8o+aw5cDoe9DhnG9vsIEA+WKAT8JMZRLyeF4xvdtNKrnLoON0W0Rmnmr
- WIhxK9/nLRErlYgRfDgu0OcUbXIWXquE/ACHPIN9P2Q==
-X-Gm-Gg: AYBFou050DpDJ/7mLi3jPvGIM17sjLqrzZhnw2e0uSNkfa+ixHu5Jr5woflaKVUOXf1
- B88Ma+p0H02yScz0Ti31hUysLhk4bnnnbpgxqvjKiydKo4vTOXKyKhbSwmyL1qp3TIL/Fe64hKd
- GUP//7y4rMY8s6JZTbz1DNFGkCzNJkeiq6K0cmeaGZwO4iwj5kFujoPPUZ8gKei71FoLSUNJI9G
- vH27NjNtC2FU4C2aBH8H2wZ3A8LvhW5lOrU5oUUjTWTHe4e6ZziZGkgIhRbEE0Y23Xn4YupqYk2
- 60bLq1yQakmeg6OUPit4DRWBvVfz0wfzmzh8DtrheFj+hgzaiwyTFuokCyLhp2fOfA==
-X-Received: by 2002:a05:620a:6288:b0:93a:14c:3296 with SMTP id
- af79cd13be357-93bdc64eb85mr265730785a.15.1789730703288; Fri, 18 Sep 2026
- 04:25:03 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F6FF10E897
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 11:26:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789730779; x=1821266779;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=tGRz+xcU5qGQznIZVXbWr3WfcKFpc6nf1I9Ey6LydvE=;
+ b=Ig+dMfJE0NUhq8d0CPG8g9ooLXCtQvILUk6wJdtDDWEuVFTfuyOfomKS
+ Ws11JKoUercYBt0ALatwu7PUbkicrSNhTify/JqbFPvW7Q7CnWTp8NQqY
+ hTGH098SXTtNOtEjyCRpBtnZn3/7lh6yUp+Rg+U0BopR+jofFuwhFDIgH
+ dfDDNpy5RaEs8SRYVkkgEqgCnDfQ9GfJOZ8iHZPU4x2pjijrHEfHW7ERD
+ v4mNXHkLLiXGJbe2bsHf+QDRzq9OCdwgTiJKWDUefkiesn/qKX3aU/jP2
+ Y6s2P8rIn/EIvaLI5jeU84HFpuK1Li0o+ysV/erMSl6/fEZleejyXsveI g==;
+X-CSE-ConnectionGUID: SRiSZUFIRUGlHEb+YDMTnQ==
+X-CSE-MsgGUID: ADpQbltpRe22sv3qbMwSGA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11908"; a="89161974"
+X-IronPort-AV: E=Sophos;i="6.27,108,1787036400"; d="scan'208";a="89161974"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2026 04:26:19 -0700
+X-CSE-ConnectionGUID: Bxn5rxPtQIKGT1DV6Rs8Gw==
+X-CSE-MsgGUID: vYzwKo1pSIK7kKpuOq84rA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,108,1787036400"; 
+   d="scan'208";a="2776820"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+ by fmviesa013.fm.intel.com with ESMTP; 18 Sep 2026 04:26:15 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1x7WjM-000000009h7-1lon;
+ Fri, 18 Sep 2026 11:26:12 +0000
+Date: Fri, 18 Sep 2026 19:26:10 +0800
+From: kernel test robot <lkp@intel.com>
+To: Claire DuSoleil <claire.m.dusoleil@gmail.com>,
+ Zack Rusin <zack.rusin@broadcom.com>
+Cc: oe-kbuild-all@lists.linux.dev,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Claire DuSoleil <claire.m.dusoleil@gmail.com>
+Subject: Re: [PATCH] drm/vmwgfx: Fix GEM_CLOSE returning -EINVAL for
+ PRIME-imported surfaces
+Message-ID: <202609182113.RjRMgrW6-lkp@intel.com>
+References: <20260917181312.12473-1-claire.m.dusoleil@gmail.com>
 MIME-Version: 1.0
-References: <20260904130858.27803-1-royalnet026@gmail.com>
- <20260918100543.23974-1-royalnet026@gmail.com>
-In-Reply-To: <20260918100543.23974-1-royalnet026@gmail.com>
-From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Date: Fri, 18 Sep 2026 13:24:51 +0200
-X-Gm-Features: AcwNN1UuXA_zYpic264Z4jBxnVkM0kgrR6zKknS_YOh0Jo6_SD-EuICl1_jx1Us
-Message-ID: <CAPsqS2QXQda2ftbEJb_-Qeva9ay4+4ysdpUtj8jAvbyAsYiAJw@mail.gmail.com>
-Subject: Re: [PATCH 0/7] accel/rocket: DVFS for the RK3588 NPU
-To: Igor Paunovic <royalnet026@gmail.com>
-Cc: Oded Gabbay <ogabbay@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Sidong Yang <sidong.yang@furiosa.ai>,
- Diederik de Haas <diederik@cknow-tech.com>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Jiaxing Hu <gahing@gahingwoo.com>, 
- Nicolas Dufresne <nicolas@ndufresne.ca>, Jonas Karlman <jonas@kwiboo.se>,
- dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917181312.12473-1-claire.m.dusoleil@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,33 +82,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Sep 18, 2026 at 12:06=E2=80=AFPM Igor Paunovic <royalnet026@gmail.c=
-om> wrote:
->
-> Hi Tomeu,
->
-> A gentle ping on this series, two weeks on.
->
-> Conor acked 2/7, and Nicolas's review of 3/7 means a v2 is due.
-> Sashiko could not apply the series, for the reason you gave Jiaxing
-> on 31 August: its prerequisite, the slot-search fix (link below),
-> is not part of it. With that fix first, the series still applies to
-> today's drm-misc-next without conflicts (git am only, no build).
->
-> I can send v2 with the fix bundled in, so Sashiko can review it,
-> or wait for your comments first, whichever you prefer.
+Hi Claire,
 
-Hi Igor,
+kernel test robot noticed the following build warnings:
 
-Please resend with the fix bundled in so you get a Sashiko review.
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on linus/master v7.3-rc3 next-20260916]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Thanks,
+url:    https://github.com/intel-lab-lkp/linux/commits/Claire-DuSoleil/drm-vmwgfx-Fix-GEM_CLOSE-returning-EINVAL-for-PRIME-imported-surfaces/20260917-111312
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260917181312.12473-1-claire.m.dusoleil%40gmail.com
+patch subject: [PATCH] drm/vmwgfx: Fix GEM_CLOSE returning -EINVAL for PRIME-imported surfaces
+config: x86_64-buildonly-randconfig-1001-20260918 (https://download.01.org/0day-ci/archive/20260918/202609182113.RjRMgrW6-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260918/202609182113.RjRMgrW6-lkp@intel.com/reproduce)
 
-Tomeu
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609182113.RjRMgrW6-lkp@intel.com/
 
-> An LLM helped me draft this mail.
->
-> Thanks,
-> Igor
->
-> https://lore.kernel.org/r/20260904125936.26234-1-royalnet026@gmail.com
+All warnings (new ones prefixed by >>):
+
+>> Warning: drivers/gpu/drm/vmwgfx/vmwgfx_resource.c:263 function parameter 'file_priv' not described in 'vmw_user_resource_lookup_handle'
+>> Warning: drivers/gpu/drm/vmwgfx/vmwgfx_resource.c:263 function parameter 'file_priv' not described in 'vmw_user_resource_lookup_handle'
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
