@@ -4,117 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A37E1C982DA
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 12:21:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E83C0C982DA
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 12:58:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 887F610F34F;
-	Fri, 18 Sep 2026 12:21:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A99F10E0E4;
+	Fri, 18 Sep 2026 12:58:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="P8TCs8Vh";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="byvnC9Dg";
 	dkim-atps=neutral
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
- [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C4118825B
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 12:21:29 +0000 (UTC)
-Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49b965f447cso5775255e9.3
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 05:21:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1789734088; x=1790338888; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=pZSli+1ou/g+3V4+7u5wg2mN2aQGNSeaL9prHAmrZHY=;
- b=P8TCs8Vhow2zgTZRWJIBRksZ+6hf5rmwA4dSuY7ALsdkUwibOVzccq+NrBfZDwWIQ0
- kmY7dCPKiAehXFjKZfJC8AEzURLYjDFFlVRakdvlSIpXFp+iqFH0r7ATVv8ALsMLT2n5
- Sqz+Ww0kwxNTnhPRLrmCpDE+5B2re1TxWmXWwebKFUbwnKCM7JyYqnG6px8/QOmpwEWv
- elSBG7szrQan5JlUv4Rl1+C1dUahAn9XPJABaIWOfxWOZpEtmgchYmsAWE3b2pzBGW67
- VqLjXr3E9nLMyS8PSoA8c5UvN0ln/MKb31QJSH18JTbqgVfoaddQMGmrjp/0zcP6BxBA
- R4rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789734088; x=1790338888;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=pZSli+1ou/g+3V4+7u5wg2mN2aQGNSeaL9prHAmrZHY=;
- b=is+RLJX1yfIPmHEDOP652tQcsfKPTPVMoxOf9/Q5aBKoL6+04/9OXOUfdlueJ/y5pe
- VxZ63aHKk1axehOZTka0X3XTYBx9DckSNLDlMNriBqYRlDeUeOGjNjOllCIl/2Xt9vzw
- A42AZAzz85lnCy8fKgo2kO7ZXGqgj4/lpp8VTV04wuY06lJLWfffvK2ws6eJW9g/wbtm
- FacFyehOmHsJDBM23vef2PnoiqHGup6zmrU/4SsEKTSOKELXvGk7Z4Kf+vuw0+zn4QDV
- HXMsq+QvUopECXx9z5GY9o4P1xncGlwKFfnHjp/UUfANzq7GDVEY4Lc/b3pjLub7ZJFX
- EugA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwXXLXFLwy79YjcUuE2pMnapp1/Uug0hv7xoVcsJiXY+ABU1prHf91LAvB0weldBpfV+KPnKlvrx9s=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nN33sTdBdnYhqZEKeogsdqa3GwCB0H5Vw4btYpMBbReldlpqVK
- 6J5QsCJHRQnUWUdj8IPVmQP7SUJoViJ2TYB/tQ5a0IG83DwlJVOfeShYp/XYEK5tXUM=
-X-Gm-Gg: AYBFou3Ry+6uhQh50w9HWMcH88CDh6jxMroB2NAIYsvh70EIB6vYsNLUhTWF4E445/a
- IK/nOsUlsdYtA1wq6szap2SK4dwELkM44/yZvQwmO8rHYaOljKiKxHRBCDdCHZSWzqqKajx3L9h
- MRI61ANieku4ZWf4OVTuwxTAhbgQoMGGDk22i1gYHInZqSycE3dGzxiKNUZfhIla4X2mU3ClGLn
- Xlr1dY1uvWJBwXoYaT3X80ZG+IuQ5UZ8YY4Yu0QOXDNSBeHlnOLKtd74J0kpqqUr2hrCRzv3XQq
- VOdWwWFgF6p7uJ4QrXuyVmACBSDg69cAKaemPJxzdkZCZWiOGEI88fgfbMa5yFRvx4fvEgt7VVN
- p+GZqX8Edy5tXQRGYLfp4/mlQRQ2VR1e68u62h6jrgNr+RS0POX12mDEmbHPvdjIwNLvl96HVSJ
- 7SDcSCwpNbP+1k2QcM7obQ4iaEBqwuu0o23I+9ouVEJL/5KOtuahCK7sU+XToKEE7v6MKX09lLO
- LyImhMtAADJo7/w1RBJENB//0jmzlYrffzNHJp0Q2l4DUM9wTn37CU=
-X-Received: by 2002:a05:600c:3ba9:b0:49c:f504:2af5 with SMTP id
- 5b1f17b1804b1-49fc566939emr33360575e9.1.1789734087499; 
- Fri, 18 Sep 2026 05:21:27 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:c55f:cb91:1ca5:54dc?
- ([2a01:e0a:106d:1080:c55f:cb91:1ca5:54dc])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fc56eff84sm45727935e9.1.2026.09.18.05.21.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Sep 2026 05:21:27 -0700 (PDT)
-Message-ID: <bcdbc5b2-785d-472e-9d07-599da628719d@linaro.org>
-Date: Fri, 18 Sep 2026 14:21:26 +0200
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AF9710E0E4;
+ Fri, 18 Sep 2026 12:58:00 +0000 (UTC)
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68IA2ka3990915; Fri, 18 Sep 2026 12:57:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=pp1; bh=vvXTEBXtIpBfma8CBebbY+SSqqX1Qu
+ WR6+4vIHcllvk=; b=byvnC9DgZuLKYo4mY9QFMiFQ6Zc5eAvVokdOQ/jMnu/ROL
+ Ihy697HfGNSs027KQksAAkjwX7YaRrLsOO1g/6wd0s+CHm/STBQ5bGQE02PrUNuG
+ /jNGEuQyMJ0GgJpPIZLUjqfcXRUhYNBUGxSiAGrMMe/ZN3ie+9Negm0sXqB2qPGg
+ G78+ulSPRFoKyeDh2Y4ugEz6Mth2PVTjmT/mNSj1OZo6IEDn3Mmfrt4AuGBiF3It
+ 82M05ljqdaF9c5/06LrZaWpRH1x7tFsqkPtu0asE5M/h1WbsI4/lZhbLwmk3A6qp
+ RqNdQRRqouleichhat5Xw20CbOufAHP17/U7CBSg==
+Received: from ppma13.dal12v.mail.ibm.com
+ (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxcvfgrx-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Fri, 18 Sep 2026 12:57:17 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68I9oGpj507832; Fri, 18 Sep 2026 12:57:16 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+ by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gra3yxedq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 18 Sep 2026 12:57:16 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com
+ [10.20.54.106])
+ by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 68ICvEb851904874
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 18 Sep 2026 12:57:14 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9D53820043;
+ Fri, 18 Sep 2026 12:57:14 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id EB2DB20040;
+ Fri, 18 Sep 2026 12:57:13 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
+ [9.224.92.206])
+ by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Fri, 18 Sep 2026 12:57:13 +0000 (GMT)
+Date: Fri, 18 Sep 2026 14:57:12 +0200
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Muhammad Usama Anjum <usama.anjum@arm.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
+ Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, Mike Rapoport <rppt@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, ziy@nvidia.com, pfalcato@suse.de,
+ ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH v2 0/8] mm: distinguish PTE table storage from PTE values
+Message-ID: <d4080bad-1546-4a9a-9325-7ab91161a9b9-agordeev@linux.ibm.com>
+References: <20260903103002.1091859-1-usama.anjum@arm.com>
+ <dd6ecac2-9bd2-4184-a034-9e13afa614bb@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/2] drm/panel: simple: Add support for Truly
- TFT320240-229-E panel
-To: "A. Sverdlin" <alexander.sverdlin@siemens.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-Cc: Frank Bodammer <frank.bodammer@siemens.com>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Thierry Reding
- <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- linux-kernel@vger.kernel.org
-References: <20260917110517.1053556-1-alexander.sverdlin@siemens.com>
- <20260917110517.1053556-3-alexander.sverdlin@siemens.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260917110517.1053556-3-alexander.sverdlin@siemens.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <dd6ecac2-9bd2-4184-a034-9e13afa614bb@kernel.org>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDE3NyBTYWx0ZWRfX0a+YmMinfqLY
+ thIpqQ3k+YsaEL1Nu5Xtb4MVEpoHSHo6PXFxsq+F/Wx3xKw0f3hhtQwBUt801YS/UAG/0atek9m
+ HF3E84n9wG4sj7upDsGZ+DoHJXM8gUk=
+X-Proofpoint-ORIG-GUID: m4DES1QILxZeg9-Jkqr1aSPqQzDTxZM1
+X-Proofpoint-GUID: m4DES1QILxZeg9-Jkqr1aSPqQzDTxZM1
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE3NyBTYWx0ZWRfX/T2l95nFB1Uq
+ xYhD9MK3T3CmjxCnR5kdtXxgndhWw6MxRYXoXqGlboj2UoA37O8EdLIe4YiWjjUCSxbCjYPDLdb
+ zLflGPxTioAC9+xJzOGZkBco09vb3ShkcVMCROX8/GZfFwvrgzmx7n0qXL0rX5zPKB/njtDxwgb
+ gMHToemhE70TFtiB9Pj1PeVjgH1oGQscKJTsEGRxHL5kVet2L1efcSErMDeLFJpVDhkGjX606/4
+ v67gUAI8g2+alWIwtI8/jPJ+6ph22PnYWj6b88V7/Iglrvc/jT0GvjzhQ6L6hTrFOvO8q+nsLfd
+ IM1uuwdfshQ6+5Im7f+26qdGKHnOEavHW8zEdphBYVrG/drJ0FH1jWiiDkeaELYlUGloVtsBlh+
+ 7nM/BRgAPEjc6uhD2wSkdjVssp3wph+7cmdpYUKnvEQX/Ft2fdQFowSRajI1e1u1DVerG791p4M
+ bjrU9H6l+Tvys0K+DAw==
+X-Authority-Analysis: v=2.4 cv=F+7C5ahN c=1 sm=1 tr=0 ts=6aad352d cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=36OLCuKFP8Pi5wnj2vYA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1011 malwarescore=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 impostorscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180177
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,73 +147,29 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/17/26 13:05, A. Sverdlin wrote:
-> From: Frank Bodammer <frank.bodammer@siemens.com>
-> 
-> Add display mode and panel descriptor for the Truly TFT320240-229-E
-> LCD panel.
-> Register the panel in the of_device_id table with the compatible
-> string "truly,tft320240-229-e".
-> 
-> Signed-off-by: Frank Bodammer <frank.bodammer@siemens.com>
-> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
-> ---
->   drivers/gpu/drm/panel/panel-simple.c | 29 ++++++++++++++++++++++++++++
->   1 file changed, 29 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-> index c95964ba25a95..bd7f6eaeb0deb 100644
-> --- a/drivers/gpu/drm/panel/panel-simple.c
-> +++ b/drivers/gpu/drm/panel/panel-simple.c
-> @@ -5114,6 +5114,32 @@ static const struct panel_desc tpk_f10a_0102 = {
->   	},
->   };
->   
-> +static const struct drm_display_mode truly_tft320240_229_e_mode = {
-> +	.clock = 6410,
-> +	.hdisplay = 320,
-> +	.hsync_start = 320 + 8,
-> +	.hsync_end = 320 + 8 + 39,
-> +	.htotal = 320 + 8 + 39 + 4,
-> +	.vdisplay = 240,
-> +	.vsync_start = 240 + 8,
-> +	.vsync_end = 240 + 8 + 8,
-> +	.vtotal = 240 + 8 + 8 + 4,
-> +	.flags = DRM_MODE_FLAG_NVSYNC | DRM_MODE_FLAG_NHSYNC,
-> +};
-> +
-> +static const struct panel_desc truly_tft320240_229_e = {
-> +	.modes = &truly_tft320240_229_e_mode,
-> +	.num_modes = 1,
-> +	.bpc = 8,
-> +	.size = {
-> +		.width = 70,
-> +		.height = 53,
-> +	},
-> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X24,
-> +	.bus_flags = DRM_BUS_FLAG_DE_HIGH,
-> +	.connector_type = DRM_MODE_CONNECTOR_DPI,
-> +};
-> +
->   static const struct display_timing urt_umsh_8596md_timing = {
->   	.pixelclock = { 33260000, 33260000, 33260000 },
->   	.hactive = { 800, 800, 800 },
-> @@ -6167,6 +6193,9 @@ static const struct of_device_id platform_of_match[] = {
->   	}, {
->   		.compatible = "tpk,f10a-0102",
->   		.data = &tpk_f10a_0102,
-> +	}, {
-> +		.compatible = "truly,tft320240-229-e",
-> +		.data = &truly_tft320240_229_e,
->   	}, {
->   		.compatible = "urt,umsh-8596md-t",
->   		.data = &urt_umsh_8596md_parallel,
+On Fri, Sep 11, 2026 at 06:55:18PM +0200, David Hildenbrand (Arm) wrote:
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Hi David, Muhammad,
 
-Thanks,
-Neil
+Sorry for the long delay.
+
+> Unless there is more feedback on the overall approach, the next step for this is
+> to have at least one architecture support posted.
+> 
+> We should only merge this if at least one architecture (better two? :) arm64 and
+> s390x? ) would merge the architecture bits.
+
+I am going to give it a try, hopefully next week.
+
+> That is, we should get an ACK from the arch maintainer son the common code bits
+> and the arch bits.
+> 
+> -- 
+> Cheers,
+
+Thanks!
+
+> David
