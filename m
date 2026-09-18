@@ -4,79 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D6C9C88E75
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 06:22:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17F89C982D2
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 06:25:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13F5910F19B;
-	Fri, 18 Sep 2026 06:22:04 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B983D10F19B
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 06:22:02 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
- by APP-01 (Coremail) with SMTP id qwCowADnuu5y2KxqkbJICA--.14966S2;
- Fri, 18 Sep 2026 14:21:41 +0800 (CST)
-Message-ID: <b8efa0db854929a353c430f78fffd907bd7ccb65.camel@iscas.ac.cn>
-Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
- starfive,jh7110-inno-hdmi-phy
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Joshua Peisach <jpeisach@ubuntu.com>
-Cc: Michal Wilczynski <m.wilczynski@samsung.com>, Vinod Koul
- <vkoul@kernel.org>,  Neil Armstrong <neil.armstrong@linaro.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Andrzej Hajda	 <andrzej.hajda@intel.com>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart	
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
- Yan <andy.yan@rock-chips.com>, Philipp Zabel	 <p.zabel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Hal Feng	
- <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul
- Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
- Belhachemi	 <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
- Brunet	 <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
- linux-clk@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, 	linux-riscv@lists.infradead.org, Marek
- Szyprowski <m.szyprowski@samsung.com>,  Maud Spierings
- <maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Chaoyi
- Chen	 <chaoyi.chen@rock-chips.com>, Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=	
- <u.kleine-koenig@baylibre.com>
-Date: Fri, 18 Sep 2026 14:21:37 +0800
-In-Reply-To: <20260918-futuristic-mindful-waxbill-21fa2d@quoll>
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
- <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
- <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
- <20260917-mutant-chamois-of-competence-46ca77@quoll>
- <DLI0QTP0NUHS.DAFYGACKWKWO@ubuntu.com>
- <20260918-futuristic-mindful-waxbill-21fa2d@quoll>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04F1D10E80D;
+	Fri, 18 Sep 2026 06:25:25 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MvniT3Qw";
+	dkim-atps=neutral
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com
+ [74.125.228.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4419810E80D
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 06:25:24 +0000 (UTC)
+Received: by mail-pz2-f43.google.com with SMTP id
+ d2e1a72fcca58-85469e211a0so477035b3a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 23:25:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789712724; x=1790317524; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=jt5hpx2+UWES+z68ivJ7kyasbH+hZp5tfP7Ph5RVZI8=;
+ b=MvniT3QwghHMF9jQCTfD4rDPk04X6WXrlBL34CWrf7u5llF0vU1TFudiVaawioBWvQ
+ LKTYRYMCZBkZJEXovSG1QSr+PRpyX97vTQ1wvSlDD+V0KkOUHFjY7ErZz5c57T28nMIB
+ o+uHlxMLU34FfeFM/FWRoPAWpbt1xbNGzOn2WVsDUeAAo3QxgsI7HdoOLsOteWzP3A1V
+ rxTP/8ITzeZfmynhMZQeyL1mJz4RywFpmra+Gz7xXrw2Vp4Tbzc7BPh8SLA+sP3selmG
+ A9Mxa/QI8pDqCm1RvZhnPwJUh0irByfOW1UIMqpUlcO/SSXBwN+uz7k4jRhoQOQ5hYjw
+ 4TCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789712724; x=1790317524;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=jt5hpx2+UWES+z68ivJ7kyasbH+hZp5tfP7Ph5RVZI8=;
+ b=bxOcbYgwW2WBiuFWim+onzv61N9qXlEbcy+hpEP+z6VQH6GZI57ONQ7x357KjzCeJk
+ J72BP7cWBrgpekdi4UzhT3NIMJhRt1hJLw8G+LCOaywvPLW0MMe09jkIHyNU2uAjTPv8
+ dZJwUV91KvPz/WbjghcoyuB3aB7sAQWYYb1eUc2sCfm1LgffEUx573UDv0d6aP5fuqzE
+ LpzOEjQUQ9yhAh9zf0j35Beyl5nbpK5oEskUUxNgiIakRSKdp4dlBUhk8ygXaIDkcfCs
+ JJEzenGapxbBbiFAVqr7NLuxfIGCbEA/klNrDPpmFNRJ2RvkZqLtXeF/L3thGvJl6XmD
+ GaOA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByLH25g6JzXTsvvS7RPtfmMIbEgEYiLVFpqjw8QMMlCuJE4VWMWb9gZ1rBJ+r1smUQ1OS6XFQppMVc=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l/j59NDDa6LRE3vA7ulNzKuU3rJkm3IASu13yPTDH/rB9B2xGY
+ XZq1HBt5JToG/KbvfYX9bFNhWzKWSQfZ7DH/PkN8jKkEVMX9WClOOOBz
+X-Gm-Gg: AYBFou29iHAVvBfZ61s/ZWHLYOf2OkJvY3iHLhGMwm68bi/ak2d9Em1na6TDDXeqn94
+ mfN12WmI5n7vRrgCSQnOTHulDQ+9uwD6ldsZVvTUOhttQzvI2s0J3br27nx0HllXlG8VObAoABg
+ pCjYUQFJw+TBbVtvCGMZCXhzF0VrWNt+9ptc6Mm8upr0zYWvm3s8e07oniuSH7wFJjMPuZ87u/M
+ ahmOHR5Om7e5hpP9bMzOgd+hLzBk99un51brqZ6YoCZnoQ3Rt/RRVli+vKD8tguSp07xHK75y7U
+ nvw0Rqdv85faMQnGGIKNRNHdLR5QhevVsZMhtHFQzfNwmBXV+XStRXBf7lA3lr94z3gpb7QBReD
+ j3jQZv3s8acDuZactTXbOtt0ZltufUtgoF1GTP3BdXn4cse0+iy3HOGEcVaOFCQZT4Ue9p7g3qg
+ vaOPw3x9MQFQLqtQ4+D9NLYnWepD/uDBHipIFiE1RsU2H8rXbgxVp0gdvOentAf8C9FtIGYMbX8
+ UNRXD6WqYwvOZOtjjj4zehSA4U1gAS7R1Cs1CC8XuVsKinFZn1F1eQCElP/PPFw3hISLcm0fkO0
+ /vNSfLWBSM4=
+X-Received: by 2002:a05:6a00:2d26:b0:857:72f8:dc99 with SMTP id
+ d2e1a72fcca58-874dddfd214mr3036061b3a.26.1789712723672; 
+ Thu, 17 Sep 2026 23:25:23 -0700 (PDT)
+Received: from lcwang-Precision-3630-Tower..
+ (125-227-154-99.hinet-ip.hinet.net. [125.227.154.99])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-875dd9e08ecsm311788b3a.53.2026.09.17.23.25.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Sep 2026 23:25:23 -0700 (PDT)
+From: LiangCheng Wang <zaq14760@gmail.com>
+To: Devarsh Thakkar <devarsht@ti.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Wig Cheng <onlywig@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Sam Ravnborg <sam@ravnborg.org>
+Cc: LiangCheng Wang <zaq14760@gmail.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
+ e-ink panel
+Date: Fri, 18 Sep 2026 14:25:18 +0800
+Message-Id: <20260918062518.1824876-1-zaq14760@gmail.com>
+In-Reply-To: <1f59a88c-b0b0-43d7-ba2f-4c50aae87ef4@ti.com>
+References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com>
+ <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
+ <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
+ <20260616083921.4066690-1-zaq14760@gmail.com>
+ <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com>
+ <20260617020926.114947-1-zaq14760@gmail.com>
+ <8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com>
+ <20260731035705.3198816-1-zaq14760@gmail.com>
+ <20260916082924.956116-1-zaq14760@gmail.com>
+ <0a13ccb8-8817-4223-a4a2-0de594ac8c71@suse.de>
+ <20260916094453.1062125-1-zaq14760@gmail.com>
+ <f4c6feab-b1ec-48df-81a5-888444b243a3@suse.de>
+ <20260917025644.1262504-1-zaq14760@gmail.com>
+ <CAFOAJEfnDrGTg40h=R0mfZasroPkrSsmbVmmMA91O9uOzu_gYQ@mail.gmail.com>
+ <0259fb51-acb8-4b07-a6d5-2fe25fb0de9c@suse.de>
+ <CAFOAJEe_7Cqo_=NWPGyYBTu3mD3CjPMC92ZZR6qHPjAhQws7pw@mail.gmail.com>
+ <1f59a88c-b0b0-43d7-ba2f-4c50aae87ef4@ti.com>
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowADnuu5y2KxqkbJICA--.14966S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tw4xKF13WFyUCw1UKF1rWFg_yoW5Jr18pF
- WDK3ZIkr4DJr1xAwn293WjgryF9w47A34Yqry5Wryjvr98tF1rtr4xGr45u3WDKr4fWr42
- vF1jk34fu3sYyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
- C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
- MxkF7I0En4kS14v26rWY6Fy7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
- 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
- 67AKxVWrXVW8Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
- IIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvE
- x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa
- 73UjIFyTuYvjxU9PfHDUUUU
-X-Originating-IP: [112.94.103.44]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,82 +117,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-09-18=E4=BA=94=E7=9A=84 08:16 +0200=EF=BC=8CKrzysztof Kozlow=
-ski=E5=86=99=E9=81=93=EF=BC=9A
-> On Thu, Sep 17, 2026 at 08:34:18PM -0400, Joshua Peisach wrote:
-> > On Thu Sep 17, 2026 at 2:51 AM EDT, Krzysztof Kozlowski wrote:
-> > > On Tue, Sep 15, 2026 at 05:32:09PM +0200, Michal Wilczynski
-> > > wrote:
-> > > > Add the dt-binding for the StarFive JH7110 Innosilicon HDMI
-> > > > PHY.
-> > > >=20
-> > > > This device is a child of the starfive,jh7110-hdmi-subsystem
-> > > > node. It
-> > > > functions as both a PHY provider for the controller and as a
-> > > > clock
-> > > > provider for the variable pixel clock (hdmi_pclk), which it
-> > > > generates
-> > > > from its refoclk.
-> > > >=20
-> > > > Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
-> > >=20
-> > > While I appreciate other people looking at this, I don't think
-> > > review
-> > > here applies. It was a blanket tag, given to the entire series,
-> > > with
-> > > exception that it is from newbie, thus I want to ask: was this
-> > > binding
-> > > REALLY reviewed by Joshua?
-> > >=20
-> > > Are the rest of the patches actually reviewed or just "looks good
-> > > to
-> > > me"? I see no comments from Joshua on v3, v2 and v1, which is
-> > > usual sign
-> > > of doing review.
-> > >=20
-> > >=20
-> > I commented on v3 saying that I would test if I could. I don't just
->=20
-> Testing has nothing to do with reviewing.
->=20
-> > throw "Reviewed-by" on everything I look at.
-> >=20
-> > If anything, I've been trying to be more honest in reviews, and
-> > only
-> > review ones that I actually care about[1].
->=20
-> You gave blanket tag for entire series, so I do not get this
-> argument.
->=20
-> >=20
-> > If reviewing patches isn't a good way for newbies to start getting
-> > familiar with the kernel code (especially a NEW driver), then I
-> > don't
-> > know what is.
->=20
-> Writing code and receiving review is something for newbies to start
-> with. If you do not know kernel code or bindings, why do you think
-> your review is applicable? If I try to review design of a post-
-> tension
-> concrete bridge, I would probably learn something. Would my
-> review apply? No.
+Hi Devarsh,
 
-My personal thoughts: everyone should be able to send R-b, but the
-effect of the R-b depends on who sent it.
+Good to hear from you, and thank you for picking the fixes up.
 
-In this case, I am okay about adding Joshua's R-b, but I don't
-necessarily think the patchset is reviewed enough because of this R-b.
+> Kindly let me know if we are aligned on this.
 
-Thanks,
-Icenowy
+That all sounds good to me, and I am glad it is moving again.  I will test
+v2 on the PIXPAPER 4.26m as soon as it is out and send a Tested-by.
 
->=20
-> Best regards,
-> Krzysztof
->=20
->=20
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+There is one thing worth settling before you post.  Back in July [1] you
+wrote:
 
+  Certainly. I'll exclude the pixpaper-426m support patches from my V2
+  submission so you can handle the review and validation on your end.
+
+That is still what I would prefer: the 4.26m is the only SSD16xx hardware
+I have, and its binding is already acked, so I am in a good position to
+validate the panel and to look after it afterwards.  Unless you would
+rather it went differently, I will send the panel entry and its binding on
+top of your v2 once it is out.
+
+Please reshape the three fixes however v2 needs - they were written
+against your staging branch and the driver has moved on since.  Two small
+requests from my reply at the time [2]:
+
+  Please keep them as separate commits if you can - git am preserves
+  authorship; if you fold the first one in, a Co-developed-by with my
+  Signed-off-by would be appreciated.
+
+  I maintain the existing PIXPAPER MAINTAINERS entry - would you mind
+  adding me as R: on the SSD16xx one, so I stay on CC and can retest?
+
+[1] https://lore.kernel.org/all/8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com/
+[2] https://lore.kernel.org/all/20260731035705.3198816-1-zaq14760@gmail.com/
+
+Regards,
+LiangCheng
