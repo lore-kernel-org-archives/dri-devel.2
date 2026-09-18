@@ -4,82 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E249C982D2
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 04:23:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9584CC982D2
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 04:27:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79D9A10E7E3;
-	Fri, 18 Sep 2026 04:23:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6A5310F16D;
+	Fri, 18 Sep 2026 04:27:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qHI0C/eJ";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="g42h1p8/";
 	dkim-atps=neutral
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com
- [74.125.228.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 902DE10F176
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 04:23:41 +0000 (UTC)
-Received: by mail-pz2-f12.google.com with SMTP id
- 41be03b00d2f7-cc4c08393dfso197568a12.3
- for <dri-devel@lists.freedesktop.org>; Thu, 17 Sep 2026 21:23:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789705421; x=1790310221; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=9BEYrdPncK5+8wcIBCPJhFb06NPsWm4ypvW09xMw3CI=;
- b=qHI0C/eJFb50F1EpI7B9hMAjwyPq0vjEuKKfDYdmM+aAwCQUve2R45wMYOs7/1NzRF
- mKzJFu48+aqYXi/kno40VrWWpeHKmfF2pDNiGO6Y4hbGKv8c/Ib5+PIZLO0qnLQxlTEn
- 0TIuzMN6S7bn0/RPgIiydE3t6mrfwZqQncHnWuwMhHEOrODistrgbgdNFzEJJjX8+Hib
- qVj12mJbewK+GerZUeLqZFH4VFZMIl5m2Psn4K8yXjXvXPByRaHfscuhWgTbJbq89hGd
- lhl7v4SMYGjEQ18CrOi74LdIDVYY9Fe9C0B+4PRNokWAi4V7EyJ2KMgAa4GoyeyV3Pa0
- 4c1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789705421; x=1790310221;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=9BEYrdPncK5+8wcIBCPJhFb06NPsWm4ypvW09xMw3CI=;
- b=2zMolBB5xOduRhx/TfMIgiCzrJSHS1D6v8pmL7MZS8tfCXS9ZTfpCfQqP3/aoKpEmZ
- wSIV/Bw+LaEZ86BH5ZgA4rOWXFtLiL6bD7ygUdbR30eV7kMNwZ45sC6CexmemgzHzUkY
- ejYYxE2pagLxJwoiy1kCm+d27zdHyD//71OHaZGVnV+d+dtVmcJ2KSfjncstap3DC0RD
- VVEFkfgRd4nTGzZ80DYu1Ib0pACVVzO3EYkghR5nlOqXkOJINnDGUCqpjIFwUcWhUlIC
- EBiDsu5CUbFDOAfTFDapanCqeFu1a3VRAhNqbbH/Hvi+TTHdC+L93+TLoHyWDXwRrEpg
- KrBQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxO2OifGD31cEEqIHzVQBOu2QYm4vBVTGQiSX1/w4yuxW45hw+W2f97m4MNmY+dQiGz2SlIWi4D+g8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kqI6OpT7wozmaYhsWPxWJwn+c9bv+l/DjDDOMfudw58fJTh6Lv
- SvUnQZO1yDmkmLAclxA2qnKM2QTs7sAh/H/ZrJX6oK0dD8OZ04tOuyUz
-X-Gm-Gg: AYBFou3PbNG+I3UqOPEERMSTmLODFzjVELbgwn30788voIb0d0a589dfZttzqijFm9x
- 1RP7u3q94znTPEY2bfrXmC2ePRtcOJmoYQfRc1ySOxffCMWi2KaWqnZIo6GjM7NZtz6FXJL340Z
- Wa3qMX3fMrkOw8QmEju6HebA9EwoUhiu3doXcc36+NGbIJZN1BNhBItreXO9T/lO6DSMOuJUxng
- tGQbWBxfqPRNV0JsBh411KmzSChGGY+269zYfqLRvwpOSoFNhp//ZhTdOhY9cQN8WpKgQALVVd1
- U8T7FtsK9TPQUzkgg5P0k2F2WpAOA59w0XgaYxzpS5XZUxrB6/zToNg3V5PHCFj2tY8HVN5dvWZ
- J1ZoaqQUpHhyC7qJ4yeh7I2VRUHCsMw3vSXEJjQi/bXiadqZuE9Hns+2gW3rzdQCipY7QBlSq1Q
- uKLB9XCALdmk2q5nMfS9FPOyXEXyIlRlx3JMZmuUBZtbvqSSTIj5DrK4TT6ySVSWHdFY3v+Sua
-X-Received: by 2002:a05:6a20:6a20:b0:3d2:2afa:d7d with SMTP id
- adf61e73a8af0-3dd8c52d98emr2724989637.18.1789705420877; 
- Thu, 17 Sep 2026 21:23:40 -0700 (PDT)
-Received: from G15-5520 ([103.246.195.50]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-144cdfc3df2sm2305851c88.5.2026.09.17.21.23.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Sep 2026 21:23:40 -0700 (PDT)
-From: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Zhenyu Wang <zhenyuw.linux@gmail.com>,
- Zhi Wang <zhi.wang.linux@gmail.com>,
- intel-gfx@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
- DRIVERS), 
- intel-xe@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
- DRIVERS), dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list)
-Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-Subject: [PATCH] drm/i915: use string choice helpers
-Date: Fri, 18 Sep 2026 04:23:18 +0000
-Message-ID: <20260918042325.17700-1-lalitshankarch@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
+ [185.132.180.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDE0D10F16D;
+ Fri, 18 Sep 2026 04:27:17 +0000 (UTC)
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+ by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68I4IpSV1111029; Fri, 18 Sep 2026 05:27:01 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=dk201812; bh=wSYRDUhUydbYwdiUUtGqE1p
+ hgMUHv0FTmYqzeTJxOqg=; b=g42h1p8/6IXPxmSZd6bBuYbc6d9M+CwJWgw62TE
+ s6LrxBeOVUvlJdCyrD4QpOgSQs4aANxLvzu0JHVjJUxGpo9rkE6MGrKQ1Ur5E6e3
+ WNmhuWFt4c5fh1Q/COhbUpYnl+pLHuDHy8kVuWYy5peCoIwxgx5wr/nA9i5MH62F
+ i3JRLUoHGSVdtHXXBg+d5pND+HFfNHMVWly3pB17LXTwN5I0EPBW/9vYmNj97bd8
+ guJHx981slsulRp1Il3c8VQdfvuuZCV390wNUSrFN1KJNqy0nT+Rn9Pvur/3GGkJ
+ O2KNQaj1yT6gyGhuqp9fqMt7sVPpFkQiA+Q1HzOaIKQvDAQ==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4gmxtun90t-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 18 Sep 2026 05:27:01 +0100 (BST)
+Received: from [127.0.1.1] (172.25.128.225) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 18 Sep
+ 2026 05:26:57 +0100
+From: Brajesh Gupta <brajesh.gupta@imgtec.com>
+Date: Fri, 18 Sep 2026 09:56:34 +0530
+Subject: [PATCH v2] drm/imagination: Add job type info to pvr_job_submit_fw
+ trace event
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260918-b4-submitjob_tracepoint-v2-1-d9b104de07b8@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIAHm9rGoC/4WNWw7CIBBFt9LMtxigT/1yH6YxhQ7tmBQaQKJpu
+ nexG/DznOSeu0FATxjgWmzgMVEgZzPIUwF6HuyEjMbMILlseCcuTFUsvNRC8enUI/pB4+rIRja
+ WbWV4U5dVjZDXq0dD76N87zPPFKLzn+MoiZ/930yCCWY60SoppTLNcKNliqjP2i3Q7/v+BTrw9
+ y2/AAAA
+To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
+ <luigi.santivetti@imgtec.com>, Frank Binns <frank.binns@imgtec.com>,
+ Alexandru Dadu <alexandru.dadu@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Brajesh Gupta <brajesh.gupta@imgtec.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1970;
+ i=brajesh.gupta@imgtec.com; h=from:subject:message-id;
+ bh=Y33ELKfAMzrkjFzF0kEnX1fBpNvqnSDzITTAf/KsW68=;
+ b=owEBbQKS/ZANAwAKAdAmd1l+AvFwAcsmYgBqrL2QEIO6+0mSLaSw8aD5j4X2aBiMlE1mwbMrq
+ RTOwLbsYMSJAjMEAAEKAB0WIQSQIkZAwD1cxcAsz3LQJndZfgLxcAUCaqy9kAAKCRDQJndZfgLx
+ cMLDD/4kgDjz1eCw/w3jyNXktdMwvbglIFYaLoBM29MHi35zb/CZxaOh0i5ru0Tuze3FvOGwy2S
+ lcqGizzrUk5ajB8mjsAMC1iYt06QslyibRc86mohMNjRP9HHjMDdzH64y+vBcQq/EEc5HIYdvVO
+ 9Dcm1ccYeI8JxiDIgnb7ZpUp0eRlK+o1ILZlJoyiaSd2ndhWHbmPhXcB3JvPXekWhcIwcIoW9yV
+ +090SA3G2LaHil0L/nXSaEMtdtkFOz0JmWvDVqSY1h/WbkZBkwf9V9FvwGPeoW6GjDaSrFcgUNL
+ I7fDliKgukYTAPhWFPpEl+ElXoUsD8CETqP+ci2FgdJTW0EP9/U5MB+zMbwYO9/Nkl+WWRrumBd
+ KOd7hcyHXeqOvKoJvCDrDOt7aHq1X3f93mHyJPG5YeIwIo6ohOCvniZ9GOaQ+Y+Vgq8RbBP5z1I
+ pmMVz+6j31xk3h8Pg+8qKhu0H/gcxcmW6USMAmT4lVr1Ilja1hNvvSUOdMuu9QkkzIZ7p+ukT1R
+ WqzwQwyY99XY7EBII/H9mF1W6fLzmD7nIipp0wo2OUFZZF8M0mzhdcOPWShvYvSICYbjQXH2jb2
+ Okqnv8BRJ1EXQJh2/ZSj5zYrV05S1s1yd94wvKBa42jtU55xyM4N6u/pZ1eoxbzj3rEZMqGu0Cp
+ aYjEhdaVil6SULw==
+X-Developer-Key: i=brajesh.gupta@imgtec.com; a=openpgp;
+ fpr=05BAA300FD5C580EFD3F8D2F073292BAD0D39671
+X-Originating-IP: [172.25.128.225]
+X-Authority-Analysis: v=2.4 cv=Se9i5fRu c=1 sm=1 tr=0 ts=6aacbd95 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=HYrZrZQ_E1YA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=VwQbUJbxAAAA:8 a=r_1tXGB3AAAA:8 a=gsgZ4iqZy9nM05cRbg0A:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-ORIG-GUID: vtFybvpemEjxwsQ9jZrZlF0dmvW423Un
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDA1NSBTYWx0ZWRfX8zg/9gU4m6vB
+ mGyTD8ck6zmgj7gUqjrfVim8sDpxmug2Hc+I1BuAX1740dFx7m7r1mEGbmEXCJ8jpB7nwaXrBYm
+ Uw/lpIgVEbABKxOZiE4B9b2f5uxTSS2kuj67t8WP9gAzWtEfKPXeje8F6iRPRtJOuSNhO1J8Rhw
+ 4hE7BfOyIij0xvTj05hIbn3uLGEzvaIxcmPat7VCZIGo1J5rI64cmInl9S82A6RGczymxLWLbiQ
+ j+nkYjaBZf4u84QfY0m+LBJyuZu6UzwEvR0GEtRlK02CPJ/hoNXJy/RhQjRrsC9xxWD7RNr5eJh
+ bITa+PsrrwsQ+Hrc0O/ncfKiPh0CBfaOqRhher1RCcT+2akpvQV+PNs9dQ1TtNZz6DzsNFUbBlQ
+ nLqHqj0kWt9q5fhWQWpl8dIkpCqrDJ7QA6pUNi0BCEd4AblI2ka/3uzbmJ0Teq582sE4Z6YwTn4
+ kTjjz4LrKN+J9NDpocQ==
+X-Proofpoint-GUID: vtFybvpemEjxwsQ9jZrZlF0dmvW423Un
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDA1NSBTYWx0ZWRfX7ia6wlGHtwX3
+ ZVvr/pcMbbuJMpXYUvQPBsU1KT0OdSHkjsDTm1gWDiLz/6aK1unYkEW2h3VWmtsNwgUhs+KKq3g
+ d3iBOf/WIrr9JDfWtF7eSYl+C6CVpOU=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,101 +110,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Prefer the str_high_low() and str_read_write() helper functions
-over ternary operators with hardcoded strings.
+Update trace event pvr_job_submit_fw to additionally capture and display
+type of the submitted job to easily map events as per type.
 
-No functional changes.
-
-Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
+Reviewed-by: Alessio Belle <alessio.belle@imgtec.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 5 +++--
- drivers/gpu/drm/i915/gvt/aperture_gm.c       | 4 +++-
- drivers/gpu/drm/i915/vlv_iosf_sb.c           | 6 ++++--
- 3 files changed, 10 insertions(+), 5 deletions(-)
+Changes in v2:
+- Updated to latest drm-misc-next to resolve a conflict as pointed out by Alessio.
+- Link to v1: https://lore.kernel.org/r/20260819-b4-submitjob_tracepoint-v1-1-f817b222bf6a@imgtec.com
+---
+ drivers/gpu/drm/imagination/pvr_trace.h | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index dbebd7210848..b83f0afaa9b5 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -5,6 +5,7 @@
+diff --git a/drivers/gpu/drm/imagination/pvr_trace.h b/drivers/gpu/drm/imagination/pvr_trace.h
+index 943d6b2418cb..4be7d4b8a357 100644
+--- a/drivers/gpu/drm/imagination/pvr_trace.h
++++ b/drivers/gpu/drm/imagination/pvr_trace.h
+@@ -90,21 +90,25 @@ TRACE_EVENT(pvr_job_create,
+ 		      __entry->sync_op_count)
+ );
  
- #include <linux/log2.h>
- #include <linux/math64.h>
-+#include <linux/string_choices.h>
+-#undef PVR_JOB_TYPE_TO_STR
+ #undef PVR_JOB_GET_HWRT_FW_ADDR
  
- #include <drm/drm_print.h>
+ TRACE_EVENT(pvr_job_submit_fw,
+ 	    TP_PROTO(struct pvr_job *job),
+ 	    TP_ARGS(job),
+ 	    TP_STRUCT__entry(__field(struct pvr_job *, job)
+-			     __field(u32, done_seqno)),
++			     __field(u32, done_seqno)
++			     __field(enum drm_pvr_job_type, job_type)),
+ 	    TP_fast_assign(__entry->job = job;
+-			   __entry->done_seqno = job->done_fence->seqno;),
+-	    TP_printk("job=%p done_seqno=%u",
++			   __entry->done_seqno = job->done_fence->seqno;
++			   __entry->job_type = job->type;),
++	    TP_printk("job=%p done_seqno=%u job_type=%s",
+ 		      __entry->job,
+-		      __entry->done_seqno)
++		      __entry->done_seqno,
++		      PVR_JOB_TYPE_TO_STR(__entry->job_type))
+ );
  
-@@ -189,7 +190,7 @@ int intel_cx0_wait_for_ack(struct intel_encoder *encoder,
- 		drm_dbg_kms(display->drm,
- 			    "PHY %c Error occurred during %s command. Status: 0x%x\n",
- 			    phy_name(phy),
--			    command == XELPDP_PORT_P2M_COMMAND_READ_ACK ? "read" : "write", *val);
-+			    str_read_write(command == XELPDP_PORT_P2M_COMMAND_READ_ACK), *val);
- 		intel_cx0_bus_reset(encoder, lane);
- 		return -EINVAL;
- 	}
-@@ -198,7 +199,7 @@ int intel_cx0_wait_for_ack(struct intel_encoder *encoder,
- 		drm_dbg_kms(display->drm,
- 			    "PHY %c Not a %s response. MSGBUS Status: 0x%x.\n",
- 			    phy_name(phy),
--			    command == XELPDP_PORT_P2M_COMMAND_READ_ACK ? "read" : "write", *val);
-+			    str_read_write(command == XELPDP_PORT_P2M_COMMAND_READ_ACK), *val);
- 		intel_cx0_bus_reset(encoder, lane);
- 		return -EINVAL;
- 	}
-diff --git a/drivers/gpu/drm/i915/gvt/aperture_gm.c b/drivers/gpu/drm/i915/gvt/aperture_gm.c
-index 253b41789be9..794fb50e48dd 100644
---- a/drivers/gpu/drm/i915/gvt/aperture_gm.c
-+++ b/drivers/gpu/drm/i915/gvt/aperture_gm.c
-@@ -34,6 +34,8 @@
-  *
-  */
- 
-+#include <linux/string_choices.h>
++#undef PVR_JOB_TYPE_TO_STR
 +
- #include <drm/drm_print.h>
- 
- #include "gt/intel_ggtt_fencing.h"
-@@ -76,7 +78,7 @@ static int alloc_gm(struct intel_vgpu *vgpu, bool high_gm)
- 	mutex_unlock(&gt->ggtt->vm.mutex);
- 	if (ret)
- 		gvt_err("fail to alloc %s gm space from host\n",
--			high_gm ? "high" : "low");
-+			str_high_low(high_gm));
- 
- 	return ret;
- }
-diff --git a/drivers/gpu/drm/i915/vlv_iosf_sb.c b/drivers/gpu/drm/i915/vlv_iosf_sb.c
-index 1f0332b4ad0d..fede1735bc08 100644
---- a/drivers/gpu/drm/i915/vlv_iosf_sb.c
-+++ b/drivers/gpu/drm/i915/vlv_iosf_sb.c
-@@ -3,6 +3,8 @@
-  * Copyright © 2013-2021 Intel Corporation
-  */
- 
-+#include <linux/string_choices.h>
-+
- #include <drm/drm_print.h>
- #include <drm/intel/display_parent_interface.h>
- 
-@@ -101,7 +103,7 @@ static int vlv_sideband_rw(struct drm_i915_private *i915,
- 				    VLV_IOSF_DOORBELL_REQ, IOSF_SB_BUSY, 0,
- 				    5)) {
- 		drm_dbg(&i915->drm, "IOSF sideband idle wait (%s) timed out\n",
--			is_read ? "read" : "write");
-+			str_read_write(is_read));
- 		return -EAGAIN;
- 	}
- 
-@@ -125,7 +127,7 @@ static int vlv_sideband_rw(struct drm_i915_private *i915,
- 		err = 0;
- 	} else {
- 		drm_dbg(&i915->drm, "IOSF sideband finish wait (%s) timed out\n",
--			is_read ? "read" : "write");
-+			str_read_write(is_read));
- 		err = -ETIMEDOUT;
- 	}
- 
+ TRACE_EVENT(pvr_job_done,
+ 	    TP_PROTO(struct pvr_job *job),
+ 	    TP_ARGS(job),
+
+---
+base-commit: a8fe4e162ba8212b7e51fdb024b37800f36b496c
+change-id: 20260819-b4-submitjob_tracepoint-d374f065345e
+
+Best regards,
 -- 
-2.53.0
+Brajesh Gupta <brajesh.gupta@imgtec.com>
 
