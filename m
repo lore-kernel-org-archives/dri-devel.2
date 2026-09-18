@@ -4,49 +4,177 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18BA6C982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:01:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75B5EC982DE
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:01:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41EC110E438;
-	Mon, 21 Sep 2026 07:00:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C970410E40D;
+	Mon, 21 Sep 2026 07:00:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="KhO8TJY5";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="F37l8lVv";
 	dkim-atps=neutral
-X-Greylist: delayed 395 seconds by postgrey-1.36 at gabe;
- Sun, 20 Sep 2026 03:51:12 UTC
-Received: from mail-proxy49146.mail.163.com (mail-proxy49146.mail.163.com
- [45.254.49.146])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13C6110E22A;
- Sun, 20 Sep 2026 03:51:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=/4
- 6K7CKA4FLhX8P6PiPB9A09fZBI9tPYG8e8QYie1OE=; b=KhO8TJY5g1a3ioZPnF
- cuXNGN9dUvAgRLekldk2ssfQBCsNtmDCmjJmQhOVU1d9K02XaScw6d6OHgtak8Jj
- 2ok7aQWYd7itUYCjuwwB1VDrvPF/lzLwRz1/rLXK8GZ3vn80ttzk8/AwiOnttNv1
- QxkvN4H3har5U7egTcO+v9CgQ=
-Received: from localhost.localdomain (unknown [])
- by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wCnd59jVq9qEHkyBg--.226S2;
- Sun, 20 Sep 2026 11:43:34 +0800 (CST)
-From: Pengpeng Hou <hppiscas@163.com>
-To: alessio.belle@imgtec.com
-Cc: luigi.santivetti@imgtec.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, imagination@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- frank.binns@imgtec.com, matt.coster@imgtec.com, sarah.walker@imgtec.com,
- donald.robson@imgtec.com, boris.brezillon@collabora.com, hppiscas@163.com
-Subject: [PATCH v2] drm/imagination: clamp freelist reconstruction requests
-Date: Sun, 20 Sep 2026 11:43:29 +0800
-Message-ID: <20260920034329.16614-1-hppiscas@163.com>
-X-Mailer: git-send-email 2.50.1
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
+ [209.85.160.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55EC810E11F
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 20:31:42 +0000 (UTC)
+Received: by mail-qt1-f179.google.com with SMTP id
+ d75a77b69052e-530f6bcc301so55171cf.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 13:31:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789763501; cv=none;
+ d=google.com; s=arc-20260327;
+ b=mvo0dIEBgfAuOKDMVS8tNU3nqUEkr0IueHbAeKvjBvt1pjM2o94t/OuVnMUcYxGgse
+ TXcCxQaZ1QfbbDEbxA7EXV+iz1AnF2AvyrtZuZjZkq8D1f80uUIJ+JV6BouEwQliQp3y
+ qeOXZxp44SWpIrlBaOi+1nUNf+vGBwoVMFGpFepLzD7xQfu18WKQaMtorvwxqx41XGFj
+ ODx9tmIGFaJZstlc0GouzCzfbmbMmjc4RuAwQoaUTnMmQyV4IXA4V1ymVp9JfDBBO09j
+ 4Vg9aRERRCOQrZGWPEtRDYQSf2NQsWWMeaFk663YfguLE/jsJ04Qz2PgVmCddVUWxvB0
+ FVLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=rakr0DVeS6w19WPN+xiAqZEbcFGWWdpHaQBH8HXSGgc=;
+ fh=MJlntL1UAzi1PrpAjVB0ayFMyAx1kPNnow1/bYLYkK0=;
+ b=YZ7aJodvVtus8AxjVVEjbEZvBSLVVW7HaDQfjA4lEXtRf6H6T5THsCRz3qv+xC9O7l
+ 5XdI8ncepmjV5PzHD3MMG09Jg5fnMB9xbqjCPhd8yF4JHCfijB3a1Cb0okggZ+Z3dg5g
+ qeAUcv8gQUJBDVdk6oH1XQ5nRqq001AbK+y/+W3e4Z6uo3wHeGoNymDJHcVMoPye+bmb
+ 2YnMzfWIi9SxcndqJ6MocgXeBySodxNFVTciE843WorYf18EFDN1BY0YojPicwdL5DUo
+ 114L+X75iLJRgtjrQ07XyoJYEjlvQgHrVB8hQNRjZPPnjq7KNogOzUuWvJUl5bCj6Xzq
+ zUKg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1789763501; x=1790368301;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=rakr0DVeS6w19WPN+xiAqZEbcFGWWdpHaQBH8HXSGgc=;
+ b=F37l8lVvukEMPuwNEB06AcwmcUOb/oWvQLYchCQkKnDJNgg6rI2jkmhpeImbjL5OY7
+ 173Ae1VZ31FXVpqVsQCi6E4uhp/QeIGl06xFbZfJnJOrUE7iJvDw6RyWWvYCSg3A/5uN
+ Q1k5YNyZqbnsRNSnpCkbpzAthFbSKvplnBdo8/jVflos5GSo8dm53a+KpT7jvEnOVubg
+ WA3BIKt+Gq+BtFSgGJ2/+tYBHYh/0EfQGf/RSblavwi3RSaCtvUpQ2xMwOCW+9KlHVxC
+ 8JHr3m5mLbZXGlNYZ0RIRZ8kCBxwhuZWIST/LP2eoryOJkF+Mva8lbJKQjO3rsqIOSI1
+ 1Ifw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789763501; x=1790368301;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=rakr0DVeS6w19WPN+xiAqZEbcFGWWdpHaQBH8HXSGgc=;
+ b=cckbu/duOvgo5Ah4iIjRx3Q64CNom5Tznmdg0mJ84EXoJ4+cAWVaHfIAGGazlcv+7s
+ 6sf27fuXAtG5lwO2xcqtG8pd0xX2B1d9TIFWPXVNB/77JLinhpkBRZZKOQRB1I3lHUMu
+ 9pNjMHWNvSzAtdyL4QMvOynPYjZr3zZBBeBQ5HsRj+CFLPE/dgCbhPrFyKMgN8mLUMGL
+ RtIn4rODVq/VXoNanwYLvasZvb+urwI4nLzw8Tubs2KQkMHagk1gwuFpVDR/oYUZOMCJ
+ pPwcHuvNrvCJ6GwsRxNavEK2nzbYuWS6WMhRE9pLZPMVRZG8UVeDO0jnHZvFmwbT1hKz
+ 0bpA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw0SVh2dltzjbeG1av0/sC3GRZXZmQpAGAxCQdkFTGOOpVZ2bpZdoUu5KwGOUIxWBHW2ZwDqXgFXNA=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l96rneGCffXQfscdsf1wuSfv0KeZ95VQDY38ZqiwDuxumwbm00
+ ZLZumZfItbd+cBJJhYCsni0MAJ6WNJtjzvw9zPWq96PtBBw4WTL7TLjRbi7J9QpqDM9T/n/j95t
+ mc3iKuwubxOz19slw6UoLBvNCy9EGHXOvRk+4nBaW
+X-Gm-Gg: AYBFou07aSvcmjMO3Q2rYdKshbrhhPn/c3dfNwC/mLsGrmCs5+pxAMNbWSzJTXIT4HP
+ v9RhGU78xVh0nITxmjV63Nxm7rQEoxGWyHbqEuwv450+WPErqQIVeynaPNdPtq5aJyJXovLEr7X
+ ofHBG/78uBYOg+4S0Vn/+0/OvmtolhxtsVqRpcxFDwNyhx6+XQF7DdjDZGEOXLE2hghm5zv0LVN
+ AE9IE2YctE0bwa3IsUmnNqftD2XYJ/2oAJpoLrJKX0rDqX0HCovh4PwjWZejFAf/FzXe6I2Qe4i
+ NedjVz+3L5tukqrVv+Xofb5Do7ISYIPyYm5DHXIGkexV0U+SrAwRAg==
+X-Received: by 2002:ac8:5d08:0:b0:530:2f98:cebb with SMTP id
+ d75a77b69052e-532b099561dmr605641cf.11.1789763497212; Fri, 18 Sep 2026
+ 13:31:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wCnd59jVq9qEHkyBg--.226S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJw47Jr43Kr48WF1xAw15XFb_yoW5GF43pa
- 95CayUJrWkJa1IgrsxA3Wjqa45Aan7A3WfKry5WwnrZr13trs0ya9akF15Xry5trs7Zr47
- ArnFgrZ5ZF4UA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziBMKNUUUUU=
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbCxQY1-WqvVmaBAQAA3+
+References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
+ <20260914180811.057cba8fcc48d6e0b53a2683@linux-foundation.org>
+ <0b064fe6-ddb3-4f26-a1f2-2e9dd88d590f@kernel.org>
+In-Reply-To: <0b064fe6-ddb3-4f26-a1f2-2e9dd88d590f@kernel.org>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Fri, 18 Sep 2026 13:31:24 -0700
+X-Gm-Features: AcwNN1VqLTR47MatnNlBWbpWA8EMmoQNGykspJvqoxdaovPnF0EYfRCWZF-8zh0
+Message-ID: <CAJuCfpFBichJH4OcmSHTb1rOuQBT6k5pXeua9_KgpWjDBKvsYw@mail.gmail.com>
+Subject: Re: [PATCH v2 00/40] mm: make VMA flag semantics explicit,
+ eliminate VM_SPECIAL
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Mike Rapoport <rppt@kernel.org>,
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>,
+ John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+ Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-usb@vger.kernel.org, linux-rdma@vger.kernel.org, 
+ selinux@vger.kernel.org, linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 21 Sep 2026 07:00:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,69 +191,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The firmware reconstruction count controls accesses to the request's
-fixed freelist ID array and the copy into the fixed response array.
-Neither access currently bounds the count to those protocol arrays.
+On Fri, Sep 18, 2026 at 1:21=E2=80=AFPM David Hildenbrand (Arm)
+<david@kernel.org> wrote:
+>
+> On 9/15/26 03:08, Andrew Morton wrote:
+> > On Mon, 14 Sep 2026 15:57:20 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.=
+org> wrote:
+> >
+> >> The VM_SPECIAL / VMA_SPECIAL_FLAGS mask conflates several unrelated
+> >> properties:
+> >>
+> >> ...
+> >>
+> >> It's all rather a mess.
+> >>
+> >> This series brings some order to things by both limiting what drivers =
+can
+> >> do with VMA flags and switching to using predicates that describe
+> >> behaviour, not arbitrary flags.
+> >
+> > That's a lot of patches.
+> >
+> > Review is thin and I expect this won't improve a lot.  Lots of "no
+> > functional changes" changes.
+>
+> I'll expect to go through all of them. Might just take a bit ;)
 
-Clamp the count to the request capacity, which is shared by the response
-layout, and use that count consistently for reconstruction and response
-publication. Keep the firmware recovery exchange instead of dropping an
-oversized request without a response, as discussed with the firmware
-maintainer.
+ditto
 
-The issue was found by our static-analysis tool.
-
-Fixes: 6eedddab733b ("drm/imagination: Implement free list and HWRT create and destroy ioctls")
-Assisted-by: gpt 5
-Signed-off-by: Pengpeng Hou <hppiscas@163.com>
----
-Changes since v1:
-https://lore.kernel.org/all/20260813152759.35856-1-pengpeng@iscas.ac.cn/
-Include drm_print.h for drm_warn_once(), brace the multiline warning
-block, and shorten its text as Alessio requested.
-
- drivers/gpu/drm/imagination/pvr_free_list.c |   15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/imagination/pvr_free_list.c b/drivers/gpu/drm/imagination/pvr_free_list.c
-index e85cac83834c..faf5e586d8dc 100644
---- a/drivers/gpu/drm/imagination/pvr_free_list.c
-+++ b/drivers/gpu/drm/imagination/pvr_free_list.c
-@@ -8,6 +8,7 @@
- #include "pvr_vm.h"
- 
- #include <drm/drm_gem.h>
-+#include <drm/drm_print.h>
- #include <linux/slab.h>
- #include <linux/xarray.h>
- #include <uapi/drm/pvr_drm.h>
-@@ -612,13 +613,21 @@ pvr_free_list_process_reconstruct_req(struct pvr_device *pvr_dev,
- 	};
- 	struct rogue_fwif_freelists_reconstruction_data *resp =
- 		&resp_cmd.cmd_data.free_lists_reconstruction_data;
-+	u32 count = min_t(u32, req->freelist_count,
-+			  ARRAY_SIZE(req->freelist_ids));
- 
--	for (u32 i = 0; i < req->freelist_count; i++)
-+	if (count != req->freelist_count) {
-+		drm_warn_once(from_pvr_device(pvr_dev),
-+			      "Requested reconstruction of %u freelists, limiting to %u\n",
-+			      req->freelist_count, count);
-+	}
-+
-+	for (u32 i = 0; i < count; i++)
- 		pvr_free_list_reconstruct(pvr_dev, req->freelist_ids[i]);
- 
--	resp->freelist_count = req->freelist_count;
-+	resp->freelist_count = count;
- 	memcpy(resp->freelist_ids, req->freelist_ids,
--	       req->freelist_count * sizeof(resp->freelist_ids[0]));
-+	       count * sizeof(resp->freelist_ids[0]));
- 
- 	WARN_ON(pvr_kccb_send_cmd(pvr_dev, &resp_cmd, NULL));
- }
-
-base-commit: 518e5b794c06c0f0eb40df3e202274a66202c137
--- 
-2.50.1 (Apple Git-155)
-
+>
+> --
+> Cheers,
+>
+> David
