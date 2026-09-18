@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CC3EC982DA
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 14:18:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F1C1C982D8
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 14:18:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73AF710E8FD;
-	Fri, 18 Sep 2026 14:18:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74A3510F3A7;
+	Fri, 18 Sep 2026 14:18:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JJ83R+sn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KI0+AvZy";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4055010E8FD
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 14:18:06 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 247DC10F3A7
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 14:18:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EACC440524;
- Fri, 18 Sep 2026 14:18:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0898F1F000FF;
- Fri, 18 Sep 2026 14:18:04 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 96EBE60A57;
+ Fri, 18 Sep 2026 14:18:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C28A11F000FF;
+ Fri, 18 Sep 2026 14:18:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789741085;
- bh=F4UcFgN5ms+bbUQcU8tcSIW9gIecezr/8JMKx3gOffg=;
+ s=k20260515; t=1789741093;
+ bh=yX6VtmC9ZWWYErdutyz3INiDSj6zlwe+CO7hZeNh2ls=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=JJ83R+sn88/JyA2gROVKjZ8kC7WSOIarK1qoaSgxjUL/0lrPLeEzOykFzCNr1PqhC
- PDYtTOVCIQtAOwD/yXD/LkOat0oRn/1GwgnGqoKvA5k7eziFAFRxKupt0PmaiaiJUC
- Ak6tWqDWi3GMQAj3eLSkau0lCOmj3MD5nrcgzwsQd5WQzZMblkL/363c2DMXIcGP+J
- 3ZMSTPFPcrrjC2eAvCmvP3YJmgUZBOTeCPXQtunFMhtJzYVeRGC20s7jMAEr8UcIrY
- wDYm56iMc7IHoD6uomWTQXomYev1zl6QW6KznfTTdNSgzpy80CcRA4KYUED2rNN1Ca
- zkxu6orVEs/TA==
+ b=KI0+AvZyz+DFyf2wVg+qBgJWkhbvlKrWqFih5S0krV4loP1hX2khX0lxuF1oDm2y1
+ CwWd9lYlN/DPz6uEkKJMbUaD6zqW7Y5hcjEWA9Z9h1PDROtjEaRczayROIQSgpy8Uy
+ Mk8H6/1DDycDB8AUKI8NAhOsxEw2UaafkCWhbHsXF6DvmP6y/J6QgLskvJPqcy4muJ
+ S0UAqznHSNm0h6Q/64uRjpEHcpFbwnrVt6B7qS6mub8Ds4QL9LQrHMicgRhu9a5TBi
+ 7iz35ZTWvWUGZ2M2eE3LVg2ouXMibkYRX8W1JPfEbYfFhWcQQcGDU0yCEPf4Qq57Cc
+ 35d8Oe1VFAx+w==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 18 Sep 2026 16:17:50 +0200
-Subject: [PATCH v4 01/13] drm/atomic: Switch to krealloc_array() in
- drm_atomic_get_private_obj_state()
+Date: Fri, 18 Sep 2026 16:17:52 +0200
+Subject: [PATCH v4 03/13] drm/atomic: Use __GFP_ZERO instead of explicit
+ memset in drm_atomic_get_connector_state()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-drm-reset-state-flag-v4-1-5ad106370f05@kernel.org>
+Message-Id: <20260918-drm-reset-state-flag-v4-3-5ad106370f05@kernel.org>
 References: <20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org>
 In-Reply-To: <20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -56,12 +56,12 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1700; i=mripard@kernel.org;
- h=from:subject:message-id; bh=sx1UwW3xDFuaLzMdKnc77CcZQnHJXWxl0xTfnmk86HM=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlrPfg1+G6+il6lxe27/4LG+mStN70hbhxG5zK88uuc4
- l+16O/rmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABOJsGZseG//d21frafz+wtf
- /oq8EVt5VmtFovP9i5MdtjQXvVnsc2SmwL0us5NRSgnNhkzOJ0POM9YnhpR+Y2/UM3xoHp966EO
- oWobZ5+nWHuH/UpcZVeqaSZ5q/mW5tmtC3d6cS7+EBZ/3GAMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1560; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=QGxTju+P6OmxblkkOc/G7V6i744GeSNDFj3K6kdMM7Y=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlrPQS2P1i4NHT6sV1pZ+fs8JwT03Lp/q6VkZM26r/Kj
+ z2UVvC8p2MqC4MwJ4OsmCLLE5mw08vbF1c52K/8ATOHlQlkCAMXpwBM5NtUxjpNoyDDnHeK8zfZ
+ 6n3eHeHUvLaw+9JUacW9yRVXt0o9mxp2PsdqblD/fCevajG/6mlTHjHWWWzQ4LUw+5I60f7n385
+ U52De/8INboLX4pjVZ2kHct2eFqO12s9tT6QzV8DnEp1Tms0A
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -79,50 +79,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The drm_atomic_get_private_obj_state() function manually computes the
-allocation size by multiplying the element count by the element size
-before passing it to krealloc().
+The drm_atomic_get_connector_state() function grows the connectors array
+with krealloc_array() when the requested connector index exceeds the
+current allocation, then zeroes the new entries with a separate memset()
+call.
 
-krealloc_array() handles this multiplication internally and includes
-overflow checking. Switch to it and drop the now-unused size variable.
+Since krealloc_array() supports the __GFP_ZERO flag to zero newly
+allocated memory, the explicit memset() is unnecessary.
+
+Pass __GFP_ZERO to krealloc_array() and drop the manual memset().
 
 Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/drm_atomic.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 9bb761eda59f..aa47c647df31 100644
+index 43b58e9b25e4..80436adcfb7f 100644
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1077,11 +1077,10 @@ EXPORT_SYMBOL(drm_atomic_private_obj_fini);
- struct drm_private_state *
- drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
- 				 struct drm_private_obj *obj)
- {
- 	int index, num_objs, ret;
--	size_t size;
- 	struct __drm_private_objs_state *arr;
- 	struct drm_private_state *obj_state;
+@@ -1388,18 +1388,15 @@ drm_atomic_get_connector_state(struct drm_atomic_commit *state,
+ 	if (index >= state->num_connector) {
+ 		struct __drm_connnectors_state *c;
+ 		int alloc = max(index + 1, config->num_connector);
  
- 	WARN_ON(!state->acquire_ctx);
- 	drm_WARN_ON(state->dev, state->checked);
-@@ -1093,12 +1092,12 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
- 	ret = drm_modeset_lock(&obj->lock, state->acquire_ctx);
- 	if (ret)
- 		return ERR_PTR(ret);
+ 		c = krealloc_array(state->connectors, alloc,
+-				   sizeof(*state->connectors), GFP_KERNEL);
++				   sizeof(*state->connectors), GFP_KERNEL | __GFP_ZERO);
+ 		if (!c)
+ 			return ERR_PTR(-ENOMEM);
  
- 	num_objs = state->num_private_objs + 1;
--	size = sizeof(*state->private_objs) * num_objs;
--	arr = krealloc(state->private_objs, size, GFP_KERNEL);
-+	arr = krealloc_array(state->private_objs, num_objs,
-+			     sizeof(*state->private_objs), GFP_KERNEL);
- 	if (!arr)
- 		return ERR_PTR(-ENOMEM);
+ 		state->connectors = c;
+-		memset(&state->connectors[state->num_connector], 0,
+-		       sizeof(*state->connectors) * (alloc - state->num_connector));
+-
+ 		state->num_connector = alloc;
+ 	}
  
- 	state->private_objs = arr;
- 	index = state->num_private_objs;
+ 	connector_state = drm_atomic_get_new_connector_state(state, connector);
+ 	if (connector_state)
 
 -- 
 2.55.0
