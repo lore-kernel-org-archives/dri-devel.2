@@ -4,54 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17290C88E75
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 05:57:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C1D3C982D2
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 05:58:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 784EC10F19D;
-	Fri, 18 Sep 2026 05:57:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E8CD10E7FF;
+	Fri, 18 Sep 2026 05:58:56 +0000 (UTC)
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F075F10E81B
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 05:57:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 845DC10E7FF
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 05:58:54 +0000 (UTC)
 Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
- by APP-01 (Coremail) with SMTP id qwCowAB3EPS20qxqc19ICA--.15319S2;
- Fri, 18 Sep 2026 13:57:11 +0800 (CST)
-Message-ID: <75cf43a96c36a9afd76b191437a6675ffa8cba36.camel@iscas.ac.cn>
-Subject: Re: [PATCH v7 1/7] dt-bindings: display: verisilicon,dc: add
- support for nuvoton,ma35d1-dcu
+ by APP-01 (Coremail) with SMTP id qwCowAAn_O8C06xqtWNICA--.15380S2;
+ Fri, 18 Sep 2026 13:58:28 +0800 (CST)
+Message-ID: <1aa49a9bcf5c5a16ce38b57f8f508a31ca70c1ce.camel@iscas.ac.cn>
+Subject: Re: [PATCH v4 05/20] dt-bindings: display: verisilicon: Add
+ starfive,jh7110-dc8200
 From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Conor
- Dooley	 <conor.dooley@microchip.com>
-Date: Fri, 18 Sep 2026 13:57:10 +0800
-In-Reply-To: <20260918030125.315978-2-a0987203069@gmail.com>
-References: <20260918030125.315978-1-a0987203069@gmail.com>
- <20260918030125.315978-2-a0987203069@gmail.com>
+To: Michal Wilczynski <m.wilczynski@samsung.com>, Vinod Koul
+ <vkoul@kernel.org>,  Neil Armstrong <neil.armstrong@linaro.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Andrzej Hajda	 <andrzej.hajda@intel.com>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart	
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+ Yan <andy.yan@rock-chips.com>, Philipp Zabel	 <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng	
+ <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul
+ Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
+ Belhachemi	 <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
+ Brunet	 <jbrunet+clk@baylibre.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-riscv@lists.infradead.org, Marek Szyprowski
+ <m.szyprowski@samsung.com>,  Maud Spierings <maud_spierings@murena.io>,
+ Graham Markall <hello@big-grey.co.uk>, Chaoyi Chen	
+ <chaoyi.chen@rock-chips.com>, Joshua Peisach <jpeisach@ubuntu.com>, Uwe
+ =?ISO-8859-1?Q?Kleine-K=F6nig?=	 <u.kleine-koenig@baylibre.com>
+Date: Fri, 18 Sep 2026 13:58:26 +0800
+In-Reply-To: <20260915-jh7110-clean-send-v4-5-f0e4fd6f2cc8@samsung.com>
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+ <CGME20260915153222eucas1p213b95b05ea7eb9a18700af8888ef5a44@eucas1p2.samsung.com>
+ <20260915-jh7110-clean-send-v4-5-f0e4fd6f2cc8@samsung.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowAB3EPS20qxqc19ICA--.15319S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxArWUtFW8ArW7Xr1fAFWxXrb_yoWrCFW5pF
- 95JFWUJryxJrn5Xr1Utr1jyFyUJw1kJw1DJr18XF1UKr4UJr10qr4Ygr1qgF15Jr48Xr15
- JF1UWr17Zw17Ar7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUPGb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+X-CM-TRANSID: qwCowAAn_O8C06xqtWNICA--.15380S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ur4fJrW7tF1UKFykGFy5XFb_yoW8GF4xpF
+ sakFZrJFyIgrn3W3y8J3WUK3y7Wr1xA3W0gF1jq3W2grs8GFWFqr4Y9r1qgF4UJFW8CFW8
+ ZFsY9rWYvr1vyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
  0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
  A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8Jw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFcxC0VAYjxAxZF0Ew4CEw7xC0wAC
- Y4xI67k04243AVC20s07M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r4a6r
- W5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
- Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x
- 0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
- JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
- AIcVC2z280aVCY1x0267AKxVW8JVW8Jr1l6VACY4xI67k04243AbIYCTnIWIevJa73UjIF
- yTuYvjxU3rb1DUUUU
+ jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+ C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr
+ 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+ MxkF7I0En4kS14v26rWY6Fy7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+ 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+ 67AKxVWrXVW8Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
+ IIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
+ 6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
+ 73UjIFyTuYvjxUaGYpUUUUU
 X-Originating-IP: [112.94.103.44]
 X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -69,78 +89,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-5ZyoIDIwMjYtMDktMTjkupTnmoQgMTE6MDEgKzA4MDDvvIxKb2V5IEx15YaZ6YGT77yaCj4gQWRk
-IHRoZSBOdXZvdG9uIE1BMzVEMSBEQ1VsdHJhTGl0ZSAobnV2b3RvbixtYTM1ZDEtZGN1KSB0byB0
-aGUKPiBiaW5kaW5nLgo+IFRoZSBEQ1VsdHJhTGl0ZSB1c2VzIG9ubHkgZm91ciBjbG9ja3MgKGNv
-cmUsIGF4aSwgYWhiLCBwaXgwKSBhbmQgb25lCj4gcmVzZXQgKGNvcmUpLCB3aXRoIGEgc2luZ2xl
-IG91dHB1dCBwb3J0Lgo+IAo+IFRoZSBNQTM1RDEgY2xvY2sgY29udHJvbGxlciBnYXRlcyB0aGUg
-Y29yZSwgQVhJIGFuZCBBSEIgY2xvY2tzIHdpdGggYQo+IHNpbmdsZSBiaXQsIGJ1dCBlYWNoIHJl
-bWFpbnMgYSBkaXN0aW5jdCBjbG9jayBsaW5lIGZlZWRpbmcgdGhlIElQCj4gd2l0aAo+IGl0cyBv
-d24gcmF0ZSBjb25zdHJhaW50cywgc28gYWxsIGZvdXIgbXVzdCBzdGlsbCBiZSBsaXN0ZWQKPiBp
-bmRpdmlkdWFsbHkKPiBpbiB0aGUgZGV2aWNldHJlZTsgY29yZSwgYXhpIGFuZCBhaGIgaGFwcGVu
-IHRvIHNoYXJlIHRoZSBzYW1lIGNsb2NrCj4gcGhhbmRsZS4KPiAKPiBNb3ZlIHRoZSBjbG9ja3Mv
-Y2xvY2stbmFtZXMgbWluSXRlbXMgdG8gNCBhbmQgcmVzZXRzL3Jlc2V0LW5hbWVzCj4gbWluSXRl
-bXMgdG8gMSBhdCB0aGUgdG9wIGxldmVsLCBzaW5jZSB0aGF0IGlzIHRoZSBsb3dlc3QgY291bnQg
-YW55Cj4gc3VwcG9ydGVkIHZhcmlhbnQgbmVlZHMuwqAgQWRkIGFuIGFsbE9mL2lmIGJsb2NrIHRo
-YXQgdGlnaHRlbnMgdGhlCj4gY29uc3RyYWludCBiYWNrIHVwIHRvIHRoZSBmaXhlZCA1LWNsb2Nr
-LzMtcmVzZXQgdG9wb2xvZ3kgcmVxdWlyZWQgYnkKPiB0aGUgZXhpc3RpbmcgdGhlYWQsdGgxNTIw
-LWRjODIwMCBjb21wYXRpYmxlLCBhbmQgYW5vdGhlciBvbmUgdGhhdAo+IGNhcHMKPiB0aGUgbmV3
-IG51dm90b24sbWEzNWQxLWRjdSBjb21wYXRpYmxlIGF0IHRoZSA0LWNsb2NrLzEtcmVzZXQgY291
-bnQgaXQKPiBhY3R1YWxseSB3aXJlcyB1cC4KPiAKPiBSZXN0cmljdCB0aGUgc2FtZSBudXZvdG9u
-LG1hMzVkMS1kY3UgaWYgYmxvY2sgdG8gYSBzaW5nbGUgcG9ydEAwLAo+IHNpbmNlIHRoZSBEQ1Vs
-dHJhTGl0ZSBvbmx5IGhhcyBvbmUgb3V0cHV0IHBvcnQuCj4gCj4gU2lnbmVkLW9mZi1ieTogSm9l
-eSBMdSA8YTA5ODcyMDMwNjlAZ21haWwuY29tPgo+IEFja2VkLWJ5OiBDb25vciBEb29sZXkgPGNv
-bm9yLmRvb2xleUBtaWNyb2NoaXAuY29tPgo+IC0tLQo+IMKgLi4uL2JpbmRpbmdzL2Rpc3BsYXkv
-dmVyaXNpbGljb24sZGMueWFtbMKgwqDCoMKgwqAgfCA1MQo+ICsrKysrKysrKysrKysrKysrKysK
-PiDCoDEgZmlsZSBjaGFuZ2VkLCA1MSBpbnNlcnRpb25zKCspCj4gCj4gZGlmZiAtLWdpdAo+IGEv
-RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVyaXNpbGljb24sZGMu
-eWFtbAo+IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVyaXNp
-bGljb24sZGMueWFtbAo+IGluZGV4IDkxOWE5MDAxMjIwMTIuLmUxZTZhM2E5NTM2NDYgMTAwNjQ0
-Cj4gLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVyaXNp
-bGljb24sZGMueWFtbAo+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9k
-aXNwbGF5L3ZlcmlzaWxpY29uLGRjLnlhbWwKPiBAQCAtMTcsNiArMTcsNyBAQCBwcm9wZXJ0aWVz
-Ogo+IMKgwqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGVudW06Cj4gwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgLSB0aGVhZCx0aDE1MjAtZGM4MjAwCj4gK8KgwqDCoMKgwqDCoMKgwqDCoCAtIG51
-dm90b24sbWEzNWQxLWRjdQo+IMKgwqDCoMKgwqDCoCAtIGNvbnN0OiB2ZXJpc2lsaWNvbixkYyAj
-IERDIElQcyBoYXZlIGRpc2NvdmVyYWJsZSBJRC9yZXZpc2lvbgo+IHJlZ2lzdGVycwo+IMKgCj4g
-wqDCoCByZWc6Cj4gQEAgLTI2LDYgKzI3LDcgQEAgcHJvcGVydGllczoKPiDCoMKgwqDCoCBtYXhJ
-dGVtczogMQo+IMKgCj4gwqDCoCBjbG9ja3M6Cj4gK8KgwqDCoCBtaW5JdGVtczogNAo+IMKgwqDC
-oMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGRlc2NyaXB0aW9uOiBEQyBDb3JlIGNsb2NrCj4g
-wqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IERNQSBBWEkgYnVzIGNsb2NrCj4gQEAgLTM0LDYg
-KzM2LDcgQEAgcHJvcGVydGllczoKPiDCoMKgwqDCoMKgwqAgLSBkZXNjcmlwdGlvbjogUGl4ZWwg
-Y2xvY2sgb2Ygb3V0cHV0IDEKPiDCoAo+IMKgwqAgY2xvY2stbmFtZXM6Cj4gK8KgwqDCoCBtaW5J
-dGVtczogNAo+IMKgwqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGNvbnN0OiBjb3JlCj4g
-wqDCoMKgwqDCoMKgIC0gY29uc3Q6IGF4aQo+IEBAIC00MiwxMiArNDUsMTQgQEAgcHJvcGVydGll
-czoKPiDCoMKgwqDCoMKgwqAgLSBjb25zdDogcGl4MQo+IMKgCj4gwqDCoCByZXNldHM6Cj4gK8Kg
-wqDCoCBtaW5JdGVtczogMQo+IMKgwqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGRlc2Ny
-aXB0aW9uOiBEQyBDb3JlIHJlc2V0Cj4gwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IERNQSBB
-WEkgYnVzIHJlc2V0Cj4gwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IENvbmZpZ3VyYXRpb24g
-QUhCIGJ1cyByZXNldAo+IMKgCj4gwqDCoCByZXNldC1uYW1lczoKPiArwqDCoMKgIG1pbkl0ZW1z
-OiAxCj4gwqDCoMKgwqAgaXRlbXM6Cj4gwqDCoMKgwqDCoMKgIC0gY29uc3Q6IGNvcmUKPiDCoMKg
-wqDCoMKgwqAgLSBjb25zdDogYXhpCj4gQEAgLTc5LDYgKzg0LDUyIEBAIHJlcXVpcmVkOgo+IMKg
-wqAgLSByZXNldC1uYW1lcwo+IMKgwqAgLSBwb3J0cwo+IMKgCj4gK2FsbE9mOgo+ICvCoCAtIGlm
-Ogo+ICvCoMKgwqDCoMKgIHByb3BlcnRpZXM6Cj4gK8KgwqDCoMKgwqDCoMKgIGNvbXBhdGlibGU6
-Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoCBjb250YWluczoKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCBjb25zdDogdGhlYWQsdGgxNTIwLWRjODIwMAoKSnVzdCBhIG5vdGU6IGEgbmV3IGNvbXBhdGli
-bGUgc3RyaW5nLCBgc3RhcmZpdmUsamg3MTEwLWRjODIwMGAsIGlzCmZsb2F0aW5nIGluIHRoZSBt
-YWlsaW5nIGxpc3Q7IGFsdGhvdWdoIEkgZG9uJ3QgdGhpbmsgaXQgd2lsbCBiZSBzb29uCmVub3Vn
-aCBmb3IgaXQgdG8gYmUgYXBwbGllZCBiZWZvcmUgdGhpcyBwYXRjaHNldC4KClRoYW5rcywKSWNl
-bm93eQoKPiArwqDCoMKgIHRoZW46Cj4gK8KgwqDCoMKgwqAgcHJvcGVydGllczoKPiArwqDCoMKg
-wqDCoMKgwqAgY2xvY2tzOgo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWluSXRlbXM6IDUKPiArCj4g
-K8KgwqDCoMKgwqDCoMKgIGNsb2NrLW5hbWVzOgo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWluSXRl
-bXM6IDUKPiArCj4gK8KgwqDCoMKgwqDCoMKgIHJlc2V0czoKPiArwqDCoMKgwqDCoMKgwqDCoMKg
-IG1pbkl0ZW1zOiAzCj4gKwo+ICvCoMKgwqDCoMKgwqDCoCByZXNldC1uYW1lczoKPiArwqDCoMKg
-wqDCoMKgwqDCoMKgIG1pbkl0ZW1zOiAzCj4gKwo+ICvCoCAtIGlmOgo+ICvCoMKgwqDCoMKgIHBy
-b3BlcnRpZXM6Cj4gK8KgwqDCoMKgwqDCoMKgIGNvbXBhdGlibGU6Cj4gK8KgwqDCoMKgwqDCoMKg
-wqDCoCBjb250YWluczoKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb25zdDogbnV2b3Rvbixt
-YTM1ZDEtZGN1Cj4gK8KgwqDCoCB0aGVuOgo+ICvCoMKgwqDCoMKgIHByb3BlcnRpZXM6Cj4gK8Kg
-wqDCoMKgwqDCoMKgIGNsb2NrczoKPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1heEl0ZW1zOiA0Cj4g
-Kwo+ICvCoMKgwqDCoMKgwqDCoCBjbG9jay1uYW1lczoKPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1h
-eEl0ZW1zOiA0Cj4gKwo+ICvCoMKgwqDCoMKgwqDCoCByZXNldHM6Cj4gK8KgwqDCoMKgwqDCoMKg
-wqDCoCBtYXhJdGVtczogMQo+ICsKPiArwqDCoMKgwqDCoMKgwqAgcmVzZXQtbmFtZXM6Cj4gK8Kg
-wqDCoMKgwqDCoMKgwqDCoCBtYXhJdGVtczogMQo+ICsKPiArwqDCoMKgwqDCoMKgwqAgcG9ydHM6
-Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoCBwcm9wZXJ0aWVzOgo+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHBvcnRAMTogZmFsc2UKPiArCj4gK8KgwqDCoMKgwqDCoMKgwqDCoCByZXF1aXJlZDoKPiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAtIHBvcnRAMAo+ICsKPiDCoGFkZGl0aW9uYWxQcm9wZXJ0
-aWVzOiBmYWxzZQo+IMKgCj4gwqBleGFtcGxlczoK
+=E5=9C=A8 2026-09-15=E4=BA=8C=E7=9A=84 17:32 +0200=EF=BC=8CMichal Wilczynsk=
+i=E5=86=99=E9=81=93=EF=BC=9A
+> The JH7110 embeds a DC8200. The binding requires an SoC specific
+> compatible ahead of the generic one, so add the JH7110 to the enum.
+>=20
+> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+> ---
+> =C2=A0Documentation/devicetree/bindings/display/verisilicon,dc.yaml | 1 +
+> =C2=A01 file changed, 1 insertion(+)
+>=20
+> diff --git
+> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> index
+> 919a9001220120054cb62d1d01b7293367266f95..05a202633cd273fec358c095c64
+> 584d959d96d90 100644
+> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> @@ -16,6 +16,7 @@ properties:
+> =C2=A0=C2=A0 compatible:
+> =C2=A0=C2=A0=C2=A0=C2=A0 items:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - enum:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - starfive,jh7110=
+-dc8200
+
+Note: this binding is being refactored as part of MA35D1 support
+introduction (this SoC has a single-port DC like a DC8000), after the
+refactor the binding string might need to appear twice.
+
+Thanks,
+Icenowy
+
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - thead,th15=
+20-dc8200
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: verisilicon,dc # DC IPs hav=
+e discoverable ID/revision
+> registers
+> =C2=A0
 
