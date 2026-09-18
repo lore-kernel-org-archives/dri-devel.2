@@ -4,52 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65F86C88E75
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:44:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEE29C982D9
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 07:49:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36AB710F214;
-	Fri, 18 Sep 2026 07:44:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5161610F24B;
+	Fri, 18 Sep 2026 07:49:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hMD+eMSH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nDRgRPlt";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E872F10E826;
- Fri, 18 Sep 2026 07:44:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=tArza7VRu+1dD/49rt5qVjiKzpXGiUtMVZ1snzdy7HY=; b=hMD+eMSHaP6B19on9/ULuunX7g
- BUsIWzJMNkKB6I9hj6bst685Yjk24nXF7x9wYY65fCM5tInRcTOmETGE3Mz1fc/8v6qKxEuCqrIPx
- wJZaSsdMFKVtAh0U0Q8VvPZ5fhAUXd9LV2CX281Fm8oJW7rz412iTxBuCPCoHspD4gcwSaFnkZjLm
- laRunPKq85NYfY5LyOwVUx52ru5nmFcGyK5YCvBWoWGBeji29LHu0NwklsqOmd/M/u5/T6ZCAhEgk
- qX5vJV86xCODiO+ASTtc2vSiF8TWxjI0DXxNP7We+XP4p+kKYmBRlG6xmHJYY4BCZwjQdiYpffwan
- 7hbpbSFQ==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1x7TGX-003p1x-5T; Fri, 18 Sep 2026 09:44:12 +0200
-Message-ID: <665a3711-6864-417d-b199-f058d5525f91@igalia.com>
-Date: Fri, 18 Sep 2026 08:44:11 +0100
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D5C310F245;
+ Fri, 18 Sep 2026 07:49:08 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2394C41318;
+ Fri, 18 Sep 2026 07:49:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41E541F000FF;
+ Fri, 18 Sep 2026 07:49:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789717748;
+ bh=vJKvMLbmElK8KttkMQ8hkz5u79hzTkh0lL7FQh+PFqI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=nDRgRPltaEljYrKy94fX1kR91hzN+MpRB9MPYQ1+4X04V6e9jP3UfdRBCwxDx9K5k
+ HXbmXYGRYtQCwaFnLwhM994HkXABJDE1B7q288wgf2cSwxgOV0X+nst+TUVfWYtSZV
+ nbSiMiW0yIZ1cYuVI9XNOBUIv7iAr3VnyAaxvUeKTQTQH4RcNVgcALNTYovLq/EN9a
+ Q1whWRiOGgumpL4WL/RbxPaThWEKILE9Un6A3b/6x6Fho1G8BwsQfgIpsV1ilZZX+8
+ Uyt2Gb849GzU3liO1eddWwgQAd5v1SYlhj/O25klzrxqM2SI7i35i+7BFnqaob9Lhv
+ jWTT3uwM5QgwQ==
+Message-ID: <06550473-63c2-4a3e-a5ad-7e23d7b6b050@kernel.org>
+Date: Fri, 18 Sep 2026 09:49:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 1/2] drm: Allow drivers to report standardized memory stats
-To: Thomas Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Ludovico de Nittis <ludovico.denittis@collabora.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-References: <20260917120444.86471-1-tvrtko.ursulin@igalia.com>
- <20260917120444.86471-2-tvrtko.ursulin@igalia.com>
- <e6ed76bb-e95c-48c3-b51b-99a59cb524f4@suse.de>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <e6ed76bb-e95c-48c3-b51b-99a59cb524f4@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
+ nvidia_wmi_ec_supported()
+To: Jani Nikula <jani.nikula@linux.intel.com>, Armin Wolf <W_Armin@gmx.de>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux@weissschuh.net" <linux@weissschuh.net>,
+ "rafael@kernel.org" <rafael@kernel.org>, "lenb@kernel.org"
+ <lenb@kernel.org>, "linux-acpi@vger.kernel.org"
+ <linux-acpi@vger.kernel.org>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "patrik.r.jakobsson@gmail.com" <patrik.r.jakobsson@gmail.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
+ "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
+ "tursulin@ursulin.net" <tursulin@ursulin.net>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "matthew.brost@intel.com" <matthew.brost@intel.com>,
+ "thomas.hellstrom@linux.intel.com" <thomas.hellstrom@linux.intel.com>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+References: <20260724025959.142826-1-W_Armin@gmx.de>
+ <20260724025959.142826-3-W_Armin@gmx.de>
+ <BN9PR12MB514668975E87D570F50B2D91F7A82@BN9PR12MB5146.namprd12.prod.outlook.com>
+ <86d0e015-a8f4-4e10-a9b6-a9714d3e0f07@gmx.de>
+ <80c4bb47-936b-976b-6ba8-b366f7a455cf@linux.intel.com>
+ <11976ed3784675ad241646287a909286a42675a8@intel.com>
+ <3ef68773-e07e-437a-98fb-a3c5fc08539c@gmx.de>
+ <62d7da838e7042df8456e76190db792093065b57@intel.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <62d7da838e7042df8456e76190db792093065b57@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,380 +88,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi,
 
-On 17/09/2026 13:38, Thomas Zimmermann wrote:
-> Hi
+On 16-Sep-26 09:16, Jani Nikula wrote:
+> On Wed, 16 Sep 2026, Armin Wolf <W_Armin@gmx.de> wrote:
+>> Am 15.09.26 um 14:31 schrieb Jani Nikula:
+>>
+>>> On Tue, 15 Sep 2026, Ilpo Järvinen <ilpo.jarvinen@linux.intel.com> wrote:
+>>>> GPU people heads up!!
+>>>>
+>>>> On Wed, 2 Sep 2026, Armin Wolf wrote:
+>>>>
+>>>>> Am 01.09.26 um 23:30 schrieb Deucher, Alexander:
+>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>>> b/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>>> index 12e4a41bf1f0..50305630f533 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>>> @@ -30,9 +30,7 @@ config DRM_AMDGPU
+>>>>>>>         # ACPI_VIDEO's dependencies must also be selected.
+>>>>>>>         select INPUT if ACPI
+>>>>>>>         select ACPI_VIDEO if ACPI
+>>>>>>> -     # On x86 ACPI_VIDEO also needs ACPI_WMI
+>>>>>>> -     select X86_PLATFORM_DEVICES if ACPI && X86
+>>>>>> The change below makes sense, but this one looks like it should remain
+>>>>>> unless X86_PLATFORM_DEVICES is handled some other way?
+>>>>>>
+>>>>>> Alex
+>>>>> AFAIK the dependency on X86_PLATFORM_DEVICES was only necessary because
+>>>>> ACPI-WMI depended on it in the past.
+>>>>> By now ACPI-WMI neither depends on X86_PLATFORM_DEVICES or X86 anymore.
+>>>> Hi all,
+>>>>
+>>>> Could more GPU people besides Alex take a look on this. I'd want to make
+>>>> progress with this series within this cycle but would prefer to have Acks
+>>>> from GPU side.
+>>> I share the same concern with Alex. It seems to me we could now end up
+>>> with x86 configurations without X86_PLATFORM_DEVICES, which handle
+>>> e.g. backlight on a lot of platforms.
+>>>
+>>> I think the safer option might be to go for:
+>>>
+>>> 	depends on X86_PLATFORM_DEVICES || !X86
+>>>
+>>> in all of the cases that select/depend on X86_PLATFORM_DEVICES in drm.
+>>>
+>>> The alternative is to find out, and handle the fallout, if any.
+>>>
+>>>
+>>> BR,
+>>> Jani.
+>>
+>> Alright, should i leave the original "select X86_PLATFORM_DEVICES if ..." statements
+>> as-is or should is change them to "depends on X86_PLATFORM_DEVICES || !X86" everywhere?
 > 
-> Am 17.09.26 um 14:04 schrieb Tvrtko Ursulin:
->> Add a DRM driver level vfunc which allows drivers to opt-in into
->> reporting standardized memory stats via sysfs.
->>
->> Via the vfunc drivers can report a list of memory regions in a stable
->> order, with the names following the memory region names used for fdinfo
->> memory stats. The region names become directory names under the parent
->> 'memstat' directory.
->>
->> Each region reports the total size of the region and its current usage,
->> represented respectively in the total_mb and used_mb files present under
->> the aforementioned memory region named directories.
->>
->> The card level 'memstat' directory is only created for drivers who report
->> at least one memory region.
->>
->> Amdgpu example:
->>
->> /sys/class/drm/card1/memstat/
->> ├── gtt
->> │   ├── total_mb
->> │   └── used_mb
->> └── vram
->>      ├── total_mb
->>      └── used_mb
-> 
-> This looks simple enough to be generally useful. A-b me.
+> There are some places that depends on X86_PLATFORM_DEVICES. I think it's
+> almost always a mistake to have some places select and some places
+> depends on, and select should anyway be used with care. I'd go for
+> depends on.
 
-Thanks!
+I'm a bit late to the party here, sorry.
 
->>
->> Or with concrete numbers:
->>
->> $ grep -Hr . /sys/class/drm/card1/memstat/
->> /sys/class/drm/card1/memstat/vram/total_mb:1024
->> /sys/class/drm/card1/memstat/vram/used_mb:445
->> /sys/class/drm/card1/memstat/gtt/total_mb:7394
->> /sys/class/drm/card1/memstat/gtt/used_mb:71
-> 
-> These seem easy to track.  What about other, shared regions?
-> 
-> IIRC some systems (RasPi) use CMA areas for allocating BOs and run out 
-> of that quickly. Could this be represented here?
+Note that X86_PLATFORM_DEVICES is an option which enables / disables
+a menu and does nothing more.
 
-Yes, it is upto drivers to decide which memory regions they want to 
-expose here.
+Enabling it or depending on it by itself does nothing.
 
-For drivers that currently expose per client memory stats via fdinfo the 
-idea is that the region names match for ABI consistency. The set does 
-not have to be 1:1 but names should match.
+The select used to be there since it must be selected to be able
+to select ACPI_WMI (which is no longer the case after this series).
 
-Should we go a step further and try to standardize on some region names? 
-So far fdinfo did not do it.
+To depends on in XE was probably copy pasted from the existing
+select-s and then changed to a depends and already was a completely
+no-op since depending on ACPI_WMI was enough as that itself
+dependend on ACPI_WMI.
 
-> Is there a representation of 'unknown value' ?
+As for X86_PLATFORM_DEVICES being needed for some backlight
+interfaces, depending on it by itself does not result in those
+interfaces being there. That requires enabling the actual drivers
+providing those interfaces.
 
-No, what use case do you have in mind? And you mean for the memory 
-region name or the numerical value?
+And I don't think that the GPU drivers should start depending
+on those since that will become very unyielding.
+
+TL;DR: I believe Armin's original patch is fine and this is
+a welcome cleanup / simplification of the DRM drivers Kconfig
+bits.
 
 Regards,
 
-Tvrtko
+Hans
 
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Maíra Canal <mcanal@igalia.com>
->> Cc: Ludovico de Nittis <ludovico.denittis@collabora.com>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->> Cc: Maxime Ripard <mripard@kernel.org>
->> Cc: Thomas Zimmermann <tzimmermann@suse.de>
->> Cc: David Airlie <airlied@gmail.com>
->> Cc: Simona Vetter <simona@ffwll.ch>
->> ---
->>   drivers/gpu/drm/drm_drv.c   |  10 +++
->>   drivers/gpu/drm/drm_sysfs.c | 123 ++++++++++++++++++++++++++++++++++++
->>   include/drm/drm_device.h    |  19 ++++++
->>   include/drm/drm_drv.h       |   8 +++
->>   include/drm/drm_file.h      |   9 +++
->>   include/drm/drm_sysfs.h     |   4 ++
->>   6 files changed, 173 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
->> index 0cdc606af8d1..ab26cfd73002 100644
->> --- a/drivers/gpu/drm/drm_drv.c
->> +++ b/drivers/gpu/drm/drm_drv.c
->> @@ -54,6 +54,7 @@
->>   #include <drm/drm_print.h>
->>   #include <drm/drm_privacy_screen_machine.h>
->>   #include <drm/drm_ras_genl_family.h>
->> +#include <drm/drm_sysfs.h>
->>   #include "drm_crtc_internal.h"
->>   #include "drm_internal.h"
->> @@ -197,10 +198,15 @@ static int drm_minor_register(struct drm_device 
->> *dev, enum drm_minor_type type)
->>       if (ret)
->>           goto err_debugfs;
->> +    ret = drm_sysfs_register_memstat(minor);
->> +    if (ret)
->> +        goto err_kdev;
->> +
->>       /* replace NULL with @minor so lookups will succeed from now on */
->>       entry = xa_store(drm_minor_get_xa(type), minor->index, minor, 
->> GFP_KERNEL);
->>       if (xa_is_err(entry)) {
->>           ret = xa_err(entry);
->> +        drm_sysfs_unregister_memstat(minor);
->>           goto err_debugfs;
->>       }
->>       WARN_ON(entry);
->> @@ -208,6 +214,9 @@ static int drm_minor_register(struct drm_device 
->> *dev, enum drm_minor_type type)
->>       DRM_DEBUG("new minor registered %d\n", minor->index);
->>       return 0;
->> +err_kdev:
->> +    device_del(minor->kdev);
->> +
->>   err_debugfs:
->>       drm_debugfs_unregister(minor);
->>       return ret;
->> @@ -224,6 +233,7 @@ static void drm_minor_unregister(struct drm_device 
->> *dev, enum drm_minor_type typ
->>       /* replace @minor with NULL so lookups will fail from now on */
->>       xa_store(drm_minor_get_xa(type), minor->index, NULL, GFP_KERNEL);
->> +    drm_sysfs_unregister_memstat(minor);
->>       device_del(minor->kdev);
->>       dev_set_drvdata(minor->kdev, NULL); /* safety belt */
->>       drm_debugfs_unregister(minor);
->> diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
->> index 7b16d32b6ff6..4a8c5b0b458d 100644
->> --- a/drivers/gpu/drm/drm_sysfs.c
->> +++ b/drivers/gpu/drm/drm_sysfs.c
->> @@ -25,6 +25,7 @@
->>   #include <drm/drm_accel.h>
->>   #include <drm/drm_connector.h>
->>   #include <drm/drm_device.h>
->> +#include <drm/drm_drv.h>
->>   #include <drm/drm_file.h>
->>   #include <drm/drm_modes.h>
->>   #include <drm/drm_print.h>
->> @@ -589,3 +590,125 @@ struct device *drm_sysfs_minor_alloc(struct 
->> drm_minor *minor)
->>       put_device(kdev);
->>       return ERR_PTR(r);
->>   }
->> +
->> +static ssize_t total_mb_show(struct kobject *kobj, struct 
->> kobj_attribute *attr,
->> +                 char *buf)
->> +{
->> +    struct drm_memstat_attr *mattr = container_of(kobj, 
->> typeof(*mattr), kobj);
->> +    struct drm_device *drm = mattr->drm;
->> +    const struct drm_memory_info *info;
->> +
->> +    if (drm->driver->get_memory_info) {
->> +        info = drm->driver->get_memory_info(drm);
->> +        if (info)
->> +            return sysfs_emit(buf, "%u\n",
->> +                      info->region[mattr->region].total_mb);
->> +    }
->> +
->> +    return 0;
->> +}
->> +
->> +static ssize_t used_mb_show(struct kobject *kobj, struct 
->> kobj_attribute *attr,
->> +                char *buf)
->> +{
->> +    struct drm_memstat_attr *mattr = container_of(kobj, 
->> typeof(*mattr), kobj);
->> +    struct drm_device *drm = mattr->drm;
->> +    const struct drm_memory_info *info;
->> +
->> +    if (drm->driver->get_memory_info) {
->> +        info = drm->driver->get_memory_info(drm);
->> +        if (info)
->> +            return sysfs_emit(buf, "%u\n",
->> +                      info->region[mattr->region].used_mb);
->> +    }
->> +
->> +    return 0;
->> +}
->> +
->> +static struct kobj_attribute total_attr = __ATTR_RO(total_mb);
->> +static struct kobj_attribute used_attr = __ATTR_RO(used_mb);
->> +
->> +static struct attribute *memstat_attrs[] = {
->> +    &total_attr.attr,
->> +    &used_attr.attr,
->> +    NULL,
->> +};
->> +
->> +ATTRIBUTE_GROUPS(memstat);
->> +
->> +static void kobj_memstat_release(struct kobject *kobj)
->> +{
->> +}
->> +
->> +static const struct kobj_type memstat_ktype = {
->> +    .release = kobj_memstat_release,
->> +    .sysfs_ops = &kobj_sysfs_ops,
->> +    .default_groups = memstat_groups,
->> +};
->> +
->> +int drm_sysfs_register_memstat(struct drm_minor *minor)
->> +{
->> +    const struct drm_memory_info *info = NULL;
->> +    struct drm_device *drm = minor->dev;
->> +    struct drm_memstat_attr *regions;
->> +    struct kobject *root;
->> +    int i, ret = -ENOMEM;
->> +
->> +    if (drm->driver->get_memory_info)
->> +        info = drm->driver->get_memory_info(drm);
->> +
->> +    if (!info || !info->num_regions)
->> +        return 0;
->> +
->> +    regions = kmalloc_objs(*regions, info->num_regions + 1);
->> +    if (!regions)
->> +        return -ENOMEM;
->> +
->> +    root = kobject_create_and_add("memstat", &minor->kdev->kobj);
->> +    if (!root)
->> +        goto err_root;
->> +
->> +    for (i = 0; i < info->num_regions; i++) {
->> +        regions[i].region = i;
->> +        regions[i].drm = drm;
->> +        ret = kobject_init_and_add(&regions[i].kobj, &memstat_ktype,
->> +                       root, "%s", info->region[i].name);
->> +        if (ret)
->> +            goto err_regions;
->> +    }
->> +
->> +    minor->sysfs_memstat = root;
->> +    minor->sysfs_memstat_regions = regions;
->> +
->> +    return 0;
->> +
->> +err_regions:
->> +    while (i-- > 0) {
->> +        kobject_del(&regions[i].kobj);
->> +        kobject_put(&regions[i].kobj);
->> +    }
->> +
->> +    kobject_del(root);
->> +    kobject_put(root);
->> +
->> +err_root:
->> +    kfree(regions);
->> +
->> +    return ret;
->> +}
->> +
->> +void drm_sysfs_unregister_memstat(struct drm_minor *minor)
->> +{
->> +    struct drm_memstat_attr *region = minor->sysfs_memstat_regions;
->> +
->> +    while (region && region->kobj.state_initialized) {
->> +        kobject_del(&region->kobj);
->> +        kobject_put(&region->kobj);
->> +        region++;
->> +    }
->> +
->> +    kfree(minor->sysfs_memstat_regions);
->> +
->> +    kobject_del(minor->sysfs_memstat);
->> +    kobject_put(minor->sysfs_memstat);
->> +}
->> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
->> index 75f030d027ee..0c9260c85b30 100644
->> --- a/include/drm/drm_device.h
->> +++ b/include/drm/drm_device.h
->> @@ -67,6 +67,25 @@ enum switch_power_state {
->>       DRM_SWITCH_POWER_DYNAMIC_OFF = 3,
->>   };
->> +/**
->> + * struct drm_memory_region_info - Memory name and stats for a region
->> + * @name: Name of the memory region
->> + * @total_mb: Total available memory in mebibytes
->> + * @used_mb: Used memory in mebibytes
->> + */
->> +struct drm_memory_region_info {
->> +    char    name[24];
->> +
->> +    u32    total_mb;
->> +    u32    used_mb;
->> +};
->> +
->> +struct drm_memory_info {
->> +    unsigned int num_regions;
->> +
->> +    struct drm_memory_region_info region[];
->> +};
->> +
->>   /**
->>    * struct drm_device - DRM device structure
->>    *
->> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
->> index b23830494ed4..a3f1906961ac 100644
->> --- a/include/drm/drm_drv.h
->> +++ b/include/drm/drm_drv.h
->> @@ -45,6 +45,7 @@ struct drm_minor;
->>   struct dma_buf;
->>   struct dma_buf_attachment;
->>   struct drm_display_mode;
->> +struct drm_device_memory_info;
->>   struct drm_mode_create_dumb;
->>   struct drm_printer;
->>   struct sg_table;
->> @@ -387,6 +388,13 @@ struct drm_driver {
->>        */
->>       void (*show_fdinfo)(struct drm_printer *p, struct drm_file *f);
->> +    /**
->> +     * @get_memory_info:
->> +     *
->> +     * Get device specific memory info.  See Documentation/gpu/drm- 
->> memory-info.rst.
->> +     */
->> +    const struct drm_memory_info * (*get_memory_info)(struct 
->> drm_device *dev);
->> +
->>       /** @major: driver major number */
->>       int major;
->>       /** @minor: driver minor number */
->> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
->> index 6ee70ad65e1f..ebb227a91f60 100644
->> --- a/include/drm/drm_file.h
->> +++ b/include/drm/drm_file.h
->> @@ -66,6 +66,12 @@ enum drm_minor_type {
->>       DRM_MINOR_ACCEL = 32,
->>   };
->> +struct drm_memstat_attr {
->> +    struct kobject kobj;
->> +    unsigned int region;
->> +    struct drm_device *drm;
->> +};
->> +
->>   /**
->>    * struct drm_minor - DRM device minor structure
->>    *
->> @@ -82,6 +88,9 @@ struct drm_minor {
->>       struct device *kdev;        /* Linux device */
->>       struct drm_device *dev;
->> +    struct kobject    *sysfs_memstat;
->> +    struct drm_memstat_attr  *sysfs_memstat_regions;
->> +
->>       struct dentry *debugfs_symlink;
->>       struct dentry *debugfs_root;
->>   };
->> diff --git a/include/drm/drm_sysfs.h b/include/drm/drm_sysfs.h
->> index 7695873a9456..10ed468965b0 100644
->> --- a/include/drm/drm_sysfs.h
->> +++ b/include/drm/drm_sysfs.h
->> @@ -4,10 +4,14 @@
->>   struct drm_device;
->>   struct drm_connector;
->> +struct drm_minor;
->>   struct drm_property;
->>   void drm_sysfs_hotplug_event(struct drm_device *dev);
->>   void drm_sysfs_connector_hotplug_event(struct drm_connector 
->> *connector);
->>   void drm_sysfs_connector_property_event(struct drm_connector 
->> *connector,
->>                       struct drm_property *property);
->> +
->> +int drm_sysfs_register_memstat(struct drm_minor *minor);
->> +void drm_sysfs_unregister_memstat(struct drm_minor *minor);
->>   #endif
-> 
 
