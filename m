@@ -4,72 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CE2CC982D8
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 21:11:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0001FC982D7
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 21:35:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04A4A10E188;
-	Fri, 18 Sep 2026 21:11:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C21B910E177;
+	Fri, 18 Sep 2026 21:35:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=deltatee.com header.i=@deltatee.com header.b="MK5blqq2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U3D8k9lf";
 	dkim-atps=neutral
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 075D810E177
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 21:11:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
- MIME-Version:Date:Message-ID:content-disposition;
- bh=ULK5VZAuxSXWm8LF6Ikgli/YbS6dUrioNZM7oqlPxpI=; b=MK5blqq2y3XgRiBDMg9+TPw8T0
- UT496dXnWXaagiYpJ1QjxAfmCHoXmHvKAkurXXQNRO1vHuwD8QANkRnJJ4GzcOMFvPlayeMSYYpgY
- MrmLiAKp2mxyWv4ot7eFkFMFP0I6KlAWyMj8WcV8lQkz/uFyXIBWnswMqzddGeC2DcMGbKvmMBVhr
- Xfy/J004Cc45D2ZsVjDFWzx9u0yYC2UjzdUKLosanchXkMCKHW7YTK6o6dA2MLNLMRvBS1XHYfNva
- jhYUyth0v1bllQNFaJMTlXZWV2E2PHAeUZASCOMn8XxquG3udEVsm99SRFGRR3xLRzs7xfkAa5m55
- OROgvIIg==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
- by ale.deltatee.com with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.98.2)
- (envelope-from <logang@deltatee.com>) id 1x7frU-0000000Ct2f-3PJO;
- Fri, 18 Sep 2026 15:11:13 -0600
-Message-ID: <df87832e-8c45-467c-bbfd-d5154158172d@deltatee.com>
-Date: Fri, 18 Sep 2026 15:11:11 -0600
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55DBA10E177
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 21:35:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 81CE9408ED;
+ Fri, 18 Sep 2026 21:35:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 333951F000FF;
+ Fri, 18 Sep 2026 21:35:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789767320;
+ bh=ej3xKpckrpjvUc2u6qoLx+3TMAOcBxUdzeIFFyYah/c=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=U3D8k9lfVGUmG3mrLdr956SF7/Qr5CBRsP2flicGDEQ75+/x23Gz7gEdh0FeSfeOc
+ PtLQM0QAfD4jSijXXjL4vzXI/6kdfmRD88xSJ3dmf+R3sAyp21mlzRfKw1lTn0TlzF
+ hqAhbwz9JnTygIoS1AqYKAxjH+LxQNrOjuS/SYtCmlfLlojf8j18w8Z9scv2QOkyBp
+ atgWD6pI9o9jsvuHdvoiMD7K1I57B49g/DdD+oFyuxRM89OeePA1MRjBeXiiHtFqZP
+ 1dax3Bv/8ODg6IBwW/ZFtA5wD5LFllEGvbfA4UlFc84SJQItxe8xF9MlnBv/5mbZST
+ GvNXUIA+atX0A==
+Date: Fri, 18 Sep 2026 16:35:18 -0500
+From: Rob Herring <robh@kernel.org>
+To: Luca Weiss <luca.weiss@fairphone.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/4] dt-bindings: display: panel: Add Novatek NT37705
+Message-ID: <20260918213518.GA2337779-robh@kernel.org>
+References: <20260918-fp6-panel-v2-0-6695c4008920@fairphone.com>
+ <20260918-fp6-panel-v2-1-6695c4008920@fairphone.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
- <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
- <20260914-fix-p2p-acs-v4-0-v6-7-5ef07ec9ef06@nvidia.com>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <20260914-fix-p2p-acs-v4-0-v6-7-5ef07ec9ef06@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, kch@nvidia.com,
- gregkh@linuxfoundation.org, axboe@kernel.dk, alex@shazbot.org,
- ankita@nvidia.com, jgg@ziepe.ca, corbet@lwn.net, skhan@linuxfoundation.org,
- joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, rdunlap@infradead.org,
- sumit.semwal@linaro.org, christian.koenig@amd.com, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- tdave@nvidia.com, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
- kvm@vger.kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-Subject: Re: [PATCH v6 07/18] PCI/P2PDMA: Collect the path's ACS controls
- before deciding
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918-fp6-panel-v2-1-6695c4008920@fairphone.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,27 +69,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 2026-09-14 05:22, Leon Romanovsky wrote:
-> From: Leon Romanovsky <leonro@nvidia.com>
+On Fri, Sep 18, 2026 at 04:40:04PM +0200, Luca Weiss wrote:
+> Novatek NT37705 is a display driver IC used to drive AMOLED DSI panels.
 > 
-> calc_map_type_and_dist() reads each divergence port's ACS Control register
-> and folds the result into running counters as it goes. Any routing property
-> that depends on the kind of TLP being routed would have to be threaded
-> through that code, so there is nowhere to put one without reading the
-> registers again for each kind.
+> Describe it and the panel in the Fairphone (Gen. 6) (BJ631JHM-T71-D900
+> from BOE) using it.
 > 
-> Collect the two ports' ACS Control values into struct pci_p2pdma_acs_path
-> first, then decide from it. pci_p2pdma_route() applies the same rule as
-> before: a path routes directly only when both directions do.
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Link: https://lore.kernel.org/r/81a3c207-4d8f-490f-8e2a-6f3f4c2acd35@kernel.org/
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+> ---
+>  .../bindings/display/panel/novatek,nt37705.yaml    | 72 ++++++++++++++++++++++
+>  1 file changed, 72 insertions(+)
 > 
-> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt37705.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt37705.yaml
+> new file mode 100644
+> index 000000000000..1c796599f6fc
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt37705.yaml
 
-Big patch, but I think it makes sense. Might have been easier to read if
-splitting out pci_p2pdma_warn_path() was done first in a prep patch. But
-this is already a pretty large and growing series.
+Did novatek,nt37705 get dropped as a compatible, but the filename 
+remains?
 
-Overall though, I think the patch is ok:
+> @@ -0,0 +1,72 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/panel/novatek,nt37705.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Novatek NT37705-based DSI display panels
+> +
+> +maintainers:
+> +  - Luca Weiss <luca.weiss@fairphone.com>
+> +
+> +description:
+> +  The Novatek NT37705 is a generic DSI Panel IC used to control AMOLED panels.
+> +
+> +allOf:
+> +  - $ref: panel-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    contains:
 
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+As sashiko reports, "contains" is too loose.
+
+> +      const: boe,bj631jhm-t71-d900
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  vddio-supply:
+> +    description: I/O voltage rail
+> +
+> +  dvdd-supply:
+> +    description: Digital voltage rail
+> +
+> +  vci-supply:
+> +    description: Analog voltage rail
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reset-gpios
+> +  - vddio-supply
+> +  - dvdd-supply
+> +  - vci-supply
+> +  - port
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    dsi {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        panel@0 {
+> +            compatible = "boe,bj631jhm-t71-d900";
+> +            reg = <0>;
+> +
+> +            reset-gpios = <&tlmm 12 GPIO_ACTIVE_LOW>;
+> +
+> +            vci-supply = <&vreg_l19b>;
+> +            vddio-supply = <&vreg_l9b>;
+> +            dvdd-supply = <&vreg_oled_dvdd_1p2>;
+> +
+> +            port {
+> +                panel_in_0: endpoint {
+> +                    remote-endpoint = <&dsi0_out>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +
+> +...
+> 
+> -- 
+> 2.55.0
+> 
