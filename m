@@ -4,80 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45C65C982D2
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 00:41:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BF11C982D2
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 01:32:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17F9F10E532;
-	Fri, 18 Sep 2026 00:41:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C6DE10E41D;
+	Fri, 18 Sep 2026 01:32:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ubuntu.com header.i=@ubuntu.com header.b="WtBzbj8r";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XCTMtkHf";
 	dkim-atps=neutral
-X-Greylist: delayed 367 seconds by postgrey-1.36 at gabe;
- Fri, 18 Sep 2026 00:41:11 UTC
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECB4010E532
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 00:41:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
- h=In-Reply-To: References: Cc: To: From: Subject: Message-Id: Date:
- Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
- s=fe-953a8a3ca9; t=1789692071;
- bh=8QgXkkNdHre4C26c9GV+NpL0QV5WDefYsihE2tDLo6E=;
- b=WtBzbj8r/RUJdlgITKGLJ3i0mWrrdqXQzvoJDf1qDMTZinGg3U1V2YE1tJJ7145ogSvocwIQr
- lioOv6L7uMuJGbvl5oLpfGZ7JqcUa+3rp6KoDsTPI5dqKsIHUBTyZ7JczMi6wGgSrofk6DsOd9I
- bk4zCgS9QpdN3mCLH4wnhW7zcfK4+11Vw7IgX/UO52wYfrbQYcOtQi6jjUrBVcSTDzUYsrCtlIe
- v6UzxYn1C3HJZieVvQEOQygi0SH4Ib2diWhozbiWNTXIqd+BPPTXQbZaQ0Rk25wiWqi8aqcc+Us
- pUTt6EDu8s3TrAnhRMxY8GufW6DUfFTpXh3xwdH3mnYA==
-X-Forward-Email-ID: 6aac871042fb3e762f6d18f9
-X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
- 149.28.215.223
-X-Forward-Email-Version: 2.14.2
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8; format=Flowed
-Date: Thu, 17 Sep 2026 20:34:18 -0400
-Message-Id: <DLI0QTP0NUHS.DAFYGACKWKWO@ubuntu.com>
-Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
- starfive,jh7110-inno-hdmi-phy
-From: "Joshua Peisach" <jpeisach@ubuntu.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Michal Wilczynski"
- <m.wilczynski@samsung.com>
-Cc: "Vinod Koul" <vkoul@kernel.org>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Andrzej Hajda" <andrzej.hajda@intel.com>, "Robert Foss"
- <rfoss@kernel.org>, "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>,
- "Jonas Karlman" <jonas@kwiboo.se>, "Jernej Skrabec"
- <jernej.skrabec@gmail.com>, "Luca Ceresoli" <luca.ceresoli@bootlin.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Lee
- Jones" <lee@kernel.org>, "Andy Yan" <andy.yan@rock-chips.com>, "Philipp
- Zabel" <p.zabel@pengutronix.de>, "Emil Renner Berthing" <kernel@esmil.dk>,
- "Hal Feng" <hal.feng@starfivetech.com>, "Michael Turquette"
- <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Heiko
- Stuebner" <heiko@sntech.de>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
- Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, "Dominique Belhachemi" <db@domibel.de>,
- "Brian Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
- <jbrunet+clk@baylibre.com>, <linux-phy@lists.infradead.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <mfd@lists.linux.dev>,
- <linux-clk@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <linux-riscv@lists.infradead.org>,
- "Marek Szyprowski" <m.szyprowski@samsung.com>, "Maud Spierings"
- <maud_spierings@murena.io>, "Graham Markall" <hello@big-grey.co.uk>,
- "Icenowy Zheng" <zhengxingda@iscas.ac.cn>, "Chaoyi Chen"
- <chaoyi.chen@rock-chips.com>, "Joshua Peisach" <jpeisach@ubuntu.com>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-X-Mailer: aerc 0.21.0
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
- <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
- <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
- <20260917-mutant-chamois-of-competence-46ca77@quoll>
-In-Reply-To: <20260917-mutant-chamois-of-competence-46ca77@quoll>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0A8310E41D
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 01:32:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789695164; x=1821231164;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=QtXTABXVuFlp8kqv3CDDbYStMc4vENXmXpxqU7pQE3k=;
+ b=XCTMtkHfa82zWJBatzmwVZmKozWG7ZHonVIhn+K5TKhNsc7ADY0VTnvU
+ fX/eeRHFYuXBhlfrzdT2kJdBtfLz3AXQ8j5eBM4j6oazOfsPjkNM9uUYj
+ 0Cr7t2/Erj63c4rEveDleH+WXz2ebBF8UsvGO7zQ0ihIodcJZp4yMwgyw
+ LuUcS7+APxNlgYcZTezmqZmFZbCzwQdSple9amou6agsRsz2imnbYJaHi
+ YkX7qmvpJoB9uOQ+NoPOhC/Q2LZIpnPxS+tw917t44LA0vlYR64qgkwzh
+ vwARe/zcezB/GRJA871V0GYz+hcuzTe7E7Uj+z8h1II8D4RIoqJYrOgAs g==;
+X-CSE-ConnectionGUID: zUqjo4mVTxmoQVWVAR/Bew==
+X-CSE-MsgGUID: 0w46ypOgQr+y/JdAil+ojw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="101518185"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="101518185"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2026 18:32:43 -0700
+X-CSE-ConnectionGUID: +T+sf23yRW2qqoWvIyBPpw==
+X-CSE-MsgGUID: 6lmouXgIRLunhG3zet4wjw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="2329444"
+Received: from xiaolu.sh.intel.com ([10.239.146.103])
+ by fmviesa012.fm.intel.com with ESMTP; 17 Sep 2026 18:32:23 -0700
+From: Xiao Lu <xiaolu.xie@intel.com>
+To: lyude@redhat.com,
+	dri-devel@lists.freedesktop.org
+Cc: David.Francis@amd.com, jani.nikula@linux.intel.com,
+ Xiao Lu <xiaolu.xie@intel.com>
+Subject: Re: [PATCH] drm/dp/mst: skip connector creation for unplugged
+ downstream ports
+Date: Fri, 18 Sep 2026 09:29:56 +0800
+Message-ID: <xiaolu-reply-ddps-20260918@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <c992e5468e2118440ab1b9c37fc64c7ab79aaaea.camel@redhat.com>
+References: <c992e5468e2118440ab1b9c37fc64c7ab79aaaea.camel@redhat.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,51 +70,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Sep 17, 2026 at 2:51 AM EDT, Krzysztof Kozlowski wrote:
-> On Tue, Sep 15, 2026 at 05:32:09PM +0200, Michal Wilczynski wrote:
->> Add the dt-binding for the StarFive JH7110 Innosilicon HDMI PHY.
->>=20
->> This device is a child of the starfive,jh7110-hdmi-subsystem node. It
->> functions as both a PHY provider for the controller and as a clock
->> provider for the variable pixel clock (hdmi_pclk), which it generates
->> from its refoclk.
->>=20
->> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+On Thu, 2026-09-17 at 12:49 -0400, Lyude Paul wrote:
+> Are we sure this is a good idea? This seems like it could be a problem
+> for compositors and just make things more complicated in general for
+> userspace because now instead of a connector that can be plugged or
+> unplugged, we now only have connectors on MST that appear and
+> disappear.
 >
-> While I appreciate other people looking at this, I don't think review
-> here applies. It was a blanket tag, given to the entire series, with
-> exception that it is from newbie, thus I want to ask: was this binding
-> REALLY reviewed by Joshua?
->
-> Are the rest of the patches actually reviewed or just "looks good to
-> me"? I see no comments from Joshua on v3, v2 and v1, which is usual sign
-> of doing review.
->
->
-I commented on v3 saying that I would test if I could. I don't just
-throw "Reviewed-by" on everything I look at.
+> Is there an actual bug being caused by the NAK transactions here?
 
-If anything, I've been trying to be more honest in reviews, and only
-review ones that I actually care about[1].
+Thanks for the review. Two points to address your concerns:
 
-If reviewing patches isn't a good way for newbies to start getting
-familiar with the kernel code (especially a NEW driver), then I don't
-know what is.
+1. We tested hot-plug/unplug on MST DFP ports with this patch applied,
+   and the connectors appear and disappear correctly without any issues
+   observed on the compositor side. When a device is plugged in, the
+   hub sends a CSN which triggers a pdt change, causing mgr->work to
+   resend LINK_ADDRESS. drm_dp_mst_handle_link_address_port() then
+   creates the connector with ddps=1 at that point. The hot-plug
+   lifecycle works correctly in practice. That said, if you are aware
+   of a specific compositor path that relies on connectors being
+   pre-created for all ports regardless of ddps, we are happy to
+   investigate further.
 
-And to be clear, I'm not using a LLM to review. I am using actual
-intelligence. For the JH7110 PR specifically, I did actually go through
-and review each commit, because I wanted to learn what was happening
-and why. Actually, that's why I asked where the data sheet was[2].
+2. The REMOTE_DPCD_READ to ports with ddps=0 is not just log noise.
+   It causes a measurable lighting delay at link training time, as the
+   transaction must time out or be NAK'd before the stack can proceed.
+   More importantly, not all MST hubs respond gracefully to REMOTE_DPCD
+   transactions on unoccupied ports. This behavior is also
+   non-compliant with DP v2.1b spec, which states that REMOTE_DPCD_READ
+   should only be issued to ports where ddps=1. Issuing reads to
+   ddps=0 ports is the driver-side bug here.
 
-So if you really want to, drop the Reviewed-by tag. And if it makes
-you feel better, I'll leave the series alone.
-
--Josh
-
-[1] I won't be reviewing PRs around devicetree since I'm not confident
-(or frankly, interested) in it at this point. https://lore.kernel.org/all/D=
-L94TU52KBMO.2HAKJMJXV2CPE@ubuntu.com/
-
-[2] Michal giving me the hardware info:
-https://lore.kernel.org/all/071901ef-57f3-456f-af5b-a8c99a0a7dd3@samsung.co=
-m/
+Best regards,
+Xiao Lu
