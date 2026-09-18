@@ -4,137 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62570C88E75
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 06:41:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9089CC982D2
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 06:42:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 863D410E824;
-	Fri, 18 Sep 2026 06:41:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCAC910E812;
+	Fri, 18 Sep 2026 06:41:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="S9MeC+28";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DBgrYLub";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cxZDoLDw";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+33nvk6y";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g4ED0di8";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5611010E824
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 06:41:31 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BB91920076;
- Fri, 18 Sep 2026 06:41:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789713685; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=E4aMe0GJ96p6HPIq399xjyNj4CpzMJPBPTO2ADDjNbo=;
- b=S9MeC+28J642e2hRaCqLspYlC91Tk1XfdjcPqYddWoD52hLGjI8GJbuZPHd5DdzU4jVEEs
- t7PMOVrM+EI+SxUKy45yApTJ4K9oOInusDa8ZUat/hSG0Uwy6jO6aApLXyFEQDu6KiBOWL
- 8t+A2H8m0NI7pJQMH/JbFO6S+MV5gM4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789713685;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=E4aMe0GJ96p6HPIq399xjyNj4CpzMJPBPTO2ADDjNbo=;
- b=DBgrYLubd32wZoAB6Bdm+SKli1u1bj8JBOr2hyzw71eVQcP15cfUPB/XYVJIeVOW6TuK3j
- 3qQaZvLSIbKjd4Dw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789713681; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=E4aMe0GJ96p6HPIq399xjyNj4CpzMJPBPTO2ADDjNbo=;
- b=cxZDoLDwchEjBFUNYtKPAnU5SWzNt7WIbwebJcji4hLjbsHF9KED6esvARIrYBMh+BlvbL
- asaK7K9Ih2cBX5aW2QxaDJqgSTBFnIu9hWxHq/L604imvO8Iyzd9m/+bewiA/zgwICukqa
- Fzr/pOz9efN3H9CclpG9MTK5uA/oB74=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789713681;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=E4aMe0GJ96p6HPIq399xjyNj4CpzMJPBPTO2ADDjNbo=;
- b=+33nvk6yqW+ekNFMWmbW8VQrIspkGhLOMOphm17lfacABCQXbl6hE0of2kYsoM6HtsEYmO
- sS2NJTL7I7CrIlAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3590D1348F;
- Fri, 18 Sep 2026 06:41:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id CuiXMxDdrGqsfwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 18 Sep 2026 06:41:21 +0000
-Message-ID: <f7fa4c4c-bc59-4822-94bb-6e9d68f8f0ca@suse.de>
-Date: Fri, 18 Sep 2026 08:41:20 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1622710E812
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 06:41:58 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E5AD660A52;
+ Fri, 18 Sep 2026 06:41:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7627E1F000FF;
+ Fri, 18 Sep 2026 06:41:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789713716;
+ bh=NQNv62oAZsl1F7csxaJEi7LWQT0O7ByC0WTruZRdyGE=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=g4ED0di8eL1AQIkIyrzjWr3kkR/6Lm3VLeU0TIc0vFcokmcJ60P5HXU649k4P9UbV
+ vdH1IvwyYJcrn2+jUmbfTWTK1OpiLZ/6P5c6LKeRW6d6gW/XmS4SLpXyATQdNQSZg+
+ BOb+YXv4wnL3ceDRqUUdFnqmNtrGv68H7yAqYSM4TSR0ohN3WRZ85+p9dygq3Qzvzg
+ NhQFawgMtUtFcC0V+bt4s7sBu1/yHReYMD2FgIA9ve8z4dkvUJDyw86XT10k2k+oqw
+ AlxuHt/lYeWpydOreU8ctv2+5zxo1v9GWh8SCwRF71wj+HOrK6imIba21LkRp9E81U
+ zb8Xjx3n/HCvQ==
+Message-ID: <8b4256bf-5ad3-4405-ae7a-17bc664f7ae9@kernel.org>
+Date: Fri, 18 Sep 2026 08:41:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFT v2 1/5] drm: Split framebuffer pixel offset
- calculation from drm_fb_dma_get_gem_addr()
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Liu Ying <victor.liu@nxp.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Lucas Stach <l.stach@pengutronix.de>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>,
+Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
+ starfive,jh7110-inno-hdmi-phy
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Joshua Peisach <jpeisach@ubuntu.com>
+Cc: Michal Wilczynski <m.wilczynski@samsung.com>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-sunxi@lists.linux.dev,
- imx@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260916033327.3054126-1-wenst@chromium.org>
- <20260916033327.3054126-2-wenst@chromium.org>
- <f6ace486-70d8-4e81-89cb-e9d55ad9ac8b@suse.de>
- <CAGXv+5ErgWVNtnRiW+QA7+Mzh=W_Y+HGL_iRa1fOaXCYSoAwMA@mail.gmail.com>
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
+ <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Maud Spierings <maud_spierings@murena.io>,
+ Graham Markall <hello@big-grey.co.uk>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+ <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
+ <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
+ <20260917-mutant-chamois-of-competence-46ca77@quoll>
+ <DLI0QTP0NUHS.DAFYGACKWKWO@ubuntu.com>
+ <20260918-futuristic-mindful-waxbill-21fa2d@quoll>
+ <b8efa0db854929a353c430f78fffd907bd7ccb65.camel@iscas.ac.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CAGXv+5ErgWVNtnRiW+QA7+Mzh=W_Y+HGL_iRa1fOaXCYSoAwMA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <b8efa0db854929a353c430f78fffd907bd7ccb65.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[17]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[nxp.com,oss.nxp.com,pengutronix.de,kernel.org,sholland.org,linux.intel.com,gmail.com,ffwll.ch,lists.linux.dev,lists.freedesktop.org,lists.infradead.org,vger.kernel.org];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:mid, suse.com:url,
- imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,212 +136,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
-
-Am 18.09.26 um 06:16 schrieb Chen-Yu Tsai:
-> On Thu, Sep 17, 2026 at 11:20 PM Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> Hi
+On 18/09/2026 08:21, Icenowy Zheng wrote:
+> 在 2026-09-18五的 08:16 +0200，Krzysztof Kozlowski写道：
+>> On Thu, Sep 17, 2026 at 08:34:18PM -0400, Joshua Peisach wrote:
+>>> On Thu Sep 17, 2026 at 2:51 AM EDT, Krzysztof Kozlowski wrote:
+>>>> On Tue, Sep 15, 2026 at 05:32:09PM +0200, Michal Wilczynski
+>>>> wrote:
+>>>>> Add the dt-binding for the StarFive JH7110 Innosilicon HDMI
+>>>>> PHY.
+>>>>>
+>>>>> This device is a child of the starfive,jh7110-hdmi-subsystem
+>>>>> node. It
+>>>>> functions as both a PHY provider for the controller and as a
+>>>>> clock
+>>>>> provider for the variable pixel clock (hdmi_pclk), which it
+>>>>> generates
+>>>>> from its refoclk.
+>>>>>
+>>>>> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+>>>>
+>>>> While I appreciate other people looking at this, I don't think
+>>>> review
+>>>> here applies. It was a blanket tag, given to the entire series,
+>>>> with
+>>>> exception that it is from newbie, thus I want to ask: was this
+>>>> binding
+>>>> REALLY reviewed by Joshua?
+>>>>
+>>>> Are the rest of the patches actually reviewed or just "looks good
+>>>> to
+>>>> me"? I see no comments from Joshua on v3, v2 and v1, which is
+>>>> usual sign
+>>>> of doing review.
+>>>>
+>>>>
+>>> I commented on v3 saying that I would test if I could. I don't just
 >>
->> Am 16.09.26 um 05:33 schrieb Chen-Yu Tsai:
->>> Currently drm_fb_dma_get_gem_addr() calculates the offset into the
->>> framebuffer memory for the framebuffer's unclipped source coordinates,
->>> adds that to the framebuffer's backing storage, and returns the result.
->>>
->>> We are about to add a variant that uses the clipped source coordinates,
->>> so there is already some reuse of code. However, calculating the data
->>> offset for a given pixel is not specific to the DMA FB helpers. The
->>> offset is only related to the framebuffer.
->>>
->>> Split out the offset calculation into a new framebuffer helper so that
->>> non-DMA users can also reuse the same code.
->>>
->>> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
->>> Cc: <stable@vger.kernel.org> # dependency for next patch
->>> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
->>> ---
->>> Changes since v1:
->>> - New patch
->>> ---
->>>    drivers/gpu/drm/drm_fb_dma_helper.c | 28 ++----------------
->>>    drivers/gpu/drm/drm_framebuffer.c   | 45 +++++++++++++++++++++++++++++
->>>    include/drm/drm_framebuffer.h       |  3 ++
->>>    3 files changed, 51 insertions(+), 25 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/drm_fb_dma_helper.c b/drivers/gpu/drm/drm_fb_dma_helper.c
->>> index fd71969d2fb1..ab0f37d8a5ff 100644
->>> --- a/drivers/gpu/drm/drm_fb_dma_helper.c
->>> +++ b/drivers/gpu/drm/drm_fb_dma_helper.c
->>> @@ -75,36 +75,14 @@ dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
->>>                                   unsigned int plane)
->>>    {
->>>        struct drm_gem_dma_object *obj;
->>> -     dma_addr_t dma_addr;
->>> -     u8 h_div = 1, v_div = 1;
->>> -     u32 block_w = drm_format_info_block_width(fb->format, plane);
->>> -     u32 block_h = drm_format_info_block_height(fb->format, plane);
->>> -     u32 block_size = fb->format->char_per_block[plane];
->>> -     u32 sample_x;
->>> -     u32 sample_y;
->>> -     u32 block_start_y;
->>> -     u32 num_hblocks;
->>>
->>>        obj = drm_fb_dma_get_gem_obj(fb, plane);
->>>        if (!obj)
->>>                return 0;
->>>
->>> -     dma_addr = obj->dma_addr + fb->offsets[plane];
->>> -
->>> -     if (plane > 0) {
->>> -             h_div = fb->format->hsub;
->>> -             v_div = fb->format->vsub;
->>> -     }
->>> -
->>> -     sample_x = (state->src_x >> 16) / h_div;
->>> -     sample_y = (state->src_y >> 16) / v_div;
->>> -     block_start_y = (sample_y / block_h) * block_h;
->>> -     num_hblocks = sample_x / block_w;
->>> -
->>> -     dma_addr += fb->pitches[plane] * block_start_y;
->>> -     dma_addr += block_size * num_hblocks;
->>> -
->>> -     return dma_addr;
->>> +     return obj->dma_addr + drm_framebuffer_get_block_offset(fb, plane,
->>> +                                                             state->src_x >> 16,
->>> +                                                             state->src_y >> 16);
->>>    }
->>>    EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_addr);
->>>
->>> diff --git a/drivers/gpu/drm/drm_framebuffer.c b/drivers/gpu/drm/drm_framebuffer.c
->>> index d32aceb6ca9b..9e1231162047 100644
->>> --- a/drivers/gpu/drm/drm_framebuffer.c
->>> +++ b/drivers/gpu/drm/drm_framebuffer.c
->>> @@ -1208,6 +1208,51 @@ void drm_framebuffer_print_info(struct drm_printer *p, unsigned int indent,
->>>        }
->>>    }
->>>
->>> +/**
->>> + * drm_framebuffer_get_block_offset() - Get offset to start of pixel block for
->>> + * the given framebuffer and coordinates.
->>> + * @fb: The framebuffer
->>> + * @plane: Which plane
->>> + * @x: x coordinate for pixel
->>> + * @y: y coordinate for pixel
->>> + *
->>> + * This function will usually be called from the PLANE callback functions,
->>> + * or from one of the helpers that calculates the framebuffer's DMA address.
->>> + *
->>> + * Return: offset from start of framebuffer to start of pixel block
->>> + */
->>> +u32 drm_framebuffer_get_block_offset(struct drm_framebuffer *fb, unsigned int plane,
->>> +                                  unsigned int x, unsigned int y)
->> Better use u64 as return type.
-> To avoid overflow? Not sure who would use crazy large framebuffers, but
-> doesn't hurt to play it safe.
-
-I'd be worried about a malicious user space that tries to access OOB.
-
-Apart from that, we use u64 for other framebuffer-related sizes like 
-pitch calculations or dma addresses. Using u64 here would keep that 
-consistent.
-
-
->
->>> +{
->>> +     u8 h_div = 1, v_div = 1;
->>> +     u32 block_w = drm_format_info_block_width(fb->format, plane);
->>> +     u32 block_h = drm_format_info_block_height(fb->format, plane);
->>> +     u32 block_size = fb->format->char_per_block[plane];
->>> +     u32 sample_x;
->>> +     u32 sample_y;
->>> +     u32 block_start_y;
->>> +     u32 num_hblocks;
->>> +     u32 offset;
->>> +
->>> +     offset = fb->offsets[plane];
->>> +
->>> +     if (plane > 0) {
->>> +             h_div = fb->format->hsub;
->>> +             v_div = fb->format->vsub;
->>> +     }
->>> +
->>> +     sample_x = x / h_div;
->>> +     sample_y = y / v_div;
->>> +     block_start_y = (sample_y / block_h) * block_h;
->>> +     num_hblocks = sample_x / block_w;
->>> +
->>> +     offset += fb->pitches[plane] * block_start_y;
->>> +     offset += block_size * num_hblocks;
->> User space controls the values in fb->offsets and fb->pitches.  I'm not
->> sure how well they have been validated already at this point. Did you
->> investigate this?
-> It wouldn't be worse than before, since this changes is purely code movement.
->
-> There are minimal sanity checks done by drm_internal_framebuffer_create()
-> in framebuffer_check(), such as offset overflow or pitch size too small,
-> but that's about it. It would be up to individual drivers to perform more
-> checks that match their hardware limitations.
-
-Right, makes sense. Looking through the framebuffer validation, a 
-buffer-size check could be done in framebuffer_check().  But that's 
-another patch series.
-
-
->
-> What sort of issues are you thinking about?
-
-Again, I'm thinking of malicious user space that crafts these values to 
-force an OOB access.
-
-Best regards
-Thomas
-
-
->
->
-> ChenYu
->
->> Best regards
->> Thomas
+>> Testing has nothing to do with reviewing.
 >>
->>
->>> +
->>> +     return offset;
->>> +}
->>> +EXPORT_SYMBOL(drm_framebuffer_get_block_offset);
->>> +
->>>    #ifdef CONFIG_DEBUG_FS
->>>    static int drm_framebuffer_info(struct seq_file *m, void *data)
->>>    {
->>> diff --git a/include/drm/drm_framebuffer.h b/include/drm/drm_framebuffer.h
->>> index 38b24fc8978d..c07aea1cc59f 100644
->>> --- a/include/drm/drm_framebuffer.h
->>> +++ b/include/drm/drm_framebuffer.h
->>> @@ -220,6 +220,9 @@ void drm_framebuffer_remove(struct drm_framebuffer *fb);
->>>    void drm_framebuffer_cleanup(struct drm_framebuffer *fb);
->>>    void drm_framebuffer_unregister_private(struct drm_framebuffer *fb);
+>>> throw "Reviewed-by" on everything I look at.
 >>>
->>> +u32 drm_framebuffer_get_block_offset(struct drm_framebuffer *fb, unsigned int plane,
->>> +                                  unsigned int x, unsigned int y);
->>> +
->>>    /**
->>>     * drm_framebuffer_get - acquire a framebuffer reference
->>>     * @fb: DRM framebuffer
->> --
->> --
->> Thomas Zimmermann
->> Graphics Driver Developer
->> SUSE Software Solutions Germany GmbH
->> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
->> GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+>>> If anything, I've been trying to be more honest in reviews, and
+>>> only
+>>> review ones that I actually care about[1].
 >>
+>> You gave blanket tag for entire series, so I do not get this
+>> argument.
 >>
+>>>
+>>> If reviewing patches isn't a good way for newbies to start getting
+>>> familiar with the kernel code (especially a NEW driver), then I
+>>> don't
+>>> know what is.
+>>
+>> Writing code and receiving review is something for newbies to start
+>> with. If you do not know kernel code or bindings, why do you think
+>> your review is applicable? If I try to review design of a post-
+>> tension
+>> concrete bridge, I would probably learn something. Would my
+>> review apply? No.
+> 
+> My personal thoughts: everyone should be able to send R-b, but the
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+Yes, that is true and this is not questionable. We clearly documented
+that everyone is able.
+
+> effect of the R-b depends on who sent it.
+
+I question whether is applicable here.
+
+Blanket reviews without comments leaves just such feeling. And if, like
+here, there is no interest in reviewing DT, which I assume the DT was
+not reviewed and which was my question here, then why giving Rb tag to DT?
 
 
+Best regards,
+Krzysztof
