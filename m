@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38ED0C982DA
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 10:02:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A0C4C982DA
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 10:02:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F2D710F268;
-	Fri, 18 Sep 2026 10:02:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A778410F28A;
+	Fri, 18 Sep 2026 10:02:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Hr2R9JGF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UHt7uv2c";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B689610E0C8;
- Fri, 18 Sep 2026 10:02:06 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08AD710F28A;
+ Fri, 18 Sep 2026 10:02:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C794860A59;
- Fri, 18 Sep 2026 10:02:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 978421F000FF;
- Fri, 18 Sep 2026 10:02:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C7F6140354;
+ Fri, 18 Sep 2026 10:02:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BE991F000FF;
+ Fri, 18 Sep 2026 10:02:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789725725;
- bh=TuKf+se4/WQhc7yjH9EKqYLRLWGTVuMIsQ21THLKRXk=;
+ s=k20260515; t=1789725764;
+ bh=nZVoCiKuI8Au9ID4VyOKfBtItjLpyaq4XhcSOZgOVBM=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Hr2R9JGF/xDMykb6xXJ/HY2vNaL30WQN270YcxZWsFioZ+5jNX5otawhZ4HtttciR
- foJIpz69Ij082Xs1NJZ34AUBeedRwe3iOb+knGoCJHkfWJRFbVtZK7V9FzuqzV/kpR
- Zs9tRpThIWo7B2Ywo+nGT37X/h5Qe6+qhJ9DsRG0WYuV8qfgosMzceChbch8Xt5mRz
- TFYW5ygTEEzs/JkYfRvRL/iR9Mo16+wyVBi11KB4rifB4Kv1kHU1R9Mg/NGrz3uwvd
- UK9Ybbyf9woUgYX0HpulpVpHQCROT1hQ66BlEUPSEKD48YiMruzGl+uhlWOdvmum8P
- UNeJMPdCVKuhA==
-Date: Fri, 18 Sep 2026 12:02:02 +0200
+ b=UHt7uv2crwGnia/V1dyUtk+6qsQDTMv69oFPPAUPArwNudEAE5lBcQNiHFwjEprpS
+ EmxddNgmK/ySBD7SBUsK2GvM5OdQkApyi0u0LY717w57xUwo5qd5qti7kHoV92a1W/
+ bGD2paGlpju7f8kY42DOwqUmfaaOtRyyO/7H+wp5tGPQ8DoT330UsY1HqW5HkWmARo
+ 4H6rnWZNnu9e3ZHRCH0x+BHMzGyz3ToDzmsJ5bdYL+ZXBYZjurHrf63G6giEfR0CtK
+ 5Vt28Jfwm5/VPJcTK31W9ACzjk/Ztzbcb2zMq7S18jAW3P76WYoP/KwEeSAG4+TViW
+ 3IfYAYr7UBSZQ==
+Date: Fri, 18 Sep 2026 12:02:41 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Muzaffer Kadir <muzafferkadir@mainlining.org>
 Cc: Bjorn Andersson <andersson@kernel.org>, 
@@ -64,15 +64,14 @@ Cc: Bjorn Andersson <andersson@kernel.org>,
  mfd@lists.linux.dev, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, 
  linux-pm@vger.kernel.org, linux-input@vger.kernel.org
-Subject: Re: [PATCH v2 01/19] dt-bindings: clock: qcom: Add MSM8952 global
- clock controller
-Message-ID: <20260918-liberal-significant-crow-f1e66f@quoll>
+Subject: Re: [PATCH v2 06/19] dt-bindings: vendor-prefixes: Add General Mobile
+Message-ID: <20260918-amphibian-overjoyed-fulmar-c04cd4@quoll>
 References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
- <20260916-msm8952-initial-support-v2-1-798c2602dde1@mainlining.org>
+ <20260916-msm8952-initial-support-v2-6-798c2602dde1@mainlining.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260916-msm8952-initial-support-v2-1-798c2602dde1@mainlining.org>
+In-Reply-To: <20260916-msm8952-initial-support-v2-6-798c2602dde1@mainlining.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,55 +87,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 16, 2026 at 05:22:06PM +0300, Muzaffer Kadir wrote:
-> Add a device tree binding to describe clocks, resets and power domains
-> provided by the global clock controller on MSM8952 SoC.
+On Wed, Sep 16, 2026 at 05:22:11PM +0300, Muzaffer Kadir wrote:
+> Add vendor prefix for General Mobile.
+> Link: https://www.generalmobile.com
 > 
 > Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
-
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
-
 > ---
->  .../bindings/clock/qcom,gcc-msm8952.yaml           |  56 ++++++
->  include/dt-bindings/clock/qcom,gcc-msm8952.h       | 217 +++++++++++++++++++++
->  2 files changed, 273 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc-msm8952.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc-msm8952.yaml
-> new file mode 100644
-> index 000000000000..274dde633e17
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/qcom,gcc-msm8952.yaml
-> @@ -0,0 +1,56 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/clock/qcom,gcc-msm8952.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Global Clock & Reset Controller on MSM8952
-> +
-> +maintainers:
-> +  - Muzaffer Kadir <muzafferkadir@mainlining.org>
-> +
-> +description: |
-> +  Qualcomm global clock control module provides the clocks, resets and power
-> +  domains on MSM8952.
-> +
-> +  See also::
+>  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
-git grep "also::" -- Documentation/devicetree/bindings/clock/
-
-I asked you month ago here:
-<e3fb3794-ca7a-4794-8036-b69e563aaa57@kernel.org>
-to not work on old forks.
-
-Old fork which you should not use is postmarketos, lineageos, whatever
-Android fork kernel, and whatever other tree which is not upstream from
-kernel.org.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
