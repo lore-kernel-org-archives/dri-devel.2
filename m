@@ -4,55 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE78BC982DA
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 12:05:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26A31C982DA
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 12:15:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D84AF10F33C;
-	Fri, 18 Sep 2026 12:05:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1590B10E8C8;
+	Fri, 18 Sep 2026 12:15:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="jfaJsR80";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="l2Hvu22q";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EED110F310
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 12:05:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1789733147;
- bh=SJpW0PtXmb9FW3yVhHBs0x0523L+W9SCTa3BvVAUO8w=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=jfaJsR80oPXiFx39MR/8lWMje9nMuOv2CWtksOWus48+a6HIO6z91esvkipYtvHjY
- aRxn4rzgSUC+guM6w5Rn6yXgCerbAOeZZyv1Rd8q4kOmnV7k7CfR4vTZl+Hb/Vegh8
- 8/12h9oIVFRrdRHK0c6VOAarpQyUyglSfwNsUHYjApmT20VFMYDqCbGfz2BPfKila4
- Q4IIglZrwf5yKp8COLf+BTS0SsWDxPV65C60w2LcfU/aYM8308nSsGGNKvsQGe7afw
- UPnd0yUr3441D1lGWJ+a9exf6+ZSeKFnWtMdqHCM/tg5sAbrM/SLh0qtNzdjpdgeH+
- VRzKIItbr/ARA==
-Received: from fedora-21.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 7FEFD17E090C;
- Fri, 18 Sep 2026 14:05:46 +0200 (CEST)
-Date: Fri, 18 Sep 2026 14:05:38 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Ketil Johnsen <ketil.johnsen@arm.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Daniel Almeida
- <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Florent
- Tomasin <florent.tomasin@arm.com>
-Subject: Re: [PATCH v3 2/6] drm/panthor: Minor scheduler refactoring
-Message-ID: <20260918140538.6a42247d@fedora-21.home>
-In-Reply-To: <20260911114014.79139-3-ketil.johnsen@arm.com>
-References: <20260911114014.79139-1-ketil.johnsen@arm.com>
- <20260911114014.79139-3-ketil.johnsen@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F405A10E8C8
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 12:15:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E542F60A82;
+ Fri, 18 Sep 2026 12:15:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEB791F000FF;
+ Fri, 18 Sep 2026 12:15:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789733705;
+ bh=+8ouL8MHD3D1pD50ird+0r+dFeJQjvvbk3v4ZZQqqXs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=l2Hvu22qiDsRKF2dKtyIxq/BuSR7nfYOOeG3+byXlyAoETgK9LqUOuJf3cPOxvCk9
+ ErhqPvZWMTU0HVQRHUlSoKCVv4TTd/UVGn9MIJc1m0h/cvb5JjTclY7E4W1i4QRSQ/
+ x9Owc28rL0PF6cQprfFCFa5XAjmbt/JpP7/o3PY2oA2uoLtlTjhBJX4HT1qwc7bwrp
+ GfkiEtJuhX0PazsalVk64Sr4JjlBI88Y/Upmbe8SPhLHlKOiZIbUJH+CqwwiJvZtAW
+ JO4jA67c801lRH5V6gEpMjNdTEf1tcR54d2kKhjbRRN2ELDKWA0IuNx68rVtOqC2mw
+ ooJwoi5T2fIhw==
+Date: Fri, 18 Sep 2026 15:15:00 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
+ direct peer-to-peer route
+Message-ID: <20260918121500.GV13683@unreal>
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
+ <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,39 +75,221 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 11 Sep 2026 13:40:10 +0200
-Ketil Johnsen <ketil.johnsen@arm.com> wrote:
+On Thu, Sep 17, 2026 at 03:56:12PM +0200, Thomas Hellström wrote:
+> Hi
+> 
+> On Mon, 2026-09-14 at 14:22 +0300, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
+> > 
+> > mlx5_umem_needs_ats() enables ATS for any dma-buf whose caller asked
+> > for
+> > Relaxed Ordering, on the assumption that a switch in the path has CR,
+> > RR
+> > and DT all set. It also enables it for a buffer already mapped with
+> > the
+> > peer's bus addresses, which are not translatable at all.
+> > 
+> > P2PDMA has read the ACS controls, so ask it through
+> > dma_buf_p2pdma_map_type(): enable ATS only where the path is not
+> > routed
+> > directly as it stands, but would be for a Translated Request whose
+> > Completions carry Relaxed Ordering. Exporters that name no provider
+> > keep
+> > the old assumption, since their ACS settings remain hidden.
+> > 
+> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > ---
+> >  drivers/infiniband/hw/mlx5/mlx5_ib.h | 36 ++------------------------
+> > ------
+> >  drivers/infiniband/hw/mlx5/mr.c      | 40
+> > ++++++++++++++++++++++++++++++++++++
+> >  2 files changed, 42 insertions(+), 34 deletions(-)
+> > 
+> > diff --git a/drivers/infiniband/hw/mlx5/mlx5_ib.h
+> > b/drivers/infiniband/hw/mlx5/mlx5_ib.h
+> > index e9ddf2e97a76..ab32742b2180 100644
+> > --- a/drivers/infiniband/hw/mlx5/mlx5_ib.h
+> > +++ b/drivers/infiniband/hw/mlx5/mlx5_ib.h
+> > @@ -1646,40 +1646,8 @@ static inline bool rt_supported(int ts_cap)
+> >  	       ts_cap ==
+> > MLX5_TIMESTAMP_FORMAT_CAP_FREE_RUNNING_AND_REAL_TIME;
+> >  }
+> >  
+> > -/*
+> > - * PCI Peer to Peer is a trainwreck. If no switch is present then
+> > things
+> > - * sometimes work, depending on the pci_distance_p2p logic for
+> > excluding broken
+> > - * root complexes. However if a switch is present in the path, then
+> > things get
+> > - * really ugly depending on how the switch is setup. This table
+> > assumes that the
+> > - * root complex is strict and is validating that all req/reps are
+> > matches
+> > - * perfectly - so any scenario where it sees only half the
+> > transaction is a
+> > - * failure.
+> > - *
+> > - * CR/RR/DT  ATS RO P2P
+> > - * 00X       X   X  OK
+> > - * 010       X   X  fails (request is routed to root but root never
+> > sees comp)
+> > - * 011       0   X  fails (request is routed to root but root never
+> > sees comp)
+> > - * 011       1   X  OK
+> > - * 10X       X   1  OK
+> > - * 101       X   0  fails (completion is routed to root but root
+> > didn't see req)
+> > - * 110       X   0  SLOW
+> > - * 111       0   0  SLOW
+> > - * 111       1   0  fails (completion is routed to root but root
+> > didn't see req)
+> > - * 111       1   1  OK
+> > - *
+> > - * Unfortunately we cannot reliably know if a switch is present or
+> > what the
+> > - * CR/RR/DT ACS settings are, as in a VM that is all hidden. Assume
+> > that
+> > - * CR/RR/DT is 111 if the ATS cap is enabled and follow the last
+> > three rows.
+> > - *
+> > - * For now assume if the umem is a dma_buf then it is P2P.
+> > - */
+> > -static inline bool mlx5_umem_needs_ats(struct mlx5_ib_dev *dev,
+> > -				       struct ib_umem *umem, int
+> > access_flags)
+> > -{
+> > -	if (!MLX5_CAP_GEN(dev->mdev, ats) || !umem->is_dmabuf)
+> > -		return false;
+> > -	return access_flags & IB_ACCESS_RELAXED_ORDERING;
+> > -}
+> > +bool mlx5_umem_needs_ats(struct mlx5_ib_dev *dev, struct ib_umem
+> > *umem,
+> > +			 int access_flags);
+> >  
+> >  int set_roce_addr(struct mlx5_ib_dev *dev, u32 port_num,
+> >  		  unsigned int index, const union ib_gid *gid,
+> > diff --git a/drivers/infiniband/hw/mlx5/mr.c
+> > b/drivers/infiniband/hw/mlx5/mr.c
+> > index 00e13028762a..286f372e5b0c 100644
+> > --- a/drivers/infiniband/hw/mlx5/mr.c
+> > +++ b/drivers/infiniband/hw/mlx5/mr.c
+> > @@ -38,6 +38,7 @@
+> >  #include <linux/export.h>
+> >  #include <linux/delay.h>
+> >  #include <linux/dma-buf.h>
+> > +#include <linux/dma-buf-mapping.h>
+> >  #include <linux/dma-resv.h>
+> >  #include <rdma/frmr_pools.h>
+> >  #include <rdma/ib_umem_odp.h>
+> > @@ -47,6 +48,45 @@
+> >  #include "data_direct.h"
+> >  #include "dmah.h"
+> >  
+> > +MODULE_IMPORT_NS("DMA_BUF");
+> > +
+> > +bool mlx5_umem_needs_ats(struct mlx5_ib_dev *dev, struct ib_umem
+> > *umem,
+> > +			 int access_flags)
+> > +{
+> > +	struct dma_buf_attachment *attach;
+> > +
+> > +	if (!MLX5_CAP_GEN(dev->mdev, ats) || !umem->is_dmabuf)
+> > +		return false;
+> > +
+> > +	/*
+> > +	 * The Completer decides whether its Completions carry
+> > Relaxed
+> > +	 * Ordering, and only a Request that asked for it can expect
+> > them to.
+> > +	 */
+> > +	if (!(access_flags & IB_ACCESS_RELAXED_ORDERING))
+> > +		return false;
+> > +
+> > +	attach = to_ib_umem_dmabuf(umem)->attach;
+> > +	switch (dma_buf_p2pdma_map_type(attach, 0)) {
+> > +	case PCI_P2PDMA_MAP_NONE:
+> > +		/* Nothing is known about the route, so fall back to
+> > the bet. */
+> > +		return true;
+> > +	case PCI_P2PDMA_MAP_BUS_ADDR:
+> > +		/*
+> > +		 * The path is routed directly already and is
+> > programmed with
+> > +		 * the peer's bus addresses. Those are not
+> > translatable, so
+> > +		 * ATS would be wrong as well as pointless.
+> > +		 */
+> > +		return false;
+> > +	default:
+> > +		break;
+> > +	}
+> > +
+> > +	return dma_buf_p2pdma_map_type(attach,
+> > +				       PCI_P2PDMA_TLP_TRANSLATED |
+> > +					      
+> > PCI_P2PDMA_TLP_RELAXED_CPL) ==
+> > +	       PCI_P2PDMA_MAP_BUS_ADDR;
+> > +}
+> > +
+> 
+> It looks like this works well when the device can choose whether to
+> enable ATS per transaction. 
+> 
+> However, at least for the Intel GPUs, ATS enablement is based on the
+> PCIe-side enable bit.
+> 
+> This means that if p2pdma tells the dma-mapping layer to give an Xe
+> device a bus address rather than an IOVA, things break, while
+> pci_p2pdma_distance says everything is OK.
+> 
+> It looks like the infrastructure and solution added in this series is
+> targeted at fixing this on the device side by conditionally enabling
+> ATS. However I think we need to look also at having the computed
+> routing assume untranslated transactions using IOVA rather than bus
+> address.
+> 
+> That is, a flag to tell the topology check that some transactions
+> *will* take the host-bridge path due to IOVA being used, and that the
+> computations including pci_p2pdma_distance() need to check whether that
+> is possible (checking whitelist etc.) and return the corresponding
+> THRU_HOST_BRIDGE mapping type. Translated transactions taking a short-
+> cut using the bus-address would then be hidden from the driver.
 
-> +
-> +static int
-> +tick_ctx_schedule_group(struct panthor_scheduler *sched,
-> +			struct panthor_csg_slots_upd_ctx *upd_ctx,
-> +			struct panthor_group *group,
-> +			int csg_id, int csg_prio)
-> +{
-> +	struct panthor_device *ptdev = sched->ptdev;
-> +	struct panthor_fw_csg_iface *csg_iface =
-> +		panthor_fw_get_csg_iface(ptdev, csg_id);
-> +	int ret;
-> +
-> +	ret = group_bind_locked(group, csg_id);
-> +	if (ret)
-> +		return ret;
-> +
-> +	csg_slot_prog_locked(ptdev, csg_id, csg_prio);
+The word *will* puzzles me. As I understand it, if your device has ATS
+enabled all the time, it should always get THRU_HOST_BRIDGE.
 
-Since we're there, let's check the value returned by
-csg_slot_prog_locked() too.
+In the mlx5 case, we can enable or disable ATS on the fly, but what does a
+device with ATS enabled globally do for different mapping types? Do you
+simply not use dma_buf_p2pdma_map_type() at all and continue to operate
+as is?
 
-> +
-> +	csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, csg_id,
-> +				group->state == PANTHOR_CS_GROUP_SUSPENDED ?
-> +					CSG_STATE_RESUME : CSG_STATE_START,
-> +				CSG_STATE_MASK);
-> +	csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, csg_id,
-> +				csg_iface->output->ack ^ CSG_ENDPOINT_CONFIG,
-> +				CSG_ENDPOINT_CONFIG);
-> +
-> +	return 0;
-> +}
+I asked some questions my AI tool about XE:
+------------------------------------------------------------------------------------------------
+Xe needs THRU_HOST_BRIDGE even with ATS completely disabled. xe_ttm_vram_mgr_alloc_sgt()
+maps VRAM with dma_map_resource() unconditionally (xe_ttm_vram_mgr.c:450) — an IOVA under
+an IOMMU, never a bus address, with no ATS involvement at all. ATS only adds the possibility
+that some of that traffic short-cuts invisibly. The actual requirement is “this caller cannot
+program bus addresses”, which is true of Xe regardless of the ATS Enable bit.
+-------------------------------------------------------------------------------------------------
 
+Could you please clarify what the expected behavior is here? My series
+does not change the existing behavior; it only reports the routing more
+clearly for each TLP class.
+
+Thanks
+
+> 
+> Whether that is best done as a parameter to these functions or perhaps
+> as a flag in the PCI device, I'm not sure.
+> 
+> Thanks,
+> Thomas
+> 
+> 
+> 
+> 
+> >  static int mkey_max_umr_order(struct mlx5_ib_dev *dev)
+> >  {
+> >  	if (MLX5_CAP_GEN(dev->mdev,
+> > umr_extended_translation_offset))
