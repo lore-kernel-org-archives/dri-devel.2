@@ -4,44 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2201BC982DA
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 14:58:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 281BEC982DA
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 15:15:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30BC510E100;
-	Fri, 18 Sep 2026 14:58:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6ACA310E54B;
+	Fri, 18 Sep 2026 15:15:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k6DOMWPf";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="DTqEyIFw";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Uh3mWqhI";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B095910E100
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 14:58:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7413240067;
- Fri, 18 Sep 2026 14:58:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A1C31F000FF;
- Fri, 18 Sep 2026 14:58:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789743520;
- bh=xhWMCl3OIfIy8+66BHuEFBdt6pFum38XtJWnKUOpPLg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=k6DOMWPfeyxA/imgLdJSn2NgLu6t3jVOvHZkqy44/VakrulhMDmNGkCdj7sXtICyj
- VhkaHCHbtezgA5N8n6xd2gBqlOp6nB3uaink9UTxTgT1TYh6X5iQW+XTL4lQ9IYlaK
- E4k2WePwnIQ8oiAKIudBut1th8bkjFjOahTFad6q4ZDSJib5mF7NyWfUnOQH6XCHFi
- XXe+QDQHqcGpOOctgnZIAZfH0RHBlWWeA61GFy2XMBBSOSVlBkU03nolBVGRwn0xI/
- kciolR2jzqd1lKhZb/QQAWQwLZll1MoJFDM5Er1j0yJcO9H0TiT62ExG/96VNB02Tr
- tjS8XweOOPHPg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/4] drm/panel: Add driver for Novatek NT37705 panel
-To: "Luca Weiss" <luca.weiss@fairphone.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260918-fp6-panel-v2-2-6695c4008920@fairphone.com>
-References: <20260918-fp6-panel-v2-0-6695c4008920@fairphone.com>
- <20260918-fp6-panel-v2-2-6695c4008920@fairphone.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2397A10E134
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 15:15:04 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68IF0WGW1234108
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 15:15:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ klACuV7fdAYuSy7gHXP/AwNMnEDjRFePgshatLjHrOQ=; b=DTqEyIFwhXRJLNu9
+ IeYZsHOrKbXijwmdqq+ZxiPvyfet/fCUB0waQ1XFZArweh0RjYYUmoxq7nl/JEN1
+ Uy5NmhOd1qusEnfpTpqRg8agzbrAvS7pZSvHR/ylobOfF2XYjSV1/YXA1xxh8us/
+ 0WSRuT7kO6kdLHoxx0I2EyTlfaVrjEBLOT5OPcRGUnOIkfZCR1Q/Gs7QFtUyIHF/
+ pYQtElGkrqyBwxzixxweaHTo1wj2rjXG06RAMMI+IEvfVga5JiRCPKr59GAZzH1x
+ JMF+HWQl287jMZVbazg42u8QTxVQ95BPg7psGMdFhgyAH+3PsFf8v+fRdN7V6mJV
+ VeUpRg==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gs7jk81u8-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 15:15:02 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2d959904658so15126395ad.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 08:15:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1789744502; x=1790349302;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-type:content-transfer-encoding:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=klACuV7fdAYuSy7gHXP/AwNMnEDjRFePgshatLjHrOQ=;
+ b=Uh3mWqhI1JjrKHQsYToEzofSZa9NznxEEgLzgjBaUxc4AsR81K9bv1lL6ZDxUJOlrm
+ Uci74p5Mzwnii4871NnW/jalGlzkymiokVp1NfCvFZ8R5O/ISsd8nDiY66sQ2SZN50yF
+ V+CKnI3eTLf4KnoBL7pEhYkcqdjHyN1FqBy4taVpeCV9S/wPNp43ugTeoCoi8fXrmk0I
+ Fk9SxcR7k8WydnVWKNez8+cOPkjVcFCO6jQ+mJS7ZxqP/yqL1ySvgcIsqtjy0CHM7U5R
+ cpljphQOcCShjT57TjR66MHqAFCaf9lpJOACRUGMF3NKc2YtUslrqiPWTvXAL/eWpYmd
+ ezgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789744502; x=1790349302;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-type:content-transfer-encoding:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=klACuV7fdAYuSy7gHXP/AwNMnEDjRFePgshatLjHrOQ=;
+ b=G4bEu2Kbfwk05w/e4Wx01LvBIyc2K9i6BOhRQfv26yhyYGC7v1MnfCd65m9gLwCinv
+ 8s9up/paN7JfizfFPA9/9LZknBve3jSBStL2s+8sATfL+/4hsnONtkOlI4Z2k6INkj2w
+ oA0hNKOk70MT+zVC3DbYoX49v1UQlVdQ+BgRONkvyQat1GVNeALMHHoKSlc4XrWbDQ8Y
+ +ouRAUhpjkWo8RGhdlicNY/sLY4WfkYiH/ZdY9touQQSIdvrmbsVekskjO4XNd5DcW9E
+ iiA3kq3uMpdsbSYiGiKnpwFiLHudZ0ybbi4n0Lj2i76yN8c/kfGJiFTcbnDc5syhAuYo
+ 3R5A==
+X-Gm-Message-State: AFuF++mVzfr3m0VkZErmhjOZeU3+dHdt+1J+efgY/rgJw84n3q2yY09d
+ WPsRxFE7r//bHt6328f3pCMhPLntaQLKvYtf1qCKQRNy3qZlmLsdb3fvXOCxwJTwitrxQy4OCYk
+ pAUmI9zSSy3yWe/RijoXFkRBijrV9zplBasTM7UkpDg7bH+62GE1qDlle3iBWvxxeZWXvQv0=
+X-Gm-Gg: AYBFou2/+3d8AGoLKZEXARt0z/WWfI+F/t2cK6DmQwyTmmBYgZyXil0AUsqUyKFg2XG
+ p1JDvHHAmQFY8st/pgrwNs1tzlbEx4fZyo1FtTIUcvK1fdKRePlcCpRRjYe1HrMTsZ9wMngJp6K
+ jh5XXseA9wlbJsMPEAj0lsOBlzHBP1kQOPU8ad4XUqGVTz/RKfZG8bVTnwXCu8lVmoAyJKwfXqk
+ 08mxR0wRF383i6jAtL9i3REFtnMJhczgF8yTOujQN/ubLit3z8KFMK4YNuDwCE/T20nX7NJEEE1
+ vlyLJ0sz/EZqUD54iTWY8yhCFvH0nOpAViHY33NfZOxlzBA2GEB1Ow8MO/12A2x0qwGoMa0IXnO
+ 6V8QGsw==
+X-Received: by 2002:a17:903:906:b0:2dd:c053:e669 with SMTP id
+ d9443c01a7336-2ddc053e6a2mr4634835ad.47.1789744501621; 
+ Fri, 18 Sep 2026 08:15:01 -0700 (PDT)
+X-Received: by 2002:a17:903:906:b0:2dd:c053:e669 with SMTP id
+ d9443c01a7336-2ddc053e6a2mr4634335ad.47.1789744501092; 
+ Fri, 18 Sep 2026 08:15:01 -0700 (PDT)
+Received: from localhost ([143.246.51.243]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2ddb73db302sm10267015ad.2.2026.09.18.08.14.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 18 Sep 2026 08:15:00 -0700 (PDT)
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 14:58:39 +0000
-Message-Id: <20260918145840.0A1C31F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 18 Sep 2026 23:14:35 +0800
+Message-Id: <DLIJGTK5M3G0.2PNROS5SMQWNF@oss.qualcomm.com>
+Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-aspeed@lists.ozlabs.org>,
+ <linux-arm-kernel@lists.infradead.org>, <imx@lists.linux.dev>,
+ <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3 2/2] drm/imx: replace struct drm_simple_display_pipe
+ with regular atomic helpers
+From: "Ze Huang" <ze.huang@oss.qualcomm.com>
+To: "Thomas Zimmermann" <tzimmermann@suse.de>, "Ze Huang"
+ <ze.huang@oss.qualcomm.com>, "Alexey Brodkin" <abrodkin@synopsys.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Joel Stanley" <joel@jms.id.au>, "Andrew Jeffery"
+ <andrew@codeconstruct.com.au>, "Frank Li" <Frank.Li@nxp.com>, "Sascha
+ Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Linus
+ Walleij" <linusw@kernel.org>, "Hans de Goede" <hansg@kernel.org>, "Alex
+ Lanzano" <lanzano.alex@gmail.com>, "Oleksandr Andrushchenko"
+ <oleksandr_andrushchenko@epam.com>, "Philipp Zabel"
+ <p.zabel@pengutronix.de>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
+ <u.kleine-koenig@pengutronix.de>, "Marian Cichy" <m.cichy@pengutronix.de>
+X-Mailer: aerc 0.22.0.r10.g73f20125
+References: <20260727-drm-simple-kms-removal-v3-0-de36e534f7a1@oss.qualcomm.com>
+ <20260727-drm-simple-kms-removal-v3-2-de36e534f7a1@oss.qualcomm.com>
+ <8e4c84be-5c89-4d84-adda-aad4c7de0c8a@suse.de>
+In-Reply-To: <8e4c84be-5c89-4d84-adda-aad4c7de0c8a@suse.de>
+X-Proofpoint-ORIG-GUID: CvoACRwkV3fUgax6QqCOeCcBm6-E455m
+X-Proofpoint-GUID: CvoACRwkV3fUgax6QqCOeCcBm6-E455m
+X-Authority-Analysis: v=2.4 cv=FeSiV5+6 c=1 sm=1 tr=0 ts=6aad5576 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=LNnhWNgewsfctp/cwirQdA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=P-IC7800AAAA:8 a=EUspDBNiAAAA:8 a=nI5uWgR6GCbiVoZM8DwA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22 a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDIxNyBTYWx0ZWRfXyivqUeHU3xsn
+ Wyf5axApsi2p3Zfyms47Xg6jOkAYh2FcnPb2eZwT4k01TSyh7GH2wm1ZktFpCU3whsvUOkFYS7O
+ eErav6isJ2SxpASzUrfPxLvYzhvXuNEKLLy+6MPKeRYRhqYtYNhCwgPXHeeds5DU1a8BCNVlKk5
+ fZdHL972aXfbFPV4AkEhBt9U196DpKV2TLGe94JZUhobgQk0R0OA2iXx++OfABQHH+k4MR28h2u
+ 4F1boJb4XygDo4jWwaUODAL5jpFDNDL/tcezB/AqXRAyTUcd3fwi8vrX+EcDynMT3vttIdCqARb
+ XgXo9EDy7fI5d95dTGwl7TQfyHDD+nhktY4rYXzzeWbim27TcsrckkloJM/WzYXEh6lUGwxV01/
+ AgzI7Cj3BGnSwthisRE0aN8y/A7uN4zAmS8JGbuej80XObJp3zIr7m/KEEZadEq+SrsJ/GsVwX0
+ Vm5Miy+B+g4gEyaoSMA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDIxNyBTYWx0ZWRfXwzoJ3RIVeYXz
+ 9ajTyY3FiiaaXRuLcFic4zcxIEhu8+mUeTQBbhhZIFlKN/zIyZt2N3gbaH4pRIezUlH07awDGvo
+ HaRaQ1qPXofCwEGgznT0Tkii3zWtL6c=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 impostorscore=0
+ suspectscore=0 clxscore=1015 spamscore=0 malwarescore=0 adultscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609180217
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,175 +154,58 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] drm/panel: resource leak on DSI command failure in prepare
-- [High] drm/panel: Use-After-Free of dangling dsi->dsc pointer
-- [Medium] drm/panel: unpowered device access in backlight update
-- [Medium] drm/panel: state corruption of mode_flags on error path
-- [Medium] drm/panel: protocol violation via malformed DCS commands
---
-
-commit 8f6434d0603fb1133d406bd15a56e3de3bcce821
-Author: Luca Weiss <luca.weiss@fairphone.com>
-
-drm/panel: Add driver for Novatek NT37705 panel
-   =20
-Add support for the 2484x1116 AMOLED panel from BOE (BJ631JHM-T71-D900)
-bundled with a NT37705 driver IC, as found on the Fairphone (Gen. 6)
-smartphone.
-
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37705.c b/drivers/gpu/=
-drm/panel/panel-novatek-nt37705.c
-> index 0000000000000..27bd8072ccd1b
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt37705.c
-> @@ -0,0 +1,413 @@
-[ ... ]
-> +static int nt37705_on(struct nt37705_panel *ctx)
-> +{
-[ ... ]
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x11, 0x00);
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x29, 0x00);
-
-[Severity: Medium]
-Are these standard zero-parameter DCS commands (Exit Sleep Mode 0x11,
-Display On 0x29) intended to be transmitted with an extra 0x00 padding
-byte?=20
-
-This creates a 1-parameter short write instead of a 0-parameter short
-write, which violates the MIPI DCS specification and could cause panel
-controller misbehavior.
-
-> +	mipi_dsi_msleep(&dsi_ctx, 22);
-> +
-> +	return dsi_ctx.accum_err;
-> +}
-> +
-> +static int nt37705_off(struct nt37705_panel *ctx)
-> +{
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-> +
-> +	ctx->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x28, 0x00);
-> +	mipi_dsi_msleep(&dsi_ctx, 20);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x10, 0x00);
-
-[Severity: Medium]
-Similarly, do these zero-parameter DCS commands (Display Off 0x28, Enter
-Sleep Mode 0x10) need the extra 0x00 padding byte?
-
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +
-> +	return dsi_ctx.accum_err;
-> +}
-> +
-> +static int nt37705_prepare(struct drm_panel *panel)
-> +{
-[ ... ]
-> +	ret =3D mipi_dsi_picture_parameter_set(ctx->dsi, &pps);
-> +	if (ret < 0) {
-> +		dev_err(panel->dev, "failed to transmit PPS: %d\n", ret);
-> +		return ret;
-
-[Severity: High]
-Does this early return leak resources?=20
-
-If mipi_dsi_picture_parameter_set() fails, the function returns directly
-instead of jumping to a cleanup block to disable the regulators and assert
-the reset GPIO, preventing subsequent recovery or clean shutdown of the
-panel.
-
-> +	}
-> +
-> +	ret =3D mipi_dsi_compression_mode(ctx->dsi, true);
-> +	if (ret < 0) {
-> +		dev_err(dev, "failed to enable compression mode: %d\n", ret);
-> +		return ret;
-
-[Severity: High]
-Similarly, does this early return also bypass resource cleanup?
-
-> +	}
-> +
-> +	msleep(28); /* TODO: Is this panel-dependent? */
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static int nt37705_bl_update_status(struct backlight_device *bl)
-> +{
-> +	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
-> +	u16 brightness =3D backlight_get_brightness(bl);
-> +	int ret;
-> +
-> +	dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +
-> +	ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-
-[Severity: Medium]
-What happens if userspace modifies the sysfs brightness attribute when the
-display is suspended or turned off?=20
-
-This function appears to unconditionally initiate DSI transactions without
-checking the panel's power state, which could lead to DSI bus timeouts and
-potential system sluggishness depending on the DSI host implementation.
-
-> +	if (ret < 0)
-> +		return ret;
-
-[Severity: Medium]
-If mipi_dsi_dcs_set_display_brightness_large() fails, we take this early
-return path. Does this permanently disable the MIPI_DSI_MODE_LPM flag for
-the DSI device?=20
-
-If so, subsequent commands might be transmitted in the wrong mode,
-potentially breaking display functionality.
-
-> +
-> +	dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static int nt37705_probe(struct mipi_dsi_device *dsi)
-> +{
-[ ... ]
-> +	/* This panel only supports DSC; unconditionally enable it */
-> +	dsi->dsc =3D &ctx->dsc;
-
-[Severity: High]
-Will this lead to a Use-After-Free on driver unbind?=20
-
-Here we assign a pointer into the devres-managed ctx allocation to the
-longer-lived mipi_dsi_device struct.
+On Wed Sep 16, 2026 at 2:50 PM CST, Thomas Zimmermann wrote:
+> Hi
+>
+> Am 26.07.26 um 21:42 schrieb Ze Huang:
+>> Convert i.MX LCDC to explicit primary plane, CRTC and encoder objects.
+>> Keep no-scaling plane check and GEM framebuffer prepare callback from
+>> simple-KMS path.
+>>
+>> Wire the vblank lifecycle explicitly with CRTC vblank callbacks and
+>> drm_crtc_vblank_on()/drm_crtc_vblank_off(). Use the old CRTC state in th=
+e
+>> disable path for clock unwinding so the clock reference count remains
+>> paired with the previous active state.
+>>
+>> Signed-off-by: Ze Huang <ze.huang@oss.qualcomm.com>
+>> ---
+>> +
 
 [ ... ]
-> +static void nt37705_remove(struct mipi_dsi_device *dsi)
-> +{
-> +	struct nt37705_panel *ctx =3D mipi_dsi_get_drvdata(dsi);
-> +	int ret;
-> +
-> +	ret =3D mipi_dsi_detach(dsi);
-> +	if (ret < 0)
-> +		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
-> +
-> +	drm_panel_remove(&ctx->panel);
-> +}
 
-[Severity: High]
-When nt37705_remove() completes, ctx is freed by devres, leaving dsi->dsc
-as a dangling pointer.=20
+>> +static void imx_lcdc_crtc_helper_atomic_flush(struct drm_crtc *crtc,
+>> +					      struct drm_atomic_commit *commit)
+>> +{
+>> +	struct drm_crtc_state *new_crtc_state =3D drm_atomic_get_new_crtc_stat=
+e(commit, crtc);
+>> +	struct drm_pending_vblank_event *event =3D new_crtc_state->event;
+>> +
+>> +	if (!event)
+>> +		return;
+>> +
+>> +	new_crtc_state->event =3D NULL;
+>> +
+>> +	spin_lock_irq(&crtc->dev->event_lock);
+>> +	if (new_crtc_state->active && drm_crtc_vblank_get(crtc) =3D=3D 0)
+>> +		drm_crtc_arm_vblank_event(crtc, event);
+>> +	else
+>> +		drm_crtc_send_vblank_event(crtc, event);
+>> +	spin_unlock_irq(&crtc->dev->event_lock);
+>>   }
+>
+> Please use drm_crtc_vblank_atomic_flush(). [1]
+>
+> [1]=20
+> https://elixir.bootlin.com/linux/v7.2.5/source/drivers/gpu/drm/drm_vblank=
+_helper.c#L51
 
-If the DSI host accesses dsi->dsc afterwards, this could cause a UAF.
-Should dsi->dsc be set to NULL here?
+Thanks! will follow
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-fp6-panel-=
-v2-0-6695c4008920@fairphone.com?part=3D2
+>
+> Best regards
+> Thomas
+>
