@@ -4,123 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9089CC982D2
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 06:42:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACF82C88E75
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 06:57:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCAC910E812;
-	Fri, 18 Sep 2026 06:41:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C124810E819;
+	Fri, 18 Sep 2026 06:57:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g4ED0di8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YmJMRW0L";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1622710E812
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 06:41:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E5AD660A52;
- Fri, 18 Sep 2026 06:41:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7627E1F000FF;
- Fri, 18 Sep 2026 06:41:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789713716;
- bh=NQNv62oAZsl1F7csxaJEi7LWQT0O7ByC0WTruZRdyGE=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=g4ED0di8eL1AQIkIyrzjWr3kkR/6Lm3VLeU0TIc0vFcokmcJ60P5HXU649k4P9UbV
- vdH1IvwyYJcrn2+jUmbfTWTK1OpiLZ/6P5c6LKeRW6d6gW/XmS4SLpXyATQdNQSZg+
- BOb+YXv4wnL3ceDRqUUdFnqmNtrGv68H7yAqYSM4TSR0ohN3WRZ85+p9dygq3Qzvzg
- NhQFawgMtUtFcC0V+bt4s7sBu1/yHReYMD2FgIA9ve8z4dkvUJDyw86XT10k2k+oqw
- AlxuHt/lYeWpydOreU8ctv2+5zxo1v9GWh8SCwRF71wj+HOrK6imIba21LkRp9E81U
- zb8Xjx3n/HCvQ==
-Message-ID: <8b4256bf-5ad3-4405-ae7a-17bc664f7ae9@kernel.org>
-Date: Fri, 18 Sep 2026 08:41:37 +0200
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010012.outbound.protection.outlook.com [52.101.85.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86DA210E819
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 06:57:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=p2xyNR+zZn3e+L33elbf/h9dhor9+iWGNosh2MIZ2B/6fNkK59Mcwf6kK/ixCA2X2hyxld7yTUKuWsnwvHw1YW1YJ801k4FA9I3Ae3Yz6HTuo24U1v/AgL+B5VyUM9AvH+KnBTI5JBSrW9T7eTD8h29RfSFDbhmGslMlGvOl3Y7r1YR9rFqt4Aym3wTKE1CXBV4ST7ZznvT+7FMbnR1hi88B3EQvqOAazay3JgS3LKU7zd9H3yAZRh44P8r5t7LfZVauWbsbQLumubzz3B9oNAoVVdKMp5kQjpRvKHLXpBFeZ/rsWxUNOePRQn7t28y4WGw3wcmcgIcpqAIIHf0RFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=m/R4AYxoli6kpEPXHckjWDjhH7vpfpbVEjV/RjOwIm4=;
+ b=cMiobkVkCNQk5vgzYJKCpdaO5h2waqdqJ2leyzj6cHCz2ca1ZkQIJcPDbpq/cob8e6QbthzLPX4NTB/nnvleO4pM57ZZfR6T2S68jA7aKBN0gCxu6lqfGczoxpRnI54x23NhwqcyyHJkqYqLXpfVnrCBqkbIMdfth6+A2fZrRCb95xHjbKOAxkxDz7UIJxpTzoRaBYMnuZsW2U/IEKKlYsSBcDezaGoIJuHgdDs43lballQG0XYBO29Q8IAbP4CRopgi7zoX4J7KWFdGBmtO0NGLroBt5xhP3xWUbRvO5oJVvREvzYaEeOIL3Hfq17yUbuBwz5Y4E1JTc0JR3SZa2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=m/R4AYxoli6kpEPXHckjWDjhH7vpfpbVEjV/RjOwIm4=;
+ b=YmJMRW0L1OO5e93jry0k9piXVmSOdr80XLjwScFWS1Y/+xxpl+dWcEkZuLuDHqMWiPx4vefKMFviB0IqEjQf1/avAzBLgCnvPr4C48RlH1ew+P3y+MhmYJyQ1n2wZfG8N8rHhm1HQVHeVnq252tKrUu3996OUDIHIthhm6q8F08=
+Received: from PH0PR07CA0031.namprd07.prod.outlook.com (2603:10b6:510:e::6) by
+ SJ1PR12MB6121.namprd12.prod.outlook.com (2603:10b6:a03:45c::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.12; Fri, 18 Sep 2026 06:57:07 +0000
+Received: from MW1PEPF0001615F.namprd21.prod.outlook.com
+ (2603:10b6:510:e:cafe::5d) by PH0PR07CA0031.outlook.office365.com
+ (2603:10b6:510:e::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Fri,
+ 18 Sep 2026 06:57:06 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MW1PEPF0001615F.mail.protection.outlook.com (10.167.249.90) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.0 via Frontend Transport; Fri, 18 Sep 2026 06:57:06 +0000
+Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 18 Sep
+ 2026 01:57:04 -0500
+From: Honglei Huang <honghuan@amd.com>
+To: <dri-devel@lists.freedesktop.org>
+CC: Honglei Huang <honghuan@amd.com>
+Subject: [PATCH v8 0/4] virtio-gpu: Add userptr support for compute workloads
+Date: Fri, 18 Sep 2026 14:56:49 +0800
+Message-ID: <20260918065653.2170828-1-honghuan@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
- starfive,jh7110-inno-hdmi-phy
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Joshua Peisach <jpeisach@ubuntu.com>
-Cc: Michal Wilczynski <m.wilczynski@samsung.com>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
- <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Maud Spierings <maud_spierings@murena.io>,
- Graham Markall <hello@big-grey.co.uk>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
- <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
- <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
- <20260917-mutant-chamois-of-competence-46ca77@quoll>
- <DLI0QTP0NUHS.DAFYGACKWKWO@ubuntu.com>
- <20260918-futuristic-mindful-waxbill-21fa2d@quoll>
- <b8efa0db854929a353c430f78fffd907bd7ccb65.camel@iscas.ac.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <b8efa0db854929a353c430f78fffd907bd7ccb65.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW1PEPF0001615F:EE_|SJ1PR12MB6121:EE_
+X-MS-Office365-Filtering-Correlation-Id: 39871ff1-f796-4253-8ae2-08df15520d31
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|23010399003|36860700016|13003099007|10067099003|56012099006|6133799003|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: G93nwTj47On352lT5n028YJ3f/idAdSoZUeeUq4nPFarjXEbnDOAdz4ofky19Wm1mDiVZGKFK1Uut3uMRw9veQhMkjSpOiQtKnXwyNWbOTKx54CBuSao7LP+iHWpCZkPEugp2ZeHA6Hx2ajXfFzODKchWUHJlwzPiPnBqlNOsFcj10GO1m8Ot+NLEwAlSZiHGprI7o57fErCLPL9PVMkDG3sZRSmYOZ+QU3pZvkPL7RCACoZTXx4OUyD6m1PcqWmIDZHS/T533+YXaZSjju83QwT+FmIa28CnPPhvsMCWEQ1vzkyB47w1BD+tK0t4k2DUFB7bJEkx/VuB0RGPiH0lcgUNuXrFqy+pXgN2JAUS4D4XAVCZ09STSbmet9SmwUu+J+WqZNSfb28nrNLldHTD1lEjJ4Y+/+dVGqMSQNuge2I5Vi74hUZl4K0sUo5ZgHng6QvkyoAYPJ1B3UgRQ9syDW8BTkLQ/8n196Lt7ZbcNfnQbL699Wz6XBCThSDA5KBUORmUtWn1ViLFoHerzZyNiCG+ywurlo6pPVcssKpZ69pWlg5MSKMoA57QtdvRXyldvL73zlmulScZP1/4gTVMH+xQb5WntClaCwqKIg6ykvD+C9aVU5NMD0rClWHcVERVVjBN2JF0OYKw+yNz5CvNJb3gSLTQswTHv7L2G0c/SSmkje4E/jY94wsI5Fz28/TserQ/8nemdkHXZA95m+qzA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(23010399003)(36860700016)(13003099007)(10067099003)(56012099006)(6133799003)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: qVKVHLhC7QIUYeCcQ9mF2VaZUNGoceWVWFyWh4/UD3chKN2q/KAZWDeUqZWGijnor93VByzF0jhzVHHzapVem2TfbUSOoydLC+tjsWaGBJh0pDxmp/lm1/DjEtTe7NqdQ0bLkNFzCF2mC6hD0//Jfu6TlYGuiqxklhcgyqUInR+JZmSJM1nIWpAzM5ODc71gXmHAN/Jc9IpMjXoDTSQ9xeO3kgj4o1MiXgbGAk3NZV8hY4j0D/tQoudTeGkMejuA16hSySSsK2TCVcc3WDjslCOBvty5GZmkvPxOZhz46EzOj+MoWpQ43Re143hgtIVYWyz1cOrj1QkAqP2xzDFHiOWpaNYFrsG7DBRPKkTFN+SV0HGALh7J4UvpTu+EY4/1ZPRGWXL4LjVboWGWLoTUAQeAsmvhpkTaJrEJ9WVdxXNDxl35XfMtf7swptNnkbS6
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 06:57:06.1405 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39871ff1-f796-4253-8ae2-08df15520d31
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MW1PEPF0001615F.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6121
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,79 +109,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 18/09/2026 08:21, Icenowy Zheng wrote:
-> 在 2026-09-18五的 08:16 +0200，Krzysztof Kozlowski写道：
->> On Thu, Sep 17, 2026 at 08:34:18PM -0400, Joshua Peisach wrote:
->>> On Thu Sep 17, 2026 at 2:51 AM EDT, Krzysztof Kozlowski wrote:
->>>> On Tue, Sep 15, 2026 at 05:32:09PM +0200, Michal Wilczynski
->>>> wrote:
->>>>> Add the dt-binding for the StarFive JH7110 Innosilicon HDMI
->>>>> PHY.
->>>>>
->>>>> This device is a child of the starfive,jh7110-hdmi-subsystem
->>>>> node. It
->>>>> functions as both a PHY provider for the controller and as a
->>>>> clock
->>>>> provider for the variable pixel clock (hdmi_pclk), which it
->>>>> generates
->>>>> from its refoclk.
->>>>>
->>>>> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
->>>>
->>>> While I appreciate other people looking at this, I don't think
->>>> review
->>>> here applies. It was a blanket tag, given to the entire series,
->>>> with
->>>> exception that it is from newbie, thus I want to ask: was this
->>>> binding
->>>> REALLY reviewed by Joshua?
->>>>
->>>> Are the rest of the patches actually reviewed or just "looks good
->>>> to
->>>> me"? I see no comments from Joshua on v3, v2 and v1, which is
->>>> usual sign
->>>> of doing review.
->>>>
->>>>
->>> I commented on v3 saying that I would test if I could. I don't just
->>
->> Testing has nothing to do with reviewing.
->>
->>> throw "Reviewed-by" on everything I look at.
->>>
->>> If anything, I've been trying to be more honest in reviews, and
->>> only
->>> review ones that I actually care about[1].
->>
->> You gave blanket tag for entire series, so I do not get this
->> argument.
->>
->>>
->>> If reviewing patches isn't a good way for newbies to start getting
->>> familiar with the kernel code (especially a NEW driver), then I
->>> don't
->>> know what is.
->>
->> Writing code and receiving review is something for newbies to start
->> with. If you do not know kernel code or bindings, why do you think
->> your review is applicable? If I try to review design of a post-
->> tension
->> concrete bridge, I would probably learn something. Would my
->> review apply? No.
-> 
-> My personal thoughts: everyone should be able to send R-b, but the
+Hello,
 
-Yes, that is true and this is not questionable. We clearly documented
-that everyone is able.
+This series adds virtio-gpu userptr support for ROCm native compute
+contexts. The guest kernel pins an existing userspace mapping with
+FOLL_LONGTERM and exposes it to the host as ordinary CREATE_BLOB
+backing entries, avoiding a second shmem allocation and memcpy.
 
-> effect of the R-b depends on who sent it.
+A non-zero userptr field selects that path. Probe
+VIRTGPU_PARAM_USERPTR before using the field so an older guest kernel
+rejects the request instead of silently creating a shmem blob.
 
-I question whether is applicable here.
+GPU-readonly backing is requested with the virtio CREATE_BLOB wire
+flag VIRTIO_GPU_BLOB_FLAG_USE_READONLY (also
+VIRTGPU_BLOB_FLAG_USE_READONLY). The device MUST NOT write such a
+resource. The guest pins those pages without FOLL_WRITE.
 
-Blanket reviews without comments leaves just such feeling. And if, like
-here, there is no interest in reviewing DT, which I assume the DT was
-not reviewed and which was my question here, then why giving Rb tag to DT?
+Patches overview:
+1. Add VIRTIO_GPU_CAPSET_ROCM capability for compute workloads
+2. Extend DRM/virtio UAPI with userptr, PARAM_USERPTR, and
+   USE_READONLY
+3. Implement core userptr functionality with page management
+4. Wire blob ioctl creation to userptr objects
+
+Tests:
+- Full OPENCL CTS tests passed on ROCm 5.7.0 in V2000 platform.
+- Near 70% percentage of OPENCL CTS tests passed on ROCm 7.0 W7900 platform.
+- most HIP catch tests passed on ROCm 7.0 W7900 platform.
+- Some AI applications enabled on ROCm 7.0 W7900 platform.
+- latest ROCm 7.14 and ROCm 10 testing is ongoing.
+
+V8 changes:
+- Drop guest-only USERPTR ioctl flags; a non-zero userptr field
+  selects the path
+- Add VIRTGPU_PARAM_USERPTR so older kernels do not silently
+  ignore the new field
+- Request GPU-readonly backing with virtio wire flag USE_READONLY;
+  guest pins without FOLL_WRITE
+- Drop the CREATE_BLOB blob_flags mask of retired guest-only bits
+
+V7 changes:
+- Mask guest-only DRM flags out of CREATE_BLOB wire blob_flags
+- Clear userptr->pages after pin failure to avoid double-free
+- DMA-map userptr SG only when virtio_gpu_use_dma_api() is required
+- Use DMA_TO_DEVICE for readonly blobs
+- Sync userptr SG for the device on TRANSFER_TO_HOST
+- Mark writable pages dirty when unpinning
+- Reject USERPTR unless blob_mem is VIRTGPU_BLOB_MEM_GUEST
+- Disallow PRIME export of userptr objects
+- Note that CAPSET_ROCM uses ID 8 because ID 7 is taken by VIRCL
+
+V6 changes:
+- Rebase onto drm-misc-next
+- Keep USE_USERPTR / USERPTR_RDONLY as guest-only DRM flags; drop the
+  virtio wire-header patch (5 patches down to 4)
+- Fix userptr lifetime, DMA mapping, memlock accounting, alignment
+  checks, and PRIME SG export
+- Updated corresponding cover letter and commit messages
+
+V5 changes:
+    - Add VIRTIO_GPU_BLOB_FLAG_USERPTR_RDONLY definition to patch 2
+    - Dropped unused VIRTIO_GPU_F_RESOURCE_USERPTR feature bit in patch 2
+    - Included VIRTIO_GPU_BLOB_FLAG_USERPTR_RDONLY in VIRTGPU_BLOB_FLAG_USE_MASK in patch 5
+    - Add check for userptr feature in patch 5 before creating userptr blob resource
+    - Updated corresponding cover letter and commit messages
+
+V4 changes:
+    - Renamed VIRTIO_GPU_CAPSET_HSAKMT to VIRTIO_GPU_CAPSET_ROCM
+    - Remove userptr feature probing cause it can reuse the guest
+      blob resource code path, reduce patch count from 6 to 5
+    - Updated corresponding commit messages
+    - Consolidated userptr feature detection in final patch
+    - Update corresponding cover letter content
+
+V3 changes:
+    - Split into focused patches for easier review
+    - Removed complex interval tree userptr management
+    - Simplified resource creation without deduplication
+    - Added VIRTGPU_PARAM_RESOURCE_USERPTR for feature detection
+    - Improved UAPI documentation and error handling
+    - Enhanced code quality with proper cleanup paths
+    - Removed MMU notifier dependencies for simplicity
+    - Fixed resource lifecycle management issues
+
+V2: - Split add HSAKMT context and blob userptr resource to two patches.
+    - Remove MMU notifier related patches, cause use not moveable user space
+      memory with MMU notifier is not a good idea.
+    - Remove HSAKMT context check when create context, let all the context
+      support the userptr feature.
+    - Remove MMU notifier related content in cover letter.
+    - Add more comments  for patch 6 in cover letter.
+
+Previous version:
+https://lore.kernel.org/dri-devel/20260917102540.1312102-1-honghuan@amd.com/
+
+Honglei Huang (4):
+  drm/virtio-gpu: Add VIRTIO_GPU_CAPSET_ROCM capability
+  drm/virtgpu api: add blob userptr resource
+  drm/virtio: implement userptr support for zero-copy memory access
+  drm/virtio: wire blob ioctl creation to userptr objects
+
+ drivers/gpu/drm/virtio/Makefile          |   3 +-
+ drivers/gpu/drm/virtio/virtgpu_drv.h     |  38 +++
+ drivers/gpu/drm/virtio/virtgpu_ioctl.c   |  27 +-
+ drivers/gpu/drm/virtio/virtgpu_object.c  |  10 +
+ drivers/gpu/drm/virtio/virtgpu_userptr.c | 330 +++++++++++++++++++++++
+ drivers/gpu/drm/virtio/virtgpu_vq.c      |  33 ++-
+ include/uapi/drm/virtgpu_drm.h           |  10 +
+ include/uapi/linux/virtio_gpu.h          |   3 +
+ 8 files changed, 439 insertions(+), 15 deletions(-)
+ create mode 100644 drivers/gpu/drm/virtio/virtgpu_userptr.c
 
 
-Best regards,
-Krzysztof
+base-commit: 766bfba0f3bae329f99b42dcabc3ef11fa368f0b
+-- 
+2.34.1
