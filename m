@@ -4,74 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 592C7C982DC
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 08:54:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3621EC982D2
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 08:55:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B61210F27B;
-	Fri, 18 Sep 2026 08:54:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A24C610F270;
+	Fri, 18 Sep 2026 08:55:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="vDON3qJi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GWhxTCOn";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B668E10E07B
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 08:54:14 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 12E23447B5;
- Fri, 18 Sep 2026 08:54:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AA2CFC4AF0B;
- Fri, 18 Sep 2026 08:54:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1789721653;
- bh=NbEJlSSw4+ImtAzSd++eA8MkzoReelqf5IGki69YEIk=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=vDON3qJinHKNjnqIm0v9lo6KSMRdQs6weIest7QJhPphFl87KpInLgzeoOib/uZ/B
- +GUsLvLBMoCNp6KOLzpBdXRUJBI9FZNobm9GT7eYqr+7k16yHg1L2WAyxkVa3dlk1L
- TTAMUR4RCFvpvFc7/97v6Jme2QTkHfxtl1KkRmTdLkHnFQde9/yc2yttClD4+FbBDz
- diX+fvGNpbJAX4EyHcImj0Lt6AlO+MpY4j+TpRP74yx790GC+bP0uC1E4bjMG4+TiD
- bnNgXulNxvDMui4ueYZLJLOrYh/0ezhFil9GYVvsAQi0jqryMy7m7uxODB7OVbQw9Q
- JH/4MUdtgfjUQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 93C5FC982DA;
- Fri, 18 Sep 2026 08:54:13 +0000 (UTC)
-From: Jingxiang Zeng via B4 Relay <devnull+linuszeng.tencent.com@kernel.org>
-Date: Fri, 18 Sep 2026 16:53:44 +0800
-Subject: [PATCH 4/6] mm: memcontrol: give swap and memsw their own page
- counters
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D4BB10F270
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 08:55:37 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 762C0413CB;
+ Fri, 18 Sep 2026 08:55:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 189461F000FF;
+ Fri, 18 Sep 2026 08:55:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789721737;
+ bh=Q3vK+hrez7Ed1fDsl2TVjNVdL2Vp9oUFESzWid8IhF0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=GWhxTCOnTtlFovIZHK2qxAQPf4EAqwRc2LiGpoMZpF80nlaiHWuvtipfLpZT5Rhkg
+ h7dGte7v2M8uzKuHphGdDgxXMM1ayQHzEnUNCQSUupkayOjhAUM7lrnFJy/nwlPJVG
+ +CwDXoUhoDyCp80GKNUd9GzuyUfl5xT9xi4ufKmHas+RKI9DlgBu91G4KEF7G2JWBO
+ dgzyj8wjun6MW4UZFKUtMbu1eAX1UL2Ll/7rqmZZTICBslkEb+Nh40Pbw/fBmFX9mI
+ hC9HuQ1jG64n1s0pW+vDTBVYM/wt5fg7YGCM7ivCI93N+6APTGbtfeWE9rByH/JG6N
+ SSWCCaD5uhQPw==
+Date: Fri, 18 Sep 2026 10:55:32 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>
+Cc: Maxime Ripard <mripard@kernel.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Stefan Wahren <wahrenst@gmx.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
+ Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 2/4] dt-bindings: display: bcm2835-v3d: Add an
+ optional reset line
+Message-ID: <20260918-nostalgic-enlightened-macaw-8f4e5a@quoll>
+References: <20260915-vc4-reset-control-v2-0-cb3a25b07822@igalia.com>
+ <20260915-vc4-reset-control-v2-2-cb3a25b07822@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-descriptive-name-v1-4-dfcfdd91b456@tencent.com>
-References: <20260918-descriptive-name-v1-0-dfcfdd91b456@tencent.com>
-In-Reply-To: <20260918-descriptive-name-v1-0-dfcfdd91b456@tencent.com>
-To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
- Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Oscar Salvador <osalvador@suse.de>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Jingxiang Zeng <jingxiangzeng.cas@gmail.com>, cgroups@vger.kernel.org, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
- Jingxiang Zeng <linuszeng@tencent.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721651; l=9416;
- i=linuszeng@tencent.com; s=20260909; h=from:subject:message-id;
- bh=3nVozcwT8fvm9kkRHSGOBpv9SiIXCVqsk3cpyNYsL4o=;
- b=T9k2eZse7y/gatzeWXlUZwF/Fn5ZipNDfa7RtRVfizOuLg1R8eN3NEGBgvBiVe98EnIzGGiAj
- jat5Iz4MsxAC2WhrcbCOztMx5JyvInRK1PmzVCHvdfkE+w45u0TfypR
-X-Developer-Key: i=linuszeng@tencent.com; a=ed25519;
- pk=6K54xRzYIRWqatrAPy86M4E0MsI92BVJBhXwz5NdC74=
-X-Endpoint-Received: by B4 Relay for linuszeng@tencent.com/20260909 with
- auth_id=1017
-X-Original-From: Jingxiang Zeng <linuszeng@tencent.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260915-vc4-reset-control-v2-2-cb3a25b07822@igalia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,240 +66,26 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: linuszeng@tencent.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Jingxiang Zeng <linuszeng@tencent.com>
+On Tue, Sep 15, 2026 at 05:51:25PM -0300, Ma=C3=ADra Canal wrote:
+> The BCM2835 power management block drives a reset line for the V3D block
+> that is independent of the graphics power domain, allowing the GPU to be
+> reset without power-cycling the domain. Expose this reset line in the V3D
+> binding.
+>=20
+> Keep the property optional, as devices like the Broadcom Cygnus don't have
+> a reset line.
+>=20
+> Reviewed-by: Stefan Wahren <wahrenst@gmx.net>
+> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+> ---
+>  Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
 
-struct mem_cgroup keeps the swap and memsw page counters in a union: v1
-only ever charges memsw, the combined memory+swap counter, and v2 only
-ever charges swap, the standalone swap limit, so the two could share
-storage.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Split them into separate counters and maintain memsw on both
-hierarchies.  do_memsw_account() no longer gates the combined charge in
-try_charge_memcg(), memcg_uncharge(), the force-charge path,
-mem_cgroup_replace_folio() and mem_cgroup_margin(); v2 also hands the
-combined charge over to the swap slot in __mem_cgroup_try_charge_swap()
-and drops it again in __mem_cgroup_uncharge_swap().  The counter is
-initialised for both hierarchies in mem_cgroup_css_alloc() and reset in
-mem_cgroup_css_reset().
-
-memsw.max defaults to PAGE_COUNTER_MAX and v2 has no interface to
-change it yet, so the combined charge cannot fail there and behaviour
-on the default hierarchy is unchanged.  The default hierarchy does pay
-for one extra page_counter operation per charge and uncharge, and
-struct mem_cgroup grows by one page counter (128 bytes on x86_64).
-
-Note that v2 briefly counts a page twice against the combined counter
-while it is being swapped out: the folio keeps its memsw charge until
-it leaves memory, and the swap slot takes one as soon as it is
-allocated.  v1 avoids this by clearing folio->memcg_data under the swap
-cluster lock, which the v2 swapout path does not do.  The skew only
-ever makes the combined limit stricter, never looser.
-
-No functional change on either hierarchy.
-
-Signed-off-by: Jingxiang Zeng <linuszeng@tencent.com>
----
- include/linux/memcontrol.h | 12 ++++---
- mm/memcontrol.c            | 78 ++++++++++++++++++++++++++++++----------------
- 2 files changed, 59 insertions(+), 31 deletions(-)
-
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index ff69a390a809..bd69caee282c 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -206,10 +206,14 @@ struct mem_cgroup {
- 	 */
- 	struct page_counter_protection memory_prot;
- 
--	union {
--		struct page_counter swap;	/* v2 only */
--		struct page_counter memsw;	/* v1 only */
--	};
-+	/*
-+	 * Swap accounting.  These used to share storage because v1 only ever
-+	 * used memsw (the combined memory+swap limit) and v2 only ever used
-+	 * swap (a standalone swap limit).  They are separate now so that the
-+	 * combined counter can be maintained on both hierarchies.
-+	 */
-+	struct page_counter swap;	/* Standalone swap limit, v2 only */
-+	struct page_counter memsw;	/* Combined memory+swap, v1 & v2 */
- 
- 	/* Written on the charge, reclaim and socket paths. */
- 	__cacheline_group_begin_aligned(memcg_write_hot);
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index aaf23e849408..1daa55f2e99d 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -1591,14 +1591,17 @@ static unsigned long mem_cgroup_margin(struct mem_cgroup *memcg)
- 	if (count < limit)
- 		margin = limit - count;
- 
--	if (do_memsw_account()) {
--		count = page_counter_read(&memcg->memsw);
--		limit = READ_ONCE(memcg->memsw.max);
--		if (count < limit)
--			margin = min(margin, limit - count);
--		else
--			margin = 0;
--	}
-+	/*
-+	 * The combined memory+swap limit applies on both hierarchies and
-+	 * caps what can still be charged.  It defaults to "max", so this
-+	 * only narrows the margin once a combined limit is configured.
-+	 */
-+	count = page_counter_read(&memcg->memsw);
-+	limit = READ_ONCE(memcg->memsw.max);
-+	if (count < limit)
-+		margin = min(margin, limit - count);
-+	else
-+		margin = 0;
- 
- 	return margin;
- }
-@@ -2188,8 +2191,7 @@ static bool consume_stock(struct mem_cgroup *memcg, unsigned int nr_pages)
- static void memcg_uncharge(struct mem_cgroup *memcg, unsigned int nr_pages)
- {
- 	page_counter_uncharge(&memcg->memory, nr_pages);
--	if (do_memsw_account())
--		page_counter_uncharge(&memcg->memsw, nr_pages);
-+	page_counter_uncharge(&memcg->memsw, nr_pages);
- }
- 
- /*
-@@ -2721,12 +2723,19 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 		batch = nr_pages;
- 
- 	reclaim_options = MEMCG_RECLAIM_MAY_SWAP;
--	if (!do_memsw_account() ||
--	    page_counter_try_charge(&memcg->memsw, batch, &counter)) {
-+	/*
-+	 * The combined memory+swap counter is charged on both hierarchies.
-+	 * Its limit is only configurable through v1's memsw.limit_in_bytes
-+	 * for now and defaults to "max", so unless the user configures a
-+	 * combined limit this never fails.
-+	 *
-+	 * Swapping does not reduce the combined charge, so when the combined
-+	 * limit is what we hit, reclaim must not count on swap.
-+	 */
-+	if (page_counter_try_charge(&memcg->memsw, batch, &counter)) {
- 		if (page_counter_try_charge(&memcg->memory, batch, &counter))
- 			goto done_restock;
--		if (do_memsw_account())
--			page_counter_uncharge(&memcg->memsw, batch);
-+		page_counter_uncharge(&memcg->memsw, batch);
- 		mem_over_limit = mem_cgroup_from_counter(counter, memory);
- 	} else {
- 		mem_over_limit = mem_cgroup_from_counter(counter, memsw);
-@@ -2836,8 +2845,7 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 	 * temporarily by force charging it.
- 	 */
- 	page_counter_charge(&memcg->memory, nr_pages);
--	if (do_memsw_account())
--		page_counter_charge(&memcg->memsw, nr_pages);
-+	page_counter_charge(&memcg->memsw, nr_pages);
- 
- out:
- 	/*
-@@ -4295,12 +4303,14 @@ mem_cgroup_css_alloc(struct cgroup_subsys_state *parent_css)
- 	WRITE_ONCE(memcg->zswap_writeback, true);
- #endif
- 	page_counter_set_high(&memcg->swap, PAGE_COUNTER_MAX);
-+	page_counter_set_high(&memcg->memsw, PAGE_COUNTER_MAX);
- 	if (parent) {
- 		page_counter_init(&memcg->memory, &parent->memory);
- 		if (memcg_on_dfl)
- 			page_counter_init_protection(&memcg->memory, &memcg->memory_prot,
- 						     &parent->memory_prot);
- 		page_counter_init(&memcg->swap, &parent->swap);
-+		page_counter_init(&memcg->memsw, &parent->memsw);
- #ifdef CONFIG_MEMCG_V1
- 		WRITE_ONCE(memcg->swappiness, mem_cgroup_swappiness(parent));
- 		memcg->memory.track_failcnt = !memcg_on_dfl;
-@@ -4317,6 +4327,7 @@ mem_cgroup_css_alloc(struct cgroup_subsys_state *parent_css)
- 		page_counter_init_protection(&memcg->memory, &memcg->memory_prot,
- 					     NULL);
- 		page_counter_init(&memcg->swap, NULL);
-+		page_counter_init(&memcg->memsw, NULL);
- #ifdef CONFIG_MEMCG_V1
- 		page_counter_init(&memcg->kmem, NULL);
- 		page_counter_init(&memcg->tcpmem, NULL);
-@@ -4490,6 +4501,7 @@ static void mem_cgroup_css_reset(struct cgroup_subsys_state *css)
- 
- 	page_counter_set_max(&memcg->memory, PAGE_COUNTER_MAX);
- 	page_counter_set_max(&memcg->swap, PAGE_COUNTER_MAX);
-+	page_counter_set_max(&memcg->memsw, PAGE_COUNTER_MAX);
- 	WRITE_ONCE(memcg->oom_group, false);
- #ifdef CONFIG_ZSWAP
- 	WRITE_ONCE(memcg->zswap_max, PAGE_COUNTER_MAX);
-@@ -4503,6 +4515,7 @@ static void mem_cgroup_css_reset(struct cgroup_subsys_state *css)
- 	page_counter_set_low(&memcg->memory, 0);
- 	page_counter_set_high(&memcg->memory, PAGE_COUNTER_MAX);
- 	page_counter_set_high(&memcg->swap, PAGE_COUNTER_MAX);
-+	page_counter_set_high(&memcg->memsw, PAGE_COUNTER_MAX);
- 	memcg_wb_domain_size_changed(memcg);
- }
- 
-@@ -5608,8 +5621,7 @@ void mem_cgroup_replace_folio(struct folio *old, struct folio *new)
- 	 */
- 	if (!obj_cgroup_is_root(objcg)) {
- 		page_counter_charge(&memcg->memory, nr_pages);
--		if (do_memsw_account())
--			page_counter_charge(&memcg->memsw, nr_pages);
-+		page_counter_charge(&memcg->memsw, nr_pages);
- 	}
- 
- 	commit_charge(new, objcg);
-@@ -5980,12 +5992,24 @@ int __mem_cgroup_try_charge_swap(struct folio *folio)
- 	/* memcg is pined by memcg ID. */
- 	rcu_read_unlock();
- 
--	if (!mem_cgroup_is_root(memcg) &&
--	    !page_counter_try_charge(&memcg->swap, nr_pages, &counter)) {
--		memcg_memory_event(memcg, MEMCG_SWAP_MAX);
--		memcg_memory_event(memcg, MEMCG_SWAP_FAIL);
--		mem_cgroup_private_id_put(memcg, nr_pages);
--		return -ENOMEM;
-+	if (!mem_cgroup_is_root(memcg)) {
-+		if (!page_counter_try_charge(&memcg->swap, nr_pages, &counter)) {
-+			memcg_memory_event(memcg, MEMCG_SWAP_MAX);
-+			memcg_memory_event(memcg, MEMCG_SWAP_FAIL);
-+			mem_cgroup_private_id_put(memcg, nr_pages);
-+			return -ENOMEM;
-+		}
-+		/*
-+		 * Hand the combined memory+swap charge over to the swap slot.
-+		 * The folio still holds a memsw charge and drops it when it
-+		 * leaves memory, so the combined charge stays constant across
-+		 * the swapout; it is briefly counted twice in between, which
-+		 * only ever makes the combined limit stricter.
-+		 *
-+		 * Force-charge here: this is a transfer of an existing charge,
-+		 * not a new allocation, so it must not fail.
-+		 */
-+		page_counter_charge(&memcg->memsw, nr_pages);
- 	}
- 	mod_memcg_state(memcg, MEMCG_SWAP, nr_pages);
- 
-@@ -6010,10 +6034,10 @@ void __mem_cgroup_uncharge_swap(unsigned short id, unsigned int nr_pages)
- 	memcg = mem_cgroup_from_private_id(id);
- 	if (memcg) {
- 		if (!mem_cgroup_is_root(memcg)) {
--			if (do_memsw_account())
--				page_counter_uncharge(&memcg->memsw, nr_pages);
--			else
-+			/* v1 tracks swap only through the combined counter */
-+			if (!do_memsw_account())
- 				page_counter_uncharge(&memcg->swap, nr_pages);
-+			page_counter_uncharge(&memcg->memsw, nr_pages);
- 		}
- 		mod_memcg_state(memcg, MEMCG_SWAP, -nr_pages);
- 		mem_cgroup_private_id_put(memcg, nr_pages);
-
--- 
-2.43.7
-
+Best regards,
+Krzysztof
 
