@@ -4,77 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11BF8C982D8
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 14:40:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A382C982DA
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 14:40:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 509F910EFC2;
-	Fri, 18 Sep 2026 14:40:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B623410F16F;
+	Fri, 18 Sep 2026 14:40:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="1PxKRDr3";
+	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="TiRJRy20";
 	dkim-atps=neutral
 Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
  [74.125.228.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56FA510EFC2
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 14:40:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA08B10F16F
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 14:40:12 +0000 (UTC)
 Received: by mail-ej2-f12.google.com with SMTP id
- a640c23a62f3a-c254f9f7dbeso98864666b.0
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 07:40:10 -0700 (PDT)
+ a640c23a62f3a-c254f9c60b9so55630866b.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 07:40:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1789742408; x=1790347208; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=LkU3ODIuhAAsu4O/XI/NDvqsvZfMhywu2ET0wE91o6o=;
- b=1PxKRDr3m1qhG1iFSIB3nrrq92OXP3M8nRoyim5TuogiMKvweA4sN8EeRkTietvYMU
- 7TQBtibsxnyAdTwzPNkiYLCGgue1ybZauU9JO+sMkakw500AXJ3E+5VeDkyhP8k4Du/C
- J22pZfNM5ws8b+6tF38JAajo3skyLjiNRFqU0ziJLeaOV1qtpc0PxS6xBF1Tyl76qx0E
- jcEVZIQj5uqUMKNb3RSYicaXK0qoU1aJsb4ahdmzWjb0bkQVQzpQWliqQD24nWSMxleL
- kdt2loWgu7rPUR6c+CPU5DYvIn1tA+wZEocHfE5Qg/G4NoNBayK9J0A8nFdqabMRar9W
- O9ug==
+ d=fairphone.com; s=fair; t=1789742411; x=1790347211; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=NswcxVnJHltqSQeVprb1zCpwdatT8Ku5jmJgLkP1CTk=;
+ b=TiRJRy20VkmPM7q6BQZBNBVhnEDHkZZsf7c/Dp9yWKrnDvS17JDcYECS7yuawRJRSL
+ x1rLEpFTIhOTO9fQfTrhCZKklHYHrA2MXVGhyy86Z5V3JzCKlxgNRL+810e2Mfvzvj3o
+ jXfyuUhtsuIiW5bohKZhJq4asZvNHab0Dc1NdERSoXK7qHW08oMYBq1G7bgynuohkzqa
+ AbqXmeOQhEvgGZ1Y6ai7WyWo3aCDETXZxvUZ48f+myBgwCy+4e7/NbkRSP30yvR3ScMZ
+ k6Ow+j0HTL9UdMQO+Opd6LhnzCY12YK/Zqos062d6oenwuSDVnrGF2uXpdeQC7N3rjSg
+ beqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789742408; x=1790347208;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=LkU3ODIuhAAsu4O/XI/NDvqsvZfMhywu2ET0wE91o6o=;
- b=cnwAkeBZ+1nwZPB8KLGoUtLF/csN6hGgzjm43v5uxRzRFGPFXgvd/YBn39t85Glc7d
- GIK5ilah7Fk878vaQUNJg/UjH1iymaQGiyoeT8k67L4ebrntbIm+56f9Ou95p8Zo/dDO
- NQ/OD3cNTa6u8tjrFCUkwgMbzFGc2hsoCfYOqIhGlRMyQngm39mUB4XntsY0IK3T32h+
- whmUYEe9AqhqAiNRg2daAQdHIWCdzvmgreafIs2W3ySTRfHBcfk80hQeLN/+/RNpuioF
- KGDbR79QnAuuFpiOb1KZ29zJ7UUQN6jZziEFoc3Tq9f9IwxiL0LtZV+kpg1HZJZvbbI7
- 5ydA==
+ d=1e100.net; s=20260707; t=1789742411; x=1790347211;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=NswcxVnJHltqSQeVprb1zCpwdatT8Ku5jmJgLkP1CTk=;
+ b=lH+vByk5U2j+lfAHuR51XrXpJA87H6ut8P49X8oa2EVSi1rCgAVIxKTKzMFfLnurDB
+ SCtuR80GAVVDyqSp+XIkVqJhp12S1PfLHzhGhRtSy3n+ODDLqxIWh9XHIEVWeLS7BHR7
+ 9N5b5u/bp4niLA6YxD8AoQSN6bnhXTmSmaK8KvHijTxgfhpGcX8XRWvfKQuMFMILcB9y
+ 76P4gXLIJYm9VSLHTNFiy8WJVVaqnVD3rzedPYn8KfbUzYEUHSzhQCdPBKLFxayZHRO/
+ Blg8y5rtosqVJrwb45rPEKZPj+a8Zkkbx+vc/hZsbQO8MTb8lKAFS2lpACYZFnaZQe2v
+ RtZA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwbkHM3X2B2/TbasggbQtxk8pz0bqRxkcb6hzBXXSJ4SBwgFLom36tz6kCdDCVFLJsqSI9oHl48X+s=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nlW47s8piAYSnX0dYmoKUbgsXeW/B/czmDOIhEXapNeeYOnmwr
- QNrdsI+K4SyF6G3IE8WI9TbK375kI4uiw1oSRoEnOBlYS93GxjpKWnZQcU+ksUdjdoM=
-X-Gm-Gg: AYBFou0eoAsNKUYgi5Y1cWoDPMknsOCUOVYXFuNCsCYo5/JQbJ8oEzFE6dvR4Z5bLEv
- 1O/qLTJYz7IOcf6rrfBnGdarIseXMWwIz14to4wO8zBPCiuicauKxECAekZjXnOLdVAuYA8BGCR
- bufGoz7o5BBSwhFEqGwyWTcoqPgzNhxgE0HBWo40OmcggN5FyAxH7aOXsIavVyJWAv77IkuK+AX
- XOU5hY/RKHBcTcwoOt/Vh9ZBJZInxbpl7TYFT8+1gfWHRmMiyn73wvH0h5Vq2ah14rw59Pm99HR
- ZwKsZrtt2RJCK8RhVucxlf+Dyde9tgCQH/hf58wZnUcqevmKJABcQLnq0sJ9aOBXFB5NQzxiIfQ
- kDk19S6DQ97VDWsuecx7AV85r8drlMMBACYSssp/ynGdb7DUBz3Iqwx45FngQ9QET9OAQR1TFcW
- 2rMRWzbun3HTB1e02viv9ucHuAZJyWdaRjmy+5zCgkqBPaPoG/7LruZKHATobcveKbuunir6y+g
- IZkMJLU/WMJutRDQZph3T8tUAEXBmq1rdknO2QyMym3oO/f4grRtA==
-X-Received: by 2002:a17:907:c0c:b0:c24:b11c:6c05 with SMTP id
- a640c23a62f3a-c2a156d58bemr272513366b.14.1789742408589; 
- Fri, 18 Sep 2026 07:40:08 -0700 (PDT)
+ AKwUvBy+I2Ntd5VZQ+WezB+msekiyKQdlDiwIresRXvVwtx9Qk4bzN9PRtSgDVYA+nUVbN4uSom3rEkq/hw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++myvy41zUg2LgiRV9tCEA8ZH47cseGJp5xnpeQpqepquINiJL58
+ P7cyK6PevYDlp1CDfiOtuuniS9gKh7xTONwnRRCTb8lSfM9vHbc1zWaXDIgLHU7S2W4=
+X-Gm-Gg: AYBFou2JkUpglmNdQ9RpqfAWsILA8WkaamZBEk84IV/v/8Mlvp/BFpIQic9V8ziT0TJ
+ UfaSBLfRvLQXoUVytFH4M8D4IWKBMdfeIGIJoaYHkiXOwJpjgIpW2KwAh8g/g172/CSAMtyx8ba
+ M/b5ZaTDIax1QX0npE9rHr2agtdny/p5ai+8wvXGIAgyaPXQft7S2SedGJ8p4kfMk6v/ib/ikEA
+ TvfLrzOnu0WWkG9MSjHszj+fwyTwwSra+UBp2ybiYJXzjZVF286cODAijV+duH+7Jm12S8qrwM4
+ u9Y99mwtXLeHhEWnUOJj5g9woWbLVqLRMRLmq9XZrSXsTQDMio7ASKTfhVfKquYGTeJ6oSSPVhO
+ JmXjJRPU9BPtvEnDvUIu9gvqGKVBTVXdhFYuQGcJAx9y09jBobCf7gqLyj3xAejlb+bkolpJfte
+ /6NaOCdVZibTprnETMAIpCzlvqlu/+i0ycBDEcKUaxDrr/mrKUde67nMBn5YrHoFTZfU+9u1GQe
+ HQQE4w6GnbvxvfgFdJov4RJy81j/qVXtw23si5AutVCMUmU5jMpvyefWna1HsU=
+X-Received: by 2002:a17:907:940e:b0:c25:f7db:4bee with SMTP id
+ a640c23a62f3a-c2a16599060mr289750966b.20.1789742411235; 
+ Fri, 18 Sep 2026 07:40:11 -0700 (PDT)
 Received: from [172.16.220.101] (144-178-202-138.static.ef-service.nl.
  [144.178.202.138]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c2a1b7a369esm64244966b.9.2026.09.18.07.40.07
+ a640c23a62f3a-c2a1b7a369esm64244966b.9.2026.09.18.07.40.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Sep 2026 07:40:08 -0700 (PDT)
+ Fri, 18 Sep 2026 07:40:10 -0700 (PDT)
 From: Luca Weiss <luca.weiss@fairphone.com>
-Subject: [PATCH v2 0/4] Add Novatek NT37705 panel driver for Fairphone (Gen. 6)
-Date: Fri, 18 Sep 2026 16:40:03 +0200
-Message-Id: <20260918-fp6-panel-v2-0-6695c4008920@fairphone.com>
+Date: Fri, 18 Sep 2026 16:40:06 +0200
+Subject: [PATCH v2 3/4] arm64: defconfig: Enable Novatek NT37705 panel
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22OQQ6CMBBFr0Jm7ZAWBC0r72FYlDJIjbbYFqIh3
- N0CLl2+5M2bP4Mnp8lDlczgaNJeWxMhOySgemluhLqNDBnLSlYwjt1Q4iANPTBv80IJIdqzOEL
- 0B0edfm+ta72zH5s7qbAGfoaj1xifhF2DRnpCZZ9PHapkOqU5OpXDet1rH6z7bMMmvsl/NkwcG
- RITqmFFWXClLp3UbuitoTRmoV6W5QtDUYv85AAAAA==
-X-Change-ID: 20260501-fp6-panel-3d35c999d894
+Message-Id: <20260918-fp6-panel-v2-3-6695c4008920@fairphone.com>
+References: <20260918-fp6-panel-v2-0-6695c4008920@fairphone.com>
+In-Reply-To: <20260918-fp6-panel-v2-0-6695c4008920@fairphone.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -87,15 +85,13 @@ Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  Luca Weiss <luca.weiss@fairphone.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789742407; l=1177;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789742407; l=791;
  i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=LnOCLi1t8Bj2U3X4K5t0uslhmFfyG1Xu8O7lRIkja+8=;
- b=tfhs+1QCTPakQSMArYo3Qc5awfvXxVAu3VGhjGKoN6x8OFEeUZqKsENV2eUvrbAJa1KfOq2xd
- HzlZhifolmUDnRaQt/+PIUiu+kBtH7aTfKxlNwGmF/x7J+aPtz4RCd8
+ bh=3l/OQDwilslojwbD5BIFc247psV75whhicTp80W21k0=;
+ b=2eQL9cFuNTxwCukWgu2TjmmlCNjhR6F0B1X3ayynoF3nwFPzUq2NjIk7TXGfPbqRIFTes6+Wk
+ HPbCfn9gLI+BWPQNPwdbR2gfL9qAb8MskNf5dl3aQMt1aV9uYhBn2gb
 X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
  pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -113,35 +109,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add bindings and a panel driver for the NT37705, and then enable display
-on the Fairphone (Gen. 6).
+Enable the NT37705 panel driver which is used on Fairphone (Gen. 6).
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
-Changes in v2:
-- Fix kconfig dependencies of panel driver
-- Pick up tags
-- Link to v1: https://patch.msgid.link/20260501-fp6-panel-v1-0-e09cb05651cc@fairphone.com
+ arch/arm64/configs/defconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
----
-Luca Weiss (4):
-      dt-bindings: display: panel: Add Novatek NT37705
-      drm/panel: Add driver for Novatek NT37705 panel
-      arm64: defconfig: Enable Novatek NT37705 panel
-      arm64: dts: qcom: milos-fairphone-fp6: Enable display
+diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+index 6ec8d3a69c98..1d4afc733c8a 100644
+--- a/arch/arm64/configs/defconfig
++++ b/arch/arm64/configs/defconfig
+@@ -1023,6 +1023,7 @@ CONFIG_DRM_PANEL_KHADAS_TS050=m
+ CONFIG_DRM_PANEL_MANTIX_MLAF057WE51=m
+ CONFIG_DRM_PANEL_NOVATEK_NT36672A=m
+ CONFIG_DRM_PANEL_NOVATEK_NT36672E=m
++CONFIG_DRM_PANEL_NOVATEK_NT37705=m
+ CONFIG_DRM_PANEL_NOVATEK_NT37801=m
+ CONFIG_DRM_PANEL_RAYDIUM_RM67191=m
+ CONFIG_DRM_PANEL_RAYDIUM_RM692E5=m
 
- .../bindings/display/panel/novatek,nt37705.yaml    |  72 ++++
- arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts   |  64 ++++
- arch/arm64/configs/defconfig                       |   1 +
- drivers/gpu/drm/panel/Kconfig                      |  12 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-novatek-nt37705.c      | 413 +++++++++++++++++++++
- 6 files changed, 563 insertions(+)
----
-base-commit: c2cd463d6ee7d55a3ec0719d93c49ff99022d58f
-change-id: 20260501-fp6-panel-3d35c999d894
-
-Best regards,
---  
-Luca Weiss <luca.weiss@fairphone.com>
+-- 
+2.55.0
 
