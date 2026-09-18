@@ -4,67 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E10F0C982DF
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 14:14:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55271C982DA
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 14:18:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FDC610F3A6;
-	Fri, 18 Sep 2026 14:14:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BCC810F3AC;
+	Fri, 18 Sep 2026 14:18:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cQJjtYRb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BEH3ovrj";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 300CF10F371;
- Fri, 18 Sep 2026 14:14:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789740875; x=1821276875;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=HQHYY5tAJcBWvJ3Ln0zxpLTMvoOoSyCh4MotZ8ordXI=;
- b=cQJjtYRbaQQ3s1V9b9YjPGSiD8F+ocNxFI08uhpDoDKhgLGvXANPIn7P
- uSicygol1BV8KmrlCUeHQisy2rBjdypeas/JjdgzN8dx/jvCx7uNkwTi3
- Jpuph8difIKHEBf3dfCniMLSZ7fJe7woq0VYQR/QtwCAqwmLObv7hRolJ
- TwH8xjYSqTbHLjzZdv94I/+u65rukZp9h5kfBy2anNm1HmW4wI8ysUyDP
- DAIxL1oXmhsbcB0PTXOrkLDYIMb/8TFfJWOfOqQxpbr2XH4m6E+7UNJZq
- 8FCpSrqhkJQ3nGx2l3p0IWULX4fkCIvOr2k5MoE4X4NLrDn5fwc1Byask A==;
-X-CSE-ConnectionGUID: 2qg/3dVzRVGlGb79dyTEBg==
-X-CSE-MsgGUID: F5tXEzgdQFmJP7kMFSq5xA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11908"; a="90115289"
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; d="scan'208";a="90115289"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Sep 2026 07:14:35 -0700
-X-CSE-ConnectionGUID: 3rINgxueQ6+GfWZpb4EUBg==
-X-CSE-MsgGUID: GXMcpvWgReuOxq/KIbTdWA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="2622332"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.245.216])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Sep 2026 07:14:32 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Timo =?utf-8?Q?Pr=C3=B6mer?= <timo.proemer04@gmail.com>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
- <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Timoyoungster <timo.proemer04@gmail.com>
-Subject: Re: [PATCH v2 1/2] drm/edid: Export drm_edid_block_count()
-In-Reply-To: <20260713193237.2639-2-timo.proemer04@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260713193237.2639-1-timo.proemer04@gmail.com>
- <20260713193237.2639-2-timo.proemer04@gmail.com>
-Date: Fri, 18 Sep 2026 17:14:28 +0300
-Message-ID: <76f22a9fac1eb0dbf6ed52de66a00d0412ead885@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAB5010E8FD
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 14:18:02 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id BEAD1601EF;
+ Fri, 18 Sep 2026 14:18:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E70FB1F000FF;
+ Fri, 18 Sep 2026 14:18:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789741081;
+ bh=OAmEu+JzoTJ/Pl+tJn1qfGMuXEXO8fVcBtsv/kGUTWg=;
+ h=From:Subject:Date:To:Cc;
+ b=BEH3ovrjR/dhG7b8SfpwfXi6yYsWESHl/lOAxpgcJF5F6merXkcChLNSJI/ULjJMn
+ sY0VdWzM5/aUebfqRe2pGxysVOXDs3j5z14f4bJLAzttJr0LY7xzjVN+DeUghh5tBv
+ l/GRl7dHekXKxwdO7LTusrMxc3xOnGz6QnEgtX+M1/MbBVP/Wbpn//gqse7ulDiy3Z
+ CsrMIrubS6Vje2Al7wYEio7doFmPd27jThzkr0jA8pbdDg7M0LC2YX5b4TXQ2a+TjL
+ 8ELcGE4F5CLiDCddcZIWWN0Cwq8dv5/bLnBVsB6q0G378BzPBTcJzcQhu8rb2jhlpw
+ wSXbxN+8j49lA==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v4 00/13] drm: Add DRM_MODE_ATOMIC_RESET flag
+Date: Fri, 18 Sep 2026 16:17:49 +0200
+Message-Id: <20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XQS07DMBAG4KtEXjPIj7i2u+IeiIVjj1OLJoGxi
+ Yqq3h2nXVQIVSz/keabx5kVpIyF7bszI1xzycvcQv/UsXDw84iQY8tMcrnjhluINAFhwQql+oq
+ Qjn4EmQY5aCNEcoa11g/ClE9X9vWt5UMudaHv65RVbNV/wFUAh6BMDM7q3ur48o404/F5oZFt4
+ irvihXygSKbgm4XUCglTPyrqLviHu6imuK41oYnZY3vfymX27mEn1/tefV2Mxt8QQjLNOW67zZ
+ 1yiXAjKcK2zDgDoRpzZcfKLBI5IEBAAA=
+X-Change-ID: 20260708-drm-reset-state-flag-2fb2b5711f97
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, 
+ =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4467; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=6pYUc+Yv8IiiqD40mWlSDSz316uwJ0Iap7UVSWMfMiQ=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlrPfiztyhWL1ih4jT3voL0T+kjihufdnc0TvwvbrN0S
+ 4eA+d3DHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAi/54zNrz6/PvRCWOz31le
+ Emv9p6lxfu48fCNdqq/WULuv6c5l07YTC54tmX3wtfKyXqO5V//2LmJseFyzVicimvf/EY/mfNd
+ N/pv7/orcsJcpiQt5eP+l3XYPm7+zLh964/Tgh9v2OQsqpz03BQA=
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,68 +82,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 13 Jul 2026, Timo Pr=C3=B6mer <timo.proemer04@gmail.com> wrote:
-> From: Timoyoungster <timo.proemer04@gmail.com>
->
-> Drivers currently calculating EDID size by reading the `extensions`
-> field of the raw EDID structure (e.g., `edid->extensions + 1`) will
-> calculate the wrong size if the EDID contains an HF-EEODB (HDMI Forum
-> EDID Extension Override Data Block). The base extension flag does not
-> account for these override blocks, leading to truncated EDIDs.
->
-> Remove the static declaration and export drm_edid_block_count() so
-> drivers can safely query the true block count. This allows drivers to
-> leverage the core DRM's proper handling of HF-EEODB and other edge
-> cases without having to parse the raw EDID fields themselves.
->
-> Signed-off-by: Timo Pr=C3=B6mer <timo.proemer04@gmail.com>
-> ---
->  drivers/gpu/drm/drm_edid.c | 3 ++-
->  include/drm/drm_edid.h     | 1 +
->  2 files changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index df3c25bac..34560b33a 100644
-> --- a/drivers/gpu/drm/drm_edid.c
-> +++ b/drivers/gpu/drm/drm_edid.c
-> @@ -1698,12 +1698,13 @@ static int __drm_edid_block_count(const struct dr=
-m_edid *drm_edid)
->  }
->=20=20
->  /* EDID block count, limited by allocated size */
-> -static int drm_edid_block_count(const struct drm_edid *drm_edid)
-> +int drm_edid_block_count(const struct drm_edid *drm_edid)
->  {
->  	/* Limit by allocated size */
->  	return min(__drm_edid_block_count(drm_edid),
->  		   (int)drm_edid->size / EDID_LENGTH);
->  }
-> +EXPORT_SYMBOL(drm_edid_block_count);
+Hi,
 
-Not everything that's inside drm_edid.c is supposed to be looked
-into. It's abstracted and hidden for a reason. Please don't hack into
-this.
+Userspace currently has no atomic way to bring a display pipeline back
+to a pristine state. A compositor that wants to start from a known
+baseline must explicitly set every property on every KMS object to its
+default value, which requires tracking which properties exist and what
+their defaults are. This is fragile and must be updated every time a
+new property is added to the kernel.
 
-BR,
-Jani.
+This series introduces a new DRM_MODE_ATOMIC_RESET flag for the
+atomic ioctl. When set, the kernel fills the commit with default
+states for all KMS objects before applying the properties supplied in
+the request. Properties not explicitly included remain at their
+defaults. This allows userspace to describe the desired end state
+declaratively, without caring about the current state or the full set
+of properties.
 
->=20=20
->  /* EDID extension block count, limited by allocated size */
->  static int drm_edid_extension_block_count(const struct drm_edid *drm_edi=
-d)
-> diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
-> index 04f7a7f1f..4a990bf87 100644
-> --- a/include/drm/drm_edid.h
-> +++ b/include/drm/drm_edid.h
-> @@ -481,6 +481,7 @@ const struct drm_edid *drm_edid_read_switcheroo(struc=
-t drm_connector *connector,
->  int drm_edid_connector_update(struct drm_connector *connector,
->  			      const struct drm_edid *edid);
->  int drm_edid_connector_add_modes(struct drm_connector *connector);
-> +int drm_edid_block_count(const struct drm_edid *drm_edid);
->  bool drm_edid_is_digital(const struct drm_edid *drm_edid);
->  void drm_edid_get_product_id(const struct drm_edid *drm_edid,
->  			     struct drm_edid_product_id *id);
+The bulk of the series extracts the state insertion logic from each
+drm_atomic_get_*_state() into standalone helpers, since the
+fill_with_defaults path creates states through atomic_create_state()
+rather than atomic_duplicate_state() and cannot reuse the existing
+functions directly.
 
---=20
-Jani Nikula, Intel
+A driver-specific property is added to vkms planes for testing.
+Standard properties are impractical for this: compositors like Mutter
+enumerate all known properties, making it hard to isolate the reset
+behavior in a test.
+
+Mutter has a working implementation using the new flag, with a
+vkms-based test exercising the reset behavior:
+https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5309
+
+And we have IGT tests as well:
+https://lore.kernel.org/igt-dev/20260916095159.2896630-1-mripard@kernel.org/
+
+This series relies on all drivers implementing atomic_create_state.
+The conversion is in progress but not yet complete.
+
+Let me know what you think,
+Maxime
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v4:
+- Improve the drm_atomic_get_private_obj_state and
+  drm_atomic_get_connector_state array reallocations
+- Return void on functions to insert an object state into a commit when
+  it cannot fail
+- Rename drm_atomic_can_create_state() into
+  drm_atomic_implements_create_state()
+- Move capability check from drm_atomic_commit_fill_with_defaults to its
+  caller 
+- Added IGT test
+- Link to v3: https://lore.kernel.org/r/20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org
+
+Changes in v3:
+- Rebased on top of the latest atomic_create_state series
+- Sebastian Wick created and tested this work with mutter and vkms
+- Fix colorop locking
+- Link to v2: https://lore.kernel.org/r/20260812-drm-reset-state-flag-v2-0-e96ce13317dd@kernel.org
+
+Changes in v2:
+- Fix bisection
+- Add capability to let userspace know if it can reset the state
+- Link to v1: https://lore.kernel.org/r/20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org
+
+---
+Maxime Ripard (12):
+      drm/atomic: Switch to krealloc_array() in drm_atomic_get_private_obj_state()
+      drm/atomic: Use __GFP_ZERO instead of explicit memset in drm_atomic_get_private_obj_state()
+      drm/atomic: Use __GFP_ZERO instead of explicit memset in drm_atomic_get_connector_state()
+      drm/atomic: Create function to insert CRTC state into a commit
+      drm/atomic: Create function to insert plane state into a commit
+      drm/atomic: Create function to insert colorop state into a commit
+      drm/atomic: Create function to insert private obj state into a commit
+      drm/atomic: Create function to insert connector state into a commit
+      drm/atomic: Add drm_atomic_implements_create_state() helper
+      drm/atomic: Allow filling a commit with pristine object states
+      drm/vkms: Switch container_of helpers to container_of_const
+      drm/vkms: Add driver-specific plane property for testing
+
+Sebastian Wick (1):
+      drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+
+ drivers/gpu/drm/drm_atomic.c      | 347 +++++++++++++++++++++++++++++++-------
+ drivers/gpu/drm/drm_atomic_uapi.c |  18 ++
+ drivers/gpu/drm/drm_ioctl.c       |   4 +
+ drivers/gpu/drm/vkms/vkms_drv.h   |  11 +-
+ drivers/gpu/drm/vkms/vkms_plane.c |  61 ++++++-
+ include/drm/drm_atomic.h          |   3 +
+ include/uapi/drm/drm.h            |  10 ++
+ include/uapi/drm/drm_mode.h       |  14 +-
+ 8 files changed, 398 insertions(+), 70 deletions(-)
+---
+base-commit: 7bb81171930435e6658ca4c5a5c03152e3b877c5
+change-id: 20260708-drm-reset-state-flag-2fb2b5711f97
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
+
