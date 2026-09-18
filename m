@@ -4,56 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AD91C982D8
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 18:56:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83C9DC982D7
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 19:40:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B26F910E390;
-	Fri, 18 Sep 2026 18:56:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A550C10E999;
+	Fri, 18 Sep 2026 19:40:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="i80Cky3W";
+	dkim=pass (2048-bit key; unprotected) header.d=deltatee.com header.i=@deltatee.com header.b="p1hFKb1F";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A70810E390
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 18:56:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=ZFWn+9tZx2ZRpTC2S3B/gHsd+oomsNLU+dwzo6AFhds=; b=i80Cky3WkfZSf5211WmFavqThS
- OEmSRTkW060bX5M/YPaBslCf2KBAiuxzS5uCUMxYpDJS521PGYbblTu7mMKJSN3c3P2gJkuRYnYbu
- b59nh3gqFwlQWHiugds9HQCrHb7aeZV8ODeU8Ordt5KLcMcPhOqiYbq/mhRyzU1UA2fi6vj5MeEdL
- NcgowkDRVdK1QPP3RLtboJrJQDIrenCBbM6RRVaOueobd5ehqG7KyAxfPOZFfmWLiSVB7gIRrjXpd
- j+l3YumA6aiVo7QHyWPYSf3/dV8HzfHlsNmv3Ygwi/BL5neG5Y7VD2+iQnx1+uuvZnTzS558UAFWK
- LWtzy5Fw==;
-Received: from [179.105.94.163] (helo=prince)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x7dka-0045KV-Ba; Fri, 18 Sep 2026 20:55:57 +0200
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-To: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Stefan Wahren <wahrenst@gmx.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/4] drm/vc4: Reset the V3D block through the reset
- controller
-Date: Fri, 18 Sep 2026 15:55:09 -0300
-Message-ID: <178975770640.2754751.4760048743026029481.b4-ty@igalia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260915-vc4-reset-control-v2-0-cb3a25b07822@igalia.com>
-References: <20260915-vc4-reset-control-v2-0-cb3a25b07822@igalia.com>
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EFDF10E999
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 19:40:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+ MIME-Version:Date:Message-ID:content-disposition;
+ bh=lQAIrUFP3+D+tD4U17DzHrKkOc11Ho5y+ORRcF4NPXs=; b=p1hFKb1F/D9iIDg6hNHtr8GiM2
+ l37aQ39NUCI6IRV6cw9gskBQm2rzWzmoVGB1A1sSt6dz5QZVE29rnly2O4sra+jAVtX5GubBbhzIT
+ estioaTW7b42lemwzxUqTkaexKwqWBQXacYsSjVZzNvKbOFT+MjWkLM0OirZSxU2f7sT+NKmqaUfV
+ o2SyHTECs+cKETwfqStVBNeQngTXT/DtkXdqEV9Mma6d2VcU0eUSuvkbsuX6aqp80gMFjKciNXgwC
+ YI36SyWZbHBozXXE9/fXLmwHKXHr3dGHRBoTkxESWTCrljgEUe7uToA9S6ifHB5P/eblW6xIUFZVM
+ uH56LcFg==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+ by ale.deltatee.com with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.98.2)
+ (envelope-from <logang@deltatee.com>) id 1x7eRN-0000000CrxC-0gtG;
+ Fri, 18 Sep 2026 13:40:10 -0600
+Message-ID: <19bee27e-17d7-4b67-b796-ca5bb44e8de7@deltatee.com>
+Date: Fri, 18 Sep 2026 13:39:55 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
+ <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-3-5ef07ec9ef06@nvidia.com>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260914-fix-p2p-acs-v4-0-v6-3-5ef07ec9ef06@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, kch@nvidia.com,
+ gregkh@linuxfoundation.org, axboe@kernel.dk, alex@shazbot.org,
+ ankita@nvidia.com, jgg@ziepe.ca, corbet@lwn.net, skhan@linuxfoundation.org,
+ joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, rdunlap@infradead.org,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ tdave@nvidia.com, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
+ kvm@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+Subject: Re: [PATCH v6 03/18] PCI/P2PDMA: Derive routing from directional ACS
+ controls
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,26 +86,38 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Tue, 15 Sep 2026 17:51:23 -0300, Maíra Canal wrote:
-> vc4_reset() recovers a hung GPU by dropping the runtime PM usage count to
-> zero so that the V3D power domain goes down, and then taking it again.
-> Forcing the count to zero only works if the driver knows exactly how many
-> references it holds, which is why vc4 unconventionaly wraps every
-> pm_runtime_get_sync() call in a private refcount and mutex, making the
-> code cumbersome.
+
+On 2026-09-14 05:22, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
 > 
-> [...]
+> pci_bridge_has_acs_redir() treats Request and Completion Redirect as
+> interchangeable. On asymmetric fabrics, a control for only the reverse TLP
+> direction can unnecessarily force P2PDMA through the host bridge.
+> 
+> Evaluate Request Redirect for client Requests and Completion Redirect for
+> provider read Completions. Continue treating enabled Egress Control
+> conservatively as a Request redirect.
+> 
+> Fixes: 52916982af48 ("PCI/P2PDMA: Support peer-to-peer memory")
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 
-Applied, thanks!
+Core patch seems fine, minus one minor point below:
 
-[1/4] drm/vc4: Drop the undocumented brcm,vc4-v3d compatible
-      commit: fb825a46e7982460bd620f5e6a71924c647f4280
-[2/4] dt-bindings: display: bcm2835-v3d: Add an optional reset line
-      commit: 6ab4aad3481903ac3743513517c290a3ebd39232
-[3/4] drm/vc4: Use the reset controller to recover from a GPU hang
-      commit: b4448823f151d0b4a3f3f4c5622c6ade51422c4e
-[4/4] ARM: dts: bcm2835: Add the V3D reset line
-      commit: 3afbeb6b99ddbe082a238a659b7e7a7239f49e0e
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
 
-Best regards,
-- Maíra
+> @@ -1132,10 +1173,10 @@ EXPORT_SYMBOL_GPL(pci_p2pmem_publish);
+>  /**
+>   * pci_p2pdma_map_type - Determine the mapping type for P2PDMA transfers
+>   * @provider: P2PDMA provider structure
+> - * @dev: Target device for the transfer
+> + * @dev: Client device that initiates the transfer
+>   *
+>   * Determines how peer-to-peer DMA transfers should be mapped between
+> - * the provider and the target device. The mapping type indicates whether
+> + * the provider and the client device. The mapping type indicates whether
+>   * the transfer can be done directly through PCI switches or must go
+>   * through the host bridge.
+>   */
+> 
+
+This hunk does not seem like it belongs in this patch.
