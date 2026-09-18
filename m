@@ -4,127 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 685B7C982D8
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 18:09:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BB75C982D8
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 18:12:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68FD010F48C;
-	Fri, 18 Sep 2026 18:09:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 983C810F4A9;
+	Fri, 18 Sep 2026 18:12:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ixj5bkQo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ISTnT5yX";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013062.outbound.protection.outlook.com
- [40.107.201.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4117B10F48C;
- Fri, 18 Sep 2026 18:09:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DJxbTzlxGfTjZR6bG3MYa7IuBq8M1524DckJpSb0932W3vPUxXfXNNEOscQ3z35AkOxktRhbxGKMuUzOyOM0coC+dDPPI7ruPMr0QOrXIvXQS9FUcI27NrEmfgCHcx5iAMw8jPdtvE/T2O7bsriIGudPj1vWvaO+oCk541UkiryuEDe3eRexyAMv94hBua3Tbp4bzcj1xrn+PTmaYH4mnFKZXlsGOF65iXIj4UFugme+Pu1LDwPFdEPdBSBHBrt7hFJzgiMaxNYdka/ek8iBtQrEriUipTMZJXfdSJ4XAXKZRkvzhKM/YTsZIq1sLAWWdZKDPxo9EIga9AU47mJJQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ddG3RTP/bSnQN7AKIWy4wCF6mKnjjbqAUmtagm1hGBo=;
- b=emLHPk4rTaG+eHf5oZO+sdjWG3FBZAx37TaajsjBmvyEXei3g2m5xDZtaF3dB1SMOvxm/toK5nEfI27McHRS9CzWmqaa710rwviVRiAJtyzArC2U2D0hyL0aKjnEdZW3IHLmsGu/doUswT7AHKIsfnMkYXKLpFi79OtGwNBwdgrPKVtb/lLJB1D4dZEummV2sxM8BiSkA/pnDHKhZWkCxTlAKi8OfP6pEyIIIQNuu9SckfNroUIv14KaSMp49nRzHTPJBio/qZr/oE2gkWO3aCWiIc7mzh/+8Usg95I/9469CSerVs9cLS2Mc6NNix/OhMJIhAORUaUDFfe5ZPaj5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ddG3RTP/bSnQN7AKIWy4wCF6mKnjjbqAUmtagm1hGBo=;
- b=ixj5bkQoIM9qbAJ+EePAm10K5cRhFrhgTG17dCeqBsQTfGyl7QIGBYR2gIi6zXpBGsiTdR0WXsWt6BhMtggKHSGuHY3KUDqIJ9XcnvySvuoCA9BUNKacGPus7IRMJTqPx7DoU+0tfMOl9rUdMhXDzaYDiFhvxXHyxPzLBVTr3sc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by DS7PR12MB9551.namprd12.prod.outlook.com (2603:10b6:8:24f::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 18:08:57 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%3]) with mapi id 15.21.0428.008; Fri, 18 Sep 2026
- 18:08:57 +0000
-Message-ID: <18a8b7ee-d588-48be-bfe4-0b79309e3339@amd.com>
-Date: Fri, 18 Sep 2026 12:08:55 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Preserve eDP mode on initial ASSR failure
-To: Arthur Heymans <arthur@aheymans.xyz>, amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com,
- michael.mityushkin@amd.com, nicholas.kazlauskas@amd.com,
- qingqing.zhuo@amd.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- "Zhang, George" <George.Zhang@amd.com>
-References: <20260912151137.3913987-1-arthur@aheymans.xyz>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20260912151137.3913987-1-arthur@aheymans.xyz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR03CA0154.namprd03.prod.outlook.com
- (2603:10b6:303:8d::9) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DS7PR12MB9551:EE_
-X-MS-Office365-Filtering-Correlation-Id: ca8ef721-8615-402e-1462-08df15afe867
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|376014|10067099003|56012099006|11063799006|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: YY1HkPNCNaKASMRMUYi+Q4dpHEpJkrmwnWh6uUqO9jXz1gkUHZ5u3ZQkPpZ4+y/3HnGr20IXlbaggIi192eIij27PeRGFVZBB3sqtCjwhtbwlUuQ4I6OytoQ7swSwUCcnMnTX+lr2AZbr/wZ9DjNGfOo6vHecf98Fdhd+x1j9M57b+OrDLCCYMCIyEvC1sUFmrKLujAv60KOAKLCyvVN8p6m6PNHPnPBmEso/CCkBJOIkp4p/HpuS0ydLohrXLwn2m6BSckvi/jrvvMJE4pP0S7IlWOb9ipUh/lCNhhWJ3Tv0bQ0k7kjrz+br7NGQVTpDHhZjceIzUzAy7foPpHTUe0Bx0uqL1/PTSEb4K2MNw0zlRNwBRCemmnR3okjroxNREIDbcCGWyNiB76DDtZs9JBihWEsdnVRAWNmjqKf5LOr8i67bqOQgsHfFxBtgJkAxjHwbrxl928t2ImJnf/hW0o9HTXEThhuVW4DPBKYOCoPvfdW41c7hNNxzWlwdbsf/JD8GhdHrzy8AODSmFwIqd9byMqC+fV4a+Yd4nBXVZBSYBfg1V7N2AkfEib0kICgrvg2a6dYA7PaEcfqc9KhMtL03tfLHHCyLZAGjQ+vggYWZuJzH/fMQQU48f9hdeoO7Vh6G1ackTNLK6CtyFBu92Asel7eas90AnHqmka0z90=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(10067099003)(56012099006)(11063799006)(3023799007)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UWNuQTJDZE1YQ1FHczVLZnNLTkpuTGJsclQxZmpESTNVU0M5WGV4UVppQlF1?=
- =?utf-8?B?SWRIckJuWE4yLzVDd2RPRDByUlBxV3h1Mlc4ckxwSGo0NUFSWTIzNmpEOEd5?=
- =?utf-8?B?L3d3aVFicE5UcExrMXIwT3Q0MWlkNU10Q1o4anVreklDdFVNVFdtdWhVRWp0?=
- =?utf-8?B?MzlXYllNZTliaWlWdldwbCtBMGRMaWdINWMraktPWG81RDhVT3Y2d3BHTUdn?=
- =?utf-8?B?dXlNQ29BUmdmUVpqaTZSUjduTk1HdlRBYWtoalNSQnZGb3hZRE1jVFVYWUNX?=
- =?utf-8?B?ejJiR2FlYkhxNWtyeDEzQjVGQU1KZ2Yxem9EZ1ZQZVNtNGxzcXZzTDV0T3N0?=
- =?utf-8?B?NDg5MnlnQnJOTGNWZkxiNDBoajJBMEU5TGp5NGFJNXJUdTVleHRFdS9yT0Jn?=
- =?utf-8?B?SWZUakJIcUE0ZnVkUXlrRTFVem8xQldSNE9ITDdpemZmYkRHd0hlWlhZSkNT?=
- =?utf-8?B?S1dTZHJWazFidDZ2MXNrMnhrcWdDYm9vdm94TkZtMmtyWS93NHdkTDVzNHRX?=
- =?utf-8?B?VTJ2cC96VDFrbzRNQ0dKVDl6YW01YkVlTllPbmUzbzZFUUJUUDFaT1FncGRO?=
- =?utf-8?B?c2lNVU8vQ3FiaVNHbmlidmhvRXFsSHpVVzlJYWRvcmFmemVCWFlWaU5FUjBD?=
- =?utf-8?B?NGlRRkIwMXYzZUdFRUdrNTlKTGtXKzBhQ0hWN0hXNy82QXhrTE1oZ1RDRzJk?=
- =?utf-8?B?eXhuMmo4bllFU1pocUhOWmsycUc1bTkxNUJBMllJandsUnVIWWljdG5aaS91?=
- =?utf-8?B?MHlwMU1rTllOZlhoVTlTYTBsUVdpNTducjZlbStwN1RLQnJIT0pLcDAwWi91?=
- =?utf-8?B?QlorYmNVSFlTWE9XN0U2ZHBZaXhPb2Nwa3hCMmhwSVNrc0xLeDRwcHBjN2Fq?=
- =?utf-8?B?M2xnbnpUVFI2ZzY0QUtmd2lzSFFYWUNzbWNCT29rdXNxZVo4b3dBenZodG1B?=
- =?utf-8?B?WExHNFlCS09NRjNLR1ZOQjlHYTlhNkU4T2I5NzhGbkhjYUFCL1FWT1dMRm9W?=
- =?utf-8?B?TWNXVWNIdG8wYnhXMEd1Ym5tVVR0dzdxR0U4eUF3VFExM1BINjFVUVh0bzY3?=
- =?utf-8?B?NE14Z0dZRDJxZnZKZmR2YWtvNVpHVlF0ZFpiSFdPZERDT2wyZHp1NndOYnVt?=
- =?utf-8?B?OGlSK1pOYlZubUVPVDRIWU01L0JpMGdHSUZzcXArMHI1aGwySHVDUWFmQUlt?=
- =?utf-8?B?V2hUaG5jTEVGOUl4cjNUVjl0WWVhRUVPVXBJQ0gwYWNNOG1qVVpRWDQyalVv?=
- =?utf-8?B?dGQ2MGQraHk5YlNNWWd4U1hSNGFvYlZ2ck5SOGNPNllPMGR0MmhZQjk4Sk13?=
- =?utf-8?B?cHdCUjQvV0wxVVJYVUV0L2JWUkd0QjM1UE93R29DSmZ6KzREQkVGTnYydnI5?=
- =?utf-8?B?N01VV0lKQ2grMDJmdDQ3YWlENUJZblhpK0orQVAyRHBSRitwbGJ6Tm1tbEFJ?=
- =?utf-8?B?Q2d3US8zbnViZS8vcVBUd3A5TXNYQUtVSVArQTY0NlhiN1hNbjhja0hDckhM?=
- =?utf-8?B?WGtlWG00czlaSGNBSzAvMFNacHMyd2xlSklXU2NZTnh2RzJBRUdtQ1ZnbXpU?=
- =?utf-8?B?TUY3S2I4K3hiaWMvK0NxdTdnUGIxWXMvWnVkczdIbzF0SEFYYm12YzJwbytJ?=
- =?utf-8?B?MjVzVmlhNENMUlFtd1J6U3VYbXl4UmJVa0hub3BlZDhiRnF4bmJrSzZsa0dt?=
- =?utf-8?B?bUNQUUJkSmJXeVZVblBSQXAySFhFWTdZUjdXaXZnWGJ5NUtFKzlWQ1dsYTVr?=
- =?utf-8?B?ZlBvYTNnVXZRYUlwSTlrdXc3YytkSm14K3BaQ3BxRnVXWHRjaUlwazVzY3ZC?=
- =?utf-8?B?RU9tU0pKSFoyb3dFUGZqOW9hVmhjTi9tVHlrZ2RnZGVvWmg3c0ZsVE5mUlFD?=
- =?utf-8?B?NVIvWkZ1RmQ0ZGNQNk5Sa3N0SmlZRFRKc0NQeUZjTlBZeUt1bXUrK3EwZ2Fz?=
- =?utf-8?B?dS80RFMyTml4Y0NNWVBhNVB4K3grbkp3aVQ1dlpNN2VZTFBBM0EwMXpuRFVJ?=
- =?utf-8?B?OTNKS2lZa3pkQmNhbWs4dTlkU1NnaGtYb3ZwLzc5TjR5dEY1RlBONTdLMDkx?=
- =?utf-8?B?a3lKVEF5d29LMnkvM0RKeEN2VWRFNW5EbTQ4akRFNkF5Y2RjOWgvZk1BRUNj?=
- =?utf-8?B?Vi9FQUk4OVRTblFzUkNXbDVsUmowYUJvYWFpZEhKMG90ekZ1NTdINGlRcWRE?=
- =?utf-8?B?VmdKMWhyRW1uTzg0ek1aMjROYzROQ2NRd2ZHcGNkMUQ1T00wQ0EzRUs5cytK?=
- =?utf-8?B?UjlNVmkvVHFpWHREM0JWK2NEb3NnMlMzdnJrWVhHTjRSQU9yTElKZkJJUU5M?=
- =?utf-8?Q?7tWn2wZMhzeKsi7vIK?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ca8ef721-8615-402e-1462-08df15afe867
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 18:08:57.4351 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kVVfWpJLv5FM0+u4T7Fg+DYxZNgeCoOJvHxvHhw7uZLcGCi+zsPYJxA+/RdJzNMXjBrnGfbBCPssDEA+NQSoEA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9551
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C26710F4A9
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 18:11:58 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6A04743DE7;
+ Fri, 18 Sep 2026 18:11:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 019901F00898;
+ Fri, 18 Sep 2026 18:11:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789755118;
+ bh=JC/cRxDOyPKDWV1arwY+zVR3OW2f4SfnaV443OZvB1o=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ISTnT5yXc2TSOXTbV+KOQohIwrgru2ySHdIA7HrXbPq/kqAYa2xWBw708QsBOLnn/
+ POeCOdprpZbIU9+2HSsM8vGbCXu/foHKzP41iZ7r4Hbl5px4njAvB+XJs4wWrRcgHb
+ 3jGkcsv9yGwjTc0X8pPKSjPwvYY2KDMcDOSdaDYEJ/qQO31dPv7sMDWTXWLK4xxerN
+ 2EfPC63NOtFROSQ30M0v7s5Jb7rqhVfWk48/QgF6nDURbKufGCKuwV0Xbn7xYfMcgX
+ x4htLMYJOjhWMTczpnVPBu4II6kJB8Bc1NQTtCnEbe3aPuw95NgUgICB01TahoILZ+
+ ET3f7cIrVz8yA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/4] arm64: dts: mediatek: mt8167: Add DRM nodes
+To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260918175736.355305-5-l.scorcia@gmail.com>
+References: <20260918175736.355305-1-l.scorcia@gmail.com>
+ <20260918175736.355305-5-l.scorcia@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 18 Sep 2026 18:11:57 +0000
+Message-Id: <20260918181158.019901F00898@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,75 +54,116 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/mediatek: OF graph traversal fails probe due to disconnected r=
+dma0_out
+--
 
-On 9/12/26 09:11, Arthur Heymans wrote:
-> [Some people who received this message don't often get email from arthur@aheymans.xyz. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> Commit 56d8ce9d8c17 ("drm/amd/display: Apply correct panel mode when
-> reinitializing hardware") made ASSR failure fall back to the default panel
-> mode unless eDP mode had previously been applied.
-> 
-> However, dc_link is zero-initialized and DP_PANEL_MODE_DEFAULT is zero.
-> Before the first call to dp_set_panel_mode(), panel_mode therefore looks
-> like a previously applied default mode. If ASSR setup fails during the
-> first link training attempt, the driver incorrectly trains the eDP link
-> using the default scrambling mode.
-> 
-> On a Google Vilboz Chromebook running self-built coreboot firmware and
-> PSP verstage, this leaves the panel mostly black with corrupted output
-> along the top edge.
-> 
-> Track whether panel_mode has actually been initialized, and only consult
-> the saved mode after it has been applied. This retains the recovery
-> behavior while preserving eDP mode during initial link training.
-> 
-> Fixes: 56d8ce9d8c17 ("drm/amd/display: Apply correct panel mode when reinitializing hardware")
-> Cc: stable@vger.kernel.org # v6.4+
-> Assisted-by: Pi:gpt-5.6-sol
-> Signed-off-by: Arthur Heymans <arthur@aheymans.xyz>
-> ---
->   drivers/gpu/drm/amd/display/dc/dc.h                           | 1 +
->   .../amd/display/dc/link/protocols/link_edp_panel_control.c    | 4 +++-
->   2 files changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-> index 4ecd5699ac5e..0db55a73da0c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
-> @@ -1912,6 +1912,7 @@ struct dc_scratch_space {
->          struct ddc_service *ddc;
-> 
->          enum dp_panel_mode panel_mode;
-> +       bool panel_mode_initialized;
->          bool aux_mode;
-> 
->          /* Private to DC core */
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-> index 9883216dcc9d..cd90576bc6f0 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-> @@ -93,6 +93,7 @@ void dp_set_panel_mode(struct dc_link *link, enum dp_panel_mode panel_mode)
->          }
-> 
->          link->panel_mode = panel_mode;
-> +       link->panel_mode_initialized = true;
->          DC_LOG_DETECTION_DP_CAPS("%d eDP panel mode supported: %d, enabled: %d\n",
->                                   link->link_index,
->                                   link->dpcd_caps.panel_mode_edp,
-> @@ -1300,7 +1301,8 @@ void edp_set_panel_assr(struct dc_link *link, struct pipe_ctx *pipe_ctx,
-> 
->                  result = cp_psp->funcs.enable_assr(cp_psp->handle, link);
-> 
-> -               if (!result && link->panel_mode != DP_PANEL_MODE_EDP)
-> +               if (!result && link->panel_mode_initialized &&
-> +                   link->panel_mode != DP_PANEL_MODE_EDP)
->                          *panel_mode = DP_PANEL_MODE_DEFAULT;
->          }
->   }
-> --
-> 2.55.0
+commit 09e4433abd1ea0bcfece829092d5582ffb8243ec
+Author: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 
+arm64: dts: mediatek: mt8167: Add DRM nodes
+
+Add all the DRM nodes required to get DSI and DPI to work on MT8167 SoC.
+
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8167.dtsi b/arch/arm64/boot/d=
+ts/mediatek/mt8167.dtsi
+> index 27cf32d7ae35f..a50bae4307c16 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt8167.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
+
+[ ... ]
+
+> @@ -120,10 +136,325 @@ iommu: m4u@10203000 {
+>  			#iommu-cells =3D <1>;
+>  		};
+
+[ ... ]
+
+>  		mmsys: syscon@14000000 {
+>  			compatible =3D "mediatek,mt8167-mmsys", "syscon";
+>  			reg =3D <0 0x14000000 0 0x1000>;
+> +			power-domains =3D <&spm MT8167_POWER_DOMAIN_MM>;
+>  			#clock-cells =3D <1>;
+> +
+> +			port {
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <0>;
+> +
+> +				mmsys_main: endpoint@0 {
+
+[Severity: High]
+Does adding this port to mmsys cause the mtk_drm probe to fail unconditiona=
+lly
+on existing boards?
+
+By adding this port, mtk_drm is forced to use OF graph traversal instead of
+its legacy hardcoded array fallback. This opts the device into graph parsin=
+g,
+making the disconnected rdma0_out a fatal probe failure instead of falling
+back to legacy arrays. This occurs unconditionally on boot for any MT8167
+board that does not explicitly define the connection in its .dts file (such=
+ as
+the existing mt8167-pumpkin.dts).
+
+> +					reg =3D <0>;
+> +					remote-endpoint =3D <&ovl0_in>;
+> +				};
+
+[ ... ]
+
+> +		rdma0: rdma0@14009000 {
+> +			compatible =3D "mediatek,mt8167-disp-rdma", "mediatek,mt2701-disp-rdm=
+a";
+> +			reg =3D <0 0x14009000 0 0x1000>;
+> +			clocks =3D <&mmsys CLK_MM_DISP_RDMA0>;
+> +			interrupts =3D <GIC_SPI 162 IRQ_TYPE_LEVEL_LOW>;
+> +			iommus =3D <&iommu M4U_PORT_DISP_RDMA0>;
+> +			power-domains =3D <&spm MT8167_POWER_DOMAIN_MM>;
+> +
+> +			ports {
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <0>;
+> +
+> +				port@0 {
+> +					reg =3D <0>;
+> +					rdma0_in: endpoint {
+> +						remote-endpoint =3D <&dither_out>;
+> +					};
+> +				};
+> +
+> +				port@1 {
+> +					reg =3D <1>;
+> +					rdma0_out: endpoint { };
+> +				};
+
+[Severity: High]
+Will the missing remote-endpoint at rdma0_out cause the OF graph traversal =
+to
+fail?
+
+The traversal algorithm in mtk_drm_of_ddp_path_build_one walks the endpoint=
+s.
+Because rdma0_out lacks a remote-endpoint property,
+of_graph_get_remote_port_parent() returns NULL, causing
+mtk_drm_of_get_ddp_ep_cid() to return -EINVAL.
+
+Since rdma0 is not a valid final display output, the pipeline build fails w=
+ith
+-EINVAL and breaks display and DRM driver initialization. If rdma0_out had
+been properly connected to dsi_in in the .dtsi (which is disabled by defaul=
+t),
+mtk_drm_of_get_ddp_ep_cid() would have safely returned -ENODEV, allowing the
+probe to succeed.
+
+> +			};
+> +		};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918175736.3553=
+05-1-l.scorcia@gmail.com?part=3D4
