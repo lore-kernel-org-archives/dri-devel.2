@@ -4,149 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3020EC982D8
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 22:36:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24B9FC982D8
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 22:41:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8227910E3E4;
-	Fri, 18 Sep 2026 22:36:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BC1710E41A;
+	Fri, 18 Sep 2026 22:41:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="W88GcCvg";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NQQxehK/";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A9A610E1A1;
- Fri, 18 Sep 2026 22:36:28 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E437610E1A1;
+ Fri, 18 Sep 2026 22:41:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789770989; x=1821306989;
+ t=1789771305; x=1821307305;
  h=date:from:to:cc:subject:message-id:references:
  content-transfer-encoding:in-reply-to:mime-version;
- bh=yb3/nAkzRjDelCRV5G14hH6Ez786Y6mfN/8unhsVwBY=;
- b=W88GcCvgMX9vUdiYZizo/pHVZWs0w8sNnKz4XV2NTJYO9eme7UIH9fHH
- OUhPdeprvTOqNqW8PjyDkBf8ypqgopuhXt/nbNT6Cy0TODq61xSwHccqt
- NL0+xf27fwrf/nL3nENLGrm8LdMeFfqnu+RjXF5N6qpBnytr3MkFD7fWs
- WG5THncN+cF0ZKuSb4WpK2n8VvlMmgQHxFAxdA/Zs09BZ/VZqbjDnUXlm
- Lrh2J4Ljq1VL5JiVTMqFBD/XaTpvJpWdPqx+jj+VLEs7RRTGi9hg12vkN
- QPPF6MkV7aoLwDhMvXAkQ9AFZelSSGmDBHwL5QMog1rBEC1FBA6Sm4bCz A==;
-X-CSE-ConnectionGUID: eSzfAHVUQPSFoy1HpTvk3A==
-X-CSE-MsgGUID: /LTOI5G4QDONpQ8Z66cEYw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="89235463"
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; d="scan'208";a="89235463"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Sep 2026 15:36:27 -0700
-X-CSE-ConnectionGUID: EnmTseHGSwmp1H7kaGBtxg==
-X-CSE-MsgGUID: ahuZI5v9Tq2uZjKi+fdc3w==
+ bh=fwaErSavfgt1MZTR0fUmFIjh4nx/yThmyinqfPBR4lI=;
+ b=NQQxehK/dakZVe45Ju1/7l6Z58HCUGjX82+kmIfw1iR84PRzcqnki2/V
+ Vspbe4RCs2wVFOq7ebm6kK/NZAp1r1hiwKRy4X3qH5fnh9pvTm84AmGus
+ n0us3p7lAwPKt96ixYHdItfTHf5VX4nAf2s0S4Q8XyW7X//R4Tc9PH6oG
+ UsgETmCcTqnuHuvL1p5Sq9eTEUZAyORaiSXFF9AjnlbPH2rEMbDAC2y6j
+ SJBeaQGxHsxRHCrHN6S0qNXjl5mad9ARSLJusvxOnncDJWWf2vysIp09p
+ CUJr9jaOkT6csMRyuxh11toAfOGU0agKLUvECluN0HOZYjJRspftPn4Db w==;
+X-CSE-ConnectionGUID: deFNAIPKQQewS0LiIOUeEg==
+X-CSE-MsgGUID: sXT3bCPYT4C4kcu+4qEgnw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="107810934"
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; d="scan'208";a="107810934"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2026 15:41:45 -0700
+X-CSE-ConnectionGUID: OvrmzTuhRleUs9re7cIxlw==
+X-CSE-MsgGUID: Tag8cHzTRziNM6+KjM9wiA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; d="scan'208";a="298049025"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Sep 2026 15:36:26 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; d="scan'208";a="271271415"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2026 15:41:44 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 18 Sep 2026 15:36:26 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ 15.2.2562.46; Fri, 18 Sep 2026 15:41:44 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Fri, 18 Sep 2026 15:36:26 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.41) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ 15.2.2562.46 via Frontend Transport; Fri, 18 Sep 2026 15:41:44 -0700
+Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.31) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 18 Sep 2026 15:36:25 -0700
+ 15.2.2562.46; Fri, 18 Sep 2026 15:41:43 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hh7oDF5zaCv3jP5PKIkIhAR8uRn02WtfbtS2jETFbIIOnHotdB4V5rk4yguzmxCvFWjfTV/FRcglpcIR4lV2biuFkA9g3hJBge+7j9gkIhOX/PuLxgHd7fPSU1ntsDPkSRInrpcAckYaoQU5ZsfcS4+Q3CaxXjjeCKP+kGGrRSjLFnAhxDgMDvRS86K2EMarJ1MY+1VZ49WG66qM502dDRd76PJl5g8PzKLw/Q0/JFyfZb+81o0RRWFwTV7wWVaxAQV6oosqUsmIGYyJni/FC9ViuIyzlNn/iLg6h5LG+X+3vfckc48gDZaJcXicNh0wGoJahzLDVw8AerhVY7J8zw==
+ b=T7tq7ht+n9C1cBr6iOrK2hjXuYmBsqsiz7H7SIra4ufYB0do2pHbD5YIb+0IOkBLP0RKt/rTxMyq0l8Aod0b6eKVKKG/LlItvYWONhfIUZwvIE0nCXo3LfnQF6hkVJ/x64st81Ssi4Z12VT3q+ER+kO5dAy1l6pNld2QtVqEhw9TK/CNyeFPusqmA4izFyemyp5gwIuwPk1QrdPQ0nO0aiwm+AxxUMov8kIQOoDHDQweeuctEJVSPzq1IKQZgFxS6qutf32ArqZzkO9HgQLWkM8t43w3hHqT9lcRBAq2gBWodBAXGtxXk+tBLwOpXActrgi3nvHDBfFdhgdYfXeCHQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4YxKHP846cmCWR8iO0p06dphyXluy5RFyt7buk7de0E=;
- b=wSkBnMCIA2ORFu0lTyoLH3DdvoOmZEzIc/RgVvkTlWrzyjIQjYCI6xc2Ym9ckdR0mq2rG/rhVMqwN67aNIzYK10H/zgKb7KczCUbRpJVPiEThaayHBam8Gs5Pg46ZZtBkwjPG0G7NEj2oqhbbZtliwAthz78/wpu6tGnqCutdKxFttHkDhfe1dRPbq3tIxKQ/I0V9q+IaidwckjF1cS4BDPEsBnHXGvQoJ26sIn64anzv9xYVT4tcyvxtEWhDyLwCsECj2sssFj/UUpYmy1toYR4Hi1MLoNltEePc+qUNnuE4fGDZQliOxLwzopcf1XYSITIwKr7NaXO1frfD48eGA==
+ bh=wPDeNFbpWMCHgLljT5wTGFDBtI/rDwjGtumu5lhTLdo=;
+ b=C4qKLSZIL6wuN/3O+ixtZ0snLR8/sbfnqQ9YlpFd/dTYkQ/NOPAY5lEDiW+lKTrZIQvpUydxLygO/9xAiQRa/pdEuWraODJrv/u9DSHZ9FdNPoTGQ99n4oyM2IT96/0lPBQS5d5pvOvhX6NIKyLAaOEzAKFKPg2RXgvwSgR/+dwDsBrDVRJ1ZGRr4KDCE9JOKARZspfGIXfIvCc/6jqxzr0IGoAb45ah3vszVjGQHmut21/Wwsll2R1dDYmlWe0VphYZjkjJg0GHfYs8Ztv7LFyqx6qg55FOmkViAbjaEpJlpCC/2CDdfuu+RTsj73hZKwRsMIYA3i8Y89xL6HljYw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
- by IA1PR11MB7917.namprd11.prod.outlook.com (2603:10b6:208:3fe::19)
- with Microsoft SMTP Server (version=TLS1_2,
+ by DM4PR11MB5261.namprd11.prod.outlook.com (2603:10b6:5:388::13) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 22:36:23 +0000
+ 2026 22:41:36 +0000
 Received: from CO1PR11MB4787.namprd11.prod.outlook.com
  ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
  ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 22:36:23 +0000
-Date: Fri, 18 Sep 2026 15:36:21 -0700
+ 22:41:36 +0000
+Date: Fri, 18 Sep 2026 15:41:34 -0700
 From: Matthew Brost <matthew.brost@intel.com>
-To: Arvind Yadav <arvind.yadav@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <rodrigo.vivi@intel.com>, <himal.prasad.ghimiray@intel.com>,
- <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH 2/5] drm/xe/guc: Wake disable waiters after clearing
- pending state
-Message-ID: <aq285SiT1wirY125@gsse-cloud1.jf.intel.com>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+CC: Arvind Yadav <arvind.yadav@intel.com>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <rodrigo.vivi@intel.com>,
+ <himal.prasad.ghimiray@intel.com>
+Subject: Re: [PATCH 1/5] drm/xe: Hold a device reference across deferred VM
+ destruction
+Message-ID: <aq2+HkGwXhv4UUlp@gsse-cloud1.jf.intel.com>
 References: <20260916095337.3104891-1-arvind.yadav@intel.com>
- <20260916095337.3104891-3-arvind.yadav@intel.com>
+ <20260916095337.3104891-2-arvind.yadav@intel.com>
+ <aqyueX3xWoVJ6P8b@gsse-cloud1.jf.intel.com>
+ <2b196d015b37329cd6eda25c565c83c5e5f77a7f.camel@linux.intel.com>
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260916095337.3104891-3-arvind.yadav@intel.com>
-X-ClientProxiedBy: MW4P222CA0024.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:303:114::29) To CO1PR11MB4787.namprd11.prod.outlook.com
+In-Reply-To: <2b196d015b37329cd6eda25c565c83c5e5f77a7f.camel@linux.intel.com>
+X-ClientProxiedBy: MW4P220CA0030.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:303:115::35) To CO1PR11MB4787.namprd11.prod.outlook.com
  (2603:10b6:303:95::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|IA1PR11MB7917:EE_
-X-MS-Office365-Filtering-Correlation-Id: f3367697-31a9-4003-b0a1-08df15d5447b
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|DM4PR11MB5261:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc30135c-6cf5-43f9-d079-08df15d5ff3d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|3023799007|56012099006|4143699003|10067099003|6133799003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: LAVWoNWp9UnUzUcZdYOBFta91Bh+tCXWxz4vXim3nV99d+swLcfo5NGgh+ApyduI+eDdaM5UOhSyy6SXCZGy6DxaC5mq6+gbU1K3PBcQ2bdkQtreXSGIBDxBGPgojf/015+hvALEsehAdqZoMvE58Hxv9/TA/9lerzsmK0E3Gn0JVOPfX5Phonv3GLH8md5brY6fprtASu3WMY7P4MlFFy+1wJB6i5UBrsdbcpo82oEFrhXvP79uaFVAWSUQBRJKl+lb6A7e3LUl7kBj4vua22NQNzgdhe/lPW294ijxLEfZhwl1MdBzw9lnQkhCHx19zCdaasrCx3D16ujuxLHsb6Ccgxy6Xp3thTtBUjLbsTXJPnno3+yR5P3r5JXbq0Ai5DsyzpdIh21m9+p9z4S495MEhPWoKGr2APVUe9Aq7hDq2WtzPXgTVr/5tOcB63egiTv4EBlPIpA3dZFxIJHbXkUV08vFBzTmu/Uq1jdwWn3/wllxS8qqGpehPQFVxaYhDJvf6uIHMLSmnm1to1X+3zs3ARqnVMm1fSfWH/GuQyD/n+buEj9iSjgGD9MBiKbTizBdcfuXTqeVEuPQG9BzYIUKBxxbsFPDMP9Ucba4zddYkCqmOpamsJfy6CVGKdKm
+ ARA:13230040|23010399003|366016|376014|1800799024|56012099006|10067099003|6133799003|4143699003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: K7EST24JnVM72PzPYMYrZnp9KbHF64/LvRT+aw3tEjuNmJyO/NlKiHh513dO7rirVBvaNDJ79zp/xH08CP7f8B0Z+1tgs2q/PRXblcT7Y4OIghKnlmQ25EWnUbQI6vFcvcXzXazwh/MzF1me68Z/JPhmkQmjiBvltEtkgd2MqSP+8jk9fGJSWkNjt4mOSFbPcb5xxt81vizB8UdroWQxnh0QLidhx9lNsd2Dxk5pzjYFBAY+2xjor9zBHSblwUFL+Ha7Bw9fY24iKsVusg9FnH2NcYafURT+jWtjLS4mgf0XII32G3DR4/hbAOaPMXCGuYoMdHVliUWjH60XY9UKWhcVeGF5M64DeWjZARhpebj5C3zcyP0BLSGMwACzC2/slJeYwktMlPw7AJ/LD8EZyfrAh9WVFg5v0PyMotVfOd/n/n0SHfrHqMWqhG6kyd4ohleiAKgCs/cfjTqHXODxxPNr5SGc5nSYojnBBJblkK5QtMEpKGu2yCI2tcDaBEnt7Bm6mFGhaB5YFnFJaa1cEuyIyiAHNMuqlDSRVWEnFPZwrO37+wD3rKPYlLZ2XSGcfOZIjbyyRnkUGWrOrjiiMn+HcL2tXyeP7ZF5vebqnwcMfIUQeTQqhIVQLUv0lRI3
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(3023799007)(56012099006)(4143699003)(10067099003)(6133799003)(11063799006)(22082099003)(18002099003);
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(56012099006)(10067099003)(6133799003)(4143699003)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?bFrZnamHcLPxrOYd0YnncUsnDlukfuS1JYi+wzjKCZx4P/vVo8evujR3yM?=
- =?iso-8859-1?Q?9p4ZbQO23oadExbWtIR04pPQ806miEKX1vdz+2qLq/6s2ZB7N17F1RpzCl?=
- =?iso-8859-1?Q?keQt3oT9GegLwqBfMMeb+pMfO31SzfL0K5Pb+UUEugWLQPKX4n42o6BkE0?=
- =?iso-8859-1?Q?/k9trIzeO+Nl6I3OcbabUx9Rwcbjmq3lAq/BVUZWkXL+nb2rjY6gnhUrlD?=
- =?iso-8859-1?Q?muHYDCkBW5WahNPZK2ZWay9MteI6V559fifKU7WsxUZ1fgQptOs1V6YbS3?=
- =?iso-8859-1?Q?hDqT2nIvcPpxUcATjd0OBGaUjDlPswAvjvcjQIZiQBIVgyq1xRVWcN2V6y?=
- =?iso-8859-1?Q?/MmuqkKsIsOG3+4IV9IGpvxBIsf8X3JgsTj2EHQDZO1ct2hjU+RcE6UJZt?=
- =?iso-8859-1?Q?k2KwPShM1daY21ljsa9a01i8EhtYrfv1g+Qm6eZmjmrsgZKsjAl2U9IWGW?=
- =?iso-8859-1?Q?U+X4E7IMSXr9c9WXkaRIgUZUQ9Oa5Uold7WUyMA3dbu49rYJB/gH2KkHXm?=
- =?iso-8859-1?Q?qg2RmLw51VAU1qV+0iOoPwEJtid8uHZdu1Y6uobh5CPKPqwIC4TQNSo6fS?=
- =?iso-8859-1?Q?56jwO/oegTuKlmOdSfm9olBAS7ADGbTSx8uC9AtJP7/fKT7zwKXSNoRSBL?=
- =?iso-8859-1?Q?gnkEWiZuTbE9Q51DGmSE8OkxVz4JmHzxOX8PUn0eU32hUOYLDEoq3vHEVk?=
- =?iso-8859-1?Q?K5CK7RCUjM64Fd1dpNYVxU9Ip6oFGh50Ox/SjYtSaQvyZBHs+zXdlZYqFZ?=
- =?iso-8859-1?Q?yHnRMyzwTj4qSdLyE9eG0oZAnRqOQpn0zvWw/1FQ9H8Wktla3p8EFYSsD9?=
- =?iso-8859-1?Q?unSg07BPs6hq1VlSSufkBhdZ6d6GmzWQxKBiwlCsd8xnR5F7zvnSt0pEr0?=
- =?iso-8859-1?Q?cB0+kSDXbq/JUsc5uwDqayxrsE0bd1UqqNv6W2m93E/yoe/2FnPQ2nSEnz?=
- =?iso-8859-1?Q?FirMMFimyGMdEoUk+4Z1om5tK2ksGa08oMswLcbyewptzoLO7fD/UoxTYz?=
- =?iso-8859-1?Q?HdfhwLf/FaKXKc36+rgM5gS7a3ySg2tmxyPFg2tad1Rucbwsb+V4wlena1?=
- =?iso-8859-1?Q?VH6QI5h50NfApvOzZhEI110qd0RJYPRG/ypTBwenyw8sBqaI/S99nTo7EO?=
- =?iso-8859-1?Q?s/1rs0HD0Yz2XwTqcN31b2xch31PuDULI/3jY4I9amNM4QAgXdXeN5LlJY?=
- =?iso-8859-1?Q?xwUH/imx6j9NgpFmugvAhvCnB+kgVBrXSE8yXX5YoL3WfEyRlcN4dTkmy9?=
- =?iso-8859-1?Q?6/6/Lcu7u4SStGoAbqsAZ/JMn8jCPtqlXltehcPV5GV96tAepQEg1NjNfT?=
- =?iso-8859-1?Q?ZG2hRDKI2XvawgZfw0Mm2s7jWU6t4U83VVPkH+yA/tKoxYC4RA6R88HcOH?=
- =?iso-8859-1?Q?Ki18glXE3XF1GRuQILK2y70UP8uon8jCHr2lkmaMDNU5Z2TYdVpS/Sdb+b?=
- =?iso-8859-1?Q?jHYRgV7v+NojZQLcNmhTKj7s9uuaKzpiSm/DAjuRYU/7F8EgFvX05GIbCb?=
- =?iso-8859-1?Q?uZG3VjY7DFJycYVt3hULab635hNQnicZV0WBSbc80AwIhNkZcgeYPtMiY8?=
- =?iso-8859-1?Q?GYIQVmKFxL90DCHF4SBsNQO24PPug35ORggfDsWvKX14zl6K0YynFbVQbz?=
- =?iso-8859-1?Q?vrahtpAAaOleP5XBHT7+JPhq2J94Ag/oyghd0EaY37H3HuA901Zl70p9Hw?=
- =?iso-8859-1?Q?hVWpGnxeON5erIRrQdt344gKQPBOHbCwkRdmppJSWkHQbIv02WQiMnnDuS?=
- =?iso-8859-1?Q?xCNGxIGHxmmZmh+DUWRkm+qxbIjWguFhnlairMugDKSfcEV/yR4HdM9UnR?=
- =?iso-8859-1?Q?IonpgluphajkKeDr6qSni1PsEU5HKvc=3D?=
-X-Exchange-RoutingPolicyChecked: 5FFBFthn5tAZxuKXwg4d29UlbkBItuxLN2aKqu+OIhYx6/was3zB92lfBwYlehwaw5kDQ9IGfaueCSLDGxzFLog/P3PIAAdt1utCMolJEtXG70JM6utKA+lZzoVC8HtRCiyCivr8mtgx2AmI1wuECzP6L4hVK1Ejeh+QY3SJIp6+fZQ+2jkRj9hVrJmL3vQw45N7GzkR3WwvdRr5BHQ0canZ8QX2UmvVzMwZGBkw7819FWOizEwnesN4tyHpecShqEK6YJKCL0xPmeNhAcDzDTlE6kN+zkAHNxNuFEAU2a7qS13xzy5lI4v+bANbw96WBNaCHWkojfci9oCx+kprMA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3367697-31a9-4003-b0a1-08df15d5447b
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?gp921PeDw80tRqQlaCpbB+8FPTLYVZ7zaNch9bHaLNu/m22bYC0czyQrAe?=
+ =?iso-8859-1?Q?NUFGplC7I2a5XPbDYkqUkaSe53a2aPkXbNgNVqSn9sbP/zV6FgYNtRRF4l?=
+ =?iso-8859-1?Q?qAKZp477CS9oGderg8vEc3rvBLs+DWSuqmr2IghDrlWmj0vT05HpWnpb4n?=
+ =?iso-8859-1?Q?ZbxRg2j3nQMwg1f0807YSqVCDetNZ/HfKmAooat3yIfezeCTFF5Gol6wR3?=
+ =?iso-8859-1?Q?bNdfk/vLe/i1gVLFlbTnS/a+bO1imC6hHMddvkWp5Lf0I0g7XeMmCUoMHy?=
+ =?iso-8859-1?Q?8BKwG1+y5lgTVyLbiCwG443hZwcR6pP+Ja/on/uAHggvpJaqujehuq2yOz?=
+ =?iso-8859-1?Q?mJgIH9F9He3YwMeRuc++baASj4Q3ItBvHaZaeJIt9oZkQ6Jf2XMol1IPit?=
+ =?iso-8859-1?Q?J6MMZS1VoEuVadUE7OlxcFNG+Vjc7HykV7UuZXq2KJTIGuUBy6HEzn8nYP?=
+ =?iso-8859-1?Q?z6/a5+IVWlGPKUsQ7/nb0FdX8KZYXQ12rNH34tg/0Dmcei2YzTGdLqaisW?=
+ =?iso-8859-1?Q?SZBTQYeMbnfUBVhy0qTFpQ1DeG+ZQNCTxtpI/F2YMXroNv1oNCc1nwwB7w?=
+ =?iso-8859-1?Q?nGPkz5u+gvu4AMRUP8zVQ5kEfwdpYST8s+D+kecSQCVZmDCI4yyx4OmLZQ?=
+ =?iso-8859-1?Q?T7hK9CdZNBpquPmTYavlM1FCEO1WwsX8byVFY1rmbyqSMqkDZUNyxAVe0Z?=
+ =?iso-8859-1?Q?e5WnJVyyOHUnA5I97tuNbglW7kSiabUKtHX/godEyJDuw3oTSJ6oEqgBQR?=
+ =?iso-8859-1?Q?5Gh7XW4KzzF5EBYP9pLu14AJIJEtGf9q0dRvX5xGOlGTaqGmCdxLAqJOl4?=
+ =?iso-8859-1?Q?ahEGf3gKLMXs+zrY6OwxtTOY9lA9/Mdb+jVFC+oCkAP0A0/YEq6ntgtZUv?=
+ =?iso-8859-1?Q?+uck37QjzbBFLmOR1S2u/tKgzcPUuxowZoRuGRthPp476bLp0FjZaf1K7s?=
+ =?iso-8859-1?Q?gv/q6RxhG7swnp3ICvoQy/P3sI+CIsA0BSQI3+cgH1/dm5lI/oc7vbd1pX?=
+ =?iso-8859-1?Q?ciswd4rZaT6N2uTeBdlmf5oeSzB2Id2zejSjovJSCGgZSQo6PWvrlQuzeK?=
+ =?iso-8859-1?Q?VKu/QN5yJfk4MZ3fs7a6dWiYQHJmd+RUtiMhex88a29JRXKpQZ+G6a2FiQ?=
+ =?iso-8859-1?Q?Z7XvlaqFeiVKTQRktTGPXSm/xEWcTbrXc6NZVZnTwZoS/nIEjXYx7AbmZf?=
+ =?iso-8859-1?Q?s3D7D/VcZT7DphzLVTmh/Dg5ETgbcYfzzdL+YoyP1zHVoW+kfU9HUK1pH1?=
+ =?iso-8859-1?Q?KuWPIxk9UAK/nhPg/5+B+C3M93qT7DoSQCWj5la0lw0U0FTTPunPxYtaPD?=
+ =?iso-8859-1?Q?tcy3cwBTLeM1I2s/+ivus7QVRJPexR4jcD4Ds12Id0mhLEphB+orYGqoPX?=
+ =?iso-8859-1?Q?Ixap+xGuMvx2Lvi/QspGyr+lTNQQtX/JM6MWC3YzKWs594V7oyIEhbWk9J?=
+ =?iso-8859-1?Q?Tmo1/pObGsFVcLTEAzS88+PBVY0pY41iNyDsJYr+HH0n10ht2qLWBmdgih?=
+ =?iso-8859-1?Q?XbqAS9wcltSP/hSNvB9yeenOVGOflnxRq9c5a40uI/xxXfthxpfLFl3dfs?=
+ =?iso-8859-1?Q?mRmjZ6SLSK8L9Tz0i1dY6Eo60Ff6yjajuHefccWg2yRXln/vIzUBHeIoaL?=
+ =?iso-8859-1?Q?IM2jH/Igz22/4AYcP7HQVb+df8qCR4Z6L5OxRB22UxxS+ttv7jAIXjpKsK?=
+ =?iso-8859-1?Q?rlqo1D6K/vq8QxwkqZnj5t522Gep4s8c7XoYfi8YxlPK/5QXPNlcCa6xsN?=
+ =?iso-8859-1?Q?uFX5l8VC6kQoqtLlRhoFdXzHT3RlSLjGAAmbIo4L8mqHnRl5hyN0OFzWCF?=
+ =?iso-8859-1?Q?59L6HdprvotgWLjfV36e94La4UiD9pM=3D?=
+X-Exchange-RoutingPolicyChecked: y8PR/85/30M1fYzkWzFfMAu+gfGv0f+CFnJ380PhwGxj71VwkBhZA1CLnc2Z6fDJfFxo8Yuy5SpAzJivgD4+6CPNzBSVTOw0r2vSyM0EVQo6ud2Ikeq2H8uZlQ8k70LrCpCI/F/lpA3EV8SlrBlyXKbeWXFIRkeP/EVrxjzEurBv/YbRWxSjOYWALSvX4XnL3ii6tUiqgw6wWIJOwMZuKoo15as90g2u4xt0t/uioRmCFisfLqNuJj+2mmoSjNss0Ui6b21OhMnDItV1GuBfgpAbbXgUJ4tsySMfzELNXWvALgc+3sAN+1w164vrzS8pAxWFk/iBFc8QOK9ISRxpUQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc30135c-6cf5-43f9-d079-08df15d5ff3d
 X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 22:36:23.3232 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 22:41:36.5888 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Bcw7I5s5yDhkm8z8Fj0CdyPbvfyRbpw8r4S3XU0E5CQIzkXGcIQLDVx8jn9IUoTizg+eEbRZk+c91Xzwb6tgtQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB7917
+X-MS-Exchange-CrossTenant-UserPrincipalName: bvKBNtNhhyORRDkZrjCGXFFR8tDqafInWxk8xryspNWO6HUmGybB46KYcU1SenaHhyIvThTKq53f0XYiN6/fzA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB5261
 X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -163,100 +165,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 16, 2026 at 03:23:34PM +0530, Arvind Yadav wrote:
-> disable_scheduling_deregister() waits for any pending scheduling
-> operation to complete before destroying an exec queue.
+On Fri, Sep 18, 2026 at 09:22:53AM +0200, Thomas Hellström wrote:
+> On Thu, 2026-09-17 at 20:22 -0700, Matthew Brost wrote:
+> > On Wed, Sep 16, 2026 at 03:23:33PM +0530, Arvind Yadav wrote:
+> > > xe_vm_free() is the drm_gpuvm vm_free callback. It hands the final
+> > > teardown to vm_destroy_work_func() on a workqueue and returns.
+> > > 
+> > > drm_gpuvm_free() drops its device reference immediately after the
+> > > callback returns:
+> > > 
+> > > 	gpuvm->ops->vm_free(gpuvm);
+> > > 	drm_dev_put(drm);
+> > > 
+> > > vm_destroy_work_func() then keeps using device state:
+> > > xe_pm_runtime_put()
+> > > for an LR mode VM, ttm_lru_bulk_move_fini() on xe->ttm, and the
+> > > tile
+> > > iteration. If the freed VM held the last device reference, the work
+> > > runs
+> > > against a released xe_device.
+> > > 
+> > > Take a device reference in xe_vm_free() and drop it once
+> > > vm_destroy_work_func() has finished using the device.
+> > > 
+> > > Cc: Matthew Brost <matthew.brost@intel.com>
+> > 
+> > This is a fix, IMO. Ideally, we should probably push the delayed-
+> > destroy
+> > semantics into gpuvm if they are really needed. I'm also questioning
+> > whether the VM destroy worker is actually required. This dates back
+> > to
+> > the very early days of Xe, and I doubt we've ever revisited whether
+> > it
+> > is necessary.
+> > 
+> > Let's follow up with one of the following:
+> > - Introduce async destroy in gpuvm and have it own the
+> > drm_dev_get/put.
+> > - Drop delayed destroy entirely in Xe.
 > 
-> For a disable completion, handle_sched_done() can wake the waiter before
-> clearing pending_disable, or not wake it at all. The waiter can then miss
-> a completed operation and expire after five seconds. This causes a
-> spurious GT reset and immediate TDR.
-> 
-> Clear pending_disable before waking the waitqueue on every completion
-> path. Sample the destroyed state before clearing the pending state, as
-> required by the existing destroy protocol.
-> 
-> Also wake CT waiters after a suspend completion.
-> The queue remains alive until deregistration completes, so waking
-> waiters before sending the deregister request does not release it.
-> 
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> We need to keep in mind that the drm file keeps a reference on the Xe
+> module. So once the last close() callback has executed, the module can
 
-I feel like this is an independent fix (like patch 1) that can be sent
-on its own with a Fixes tag and CC'd to stable. This also looks very
-similar to [1].
+Yikes, so drm_dev_get won't prevent the module from unloading? Different
+issue, right?
 
-Can you coordinate with the author of [1]? Alternatively, if that patch
-looks good to you, could you give it an RB?
+> typically be unloaded, causing execution UAF. It's therefore not really
+> recommended to keep file-related structures around with a refcount
+> after close.
+> 
+> Device references however typically don't necessarily keep the module
+> pinned. I had a series to fix this for xe only, (Got stalled) [1], but
+> in general we should be careful about leaking that assumption into DRM
+> code.
+> 
+
+So what is the fix here? I believe gpuvm has a drm_dev_ ref and it async
+teardown which breaks drm_dev_ assumption. I don't see an issue with
+this patch or my suggest follow up.
+
+> [1] https://patchwork.freedesktop.org/series/163298/
+
+Should we push on this? I don't really see an issue with series as long
+as 'rmmod xe' works if display isn't holding a module ref.
 
 Matt
 
-[1] https://patchwork.freedesktop.org/patch/753791/?series=174199&rev=1
-
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
-> ---
->  drivers/gpu/drm/xe/xe_guc_submit.c | 42 +++++++++++++++++-------------
->  1 file changed, 24 insertions(+), 18 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c b/drivers/gpu/drm/xe/xe_guc_submit.c
-> index f3ba8abfc228..ca24a77dfb26 100644
-> --- a/drivers/gpu/drm/xe/xe_guc_submit.c
-> +++ b/drivers/gpu/drm/xe/xe_guc_submit.c
-> @@ -3265,26 +3265,32 @@ static void handle_sched_done(struct xe_guc *guc, struct xe_exec_queue *q,
->  		if (q->guc->suspend_pending) {
->  			clear_exec_queue_pending_disable(q);
->  			suspend_fence_signal(q);
-> +
-> +			/*
-> +			 * Publish the cleared state before waking waiters.
-> +			 */
-> +			smp_wmb();
-> +			wake_up_all(&guc->ct.wq);
->  		} else {
-> -			if (exec_queue_banned(q)) {
-> -				smp_wmb();
-> -				wake_up_all(&guc->ct.wq);
-> -			}
-> -			if (exec_queue_destroyed(q)) {
-> -				/*
-> -				 * Make sure to clear the pending_disable only
-> -				 * after sampling the destroyed state. We want
-> -				 * to ensure we don't trigger the unregister too
-> -				 * early with something intending to only
-> -				 * disable scheduling. The caller doing the
-> -				 * destroy must wait for an ongoing
-> -				 * pending_disable before marking as destroyed.
-> -				 */
-> -				clear_exec_queue_pending_disable(q);
-> +			bool destroyed = exec_queue_destroyed(q);
-> +
-> +			/*
-> +			 * Make sure to clear pending_disable only after sampling
-> +			 * the destroyed state. The caller doing the destroy must
-> +			 * wait for an ongoing disable before marking the queue
-> +			 * destroyed.
-> +			 */
-> +			clear_exec_queue_pending_disable(q);
-> +
-> +			/*
-> +			 * Publish the cleared state before waking waiters.
-> +			 */
-> +			smp_wmb();
-> +			wake_up_all(&guc->ct.wq);
-> +
-> +			/* The queue remains alive until DEREGISTER_DONE. */
-> +			if (destroyed)
->  				deregister_exec_queue(guc, q);
-> -			} else {
-> -				clear_exec_queue_pending_disable(q);
-> -			}
->  		}
->  	}
->  }
-> -- 
-> 2.43.0
+> Thanks,
+> Thomas
 > 
+> 
+> > 
+> > As a temporary fix that can be backported, this looks good to me, so
+> > with a Fixes tag:
+> > 
+> > Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+> > 
+> > > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> > > Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+> > > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> > > Assisted-by: Claude:claude-opus-4-8
+> > > Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
+> > > ---
+> > >  drivers/gpu/drm/xe/xe_vm.c | 9 +++++++++
+> > >  1 file changed, 9 insertions(+)
+> > > 
+> > > diff --git a/drivers/gpu/drm/xe/xe_vm.c
+> > > b/drivers/gpu/drm/xe/xe_vm.c
+> > > index efa5ff6cc823..264bdab75de2 100644
+> > > --- a/drivers/gpu/drm/xe/xe_vm.c
+> > > +++ b/drivers/gpu/drm/xe/xe_vm.c
+> > > @@ -2054,12 +2054,21 @@ static void vm_destroy_work_func(struct
+> > > work_struct *w)
+> > >  		xe_file_put(vm->xef);
+> > >  
+> > >  	kfree(vm);
+> > > +
+> > > +	drm_dev_put(&xe->drm);
+> > >  }
+> > >  
+> > >  static void xe_vm_free(struct drm_gpuvm *gpuvm)
+> > >  {
+> > >  	struct xe_vm *vm = container_of(gpuvm, struct xe_vm,
+> > > gpuvm);
+> > >  
+> > > +	/*
+> > > +	 * drm_gpuvm drops its device reference as soon as this
+> > > callback
+> > > +	 * returns, but vm_destroy_work_func() still uses device
+> > > state. Hold a
+> > > +	 * reference across the deferred work.
+> > > +	 */
+> > > +	drm_dev_get(&vm->xe->drm);
+> > > +
+> > >  	/* To destroy the VM we need to be able to sleep */
+> > >  	queue_work(system_dfl_wq, &vm->destroy_work);
+> > >  }
+> > > -- 
+> > > 2.43.0
+> > > 
