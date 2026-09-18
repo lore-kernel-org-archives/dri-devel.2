@@ -4,45 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E63FC982D7
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 10:08:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3158C982DA
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 10:09:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6932410F2E3;
-	Fri, 18 Sep 2026 10:08:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD4E110F2C2;
+	Fri, 18 Sep 2026 10:09:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OhRfjipo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bmc3aV1i";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AC6810F2DC
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 10:08:43 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66E7E10F2C2;
+ Fri, 18 Sep 2026 10:09:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 659CF436C0;
- Fri, 18 Sep 2026 10:08:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF5711F00893;
- Fri, 18 Sep 2026 10:08:42 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id ACB4F60A5E;
+ Fri, 18 Sep 2026 10:09:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 369631F000FF;
+ Fri, 18 Sep 2026 10:09:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789726123;
- bh=0logBO07MURCsBD5KVajDxEUhuvDL975pij67DeQqPQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=OhRfjipoUxGRZa4qoifqVjhwECwzoQtiDEnhGdYa/Fise/Q9MG5ST2g4bIUC04dpL
- TEeWYpcPOq+Cm7J9rQs/DvKQUcHc5bndP6p+B5XX3Tnf3JzM1G1f3d0mnYUgI8kTcL
- ROOoP1fMqB2t1tESdxYQON4XLxsFItPP2HHG5t2pE53gzzq2NIeOTYhxHQ8zfx1W5q
- WNIvtF06hzLX6Kkpyh3TAivZFRU/dFSAQb8FVjfp0Iq+dVCTKa8Dy9KqiR/AfxDt/L
- naDv+6FuEPUgRBXyw6TpCCYfIK/2xrSQbgbV99OQsQ21qMCD8nJEikPwJiiTIa2C2M
- 7uaf3IayQnczw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 4/4] drm/virtio: wire blob ioctl creation to userptr
- objects
-To: "Honglei Huang" <honghuan@amd.com>
-Cc: "Eugenio Perez" <eperezma@redhat.com>, virtualization@lists.linux.dev,
- "Michael S. Tsirkin" <mst@redhat.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260918095940.2253018-5-honghuan@amd.com>
-References: <20260918095940.2253018-1-honghuan@amd.com>
- <20260918095940.2253018-5-honghuan@amd.com>
+ s=k20260515; t=1789726187;
+ bh=ldnhjGinl4eu4pR9zDJKuKw6fPmbARl0hSMqWh2pYUg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Bmc3aV1i24nMbRO7I0xJf6WGOSllIVEj/a1YQEqKBQkKys2OhpaNyRs54+f0xyeTN
+ IAr1T9lNAumI7NoxUoGKzOgh+TNth4OWXyQW43AeolvQCDYZjPMCZ4S/aKqTZBGkFQ
+ pVO+JVXiCAwhya04RBxZe1eijUveuVKl1XYFv2joaZJfUvKHeKKSnJa7v4ijPxOSuI
+ mFJDNO2ZC1x+lZBTcacF4FKQUI1neRp5CCRaoDiz195DbggbnaaIswmePylaH9l2ra
+ fuvieu3ySbYp/9nP8qi1XW61EHe+9U2z0wkKtaj4zZdW/zcEARybqQbHUHzJzc8NZz
+ 3ZmbszfbbbwiA==
+Date: Fri, 18 Sep 2026 12:09:43 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+ Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+ Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Robert Marko <robimarko@gmail.com>, 
+ Guru Das Srinagesh <linux@gurudas.dev>, Amit Kucheria <amitk@kernel.org>, 
+ Thara Gopinath <thara.gopinath@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>,
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
+ phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, iommu@lists.linux.dev,
+ mfd@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, 
+ linux-pm@vger.kernel.org, linux-input@vger.kernel.org
+Subject: Re: [PATCH v2 03/19] dt-bindings: nvmem: Add compatible for MSM8952
+Message-ID: <20260918-tidy-rook-of-respect-deaaef@quoll>
+References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
+ <20260916-msm8952-initial-support-v2-3-798c2602dde1@mainlining.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 10:08:42 +0000
-Message-Id: <20260918100842.EF5711F00893@smtp.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20260916-msm8952-initial-support-v2-3-798c2602dde1@mainlining.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,23 +84,19 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Integrate userptr into the blob resource creation ioctl.
->=20
-> - A non-zero userptr selects virtio_gpu_userptr_create()
-> - Reject userptr unless blob_mem is VIRTGPU_BLOB_MEM_GUEST
-> - Reject VIRTGPU_BLOB_FLAG_USE_READONLY unless the device
->   advertised VIRTIO_GPU_F_BLOB_READONLY
-> - Advertise VIRTGPU_PARAM_USERPTR and VIRTGPU_PARAM_BLOB_READONLY
->=20
-> Signed-off-by: Honglei Huang <honghuan@amd.com>
+On Wed, Sep 16, 2026 at 05:22:08PM +0300, Muzaffer Kadir wrote:
+> Document the QFPROM block found on MSM8952.
+> 
+> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+> ---
+>  Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918095940.2253=
-018-1-honghuan@amd.com?part=3D4
+Best regards,
+Krzysztof
 
