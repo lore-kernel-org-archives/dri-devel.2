@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E75AAC982D2
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 06:12:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4C38C88E75
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 06:16:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4512B10F198;
-	Fri, 18 Sep 2026 06:12:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5653F10F191;
+	Fri, 18 Sep 2026 06:16:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VXev+GgA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BqP6dFFK";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 033F310F198
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 06:12:57 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51E6810F191
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 06:16:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B452140170;
- Fri, 18 Sep 2026 06:12:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 793F11F000FF;
- Fri, 18 Sep 2026 06:12:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5E4FA601EF;
+ Fri, 18 Sep 2026 06:16:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC2581F000FF;
+ Fri, 18 Sep 2026 06:16:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789711977;
- bh=jG4sd/kZjI59FKa4nokJHQfKl7x2bYtkVxMEDhRaFFU=;
+ s=k20260515; t=1789712175;
+ bh=NC4MKgOXSOXLvcJNq54W3NpHgxlxE/yver/k3uh1wBA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VXev+GgANtfVD5e0mw5F/pER4v1Vt7Jacn8Gd15TKl284fSpppLvdLPg3TNtjir4L
- /GsjxkVGUD+RTWzMX8Tq8R4XI+5j1pbYlWUPDXoibrgSPi3q9w59OwKd9Nza6bPNG8
- ZM4y+EOdhnfFU0nHLOutRiDnB8v4NoFf67hzz5SnDB3DyARzdcisrBE+qcPacD94Ju
- zckdafr2Kf+sBUjrAWD+tpQopQCawuu0mJM9O1BypQwcDAktyBTOSgn4xj2+wvmzWT
- CkhL5k0+jmuqa9BkXC2+4ZjldQJcw6B1Wn+WeutPNh6b11nUsrNHJF5GTuwAJgIFqT
- QpQfEV3zG2gJg==
+ b=BqP6dFFKIQHOSImWi2JX1kXw4ZV7XEf600F1+7Xeb82ness4d6fME8Q7RDINVf8mV
+ BWgqrJzDNdkdHcBoNekrlAdEbZS0tGWAJE9gtOqO6Z3nzH58Pm2P6OvKhutNT5Cqzj
+ DV4sjgD5DoTvgj2w24w/f3YsbnjMYnLHk4YijaID/FP4zdK9FqHfVuyAhxErHycCAX
+ cI/yGXsWQiOd7XJ16zl2Ur8CpIlhSsLOtmvcBQQEk4oVg5/2c4RlsjTvfjfdfzwfjZ
+ nlFD6Y6SUZgAAx4ZYvO5VOjiFwpblDcKDY/CV5n2H81HJxDVAPyt3XsjqlHfZCgcee
+ +0xNbFSbUzk6Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 4/4] drm/virtio: wire blob ioctl creation to userptr
- objects
+Subject: Re: [PATCH v8 3/4] drm/virtio: implement userptr support for
+ zero-copy memory access
 To: "Honglei Huang" <honghuan@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260918055917.2133574-5-honghuan@amd.com>
+In-Reply-To: <20260918055917.2133574-4-honghuan@amd.com>
 References: <20260918055917.2133574-1-honghuan@amd.com>
- <20260918055917.2133574-5-honghuan@amd.com>
+ <20260918055917.2133574-4-honghuan@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 06:12:57 +0000
-Message-Id: <20260918061257.793F11F000FF@smtp.kernel.org>
+Date: Fri, 18 Sep 2026 06:16:14 +0000
+Message-Id: <20260918061614.EC2581F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,61 +60,57 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Critical] drm/virtio: host GPU can overwrite guest read-only memory via =
-userptr
+- [Critical] drm/virtio: privilege escalation via HINT_USERPTR_RDONLY
 --
 
-commit c5dbb2382bf8fa9c29656a9b3e8e517c49a15783
+commit 20ea6ca5af258a43b1dc12cab535283738613d35
 Author: Honglei Huang <honghuan@amd.com>
-Subject: drm/virtio: wire blob ioctl creation to userptr objects
+Subject: drm/virtio: implement userptr support for zero-copy memory access
 
-This commit integrates userptr into the blob resource creation ioctl. It
-accepts the userptr hints, validates them against the blob memory type,
-and delegates creation to virtio_gpu_userptr_create().
+This commit adds userptr blob object support to virtio-gpu, allowing the
+guest kernel to pin existing userspace mappings and use them as CREATE_BLOB
+backing entries. It handles page pinning, DMA mapping if required, and
+syncing the scatterlist for the device.
 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/vir=
-tio/virtgpu_ioctl.c
-> index 3d8e4ccdb7c1f..225a550be00ca 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_userptr.c b/drivers/gpu/drm/v=
+irtio/virtgpu_userptr.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/virtio/virtgpu_userptr.c
 [ ... ]
-> @@ -538,7 +562,10 @@ static int virtio_gpu_resource_create_blob_ioctl(str=
-uct drm_device *dev,
->  				      vfpriv->ctx_id, NULL, NULL);
->  	}
-> =20
-> -	if (guest_blob)
-> +	if (guest_blob &&
-> +	    (params.blob_hints & DRM_VIRTGPU_BLOB_FLAG_HINT_USERPTR))
-> +		ret =3D virtio_gpu_userptr_create(vgdev, file, &params, &bo);
+> +static int
+> +virtio_gpu_userptr_get_pages(struct virtio_gpu_object_userptr *userptr)
+> +{
+> +	unsigned int flag =3D FOLL_LONGTERM;
+> +	unsigned int num_pages, pinned =3D 0;
+> +	int ret =3D 0;
+[ ... ]
+> +	if (!(userptr->flags & DRM_VIRTGPU_BLOB_FLAG_HINT_USERPTR_RDONLY))
+> +		flag |=3D FOLL_WRITE;
+> +
+> +	do {
+> +		num_pages =3D userptr->npages - pinned;
+> +
+> +		ret =3D pin_user_pages_fast(userptr->start + pinned * PAGE_SIZE,
+> +					  num_pages, flag,
+> +					  userptr->pages + pinned);
 
 [Severity: Critical]
-Does this code path allow the host GPU to overwrite guest read-only memory?
+Does this allow unprivileged userspace to bypass guest page protections?
 
-When the DRM_VIRTGPU_BLOB_FLAG_HINT_USERPTR_RDONLY hint is used, the guest
-pins read-only physical pages (like shared libraries) by omitting FOLL_WRITE
-in virtio_gpu_userptr_get_pages().
+If a malicious guest userspace maps read-only memory (such as executable
+pages like libc.so) and passes it with
+DRM_VIRTGPU_BLOB_FLAG_HINT_USERPTR_RDONLY, the code omits FOLL_WRITE when
+calling pin_user_pages_fast.=20
 
-However, when virtio_gpu_userptr_create() delegates to the host:
-
-drivers/gpu/drm/virtio/virtgpu_vq.c:virtio_gpu_cmd_resource_create_blob() {
-        ...
-        cmd_p->blob_mem =3D cpu_to_le32(params->blob_mem);
-        cmd_p->blob_flags =3D cpu_to_le32(params->blob_flags);
-        ...
-}
-
-The blob_hints containing the RDONLY flag are never serialized to the host
-in the virtio-gpu protocol. Since the host is unaware of the read-only
-restriction, it treats the physical pages as writable. Can guest userspace
-then submit 3D rendering commands to the host GPU to modify this read-only
-memory, bypassing guest protections?
-
-> +	else if (guest_blob)
->  		ret =3D virtio_gpu_object_create(vgdev, &params, &bo, NULL);
->  	else if (!guest_blob && host3d_blob)
->  		ret =3D virtio_gpu_vram_create(vgdev, &params, &bo);
+The pinned physical addresses are then sent to the host. If the guest has no
+vIOMMU (where virtio_gpu_use_dma_api() is false), these addresses are passed
+directly to the host without DMA_TO_DEVICE IOMMU protection. The userspace
+process could then submit a command stream via VIRTGPU_EXECBUFFER instructi=
+ng
+the host GPU to write to this resource, causing the host hypervisor to write
+directly into the guest's read-only physical memory.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918055917.2133=
-574-1-honghuan@amd.com?part=3D4
+574-1-honghuan@amd.com?part=3D3
