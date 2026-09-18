@@ -4,87 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AADE9C982DE
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 17:58:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C418BC982D7
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 18:03:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 331AA10E98F;
-	Fri, 18 Sep 2026 17:57:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C350A10E13F;
+	Fri, 18 Sep 2026 18:03:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mj/P1Jre";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="ZFLdfW8m";
 	dkim-atps=neutral
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
- [74.125.225.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED75610E215
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 17:57:54 +0000 (UTC)
-Received: by mail-wr2-f12.google.com with SMTP id
- ffacd0b85a97d-482f63546c3so800553f8f.1
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 10:57:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789754273; x=1790359073; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=sAooB32uAcG0QWvFzgpqh3sQmn2wrC5rrQIephimC1Q=;
- b=mj/P1JrerHerBIxVtMx83HHKwJd8TPyJCTcU9XjjZxPEQkIW6l8c/mjM9ZWR/SBDLW
- wAbv8N1X9KH7p81VdWOHv8eGHrWwMCXelI4WxDdLaQELTuOi4+fohGpoNqiVPJon7d2k
- fpo0IRV5kaHsFiOHRfbSohiNEIT4m0HaAseLN9zQF3C9wq2QoW+uFWdWMdW51jhAcKU2
- qRP0ZdBOHnFC+MjTcYs39vziO6oc8woPdh8L+aIqHa0WbfDTjo1iRkPxBRxFXQRMbk2/
- SLtnt1jM6NfCH5ZWGE05jwwsh2kQTa7QN1A3PkVgFuhY4mckB6F/ZCUtmD8ZY8y8U1tA
- /wsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789754273; x=1790359073;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=sAooB32uAcG0QWvFzgpqh3sQmn2wrC5rrQIephimC1Q=;
- b=c/w0+81KAgtbpPdAGiW2Fke8rLG+/3Ojd0a/1/DPUpGOQJnvOvkJuR4czHPKq+AjZn
- a4seCa5mpN2qBqOPRd+OpqOrDGVyKY95cZho5ETbNWBPwe92ggoxw2wdwvYLr9r5sPNO
- 53yWVIfWE5eAcZuT/m4nA/t1uxb0Y1eRX1Y63i3uS08L7nX2hzJ/1ygQo74/L2OuyaTR
- 1+s2rd7hJvIxTSVORR699zRON3qzSBgOsSjMSfP6iyGdmXMBKffxvr6Qvr60UoAl0uA3
- LjEO/XnEq6wb413zDQIgi2dGi7njrV3TlCg5MP0k/6Ln+keHgEuOCvGfAymZ/BV9dy6A
- oRPw==
-X-Forwarded-Encrypted: i=1;
- AKwUvByrdGWeqzQfFwCjEMrPSONXkxEcvuGOG4A5nh9WW1MuMJDW6cHPGXtNBdKMsrONEfmTL/mUXi/2fbs=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nOID3FPGed5GpqoHvk4bdI/eTyQzxX50TZHfOxuNuRuQAD5Eh5
- jlwQqIwFVPhSQEwzDjLKLfbNmyio+kU7BlbkMt2XsblZrqzjxDFUhgMm
-X-Gm-Gg: AYBFou0MdK0iFuV1qhmvNii23w3aVih3OSW0/oOfSz6jhEXABmUAO3qzijjfxveX3QH
- M0u6DOM3XarhAoJkyEELgL7N4hY9R4WHPqT3sgM3U+mfrMHYAW/iXGqzbpoyyxpelGGiySB6Axi
- +wIUlb+AWv6z+d//xJdcVVrcEgzY2uVxG5q+h4ZqvwsWCG9RrJLc8af7DKjHQw/yxmBv0IbYaDE
- 0HFVK5W5j67/jI9W8at6ivuElWwabkrjeG9G9Fg2FDceOb/QbSFK1LapNu3mAXS45D9x5YHTHRS
- XOi4BnoW1v4KLz+8AxB99yCt1izRPK0YorAVpNSby1u9e9Q4ufO4vQzJSKD6tjFZlB2IHqhPSul
- zwJ6G5lmy+N9lfgJaFPi7VNWQ5KrdEkqqb3w0pcvuppShzERhdx+o/eEQ3hqpkYQc0stXEKpqVH
- yFuaZrZNDTb/sXFgRiSaw69ZpHKmXIk+3tfG6/6VDgAHZSq2wWe/5zPlc/W/r9EZpBgIta
-X-Received: by 2002:a05:6000:2407:b0:487:14b6:b1be with SMTP id
- ffacd0b85a97d-4871e235dedmr4178397f8f.25.1789754273232; 
- Fri, 18 Sep 2026 10:57:53 -0700 (PDT)
-Received: from luca-vm.lan ([154.61.61.58]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48724562aebsm268461f8f.14.2026.09.18.10.57.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Sep 2026 10:57:52 -0700 (PDT)
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-To: linux-mediatek@lists.infradead.org
-Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>,
- Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: [PATCH 4/4] arm64: dts: mediatek: mt8167: Add DRM nodes
-Date: Fri, 18 Sep 2026 19:55:28 +0200
-Message-ID: <20260918175736.355305-5-l.scorcia@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260918175736.355305-1-l.scorcia@gmail.com>
-References: <20260918175736.355305-1-l.scorcia@gmail.com>
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012061.outbound.protection.outlook.com
+ [40.107.200.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B947A10E13F
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 18:03:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FlGTU1dYSLqymDnVd5j7iKZyYw1Bb9jv2rKuaqhee7r+Gqvn+5dayc5sjvt3AGIrZCcYwqXhc3jLUZOp14hXlP7TiTlQWRJsRmOxudXGlLZB3ZPElPma1DPsEhJ1q4J1T81HAr3fD0cT3BTgyl4x737XizNKZbVKMqXp4/uHNfj/TLJhJz7Zd1Og5tvkr22rN6egHlcdxreJt6oYGebGv6H7MWRSP0DMQyZs0E0tEyG8tB8pYh8BYW7uElnk4OfISnwPd4j5B4MgwcboCBeGb71lNpRqEC7UWvvXGABAPRQhSKQOyHzHgGvqq7Mub/mCT47wl4a54HAISQPkvjrxVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yXip487AwB3QCP50KrkA5KKJruLYslFxtJ9s8Kx4GDs=;
+ b=tXzteToXV91iVs4AyThHrX4x8E774AmFbawMvyFyQIgxtK/CrSV7Qq9XLguLWJelq1v/xP7pD2TRQf0LYJVuwZDoT0ohYIWajt+d2HeMigscIwjOKt2aANMbQUYBAar82AVcuwESIpjsrPJkImn4DhyT5XlQYb0cnMZ4IwJwt7Iu/j/AQSTiE9skv4fNwfL091/v56R0OIDY195L5T/VWrsJcv4wfBaAF6KNzvPXmpI5cbit3Q/BUei6Jl5je16DczWbPGYUP6UqfBxdxUyDiLQMQ9a4Uf+q9wYh5K4wsPbXOrF9hiC7IE8hYktZ0Dbbji2I365TfIg7avdBGYKtCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yXip487AwB3QCP50KrkA5KKJruLYslFxtJ9s8Kx4GDs=;
+ b=ZFLdfW8m5FKnqtg/DUbcfdI1KWEpa5wX5njuX2y+0iEjv2mr2mcRTpWbV406hFAXk4X9bmYbwaarHj5pTwSjN4hdFipiPKeIk9n8a5wg1Ha67DJ+gLfYcFSOz81mbI11nqMFGmo+KLCpYDv0BTUQG/fb17kRdf7X1pGQg2GpvnEU3wFOsGLopsOd76W+ynTauyozU/10ugb4o2QyuaGqoS/mSMjEU2qMv90/CXNIfzdKa/F8Vz1GAlNwl2xJe0iGWqqgGr+sI7CIXhEHTrxmYpWCh2UZHyofhGw948zUJbtSfbusHq7hmUEtxp8CNm1sai8vsEzyVZsnh7GwUp//og==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by DS7PR12MB6167.namprd12.prod.outlook.com (2603:10b6:8:98::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
+ 2026 18:03:22 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
+ 18:03:22 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 18 Sep 2026 19:03:17 +0100
+Message-Id: <DLIN1ZH244ZA.3JVCE0YKWAQ6B@nvidia.com>
+Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Yury Norov"
+ <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v3 1/3] rust: num: add cv! macro to create values from
+ constant expressions
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+Content-Transfer-Encoding: quoted-printable
+References: <20260902-cv-v3-0-0f90659e711d@nvidia.com>
+ <20260902-cv-v3-1-0f90659e711d@nvidia.com>
+ <DLFPWSS3LZSN.12G96EM0FI18C@nvidia.com>
+ <DLHGQN9VQ3TE.JYI851RVF7VD@garyguo.net>
+In-Reply-To: <DLHGQN9VQ3TE.JYI851RVF7VD@garyguo.net>
+X-ClientProxiedBy: FR3P281CA0192.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a4::16) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DS7PR12MB6167:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ad0169c-212a-460a-ad75-08df15af2000
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|366016|376014|7416014|10067099003|11063799006|18002099003|22082099003|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info: fqR0ohqDvEVceEwo+dB30ktdYbv3ucgLZfp/NTMGPDeSxrCBoHO+eXv6cb/M3+X61BN6pdLaTT4VyZQS+CCgtOamsBAXX7qz6vxpHJEv2BHp5QyiTg/V7t9W95rmogMGoVVphdgJM9JQNVl3ujaUt5KJOlt52u0fMFY9oM71Xb+fMM6pLtZptUh2iadh+pad/BGNzOlMehbVVQWbdD3E9qV0JCrEkEfZjz04NWthmQdBySjfK2xcQTSFL2XM3EiZP7AU2+N4WCod+8IrrDHJgKRw7/QO1KSMbdg+IaPIX+NZmLRXNrm5sYjEp3G3PDWDWhFhnKXjmleMuLXD/K7nZIMGCxmW3WN1cOIJ/5wDKJNLX6fNJ7HvnZ8nO6y5vAL3/46czCgfUnw8VLhdpDZxHPpZtUo81wn0Io/keL8SFXw35x/YE/hIWu5l6S19CLnTyDQmA4mx1wDbUL4gtQz8rczYoNmsuWzlEo8Vy3Fh9VOs5jeagsJ17zvF0F3HNhAuKA9plpbZvLyauxBaBKuR5oANa+JKVSxylMhKDx/ug+Ru5cnINJzHjnTX5pI/fMOEVtgKx0nW5tJ9VwroP/fZOz+vJHhYHcFhC6PKQsavzglCwT4DUsExaXfeFnpsGszmiqHV/69Wbr36Sma7qGGFDNRwNsSBkrA9KkcZaWHLIVI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(10067099003)(11063799006)(18002099003)(22082099003)(56012099006)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y1FiYTc3TDlPbXBFNVNkY3FPckJHcXQxNjdMdkl5RXgydS9PTjFSTCtON2Y3?=
+ =?utf-8?B?ak9oUVJ5Y3NvRWZyS3VUSC8zNXRVNm9ZaGhGenhrUENvV3dmdmgyanYzZnNN?=
+ =?utf-8?B?dStJVm1CWEFvdHVXOURKNUYwNmlxcDBqOTFoMDJSRndGeGxjbmgrNE55N1lS?=
+ =?utf-8?B?OHRuYUpFK3NEQnJIRXIxQTJza2ExK25aM0M2eUUraUtVMnJFVmtOSUVSbUFy?=
+ =?utf-8?B?clNjRXhwWkgrL0N1RHRsdEVYcDk2cjFrNWZOQTBvMlhBQXYrNjd6VDNIbTgv?=
+ =?utf-8?B?RGdFU3o5QTlBWitWZFJYOTZGNWpMVFF6MTFCeDVqWFoya0FkRTVwbERLdjN2?=
+ =?utf-8?B?T0hJaHQ1MzUrQ3MwL3hubnRnWXBOSERubmthWnBSUnpnakM3cXF2SmozQ1F3?=
+ =?utf-8?B?dW5CWnpSdVIxY3hhSEV2VmRHaGVqUlh6SDliZVVUb1N0Vm5IVzg4UXZEb09T?=
+ =?utf-8?B?cTJMTmNDMG90cFhPTUxRZUhDSkhOYzBvTU84WUV3VkZFTnhXUDBGZTdIVnVj?=
+ =?utf-8?B?dzhxRGFLcXdCOXZ1OHZDeko4ZjN3dnk4YkpvSTZnTlN6dkFSOVd2SmJ1bit1?=
+ =?utf-8?B?VHNLNzBTbWFTZU5NVXZ1aTR1QTFaeFplUEY1WlJSMFNYTXhYUlArejgrYW93?=
+ =?utf-8?B?TGZnUWtnLzdYbzErUzdjdHlqWk83dTRVenAveGdqcG91Nldac3VyNlh6SVRR?=
+ =?utf-8?B?cU8wd1BNWm5BQU5vTEs5aDlhM2xIVGtNRDFRbWt0VWxJblpTbytzR2VkRE1y?=
+ =?utf-8?B?dW43c09OZnRkUG1IQ2IxSmxxZzJ1UitRMk81eHVKTHNhb2pUb0R6Q1BjRGZR?=
+ =?utf-8?B?Y0ZkakxIY2NaN0VSK1FGcDNPaHRHaXp2NzF5OFd5N2FGQ0pkRDhXbWZHWWRE?=
+ =?utf-8?B?RzJiQTQzL25ab3BVOVlSeDJBU21UaEp5bnQ0eGQ1RlVlaGhER1RxazZQTk9v?=
+ =?utf-8?B?RTNBSkZEUFFPUDBEV3NONFZsS2wvMytCVFBpRGpNQ3NrRk5BV1gxUG5FN1Z5?=
+ =?utf-8?B?VHhvbGJXUHZRWmVsMkFlN3o5WjN5RXl0TTJtVW1tQ29vYVQzQjNqTld4MnEw?=
+ =?utf-8?B?WkF5L2c2ZlVuL2VBV0VMRzFPWGJidmtVYmpxZlVCMEJ4K0FkTjBRVUY1cjUr?=
+ =?utf-8?B?ZW4vSEo1d2U2QjBtVXR1Snh0SHlveHhMaVl6VXdDSWtwclVBV1B5b29ROVE2?=
+ =?utf-8?B?VmVIbVNSV0pEU1dFSUtaRzZaSXhsd0RwSk0vZkZWS3hoWURYSDRWZnR1bWZY?=
+ =?utf-8?B?ZG9COWxvT2lBbDFBb2tmd1dmQ05aRGRDZVhLbDVkV056cFQvU3ZxejBMWm1r?=
+ =?utf-8?B?STZOQkIwSExPMjBLdVlFZThqR2cxNnd5YWdHQ1c3UDhKRjA4UU9MbTJQbE5J?=
+ =?utf-8?B?dUlSK2pMcFo0eXR1eURWMGp4TVRadXc2RkFzSHd5ZHBCTE9IQ3pRU0dpME1Y?=
+ =?utf-8?B?Zm5NbStianU5YyswQS9vRkFqZmZ1dHNFajdzK0VNM1hVNThkSWxvZExaVEZs?=
+ =?utf-8?B?VzZnL0Q4RlU5bmdBT2RMVHdnY203c3ZqUXpnR2dpdmZqb244R0RUMk05OXhp?=
+ =?utf-8?B?S3hNM25BajAyY3U3WTZIS2tmWGlGVUFBeUVsVXlsT01lNWkvSFRwSUxSWGNS?=
+ =?utf-8?B?NlVFRlpFTS93MXZCbnNGYUJEek9NSkw2UXB4eXNOMnZUTTRQZHNvNE9tM3o1?=
+ =?utf-8?B?SUsxWnNZeW41elVHRGxvOEtVQ1lNRkdQUUdsVlNIYkF4YUswT0Y0OGw4S2dj?=
+ =?utf-8?B?aHBoY3UvUVJtRzduS2JUWkd4T1dGdUVLUEdaRk1RNmp3blY1N29vcHluL2JP?=
+ =?utf-8?B?RUsvN1Fsc2J6Q0JxVFArbi9NV2FXYTc0YWJHVUd0ejBWVnAxZ05QdFRCWHFN?=
+ =?utf-8?B?c2pvWDJJdTd6SDIveWJpS3JSMk1tNUdaWEtUV0VVcCtIT05ZbWF1MGhaem4z?=
+ =?utf-8?B?a0JwUzdzVjhIODNiR1BTUzNWc1htSE4waCs0RGRndnkxOGFxUGtLQ2lnaGFH?=
+ =?utf-8?B?SkpzSTFQdUVWTHdpMDN1WllYeHZ1ZmpITk1nNjNwWWRzYkczM1Nla1RaMlVq?=
+ =?utf-8?B?RUlTWUU2U3ZRQjBRa0pRN1pTYkpJYjl2WmpTQWpDWWV3Y1dwcEM0aVNvbkph?=
+ =?utf-8?B?YnRoRzZ1b3k1L2tvY0puQzdaNWJNaDcvaHVYY0FHSGdPS0MzbHl4Z1BFWnFo?=
+ =?utf-8?B?Z25oN1hRV1JpZWp6NHVndTFrenkvMVdKSzVMMTM2RE1HYUhPTlJjQmpPVVpI?=
+ =?utf-8?B?VXZldFBqL3FmSUY2NEhuL2h3SWY0dDA3cXhONnNrWlR2YXJjU2l1Rm5kdXV4?=
+ =?utf-8?B?L0NDcTZJc3NIdFI3Z2xLT25xWkVpSEdDY0VvM25lcnhyVjk2bVRSUT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ad0169c-212a-460a-ad75-08df15af2000
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 18:03:21.5577 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0XceJ6dXrRwLYyHwcq5zAm9fok8AaX2u2y2P3VWaVFeUOqgnGYBC1yA/tg1hTD6wzVmwopE4100fLYALsnISVQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6167
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,412 +150,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add all the DRM nodes required to get DSI and DPI to work on MT8167 SoC.
+On Thu Sep 17, 2026 at 9:53 AM BST, Gary Guo wrote:
+> On Tue Sep 15, 2026 at 8:39 AM BST, Alexandre Courbot wrote:
+>> On Wed Sep 2, 2026 at 6:16 PM JST, Eliot Courtney wrote:
+>>> Currently, using NonZero/Bounded constants is quite verbose. It's
+>>> unfortunate because it disincentivizes using it in interface boundaries=
+.
+>>> Introduce a macro to make it nicer to use. The macro `cv!` (for constan=
+t
+>>> value) takes a const integer expression and widens it to i128 (at build
+>>> time only) before passing it as a const generic value to a new trait
+>>> `FromConst`. The value is then converted and appears in the
+>>> associated constant `FromConst::VALUE`. The trait is implemented by
+>>> NonZero, Bounded, and Alignment and lets values of each be constructed
+>>> from constants without a verbose turbofish syntax.
+>>> For example, `const { NonZero::new(1).unwrap() }` can be written as
+>>> `cv!(1)`.
+>>>
+>>> Suggested-by: Gary Guo <gary@garyguo.net>
+>>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>>
+>> I don't think we have any user but nova-core at the moment, and it
+>> benefits from this in several series (patch 3 here, but also ID pool and
+>> later r000). Miguel, is this ok if we take it (i.e. the next revision)
+>> through drm-rust-next?
+>
+> How about a topic tag shared between Rust and drm-rust-next? We could als=
+o
+> remove the old num casts API as part of topic tag and fix all existing us=
+ers as
+> part of merge.
 
-Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- arch/arm64/boot/dts/mediatek/mt8167.dtsi | 369 +++++++++++++++++++++++
- 1 file changed, 369 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/mediatek/mt8167.dtsi b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-index 27cf32d7ae35..a50bae4307c1 100644
---- a/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-@@ -16,6 +16,22 @@
- / {
- 	compatible = "mediatek,mt8167";
- 
-+	aliases {
-+		aal0 = &aal;
-+		ccorr0 = &ccorr;
-+		color0 = &color;
-+		dither0 = &dither;
-+		dpi0 = &dpi0;
-+		dpi1 = &dpi1;
-+		dsi0 = &dsi;
-+		gamma0 = &gamma;
-+		ovl0 = &ovl0;
-+		pwm0 = &disp_pwm;
-+		rdma0 = &rdma0;
-+		rdma1 = &rdma1;
-+		wdma0 = &wdma;
-+	};
-+
- 	soc {
- 		topckgen: topckgen@10000000 {
- 			compatible = "mediatek,mt8167-topckgen", "syscon";
-@@ -120,10 +136,325 @@ iommu: m4u@10203000 {
- 			#iommu-cells = <1>;
- 		};
- 
-+		disp_pwm: pwm@1100f000 {
-+			compatible = "mediatek,mt8167-disp-pwm", "mediatek,mt8173-disp-pwm";
-+			reg = <0 0x1100f000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_PWM_26M>, <&mmsys CLK_MM_DISP_PWM_MM>;
-+			clock-names = "main", "mm";
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+			#pwm-cells = <2>;
-+			status = "disabled";
-+		};
-+
- 		mmsys: syscon@14000000 {
- 			compatible = "mediatek,mt8167-mmsys", "syscon";
- 			reg = <0 0x14000000 0 0x1000>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
- 			#clock-cells = <1>;
-+
-+			port {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				mmsys_main: endpoint@0 {
-+					reg = <0>;
-+					remote-endpoint = <&ovl0_in>;
-+				};
-+
-+				mmsys_ext: endpoint@1 {
-+					reg = <1>;
-+					remote-endpoint = <&rdma1_in>;
-+				};
-+			};
-+		};
-+
-+		ovl0: ovl0@14007000 {
-+			compatible = "mediatek,mt8167-disp-ovl";
-+			reg = <0 0x14007000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_OVL0>;
-+			interrupts = <GIC_SPI 160 IRQ_TYPE_LEVEL_LOW>;
-+			iommus = <&iommu M4U_PORT_DISP_OVL0>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					ovl0_in: endpoint {
-+						remote-endpoint = <&mmsys_main>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					ovl0_out: endpoint {
-+						remote-endpoint = <&color_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		rdma0: rdma0@14009000 {
-+			compatible = "mediatek,mt8167-disp-rdma", "mediatek,mt2701-disp-rdma";
-+			reg = <0 0x14009000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_RDMA0>;
-+			interrupts = <GIC_SPI 162 IRQ_TYPE_LEVEL_LOW>;
-+			iommus = <&iommu M4U_PORT_DISP_RDMA0>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					rdma0_in: endpoint {
-+						remote-endpoint = <&dither_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					rdma0_out: endpoint { };
-+				};
-+			};
-+		};
-+
-+		rdma1: rdma1@1400a000 {
-+			compatible = "mediatek,mt8167-disp-rdma", "mediatek,mt2701-disp-rdma";
-+			reg = <0 0x1400a000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_RDMA1>;
-+			interrupts = <GIC_SPI 163 IRQ_TYPE_LEVEL_LOW>;
-+			iommus = <&iommu M4U_PORT_DISP_RDMA1>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					rdma1_in: endpoint {
-+						remote-endpoint = <&mmsys_ext>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					rdma1_out: endpoint { };
-+				};
-+			};
-+		};
-+
-+		wdma: wdma0@1400b000 {
-+			compatible = "mediatek,mt8167-disp-wdma", "mediatek,mt8173-disp-wdma";
-+			reg = <0 0x1400b000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_WDMA>;
-+			interrupts = <GIC_SPI 164 IRQ_TYPE_LEVEL_LOW>;
-+			iommus = <&iommu M4U_PORT_DISP_WDMA0>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+		};
-+
-+		color: color@1400c000 {
-+			compatible = "mediatek,mt8167-disp-color";
-+			reg = <0 0x1400c000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_COLOR>;
-+			interrupts = <GIC_SPI 165 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					color_in: endpoint {
-+						remote-endpoint = <&ovl0_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					color_out: endpoint {
-+						remote-endpoint = <&ccorr_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		ccorr: ccorr@1400d000 {
-+			compatible = "mediatek,mt8167-disp-ccorr", "mediatek,mt8183-disp-ccorr";
-+			reg = <0 0x1400d000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_CCORR>;
-+			interrupts = <GIC_SPI 166 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					ccorr_in: endpoint {
-+						remote-endpoint = <&color_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					ccorr_out: endpoint {
-+						remote-endpoint = <&aal_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		aal: aal@1400e000 {
-+			compatible = "mediatek,mt8167-disp-aal", "mediatek,mt8173-disp-aal";
-+			reg = <0 0x1400e000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_AAL>;
-+			interrupts = <GIC_SPI 167 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					aal_in: endpoint {
-+						remote-endpoint = <&ccorr_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					aal_out: endpoint {
-+						remote-endpoint = <&gamma_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		gamma: gamma@1400f000 {
-+			compatible = "mediatek,mt8167-disp-gamma", "mediatek,mt8173-disp-gamma";
-+			reg = <0 0x1400f000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_GAMMA>;
-+			interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					gamma_in: endpoint {
-+						remote-endpoint = <&aal_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					gamma_out: endpoint {
-+						remote-endpoint = <&dither_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		dither: dither@14010000 {
-+			compatible = "mediatek,mt8167-disp-dither", "mediatek,mt8183-disp-dither";
-+			reg = <0 0x14010000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_DITHER>;
-+			interrupts = <GIC_SPI 169 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					dither_in: endpoint {
-+						remote-endpoint = <&gamma_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					dither_out: endpoint {
-+						remote-endpoint = <&rdma0_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		dsi: dsi@14012000 {
-+			compatible = "mediatek,mt8167-dsi";
-+			reg = <0 0x14012000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DSI_ENGINE>, <&mmsys CLK_MM_DSI_DIGITAL>,
-+				 <&mipi_tx>;
-+			clock-names = "engine", "digital", "hs";
-+			interrupts = <GIC_SPI 171 IRQ_TYPE_LEVEL_LOW>;
-+			phys = <&mipi_tx>;
-+			phy-names = "dphy";
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+			status = "disabled";
-+
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					dsi_in: endpoint { };
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					dsi_out: endpoint { };
-+				};
-+			};
-+		};
-+
-+		dpi0: dpi@14013000 {
-+			compatible = "mediatek,mt8167-dpi";
-+			reg = <0 0x14013000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DPI0_PXL>, <&mmsys CLK_MM_DPI0_ENGINE>,
-+				 <&apmixedsys CLK_APMIXED_LVDSPLL>;
-+			clock-names = "pixel", "engine", "pll";
-+			interrupts = <GIC_SPI 172 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					dpi0_in: endpoint { };
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					dpi0_out: endpoint { };
-+				};
-+			};
-+		};
-+
-+		mutex: mutex@14015000 {
-+			compatible = "mediatek,mt8167-disp-mutex";
-+			reg = <0 0x14015000 0 0x1000>;
-+			interrupts = <GIC_SPI 153 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
- 		};
- 
- 		larb0: larb@14016000 {
-@@ -145,6 +476,44 @@ smi_common: smi@14017000 {
- 			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
- 		};
- 
-+		mipi_tx: dsi-phy@14018000 {
-+			compatible = "mediatek,mt8167-mipi-tx", "mediatek,mt2701-mipi-tx";
-+			reg = <0 0x14018000 0 0x90>;
-+			clocks = <&topckgen CLK_TOP_MIPI_26M_DBG>;
-+			clock-output-names = "mipi_tx0_pll";
-+			#clock-cells = <0>;
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+
-+		dpi1: dpi1@14019000 {
-+			compatible = "mediatek,mt8167-dpi";
-+			reg = <0 0x14019000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DPI1_PXL>, <&mmsys CLK_MM_DPI1_ENGINE>,
-+				 <&apmixedsys CLK_APMIXED_TVDPLL>;
-+			clock-names = "pixel", "engine", "pll";
-+			interrupts = <GIC_SPI 174 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					dpi1_in: endpoint { };
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					dpi1_out: endpoint { };
-+				};
-+			};
-+		};
-+
- 		imgsys: syscon@15000000 {
- 			compatible = "mediatek,mt8167-imgsys", "syscon";
- 			reg = <0 0x15000000 0 0x1000>;
--- 
-2.43.0
-
+Not opposed to the idea but IIRC there was already some pushback to the
+idea. There doesn't seem to be an urgency to remove the old num casts
+API that justifies doing it now with a more complicated merge path.=20
