@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2DE5C982D8
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 14:18:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B25CAC982DA
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 14:18:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E50010F3AA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3F7B10F3BF;
 	Fri, 18 Sep 2026 14:18:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="S5iNTDwD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kxbuRqIL";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3716D10F3BF
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 14:18:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94B4610F3BE
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 14:18:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1AD6843D82;
- Fri, 18 Sep 2026 14:18:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72BBE1F00898;
- Fri, 18 Sep 2026 14:18:31 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7C17243771;
+ Fri, 18 Sep 2026 14:18:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC5791F000FF;
+ Fri, 18 Sep 2026 14:18:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789741112;
- bh=wyTpr/ZMCwHBif2mu3Ul/cDM0OI59usyJD3PsBn5vRg=;
+ s=k20260515; t=1789741104;
+ bh=OKuaZrfatOHlSR0dx9iMm6UqgMduVRvClEIVFgHduLg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=S5iNTDwDsAEcm82lQlAYVIihKMskQJYvk+1MTogcp6voagEs2BuoXBTAD61U7DL4E
- TaZ7pnZd2Sy5/Fcs/RYtJZHYNdCk02hkYcDP4Vs3Dc1C/rN/pl5cwAqA14A8a1JI8/
- me7XXo/OujR4rhS56o4cZlezR/4e+Omh/hbRDJb/GknvxUp0oks5eaLN4zrGS1lOL+
- tzZkWKcd8F50usuZDYQiI6uqDnldWQtY/ANLIQS6FqtvZ0KO7LlBRCaI7nSHsqDKu/
- EwqLJ1YxABTblUhJq+VcgL2Y64xDqij5qvi4YBztoRSdg0Ne+vTGBtNVWMlYdO5O05
- uV5R1iNrgCEwQ==
+ b=kxbuRqILT7AvQZnCqRCQQR/kAItC02XBOKx51Q3OSfAzM6WkzZSQu0Djm9TYRBh0D
+ gB9RiOhvjEwy6WXStqLwOggnVbLkaQ2GIfy2Qcb7aYz+sHuwgl4Cl8S69Y+UhYAm7n
+ wZ6xisxRZLgcL+QxuD4WrHN2iK331YHbmtBzkw5/FOc9OyFx1I3HDw3OQABLaPn5Iw
+ nTxRt6OPgIdMd/V8wtcXGjXUmexZVOZIPLnwLU2lrK4fcWSwBabGNXWY5OT9BCxaJb
+ DiesqSZKHL4r4xxi4fuKV8vCqy6sQ1P0IbbNANqUY2VKyJIDpdxdBzMdKTSoTQ0VHh
+ 2p6J1JuGtSt4A==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 18 Sep 2026 16:17:57 +0200
-Subject: [PATCH v4 08/13] drm/atomic: Create function to insert connector
+Date: Fri, 18 Sep 2026 16:17:55 +0200
+Subject: [PATCH v4 06/13] drm/atomic: Create function to insert colorop
  state into a commit
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-drm-reset-state-flag-v4-8-5ad106370f05@kernel.org>
+Message-Id: <20260918-drm-reset-state-flag-v4-6-5ad106370f05@kernel.org>
 References: <20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org>
 In-Reply-To: <20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -56,12 +56,12 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4215; i=mripard@kernel.org;
- h=from:subject:message-id; bh=wXk2Y5M+awlDWKtwntUWZ0UdnIAVQvnJhc1Lp9fPWU4=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlrPYTezPpte1OK+daU0qmzv1Wc2Xr8b9FmeZ2fcglf2
- b5JB7bmdExlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJbHzGWCvtVNe5OvTSamVn
- bkkHlbKH/05PTDlxWyA4k6ui4KdZ6svSydwbHfdXvPbImaGzNsB7MmPDvMPzquokq+auXhsVGbb
- 4QPhe5k3RT7a9PflA+tPtnrnbwnMvriu+Mp0pNTp+x5Fk+y5TAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2881; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=V5KSC2Y3Q/9B+8Et2em9ISdPFi1fOLtjjcyNtpS0Gu4=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlrPYTSdrrOELLqWfLrwsmom4xPj07s2SAfP6lz03Zm5
+ jszlAJ3d0xlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJ/D/D2HCd24lhV8Rlx4IV
+ XREh9ocsLH3SZ+tKyewL5Fk+U75a1zrqxMuwS86rFJeG737yuqXrD2ND0+/0PYeSTjL9CbBrZri
+ ZVF9hfj7u2KPbu81a+vcdfFYa3sratnFX7jTNJ74FZoKWYdsA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -79,128 +79,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_atomic_get_connector_state() allocates a new connector state by
+drm_atomic_get_colorop_state() allocates a new colorop state by
 duplicating the current one and inserts it into the atomic commit as
 a single operation.
 
-However, a later change will need to insert a connector state into a
+However, a later change will need to insert a colorop state into a
 commit without going through the full allocation and duplication path
-in drm_atomic_get_connector_state().
+in drm_atomic_get_colorop_state().
 
-Extract the state insertion logic, including the dynamic array
-reallocation, into a new static
-drm_atomic_commit_set_connector_state() helper, and convert
-drm_atomic_get_connector_state() to use it.
+Extract the state insertion logic into a new static
+drm_atomic_commit_set_colorop_state() helper, and convert
+drm_atomic_get_colorop_state() to use it.
 
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 60 ++++++++++++++++++++++++++++----------------
- 1 file changed, 38 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/drm_atomic.c | 23 +++++++++++++++++------
+ 1 file changed, 17 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 513e91ad2fdc..81591173265d 100644
+index b26458ee98d8..807b575ecc54 100644
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1402,10 +1402,42 @@ drm_atomic_get_new_crtc_for_encoder(struct drm_atomic_commit *state,
+@@ -702,10 +702,25 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
  
- 	return conn_state->crtc;
+ 	return plane_state;
  }
- EXPORT_SYMBOL(drm_atomic_get_new_crtc_for_encoder);
+ EXPORT_SYMBOL(drm_atomic_get_plane_state);
  
-+static int drm_atomic_commit_set_connector_state(struct drm_atomic_commit *commit,
-+						 struct drm_connector *connector,
-+						 struct drm_connector_state *connector_state)
++static void drm_atomic_commit_set_colorop_state(struct drm_atomic_commit *commit,
++						struct drm_colorop *colorop,
++						struct drm_colorop_state *colorop_state)
 +{
-+	struct drm_mode_config *config = &connector->dev->mode_config;
-+	int index = drm_connector_index(connector);
++	int index = drm_colorop_index(colorop);
 +
-+	drm_modeset_lock_assert_held(&config->connection_mutex);
++	drm_modeset_lock_assert_held(&colorop->plane->mutex);
 +
-+	if (index >= commit->num_connector) {
-+		struct __drm_connnectors_state *c;
-+		int alloc = max(index + 1, config->num_connector);
-+
-+		c = krealloc_array(commit->connectors, alloc,
-+				   sizeof(*commit->connectors), GFP_KERNEL | __GFP_ZERO);
-+		if (!c)
-+			return -ENOMEM;
-+
-+		commit->connectors = c;
-+		commit->num_connector = alloc;
-+	}
-+
-+	drm_connector_get(connector);
-+	commit->connectors[index].state_to_destroy = connector_state;
-+	commit->connectors[index].old_state = connector->state;
-+	commit->connectors[index].new_state = connector_state;
-+	commit->connectors[index].ptr = connector;
-+	connector_state->state = commit;
-+
-+	return 0;
++	commit->colorops[index].state_to_destroy = colorop_state;
++	commit->colorops[index].old_state = colorop->state;
++	commit->colorops[index].new_state = colorop_state;
++	commit->colorops[index].ptr = colorop;
++	colorop_state->state = commit;
 +}
 +
  /**
-  * drm_atomic_get_connector_state - get connector state
+  * drm_atomic_get_colorop_state - get colorop state
   * @state: global atomic state object
-  * @connector: connector to get state object for
+  * @colorop: colorop to get state object for
   *
-@@ -1420,50 +1452,34 @@ EXPORT_SYMBOL(drm_atomic_get_new_crtc_for_encoder);
+@@ -721,11 +736,11 @@ EXPORT_SYMBOL(drm_atomic_get_plane_state);
   */
- struct drm_connector_state *
- drm_atomic_get_connector_state(struct drm_atomic_commit *state,
- 			  struct drm_connector *connector)
+ struct drm_colorop_state *
+ drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
+ 			     struct drm_colorop *colorop)
  {
--	int ret, index;
+-	int ret, index = drm_colorop_index(colorop);
 +	int ret;
- 	struct drm_mode_config *config = &connector->dev->mode_config;
- 	struct drm_connector_state *connector_state;
+ 	struct drm_colorop_state *colorop_state;
  
  	WARN_ON(!state->acquire_ctx);
- 	drm_WARN_ON(state->dev, state->checked);
  
- 	ret = drm_modeset_lock(&config->connection_mutex, state->acquire_ctx);
- 	if (ret)
- 		return ERR_PTR(ret);
+ 	colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
+@@ -738,15 +753,11 @@ drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
  
--	index = drm_connector_index(connector);
--
--	if (index >= state->num_connector) {
--		struct __drm_connnectors_state *c;
--		int alloc = max(index + 1, config->num_connector);
--
--		c = krealloc_array(state->connectors, alloc,
--				   sizeof(*state->connectors), GFP_KERNEL | __GFP_ZERO);
--		if (!c)
--			return ERR_PTR(-ENOMEM);
--
--		state->connectors = c;
--		state->num_connector = alloc;
--	}
--
- 	connector_state = drm_atomic_get_new_connector_state(state, connector);
- 	if (connector_state)
- 		return connector_state;
- 
- 	connector_state = connector->funcs->atomic_duplicate_state(connector);
- 	if (!connector_state)
+ 	colorop_state = drm_atomic_helper_colorop_duplicate_state(colorop);
+ 	if (!colorop_state)
  		return ERR_PTR(-ENOMEM);
  
--	drm_connector_get(connector);
--	state->connectors[index].state_to_destroy = connector_state;
--	state->connectors[index].old_state = connector->state;
--	state->connectors[index].new_state = connector_state;
--	state->connectors[index].ptr = connector;
--	connector_state->state = state;
-+	ret = drm_atomic_commit_set_connector_state(state, connector, connector_state);
-+	if (ret) {
-+		connector->funcs->atomic_destroy_state(connector, connector_state);
-+		return ERR_PTR(ret);
-+	}
+-	state->colorops[index].state_to_destroy = colorop_state;
+-	state->colorops[index].ptr = colorop;
+-	state->colorops[index].old_state = colorop->state;
+-	state->colorops[index].new_state = colorop_state;
+-	colorop_state->state = state;
++	drm_atomic_commit_set_colorop_state(state, colorop, colorop_state);
  
- 	drm_dbg_atomic(connector->dev, "Added [CONNECTOR:%d:%s] %p state to %p\n",
- 			 connector->base.id, connector->name,
- 			 connector_state, state);
+ 	drm_dbg_atomic(colorop->dev, "Added [COLOROP:%d:%d] %p state to %p\n",
+ 		       colorop->base.id, colorop->type, colorop_state, state);
  
+ 	return colorop_state;
 
 -- 
 2.55.0
