@@ -4,128 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D951FC982D8
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 15:48:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31C18C982DA
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 15:58:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EA6410E8B1;
-	Fri, 18 Sep 2026 15:48:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3437910E11E;
+	Fri, 18 Sep 2026 15:58:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NfLcdKyU";
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="mw6twh0s";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011042.outbound.protection.outlook.com [52.101.57.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 043C010E8B1
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 15:48:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JJoQLIx1Tu6B7Z6YAJJbD1gzUSa4y+2K4D+CGAKL9zD6eFr3x0FKiQtUO2Rp76rk+rBsaWA0h6cY0HvVSgnTGu2wPDna5f0doZr590cvxEnNP6kMw34uACRB91vpOC4JUJD5x8GJkdo8bH2eysOuyyfCB+wEy+yArN0eyfW5QkK/rozeD/SCHk/lOQGp5DXNbC2jVRoDXuB7XQ9getUTI2nBiBhjTyKpFVp4NTcrF0M6SQNB+f7TQCIicloj2miku01Gd7oylIm85szzeMldE4+a9eDewg78BHZWye8pX2pNPLuSPI2g4ru0JWP8i+8gb824yt6+vGRRndcl4G6aFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9pPCfm9RWL4J4x/97y6sGVvkd5DdoP94qa+oXo2cPig=;
- b=Le+bjWwFm6OoG7VM4hq+hDoVJ3Hw3xyQvuPuNZ8443yW8gJKi9WSZ1utNlSAxRObOqR85i4OApnx7H7QeJWwDA4I/WWmuAictTPpG6hON+lwbUcx8oyrvpcYMCm0ZlND9AFalwdJ7G1QOAYGNxrIhy/IebHzjMK23IFPgnMjZ5O+dKUBp4L8zJ61YLka165Vum+pEAsEje3fK2oP5X24rFR06/7KD2GCR7/oXpa8annwwYX05C72jnxscyBGBkCyvIF+wtu3tIjUJO3n46Vo+iFjFsxYiqJuWpQWv+Y7nJ343lysWauvF/Na+UHzDFaNKlRvI7EMccy1ddfvnuW3jg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9pPCfm9RWL4J4x/97y6sGVvkd5DdoP94qa+oXo2cPig=;
- b=NfLcdKyUA3MkX+vCYud1IhC9RwBJfPb0Bx/k9kgQoAL/Cj0KEfP3jMmN0DJjfW50uZAojM8mM5tBVoMpWfeLXCMHTjFey6TNHggWQVkhXNNoD5uWhz9kvIcT5YqA5cC2Z/CeAjtgUVe+AxJBOYT9QmgdfW/WMvXLT5Ykl+oK020=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
- by BY5PR12MB4145.namprd12.prod.outlook.com (2603:10b6:a03:212::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 15:48:38 +0000
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f%3]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 15:48:37 +0000
-Message-ID: <6f36d088-9366-48fa-b67a-659eabbd1c42@amd.com>
-Date: Fri, 18 Sep 2026 23:48:32 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/4] drm/virtgpu api: add blob userptr resource
-To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Ray Huang <Ray.Huang@amd.com>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, Dmitry Osipenko
- <dmitry.osipenko@collabora.com>, David Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>
-References: <20260918095940.2253018-1-honghuan@amd.com>
- <20260918095940.2253018-3-honghuan@amd.com>
- <a08fc58b-c67a-4a96-a967-7280c8f9e965@rsg.ci.i.u-tokyo.ac.jp>
-Content-Language: en-US
-From: "Huang, Honglei" <honghuan@amd.com>
-In-Reply-To: <a08fc58b-c67a-4a96-a967-7280c8f9e965@rsg.ci.i.u-tokyo.ac.jp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TY4PR01CA0062.jpnprd01.prod.outlook.com
- (2603:1096:405:370::14) To CY8PR12MB7170.namprd12.prod.outlook.com
- (2603:10b6:930:5a::18)
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7756C10E11E
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 15:58:46 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-49cc9f581c4so3730845e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 08:58:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1789747124; x=1790351924;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=k6iD2D2etMihq1Ed/Z2D6Mnz744U4yuQqMUM1sM4K3I=;
+ b=mw6twh0s/w7RxwT8+Gx1zjt3mvg0hOw1e7/Z3P3w5GDSZtpJat0nrQhYwsyg+XdsMj
+ 0NGiSIdXs1Fxryon/vP7mezPgCnpIDUFQDjb7+iiXIL/LC2gFkXbk2mraEEJbjMwu8O5
+ hBkkK11xfYtmsepuNZ7R9d37rU6urP6kMQppGfRC6VN1DFnyKMTgkBDzZVxxwkawOSsC
+ cGLqXWtR2gBx/SsgeFpZmmjvjeFNYV61ETJzKTtHKRhjqKxbg2yuIXbk38grVLPYxAYM
+ LFjUy7KipZfIKpeHdunfxe2/n0196wnXdPhIqSPUmZGNxXquX8z7MIEzr52hOR/1zmGX
+ 76zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789747124; x=1790351924;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=k6iD2D2etMihq1Ed/Z2D6Mnz744U4yuQqMUM1sM4K3I=;
+ b=iHJl+7RZAvOSJ20LMs1xS+JiW9HP4wBPTjPE2233MnNB1l2kO3ZScehkqFAuW0wSRH
+ HmUcO8SnnSFCQ7+ELEF/AT/bBpYr6FduMu9RxiUUPQlvlZ0VJddM4tH1Za0FoVBpwioq
+ yzF6hGfcUuZo2gfdFxeqsTdyT/Obhocxa5PnOfvtumbytGmjCTU7LBUvQuggTbbuD8q8
+ 5f2mUPPlG5I+haanUdAv5yk3z+gz8i8QNan7gz1Xf4iY5MQEEzATIZk6Y18DE+4M3DPq
+ g7D4OkloqbY3ZRuG8Lze0ga7gUPKzl45eBIhjJmQGNSf3Hd0bWZEPsPYaPEf5nMyZ5uY
+ z0Wg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzJoaPcj7GP7Rgh//MlqZqEOjRi6cl2ivkkMBDwZotoSHfNf6gH+OpP0GkvVLFy651O4vmiO14zk8U=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mh/+MXioH9cGb7VuRhaOEKf+loGDZTw3U4NO/ni4g2XodYIldK
+ /N6BlCHYwcWaUTmBUXWU1ktm2nGiYpeAvZahBsUwlPR8Klvfsya81wqa0NM+Ca6eQ+w=
+X-Gm-Gg: AYBFou2wr46IbcpeQ/ck/ADCGK2iK1qL2zvnUUaQCEfSwp2aWirqG6aSASlEhq4Y1X5
+ mckIkltYXu9tptsw5wFsUIVuKVsVUAgoB0JusEC+JO4nuqUJWgf4s8+6lmWsRU9RyR7Xv5wT+Wv
+ oxfHaXFXHNYRUcbjNWzEWXcyvJitkVqIpLUYurLXk/IQ1eBznEce/QCfiWpnNV79ftcWWngDKAF
+ 62xvyQwD6V8J3NWaj+wqReEtghcf7IL6BWA23fjGmY0MHVAxjmytfec2xrUVpASd7VA7VbQcZa6
+ N+5Kj2Ooxe6lOsIVJ7L8yCmtCR+EyQ2fVCK5HNpkgZlPQl9SxpujE+Of52853XFIWjANzfL1+so
+ Y4PckEySvJUoAGuRRpmiyCIUm/tus4HU4izk3pIP9LOijL3ClkMD4vqDuVJMQE9Oi4zn+ilXEmH
+ Jp00XjfcYkqD/46KAcOS9c/4i2xTAF1Z00yOr/h46MpLbFL+dnGQIse1b8Vib/q7V6clfSvYBvA
+ ACIMAeUelj1N6xAOVAYQ3nQvvyNDVR6Cvnld5pZK7PVre30Eo0XSOIG9U6LsA==
+X-Received: by 2002:a05:600c:1389:b0:49d:2936:8ad1 with SMTP id
+ 5b1f17b1804b1-49fc4f71c7dmr45192755e9.1.1789747124490; 
+ Fri, 18 Sep 2026 08:58:44 -0700 (PDT)
+Received: from localhost
+ (p200300f65f19a90444c8989fe13f5be4.dip0.t-ipconnect.de.
+ [2003:f6:5f19:a904:44c8:989f:e13f:5be4])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-49fc56eff84sm56426065e9.1.2026.09.18.08.58.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 18 Sep 2026 08:58:43 -0700 (PDT)
+Date: Fri, 18 Sep 2026 17:58:42 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Luca Weiss <luca.weiss@fairphone.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] drm/panel: Add driver for Novatek NT37705 panel
+Message-ID: <aq1erjmXLCFB3uoB@monoceros>
+References: <20260918-fp6-panel-v2-0-6695c4008920@fairphone.com>
+ <20260918-fp6-panel-v2-2-6695c4008920@fairphone.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|BY5PR12MB4145:EE_
-X-MS-Office365-Filtering-Correlation-Id: 47a06a0d-0bec-4ee6-04ae-08df159c4df6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|10067099003|11063799006|22082099003|18002099003|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info: XITswcXts4eoL7b4RlCfQR5yIGb/8W75jDnMUywYFy0hQZdjK2zwVGMo2/MTxtja42xO0sCN3UhIdCAyrbEGW3pt9ohgd0PkXJvGzWuuee396Sws49UmyuizsLn7H/jjGnUaZeiHmt9Ux1p5VgODuoDRRHibM+x/HW3u3MKiJb0lJ/Xid2qOzh/RHxD80S69Kpvph/sFn+DzqCuXaHJMKw0VpJrQfMu/JeT+ixVFKSr7dbpPBArxJ5z4L9QRQ9XOZNy88qxeRcuU5ZnF0Qni4YoIPmd5zczWUHNe9Ad81rxQ1XOdoUQigOz3jh64BzIxKYDnkERyZrBX9WJvbQ3FIcrLG/i644kYWQd5TSgocGVjHCbB5fO+D5BFdKxiwJ4nd9IiVqvjcXugHurnIiTogE8UKalEVLFVdEpWReu8jOYke4jFEsm3gaqlK8S89rImDUhKKI1IIWLfL3agV40Y/zJewZHdsUeJXF4C7fxQO9gEVO7qvEZqBhvwvxqfJ1kZGbFUwcpNw9Vgd7stgJIvuMr7nPMcmtAaohiLRnW9dWmAhJ68iLmKoRFrRGQRp8BZuZfUvaSFmTtoKE6aAI16QD4zcW/jK6HelN3JCZQO3TICutzwpsFf0u65YzBTnOSFrS1lDOFxfq98z4BsaATD5b0IY2DCjLRe+qIu2o/UVmU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V2RXN1IrcE1iMkJkL2tMeEtLeE5lWHhzL0lEUVpuRElqVzRpcmloenRzTzEz?=
- =?utf-8?B?VTJMZVNNd0lHZnZtd1RXNXFIdk5JQnFVQkZ5dkhpcUpPbGJPcHc5MEE5eFFU?=
- =?utf-8?B?UWd1TjlxM0VIQ004cVhLOXpuNkhGb2tiRVgrUDUvSURnZnl5YTlQL0d3MzdG?=
- =?utf-8?B?V2tIOTBZU3htajJyN3ZleStiaTZaZkg2K3JpUHROUXJPcjV5MWJyR0kyRmFK?=
- =?utf-8?B?bHhmR1gvZERjb2NtL1NQYkFzZU0yMWk3cWU3bXArYUlxQVlaUkNBeFA4Mkpv?=
- =?utf-8?B?MVg1V0lZRWR4c0xTT1lDUWVKWWNUUTZzaWRSVDZwMTY0Z2szMDljSExPNEM4?=
- =?utf-8?B?V3VtendQWjFoVUpQSmRzV2FZQUZQSjdSbHA4TkRuWlp4VlpyUUsxNHIxVVh2?=
- =?utf-8?B?S29IYm5IWHlPR1VZRFIzMHN6MU9Ic0NRRmwxbHphZ1BmazRsV25NaENpeDVI?=
- =?utf-8?B?T0x3Z0hTMzF6Z2hQOHlrNzlHMkl2eFZEZHNFaXh6MWVWaWo5TGZheTFsQWxI?=
- =?utf-8?B?TDdCQTFRd3dIb1B3Mmt5VEI2NFcyYTFjK3VNSmhQd2FYc0w3TXE3WHA5ZmVG?=
- =?utf-8?B?MUhsdVpjUVdrcTIvVVNBbWVVckVUTHppUFFCajkrL0tXTFZKVEkxTlVIbERI?=
- =?utf-8?B?bTA5YWkrVEtBNDVZc2VWSmczNng0b0FTV1I4MURjSHhSb3VUdkloRXlySlB2?=
- =?utf-8?B?NTdjbVpGQWcxcHhBajZYMDQvcjZWYTNjUk44bXBoc2QyOFdFZFFtZWJZUWxC?=
- =?utf-8?B?NitYRXFsZnpIRFk5TlhGdFZWN21jWWVlaTVicWV3WERhNVA0VDBGRVgvbEdI?=
- =?utf-8?B?d1pGUmxlTzdvTXMyRllZQVlCNGNEblJ4UU1uRnJ3WWdVN3padXdkV0s2Vjkw?=
- =?utf-8?B?LytxME1XajJ1QXZQLzZqS0ZVOVk5SEJBUC85RW1vN3dvOS90aGIrd01GVW1P?=
- =?utf-8?B?QUhIckJaTm1ubEFsWmdrMmZjZ1YxMGNHVnE2NDdQbUlOL3VxajlabW5sRzNK?=
- =?utf-8?B?WmpiTzRybVZwVElpYmdSaGRNZ3VaOEtqNW9zZ1BRU0JXZUhFR3FnVUV5VzV6?=
- =?utf-8?B?dnJZOGRYd1lQRXgrQURlL0ZuWkdDUzdhaThwNDBvTE1UQmYwZVVUR1NEZmtW?=
- =?utf-8?B?blEvQ2RLak9NWmRUd1ZYRE50TlNrUFdZMk1jSzQ4ME5OWE4xNEgvYWFBY1dE?=
- =?utf-8?B?RGpwT0tNZG90VWlvRWxlaTdUd3Q1VXpmUlY5RXY5azhhU1BMdmNBeTJZT3ZC?=
- =?utf-8?B?cHp5bEpWZnJCUXVNREN3UXpxZXAwTC9OYUQzUkNseEpaekU3UFd1a295TVpG?=
- =?utf-8?B?VnhnWHBxbDFZVWdOeXg1WEt2cU15VlhrNVA0TVJub0Nid083YmRuT05nQ3ha?=
- =?utf-8?B?UCtrZnM1Y2ZWR1V5bDhEd2RKWEhTZHVJYXVtNlhCamZJUU1pZStFNjNxUlpn?=
- =?utf-8?B?WjZndk1uUlJqeGFWNjdCcmZ6aUhueFBjZVBZYXZjcGpqVEpmKzFtZ1JlaVhW?=
- =?utf-8?B?bHFJK0poS0p2VUJacWRYdHRNNjJ0KzFNc0RQQVVNMGxhVkluc25qQ2Jpakcw?=
- =?utf-8?B?UlhVL3FtMmlHb1poWGcyRWZpcVBtM2diN1FlU1c4ZDlHRVdFdDdEaTNsVjNQ?=
- =?utf-8?B?YzV2U3FoTEZwaFFKZkhaLzA5WmYrRXE0Y1B4enRNMm5rL2lxQjhaeHd2ZlY5?=
- =?utf-8?B?UVVMOVdGejFBZnUvaEd2bGNNNkdpaG9oWmphSE5rOUkxRGh6amtHdGVXWFdY?=
- =?utf-8?B?UDJHeE5kejRRRmVRVE5raUQ0VWZtN00wQkZ6Sk85a1F3dXVTWEJwMGFTMjFM?=
- =?utf-8?B?UjJucUl1Q3ZYUWcyN2hCSWFZbUtrNEZpOGZCM05IeGk3SEJlWHhqVTYxMWFW?=
- =?utf-8?B?L0RSdFNGemtJS1NHaWU4eFhseHlLZmxzTFBJY09OY1I2MG9Nbi90bnpvajJJ?=
- =?utf-8?B?anliYkZiUzR6QUxSdzJNUGJCZkV4SDh6SlYzaXBWUEZ2ZERVaEplOHIxSUxa?=
- =?utf-8?B?K0RuQTc1aGlObTB6VnUvWGhPditrNlR2dGZsSXZjcktFa25LNkhWNW9GR0Rh?=
- =?utf-8?B?RDA5L2RpL2F1bkhMdmZNQkZIK3Z5UlJCYmZYbnNpcU1pdlN3clNpWUw2Wnd6?=
- =?utf-8?B?L1lWVHVpNCthc2FvaHZLYkMxVXNKMlVhaGVwUE5xRHBzN0FiUWovRnoxMjhX?=
- =?utf-8?B?S09SU3dGNHBha2gzNU4rUDhrZERKY1hVQjg3ZUtJOGIvMUJIRlNtMStjZmI0?=
- =?utf-8?B?eisydmlPME9RUFVBeG1ZZnQ2WWt5NnZmVk41UTRjZGlSbUZVZ0dMN04xM3g4?=
- =?utf-8?B?emZzSGEvUjJHTlJLQWk1S3ZrR3V5K2g2VnhpRjUwVGlvMzZ1OFFDUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47a06a0d-0bec-4ee6-04ae-08df159c4df6
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 15:48:37.9018 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0l/kfLAba3lWSvgY85K8uwbIh/LxrTadzWhD4a1N4+YgBPis9lmN5ihhr1RxaT6NZnUxTY24rNKkrf9dV2YPcA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4145
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="qruxh2qmdhupwtoy"
+Content-Disposition: inline
+In-Reply-To: <20260918-fp6-panel-v2-2-6695c4008920@fairphone.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,133 +107,42 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
+--qruxh2qmdhupwtoy
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v2 2/4] drm/panel: Add driver for Novatek NT37705 panel
+MIME-Version: 1.0
 
-On 9/18/2026 8:12 PM, Akihiko Odaki wrote:
-> On 2026/09/18 18:59, Honglei Huang wrote:
->> Add a userptr address field so userspace can request a blob backed
->> by an existing process mapping. A non-zero userptr selects that
->> path; probe VIRTGPU_PARAM_USERPTR before using the field.
->>
->> GPU-readonly backing is requested with the virtio CREATE_BLOB wire
->> flag VIRTIO_GPU_BLOB_FLAG_USE_READONLY (also
->> VIRTGPU_BLOB_FLAG_USE_READONLY). The device MUST NOT write such a
->> resource. The guest pins without FOLL_WRITE only when the device
->> advertised VIRTIO_GPU_F_BLOB_READONLY (VIRTGPU_PARAM_BLOB_READONLY).
->>
->> Signed-off-by: Honglei Huang <honghuan@amd.com>
->> ---
->>   include/uapi/drm/virtgpu_drm.h  | 13 +++++++++++++
->>   include/uapi/linux/virtio_gpu.h |  6 ++++++
->>   2 files changed, 19 insertions(+)
->>
->> diff --git a/include/uapi/drm/virtgpu_drm.h b/include/uapi/drm/ 
->> virtgpu_drm.h
->> index 95587e12ae..80f73b3276 100644
->> --- a/include/uapi/drm/virtgpu_drm.h
->> +++ b/include/uapi/drm/virtgpu_drm.h
->> @@ -99,6 +99,8 @@ struct drm_virtgpu_execbuffer {
->>   #define VIRTGPU_PARAM_SUPPORTED_CAPSET_IDs 7 /* Bitmask of supported 
->> capability set ids */
->>   #define VIRTGPU_PARAM_EXPLICIT_DEBUG_NAME 8 /* Ability to set debug 
->> name from userspace */
->>   #define VIRTGPU_PARAM_BLOB_ALIGNMENT 9 /* Device alignment 
->> requirements for blobs */
->> +#define VIRTGPU_PARAM_USERPTR 10 /* CREATE_BLOB userptr field is 
->> supported */
->> +#define VIRTGPU_PARAM_BLOB_READONLY 11 /* 
->> VIRTGPU_BLOB_FLAG_USE_READONLY is honored */
->>   struct drm_virtgpu_getparam {
->>       __u64 param;
->> @@ -186,6 +188,10 @@ struct drm_virtgpu_resource_create_blob {
->>   #define VIRTGPU_BLOB_FLAG_USE_MAPPABLE     0x0001
->>   #define VIRTGPU_BLOB_FLAG_USE_SHAREABLE    0x0002
->>   #define VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE 0x0004
->> +/* Wire flag: device MUST NOT write. Guest pins without FOLL_WRITE.
->> + * Rejected unless VIRTGPU_PARAM_BLOB_READONLY is 1.
->> + */
-> 
-> According to Documentation/process/coding-style.rst, the preferred style 
-> for long (multi-line) comments is:
-> 
->      /*
->       * This is the preferred style for multi-line
->       * comments in the Linux kernel source code.
->       * Please use it consistently.
->       *
->       * Description:  A column of asterisks on the left side,
->       * with beginning and ending almost-blank lines.
->       */
-> 
-> So please avoid putting text on the same line as the opening /*.
-> 
-> Furthermore, because this is a UAPI header (defining the interface 
-> between userspace and the kernel, rather than the guest and the host), 
-> it should use terminology appropriate for userspace. Kernel-internal 
-> implementation details like FOLL_WRITE and terms like "guest" shouldn't 
-> be mentioned here.
-> 
-> That being said, I don't think this comment is necessary in the first 
-> place. Anyone who needs to know the exact behavior will look at the 
-> virtio specification. I recommend just dropping the comment entirely.
-> 
+On Fri, Sep 18, 2026 at 04:40:05PM +0200, Luca Weiss wrote:
+> +#include <linux/mod_devicetable.h>
 
-Thanks for the review, will remove this comment here.
+Please don't include that file. of_device_id is also provided by
+<drm/drm_mipi_dsi.h> (transitively via <linux/device.h> ->
+<linux/device/driver.h> -> <linux/device-id/of.h>) and you can rely on
+that.
 
->> +#define VIRTGPU_BLOB_FLAG_USE_READONLY     0x0008
->>       /* zero is invalid blob_mem */
->>       __u32 blob_mem;
->>       __u32 blob_flags;
->> @@ -205,6 +211,13 @@ struct drm_virtgpu_resource_create_blob {
->>   #define DRM_VIRTGPU_BLOB_FLAG_HINT_DEFER_MAPPING        0x0001
->>       __u32 blob_hints;
->>       __u32 pad2;
->> +
->> +    /*
->> +     * Guest VA to pin as blob backing. Non-zero selects the userptr
->> +     * path and is valid only with VIRTGPU_BLOB_MEM_GUEST. Must be 0
->> +     * otherwise. Probe VIRTGPU_PARAM_USERPTR before using this field.
->> +     */
-> 
-> This comment is useful since it discusses UAPI specifics. However, 
-> please avoid the term "Guest VA". Since guest userspace has no concept 
-> of a "host" or "PA" (physical address), simply saying "address" is 
-> sufficient and more concise.
+If you want to go full iwyu, please use <linux/device-id/of.h> instead
+of <linux/mod_devicetable.h>.
 
-Got it, will modify the comment in next version.
+<linux/mod_devicetable.h> is a dependency hog and will hopefully go away
+soon.
 
-Regards,
-Honglei
+Best regards
+Uwe
 
-> 
-> Regards,
-> Akihiko Odaki
-> 
->> +    __u64 userptr;
->>   };
->>   #define VIRTGPU_CONTEXT_PARAM_CAPSET_ID       0x0001
->> diff --git a/include/uapi/linux/virtio_gpu.h b/include/uapi/linux/ 
->> virtio_gpu.h
->> index 3d4dfadc9d..33f5332e59 100644
->> --- a/include/uapi/linux/virtio_gpu.h
->> +++ b/include/uapi/linux/virtio_gpu.h
->> @@ -72,6 +72,10 @@
->>    * must be aligned to that value.
->>    */
->>   #define VIRTIO_GPU_F_BLOB_ALIGNMENT      5
->> +/*
->> + * VIRTIO_GPU_BLOB_FLAG_USE_READONLY
->> + */
->> +#define VIRTIO_GPU_F_BLOB_READONLY       6
->>   enum virtio_gpu_ctrl_type {
->>       VIRTIO_GPU_UNDEFINED = 0,
->> @@ -415,6 +419,8 @@ struct virtio_gpu_resource_create_blob {
->>   #define VIRTIO_GPU_BLOB_FLAG_USE_MAPPABLE     0x0001
->>   #define VIRTIO_GPU_BLOB_FLAG_USE_SHAREABLE    0x0002
->>   #define VIRTIO_GPU_BLOB_FLAG_USE_CROSS_DEVICE 0x0004
->> +/* Device MUST NOT write. Driver may pin read-only guest pages. */
->> +#define VIRTIO_GPU_BLOB_FLAG_USE_READONLY     0x0008
->>       /* zero is invalid blob mem */
->>       __le32 blob_mem;
->>       __le32 blob_flags;
-> 
+--qruxh2qmdhupwtoy
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqtX7AACgkQj4D7WH0S
+/k45Dgf/cdIUUEx1eWlxLi0ByfmazBebC1gamR8J8DORRZZV6FdlLvHC+Xy2/RL4
+slct57z4ZQbBeYwbTEYHirry7VGiKwEpKPQDLmLDnPWad4IuhJyPJHWq1qextxYL
+Jr0wsKOilDFYPTydHs9WPS30t/IUFq+/EPzL5pa8ZeGgOVFoqNsW8b/ZrfoDFdJc
+O+3m9OwNRXXICF7BpJ5BeHKu3Npv3CiukAmilSjD8dyFd3JXZX3b02ursgRjuDyR
+4k+acvjvKFtZ9V4lJpvtwU/6XQxLiQNmLT4YYEYx0aH9JNlxjtie+CUXYEDKcNoU
+ynf/eUOrVnbj4s3Yoh1l7LkySt2lyA==
+=Sgj4
+-----END PGP SIGNATURE-----
+
+--qruxh2qmdhupwtoy--
