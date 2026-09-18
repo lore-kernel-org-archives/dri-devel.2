@@ -4,44 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EBF9C982DA
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 10:23:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BDFEC982D9
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 10:36:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6048D10F2C0;
-	Fri, 18 Sep 2026 10:23:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73B8D10E6B0;
+	Fri, 18 Sep 2026 10:36:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F2N7UW+d";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iQXhn9Pr";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E5B610F2C0
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 10:23:16 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3985441B11;
- Fri, 18 Sep 2026 10:23:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4A0B1F000FF;
- Fri, 18 Sep 2026 10:23:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789726996;
- bh=aP6sxzGnR2r5EiygJGLcRleZTJlCHRlOQxv3vuBCyXA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=F2N7UW+dZ2ozGHiyQaKV7UeT44L2l30OqT9PdVo2GeEShjbWZxJSqooSM369UWqO4
- jPlHUoFlxAAIUQWUODsCY8XzdGqSNlf4BKar8GFZf95/55nSeuVdr+P90GmYBA3ZfH
- AR0pofkd0NptkA2DRr0/qQg+ekRs+gFidNkRoyl8baBLaDYA+xc/hzveqGeQNL9ClY
- A3rkWoygJskwid0qGsDPRf9jPjWQBNu8HWMzVOF8rgtuutnbXMYmwP7bgVuLTCFOxa
- 8HCLEPM1My3NMMSmQ1UIu+drl55W0ZiHbdrTZ1iwQenhCmzWVA3ENHDXmTdyWu/pES
- itVfYEjD6812Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] drm/imagination: Fix page count for page table
- for map() interface
-To: "Brajesh Gupta" <brajesh.gupta@imgtec.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260918-mmu_fix-v2-2-f7c004fbe203@imgtec.com>
-References: <20260918-mmu_fix-v2-0-f7c004fbe203@imgtec.com>
- <20260918-mmu_fix-v2-2-f7c004fbe203@imgtec.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 10:23:15 +0000
-Message-Id: <20260918102315.E4A0B1F000FF@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94C4710F2DA
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 10:36:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789727787; x=1821263787;
+ h=from:to:subject:in-reply-to:references:date:message-id:
+ mime-version; bh=/rflJoTU73NXxRJVa50UB44grA9fGd6zBzEscmFxxA0=;
+ b=iQXhn9PruQICMVP3o/Fvoo/H66+t7EzsxeH1tFEwTuGi95YZ/1dJwVqL
+ rfd2OjpjjBM2r2dJFjmX/XiDg2TA6KBEqrciziyhWI7nK+rdYjlaIQHZl
+ l+Qv0BkQw/nms11KRPyKcdfShflYsMT2n1Z25rbd+d7paS+1PPU773v7R
+ QDJJKzzESWCmi8K8VqJs1U31+FsZzEs7OrkoEmFJ837PD7/ltX9oewvL9
+ WU5cX5v4+8V7KOm/biYwpvGga4QCHVAxPJNAHcNqPVO0N1+TSZ7nZeYU4
+ P9rXbTLIztBGR14ujmJmhBNd/zMpukLB8CrXDOuMf3rw8LosUrdcQkIfc w==;
+X-CSE-ConnectionGUID: 9aQbwTEsTmyJ3M9JohLn1w==
+X-CSE-MsgGUID: dEeSMH20TiCm2gz8eTTcdQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90091447"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="90091447"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2026 03:36:26 -0700
+X-CSE-ConnectionGUID: zilTZcrBRSuEcplQFejYYw==
+X-CSE-MsgGUID: c378QXDnRp+ZKhIHFAc7PQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="2757136"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.216])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2026 03:36:25 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: joao 222 <joolucas64@gmail.com>, dri-devel@lists.freedesktop.org
+Subject: Re: [BUG] drm/edid: Samsung display reports 1360x768 as preferred
+ instead of native 1366x768
+In-Reply-To: <CA+irm5xWBnH=2VwWz-YTsWc_kMK7x9tskdNYzmQjejn21fQnnA@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <CA+irm5xWBnH=2VwWz-YTsWc_kMK7x9tskdNYzmQjejn21fQnnA@mail.gmail.com>
+Date: Fri, 18 Sep 2026 13:36:19 +0300
+Message-ID: <9dd8ef8b38327059b3354e7665058aaff310c179@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,73 +66,21 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/imagination: Incorrect page table preallocation range due to a=
-dding `sgt_offset` to `device_addr`
---
+On Thu, 17 Sep 2026, joao 222 <joolucas64@gmail.com> wrote:
+> Would this display be appropriate for an EDID quirk to correct the
+> preferred mode, or is there another preferred-mode handling mechanism
+> that would be more appropriate?
 
-commit 2e37e7dddaa25fcebfc6ed4f14676377ac438e44
-Author: Brajesh Gupta <brajesh.gupta@imgtec.com>
+It might be, depends on how clean the quirk is. All we need is for
+someone to do the work and submit that patch for review.
 
-drm/imagination: Fix page count for page table for map() interface
 
-This patch updates the page table preallocation calculation for mapping a
-buffer object. It passes the device address to pvr_mmu_op_context_create()
-to include it in the page count calculation, aiming to fix under-allocations
-at the L0/L1 level.
+BR,
+Jani.
 
-> diff --git a/drivers/gpu/drm/imagination/pvr_mmu.c b/drivers/gpu/drm/imag=
-ination/pvr_mmu.c
-> --- a/drivers/gpu/drm/imagination/pvr_mmu.c
-> +++ b/drivers/gpu/drm/imagination/pvr_mmu.c
-[ ... ]
-> @@ -2347,8 +2348,9 @@ void pvr_mmu_op_context_destroy(struct pvr_mmu_op_c=
-ontext *op_ctx)
->   */
->  struct pvr_mmu_op_context *
->  pvr_mmu_op_context_create(struct pvr_mmu_context *ctx, struct sg_table *=
-sgt,
-> -			  u64 sgt_offset, u64 size)
-> +			  u64 device_addr, u64 sgt_offset, u64 size)
->  {
-> +	u64 start_addr =3D device_addr + sgt_offset;
 
-[Severity: High]
-Does this calculation incorrectly add a physical buffer offset to the virtu=
-al
-address?
-
-In pvr_mmu_op_context_create(), device_addr is the virtual address where the
-mapping begins, and sgt_offset represents the physical byte offset into the
-backing buffer object (the scatter-gather table). Adding sgt_offset to
-device_addr artificially shifts the bounds for the page table calculations.
-
-When this shifted start_addr is used a few lines down to calculate the
-required L0 and L1 page tables:
-
-    const u32 l1_start_idx =3D pvr_page_table_l2_idx(start_addr);
-    const u32 l1_end_idx =3D pvr_page_table_l2_idx(start_addr + size);
-
-Will this under-allocate the required number of page tables if the true
-virtual address range [device_addr, device_addr + size - 1] crosses a page
-table boundary (e.g., a 2MB boundary for L0 tables), but the erroneously
-shifted range does not?
-
-If the tables are under-allocated here, traversing the true virtual address
-boundaries later in pvr_mmu_map() will exhaust the preallocated tables and
-cause an -ENOMEM failure. Could this be triggered by untrusted user space v=
-ia
-the VM_BIND ioctl to abort a valid user mapping request?
-
->  	int err;
-> =20
->  	struct pvr_mmu_op_context *op_ctx =3D kzalloc_obj(*op_ctx);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-mmu_fix-v2=
--0-f7c004fbe203@imgtec.com?part=3D2
+-- 
+Jani Nikula, Intel
