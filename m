@@ -4,74 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3158C982DA
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 10:09:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F115C982DC
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 10:12:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD4E110F2C2;
-	Fri, 18 Sep 2026 10:09:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C48C10E0E5;
+	Fri, 18 Sep 2026 10:12:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bmc3aV1i";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AesZuwD1";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66E7E10F2C2;
- Fri, 18 Sep 2026 10:09:48 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id ACB4F60A5E;
- Fri, 18 Sep 2026 10:09:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 369631F000FF;
- Fri, 18 Sep 2026 10:09:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789726187;
- bh=ldnhjGinl4eu4pR9zDJKuKw6fPmbARl0hSMqWh2pYUg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Bmc3aV1i24nMbRO7I0xJf6WGOSllIVEj/a1YQEqKBQkKys2OhpaNyRs54+f0xyeTN
- IAr1T9lNAumI7NoxUoGKzOgh+TNth4OWXyQW43AeolvQCDYZjPMCZ4S/aKqTZBGkFQ
- pVO+JVXiCAwhya04RBxZe1eijUveuVKl1XYFv2joaZJfUvKHeKKSnJa7v4ijPxOSuI
- mFJDNO2ZC1x+lZBTcacF4FKQUI1neRp5CCRaoDiz195DbggbnaaIswmePylaH9l2ra
- fuvieu3ySbYp/9nP8qi1XW61EHe+9U2z0wkKtaj4zZdW/zcEARybqQbHUHzJzc8NZz
- 3ZmbszfbbbwiA==
-Date: Fri, 18 Sep 2026 12:09:43 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
- Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
- Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Robert Marko <robimarko@gmail.com>, 
- Guru Das Srinagesh <linux@gurudas.dev>, Amit Kucheria <amitk@kernel.org>, 
- Thara Gopinath <thara.gopinath@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
- phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, iommu@lists.linux.dev,
- mfd@lists.linux.dev, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
- linux-pm@vger.kernel.org, linux-input@vger.kernel.org
-Subject: Re: [PATCH v2 03/19] dt-bindings: nvmem: Add compatible for MSM8952
-Message-ID: <20260918-tidy-rook-of-respect-deaaef@quoll>
-References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
- <20260916-msm8952-initial-support-v2-3-798c2602dde1@mainlining.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3EC910E0C8;
+ Fri, 18 Sep 2026 10:12:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789726328; x=1821262328;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=5de4J7uo+CgCIXFwu7a4Esv/7de3E0WbJXUmEhuJ4b4=;
+ b=AesZuwD1eqaoR7Hwz5FBxxZs6qWMaebkhIdvAI40THLkamPb5rXbK7/k
+ SU+iZ309azVK7WW9H5x9mgr96sPAIuAoKKacYNe/KTAnkyPRWs+yEi9YG
+ rdbu74R+blvpmfNeoxPghPKqPsu3+glGZJ1oUZGJja+ztF9G0+ekv3jKp
+ iAIKUW/+ZjvLaJCTy/2bG6NXHDOv9usEF1eDffq77Hqtlyh0gJz6eYtBD
+ 6E4gRuwtTy9syeVnm966JBcHK+ztHKriuSar+rM5N3LlCGNtR6sPSP6EV
+ QAUFUQqwaBkoWxqcMGplQYxLhI12bJDLhJc9qSyEe8kHd8caEMEG79qIj A==;
+X-CSE-ConnectionGUID: xZpqCmKqRNCL/3Atw3X1pw==
+X-CSE-MsgGUID: VNW9B0shTiigY/wlH6cdMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90238528"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="90238528"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2026 03:12:07 -0700
+X-CSE-ConnectionGUID: Kk7+0y3kRbO6P58QOEd0bg==
+X-CSE-MsgGUID: 8RD7H50dQeaAFrZH/hSHuw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="2520664"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.180])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2026 03:12:05 -0700
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260916-msm8952-initial-support-v2-3-798c2602dde1@mainlining.org>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <4c94abcc-2f0f-4454-999f-38640972dfe2@ursulin.net>
+References: <20260706114823.752313-1-dev@lankhorst.se>
+ <20260706122026.IJAiyhhw@linutronix.de>
+ <c4222f81-72b2-4eea-a900-da327f0df928@lankhorst.se>
+ <20260709110200.2_5Eg8xF@linutronix.de>
+ <a6c056ba-0847-4d2c-a7bd-39ac27eb15d5@lankhorst.se>
+ <20260918083118.POmXtJuv@linutronix.de>
+ <4c94abcc-2f0f-4454-999f-38640972dfe2@ursulin.net>
+Subject: Re: [PATCH v4 0/7] drm/i915: All fixes to make i915 work well with
+ PREEMPT_RT.
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+To: Jani Nikula <jani.nikula@intel.com>, Maarten Lankhorst <dev@lankhorst.se>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Date: Fri, 18 Sep 2026 13:12:02 +0300
+Message-ID: <178972632228.60564.16756848994208751058@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,16 +80,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 16, 2026 at 05:22:08PM +0300, Muzaffer Kadir wrote:
-> Document the QFPROM block found on MSM8952.
-> 
-> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> ---
->  Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml | 1 +
->  1 file changed, 1 insertion(+)
+Quoting Tvrtko Ursulin (2026-09-18 12:44:43)
+>=20
+> On 18/09/2026 09:31, Sebastian Andrzej Siewior wrote:
+> > On 2026-07-09 13:36:57 [+0200], Maarten Lankhorst wrote:
+> >> Hey,
+> > Hi Maarten,
+> >=20
+> >> Yeah the problem was similar, I believe neither check should exist,
+> >> instead the caller should give this information like the comment menti=
+ons.
+> >=20
+> > Any update here? Maybe I have been left out on reposts. Any chance this
+> > gets in before the LTS of this year gets out?
+>=20
+> Side question, there was a bunch of sashiko issues against v4 - have=20
+> those been addressed?
+>=20
+> As today it is the first time I see patch 7/7 which is a bit of a scary=20
+> one. I have to ask how much does Intel commit to fixing out any=20
+> potential breakage given the status of i915?
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+I'd say there is very close to zero chance of accepting patch 7. And
+that would take massive functional and performance validation efforts
+done by the person wanting the patch to get merged.
 
-Best regards,
-Krzysztof
+And yes, there would also need to be commitment to fix any fallout by
+that same person in weekly -rc cadence. So please raise your hand, whoever
+wants to volunteer.
 
+There's already the earlier much smaller patch about vblank that needs
+to get reviewes and acceptance and it hasn't been able to be driven
+to completion.
+
+So projecting from that, I don't exactly expect patch like 7 in this
+series to get merged in any near future without somebody really stepping
+forward and signing to do all the validation and and perf regression
+testing.
+
+Regards, Joonas
