@@ -4,87 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CC8CC982D7
-	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 09:44:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6506C982D7
+	for <dri-devel@archiver.kernel.org>; Fri, 18 Sep 2026 10:00:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B50D10E85F;
-	Fri, 18 Sep 2026 09:44:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FA7410E05B;
+	Fri, 18 Sep 2026 10:00:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="yEFx2K15";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JRfnYp6T";
 	dkim-atps=neutral
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
- [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A378D10E886
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 09:44:47 +0000 (UTC)
-Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49b965f447cso4416845e9.3
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 02:44:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1789724686; x=1790329486; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=NxqRIww7NIrKqp1UJVN5rENFvuSLlnJdUVreugmbr8A=;
- b=yEFx2K1552O1Nmm5NAoGWShNLF3VLKtMj9a8QN5z/3cQVgJ4pjXLaKyRWQX7CUXbJ4
- Ao0BYWh7q1vGJJJIzVdwPFhMyWCoRdb5DJbo8bF15hjKaHBfSF2UqBT1HtOwTe7LR+DW
- l5QogV8ccOfTsgKAQ9Ujlqe6WnsRUle7+5sulnQ3lsFLz7lyONU9XND65eGuXlOPVO2b
- GVJD5xJzGcb/u4bidwPDClQz5TYfYYPf7C9KneQLaFlqk7+Nn9BHnLnwIMwOFAvenDt5
- YCVL3tCUabtAr7t7KDUNHeY7/1pFN+2+FDgtaYSfKui+opXxv8+yBnCuWGl8f4rtuN2h
- vqVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789724686; x=1790329486;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=NxqRIww7NIrKqp1UJVN5rENFvuSLlnJdUVreugmbr8A=;
- b=nU2LAg7lHnudrdqEDmH8TDofesHJeaI9w/fIIpOy0ZnQiEXGnBCW412u6xk+sMvC53
- A9UpWGOvcpMtA303yFJZorRN07vKm0g8GYd+Eq4cV2maI/YDGkSEImHLGE/4kYFZ0qd1
- bY6Cpq9ugiE7mL9eAjllpzjAjgFwyqwhJkBT9z5NMwpDbbaiEdIoauKkZ4fAMbnw/wbQ
- C46+VnvNVCRrxOta8+qoGaeiprrm2EYIS2z1lBtM7xawQbiCzTMOF4h0bQeolO9LGJ15
- nbvAE5oMceOUtBb1Ow7bKAvR68FyE0x/PFhexLpHqMH9V4pda0dZ5w702WHjc6s073YX
- E0UA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwOOZzsV305gfiXTUryZ6ZRrNiajEefII2eOEwydtkkWIWROH/nVHmVaROMjxeuQctUzDuJLUK+jHU=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mX+YVLANi6F8awQ8FwX9zBH726xk4JQ5LxWOWfupEtSXFR+P0C
- ZRvm4Xze4ZnqYIiJo7Loli4Tv2ma/W7HWIJzsKmH73ln0wK5eiy+27GtbkezYJ7tCdo=
-X-Gm-Gg: AYBFou2xBjFZ89vSRdmJIZ5HMC+dK/D42ezYmmmIdxnklRpMMpDrR88EYo/UAQd3/3k
- Zzr7G4SNOpwFRvGki6D49Qx8nLJl47qy/iqy4p99XTuoNk1eialFPOXP7AdGKfWB/eouCp6jYys
- kRR6FT8Oxik+VfAJyWUsav/5exyQXo3XHCUKflFGSowJEuTLNLDCWm7ZdEEWHxukKg9VxGrB2dG
- SwJCd6H35uWxLap7Ioqdosx4atjDHz+XmUcoNhtS6ShP7swXL+KmG80ITHdMem7xaoh7sWQIDYH
- hhpC831xbvjUAIhlpeUqvLy+s1lrXL4JLRLmvgabYrnBuA5iR1lzm/KmtHHnJmFuI9cc/xw1cZN
- c62O7rMciV+u6jS7ERp+/98L59AYtV3p2lGFYUYNS7NEiF2lo0mjhO36Y7BeYSqJ/lHDv5TOHZI
- Vte64NAEVtmCiu+mwkFaYScu5dvOwJFJN9hJAUo8vXXohnM22QW4uhMgsbgO+Ypdp1Kb52FmeNq
- Wy2yyUuF/xafDR3uHsMvvUXjw==
-X-Received: by 2002:a05:600c:4ed4:b0:49c:cee2:a508 with SMTP id
- 5b1f17b1804b1-49fc5728f9amr20810345e9.16.1789724685392; 
- Fri, 18 Sep 2026 02:44:45 -0700 (PDT)
-Received: from [192.168.0.116] ([81.79.79.1]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fc53b1b78sm31441865e9.3.2026.09.18.02.44.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Sep 2026 02:44:44 -0700 (PDT)
-Message-ID: <4c94abcc-2f0f-4454-999f-38640972dfe2@ursulin.net>
-Date: Fri, 18 Sep 2026 10:44:43 +0100
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012056.outbound.protection.outlook.com
+ [40.93.195.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4602B10E05B
+ for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 10:00:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=whg8lTHQMuFwjifXo3yDeZwEa3jADcYXonAgxTP3RSTwRI9LTX5TFcJfkRWj19UAuhkNAS+WuCJ1KIOKkX2sPFg66+97tMPRw2YbxMHU0BMtNzbxMOUvRn6W8bqZ4Im/7W/sOg3QZrWN+XyFaXh9psOc1NUGp+bixuf+CgitPCDSoR48L9zoObYpyQp6mptaCMWKgwzaXjgGZnSDM8X+KJ+yVZFp+Ih/yRykdHKfnN9U70+OnaE3MvxSiUJIHft7DHp0ZbRhZwQbcsuUkvzf9Hzihj5Ez3Tj1/E2bcw0IoGpwT91cmvLdK3EH4tBcLhY/MuIFVCAvc8jQb3wy9VhXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=x41LyXrH4JYVgFWP+2IYuK3KFfLdptTo58+8pef3ieE=;
+ b=IaDhPvVslKevLqU/zIrXHpPPsyHe1uRFF89Z/n37sOama4MPd/egNVBuPE4XdZuaHDuyg/t0Dti/tydOz+dYmlgW4KFZNrF8YrUD5QObwOEQevMPfzZrNgK3Gi/J96zXxzGDNsD3lDyS/FUZmBlZIzwhI1FFU1NAv/YIv4OxtKNE8zOw4g6rSBfnAawJk9TopZvUJ7GTsyq/ZBG14PsGhS+/O2s9C5qFseBETUe5r7HvdilD/a9EhL5+xwXn2h8bNzTfZEKLDh4EriwFqV35uw8JYjgZ2pyWtjy4WRIImxxjaA/XAFlEjJIekvf1BsR9LbiDmG/UjyHofC6b59dzhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=collabora.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=x41LyXrH4JYVgFWP+2IYuK3KFfLdptTo58+8pef3ieE=;
+ b=JRfnYp6TN04x0vn7TtA2d+NGNlIGEnDIGH5bHFqvPzzEB/uFYGpyWS7yiED7Xf2b9bfJ0WW8QbOwTn281D573tNSlFBlg1i2l6u1hSslG+nweHFW5YJGlcMMtuQagXLtnuYvNFRrwimOO/uUc6y9Pj+o1Kj6iGLtqObUddQjoow=
+Received: from BY3PR05CA0046.namprd05.prod.outlook.com (2603:10b6:a03:39b::21)
+ by CY5PR12MB6033.namprd12.prod.outlook.com (2603:10b6:930:2f::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
+ 2026 09:59:54 +0000
+Received: from SJ1PEPF000037A6.namprd04.prod.outlook.com
+ (2603:10b6:a03:39b:cafe::52) by BY3PR05CA0046.outlook.office365.com
+ (2603:10b6:a03:39b::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.9 via Frontend Transport; Fri, 18
+ Sep 2026 09:59:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000037A6.mail.protection.outlook.com (10.167.244.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 09:59:54 +0000
+Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 18 Sep
+ 2026 04:59:51 -0500
+From: Honglei Huang <honghuan@amd.com>
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, Akihiko Odaki
+ <odaki@rsg.ci.i.u-tokyo.ac.jp>, David Airlie <airlied@redhat.com>, "Gerd
+ Hoffmann" <kraxel@redhat.com>
+CC: Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Ray Huang <Ray.Huang@amd.com>,
+ <dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, Honglei Huang <honghuan@amd.com>
+Subject: [PATCH v8 0/4] virtio-gpu: Add userptr support for compute workloads
+Date: Fri, 18 Sep 2026 17:59:36 +0800
+Message-ID: <20260918095940.2253018-1-honghuan@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/7] drm/i915: All fixes to make i915 work well with
- PREEMPT_RT.
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Maarten Lankhorst <dev@lankhorst.se>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Jani Nikula <jani.nikula@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20260706114823.752313-1-dev@lankhorst.se>
- <20260706122026.IJAiyhhw@linutronix.de>
- <c4222f81-72b2-4eea-a900-da327f0df928@lankhorst.se>
- <20260709110200.2_5Eg8xF@linutronix.de>
- <a6c056ba-0847-4d2c-a7bd-39ac27eb15d5@lankhorst.se>
- <20260918083118.POmXtJuv@linutronix.de>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20260918083118.POmXtJuv@linutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A6:EE_|CY5PR12MB6033:EE_
+X-MS-Office365-Filtering-Correlation-Id: c436533b-4efb-43fb-9c1e-08df156b96cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|13003099007|56012099006|6133799003|11063799006|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info: CuRMxgqRuoZ37/zX5/L5TPqEfGOwvZ0TheOmUNxF/tNbH2r20xRCcmjwRiy1meaLEBRnANeMe86VHbcfoWktukHUScxEy8EzgAwRcrPlT9FdAIOHoNPNFQxmLk9YQjuei++DM3xttrEBrq4XX773SF5ELqxNxrbSW7dY5qDnmqMlKw9ss9uVNGJlYaMWpOkZMtlyqHdsl1xaWTcK9Vyod9fl3oyvjfSrQmqV+Fu4iSZQY/Omc/uYwM+iOXtCz5CffCi/26FKBd9fV0MwDsa122qWc/ehaVXdbyO9d3bu32umsGcQdRpWpLLSiutTansdj1+JKwU3zpIcR2Hu4PKxw7ugdipOergpF5LufIN3nc+ANVCJ+DpJ/bokDiLqn8YUEH1TfX7X+B83LOZh0vSnpIV/hzvgEsSuNZFyM7NTCVw9hQUzb+M77iO4kuaHWWNuhaIvagzWo6te49HIV7gc9YCai+HqD3xqF8Zi0YL0lYSSAjXI2CtTw5V8f0TWxlZeWkohUEjdzCHbMH14QEcGIMH5IEiZu3L0SrxGonmuvTzZv9+ZQHEbw3xjldsBxUL1bqLAQdBSauBtRGOGRUgoKdDBXuGn305uTirPn3Fr/SeGDJUR9m0KmjaFvAm6APtDiTmFkIv7fbB1nONeuNvDEQhjB66Zkq5wbmIjTeZL4qa5C4zZTVTxSG90ovxS3qkHiG2F4b9Uz5g1VRDKdgF5AQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(13003099007)(56012099006)(6133799003)(11063799006)(18002099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 1LMQrfD3OekP5kOCUA7ViU+7/12z9CO0vEFz34YoPB5HTGIFJmplHezPz0ApxpwADiYO5Gu1pq36klaq3TM5Dt501Db8v6eClvgXJs7zxuNfs+/XE7xy9c5I5xumHs00ja/k4J9+i9LMWNfu7yjUcSp0Sg+s5uu+zSPnKmqjYVnho8cX6Ui+IRRkHAEts9poqenO9fB84HPkj/zqI5A8cxSJbC9dFPnGGuIhSn+QuBiOXfKCwpYKTsntaopzMQyL/xNTZV2Mqvuv6vh1v4xUyyELrHUJbKvdaG9cl0ztIeuycbmB/2fI2VUNojhjJbYFtdAiWEFsWfFedn4JFdMxFHkkIIpmVHTHRAXdZJ1M/b0F5dvKZ4e6npeuZ7YAOvmvk9crQEGtU3f7e5NKC/4KWIQsqIdPs7URQ7OpqbzeopuT78aFHkEO/pCi23vvYsEy
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 09:59:54.4492 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c436533b-4efb-43fb-9c1e-08df156b96cf
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000037A6.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6033
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,28 +114,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hello,
 
-On 18/09/2026 09:31, Sebastian Andrzej Siewior wrote:
-> On 2026-07-09 13:36:57 [+0200], Maarten Lankhorst wrote:
->> Hey,
-> Hi Maarten,
-> 
->> Yeah the problem was similar, I believe neither check should exist,
->> instead the caller should give this information like the comment mentions.
-> 
-> Any update here? Maybe I have been left out on reposts. Any chance this
-> gets in before the LTS of this year gets out?
+This series adds virtio-gpu userptr support for ROCm native compute
+contexts. The guest kernel pins an existing userspace mapping with
+FOLL_LONGTERM and exposes it to the host as ordinary CREATE_BLOB
+backing entries, avoiding a second shmem allocation and memcpy.
 
-Side question, there was a bunch of sashiko issues against v4 - have 
-those been addressed?
+A non-zero userptr field selects that path. Probe
+VIRTGPU_PARAM_USERPTR before using the field so an older guest kernel
+rejects the request instead of silently creating a shmem blob.
 
-As today it is the first time I see patch 7/7 which is a bit of a scary 
-one. I have to ask how much does Intel commit to fixing out any 
-potential breakage given the status of i915?
+GPU-readonly backing is requested with the virtio CREATE_BLOB wire
+flag VIRTIO_GPU_BLOB_FLAG_USE_READONLY (also
+VIRTGPU_BLOB_FLAG_USE_READONLY). The device MUST NOT write such a
+resource. The guest accepts that flag and pins without FOLL_WRITE
+only when the device advertised VIRTIO_GPU_F_BLOB_READONLY
+(VIRTGPU_PARAM_BLOB_READONLY). Otherwise CREATE_BLOB fails, matching
+the CROSS_DEVICE host-capability check.
 
-+ other maintainers FYI
+Patches overview:
+1. Add VIRTIO_GPU_CAPSET_ROCM capability for compute workloads
+2. Extend DRM/virtio UAPI with userptr, PARAM_USERPTR,
+   USE_READONLY, and F_BLOB_READONLY
+3. Implement core userptr functionality with page management
+4. Wire blob ioctl creation to userptr objects and probe the
+   readonly feature
 
-Regards,
+Tests:
+- Full OPENCL CTS tests passed on ROCm 5.7.0 in V2000 platform.
+- Near 70% percentage of OPENCL CTS tests passed on ROCm 7.0 W7900 platform.
+- most HIP catch tests passed on ROCm 7.0 W7900 platform.
+- Some AI applications enabled on ROCm 7.0 W7900 platform.
+- latest ROCm 7.14 and ROCm 10 testing is ongoing.
 
-Tvrtko
+V8 changes:
+- Drop guest-only USERPTR ioctl flags; a non-zero userptr field
+  selects the path
+- Add VIRTGPU_PARAM_USERPTR so older kernels do not silently
+  ignore the new field
+- Request GPU-readonly backing with virtio wire flag USE_READONLY
+- Accept USE_READONLY and omit FOLL_WRITE only if the host
+  advertised VIRTIO_GPU_F_BLOB_READONLY
+- Restore userptr blobs after hibernation without the shmem path
 
+V7 changes:
+- Mask guest-only DRM flags out of CREATE_BLOB wire blob_flags
+- Clear userptr->pages after pin failure to avoid double-free
+- DMA-map userptr SG only when virtio_gpu_use_dma_api() is required
+- Use DMA_TO_DEVICE for readonly blobs
+- Sync userptr SG for the device on TRANSFER_TO_HOST
+- Mark writable pages dirty when unpinning
+- Reject USERPTR unless blob_mem is VIRTGPU_BLOB_MEM_GUEST
+- Disallow PRIME export of userptr objects
+- Note that CAPSET_ROCM uses ID 8 because ID 7 is taken by VIRCL
+
+V6 changes:
+- Rebase onto drm-misc-next
+- Keep USE_USERPTR / USERPTR_RDONLY as guest-only DRM flags; drop the
+  virtio wire-header patch (5 patches down to 4)
+- Fix userptr lifetime, DMA mapping, memlock accounting, alignment
+  checks, and PRIME SG export
+- Updated corresponding cover letter and commit messages
+
+V5 changes:
+    - Add VIRTIO_GPU_BLOB_FLAG_USERPTR_RDONLY definition to patch 2
+    - Dropped unused VIRTIO_GPU_F_RESOURCE_USERPTR feature bit in patch 2
+    - Included VIRTIO_GPU_BLOB_FLAG_USERPTR_RDONLY in VIRTGPU_BLOB_FLAG_USE_MASK in patch 5
+    - Add check for userptr feature in patch 5 before creating userptr blob resource
+    - Updated corresponding cover letter and commit messages
+
+V4 changes:
+    - Renamed VIRTIO_GPU_CAPSET_HSAKMT to VIRTIO_GPU_CAPSET_ROCM
+    - Remove userptr feature probing cause it can reuse the guest
+      blob resource code path, reduce patch count from 6 to 5
+    - Updated corresponding commit messages
+    - Consolidated userptr feature detection in final patch
+    - Update corresponding cover letter content
+
+V3 changes:
+    - Split into focused patches for easier review
+    - Removed complex interval tree userptr management
+    - Simplified resource creation without deduplication
+    - Added VIRTGPU_PARAM_RESOURCE_USERPTR for feature detection
+    - Improved UAPI documentation and error handling
+    - Enhanced code quality with proper cleanup paths
+    - Removed MMU notifier dependencies for simplicity
+    - Fixed resource lifecycle management issues
+
+V2: - Split add HSAKMT context and blob userptr resource to two patches.
+    - Remove MMU notifier related patches, cause use not moveable user space
+      memory with MMU notifier is not a good idea.
+    - Remove HSAKMT context check when create context, let all the context
+      support the userptr feature.
+    - Remove MMU notifier related content in cover letter.
+    - Add more comments  for patch 6 in cover letter.
+
+Previous version:
+https://lore.kernel.org/dri-devel/20260917102540.1312102-1-honghuan@amd.com/
+
+Honglei Huang (4):
+  drm/virtio-gpu: Add VIRTIO_GPU_CAPSET_ROCM capability
+  drm/virtgpu api: add blob userptr resource
+  drm/virtio: implement userptr support for zero-copy memory access
+  drm/virtio: wire blob ioctl creation to userptr objects
+
+ drivers/gpu/drm/virtio/Makefile          |   3 +-
+ drivers/gpu/drm/virtio/virtgpu_debugfs.c |   1 +
+ drivers/gpu/drm/virtio/virtgpu_drv.h     |  43 +++
+ drivers/gpu/drm/virtio/virtgpu_ioctl.c   |  35 ++-
+ drivers/gpu/drm/virtio/virtgpu_kms.c     |   8 +-
+ drivers/gpu/drm/virtio/virtgpu_object.c  |  22 ++
+ drivers/gpu/drm/virtio/virtgpu_userptr.c | 365 +++++++++++++++++++++++
+ drivers/gpu/drm/virtio/virtgpu_vq.c      |  33 +-
+ include/uapi/drm/virtgpu_drm.h           |  13 +
+ include/uapi/linux/virtio_gpu.h          |   7 +
+ 10 files changed, 513 insertions(+), 17 deletions(-)
+ create mode 100644 drivers/gpu/drm/virtio/virtgpu_userptr.c
+
+
+base-commit: 766bfba0f3bae329f99b42dcabc3ef11fa368f0b
+-- 
+2.34.1
