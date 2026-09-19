@@ -4,78 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA7FCC982E6
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:00:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFA43C982E1
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:00:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1486510E3CD;
-	Mon, 21 Sep 2026 07:00:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D20DC10E35F;
+	Mon, 21 Sep 2026 07:00:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CdjGmd4c";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OLlfMlEL";
 	dkim-atps=neutral
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com
- [74.125.228.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0142610E2FC
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 08:19:55 +0000 (UTC)
-Received: by mail-pz2-f41.google.com with SMTP id
- 41be03b00d2f7-cc1cea4bfb6so181436a12.3
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 01:19:55 -0700 (PDT)
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE7D310E1A8
+ for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 14:35:30 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-49e66390995so8826675e9.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 07:35:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789719595; x=1790324395; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1789828529; x=1790433329; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=jVdvgZ3mBIXnAi5+B7rUQd/+WHdfPalGGkadsUCWlhs=;
- b=CdjGmd4cp+ySmCaI7vzKghdlnfS7IY0yUyN8Kd8PAFAtkdNMGMJmt5Xbhtdzw2BmEt
- TJT5266klkn+pbOx3u4LvFwyjbq3fUUbqagwhVG7hVVVC1jHJq/hvD9/GgPapzO4dRXB
- 82QgUZ1ud0rqsWSd+QBS8/WGFfzK4aYHl6Q99/SqjPl4gfvXnLARKp8MivzvaHk8ctjG
- PQ2jKXszKGKf59fgr385N+iJoOaZfjiyrMosJJ0mcjd0vNFMFFtd11LBp1vz2V/vXGeg
- lIzbOkVbm3r2UhpK4LBcEqFVwniEkD0qiEtDEX2oRW3bxg4j+YjhYdeZOJKJQvvQlFIw
- Z4NA==
+ bh=qYnfX7a1T7Hh69aNBsmLWpz5QWt2o+zu67TLb8Ol4cM=;
+ b=OLlfMlEL/Bhf0uisbfA/CFZ0k0zX0eP8rMgO+aW/Po/5bEFvoH9tvSKFvCKKxdBGjq
+ 2JRoK30TFTW3RwKSiO+Wuo8ThcfvodYsWzuGLClpJGIzTwgUvASnSZoWaPqcbxoUlmCN
+ WbFXonGAIb1xZkC/kxDp3nMEGZj+/NjyiXA8weHIHdPG32nBe3+XcaLFqjJoHWv8yJjo
+ rAs85s0Q4LnNoiUDxpnHBvJG2rmUwYZK4kK8/yPQjmpLl5/5eR/lMnRveJVlXD4negWZ
+ Tce/IHiYy6SZhqDR7xROjRAb/lu6/iAEeUoCQIiKifrbWAGZtDsE7F4XciE5NpiiI0GT
+ /W9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789719595; x=1790324395;
+ d=1e100.net; s=20260707; t=1789828529; x=1790433329;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=jVdvgZ3mBIXnAi5+B7rUQd/+WHdfPalGGkadsUCWlhs=;
- b=OA4CW8/xQa7gAcvHNSS++GZaNoRHzjUcUmAVDmV15XsNyuhIKVuZYG/OynbuJruWiS
- ChXbq4G9xKuvzA+eYoX/nA0HMbdRBVBJtTmElfCTq9eNTxOlJyQzRA8VdSPbZEfo0eF3
- 9VGk0KsLse4pUnhFRR+1MmgetpyufwogeTLnTGMEaQENhy0c2jB+G7jY9EWvJKR9TW6x
- qTWkREwzFGE4WjVR0VCcrdMKcdCyn37nM4V0a2Ke8qxMSh72gINQ+MX0eNEIXWXEXY9u
- ho7TJLQOuYxzEb9HKkAdlT/Vjg1YsmxHFJIlK+mklA2RJKb4OFO5+fCHQIWKeqYYIZbR
- Quag==
+ bh=qYnfX7a1T7Hh69aNBsmLWpz5QWt2o+zu67TLb8Ol4cM=;
+ b=D988yx0SZlcs1lwg74bU51jkB/IAJi0q+o5NwluNge0EzB6mR1FMxnI1s5nD+8pgFo
+ Km4pDyocr3A88W3oSYq0MpGMFJAOsm4SmX8MMK9GRIELN/GeArzC9bLmhD6n4EcajuSV
+ p0Nbw69co/UanRP9St9IYCqEWlEJOvyWhY91Bmb/aB7RO969OoxkG7d9oBh+wR8HKLD6
+ aBdqItxlo/b6erCTDP5gYKW5FkmokQTsZuIBNSCkKFPRqGqB6wwO/IjcBhGmAJdb+gxm
+ dKmQ+A4X2VHaD16MBqe4UU/U/H8wZm1QYYOjYMvMHVCjcHLZ56UcjwX7wNjXMZRKikRm
+ RqNg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzE7Y8vjy0risdSJ7Z9AJEOE5Nb9gbjk9DfIrzGgVv+OMK9yxhgIGufciVqVVzpbalsU6TPsPush0U=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kCJy0GSc9elaUEeYn44/3J9E4yeEL3sH0P2KqOE+55E4Z8bq1N
- O79z9161yktz3d3Br4ZYS+YI5kpi45UgLNiZJXgL6UbvQlhQuKnT6jBW
-X-Gm-Gg: AYBFou0TNNmUggTPEJu+/wZpvajjnKr1PCRcCoOrN0TQ5nL2jMiPI+DQ+Sqy6Sjd+Y3
- 8BiqZNsl4lPAarMzOK4N2lsx5g6+zFnC69lmKKjeXXC1B4WL9t8hlnMpzHbU8vjYf5rA3sbVWx/
- 5avLCYOFV5AF0b8unKwQBBuUovyr9vSedXN/kMe7FuIUTupbOwXeGLNyABZ3VmCCL1Kl1M+fO7E
- lNRbaxOCuCRv+YG6XAS6vYMpGUCFouH8Ul6+148fHkkPoBapJhHm6ORFtNigpZyVRm6msKL84eb
- uKYwsyL5xTxNXHomO02Doad16Vz5QiVjc+/WB98RpqmPvrfmVT2m+y0p+d+LHAUxhLj6vkVTpS0
- iP4lO+Eyo5t+zvvZEKbOGVcupGbDDwzffsU7yiOpbx4VpK86cst9RGj3JPkrTaq0l5wWjSVnWZW
- 134n0p4QB6fxnZ0JiL7rFcf4yAm5tAiqn3H85car8ucHpgGfaikkWpYpM5tHFw8/2QI3LJd8+2g
- G/NF1GXYA==
-X-Received: by 2002:a17:90b:2f50:b0:39d:f08e:e6e7 with SMTP id
- 98e67ed59e1d1-39e54e3c71emr7234090a91.9.1789719595407; 
- Fri, 18 Sep 2026 01:19:55 -0700 (PDT)
-Received: from amd.ban-spse ([165.204.217.251])
+ AKwUvBw1HdOJSR5WPD9XXH892OKxhhdUWgOc61OdhKRI2HT4wCSWjJ8p8TbbR5Rhinijbluueh2zvAHev+k=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kQBUU11M0xNveZhFh5iQ7WvmjyWQCBEckCFZR5Y1UkgjGXCUtZ
+ wSlifxvbfATRDs16Eui+sHCewzPTVW3mMzKtZ7fMNVWt1/aWecr7eO+G
+X-Gm-Gg: AYBFou19JHIrFkuxkCNKIJTqCEgUzG+2HhccFBMl+lFlACibPiKx9YPuTqF/VwlTHxX
+ y4l6CTxjcnSG+EDkQ4CvLVJ6872is/bY2nX5sMdcj5kMFajkxsQXOVZK4zr9WwIKpUMU+zR0dfS
+ mI8+KQTS8Dby+lYUai4wyBH+rQHdKSP7f8xyxr/2XEcIRMDTLVUmQJK4NhvCalh5qnE7ohruadu
+ 2HQgrx9i3ZanxIW6cXCtfwSFf66FzgeA384+lSYk5L1Rc9zyhSDcOQu025f4R4b4PgyPV2Z5EjS
+ PVO4SWGm+dkDXpNBZw9hX6YbZ4OhnpySb+nq/q3oyfZoyserLzwY5Sfj8H9119utXqzuNHPnm9K
+ AkwXLbB5h6xoEcgflDLWMQdgImMqrqxMbrfJYd036u+fqJKraC8wwE7NiqiGCENSfdNfe9lrUHZ
+ D7MaAD6O94ypxHZVy/TwwXk8QWP6EgJuX7e78sxvxUBMf/rRRpUfe+pLQwsune
+X-Received: by 2002:a05:600c:3b8e:b0:49f:bc43:9e96 with SMTP id
+ 5b1f17b1804b1-49fc57144aamr98668365e9.8.1789828528874; 
+ Sat, 19 Sep 2026 07:35:28 -0700 (PDT)
+Received: from fedora ([2a02:587:200a:7d00:31a7:37b6:ee54:4eca])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-144ce065314sm2947550c88.14.2026.09.18.01.19.51
+ 5b1f17b1804b1-49fcd1026f4sm88343845e9.8.2026.09.19.07.35.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Sep 2026 01:19:55 -0700 (PDT)
-From: Priyanka Mani <priyankamani2100@gmail.com>
-To: Gerd Hoffmann <kraxel@redhat.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Robert Mader <robert.mader@collabora.com>, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org,
- syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com,
- Priyanka Mani <priyankamani2100@gmail.com>
-Subject: [PATCH] dma-buf/udmabuf: don't warn on oversized allocation requests
-Date: Fri, 18 Sep 2026 08:19:17 +0000
-Message-ID: <0a3814afb3419bb1106cf0ff1734a6b7a85f9335.1789707887.git.priyankamani2100@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Sat, 19 Sep 2026 07:35:28 -0700 (PDT)
+From: George Karagounis <taterraster@gmail.com>
+X-Google-Original-From: George Karagounis <mail@taterr.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, George Karagounis <mail@taterr.org>
+Subject: [PATCH] drm/i915/dp: Return bpp_x16 from joiner max bpp helpers
+Date: Sat, 19 Sep 2026 17:35:18 +0300
+Message-ID: <20260919143519.77654-1-mail@taterr.org>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 21 Sep 2026 07:00:14 +0000
@@ -94,66 +90,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-udmabuf_create() derives the number of pages to allocate directly from
-the size supplied by userspace, bounded only by the size_limit_mb module
-parameter. Since commit 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size
-limit by default") that parameter defaults to INT_MAX, which puts the
-page count limit at roughly 5.5e11 pages, i.e. no limit in practice.
+1. Renamed 4 i915 helper functions by appending _x16 to their names
 
-init_udmabuf() then asks kvmalloc_objs() for pgcnt * sizeof(struct page *)
-bytes. __kvmalloc_node_noprof() refuses any request larger than INT_MAX
-and splats WARN_ON_ONCE(!(flags & __GFP_NOWARN)) on its way out, while
-kvmalloc_objs() defaults to a plain GFP_KERNEL.
+2. Changed the helper function's return type from u32 to int to
 
-A single UDMABUF_CREATE against /dev/udmabuf with a sufficiently large
-size is therefore all it takes to trigger:
+   represent the x16 format
 
-  ------------[ cut here ]------------
-  WARNING: mm/slub.c:7022 at __kvmalloc_node_noprof+0x412/0x5a0
-  Call Trace:
-   udmabuf_create+0x11f/0x540
-   udmabuf_ioctl+0xf1/0x190
-   __x64_sys_ioctl+0x91/0xe0
-   do_syscall_64+0xdd/0x4a0
+3. Moved fxp_q4_from_int conversion to the helper functions so they
 
-The size is entirely userspace-controlled and allocation failure is
-already handled by returning -ENOMEM to the caller, so this is not a
-condition the kernel needs to complain about. Pass __GFP_NOWARN and let
-the existing error path do its job.
+   return the correct format
 
-Note that capping the limit instead would change the error reported to
-userspace from -ENOMEM to -EINVAL and would reintroduce a fixed ceiling
-that the above commit deliberately removed, so __GFP_NOWARN seems the
-more faithful fix.
+4. Updated compute_max_compressed_bpp_x16 to declare
 
-Reported-by: syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=bfeed181d1ce9ec87a8f
-Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
-Signed-off-by: Priyanka Mani <priyankamani2100@gmail.com>
+   joiner_max_bpp_x16 and compare it against max_link_bpp_x16,
+
+   eliminating mixed type math
+
+Conclusion: fixed a TODO in the i915 code
+Signed-off-by: George Karagounis <mail@taterr.org>
 ---
- drivers/dma-buf/udmabuf.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 53 ++++++++++++-------------
+ 1 file changed, 25 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index df6dd0046242..127369e502a3 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -190,11 +190,13 @@ static void unpin_all_folios(struct udmabuf *ubuf)
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 3152122e6aef..929d3e35e71a 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -761,8 +761,8 @@ static int bigjoiner_interface_bits(struct intel_display *display)
+ 	return DISPLAY_VER(display) >= 14 ? 36 : 24;
+ }
  
- static __always_inline int init_udmabuf(struct udmabuf *ubuf, pgoff_t pgcnt)
+-static u32 bigjoiner_bw_max_bpp(struct intel_display *display, u32 mode_clock,
+-				int num_joined_pipes)
++static int bigjoiner_bw_max_bpp_x16(struct intel_display *display, u32 mode_clock,
++				    int num_joined_pipes)
  {
--	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt);
-+	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt,
-+				    GFP_KERNEL | __GFP_NOWARN);
- 	if (!ubuf->pages)
- 		return -ENOMEM;
+ 	u32 max_bpp;
+ 	/* With bigjoiner multiple dsc engines are used in parallel so PPC is 2 */
+@@ -771,25 +771,22 @@ static u32 bigjoiner_bw_max_bpp(struct intel_display *display, u32 mode_clock,
  
--	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt);
-+	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt,
-+					    GFP_KERNEL | __GFP_NOWARN);
- 	if (!ubuf->pinned_folios)
- 		return -ENOMEM;
+ 	max_bpp = display->cdclk.max_cdclk_freq * ppc * bigjoiner_interface_bits(display) /
+ 		  intel_dp_mode_to_fec_clock(mode_clock);
+-
+ 	max_bpp *= num_big_joiners;
  
+-	return max_bpp;
+-
++	return fxp_q4_from_int(max_bpp);
+ }
+ 
+-static u32 small_joiner_ram_max_bpp(struct intel_display *display,
+-				    u32 mode_hdisplay,
+-				    int num_joined_pipes)
++static int small_joiner_ram_max_bpp_x16(struct intel_display *display,
++					u32 mode_hdisplay,
++					int num_joined_pipes)
+ {
+ 	u32 max_bpp;
+ 
+ 	/* Small Joiner Check: output bpp <= joiner RAM (bits) / Horiz. width */
+ 	max_bpp = small_joiner_ram_size_bits(display) / mode_hdisplay;
+-
+ 	max_bpp *= num_joined_pipes;
+ 
+-	return max_bpp;
++	return fxp_q4_from_int(max_bpp);
+ }
+ 
+ static int ultrajoiner_ram_bits(void)
+@@ -797,26 +794,26 @@ static int ultrajoiner_ram_bits(void)
+ 	return 4 * 72 * 512;
+ }
+ 
+-static u32 ultrajoiner_ram_max_bpp(u32 mode_hdisplay)
++static int ultrajoiner_ram_max_bpp_x16(u32 mode_hdisplay)
+ {
+-	return ultrajoiner_ram_bits() / mode_hdisplay;
++	u32 max_bpp = ultrajoiner_ram_bits() / mode_hdisplay;
++
++	return fxp_q4_from_int(max_bpp);
+ }
+ 
+-/* TODO: return a bpp_x16 value */
+-static
+-u32 get_max_compressed_bpp_with_joiner(struct intel_display *display,
+-				       u32 mode_clock, u32 mode_hdisplay,
+-				       int num_joined_pipes)
++static int get_max_compressed_bpp_with_joiner_x16(struct intel_display *display,
++						  u32 mode_clock, u32 mode_hdisplay,
++						  int num_joined_pipes)
+ {
+-	u32 max_bpp = small_joiner_ram_max_bpp(display, mode_hdisplay, num_joined_pipes);
++	int max_bpp_x16 = small_joiner_ram_max_bpp_x16(display, mode_hdisplay, num_joined_pipes);
+ 
+ 	if (num_joined_pipes > 1)
+-		max_bpp = min(max_bpp, bigjoiner_bw_max_bpp(display, mode_clock,
+-							    num_joined_pipes));
++		max_bpp_x16 = min(max_bpp_x16, bigjoiner_bw_max_bpp_x16(display, mode_clock,
++									num_joined_pipes));
+ 	if (num_joined_pipes == 4)
+-		max_bpp = min(max_bpp, ultrajoiner_ram_max_bpp(mode_hdisplay));
++		max_bpp_x16 = min(max_bpp_x16, ultrajoiner_ram_max_bpp_x16(mode_hdisplay));
+ 
+-	return max_bpp;
++	return max_bpp_x16;
+ }
+ 
+ static int intel_dp_dsc_min_slice_count(const struct intel_connector *connector,
+@@ -2487,19 +2484,19 @@ static int compute_max_compressed_bpp_x16(struct intel_connector *connector,
+ 	struct intel_dp *intel_dp = intel_attached_dp(connector);
+ 	int dsc_src_max_bpp, dsc_sink_max_bpp, dsc_max_bpp;
+ 	int throughput_max_bpp_x16;
+-	int joiner_max_bpp;
++	int joiner_max_bpp_x16;
+ 
+ 	dsc_src_max_bpp = dsc_src_max_compressed_bpp(intel_dp);
+-	joiner_max_bpp = get_max_compressed_bpp_with_joiner(display,
+-							    mode_clock,
+-							    mode_hdisplay,
+-							    num_joined_pipes);
++	joiner_max_bpp_x16 = get_max_compressed_bpp_with_joiner_x16(display,
++								    mode_clock,
++								    mode_hdisplay,
++								    num_joined_pipes);
+ 	dsc_sink_max_bpp = intel_dp_dsc_sink_max_compressed_bpp(connector,
+ 								output_format,
+ 								pipe_max_bpp / 3);
+ 	dsc_max_bpp = min(dsc_sink_max_bpp, dsc_src_max_bpp);
+-	dsc_max_bpp = min(dsc_max_bpp, joiner_max_bpp);
+ 
++	max_link_bpp_x16 = min(max_link_bpp_x16, joiner_max_bpp_x16);
+ 	max_link_bpp_x16 = min(max_link_bpp_x16, fxp_q4_from_int(dsc_max_bpp));
+ 
+ 	throughput_max_bpp_x16 = dsc_throughput_quirk_max_bpp_x16(connector,
 -- 
-2.43.0
+2.55.0
 
