@@ -4,93 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF6E2C982CC
-	for <dri-devel@archiver.kernel.org>; Sat, 19 Sep 2026 05:29:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99C1BC982D7
+	for <dri-devel@archiver.kernel.org>; Sat, 19 Sep 2026 06:57:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E82B610E642;
-	Sat, 19 Sep 2026 05:29:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3FD010E11B;
+	Sat, 19 Sep 2026 06:57:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="O+8WWfLa";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="IYvLOT+Z";
 	dkim-atps=neutral
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
- [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB0E710E642
- for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 05:29:10 +0000 (UTC)
-Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49ccff31419so11724005e9.3
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 22:29:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789795749; x=1790400549; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ekSDbC6S/5AfZ2Iah9TGW0ydX/g6qRFKlYWSxfRX59A=;
- b=O+8WWfLan+u5CwuXQsB3CaimoEE5ElH1JCVcdJP2kovZUoRgKIT1C4S/rPy9AV7f2v
- JFfSGYdVbBulzc29IOABUb6GqKzFmqeRw7uH6CZ5VJwI7mK8FCMb78zNYANM486B53MC
- +a1fN9kGLEMgZtzWQ+k9+lXAXaZLFCkDIdiORy98At53Il8zLGfnAP5RWjTtfSudK584
- f0WkiishDvNQvJycz31kfeyS4MspXlgN4iftNbR3pBTQDSZwgFYUjmFrEJzauNNYwpRZ
- pbib1vEYJX7GX1q4laVM8HOdB8eOYtRsUgSJyCogBGWBdaIHO0KgNG39MAUwBt+kOobc
- f4Jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789795749; x=1790400549;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ekSDbC6S/5AfZ2Iah9TGW0ydX/g6qRFKlYWSxfRX59A=;
- b=gaJsnbB690obgYhtASRzfUT+j/QqN1JsvFtortafq28J6YAH3JW+D/QQ2U04oZaP5v
- 4iaYA7UHFZbQ43ZQznnecg259UTQSlLn79d39KEB8VQE8lKtDtpDeAoOfrBQ/axzJg85
- zBRFo1bFa/h7YT77NxNyvkVcesGqyeGYb2TREwbv2liP7IOg1PDDqGrTLy8zsuEyDYZZ
- nrNQWCL0VW4IlZphahRqCmVMgEpq5KQcKTDMjtguFzTPNl9qiIeolP+ordPimalobbAN
- sIgPUleYPy8Q7qyJP1XgJDRN6mOBdg9ugAos5uN1HMzcuGYPF4elcw3PsfDwcqWqe1k6
- q+jQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz1rzAG+PZSTNFCWowTRYZbmNn3NX/E00BxwLc2S4Y3+65u0JTSrpoK6pRa3C4idh5KIxepz7Rr4Lk=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mRHc5o0ebgkLq1kgwr6iQXfD0BIg9HSsOZH1ggLdE27YNyJtuS
- sHqW7IgYBSzMHTHI32mzNHfdUD2hbeEfQFA2/O1yzO4y5OmLnjphGCvE
-X-Gm-Gg: AYBFou0fdTEuczRYNBklFCQPfU4BS2D5rFW8C6p/QVB0pkAD6a9paey3JcsaTZSYMLY
- Tln/qyi69tmVedCH70NtLbnuR69HyJF1nnoSG/zJNArGJRzkKAIujjUDLJivH8unmjExpyUrlSC
- k+afWOYUSwzyl8lXztwznGopfknSDtc6FbqnZ7TtQOQVikd0t6Z4A+uGoTtDz3Mul7ZgDSAi8bZ
- b66FZea37OC9Top8M7c5w4odMTkemI8jzSqODW4YnGzQW9V8gGQ5speNpyR6Hs1OS1FFawO0sLb
- uSZFSf2xR27wLzhva7XaNqvXka4dGVzbgUgNQ0QEpwdDk6yJw5H4xbCR936dnkqV9WhVYYzovD4
- N+/zp4kL++TnDUerFtO2W1hcWg5rBeCS1gpkNnP9cqoCFHaTgjysGx0b9ZbPszuCkQ/5JB+cJ6C
- /+0wWo8lGwERjvf6JZFX9IfzCCQeRPN/DmGjOFFWl/SwjXYCdi3mTb6hRaKkR2ECtebnA85k3yj
- fEToZZ/U+Sewgmhk09K4tDxLN6lFiSMcTYsentgUXYUzBywUgIfn3DWW5cAKAmzANEJn5efcGYX
- gDu1ZnNOPk8hGRuSQ5HFvw5uLy32QLwQhHUDFrHN5JIZcvRXZxh0rNEe8ovnHUaK8WPVACzvHwt
- U2exmmjVnxs30kbqk
-X-Received: by 2002:a05:600c:3b05:b0:49f:c196:47b9 with SMTP id
- 5b1f17b1804b1-49fc567318bmr60705515e9.4.1789795749070; 
- Fri, 18 Sep 2026 22:29:09 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain
- (dynamic-2a02-3100-a017-2b01-05fe-203b-7cd2-a640.310.pool.telefonica.de.
- [2a02:3100:a017:2b01:5fe:203b:7cd2:a640])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4872459d409sm4258691f8f.33.2026.09.18.22.29.07
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Fri, 18 Sep 2026 22:29:08 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- linux-sound@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] drm/vc4: hdmi: Unregister the ASoC card on unbind
-Date: Sat, 19 Sep 2026 07:29:05 +0200
-Message-Id: <20260919052905.26038-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260825063735.14676-1-kmehltretter@gmail.com>
-References: <20260825063735.14676-1-kmehltretter@gmail.com>
+X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
+ Sat, 19 Sep 2026 06:57:49 UTC
+Received: from mail-m822136233.xmail.ntesmail.com
+ (mail-m822136233.xmail.ntesmail.com [8.221.36.233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88D0710E11B
+ for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 06:57:49 +0000 (UTC)
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4e5c81ff9;
+ Sat, 19 Sep 2026 14:52:38 +0800 (GMT+08:00)
+Message-ID: <94451cc1-5dcc-4017-9b17-19fc20245ca8@rock-chips.com>
+Date: Sat, 19 Sep 2026 14:52:19 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 02/13] drm/mediatek: Implement Display Stream
+ Compression support
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, matthias.bgg@gmail.com, jitao.shi@mediatek.com,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
+ justin.yeh@mediatek.com, jason-jh.lin@mediatek.com
+References: <20260916110825.102631-1-angelogioacchino.delregno@collabora.com>
+ <20260916110825.102631-3-angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20260916110825.102631-3-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa0b8703e5003a7kunmb39cf7f3fb4f3e
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTx4fVk5JGk5CSk9JGBoeSFYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+ 9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=IYvLOT+ZLuL17rn47b2fIRKpsfV3Djch3gDimo9Pbn3EhzAdXn+34mKd9GylNsvfzySPs0QIMnHV0WM952ngEQInR2LgNciceaA4c5mn+0TqE6KLXQw4EIIuKoOnuPzINBtI4+nXvALj8t/uyy6tuGhRnHz+zjY0RhIfWYT0Eqc=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=yCvKOOZJlmWGLHZyrsJtjvW3q4jXCw/cfJrFwwwwJvQ=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,14 +69,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 25 Aug 2026 08:37:35 +0200, I wrote:
-> Register the card without devm and unregister it from the component unbind
-> callback, where both the HDMI device resources and vc4_hdmi are alive. This
-> makes the card lifetime independent of when the final DRM reference is
-> dropped.
+Hi,
 
-Friendly ping on v3. Is anything else needed from my side before this
-can be picked up?
+On 9/16/2026 7:08 PM, AngeloGioacchino Del Regno wrote:
+> Add a real driver for the Display Stream Compression (DSC) Display
+> Controller IP, implementing support for DSC v1.1 to v1.2.
+> 
+> In order to do this, it was necessary to remove the basic DSC IP
+> bypass setup from mtk_ddp_comp: this functionality is retained in
+> the new mtk_disp_dsc driver, which checks if DSC was actually
+> requested by other components (with the only one that currently
+> supports this being DSI) and, if not, it will set BYPASS mode in
+> the DSC IP.
+> 
+> Like before, the BYPASS mode is set before starting the DSC IP,
+> but unlike before, this is being done in the component start
+> callback instead of the config one.
+> Notably, the config callback is called by mtk_crtc always
+> immediately before the calling start callback, so the order of
+> register writes is retained.
+> The only real difference is that now this is being done through
+> CPU writes instead of CMDQ, but since that's called only once
+> and since it's just three registers, the performance impact will
+> not be minimal and not even measurable.
+> 
+> As anticipated, DSC handling was also introduced in the mtk_dsi
+> driver: when performing dsi_host_attach, the driver now checks
+> if the DSI panel adds the DSC configuration structure to the
+> mipi_dsi_device structure and, if it does, it will store a
+> pointer in the driver-local mtk_dsi structure's `dsc` member.
+> 
+> The DSI driver will then check whether the DSC configuration
+> that comes from the panel is valid (in regard to MediaTek DSI)
+> and will call the DRM API's DSC helpers to calculate and set
+> all of the const and RC parameters for the actual DSC setup.
+> 
+> For the time being, even though the latest MediaTek SoCs do
+> support DSC v1.2, only DSC v1.1 pre-scr support is implemented
+> as an initial contribution (which is rather big, and 1.2 would
+> make it even bigger - but that can anyway be implemented later).
+> 
+> As a last step for validation of DSC parameters in DSI, a check
+> for the hdisplay against DSC slice sidth and one for vdisplay
+> against DSC slice height was added to the mode_valid callback,
+> making sure that H/V are, as expected, multiples of slice W/H.
+> 
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
+>  drivers/gpu/drm/mediatek/Makefile       |   1 +
+>  drivers/gpu/drm/mediatek/mtk_crtc.c     |  21 ++
+>  drivers/gpu/drm/mediatek/mtk_ddp_comp.c |  43 +--
+>  drivers/gpu/drm/mediatek/mtk_ddp_comp.h |   9 +
+>  drivers/gpu/drm/mediatek/mtk_disp_drv.h |   8 +
+>  drivers/gpu/drm/mediatek/mtk_disp_dsc.c | 449 ++++++++++++++++++++++++
+>  drivers/gpu/drm/mediatek/mtk_drm_drv.c  |   2 +
+>  drivers/gpu/drm/mediatek/mtk_drm_drv.h  |   1 +
+>  drivers/gpu/drm/mediatek/mtk_dsi.c      | 151 +++++++-
+>  9 files changed, 635 insertions(+), 50 deletions(-)
+>  create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_dsc.c
+> 
 
-Thanks,
-Karl
+[...]
+
+> +
+> +	dsc->simple_422 = false;
+> +	dsc->convert_rgb = true;
+> +	dsc->vbr_enable = false;
+> +
+> +	drm_dsc_set_const_params(dsc);
+> +	drm_dsc_set_rc_buf_thresh(dsc);
+> +
+> +	ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_2_444);
+> +	if (ret) {
+> +		dev_err(dev, "Cannot find DSC RC params\n");
+> +		return ret;
+> +	}
+> +
+
+Just out of curiosity, is there a reason the DSC v1.1 rc parameters 
+aren't used here?
+
+-- 
+Best, 
+Chaoyi
