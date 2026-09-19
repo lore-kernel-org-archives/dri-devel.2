@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1608C982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:00:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7230C982DE
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:00:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E16A10E3E7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E665310E42A;
 	Mon, 21 Sep 2026 07:00:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L+3DCbRG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l13oKn9f";
 	dkim-atps=neutral
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com
- [74.125.227.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8357610E53F
- for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 22:35:10 +0000 (UTC)
-Received: by mail-pj2-f13.google.com with SMTP id
- 98e67ed59e1d1-39dacf053eeso1358501a91.2
- for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 15:35:10 -0700 (PDT)
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com
+ [74.125.228.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8611210E5B4
+ for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 22:35:17 +0000 (UTC)
+Received: by mail-pz2-f42.google.com with SMTP id
+ 41be03b00d2f7-cc1cea34f01so1581676a12.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 15:35:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789857310; x=1790462110; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1789857317; x=1790462117; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=fFdVy9z4gml9NW4o7NwoYCSiD0u0I9A6db4IeROCKCY=;
- b=L+3DCbRG5eHsdM//ZRz0JmG0Qzn0Wa194FQpmdxfoRg4pK1kdbYLXRW1+Q76oVuT/C
- 4Xowxns1qVnJUAIZ1ogxo3O1dr7YgZ13qyoWxE2DPaawDMBqNeOns+Pm4D3QGfoQzl6g
- LAWyhfCCsmF4D/qpmZ9FeHlhgwNjHbaF3ZU2zXRK7jJuyOam8egXFsIolOu057PvvXXl
- uB5xF2U3GPKt5Wq/5S80Yd5u8OFRJ/vfnGel1rZmGamXdf/VE4yxFVCPQj13/rOkuOm8
- iSJ9UT6XO+SG1l/IAAQ4V+LtwlxRMENNnpxH/CKM05sEvxmPi0jED0Okb+eF/uoWEnZK
- QKrA==
+ bh=sWVtXHvtsUvayjaRC+3RJzYPnLIstthkOPPeTp9RMJw=;
+ b=l13oKn9fMAeP+6SgtzLtVjw3opTsd0Gl9Ead6h6Nx0sAfKpzzuf1YV+qKeTJXZCoFM
+ NUiPmIZbSHTjJgh0Zk1TGRcZJSHcx8nBdzXe5poOFMtlrTE6cbtCQ56BnNqg6Vw6hZ+A
+ bL95smrDkkY4jsBVp5MZAvTltq+HQIZ5QgEJdq8mTT5dcvJ8NvPpahgZluSwHduWQe8E
+ qqVxMEGvPGvcIOb/2q2i6n0iAFjdIfUHB8YSjPNTPYjI8AY7Z5hO/7WgsbY7eu6MnmZx
+ 4wNAMC9FskGSt7+gklaswHi4ScwwKgS7RWBb5rOwAuWW8MY8psVpKsaC2CH7FCnxb1Wi
+ aqbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789857310; x=1790462110;
+ d=1e100.net; s=20260707; t=1789857317; x=1790462117;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=fFdVy9z4gml9NW4o7NwoYCSiD0u0I9A6db4IeROCKCY=;
- b=TUzccmHs9LupEcVT6rf4a2pqStRnuBAIPXKebX75Rg8OpXCrKDJLyGIbR5Kh80Pj/c
- HjHifWTjk4EOcs5DXYlyPsXSXix3K7y2d4UzxtZnvuYSTJJMVuTW2A4LoiwD/NAzn+uo
- tIc/TRCxpOcvvHNIBUvsXftBjMbtsO6y1QgGmC+SFGaVeXdJi5ipSI8XsuhbzEaDouDk
- Tnc/NlP7ulVlZDx8MEB8LZHKlZUDa5S1uQGpUhCiEZvlfe3kafPPgV8l15oqO6wa/Sa4
- qRpv/oaq9V4trxUcn+GxDp0DLg5SGk+vea/2N/tjemsnGwu3jmBTawhqquaTrpgMXAID
- JO1g==
-X-Gm-Message-State: AFuF++ltogit9Fwupx7YWOlpkrO6a67R8pvdmyoc4Yw0cqkBSxQIIpMV
- mz0qD7bfTxx/FApN9X7LM5wYaFvnT2IQGDF3ByH0Y2cc1rSWDAOEX/h7
-X-Gm-Gg: AYBFou1CLB+Bvq4hqolpsWj8uUOLEZQ7zuL1zu7jwNOodlJcQv4obFO+9qhfWHvYhTb
- 27a39BavH0OVk0UOdlfJ62hEkxL3+zdWpi9gbqXSkrAO3iL8lyfejwxeHwymbb/5FMqrEnO7SET
- 6jeALMw7qCdymb+u4C7e2ihMx6mB4OUFI9dP/LoxcD9VDBWUl6nDD4eWuFTffUax2RWCbN41yZV
- ZgM5xXtD1Eq8lUQZXhg2vdLJQwDSXFDqMwIadNNXyKon8i26VRxr4vJlk7J9aovGUeAWeTRbIde
- Bc6aXc88MPL0l/wF3NGt7rzQgGcsmwiSPNY27MovtfrhqBUdzQoYDp08FjUAoWgIqUGwP2U2kGG
- Dsqvrev0bT4RAfXOFWcJadxqdVljc1Tsg5iMI463LFE2uqKCAy0KC6V3ttpPeQJfBbpMki+qeu8
- 8zBp5aWLin61GEn62fZaHziMyPIaUVFLNUqMPnFBb8VSOF9W+EW2oXe8/zHtOoT/eLoJht9gT4K
- ZwI9HL8yHQ3kr6yJwF+o/TjLS/vg2u1q+m9NLnajPPDRYXJA6vTZK2BaCS1WC+X1EMkdySAn/Vc
- AWzrNEBDpg==
-X-Received: by 2002:a17:90b:5144:b0:3a0:2c7d:edd4 with SMTP id
- 98e67ed59e1d1-3a02c7e2fa4mr1832246a91.7.1789857310047; 
- Sat, 19 Sep 2026 15:35:10 -0700 (PDT)
+ bh=sWVtXHvtsUvayjaRC+3RJzYPnLIstthkOPPeTp9RMJw=;
+ b=tUDS5iFZqz0r8CHDlpuwN9vpgoIAI2VZbh/bBa/b115m4089xPHJxqR0Kb2vpFb4MR
+ 3bbKfDxEDn/8/tZTeif1y8SPb1RNtJHXWHeRdOzVMyvWK+b+3GIE2hXHSCN+i3KrjFqs
+ PSWwPy83BGuSKJ/cKDl+X1bGUJha1r8ttUn9ANd5qnftF5LSKNh2bri9uz7hmi2Y3F0f
+ umK1vR5D4z8C34WBm4m1YGaBIQ/tEpPqUsmMkvZWCCVINwatyvtaabOeAN4HrsHXrv//
+ eFT1QIuBEmQZhIk0/uFhgEQE1fjP2PDq1lvuL+U0M9YKdiVU/FDvwiC2DU/uZjFsMDY5
+ 0ozw==
+X-Gm-Message-State: AFuF++nXz1kcgqdq4YgYG7F9Ow9t2rvvp/XgFTLmEhmWSasct92BJJai
+ cNd8GgY2rhKm1pnMTbEQPFn9rPighw8DX9kcIbHjQLjBQl73qC2XFpiA
+X-Gm-Gg: AYBFou3y5qZwOwm6LFVqyCWU21erfRHdAzRqNiMtJm7Kd+ObALLZCzP7780uuF5Cesb
+ vxHmVKKEXyfzr9mo0HBk/AosXxtvXDlsgl/kn4Qb/cNxLtLjfy+jc19DinFDtREv6T5y7y4vKRk
+ APNdIA6VRAMJeqTDFoM3aGRTRpcuJJhNMhdGccjXvS5sKpXHSWBo8EaHXsOVld1UJAXpzq5xw18
+ 7ifDsjC1THgP2Eozf0/REEka1sWPYWdyyEEOCCKOG0zGf08T+N8NkXH9YCfT+DEK7XpRy5dcI+d
+ nT+pCT/OfP02dc9mHFhWNy28nwq2tH+REzVwQCBzVn91V4axixAykrEPnBSr+8AvOXmDY2FNmUU
+ c51tKQltWG2ou9QUSgC69UpMuKEobkNOhXm+UpQqUcGv3XsX+TskdHlxEwK4tUjFVeqSN58q1nw
+ FHx9IFNaGOXFp+0X8Nuu79JpuYFV3wIHLVzrhEjPxHBnlVkBlHB0cVivsiSfw38LLDs3KdrigEm
+ LVe2j7DMdlRkHJDf5MZP94hz/c9yPYslWTyBVX+KIxZVdVTgOkfGpRsy+TSMVLBn9IAAyPM7E5G
+ rD7bl3Leog==
+X-Received: by 2002:a17:90a:c88d:b0:39e:4c81:6c94 with SMTP id
+ 98e67ed59e1d1-39e54f24890mr11527341a91.26.1789857317078; 
+ Sat, 19 Sep 2026 15:35:17 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com
  (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3a02f6f2383sm2241219a91.5.2026.09.19.15.35.09
+ 98e67ed59e1d1-39e6cb400c3sm6307621a91.17.2026.09.19.15.35.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 19 Sep 2026 15:35:09 -0700 (PDT)
+ Sat, 19 Sep 2026 15:35:16 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: louis.chauvet@bootlin.com, hamohammed.sa@gmail.com, melissa.srw@gmail.com,
- tzimmermann@suse.de, simona@ffwll.ch, airlied@redhat.com
+To: tzimmermann@suse.de, jfalempe@redhat.com, simona@ffwll.ch,
+ airlied@redhat.com
 Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/vkms: fix empty gamma/degamma LUT divide-by-zero and
- plane format bounds
-Date: Sat, 19 Sep 2026 22:35:09 +0000
-Message-ID: <20260919223509.3888763-1-benquike@gmail.com>
+Subject: [PATCH] drm/ast: validate framebuffer VRAM size in ast_mode.c and
+ DP501 firmware bounds
+Date: Sat, 19 Sep 2026 22:35:16 +0000
+Message-ID: <20260919223516.3889946-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -90,101 +90,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In drivers/gpu/drm/vkms/ (vkms_composer.c, vkms_drv.c, vkms_formats.c),
-guard against lut_length <= 1 before computing drm_int2fixp(lut_length -
-1) and dividing in apply_lut(), and validate plane/cursor dimensions
-before blending.
+In drivers/gpu/drm/ast/ (ast_mode.c, ast_dp501.c), verify that the
+primary plane framebuffer fits within ast->vram_size and bounds-check
+DP501 firmware headers.
 
-Fixes: a4e7e98e90eb ("drm/vkms: Rename vkms_crc.c into vkms_composer.c")
+Fixes: 312fec1405dd ("drm: Initial KMS driver for AST (ASpeed Technologies) 2000 series (v2)")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
-index 83d217085ad0..3f933f3c137c 100644
---- a/drivers/gpu/drm/vkms/vkms_composer.c
-+++ b/drivers/gpu/drm/vkms/vkms_composer.c
-@@ -328,6 +328,10 @@ static void clamp_line_coordinates(enum pixel_read_direction direction,
- 	switch (direction) {
- 	case READ_LEFT_TO_RIGHT:
- 	case READ_RIGHT_TO_LEFT:
-+		if (*src_y_start < 0 || *src_y_start >= current_plane->frame_info->fb->height) {
-+			*pixel_count = 0;
-+			break;
-+		}
- 		if (*src_x_start < 0) {
- 			*pixel_count += *src_x_start;
- 			*dst_x_start -= *src_x_start;
-@@ -339,6 +343,10 @@ static void clamp_line_coordinates(enum pixel_read_direction direction,
- 		break;
- 	case READ_BOTTOM_TO_TOP:
- 	case READ_TOP_TO_BOTTOM:
-+		if (*src_x_start < 0 || *src_x_start >= current_plane->frame_info->fb->width) {
-+			*pixel_count = 0;
-+			break;
-+		}
- 		if (*src_y_start < 0) {
- 			*pixel_count += *src_y_start;
- 			*dst_x_start -= *src_y_start;
-@@ -619,13 +627,14 @@ void vkms_composer_worker(struct work_struct *work)
- 	crtc_state->frame_end = 0;
- 	crtc_state->crc_pending = false;
+diff --git a/drivers/gpu/drm/ast/ast_dp501.c b/drivers/gpu/drm/ast/ast_dp501.c
+index 6d6ccfad1415..d9ca8760e5b5 100644
+--- a/drivers/gpu/drm/ast/ast_dp501.c
++++ b/drivers/gpu/drm/ast/ast_dp501.c
+@@ -250,7 +250,8 @@ static bool ast_launch_m68k(struct ast_device *ast)
  
--	if (crtc->state->gamma_lut) {
-+	if (crtc_state->base.gamma_lut) {
- 		s64 max_lut_index_fp;
- 		s64 u16_max_fp = drm_int2fixp(0xffff);
+ 		/* copy image to buffer */
+ 		for (i = 0; i < len; i += 4) {
+-			data = *(u32 *)(fw_addr + i);
++			data = 0;
++			memcpy(&data, fw_addr + i, min_t(u32, len - i, 4));
+ 			ast_moutdwm(ast, boot_address + i, data);
+ 		}
  
--		crtc_state->gamma_lut.base = (struct drm_color_lut *)crtc->state->gamma_lut->data;
-+		crtc_state->gamma_lut.base =
-+			(struct drm_color_lut *)crtc_state->base.gamma_lut->data;
- 		crtc_state->gamma_lut.lut_length =
--			crtc->state->gamma_lut->length / sizeof(struct drm_color_lut);
-+			crtc_state->base.gamma_lut->length / sizeof(struct drm_color_lut);
- 		max_lut_index_fp = drm_int2fixp(crtc_state->gamma_lut.lut_length - 1);
- 		crtc_state->gamma_lut.channel_value2index_ratio = drm_fixp_div(max_lut_index_fp,
- 									       u16_max_fp);
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
-index 5a640b531d88..2db3971f72c3 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.c
-+++ b/drivers/gpu/drm/vkms/vkms_drv.c
-@@ -112,7 +112,7 @@ static int vkms_atomic_check(struct drm_device *dev, struct drm_atomic_commit *s
- 		if (!new_crtc_state->gamma_lut || !new_crtc_state->color_mgmt_changed)
- 			continue;
- 
--		if (new_crtc_state->gamma_lut->length / sizeof(struct drm_color_lut *)
-+		if (new_crtc_state->gamma_lut->length / sizeof(struct drm_color_lut)
- 		    > VKMS_LUT_SIZE)
- 			return -EINVAL;
+diff --git a/drivers/gpu/drm/ast/ast_mode.c b/drivers/gpu/drm/ast/ast_mode.c
+index d5ed8c5c7925..bde9dcbbc32b 100644
+--- a/drivers/gpu/drm/ast/ast_mode.c
++++ b/drivers/gpu/drm/ast/ast_mode.c
+@@ -510,6 +510,7 @@ static int ast_primary_plane_helper_atomic_check(struct drm_plane *plane,
+ 						 struct drm_atomic_commit *state)
+ {
+ 	struct drm_device *dev = plane->dev;
++	struct ast_plane *ast_plane = to_ast_plane(plane);
+ 	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state, plane);
+ 	struct drm_crtc_state *new_crtc_state = NULL;
+ 	struct ast_crtc_state *new_ast_crtc_state;
+@@ -531,6 +532,11 @@ static int ast_primary_plane_helper_atomic_check(struct drm_plane *plane,
+ 			return 0;
  	}
-diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/vkms_formats.c
-index dfb8e13cba87..c688b7a5f415 100644
---- a/drivers/gpu/drm/vkms/vkms_formats.c
-+++ b/drivers/gpu/drm/vkms/vkms_formats.c
-@@ -49,8 +49,7 @@ static void packed_pixels_offset(const struct vkms_frame_info *frame_info, int x
- 										  plane_index);
- 	*rem_x = x % drm_format_info_block_width(format, plane_index);
- 	*rem_y = y % drm_format_info_block_height(format, plane_index);
--	*offset = fb->offsets[plane_index] +
--		  block_y * block_pitch +
-+	*offset = block_y * block_pitch +
- 		  block_x * format->char_per_block[plane_index];
- }
  
-@@ -78,7 +77,7 @@ static void packed_pixels_addr(const struct vkms_frame_info *frame_info,
- 	int offset;
++	if (new_plane_state->fb->pitches[0] > AST_PRIMARY_PLANE_MAX_OFFSET)
++		return -EINVAL;
++	if ((u64)new_plane_state->fb->pitches[0] * new_plane_state->fb->height > ast_plane->size)
++		return -ENOSPC;
++
+ 	new_ast_crtc_state = to_ast_crtc_state(new_crtc_state);
  
- 	packed_pixels_offset(frame_info, x, y, plane_index, &offset, rem_x, rem_y);
--	*addr = (u8 *)frame_info->map[0].vaddr + offset;
-+	*addr = (u8 *)frame_info->map[plane_index].vaddr + offset;
- }
- 
- /**
-@@ -139,7 +138,7 @@ static void packed_pixels_addr_1x1(const struct vkms_frame_info *frame_info,
- 
- 	packed_pixels_offset(frame_info, x, y, plane_index, &offset, &rem_x,
- 			     &rem_y);
--	*addr = (u8 *)frame_info->map[0].vaddr + offset;
-+	*addr = (u8 *)frame_info->map[plane_index].vaddr + offset;
- }
- 
- /**
+ 	new_ast_crtc_state->format = new_plane_state->fb->format;
