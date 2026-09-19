@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDB93C982D7
-	for <dri-devel@archiver.kernel.org>; Sat, 19 Sep 2026 22:58:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13FC4C982CC
+	for <dri-devel@archiver.kernel.org>; Sat, 19 Sep 2026 23:00:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46EBF10E802;
-	Sat, 19 Sep 2026 22:58:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76F4D10E9CF;
+	Sat, 19 Sep 2026 23:00:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Npiz+ev/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="desEpKzC";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7776610E802
- for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 22:58:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D81A10E8FE
+ for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 23:00:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 353F142BCF;
- Sat, 19 Sep 2026 22:58:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB8451F000FF;
- Sat, 19 Sep 2026 22:58:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5C476601FB;
+ Sat, 19 Sep 2026 23:00:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C53131F000FF;
+ Sat, 19 Sep 2026 23:00:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789858726;
- bh=wsDuRXzz3Bepu4ARlpIgrQgEg/WWG2h/A9rqB88+E8g=;
+ s=k20260515; t=1789858843;
+ bh=C0d2ZWO4CyCK99h+SiUrTZNlcp/cT+ADhzqAMSenMwI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Npiz+ev/mNrDvp7Vu0yXOIgJvOQ+j/xwaNrdGSPrkEn5/2uzQP/mHhvvF4TspkHxb
- dSD0ISoKcYK9PhGULUvc3ulOTzbWiLNJ3uIML7zYwzxmuqb6EoHYhHVwL6Q1wuEn+W
- LcDV0Y3nxLKqGUhPIyZqfYK4GZG5gc/Bayz+J+p9oLhzUlz/gjIGNSzOb7uKiz/++W
- hL+Cd5pfujdB4E5Il/sNxUwOkX9q4mfE4SbuNbPmhuagFM4dcClUTr6oAt5f64lJQZ
- s+LUnN9AI7lhhEwkfHE3js82wZGIYBjpiZ3gDRIDCd+WOj9sK3kHMwZ5drlNkCfS4E
- CniAacRHAgBgA==
+ b=desEpKzCrRtL2ZYgsZehD+XpE9jw21k8q52TnisUsXNWKMkb7uIaKHume95RFo69Q
+ 1xlwThUx5DWOWL1A5omcIew/raguCUJYldX7uV+kRsC4MeJ244hQIt8KxqheTg4da2
+ nD4ihfju7xmgM25U5kmMQ/x3+ikWoByjrr/D0ygOCAn22QIdaqkYl6Gi/+JHG/wkcJ
+ P05n9mniIuZhSjXaIk/T3f/B0MeOZaO0ieX71yF0iJIEvOWpX7aFOp9nBkB86abQlH
+ Prw6HLsDA7W+FQLE9wJl4WCO2GTm8Ij2E/gVuf5XYNOLL3g5jZZ72tA2CpFM8RxENi
+ iNEnV9uCqgbog==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/tiny: fix VRAM/EDID/transfer bounds in bochs,
- gm12u320, pixpaper, and sharp-memory
+Subject: Re: [PATCH] drm/virtio: fix vbuf->objs double-free, fence NULL
+ deref, and sgt error path
 To: "Hui Peng" <benquike@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260919223513.3889412-1-benquike@gmail.com>
-References: <20260919223513.3889412-1-benquike@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev, "Michael
+ S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
+In-Reply-To: <20260919223440.3884176-1-benquike@gmail.com>
+References: <20260919223440.3884176-1-benquike@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 19 Sep 2026 22:58:45 +0000
-Message-Id: <20260919225845.EB8451F000FF@smtp.kernel.org>
+Date: Sat, 19 Sep 2026 23:00:42 +0000
+Message-Id: <20260919230042.C53131F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,108 +58,55 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/gm12u320: fb offset dropped due to redundant drm_gem_fb_vmap c=
-all
-- [High] drm/gm12u320: sleeping in atomic context via gm12u320_stop_fb_upda=
-te
-- [Medium] drm/gm12u320: redundant logic for FB swaps improperly executes f=
-or invisible planes
-- [Medium] drm/tiny: commit message claims to fix EDID extension count but =
-no code changes exist
+- [High] drm/virtio: double-free of vbuf->objs in virtio_gpu_reclaim_vbufs
 --
 
-commit f388ed102067844063cbe52109b60321de9bfe2f
+commit 94995582490827616358d8c115ec5215d43b829f
 Author: Hui Peng <benquike@gmail.com>
+Subject: drm/virtio: fix vbuf->objs double-free, fence NULL deref, and sgt =
+error path
 
-drm/tiny: fix VRAM/EDID/transfer bounds in bochs, gm12u320, pixpaper, and s=
-harp-memory
+This patch modifies virtio_gpu_dequeue_ctrl_func() and free_vbuf() to
+consolidate vbuf->objs cleanup inside free_vbuf(). It also handles fence
+cancellation and checks for exbuf->size in submit initialization.
 
-This commit aims to fix framebuffer size, EDID extension count, and transfer
-buffer bounds checks across several tiny DRM drivers.
-
-> Fix framebuffer size, EDID extension count, and transfer buffer bounds
-> checks across drivers/gpu/drm/tiny/ (bochs.c, gm12u320.c, pixpaper.c,
-> and sharp-memory.c).
-
-[Severity: Medium]
-Is the commit message missing some context, or were the EDID extension
-count changes left out of this patch? The diff modifies framebuffer
-bounds and buffer maps, but it doesn't appear to contain any changes
-related to EDID parsing or EDID extension counts.
-
-> diff --git a/drivers/gpu/drm/tiny/gm12u320.c b/drivers/gpu/drm/tiny/gm12u=
-320.c
-> index 4ad074337af07..9dfbfc6bb1b64 100644
-> --- a/drivers/gpu/drm/tiny/gm12u320.c
-> +++ b/drivers/gpu/drm/tiny/gm12u320.c
-> @@ -268,12 +268,18 @@ static void gm12u320_copy_fb_to_blocks(struct gm12u=
-320_device *gm12u320)
->  	x2 =3D gm12u320->fb_update.rect.x2;
->  	y1 =3D gm12u320->fb_update.rect.y1;
->  	y2 =3D gm12u320->fb_update.rect.y2;
-> -	vaddr =3D gm12u320->fb_update.src_map.vaddr; /* TODO: Use mapping abstr=
-action properly */
-> +
-> +	ret =3D drm_gem_fb_vmap(fb, &gm12u320->fb_update.src_map, NULL);
-
-[Severity: High]
-Does this redundant mapping overwrite the correct mapping provided by the
-shadow plane helper and drop the framebuffer offset?
-
-The shadow plane helpers already map the framebuffer and apply the offset
-into the shadow plane state data, which gets passed to gm12u320_fb_mark_dir=
-ty()
-and saved in gm12u320->fb_update.src_map.
-
-By calling drm_gem_fb_vmap() here in gm12u320_copy_fb_to_blocks() with a NU=
-LL
-data parameter, doesn't it bypass the offset calculation, causing the driver
-to read from the base GEM address instead of the correct offset address?
-
-[ ... ]
-
-> @@ -583,8 +592,17 @@ static void gm12u320_pipe_update(struct drm_simple_d=
-isplay_pipe *pipe,
->  	struct drm_shadow_plane_state *shadow_plane_state =3D to_drm_shadow_pla=
-ne_state(state);
->  	struct drm_rect rect;
-> =20
-> -	if (drm_atomic_helper_damage_merged(old_state, state, &rect))
-> +	if (!state->fb) {
-> +		gm12u320_stop_fb_update(to_gm12u320(pipe->crtc.dev));
-> +		return;
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio=
+/virtgpu_vq.c
+> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+> @@ -202,6 +202,10 @@ static void *virtio_gpu_alloc_cmd_cb(struct virtio_g=
+pu_device *vgdev,
+>  static void free_vbuf(struct virtio_gpu_device *vgdev,
+>  		      struct virtio_gpu_vbuffer *vbuf)
+>  {
+> +	if (vbuf->objs) {
+> +		virtio_gpu_array_put_free_delayed(vgdev, vbuf->objs);
+> +		vbuf->objs =3D NULL;
 > +	}
 
 [Severity: High]
-Can this sequence cause us to sleep in an atomic context?
+Does this change introduce a double-free when called from
+virtio_gpu_reclaim_vbufs()?
 
-gm12u320_pipe_update() implements the plane's atomic_update callback, which
-runs in atomic context where sleeping is forbidden. However, this patch
-introduces a call to gm12u320_stop_fb_update(), which directly calls
-cancel_delayed_work_sync() and mutex_lock() - both of which can sleep.
+Looking at virtio_gpu_reclaim_vbufs() in the same file, the loop manually
+frees the objects but does not clear the pointer before calling the newly
+updated free_vbuf():
 
-> +
-> +	if (drm_atomic_helper_damage_merged(old_state, state, &rect)) {
->  		gm12u320_fb_mark_dirty(state->fb, &shadow_plane_state->data[0], &rect);
-> +	} else if (old_state->fb !=3D state->fb) {
-> +		drm_rect_init(&rect, 0, 0, state->fb->width, state->fb->height);
-> +		gm12u320_fb_mark_dirty(state->fb, &shadow_plane_state->data[0], &rect);
-> +	}
->  }
+	while ((vbuf =3D virtqueue_detach_unused_buf(vgdev->ctrlq.vq))) {
+		if (vbuf->objs)
+			virtio_gpu_array_put_free(vbuf->objs);
+		if (vbuf->resp_cb_data)
+			virtio_gpu_cleanup_object(vbuf->resp_cb_data);
+		free_vbuf(vgdev, vbuf);
+	}
 
-[Severity: Medium]
-Will this fallback logic bypass visibility checks and incorrectly trigger
-redundant full updates?
-
-For visible planes, drm_atomic_helper_damage_merged() detects FB swaps and
-returns true, making this else-if block dead code. But if the plane
-transitions to invisible (state->visible =3D=3D false), the helper returns =
-false.
-Won't this else-if block then incorrectly trigger and queue a full frame
-transfer for an invisible plane?
+Since free_vbuf() now also attempts to free vbuf->objs via
+virtio_gpu_array_put_free_delayed(), and the pointer is not cleared in
+virtio_gpu_reclaim_vbufs(), won't this trigger a double-free on device
+teardown when there are unused control queue buffers with attached objects?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260919223513.3889=
-412-1-benquike@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260919223440.3884=
+176-1-benquike@gmail.com?part=3D1
