@@ -4,132 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A881FC982DE
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:00:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1B58C982E6
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:00:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E95DC10E36E;
-	Mon, 21 Sep 2026 07:00:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEEC210E3C0;
+	Mon, 21 Sep 2026 07:00:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mZ7NEov0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="etD6qjDs";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4847510E1C5
- for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 15:06:30 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C285B60AA4;
- Sat, 19 Sep 2026 15:06:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8E8F1F000FF;
- Sat, 19 Sep 2026 15:05:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789830388;
- bh=6E/2ltl35xPsVBq7dCp8kX3P3iYtwP2nwvmHYrMGiao=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=mZ7NEov07DW0ZDR9skjWGGxQUM0tilYV9cJ7x872u31P1qu1yVnwdU0E77jSYzczU
- Rq0n7dEgh+A9eWTU+kdQxDU5tKshnvcxTa3XN1JDv7zPJ7mxY5KgfDql95Wg5316wn
- kqxgLNkCZWg1I6A6O0IhltPcOlOLcVqsjbFRvGscwxEQOwDG8XewmgyU6Ujr9SqTuc
- zEYCMum6E9yTv2amUuljbVi6GJTLEO9nOY5NLyIChsn3u7MRozdIRj+bylE4/Ua89o
- aFiTM/yy7p1O+kilDkoW7RGJH5LX4eZ8RZkWZXZPSrDaZInSmA804tyjxuFh+fgV9t
- 5tO9QHfxFsFFQ==
-Date: Sat, 19 Sep 2026 16:05:57 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, 
- Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>,
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, 
- Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, 
- Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, 
- bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
- linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev, Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH v2 00/40] mm: make VMA flag semantics explicit, eliminate
- VM_SPECIAL
-Message-ID: <aq6kzpK7wPl3iFGe@gremlin>
-References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
- <20260914180811.057cba8fcc48d6e0b53a2683@linux-foundation.org>
- <0b064fe6-ddb3-4f26-a1f2-2e9dd88d590f@kernel.org>
- <CAJuCfpFBichJH4OcmSHTb1rOuQBT6k5pXeua9_KgpWjDBKvsYw@mail.gmail.com>
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
+ [74.125.227.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 585CF10E589
+ for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 22:35:16 +0000 (UTC)
+Received: by mail-pj2-f12.google.com with SMTP id
+ 98e67ed59e1d1-396ccb1a98dso1455641a91.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 15:35:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789857316; x=1790462116; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=IxqUXVNAFu/lNiJ42A0NWtfZcrliflvc5eUvqHrWqjg=;
+ b=etD6qjDs4FcD37FcV1ECfsWiF+7NRx8fFyfi5N3L/fHUh1p4+uUXtoO/ZascrlgpGe
+ 61NVIcP5oV0lttIPb3nXj31JqEkexKFxwnYKwcjcS2X+BDAjQIb+GcwETPHwyXEU5WXE
+ /nRqjT0utYQeoqciu730OlDKo+rwXmRzErBUh9j0ZpTccWPVywYbZJEdJtMXSWIAOZXa
+ z6NM3qjJxMsGEsrHBEaJp8zgXQoyIhpzhZs3R7+ih5fNnvTYqKRfhGJzVUaygKzQ9x8v
+ q6REhAB7QOUjo36IWxOZ5yzh0PZDzMR9vxWMa1/UnDzUYENYf6JAniE+5nWTg9tPXmjR
+ yGcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789857316; x=1790462116;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=IxqUXVNAFu/lNiJ42A0NWtfZcrliflvc5eUvqHrWqjg=;
+ b=fNUewEQOSMmgPsg3qfIJofIlV6zhFabOvbJDywWFnpYD/2aKRq4i0TS83dK8ESUHIg
+ 8ZKqZp14gkOk8WfSe/aTnbwfXz/r6qOvXvHYCMU5hBhHB8bxYlv5qYgRhJ2rdMPkKmGn
+ Hfw6TNwn4+5SRtrc4nr41Zzhu9MoN3GgnkUDI4BfWwQisuqfZ4uz8yzOKG21/OTtJy30
+ htjq0EMBk1k5faPulvvyT2YTwoKp1ldb0SuKcI/elsJbeDlduHZJ893gK1AFOz7hoAIs
+ i0+BtAOf7rM40TRftouR65dDxiKDe7/6AJ3z9qzwBgMDsoIgJ/IEx4w3Laj8TnyM+X3S
+ XM7Q==
+X-Gm-Message-State: AFuF++l5Vn5UTfq16i8w1Jlp9CEdhWojUDojEpIQBx+2K6s3WZHfB9mQ
+ x9EPPnRDUb38mn0yiZonpXjkLiJBj3Ds54P5azpFBUkIKX4t6NJR1qSg
+X-Gm-Gg: AYBFou35UZtFRlJDQ3yW11KDbqHM9ejAZtmi49C8mpcV7xqH/4ovdieq9ks84lTySaY
+ Bfoo6XJ1935w9ZGbROo3l2JawP18N5yrfgRojPxjkPh1z92cvE8+EDhRo3ZmsGg9D3lx6ix6Hdf
+ y6qamNWUfiXFbaG+SKQgQXyrR0DLb6d6560E2u3fdPq1z7x2FvRbPOkYhD3Ib2tzCHcz30lbN7E
+ xz5DQEY4LLC/qe5OAwvw/kCCdx1PfdQjXbfeACMnHpZCqo3npjQ+tsQB2jgMLvxNR57QM5WU4qI
+ skdDFX4KRbLLC0lP226+3MewOnqWAgN907XAgzT/aLtUVU0gpvv6fiwU0n68402USF5Si9RCpC2
+ tddtgm43Mss1a7OTnbcYJkCxEbfhyXMZoT18CaSw5MRb6iZLkOieq5EN2jeqZXxRp0wGPKZcRMr
+ l4yodF+kc3tGPD1rh9ekH0EbGJIC9cIyrD1DBQKhOgT0UYA23qgdAKCPbJOzMJs+quy/5wCXThj
+ XB5/7JRJvvkM+YNT553o4RC4nCAjVbczdl8oBo/29Operpvjfv8tzeec9hV7j7aqtvGX1BmV7SF
+ hXuSMDi8dQ==
+X-Received: by 2002:a17:90b:3909:b0:39e:3558:f925 with SMTP id
+ 98e67ed59e1d1-39e54d86a97mr10901965a91.24.1789857315829; 
+ Sat, 19 Sep 2026 15:35:15 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com
+ (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39e6c37c64csm6092871a91.10.2026.09.19.15.35.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 19 Sep 2026 15:35:15 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: tzimmermann@suse.de, jfalempe@redhat.com, simona@ffwll.ch,
+ airlied@redhat.com
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/mgag200: prevent PLL divide-by-zero and validate
+ framebuffer pitch/size
+Date: Sat, 19 Sep 2026 22:35:14 +0000
+Message-ID: <20260919223514.3889611-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJuCfpFBichJH4OcmSHTb1rOuQBT6k5pXeua9_KgpWjDBKvsYw@mail.gmail.com>
 X-Mailman-Approved-At: Mon, 21 Sep 2026 07:00:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -146,41 +90,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Sep 18, 2026 at 01:31:24PM -0700, Suren Baghdasaryan wrote:
-> On Fri, Sep 18, 2026 at 1:21 PM David Hildenbrand (Arm)
-> <david@kernel.org> wrote:
-> >
-> > On 9/15/26 03:08, Andrew Morton wrote:
-> > > On Mon, 14 Sep 2026 15:57:20 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
-> > >
-> > >> The VM_SPECIAL / VMA_SPECIAL_FLAGS mask conflates several unrelated
-> > >> properties:
-> > >>
-> > >> ...
-> > >>
-> > >> It's all rather a mess.
-> > >>
-> > >> This series brings some order to things by both limiting what drivers can
-> > >> do with VMA flags and switching to using predicates that describe
-> > >> behaviour, not arbitrary flags.
-> > >
-> > > That's a lot of patches.
-> > >
-> > > Review is thin and I expect this won't improve a lot.  Lots of "no
-> > > functional changes" changes.
-> >
-> > I'll expect to go through all of them. Might just take a bit ;)
->
-> ditto
+In drivers/gpu/drm/mgag200/ (mgag200_mode.c, mgag200_g200se.c), validate
+clock/PLL parameters and verify framebuffer pitch * height fits in VRAM.
 
-Thanks guys!
-
->
-> >
-> > --
-> > Cheers,
-> >
-> > David
-
---
-Cheers, Lorenzo
+Fixes: 414c45310625 ("mgag200: initial g200se driver (v2)")
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+diff --git a/drivers/gpu/drm/mgag200/mgag200_g200se.c b/drivers/gpu/drm/mgag200/mgag200_g200se.c
+index 349ec36f6d49..d24af3bb5029 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_g200se.c
++++ b/drivers/gpu/drm/mgag200/mgag200_g200se.c
+@@ -257,17 +257,17 @@ static int mgag200_g200se_04_pixpllc_atomic_check(struct drm_crtc *crtc,
+ 		}
+ 	}
+ 
++	if (delta > permitteddelta || !m) {
++		pr_warn("PLL delta too large\n");
++		return -EINVAL;
++	}
++
+ 	fvv = pllreffreq * n / m;
+ 	fvv = (fvv - 800000) / 50000;
+ 	if (fvv > 15)
+ 		fvv = 15;
+ 	s = fvv << 1;
+ 
+-	if (delta > permitteddelta) {
+-		pr_warn("PLL delta too large\n");
+-		return -EINVAL;
+-	}
+-
+ 	pixpllc->m = m;
+ 	pixpllc->n = n;
+ 	pixpllc->p = p;
+diff --git a/drivers/gpu/drm/mgag200/mgag200_mode.c b/drivers/gpu/drm/mgag200/mgag200_mode.c
+index 7e07fc3f1a60..a881d85e6f39 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_mode.c
++++ b/drivers/gpu/drm/mgag200/mgag200_mode.c
+@@ -468,6 +468,7 @@ int mgag200_primary_plane_helper_atomic_check(struct drm_plane *plane,
+ 	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(new_state, plane);
+ 	struct drm_framebuffer *new_fb = new_plane_state->fb;
+ 	struct drm_framebuffer *fb = NULL;
++	struct mga_device *mdev = to_mga_device(plane->dev);
+ 	struct drm_crtc *new_crtc = new_plane_state->crtc;
+ 	struct drm_crtc_state *new_crtc_state = NULL;
+ 	struct mgag200_crtc_state *new_mgag200_crtc_state;
+@@ -485,6 +486,9 @@ int mgag200_primary_plane_helper_atomic_check(struct drm_plane *plane,
+ 	else if (!new_plane_state->visible)
+ 		return 0;
+ 
++	if ((u64)new_fb->pitches[0] * new_fb->height > mdev->vram_available)
++		return -EINVAL;
++
+ 	if (plane->state)
+ 		fb = plane->state->fb;
+ 
