@@ -4,132 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C4B1C982F1
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:00:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C2EAC982DE
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:00:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 444B010E328;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63C7610E331;
 	Mon, 21 Sep 2026 07:00:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=debian.org header.i=@debian.org header.b="clSyf51X";
+	dkim=permerror (0-bit key) header.d=7mind.io header.i=@7mind.io header.b="DtyMn0nk";
+	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="aL7VW6Va";
 	dkim-atps=neutral
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B208410EF68
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 14:30:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org; 
- s=smtpauto.stravinsky;
- h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=z8DxBDctfQle4qPyCLsPEBU1oRIWLoRdyUpwbsFqYLE=; b=clSyf51XrV8aRcbTvneX3p6wBa
- n2dJgPOcz894gpJOnZdCOcF3UEXESwNBxWownSVKd57lnJYBBwn8UK22mY+Uu9cTVCm4bYkkLdbb9
- zwnoTjkKMM6lYQMFHN/pynLhjEOj2/5EEiCk+CstXFpuvTmB28MRP3Fdyl1b9KhwvkjSzoEaggt5r
- 4zu+cgayQfsFLqmqeLGe7kyw0337RIawLytCxdWbLSsC8OhbmfdiwFeLxFGinxIHnQj3tRZJIvubH
- Z5p2yU1Pjs4x4ZBAOVPASiIaB3Jla/kGk5xR5Btk7PaRjSjDUhmPE8iOfBuqPX68vAPFbXjRIpG5J
- q2qapdRg==;
-Received: from authenticated-user by stravinsky.debian.org with esmtpsa
- (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
- (Exim 4.96) (envelope-from <leitao@debian.org>) id 1x7Za9-006nCZ-3B;
- Fri, 18 Sep 2026 14:28:54 +0000
-Date: Fri, 18 Sep 2026 07:28:33 -0700
-From: Breno Leitao <leitao@debian.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, 
- Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, 
- Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, 
- bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
- linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev
-Subject: Re: [PATCH v2 01/40] mm/vma: fix mmap_prepare file handling, remove
- file_doesnt_need_get
-Message-ID: <aq1KeFmXBIEd2YhQ@gmail.com>
-References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
- <20260914-b4-mmap-prepare-vma-flag-sanify-v2-1-7d9781ed5361@kernel.org>
- <aquz9Z9JrK_H_E0g@kernel.org> <aq01JFp8hRReyY-O@gmail.com>
- <aq06hcheI4OGi_3A@gremlin>
+X-Greylist: delayed 400 seconds by postgrey-1.36 at gabe;
+ Sat, 19 Sep 2026 09:01:25 UTC
+Received: from fout-b1-smtp.messagingengine.com
+ (fout-b1-smtp.messagingengine.com [202.12.124.144])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0558610E1A3;
+ Sat, 19 Sep 2026 09:01:24 +0000 (UTC)
+Received: from ams-compute-01.internal (ams-compute-01.internal [10.64.2.61])
+ by mailfout.stl.internal (Postfix) with ESMTP id 5DD251D000CB;
+ Sat, 19 Sep 2026 04:54:43 -0400 (EDT)
+Received: from ams-imap-09 ([10.64.2.29])
+ by ams-compute-01.internal (MEProxy); Sat, 19 Sep 2026 04:54:43 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=7mind.io; h=cc
+ :cc:content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:subject
+ :subject:to:to; s=fm3; t=1789808082; x=1789894482; bh=avyF8HB0F+
+ iMLh0xIXZVVma4WaeumreLJal6c/9H5uA=; b=DtyMn0nkzHGZ821WpOeskSTyee
+ Lby5PIxXemO39seH5Y6UkU/pR+juW3oj/Ey7qd1krDyZKumXKySp9y6cNktXbJtO
+ 9AP0cJYlzcOOLEN/d1Vi3csvrRdTJ8b/fZydTvyivvRFSnsHYp+jWuhbuTDYgOAu
+ B7XBbmdg0rxssnIFcMUjJ+TQPDil5UXZJwD1L1HyU98797bt2coBvXQbQskzgECn
+ jgcvpVUU7emgJohshtb04/p0SaULnMfdpOJwT2ADiwiKZUmtpTS+Os1F9O9V5POR
+ DXtraVlbNFJUakhkJRQ8qBzMhZbywnHAa7SUM8sh1mJNbPPJALckokQhmI0Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+ 1789808082; x=1789894482; bh=avyF8HB0F+iMLh0xIXZVVma4WaeumreLJal
+ 6c/9H5uA=; b=aL7VW6VaC0QQdqoZ1XdPsBTmHGGhfx+9MPx/6naVhRSE4ysVe+3
+ Dpew9kAI7nu7fTy9V46RkDGCVCUYxqYoAS2W6yPWAdXxosgeYgMauwUVJ/+XEuO1
+ sa5VFRCFWgaEfwD8LlR14bezOWL9YUTj/TnkXgm3JfMVmZ8IsTLVNQrSzHM3rRJ7
+ quGdg3x9gbxKW0es1r0n1dYADEvViR4YerinpsGXuX9gJ+TEfQVD+3VIaADssPB/
+ fRmhANWxj5SiPtugHBXhO97ytPNY9OMigbd0PRepivq1yXGo5Hz5hnUqFz8iZeqk
+ mqoYr33+2V5vns0CrxtY0zEnsxMl2VTeJJg==
+X-ME-Sender: <xms:0E2uaud3x5b_mcXvOUXAvWYQY0NZ5CCaWDSMyiginBTBulp4LJTz-Q>
+ <xme:0E2uajBrKh-PGTecwMWHDmqau5V85_0wXnMYGNhWqYXot1ZI8d0UKKKGra83ShDz5
+ BKDCZQjeUOyN1UasbP_8lSI5nI_Bf_BB469iqGAWUkmRkrLx_TIZJk>
+X-ME-Proxy-Cause: dmFkZTFV+ZTsJoG6mqcin+yHJw8W+Cmq5TB8GjSjGqp0p0bZIdk7sjNRp18WjfOg6QOjc+
+ /2q64ll0Nb3GhdfP4V6t2daP5ohQvykPSjMTKI39DD1lhLA2LMFvfVPa7BVarGyYu7E+m0
+ rhIAV8uLj+hiFLBNLI7YoHaI6zEvPQaScP2uiwT3SrBRUPseWW4xpfr1ubFdfCrKRekj1I
+ sGAIYGXbFcEqNxjm1Bz45mewItV/UDefDrtH+G76/fJbQFdcd/K6Y0e8Wo6T4JWN/WW1bg
+ yK0NcEnQMtakI+cZiHN3ZMcFsuhAQQGFigjQZVGZAJleepgeo1YY+TXsyhmUFSvf3mx0LH
+ QTyO1AxUFwraAREPJqFvdWEGn4GH0mb+jUxAX5+eqrz4AwM5DOxdi7DhDJTneBcwmrh88z
+ JrE4It93mxz5K0vWRVfG09cbnAcjkC7NWFKeP5zsXrA7M+N7lncHHHq3rClL1aDw8Lgx4m
+ ihAuybHhpZKCGxpbApqoXRbEndpQ8E9TSQ4Gjscjc6pwQorWz4KNyrVq5y+3r4U0npQpMt
+ b5o7ErNDZp3hGvC+4MlRB6xpa0D58mjka++5nCUDgdkQjY6hB17z6ptQQGpgguW7ZSwC2b
+ s6X/23nGEre2tiRt0ynpXHvLaY5G+ErjD8r/T5cFKFENxgPqRjZ0MNwOuzkg
+X-ME-Proxy: <xmx:0U2uagICcyfRLT9oOYA2LyvFAv5LBVVd8xFFA5tTlljUb7p4KX2cfw>
+ <xmx:0U2uapcWi5kJOdHBHOgdSbM2skgvTtN7BEWgjW5A-9PJkdX_n1FOQw>
+ <xmx:0U2uan8XLoKBk6gE9uVm0XTv1Edefm58wJWkiQ_uzwXld50LmpDQEA>
+ <xmx:0U2uauo5ADE3pDVTu2Q4OjoDwVHGkVlyvfq9j5r84_PyBRFKIGU0wQ>
+ <xmx:0k2uaiScm8we_pHMNUVS651VYQ9DGc--WGt7c7hto1G2tNDsWJFHu_Eo>
+Feedback-ID: i0c9946bd:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+ id EDEE7180088; Sat, 19 Sep 2026 04:54:39 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aq06hcheI4OGi_3A@gremlin>
-X-Debian-User: leitao
+X-ThreadId: AqIJOT_iLe_V
+Date: Sat, 19 Sep 2026 09:54:19 +0100
+From: "Pavel Shirshov" <pshirshov@7mind.io>
+To: "Bjorn Helgaas" <helgaas@kernel.org>
+Cc: linux-pci@vger.kernel.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Message-Id: <323e4469-4460-4141-88db-e5526a560c44@app.fastmail.com>
+In-Reply-To: <20260918203307.GA1192845@bhelgaas>
+References: <20260918203307.GA1192845@bhelgaas>
+Subject: Re: PCI/ASPM: Intel Battlemage (Arc Pro B70) bricks at boot when
+ `pcie_aspm.policy=powersupersave` enables ASPM_L1.1 on AMD root port link
+Content-Type: multipart/alternative;
+ boundary=45621f1d45c0b2532bd65f862dc8ff0c0dae435b
 X-Mailman-Approved-At: Mon, 21 Sep 2026 07:00:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -146,102 +98,823 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Sep 18, 2026 at 02:20:34PM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Fri, Sep 18, 2026 at 05:57:51AM -0700, Breno Leitao wrote:
-> > On Thu, Sep 17, 2026 at 12:33:41PM +0300, Mike Rapoport wrote:
-> > > On Mon, Sep 14, 2026 at 03:57:21PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > > > The map->file_doesnt_need_get flag is confusing and the existing
-> > > > implementation has holes.
-> > > >
-> > > > Drivers are permitted to change the owning file of a mapping. If they do
-> > > > so, they are required to take a reference on that file.
-> > > >
-> > > > The mmap() operation which ultimately invokes __mmap_region() is guaranteed
-> > > > to drop the refcount for the original file the mapping was made under, but
-> > > > this is not true for the replaced file.
-> > > >
-> > > > This has been addressed so far by tracking map->file_doesnt_need_get, which
-> > > > is rather poorly named and unfortunately fails to correctly track whether
-> > > > or not an additional put were needed in a number of cases.
-> > > >
-> > > > Make life easier by removing this flag, and instead drop the reference for
-> > > > both mmap_prepare and the deprecated mmap callback in a new function
-> > > > put_map().
-> > > >
-> > > > Track whether this needs to be done by aligning mmap_state with
-> > > > vm_area_desc and store the original file in the map->file field, keeping
-> > > > the updated file in map->vm_file.
-> > > >
-> > > > In order to have the same behaviour for both types of hooks, only drop the
-> > > > reference __mmap_new_file_vma() itself took in its error path, deferring
-> > > > the replaced file's reference to put_map().
-> > > >
-> > > > To make this work correctly, map->vm_file has to be updated before any
-> > > > error handling, so update __mmap_new_file_vma() and call_mmap_prepare() to
-> > > > set this field first.
-> > > >
-> > > > Also when mmap_prepare() changes the file and is then merged, the reference
-> > > > count also must be decremented, so update the logic to call put_map() in
-> > > > this case too.
-> > > >
-> > > > Also update __compat_vma_mmap() to manually perform this step for stacked
-> > > > file systems using the compatibility layer, and update
-> > > > compat_set_vma_from_desc() to replace vma_set_file() with a correct
-> > > > refcount/file update.
-> > > >
-> > > > No in-tree driver is impacted by the incorrect implementation of this
-> > > > currently (no driver that does this is mergeable for one), so this does not
-> > > > need to be a fix.
-> > >
-> > > But the patch iteslf needs to be fixed :)
-> > >
-> > > It seems to be the change that broke the CI.
-> > >
-> > > The rest is from LLM, take it with a grain of salt :)
-> > >
-> > > mm-ci mm-unstable red build - bisect analysis
-> > > ==============================================
-> > >
-> > > Bad commit: 2a937a04babf1 "mm/vma: fix mmap_prepare file handling, remove
-> > > file_doesnt_need_get" - first patch of Lorenzo Stoakes' 40-patch series
-> > > "mm: make VMA flag semantics explicit, eliminate VM_SPECIAL" (v2).
-> > > https://lore.kernel.org/all/20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org
-> > >
-> > > Symptom: tools/testing/selftests/mm/pfnmap.c triggers
-> > > "BUG: Bad page map in process pfnmap" during __zap_vma_range()/vm_normal_page(),
-> > > seen on process exit/munmap. CI's run-mm-selftests.sh greps guest dmesg for
-> > > BUG|WARNING and fails the job regardless of the test's own exit code.
-> >
-> > I am seeing something similar here and stress-ng can reproduce it:
-> >
-> >       WARNING: mm/memory.c:3225 at do_remap_pfn_range+0x9b4/0x9f0, CPU#25: stress-ng-dev/354858
-> >       Call trace:
-> >        do_remap_pfn_range+0x9b4/0x9f0 (P)
-> >        remap_pfn_range_complete+0xac/0xd0
-> >        mmap_action_complete+0xcc/0x3d8
-> >        mmap_region+0xb54/0x1978
-> >        do_mmap+0x588/0xb18
-> >        vm_mmap_pgoff+0x1e4/0x320
-> >        ksys_mmap_pgoff+0x2d8/0x510
-> >        __arm64_sys_mmap+0x100/0x128
-> >
-> >       BUG: Bad page map in process stress-ng-dev  pte:0160000000000fcf
-> >       addr:0000ffe8d9080000 vm_flags:00000071 anon_vma:0000000000000000 mapping:ffff0000a0c4ea98 index:0 (file) ffe8d9080 (anon)
-> >       file:mem fault:0x0 mmap:0x0 mmap_prepare: mmap_mem_prepare read_folio:0x0
-> >       Call trace:
-> >        print_bad_page_map+0x63c/0x740
-> >        vm_normal_page+0x228/0x240
-> >        __zap_vma_range+0xbe0/0x34a0
-> >        unmap_vmas+0x240/0x318
-> >        unmap_region+0x12c/0x238
-> >        vms_complete_munmap_vmas+0x318/0x958
-> >        do_vmi_align_munmap+0x254/0x2f8
-> >        do_vmi_munmap+0xc4/0xf8
-> >        __vm_munmap+0x174/0x288
-> >        __arm64_sys_munmap+0x70/0x90
-> 
-> Yup I already fixed it and respun the series :)
-> 
-> https://lore.kernel.org/all/20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org/
+--45621f1d45c0b2532bd65f862dc8ff0c0dae435b
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Very nice, thanks. I will give it a try!
+Yes, still a problem, powersupersave kills BM cards, at least on my machines.
+
+
+On Fri, Sep 18, 2026, at 21:33, Bjorn Helgaas wrote:
+> On Thu, May 07, 2026 at 11:14:04PM +0100, Pavel Shirshov wrote:
+> > The report and the patch below are completely claude'd but the quirk in the patch works.
+> > 
+> > PCI/ASPM: Intel Battlemage (Arc Pro B70) bricks at boot when
+> > pcie_aspm.policy=powersupersave enables ASPM_L1.1 on AMD root port link
+> 
+> I happened on this report that we never responded to.  I assume this
+> is still a problem?
+> 
+> It looks like it's not a regression, but should still be fixed.
+> 
+> > ================================================================
+> > SUMMARY
+> > ================================================================
+> > 
+> > On Linux 7.0.3, an Intel Arc Pro B70 (Battlemage / BMG-G31, GPU PCI
+> > ID 8086:e223) plugged into an AMD Ryzen 9 5950X system fails to wake
+> > from D3cold during PCI core enumeration when the kernel is booted
+> > with pcie_aspm.policy=powersupersave. The card is permanently
+> > inaccessible until reboot with a different policy.
+> > pcie_aspm.policy=powersave (L0s+L1, no substates) works correctly.
+> > 
+> > The failure surfaces in PCI core first; downstream xe driver bind
+> > then fails with -EPROTO:
+> > 
+> >     pcieport 0000:02:01.0: Unable to change power state from D3cold
+> >                            to D0, device inaccessible
+> >     pcieport 0000:02:02.0: Unable to change power state from D3cold
+> >                            to D0, device inaccessible
+> >     xe 0000:03:00.0: Unable to change power state from D3cold to D0,
+> >                      device inaccessible
+> >     xe 0000:03:00.0: [drm] Running in SR-IOV VF mode
+> >                      [misdetected: dead config space reads as 0xff]
+> >     xe 0000:03:00.0: [drm] *ERROR* VF: Tile0: GT0: Failed to reset
+> >                      GuC state (-EPROTO)
+> >     xe 0000:03:00.0: probe with driver xe failed with error -71
+> > 
+> > After the brick, "lspci -vvv -s 03:00.0" reports
+> > "!!! Unknown header type 7f" -- the canonical signature of a PCI
+> > device whose config space reads return all-ones, i.e. the link to the
+> > device is dead.
+> > 
+> > 
+> > ================================================================
+> > HARDWARE
+> > ================================================================
+> > 
+> > CPU / root complex:
+> >     AMD Ryzen 9 5950X (Starship/Matisse). The root port hosting the
+> >     BMG card is 0000:00:01.1 -- "Advanced Micro Devices, Inc. [AMD]
+> >     Starship/Matisse GPP Bridge" (subsystem 1022:1453).
+> > 
+> > GPU:
+> >     Intel Arc Pro B70 -- 8086:e223 (BMG-G31, subsystem 8086:1701).
+> > 
+> > On-card topology -- the card has a two-layer on-board PCIe switch:
+> >     0000:01:00.0  Intel 8086:e2ff -- BMG card upstream switch port,
+> >                                      PCIe 5.0 x16 capable (currently
+> >                                      downgraded to Gen4 x16).
+> >     0000:02:01.0  Intel 8086:e2f0 -- BMG card downstream switch
+> >                                      port, PCIe Gen1 x1 internal.
+> >     0000:03:00.0  Intel 8086:e223 -- GPU endpoint, PCIe Gen1 x1
+> >                                      internal.
+> > 
+> > Other:
+> >     BIOS has PCIe ASPM enabled in firmware. pcie_aspm=force is NOT
+> >     set on the kernel command line. Motherboard: ASRock X570
+> >     (specifics in attached dmidecode.txt).
+> > 
+> > 
+> > ================================================================
+> > REPRODUCER
+> > ================================================================
+> > 
+> > Boot any kernel >= 7.0 with kernel command line containing:
+> > 
+> >     pcie_aspm.policy=powersupersave xe.force_probe=*
+> > 
+> > (Also reproduces under earlier 6.x kernels.)
+> > 
+> > Reverting the cmdline to "pcie_aspm.policy=powersave" and rebooting
+> > restores the card. No firmware reset is required between attempts --
+> > the brick is purely a runtime link-state failure during kernel boot.
+> > 
+> > 
+> > ================================================================
+> > ASPM NEGOTIATION
+> > ================================================================
+> > 
+> > Captured with "lspci -vvv" on a working policy=powersave boot
+> > (attached: 20260507-204348-powersave-7.0.3.tar.zst).
+> > 
+> > Link 1: 00:01.1 AMD root  <->  01:00.0 BMG upstream
+> >     Lower end (AMD root, L1SubCap):
+> >         PCI-PM_L1.2-  PCI-PM_L1.1+  ASPM_L1.2-  ASPM_L1.1+
+> >     Upper end (BMG upstream, L1SubCap):
+> >         PCI-PM_L1.2+  PCI-PM_L1.1+  ASPM_L1.2+  ASPM_L1.1+
+> >     Active L1SubCtl1 under policy=powersave:
+> >         PCI-PM_L1.2-  PCI-PM_L1.1-  ASPM_L1.2-  ASPM_L1.1-
+> > 
+> > Link 2: 01:00.0  <->  02:01.0   (card-internal switch)
+> >     No L1SS capability advertised on either end.
+> > 
+> > Link 3: 02:01.0  <->  03:00.0   (card-internal to GPU)
+> >     No L1SS capability advertised on either end.
+> > 
+> > Conclusion: only Link 1 -- the platform-facing AMD<->BMG link -- is
+> > L1SS-capable on both ends, and the intersection is ASPM_L1.1 only
+> > (the AMD GPP root port advertises L1.1 but not L1.2). With
+> > policy=powersupersave, the kernel arms ASPM_L1.1 on this link. After
+> > that, every D3cold->D0 transition fails.
+> > 
+> > Both ends advertise multi-retimer support (Retimer+ 2Retimers+ on
+> > the AMD root port and on the BMG upstream port). Retimers + L1SS
+> > have a history of wake-recovery problems on other platforms; this
+> > may be the same class of issue.
+> > 
+> > 
+> > ================================================================
+> > TIMELINE -- failed boot, kernel 7.0.3
+> > ================================================================
+> > 
+> > Excerpted from dmesg-relevant.txt in the powersupersave capture:
+> > 
+> >     28.792s  pcieport 0000:00:01.1: PME: Signaling with IRQ 48
+> >                      [AMD root port for BMG]
+> >     28.842s  pcieport 0000:02:01.0: Unable to change power state from
+> >                      D3cold to D0, device inaccessible
+> >     28.843s  pcieport 0000:02:02.0: Unable to change power state from
+> >                      D3cold to D0, device inaccessible
+> >     ...
+> >     29.034s  xe 0000:03:00.0: Unable to change power state from
+> >                      D3cold to D0, device inaccessible
+> >     29.035s  xe 0000:03:00.0: [drm] Running in SR-IOV VF mode
+> >     29.035s  xe 0000:03:00.0: [drm] *ERROR* VF: Tile0: GT0: Failed
+> >                      to reset GuC state (-EPROTO)
+> >     29.035s  xe 0000:03:00.0: probe with driver xe failed with
+> >                      error -71
+> > 
+> > The PCI core's first wake attempt at 28.842s (the immediate parent
+> > bridge of the BMG GPU) fails before any driver probe runs. This
+> > confirms the failure is in the PCI/ASPM layer, not in xe; xe just
+> > sees the resulting dead config space and misclassifies the PF as a
+> > VF.
+> > 
+> > 
+> > ================================================================
+> > WORKING-POLICY LSPCI EXCERPTS  (relevant capabilities)
+> > ================================================================
+> > 
+> > policy=powersave baseline, root port 00:01.1:
+> > 
+> >     LnkCap:  Speed 16GT/s, Width x16, ASPM L1, Exit Latency L1 <64us
+> >     LnkCtl:  ASPM L1 Enabled
+> >     LnkSta:  Speed 16GT/s, Width x16
+> >     Capabilities: [370 v1] L1 PM Substates
+> >         L1SubCap:  PCI-PM_L1.2- PCI-PM_L1.1+ ASPM_L1.2- ASPM_L1.1+
+> >                    L1_PM_Substates+
+> >         L1SubCtl1: PCI-PM_L1.2- PCI-PM_L1.1- ASPM_L1.2- ASPM_L1.1-
+> >         L1SubCtl2:
+> > 
+> > policy=powersave baseline, BMG upstream 01:00.0:
+> > 
+> >     LnkCap:  Speed 32GT/s, Width x16, ASPM L1, Exit Latency L1 <32us
+> >     LnkCtl:  ASPM L1 Enabled
+> >     LnkSta:  Speed 16GT/s (downgraded), Width x16
+> >     Capabilities: [244 v1] L1 PM Substates
+> >         L1SubCap:  PCI-PM_L1.2+ PCI-PM_L1.1+ ASPM_L1.2+ ASPM_L1.1+
+> >                    L1_PM_Substates+
+> >         L1SubCtl1: PCI-PM_L1.2- PCI-PM_L1.1- ASPM_L1.2- ASPM_L1.1-
+> >         L1SubCtl2: T_PwrOn=14us
+> > 
+> > 
+> > ================================================================
+> > PROPOSED FIX
+> > ================================================================
+> > 
+> > Disable both L1SS substates on the BMG card's upstream switch port
+> > (8086:e2ff) via a DECLARE_PCI_FIXUP_FINAL. Standard ASPM L1 still
+> > applies, so the link still benefits from the deepest substate the
+> > BMG silicon handles correctly. The quirk keys on the card upstream
+> > port, which is shared across the BMG product family, so it covers
+> > all current BMG SKUs without enumerating individual GPU-endpoint
+> > IDs.
+> > 
+> > The patch is in the attached intel-bmg-disable-l1ss.patch. With the
+> > patch applied, pcie_aspm.policy=powersupersave boots cleanly on this
+> > hardware (verification in progress at time of report).
+> > 
+> > Empirical narrowing -- ASPM_L1.1 specifically is the trigger.
+> > 
+> >   An intermediate version of the quirk passed only
+> >   PCIE_LINK_STATE_L1_1 | PCIE_LINK_STATE_L1_2 to
+> >   pci_disable_link_state(), leaving the PCI-PM substate bits armed.
+> >   After applying that variant, lspci reported
+> > 
+> >       L1SubCtl1: PCI-PM_L1.2- PCI-PM_L1.1+ ASPM_L1.2- ASPM_L1.1-
+> > 
+> >   on the BMG upstream port -- i.e. only the two ASPM substate bits
+> >   were cleared, the PCI-PM substate bits stayed armed -- yet the
+> >   system booted, xe bound, and the GPU operated normally. Combined
+> >   with the AMD root port advertising only ASPM_L1.1+ (not L1.2),
+> >   this isolates ASPM_L1.1 as the specific bit whose activation
+> >   bricks the BMG card. The PCI-PM L1.x substates were also disabled
+> >   in the final patch for hygiene, but they are not load-bearing for
+> >   the fix on this hardware (the GPU does not enter D3hot during
+> >   normal operation, so PCI-PM substates are inert).
+> > 
+> > Remaining open questions for review:
+> > 
+> >   1. Is the underlying defect in the AMD Starship root port (cannot
+> >      wake the link from ASPM_L1.1) or in the BMG e2ff upstream port
+> >      (cannot exit ASPM_L1.1 cleanly)? If the former, future BMG
+> >      cards on Intel platforms may not need this quirk; if the
+> >      latter, the quirk is correct for BMG everywhere. We do not
+> >      have a non-AMD reproducer to disambiguate.
+> > 
+> >   2. Should the quirk also apply to the AMD Starship/Matisse GPP
+> >      Bridge itself (1022:1483 / 1022:1484-class IDs, see
+> >      lspci-nn.txt)? That would be a broader brushstroke but might
+> >      protect other devices presenting the same negotiation.
+> > 
+> > 
+> > ================================================================
+> > WORKAROUND IN USE
+> > ================================================================
+> > 
+> > Until the quirk lands upstream, downstream users on this hardware
+> > must boot with pcie_aspm.policy=powersave (or default), losing
+> > ~25 W of idle savings that the deeper substates would otherwise
+> > provide.
+> > 
+> > 
+> > ================================================================
+> > ATTACHMENTS
+> > ================================================================
+> > 
+> > Tarballs produced by debug/20260507-aspm-capture.sh:
+> > 
+> >     20260507-204348-powersave-7.0.3.tar.zst
+> >         -- working baseline
+> > 
+> >     20260507-205055-powersupersave-7.0.3.tar.zst
+> >         -- failed reproduction
+> > 
+> > Each tarball contains:
+> > 
+> >     manifest.txt           kernel, policy, hostname, GPU BDFs
+> >     cmdline.txt            kernel command line
+> >     uname.txt              kernel version
+> >     nixos.txt              userspace metadata
+> >     dmidecode.txt          BIOS/board info
+> >     lspci-tree.txt         PCI topology
+> >     lspci-nn.txt           PCI device list
+> >     lspci-vvv-all.txt      full system lspci -vvv
+> > 
+> >     gpu-03_00_0/           per-device captures for the GPU and
+> >                            every PCI ancestor up to the root
+> >                            complex:
+> >         lspci-vvv.txt          GPU
+> >         parent-0-02_01_0.txt   BMG card-internal downstream switch
+> >         parent-1-01_00_0.txt   BMG card upstream port (e2ff)
+> >         parent-2-00_01_1.txt   AMD root port
+> >         sysfs.txt              selected sysfs attributes
+> > 
+> >     dmesg-full.txt                full kernel ring buffer
+> >     dmesg-relevant.txt            filtered for PCI/xe/ASPM/L1
+> >     journal-kernel-current-boot.txt
+> >     journal-kernel-prev-boot.txt
+> >     drivers.txt                   xe / i915 driver state,
+> >                                   /sys/class/drm
+> > 
+> > Patch: intel-bmg-disable-l1ss.patch  (attached separately)
+> > 
+> > NixOS 26.05 (nixpkgsRevision:
+> >     549bd84d6279f9852cae6225e372cc67fb91a4c1)
+> > 
+> > Kernel:
+> >     7.0.3 #1-NixOS SMP PREEMPT_DYNAMIC Thu Apr 30 09:13:05 UTC 2026
+> 
+> 
+> 
+> > PCI/ASPM: disable L1.1/L1.2 substates for Intel Battlemage discrete GPU upstream port
+> > 
+> > Intel Battlemage (BMG-G21 / BMG-G31, e.g. Arc Pro B70) discrete GPU cards
+> > expose a two-layer on-card PCIe switch:
+> > 
+> >     AMD/Intel root port  <->  8086:e2ff (BMG card upstream)
+> >                               8086:e2f0 (BMG card downstream)
+> >                               8086:e22x (BMG GPU endpoint, e.g. e223 = Arc Pro B70)
+> > 
+> > The platform-facing link (root port <-> 8086:e2ff) is the only link in the
+> > chain that advertises L1 PM Substates support on both ends. On AMD
+> > Starship/Matisse (Ryzen 5xxx) root ports, the intersection is ASPM_L1.1
+> > only (the AMD port advertises L1.1 but not L1.2). When pcie_aspm.policy=
+> > powersupersave arms ASPM_L1.1 on this link, the BMG card cannot recover
+> > from the resulting low-power state on subsequent D3cold->D0 transition,
+> > leaving the device permanently inaccessible:
+> > 
+> >     pcieport 0000:02:01.0: Unable to change power state from D3cold to D0, device inaccessible
+> >     xe 0000:03:00.0: Unable to change power state from D3cold to D0, device inaccessible
+> >     xe 0000:03:00.0: [drm] Running in SR-IOV VF mode    [misdetected: dead config space]
+> >     xe 0000:03:00.0: [drm] *ERROR* VF: Tile0: GT0: Failed to reset GuC state (-EPROTO)
+> >     xe 0000:03:00.0: probe with driver xe failed with error -71
+> > 
+> > Reproduces deterministically on Linux 7.0.3 with an Arc Pro B70 in an
+> > AMD Ryzen 9 5950X system. pcie_aspm.policy=powersave (L0s+L1 only, no
+> > substates) works correctly; pcie_aspm.policy=powersupersave bricks the
+> > card on every boot. The 6.x-era blanket `no_d3cold` quirk for Battlemage
+> > was narrowed to ASUS NUC13 only in 7.0, but that change is orthogonal:
+> > the failure here is link-state, not device-state, and surfaces
+> > regardless of d3cold_allowed.
+> > 
+> > Disable all four L1SS substates (ASPM_L1.1, ASPM_L1.2, PCI-PM_L1.1,
+> > PCI-PM_L1.2) on the BMG card's upstream port via a final PCI fixup.
+> > Standard ASPM L1 still applies, so the link still benefits from the
+> > deepest substate the BMG silicon actually handles correctly. The
+> > quirk is keyed on the upstream-port device ID 0xe2ff so it covers
+> > all current Battlemage SKUs (the GPU-endpoint ID varies by SKU, but
+> > the upstream switch is shared).
+> > 
+> > Empirical narrowing (verified post-fix): with a partial mask that
+> > disabled only ASPM_L1.{1,2} but left PCI-PM_L1.{1,2} armed, the
+> > system boots and operates correctly. This isolates ASPM_L1.1 as the
+> > specific trigger of the brick (the AMD root port advertises ASPM_L1.1
+> > but not ASPM_L1.2, so ASPM_L1.2 cannot have been activated). The
+> > PCI-PM substates only activate during D3hot transitions which the
+> > GPU does not undergo during normal use; they are disabled here for
+> > hygiene rather than necessity.
+> > 
+> > Reported-by: Pavel Shirshov <pavel@7mind.io>
+> > Signed-off-by: <FILL IN BEFORE SUBMITTING UPSTREAM>
+> > 
+> > --- a/drivers/pci/quirks.c
+> > +++ b/drivers/pci/quirks.c
+> > @@ -6289,6 +6289,34 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x56b0, aspm_l1_acceptable_latency
+> >  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x56b1, aspm_l1_acceptable_latency);
+> >  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x56c0, aspm_l1_acceptable_latency);
+> >  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x56c1, aspm_l1_acceptable_latency);
+> > +
+> > +/*
+> > + * Intel Battlemage discrete GPU cards (BMG-G21 / BMG-G31; Arc B580,
+> > + * Arc Pro B50/B60/B70) expose a two-layer on-card PCIe switch. The
+> > + * platform-facing link, between the host root port and the card's
+> > + * upstream switch port (PCI device ID 0xe2ff), is the only link in the
+> > + * chain advertising L1 PM Substates on both ends. On at least AMD
+> > + * Starship/Matisse root ports, where the intersection is ASPM_L1.1
+> > + * only, arming L1.1 leaves the BMG card unable to wake from D3cold:
+> > + *
+> > + *   pcieport 0000:02:01.0: Unable to change power state from D3cold
+> > + *                          to D0, device inaccessible
+> > + *   xe 0000:03:00.0: probe with driver xe failed with error -71
+> > + *
+> > + * Reproduces deterministically with pcie_aspm.policy=powersupersave,
+> > + * works correctly with policy=powersave (no substates). Disable L1SS
+> > + * substates on the BMG card upstream port; standard L1 ASPM is
+> > + * unaffected.
+> > + */
+> > +static void quirk_intel_bmg_no_l1ss(struct pci_dev *dev)
+> > +{
+> > + pci_disable_link_state(dev, PCIE_LINK_STATE_L1_2 |
+> > +     PCIE_LINK_STATE_L1_1 |
+> > +     PCIE_LINK_STATE_L1_2_PCIPM |
+> > +     PCIE_LINK_STATE_L1_1_PCIPM);
+> > + pci_info(dev, "intel-bmg-aspm-quirk: L1.1/L1.2 substates disabled on BMG upstream port\n");
+> > +}
+> > +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0xe2ff, quirk_intel_bmg_no_l1ss);
+> >  #endif
+> > 
+> >  #ifdef CONFIG_PCIE_DPC
+> 
+> 
+--45621f1d45c0b2532bd65f862dc8ff0c0dae435b
+Content-Type: text/html
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html><html><head><title></title></head><body><div>Yes, still a=
+ problem, powersupersave kills BM cards, at least on my machines.</div><=
+div><br></div><div><br></div><div>On Fri, Sep 18, 2026, at 21:33, Bjorn =
+Helgaas wrote:</div><blockquote type=3D"cite" id=3D"qt" style=3D""><div>=
+On Thu, May 07, 2026 at 11:14:04PM +0100, Pavel Shirshov wrote:</div><di=
+v>&gt; The report and the patch below are completely claude'd but the qu=
+irk in the patch works.</div><div>&gt;&nbsp;</div><div>&gt; PCI/ASPM: In=
+tel Battlemage (Arc Pro B70) bricks at boot when</div><div>&gt; pcie_asp=
+m.policy=3Dpowersupersave enables ASPM_L1.1 on AMD root port link</div><=
+div><br></div><div>I happened on this report that we never responded to.=
+&nbsp; I assume this</div><div>is still a problem?</div><div><br></div><=
+div>It looks like it's not a regression, but should still be fixed.</div=
+><div><br></div><div>&gt; =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+</div><div>&gt; SUMMARY</div><div>&gt; =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D</div><div>&gt;&nbsp;</div><div>&gt; On Linux 7.0.3, an I=
+ntel Arc Pro B70 (Battlemage / BMG-G31, GPU PCI</div><div>&gt; ID 8086:e=
+223) plugged into an AMD Ryzen 9 5950X system fails to wake</div><div>&g=
+t; from D3cold during PCI core enumeration when the kernel is booted</di=
+v><div>&gt; with pcie_aspm.policy=3Dpowersupersave. The card is permanen=
+tly</div><div>&gt; inaccessible until reboot with a different policy.</d=
+iv><div>&gt; pcie_aspm.policy=3Dpowersave (L0s+L1, no substates) works c=
+orrectly.</div><div>&gt;&nbsp;</div><div>&gt; The failure surfaces in PC=
+I core first; downstream xe driver bind</div><div>&gt; then fails with -=
+EPROTO:</div><div>&gt;&nbsp;</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; pcie=
+port 0000:02:01.0: Unable to change power state from D3cold</div><div>&g=
+t;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; to D0, device inaccessible</div><div>&gt;&nbsp;&nbs=
+p;&nbsp;&nbsp; pcieport 0000:02:02.0: Unable to change power state from =
+D3cold</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to D0, device inaccessible</div>=
+<div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; xe 0000:03:00.0: Unable to change powe=
+r state from D3cold to D0,</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; device inaccessible</div><div>&gt;&nbsp;&nbsp;&n=
+bsp;&nbsp; xe 0000:03:00.0: [drm] Running in SR-IOV VF mode</div><div>&g=
+t;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [misdetected: d=
+ead config space reads as 0xff]</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; x=
+e 0000:03:00.0: [drm] *ERROR* VF: Tile0: GT0: Failed to reset</div><div>=
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GuC state (-E=
+PROTO)</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; xe 0000:03:00.0: probe wit=
+h driver xe failed with error -71</div><div>&gt;&nbsp;</div><div>&gt; Af=
+ter the brick, "lspci -vvv -s 03:00.0" reports</div><div>&gt; "!!! Unkno=
+wn header type 7f" -- the canonical signature of a PCI</div><div>&gt; de=
+vice whose config space reads return all-ones, i.e. the link to the</div=
+><div>&gt; device is dead.</div><div>&gt;&nbsp;</div><div>&gt;&nbsp;</di=
+v><div>&gt; =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</div><div>&=
+gt; HARDWARE</div><div>&gt; =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D</div><div>&gt;&nbsp;</div><div>&gt; CPU / root complex:</div><div>&g=
+t;&nbsp;&nbsp;&nbsp;&nbsp; AMD Ryzen 9 5950X (Starship/Matisse). The roo=
+t port hosting the</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; BMG card is 00=
+00:00:01.1 -- "Advanced Micro Devices, Inc. [AMD]</div><div>&gt;&nbsp;&n=
+bsp;&nbsp;&nbsp; Starship/Matisse GPP Bridge" (subsystem 1022:1453).</di=
+v><div>&gt;&nbsp;</div><div>&gt; GPU:</div><div>&gt;&nbsp;&nbsp;&nbsp;&n=
+bsp; Intel Arc Pro B70 -- 8086:e223 (BMG-G31, subsystem 8086:1701).</div=
+><div>&gt;&nbsp;</div><div>&gt; On-card topology -- the card has a two-l=
+ayer on-board PCIe switch:</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; 0000:0=
+1:00.0&nbsp; Intel 8086:e2ff -- BMG card upstream switch port,</div><div=
+>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; PCIe 5.0 x16 capable (currently</div><div>&gt;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; downgra=
+ded to Gen4 x16).</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; 0000:02:01.0&nb=
+sp; Intel 8086:e2f0 -- BMG card downstream switch</div><div>&gt;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p=
+ort, PCIe Gen1 x1 internal.</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; 0000:=
+03:00.0&nbsp; Intel 8086:e223 -- GPU endpoint, PCIe Gen1 x1</div><div>&g=
+t;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; internal.</div><div>&gt;&nbsp;</div><div>&gt; Other:</div><div>=
+&gt;&nbsp;&nbsp;&nbsp;&nbsp; BIOS has PCIe ASPM enabled in firmware. pci=
+e_aspm=3Dforce is NOT</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; set on the =
+kernel command line. Motherboard: ASRock X570</div><div>&gt;&nbsp;&nbsp;=
+&nbsp;&nbsp; (specifics in attached dmidecode.txt).</div><div>&gt;&nbsp;=
+</div><div>&gt;&nbsp;</div><div>&gt; =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D</div><div>&gt; REPRODUCER</div><div>&gt; =3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</div><div>&gt;&nbsp;</div><div>&gt; Boot =
+any kernel &gt;=3D 7.0 with kernel command line containing:</div><div>&g=
+t;&nbsp;</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; pcie_aspm.policy=3Dpower=
+supersave xe.force_probe=3D*</div><div>&gt;&nbsp;</div><div>&gt; (Also r=
+eproduces under earlier 6.x kernels.)</div><div>&gt;&nbsp;</div><div>&gt=
+; Reverting the cmdline to "pcie_aspm.policy=3Dpowersave" and rebooting<=
+/div><div>&gt; restores the card. No firmware reset is required between =
+attempts --</div><div>&gt; the brick is purely a runtime link-state fail=
+ure during kernel boot.</div><div>&gt;&nbsp;</div><div>&gt;&nbsp;</div><=
+div>&gt; =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</div><div>&gt;=
+ ASPM NEGOTIATION</div><div>&gt; =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D</div><div>&gt;&nbsp;</div><div>&gt; Captured with "lspci -vvv"=
+ on a working policy=3Dpowersave boot</div><div>&gt; (attached: 20260507=
+-204348-powersave-7.0.3.tar.zst).</div><div>&gt;&nbsp;</div><div>&gt; Li=
+nk 1: 00:01.1 AMD root&nbsp; &lt;-&gt;&nbsp; 01:00.0 BMG upstream</div><=
+div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; Lower end (AMD root, L1SubCap):</div><d=
+iv>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PCI-PM_L1.2-&nbs=
+p; PCI-PM_L1.1+&nbsp; ASPM_L1.2-&nbsp; ASPM_L1.1+</div><div>&gt;&nbsp;&n=
+bsp;&nbsp;&nbsp; Upper end (BMG upstream, L1SubCap):</div><div>&gt;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PCI-PM_L1.2+&nbsp; PCI-PM_L1=
+.1+&nbsp; ASPM_L1.2+&nbsp; ASPM_L1.1+</div><div>&gt;&nbsp;&nbsp;&nbsp;&n=
+bsp; Active L1SubCtl1 under policy=3Dpowersave:</div><div>&gt;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PCI-PM_L1.2-&nbsp; PCI-PM_L1.1-&n=
+bsp; ASPM_L1.2-&nbsp; ASPM_L1.1-</div><div>&gt;&nbsp;</div><div>&gt; Lin=
+k 2: 01:00.0&nbsp; &lt;-&gt;&nbsp; 02:01.0&nbsp;&nbsp; (card-internal sw=
+itch)</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; No L1SS capability advertis=
+ed on either end.</div><div>&gt;&nbsp;</div><div>&gt; Link 3: 02:01.0&nb=
+sp; &lt;-&gt;&nbsp; 03:00.0&nbsp;&nbsp; (card-internal to GPU)</div><div=
+>&gt;&nbsp;&nbsp;&nbsp;&nbsp; No L1SS capability advertised on either en=
+d.</div><div>&gt;&nbsp;</div><div>&gt; Conclusion: only Link 1 -- the pl=
+atform-facing AMD&lt;-&gt;BMG link -- is</div><div>&gt; L1SS-capable on =
+both ends, and the intersection is ASPM_L1.1 only</div><div>&gt; (the AM=
+D GPP root port advertises L1.1 but not L1.2). With</div><div>&gt; polic=
+y=3Dpowersupersave, the kernel arms ASPM_L1.1 on this link. After</div><=
+div>&gt; that, every D3cold-&gt;D0 transition fails.</div><div>&gt;&nbsp=
+;</div><div>&gt; Both ends advertise multi-retimer support (Retimer+ 2Re=
+timers+ on</div><div>&gt; the AMD root port and on the BMG upstream port=
+). Retimers + L1SS</div><div>&gt; have a history of wake-recovery proble=
+ms on other platforms; this</div><div>&gt; may be the same class of issu=
+e.</div><div>&gt;&nbsp;</div><div>&gt;&nbsp;</div><div>&gt; =3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</div><div>&gt; TIMELINE -- failed b=
+oot, kernel 7.0.3</div><div>&gt; =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D</div><div>&gt;&nbsp;</div><div>&gt; Excerpted from dmesg-relev=
+ant.txt in the powersupersave capture:</div><div>&gt;&nbsp;</div><div>&g=
+t;&nbsp;&nbsp;&nbsp;&nbsp; 28.792s&nbsp; pcieport 0000:00:01.1: PME: Sig=
+naling with IRQ 48</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; [AMD root port for BMG]</div><div>&gt;&nbsp;&nbsp;&nbsp;=
+&nbsp; 28.842s&nbsp; pcieport 0000:02:01.0: Unable to change power state=
+ from</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; D3cold to D0, device inaccessible</div><div>&gt;&nbsp;&nbsp;&nbsp;&nb=
+sp; 28.843s&nbsp; pcieport 0000:02:02.0: Unable to change power state fr=
+om</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+D3cold to D0, device inaccessible</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;=
+ ...</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; 29.034s&nbsp; xe 0000:03:00.=
+0: Unable to change power state from</div><div>&gt;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; D3cold to D0, device inaccessible</div=
+><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; 29.035s&nbsp; xe 0000:03:00.0: [drm] =
+Running in SR-IOV VF mode</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; 29.035s=
+&nbsp; xe 0000:03:00.0: [drm] *ERROR* VF: Tile0: GT0: Failed</div><div>&=
+gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to reset GuC s=
+tate (-EPROTO)</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; 29.035s&nbsp; xe 0=
+000:03:00.0: probe with driver xe failed with</div><div>&gt;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; error -71</div><div>&gt;&nbsp=
+;</div><div>&gt; The PCI core's first wake attempt at 28.842s (the immed=
+iate parent</div><div>&gt; bridge of the BMG GPU) fails before any drive=
+r probe runs. This</div><div>&gt; confirms the failure is in the PCI/ASP=
+M layer, not in xe; xe just</div><div>&gt; sees the resulting dead confi=
+g space and misclassifies the PF as a</div><div>&gt; VF.</div><div>&gt;&=
+nbsp;</div><div>&gt;&nbsp;</div><div>&gt; =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D</div><div>&gt; WORKING-POLICY LSPCI EXCERPTS&nbsp; (r=
+elevant capabilities)</div><div>&gt; =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D</div><div>&gt;&nbsp;</div><div>&gt; policy=3Dpowersave base=
+line, root port 00:01.1:</div><div>&gt;&nbsp;</div><div>&gt;&nbsp;&nbsp;=
+&nbsp;&nbsp; LnkCap:&nbsp; Speed 16GT/s, Width x16, ASPM L1, Exit Latenc=
+y L1 &lt;64us</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; LnkCtl:&nbsp; ASPM =
+L1 Enabled</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; LnkSta:&nbsp; Speed 16=
+GT/s, Width x16</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; Capabilities: [37=
+0 v1] L1 PM Substates</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; L1SubCap:&nbsp; PCI-PM_L1.2- PCI-PM_L1.1+ ASPM_L1.2- ASPM_L=
+1.1+</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; L1_PM_Subs=
+tates+</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; L1=
+SubCtl1: PCI-PM_L1.2- PCI-PM_L1.1- ASPM_L1.2- ASPM_L1.1-</div><div>&gt;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; L1SubCtl2:</div><div>&gt=
+;&nbsp;</div><div>&gt; policy=3Dpowersave baseline, BMG upstream 01:00.0=
+:</div><div>&gt;&nbsp;</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; LnkCap:&nb=
+sp; Speed 32GT/s, Width x16, ASPM L1, Exit Latency L1 &lt;32us</div><div=
+>&gt;&nbsp;&nbsp;&nbsp;&nbsp; LnkCtl:&nbsp; ASPM L1 Enabled</div><div>&g=
+t;&nbsp;&nbsp;&nbsp;&nbsp; LnkSta:&nbsp; Speed 16GT/s (downgraded), Widt=
+h x16</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; Capabilities: [244 v1] L1 P=
+M Substates</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; L1SubCap:&nbsp; PCI-PM_L1.2+ PCI-PM_L1.1+ ASPM_L1.2+ ASPM_L1.1+</div>=
+<div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; L1_PM_Substates+</di=
+v><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; L1SubCtl1: P=
+CI-PM_L1.2- PCI-PM_L1.1- ASPM_L1.2- ASPM_L1.1-</div><div>&gt;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; L1SubCtl2: T_PwrOn=3D14us</div><di=
+v>&gt;&nbsp;</div><div>&gt;&nbsp;</div><div>&gt; =3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D</div><div>&gt; PROPOSED FIX</div><div>&gt; =3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</div><div>&gt;&nbsp;</div><di=
+v>&gt; Disable both L1SS substates on the BMG card's upstream switch por=
+t</div><div>&gt; (8086:e2ff) via a DECLARE_PCI_FIXUP_FINAL. Standard ASP=
+M L1 still</div><div>&gt; applies, so the link still benefits from the d=
+eepest substate the</div><div>&gt; BMG silicon handles correctly. The qu=
+irk keys on the card upstream</div><div>&gt; port, which is shared acros=
+s the BMG product family, so it covers</div><div>&gt; all current BMG SK=
+Us without enumerating individual GPU-endpoint</div><div>&gt; IDs.</div>=
+<div>&gt;&nbsp;</div><div>&gt; The patch is in the attached&nbsp;<a href=
+=3D"http://intel-bmg-disable-l1ss.patch">intel-bmg-disable-l1ss.patch</a=
+>. With the</div><div>&gt; patch applied, pcie_aspm.policy=3Dpowersupers=
+ave boots cleanly on this</div><div>&gt; hardware (verification in progr=
+ess at time of report).</div><div>&gt;&nbsp;</div><div>&gt; Empirical na=
+rrowing -- ASPM_L1.1 specifically is the trigger.</div><div>&gt;&nbsp;</=
+div><div>&gt;&nbsp;&nbsp; An intermediate version of the quirk passed on=
+ly</div><div>&gt;&nbsp;&nbsp; PCIE_LINK_STATE_L1_1 | PCIE_LINK_STATE_L1_=
+2 to</div><div>&gt;&nbsp;&nbsp; pci_disable_link_state(), leaving the PC=
+I-PM substate bits armed.</div><div>&gt;&nbsp;&nbsp; After applying that=
+ variant, lspci reported</div><div>&gt;&nbsp;</div><div>&gt;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; L1SubCtl1: PCI-PM_L1.2- PCI-PM_L1.1+ ASPM_L1.2-=
+ ASPM_L1.1-</div><div>&gt;&nbsp;</div><div>&gt;&nbsp;&nbsp; on the BMG u=
+pstream port -- i.e. only the two ASPM substate bits</div><div>&gt;&nbsp=
+;&nbsp; were cleared, the PCI-PM substate bits stayed armed -- yet the</=
+div><div>&gt;&nbsp;&nbsp; system booted, xe bound, and the GPU operated =
+normally. Combined</div><div>&gt;&nbsp;&nbsp; with the AMD root port adv=
+ertising only ASPM_L1.1+ (not L1.2),</div><div>&gt;&nbsp;&nbsp; this iso=
+lates ASPM_L1.1 as the specific bit whose activation</div><div>&gt;&nbsp=
+;&nbsp; bricks the BMG card. The PCI-PM L1.x substates were also disable=
+d</div><div>&gt;&nbsp;&nbsp; in the final patch for hygiene, but they ar=
+e not load-bearing for</div><div>&gt;&nbsp;&nbsp; the fix on this hardwa=
+re (the GPU does not enter D3hot during</div><div>&gt;&nbsp;&nbsp; norma=
+l operation, so PCI-PM substates are inert).</div><div>&gt;&nbsp;</div><=
+div>&gt; Remaining open questions for review:</div><div>&gt;&nbsp;</div>=
+<div>&gt;&nbsp;&nbsp; 1. Is the underlying defect in the AMD Starship ro=
+ot port (cannot</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wake the li=
+nk from ASPM_L1.1) or in the BMG e2ff upstream port</div><div>&gt;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; (cannot exit ASPM_L1.1 cleanly)? If the former,=
+ future BMG</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cards on Intel =
+platforms may not need this quirk; if the</div><div>&gt;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; latter, the quirk is correct for BMG everywhere. We do no=
+t</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; have a non-AMD reproducer=
+ to disambiguate.</div><div>&gt;&nbsp;</div><div>&gt;&nbsp;&nbsp; 2. Sho=
+uld the quirk also apply to the AMD Starship/Matisse GPP</div><div>&gt;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Bridge itself (1022:1483 / 1022:1484-class=
+ IDs, see</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lspci-nn.txt)? Th=
+at would be a broader brushstroke but might</div><div>&gt;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; protect other devices presenting the same negotiation.<=
+/div><div>&gt;&nbsp;</div><div>&gt;&nbsp;</div><div>&gt; =3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</div><div>&gt; WORKAROUND IN USE</div>=
+<div>&gt; =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</div><div>&gt;=
+&nbsp;</div><div>&gt; Until the quirk lands upstream, downstream users o=
+n this hardware</div><div>&gt; must boot with pcie_aspm.policy=3Dpowersa=
+ve (or default), losing</div><div>&gt; ~25 W of idle savings that the de=
+eper substates would otherwise</div><div>&gt; provide.</div><div>&gt;&nb=
+sp;</div><div>&gt;&nbsp;</div><div>&gt; =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D</div><div>&gt; ATTACHMENTS</div><div>&gt; =3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</div><div>&gt;&nbsp;</div><div>&gt; Ta=
+rballs produced by debug/20260507-aspm-capture.sh:</div><div>&gt;&nbsp;<=
+/div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; 20260507-204348-powersave-7.0.3.t=
+ar.zst</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --=
+ working baseline</div><div>&gt;&nbsp;</div><div>&gt;&nbsp;&nbsp;&nbsp;&=
+nbsp; 20260507-205055-powersupersave-7.0.3.tar.zst</div><div>&gt;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- failed reproduction</div><d=
+iv>&gt;&nbsp;</div><div>&gt; Each tarball contains:</div><div>&gt;&nbsp;=
+</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; manifest.txt&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kernel, policy, hostname, GPU B=
+DFs</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; cmdline.txt&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kernel command line</di=
+v><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; uname.txt&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kernel version</div>=
+<div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; nixos.txt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; userspace metadata</di=
+v><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; dmidecode.txt&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BIOS/board info</div><div>&gt;&nbsp;&nbs=
+p;&nbsp;&nbsp; lspci-tree.txt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; PCI topology</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; lspci-nn.txt&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PCI device li=
+st</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; lspci-vvv-all.txt&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; full system lspci -vvv</div><div>&gt;&nbsp;</div><div>=
+&gt;&nbsp;&nbsp;&nbsp;&nbsp; gpu-03_00_0/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; per-device captures for the GPU and</div><=
+div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; every PCI ancestor up to the root</div><div>&=
+gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; complex:</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; lspci-vvv.txt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; GPU</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; parent-0-02_01_0.txt&nbsp;&nbsp; BMG card-internal downstre=
+am switch</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ parent-1-01_00_0.txt&nbsp;&nbsp; BMG card upstream port (e2ff)</div><di=
+v>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; parent-2-00_01_1.=
+txt&nbsp;&nbsp; AMD root port</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; sysfs.txt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; selected sysfs attributes</div><div=
+>&gt;&nbsp;</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; dmesg-full.txt&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; full kernel ring buffer</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbs=
+p; dmesg-relevant.txt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; filtered for PCI/xe/ASPM/L1</div><div>&gt;&nbsp;&nbsp;&n=
+bsp;&nbsp; journal-kernel-current-boot.txt</div><div>&gt;&nbsp;&nbsp;&nb=
+sp;&nbsp; journal-kernel-prev-boot.txt</div><div>&gt;&nbsp;&nbsp;&nbsp;&=
+nbsp; drivers.txt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xe / i915 driver s=
+tate,</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; /sys/class/drm</div><div>&gt;&nbsp;</div><div>&gt; Patch:&nbsp;=
+<a href=3D"http://intel-bmg-disable-l1ss.patch">intel-bmg-disable-l1ss.p=
+atch</a>&nbsp; (attached separately)</div><div>&gt;&nbsp;</div><div>&gt;=
+ NixOS 26.05 (nixpkgsRevision:</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; 54=
+9bd84d6279f9852cae6225e372cc67fb91a4c1)</div><div>&gt;&nbsp;</div><div>&=
+gt; Kernel:</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; 7.0.3 #1-NixOS SMP PR=
+EEMPT_DYNAMIC Thu Apr 30 09:13:05 UTC 2026</div><div><br></div><div><br>=
+</div><div><br></div><div>&gt; PCI/ASPM: disable L1.1/L1.2 substates for=
+ Intel Battlemage discrete GPU upstream port</div><div>&gt;&nbsp;</div><=
+div>&gt; Intel Battlemage (BMG-G21 / BMG-G31, e.g. Arc Pro B70) discrete=
+ GPU cards</div><div>&gt; expose a two-layer on-card PCIe switch:</div><=
+div>&gt;&nbsp;</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; AMD/Intel root por=
+t&nbsp; &lt;-&gt;&nbsp; 8086:e2ff (BMG card upstream)</div><div>&gt;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8086:e2f0 (BMG card downstream)</div><d=
+iv>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8086:e22x (BMG GPU endpoint,=
+ e.g. e223 =3D Arc Pro B70)</div><div>&gt;&nbsp;</div><div>&gt; The plat=
+form-facing link (root port &lt;-&gt; 8086:e2ff) is the only link in the=
+</div><div>&gt; chain that advertises L1 PM Substates support on both en=
+ds. On AMD</div><div>&gt; Starship/Matisse (Ryzen 5xxx) root ports, the =
+intersection is ASPM_L1.1</div><div>&gt; only (the AMD port advertises L=
+1.1 but not L1.2). When pcie_aspm.policy=3D</div><div>&gt; powersupersav=
+e arms ASPM_L1.1 on this link, the BMG card cannot recover</div><div>&gt=
+; from the resulting low-power state on subsequent D3cold-&gt;D0 transit=
+ion,</div><div>&gt; leaving the device permanently inaccessible:</div><d=
+iv>&gt;&nbsp;</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; pcieport 0000:02:01=
+.0: Unable to change power state from D3cold to D0, device inaccessible<=
+/div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; xe 0000:03:00.0: Unable to change=
+ power state from D3cold to D0, device inaccessible</div><div>&gt;&nbsp;=
+&nbsp;&nbsp;&nbsp; xe 0000:03:00.0: [drm] Running in SR-IOV VF mode&nbsp=
+;&nbsp;&nbsp; [misdetected: dead config space]</div><div>&gt;&nbsp;&nbsp=
+;&nbsp;&nbsp; xe 0000:03:00.0: [drm] *ERROR* VF: Tile0: GT0: Failed to r=
+eset GuC state (-EPROTO)</div><div>&gt;&nbsp;&nbsp;&nbsp;&nbsp; xe 0000:=
+03:00.0: probe with driver xe failed with error -71</div><div>&gt;&nbsp;=
+</div><div>&gt; Reproduces deterministically on Linux 7.0.3 with an Arc =
+Pro B70 in an</div><div>&gt; AMD Ryzen 9 5950X system. pcie_aspm.policy=3D=
+powersave (L0s+L1 only, no</div><div>&gt; substates) works correctly; pc=
+ie_aspm.policy=3Dpowersupersave bricks the</div><div>&gt; card on every =
+boot. The 6.x-era blanket `no_d3cold` quirk for Battlemage</div><div>&gt=
+; was narrowed to ASUS NUC13 only in 7.0, but that change is orthogonal:=
+</div><div>&gt; the failure here is link-state, not device-state, and su=
+rfaces</div><div>&gt; regardless of d3cold_allowed.</div><div>&gt;&nbsp;=
+</div><div>&gt; Disable all four L1SS substates (ASPM_L1.1, ASPM_L1.2, P=
+CI-PM_L1.1,</div><div>&gt; PCI-PM_L1.2) on the BMG card's upstream port =
+via a final PCI fixup.</div><div>&gt; Standard ASPM L1 still applies, so=
+ the link still benefits from the</div><div>&gt; deepest substate the BM=
+G silicon actually handles correctly. The</div><div>&gt; quirk is keyed =
+on the upstream-port device ID 0xe2ff so it covers</div><div>&gt; all cu=
+rrent Battlemage SKUs (the GPU-endpoint ID varies by SKU, but</div><div>=
+&gt; the upstream switch is shared).</div><div>&gt;&nbsp;</div><div>&gt;=
+ Empirical narrowing (verified post-fix): with a partial mask that</div>=
+<div>&gt; disabled only ASPM_L1.{1,2} but left PCI-PM_L1.{1,2} armed, th=
+e</div><div>&gt; system boots and operates correctly. This isolates ASPM=
+_L1.1 as the</div><div>&gt; specific trigger of the brick (the AMD root =
+port advertises ASPM_L1.1</div><div>&gt; but not ASPM_L1.2, so ASPM_L1.2=
+ cannot have been activated). The</div><div>&gt; PCI-PM substates only a=
+ctivate during D3hot transitions which the</div><div>&gt; GPU does not u=
+ndergo during normal use; they are disabled here for</div><div>&gt; hygi=
+ene rather than necessity.</div><div>&gt;&nbsp;</div><div>&gt; Reported-=
+by: Pavel Shirshov &lt;<a href=3D"mailto:pavel@7mind.io">pavel@7mind.io<=
+/a>&gt;</div><div>&gt; Signed-off-by: &lt;FILL IN BEFORE SUBMITTING UPST=
+REAM&gt;</div><div>&gt;&nbsp;</div><div>&gt; --- a/drivers/pci/quirks.c<=
+/div><div>&gt; +++ b/drivers/pci/quirks.c</div><div>&gt; @@ -6289,6 +628=
+9,34 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x56b0, aspm_l1_ac=
+ceptable_latency</div><div>&gt;&nbsp; DECLARE_PCI_FIXUP_HEADER(PCI_VENDO=
+R_ID_INTEL, 0x56b1, aspm_l1_acceptable_latency);</div><div>&gt;&nbsp; DE=
+CLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x56c0, aspm_l1_acceptable_l=
+atency);</div><div>&gt;&nbsp; DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INT=
+EL, 0x56c1, aspm_l1_acceptable_latency);</div><div>&gt; +</div><div>&gt;=
+ +/*</div><div>&gt; + * Intel Battlemage discrete GPU cards (BMG-G21 / B=
+MG-G31; Arc B580,</div><div>&gt; + * Arc Pro B50/B60/B70) expose a two-l=
+ayer on-card PCIe switch. The</div><div>&gt; + * platform-facing link, b=
+etween the host root port and the card's</div><div>&gt; + * upstream swi=
+tch port (PCI device ID 0xe2ff), is the only link in the</div><div>&gt; =
++ * chain advertising L1 PM Substates on both ends. On at least AMD</div=
+><div>&gt; + * Starship/Matisse root ports, where the intersection is AS=
+PM_L1.1</div><div>&gt; + * only, arming L1.1 leaves the BMG card unable =
+to wake from D3cold:</div><div>&gt; + *</div><div>&gt; + *&nbsp;&nbsp; p=
+cieport 0000:02:01.0: Unable to change power state from D3cold</div><div=
+>&gt; + *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; to D0, device inaccessible</div><div>&gt; + *&nbsp;&nbsp=
+; xe 0000:03:00.0: probe with driver xe failed with error -71</div><div>=
+&gt; + *</div><div>&gt; + * Reproduces deterministically with pcie_aspm.=
+policy=3Dpowersupersave,</div><div>&gt; + * works correctly with policy=3D=
+powersave (no substates). Disable L1SS</div><div>&gt; + * substates on t=
+he BMG card upstream port; standard L1 ASPM is</div><div>&gt; + * unaffe=
+cted.</div><div>&gt; + */</div><div>&gt; +static void quirk_intel_bmg_no=
+_l1ss(struct pci_dev *dev)</div><div>&gt; +{</div><div>&gt; +	pci_disabl=
+e_link_state(dev, PCIE_LINK_STATE_L1_2 |</div><div>&gt; +				&nbsp;&nbsp=
+;&nbsp; PCIE_LINK_STATE_L1_1 |</div><div>&gt; +				&nbsp;&nbsp;&nbsp; PC=
+IE_LINK_STATE_L1_2_PCIPM |</div><div>&gt; +				&nbsp;&nbsp;&nbsp; PCIE_L=
+INK_STATE_L1_1_PCIPM);</div><div>&gt; +	pci_info(dev, "intel-bmg-aspm-qu=
+irk: L1.1/L1.2 substates disabled on BMG upstream port\n");</div><div>&g=
+t; +}</div><div>&gt; +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0xe2f=
+f, quirk_intel_bmg_no_l1ss);</div><div>&gt;&nbsp; #endif</div><div>&gt;&=
+nbsp;</div><div>&gt;&nbsp; #ifdef CONFIG_PCIE_DPC</div><div><br></div><d=
+iv><br></div></blockquote></body></html>
+--45621f1d45c0b2532bd65f862dc8ff0c0dae435b--
