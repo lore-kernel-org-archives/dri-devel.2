@@ -4,79 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45EB3C982CC
-	for <dri-devel@archiver.kernel.org>; Sat, 19 Sep 2026 20:09:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6E66C982D8
+	for <dri-devel@archiver.kernel.org>; Sat, 19 Sep 2026 20:13:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A431610E1F9;
-	Sat, 19 Sep 2026 20:09:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08E3D10E206;
+	Sat, 19 Sep 2026 20:13:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DvVJDzHX";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="ARiJFj+9";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92EA810E1F9
- for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 20:09:30 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-398b1e63c49so2112513a91.0
- for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 13:09:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789848570; x=1790453370; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=yt8mYcrHfU6wtp+xuS+0jjsvHTtir7paMP+9tSkwoLE=;
- b=DvVJDzHXrrhWPlZO6GkRr0JGlenJ8wQ8raqyCkFfcbXHC4zw7A33kaugKUtDbkLDjg
- CrqG/OOjHMaLizlwEGb1N2k6Ggb2xHdHDneIpv0ckYAn/jWW2GGEPoBU1EYFVY/MFg5V
- rQsYoNeQhZBeskCsnhoUmxAC3jbFGluDWs9W/7SIHqlZ6efwTvu2ibAbavYACq9raSnu
- NqUdgVKXrEQDQ1oQAhQxImYki29cs+jq8kmRYtcXFHTgA7r162XedeBVBz4EzhM5v8OJ
- COMNbFLaYJj0eIWvyVYQOdvVs194/qjDx8vKYNCLRpFf9oSg/ZObDsgnHJBJduCkRYoq
- Mz5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789848570; x=1790453370;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=yt8mYcrHfU6wtp+xuS+0jjsvHTtir7paMP+9tSkwoLE=;
- b=jJ3FHnkPLCnDo/tIRtZBhi5PTmVu94HAK6qnwJU5IkbWN77b2IO6DHQ+vyYbdnkRLd
- fa+1fkgpbIm/BFUFCxwtpLQgTXcIHYSbCE7xMsQripLSodSg0FMpwGmGPSP/pjaA3WU1
- CgkTePAzACyPadq31tf6Cjid8ba0D1rA2H+PgoWztnrshlOPzlsq2tZJvWVdiQX0sQQK
- jVY9k3I7nKSBM16sBkfoRzyrfwyZKz67cB8wqd/4DsRdhmpgFuIL7rkH7GPX7/j5e9Dv
- KqdCCtRJj54CQCn8PMrNZSlChecsu4wtdygiH3nQBCGFYYcgEnYgO5UeTODSQfzhrAze
- 7Kww==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzk3zSuc0xGyO04j7v2bVyq3Sk5McpbcV1s39VjwhulUOpTJNFJomX5vcMYZiG9MSilxGdE6bPkN1g=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kTU8Zp94QCl1xVUz1T0YZOEzjv6Jvx/cNOePumzUeQrDagLu8J
- +zPphBX4hSAcDNdTX9tZiQwDeZeprNpv1wVTO3zVJe7xAtgC15LMM/l3YM8bKYY/uDE=
-X-Gm-Gg: AYBFou3mJtrd9w4mTWPfm2jZXqBRF/4icPr41y6P6pkEcJ8RgMcQPbp5GwoihP9qYW4
- zGnpYKxUem4Wqlo3k9PqI/M7bEMjrRfmZcOL8f6mF/IICO+yOXXZH7lJOiYHKMqplp9adVkq0W1
- 8CTgnNswRsQf6i+fdjHuBC272Trd+9Hg9RUz4gk84wftzu3/18aynrKQ8o1/ArzZoji/RCu+8hf
- 302CBbSFrKza+twaASHgj+rXmgCS504NF5xDcg7rjYSU1glOSa5fBdMnI40B23DaXuLxqljDyl+
- jYtzKsFiKx1fZ43SM/2FzOHLMddceNmDfyeKvZjPSOcyo/IEoh47/6oUzs8ueTGHHLH5MsKPsdc
- lPIakkZaWEczEt3eIwogG5Y1f/x7D6ibU4aXYLyjxOkLmrIDVA0GIHPpHvQHErojEFZqnb8FqXV
- ATnLBI06K2kHJ97f/kf8C3ruTowF4DXRGXFOunCvERc4sIBcyWzhkA80axvwzgqFnVQ86GpCBI
-X-Received: by 2002:a17:90b:4a4b:b0:39d:e7c7:8044 with SMTP id
- 98e67ed59e1d1-39e36106e8dmr14968242a91.17.1789848569823; 
- Sat, 19 Sep 2026 13:09:29 -0700 (PDT)
-Received: from G15-5520 ([103.206.144.242]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-144d55d45a6sm7347221c88.9.2026.09.19.13.09.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 19 Sep 2026 13:09:29 -0700 (PDT)
-From: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list)
-Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-Subject: [PATCH v2] drm/amdgpu: replace kcalloc() with kzalloc_objs()
-Date: Sat, 19 Sep 2026 20:08:32 +0000
-Message-ID: <20260919200834.114637-1-lalitshankarch@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260919191432.99342-1-lalitshankarch@gmail.com>
-References: <20260919191432.99342-1-lalitshankarch@gmail.com>
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012042.outbound.protection.outlook.com [52.101.48.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F68F10E206
+ for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 20:13:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=g7+RGhEpyMCLPX85o8LeCEwMvpBlIgSKhXwOqA2oDapS5uUs90HouZvq3++nV4dK1veK/+4QXsdz4c1a7A9+CDU8gGfRXeaE8hhjqmodXQ3qEsrk3YrvWheLs7GqypLRIKX+aOhm9VDeMZMZX2p6DutbhmgeXXRgFClRRtH97UshKODjIeywemwNPI5JG/4t2d5qrP1aVgGL8cJLbJ1jH5U3EeTZtVRO5ZW5MZwYfUdxfZO9ZdmMpqGdy7zywAxs1ZTVvuHJ2En6Z4khj/NSiFtHs79rlLKmYzF4z71YkzMsjFbKEL9ysYKK6jpXQJcUEgSZLhMzVQGREocLZ1uv4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JvtLvyzUiBtQ8d6zc9w+Uk3Ull+ezut9NJjtWB7C0vo=;
+ b=TC5z33rQ5T09tChF72mc+boemHg5SwMsb0t5ag8u8ic9HGrt7YHxsFj8qfditdISKvwx0M+Jg9P/1a1WA7qhWVYzG6xzeiwd7LXLtSfanKiY1CgG9qpauTE0tx6DtG3f3BEYK6R46QFFFUCUmgkEH9Kij6vk3LfSvQXZoXfR252qkp/2JkdEynKIybOrPo3SqccmBun7XdOgEBhdLkSPdRaUhU66S1YIaytjZuI7ESM37kMH/2TT26W0uvIWepoomkX/PzWAcapITUPMwD19o7xEHPljjpoR3GgK66VZi8HPZmcwJ0FGI9tTbSQIMJmQdK8dkczrldaNcyTBM6u6Jw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JvtLvyzUiBtQ8d6zc9w+Uk3Ull+ezut9NJjtWB7C0vo=;
+ b=ARiJFj+9GeODuOPpdUxTvJy9A908Sugx3XgLI4O/hZtihj+PI4mWymZB44IL7OWo0llR17hS+yGqtptWjD9FqXawB0121bqb1utuLSa+kHsiSatatZPuf6TXhGNJ71moAvsJYZRomBQ2ZeUGU274nl+/ishxyXB6Ttj1gsYONJoY0VG3gGx0TgYkpLMSWPCfU1GD7JUsN4sjvLvv1uENQfcADODytWa9yFEgCH7gLlHv2f1q6c7LJQHyYhBvR6Zdcblvbl+5VDCLH6FBQ+YZ6xYADRPZQ9JSkZo87AfH+Au6GIs1fuJjBFd1wBiI479hP37HGF0WPDz3Gry4iZ6iNg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ LV8PR12MB9405.namprd12.prod.outlook.com (2603:10b6:408:1fa::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.15; Sat, 19 Sep
+ 2026 20:13:29 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0428.014; Sat, 19 Sep 2026
+ 20:13:29 +0000
+Message-ID: <165ab493-9de9-43bb-a53b-3fa82f8013cf@nvidia.com>
+Date: Sat, 19 Sep 2026 13:13:27 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 15/16] gpu: nova-core: mm: Add BAR1 user interface
+To: Alexandre Courbot <acourbot@nvidia.com>, Dave Airlie <airlied@gmail.com>, 
+ Eliot Courtney <ecourtney@nvidia.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
+References: <20260909-mmrebase-v1-0-8dd5d4225d2e@nvidia.com>
+ <20260909-mmrebase-v1-15-8dd5d4225d2e@nvidia.com>
+ <CAPM=9tweFRWWjCrkBKvR03BaRVs=N+-qw2ju0g-dgMj+S7Q=ZA@mail.gmail.com>
+ <DLJDV72PBGVA.1M0RZ780ZPJR0@nvidia.com>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <DLJDV72PBGVA.1M0RZ780ZPJR0@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SN7P222CA0029.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:124::23) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|LV8PR12MB9405:EE_
+X-MS-Office365-Filtering-Correlation-Id: 15c0f466-040d-42c8-97d3-08df168a783a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|10070799003|18002099003|22082099003|56012099006|11063799006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info: Egh00VVFte3P/HacuCxaEqB5ReYvFQCngquUO5/nwfXOi7cYa/Mo+VoQdtSYqN2k5AXkAMVzavXSQLvj8FfSy4dTRgjOejVexBnWrrktTdKfAG3ylyif9trAQrxlqkXl3BhUay1Ut/G9EVaMzTMkiC7lf7piFrdeW0iTyu1dB8wFWxx+nHWH2vDVjcepGyDoZM6OXALwe+NkbWQlfbvbcShGs+Qdy4ccvvP8S1lb8BYJ83PKukc8xV0cQdH/FQATUUxAS4bwfMGALJkGyUtNXws+FyKKQb9HeRBLfG6jw5eto7UOS7E961+RSQ3y4TxDAtkqweBmqoHeq95H9+O25TQoozTDKihpGjqMHOW2rdMnxjAK02SPBLHJWHpLj1nWu3ySKWHvDqWKYYbQ8tuI2oDoeeaJy1rnhv6NQlDS9bSjkVL9EJkP4AWeyVhEAcq0J5oNqxwUn0ukGfOVX4lA9oYXJ/SEDVvUI+NYSEW7mrS1MrPb+1ifuGx4VPbeygNXM8khKqj4kvyYQrO6ykuH7g953ga5A/H2MtjsnclHrJioREeo7nlYHizXSGTPRF/DFrMJ1pc3lGIxk92+8xDB4f+x8Lv9FjULdFGKp+kmbpvMrQwZbTkG7kf1790D0wdA6PbOrfH0i43UxDY+o4DBCVBg0tLdSivhWkFhZn3nn20=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10070799003)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dXJBcHNLcFJrbm5XcHRxUFEvMG1oSkdHcERSZ2Nlb1NCYkhJcVkzNDRXZFhD?=
+ =?utf-8?B?ZHo1RHRrTk5zQ0lqeG5sd29qd0F4b3VScG1aYjNvenVVTFZDdUNNaWNTaDlR?=
+ =?utf-8?B?SFFkOGdpNmJSV2NBd0RCUGc2OGhDdWJOTXUwVXZhWkJjdk9DR1h6RGgzRU9M?=
+ =?utf-8?B?TmF4N2E5Qkk5Y0xUMU5SOUpjUzk1RkY5Sk4zakR6ckMrNjRIRk0xN1ZveVR1?=
+ =?utf-8?B?ZW5yekxUWGNVZEhxd0s1QUYyVHRZWmhCVFdiZDJZMHNUbmZWZEdtMkxMR2Yy?=
+ =?utf-8?B?M1NvcmkrS2ZCTVNIMVYxVFNNQWVXeGJ0bUZWWHlDUDB1WElINlJyQ2srWWtz?=
+ =?utf-8?B?VG91aEFUSnBIQlppRlRyc0lVTjUvZHErMlpLOFliaXlBZGdSeDl3U0JrTXEx?=
+ =?utf-8?B?WFl5R1NBd1psVW5xRmZFdVpLRkFEa0pBUnNSdHIyUjUxMXBydVUrVnl4MlI3?=
+ =?utf-8?B?anZjSGptOFl1NTlDczN2SU9SaE81ZCs1bEdzckpGNnExdzZoYlFtQjM1cXhx?=
+ =?utf-8?B?MXVlWDdLN2RUb3B6dlA5NHhMMjE5elVyL1BqSHJISlo5WTBKbUVjMzNjR091?=
+ =?utf-8?B?ZkptNE41Y2hyT1hIdWJ0TmVHLzh0NVJOUnQzTHBSS3d2eEFhdzQ0N2pZa0I5?=
+ =?utf-8?B?Z0NUQWhtR01HdVRqZmdLdHNhSllLUDVsNUpJQ0llaXZnb3BtSzVrVFYyR1ZS?=
+ =?utf-8?B?MUkvY3RWNGIxblFWM1hCMUVoMjBFWlQxQ3RGY0NzbDlnMzdIdlJMNERkZGt2?=
+ =?utf-8?B?cWVBZjl2bklCMEdLZmJvaGpVM2NYR2Z5Mi9ZbGl6UGdKMkpIVy8vNzljakRT?=
+ =?utf-8?B?MUxvM1lnejlFb29vblFKSzRvdHdxV2I3cDFzcVhXK0tUeGdpSFlXeGp2Y2o5?=
+ =?utf-8?B?NUcwTFlEZXp0MGNOSzlEQlNCTG5iVUtOUi8ralVvTTMxNjdFZWVsU2ZqeDFO?=
+ =?utf-8?B?YS9qbUpHelVqcGJxOW1WOTNqYUgvRUQ4ZE5wajlMRFFnSDBJVlErRlE4NWFa?=
+ =?utf-8?B?WmxDTlZubEdIOXFOckUvUitjcUZtdTZkcW44aUpXbnRJc0hYeDNjay9ma3FW?=
+ =?utf-8?B?Z0c3NlV6clNsRGxiYU9saW1NaGI3TTBZdjUzNWZjZ3RiYkx1QnA0NUJlWDZ6?=
+ =?utf-8?B?dndvZUpCbllsdjVvZVdKcW95Y3VCSmloTG0zSE1aSXlaMWhqeVFXb0lub3Fn?=
+ =?utf-8?B?TUE3ZmRKY1BMdXdMMnMvUWc4d1J0SnNqQ0U1SHZ3a3ZlYnZWcVNCSHVKdDRr?=
+ =?utf-8?B?c1g1MjdRYVQvKzU3dDRtdVJ2Y0FEL1NCM3hSblYxTHkvcHdXa2RGcHFaaENM?=
+ =?utf-8?B?VjhTVEVVc2tZdEZHV01wS3Bzc1FqOCtkdlc1MmtRdHF3b3k4bFJjdmpnb1M1?=
+ =?utf-8?B?bDR1ZmFXbUI3REIrR2dtRTlGdkQvNHJ3K3JuWlFwLzRSS2lzMDMrQ1ZFeVNL?=
+ =?utf-8?B?MEpHa3ZzWm9NUHNTU2Vpa3FUV0VYNUNPWGsxenErSkNaSUxYMUF4R3pTczRL?=
+ =?utf-8?B?SkdXSlJJSGhvdjZrY1k3Vzg3Q1UxT1d0VnhqOWpjdkIycEQvK1BUUktwVnhQ?=
+ =?utf-8?B?NEE0aEswMW9MMElLa1JCeTBSTnFuQnY5SEkybldkS0lXYS9PdkpZZHBUd24r?=
+ =?utf-8?B?bmFJNFd3U3RlWDR2QlY0UU41RUFIMUxqRzhiMG1GRWVPRDNVNVVCS003RUJW?=
+ =?utf-8?B?S2o5OERmNEFGTTdXak9zeUlWZ0h3UnRJMmt3blRCeU1MVEZjUU1aR1dYWllI?=
+ =?utf-8?B?cjJ3UTFocUpBUElvWHJ3ejNiN3RZbVZ6TCtmdlhNcDgrTzhhM25xZlJLU056?=
+ =?utf-8?B?SnVvTVFNWjF5RDkycnVoRmhaUjNjeXN6Q3hoY0dsa3g3eURrM05SQlJ2dTF6?=
+ =?utf-8?B?ZFhhcVFpYnBKcldNaDVKd3NEakhLMDQ5ZWd1WVN2ZTJkY2JmREVVQWNDVE82?=
+ =?utf-8?B?c2E3WTRlUmR6VWMra3pWYWU4VjREcGJHNTdyWXc0dHBTKzZIMkpqd0FVR2xU?=
+ =?utf-8?B?aGdHUHlmeUJlSWZyZi91dmt0TFJLNUdNQ1FpbEo2eEdCUUJKVk1va05ZQUMx?=
+ =?utf-8?B?US9oK2JYK3ZVVFdPSHZJMGE2b2pmT3JEUWVGZDVHMHVRZTlxT2ZTZDFtdEov?=
+ =?utf-8?B?bzBEbTR2Ym5lVHhjTzJocU5pNkVsT1JhMGFQTVNOZmNFazRWNGZwVWl4MUVo?=
+ =?utf-8?B?VmtoTktEaFJFejNIZWE1ZjlvSTVEZDFHdWNKQnUxbGJDSzFTcWQxcC9LMy9w?=
+ =?utf-8?B?VC9ONkExSm91dzlmWnNPbUFaRFoyaEtYWFB5UVpyVlpQTzJkR3ZBc2MyOXdy?=
+ =?utf-8?B?U1ZPazZqdnRGeDQrNzE2S0drSzRrOVpNNnU1N05TM2IrdjdvQ05hb3FVS1pn?=
+ =?utf-8?Q?D3C6GgXA1Djp5uco=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15c0f466-040d-42c8-97d3-08df168a783a
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2026 20:13:29.0148 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1KNt1B2EloDHNGDraKif3Csx+81Y6QMEo2OQXgGTiZ1Z430R87RNmVK87Sl2pXZNHyRVicNEcfXIW8q7vsJ4Cg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9405
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,388 +143,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use kzalloc_objs() instead of kcalloc() to simplify object allocations.
-Convert only the instances with sizeof() passed.
+On 9/19/26 8:03 AM, Alexandre Courbot wrote:
+> On Fri Sep 18, 2026 at 12:38 PM JST, Dave Airlie wrote:
+>> On Wed, 9 Sept 2026 at 14:25, Eliot Courtney <ecourtney@nvidia.com> wrote:
+>>>
+>>> From: Joel Fernandes <joelagnelf@nvidia.com>
+>>>
+>>> Add the BAR1 user interface for CPU access to GPU virtual memory through
+>>> the BAR1 aperture.
+>>>
+>>> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+>>> [ecourtney: map BAR1 in NovaCore, borrow it in Gpu and BarUser, no Devres]
+>>> [ecourtney: update for the VramAddress raw API and gsp_resources chipset]
+>>> [ecourtney: drop the owned GpuMm, pass it mutably through map and release]
+>>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>>> ---
+>>
+>> BAR 1 and 2 need to be optionally detected and used. At least on SPARK
+>> there is only BAR0.
+>>
+>> I've been playing with John's branch on spark and had to rework this
+>> code to make BAR 1 optional.
+> 
+> Thanks Dave - indeed we also hit an issue on a device where the FB
+> console was enabled (?), which preventing BAR1 from being used.
+>
 
-No functional change.
+That's different: another device driver was using the GPU. People
+should Kconfig their system to avoid having two device drivers
+trying to claim the same hardware.
 
-Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 6 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c   | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c    | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c     | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c     | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c      | 6 +++---
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c      | 6 +++---
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c      | 6 +++---
- drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c      | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c       | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c     | 4 ++--
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c      | 2 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c    | 2 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c      | 2 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c      | 2 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c      | 2 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c      | 2 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c      | 2 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c       | 2 +-
- 19 files changed, 34 insertions(+), 34 deletions(-)
+Once Nova get a bit further along, it will be a non-issue too,
+because Nova can drive either an fbdev, or whatever the modern
+alternative to that is.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 132d054900b5..3ffb0f5f7574 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -420,7 +420,7 @@ static ssize_t amdgpu_debugfs_gprwave_read(struct file *f, char __user *buf, siz
- 		return r;
- 	}
- 
--	data = kcalloc(1024, sizeof(*data), GFP_KERNEL);
-+	data = kzalloc_objs(*data, 1024);
- 	if (!data) {
- 		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
- 		amdgpu_virt_disable_access_debugfs(adev);
-@@ -1267,7 +1267,7 @@ static ssize_t amdgpu_debugfs_gpr_read(struct file *f, char __user *buf,
- 	thread = (*pos & GENMASK_ULL(59, 52)) >> 52;
- 	bank = (*pos & GENMASK_ULL(61, 60)) >> 60;
- 
--	data = kcalloc(1024, sizeof(*data), GFP_KERNEL);
-+	data = kzalloc_objs(*data, 1024);
- 	if (!data)
- 		return -ENOMEM;
- 
-@@ -2035,7 +2035,7 @@ static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
- 		return -EBUSY;
- 
- 	length = ring->fence_drv.num_fences_mask + 1;
--	fences = kcalloc(length, sizeof(void *), GFP_KERNEL);
-+	fences = kzalloc_objs(*fences, length);
- 	if (!fences)
- 		return -ENOMEM;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-index 3043ad041bb4..017638dd5491 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -460,8 +460,8 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring)
- 
- 	ring->fence_drv.num_fences_mask = ring->num_hw_submission * 2 - 1;
- 	spin_lock_init(&ring->fence_drv.lock);
--	ring->fence_drv.fences = kcalloc(ring->num_hw_submission * 2, sizeof(void *),
--					 GFP_KERNEL);
-+	ring->fence_drv.fences = kzalloc_objs(*ring->fence_drv.fences,
-+					      ring->num_hw_submission * 2);
- 
- 	if (!ring->fence_drv.fences)
- 		return -ENOMEM;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-index 363b99168478..94e39c486128 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-@@ -465,8 +465,8 @@ void amdgpu_jpeg_sysfs_reset_mask_fini(struct amdgpu_device *adev)
- int amdgpu_jpeg_reg_dump_init(struct amdgpu_device *adev,
- 			       const struct amdgpu_hwip_reg_entry *reg, u32 count)
- {
--	adev->jpeg.ip_dump = kcalloc(adev->jpeg.num_jpeg_inst * count,
--				     sizeof(uint32_t), GFP_KERNEL);
-+	adev->jpeg.ip_dump = kzalloc_objs(*adev->jpeg.ip_dump,
-+					  adev->jpeg.num_jpeg_inst * count);
- 	if (!adev->jpeg.ip_dump) {
- 		dev_err(adev->dev,
- 			"Failed to allocate memory for JPEG IP Dump\n");
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 1a86a47406b1..f257df1c39c3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -252,8 +252,8 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
- 		}
- 
- 		adev->gfx.mec.mes_hung_db_array =
--			kcalloc(amdgpu_mes_get_hung_queue_db_array_size(adev),
--				sizeof(u32), GFP_KERNEL);
-+			kzalloc_objs(*adev->gfx.mec.mes_hung_db_array,
-+				     amdgpu_mes_get_hung_queue_db_array_size(adev));
- 
- 		if (!adev->gfx.mec.mes_hung_db_array) {
- 			r = -ENOMEM;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index 17db7264269e..34e1242d66ea 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -1571,8 +1571,8 @@ int amdgpu_vcn_ring_reset(struct amdgpu_ring *ring,
- int amdgpu_vcn_reg_dump_init(struct amdgpu_device *adev,
- 			     const struct amdgpu_hwip_reg_entry *reg, u32 count)
- {
--	adev->vcn.ip_dump = kcalloc(adev->vcn.num_vcn_inst * count,
--				     sizeof(uint32_t), GFP_KERNEL);
-+	adev->vcn.ip_dump = kzalloc_objs(*adev->vcn.ip_dump,
-+					 adev->vcn.num_vcn_inst * count);
- 	if (!adev->vcn.ip_dump)
- 		return -ENOMEM;
- 	adev->vcn.reg_list = reg;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 00798d80479f..6e8a0cf23d6d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4716,7 +4716,7 @@ static void gfx_v10_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	uint32_t *ptr;
- 	uint32_t inst;
- 
--	ptr = kcalloc(reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for GFX IP Dump\n");
- 		adev->gfx.ip_dump_core = NULL;
-@@ -4729,7 +4729,7 @@ static void gfx_v10_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	inst = adev->gfx.mec.num_mec * adev->gfx.mec.num_pipe_per_mec *
- 		adev->gfx.mec.num_queue_per_pipe;
- 
--	ptr = kcalloc(reg_count * inst, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * inst);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for Compute Queues IP Dump\n");
- 		adev->gfx.ip_dump_compute_queues = NULL;
-@@ -4742,7 +4742,7 @@ static void gfx_v10_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	inst = adev->gfx.me.num_me * adev->gfx.me.num_pipe_per_me *
- 		adev->gfx.me.num_queue_per_pipe;
- 
--	ptr = kcalloc(reg_count * inst, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * inst);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for GFX Queues IP Dump\n");
- 		adev->gfx.ip_dump_gfx_queues = NULL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 0ff5a80aa918..92ff34e38e74 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -1568,7 +1568,7 @@ static void gfx_v11_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	uint32_t *ptr;
- 	uint32_t inst;
- 
--	ptr = kcalloc(reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for GFX IP Dump\n");
- 		adev->gfx.ip_dump_core = NULL;
-@@ -1581,7 +1581,7 @@ static void gfx_v11_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	inst = adev->gfx.mec.num_mec * adev->gfx.mec.num_pipe_per_mec *
- 		adev->gfx.mec.num_queue_per_pipe;
- 
--	ptr = kcalloc(reg_count * inst, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * inst);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for Compute Queues IP Dump\n");
- 		adev->gfx.ip_dump_compute_queues = NULL;
-@@ -1594,7 +1594,7 @@ static void gfx_v11_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	inst = adev->gfx.me.num_me * adev->gfx.me.num_pipe_per_me *
- 		adev->gfx.me.num_queue_per_pipe;
- 
--	ptr = kcalloc(reg_count * inst, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * inst);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for GFX Queues IP Dump\n");
- 		adev->gfx.ip_dump_gfx_queues = NULL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index e2a81a55c63b..59b99dd37c58 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -1367,7 +1367,7 @@ static void gfx_v12_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	uint32_t *ptr;
- 	uint32_t inst;
- 
--	ptr = kcalloc(reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for GFX IP Dump\n");
- 		adev->gfx.ip_dump_core = NULL;
-@@ -1380,7 +1380,7 @@ static void gfx_v12_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	inst = adev->gfx.mec.num_mec * adev->gfx.mec.num_pipe_per_mec *
- 		adev->gfx.mec.num_queue_per_pipe;
- 
--	ptr = kcalloc(reg_count * inst, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * inst);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for Compute Queues IP Dump\n");
- 		adev->gfx.ip_dump_compute_queues = NULL;
-@@ -1393,7 +1393,7 @@ static void gfx_v12_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	inst = adev->gfx.me.num_me * adev->gfx.me.num_pipe_per_me *
- 		adev->gfx.me.num_queue_per_pipe;
- 
--	ptr = kcalloc(reg_count * inst, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * inst);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for GFX Queues IP Dump\n");
- 		adev->gfx.ip_dump_gfx_queues = NULL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-index e49d8a79045c..db6b8d18bfab 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-@@ -1278,7 +1278,7 @@ static void gfx_v12_1_alloc_ip_dump(struct amdgpu_device *adev)
- 
- 	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
- 
--	ptr = kcalloc(reg_count * num_xcc, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * num_xcc);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for GFX IP Dump\n");
- 		adev->gfx.ip_dump_core = NULL;
-@@ -1291,7 +1291,7 @@ static void gfx_v12_1_alloc_ip_dump(struct amdgpu_device *adev)
- 	inst = adev->gfx.mec.num_mec * adev->gfx.mec.num_pipe_per_mec *
- 		adev->gfx.mec.num_queue_per_pipe;
- 
--	ptr = kcalloc(reg_count * inst * num_xcc, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * inst * num_xcc);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for Compute Queues IP Dump\n");
- 		adev->gfx.ip_dump_compute_queues = NULL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index c3322058720f..2accca6552e2 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -2190,7 +2190,7 @@ static void gfx_v9_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	uint32_t *ptr;
- 	uint32_t inst;
- 
--	ptr = kcalloc(reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for GFX IP Dump\n");
- 		adev->gfx.ip_dump_core = NULL;
-@@ -2203,7 +2203,7 @@ static void gfx_v9_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	inst = adev->gfx.mec.num_mec * adev->gfx.mec.num_pipe_per_mec *
- 		adev->gfx.mec.num_queue_per_pipe;
- 
--	ptr = kcalloc(reg_count * inst, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * inst);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for Compute Queues IP Dump\n");
- 		adev->gfx.ip_dump_compute_queues = NULL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index 522981fa182d..edf36e5a3b9f 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -946,7 +946,7 @@ static void gfx_v9_4_3_alloc_ip_dump(struct amdgpu_device *adev)
- 
- 	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
- 
--	ptr = kcalloc(reg_count * num_xcc, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * num_xcc);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for GFX IP Dump\n");
- 		adev->gfx.ip_dump_core = NULL;
-@@ -959,7 +959,7 @@ static void gfx_v9_4_3_alloc_ip_dump(struct amdgpu_device *adev)
- 	inst = adev->gfx.mec.num_mec * adev->gfx.mec.num_pipe_per_mec *
- 		adev->gfx.mec.num_queue_per_pipe;
- 
--	ptr = kcalloc(reg_count * inst * num_xcc, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * inst * num_xcc);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for Compute Queues IP Dump\n");
- 		adev->gfx.ip_dump_compute_queues = NULL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-index 20c8ebf0e159..0160e0b05bf7 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-@@ -1926,7 +1926,7 @@ static int sdma_v4_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	}
- 
- 	/* Allocate memory for SDMA IP Dump buffer */
--	ptr = kcalloc(adev->sdma.num_instances * reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, adev->sdma.num_instances * reg_count);
- 	if (ptr)
- 		adev->sdma.ip_dump = ptr;
- 	else
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-index 6fe3d3d56c40..144280dc7583 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -1531,7 +1531,7 @@ static int sdma_v4_4_2_sw_init(struct amdgpu_ip_block *ip_block)
- 	}
- 
- 	/* Allocate memory for SDMA IP Dump buffer */
--	ptr = kcalloc(adev->sdma.num_instances * reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, adev->sdma.num_instances * reg_count);
- 	if (ptr)
- 		adev->sdma.ip_dump = ptr;
- 	else
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-index 1ca0e7f65442..0a2acd7a5f2e 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-@@ -1434,7 +1434,7 @@ static int sdma_v5_0_sw_init(struct amdgpu_ip_block *ip_block)
- 		adev->sdma.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
- 
- 	/* Allocate memory for SDMA IP Dump buffer */
--	ptr = kcalloc(adev->sdma.num_instances * reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, adev->sdma.num_instances * reg_count);
- 	if (ptr)
- 		adev->sdma.ip_dump = ptr;
- 	else
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index 81f1e9882177..43aab715a061 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -1352,7 +1352,7 @@ static int sdma_v5_2_sw_init(struct amdgpu_ip_block *ip_block)
- 		adev->sdma.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
- 
- 	/* Allocate memory for SDMA IP Dump buffer */
--	ptr = kcalloc(adev->sdma.num_instances * reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, adev->sdma.num_instances * reg_count);
- 	if (ptr)
- 		adev->sdma.ip_dump = ptr;
- 	else
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-index cf3d2997fff8..92f5243e4a7f 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-@@ -1363,7 +1363,7 @@ static int sdma_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	}
- 
- 	/* Allocate memory for SDMA IP Dump buffer */
--	ptr = kcalloc(adev->sdma.num_instances * reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, adev->sdma.num_instances * reg_count);
- 	if (ptr)
- 		adev->sdma.ip_dump = ptr;
- 	else
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-index 69cb89298a3e..2bf783422ec2 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-@@ -1345,7 +1345,7 @@ static int sdma_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	if (r)
- 		return r;
- 	/* Allocate memory for SDMA IP Dump buffer */
--	ptr = kcalloc(adev->sdma.num_instances * reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, adev->sdma.num_instances * reg_count);
- 	if (ptr)
- 		adev->sdma.ip_dump = ptr;
- 	else
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-index 18366e16ef3f..2d97fc9e0d66 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-@@ -1333,7 +1333,7 @@ static int sdma_v7_1_sw_init(struct amdgpu_ip_block *ip_block)
- 	if (r)
- 		return r;
- 	/* Allocate memory for SDMA IP Dump buffer */
--	ptr = kcalloc(adev->sdma.num_instances * reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, adev->sdma.num_instances * reg_count);
- 	if (ptr)
- 		adev->sdma.ip_dump = ptr;
- 	else
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-index e9d790914761..393de1399328 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-@@ -202,7 +202,7 @@ static int vcn_v1_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	r = jpeg_v1_0_sw_init(ip_block);
- 
- 	/* Allocate memory for VCN IP Dump buffer */
--	ptr = kcalloc(adev->vcn.num_vcn_inst * reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, adev->vcn.num_vcn_inst * reg_count);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for VCN IP Dump\n");
- 		adev->vcn.ip_dump = NULL;
+  
+> I know Eliot has a bunch of follow-ups in the pipe, Eliot can we make
+> sure to dynamically detect and enable BAR1?
+
+thanks,
 -- 
-2.53.0
+John Hubbard
 
