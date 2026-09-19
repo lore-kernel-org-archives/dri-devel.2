@@ -4,129 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6983C982D7
-	for <dri-devel@archiver.kernel.org>; Sat, 19 Sep 2026 15:04:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99768C982D7
+	for <dri-devel@archiver.kernel.org>; Sat, 19 Sep 2026 16:50:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20FD710E1AD;
-	Sat, 19 Sep 2026 15:04:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C1A010E1BD;
+	Sat, 19 Sep 2026 16:50:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="TAEqlgZZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kz2wbrII";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012018.outbound.protection.outlook.com [40.107.209.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A6CE10E1AD
- for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 15:04:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EgAScCOQ8cjIi707plrnct1BOMNO80o3HpnBTaD9RkLGvQJ6abxzZvQTnwWD4UM8jLDau0BRqV2s4IXi22uc2IZEKg8fGhiBHlSPi8nVe9CAcwY/L+vB7gUdoJLEyRS8vBsAceCnE08snRDNeDWswK4TeIogvmIfjwLMKXIvHylP+VJyF1rK+6jrTwX2z7Vw2coMATOXDIF+fb88S5bLmH8bqwOWKDLCeASQcsxh/X7En2NFVrKyvgHWdGsMz4hyUAgQfHe/BLdST9+LZRhmOgNqDAGGoPsbCV0z1p0fX02KznZCzsImujpzECVOUk0rPiwFm0NL42hnlk8GGF5RPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RUlDM3xP9Rf993PhFQDXtPCnwEN0aEZPzJsbBDMAA9I=;
- b=DzWOFuViZpXVUaTfVeDXJZXiunkf0kg2jaKljeqWDamnObrpu/I7YlPn1Hlbkk6wSVGWWXNcNunrDjsyWbkSLftTjA0Y12ktWtN1Yt13xq+Lb5BkC2ZVKFhdO9BtqywaaHnaSlsQnWNe0B9BckWfyGnSFbT2D86RCBU7wmYcseHEQIZelRyivKmJWqJDdv59x+G465pHluzp2DswHJVFRcawk2TjbSldiamvLMx/kky/KuQRl01QF0MkpxGS1fH+0vcRO/m6wTh58+uV/4vGQ0HXDZ/D6pwV+gR5ujZJglHR05vDLFAFJ9fNy5rT5Yu9llQF2Sf4MorS/LQJJekvLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RUlDM3xP9Rf993PhFQDXtPCnwEN0aEZPzJsbBDMAA9I=;
- b=TAEqlgZZIG44KrhI3+vfN+MOebwDZeB8n2IF+NiSB5biaw9Q70H8wr2ck5JqxQyak4A7sAU96ltjQWLoxo+x0WofTRqwAKW3t5pnmjqX2aWrt/EoRom1L7AnOQUFj5q6/f1lxCzR1RDvGoSuKCjY9cLux+enY/u552It9p6OB6Frfw3R8l0WDs9Truiot4W3XzNW3IVn8WfyrQk+K3iXRYi4s8IOhkDKwX6LQZqy2Q8fv6Kl/UxMRzXjrkeSwOkBje3kPg/5ANQp3GiU4hm96VUDxBKOXXh638q2HVIxeWTEWyWIQKdPrzCmC4SaWxfeV7SxLUgOZm1Gt8cPqBim+w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by CH3PR12MB8402.namprd12.prod.outlook.com (2603:10b6:610:132::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Sat, 19 Sep
- 2026 15:04:00 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0428.011; Sat, 19 Sep 2026
- 15:03:59 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 20 Sep 2026 00:03:55 +0900
-Message-Id: <DLJDV72PBGVA.1M0RZ780ZPJR0@nvidia.com>
-To: "Dave Airlie" <airlied@gmail.com>, "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Joel
- Fernandes" <joelagnelf@nvidia.com>
-Subject: Re: [PATCH 15/16] gpu: nova-core: mm: Add BAR1 user interface
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-References: <20260909-mmrebase-v1-0-8dd5d4225d2e@nvidia.com>
- <20260909-mmrebase-v1-15-8dd5d4225d2e@nvidia.com>
- <CAPM=9tweFRWWjCrkBKvR03BaRVs=N+-qw2ju0g-dgMj+S7Q=ZA@mail.gmail.com>
-In-Reply-To: <CAPM=9tweFRWWjCrkBKvR03BaRVs=N+-qw2ju0g-dgMj+S7Q=ZA@mail.gmail.com>
-X-ClientProxiedBy: TY6PR01CA0037.jpnprd01.prod.outlook.com
- (2603:1096:405:3bd::15) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com
+ [74.125.227.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA87910E2D1
+ for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 16:50:18 +0000 (UTC)
+Received: by mail-pj2-f13.google.com with SMTP id
+ 98e67ed59e1d1-39b5b07ec78so1215516a91.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 09:50:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789836618; x=1790441418; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=+4Qqo2m5lZfr3OAGZ6npJ+URqdVjHxYgzHywKwbEg8A=;
+ b=kz2wbrII9z4hQd8AqYrFSHyanA/rz2aJlRvvt2+MpiSSDUc2gDPBF5zqxAxJ8UQWRa
+ yjzTq7HCQsty/x6c4fPCV3kEHB7JnWQeGYwbfGwtQbAuGwHuMxxPIDZwdjcG64OkHQJG
+ xNQKqcJLTbErt3FYiHNchgswVQY12zWRefrBft3smzrHGroqGEdo1mQjhxk4qP1Ys7eM
+ eWkaZPS2h9UOcycwBDWYT5L7/5v7Ne+iFHPhn1QNXin8S+YZhSGdlaaBIOKEpdZ/NAie
+ RA7E32fRGhGRwe3DPJMlqo4CNOxTRAPio4CMQMxWuCdifELlgUQS5RZ52hL9XJpGS379
+ 7g7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789836618; x=1790441418;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=+4Qqo2m5lZfr3OAGZ6npJ+URqdVjHxYgzHywKwbEg8A=;
+ b=YfR932ZpkxgbhU8wwKbq4OMuilUh3c65zTKiioiTcgIoHFvFC+hOXlFnuD+7exb1oD
+ BCLARXn6a61yi1U6n00FvMLDs4oh2F0fXxV5W7qCDmngAj/YhZRxCQdHRZXqup41spqI
+ jQTbumn0xwDviD2DxkHCQ6Mn6fKDSWGuYNQqX+oSSz1zCPF2Z3ETdoHGL//1ElKjQtW/
+ AoUKXvbevzN4pkSxpYY3pHeN68zmUL8UfNqHiEzFU8CGidrDkMcxtOEkru9k6crA1Zo/
+ VtUWwEJPuUL9dZw2/R7De9Va332TePHmQ1SVUFIpgQ0RyxGlC8kMezYtIt51xizWQBmG
+ +vWw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzaA/5/zkvybtCM/0JOAUjjotPcXvUHt0EYEU5ZbdXYsLT3kkumJoCa6qXyLPjl9atalFajJHsq6xY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kYxS09gNMlpg3H3+4pmlXiM1iixqlF6AV6CS4W+47mySjIgr1Z
+ qYXLdM+BCHXbKLpNvuuh3/npG9mOZaZcd+f6X1gLb5snFkzZ69TPQiDxlkDmhBLn
+X-Gm-Gg: AYBFou2V9aZjU7aFo66DduBJIAhrOpdlrw+NrKHknVQt2zVL/F7smr0JfTDTdD8+qqT
+ wMVPtpMYJwDjWMHh2NVEwhs8l1N5ZA7U35j3EhWnsmyx1uQSSx8Uyy2DAU2ewrXK0FSKAus09ah
+ QWb9NKyTzsPpniq5AyYntl1QdYjh1ps1pKS+pUcijzEf/iUIfpqq/I4QV2oLWTkF0ZkUOVWM1Gn
+ PS+vr9Q2+HMhVdCUnDC+9vMjLkZyz/HFzLQQC0m7EjZN0zXFGrxxabPwftVstvS8PyEQ47Pld1U
+ HSG2Tl+6KhF4LWsgrAZLzVeiwrH6jC2ZK8GjRoOlvKobprd9BESVmLTCuWzDHg66RNCmOJtPZA1
+ TAlE7fUTf8UR18XhmD3EATeP0t4mgTJfHFffsFIzFhbL2K+XlIji06iJ1rjf12TGxsTbiITD7Cw
+ wMzrFMBCg+HDLFMBrDyJmhl/0xRz8UzveLvf85GESnypuX4bvd3EINUzl7c+94jXhk/Aem+FvgV
+ Q==
+X-Received: by 2002:a17:90b:52cf:b0:398:9c39:520f with SMTP id
+ 98e67ed59e1d1-39e54bd0941mr10914911a91.15.1789836618094; 
+ Sat, 19 Sep 2026 09:50:18 -0700 (PDT)
+Received: from G15-5520 ([103.206.144.198]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-144d55cef9bsm7531914c88.10.2026.09.19.09.50.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 19 Sep 2026 09:50:17 -0700 (PDT)
+From: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+Subject: [PATCH] drm/amdgpu: replace deprecated function strcpy() with
+ strscpy()
+Date: Sat, 19 Sep 2026 16:49:59 +0000
+Message-ID: <20260919165000.36173-1-lalitshankarch@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CH3PR12MB8402:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6146aa36-d95f-4a83-6ec6-08df165f3b5c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|10070799003|376014|1800799024|4143699003|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: rV80UaXWJnrVLiOxNurYIIpbr1quvuSCirlO93WrF5YLuOedeLWewC9xJDU8loJiqpOm5MeE+gRE3XusTyHS8eho00qDVGEaI42nzw7bHN5QbNzy0y3BMC6Q/XcJHm41a1glR1s+AQcn0mS/6JT2yZZLFn8coHd9HUM/DbPNk4axqoUZCHmYxPGIkI4ITuhgv/h/sNqvsDFw5jPsEAT9RIvJwGMSmL2H4YmrdHlWxAT8VdYUteYW67nuMBrKU3pHEjIK8JlmWy8d4LC+2CoF6ewiwdocU5EBWcWMLjKVXmRnIKtponTM24GklsCvk3y51ewua/2QWtsqywaTwefmT4ZsZdE+FWOEMd1m+H2XptEud09YalRPKFUQ2BFYSbsWInx8cOs/gEsUPTVeQphvizgn6Ik+xo+yU2gaUdRr7pZLtaF8Cs6hPpnJ57FulTmoNDpczeEdOUhYXE0TyGJAowyW+4/VBJYL3i3xZZLkDe/cEqJCrAjpOPdFipF9jHQ4d78ECn65sNdr2pisGgLZQFpTIHw2E+5JvzrGO3fHHs1eUxyBGqEwGFMKsKsbnVXhjIvr5CKnalIEd+Rlyas4yiju9YaIC0Gur2RHXS6cCryf2e4P4ZHQlmpEsyQt+CxLo1DvoYx9bUx+ipNOp9nWjjxiT4yjw5PjA5yUqny3nhU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(10070799003)(376014)(1800799024)(4143699003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T0dLWmhDZmQvandWQ3pCNVZyejVSZ3owMEV5cENSbktrUnd1RUJ5WlRsTlgy?=
- =?utf-8?B?U3g5T1FlaC9DelJNbmhlWnVPMmxVRlZYTGtGUU1wbnlYK1ExTUVlcDltWjZI?=
- =?utf-8?B?a0tVeGF6MmVQT0JXeGIvdGFRaHI5OXdRSjVyQm44RjJWTzBieDZNWjMxbm9z?=
- =?utf-8?B?T1hqZ2lLVGJ5b2Vsd21KbytCNmJOUGRMS2VuamltTXY3alBDZVBJT0I0SVVC?=
- =?utf-8?B?RjVqK2piMkVEb1pJbDdRazBhVzlwVG5qRWk3RHJIR05UWm0zSnkxajlzU3Iw?=
- =?utf-8?B?TG5IdVJMMXE1c1BIbmlNZ1VrV3hVKzdaNFBxM2VaU2ZEWEZ0MHVHWUMwQ3hr?=
- =?utf-8?B?aFdnSkFiMnFWVm9rbnN0VDc0QnlYZTlUVzlJWkZnOVhmV3FHQ1BQR0JHNnR5?=
- =?utf-8?B?ZUk2d3l3dk9SZFpCMFRUS2xIUnlRbHpnTjY3ZzlzelZVUEw4MUdiSzN3NmlD?=
- =?utf-8?B?Z3dEZUo5eXBRdUUwNlpWQzhPeEViWC9ESjl4dXJpQy9MdVpRMXJmQkF2Tm1H?=
- =?utf-8?B?Mm5Ccjh6MVZoalFYQk9rc3QvMWdQQzZRRlgxZU53dHhLeTl4TzFYMHNVSWxY?=
- =?utf-8?B?YjZBaG9HN0M4U2w4SEdSQVEzRUYwWmZsbUIvSGRiTG9BMTVIRVNhbXhaMkNL?=
- =?utf-8?B?VU5YWFJGeHNNZHVxd2h2aXhxWWJHcVJZeG5IRTNpbnZlcFd3RG5kY0RCcytt?=
- =?utf-8?B?dEoxcXBlSjNlajZvK29QdlJYS2piMGRTOWQ0eUNRMlZLSVltUm0rYkFMUlEx?=
- =?utf-8?B?clUxUnFhbnJXTnA1WmszNktWVmdpL2lUQVA2K2RBVkVoeWJMWEpNWWZOQ3FV?=
- =?utf-8?B?S0JteWJCMW5scERveEVIaXhTeElBaWZvRkt4WEorNHJnb0xvWGJzUW5BRjdz?=
- =?utf-8?B?MFZqb2luZWpKV2F6ZUI1SVE0UUZBMmJFV01ZVHR5RWI5ME53eVVjNVBzZUs5?=
- =?utf-8?B?UGdiVTRBdE9ndHZWRUhYSDVnNTZRLzhXN2huNS8zKzhhRFdqK3J4Qmg2c0pF?=
- =?utf-8?B?cFE0R1NWenRIOGRNTElMV3BCRjRQMzdOUG9veGpWK1dxakdMbmxTanF2ZmU4?=
- =?utf-8?B?K25GcGZodFY3dGk4MEZyMDNVZUM3QkxJRkl2aFpBVThNRU1Qbk81WGcyTVRv?=
- =?utf-8?B?YVNFM1dLL0F3WmpqUUQ4ZVJVT09Obi9RaE5hRGlpTmRLbS9kdzliRmt1a04v?=
- =?utf-8?B?YkR0TDRWVEZFZTA4OEFNcnQ0VFBEcjZ1UlpzSFdVUXdRQnd4WTRsWmRidmVU?=
- =?utf-8?B?dmkrbmxONk9HOURvY3BVaTROWldwekI1ZlVBUXNralU4Y2FJUk9yMXZza1l3?=
- =?utf-8?B?dTdoNGFqZFE2OXpseGQ3elRYZGxUYWhDd0Y0eDI4MmdGcFdSK283Qmp6NWJS?=
- =?utf-8?B?Vy93SHVHUEdwMCtGSUZ4TjJOcGtZc3lYMHNNdytZQ05PQjdGTDhYZHZPUUJ4?=
- =?utf-8?B?aktCV3VGSFltSlF2bjUxbmgvMUVxZzBlMXZkc1dRai9lYitOY1NhZVk4eEJJ?=
- =?utf-8?B?STZyT3g5U2RSWnpWVkI3akFURXkxZnNZQ1Q1UFZpbURJT3h0Rlk1V1lvaUkr?=
- =?utf-8?B?andheEJISzVQTFlna2lDcUVoVldlejRHeTBiV3pwTm40WWVScWZCK1o4K3hZ?=
- =?utf-8?B?YkNOVFNCUmdpQTdIVU9BOW1mcTF1VjFKcW9JUE9TRFNrcXFVWEVjVzRjOVZ4?=
- =?utf-8?B?KzBHMnZxOUo0U0daUDVJQkZxLytCZ2pveDJBM0tORjl0cUVTbWtyRVArdW5E?=
- =?utf-8?B?MjRJdzBzcll2bGM0b1JDMVZJUlZBeWk4THIzQXd2NjNtc0pDYXNoZTgySTZQ?=
- =?utf-8?B?Z01jNU14amJHQkZwZERhWGdrWTV4TXRBa3g1QWZZZ25wSi9MOWV0UHk2VVYw?=
- =?utf-8?B?Nk9OQzdBNFhibCtPS2gxbWtaTjBQSnZTSEZmeStrWVBYRm44ai9YVTlwTVBp?=
- =?utf-8?B?TXdid09wejJwRjhVYmc2c3dEcGwxbFRiZE0zOVE0NlR2UGV4UXdCRklNbFgr?=
- =?utf-8?B?bGdwU2RpNngwMUs1RDlOQUlTLyszY0Y1d1E0YThkYllQdmp4MW5sY3MwTW8y?=
- =?utf-8?B?YnkvS3k2UWwrd2NBK0p5MHJ5LzZFUzZKMUNjWjFCSUFGWk5NL3YwSHBKV09C?=
- =?utf-8?B?NFEwVkpTZkdOaGd6NkJGQ1pIbFBZbDFQOU5ITmNmN0Q3TmRnRHR1SHF6M0Yw?=
- =?utf-8?B?S0Y2aG9FUXlSbm0yZ0daU0djakZTMU1PV3M2dHVIMTZLai9nM1VDSmdYNmVM?=
- =?utf-8?B?cFNWSC9XZE1zUEhoRWZEOXJZRzZMTS9qVWZuTVlraEVFeEtqM0NmVDU1S0Js?=
- =?utf-8?B?cUhIUk9xd1NnRU1icjJRdFRCLzFpckUwcE9KTVA4Qld2dkhPZklXK3lFRmRl?=
- =?utf-8?Q?HpfAPT8I3CGgbPs4sLbr2PEtJNRnt1asLVS/pO6jazkQ+?=
-X-MS-Exchange-AntiSpam-MessageData-1: B8Z+Sfz7TeuXxw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6146aa36-d95f-4a83-6ec6-08df165f3b5c
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2026 15:03:58.9030 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y6sTh+rpoLlBBIAeC2oYVEzcIkMc06erKRsJ8mJ4yiir8pAmpMnchDdUZVhzVV8z5l0m9Y2tEM1/NpqTIh4kdw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8402
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,33 +91,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Sep 18, 2026 at 12:38 PM JST, Dave Airlie wrote:
-> On Wed, 9 Sept 2026 at 14:25, Eliot Courtney <ecourtney@nvidia.com> wrote=
-:
->>
->> From: Joel Fernandes <joelagnelf@nvidia.com>
->>
->> Add the BAR1 user interface for CPU access to GPU virtual memory through
->> the BAR1 aperture.
->>
->> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
->> [ecourtney: map BAR1 in NovaCore, borrow it in Gpu and BarUser, no Devre=
-s]
->> [ecourtney: update for the VramAddress raw API and gsp_resources chipset=
-]
->> [ecourtney: drop the owned GpuMm, pass it mutably through map and releas=
-e]
->> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
->> ---
->
-> BAR 1 and 2 need to be optionally detected and used. At least on SPARK
-> there is only BAR0.
->
-> I've been playing with John's branch on spark and had to rework this
-> code to make BAR 1 optional.
+Prefer using strscpy() over the deprecated strcpy() function to
+populate ras_block.ras_comm.name.
 
-Thanks Dave - indeed we also hit an issue on a device where the FB
-console was enabled (?), which preventing BAR1 from being used.
+No functional change.
 
-I know Eliot has a bunch of follow-ups in the pipe, Eliot can we make
-sure to dynamically detect and enable BAR1?
+Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c   | 6 +++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c  | 2 +-
+ 10 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index a6f95ff47d24..8bd91314d0e7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1132,7 +1132,7 @@ int amdgpu_gfx_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "gfx");
++	strscpy(ras->ras_block.ras_comm.name, "gfx");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__GFX;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+ 	adev->gfx.ras_if = &ras->ras_block.ras_comm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
+index 5a60d69a3e1f..3fa533d5b18c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
+@@ -39,7 +39,7 @@ int amdgpu_hdp_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "hdp");
++	strscpy(ras->ras_block.ras_comm.name, "hdp");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__HDP;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+ 	adev->hdp.ras_if = &ras->ras_block.ras_comm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+index 363b99168478..969ebc9d5a69 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+@@ -328,7 +328,7 @@ int amdgpu_jpeg_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "jpeg");
++	strscpy(ras->ras_block.ras_comm.name, "jpeg");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__JPEG;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__POISON;
+ 	adev->jpeg.ras_if = &ras->ras_block.ras_comm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+index 9a7f7d2b2767..42a05b5a2d30 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+@@ -87,7 +87,7 @@ int amdgpu_mca_mp0_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "mca.mp0");
++	strscpy(ras->ras_block.ras_comm.name, "mca.mp0");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__MCA;
+ 	ras->ras_block.ras_comm.sub_block_index = AMDGPU_RAS_MCA_BLOCK__MP0;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+@@ -112,7 +112,7 @@ int amdgpu_mca_mp1_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "mca.mp1");
++	strscpy(ras->ras_block.ras_comm.name, "mca.mp1");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__MCA;
+ 	ras->ras_block.ras_comm.sub_block_index = AMDGPU_RAS_MCA_BLOCK__MP1;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+@@ -137,7 +137,7 @@ int amdgpu_mca_mpio_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "mca.mpio");
++	strscpy(ras->ras_block.ras_comm.name, "mca.mpio");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__MCA;
+ 	ras->ras_block.ras_comm.sub_block_index = AMDGPU_RAS_MCA_BLOCK__MPIO;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
+index 0f6b1021fef3..9796428e44e5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
+@@ -36,7 +36,7 @@ int amdgpu_mmhub_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "mmhub");
++	strscpy(ras->ras_block.ras_comm.name, "mmhub");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__MMHUB;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+ 	adev->mmhub.ras_if = &ras->ras_block.ras_comm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
+index e4c8e98725f0..785bf29d2c90 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
+@@ -37,7 +37,7 @@ int amdgpu_nbio_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "pcie_bif");
++	strscpy(ras->ras_block.ras_comm.name, "pcie_bif");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__PCIE_BIF;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+ 	adev->nbio.ras_if = &ras->ras_block.ras_comm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+index fbac732f3e01..4e520d16e550 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+@@ -327,7 +327,7 @@ int amdgpu_sdma_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "sdma");
++	strscpy(ras->ras_block.ras_comm.name, "sdma");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__SDMA;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+ 	adev->sdma.ras_if = &ras->ras_block.ras_comm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+index 71d34fd09385..69fdd075e14a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+@@ -315,7 +315,7 @@ int amdgpu_umc_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(adev->umc.ras->ras_block.ras_comm.name, "umc");
++	strscpy(adev->umc.ras->ras_block.ras_comm.name, "umc");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__UMC;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+ 	adev->umc.ras_if = &ras->ras_block.ras_comm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index 17db7264269e..bc7b5733f581 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -1333,7 +1333,7 @@ int amdgpu_vcn_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "vcn");
++	strscpy(ras->ras_block.ras_comm.name, "vcn");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__VCN;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__POISON;
+ 	adev->vcn.ras_if = &ras->ras_block.ras_comm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index 45e31b3daf06..5babcba1907e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -1341,7 +1341,7 @@ int amdgpu_xgmi_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "xgmi_wafl");
++	strscpy(ras->ras_block.ras_comm.name, "xgmi_wafl");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__XGMI_WAFL;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+ 	adev->gmc.xgmi.ras_if = &ras->ras_block.ras_comm;
+-- 
+2.53.0
+
