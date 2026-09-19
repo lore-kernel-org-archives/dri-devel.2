@@ -4,130 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBB90C982F1
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:01:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1BF1C982DE
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:01:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4CF910E411;
-	Mon, 21 Sep 2026 07:00:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D15FE10E45F;
+	Mon, 21 Sep 2026 07:00:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TfzaMgjx";
+	dkim=fail reason="key not found in DNS" (0-bit key; unprotected) header.d=mtsistemi.it header.i=@mtsistemi.it header.b="XoJNJtZm";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA57010F361
- for <dri-devel@lists.freedesktop.org>; Fri, 18 Sep 2026 13:21:10 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8A96D6053C;
- Fri, 18 Sep 2026 13:21:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67ECF1F000FF;
- Fri, 18 Sep 2026 13:20:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789737669;
- bh=0xpULa2wThyMyC/xm34rNy2PVoRdKfkNjg/wDjNfAbA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=TfzaMgjxtuNYRSbgy2oM9VNvelBoHpssOxVnn3XSg1NBMWU+/jyuXP6IaWZPY1CyA
- HdBMtjIknOhPruLGftRV7i8l8p2FKFX9fh6wCnG6H7oIwP4PW1xdz9+MUzns7blyED
- /oRJYHsPVqdDxPAyuN2AzxSAiLvBhcP8CKPzAWi22BWwuNke+22ALcPYId6jeNIBML
- tQQNk+We4UYkN+CSHkOuucCPZKJx6kWkj+b3NHpOKoKa54bgQVSWJGafkpCLc8uAXu
- 3AdyFrmOR8pMPgGGIaBQnhqN7aE1U/3MowHa1LPEb32ScKkPhZnAMxVtJ6HiM44AnV
- XbSuPP1rSj3rQ==
-Date: Fri, 18 Sep 2026 14:20:34 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: Mike Rapoport <rppt@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, 
- Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, 
- Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, 
- bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
- linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev
-Subject: Re: [PATCH v2 01/40] mm/vma: fix mmap_prepare file handling, remove
- file_doesnt_need_get
-Message-ID: <aq06hcheI4OGi_3A@gremlin>
-References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
- <20260914-b4-mmap-prepare-vma-flag-sanify-v2-1-7d9781ed5361@kernel.org>
- <aquz9Z9JrK_H_E0g@kernel.org> <aq01JFp8hRReyY-O@gmail.com>
+X-Greylist: delayed 307 seconds by postgrey-1.36 at gabe;
+ Sat, 19 Sep 2026 20:30:45 UTC
+Received: from avas.easytechitalia.it (avas.easytechitalia.it [213.217.29.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74E4310E472
+ for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 20:30:45 +0000 (UTC)
+X-Envelope-From: <info@mtsistemi.it>
+Received: from ngmx.easytechitalia.it (unknown [185.76.140.216])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by avas.easytechitalia.it (Postfix) with ESMTPS id 4hnLbL0jJVzGnv4;
+ Sat, 19 Sep 2026 22:25:34 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by ngmx.easytechitalia.it (Postfix) with ESMTP id 2CAA417DC3B;
+ Sat, 19 Sep 2026 22:24:05 +0200 (CEST)
+Received: from ngmx.easytechitalia.it ([127.0.0.1])
+ by localhost (ngmx.easytechitalia.it [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id mvXQdpZtw0BS; Sat, 19 Sep 2026 22:24:04 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by ngmx.easytechitalia.it (Postfix) with ESMTP id 9734217ABF9;
+ Sat, 19 Sep 2026 22:24:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 ngmx.easytechitalia.it 9734217ABF9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mtsistemi.it;
+ s=AD82E3E6-03E3-11EF-83D2-AF8217D6D3C6; t=1789849444;
+ bh=qh+LkBDWAWYteqY1+iA7cYyeIzXITpVVk/o5US/PUwI=;
+ h=From:To:Date:Message-ID:MIME-Version;
+ b=XoJNJtZmE4f2GX31b6v8ylJZ0qdr5oQw4O8txSuzGiYl57oAAED002thdF7fejWIw
+ El/oT4TWgUktELSINogImyhn4Iu9LoqMxAORc5Q4NEMV1f6qs+y3301PHmEEK6Hst+
+ EIrnXWImgSBRrSB5PY/XIGVMRfbTzafaDpGJgTjIZH8zgrTOdivqjqNyVfydLnx4U1
+ fs8ENXEeSEhRwcxAzpS+BPUyUcJaTzyYFROXZ6UKVk7JrSH3RUHFzApbBXvZLskh+S
+ UmNO8LwoZYdnysPmdMKQPLQsuiJG5WbeKyiItrrNQaD1jZk4kYfVS/6p5Au9zV9W8h
+ RPo2FqMfLN/4Q==
+X-Virus-Scanned: amavis at ngmx.easytechitalia.it
+Received: from ngmx.easytechitalia.it ([127.0.0.1])
+ by localhost (ngmx.easytechitalia.it [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id IWRJJgZ4NUlv; Sat, 19 Sep 2026 22:24:04 +0200 (CEST)
+Received: from [192.168.56.1] (93-38-124-109.ip70.fastwebnet.it
+ [93.38.124.109])
+ by ngmx.easytechitalia.it (Postfix) with ESMTPSA id EFEDB17C481;
+ Sat, 19 Sep 2026 22:24:03 +0200 (CEST)
+From: Mattia Tadini <info@mtsistemi.it>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?q?K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/display: only clear the hotplug sources the ASIC has
+Date: Sat, 19 Sep 2026 22:25:30 +0200
+Message-ID: <178984953065.33228.16670066468362794046@mtsistemi.it>
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aq01JFp8hRReyY-O@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+X-Easytech-Libra-ESVA-Information: Please contact Easytech S.r.l. for more
+ information
+X-Easytech-Libra-ESVA-ID: 4hnLbL0jJVzGnv4
+X-Easytech-Libra-ESVA: No virus found
+X-Easytech-Libra-ESVA-From: info@mtsistemi.it
+X-Easytech-Libra-ESVA-Watermark: 1790454334.27482@xkkN514nVSsrS/HD37UEOQ
 X-Mailman-Approved-At: Mon, 21 Sep 2026 07:00:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,102 +88,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Sep 18, 2026 at 05:57:51AM -0700, Breno Leitao wrote:
-> On Thu, Sep 17, 2026 at 12:33:41PM +0300, Mike Rapoport wrote:
-> > On Mon, Sep 14, 2026 at 03:57:21PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > > The map->file_doesnt_need_get flag is confusing and the existing
-> > > implementation has holes.
-> > >
-> > > Drivers are permitted to change the owning file of a mapping. If they do
-> > > so, they are required to take a reference on that file.
-> > >
-> > > The mmap() operation which ultimately invokes __mmap_region() is guaranteed
-> > > to drop the refcount for the original file the mapping was made under, but
-> > > this is not true for the replaced file.
-> > >
-> > > This has been addressed so far by tracking map->file_doesnt_need_get, which
-> > > is rather poorly named and unfortunately fails to correctly track whether
-> > > or not an additional put were needed in a number of cases.
-> > >
-> > > Make life easier by removing this flag, and instead drop the reference for
-> > > both mmap_prepare and the deprecated mmap callback in a new function
-> > > put_map().
-> > >
-> > > Track whether this needs to be done by aligning mmap_state with
-> > > vm_area_desc and store the original file in the map->file field, keeping
-> > > the updated file in map->vm_file.
-> > >
-> > > In order to have the same behaviour for both types of hooks, only drop the
-> > > reference __mmap_new_file_vma() itself took in its error path, deferring
-> > > the replaced file's reference to put_map().
-> > >
-> > > To make this work correctly, map->vm_file has to be updated before any
-> > > error handling, so update __mmap_new_file_vma() and call_mmap_prepare() to
-> > > set this field first.
-> > >
-> > > Also when mmap_prepare() changes the file and is then merged, the reference
-> > > count also must be decremented, so update the logic to call put_map() in
-> > > this case too.
-> > >
-> > > Also update __compat_vma_mmap() to manually perform this step for stacked
-> > > file systems using the compatibility layer, and update
-> > > compat_set_vma_from_desc() to replace vma_set_file() with a correct
-> > > refcount/file update.
-> > >
-> > > No in-tree driver is impacted by the incorrect implementation of this
-> > > currently (no driver that does this is mergeable for one), so this does not
-> > > need to be a fix.
-> >
-> > But the patch iteslf needs to be fixed :)
-> >
-> > It seems to be the change that broke the CI.
-> >
-> > The rest is from LLM, take it with a grain of salt :)
-> >
-> > mm-ci mm-unstable red build - bisect analysis
-> > ==============================================
-> >
-> > Bad commit: 2a937a04babf1 "mm/vma: fix mmap_prepare file handling, remove
-> > file_doesnt_need_get" - first patch of Lorenzo Stoakes' 40-patch series
-> > "mm: make VMA flag semantics explicit, eliminate VM_SPECIAL" (v2).
-> > https://lore.kernel.org/all/20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org
-> >
-> > Symptom: tools/testing/selftests/mm/pfnmap.c triggers
-> > "BUG: Bad page map in process pfnmap" during __zap_vma_range()/vm_normal_page(),
-> > seen on process exit/munmap. CI's run-mm-selftests.sh greps guest dmesg for
-> > BUG|WARNING and fails the job regardless of the test's own exit code.
->
-> I am seeing something similar here and stress-ng can reproduce it:
->
->       WARNING: mm/memory.c:3225 at do_remap_pfn_range+0x9b4/0x9f0, CPU#25: stress-ng-dev/354858
->       Call trace:
->        do_remap_pfn_range+0x9b4/0x9f0 (P)
->        remap_pfn_range_complete+0xac/0xd0
->        mmap_action_complete+0xcc/0x3d8
->        mmap_region+0xb54/0x1978
->        do_mmap+0x588/0xb18
->        vm_mmap_pgoff+0x1e4/0x320
->        ksys_mmap_pgoff+0x2d8/0x510
->        __arm64_sys_mmap+0x100/0x128
->
->       BUG: Bad page map in process stress-ng-dev  pte:0160000000000fcf
->       addr:0000ffe8d9080000 vm_flags:00000071 anon_vma:0000000000000000 mapping:ffff0000a0c4ea98 index:0 (file) ffe8d9080 (anon)
->       file:mem fault:0x0 mmap:0x0 mmap_prepare: mmap_mem_prepare read_folio:0x0
->       Call trace:
->        print_bad_page_map+0x63c/0x740
->        vm_normal_page+0x228/0x240
->        __zap_vma_range+0xbe0/0x34a0
->        unmap_vmas+0x240/0x318
->        unmap_region+0x12c/0x238
->        vms_complete_munmap_vmas+0x318/0x958
->        do_vmi_align_munmap+0x254/0x2f8
->        do_vmi_munmap+0xc4/0xf8
->        __vm_munmap+0x174/0x288
->        __arm64_sys_munmap+0x70/0x90
+amdgpu_dm_hpd_init() clears every hotplug source in the enum before
+enabling the ones it needs:
 
-Yup I already fixed it and respun the series :)
+	for (i =3D DC_IRQ_SOURCE_HPD1; i <=3D DC_IRQ_SOURCE_HPD6RX; i++)
 
-https://lore.kernel.org/all/20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org/
+DC fills the unused slots of its interrupt table with dummy handlers
+that assert when touched, so on an ASIC with fewer than six HPD lines
+that sweep warns and taints the kernel. DCN 2.0.1 has two:
+mmHPD0_DC_HPD_INT_CONTROL and mmHPD1_DC_HPD_INT_CONTROL are the only
+hotplug registers in dcn_2_0_1_offset.h, against five in
+dcn_2_1_0_offset.h, and irq_service_dcn201.c defines hpd_int_entry(0)
+and (1) accordingly.
 
---
-Cheers, Lorenzo
+On an AMD BC-250, which appears to be the only GPU using DCN 201, every
+boot produces this for sources 3 to 6:
+
+  [drm] *ERROR* dal_irq_service_dummy_ack: called for
+      non-implemented irq source, src_id=3D0, ext_id=3D0
+  [drm] dal_irq_service_set: src: 3, st: 0
+  WARNING: .../display/dc/irq/irq_service.c:129
+      at dal_irq_service_set.cold+0x2d/0x76 [amdgpu]
+   dal_irq_service_set+0x4c/0x100 [amdgpu]
+   amdgpu_dm_hpd_init.cold+0x15/0x12e [amdgpu]
+   dm_hw_init+0x4c/0x170 [amdgpu]
+   amdgpu_device_init.cold+0x1727/0x1ec0 [amdgpu]
+
+and the machine comes up tainted W, which makes every unrelated bug
+report from it harder to read.
+
+Walk the links this ASIC has instead of the whole enum, and skip a link
+with no hotplug line of its own, which is the same guard the enable loop
+further down already applies. A source owned by a real link is
+implemented by definition, so the dummy handlers are no longer reached.
+Parts with six HPD lines are unaffected.
+
+Signed-off-by: Mattia Tadini <info@mtsistemi.it>
+---
+
+Tested on an ASRock AMD BC-250 (Cyan Skillfish, DCN 2.0.1, two HPD lines)=
+,
+kernel 7.2.6, across reboots before and after the change:
+
+  before:  2 WARN splats and 8 error lines per boot, for sources 3 to 6
+           /proc/sys/kernel/tainted =3D 12864
+  after:   no dummy_ack, no irq_service warning, no call trace at all
+           /proc/sys/kernel/tainted =3D 12352
+
+The 512 that goes away is the W bit. What is left comes from an unrelated
+out-of-tree module on that machine.
+
+Nothing regressed: both DisplayPort connectors still report the right sta=
+tus,
+the driver logs no HPD failure, and amdgpu keeps servicing interrupts
+normally.
+
+I do not have an ASIC with six HPD lines to test the unchanged path on.
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 22 ++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/driv=
+ers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+index e49803a..b0ede5d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+@@ -903,11 +903,23 @@ void amdgpu_dm_hpd_init(struct amdgpu_device *adev)
+ 	int i;
+ 	bool use_polling =3D false;
+=20
+-	/* First, clear all hpd and hpdrx interrupts */
+-	for (i =3D DC_IRQ_SOURCE_HPD1; i <=3D DC_IRQ_SOURCE_HPD6RX; i++) {
+-		if (!dc_interrupt_set(adev->dm.dc, i, false))
+-			drm_err(dev, "Failed to clear hpd(rx) source=3D%d on init\n",
+-				i);
++	/*
++	 * First, clear all hpd and hpdrx interrupts, over the links this ASIC
++	 * has rather than over the whole enum: the unused slots of the DC
++	 * interrupt table hold dummy handlers that assert when touched.
++	 */
++	for (i =3D 0; i < adev->dm.dc->link_count; i++) {
++		const struct dc_link *link =3D adev->dm.dc->links[i];
++
++		if (link->irq_source_hpd !=3D DC_IRQ_SOURCE_INVALID &&
++		    !dc_interrupt_set(adev->dm.dc, link->irq_source_hpd, false))
++			drm_err(dev, "Failed to clear hpd source=3D%d on init\n",
++				link->irq_source_hpd);
++
++		if (link->irq_source_hpd_rx !=3D DC_IRQ_SOURCE_INVALID &&
++		    !dc_interrupt_set(adev->dm.dc, link->irq_source_hpd_rx, false))
++			drm_err(dev, "Failed to clear hpdrx source=3D%d on init\n",
++				link->irq_source_hpd_rx);
+ 	}
+=20
+ 	drm_connector_list_iter_begin(dev, &iter);
+--=20
+2.55.0
+
