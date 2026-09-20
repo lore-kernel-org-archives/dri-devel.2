@@ -4,138 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 206A4C982E1
-	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 12:20:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 143BEC982E1
+	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 12:34:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C522F10E125;
-	Sun, 20 Sep 2026 12:20:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58C7110E062;
+	Sun, 20 Sep 2026 12:34:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="FAGgLc+F";
+	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="wizT+3S3";
 	dkim-atps=neutral
-Received: from LO3P265CU004.outbound.protection.outlook.com
- (mail-uksouthazon11020114.outbound.protection.outlook.com [52.101.196.114])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19CDD10E125
- for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 12:20:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W3h4QLBJqT9Q/AF4Ok37eCVECOVnI6HP0lp5MJLlXYBhAMCeqTsR6ITg2eOJ7/2HvuBh925NLikIutKfJP0QaR/Ns0P2ESJBLZxt42FKWDqArl3cscg4tnf4RMxfZPVTlIePUbEvRmgEsrAwwtkR8qQ8pofDKsqbOiOMql0fPubCk7ADdV2djMGoaQGEbHbGwZp6gbPra+h16jn6eqgndd052vacziBBR0peg7XKXw+ppDS5LJ8ws992IOWQS5Xe9NplwTUvktiFYZ1Gh9zLieTVGWqiMm70ojagzotUqa3c7TKm1d+L9XBhWxyk4yBNFKaDAybe3zo7EWkbG9A3Ag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KmSyQQQGdDRmzfIVi6FTGnkxtD5CxUHOSdAKKBwkLe4=;
- b=h+nZOu47kIijlW+K2z5uCBcbOIe5czxvRNZQz1sNqow0X6K6MXQrhSPsIjdZSJEey7ubQooano38nOyPM2aKPp13i5vCx1k1ffh0IPq1iAXoGtQiqYm3QF0GrVcRlFi9zi8EtF1YzpMZ3dsXzBjO5R5tcHnMsrq2Fn/h31wU5Fr4OgKbD9XL1/CuyZT68ESEIuIcCyNRhKYwCGpi8SQ0a1YnSk7iAZsuPpzxIeslyTtet0eKn9BB19MSvQmJIJnCqiNZIrUhEZifhAPLkOJFwQfls28Rh8/1bxrc3BzuxIc64y6/6rroO4z/OPziZ0uvsBnOrZ4Em4pcjv0EamvpZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KmSyQQQGdDRmzfIVi6FTGnkxtD5CxUHOSdAKKBwkLe4=;
- b=FAGgLc+FT7b/9SvscGkJFhswEPuLIPcuKMS/QGxpvptKvT+geZmMIgy9OS0OeJseFBYERwH/lCYwh0oBfawR5C6OhKlomcOG3n2ZVuKmhWR3nQ1jJRG7GkmPIxFhFM+IjQgvNNPB1xSlq2Dke9ZiibtEacf/zhZGvh/hWp+yr0c=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LOBP265MB8329.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:46c::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Sun, 20 Sep
- 2026 12:20:11 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0428.011; Sun, 20 Sep 2026
- 12:20:11 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 20 Sep 2026 13:20:10 +0100
-Message-Id: <DLK50D524P11.3CZN924YW8HHQ@garyguo.net>
-Subject: Re: [PATCH v3 1/3] rust: num: add cv! macro to create values from
- constant expressions
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
-Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Yury Norov"
- <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-X-Mailer: aerc 0.22.0
-References: <20260902-cv-v3-0-0f90659e711d@nvidia.com>
- <20260902-cv-v3-1-0f90659e711d@nvidia.com>
- <DLFPWSS3LZSN.12G96EM0FI18C@nvidia.com>
- <DLHGQN9VQ3TE.JYI851RVF7VD@garyguo.net>
- <DLIN1ZH244ZA.3JVCE0YKWAQ6B@nvidia.com>
-In-Reply-To: <DLIN1ZH244ZA.3JVCE0YKWAQ6B@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0249.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a7::20) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E77E010E062
+ for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 12:34:21 +0000 (UTC)
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown
+ [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by ixit.cz (Postfix) with ESMTPSA id 06C9B5340831;
+ Sun, 20 Sep 2026 14:34:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+ t=1789907659;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=tNwFaUCVbxc5+iuTaZgaMk6iXmkv32xubCeformm7Pg=;
+ b=wizT+3S3gWBylHN2uqpdi8Hnl7YG6LORBYPBTorxdUjwYoPYtVONkxAj2hC0Yg/U/DLEFJ
+ UbWu5KvFIWSpw5k+TDhqPCHN7waggrshNo//2ywKUSLIjQ+SuK4zK2Gxq0udSkbWLLONLP
+ Z85qy3UxMAswg8+Ehtbcl0DjAvOi5hs=
+Message-ID: <c89f5128-5657-426a-87c7-55d12e9ea610@ixit.cz>
+Date: Sun, 20 Sep 2026 14:34:18 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LOBP265MB8329:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29c86ad7-8507-4fb1-c908-08df17118467
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|10070799003|7416014|376014|1800799024|366016|10067099003|56012099006|6133799003|22082099003|18002099003|4143699003;
-X-Microsoft-Antispam-Message-Info: XVUFdfQ9YxEGD7mZ0m6Olgye7UX4jZ9Y349JaxjZ5dnqtv8z3irKZRbEhbm5JGhcIYxgz+//ErfQ9iTmyzUDkYouRWrLj/ssCP4e/guWh7qQBX48nGM8VbgeyO2pNwzKwsr4y2tYWjj+b0lxaOtajLt8TlgFyVBaLUMMwLl59bOKw5dGJdSwDGGC5AQBo2PYyi2uUmdCD6du+hZFV26h9yiVmrexDnKWHm2L/ZGSA8yi87lgaBkUFFJzQz4Gjj7mbubtEmtNauhZvEIM1vLwU0zdqJOTs5MNbNvYz93d9JVLhKe9MifqgZt1xpgrey2SF0/onaLih83PRnl580X5aPGR5ooqtC702Ur2Z/5+eSI44foDyYl1vqsfyEa/8CCDo6wt0ByTbXv6+h44wPZmKzWm8TWYVB5hw8yepp6ia6QA24Ox5PzW1PG23ajkYoh+Odp6VjLJknG7yf8k6KhqvzQzI6Ak5Oc7llCWzPGhq4iszMQRdZ9bGbjiOzclc2yHg036Lguwu1rfHBy7sJrFg7r6st2MhbsUQmgszDPXv/UeLfXunAF+FUhue93GLohQ7Em8vdSjm6Oo6KjbOSAJlr8UD6l66CqSebgpTMcdVZ7UTSBfWA/pHIY4W6TxNIUd1nYqc9i3grfPV5vTwfkUNHEkqeWHuHVA8qgVWxns9dY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(10070799003)(7416014)(376014)(1800799024)(366016)(10067099003)(56012099006)(6133799003)(22082099003)(18002099003)(4143699003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?KzhmSVRhOXZvT2lxV01Bek1lV0UwRjNoM2oyNTg1S05Sa3RkMVVRZEp6bnJr?=
- =?utf-8?B?YzBtNWE1T1Z4YlFYRERKWlMvL0lpQ2ZhdFBaMmpjc0hiM2RsNjNiQXhnRG9p?=
- =?utf-8?B?Y05KeEhkWnVOZWdvY1R5RVNzS1JTdDhSS3VVY0dqUExsNzJYWG5mcG83aWFY?=
- =?utf-8?B?WDlnVXVnSDg1YnpDVjgwOHJOSWpveTdFRXBOblg2bkU1VGdvRE9JdFkvVFFX?=
- =?utf-8?B?SWthVm9nMXFUbHljUHI0cFM3UWxWSmZtTmxLUHlyYThVYjdLZWh3dFNQVDF5?=
- =?utf-8?B?QWJJc24rcWRZWW9vZ3hycHBCWThId2ROaU15cVQyL3M4Wm1INUZMVVhzalRv?=
- =?utf-8?B?WlV0ZWlHYlcxZldFeit3ME82YXhORE5YVk9GVFg2UkVwWmNTTkY1cDM3Zk9z?=
- =?utf-8?B?WkliTzlqeklwMHRqd05xeW1LT3I3N2VCeHVDQk9KWGlRVWZmK1lhUWR0NXlH?=
- =?utf-8?B?N2J0cHZJejVyR1NjVldHVjM5blk5dTVVWHZVZ0IwNElaOGFCdm50Y2d3ekw3?=
- =?utf-8?B?bFdWRTVXa3NDN2tuTWkyQysrd2pwcHNZYTkxWnplU1lsajc3ZDhsSmliTEl3?=
- =?utf-8?B?N0d1NFFhaENrdDBqYVVjdnZvTDk3eUw4N1dNbXZjQWFwTENzKytDKzNkdWU5?=
- =?utf-8?B?Yy9kK3UrUGhndFdyWThqbTZCdCtTanc3UmhRa0lZVTJQT0ZEd25aN0E3K2lj?=
- =?utf-8?B?b0xuZitkcEtOYmhNOEJHZXB0S1RndjgwQmtWblRJT3ZyMnNSYm0yS3NtWXJU?=
- =?utf-8?B?R0RxazRBRlFHdVYyVjFPREp1RjhseFN1S2xwa1o1dXgyVEdJWFhoRFpzMUsv?=
- =?utf-8?B?bXhpaitSY2VGLzI2YzdNcWFuM2F1czQ2NmtQMHdjWUo0aUpuMzYxZ1R5QWlM?=
- =?utf-8?B?ZmRiamxRMXNQK0N4dzZTRWk5OEFmMW8yZlJZMkE1eXVFS09SbVJEVzFMTEVW?=
- =?utf-8?B?bWY0NXpUZHRwdGdZT3U0QVBrS3ZpYlc4YzYxaUJDR2FZV3YzdUFEcCt0WklP?=
- =?utf-8?B?RUp4VTBjUklnN0YybEZPK2xKRDI5RFEzMUZ4dFhVV1grU3JwbW5UeW1hMWtR?=
- =?utf-8?B?RGNxYnprNmpQbHRKdHliSWQ1QlBKa1FnZlNDcTRtR0k3VUJZcDNhRkxLRFo4?=
- =?utf-8?B?UVp3Q2NlNldYL3U4SDdxZjNJdVZ6UEVsMXUrTk4rTFZ4TDFFL0k4Z0ZtcW5L?=
- =?utf-8?B?ZFpBaG9MQ2lXTzdRZ2tSZGhENVoyaTZNZytUTnVTNlJkUk9CUkowZ1poRmFi?=
- =?utf-8?B?MlhXMFNpTlMxOUhZOThCOGRIeG9aK3NOSTVud3J5NTVNUTRHN2I4cThLM2Ex?=
- =?utf-8?B?eDdJenhuOFVvcFlBaXI3WjZvTGV4T1c1MEt5ZDhjVHJGb3JLMkszSi9YZjFq?=
- =?utf-8?B?ZU8zb1FLc0JTZ2hKZFNRQWkvb1Evam5uSEhaTGNKdHVNUEsrTmNVcTRJTWFZ?=
- =?utf-8?B?blJRZythWVFxRTNvMjZMN3Z1QlBZNExZbGQ1SXFlbWp2Z2tkWnV6aXl4MnBj?=
- =?utf-8?B?ZkR3RTVvdlpuVGZaaFpsVXE5WGJ6NklMUGx5djdzdjduNnJBVTBERmNvMmR6?=
- =?utf-8?B?cG1xSjJ0TjI4Q29XU2o1M2cxT01hMGRXckN3R2VBSzVPQ09iQ2JpZU1XWDFk?=
- =?utf-8?B?TVNMelNPYnNPSDVGQkx6YkhVd1I5WnZWN2RKRE96L3NwVnErZjFVcDJ2Mnpr?=
- =?utf-8?B?M25RNWZCWmZEZHdhUTl0L1JJVGdYdG4yVnBLWUMyblpCRkpUaXZVRGIvbEtj?=
- =?utf-8?B?ODNCRkZ0V0xmL3pQeUtGb2JPREw5c3pCWmtXbFNKMml4SXNIVWFySkVsVFVG?=
- =?utf-8?B?NVhNeGpNUDg2aktsVy9MNlk1VzBDS2N5NDIwczhzcERSSTI4TTgzNlNiMVVm?=
- =?utf-8?B?Z25KQko4dnVSUHV5SEdHVVU3K1hxdTlUdHI4bVZZYmYrV2tqdXhjdFo2L2VB?=
- =?utf-8?B?cDZwSXVRTkRWV2dqVHk4dTdpcTZ2UG4rTE5HT0FJNUlkY2J1QU1icFVaTjNQ?=
- =?utf-8?B?SW5qUENVNis5c1ZhV2VLbzRRWHUyYUEwMTdqZVo5VDg5eUpsZlBDajY5TGpj?=
- =?utf-8?B?dDdWSEFSUFZuaWFoVityb216dlVwVFd6UXlyU0FGMTdIcXRHUERDaVQ5L2FT?=
- =?utf-8?B?RXFrZ1YrYVArYitIM1p5K0JCWHkrU1hVNkFIbjJ5S1JmeE5yOXF5VlZXMUpF?=
- =?utf-8?B?c0FQUE05Ulh2YXN0WTdpZHpwb3A2a0RuYWR0YUYzUWhSZHgyUXYwVWgwM3Fp?=
- =?utf-8?B?WmM4eWR6Rk1ZbU1JdmtUWHltMExNekhQSFpkWjkweWpnRVpvK1FVRkpSc2Mw?=
- =?utf-8?B?S1VtaGpNSzNhMDJEenlrdHFZN09lcm1pcUFMZnlzSGdaQWV1anlEUT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29c86ad7-8507-4fb1-c908-08df17118467
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 12:20:11.4378 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +1oF65VYoFyDBLMhZyITmECp8iOLAYKlJ4gs/N1HRKiQmvrFhmz1zOqxWZNb9akai/Fvnmnx1CZjaJ/FLC9ieA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOBP265MB8329
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] drm/panel: lg-sw43408: do not assert reset across
+ unprepare
+From: David Heidelberg <david@ixit.cz>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ Casey Connolly <casey.connolly@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Vinod Koul <vkoul@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org
+References: <20260810-fix-blueline-panel-v2-0-9344dfdbc3f9@ixit.cz>
+ <20260810-fix-blueline-panel-v2-1-9344dfdbc3f9@ixit.cz>
+ <cd90572c-e1f3-47a0-829e-9b3d8097a62f@ixit.cz>
+Content-Language: en-US, cs-CZ
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <cd90572c-e1f3-47a0-829e-9b3d8097a62f@ixit.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,54 +115,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Sep 18, 2026 at 7:03 PM BST, Alexandre Courbot wrote:
-> On Thu Sep 17, 2026 at 9:53 AM BST, Gary Guo wrote:
->> On Tue Sep 15, 2026 at 8:39 AM BST, Alexandre Courbot wrote:
->>> On Wed Sep 2, 2026 at 6:16 PM JST, Eliot Courtney wrote:
->>>> Currently, using NonZero/Bounded constants is quite verbose. It's
->>>> unfortunate because it disincentivizes using it in interface boundarie=
-s.
->>>> Introduce a macro to make it nicer to use. The macro `cv!` (for consta=
-nt
->>>> value) takes a const integer expression and widens it to i128 (at buil=
-d
->>>> time only) before passing it as a const generic value to a new trait
->>>> `FromConst`. The value is then converted and appears in the
->>>> associated constant `FromConst::VALUE`. The trait is implemented by
->>>> NonZero, Bounded, and Alignment and lets values of each be constructed
->>>> from constants without a verbose turbofish syntax.
->>>> For example, `const { NonZero::new(1).unwrap() }` can be written as
->>>> `cv!(1)`.
->>>>
->>>> Suggested-by: Gary Guo <gary@garyguo.net>
->>>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
->>>
->>> I don't think we have any user but nova-core at the moment, and it
->>> benefits from this in several series (patch 3 here, but also ID pool an=
-d
->>> later r000). Miguel, is this ok if we take it (i.e. the next revision)
->>> through drm-rust-next?
+On 14/09/2026 23:04, David Heidelberg wrote:
+> On 10/08/2026 11:55, David Heidelberg via B4 Relay wrote:
+>> From: David Heidelberg <david@ixit.cz>
 >>
->> How about a topic tag shared between Rust and drm-rust-next? We could al=
-so
->> remove the old num casts API as part of topic tag and fix all existing u=
-sers as
->> part of merge.
->
-> Not opposed to the idea but IIRC there was already some pushback to the
-> idea. There doesn't seem to be an urgency to remove the old num casts
-> API that justifies doing it now with a more complicated merge path.=20
+>> Asserting the reset GPIO in unprepare() and leaving it asserted puts
+>> the DDIC into a state it never recovers from: after the following
+>> prepare() the panel answers all DCS commands, reports display-on with
+>> clean self-diagnostics, and its configuration registers read back
+>> identical to a working panel, but it never lights up again.
+>>
+>> On the Pixel 3, vddi is shared with the touchscreen controller and
+>> remains powered while the panel is off, so with this driver the DDIC
+>> sits in reset with its logic rail up for the whole blank period - a
+>> state the vendor stack never creates: the vendor firmware only toggles
+>> reset as part of a full power-on sequence, and the vendor OS never
+>> power-cycles the panel at all (LP mode is used instead).
+>>
+>> Leave reset alone in unprepare(); prepare() performs the regular reset
+>> sequence anyway.
+>>
+>> Without this, the Pixel 3 display never comes back after the first
+>> blank/unblank cycle.
+>>
+>> Since there isn't any other panel or device using this DDIC, this
+>> approach seems resoanble to address the issue.
+>>
+>> Fixes: 069a6c0e94f9 ("drm: panel: Add LG sw43408 panel driver")
+>> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>> ---
+>>   drivers/gpu/drm/panel/panel-lg-sw43408.c | 10 ++++++++--
+>>   1 file changed, 8 insertions(+), 2 deletions(-)
+>>
+> 
+> Good news is, that this patch really doesn't make panel power-off fatal for the 
+> phone, but recent testing got me into state where I observed:
+> 
+> 10 hours, display on, phone operating normally.
+> 
+> display on (various time), display off, display on OK, but sometimes
+> 
+> display on, display off (for longer time), after pressing power button (to wake 
+> up) the phone reboot into bootloader.
+> 
+> Nothing printed into dmesg (I'll try enable drm-debug, but not having high hopes.
+> 
+> So far, this is still heavy improvement comparing to instant crash, but not the 
+> perfect solution either.
 
-Sorry, what pushbacks? I thought that `cv!` is what everyone agrees on. I s=
-ee no
-downside of this compared to the turbofish const conversion APIs.
+Please ignore this email, I debugged the issue and the phone never returned from 
+the suspend due to serial geni bugs. This fixes are good to go.
 
-I am not opposed to delaying removal for the next cycle, but IMO the `cv!` =
-macro
-should be present on Rust tree so it's visible and improvements can be made=
- from
-there, so I think we should do a topic tag regardless whether the old API
-removal happens or not.
+David
 
-Best,
-Gary
+> 
+> David
+> 
+>> diff --git a/drivers/gpu/drm/panel/panel-lg-sw43408.c b/drivers/gpu/drm/panel/ 
+>> panel-lg-sw43408.c
+>> index 293826c5006b9..0bf8e08f10b9c 100644
+>> --- a/drivers/gpu/drm/panel/panel-lg-sw43408.c
+>> +++ b/drivers/gpu/drm/panel/panel-lg-sw43408.c
+>> @@ -50,18 +50,24 @@ static int sw43408_unprepare(struct drm_panel *panel)
+>>       int ret;
+>>       mipi_dsi_dcs_set_display_off_multi(&ctx);
+>>       mipi_dsi_dcs_enter_sleep_mode_multi(&ctx);
+>>       mipi_dsi_msleep(&ctx, 100);
+>> -    gpiod_set_value(sw43408->reset_gpio, 1);
+>> -
+>> +    /*
+>> +     * Keep reset deasserted: vddi may stay powered (it is shared with
+>> +     * the touchscreen on Pixel 3) and holding the DDIC in reset while
+>> +     * its logic rail is up puts it into a state that no init sequence
+>> +     * recovers from - the panel keeps answering DCS commands and
+>> +     * reports display-on, but never lights up again. The vendor stack
+>> +     * only ever toggles reset as part of a powered-up init sequence.
+>> +     */
+>>       ret = regulator_bulk_disable(ARRAY_SIZE(sw43408_supplies), sw43408- 
+>> >supplies);
+>>       return ret ? : ctx.accum_err;
+>>   }
+>>   static int sw43408_program(struct drm_panel *panel)
+>>   {
+>>       struct sw43408_panel *sw43408 = to_panel_info(panel);
+>>
+> 
+
