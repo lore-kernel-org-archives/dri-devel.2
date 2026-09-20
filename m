@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9E51C982DA
-	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 11:42:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5149C982DA
+	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 11:42:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 154AF10E9F9;
-	Sun, 20 Sep 2026 11:42:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47E7910EA02;
+	Sun, 20 Sep 2026 11:42:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k6zzJJbo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mFgwY0Px";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2621B10E5E8
- for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 11:42:01 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E57EE10EA03
+ for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 11:42:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9D1D56022B;
- Sun, 20 Sep 2026 11:42:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D7BD1F00893;
- Sun, 20 Sep 2026 11:41:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CE0CF44513;
+ Sun, 20 Sep 2026 11:42:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 191C31F00899;
+ Sun, 20 Sep 2026 11:42:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789904520;
- bh=nKDJoxw+Ot4U8L3uXhOzCP4LuztjFHxRxiiCcc2FhCI=;
+ s=k20260515; t=1789904527;
+ bh=mIu1BRrQ1dNy6GB1MbpLNkuO3YFqDUwCDbKBABgUfQM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=k6zzJJbouCl8T0pAzVS+d4rGTWZ4/SiauCxQsVVVkoFlQhqwIEOI5w2vx5q69YR89
- 9h9ZjIdFREF2ezo0ZxI2tAt73o+wTplFcgqeDwtwBKFshBmXXrjvrZjv6iPiKLJjzq
- EgOtwJyjxQceW9DGNyQjj1P7nDsMRQt/MT7wo+adLWtQUXMmxrVCsDTQPJBmQIsbG/
- zwSDNQZ5iO8AcHKyEch3wFIfq7kvq387DMxhQjLxqY7LxoF8vsrg7gGMRJ9z2z7XA8
- gSmChgb8ZmJ59KUpF8IaaJl5aN9qnmSs2xz4wP62ISVvGdHUXcI0qSmOf7T0oDgg2J
- I0lwsDh89n7ww==
+ b=mFgwY0Pxpz0yVIx8tET3FV58HhXfC53jSsKugFPvedLJl/UNRmK2cufBVL6/o3t/F
+ Q2S/x9exOChlc9oT71Y2Ma8/3r2ZTbc84V1JRd9IgSuchbnjRzITm0CCIMjdu0bmeP
+ b3MrwsopZ6C9WycVxWNM7XWX5M9z6ausbl7r5/ksrECtxjdFJDQj2XWZKYFuwpIecj
+ N1G41h795vC+FGuUEFL6NMQMyVac7ZqG3Bo++M4Qu7cB9B55Zwj4B7ZOfkw4SgRhKP
+ 51eYdqDNDOXzejzZOw2+OYZyxe55qZY34NbZtG493K+WA7IzxgUz+tqKimU8O4F4O4
+ hkZRw5OrFFCyA==
 From: Leon Romanovsky <leon@kernel.org>
 To: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
  Chaitanya Kulkarni <kch@nvidia.com>,
@@ -47,10 +47,9 @@ Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
  Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
  linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-Subject: [PATCH v7 02/19] PCI/P2PDMA: Derive routing from directional ACS
- controls
-Date: Sun, 20 Sep 2026 14:41:14 +0300
-Message-ID: <20260920-fix-p2p-acs-v4-0-v7-2-ca0828ab697c@nvidia.com>
+Subject: [PATCH v7 07/19] PCI/P2PDMA: Answer routing per TLP class
+Date: Sun, 20 Sep 2026 14:41:19 +0300
+Message-ID: <20260920-fix-p2p-acs-v4-0-v7-7-ca0828ab697c@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com>
 References: <20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com>
@@ -75,158 +74,366 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Leon Romanovsky <leonro@nvidia.com>
 
-pci_bridge_has_acs_redir() treats Request and Completion Redirect as
-interchangeable. On asymmetric fabrics, a control for only the reverse TLP
-direction can unnecessarily force P2PDMA through the host bridge.
+calc_map_type_and_dist() returns one mapping type per provider and client,
+valid only for strictly ordered Requests carrying an Untranslated address.
+Clients that use Relaxed Ordering or ATS cannot ask what the fabric would
+do with their traffic.
 
-Evaluate Request Redirect for client Requests and Completion Redirect for
-provider read Completions. Continue treating enabled Egress Control
-conservatively as a Request redirect.
+Add enum pci_p2pdma_tlp_flags to name a class and pci_p2pdma_map_type_tlp()
+to ask about one. The topology walk and the ACS Control reads do not depend
+on the class, so decide all of them from the one walk and cache them
+together, four bits each. Every class still answers alike; the controls
+that tell them apart come next.
 
-Fixes: 52916982af48 ("PCI/P2PDMA: Support peer-to-peer memory")
 Tested-by: Tushar Dave <tdave@nvidia.com>
 Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- drivers/pci/p2pdma.c | 75 ++++++++++++++++++++++++++++++++++++++++------------
- 1 file changed, 58 insertions(+), 17 deletions(-)
+ drivers/pci/p2pdma.c       | 121 +++++++++++++++++++++++++++++++++------------
+ include/linux/pci-p2pdma.h |  49 ++++++++++++++++--
+ 2 files changed, 136 insertions(+), 34 deletions(-)
 
 diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index 4e4d2df17a45..12612b82d80d 100644
+index 841c86be31bb..7e067e1331fa 100644
 --- a/drivers/pci/p2pdma.c
 +++ b/drivers/pci/p2pdma.c
-@@ -21,6 +21,8 @@
- #include <linux/seq_buf.h>
- #include <linux/xarray.h>
- 
-+#include "pci.h"
-+
- struct pci_p2pdma {
- 	struct gen_pool *pool;
- 	bool p2pmem_published;
-@@ -490,26 +492,56 @@ static struct pci_dev *find_parent_pci_dev(struct device *dev)
- 	return NULL;
- }
- 
-+enum pci_acs_p2pdma_state {
-+	PCI_ACS_P2PDMA_DIRECT,
-+	PCI_ACS_P2PDMA_REDIRECT,
-+};
-+
- /*
-- * Check if a PCI bridge has its ACS redirection bits set to redirect P2P
-- * TLPs upstream via ACS. Returns 1 if the packets will be redirected
-- * upstream, 0 otherwise.
-+ * Decide how a peer-to-peer Request at an ACS-capable ingress port routes,
-+ * from that port's ACS Control register.
-+ *
-+ * Linux does not read the Egress Control Vector, so Egress Control is treated
-+ * conservatively as a redirect. Per PCIe r7.0 Table 6-11 the outcomes it
-+ * selects are a direct route and an ACS Violation, and neither one lets peer
-+ * bus addressing be assumed.
+@@ -508,7 +508,7 @@ enum pci_acs_p2pdma_state {
+  * bus addressing be assumed.
   */
--static int pci_bridge_has_acs_redir(struct pci_dev *pdev)
-+static enum pci_acs_p2pdma_state
-+pci_acs_p2pdma_request(u16 ctrl)
+ static enum pci_acs_p2pdma_state
+-pci_acs_p2pdma_request(u16 ctrl)
++pci_acs_p2pdma_request(u16 ctrl, unsigned int tlp_flags)
  {
--	int pos;
--	u16 ctrl;
-+	return ctrl & (PCI_ACS_RR | PCI_ACS_EC) ?
-+		PCI_ACS_P2PDMA_REDIRECT : PCI_ACS_P2PDMA_DIRECT;
-+}
+ 	return ctrl & (PCI_ACS_RR | PCI_ACS_EC) ?
+ 		PCI_ACS_P2PDMA_REDIRECT : PCI_ACS_P2PDMA_DIRECT;
+@@ -520,7 +520,7 @@ pci_acs_p2pdma_request(u16 ctrl)
+  * affects a Completion.
+  */
+ static enum pci_acs_p2pdma_state
+-pci_acs_p2pdma_completion(u16 ctrl)
++pci_acs_p2pdma_completion(u16 ctrl, unsigned int tlp_flags)
+ {
+ 	return ctrl & PCI_ACS_CR ? PCI_ACS_P2PDMA_REDIRECT :
+ 				   PCI_ACS_P2PDMA_DIRECT;
+@@ -577,13 +577,16 @@ struct pci_p2pdma_acs_path {
+  * the peer's bus addresses.
+  */
+ static enum pci_p2pdma_map_type
+-pci_p2pdma_route(const struct pci_p2pdma_acs_path *path)
++pci_p2pdma_route(const struct pci_p2pdma_acs_path *path,
++		 unsigned int tlp_flags)
+ {
+ 	if (path->unreadable)
+ 		return PCI_P2PDMA_MAP_NOT_SUPPORTED;
  
--	pos = pdev->acs_cap;
--	if (!pos)
--		return 0;
-+/*
-+ * Decide how a peer-to-peer Completion at an ACS-capable ingress port routes.
-+ * PCIe r7.0 sec 6.12.1.1: no ACS control other than P2P Completion Redirect
-+ * affects a Completion.
-+ */
-+static enum pci_acs_p2pdma_state
-+pci_acs_p2pdma_completion(u16 ctrl)
-+{
-+	return ctrl & PCI_ACS_CR ? PCI_ACS_P2PDMA_REDIRECT :
-+				   PCI_ACS_P2PDMA_DIRECT;
-+}
+-	if (pci_acs_p2pdma_request(path->req_ctrl) == PCI_ACS_P2PDMA_DIRECT &&
+-	    pci_acs_p2pdma_completion(path->cpl_ctrl) == PCI_ACS_P2PDMA_DIRECT)
++	if (pci_acs_p2pdma_request(path->req_ctrl, tlp_flags) ==
++		    PCI_ACS_P2PDMA_DIRECT &&
++	    pci_acs_p2pdma_completion(path->cpl_ctrl, tlp_flags) ==
++		    PCI_ACS_P2PDMA_DIRECT)
+ 		return PCI_P2PDMA_MAP_BUS_ADDR;
  
--	pci_read_config_word(pdev, pos + PCI_ACS_CTRL, &ctrl);
-+/*
-+ * Read @pdev's ACS Control register. A device without an ACS capability has
-+ * no peer-to-peer controls at all, which routes the same as having them all
-+ * clear. Returns false when the register is present but cannot be read; @ctrl
-+ * is then meaningless.
-+ */
-+static bool pci_acs_p2pdma_ctrl(struct pci_dev *pdev, u16 *ctrl)
-+{
-+	int pos;
+ 	return PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
+@@ -591,7 +594,9 @@ pci_p2pdma_route(const struct pci_p2pdma_acs_path *path)
  
--	if (ctrl & (PCI_ACS_RR | PCI_ACS_CR | PCI_ACS_EC))
--		return 1;
-+	pos = pdev->acs_cap;
-+	if (!pos) {
-+		*ctrl = 0;
-+		return true;
-+	}
- 
--	return 0;
-+	return !pci_read_config_word(pdev, pos + PCI_ACS_CTRL, ctrl);
- }
- 
- static void seq_buf_print_bus_devfn(struct seq_buf *buf, struct pci_dev *pdev)
-@@ -698,6 +730,10 @@ static unsigned long map_types_idx(struct pci_dev *client)
-  * then to Device B. The mapping type returned depends on the ACS
-  * redirection setting of the ports along the path.
-  *
-+ * The client initiates Requests to provider memory. Check Request Redirect
-+ * on the client path and Completion Redirect for read Completions on the
-+ * provider path.
-+ *
-  * If ACS redirect is set on any port in the path, traffic between the
-  * devices will go through the host bridge, so return
-  * PCI_P2PDMA_MAP_THRU_HOST_BRIDGE; otherwise return
-@@ -721,6 +757,7 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- 	int dist_a = 0;
- 	int dist_b = 0;
- 	char buf[128];
-+	u16 ctrl;
+ /*
+  * Name the ports that keep this path off a direct route, so that the admin
+- * can hand them to pci=disable_acs_redir=.
++ * can hand them to pci=disable_acs_redir=. That parameter clears the
++ * redirect controls, which decide the default class, so that is the class
++ * this reports on.
+  */
+ static void pci_p2pdma_warn_path(struct pci_dev *client,
+ 				 struct pci_dev *provider,
+@@ -610,9 +615,10 @@ static void pci_p2pdma_warn_path(struct pci_dev *client,
+ 	}
  
  	seq_buf_init(&acs_list, buf, sizeof(buf));
+-	if (pci_acs_p2pdma_completion(path->cpl_ctrl) != PCI_ACS_P2PDMA_DIRECT)
++	if (pci_acs_p2pdma_completion(path->cpl_ctrl, 0) !=
++	    PCI_ACS_P2PDMA_DIRECT)
+ 		seq_buf_print_bus_devfn(&acs_list, a_child);
+-	if (pci_acs_p2pdma_request(path->req_ctrl) != PCI_ACS_P2PDMA_DIRECT)
++	if (pci_acs_p2pdma_request(path->req_ctrl, 0) != PCI_ACS_P2PDMA_DIRECT)
+ 		seq_buf_print_bus_devfn(&acs_list, b_child);
  
-@@ -732,7 +769,9 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- 	while (a) {
- 		dist_b = 0;
+ 	/* Drop the final semicolon; the list is not empty here. */
+@@ -780,6 +786,31 @@ static unsigned long map_types_idx(struct pci_dev *client)
+ 	return (pci_domain_nr(client->bus) << 16) | pci_dev_id(client);
+ }
  
--		if (pci_bridge_has_acs_redir(a)) {
-+		if (!pci_acs_p2pdma_ctrl(a, &ctrl) ||
-+		    pci_acs_p2pdma_completion(ctrl) ==
-+			    PCI_ACS_P2PDMA_REDIRECT) {
- 			seq_buf_print_bus_devfn(&acs_list, a);
- 			acs_cnt++;
- 		}
-@@ -761,7 +800,9 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- 		if (a == bb)
- 			break;
++/*
++ * One cache entry holds the routing of every TLP class, four bits each,
++ * indexed by the &enum pci_p2pdma_tlp_flags combination that selects it. An
++ * absent entry reads back as PCI_P2PDMA_MAP_UNKNOWN in every class.
++ */
++static_assert(PCI_P2PDMA_MAP_THRU_HOST_BRIDGE < 16);
++
++static unsigned long
++pci_p2pdma_map_types_pack(const enum pci_p2pdma_map_type *type)
++{
++	unsigned long val = 0;
++	unsigned int flags;
++
++	for (flags = 0; flags < PCI_P2PDMA_TLP_CLASSES; flags++)
++		val |= (unsigned long)type[flags] << (flags * 4);
++
++	return val;
++}
++
++static enum pci_p2pdma_map_type
++pci_p2pdma_map_types_unpack(unsigned long val, unsigned int tlp_flags)
++{
++	return (val >> (tlp_flags * 4)) & 0xf;
++}
++
+ /*
+  * Calculate the P2PDMA mapping type and distance between two PCI devices.
+  *
+@@ -809,6 +840,10 @@ static unsigned long map_types_idx(struct pci_dev *client)
+  * check Request Redirect and Egress Control on the client-side port, and
+  * Completion Redirect for read Completions on the provider-side port.
+  *
++ * Those controls apply to different TLPs, so every class named by &enum
++ * pci_p2pdma_tlp_flags is decided from the one walk and cached together;
++ * @tlp_flags selects which one is returned.
++ *
+  * If ACS redirects traffic at either divergence port, return
+  * PCI_P2PDMA_MAP_THRU_HOST_BRIDGE. If the ACS Control register cannot be
+  * read, return PCI_P2PDMA_MAP_NOT_SUPPORTED. Otherwise, return
+@@ -822,14 +857,16 @@ static unsigned long map_types_idx(struct pci_dev *client)
+  */
+ static enum pci_p2pdma_map_type
+ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
+-		int *dist, bool verbose)
++		int *dist, unsigned int tlp_flags, bool verbose)
+ {
+-	enum pci_p2pdma_map_type map_type = PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
++	enum pci_p2pdma_map_type map_type[PCI_P2PDMA_TLP_CLASSES];
+ 	struct pci_dev *a = provider, *b = client, *bb;
+ 	struct pci_dev *a_child = NULL, *b_child = NULL;
+ 	struct pci_p2pdma_acs_path path = {};
+ 	struct pci_p2pdma *p2pdma;
+ 	bool cpu_p2pdma, host_whitelisted = false;
++	bool host_fallback = false;
++	unsigned int flags;
+ 	int dist_a = 0;
+ 	int dist_b = 0;
  
--		if (pci_bridge_has_acs_redir(bb)) {
-+		if (!pci_acs_p2pdma_ctrl(bb, &ctrl) ||
-+		    pci_acs_p2pdma_request(ctrl) ==
-+			    PCI_ACS_P2PDMA_REDIRECT) {
- 			seq_buf_print_bus_devfn(&acs_list, bb);
- 			acs_cnt++;
- 		}
-@@ -1109,10 +1150,10 @@ EXPORT_SYMBOL_GPL(pci_p2pmem_publish);
+@@ -863,6 +900,8 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
+ 	 * request can only get to the peer through the host bridge.
+ 	 */
+ 	*dist = dist_a + dist_b;
++	for (flags = 0; flags < PCI_P2PDMA_TLP_CLASSES; flags++)
++		map_type[flags] = PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
+ 	goto map_through_host_bridge;
+ 
+ check_paths_acs:
+@@ -882,18 +921,24 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
+ 	}
+ 
+ 	/*
+-	 * Below a shared upstream bridge, a path whose divergence ports do not
+-	 * redirect routes the request directly.
++	 * The walk and the config reads above serve every class; only the
++	 * decision below depends on the kind of TLP being routed.
+ 	 */
+-	map_type = pci_p2pdma_route(&path);
+-	if (map_type == PCI_P2PDMA_MAP_BUS_ADDR)
+-		goto done;
++	for (flags = 0; flags < PCI_P2PDMA_TLP_CLASSES; flags++) {
++		map_type[flags] = pci_p2pdma_route(&path, flags);
++		if (map_type[flags] == PCI_P2PDMA_MAP_THRU_HOST_BRIDGE)
++			host_fallback = true;
++	}
+ 
+-	if (verbose)
+-		pci_p2pdma_warn_path(client, provider, &path, a_child, b_child);
++	if (verbose && map_type[0] != PCI_P2PDMA_MAP_BUS_ADDR)
++		pci_p2pdma_warn_path(client, provider, &path, a_child,
++				     b_child);
+ 
+-	/* An unreadable control does not establish an upstream redirect. */
+-	if (path.unreadable)
++	/*
++	 * Nothing needs the host bridge: the classes that did not get a direct
++	 * route have no fallback that would use it.
++	 */
++	if (!host_fallback)
+ 		goto done;
+ 
+ map_through_host_bridge:
+@@ -906,16 +951,19 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
+ 		if (verbose)
+ 			pci_warn(client, "cannot be used for peer-to-peer DMA as the client and provider (%s) do not share an upstream bridge or whitelisted host bridge\n",
+ 				 pci_name(provider));
+-		map_type = PCI_P2PDMA_MAP_NOT_SUPPORTED;
++		for (flags = 0; flags < PCI_P2PDMA_TLP_CLASSES; flags++)
++			if (map_type[flags] == PCI_P2PDMA_MAP_THRU_HOST_BRIDGE)
++				map_type[flags] = PCI_P2PDMA_MAP_NOT_SUPPORTED;
+ 	}
+ done:
+ 	rcu_read_lock();
+ 	p2pdma = rcu_dereference(provider->p2pdma);
+ 	if (p2pdma)
+ 		xa_store(&p2pdma->map_types, map_types_idx(client),
+-			 xa_mk_value(map_type), GFP_ATOMIC);
++			 xa_mk_value(pci_p2pdma_map_types_pack(map_type)),
++			 GFP_ATOMIC);
+ 	rcu_read_unlock();
+-	return map_type;
++	return map_type[tlp_flags];
+ }
+ 
  /**
-  * pci_p2pdma_map_type - Determine the mapping type for P2PDMA transfers
+@@ -956,7 +1004,7 @@ int pci_p2pdma_distance_many(struct pci_dev *provider, struct device **clients,
+ 			return -1;
+ 		}
+ 
+-		map = calc_map_type_and_dist(provider, pci_client, &distance,
++		map = calc_map_type_and_dist(provider, pci_client, &distance, 0,
+ 					     verbose);
+ 
+ 		pci_dev_put(pci_client);
+@@ -1221,25 +1269,34 @@ void pci_p2pmem_publish(struct pci_dev *pdev, bool publish)
+ EXPORT_SYMBOL_GPL(pci_p2pmem_publish);
+ 
+ /**
+- * pci_p2pdma_map_type - Determine the mapping type for P2PDMA transfers
++ * pci_p2pdma_map_type_tlp - Determine the mapping type for P2PDMA transfers
   * @provider: P2PDMA provider structure
-- * @dev: Target device for the transfer
-+ * @dev: Client device that initiates the transfer
+  * @dev: Client device that initiates the transfer
++ * @tlp_flags: &enum pci_p2pdma_tlp_flags describing the TLPs @dev will issue
   *
   * Determines how peer-to-peer DMA transfers should be mapped between
-- * the provider and the target device. The mapping type indicates whether
-+ * the provider and the client device. The mapping type indicates whether
+  * the provider and the client device. The mapping type indicates whether
   * the transfer can be done directly through PCI switches or must go
   * through the host bridge.
++ *
++ * ACS routes a peer-to-peer transaction by the attributes its TLPs carry, so
++ * the answer depends on @tlp_flags. A caller that passes flags its traffic
++ * does not match gets a mapping the fabric will not deliver.
   */
+-enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
+-					     struct device *dev)
++enum pci_p2pdma_map_type
++pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
++			unsigned int tlp_flags)
+ {
+-	enum pci_p2pdma_map_type type = PCI_P2PDMA_MAP_NOT_SUPPORTED;
+ 	struct pci_dev *pdev = to_pci_dev(provider->owner);
++	unsigned long cache_index, cached = 0;
++	enum pci_p2pdma_map_type type;
+ 	struct pci_p2pdma *p2pdma;
+-	unsigned long cache_index;
+ 	struct pci_dev *client;
+ 	int dist;
+ 
++	if (WARN_ON_ONCE(tlp_flags >= PCI_P2PDMA_TLP_CLASSES))
++		return PCI_P2PDMA_MAP_NOT_SUPPORTED;
++
+ 	if (!pdev->p2pdma)
+ 		return PCI_P2PDMA_MAP_NOT_SUPPORTED;
+ 
+@@ -1253,12 +1310,14 @@ enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
+ 	p2pdma = rcu_dereference(pdev->p2pdma);
+ 
+ 	if (p2pdma)
+-		type = xa_to_value(xa_load(&p2pdma->map_types,
+-					   cache_index));
++		cached = xa_to_value(xa_load(&p2pdma->map_types,
++					     cache_index));
+ 	rcu_read_unlock();
++	type = pci_p2pdma_map_types_unpack(cached, tlp_flags);
+ 
+ 	if (type == PCI_P2PDMA_MAP_UNKNOWN)
+-		return calc_map_type_and_dist(pdev, client, &dist, true);
++		return calc_map_type_and_dist(pdev, client, &dist, tlp_flags,
++					      true);
+ 
+ 	return type;
+ }
+diff --git a/include/linux/pci-p2pdma.h b/include/linux/pci-p2pdma.h
+index dd17501ba1b6..36045b1b730c 100644
+--- a/include/linux/pci-p2pdma.h
++++ b/include/linux/pci-p2pdma.h
+@@ -28,6 +28,33 @@ struct p2pdma_provider {
+ 	u64 bus_offset;
+ };
+ 
++/**
++ * enum pci_p2pdma_tlp_flags - Properties of the TLPs a client will issue
++ *
++ * These describe the traffic rather than the topology, and select which ACS
++ * controls apply along the peer-to-peer path. A value of 0 means strictly
++ * ordered Requests carrying an Untranslated address.
++ *
++ * @PCI_P2PDMA_TLP_TRANSLATED: Requests carry an ATS Translated address. PCIe
++ *	r7.0 sec 6.12.3 routes those to the peer regardless of ACS P2P Request
++ *	Redirect and ACS P2P Egress Control wherever ACS Direct Translated P2P
++ *	is enabled.
++ * @PCI_P2PDMA_TLP_RELAXED_CPL: The provider returns Completions with the
++ *	Relaxed Ordering attribute set. PCIe r7.0 sec 6.12.1.1 never redirects
++ *	those, so ACS P2P Completion Redirect does not gate the path. The
++ *	Completer chooses this attribute and the specification does not require
++ *	it to copy Relaxed Ordering from the Request into the Completion, so a
++ *	caller passing this flag asserts that its provider does.
++ */
++enum pci_p2pdma_tlp_flags {
++	PCI_P2PDMA_TLP_TRANSLATED	= 1 << 0,
++	PCI_P2PDMA_TLP_RELAXED_CPL	= 1 << 1,
++};
++
++/* Every combination of the flags above selects one routing class. */
++#define PCI_P2PDMA_TLP_CLASSES \
++	((PCI_P2PDMA_TLP_TRANSLATED | PCI_P2PDMA_TLP_RELAXED_CPL) + 1)
++
+ enum pci_p2pdma_map_type {
+ 	/*
+ 	 * PCI_P2PDMA_MAP_UNKNOWN: Used internally as an initial state before
+@@ -86,8 +113,9 @@ int pci_p2pdma_enable_store(const char *page, struct pci_dev **p2p_dev,
+ 			    bool *use_p2pdma);
+ ssize_t pci_p2pdma_enable_show(char *page, struct pci_dev *p2p_dev,
+ 			       bool use_p2pdma);
+-enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
+-					     struct device *dev);
++enum pci_p2pdma_map_type
++pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
++			unsigned int tlp_flags);
+ #else /* CONFIG_PCI_P2PDMA */
+ static inline int pcim_p2pdma_init(struct pci_dev *pdev)
+ {
+@@ -150,7 +178,8 @@ static inline ssize_t pci_p2pdma_enable_show(char *page,
+ 	return sprintf(page, "none\n");
+ }
+ static inline enum pci_p2pdma_map_type
+-pci_p2pdma_map_type(struct p2pdma_provider *provider, struct device *dev)
++pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
++			unsigned int tlp_flags)
+ {
+ 	return PCI_P2PDMA_MAP_NOT_SUPPORTED;
+ }
+@@ -168,6 +197,20 @@ static inline struct pci_dev *pci_p2pmem_find(struct device *client)
+ 	return pci_p2pmem_find_many(&client, 1);
+ }
+ 
++/**
++ * pci_p2pdma_map_type - Determine the mapping type for P2PDMA transfers
++ * @provider: P2PDMA provider structure
++ * @dev: Client device that initiates the transfer
++ *
++ * Same as pci_p2pdma_map_type_tlp() for a client issuing strictly ordered
++ * Requests that carry an Untranslated address.
++ */
++static inline enum pci_p2pdma_map_type
++pci_p2pdma_map_type(struct p2pdma_provider *provider, struct device *dev)
++{
++	return pci_p2pdma_map_type_tlp(provider, dev, 0);
++}
++
+ struct pci_p2pdma_map_state {
+ 	struct p2pdma_provider *mem;
+ 	enum pci_p2pdma_map_type map;
 
 -- 
 2.55.0
