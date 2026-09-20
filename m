@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDE92C982D8
-	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 22:49:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0C2EC982DA
+	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 22:49:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 425D910E28F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F084710E2AC;
 	Sun, 20 Sep 2026 22:49:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lgRp/fmO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e9C+Za7q";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEF0610E28F
- for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 22:49:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA54810E28C
+ for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 22:49:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5400660F86;
- Sun, 20 Sep 2026 22:49:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43D7F1F0089A;
- Sun, 20 Sep 2026 22:49:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A0F2E40831;
+ Sun, 20 Sep 2026 22:49:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 901B61F00893;
+ Sun, 20 Sep 2026 22:48:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789944551;
- bh=p/Bug8kcoCTJvkuCSvSWkWwMkK0rongkUVUrvU0VBQs=;
+ s=k20260515; t=1789944542;
+ bh=oPrgfVrG/x2rUxYPJKRH8FKNlOR26Askl0mLQIgkCCU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=lgRp/fmOrVbSq3GX9ARPJOQaymFNLixFWxaWVbCxLakQHQ/Z+ptRid2wLVXHI5PWQ
- tu0mQdRCYnRv741w1MrUOeT6oPZY21xhMk8ndbm41uGcqUVe8UW6PkUeXWLr135PTb
- +Z3fyhUufJRj9pS757chUbIt/rRX9wveW88to/oO/YkmLTwfTnSO/qVEeo6CKeFuxC
- tBs4oKMGnDFeKna4bcQXxXa315mAM+Rvgbmtx3LjGr2CHj/PtN+IknyrcSFjwxiDUh
- E7opLjoi6blUQRhthPtMrbF2riynWJbhO/19IIE8l3+7XrQmF9MTVtaJstT5zTjqk6
- ee+mSCVNJQApg==
+ b=e9C+Za7qu/MwTxKVYDacDtrRbAud733syJXYlyEksWUUEr6MWKGrKoq2hH/Rl5PLR
+ +Apqtlr80YjwumI3Zm9rX6ENW5o9WqJQLgBfiIuaAjF61qXYXZu893Cy1hBqiXb1s9
+ YfPmOE7NKjfOYpJq4Mf8sPAE2XnQZ8DjzOEviVNslnf6N9Jt5D3rhwyvg3nrB+uLXZ
+ Si3hJ6DtwB2AO8e47M0eMcoTgTaOXP+LPKemxN5Xb3Gx1ed8RgBBbjXy6mDYb2Ncuq
+ 9MpAxDBrX/e7lj241GaA1M/dnoaJeV1H4SX8KvS680lw03fd/v77irpVPHpn1j2re+
+ bZLuU99m/4jhA==
 From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 21 Sep 2026 00:48:19 +0200
-Subject: [PATCH v3 13/18] drm/mcde: Use power domain for display power
+Date: Mon, 21 Sep 2026 00:48:17 +0200
+Subject: [PATCH v3 11/18] ARM: dts: ux500: Add power domains
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-ux500-power-domains-v7-1-v3-13-9352be6b86b1@kernel.org>
+Message-Id: <20260921-ux500-power-domains-v7-1-v3-11-9352be6b86b1@kernel.org>
 References: <20260921-ux500-power-domains-v7-1-v3-0-9352be6b86b1@kernel.org>
 In-Reply-To: <20260921-ux500-power-domains-v7-1-v3-0-9352be6b86b1@kernel.org>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -66,241 +66,382 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace explicit EPOD regulator handling with runtime PM.
-
-Use the MCDE power domain and drop the regulator dependency.
+Add the actual power domains to the CPUs and SoC peripherals.
+Both CPUs share DOMAIN_VARM, which also supplies their PMU.
 
 Assisted-by: LLM
 Signed-off-by: Linus Walleij <linusw@kernel.org>
 ---
- drivers/gpu/drm/mcde/mcde_clk_div.c |  4 +--
- drivers/gpu/drm/mcde/mcde_display.c | 11 +++---
- drivers/gpu/drm/mcde/mcde_drm.h     |  2 --
- drivers/gpu/drm/mcde/mcde_drv.c     | 68 ++++++++++++-------------------------
- drivers/gpu/drm/mcde/mcde_dsi.c     |  1 -
- 5 files changed, 29 insertions(+), 57 deletions(-)
+ arch/arm/boot/dts/st/ste-dbx5x0.dtsi | 71 +++++++++++++++++++++++++++++++-----
+ 1 file changed, 62 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/mcde/mcde_clk_div.c b/drivers/gpu/drm/mcde/mcde_clk_div.c
-index 8c5af2677357..1a22e6233946 100644
---- a/drivers/gpu/drm/mcde/mcde_clk_div.c
-+++ b/drivers/gpu/drm/mcde/mcde_clk_div.c
-@@ -1,7 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- #include <linux/clk-provider.h>
- #include <linux/io.h>
--#include <linux/regulator/consumer.h>
-+#include <linux/pm_runtime.h>
+diff --git a/arch/arm/boot/dts/st/ste-dbx5x0.dtsi b/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
+index 11fcae1904e2..0603244dc9e8 100644
+--- a/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
++++ b/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
+@@ -54,6 +54,7 @@ CPU0: cpu@300 {
+ 			device_type = "cpu";
+ 			compatible = "arm,cortex-a9";
+ 			reg = <0x300>;
++			power-domains = <&pm_domains DOMAIN_VARM>;
+ 			clocks = <&prcmu_clk PRCMU_ARMSS>;
+ 			clock-names = "cpu";
+ 			clock-latency = <20000>;
+@@ -63,6 +64,7 @@ CPU1: cpu@301 {
+ 			device_type = "cpu";
+ 			compatible = "arm,cortex-a9";
+ 			reg = <0x301>;
++			power-domains = <&pm_domains DOMAIN_VARM>;
+ 		};
+ 	};
  
- #include "mcde_drm.h"
- #include "mcde_display_regs.h"
-@@ -95,7 +95,7 @@ static unsigned long mcde_clk_div_recalc_rate(struct clk_hw *hw,
- 	 * It will come up with 0 in the divider register bits, which
- 	 * means "divide by 2".
- 	 */
--	if (!regulator_is_enabled(mcde->epod))
-+	if (!pm_runtime_active(mcde->dev))
- 		return DIV_ROUND_UP_ULL(prate, 2);
+@@ -154,6 +156,7 @@ sram@40020000 {
+ 			reg = <0x40020000 0x40000>;
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
++			power-domains = <&pm_domains DOMAIN_ESRAM_12>;
+ 			ranges = <0 0x40020000 0x40000>;
+ 		};
+ 		sram@40060000 {
+@@ -162,6 +165,7 @@ sram@40060000 {
+ 			reg = <0x40060000 0x40000>;
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
++			power-domains = <&pm_domains DOMAIN_ESRAM_34>;
+ 			ranges = <0 0x40060000 0x40000>;
  
- 	cr = readl(mcde->regs + cdiv->cr);
-diff --git a/drivers/gpu/drm/mcde/mcde_display.c b/drivers/gpu/drm/mcde/mcde_display.c
-index 257a6e84dd58..52f071bb347c 100644
---- a/drivers/gpu/drm/mcde/mcde_display.c
-+++ b/drivers/gpu/drm/mcde/mcde_display.c
-@@ -7,7 +7,7 @@
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/dma-buf.h>
--#include <linux/regulator/consumer.h>
-+#include <linux/pm_runtime.h>
- #include <linux/media-bus-format.h>
- 
- #include <drm/drm_device.h>
-@@ -1168,16 +1168,15 @@ static void mcde_display_enable(struct drm_simple_display_pipe *pipe,
- 	int ret;
- 
- 	/* This powers up the entire MCDE block and the DSI hardware */
--	ret = regulator_enable(mcde->epod);
-+	ret = pm_runtime_resume_and_get(mcde->dev);
- 	if (ret) {
--		dev_err(drm->dev, "can't re-enable EPOD regulator\n");
-+		dev_err(drm->dev, "can't enable MCDE power domain\n");
- 		return;
- 	}
- 
- 	dev_info(drm->dev, "enable MCDE, %d x %d format %p4cc\n",
- 		 mode->hdisplay, mode->vdisplay, &format);
- 
+ 			lcla: sram@20000 {
+@@ -181,7 +185,7 @@ lcla: sram@20000 {
+ 		ptm@801ae000 {
+ 			compatible = "arm,coresight-etm3x", "arm,primecell";
+ 			reg = <0x801ae000 0x1000>;
 -
- 	/* Clear any pending interrupts */
- 	mcde_display_disable_irqs(mcde);
- 	writel(0, mcde->regs + MCDE_IMSCERR);
-@@ -1327,9 +1326,9 @@ static void mcde_display_disable(struct drm_simple_display_pipe *pipe)
- 		spin_unlock_irq(&crtc->dev->event_lock);
- 	}
- 
--	ret = regulator_disable(mcde->epod);
-+	ret = pm_runtime_put_sync_suspend(mcde->dev);
- 	if (ret)
--		dev_err(drm->dev, "can't disable EPOD regulator\n");
-+		dev_err(drm->dev, "can't disable MCDE power domain\n");
- 	/* Make sure we are powered down (before we may power up again) */
- 	usleep_range(50000, 70000);
- 
-diff --git a/drivers/gpu/drm/mcde/mcde_drm.h b/drivers/gpu/drm/mcde/mcde_drm.h
-index ecb70b4b737c..d4ff7606d917 100644
---- a/drivers/gpu/drm/mcde/mcde_drm.h
-+++ b/drivers/gpu/drm/mcde/mcde_drm.h
-@@ -91,8 +91,6 @@ struct mcde {
- 	/* Locks the MCDE FIFO control register A and B */
- 	spinlock_t fifo_crx1_lock;
- 
--	struct regulator *epod;
--	struct regulator *vana;
- };
- 
- #define to_mcde(dev) container_of(dev, struct mcde, drm)
-diff --git a/drivers/gpu/drm/mcde/mcde_drv.c b/drivers/gpu/drm/mcde/mcde_drv.c
-index 53275b575f0c..d5a2cc98c65b 100644
---- a/drivers/gpu/drm/mcde/mcde_drv.c
-+++ b/drivers/gpu/drm/mcde/mcde_drv.c
-@@ -61,7 +61,7 @@
- #include <linux/module.h>
- #include <linux/of_platform.h>
- #include <linux/platform_device.h>
--#include <linux/regulator/consumer.h>
-+#include <linux/pm_runtime.h>
- #include <linux/slab.h>
- #include <linux/delay.h>
- 
-@@ -284,45 +284,25 @@ static int mcde_probe(struct platform_device *pdev)
- 	mcde->dev = dev;
- 	platform_set_drvdata(pdev, drm);
- 
--	/* First obtain and turn on the main power */
--	mcde->epod = devm_regulator_get(dev, "epod");
--	if (IS_ERR(mcde->epod)) {
--		ret = PTR_ERR(mcde->epod);
--		dev_err(dev, "can't get EPOD regulator\n");
--		return ret;
--	}
--	ret = regulator_enable(mcde->epod);
-+	pm_runtime_enable(dev);
-+	ret = pm_runtime_resume_and_get(dev);
- 	if (ret) {
--		dev_err(dev, "can't enable EPOD regulator\n");
-+		dev_err(dev, "can't enable MCDE power domain\n");
-+		pm_runtime_disable(dev);
- 		return ret;
- 	}
--	mcde->vana = devm_regulator_get(dev, "vana");
--	if (IS_ERR(mcde->vana)) {
--		ret = PTR_ERR(mcde->vana);
--		dev_err(dev, "can't get VANA regulator\n");
--		goto regulator_epod_off;
--	}
--	ret = regulator_enable(mcde->vana);
--	if (ret) {
--		dev_err(dev, "can't enable VANA regulator\n");
--		goto regulator_epod_off;
--	}
--	/*
--	 * The vendor code uses ESRAM (onchip RAM) and need to activate
--	 * the v-esram34 regulator, but we don't use that yet
--	 */
- 
- 	/* Clock the silicon so we can access the registers */
- 	mcde->mcde_clk = devm_clk_get(dev, "mcde");
- 	if (IS_ERR(mcde->mcde_clk)) {
- 		dev_err(dev, "unable to get MCDE main clock\n");
- 		ret = PTR_ERR(mcde->mcde_clk);
--		goto regulator_off;
-+		goto pm_runtime_put;
- 	}
- 	ret = clk_prepare_enable(mcde->mcde_clk);
- 	if (ret) {
- 		dev_err(dev, "failed to enable MCDE main clock\n");
--		goto regulator_off;
-+		goto pm_runtime_put;
- 	}
- 	dev_info(dev, "MCDE clk rate %lu Hz\n", clk_get_rate(mcde->mcde_clk));
- 
-@@ -413,14 +393,15 @@ static int mcde_probe(struct platform_device *pdev)
- 
- 	/*
- 	 * Perform an invasive reset of the MCDE and all blocks by
--	 * cutting the power to the subsystem, then bring it back up
-+	 * powering down the subsystem, then bring it back up
- 	 * later when we enable the display as a result of
- 	 * component_master_add_with_match().
- 	 */
--	ret = regulator_disable(mcde->epod);
--	if (ret) {
--		dev_err(dev, "can't disable EPOD regulator\n");
--		return ret;
-+	ret = pm_runtime_put_sync_suspend(dev);
-+	if (ret < 0) {
-+		dev_err(dev, "can't disable MCDE power domain\n");
-+		pm_runtime_get_noresume(dev);
-+		goto clk_disable;
- 	}
- 	/* Wait 50 ms so we are sure we cut the power */
- 	usleep_range(50000, 70000);
-@@ -429,25 +410,21 @@ static int mcde_probe(struct platform_device *pdev)
- 					      match);
- 	if (ret) {
- 		dev_err(dev, "failed to add component master\n");
--		/*
--		 * The EPOD regulator is already disabled at this point so some
--		 * special errorpath code is needed
--		 */
--		clk_disable_unprepare(mcde->mcde_clk);
--		regulator_disable(mcde->vana);
--		return ret;
-+		goto clk_disable_pm_disabled;
- 	}
- 
- 	return 0;
- 
- clk_disable:
- 	clk_disable_unprepare(mcde->mcde_clk);
--regulator_off:
--	regulator_disable(mcde->vana);
--regulator_epod_off:
--	regulator_disable(mcde->epod);
-+pm_runtime_put:
-+	pm_runtime_put_sync_suspend(dev);
-+	goto pm_runtime_disable;
-+clk_disable_pm_disabled:
-+	clk_disable_unprepare(mcde->mcde_clk);
-+pm_runtime_disable:
-+	pm_runtime_disable(dev);
- 	return ret;
++			power-domains = <&pm_domains DOMAIN_VARM>;
+ 			clocks = <&prcmu_clk PRCMU_APETRACECLK>, <&prcmu_clk PRCMU_APEATCLK>;
+ 			clock-names = "apb_pclk", "atclk";
+ 			cpu = <&CPU0>;
+@@ -197,7 +201,7 @@ ptm0_out_port: endpoint {
+ 		ptm@801af000 {
+ 			compatible = "arm,coresight-etm3x", "arm,primecell";
+ 			reg = <0x801af000 0x1000>;
 -
- }
++			power-domains = <&pm_domains DOMAIN_VARM>;
+ 			clocks = <&prcmu_clk PRCMU_APETRACECLK>, <&prcmu_clk PRCMU_APEATCLK>;
+ 			clock-names = "apb_pclk", "atclk";
+ 			cpu = <&CPU1>;
+@@ -213,7 +217,7 @@ ptm1_out_port: endpoint {
+ 		funnel@801a6000 {
+ 			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
+ 			reg = <0x801a6000 0x1000>;
+-
++			power-domains = <&pm_domains DOMAIN_VARM>;
+ 			clocks = <&prcmu_clk PRCMU_APETRACECLK>, <&prcmu_clk PRCMU_APEATCLK>;
+ 			clock-names = "apb_pclk", "atclk";
+ 			out-ports {
+@@ -249,6 +253,7 @@ replicator {
+ 			compatible = "arm,coresight-static-replicator";
+ 			clocks = <&prcmu_clk PRCMU_APEATCLK>;
+ 			clock-names = "atclk";
++			power-domains = <&pm_domains DOMAIN_VARM>;
  
- static void mcde_remove(struct platform_device *pdev)
-@@ -457,8 +434,7 @@ static void mcde_remove(struct platform_device *pdev)
+ 			out-ports {
+ 				#address-cells = <1>;
+@@ -280,7 +285,7 @@ replicator_in_port0: endpoint {
+ 		tpiu@80190000 {
+ 			compatible = "arm,coresight-tpiu", "arm,primecell";
+ 			reg = <0x80190000 0x1000>;
+-
++			power-domains = <&pm_domains DOMAIN_VARM>;
+ 			clocks = <&prcmu_clk PRCMU_APETRACECLK>, <&prcmu_clk PRCMU_APEATCLK>;
+ 			clock-names = "apb_pclk", "atclk";
+ 			in-ports {
+@@ -295,7 +300,7 @@ tpiu_in_port: endpoint {
+ 		etb@801a4000 {
+ 			compatible = "arm,coresight-etb10", "arm,primecell";
+ 			reg = <0x801a4000 0x1000>;
+-
++			power-domains = <&pm_domains DOMAIN_VARM>;
+ 			clocks = <&prcmu_clk PRCMU_APETRACECLK>, <&prcmu_clk PRCMU_APEATCLK>;
+ 			clock-names = "apb_pclk", "atclk";
+ 			in-ports {
+@@ -314,11 +319,13 @@ intc: interrupt-controller@a0411000 {
+ 			interrupt-controller;
+ 			reg = <0xa0411000 0x1000>,
+ 			      <0xa0410100 0x100>;
++			power-domains = <&pm_domains DOMAIN_VARM>;
+ 		};
  
- 	component_master_del(&pdev->dev, &mcde_drm_comp_ops);
- 	clk_disable_unprepare(mcde->mcde_clk);
--	regulator_disable(mcde->vana);
--	regulator_disable(mcde->epod);
-+	pm_runtime_disable(&pdev->dev);
- }
+ 		scu@a0410000 {
+ 			compatible = "arm,cortex-a9-scu";
+ 			reg = <0xa0410000 0x100>;
++			power-domains = <&pm_domains DOMAIN_VARM>;
+ 		};
  
- static void mcde_shutdown(struct platform_device *pdev)
-diff --git a/drivers/gpu/drm/mcde/mcde_dsi.c b/drivers/gpu/drm/mcde/mcde_dsi.c
-index 694372581840..ab8afb5cb0c5 100644
---- a/drivers/gpu/drm/mcde/mcde_dsi.c
-+++ b/drivers/gpu/drm/mcde/mcde_dsi.c
-@@ -8,7 +8,6 @@
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
--#include <linux/regulator/consumer.h>
- #include <video/mipi_display.h>
+ 		/*
+@@ -326,6 +333,7 @@ scu@a0410000 {
+ 		 * and various things like spin tables
+ 		 */
+ 		backupram@80150000 {
++			/* This memory is in the VSAFE (always on) power domain */
+ 			compatible = "ste,dbx500-backupram";
+ 			reg = <0x80150000 0x2000>;
+ 		};
+@@ -334,6 +342,7 @@ L2: cache-controller {
+ 			compatible = "arm,pl310-cache";
+ 			reg = <0xa0412000 0x1000>;
+ 			interrupts = <GIC_SPI 13 IRQ_TYPE_LEVEL_HIGH>;
++			power-domains = <&pm_domains DOMAIN_VARM>;
+ 			cache-unified;
+ 			cache-level = <2>;
+ 		};
+@@ -346,6 +355,18 @@ pmu {
+ 		pm_domains: power-controller {
+ 			compatible = "stericsson,ux500-pm-domains";
+ 			#power-domain-cells = <1>;
++			power-domains = <&pm_domains DOMAIN_VAPE>,
++					<&pm_domains DOMAIN_VAPE>,
++					<&pm_domains DOMAIN_VAPE>,
++					<&pm_domains DOMAIN_VAPE>,
++					<&pm_domains DOMAIN_VAPE>,
++					<&pm_domains DOMAIN_VAPE>;
++			power-domains-child-ids = <DOMAIN_SVA_MMDSP>,
++						 <DOMAIN_SVA_PIPE>,
++						 <DOMAIN_SIA_MMDSP>,
++						 <DOMAIN_SIA_PIPE>,
++						 <DOMAIN_SGA>,
++						 <DOMAIN_B2R2_MCDE>;
+ 		};
  
- #include <drm/drm_atomic_helper.h>
+ 		clocks {
+@@ -357,6 +378,7 @@ clocks {
+ 			reg = <0x8012f000 0x1000>, <0x8011f000 0x1000>,
+ 			    <0x8000f000 0x1000>, <0xa03ff000 0x1000>,
+ 			    <0xa03cf000 0x1000>;
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 
+ 			prcmu_clk: prcmu-clock {
+ 				#clock-cells = <1>;
+@@ -393,7 +415,7 @@ mtu@a03c6000 {
+ 			compatible = "st,nomadik-mtu";
+ 			reg = <0xa03c6000 0x1000>;
+ 			interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
+-
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 			clocks = <&prcmu_clk PRCMU_TIMCLK>, <&prcc_pclk 6 6>;
+ 			clock-names = "timclk", "apb_pclk";
+ 		};
+@@ -402,7 +424,7 @@ timer@a0410600 {
+ 			compatible = "arm,cortex-a9-twd-timer";
+ 			reg = <0xa0410600 0x20>;
+ 			interrupts = <GIC_PPI 13 (GIC_CPU_MASK_RAW(3) | IRQ_TYPE_LEVEL_HIGH)>;
+-
++			power-domains = <&pm_domains DOMAIN_VARM>;
+ 			clocks = <&smp_twd_clk>;
+ 		};
+ 
+@@ -410,14 +432,15 @@ watchdog@a0410620 {
+ 			compatible = "arm,cortex-a9-twd-wdt";
+ 			reg = <0xa0410620 0x20>;
+ 			interrupts = <GIC_PPI 14 (GIC_CPU_MASK_RAW(3) | IRQ_TYPE_LEVEL_HIGH)>;
++			power-domains = <&pm_domains DOMAIN_VARM>;
+ 			clocks = <&smp_twd_clk>;
+ 		};
+ 
+ 		rtc@80154000 {
++			/* This peripheral is in the VSAFE (always on) power domain */
+ 			compatible = "arm,pl031", "arm,primecell";
+ 			reg = <0x80154000 0x1000>;
+ 			interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
+-
+ 			clocks = <&rtc_clk>;
+ 			clock-names = "apb_pclk";
+ 		};
+@@ -435,6 +458,7 @@ gpio0: gpio@8012e000 {
+ 			gpio-bank = <0>;
+ 			gpio-ranges = <&pinctrl 0 0 32>;
+ 			clocks = <&prcc_pclk 1 9>;
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 		};
+ 
+ 		gpio1: gpio@8012e080 {
+@@ -450,6 +474,7 @@ gpio1: gpio@8012e080 {
+ 			gpio-bank = <1>;
+ 			gpio-ranges = <&pinctrl 0 32 5>;
+ 			clocks = <&prcc_pclk 1 9>;
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 		};
+ 
+ 		gpio2: gpio@8000e000 {
+@@ -465,6 +490,7 @@ gpio2: gpio@8000e000 {
+ 			gpio-bank = <2>;
+ 			gpio-ranges = <&pinctrl 0 64 32>;
+ 			clocks = <&prcc_pclk 3 8>;
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 		};
+ 
+ 		gpio3: gpio@8000e080 {
+@@ -480,6 +506,7 @@ gpio3: gpio@8000e080 {
+ 			gpio-bank = <3>;
+ 			gpio-ranges = <&pinctrl 0 96 2>;
+ 			clocks = <&prcc_pclk 3 8>;
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 		};
+ 
+ 		gpio4: gpio@8000e100 {
+@@ -495,6 +522,7 @@ gpio4: gpio@8000e100 {
+ 			gpio-bank = <4>;
+ 			gpio-ranges = <&pinctrl 0 128 32>;
+ 			clocks = <&prcc_pclk 3 8>;
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 		};
+ 
+ 		gpio5: gpio@8000e180 {
+@@ -510,6 +538,7 @@ gpio5: gpio@8000e180 {
+ 			gpio-bank = <5>;
+ 			gpio-ranges = <&pinctrl 0 160 12>;
+ 			clocks = <&prcc_pclk 3 8>;
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 		};
+ 
+ 		gpio6: gpio@8011e000 {
+@@ -525,6 +554,7 @@ gpio6: gpio@8011e000 {
+ 			gpio-bank = <6>;
+ 			gpio-ranges = <&pinctrl 0 192 32>;
+ 			clocks = <&prcc_pclk 2 11>;
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 		};
+ 
+ 		gpio7: gpio@8011e080 {
+@@ -540,6 +570,7 @@ gpio7: gpio@8011e080 {
+ 			gpio-bank = <7>;
+ 			gpio-ranges = <&pinctrl 0 224 7>;
+ 			clocks = <&prcc_pclk 2 11>;
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 		};
+ 
+ 		gpio8: gpio@a03fe000 {
+@@ -555,6 +586,7 @@ gpio8: gpio@a03fe000 {
+ 			gpio-bank = <8>;
+ 			gpio-ranges = <&pinctrl 0 256 12>;
+ 			clocks = <&prcc_pclk 5 1>;
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 		};
+ 
+ 		pinctrl: pinctrl {
+@@ -570,6 +602,7 @@ usb_per5@a03e0000 {
+ 			reg = <0xa03e0000 0x10000>;
+ 			interrupts = <GIC_SPI 23 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-names = "mc";
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 
+ 			dr_mode = "otg";
+ 
+@@ -613,9 +646,11 @@ dma: dma-controller@801C0000 {
+ 			memcpy-channels = <56 57 58 59 60>;
+ 
+ 			clocks = <&prcmu_clk PRCMU_DMACLK>;
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 		};
+ 
+ 		prcmu: prcmu@80157000 {
++			/* This peripheral is in the VSAFE (always on) power domain */
+ 			compatible = "stericsson,db8500-prcmu", "syscon";
+ 			reg = <0x80157000 0x2000>, <0x801b0000 0x8000>, <0x801b8000 0x1000>;
+ 			reg-names = "prcmu", "prcmu-tcpm", "prcmu-tcdm";
+@@ -641,6 +676,10 @@ thermal: thermal@801573c0 {
+ 				#thermal-sensor-cells = <0>;
+ 			};
+ 
++			/*
++			 * TODO: Delete these bogus regulators and replace with power
++			 * domains.
++			 */
+ 			db8500-prcmu-regulators {
+ 				compatible = "stericsson,db8500-prcmu-regulator";
+ 
+@@ -932,6 +971,7 @@ serial0: serial@80120000 {
+ 
+ 			clocks = <&prcc_kclk 1 0>, <&prcc_pclk 1 0>;
+ 			clock-names = "uart", "apb_pclk";
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 			resets = <&prcc_reset DB8500_PRCC_1 DB8500_PRCC_1_RESET_UART0>;
+ 
+ 			status = "disabled";
+@@ -948,6 +988,7 @@ serial1: serial@80121000 {
+ 
+ 			clocks = <&prcc_kclk 1 1>, <&prcc_pclk 1 1>;
+ 			clock-names = "uart", "apb_pclk";
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 			resets = <&prcc_reset DB8500_PRCC_1 DB8500_PRCC_1_RESET_UART1>;
+ 
+ 			status = "disabled";
+@@ -964,6 +1005,7 @@ serial2: serial@80007000 {
+ 
+ 			clocks = <&prcc_kclk 3 6>, <&prcc_pclk 3 6>;
+ 			clock-names = "uart", "apb_pclk";
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 			resets = <&prcc_reset DB8500_PRCC_3 DB8500_PRCC_3_RESET_UART2>;
+ 
+ 			status = "disabled";
+@@ -1080,7 +1122,9 @@ msp0: msp@80123000 {
+ 			compatible = "stericsson,ux500-msp-i2s";
+ 			reg = <0x80123000 0x1000>;
+ 			interrupts = <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
++			/* TODO: delete and replace with power-domain handling */
+ 			v-ape-supply = <&db8500_vape_reg>;
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 
+ 			dmas = <&dma 31 0 0x12>, /* Logical - DevToMem - HighPrio */
+ 			       <&dma 31 0 0x10>; /* Logical - MemToDev - HighPrio */
+@@ -1097,7 +1141,9 @@ msp1: msp@80124000 {
+ 			compatible = "stericsson,ux500-msp-i2s";
+ 			reg = <0x80124000 0x1000>;
+ 			interrupts = <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>;
++			/* TODO: delete and replace with power-domain handling */
+ 			v-ape-supply = <&db8500_vape_reg>;
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 
+ 			/* This DMA channel only exist on DB8500 v1 */
+ 			dmas = <&dma 30 0 0x10>; /* Logical - MemToDev - HighPrio */
+@@ -1115,7 +1161,9 @@ msp2: msp@80117000 {
+ 			compatible = "stericsson,ux500-msp-i2s";
+ 			reg = <0x80117000 0x1000>;
+ 			interrupts = <GIC_SPI 98 IRQ_TYPE_LEVEL_HIGH>;
++			/* TODO: delete and replace with power-domain handling */
+ 			v-ape-supply = <&db8500_vape_reg>;
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 
+ 			dmas = <&dma 14 0 0x12>, /* Logical  - DevToMem - HighPrio */
+ 			       <&dma 14 1 0x19>; /* Physical Chan 1 - MemToDev
+@@ -1133,7 +1181,9 @@ msp3: msp@80125000 {
+ 			compatible = "stericsson,ux500-msp-i2s";
+ 			reg = <0x80125000 0x1000>;
+ 			interrupts = <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>;
++			/* TODO: delete and replace with power-domain handling */
+ 			v-ape-supply = <&db8500_vape_reg>;
++			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 
+ 			/* This DMA channel only exist on DB8500 v2 */
+ 			dmas = <&dma 30 0 0x12>; /* Logical - DevToMem - HighPrio */
+@@ -1175,14 +1225,17 @@ gpu@a0300000 {
+ 					  "combined";
+ 			clocks = <&prcmu_clk PRCMU_ACLK>, <&prcmu_clk PRCMU_SGACLK>;
+ 			clock-names = "bus", "core";
++			power-domains = <&pm_domains DOMAIN_SGA>;
++			/* TODO: delete and replace with power-domain handling */
+ 			mali-supply = <&db8500_sga_reg>;
+-			power-domains = <&pm_domains DOMAIN_VAPE>;
+ 		};
+ 
+ 		mcde@a0350000 {
+ 			compatible = "ste,mcde";
+ 			reg = <0xa0350000 0x1000>;
+ 			interrupts = <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
++			power-domains = <&pm_domains DOMAIN_B2R2_MCDE>;
++			/* TODO: delete and replace with power-domain handling */
+ 			epod-supply = <&db8500_b2r2_mcde_reg>;
+ 			clocks = <&prcmu_clk PRCMU_MCDECLK>, /* Main MCDE clock */
+ 				 <&prcmu_clk PRCMU_LCDCLK>, /* LCD clock */
 
 -- 
 2.55.0
