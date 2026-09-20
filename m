@@ -4,47 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50B42C982CC
-	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 09:18:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E38AC982CC
+	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 09:28:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BBAB10E174;
-	Sun, 20 Sep 2026 09:18:23 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70C3C10E174;
- Sun, 20 Sep 2026 09:18:20 +0000 (UTC)
-X-UUID: 3685ee60b4d411f19a56ed5b684f684d-20260920
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19, REQID:42612d84-1e3c-4e25-b768-c423ce21bcbc, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:25
-X-CID-META: VersionHash:7db8b62, CLOUDID:ecfdb6ef14b8cd681db867337ac55f37,
- BulkI
- D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
- 5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
- A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 3685ee60b4d411f19a56ed5b684f684d-20260920
-X-User: yanglinlin@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <yanglinlin@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 2144921555; Sun, 20 Sep 2026 17:18:16 +0800
-From: Linlin Yang <yanglinlin@kylinos.cn>
-To: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, harry.wentland@amd.com, austin.zheng@amd.com,
- jun.lei@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
- Linlin Yang <yanglinlin@kylinos.cn>, k2ci <kernel-bot@kylinos.cn>
-Subject: [PATCH] drm/amd/display: fix __udivdi3 link error in UTM QoS model
-Date: Sun, 20 Sep 2026 17:18:07 +0800
-Message-Id: <20260920091807.667682-1-yanglinlin@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8A2D10E18F;
+	Sun, 20 Sep 2026 09:28:04 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="PRxmCpGt";
+	dkim-atps=neutral
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A141E10E18F
+ for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 09:28:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1789896481;
+ bh=EoI40flYwN+zpgSdnYx5O+fi9UEpSqaecE9jBZjjW3o=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=PRxmCpGt3GUsYG4tG7M1H6BjhtIo0Uh3CwN15Xy6WylIYP/hCx04xCXVSLRGGtKVA
+ 0HY3O4dYtRXyxhnY+gvASluQEXUIiZemmlzowpYN1EUTsddMCB8yH1Fb7TOizzQ3RC
+ F0uLVHB8uhxKD6p39UOWwFxA3KAdAsxD9NREh8gxQ0xWXertJMQdLwHXv+eVV2Nc1X
+ i9Uk0y0j+HUlmA5IwG1WSKM+q08DYXZ1HkNTB6vbdK68SI9AqSBe5tLy1Q0eUX43T4
+ EvhmFA2g384cDc3gBo4ARZhO+KxXF1QBaLASh3ClOjHiPiUTMi5rknq1eJYq6hU10C
+ Q6mbAwxEMd/Hw==
+Received: from localhost (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id CF03E17E056A;
+ Sun, 20 Sep 2026 11:28:00 +0200 (CEST)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Chen-Yu Tsai <wens@kernel.org>, 
+ Samuel Holland <samuel@sholland.org>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Algea Cao <algea.cao@rock-chips.com>, 
+ Daniel Stone <daniels@collabora.com>, Liu Ying <victor.liu@nxp.com>, 
+ Phong LE <ple@baylibre.com>, Helge Deller <deller@gmx.de>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
+ linux-fbdev@vger.kernel.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Sashiko <sashiko-bot@kernel.org>, 
+ Diederik de Haas <diederik@cknow-tech.com>, 
+ Maud Spierings <maud_spierings@hotmail.com>
+In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
+References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
+Subject: Re: (subset) [PATCH v11 00/74] Add HDMI 2.0 support to DW HDMI QP TX
+Message-Id: <178989644664.716970.16229682978817466713.b4-ty@b4>
+Date: Sun, 20 Sep 2026 12:27:26 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-36e3f
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,85 +86,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When building amdgpu for 32-bit x86 (CONFIG_X86_32), modpost fails
-with:
 
-  ERROR: modpost: drivers/gpu/drm/amd/amdgpu/amdgpu.ko: symbol
-  '__udivdi3' undefined!
+On Tue, 01 Sep 2026 21:50:24 +0300, Cristian Ciocaltea wrote:
+> Enable HDMI 2.0 display modes (e.g. 4K@60Hz) on the Synopsys DW HDMI QP
+> TX controller, as found in Rockchip RK3576 & RK3588 SoCs, by adding SCDC
+> management for high TMDS clock ratio and scrambling.  Since SCDC state
+> is lost on sink disconnects, the bridge driver needs to trigger a CRTC
+> reset during connector detection.
+> 
+> To support this at the DRM infrastructure level, the series first
+> introduces the HDMI version enum, then prepares for changing the
+> signature of drmm_connector_hdmi_init(), i.e. dropping the vendor,
+> product, supported_formats and max_bpc arguments, which are being moved
+> into struct drm_connector_hdmi_funcs, by temporarily renaming the helper
+> to drmm_connector_hdmi_ini2().  This lets the new signature be
+> introduced under the original name while callers are converted
+> incrementally.  Note the transitional name matches the original's length
+> so continuation-line arguments stay aligned to the opening parenthesis,
+> keeping the diff to the identifier itself and avoiding re-alignment
+> churn.
+> 
+> [...]
 
-The UTM QoS helpers dchub_v2_get_sop_total_available_bandwidth_KBps()
-and dchub_v2_is_qos_bandwidth_supported_by_sop() divide a 64-bit
-bandwidth product by 100 using the native '/' operator. On 32-bit
-targets GCC lowers this to a __udivdi3() libgcc call, which the
-kernel does not link into modules.
+Applied, thanks!
 
-Replace the raw divisions with div_u64(), the kernel's standard
-64-bit division helper.
+[01/74] video/hdmi: Introduce HDMI version enum
+        commit: f0459aabf9e057920567b22a852ab36966cc291a
+[02/74] drm/connector: hdmi: Handle reset() state allocation failure
+        commit: 54acd0c74eba2a2c9a726856f5fdc6f9e74ea2e1
+[03/74] drm/display: hdmi: Rename drmm_connector_hdmi_init() to *_ini2()
+        commit: 245e321b61e384d956b95a3bfa59ac25ca4609c6
+[04/74] drm/connector: Add drmm_connector_hdmi_init() with new signature
+        commit: 400c9ede1ea4a4f26931a269b60de34cb26d51ec
+[05/74] drm/display: bridge_connector: Convert to drmm_connector_hdmi_init()
+        commit: cc6d8b2f87b97477ae25dcc1adb8e6e5a0088e4a
+[06/74] drm/probe-helper: Introduce .force_ctx() connector callback
+        commit: 9d1e2ae7196dacc90acc00a73b92c11662eb90ca
+[07/74] drm/connector: Add HDMI 2.0 scrambler infrastructure
+        commit: f27fb7e315216b8bddf29297542c471368a672b4
+[08/74] drm/display: scdc-helper: Add macro for connector-prefixed debug messages
+        commit: 62cdbd8d50c510e8b61266e043c04870b7877b8b
+[09/74] drm/display: scdc-helper: Add helper to set SCDC version information
+        commit: f57c2198380fcf475404c159c784d0ee70fa091b
+[10/74] drm/display: hdmi: Add HDMI 2.0 scrambling management helpers
+        commit: d653818324edc79d8dd55f77496220d3849910d0
+[11/74] drm/display: hdmi: Advertise SCDC source version when scrambling
+        commit: bc4dcf6f93778b182ad90233d3049acd9227136c
+[15/74] drm/bridge: Remove redundant error check in drm_bridge_helper_reset_crtc()
+        commit: 44fd815ec6ab5ae8e01de26529fe867bd0c07da1
+[16/74] drm/bridge: Add bridge ops for source-side HDMI 2.0 scrambling
+        commit: 2e37ecb36d8e989a514d5f921eadd91ed178861d
+[17/74] drm/display: bridge_connector: Use cached connector status in .get_modes()
+        commit: 4cf0eae2fc53b6933fe930450b46b20b0cfac4f2
+[18/74] drm/display: bridge_connector: Switch to .detect_ctx() connector helper
+        commit: a23d96ee6afbe7148c462f1ce017425628b4db45
+[19/74] drm/display: bridge_connector: Wire up HDMI 2.0 scrambler callbacks
+        commit: 8e5aa7fe23dbe6e3cba93f4eb1f5f56e2ad70ee7
+[20/74] drm/display: hdmi-state-helper: Add source TMDS rate validation
+        commit: 0f7bb8f4d26abbc27e78e633b44cac2279f0ce1e
+[21/74] drm/display: hdmi-state-helper: Pass acquire ctx to hotplug helpers
+        commit: 43c92f4c887e6ca6bdac1f80ed8087226c71b756
+[22/74] drm/display: hdmi-state-helper: Add drm_atomic_helper_connector_hdmi_force_ctx()
+        commit: 8ed0167d56e3d2ae3a8f8b1423d59de60aa457d4
+[23/74] drm/display: hdmi-state-helper: Sync SCDC state on hotplug
+        commit: 6867cd55ee5530851847ebed6ebab0b9f329e5ba
+[24/74] drm/display: hdmi-state-helper: Set HDMI scrambling requirement
+        commit: 23eef7a1c5f341315e66c1ef60ce525b64f0a2e3
+[25/74] drm/display: bridge_connector: Switch to .force_ctx() connector helper
+        commit: b4e30bf687ab5131ca5aa063abda6d0e9ddbc8e4
 
-Fixes: 7f7d7ea1fa51 ("drm/amd/display: Add new sources for DCN6")
-Reported-by: k2ci <kernel-bot@kylinos.cn>
-Signed-off-by: Linlin Yang <yanglinlin@kylinos.cn>
----
- .../bounding_boxes/utm_qos_model_dchub_v2.h   | 23 +++++++++++--------
- 1 file changed, 13 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h
-index ebca5ddda284..39df427a9ee7 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h
-@@ -3,6 +3,7 @@
- // Copyright 2025 Advanced Micro Devices, Inc.
- #ifndef UTM_QOS_MODEL_DCHUB_V2_H
- #define UTM_QOS_MODEL_DCHUB_V2_H
-+#include <linux/math64.h>
- #include "utm_qos_model_types.h"
- 
- struct utm_qos_model_dchub_memory_path_latency_v2 {
-@@ -63,22 +64,22 @@ static inline void dchub_v2_get_sop_total_available_bandwidth_KBps(
- 	uint64_t dram_available_bandwidth_KBps_urgent;
- 	uint64_t fabric_available_bandwidth_KBps_urgent;
- 
--	dram_available_bandwidth_KBps_nominal = (uint64_t) sop->uclk_khz
-+	dram_available_bandwidth_KBps_nominal = div_u64((uint64_t)sop->uclk_khz
- 			* socbb->dram_channel_count
- 			* socbb->dram_channel_width_bytes
- 			* socbb->dram_transactions_per_clock
--			* socbb->dram_derate_percent_nominal / 100;
--	dram_available_bandwidth_KBps_urgent = (uint64_t) sop->uclk_khz
-+			* socbb->dram_derate_percent_nominal, 100);
-+	dram_available_bandwidth_KBps_urgent = div_u64((uint64_t)sop->uclk_khz
- 			* socbb->dram_channel_count
- 			* socbb->dram_channel_width_bytes
- 			* socbb->dram_transactions_per_clock
--			* socbb->dram_derate_percent_urgent / 100;
--	fabric_available_bandwidth_KBps_nominal = (uint64_t) sop->fclk_khz
-+			* socbb->dram_derate_percent_urgent, 100);
-+	fabric_available_bandwidth_KBps_nominal = div_u64((uint64_t)sop->fclk_khz
- 			* socbb->fabric_datapath_to_dcn_data_return_bytes
--			* socbb->fabric_derate_percent_nominal / 100;
--	fabric_available_bandwidth_KBps_urgent = (uint64_t) sop->fclk_khz
-+			* socbb->fabric_derate_percent_nominal, 100);
-+	fabric_available_bandwidth_KBps_urgent = div_u64((uint64_t)sop->fclk_khz
- 			* socbb->fabric_datapath_to_dcn_data_return_bytes
--			* socbb->fabric_derate_percent_urgent / 100;
-+			* socbb->fabric_derate_percent_urgent, 100);
- 
- 	total_available_bandwidth->nominal_bandwidth_KBps =
- 			dram_available_bandwidth_KBps_nominal < fabric_available_bandwidth_KBps_nominal ?
-@@ -112,9 +113,11 @@ static inline bool dchub_v2_is_qos_bandwidth_supported_by_sop(
- 	nominal_available_bandwidth_KBps = available_bandwidth.nominal_bandwidth_KBps;
- 	urgent_available_bandwidth_KBps = available_bandwidth.urgent_bandwidth_KBps;
- 
--	if ((nominal_available_bandwidth_KBps * nominal_utm_budget_percent / 100) < qos_bandwidth->nominal_bandwidth_KBps)
-+	if (div_u64(nominal_available_bandwidth_KBps * nominal_utm_budget_percent, 100) <
-+			qos_bandwidth->nominal_bandwidth_KBps)
- 		return false;
--	else if ((urgent_available_bandwidth_KBps * urgent_utm_budget_percent / 100) < qos_bandwidth->urgent_bandwidth_KBps)
-+	else if (div_u64(urgent_available_bandwidth_KBps * urgent_utm_budget_percent, 100) <
-+			qos_bandwidth->urgent_bandwidth_KBps)
- 		return false;
- 	else
- 		return true;
+Best regards,
 -- 
-2.25.1
+Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
