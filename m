@@ -4,91 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AFF6C982D0
-	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 06:46:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9864C982D0
+	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 07:36:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89D8A10E115;
-	Sun, 20 Sep 2026 06:46:53 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b="hgui0ygf";
-	dkim-atps=neutral
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com
- [74.125.229.205])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1221010E115
- for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 06:46:51 +0000 (UTC)
-Received: by mail-lf2-f13.google.com with SMTP id
- 2adb3069b0e04-5b5e4f1801fso2051696e87.2
- for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 23:46:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1789886809; x=1790491609;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=NaOoXMCD5+08vNUZK7B5Sw9F8Wgv/VWmCEv3fUCICio=;
- b=hgui0ygfQDTeY5q9s7Orew/ruXzx9raIqHz+qqM276SNKo9XPigpZy2Fi5kWAq6u2v
- YX2q8vQ1bqSdfxBCi6kf4iyzWlE4Ct6xCXGJCsSqR9wc7dVOgp6c1zYlXWvkJMe6PUet
- J4zLXlqCULBnh4qZR74I+WoLRYAqDwU58eOs12WGpVC4pM0fUHy87dG9//1kqnFceLLo
- TiF2p+Y+EsSWXVZQneyrA5f/s/FYITRPOlrjLpcSh+pHUIBFCk4D/LTsih8aodWMiH9f
- xstd8AFsqZKj+2dvBT/N7hu7pJtSrC3c7HeeTMwzm+vcDceWQSDmEQf0jOYzKCTkkjpA
- N29g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789886809; x=1790491609;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=NaOoXMCD5+08vNUZK7B5Sw9F8Wgv/VWmCEv3fUCICio=;
- b=kGGUjlaasvKVMqmZ0OeHfmAZA/+N5sgIaNFNWlywmVOxnDe2h+SNV9C2dZQ6RiccO2
- wo/0aekaEfVKqftRG/p4l2H508p2Yp9eys5RCDENCbIR4y4Fi2kTX6OPZwj/dDW0cPbG
- opoBT/sP7qL6ZPpm65Dj9ZGF+FQbfMF96Rh3JVsht3kI8anfRqreRhZS5aJ8gFf3wCuL
- lCBzTrI1S8jZILS3/6Mm9/4/dfbNtsCtSamnnwnI6MWtIGfKG2/woKUinVHZ7MkNcsrf
- 18+9L4i0Emp2e0GKlZ50XkAsqF3CQQjX/0u71XbfBaOqhD3MN3gsEdBE5iZQwlYvkXLg
- F+vA==
-X-Gm-Message-State: AFuF++krFZNCjozaAEI44T6NMAL/zXYhkdydjApx99QgFaJ71tEhoRfc
- Ny9VPI7dZxVY27tdVymNxrhCXHqSwktivz1TFlRrgNl5Hh0tyhadh/6/YPYJuNgMaks=
-X-Gm-Gg: AYBFou0D13P3ncTgMQt7kFjxt1pxmvJnUY33Oysu2dzjP7GwrNCCKPFr7AyJa930AbD
- 3V8kkwcDFmK+7DaxUp0Tq+xZMc13h2EHq1E5aSk40Wope6Pl4dmyDikbQbs+mW5NnE8+pVVYj4j
- yHVazM/y5SzJ23vtgW0XN+Ndrg9QFAuLIWySQKKw3JGnfhTyAest2IM683O9B1xbCYeBuzg2Mlj
- k+CgnGRfzBeIlzcSsHMQmVNQzOngwDlHq9YPY4SekZ1kKtANkIbbASQ+c4s4mk0EaO8B3CZo+6A
- 8LjOoynkee0oxHFfnnXo8HEldOpOGT/z0aavT4vYJt1Q+/3ZIiEg/dpNjgOAfMLGk0Beq5gj43L
- EQwa1Bd5t2cP+cDdMYrRp23hcMtxqGLB6pfw5sADyqCpBNoLvMWS6Z9N/hrsY35jxJ7qHgFnS/U
- +NuYzHYbcmHSXeGHdGPg+g2G+NM58ZnO1efnodG6UwRqJO0GqYozgVQvZXJnkYvqG9qTHY38q30
- e367ziV
-X-Received: by 2002:a05:6512:3a8d:b0:5b8:c147:f363 with SMTP id
- 2adb3069b0e04-5b8c19618a8mr1949385e87.64.1789886809102; 
- Sat, 19 Sep 2026 23:46:49 -0700 (PDT)
-Received: from localhost ([140.209.217.211]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b8c88d537bsm891722e87.45.2026.09.19.23.46.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 19 Sep 2026 23:46:48 -0700 (PDT)
-Date: Sun, 20 Sep 2026 08:46:44 +0200
-From: Jiri Pirko <jiri@resnulli.us>
-To: Konstantin Sinyuk <ksinyuk@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Francois Dugast <francois.dugast@intel.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski <kuba@kernel.org>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Ilia Levi <ilia.levi@intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-doc@vger.kernel.org,
- linux-kselftest@vger.kernel.org, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, jhs@mojatatu.com,
- jgg@nvidia.com
-Subject: Re: [RFC PATCH 0/12] drm/fabric: vendor-neutral topology
- infrastructure for scale-up accelerator interconnects
-Message-ID: <aq-AwReIVop1qv82@FV6GYCPJ69>
-References: <cover.1787552412.git.ksinyuk@kernel.org>
- <apAsfOowcG0cTvT8@FV6GYCPJ69>
- <fabric-jiri-reply.1788176464.ksinyuk@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB12410E066;
+	Sun, 20 Sep 2026 07:36:32 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71FF010E066
+ for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 07:36:31 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
+ by APP-01 (Coremail) with SMTP id qwCowACXbfHejK9q8PFxCA--.24571S2;
+ Sun, 20 Sep 2026 15:36:00 +0800 (CST)
+Message-ID: <cdb63b93c4a8857ac61b17902369086e9a278dd3.camel@iscas.ac.cn>
+Subject: Re: [PATCH v4 00/20] drm: starfive: jh7110: Enable display subsystem
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Byron Stanoszek <gandalf@winds.org>, Michal Wilczynski
+ <m.wilczynski@samsung.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>,  Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+ Yan <andy.yan@rock-chips.com>, Philipp Zabel	 <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng	
+ <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul
+ Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
+ Belhachemi	 <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
+ Brunet	 <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
+ linux-clk@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, 	linux-riscv@lists.infradead.org, Marek
+ Szyprowski <m.szyprowski@samsung.com>,  Maud Spierings
+ <maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Chaoyi
+ Chen	 <chaoyi.chen@rock-chips.com>, Joshua Peisach <jpeisach@ubuntu.com>,
+ Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=	 <u.kleine-koenig@baylibre.com>
+Date: Sun, 20 Sep 2026 15:35:58 +0800
+In-Reply-To: <b8b046ee-c574-3e16-6079-2fc415633dae@winds.org>
+References: <CGME20260915153213eucas1p148f013af239a334fc78cdc249c0f8a61@eucas1p1.samsung.com>
+ <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+ <b8b046ee-c574-3e16-6079-2fc415633dae@winds.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fabric-jiri-reply.1788176464.ksinyuk@kernel.org>
+X-CM-TRANSID: qwCowACXbfHejK9q8PFxCA--.24571S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3WF1Dtry3JrWxuw1fWFyDKFg_yoWxGr1fpr
+ 18Jr1UGrW8Jr1kJw18Ar1UJry5Zr4UJw1UJr15GFyUA34UJw1jqr1UWr1YgFnrAr4kJr1U
+ Xr1UGrnxZF1DJw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUPKb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+ C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+ 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4xvF2IEb7IF0Fy264kE64k0F24l
+ FcxC0VAYjxAxZF0Ex2IqxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWrXV
+ W3AwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v2
+ 6r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Wrv_Gr1UMIIYrx
+ kI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v2
+ 6r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8Jw
+ CI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJwCE64xvF2IEb7IF0Fy7YxBIdaVFxhVjvjDU
+ 0xZFpf9x07bTTmDUUUUU=
+X-Originating-IP: [112.94.103.44]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,51 +89,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Mon, Aug 31, 2026 at 01:45:15PM +0200, ksinyuk@kernel.org wrote:
->On Thu, Aug 27, 2026 at 02:35:16PM +0200, Jiri Pirko wrote:
->> Using generic netlink instead of sysfs for this makes a lot of sense,
->> but it may be a bit odd to use it outside the networking area.
->> I've been struggling with the same in another non-networking use-case
->> as well.
->
->Agreed, and the series shows the friction. The namespace handling is
->nominal, and CAP_NET_ADMIN as the mutation gate is another borrowed
->part of the model. I went into that in more detail in the reply to
->Jason.
->
->> - One character device per registered instance, not one global family.
->>   Access control is the file: udev rules, ACLs, an fd passed into
->>   a container.
->
->The fd-based access and event model addresses real problems with one
->global family and one multicast group.
->
->The main question is what the CTLV instance would represent. A fabric
->can span multiple devices and has its own lifetime. An endpoint can also
->be detached from a fabric with fabric-id 0 and continue to exist. A
->character device per accelerator would not provide the same global view
->as the current family.
+5ZyoIDIwMjYtMDktMjDml6XnmoQgMDI6MDkgLTA0MDDvvIxCeXJvbiBTdGFub3N6ZWvlhpnpgZPv
+vJoKPiBPbiBUdWUsIDE1IFNlcCAyMDI2LCBNaWNoYWwgV2lsY3p5bnNraSB3cm90ZToKPiAKPiA+
+IFRoaXMgc2VyaWVzIGVuYWJsZXMgdGhlIGRpc3BsYXkgc3Vic3lzdGVtIG9uIHRoZSBTdGFyRml2
+ZSBKSDcxMTAuCj4gCj4gSGkgTWljaGFsLAo+IAo+IEkgdGVzdGVkIHlvdXIgdjQgcGF0Y2ggc2Vy
+aWVzIG9uIG15IFZpc2lvbkZpdmUyIDEuM0Igd2l0aCBrZXJuZWwgNy4zLQo+IHJjMyB0b2RheQo+
+IGFuZCBpdCB3b3JrcyB2ZXJ5IHdlbGwsIGV4Y2VwdCBmb3IgMiBpc3N1ZXMuIE5vdGUsIHRvIG1h
+a2UgdGhlIHNjcmVlbgo+IHJlZnJlc2gKPiBwcm9wZXJseSwgSSBhbSB1c2luZyB0aGUgbm9uY29o
+ZXJlbnQgY2FjaGUgZml4ZXMgZnJvbQo+IGh0dHBzOi8vZ2l0aHViLmNvbS9nYW5ib2luZy1qaDcx
+MTAvbGludXgvY29tbWl0cy9nYW5ib2luZy1qaDcxMTAtY2FjaGUtZml4LXYxLwo+IChzcGVjaWZp
+Y2FsbHkgY29tbWl0cyAzNjgzZDk3LCBlZjkzZTJjLCAyNzdkYjBiLCBhbmQgMjZjZTNlNikgaW4K
+PiBhZGRpdGlvbiB0bwo+IHlvdXIgcGF0Y2guCj4gCj4gSXNzdWUgMTogSSBoYXZlIGEgRGVsbCBV
+MjcxMSBtb25pdG9yIHdoaWNoIGhhcyBsaW1pdGVkIEhETUkgMS4zCj4gY2FwYWJpbGl0eSwgc28K
+PiBJIGludmVudGVkIG15IG93biBYb3JnIG1vZGUgdG8gZ2V0IGEgZ29vZCBmcmFtZSByYXRlOgo+
+IAo+ICIyNTYweDE0NDBfNDAuMjIiwqAgMTYyLjAwwqAgMjU2MCAyNjA4IDI2NDAgMjcyMMKgIDE0
+NDAgMTQ0MyAxNDQ4IDE0ODEKPiAraHN5bmMgLXZzeW5jCj4gCj4gV2l0aCB0aGlzIG1vZGUgYW5k
+IHlvdXIgbmV3IGRyaXZlciwgSSBzdGFydGVkIGdldHRpbmcgcm93cyBvZiBibGFjawo+IHBpeGVs
+cwo+IGZsaWNrZXJpbmcgaW4gdGhlIHVwcGVyLWxlZnQgY29ybmVyIG9mIG15IExDRCBzY3JlZW4u
+IFRoZXNlIHdlcmVuJ3QKPiB0aGVyZSBiYWNrCj4gd2hlbiBJIHdhcyBydW5uaW5nIHRoZSBzYW1l
+IG1vZGUgdW5kZXIgdGhlIEtlaXRoIFpoYW8gZHJpdmVyIGZyb20KPiBTdGFyRml2ZQo+IChkcm0v
+dmVyaXNpbGljb24gdjUgcGx1cyBhIGJ1bmNoIG9mIHBhdGNoZXMgZm9yIGRtYSBjYWNoZSBjb2hl
+cmVuY3kpCj4gKAo+IGh0dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5vcmcvcHJvamVjdC9kcmktZGV2
+ZWwvY292ZXIvMjAyNDExMjAwNjE4NDguMTk2NzU0LTEta2VpdGguemhhb0BzdGFyZml2ZXRlY2gu
+Y29tCj4gLykuCj4gCj4gVGhlIGdsaXRjaGVzIEkgc2F3IHN1Z2dlc3RlZCB0aGUgc3luYyBwb2xh
+cml0eSB3YXMgYmVpbmcgc2V0Cj4gaW5jb3JyZWN0bHk7IHRoZQo+IG51bWJlciBvZiBnbGl0Y2hl
+ZCByb3dzIHdhcyBleGFjdGx5IHRoZSB2c3luYyBwdWxzZSB3aWR0aCBwbHVzIDEKPiAoaS5lLgo+
+ICIxNDQwIDE0NDMgMTQ0OCAxNDgxIiBwcm9kdWNlZCA2IGJhZCByb3dzLCAiMTQ0MCAxNDQzIDE0
+NTYgMTQ4MSIKPiBwcm9kdWNlZCAxNCwKPiAiMTQ0MCAxNDQxIDE0NDIgMTQ4MSIgcHJvZHVjZWQg
+MiwgYW5kIHNvIGZvcnRoKS4KPiAKPiBJIGRpZCBhIHJlZ2lzdGVyIGR1bXAgYmV0d2VlbiB0aGUg
+dHdvIGRyaXZlcnMgYW5kIGZvdW5kIHRoYXQsCj4gYWx0aG91Z2ggdGhlCj4gREM4MjAwIEhTWU5D
+IGFuZCBWU1lOQyByZWdpc3RlcnMgd2VyZSBpZGVudGljYWwgYmV0d2VlbiB0aGUgdHdvCj4gdmVy
+c2lvbnMsIHRoZQo+IGhzeW5jIGFuZCB2c3luYyBiaXRzIG9uIHRoZSBpbm5vIGhkbWkgdHggd2Vy
+ZSBzd2FwcGVkIGJldHdlZW4gdGhlCj4gdHdvLiBXaGVuIEkKPiBtYW51YWxseSBzZXQgdGhlIFZJ
+REVPX1RJTUlOR19DVEwgcmVnaXN0ZXIgZnJvbSAweDA5IHRvIDB4MDUKPiAobWF0Y2hpbmcgdGhl
+Cj4gb3V0cHV0IG9mIEtlaXRoJ3MgZHJpdmVyKSwgdGhlIGdsaXRjaGVzIHdlbnQgYXdheS4KPiAK
+PiBLZWl0aCBaaGFvIGRyaXZlcjoKPiAKPiA9PT0gREM4MjAwIGRpc3BsYXkgMCA9PT0KPiBEQ8Kg
+wqAgUEFORUxfQ09ORklHwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAweDE0MTggPSAweDAw
+MDAxMTExCj4gREPCoMKgIEhTSVpFwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIDB4MTQzMCA9IDB4MEFBMDBBMDAKPiBEQ8KgwqAgSFNZTkPCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgMHgxNDM4ID0gMHg0NTI4MEEzMAo+IERDwqDCoCBW
+U0laRcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAweDE0NDAgPSAw
+eDA1QzkwNUEwCj4gREPCoMKgIFZTWU5DwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIDB4MTQ0OCA9IDB4QzJENDA1QTMKPiBEQ8KgwqAgRFBJX0NPTkZJR8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDB4MTRCOCA9IDB4MDAwMDAwMDUKPiBEQ8KgwqAgRkJf
+Q09ORklHwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAweDE1MTggPSAweDE0MDAw
+MDAwCj4gREPCoMKgIEZCX0FERFJFU1PCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAw
+eDE0MDAgPSAweDcxMjAwMDAwCj4gREPCoMKgIEZCX1NUUklERcKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgMHgxNDA4ID0gMHgwMDAwMjgwMAo+IERDwqDCoCBGQl9TSVpFwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgMHgxODEwID0gMHgwMkQwMEEwMAo+IERD
+wqDCoCBGQl9DT05GSUdfRVjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDB4MUNDMCA9IDB4
+MDAwMDIwMDAKPiBEQ8KgwqAgUEFORUxfU1RBUlTCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgMHgxQ0NDID0gMHgwMDAwMDAwMQo+IERDwqDCoCBEUF9DT05GSUfCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIDB4MUNEMCA9IDB4MDAwMDAwMEEKPiBEQ8KgwqAgRkJfV0FURVJf
+TUFSS8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDB4MUNFOCA9IDB4MDAwMDAwMDAKPiBEQ8Kg
+wqAgUEFORUxfQ09ORklHX0VYwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAweDI1MTggPSAweDAwMDAw
+MDAwCj4gCj4gPT09IElOTk8gSERNSSBUWCB2aWRlbyB0aW1pbmcgPT09Cj4gSERNSSBWSURFT19U
+SU1JTkdfQ1RMwqDCoMKgwqDCoMKgwqDCoMKgwqAgMHgwOMKgwqAgPSAweDA1Cj4gSERNSSBFWFRf
+SFRPVEFMX0zCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDB4MDnCoMKgID0gMHhBMAo+IEhE
+TUkgRVhUX0hUT1RBTF9IwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAweDBBwqDCoCA9IDB4
+MEEKPiBIRE1JIEVYVF9IQkxBTktfTMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgMHgwQsKg
+wqAgPSAweEEwCj4gSERNSSBFWFRfSEJMQU5LX0jCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IDB4MEPCoMKgID0gMHgwMAo+IEhETUkgRVhUX0hERUxBWV9MwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCAweDBEwqDCoCA9IDB4NzAKPiBIRE1JIEVYVF9IREVMQVlfSMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgMHgwRcKgwqAgPSAweDAwCj4gSERNSSBFWFRfSERVUkFUSU9OX0zCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIDB4MEbCoMKgID0gMHgyMAo+IEhETUkgRVhUX0hEVVJBVElPTl9I
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAweDEwwqDCoCA9IDB4MDAKPiBIRE1JIEVYVF9WVE9UQUxf
+TMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgMHgxMcKgwqAgPSAweEM5Cj4gSERNSSBFWFRf
+VlRPVEFMX0jCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDB4MTLCoMKgID0gMHgwNQo+IEhE
+TUkgRVhUX1ZCTEFOS8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDB4MTPCoMKgID0g
+MHgyOQo+IEhETUkgRVhUX1ZERUxBWcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDB4
+MTTCoMKgID0gMHgyNgo+IEhETUkgRVhUX1ZEVVJBVElPTsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIDB4MTXCoMKgID0gMHgwNQo+IAo+IFlvdXIgZHJpdmVyIChzaG93aW5nIG9ubHkgdGhlIGNo
+YW5nZWQgdmFsdWVzKToKPiAKPiBEQ8KgwqAgRFBfQ09ORklHwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCAweDFDRDAgPSAweDAwMDAwMDAwCj4gREPCoMKgIFBBTkVMX0NPTkZJR19F
+WMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgMHgyNTE4ID0gMHgwMDAwMDAwMQo+IEhETUkgVklERU9f
+VElNSU5HX0NUTMKgwqDCoMKgwqDCoMKgwqDCoMKgIDB4MDjCoMKgID0gMHgwOQo+IAo+IFNwZWNp
+ZmljYWxseSB0aGUgYml0I3MgYXJlIGRpZmZlcmVudCBiZXR3ZWVuIHRoZSB0d28gZHJpdmVyczoK
+PiAKPiBpbm5vX2hkbWktc3RhcmZpdmUuaCAoS2VpdGggWmhhbyk6wqDCoMKgwqAgaW5uby1oZG1p
+LmMgKGdlbmVyaWMpOgo+IMKgwqAgdl9IU1lOQ19QT0xBUklUWV9TRihuKcKgICgobikgPDwgMinC
+oMKgwqDCoCB2X0hTWU5DX1BPTEFSSVRZwqAgYml0IDMKPiDCoMKgIHZfVlNZTkNfUE9MQVJJVFlf
+U0YobinCoCAoKG4pIDw8IDMpwqDCoMKgwqAgdl9WU1lOQ19QT0xBUklUWcKgIGJpdCAyCj4gCj4g
+Il9TRiIgc3VnZ2VzdHMgdGhpcyBjaGFuZ2UgaXMgc3BlY2lmaWMgdG8gU3RhckZpdmUuIFRoZSBj
+b3JyZWN0Cj4gcG9zaXRpb25zIGFyZQo+IEhTWU5DPWJpdCAyIGFuZCBWU1lOQz1iaXQgMyBmb3Ig
+dGhlIEpINzExMC4KCkluIGZhY3QgaXQncyBub3QgU0Ygc3BlY2lmaWMsIFsxXSBwZy4xMyAoZnVs
+bCBtYW51YWwgcGFnZSA5NzkpIGFsc28Kc2hvd3MgdGhlIHNhbWUgZm9yIFJLLgoKSXQgY291bGQg
+YmUgYW4gZXJyb3IgZnJvbSBSb2NrY2hpcCBkZXZlbG9wZXJzIHNpbmNlIHRoZSBiZWdpbm5pbmcu
+CgpbMV0KaHR0cHM6Ly9naXRodWIuY29tL0RlY2lIRC9yb2NrY2hpcF9kb2NzL2Jsb2IvbWFpbi9y
+azMxMjgvVFJNLWNoYXB0ZXItMjQtaGRtaS10eC5wZGYKClRoYW5rcywKSWNlbm93eQoKPiAKPiBJ
+J20gZ3Vlc3NpbmcgdGhhdCB5b3VyIDQyLW1vZGUgdGVzdCBwYXNzZWQgYmVjYXVzZSBtb3N0IENF
+QSBtb2RlcyBhcmUKPiAraHN5bmMKPiArdnN5bmMsIGFuZCB0aGlzIHdvdWxkbid0IHNob3cgYW55
+IGRpZmZlcmVuY2UgaWYgdGhlIHR3byBiaXRzIHdlcmUKPiB0cmFuc3Bvc2VkLgo+IAo+IE9uY2Ug
+dGhlIHN5bmMgcG9sYXJpdHkgaXMgc29ydGVkLCBJJ2QgYmUgaGFwcHkgdG8gZ2l2ZSBhIFRlc3Rl
+ZC1ieToKPiBvbiB0aGUKPiBzZXJpZXMuCj4gCj4gwqAgLS0KPiAKPiBJc3N1ZSAyOiBUaGlzIGlz
+IG1vcmUgYSBmZWF0dXJlIHJlcXVlc3QgdGhhbiBhbiBpc3N1ZS4gT3JpZ2luYWxseSwgSQo+IHRy
+aWVkCj4gcnVubmluZyB0aGlzIFhvcmcgbW9kZWxpbmUsIHdoaWNoIHdvcmtlZCB3ZWxsIHVuZGVy
+IEtlaXRoJ3MgZHJpdmVyOgo+IAo+ICIyNTYweDE0NDBfNDkuOTAiwqAgMjAxLjAwwqAgMjU2MCAy
+NjA4IDI2NDAgMjcyMMKgIDE0NDAgMTQ0MyAxNDQ4IDE0ODEKPiAraHN5bmMgLXZzeW5jCj4gCj4g
+SG93ZXZlciwgeW91ciBkcml2ZXIgd291bGQgbm90IGFjY2VwdCB0aGlzIHBpeGVsIGNsb2NrLiBJ
+IHRoZW4KPiBub3RpY2VkIHlvdSBoYXZlCj4gYSBwcmUtUExMIHRhYmxlIG9mIGZpeGVkIGNsb2Nr
+cy4gSXMgdGhlcmUgYW55IGNoYW5jZSB5b3UgY2FuIGNoYW5nZQo+IHRoZSBjb2RlIHRvCj4gY29t
+cHV0ZSB0aGUgcHJlLVBMTCBvbiB0aGUgZmx5IGxpa2UgaG93IEtlaXRoIGRvZXMgaXQsIHJhdGhl
+ciB0aGFuCj4gdXNlIGEgdGFibGU/Cj4gCj4gVGhhbmtzIGZvciBhbGwgeW91ciBncmVhdCB3b3Jr
+IQo+IAo+IEJlc3QgcmVnYXJkcywKPiDCoCAtQnlyb24KPiAKPiAKPiBfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGxpbnV4LXJpc2N2IG1haWxpbmcgbGlz
+dAo+IGxpbnV4LXJpc2N2QGxpc3RzLmluZnJhZGVhZC5vcmcKPiBodHRwOi8vbGlzdHMuaW5mcmFk
+ZWFkLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXJpc2N2Cg==
 
-CTVL is supposed to be just "transport". So however you use it is up to
-you.
-
-
->
->Can a CTLV instance represent a multi-device fabric or the global
->fabric registry rather than one physical device?
-
-Yes, whoever creates the ctlv instance is in charge of the lifecycle.
-
-
->
->> Would this make sense to use for you?
->
->In principle, yes. I cannot base this series on an out-of-tree pre-RFC,
->but the fabric, endpoint, port and peer model is separate from the
->current serialization.
->
->Changing transports would be more than regeneration, so I will read the
->draft before saying more.
->
->Thanks,
->Konstantin
