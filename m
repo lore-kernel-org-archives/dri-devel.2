@@ -4,133 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5251CC982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:00:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32227C982E6
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:00:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2007F10E340;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 395BE10E34A;
 	Mon, 21 Sep 2026 07:00:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EAnlGaZ3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oKQ/xK8Z";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1A4310E21F
- for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 15:09:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7B486431D0;
- Sat, 19 Sep 2026 15:09:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48AD71F000FF;
- Sat, 19 Sep 2026 15:09:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789830584;
- bh=ItRljA0QTwt97l+Rzb+oBvHOLkSySW1764bZK9I66Ok=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=EAnlGaZ3PvA3eD4EGY8ScsYSSfOA3NuPg0sDbUCPy6ciztb4OpKHPUKVNCsw3yYTK
- F5dXTbBszFDFMx49SBhL74XFEgpDqePel1QPLlEnRPCZHmhKtc3C3Y8QRt4P8RTfDW
- /Nifcw76qMRhxrrojdmckuYvA7/eR4f0CHw7r1Z9eFzAmLIrY6jMLOX5tLpcIAlRYI
- ZnXzDASidh8ez3yCFBhWrxVUS9oGdssza/jSZ3fPN118zuj4eAdMjnma5SzA3PTmn0
- c3g/zkLkVjWHOMPyaaZFTkyX4384FbCqHcB4Ayw2h8F62iRMWX893EQKdX2S78phRH
- PhATKi1qYFryA==
-Date: Sat, 19 Sep 2026 16:09:13 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, 
- Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>,
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, 
- Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, 
- Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, 
- bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
- linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev, Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH v2 00/40] mm: make VMA flag semantics explicit, eliminate
- VM_SPECIAL
-Message-ID: <aq6lW9FvL69QeA9H@gremlin>
-References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
- <20260914180811.057cba8fcc48d6e0b53a2683@linux-foundation.org>
- <0b064fe6-ddb3-4f26-a1f2-2e9dd88d590f@kernel.org>
- <CAJuCfpFBichJH4OcmSHTb1rOuQBT6k5pXeua9_KgpWjDBKvsYw@mail.gmail.com>
- <aq6kzpK7wPl3iFGe@gremlin>
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com
+ [74.125.231.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAB0A10E21D
+ for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 01:31:06 +0000 (UTC)
+Received: by mail-oa2-f12.google.com with SMTP id
+ 586e51a60fabf-466ccde2ad8so1475133fac.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 18:31:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789867866; x=1790472666; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=6hTqSEJnD6ZpSU2Pd3zom/nMKHhVqSJvkKONP60toIw=;
+ b=oKQ/xK8Z0PhAZz85YxTUWY2/H/W19gHzFznal+fO52eEV87Z51JG7Up+YWZUruTmsU
+ xrH4mn9hBXzc81MBmq+yjd6Gl2LSbtBvP8CfEQ0YmZvKaLVQfZ/P4FVzc3d6S7qFXpJo
+ Javrx4syJbZHYsCT2F//X50wLn1gP0F8N/TdCviyagkqXB/IyvmB5QK2xg3sdx/PsMG2
+ uJqvALIIxmgQ2UiIPRjUp+jrrrzZnHFQNGoqgnKi1Nkz+8QJZuYq2Dd607NgPot6KCpL
+ ZDvtX8IqsjEhodi3YoROs/Ti8D21XnFBQVP0OObDSyyofydG+UQLHU4fRb+IvJEPMfaH
+ CjMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789867866; x=1790472666;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=6hTqSEJnD6ZpSU2Pd3zom/nMKHhVqSJvkKONP60toIw=;
+ b=p/aF5eFpc17G69/ngj0fGYXNrvF9LzhxqC04FDI0PDJ950pzLul0w9Vmn3Qn7F08Ja
+ XPCRYWtysnIZakKrf4pmTtwztNTtVOE9aS7kiGzB+z3A2UOqbcrVHYbtmPnRxzdgxkjh
+ S6avqsHSLnocVnzl11Rqj+nYyF+925CZTSaVq0F85MtZE0KVYjK7IeC0kt99wNzbYfSC
+ e5+0EZXs3noYdtGpcW+9Js3iJgGlwnNVhvsOuio77zEE02tkkKEzX9uqZPsw0GWcWX/Z
+ qOQYf9Fi5LaRgZBghQFAxtxEg0R80Zac9GXkLTaNafjttqQLlzsQIBG/+JZOl0hQFgga
+ ixxQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwWfcEt7ZSdVUXQwtMMr5WeLnZcudydVrrQ/hWT0cF/dnqotXlw549ELsu1lz4829+BVVjfNisYp1E=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lsj8e4fzq0ZywiR9+W2NoqrAszZzpcoXRD7D1qHWD6Q+3QkPa6
+ HV5hRlR6d7kxNrnnw5KOSoOvyk+1qfjuFIxO5geEUvjBN5hrXSzjHxo/
+X-Gm-Gg: AYBFou2UM70zXnQxIqyucgxXdhse592ySHwyKHWnEeFqZyD2h9wOudaBHVaWJLJDAz3
+ BwHLXQxjbYhWg+V3k2+xiMd2Su6Dj2+bv0BuM3RgZ5ig4yC5syxiMKJKr6G1XuJ8bRpTuzav24B
+ C5AV8x1Nb1m5rd7hX0EFNdP8i706ymXiHpoD5Hk/HCtscR4EjuxdgtSpSnkllpcv9EFnVjVyZ9y
+ fSpqk9NlW6wX+mjSBplUsypHryg25Yrdvb7t3ZuSlqYolA3ZYz8ogyQKC9Wuy9yTjpEA1zAV2b/
+ Cql/UJ8la3xJ1nnU+JDIevtltfEmjKhz1UtawaylLCphJtWdkeO3Pxi6pdAyWgZMimRGSbkaUHI
+ grXS2aELiZWsXkg33HrqJW6/dEuQ9TDkUSwR08M6+0aJcyWtcVUGfQfPfL1CbeBWkjpbMUFiw3k
+ oPQUh/xcJ+0dXkfJCXuBHnmuGVWoA9L2m/usvuFo/L23P0EZo/PPUXfDfwQ/IH9hidl+5ko6of/
+ EGAfIwcJU/PNXkC9BXXXUcfridn5/hCnPf2y01nGQiG28R9Gyx3
+X-Received: by 2002:a05:6870:31a1:b0:485:d31b:775a with SMTP id
+ 586e51a60fabf-486e6de37d1mr7187523fac.24.1789867865863; 
+ Sat, 19 Sep 2026 18:31:05 -0700 (PDT)
+Received: from cachyos-x8664.localdomain ([167.89.205.219])
+ by smtp.gmail.com with ESMTPSA id
+ 586e51a60fabf-48821db449dsm3552088fac.15.2026.09.19.18.31.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 19 Sep 2026 18:31:05 -0700 (PDT)
+From: David Janice <djanice1980@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ dri-devel@lists.freedesktop.org, David Janice <djanice1980@gmail.com>
+Subject: [PATCH] drm/amd/display: Allow 300 ms for HDMI FRL link training at
+ every rate
+Date: Sat, 19 Sep 2026 20:30:50 -0500
+Message-ID: <20260920013050.21259-1-djanice1980@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <aq6kzpK7wPl3iFGe@gremlin>
 X-Mailman-Approved-At: Mon, 21 Sep 2026 07:00:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -147,51 +91,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Sep 19, 2026 at 04:05:57PM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Fri, Sep 18, 2026 at 01:31:24PM -0700, Suren Baghdasaryan wrote:
-> > On Fri, Sep 18, 2026 at 1:21 PM David Hildenbrand (Arm)
-> > <david@kernel.org> wrote:
-> > >
-> > > On 9/15/26 03:08, Andrew Morton wrote:
-> > > > On Mon, 14 Sep 2026 15:57:20 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
-> > > >
-> > > >> The VM_SPECIAL / VMA_SPECIAL_FLAGS mask conflates several unrelated
-> > > >> properties:
-> > > >>
-> > > >> ...
-> > > >>
-> > > >> It's all rather a mess.
-> > > >>
-> > > >> This series brings some order to things by both limiting what drivers can
-> > > >> do with VMA flags and switching to using predicates that describe
-> > > >> behaviour, not arbitrary flags.
-> > > >
-> > > > That's a lot of patches.
-> > > >
-> > > > Review is thin and I expect this won't improve a lot.  Lots of "no
-> > > > functional changes" changes.
-> > >
-> > > I'll expect to go through all of them. Might just take a bit ;)
-> >
-> > ditto
->
-> Thanks guys!
+hdmi_frl_perform_link_training() gives LTS:3 a single budget of 105 polls
+at 2 ms (~210 ms) that starts at the FRL_Rate write and is not restarted
+when the sink raises its first FLT_update with the LTP request. A sink
+that needs close to 200 ms after the LTP request to report lock therefore
+fails whenever its LTP request itself takes more than a few tens of ms.
 
-Note v3 has been posted to fix a stupid bug in 1/40 + attack some very trivial
-sashiko stuff
+Measured on an LG C2 (GSM 49352, 2022) driven by a Strix Halo DP-HDMI
+FRL PCON, DPMS off/on with drm.debug=0x2, kernel 7.2.6:
 
-https://lore.kernel.org/linux-mm/20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org/
+  6G x4  (3840x2160@60 10bpc):  LTP request at poll 11 (~21 ms),
+         lock at poll 100 (~179 ms later): PASSED first try.
+  10G x4 (3840x2160@120 10bpc): LTP request at poll 22 (~44 ms),
+         no lock by poll 105: "FAILED - Timeout waiting for FLT_UPDATE".
+         Retry 200 ms later: LTP request at poll 11, lock at poll 101:
+         PASSED.
 
->
-> >
-> > >
-> > > --
-> > > Cheers,
-> > >
-> > > David
->
-> --
-> Cheers, Lorenzo
+The sink answers FLT_READY on the first poll every time and locks in a
+steady ~180 ms at both rates, so it is neither slow to wake nor
+marginal; the total just does not fit 210 ms once the LTP request is
+late, which happens far more often at 10G. On this system that is the
+difference between reliable DPMS wakes at 4K60 and mostly dark ones at
+4K120: hdmi_frl_perform_link_training_with_retries() retrains at the same
+rate up to four times 200 ms apart and the output is then left dark.
 
---
-Cheers, Lorenzo
+"drm/amd/display: Update and revert FRL LT Timeout behaviour" already
+allows 155 polls (~300 ms) for 16 Gbps and above. Use that budget at
+every rate. With the change applied to 7.2.6, five consecutive DPMS
+wakes at 10G x4 trained on the first attempt; three of them locked at
+poll 104-105, i.e. inside the last 1-2 polls of the old budget.
+
+Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Signed-off-by: David Janice <djanice1980@gmail.com>
+---
+ .../amd/display/dc/link/protocols/link_hdmi_frl.c  | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
+index 7f93009..005feb9 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
+@@ -528,10 +528,18 @@ static enum link_result hdmi_frl_perform_link_training(struct ddc_service *ddc_s
+ 
+ 		FRL_INFO("FRL LINK TRAINING:  Poll for FLT_UPDATE.\n");
+ 		/*LTS:3: Start Link Training*/
+-		/*Start FLT Timer = 200 ms, or 300ms if link rate >= 16Gbps*/
++		/*
++		 * Start FLT Timer = 300 ms. HDMI 2.1 specifies FLT_TIMEOUT = 200 ms,
++		 * but this budget runs from the FRL_Rate write to the final
++		 * FLT_update and some sinks need more than that in total: an LG C2
++		 * (2022) at 10G x4 raises its first FLT_update (the LTP request)
++		 * ~45 ms after the rate write and reports lock a further ~180 ms
++		 * later, ~225 ms in all, so it failed the 105-poll (~210 ms) budget on
++		 * most DPMS wakes at 4K120 while at 6G x4 (~20 ms + ~180 ms) it just
++		 * fit. Use the 300 ms already allowed for >= 16 Gbps at every rate.
++		 */
+ 		num_polls = 0;
+-		if (link_settings->frl_link_rate >= HDMI_FRL_LINK_RATE_16GBPS)
+-			max_polls = 155;
++		max_polls = 155;
+ 
+ 		while (num_polls < max_polls) {
+ 			flt_poll_cur_time = dm_get_timestamp(ddc_service->ctx);
+-- 
+2.55.0
+
