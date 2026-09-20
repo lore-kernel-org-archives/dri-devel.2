@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B683FC982EA
-	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 11:06:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2466CC982DA
+	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 11:06:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0745510E5C6;
-	Sun, 20 Sep 2026 11:06:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BC8A10E590;
+	Sun, 20 Sep 2026 11:06:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rr+wSu4J";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fZ08/1ZG";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0905910E595
- for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 11:05:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 700A610E573
+ for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 11:05:48 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4EB5B4481A;
- Sun, 20 Sep 2026 11:05:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2B31EC4AF0D;
- Sun, 20 Sep 2026 11:05:48 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DD59E447BD;
+ Sun, 20 Sep 2026 11:05:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AA745C4AF0F;
+ Sun, 20 Sep 2026 11:05:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1789902348;
- bh=7lbo0tmJuCrfVNuusObRSYRQ3LhsPSY4no0HnM72Pbs=;
+ s=k20201202; t=1789902347;
+ bh=Y4ctGVmyz0DB+2j5W0yJqcPPlgSZT24HH1A9R2z2pl8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=rr+wSu4JRTa5r4N6QfKiPsW/FPJYUmDdCo17tRMPBcSRvYQQajE0oRTTqrhI0M6LR
- W8pQ4rre72wnBJsWIu3FXNg7WWrBxImcqQfVXpxIDnGb6cuXtem8+KODimp5kTxxVP
- s4csUaeqszDtYRHbfkX0Ge0eaZqrCJBTADOPWDOTU73J7tuEdhdux0r5PGqS/s/q3R
- B65Z7qCSfE2N+wda6JTBn4EHV+djRuMuI22V7r86odXmHsUZBFv0AfmHYW5c3Y/O4Q
- bOzkOaERJVWed0h9FbN16z3yF/pfBddWZ+6fkCgKBn4y/WxIMhnMqScnR//UROZhuq
- pCmqvQ12X+qkA==
+ b=fZ08/1ZGmcNSEgRFIWxdNIMNPZS1EOGkp/RbTVSeISB7NVyhmQtTSI75+Gg+gPtsv
+ 9yCHlQJdl8f4JWX6/u2A7T6+KxEVjmi3C7yo8nz+sD4uw2mb3fmM4jenAR5idMj9Lq
+ e2Ic9CA6l6fJRXmHDB/gHmK+IAz6S/ZLAS4pVzUO6Kll1ncndCvokajFysSYRYCBgJ
+ wKx/A52X8enAT3Tk+v5pf9XORNaSaArcHHk5/WZi5IcYumlBTwiI3hTAdNJmWN00Ny
+ I1ltKh3NXQAI93zsh7AX4zZXAStcKgO954zh8jlPGjfi0Z2srj9U0aTAWYMBO8dMQk
+ HK89rztYx1dqg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 1901EC982E6;
- Sun, 20 Sep 2026 11:05:48 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 9064CC982EE;
+ Sun, 20 Sep 2026 11:05:47 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Sun, 20 Sep 2026 13:05:54 +0200
-Subject: [PATCH 11/11] arm64: dts: qcom: sdm845-google-crosshatch: Add
- display panel
+Date: Sun, 20 Sep 2026 13:05:47 +0200
+Subject: [PATCH 04/11] drm/panel: s6e3ha8: Introduce AMB577PX01 panel
+ compatible
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-crosshatch-panel-v1-11-de6e9512da96@ixit.cz>
+Message-Id: <20260920-crosshatch-panel-v1-4-de6e9512da96@ixit.cz>
 References: <20260920-crosshatch-panel-v1-0-de6e9512da96@ixit.cz>
 In-Reply-To: <20260920-crosshatch-panel-v1-0-de6e9512da96@ixit.cz>
 To: Dzmitry Sankouski <dsankouski@gmail.com>, 
@@ -57,21 +57,21 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2261; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1322; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=YKxaEQ83IRvBzliLWTENjXhw/HISL/i0Wy+mkQdH9Sw=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqr74JMGGtOVCy+5FmoktcbR/n4ppXAal2NLO7R
- q10RdQV1ueJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaq++CQAKCRBgAj/E00kg
- ctW1D/0TCMNB42Yv7b+MJDGzmZ0Oxcssb79dlYpAQ+BCITQeP6KXWWqM++CKKDcxuzimZQntcot
- hElxWayU7FXW5IgSzTUyWcOEU5mA9RTa3Xh7Wc9hwbvJqzN0Ar7zGwhqee5B0FG2gjDfYRDKspe
- Dbg4OyeBs7YrzLXIdry4nNrOqOCyERtswgI0BvFXRhygqdWLL1jgjPWJHAHStscXCMDVgBecgZG
- SWkOuzD1bMYlP60TJQb+pmC5T7XjLLKBTo5R8/u0Pg01jmPVyr1RQR0uPST43iYnM8Rpr3sOYUh
- HHSAXTw/jYKrMBtLFpE8ojO4QhVCNsHacx/Dy+GZe7DDmrSBmIM9yht6A5uI2//4qehI/+egl2+
- 2pCzlZygnYGm1CWnyNP4woTypaIXqwCPY3lJZqfDX8Ocw8tra8nHGotNOT7b048aOt3X10p6d3b
- +X+qyPOMh9CKtmR3qGckBTBFnIJIt/umOQ4FPtAhf4uxxoOOhuCuXVatVEraSLBeKYENyY4gKpF
- 7SOpJKzmmEF8pD2EMw+c4oEf9Yrm8TmlN/y14L9ESwX6oVtDaePTMGJkttvJ5Os8KA3fumfQVzY
- yttTbP1S4ZgXzgST9o8b1Q3M01OqhWNmAHzR2xNS2pnYad9ghqWcohcshrVqcjURLarORXtALiv
- GTbDSZxYnvvN/Cw==
+ bh=vNLA8ljeR4J/HqPCfoTtAaLLmwPmUGSGqujdb8X7JAM=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqr74ILPghpGdFk2JPKioQ/CBEKEUlRYPW8YCxR
+ OabUG9VYbiJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaq++CAAKCRBgAj/E00kg
+ criHEACyex0p+sdn2RW0coN+uPAHjIF1Nex/5Ut0SRCiQak8JtdRY2rPccdKuV+Fx2vMf/hxwW3
+ vtNdETHNiKARn0KMVEAUltCQIZ4SI/e/8T8c94t/oeiGFzwOej8AaQ7O2s4RbRh4QbV4qme/qB2
+ 5W+YK0Nk9/HC0jziYJUREDXmChSvtN5QBMJKOoLA9cXiy/C0zF8enBd9m/MBtN7uFLZDrM2CupR
+ 2vzAL4SQ5TahFxyZNWmQISXJx3wFLhdcuL6L0wGkl0wO36dhV7Xybfp+zRoINtkooiWMoj8NVnX
+ ayu3trGiLtsNqkMGhgn8Rr96OB4ez56UWrP79tCl84N5Z3TxuemfALA3EGDajqljptneSofmIDU
+ cZ01utFMfAvy82fqWNx+efBLt1YXNREdPJhNFYnGzFLMFbDJvYkezEXuEAzZbCa61/PkAKo3gDX
+ aRjeTETO5ZwIvciGFSP53cW5TMvx6sh2uKxYAeRsdIuLDx7vJ+v7vmWWcTc1MFfF2vF7TgL+QL3
+ r+E7P/d/vReuV0fmb/FbL+TnYw6Qd4UT1c1jvnw2U/BO9HyXWuE5wS4+ZZ3qDR1JH4XEoFL+x1S
+ ls2TiR2tKsgK8wORCRePpomYwYGvIRP+UmDNCN0qqgUQbe5p+IHOcUSdBcf1CIQgsVhyobKjUMo
+ vMH3Cv9xY6ecJPQ==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -94,99 +94,40 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: David Heidelberg <david@ixit.cz>
 
-Wire up the Samsung AMB630QY01 AMOLED panel on the Pixel 3 XL and drop
-the MDSS/DISPCC disables that kept simple-framebuffer alive.
+S6E3HA8 is the DDIC, while the panel used on the Samsung Galaxy S9 is
+the Samsung AMB577PX01. Match on the new panel compatible, and keep
+the deprecated DDIC-only one working for existing devicetrees.
 
 Assisted-by: LLM
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- .../boot/dts/qcom/sdm845-google-crosshatch.dts     | 60 +++++++++++++++++++---
- 1 file changed, 52 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts b/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
-index 2a81ca1d00b1b..3b788757b7303 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
-@@ -10,27 +10,71 @@ / {
- };
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+index 835121b322f4a..a0015ac0e2782 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+@@ -296,17 +296,18 @@ static int s6e3ha8_amb577px01_wqhd_probe(struct mipi_dsi_device *dsi)
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+ 		return ret;
+ 	}
  
- &battery {
- 	charge-full-design-microamp-hours = <3480000>;
- 	voltage-min-design-microvolt = <3600000>;
- 	voltage-max-design-microvolt = <4400000>;
- };
+ 	return 0;
+ }
  
--&dispcc {
--	/* Disable for now so simple-framebuffer continues working */
--	status = "disabled";
--};
--
- &framebuffer0 {
- 	width = <1440>;
- 	height = <2960>;
- 	stride = <(1440 * 4)>;
+ static const struct of_device_id s6e3ha8_amb577px01_wqhd_of_match[] = {
+-	{ .compatible = "samsung,s6e3ha8" },
++	{ .compatible = "samsung,s6e3ha8" }, /* deprecated */
++	{ .compatible = "samsung,s6e3ha8-amb577px01" },
+ 	{ /* sentinel */ }
  };
+ MODULE_DEVICE_TABLE(of, s6e3ha8_amb577px01_wqhd_of_match);
  
--&mdss {
--	/* Disable for now so simple-framebuffer continues working */
--	status = "disabled";
-+&ibb {
-+	regulator-min-microvolt = <4600000>;
-+	regulator-max-microvolt = <6000000>;
-+	regulator-over-current-protection;
-+	regulator-pull-down;
-+	regulator-soft-start;
-+};
-+
-+&lab {
-+	regulator-min-microvolt = <4600000>;
-+	regulator-max-microvolt = <6000000>;
-+	regulator-soft-start;
-+	regulator-pull-down;
-+};
-+
-+&mdss_dsi0 {
-+	vdda-supply = <&vdda_mipi_dsi0_1p2>;
-+
-+	status = "okay";
-+
-+	panel@0 {
-+		compatible = "samsung,s6e3ha8-amb630qy01";
-+		reg = <0>;
-+
-+		vdd3-supply = <&vreg_l14a_1p8>;
-+		vci-supply = <&vreg_l28a_3p0>;
-+		vddpos-supply = <&lab>;
-+		vddneg-supply = <&ibb>;
-+
-+		reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
-+
-+		pinctrl-0 = <&panel_default>;
-+		pinctrl-names = "default";
-+
-+		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&mdss_dsi0_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss_dsi0_out {
-+	data-lanes = <0 1 2 3>;
-+	remote-endpoint = <&panel_in>;
-+	qcom,te-source = "mdp_vsync_e";
-+};
-+
-+&mdss_dsi0_phy {
-+	vdds-supply = <&vdda_mipi_dsi0_pll>;
-+
-+	status = "okay";
- };
- 
- &wifi {
- 	qcom,calibration-variant = "Google_crosshatch";
- };
+ static struct mipi_dsi_driver s6e3ha8_amb577px01_wqhd_driver = {
+ 	.probe = s6e3ha8_amb577px01_wqhd_probe,
+ 	.driver = {
+ 		.name = "panel-s6e3ha8",
 
 -- 
 2.55.0
