@@ -4,91 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECC01C982D8
-	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 20:26:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5D9DC982D8
+	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 20:58:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DEC910E17C;
-	Sun, 20 Sep 2026 20:26:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEE5110E10B;
+	Sun, 20 Sep 2026 20:58:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MDL7Wp6N";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a3hQoTit";
 	dkim-atps=neutral
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com
- [74.125.224.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 047E010E17C
- for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 20:26:44 +0000 (UTC)
-Received: by mail-yx2-f12.google.com with SMTP id
- 956f58d0204a3-66e4ab20f4bso2241324d50.0
- for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 13:26:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789936003; cv=none;
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com
+ [74.125.230.205])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DD6D10E10B
+ for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 20:58:53 +0000 (UTC)
+Received: by mail-qk2-f13.google.com with SMTP id
+ d75a77b69052e-52fb766bfd3so19028801cf.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 13:58:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789937932; cv=none;
  d=google.com; s=arc-20260327;
- b=BVbdcWt+HZo12vvn8vXBqFhYRJLxM32JmPad9T6bHvvObqmg59Kmp0yDUwl2QAxQPU
- rAHU3K48OdYmwaquHkf+u41dJs5sgjDVxY9xEA1zkZsySuImt7BkPDpGLVnExZZ/Kjh0
- U51BhXgnR+ewDBJvVFmK00ym8d193UkP4UUcrG7DtAFuOl4vOxOTZUC2Io/TbcOSL7ob
- +Qxyr6XlwllgOwOpMd4r+8g4TYSfOIlKKLsLoFP5MexVXcbvqA6RAKeauVpne9oEo+9r
- FkROHs3mpTbcRcKALWVfIS4iH1XpDa8PzY+8r37ylAIMCnFnj1EIHJQMAkH3sumEC4Iy
- fo4w==
+ b=niCmjzUtJCcMOrei78gc+uNuI7GYEiGOaajoEtklLta+2nLiy9GYANQA1tkh+7wUoz
+ 3HAJM/ge54nCiYq/56UY23vP5lRogQQFqHHciKf5iejyuYgcdlBk0DlgWLQMG3BrI6oy
+ yLSvgUWQOY/kOqi6FRte7ZVZaq8HrsP0M4NQZJ1zVkylqdyZxxT0D36ja1Olv+ncUPVn
+ 5bHdfbIaHyTZpKoSIuBrspAYbiAnWeH0KmdFqSCkeDWxSZCj9tBBdy8KrD97eHFfXbqL
+ R6Pjzei28/9SAW2ovW/dtzS5x9tRABTrB8/at1AkpjHJxEbpTimm4ogiqXeq1ru3423Z
+ 4ehg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=M5Inp0dUK9mWGDzU51sPdtRsOeEciT1UFPFVj3DOFnI=;
- fh=kAGRFKDN7aRGd6VO33HQbsOy3CoTfL4nr4GTMsDqfhg=;
- b=aHRoJWRnAcBha8B4Kfeu9FA6Yeh8K1jSXgZVQKiRxb/9Rb+BhjtM4r/ALA30h6ml2J
- NAoJLZO5fkyGawg8rDX/LOkePhaRzt6hweTNWD6DrXGw059wd/i+kSasW/CnhjTVF0RL
- 2LGI6yRMDvELUtvD9OnjOJzpztFTWJcCFThqUvfbn10fZkaneD4NV/+QrkYaYvACnd3q
- GtwRwd5XxNwMgV9nJ62ZX0BtuSTWZSDBqxftjx5SYUym/1JfSLFN1YWS5wUE40RJeLzU
- Kj2jpITH1uE+JJO5gWckBxLmI7WY5qnmxMkkbj0CaD3zdkDzYiCz5xr1vFX3fO6j4DH5
- Nslw==; darn=lists.freedesktop.org
+ bh=pgbYq9WZp1wLB/tLd6hSmJb2hGfdZ+kAb6DF4bI/cVw=;
+ fh=bxuryAwvSIAmxsCLDTLiMpBfpvWvk8x7CXuCcFeh/4c=;
+ b=KEDcWQ+o6g5aa4TRdlPvduaYREH3ANj5FluEkTqnqWWyv9arSUuMDyObADp0vylShZ
+ D4ytViXVe3THnkYRokXQM+FIVMokg6X8ZElibseXfxJ3sWjuTFB5s/CG3jq3sp3gZHNf
+ mhMFhb+L6mDR9OmBo7Qp6P87yW4yvkrcItuX6y82G2AdCmqN8ZPNeDtsFq7QeICCfAaN
+ QYCIZp8k8aeSamXXAfHJdbeDo1ZW5PIpATwDlRBD5JX+asZg1IPS5HPyKJBbzrr3MT9k
+ HJimob5YWOtsi5KU4ASHoM5FBlmebCLrExUO0gO7DLMqp6Q4ftdIevul1XIgg9Z44Jk5
+ Ht7Q==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789936003; x=1790540803; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1789937932; x=1790542732; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=M5Inp0dUK9mWGDzU51sPdtRsOeEciT1UFPFVj3DOFnI=;
- b=MDL7Wp6NY4qyxYDjaoGJB5xHLhuygMM+PabLDAHhE3wVxgQ2jBIj3WBGN7HdGHITZb
- HcD5pFNHZ6/+89X/lHNXKgkDQeew1WHnpOpIDGRr0+QUI4d00fdFoID44u10tl4QNxRX
- 0jI9tYX1dVq8EG05/6xdhFI+3JTVBxzYHlr0P7RGQpo3kY0cOeoc2dqsI/TIDGopF5/9
- C8Vfj/Qd9EajL3AcBZH8q9C7iqmUK1JEk7R/M4BPKUfMC2QVbSEi9ujG41cxGNia9sc9
- 8ivjynOVNb1kJLdWt5imELSNBKq/iEOgvGw6WvVALIuPUPb2M6ps3OsOjCSZBeJ3JDhz
- y7Fg==
+ bh=pgbYq9WZp1wLB/tLd6hSmJb2hGfdZ+kAb6DF4bI/cVw=;
+ b=a3hQoTitvilYwd1pbgysqJbecjul2qsAT5ufCRBgOhJ7O/d/3BCwghCMuKFGlKXrOn
+ tD0ZBWVUVwOp6hPOeSeZ4O84nMcUxxGGROMfjvOF2ETiNQ/Kd9QFF4U5j76IZKviAc9u
+ uOEzbtFxzzlCsiOoUzVpwF3YYvmdDxpzD5W8W4jRQ8CI1pKh+VNDXASjaCMkqM6L5xq7
+ EcG06hCHUHUMz2iUdbiGgE9wRtfCsYvSNR/zoLAlPaTNgU6fHn4Zq1Py/N1+2MYGHkAs
+ TkZDBQRR882o+WJLCbOj4DocEvj7ol1FSzx26IyfWoUenknLT/hoABTfisqVaLL6zBtL
+ tDiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789936003; x=1790540803;
+ d=1e100.net; s=20260707; t=1789937932; x=1790542732;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=M5Inp0dUK9mWGDzU51sPdtRsOeEciT1UFPFVj3DOFnI=;
- b=FnFM+61A+i3DOOJnv9rT+Levmlv/WrdH0ri965JOpj5kdno59s9ipNP0gC08mftYTy
- 8UO30yzLE91D8UQ9yHWdG2oxMyw6edF0PQhteB1JSB43+EMwB+hYN0/oCxwAQw07CKTw
- LtwSA5NyVZoKf0Lxil/rr4R3ncyDLC0H/qZq76rypvWHq2pmkMj97XNU8ewHcb12t6Bz
- ILOuWlYfosevCoHIImvvrlyeBQGBsB7CjrBT4+4CwqSZVP3jMvKqjngOSZfWHpzpbIz+
- D5dxzYJnG5fcmja4XBpFHrfBjbOgV/h6hVEEQZlDRKdqdpoAQoA4QIE/DfuYF+V3DVhu
- 9ceA==
-X-Gm-Message-State: AFuF++n/nDcq8mWZwtBOPJskxsZM8+HCo9vVeA4jIDRw0Yg5r77ydEi6
- ug2HER9duiTvLE3dj0wTsz5DglSfpCN698c43fCB0KZZsnJP2rO4osnLOQcpdNVxvibgiBHkjaO
- 7lvy2iKFXR5M1q3S51GyEz1bgY38Ym6k=
-X-Gm-Gg: AYBFou0nDVxJ5+Dn2W7i+oo7MpghKnZbfu08mQOVDqQnPR/5DDMQumvljb+Fy6+V3/e
- fImJZ+7a7O6OKVe82iwbjEIiYUK3DRXgMm5swtt3jly/MCRRvavXQW4y5BVmhjqZN5VNaqGscR2
- rhbm2YssUTgthwX7r2OEtpsf2D4uv2DUe14znio4GBb4ppTwd0BVb9jOnSWG7sia3AO/d2c58fp
- GKRulQxHY5W7n/mfXvyrLsOpfbBt89fJm3yHG9KyPjIkiAgDbfeskoytCnkp0xj6bOo4vK1E9HY
- iFMSaYUTp5PF/cIekPaJCbHQWje2FVfzlR/tJml5hQD3JoN8IjNyl5zNOwW+nhLTiW1OtFwNQmt
- ApFVW3nlikXE24AElR6uYEKFQxABjn9fVxwSkqt6guCqU
-X-Received: by 2002:a05:690e:4807:b0:671:4f24:2126 with SMTP id
- 956f58d0204a3-6717fdb0489mr1682517d50.59.1789936002636; Sun, 20 Sep 2026
- 13:26:42 -0700 (PDT)
+ bh=pgbYq9WZp1wLB/tLd6hSmJb2hGfdZ+kAb6DF4bI/cVw=;
+ b=1C8F7AW74pqfIkshWOSj7gHhFSsTQ6mRWYPFxpZACaa6ipB++Mz6+LfVbF+xIwJubr
+ ED/fMEb81bjX4v63gZ/OraMj8colo9CxhMtEMF5VfH7J1FaIuRAxVi9ILhWmsQA60uuN
+ y2gmlbA79st8R3kCpWKwNO6PljsVgwdI+0kI0NdtDN4LNs2WAlFFx4cgDaNgtcnJOpFa
+ vlPVP1jgq1gQ15nMFSFzZUBdhl4DzNWIE1XH+fF8f22IodbXpSAixHlEThe5ccHnWJiu
+ VhdKdnwRheMMbvb3V7W2yuJns2CG5gtw6ST9d/t4aWkwfdt4lD/WfbfA8N2lOve6fHho
+ In7Q==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxYqzHTc+Sy6LpzxKkeePlqnFDcWWBgHOQIFeGhuQDJ+8hmBNeY9c41s+a2dJnMJCXspdbdbYbyKjs=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nz1QqZqhQlFyJrLAMOZQ/OKpsOx2oco/GAXj3nn4HUj7YWb7sD
+ huZWi1OWrjW04tCgKbZ/QSJMSH70kXV4UkTBJCETxTJA7PWlTgdMCJqI+HTX7oh/DIhHkC8SvDd
+ Jx9ijAII/GR0iggfewNZ2GhOMEneS0zk=
+X-Gm-Gg: AYBFou0esjjKBv+oGvHqPhFUCEn4BrknKLhCCyE74Zfgk382XckY++76cysdmQO12Hl
+ lDGp7drY1RNofDn0gVCpXTYEjATteHt9TLmW0PlT/gSjhh1g0t0muvfVQ3bRsYO+K3dk/0zlYrE
+ 4yainky0ilzfUXISZ8ByF5m4QlC29U9Utj3DiJKvRUV9i4bN4qpbltQHwW/ZQSZcOLvhrfOoXH6
+ daotBgMHNSi+5HI6088Z7CblFWX5bkMVRJsji7nae3pMNe+84Ohj4MKck82EYu0C+FmaUaCpz9J
+ jEi0iTcTgohgTLWEFrajPQLFzIKUGOMX3CYPuBzPhilDTQSLIJ5dXmk16w==
+X-Received: by 2002:a05:622a:1650:b0:532:9adc:63a1 with SMTP id
+ d75a77b69052e-532b7405127mr73553621cf.69.1789937932639; Sun, 20 Sep 2026
+ 13:58:52 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
- <20260916-dd-cmap-part2-clean-v10-23-af4cf4767707@gmail.com>
- <20260916162814.434551F000FF@smtp.kernel.org>
-In-Reply-To: <20260916162814.434551F000FF@smtp.kernel.org>
-From: jim.cromie@gmail.com
-Date: Sun, 20 Sep 2026 14:26:16 -0600
-X-Gm-Features: AcwNN1V9f_cj4KFvVBI7cRGxNTARDn_RhISbjMBAMFhOdAADIUHjfDsp-6ULVao
-Message-ID: <CAJfuBxwqBqTWavDX2t1dNx7BkpwrRj67WGcRp4P9ktXig6t3SQ@mail.gmail.com>
-Subject: Re: [PATCH v10 23/38] dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org
+References: <20260918235351.398269-1-cyrozap@gmail.com>
+In-Reply-To: <20260918235351.398269-1-cyrozap@gmail.com>
+From: Forest Crossman <cyrozap@gmail.com>
+Date: Sun, 20 Sep 2026 15:58:40 -0500
+X-Gm-Features: AcwNN1Uwqpqv9Dxa8GL84fQ3gyPZRWEAowqxxoidYtNKJmtJS66HC0S395w6bVw
+Message-ID: <CAO3ALPxvFghs8UOckRVDp=Y6taWE-gWVhwbck9AN_pZPS1oqdA@mail.gmail.com>
+Subject: Re: [PATCH] drm/gm12u320: fix system freeze on surprise unplug
+To: hansg@kernel.org
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -106,136 +107,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 16, 2026 at 10:28=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
+On Fri, Sep 18, 2026 at 6:54=E2=80=AFPM Forest Crossman <cyrozap@gmail.com>=
+ wrote:
 >
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
-> - [High] dyndbg: init_bits relies on _DPRINTK_FLAGS_DEFAULT evaluated in =
-wrong translation unit
-> - [Medium] dyndbg: TOCTOU race in ddebug_sync_classbits() causes out-of-s=
-ync debug state
+> Unplugging (or deauthorizing) a GM12U320 device while it is driving an
+> output causes the system to freeze. When this happens, other screens
+> stop updating and USB input (keyboard and mouse) stops working, but
+> non-USB storage, audio, network and ACPI events are unaffected. Because
+> the unplug never completes, the only way out is a reboot.
+>
+> The kernel log shows a NULL pointer dereference on every such unplug:
+>
+>   BUG: kernel NULL pointer dereference, address: 0000000000000030
+>   RIP: 0010:drm_mode_object_put+0x9/0x20
+>   Call Trace:
+>    drm_atomic_helper_commit_crtc_disable
+>    drm_atomic_helper_commit_tail
+>    commit_tail
+>    drm_atomic_helper_commit
+>    drm_atomic_commit
+>    drm_atomic_helper_disable_all
+>    drm_atomic_helper_shutdown
+>    gm12u320_usb_disconnect
+>    usb_unbind_interface
+>    ...
+>    usb_set_configuration
+>    usb_deauthorize_device
+>    authorized_store
+>
+> The call trace above was caused by triggering a deauthorization, but a
+> physical unplug reaches the same gm12u320_usb_disconnect() path through
+> hub_event/usb_disconnect().
+>
+> The task faults while holding the USB device mutex
+> (usb_set_configuration()) and the DRM modeset locks taken by
+> drm_atomic_helper_shutdown(). Mutexes are not released when a task dies
+> in an oops, so they stay locked forever, with the USB hub workqueue
+> (hub_event) and the DRM framebuffer-removal worker both blocking on
+> them. This is what freezes the system when the driver crashes.
+>
+> gm12u320_stop_fb_update() drops the cached upload framebuffer
+> unconditionally:
+>
+>   old_fb =3D gm12u320->fb_update.fb;
+>   gm12u320->fb_update.fb =3D NULL;
+>   ...
+>   drm_framebuffer_put(old_fb);
+>
+> gm12u320->fb_update.fb is legitimately NULL when no update is queued,
+> for example when the update was already stopped, and
+> drm_framebuffer_put() does not accept NULL. On unplug,
+> gm12u320_usb_disconnect() calls drm_atomic_helper_shutdown(), which
+> commits a CRTC disable and reaches gm12u320_stop_fb_update() with a NULL
+> fb.
+>
+> The NULL check was lost in commit 8f2cb9379fb4 ("drm/gm12u320: Simplify
+> upload work"). That commit moved the reference release out of
+> fb_update.lock (so the framebuffer destructor does not run under the
+> lock), but the previous form guarded the call with "if
+> (gm12u320->fb_update.fb)" and that check was dropped in the rewrite.
+> gm12u320_fb_mark_dirty() still has the same guard.
+>
+> To fix the crash, restore the NULL check before calling
+> drm_framebuffer_put(). With this, the CRTC disable completes, no locks
+> are leaked, and unplugging the GM12U320 device while it is in use no
+> longer freezes the system. Tested by surprise-unplugging the device as
+> the active output--before the change the kernel oopsed and wedged on
+> every attempt, after it there is no oops and no stuck task.
+>
+> Fixes: 8f2cb9379fb4 ("drm/gm12u320: Simplify upload work")
+> Cc: stable@vger.kernel.org
+
+Apologies, all, I've just learned I should have added an "Assisted-by:
+LLM" tag here.
+
+I used an LLM to debug the issue, identify the root cause, write the
+fix, and to write the first draft of the commit message (which I then
+edited significantly before submission).
+
+If you need me to re-send the patch with the tag added, please let me know.
+
+Thanks,
+Forest
+
+> Signed-off-by: Forest Crossman <cyrozap@gmail.com>
+> ---
+>  drivers/gpu/drm/tiny/gm12u320.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/tiny/gm12u320.c b/drivers/gpu/drm/tiny/gm12u=
+320.c
+> index 4ad074337af0..5bb6488556de 100644
+> --- a/drivers/gpu/drm/tiny/gm12u320.c
+> +++ b/drivers/gpu/drm/tiny/gm12u320.c
+> @@ -446,7 +446,8 @@ static void gm12u320_stop_fb_update(struct gm12u320_d=
+evice *gm12u320)
+>         iosys_map_clear(&gm12u320->fb_update.src_map);
+>         mutex_unlock(&gm12u320->fb_update.lock);
+>
+> -       drm_framebuffer_put(old_fb);
+> +       if (old_fb)
+> +               drm_framebuffer_put(old_fb);
+>  }
+>
+>  static int gm12u320_set_ecomode(struct gm12u320_device *gm12u320)
+>
+> base-commit: 1717fcc5be575d4768279148ae9465a8b13d4339
 > --
+> 2.55.0
 >
-> commit 3b29729057e8a4b4e0401fd7f3a74205f701c129
-> Author: Jim Cromie <jim.cromie@gmail.com>
->
-> dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
->
-> This commit replaces DECLARE_DYNDBG_CLASSMAP with an explicit client-serv=
-er
-> model using DYNAMIC_DEBUG_CLASSMAP_DEFINE and DYNAMIC_DEBUG_CLASSMAP_USE.
-> At module load time, it resolves reference records and automatically appl=
-ies
-> the initial bitmap to the module.
->
-> Cc: linux-doc@vger.kernel.org
->
-> > diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-> > index 03dc35af4faa1..566c3860d7bfb 100644
-> > --- a/lib/dynamic_debug.c
-> > +++ b/lib/dynamic_debug.c
-> [ ... ]
-> > +static void ddebug_sync_classbits(const struct kernel_param *kp, const=
- char *modname)
-> > +{
-> > +     const struct ddebug_class_param *dcp =3D kp->arg;
-> > +     u32 val, new_bits, init_bits;
-> > +
-> > +     if (!dcp || !dcp->map)
-> > +             return;
-> > +
-> > +     init_bits =3D (_DPRINTK_FLAGS_DEFAULT & _DPRINTK_FLAGS_PRINT) ?
-> > +             CLASSMAP_BITMASK(dcp->map->length) : 0;
->
-> [Severity: High]
-> Does this evaluate _DPRINTK_FLAGS_DEFAULT in the context of the dynamic
-> debug library rather than the target module's translation unit? Since
-> dynamic_debug.c is not compiled with -DDEBUG, init_bits will always be
-> evaluated as 0 here. Could this prevent the system from properly disablin=
-g
-> callsites for modules that are loaded and compiled with -DDEBUG?
->
-
-yes. this code is misleading and has been removed.
-
-what needs to be said ( Im looking for the place to say it once) is:
-
-DEBUG is a local override  (1 file, or even 1 func,line )
-to a param, which cannot possibly express its full range of behaviors
-
-when DEBUG is used, it is honored.
-In this case, to truly turn off the enabled sites, toggle them on,
-then off again.
-
-something like that..
-
-
-> > +
-> > +     switch (dcp->map->map_type) {
-> > +     case DD_CLASS_TYPE_DISJOINT_BITS:
-> > +             val =3D READ_ONCE(*dcp->bits);
-> > +             new_bits =3D val;
-> > +             v2pr_info("  %s: classbits: 0x%x\n", KP_NAME(kp), new_bit=
-s);
-> > +             ddebug_apply_class_bitmap(dcp, &new_bits, init_bits, modn=
-ame);
-> > +             break;
-> [ ... ]
-> > @@ -1238,12 +1410,17 @@ static int ddebug_add_module(struct _ddebug_inf=
-o *di)
-> [ ... ]
-> >       mutex_lock(&ddebug_lock);
-> >       list_add_tail(&dt->link, &ddebug_tables);
-> >       mutex_unlock(&ddebug_lock);
-> >
-> > -     vpr_info("%3u debug prints in module %s\n", di->descs.len, di->mo=
-d_name);
-> > +     if (dt->info.users.len)
-> > +             ddebug_apply_class_users(&dt->info);
->
-> [Severity: Medium]
-> Could this introduce a time-of-check to time-of-use (TOCTOU) race conditi=
-on
-> between module loading and concurrent sysfs updates?
->
-> Once ddebug_add_module() adds the module to ddebug_tables and drops the
-> ddebug_lock, it proceeds to call ddebug_apply_class_users() (which then
-> calls ddebug_sync_classbits()).
->
-
- In ddebug_add_module(), linking dt to the global ddebug_tables list
-  and releasing ddebug_lock before calling ddebug_apply_class_maps() and
-  ddebug_apply_class_users() is structurally required.
-
-any changes to be made by apply-class-* only work cuz the module is on
-the list scanned by ddebug-change() - which takes the lock, so we cannot.
-
-
-Publishing dt on ddebug_tables is sufficient for both definers (maps)
-  and users (users). The kernel module loader guarantees that definers
-  load before users via ELF symbol dependencies on the exported classmap
-  struct. Once linked, ddebug_find_valid_class() symmetrically resolves
-  class_ids across di->maps and di->users, ddebug_apply_params()
-  binds controlling_param and synchronizes initial bits, and the module
-  is automatically included in all subsequent runtime sysfs writes and
-  ">control" queries without requiring secondary registration.
-
-
-> In ddebug_sync_classbits(), the parameter value is read via
-> READ_ONCE(*dcp->bits) without holding the lock. If a concurrent sysfs wri=
-te
-> updates the parameter and applies it to all modules in ddebug_tables
-> (including this newly added one), could the module load thread subsequent=
-ly
-> resume and apply the stale value it just read, leaving this module's debu=
-g
-> state out-of-sync with the global parameter?
->
-
-since the effect of a param change is to call ddebug_change() which
-takes the lock.
-taking it around the param ingestion also sounds like a bad idea.
-
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-dd-cmap-=
-part2-clean-v10-0-af4cf4767707@gmail.com?part=3D23
