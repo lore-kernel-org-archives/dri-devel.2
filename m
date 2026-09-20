@@ -4,91 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9EB6C982E1
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:01:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18BA6C982ED
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:01:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CD9910E3D7;
-	Mon, 21 Sep 2026 07:00:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41EC110E438;
+	Mon, 21 Sep 2026 07:00:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=edu-teu-ac-jp.20251104.gappssmtp.com header.i=@edu-teu-ac-jp.20251104.gappssmtp.com header.b="0Ngyz/5l";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="KhO8TJY5";
 	dkim-atps=neutral
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com
- [74.125.230.235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28E9510E4EA
- for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 17:17:49 +0000 (UTC)
-Received: by mail-qk2-f43.google.com with SMTP id
- d75a77b69052e-52fb766bfd6so16765611cf.1
- for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 10:17:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789838268; cv=none;
- d=google.com; s=arc-20260327;
- b=QEjWuU/sWoDLpbYtly/oKRftM6z0BiogxKtNNZmgsMnzu4NS16YjYEMNYnQ5g7aU1K
- hd+knNDAXh8D53DPyLXAb6sOT60s+dsBClVfoB5zhYT7VjDeRIA6XsyBd4S/roXlPIBc
- ONbOAZ3pZkotbBslcEF/0j7MkhT3SpxbbgfxakLjk87S/0klFj/o9dJM2r7ngBB9to8A
- BSUp1DCXsi4HeaFrrn5OF2wn8Co4cJnNk1j3ADL4xDVvu3NebmTLSo6l71ljJs80zurl
- zIhGJNYbWcirzX2/5yzLH4615hn9MUQeIy0FTeYyZTCw3njYX1pUuWhHN/TFhqr+QiM8
- KPQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=R7Ve6g6OCN8ExCi1nsElpX9hN7po+G0Rv1PjpYZh+Sk=;
- fh=710RK7yHHFZ1ldWII+eVJX/YjRhLfMkLChYTC2AP0Xk=;
- b=KvdPNZd1XMtG53+yw/2izNiPPG60MAxNsjK7KuLhmyibe6K0HL11m3pXkSJ1MzJx9i
- 7kh+wzdlNYd09n/uNXaF2ExuDgq2hxP+Dj7jbRkSqmW38oJLkhfaPNYzNBNjTzUqmbcg
- GRxQvapF12MtfKc/Hh+7Yymxyi3PG36N6i5BgreZpdb0v/qMK/7b0x9V7d5Lq6gMc9fn
- a0Vbom5bOqv5T3INMKuPhcOYK1BkqvO8OzPLqlHql98qWnSM4FfDvzHy2OZ7TWkHGlox
- K1TU2T6GPvSJYNGgi5DlU+AUsmiCCtSONYh75zZ0Uwvc+ujyiJpZIQ0M5ZMmYesnVomB
- 1P0w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=edu-teu-ac-jp.20251104.gappssmtp.com; s=20251104; t=1789838268; x=1790443068;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=R7Ve6g6OCN8ExCi1nsElpX9hN7po+G0Rv1PjpYZh+Sk=;
- b=0Ngyz/5lLySNE6xsxpfhxSiXWl/tnDag/bugkPWbgrAmyNTNVu42CsoJqO3VbN5xwy
- hKjJyKntiDGvfCWTheAvsVeOvioZUsQ6Yx7NJEDU0rHhj6GLJMHGQ1nsrTQOrccgOYNg
- C1Fj/O/8jtliPqz6FelisGTzXjYp+A9fiI471Q9KjZN+PAQt/zUXyL/q3G+na+3Qbe90
- DI++Tco9AT3VH8LZMHyueNP6/4j5CDiUPYfqA5C8aHsh4LkKIJm0yYAAghxDEZW20CDU
- j3bdWTxtA4VodXB2JHx69xH4QLuK9vd1466yaYfzeYsCUWPvlUely4jj0wOxC6Q1rzS/
- YU5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789838268; x=1790443068;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=R7Ve6g6OCN8ExCi1nsElpX9hN7po+G0Rv1PjpYZh+Sk=;
- b=VfNyPyr3FyMF32ZMPqTuhjOZ1+NCnvGI7oMYN6GmpNXfy4WinX6SsYKydi26gi2sUT
- SGojmUHh0BkLieSan4UKq2dGE0k3r1vE4xm/zPLFsntsUag33PBJiXt+g3ZuQ4+atlCc
- F1UQw08UimnKkzMBAN6XfLt3whhQHM9EEGyVW13G+Mwpyn+vNLSdBSn/M1UUNPX/6lpR
- ThcM+3fk34TByIxhWstIqgt9f0mubUOrKUAQZBZr0/pI975u7L6cMhu/UqTjyYA8AROa
- oHVY4MTQFx6hs+BfdTTT2ibqQN/kllDlnQBYg0X+Ki0GOgbw6NigNT5KJPNegX2Z8dBc
- l13w==
-X-Gm-Message-State: AFuF++l5yCaHBjmlrKnM62z8fLwN7NrbAhKI8zGhvFbB67NQiuYyWQOm
- IrEGOhx3pVkW37OdKyIqNEbK0HFmT8uwolZQBS5QWz2XgeBk5BY7hxJ6iK5zLDh6p0Gq2sBWpLZ
- ThPqMtWef4Kdk5PwFi50x+MBtfuBcup3hsPWBYusP31F965IYmZ1u
-X-Gm-Gg: AYBFou3rUFMjMj1Zdo5fYwjNHSwIRuOwmSKV4hVrDC1HirE2ggSrCFoApZj6fG3qegs
- Zb5Kxt5zF/9lfMWSA1pZGMsvcyBJPCkeOM1BQalJF/b63ugDUbKnRIVRdSSxGAPWsNVh0FjWr7r
- 36ypWAYo2+XEmyKbMnAnTmLOEf6sC6i7RfUf+3L39q2DpVpOLi18OQjIGfBX7c6IRYU8d1FhhcS
- TLfU+Fap258vukCzUV5vLuNqlHEQ3OaYLV9KaXQ/GFXx0zx4by/iQQFCZYpcZ710he64v8Q+VmM
- Xqe5Py8lferakzMBL2QFElNe7CbiOFKb7Uvrl9TVrTAipnvEHJ6+1xPNeIsubHIf6dBAR63e4u4
- w2d0l33U7rmY=
-X-Received: by 2002:ac8:7fcd:0:b0:532:9ef6:dfc0 with SMTP id
- d75a77b69052e-532b73a14f4mr25523091cf.53.1789838268482; Sat, 19 Sep 2026
- 10:17:48 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
- Sat, 19 Sep 2026 12:17:48 -0500
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
- Sat, 19 Sep 2026 12:17:48 -0500
+X-Greylist: delayed 395 seconds by postgrey-1.36 at gabe;
+ Sun, 20 Sep 2026 03:51:12 UTC
+Received: from mail-proxy49146.mail.163.com (mail-proxy49146.mail.163.com
+ [45.254.49.146])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13C6110E22A;
+ Sun, 20 Sep 2026 03:51:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=/4
+ 6K7CKA4FLhX8P6PiPB9A09fZBI9tPYG8e8QYie1OE=; b=KhO8TJY5g1a3ioZPnF
+ cuXNGN9dUvAgRLekldk2ssfQBCsNtmDCmjJmQhOVU1d9K02XaScw6d6OHgtak8Jj
+ 2ok7aQWYd7itUYCjuwwB1VDrvPF/lzLwRz1/rLXK8GZ3vn80ttzk8/AwiOnttNv1
+ QxkvN4H3har5U7egTcO+v9CgQ=
+Received: from localhost.localdomain (unknown [])
+ by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wCnd59jVq9qEHkyBg--.226S2;
+ Sun, 20 Sep 2026 11:43:34 +0800 (CST)
+From: Pengpeng Hou <hppiscas@163.com>
+To: alessio.belle@imgtec.com
+Cc: luigi.santivetti@imgtec.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, imagination@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ frank.binns@imgtec.com, matt.coster@imgtec.com, sarah.walker@imgtec.com,
+ donald.robson@imgtec.com, boris.brezillon@collabora.com, hppiscas@163.com
+Subject: [PATCH v2] drm/imagination: clamp freelist reconstruction requests
+Date: Sun, 20 Sep 2026 11:43:29 +0800
+Message-ID: <20260920034329.16614-1-hppiscas@163.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-From: =?UTF-8?B?6LWk5bKh5oKg?= <c0a25004a6@edu.teu.ac.jp>
-Date: Sat, 19 Sep 2026 12:17:48 -0500
-X-Gm-Features: AcwNN1U6eW3sJMNWTyX3MG-4-eOsK_LMjyjSvhVim6hgfUZWI9wia56GdOESNko
-Message-ID: <CA+Y9VQPNWWGFqErKbbM+S2PcEXbJ30O71sA6h8s-+YVRMC51TQ@mail.gmail.com>
-Subject: [REGRESSION] drm/ttm: NULL dereference in ttm_resource_add_bulk_move
- after OOM on Navi32
-To: dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wCnd59jVq9qEHkyBg--.226S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJw47Jr43Kr48WF1xAw15XFb_yoW5GF43pa
+ 95CayUJrWkJa1IgrsxA3Wjqa45Aan7A3WfKry5WwnrZr13trs0ya9akF15Xry5trs7Zr47
+ ArnFgrZ5ZF4UA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziBMKNUUUUU=
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbCxQY1-WqvVmaBAQAA3+
 X-Mailman-Approved-At: Mon, 21 Sep 2026 07:00:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,82 +63,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-CachyOS package issue: https://github.com/CachyOS/linux-cachyos/issues/1058
+The firmware reconstruction count controls accesses to the request's
+fixed freelist ID array and the copy into the fixed response array.
+Neither access currently bounds the count to those protocol arrays.
 
-Hi,
+Clamp the count to the request capacity, which is shared by the response
+layout, and use that count consistently for reconstruction and response
+publication. Keep the firmware recovery exchange instead of dropping an
+oversized request without a response, as discussed with the firmware
+maintainer.
 
-I hit a kernel Oops in the AMDGPU/TTM swapout path on a Radeon RX 7800 XT. The
-failure happened immediately after a global OOM condition and was followed by an
-RCU stall and a host reset.
+The issue was found by our static-analysis tool.
 
-The kernel was `7.2.4-1-cachyos` on CachyOS. The GPU is a Sapphire Navi32 / RX
-7800 XT (`1002:747e`, subsystem `1da2:475d`). The relevant userspace versions
-were Mesa `26.2.2-2`, KWin/Plasma `6.7.5-1.1`, and libdrm `2.4.134-1.1`.
+Fixes: 6eedddab733b ("drm/imagination: Implement free list and HWRT create and destroy ioctls")
+Assisted-by: gpt 5
+Signed-off-by: Pengpeng Hou <hppiscas@163.com>
+---
+Changes since v1:
+https://lore.kernel.org/all/20260813152759.35856-1-pengpeng@iscas.ac.cn/
+Include drm_print.h for drm_warn_once(), brace the multiline warning
+block, and shorten its text as Alessio requested.
 
-The first failure in the affected boot was:
+ drivers/gpu/drm/imagination/pvr_free_list.c |   15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-```text
-kswapd0 invoked oom-killer: gfp_mask=0xcc0(GFP_KERNEL), order=0
-oom-kill: ... global_oom ...
-Out of memory: Killed process <redacted>
+diff --git a/drivers/gpu/drm/imagination/pvr_free_list.c b/drivers/gpu/drm/imagination/pvr_free_list.c
+index e85cac83834c..faf5e586d8dc 100644
+--- a/drivers/gpu/drm/imagination/pvr_free_list.c
++++ b/drivers/gpu/drm/imagination/pvr_free_list.c
+@@ -8,6 +8,7 @@
+ #include "pvr_vm.h"
+ 
+ #include <drm/drm_gem.h>
++#include <drm/drm_print.h>
+ #include <linux/slab.h>
+ #include <linux/xarray.h>
+ #include <uapi/drm/pvr_drm.h>
+@@ -612,13 +613,21 @@ pvr_free_list_process_reconstruct_req(struct pvr_device *pvr_dev,
+ 	};
+ 	struct rogue_fwif_freelists_reconstruction_data *resp =
+ 		&resp_cmd.cmd_data.free_lists_reconstruction_data;
++	u32 count = min_t(u32, req->freelist_count,
++			  ARRAY_SIZE(req->freelist_ids));
+ 
+-	for (u32 i = 0; i < req->freelist_count; i++)
++	if (count != req->freelist_count) {
++		drm_warn_once(from_pvr_device(pvr_dev),
++			      "Requested reconstruction of %u freelists, limiting to %u\n",
++			      req->freelist_count, count);
++	}
++
++	for (u32 i = 0; i < count; i++)
+ 		pvr_free_list_reconstruct(pvr_dev, req->freelist_ids[i]);
+ 
+-	resp->freelist_count = req->freelist_count;
++	resp->freelist_count = count;
+ 	memcpy(resp->freelist_ids, req->freelist_ids,
+-	       req->freelist_count * sizeof(resp->freelist_ids[0]));
++	       count * sizeof(resp->freelist_ids[0]));
+ 
+ 	WARN_ON(pvr_kccb_send_cmd(pvr_dev, &resp_cmd, NULL));
+ }
 
-amdgpu 0000:03:00.0: [drm] *ERROR* Not enough memory for command submission!
-WARNING: drivers/gpu/drm/ttm/ttm_resource.c:235
-    at ttm_resource_add_bulk_move+0x124/0x150 [ttm]
-BUG: kernel NULL pointer dereference, address: 0000000000000008
-Oops: Oops: 0000 [#1] SMP NOPTI
-RIP: ttm_resource_add_bulk_move+0xc9/0x150 [ttm]
-```
+base-commit: 518e5b794c06c0f0eb40df3e202274a66202c137
+-- 
+2.50.1 (Apple Git-155)
 
-The call chain was:
-
-```text
-ttm_resource_add_bulk_move
-ttm_resource_alloc
-ttm_bo_swapout_cb
-ttm_lru_walk_for_evict
-ttm_bo_swapout
-ttm_global_swapout
-ttm_tt_populate
-ttm_bo_populate
-ttm_bo_vm_fault_reserved
-amdgpu_gem_fault
-```
-
-After the Oops, an `amdgpu` KFD cleanup worker and an `amdgpu_drm_release`
-path were both blocked on TTM-related spinlocks. The journal does not contain
-`Kernel panic - not syncing`; I am calling this an Oops followed by a lockup or
-reset, not a confirmed formal panic.
-
-This looks related to the recent TTM fixes:
-
-- [3db7d7d](https://github.com/torvalds/linux/commit/3db7d7d583419f7b1f2e141e36418802dbb25cf8)
-  fixes swapped-out resources remaining in a `bulk_move` range.
-- [fcfe647](https://github.com/torvalds/linux/commit/fcfe64715b425262af1b36f498f9197f3537ceed)
-  changes the cleanup condition after `ttm_tt_swapout()` from `if (!ret)` to
-  `if (ret > 0)`.
-
-I checked the source release used for `linux-cachyos 7.2.4-1`:
-[`cachyos-7.2.4-1`](https://github.com/CachyOS/linux/releases/tag/cachyos-7.2.4-1).
-It still contains:
-
-```c
-ret = ttm_tt_swapout(bdev, tt, swapout_walk->gfp_flags);
-if (!ret) {
-        ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
-        ttm_resource_move_to_lru_tail(bo->resource);
-}
-```
-
-The installed `ttm.ko` has the matching `test eax,eax` / `jne` branch, so the
-installed binary also has the old zero-only condition. The CachyOS 7.2.4
-packaging recipe does not list a TTM bulk-move patch. The current
-`cachyos-7.2.6-1` source release also still contains `if (!ret)` at this call
-site; 7.2.6 has not been boot-tested on the affected host.
-
-The kernel was tainted with `CPU_OUT_OF_SPEC`, `OOT_MODULE`, and
-`UNSIGNED_MODULE`; the Oops also set `WARN` and `DIE`.
-
-Does this match the stale `bulk_move` endpoint issue fixed by
-`3db7d7d`/`fcfe647`,
-and should those fixes be backported to kernels based on 7.2.4?
