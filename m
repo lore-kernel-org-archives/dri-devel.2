@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E74DC982DA
-	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 23:03:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73E54C982DA
+	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 23:04:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F1CF10E2CB;
-	Sun, 20 Sep 2026 23:03:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAA5710E2CE;
+	Sun, 20 Sep 2026 23:04:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="alml1slu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gfsUZSuO";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3741210E2CB
- for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 23:03:19 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5661710E2CE
+ for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 23:04:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7EC67600C8
- for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 23:03:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8B731F000FF;
- Sun, 20 Sep 2026 23:03:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 263B941A81
+ for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 23:04:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADB9E1F000FF;
+ Sun, 20 Sep 2026 23:04:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789945398;
- bh=26oe2jAPoqXYwEcHfcDDT78TNErQ6LyHQyIVEG51aVg=;
+ s=k20260515; t=1789945459;
+ bh=y5HMVEXBVraEnCve9zqmIAmaWWudumnmk4J3ANN6sbw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=alml1sludyQ5vrL93jPdo3vsD10VJPvpR9X6V2cUW23xGHKIXYEPCjkSrVmz1gsJP
- IGYP/y2AQ1MdL2z6JcWvbeJ2frlwpc52MSRPEm5JQfOT4Tz4PHnUdp2RAZ83TWRdf5
- 088AT20+aPG5ybGnFlurGnylXzmjeNgLK5iXCidZIOiuy6JyTGv4mcYaTGj/C97L4Z
- egd8sjguEwyUWTi93svE7mCFPTd4ywAn6GCizRJlW031pCNqUjMGTyQGuWiaJ+Eolv
- eQX8D3SLDZ92OYRMzOApO+xonnh5M/1pZb5yLOuw8yUOL0BgiO5dfm/cdTX3qRFJ86
- H3yul7z1IZhWQ==
+ b=gfsUZSuOviJEaHccNBOPM0nmvMCsLRFc/mW/v6HzDMXFsodwtPtIxpKLaOGYmA4Cr
+ OlSd8qwpGYm6quN557xiZFnNq5RjLcU46z8b+0CmVEjfqS8mmtsT2nnuL714D5he1p
+ MpolI9FRG423DeCFfc43LtCBBc/gL39DYQ1YKKqHfHWjhqeQHMEjZ3Wahu8n6EEeld
+ u8HSimE1NQzeGvBpp/YQ+kd5Pb9L7WkLYhMY7+u1eopYbwkR+ioaVxO6d8SDiwQ1zf
+ nmLyXy4ilbHRDrRDWXW0aCrVrREC9sFshpRr2P/FVuso25nrACCj126nuk1bAw11ub
+ HpWJNeoQ4iLCw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 15/18] dmaengine: ste_dma40: Use power domain for
- LCLA SRAM
+Subject: Re: [PATCH v3 11/18] ARM: dts: ux500: Add power domains
 To: "Linus Walleij" <linusw@kernel.org>
-Cc: Frank.Li@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org, dmaengine@vger.kernel.org,
- robh@kernel.org, vkoul@kernel.org
-In-Reply-To: <20260921-ux500-power-domains-v7-1-v3-15-9352be6b86b1@kernel.org>
+Cc: vkoul@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ robh@kernel.org, dri-devel@lists.freedesktop.org, Frank.Li@kernel.org,
+ dmaengine@vger.kernel.org
+In-Reply-To: <20260921-ux500-power-domains-v7-1-v3-11-9352be6b86b1@kernel.org>
 References: <20260921-ux500-power-domains-v7-1-v3-0-9352be6b86b1@kernel.org>
- <20260921-ux500-power-domains-v7-1-v3-15-9352be6b86b1@kernel.org>
+ <20260921-ux500-power-domains-v7-1-v3-11-9352be6b86b1@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 20 Sep 2026 23:03:17 +0000
-Message-Id: <20260920230317.B8B731F000FF@smtp.kernel.org>
+Date: Sun, 20 Sep 2026 23:04:18 +0000
+Message-Id: <20260920230418.ADB9E1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,101 +59,94 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] dmaengine: ste_dma40: pm_runtime_resume_and_get() sleeps in atomic=
- context
-- [Medium] dmaengine: ste_dma40: unnecessary LCLA SRAM power domain wakeup =
-for physical channels
+- [Low] dt-bindings: undocumented power-domains property causes schema vali=
+dation failure
 --
 
-commit 711af1477e65e64325b0b0970b88c4b5d746ee74
+commit 043bcab3d2585239bd006e899482166025b03c26
 Author: Linus Walleij <linusw@kernel.org>
 
-dmaengine: ste_dma40: Use power domain for LCLA SRAM
+ARM: dts: ux500: Add power domains
 
-This patch replaces the LCLA ESRAM regulator with runtime PM handling.
-It adds a reference to the SRAM device that owns the ESRAM34 power domain
-and holds that domain during descriptor preparation while transfers are
-active.
+This commit adds power domain properties to CPUs and various SoC peripherals
+in the DBX500 device tree. Both CPUs are updated to share DOMAIN_VARM, which
+also supplies their PMU.
 
-> diff --git a/drivers/dma/ste_dma40.c b/drivers/dma/ste_dma40.c
-> index eda3f91741ed5..2841af5b160b8 100644
-> --- a/drivers/dma/ste_dma40.c
-> +++ b/drivers/dma/ste_dma40.c
+> diff --git a/arch/arm/boot/dts/st/ste-dbx5x0.dtsi b/arch/arm/boot/dts/st/=
+ste-dbx5x0.dtsi
+> index 11fcae1904e20..0603244dc9e83 100644
+> --- a/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
+> +++ b/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
+[ ... ]
+> @@ -154,6 +156,7 @@ sram@40020000 {
+>  			reg =3D <0x40020000 0x40000>;
+>  			#address-cells =3D <1>;
+>  			#size-cells =3D <1>;
+> +			power-domains =3D <&pm_domains DOMAIN_ESRAM_12>;
+
+[Severity: Low]
+Does this cause strict schema validation to fail during dtbs_check? The
+mmio-sram binding strictly prohibits undocumented properties and does not l=
+ist
+power-domains.
 
 [ ... ]
-
-> @@ -628,6 +632,36 @@ static struct device *chan2dev(struct d40_chan *d40c)
->  	return &d40c->chan.dev->device;
->  }
+> @@ -314,11 +319,13 @@ intc: interrupt-controller@a0411000 {
+>  			interrupt-controller;
+>  			reg =3D <0xa0411000 0x1000>,
+>  			      <0xa0410100 0x100>;
+> +			power-domains =3D <&pm_domains DOMAIN_VARM>;
+>  		};
 > =20
-> +static void d40_transfer_runtime_get(struct d40_base *base)
-> +{
-> +	pm_runtime_get_sync(base->dev);
-> +}
-> +
-> +static int d40_lcla_runtime_get(struct d40_base *base)
-> +{
-> +	if (!base->lcla_dev)
-> +		return 0;
-> +
-> +	return pm_runtime_resume_and_get(base->lcla_dev);
+>  		scu@a0410000 {
+>  			compatible =3D "arm,cortex-a9-scu";
+>  			reg =3D <0xa0410000 0x100>;
+> +			power-domains =3D <&pm_domains DOMAIN_VARM>;
 
-[Severity: High]
-Does this sleep in atomic context?
-
-When d40_prep_sg() in drivers/dma/ste_dma40.c prepares a transfer, it calls
-d40_lcla_runtime_get(), which invokes pm_runtime_resume_and_get() here.
-DMA clients can call dmaengine_prep_slave_sg() or dmaengine_prep_dma_cyclic=
-()
-while holding a spinlock or from an interrupt handler. Since lcla_dev is an
-external platform device and is not marked pm_runtime_irq_safe(), the PM
-core's rpm_resume() will attempt to sleep waiting for the power domain.
-
-Could this cause a scheduling while atomic panic when clients prepare DMA
-from an atomic context?
-
-> +}
-> +
-> +static void d40_desc_lcla_runtime_put(struct d40_chan *d40c,
+[Severity: Low]
+Similarly, does the addition of power-domains here trigger a warning? The
+arm,scu.yaml binding prohibits undocumented properties and does not define
+power-domains for arm,cortex-a9-scu.
 
 [ ... ]
+> @@ -393,7 +415,7 @@ mtu@a03c6000 {
+>  			compatible =3D "st,nomadik-mtu";
+>  			reg =3D <0xa03c6000 0x1000>;
+>  			interrupts =3D <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
+> -
+> +			power-domains =3D <&pm_domains DOMAIN_VAPE>;
 
-> @@ -2246,6 +2283,7 @@ d40_prep_sg(struct dma_chan *dchan, struct scatterl=
-ist *sg_src,
->  	dma_addr_t dst_dev_addr;
->  	struct d40_desc *desc;
->  	unsigned long flags;
-> +	bool got_lcla_pm =3D false;
->  	int ret;
+[Severity: Low]
+Will this fail dtbs_check validation? The st,nomadik-mtu binding does not
+list power-domains and typically prohibits undocumented properties.
+
+[ ... ]
+> @@ -435,6 +458,7 @@ gpio0: gpio@8012e000 {
+>  			gpio-bank =3D <0>;
+>  			gpio-ranges =3D <&pinctrl 0 0 32>;
+>  			clocks =3D <&prcc_pclk 1 9>;
+> +			power-domains =3D <&pm_domains DOMAIN_VAPE>;
+
+[Severity: Low]
+Does this property need to be added to the st,nomadik-gpio.yaml schema firs=
+t?
+The schema has unevaluatedProperties: false and currently does not define
+power-domains.
+
+[ ... ]
+> @@ -613,9 +646,11 @@ dma: dma-controller@801C0000 {
+>  			memcpy-channels =3D <56 57 58 59 60>;
 > =20
->  	if (!chan->phy_chan) {
-> @@ -2255,11 +2293,20 @@ d40_prep_sg(struct dma_chan *dchan, struct scatte=
-rlist *sg_src,
-> =20
->  	d40_set_runtime_config_write(dchan, &chan->slave_config, direction);
-> =20
-> +	ret =3D d40_lcla_runtime_get(chan->base);
+>  			clocks =3D <&prcmu_clk PRCMU_DMACLK>;
+> +			power-domains =3D <&pm_domains DOMAIN_VAPE>;
 
-[Severity: Medium]
-Could this unnecessarily activate the LCLA SRAM power domain for physical
-channels?
-
-In drivers/dma/ste_dma40.c, d40_prep_sg() unconditionally resumes the
-domain here before checking if the channel is logical or physical. Since
-physical channels map directly to hardware registers and do not use the
-LCLA SRAM, does this unnecessarily keep the power domain active and
-introduce wakeup latency for physical channels?
-
-> +	if (ret) {
-> +		chan_err(chan, "Failed to enable LCLA power domain\n");
-> +		return NULL;
-> +	}
-> +	got_lcla_pm =3D !!chan->base->lcla_dev;
-> +
->  	spin_lock_irqsave(&chan->lock, flags);
+[Severity: Low]
+Could this undocumented property in stericsson,dma40.yaml cause dtbs_check
+to fail? That schema uses additionalProperties: false without listing
+power-domains.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-ux500-powe=
-r-domains-v7-1-v3-0-9352be6b86b1@kernel.org?part=3D15
+r-domains-v7-1-v3-0-9352be6b86b1@kernel.org?part=3D11
