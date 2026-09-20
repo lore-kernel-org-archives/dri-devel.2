@@ -4,57 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4066FC982CC
-	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 02:23:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45DD2C982CC
+	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 02:24:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 684F410E16D;
-	Sun, 20 Sep 2026 02:23:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86A3110E231;
+	Sun, 20 Sep 2026 02:24:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="S1sCV5Hy";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Yitws3sn";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8181810E16D
- for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 02:23:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DB5510E231
+ for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 02:24:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789871030; x=1821407030;
+ t=1789871049; x=1821407049;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=qk1jpstCaJoknnUdv9CKj/FJNZ83y/39Ryp42s/MkK0=;
- b=S1sCV5HyiLAk3dKN5mtRfcTLcaIyfakUuy3D8gXTSHA2iNAReV2qMkNl
- 95oVQ3ViKI7zd2fYaY6N3gEyNoQ24VjgUYlUcV5xk5M5PBxBJQNVF/Q4h
- cY20o/MJANUGOzVwbtqjs7XccNv0PTo5tBa13Hu6HoysbLBr48gS87X0q
- faOYU6OpaXGU5LaQNz2DeELKKPdzpA1EMqlv7yrH+0zkGGvjt6tuxMtwg
- HLMMkTKc9yzlEd8dv9IF7BMuP8TyJfDn7vOQfqL3igm/onoCc/VMy95p+
- ruu/qVLbFgCDHiH0T41ZZiSOg7yS/BbW6nf3gQSOMVdnrojTxg0BVZekp A==;
-X-CSE-ConnectionGUID: 59ODwAbPRMmCo0Qb/459ng==
-X-CSE-MsgGUID: LN6NdBvzSnOlAjNNosRpCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11910"; a="90510458"
-X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; d="scan'208";a="90510458"
+ bh=IqUBZm6toljkW8k8/5I7a+UOAFzxtA6+GzC6FLqeYzE=;
+ b=Yitws3snA7GaNoGKiiRhLPpSwl7qvekycRZvC2inM5FkVtOrQ5kx2jmJ
+ Sl31LHDdj7UzJJTwhkRkhUHocpU9SvZsq7IwZGt52sRGj+pJTq/eV5f61
+ /jbWn4cYoB9AzmD/1RZd7d/m56R83yx+TBzSpSYSyDdfckZkW6xZZ0neI
+ 9WNkAcZ2h5Dce7HpoPzH+MnLvDmgCMgNIQ2Dlpz2asCae5zWqP6VvhML4
+ VBnERP2IL0vQUjdPQApUFUWFJl4b9SCMb1+tlnUg615AIlzX/0J3VFczU
+ 2y2xfTSThPF0kk2qizt2a5E5gEpWJKgc2XZsrjkQoh3OUhJXI/zXHVLLf w==;
+X-CSE-ConnectionGUID: 8DEV+QkkSKao8dXMjs4NCA==
+X-CSE-MsgGUID: JjwVIJo8TYaGSlCwbnh/WQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11910"; a="90510467"
+X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; d="scan'208";a="90510467"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2026 19:23:49 -0700
-X-CSE-ConnectionGUID: JAXDTFgNTviZCj0p0bLoZA==
-X-CSE-MsgGUID: 5DOHv5SKTfSXmfY6T8q/5A==
+ 19 Sep 2026 19:24:09 -0700
+X-CSE-ConnectionGUID: gV3ovOUmTZaF+9fzgE2Fdg==
+X-CSE-MsgGUID: drMIYFY7QVOUkithbUoFWw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; d="scan'208";a="271629536"
+X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; d="scan'208";a="271629567"
 Received: from xiaolu.sh.intel.com ([10.239.146.103])
- by fmviesa007.fm.intel.com with ESMTP; 19 Sep 2026 19:23:47 -0700
+ by fmviesa007.fm.intel.com with ESMTP; 19 Sep 2026 19:24:07 -0700
 From: Xiao Lu <xiaolu.xie@intel.com>
-To: lyude@redhat.com,
-	dri-devel@lists.freedesktop.org
-Cc: David.Francis@amd.com, jani.nikula@linux.intel.com,
+To: dri-devel@lists.freedesktop.org
+Cc: lyude@redhat.com, David.Francis@amd.com, jani.nikula@linux.intel.com,
  Xiao Lu <xiaolu.xie@intel.com>
-Subject: Re: [PATCH] drm/dp/mst: skip connector creation for unplugged
- downstream ports
-Date: Sun, 20 Sep 2026 10:21:20 +0800
-Message-ID: <20260920022120.2208320-1-xiaolu.xie@intel.com>
+Subject: [PATCH v2] drm/dp/mst: reject DPCD read/write on ports with ddps=0
+Date: Sun, 20 Sep 2026 10:21:44 +0800
+Message-ID: <20260920022144.2209244-1-xiaolu.xie@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <016616a21018b45177f134ab001edc6decb4a8ec.camel@redhat.com>
-References: <20260917080126.1729898-1-xiaolu.xie@intel.com>
- <c992e5468e2118440ab1b9c37fc64c7ab79aaaea.camel@redhat.com>
- <016616a21018b45177f134ab001edc6decb4a8ec.camel@redhat.com>
+References: <016616a21018b45177f134ab001edc6decb4a8ec.camel@redhat.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,27 +68,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 2026-09-17 at 12:49 -0400, Lyude Paul wrote:
-> OK - yeah, I definitely agree then that we've gotta enforce that.
->
-> This being said though - I do still think we want to keep the
-> connectors around, in part because it does give userspace a more
-> accurate idea of what ports are actually available on a hub - and it
-> would be a bit of a departure from how we've exposed this to userspace
-> for a while now. Dynamic connectors are already confusing enough to
-> deal with in userspace as it is.
->
-> Have you considered just keeping the connectors with ddps=0, and then
-> just making it so that our code for performing remote DPCD reads/writes
-> simply returns -EIO on ports where ddps=0? That way we still keep
-> connectors around without delaying or breaking anything.
+DP v2.1b specifies that REMOTE_DPCD_READ and REMOTE_DPCD_WRITE
+transactions should only be issued to downstream ports where ddps=1
+(device plug status indicates a device is connected). Issuing these
+transactions to empty ports (ddps=0) is non-compliant and causes
+problems in practice: some MST hubs NAK the request, and all hubs
+introduce a delay waiting for the transaction to complete or fail
+before the driver can proceed, increasing link training latency.
 
-Thanks, that is a much cleaner approach. v2 adopts your suggestion:
-connectors are now created for all output ports regardless of ddps,
-and the ddps=0 guard is moved into drm_dp_mst_dpcd_read() and
-drm_dp_mst_dpcd_write(), returning -EIO immediately for unoccupied
-ports. This prevents the spurious sideband transactions without any
-change to connector lifetime semantics visible to userspace.
+Guard drm_dp_mst_dpcd_read() and drm_dp_mst_dpcd_write() with a
+ddps check and return -EIO immediately for unoccupied ports. This
+avoids the spurious sideband transactions without changing connector
+lifetime semantics — connectors for all output ports are still
+created at enumeration time, regardless of ddps.
 
-Best regards,
-Xiao Lu
+Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
+
+Changes in v2:
+- Instead of skipping connector creation for ddps=0 ports (v1),
+  keep connectors around and guard DPCD transactions at the
+  drm_dp_mst_dpcd_read/write level. This avoids changing connector
+  lifetime semantics visible to userspace, per Lyude's review.
+---
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index 7ce9e2127..b7fce0bf8 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -2161,6 +2161,9 @@ ssize_t drm_dp_mst_dpcd_read(struct drm_dp_aux *aux,
+ 	struct drm_dp_mst_port *port = container_of(aux, struct drm_dp_mst_port,
+ 						    aux);
+ 
++	if (!port->ddps)
++		return -EIO;
++
+ 	return drm_dp_send_dpcd_read(port->mgr, port,
+ 				     offset, size, buffer);
+ }
+@@ -2184,6 +2187,9 @@ ssize_t drm_dp_mst_dpcd_write(struct drm_dp_aux *aux,
+ 	struct drm_dp_mst_port *port = container_of(aux, struct drm_dp_mst_port,
+ 						    aux);
+ 
++	if (!port->ddps)
++		return -EIO;
++
+ 	return drm_dp_send_dpcd_write(port->mgr, port,
+ 				      offset, size, buffer);
+ }
+-- 
+2.43.0
+
