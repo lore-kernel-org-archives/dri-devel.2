@@ -4,49 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CDFFC982DA
-	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 19:08:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A86CDC982D8
+	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 19:29:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BCA589B33;
-	Sun, 20 Sep 2026 19:08:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA98B10E0E6;
+	Sun, 20 Sep 2026 19:29:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="CSDHHrFM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VxPBeChF";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6ECA989B33
- for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 19:08:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1789931292;
- bh=gsOsSA4UI4GOcU56iaOUOuu09hKPfwyNrwyn83XFEtk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=CSDHHrFMzwQEU4W0p1FcuCw3H5S2PhLEJadJ0qNmMi3xyQLqyoPkAMTtI41T35PkP
- isFraDLisPMi1gwUIGIefx+deUKNcHrsYAfrDhZWeaP+2TyOD0uAQ/yE4zNVOJhucn
- NepoFmm+MeV59UV5XtTwdMUr8qhdOUXnuBhW3Fg85cut71Nq3EFQkF83bIA0WoJUPX
- bDHMYBG+i5wTbaL0QyvihEP2OxJT0G/A4SvI3FSlIaZ/6lAZpCFbrDpLUn6MA2LCjE
- 2H0t3mY8ZHqsgoNb0m1W32N5+h0EHAIVqwRzFJ9NFTvBFpWRD/OXQlNQyAA9Rj/3gM
- UfPRUH2Jes6nQ==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E08B417E03B6;
- Sun, 20 Sep 2026 21:08:11 +0200 (CEST)
-Message-ID: <cd511a10-eac1-4531-a0f8-8fc495a63ddf@collabora.com>
-Date: Sun, 20 Sep 2026 22:08:10 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 00/74] Add HDMI 2.0 support to DW HDMI QP TX
-To: =?UTF-8?Q?Robin_R=C3=A4ber?= <robin.raebi@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
- <4d885f9e201df6f48a06f4ab3b27a7f1@gmail.com>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <4d885f9e201df6f48a06f4ab3b27a7f1@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9767310E0E6
+ for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 19:29:42 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9E0CF600C8;
+ Sun, 20 Sep 2026 19:29:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B06891F000FF;
+ Sun, 20 Sep 2026 19:29:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789932581;
+ bh=ZCEb7PWxWjqFXQU9Aa1wIndmD1/mjEbe7eeXsYlBY9E=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=VxPBeChFm1kfmAHFDzUusOB4q1TVtxvmFtelNjQrvzNZT7nK7y/jXeWqT5QYlLBzo
+ Oxmn++OSXhC6H9rBldzloDhSVMf6XbHIqqPLT7OnPQxf7qzMWgZCCIo+JOJdWFp+87
+ c61GY5DX1C372ocLv2NjUINUxGbztVs4jrZ/FUzzyeYmnRBc4SZzQQkjVtZmXztd0m
+ EzF+YkWbgvofJ4x5cEj1jN6dtJihlUNZbXxk4f/Ls1pQGrFvRk1XZJA4atvjkFBiyb
+ yNHEoU1jzZPUhkeR/iZIFebIRWERjbwbAK3fJChQAP+T2ja1CJzUoU2ibtLE+wpKFr
+ kNI2KzGbeJagg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] drm/virtio: Open-code drm_simple_encoder_init()
+To: "Sebastian von Arx" <linux@sebastianvonarx.ch>
+Cc: "Eugenio Perez" <eperezma@redhat.com>, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev, "Michael S. Tsirkin" <mst@redhat.com>
+In-Reply-To: <20260920184244.464343-2-linux@sebastianvonarx.ch>
+References: <20260920184244.464343-1-linux@sebastianvonarx.ch>
+ <20260920184244.464343-2-linux@sebastianvonarx.ch>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 20 Sep 2026 19:29:40 +0000
+Message-Id: <20260920192940.B06891F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,84 +54,20 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Robin,
+> drm_simple_encoder_init() only wraps drm_encoder_init() with a
+> cleanup callback. Open-code the helper in preparation for removing
+> drm_simple_encoder_init().
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Sebastian von Arx <linux@sebastianvonarx.ch>
 
-On 9/10/26 3:08 PM, Robin R??ber wrote:
-> Hi Cristian,
-> 
-> I tested this series on a Xunlong Orange Pi 5 (RK3588S) driving an
-> AOC Q32G1WG4 monitor (2560x1440@144, TMDS char rate 592 MHz) and can
-> report that scrambling works, with one interop issue described below.
-> 
-> A note on the test base: drm-misc-next at the series' base commit does
-> not boot on this board for reasons unrelated to the series (the
-> unpatched base commit hangs early as well; I can dig into that
-> separately). I therefore backported the series onto v7.2.3, dropping
-> the vc4/sun4i/tests patches and adjusting for minor context drift in
-> drm_connector.c and the scdc/hdmi helpers. The dw-hdmi-qp, rockchip,
-> bridge_connector and helper patches applied without functional
-> changes.
-> 
-> With the backport applied, all four 2560x1440 modes (60/100/120/144)
-> are exposed and 144 Hz works, but scrambling initially failed:
-> 
->   rockchip-drm display-subsystem: [drm] Sink doesn't support scrambling.
->   dwhdmiqp-rockchip fde80000.hdmi: Failed to enable scrambling: -22
-> 
-> The cause is the monitor's EDID: its HF-VSDB declares a Maximum TMDS
-> Character Rate of 600 MHz but leaves the SCDC Present flag unset, so
-> drm_scdc_sink_supports_scrambling() rejects it. The SCDC interface of
-> this display is nevertheless fully functional: reading SCDC via DDC
-> returns sink version 1, writes are accepted, and after the change
-> below TMDS_CONFIG reads back 0x03 (scrambling + 40-bit clock ratio)
-> with a stable picture at 592 MHz.
-> 
-> Since HDMI 2.0 mandates SCDC support for character rates above
-> 340 MHz, I worked around it by trusting the declared rate:
-> 
-> --- a/drivers/gpu/drm/display/drm_hdmi_helper.c
-> +++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
-> @@ static bool drm_scdc_sink_supports_scrambling(struct drm_connector *connector)
->  {
->  	const struct drm_display_info *info = &connector->display_info;
->  
-> -	return info->is_hdmi &&
-> -	       info->hdmi.scdc.supported &&
-> -	       info->hdmi.scdc.scrambling.supported;
-> +	if (!info->is_hdmi)
-> +		return false;
-> +
-> +	/*
-> +	 * Some displays (e.g. AOC Q32G1WG4) declare a Max TMDS Character
-> +	 * Rate above 340 MHz in their HF-VSDB but leave the SCDC Present
-> +	 * flag unset, even though SCDC is functional. The spec mandates
-> +	 * SCDC support for rates above 340 MHz, so trust the declared rate.
-> +	 */
-> +	if (info->max_tmds_clock > 340000)
-> +		return true;
-> +
-> +	return info->hdmi.scdc.supported &&
-> +	       info->hdmi.scdc.scrambling.supported;
->  }
-> 
-> I'm happy to test further revisions on this hardware, and to submit
-> the above as a proper patch if you think this is the right place to
-> handle such non-conformant EDIDs.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-I merged the infrastructure patches earlier today to prevent further delays, so
-yes, I think the best way forward would be for you to submit this as a separate
-patch on top of the latest drm-misc-next, and see what the maintainers have to
-say.
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260920184244.4643=
+43-2-linux@sebastianvonarx.ch?part=3D1
 
-> For the dw-hdmi-qp/rockchip/helper parts, on the backport described
-> above:
-> 
-> Tested-by: Robin Räber <robin.raebi@gmail.com>
-
-Thanks for checking this out!
-
-Regards,
-Cristian
